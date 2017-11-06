@@ -23,7 +23,6 @@
         -->
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/general.css">
-        <link rel="stylesheet" href="css/mapInMapSide.css">
         <link rel="stylesheet" href="css/mainpage.css">
 
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -37,7 +36,7 @@
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
         -->
 
-        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+       <script src="js/vendor/modernizr-2.8.3.min.js"></script>
         <!--[if lt IE 9]>
 	    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
 	    <![endif]-->
@@ -48,12 +47,28 @@
         <!--script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script-->
 
         <script src="js/plugins.js"></script>
-        
+        <script src="js/globalVars.js"></script>
+        <script src="js/globalFunctions.js"></script>
+        <script src="js/xmlColormapParser.js"></script>
+        <script src="js/drawCanvasColormap.js"></script>
 
+            <!-- MAIN PAGE -->
+            <script src="js/MainPage/events_MainPage.js"></script>
+            <script src="js/MainPage/main_MainPage.js"></script>
+            <script src="js/MainPage/drawExistingColormaps_MainPage.js"></script>
+
+        <!-- Classes -->
+        <script src="js/ColormapClass/class_Colormap.js"></script>
+        <script src="js/ColormapClass/class_Colormap_Band.js"></script>
+        <script src="js/ColormapClass/class_Colormap_Interval.js"></script>
+        <script src="js/ColormapClass/class_Colorspace_HSV.js"></script>
+        <script src="js/ColormapClass/class_Colorspace_LAB.js"></script>
+        <script src="js/ColormapClass/class_Colorspace_RGB.js"></script>
+        <script src="js/ColormapClass/class_Colorspace_DIN99.js"></script>
 
 
     </head>
-    <body>
+    <body >
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -78,11 +93,11 @@
 		<div id="id_fixedHeader" style="overflow: hidden; position: fixed; top: 0; width: 100%; border-bottom: 4px solid black;">		
             <div id="id_menu" class="row" style="width:100%; height:1cm; border-bottom: 4px solid black; background:rgb(15,150,228);">
                 <h3 style="width:100%; height:1cm; line-height:1cm; text-align:center; vertical-align: middle; margin:0px;"> THE CCC-TOOL </h3>
-                <button style="height:1cm; float:right; background:none; border-left: 2px solid black; line-height:1cm; text-align:center; vertical-align: middle; font-weight: bold;"> My Maps </button>
-                <button style="height:1cm; float:right; background:none; border-left: 2px solid black; line-height:1cm; text-align:center; vertical-align: middle; font-weight: bold;"> Tutorial </button>
-                <button style="height:1cm; float:right; background:none; border-left: 2px solid black; line-height:1cm; text-align:center; vertical-align: middle; font-weight: bold;"> About </button>      
+                <button style="height:1cm;width: 3cm; float:right; background:none; border-left: 2px solid black; line-height:1cm; text-align:center; vertical-align: middle; font-weight: bold;"> My Maps </button>
+                <button style="height:1cm;width: auto; float:right; background:none; border-left: 2px solid black; line-height:1cm; text-align:center; vertical-align: middle; font-weight: bold;"> Tutorial </button>
+                <button style="height:1cm;width: auto; float:right; background:none; border-left: 2px solid black; line-height:1cm; text-align:center; vertical-align: middle; font-weight: bold;"> About </button>      
             </div>
-            <div id="id_main_general_options_menu" class="row" style="width:100%; height:1.5cm; background: rgb(20,20,20);">
+            <div id="id_main_general_options_menu" class="row" style="width:100%; height:1.5cm; background: rgb(20,20,20); overflow-x:auto;">
                 <!-- HIER COMOBOX mit 10 möglichen colormaps-->
                 <h3 style="height:1.5cm; line-height:1.5cm; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:1cm;"> NAME: </h3>
                 <input  id = "id_InputMapName" type="text" name="key space" value="Cus. Colormap" style="height:0.8cm; margin-top:0.25cm; margin-left:0.25cm; margin-right:0.25cm;">
@@ -93,20 +108,27 @@
                 <button title="backward" style="border-radius: 0.2cm; background: url(/img/backwardsButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 1cm; height: 1cm; border: 2px solid white; margin:0.25cm;"></button>
                 <button title="forward" style="border-radius: 0.2cm; background: url(/img/forwardsButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 1cm; height: 1cm; border: 2px solid white; margin:0.25cm;"></button>
                 <button title="hover for help" style="border-radius: 0.2cm; background: url(/img/helpButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 1cm; height: 1cm; border: 2px solid white; margin:0.25cm;"></button>
+                <div style="height:100%; width:2px; background:white;">
+                </div>
+                <h3 style="height:1.5cm; line-height:1.5cm; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:1cm;"> Colorspace: </h3>
+                <button id="button_RGB" title="RGB" onclick="changeColorspace(0)" style="border-radius: 0.2cm; background: black; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height: 1cm; border: 2px solid yellow; color:yellow; margin:0.25cm;">RGB</button>
+                <button id="button_HSV" title="HSV" onclick="changeColorspace(1)" style="border-radius: 0.2cm; background: black; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height: 1cm; border: 2px solid white; color:white; margin:0.25cm;">HSV</button>
+                <button id="button_LAB" title="LAB" onclick="changeColorspace(2)" style="border-radius: 0.2cm; background: black; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height: 1cm; border: 2px solid white; color:white; margin:0.25cm;">LAB</button>
+                <button id="button_DIN99" title="DIN99" onclick="changeColorspace(3)" style="border-radius: 0.2cm; background: black; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height: 1cm; border: 2px solid white; color:white; margin:0.25cm;">DIN99</button>
             </div>
 		</div>
 
-        <div id="id_mainpage" style="width: 100%; min-height:100vh; background:white; margin-top:3cm; margin-bottom:0px;">
+        <div id="id_mainpage" style="width: 100%; height:110vh; margin-top:3cm; margin-bottom:0px;">
         
 
-            <div class="row" style="min-height: 100%;">
+            <div class="row" style="height: 100%;">
 
-                <div id="id_table_workwindow" style="height:85vh; width:20%; border-right: 2px solid black;">
+                <div id="id_table_workwindow" style="height:100%; width:0%; border-right: 2px solid black;  display: none;">
 
-                    <h4 style="width:100%; height:0.5cm; line-height:0.5cm; text-align:center; vertical-align: middle; margin:0px;">Colormap Table</h4>
+                    <h4 style="width:100%; height:5%; text-align:center; vertical-align: middle; margin:0px; border-top: 1px solid black; background:grey; color:white;">Colormap Table</h4>
 
-                    <div style="overflow-x:scroll;">
-                        <div class="row" style="width:17cm; background:black">
+                    <div style="overflow-x:scroll; height:95%;">
+                        <div class="row" style="width:17cm; background:grey; height:20px;">
                                     <p class="class_tablelabel" id="id_table_Number" style="width:1cm; border-left:1px solid white;">#</p>
                                     <p class="class_tablelabel" id="id_table_Reference" style="width:4cm;">Reference 1</p>
                                     <p class="class_tablelabel" id="id_table_Reference" style="width:4cm;">Reference 2</p>
@@ -115,16 +137,176 @@
                                     <p class="class_tablelabel" id="id_table_Color" style="width:3cm;">C2 (RGB)</p>
                         </div>
 
-                        <div id="id_colormap_table" style="width:17cm;margin-top: 0px;overflow-y: scroll; height:100%; background:white;">
+                        <div id="id_colormap_table" style="width:17cm;margin-top: 0px;overflow-y: scroll; height:100%; ">
 
                         </div>
                     </div>
                 </div>
 
-                </div id="id_expandTablebutton" title="expand table" style="width:2%;height:85vh; border-radius: 0% 1% 0% 1%; background: url(/img/forwardsButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center;">
-                <div>
+                <div id="id_expandTablebutton" title="expand table" style="width:1%; border-radius: 0px 10px 10px 0px; height:100%; background: url(/img/expandTableButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; cursor:pointer;">
+                </div>
 
-                <div id="id_colormap_workwindow" style="width:78%; height:85vh; background:red;">
+                <div id="id_colormap_workwindow" style="width:99%; height:100%;">
+
+                    <div class="row" style="height:45vh;">
+                        <!-- existing colors -->
+                        <div style="height: 100%; width:25%; overflow-y:auto; border-right:1px solid black; background:white;">
+                            <h4 style=" margin: 0px; width:100%; height: 1cm; line-height:1cm; text-align:center; vertical-align: middle;color:white; background:grey;">Existing Colormaps</h4>
+                            
+                            <div style="width:100%; height:5cm; margin-top:0.25cm; border-top:2px solid grey; border-bottom:2px solid grey; background:rgb(220,220,220);">
+                                <div class="row" style="height:1cm; width:95%; margin-left:2.5%; margin-top:0.125cm; margin-bottom:0.125cm;">
+                                    <div id="id_existConst_yellow_1" draggable="true" style="height:100%; width:22.5%; margin-right: 3.3%; background:rgb(216,166,64); cursor:pointer; border:1px solid black;">
+                                    </div>
+
+                                    <div id="id_existConst_yellow_2" draggable="true" style="height:100%; width:22.5%; margin-right: 3.3%; background:rgb(201,162,102); cursor:pointer; border:1px solid black;">
+                                    </div>
+
+                                    <div id="id_existConst_yellow_3" draggable="true" style="height:100%; width:22.5%; margin-right: 3.3%; background:rgb(219,97,79); cursor:pointer; border:1px solid black;">
+                                    </div>
+
+                                    <div id="id_existConst_yellow_4" draggable="true" style="height:100%; width:22.5%; background:rgb(145,40,32); cursor:pointer; border:1px solid black;">
+                                    </div>
+                                </div>
+
+                                <canvas id="id_existMap_yellow_1" draggable="true" style="height:1cm; width:95%; margin-left:2.5%; margin-top:0.125cm; margin-bottom:0.125cm; cursor:pointer; ">
+                                </canvas>
+
+                                <canvas id="id_existMap_yellow_2" draggable="true" style="height:1cm; width:95%; margin-left:2.5%; margin-top:0.125cm; margin-bottom:0.125cm; cursor:pointer; ">
+                                </canvas>
+
+                                <canvas id="id_existMap_yellow_3" draggable="true" style="height:1cm; width:95%; margin-left:2.5%; margin-top:0.125cm; margin-bottom:0.125cm; cursor:pointer; " >
+                                </canvas>
+
+                            </div>
+
+                            <div style="width:100%; height:5cm; margin-top:0.25cm; border-top:2px solid grey; border-bottom:2px solid grey; background:rgb(220,220,220);">
+                                <div class="row" style="height:1cm; width:95%; margin-left:2.5%; margin-top:0.125cm; margin-bottom:0.125cm;">
+                                     <div id="id_existConst_red_1" draggable="true" style="height:100%; width:22.5%; margin-right: 3.3%; background:rgb(180,36,24); cursor:pointer; border:1px solid black;">
+                                    </div>
+
+                                    <div id="id_existConst_red_2" draggable="true" style="height:100%; width:22.5%; margin-right: 3.3%; background:rgb(130,68,72); cursor:pointer; border:1px solid black;">
+                                    </div>
+
+                                    <div id="id_existConst_red_3" draggable="true" style="height:100%; width:22.5%; margin-right: 3.3%; background:rgb(117,64,75); cursor:pointer; border:1px solid black;">
+                                    </div>
+
+                                    <div id="id_existConst_red_4" draggable="true" style="height:100%; width:22.5%; background:rgb(112,94,140); cursor:pointer; border:1px solid black;">
+                                    </div>
+                                </div>
+
+                                <canvas id="id_existMap_red_1"  draggable="true" style="height:1cm; width:95%; margin-left:2.5%; margin-top:0.125cm; margin-bottom:0.125cm; cursor:pointer; ">
+                                </canvas>
+
+                                <canvas id="id_existMap_red_2"  draggable="true" style="height:1cm; width:95%; margin-left:2.5%; margin-top:0.125cm; margin-bottom:0.125cm; cursor:pointer; ">
+                                </canvas>
+
+                                <canvas id="id_existMap_red_3"  draggable="true" style="height:1cm; width:95%; margin-left:2.5%; margin-top:0.125cm; margin-bottom:0.125cm; cursor:pointer;">
+                                </canvas>
+                            </div>
+                                                        
+                            <div style="width:100%; height:5cm; margin-top:0.25cm; border-top:2px solid grey; border-bottom:2px solid grey; background:rgb(220,220,220);">
+                                <div class="row" style="height:1cm; width:95%; margin-left:2.5%; margin-top:0.125cm; margin-bottom:0.125cm;">
+                                     <div id="id_existConst_blue_1" draggable="true" style="height:100%; width:22.5%; margin-right: 3.3%; background:rgb(81,173,214); cursor:pointer; border:1px solid black;">
+                                    </div>
+
+                                    <div id="id_existConst_blue_2" draggable="true" style="height:100%; width:22.5%; margin-right: 3.3%; background:rgb(109,134,200); cursor:pointer; border:1px solid black;">
+                                    </div>
+
+                                    <div id="id_existConst_blue_3" draggable="true" style="height:100%; width:22.5%; margin-right: 3.3%; background:rgb(129,195,208); cursor:pointer; border:1px solid black;">
+                                    </div>
+
+                                    <div id="id_existConst_blue_4" draggable="true" style="height:100%; width:22.5%; background:rgb(179,236,221); cursor:pointer; border:1px solid black;">
+                                    </div>
+                                </div>
+
+                                <canvas id="id_existMap_blue_1"  draggable="true" style="height:1cm; width:95%; margin-left:2.5%; margin-top:0.125cm; margin-bottom:0.125cm; cursor:pointer;">
+                                </canvas>
+
+                                <canvas id="id_existMap_blue_2"  draggable="true" style="height:1cm; width:95%; margin-left:2.5%; margin-top:0.125cm; margin-bottom:0.125cm; cursor:pointer;">
+                                </canvas>
+
+                                <canvas id="id_existMap_blue_3"  draggable="true" style="height:1cm; width:95%; margin-left:2.5%; margin-top:0.125cm; margin-bottom:0.125cm; cursor:pointer;">
+                                </canvas>
+                            </div>
+
+                            <div style="width:100%; height:5cm; margin-top:0.25cm; border-top:2px solid grey; border-bottom:2px solid grey; background:rgb(220,220,220);">
+                                <div class="row" style="height:1cm; width:95%; margin-left:2.5%; margin-top:0.125cm; margin-bottom:0.125cm;">
+                                    <div id="id_existConst_green_1" draggable="true" style="height:100%; width:22.5%; margin-right: 3.3%; background:rgb(64,150,39); cursor:pointer; border:1px solid black;">
+                                    </div>
+
+                                    <div id="id_existConst_green_2" draggable="true" style="height:100%; width:22.5%; margin-right: 3.3%; background:rgb(123,163,57); cursor:pointer; border:1px solid black;">
+                                    </div>
+
+                                    <div id="id_existConst_green_3" draggable="true" style="height:100%; width:22.5%; margin-right: 3.3%; background:rgb(40,165,68); cursor:pointer; border:1px solid black;">
+                                    </div>
+
+                                    <div id="id_existConst_green_4" draggable="true" style="height:100%; width:22.5%; background:rgb(84,116,53); cursor:pointer; border:1px solid black;">
+                                    </div>
+                                </div>
+
+                                <canvas id="id_existMap_green_1"  draggable="true" style="height:1cm; width:95%; margin-left:2.5%; margin-top:0.125cm; margin-bottom:0.125cm; cursor:pointer; ">
+                                </canvas>
+
+                                <canvas id="id_existMap_green_2"  draggable="true" style="height:1cm; width:95%; margin-left:2.5%; margin-top:0.125cm; margin-bottom:0.125cm; cursor:pointer; ">
+                                </canvas>
+
+                                <canvas id="id_existMap_green_3"  draggable="true" style="height:1cm; width:95%; margin-left:2.5%; margin-top:0.125cm; margin-bottom:0.125cm; cursor:pointer;">
+                                </canvas>
+                            </div>
+
+                        </div>
+                        <!-- colorsets -->
+                        <div style="height: 100%; width:25%; border-right:1px solid black;">
+                            <h4 style=" margin: 0px; width:100%; height: 1cm; line-height:1cm; text-align:center; vertical-align: middle;color:white; background:grey;">Colorsets</h4>
+                        </div>
+                        <!-- future work -->
+                        <div style="height: 100%; width:50%; border-right:1px solid black;">
+                            <h4 style=" margin: 0px; width:100%; height: 1cm; line-height:1cm; text-align:center; vertical-align: middle;color:white; background:grey;">Visualization Preview</h4>
+
+                            <h4 style=" margin: 0px; width:100%; height: 100%; ">future work</h4>
+                        </div>
+                    </div>
+
+                    <div class="row" style="height:65vh; ">
+                        <!-- colormaps -->
+                         <div style="height: 100%; width:70%; border-right:1px solid black;">
+
+                             <h4 style=" margin: 0px; width:100%; height: 1cm; line-height:1cm; text-align:center; vertical-align: middle;color:white; background:grey;">Colormap</h4>
+
+                        </div>
+
+                        <!-- color picker -->
+                        <div style="height: 100%; width:30%; border-right:1px solid black;">
+                            <h4 style=" margin: 0px; width:100%; height: 1cm; line-height:1cm; text-align:center; vertical-align: middle; color:white; background:grey;">Band Creator</h4>
+
+                            <div class="row" style=" height:auto; width:100%; margin-top:2%;">
+
+                                <div style="height:100%; width:12.5%;"></div>
+                                <p style="height:100%; width:5%; margin:0px; text-align:center">C1</p>
+                                <div style="margin-left:0px; margin-right:0px; width:65%;"> </div>
+                                <p style="height:100%; width:5%; margin:0px; text-align:center">C2</p>
+                                <div style="height:100%; width:12.5%;"></div>
+                               
+                            </div>
+                            <div class="row" style=" width:100%; height:3%;">
+                                <div style="height:100%; width:12.5%;"></div>
+                                <div style="height:100%; width:5%; background:white; border: 2px solid black;"></div>
+                                <div style="width:65%;"> </div>
+                                <div style="height:100%; width:5%; background:black; border: 2px solid black; margin-right:auto;"></div>
+                                
+                            </div>
+                            
+                            <div style="margin-left:15%; width:70%; height:3%; border-right:3px solid black; border-left:3px solid black;">
+                            </div>
+
+                            <canvas id="id_creatorBand"style="margin-left:15%; width:70%; height:10%; border: 3px solid black;" draggable="true">
+                            </canvas>
+
+
+                            
+                        </div>
+
+                    </div>
 
                 </div>
 
