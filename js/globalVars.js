@@ -2,8 +2,28 @@
 /// MAIN PAGE
 //////////////////////////
 
+// colorpicker
+
+var hs_resolution_X = 1500;
+var hs_resolution_Y = 1500;
+
+var aboveC1Circle = false;
+var aboveC2Circle = false;
+var grapedC1Circle = false;
+var grapedC2Circle = false;
+
+var bigcircleRad = 50;
+var circleRad = 25;
+var circleStrokeWidth = 8;
+var activeCircleColor = "rgb(120,120,120)";
 // using colormap 
 var colorspaceModus = "rgb"; // 0=rgb,1=hsv,2=lab,3=din99
+var colorVal1_C1 = 255;
+var colorVal2_C1 = 255;
+var colorVal3_C1 = 255;
+var colorVal1_C2 = 0;
+var colorVal2_C2 = 0;
+var colorVal3_C2 = 0;
 
 // table expand button
 var tableIsExpand = false;

@@ -9,5 +9,12 @@ window.onload = function () {
 
     // init //
     drawExistingColormaps();
+    drawHSBackground();
+    document.getElementById("radiobutton_ScaledBand").checked = true;
+    drawColorCircles();
 
 }
+
+window.onresize = function(event) {
+    drawColorCircles();
+};

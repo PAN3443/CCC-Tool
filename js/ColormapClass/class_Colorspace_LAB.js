@@ -133,7 +133,8 @@ class classColorCIELab{
       }
     
       calcHSVColor(){
-        return new classColor_HSV(0,0,0);
+        var tmpRGBColor = this.calcRGB();
+        return tmpRGBColor.calcHSVColor();
       }
 
       calcDIN99Color(kE,kCH){     

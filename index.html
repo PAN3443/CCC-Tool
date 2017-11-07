@@ -56,6 +56,7 @@
             <script src="js/MainPage/events_MainPage.js"></script>
             <script src="js/MainPage/main_MainPage.js"></script>
             <script src="js/MainPage/drawExistingColormaps_MainPage.js"></script>
+            <script src="js/MainPage/drawColorPicker_MainPage.js"></script>
 
         <!-- Classes -->
         <script src="js/ColormapClass/class_Colormap.js"></script>
@@ -90,7 +91,7 @@
 
         
 
-		<div id="id_fixedHeader" style="overflow: hidden; position: fixed; top: 0; width: 100%; border-bottom: 4px solid black;">		
+		<div id="id_fixedHeader" style="overflow: hidden; position: fixed; top: 0; width: 100%; border-bottom: 4px solid black; z-index: 9999;">		
             <div id="id_menu" class="row" style="width:100%; height:1cm; border-bottom: 4px solid black; background:rgb(15,150,228);">
                 <h3 style="width:100%; height:1cm; line-height:1cm; text-align:center; vertical-align: middle; margin:0px;"> THE CCC-TOOL </h3>
                 <button style="height:1cm;width: 3cm; float:right; background:none; border-left: 2px solid black; line-height:1cm; text-align:center; vertical-align: middle; font-weight: bold;"> My Maps </button>
@@ -123,23 +124,41 @@
 
             <div class="row" style="height: 100%;">
 
-                <div id="id_table_workwindow" style="height:100%; width:0%; border-right: 2px solid black;  display: none;">
+                <div id="id_table_workwindow" style="height:100%; width:0%; border-right: 2px solid black;  display: none; display: flex; flex-direction: column;">
 
-                    <h4 style="width:100%; height:5%; text-align:center; vertical-align: middle; margin:0px; border-top: 1px solid black; background:grey; color:white;">Colormap Table</h4>
+                    <h4 style="width:100%; height:1cm; line-height:1cm; text-align:center; vertical-align: middle; margin:0px; border-top: 1px solid black; background:grey; color:white;">Colormap Table</h4>
 
-                    <div style="overflow-x:scroll; height:95%;">
-                        <div class="row" style="width:17cm; background:grey; height:20px;">
+                    <div style="overflow-x:scroll; flex-grow: 1;">
+                        <!--div class="row" style="width:17cm; background:grey; height:20px;">
                                     <p class="class_tablelabel" id="id_table_Number" style="width:1cm; border-left:1px solid white;">#</p>
-                                    <p class="class_tablelabel" id="id_table_Reference" style="width:4cm;">Reference 1</p>
-                                    <p class="class_tablelabel" id="id_table_Reference" style="width:4cm;">Reference 2</p>
+                                    <p class="class_tablelabel" id="id_table_Reference1" style="width:4cm;">Reference 1</p>
+                                    <p class="class_tablelabel" id="id_table_Reference2" style="width:4cm;">Reference 2</p>
                                     <p class="class_tablelabel" id="id_table_Bandtype" style="width:3cm;">Band Type</p>
-                                    <p class="class_tablelabel" id="id_table_Color" style="width:3cm;">C1 (RGB)</p>
-                                    <p class="class_tablelabel" id="id_table_Color" style="width:3cm;">C2 (RGB)</p>
+                                    <p class="class_tablelabel" id="id_table_Color1" style="width:3cm;">C1 (RGB)</p>
+                                    <p class="class_tablelabel" id="id_table_Color1" style="width:3cm;">C2 (RGB)</p>
                         </div>
 
                         <div id="id_colormap_table" style="width:17cm;margin-top: 0px;overflow-y: scroll; height:100%; ">
 
-                        </div>
+                        </div-->
+                        <table style="width:100%">
+                        <tr style="border-top:1px solid white;">
+                            <th class="class_tablelabel" id="id_table_Number" style="width:2cm; border-left:1px solid white;" >#</th>
+                            <th class="class_tablelabel" id="id_table_Reference1" style="width:5cm;">Reference 1</th> 
+                            <th class="class_tablelabel" id="id_table_Reference2" style="width:5cm;">Reference 2</th>
+                            <th class="class_tablelabel" id="id_table_Bandtype" style="width:5cm;">Band Type</th>
+                            <th class="class_tablelabel" id="id_table_Color1" style="width:5cm;">C1 (RGB)</th>
+                            <th class="class_tablelabel" id="id_table_Color1" style="width:5cm;">C2 (RGB)</th>
+                        </tr>
+                        <tr>
+                            <td class="class_tableInput">1</td>
+                            <td class="class_tableInput">0</td>
+                            <td class="class_tableInput">100</td>
+                            <td class="class_tableInput">scaled</td>
+                            <td class="class_tableInput">rgb(255,0,0)</td>
+                            <td class="class_tableInput">rgb(0,0,0)</td>
+                        </tr>
+                        </table>
                     </div>
                 </div>
 
@@ -260,51 +279,139 @@
                             <h4 style=" margin: 0px; width:100%; height: 1cm; line-height:1cm; text-align:center; vertical-align: middle;color:white; background:grey;">Colorsets</h4>
                         </div>
                         <!-- future work -->
-                        <div style="height: 100%; width:50%; border-right:1px solid black;">
+                        <!--div style="height: 100%; width:50%; border-right:1px solid black;">
                             <h4 style=" margin: 0px; width:100%; height: 1cm; line-height:1cm; text-align:center; vertical-align: middle;color:white; background:grey;">Visualization Preview</h4>
 
                             <h4 style=" margin: 0px; width:100%; height: 100%; ">future work</h4>
+                        </div-->
+                        <div style="width:50%; border-right:1px solid black; display: flex; flex-direction: column;">
+                            <h4 style=" margin: 0px; width:100%; height: 1cm; line-height:1cm; text-align:center; vertical-align: middle; color:white; background:grey;">Band Creator</h4>
+
+                            <div class="row" style="background:none; width:100%; height:1cm; border-bottom: 2px solid black;">
+                                        <h4 class="class_radioButtonLabel" style="margin-left:auto;  height:1cm; line-height:1cm; margin-top:0px;">Band Type:</h4>
+                                        <input  style="margin-left:1cm;" type="radio" id="radiobutton_ConstantBand" name="radioBandType" value="0">
+                                        <label class="class_radioButtonLabel" style="margin-left:0.5cm;  height:1cm; line-height:1cm;" for="radiobutton_ConstantBand"> Constant </label><br> 
+                                        <input  style="margin-left:1cm;" type="radio" id="radiobutton_ScaledBand" name="radioBandType" value="1">
+                                        <label class="class_radioButtonLabel" style="margin-left:0.5cm; margin-right:auto; height:1cm; line-height:1cm;" for="radiobutton_ScaledBand"> Scaled </label><br> 
+                            </div>
+
+                            <div class="row" style="height:100%; width:100%;">
+                                
+                                <div style="flex-grow: 1; width:50%;">
+
+                                    <div class="row" style="height:60%; width:100%; margin:0px;">
+
+                                        <div  style=" height:100%; width:50%;">
+
+                                            <h3 style="height:auto; line-height:auto; text-align:center; vertical-align: middle; margin:auto; margin-top:10%; margin-bottom:5%;"> Color C1: </h3>
+
+                                            <div class = "row" style="height:20%; line-height:auto; text-align:center; vertical-align: middle; margin:auto;">
+                                            <p id="id_color1_FirstLabel" style="height:auto; line-height:auto; text-align:center; vertical-align: middle; margin:auto; margin-right:0.25cm;"> R: </p>
+                                            <input  id="id_color1_First" type="text" name="key space" value="255" style="margin:auto; width:50%; margin-left:0.25cm;">
+                                            </div>
+
+                                            <div class = "row" style="height:20%; line-height:auto; text-align:center; vertical-align: middle; margin:auto;">
+                                            <p id="id_color1_SecondLabel" style="height:auto; line-height:auto; text-align:center; vertical-align: middle; margin:auto; margin-right:0.25cm;"> G: </p>
+                                            <input  id="id_color1_Second" type="text" name="key space" value="255" style="margin:auto; width:50%; margin-left:0.25cm;">
+                                            </div>
+
+                                            <div class = "row" style="height:20%; line-height:auto; text-align:center; vertical-align: middle; margin:auto;">
+                                            <p id="id_color1_ThirdLabel" style="height:auto; line-height:auto; text-align:center; vertical-align: middle; margin:auto; margin-right:0.25cm;"> B: </p>
+                                            <input  id="id_color1_Third" type="text" name="key space" value="255" style="margin:auto; width:50%; margin-left:0.25cm;">
+                                            </div>
+                                        </div>
+
+                                        <div  style=" height:100%; width:50%;">
+
+                                            <h3 style="height:auto; line-height:auto; text-align:center; vertical-align: middle; margin:auto; margin-top:10%; margin-bottom:5%;"> Color C2: </h3>
+
+                                            <div class = "row" style="height:20%; line-height:auto; text-align:center; vertical-align: middle; margin:auto;">
+                                            <p id="id_color2_FirstLabel" style="height:auto; line-height:auto; text-align:center; vertical-align: middle; margin:auto; margin-right:0.25cm;"> R: </p>
+                                            <input  id="id_color2_First" type="text" name="key space" value="0" style="margin:auto; width:50%; margin-left:0.25cm;">
+                                            </div>
+
+                                            <div class = "row" style="height:20%; line-height:auto; text-align:center; vertical-align: middle; margin:auto;">
+                                            <p id="id_color2_SecondLabel" style="height:auto; line-height:auto; text-align:center; vertical-align: middle; margin:auto; margin-right:0.25cm;"> G: </p>
+                                            <input  id="id_color2_Second" type="text" name="key space" value="0" style="margin:auto; width:50%; margin-left:0.25cm;">
+                                            </div>
+
+                                            <div class = "row" style="height:20%; line-height:auto; text-align:center; vertical-align: middle; margin:auto;">
+                                            <p id="id_color2_ThirdLabel" style="height:auto; line-height:auto; text-align:center; vertical-align: middle; margin:auto; margin-right:0.25cm;"> B: </p>
+                                            <input  id="id_color2_Third" type="text" name="key space" value="0" style="margin:auto; width:50%; margin-left:0.25cm;">
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                     <div style="height:40%; width:100%; margin-top:0px;">
+                                        <div class="row" style=" height:auto; width:100%;">
+
+                                            <div style="height:100%; width:12.5%;"></div>
+                                            <p style="height:100%; width:5%; margin:0px; text-align:center">C1</p>
+                                            <div style="margin-left:0px; margin-right:0px; width:65%;"> </div>
+                                            <p style="height:100%; width:5%; margin:0px; text-align:center">C2</p>
+                                            <div style="height:100%; width:12.5%;"></div>
+                                            
+                                        </div>
+
+                                        <div class="row" style=" width:100%; height:15%;">
+                                            <div style="height:100%; width:12.5%;"></div>
+                                            <div style="height:100%; width:5%; background:white; border: 2px solid black;"></div>
+                                            <div style="width:65%;"> </div>
+                                            <div style="height:100%; width:5%; background:black; border: 2px solid black; margin-right:auto;"></div>             
+                                        </div>
+                                        
+                                        <div style="margin-left:15%; width:70%; height:10%; border-right:3px solid black; border-left:3px solid black;">
+                                        </div>
+
+                                        <canvas id="id_creatorBand"style="margin-left:15%; width:70%; height:40%; border: 3px solid black;" draggable="true">
+                                        </canvas>
+                                    </div>
+
+
+                                </div>
+                                <div style="height:100%; width:50%; background:rgb(90,90,90);">
+
+                                    <div class="row" style="height:100%; width:100%;">
+
+                                        <div style="height:100%; width:15%;">
+                                            <h4 style=" margin-top:0%; margin-bottom:0%; text-align:center; vertical-align:middle; width:100%; height: 6%;  color:white;">C1:</h4>
+                                            <canvas id="id_canvasPickerC1V" style="margin-left:15%; margin-right:15%; margin-top:0px; width:70%; height:90%; border: 1px solid black;" >
+                                            </canvas>
+                                        </div>
+
+
+                                        <div style="height:100%; width:70%;">
+                                            <h4 style=" margin-top:0%; margin-bottom:0%; text-align:center;  vertical-align:middle; width:100%; height: 6%;  color:white;"></h4>
+                                            <canvas id="id_canvasPickerHS" style="margin-left:5%; margin-right:5%; margin-top:0px; width:90%; height:90%; border: 1px solid black; z-index:1;" >
+                                            </canvas>
+                                            <canvas id="id_workcanvasPickerC1V" style="display:none; z-index:2;" >
+                                            </canvas>
+                                        </div>
+
+                                        <div style="height:100%; width:15%;">
+                                            <h4 style=" margin-top:0%; margin-bottom:0%; text-align:center; vertical-align:middle; width:100%; height: 6%;  color:white;">C2:</h4>
+                                            <canvas id="id_canvasPickerC2V" style="margin-left:15%; margin-right:15%; margin-top:0px; width:70%; height:90%; border: 1px solid black;" >
+                                            </canvas>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
                     <div class="row" style="height:65vh; ">
                         <!-- colormaps -->
-                         <div style="height: 100%; width:70%; border-right:1px solid black;">
+                         <div style="height: 100%; width:100%; border-right:1px solid black;">
 
                              <h4 style=" margin: 0px; width:100%; height: 1cm; line-height:1cm; text-align:center; vertical-align: middle;color:white; background:grey;">Colormap</h4>
 
                         </div>
 
                         <!-- color picker -->
-                        <div style="height: 100%; width:30%; border-right:1px solid black;">
-                            <h4 style=" margin: 0px; width:100%; height: 1cm; line-height:1cm; text-align:center; vertical-align: middle; color:white; background:grey;">Band Creator</h4>
-
-                            <div class="row" style=" height:auto; width:100%; margin-top:2%;">
-
-                                <div style="height:100%; width:12.5%;"></div>
-                                <p style="height:100%; width:5%; margin:0px; text-align:center">C1</p>
-                                <div style="margin-left:0px; margin-right:0px; width:65%;"> </div>
-                                <p style="height:100%; width:5%; margin:0px; text-align:center">C2</p>
-                                <div style="height:100%; width:12.5%;"></div>
-                               
-                            </div>
-                            <div class="row" style=" width:100%; height:3%;">
-                                <div style="height:100%; width:12.5%;"></div>
-                                <div style="height:100%; width:5%; background:white; border: 2px solid black;"></div>
-                                <div style="width:65%;"> </div>
-                                <div style="height:100%; width:5%; background:black; border: 2px solid black; margin-right:auto;"></div>
-                                
-                            </div>
-                            
-                            <div style="margin-left:15%; width:70%; height:3%; border-right:3px solid black; border-left:3px solid black;">
-                            </div>
-
-                            <canvas id="id_creatorBand"style="margin-left:15%; width:70%; height:10%; border: 3px solid black;" draggable="true">
-                            </canvas>
-
-
-                            
-                        </div>
+                        
 
                     </div>
 

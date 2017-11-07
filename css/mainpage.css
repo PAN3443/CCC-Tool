@@ -12,6 +12,24 @@
     text-align: center;
 }
 
+.class_tableInput{
+    font-size:12px; 
+    color: black;
+    border: 1px solid black;
+    height:20px;
+    line-height:20px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.class_radioButtonLabel{
+        vertical-align: middle;
+        text-align: center;
+        color:black;
+        text-align: left;
+        vertical-align: middle;
+     }
+
 #id_creatorBand{
 
     background: -webkit-linear-gradient(left, white , black);
