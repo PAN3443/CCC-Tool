@@ -2,19 +2,34 @@
 /// MAIN PAGE
 //////////////////////////
 
+/// Colorspace Parameter
+
+var kE = 1;
+var kCH = 1;
+
+// mouseposition
+var mousePosX;
+var mousePosY;
+
 // colorpicker
 
 var hs_resolution_X = 1500;
 var hs_resolution_Y = 1500;
 
+var v_resolution_X = 150;
+var v_resolution_Y = 500;
+
 var aboveC1Circle = false;
 var aboveC2Circle = false;
-var grapedC1Circle = false;
+var grapedC1Circle = true;
 var grapedC2Circle = false;
 
 var bigcircleRad = 50;
-var circleRad = 25;
-var circleStrokeWidth = 8;
+var circleRad = 40;
+var vBarWidth = 8;
+var bigvBarWidth = 10;
+
+var circleStrokeWidth = 15;
 var activeCircleColor = "rgb(120,120,120)";
 // using colormap 
 var colorspaceModus = "rgb"; // 0=rgb,1=hsv,2=lab,3=din99

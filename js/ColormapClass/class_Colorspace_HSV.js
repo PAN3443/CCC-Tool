@@ -21,6 +21,18 @@ class classColor_HSV{
         return this.vValue;
     }
 
+    setHValue(newVal) {
+        this.hValue = newVal;
+    }
+
+    setSValue(newVal) {
+        this.sValue = newVal;
+    }
+
+    setVValue(newVal) {
+        this.vValue = newVal;
+    }
+
     calcCIELabColor(){
         var tmpRGB = this.calcRGBColor();
 

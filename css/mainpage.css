@@ -28,12 +28,4 @@
         color:black;
         text-align: left;
         vertical-align: middle;
-     }
-
-#id_creatorBand{
-
-    background: -webkit-linear-gradient(left, white , black);
-    background: -o-linear-gradient(right, white, black);
-    background: -moz-linear-gradient(right, white, black);
-    background: linear-gradient(to right, white , black);
 }

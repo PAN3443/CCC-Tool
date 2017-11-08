@@ -220,14 +220,14 @@ function createScaledBand(canvasData, xStart, bandWidth, bandHeight, color1, col
              for(var x=xStart; x<xStart+bandWidth;x++){
 
                 var tmpRatio = (x-xStart)/bandWidth;
-                                            
+                                           
                 var lValue = color1.getLValue()+(color2.getLValue() - color1.getLValue())*tmpRatio;
                 var aValue = color1.getAValue()+(color2.getAValue() - color1.getAValue())*tmpRatio;
-                var bValue = color1.getBValue()+(color2.getBValue() - color1.getBValue())*tmpRatio;                                           
+                var bValue = color1.getBValue()+(color2.getBValue() - color1.getBValue())*tmpRatio;                                       
                 var tmpCurrentLABColor = new classColorCIELab(lValue,aValue,bValue);
                                             
                 var tmpCurrentColor = tmpCurrentLABColor.calcRGB(); 
-
+        
                 for(var y=0; y<bandHeight;y++){
                     var index = (x + y * canvasWidth) * 4;
                     canvasData.data[index + 0] = Math.round(tmpCurrentColor.getRValue()*255); // r

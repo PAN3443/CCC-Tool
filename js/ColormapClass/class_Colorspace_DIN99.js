@@ -44,7 +44,8 @@ class classColorDIN99{
       }
     
       calcHSVColor(){
-        return new classColor_HSV(0,0,0);
+          var tmpRGB = this.calcRGBColor();
+          return tmpRGB.calcHSVColor();
       }
 
       calcLABColor(){
