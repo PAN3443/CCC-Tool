@@ -29,7 +29,6 @@ function drawCanvasColormap(canvasID,resolutionX, resolutionY, tmpColormap){ //1
               switch(tmpKey) {
                 case "nil key": 
                     
-                     
                     var pos1 = (tmpColormap.getPosition(i)-tmpColormap.getRangeStart())/(tmpColormap.getRangeEnd()-tmpColormap.getRangeStart())*colormapWidth;
                     var pos2 = (tmpColormap.getPosition(i+1)-tmpColormap.getRangeStart())/(tmpColormap.getRangeEnd()-tmpColormap.getRangeStart())*colormapWidth;
                     var elementwidth = pos2-pos1;
@@ -37,6 +36,7 @@ function drawCanvasColormap(canvasID,resolutionX, resolutionY, tmpColormap){ //1
                     switch(colorspaceModus){
                             case "rgb": 
                             canvasData = createConstantBand(canvasData, xPos+pos1, elementwidth, colormapHeigth, tmpColormap.getRGBColor(i), resolutionX);
+                            break;
                             case "hsv": 
                             canvasData = createConstantBand(canvasData, xPos+pos1, elementwidth, colormapHeigth, tmpColormap.getHSVColor(i), resolutionX);
                             break;
@@ -50,7 +50,6 @@ function drawCanvasColormap(canvasID,resolutionX, resolutionY, tmpColormap){ //1
                             colorspaceModus="rgb";
                             canvasData = createConstantBand(canvasData, xPos+pos1, elementwidth, colormapHeigth, tmpColormap.getRGBColor(i), resolutionX);
                     }
-
                     break;
                 case "twin key":
                     
@@ -96,6 +95,7 @@ function drawCanvasColormap(canvasID,resolutionX, resolutionY, tmpColormap){ //1
                         switch(colorspaceModus){
                             case "rgb": 
                             canvasData = createConstantBand(canvasData, xPos+pos1, elementwidth, colormapHeigth, tmpColormap.getRGBColor(i), resolutionX);
+                            break;
                             case "hsv": 
                             canvasData = createConstantBand(canvasData, xPos+pos1, elementwidth, colormapHeigth, tmpColormap.getHSVColor(i), resolutionX);
                             break;
@@ -140,6 +140,7 @@ function drawCanvasColormap(canvasID,resolutionX, resolutionY, tmpColormap){ //1
                                 canvasData = createScaledBand(canvasData, xPos+pos1, elementwidth, colormapHeigth, tmpColormap.getRGBColor(i), tmpColormap.getRGBColor(i+1), resolutionX);       
                         }
             }
+            
         }
         canvasContex.putImageData(canvasData, 0, 0);
         canvasContex.lineWidth = 2;
@@ -216,7 +217,6 @@ function createScaledBand(canvasData, xStart, bandWidth, bandHeight, color1, col
                 } 
         break;
         case "lab": 
-        
              for(var x=xStart; x<xStart+bandWidth;x++){
 
                 var tmpRatio = (x-xStart)/bandWidth;

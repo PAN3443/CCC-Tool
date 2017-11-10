@@ -42,3 +42,47 @@ function getHSVColor(c1bool){
     }
       
 }
+
+
+function getRGBColor(c1bool){
+
+    if(c1bool){
+
+        switch(colorspaceModus){
+                case "rgb":
+                    return new classColor_RGB((colorVal1_C1/255),(colorVal2_C1/255),(colorVal3_C1/255));
+                case "hsv": 
+                    var tmpHSV = new classColor_HSV(colorVal1_C1,colorVal2_C1,colorVal3_C1);
+                    return tmpHSV.calcRGBColor();
+                case "lab":  
+                    var tmpC1LAB = new classColorCIELab(colorVal1_C1,colorVal2_C1,colorVal3_C1);
+                    return tmpC1LAB.calcRGB();
+                case "din99":
+                    var tmpC1DIN99 = new classColorDIN99(colorVal1_C1,colorVal2_C1,colorVal3_C1);
+                    return tmpC1DIN99.calcRGBColor();
+                default:
+                console.log("Error at the getHSVColor function");
+      }
+
+    }
+    else{
+
+        switch(colorspaceModus){
+                case "rgb":;
+                    return new classColor_RGB((colorVal1_C2/255),(colorVal2_C2/255),(colorVal3_C2/255));
+                case "hsv": 
+                    var tmpHSV = new classColor_HSV(colorVal1_C2,colorVal2_C2,colorVal3_C2);
+                    return tmpHSV.calcRGBColor();
+                case "lab":  
+                    var tmpC2LAB = new classColorCIELab(colorVal1_C2,colorVal2_C2,colorVal3_C2);
+                    return tmpC2LAB.calcRGB();
+                case "din99":
+                    var tmpC2DIN99 = new classColorDIN99(colorVal1_C2,colorVal2_C2,colorVal3_C2);
+                    return tmpC2DIN99.calcRGBColor();
+                default:
+                console.log("Error at the getHSVColor function");
+      }
+
+    }
+      
+}

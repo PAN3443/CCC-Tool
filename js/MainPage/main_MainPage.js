@@ -1,6 +1,9 @@
 window.onload = function () {
 
 
+    // Style Init
+    styleMainPage();
+
     //// set events
         // Table
         document.getElementById('id_expandTablebutton').addEventListener("click", expandTable);
@@ -38,6 +41,12 @@ window.onload = function () {
         document.getElementById('radiobutton_ConstantBand').addEventListener("change", changeBandType);
         document.getElementById('radiobutton_ScaledBand').addEventListener("change", changeBandType);
 
+        // Drag And Drop
+        document.getElementById('id_creatorBand').addEventListener("dragstart", bandOnDragStart);
+        document.getElementById('id_creatorBand').addEventListener("dragend", bandOnDragEnd);
+        document.getElementById('id_existConst_yellow_1').addEventListener("dragstart", bandOnDragStart);
+        document.getElementById('id_existConst_yellow_1').addEventListener("dragend", bandOnDragEnd);
+
     // init //
     drawExistingColormaps();
     drawHSBackground();
@@ -46,19 +55,47 @@ window.onload = function () {
     updateCreatorBand();
 
     // for reload with F5
-    document.getElementById('id_color1_First').value = 255;
-    document.getElementById('id_color1_Second').value = 255;
-    document.getElementById('id_color1_Third').value = 255;
+        document.getElementById('id_color1_First').value = 255;
+        document.getElementById('id_color1_Second').value = 255;
+        document.getElementById('id_color1_Third').value = 255;
 
-    document.getElementById('id_color2_First').value = 0;
-    document.getElementById('id_color2_Second').value = 0;
-    document.getElementById('id_color2_Third').value = 0;
+        document.getElementById('id_color2_First').value = 0;
+        document.getElementById('id_color2_Second').value = 0;
+        document.getElementById('id_color2_Third').value = 0;
 
 
+    // init color sketch
+        orderColorSketch();
 
 }
 
 window.onresize = function(event) {
     drawColorCircles();
+    styleMainPage();
 };
+
+window.onscroll = function () {
+
+    drawColorCircles();
+
+
+};
+
+function styleMainPage(){
+    var workRec = document.getElementById("id_mainpage").getBoundingClientRect();
+    document.getElementById("id_expandTablebutton").style.height = workRec.height+"px";
+
+    var canvasColorspace = document.getElementById("id_workcanvasPicker");
+    var rectPickerCanvas = document.getElementById("id_canvasPickerHS").getBoundingClientRect();
+    //canvasColorspace.style.display = "initial";
+    canvasColorspace.style.position = "absolute";
+    canvasColorspace.style.width = rectPickerCanvas.width+"px";
+    canvasColorspace.style.height = rectPickerCanvas.height+"px";
+    canvasColorspace.style.top = rectPickerCanvas.top+"px";
+    canvasColorspace.style.left = rectPickerCanvas.left+"px";
+
+
+    document.getElementById("bandEditWindow").style.height = document.height+"px"; // workRec.height+"px";
+
+}
 

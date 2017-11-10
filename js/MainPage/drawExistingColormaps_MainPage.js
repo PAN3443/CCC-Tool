@@ -31,4 +31,5 @@ function drawExistingColormaps(){
     drawCanvasColormap("id_existMap_green_1",700, 50, green1Colormap);
     drawCanvasColormap("id_existMap_green_2",700, 50, green2Colormap);
     drawCanvasColormap("id_existMap_green_3",700, 50, green3Colormap);
+
 }

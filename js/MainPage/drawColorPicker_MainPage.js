@@ -39,13 +39,13 @@ function drawHSBackground(){
 function drawColorCircles(){
     
     var canvasColorspace = document.getElementById("id_workcanvasPicker");
-    var rectPickerCanvas = document.getElementById("id_canvasPickerHS").getBoundingClientRect();
+    /*var rectPickerCanvas = document.getElementById("id_canvasPickerHS").getBoundingClientRect();
     canvasColorspace.style.display = "initial";
     canvasColorspace.style.position = "absolute";
     canvasColorspace.style.width = rectPickerCanvas.width+"px";
     canvasColorspace.style.height = rectPickerCanvas.height+"px";
     canvasColorspace.style.top = rectPickerCanvas.top+"px";
-    canvasColorspace.style.left = rectPickerCanvas.left+"px";
+    canvasColorspace.style.left = rectPickerCanvas.left+"px";*/
 
     $("#id_workcanvasPicker").attr("width", hs_resolution_X+"px");
     $("#id_workcanvasPicker").attr("height", hs_resolution_Y+"px");

@@ -75,3 +75,22 @@ var green3Colormap;
 var pathgreen1= "resource/Colormaps/green1.xml";
 var pathgreen2= "resource/Colormaps/green2.xml";
 var pathgreen3= "resource/Colormaps/green3.xml";
+
+
+/////
+// Band Sketch
+/////
+var colormapBandSketchC1 = [];
+var colormapBandSketchC2 = [];
+var colormapBandSketchR1 = [];
+var colormapBandSketchR2 = [];
+
+var dropPositionElements = [];
+var dragElemBandCreator;
+
+var indexOfDroppedPlace = -1;
+
+// Band Edit
+var editBandIndex = -1;
+var hasRightNeig = false
+var hasLeftNeig = false;
