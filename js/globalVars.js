@@ -12,7 +12,9 @@ var createBandType = 1; // 0=constant, 1=scale, 2=double, 3=triple, 4=quadruple
 var activColorIndex = 0;
 var bandIndex = -1;
 var creatorBandIsNew = true;
-var newBandIsAdded = false;
+var newBandIsAdded = true;
+var dragPredefinedBandIndex = -1;
+var dragPredefinedBandType = -1;
 
 // mouseposition
 var mousePosX;
@@ -62,7 +64,12 @@ var colormapBandSketchR1 = [];
 var colormapBandSketchR2 = [];
 
 var dropPositionElements = [];
-var dragElemBandCreator;
+
+  // drag and drop
+  var dragElemBandCreator;
+  var doppedBandtype = -1;
+  var doppedBandIndex = -1;
+
 
 var indexOfDroppedPlace = -1;
 
@@ -74,15 +81,6 @@ var hasLeftNeig = false;
 
 // predefined Bands
 
-
-/*console.log(7777);
-var yxc  = new classColor_RGB(1, 0, 0);
-console.log(yxc.getRGBString());
-var const1 = new class_PredefinedBand(ttt);
-
-
-console.log(666);
-console.log(const1.getRGBString(0));*/
 var constBands = [  new classColor_RGB(1, 0.8, 0.8), new classColor_RGB(1, 0.4, 0.4), new classColor_RGB(1, 0.4, 0.2), new classColor_RGB(1, 0, 0), new classColor_RGB(0.8, 0, 0), new classColor_RGB(0.6, 0, 0), new classColor_RGB(0.4, 0, 0),  // red
                     new classColor_RGB(1, 0.917647059, 0.8), new classColor_RGB(1, 0.76, 0.4), new classColor_RGB(1, 0.682352941, 0.2), new classColor_RGB(1, 0.6, 0), new classColor_RGB(0.8, 0.48, 0), new classColor_RGB(0.6, 0.36, 0), new classColor_RGB(0.4, 0.24, 0),  // orange
                     new classColor_RGB(0.99999999956,1,0.78),  new classColor_RGB(0.99999999916,1,0.58), new classColor_RGB(0.99999999868,1,0.33999999999999997), new classColor_RGB(0.9999999988,1,0.4), new classColor_RGB(0.9999999982000001,1,0.09999999999999998), new classColor_RGB(0.9999999980000001,1,0), new classColor_RGB(0.7999999984000001,0.8,0), new classColor_RGB(0.5999999988,0.6,0), //yellow
@@ -101,7 +99,10 @@ var scaleBands = [[new classColor_RGB(0, 0, 0), new classColor_RGB(1, 1, 1)], //
                   [new classColor_RGB(0, 1, 1), new classColor_RGB(0, 0, 1)], // cyan blue
                   [new classColor_RGB(0, 1, 1), new classColor_RGB(1, 0, 1)], // cyan blue
                   [new classColor_RGB(0, 0, 1), new classColor_RGB(1, 0, 1)], // cyan blue
+                  [new classColor_RGB(1, 1, 1), new classColor_RGB(0, 0, 0)], // START BAND !!!!! (white black)
                   ];
+
+                  bandIndex = scaleBands.length-1;
 
 var doubleBands = [ [new classColor_RGB(1,0.04363238475790354,0.015850553040006377), new classColor_RGB(0.8425063909685755,0.5040655970974081,0.14291810185217466), new classColor_RGB(0.6199244458392044,0.6097191064500393,0.20300372989296359)], // red orange yellow
                     [new classColor_RGB(0.9677215034696575,1,0.01989749749690406), new classColor_RGB(0.4898978955486485,0.7818022241151106,0.11047321311559163), new classColor_RGB(0.16662577174242177,0.5308916677874558,0.14806671752952635)], // yellow green

@@ -1302,6 +1302,7 @@ function openPredefinedBand(event){
 }
 
 function saveBandToArray(){
+    
     var oldIndex = activColorIndex; 
     switch(createBandType){
         case 0:
@@ -1445,7 +1446,9 @@ function saveBandToArray(){
             console.log("Error saveBandToArray function");
     }
     activColorIndex = oldIndex; 
+    
     drawPredefinedBands();
+
 }
 
 function styleBandCreator(){
@@ -1533,7 +1536,6 @@ function styleBandCreator(){
 
 function addBand(type){
     var oldBandType = createBandType;
-    console.log(type);
     createBandType = type;
     changeActiveColor(0);
     creatorBandIsNew=true;
@@ -1572,7 +1574,7 @@ function addBand(type){
                                     colorVal3_C1 = tmpLAB.getBValue();      
                         break;
                         case "din99":
-                                    var tmpDIN99 = tmpRGB.calcDIN99Color();
+                                    var tmpDIN99 = tmpRGB.calcDIN99Color(kE,kCH);
                                     colorVal1_C1 = tmpDIN99.getL99Value();
                                     colorVal2_C1 = tmpDIN99.getA99Value();
                                     colorVal3_C1 = tmpDIN99.getB99Value();
@@ -1583,7 +1585,7 @@ function addBand(type){
  
                 constBands.push(tmpRGB);
             }
-                
+            bandIndex = constBands.length-1;  
         break;
         case 1:
             if(oldBandType == createBandType){
@@ -1636,11 +1638,11 @@ function addBand(type){
                                     colorVal3_C5 = tmpLAB.getBValue();      
                         break;
                         case "din99":
-                                    var tmpDIN99 = tmpRGB1.calcDIN99Color();
+                                    var tmpDIN99 = tmpRGB1.calcDIN99Color(kE,kCH);
                                     colorVal1_C1 = tmpDIN99.getL99Value();
                                     colorVal2_C1 = tmpDIN99.getA99Value();
                                     colorVal3_C1 = tmpDIN99.getB99Value();
-                                    tmpDIN99 = tmpRGB2.calcDIN99Color();
+                                    tmpDIN99 = tmpRGB2.calcDIN99Color(kE,kCH);
                                     colorVal1_C5 = tmpDIN99.getL99Value();
                                     colorVal2_C5 = tmpDIN99.getA99Value();
                                     colorVal3_C5 = tmpDIN99.getB99Value();
@@ -1650,6 +1652,7 @@ function addBand(type){
                 }
                 
             }
+            bandIndex = scaleBands.length-1;
         break;
         case 2:
             if(oldBandType == createBandType){
@@ -1718,15 +1721,15 @@ function addBand(type){
                                     colorVal3_C5 = tmpLAB.getBValue();      
                         break;
                         case "din99":
-                                    var tmpDIN99 = tmpRGB1.calcDIN99Color();
+                                    var tmpDIN99 = tmpRGB1.calcDIN99Color(kE,kCH);
                                     colorVal1_C1 = tmpDIN99.getL99Value();
                                     colorVal2_C1 = tmpDIN99.getA99Value();
                                     colorVal3_C1 = tmpDIN99.getB99Value();
-                                    tmpDIN99 = tmpRGB2.calcDIN99Color();
+                                    tmpDIN99 = tmpRGB2.calcDIN99Color(kE,kCH);
                                     colorVal1_C3 = tmpDIN99.getL99Value();
                                     colorVal2_C3 = tmpDIN99.getA99Value();
                                     colorVal3_C3 = tmpDIN99.getB99Value();
-                                    tmpDIN99 = tmpRGB3.calcDIN99Color();
+                                    tmpDIN99 = tmpRGB3.calcDIN99Color(kE,kCH);
                                     colorVal1_C5 = tmpDIN99.getL99Value();
                                     colorVal2_C5 = tmpDIN99.getA99Value();
                                     colorVal3_C5 = tmpDIN99.getB99Value();
@@ -1735,6 +1738,7 @@ function addBand(type){
                         return;
                 }
             }
+            bandIndex = doubleBands.length-1;
         break;
         case 3:
             if(oldBandType == createBandType){
@@ -1793,9 +1797,9 @@ function addBand(type){
                                     colorVal2_C2 = tmpHSV.getSValue();
                                     colorVal3_C2 = tmpHSV.getVValue();
                                     tmpHSV = tmpRGB3.calcHSVColor();
-                                    colorVal1_C5 = tmpHSV.getHValue();
-                                    colorVal2_C5 = tmpHSV.getSValue();
-                                    colorVal3_C5 = tmpHSV.getVValue();
+                                    colorVal1_C4 = tmpHSV.getHValue();
+                                    colorVal2_C4 = tmpHSV.getSValue();
+                                    colorVal3_C4 = tmpHSV.getVValue();
                                     tmpHSV = tmpRGB4.calcHSVColor();
                                     colorVal1_C5 = tmpHSV.getHValue();
                                     colorVal2_C5 = tmpHSV.getSValue();
@@ -1820,19 +1824,19 @@ function addBand(type){
                                     colorVal3_C5 = tmpLAB.getBValue();      
                         break;
                         case "din99":
-                                    var tmpDIN99 = tmpRGB1.calcDIN99Color();
+                                    var tmpDIN99 = tmpRGB1.calcDIN99Color(kE,kCH);
                                     colorVal1_C1 = tmpDIN99.getL99Value();
                                     colorVal2_C1 = tmpDIN99.getA99Value();
                                     colorVal3_C1 = tmpDIN99.getB99Value();
-                                    tmpDIN99 = tmpRGB2.calcDIN99Color();
+                                    tmpDIN99 = tmpRGB2.calcDIN99Color(kE,kCH);
                                     colorVal1_C2 = tmpDIN99.getL99Value();
                                     colorVal2_C2 = tmpDIN99.getA99Value();
                                     colorVal3_C2 = tmpDIN99.getB99Value();
-                                    tmpDIN99 = tmpRGB3.calcDIN99Color();
+                                    tmpDIN99 = tmpRGB3.calcDIN99Color(kE,kCH);
                                     colorVal1_C4 = tmpDIN99.getL99Value();
                                     colorVal2_C4 = tmpDIN99.getA99Value();
                                     colorVal3_C4 = tmpDIN99.getB99Value();
-                                    tmpDIN99 = tmpRGB4.calcDIN99Color();
+                                    tmpDIN99 = tmpRGB4.calcDIN99Color(kE,kCH);
                                     colorVal1_C5 = tmpDIN99.getL99Value();
                                     colorVal2_C5 = tmpDIN99.getA99Value();
                                     colorVal3_C5 = tmpDIN99.getB99Value();
@@ -1841,35 +1845,135 @@ function addBand(type){
                         return;
                 }
             }
+            bandIndex = tribleBands.length-1;
         break;
         case 4:
-            if(newBandIsAdded == false){
+            if(oldBandType == createBandType){
                 //quadBands
-                var tmpArray = [];
-                var tmpRGB = new classColor_RGB((colorVal1_C1/255),(colorVal2_C1/255),(colorVal3_C1/255));
+                 var tmpArray = [];
+                activColorIndex = 0;
+                var tmpRGB = getRGBColor();
                 tmpArray.push(tmpRGB);
-                tmpRGB = new classColor_RGB((colorVal1_C2/255),(colorVal2_C2/255),(colorVal3_C2/255));
+                activColorIndex = 1;
+                tmpRGB = getRGBColor();
                 tmpArray.push(tmpRGB);
-                tmpRGB = new classColor_RGB((colorVal1_C3/255),(colorVal2_C3/255),(colorVal3_C3/255));
+                activColorIndex = 2;
+                tmpRGB = getRGBColor();
                 tmpArray.push(tmpRGB);
-                tmpRGB = new classColor_RGB((colorVal1_C4/255),(colorVal2_C4/255),(colorVal3_C4/255));
+                activColorIndex = 3;
+                tmpRGB = getRGBColor();
                 tmpArray.push(tmpRGB);
-                tmpRGB = new classColor_RGB((colorVal1_C5/255),(colorVal2_C5/255),(colorVal3_C5/255));
+                activColorIndex = 4;
+                tmpRGB = getRGBColor();
                 tmpArray.push(tmpRGB);
                 quadBands.push(tmpArray);
             }
             else{
-                var tmpRGB = new classColor_RGB((colorVal1_C1/255),(colorVal2_C1/255),(colorVal3_C1/255));
-                quadBands[quadBands.length-1][3] = tmpRGB;
-                tmpRGB = new classColor_RGB((colorVal1_C2/255),(colorVal2_C2/255),(colorVal3_C2/255));
-                quadBands[quadBands.length-1][3] = tmpRGB;
-                tmpRGB = new classColor_RGB((colorVal1_C3/255),(colorVal2_C3/255),(colorVal3_C3/255));
-                quadBands[quadBands.length-1][3] = tmpRGB;
-                tmpRGB = new classColor_RGB((colorVal1_C4/255),(colorVal2_C4/255),(colorVal3_C4/255));
-                quadBands[quadBands.length-1][3] = tmpRGB;
-                tmpRGB = new classColor_RGB((colorVal1_C5/255),(colorVal2_C5/255),(colorVal3_C5/255));
-                quadBands[quadBands.length-1][3] = tmpRGB;
+                var tmpRGB1 = new classColor_RGB(1/255,3/255,183/255);
+                var tmpRGB2 = new classColor_RGB(34/255, 219/255, 206/255);
+                var tmpRGB3 = new classColor_RGB(253/255, 254/255, 87/255);
+                var tmpRGB4 = new classColor_RGB(219/255, 135/255, 34/255);
+                var tmpRGB5 = new classColor_RGB(178/255, 12/255, 2/255);
+                var tmpArray = [];
+                tmpArray.push(tmpRGB1);
+                tmpArray.push(tmpRGB2);
+                tmpArray.push(tmpRGB3);
+                tmpArray.push(tmpRGB4);
+                tmpArray.push(tmpRGB5);
+                quadBands.push(tmpArray);
+                switch(colorspaceModus){
+                        case "rgb":
+                                    colorVal1_C1 = 1;
+                                    colorVal2_C1 = 3;
+                                    colorVal3_C1 = 183;
+
+                                    colorVal1_C2 = 34;
+                                    colorVal2_C2 = 219;
+                                    colorVal3_C2 = 206;
+
+                                    colorVal1_C3 = 253;
+                                    colorVal2_C3 = 254;
+                                    colorVal3_C3 = 87;
+
+                                    colorVal1_C4 = 219;
+                                    colorVal2_C4 = 135;
+                                    colorVal3_C4 = 34;
+
+                                    colorVal1_C5 = 178;
+                                    colorVal2_C5 = 12;
+                                    colorVal3_C5 = 2;
+                        break;
+                        case "hsv":
+                                    var tmpHSV = tmpRGB1.calcHSVColor();
+                                    colorVal1_C1 = tmpHSV.getHValue();
+                                    colorVal2_C1 = tmpHSV.getSValue();
+                                    colorVal3_C1 = tmpHSV.getVValue();
+                                    tmpHSV = tmpRGB2.calcHSVColor();
+                                    colorVal1_C2 = tmpHSV.getHValue();
+                                    colorVal2_C2 = tmpHSV.getSValue();
+                                    colorVal3_C2 = tmpHSV.getVValue();
+                                    tmpHSV = tmpRGB3.calcHSVColor();
+                                    colorVal1_C3 = tmpHSV.getHValue();
+                                    colorVal2_C3 = tmpHSV.getSValue();
+                                    colorVal3_C3 = tmpHSV.getVValue();
+                                    tmpHSV = tmpRGB4.calcHSVColor();
+                                    colorVal1_C4 = tmpHSV.getHValue();
+                                    colorVal2_C4 = tmpHSV.getSValue();
+                                    colorVal3_C4 = tmpHSV.getVValue();
+                                    tmpHSV = tmpRGB5.calcHSVColor();
+                                    colorVal1_C5 = tmpHSV.getHValue();
+                                    colorVal2_C5 = tmpHSV.getSValue();
+                                    colorVal3_C5 = tmpHSV.getVValue();
+                        break;
+                        case "lab":
+                                    var tmpLAB = tmpRGB1.calcCIELabColor();
+                                    colorVal1_C1 = tmpLAB.getLValue();
+                                    colorVal2_C1 = tmpLAB.getAValue();
+                                    colorVal3_C1 = tmpLAB.getBValue();
+                                    tmpLAB = tmpRGB2.calcCIELabColor();
+                                    colorVal1_C2 = tmpLAB.getLValue();
+                                    colorVal2_C2 = tmpLAB.getAValue();
+                                    colorVal3_C2 = tmpLAB.getBValue();
+                                    tmpLAB = tmpRGB3.calcCIELabColor();
+                                    colorVal1_C3 = tmpLAB.getLValue();
+                                    colorVal2_C3 = tmpLAB.getAValue();
+                                    colorVal3_C3 = tmpLAB.getBValue();
+                                    tmpLAB = tmpRGB4.calcCIELabColor();
+                                    colorVal1_C4 = tmpLAB.getLValue();
+                                    colorVal2_C4 = tmpLAB.getAValue();
+                                    colorVal3_C4 = tmpLAB.getBValue();
+                                    tmpLAB = tmpRGB5.calcCIELabColor();
+                                    colorVal1_C5 = tmpLAB.getLValue();
+                                    colorVal2_C5 = tmpLAB.getAValue();
+                                    colorVal3_C5 = tmpLAB.getBValue();      
+                        break;
+                        case "din99":
+                                    var tmpDIN99 = tmpRGB1.calcDIN99Color(kE,kCH);
+                                    colorVal1_C1 = tmpDIN99.getL99Value();
+                                    colorVal2_C1 = tmpDIN99.getA99Value();
+                                    colorVal3_C1 = tmpDIN99.getB99Value();
+                                    tmpDIN99 = tmpRGB2.calcDIN99Color(kE,kCH);
+                                    colorVal1_C2 = tmpDIN99.getL99Value();
+                                    colorVal2_C2 = tmpDIN99.getA99Value();
+                                    colorVal3_C2 = tmpDIN99.getB99Value();
+                                    tmpDIN99 = tmpRGB3.calcDIN99Color(kE,kCH);
+                                    colorVal1_C3 = tmpDIN99.getL99Value();
+                                    colorVal2_C3 = tmpDIN99.getA99Value();
+                                    colorVal3_C3 = tmpDIN99.getB99Value();
+                                    tmpDIN99 = tmpRGB4.calcDIN99Color(kE,kCH);
+                                    colorVal1_C4 = tmpDIN99.getL99Value();
+                                    colorVal2_C4 = tmpDIN99.getA99Value();
+                                    colorVal3_C4 = tmpDIN99.getB99Value();
+                                    tmpDIN99 = tmpRGB5.calcDIN99Color(kE,kCH);
+                                    colorVal1_C5 = tmpDIN99.getL99Value();
+                                    colorVal2_C5 = tmpDIN99.getA99Value();
+                                    colorVal3_C5 = tmpDIN99.getB99Value();
+                        break;
+                        default:
+                        return;
+                }
             }
+            bandIndex = quadBands.length-1;
         break;
         default:
             console.log("Error saveBandToArray function");

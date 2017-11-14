@@ -40,10 +40,6 @@ window.onload = function () {
         document.getElementById('id_color1_Second').value = 255;
         document.getElementById('id_color1_Third').value = 255;
 
-        document.getElementById('id_color2_First').value = 0;
-        document.getElementById('id_color2_Second').value = 0;
-        document.getElementById('id_color2_Third').value = 0;
-
 
     // init color sketch
         orderColorSketch();

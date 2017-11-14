@@ -26,10 +26,12 @@ function drawPredefinedBands(){
         var iDiv = document.createElement('div');
         iDiv.id = 'const'+i;
         iDiv.className = 'class_predefinedConstBands';
-
+        iDiv.setAttribute('draggable', true);
         iDiv.style.background = constBands[i].getRGBString();
         document.getElementById('id_ConstandBand_Div').appendChild(iDiv);
         iDiv.addEventListener("click", openPredefinedBand);
+        iDiv.addEventListener("dragstart", bandOnDragStart);
+        iDiv.addEventListener("dragend", bandOnDragEnd);
 
     }
     document.getElementById('id_ConstandBand_Div').appendChild(document.getElementById('button_AddConstandBand'));
@@ -43,8 +45,11 @@ function drawPredefinedBands(){
         var id = 'scale'+i
         iCan.id = id;
         iCan.className = 'class_predefinedScaledBands';
+        iCan.setAttribute('draggable', true);
         document.getElementById('id_ScaleBand_Div').appendChild(iCan);
         iCan.addEventListener("click", openPredefinedBand);
+        iCan.addEventListener("dragstart", bandOnDragStart);
+        iCan.addEventListener("dragend", bandOnDragEnd);
 
         var tmpC1RGB = scaleBands[i][0];
         var tmpC2RGB = scaleBands[i][1];
@@ -91,9 +96,13 @@ function drawPredefinedBands(){
         var iCan = document.createElement('canvas');
         iCan.id = 'double'+i;
         iCan.className = 'class_predefinedScaledBands';
+        iCan.setAttribute('draggable', true);
 
         document.getElementById('id_DoubleBands_Div').appendChild(iCan);
         iCan.addEventListener("click", openPredefinedBand);
+        iCan.addEventListener("dragstart", bandOnDragStart);
+        iCan.addEventListener("dragend", bandOnDragEnd);
+
         var tmpC1RGB = doubleBands[i][0];
         var tmpC2RGB = doubleBands[i][1];
         var tmpC3RGB = doubleBands[i][2];
@@ -146,9 +155,12 @@ function drawPredefinedBands(){
         var id= 'triple'+i;
         iCan.id = id;
         iCan.className = 'class_predefinedScaledBands';
+        iCan.setAttribute('draggable', true);
 
         document.getElementById('id_TripleBands_Div').appendChild(iCan);
         iCan.addEventListener("click", openPredefinedBand);
+        iCan.addEventListener("dragstart", bandOnDragStart);
+        iCan.addEventListener("dragend", bandOnDragEnd);
         var tmpC1RGB = tribleBands[i][0];
         var tmpC2RGB = tribleBands[i][1];
         var tmpC3RGB = tribleBands[i][2];
@@ -206,9 +218,13 @@ function drawPredefinedBands(){
         var id= 'quads'+i;
         iCan.id = id;
         iCan.className = 'class_predefinedScaledBands';
+        iCan.setAttribute('draggable', true);
 
         document.getElementById('id_QuadrupelBands_Div').appendChild(iCan);
         iCan.addEventListener("click", openPredefinedBand);
+        iCan.addEventListener("dragstart", bandOnDragStart);
+        iCan.addEventListener("dragend", bandOnDragEnd);
+        
         var tmpC1RGB = quadBands[i][0];
         var tmpC2RGB = quadBands[i][1];
         var tmpC3RGB = quadBands[i][2];
