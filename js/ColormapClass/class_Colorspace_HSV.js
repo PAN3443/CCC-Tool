@@ -46,7 +46,8 @@ class classColor_HSV{
     }
 
     calcRGBColor(){
-            var R,G,B,var_r,var_g,var_b;
+        
+        /*var R,G,B,var_r,var_g,var_b;
             if ( this.sValue == 0 )
             {
             R = this.vValue;
@@ -73,6 +74,27 @@ class classColor_HSV{
             G = var_g;
             B = var_b;
         }
-        return new classColor_RGB(R,G,B);   
+        return new classColor_RGB(R,G,B); */
+
+        var r, g, b;
+
+            var i = Math.floor(this.hValue * 6);
+            var f = this.hValue * 6 - i;
+            var p = this.vValue * (1 - this.sValue);
+            var q = this.vValue * (1 - f * this.sValue);
+            var t = this.vValue * (1 - (1 - f) * this.sValue);
+
+            switch(i % 6){
+                case 0: r = this.vValue, g = t, b = p; break;
+                case 1: r = q, g = this.vValue, b = p; break;
+                case 2: r = p, g = this.vValue, b = t; break;
+                case 3: r = p, g = q, b = this.vValue; break;
+                case 4: r = t, g = p, b = this.vValue; break;
+                case 5: r = this.vValue, g = p, b = q; break;
+            }
+
+
+        return new classColor_RGB(r,g,b);     
     }
+
 }

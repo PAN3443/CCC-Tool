@@ -29,3 +29,21 @@
         text-align: left;
         vertical-align: middle;
 }
+
+.class_predefinedConstBands{
+    height: 0.75cm;
+    width: 1.5cm;
+    border-radius: 0.2cm; 
+    border: 2px solid black; 
+    margin:0.25cm;
+    float:left;
+}
+
+.class_predefinedScaledBands{
+    height: 0.75cm;
+    width: 3cm;
+    border-radius: 0.2cm; 
+    border: 2px solid black; 
+    margin:0.25cm;
+    float:left;
+}

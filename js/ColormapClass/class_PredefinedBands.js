@@ -1,56 +1,38 @@
 ////////////////////////////////////////////////
-// ------------ Class RGB ---------------//
+// ------------ Class classPredefinedBand ---------------//
 ////////////////////////////////////////////////
-class classColor_RGB{
-    constructor(rValue, gValue, bValue) {
-    this.rValue = rValue;
-    this.gValue = gValue;
-    this.bValue = bValue; 
-    this.ref_X = 94.811;
-    this.ref_Y = 100.000;
-    this.ref_Z = 107.304;
+class class_PredefinedBand{
+    constructor(rgbColor) {
+    console.log(234);
+    this.colorarray = [];
+    console.log(234);
+    this.colorarray.push(rgbColor);
   }
 
-  getRValue() {
-    return this.rValue;
+  pushColor(rgbColor){
+      this.colorarray.push(rgbColor);
   }
 
-  getGValue() {
-    return this.gValue;
-  }
-
-  getBValue() {
-    return this.bValue;
-  }
-
-  setRValue(r) {
-    this.rValue = r;
-  }
-
-  setGValue(g) {
-    this.gValue = g;
-  }
-
-  setBValue(b) {
-    this.bValue = b;
-  }
-
-  getRGBString(){
-      var tmpString = "rgb("+Math.round(this.rValue*255)+","+Math.round(this.gValue*255)+","+Math.round(this.bValue*255)+")"; // Math.round because Chrome needs integers
+  getRGBString(index){
+      var tmpString = "rgb("+Math.round(this.colorarray[index].getRValue()*255)+","+Math.round(this.colorarray[index].getGValue()*255)+","+Math.round(this.colorarray[index].getBValue()*255)+")"; // Math.round because Chrome needs integers
       return tmpString;
   }
 
-  getRGBStringAplha(alpha){
-      var tmpString = "rgba("+Math.round(this.rValue*255)+","+Math.round(this.gValue*255)+","+Math.round(this.bValue*255)+","+alpha+")";
+  getRGBStringAplha(index, alpha){
+      var tmpString = "rgba("+Math.round(this.colorarray[index].getRValue()*255)+","+Math.round(this.colorarray[index].getGValue()*255)+","+Math.round(this.colorarray[index].getBValue()*255)+","+alpha+")";
       return tmpString;
   }
 
-  calcCIELabColor(){
+  getRGBColor(index){
+    return this.colorarray[index];
+  }
+
+  calcCIELabColor(index){
     /// from RGB -> XYZ
 
-    var var_R = this.rValue;
-    var var_G = this.gValue;
-    var var_B = this.bValue;
+    var var_R = this.colorarray[index].getRValue();
+    var var_G = this.colorarray[index].getGValue();
+    var var_B = this.colorarray[index].getBValue();
 
     if ( var_R > 0.04045 ) var_R = Math.pow((( var_R + 0.055 ) / 1.055 ), 2.4);
     else                   var_R = var_R / 12.92;
@@ -86,14 +68,14 @@ class classColor_RGB{
     return(new classColorCIELab(var_L, var_A, var_B));
   }
 
-  calcHSVColor(){
+  calcHSVColor(index){
 
         //R, G and B input range = 0 ÷ 255
         //H, S and V output range = 0 ÷ 1.0
 
-        /*var var_R = this.rValue;
-        var var_G = this.gValue;
-        var var_B = this.bValue;
+        var var_R = this.colorarray[index].getRValue();
+        var var_G = this.colorarray[index].getGValue();
+        var var_B = this.colorarray[index].getBValue();
 
         var var_Min = Math.min( var_R, var_G, var_B );  //Min. value of RGB
         var var_Max = Math.max( var_R, var_G, var_B );    //Max. value of RGB
@@ -119,51 +101,16 @@ class classColor_RGB{
             if ( H > 1 ) H -= 1;
         }
 
-        return(new classColor_HSV(H, S, V));*/
-
-        var max = Math.max(this.rValue, this.gValue, this.bValue), min = Math.min(this.rValue, this.gValue, this.bValue);
-        var h, s, v = max;
-
-        var d = max - min;
-        s = max == 0 ? 0 : d / max;
-
-        if(max == min){
-            h = 0; // achromatic
-        }else{
-            switch(max){
-                case this.rValue: h = (this.gValue - this.bValue) / d + (this.gValue < this.bValue ? 6 : 0); break;
-                case this.gValue: h = (this.bValue - this.rValue) / d + 2; break;
-                case this.bValue: h = (this.rValue - this.gValue) / d + 4; break;
-            }
-            h /= 6;
-        }
-        return(new classColor_HSV(h, s, v));
+        return(new classColor_HSV(H, S, V));
 
   }
 
-  calcDIN99Color(kE,kCH){
-    var tmpLAB = this.calcCIELabColor();
+  calcDIN99Color(index, kE,kCH){
+    var tmpLAB = this.colorarray[index].calcCIELabColor();
     return tmpLAB.calcDIN99Color(kE,kCH);
   }
 
-  setColorFromHEX(hex){
-     this.rValue = parseInt(hex.slice(1, 3), 16)/255;
-     this.gValue = parseInt(hex.slice(3, 5), 16)/255;
-     this.bValue = parseInt(hex.slice(5, 7), 16)/255;
-  }
-
-  valueToHex(val) {
-    var hex = Number(val).toString(16);
-    if (hex.length < 2) {
-        hex = "0" + hex;
-    }
-    return hex;
-  }
-
-  getHexString() {
-    var rhex = this.valueToHex(parseInt(this.rValue*255));
-    var ghex = this.valueToHex(parseInt(this.gValue*255));
-    var bhex = this.valueToHex(parseInt(this.bValue*255));   
-    return "#" + rhex + ghex + bhex;
-  }
+ 
 };
+
+

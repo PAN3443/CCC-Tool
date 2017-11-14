@@ -67,7 +67,7 @@ function bandOnEnter(event) {
             indexOfDroppedPlace = parseInt(tmpString);
             document.getElementById("dragPos"+indexOfDroppedPlace).style.innerHTML = "";
         
-            if(document.getElementById("radiobutton_ScaledBand").checked == true){
+            /*if(document.getElementById("radiobutton_ScaledBand").checked == true){
                 
                 var tmpRGB1 = getRGBColor(true);
                 var tmpRGB2 = getRGBColor(false);
@@ -79,7 +79,7 @@ function bandOnEnter(event) {
             else{
                 var tmpRGB1 = getRGBColor(true);
                 document.getElementById("dragPos"+indexOfDroppedPlace).style.background = tmpRGB1.getRGBString();
-            }
+            }*/
             getRGBColor(c1bool)
         }
         else{
@@ -107,14 +107,14 @@ function bandOnDrop(){
     if(dragElemBandCreator){
         document.getElementById("dragPos"+indexOfDroppedPlace).style.background = "none";
 
-        if(document.getElementById("radiobutton_ScaledBand").checked == true){
+        /*if(document.getElementById("radiobutton_ScaledBand").checked == true){
             colormapBandSketchC1.splice(indexOfDroppedPlace, 0, getRGBColor(true));
             colormapBandSketchC2.splice(indexOfDroppedPlace, 0, getRGBColor(false));
         }
         else{
             colormapBandSketchC1.splice(indexOfDroppedPlace, 0, getRGBColor(true));
             colormapBandSketchC2.splice(indexOfDroppedPlace, 0, getRGBColor(true));
-        }
+        }*/
 
         if(colormapBandSketchR1.length==0){
             colormapBandSketchR1.splice(indexOfDroppedPlace, 0, 0.0);

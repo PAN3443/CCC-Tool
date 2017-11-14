@@ -191,6 +191,7 @@ function createScaledBand(canvasData, xStart, bandWidth, bandHeight, color1, col
             var yPos2 = tmpDis2*Math.sin(tmpRad2);
             var zPos2 = color2.getVValue()-50;
 
+
             for(var x=xStart; x<xStart+bandWidth;x++){
 
                     var tmpRatio = (x-xStart)/bandWidth;
@@ -203,9 +204,8 @@ function createScaledBand(canvasData, xStart, bandWidth, bandHeight, color1, col
                     var tmpS = Math.sqrt(Math.pow(tmpX,2)+Math.pow(tmpY,2))/50;
                     var tmpV = tmpZ+50;
                     var tmpCurrentHSVColor = new classColor_HSV(tmpH,tmpS,tmpV);
-                                            
+             
                     var tmpCurrentColor = tmpCurrentHSVColor.calcRGBColor(); 
-
                     for(var y=0; y<bandHeight;y++){
                         var index = (x + y * canvasWidth) * 4;
                             canvasData.data[index + 0] = Math.round(tmpCurrentColor.getRValue()*255); // r
@@ -213,8 +213,9 @@ function createScaledBand(canvasData, xStart, bandWidth, bandHeight, color1, col
                             canvasData.data[index + 2] = Math.round(tmpCurrentColor.getBValue()*255); // b
                             canvasData.data[index + 3] = 255; //a
                     }
-                        
+                      
                 } 
+                
         break;
         case "lab": 
              for(var x=xStart; x<xStart+bandWidth;x++){

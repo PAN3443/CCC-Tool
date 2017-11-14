@@ -7,6 +7,13 @@
 var kE = 1;
 var kCH = 1;
 
+
+var createBandType = 1; // 0=constant, 1=scale, 2=double, 3=triple, 4=quadruple
+var activColorIndex = 0;
+var bandIndex = -1;
+var creatorBandIsNew = true;
+var newBandIsAdded = false;
+
 // mouseposition
 var mousePosX;
 var mousePosY;
@@ -19,63 +26,32 @@ var hs_resolution_Y = 1500;
 var v_resolution_X = 150;
 var v_resolution_Y = 500;
 
-var aboveC1Circle = false;
-var aboveC2Circle = false;
-var grapedC1Circle = true;
-var grapedC2Circle = false;
 
-var bigcircleRad = 50;
 var circleRad = 40;
 var vBarWidth = 8;
-var bigvBarWidth = 10;
+
 
 var circleStrokeWidth = 15;
-var activeCircleColor = "rgb(120,120,120)";
 // using colormap 
 var colorspaceModus = "rgb"; // 0=rgb,1=hsv,2=lab,3=din99
 var colorVal1_C1 = 255;
 var colorVal2_C1 = 255;
 var colorVal3_C1 = 255;
-var colorVal1_C2 = 0;
-var colorVal2_C2 = 0;
-var colorVal3_C2 = 0;
+var colorVal1_C2 = 191.25;
+var colorVal2_C2 = 191.25;
+var colorVal3_C2 = 191.25;
+var colorVal1_C3 = 127.5;
+var colorVal2_C3 = 127.5;
+var colorVal3_C3 = 127.5;
+var colorVal1_C4 = 63.75;
+var colorVal2_C4 = 63.75;
+var colorVal3_C4 = 63.75;
+var colorVal1_C5 = 0;
+var colorVal2_C5 = 0;
+var colorVal3_C5 = 0;
 
 // table expand button
 var tableIsExpand = false;
-
-// existing Colormaps
-var yellow1Colormap;
-var yellow2Colormap;
-var yellow3Colormap;
-
-var pathyellow1 = "resource/Colormaps/yellow1.xml";
-var pathyellow2 = "resource/Colormaps/yellow2.xml";
-var pathyellow3 = "resource/Colormaps/yellow3.xml";
-
-var red1Colormap;
-var red2Colormap;
-var red3Colormap;
-
-var pathred1= "resource/Colormaps/red1.xml";
-var pathred2= "resource/Colormaps/red2.xml";
-var pathredw3= "resource/Colormaps/red3.xml";
-
-var blue1Colormap;
-var blue2Colormap;
-var blue3Colormap;
-
-var pathblue1= "resource/Colormaps/blue1.xml";
-var pathblue2= "resource/Colormaps/blue2.xml";
-var pathblue3= "resource/Colormaps/blue3.xml";
-
-var green1Colormap;
-var green2Colormap;
-var green3Colormap;
-
-var pathgreen1= "resource/Colormaps/green1.xml";
-var pathgreen2= "resource/Colormaps/green2.xml";
-var pathgreen3= "resource/Colormaps/green3.xml";
-
 
 /////
 // Band Sketch
@@ -94,3 +70,51 @@ var indexOfDroppedPlace = -1;
 var editBandIndex = -1;
 var hasRightNeig = false
 var hasLeftNeig = false;
+
+
+// predefined Bands
+
+
+/*console.log(7777);
+var yxc  = new classColor_RGB(1, 0, 0);
+console.log(yxc.getRGBString());
+var const1 = new class_PredefinedBand(ttt);
+
+
+console.log(666);
+console.log(const1.getRGBString(0));*/
+var constBands = [  new classColor_RGB(1, 0.8, 0.8), new classColor_RGB(1, 0.4, 0.4), new classColor_RGB(1, 0.4, 0.2), new classColor_RGB(1, 0, 0), new classColor_RGB(0.8, 0, 0), new classColor_RGB(0.6, 0, 0), new classColor_RGB(0.4, 0, 0),  // red
+                    new classColor_RGB(1, 0.917647059, 0.8), new classColor_RGB(1, 0.76, 0.4), new classColor_RGB(1, 0.682352941, 0.2), new classColor_RGB(1, 0.6, 0), new classColor_RGB(0.8, 0.48, 0), new classColor_RGB(0.6, 0.36, 0), new classColor_RGB(0.4, 0.24, 0),  // orange
+                    new classColor_RGB(0.99999999956,1,0.78),  new classColor_RGB(0.99999999916,1,0.58), new classColor_RGB(0.99999999868,1,0.33999999999999997), new classColor_RGB(0.9999999988,1,0.4), new classColor_RGB(0.9999999982000001,1,0.09999999999999998), new classColor_RGB(0.9999999980000001,1,0), new classColor_RGB(0.7999999984000001,0.8,0), new classColor_RGB(0.5999999988,0.6,0), //yellow
+                    new classColor_RGB(0.7800000000044001,1,0.78), new classColor_RGB(0.800000000004,1,0.8), new classColor_RGB(0.6000000000079999,1,0.6), new classColor_RGB(0.400000000012,1,0.4), new classColor_RGB(0.20000000001599993,1,0.19999999999999996), new classColor_RGB(2.000000165480742e-11,1,0), new classColor_RGB(1.3200001092172898e-11,0.66,0),new classColor_RGB(1.2000000992884451e-11,0.6,0),  // green
+                    new classColor_RGB(0.78,1,1), new classColor_RGB(0.56,1,1), new classColor_RGB(0.6,1,1), new classColor_RGB(0.4,1,1), new classColor_RGB(0.2,1,1), new classColor_RGB(0,0.88,0.88), new classColor_RGB(0,0.8,0.8), new classColor_RGB(0,0.6,0.6), //blue 
+                    new classColor_RGB(0.7800000004400001,0.78,1), new classColor_RGB(0.8000000004000001,0.8,1), new classColor_RGB(0.6000000008,0.6,1), new classColor_RGB(0.4000000012000001,0.4,1), new classColor_RGB(0.2000000016000001,0.19999999999999996,1), new classColor_RGB(2.000000165480742e-9,0,1), new classColor_RGB(1.6000001323845936e-9,0,0.8), new classColor_RGB(1.2000000992884452e-9,0,0.6),  // blue 2
+                    new classColor_RGB(0.9999999979999998,0,1), new classColor_RGB(0.9999999996,0.8,1), new classColor_RGB(0.9999999991999999,0.6,1), new classColor_RGB(0.9999999987999999,0.4,1), new classColor_RGB(0.9999999983999999,0.19999999999999996,1), new classColor_RGB(0.9999999979999998,0,1), new classColor_RGB(0.7999999983999999,0,0.8),new classColor_RGB(0.5999999987999999,0,0.6)
+                 ];
+
+var scaleBands = [[new classColor_RGB(0, 0, 0), new classColor_RGB(1, 1, 1)], // black white
+                  [new classColor_RGB(1,0,0), new classColor_RGB(1,1,1)], // red white
+                  [new classColor_RGB(1,0,0), new classColor_RGB(1,1,0)], // red yellow
+                  [new classColor_RGB(1, 0, 0), new classColor_RGB(0, 1, 1)], // red cyan
+                  [new classColor_RGB(1, 0, 0), new classColor_RGB(0, 0, 1)], // red blue
+                  [new classColor_RGB(1, 1, 0), new classColor_RGB(0, 0, 1)], // yellow blue
+                  [new classColor_RGB(0, 1, 1), new classColor_RGB(0, 0, 1)], // cyan blue
+                  [new classColor_RGB(0, 1, 1), new classColor_RGB(1, 0, 1)], // cyan blue
+                  [new classColor_RGB(0, 0, 1), new classColor_RGB(1, 0, 1)], // cyan blue
+                  ];
+
+var doubleBands = [ [new classColor_RGB(1,0.04363238475790354,0.015850553040006377), new classColor_RGB(0.8425063909685755,0.5040655970974081,0.14291810185217466), new classColor_RGB(0.6199244458392044,0.6097191064500393,0.20300372989296359)], // red orange yellow
+                    [new classColor_RGB(0.9677215034696575,1,0.01989749749690406), new classColor_RGB(0.4898978955486485,0.7818022241151106,0.11047321311559163), new classColor_RGB(0.16662577174242177,0.5308916677874558,0.14806671752952635)], // yellow green
+                    [new classColor_RGB(0.9677215034696575,1,0.01989749749690406), new classColor_RGB(0.059850650279225155,0.7818022241151106,0.7501990085657919), new classColor_RGB(0.17221983919401046,0.1545121848060229,0.530891667787455)], // yellow blue
+                    [new classColor_RGB(0.011803608583108804,0.9865239817915799,1), new classColor_RGB(0.11996494364741034,0.3928048146641329,0.78180222411511), new classColor_RGB(0.17221983919401046,0.1545121848060229,0.530891667787455)], // blue
+                    [new classColor_RGB(0.011803608583108804,0.9865239817915799,1), new classColor_RGB(1,1,1), new classColor_RGB(1,0,0)], // cyan, white red
+                    [new classColor_RGB(0,0,1), new classColor_RGB(1,1,1), new classColor_RGB(1,0,0)], // blue, white red
+                  ]; // red white blue
+
+var tribleBands = [[new classColor_RGB(0, 0, 0), new classColor_RGB(0, 1, 0),new classColor_RGB(0, 1,1),new classColor_RGB(1, 1, 1)], // black green yellow white
+                  [new classColor_RGB(1, 1, 1), new classColor_RGB(0, 1,1),new classColor_RGB(0, 1, 0),new classColor_RGB(0, 0, 0)], // white yellow green black
+                  [new classColor_RGB(1, 0, 0), new classColor_RGB(0, 0, 0), new classColor_RGB(0, 0, 0),new classColor_RGB(0, 0, 1)]]; // red white blue
+
+var quadBands = [[new classColor_RGB(0, 0, 0), new classColor_RGB(0, 1, 0),new classColor_RGB(0, 1,1),new classColor_RGB(1, 0.5,0),new classColor_RGB(1, 1, 1)], // black green yellow white
+                  [new classColor_RGB(1, 1, 1), new classColor_RGB(1, 0.5,0), new classColor_RGB(0, 1,1),new classColor_RGB(0, 1, 0),new classColor_RGB(0, 0, 0)], // white yellow green black
+                  [new classColor_RGB(1, 0, 0), new classColor_RGB(0, 0, 0), new classColor_RGB(1, 1, 1), new classColor_RGB(0, 0, 0),new classColor_RGB(0, 0, 1)]]; // red white black white blue*/
