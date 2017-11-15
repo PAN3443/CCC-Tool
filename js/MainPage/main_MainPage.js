@@ -27,10 +27,15 @@ window.onload = function () {
         // Drag And Drop
         document.getElementById('id_creatorBand').addEventListener("dragstart", bandOnDragStart);
         document.getElementById('id_creatorBand').addEventListener("dragend", bandOnDragEnd);
-     
+
+        // Band Editor
+        document.getElementById('cancelBandEdit').addEventListener("click", deleteBandEditor);
+        document.getElementById('acceptBandEdit').addEventListener("click", acceptBandEditor);
+    
         // init //
         drawPredefinedBands();
-        drawHSBackground();
+        drawHSBackground("id_canvasPickerHS");
+        drawHSBackground("id_bandEditCanvasPickerHS");
         drawColorCircles();
         updateCreatorBand();
         styleBandCreator();
@@ -62,6 +67,7 @@ function styleMainPage(){
     var workRec = document.getElementById("id_mainpage").getBoundingClientRect();
     document.getElementById("id_expandTablebutton").style.height = workRec.height+"px";
 
+    // Main Page colorpicker
     var canvasColorspace = document.getElementById("id_workcanvasPicker");
     var rectPickerCanvas = document.getElementById("id_canvasPickerHS").getBoundingClientRect();
     //canvasColorspace.style.display = "initial";
@@ -71,6 +77,15 @@ function styleMainPage(){
     canvasColorspace.style.top = rectPickerCanvas.top+"px";
     canvasColorspace.style.left = rectPickerCanvas.left+"px";
 
+    // Band Edit colorpicker
+    canvasColorspace = document.getElementById("id_bandEditWorkcanvasPicker");
+    rectPickerCanvas = document.getElementById("id_bandEditCanvasPickerHS").getBoundingClientRect();
+    //canvasColorspace.style.display = "initial";
+    canvasColorspace.style.position = "absolute";
+    canvasColorspace.style.width = rectPickerCanvas.width+"px";
+    canvasColorspace.style.height = rectPickerCanvas.height+"px";
+    canvasColorspace.style.top = rectPickerCanvas.top+"px";
+    canvasColorspace.style.left = rectPickerCanvas.left+"px";
 
     document.getElementById("bandEditWindow").style.height = document.height+"px"; // workRec.height+"px";
 

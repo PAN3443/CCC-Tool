@@ -2018,13 +2018,39 @@ function addBand(type){
     drawPredefinedBands();
 }
 ///////////////////////////
-////   Open Band Editor ////
+////   Band Editor ////
 ///////////////////////////
-    
+
+function acceptBandEditor(){
+    document.getElementById("bandEditWindow").style.display = "none";
+}
+
+
+function deleteBandEditor(){
+    console.log(9999);
+    if(hasLeftNeig&&hasRightNeig){
+             var dist = Math.abs(colormapBandSketchR1[bandOptionsIndex+1]-colormapBandSketchR2[bandOptionsIndex-1]);
+
+            colormapBandSketchR2[bandOptionsIndex-1]=colormapBandSketchR2[bandOptionsIndex-1]+(dist*0.5);
+            colormapBandSketchR1[bandOptionsIndex+1]=colormapBandSketchR1[bandOptionsIndex+1]-(dist*0.5);
+    }  
+    colormapBandSketchC1.splice(bandOptionsIndex, 1);
+    colormapBandSketchC2.splice(bandOptionsIndex, 1);
+    colormapBandSketchR1.splice(bandOptionsIndex, 1);
+    colormapBandSketchR2.splice(bandOptionsIndex, 1);
+    orderColorSketch();
+    console.log(9999);
+    document.getElementById("bandEditWindow").style.display = "none";
+}
+
+
 function bandOnClick(event){
 
 
     document.getElementById("bandEditWindow").style.display = "initial";
+
+     var tmpString = event.target.id;
+     bandOptionsIndex = parseInt(tmpString.substr(4));
 
 
     /*var box = document.getElementById("bandEditWindow").getBoundingClientRect();
@@ -2037,85 +2063,76 @@ function bandOnClick(event){
     var top  = box.top +  scrollTop - clientTop;
     document.getElementById("createSide_AddBandWindow").style.paddingTop = top+"px";*/
 
-        // init band option window
-        var tmpString = event.target.id;
-        tmpString = tmpString.substr(4);
-        var tmpIndex = parseInt(tmpString);
-        editBandIndex = tmpIndex;
-        if(tmpIndex==0){
+        // init
+        document.getElementById("bandEdit_RightNeiColor").style.background = "rgb(120,120,120)";
+        document.getElementById("bandEdit_LeftNeiColor").style.background = "rgb(120,120,120)";
+        document.getElementById("bandEdit_LeftNeiLeftRef").innerHTML = "NaN";
+        document.getElementById("bandEdit_LeftNeiRightRef").innerHTML = "NaN";
+        document.getElementById("bandEdit_RightNeiLeftRef").innerHTML = "NaN";
+        document.getElementById("bandEdit_RightNeiRightRef").innerHTML = "NaN";
+
+        // data from band
+
+        document.getElementById("bandEdit_InputLeftRef").value = colormapBandSketchR1[bandOptionsIndex];
+        document.getElementById("bandEdit_InputRightRef").value = colormapBandSketchR2[bandOptionsIndex];
+        document.getElementById("bandEdit_LeftColor").style.background = colormapBandSketchC1[bandOptionsIndex].getRGBString();
+        document.getElementById("bandEdit_RightColor").style.background = colormapBandSketchC2[bandOptionsIndex].getRGBString();
+        
+
+        // draw band
+         var oCan = document.getElementById("bandEdit_EditCanvas");
+         drawCanvasBand(oCan, colormapBandSketchC1[bandOptionsIndex], colormapBandSketchC2[bandOptionsIndex],oCan.width,oCan.height );
+
+
+        // data from neighbours
+        if(bandOptionsIndex==0){
             hasLeftNeig = false;
             
-            //document.getElementById("createSide_AddBand_InputLeftRef").value = colormapBandSketchR1[bandOptionsIndex];
-            //document.getElementById("createSide_AddBand_LeftNeig").style.background = "rgb(120,120,120)";
+            var tCan = document.getElementById("bandEdit_LeftNeigCanvas");
+            var ctx = tCan.getContext("2d");
+            ctx.beginPath();
+            ctx.rect(0, 0, tCan.width, tCan.height);
+            ctx.fillStyle = "rgb(120,120,120)";
+            ctx.fill();
         }
         else{
             hasLeftNeig = true;
-            //document.getElementById("createSide_AddLeftNeiColor").style.background = colormapBandSketchC2[tmpIndex].getRGBString();
-            //document.getElementById("createSide_AddBand_LeftNeiLeftRef").innerHTML = colormapBandSketchR1[tmpIndex];
-            //document.getElementById("createSide_AddBand_LeftNeiRightRef").innerHTML = colormapBandSketchR2[tmpIndex];
-            //colormapBandSketchR1[bandOptionsIndex] = colormapBandSketchR2[tmpIndex]; 
-            
-            /*if(bandType[colormapBandSketch[tmpIndex]]){
 
-                document.getElementById("createSide_AddBand_LeftNeig").style.background = '-webkit-linear-gradient(left, '+colormapBandSketchC1[tmpIndex].getRGBString()+','+colormapBandSketchC2[tmpIndex].getRGBString()+')';
-                document.getElementById("createSide_AddBand_LeftNeig").style.background = '-o-linear-gradient(right, '+colormapBandSketchC1[tmpIndex].getRGBString()+','+colormapBandSketchC2[tmpIndex].getRGBString()+')';
-                document.getElementById("createSide_AddBand_LeftNeig").style.background = '-moz-linear-gradient(right, '+colormapBandSketchC1[tmpIndex].getRGBString()+','+colormapBandSketchC2[tmpIndex].getRGBString()+')';
-                document.getElementById("createSide_AddBand_LeftNeig").style.background = 'linear-gradient(to right, '+colormapBandSketchC1[tmpIndex].getRGBString()+','+colormapBandSketchC2[tmpIndex].getRGBString()+')';
-            }   
-            else{
-                document.getElementById("createSide_AddBand_LeftNeig").style.background = colormapBandSketchC2[tmpIndex].getRGBString();
-            }*/ 
+
+            document.getElementById("bandEdit_LeftNeiColor").style.background = colormapBandSketchC2[bandOptionsIndex-1].getRGBString();
+            document.getElementById("bandEdit_LeftNeiLeftRef").innerHTML = colormapBandSketchR1[bandOptionsIndex-1];
+            document.getElementById("bandEdit_LeftNeiRightRef").innerHTML = colormapBandSketchR2[bandOptionsIndex-1];
+           
+            // Draw the Band
+            var tCan = document.getElementById("bandEdit_LeftNeigCanvas");
+            drawCanvasBand(tCan, colormapBandSketchC1[bandOptionsIndex-1], colormapBandSketchC2[bandOptionsIndex-1],tCan.width,tCan.height );
+
+            
         }
-        if(tmpIndex==colormapBandSketchC1.length-1){
+        if(bandOptionsIndex==colormapBandSketchC1.length-1){
             hasRightNeig = false;
 
-            /*if(hasLeftNeig && isnew)
-            colormapBandSketchR2[bandOptionsIndex] = colormapBandSketchR2[bandOptionsIndex-1]+1; 
-
-            document.getElementById("createSide_AddBand_RightNeig").style.background = "rgb(120,120,120)";*/
+            var tCan = document.getElementById("bandEdit_RightNeigCanvas");
+            var ctx = tCan.getContext("2d");
+            ctx.beginPath();
+            ctx.rect(0, 0, tCan.width, tCan.height);
+            ctx.fillStyle = "rgb(120,120,120)";
+            ctx.fill();
         }
         else{
             hasRightNeig = true;
-            /*document.getElementById("createSide_AddRightNeiColor").style.background = colormapBandSketchC1[tmpIndex].getRGBString();
-            document.getElementById("createSide_AddBand_RightNeiLeftRef").innerHTML = colormapBandSketchR1[tmpIndex];
-            document.getElementById("createSide_AddBand_RightNeiRightRef").innerHTML = colormapBandSketchR2[tmpIndex];   
-            
-            colormapBandSketchR2[bandOptionsIndex] = colormapBandSketchR1[tmpIndex]; 
-
-            if(hasLeftNeig == false && isnew){
-                colormapBandSketchR1[bandOptionsIndex] = colormapBandSketchR1[tmpIndex]-1; 
-            }
-
-            if(bandType[colormapBandSketch[tmpIndex]]){
-                document.getElementById("createSide_AddBand_RightNeig").style.background = '-webkit-linear-gradient(left, '+colormapBandSketchC1[tmpIndex].getRGBString()+','+colormapBandSketchC2[tmpIndex].getRGBString()+')';
-                document.getElementById("createSide_AddBand_RightNeig").style.background = '-o-linear-gradient(right, '+colormapBandSketchC1[tmpIndex].getRGBString()+','+colormapBandSketchC2[tmpIndex].getRGBString()+')';
-                document.getElementById("createSide_AddBand_RightNeig").style.background = '-moz-linear-gradient(right, '+colormapBandSketchC1[tmpIndex].getRGBString()+','+colormapBandSketchC2[tmpIndex].getRGBString()+')';
-                document.getElementById("createSide_AddBand_RightNeig").style.background = 'linear-gradient(to right, '+colormapBandSketchC1[tmpIndex].getRGBString()+','+colormapBandSketchC2[tmpIndex].getRGBString()+')';
-            }   
-            else{
-                document.getElementById("createSide_AddBand_RightNeig").style.background = colormapBandSketchC1[tmpIndex].getRGBString();
-            }*/ 
-    
+            document.getElementById("bandEdit_RightNeiColor").style.background = colormapBandSketchC1[bandOptionsIndex+1].getRGBString();
+            document.getElementById("bandEdit_RightNeiLeftRef").innerHTML = colormapBandSketchR1[bandOptionsIndex+1];
+            document.getElementById("bandEdit_RightNeiRightRef").innerHTML = colormapBandSketchR2[bandOptionsIndex+1];
+           
+            // Draw the Band
+            var tCan = document.getElementById("bandEdit_RightNeigCanvas");
+            drawCanvasBand(tCan, colormapBandSketchC1[bandOptionsIndex+1], colormapBandSketchC2[bandOptionsIndex+1],tCan.width,tCan.height );
 
         }
 
-
-        /*document.getElementById("createSide_AddBand_InputLeftRef").value = colormapBandSketchR1[bandOptionsIndex];
-        document.getElementById("createSide_AddBand_InputRightRef").value = colormapBandSketchR2[bandOptionsIndex];
-        document.getElementById('createSide_AddLeftColor').value = colormapBandSketchC1[bandOptionsIndex].getHexString();
-        document.getElementById('createSide_AddRightColor').value = colormapBandSketchC2[bandOptionsIndex].getHexString();*/
-
-        
-        // 
-        if(bandType[colormapBandSketch[bandOptionsIndex]]){
-
-                /*document.getElementById("createSide_AddBand_InsertBand").style.background = '-webkit-linear-gradient(left, '+colormapBandSketchC1[bandOptionsIndex].getRGBString()+','+colormapBandSketchC2[bandOptionsIndex].getRGBString()+')';
-                document.getElementById("createSide_AddBand_InsertBand").style.background = '-o-linear-gradient(right, '+colormapBandSketchC1[bandOptionsIndex].getRGBString()+','+colormapBandSketchC2[bandOptionsIndex].getRGBString()+')';
-                document.getElementById("createSide_AddBand_InsertBand").style.background = '-moz-linear-gradient(right, '+colormapBandSketchC1[bandOptionsIndex].getRGBString()+','+colormapBandSketchC2[bandOptionsIndex].getRGBString()+')';
-                document.getElementById("createSide_AddBand_InsertBand").style.background = 'linear-gradient(to right, '+colormapBandSketchC1[bandOptionsIndex].getRGBString()+','+colormapBandSketchC2[bandOptionsIndex].getRGBString()+')';*/
-        }   
-        else{
-                //document.getElementById("createSide_AddBand_InsertBand").style.background = colormapBandSketchC1[bandOptionsIndex].getRGBString();
-        } 
 }
+
+
+
 

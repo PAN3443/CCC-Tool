@@ -60,9 +60,21 @@ function bandOnDragStart(event){
             dropPositionElements[0].style.border = "3px dashed red";
         }
         else{
+
+            var tmpRect = document.getElementById("id_colormapSketch").getBoundingClientRect();
+            var tmpLength = tmpRect.width/(colormapBandSketchC1.length-1+colormapBandSketchC1.length);//100/(colormapBandSketchC1.length-1);
+            
             for(var i=0; i<dropPositionElements.length; i++){
                 dropPositionElements[i].style.display = "initial";
+                dropPositionElements[i].style.width = tmpLength+"px";
             }
+
+            for(var i=0; i<droppedBandElements.length; i++){
+                droppedBandElements[i].style.width = tmpLength+"px";
+            }
+              
+                
+           
         }
 
 
@@ -80,9 +92,18 @@ function bandOnDragEnd(event) {
     }
     else{
         // hide all drop positions
+        var tmpRect = document.getElementById("id_colormapSketch").getBoundingClientRect();
+        var tmpLength = tmpRect.width/(colormapBandSketchC1.length-1);//100/(colormapBandSketchC1.length-1);
+        
+
         for(var i=0; i<dropPositionElements.length; i++){
-            dropPositionElements[i].style.display = "none";  
+                dropPositionElements[i].style.display = "none";
         }
+
+        for(var i=0; i<droppedBandElements.length; i++){
+                droppedBandElements[i].style.width = tmpLength+"px";
+        }
+
     }
 
 }
@@ -518,18 +539,97 @@ function bandOnDrop(event){
 
                 }*/
 
-        console.log(dragPredefinedBandType);
-        console.log(dragPredefinedBandIndex);
+               
         switch(dragPredefinedBandType){
             case 0:
                     // ->const
                     colormapBandSketchC1.splice(indexOfDroppedPlace, 0, constBands[dragPredefinedBandIndex]);
                     colormapBandSketchC2.splice(indexOfDroppedPlace, 0, constBands[dragPredefinedBandIndex]);
+
+                    if(colormapBandSketchR1.length==0){
+                            colormapBandSketchR1.splice(indexOfDroppedPlace, 0, 0.0);
+                            colormapBandSketchR2.splice(indexOfDroppedPlace, 0, 1.0);
+                    }
+                    else{
+
+                        // band as least
+                        if(colormapBandSketchR1.length == indexOfDroppedPlace){
+                            var tmpVal = colormapBandSketchR2[indexOfDroppedPlace-1];
+                            var dist = Math.abs(tmpVal-colormapBandSketchR1[indexOfDroppedPlace-1]);
+                            colormapBandSketchR1.splice(indexOfDroppedPlace, 0, tmpVal);
+                            colormapBandSketchR2.splice(indexOfDroppedPlace, 0, tmpVal+dist);
+                        }
+                        else{
+
+                            // band in the middle
+                            if(colormapBandSketchR1.length > indexOfDroppedPlace && indexOfDroppedPlace!=0){
+                                var newPos = colormapBandSketchR2[indexOfDroppedPlace-1]-Math.abs(colormapBandSketchR2[indexOfDroppedPlace-1]-colormapBandSketchR1[indexOfDroppedPlace-1])/2;
+                                colormapBandSketchR2[indexOfDroppedPlace-1] = newPos;
+
+                                var newPos2 = colormapBandSketchR2[indexOfDroppedPlace]-Math.abs(colormapBandSketchR2[indexOfDroppedPlace]-colormapBandSketchR1[indexOfDroppedPlace])/2;
+                                colormapBandSketchR1[indexOfDroppedPlace] = newPos2;
+
+                                colormapBandSketchR1.splice(indexOfDroppedPlace, 0, newPos);
+                                colormapBandSketchR2.splice(indexOfDroppedPlace, 0, newPos2);
+                            }
+                        }
+
+                        // band as frist
+                        if(indexOfDroppedPlace==0){
+                            var tmpVal = colormapBandSketchR1[0];
+                            var dist = Math.abs(tmpVal-colormapBandSketchR2[0]);
+                            colormapBandSketchR1.splice(indexOfDroppedPlace, 0, tmpVal-dist);
+                            colormapBandSketchR2.splice(indexOfDroppedPlace, 0, tmpVal);
+                        }
+
+                    }
             break;
             case 1:
                     // ->scale
                     colormapBandSketchC1.splice(indexOfDroppedPlace, 0, scaleBands[dragPredefinedBandIndex][0]);
                     colormapBandSketchC2.splice(indexOfDroppedPlace, 0, scaleBands[dragPredefinedBandIndex][1]);
+                    if(colormapBandSketchR1.length==0){
+                            colormapBandSketchR1.splice(indexOfDroppedPlace, 0, 0.0);
+                            colormapBandSketchR2.splice(indexOfDroppedPlace, 0, 1.0);
+                    }
+                    else{
+
+
+
+                        // band as least
+                        if(indexOfDroppedPlace == colormapBandSketchR1.length){
+                            var tmpVal = colormapBandSketchR2[indexOfDroppedPlace-1];
+                            var dist = Math.abs(tmpVal-colormapBandSketchR1[indexOfDroppedPlace-1]);
+                            console.log(tmpVal);
+                            console.log(dist);
+                            colormapBandSketchR1.splice(indexOfDroppedPlace, 0, tmpVal);
+                            colormapBandSketchR2.splice(indexOfDroppedPlace, 0, tmpVal+dist);
+                        }
+                        else{
+                            // band in the middle
+                            if(indexOfDroppedPlace < colormapBandSketchR1.length && indexOfDroppedPlace!=0){
+                            console.log(indexOfDroppedPlace);
+                                var newPos = colormapBandSketchR2[indexOfDroppedPlace-1]-Math.abs(colormapBandSketchR2[indexOfDroppedPlace-1]-colormapBandSketchR1[indexOfDroppedPlace-1])/2;
+                                colormapBandSketchR2[indexOfDroppedPlace-1] = newPos;
+                                
+                                var newPos2 = colormapBandSketchR2[indexOfDroppedPlace]-Math.abs(colormapBandSketchR2[indexOfDroppedPlace]-colormapBandSketchR1[indexOfDroppedPlace])/2;
+                                colormapBandSketchR1[indexOfDroppedPlace] = newPos2;
+
+                                colormapBandSketchR1.splice(indexOfDroppedPlace, 0, newPos);
+                                colormapBandSketchR2.splice(indexOfDroppedPlace, 0, newPos2);
+
+                            }
+                        }
+
+                        // band as frist
+                        if(indexOfDroppedPlace==0){
+                            var tmpVal = colormapBandSketchR1[0];
+                            var dist = Math.abs(tmpVal-colormapBandSketchR2[0]);
+                            colormapBandSketchR1.splice(indexOfDroppedPlace, 0, tmpVal-dist);
+                            colormapBandSketchR2.splice(indexOfDroppedPlace, 0, tmpVal);
+                        }
+                        
+                    }
             break;
             case 2:
                     // ->double
@@ -537,6 +637,52 @@ function bandOnDrop(event){
                     colormapBandSketchC2.splice(indexOfDroppedPlace, 0, doubleBands[dragPredefinedBandIndex][2]);
                     colormapBandSketchC1.splice(indexOfDroppedPlace, 0, doubleBands[dragPredefinedBandIndex][0]);
                     colormapBandSketchC2.splice(indexOfDroppedPlace, 0, doubleBands[dragPredefinedBandIndex][1]);
+                    if(colormapBandSketchR1.length==0){
+                            colormapBandSketchR1.splice(indexOfDroppedPlace, 0, 0.5);
+                            colormapBandSketchR2.splice(indexOfDroppedPlace, 0, 1.0);
+                            colormapBandSketchR1.splice(indexOfDroppedPlace, 0, 0.0);
+                            colormapBandSketchR2.splice(indexOfDroppedPlace, 0, 0.5);
+                    }
+                    else{
+
+                        // band as least
+                        if(colormapBandSketchR1.length == indexOfDroppedPlace){
+                            var tmpVal = colormapBandSketchR2[indexOfDroppedPlace-1];
+                            var dist = Math.abs(tmpVal-colormapBandSketchR1[indexOfDroppedPlace-1]);
+                            colormapBandSketchR1.splice(indexOfDroppedPlace, 0, tmpVal+dist);
+                            colormapBandSketchR2.splice(indexOfDroppedPlace, 0, tmpVal+dist*2);
+                            colormapBandSketchR1.splice(indexOfDroppedPlace, 0, tmpVal);
+                            colormapBandSketchR2.splice(indexOfDroppedPlace, 0, tmpVal+dist);
+                        }
+                        else{
+                            // band in the middle
+                            if(colormapBandSketchR1.length > indexOfDroppedPlace && indexOfDroppedPlace!=0){
+                            
+                                var newPos = colormapBandSketchR2[indexOfDroppedPlace-1]-Math.abs(colormapBandSketchR2[indexOfDroppedPlace-1]-colormapBandSketchR1[indexOfDroppedPlace-1])/2;
+                                colormapBandSketchR2[indexOfDroppedPlace-1] = newPos;
+                                
+                                var newPos2 = colormapBandSketchR2[indexOfDroppedPlace]-Math.abs(colormapBandSketchR2[indexOfDroppedPlace]-colormapBandSketchR1[indexOfDroppedPlace])/2;
+                                colormapBandSketchR1[indexOfDroppedPlace] = newPos2;
+
+                                var dist = Math.abs(newPos2-newPos);
+                                colormapBandSketchR1.splice(indexOfDroppedPlace, 0, newPos+(0.5*dist));
+                                colormapBandSketchR2.splice(indexOfDroppedPlace, 0, newPos2);
+                                colormapBandSketchR1.splice(indexOfDroppedPlace, 0, newPos);
+                                colormapBandSketchR2.splice(indexOfDroppedPlace, 0, newPos+(0.5*dist));
+                            }
+
+                            // band as frist
+                            if(indexOfDroppedPlace==0){
+                                var tmpVal = colormapBandSketchR1[0];
+                                var dist = Math.abs(tmpVal-colormapBandSketchR2[0]);
+                                colormapBandSketchR1.splice(indexOfDroppedPlace, 0, tmpVal-dist);
+                                colormapBandSketchR2.splice(indexOfDroppedPlace, 0, tmpVal);
+                                colormapBandSketchR1.splice(indexOfDroppedPlace, 0, tmpVal-dist*2);
+                                colormapBandSketchR2.splice(indexOfDroppedPlace, 0, tmpVal-dist);
+                            }
+                        }
+                        
+                    }
             break;
             case 3:
                     // ->triple
@@ -546,6 +692,59 @@ function bandOnDrop(event){
                     colormapBandSketchC2.splice(indexOfDroppedPlace, 0, tribleBands[dragPredefinedBandIndex][2]);
                     colormapBandSketchC1.splice(indexOfDroppedPlace, 0, tribleBands[dragPredefinedBandIndex][0]);
                     colormapBandSketchC2.splice(indexOfDroppedPlace, 0, tribleBands[dragPredefinedBandIndex][1]);
+                    if(colormapBandSketchR1.length==0){
+                            colormapBandSketchR1.splice(indexOfDroppedPlace, 0, 0.66);
+                            colormapBandSketchR2.splice(indexOfDroppedPlace, 0, 1.0);
+                            colormapBandSketchR1.splice(indexOfDroppedPlace, 0, 0.33);
+                            colormapBandSketchR2.splice(indexOfDroppedPlace, 0, 0.66);
+                            colormapBandSketchR1.splice(indexOfDroppedPlace, 0, 0.0);
+                            colormapBandSketchR2.splice(indexOfDroppedPlace, 0, 0.33);
+                    }
+                    else{
+                            // band as least
+                        if(colormapBandSketchR1.length == indexOfDroppedPlace){
+                            var tmpVal = colormapBandSketchR2[indexOfDroppedPlace-1];
+                            var dist = Math.abs(tmpVal-colormapBandSketchR1[indexOfDroppedPlace-1]);
+                            colormapBandSketchR1.splice(indexOfDroppedPlace, 0, tmpVal+(dist*2));
+                            colormapBandSketchR2.splice(indexOfDroppedPlace, 0, tmpVal+(dist*3));
+                            colormapBandSketchR1.splice(indexOfDroppedPlace, 0, tmpVal+(dist));
+                            colormapBandSketchR2.splice(indexOfDroppedPlace, 0, tmpVal+(dist*2));
+                            colormapBandSketchR1.splice(indexOfDroppedPlace, 0, tmpVal);
+                            colormapBandSketchR2.splice(indexOfDroppedPlace, 0, tmpVal+dist);
+                        }
+                        else{
+                            // band in the middle
+                            if(colormapBandSketchR1.length > indexOfDroppedPlace && indexOfDroppedPlace!=0){
+                            
+                                var newPos = colormapBandSketchR2[indexOfDroppedPlace-1]-Math.abs(colormapBandSketchR2[indexOfDroppedPlace-1]-colormapBandSketchR1[indexOfDroppedPlace-1])/2;
+                                colormapBandSketchR2[indexOfDroppedPlace-1] = newPos;
+                                
+                                var newPos2 = colormapBandSketchR2[indexOfDroppedPlace]-Math.abs(colormapBandSketchR2[indexOfDroppedPlace]-colormapBandSketchR1[indexOfDroppedPlace])/2;
+                                colormapBandSketchR1[indexOfDroppedPlace] = newPos2;
+
+                                var dist = Math.abs(newPos2-newPos);
+                                colormapBandSketchR1.splice(indexOfDroppedPlace, 0, newPos+(0.66*dist));
+                                colormapBandSketchR2.splice(indexOfDroppedPlace, 0, newPos2);
+                                colormapBandSketchR1.splice(indexOfDroppedPlace, 0, newPos+(0.33*dist));
+                                colormapBandSketchR2.splice(indexOfDroppedPlace, 0, newPos+(0.66*dist));
+                                colormapBandSketchR1.splice(indexOfDroppedPlace, 0, newPos);
+                                colormapBandSketchR2.splice(indexOfDroppedPlace, 0, newPos+(0.33*dist));
+                            }
+
+                            // band as frist
+                            if(indexOfDroppedPlace==0){
+                                var tmpVal = colormapBandSketchR1[0];
+                                var dist = Math.abs(tmpVal-colormapBandSketchR2[0]);
+                                colormapBandSketchR1.splice(indexOfDroppedPlace, 0, tmpVal-(dist));
+                                colormapBandSketchR2.splice(indexOfDroppedPlace, 0, tmpVal);
+                                colormapBandSketchR1.splice(indexOfDroppedPlace, 0, tmpVal-(dist*2));
+                                colormapBandSketchR2.splice(indexOfDroppedPlace, 0, tmpVal-(dist));
+                                colormapBandSketchR1.splice(indexOfDroppedPlace, 0, tmpVal-(dist*3));
+                                colormapBandSketchR2.splice(indexOfDroppedPlace, 0, tmpVal-(dist*2));
+                            }
+                        }
+                        
+                    }
             break;
             case 4:
                     // ->quad
@@ -557,13 +756,73 @@ function bandOnDrop(event){
                     colormapBandSketchC2.splice(indexOfDroppedPlace, 0, quadBands[dragPredefinedBandIndex][2]);
                     colormapBandSketchC1.splice(indexOfDroppedPlace, 0, quadBands[dragPredefinedBandIndex][0]);
                     colormapBandSketchC2.splice(indexOfDroppedPlace, 0, quadBands[dragPredefinedBandIndex][1]);
+                    if(colormapBandSketchR1.length==0){
+                            colormapBandSketchR1.splice(indexOfDroppedPlace, 0, 0.25);
+                            colormapBandSketchR2.splice(indexOfDroppedPlace, 0, 0.5);
+                            colormapBandSketchR1.splice(indexOfDroppedPlace, 0, 0.5);
+                            colormapBandSketchR2.splice(indexOfDroppedPlace, 0, 0.75);
+                            colormapBandSketchR1.splice(indexOfDroppedPlace, 0, 0.75);
+                            colormapBandSketchR2.splice(indexOfDroppedPlace, 0, 1.0);
+                            colormapBandSketchR1.splice(indexOfDroppedPlace, 0, 0.0);
+                            colormapBandSketchR2.splice(indexOfDroppedPlace, 0, 0.25);
+                    }
+                    else{
+                          // band as least
+                        if(colormapBandSketchR1.length == indexOfDroppedPlace){
+                            var tmpVal = colormapBandSketchR2[indexOfDroppedPlace-1];
+                            var dist = Math.abs(tmpVal-colormapBandSketchR1[indexOfDroppedPlace-1]);
+                            colormapBandSketchR1.splice(indexOfDroppedPlace, 0, tmpVal+(dist*3));
+                            colormapBandSketchR2.splice(indexOfDroppedPlace, 0, tmpVal+(dist*4));
+                            colormapBandSketchR1.splice(indexOfDroppedPlace, 0, tmpVal+(dist*2));
+                            colormapBandSketchR2.splice(indexOfDroppedPlace, 0, tmpVal+(dist*3));
+                            colormapBandSketchR1.splice(indexOfDroppedPlace, 0, tmpVal+(dist));
+                            colormapBandSketchR2.splice(indexOfDroppedPlace, 0, tmpVal+(dist*2));
+                            colormapBandSketchR1.splice(indexOfDroppedPlace, 0, tmpVal);
+                            colormapBandSketchR2.splice(indexOfDroppedPlace, 0, tmpVal+dist);
+                        }
+                        else{
+                            // band in the middle
+                            if(colormapBandSketchR1.length > indexOfDroppedPlace && indexOfDroppedPlace!=0){
+                            
+                                var newPos = colormapBandSketchR2[indexOfDroppedPlace-1]-Math.abs(colormapBandSketchR2[indexOfDroppedPlace-1]-colormapBandSketchR1[indexOfDroppedPlace-1])/2;
+                                colormapBandSketchR2[indexOfDroppedPlace-1] = newPos;
+                                
+                                var newPos2 = colormapBandSketchR2[indexOfDroppedPlace]-Math.abs(colormapBandSketchR2[indexOfDroppedPlace]-colormapBandSketchR1[indexOfDroppedPlace])/2;
+                                colormapBandSketchR1[indexOfDroppedPlace] = newPos2;
+
+                                var dist = Math.abs(newPos2-newPos);
+                                 colormapBandSketchR1.splice(indexOfDroppedPlace, 0, newPos+(0.75*dist));
+                                colormapBandSketchR2.splice(indexOfDroppedPlace, 0, newPos2);
+                                colormapBandSketchR1.splice(indexOfDroppedPlace, 0, newPos+(0.5*dist));
+                                colormapBandSketchR2.splice(indexOfDroppedPlace, 0, newPos+(0.75*dist));
+                                colormapBandSketchR1.splice(indexOfDroppedPlace, 0, newPos+(0.25*dist));
+                                colormapBandSketchR2.splice(indexOfDroppedPlace, 0, newPos+(0.5*dist));
+                                colormapBandSketchR1.splice(indexOfDroppedPlace, 0, newPos);
+                                colormapBandSketchR2.splice(indexOfDroppedPlace, 0, newPos+(0.25*dist));
+                            }
+
+                            // band as frist
+                            if(indexOfDroppedPlace==0){
+                                var tmpVal = colormapBandSketchR1[0];
+                                var dist = Math.abs(tmpVal-colormapBandSketchR2[0]);
+                                colormapBandSketchR1.splice(indexOfDroppedPlace, 0, tmpVal-(dist));
+                                colormapBandSketchR2.splice(indexOfDroppedPlace, 0, tmpVal);
+                                colormapBandSketchR1.splice(indexOfDroppedPlace, 0, tmpVal-(dist*2));
+                                colormapBandSketchR2.splice(indexOfDroppedPlace, 0, tmpVal-(dist));
+                                colormapBandSketchR1.splice(indexOfDroppedPlace, 0, tmpVal-(dist*3));
+                                colormapBandSketchR2.splice(indexOfDroppedPlace, 0, tmpVal-(dist*2));
+                                colormapBandSketchR1.splice(indexOfDroppedPlace, 0, tmpVal-(dist*4));
+                                colormapBandSketchR2.splice(indexOfDroppedPlace, 0, tmpVal-(dist*3));
+                            }
+                        }
+                    }
+
             break;
         
             default:
         }
 
-              
-
+        
        /* if(colormapBandSketchR1.length==0){
             colormapBandSketchR1.splice(indexOfDroppedPlace, 0, 0.0);
             colormapBandSketchR2.splice(indexOfDroppedPlace, 0, 1.0);
@@ -611,7 +870,7 @@ function bandOnDrop(event){
 
         // open Band Options
 
-        bandOptionsIndex = indexOfDroppedPlace;
+      
         createSide_OpenBandOption(true);
 
     }*/
@@ -626,10 +885,16 @@ function orderColorSketch(){
 
    
     document.getElementById("id_colormapSketch").innerHTML = null;
+    dropPositionElements = [];
+    droppedBandElements = [];
 
     if(colormapBandSketchC1.length!=0){ 
 
         document.getElementById("id_colormapSketch").style.border = "none";
+
+        var tmpRect = document.getElementById("id_colormapSketch").getBoundingClientRect();
+        
+        var tmpLength = tmpRect.width/colormapBandSketchC1.length-1;//100/(colormapBandSketchC1.length-1);
 
         for(var i=0; i<colormapBandSketchC1.length; i++){
 
@@ -639,12 +904,13 @@ function orderColorSketch(){
             tDiv.style.border = "3px solid red";
             tDiv.style.height = 100 +'%'; 
             tDiv.style.width = 100+'%';
-            tDiv.style.textAlign = 'center';
-            tDiv.style.lineHeight = "2cm";
-            tDiv.style.verticalAlign = "middle";
             tDiv.style.display = "none";
             //tDiv.style.visibility = "hidden";
-            tDiv.innerHTML = "Drop Here";
+            tDiv.style.lineHeight = "8vh";
+            tDiv.style.fontSize = "2vh";
+            tDiv.style.textAlign = "center";
+            tDiv.style.verticalAlign = "middle";
+            tDiv.innerHTML = "Here";
 
             tDiv.addEventListener("dragenter", bandOnEnter);
             tDiv.addEventListener("dragleave", bandOnLeave);
@@ -668,71 +934,14 @@ function orderColorSketch(){
             tCan.setAttribute('draggable', true);
 
             document.getElementById("id_colormapSketch").appendChild(tCan);
+            droppedBandElements.push(tCan);
 
             tCan.style.height = 100 +'%'; 
-            tCan.style.width = 100 +'%';
+            tCan.style.maxWidth = tmpLength + "px"; //100 +'%';
+            tCan.style.width = tmpLength + "px"; //100 +'%';
             tCan.style.cursor = "move";
 
-            var resolutionX = 200;
-            var resolutionY = 75;
-            
-            $("#band"+i).attr("width", resolutionX+"px");
-            $("#band"+i).attr("height", resolutionY+"px"); 
-
-            var canvasContex = tCan.getContext("2d");
-            var canvasData = canvasContex.getImageData(0, 0, tCan.width, tCan.height);
-
-            switch(colorspaceModus){
-                case "rgb":;
-
-                    if(colormapBandSketchC1[i].getRGBString()===colormapBandSketchC2[i].getRGBString()){
-                        canvasData=createConstantBand(canvasData, 0, resolutionX, resolutionY, colormapBandSketchC1[i], resolutionX);
-                    }
-                    else{  
-                        canvasData=createScaledBand(canvasData, 0, resolutionX, resolutionY, colormapBandSketchC1[i], colormapBandSketchC2[i], resolutionX);
-                    }
-
-                break;
-                case "hsv": 
-
-                    var tmpC1HSV = colormapBandSketchC1[i].calcHSVColor();
-                    if(colormapBandSketchC1[i].getRGBString()===colormapBandSketchC2[i].getRGBString()){
-                        canvasData=createConstantBand(canvasData, 0, resolutionX, resolutionY, tmpC1HSV, resolutionX);
-                    }
-                    else{
-                        var tmpC2HSV = colormapBandSketchC2[i].calcHSVColor();
-                        canvasData=createScaledBand(canvasData, 0, resolutionX, resolutionY, tmpC1HSV, tmpC2HSV, resolutionX);
-                    }
-
-                break;
-                case "lab":  
-
-                    var tmpC1LAB = colormapBandSketchC1[i].calcCIELabColor();
-                    if(colormapBandSketchC1[i].getRGBString()===colormapBandSketchC2[i].getRGBString()){
-                        canvasData=createConstantBand(canvasData, 0, resolutionX, resolutionY, tmpC1LAB, resolutionX);
-                    }
-                    else{
-                        var tmpC2LAB = colormapBandSketchC2[i].calcCIELabColor();
-                        canvasData=createScaledBand(canvasData, 0, resolutionX, resolutionY, tmpC1LAB, tmpC2LAB, resolutionX);
-                    }
-
-                break;
-                case "din99":
-                    var tmpC1DIN99 = colormapBandSketchC1[i].calcDIN99Color(kE,kCH);
-                    if(colormapBandSketchC1[i].getRGBString()===colormapBandSketchC2[i].getRGBString()){
-                        canvasData=createConstantBand(canvasData, 0, resolutionX, resolutionY, tmpC1DIN99, resolutionX);
-                    }
-                    else{
-                        var tmpC2DIN99 = colormapBandSketchC2[i].calcDIN99Color(kE,kCH);
-                        canvasData=createScaledBand(canvasData, 0, resolutionX, resolutionY, tmpC1DIN99, tmpC2DIN99, resolutionX);
-                    }
-
-                break;
-                default:
-                console.log("Error at the changeColorspace function");
-            }
-
-            canvasContex.putImageData(canvasData, 0, 0);
+            drawCanvasBand(tCan, colormapBandSketchC1[i], colormapBandSketchC2[i],tCan.width,tCan.height );
 
             //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -741,21 +950,21 @@ function orderColorSketch(){
             //tCan.addEventListener("dragstart", createSide_BandOnDragStart);
             //tCan.addEventListener("dragend", createSide_BandOnDragEnd);
             tCan.addEventListener("click", bandOnClick);
-
-
         }
+
+    
 
         var t2Div = document.createElement('div');
             t2Div.id = 'dragPos'+colormapBandSketchC1.length;
             t2Div.style.border = "3px solid red";
             t2Div.style.height = 99 +'%'; 
             t2Div.style.width = 100+'%';
-            t2Div.style.display = "none";
-            //tDiv.style.visibility = "hidden";
-            t2Div.style.textAlign = 'center';
-            t2Div.style.lineHeight = "2cm";
+            t2Div.style.display = "none";  
+            t2Div.style.lineHeight = "8vh";
+            t2Div.style.fontSize = "2vh";
+            t2Div.style.textAlign = "center";
             t2Div.style.verticalAlign = "middle";
-            t2Div.innerHTML = "Drop Here";
+            t2Div.innerHTML = "Here";
 
             t2Div.addEventListener("dragenter", bandOnEnter);
             t2Div.addEventListener("dragleave", bandOnLeave);
@@ -777,13 +986,11 @@ function orderColorSketch(){
         t2Div.id = 'dragPos'+colormapBandSketchC1.length;
         t2Div.style.border = "2px dashed black";
         t2Div.style.height = 100 +'%'; 
-        t2Div.style.width = 100+'%';
-        t2Div.style.textAlign = 'center';
-        t2Div.style.lineHeight = "2cm";
+        t2Div.style.width = 100+'%';  
+        t2Div.style.lineHeight = "8vh";
+        t2Div.style.fontSize = "4vh";
+        t2Div.style.textAlign = "center";
         t2Div.style.verticalAlign = "middle";
-        //t2Div.style.cursor = "none";
-        //t2Div.style.display = "initial";
-        //tDiv.style.visibility = "hidden";
         t2Div.innerHTML = "Drop Here";
 
         t2Div.addEventListener("dragenter", bandOnEnter);

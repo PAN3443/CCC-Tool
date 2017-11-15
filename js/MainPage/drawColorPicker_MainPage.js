@@ -1,8 +1,8 @@
-function drawHSBackground(){
+function drawHSBackground(id){
 
-    var canvasColorspace = document.getElementById("id_canvasPickerHS");
-    $("#id_canvasPickerHS").attr("width", hs_resolution_X+"px");
-    $("#id_canvasPickerHS").attr("height", hs_resolution_Y+"px");
+    var canvasColorspace = document.getElementById(id);
+    $("#"+id).attr("width", hs_resolution_X+"px");
+    $("#"+id).attr("height", hs_resolution_Y+"px");
     var canvasColorspaceWidth = canvasColorspace.width;
     var canvasColorspaceHeight = canvasColorspace.height;
     //var ratioWidthHeight = canvasColorspaceWidth/canvasColorspaceHeight;

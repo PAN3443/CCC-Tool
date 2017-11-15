@@ -67,7 +67,7 @@
             <script src="js/MainPage/main_MainPage.js"></script>
             <script src="js/MainPage/drawExistingColormaps_MainPage.js"></script>
             <script src="js/MainPage/drawColorPicker_MainPage.js"></script>
-            <script src="js/MainPage/getColorObject_MainPage.js"></script>
+            <script src="js/MainPage/dependingColorspaceFunctions.js"></script>
             <script src="js/MainPage/colorpickerevents_MainPage.js"></script>
             <script src="js/MainPage/dragAndDropevents_MainPage.js"></script>
 
@@ -99,43 +99,51 @@
 
 		<div id="id_fixedHeader" style="overflow: hidden; position: fixed; top: 0px; width: 100%; border-bottom: 4px solid black; z-index: 100;">	
 
-            <div id="id_menu" class="row" style="width:100%; height:1.5cm; background: rgb(20,20,20);">
-                <img src="img/CCC-LOGO.png" alt="CCC-Tool Logo" style="margin-top:0; margin-bottom:0; height: 100%; margin-left:auto;">
-                <h1 style="height:1.5cm; line-height:1.5cm; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:20px; margin-right:auto;"> CCC-TOOL </h1>
-                <button style="height:1.5cm;width: 3cm; float:right; background:none; border-left: 2px solid white; color:white; line-height:1.5cm; text-align:center; vertical-align: middle; font-weight: bold;"> My Maps </button>
-                <button style="height:1.5cm;width: auto; float:right; background:none; border-left: 2px solid white; color:white; line-height:1.5cm; text-align:center; vertical-align: middle; font-weight: bold;"> Tutorial </button>      
+            <div id="id_menu" class="row" style="width:100%; height:5vh; background: rgb(20,20,20);">
+                <img src="img/CCC-LOGO.png" alt="CCC-Tool Logo" style="margin-top:0; margin-bottom:0; height:5vh; margin-left:auto;">
+                <h1 style="height:5vh; height:5vh; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:20px; margin-right:auto; font-size:4vh;"> CCC-TOOL </h1>
+                <button style="height:5vh;width: 3cm; float:right; background:none; border-left: 2px solid white; color:white; height:5vh; text-align:center; vertical-align: middle; font-weight: bold; font-size:1.5vh"> My Maps </button>
+                <button style="height:5vh;width: auto; float:right; background:none; border-left: 2px solid white; color:white; height:5vh; text-align:center; vertical-align: middle; font-weight: bold; font-size:1.5vh"> Tutorial </button>      
             </div>
-            <div id="id_main_general_options_menu" class="row" style="width:100%; height:1.5cm; background:rgb(25,25,112); overflow-x:auto;">
-                <h2 style="font-weight:bold; line-height:1.5cm; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:20px; margin-right:20px;"> CREATE COLORMAP </h2>
+
+
+            <div id="id_main_general_options_menu" class="row" style="width:100%; height:5vh; background:rgb(25,25,112); overflow-x:auto;">
+                <h2 style="font-weight:bold; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; margin:0px; color:white; margin-left:20px; margin-right:20px; font-size:3vh;"> CREATE COLORMAP </h2>
                 <div class="row" id="id_Create_Menue" style="height:100%; width: auto;">
-                    <h3 style="border-left: 3px solid white;height:1.5cm; height:1.5cm; line-height:1.5cm; text-align:center; vertical-align: middle; margin:0px; color:white; padding-left:20px;"> NAME: </h3>
-                    <input  id = "id_InputMapName" type="text" name="key space" value="Cus. Colormap" style="height:0.8cm; margin-top:0.25cm; margin-left:0.25cm; margin-right:0.25cm;">
-                    <button title="export" style="border-radius: 0.2cm; background: url(/img/exportButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 1cm; height: 1cm; border: 2px solid white; margin:0.25cm;"></button>
-                    <button title="save" style="border-radius: 0.2cm; background: url(/img/saveButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 1cm; height: 1cm; border: 2px solid white; margin:0.25cm;"></button>
-                    <button title="load" style="border-radius: 0.2cm; background: url(/img/loadButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 1cm; height: 1cm; border: 2px solid white; margin:0.25cm;"></button>
-                    <button title="delete" style="border-radius: 0.2cm; background: url(/img/trashButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 1cm; height: 1cm; border: 2px solid white; margin:0.25cm;"></button>
-                    <button title="backward" style="border-radius: 0.2cm; background: url(/img/backwardsButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 1cm; height: 1cm; border: 2px solid white; margin:0.25cm;"></button>
-                    <button title="forward" style="border-radius: 0.2cm; background: url(/img/forwardsButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 1cm; height: 1cm; border: 2px solid white; margin:0.25cm;"></button>
-                    <button title="hover for help" style="border-radius: 0.2cm; background: url(/img/helpButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 1cm; height: 1cm; border: 2px solid white; margin:0.25cm;"></button>
+                    <h3 style="border-left: 3px solid white;height:5vh; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; padding-left:20px; font-size:2vh;"> NAME: </h3>
+                    <input  id = "id_InputMapName" type="text" name="key space" value="Cus. Colormap" style="height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; margin-top:0.7vh; margin-left:1vh; margin-right:1vh;">
+                    <button title="export" style="border-radius: 0.3vh; background: url(/img/exportButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 2px solid white; "></button>
+                    <button title="save" style="border-radius: 0.3vh; background: url(/img/saveButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 2px solid white; "></button>
+                    <button title="load" style="border-radius: 0.3vh; background: url(/img/loadButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 2px solid white; "></button>
+                    <button title="delete" style="border-radius: 0.3vh; background: url(/img/trashButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 2px solid white; "></button>
+                    <button title="backward" style="border-radius: 0.3vh; background: url(/img/backwardsButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 2px solid white;"></button>
+                    <button title="forward" style="border-radius: 0.3vh; background: url(/img/forwardsButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 2px solid white; "></button>
+                    <button title="hover for help" style="border-radius: 0.3vh; background: url(/img/helpButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 2px solid white; "></button>
                     <div style="height:100%; width:2px; background:white;">
                     </div>
-                    <h3 style="height:1.5cm; line-height:1.5cm; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:1cm;"> Colorspace: </h3>
-                    <button id="button_RGB" title="RGB" onclick="changeColorspace(0)" style="border-radius: 0.2cm; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height: 1cm; border: 2px solid yellow; color:yellow; margin:0.25cm;">RGB</button>
-                    <button id="button_HSV" title="HSV" onclick="changeColorspace(1)" style="border-radius: 0.2cm; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height: 1cm; border: 2px solid white; color:white; margin:0.25cm;">HSV</button>
-                    <button id="button_LAB" title="LAB" onclick="changeColorspace(2)" style="border-radius: 0.2cm; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height: 1cm; border: 2px solid white; color:white; margin:0.25cm;">LAB</button>
-                    <button id="button_DIN99" title="DIN99" onclick="changeColorspace(3)" style="border-radius: 0.2cm; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height: 1cm; border: 2px solid white; color:white; margin:0.25cm;">DIN99</button>
+                    <h3 style="height:1.5cm; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:1cm; font-size:2vh;"> Colorspace: </h3>
+                    <button id="button_RGB" title="RGB" onclick="changeColorspace(0)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:3vh; font-size:1.75vh; margin:1vh; border: 2px solid  	yellow; color: 	yellow; ">RGB</button>
+                    <button id="button_HSV" title="HSV" onclick="changeColorspace(1)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:3vh; font-size:1.75vh; margin:1vh; border: 2px solid white; color:white; ">HSV</button>
+                    <button id="button_LAB" title="LAB" onclick="changeColorspace(2)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:3vh; font-size:1.75vh; margin:1vh; border: 2px solid white; color:white; ">LAB</button>
+                    <button id="button_DIN99" title="DIN99" onclick="changeColorspace(3)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:3vh; font-size:1.75vh; margin:1vh; border: 2px solid white; color:white;">DIN99</button>
                 </div>
             </div>
 		</div>
 
-        <div id="id_mainpage" style="width: 100%; height:auto; margin-top:3cm; margin-bottom:0px;">
+
+		 <!-- 
+        ----------------------------------------------- 
+        ----------------	Main Page (Creator)	  -----------------
+        -----------------------------------------------
+        -->
+        <div id="id_mainpage" style="width: 100%; height:110vh; margin-top:10.5vh; margin-bottom:0px;">
         
 
-            <div class="row" style="height: 100%;">
+            <div class="row" style="height:100%; width: 100%;">
 
-                <div id="id_table_workwindow" style="height:100%; width:0%; border-right: 2px solid black;  display: none; display: flex; flex-direction: column;">
+               <div id="id_table_workwindow" style="height:100%; width:0%; border-right: 2px solid black;  display: none; display: flex; flex-direction: column;">
 
-                    <h4 style="width:100%; height:1cm; line-height:1cm; text-align:center; vertical-align: middle; margin:0px; border-top: 1px solid black; background:grey; color:white;">Colormap Table</h4>
+                    <h4 style=" width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; margin:0px; border-top: 1px solid black; background:grey; color:white;">Colormap Table</h4>
 
                     <div style="overflow-x:scroll; flex-grow: 1;">
                         <!--div class="row" style="width:17cm; background:grey; height:20px;">
@@ -168,51 +176,56 @@
                             <td class="class_tableInput">rgb(0,0,0)</td>
                         </tr>
                         </table>
-                    </div>
+                   </div>
                 </div>
 
-                <div id="id_expandTablebutton" title="expand table" style="height:100%; width:1cm; border-radius: 0px 10px 10px 0px; height:100%; background: url(/img/expandTableButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; cursor:pointer;">
-                </div>
-
-                <div id="id_colormap_workwindow" style="width:99%;">
+                <div id="id_expandTablebutton" title="expand table" style="height:100%; width:2vw; border-radius: 0px 10px 10px 0px; height:100%; background: url(/img/expandTableButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; cursor:pointer;">
+               </div>
+ 
+                <div id="id_colormap_workwindow" style="width:98vw; ">
 
                     <!------------------>
                     <!-- Predefined Bands -->
-                    <div class="row" style="height:12cm;">
+                    <div class="row" style="height:3vh; width:98vw;">
+                    <h4 style=" margin: 0px; width:60%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle;color:white; background:grey; border-right:1px solid black;">Predefined Bands:</h4>
+                    <h4 style=" margin: 0px; width:40%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle;color:white; background:grey;">Band Creator</h4>
+                    </div>
+                    <div class="row" style="height:42vh; width:98vw; margin:0px; ">
                         <!-- existing colors -->
-                        <div style="heigfloat: left;ht: 100%; width:70%; overflow-y:auto; border-right:1px solid black; background:white;">
-                            
-                            <h4 style=" margin: 0px; width:100%; height: 1cm; line-height:1cm; text-align:center; vertical-align: middle;color:white; background:grey; border-right:1px solid black;">Predefined Bands:</h4>
+                        
+                        <div style="height:42vh; width:60%; overflow-y:auto; border-right:1px solid black; background:white;">
+                           
                             <div id="id_tmpContainer" style="height:0px; width:0px;"></div>
-                            <div  style="width:100%; height:auto; margin-top:0.25cm; border-top:2px solid grey; border-bottom:2px solid grey; background:rgb(220,220,220);">
-                                <h4 style=" margin: 0px; width:100%; height: 1cm; line-height:1cm; text-align:center; vertical-align: middle;color:black; border-right:1px solid black;">Constand Band:</h4>
+                            <div  style="width:100%; height:auto; margin-top:0.5vh; border-top:2px solid grey; border-bottom:2px solid grey; background:rgb(220,220,220);">
+                                <h4 style=" margin: 0px; width:100%; height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle;color:black; border-right:1px solid black;">Constand Band:</h4>
                                 <div id="id_ConstandBand_Div" style=" display: inline-block; width:100%; height:auto;">
                                 <button id="button_AddConstandBand" onclick="addBand(0)" title="Add Constand Band" class="class_predefinedConstBands" style="color: black;">+</button>
                                 </div>
                             </div>
 
-                            <div style="width:100%; height:auto; margin-top:0.25cm; border-top:2px solid grey; border-bottom:2px solid grey; background:rgb(220,220,220);">
-                                <h4 style=" margin: 0px; width:100%; height: 1cm; line-height:1cm; text-align:center; vertical-align: middle;color:black; border-right:1px solid black;">Scale Band:</h4>
+                            <div style="width:100%; height:auto; margin-top:0.5vh; border-top:2px solid grey; border-bottom:2px solid grey; background:rgb(220,220,220);">
+                                <h4 style=" margin: 0px; width:100%; height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle;color:black; border-right:1px solid black;">Scale Band:</h4>
                                 <div id="id_ScaleBand_Div" style=" display: inline-block; width:100%; height:auto;">
                                 <button id="button_AddScaleBand" onclick="addBand(1)" title="Add Scale Band" class="class_predefinedConstBands" style="color: black;">+</button>
                                 </div>
                             </div>
                                                         
-                            <div style="width:100%; height:auto; margin-top:0.25cm; border-top:2px solid grey; border-bottom:2px solid grey; background:rgb(220,220,220);">
-                                <h4 style=" margin: 0px; width:100%; height: 1cm; line-height:1cm; text-align:center; vertical-align: middle;color:black; border-right:1px solid black;">Double Bands:</h4>
+                            <div style="width:100%; height:auto; margin-top:0.5vh; border-top:2px solid grey; border-bottom:2px solid grey; background:rgb(220,220,220);">
+                                <h4 style=" margin: 0px; width:100%; height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle;color:black; border-right:1px solid black;">Double Bands:</h4>
                                 <div id="id_DoubleBands_Div" style=" display: inline-block; width:100%; height:auto;">
                                 <button id="button_AddDoubleBands" onclick="addBand(2)" title="Add Double Bands"  class="class_predefinedConstBands" style="color: black;">+</button>
                                 </div>
                             </div>
 
-                            <div style="width:100%; height:auto; margin-top:0.25cm; border-top:2px solid grey; border-bottom:2px solid grey; background:rgb(220,220,220);">
-                                <h4 style=" margin: 0px; width:100%; height: 1cm; line-height:1cm; text-align:center; vertical-align: middle;color:black; border-right:1px solid black;">Triple Bands:</h4>
+                            <div style="width:100%; height:auto; margin-top:0.5vh; border-top:2px solid grey; border-bottom:2px solid grey; background:rgb(220,220,220);">
+                                <h4 style=" margin: 0px; width:100%; height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle;color:black; border-right:1px solid black;">Triple Bands:</h4>
                                 <div id="id_TripleBands_Div" style=" display: inline-block; width:100%; height:auto;">
                                 <button id="button_AddTripleBands" onclick="addBand(3)" title="Add Triple Bands"  class="class_predefinedConstBands" style="color: black;">+</button>
                                 </div>
                             </div>
-                            <div style="width:100%; height:auto; margin-top:0.25cm; border-top:2px solid grey; border-bottom:2px solid grey; background:rgb(220,220,220);">
-                                <h4 style=" margin: 0px; width:100%; height: 1cm; line-height:1cm; text-align:center; vertical-align: middle;color:black; border-right:1px solid black;">Quadrupel Bands:</h4>
+
+                            <div style="width:100%; height:auto; margin-top:0.5vh; border-top:2px solid grey; border-bottom:2px solid grey; background:rgb(220,220,220);">
+                                <h4 style=" margin: 0px; width:100%; height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle;color:black; border-right:1px solid black;">Quadrupel Bands:</h4>
                                 <div id="id_QuadrupelBands_Div" style=" display: inline-block; width:100%; height:auto;">
                                 <button id="button_AddQuadrupelBands" onclick="addBand(4)" title="Add Quadrupel Bands"  class="class_predefinedConstBands" style="color: black;">+</button>
                                 </div>
@@ -221,48 +234,44 @@
                         
                         <!------------------>
                         <!-- BAND Creator -->
-                        <div style="width:30%; height:100%; background:rgb(240,240,240);"> <!-- hier flex display: flex; flex-direction: column;-->
+                        <div style="width:40%; height:42vh; background:rgb(240,240,240);"> <!-- hier flex display: flex; flex-direction: column;-->
 
-                            <h4 style=" margin: 0px; width:100%; height: 1cm; line-height:1cm; text-align:center; vertical-align: middle;color:white; background:grey;">Band Creator</h4>
-                            
-                         
-
-                            <div class="row" style="height:11cm; width:100%; ">
+                            <div class="row" style="height:42vh; width:100%; ">
                                 
                                 <div style="height:100%; width:100%;"> <!-- hier flex flex-grow: 1;-->
 
-                                    <div class="row" style="height:7.5cm; width:100%; margin:0px; border-bottom:1px solid;">
+                                    <div class="row" style="height:22vh; width:100%; margin:0px; border-bottom:1px solid;">
 
-                                        <div  style=" height:7.5; width:50%;">
+                                        <div  style=" height:22vh; width:40%;">
 
-                                            <h3 style="height:auto; line-height:auto; text-align:center; vertical-align: middle; margin:auto; margin-top:0.5cm; margin-bottom:0.5cm;"> Color: </h3>
+                                            <h3 style="height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; margin:auto;"> Color: </h3>
 
                                             <div class = "row" style="height:20%; line-height:auto; text-align:center; vertical-align: middle; margin:auto;">
-                                            <p id="id_color1_FirstLabel" style="height:auto; line-height:auto; text-align:center; vertical-align: middle; margin:auto; margin-right:0.25cm; font-weight:bold;"> R: </p>
-                                            <input  id="id_color1_First" type="text" name="key space" value="255" style="margin:auto; width:50%; margin-left:0.25cm;">
+                                            <p id="id_color1_FirstLabel" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin:auto; margin-right:0.25cm; font-weight:bold;"> R: </p>
+                                            <input  id="id_color1_First" type="text" name="key space" value="255" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin:auto; width:50%;">
                                             </div>
 
                                             <div class = "row" style="height:20%; line-height:auto; text-align:center; vertical-align: middle; margin:auto;">
-                                            <p id="id_color1_SecondLabel" style="height:auto; line-height:auto; text-align:center; vertical-align: middle; margin:auto; margin-right:0.25cm; font-weight:bold;"> G: </p>
-                                            <input  id="id_color1_Second" type="text" name="key space" value="255" style="margin:auto; width:50%; margin-left:0.25cm;">
+                                            <p id="id_color1_SecondLabel" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin:auto; margin-right:0.25cm; font-weight:bold;"> G: </p>
+                                            <input  id="id_color1_Second" type="text" name="key space" value="255" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin:auto; width:50%;">
                                             </div>
 
                                             <div class = "row" style="height:20%; line-height:auto; text-align:center; vertical-align: middle; margin:auto;">
-                                            <p id="id_color1_ThirdLabel" style="height:auto; line-height:auto; text-align:center; vertical-align: middle; margin:auto; margin-right:0.25cm; font-weight:bold;"> B: </p>
-                                            <input  id="id_color1_Third" type="text" name="key space" value="255" style="margin:auto; width:50%; margin-left:0.25cm;">
+                                            <p id="id_color1_ThirdLabel" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin:auto; margin-right:0.25cm; font-weight:bold;"> B: </p>
+                                            <input  id="id_color1_Third" type="text" name="key space" value="255" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin:auto; width:50%;">
                                             </div>
                                         </div>
 
                                      
-                                        <div class="row" style="height:7.5cm; width:50%; border-left:1px solid;">
+                                        <div class="row" style="height:22vh; width:60%; border-left:1px solid;">
 
-                                            <div style="height:6.5cm; width:15%; margin-left:2.5%; margin-right:2.5%; margin-top: 0.5cm; margin-bottom: 0.5cm;">
+                                            <div style="height:21vh; width:15%; margin-left:2.5%; margin-right:2.5%; margin-top: 0.5vh; margin-bottom: 0.5vh;">
                                                 <canvas id="id_canvasPickerC1V" style="width:100%; height:100%; border: 1px solid black;" >
                                                 </canvas>
                                             </div>
 
 
-                                            <div style="height:6.5cm; width:77.5%; margin-right:2.5%; margin-top: 0.5cm; margin-bottom: 0.5cm;">
+                                            <div style="height:21vh; width:77.5%; margin-right:2.5%; margin-top: 0.5vh; margin-bottom: 0.5vh;">
                                                 <canvas id="id_canvasPickerHS" style="width:100%; height:100%; border: 1px solid black; z-index:1;" >
                                                 </canvas>
                                                 <canvas id="id_workcanvasPicker" style="z-index:2;" >
@@ -275,22 +284,22 @@
                                     </div>
 
                                     <!-- Band Creator: Band Sketch -->
-                                    <div style="height:3.5cm; width:100%; margin-top:0px;">
-                                        <div class="row" style=" height:0.5cm; width:100%; margin-top:0.25cm;">
+                                    <div style="height:20vh; width:100%; margin-top:0px;">
+                                        <div class="row" style=" height:3vh; width:100%; margin-top:1vh;">
 
                                             <div style="height:100%; width:12.5%; "></div>
-                                            <p id = "id_bandC1Label" style="height:100%; width:5%; margin:0px; margin-right:auto;  text-align:center">C1</p>
-                                            <p id = "id_bandC2Label" style="height:100%; width:5%; margin:0px; margin-right:auto; margin-left:auto; text-align:center">C2</p>
-                                            <p id = "id_bandC3Label" style="height:100%; width:5%; margin:0px; margin-right:auto; margin-left:auto; text-align:center">C3</p>
-                                            <p id = "id_bandC4Label" style="height:100%; width:5%; margin:0px; margin-right:auto; margin-left:auto; text-align:center">C4</p>
-                                            <p id = "id_bandC5Label" style="height:100%; width:5%; margin:0px; margin-left:auto; text-align:center">C5</p>
+                                            <p id = "id_bandC1Label" style="height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; width:5%; margin:0px; margin-right:auto;  text-align:center">C1</p>
+                                            <p id = "id_bandC2Label" style="height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; width:5%; margin:0px; margin-right:auto; margin-left:auto; text-align:center">C2</p>
+                                            <p id = "id_bandC3Label" style="height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; width:5%; margin:0px; margin-right:auto; margin-left:auto; text-align:center">C3</p>
+                                            <p id = "id_bandC4Label" style="height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; width:5%; margin:0px; margin-right:auto; margin-left:auto; text-align:center">C4</p>
+                                            <p id = "id_bandC5Label" style="height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; width:5%; margin:0px; margin-left:auto; text-align:center">C5</p>
                                             <div style="height:100%; width:12.5%;"></div>
                                             
                                         </div>
 
-                                        <div class="row" style=" width:100%; height:0.5cm;">
+                                        <div class="row" style=" width:100%; height:3vh;">
                                             <div style="height:100%; width:12.5%;"></div>
-                                            <div id="id_creatorBandC1" onclick="changeActiveColor(0)" style="height:100%; width:5%; border: 3px solid yellow;margin:0px; background:white; margin-right:auto; z-index: 2; cursor:pointer;"></div>
+                                            <div id="id_creatorBandC1" onclick="changeActiveColor(0)" style="height:100%; width:5%; border: 3px solid  	yellow;margin:0px; background:white; margin-right:auto; z-index: 2; cursor:pointer;"></div>
                                             <div id="id_creatorBandC2" onclick="changeActiveColor(1)" style="height:100%; width:5%; border: 2px solid black;margin:0px; background:white; margin-right:auto; margin-left:auto; z-index: 2; cursor:pointer;"></div>
                                             <div id="id_creatorBandC3" onclick="changeActiveColor(2)" style="height:100%; width:5%; border: 2px solid black;margin:0px; background:white; margin-right:auto; margin-left:auto; z-index: 2; cursor:pointer;"></div>
                                             <div id="id_creatorBandC4" onclick="changeActiveColor(3)" style="height:100%; width:5%; border: 2px solid black;margin:0px; background:white; margin-right:auto; margin-left:auto; z-index: 2; cursor:pointer;"></div>
@@ -298,16 +307,16 @@
                                             <div style="height:100%; width:12.5%;"></div>          
                                         </div>
                                         
-                                        <div class="row" style=" width:100%; height:0.25cm; margin:0px;">
-                                            <div style="height:0.25cm; width:15%; border-right: 2px solid black;margin:0px; z-index: 1;"></div>
-                                            <div id="id_creatorBandLineC2" style="height:0.25cm; width:17.5%; border-right: 2px solid black;margin:0px; z-index: 1;"></div>
-                                            <div id="id_creatorBandLineC3" style="height:0.25cm; width:17.5%; border-right: 2px solid black;margin:0px; z-index: 1;"></div>
-                                            <div id="id_creatorBandLineC4" style="height:0.25cm; width:17.5%; border-right: 2px solid black;margin:0px; z-index: 1;"></div>
-                                            <div id="id_creatorBandLineC5" style="height:0.25cm; width:17.5%; border-right: 2px solid black;margin:0px; margin-left:auto; z-index: 1;"></div>
-                                            <div style="height:0.25cm; width:15%;"></div>          
+                                        <div class="row" style=" width:100%; height:1vh; margin:0px;">
+                                            <div style="height:1vh; width:15%; border-right: 2px solid black;margin:0px; z-index: 1;"></div>
+                                            <div id="id_creatorBandLineC2" style="height:1vh; width:17.5%; border-right: 2px solid black;margin:0px; z-index: 1;"></div>
+                                            <div id="id_creatorBandLineC3" style="height:1vh; width:17.5%; border-right: 2px solid black;margin:0px; z-index: 1;"></div>
+                                            <div id="id_creatorBandLineC4" style="height:1vh; width:17.5%; border-right: 2px solid black;margin:0px; z-index: 1;"></div>
+                                            <div id="id_creatorBandLineC5" style="height:1vh; width:17.5%; border-right: 2px solid black;margin:0px; margin-left:auto; z-index: 1;"></div>
+                                            <div style="height:1vh; width:15%;"></div>          
                                         </div>
 
-                                        <canvas id="id_creatorBand"style="margin-left:15%; width:70%; height:1.5cm; border: 2px solid black;" draggable="true">
+                                        <canvas id="id_creatorBand"style="margin-left:15%; width:70%; height:10vh; border: 2px solid black;" draggable="true">
                                         </canvas>
                                     </div>
 
@@ -319,30 +328,31 @@
                         </div>
                     </div>
 
-                    <div class="row" style="height:auto; width:100%;">
+                    <div class="row" style="height:65vh; width:100%; margin:0px;">
                         <!-- colormaps -->
-                         <div style="height: 100%; width:100%; border-right:1px solid black;">
+                         <div style="height: 100%; width:100%; border-right:1px solid black; margin:0px;">
 
-                             <h4 style="margin: 0px; width:100%; height:1cm; line-height:1cm; text-align:center; vertical-align: middle; color:white; background:grey;">Colormap</h4>
-                             <div class="row" style="height:17cm; width:100%;">
+                             <h4 style="margin: 0px; width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:white; background:grey;">Colormap</h4>
+                             
+                             <div class="row" style="height:62vh; width:100%; margin:0px;">
 
                                 <div style="height:100%; width:90%;">
 
-                                    <h4 style="margin-top: 0px; width:100%; height:1cm; line-height:1cm; text-align:center; vertical-align: middle; color:black;">Colormap Band Sketch</h4>
+                                    <h4 style="margin-top: 0.5vh; width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:black;">Colormap Band Sketch</h4>
 
-                                    <div class="row" style="margin-top: 0.5cm; width:80%; height: 2cm; margin-left:10%;" id="id_colormapSketch">
+                                    <div class="row" style="margin-top: 0.5vh; width:80%; height: 8vh; margin-left:10%;" id="id_colormapSketch">
                                     </div>
-                                    <canvas style="margin-top: 0px;; width:80%; height: 2cm; margin-left:10%;" id="id_colormapSketch_Reg">
+                                    <canvas style="margin-top: 0px;; width:80%; height: 5vh; margin-left:10%;" id="id_colormapSketch_Ref">
                                     </canvas>
 
-                                    <h4 style="margin-top: 0.5cm; width:100%; height:1cm; line-height:1cm; text-align:center; vertical-align: middle; color:black;">Linear Colormap</h4>
+                                    <h4 style="margin-top: 0.5vh; width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:black;">Linear Colormap</h4>
 
-                                    <canvas style="margin-top: 0.5cm; width:80%; height: 7cm; margin-left:10%; border:2px solid black;" id="id_linearColormap">
+                                    <canvas style="margin-top: 0.5vh; width:80%; height: 30vh; margin-left:10%; border:2px solid black;" id="id_linearColormap">
 
-                                    </canvas-->
+                                    </canvas>
                                 </div>
-
-                                <div style="height:100%; width:10%; border-left:2px solid black; background:rgb(230,230,230);">
+ 
+                                <div style="height:100%; width:10%; border-left:2px solid black; background:rgb(230,230,230); margin:0px;">
 
                                 </div>
 
@@ -370,80 +380,82 @@
         -----------------------------------------------
         -->
 
-        <div id="bandEditWindow" style="background: rgba(0,0,0,0.4); width:100%; height:100%; position:absolute; z-index:3; top:2.7cm; left:0px; bottom:0px; display:none;">
+        <div id="bandEditWindow" style="background: rgba(0,0,0,0.4); width:100%; height:100%; position:absolute; position: fixed; z-index:101; top:0px; left:0px; bottom:0px; display:none;">
 
-            <div style="margin-top:auto; margin-bottom:auto; background: white; width:100%;">
-                <div class="row" style="background: none; width:100%;">
+            <div style="margin-top:15vh; height:70vh; background: rgb(230,230,230); width:100%;">
+                <div class="row" style="background: none; height:40vh; width:100%; height:30%; padding-bottom:5vh; border-bottom:2px solid black;">
 
-                    <div style="width: 25%; border: 1px solid rgb(220,220,220);">
+                    <div style="width: 25vw; height:100%; border: 1px solid rgb(200,200,200);">
                                     
-                                    <h4 style="width:100%; margin-top:0.5cm; height: 1cm; line-height:1cm; text-align:center; vertical-align: middle;color:white; background:grey; cursor:pointer;">Left Neighbour</h4>
+                                    <h4 style="width:100%; margin-top:0px; width:100%; height:2vh; line-height:2vh; font-size:1.8vh; text-align:center; vertical-align: middle; color:white; background:grey; ">Left Neighbour</h4>
 
-                                     <div class="row" style="background:none">
+                                     <div class="row" style="background:none; height:2vh; margin-top: 0.5vh;">
                                         <div style="width: 92.5%"> </div>
-                                        <div id="bandEdit_LeftNeiColor" style=" width:5%; height:0.5cm; background: rgb(120,120,120); border: 1px solid black;"> </div>
+                                        <div id="bandEdit_LeftNeiColor" style=" width:5%; height:100%; background: rgb(120,120,120); border: 1px solid black; cursor:pointer;"> </div>
                                     </div>
-                                    <div style="width:95%; border-right: 2px solid black; height:0.5cm;"></div>
-                                    <canvas id="bandEdit_LeftNeigCanvas" style="margin-left:5%; width:90%; height:1.5cm; background: rgb(120,120,120); border: 2px solid black;">
+                                    <div style="width:95%; border-right: 2px solid black; height:2vh;"></div>
+                                    <canvas id="bandEdit_LeftNeigCanvas" style="margin:0px; margin-left:5%; width:90%; height:6vh; background: rgb(120,120,120); border: 2px solid black;">
                                     
                                     </canvas>
-                                    <div style="width:90%; margin-left:5%; border-right: 2px solid black; border-left: 2px solid black; height:0.5cm;"></div>
-                                    <div class="row" style="background:none">
-                                        <p  id = "bandEdit_LeftNeiLeftRef"  style="margin-left:5%">Nan</p>
+                                    <div style="margin:0px; width:90%; margin-left:5%; border-right: 2px solid black; border-left: 2px solid black; height:2vh;"></div>
+                                    <div class="row" style="background:none; height:2vh; margin:0px; margin-bottom:auto;">
+                                        <p  id = "bandEdit_LeftNeiLeftRef"  style="margin:0px; height:2vh; line-height:2vh; font-size:1.8vh; text-align:center; vertical-align: middle; margin-left:5%; font-size:100%;">Nan</p>
                                         <div style="width: 80%"> </div>
-                                        <p  id = "bandEdit_LeftNeiRightRef" style="margin-right:5%">Nan</p>
+                                        <p  id = "bandEdit_LeftNeiRightRef" style="margin:0px; height:2vh; line-height:2vh; font-size:1.8vh; text-align:center; vertical-align: middle; margin-right:5%; font-size:100%;">Nan</p>
                                     </div>
 
                     </div>
 
-                    <div style="width: 50%;">
+                    <div style="width: 50vw; height:100%;">
 
-                            <h4 style="width:100%; margin-top:0.5cm; height: 1cm; line-height:1cm; text-align:center; vertical-align: middle;color:white; background:grey">Edit Band</h4>
+                            <h4 style="width:100%; margin-top:0px; width:100%; height:2vh; line-height:2vh; font-size:1.8vh; text-align:center; vertical-align: middle;color:white; background:grey;">Edit Band</h4>
 
-                            <div class="row" style="background:none">
+                            <div class="row" style="background:none; height:2vh; margin-top: 0.5vh;">
                                 <!--input id="createSide_AddLeftColor" class="createSide_AddBandColor" type="color" name="favcolor" value="#787878" style="margin-left:2.5%"-->
                                 
                                 <!--input id="createSide_AddRightColor" class="createSide_AddBandColor" type="color" name="favcolor" value="#787878"-->
-                                <div id="bandEdit_LeftNeiColor" style=" margin-left:2.5%;width:5%; height:0.5cm; background: rgb(120,120,120); border: 1px solid black;"> </div>
-                                <div style="width: 85%"> </div>
-                                <div id="bandEdit_LeftNeiColor" style=" width:5%; height:0.5cm; background: rgb(120,120,120); border: 1px solid black;"> </div>
+                                <div id="bandEdit_LeftColor" style=" margin-left:2.5%;width:5%; height:100%; background: rgb(120,120,120); border: 1px solid black;cursor:pointer;"> </div>
+                                <div style=" margin-left:0.5%; width:5%; height:2vh; line-height:2vh; font-size:1.5vh; text-align:center; vertical-align:top;cursor:pointer; background:grey; color:white; border:1px solid black;">&rarr;</div>
+                                <div style="width: 74%"> </div>
+                                <div style=" margin-right:0.5%; width:5%; height:2vh; line-height:2vh; font-size:1.5vh; text-align:center; vertical-align:top;cursor:pointer; background:grey; color:white; border:1px solid black;">&larr;</div>
+                                <div id="bandEdit_RightColor" style=" width:5%; height:100%; background: rgb(120,120,120); border: 1px solid black;cursor:pointer;"> </div>
 
                             </div>
-                            <div style="width:90%; margin-left:5%; border-right: 2px solid black; border-left: 2px solid black; height:0.5cm;"></div>
+                            <div style="width:90%; margin-left:5%; border-right: 2px solid black; border-left: 2px solid black; height:2vh;"></div>
                             
-                            <canvas id="editBand" style="margin-left:5%; width:90%; height:1.5cm; background: rgb(120,120,120); border: 2px solid black;">
+                            <canvas id="bandEdit_EditCanvas" style="margin-left:5%; width:90%; height:6vh; background: rgb(120,120,120); border: 2px solid black;">
 
 
                             </canvas>
                             
-                            <div style="width:90%; margin-left:5%; border-right: 2px solid black; border-left: 2px solid black; height:0.5cm;"></div>
+                            <div style="width:90%; margin-left:5%; border-right: 2px solid black; border-left: 2px solid black; height:2vh;"></div>
 
-                            <div class="row" style="background:none">
-                                <input  id = "bandEdit_InputLeftRef" type="text" name="key space" value="0" style="margin-left:2.5%; width:10%;" >
+                            <div class="row" style="background:none;height:2vh; margin:0px;">
+                                <input  id = "bandEdit_InputLeftRef" type="text" name="key space" value="0" style="margin:0px; height:2vh; line-height:2vh; font-size:1.8vh; text-align:center; vertical-align: middle;margin-left:2.5%; width:10%;" >
                                 <div style="width: 75%"> </div>
-                                <input  id = "bandEdit_InputRightRef" type="text" name="key space" value="1" style="margin-right:2.5%; width:10%;">
+                                <input  id = "bandEdit_InputRightRef" type="text" name="key space" value="1" style="margin:0px; height:2vh; line-height:2vh; font-size:1.8vh; text-align:center; vertical-align: middle;margin-right:2.5%; width:10%;">
                             </div>
                              
                             
                     </div>
 
-                    <div  style="width: 25%; border: 1px solid rgb(220,220,220);">
+                    <div  style="width: 25vw; height:100%; border: 1px solid rgb(200,200,200);">
 
-                                    <h4  style="width:100%; margin-top:0.5cm; height: 1cm; line-height:1cm; text-align:center; vertical-align: middle;color:white; background:grey">Right Neighbour</h4>
+                                    <h4  style="width:100%; margin-top:0px; width:100%; height:2vh; line-height:2vh; font-size:1.8vh; text-align:center; vertical-align: middle;color:white; background:grey;">Right Neighbour</h4>
                                     
-                                     <div class="row" style="background:none">
-                                         <div id="bandEdit_RightNeiColor" style=" margin-left:2.5%; width:5%; height:0.5cm; background: rgb(120,120,120); border: 1px solid black;"> </div>
+                                     <div class="row" style="background:none; height:2vh; margin-top: 0.5vh;">
+                                         <div id="bandEdit_RightNeiColor" style=" margin-left:2.5%; width:5%; height:100%; background: rgb(120,120,120); border: 1px solid black;cursor:pointer;"> </div>
                                         <div style="width: 92.5%"> </div>    
                                     </div>
-                                    <div style="margin-left:5%; width:95%; border-left: 2px solid black; height:0.5cm;"></div>
-                                    <canvas id="bandEdit_RightNeigCanvas" style="margin-left:5%; width:90%; height:1.5cm; background: rgb(120,120,120); border: 2px solid black;">
+                                    <div style="margin-left:5%; width:95%; border-left: 2px solid black; height:2vh;"></div>
+                                    <canvas id="bandEdit_RightNeigCanvas" style="margin-left:5%; width:90%; height:6vh; background: rgb(120,120,120); border: 2px solid black;">
                                     
                                     </canvas>
-                                    <div style="width:90%; margin-left:5%; border-right: 2px solid black; border-left: 2px solid black; height:0.5cm;"></div>
-                                    <div class="row" style="background:none">
-                                        <p  id = "bandEdit_RightNeiLeftRef"  style="margin-left:5%">Nan</p>
+                                    <div style="width:90%; margin-left:5%; border-right: 2px solid black; border-left: 2px solid black; height:2vh;"></div>
+                                    <div class="row" style="background:none;height:2vh; margin:0px;">
+                                        <p  id = "bandEdit_RightNeiLeftRef"  style="margin:0px; height:2vh; line-height:2vh; font-size:1.8vh; text-align:center; vertical-align: middle;margin-left:5%">Nan</p>
                                         <div style="width: 80%"> </div>
-                                        <p  id = "bandEdit_RightNeiRightRef" style="margin-right:5%">Nan</p>
+                                        <p  id = "bandEdit_RightNeiRightRef" style="margin:0px; height:2vh; line-height:2vh; font-size:1.8vh; text-align:center; vertical-align: middle;margin-right:5%">Nan</p>
                                     </div>
 
                                     
@@ -451,14 +463,34 @@
 
                 </div>
 
-                <div style="width:30%; height:40vh; margin:1cm; margin-left:auto; margin-right:auto; background:blue;" >
+                <div  class="row" style="width:100%; height:40vh; " >
+
+                    <div class="row" style="height:40vh; width:30%;  margin-left:auto;">
+
+                                            <div style="height:36vh; width:15%; margin-left:2.5%; margin-right:2.5%; margin-top: 2vh; margin-bottom: 2vh;">
+                                                <canvas id="id_BandEditcanvasPickerC1V" style="width:100%; height:100%; border: 1px solid black;" >
+                                                </canvas>
+                                            </div>
+
+
+                                            <div style="height:36vh; width:77.5%; margin-right:2.5%; margin-top: 2vh; margin-bottom: 2vh;">
+                                                <canvas id="id_bandEditCanvasPickerHS" style="width:100%; height:100%; border: 1px solid black; z-index:102;" >
+                                                </canvas>
+                                                <canvas id="id_bandEditWorkcanvasPicker" style="z-index:103;" >
+                                                </canvas>
+                                            </div>
+
+                                          
+                    </div>
+
+                    <div  style="width:30%; margin-right:0px;">
+                      <button id = "cancelBandEdit" type="button" style="margin-top:10vh; margin-left:10%; width:80%; margin-right:10%; height:5vh; line-height:5vh; font-size:3vh; text-align:center; vertical-align: middle; ">Delete Band</button> 
+                      <button id = "acceptBandEdit" type="button" style="margin-top:10vh; margin-bottom:10vh; margin-left:10%; width:80%; margin-right:10%; height:5vh; line-height:5vh; font-size:3vh; text-align:center; vertical-align: middle;">Okay</button>
+                    </div>
 
                 </div>
 
-                 <div class="row" style="background: white;">
-                      <button id = "cancelBandEdit" type="button" style="margin-top:0.5cm; margin-bottom:0.5cm; margin-left:20%; width:20%;">Delete</button> 
-                      <button id = "acceptBandEdit" type="button" style="margin-top:0.5cm; margin-bottom:0.5cm; margin-left:20%; width:20%; margin-right:20%;">Accept</button>
-                </div>
+                 
             </div>
 
         </div>
@@ -471,9 +503,9 @@
         -----------------------------------------------
         -->
         
-        <div id="id_mainpage" class="row" style="width: 100%; height: 3cm; background:black; margin:0px; z-index:100;">
+        <div id="id_mainpage" class="row" style="width: 100%; height: 10vh; background:black; margin:0px; z-index:100;">
 
-            <img title="BSV Workgroup, University Leipzig" src="img/bsv_logo_small.png" alt="Logo: The Coloroptimizer" style="margin-top:10%; margin-bottom:10%;margin-left:1cm; height: 80%; cursor: pointer;">
+            <img title="BSV Workgroup, University Leipzig" src="img/bsv_logo_small.png" alt="Logo: The Coloroptimizer" style="margin-top:1vh; margin-bottom:1vh;margin-left:10vw; height: 8vh; cursor: pointer;">
 
             <p style="color:white; float:right; margin-left:auto;margin-right:1cm;">Copyright © 2017</p>
 

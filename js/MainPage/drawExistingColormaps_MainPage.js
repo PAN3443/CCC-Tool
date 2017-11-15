@@ -19,6 +19,9 @@ function drawPredefinedBands(){
     document.getElementById('id_TripleBands_Div').innerHTML = "";
     document.getElementById('id_QuadrupelBands_Div').innerHTML = "";
 
+    var resolutionX = 400;
+    var resolutionY = 75;
+
     //---------------------------
     // --------- Const
     for(var i=0; i<constBands.length; i++){
@@ -54,35 +57,8 @@ function drawPredefinedBands(){
         var tmpC1RGB = scaleBands[i][0];
         var tmpC2RGB = scaleBands[i][1];
 
-        var resolutionX = 400;
-        var resolutionY = 75;
 
-        $("#"+id).attr("width", resolutionX+"px");
-        $("#"+id).attr("height", resolutionY+"px"); 
-
-        var canvasContex = iCan.getContext("2d");
-        //canvasContex.clearRect(0, 0, resolutionX, resolutionY);
-        var canvasData = canvasContex.getImageData(0, 0, iCan.width, iCan.height);
-
-
-        switch(colorspaceModus){
-                    case "rgb": 
-                        canvasData=createScaledBand(canvasData, 0, resolutionX, resolutionY, tmpC1RGB, tmpC2RGB, resolutionX);
-                    break;
-                    case "hsv": 
-                        canvasData=createScaledBand(canvasData, 0, resolutionX, resolutionY, tmpC1RGB.calcHSVColor(), tmpC2RGB.calcHSVColor(), resolutionX);
-                    break;
-                    case "lab":
-                        canvasData=createScaledBand(canvasData, 0, resolutionX, resolutionY, tmpC1RGB.calcCIELabColor(), tmpC2RGB.calcCIELabColor(), resolutionX);
-                    break;
-                    case "din99": 
-                        canvasData=createScaledBand(canvasData, 0, resolutionX, resolutionY, tmpC1RGB.calcDIN99Color(kE,kCH), tmpC2RGB.calcDIN99Color(kE,kCH), resolutionX);
-                    break;
-                    default:
-                        console.log("Error at the updateCreatorBand function");
-        }
-
-        canvasContex.putImageData(canvasData, 0, 0);
+        drawCanvasBand(iCan, tmpC1RGB, tmpC2RGB,resolutionX,resolutionY);
     
     }
     document.getElementById('id_ScaleBand_Div').appendChild(document.getElementById('button_AddScaleBand'));

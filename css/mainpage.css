@@ -31,19 +31,28 @@
 }
 
 .class_predefinedConstBands{
-    height: 0.75cm;
-    width: 1.5cm;
-    border-radius: 0.2cm; 
+    height: 3vh;
+    width: 5vw;
+    border-radius: 0.5vh; 
     border: 2px solid black; 
-    margin:0.25cm;
+    margin:1vh;
     float:left;
+    line-height: 3vh;
+    vertical-align: middle;
+    text-align:  center;
+    font-size: 2vh;
 }
 
 .class_predefinedScaledBands{
-    height: 0.75cm;
-    width: 3cm;
-    border-radius: 0.2cm; 
+    height: 3vh;
+    width: 7vw;
+    border-radius: 0.5vh; 
     border: 2px solid black; 
-    margin:0.25cm;
+    margin: 1vh;
     float:left;
+    line-height: 3vh;
+    vertical-align: middle;
+    text-align:  center;
+    font-size: 2vh;
+
 }

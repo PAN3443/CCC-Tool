@@ -64,6 +64,8 @@ var colormapBandSketchR1 = [];
 var colormapBandSketchR2 = [];
 
 var dropPositionElements = [];
+var droppedBandElements = [];
+
 
   // drag and drop
   var dragElemBandCreator;
@@ -74,6 +76,7 @@ var dropPositionElements = [];
 var indexOfDroppedPlace = -1;
 
 // Band Edit
+var bandOptionsIndex = -1;
 var editBandIndex = -1;
 var hasRightNeig = false
 var hasLeftNeig = false;
