@@ -1,3 +1,6 @@
+/////////////////////////////////////////////////////////////////////////////////////////////
+//// Colormap
+//////////////////////////////////////////////////////////////////////////////////////////////
 
 function drawCanvasColormap(canvasID,resolutionX, resolutionY, tmpColormap){ //1920,150
     
@@ -23,9 +26,8 @@ function drawCanvasColormap(canvasID,resolutionX, resolutionY, tmpColormap){ //1
 
         // draw colormap
         for(var i = 0; i<tmpColormap.getNumColors(); i++){
-
-            var tmpKey = tmpColormap.getKey(i);
             
+            var tmpKey = tmpColormap.getKey(i);
               switch(tmpKey) {
                 case "nil key": 
                     
@@ -153,6 +155,10 @@ function drawCanvasColormap(canvasID,resolutionX, resolutionY, tmpColormap){ //1
 
 function createScaledBand(canvasData, xStart, bandWidth, bandHeight, color1, color2, canvasWidth){
 
+    xStart = Math.round(xStart);
+    bandWidth = Math.round(bandWidth);
+    bandHeight = Math.round(bandHeight);
+
     switch(colorspaceModus){
         case "rgb":  
                 for(var x=xStart; x<xStart+bandWidth;x++){
@@ -276,6 +282,10 @@ function createScaledBand(canvasData, xStart, bandWidth, bandHeight, color1, col
 
 function createConstantBand(canvasData, xStart, bandWidth, bandHeight, color1, canvasWidth){
 
+    xStart = Math.round(xStart);
+    bandWidth = Math.round(bandWidth);
+    bandHeight = Math.round(bandHeight);
+
     switch(colorspaceModus){
         case "rgb": 
 
@@ -351,3 +361,178 @@ function createConstantBand(canvasData, xStart, bandWidth, bandHeight, color1, c
 }
 
 
+/////////////////////////////////////////////////////////////////////////////////////////////
+//// Keys
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+function drawKeys(canvasID,resolutionX, resolutionY, tmpColormap){
+        // start 
+    var canvasObject = document.getElementById(canvasID);
+
+    $("#"+canvasID).attr("width", resolutionX+"px");
+    $("#"+canvasID).attr("height", resolutionY+"px"); 
+
+    var canvasContex = canvasObject.getContext("2d");
+    //canvasContex.clearRect(0, 0, resolutionX, resolutionY);
+    var canvasData = canvasContex.getImageData(0, 0, canvasObject.width, canvasObject.height);
+
+        /////////////////////////////////////////////////////////
+
+        var colormapWidth = resolutionX/9*8;
+        var xPos = resolutionX/9*0.5;
+        var yPos = resolutionY;
+
+        var twinStarted = false;
+        var leftStarted = false;
+
+        var distanceColorrects = resolutionY/3;
+   
+        
+        var colorrectHeigth = resolutionY/2;
+        var colorrectWitdh = resolutionY/3;
+
+        // draw keys
+        for(var i = 0; i<tmpColormap.getNumColors(); i++){
+
+            var tmpKey = tmpColormap.getKey(i);
+
+              switch(tmpKey) {
+                case "nil key": 
+                    
+                    var pos1 = (tmpColormap.getPosition(i)-tmpColormap.getRangeStart())/(tmpColormap.getRangeEnd()-tmpColormap.getRangeStart())*colormapWidth;
+                   
+                        canvasContex.beginPath();
+                        canvasContex.lineWidth = 1;
+                        canvasContex.moveTo(xPos+pos1, yPos);
+                        canvasContex.lineTo(xPos+pos1, yPos-distanceColorrects);
+                        canvasContex.strokeStyle = 'rgb(0,0,0)';
+                        canvasContex.stroke();
+
+                        var colorrectYPos = yPos-distanceColorrects-colorrectHeigth;
+                        var colorrectXPos = xPos+pos1-(colorrectWitdh/2);
+
+                        drawColorRect(canvasContex, colorrectXPos,colorrectYPos,colorrectWitdh,colorrectHeigth,"rgb(125,125,125)", true);
+
+                    break;
+                case "twin key":
+                    
+                    if(twinStarted==true){               
+                        twinStarted=false;
+                    }
+                    else{
+
+                        var pos1 = (tmpColormap.getPosition(i)-tmpColormap.getRangeStart())/(tmpColormap.getRangeEnd()-tmpColormap.getRangeStart())*colormapWidth;
+                        var rgbColor1 = tmpColormap.getRGBColor(i).getRGBString();
+                        var rgbColor2 = tmpColormap.getRGBColor(i+1).getRGBString();
+
+                        canvasContex.beginPath();
+                        canvasContex.lineWidth = 1;
+                        canvasContex.moveTo(xPos+pos1, yPos);
+                        canvasContex.lineTo(xPos+pos1, yPos-distanceColorrects);
+                        canvasContex.strokeStyle = 'rgb(0,0,0)';
+                        canvasContex.stroke();
+
+                        var colorrectYPos = yPos-distanceColorrects-colorrectHeigth;
+                        var colorrectXPos = xPos+pos1-(colorrectWitdh/2);
+
+                        drawColorRect(canvasContex, colorrectXPos,colorrectYPos,colorrectWitdh/2,colorrectHeigth,rgbColor1, false);
+                        var colorrectXPos = xPos+pos1;
+                        drawColorRect(canvasContex, colorrectXPos,colorrectYPos,colorrectWitdh/2,colorrectHeigth,rgbColor2, false);
+
+                        twinStarted=true;
+                    }
+                    
+                    break;
+                case "left key":
+                    if(leftStarted==true){
+
+                        leftStarted=false;
+                        
+                    }
+                    else{
+                        var pos1 = (tmpColormap.getPosition(i)-tmpColormap.getRangeStart())/(tmpColormap.getRangeEnd()-tmpColormap.getRangeStart())*colormapWidth;
+                        var rgbColor1 = tmpColormap.getRGBColor(i).getRGBString();
+
+                        canvasContex.beginPath();
+                        canvasContex.lineWidth = 1;
+                        canvasContex.moveTo(xPos+pos1, yPos);
+                        canvasContex.lineTo(xPos+pos1, yPos-distanceColorrects);
+                        canvasContex.strokeStyle = 'rgb(0,0,0)'; 
+                        canvasContex.stroke();
+
+                        var colorrectYPos = yPos-distanceColorrects-colorrectHeigth;
+                        var colorrectXPos = xPos+pos1-(colorrectWitdh/2);
+
+                        drawColorRect(canvasContex, colorrectXPos,colorrectYPos,colorrectWitdh/2,colorrectHeigth,rgbColor1, false);
+                        var colorrectXPos = xPos+pos1;
+                        drawColorRect(canvasContex, colorrectXPos,colorrectYPos,colorrectWitdh/2,colorrectHeigth,"rgb(125,125,125)", true);
+
+                        leftStarted=true;
+                    }
+                    break;
+                case "right key":
+
+                        var rgbColor1 = tmpColormap.getRGBColor(i).getRGBString();                  
+                        
+                        var pos1 = (tmpColormap.getPosition(i)-tmpColormap.getRangeStart())/(tmpColormap.getRangeEnd()-tmpColormap.getRangeStart())*colormapWidth;
+                        
+                        canvasContex.beginPath();
+                        canvasContex.lineWidth = 1;
+                        canvasContex.moveTo(xPos+pos1, yPos);
+                        canvasContex.lineTo(xPos+pos1, yPos-distanceColorrects);
+                        canvasContex.strokeStyle = 'rgb(0,0,0)';
+                        canvasContex.stroke();
+
+                        var colorrectYPos = yPos-distanceColorrects-colorrectHeigth;
+                        var colorrectXPos = xPos+pos1-(colorrectWitdh/2);
+
+                        drawColorRect(canvasContex, colorrectXPos,colorrectYPos,colorrectWitdh/2,colorrectHeigth,"rgb(125,125,125)", true);
+                        var colorrectXPos = xPos+pos1;
+                        drawColorRect(canvasContex, colorrectXPos,colorrectYPos,colorrectWitdh/2,colorrectHeigth,rgbColor1, false);
+                    break;
+                default:
+                        var rgbColor1 = tmpColormap.getRGBColor(i).getRGBString();
+
+
+                        var pos1 = (tmpColormap.getPosition(i)-tmpColormap.getRangeStart())/(tmpColormap.getRangeEnd()-tmpColormap.getRangeStart())*colormapWidth;
+
+                       
+                        ////
+                        canvasContex.beginPath();
+                        canvasContex.lineWidth = 1;
+                        canvasContex.moveTo(xPos+pos1, yPos);
+                        canvasContex.lineTo(xPos+pos1, yPos-distanceColorrects);
+                        canvasContex.strokeStyle = 'rgb(0,0,0)';
+                        canvasContex.stroke();
+
+                    
+                        var colorrectYPos = yPos-distanceColorrects-colorrectHeigth;
+                        var colorrectXPos = xPos+pos1-(colorrectWitdh/2);
+
+                        drawColorRect(canvasContex, colorrectXPos,colorrectYPos,colorrectWitdh,colorrectHeigth,rgbColor1, false);
+ 
+            }
+                    
+        }
+          
+}
+
+function drawColorRect(contex,colorrectXPos,colorrectYPos,colorrectWitdh,colorrectHeigth,rgbColor, isGrey){
+
+    contex.fillStyle = rgbColor;
+    contex.fillRect(colorrectXPos,colorrectYPos, colorrectWitdh, colorrectHeigth);
+
+    if(isGrey==true){
+        contex.beginPath();
+        contex.moveTo(colorrectXPos, colorrectYPos+colorrectHeigth);
+        contex.lineTo(colorrectXPos+colorrectWitdh, colorrectYPos);
+        contex.strokeStyle = 'rgb(0,0,0)';
+        contex.lineWidth = 1;
+        contex.stroke();
+    }
+
+    contex.lineWidth = 1;
+    contex.strokeStyle = 'rgb(0,0,0)';
+    contex.strokeRect(colorrectXPos,colorrectYPos, colorrectWitdh, colorrectHeigth);
+
+}

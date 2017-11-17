@@ -1,55 +1,20 @@
 function expandTable(){
 
     if(tableIsExpand){
-        document.getElementById("id_table_workwindow").style.width = 0+"%";
+        document.getElementById("id_table_workwindow").style.width = 0+"vw";
+        document.getElementById("id_colormap_workwindow").style.width = 98+"vw";
         document.getElementById("id_table_workwindow").style.display = "none";
         tableIsExpand=false;
     }
     else{
-        document.getElementById("id_table_workwindow").style.width = 27+"cm";
+        document.getElementById("id_table_workwindow").style.width = 40+"vw";
+        document.getElementById("id_colormap_workwindow").style.width = 58+"vw";
         document.getElementById("id_table_workwindow").style.display = "initial";
         tableIsExpand=true;
     }
-
-    drawColorCircles();
+    drawPredefinedBands();
+    styleMainPage();
 }
-
-///////////////////////////////
-//// switch band type //////
-///////////////////////////////
-
-/*function changeBandType(){
-    
-   if(document.getElementById("radiobutton_ScaledBand").checked == false){
-
-            colorVal1_C2= parseFloat(document.getElementById("id_color1_First").value);
-            document.getElementById("id_color2_First").value= document.getElementById("id_color1_First").value;
-            
-            colorVal2_C2= parseFloat(document.getElementById("id_color1_Second").value);
-            document.getElementById("id_color2_Second").value= document.getElementById("id_color1_Second").value;
-               
-            colorVal3_C2= parseFloat(document.getElementById("id_color1_Third").value);
-            document.getElementById("id_color2_Third").value= document.getElementById("id_color1_Third").value;
-              
-            colorVal1_C1= parseFloat(document.getElementById("id_color2_First").value);
-            document.getElementById("id_color1_First").value= document.getElementById("id_color2_First").value;
-               
-            colorVal2_C1= parseFloat(document.getElementById("id_color2_Second").value);
-            document.getElementById("id_color1_Second").value= document.getElementById("id_color2_Second").value;
-               
-            colorVal3_C1= parseFloat(document.getElementById("id_color2_Third").value);
-            document.getElementById("id_color1_Third").value= document.getElementById("id_color2_Third").value;
-            
-      
-    }
-    
-    if(){
-
-    }
-
-    drawColorCircles();
-    updateCreatorBand();
-}*/
 
 
 ///////////////////////////////
@@ -58,13 +23,13 @@ function expandTable(){
 
 function changeColorspace(type){
 
-    document.getElementById("button_RGB").style.border = "2px solid white";
+    document.getElementById("button_RGB").style.border = "0.2vh solid white";
     document.getElementById("button_RGB").style.color = "white";
-    document.getElementById("button_HSV").style.border = "2px solid white";
+    document.getElementById("button_HSV").style.border = "0.2vh solid white";
     document.getElementById("button_HSV").style.color = "white";
-    document.getElementById("button_LAB").style.border = "2px solid white";
+    document.getElementById("button_LAB").style.border = "0.2vh solid white";
     document.getElementById("button_LAB").style.color = "white";
-    document.getElementById("button_DIN99").style.border = "2px solid white";
+    document.getElementById("button_DIN99").style.border = "0.2vh solid white";
     document.getElementById("button_DIN99").style.color = "white";
 
 
@@ -102,11 +67,13 @@ function changeColorspace(type){
                    
                 activColorIndex=tmpactivColorIndex;
                 colorspaceModus="rgb";
-                document.getElementById("button_RGB").style.border = "2px solid yellow";
-                document.getElementById("button_RGB").style.color = "yellow";
+                document.getElementById("button_RGB").style.border = "0.2vh solid lime";
+                document.getElementById("button_RGB").style.color = "lime";
                 document.getElementById("id_color1_FirstLabel").innerHTML = "R:";
                 document.getElementById("id_color1_SecondLabel").innerHTML = "G:";
                 document.getElementById("id_color1_ThirdLabel").innerHTML = "B:";
+                document.getElementById("id_table_Color1").innerHTML = "C1 (RGB)";
+                document.getElementById("id_table_Color2").innerHTML = "C2 (RGB)";
                 break;
         case 1:
             var tmpactivColorIndex = activColorIndex;
@@ -139,11 +106,13 @@ function changeColorspace(type){
 
                 activColorIndex=tmpactivColorIndex;
                 colorspaceModus="hsv";
-                document.getElementById("button_HSV").style.border = "2px solid yellow";
-                document.getElementById("button_HSV").style.color = "yellow";
+                document.getElementById("button_HSV").style.border = "0.2vh solid lime";
+                document.getElementById("button_HSV").style.color = "lime";
                 document.getElementById("id_color1_FirstLabel").innerHTML = "H:";
                 document.getElementById("id_color1_SecondLabel").innerHTML = "S:";
                 document.getElementById("id_color1_ThirdLabel").innerHTML = "V:";
+                document.getElementById("id_table_Color1").innerHTML = "C1 (HSV)";
+                document.getElementById("id_table_Color2").innerHTML = "C2 (HSV)";
                 break;
         case 2:
          var tmpactivColorIndex = activColorIndex;
@@ -174,11 +143,13 @@ function changeColorspace(type){
                         colorVal3_C5 = tmpLAB.getBValue();
                 activColorIndex=tmpactivColorIndex;
                 colorspaceModus="lab";
-                document.getElementById("button_LAB").style.border = "2px solid yellow";
-                document.getElementById("button_LAB").style.color = "yellow";
+                document.getElementById("button_LAB").style.border = "0.2vh solid lime";
+                document.getElementById("button_LAB").style.color = "lime";
                 document.getElementById("id_color1_FirstLabel").innerHTML = "L:";
                 document.getElementById("id_color1_SecondLabel").innerHTML = "A:";
                 document.getElementById("id_color1_ThirdLabel").innerHTML = "B:";
+                document.getElementById("id_table_Color1").innerHTML = "C1 (LAB)";
+                document.getElementById("id_table_Color2").innerHTML = "C2 (LAB)";
         break;
         case 3:
          var tmpactivColorIndex = activColorIndex;
@@ -211,42 +182,44 @@ function changeColorspace(type){
 
             activColorIndex=tmpactivColorIndex;
             colorspaceModus="din99";
-            document.getElementById("button_DIN99").style.border = "2px solid yellow";
-            document.getElementById("button_DIN99").style.color = "yellow";
+            document.getElementById("button_DIN99").style.border = "0.2vh solid lime";
+            document.getElementById("button_DIN99").style.color = "lime";
             document.getElementById("id_color1_FirstLabel").innerHTML = "L99:";
             document.getElementById("id_color1_SecondLabel").innerHTML = "A99:";
             document.getElementById("id_color1_ThirdLabel").innerHTML = "B99:";
+            document.getElementById("id_table_Color1").innerHTML = "C1 (DIN99)";
+            document.getElementById("id_table_Color2").innerHTML = "C2 (DIN99)";
         break;
         default:
         return;
     }
 
-    switch(activColorIndex){
+     switch(activColorIndex){
 
                     case 0: 
-                        document.getElementById("id_color1_First").value = colorVal1_C1;
-                        document.getElementById("id_color1_Second").value = colorVal2_C1;
-                        document.getElementById("id_color1_Third").value = colorVal3_C1;
+                        document.getElementById("id_color1_First").value = colorVal1_C1.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Second").value = colorVal2_C1.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Third").value = colorVal3_C1.toFixed(numDecimalPlaces);
                     break;
                     case 1:
-                        document.getElementById("id_color1_First").value = colorVal1_C2;
-                        document.getElementById("id_color1_Second").value = colorVal2_C2;
-                        document.getElementById("id_color1_Third").value = colorVal3_C2;
+                        document.getElementById("id_color1_First").value = colorVal1_C2.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Second").value = colorVal2_C2.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Third").value = colorVal3_C2.toFixed(numDecimalPlaces);
                     break;
                     case 2:
-                        document.getElementById("id_color1_First").value = colorVal1_C3;
-                        document.getElementById("id_color1_Second").value = colorVal2_C3;
-                        document.getElementById("id_color1_Third").value = colorVal3_C3;
+                        document.getElementById("id_color1_First").value = colorVal1_C3.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Second").value = colorVal2_C3.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Third").value = colorVal3_C3.toFixed(numDecimalPlaces);
                     break;
                     case 3:
-                        document.getElementById("id_color1_First").value = colorVal1_C4;
-                        document.getElementById("id_color1_Second").value = colorVal2_C4;
-                        document.getElementById("id_color1_Third").value = colorVal3_C4;
+                        document.getElementById("id_color1_First").value = colorVal1_C4.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Second").value = colorVal2_C4.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Third").value = colorVal3_C4.toFixed(numDecimalPlaces);
                     break;
                     case 4:
-                        document.getElementById("id_color1_First").value = colorVal1_C5;
-                        document.getElementById("id_color1_Second").value = colorVal2_C5;
-                        document.getElementById("id_color1_Third").value = colorVal3_C5;
+                        document.getElementById("id_color1_First").value = colorVal1_C5.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Second").value = colorVal2_C5.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Third").value = colorVal3_C5.toFixed(numDecimalPlaces);
                     break;
                     default:
                             console.log("Error at the changeColorspace function");
@@ -495,27 +468,42 @@ function changeActiveColor(val){
 
     activColorIndex=val;
 
-     document.getElementById("id_creatorBandC1").style.border = "2px solid black";
-     document.getElementById("id_creatorBandC2").style.border = "2px solid black";
-     document.getElementById("id_creatorBandC3").style.border = "2px solid black";
-     document.getElementById("id_creatorBandC4").style.border = "2px solid black";
-     document.getElementById("id_creatorBandC5").style.border = "2px solid black";
+     document.getElementById("id_creatorBandC1").style.border = "0.2vh solid black";
+     document.getElementById("id_creatorBandC2").style.border = "0.2vh solid black";
+     document.getElementById("id_creatorBandC3").style.border = "0.2vh solid black";
+     document.getElementById("id_creatorBandC4").style.border = "0.2vh solid black";
+     document.getElementById("id_creatorBandC5").style.border = "0.2vh solid black";
 
      switch(activColorIndex){
                     case 0: 
-                        document.getElementById("id_creatorBandC1").style.border = "3px solid yellow";
+                        document.getElementById("id_creatorBandC1").style.border = "0.4vh solid green";
+                        document.getElementById("id_color1_First").value = colorVal1_C1.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Second").value = colorVal2_C1.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Third").value = colorVal3_C1.toFixed(numDecimalPlaces);
                     break;
                     case 1:
-                        document.getElementById("id_creatorBandC2").style.border = "3px solid yellow";
+                        document.getElementById("id_creatorBandC2").style.border = "0.4vh solid green";
+                        document.getElementById("id_color1_First").value = colorVal1_C2.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Second").value = colorVal2_C2.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Third").value = colorVal3_C2.toFixed(numDecimalPlaces);
                     break;
                     case 2:
-                        document.getElementById("id_creatorBandC3").style.border = "3px solid yellow";
+                        document.getElementById("id_creatorBandC3").style.border = "0.4vh solid green";
+                        document.getElementById("id_color1_First").value = colorVal1_C3.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Second").value = colorVal2_C3.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Third").value = colorVal3_C3.toFixed(numDecimalPlaces);
                     break;
                     case 3:
-                       document.getElementById("id_creatorBandC4").style.border = "3px solid yellow";
+                       document.getElementById("id_creatorBandC4").style.border = "0.4vh solid green";
+                       document.getElementById("id_color1_First").value = colorVal1_C4.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Second").value = colorVal2_C4.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Third").value = colorVal3_C4.toFixed(numDecimalPlaces);
                     break;
                     case 4:
-                        document.getElementById("id_creatorBandC5").style.border = "3px solid yellow";
+                        document.getElementById("id_creatorBandC5").style.border = "0.4vh solid green";
+                        document.getElementById("id_color1_First").value = colorVal1_C5.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Second").value = colorVal2_C5.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Third").value = colorVal3_C5.toFixed(numDecimalPlaces);
                     break;
                     default:
                             console.log("Error at the insertColorChange function");
@@ -2017,31 +2005,6 @@ function addBand(type){
     updateCreatorBand();
     drawPredefinedBands();
 }
-///////////////////////////
-////   Band Editor ////
-///////////////////////////
-
-function acceptBandEditor(){
-    document.getElementById("bandEditWindow").style.display = "none";
-}
-
-
-function deleteBandEditor(){
-    console.log(9999);
-    if(hasLeftNeig&&hasRightNeig){
-             var dist = Math.abs(colormapBandSketchR1[bandOptionsIndex+1]-colormapBandSketchR2[bandOptionsIndex-1]);
-
-            colormapBandSketchR2[bandOptionsIndex-1]=colormapBandSketchR2[bandOptionsIndex-1]+(dist*0.5);
-            colormapBandSketchR1[bandOptionsIndex+1]=colormapBandSketchR1[bandOptionsIndex+1]-(dist*0.5);
-    }  
-    colormapBandSketchC1.splice(bandOptionsIndex, 1);
-    colormapBandSketchC2.splice(bandOptionsIndex, 1);
-    colormapBandSketchR1.splice(bandOptionsIndex, 1);
-    colormapBandSketchR2.splice(bandOptionsIndex, 1);
-    orderColorSketch();
-    console.log(9999);
-    document.getElementById("bandEditWindow").style.display = "none";
-}
 
 
 function bandOnClick(event){
@@ -2131,7 +2094,30 @@ function bandOnClick(event){
 
         }
 
+        changedColorC1 = colormapBandSketchC1[bandOptionsIndex];
+        changedColorC2 = colormapBandSketchC2[bandOptionsIndex];
+        changedRefR1 = colormapBandSketchR1[bandOptionsIndex];
+        changedRefR2 = colormapBandSketchR2[bandOptionsIndex];
+        changedNeiRefR1 = colormapBandSketchR1[bandOptionsIndex+1];
+        changedNeiRefR2 = colormapBandSketchR2[bandOptionsIndex-1];
+        c1IsActive = true;
+        drawEditorBandColorCircles();
+
 }
+
+
+function colormapNameChangeEnter(e){
+   if (e.keyCode == 13 && createColormap!=undefined) 
+    createColormap.setColormapName(document.getElementById("id_InputMapName").value);
+}
+
+function colormapNameChange(e){
+    if(createColormap!=undefined){
+     createColormap.setColormapName(document.getElementById("id_InputMapName").value);
+    }
+}
+
+
 
 
 

@@ -190,29 +190,29 @@ function colorpicker_MouseClick(){
     switch(activColorIndex){
 
                     case 0: 
-                        document.getElementById("id_color1_First").value = colorVal1_C1;
-                        document.getElementById("id_color1_Second").value = colorVal2_C1;
-                        document.getElementById("id_color1_Third").value = colorVal3_C1;
+                        document.getElementById("id_color1_First").value = colorVal1_C1.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Second").value = colorVal2_C1.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Third").value = colorVal3_C1.toFixed(numDecimalPlaces);
                     break;
                     case 1:
-                        document.getElementById("id_color1_First").value = colorVal1_C2;
-                        document.getElementById("id_color1_Second").value = colorVal2_C2;
-                        document.getElementById("id_color1_Third").value = colorVal3_C2;
+                        document.getElementById("id_color1_First").value = colorVal1_C2.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Second").value = colorVal2_C2.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Third").value = colorVal3_C2.toFixed(numDecimalPlaces);
                     break;
                     case 2:
-                        document.getElementById("id_color1_First").value = colorVal1_C3;
-                        document.getElementById("id_color1_Second").value = colorVal2_C3;
-                        document.getElementById("id_color1_Third").value = colorVal3_C3;
+                        document.getElementById("id_color1_First").value = colorVal1_C3.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Second").value = colorVal2_C3.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Third").value = colorVal3_C3.toFixed(numDecimalPlaces);
                     break;
                     case 3:
-                        document.getElementById("id_color1_First").value = colorVal1_C4;
-                        document.getElementById("id_color1_Second").value = colorVal2_C4;
-                        document.getElementById("id_color1_Third").value = colorVal3_C4;
+                        document.getElementById("id_color1_First").value = colorVal1_C4.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Second").value = colorVal2_C4.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Third").value = colorVal3_C4.toFixed(numDecimalPlaces);
                     break;
                     case 4:
-                        document.getElementById("id_color1_First").value = colorVal1_C5;
-                        document.getElementById("id_color1_Second").value = colorVal2_C5;
-                        document.getElementById("id_color1_Third").value = colorVal3_C5;
+                        document.getElementById("id_color1_First").value = colorVal1_C5.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Second").value = colorVal2_C5.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Third").value = colorVal3_C5.toFixed(numDecimalPlaces);
                     break;
                     default:
                             console.log("Error at the changeColorspace function");
@@ -409,29 +409,29 @@ function c1Vpicker_MouseClick(){
     switch(activColorIndex){
 
                     case 0: 
-                        document.getElementById("id_color1_First").value = colorVal1_C1;
-                        document.getElementById("id_color1_Second").value = colorVal2_C1;
-                        document.getElementById("id_color1_Third").value = colorVal3_C1;
+                        document.getElementById("id_color1_First").value = colorVal1_C1.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Second").value = colorVal2_C1.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Third").value = colorVal3_C1.toFixed(numDecimalPlaces);
                     break;
                     case 1:
-                        document.getElementById("id_color1_First").value = colorVal1_C2;
-                        document.getElementById("id_color1_Second").value = colorVal2_C2;
-                        document.getElementById("id_color1_Third").value = colorVal3_C2;
+                        document.getElementById("id_color1_First").value = colorVal1_C2.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Second").value = colorVal2_C2.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Third").value = colorVal3_C2.toFixed(numDecimalPlaces);
                     break;
                     case 2:
-                        document.getElementById("id_color1_First").value = colorVal1_C3;
-                        document.getElementById("id_color1_Second").value = colorVal2_C3;
-                        document.getElementById("id_color1_Third").value = colorVal3_C3;
+                        document.getElementById("id_color1_First").value = colorVal1_C3.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Second").value = colorVal2_C3.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Third").value = colorVal3_C3.toFixed(numDecimalPlaces);
                     break;
                     case 3:
-                        document.getElementById("id_color1_First").value = colorVal1_C4;
-                        document.getElementById("id_color1_Second").value = colorVal2_C4;
-                        document.getElementById("id_color1_Third").value = colorVal3_C4;
+                        document.getElementById("id_color1_First").value = colorVal1_C4.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Second").value = colorVal2_C4.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Third").value = colorVal3_C4.toFixed(numDecimalPlaces);
                     break;
                     case 4:
-                        document.getElementById("id_color1_First").value = colorVal1_C5;
-                        document.getElementById("id_color1_Second").value = colorVal2_C5;
-                        document.getElementById("id_color1_Third").value = colorVal3_C5;
+                        document.getElementById("id_color1_First").value = colorVal1_C5.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Second").value = colorVal2_C5.toFixed(numDecimalPlaces);
+                        document.getElementById("id_color1_Third").value = colorVal3_C5.toFixed(numDecimalPlaces);
                     break;
                     default:
                             console.log("Error at the changeColorspace function");

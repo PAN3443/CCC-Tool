@@ -270,7 +270,7 @@ function drawVChangeRects(){
     
     var canvasVInputContex1 = canvasVInput1.getContext("2d");
 
-    drawValueRect(canvasVInputContex1, getHSVColor(true), resolution_X, resolution_Y);
+    drawValueRect(canvasVInputContex1, getHSVColor(), resolution_X, resolution_Y);
 
 }
 

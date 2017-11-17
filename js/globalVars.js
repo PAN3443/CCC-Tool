@@ -2,11 +2,22 @@
 /// MAIN PAGE
 //////////////////////////
 
+
+//// Colormaps
+
+var myList = [];
+var createColormap;
+var exportColormap;
+var analysisColormap;
+var compareColormap1;
+var compareColormap2;
+
+var saveMyListID = 0;
+
 /// Colorspace Parameter
 
 var kE = 1;
 var kCH = 1;
-
 
 var createBandType = 1; // 0=constant, 1=scale, 2=double, 3=triple, 4=quadruple
 var activColorIndex = 0;
@@ -15,6 +26,8 @@ var creatorBandIsNew = true;
 var newBandIsAdded = true;
 var dragPredefinedBandIndex = -1;
 var dragPredefinedBandType = -1;
+
+var numDecimalPlaces = 2;
 
 // mouseposition
 var mousePosX;
@@ -77,10 +90,17 @@ var indexOfDroppedPlace = -1;
 
 // Band Edit
 var bandOptionsIndex = -1;
-var editBandIndex = -1;
 var hasRightNeig = false
 var hasLeftNeig = false;
+var changedColor = false;
+var changedColorC1;
+var changedColorC2;
+var changedRefR1;
+var changedRefR2;
+var changedNeiRefR1;
+var changedNeiRefR2;
 
+var c1IsActive = true;
 
 // predefined Bands
 

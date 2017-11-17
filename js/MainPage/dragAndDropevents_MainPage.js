@@ -757,12 +757,12 @@ function bandOnDrop(event){
                     colormapBandSketchC1.splice(indexOfDroppedPlace, 0, quadBands[dragPredefinedBandIndex][0]);
                     colormapBandSketchC2.splice(indexOfDroppedPlace, 0, quadBands[dragPredefinedBandIndex][1]);
                     if(colormapBandSketchR1.length==0){
-                            colormapBandSketchR1.splice(indexOfDroppedPlace, 0, 0.25);
-                            colormapBandSketchR2.splice(indexOfDroppedPlace, 0, 0.5);
-                            colormapBandSketchR1.splice(indexOfDroppedPlace, 0, 0.5);
-                            colormapBandSketchR2.splice(indexOfDroppedPlace, 0, 0.75);
                             colormapBandSketchR1.splice(indexOfDroppedPlace, 0, 0.75);
                             colormapBandSketchR2.splice(indexOfDroppedPlace, 0, 1.0);
+                            colormapBandSketchR1.splice(indexOfDroppedPlace, 0, 0.5);
+                            colormapBandSketchR2.splice(indexOfDroppedPlace, 0, 0.75);
+                            colormapBandSketchR1.splice(indexOfDroppedPlace, 0, 0.25);
+                            colormapBandSketchR2.splice(indexOfDroppedPlace, 0, 0.5);
                             colormapBandSketchR1.splice(indexOfDroppedPlace, 0, 0.0);
                             colormapBandSketchR2.splice(indexOfDroppedPlace, 0, 0.25);
                     }
@@ -1007,7 +1007,10 @@ function orderColorSketch(){
 
     }
 
-
+    calcColormap();
+    drawCanvasColormap("id_linearColormap",1920, 250, createColormap);
+    drawKeys("id_keyColormap",1920, 100, createColormap)
+    fillTable();
     // draw preview colormap
     //bandListToColormap();
     //createSide_drawColormap();
