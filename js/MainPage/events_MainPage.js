@@ -2,14 +2,16 @@ function expandTable(){
 
     if(tableIsExpand){
         document.getElementById("id_table_workwindow").style.width = 0+"vw";
-        document.getElementById("id_colormap_workwindow").style.width = 98+"vw";
+        document.getElementById("id_colormapsDiv").style.width = 98+"vw";
         document.getElementById("id_table_workwindow").style.display = "none";
+        document.getElementById("id_colormapsDiv").style.display = "initial";
         tableIsExpand=false;
     }
     else{
-        document.getElementById("id_table_workwindow").style.width = 40+"vw";
-        document.getElementById("id_colormap_workwindow").style.width = 58+"vw";
+        document.getElementById("id_table_workwindow").style.width = 98+"vw";
+        document.getElementById("id_colormapsDiv").style.width = 0+"vw";
         document.getElementById("id_table_workwindow").style.display = "initial";
+        document.getElementById("id_colormapsDiv").style.display = "none";
         tableIsExpand=true;
     }
     drawPredefinedBands();
@@ -1435,7 +1437,7 @@ function saveBandToArray(){
     }
     activColorIndex = oldIndex; 
     
-    drawPredefinedBands();
+    //drawPredefinedBands();
 
 }
 
@@ -2000,10 +2002,15 @@ function addBand(type){
 
     }
 
+    document.getElementById("bandCreatorWindow").style.display = "initial";
+
+    
+
     styleBandCreator();
     drawColorCircles();
     updateCreatorBand();
-    drawPredefinedBands();
+    //drawPredefinedBands();
+
 }
 
 
@@ -2115,6 +2122,37 @@ function colormapNameChange(e){
     if(createColormap!=undefined){
      createColormap.setColormapName(document.getElementById("id_InputMapName").value);
     }
+}
+
+
+function acceptNewBand(){
+    document.getElementById("bandCreatorWindow").style.display = "none";
+    drawPredefinedBands();
+}
+
+function cancelNewBand(){
+    document.getElementById("bandCreatorWindow").style.display = "none";
+
+      switch(createBandType){
+        case 0:          
+                constBands.pop();
+        break;
+        case 1:
+                scaleBands.pop();
+        break;
+        case 2:
+                doubleBands.pop();        
+        break;
+        case 3:
+                tribleBands.pop();    
+        break;
+        case 4:       
+                quadBands.pop();  
+        break;
+        default:
+            console.log("Error saveBandToArray function");
+    }
+    drawPredefinedBands();
 }
 
 

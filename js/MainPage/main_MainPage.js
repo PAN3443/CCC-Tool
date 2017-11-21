@@ -3,7 +3,7 @@ window.onload = function () {
 
     // Style Init
     styleMainPage();
-
+    document.getElementById("id_table_workwindow").style.display = "none";
     //// set events
         // Table
         document.getElementById('id_expandTablebutton').addEventListener("click", expandTable);
@@ -24,9 +24,12 @@ window.onload = function () {
         document.getElementById('id_canvasPickerC1V').addEventListener("mousemove", c1Vpicker_MouseMove);
         document.getElementById('id_canvasPickerC1V').addEventListener("click",c1Vpicker_MouseClick);
 
-        // Drag And Drop
-        document.getElementById('id_creatorBand').addEventListener("dragstart", bandOnDragStart);
-        document.getElementById('id_creatorBand').addEventListener("dragend", bandOnDragEnd);
+        // Band Creator
+        //document.getElementById('id_creatorBand').addEventListener("dragstart", bandOnDragStart);
+        //document.getElementById('id_creatorBand').addEventListener("dragend", bandOnDragEnd);
+        document.getElementById('acceptBandCreator').addEventListener("click", acceptNewBand);
+        document.getElementById('cancelBandCreator').addEventListener("click", cancelNewBand);
+
 
         // Colormap Name Change
         document.getElementById('id_InputMapName').addEventListener("change", colormapNameChange);
@@ -83,8 +86,8 @@ window.onscroll = function () {
 };
 
 function styleMainPage(){
-    var workRec = document.getElementById("id_mainpage").getBoundingClientRect();
-    document.getElementById("id_expandTablebutton").style.height = workRec.height+"px";
+    //var workRec = document.getElementById("id_mainpage").getBoundingClientRect();
+    //document.getElementById("id_expandTablebutton").style.height = workRec.height+"px";
 
     // Main Page colorpicker
     var canvasColorspace = document.getElementById("id_workcanvasPicker");
@@ -236,6 +239,7 @@ function fillTable(){
         tr.appendChild(td2);
 
         new_tbody.appendChild(tr);
+
     }
 
     old_tbody.parentNode.replaceChild(new_tbody, old_tbody);

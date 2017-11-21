@@ -94,11 +94,13 @@ function acceptBandEditor(){
 function deleteBandEditor(){
 
     if(hasLeftNeig&&hasRightNeig){
-             var dist = Math.abs(changedNeiRefR1-changedNeiRefR2);
 
-            changedNeiRefR2=changedNeiRefR2+(dist*0.5);
-            changedNeiRefR1=changedNeiRefR1-(dist*0.5);
+             var dist = Math.abs(colormapBandSketchR1[bandOptionsIndex+1]-colormapBandSketchR2[bandOptionsIndex-1]);
+
+            colormapBandSketchR2[bandOptionsIndex-1]=colormapBandSketchR2[bandOptionsIndex-1]+(dist*0.5);
+            colormapBandSketchR1[bandOptionsIndex+1]=colormapBandSketchR1[bandOptionsIndex+1]-(dist*0.5);
     }  
+
     colormapBandSketchC1.splice(bandOptionsIndex, 1);
     colormapBandSketchC2.splice(bandOptionsIndex, 1);
     colormapBandSketchR1.splice(bandOptionsIndex, 1);

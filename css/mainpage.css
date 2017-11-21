@@ -32,7 +32,7 @@
 
 .class_predefinedConstBands{
     height: 3vh;
-    width: 10%;
+    width: 2.5%;
     border-radius: 0.5vh; 
     border: 2px solid black; 
     margin:1vh;
@@ -56,3 +56,5 @@
     font-size: 2vh;
 
 }
+
+     

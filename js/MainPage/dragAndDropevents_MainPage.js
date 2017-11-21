@@ -978,6 +978,14 @@ function orderColorSketch(){
             document.getElementById("id_colormapSketch").appendChild(t2Div);
             dropPositionElements.push(t2Div);
 
+
+
+        // show and draw the colormap
+        document.getElementById("id_LinearMap_Table_Div").style.display = "initial";
+        calcColormap();
+        drawCanvasColormap("id_linearColormap",1920, 250, createColormap);
+        drawKeys("id_keyColormap",1920, 100, createColormap)
+        fillTable();
            
     }
     else{
@@ -1005,15 +1013,10 @@ function orderColorSketch(){
         document.getElementById("id_colormapSketch").appendChild(t2Div);
         dropPositionElements.push(t2Div);
 
+        document.getElementById("id_LinearMap_Table_Div").style.display = "none";
+
+
     }
 
-    calcColormap();
-    drawCanvasColormap("id_linearColormap",1920, 250, createColormap);
-    drawKeys("id_keyColormap",1920, 100, createColormap)
-    fillTable();
-    // draw preview colormap
-    //bandListToColormap();
-    //createSide_drawColormap();
-    //createSide_drawColormapInSpace();
 
 }
