@@ -378,8 +378,8 @@ function drawKeys(canvasID,resolutionX, resolutionY, tmpColormap){
 
         /////////////////////////////////////////////////////////
 
-        var colormapWidth = resolutionX/9*8;
-        var xPos = resolutionX/9*0.5;
+        var colormapWidth = resolutionX*0.95;
+        var xPos = resolutionX*0.025;
         var yPos = resolutionY;
 
         var twinStarted = false;

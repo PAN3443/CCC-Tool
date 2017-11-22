@@ -24,6 +24,7 @@
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/general.css">
         <link rel="stylesheet" href="css/mainpage.css">
+        <link rel="stylesheet" href="css/myListPage.css">
 
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
@@ -90,7 +91,7 @@
         -->
 
        
-		 <!-- 
+		<!-- 
         ----------------------------------------------- 
         ----------------	Menü	  -----------------
         -----------------------------------------------
@@ -98,9 +99,9 @@
 
         
 
-		<div id="id_fixedHeader" style="overflow: hidden; position: fixed; top: 0px; width: 100%; border-bottom: 0.5vh solid rgb(60,60,60); z-index: 100;">	
+		<div id="id_fixedHeader" style="overflow: hidden; position: fixed; top: 0px; width: 100%; z-index: 100;">	
 
-            <div id="id_menu" class="row" style="width:100%; height:5vh; background: rgb(60,60,60);">
+            <div id="id_menu" class="row" style="width:100%; height:5vh; background: rgb(0,0,0);">
                 <img src="img/CCC-LOGO.png" alt="CCC-Tool Logo" style="margin-top:0; margin-bottom:0; height:5vh; margin-left:auto;">
                 <h1 style="height:5vh; height:5vh; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:20px; margin-right:auto; font-size:4vh;"> CCC-TOOL </h1>
                 <button style="height:5vh;width: 3cm; float:right; background:none; border-left: 2px solid white; color:white; height:5vh; text-align:center; vertical-align: middle; font-weight: bold; font-size:1.5vh"> My Maps </button>
@@ -108,9 +109,9 @@
             </div>
 
 
-            <div id="id_main_general_options_menu" class="row" style="width:100%; height:5vh; background:rgb(90,90,90); overflow-x:auto;">
+            <div id="id_createSide_options_menu" class="row" style="width:100%; height:5vh; background:rgb(60,60,60); overflow-x:auto;">
                 <h2 style="font-weight:bold; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; margin:0px; color:white; margin-left:20px; margin-right:20px; font-size:3vh;"> CREATE COLORMAP </h2>
-                <div class="row" id="id_Create_Menue" style="height:100%; width: auto;">
+                <div class="row" id="id_Create_Menue" style="height:100%; width: auto; ">
                     <h3 style="border-left: 3px solid white;height:5vh; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; padding-left:20px; font-size:2vh;"> NAME: </h3>
                     <input  id = "id_InputMapName" type="text" name="key space" value="Cus. Colormap" style="height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; margin-top:0.7vh; margin-left:1vh; margin-right:1vh;">
                     <button title="export" style="border-radius: 0.3vh; background: url(img/exportButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
@@ -129,22 +130,25 @@
                     <button id="button_DIN99" title="DIN99" onclick="changeColorspace(3)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:3vh; font-size:1.75vh; margin:1vh; border: 0.2vh solid white; color:white;">DIN99</button>
                 </div>
             </div>
+
+            <h2 id="id_SideLabel" style="width:100%; background:rgb(60,60,60); font-weight:bold; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; margin:0px; color:white; font-size:3vh; display:none;"> My Colormap List </h2>      
+
 		</div>
 
 
 		 <!-- 
         ----------------------------------------------- 
-        ----------------	Main Page (Creator)	  -----------------
+        ----------------	Creator Page ---------------
         -----------------------------------------------
         -->
-        <div id="id_mainpage" style="width: 100%; height:auto; margin-top:10.5vh; margin-bottom:0px; background:white;">
+        <div id="id_creatorPage" style="width: 100%; height:auto; margin-top:10vh; margin-bottom:0px; background:white; display:initital;">
         
 
             <div class="row" style="height:100%; width: 100%;">
 
                
  
-                <div id="id_colormap_workwindow" style="width:100vw; ">
+                <div id="id_colormap_workwindow" style="width:100%; ">
 
                     
                     
@@ -153,21 +157,21 @@
                     <div id="id_LinearMap_Table_Div" style="display:none;">
                         <div class="row" style="height:40vh; width:100%; margin:0px;">
 
-                            <div id="id_table_workwindow" style="height:100%; width:0%; border-right: 2px solid black;  display: none; display: flex; flex-direction: column;">
+                            <div id="id_table_workwindow" style="height:99%; width:0%; display: flex; flex-direction: column;">
 
-                                    <h4 style=" width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; margin:0px; border-top: 1px solid black; background:grey; color:white;">Colormap Table</h4>
+                                    <h4 style=" width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; margin:0px; background:grey; color:white;">Colormap Table</h4>
 
                                         
                                              <div style="height:37vh; overflow:auto;">
                                                     <table style="width:100%" id="id_table">
                                                     <thead>
                                                         <tr style="border-top:1px solid white;">
-                                                            <th class="class_tablelabel" id="id_table_Number" style="width:4vw; border-left:1px solid white;" >#</th>
-                                                            <th class="class_tablelabel" id="id_table_Reference1" style="width:9vw;">Reference 1</th> 
-                                                            <th class="class_tablelabel" id="id_table_Reference2" style="width:9vw;">Reference 2</th>
-                                                            <th class="class_tablelabel" id="id_table_Bandtype" style="width:9vw;">Band Type</th>
-                                                            <th class="class_tablelabel" id="id_table_Color1" style="width:9vw;">C1 (RGB)</th>
-                                                            <th class="class_tablelabel" id="id_table_Color2" style="width:9vw;">C2 (RGB)</th>
+                                                            <th class="class_tablelabel" id="id_table_Number" style="width:4%; border-left:1px solid white;" >#</th>
+                                                            <th class="class_tablelabel" id="id_table_Reference1" style="width:9%;">Reference 1</th> 
+                                                            <th class="class_tablelabel" id="id_table_Reference2" style="width:9%;">Reference 2</th>
+                                                            <th class="class_tablelabel" id="id_table_Bandtype" style="width:9%;">Band Type</th>
+                                                            <th class="class_tablelabel" id="id_table_Color1" style="width:9%;">C1 (RGB)</th>
+                                                            <th class="class_tablelabel" id="id_table_Color2" style="width:9%;">C2 (RGB)</th>
                                                         </tr>
                                                     </thead>
                                                     
@@ -180,34 +184,26 @@
 
                             </div>
 
-                            <div id="id_expandTablebutton" title="expand table" style="height:100%; width:2vw; border-radius: 0px 10px 10px 0px; height:100%; background: url(img/expandTableButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; cursor:pointer;">
+                            <div id="id_expandTablebutton" title="expand table" style="height:100%; width:1%; border-radius: 0px 10px 10px 0px; height:100%; background: url(img/expandTableButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; cursor:pointer;">
                             </div>
                             
                             <!-- colormaps -->
-                            <div id="id_colormapsDiv" style="height: 100%; width:100%; border-right:1px solid black; margin:0px;">
+                            <div id="id_colormapsDiv" style="height: 100%; width:99%; margin:0px;">
     
-                                <div class="row" style="height:100%; width:100%; margin:0px;">
-
-                                    <div style="height:100%; width:90%; padding-top: 0.5vh;">
+                                    <div style="height:100%; width:100%; padding-top: 0.5vh;">
 
                                         <h4 style="width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Linear Colormap</h4>
 
-                                        <canvas style="margin-top: 0vh; width:90%; height: 6vh; margin-left:5%; " id="id_keyColormap">
+                                        <canvas style="margin-top: 0vh; width:100%; height: 6vh; margin-left:0%; " id="id_keyColormap">
 
                                         </canvas>
-                                        <canvas style="margin-top: 0vh; width:80%; height: 23vh; margin-left:10%;" id="id_linearColormap">
+                                        <canvas style="margin-top: 0vh; width:95%; height: 23vh; margin-left:2.5%;" id="id_linearColormap">
 
                                         </canvas>
-                                        <canvas style="margin-top: 0vh; width:90%; height: 1vh; margin-left:5%; " id="id_keyColormap">
+                                        <canvas style="margin-top: 0vh; width:100%; height: 1vh; margin-left:0%; " id="id_keyColormap">
 
                                         </canvas>
                                     </div>
-    
-                                    <div style="height:100%; width:10%; border-left:2px solid black; background:rgb(230,230,230); margin:0px;">
-
-                                    </div>
-
-                                </div>
 
                             </div>
 
@@ -215,7 +211,7 @@
                     </div>
 
                     <!-- Colormap Sketch Bands -->
-                    <div class="row" style="height:20vh; width:100%; margin:0px; background:black;">
+                    <div class="row" style="height:20vh; width:100%; margin:0px; background:rgb(230,230,230); border-top:2px solid black;">
                         <div style="height:auto; width:98%; margin:auto; background:white; padding-bottom:1vh;">
                             <h4 style="width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Colormap Band Sketch</h4>
 
@@ -231,11 +227,11 @@
                     <div class="row" style="height:auto; width:100%; margin:0px; ">
                         <!-- existing colors -->
                         
-                        <div style="height:auto; width:100%; background:black;">
+                        <div style="height:auto; width:100%; background:rgb(200,200,200);">
                            
                             <div id="id_tmpContainer" style="height:0px; width:0px;"></div>
 
-                            <div class="row" style="width:100%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(250,250,250);">
+                            <div class="row" style="width:100%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255);">
                                 <h4 style=" margin: 0px; width:15%; height:3vh; line-height:3vh; font-size:2vh; text-align:right; vertical-align: middle;color:black; margin-top:1vh;">Constand Band:</h4>
                                 <div  style="width:85%; height:auto;">
                                     <div id="id_ConstandBand_Div" style=" display: inline-block; width:100%; height:auto;">
@@ -244,7 +240,7 @@
                                 </div>
                             </div>
 
-                            <div class="row" style="width:100%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(250,250,250);">
+                            <div class="row" style="width:100%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255);">
                                 <h4 style=" margin: 0px; width:15%; height:3vh; line-height:3vh; font-size:2vh; text-align:right; vertical-align: middle;color:black; margin-top:1vh;">Scale Band:</h4>
                                 <div style="width:85%; height:auto;">
                                     
@@ -254,7 +250,7 @@
                                 </div>
                             </div>
                             
-                            <div class="row" style="width:100%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(250,250,250);">                      
+                            <div class="row" style="width:100%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255);">                      
                                 <h4 style=" margin: 0px; width:15%; height:3vh; line-height:3vh; font-size:2vh; text-align:right; vertical-align: middle;color:black; margin-top:1vh;">Double Bands:</h4>
                                 <div style="width:85%; height:auto;">
                                     
@@ -264,7 +260,7 @@
                                 </div>
                             </div>
 
-                            <div class="row" style="width:100%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(250,250,250);">
+                            <div class="row" style="width:100%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255);">
                                 <h4 style=" margin: 0px; width:15%; height:3vh; line-height:3vh; font-size:2vh; text-align:right; vertical-align: middle;color:black; margin-top:1vh;">Triple Bands:</h4>
                                 <div style="width:85%; height:auto;">
                                     
@@ -274,7 +270,7 @@
                                 </div>
                             </div>
 
-                            <div class="row" style="width:100%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(250,250,250);">
+                            <div class="row" style="width:100%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255);">
                                 <h4 style=" margin: 0px; width:15%; height:3vh; line-height:3vh; font-size:2vh; text-align:right; vertical-align: middle;color:black; margin-top:1vh;">Quadrupel Bands:</h4>
                                 <div style="width:85%; height:auto;">
                                     <div id="id_QuadrupelBands_Div" style=" display: inline-block; width:100%; height:auto;">
@@ -297,6 +293,60 @@
         </div>
 
 
+         <!-- 
+        ----------------------------------------------- 
+        ----------------	MY List	  -----------------
+        -----------------------------------------------
+        -->
+        <div id="id_myListPage" style="width: 100%; height:auto; margin-top:10vh; margin-bottom:0px; background:white; display:none;">
+        
+            <div class="row" style="width:100%;">
+                <div class="row" style="width:50%;">
+                    <canvas id="id_canvasColormap0" class="class_MyListColormapCanvas"> 
+
+                    </canvas>
+                </div>
+                <div class="row" style="width:50%;">
+                        
+                </div>
+            </div>
+        </div>
+
+        <!-- 
+        ----------------------------------------------- 
+        ----------------	Compare	  -----------------
+        -----------------------------------------------
+        -->
+        <div id="id_comparePage" style="width: 100%; height:auto; margin-top:10vh; margin-bottom:0px; background:white; display:none;">
+                
+        </div>
+
+        <!-- 
+        ----------------------------------------------- 
+        ----------------	Analysis	  -----------------
+        -----------------------------------------------
+        -->
+        <div id="id_analysisPage" style="width: 100%; height:auto; margin-top:10vh; margin-bottom:0px; background:white; display:none;">
+                
+        </div>
+
+        <!-- 
+        ----------------------------------------------- 
+        ----------------	Edit	  -----------------
+        -----------------------------------------------
+        -->
+        <div id="id_editPage" style="width: 100%; height:auto; margin-top:10vh; margin-bottom:0px; background:white; display:none;">
+                
+        </div>
+        
+        <!-- 
+        -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        ----------------	POP UP WINDOWS
+        ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        -->
+
 
         <!-- 
         --------------------------------------------------- 
@@ -309,7 +359,7 @@
             <div style="margin-top:15vh; height:auto; background: rgb(255,255,255); width:100%; border-top: 1vh solid black; border-bottom: 1vh solid black;">
                 <div class="row" style="background: none; height:55vh; width:100%; height:30%; padding-bottom:5vh; border-bottom:2px solid black;">
 
-                    <div style="width: 25vw; height:30vh; border: 1px solid rgb(200,200,200); margin:0px;">
+                    <div style="width: 25%; height:30vh; border: 1px solid rgb(200,200,200); margin:0px;">
                                     
                                     <h4 style="width:100%; margin:0px; width:100%; height:5vh; line-height:5vh; font-size:3vh; text-align:center; vertical-align: middle; color:white; background:rgb(100,100,100); ">Left Neighbour</h4>
 
@@ -330,7 +380,7 @@
 
                     </div>
 
-                    <div style="width: 50vw; height:30vh; margin:0px;">
+                    <div style="width: 50%; height:30vh; margin:0px;">
 
                             <h4 style="width:100%; margin:0px; width:100%; height:5vh; line-height:5vh; font-size:3vh; text-align:center; vertical-align: middle;color:white; background:rgb(100,100,100);">Edit Band</h4>
 
@@ -363,7 +413,7 @@
                             
                     </div>
 
-                    <div  style="width: 25vw; height:30vh; border: 1px solid rgb(200,200,200); margin:0px;">
+                    <div  style="width: 25%; height:30vh; border: 1px solid rgb(200,200,200); margin:0px;">
 
                                     <h4  style="width:100%; margin:0px; width:100%; height:5vh; line-height:5vh; font-size:3vh; text-align:center; vertical-align: middle;color:white; background:rgb(100,100,100);">Right Neighbour</h4>
                                     
@@ -445,11 +495,11 @@
 
         <div id="bandCreatorWindow" style="background: rgba(0,0,0,0.6); width:100%; height:100%; position:absolute; position: fixed; z-index:101; top:0px; left:0px; bottom:0px; display:none;">
 
-            <div style="margin-top:15vh; height:auto; background: rgb(240,240,240); width:50vw; border: 0.5vh solid black; margin-left:auto; margin-right:auto;">
+            <div style="margin-top:15vh; height:auto; background: rgb(240,240,240); width:50%; border: 0.5vh solid black; margin-left:auto; margin-right:auto;">
 
                                          <!------------------>
                         <!-- BAND Creator -->
-                        <div style="margin:auto; width:40vw; height:auto; background:rgb(240,240,240);"> 
+                        <div style="margin:auto; width:40%; height:auto; background:rgb(240,240,240);"> 
 
                             <div class="row" style="height:auto; width:auto; ">
                                 
@@ -549,6 +599,25 @@
             </div>
 
         </div>
+
+                <!-- 
+        --------------------------------------------------- 
+        ----------------	Export Window  -------------
+        ---------------------------------------------------
+        -->
+
+        <div id="exportWindow" style="background: rgba(0,0,0,0.6); width:100%; height:100%; position:absolute; position: fixed; z-index:101; top:0px; left:0px; bottom:0px; display:none;">
+            
+                        <div style="margin-top:15vh; height:auto; background: rgb(255,255,255); width:100%; border-top: 1vh solid black; border-bottom: 1vh solid black;">
+
+            
+                             
+                        </div>
+            
+        </div>
+        
+        
+
 		
 		<!-- 
         ----------------------------------------------- 
@@ -558,14 +627,11 @@
         
         <div id="id_mainpage" class="row" style="width: 100%; height: 10vh; background:black; margin:0px; z-index:100;">
 
-            <img title="BSV Workgroup, University Leipzig" src="img/bsv_logo_small.png" alt="Logo: The Coloroptimizer" style="margin-top:1vh; margin-bottom:1vh;margin-left:10vw; height: 8vh; cursor: pointer;">
+            <img title="BSV Workgroup, University Leipzig" src="img/bsv_logo_small.png" alt="Logo: The Coloroptimizer" style="margin-top:1vh; margin-bottom:1vh;margin-left:10%; height: 8vh; cursor: pointer;">
 
             <p style="color:white; float:right; margin-left:auto;margin-right:1cm;">Copyright © 2017</p>
 
         </div>
-
-        
-             
 
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->

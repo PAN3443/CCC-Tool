@@ -1,15 +1,15 @@
 function expandTable(){
 
     if(tableIsExpand){
-        document.getElementById("id_table_workwindow").style.width = 0+"vw";
-        document.getElementById("id_colormapsDiv").style.width = 98+"vw";
+        document.getElementById("id_table_workwindow").style.width = 0+"%";
+        document.getElementById("id_colormapsDiv").style.width = 99+"%";
         document.getElementById("id_table_workwindow").style.display = "none";
         document.getElementById("id_colormapsDiv").style.display = "initial";
         tableIsExpand=false;
     }
     else{
-        document.getElementById("id_table_workwindow").style.width = 98+"vw";
-        document.getElementById("id_colormapsDiv").style.width = 0+"vw";
+        document.getElementById("id_table_workwindow").style.width = 99+"%";
+        document.getElementById("id_colormapsDiv").style.width = 0+"%";
         document.getElementById("id_table_workwindow").style.display = "initial";
         document.getElementById("id_colormapsDiv").style.display = "none";
         tableIsExpand=true;

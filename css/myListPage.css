@@ -1,0 +1,13 @@
+.class_MyListColormapCanvas{
+    height:3vh; 
+    line-height:3vh; 
+    font-size:1.2vh;
+    font-weight: bold; 
+    padding-right:0.2cm;
+    padding-left:0.2cm;
+    background:grey;
+    color: white;
+    border-right: 1px solid white;
+    vertical-align: middle;
+    text-align: center;
+}
