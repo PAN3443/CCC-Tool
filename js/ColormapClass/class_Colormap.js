@@ -4,7 +4,7 @@
 
 class xclassColorMap {
 
-    constructor() {   
+    constructor() {
     this.name = "";
 
     this.rgbColorArray = [];
@@ -21,30 +21,30 @@ class xclassColorMap {
     this.distanceHSV = [];
     this.distanceSumCIEDE2000 = 0;
     this.distanceSumRGB = 0;
-    this.distanceSumHSV = 0; 
+    this.distanceSumHSV = 0;
 
     this.bandArray  = []; //
     this.default_NumberIntervals = 10;
     this.default_NumberIntervalPoints = 9;
-    this.default_IntervalStepSize = 0.1; 
+    this.default_IntervalStepSize = 0.1;
 
   }
 
   createKeys(){
 
     this.positionKeys=[];
-    var lastElementTwin = false; 
-    var lastElementLeft = false; 
+    var lastElementTwin = false;
+    var lastElementLeft = false;
 
      for(var i = 0; i<this.positionPoints.length-1; i++){
         if(lastElementLeft==true){
             this.positionKeys.push("left key");
             lastElementLeft = false;
-            continue; 
+            continue;
         }
         if(lastElementTwin==true){
             this.positionKeys.push("twin key");
-            lastElementTwin = false; 
+            lastElementTwin = false;
             continue;
         }
         if(i==0){
@@ -64,38 +64,38 @@ class xclassColorMap {
                 else{
                     if(this.rgbColorArray[i+1].getRGBString()===this.rgbColorArray[i+2].getRGBString()){
                         this.positionKeys.push("left key"); // start with constant colorband
-                        lastElementLeft = true; 
+                        lastElementLeft = true;
                     }
                     else{
                         this.positionKeys.push("twin key"); // start with scaled colorband
                         lastElementTwin = true;
                     }
                 }
-            
+
             }
             else{
 
                 this.positionKeys.push("dual key");
-               
+
             }
         }
 
      }
 
      this.positionKeys.push("left key"); // colormaps always end with leftKey
- 
+
   }
 
   calcNewDistances(){
 
     this.distanceSumCIEDE2000 = 0;
     this.distanceSumRGB = 0;
-    this.distanceSumHSV = 0; 
+    this.distanceSumHSV = 0;
     this.distanceRGB = [];
     this.distanceHSV = [];
     this.distanceCIEDE2000 = [];
 
-    if(this.rgbColorArray.length>1){   
+    if(this.rgbColorArray.length>1){
       /// RGB
         for(var i = 0; i<this.rgbColorArray.length-1; i++){
             // calc distance rgb
@@ -119,8 +119,8 @@ class xclassColorMap {
             this.distanceSumCIEDE2000 = this.distanceSumCIEDE2000 + tmpDis;
         }
     }
-      
-      
+
+
   }
 
 ///////////////////////////////////
@@ -137,13 +137,13 @@ class xclassColorMap {
             this.positionKeys[i]==="left key" && this.positionKeys[i+1]==="left key" ||    // discrete band at the end of colormap
             this.positionKeys[i]==="left key" && this.positionKeys[i+1]==="twin key"        // discrete band inside of the colormap
         ){
-           
+
             if(this.positionPoints[i]!=this.positionPoints[i+1]){
             this.bandArray.push( new class_Band(this.rgbColorArray[i],this.rgbColorArray[i+1],this.hsvColorArray[i],this.hsvColorArray[i+1],this.cielabColorArray[i],this.cielabColorArray[i+1],this.din99ColorArray[i],this.din99ColorArray[i+1],this.positionPoints[i],this.positionPoints[i+1], true));
             }
         }
         else{
-            
+
             if(this.positionPoints[i]!=this.positionPoints[i+1]){
             this.bandArray.push( new class_Band(this.rgbColorArray[i],this.rgbColorArray[i+1],this.hsvColorArray[i],this.hsvColorArray[i+1],this.cielabColorArray[i],this.cielabColorArray[i+1],this.din99ColorArray[i],this.din99ColorArray[i+1],this.positionPoints[i],this.positionPoints[i+1], false));
             }
@@ -177,7 +177,7 @@ class xclassColorMap {
   getNumberIntervalsSingleBands(index){
     return this.bandArray[index].getSample_numberOfIntervals();
   }
-  
+
 
   setNumberIntervalPointssAllBands(number){
     this.default_NumberIntervalPoints = number;
@@ -195,7 +195,7 @@ class xclassColorMap {
   }
 
   setStepSizeOfIntervalAllBands(number){
-    this.default_IntervalStepSize = number; 
+    this.default_IntervalStepSize = number;
     for(var i = 0; i<this.bandArray.length; i++){
         this.bandArray[i].setSample_stepSizeOfInterval(number);
     }
@@ -236,6 +236,7 @@ class xclassColorMap {
   }
 
   getBand(index){
+    console.log(index);
       return this.bandArray[index];
   }
 
@@ -263,7 +264,7 @@ class xclassColorMap {
 
    getColormapName() {
     return this.name;
-   } 
+   }
 
    getRGBColor(index) {
     return this.rgbColorArray[index];
@@ -332,7 +333,7 @@ class xclassColorMap {
 
    setColormapName(newName) {
     this.name = newName;
-   } 
+   }
 
    setRGBColor(index, color) {
     this.rgbColorArray[index] = color;
@@ -362,7 +363,7 @@ class xclassColorMap {
     this.calcNewDistances();
    }
 
-   
+
 
   /////////////// Insert ////////////////////
 
@@ -414,9 +415,9 @@ class xclassColorMap {
     this.calcNewDistances();
   }
 
-  pushPositionPoints(position){  
+  pushPositionPoints(position){
       this.positionPoints.push(position);
-      
+
       if(this.positionPoints.length==1){
         this.referenceRangeStart = position;
       }
@@ -429,8 +430,8 @@ class xclassColorMap {
             var deg360InRad = deg2rad(360.0);
             var deg180InRad = deg2rad(180.0);
             var pow25To7 = Math.pow(25, 7);
-            
-            // Step 1 
+
+            // Step 1
             var C1 = Math.sqrt((color1.getAValue() * color1.getAValue()) + (color1.getBValue() * color1.getBValue()));
             var C2 = Math.sqrt((color2.getAValue() * color2.getAValue()) + (color2.getBValue() * color2.getBValue()));
 
@@ -449,8 +450,8 @@ class xclassColorMap {
                 hPrime1 = 0.0;
             else {
                 hPrime1 = Math.atan2(color1.getBValue(), a1Prime);
-                /* 
-                * This must be converted to a hue angle in degrees between 0 
+                /*
+                * This must be converted to a hue angle in degrees between 0
                 * and 360 by addition of 2􏰏 to negative hue angles.
                 */
                 if (hPrime1 < 0)
@@ -461,16 +462,16 @@ class xclassColorMap {
                 hPrime2 = 0.0;
             else {
                 hPrime2 = Math.atan2(color2.getBValue(), a2Prime);
-                /* 
-                * This must be converted to a hue angle in degrees between 0 
+                /*
+                * This must be converted to a hue angle in degrees between 0
                 * and 360 by addition of 2􏰏 to negative hue angles.
                 */
                 if (hPrime2 < 0)
                     hPrime2 += deg360InRad;
             }
-            
+
             // Step 2
-            
+
             var deltaLPrime = color2.getLValue() - color1.getLValue();
 
             var deltaCPrime = CPrime2 - CPrime1;
@@ -490,14 +491,14 @@ class xclassColorMap {
 
             var deltaHPrime = 2.0 * Math.sqrt(CPrimeProduct) *
                 Math.sin(deltahPrime / 2.0);
-            
+
             // Step 3
-            
-            
+
+
             var barLPrime = (color1.getLValue() + color2.getLValue()) / 2.0;
-            
+
             var barCPrime = (CPrime1 + CPrime2) / 2.0;
-          
+
             var barhPrime, hPrimeSum = hPrime1 + hPrime2;
             if (CPrime1 * CPrime2 == 0) {
                 barhPrime = hPrimeSum;
@@ -511,36 +512,36 @@ class xclassColorMap {
                         barhPrime = (hPrimeSum - deg360InRad) / 2.0;
                 }
             }
-           
+
             var T = 1.0 - (0.17 * Math.cos(barhPrime - deg2rad(30.0))); +
                 (0.24 * Math.cos(2.0 * barhPrime)) +
-                (0.32 * Math.cos((3.0 * barhPrime) + deg2rad(6.0))) - 
+                (0.32 * Math.cos((3.0 * barhPrime) + deg2rad(6.0))) -
                 (0.20 * Math.cos((4.0 * barhPrime) - deg2rad(63.0)));
-            
+
             var deltaTheta = deg2rad(30.0) *
                 Math.exp(-Math.pow((barhPrime - deg2rad(275.0)) / deg2rad(25.0), 2.0));
-            
+
             var R_C = 2.0 * Math.sqrt(Math.pow(barCPrime, 7.0) /
                 (Math.pow(barCPrime, 7.0) + pow25To7));
-            
+
             var S_L = 1 + ((0.015 * Math.pow(barLPrime - 50.0, 2.0)) /
                 Math.sqrt(20 + Math.pow(barLPrime - 50.0, 2.0)));
-            
+
             var S_C = 1 + (0.045 * barCPrime);
-            
+
             var S_H = 1 + (0.015 * barCPrime * T);
-           
+
             var R_T = (-Math.sin(2.0 * deltaTheta)) * R_C;
-            
-            
+
+
             var deltaE = Math.sqrt(
                 Math.pow(deltaLPrime / (k_L * S_L), 2.0) +
                 Math.pow(deltaCPrime / (k_C * S_C), 2.0) +
-                Math.pow(deltaHPrime / (k_H * S_H), 2.0) + 
+                Math.pow(deltaHPrime / (k_H * S_H), 2.0) +
                 (R_T * (deltaCPrime / (k_C * S_C)) * (deltaHPrime / (k_H * S_H))));
-            
+
             return deltaE;
-      
+
     }
 
     ///////////////////// RGB Distance ////////////////////////
@@ -563,7 +564,7 @@ class classColormap {
     this.startColor = startColor;
     this.endColor = endColor;
     this.intermediateColors = [];
-    this.edgeWeights = [];  
+    this.edgeWeights = [];
     this.distanceSum = 0;
     this.calcNewEdges();
   }
@@ -584,7 +585,7 @@ class classColormap {
         // intermediate node
          this.intermediateColors[colorindex-1].setAValue(aVal);
          this.intermediateColors[colorindex-1].setBValue(bVal);
-    } 
+    }
     this.calcNewEdges();
 
   }
@@ -592,7 +593,7 @@ class classColormap {
   getEdgeDistance(index){
       return this.edgeWeights[index];
   }
-  
+
   getFullDistance() {
     return this.distanceSum;
   }
@@ -637,7 +638,7 @@ class classColormap {
         }
         tmpColors.push(this.endColor);
 
-       
+
         // intermediate Colors
         for(var i = 0; i<tmpColors.length-1; i++){
             var tmpDis = this.calcDeltaCIEDE2000(tmpColors[i],tmpColors[i+1]);
@@ -653,9 +654,9 @@ class classColormap {
             var deg360InRad = deg2rad(360.0);
             var deg180InRad = deg2rad(180.0);
             var pow25To7 = Math.pow(25, 7);
-            
-            // Step 1 
-    
+
+            // Step 1
+
             var C1 = Math.sqrt((color1.getAValue() * color1.getAValue()) + (color1.getBValue() * color1.getBValue()));
             var C2 = Math.sqrt((color2.getAValue() * color2.getAValue()) + (color2.getBValue() * color2.getBValue()));
 
@@ -674,8 +675,8 @@ class classColormap {
                 hPrime1 = 0.0;
             else {
                 hPrime1 = Math.atan2(color1.getBValue(), a1Prime);
-                /* 
-                * This must be converted to a hue angle in degrees between 0 
+                /*
+                * This must be converted to a hue angle in degrees between 0
                 * and 360 by addition of 2􏰏 to negative hue angles.
                 */
                 if (hPrime1 < 0)
@@ -686,16 +687,16 @@ class classColormap {
                 hPrime2 = 0.0;
             else {
                 hPrime2 = Math.atan2(color2.getBValue(), a2Prime);
-                /* 
-                * This must be converted to a hue angle in degrees between 0 
+                /*
+                * This must be converted to a hue angle in degrees between 0
                 * and 360 by addition of 2􏰏 to negative hue angles.
                 */
                 if (hPrime2 < 0)
                     hPrime2 += deg360InRad;
             }
-            
+
             // Step 2
-            
+
             var deltaLPrime = color2.getLValue() - color1.getLValue();
 
             var deltaCPrime = CPrime2 - CPrime1;
@@ -715,14 +716,14 @@ class classColormap {
 
             var deltaHPrime = 2.0 * Math.sqrt(CPrimeProduct) *
                 Math.sin(deltahPrime / 2.0);
-            
+
             // Step 3
-            
-            
+
+
             var barLPrime = (color1.getLValue() + color2.getLValue()) / 2.0;
-            
+
             var barCPrime = (CPrime1 + CPrime2) / 2.0;
-          
+
             var barhPrime, hPrimeSum = hPrime1 + hPrime2;
             if (CPrime1 * CPrime2 == 0) {
                 barhPrime = hPrimeSum;
@@ -736,37 +737,37 @@ class classColormap {
                         barhPrime = (hPrimeSum - deg360InRad) / 2.0;
                 }
             }
-           
+
             var T = 1.0 - (0.17 * Math.cos(barhPrime - deg2rad(30.0))); +
                 (0.24 * Math.cos(2.0 * barhPrime)) +
-                (0.32 * Math.cos((3.0 * barhPrime) + deg2rad(6.0))) - 
+                (0.32 * Math.cos((3.0 * barhPrime) + deg2rad(6.0))) -
                 (0.20 * Math.cos((4.0 * barhPrime) - deg2rad(63.0)));
-            
+
             var deltaTheta = deg2rad(30.0) *
                 Math.exp(-Math.pow((barhPrime - deg2rad(275.0)) / deg2rad(25.0), 2.0));
-            
+
             var R_C = 2.0 * Math.sqrt(Math.pow(barCPrime, 7.0) /
                 (Math.pow(barCPrime, 7.0) + pow25To7));
-            
+
             var S_L = 1 + ((0.015 * Math.pow(barLPrime - 50.0, 2.0)) /
                 Math.sqrt(20 + Math.pow(barLPrime - 50.0, 2.0)));
-            
+
             var S_C = 1 + (0.045 * barCPrime);
-            
+
             var S_H = 1 + (0.015 * barCPrime * T);
-           
+
             var R_T = (-Math.sin(2.0 * deltaTheta)) * R_C;
-            
-            
+
+
             var deltaE = Math.sqrt(
                 Math.pow(deltaLPrime / (k_L * S_L), 2.0) +
                 Math.pow(deltaCPrime / (k_C * S_C), 2.0) +
-                Math.pow(deltaHPrime / (k_H * S_H), 2.0) + 
+                Math.pow(deltaHPrime / (k_H * S_H), 2.0) +
                 (R_T * (deltaCPrime / (k_C * S_C)) * (deltaHPrime / (k_H * S_H))));
-            
+
             return deltaE;
-      
+
     }
 
-    
+
 };

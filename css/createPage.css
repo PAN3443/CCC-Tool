@@ -1,8 +1,8 @@
 .class_tablelabel{
-    height:3vh; 
-    line-height:3vh; 
+    height:3vh;
+    line-height:3vh;
     font-size:1.2vh;
-    font-weight: bold; 
+    font-weight: bold;
     padding-right:0.2cm;
     padding-left:0.2cm;
     background:grey;
@@ -13,8 +13,8 @@
 }
 
 .class_tableInput{
-    height:3vh; 
-    line-height:3vh; 
+    height:3vh;
+    line-height:3vh;
     font-size:1.2vh;
     color: black;
     border: 1px solid black;
@@ -32,9 +32,10 @@
 
 .class_predefinedConstBands{
     height: 3vh;
-    width: 2.5%;
-    border-radius: 0.5vh; 
-    border: 2px solid black; 
+    min-height: 3vh;
+    width: 5%;
+    border-radius: 0.5vh;
+    border: 2px solid black;
     margin:1vh;
     float:left;
     line-height: 3vh;
@@ -46,8 +47,8 @@
 .class_predefinedScaledBands{
     height: 3vh;
     width: 12.5%;
-    border-radius: 0.5vh; 
-    border: 2px solid black; 
+    border-radius: 0.5vh;
+    border: 2px solid black;
     margin: 1vh;
     float:left;
     line-height: 3vh;
@@ -56,5 +57,3 @@
     font-size: 2vh;
 
 }
-
-     

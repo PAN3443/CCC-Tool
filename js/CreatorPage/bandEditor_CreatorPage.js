@@ -27,7 +27,7 @@ function changeAcitveColorBandEditor(type){
     }
 
     drawEditorBandColorCircles();
-    
+
 }
 
 function changeBandEditorColorspace(type){
@@ -40,7 +40,7 @@ function changeBandEditorColorspace(type){
     document.getElementById("id_BandEditbutton_LAB").style.color = "black";
     document.getElementById("id_BandEditbutton_DIN99").style.border = "0.4vh solid black";
     document.getElementById("id_BandEditbutton_DIN99").style.color = "black";
-          
+
     switch(type){
         case 0:
                 document.getElementById("id_BandEditbutton_RGB").style.border = "0.4vh solid green";
@@ -84,6 +84,10 @@ function acceptBandEditor(){
         colormapBandSketchR2[bandOptionsIndex-1]=changedNeiRefR2;
 
         orderColorSketch();
+
+        /////////////
+        ////  Save Band Process
+        saveCreateProcess();
     }
 
     document.getElementById("bandEditWindow").style.display = "none";
@@ -99,24 +103,27 @@ function deleteBandEditor(){
 
             colormapBandSketchR2[bandOptionsIndex-1]=colormapBandSketchR2[bandOptionsIndex-1]+(dist*0.5);
             colormapBandSketchR1[bandOptionsIndex+1]=colormapBandSketchR1[bandOptionsIndex+1]-(dist*0.5);
-    }  
+    }
 
     colormapBandSketchC1.splice(bandOptionsIndex, 1);
     colormapBandSketchC2.splice(bandOptionsIndex, 1);
     colormapBandSketchR1.splice(bandOptionsIndex, 1);
     colormapBandSketchR2.splice(bandOptionsIndex, 1);
     orderColorSketch();
+    /////////////
+    ////  Save Band Process
+    saveCreateProcess();
 
     document.getElementById("bandEditWindow").style.display = "none";
     changedColor = false;
 }
 
 function showHelpBandEditor(){
-   
+
 }
 
 function hiddeHelpBandEditor(){
-   
+
 }
 
 
@@ -134,7 +141,7 @@ function leftNeiColorToR1(){
        changedColor=true;
        drawEditorBandColorCircles();
     }
-    
+
 }
 
 function rightNeiColorToR2(){
@@ -146,7 +153,7 @@ function rightNeiColorToR2(){
        changedColor=true;
        drawEditorBandColorCircles();
    }
-  
+
 }
 
 function editC2IsC1(){
@@ -225,7 +232,7 @@ function drawEditorBandColorCircles(){
         xPos = tmpC1HSV.getHValue() * canvasColorspaceWidth;
         yPos = (1-tmpC1HSV.getSValue()) * canvasColorspaceHeight;
 
-    
+
         colorspaceContex.beginPath();
 
         if(c1IsActive){
@@ -257,7 +264,7 @@ function drawBandEditorVChangeRects(){
     var resolution_Y = v_resolution_Y;
     $("#id_BandEditcanvasPickerC1V").attr("width", resolution_X+"px");
     $("#id_BandEditcanvasPickerC1V").attr("height", resolution_Y+"px");
-    
+
     var canvasVInputContex1 = canvasVInput1.getContext("2d");
 
     if(c1IsActive)
@@ -270,7 +277,7 @@ function drawBandEditorVChangeRects(){
 
 /////////////////////////////////////////////
 // Color-Picker Events
-//////////////////////////////////////////// 
+////////////////////////////////////////////
 
 function colorpickerBandEditor_MouseMove(event){
     // calc mouse pos
@@ -279,8 +286,8 @@ function colorpickerBandEditor_MouseMove(event){
     var canvasPosX = event.clientX - rect.left;
     var canvasPosY = event.clientY - rect.top;
 
-    var ratioToColorspaceResolutionX = hs_resolution_X/rect.width; 
-    var ratioToColorspaceResolutionY = hs_resolution_Y/rect.height; 
+    var ratioToColorspaceResolutionX = hs_resolution_X/rect.width;
+    var ratioToColorspaceResolutionY = hs_resolution_Y/rect.height;
 
     mousePosX = canvasPosX*ratioToColorspaceResolutionX;
     mousePosY = canvasPosY*ratioToColorspaceResolutionY;
@@ -290,14 +297,14 @@ function colorpickerBandEditor_MouseMove(event){
 
     var xPos1 = tmpC1HSV.getHValue() * hs_resolution_X;
     var yPos1 = (1-tmpC1HSV.getSValue()) * hs_resolution_Y;
- 
+
 }
 
 
 function colorpickerBandEditor_MouseClick(){
 
 
-        var hVal = mousePosX/hs_resolution_X; 
+        var hVal = mousePosX/hs_resolution_X;
         var sVal = 1-mousePosY/hs_resolution_Y;
 
         if(c1IsActive){
@@ -333,8 +340,8 @@ function c1VpickerBandEditor_MouseMove(event){
     var canvasPosX = event.clientX - rect.left;
     var canvasPosY = event.clientY - rect.top;
 
-    var ratioToColorspaceResolutionX = v_resolution_X/rect.width; 
-    var ratioToColorspaceResolutionY = v_resolution_Y/rect.height; 
+    var ratioToColorspaceResolutionX = v_resolution_X/rect.width;
+    var ratioToColorspaceResolutionY = v_resolution_Y/rect.height;
 
     mousePosX = canvasPosX*ratioToColorspaceResolutionX;
     mousePosY = canvasPosY*ratioToColorspaceResolutionY;
@@ -343,7 +350,7 @@ function c1VpickerBandEditor_MouseMove(event){
 
 
 function c1VpickerBandEditor_MouseClick(){
-    
+
     var newV = 1-mousePosY/v_resolution_Y;
 
         if(c1IsActive){
@@ -367,7 +374,7 @@ function c1VpickerBandEditor_MouseClick(){
         var oCan = document.getElementById("bandEdit_EditCanvas");
         drawCanvasBand(oCan, changedColorC1, changedColorC2,oCan.width,oCan.height );
          changedColor=true;
-}   
+}
 
 
 function checkR1Input(e){
@@ -375,7 +382,7 @@ function checkR1Input(e){
     checkInputVal(document.getElementById('bandEdit_InputLeftRef'),true,true);
 
     if (e.keyCode == 13) {
-        
+
         var newVal = parseFloat(document.getElementById('bandEdit_InputLeftRef').value);
 
         if(hasLeftNeig){
@@ -414,7 +421,7 @@ function checkR1Input(e){
 function checkR2Input(e){
     checkInputVal(document.getElementById('bandEdit_InputRightRef'),true,true);
     if (e.keyCode == 13) {
-        
+
         var newVal = parseFloat(document.getElementById('bandEdit_InputRightRef').value);
 
         if(hasRightNeig){
@@ -435,7 +442,7 @@ function checkR2Input(e){
                     changedNeiRefR1 = newVal;
                     document.getElementById("bandEdit_RightNeiLeftRef").innerHTML = newVal;
                 }
-               
+
             }
         }
         else{
@@ -491,7 +498,7 @@ function checkR1Input_Change(e){
 
 function checkR2Input_Change(e){
     checkInputVal(document.getElementById('bandEdit_InputRightRef'),true,true);
-   
+
         var newVal = parseFloat(document.getElementById('bandEdit_InputRightRef').value);
 
         if(hasRightNeig){
@@ -512,7 +519,7 @@ function checkR2Input_Change(e){
                     changedNeiRefR1 = newVal;
                     document.getElementById("bandEdit_RightNeiLeftRef").innerHTML = newVal;
                 }
-               
+
             }
         }
         else{
@@ -527,4 +534,3 @@ function checkR2Input_Change(e){
         }
 
 }
-     

@@ -1,3 +1,30 @@
+
+/////////////
+////  Save Band Process
+
+function saveCreateProcess(){
+
+      if(processPosition<colormapProcess.length-1){
+
+          colormapProcess = colormapProcess.slice(0, processPosition+1);
+          colormapProcess.push(createColormap);
+          processPosition = colormapProcess.length-1
+      }
+      else{
+        if(colormapProcess.length <= processLimitation){
+          colormapProcess.push(createColormap);
+          processPosition = colormapProcess.length-1
+        }
+        else{
+          colormapProcess.shift();
+          colormapProcess.push(createColormap);
+          processPosition = colormapProcess.length-1
+        }
+      }
+}
+
+//////////////////////////////////////////
+
 function expandTable(){
 
     if(tableIsExpand){
@@ -23,216 +50,7 @@ function expandTable(){
 //// switch colorspace //////
 ///////////////////////////////
 
-function changeColorspace(type){
 
-    document.getElementById("button_RGB").style.border = "0.2vh solid white";
-    document.getElementById("button_RGB").style.color = "white";
-    document.getElementById("button_HSV").style.border = "0.2vh solid white";
-    document.getElementById("button_HSV").style.color = "white";
-    document.getElementById("button_LAB").style.border = "0.2vh solid white";
-    document.getElementById("button_LAB").style.color = "white";
-    document.getElementById("button_DIN99").style.border = "0.2vh solid white";
-    document.getElementById("button_DIN99").style.color = "white";
-
-
-            
-    switch(type){
-        case 0:
-             
-             var tmpactivColorIndex = activColorIndex;
-
-                   activColorIndex = 0; 
-                   var tmpRGB = getRGBColor();
-                        colorVal1_C1 = tmpRGB.getRValue()*255;
-                        colorVal2_C1 = tmpRGB.getGValue()*255;
-                        colorVal3_C1 = tmpRGB.getBValue()*255;
-                   activColorIndex = 1; 
-                   tmpRGB = getRGBColor();
-                        colorVal1_C2 = tmpRGB.getRValue()*255;
-                        colorVal2_C2 = tmpRGB.getGValue()*255;
-                        colorVal3_C2 = tmpRGB.getBValue()*255;
-                    activColorIndex = 2; 
-                    tmpRGB = getRGBColor();
-                        colorVal1_C3 = tmpRGB.getRValue()*255;
-                        colorVal2_C3 = tmpRGB.getGValue()*255;
-                        colorVal3_C3 = tmpRGB.getBValue()*255;  
-                    activColorIndex = 3; 
-                    tmpRGB = getRGBColor();
-                        colorVal1_C4 = tmpRGB.getRValue()*255;
-                        colorVal2_C4 = tmpRGB.getGValue()*255;
-                        colorVal3_C4 = tmpRGB.getBValue()*255;  
-                    activColorIndex = 4; 
-                    tmpRGB = getRGBColor();
-                        colorVal1_C5 = tmpRGB.getRValue()*255;
-                        colorVal2_C5 = tmpRGB.getGValue()*255;
-                        colorVal3_C5 = tmpRGB.getBValue()*255;  
-                   
-                activColorIndex=tmpactivColorIndex;
-                colorspaceModus="rgb";
-                document.getElementById("button_RGB").style.border = "0.2vh solid lime";
-                document.getElementById("button_RGB").style.color = "lime";
-                document.getElementById("id_color1_FirstLabel").innerHTML = "R:";
-                document.getElementById("id_color1_SecondLabel").innerHTML = "G:";
-                document.getElementById("id_color1_ThirdLabel").innerHTML = "B:";
-                document.getElementById("id_table_Color1").innerHTML = "C1 (RGB)";
-                document.getElementById("id_table_Color2").innerHTML = "C2 (RGB)";
-                break;
-        case 1:
-            var tmpactivColorIndex = activColorIndex;
-             
-                activColorIndex = 0;
-                var tmpHSV = getHSVColor();
-                        colorVal1_C1 = tmpHSV.getHValue();
-                        colorVal2_C1 = tmpHSV.getSValue();
-                        colorVal3_C1 = tmpHSV.getVValue();
-                activColorIndex = 1;
-                tmpHSV = getHSVColor();
-                        colorVal1_C2 = tmpHSV.getHValue();
-                        colorVal2_C2 = tmpHSV.getSValue();
-                        colorVal3_C2 = tmpHSV.getVValue();
-                activColorIndex = 2;
-                tmpHSV = getHSVColor();
-                       colorVal1_C3 = tmpHSV.getHValue();
-                        colorVal2_C3 = tmpHSV.getSValue();
-                        colorVal3_C3 = tmpHSV.getVValue();
-                activColorIndex = 3;
-                tmpHSV = getHSVColor();
-                        colorVal1_C4 = tmpHSV.getHValue();
-                        colorVal2_C4 = tmpHSV.getSValue();
-                        colorVal3_C4 = tmpHSV.getVValue();  
-                activColorIndex = 4;
-                tmpHSV = getHSVColor();
-                        colorVal1_C5 = tmpHSV.getHValue();
-                        colorVal2_C5 = tmpHSV.getSValue();
-                        colorVal3_C5 = tmpHSV.getVValue();
-
-                activColorIndex=tmpactivColorIndex;
-                colorspaceModus="hsv";
-                document.getElementById("button_HSV").style.border = "0.2vh solid lime";
-                document.getElementById("button_HSV").style.color = "lime";
-                document.getElementById("id_color1_FirstLabel").innerHTML = "H:";
-                document.getElementById("id_color1_SecondLabel").innerHTML = "S:";
-                document.getElementById("id_color1_ThirdLabel").innerHTML = "V:";
-                document.getElementById("id_table_Color1").innerHTML = "C1 (HSV)";
-                document.getElementById("id_table_Color2").innerHTML = "C2 (HSV)";
-                break;
-        case 2:
-         var tmpactivColorIndex = activColorIndex;
-                activColorIndex = 0;
-                var tmpLAB = getLABColor();
-                        colorVal1_C1 = tmpLAB.getLValue();
-                        colorVal2_C1 = tmpLAB.getAValue();
-                        colorVal3_C1 = tmpLAB.getBValue();
-                activColorIndex = 1;
-                tmpLAB = getLABColor();
-                        colorVal1_C2 = tmpLAB.getLValue();
-                        colorVal2_C2 = tmpLAB.getAValue();
-                        colorVal3_C2 = tmpLAB.getBValue();
-                activColorIndex = 2;
-                tmpLAB = getLABColor();
-                        colorVal1_C3 = tmpLAB.getLValue();
-                        colorVal2_C3 = tmpLAB.getAValue();
-                        colorVal3_C3 = tmpLAB.getBValue();
-                activColorIndex = 3;
-                tmpLAB = getLABColor();
-                        colorVal1_C4 = tmpLAB.getLValue();
-                        colorVal2_C4 = tmpLAB.getAValue();
-                        colorVal3_C4 = tmpLAB.getBValue();
-                activColorIndex = 4;
-                tmpLAB = getLABColor();
-                        colorVal1_C5 = tmpLAB.getLValue();
-                        colorVal2_C5 = tmpLAB.getAValue();
-                        colorVal3_C5 = tmpLAB.getBValue();
-                activColorIndex=tmpactivColorIndex;
-                colorspaceModus="lab";
-                document.getElementById("button_LAB").style.border = "0.2vh solid lime";
-                document.getElementById("button_LAB").style.color = "lime";
-                document.getElementById("id_color1_FirstLabel").innerHTML = "L:";
-                document.getElementById("id_color1_SecondLabel").innerHTML = "A:";
-                document.getElementById("id_color1_ThirdLabel").innerHTML = "B:";
-                document.getElementById("id_table_Color1").innerHTML = "C1 (LAB)";
-                document.getElementById("id_table_Color2").innerHTML = "C2 (LAB)";
-        break;
-        case 3:
-         var tmpactivColorIndex = activColorIndex;
-            
-                activColorIndex = 0;
-                var tmpDIN99 = getDIN99Color();
-                        colorVal1_C1 = tmpDIN99.getL99Value();
-                        colorVal2_C1 = tmpDIN99.getA99Value();
-                        colorVal3_C1 = tmpDIN99.getB99Value();
-                activColorIndex = 1;
-                tmpDIN99 = getDIN99Color();
-                        colorVal1_C2 = tmpDIN99.getL99Value();
-                        colorVal2_C2 = tmpDIN99.getA99Value();
-                        colorVal3_C2 = tmpDIN99.getB99Value();
-                activColorIndex = 2;
-                tmpDIN99 = getDIN99Color();
-                        colorVal1_C3 = tmpDIN99.getL99Value();
-                        colorVal2_C3 = tmpDIN99.getA99Value();
-                        colorVal3_C3 = tmpDIN99.getB99Value();
-                activColorIndex = 3;
-                tmpDIN99 = getDIN99Color();
-                        colorVal1_C4 = tmpDIN99.getL99Value();
-                        colorVal2_C4 = tmpDIN99.getA99Value();
-                        colorVal3_C4 = tmpDIN99.getB99Value();
-                activColorIndex = 4;
-                tmpDIN99 = getDIN99Color();
-                        colorVal1_C5 = tmpDIN99.getL99Value();
-                        colorVal2_C5 = tmpDIN99.getA99Value();
-                        colorVal3_C5 = tmpDIN99.getB99Value();
-
-            activColorIndex=tmpactivColorIndex;
-            colorspaceModus="din99";
-            document.getElementById("button_DIN99").style.border = "0.2vh solid lime";
-            document.getElementById("button_DIN99").style.color = "lime";
-            document.getElementById("id_color1_FirstLabel").innerHTML = "L99:";
-            document.getElementById("id_color1_SecondLabel").innerHTML = "A99:";
-            document.getElementById("id_color1_ThirdLabel").innerHTML = "B99:";
-            document.getElementById("id_table_Color1").innerHTML = "C1 (DIN99)";
-            document.getElementById("id_table_Color2").innerHTML = "C2 (DIN99)";
-        break;
-        default:
-        return;
-    }
-
-     switch(activColorIndex){
-
-                    case 0: 
-                        document.getElementById("id_color1_First").value = colorVal1_C1.toFixed(numDecimalPlaces);
-                        document.getElementById("id_color1_Second").value = colorVal2_C1.toFixed(numDecimalPlaces);
-                        document.getElementById("id_color1_Third").value = colorVal3_C1.toFixed(numDecimalPlaces);
-                    break;
-                    case 1:
-                        document.getElementById("id_color1_First").value = colorVal1_C2.toFixed(numDecimalPlaces);
-                        document.getElementById("id_color1_Second").value = colorVal2_C2.toFixed(numDecimalPlaces);
-                        document.getElementById("id_color1_Third").value = colorVal3_C2.toFixed(numDecimalPlaces);
-                    break;
-                    case 2:
-                        document.getElementById("id_color1_First").value = colorVal1_C3.toFixed(numDecimalPlaces);
-                        document.getElementById("id_color1_Second").value = colorVal2_C3.toFixed(numDecimalPlaces);
-                        document.getElementById("id_color1_Third").value = colorVal3_C3.toFixed(numDecimalPlaces);
-                    break;
-                    case 3:
-                        document.getElementById("id_color1_First").value = colorVal1_C4.toFixed(numDecimalPlaces);
-                        document.getElementById("id_color1_Second").value = colorVal2_C4.toFixed(numDecimalPlaces);
-                        document.getElementById("id_color1_Third").value = colorVal3_C4.toFixed(numDecimalPlaces);
-                    break;
-                    case 4:
-                        document.getElementById("id_color1_First").value = colorVal1_C5.toFixed(numDecimalPlaces);
-                        document.getElementById("id_color1_Second").value = colorVal2_C5.toFixed(numDecimalPlaces);
-                        document.getElementById("id_color1_Third").value = colorVal3_C5.toFixed(numDecimalPlaces);
-                    break;
-                    default:
-                            console.log("Error at the changeColorspace function");
-
-    }
-
-
-    drawPredefinedBands();
-    updateCreatorBand();
-    orderColorSketch();
-}
 
 
 //////////////////////////////
@@ -254,7 +72,7 @@ function insertColor(e){
                     }
 
                 break;
-                case "hsv": 
+                case "hsv":
                    checkInputVal(document.getElementById(e.target.id),true,false);
 
                    if(parseFloat(document.getElementById(e.target.id).value)>1){
@@ -265,7 +83,7 @@ function insertColor(e){
                         document.getElementById(e.target.id).value = 0;
                    }
                 break;
-                case "lab":  
+                case "lab":
                     if(e.target.id==="id_color1_First" || e.target.id==="id_color2_First"){
                         checkInputVal(document.getElementById(e.target.id),true,false);
 
@@ -282,7 +100,7 @@ function insertColor(e){
                     }
 
                 break;
-                case "din99": 
+                case "din99":
                     if(e.target.id==="id_color1_First" || e.target.id==="id_color2_First"){
                         checkInputVal(document.getElementById(e.target.id),true,false);
 
@@ -297,7 +115,7 @@ function insertColor(e){
                     else{
                         checkInputVal(document.getElementById(e.target.id),true,true);
                     }
-                    
+
                 break;
                 default:
                 console.log("Error at the changeColorspace function");
@@ -307,7 +125,7 @@ function insertColor(e){
    if (e.keyCode == 13) {
 
         switch(activColorIndex){
-                    case 0: 
+                    case 0:
                         colorVal1_C1 = parseFloat(document.getElementById("id_color1_First").value);
                         colorVal2_C1 = parseFloat(document.getElementById("id_color1_Second").value);
                         colorVal3_C1 = parseFloat(document.getElementById("id_color1_Third").value);
@@ -337,16 +155,16 @@ function insertColor(e){
 
         }
 
-    
+
         if(creatorBandIsNew==true){
-            saveBandToArray(); 
+            saveBandToArray();
         }
 
        drawColorCircles();
        updateCreatorBand();
-       
+
    }
-  
+
 }
 
 function insertColorChange(e){
@@ -364,7 +182,7 @@ function insertColorChange(e){
                     }
 
                 break;
-                case "hsv": 
+                case "hsv":
                    checkInputVal(document.getElementById(e.target.id),true,false);
 
                    if(parseFloat(document.getElementById(e.target.id).value)>1){
@@ -377,7 +195,7 @@ function insertColorChange(e){
 
                     /*var test = new classColor_HSV(colorVal1_C1,colorVal2_C1,colorVal3_C1);
                     var tttt = test.calcRGBColor();
-                   
+
                     test = new classColor_HSV(colorVal1_C2,colorVal2_C2,colorVal3_C2);
                     var tttt2 = test.calcRGBColor();
 
@@ -386,7 +204,7 @@ function insertColorChange(e){
                     console.log("[new classColor_RGB("+tttt.getRValue()+","+tttt.getGValue()+","+tttt.getBValue()+"), new classColor_RGB("+tttt2.getRValue()+","+tttt2.getGValue()+","+tttt2.getBValue()+"), new classColor_RGB("+tttt3.getRValue()+","+tttt3.getGValue()+","+tttt3.getBValue()+")], ");
        */
                 break;
-                case "lab":  
+                case "lab":
                     if(e.target.id==="id_color1_First" || e.target.id==="id_color2_First"){
                         checkInputVal(document.getElementById(e.target.id),true,false);
 
@@ -403,7 +221,7 @@ function insertColorChange(e){
                     }
 
                 break;
-                case "din99": 
+                case "din99":
                     if(e.target.id==="id_color1_First" || e.target.id==="id_color2_First"){
                         checkInputVal(document.getElementById(e.target.id),true,false);
 
@@ -418,14 +236,14 @@ function insertColorChange(e){
                     else{
                         checkInputVal(document.getElementById(e.target.id),true,true);
                     }
-                    
+
                 break;
                 default:
                 console.log("Error at the changeColorspace function");
     }
 
     switch(activColorIndex){
-                    case 0: 
+                    case 0:
                         colorVal1_C1 = parseFloat(document.getElementById("id_color1_First").value);
                         colorVal2_C1 = parseFloat(document.getElementById("id_color1_Second").value);
                         colorVal3_C1 = parseFloat(document.getElementById("id_color1_Third").value);
@@ -457,13 +275,13 @@ function insertColorChange(e){
 
 
     if(creatorBandIsNew==true){
-        saveBandToArray(); 
+        saveBandToArray();
     }
 
     drawColorCircles();
     updateCreatorBand();
 
-  
+
 }
 
 function changeActiveColor(val){
@@ -477,7 +295,7 @@ function changeActiveColor(val){
      document.getElementById("id_creatorBandC5").style.border = "0.2vh solid black";
 
      switch(activColorIndex){
-                    case 0: 
+                    case 0:
                         document.getElementById("id_creatorBandC1").style.border = "0.4vh solid green";
                         document.getElementById("id_color1_First").value = colorVal1_C1.toFixed(numDecimalPlaces);
                         document.getElementById("id_color1_Second").value = colorVal2_C1.toFixed(numDecimalPlaces);
@@ -522,7 +340,7 @@ function updateCreatorBand(){
     var resolutionY = 75;
 
     $("#id_creatorBand").attr("width", resolutionX+"px");
-    $("#id_creatorBand").attr("height", resolutionY+"px"); 
+    $("#id_creatorBand").attr("height", resolutionY+"px");
 
     var canvasContex = canvasObject.getContext("2d");
     //canvasContex.clearRect(0, 0, resolutionX, resolutionY);
@@ -530,31 +348,31 @@ function updateCreatorBand(){
 
 
     var tmpActiveColor = activColorIndex;
-     
+
     switch(createBandType) { // 0=constant, 1=scale, 2=double, 3=triple, 4=quadruple)
 
         case 0:
             activColorIndex=0;
             var tmpC1RGB = getRGBColor();
             switch(colorspaceModus){
-                    case "rgb": 
+                    case "rgb":
                         canvasData=createConstantBand(canvasData, 0, resolutionX, resolutionY, tmpC1RGB, resolutionX);
                         document.getElementById("id_creatorBandC1").style.background = tmpC1RGB.getRGBString();
                         document.getElementById("id_creatorBandC5").style.background = tmpC1RGB.getRGBString();
                     break;
-                    case "hsv": 
+                    case "hsv":
                         var tmpC1HSV = getHSVColor();
                         canvasData=createConstantBand(canvasData, 0, resolutionX, resolutionY, tmpC1HSV, resolutionX);
                         document.getElementById("id_creatorBandC1").style.background = tmpC1RGB.getRGBString();
                         document.getElementById("id_creatorBandC5").style.background = tmpC1RGB.getRGBString();
                     break;
-                    case "lab": 
+                    case "lab":
                         var tmpC1LAB = getLABColor();
                         canvasData=createConstantBand(canvasData, 0, resolutionX, resolutionY, tmpC1LAB, resolutionX);
                         document.getElementById("id_creatorBandC1").style.background = tmpC1RGB.getRGBString();
-                        document.getElementById("id_creatorBandC5").style.background = tmpC1RGB.getRGBString();                       
+                        document.getElementById("id_creatorBandC5").style.background = tmpC1RGB.getRGBString();
                     break;
-                    case "din99": 
+                    case "din99":
                         var tmpC1DIN99 = getDIN99Color();
                         canvasData=createConstantBand(canvasData, 0, resolutionX, resolutionY, tmpC1DIN99, resolutionX);
                         document.getElementById("id_creatorBandC1").style.background = tmpC1RGB.getRGBString();
@@ -564,21 +382,21 @@ function updateCreatorBand(){
                         console.log("Error at the updateCreatorBand function");
 
                 }
-            
+
         break;
         case 1:
                 activColorIndex=0;
                 var tmpC1RGB = getRGBColor();
                 activColorIndex=4;
                 var tmpC2RGB = getRGBColor();
-             
+
                 switch(colorspaceModus){
-                    case "rgb": 
+                    case "rgb":
                         canvasData=createScaledBand(canvasData, 0, resolutionX, resolutionY, tmpC1RGB, tmpC2RGB, resolutionX);
                         document.getElementById("id_creatorBandC1").style.background = tmpC1RGB.getRGBString();
                         document.getElementById("id_creatorBandC5").style.background = tmpC2RGB.getRGBString();
                     break;
-                    case "hsv": 
+                    case "hsv":
                         activColorIndex=0;
                         var tmpC1HSV = getHSVColor();
                         activColorIndex=4;
@@ -587,17 +405,17 @@ function updateCreatorBand(){
                         document.getElementById("id_creatorBandC1").style.background = tmpC1RGB.getRGBString();
                         document.getElementById("id_creatorBandC5").style.background = tmpC2RGB.getRGBString();
                     break;
-                    case "lab": 
+                    case "lab":
                         activColorIndex=0;
                         var tmpC1LAB = getLABColor();
                         activColorIndex=4;
                         var tmpC2LAB = getLABColor();
                         canvasData=createScaledBand(canvasData, 0, resolutionX, resolutionY, tmpC1LAB, tmpC2LAB, resolutionX);
                         document.getElementById("id_creatorBandC1").style.background = tmpC1RGB.getRGBString();
-                        document.getElementById("id_creatorBandC5").style.background = tmpC2RGB.getRGBString();      
-                 
+                        document.getElementById("id_creatorBandC5").style.background = tmpC2RGB.getRGBString();
+
                     break;
-                    case "din99": 
+                    case "din99":
                         activColorIndex=0;
                         var tmpC1DIN99 = getDIN99Color();
                         activColorIndex=4;
@@ -610,7 +428,7 @@ function updateCreatorBand(){
                         console.log("Error at the updateCreatorBand function");
 
                 }
-             
+
         break;
         case 2:
                 var bandElementWidth = Math.round(resolutionX/2);
@@ -621,14 +439,14 @@ function updateCreatorBand(){
                 activColorIndex=4;
                 var tmpC3RGB = getRGBColor();
                 switch(colorspaceModus){
-                    case "rgb": 
+                    case "rgb":
                         canvasData=createScaledBand(canvasData, 0, bandElementWidth, resolutionY, tmpC1RGB, tmpC2RGB, resolutionX);
                         canvasData=createScaledBand(canvasData, bandElementWidth, bandElementWidth, resolutionY, tmpC2RGB, tmpC3RGB, resolutionX);
                         document.getElementById("id_creatorBandC1").style.background = tmpC1RGB.getRGBString();
                         document.getElementById("id_creatorBandC3").style.background = tmpC2RGB.getRGBString();
                         document.getElementById("id_creatorBandC5").style.background = tmpC3RGB.getRGBString();
                     break;
-                    case "hsv": 
+                    case "hsv":
                         activColorIndex=0;
                         var tmpC1HSV = getHSVColor();
                         activColorIndex=2;
@@ -641,7 +459,7 @@ function updateCreatorBand(){
                         document.getElementById("id_creatorBandC3").style.background = tmpC2RGB.getRGBString();
                         document.getElementById("id_creatorBandC5").style.background = tmpC3RGB.getRGBString();
                     break;
-                    case "lab": 
+                    case "lab":
                         activColorIndex=0;
                         var tmpC1LAB = getLABColor();
                         activColorIndex=2;
@@ -652,9 +470,9 @@ function updateCreatorBand(){
                         canvasData=createScaledBand(canvasData, bandElementWidth, bandElementWidth, resolutionY, tmpC2LAB, tmpC1LAB, resolutionX);
                         document.getElementById("id_creatorBandC1").style.background = tmpC1RGB.getRGBString();
                         document.getElementById("id_creatorBandC3").style.background = tmpC2RGB.getRGBString();
-                        document.getElementById("id_creatorBandC5").style.background = tmpC3RGB.getRGBString();       
+                        document.getElementById("id_creatorBandC5").style.background = tmpC3RGB.getRGBString();
                     break;
-                    case "din99": 
+                    case "din99":
                         activColorIndex=0;
                         var tmpC1DIN99 = getDIN99Color();
                         activColorIndex=2;
@@ -683,7 +501,7 @@ function updateCreatorBand(){
                 activColorIndex=4;
                 var tmpC4RGB = getRGBColor();
                 switch(colorspaceModus){
-                    case "rgb": 
+                    case "rgb":
                         canvasData=createScaledBand(canvasData, 0, bandElementWidth, resolutionY, tmpC1RGB, tmpC2RGB, resolutionX);
                         canvasData=createScaledBand(canvasData, bandElementWidth, bandElementWidth, resolutionY, tmpC2RGB, tmpC3RGB, resolutionX);
                         canvasData=createScaledBand(canvasData, bandElementWidth*2, bandElementWidth, resolutionY, tmpC3RGB, tmpC4RGB, resolutionX);
@@ -692,7 +510,7 @@ function updateCreatorBand(){
                         document.getElementById("id_creatorBandC4").style.background = tmpC3RGB.getRGBString();
                         document.getElementById("id_creatorBandC5").style.background = tmpC4RGB.getRGBString();
                     break;
-                    case "hsv": 
+                    case "hsv":
                         activColorIndex=0;
                         var tmpC1HSV = getHSVColor();
                         activColorIndex=1;
@@ -709,7 +527,7 @@ function updateCreatorBand(){
                         document.getElementById("id_creatorBandC4").style.background = tmpC3RGB.getRGBString();
                         document.getElementById("id_creatorBandC5").style.background = tmpC4RGB.getRGBString();
                     break;
-                    case "lab": 
+                    case "lab":
                         activColorIndex=0;
                         var tmpC1LAB = getLABColor();
                         activColorIndex=1;
@@ -724,9 +542,9 @@ function updateCreatorBand(){
                         document.getElementById("id_creatorBandC1").style.background = tmpC1RGB.getRGBString();
                         document.getElementById("id_creatorBandC2").style.background = tmpC2RGB.getRGBString();
                         document.getElementById("id_creatorBandC4").style.background = tmpC3RGB.getRGBString();
-                        document.getElementById("id_creatorBandC5").style.background = tmpC4RGB.getRGBString();        
+                        document.getElementById("id_creatorBandC5").style.background = tmpC4RGB.getRGBString();
                     break;
-                    case "din99": 
+                    case "din99":
                         activColorIndex=0;
                         var tmpC1DIN99 = getDIN99Color();
                         activColorIndex=1;
@@ -761,7 +579,7 @@ function updateCreatorBand(){
                 activColorIndex=4;
                 var tmpC5RGB = getRGBColor();
                 switch(colorspaceModus){
-                    case "rgb": 
+                    case "rgb":
                         canvasData=createScaledBand(canvasData, 0, bandElementWidth, resolutionY, tmpC1RGB, tmpC2RGB, resolutionX);
                         canvasData=createScaledBand(canvasData, bandElementWidth, bandElementWidth, resolutionY, tmpC2RGB, tmpC3RGB, resolutionX);
                         canvasData=createScaledBand(canvasData, bandElementWidth*2, bandElementWidth, resolutionY, tmpC3RGB, tmpC4RGB, resolutionX);
@@ -772,7 +590,7 @@ function updateCreatorBand(){
                         document.getElementById("id_creatorBandC4").style.background = tmpC4RGB.getRGBString();
                         document.getElementById("id_creatorBandC5").style.background = tmpC5RGB.getRGBString();
                     break;
-                    case "hsv": 
+                    case "hsv":
                         activColorIndex=0;
                         var tmpC1HSV = getHSVColor();
                         activColorIndex=1;
@@ -793,7 +611,7 @@ function updateCreatorBand(){
                         document.getElementById("id_creatorBandC4").style.background = tmpC4RGB.getRGBString();
                         document.getElementById("id_creatorBandC5").style.background = tmpC5RGB.getRGBString();
                     break;
-                    case "lab": 
+                    case "lab":
                         activColorIndex=0;
                         var tmpC1LAB = getLABColor();
                         activColorIndex=1;
@@ -812,9 +630,9 @@ function updateCreatorBand(){
                         document.getElementById("id_creatorBandC2").style.background = tmpC2RGB.getRGBString();
                         document.getElementById("id_creatorBandC3").style.background = tmpC3RGB.getRGBString();
                         document.getElementById("id_creatorBandC4").style.background = tmpC4RGB.getRGBString();
-                        document.getElementById("id_creatorBandC5").style.background = tmpC5RGB.getRGBString();   
+                        document.getElementById("id_creatorBandC5").style.background = tmpC5RGB.getRGBString();
                     break;
-                    case "din99": 
+                    case "din99":
                         activColorIndex=0;
                         var tmpC1DIN99 = getDIN99Color();
                         activColorIndex=1;
@@ -838,7 +656,7 @@ function updateCreatorBand(){
                     default:
                         console.log("Error at the updateCreatorBand function");
 
-                }               
+                }
         break;
         default:
                 console.log("Error at the updateCreatorBand function");
@@ -858,7 +676,7 @@ function openPredefinedBand(event){
     var tmpString = event.target.id;
 
     switch(tmpString[0]){
-        case "c": 
+        case "c":
             tmpString = tmpString.substr(5);
             bandIndex = parseInt(tmpString);
             createBandType = 0;
@@ -866,22 +684,22 @@ function openPredefinedBand(event){
 
             switch(colorspaceModus){
                 case "rgb":
-                   
+
                     colorVal1_C1 = constBands[bandIndex].getRValue()*255;
                     colorVal2_C1 = constBands[bandIndex].getGValue()*255;
                     colorVal3_C1 = constBands[bandIndex].getBValue()*255;
-                           
+
                     colorVal1_C5 = constBands[bandIndex].getRValue()*255;
                     colorVal2_C5 = constBands[bandIndex].getGValue()*255;
                     colorVal3_C5 = constBands[bandIndex].getBValue()*255;
-                            
+
                 break;
                 case "hsv":
                     var tmpHSVC1 = constBands[bandIndex].calcHSVColor();
                     colorVal1_C1 = tmpHSVC1.getHValue();
                     colorVal2_C1 = tmpHSVC1.getSValue();
                     colorVal3_C1 = tmpHSVC1.getVValue();
-                           
+
                     colorVal1_C5 = tmpHSVC1.getHValue();
                     colorVal2_C5 = tmpHSVC1.getSValue();
                     colorVal3_C5 = tmpHSVC1.getVValue();
@@ -891,7 +709,7 @@ function openPredefinedBand(event){
                     colorVal1_C1 = tmpLABC1.getLValue();
                     colorVal2_C1 = tmpLABC1.getAValue();
                     colorVal3_C1 = tmpLABC1.getBValue();
-                           
+
                     colorVal1_C5 = tmpLABC1.getLValue();
                     colorVal2_C5 = tmpLABC1.getAValue();
                     colorVal3_C5 = tmpLABC1.getBValue();
@@ -901,7 +719,7 @@ function openPredefinedBand(event){
                     colorVal1_C1 = tmpDIN99C1.getL99Value();
                     colorVal2_C1 = tmpDIN99C1.getA99Value();
                     colorVal3_C1 = tmpDIN99C1.getB99Value();
-                           
+
                     colorVal1_C5 = tmpDIN99C1.getL99Value();
                     colorVal2_C5 = tmpDIN99C1.getA99Value();
                     colorVal3_C5 = tmpDIN99C1.getB99Value();
@@ -910,16 +728,16 @@ function openPredefinedBand(event){
                 return;
             }
         break;
-        case "s": 
+        case "s":
             tmpString = tmpString.substr(5);
             bandIndex = parseInt(tmpString);
             createBandType = 1;
             styleBandCreator();
-            
+
 
             switch(colorspaceModus){
                 case "rgb":
-                   
+
                     colorVal1_C1 = scaleBands[bandIndex][0].getRValue()*255;
                     colorVal2_C1 = scaleBands[bandIndex][0].getGValue()*255;
                     colorVal3_C1 = scaleBands[bandIndex][0].getBValue()*255;
@@ -927,7 +745,7 @@ function openPredefinedBand(event){
                     colorVal1_C5 = scaleBands[bandIndex][1].getRValue()*255;
                     colorVal2_C5 = scaleBands[bandIndex][1].getGValue()*255;
                     colorVal3_C5 = scaleBands[bandIndex][1].getBValue()*255;
-                            
+
                 break;
                 case "hsv":
                     var tmpHSVC1 = scaleBands[bandIndex][0].calcHSVColor();
@@ -935,7 +753,7 @@ function openPredefinedBand(event){
                     colorVal1_C1 = tmpHSVC1.getHValue();
                     colorVal2_C1 = tmpHSVC1.getSValue();
                     colorVal3_C1 = tmpHSVC1.getVValue();
-                           
+
                     colorVal1_C5 = tmpHSVC2.getHValue();
                     colorVal2_C5 = tmpHSVC2.getSValue();
                     colorVal3_C5 = tmpHSVC2.getVValue();
@@ -946,7 +764,7 @@ function openPredefinedBand(event){
                     colorVal1_C1 = tmpLABC1.getLValue();
                     colorVal2_C1 = tmpLABC1.getAValue();
                     colorVal3_C1 = tmpLABC1.getBValue();
-                           
+
                     colorVal1_C5 = tmpLABC2.getLValue();
                     colorVal2_C5 = tmpLABC2.getAValue();
                     colorVal3_C5 = tmpLABC2.getBValue();
@@ -957,7 +775,7 @@ function openPredefinedBand(event){
                     colorVal1_C1 = tmpDIN99C1.getL99Value();
                     colorVal2_C1 = tmpDIN99C1.getA99Value();
                     colorVal3_C1 = tmpDIN99C1.getB99Value();
-                           
+
                     colorVal1_C5 = tmpDIN99C2.getL99Value();
                     colorVal2_C5 = tmpDIN99C2.getA99Value();
                     colorVal3_C5 = tmpDIN99C2.getB99Value();
@@ -966,16 +784,16 @@ function openPredefinedBand(event){
                 return;
             }
         break;
-        case "d": 
+        case "d":
             tmpString = tmpString.substr(6);
             bandIndex = parseInt(tmpString);
             createBandType = 2;
             styleBandCreator();
-            
+
 
             switch(colorspaceModus){
                 case "rgb":
-                   
+
                     colorVal1_C1 = doubleBands[bandIndex][0].getRValue()*255;
                     colorVal2_C1 = doubleBands[bandIndex][0].getGValue()*255;
                     colorVal3_C1 = doubleBands[bandIndex][0].getBValue()*255;
@@ -987,7 +805,7 @@ function openPredefinedBand(event){
                     colorVal1_C5 = doubleBands[bandIndex][2].getRValue()*255;
                     colorVal2_C5 = doubleBands[bandIndex][2].getGValue()*255;
                     colorVal3_C5 = doubleBands[bandIndex][2].getBValue()*255;
-                            
+
                 break;
                 case "hsv":
                     var tmpHSVC1 = doubleBands[bandIndex][0].calcHSVColor();
@@ -1000,7 +818,7 @@ function openPredefinedBand(event){
                     colorVal1_C3 = tmpHSVC2.getHValue();
                     colorVal2_C3 = tmpHSVC2.getSValue();
                     colorVal3_C3 = tmpHSVC2.getVValue();
-                           
+
                     colorVal1_C5 = tmpHSVC3.getHValue();
                     colorVal2_C5 = tmpHSVC3.getSValue();
                     colorVal3_C5 = tmpHSVC3.getVValue();
@@ -1012,7 +830,7 @@ function openPredefinedBand(event){
                     colorVal1_C1 = tmpLABC1.getLValue();
                     colorVal2_C1 = tmpLABC1.getAValue();
                     colorVal3_C1 = tmpLABC1.getBValue();
-                           
+
                     colorVal1_C2 = tmpLABC2.getLValue();
                     colorVal2_C2 = tmpLABC2.getAValue();
                     colorVal3_C2 = tmpLABC2.getBValue();
@@ -1028,7 +846,7 @@ function openPredefinedBand(event){
                     colorVal1_C1 = tmpDIN99C1.getL99Value();
                     colorVal2_C1 = tmpDIN99C1.getA99Value();
                     colorVal3_C1 = tmpDIN99C1.getB99Value();
-                           
+
                     colorVal1_C3 = tmpDIN99C2.getL99Value();
                     colorVal2_C3 = tmpDIN99C2.getA99Value();
                     colorVal3_C3 = tmpDIN99C2.getB99Value();
@@ -1050,7 +868,7 @@ function openPredefinedBand(event){
 
             switch(colorspaceModus){
                 case "rgb":
-                   
+
                     colorVal1_C1 = tribleBands[bandIndex][0].getRValue()*255;
                     colorVal2_C1 = tribleBands[bandIndex][0].getGValue()*255;
                     colorVal3_C1 = tribleBands[bandIndex][0].getBValue()*255;
@@ -1066,7 +884,7 @@ function openPredefinedBand(event){
                     colorVal1_C5 = tribleBands[bandIndex][3].getRValue()*255;
                     colorVal2_C5 = tribleBands[bandIndex][3].getGValue()*255;
                     colorVal3_C5 = tribleBands[bandIndex][3].getBValue()*255;
-                            
+
                 break;
                 case "hsv":
                     var tmpHSVC1 = tribleBands[bandIndex][0].calcHSVColor();
@@ -1080,7 +898,7 @@ function openPredefinedBand(event){
                     colorVal1_C2 = tmpHSVC2.getHValue();
                     colorVal2_C2 = tmpHSVC2.getSValue();
                     colorVal3_C2 = tmpHSVC2.getVValue();
-                           
+
                     colorVal1_C4 = tmpHSVC3.getHValue();
                     colorVal2_C4 = tmpHSVC3.getSValue();
                     colorVal3_C4 = tmpHSVC3.getVValue();
@@ -1097,7 +915,7 @@ function openPredefinedBand(event){
                     colorVal1_C1 = tmpLABC1.getLValue();
                     colorVal2_C1 = tmpLABC1.getAValue();
                     colorVal3_C1 = tmpLABC1.getBValue();
-                           
+
                     colorVal1_C2 = tmpLABC2.getLValue();
                     colorVal2_C2 = tmpLABC2.getAValue();
                     colorVal3_C2 = tmpLABC2.getBValue();
@@ -1118,7 +936,7 @@ function openPredefinedBand(event){
                     colorVal1_C1 = tmpDIN99C1.getL99Value();
                     colorVal2_C1 = tmpDIN99C1.getA99Value();
                     colorVal3_C1 = tmpDIN99C1.getB99Value();
-                           
+
                     colorVal1_C2 = tmpDIN99C2.getL99Value();
                     colorVal2_C2 = tmpDIN99C2.getA99Value();
                     colorVal3_C2 = tmpDIN99C2.getB99Value();
@@ -1135,7 +953,7 @@ function openPredefinedBand(event){
                 return;
             }
         break;
-        case "q": 
+        case "q":
             tmpString = tmpString.substr(5);
             bandIndex = parseInt(tmpString);
             createBandType = 4;
@@ -1143,7 +961,7 @@ function openPredefinedBand(event){
 
             switch(colorspaceModus){
                 case "rgb":
-                   
+
                     colorVal1_C1 = quadBands[bandIndex][0].getRValue()*255;
                     colorVal2_C1 = quadBands[bandIndex][0].getGValue()*255;
                     colorVal3_C1 = quadBands[bandIndex][0].getBValue()*255;
@@ -1163,7 +981,7 @@ function openPredefinedBand(event){
                     colorVal1_C5 = quadBands[bandIndex][4].getRValue()*255;
                     colorVal2_C5 = quadBands[bandIndex][4].getGValue()*255;
                     colorVal3_C5 = quadBands[bandIndex][4].getBValue()*255;
-                            
+
                 break;
                 case "hsv":
                     var tmpHSVC1 = quadBands[bandIndex][0].calcHSVColor();
@@ -1178,7 +996,7 @@ function openPredefinedBand(event){
                     colorVal1_C2 = tmpHSVC2.getHValue();
                     colorVal2_C2 = tmpHSVC2.getSValue();
                     colorVal3_C2 = tmpHSVC2.getVValue();
-                           
+
                     colorVal1_C3 = tmpHSVC3.getHValue();
                     colorVal2_C3 = tmpHSVC3.getSValue();
                     colorVal3_C3 = tmpHSVC3.getVValue();
@@ -1200,7 +1018,7 @@ function openPredefinedBand(event){
                     colorVal1_C1 = tmpLABC1.getLValue();
                     colorVal2_C1 = tmpLABC1.getAValue();
                     colorVal3_C1 = tmpLABC1.getBValue();
-                           
+
                     colorVal1_C2 = tmpLABC2.getLValue();
                     colorVal2_C2 = tmpLABC2.getAValue();
                     colorVal3_C2 = tmpLABC2.getBValue();
@@ -1226,7 +1044,7 @@ function openPredefinedBand(event){
                     colorVal1_C1 = tmpDIN99C1.getL99Value();
                     colorVal2_C1 = tmpDIN99C1.getA99Value();
                     colorVal3_C1 = tmpDIN99C1.getB99Value();
-                           
+
                     colorVal1_C2 = tmpDIN99C2.getL99Value();
                     colorVal2_C2 = tmpDIN99C2.getA99Value();
                     colorVal3_C2 = tmpDIN99C2.getB99Value();
@@ -1249,13 +1067,13 @@ function openPredefinedBand(event){
         break;
         default:
             console.log("Error at the openpredefinedbands function");
-        
+
 
     }
 
     switch(activColorIndex){
 
-                    case 0: 
+                    case 0:
                         document.getElementById("id_color1_First").value = colorVal1_C1;
                         document.getElementById("id_color1_Second").value = colorVal2_C1;
                         document.getElementById("id_color1_Third").value = colorVal3_C1;
@@ -1287,13 +1105,13 @@ function openPredefinedBand(event){
     changeActiveColor(0);
     drawColorCircles();
     updateCreatorBand();
-    
+
 
 }
 
 function saveBandToArray(){
-    
-    var oldIndex = activColorIndex; 
+
+    var oldIndex = activColorIndex;
     switch(createBandType){
         case 0:
             if(newBandIsAdded == false){
@@ -1311,7 +1129,7 @@ function saveBandToArray(){
         case 1:
             if(newBandIsAdded == false){
                 var tmpArray = [];
-                
+
                 activColorIndex = 0;
                 var tmpRGB = getRGBColor();
                 tmpArray.push(tmpRGB);
@@ -1435,8 +1253,8 @@ function saveBandToArray(){
         default:
             console.log("Error saveBandToArray function");
     }
-    activColorIndex = oldIndex; 
-    
+    activColorIndex = oldIndex;
+
     //drawPredefinedBands();
 
 }
@@ -1531,7 +1349,7 @@ function addBand(type){
     creatorBandIsNew=true;
     newBandIsAdded=true;
 
-    var oldIndex = activColorIndex; 
+    var oldIndex = activColorIndex;
     switch(createBandType){
         case 0:
             if(oldBandType == createBandType){
@@ -1540,7 +1358,7 @@ function addBand(type){
                 constBands.push(tmpRGB);
             }
             else{
-                var r = 220; 
+                var r = 220;
                 var g = 180;
                 var b = 95;
                 var tmpRGB = new classColor_RGB((r/255),(g/255),(b/255));
@@ -1561,7 +1379,7 @@ function addBand(type){
                                     var tmpLAB = tmpRGB.calcCIELabColor();
                                     colorVal1_C1 = tmpLAB.getLValue();
                                     colorVal2_C1 = tmpLAB.getAValue();
-                                    colorVal3_C1 = tmpLAB.getBValue();      
+                                    colorVal3_C1 = tmpLAB.getBValue();
                         break;
                         case "din99":
                                     var tmpDIN99 = tmpRGB.calcDIN99Color(kE,kCH);
@@ -1572,10 +1390,10 @@ function addBand(type){
                         default:
                         return;
                 }
- 
+
                 constBands.push(tmpRGB);
             }
-            bandIndex = constBands.length-1;  
+            bandIndex = constBands.length-1;
         break;
         case 1:
             if(oldBandType == createBandType){
@@ -1587,7 +1405,7 @@ function addBand(type){
                 tmpRGB = getRGBColor();
                 tmpArray.push(tmpRGB);
                 scaleBands.push(tmpArray);
-               
+
             }
             else{
 
@@ -1625,7 +1443,7 @@ function addBand(type){
                                     tmpLAB = tmpRGB2.calcCIELabColor();
                                     colorVal1_C5 = tmpLAB.getLValue();
                                     colorVal2_C5 = tmpLAB.getAValue();
-                                    colorVal3_C5 = tmpLAB.getBValue();      
+                                    colorVal3_C5 = tmpLAB.getBValue();
                         break;
                         case "din99":
                                     var tmpDIN99 = tmpRGB1.calcDIN99Color(kE,kCH);
@@ -1640,7 +1458,7 @@ function addBand(type){
                         default:
                         return;
                 }
-                
+
             }
             bandIndex = scaleBands.length-1;
         break;
@@ -1708,7 +1526,7 @@ function addBand(type){
                                     tmpLAB = tmpRGB3.calcCIELabColor();
                                     colorVal1_C5 = tmpLAB.getLValue();
                                     colorVal2_C5 = tmpLAB.getAValue();
-                                    colorVal3_C5 = tmpLAB.getBValue();      
+                                    colorVal3_C5 = tmpLAB.getBValue();
                         break;
                         case "din99":
                                     var tmpDIN99 = tmpRGB1.calcDIN99Color(kE,kCH);
@@ -1811,7 +1629,7 @@ function addBand(type){
                                     tmpLAB = tmpRGB4.calcCIELabColor();
                                     colorVal1_C5 = tmpLAB.getLValue();
                                     colorVal2_C5 = tmpLAB.getAValue();
-                                    colorVal3_C5 = tmpLAB.getBValue();      
+                                    colorVal3_C5 = tmpLAB.getBValue();
                         break;
                         case "din99":
                                     var tmpDIN99 = tmpRGB1.calcDIN99Color(kE,kCH);
@@ -1935,7 +1753,7 @@ function addBand(type){
                                     tmpLAB = tmpRGB5.calcCIELabColor();
                                     colorVal1_C5 = tmpLAB.getLValue();
                                     colorVal2_C5 = tmpLAB.getAValue();
-                                    colorVal3_C5 = tmpLAB.getBValue();      
+                                    colorVal3_C5 = tmpLAB.getBValue();
                         break;
                         case "din99":
                                     var tmpDIN99 = tmpRGB1.calcDIN99Color(kE,kCH);
@@ -1968,11 +1786,11 @@ function addBand(type){
         default:
             console.log("Error saveBandToArray function");
     }
-    activColorIndex = oldIndex; 
+    activColorIndex = oldIndex;
 
     switch(activColorIndex){
 
-                    case 0: 
+                    case 0:
                         document.getElementById("id_color1_First").value = colorVal1_C1;
                         document.getElementById("id_color1_Second").value = colorVal2_C1;
                         document.getElementById("id_color1_Third").value = colorVal3_C1;
@@ -2004,7 +1822,7 @@ function addBand(type){
 
     document.getElementById("bandCreatorWindow").style.display = "initial";
 
-    
+
 
     styleBandCreator();
     drawColorCircles();
@@ -2047,7 +1865,7 @@ function bandOnClick(event){
         document.getElementById("bandEdit_InputRightRef").value = colormapBandSketchR2[bandOptionsIndex];
         document.getElementById("bandEdit_LeftColor").style.background = colormapBandSketchC1[bandOptionsIndex].getRGBString();
         document.getElementById("bandEdit_RightColor").style.background = colormapBandSketchC2[bandOptionsIndex].getRGBString();
-        
+
 
         // draw band
          var oCan = document.getElementById("bandEdit_EditCanvas");
@@ -2057,7 +1875,7 @@ function bandOnClick(event){
         // data from neighbours
         if(bandOptionsIndex==0){
             hasLeftNeig = false;
-            
+
             var tCan = document.getElementById("bandEdit_LeftNeigCanvas");
             var ctx = tCan.getContext("2d");
             ctx.beginPath();
@@ -2072,12 +1890,12 @@ function bandOnClick(event){
             document.getElementById("bandEdit_LeftNeiColor").style.background = colormapBandSketchC2[bandOptionsIndex-1].getRGBString();
             document.getElementById("bandEdit_LeftNeiLeftRef").innerHTML = colormapBandSketchR1[bandOptionsIndex-1];
             document.getElementById("bandEdit_LeftNeiRightRef").innerHTML = colormapBandSketchR2[bandOptionsIndex-1];
-           
+
             // Draw the Band
             var tCan = document.getElementById("bandEdit_LeftNeigCanvas");
             drawCanvasBand(tCan, colormapBandSketchC1[bandOptionsIndex-1], colormapBandSketchC2[bandOptionsIndex-1],tCan.width,tCan.height );
 
-            
+
         }
         if(bandOptionsIndex==colormapBandSketchC1.length-1){
             hasRightNeig = false;
@@ -2094,7 +1912,7 @@ function bandOnClick(event){
             document.getElementById("bandEdit_RightNeiColor").style.background = colormapBandSketchC1[bandOptionsIndex+1].getRGBString();
             document.getElementById("bandEdit_RightNeiLeftRef").innerHTML = colormapBandSketchR1[bandOptionsIndex+1];
             document.getElementById("bandEdit_RightNeiRightRef").innerHTML = colormapBandSketchR2[bandOptionsIndex+1];
-           
+
             // Draw the Band
             var tCan = document.getElementById("bandEdit_RightNeigCanvas");
             drawCanvasBand(tCan, colormapBandSketchC1[bandOptionsIndex+1], colormapBandSketchC2[bandOptionsIndex+1],tCan.width,tCan.height );
@@ -2113,16 +1931,7 @@ function bandOnClick(event){
 }
 
 
-function colormapNameChangeEnter(e){
-   if (e.keyCode == 13 && createColormap!=undefined) 
-    createColormap.setColormapName(document.getElementById("id_InputMapName").value);
-}
 
-function colormapNameChange(e){
-    if(createColormap!=undefined){
-     createColormap.setColormapName(document.getElementById("id_InputMapName").value);
-    }
-}
 
 
 function acceptNewBand(){
@@ -2134,20 +1943,20 @@ function cancelNewBand(){
     document.getElementById("bandCreatorWindow").style.display = "none";
 
       switch(createBandType){
-        case 0:          
+        case 0:
                 constBands.pop();
         break;
         case 1:
                 scaleBands.pop();
         break;
         case 2:
-                doubleBands.pop();        
+                doubleBands.pop();
         break;
         case 3:
-                tribleBands.pop();    
+                tribleBands.pop();
         break;
-        case 4:       
-                quadBands.pop();  
+        case 4:
+                quadBands.pop();
         break;
         default:
             console.log("Error saveBandToArray function");
@@ -2156,7 +1965,50 @@ function cancelNewBand(){
 }
 
 
+function colormapRefInputChange(e){
+  checkInputVal(document.getElementById(e.target.id),true,true);
 
+  if (colormapBandSketchR1.length!=0) {
 
+    if(parseFloat(document.getElementById("id_linearMap_InputLeftRef").value)>colormapBandSketchR2[0]){
+      alert("The new value for the minimal x reference is not allowed to be bigger then his right neighbour value");
+      document.getElementById("id_linearMap_InputLeftRef").value = colormapBandSketchR1[0];
+    }
+    else{
+      colormapBandSketchR1[0]= parseFloat(document.getElementById("id_linearMap_InputLeftRef").value);
+    }
 
+    if(parseFloat(document.getElementById("id_linearMap_InputRightRef").value)<colormapBandSketchR1[colormapBandSketchR2.length-1]){
+      alert("The new value for the maximal x reference is not allowed to be smaller then his left neighbour value");
+      document.getElementById("id_linearMap_InputRightRef").value = colormapBandSketchR2[colormapBandSketchR2.length-1];
+    }
+    else{
+      colormapBandSketchR2[colormapBandSketchR2.length-1]= parseFloat(document.getElementById("id_linearMap_InputRightRef").value);
+    }
+    orderColorSketch();
+  }
+}
 
+function colormapRefInputChangeEnter(e){
+  checkInputVal(document.getElementById(e.target.id),true,true);
+
+  if (e.keyCode == 13 && colormapBandSketchR1.length!=0) {
+
+    if(parseFloat(document.getElementById("id_linearMap_InputLeftRef").value)>colormapBandSketchR2[0]){
+      alert("The new value for the minimal x reference is not allowed to be bigger then his right neighbour value");
+      document.getElementById("id_linearMap_InputLeftRef").value = colormapBandSketchR1[0];
+    }
+    else{
+      colormapBandSketchR1[0]= parseFloat(document.getElementById("id_linearMap_InputLeftRef").value);
+    }
+
+    if(parseFloat(document.getElementById("id_linearMap_InputRightRef").value)<colormapBandSketchR1[colormapBandSketchR2.length-1]){
+      alert("The new value for the maximal x reference is not allowed to be smaller then his left neighbour value");
+      document.getElementById("id_linearMap_InputRightRef").value = colormapBandSketchR2[colormapBandSketchR2.length-1];
+    }
+    else{
+      colormapBandSketchR2[colormapBandSketchR2.length-1]= parseFloat(document.getElementById("id_linearMap_InputRightRef").value);
+    }
+    orderColorSketch();
+  }
+}

@@ -1,7 +1,7 @@
 function drawPredefinedBands(){
 
-    document.getElementById('button_AddConstandBand').style.display = "none";
-    document.getElementById('id_tmpContainer').appendChild(document.getElementById('button_AddConstandBand'));
+    document.getElementById('button_AddConstantBand').style.display = "none";
+    document.getElementById('id_tmpContainer').appendChild(document.getElementById('button_AddConstantBand'));
     document.getElementById('button_AddScaleBand').style.display = "none";
     document.getElementById('id_tmpContainer').appendChild(document.getElementById('button_AddScaleBand'));
     document.getElementById('button_AddDoubleBands').style.display = "none";
@@ -13,7 +13,7 @@ function drawPredefinedBands(){
 
     //---------------------------
     // --------- Empty Divs
-    document.getElementById('id_ConstandBand_Div').innerHTML = "";
+    document.getElementById('id_ConstantBand_Div').innerHTML = "";
     document.getElementById('id_ScaleBand_Div').innerHTML = "";
     document.getElementById('id_DoubleBands_Div').innerHTML = "";
     document.getElementById('id_TripleBands_Div').innerHTML = "";
@@ -31,14 +31,14 @@ function drawPredefinedBands(){
         iDiv.className = 'class_predefinedConstBands';
         iDiv.setAttribute('draggable', true);
         iDiv.style.background = constBands[i].getRGBString();
-        document.getElementById('id_ConstandBand_Div').appendChild(iDiv);
+        document.getElementById('id_ConstantBand_Div').appendChild(iDiv);
         iDiv.addEventListener("click", openPredefinedBand);
         iDiv.addEventListener("dragstart", bandOnDragStart);
         iDiv.addEventListener("dragend", bandOnDragEnd);
 
     }
-    document.getElementById('id_ConstandBand_Div').appendChild(document.getElementById('button_AddConstandBand'));
-    document.getElementById('button_AddConstandBand').style.display = "initial";
+    document.getElementById('id_ConstantBand_Div').appendChild(document.getElementById('button_AddConstantBand'));
+    document.getElementById('button_AddConstantBand').style.display = "initial";
 
     //---------------------------
     // --------- Scale
@@ -59,7 +59,7 @@ function drawPredefinedBands(){
 
 
         drawCanvasBand(iCan, tmpC1RGB, tmpC2RGB,resolutionX,resolutionY);
-    
+
     }
     document.getElementById('id_ScaleBand_Div').appendChild(document.getElementById('button_AddScaleBand'));
     document.getElementById('button_AddScaleBand').style.display = "initial";
@@ -87,7 +87,7 @@ function drawPredefinedBands(){
         var resolutionY = iCan.height; //75;
 
         //$("#sclae"+i).attr("width", resolutionX+"px");
-        //$("#sclae"+i).attr("height", resolutionY+"px"); 
+        //$("#sclae"+i).attr("height", resolutionY+"px");
 
         var canvasContex = iCan.getContext("2d");
         //canvasContex.clearRect(0, 0, resolutionX, resolutionY);
@@ -96,11 +96,11 @@ function drawPredefinedBands(){
         var bandWidth = Math.round(resolutionX/2);
 
         switch(colorspaceModus){
-                    case "rgb": 
+                    case "rgb":
                         canvasData=createScaledBand(canvasData, 0, bandWidth, resolutionY, tmpC1RGB, tmpC2RGB, resolutionX);
                         canvasData=createScaledBand(canvasData, bandWidth, bandWidth, resolutionY, tmpC2RGB, tmpC3RGB, resolutionX);
                     break;
-                    case "hsv": 
+                    case "hsv":
                         canvasData=createScaledBand(canvasData, 0, bandWidth, resolutionY, tmpC1RGB.calcHSVColor(), tmpC2RGB.calcHSVColor(), resolutionX);
                         canvasData=createScaledBand(canvasData, bandWidth, bandWidth, resolutionY, tmpC2RGB.calcHSVColor(), tmpC3RGB.calcHSVColor(), resolutionX);
                     break;
@@ -108,7 +108,7 @@ function drawPredefinedBands(){
                         canvasData=createScaledBand(canvasData, 0, bandWidth, resolutionY, tmpC1RGB.calcCIELabColor(), tmpC2RGB.calcCIELabColor(), resolutionX);
                         canvasData=createScaledBand(canvasData, bandWidth, bandWidth, resolutionY, tmpC2RGB.calcCIELabColor(), tmpC3RGB.calcCIELabColor(), resolutionX);
                     break;
-                    case "din99": 
+                    case "din99":
                         canvasData=createScaledBand(canvasData, 0, bandWidth, resolutionY, tmpC1RGB.calcDIN99Color(kE,kCH), tmpC2RGB.calcDIN99Color(kE,kCH), resolutionX);
                         canvasData=createScaledBand(canvasData, bandWidth, bandWidth, resolutionY, tmpC2RGB.calcDIN99Color(kE,kCH), tmpC3RGB.calcDIN99Color(kE,kCH), resolutionX);
                     break;
@@ -117,7 +117,7 @@ function drawPredefinedBands(){
         }
 
         canvasContex.putImageData(canvasData, 0, 0);
-    
+
     }
     document.getElementById('id_DoubleBands_Div').appendChild(document.getElementById('button_AddDoubleBands'));
     document.getElementById('button_AddDoubleBands').style.display = "initial";
@@ -146,7 +146,7 @@ function drawPredefinedBands(){
         var resolutionY = 75;
 
         $("#"+id).attr("width", resolutionX+"px");
-        $("#"+id).attr("height", resolutionY+"px"); 
+        $("#"+id).attr("height", resolutionY+"px");
 
         var canvasContex = iCan.getContext("2d");
         //canvasContex.clearRect(0, 0, resolutionX, resolutionY);
@@ -155,12 +155,12 @@ function drawPredefinedBands(){
         var bandWidth = Math.round(resolutionX/3);
 
         switch(colorspaceModus){
-                    case "rgb": 
+                    case "rgb":
                         canvasData=createScaledBand(canvasData, 0, bandWidth, resolutionY, tmpC1RGB, tmpC2RGB, resolutionX);
                         canvasData=createScaledBand(canvasData, bandWidth, bandWidth, resolutionY, tmpC2RGB, tmpC3RGB, resolutionX);
                         canvasData=createScaledBand(canvasData, bandWidth*2, bandWidth, resolutionY, tmpC3RGB, tmpC4RGB, resolutionX);
                     break;
-                    case "hsv": 
+                    case "hsv":
                         canvasData=createScaledBand(canvasData, 0, bandWidth, resolutionY, tmpC1RGB.calcHSVColor(), tmpC2RGB.calcHSVColor(), resolutionX);
                         canvasData=createScaledBand(canvasData, bandWidth, bandWidth, resolutionY, tmpC2RGB.calcHSVColor(), tmpC3RGB.calcHSVColor(), resolutionX);
                         canvasData=createScaledBand(canvasData, bandWidth*2, bandWidth, resolutionY, tmpC3RGB.calcHSVColor(), tmpC4RGB.calcHSVColor(), resolutionX);
@@ -170,7 +170,7 @@ function drawPredefinedBands(){
                         canvasData=createScaledBand(canvasData, bandWidth, bandWidth, resolutionY, tmpC2RGB.calcCIELabColor(), tmpC3RGB.calcCIELabColor(), resolutionX);
                         canvasData=createScaledBand(canvasData, bandWidth*2, bandWidth, resolutionY, tmpC3RGB.calcCIELabColor(), tmpC4RGB.calcCIELabColor(), resolutionX);
                     break;
-                    case "din99": 
+                    case "din99":
                         canvasData=createScaledBand(canvasData, 0, bandWidth, resolutionY, tmpC1RGB.calcDIN99Color(kE,kCH), tmpC2RGB.calcDIN99Color(kE,kCH), resolutionX);
                         canvasData=createScaledBand(canvasData, bandWidth, bandWidth, resolutionY, tmpC2RGB.calcDIN99Color(kE,kCH), tmpC3RGB.calcDIN99Color(kE,kCH), resolutionX);
                         canvasData=createScaledBand(canvasData, bandWidth*2, bandWidth, resolutionY, tmpC3RGB.calcDIN99Color(kE,kCH), tmpC4RGB.calcDIN99Color(kE,kCH), resolutionX);
@@ -180,7 +180,7 @@ function drawPredefinedBands(){
         }
 
         canvasContex.putImageData(canvasData, 0, 0);
-    
+
     }
     document.getElementById('id_TripleBands_Div').appendChild(document.getElementById('button_AddTripleBands'));
     document.getElementById('button_AddTripleBands').style.display = "initial";
@@ -200,7 +200,7 @@ function drawPredefinedBands(){
         iCan.addEventListener("click", openPredefinedBand);
         iCan.addEventListener("dragstart", bandOnDragStart);
         iCan.addEventListener("dragend", bandOnDragEnd);
-        
+
         var tmpC1RGB = quadBands[i][0];
         var tmpC2RGB = quadBands[i][1];
         var tmpC3RGB = quadBands[i][2];
@@ -211,7 +211,7 @@ function drawPredefinedBands(){
         var resolutionY = 75;
 
         $("#"+id).attr("width", resolutionX+"px");
-        $("#"+id).attr("height", resolutionY+"px"); 
+        $("#"+id).attr("height", resolutionY+"px");
 
         var canvasContex = iCan.getContext("2d");
         //canvasContex.clearRect(0, 0, resolutionX, resolutionY);
@@ -220,13 +220,13 @@ function drawPredefinedBands(){
         var bandWidth = Math.round(resolutionX/4);
 
         switch(colorspaceModus){
-                    case "rgb": 
+                    case "rgb":
                         canvasData=createScaledBand(canvasData, 0, bandWidth, resolutionY, tmpC1RGB, tmpC2RGB, resolutionX);
                         canvasData=createScaledBand(canvasData, bandWidth, bandWidth, resolutionY, tmpC2RGB, tmpC3RGB, resolutionX);
                         canvasData=createScaledBand(canvasData, bandWidth*2, bandWidth, resolutionY, tmpC3RGB, tmpC4RGB, resolutionX);
                         canvasData=createScaledBand(canvasData, bandWidth*3, bandWidth, resolutionY, tmpC4RGB, tmpC5RGB, resolutionX);
                     break;
-                    case "hsv": 
+                    case "hsv":
                         canvasData=createScaledBand(canvasData, 0, bandWidth, resolutionY, tmpC1RGB.calcHSVColor(), tmpC2RGB.calcHSVColor(), resolutionX);
                         canvasData=createScaledBand(canvasData, bandWidth, bandWidth, resolutionY, tmpC2RGB.calcHSVColor(), tmpC3RGB.calcHSVColor(), resolutionX);
                         canvasData=createScaledBand(canvasData, bandWidth*2, bandWidth, resolutionY, tmpC3RGB.calcHSVColor(), tmpC4RGB.calcHSVColor(), resolutionX);
@@ -238,7 +238,7 @@ function drawPredefinedBands(){
                         canvasData=createScaledBand(canvasData, bandWidth*2, bandWidth, resolutionY, tmpC3RGB.calcCIELabColor(), tmpC4RGB.calcCIELabColor(), resolutionX);
                         canvasData=createScaledBand(canvasData, bandWidth*3, bandWidth, resolutionY, tmpC4RGB.calcCIELabColor(), tmpC5RGB.calcCIELabColor(), resolutionX);
                     break;
-                    case "din99": 
+                    case "din99":
                         canvasData=createScaledBand(canvasData, 0, bandWidth, resolutionY, tmpC1RGB.calcDIN99Color(kE,kCH), tmpC2RGB.calcDIN99Color(kE,kCH), resolutionX);
                         canvasData=createScaledBand(canvasData, bandWidth, bandWidth, resolutionY, tmpC2RGB.calcDIN99Color(kE,kCH), tmpC3RGB.calcDIN99Color(kE,kCH), resolutionX);
                         canvasData=createScaledBand(canvasData, bandWidth*2, bandWidth, resolutionY, tmpC3RGB.calcDIN99Color(kE,kCH), tmpC4RGB.calcDIN99Color(kE,kCH), resolutionX);
@@ -249,9 +249,8 @@ function drawPredefinedBands(){
         }
 
         canvasContex.putImageData(canvasData, 0, 0);
-    
+
     }
     document.getElementById('id_QuadrupelBands_Div').appendChild(document.getElementById('button_AddQuadrupelBands'));
     document.getElementById('button_AddQuadrupelBands').style.display = "initial";
 }
-

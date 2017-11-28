@@ -1,13 +1,33 @@
 .class_MyListColormapCanvas{
-    height:3vh; 
-    line-height:3vh; 
-    font-size:1.2vh;
-    font-weight: bold; 
-    padding-right:0.2cm;
-    padding-left:0.2cm;
-    background:grey;
-    color: white;
-    border-right: 1px solid white;
-    vertical-align: middle;
-    text-align: center;
+
+    height:100%;
+    width:70%;
+    margin-left:4%;
+    border-radius: 0.5vh;
+    background:rgb(180,180,180);
+
+}
+
+
+.classButtonWhite:hover {
+  box-shadow: inset 0 0 0 2em rgba(180,180,180,0.3);
+}
+
+
+.classButtonWhite {
+  color: black;
+  background:white;
+  transition: 0.5s;
+}
+
+
+.classButtonDark:hover {
+  box-shadow: inset 0 0 0 2em rgba(180,180,180,0.3);
+}
+
+
+.classButtonDark {
+  color: white;
+  background:black;
+  transition: 0.5s;
 }

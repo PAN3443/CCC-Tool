@@ -1,9 +1,19 @@
 window.onload = function () {
 
 
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////// GLOBAL /////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    document.getElementById('id_ButtonToMyMapsPage').addEventListener("click", showMyMapsSide);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////// Create Side /////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
     // Style Init
     styleMainPage();
     document.getElementById("id_table_workwindow").style.display = "none";
+
     //// set events
         // Table
         document.getElementById('id_expandTablebutton').addEventListener("click", expandTable);
@@ -30,10 +40,18 @@ window.onload = function () {
         document.getElementById('acceptBandCreator').addEventListener("click", acceptNewBand);
         document.getElementById('cancelBandCreator').addEventListener("click", cancelNewBand);
 
+        // Colormap Ref Min Max Change
+        document.getElementById('id_linearMap_InputLeftRef').addEventListener("change", colormapRefInputChange);
+        document.getElementById('id_linearMap_InputLeftRef').addEventListener("keyup", colormapRefInputChangeEnter);
+        document.getElementById('id_linearMap_InputRightRef').addEventListener("change", colormapRefInputChange);
+        document.getElementById('id_linearMap_InputRightRef').addEventListener("keyup", colormapRefInputChangeEnter);
 
-        // Colormap Name Change
-        document.getElementById('id_InputMapName').addEventListener("change", colormapNameChange);
-        document.getElementById('id_InputMapName').addEventListener("keyup", colormapNameChangeEnter);
+        // Ref Change Key Rects
+        document.getElementById('id_keyColormap').addEventListener("mouseenter", mouseEnterKeyRef);
+        document.getElementById('id_keyColormap').addEventListener("mouseleave", mouseLeaveKeyRef);
+        document.getElementById('id_keyColormap').addEventListener("mousemove", mouseMoveKeyRef);
+        document.getElementById('id_keyColormap').addEventListener("mousedown", mouseDownKeyRef);
+        document.getElementById('id_keyColormap').addEventListener("mouseup", mouseUpKeyRef);
 
         // Band Editor
         document.getElementById('cancelBandEdit').addEventListener("click", cancelBandEditor);
@@ -52,25 +70,37 @@ window.onload = function () {
         document.getElementById('bandEdit_InputRightRef').addEventListener("keyup", checkR2Input);
         document.getElementById('bandEdit_InputLeftRef').addEventListener("change", checkR1Input_Change);
         document.getElementById('bandEdit_InputRightRef').addEventListener("change", checkR2Input_Change);
-       
+
+        ////
+        // Creat Colormap Menue
+          // Colormap Name Change
+          document.getElementById('id_InputMapName').addEventListener("change", colormapNameChange);
+          document.getElementById('id_InputMapName').addEventListener("keyup", colormapNameChangeEnter);
+
+          document.getElementById('id_buttonDeleteCreateColormap').addEventListener("click", deleteCreatedColormap);
+          document.getElementById('id_buttonBackwardCreateColormap').addEventListener("click", backwardColormapProcess);
+          document.getElementById('id_buttonForwardCreateColormap').addEventListener("click", forwardColormapProcess);
+          document.getElementById('id_buttonSaveCreateColormap').addEventListener("click", saveColormapToList);
+
+          // init //
 
 
-    
-        // init //
+          drawHSBackground("id_canvasPickerHS");
+          drawHSBackground("id_bandEditCanvasPickerHS");
+          drawColorCircles();
+          updateCreatorBand();
+          styleBandCreator();
 
-        drawPredefinedBands();
-        drawHSBackground("id_canvasPickerHS");
-        drawHSBackground("id_bandEditCanvasPickerHS");
-        drawColorCircles();
-        updateCreatorBand();
-        styleBandCreator();
+          // for reload with F5
+          document.getElementById('id_color1_First').value = 255;
+          document.getElementById('id_color1_Second').value = 255;
+          document.getElementById('id_color1_Third').value = 255;
 
-        // for reload with F5
-        document.getElementById('id_color1_First').value = 255;
-        document.getElementById('id_color1_Second').value = 255;
-        document.getElementById('id_color1_Third').value = 255;
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////// My List Side /////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+        document.getElementById('id_MyListCreateColormapButton').addEventListener("click", showCreateSide);
 }
 
 window.onresize = function(event) {
@@ -110,7 +140,7 @@ function styleMainPage(){
     canvasColorspace.style.left = rectPickerCanvas.left+"px";
 
     document.getElementById("bandEditWindow").style.height = document.height+"px"; // workRec.height+"px";
-       
+
     orderColorSketch();
 
 }
@@ -118,33 +148,33 @@ function styleMainPage(){
 function calcColormap(){
     var saveNext = true;
     createColormap = new xclassColorMap();
-     
+
             for(var i=0; i<colormapBandSketchC1.length; i++){
 
                 if(saveNext){
 
-                    var tmpColor = new classColor_RGB(colormapBandSketchC1[i].getRValue(),colormapBandSketchC1[i].getGValue(),colormapBandSketchC1[i].getBValue()); 
+                    var tmpColor = new classColor_RGB(colormapBandSketchC1[i].getRValue(),colormapBandSketchC1[i].getGValue(),colormapBandSketchC1[i].getBValue());
                     createColormap.pushPositionPoints(colormapBandSketchR1[i]);
                     createColormap.pushRGBColor(tmpColor);
                 }
-        
-                var tmpColor2 = new classColor_RGB(colormapBandSketchC2[i].getRValue(),colormapBandSketchC2[i].getGValue(),colormapBandSketchC2[i].getBValue()); 
+
+                var tmpColor2 = new classColor_RGB(colormapBandSketchC2[i].getRValue(),colormapBandSketchC2[i].getGValue(),colormapBandSketchC2[i].getBValue());
                     //tmpColor2.setColorFromHEX(colormapBandSketchC2[i].getHexString());
                 createColormap.pushPositionPoints(colormapBandSketchR2[i]);
                 createColormap.pushRGBColor(tmpColor2);
-                
+
                 saveNext=true;
 
 
 
-                if(i+1<colormapBandSketchC1.length && 
+                if(i+1<colormapBandSketchC1.length &&
                 (colormapBandSketchC2[i].getRValue()!=colormapBandSketchC1[i].getRValue() ||  // i = scaled
                 colormapBandSketchC2[i].getGValue()!=colormapBandSketchC1[i].getGValue() ||
-                colormapBandSketchC2[i].getBValue()!=colormapBandSketchC1[i].getBValue()) 
-                &&  
+                colormapBandSketchC2[i].getBValue()!=colormapBandSketchC1[i].getBValue())
+                &&
                 (colormapBandSketchC2[i+1].getRValue()!=colormapBandSketchC1[i+1].getRValue() || // i+1 = scaled
                 colormapBandSketchC2[i+1].getGValue()!=colormapBandSketchC1[i+1].getGValue() ||
-                colormapBandSketchC2[i+1].getBValue()!=colormapBandSketchC1[i+1].getBValue()) 
+                colormapBandSketchC2[i+1].getBValue()!=colormapBandSketchC1[i+1].getBValue())
                 &&
                 (colormapBandSketchC2[i].getRValue()==colormapBandSketchC1[i+1].getRValue() && // -> dual key
                 colormapBandSketchC2[i].getGValue()==colormapBandSketchC1[i+1].getGValue() &&
@@ -169,7 +199,7 @@ function fillTable(){
 
     for (i = 0; i < colormapBandSketchC1.length; i++) {
         var tr = document.createElement('tr');
-        
+
         var td = document.createElement('td')
         td.className = "class_tableInput";
         td.appendChild(document.createTextNode(i+1));
@@ -200,13 +230,13 @@ function fillTable(){
         var td2 = document.createElement('td')
         td2.className = "class_tableInput";
 
-        
+
         switch(colorspaceModus){
                 case "rgb":;
                     td.appendChild(document.createTextNode(colormapBandSketchC1[i].getRGBString()));
-                    td2.appendChild(document.createTextNode(colormapBandSketchC2[i].getRGBString()));                   
+                    td2.appendChild(document.createTextNode(colormapBandSketchC2[i].getRGBString()));
                 break;
-                case "hsv": 
+                case "hsv":
                     var tmpC1HSV = colormapBandSketchC1[i].calcHSVColor();
                     var tmpC2HSV = colormapBandSketchC2[i].calcHSVColor();
                     var string = "hsv("+tmpC1HSV.getHValue().toFixed(numDecimalPlaces)+","+tmpC1HSV.getSValue().toFixed(numDecimalPlaces)+","+tmpC1HSV.getVValue().toFixed(numDecimalPlaces)+")"
@@ -214,7 +244,7 @@ function fillTable(){
                     string = "hsv("+tmpC2HSV.getHValue().toFixed(numDecimalPlaces)+","+tmpC2HSV.getSValue().toFixed(numDecimalPlaces)+","+tmpC2HSV.getVValue().toFixed(numDecimalPlaces)+")"
                     td2.appendChild(document.createTextNode(string));
                 break;
-                case "lab":  
+                case "lab":
                     var tmpC1LAB = colormapBandSketchC1[i].calcCIELabColor();
                     var tmpC2LAB = colormapBandSketchC2[i].calcCIELabColor();
                     var string = "lab("+tmpC1LAB.getLValue().toFixed(numDecimalPlaces)+","+tmpC1LAB.getAValue().toFixed(numDecimalPlaces)+","+tmpC1LAB.getBValue().toFixed(numDecimalPlaces)+")"
@@ -245,5 +275,3 @@ function fillTable(){
     old_tbody.parentNode.replaceChild(new_tbody, old_tbody);
     new_tbody.id="id_tableBody";
 }
-
-

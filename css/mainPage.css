@@ -1,0 +1,49 @@
+.dropbtn {
+    background:rgb(30,144,255);
+    color: white;
+    height:5vh;
+    line-height:5vh;
+    vertical-align:middle;
+    text-align:center;
+    border: none;
+    cursor: pointer;
+    width:10vw;
+    font-weight: bold;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: background:rgb(0,191,255);;
+    z-index: 1;
+}
+
+.dropdown-content button {
+    color: white;
+    font-weight: bold;
+    background:rgb(0,191,255);
+    width:10vw;
+    height:5vh;
+    line-height:5vh;
+    vertical-align:middle;
+    text-align:center;
+    display: block;
+    transition: 0.25s;
+}
+
+.dropdown-content button:hover {
+  box-shadow: inset 0 0 0 2em rgb(30,144,255);
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: rgb(0,191,255);
+}
