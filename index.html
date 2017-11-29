@@ -83,7 +83,8 @@
         <script src="js/xmlColormapParser.js"></script>
         <script src="js/drawCanvasColormap.js"></script>
         <script src="js/checkInput.js"></script>
-        <script src="js/main.js"></script>
+        <script src="js/exportSideScript.js"></script>
+        <script src="js/getColorObject.js"></script>
         <script src="js/main.js"></script>
 
 
@@ -116,8 +117,11 @@
 
             <div id="id_menu" class="row" style="width:100%; height:auto; background: rgb(0,0,0);position: -webkit-sticky; position: sticky;">
                 <img src="img/CCC-LOGO.png" alt="CCC-Tool Logo" style="margin-top:0.1vh; margin-bottom:0.1vh; height:8vh; margin-left:auto;">
-                <h1 style="margin-top:0.1vh; margin-bottom:0.1vh; height:8vh; line-height:8vh; text-align:center; vertical-align: middle; color:white; margin-left:20px; margin-right:auto; font-size:6vh; font-style: italic; font-family: "Times New Roman", Georgia, Serif;"> CCC-TOOL </h1>
-            </div>
+                <div style="margin-left:20px; margin-right:auto;">
+                  <h1 style="margin-top:0vh; margin-bottom:0vh; height:5.5vh; line-height:5.5vh; text-align:center; vertical-align: middle; color:white; font-size:5vh; font-family: "Times New Roman", Georgia, Serif;"> CCC-TOOL </h1>
+                  <h4 style="margin-top:0vh; margin-bottom:0vh; height:2.5vh; line-height:2.5vh; text-align:center; vertical-align: middle; color:white; font-size:1.7vh; font-style: italic; font-family: "Times New Roman", Georgia, Serif;"> Charting Continuous Colormap </h4>
+                </div>
+                </div>
 
 
             <div  style="width:100%; height:10vh;   margin:0px;">
@@ -683,7 +687,8 @@
 
             <div style="margin-top:15vh; height:auto; background: rgb(240,240,240); width:50%; border: 0.5vh solid black; margin-left:auto; margin-right:auto;">
 
-                                         <!------------------>
+                        <h3 style="widht:100%; height:5vh; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; padding-left:20px; font-size:3vh; margin-bottom:2vh; background:black;"> Band Creator </h3>
+                             <!------------------>
                         <!-- BAND Creator -->
                         <div style="margin:auto; width:80%; height:auto; background:rgb(240,240,240);">
 
@@ -792,11 +797,82 @@
         ---------------------------------------------------
         -->
 
-        <div id="exportWindow" style="background: rgba(0,0,0,0.6); width:100%; height:100%; position:absolute; position: fixed; z-index:101; top:0px; left:0px; bottom:0px; display:none;">
+        <div id="id_exportWindow" style="background: rgba(0,0,0,0.6); width:100%; height:100%; position:absolute; position: fixed; z-index:50; top:0px; left:0px; bottom:0px; display:none;">
 
-                        <div style="margin-top:15vh; height:auto; background: rgb(255,255,255); width:100%; border-top: 1vh solid black; border-bottom: 1vh solid black;">
+                  <div style="margin-top:15vh; height:auto; max-height:70vh; overflow:auto; background: rgb(255,255,255); width:100%; border-top: 1vh solid black; border-bottom: 1vh solid black;">
+
+                    
+
+                      </div>
+                          <h3 style="widht:100%; height:5vh; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; padding-left:20px; font-size:3vh; margin-bottom:2vh; background:black;"> Export Colormap </h3>
 
 
+                          <canvas style="margin-top: 0px; width:100%; height: 4vh; margin-left:0%;   " id="id_keyColormapExport">
+
+                          </canvas>
+                          <canvas style="margin-top: 0px; width:95%; height: 6vh; margin-left:2.5%; margin-bottom:0px; border:2px solid black;" id="id_linearColormapExport">
+
+                          </canvas>
+                          <canvas style="margin-top: 0px; width:100%; height: 1vh; margin-left:0%;" id="id_keyColormapLinesBottomExport">
+
+                          </canvas>
+
+
+
+
+
+                          <div class="row" style="width:100%; height:2vh;">
+                          </div>
+
+                          <div class="row" style=" margin-left:3vw; background:none;margin-bottom:0.2cm; margin-top:2vh;">
+
+                                   <p class="exportSide_OptionRow_Element">Interval Colorspace Approximation :</p>
+                                   <div class="row exportSide_OptionRow_Element" style="background:none;">
+                                   <input id="exportSide_MergingCheckbox" type="checkbox" name="merging" value="1" checked>
+                                   </div>
+                           </div>
+
+                          <div style="width:90%; border:1px solid black; margin-left:5%;">
+
+                              <h4 style="margin-left:3vw; widht:100%; height:3vh; line-height:3vh; vertical-align:middle; text-align:left; vertical-align: middle; margin:0px; color:black; font-size:1.5vh;"> Interval Options: </h4>
+
+                              <div class="row" style="margin-left:3vw; background:none;margin-bottom:0.2cm;">
+                                        <p> of Intervals:</p> <input  id = "exportSide_IntervallInput" type="text" name="key space" value="10">
+                              </div>
+
+                              <div class="row" style="margin-left:3vw; background:none; margin-bottom:0.2cm;">
+
+                                       <input id="exportSide_MergingCheckbox" type="checkbox" name="merging" value="1" checked>
+                                       <p> processing : merge identical neighboring intervals</p>
+
+                               </div>
+                          </div>
+
+
+                          <div style="height:30vh; overflow:auto; margin-top: 2vh; border-bottom:2px solid black;">
+                            <h4 style="widht:100%; height:3vh; height:3vh; line-height:3vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; padding-left:20px; font-size:1.7vh; margin-bottom:2vh; background:black; margin-bottom:0px;"> Table of the Colormap </h4>
+
+                                 <table style="width:100%" id="id_table">
+                                 <thead>
+                                     <tr style="border-top:1px solid white;">
+                                         <th class="class_tablelabel" id="id_table_Number" style="width:4%; border-left:1px solid white;" >#</th>
+                                         <th class="class_tablelabel" id="id_table_Reference1" style="width:9%;">Reference 1</th>
+                                         <th class="class_tablelabel" id="id_table_Reference2" style="width:9%;">Reference 2</th>
+                                         <th class="class_tablelabel" id="id_table_Bandtype" style="width:9%;">Band Type</th>
+                                         <th class="class_tablelabel" id="id_table_Color1" style="width:9%;">C1 (RGB)</th>
+                                         <th class="class_tablelabel" id="id_table_Color2" style="width:9%;">C2 (RGB)</th>
+                                     </tr>
+                                 </thead>
+
+                                         <tbody id="id_exportTableBody">
+
+                                         </tbody>
+
+                                 </table>
+                         </div>
+
+                         <button class="classButtonWhite" id = "id_exportCancelButton" title="Cancel" style="border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 20%; height:3vh; line-height:3vh; font-size:1.7vh; border: 0.2vh solid rgb(180,180,180); margin-left:25%; margin-top:1vh; margin-bottom:1vh;"> Cancel </button>
+                         <button class="classButtonWhite" id = "id_exportExportButton" title="Export" style="border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 20%; height:3vh; line-height:3vh; font-size:1.7vh; border: 0.2vh solid rgb(180,180,180); margin-left:10%; margin-top:1vh; margin-bottom:1vh;"> Export </button>
 
                         </div>
 

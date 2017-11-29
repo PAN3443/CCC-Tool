@@ -480,7 +480,7 @@ function orderColorSketch(){
       document.getElementById("id_LinearMap_Table_Div").style.display = "initial";
       calcColormap();
       drawCanvasColormap("id_linearColormap",linearMap_resolution_X, linearMap_resolution_Y, createColormap);
-      drawKeys("id_keyColormap",key_resolution_X, key_resolution_Y, createColormap, "id_keyColormapLinesBottom")
+      drawKeys("id_keyColormap",key_resolution_X, key_resolution_Y, createColormap, "id_keyColormapLinesBottom",false)
       fillTable();
 
       //////////////////////////////////////////////////////////////////////////

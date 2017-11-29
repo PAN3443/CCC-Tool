@@ -365,7 +365,7 @@ function createConstantBand(canvasData, xStart, bandWidth, bandHeight, color1, c
 //// Keys
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-function drawKeys(canvasID,resolutionX, resolutionY, tmpColormap, lineKeyID){
+function drawKeys(canvasID,resolutionX, resolutionY, tmpColormap, lineKeyID, doStartEndRef){
 
     for(var i = refElementContainer.length-1; i>=0; i--){
       refElementContainer[i].remove();
@@ -407,6 +407,8 @@ function drawKeys(canvasID,resolutionX, resolutionY, tmpColormap, lineKeyID){
         colorrectHeigth = resolutionY/2;
         colorrectWitdh = resolutionY/3;
 
+        var box = document.getElementById(lineKeyID).getBoundingClientRect();
+
         // draw keys
         for(var i = 0; i<tmpColormap.getNumColors(); i++){
 
@@ -439,6 +441,45 @@ function drawKeys(canvasID,resolutionX, resolutionY, tmpColormap, lineKeyID){
 
 
                         /////////////////// draw ref /////////
+
+                        if(doStartEndRef){
+                          var tmpText = ''+tmpColormap.getPosition(i).toFixed(numDecimalPlaces);
+
+                          var body = document.body;
+                          var docEl = document.documentElement;
+
+                          var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
+                          var scrollLeft = window.pageXOffset || docEl.scrollLeft || body.scrollLeft;
+
+                          var clientTop = docEl.clientTop || body.clientTop || 0;
+                          var clientLeft = docEl.clientLeft || body.clientLeft || 0;
+
+                          var top  = box.top +  scrollTop - clientTop;
+                          var left = box.left + scrollLeft - clientLeft;
+
+                          var p = document.createElement('p');
+                          var xposHTML = ((xPos+pos1)/resolutionX)*box.width+left;
+                          var yposHTML = box.height+top;
+
+                          document.body.appendChild(p);
+
+                          p.innerHTML = tmpText;
+                          p.width = "min-content";
+                          p.style.background = "rgb(255,255,255)";
+                          p.style.paddingLeft = 5+"px";
+                          p.style.paddingRight = 5+"px";
+                          p.style.border = "2px solid rgb(0,0,0)";
+                          p.style.margin = "0px";
+                          p.style.zIndex = "51";
+
+                          p.style.position = "absolute";
+                          p.style.top = Math.round(yposHTML)+"px";
+                          p.style.left = Math.round(xposHTML)+"px";
+                          refElementContainer.push(p);
+                          xposHTML = xposHTML-(p.getBoundingClientRect().width/2);
+                          p.style.left = Math.round(xposHTML)+"px";
+                        }
+                        else
                         document.getElementById("id_linearMap_InputLeftRef").value = tmpColormap.getPosition(i).toFixed(numDecimalPlaces);
 
                     break;
@@ -480,8 +521,6 @@ function drawKeys(canvasID,resolutionX, resolutionY, tmpColormap, lineKeyID){
                           /////////////////// draw ref /////////
                           var tmpText = ''+tmpColormap.getPosition(i).toFixed(numDecimalPlaces);
 
-                          var box = document.getElementById("id_keyColormapLinesBottom").getBoundingClientRect();
-
                           var body = document.body;
                           var docEl = document.documentElement;
 
@@ -507,7 +546,7 @@ function drawKeys(canvasID,resolutionX, resolutionY, tmpColormap, lineKeyID){
                           p.style.paddingRight = 5+"px";
                           p.style.border = "2px solid rgb(0,0,0)";
                           p.style.margin = "0px";
-
+                          p.style.zIndex = "51";
 
                           p.style.position = "absolute";
                           p.style.top = Math.round(yposHTML)+"px";
@@ -555,8 +594,46 @@ function drawKeys(canvasID,resolutionX, resolutionY, tmpColormap, lineKeyID){
 
                         if(i==tmpColormap.getNumColors()-1){
                           /////////////////// draw ref /////////
+                          if(doStartEndRef){
+                            var tmpText = ''+tmpColormap.getPosition(i).toFixed(numDecimalPlaces);
+
+                            var body = document.body;
+                            var docEl = document.documentElement;
+
+                            var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
+                            var scrollLeft = window.pageXOffset || docEl.scrollLeft || body.scrollLeft;
+
+                            var clientTop = docEl.clientTop || body.clientTop || 0;
+                            var clientLeft = docEl.clientLeft || body.clientLeft || 0;
+
+                            var top  = box.top +  scrollTop - clientTop;
+                            var left = box.left + scrollLeft - clientLeft;
+
+                            var p = document.createElement('p');
+                            var xposHTML = ((xPos+pos1)/resolutionX)*box.width+left;
+                            var yposHTML = box.height+top;
+
+                            document.body.appendChild(p);
+
+                            p.innerHTML = tmpText;
+                            p.width = "min-content";
+                            p.style.background = "rgb(255,255,255)";
+                            p.style.paddingLeft = 5+"px";
+                            p.style.paddingRight = 5+"px";
+                            p.style.border = "2px solid rgb(0,0,0)";
+                            p.style.margin = "0px";
+                            p.style.zIndex = "51";
+
+                            p.style.position = "absolute";
+                            p.style.top = Math.round(yposHTML)+"px";
+                            p.style.left = Math.round(xposHTML)+"px";
+                            refElementContainer.push(p);
+                            xposHTML = xposHTML-(p.getBoundingClientRect().width/2);
+                            p.style.left = Math.round(xposHTML)+"px";
+                          }
+                          else
                           document.getElementById("id_linearMap_InputRightRef").value = tmpColormap.getPosition(i).toFixed(numDecimalPlaces);
-                          tmpArray.pop();
+                          //tmpArray.pop();
                         }
                         else{
 
@@ -565,8 +642,6 @@ function drawKeys(canvasID,resolutionX, resolutionY, tmpColormap, lineKeyID){
 
                           /////////////////// draw ref /////////
                           var tmpText = ''+tmpColormap.getPosition(i).toFixed(numDecimalPlaces);
-
-                          var box = document.getElementById("id_keyColormapLinesBottom").getBoundingClientRect();
 
                           var body = document.body;
                           var docEl = document.documentElement;
@@ -593,7 +668,7 @@ function drawKeys(canvasID,resolutionX, resolutionY, tmpColormap, lineKeyID){
                           p.style.paddingRight = 5+"px";
                           p.style.border = "2px solid rgb(0,0,0)";
                           p.style.margin = "0px";
-
+                          p.style.zIndex = "51";
 
                           p.style.position = "absolute";
                           p.style.top = Math.round(yposHTML)+"px";
@@ -634,6 +709,45 @@ function drawKeys(canvasID,resolutionX, resolutionY, tmpColormap, lineKeyID){
                         drawColorRect(canvasContex, colorrectXPos,colorrectYPos,colorrectWitdh/2,colorrectHeigth,rgbColor1, false);
 
                         /////////////////// draw ref /////////
+                        if(doStartEndRef){
+                          var tmpText = ''+tmpColormap.getPosition(i).toFixed(numDecimalPlaces);
+
+                          var body = document.body;
+                          var docEl = document.documentElement;
+
+                          var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
+                          var scrollLeft = window.pageXOffset || docEl.scrollLeft || body.scrollLeft;
+
+                          var clientTop = docEl.clientTop || body.clientTop || 0;
+                          var clientLeft = docEl.clientLeft || body.clientLeft || 0;
+
+                          var top  = box.top +  scrollTop - clientTop;
+                          var left = box.left + scrollLeft - clientLeft;
+
+                          var p = document.createElement('p');
+                          var xposHTML = ((xPos+pos1)/resolutionX)*box.width+left;
+                          var yposHTML = box.height+top;
+
+                          document.body.appendChild(p);
+
+                          p.innerHTML = tmpText;
+                          p.width = "min-content";
+                          p.style.background = "rgb(255,255,255)";
+                          p.style.paddingLeft = 5+"px";
+                          p.style.paddingRight = 5+"px";
+                          p.style.border = "2px solid rgb(0,0,0)";
+                          p.style.margin = "0px";
+                          p.style.zIndex = "51";
+
+
+                          p.style.position = "absolute";
+                          p.style.top = Math.round(yposHTML)+"px";
+                          p.style.left = Math.round(xposHTML)+"px";
+                          refElementContainer.push(p);
+                          xposHTML = xposHTML-(p.getBoundingClientRect().width/2);
+                          p.style.left = Math.round(xposHTML)+"px";
+                        }
+                        else
                         document.getElementById("id_linearMap_InputLeftRef").value = tmpColormap.getPosition(i).toFixed(numDecimalPlaces);
 
                     break;
@@ -671,8 +785,6 @@ function drawKeys(canvasID,resolutionX, resolutionY, tmpColormap, lineKeyID){
                         /////////////////// draw ref /////////
                         var tmpText = ''+tmpColormap.getPosition(i).toFixed(numDecimalPlaces);
 
-                        var box = document.getElementById("id_keyColormapLinesBottom").getBoundingClientRect();
-
                         var body = document.body;
                         var docEl = document.documentElement;
 
@@ -698,7 +810,7 @@ function drawKeys(canvasID,resolutionX, resolutionY, tmpColormap, lineKeyID){
                         p.style.paddingRight = 5+"px";
                         p.style.border = "2px solid rgb(0,0,0)";
                         p.style.margin = "0px";
-
+                        p.style.zIndex = "51";
 
                         p.style.position = "absolute";
                         p.style.top = Math.round(yposHTML)+"px";

@@ -81,6 +81,8 @@ window.onload = function () {
           document.getElementById('id_buttonBackwardCreateColormap').addEventListener("click", backwardColormapProcess);
           document.getElementById('id_buttonForwardCreateColormap').addEventListener("click", forwardColormapProcess);
           document.getElementById('id_buttonSaveCreateColormap').addEventListener("click", saveColormapToList);
+          document.getElementById('id_buttonExportCreateColormap').addEventListener("click", createSideExport);
+
 
           // init //
 
@@ -101,6 +103,15 @@ window.onload = function () {
         ////////////////////////////////////////////////////////////////////////////////////////////////////
 
         document.getElementById('id_MyListCreateColormapButton').addEventListener("click", showCreateSide);
+
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////// Export Side /////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        document.getElementById('id_exportCancelButton').addEventListener("click", cancelExport);
+
 }
 
 window.onresize = function(event) {

@@ -2,6 +2,14 @@
 ///// Menue button Events /////
 //////////////////////////////
 
+function createSideExport(){
+  if(colormapBandSketchC1.length!=0){
+    exportColormap = createColormap;
+    document.getElementById("id_exportWindow").style.display = "initial";
+    initExportWindow();
+  }
+}
+
 function colormapNameChangeEnter(e){
    if (e.keyCode == 13 && createColormap!=undefined)
     createColormap.setColormapName(document.getElementById("id_InputMapName").value);
