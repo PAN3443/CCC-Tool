@@ -40,6 +40,13 @@ function cancelExport(){
     if(showSideID==1)
       orderColorSketch();
 
+    if(showSideID==0){
+      for(var i = refElementContainer.length-1; i>=0; i--){
+          refElementContainer[i].remove();
+          refElementContainer.pop();
+      }
+     }
+
     exportSideOpen = false;
 }
 
