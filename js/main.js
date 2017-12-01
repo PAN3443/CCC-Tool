@@ -82,6 +82,8 @@ window.onload = function () {
           document.getElementById('id_buttonForwardCreateColormap').addEventListener("click", forwardColormapProcess);
           document.getElementById('id_buttonSaveCreateColormap').addEventListener("click", saveColormapToList);
           document.getElementById('id_buttonExportCreateColormap').addEventListener("click", createSideExport);
+          document.getElementById('exportSide_MergingCheckbox').addEventListener("change", exportSide_ChangeMerging);
+
 
 
           // init //
@@ -111,6 +113,26 @@ window.onload = function () {
         ////////////////////////////////////////////////////////////////////////////////////////////////////
 
         document.getElementById('id_exportCancelButton').addEventListener("click", cancelExport);
+        document.getElementById('exportSide_IntervalApproximationCheckbox').addEventListener("change", showIntervalOptions);
+
+        document.getElementById('exportSide_IntervallInput').addEventListener("change", exportSide_changeIntervalNumChange);
+        document.getElementById('exportSide_IntervallInput').addEventListener("keyup", exportSide_changeIntervalNumEnter);
+
+        document.getElementById('exportSide_Radiobutton_ApproxRGB').addEventListener("change", exportSide_changeApproxSpace);
+        document.getElementById('exportSide_Radiobutton_ApproxHSV').addEventListener("change", exportSide_changeApproxSpace);
+        document.getElementById('exportSide_Radiobutton_ApproxLAB').addEventListener("change", exportSide_changeApproxSpace);
+        document.getElementById('exportSide_Radiobutton_ApproxDIN99').addEventListener("change", exportSide_changeApproxSpace);
+
+        document.getElementById('exportSide_Radiobutton_XML').addEventListener("change", changeOutputformat);
+        document.getElementById('exportSide_Radiobutton_TEXT').addEventListener("change", changeOutputformat);
+        document.getElementById('exportSide_Radiobutton_JSON').addEventListener("change", changeOutputformat);
+
+        document.getElementById('id_exportExportButton').addEventListener("click", exportSide_downloadFile);
+
+
+
+
+
 
 }
 
@@ -120,10 +142,7 @@ window.onresize = function(event) {
 };
 
 window.onscroll = function () {
-
     drawColorCircles();
-
-
 };
 
 function styleMainPage(){

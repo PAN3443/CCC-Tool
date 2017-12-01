@@ -2,9 +2,12 @@
 /// MAIN PAGE
 //////////////////////////
 
+/////////////////////
+var outputFormat = 1; // 0=lookup, 1=xml, 2=json
+
 //
 var showSideID = 0; // 0 = myList; 1=CreateSide
-
+var exportSideOpen = false;
 
 // Create Menue button events
 var colormapProcess = [];

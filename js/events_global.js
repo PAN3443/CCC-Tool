@@ -9,7 +9,14 @@ function changeColorspace(type) {
   document.getElementById("button_DIN99").style.border = "0.2vh solid white";
   document.getElementById("button_DIN99").style.color = "white";
 
-
+  document.getElementById("exportSide_Radiobutton_ApproxRGB").style.display = "initial";
+  document.getElementById("exportSide_Radiobutton_ApproxHSV").style.display = "initial";
+  document.getElementById("exportSide_Radiobutton_ApproxLAB").style.display = "initial";
+  document.getElementById("exportSide_Radiobutton_ApproxDIN99").style.display = "initial";
+  document.getElementById("exportSide_Radiobutton_ApproxRGBLabel").style.display = "initial";
+  document.getElementById("exportSide_Radiobutton_ApproxHSVLabel").style.display = "initial";
+  document.getElementById("exportSide_Radiobutton_ApproxLABLabel").style.display = "initial";
+  document.getElementById("exportSide_Radiobutton_ApproxDIN99Label").style.display = "initial";
 
   switch (type) {
     case 0:
@@ -21,6 +28,17 @@ function changeColorspace(type) {
       document.getElementById("id_color1_ThirdLabel").innerHTML = "B:";
       document.getElementById("id_table_Color1").innerHTML = "C1 (RGB)";
       document.getElementById("id_table_Color2").innerHTML = "C2 (RGB)";
+      document.getElementById("id_table_exportColor1").innerHTML = "C1 (RGB)";
+      document.getElementById("id_table_exportColor2").innerHTML = "C2 (RGB)";
+      document.getElementById("exportSide_Radiobutton_RGB").checked = "true";
+
+      if(document.getElementById("exportSide_Radiobutton_ApproxRGB").checked){
+        document.getElementById("exportSide_Radiobutton_ApproxLAB").checked=true;
+        exportSide_changeApproxSpace();
+      }
+      document.getElementById("exportSide_Radiobutton_ApproxRGB").style.display = "none";
+      document.getElementById("exportSide_Radiobutton_ApproxRGBLabel").style.display = "none";
+
       break;
     case 1:
       colorspaceModus = "hsv";
@@ -31,6 +49,16 @@ function changeColorspace(type) {
       document.getElementById("id_color1_ThirdLabel").innerHTML = "V:";
       document.getElementById("id_table_Color1").innerHTML = "C1 (HSV)";
       document.getElementById("id_table_Color2").innerHTML = "C2 (HSV)";
+      document.getElementById("id_table_exportColor1").innerHTML = "C1 (HSV)";
+      document.getElementById("id_table_exportColor2").innerHTML = "C2 (HSV)";
+      document.getElementById("exportSide_Radiobutton_HSV").checked = "true";
+      document.getElementById("exportSide_Radiobutton_ApproxHSV").style.display = "none";
+      document.getElementById("exportSide_Radiobutton_ApproxHSVLabel").style.display = "none";
+
+      if(document.getElementById("exportSide_Radiobutton_ApproxHSV").checked==true){
+        document.getElementById("exportSide_Radiobutton_ApproxLAB").checked=true;
+        exportSide_changeApproxSpace();
+      }
       break;
     case 2:
       colorspaceModus = "lab";
@@ -41,6 +69,16 @@ function changeColorspace(type) {
       document.getElementById("id_color1_ThirdLabel").innerHTML = "B:";
       document.getElementById("id_table_Color1").innerHTML = "C1 (LAB)";
       document.getElementById("id_table_Color2").innerHTML = "C2 (LAB)";
+      document.getElementById("id_table_exportColor1").innerHTML = "C1 (LAB)";
+      document.getElementById("id_table_exportColor2").innerHTML = "C2 (LAB)";
+      document.getElementById("exportSide_Radiobutton_LAB").checked = "true";
+      document.getElementById("exportSide_Radiobutton_ApproxLAB").style.display = "none";
+      document.getElementById("exportSide_Radiobutton_ApproxLABLabel").style.display = "none";
+
+      if(document.getElementById("exportSide_Radiobutton_ApproxLAB").checked==true){
+        document.getElementById("exportSide_Radiobutton_ApproxDIN99").checked=true;
+        exportSide_changeApproxSpace();
+      }
       break;
     case 3:
       colorspaceModus = "din99";
@@ -51,6 +89,16 @@ function changeColorspace(type) {
       document.getElementById("id_color1_ThirdLabel").innerHTML = "B99:";
       document.getElementById("id_table_Color1").innerHTML = "C1 (DIN99)";
       document.getElementById("id_table_Color2").innerHTML = "C2 (DIN99)";
+      document.getElementById("id_table_exportColor1").innerHTML = "C1 (DIN99)";
+      document.getElementById("id_table_exportColor2").innerHTML = "C2 (DIN99)";
+      document.getElementById("exportSide_Radiobutton_DIN99").checked = "true";
+      document.getElementById("exportSide_Radiobutton_ApproxDIN99").style.display = "none";
+      document.getElementById("exportSide_Radiobutton_ApproxDIN99Label").style.display = "none";
+
+      if(document.getElementById("exportSide_Radiobutton_ApproxDIN99").checked==true){
+        document.getElementById("exportSide_Radiobutton_ApproxLAB").checked=true;
+        exportSide_changeApproxSpace();
+      }
       break;
     default:
       return;

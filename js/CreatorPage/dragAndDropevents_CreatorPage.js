@@ -534,7 +534,7 @@ function orderColorSketch(){
             tCan.style.height = 100 +'%';
             tCan.style.maxWidth = tmpLength + "px"; //100 +'%';
             tCan.style.width = tmpLength + "px"; //100 +'%';
-            tCan.style.cursor = "move";
+            tCan.style.cursor = "pointer";
 
             drawCanvasBand(tCan, colormapBandSketchC1[i], colormapBandSketchC2[i],tCan.width,tCan.height );
 

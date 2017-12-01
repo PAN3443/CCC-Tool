@@ -6,8 +6,13 @@ class classColor_HSV{
     constructor(hValue, sValue, vValue) {
     this.hValue = hValue;
     this.sValue = sValue;
-    this.vValue = vValue; 
-    }
+    this.vValue = vValue;
+    this.colorType = "hsv"
+  }
+
+  getColorType(){
+    return this.colorType;
+  }
 
     getHValue() {
         return this.hValue;
@@ -46,7 +51,7 @@ class classColor_HSV{
     }
 
     calcRGBColor(){
-        
+
         /*var R,G,B,var_r,var_g,var_b;
             if ( this.sValue == 0 )
             {
@@ -94,7 +99,7 @@ class classColor_HSV{
             }
 
 
-        return new classColor_RGB(r,g,b);     
+        return new classColor_RGB(r,g,b);
     }
 
 }

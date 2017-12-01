@@ -179,32 +179,6 @@ class xclassColorMap {
   }
 
 
-  setNumberIntervalPointssAllBands(number){
-    this.default_NumberIntervalPoints = number;
-    for(var i = 0; i<this.bandArray.length; i++){
-        this.bandArray[i].setSample_numberOfIntervalPoints(number);
-    }
-  }
-
-  setNumberIntervalPointsSingleBands(index,number){
-        this.bandArray[index].setSample_numberOfIntervalPoints(number);
-  }
-
-  getNumberIntervalPointsSingleBands(index){
-    return this.bandArray[index].getSample_numberOfIntervalPoints();
-  }
-
-  setStepSizeOfIntervalAllBands(number){
-    this.default_IntervalStepSize = number;
-    for(var i = 0; i<this.bandArray.length; i++){
-        this.bandArray[i].setSample_stepSizeOfInterval(number);
-    }
-  }
-
-  setStepSizeOfIntervalSingleBands(index,number){
-        this.bandArray[index].setSample_stepSizeOfInterval(number);
-  }
-
   setBandSampleType(number){
       for(var i = 0; i<this.bandArray.length; i++){
         this.bandArray[i].setSample_type(number);
@@ -216,10 +190,6 @@ class xclassColorMap {
             this.bandArray[i].setIntervalMetric(number);
         }
    }
-
-  getStepSizeOfIntervalSingleBands(index){
-    return this.bandArray[index].getSample_stepSizeOfInterval();
-  }
 
   getDefaultNumIntervals(){
     return this.default_NumberIntervals;

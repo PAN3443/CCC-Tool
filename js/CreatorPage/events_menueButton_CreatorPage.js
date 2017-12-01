@@ -6,6 +6,7 @@ function createSideExport(){
   if(colormapBandSketchC1.length!=0){
     exportColormap = createColormap;
     document.getElementById("id_exportWindow").style.display = "initial";
+    exportSideOpen = true;
     initExportWindow();
   }
 }

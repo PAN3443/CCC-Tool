@@ -5,10 +5,15 @@ class classColor_RGB{
     constructor(rValue, gValue, bValue) {
     this.rValue = rValue;
     this.gValue = gValue;
-    this.bValue = bValue; 
+    this.bValue = bValue;
     this.ref_X = 94.811;
     this.ref_Y = 100.000;
     this.ref_Z = 107.304;
+    this.colorType = "rgb"
+  }
+
+  getColorType(){
+    return this.colorType;
   }
 
   getRValue() {
@@ -102,7 +107,7 @@ class classColor_RGB{
         var H = 0;
         var S = 0;
         var V = var_Max;
-    
+
         if ( del_Max != 0 )                     //If not it is a gray color -> no chroma
         {
         S = del_Max / var_Max;
@@ -163,7 +168,7 @@ class classColor_RGB{
   getHexString() {
     var rhex = this.valueToHex(parseInt(this.rValue*255));
     var ghex = this.valueToHex(parseInt(this.gValue*255));
-    var bhex = this.valueToHex(parseInt(this.bValue*255));   
+    var bhex = this.valueToHex(parseInt(this.bValue*255));
     return "#" + rhex + ghex + bhex;
   }
 };

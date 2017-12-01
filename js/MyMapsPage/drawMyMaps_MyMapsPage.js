@@ -29,5 +29,11 @@ function drawMyList(){
       document.getElementById("id_buttonEditMyList"+i).style.border = "0.2vh solid rgb(180,180,180)";
       document.getElementById("id_buttonDeleteMyList"+i).style.border = "0.2vh solid rgb(180,180,180)";
 
+      var canvasObject = document.getElementById("id_canvasMyListColormap"+i);
+
+      var canvasContex = canvasObject.getContext("2d");
+
+      canvasContex.clearRect(0, 0, canvasObject.width, canvasObject.height);
+
     }
 }

@@ -16,9 +16,7 @@ class class_Band{
         this.refright = refright;
         this.isConstant = type; // true false
         this.sample_numberOfIntervals = 10;
-        this.sample_numberOfIntervalPoints = 9;
-        this.sample_stepSizeOfInterval = 0.1;
-        this.sample_type = 2; // 0=intervals, 1=intervalpoints, 2=stepSizeOfIntervals
+
         this.intervalUsedMetric = 0; // 0=RGB, 1=HSV, 2=CIEDE2000, 3=DIN99
         this.intervalObjects = [];
         this.refRatio = [];
@@ -28,103 +26,75 @@ class class_Band{
     }
 
     calcIntervalPoints(){
-        
+
             // clear intervall objects
             for(var i=this.intervalObjects.length-1; i>=0; i--){
                 this.intervalObjects.pop();
                 this.refRatio.pop();
                 this.colorRatio.pop();
             }
-        
+
             // cal refIntervals
-            var refIntervals = []; 
+            var refIntervals = [];
             var colorIntervalls = [];
             var refDistanceArray = [];
             var fullrefDistance = 0;
             var colorDistanceArray = [];
             var fullcolorDistance = 0;
-            
-        
+
+
             var refDistance = this.refright-this.refleft;
 
-            switch(this.sample_type) {
-                case 0: // number of intervals
-                    var intervallDistance = refDistance/this.sample_numberOfIntervals;       
-                    for(var i=1; i<this.sample_numberOfIntervals; i++){
-                        refIntervals.push(this.refleft+i*intervallDistance);
-                    }        
-                break;
-                case 1: // number of interval points
-                    var intervallDistance = refDistance/(this.sample_numberOfIntervalPoints+1);       
-                    for(var i=1; i<=this.sample_numberOfIntervalPoints; i++){
-                        refIntervals.push(this.refleft+i*intervallDistance);
-                    } 
-                break;
-                default: // step size  
-                    var currentStep = this.refleft+this.sample_stepSizeOfInterval;
-                    var reachedRightRef = false;
-                    if(currentStep>=this.refright || currentStep<=this.refleft){
-                            reachedRightRef=true;
-                    }
-
-                    while(reachedRightRef==false){
-                        refIntervals.push(currentStep);
-                        currentStep = currentStep+this.sample_stepSizeOfInterval;
-                        var test = currentStep*100000;
-                        test = Math.round(test);
-                        currentStep = test/100000;
-                        if(currentStep>=this.refright){
-                            reachedRightRef=true;
-                        }
-                    }
+            // number of intervals
+            var intervallDistance = refDistance/this.sample_numberOfIntervals;
+            for(var i=1; i<this.sample_numberOfIntervals; i++){
+                refIntervals.push(this.refleft+i*intervallDistance);
             }
-           
-            
-        
+
+
             switch(this.intervalUsedMetric) {
                 case 0:
                     // RGB
-        
-                                // check if discrete Band 
+                                // check if discrete Band
                                 if(this.isConstant==true){
 
                                     if(this.doMerge==false){
                                         for(var j=0; j<refIntervals.length; j++){
-                                    
+
                                             this.intervalObjects.push(new classIntervalPointObject(this.colorRGBleft,refIntervals[i]));
 
                                         }
                                     }
-        
+
                                 }
                                 else{
-                                  
+
                                     var color1 = this.colorRGBleft;
                                     var color2 = this.colorRGBright;
                                     var lastref = this.refleft;
                                     var lastColor = color1;
-                                   
+
                                     var tmpDistance = 0;
-                                    
-                                    // check intervall refs between 
-                              
+
+                                    // check intervall refs between
+
                                     for(var j=0; j<refIntervals.length; j++){
-                                        
+
                                             var tmpCurrentRef = refIntervals[j];
                                             // calc color
-                                           
+
                                             var tmpRatio = (tmpCurrentRef-this.refleft)/refDistance;
-                                            
+
                                             var rValue = color1.getRValue()+(color2.getRValue() - color1.getRValue())*tmpRatio;
                                             var gValue = color1.getGValue()+(color2.getGValue() - color1.getGValue())*tmpRatio;
                                             var bValue = color1.getBValue()+(color2.getBValue() - color1.getBValue())*tmpRatio;
-                                            
-                                    
-                                            var tmpCurrentColor = new classColor_RGB(rValue,gValue,bValue); 
-        
+
+
+                                            var tmpCurrentColor = new classColor_RGB(rValue,gValue,bValue);
+
                                             this.intervalObjects.push(new classIntervalPointObject(tmpCurrentColor,tmpCurrentRef));
-                                           
-        
+
+
                                             // calc ref distance
                                             tmpDistance = tmpCurrentRef - lastref;
                                             refDistanceArray.push(tmpDistance);
@@ -133,10 +103,10 @@ class class_Band{
                                             tmpDistance = this.calc3DEuclideanDistance(lastColor.getRValue(),lastColor.getGValue(),lastColor.getBValue(),tmpCurrentColor.getRValue(),tmpCurrentColor.getGValue(),tmpCurrentColor.getBValue());
                                             colorDistanceArray.push(tmpDistance);
                                             fullcolorDistance = fullcolorDistance+tmpDistance;
-        
+
                                             lastref = tmpCurrentRef;
                                             lastColor = tmpCurrentColor;
-                                       
+
                                     }
 
                                     // calc ref distance to the refright point
@@ -154,38 +124,38 @@ class class_Band{
                                         this.refRatio.push(tmpRatio);
                                         tmpRatio = colorDistanceArray[i]/fullcolorDistance;
                                         this.colorRatio.push(tmpRatio);
-                    
-                                    }
-        
-                                }
-                            
 
-                        
-        
-        
+                                    }
+
+                                }
+
+
+
+
+
                     break;
                 case 1:
                     // HSV
-                                // check if discrete Band 
+                                // check if discrete Band
                                 if(this.isConstant==true){
 
                                     if(this.doMerge==false){
                                         for(var j=0; j<refIntervals.length; j++){
-                                    
+
                                             this.intervalObjects.push(new classIntervalPointObject(this.colorHSVleft,refIntervals[i]));
 
                                         }
                                     }
-        
+
                                 }
                                 else{
-                                  
+
                                     var tmpDis = this.colorHSVleft.getSValue()*50; // radius 50; center(0,0,0);
                                     var tmpRad = (this.colorHSVleft.getHValue()*Math.PI*2)-Math.PI;
                                     var xPos = tmpDis*Math.cos(tmpRad);
                                     var yPos = tmpDis*Math.sin(tmpRad);
                                     var zPos = this.colorHSVleft.getVValue()-50;
-                                   
+
                                     var tmpDis2 = this.colorHSVright.getSValue()*50;
                                     var tmpRad2 = (this.colorHSVright.getHValue()*Math.PI*2)-Math.PI;
                                     var xPos2 = tmpDis2*Math.cos(tmpRad2);
@@ -193,34 +163,34 @@ class class_Band{
                                     var zPos2 = this.colorHSVright.getVValue()-50;
 
                                     var lastref = this.refleft;
-                                    
+
                                     var lastX = xPos;
                                     var lastY = yPos;
                                     var lastZ = zPos;
-                                   
+
                                     var tmpDistance = 0;
-                                    
-                                    // check intervall refs between 
-                              
+
+                                    // check intervall refs between
+
                                     for(var j=0; j<refIntervals.length; j++){
-                                        
+
                                             var tmpCurrentRef = refIntervals[j];
                                             // calc color
-                                           
+
                                             var tmpRatio = (tmpCurrentRef-this.refleft)/refDistance;
-                                            
+
                                             var tmpX = xPos+(xPos2 - xPos)*tmpRatio;
                                             var tmpY = yPos+(yPos2 - yPos)*tmpRatio;
                                             var tmpZ = zPos+(zPos2 - zPos)*tmpRatio;
-                                            
+
                                             var tmpH =(Math.atan2(tmpY,tmpX)+Math.PI)/(Math.PI*2);
                                             var tmpS = Math.sqrt(Math.pow(tmpX,2)+Math.pow(tmpY,2))/50;
                                             var tmpV = tmpZ+50;
                                             var tmpCurrentColor = new classColor_HSV(tmpH,tmpS,tmpV);
-        
+
                                             this.intervalObjects.push(new classIntervalPointObject(tmpCurrentColor,tmpCurrentRef));
-                                           
-        
+
+
                                             // calc ref distance
                                             tmpDistance = tmpCurrentRef - lastref;
                                             refDistanceArray.push(tmpDistance);
@@ -229,12 +199,12 @@ class class_Band{
                                             tmpDistance = this.calc3DEuclideanDistance(lastX,lastY,lastZ,tmpX,tmpY,tmpZ);
                                             colorDistanceArray.push(tmpDistance);
                                             fullcolorDistance = fullcolorDistance+tmpDistance;
-        
+
                                             lastref = tmpCurrentRef;
                                             lastX = tmpX;
                                             lastY = tmpY;
                                             lastZ = tmpZ;
-                                       
+
                                     }
 
                                     // calc ref distance to the refright point
@@ -252,9 +222,9 @@ class class_Band{
                                         this.refRatio.push(tmpRatio);
                                         tmpRatio = colorDistanceArray[i]/fullcolorDistance;
                                         this.colorRatio.push(tmpRatio);
-                    
+
                                     }
-        
+
                                 }
 
 
@@ -262,40 +232,40 @@ class class_Band{
 
                 case 2:
                     // LAB
-                             // check if discrete Band 
+                             // check if discrete Band
                                 if(this.isConstant==true){
                                     if(this.doMerge==false){
                                         for(var j=0; j<refIntervals.length; j++){
-                                    
+
                                             this.intervalObjects.push(new classIntervalPointObject(this.colorLABleft,refIntervals[i]));
 
                                         }
                                     }
-        
+
                                 }
                                 else{
                                     var color1 = this.colorLABleft;
                                     var color2 = this.colorLABright;
                                     var lastref = this.refleft;
                                     var lastColor = color1;
-                                   
+
                                     var tmpDistance = 0;
-                                    
-                                    // check intervall refs between 
+
+                                    // check intervall refs between
                                     for(var j=0; j<refIntervals.length; j++){
 
                                             var tmpCurrentRef = refIntervals[j];
                                             // calc color
-                                           
+
                                             var tmpRatio = (tmpCurrentRef-this.refleft)/refDistance;
-                                            
+
                                             var lValue = color1.getLValue()+(color2.getLValue() - color1.getLValue())*tmpRatio;
                                             var aValue = color1.getAValue()+(color2.getAValue() - color1.getAValue())*tmpRatio;
-                                            var bValue = color1.getBValue()+(color2.getBValue() - color1.getBValue())*tmpRatio;                                           
-                                            var tmpCurrentColor = new classColorCIELab(lValue,aValue,bValue); 
+                                            var bValue = color1.getBValue()+(color2.getBValue() - color1.getBValue())*tmpRatio;
+                                            var tmpCurrentColor = new classColorCIELab(lValue,aValue,bValue);
 
                                             this.intervalObjects.push(new classIntervalPointObject(tmpCurrentColor,tmpCurrentRef));
-        
+
                                             // calc ref distance
                                             tmpDistance = tmpCurrentRef - lastref;
                                             refDistanceArray.push(tmpDistance);
@@ -306,9 +276,9 @@ class class_Band{
                                             fullcolorDistance = fullcolorDistance+tmpDistance;
 
                                             lastref = tmpCurrentRef;
-                                            lastColor = tmpCurrentColor; 
+                                            lastColor = tmpCurrentColor;
                                     }
-                                        
+
                                     // calc ref distance to the refright point
                                     tmpDistance = this.refright - lastref;
                                     refDistanceArray.push(tmpDistance);
@@ -323,54 +293,54 @@ class class_Band{
                                         this.refRatio.push(tmpRatio);
                                         tmpRatio = colorDistanceArray[i]/fullcolorDistance;
                                         this.colorRatio.push(tmpRatio);
-                    
+
                                     }
 
-        
+
                                 }
                 break;
 
                 case 3:
                     // DIN99
 
-                                // check if discrete Band 
+                                // check if discrete Band
                                 if(this.isConstant==true){
                                     if(this.doMerge==false){
                                         for(var j=0; j<refIntervals.length; j++){
-                                    
+
                                             this.intervalObjects.push(new classIntervalPointObject(this.colorDIN99left,refIntervals[i]));
 
                                         }
                                     }
-        
+
                                 }
                                 else{
                                     var color1 = this.colorDIN99left;
                                     var color2 = this.colorDIN99right;
                                     var lastref = this.refleft;
                                     var lastColor = color1;
-                                   
+
                                     var tmpDistance = 0;
-                                    
-                                    // check intervall refs between 
-     
+
+                                    // check intervall refs between
+
                                     for(var j=0; j<refIntervals.length; j++){
-                                        
+
                                             var tmpCurrentRef = refIntervals[j];
                                             // calc color
-                                           
+
                                             var tmpRatio = (tmpCurrentRef-this.refleft)/refDistance;
-                                            
+
                                             var l99Value = color1.getL99Value()+(color2.getL99Value() - color1.getL99Value())*tmpRatio;
                                             var a99Value = color1.getA99Value()+(color2.getA99Value() - color1.getA99Value())*tmpRatio;
                                             var b99Value = color1.getB99Value()+(color2.getB99Value() - color1.getB99Value())*tmpRatio;
-                                            
-                                    
-                                            var tmpCurrentColor = new classColorDIN99(l99Value,a99Value,b99Value); 
-        
+
+
+                                            var tmpCurrentColor = new classColorDIN99(l99Value,a99Value,b99Value);
+
                                             this.intervalObjects.push(new classIntervalPointObject(tmpCurrentColor,tmpCurrentRef));
-                                           
-        
+
+
                                             // calc ref distance
                                             tmpDistance = tmpCurrentRef - lastref;
                                             refDistanceArray.push(tmpDistance);
@@ -379,9 +349,9 @@ class class_Band{
                                             tmpDistance = this.calc3DEuclideanDistance(lastColor.getL99Value(),lastColor.getA99Value(),lastColor.getB99Value(),tmpCurrentColor.getL99Value(),tmpCurrentColor.getA99Value(),tmpCurrentColor.getB99Value());
                                             colorDistanceArray.push(tmpDistance);
                                             fullcolorDistance = fullcolorDistance+tmpDistance;
-        
+
                                             lastref = tmpCurrentRef;
-                                            lastColor = tmpCurrentColor; 
+                                            lastColor = tmpCurrentColor;
                                     }
 
                                     // calc ref distance to the refright point
@@ -400,17 +370,17 @@ class class_Band{
                                         tmpRatio = colorDistanceArray[i]/fullcolorDistance;
                                         this.colorRatio.push(tmpRatio);
                                     }
-        
+
                                 }
 
-                    
+
                 break;
 
                 default:
                     alert("Distance Metric is not implemented now");
-                    
+
             }
-          }
+    }
 
 
     /////////////////////////////
@@ -433,36 +403,13 @@ class class_Band{
         return this.doMerge;
     }
 
-    setSample_type(varibale) {
-        this.sample_type = varibale;
-    }
 
-    getSample_type() {
-        return this.sample_type;
-    }
-    
     setSample_numberOfIntervals(varibale) {
         this.sample_numberOfIntervals = varibale;
     }
 
     getSample_numberOfIntervals() {
         return this.sample_numberOfIntervals;
-    }
-
-    setSample_numberOfIntervalPoints(varibale) {
-        this.sample_numberOfIntervalPoints = varibale;
-    }
-
-    getSample_numberOfIntervalPoints() {
-        return this.sample_numberOfIntervalPoints;
-    }
-
-    setSample_stepSizeOfInterval(varibale) {
-        this.sample_stepSizeOfInterval = varibale;
-    }
-
-    getSample_stepSizeOfInterval() {
-        return this.sample_stepSizeOfInterval;
     }
 
     setBandType(type) {
@@ -472,14 +419,13 @@ class class_Band{
     getBandType() {
         return this.isConstant;
     }
-  
 
     setLeftRGBcolor(color) {
         this.colorRGBleft = color;
     }
 
     getLeftRGBColor() {
-     
+
         return this.colorRGBleft;
     }
 
@@ -496,12 +442,12 @@ class class_Band{
     }
 
     getLeftHSVColor() {
-       
+
         return this.colorHSVleft;
     }
 
     getLeftDIN99Color() {
-       
+
         return this.colorDIN99left;
     }
 
@@ -522,7 +468,7 @@ class class_Band{
     }
 
     getLeftLABColor() {
-       
+
         return this.colorLABleft;
     }
 
@@ -545,7 +491,7 @@ class class_Band{
     getNumberOfIntervalsPoints(){
         return this.intervalObjects.length;
     }
-    
+
     getIntervalObject(index){
         return this.intervalObjects[index];
     }
@@ -553,7 +499,7 @@ class class_Band{
     getRefRatio(index){
         return this.refRatio[index];
     }
-    
+
     getColorRatio(index){
         return this.colorRatio[index];
     }
@@ -572,8 +518,8 @@ class class_Band{
         var deg360InRad = deg2rad(360.0);
         var deg180InRad = deg2rad(180.0);
         var pow25To7 = Math.pow(25, 7);
-        
-        // Step 1 
+
+        // Step 1
 
         var C1 = Math.sqrt((color1.getAValue() * color1.getAValue()) + (color1.getBValue() * color1.getBValue()));
         var C2 = Math.sqrt((color2.getAValue() * color2.getAValue()) + (color2.getBValue() * color2.getBValue()));
@@ -593,8 +539,8 @@ class class_Band{
             hPrime1 = 0.0;
         else {
             hPrime1 = Math.atan2(color1.getBValue(), a1Prime);
-            /* 
-            * This must be converted to a hue angle in degrees between 0 
+            /*
+            * This must be converted to a hue angle in degrees between 0
             * and 360 by addition of 2􏰏 to negative hue angles.
             */
             if (hPrime1 < 0)
@@ -605,16 +551,16 @@ class class_Band{
             hPrime2 = 0.0;
         else {
             hPrime2 = Math.atan2(color2.getBValue(), a2Prime);
-            /* 
-            * This must be converted to a hue angle in degrees between 0 
+            /*
+            * This must be converted to a hue angle in degrees between 0
             * and 360 by addition of 2􏰏 to negative hue angles.
             */
             if (hPrime2 < 0)
                 hPrime2 += deg360InRad;
         }
-        
+
         // Step 2
-        
+
         var deltaLPrime = color2.getLValue() - color1.getLValue();
 
         var deltaCPrime = CPrime2 - CPrime1;
@@ -634,14 +580,14 @@ class class_Band{
 
         var deltaHPrime = 2.0 * Math.sqrt(CPrimeProduct) *
             Math.sin(deltahPrime / 2.0);
-        
+
         // Step 3
-        
-        
+
+
         var barLPrime = (color1.getLValue() + color2.getLValue()) / 2.0;
-        
+
         var barCPrime = (CPrime1 + CPrime2) / 2.0;
-    
+
         var barhPrime, hPrimeSum = hPrime1 + hPrime2;
         if (CPrime1 * CPrime2 == 0) {
             barhPrime = hPrimeSum;
@@ -655,34 +601,34 @@ class class_Band{
                     barhPrime = (hPrimeSum - deg360InRad) / 2.0;
             }
         }
-    
+
         var T = 1.0 - (0.17 * Math.cos(barhPrime - deg2rad(30.0))); +
             (0.24 * Math.cos(2.0 * barhPrime)) +
-            (0.32 * Math.cos((3.0 * barhPrime) + deg2rad(6.0))) - 
+            (0.32 * Math.cos((3.0 * barhPrime) + deg2rad(6.0))) -
             (0.20 * Math.cos((4.0 * barhPrime) - deg2rad(63.0)));
-        
+
         var deltaTheta = deg2rad(30.0) *
             Math.exp(-Math.pow((barhPrime - deg2rad(275.0)) / deg2rad(25.0), 2.0));
-        
+
         var R_C = 2.0 * Math.sqrt(Math.pow(barCPrime, 7.0) /
             (Math.pow(barCPrime, 7.0) + pow25To7));
-        
+
         var S_L = 1 + ((0.015 * Math.pow(barLPrime - 50.0, 2.0)) /
             Math.sqrt(20 + Math.pow(barLPrime - 50.0, 2.0)));
-        
+
         var S_C = 1 + (0.045 * barCPrime);
-        
+
         var S_H = 1 + (0.015 * barCPrime * T);
-    
+
         var R_T = (-Math.sin(2.0 * deltaTheta)) * R_C;
-        
-        
+
+
         var deltaE = Math.sqrt(
             Math.pow(deltaLPrime / (k_L * S_L), 2.0) +
             Math.pow(deltaCPrime / (k_C * S_C), 2.0) +
-            Math.pow(deltaHPrime / (k_H * S_H), 2.0) + 
+            Math.pow(deltaHPrime / (k_H * S_H), 2.0) +
             (R_T * (deltaCPrime / (k_C * S_C)) * (deltaHPrime / (k_H * S_H))));
-        
+
         return deltaE;
 
     }
@@ -694,5 +640,5 @@ class class_Band{
 
 
 
-    
+
 }

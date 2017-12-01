@@ -35,7 +35,7 @@ function drawPredefinedBands(){
         iDiv.addEventListener("click", openPredefinedBand);
         iDiv.addEventListener("dragstart", bandOnDragStart);
         iDiv.addEventListener("dragend", bandOnDragEnd);
-
+        iDiv.style.cursor = "move";
     }
     document.getElementById('id_ConstantBand_Div').appendChild(document.getElementById('button_AddConstantBand'));
     document.getElementById('button_AddConstantBand').style.display = "initial";
@@ -53,6 +53,7 @@ function drawPredefinedBands(){
         iCan.addEventListener("click", openPredefinedBand);
         iCan.addEventListener("dragstart", bandOnDragStart);
         iCan.addEventListener("dragend", bandOnDragEnd);
+        iCan.style.cursor = "move";
 
         var tmpC1RGB = scaleBands[i][0];
         var tmpC2RGB = scaleBands[i][1];
@@ -78,6 +79,7 @@ function drawPredefinedBands(){
         iCan.addEventListener("click", openPredefinedBand);
         iCan.addEventListener("dragstart", bandOnDragStart);
         iCan.addEventListener("dragend", bandOnDragEnd);
+        iCan.style.cursor = "move";
 
         var tmpC1RGB = doubleBands[i][0];
         var tmpC2RGB = doubleBands[i][1];
@@ -132,6 +134,7 @@ function drawPredefinedBands(){
         iCan.id = id;
         iCan.className = 'class_predefinedScaledBands';
         iCan.setAttribute('draggable', true);
+        iCan.style.cursor = "move";
 
         document.getElementById('id_TripleBands_Div').appendChild(iCan);
         iCan.addEventListener("click", openPredefinedBand);
@@ -195,6 +198,7 @@ function drawPredefinedBands(){
         iCan.id = id;
         iCan.className = 'class_predefinedScaledBands';
         iCan.setAttribute('draggable', true);
+        iCan.style.cursor = "move";
 
         document.getElementById('id_QuadrupelBands_Div').appendChild(iCan);
         iCan.addEventListener("click", openPredefinedBand);
