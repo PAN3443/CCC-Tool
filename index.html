@@ -83,6 +83,8 @@
         <script src="js/globalVars.js"></script>
         <script src="js/globalHelpers.js"></script>
         <script src="js/xmlColormapParser.js"></script>
+        <script src="js/jsonColormapParser.js"></script>
+        <script src="js/csvColormapParser.js"></script>
         <script src="js/drawCanvasColormap.js"></script>
         <script src="js/checkInput.js"></script>
         <script src="js/exportSideScript.js"></script>
@@ -106,6 +108,7 @@
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         -->
 
+        <input type="file" id="id_inputData" style="width: 0px; height:0px;" accept=".csv, .xml, .json">
 
 		<!--
         -----------------------------------------------
@@ -148,13 +151,13 @@
                     <div class="row"  style="height:100%; width: auto;">
                       <h3 style="height:5vh; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; padding-left:20px; font-size:2vh;"> NAME: </h3>
                       <input  id = "id_InputMapName" type="text" name="key space" value="Cus. Colormap" style="height:2.5vh; line-height:2.5vh; font-size:2vh; text-align:center; vertical-align: middle; margin-top:0.5vh; margin-left:1vh; margin-right:1vh;">
-                      <button class="classButtonDark" id = "id_buttonExportCreateColormap" title="export" style="border-radius: 0.3vh; background: url(img/exportButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
-                      <button class="classButtonDark" id = "id_buttonSaveCreateColormap" title="save" style="border-radius: 0.3vh; background: url(img/saveButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
-                      <button class="classButtonDark" id = "id_buttonLoadCreateColormap" title="load" style="border-radius: 0.3vh; background: url(img/loadButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
-                      <button class="classButtonDark" id = "id_buttonDeleteCreateColormap" title="delete" style="border-radius: 0.3vh; background: url(img/trashButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
-                      <button class="classButtonDark" id = "id_buttonBackwardCreateColormap" title="backward" style="border-radius: 0.3vh; background: url(img/backwardsButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white;"></button>
-                      <button class="classButtonDark" id = "id_buttonForwardCreateColormap" title="forward" style="border-radius: 0.3vh; background: url(img/forwardsButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
-                      <button class="classButtonDark" id = "id_buttonHelpCreateColormap" title="hover for help" style="border-radius: 0.3vh; background: url(img/helpButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
+                      <button class="classButtonDark" id="id_buttonExportCreateColormap" title="export" style="border-radius: 0.3vh; background: url(img/exportButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
+                      <button class="classButtonDark" id="id_buttonSaveCreateColormap" title="save" style="border-radius: 0.3vh; background: url(img/saveButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
+                      <button class="classButtonDark" id="id_buttonLoadCreateColormap" title="load" style="border-radius: 0.3vh; background: url(img/loadButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
+                      <button class="classButtonDark" id="id_buttonDeleteCreateColormap" title="delete" style="border-radius: 0.3vh; background: url(img/trashButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
+                      <button class="classButtonDark" id="id_buttonBackwardCreateColormap" title="backward" style="border-radius: 0.3vh; background: url(img/backwardsButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white;"></button>
+                      <button class="classButtonDark" id="id_buttonForwardCreateColormap" title="forward" style="border-radius: 0.3vh; background: url(img/forwardsButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
+                      <button class="classButtonDark" id="id_buttonHelpCreateColormap" title="hover for help" style="border-radius: 0.3vh; background: url(img/helpButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
                     </div>
                   </div>
 

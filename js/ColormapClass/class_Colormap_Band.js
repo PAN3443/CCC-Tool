@@ -335,7 +335,6 @@ class class_Band{
                                             var a99Value = color1.getA99Value()+(color2.getA99Value() - color1.getA99Value())*tmpRatio;
                                             var b99Value = color1.getB99Value()+(color2.getB99Value() - color1.getB99Value())*tmpRatio;
 
-
                                             var tmpCurrentColor = new classColorDIN99(l99Value,a99Value,b99Value);
 
                                             this.intervalObjects.push(new classIntervalPointObject(tmpCurrentColor,tmpCurrentRef));

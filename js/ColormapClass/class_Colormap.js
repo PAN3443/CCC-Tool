@@ -385,6 +385,14 @@ class xclassColorMap {
     this.calcNewDistances();
   }
 
+  pushDIN99Color(din99Color){
+    this.rgbColorArray.push(din99Color.calcRGBColor());
+    this.cielabColorArray.push(din99Color.calcLABColor());
+    this.hsvColorArray.push(din99Color.calcHSVColor());
+    this.din99ColorArray.push(din99Color);
+    this.calcNewDistances();
+  }
+
   pushPositionPoints(position){
       this.positionPoints.push(position);
 

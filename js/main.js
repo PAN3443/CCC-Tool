@@ -6,6 +6,7 @@ window.onload = function () {
   ////////////////////////////////////////////////////////////////////////////////////////////////////
 
     document.getElementById('id_ButtonToMyMapsPage').addEventListener("click", showMyMapsSide);
+    document.getElementById('id_inputData').addEventListener("change", readSingleFile);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////// Create Side /////////////////////////////////////
@@ -71,6 +72,7 @@ window.onload = function () {
         document.getElementById('bandEdit_InputLeftRef').addEventListener("change", checkR1Input_Change);
         document.getElementById('bandEdit_InputRightRef').addEventListener("change", checkR2Input_Change);
 
+
         ////
         // Creat Colormap Menue
           // Colormap Name Change
@@ -82,6 +84,7 @@ window.onload = function () {
           document.getElementById('id_buttonForwardCreateColormap').addEventListener("click", forwardColormapProcess);
           document.getElementById('id_buttonSaveCreateColormap').addEventListener("click", saveColormapToList);
           document.getElementById('id_buttonExportCreateColormap').addEventListener("click", createSideExport);
+          document.getElementById('id_buttonLoadCreateColormap').addEventListener("click", loadColormapCreateSide);
           document.getElementById('exportSide_MergingCheckbox').addEventListener("change", exportSide_ChangeMerging);
 
 
@@ -218,6 +221,26 @@ function calcColormap(){
     createColormap.calcBands();
 
     createColormap.setColormapName(document.getElementById("id_InputMapName").value);
+}
+
+
+function updateColormapSketch(){
+
+  colormapBandSketchC1 = [];
+  colormapBandSketchC2 = [];
+  colormapBandSketchR1 = [];
+  colormapBandSketchR2 = [];
+
+  for(var i=0; i<createColormap.getNumberOfBands(); i++){
+
+    colormapBandSketchC1.push(createColormap.getBand(i).getLeftRGBColor());
+    colormapBandSketchC2.push(createColormap.getBand(i).getRightRGBColor());
+    colormapBandSketchR1.push(createColormap.getBand(i).getLeftRef());
+    colormapBandSketchR2.push(createColormap.getBand(i).getRightRef());
+
+  }
+
+  orderColorSketch();
 }
 
 function fillTable(){

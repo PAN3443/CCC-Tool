@@ -327,3 +327,64 @@ function showMyMapsSide(){
 
   }
 }
+
+
+function readSingleFile(e) {
+
+  var file = e.target.files[0];
+  if (!file) {
+    return;
+  }
+
+  var fileName = file.name;
+
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var contents = e.target.result;
+
+
+    var fileExtension = fileName.replace(/^.*\./, '');
+    var colormap;
+
+    switch (fileExtension) {
+            case 'xml': case 'XML':
+                colormap = xmlColormapParserFile(contents);
+                break;
+            case 'json': case 'JSON':
+                colormap = jsonColormapParserFile(contents);
+                break;
+            case 'csv': case 'CSV':
+                colormap = csvColormapParserFile(contents);
+                return;
+                //break;
+            default:
+                console.log("Error at readSingleFile function -> file extension is unknown!");
+                return;
+    }
+
+    switch (showSideID) {
+            case 0:
+
+                break;
+            case 1:
+                createColormap = colormap;
+                updateColormapSketch();
+                break;
+            default:
+                console.log("Error at readSingleFile function -> showSideID is unknown!");
+                return;
+    }
+
+
+
+
+
+
+
+  };
+
+
+  reader.readAsText(file);
+
+
+}

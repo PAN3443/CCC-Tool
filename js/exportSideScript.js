@@ -467,16 +467,16 @@ function exportSide_createXML(){
         //console.log(bandObj.getLeftRef());
          switch(colorspaceModus) {
             case "rgb":
-                xmltxt=xmltxt+"r=\""+bandObj.getLeftRGBColor().getRValue()+"\" g=\""+bandObj.getLeftRGBColor().getGValue()+"\" b=\""+bandObj.getLeftRGBColor().getBValue()+"\" type=\"Key\"/>\n";
+                xmltxt=xmltxt+"r=\""+bandObj.getLeftRGBColor().getRValue()+"\" g=\""+bandObj.getLeftRGBColor().getGValue()+"\" b=\""+bandObj.getLeftRGBColor().getBValue()+"\" ccctype=\"key\"/>\n";
                 break;
             case "hsv":
-                xmltxt=xmltxt+"h=\""+bandObj.getLeftHSVColor().getHValue()+"\" s=\""+bandObj.getLeftHSVColor().getSValue()+"\" v=\""+bandObj.getLeftHSVColor().getVValue()+"\" type=\"Key\"/>\n";
+                xmltxt=xmltxt+"h=\""+bandObj.getLeftHSVColor().getHValue()+"\" s=\""+bandObj.getLeftHSVColor().getSValue()+"\" v=\""+bandObj.getLeftHSVColor().getVValue()+"\" ccctype=\"key\"/>\n";
                 break;
             case "lab":
-                xmltxt=xmltxt+"l=\""+bandObj.getLeftLABColor().getLValue()+"\" a=\""+bandObj.getLeftLABColor().getAValue()+"\" b=\""+bandObj.getLeftLABColor().getBValue()+"\" type=\"Key\"/>\n";
+                xmltxt=xmltxt+"l=\""+bandObj.getLeftLABColor().getLValue()+"\" a=\""+bandObj.getLeftLABColor().getAValue()+"\" b=\""+bandObj.getLeftLABColor().getBValue()+"\" ccctype=\"key\"/>\n";
                 break;
             case "din99":
-                xmltxt=xmltxt+"l99=\""+bandObj.getLeftDIN99Color().getL99Value()+"\" a99=\""+bandObj.getLeftDIN99Color().getA99Value()+"\" b99=\""+bandObj.getLeftDIN99Color().getB99Value()+"\" type=\"Key\"/>\n";
+                xmltxt=xmltxt+"l99=\""+bandObj.getLeftDIN99Color().getL99Value()+"\" a99=\""+bandObj.getLeftDIN99Color().getA99Value()+"\" b99=\""+bandObj.getLeftDIN99Color().getB99Value()+"\" ccctype=\"key\"/>\n";
                 break;
             default:
                 return;
@@ -490,16 +490,16 @@ function exportSide_createXML(){
             xmltxt=xmltxt+"<Point x=\""+tmpIntervalPointObj.getRefPosition()+"\" o=\"1\" ";
             switch(colorspaceModus) {
             case "rgb":
-                xmltxt=xmltxt+"r=\""+tmpColor.getRValue()+"\" g=\""+tmpColor.getGValue()+"\" b=\""+tmpColor.getBValue()+"\" type=\"Interval Point\"/>\n";
+                xmltxt=xmltxt+"r=\""+tmpColor.getRValue()+"\" g=\""+tmpColor.getGValue()+"\" b=\""+tmpColor.getBValue()+"\" ccctype=\"interval point\"/>\n";
                 break;
             case "hsv":
-                xmltxt=xmltxt+"h=\""+tmpColor.getHValue()+"\" s=\""+tmpColor.getSValue()+"\" v=\""+tmpColor.getVValue()+"\" type=\"Interval Point\"/>\n";
+                xmltxt=xmltxt+"h=\""+tmpColor.getHValue()+"\" s=\""+tmpColor.getSValue()+"\" v=\""+tmpColor.getVValue()+"\" ccctype=\"interval point\"/>\n";
                 break;
             case "lab":
-                xmltxt=xmltxt+"l=\""+tmpColor.getLValue()+"\" a=\""+tmpColor.getAValue()+"\" b=\""+tmpColor.getBValue()+"\" type=\"Interval Point\"/>\n";
+                xmltxt=xmltxt+"l=\""+tmpColor.getLValue()+"\" a=\""+tmpColor.getAValue()+"\" b=\""+tmpColor.getBValue()+"\" ccctype=\"interval point\"/>\n";
                 break;
             case "din99":
-                xmltxt=xmltxt+"l99=\""+tmpColor.getL99Value()+"\" a99=\""+tmpColor.getA99Value()+"\" b99=\""+tmpColor.getB99Value()+"\" type=\"Interval Point\"/>\n";
+                xmltxt=xmltxt+"l99=\""+tmpColor.getL99Value()+"\" a99=\""+tmpColor.getA99Value()+"\" b99=\""+tmpColor.getB99Value()+"\" ccctype=\"interval point\"/>\n";
                 break;
             default:
                 return;
@@ -507,22 +507,22 @@ function exportSide_createXML(){
 
         }
 
-        // 2. KEY i=tmpNumObj-1
+        // 2. key i=tmpNumObj-1
 
         xmltxt=xmltxt+"<Point x=\""+bandObj.getRightRef()+"\" o=\"1\" ";
 
         switch(colorspaceModus) {
             case "rgb":
-                xmltxt=xmltxt+"r=\""+bandObj.getRightRGBColor().getRValue()+"\" g=\""+bandObj.getRightRGBColor().getGValue()+"\" b=\""+bandObj.getRightRGBColor().getBValue()+"\" type=\"key\"/>\n";
+                xmltxt=xmltxt+"r=\""+bandObj.getRightRGBColor().getRValue()+"\" g=\""+bandObj.getRightRGBColor().getGValue()+"\" b=\""+bandObj.getRightRGBColor().getBValue()+"\" ccctype=\"key\"/>\n";
                 break;
             case "hsv":
-                xmltxt=xmltxt+"h=\""+bandObj.getRightHSVColor().getHValue()+"\" s=\""+bandObj.getRightHSVColor().getSValue()+"\" v=\""+bandObj.getRightHSVColor().getVValue()+"\" type=\"key\"/>\n";
+                xmltxt=xmltxt+"h=\""+bandObj.getRightHSVColor().getHValue()+"\" s=\""+bandObj.getRightHSVColor().getSValue()+"\" v=\""+bandObj.getRightHSVColor().getVValue()+"\" ccctype=\"key\"/>\n";
                 break;
             case "lab":
-                xmltxt=xmltxt+"l=\""+bandObj.getRightLABColor().getLValue()+"\" a=\""+bandObj.getRightLABColor().getAValue()+"\" b=\""+bandObj.getRightLABColor().getBValue()+"\" type=\"key\"/>\n";
+                xmltxt=xmltxt+"l=\""+bandObj.getRightLABColor().getLValue()+"\" a=\""+bandObj.getRightLABColor().getAValue()+"\" b=\""+bandObj.getRightLABColor().getBValue()+"\" ccctype=\"key\"/>\n";
                 break;
             case "din99":
-                xmltxt=xmltxt+"l99=\""+bandObj.getRightDIN99Color().getL99Value()+"\" a99=\""+bandObj.getRightDIN99Color().getA99Value()+"\" b99=\""+bandObj.getRightDIN99Color().getB99Value()+"\"/>\n";
+                xmltxt=xmltxt+"l99=\""+bandObj.getRightDIN99Color().getL99Value()+"\" a99=\""+bandObj.getRightDIN99Color().getA99Value()+"\" b99=\""+bandObj.getRightDIN99Color().getB99Value()+"\" ccctype=\"key\"/>\n";
                 break;
             default:
                 return;
@@ -540,16 +540,16 @@ function exportSide_createCSV_Lookup(){
     var opacityVal =1;
     switch(colorspaceModus) {
             case "rgb":
-                txt = txt+"Reference;R;G;B;Opacity;Type\n";
+                txt = txt+"Reference;R;G;B;Opacity;ccctype\n";
                 break;
             case "hsv":
-                txt = txt+"Reference;H;S;V;Opacity;Type\n";
+                txt = txt+"Reference;H;S;V;Opacity;ccctype\n";
                 break;
             case "lab":
-                txt = txt+"Reference;L;A;B;Opacity;Type\n";
+                txt = txt+"Reference;L;A;B;Opacity;ccctype\n";
                 break;
             case "din99":
-                txt = txt+"Reference;L99;A99;B99;Opacity;Type\n";
+                txt = txt+"Reference;L99;A99;B99;Opacity;ccctype\n";
                 break;
             default:
                 return;
@@ -559,20 +559,20 @@ function exportSide_createCSV_Lookup(){
 
         var bandObj = exportColormap.getBand(i);
 
-        // 1. KEY i=0
+        // 1. key i=0
         //console.log(bandObj.getLeftRef());
          switch(colorspaceModus) {
             case "rgb":
-                txt=txt+bandObj.getLeftRGBColor().getRValue()+";"+bandObj.getLeftRGBColor().getGValue()+";"+bandObj.getLeftRGBColor().getBValue()+";"+opacityVal+";Key\n";
+                txt=txt+bandObj.getLeftRef()+";"+bandObj.getLeftRGBColor().getRValue()+";"+bandObj.getLeftRGBColor().getGValue()+";"+bandObj.getLeftRGBColor().getBValue()+";"+opacityVal+";key\n";
                 break;
             case "hsv":
-                txt=txt+bandObj.getLeftHSVColor().getHValue()+";"+bandObj.getLeftHSVColor().getSValue()+";"+bandObj.getLeftHSVColor().getVValue()+";"+opacityVal+";Key\n";
+                txt=txt+bandObj.getLeftRef()+";"+bandObj.getLeftHSVColor().getHValue()+";"+bandObj.getLeftHSVColor().getSValue()+";"+bandObj.getLeftHSVColor().getVValue()+";"+opacityVal+";key\n";
                 break;
             case "lab":
-                txt=txt+bandObj.getLeftLABColor().getLValue()+";"+bandObj.getLeftLABColor().getAValue()+";"+bandObj.getLeftLABColor().getBValue()+";"+opacityVal+";Key\n";
+                txt=txt+bandObj.getLeftRef()+";"+bandObj.getLeftLABColor().getLValue()+";"+bandObj.getLeftLABColor().getAValue()+";"+bandObj.getLeftLABColor().getBValue()+";"+opacityVal+";key\n";
                 break;
             case "din99":
-                txt=txt+bandObj.getLeftDIN99Color().getL99Value()+";"+bandObj.getLeftDIN99Color().getA99Value()+";"+bandObj.getLeftDIN99Color().getB99Value()+";"+opacityVal+";Key\n";
+                txt=txt+bandObj.getLeftRef()+";"+bandObj.getLeftDIN99Color().getL99Value()+";"+bandObj.getLeftDIN99Color().getA99Value()+";"+bandObj.getLeftDIN99Color().getB99Value()+";"+opacityVal+";key\n";
                 break;
             default:
                 return;
@@ -585,16 +585,16 @@ function exportSide_createCSV_Lookup(){
             var tmpColor = getRightColorSpace(colorspaceModus, tmpIntervalPointObj.getColor());
             switch(colorspaceModus) {
             case "rgb":
-                txt=txt+tmpColor.getRValue()+";"+tmpColor.getGValue()+";"+tmpColor.getBValue()+"Interval Point\n";
+                txt=txt+tmpIntervalPointObj.getRefPosition()+";"+tmpColor.getRValue()+";"+tmpColor.getGValue()+";"+tmpColor.getBValue()+";"+opacityVal+";interval point\n";
                 break;
             case "hsv":
-                txt=txt+tmpColor.getHValue()+";"+tmpColor.getSValue()+";"+tmpColor.getVValue()+"Interval Point\n";
+                txt=txt+tmpIntervalPointObj.getRefPosition()+";"+tmpColor.getHValue()+";"+tmpColor.getSValue()+";"+tmpColor.getVValue()+";"+opacityVal+";interval point\n";
                 break;
             case "lab":
-                txt=txt+tmpColor.getLValue()+";"+tmpColor.getAValue()+";"+tmpColor.getBValue()+"Interval Point\n";
+                txt=txt+tmpIntervalPointObj.getRefPosition()+";"+tmpColor.getLValue()+";"+tmpColor.getAValue()+";"+tmpColor.getBValue()+";"+opacityVal+";interval point\n";
                 break;
             case "din99":
-                txt=txt+tmpColor.getL99Value()+";"+tmpColor.getA99Value()+";"+tmpColor.getB99Value()+"Interval Point\n";
+                txt=txt+tmpIntervalPointObj.getRefPosition()+";"+tmpColor.getL99Value()+";"+tmpColor.getA99Value()+";"+tmpColor.getB99Value()+";"+opacityVal+";interval point\n";
                 break;
             default:
                 return;
@@ -602,21 +602,21 @@ function exportSide_createCSV_Lookup(){
 
         }
 
-        // 2. KEY i=tmpNumObj-1
+        // 2. key i=tmpNumObj-1
 
 
         switch(colorspaceModus) {
             case "rgb":
-                txt=txt+bandObj.getRightRGBColor().getRValue()+";"+bandObj.getRightRGBColor().getGValue()+";"+bandObj.getRightRGBColor().getBValue()+";Key\n";
+                txt=txt+bandObj.getRightRef()+";"+bandObj.getRightRGBColor().getRValue()+";"+bandObj.getRightRGBColor().getGValue()+";"+bandObj.getRightRGBColor().getBValue()+";"+opacityVal+";key";
                 break;
             case "hsv":
-                txt=txt+bandObj.getRightHSVColor().getHValue()+";"+bandObj.getRightHSVColor().getSValue()+";"+bandObj.getRightHSVColor().getVValue()+";Key\n";
+                txt=txt+bandObj.getRightRef()+";"+bandObj.getRightHSVColor().getHValue()+";"+bandObj.getRightHSVColor().getSValue()+";"+bandObj.getRightHSVColor().getVValue()+";"+opacityVal+";key";
                 break;
             case "lab":
-                txt=txt+bandObj.getRightLABColor().getLValue()+";"+bandObj.getRightLABColor().getAValue()+";"+bandObj.getRightLABColor().getBValue()+";Key\n";
+                txt=txt+bandObj.getRightRef()+";"+bandObj.getRightLABColor().getLValue()+";"+bandObj.getRightLABColor().getAValue()+";"+bandObj.getRightLABColor().getBValue()+";"+opacityVal+";key";
                 break;
             case "din99":
-                txt=txt+bandObj.getRightDIN99Color().getL99Value()+";"+bandObj.getRightDIN99Color().getA99Value()+";"+bandObj.getRightDIN99Color().getB99Value()+";Key\n";
+                txt=txt+bandObj.getRightRef()+";"+bandObj.getRightDIN99Color().getL99Value()+";"+bandObj.getRightDIN99Color().getA99Value()+";"+bandObj.getRightDIN99Color().getB99Value()+";"+opacityVal+";key";
                 break;
             default:
                 return;
@@ -654,20 +654,20 @@ function exportSide_createJSON(){
         var bandObj = exportColormap.getBand(i);
 
         jsontxt=jsontxt+"{\"x\":\""+bandObj.getLeftRef()+"\",\"o\":\"1\",";
-        // 1. KEY i=0
+        // 1. key i=0
         //console.log(bandObj.getLeftRef());
          switch(colorspaceModus) {
             case "rgb":
-                jsontxt=jsontxt+"\"r\":\""+bandObj.getLeftRGBColor().getRValue()+"\",\"g\":\""+bandObj.getLeftRGBColor().getGValue()+"\",\"b\":\""+bandObj.getLeftRGBColor().getBValue()+"\",\"type\":\"key\"},";
+                jsontxt=jsontxt+"\"r\":\""+bandObj.getLeftRGBColor().getRValue()+"\",\"g\":\""+bandObj.getLeftRGBColor().getGValue()+"\",\"b\":\""+bandObj.getLeftRGBColor().getBValue()+"\",\"ccctype\":\"key\"},";
                 break;
             case "hsv":
-                jsontxt=jsontxt+"\"h\":\""+bandObj.getLeftHSVColor().getHValue()+"\",\"s\":\""+bandObj.getLeftHSVColor().getSValue()+"\",\"v\":\""+bandObj.getLeftHSVColor().getVValue()+"\",\"type\":\"key\"},";
+                jsontxt=jsontxt+"\"h\":\""+bandObj.getLeftHSVColor().getHValue()+"\",\"s\":\""+bandObj.getLeftHSVColor().getSValue()+"\",\"v\":\""+bandObj.getLeftHSVColor().getVValue()+"\",\"ccctype\":\"key\"},";
                 break;
             case "lab":
-                jsontxt=jsontxt+"\"l\":\""+bandObj.getLeftLABColor().getLValue()+"\",\"a\":\""+bandObj.getLeftLABColor().getAValue()+"\",\"b\":\""+bandObj.getLeftLABColor().getBValue()+"\",\"type\":\"key\"},";
+                jsontxt=jsontxt+"\"l\":\""+bandObj.getLeftLABColor().getLValue()+"\",\"a\":\""+bandObj.getLeftLABColor().getAValue()+"\",\"b\":\""+bandObj.getLeftLABColor().getBValue()+"\",\"ccctype\":\"key\"},";
                 break;
             case "din99":
-                jsontxt=jsontxt+"\"l99\":\""+bandObj.getLeftDIN99Color().getL99Value()+"\",\"a99\":\""+bandObj.getLeftDIN99Color().getA99Value()+"\",\"b99\":\""+bandObj.getLeftDIN99Color().getB99Value()+"\"/>\n";
+                jsontxt=jsontxt+"\"l99\":\""+bandObj.getLeftDIN99Color().getL99Value()+"\",\"a99\":\""+bandObj.getLeftDIN99Color().getA99Value()+"\",\"b99\":\""+bandObj.getLeftDIN99Color().getB99Value()+"\",\"ccctype\":\"key\"},";
                 break;
             default:
                 return;
@@ -681,16 +681,16 @@ function exportSide_createJSON(){
             jsontxt=jsontxt+"{\"x\":\""+tmpIntervalPointObj.getRefPosition()+"\",\"o\":\"1\",";
             switch(colorspaceModus) {
             case "rgb":
-                jsontxt=jsontxt+"\"r\":\""+tmpColor.getRValue()+"\",\"g\":\""+tmpColor.getGValue()+"\",\"b\":\""+tmpColor.getBValue()+"\",\"type\":\"interval point\"},";
+                jsontxt=jsontxt+"\"r\":\""+tmpColor.getRValue()+"\",\"g\":\""+tmpColor.getGValue()+"\",\"b\":\""+tmpColor.getBValue()+"\",\"ccctype\":\"interval point\"},";
                 break;
             case "hsv":
-                jsontxt=jsontxt+"\"h\":\""+tmpColor.getHValue()+"\",\"s\":\""+tmpColor.getSValue()+"\",\"v\":\""+tmpColor.getVValue()+"\",\"type\":\"interval point\"},";
+                jsontxt=jsontxt+"\"h\":\""+tmpColor.getHValue()+"\",\"s\":\""+tmpColor.getSValue()+"\",\"v\":\""+tmpColor.getVValue()+"\",\"ccctype\":\"interval point\"},";
                 break;
             case "lab":
-                jsontxt=jsontxt+"\"l\":\""+tmpColor.getLValue()+"\",\"a\":\""+tmpColor.getAValue()+"\",\"b\":\""+tmpColor.getBValue()+"\",\"type\":\"interval point\"},";
+                jsontxt=jsontxt+"\"l\":\""+tmpColor.getLValue()+"\",\"a\":\""+tmpColor.getAValue()+"\",\"b\":\""+tmpColor.getBValue()+"\",\"ccctype\":\"interval point\"},";
                 break;
             case "din99":
-                jsontxt=jsontxt+"\"l99\":\""+tmpColor.getL99Value()+"\",\"a99\":\""+tmpColor.getA99Value()+"\",\"b99\":\""+tmpColor.getB99Value()+"\",\"type\":\"interval point\"},";
+                jsontxt=jsontxt+"\"l99\":\""+tmpColor.getL99Value()+"\",\"a99\":\""+tmpColor.getA99Value()+"\",\"b99\":\""+tmpColor.getB99Value()+"\",\"ccctype\":\"interval point\"},";
                 break;
             default:
                 return;
@@ -698,21 +698,21 @@ function exportSide_createJSON(){
 
         }
 
-        // 2. KEY i=tmpNumObj-1
+        // 2. key i=tmpNumObj-1
 
         jsontxt=jsontxt+"{\"x\":\""+bandObj.getRightRef()+"\",\"o\":\"1\",";
         switch(colorspaceModus) {
             case "rgb":
-                jsontxt=jsontxt+"\"r\":\""+bandObj.getRightRGBColor().getRValue()+"\",\"g\":\""+bandObj.getRightRGBColor().getGValue()+"\",\"b\":\""+bandObj.getRightRGBColor().getBValue()+"\",\"type\":\"key\"}";
+                jsontxt=jsontxt+"\"r\":\""+bandObj.getRightRGBColor().getRValue()+"\",\"g\":\""+bandObj.getRightRGBColor().getGValue()+"\",\"b\":\""+bandObj.getRightRGBColor().getBValue()+"\",\"ccctype\":\"key\"}";
                 break;
             case "hsv":
-                jsontxt=jsontxt+"\"h\":\""+bandObj.getRightHSVColor().getHValue()+"\",\"s\":\""+bandObj.getRightHSVColor().getSValue()+"\",\"v\":\""+bandObj.getRightHSVColor().getVValue()+"\",\"type\":\"key\"}";
+                jsontxt=jsontxt+"\"h\":\""+bandObj.getRightHSVColor().getHValue()+"\",\"s\":\""+bandObj.getRightHSVColor().getSValue()+"\",\"v\":\""+bandObj.getRightHSVColor().getVValue()+"\",\"ccctype\":\"key\"}";
                 break;
             case "lab":
-                jsontxt=jsontxt+"\"l\":\""+bandObj.getRightLABColor().getLValue()+"\",\"a\":\""+bandObj.getRightLABColor().getAValue()+"\",\"b\":\""+bandObj.getRightLABColor().getBValue()+"\",\"type\":\"key\"}";
+                jsontxt=jsontxt+"\"l\":\""+bandObj.getRightLABColor().getLValue()+"\",\"a\":\""+bandObj.getRightLABColor().getAValue()+"\",\"b\":\""+bandObj.getRightLABColor().getBValue()+"\",\"ccctype\":\"key\"}";
                 break;
             case "din99":
-                jsontxt=jsontxt+"\"l99\":\""+bandObj.getRightDIN99Color().getL99Value()+"\",\"a99\":\""+bandObj.getRightDIN99Color().getA99Value()+"\",\"b99\":\""+bandObj.getRightDIN99Color().getB99Value()+"\",\"type\":\"key\"}";
+                jsontxt=jsontxt+"\"l99\":\""+bandObj.getRightDIN99Color().getL99Value()+"\",\"a99\":\""+bandObj.getRightDIN99Color().getA99Value()+"\",\"b99\":\""+bandObj.getRightDIN99Color().getB99Value()+"\",\"ccctype\":\"key\"}";
                 break;
             default:
                 return;

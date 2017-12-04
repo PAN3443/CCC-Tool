@@ -65,26 +65,9 @@ function forwardColormapProcess(){
   }
 }
 
-
-function updateColormapSketch(){
-
-  colormapBandSketchC1 = [];
-  colormapBandSketchC2 = [];
-  colormapBandSketchR1 = [];
-  colormapBandSketchR2 = [];
-
-  for(var i=0; i<createColormap.getNumberOfBands(); i++){
-
-    colormapBandSketchC1.push(createColormap.getBand(i).getLeftRGBColor());
-    colormapBandSketchC2.push(createColormap.getBand(i).getRightRGBColor());
-    colormapBandSketchR1.push(createColormap.getBand(i).getLeftRef());
-    colormapBandSketchR2.push(createColormap.getBand(i).getRightRef());
-
-  }
-
-  orderColorSketch();
+function loadColormapCreateSide(){
+  document.getElementById("id_inputData").click();
 }
-
 
 function saveColormapToList(){
 

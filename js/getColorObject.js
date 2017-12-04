@@ -401,7 +401,7 @@ function getRightColorSpace(wishSpace, color){
            case "lab":
                return color.calcCIELabColor();
            case "din99":
-               return color.calcDIN99Color();
+               return color.calcDIN99Color(kE,kCH);
            default:
            console.log("Error at the getRightColorSpace function");
        }
@@ -413,7 +413,7 @@ function getRightColorSpace(wishSpace, color){
            case "lab":
                return color.calcCIELabColor();
            case "din99":
-               return color.calcDIN99Color();
+               return color.calcDIN99Color(kE,kCH);
            default:
            console.log("Error at the getRightColorSpace function");
        }
@@ -425,7 +425,7 @@ function getRightColorSpace(wishSpace, color){
            case "rgb":
                return color.calcRGB();
            case "din99":
-               return color.calcDIN99Color();
+               return color.calcDIN99Color(kE,kCH);
            default:
            console.log("Error at the getRightColorSpace function");
        }
