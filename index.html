@@ -78,6 +78,9 @@
             <script src="js/MyMapsPage/drawMyMaps_MyMapsPage.js"></script>
             <script src="js/MyMapsPage/events_MyMapsPage.js"></script>
 
+            <!-- Analyse PAGE -->
+            <script src="js/AnalysePage/events_AnalysePage.js"></script>
+
         <!-- global -->
         <script src="js/events_global.js"></script>
         <script src="js/globalVars.js"></script>
@@ -120,7 +123,7 @@
 
 
 
-            <div id="id_menu" class="row" style="width:100%; height:auto; background: rgb(0,0,0);position: -webkit-sticky; position: sticky;">
+            <div id="id_menu" class="row" style="width:100%; height:auto; background: rgb(0,0,0);position: -webkit-sticky; position: sticky; margin:0px;">
                 <img src="img/CCC-LOGO.png" alt="CCC-Tool Logo" style="margin-top:0.1vh; margin-bottom:0.1vh; height:8vh; margin-left:auto;">
                 <div style="margin-left:20px; margin-right:auto;">
                   <h1 style="margin-top:0vh; margin-bottom:0vh; height:5.5vh; line-height:5.5vh; text-align:center; vertical-align: middle; color:white; font-size:5vh; font-family: "Times New Roman", Georgia, Serif;"> CCC-TOOL </h1>
@@ -152,7 +155,7 @@
                       <h3 style="height:5vh; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; padding-left:20px; font-size:2vh;"> NAME: </h3>
                       <input  id = "id_InputMapName" type="text" name="key space" value="Cus. Colormap" style="height:2.5vh; line-height:2.5vh; font-size:2vh; text-align:center; vertical-align: middle; margin-top:0.5vh; margin-left:1vh; margin-right:1vh;">
                       <button class="classButtonDark" id="id_buttonExportCreateColormap" title="export" style="border-radius: 0.3vh; background: url(img/exportButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
-                      <button class="classButtonDark" id="id_buttonSaveCreateColormap" title="save" style="border-radius: 0.3vh; background: url(img/saveButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
+                      <button class="classButtonDark" id="id_buttonSaveCreateColormap" title="save to My Maps" style="border-radius: 0.3vh; background: url(img/saveButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
                       <button class="classButtonDark" id="id_buttonLoadCreateColormap" title="load" style="border-radius: 0.3vh; background: url(img/loadButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
                       <button class="classButtonDark" id="id_buttonDeleteCreateColormap" title="delete" style="border-radius: 0.3vh; background: url(img/trashButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
                       <button class="classButtonDark" id="id_buttonBackwardCreateColormap" title="backward" style="border-radius: 0.3vh; background: url(img/backwardsButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white;"></button>
@@ -362,6 +365,7 @@
             <button class="classButtonWhite" id = "id_MyListCreateColormapButton" title="CREATE" style="border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 30%; height:5vh; line-height:5vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180); margin-left:5%;"> Create New Map</button>
 
             <hr>
+            <p id="id_myListInfo" style=" width:100%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; color:red;"><p>
             <div class="row" style="width:100%; margin-top:2vh;">
 
 
@@ -374,6 +378,7 @@
                       <button onclick="exportColormapFromMyMaps(0)" class="classButtonWhite" id = "id_buttonExportMyList0" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
                       <button onclick="openEditColormapFromMyMaps(0)" class="classButtonWhite" id = "id_buttonEditMyList0" title="edit" style="border-radius: 0.5vh; background: url(img/editButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
                       <button onclick="deletetColormapFromMyMaps(0)" class="classButtonWhite" id = "id_buttonDeleteMyList0" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto;"></button>
+                      <button onclick="acceptColormapFromMyMaps(0)" class="classButtonWhite" id = "id_buttonAcceptMyList0" title="select" style="border-radius: 0.5vh; background: url(img/acceptButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto; display:none"></button>
 
                 </div>
 
@@ -386,6 +391,7 @@
                       <button onclick="exportColormapFromMyMaps(5)" class="classButtonWhite" id = "id_buttonExportMyList5" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
                       <button onclick="openEditColormapFromMyMaps(5)" class="classButtonWhite" id = "id_buttonEditMyList5" title="edit" style="border-radius: 0.5vh; background: url(img/editButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
                       <button onclick="deletetColormapFromMyMaps(5)" class="classButtonWhite" id = "id_buttonDeleteMyList5" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto;"></button>
+                      <button onclick="acceptColormapFromMyMaps(5)" class="classButtonWhite" id = "id_buttonAcceptMyList5" title="select" style="border-radius: 0.5vh; background: url(img/acceptButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto; display:none"></button>
 
                 </div>
 
@@ -401,6 +407,7 @@
                       <button onclick="exportColormapFromMyMaps(1)" class="classButtonWhite" id = "id_buttonExportMyList1" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
                       <button onclick="openEditColormapFromMyMaps(1)" class="classButtonWhite" id = "id_buttonEditMyList1" title="edit" style="border-radius: 0.5vh; background: url(img/editButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
                       <button onclick="deletetColormapFromMyMaps(1)" class="classButtonWhite" id = "id_buttonDeleteMyList1" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto;"></button>
+                      <button onclick="acceptColormapFromMyMaps(1)" class="classButtonWhite" id = "id_buttonAcceptMyList1" title="select" style="border-radius: 0.5vh; background: url(img/acceptButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto; display:none"></button>
 
                 </div>
 
@@ -413,6 +420,7 @@
                       <button onclick="exportColormapFromMyMaps(6)" class="classButtonWhite" id = "id_buttonExportMyList6" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
                       <button onclick="openEditColormapFromMyMaps(6)" class="classButtonWhite" id = "id_buttonEditMyList6" title="edit" style="border-radius: 0.5vh; background: url(img/editButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
                       <button onclick="deletetColormapFromMyMaps(6)" class="classButtonWhite" id = "id_buttonDeleteMyList6" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto;"></button>
+                      <button onclick="acceptColormapFromMyMaps(6)" class="classButtonWhite" id = "id_buttonAcceptMyList6" title="select" style="border-radius: 0.5vh; background: url(img/acceptButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto; display:none"></button>
 
                 </div>
 
@@ -428,6 +436,7 @@
                       <button onclick="exportColormapFromMyMaps(2)" class="classButtonWhite" id = "id_buttonExportMyList2" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
                       <button onclick="openEditColormapFromMyMaps(2)" class="classButtonWhite" id = "id_buttonEditMyList2" title="edit" style="border-radius: 0.5vh; background: url(img/editButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
                       <button onclick="deletetColormapFromMyMaps(2)" class="classButtonWhite" id = "id_buttonDeleteMyList2" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto;"></button>
+                      <button onclick="acceptColormapFromMyMaps(2)" class="classButtonWhite" id = "id_buttonAcceptMyList2" title="select" style="border-radius: 0.5vh; background: url(img/acceptButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto; display:none"></button>
 
                 </div>
 
@@ -440,6 +449,7 @@
                       <button onclick="exportColormapFromMyMaps(7)" class="classButtonWhite" id = "id_buttonExportMyList7" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
                       <button onclick="openEditColormapFromMyMaps(7)" class="classButtonWhite" id = "id_buttonEditMyList7" title="edit" style="border-radius: 0.5vh; background: url(img/editButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
                       <button onclick="deletetColormapFromMyMaps(7)" class="classButtonWhite" id = "id_buttonDeleteMyList7" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto;"></button>
+                      <button onclick="acceptColormapFromMyMaps(7)" class="classButtonWhite" id = "id_buttonAcceptMyList7" title="select" style="border-radius: 0.5vh; background: url(img/acceptButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto; display:none"></button>
 
                 </div>
 
@@ -455,6 +465,7 @@
                       <button onclick="exportColormapFromMyMaps(3)" class="classButtonWhite" id = "id_buttonExportMyList3" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
                       <button onclick="openEditColormapFromMyMaps(3)" class="classButtonWhite" id = "id_buttonEditMyList3" title="edit" style="border-radius: 0.5vh; background: url(img/editButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
                       <button onclick="deletetColormapFromMyMaps(3)" class="classButtonWhite" id = "id_buttonDeleteMyList3" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto;"></button>
+                      <button onclick="acceptColormapFromMyMaps(3)" class="classButtonWhite" id = "id_buttonAcceptMyList3" title="select" style="border-radius: 0.5vh; background: url(img/acceptButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto; display:none"></button>
 
                 </div>
 
@@ -467,6 +478,7 @@
                       <button onclick="exportColormapFromMyMaps(8)" class="classButtonWhite" id = "id_buttonExportMyList8" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
                       <button onclick="openEditColormapFromMyMaps(8)" class="classButtonWhite" id = "id_buttonEditMyList8" title="edit" style="border-radius: 0.5vh; background: url(img/editButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
                       <button onclick="deletetColormapFromMyMaps(8)" class="classButtonWhite" id = "id_buttonDeleteMyList8" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto;"></button>
+                      <button onclick="acceptColormapFromMyMaps(8)" class="classButtonWhite" id = "id_buttonAcceptMyList8" title="select" style="border-radius: 0.5vh; background: url(img/acceptButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto; display:none"></button>
 
                 </div>
 
@@ -482,6 +494,7 @@
                       <button onclick="exportColormapFromMyMaps(4)" class="classButtonWhite" id = "id_buttonExportMyList4" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
                       <button onclick="openEditColormapFromMyMaps(4)" class="classButtonWhite" id = "id_buttonEditMyList4" title="edit" style="border-radius: 0.5vh; background: url(img/editButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
                       <button onclick="deletetColormapFromMyMaps(4)" class="classButtonWhite" id = "id_buttonDeleteMyList4" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto;"></button>
+                      <button onclick="acceptColormapFromMyMaps(4)" class="classButtonWhite" id = "id_buttonAcceptMyList4" title="select" style="border-radius: 0.5vh; background: url(img/acceptButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto; display:none"></button>
 
                 </div>
 
@@ -494,6 +507,7 @@
                       <button onclick="exportColormapFromMyMaps(9)" class="classButtonWhite" id = "id_buttonExportMyList9" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
                       <button onclick="openEditColormapFromMyMaps(9)" class="classButtonWhite" id = "id_buttonEditMyList9" title="edit" style="border-radius: 0.5vh; background: url(img/editButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
                       <button onclick="deletetColormapFromMyMaps(9)" class="classButtonWhite" id = "id_buttonDeleteMyList9" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto;"></button>
+                      <button onclick="acceptColormapFromMyMaps(9)" class="classButtonWhite" id = "id_buttonAcceptMyList9" title="select" style="border-radius: 0.5vh; background: url(img/acceptButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto; display:none"></button>
 
                 </div>
 
@@ -502,7 +516,7 @@
             <hr>
 
             <button class="classButtonWhite" id = "id_MyListCompareButton" title="Compare" style="border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 30%; height:5vh; line-height:5vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180); margin-left:15%;"> Compare two Maps </button>
-            <button class="classButtonWhite" id = "id_MyListAnalysisButton" title="Analysis" style=" margin-bottom:2vh; border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 30%; height:5vh; line-height:5vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180); margin-left:5%;"> Analysis of a Map </button>
+            <button class="classButtonWhite" id = "id_MyListAnalysisButton" title="Analysis" style=" margin-bottom:2vh; border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 30%; height:5vh; line-height:5vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180); margin-left:5%;"> Analyse a Map </button>
 
           </div>
         </div>
@@ -521,8 +535,19 @@
         ----------------	Analysis	  -----------------
         -----------------------------------------------
         -->
-        <div id="id_analysisPage" style="width: 100%; height:auto;   background:white; display:none;">
+        <div id="id_analysisPage" style="width: 100%; height:auto; background:white; display:none;">
+          <!-- Colormap Sketch Bands -->
+          <div class="row" style="height:20vh; width:100%; margin:0px; background:rgb(230,230,230); border-top:2px solid black;">
+              <div style="height:auto; width:98%; margin:auto; background:white; padding-bottom:1vh;">
+                  <h4 style="width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Colormap Band Sketch</h4>
 
+                  <div class="row" style="margin-top: 1vh; width:95%; height: 8vh; margin-left:auto;  margin-right:auto;" id="id_analyseColormapSketch">
+                  </div>
+
+                  <div class="row" style="margin-top: 0px; width:95%; height: 2vh; margin-left:auto;  margin-right:auto; margin-bottom:3vh;" id="id_analyseColormapSketch_Ref">
+                  </div>
+              </div>
+          </div>
         </div>
 
         <!--

@@ -8,6 +8,12 @@ window.onload = function () {
     document.getElementById('id_ButtonToMyMapsPage').addEventListener("click", showMyMapsSide);
     document.getElementById('id_inputData').addEventListener("change", readSingleFile);
 
+    createColormap= new xclassColorMap();
+    exportColormap= new xclassColorMap();
+    analysisColormap= new xclassColorMap();
+    compareColormap1= new xclassColorMap();
+    compareColormap2= new xclassColorMap();
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////// Create Side /////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -108,8 +114,8 @@ window.onload = function () {
         ////////////////////////////////////////////////////////////////////////////////////////////////////
 
         document.getElementById('id_MyListCreateColormapButton').addEventListener("click", showCreateSide);
-
-
+        document.getElementById('id_MyListAnalysisButton').addEventListener("click", selectAnalysis);
+        document.getElementById('id_MyListCompareButton').addEventListener("click", selectCompare);
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////// Export Side /////////////////////////////////////

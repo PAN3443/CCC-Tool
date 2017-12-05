@@ -105,6 +105,9 @@ function changeColorspace(type) {
   }
 
 
+  if (showSideID == 0) { // CREATE SIDE
+    drawMyList();
+  }
 
 
   if (showSideID == 1) { // CREATE SIDE
@@ -299,7 +302,7 @@ function showCreateSide() {
 
 function showMyMapsSide(){
 
-  if(showSideID = 1){
+  if(showSideID == 1){ // Create Side
 
     var doIt = false;
     if(colormapBandSketchC1.length!=0){
@@ -326,8 +329,37 @@ function showMyMapsSide(){
     }
 
   }
+
+  if(showSideID == 2){ // Analyse Side
+    showSideID = 0;
+    document.getElementById("id_myListPage").style.display = "initial";
+    document.getElementById("id_analysisPage").style.display = "none";
+    document.getElementById("id_SideLabel").innerHTML = "My Maps";
+  }
+
+
+  if(showSideID == 3){ // Compare Side
+    showSideID = 0;
+    document.getElementById("id_myListPage").style.display = "initial";
+    document.getElementById("id_analysisPage").style.display = "none";
+    document.getElementById("id_SideLabel").innerHTML = "My Maps";
+  }
 }
 
+function showCompareSide(){
+    showSideID = 3;
+    document.getElementById("id_myListPage").style.display = "none";
+    document.getElementById("id_comparePage").style.display = "initial";
+    document.getElementById("id_SideLabel").innerHTML = "Compare Colormaps";
+}
+
+function showAnalysisSide(){
+    showSideID = 2;
+    document.getElementById("id_myListPage").style.display = "none";
+    document.getElementById("id_analysisPage").style.display = "initial";
+    document.getElementById("id_SideLabel").innerHTML = "Analyse Colormap";
+    initAnalysePage();
+}
 
 function readSingleFile(e) {
 
