@@ -355,8 +355,7 @@ function readSingleFile(e) {
                 break;
             case 'csv': case 'CSV':
                 colormap = csvColormapParserFile(contents);
-                return;
-                //break;
+                break;
             default:
                 console.log("Error at readSingleFile function -> file extension is unknown!");
                 return;
