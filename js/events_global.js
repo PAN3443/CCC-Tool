@@ -411,7 +411,7 @@ function readSingleFile(e) {
                 break;
             case 1:
                 createColormap = colormap;
-                updateColormapSketch();
+                colormap2Sketch(createColormap);
                 break;
             default:
                 console.log("Error at readSingleFile function -> showSideID is unknown!");
