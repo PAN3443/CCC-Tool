@@ -53,7 +53,7 @@ function backwardColormapProcess(){
   if(processPosition>0){
     processPosition--;
     createColormap = colormapProcess[processPosition];
-    updateColormapSketch();
+    colormap2Sketch(createColormap);
   }
 }
 
@@ -61,7 +61,7 @@ function forwardColormapProcess(){
   if(processPosition<colormapProcess.length-1){
     processPosition++;
     createColormap = colormapProcess[processPosition];
-    updateColormapSketch();
+    colormap2Sketch(createColormap);
   }
 }
 

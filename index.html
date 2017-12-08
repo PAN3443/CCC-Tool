@@ -1,37 +1,38 @@
 <!doctype html>
 <html class="no-js" lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>CCC</title>
-        <meta name="keywords" content="coloroptimizer,color,visualisation,colorbrewer">
-        <meta name="description" content="Determine a colormap for visualization with the CCC toolbox">
-        <meta name="author" content="Pascal Nardini">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="apple-touch-icon" href="apple-touch-icon.png">
-        <!-- Place favicon.ico in the root directory -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>CCC</title>
+  <meta name="keywords" content="coloroptimizer,color,visualisation,colorbrewer">
+  <meta name="description" content="Determine a colormap for visualization with the CCC toolbox">
+  <meta name="author" content="Pascal Nardini">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <!-- Place favicon.ico in the root directory -->
 
 
 
-        <!--
+  <!--
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         -------------------------------------------------
         ----------------	STYLE	-----------------
         -------------------------------------------------
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         -->
-        <link rel="stylesheet" href="css/normalize.css">
-        <link rel="stylesheet" href="css/general.css">
-        <link rel="stylesheet" href="css/createPage.css">
-        <link rel="stylesheet" href="css/mainPage.css">
-        <link rel="stylesheet" href="css/myListPage.css">
-        <link rel="stylesheet" href="css/exportPage.css">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/general.css">
+  <link rel="stylesheet" href="css/createPage.css">
+  <link rel="stylesheet" href="css/mainPage.css">
+  <link rel="stylesheet" href="css/myListPage.css">
+  <link rel="stylesheet" href="css/exportPage.css">
+  <link rel="stylesheet" href="css/AnalysePage.css">
 
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-
-        <!--
+  <!--
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         -------------------------------------------------
         ----------------	SCRIPT	-----------------
@@ -39,71 +40,68 @@
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         -->
 
-       <script src="js/vendor/modernizr-2.8.3.min.js"></script>
-        <!--[if lt IE 9]>
+  <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+  <!--[if lt IE 9]>
 	    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
 	    <![endif]-->
-        <link rel="stylesheet" href="https://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-        <!--script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script-->
+  <!--script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script-->
 
+  <script src="js/plugins.js"></script>
 
-        <script src="js/plugins.js"></script>
+  <!-- Classes -->
+  <script src="js/ColormapClass/class_Colormap.js"></script>
+  <script src="js/ColormapClass/class_Colormap_Band.js"></script>
+  <script src="js/ColormapClass/class_Colormap_Interval.js"></script>
+  <script src="js/ColormapClass/class_Colorspace_HSV.js"></script>
+  <script src="js/ColormapClass/class_Colorspace_LAB.js"></script>
+  <script src="js/ColormapClass/class_Colorspace_RGB.js"></script>
+  <script src="js/ColormapClass/class_Colorspace_DIN99.js"></script>
 
-        <!-- Classes -->
-        <script src="js/ColormapClass/class_Colormap.js"></script>
-        <script src="js/ColormapClass/class_Colormap_Band.js"></script>
-        <script src="js/ColormapClass/class_Colormap_Interval.js"></script>
-        <script src="js/ColormapClass/class_Colorspace_HSV.js"></script>
-        <script src="js/ColormapClass/class_Colorspace_LAB.js"></script>
-        <script src="js/ColormapClass/class_Colorspace_RGB.js"></script>
-        <script src="js/ColormapClass/class_Colorspace_DIN99.js"></script>
+  <!-- CreatorPage PAGE -->
+  <script src="js/CreatorPage/events_CreatorPage.js"></script>
+  <script src="js/CreatorPage/drawExistingColormaps_CreatorPage.js"></script>
+  <script src="js/CreatorPage/drawColorPicker_CreatorPage.js"></script>
+  <script src="js/CreatorPage/dependingColorspaceFunctions.js"></script>
+  <script src="js/CreatorPage/events_colorpicker_CreatorPage.js"></script>
+  <script src="js/CreatorPage/dragAndDropevents_CreatorPage.js"></script>
+  <script src="js/CreatorPage/bandEditor_CreatorPage.js"></script>
+  <script src="js/CreatorPage/events_keyRef_CreatorPage.js"></script>
+  <script src="js/CreatorPage/events_menueButton_CreatorPage.js"></script>
 
+  <!-- MyListPage PAGE -->
+  <script src="js/MyMapsPage/drawMyMaps_MyMapsPage.js"></script>
+  <script src="js/MyMapsPage/events_MyMapsPage.js"></script>
 
+  <!-- Analyse PAGE -->
+  <script src="js/AnalysePage/events_AnalysePage.js"></script>
 
-            <!-- CreatorPage PAGE -->
-            <script src="js/CreatorPage/events_CreatorPage.js"></script>
-            <script src="js/CreatorPage/drawExistingColormaps_CreatorPage.js"></script>
-            <script src="js/CreatorPage/drawColorPicker_CreatorPage.js"></script>
-            <script src="js/CreatorPage/dependingColorspaceFunctions.js"></script>
-            <script src="js/CreatorPage/events_colorpicker_CreatorPage.js"></script>
-            <script src="js/CreatorPage/dragAndDropevents_CreatorPage.js"></script>
-            <script src="js/CreatorPage/bandEditor_CreatorPage.js"></script>
-            <script src="js/CreatorPage/events_keyRef_CreatorPage.js"></script>
-            <script src="js/CreatorPage/events_menueButton_CreatorPage.js"></script>
+  <!-- global -->
+  <script src="js/events_global.js"></script>
+  <script src="js/globalVars.js"></script>
+  <script src="js/globalHelpers.js"></script>
+  <script src="js/xmlColormapParser.js"></script>
+  <script src="js/jsonColormapParser.js"></script>
+  <script src="js/csvColormapParser.js"></script>
+  <script src="js/drawCanvasColormap.js"></script>
+  <script src="js/checkInput.js"></script>
+  <script src="js/exportSideScript.js"></script>
+  <script src="js/getColorObject.js"></script>
+  <script src="js/drawColorspace.js"></script>
+  <script src="js/events_ColorspaceCanvas.js"></script>
+  <script src="js/main.js"></script>
 
-            <!-- MyListPage PAGE -->
-            <script src="js/MyMapsPage/drawMyMaps_MyMapsPage.js"></script>
-            <script src="js/MyMapsPage/events_MyMapsPage.js"></script>
+</head>
 
-            <!-- Analyse PAGE -->
-            <script src="js/AnalysePage/events_AnalysePage.js"></script>
-
-        <!-- global -->
-        <script src="js/events_global.js"></script>
-        <script src="js/globalVars.js"></script>
-        <script src="js/globalHelpers.js"></script>
-        <script src="js/xmlColormapParser.js"></script>
-        <script src="js/jsonColormapParser.js"></script>
-        <script src="js/csvColormapParser.js"></script>
-        <script src="js/drawCanvasColormap.js"></script>
-        <script src="js/checkInput.js"></script>
-        <script src="js/exportSideScript.js"></script>
-        <script src="js/getColorObject.js"></script>
-        <script src="js/main.js"></script>
-
-
-
-
-    </head>
-    <body style="background: rgb(30,30,30);">
-        <!--[if lt IE 8]>
+<body style="background: rgb(30,30,30);">
+  <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <!--
+  <!--
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         -------------------------------------------------
         ----------------	THE SIDE	-----------------
@@ -111,455 +109,501 @@
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         -->
 
-        <input type="file" id="id_inputData" style="width: 0px; height:0px;" accept=".csv, .xml, .json">
+  <input type="file" id="id_inputData" style="width: 0px; height:0px; margin:0px; display:none;" accept=".csv, .xml, .json">
 
-		<!--
+  <!--
         -----------------------------------------------
         ----------------	Menü	  -----------------
         -----------------------------------------------
         -->
 
+  <div id="id_menu" class="row" style="width:100%; height:auto; background: rgb(0,0,0);position: -webkit-sticky; position: sticky; margin:0px;">
+    <img src="img/CCC-LOGO.png" alt="CCC-Tool Logo" style="margin-top:0.1vh; margin-bottom:0.1vh; height:8vh; margin-left:auto;">
+    <div style="margin-left:20px; margin-right:auto;">
+      <h1 style="margin-top:0vh; margin-bottom:0vh; height:5.5vh; line-height:5.5vh; text-align:center; vertical-align: middle; color:white; font-size:5vh; font-family: " Times New Roman ", Georgia, Serif;"> CCC-TOOL </h1>
+      <h4 style="margin-top:0vh; margin-bottom:0vh; height:2.5vh; line-height:2.5vh; text-align:center; vertical-align: middle; color:white; font-size:1.7vh; font-style: italic; font-family: " Times New Roman ", Georgia, Serif;"> Charting Continuous Colormap </h4>
+    </div>
+  </div>
+
+
+  <div style="width:100%; height:10vh;   margin:0px;">
+
+    <div class="row" style="width:100%; background:rgb(0,191,255);">
+      <div class="dropdown">
+        <button class="dropbtn">Go to ...</button>
+        <div class="dropdown-content">
+          <button id="id_ButtonToMyMapsPage">My Maps</button>
+          <button>Tutorial</button>
+          <button>About</button>
+        </div>
+      </div>
+      <h2 id="id_SideLabel" style="width:80%; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; margin:0px; color:white; margin:0px; font-size:3vh; font-style: italic; font-family: " Times New Roman ", Georgia, Serif; "> My Maps</h2>
+    </div>
+
+    <div class="row" style="width:100%; height:5vh;background:rgb(60,60,60); overflow-x:auto; margin-left:auto;">
+      <div id="id_Create_Menue" style="height:100%; width: auto; display: none;">
+        <div class="row" style="height:100%; width: auto;">
+          <h3 style="height:5vh; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; padding-left:20px; font-size:2vh;"> NAME: </h3>
+          <input id="id_InputMapName" type="text" name="key space" value="Cus. Colormap" style="height:2.5vh; line-height:2.5vh; font-size:2vh; text-align:center; vertical-align: middle; margin-top:0.5vh; margin-left:1vh; margin-right:1vh;">
+          <button class="classButtonDark" id="id_buttonExportCreateColormap" title="export" style="border-radius: 0.3vh; background: url(img/exportButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
+          <button class="classButtonDark" id="id_buttonSaveCreateColormap" title="save to My Maps" style="border-radius: 0.3vh; background: url(img/saveButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
+          <button class="classButtonDark" id="id_buttonLoadCreateColormap" title="load" style="border-radius: 0.3vh; background: url(img/loadButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
+          <button class="classButtonDark" id="id_buttonDeleteCreateColormap" title="delete" style="border-radius: 0.3vh; background: url(img/trashButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
+          <button class="classButtonDark" id="id_buttonBackwardCreateColormap" title="backward" style="border-radius: 0.3vh; background: url(img/backwardsButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white;"></button>
+          <button class="classButtonDark" id="id_buttonForwardCreateColormap" title="forward" style="border-radius: 0.3vh; background: url(img/forwardsButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
+          <button class="classButtonDark" id="id_buttonHelpCreateColormap" title="hover for help" style="border-radius: 0.3vh; background: url(img/helpButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
+        </div>
+      </div>
+
+      <div id="id_Colorspace_Menue" style="height:100%; width: auto; margin-left:auto;">
+        <div class="row" style="height:100%; width: auto;">
+
+          <h3 style="height:1.5cm; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:1cm; font-size:2vh;"> Colorspace: </h3>
+          <button class="classButtonDark" id="button_RGB" title="RGB" onclick="changeColorspace(0)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:3vh; font-size:1.75vh; margin:1vh; border: 0.2vh solid rgb(0,191,255); color: rgb(0,191,255); ">RGB</button>
+          <button class="classButtonDark" id="button_HSV" title="HSV" onclick="changeColorspace(1)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:3vh; font-size:1.75vh; margin:1vh; border: 0.2vh solid white; color:white; ">HSV</button>
+          <button class="classButtonDark" id="button_LAB" title="LAB" onclick="changeColorspace(2)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:3vh; font-size:1.75vh; margin:1vh; border: 0.2vh solid white; color:white; ">LAB</button>
+          <button class="classButtonDark" id="button_DIN99" title="DIN99" onclick="changeColorspace(3)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:3vh; font-size:1.75vh; margin:1vh; border: 0.2vh solid white; color:white;">DIN99</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 
-
-            <div id="id_menu" class="row" style="width:100%; height:auto; background: rgb(0,0,0);position: -webkit-sticky; position: sticky; margin:0px;">
-                <img src="img/CCC-LOGO.png" alt="CCC-Tool Logo" style="margin-top:0.1vh; margin-bottom:0.1vh; height:8vh; margin-left:auto;">
-                <div style="margin-left:20px; margin-right:auto;">
-                  <h1 style="margin-top:0vh; margin-bottom:0vh; height:5.5vh; line-height:5.5vh; text-align:center; vertical-align: middle; color:white; font-size:5vh; font-family: "Times New Roman", Georgia, Serif;"> CCC-TOOL </h1>
-                  <h4 style="margin-top:0vh; margin-bottom:0vh; height:2.5vh; line-height:2.5vh; text-align:center; vertical-align: middle; color:white; font-size:1.7vh; font-style: italic; font-family: "Times New Roman", Georgia, Serif;"> Charting Continuous Colormap </h4>
-                </div>
-                </div>
-
-
-            <div  style="width:100%; height:10vh;   margin:0px;">
-
-              <div class="row" style="width:100%; background:rgb(0,191,255);">
-
-
-                <div class="dropdown">
-                  <button class="dropbtn">Go to ...</button>
-                  <div class="dropdown-content">
-                    <button id="id_ButtonToMyMapsPage">My Maps</button>
-                    <button>Tutorial</button>
-                    <button>About</button>
-                  </div>
-                </div>
-                <h2 id="id_SideLabel" style="width:80%; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; margin:0px; color:white; margin:0px; font-size:3vh; font-style: italic; font-family: "Times New Roman", Georgia, Serif; "> My Maps</h2>
-
-            </div>
-
-              <div class="row" style="width:100%; height:5vh;background:rgb(60,60,60); overflow-x:auto; margin-left:auto;">
-                  <div id="id_Create_Menue" style="height:100%; width: auto; display: none;">
-                    <div class="row"  style="height:100%; width: auto;">
-                      <h3 style="height:5vh; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; padding-left:20px; font-size:2vh;"> NAME: </h3>
-                      <input  id = "id_InputMapName" type="text" name="key space" value="Cus. Colormap" style="height:2.5vh; line-height:2.5vh; font-size:2vh; text-align:center; vertical-align: middle; margin-top:0.5vh; margin-left:1vh; margin-right:1vh;">
-                      <button class="classButtonDark" id="id_buttonExportCreateColormap" title="export" style="border-radius: 0.3vh; background: url(img/exportButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
-                      <button class="classButtonDark" id="id_buttonSaveCreateColormap" title="save to My Maps" style="border-radius: 0.3vh; background: url(img/saveButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
-                      <button class="classButtonDark" id="id_buttonLoadCreateColormap" title="load" style="border-radius: 0.3vh; background: url(img/loadButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
-                      <button class="classButtonDark" id="id_buttonDeleteCreateColormap" title="delete" style="border-radius: 0.3vh; background: url(img/trashButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
-                      <button class="classButtonDark" id="id_buttonBackwardCreateColormap" title="backward" style="border-radius: 0.3vh; background: url(img/backwardsButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white;"></button>
-                      <button class="classButtonDark" id="id_buttonForwardCreateColormap" title="forward" style="border-radius: 0.3vh; background: url(img/forwardsButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
-                      <button class="classButtonDark" id="id_buttonHelpCreateColormap" title="hover for help" style="border-radius: 0.3vh; background: url(img/helpButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
-                    </div>
-                  </div>
-
-                  <div id="id_Colorspace_Menue" style="height:100%; width: auto; margin-left:auto;">
-                    <div class="row"  style="height:100%; width: auto;">
-
-                      <h3 style="height:1.5cm; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:1cm; font-size:2vh;"> Colorspace: </h3>
-                      <button class="classButtonDark" id="button_RGB" title="RGB" onclick="changeColorspace(0)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:3vh; font-size:1.75vh; margin:1vh; border: 0.2vh solid rgb(0,191,255); color: rgb(0,191,255); ">RGB</button>
-                      <button class="classButtonDark" id="button_HSV" title="HSV" onclick="changeColorspace(1)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:3vh; font-size:1.75vh; margin:1vh; border: 0.2vh solid white; color:white; ">HSV</button>
-                      <button class="classButtonDark" id="button_LAB" title="LAB" onclick="changeColorspace(2)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:3vh; font-size:1.75vh; margin:1vh; border: 0.2vh solid white; color:white; ">LAB</button>
-                      <button class="classButtonDark" id="button_DIN99" title="DIN99" onclick="changeColorspace(3)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:3vh; font-size:1.75vh; margin:1vh; border: 0.2vh solid white; color:white;">DIN99</button>
-                      </div>
-                  </div>
-              </div>
-            </div>
-
-
-
-		 <!--
+  <!--
         -----------------------------------------------
         ----------------	Creator Page ---------------
         ---------------- -------------------------------
         -->
-        <div id="id_creatorPage" style="width: 100%; height:auto; background:white; display: none;">
+  <div id="id_creatorPage" style="width: 100%; height:auto; background:white; display: none;">
 
 
-            <div class="row" style="height:100%; width: 100%;">
-
-
-
-                <div id="id_colormap_workwindow" style="width:100%; background:white;">
-
-
-                    <!-- Linear Colormap and Table -->
-                    <div id="id_LinearMap_Table_Div" style="display:none;">
-                        <div class="row" style="height:40vh; width:100%; margin:0px;">
-
-                            <div id="id_table_workwindow" style="height:99%; width:0%; display: flex; flex-direction: column;">
-
-                                    <h4 style=" width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; margin:0px; background:grey; color:white;">Colormap Table</h4>
-
-
-                                             <div style="height:37vh; overflow:auto;">
-                                                    <table style="width:100%" id="id_table">
-                                                    <thead>
-                                                        <tr style="border-top:1px solid white;">
-                                                            <th class="class_tablelabel" id="id_table_Number" style="width:4%; border-left:1px solid white;" >#</th>
-                                                            <th class="class_tablelabel" id="id_table_Reference1" style="width:9%;">Reference 1</th>
-                                                            <th class="class_tablelabel" id="id_table_Reference2" style="width:9%;">Reference 2</th>
-                                                            <th class="class_tablelabel" id="id_table_Bandtype" style="width:9%;">Band Type</th>
-                                                            <th class="class_tablelabel" id="id_table_Color1" style="width:9%;">C1 (RGB)</th>
-                                                            <th class="class_tablelabel" id="id_table_Color2" style="width:9%;">C2 (RGB)</th>
-                                                        </tr>
-                                                    </thead>
-
-                                                            <tbody id="id_tableBody">
-
-                                                            </tbody>
-
-                                                    </table>
-                                            </div>
-
-                            </div>
-
-                            <div id="id_expandTablebutton" title="expand table" style="height:100%; width:1%; border-radius: 0px 10px 10px 0px; height:100%; background: url(img/expandTableButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; cursor:pointer;">
-                            </div>
-
-                            <!-- colormaps -->
-                            <div id="id_colormapsDiv" style="height: 100%; width:99%; margin:0px;">
-
-                                    <div style="height:100%; width:100%; padding-top: 0.5vh;">
-
-                                        <h4 style="width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Linear Colormap</h4>
-
-                                        <canvas style="margin-top: 0px; width:100%; height: 6vh; margin-left:0%; " id="id_keyColormap">
-
-                                        </canvas>
-                                        <canvas style="margin-top: 0px; width:95%; height: 23vh; margin-left:2.5%; margin-bottom:0px;" id="id_linearColormap">
-
-                                        </canvas>
-                                        <canvas style="margin-top: 0px; width:100%; height: 2vh; margin-left:0%;" id="id_keyColormapLinesBottom">
-
-                                        </canvas>
-                                        <div class="row" style="width:100%;">
-                                          <input  id = "id_linearMap_InputLeftRef" type="text" name="key space" value="0.00" style="margin:0px; height:2vh; line-height:2vh; font-size:1.8vh; text-align:center; vertical-align: middle;margin-left:2px; width:5%;" >
-                                          <div style="width:89%"> </div>
-                                          <input  id = "id_linearMap_InputRightRef" type="text" name="key space" value="1.00" style="margin:0px; height:2vh; line-height:2vh; font-size:1.8vh; text-align:center; vertical-align: middle;margin-right:2px; width:5%;">
-                                        </div>
-                                    </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <!-- Colormap Sketch Bands -->
-                    <div class="row" style="height:20vh; width:100%; margin:0px; background:rgb(230,230,230); border-top:2px solid black;">
-                        <div style="height:auto; width:98%; margin:auto; background:white; padding-bottom:1vh;">
-                            <h4 style="width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Colormap Band Sketch</h4>
-
-                            <div class="row" style="margin-top: 1vh; width:95%; height: 8vh; margin-left:auto;  margin-right:auto;" id="id_colormapSketch">
-                            </div>
-
-                            <div class="row" style="margin-top: 0px; width:95%; height: 2vh; margin-left:auto;  margin-right:auto; margin-bottom:3vh;" id="id_colormapSketch_Ref">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Predefined Bands -->
-                    <div class="row" style="height:auto; width:100%; margin:0px; ">
-                        <!-- existing colors -->
-
-                        <div style="height:auto; width:100%; background:rgb(200,200,200);">
-
-                            <div id="id_tmpContainer" style="height:0px; width:0px;"></div>
-
-                            <div class="row" style="width:100%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255);">
-                                <h4 style=" margin: 0px; width:15%; height:3vh; line-height:3vh; font-size:2vh; text-align:right; vertical-align: middle;color:black; margin-top:1vh;">Constant Band:</h4>
-                                <div  style="width:85%; height:auto;">
-                                    <div id="id_ConstantBand_Div" style=" display: inline-block; width:100%; height:auto;">
-                                    <button id="button_AddConstantBand" onclick="addBand(0)" title="Add Constant Band" class="class_predefinedConstBands" style="color: black;">add</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row" style="width:100%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255);">
-                                <h4 style=" margin: 0px; width:15%; height:3vh; line-height:3vh; font-size:2vh; text-align:right; vertical-align: middle;color:black; margin-top:1vh;">Scale Band:</h4>
-                                <div style="width:85%; height:auto;">
-
-                                    <div id="id_ScaleBand_Div" style=" display: inline-block; width:100%; height:auto;">
-                                    <button id="button_AddScaleBand" onclick="addBand(1)" title="Add Scale Band" class="class_predefinedConstBands" style="color: black;">add</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row" style="width:100%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255);">
-                                <h4 style=" margin: 0px; width:15%; height:3vh; line-height:3vh; font-size:2vh; text-align:right; vertical-align: middle;color:black; margin-top:1vh;">Double Bands:</h4>
-                                <div style="width:85%; height:auto;">
-
-                                    <div id="id_DoubleBands_Div" style=" display: inline-block; width:100%; height:auto;">
-                                    <button id="button_AddDoubleBands" onclick="addBand(2)" title="Add Double Bands"  class="class_predefinedConstBands" style="color: black;">add</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row" style="width:100%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255);">
-                                <h4 style=" margin: 0px; width:15%; height:3vh; line-height:3vh; font-size:2vh; text-align:right; vertical-align: middle;color:black; margin-top:1vh;">Triple Bands:</h4>
-                                <div style="width:85%; height:auto;">
-
-                                    <div id="id_TripleBands_Div" style=" display: inline-block; width:100%; height:auto;">
-                                    <button id="button_AddTripleBands" onclick="addBand(3)" title="Add Triple Bands"  class="class_predefinedConstBands" style="color: black;">add</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row" style="width:100%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255);">
-                                <h4 style=" margin: 0px; width:15%; height:3vh; line-height:3vh; font-size:2vh; text-align:right; vertical-align: middle;color:black; margin-top:1vh;">Quadrupel Bands:</h4>
-                                <div style="width:85%; height:auto;">
-                                    <div id="id_QuadrupelBands_Div" style=" display: inline-block; width:100%; height:auto;">
-                                        <button id="button_AddQuadrupelBands" onclick="addBand(4)" title="Add Quadrupel Bands"  class="class_predefinedConstBands" style="color: black;">add</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
+    <div class="row" style="height:100%; width: 100%;">
 
 
 
-                    </div>
+      <div id="id_colormap_workwindow" style="width:100%; background:white;">
 
-                </div>
+
+        <!-- Linear Colormap and Table -->
+        <div id="id_LinearMap_Table_Div" style="display:none;">
+          <div class="row" style="height:40vh; width:100%; margin:0px;">
+
+            <div id="id_table_workwindow" style="height:99%; width:0%; display: flex; flex-direction: column;">
+
+              <h4 style=" width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; margin:0px; background:grey; color:white;">Colormap Table</h4>
+
+
+              <div style="height:37vh; overflow:auto;">
+                <table style="width:100%" id="id_table">
+                  <thead>
+                    <tr style="border-top:1px solid white;">
+                      <th class="class_tablelabel" id="id_table_Number" style="width:4%; border-left:1px solid white;">#</th>
+                      <th class="class_tablelabel" id="id_table_Reference1" style="width:9%;">Reference 1</th>
+                      <th class="class_tablelabel" id="id_table_Reference2" style="width:9%;">Reference 2</th>
+                      <th class="class_tablelabel" id="id_table_Bandtype" style="width:9%;">Band Type</th>
+                      <th class="class_tablelabel" id="id_table_Color1" style="width:9%;">C1 (RGB)</th>
+                      <th class="class_tablelabel" id="id_table_Color2" style="width:9%;">C2 (RGB)</th>
+                    </tr>
+                  </thead>
+
+                  <tbody id="id_tableBody">
+
+                  </tbody>
+
+                </table>
+              </div>
 
             </div>
+
+            <div id="id_expandTablebutton" title="expand table" style="height:100%; width:1%; border-radius: 0px 10px 10px 0px; height:100%; background: url(img/expandTableButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; cursor:pointer;">
+            </div>
+
+            <!-- colormaps -->
+            <div id="id_colormapsDiv" style="height: 100%; width:99%; margin:0px;">
+
+              <div style="height:100%; width:100%; padding-top: 0.5vh;">
+
+                <h4 style="width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Linear Colormap</h4>
+
+                <canvas style="margin-top: 0px; width:100%; height: 6vh; margin-left:0%; " id="id_keyColormap">
+
+                                        </canvas>
+                <canvas style="margin-top: 0px; width:95%; height: 23vh; margin-left:2.5%; margin-bottom:0px;" id="id_linearColormap">
+
+                                        </canvas>
+                <canvas style="margin-top: 0px; width:100%; height: 2vh; margin-left:0%;" id="id_keyColormapLinesBottom">
+
+                                        </canvas>
+                <div class="row" style="width:100%;">
+                  <input id="id_linearMap_InputLeftRef" type="text" name="key space" value="0.00" style="margin:0px; height:2vh; line-height:2vh; font-size:1.8vh; text-align:center; vertical-align: middle;margin-left:2px; width:5%;">
+                  <div style="width:89%"> </div>
+                  <input id="id_linearMap_InputRightRef" type="text" name="key space" value="1.00" style="margin:0px; height:2vh; line-height:2vh; font-size:1.8vh; text-align:center; vertical-align: middle;margin-right:2px; width:5%;">
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Colormap Sketch Bands -->
+        <div class="row" style="height:20vh; width:100%; margin:0px; background:rgb(230,230,230); border-top:2px solid black;">
+          <div style="height:auto; width:98%; margin:auto; background:white; padding-bottom:1vh;">
+            <h4 style="width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Colormap Band Sketch</h4>
+
+            <div class="row" style="margin-top: 1vh; width:95%; height: 8vh; margin-left:auto;  margin-right:auto;" id="id_colormapSketch">
+            </div>
+
+            <div class="row" style="margin-top: 0px; width:95%; height: 2vh; margin-left:auto;  margin-right:auto; margin-bottom:3vh;" id="id_colormapSketch_Ref">
+            </div>
+          </div>
+        </div>
+
+        <!-- Predefined Bands -->
+        <div class="row" style="height:auto; width:100%; margin:0px; ">
+          <!-- existing colors -->
+
+          <div style="height:auto; width:100%; background:rgb(200,200,200);">
+
+            <div id="id_tmpContainer" style="height:0px; width:0px;"></div>
+
+            <div class="row" style="width:100%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255);">
+              <h4 style=" margin: 0px; width:15%; height:3vh; line-height:3vh; font-size:2vh; text-align:right; vertical-align: middle;color:black; margin-top:1vh;">Constant Band:</h4>
+              <div style="width:85%; height:auto;">
+                <div id="id_ConstantBand_Div" style=" display: inline-block; width:100%; height:auto;">
+                  <button id="button_AddConstantBand" onclick="addBand(0)" title="Add Constant Band" class="class_predefinedConstBands" style="color: black;">add</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" style="width:100%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255);">
+              <h4 style=" margin: 0px; width:15%; height:3vh; line-height:3vh; font-size:2vh; text-align:right; vertical-align: middle;color:black; margin-top:1vh;">Scale Band:</h4>
+              <div style="width:85%; height:auto;">
+
+                <div id="id_ScaleBand_Div" style=" display: inline-block; width:100%; height:auto;">
+                  <button id="button_AddScaleBand" onclick="addBand(1)" title="Add Scale Band" class="class_predefinedConstBands" style="color: black;">add</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" style="width:100%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255);">
+              <h4 style=" margin: 0px; width:15%; height:3vh; line-height:3vh; font-size:2vh; text-align:right; vertical-align: middle;color:black; margin-top:1vh;">Double Bands:</h4>
+              <div style="width:85%; height:auto;">
+
+                <div id="id_DoubleBands_Div" style=" display: inline-block; width:100%; height:auto;">
+                  <button id="button_AddDoubleBands" onclick="addBand(2)" title="Add Double Bands" class="class_predefinedConstBands" style="color: black;">add</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" style="width:100%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255);">
+              <h4 style=" margin: 0px; width:15%; height:3vh; line-height:3vh; font-size:2vh; text-align:right; vertical-align: middle;color:black; margin-top:1vh;">Triple Bands:</h4>
+              <div style="width:85%; height:auto;">
+
+                <div id="id_TripleBands_Div" style=" display: inline-block; width:100%; height:auto;">
+                  <button id="button_AddTripleBands" onclick="addBand(3)" title="Add Triple Bands" class="class_predefinedConstBands" style="color: black;">add</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" style="width:100%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255);">
+              <h4 style=" margin: 0px; width:15%; height:3vh; line-height:3vh; font-size:2vh; text-align:right; vertical-align: middle;color:black; margin-top:1vh;">Quadrupel Bands:</h4>
+              <div style="width:85%; height:auto;">
+                <div id="id_QuadrupelBands_Div" style=" display: inline-block; width:100%; height:auto;">
+                  <button id="button_AddQuadrupelBands" onclick="addBand(4)" title="Add Quadrupel Bands" class="class_predefinedConstBands" style="color: black;">add</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
 
 
         </div>
 
+      </div>
 
-         <!--
+    </div>
+
+
+  </div>
+
+
+  <!--
         -----------------------------------------------
         ----------------	MY List	  -----------------
         -----------------------------------------------
         -->
-        <div id="id_myListPage" style="width: 100%; background:white;">
+  <div id="id_myListPage" style="width: 100%; background:white;">
 
-          <div style="background:white">
-            <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:4vh; vertical-align:middle; margin-top:0vh; padding-top:2vh;"> Manage Your Colormaps </h1>
+    <div style="background:white">
+      <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:4vh; vertical-align:middle; margin-top:0vh; padding-top:2vh;"> Manage Your Colormaps </h1>
 
-            <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
-              <strong>Welcome</strong> to the CCC-Tool. The following is a short instruduction.
-              For a comprehensive introduction please visit the tutorial.
-              The present page is the My Maps side, where you can manage your set of colormaps and handle the available options for the colormaps.
-              You can reach this window everytime by clicking on the "My Maps" button at the right top corner.
-              For a easy and fast start you can choose the option of adding an existing colormap (click on the "Add Existing Map" button).
-              The new displayed side show you a set of common used colormaps. Your selection will automatically tranfer to this side, where you can customize these maps.
-              Alternative to the selction of a existing colormap you can create your own colormap, which meet your special requirements (click on the "Create New Map" button).
-              If you need help at the creator side please hover the questionmark button at the top for a short help or visit the tutorial.
-              <strong>Start with:</strong>
+      <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
+        <strong>Welcome</strong> to the CCC-Tool. The following is a short instruduction. For a comprehensive introduction please visit the tutorial. The present page is the My Maps side, where you can manage your set of colormaps and handle the available
+        options for the colormaps. You can reach this window everytime by clicking on the "My Maps" button at the right top corner. For a easy and fast start you can choose the option of adding an existing colormap (click on the "Add Existing Map" button).
+        The new displayed side show you a set of common used colormaps. Your selection will automatically tranfer to this side, where you can customize these maps. Alternative to the selction of a existing colormap you can create your own colormap, which
+        meet your special requirements (click on the "Create New Map" button). If you need help at the creator side please hover the questionmark button at the top for a short help or visit the tutorial.
+        <strong>Start with:</strong>
+        <p>
+
+          <button class="classButtonWhite" id="id_MyListAddColormapButton" title="ADD" style="border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 30%; height:5vh; line-height:5vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180); margin-left:15%;"> Add Existing Map</button>
+          <button class="classButtonWhite" id="id_MyListCreateColormapButton" title="CREATE" style="border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 30%; height:5vh; line-height:5vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180); margin-left:5%;"> Create New Map</button>
+
+          <hr>
+          <p id="id_myListInfo" style=" width:100%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; color:red;">
             <p>
-
-            <button class="classButtonWhite" id = "id_MyListAddColormapButton" title="ADD" style="border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 30%; height:5vh; line-height:5vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180); margin-left:15%;"> Add Existing Map</button>
-            <button class="classButtonWhite" id = "id_MyListCreateColormapButton" title="CREATE" style="border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 30%; height:5vh; line-height:5vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180); margin-left:5%;"> Create New Map</button>
-
-            <hr>
-            <p id="id_myListInfo" style=" width:100%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; color:red;"><p>
-            <div class="row" style="width:100%; margin-top:2vh;">
+              <div class="row" style="width:100%; margin-top:2vh;">
 
 
                 <div class="row" style="width:50%; height: 5vh;">
 
-                      <canvas id="id_canvasMyListColormap0" class="class_MyListColormapCanvas" style="height:100%; width:70%; margin-left:4%; border-radius: 0.5vh;">
+                  <canvas id="id_canvasMyListColormap0" class="class_MyListColormapCanvas" style="height:100%; width:70%; margin-left:4%; border-radius: 0.5vh;">
 
                       </canvas>
 
-                      <button onclick="exportColormapFromMyMaps(0)" class="classButtonWhite" id = "id_buttonExportMyList0" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
-                      <button onclick="openEditColormapFromMyMaps(0)" class="classButtonWhite" id = "id_buttonEditMyList0" title="edit" style="border-radius: 0.5vh; background: url(img/editButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
-                      <button onclick="deletetColormapFromMyMaps(0)" class="classButtonWhite" id = "id_buttonDeleteMyList0" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto;"></button>
-                      <button onclick="acceptColormapFromMyMaps(0)" class="classButtonWhite" id = "id_buttonAcceptMyList0" title="select" style="border-radius: 0.5vh; background: url(img/acceptButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto; display:none"></button>
+                  <button onclick="exportColormapFromMyMaps(0)" class="classButtonWhite" id="id_buttonExportMyList0" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
+                  <button onclick="openEditColormapFromMyMaps(0)" class="classButtonWhite" id="id_buttonEditMyList0" title="edit" style="border-radius: 0.5vh; background: url(img/editButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
+                  <button onclick="deletetColormapFromMyMaps(0)" class="classButtonWhite" id="id_buttonDeleteMyList0" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto;"></button>
+                  <button onclick="acceptColormapFromMyMaps(0)" class="classButtonWhite" id="id_buttonAcceptMyList0" title="select" style="border-radius: 0.5vh; background: url(img/acceptButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto; display:none"></button>
 
                 </div>
 
                 <div class="row" style="width:50%; height: 5vh;">
 
-                      <canvas id="id_canvasMyListColormap5" class="class_MyListColormapCanvas" style="height:100%; width:70%; margin-left:4%; border-radius: 0.5vh;">
+                  <canvas id="id_canvasMyListColormap5" class="class_MyListColormapCanvas" style="height:100%; width:70%; margin-left:4%; border-radius: 0.5vh;">
 
                       </canvas>
 
-                      <button onclick="exportColormapFromMyMaps(5)" class="classButtonWhite" id = "id_buttonExportMyList5" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
-                      <button onclick="openEditColormapFromMyMaps(5)" class="classButtonWhite" id = "id_buttonEditMyList5" title="edit" style="border-radius: 0.5vh; background: url(img/editButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
-                      <button onclick="deletetColormapFromMyMaps(5)" class="classButtonWhite" id = "id_buttonDeleteMyList5" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto;"></button>
-                      <button onclick="acceptColormapFromMyMaps(5)" class="classButtonWhite" id = "id_buttonAcceptMyList5" title="select" style="border-radius: 0.5vh; background: url(img/acceptButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto; display:none"></button>
+                  <button onclick="exportColormapFromMyMaps(5)" class="classButtonWhite" id="id_buttonExportMyList5" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
+                  <button onclick="openEditColormapFromMyMaps(5)" class="classButtonWhite" id="id_buttonEditMyList5" title="edit" style="border-radius: 0.5vh; background: url(img/editButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
+                  <button onclick="deletetColormapFromMyMaps(5)" class="classButtonWhite" id="id_buttonDeleteMyList5" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto;"></button>
+                  <button onclick="acceptColormapFromMyMaps(5)" class="classButtonWhite" id="id_buttonAcceptMyList5" title="select" style="border-radius: 0.5vh; background: url(img/acceptButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto; display:none"></button>
 
                 </div>
 
-            </div>
+              </div>
 
-            <div class="row" style="width:100%; margin-top:2vh;">
+              <div class="row" style="width:100%; margin-top:2vh;">
                 <div class="row" style="width:50%; height: 5vh;">
 
-                      <canvas id="id_canvasMyListColormap1" class="class_MyListColormapCanvas" style="height:100%; width:70%; margin-left:4%; border-radius: 0.5vh;">
+                  <canvas id="id_canvasMyListColormap1" class="class_MyListColormapCanvas" style="height:100%; width:70%; margin-left:4%; border-radius: 0.5vh;">
 
                       </canvas>
 
-                      <button onclick="exportColormapFromMyMaps(1)" class="classButtonWhite" id = "id_buttonExportMyList1" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
-                      <button onclick="openEditColormapFromMyMaps(1)" class="classButtonWhite" id = "id_buttonEditMyList1" title="edit" style="border-radius: 0.5vh; background: url(img/editButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
-                      <button onclick="deletetColormapFromMyMaps(1)" class="classButtonWhite" id = "id_buttonDeleteMyList1" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto;"></button>
-                      <button onclick="acceptColormapFromMyMaps(1)" class="classButtonWhite" id = "id_buttonAcceptMyList1" title="select" style="border-radius: 0.5vh; background: url(img/acceptButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto; display:none"></button>
-
-                </div>
-
-                <div class="row" style="width:50%; height: 5vh;">
-
-                      <canvas id="id_canvasMyListColormap6" class="class_MyListColormapCanvas" style="height:100%; width:70%; margin-left:4%; border-radius: 0.5vh;">
-
-                      </canvas>
-
-                      <button onclick="exportColormapFromMyMaps(6)" class="classButtonWhite" id = "id_buttonExportMyList6" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
-                      <button onclick="openEditColormapFromMyMaps(6)" class="classButtonWhite" id = "id_buttonEditMyList6" title="edit" style="border-radius: 0.5vh; background: url(img/editButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
-                      <button onclick="deletetColormapFromMyMaps(6)" class="classButtonWhite" id = "id_buttonDeleteMyList6" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto;"></button>
-                      <button onclick="acceptColormapFromMyMaps(6)" class="classButtonWhite" id = "id_buttonAcceptMyList6" title="select" style="border-radius: 0.5vh; background: url(img/acceptButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto; display:none"></button>
-
-                </div>
-
-            </div>
-
-            <div class="row" style="width:100%; margin-top:2vh;">
-                <div class="row" style="width:50%; height: 5vh;">
-
-                      <canvas id="id_canvasMyListColormap2" class="class_MyListColormapCanvas" style="height:100%; width:70%; margin-left:4%; border-radius: 0.5vh;">
-
-                      </canvas>
-
-                      <button onclick="exportColormapFromMyMaps(2)" class="classButtonWhite" id = "id_buttonExportMyList2" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
-                      <button onclick="openEditColormapFromMyMaps(2)" class="classButtonWhite" id = "id_buttonEditMyList2" title="edit" style="border-radius: 0.5vh; background: url(img/editButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
-                      <button onclick="deletetColormapFromMyMaps(2)" class="classButtonWhite" id = "id_buttonDeleteMyList2" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto;"></button>
-                      <button onclick="acceptColormapFromMyMaps(2)" class="classButtonWhite" id = "id_buttonAcceptMyList2" title="select" style="border-radius: 0.5vh; background: url(img/acceptButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto; display:none"></button>
+                  <button onclick="exportColormapFromMyMaps(1)" class="classButtonWhite" id="id_buttonExportMyList1" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
+                  <button onclick="openEditColormapFromMyMaps(1)" class="classButtonWhite" id="id_buttonEditMyList1" title="edit" style="border-radius: 0.5vh; background: url(img/editButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
+                  <button onclick="deletetColormapFromMyMaps(1)" class="classButtonWhite" id="id_buttonDeleteMyList1" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto;"></button>
+                  <button onclick="acceptColormapFromMyMaps(1)" class="classButtonWhite" id="id_buttonAcceptMyList1" title="select" style="border-radius: 0.5vh; background: url(img/acceptButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto; display:none"></button>
 
                 </div>
 
                 <div class="row" style="width:50%; height: 5vh;">
 
-                      <canvas id="id_canvasMyListColormap7" class="class_MyListColormapCanvas" style="height:100%; width:70%; margin-left:4%; border-radius: 0.5vh;">
+                  <canvas id="id_canvasMyListColormap6" class="class_MyListColormapCanvas" style="height:100%; width:70%; margin-left:4%; border-radius: 0.5vh;">
 
                       </canvas>
 
-                      <button onclick="exportColormapFromMyMaps(7)" class="classButtonWhite" id = "id_buttonExportMyList7" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
-                      <button onclick="openEditColormapFromMyMaps(7)" class="classButtonWhite" id = "id_buttonEditMyList7" title="edit" style="border-radius: 0.5vh; background: url(img/editButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
-                      <button onclick="deletetColormapFromMyMaps(7)" class="classButtonWhite" id = "id_buttonDeleteMyList7" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto;"></button>
-                      <button onclick="acceptColormapFromMyMaps(7)" class="classButtonWhite" id = "id_buttonAcceptMyList7" title="select" style="border-radius: 0.5vh; background: url(img/acceptButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto; display:none"></button>
+                  <button onclick="exportColormapFromMyMaps(6)" class="classButtonWhite" id="id_buttonExportMyList6" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
+                  <button onclick="openEditColormapFromMyMaps(6)" class="classButtonWhite" id="id_buttonEditMyList6" title="edit" style="border-radius: 0.5vh; background: url(img/editButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
+                  <button onclick="deletetColormapFromMyMaps(6)" class="classButtonWhite" id="id_buttonDeleteMyList6" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto;"></button>
+                  <button onclick="acceptColormapFromMyMaps(6)" class="classButtonWhite" id="id_buttonAcceptMyList6" title="select" style="border-radius: 0.5vh; background: url(img/acceptButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto; display:none"></button>
 
                 </div>
 
-            </div>
+              </div>
 
-            <div class="row" style="width:100%; margin-top:2vh;">
+              <div class="row" style="width:100%; margin-top:2vh;">
                 <div class="row" style="width:50%; height: 5vh;">
 
-                      <canvas id="id_canvasMyListColormap3" class="class_MyListColormapCanvas" style="height:100%; width:70%; margin-left:4%; border-radius: 0.5vh;">
+                  <canvas id="id_canvasMyListColormap2" class="class_MyListColormapCanvas" style="height:100%; width:70%; margin-left:4%; border-radius: 0.5vh;">
 
                       </canvas>
 
-                      <button onclick="exportColormapFromMyMaps(3)" class="classButtonWhite" id = "id_buttonExportMyList3" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
-                      <button onclick="openEditColormapFromMyMaps(3)" class="classButtonWhite" id = "id_buttonEditMyList3" title="edit" style="border-radius: 0.5vh; background: url(img/editButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
-                      <button onclick="deletetColormapFromMyMaps(3)" class="classButtonWhite" id = "id_buttonDeleteMyList3" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto;"></button>
-                      <button onclick="acceptColormapFromMyMaps(3)" class="classButtonWhite" id = "id_buttonAcceptMyList3" title="select" style="border-radius: 0.5vh; background: url(img/acceptButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto; display:none"></button>
-
-                </div>
-
-                <div class="row" style="width:50%; height: 5vh;">
-
-                      <canvas id="id_canvasMyListColormap8" class="class_MyListColormapCanvas" style="height:100%; width:70%; margin-left:4%; border-radius: 0.5vh;">
-
-                      </canvas>
-
-                      <button onclick="exportColormapFromMyMaps(8)" class="classButtonWhite" id = "id_buttonExportMyList8" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
-                      <button onclick="openEditColormapFromMyMaps(8)" class="classButtonWhite" id = "id_buttonEditMyList8" title="edit" style="border-radius: 0.5vh; background: url(img/editButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
-                      <button onclick="deletetColormapFromMyMaps(8)" class="classButtonWhite" id = "id_buttonDeleteMyList8" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto;"></button>
-                      <button onclick="acceptColormapFromMyMaps(8)" class="classButtonWhite" id = "id_buttonAcceptMyList8" title="select" style="border-radius: 0.5vh; background: url(img/acceptButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto; display:none"></button>
-
-                </div>
-
-            </div>
-
-            <div class="row" style="width:100%; margin-top:2vh;margin-bottom:2vh;">
-                <div class="row" style="width:50%; height: 5vh;">
-
-                      <canvas id="id_canvasMyListColormap4" class="class_MyListColormapCanvas" style="height:100%; width:70%; margin-left:4%; border-radius: 0.5vh;">
-
-                      </canvas>
-
-                      <button onclick="exportColormapFromMyMaps(4)" class="classButtonWhite" id = "id_buttonExportMyList4" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
-                      <button onclick="openEditColormapFromMyMaps(4)" class="classButtonWhite" id = "id_buttonEditMyList4" title="edit" style="border-radius: 0.5vh; background: url(img/editButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
-                      <button onclick="deletetColormapFromMyMaps(4)" class="classButtonWhite" id = "id_buttonDeleteMyList4" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto;"></button>
-                      <button onclick="acceptColormapFromMyMaps(4)" class="classButtonWhite" id = "id_buttonAcceptMyList4" title="select" style="border-radius: 0.5vh; background: url(img/acceptButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto; display:none"></button>
+                  <button onclick="exportColormapFromMyMaps(2)" class="classButtonWhite" id="id_buttonExportMyList2" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
+                  <button onclick="openEditColormapFromMyMaps(2)" class="classButtonWhite" id="id_buttonEditMyList2" title="edit" style="border-radius: 0.5vh; background: url(img/editButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
+                  <button onclick="deletetColormapFromMyMaps(2)" class="classButtonWhite" id="id_buttonDeleteMyList2" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto;"></button>
+                  <button onclick="acceptColormapFromMyMaps(2)" class="classButtonWhite" id="id_buttonAcceptMyList2" title="select" style="border-radius: 0.5vh; background: url(img/acceptButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto; display:none"></button>
 
                 </div>
 
                 <div class="row" style="width:50%; height: 5vh;">
 
-                      <canvas id="id_canvasMyListColormap9" class="class_MyListColormapCanvas" style="height:100%; width:70%; margin-left:4%; border-radius: 0.5vh;">
+                  <canvas id="id_canvasMyListColormap7" class="class_MyListColormapCanvas" style="height:100%; width:70%; margin-left:4%; border-radius: 0.5vh;">
 
                       </canvas>
 
-                      <button onclick="exportColormapFromMyMaps(9)" class="classButtonWhite" id = "id_buttonExportMyList9" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
-                      <button onclick="openEditColormapFromMyMaps(9)" class="classButtonWhite" id = "id_buttonEditMyList9" title="edit" style="border-radius: 0.5vh; background: url(img/editButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
-                      <button onclick="deletetColormapFromMyMaps(9)" class="classButtonWhite" id = "id_buttonDeleteMyList9" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto;"></button>
-                      <button onclick="acceptColormapFromMyMaps(9)" class="classButtonWhite" id = "id_buttonAcceptMyList9" title="select" style="border-radius: 0.5vh; background: url(img/acceptButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto; display:none"></button>
+                  <button onclick="exportColormapFromMyMaps(7)" class="classButtonWhite" id="id_buttonExportMyList7" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
+                  <button onclick="openEditColormapFromMyMaps(7)" class="classButtonWhite" id="id_buttonEditMyList7" title="edit" style="border-radius: 0.5vh; background: url(img/editButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
+                  <button onclick="deletetColormapFromMyMaps(7)" class="classButtonWhite" id="id_buttonDeleteMyList7" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto;"></button>
+                  <button onclick="acceptColormapFromMyMaps(7)" class="classButtonWhite" id="id_buttonAcceptMyList7" title="select" style="border-radius: 0.5vh; background: url(img/acceptButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto; display:none"></button>
 
                 </div>
 
-            </div>
+              </div>
 
-            <hr>
+              <div class="row" style="width:100%; margin-top:2vh;">
+                <div class="row" style="width:50%; height: 5vh;">
 
-            <button class="classButtonWhite" id = "id_MyListCompareButton" title="Compare" style="border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 30%; height:5vh; line-height:5vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180); margin-left:15%;"> Compare two Maps </button>
-            <button class="classButtonWhite" id = "id_MyListAnalysisButton" title="Analysis" style=" margin-bottom:2vh; border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 30%; height:5vh; line-height:5vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180); margin-left:5%;"> Analyse a Map </button>
+                  <canvas id="id_canvasMyListColormap3" class="class_MyListColormapCanvas" style="height:100%; width:70%; margin-left:4%; border-radius: 0.5vh;">
 
-          </div>
-        </div>
+                      </canvas>
 
-        <!--
+                  <button onclick="exportColormapFromMyMaps(3)" class="classButtonWhite" id="id_buttonExportMyList3" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
+                  <button onclick="openEditColormapFromMyMaps(3)" class="classButtonWhite" id="id_buttonEditMyList3" title="edit" style="border-radius: 0.5vh; background: url(img/editButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
+                  <button onclick="deletetColormapFromMyMaps(3)" class="classButtonWhite" id="id_buttonDeleteMyList3" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto;"></button>
+                  <button onclick="acceptColormapFromMyMaps(3)" class="classButtonWhite" id="id_buttonAcceptMyList3" title="select" style="border-radius: 0.5vh; background: url(img/acceptButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto; display:none"></button>
+
+                </div>
+
+                <div class="row" style="width:50%; height: 5vh;">
+
+                  <canvas id="id_canvasMyListColormap8" class="class_MyListColormapCanvas" style="height:100%; width:70%; margin-left:4%; border-radius: 0.5vh;">
+
+                      </canvas>
+
+                  <button onclick="exportColormapFromMyMaps(8)" class="classButtonWhite" id="id_buttonExportMyList8" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
+                  <button onclick="openEditColormapFromMyMaps(8)" class="classButtonWhite" id="id_buttonEditMyList8" title="edit" style="border-radius: 0.5vh; background: url(img/editButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
+                  <button onclick="deletetColormapFromMyMaps(8)" class="classButtonWhite" id="id_buttonDeleteMyList8" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto;"></button>
+                  <button onclick="acceptColormapFromMyMaps(8)" class="classButtonWhite" id="id_buttonAcceptMyList8" title="select" style="border-radius: 0.5vh; background: url(img/acceptButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto; display:none"></button>
+
+                </div>
+
+              </div>
+
+              <div class="row" style="width:100%; margin-top:2vh;margin-bottom:2vh;">
+                <div class="row" style="width:50%; height: 5vh;">
+
+                  <canvas id="id_canvasMyListColormap4" class="class_MyListColormapCanvas" style="height:100%; width:70%; margin-left:4%; border-radius: 0.5vh;">
+
+                      </canvas>
+
+                  <button onclick="exportColormapFromMyMaps(4)" class="classButtonWhite" id="id_buttonExportMyList4" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
+                  <button onclick="openEditColormapFromMyMaps(4)" class="classButtonWhite" id="id_buttonEditMyList4" title="edit" style="border-radius: 0.5vh; background: url(img/editButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
+                  <button onclick="deletetColormapFromMyMaps(4)" class="classButtonWhite" id="id_buttonDeleteMyList4" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto;"></button>
+                  <button onclick="acceptColormapFromMyMaps(4)" class="classButtonWhite" id="id_buttonAcceptMyList4" title="select" style="border-radius: 0.5vh; background: url(img/acceptButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto; display:none"></button>
+
+                </div>
+
+                <div class="row" style="width:50%; height: 5vh;">
+
+                  <canvas id="id_canvasMyListColormap9" class="class_MyListColormapCanvas" style="height:100%; width:70%; margin-left:4%; border-radius: 0.5vh;">
+
+                      </canvas>
+
+                  <button onclick="exportColormapFromMyMaps(9)" class="classButtonWhite" id="id_buttonExportMyList9" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
+                  <button onclick="openEditColormapFromMyMaps(9)" class="classButtonWhite" id="id_buttonEditMyList9" title="edit" style="border-radius: 0.5vh; background: url(img/editButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
+                  <button onclick="deletetColormapFromMyMaps(9)" class="classButtonWhite" id="id_buttonDeleteMyList9" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto;"></button>
+                  <button onclick="acceptColormapFromMyMaps(9)" class="classButtonWhite" id="id_buttonAcceptMyList9" title="select" style="border-radius: 0.5vh; background: url(img/acceptButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto; display:none"></button>
+
+                </div>
+
+              </div>
+
+              <hr>
+
+              <button class="classButtonWhite" id="id_MyListCompareButton" title="Compare" style="border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 30%; height:5vh; line-height:5vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180); margin-left:15%;"> Compare two Maps </button>
+              <button class="classButtonWhite" id="id_MyListAnalysisButton" title="Analysis" style=" margin-bottom:2vh; border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 30%; height:5vh; line-height:5vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180); margin-left:5%;"> Analyse a Map </button>
+
+    </div>
+  </div>
+
+  <!--
         -----------------------------------------------
         ----------------	Compare	  -----------------
         -----------------------------------------------
         -->
-        <div id="id_comparePage" style="width: 100%; height:auto;  background:white; display:none;">
+  <div id="id_comparePage" style="width: 100%; height:auto;  background:white; display:none;">
 
-        </div>
+  </div>
 
-        <!--
+  <!--
         -----------------------------------------------
         ----------------	Analysis	  -----------------
         -----------------------------------------------
         -->
-        <div id="id_analysisPage" style="width: 100%; height:auto; background:white; display:none;">
-          <!-- Colormap Sketch Bands -->
-          <div class="row" style="height:20vh; width:100%; margin:0px; background:rgb(230,230,230); border-top:2px solid black;">
-              <div style="height:auto; width:98%; margin:auto; background:white; padding-bottom:1vh;">
-                  <h4 style="width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Colormap Band Sketch</h4>
+  <div id="id_analysisPage" style="width: 100%; height:auto; background:white; display:none;">
+    <!-- Colormap Sketch Bands -->
+    <div class="row" style="height:20vh; width:100%; margin:0px; background:rgb(230,230,230); border-top:2px solid black;">
+      <div style="height:auto; width:100%; margin:auto; background:white; padding-bottom:1vh;">
+        <h4 style="width:100%; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Colormap Band Sketch</h4>
 
-                  <div class="row" style="margin-top: 1vh; width:95%; height: 8vh; margin-left:auto;  margin-right:auto;" id="id_analyseColormapSketch">
-                  </div>
-
-                  <div class="row" style="margin-top: 0px; width:95%; height: 2vh; margin-left:auto;  margin-right:auto; margin-bottom:3vh;" id="id_analyseColormapSketch_Ref">
-                  </div>
-              </div>
-          </div>
+        <div class="row" style="margin-top: 1vh; width:95%; height: 8vh; margin-left:auto;  margin-right:auto;" id="id_analyseColormapSketch">
         </div>
 
-        <!--
+        <div class="row" style="margin-top: 0px; width:95%; height: 2vh; margin-left:auto;  margin-right:auto; margin-bottom:3vh;" id="id_analyseColormapSketch_Ref">
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Colorspace Preview-->
+    <div class="row" style="background:white; padding-top:2vh; padding-bottom:2vh;">
+      <div style="widht:auto; margin-left:auto;">
+      </div>
+      <h4 style="width:auto; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Colormap Course</h4>
+      <div class="dropdown" style="widht:auto; margin-right:auto;">
+        <button class="dropbtn" style="border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 2.5vh; height:2.5vh; margin-left:2vh; border: 2px solid black; margin-top:auto; margin-bottom:auto;"></button>
+        <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
+
+          <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>HELP:</strong> With the analyse of the colormap course, you can see how the colormap run to the hue space and how the colormap changes the lightness (brightness) value.
+          </p>
+          <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; ">
+            With the course in the hue space you can see how close together the band courses are or if they are crossing.
+            For a good colormap the band courses shouldn’t run to close together and they shouldn't cross.
+            Inside the hue space the course of a scaled band is shown with a solid line with a circle at the start- and end-color.
+            (<strong>Info:</strong>: You can modify the position of a circle with clicking and pressing the mousbotton above the circle and subsequent a move to the new position.)
+            Constant Bands are shown as a quad and can also modify like the circles of the scaled bands.
+            The dashed lines show you the jumps between two bands with different neighboring colors. They are not part of the colormap and they do not take into account for the analysis.
+          </p>
+          <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; ">
+            The course of the colormap through the brightness is also an important part for the analyse. Inside the plot for the brightness course you can evaluate the in- or decrease of the brightness. For neighboring band colors it could be also important to have a maximum or a minimus of difference.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="width:100%; background:white;">
+      <p class="classlabelRadioButton" style="margin-left:auto; font-weight:bold;">Colorspace:</p>
+      <input class="classlabelRadioButton" type="radio" id="analyseSideShowHSV" name="createSideCreateType" value="1">
+      <label class="classlabelRadioButton" for="analyseSideShowHSV"> HSV Colorspace </label><br>
+      <input class="classlabelRadioButton" type="radio" id="analyseSideShowLAB" name="createSideCreateType" value="1">
+      <label class="classlabelRadioButton" style="margin-right:auto;" for="analyseSideShowLAB"> LAB Colorspace </label><br>
+    </div>
+
+    <div class="row" style="width:100%; background:white; height:auto;">
+
+      <!-- Hue -->
+      <canvas id="id_anaylseCourseHueBackground" style="width:30vw; height:30vw;">
+
+      </canvas>
+      <canvas id="id_workcanvasAnalyseHue" style="z-index:2;">
+
+      </canvas>
+
+
+      <!-- Brightness -->
+      <canvas id="id_anaylseValue" style="width:68%; height:30vw;">
+
+
+      </canvas>
+
+    </div>
+
+
+
+  </div>
+
+  <!--
         -----------------------------------------------
         ----------------	Edit	  -----------------
         -----------------------------------------------
         -->
-        <div id="id_editPage" style="width: 100%; height:auto;   background:white; display:none;">
+  <div id="id_editPage" style="width: 100%; height:auto;   background:white; display:none;">
 
-        </div>
+  </div>
 
-        <!--
+  <!--
         -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         ----------------	POP UP WINDOWS
@@ -568,470 +612,481 @@
         -->
 
 
-        <!--
+  <!--
         ---------------------------------------------------
         ----------------	Band Edit Window  -------------
         ---------------------------------------------------
         -->
 
-        <div id="bandEditWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:101; top:0px; left:0px; bottom:0px; display:none;">
+  <div id="bandEditWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:101; top:0px; left:0px; bottom:0px; display:none;">
 
-            <div style="margin-top:15vh; height:auto; background: rgb(255,255,255); width:100%; border-top: 1vh solid black; border-bottom: 1vh solid black;">
-                <div class="row" style="background: none; height:55vh; width:100%; height:30%; padding-bottom:5vh; border-bottom:2px solid black;">
+    <div style="margin-top:15vh; height:auto; background: rgb(255,255,255); width:100%; border-top: 1vh solid black; border-bottom: 1vh solid black;">
+      <div class="row" style="background: none; height:55vh; width:100%; height:30%; padding-bottom:5vh; border-bottom:2px solid black;">
 
-                    <div style="width: 25%; height:30vh; border: 1px solid rgb(200,200,200); margin:0px;">
+        <div style="width: 25%; height:30vh; border: 1px solid rgb(200,200,200); margin:0px;">
 
-                                    <h4 style="width:100%; margin:0px; width:100%; height:5vh; line-height:5vh; font-size:3vh; text-align:center; vertical-align: middle; color:white; background:rgb(100,100,100); ">Left Neighbour</h4>
+          <h4 style="width:100%; margin:0px; width:100%; height:5vh; line-height:5vh; font-size:3vh; text-align:center; vertical-align: middle; color:white; background:rgb(100,100,100); ">Left Neighbour</h4>
 
-                                     <div class="row" style="background:none; height:4vh; margin-top: 0.5vh;">
-                                        <div style="width: 87.5%"> </div>
-                                        <div id="bandEdit_LeftNeiColor" style=" width:10%; height:100%; background: rgb(120,120,120); border: 0.2vh solid rgb(180,180,180); cursor:pointer;"> </div>
-                                    </div>
-                                    <div style="width:95%; border-right: 2px solid black; height:2vh;"></div>
-                                    <canvas id="bandEdit_LeftNeigCanvas" style="margin:0px; margin-left:5%; width:90%; height:10vh; background: rgb(120,120,120); border: 2px solid black;">
+          <div class="row" style="background:none; height:4vh; margin-top: 0.5vh;">
+            <div style="width: 87.5%"> </div>
+            <div id="bandEdit_LeftNeiColor" style=" width:10%; height:100%; background: rgb(120,120,120); border: 0.2vh solid rgb(180,180,180); cursor:pointer;"> </div>
+          </div>
+          <div style="width:95%; border-right: 2px solid black; height:2vh;"></div>
+          <canvas id="bandEdit_LeftNeigCanvas" style="margin:0px; margin-left:5%; width:90%; height:10vh; background: rgb(120,120,120); border: 2px solid black;">
 
                                     </canvas>
-                                    <div style="margin:0px; width:90%; margin-left:5%; border-right: 2px solid black; border-left: 2px solid black; height:2vh;"></div>
-                                    <div class="row" style="background:none; height:2vh; margin:0px; margin-bottom:auto;">
-                                        <p  id = "bandEdit_LeftNeiLeftRef"  style="margin:0px; height:2vh; line-height:2vh; font-size:1.8vh; text-align:center; vertical-align: middle; margin-left:5%; ">Nan</p>
-                                        <div style="width: 80%"> </div>
-                                        <p  id = "bandEdit_LeftNeiRightRef" style="margin:0px; height:2vh; line-height:2vh; font-size:1.8vh; text-align:center; vertical-align: middle; margin-right:5%; ">Nan</p>
-                                    </div>
+          <div style="margin:0px; width:90%; margin-left:5%; border-right: 2px solid black; border-left: 2px solid black; height:2vh;"></div>
+          <div class="row" style="background:none; height:2vh; margin:0px; margin-bottom:auto;">
+            <p id="bandEdit_LeftNeiLeftRef" style="margin:0px; height:2vh; line-height:2vh; font-size:1.8vh; text-align:center; vertical-align: middle; margin-left:5%; ">Nan</p>
+            <div style="width: 80%"> </div>
+            <p id="bandEdit_LeftNeiRightRef" style="margin:0px; height:2vh; line-height:2vh; font-size:1.8vh; text-align:center; vertical-align: middle; margin-right:5%; ">Nan</p>
+          </div>
 
-                    </div>
+        </div>
 
-                    <div style="width: 50%; height:30vh; margin:0px;">
+        <div style="width: 50%; height:30vh; margin:0px;">
 
-                            <h4 style="width:100%; margin:0px; width:100%; height:5vh; line-height:5vh; font-size:3vh; text-align:center; vertical-align: middle;color:white; background:rgb(100,100,100);">Edit Band</h4>
+          <h4 style="width:100%; margin:0px; width:100%; height:5vh; line-height:5vh; font-size:3vh; text-align:center; vertical-align: middle;color:white; background:rgb(100,100,100);">Edit Band</h4>
 
-                            <div class="row" style="background:none; height:4vh; margin-top: 0.5vh;">
-                                <!--input id="createSide_AddLeftColor" class="createSide_AddBandColor" type="color" name="favcolor" value="#787878" style="margin-left:2.5%"-->
+          <div class="row" style="background:none; height:4vh; margin-top: 0.5vh;">
+            <!--input id="createSide_AddLeftColor" class="createSide_AddBandColor" type="color" name="favcolor" value="#787878" style="margin-left:2.5%"-->
 
-                                <!--input id="createSide_AddRightColor" class="createSide_AddBandColor" type="color" name="favcolor" value="#787878"-->
-                                <div id="bandEdit_LeftColor" onclick="changeAcitveColorBandEditor(true)" style=" margin-left:2.5%;width:5%; height:100%; background: rgb(120,120,120); border: 0.4vh solid green;cursor:pointer;"> </div>
-                                <div id="bandEdit_LeftColorToRight" style=" margin-left:0.5%; width:5%; height:4vh; line-height:4vh; font-size:3vh; text-align:center; vertical-align:top;cursor:pointer; background:grey; color:white; border:0.2vh solid rgb(180,180,180);">&rarr;</div>
-                                <div style="width: 74%"> </div>
-                                <div id="bandEdit_RightColorToLeft" style=" margin-right:0.5%; width:5%; height:4vh; line-height:4vh; font-size:3vh; text-align:center; vertical-align:top;cursor:pointer; background:grey; color:white; border:0.2vh solid rgb(180,180,180);">&larr;</div>
-                                <div id="bandEdit_RightColor" onclick="changeAcitveColorBandEditor(false)" style=" width:5%; height:100%; background: rgb(120,120,120); border: 0.4vh solid black;cursor:pointer;"> </div>
+            <!--input id="createSide_AddRightColor" class="createSide_AddBandColor" type="color" name="favcolor" value="#787878"-->
+            <div id="bandEdit_LeftColor" onclick="changeAcitveColorBandEditor(true)" style=" margin-left:2.5%;width:5%; height:100%; background: rgb(120,120,120); border: 0.4vh solid green;cursor:pointer;"> </div>
+            <div id="bandEdit_LeftColorToRight" style=" margin-left:0.5%; width:5%; height:4vh; line-height:4vh; font-size:3vh; text-align:center; vertical-align:top;cursor:pointer; background:grey; color:white; border:0.2vh solid rgb(180,180,180);">&rarr;</div>
+            <div style="width: 74%"> </div>
+            <div id="bandEdit_RightColorToLeft" style=" margin-right:0.5%; width:5%; height:4vh; line-height:4vh; font-size:3vh; text-align:center; vertical-align:top;cursor:pointer; background:grey; color:white; border:0.2vh solid rgb(180,180,180);">&larr;</div>
+            <div id="bandEdit_RightColor" onclick="changeAcitveColorBandEditor(false)" style=" width:5%; height:100%; background: rgb(120,120,120); border: 0.4vh solid black;cursor:pointer;"> </div>
 
-                            </div>
-                            <div style="width:90%; margin-left:5%; border-right: 2px solid black; border-left: 2px solid black; height:2vh;"></div>
+          </div>
+          <div style="width:90%; margin-left:5%; border-right: 2px solid black; border-left: 2px solid black; height:2vh;"></div>
 
-                            <canvas id="bandEdit_EditCanvas" style="margin-left:5%; width:90%; height:10vh; background: rgb(120,120,120); border: 2px solid black;">
+          <canvas id="bandEdit_EditCanvas" style="margin-left:5%; width:90%; height:10vh; background: rgb(120,120,120); border: 2px solid black;">
 
 
                             </canvas>
 
-                            <div style="width:90%; margin-left:5%; border-right: 2px solid black; border-left: 2px solid black; height:2vh;"></div>
+          <div style="width:90%; margin-left:5%; border-right: 2px solid black; border-left: 2px solid black; height:2vh;"></div>
 
-                            <div class="row" style="background:none;height:2vh; margin:0px;">
-                                <input  id = "bandEdit_InputLeftRef" type="text" name="key space" value="0" style="margin:0px; height:2vh; line-height:2vh; font-size:1.8vh; text-align:center; vertical-align: middle;margin-left:2.5%; width:10%;" >
-                                <div style="width: 75%"> </div>
-                                <input  id = "bandEdit_InputRightRef" type="text" name="key space" value="1" style="margin:0px; height:2vh; line-height:2vh; font-size:1.8vh; text-align:center; vertical-align: middle;margin-right:2.5%; width:10%;">
-                            </div>
+          <div class="row" style="background:none;height:2vh; margin:0px;">
+            <input id="bandEdit_InputLeftRef" type="text" name="key space" value="0" style="margin:0px; height:2vh; line-height:2vh; font-size:1.8vh; text-align:center; vertical-align: middle;margin-left:2.5%; width:10%;">
+            <div style="width: 75%"> </div>
+            <input id="bandEdit_InputRightRef" type="text" name="key space" value="1" style="margin:0px; height:2vh; line-height:2vh; font-size:1.8vh; text-align:center; vertical-align: middle;margin-right:2.5%; width:10%;">
+          </div>
 
-
-                    </div>
-
-                    <div  style="width: 25%; height:30vh; border: 1px solid rgb(200,200,200); margin:0px;">
-
-                                    <h4  style="width:100%; margin:0px; width:100%; height:5vh; line-height:5vh; font-size:3vh; text-align:center; vertical-align: middle;color:white; background:rgb(100,100,100);">Right Neighbour</h4>
-
-                                     <div class="row" style="background:none; height:4vh; margin-top: 0.5vh;">
-                                         <div id="bandEdit_RightNeiColor" style=" margin-left:2.5%; width:10%; height:100%; background: rgb(120,120,120); border: 0.2vh solid rgb(180,180,180);cursor:pointer;"> </div>
-                                        <div style="width: 87.5%"> </div>
-                                    </div>
-                                    <div style="margin-left:5%; width:95%; border-left: 2px solid black; height:2vh;"></div>
-                                    <canvas id="bandEdit_RightNeigCanvas" style="margin-left:5%; width:90%; height:10vh; background: rgb(120,120,120); border: 2px solid black;">
-
-                                    </canvas>
-                                    <div style="width:90%; margin-left:5%; border-right: 2px solid black; border-left: 2px solid black; height:2vh;"></div>
-                                    <div class="row" style="background:none;height:2vh; margin:0px;">
-                                        <p  id = "bandEdit_RightNeiLeftRef"  style="margin:0px; height:2vh; line-height:2vh; font-size:1.8vh; text-align:center; vertical-align: middle;margin-left:5%">Nan</p>
-                                        <div style="width: 80%"> </div>
-                                        <p  id = "bandEdit_RightNeiRightRef" style="margin:0px; height:2vh; line-height:2vh; font-size:1.8vh; text-align:center; vertical-align: middle;margin-right:5%">Nan</p>
-                                    </div>
-
-
-                    </div>
-
-                </div>
-
-                <div  class="row" style="width:100%; height:35vh; " >
-
-                    <div style="width:35%; margin-right:auto; background:rgb(255,255,255);  margin-left:auto; margin-top:0px;">
-                            <h3 style="height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:black; font-size:4vh;"> Colorspace: </h3>
-                            <div class="row" style=" height:10vh; margin-top:2vh; width:100%;">
-                            <button id="id_BandEditbutton_RGB" title="RGB" onclick="changeBandEditorColorspace(0)" style="width: 30%; margin-left:auto; margin-right:2vh; margin-top:3vh; border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; height:10vh; font-size:4vh;  border: 0.4vh solid  green; color: 	green; ">RGB</button><br>
-                            <button id="id_BandEditbutton_HSV" title="HSV" onclick="changeBandEditorColorspace(1)" style="width: 30%; margin-left:0px;; margin-right:auto; margin-top:3vh;border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center;  height:10vh; font-size:4vh;  border: 0.4vh solid black; color:black; ">HSV</button><br>
-                            </div>
-                            <div class="row" style=" height:10vh; margin-top:2vh; width:100%;">
-                            <button id="id_BandEditbutton_LAB" title="LAB" onclick="changeBandEditorColorspace(2)" style="width: 30%; margin-left:auto; margin-right:2vh; margin-top:3vh;border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center;  height:10vh; font-size:4vh;  border: 0.4vh solid black; color:black; ">LAB</button><br>
-                            <button id="id_BandEditbutton_DIN99" title="DIN99" onclick="changeBandEditorColorspace(3)" style="width: 30%; margin-left:0px; margin-right:auto; margin-top:3vh; margin-bottom:3vh;border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center;  height:10vh; font-size:4vh; border: 0.4vh solid black; color:black;">DIN99</button>
-                            </div>
-                    </div>
-
-                    <div class="row" style="height:35vh; width:30%;  margin:0px; background:rgb(255,255,255); margin-top:0px;">
-
-                                            <div style="height:33vh; width:15%; margin-left:2.5%; margin-right:2.5%; margin-top: 1vh; margin-bottom: 1vh;">
-                                                <canvas id="id_BandEditcanvasPickerC1V" style="width:100%; height:100%; border: 1px solid black;" >
-                                                </canvas>
-                                            </div>
-
-
-                                            <div style="height:33vh; width:77.5%; margin-right:2.5%; margin-top: 1vh; margin-bottom: 1vh;">
-                                                <canvas id="id_bandEditCanvasPickerHS" style="width:100%; height:100%; border: 1px solid black; z-index:102;" >
-                                                </canvas>
-                                                <canvas id="id_bandEditWorkcanvasPicker" style="z-index:103;" >
-                                                </canvas>
-                                            </div>
-                    </div>
-
-                    <div  style="width:35%; margin-left:auto; background:rgb(255,255,255);  margin-right:auto; height:27vh; margin-top:0px;">
-                      <h3 style="height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:black; font-size:4vh;">Options:</h3>
-                      <div class="row" style=" height:10vh; padding-top:5vh; width:100%;">
-                        <button title="help"  id = "helpBandEdit" style="border-radius: 0.3vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 10vh; height:10vh; margin-right:2vh; margin-left:auto; border: 0.4vh solid black; "></button>
-                        <button title="delete" id = "deleteBandEdit" style="border-radius: 0.3vh; background: url(img/trashButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 10vh; height:10vh; margin-left:0px; margin-right:auto; border: 0.4vh solid black; "></button>
-                      </div>
-                      <div class="row" style=" height:10vh; margin-top:2vh; padding-bottom:1vh; width:100%;">
-                        <button title="cancel" id = "cancelBandEdit" style="border-radius: 0.3vh; background: url(img/cancelButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 10vh; height:10vh; margin-right:2vh; margin-left:auto; border: 0.4vh solid black; "></button>
-                        <button title="accept" id = "acceptBandEdit" style="border-radius: 0.3vh; background: url(img/acceptButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 10vh; height:10vh; margin-left:0px; margin-right:auto; border: 0.4vh solid black; "></button>
-                      </div>
-                    </div>
-
-                </div>
-
-
-            </div>
 
         </div>
 
+        <div style="width: 25%; height:30vh; border: 1px solid rgb(200,200,200); margin:0px;">
 
-        <!--
+          <h4 style="width:100%; margin:0px; width:100%; height:5vh; line-height:5vh; font-size:3vh; text-align:center; vertical-align: middle;color:white; background:rgb(100,100,100);">Right Neighbour</h4>
+
+          <div class="row" style="background:none; height:4vh; margin-top: 0.5vh;">
+            <div id="bandEdit_RightNeiColor" style=" margin-left:2.5%; width:10%; height:100%; background: rgb(120,120,120); border: 0.2vh solid rgb(180,180,180);cursor:pointer;"> </div>
+            <div style="width: 87.5%"> </div>
+          </div>
+          <div style="margin-left:5%; width:95%; border-left: 2px solid black; height:2vh;"></div>
+          <canvas id="bandEdit_RightNeigCanvas" style="margin-left:5%; width:90%; height:10vh; background: rgb(120,120,120); border: 2px solid black;">
+
+                                    </canvas>
+          <div style="width:90%; margin-left:5%; border-right: 2px solid black; border-left: 2px solid black; height:2vh;"></div>
+          <div class="row" style="background:none;height:2vh; margin:0px;">
+            <p id="bandEdit_RightNeiLeftRef" style="margin:0px; height:2vh; line-height:2vh; font-size:1.8vh; text-align:center; vertical-align: middle;margin-left:5%">Nan</p>
+            <div style="width: 80%"> </div>
+            <p id="bandEdit_RightNeiRightRef" style="margin:0px; height:2vh; line-height:2vh; font-size:1.8vh; text-align:center; vertical-align: middle;margin-right:5%">Nan</p>
+          </div>
+
+
+        </div>
+
+      </div>
+
+      <div class="row" style="width:100%; height:35vh; ">
+
+        <div style="width:35%; margin-right:auto; background:rgb(255,255,255);  margin-left:auto; margin-top:0px;">
+          <h3 style="height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:black; font-size:4vh;"> Colorspace: </h3>
+          <div class="row" style=" height:10vh; margin-top:2vh; width:100%;">
+            <button id="id_BandEditbutton_RGB" title="RGB" onclick="changeBandEditorColorspace(0)" style="width: 30%; margin-left:auto; margin-right:2vh; margin-top:3vh; border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; height:10vh; font-size:4vh;  border: 0.4vh solid  green; color: 	green; ">RGB</button><br>
+            <button id="id_BandEditbutton_HSV" title="HSV" onclick="changeBandEditorColorspace(1)" style="width: 30%; margin-left:0px;; margin-right:auto; margin-top:3vh;border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center;  height:10vh; font-size:4vh;  border: 0.4vh solid black; color:black; ">HSV</button><br>
+          </div>
+          <div class="row" style=" height:10vh; margin-top:2vh; width:100%;">
+            <button id="id_BandEditbutton_LAB" title="LAB" onclick="changeBandEditorColorspace(2)" style="width: 30%; margin-left:auto; margin-right:2vh; margin-top:3vh;border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center;  height:10vh; font-size:4vh;  border: 0.4vh solid black; color:black; ">LAB</button><br>
+            <button id="id_BandEditbutton_DIN99" title="DIN99" onclick="changeBandEditorColorspace(3)" style="width: 30%; margin-left:0px; margin-right:auto; margin-top:3vh; margin-bottom:3vh;border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center;  height:10vh; font-size:4vh; border: 0.4vh solid black; color:black;">DIN99</button>
+          </div>
+        </div>
+
+        <div class="row" style="height:35vh; width:30%;  margin:0px; background:rgb(255,255,255); margin-top:0px;">
+
+          <div style="height:33vh; width:15%; margin-left:2.5%; margin-right:2.5%; margin-top: 1vh; margin-bottom: 1vh;">
+            <canvas id="id_BandEditcanvasPickerC1V" style="width:100%; height:100%; border: 1px solid black;">
+                                                </canvas>
+          </div>
+
+
+          <div style="height:33vh; width:77.5%; margin-right:2.5%; margin-top: 1vh; margin-bottom: 1vh;">
+            <canvas id="id_bandEditCanvasPickerHS" style="width:100%; height:100%; border: 1px solid black; z-index:102;">
+                                                </canvas>
+            <canvas id="id_bandEditWorkcanvasPicker" style="z-index:103;">
+                                                </canvas>
+          </div>
+        </div>
+
+        <div style="width:35%; margin-left:auto; background:rgb(255,255,255);  margin-right:auto; height:27vh; margin-top:0px;">
+          <h3 style="height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:black; font-size:4vh;">Options:</h3>
+          <div class="row" style=" height:10vh; padding-top:5vh; width:100%;">
+            <button title="help" id="helpBandEdit" style="border-radius: 0.3vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 10vh; height:10vh; margin-right:2vh; margin-left:auto; border: 0.4vh solid black; "></button>
+            <button title="delete" id="deleteBandEdit" style="border-radius: 0.3vh; background: url(img/trashButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 10vh; height:10vh; margin-left:0px; margin-right:auto; border: 0.4vh solid black; "></button>
+          </div>
+          <div class="row" style=" height:10vh; margin-top:2vh; padding-bottom:1vh; width:100%;">
+            <button title="cancel" id="cancelBandEdit" style="border-radius: 0.3vh; background: url(img/cancelButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 10vh; height:10vh; margin-right:2vh; margin-left:auto; border: 0.4vh solid black; "></button>
+            <button title="accept" id="acceptBandEdit" style="border-radius: 0.3vh; background: url(img/acceptButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 10vh; height:10vh; margin-left:0px; margin-right:auto; border: 0.4vh solid black; "></button>
+          </div>
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+
+  <!--
         ----------------------------------------------------
         ----------------	Band Creator Window	  -------------
         ---------------------------------------------------
         -->
 
-        <div id="bandCreatorWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:101; top:0px; left:0px; bottom:0px; display:none;">
+  <div id="bandCreatorWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:101; top:0px; left:0px; bottom:0px; display:none;">
 
-            <div style="margin-top:15vh; height:auto; background: rgb(240,240,240); width:50%; border: 0.5vh solid black; margin-left:auto; margin-right:auto;">
+    <div style="margin-top:15vh; height:auto; background: rgb(240,240,240); width:50%; border: 0.5vh solid black; margin-left:auto; margin-right:auto;">
 
-                        <h3 style="widht:100%; height:5vh; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; padding-left:20px; font-size:3vh; margin-bottom:2vh; background:black;"> Band Creator </h3>
-                             <!------------------>
-                        <!-- BAND Creator -->
-                        <div style="margin:auto; width:80%; height:auto; background:rgb(240,240,240);">
+      <h3 style="widht:100%; height:5vh; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; padding-left:20px; font-size:3vh; margin-bottom:2vh; background:black;"> Band Creator </h3>
+      <!------------------>
+      <!-- BAND Creator -->
+      <div style="margin:auto; width:80%; height:auto; background:rgb(240,240,240);">
 
-                            <div class="row" style="height:auto; width:auto; ">
+        <div class="row" style="height:auto; width:auto; ">
 
-                                <div style="height:auto; width:auto;"> <!-- hier flex flex-grow: 1;-->
+          <div style="height:auto; width:auto;">
+            <!-- hier flex flex-grow: 1;-->
 
-                                    <div class="row" style="height:23vh; width:auto; margin:0px;">
+            <div class="row" style="height:23vh; width:auto; margin:0px;">
 
-                                        <div  style=" height:22vh; width:50%;">
+              <div style=" height:22vh; width:50%;">
 
-                                            <h3 style="height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; margin:auto;"> Color: </h3>
+                <h3 style="height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; margin:auto;"> Color: </h3>
 
-                                            <div class = "row" style="height:20%; line-height:auto; text-align:center; vertical-align: middle; margin:auto;">
-                                            <p id="id_color1_FirstLabel" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin:auto; margin-right:0.25cm; font-weight:bold;"> R: </p>
-                                            <input  id="id_color1_First" type="text" name="key space" value="255" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin:auto; width:50%;">
-                                            </div>
+                <div class="row" style="height:20%; line-height:auto; text-align:center; vertical-align: middle; margin:auto;">
+                  <p id="id_color1_FirstLabel" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin:auto; margin-right:0.25cm; font-weight:bold;"> R: </p>
+                  <input id="id_color1_First" type="text" name="key space" value="255" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin:auto; width:50%;">
+                </div>
 
-                                            <div class = "row" style="height:20%; line-height:auto; text-align:center; vertical-align: middle; margin:auto;">
-                                            <p id="id_color1_SecondLabel" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin:auto; margin-right:0.25cm; font-weight:bold;"> G: </p>
-                                            <input  id="id_color1_Second" type="text" name="key space" value="255" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin:auto; width:50%;">
-                                            </div>
+                <div class="row" style="height:20%; line-height:auto; text-align:center; vertical-align: middle; margin:auto;">
+                  <p id="id_color1_SecondLabel" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin:auto; margin-right:0.25cm; font-weight:bold;"> G: </p>
+                  <input id="id_color1_Second" type="text" name="key space" value="255" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin:auto; width:50%;">
+                </div>
 
-                                            <div class = "row" style="height:20%; line-height:auto; text-align:center; vertical-align: middle; margin:auto;">
-                                            <p id="id_color1_ThirdLabel" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin:auto; margin-right:0.25cm; font-weight:bold;"> B: </p>
-                                            <input  id="id_color1_Third" type="text" name="key space" value="255" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin:auto; width:50%;">
-                                            </div>
-                                        </div>
+                <div class="row" style="height:20%; line-height:auto; text-align:center; vertical-align: middle; margin:auto;">
+                  <p id="id_color1_ThirdLabel" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin:auto; margin-right:0.25cm; font-weight:bold;"> B: </p>
+                  <input id="id_color1_Third" type="text" name="key space" value="255" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin:auto; width:50%;">
+                </div>
+              </div>
 
 
-                                        <div class="row" style="height:22vh; width:50%;">
+              <div class="row" style="height:22vh; width:50%;">
 
-                                            <div style="height:21vh; width:15%; margin-left:2.5%; margin-right:2.5%; margin-top: 0.5vh; margin-bottom: 0.5vh;">
-                                                <canvas id="id_canvasPickerC1V" style="width:100%; height:100%; border: 1px solid black;" >
+                <div style="height:21vh; width:15%; margin-left:2.5%; margin-right:2.5%; margin-top: 0.5vh; margin-bottom: 0.5vh;">
+                  <canvas id="id_canvasPickerC1V" style="width:100%; height:100%; border: 1px solid black;">
                                                 </canvas>
-                                            </div>
+                </div>
 
 
-                                            <div style="height:21vh; width:77.5%; margin-right:2.5%; margin-top: 0.5vh; margin-bottom: 0.5vh;">
-                                                <canvas id="id_canvasPickerHS" style="width:100%; height:100%; border: 1px solid black; z-index:102;" >
+                <div style="height:21vh; width:77.5%; margin-right:2.5%; margin-top: 0.5vh; margin-bottom: 0.5vh;">
+                  <canvas id="id_canvasPickerHS" style="width:100%; height:100%; border: 1px solid black; z-index:102;">
                                                 </canvas>
-                                                <canvas id="id_workcanvasPicker" style="z-index:2;" >
+                  <canvas id="id_workcanvasPicker" style="z-index:2;">
                                                 </canvas>
-                                            </div>
+                </div>
 
 
-                                        </div>
+              </div>
 
-                                    </div>
-
-                                    <!-- Band Creator: Band Sketch -->
-                                    <div style="height:20vh; width:100%; margin-top:0px;">
-                                        <div class="row" style=" height:3vh; width:100%; margin-top:1vh;">
-
-                                            <div style="height:100%; width:12.5%; "></div>
-                                            <p id = "id_bandC1Label" style="height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; width:5%; margin:0px; margin-right:auto;  text-align:center">C1</p>
-                                            <p id = "id_bandC2Label" style="height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; width:5%; margin:0px; margin-right:auto; margin-left:auto; text-align:center">C2</p>
-                                            <p id = "id_bandC3Label" style="height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; width:5%; margin:0px; margin-right:auto; margin-left:auto; text-align:center">C3</p>
-                                            <p id = "id_bandC4Label" style="height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; width:5%; margin:0px; margin-right:auto; margin-left:auto; text-align:center">C4</p>
-                                            <p id = "id_bandC5Label" style="height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; width:5%; margin:0px; margin-left:auto; text-align:center">C5</p>
-                                            <div style="height:100%; width:12.5%;"></div>
-
-                                        </div>
-
-                                        <div class="row" style=" width:100%; height:3vh;">
-                                            <div style="height:100%; width:12.5%;"></div>
-                                            <div id="id_creatorBandC1" onclick="changeActiveColor(0)" style="height:100%; width:5%; border: 0.4vh solid green;margin:0px; background:white; margin-right:auto; z-index: 2; cursor:pointer;"></div>
-                                            <div id="id_creatorBandC2" onclick="changeActiveColor(1)" style="height:100%; width:5%; border: 0.2vh solid rgb(180,180,180);margin:0px; background:white; margin-right:auto; margin-left:auto; z-index: 2; cursor:pointer;"></div>
-                                            <div id="id_creatorBandC3" onclick="changeActiveColor(2)" style="height:100%; width:5%; border: 0.2vh solid rgb(180,180,180);margin:0px; background:white; margin-right:auto; margin-left:auto; z-index: 2; cursor:pointer;"></div>
-                                            <div id="id_creatorBandC4" onclick="changeActiveColor(3)" style="height:100%; width:5%; border: 0.2vh solid rgb(180,180,180);margin:0px; background:white; margin-right:auto; margin-left:auto; z-index: 2; cursor:pointer;"></div>
-                                            <div id="id_creatorBandC5" onclick="changeActiveColor(4)" style="height:100%; width:5%; border: 0.2vh solid rgb(180,180,180);margin:0px; background:white; margin-left:auto; z-index: 2; cursor:pointer;"></div>
-                                            <div style="height:100%; width:12.5%;"></div>
-                                        </div>
-
-                                        <div class="row" style=" width:100%; height:1vh; margin:0px;">
-                                            <div style="height:1vh; width:15%; border-right: 2px solid black;margin:0px; z-index: 1;"></div>
-                                            <div id="id_creatorBandLineC2" style="height:1vh; width:17.5%; border-right: 2px solid black;margin:0px; z-index: 1;"></div>
-                                            <div id="id_creatorBandLineC3" style="height:1vh; width:17.5%; border-right: 2px solid black;margin:0px; z-index: 1;"></div>
-                                            <div id="id_creatorBandLineC4" style="height:1vh; width:17.5%; border-right: 2px solid black;margin:0px; z-index: 1;"></div>
-                                            <div id="id_creatorBandLineC5" style="height:1vh; width:17.5%; border-right: 2px solid black;margin:0px; margin-left:auto; z-index: 1;"></div>
-                                            <div style="height:1vh; width:15%;"></div>
-                                        </div>
-
-                                        <canvas id="id_creatorBand"style="margin-left:15%; width:70%; height:10vh; border: 2px solid black;" > <!--draggable="true"-->
-                                        </canvas>
-                                    </div>
-
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="row" style=" height:10vh; margin-top:2vh; padding-bottom:1vh; width:100%; margin:auto;">
-                            <button title="cancel" id = "cancelBandCreator" style="border-radius: 0.3vh; background: url(img/cancelButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 10vh; height:10vh; margin-right:2vh; margin-left:auto; border: 0.4vh solid black; "></button>
-                            <button title="accept" id = "acceptBandCreator" style="border-radius: 0.3vh; background: url(img/acceptButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 10vh; height:10vh; margin-left:0px; margin-right:auto; border: 0.4vh solid black; "></button>
-                       </div>
             </div>
+
+            <!-- Band Creator: Band Sketch -->
+            <div style="height:20vh; width:100%; margin-top:0px;">
+              <div class="row" style=" height:3vh; width:100%; margin-top:1vh;">
+
+                <div style="height:100%; width:12.5%; "></div>
+                <p id="id_bandC1Label" style="height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; width:5%; margin:0px; margin-right:auto;  text-align:center">C1</p>
+                <p id="id_bandC2Label" style="height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; width:5%; margin:0px; margin-right:auto; margin-left:auto; text-align:center">C2</p>
+                <p id="id_bandC3Label" style="height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; width:5%; margin:0px; margin-right:auto; margin-left:auto; text-align:center">C3</p>
+                <p id="id_bandC4Label" style="height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; width:5%; margin:0px; margin-right:auto; margin-left:auto; text-align:center">C4</p>
+                <p id="id_bandC5Label" style="height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; width:5%; margin:0px; margin-left:auto; text-align:center">C5</p>
+                <div style="height:100%; width:12.5%;"></div>
+
+              </div>
+
+              <div class="row" style=" width:100%; height:3vh;">
+                <div style="height:100%; width:12.5%;"></div>
+                <div id="id_creatorBandC1" onclick="changeActiveColor(0)" style="height:100%; width:5%; border: 0.4vh solid green;margin:0px; background:white; margin-right:auto; z-index: 2; cursor:pointer;"></div>
+                <div id="id_creatorBandC2" onclick="changeActiveColor(1)" style="height:100%; width:5%; border: 0.2vh solid rgb(180,180,180);margin:0px; background:white; margin-right:auto; margin-left:auto; z-index: 2; cursor:pointer;"></div>
+                <div id="id_creatorBandC3" onclick="changeActiveColor(2)" style="height:100%; width:5%; border: 0.2vh solid rgb(180,180,180);margin:0px; background:white; margin-right:auto; margin-left:auto; z-index: 2; cursor:pointer;"></div>
+                <div id="id_creatorBandC4" onclick="changeActiveColor(3)" style="height:100%; width:5%; border: 0.2vh solid rgb(180,180,180);margin:0px; background:white; margin-right:auto; margin-left:auto; z-index: 2; cursor:pointer;"></div>
+                <div id="id_creatorBandC5" onclick="changeActiveColor(4)" style="height:100%; width:5%; border: 0.2vh solid rgb(180,180,180);margin:0px; background:white; margin-left:auto; z-index: 2; cursor:pointer;"></div>
+                <div style="height:100%; width:12.5%;"></div>
+              </div>
+
+              <div class="row" style=" width:100%; height:1vh; margin:0px;">
+                <div style="height:1vh; width:15%; border-right: 2px solid black;margin:0px; z-index: 1;"></div>
+                <div id="id_creatorBandLineC2" style="height:1vh; width:17.5%; border-right: 2px solid black;margin:0px; z-index: 1;"></div>
+                <div id="id_creatorBandLineC3" style="height:1vh; width:17.5%; border-right: 2px solid black;margin:0px; z-index: 1;"></div>
+                <div id="id_creatorBandLineC4" style="height:1vh; width:17.5%; border-right: 2px solid black;margin:0px; z-index: 1;"></div>
+                <div id="id_creatorBandLineC5" style="height:1vh; width:17.5%; border-right: 2px solid black;margin:0px; margin-left:auto; z-index: 1;"></div>
+                <div style="height:1vh; width:15%;"></div>
+              </div>
+
+              <canvas id="id_creatorBand" style="margin-left:15%; width:70%; height:10vh; border: 2px solid black;"> <!--draggable="true"-->
+                                        </canvas>
+            </div>
+
+
+          </div>
 
         </div>
 
-                <!--
+      </div>
+
+      <div class="row" style=" height:10vh; margin-top:2vh; padding-bottom:1vh; width:100%; margin:auto;">
+        <button title="cancel" id="cancelBandCreator" style="border-radius: 0.3vh; background: url(img/cancelButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 10vh; height:10vh; margin-right:2vh; margin-left:auto; border: 0.4vh solid black; "></button>
+        <button title="accept" id="acceptBandCreator" style="border-radius: 0.3vh; background: url(img/acceptButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 10vh; height:10vh; margin-left:0px; margin-right:auto; border: 0.4vh solid black; "></button>
+      </div>
+    </div>
+
+  </div>
+
+  <!--
         ---------------------------------------------------
         ----------------	Export Window  -------------
         ---------------------------------------------------
         -->
 
-        <div id="id_exportWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:50; top:0px; left:0px; bottom:0px; display:none;">
+  <div id="id_exportWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:50; top:0px; left:0px; bottom:0px; display:none;">
 
-                  <div style="margin-top:5vh; height:auto; max-height:90vh; background:rgb(230,230,230); width:100%; border-top: 1vh solid black; overflow:none;">
-
-
-                          <h3 style="widht:100%; height:5vh; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; padding-left:20px; font-size:3vh; background:black;"> Export Colormap </h3>
+    <div style="margin-top:5vh; height:auto; max-height:90vh; background:rgb(230,230,230); width:100%; border-top: 1vh solid black; overflow:none;">
 
 
-                          <canvas style="margin-top: 0px; width:100%; height: 5vh; margin-left:0%;   " id="id_keyColormapExport">
+      <h3 style="widht:100%; height:5vh; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; padding-left:20px; font-size:3vh; background:black;"> Export Colormap </h3>
 
-                          </canvas>
-                          <canvas style="margin-top: 0px; width:95%; height: 5vh; margin-left:2.5%; margin-bottom:0px; border:2px solid black;" id="id_linearColormapExport">
+
+      <canvas style="margin-top: 0px; width:100%; height: 5vh; margin-left:0%;   " id="id_keyColormapExport">
 
                           </canvas>
-                          <canvas style="margin-top: 0px; width:100%; height: 1vh; margin-left:0%;" id="id_keyColormapLinesBottomExport">
+      <canvas style="margin-top: 0px; width:95%; height: 5vh; margin-left:2.5%; margin-bottom:0px; border:2px solid black;" id="id_linearColormapExport">
+
+                          </canvas>
+      <canvas style="margin-top: 0px; width:100%; height: 1vh; margin-left:0%;" id="id_keyColormapLinesBottomExport">
 
                           </canvas>
 
 
 
-                          <div class="row" style="width:100%; height:auto; margin-top:4vh; border-bottom:2px solid black;">
+      <div class="row" style="width:100%; height:auto; margin-top:4vh; border-bottom:2px solid black;">
 
-                            <!--
+        <!--
                             ------------------
                                 OPTIONS
                             ------------------
                             --->
-                            <div style=" height:40vh; width:50%; border-right: 2px solid black; ">
-                              <h4 style="widht:100%; height:3vh; height:3vh; line-height:3vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; padding-left:20px; font-size:2.5vh; margin-bottom:2vh; background:black; margin-bottom:0px;"> Options </h4>
+        <div style=" height:40vh; width:50%; border-right: 2px solid black; ">
+          <h4 style="widht:100%; height:3vh; height:3vh; line-height:3vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; padding-left:20px; font-size:2.5vh; margin-bottom:2vh; background:black; margin-bottom:0px;"> Options </h4>
 
 
-                                <div class="row" style="margin-left:5%; margin-top:2vh;">
-                                        <p class="exportSide_OptionRow_Element" style="font-weight:bold; width: 12vw;">Export Colorspace:</p>
-                                        <input onclick="changeExportColorspace(0)" class="exportSide_OptionRow_Element" style="margin-right: 0.5vw;" type="radio" id="exportSide_Radiobutton_RGB" name="exportSide_ExportSpace" value="1">
-                                        <label class="exportSide_OptionRow_Element" style="margin-right: 1vw;" for="exportSide_Radiobutton_RGB"> RGB </label><br>
-                                        <input onclick="changeExportColorspace(1)" class="exportSide_OptionRow_Element" style="margin-right: 0.5vw;" type="radio" id="exportSide_Radiobutton_HSV" name="exportSide_ExportSpace" value="2">
-                                        <label class="exportSide_OptionRow_Element" style="margin-right: 1vw;" for="exportSide_Radiobutton_HSV"> HSV </label><br>
-                                        <input onclick="changeExportColorspace(2)" class="exportSide_OptionRow_Element" style="margin-right: 0.5vw;" type="radio" id="exportSide_Radiobutton_LAB" name="exportSide_ExportSpace" value="3">
-                                        <label class="exportSide_OptionRow_Element" style="margin-right: 1vw;" for="exportSide_Radiobutton_LAB"> LAB </label><br>
-                                        <input onclick="changeExportColorspace(3)" class="exportSide_OptionRow_Element" style="margin-right: 0.5vw;" type="radio" id="exportSide_Radiobutton_DIN99" name="exportSide_ExportSpace" value="4">
-                                        <label class="exportSide_OptionRow_Element" style="margin-right: 1vw;" for="exportSide_Radiobutton_DIN99"> DIN99 </label><br>
-                                </div>
+          <div class="row" style="margin-left:5%; margin-top:2vh;">
+            <p class="exportSide_OptionRow_Element" style="font-weight:bold; width: 12vw;">Export Colorspace:</p>
+            <input onclick="changeExportColorspace(0)" class="exportSide_OptionRow_Element" style="margin-right: 0.5vw;" type="radio" id="exportSide_Radiobutton_RGB" name="exportSide_ExportSpace" value="1">
+            <label class="exportSide_OptionRow_Element" style="margin-right: 1vw;" for="exportSide_Radiobutton_RGB"> RGB </label><br>
+            <input onclick="changeExportColorspace(1)" class="exportSide_OptionRow_Element" style="margin-right: 0.5vw;" type="radio" id="exportSide_Radiobutton_HSV" name="exportSide_ExportSpace" value="2">
+            <label class="exportSide_OptionRow_Element" style="margin-right: 1vw;" for="exportSide_Radiobutton_HSV"> HSV </label><br>
+            <input onclick="changeExportColorspace(2)" class="exportSide_OptionRow_Element" style="margin-right: 0.5vw;" type="radio" id="exportSide_Radiobutton_LAB" name="exportSide_ExportSpace" value="3">
+            <label class="exportSide_OptionRow_Element" style="margin-right: 1vw;" for="exportSide_Radiobutton_LAB"> LAB </label><br>
+            <input onclick="changeExportColorspace(3)" class="exportSide_OptionRow_Element" style="margin-right: 0.5vw;" type="radio" id="exportSide_Radiobutton_DIN99" name="exportSide_ExportSpace" value="4">
+            <label class="exportSide_OptionRow_Element" style="margin-right: 1vw;" for="exportSide_Radiobutton_DIN99"> DIN99 </label><br>
+          </div>
 
-                                <div class="row" style="margin-left:5%; margin-top:1vh;">
-                                        <p class="exportSide_OptionRow_Element" style="font-weight:bold; width: 12vw;">Export Format:</p>
-                                        <input class="exportSide_OptionRow_Element" style="margin-right: 0.5vw;" type="radio" id="exportSide_Radiobutton_XML" name="exportSide_ExportFormat" value="1" checked="checked">
-                                        <label class="exportSide_OptionRow_Element" style="margin-right: 1vw;" for="exportSide_Radiobutton_XML"> XML </label><br>
-                                        <input class="exportSide_OptionRow_Element" style="margin-right: 0.5vw;" type="radio" id="exportSide_Radiobutton_TEXT" name="exportSide_ExportFormat" value="2">
-                                        <label class="exportSide_OptionRow_Element" style="margin-right: 1vw;" for="exportSide_Radiobutton_TEXT"> TEXT </label><br>
-                                        <input class="exportSide_OptionRow_Element" style="margin-right: 0.5vw;" type="radio" id="exportSide_Radiobutton_JSON" name="exportSide_ExportFormat" value="3">
-                                        <label class="exportSide_OptionRow_Element" style="margin-right: 1vw;" for="exportSide_Radiobutton_JSON"> JSON </label><br>
-                                </div>
+          <div class="row" style="margin-left:5%; margin-top:1vh;">
+            <p class="exportSide_OptionRow_Element" style="font-weight:bold; width: 12vw;">Export Format:</p>
+            <input class="exportSide_OptionRow_Element" style="margin-right: 0.5vw;" type="radio" id="exportSide_Radiobutton_XML" name="exportSide_ExportFormat" value="1" checked="checked">
+            <label class="exportSide_OptionRow_Element" style="margin-right: 1vw;" for="exportSide_Radiobutton_XML"> XML </label><br>
+            <input class="exportSide_OptionRow_Element" style="margin-right: 0.5vw;" type="radio" id="exportSide_Radiobutton_TEXT" name="exportSide_ExportFormat" value="2">
+            <label class="exportSide_OptionRow_Element" style="margin-right: 1vw;" for="exportSide_Radiobutton_TEXT"> TEXT </label><br>
+            <input class="exportSide_OptionRow_Element" style="margin-right: 0.5vw;" type="radio" id="exportSide_Radiobutton_JSON" name="exportSide_ExportFormat" value="3">
+            <label class="exportSide_OptionRow_Element" style="margin-right: 1vw;" for="exportSide_Radiobutton_JSON"> JSON </label><br>
+          </div>
 
-                                <div class="row" style="margin-left:5%; margin-top:1vh;">
-                                    <div class="row" style="width:12vw;">
-                                        <input class="exportSide_OptionRow_Element"  style="margin-right: 1vw;" id="exportSide_IntervalApproximationCheckbox" type="checkbox" name="merging" value="1">
-                                        <p class="exportSide_OptionRow_Element" style="font-weight:bold;">Processing:</p>
-                                    </div>
-                                        <p class="exportSide_OptionRow_Element">Interval Colorspace Approximation</p>
+          <div class="row" style="margin-left:5%; margin-top:1vh;">
+            <div class="row" style="width:12vw;">
+              <input class="exportSide_OptionRow_Element" style="margin-right: 1vw;" id="exportSide_IntervalApproximationCheckbox" type="checkbox" name="merging" value="1">
+              <p class="exportSide_OptionRow_Element" style="font-weight:bold;">Processing:</p>
+            </div>
+            <p class="exportSide_OptionRow_Element">Interval Colorspace Approximation</p>
 
-                                        <div class="dropdown" style="z-index:57;">
-                                          <button  class="dropbtn" style="border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; "></button>
-                                          <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:57;">
+            <div class="dropdown" style="z-index:57;">
+              <button class="dropbtn" style="border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; "></button>
+              <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:57;">
 
-                                             <p style = "margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> With the interval approximation of a colorspace you can export your colormap in a colorspace and approximate this colormap to another colorspace. So you can choose a colorspace for the export, which is supported from the software you want to us or which are easy to implement into your own software, and can also have the attributes of the approximated colorspace.</p>
-                                          </div>
-                                        </div>
-                                 </div>
-
-
-                                <div id="id_intervalRect" style="width:90%; border:1px solid black; margin-left:5%; margin-top:2vh; margin-bottom:2vh; z-index: 51; background:white;">
-
-                                    <div id="id_coverIntervalRect" style="position: absolute; background:rgba(220,220,220,0.7); margin:0px; z-index: 55;">
-
-                                    </div>
-
-                                    <h4 style="margin:0px; margin-left:1vw; widht:100%; height:4vh; line-height:4vh; vertical-align:middle; text-align:left; vertical-align: middle; color:black; font-size:2vh; text-decoration: underline;"> Interval Options: </h4>
-
-                                    <div class="row" style="margin-left:2vw; margin-top:1vh;">
-                                              <p class="exportSide_OptionRow_Element" style="font-weight:bold; width: 17vw;"> # of Intervals (Band wisely):</p>
-                                              <input  class="exportSide_OptionRow_Element" id = "exportSide_IntervallInput" type="text" name="key space" value="10">
-                                    </div>
+                <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> With the interval approximation of a colorspace you can export your colormap in a colorspace and approximate this colormap to another colorspace. So you can choose a colorspace for the export, which is supported
+                  from the software you want to us or which are easy to implement into your own software, and can also have the attributes of the approximated colorspace.</p>
+              </div>
+            </div>
+          </div>
 
 
-                                    <div class="row" style="margin-left:2vw; margin-top:2vh;">
-                                            <p class="exportSide_OptionRow_Element" style="font-weight:bold; width: 17vw;">Colorspace to approximate:</p>
-                                            <input class="exportSide_OptionRow_Element" style="margin-right: 0.5vw;" type="radio" id="exportSide_Radiobutton_ApproxRGB" name="exportSide_ApproxSpace" value="1">
-                                            <label class="exportSide_OptionRow_Element" style="margin-right: 1vw;" for="exportSide_Radiobutton_ApproxRGB" id="exportSide_Radiobutton_ApproxRGBLabel"> RGB </label><br>
-                                            <input class="exportSide_OptionRow_Element" style="margin-right: 0.5vw;" type="radio" id="exportSide_Radiobutton_ApproxHSV" name="exportSide_ApproxSpace" value="2">
-                                            <label class="exportSide_OptionRow_Element" style="margin-right: 1vw;" for="exportSide_Radiobutton_ApproxHSV" id="exportSide_Radiobutton_ApproxHSVLabel"> HSV </label><br>
-                                            <input class="exportSide_OptionRow_Element" style="margin-right: 0.5vw;" type="radio" id="exportSide_Radiobutton_ApproxLAB" name="exportSide_ApproxSpace" value="3" checked="checked">
-                                            <label class="exportSide_OptionRow_Element" style="margin-right: 1vw;" for="exportSide_Radiobutton_ApproxLAB" id="exportSide_Radiobutton_ApproxLABLabel"> LAB </label><br>
-                                            <input class="exportSide_OptionRow_Element" style="margin-right: 0.5vw;" type="radio" id="exportSide_Radiobutton_ApproxDIN99" name="exportSide_ApproxSpace" value="4">
-                                            <label class="exportSide_OptionRow_Element" style="margin-right: 1vw;" for="exportSide_Radiobutton_ApproxDIN99" id="exportSide_Radiobutton_ApproxDIN99Label"> DIN99 </label><br>
-                                    </div>
+          <div id="id_intervalRect" style="width:90%; border:1px solid black; margin-left:5%; margin-top:2vh; margin-bottom:2vh; z-index: 51; background:white;">
 
-                                    <div class="row" style="margin-left:2vw; margin-top:1vh; margin-bottom:2vh;">
+            <div id="id_coverIntervalRect" style="position: absolute; background:rgba(220,220,220,0.7); margin:0px; z-index: 55;">
 
-                                             <div class="row" style="width:17vw;">
-                                                 <input class="exportSide_OptionRow_Element"  style="margin-right: 1vw;" id="exportSide_MergingCheckbox" type="checkbox" name="merging" value="1" checked="checked">
-                                                 <p class="exportSide_OptionRow_Element" style="font-weight:bold;">Processing:</p>
-                                             </div>
-                                                 <p class="exportSide_OptionRow_Element">Merge Identical Neighboring Intervals</p>
+            </div>
 
-                                     </div>
-                                </div>
+            <h4 style="margin:0px; margin-left:1vw; widht:100%; height:4vh; line-height:4vh; vertical-align:middle; text-align:left; vertical-align: middle; color:black; font-size:2vh; text-decoration: underline;"> Interval Options: </h4>
+
+            <div class="row" style="margin-left:2vw; margin-top:1vh;">
+              <p class="exportSide_OptionRow_Element" style="font-weight:bold; width: 17vw;"> # of Intervals (Band wisely):</p>
+              <input class="exportSide_OptionRow_Element" id="exportSide_IntervallInput" type="text" name="key space" value="10">
+            </div>
 
 
-                            </div>
+            <div class="row" style="margin-left:2vw; margin-top:2vh;">
+              <p class="exportSide_OptionRow_Element" style="font-weight:bold; width: 17vw;">Colorspace to approximate:</p>
+              <input class="exportSide_OptionRow_Element" style="margin-right: 0.5vw;" type="radio" id="exportSide_Radiobutton_ApproxRGB" name="exportSide_ApproxSpace" value="1">
+              <label class="exportSide_OptionRow_Element" style="margin-right: 1vw;" for="exportSide_Radiobutton_ApproxRGB" id="exportSide_Radiobutton_ApproxRGBLabel"> RGB </label><br>
+              <input class="exportSide_OptionRow_Element" style="margin-right: 0.5vw;" type="radio" id="exportSide_Radiobutton_ApproxHSV" name="exportSide_ApproxSpace" value="2">
+              <label class="exportSide_OptionRow_Element" style="margin-right: 1vw;" for="exportSide_Radiobutton_ApproxHSV" id="exportSide_Radiobutton_ApproxHSVLabel"> HSV </label><br>
+              <input class="exportSide_OptionRow_Element" style="margin-right: 0.5vw;" type="radio" id="exportSide_Radiobutton_ApproxLAB" name="exportSide_ApproxSpace" value="3" checked="checked">
+              <label class="exportSide_OptionRow_Element" style="margin-right: 1vw;" for="exportSide_Radiobutton_ApproxLAB" id="exportSide_Radiobutton_ApproxLABLabel"> LAB </label><br>
+              <input class="exportSide_OptionRow_Element" style="margin-right: 0.5vw;" type="radio" id="exportSide_Radiobutton_ApproxDIN99" name="exportSide_ApproxSpace" value="4">
+              <label class="exportSide_OptionRow_Element" style="margin-right: 1vw;" for="exportSide_Radiobutton_ApproxDIN99" id="exportSide_Radiobutton_ApproxDIN99Label"> DIN99 </label><br>
+            </div>
 
-                            <!--
+            <div class="row" style="margin-left:2vw; margin-top:1vh; margin-bottom:2vh;">
+
+              <div class="row" style="width:17vw;">
+                <input class="exportSide_OptionRow_Element" style="margin-right: 1vw;" id="exportSide_MergingCheckbox" type="checkbox" name="merging" value="1" checked="checked">
+                <p class="exportSide_OptionRow_Element" style="font-weight:bold;">Processing:</p>
+              </div>
+              <p class="exportSide_OptionRow_Element">Merge Identical Neighboring Intervals</p>
+
+            </div>
+          </div>
+
+
+        </div>
+
+        <!--
                             ------------------
                                 TABLE
                             ------------------
                             --->
-                            <div style="height:40vh; overflow:auto; width:50%;">
-                              <h4 style="widht:100%; height:3vh; height:3vh; line-height:3vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; padding-left:20px; font-size:2.5vh; margin-bottom:2vh; background:black; margin-bottom:0px;"> Table of the Colormap </h4>
+        <div style="height:40vh; overflow:auto; width:50%;">
+          <h4 style="widht:100%; height:3vh; height:3vh; line-height:3vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; padding-left:20px; font-size:2.5vh; margin-bottom:2vh; background:black; margin-bottom:0px;"> Table of the Colormap </h4>
 
-                                   <table style="width:100%; background:white;" id="id_table">
-                                   <thead>
-                                       <tr style="border-top:1px solid white;">
-                                           <th class="class_tablelabel"  style="width:4%; border-left:1px solid white;" >#</th>
-                                           <th class="class_tablelabel"  style="width:9%;">Reference 1</th>
-                                           <th class="class_tablelabel"  style="width:9%;">Reference 2</th>
-                                           <th class="class_tablelabel"  style="width:9%;">Band Type</th>
-                                           <th class="class_tablelabel" id="id_table_exportColor1" style="width:9%;">C1 (RGB)</th>
-                                           <th class="class_tablelabel" id="id_table_exportColor2" style="width:9%;">C2 (RGB)</th>
-                                       </tr>
-                                   </thead>
+          <table style="width:100%; background:white;" id="id_table">
+            <thead>
+              <tr style="border-top:1px solid white;">
+                <th class="class_tablelabel" style="width:4%; border-left:1px solid white;">#</th>
+                <th class="class_tablelabel" style="width:9%;">Reference 1</th>
+                <th class="class_tablelabel" style="width:9%;">Reference 2</th>
+                <th class="class_tablelabel" style="width:9%;">Band Type</th>
+                <th class="class_tablelabel" id="id_table_exportColor1" style="width:9%;">C1 (RGB)</th>
+                <th class="class_tablelabel" id="id_table_exportColor2" style="width:9%;">C2 (RGB)</th>
+              </tr>
+            </thead>
 
-                                           <tbody id="id_exportTableBody">
+            <tbody id="id_exportTableBody">
 
-                                           </tbody>
+            </tbody>
 
-                                   </table>
-                           </div>
-
-                          </div>
-
-
-                          <div id="exportPage_IntervalPreview" style="margin-top:2vh; margin-bottom:2vh; widht:100%; display:none; background:rgb(220,220,220);">
-
-
-                              <div class="row" style="width:100%; margin-top:2vh;">
-                                <div style="margin-left:2.5%; width: 15%;">
-                                  <p style="height: 2vh; line-height: 2vh; text-align: left; vertical-align: middle; font-size: 1.8vh; margin:0px; font-weight:bold;">Export Colospace:</p>
-                                  <p style="height: 2vh; line-height: 2vh; text-align: left; vertical-align: middle; font-size: 1.8vh; margin:0px; font-weight:bold;">(without Intervals)</p>
-                                </div>
-                                <canvas style="width:75%; height: 4vh; margin:0px; border:2px solid black;" id="id_IntervalPreviewColormapExport">
-
-                                </canvas>
-                              </div>
-
-                              <div class="row" style="width:100%; margin-top:2vh;">
-                                <div style="margin-left:2.5%; width: 15%;">
-                                  <p style="height: 2vh; line-height: 2vh; text-align: left; vertical-align: middle; font-size: 1.8vh; margin:0px; font-weight:bold;">Export Colospace:</p>
-                                  <p style="height: 2vh; line-height: 2vh; text-align: left; vertical-align: middle; font-size: 1.8vh; margin:0px; font-weight:bold;">(with Intervals)</p>
-                                </div>
-                                <canvas style="width:75%; height: 4vh; margin:0px; border:2px solid black;" id="IntervalPreviewColormapInterval">
-
-                                </canvas>
-                              </div>
-
-                              <div class="row" style="width:100%; margin-top:2vh; margin-bottom:2vh;">
-                                <p style="height: 2vh; line-height: 2vh; text-align: left; vertical-align: middle; font-size: 1.8vh; margin:0px; font-weight:bold; margin-left:2.5%; width: 15%;">Aim Colospace:</p>
-                                <canvas style="width:75%; height: 4vh; margin:0px; border:2px solid black;" id="id_IntervalPreviewColormapApprox">
-
-                                </canvas>
-                              </div>
-                          </div>
-
-                        <div style="background:black; widht:100%;">
-                          <button class="classButtonWhite" id = "id_exportCancelButton" title="Cancel" style="margin-top:0.5vh; margin-bottom:0.5vh; border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 20%; height:3vh; line-height:3vh; font-size:1.7vh; border: 0.2vh solid rgb(180,180,180); margin-left:25%; margin-top:1vh; margin-bottom:1vh;"> Close </button>
-                          <button class="classButtonWhite" id = "id_exportExportButton" title="Export" style="margin-top:0.5vh; margin-bottom:0.5vh; border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 20%; height:3vh; line-height:3vh; font-size:1.7vh; border: 0.2vh solid rgb(180,180,180); margin-left:10%; margin-top:1vh; margin-bottom:1vh;"> Export </button>
-                        </div>
-                    </div>
-
+          </table>
         </div>
 
+      </div>
+
+
+      <div id="exportPage_IntervalPreview" style="margin-top:2vh; margin-bottom:2vh; widht:100%; display:none; background:rgb(220,220,220);">
+
+
+        <div class="row" style="width:100%; margin-top:2vh;">
+          <div style="margin-left:2.5%; width: 15%;">
+            <p style="height: 2vh; line-height: 2vh; text-align: left; vertical-align: middle; font-size: 1.8vh; margin:0px; font-weight:bold;">Export Colospace:</p>
+            <p style="height: 2vh; line-height: 2vh; text-align: left; vertical-align: middle; font-size: 1.8vh; margin:0px; font-weight:bold;">(without Intervals)</p>
+          </div>
+          <canvas style="width:75%; height: 4vh; margin:0px; border:2px solid black;" id="id_IntervalPreviewColormapExport">
+
+                                </canvas>
+        </div>
+
+        <div class="row" style="width:100%; margin-top:2vh;">
+          <div style="margin-left:2.5%; width: 15%;">
+            <p style="height: 2vh; line-height: 2vh; text-align: left; vertical-align: middle; font-size: 1.8vh; margin:0px; font-weight:bold;">Export Colospace:</p>
+            <p style="height: 2vh; line-height: 2vh; text-align: left; vertical-align: middle; font-size: 1.8vh; margin:0px; font-weight:bold;">(with Intervals)</p>
+          </div>
+          <canvas style="width:75%; height: 4vh; margin:0px; border:2px solid black;" id="IntervalPreviewColormapInterval">
+
+                                </canvas>
+        </div>
+
+        <div class="row" style="width:100%; margin-top:2vh; margin-bottom:2vh;">
+          <p style="height: 2vh; line-height: 2vh; text-align: left; vertical-align: middle; font-size: 1.8vh; margin:0px; font-weight:bold; margin-left:2.5%; width: 15%;">Aim Colospace:</p>
+          <canvas style="width:75%; height: 4vh; margin:0px; border:2px solid black;" id="id_IntervalPreviewColormapApprox">
+
+                                </canvas>
+        </div>
+      </div>
+
+      <div style="background:black; widht:100%;">
+        <button class="classButtonWhite" id="id_exportCancelButton" title="Cancel" style="margin-top:0.5vh; margin-bottom:0.5vh; border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 20%; height:3vh; line-height:3vh; font-size:1.7vh; border: 0.2vh solid rgb(180,180,180); margin-left:25%; margin-top:1vh; margin-bottom:1vh;"> Close </button>
+        <button class="classButtonWhite" id="id_exportExportButton" title="Export" style="margin-top:0.5vh; margin-bottom:0.5vh; border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 20%; height:3vh; line-height:3vh; font-size:1.7vh; border: 0.2vh solid rgb(180,180,180); margin-left:10%; margin-top:1vh; margin-bottom:1vh;"> Export </button>
+      </div>
+    </div>
+
+  </div>
 
 
 
-		<!--
+
+  <!--
         -----------------------------------------------
         ----------------	Footer	  -----------------
         -----------------------------------------------
         -->
 
-        <div class="row" style="width: 100%; height: 10vh; background:black; margin:0px; z-index:100;">
+  <div class="row" style="width: 100%; height: 10vh; background:black; margin:0px; z-index:100;">
 
-            <img title="BSV Workgroup, University Leipzig" src="img/bsv_logo_small.png" alt="Logo: The Coloroptimizer" style="margin-top:1vh; margin-bottom:1vh;margin-left:10%; height: 8vh; cursor: pointer;">
+    <img title="BSV Workgroup, University Leipzig" src="img/bsv_logo_small.png" alt="Logo: The Coloroptimizer" style="margin-top:1vh; margin-bottom:1vh;margin-left:10%; height: 8vh; cursor: pointer;">
 
-            <p style="color:white; float:right; margin-left:auto;margin-right:1cm;">Copyright © 2017</p>
+    <p style="color:white; float:right; margin-left:auto;margin-right:1cm;">Copyright © 2017</p>
 
-        </div>
+  </div>
 
 
-        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-        <script>
-            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-            e.src='https://www.google-analytics.com/analytics.js';
-            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-            ga('create','UA-XXXXX-X','auto');ga('send','pageview');
-        </script>
-    </body>
+  <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+  <script>
+    (function(b, o, i, l, e, r) {
+      b.GoogleAnalyticsObject = l;
+      b[l] || (b[l] =
+        function() {
+          (b[l].q = b[l].q || []).push(arguments)
+        });
+      b[l].l = +new Date;
+      e = o.createElement(i);
+      r = o.getElementsByTagName(i)[0];
+      e.src = 'https://www.google-analytics.com/analytics.js';
+      r.parentNode.insertBefore(e, r)
+    }(window, document, 'script', 'ga'));
+    ga('create', 'UA-XXXXX-X', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+
 </html>

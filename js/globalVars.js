@@ -23,6 +23,13 @@ var mousePosX;
 var mousePosY;
 
 // Resolutions
+
+var vPlot_resolution_X = 1500; // hue colorspace
+var vPlot_resolution_Y = 650; // hue colorspace
+
+var hue_resolution_X = 1500; // hue colorspace
+var hue_resolution_Y = 1500; // hue colorspace
+
   var hs_resolution_X = 1500; // Colorpicker
   var hs_resolution_Y = 1500; // Colorpicker
 
@@ -42,12 +49,48 @@ var mousePosY;
   var myList_resolution_Y = 100;
 
 
-var circleRad = 40;
-var vBarWidth = 8;
-var circleStrokeWidth = 15;
+
 
 // using colormap
 var colorspaceModus = "rgb"; // 0=rgb,1=hsv,2=lab,3=din99
+
+
+////////// Canvas colorspaceCenter
+var colorspaceCenterX;
+var colorspaceCenterY;
+var colorspaceRadius;
+var radiusratio = 0.95;
+var bigLineWidth = 10;
+var smallLineWidth = 6;
+var circleRadPicker = 40;
+var circleRad = 15;
+var bigcircleRad = 25;
+var vBarWidth = 8;
+var circleStrokeWidth = 15;
+var alphaVal = 1.0;
+var lineWidthVPlot = 5;
+var arrowWidth = 15;
+
+// colorspace eventes
+var mouseAboveSpaceObjectID = -1;
+var mouseGrappedSpaceObjectID = -1;
+var updateSketchID1 = -1;
+var updateSketchID2 = -1;
+var updateCurrentValue = 0;
+var mouseGrappedColor = "rgb(120,120,120)";
+
+var spaceElementsXPos = [];
+var spaceElementsYPos = [];
+var spaceElementsType = [];
+var spaceElementsKey = [];
+
+/////
+// Band Sketch
+/////
+var colormapBandSketchC1 = [];
+var colormapBandSketchC2 = [];
+var colormapBandSketchR1 = [];
+var colormapBandSketchR2 = [];
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -111,14 +154,6 @@ var colorrectWitdh = 0;
 var grappedKey = false;
 var overKeyID = -1;
 var mouseKeyChangeUp = false;
-
-/////
-// Band Sketch
-/////
-var colormapBandSketchC1 = [];
-var colormapBandSketchC2 = [];
-var colormapBandSketchR1 = [];
-var colormapBandSketchR2 = [];
 
 var dropPositionElements = [];
 var droppedBandElements = [];

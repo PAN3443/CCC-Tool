@@ -18,7 +18,6 @@ window.onload = function () {
     /////////////////////////////// Create Side /////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     // Style Init
-    styleMainPage();
     document.getElementById("id_table_workwindow").style.display = "none";
 
     //// set events
@@ -78,7 +77,6 @@ window.onload = function () {
         document.getElementById('bandEdit_InputLeftRef').addEventListener("change", checkR1Input_Change);
         document.getElementById('bandEdit_InputRightRef').addEventListener("change", checkR2Input_Change);
 
-
         ////
         // Creat Colormap Menue
           // Colormap Name Change
@@ -93,11 +91,7 @@ window.onload = function () {
           document.getElementById('id_buttonLoadCreateColormap').addEventListener("click", loadColormapCreateSide);
           document.getElementById('exportSide_MergingCheckbox').addEventListener("change", exportSide_ChangeMerging);
 
-
-
           // init //
-
-
           drawHSBackground("id_canvasPickerHS");
           drawHSBackground("id_bandEditCanvasPickerHS");
           drawColorCircles();
@@ -116,6 +110,17 @@ window.onload = function () {
         document.getElementById('id_MyListCreateColormapButton').addEventListener("click", showCreateSide);
         document.getElementById('id_MyListAnalysisButton').addEventListener("click", selectAnalysis);
         document.getElementById('id_MyListCompareButton').addEventListener("click", selectCompare);
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////// Analyse Side /////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        hsv_hueInit("id_anaylseCourseHueBackground");
+        document.getElementById('id_workcanvasAnalyseHue').addEventListener("mouseleave", mouseLeaveColorspace);
+        document.getElementById('id_workcanvasAnalyseHue').addEventListener("mousemove", mouseMoveColorspace);
+        document.getElementById('id_workcanvasAnalyseHue').addEventListener("mousedown", mouseDownColorspace);
+        document.getElementById('id_workcanvasAnalyseHue').addEventListener("mouseup", mouseUpColorspace);
+
+        styleAnalysisPage();
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////// Export Side /////////////////////////////////////
@@ -138,23 +143,19 @@ window.onload = function () {
 
         document.getElementById('id_exportExportButton').addEventListener("click", exportSide_downloadFile);
 
-
-
-
-
-
 }
 
 window.onresize = function(event) {
     drawColorCircles();
-    styleMainPage();
+    styleCreatorPage();
+    styleAnalysisPage();
 };
 
 window.onscroll = function () {
     drawColorCircles();
 };
 
-function styleMainPage(){
+function styleCreatorPage(){
     //var workRec = document.getElementById("id_mainpage").getBoundingClientRect();
     //document.getElementById("id_expandTablebutton").style.height = workRec.height+"px";
 
@@ -184,23 +185,35 @@ function styleMainPage(){
 
 }
 
-function calcColormap(){
+function styleAnalysisPage(){
+  var canvasColorspace = document.getElementById("id_workcanvasAnalyseHue");
+  var backgroundCanvas = document.getElementById("id_anaylseCourseHueBackground").getBoundingClientRect();
+  //canvasColorspace.style.display = "initial";
+  canvasColorspace.style.position = "absolute";
+  canvasColorspace.style.width = backgroundCanvas.width+"px";
+  canvasColorspace.style.height = backgroundCanvas.height+"px";
+  canvasColorspace.style.top = backgroundCanvas.top+"px";
+  canvasColorspace.style.left = backgroundCanvas.left+"px";
+}
+
+///////////////////////////////////////////////
+function sketchInfo2Colormap(){
     var saveNext = true;
-    createColormap = new xclassColorMap();
+    var tmpColormap = new xclassColorMap();
 
             for(var i=0; i<colormapBandSketchC1.length; i++){
 
                 if(saveNext){
 
                     var tmpColor = new classColor_RGB(colormapBandSketchC1[i].getRValue(),colormapBandSketchC1[i].getGValue(),colormapBandSketchC1[i].getBValue());
-                    createColormap.pushPositionPoints(colormapBandSketchR1[i]);
-                    createColormap.pushRGBColor(tmpColor);
+                    tmpColormap.pushPositionPoints(colormapBandSketchR1[i]);
+                    tmpColormap.pushRGBColor(tmpColor);
                 }
 
                 var tmpColor2 = new classColor_RGB(colormapBandSketchC2[i].getRValue(),colormapBandSketchC2[i].getGValue(),colormapBandSketchC2[i].getBValue());
                     //tmpColor2.setColorFromHEX(colormapBandSketchC2[i].getHexString());
-                createColormap.pushPositionPoints(colormapBandSketchR2[i]);
-                createColormap.pushRGBColor(tmpColor2);
+                tmpColormap.pushPositionPoints(colormapBandSketchR2[i]);
+                tmpColormap.pushRGBColor(tmpColor2);
 
                 saveNext=true;
 
@@ -223,31 +236,279 @@ function calcColormap(){
             }
 
 
-    createColormap.createKeys();
-    createColormap.calcBands();
+    tmpColormap.createKeys();
+    tmpColormap.calcBands();
 
-    createColormap.setColormapName(document.getElementById("id_InputMapName").value);
+    //tmpColormap.setColormapName(document.getElementById("id_InputMapName").value);
+
+    return tmpColormap;
 }
 
-
-function updateColormapSketch(){
+function colormap2Sketch(tmpColormap){
 
   colormapBandSketchC1 = [];
   colormapBandSketchC2 = [];
   colormapBandSketchR1 = [];
   colormapBandSketchR2 = [];
 
-  for(var i=0; i<createColormap.getNumberOfBands(); i++){
+  for(var i=0; i<tmpColormap.getNumberOfBands(); i++){
 
-    colormapBandSketchC1.push(createColormap.getBand(i).getLeftRGBColor());
-    colormapBandSketchC2.push(createColormap.getBand(i).getRightRGBColor());
-    colormapBandSketchR1.push(createColormap.getBand(i).getLeftRef());
-    colormapBandSketchR2.push(createColormap.getBand(i).getRightRef());
+    colormapBandSketchC1.push(tmpColormap.getBand(i).getLeftRGBColor());
+    colormapBandSketchC2.push(tmpColormap.getBand(i).getRightRGBColor());
+    colormapBandSketchR1.push(tmpColormap.getBand(i).getLeftRef());
+    colormapBandSketchR2.push(tmpColormap.getBand(i).getRightRef());
 
   }
 
   orderColorSketch();
 }
+
+///////////////////////////////////////////////
+
+function orderColorSketch(){
+
+    document.getElementById("id_colormapSketch").innerHTML = null;
+
+    for(var i = dropPositionElements.length-1; i>=0; i--){
+      dropPositionElements[i].remove();
+      dropPositionElements.pop();
+    }
+
+    for(var i = droppedBandElements.length-1; i>=0; i--){
+      droppedBandElements[i].remove();
+      droppedBandElements.pop();
+    }
+
+    for(var i = refLineSketchContainer.length-1; i>=0; i--){
+      refLineSketchContainer[i].remove();
+      refLineSketchContainer.pop();
+    }
+
+
+    var sketchObject;
+    var sketchRefObj;
+
+    if(showSideID == 0){
+      return;
+    }
+
+    if(showSideID == 1){
+      sketchObject = document.getElementById("id_colormapSketch");
+      document.getElementById("id_LinearMap_Table_Div").style.display = "none";
+      sketchRefObj = document.getElementById("id_colormapSketch_Ref");
+    }
+
+    if(showSideID == 2){
+      sketchObject = document.getElementById("id_analyseColormapSketch");
+      sketchRefObj = document.getElementById("id_analyseColormapSketch_Ref");
+    }
+
+    if(colormapBandSketchC1.length!=0){
+
+      if(showSideID == 1){
+        // show and draw the colormap
+        document.getElementById("id_LinearMap_Table_Div").style.display = "initial";
+        createColormap = sketchInfo2Colormap();
+        drawCanvasColormap("id_linearColormap",linearMap_resolution_X, linearMap_resolution_Y, createColormap);
+        drawKeys("id_keyColormap",key_resolution_X, key_resolution_Y, createColormap, "id_keyColormapLinesBottom",false)
+        fillTable();
+      }
+
+      //////////////////////////////////////////////////////////////////////////
+
+
+        sketchObject.style.border = "none";
+
+        var tmpRect = sketchObject.getBoundingClientRect();
+
+        var tmpLength = tmpRect.width/colormapBandSketchC1.length-1;//100/(colormapBandSketchC1.length-1);
+
+        for(var i=0; i<colormapBandSketchC1.length; i++){
+
+            // create drop place
+            var tDiv = document.createElement('div');
+            tDiv.id = 'dragPos'+i;
+            tDiv.style.border = "3px solid red";
+            tDiv.style.height = 100 +'%';
+            tDiv.style.width = 100+'%';
+            tDiv.style.display = "none";
+            //tDiv.style.visibility = "hidden";
+            tDiv.style.lineHeight = "8vh";
+            tDiv.style.fontSize = "2vh";
+            tDiv.style.textAlign = "center";
+            tDiv.style.verticalAlign = "middle";
+            tDiv.innerHTML = "Here";
+
+            tDiv.addEventListener("dragenter", bandOnEnter);
+            tDiv.addEventListener("dragleave", bandOnLeave);
+            //tDiv.addEventListener("drop dragdrop", createSide_BandOnDrop);
+
+            tDiv.ondrop = function(event){
+                event.preventDefault();
+                bandOnDrop();
+            }; // allow Drop
+            tDiv.ondragover = function(event){event.preventDefault();}; // allow Drop
+
+            sketchObject.appendChild(tDiv);
+            dropPositionElements.push(tDiv);
+
+            // create band
+            var tCan = document.createElement('canvas');
+            tCan.id = 'band'+i;
+
+            tCan.style.border = "1px solid black";
+            tCan.style.margin = "0px";
+            tCan.setAttribute('draggable', true);
+
+            sketchObject.appendChild(tCan);
+            droppedBandElements.push(tCan);
+
+            tCan.style.height = 100 +'%';
+            tCan.style.maxWidth = tmpLength + "px"; //100 +'%';
+            tCan.style.width = tmpLength + "px"; //100 +'%';
+            tCan.style.cursor = "pointer";
+
+            drawCanvasBand(tCan, colormapBandSketchC1[i], colormapBandSketchC2[i],tCan.width,tCan.height );
+
+            //tCan.addEventListener("dragstart", createSide_BandOnDragStart);
+            //tCan.addEventListener("dragend", createSide_BandOnDragEnd);
+            tCan.addEventListener("click", bandOnClick);
+
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            var refLineDiv = document.createElement('div');
+            refLineDiv.style.height = 100 +'%';
+            refLineDiv.style.width = 100+'%';
+            refLineDiv.style.borderLeft = "1px solid black";
+
+            //tDiv.style.visibility = "hidden";
+
+            sketchRefObj.appendChild(refLineDiv);
+            refLineSketchContainer.push(refLineDiv);
+
+
+            /////////////////// draw ref /////////
+            var tmpText = ''+colormapBandSketchR1[i].toFixed(numDecimalPlaces);
+
+            var box = sketchRefObj.getBoundingClientRect();
+
+            var body = document.body;
+            var docEl = document.documentElement;
+
+            var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
+            var scrollLeft = window.pageXOffset || docEl.scrollLeft || body.scrollLeft;
+
+            var clientTop = docEl.clientTop || body.clientTop || 0;
+            var clientLeft = docEl.clientLeft || body.clientLeft || 0;
+
+            var top  = box.top +  scrollTop - clientTop;
+            var left = box.left + scrollLeft - clientLeft;
+
+            var p = document.createElement('p');
+            var xposHTML = ((i)/colormapBandSketchC1.length)*box.width+left;
+            var yposHTML = box.height+top;
+
+            document.body.appendChild(p);
+            p.innerHTML = tmpText;
+            p.width = "min-content";
+            p.style.background = "rgb(255,255,255)";
+            p.style.paddingLeft = 5+"px";
+            p.style.paddingRight = 5+"px";
+            p.style.border = "2px solid rgb(0,0,0)";
+            p.style.margin = "0px";
+
+            p.style.position = "absolute";
+            p.style.top = Math.round(yposHTML)+"px";
+            p.style.left = Math.round(xposHTML)+"px";
+            refLineSketchContainer.push(p);
+            xposHTML = xposHTML-(p.getBoundingClientRect().width/2);
+            p.style.left = Math.round(xposHTML)+"px";
+
+            /////////////////// special case: last element /////////
+            if(i==colormapBandSketchC1.length-1){
+              refLineDiv.style.borderRight = "1px solid black";
+
+              var tmpText = ''+colormapBandSketchR2[i].toFixed(numDecimalPlaces);
+
+              var p2 = document.createElement('p');
+              xposHTML = box.width+left;
+
+              document.body.appendChild(p2);
+              p2.innerHTML = tmpText;
+              p2.width = "min-content";
+              p2.style.background = "rgb(255,255,255)";
+              p2.style.paddingLeft = 5+"px";
+              p2.style.paddingRight = 5+"px";
+              p2.style.border = "2px solid rgb(0,0,0)";
+              p2.style.margin = "0px";
+
+              p2.style.position = "absolute";
+              p2.style.top = Math.round(yposHTML)+"px";
+              p2.style.left = Math.round(xposHTML)+"px";
+              refLineSketchContainer.push(p2);
+              xposHTML = xposHTML-(p.getBoundingClientRect().width/2);
+              p2.style.left = Math.round(xposHTML)+"px";
+            }
+        }
+
+
+
+        var t2Div = document.createElement('div');
+            t2Div.id = 'dragPos'+colormapBandSketchC1.length;
+            t2Div.style.border = "3px solid red";
+            t2Div.style.height = 99 +'%';
+            t2Div.style.width = 100+'%';
+            t2Div.style.display = "none";
+            t2Div.style.lineHeight = "8vh";
+            t2Div.style.fontSize = "2vh";
+            t2Div.style.textAlign = "center";
+            t2Div.style.verticalAlign = "middle";
+            t2Div.innerHTML = "Here";
+
+            t2Div.addEventListener("dragenter", bandOnEnter);
+            t2Div.addEventListener("dragleave", bandOnLeave);
+
+            t2Div.ondrop = function(event){
+                event.preventDefault();
+                bandOnDrop();
+            }; // allow Drop
+            t2Div.ondragover = function(event){event.preventDefault();}; // allow Drop
+
+            sketchObject.appendChild(t2Div);
+            dropPositionElements.push(t2Div);
+
+
+    }
+    else{
+
+        var t2Div = document.createElement('div');
+        t2Div.id = 'dragPos'+colormapBandSketchC1.length;
+        t2Div.style.border = "2px dashed black";
+        t2Div.style.height = 100 +'%';
+        t2Div.style.width = 100+'%';
+        t2Div.style.lineHeight = "8vh";
+        t2Div.style.fontSize = "4vh";
+        t2Div.style.textAlign = "center";
+        t2Div.style.verticalAlign = "middle";
+        t2Div.innerHTML = "Drop Here";
+
+        t2Div.addEventListener("dragenter", bandOnEnter);
+        t2Div.addEventListener("dragleave", bandOnLeave);
+
+        t2Div.ondrop = function(event){
+                event.preventDefault();
+                bandOnDrop();
+        }; // allow Drop
+        t2Div.ondragover = function(event){event.preventDefault();}; // allow Drop
+
+        sketchObject.appendChild(t2Div);
+        dropPositionElements.push(t2Div);
+
+    }
+
+
+}
+
 
 function fillTable(){
 

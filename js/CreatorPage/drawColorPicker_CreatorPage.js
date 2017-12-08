@@ -8,19 +8,19 @@ function drawHSBackground(id){
     //var ratioWidthHeight = canvasColorspaceWidth/canvasColorspaceHeight;
     var colorspaceContex = canvasColorspace.getContext("2d");
     var  canvasColorspaceData = colorspaceContex.getImageData(0, 0, canvasColorspaceWidth, canvasColorspaceHeight);
-  
+
     // draw colorspace
     for(var x=0; x<canvasColorspaceWidth;x++){
 
-          var hVal = x/canvasColorspaceWidth; 
+          var hVal = x/canvasColorspaceWidth;
 
 
           for(var y=0; y<canvasColorspaceHeight;y++){
 
                 // calc hsv color
                 var sVal = 1-y/canvasColorspaceHeight;
-                var vVal = 1;          
-                var colorHSV = new classColor_HSV(hVal,sVal,vVal);       
+                var vVal = 1;
+                var colorHSV = new classColor_HSV(hVal,sVal,vVal);
                 var colorRGB = colorHSV.calcRGBColor();
                 var index = (x + y * canvasColorspaceWidth) * 4;
 
@@ -60,7 +60,7 @@ function drawColorCircles(){
     var yPos = (1-tmpC1HSV.getSValue()) * canvasColorspaceHeight;
 
     colorspaceContex.beginPath();
-    colorspaceContex.arc(xPos, yPos, circleRad, 0, 2 * Math.PI, false);
+    colorspaceContex.arc(xPos, yPos, circleRadPicker, 0, 2 * Math.PI, false);
     colorspaceContex.fillStyle = tmpC1RGB.getRGBStringAplha(1.0);
     colorspaceContex.fill();
     colorspaceContex.lineWidth = circleStrokeWidth;
@@ -75,19 +75,19 @@ function drawColorCircles(){
 
         case 0:
         // do nothing
-            
+
         break;
         case 1:
 
                 if(tmpactivColorIndex!=0){
                     activColorIndex=0;
-                    
+
                     tmpC1HSV = getHSVColor();
                     xPos = tmpC1HSV.getHValue() * canvasColorspaceWidth;
                     yPos = (1-tmpC1HSV.getSValue()) * canvasColorspaceHeight;
 
                     colorspaceContex.beginPath();
-                    colorspaceContex.arc(xPos, yPos, circleRad/2, 0, 2 * Math.PI, false);
+                    colorspaceContex.arc(xPos, yPos, circleRadPicker/2, 0, 2 * Math.PI, false);
                     colorspaceContex.lineWidth = circleStrokeWidth;
                     colorspaceContex.strokeStyle = 'rgb(90,90,90)';
                     colorspaceContex.stroke();
@@ -95,18 +95,18 @@ function drawColorCircles(){
 
                 if(tmpactivColorIndex!=4){
                     activColorIndex=4;
-            
+
                     tmpC1HSV = getHSVColor();
                     xPos = tmpC1HSV.getHValue() * canvasColorspaceWidth;
                     yPos = (1-tmpC1HSV.getSValue()) * canvasColorspaceHeight;
 
                     colorspaceContex.beginPath();
-                    colorspaceContex.arc(xPos, yPos, circleRad/2, 0, 2 * Math.PI, false);
+                    colorspaceContex.arc(xPos, yPos, circleRadPicker/2, 0, 2 * Math.PI, false);
                     colorspaceContex.lineWidth = circleStrokeWidth;
                     colorspaceContex.strokeStyle = 'rgb(90,90,90)';
                     colorspaceContex.stroke();
                 }
-             
+
         break;
         case 2:
                 if(tmpactivColorIndex!=0){
@@ -116,20 +116,20 @@ function drawColorCircles(){
                     yPos = (1-tmpC1HSV.getSValue()) * canvasColorspaceHeight;
 
                     colorspaceContex.beginPath();
-                    colorspaceContex.arc(xPos, yPos, circleRad/2, 0, 2 * Math.PI, false);
+                    colorspaceContex.arc(xPos, yPos, circleRadPicker/2, 0, 2 * Math.PI, false);
                     colorspaceContex.lineWidth = circleStrokeWidth;
                     colorspaceContex.strokeStyle = 'rgb(90,90,90)';
                     colorspaceContex.stroke();
                 }
                 if(tmpactivColorIndex!=2){
                     activColorIndex=2;
-                
+
                     tmpC1HSV = getHSVColor();
                     xPos = tmpC1HSV.getHValue() * canvasColorspaceWidth;
                     yPos = (1-tmpC1HSV.getSValue()) * canvasColorspaceHeight;
 
                     colorspaceContex.beginPath();
-                    colorspaceContex.arc(xPos, yPos, circleRad/2, 0, 2 * Math.PI, false);
+                    colorspaceContex.arc(xPos, yPos, circleRadPicker/2, 0, 2 * Math.PI, false);
                     colorspaceContex.lineWidth = circleStrokeWidth;
                     colorspaceContex.strokeStyle = 'rgb(90,90,90)';
                     colorspaceContex.stroke();
@@ -141,7 +141,7 @@ function drawColorCircles(){
                     yPos = (1-tmpC1HSV.getSValue()) * canvasColorspaceHeight;
 
                     colorspaceContex.beginPath();
-                    colorspaceContex.arc(xPos, yPos, circleRad/2, 0, 2 * Math.PI, false);
+                    colorspaceContex.arc(xPos, yPos, circleRadPicker/2, 0, 2 * Math.PI, false);
                     colorspaceContex.lineWidth = circleStrokeWidth;
                     colorspaceContex.strokeStyle = 'rgb(90,90,90)';
                     colorspaceContex.stroke();
@@ -155,7 +155,7 @@ function drawColorCircles(){
                     yPos = (1-tmpC1HSV.getSValue()) * canvasColorspaceHeight;
 
                     colorspaceContex.beginPath();
-                    colorspaceContex.arc(xPos, yPos, circleRad/2, 0, 2 * Math.PI, false);
+                    colorspaceContex.arc(xPos, yPos, circleRadPicker/2, 0, 2 * Math.PI, false);
                     colorspaceContex.lineWidth = circleStrokeWidth;
                     colorspaceContex.strokeStyle = 'rgb(90,90,90)';
                     colorspaceContex.stroke();
@@ -167,7 +167,7 @@ function drawColorCircles(){
                     yPos = (1-tmpC1HSV.getSValue()) * canvasColorspaceHeight;
 
                     colorspaceContex.beginPath();
-                    colorspaceContex.arc(xPos, yPos, circleRad/2, 0, 2 * Math.PI, false);
+                    colorspaceContex.arc(xPos, yPos, circleRadPicker/2, 0, 2 * Math.PI, false);
                     colorspaceContex.lineWidth = circleStrokeWidth;
                     colorspaceContex.strokeStyle = 'rgb(90,90,90)';
                     colorspaceContex.stroke();
@@ -179,7 +179,7 @@ function drawColorCircles(){
                     yPos = (1-tmpC1HSV.getSValue()) * canvasColorspaceHeight;
 
                     colorspaceContex.beginPath();
-                    colorspaceContex.arc(xPos, yPos, circleRad/2, 0, 2 * Math.PI, false);
+                    colorspaceContex.arc(xPos, yPos, circleRadPicker/2, 0, 2 * Math.PI, false);
                     colorspaceContex.lineWidth = circleStrokeWidth;
                     colorspaceContex.strokeStyle = 'rgb(90,90,90)';
                     colorspaceContex.stroke();
@@ -191,7 +191,7 @@ function drawColorCircles(){
                     yPos = (1-tmpC1HSV.getSValue()) * canvasColorspaceHeight;
 
                     colorspaceContex.beginPath();
-                    colorspaceContex.arc(xPos, yPos, circleRad/2, 0, 2 * Math.PI, false);
+                    colorspaceContex.arc(xPos, yPos, circleRadPicker/2, 0, 2 * Math.PI, false);
                     colorspaceContex.lineWidth = circleStrokeWidth;
                     colorspaceContex.strokeStyle = 'rgb(90,90,90)';
                     colorspaceContex.stroke();
@@ -205,7 +205,7 @@ function drawColorCircles(){
                     yPos = (1-tmpC1HSV.getSValue()) * canvasColorspaceHeight;
 
                     colorspaceContex.beginPath();
-                    colorspaceContex.arc(xPos, yPos, circleRad/2, 0, 2 * Math.PI, false);
+                    colorspaceContex.arc(xPos, yPos, circleRadPicker/2, 0, 2 * Math.PI, false);
                     colorspaceContex.lineWidth = circleStrokeWidth;
                     colorspaceContex.strokeStyle = 'rgb(90,90,90)';
                     colorspaceContex.stroke();
@@ -217,7 +217,7 @@ function drawColorCircles(){
                     yPos = (1-tmpC1HSV.getSValue()) * canvasColorspaceHeight;
 
                     colorspaceContex.beginPath();
-                    colorspaceContex.arc(xPos, yPos, circleRad/2, 0, 2 * Math.PI, false);
+                    colorspaceContex.arc(xPos, yPos, circleRadPicker/2, 0, 2 * Math.PI, false);
                     colorspaceContex.lineWidth = circleStrokeWidth;
                     colorspaceContex.strokeStyle = 'rgb(90,90,90)';
                     colorspaceContex.stroke();
@@ -229,7 +229,7 @@ function drawColorCircles(){
                     yPos = (1-tmpC1HSV.getSValue()) * canvasColorspaceHeight;
 
                     colorspaceContex.beginPath();
-                    colorspaceContex.arc(xPos, yPos, circleRad/2, 0, 2 * Math.PI, false);
+                    colorspaceContex.arc(xPos, yPos, circleRadPicker/2, 0, 2 * Math.PI, false);
                     colorspaceContex.lineWidth = circleStrokeWidth;
                     colorspaceContex.strokeStyle = 'rgb(90,90,90)';
                     colorspaceContex.stroke();
@@ -241,7 +241,7 @@ function drawColorCircles(){
                     yPos = (1-tmpC1HSV.getSValue()) * canvasColorspaceHeight;
 
                     colorspaceContex.beginPath();
-                    colorspaceContex.arc(xPos, yPos, circleRad/2, 0, 2 * Math.PI, false);
+                    colorspaceContex.arc(xPos, yPos, circleRadPicker/2, 0, 2 * Math.PI, false);
                     colorspaceContex.lineWidth = circleStrokeWidth;
                     colorspaceContex.strokeStyle = 'rgb(90,90,90)';
                     colorspaceContex.stroke();
@@ -253,12 +253,12 @@ function drawColorCircles(){
                     yPos = (1-tmpC1HSV.getSValue()) * canvasColorspaceHeight;
 
                     colorspaceContex.beginPath();
-                    colorspaceContex.arc(xPos, yPos, circleRad/2, 0, 2 * Math.PI, false);
+                    colorspaceContex.arc(xPos, yPos, circleRadPicker/2, 0, 2 * Math.PI, false);
                     colorspaceContex.lineWidth = circleStrokeWidth;
                     colorspaceContex.strokeStyle = 'rgb(90,90,90)';
                     colorspaceContex.stroke();
                 }
-                           
+
         break;
         default:
                 console.log("Error at the updateCreatorBand function");
@@ -274,7 +274,7 @@ function drawVChangeRects(){
     var resolution_Y = v_resolution_Y;
     $("#id_canvasPickerC1V").attr("width", resolution_X+"px");
     $("#id_canvasPickerC1V").attr("height", resolution_Y+"px");
-    
+
     var canvasVInputContex1 = canvasVInput1.getContext("2d");
 
     drawValueRect(canvasVInputContex1, getHSVColor(), resolution_X, resolution_Y);
@@ -282,13 +282,13 @@ function drawVChangeRects(){
 }
 
 function drawValueRect(canvasVInputContex, colorHSV, canvasWidth, canvasHeight){
-  
+
         //gradient
         var hVal = colorHSV.getHValue();
-        var sVal = colorHSV.getSValue();        
-        var colorHSV2 = new classColor_HSV(hVal,sVal,1);       
+        var sVal = colorHSV.getSValue();
+        var colorHSV2 = new classColor_HSV(hVal,sVal,1);
         var colorRGB1 = colorHSV2.calcRGBColor();
-        colorHSV2 = new classColor_HSV(hVal,sVal,0);       
+        colorHSV2 = new classColor_HSV(hVal,sVal,0);
         var colorRGB2 = colorHSV2.calcRGBColor();
         var grd = canvasVInputContex.createLinearGradient(0, 0, 0, canvasHeight);
             grd.addColorStop(0, colorRGB1.getRGBString());
@@ -297,14 +297,13 @@ function drawValueRect(canvasVInputContex, colorHSV, canvasWidth, canvasHeight){
             canvasVInputContex.fillRect(0,0, canvasWidth, canvasHeight);
 
         // Button
-        
+
         colorRGB1 = colorHSV.calcRGBColor();
         var yPos = canvasHeight*(1-colorHSV.getVValue());
         canvasVInputContex.fillStyle = "rgba(255,255,255,0.7)";
         canvasVInputContex.fillRect(0,yPos-vBarWidth, canvasWidth, vBarWidth*2);
         canvasVInputContex.fillStyle = "rgba(0,0,0,0.7)"; //colorRGB1.getRGBStringAplha(1.0);
         canvasVInputContex.fillRect(0,yPos-vBarWidth/2, canvasWidth, vBarWidth);
-            
-        
-}
 
+
+}
