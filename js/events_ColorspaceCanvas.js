@@ -88,7 +88,6 @@ function mouseMoveColorspace(event) {
           mousePosY <= spaceElementsYPos[i] + circleRad) {
           mouseAboveSpaceObjectID = i;
           if (showSideID == 2) {
-            console.log("above "+mouseAboveSpaceObjectID);
             drawcolormap_hsvSpace(analysisColormap, "id_workcanvasAnalyseHue");
           }
           break;

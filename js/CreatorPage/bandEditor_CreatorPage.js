@@ -116,6 +116,7 @@ function deleteBandEditor(){
 
     document.getElementById("bandEditWindow").style.display = "none";
     changedColor = false;
+
 }
 
 function showHelpBandEditor(){

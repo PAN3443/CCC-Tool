@@ -42,7 +42,7 @@ function expandTable(){
         tableIsExpand=true;
     }
     drawPredefinedBands();
-    styleMainPage();
+    styleCreatorPage();
 }
 
 

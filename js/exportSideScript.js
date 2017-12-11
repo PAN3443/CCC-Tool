@@ -22,7 +22,7 @@ function initExportWindow(){
 
 
 
-  drawKeys("id_keyColormapExport",key_resolution_X, key_resolution_Y, exportColormap, "id_keyColormapLinesBottomExport",true)
+  drawKeys("id_keyColormapExport",key_resolution_X, key_resolution_Y, exportColormap, "id_keyColormapLinesBottomExport",true,false)
 
   fillExportTable();
 
@@ -158,7 +158,7 @@ function changeExportColorspace(type){
 
     // Draw Colorspace
     drawCanvasColormap("id_linearColormapExport",linearMap_resolution_X, linearMap_resolution_Y, exportColormap);
-    drawKeys("id_keyColormapExport",key_resolution_X, key_resolution_Y, exportColormap, "id_keyColormapLinesBottomExport",true);
+    drawKeys("id_keyColormapExport",key_resolution_X, key_resolution_Y, exportColormap, "id_keyColormapLinesBottomExport",true,false);
 
     var box = document.getElementById("id_keyColormapLinesBottomExport").getBoundingClientRect();
     for(var i=0; i<refElementContainer.length; i++){

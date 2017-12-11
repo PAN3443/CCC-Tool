@@ -301,6 +301,8 @@ function orderColorSketch(){
     if(showSideID == 2){
       sketchObject = document.getElementById("id_analyseColormapSketch");
       sketchRefObj = document.getElementById("id_analyseColormapSketch_Ref");
+      analysisColormap = sketchInfo2Colormap();
+      drawcolormap_hsvSpace(analysisColormap, "id_workcanvasAnalyseHue");
     }
 
     if(colormapBandSketchC1.length!=0){
@@ -310,7 +312,7 @@ function orderColorSketch(){
         document.getElementById("id_LinearMap_Table_Div").style.display = "initial";
         createColormap = sketchInfo2Colormap();
         drawCanvasColormap("id_linearColormap",linearMap_resolution_X, linearMap_resolution_Y, createColormap);
-        drawKeys("id_keyColormap",key_resolution_X, key_resolution_Y, createColormap, "id_keyColormapLinesBottom",false)
+        drawKeys("id_keyColormap",key_resolution_X, key_resolution_Y, createColormap, "id_keyColormapLinesBottom",false, true)
         fillTable();
       }
 
@@ -414,7 +416,7 @@ function orderColorSketch(){
             p.style.background = "rgb(255,255,255)";
             p.style.paddingLeft = 5+"px";
             p.style.paddingRight = 5+"px";
-            p.style.border = "2px solid rgb(0,0,0)";
+            p.style.border = "1px solid rgb(0,0,0)";
             p.style.margin = "0px";
 
             p.style.position = "absolute";

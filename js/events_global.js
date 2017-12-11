@@ -343,10 +343,11 @@ function showMyMapsSide(){
     colormapBandSketchC2 = [];
     colormapBandSketchR1 = [];
     colormapBandSketchR2 = [];
-    for(var i = refElementContainer.length-1; i>=0; i--){
-      refElementContainer[i].remove();
-      refElementContainer.pop();
+    for(var i = refLineSketchContainer.length-1; i>=0; i--){
+      refLineSketchContainer[i].remove();
+      refLineSketchContainer.pop();
     }
+
   }
 
 

@@ -71,6 +71,12 @@ var alphaVal = 1.0;
 var lineWidthVPlot = 5;
 var arrowWidth = 15;
 
+var widthVArea =0; // width of plotelement
+var heigthVArea =0;
+var plotXStart =0;
+var plotYStart =0;
+var plotLineWidth = 5;
+var plotLineColor = "rgb(0,0,0)";
 // colorspace eventes
 var mouseAboveSpaceObjectID = -1;
 var mouseGrappedSpaceObjectID = -1;
