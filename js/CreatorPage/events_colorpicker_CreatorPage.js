@@ -12,8 +12,8 @@ function colorpicker_MouseMove(event){
     var canvasPosX = event.clientX - rect.left;
     var canvasPosY = event.clientY - rect.top;
 
-    var ratioToColorspaceResolutionX = hs_resolution_X/rect.width; 
-    var ratioToColorspaceResolutionY = hs_resolution_Y/rect.height; 
+    var ratioToColorspaceResolutionX = hs_resolution_X/rect.width;
+    var ratioToColorspaceResolutionY = hs_resolution_Y/rect.height;
 
     mousePosX = canvasPosX*ratioToColorspaceResolutionX;
     mousePosY = canvasPosY*ratioToColorspaceResolutionY;
@@ -23,14 +23,14 @@ function colorpicker_MouseMove(event){
 
     var xPos1 = tmpC1HSV.getHValue() * hs_resolution_X;
     var yPos1 = (1-tmpC1HSV.getSValue()) * hs_resolution_Y;
- 
+
 }
 
 
 function colorpicker_MouseClick(){
 
 
-        var hVal = mousePosX/hs_resolution_X; 
+        var hVal = mousePosX/hs_resolution_X;
         var sVal = 1-mousePosY/hs_resolution_Y;
 
     switch(colorspaceModus){
@@ -43,7 +43,7 @@ function colorpicker_MouseClick(){
              tmpRGB = tmpHSV.calcRGBColor();
              switch(activColorIndex){
 
-                    case 0: 
+                    case 0:
                         colorVal1_C1 = tmpRGB.getRValue()*255;
                         colorVal2_C1 = tmpRGB.getGValue()*255;
                         colorVal3_C1 = tmpRGB.getBValue()*255;
@@ -56,17 +56,17 @@ function colorpicker_MouseClick(){
                     case 2:
                         colorVal1_C3 = tmpRGB.getRValue()*255;
                         colorVal2_C3 = tmpRGB.getGValue()*255;
-                        colorVal3_C3 = tmpRGB.getBValue()*255;  
+                        colorVal3_C3 = tmpRGB.getBValue()*255;
                     break;
                     case 3:
                         colorVal1_C4 = tmpRGB.getRValue()*255;
                         colorVal2_C4 = tmpRGB.getGValue()*255;
-                        colorVal3_C4 = tmpRGB.getBValue()*255;  
+                        colorVal3_C4 = tmpRGB.getBValue()*255;
                     break;
                     case 4:
                         colorVal1_C5 = tmpRGB.getRValue()*255;
                         colorVal2_C5 = tmpRGB.getGValue()*255;
-                        colorVal3_C5 = tmpRGB.getBValue()*255;  
+                        colorVal3_C5 = tmpRGB.getBValue()*255;
                     break;
                     default:
                             console.log("Error at the changeColorspace function");
@@ -77,7 +77,7 @@ function colorpicker_MouseClick(){
              var tmpHSV = getHSVColor();
              var tmpHSV = new classColor_HSV(hVal, sVal, tmpHSV.getVValue());
              switch(activColorIndex){
-                    case 0: 
+                    case 0:
                         colorVal1_C1 = tmpHSV.getHValue();
                         colorVal2_C1 = tmpHSV.getSValue();
                         colorVal3_C1 = tmpHSV.getVValue();
@@ -95,7 +95,7 @@ function colorpicker_MouseClick(){
                     case 3:
                         colorVal1_C4 = tmpHSV.getHValue();
                         colorVal2_C4 = tmpHSV.getSValue();
-                        colorVal3_C4 = tmpHSV.getVValue();  
+                        colorVal3_C4 = tmpHSV.getVValue();
                     break;
                     case 4:
                         colorVal1_C5 = tmpHSV.getHValue();
@@ -113,9 +113,9 @@ function colorpicker_MouseClick(){
             if(tmpHSV.getVValue()==0)
                tmpHSV.setVValue(0.00001);
             tmpHSV = new classColor_HSV(hVal, sVal, tmpHSV.getVValue());
-            tmpLAB = tmpHSV.calcCIELabColor();
+            tmpLAB = tmpHSV.calcLABColor();
              switch(activColorIndex){
-                    case 0: 
+                    case 0:
                         colorVal1_C1 = tmpLAB.getLValue();
                         colorVal2_C1 = tmpLAB.getAValue();
                         colorVal3_C1 = tmpLAB.getBValue();
@@ -153,7 +153,7 @@ function colorpicker_MouseClick(){
             tmpHSV = new classColor_HSV(hVal, sVal, tmpHSV.getVValue());
             tmpDIN99 = tmpHSV.calcDIN99Color(kE,kCH);
             switch(activColorIndex){
-                    case 0: 
+                    case 0:
                         colorVal1_C1 = tmpDIN99.getL99Value();
                         colorVal2_C1 = tmpDIN99.getA99Value();
                         colorVal3_C1 = tmpDIN99.getB99Value();
@@ -189,7 +189,7 @@ function colorpicker_MouseClick(){
 
     switch(activColorIndex){
 
-                    case 0: 
+                    case 0:
                         document.getElementById("id_color1_First").value = colorVal1_C1.toFixed(numDecimalPlaces);
                         document.getElementById("id_color1_Second").value = colorVal2_C1.toFixed(numDecimalPlaces);
                         document.getElementById("id_color1_Third").value = colorVal3_C1.toFixed(numDecimalPlaces);
@@ -220,7 +220,7 @@ function colorpicker_MouseClick(){
     }
 
     if(creatorBandIsNew==true){
-        saveBandToArray(); 
+        saveBandToArray();
     }
 
     drawColorCircles();
@@ -241,8 +241,8 @@ function c1Vpicker_MouseMove(event){
     var canvasPosX = event.clientX - rect.left;
     var canvasPosY = event.clientY - rect.top;
 
-    var ratioToColorspaceResolutionX = v_resolution_X/rect.width; 
-    var ratioToColorspaceResolutionY = v_resolution_Y/rect.height; 
+    var ratioToColorspaceResolutionX = v_resolution_X/rect.width;
+    var ratioToColorspaceResolutionY = v_resolution_Y/rect.height;
 
     mousePosX = canvasPosX*ratioToColorspaceResolutionX;
     mousePosY = canvasPosY*ratioToColorspaceResolutionY;
@@ -251,7 +251,7 @@ function c1Vpicker_MouseMove(event){
 
 
 function c1Vpicker_MouseClick(){
-    
+
     var newV = 1-mousePosY/v_resolution_Y;
 
         switch(colorspaceModus){
@@ -262,7 +262,7 @@ function c1Vpicker_MouseClick(){
              tmpRGB = tmpHSV.calcRGBColor();
              switch(activColorIndex){
 
-                    case 0: 
+                    case 0:
                         colorVal1_C1 = tmpRGB.getRValue()*255;
                         colorVal2_C1 = tmpRGB.getGValue()*255;
                         colorVal3_C1 = tmpRGB.getBValue()*255;
@@ -275,17 +275,17 @@ function c1Vpicker_MouseClick(){
                     case 2:
                         colorVal1_C3 = tmpRGB.getRValue()*255;
                         colorVal2_C3 = tmpRGB.getGValue()*255;
-                        colorVal3_C3 = tmpRGB.getBValue()*255;  
+                        colorVal3_C3 = tmpRGB.getBValue()*255;
                     break;
                     case 3:
                         colorVal1_C4 = tmpRGB.getRValue()*255;
                         colorVal2_C4 = tmpRGB.getGValue()*255;
-                        colorVal3_C4 = tmpRGB.getBValue()*255;  
+                        colorVal3_C4 = tmpRGB.getBValue()*255;
                     break;
                     case 4:
                         colorVal1_C5 = tmpRGB.getRValue()*255;
                         colorVal2_C5 = tmpRGB.getGValue()*255;
-                        colorVal3_C5 = tmpRGB.getBValue()*255;  
+                        colorVal3_C5 = tmpRGB.getBValue()*255;
                     break;
                     default:
                             console.log("Error at the changeColorspace function");
@@ -296,7 +296,7 @@ function c1Vpicker_MouseClick(){
              var tmpHSV = getHSVColor();
              var tmpHSV = new classColor_HSV(tmpHSV.getHValue(), tmpHSV.getSValue(), newV);
              switch(activColorIndex){
-                    case 0: 
+                    case 0:
                         colorVal1_C1 = tmpHSV.getHValue();
                         colorVal2_C1 = tmpHSV.getSValue();
                         colorVal3_C1 = tmpHSV.getVValue();
@@ -314,7 +314,7 @@ function c1Vpicker_MouseClick(){
                     case 3:
                         colorVal1_C4 = tmpHSV.getHValue();
                         colorVal2_C4 = tmpHSV.getSValue();
-                        colorVal3_C4 = tmpHSV.getVValue();  
+                        colorVal3_C4 = tmpHSV.getVValue();
                     break;
                     case 4:
                         colorVal1_C5 = tmpHSV.getHValue();
@@ -332,9 +332,9 @@ function c1Vpicker_MouseClick(){
                             if(tmpHSV.getVValue()==0)
                                 tmpHSV.setVValue(0.00001);
                             tmpHSV = new classColor_HSV(tmpHSV.getHValue(), tmpHSV.getSValue(), newV);
-                            tmpLAB = tmpHSV.calcCIELabColor();
+                            tmpLAB = tmpHSV.calcLABColor();
              switch(activColorIndex){
-                    case 0: 
+                    case 0:
                         colorVal1_C1 = tmpLAB.getLValue();
                         colorVal2_C1 = tmpLAB.getAValue();
                         colorVal3_C1 = tmpLAB.getBValue();
@@ -372,7 +372,7 @@ function c1Vpicker_MouseClick(){
                             tmpHSV = new classColor_HSV(tmpHSV.getHValue(), tmpHSV.getSValue(), newV);
                             tmpDIN99 = tmpHSV.calcDIN99Color(kE,kCH);
             switch(activColorIndex){
-                    case 0: 
+                    case 0:
                         colorVal1_C1 = tmpDIN99.getL99Value();
                         colorVal2_C1 = tmpDIN99.getA99Value();
                         colorVal3_C1 = tmpDIN99.getB99Value();
@@ -408,7 +408,7 @@ function c1Vpicker_MouseClick(){
 
     switch(activColorIndex){
 
-                    case 0: 
+                    case 0:
                         document.getElementById("id_color1_First").value = colorVal1_C1.toFixed(numDecimalPlaces);
                         document.getElementById("id_color1_Second").value = colorVal2_C1.toFixed(numDecimalPlaces);
                         document.getElementById("id_color1_Third").value = colorVal3_C1.toFixed(numDecimalPlaces);
@@ -442,10 +442,7 @@ function c1Vpicker_MouseClick(){
     updateCreatorBand();
 
     if(creatorBandIsNew==true){
-        saveBandToArray(); 
+        saveBandToArray();
     }
 
 }
-
-
-

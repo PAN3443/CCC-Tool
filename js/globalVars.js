@@ -27,11 +27,11 @@ var mousePosY;
 var vPlot_resolution_X = 1500; // hue colorspace
 var vPlot_resolution_Y = 650; // hue colorspace
 
-var hue_resolution_X = 1500; // hue colorspace
-var hue_resolution_Y = 1500; // hue colorspace
+var hue_resolution_X = 750;//1500; // hue colorspace
+var hue_resolution_Y = 750;//1500; // hue colorspace
 
-  var hs_resolution_X = 1500; // Colorpicker
-  var hs_resolution_Y = 1500; // Colorpicker
+  var hs_resolution_X = 750;//1500; // Colorpicker
+  var hs_resolution_Y = 750;//1500; // Colorpicker
 
   var v_resolution_X = 150; // Colorpicker
   var v_resolution_Y = 500; // Colorpicker
@@ -60,11 +60,11 @@ var colorspaceCenterX;
 var colorspaceCenterY;
 var colorspaceRadius;
 var radiusratio = 0.95;
-var bigLineWidth = 10;
-var smallLineWidth = 6;
+var bigLineWidth = 8;
+var smallLineWidth = 4;
 var circleRadPicker = 40;
-var circleRad = 15;
-var bigcircleRad = 25;
+var circleRad = 8; //15;
+var bigcircleRad = 12;//25;
 var vBarWidth = 8;
 var circleStrokeWidth = 15;
 var alphaVal = 1.0;
@@ -75,8 +75,12 @@ var widthVArea =0; // width of plotelement
 var heigthVArea =0;
 var plotXStart =0;
 var plotYStart =0;
+var plotYEnd=0;
 var plotLineWidth = 5;
 var plotLineColor = "rgb(0,0,0)";
+
+var labSpaceRange = 128;
+
 // colorspace eventes
 var mouseAboveSpaceObjectID = -1;
 var mouseGrappedSpaceObjectID = -1;

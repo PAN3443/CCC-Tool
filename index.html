@@ -565,10 +565,27 @@
     </div>
     <div class="row" style="width:100%; background:white;">
       <p class="classlabelRadioButton" style="margin-left:auto; font-weight:bold;">Colorspace:</p>
-      <input class="classlabelRadioButton" type="radio" id="analyseSideShowHSV" name="createSideCreateType" value="1">
+      <input class="classlabelRadioButton" type="radio" id="analyseSideShowRGB" name="createSideCreateType" value="0">
+      <label class="classlabelRadioButton" for="analyseSideShowRGB"> RGB Colorspace </label><br>
+      <input class="classlabelRadioButton" type="radio" id="analyseSideShowHSV" name="createSideCreateType" value="0">
       <label class="classlabelRadioButton" for="analyseSideShowHSV"> HSV Colorspace </label><br>
       <input class="classlabelRadioButton" type="radio" id="analyseSideShowLAB" name="createSideCreateType" value="1">
       <label class="classlabelRadioButton" style="margin-right:auto;" for="analyseSideShowLAB"> LAB Colorspace </label><br>
+    </div>
+
+
+    <div class="row" style="width:100%; background:white; height:auto; display:none;" id='id_hueValueRange'>
+
+      <!-- Hue -->
+
+      <p class="classlabelRadioButton" style="width:10vw; font-weight:bold;">Value Range:</p>
+      <input class="classlabelRadioButton" id="id_setValueRange" type="number" min="0" max="100" value="50" name="points" step="10" style="width:20vw;">
+
+
+      <div style="width:68%;">
+
+      </div>
+
     </div>
 
     <div class="row" style="width:100%; background:white; height:auto;">

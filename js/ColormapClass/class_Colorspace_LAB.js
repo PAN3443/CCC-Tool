@@ -2,7 +2,7 @@
 // ------------ Class CIELab ---------------//
 ////////////////////////////////////////////////
 
-class classColorCIELab{
+class classColor_LAB{
 
       constructor(lValue, aValue, bValue) {
         this.lValue = lValue;
@@ -41,7 +41,7 @@ class classColorCIELab{
         this.bValue = newBVal;
       }
 
-      calcRGB(){
+      calcRGBColor(){
             var error = 100.0; //0.01;
 
 
@@ -137,7 +137,7 @@ class classColorCIELab{
       }
 
       calcHSVColor(){
-        var tmpRGBColor = this.calcRGB();
+        var tmpRGBColor = this.calcRGBColor();
         return tmpRGBColor.calcHSVColor();
       }
 

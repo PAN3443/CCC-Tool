@@ -107,8 +107,8 @@ function drawPredefinedBands(){
                         canvasData=createScaledBand(canvasData, bandWidth, bandWidth, resolutionY, tmpC2RGB.calcHSVColor(), tmpC3RGB.calcHSVColor(), resolutionX);
                     break;
                     case "lab":
-                        canvasData=createScaledBand(canvasData, 0, bandWidth, resolutionY, tmpC1RGB.calcCIELabColor(), tmpC2RGB.calcCIELabColor(), resolutionX);
-                        canvasData=createScaledBand(canvasData, bandWidth, bandWidth, resolutionY, tmpC2RGB.calcCIELabColor(), tmpC3RGB.calcCIELabColor(), resolutionX);
+                        canvasData=createScaledBand(canvasData, 0, bandWidth, resolutionY, tmpC1RGB.calcLABColor(), tmpC2RGB.calcLABColor(), resolutionX);
+                        canvasData=createScaledBand(canvasData, bandWidth, bandWidth, resolutionY, tmpC2RGB.calcLABColor(), tmpC3RGB.calcLABColor(), resolutionX);
                     break;
                     case "din99":
                         canvasData=createScaledBand(canvasData, 0, bandWidth, resolutionY, tmpC1RGB.calcDIN99Color(kE,kCH), tmpC2RGB.calcDIN99Color(kE,kCH), resolutionX);
@@ -169,9 +169,9 @@ function drawPredefinedBands(){
                         canvasData=createScaledBand(canvasData, bandWidth*2, bandWidth, resolutionY, tmpC3RGB.calcHSVColor(), tmpC4RGB.calcHSVColor(), resolutionX);
                     break;
                     case "lab":
-                        canvasData=createScaledBand(canvasData, 0, bandWidth, resolutionY, tmpC1RGB.calcCIELabColor(), tmpC2RGB.calcCIELabColor(), resolutionX);
-                        canvasData=createScaledBand(canvasData, bandWidth, bandWidth, resolutionY, tmpC2RGB.calcCIELabColor(), tmpC3RGB.calcCIELabColor(), resolutionX);
-                        canvasData=createScaledBand(canvasData, bandWidth*2, bandWidth, resolutionY, tmpC3RGB.calcCIELabColor(), tmpC4RGB.calcCIELabColor(), resolutionX);
+                        canvasData=createScaledBand(canvasData, 0, bandWidth, resolutionY, tmpC1RGB.calcLABColor(), tmpC2RGB.calcLABColor(), resolutionX);
+                        canvasData=createScaledBand(canvasData, bandWidth, bandWidth, resolutionY, tmpC2RGB.calcLABColor(), tmpC3RGB.calcLABColor(), resolutionX);
+                        canvasData=createScaledBand(canvasData, bandWidth*2, bandWidth, resolutionY, tmpC3RGB.calcLABColor(), tmpC4RGB.calcLABColor(), resolutionX);
                     break;
                     case "din99":
                         canvasData=createScaledBand(canvasData, 0, bandWidth, resolutionY, tmpC1RGB.calcDIN99Color(kE,kCH), tmpC2RGB.calcDIN99Color(kE,kCH), resolutionX);
@@ -237,10 +237,10 @@ function drawPredefinedBands(){
                         canvasData=createScaledBand(canvasData, bandWidth*3, bandWidth, resolutionY, tmpC4RGB.calcHSVColor(), tmpC5RGB.calcHSVColor(), resolutionX);
                     break;
                     case "lab":
-                        canvasData=createScaledBand(canvasData, 0, bandWidth, resolutionY, tmpC1RGB.calcCIELabColor(), tmpC2RGB.calcCIELabColor(), resolutionX);
-                        canvasData=createScaledBand(canvasData, bandWidth, bandWidth, resolutionY, tmpC2RGB.calcCIELabColor(), tmpC3RGB.calcCIELabColor(), resolutionX);
-                        canvasData=createScaledBand(canvasData, bandWidth*2, bandWidth, resolutionY, tmpC3RGB.calcCIELabColor(), tmpC4RGB.calcCIELabColor(), resolutionX);
-                        canvasData=createScaledBand(canvasData, bandWidth*3, bandWidth, resolutionY, tmpC4RGB.calcCIELabColor(), tmpC5RGB.calcCIELabColor(), resolutionX);
+                        canvasData=createScaledBand(canvasData, 0, bandWidth, resolutionY, tmpC1RGB.calcLABColor(), tmpC2RGB.calcLABColor(), resolutionX);
+                        canvasData=createScaledBand(canvasData, bandWidth, bandWidth, resolutionY, tmpC2RGB.calcLABColor(), tmpC3RGB.calcLABColor(), resolutionX);
+                        canvasData=createScaledBand(canvasData, bandWidth*2, bandWidth, resolutionY, tmpC3RGB.calcLABColor(), tmpC4RGB.calcLABColor(), resolutionX);
+                        canvasData=createScaledBand(canvasData, bandWidth*3, bandWidth, resolutionY, tmpC4RGB.calcLABColor(), tmpC5RGB.calcLABColor(), resolutionX);
                     break;
                     case "din99":
                         canvasData=createScaledBand(canvasData, 0, bandWidth, resolutionY, tmpC1RGB.calcDIN99Color(kE,kCH), tmpC2RGB.calcDIN99Color(kE,kCH), resolutionX);

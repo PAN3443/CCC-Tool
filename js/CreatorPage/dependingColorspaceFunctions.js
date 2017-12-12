@@ -32,12 +32,12 @@ function drawCanvasBand(canvasObject, rgbColor1, rgbColor2,resolutionX,resolutio
                 break;
                 case "lab":
 
-                    var tmpC1LAB = rgbColor1.calcCIELabColor();
+                    var tmpC1LAB = rgbColor1.calcLABColor();
                     if(rgbColor1.getRGBString()===rgbColor2.getRGBString()){
                         canvasData=createConstantBand(canvasData, 0, resolutionX, resolutionY, tmpC1LAB, resolutionX);
                     }
                     else{
-                        var tmpC2LAB = rgbColor2.calcCIELabColor();
+                        var tmpC2LAB = rgbColor2.calcLABColor();
                         canvasData=createScaledBand(canvasData, 0, resolutionX, resolutionY, tmpC1LAB, tmpC2LAB, resolutionX);
                     }
 

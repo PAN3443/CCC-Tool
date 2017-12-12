@@ -14,7 +14,7 @@ function getHSVColor(){
                 case "hsv":
                     return new classColor_HSV(colorVal1_C1,colorVal2_C1,colorVal3_C1);
                 case "lab":
-                    var tmpC1LAB = new classColorCIELab(colorVal1_C1,colorVal2_C1,colorVal3_C1);
+                    var tmpC1LAB = new classColor_LAB(colorVal1_C1,colorVal2_C1,colorVal3_C1);
                     return tmpC1LAB.calcHSVColor();
                 case "din99":
                     var tmpC1DIN99 = new classColorDIN99(colorVal1_C1,colorVal2_C1,colorVal3_C1);
@@ -32,7 +32,7 @@ function getHSVColor(){
                             case "hsv":
                                 return new classColor_HSV(colorVal1_C2,colorVal2_C2,colorVal3_C2);
                             case "lab":
-                                var tmpC2LAB = new classColorCIELab(colorVal1_C2,colorVal2_C2,colorVal3_C2);
+                                var tmpC2LAB = new classColor_LAB(colorVal1_C2,colorVal2_C2,colorVal3_C2);
                                 return tmpC2LAB.calcHSVColor();
                             case "din99":
                                 var tmpC2DIN99 = new classColorDIN99(colorVal1_C2,colorVal2_C2,colorVal3_C2);
@@ -49,7 +49,7 @@ function getHSVColor(){
                             case "hsv":
                                 return new classColor_HSV(colorVal1_C3,colorVal2_C3,colorVal3_C3);
                             case "lab":
-                                var tmpC2LAB = new classColorCIELab(colorVal1_C3,colorVal2_C3,colorVal3_C3);
+                                var tmpC2LAB = new classColor_LAB(colorVal1_C3,colorVal2_C3,colorVal3_C3);
                                 return tmpC2LAB.calcHSVColor();
                             case "din99":
                                 var tmpC2DIN99 = new classColorDIN99(colorVal1_C3,colorVal2_C3,colorVal3_C3);
@@ -66,7 +66,7 @@ function getHSVColor(){
                             case "hsv":
                                 return new classColor_HSV(colorVal1_C4,colorVal2_C4,colorVal3_C4);
                             case "lab":
-                                var tmpC2LAB = new classColorCIELab(colorVal1_C4,colorVal2_C4,colorVal3_C4);
+                                var tmpC2LAB = new classColor_LAB(colorVal1_C4,colorVal2_C4,colorVal3_C4);
                                 return tmpC2LAB.calcHSVColor();
                             case "din99":
                                 var tmpC2DIN99 = new classColorDIN99(colorVal1_C4,colorVal2_C4,colorVal3_C4);
@@ -83,7 +83,7 @@ function getHSVColor(){
                             case "hsv":
                                 return new classColor_HSV(colorVal1_C5,colorVal2_C5,colorVal3_C5);
                             case "lab":
-                                var tmpC2LAB = new classColorCIELab(colorVal1_C5,colorVal2_C5,colorVal3_C5);
+                                var tmpC2LAB = new classColor_LAB(colorVal1_C5,colorVal2_C5,colorVal3_C5);
                                 return tmpC2LAB.calcHSVColor();
                             case "din99":
                                 var tmpC2DIN99 = new classColorDIN99(colorVal1_C5,colorVal2_C5,colorVal3_C5);
@@ -112,8 +112,8 @@ function getRGBColor(){
                     var tmpHSV = new classColor_HSV(colorVal1_C1,colorVal2_C1,colorVal3_C1);
                     return tmpHSV.calcRGBColor();
                 case "lab":
-                    var tmpC1LAB = new classColorCIELab(colorVal1_C1,colorVal2_C1,colorVal3_C1);
-                    return tmpC1LAB.calcRGB();
+                    var tmpC1LAB = new classColor_LAB(colorVal1_C1,colorVal2_C1,colorVal3_C1);
+                    return tmpC1LAB.calcRGBColor();
                 case "din99":
                     var tmpC1DIN99 = new classColorDIN99(colorVal1_C1,colorVal2_C1,colorVal3_C1);
                     return tmpC1DIN99.calcRGBColor();
@@ -129,8 +129,8 @@ function getRGBColor(){
                     var tmpHSV = new classColor_HSV(colorVal1_C2,colorVal2_C2,colorVal3_C2);
                     return tmpHSV.calcRGBColor();
                 case "lab":
-                    var tmpC2LAB = new classColorCIELab(colorVal1_C2,colorVal2_C2,colorVal3_C2);
-                    return tmpC2LAB.calcRGB();
+                    var tmpC2LAB = new classColor_LAB(colorVal1_C2,colorVal2_C2,colorVal3_C2);
+                    return tmpC2LAB.calcRGBColor();
                 case "din99":
                     var tmpC2DIN99 = new classColorDIN99(colorVal1_C2,colorVal2_C2,colorVal3_C2);
                     return tmpC2DIN99.calcRGBColor();
@@ -146,8 +146,8 @@ function getRGBColor(){
                                 var tmpHSV = new classColor_HSV(colorVal1_C3,colorVal2_C3,colorVal3_C3);
                                 return tmpHSV.calcRGBColor();
                             case "lab":
-                                var tmpC2LAB = new classColorCIELab(colorVal1_C3,colorVal2_C3,colorVal3_C3);
-                                return tmpC2LAB.calcRGB();
+                                var tmpC2LAB = new classColor_LAB(colorVal1_C3,colorVal2_C3,colorVal3_C3);
+                                return tmpC2LAB.calcRGBColor();
                             case "din99":
                                 var tmpC2DIN99 = new classColorDIN99(colorVal1_C3,colorVal2_C3,colorVal3_C3);
                                 return tmpC2DIN99.calcRGBColor();
@@ -163,8 +163,8 @@ function getRGBColor(){
                                 var tmpHSV = new classColor_HSV(colorVal1_C4,colorVal2_C4,colorVal3_C4);
                                 return tmpHSV.calcRGBColor();
                             case "lab":
-                                var tmpC2LAB = new classColorCIELab(colorVal1_C4,colorVal2_C4,colorVal3_C4);
-                                return tmpC2LAB.calcRGB();
+                                var tmpC2LAB = new classColor_LAB(colorVal1_C4,colorVal2_C4,colorVal3_C4);
+                                return tmpC2LAB.calcRGBColor();
                             case "din99":
                                 var tmpC2DIN99 = new classColorDIN99(colorVal1_C4,colorVal2_C4,colorVal3_C4);
                                 return tmpC2DIN99.calcRGBColor();
@@ -180,8 +180,8 @@ function getRGBColor(){
                                  var tmpHSV = new classColor_HSV(colorVal1_C5,colorVal2_C5,colorVal3_C5);
                                  return tmpHSV.calcRGBColor();
                             case "lab":
-                                var tmpC2LAB = new classColorCIELab(colorVal1_C5,colorVal2_C5,colorVal3_C5);
-                                return tmpC2LAB.calcRGB();
+                                var tmpC2LAB = new classColor_LAB(colorVal1_C5,colorVal2_C5,colorVal3_C5);
+                                return tmpC2LAB.calcRGBColor();
                             case "din99":
                                 var tmpC2DIN99 = new classColorDIN99(colorVal1_C5,colorVal2_C5,colorVal3_C5);
                                 return tmpC2DIN99.calcRGBColor();
@@ -205,12 +205,12 @@ function getLABColor(){
              switch(colorspaceModus){
                 case "rgb":
                     var tmpC1RGB = new classColor_RGB((colorVal1_C1/255),(colorVal2_C1/255),(colorVal3_C1/255));
-                    return tmpC1RGB.calcCIELabColor();
+                    return tmpC1RGB.calcLABColor();
                 case "hsv":
                     var tmpHSV = new classColor_HSV(colorVal1_C1,colorVal2_C1,colorVal3_C1);
-                    return tmpHSV.calcCIELabColor();
+                    return tmpHSV.calcLABColor();
                 case "lab":
-                    return new classColorCIELab(colorVal1_C1,colorVal2_C1,colorVal3_C1);
+                    return new classColor_LAB(colorVal1_C1,colorVal2_C1,colorVal3_C1);
                 case "din99":
                     var tmpC2DIN99 = new classColorDIN99(colorVal1_C1,colorVal2_C1,colorVal3_C1);
                     return tmpC2DIN99.calcLABColor();
@@ -223,12 +223,12 @@ function getLABColor(){
                 switch(colorspaceModus){
                             case "rgb":
                                 var tmpC2RGB = new classColor_RGB((colorVal1_C2/255),(colorVal2_C2/255),(colorVal3_C2/255));
-                                return tmpC2RGB.calcCIELabColor();
+                                return tmpC2RGB.calcLABColor();
                             case "hsv":
                                  var tmpHSV = new classColor_HSV(colorVal1_C2,colorVal2_C2,colorVal3_C2);
-                                 return tmpHSV.calcCIELabColor();
+                                 return tmpHSV.calcLABColor();
                             case "lab":
-                                return new classColorCIELab(colorVal1_C2,colorVal2_C2,colorVal3_C2);
+                                return new classColor_LAB(colorVal1_C2,colorVal2_C2,colorVal3_C2);
                             case "din99":
                                 var tmpC2DIN99 = new classColorDIN99(colorVal1_C2,colorVal2_C2,colorVal3_C2);
                                 return tmpC2DIN99.calcLABColor();
@@ -240,12 +240,12 @@ function getLABColor(){
                 switch(colorspaceModus){
                             case "rgb":
                                 var tmpC2RGB = new classColor_RGB((colorVal1_C3/255),(colorVal2_C3/255),(colorVal3_C3/255));
-                                return tmpC2RGB.calcCIELabColor();
+                                return tmpC2RGB.calcLABColor();
                             case "hsv":
                                 var tmpHSV = new classColor_HSV(colorVal1_C3,colorVal2_C3,colorVal3_C3);
-                                 return tmpHSV.calcCIELabColor();
+                                 return tmpHSV.calcLABColor();
                             case "lab":
-                                return new classColorCIELab(colorVal1_C3,colorVal2_C3,colorVal3_C3);
+                                return new classColor_LAB(colorVal1_C3,colorVal2_C3,colorVal3_C3);
                             case "din99":
                                 var tmpC2DIN99 = new classColorDIN99(colorVal1_C3,colorVal2_C3,colorVal3_C3);
                                 return tmpC2DIN99.calcLABColor();
@@ -257,12 +257,12 @@ function getLABColor(){
                 switch(colorspaceModus){
                             case "rgb":
                                 var tmpC2RGB = new classColor_RGB((colorVal1_C4/255),(colorVal2_C4/255),(colorVal3_C4/255));
-                                return tmpC2RGB.calcCIELabColor();
+                                return tmpC2RGB.calcLABColor();
                             case "hsv":
                                 var tmpHSV = new classColor_HSV(colorVal1_C4,colorVal2_C4,colorVal3_C4);
-                                 return tmpHSV.calcCIELabColor();
+                                 return tmpHSV.calcLABColor();
                             case "lab":
-                                return new classColorCIELab(colorVal1_C4,colorVal2_C4,colorVal3_C4);
+                                return new classColor_LAB(colorVal1_C4,colorVal2_C4,colorVal3_C4);
                             case "din99":
                                 var tmpC2DIN99 = new classColorDIN99(colorVal1_C4,colorVal2_C4,colorVal3_C4);
                                 return tmpC2DIN99.calcLABColor();
@@ -274,12 +274,12 @@ function getLABColor(){
                 switch(colorspaceModus){
                             case "rgb":
                                 var tmpC2RGB = new classColor_RGB((colorVal1_C5/255),(colorVal2_C5/255),(colorVal3_C5/255));
-                                return tmpC2RGB.calcCIELabColor();
+                                return tmpC2RGB.calcLABColor();
                             case "hsv":
                                 var tmpHSV = new classColor_HSV(colorVal1_C5,colorVal2_C5,colorVal3_C5);
-                                 return tmpHSV.calcCIELabColor();
+                                 return tmpHSV.calcLABColor();
                             case "lab":
-                                return  new classColorCIELab(colorVal1_C5,colorVal2_C5,colorVal3_C5);
+                                return  new classColor_LAB(colorVal1_C5,colorVal2_C5,colorVal3_C5);
                             case "din99":
                                 var tmpC2DIN99 = new classColorDIN99(colorVal1_C5,colorVal2_C5,colorVal3_C5);
                                 return tmpC2DIN99.calcLABColor();
@@ -308,7 +308,7 @@ function getDIN99Color(){
                     var tmpHSV = new classColor_HSV(colorVal1_C1,colorVal2_C1,colorVal3_C1);
                     return tmpHSV.calcDIN99Color(kE,kCH);
                 case "lab":
-                    var tmpC1LAB = new classColorCIELab(colorVal1_C1,colorVal2_C1,colorVal3_C1);
+                    var tmpC1LAB = new classColor_LAB(colorVal1_C1,colorVal2_C1,colorVal3_C1);
                     return tmpC1LAB.calcDIN99Color(kE,kCH);
                 case "din99":
                     return new classColorDIN99(colorVal1_C1,colorVal2_C1,colorVal3_C1);
@@ -325,7 +325,7 @@ function getDIN99Color(){
                                  var tmpHSV = new classColor_HSV(colorVal1_C2,colorVal2_C2,colorVal3_C2);
                                  return tmpHSV.calcDIN99Color(kE,kCH);
                             case "lab":
-                                var tmpC2LAB = new classColorCIELab(colorVal1_C2,colorVal2_C2,colorVal3_C2);
+                                var tmpC2LAB = new classColor_LAB(colorVal1_C2,colorVal2_C2,colorVal3_C2);
                                 return tmpC2LAB.calcDIN99Color(kE,kCH);
                             case "din99":
                                 return new classColorDIN99(colorVal1_C2,colorVal2_C2,colorVal3_C2);
@@ -342,7 +342,7 @@ function getDIN99Color(){
                                 var tmpHSV = new classColor_HSV(colorVal1_C3,colorVal2_C3,colorVal3_C3);
                                  return tmpHSV.calcDIN99Color(kE,kCH);
                             case "lab":
-                                var tmpC2LAB = new classColorCIELab(colorVal1_C3,colorVal2_C3,colorVal3_C3);
+                                var tmpC2LAB = new classColor_LAB(colorVal1_C3,colorVal2_C3,colorVal3_C3);
                                 return tmpC2LAB.calcDIN99Color(kE,kCH);
                             case "din99":
                                 return new classColorDIN99(colorVal1_C3,colorVal2_C3,colorVal3_C3);
@@ -359,7 +359,7 @@ function getDIN99Color(){
                                 var tmpHSV = new classColor_HSV(colorVal1_C4,colorVal2_C4,colorVal3_C4);
                                  return tmpHSV.calcDIN99Color(kE,kCH);
                             case "lab":
-                                var tmpC2LAB = new classColorCIELab(colorVal1_C4,colorVal2_C4,colorVal3_C4);
+                                var tmpC2LAB = new classColor_LAB(colorVal1_C4,colorVal2_C4,colorVal3_C4);
                                 return tmpC2LAB.calcDIN99Color(kE,kCH);
                             case "din99":
                                 return new classColorDIN99(colorVal1_C4,colorVal2_C4,colorVal3_C4);
@@ -376,7 +376,7 @@ function getDIN99Color(){
                                 var tmpHSV = new classColor_HSV(colorVal1_C5,colorVal2_C5,colorVal3_C5);
                                  return tmpHSV.calcDIN99Color(kE,kCH);
                             case "lab":
-                                var tmpC2LAB = new classColorCIELab(colorVal1_C5,colorVal2_C5,colorVal3_C5);
+                                var tmpC2LAB = new classColor_LAB(colorVal1_C5,colorVal2_C5,colorVal3_C5);
                                 return tmpC2LAB.calcDIN99Color(kE,kCH);
                             case "din99":
                                 return new classColorDIN99(colorVal1_C5,colorVal2_C5,colorVal3_C5);
@@ -399,7 +399,7 @@ function getRightColorSpace(wishSpace, color){
            case "hsv":
                return color.calcHSVColor();
            case "lab":
-               return color.calcCIELabColor();
+               return color.calcLABColor();
            case "din99":
                return color.calcDIN99Color(kE,kCH);
            default:
@@ -411,7 +411,7 @@ function getRightColorSpace(wishSpace, color){
            case "rgb":
                return color.calcRGBColor();
            case "lab":
-               return color.calcCIELabColor();
+               return color.calcLABColor();
            case "din99":
                return color.calcDIN99Color(kE,kCH);
            default:
@@ -423,7 +423,7 @@ function getRightColorSpace(wishSpace, color){
            case "hsv":
                return color.calcHSVColor();
            case "rgb":
-               return color.calcRGB();
+               return color.calcRGBColor();
            case "din99":
                return color.calcDIN99Color(kE,kCH);
            default:

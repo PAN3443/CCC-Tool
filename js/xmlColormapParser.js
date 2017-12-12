@@ -241,7 +241,7 @@ function xmlColormapParserFile(xmlString){
                                 var b = parseFloat(pointObject[i].getAttribute("b"));
 
                                 tmpColorMap.pushPositionPoints(x);
-                                var tmpColor = new classColorCIELab(l,a,b);
+                                var tmpColor = new classColor_LAB(l,a,b);
                                 tmpColorMap.pushCIELabColor(tmpColor);
 
                             }

@@ -121,8 +121,8 @@ function fillExportTable(){
                     td2.appendChild(document.createTextNode(string));
                 break;
                 case "lab":
-                    var tmpC1LAB = expMapBandSketchC1[i].calcCIELabColor();
-                    var tmpC2LAB = expMapBandSketchC2[i].calcCIELabColor();
+                    var tmpC1LAB = expMapBandSketchC1[i].calcLABColor();
+                    var tmpC2LAB = expMapBandSketchC2[i].calcLABColor();
                     var string = "lab("+tmpC1LAB.getLValue().toFixed(numDecimalPlaces)+","+tmpC1LAB.getAValue().toFixed(numDecimalPlaces)+","+tmpC1LAB.getBValue().toFixed(numDecimalPlaces)+")"
                     td.appendChild(document.createTextNode(string));
                     string = "lab("+tmpC2LAB.getLValue().toFixed(numDecimalPlaces)+","+tmpC2LAB.getAValue().toFixed(numDecimalPlaces)+","+tmpC2LAB.getBValue().toFixed(numDecimalPlaces)+")"

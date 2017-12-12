@@ -705,7 +705,7 @@ function openPredefinedBand(event){
                     colorVal3_C5 = tmpHSVC1.getVValue();
                 break;
                 case "lab":
-                    var tmpLABC1 = constBands[bandIndex].calcCIELabColor();
+                    var tmpLABC1 = constBands[bandIndex].calcLABColor();
                     colorVal1_C1 = tmpLABC1.getLValue();
                     colorVal2_C1 = tmpLABC1.getAValue();
                     colorVal3_C1 = tmpLABC1.getBValue();
@@ -759,8 +759,8 @@ function openPredefinedBand(event){
                     colorVal3_C5 = tmpHSVC2.getVValue();
                 break;
                 case "lab":
-                    var tmpLABC1 = scaleBands[bandIndex][0].calcCIELabColor();
-                     var tmpLABC2 = scaleBands[bandIndex][1].calcCIELabColor();
+                    var tmpLABC1 = scaleBands[bandIndex][0].calcLABColor();
+                     var tmpLABC2 = scaleBands[bandIndex][1].calcLABColor();
                     colorVal1_C1 = tmpLABC1.getLValue();
                     colorVal2_C1 = tmpLABC1.getAValue();
                     colorVal3_C1 = tmpLABC1.getBValue();
@@ -824,9 +824,9 @@ function openPredefinedBand(event){
                     colorVal3_C5 = tmpHSVC3.getVValue();
                 break;
                 case "lab":
-                    var tmpLABC1 = doubleBands[bandIndex][0].calcCIELabColor();
-                    var tmpLABC2 = doubleBands[bandIndex][1].calcCIELabColor();
-                    var tmpLABC3 = doubleBands[bandIndex][2].calcCIELabColor();
+                    var tmpLABC1 = doubleBands[bandIndex][0].calcLABColor();
+                    var tmpLABC2 = doubleBands[bandIndex][1].calcLABColor();
+                    var tmpLABC3 = doubleBands[bandIndex][2].calcLABColor();
                     colorVal1_C1 = tmpLABC1.getLValue();
                     colorVal2_C1 = tmpLABC1.getAValue();
                     colorVal3_C1 = tmpLABC1.getBValue();
@@ -908,10 +908,10 @@ function openPredefinedBand(event){
                     colorVal3_C5 = tmpHSVC4.getVValue();
                 break;
                 case "lab":
-                    var tmpLABC1 = tribleBands[bandIndex][0].calcCIELabColor();
-                    var tmpLABC2 = tribleBands[bandIndex][1].calcCIELabColor();
-                    var tmpLABC3 = tribleBands[bandIndex][2].calcCIELabColor();
-                    var tmpLABC4 = tribleBands[bandIndex][3].calcCIELabColor();
+                    var tmpLABC1 = tribleBands[bandIndex][0].calcLABColor();
+                    var tmpLABC2 = tribleBands[bandIndex][1].calcLABColor();
+                    var tmpLABC3 = tribleBands[bandIndex][2].calcLABColor();
+                    var tmpLABC4 = tribleBands[bandIndex][3].calcLABColor();
                     colorVal1_C1 = tmpLABC1.getLValue();
                     colorVal2_C1 = tmpLABC1.getAValue();
                     colorVal3_C1 = tmpLABC1.getBValue();
@@ -1010,11 +1010,11 @@ function openPredefinedBand(event){
                     colorVal3_C5 = tmpHSVC5.getVValue();
                 break;
                 case "lab":
-                    var tmpLABC1 = quadBands[bandIndex][0].calcCIELabColor();
-                    var tmpLABC2 = quadBands[bandIndex][1].calcCIELabColor();
-                    var tmpLABC3 = quadBands[bandIndex][2].calcCIELabColor();
-                    var tmpLABC4 = quadBands[bandIndex][3].calcCIELabColor();
-                    var tmpLABC5 = quadBands[bandIndex][4].calcCIELabColor();
+                    var tmpLABC1 = quadBands[bandIndex][0].calcLABColor();
+                    var tmpLABC2 = quadBands[bandIndex][1].calcLABColor();
+                    var tmpLABC3 = quadBands[bandIndex][2].calcLABColor();
+                    var tmpLABC4 = quadBands[bandIndex][3].calcLABColor();
+                    var tmpLABC5 = quadBands[bandIndex][4].calcLABColor();
                     colorVal1_C1 = tmpLABC1.getLValue();
                     colorVal2_C1 = tmpLABC1.getAValue();
                     colorVal3_C1 = tmpLABC1.getBValue();
@@ -1376,7 +1376,7 @@ function addBand(type){
                                     colorVal3_C1 = tmpHSV.getVValue();
                         break;
                         case "lab":
-                                    var tmpLAB = tmpRGB.calcCIELabColor();
+                                    var tmpLAB = tmpRGB.calcLABColor();
                                     colorVal1_C1 = tmpLAB.getLValue();
                                     colorVal2_C1 = tmpLAB.getAValue();
                                     colorVal3_C1 = tmpLAB.getBValue();
@@ -1436,11 +1436,11 @@ function addBand(type){
                                     colorVal3_C5 = tmpHSV.getVValue();
                         break;
                         case "lab":
-                                    var tmpLAB = tmpRGB1.calcCIELabColor();
+                                    var tmpLAB = tmpRGB1.calcLABColor();
                                     colorVal1_C1 = tmpLAB.getLValue();
                                     colorVal2_C1 = tmpLAB.getAValue();
                                     colorVal3_C1 = tmpLAB.getBValue();
-                                    tmpLAB = tmpRGB2.calcCIELabColor();
+                                    tmpLAB = tmpRGB2.calcLABColor();
                                     colorVal1_C5 = tmpLAB.getLValue();
                                     colorVal2_C5 = tmpLAB.getAValue();
                                     colorVal3_C5 = tmpLAB.getBValue();
@@ -1515,15 +1515,15 @@ function addBand(type){
                                     colorVal3_C5 = tmpHSV.getVValue();
                         break;
                         case "lab":
-                                    var tmpLAB = tmpRGB1.calcCIELabColor();
+                                    var tmpLAB = tmpRGB1.calcLABColor();
                                     colorVal1_C1 = tmpLAB.getLValue();
                                     colorVal2_C1 = tmpLAB.getAValue();
                                     colorVal3_C1 = tmpLAB.getBValue();
-                                    tmpLAB = tmpRGB2.calcCIELabColor();
+                                    tmpLAB = tmpRGB2.calcLABColor();
                                     colorVal1_C3 = tmpLAB.getLValue();
                                     colorVal2_C3 = tmpLAB.getAValue();
                                     colorVal3_C3 = tmpLAB.getBValue();
-                                    tmpLAB = tmpRGB3.calcCIELabColor();
+                                    tmpLAB = tmpRGB3.calcLABColor();
                                     colorVal1_C5 = tmpLAB.getLValue();
                                     colorVal2_C5 = tmpLAB.getAValue();
                                     colorVal3_C5 = tmpLAB.getBValue();
@@ -1614,19 +1614,19 @@ function addBand(type){
                                     colorVal3_C5 = tmpHSV.getVValue();
                         break;
                         case "lab":
-                                    var tmpLAB = tmpRGB1.calcCIELabColor();
+                                    var tmpLAB = tmpRGB1.calcLABColor();
                                     colorVal1_C1 = tmpLAB.getLValue();
                                     colorVal2_C1 = tmpLAB.getAValue();
                                     colorVal3_C1 = tmpLAB.getBValue();
-                                    tmpLAB = tmpRGB2.calcCIELabColor();
+                                    tmpLAB = tmpRGB2.calcLABColor();
                                     colorVal1_C2 = tmpLAB.getLValue();
                                     colorVal2_C2 = tmpLAB.getAValue();
                                     colorVal3_C2 = tmpLAB.getBValue();
-                                    tmpLAB = tmpRGB3.calcCIELabColor();
+                                    tmpLAB = tmpRGB3.calcLABColor();
                                     colorVal1_C4 = tmpLAB.getLValue();
                                     colorVal2_C4 = tmpLAB.getAValue();
                                     colorVal3_C4 = tmpLAB.getBValue();
-                                    tmpLAB = tmpRGB4.calcCIELabColor();
+                                    tmpLAB = tmpRGB4.calcLABColor();
                                     colorVal1_C5 = tmpLAB.getLValue();
                                     colorVal2_C5 = tmpLAB.getAValue();
                                     colorVal3_C5 = tmpLAB.getBValue();
@@ -1734,23 +1734,23 @@ function addBand(type){
                                     colorVal3_C5 = tmpHSV.getVValue();
                         break;
                         case "lab":
-                                    var tmpLAB = tmpRGB1.calcCIELabColor();
+                                    var tmpLAB = tmpRGB1.calcLABColor();
                                     colorVal1_C1 = tmpLAB.getLValue();
                                     colorVal2_C1 = tmpLAB.getAValue();
                                     colorVal3_C1 = tmpLAB.getBValue();
-                                    tmpLAB = tmpRGB2.calcCIELabColor();
+                                    tmpLAB = tmpRGB2.calcLABColor();
                                     colorVal1_C2 = tmpLAB.getLValue();
                                     colorVal2_C2 = tmpLAB.getAValue();
                                     colorVal3_C2 = tmpLAB.getBValue();
-                                    tmpLAB = tmpRGB3.calcCIELabColor();
+                                    tmpLAB = tmpRGB3.calcLABColor();
                                     colorVal1_C3 = tmpLAB.getLValue();
                                     colorVal2_C3 = tmpLAB.getAValue();
                                     colorVal3_C3 = tmpLAB.getBValue();
-                                    tmpLAB = tmpRGB4.calcCIELabColor();
+                                    tmpLAB = tmpRGB4.calcLABColor();
                                     colorVal1_C4 = tmpLAB.getLValue();
                                     colorVal2_C4 = tmpLAB.getAValue();
                                     colorVal3_C4 = tmpLAB.getBValue();
-                                    tmpLAB = tmpRGB5.calcCIELabColor();
+                                    tmpLAB = tmpRGB5.calcLABColor();
                                     colorVal1_C5 = tmpLAB.getLValue();
                                     colorVal2_C5 = tmpLAB.getAValue();
                                     colorVal3_C5 = tmpLAB.getBValue();

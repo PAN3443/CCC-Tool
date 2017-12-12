@@ -114,11 +114,23 @@ window.onload = function () {
         ////////////////////////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////// Analyse Side /////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////
-        hsv_hueInit("id_anaylseCourseHueBackground");
+
         document.getElementById('id_workcanvasAnalyseHue').addEventListener("mouseleave", mouseLeaveColorspace);
         document.getElementById('id_workcanvasAnalyseHue').addEventListener("mousemove", mouseMoveColorspace);
         document.getElementById('id_workcanvasAnalyseHue').addEventListener("mousedown", mouseDownColorspace);
         document.getElementById('id_workcanvasAnalyseHue').addEventListener("mouseup", mouseUpColorspace);
+
+        document.getElementById('id_anaylseValue').addEventListener("mouseleave", mouseLeaveValuePlot);
+        document.getElementById('id_anaylseValue').addEventListener("mousemove", mouseMoveValuePlot);
+        document.getElementById('id_anaylseValue').addEventListener("mousedown", mouseDownValuePlot);
+        document.getElementById('id_anaylseValue').addEventListener("mouseup", mouseUpValuePlot);
+
+        document.getElementById('analyseSideShowRGB').addEventListener("change", changeCourseSpace);
+        document.getElementById('analyseSideShowHSV').addEventListener("change", changeCourseSpace);
+        document.getElementById('analyseSideShowLAB').addEventListener("change", changeCourseSpace);
+
+        document.getElementById('id_setValueRange').addEventListener("change", changeValueRange);
+        //document.getElementById("id_setValueRange").addEventListener("input", function(){ changeValueRange(this.value)} );
 
         styleAnalysisPage();
 
@@ -567,8 +579,8 @@ function fillTable(){
                     td2.appendChild(document.createTextNode(string));
                 break;
                 case "lab":
-                    var tmpC1LAB = colormapBandSketchC1[i].calcCIELabColor();
-                    var tmpC2LAB = colormapBandSketchC2[i].calcCIELabColor();
+                    var tmpC1LAB = colormapBandSketchC1[i].calcLABColor();
+                    var tmpC2LAB = colormapBandSketchC2[i].calcLABColor();
                     var string = "lab("+tmpC1LAB.getLValue().toFixed(numDecimalPlaces)+","+tmpC1LAB.getAValue().toFixed(numDecimalPlaces)+","+tmpC1LAB.getBValue().toFixed(numDecimalPlaces)+")"
                     td.appendChild(document.createTextNode(string));
                     string = "lab("+tmpC2LAB.getLValue().toFixed(numDecimalPlaces)+","+tmpC2LAB.getAValue().toFixed(numDecimalPlaces)+","+tmpC2LAB.getBValue().toFixed(numDecimalPlaces)+")"

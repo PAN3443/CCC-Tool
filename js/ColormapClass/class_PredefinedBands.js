@@ -27,7 +27,7 @@ class class_PredefinedBand{
     return this.colorarray[index];
   }
 
-  calcCIELabColor(index){
+  calcLABColor(index){
     /// from RGB -> XYZ
 
     var var_R = this.colorarray[index].getRValue();
@@ -65,7 +65,7 @@ class class_PredefinedBand{
     var var_A = 500 * ( var_X - var_Y )
     var var_B = 200 * ( var_Y - var_Z )
 
-    return(new classColorCIELab(var_L, var_A, var_B));
+    return(new classColor_LAB(var_L, var_A, var_B));
   }
 
   calcHSVColor(index){
@@ -84,7 +84,7 @@ class class_PredefinedBand{
         var H = 0;
         var S = 0;
         var V = var_Max;
-    
+
         if ( del_Max != 0 )                     //If not it is a gray color -> no chroma
         {
         S = del_Max / var_Max;
@@ -106,11 +106,9 @@ class class_PredefinedBand{
   }
 
   calcDIN99Color(index, kE,kCH){
-    var tmpLAB = this.colorarray[index].calcCIELabColor();
+    var tmpLAB = this.colorarray[index].calcLABColor();
     return tmpLAB.calcDIN99Color(kE,kCH);
   }
 
- 
+
 };
-
-

@@ -45,7 +45,7 @@ class classColorDIN99{
 
       calcRGBColor(){
             var tmpLAB = this.calcLABColor();
-            return tmpLAB.calcRGB();
+            return tmpLAB.calcRGBColor();
       }
 
       calcHSVColor(){
@@ -67,7 +67,7 @@ class classColorDIN99{
         var value_A = e*Math.cos(angle)-(f/0.83)*Math.sin(angle);
         var value_B = e*Math.sin(angle)+(f/0.83)*Math.cos(angle);
 
-        return new classColorCIELab(value_L,value_A,value_B);
+        return new classColor_LAB(value_L,value_A,value_B);
       }
 
     };

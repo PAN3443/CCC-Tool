@@ -229,9 +229,9 @@ function createScaledBand(canvasData, xStart, bandWidth, bandHeight, color1, col
         var lValue = color1.getLValue() + (color2.getLValue() - color1.getLValue()) * tmpRatio;
         var aValue = color1.getAValue() + (color2.getAValue() - color1.getAValue()) * tmpRatio;
         var bValue = color1.getBValue() + (color2.getBValue() - color1.getBValue()) * tmpRatio;
-        var tmpCurrentLABColor = new classColorCIELab(lValue, aValue, bValue);
+        var tmpCurrentLABColor = new classColor_LAB(lValue, aValue, bValue);
 
-        var tmpCurrentColor = tmpCurrentLABColor.calcRGB();
+        var tmpCurrentColor = tmpCurrentLABColor.calcRGBColor();
 
         for (var y = 0; y < bandHeight; y++) {
           var index = (x + y * canvasWidth) * 4;
@@ -318,7 +318,7 @@ function createConstantBand(canvasData, xStart, bandWidth, bandHeight, color1, c
       break;
     case "lab":
 
-      var tmpCurrentColor = color1.calcRGB();
+      var tmpCurrentColor = color1.calcRGBColor();
 
       for (var x = xStart; x < xStart + bandWidth; x++) {
 

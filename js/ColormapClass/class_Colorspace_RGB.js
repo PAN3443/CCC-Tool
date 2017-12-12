@@ -50,7 +50,7 @@ class classColor_RGB{
       return tmpString;
   }
 
-  calcCIELabColor(){
+  calcLABColor(){
     /// from RGB -> XYZ
 
     var var_R = this.rValue;
@@ -88,7 +88,7 @@ class classColor_RGB{
     var var_A = 500 * ( var_X - var_Y )
     var var_B = 200 * ( var_Y - var_Z )
 
-    return(new classColorCIELab(var_L, var_A, var_B));
+    return(new classColor_LAB(var_L, var_A, var_B));
   }
 
   calcHSVColor(){
@@ -147,7 +147,7 @@ class classColor_RGB{
   }
 
   calcDIN99Color(kE,kCH){
-    var tmpLAB = this.calcCIELabColor();
+    var tmpLAB = this.calcLABColor();
     return tmpLAB.calcDIN99Color(kE,kCH);
   }
 

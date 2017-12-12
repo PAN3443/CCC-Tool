@@ -38,10 +38,10 @@ class classColor_HSV{
         this.vValue = newVal;
     }
 
-    calcCIELabColor(){
+    calcLABColor(){
         var tmpRGB = this.calcRGBColor();
 
-        return tmpRGB.calcCIELabColor();
+        return tmpRGB.calcLABColor();
     }
 
     calcDIN99Color(kE,kCH){

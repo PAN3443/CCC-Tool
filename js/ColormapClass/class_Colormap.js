@@ -307,13 +307,13 @@ class xclassColorMap {
 
    setRGBColor(index, color) {
     this.rgbColorArray[index] = color;
-    this.cielabColorArray[index] = color.calcCIELabColor();
+    this.cielabColorArray[index] = color.calcLABColor();
     this.hsvColorArray[index] = color.calcHSVColor();
     this.calcNewDistances();
    }
 
    setLabColor(index, color) {
-    this.rgbColorArray[index] = color.calcRGB();
+    this.rgbColorArray[index] = color.calcRGBColor();
     this.cielabColorArray[index] = color;
     this.hsvColorArray[index] = color.calcHSVColor();
     this.calcNewDistances();
@@ -321,14 +321,14 @@ class xclassColorMap {
 
    setHSVColor(index, color) {
     this.rgbColorArray[index] = color.calcRGBColor();
-    this.cielabColorArray[index] = color.calcCIELabColor();
+    this.cielabColorArray[index] = color.calcLABColor();
     this.hsvColorArray[index] = color;
     this.calcNewDistances();
    }
 
    setDIN99Color(index, color) {
     this.rgbColorArray[index] = color.calcRGBColor();
-    this.cielabColorArray[index] = color.calcCIELabColor();
+    this.cielabColorArray[index] = color.calcLABColor();
     this.hsvColorArray[index] = color;
     this.calcNewDistances();
    }
@@ -339,13 +339,13 @@ class xclassColorMap {
 
     insertRGBColor(index, color) {
     this.rgbColorArray.splice(index, 0,color);
-    this.cielabColorArray.splice(index, 0,color.calcCIELabColor());
+    this.cielabColorArray.splice(index, 0,color.calcLABColor());
     this.hsvColorArray.splice(index, 0,color.calcHSVColor());
     this.calcNewDistances();
    }
 
    insertLabColor(index, color) {
-    this.rgbColorArray.splice(index, 0,color.calcRGB());
+    this.rgbColorArray.splice(index, 0,color.calcRGBColor());
     this.cielabColorArray.splice(index, 0,color);
     this.hsvColorArray.splice(index, 0,color.calcHSVColor());
     this.calcNewDistances();
@@ -353,7 +353,7 @@ class xclassColorMap {
 
    insertHSVColor(index, color) {
     this.rgbColorArray.splice(index, 0,color.calcRGBColor());
-    this.cielabColorArray.splice(index, 0,color.calcCIELabColor());
+    this.cielabColorArray.splice(index, 0,color.calcLABColor());
     this.hsvColorArray.splice(index, 0,color);
     this.calcNewDistances();
    }
@@ -363,7 +363,7 @@ class xclassColorMap {
 
   pushRGBColor(rgbColor){
     this.rgbColorArray.push(rgbColor);
-    this.cielabColorArray.push(rgbColor.calcCIELabColor());
+    this.cielabColorArray.push(rgbColor.calcLABColor());
     this.hsvColorArray.push(rgbColor.calcHSVColor());
     this.din99ColorArray.push(rgbColor.calcDIN99Color(1,1)); // kE,kCH
     this.calcNewDistances();
@@ -371,14 +371,14 @@ class xclassColorMap {
 
   pushHSVColor(hsvColor){
     this.rgbColorArray.push(hsvColor.calcRGBColor());
-    this.cielabColorArray.push(hsvColor.calcCIELabColor());
+    this.cielabColorArray.push(hsvColor.calcLABColor());
     this.hsvColorArray.push(hsvColor);
     this.din99ColorArray.push(hsvColor.calcDIN99Color(1,1));// kE,kCH
     this.calcNewDistances();
   }
 
   pushCIELabColor(labColor){
-    this.rgbColorArray.push(labColor.calcRGB());
+    this.rgbColorArray.push(labColor.calcRGBColor());
     this.cielabColorArray.push(labColor);
     this.hsvColorArray.push(labColor.calcHSVColor());
     this.din99ColorArray.push(labColor. calcDIN99Color(1,1));// kE,kCH
