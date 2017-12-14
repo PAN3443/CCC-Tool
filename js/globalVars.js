@@ -60,6 +60,7 @@ var colorspaceCenterX;
 var colorspaceCenterY;
 var colorspaceRadius;
 var radiusratio = 0.95;
+var labSpaceRectRange = 0.8;
 var bigLineWidth = 8;
 var smallLineWidth = 4;
 var circleRadPicker = 40;
@@ -80,6 +81,9 @@ var plotLineWidth = 5;
 var plotLineColor = "rgb(0,0,0)";
 
 var labSpaceRange = 128;
+var din99SpaceRange = 156;
+
+var colorspaceBackgroundData;
 
 // colorspace eventes
 var mouseAboveSpaceObjectID = -1;
@@ -97,10 +101,7 @@ var spaceElementsKey = [];
 /////
 // Band Sketch
 /////
-var colormapBandSketchC1 = [];
-var colormapBandSketchC2 = [];
-var colormapBandSketchR1 = [];
-var colormapBandSketchR2 = [];
+var bandSketch;
 
 ////////////////////////////////////////////////////////////////////////////////
 

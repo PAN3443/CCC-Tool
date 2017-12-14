@@ -38,7 +38,7 @@ function cancelExport(){
     document.getElementById("id_exportWindow").style.display = "none";
 
     if(showSideID==1)
-      orderColorSketch();
+      orderColorSketch(colorspaceModus);
 
     if(showSideID==0){
       for(var i = refElementContainer.length-1; i>=0; i--){

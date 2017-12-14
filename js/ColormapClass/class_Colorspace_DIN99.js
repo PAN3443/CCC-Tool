@@ -31,6 +31,18 @@ class classColorDIN99{
         return this.b99Value;
       }
 
+      get1Value() {
+        return this.l99Value;
+      }
+
+      get2Value() {
+        return this.a99Value;
+      }
+
+      get3Value() {
+        return this.b99Value;
+      }
+
       setL99Value(newLVal) {
         this.lValue = newLVal;
       }
@@ -46,6 +58,11 @@ class classColorDIN99{
       calcRGBColor(){
             var tmpLAB = this.calcLABColor();
             return tmpLAB.calcRGBColor();
+      }
+
+      calcRGBColorCorrect(errorRGBColor){
+            var tmpLAB = this.calcLABColor();
+            return tmpLAB.calcRGBColorCorrect(errorRGBColor);
       }
 
       calcHSVColor(){

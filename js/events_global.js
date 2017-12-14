@@ -110,7 +110,8 @@ function changeColorspace(type) {
   }
 
   if (showSideID == 2) { // Analyse SIDE
-    orderColorSketch();
+    orderColorSketch(colorspaceModus);
+    changeCourseSpace();
   }
 
   if (showSideID == 1) { // CREATE SIDE
@@ -276,7 +277,7 @@ function changeColorspace(type) {
     }
     drawPredefinedBands();
     updateCreatorBand();
-    orderColorSketch();
+    orderColorSketch(colorspaceModus);
   }
 }
 
@@ -296,7 +297,7 @@ function showCreateSide() {
 
     document.getElementById("id_SideLabel").innerHTML = "Create Colormap";
     changeColorspace(0);
-    orderColorSketch();
+    orderColorSketch(colorspaceModus);
   }
   else{
     alert("There are only ten colormaps inside the My Maps list allowed. Please delete a colormap for adding a new one");
@@ -309,7 +310,7 @@ function showMyMapsSide(){
   if(showSideID == 1){ // Create Side
 
     var doIt = false;
-    if(colormapBandSketchC1.length!=0){
+    if(bandSketch.getBandLenght()!=0){
       if (confirm("Do you really want to leave the create page and delete the colormap?") == true) {
         doIt = true;
       }
@@ -339,10 +340,7 @@ function showMyMapsSide(){
     document.getElementById("id_myListPage").style.display = "initial";
     document.getElementById("id_analysisPage").style.display = "none";
     document.getElementById("id_SideLabel").innerHTML = "My Maps";
-    colormapBandSketchC1 = [];
-    colormapBandSketchC2 = [];
-    colormapBandSketchR1 = [];
-    colormapBandSketchR2 = [];
+    bandSketch.clearSketch()
     for(var i = refLineSketchContainer.length-1; i>=0; i--){
       refLineSketchContainer[i].remove();
       refLineSketchContainer.pop();

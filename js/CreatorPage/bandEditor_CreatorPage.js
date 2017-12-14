@@ -72,18 +72,18 @@ function changeBandEditorColorspace(type){
 function acceptBandEditor(){
 
     if(changedColor==true){
-        colormapBandSketchC1[bandOptionsIndex]=changedColorC1;
-        colormapBandSketchC2[bandOptionsIndex]=changedColorC2;
+        bandSketch.setC1(changedColorC1, bandOptionsIndex);
+        bandSketch.setC2(changedColorC2, bandOptionsIndex);
 
-        colormapBandSketchR1[bandOptionsIndex]=changedRefR1;
-        colormapBandSketchR2[bandOptionsIndex]=changedRefR2;
+        bandSketch.setRefR1(bandOptionsIndex, changedRefR1);
+        bandSketch.setRefR2(bandOptionsIndex, changedRefR2);
 
         if(hasRightNeig)
-        colormapBandSketchR1[bandOptionsIndex+1]=changedNeiRefR1;
+        bandSketch.setRefR1(bandOptionsIndex+1, changedNeiRefR1);
         if(hasLeftNeig)
-        colormapBandSketchR2[bandOptionsIndex-1]=changedNeiRefR2;
+        bandSketch.setRefR2(bandOptionsIndex-1, changedNeiRefR2);
 
-        orderColorSketch();
+        orderColorSketch(colorspaceModus);
 
         /////////////
         ////  Save Band Process
@@ -99,17 +99,15 @@ function deleteBandEditor(){
 
     if(hasLeftNeig&&hasRightNeig){
 
-             var dist = Math.abs(colormapBandSketchR1[bandOptionsIndex+1]-colormapBandSketchR2[bandOptionsIndex-1]);
+             var dist = Math.abs(bandSketch.getRefR1(bandOptionsIndex+1)-bandSketch.getRefR2(bandOptionsIndex-1));
 
-            colormapBandSketchR2[bandOptionsIndex-1]=colormapBandSketchR2[bandOptionsIndex-1]+(dist*0.5);
-            colormapBandSketchR1[bandOptionsIndex+1]=colormapBandSketchR1[bandOptionsIndex+1]-(dist*0.5);
+            bandSketch.getRefR2(bandOptionsIndex-1, bandSketch.setRefR2(bandOptionsIndex-1)+(dist*0.5));
+            bandSketch.getRefR1(bandOptionsIndex+1, bandSketch.setRefR1(bandOptionsIndex+1)-(dist*0.5));
     }
 
-    colormapBandSketchC1.splice(bandOptionsIndex, 1);
-    colormapBandSketchC2.splice(bandOptionsIndex, 1);
-    colormapBandSketchR1.splice(bandOptionsIndex, 1);
-    colormapBandSketchR2.splice(bandOptionsIndex, 1);
-    orderColorSketch();
+    bandSketch.deleteBand(bandOptionsIndex);
+
+    orderColorSketch(colorspaceModus);
     /////////////
     ////  Save Band Process
     saveCreateProcess();
@@ -135,7 +133,7 @@ function cancelBandEditor(){
 
 function leftNeiColorToR1(){
     if(hasLeftNeig){
-       changedColorC1 = colormapBandSketchC2[bandOptionsIndex-1];
+       changedColorC1 = bandSketch.getC2Color(bandOptionsIndex-1,"rgb");
        document.getElementById("bandEdit_LeftColor").style.background = changedColorC1.getRGBString();
        var oCan = document.getElementById("bandEdit_EditCanvas");
        drawCanvasBand(oCan, changedColorC1, changedColorC2,oCan.width,oCan.height );
@@ -147,7 +145,7 @@ function leftNeiColorToR1(){
 
 function rightNeiColorToR2(){
    if(hasRightNeig){
-       changedColorC2 = colormapBandSketchC1[bandOptionsIndex+1];
+       changedColorC2 = bandSketch.getC1Color(bandOptionsIndex+1,"rgb");
        document.getElementById("bandEdit_RightColor").style.background = changedColorC2.getRGBString();
        var oCan = document.getElementById("bandEdit_EditCanvas");
        drawCanvasBand(oCan, changedColorC1, changedColorC2,oCan.width,oCan.height );
@@ -388,7 +386,7 @@ function checkR1Input(e){
 
         if(hasLeftNeig){
 
-            if(colormapBandSketchR1[bandOptionsIndex-1]>newVal){
+            if(bandSketch.getRefR1(bandOptionsIndex-1)>newVal){
                 alert("The left ref is not allowed to be smaller than the left ref of the left neighbour");
                 document.getElementById('bandEdit_InputLeftRef').value = changedRefR1;
             }
@@ -427,7 +425,7 @@ function checkR2Input(e){
 
         if(hasRightNeig){
 
-            if(colormapBandSketchR2[bandOptionsIndex+1]<newVal){
+            if(bandSketch.getRefR2(bandOptionsIndex+1)<newVal){
                 alert("The right ref is not allowed to be bigger than the right ref of the right neighbour");
                 document.getElementById('bandEdit_InputRightRef').value = changedRefR2;
             }
@@ -467,7 +465,7 @@ function checkR1Input_Change(e){
 
         if(hasLeftNeig){
 
-            if(colormapBandSketchR1[bandOptionsIndex-1]>newVal){
+            if(bandSketch.getRefR1(bandOptionsIndex-1)>newVal){
                 alert("The left ref is not allowed to be smaller than the left ref of the left neighbour");
                 document.getElementById('bandEdit_InputLeftRef').value = changedRefR1;
             }
@@ -504,7 +502,7 @@ function checkR2Input_Change(e){
 
         if(hasRightNeig){
 
-            if(colormapBandSketchR2[bandOptionsIndex+1]<newVal){
+            if(bandSketch.getRefR2(bandOptionsIndex+1)<newVal){
                 alert("The right ref is not allowed to be bigger than the right ref of the right neighbour");
                 document.getElementById('bandEdit_InputRightRef').value = changedRefR2;
             }

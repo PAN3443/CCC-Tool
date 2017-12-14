@@ -29,6 +29,18 @@ class classColor_LAB{
         return this.bValue;
       }
 
+      get1Value() {
+        return this.lValue;
+      }
+
+      get2Value() {
+        return this.aValue;
+      }
+
+      get3Value() {
+        return this.bValue;
+      }
+
       setLValue(newLVal) {
         this.lValue = newLVal;
       }
@@ -135,6 +147,74 @@ class classColor_LAB{
 
 
       }
+
+      calcRGBColorCorrect(errorRGBColor){
+            var error = 100.0; //0.01;
+
+
+            //  Calc XYZ
+            var var_Y = (this.lValue + 16.0)/116.0;
+            var var_X = this.aValue/500.0 + var_Y;
+            var var_Z = var_Y - this.bValue/200.0;
+
+            if ( Math.pow (var_Y, 3.0) > 0.008856 ){
+                var_Y = Math.pow (var_Y, 3.0);
+            }
+            else {
+                var_Y = ( var_Y - 16.0 / 116.0 ) / 7.787;
+            }
+
+            if ( Math.pow (var_X, 3.0)  > 0.008856 ){
+                var_X = Math.pow (var_X, 3.0);
+            }
+            else {
+                var_X = ( var_X - 16.0 / 116.0 ) / 7.787;
+            }
+
+            if ( Math.pow (var_Z, 3.0)  > 0.008856 ){
+                var_Z = Math.pow (var_Z, 3.0);
+            }
+            else {
+                var_Z = ( var_Z - 16.0 / 116.0 ) / 7.787;
+            }
+
+            var_X = (var_X * this.ref_X);
+            var_Y = (var_Y * this.ref_Y);
+            var_Z = (var_Z * this.ref_Z);
+
+            //    Calc RGB
+                var var_X = var_X / 100.0;
+                var var_Y = var_Y / 100.0;
+                var var_Z = var_Z / 100.0;
+
+                var var_R = var_X *  3.2406 + var_Y * -1.5372 + var_Z * -0.4986;
+                var var_G = var_X * -0.9689 + var_Y *  1.8758 + var_Z *  0.0415;
+                var var_B = var_X *  0.0557 + var_Y * -0.2040 + var_Z *  1.0570;
+
+                if ( var_R > 0.0031308 ) var_R = 1.055 * Math.pow( var_R , ( 1.0 / 2.4 ) ) - 0.055;
+                else                     var_R = 12.92 * var_R;
+                if ( var_G > 0.0031308 ) var_G = 1.055 * Math.pow( var_G , ( 1.0 / 2.4 ) ) - 0.055;
+                else                     var_G = 12.92 * var_G;
+                if ( var_B > 0.0031308 ) var_B = 1.055 * Math.pow( var_B , ( 1.0 / 2.4 ) ) - 0.055;
+                else                     var_B = 12.92 * var_B;
+
+                if (var_R>1.0 || var_G>1.0 || var_B>1.0 || var_R<0.0 || var_G<0.0 || var_B<0.0){
+                    // Wrong RGB -Values
+                    return errorRGBColor;
+
+                }
+                else{
+                    // Right RGB -Values
+                    //var rgbString = "rgba("+var_R*255+","+var_G*255+","+var_B*255+",1.0)";
+                    //return rgbString;
+                    return new classColor_RGB(var_R,var_G,var_B);
+                }
+
+
+
+      }
+
+
 
       calcHSVColor(){
         var tmpRGBColor = this.calcRGBColor();

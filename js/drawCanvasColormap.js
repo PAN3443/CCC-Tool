@@ -157,6 +157,10 @@ function createScaledBand(canvasData, xStart, bandWidth, bandHeight, color1, col
   bandWidth = Math.round(bandWidth);
   bandHeight = Math.round(bandHeight);
 
+//  console.log(typeof color1);
+//  console.log('createScaledBand: ' + color1.getColorType());
+
+
   switch (colorspaceModus) {
     case "rgb":
       for (var x = xStart; x < xStart + bandWidth; x++) {
@@ -827,36 +831,36 @@ function changeKeyValueInput(keyIndex, fielID) {
 
   // first key
   if(keyIndex==0){
-    if(newRef <= colormapBandSketchR2[0]){
-      colormapBandSketchR1[0]=newRef;
-      orderColorSketch();
+    if(newRef <= bandSketch.getRefR2(0)){
+      bandSketch.setRefR1(0,newRef);
+      orderColorSketch(colorspaceModus);
     }
     else {
-      inputObj.value = colormapBandSketchR1[0];
+      inputObj.value = bandSketch.getRefR1(0);
       alert("Input is not inside the neighboring range. Please check the values of the neighboring keys.");
     }
     return;
   }
 
   // last key
-  if(keyIndex==colormapBandSketchR1.length){
-    if(newRef > colormapBandSketchR1[keyIndex-1]){
-      colormapBandSketchR2[keyIndex-1]=newRef;
-      orderColorSketch();
+  if(keyIndex==bandSketch.getBandLenght()){
+    if(newRef > bandSketch.getRefR1(keyIndex-1)){
+      bandSketch.setRefR2(keyIndex-1, newRef);
+      orderColorSketch(colorspaceModus);
     }
     else {
-      inputObj.value = colormapBandSketchR2[keyIndex-1];
+      inputObj.value = bandSketch.getRefR2(keyIndex-1);
       alert("Input is not inside the neighboring range. Please check the values of the neighboring keys.");
     }
     return;
   }
 
-      if (newRef >= colormapBandSketchR1[keyIndex-1] && newRef <= colormapBandSketchR2[keyIndex]) {
-        colormapBandSketchR2[keyIndex-1]=newRef;
-        colormapBandSketchR1[keyIndex]=newRef;
-        orderColorSketch();
+      if (newRef >= bandSketch.getRefR1(keyIndex-1) && newRef <= bandSketch.getRefR2(keyIndex)) {
+        bandSketch.setRefR2(keyIndex-1, newRef);
+        bandSketch.setRefR1(keyIndex,newRef);
+        orderColorSketch(colorspaceModus);
       } else {
-        inputObj.value = colormapBandSketchR2[keyIndex];
+        inputObj.value = bandSketch.getRefR2(keyIndex);
         alert("Input is not inside the neighboring range. Please check the values of the neighboring keys.");
       }
 

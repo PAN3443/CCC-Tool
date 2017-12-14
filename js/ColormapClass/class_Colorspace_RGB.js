@@ -28,6 +28,18 @@ class classColor_RGB{
     return this.bValue;
   }
 
+  get1Value() {
+    return this.rValue;
+  }
+
+  get2Value() {
+    return this.gValue;
+  }
+
+  get3Value() {
+    return this.bValue;
+  }
+
   setRValue(r) {
     this.rValue = r;
   }

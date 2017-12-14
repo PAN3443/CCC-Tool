@@ -349,7 +349,7 @@ function updateCreatorBand(){
 
     var tmpActiveColor = activColorIndex;
 
-    switch(createBandType) { // 0=constant, 1=scale, 2=double, 3=triple, 4=quadruple)
+  /*  switch(createBandType) { // 0=constant, 1=scale, 2=double, 3=triple, 4=quadruple)
 
         case 0:
             activColorIndex=0;
@@ -663,7 +663,7 @@ function updateCreatorBand(){
 
     }
 
-    activColorIndex=tmpActiveColor;
+  */  activColorIndex=tmpActiveColor;
 
     canvasContex.putImageData(canvasData, 0, 0);
 }
@@ -1861,16 +1861,15 @@ function bandOnClick(event){
 
         // data from band
 
-        document.getElementById("bandEdit_InputLeftRef").value = colormapBandSketchR1[bandOptionsIndex];
-        document.getElementById("bandEdit_InputRightRef").value = colormapBandSketchR2[bandOptionsIndex];
-        document.getElementById("bandEdit_LeftColor").style.background = colormapBandSketchC1[bandOptionsIndex].getRGBString();
-        document.getElementById("bandEdit_RightColor").style.background = colormapBandSketchC2[bandOptionsIndex].getRGBString();
+        document.getElementById("bandEdit_InputLeftRef").value = bandSketch.getRefR1(bandOptionsIndex);
+        document.getElementById("bandEdit_InputRightRef").value = bandSketch.getRefR2(bandOptionsIndex);
+        document.getElementById("bandEdit_LeftColor").style.background = bandSketch.getC1Color(bandOptionsIndex,'rgb').getRGBString();
+        document.getElementById("bandEdit_RightColor").style.background = bandSketch.getC2Color(bandOptionsIndex,'rgb').getRGBString();
 
 
         // draw band
          var oCan = document.getElementById("bandEdit_EditCanvas");
-         drawCanvasBand(oCan, colormapBandSketchC1[bandOptionsIndex], colormapBandSketchC2[bandOptionsIndex],oCan.width,oCan.height );
-
+         drawCanvasBand(oCan, bandSketch.getC1Color(bandOptionsIndex,colorspaceModus),  bandSketch.getC2Color(bandOptionsIndex,colorspaceModus),oCan.width,oCan.height );
 
         // data from neighbours
         if(bandOptionsIndex==0){
@@ -1887,17 +1886,17 @@ function bandOnClick(event){
             hasLeftNeig = true;
 
 
-            document.getElementById("bandEdit_LeftNeiColor").style.background = colormapBandSketchC2[bandOptionsIndex-1].getRGBString();
-            document.getElementById("bandEdit_LeftNeiLeftRef").innerHTML = colormapBandSketchR1[bandOptionsIndex-1];
-            document.getElementById("bandEdit_LeftNeiRightRef").innerHTML = colormapBandSketchR2[bandOptionsIndex-1];
+            document.getElementById("bandEdit_LeftNeiColor").style.background = bandSketch.getC2Color(bandOptionsIndex-1,'rgb').getRGBString();
+            document.getElementById("bandEdit_LeftNeiLeftRef").innerHTML = bandSketch.getRefR1(bandOptionsIndex-1);
+            document.getElementById("bandEdit_LeftNeiRightRef").innerHTML = bandSketch.getRefR2(bandOptionsIndex-1);
 
             // Draw the Band
             var tCan = document.getElementById("bandEdit_LeftNeigCanvas");
-            drawCanvasBand(tCan, colormapBandSketchC1[bandOptionsIndex-1], colormapBandSketchC2[bandOptionsIndex-1],tCan.width,tCan.height );
+            drawCanvasBand(tCan, bandSketch.getC1Color(bandOptionsIndex-1,colorspaceModus),  bandSketch.getC2Color(bandOptionsIndex-1,colorspaceModus),tCan.width,tCan.height );
 
 
         }
-        if(bandOptionsIndex==colormapBandSketchC1.length-1){
+        if(bandOptionsIndex==bandSketch.getBandLenght()-1){
             hasRightNeig = false;
 
             var tCan = document.getElementById("bandEdit_RightNeigCanvas");
@@ -1909,22 +1908,22 @@ function bandOnClick(event){
         }
         else{
             hasRightNeig = true;
-            document.getElementById("bandEdit_RightNeiColor").style.background = colormapBandSketchC1[bandOptionsIndex+1].getRGBString();
-            document.getElementById("bandEdit_RightNeiLeftRef").innerHTML = colormapBandSketchR1[bandOptionsIndex+1];
-            document.getElementById("bandEdit_RightNeiRightRef").innerHTML = colormapBandSketchR2[bandOptionsIndex+1];
+            document.getElementById("bandEdit_RightNeiColor").style.background = bandSketch.getC1Color(bandOptionsIndex+1,'rgb').getRGBString();
+            document.getElementById("bandEdit_RightNeiLeftRef").innerHTML = bandSketch.getRefR1(bandOptionsIndex+1);
+            document.getElementById("bandEdit_RightNeiRightRef").innerHTML = bandSketch.getRefR2(bandOptionsIndex+1);
 
             // Draw the Band
             var tCan = document.getElementById("bandEdit_RightNeigCanvas");
-            drawCanvasBand(tCan, colormapBandSketchC1[bandOptionsIndex+1], colormapBandSketchC2[bandOptionsIndex+1],tCan.width,tCan.height );
+            drawCanvasBand(tCan, bandSketch.getC1Color(bandOptionsIndex+1,colorspaceModus),  bandSketch.getC2Color(bandOptionsIndex+1,colorspaceModus),tCan.width,tCan.height );
 
         }
 
-        changedColorC1 = colormapBandSketchC1[bandOptionsIndex];
-        changedColorC2 = colormapBandSketchC2[bandOptionsIndex];
-        changedRefR1 = colormapBandSketchR1[bandOptionsIndex];
-        changedRefR2 = colormapBandSketchR2[bandOptionsIndex];
-        changedNeiRefR1 = colormapBandSketchR1[bandOptionsIndex+1];
-        changedNeiRefR2 = colormapBandSketchR2[bandOptionsIndex-1];
+        changedColorC1 = bandSketch.getC1Color(bandOptionsIndex,"rgb");
+        changedColorC2 = bandSketch.getC2Color(bandOptionsIndex,"rgb");
+        changedRefR1 = bandSketch.getRefR1(bandOptionsIndex);
+        changedRefR2 = bandSketch.getRefR2(bandOptionsIndex);
+        changedNeiRefR1 = bandSketch.getRefR1(bandOptionsIndex+1);
+        changedNeiRefR2 = bandSketch.getRefR2(bandOptionsIndex-1);
         c1IsActive = true;
         drawEditorBandColorCircles();
 
@@ -1968,47 +1967,47 @@ function cancelNewBand(){
 function colormapRefInputChange(e){
   checkInputVal(document.getElementById(e.target.id),true,true);
 
-  if (colormapBandSketchR1.length!=0) {
+  if (bandSketch.getBandLenght()!=0) {
 
-    if(parseFloat(document.getElementById("id_linearMap_InputLeftRef").value)>colormapBandSketchR2[0]){
+    if(parseFloat(document.getElementById("id_linearMap_InputLeftRef").value)>bandSketch.getRefR2(0)){
       alert("The new value for the minimal x reference is not allowed to be bigger then his right neighbour value");
-      document.getElementById("id_linearMap_InputLeftRef").value = colormapBandSketchR1[0];
+      document.getElementById("id_linearMap_InputLeftRef").value = bandSketch.getRefR1(0);
     }
     else{
-      colormapBandSketchR1[0]= parseFloat(document.getElementById("id_linearMap_InputLeftRef").value);
+      bandSketch.setRefR1(0,parseFloat(document.getElementById("id_linearMap_InputLeftRef").value));
     }
 
-    if(parseFloat(document.getElementById("id_linearMap_InputRightRef").value)<colormapBandSketchR1[colormapBandSketchR2.length-1]){
+    if(parseFloat(document.getElementById("id_linearMap_InputRightRef").value)<bandSketch.getRefR1(bandSketch.getBandLenght()-1)){
       alert("The new value for the maximal x reference is not allowed to be smaller then his left neighbour value");
-      document.getElementById("id_linearMap_InputRightRef").value = colormapBandSketchR2[colormapBandSketchR2.length-1];
+      document.getElementById("id_linearMap_InputRightRef").value = bandSketch.getRefR2(bandSketch.getBandLenght()-1);
     }
     else{
-      colormapBandSketchR2[colormapBandSketchR2.length-1]= parseFloat(document.getElementById("id_linearMap_InputRightRef").value);
+      bandSketch.setRefR2(bandSketch.getBandLenght()-1,parseFloat(document.getElementById("id_linearMap_InputRightRef").value));
     }
-    orderColorSketch();
+    orderColorSketch(colorspaceModus);
   }
 }
 
 function colormapRefInputChangeEnter(e){
   checkInputVal(document.getElementById(e.target.id),true,true);
 
-  if (e.keyCode == 13 && colormapBandSketchR1.length!=0) {
+  if (e.keyCode == 13 && bandSketch.getBandLenght()!=0) {
 
-    if(parseFloat(document.getElementById("id_linearMap_InputLeftRef").value)>colormapBandSketchR2[0]){
+    if(parseFloat(document.getElementById("id_linearMap_InputLeftRef").value)>bandSketch.getRefR2(0)){
       alert("The new value for the minimal x reference is not allowed to be bigger then his right neighbour value");
-      document.getElementById("id_linearMap_InputLeftRef").value = colormapBandSketchR1[0];
+      document.getElementById("id_linearMap_InputLeftRef").value = bandSketch.getRefR1(0);
     }
     else{
-      colormapBandSketchR1[0]= parseFloat(document.getElementById("id_linearMap_InputLeftRef").value);
+      bandSketch.setRefR1(0,parseFloat(document.getElementById("id_linearMap_InputLeftRef").value));
     }
 
-    if(parseFloat(document.getElementById("id_linearMap_InputRightRef").value)<colormapBandSketchR1[colormapBandSketchR2.length-1]){
+    if(parseFloat(document.getElementById("id_linearMap_InputRightRef").value)<bandSketch.getRefR1(bandSketch.getBandLenght()-1)){
       alert("The new value for the maximal x reference is not allowed to be smaller then his left neighbour value");
-      document.getElementById("id_linearMap_InputRightRef").value = colormapBandSketchR2[colormapBandSketchR2.length-1];
+      document.getElementById("id_linearMap_InputRightRef").value = bandSketch.getRefR2(bandSketch.getBandLenght()-1);
     }
     else{
-      colormapBandSketchR2[colormapBandSketchR2.length-1]= parseFloat(document.getElementById("id_linearMap_InputRightRef").value);
+      bandSketch.setRefR2(bandSketch.getBandLenght()-1,parseFloat(document.getElementById("id_linearMap_InputRightRef").value));
     }
-    orderColorSketch();
+    orderColorSketch(colorspaceModus);
   }
 }

@@ -50,12 +50,12 @@ function mouseMoveKeyRef(event){
  }
  else{
    // change value
-   var newRef = mousePosX/key_resolution_X * Math.abs(colormapBandSketchR2[colormapBandSketchR2.length-1]-colormapBandSketchR1[0])+colormapBandSketchR1[0];
+   var newRef = mousePosX/key_resolution_X * Math.abs(bandSketch.getRefR2(bandSketch.getBandLenght()-1)-bandSketch.getRefR1(0))+bandSketch.getRefR1(0);
    newRef = parseFloat(newRef.toFixed(numDecimalPlaces));
-   if(newRef >= colormapBandSketchR1[overKeyID] && newRef <= colormapBandSketchR2[overKeyID+1]){
-     colormapBandSketchR2[overKeyID]=newRef;
-     colormapBandSketchR1[overKeyID+1]=newRef;
-     orderColorSketch();
+   if(newRef >= bandSketch.getRefR1(overKeyID) && newRef <= bandSketch.getRefR2(overKeyID+1)){
+     bandSketch.setRefR2(overKeyID,newRef);
+     bandSketch.setRefR1(overKeyID+1,newRef);
+     orderColorSketch(colorspaceModus);
    }
 
  }

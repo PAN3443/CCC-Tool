@@ -237,18 +237,24 @@ class xclassColorMap {
    }
 
    getRGBColor(index) {
+    //  console.log('getRGBColor' + this.rgbColorArray[index].getColorType());
     return this.rgbColorArray[index];
    }
 
    getLabColor(index) {
+    //  console.log('getLabColor' + this.cielabColorArray[index].getColorType());
     return this.cielabColorArray[index];
    }
 
    getHSVColor(index) {
+    //  console.log('getHSVColor' + this.hsvColorArray[index].getColorType());
     return this.hsvColorArray[index];
    }
 
    getDIN99Color(index) {
+
+     //console.log('getDIN99Color' + this.din99ColorArray[index].getColorType());
+
     return this.din99ColorArray[index];
    }
 
@@ -392,6 +398,39 @@ class xclassColorMap {
     this.din99ColorArray.push(din99Color);
     this.calcNewDistances();
   }
+
+  pushColor(color){
+    var colorType = color.getColorType();
+    switch (colorType) {
+      case "rgb":
+        this.rgbColorArray.push(color);
+        this.cielabColorArray.push(color.calcLABColor());
+        this.hsvColorArray.push(color.calcHSVColor());
+        this.din99ColorArray.push(color.calcDIN99Color(1,1)); // kE,kCH
+        break;
+      case "hsv":
+        this.rgbColorArray.push(color.calcRGBColor());
+        this.cielabColorArray.push(color.calcLABColor());
+        this.hsvColorArray.push(color);
+        this.din99ColorArray.push(color.calcDIN99Color(1,1));// kE,kCH
+        break;
+      case "lab":
+        this.rgbColorArray.push(color.calcRGBColor());
+        this.cielabColorArray.push(color);
+        this.hsvColorArray.push(color.calcHSVColor());
+        this.din99ColorArray.push(color. calcDIN99Color(1,1));// kE,kCH
+        break;
+      case "din99":
+        this.rgbColorArray.push(color.calcRGBColor());
+        this.cielabColorArray.push(color.calcLABColor());
+        this.hsvColorArray.push(color.calcHSVColor());
+        this.din99ColorArray.push(color);
+        break;
+      default:
+
+    }
+    this.calcNewDistances();
+ }
 
   pushPositionPoints(position){
       this.positionPoints.push(position);

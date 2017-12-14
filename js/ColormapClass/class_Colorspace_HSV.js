@@ -22,7 +22,19 @@ class classColor_HSV{
         return this.sValue;
     }
 
-    getVValue() {
+    getVValue(){
+        return this.vValue;
+    }
+
+    get1Value() {
+        return this.hValue;
+    }
+
+    get2Value() {
+        return this.sValue;
+    }
+
+    get3Value(){
         return this.vValue;
     }
 

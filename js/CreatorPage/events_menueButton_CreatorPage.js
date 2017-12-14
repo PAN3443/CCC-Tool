@@ -3,7 +3,7 @@
 //////////////////////////////
 
 function createSideExport(){
-  if(colormapBandSketchC1.length!=0){
+  if(bandSketch.getBandLenght()!=0){
     exportColormap = createColormap;
     document.getElementById("id_exportWindow").style.display = "initial";
     exportSideOpen = true;
@@ -37,11 +37,8 @@ function clearCreateSide(){
   processPosition = -1;
   createColormap.setColormapName("Costumer Colormap");
   document.getElementById("id_InputMapName").value = "Costumer Colormap";
-  colormapBandSketchC1 = [];
-  colormapBandSketchC2 = [];
-  colormapBandSketchR1 = [];
-  colormapBandSketchR2 = [];
-  orderColorSketch();
+  bandSketch.clearSketch()
+  orderColorSketch(colorspaceModus);
 
   for(var i = refElementContainer.length-1; i>=0; i--){
     refElementContainer[i].remove();
@@ -71,7 +68,7 @@ function loadColormapCreateSide(){
 
 function saveColormapToList(){
 
-  if(colormapBandSketchC1.length>0){
+  if(bandSketch.getBandLenght()>0){
     myList.push(createColormap);
     clearCreateSide();
 

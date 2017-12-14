@@ -262,7 +262,7 @@ class class_Band{
                                             var lValue = color1.getLValue()+(color2.getLValue() - color1.getLValue())*tmpRatio;
                                             var aValue = color1.getAValue()+(color2.getAValue() - color1.getAValue())*tmpRatio;
                                             var bValue = color1.getBValue()+(color2.getBValue() - color1.getBValue())*tmpRatio;
-                                            var tmpCurrentColor = new classColorCIELab(lValue,aValue,bValue);
+                                            var tmpCurrentColor = new classColor_LAB(lValue,aValue,bValue);
 
                                             this.intervalObjects.push(new classIntervalPointObject(tmpCurrentColor,tmpCurrentRef));
 
