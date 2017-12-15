@@ -132,6 +132,21 @@ window.onload = function () {
         document.getElementById('id_anaylseValue').addEventListener("mousedown", mouseDownValuePlot);
         document.getElementById('id_anaylseValue').addEventListener("mouseup", mouseUpValuePlot);
 
+        document.getElementById('id_canvasRG').addEventListener("mouseleave", mouseLeaveColorspaceRGB);
+        document.getElementById('id_canvasRG').addEventListener("mousemove", mouseMoveColorspaceRGB);
+        document.getElementById('id_canvasRG').addEventListener("mousedown", mouseDownColorspaceRGB);
+        document.getElementById('id_canvasRG').addEventListener("mouseup", mouseUpColorspaceRGB);
+
+        document.getElementById('id_canvasRB').addEventListener("mouseleave", mouseLeaveColorspaceRGB);
+        document.getElementById('id_canvasRB').addEventListener("mousemove", mouseMoveColorspaceRGB);
+        document.getElementById('id_canvasRB').addEventListener("mousedown", mouseDownColorspaceRGB);
+        document.getElementById('id_canvasRB').addEventListener("mouseup", mouseUpColorspaceRGB);
+
+        document.getElementById('id_canvasBG').addEventListener("mouseleave", mouseLeaveColorspaceRGB);
+        document.getElementById('id_canvasBG').addEventListener("mousemove", mouseMoveColorspaceRGB);
+        document.getElementById('id_canvasBG').addEventListener("mousedown", mouseDownColorspaceRGB);
+        document.getElementById('id_canvasBG').addEventListener("mouseup", mouseUpColorspaceRGB);
+
         document.getElementById('id_setValueRange').addEventListener("change", changeValueRange);
         document.getElementById('id_checkboxRGB').addEventListener("change", analyseColormapRGBPossible);
 

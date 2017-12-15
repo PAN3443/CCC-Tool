@@ -4,7 +4,7 @@ function initAnalysePage(){
 
     bandSketch.colormap2Sketch(analysisColormap);
     orderColorSketch(colorspaceModus);
-    //changeCourseSpace();
+    changeCourseSpace();
     document.getElementById("id_setValueRange").value = 100;
 
 }
@@ -14,10 +14,13 @@ function changeCourseSpace(){
   document.getElementById("id_containerHueCourse").style.display = "none";
   document.getElementById("id_anaylseValue").style.display = "none";
   document.getElementById("id_hueValueOptions").style.display = "none";
+  document.getElementById("id_RGBCourseDiv").style.display = "none";
 
   switch(colorspaceModus){
       case "rgb":;
-
+        document.getElementById("id_RGBCourseDiv").style.display = "initial";
+        //rgbInit("id_canvasRG","id_canvasRB","id_canvasBG", true);
+        drawcolormap_RGBSpace(analysisColormap, "id_canvasRG","id_canvasRB","id_canvasBG", true);
       break;
       case "hsv":
         document.getElementById("id_containerHueCourse").style.display = "initial";

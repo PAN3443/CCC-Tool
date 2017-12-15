@@ -93,6 +93,7 @@
   <script src="js/drawColorspace.js"></script>
   <script src="js/events_ColorspaceCanvas.js"></script>
   <script src="js/class_colorBandSketch.js"></script>
+  <script src="js/events_colorspaceCanvasRGB.js"></script>
   <script src="js/main.js"></script>
 
 </head>
@@ -526,7 +527,7 @@
         -->
   <div id="id_analysisPage" style="width: 100%; height:auto; background:white; display:none;">
     <!-- Colormap Sketch Bands -->
-    <div class="row" style="height:20vh; width:100%; margin:0px; background:rgb(230,230,230); border-top:2px solid black;">
+
       <div style="height:auto; width:100%; margin:auto; background:white; padding-bottom:1vh;">
         <h4 style="width:100%; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Colormap Band Sketch</h4>
 
@@ -536,11 +537,13 @@
         <div class="row" style="margin-top: 0px; width:95%; height: 2vh; margin-left:auto;  margin-right:auto; margin-bottom:3vh;" id="id_analyseColormapSketch_Ref">
         </div>
       </div>
-    </div>
 
 
+      <!--
+            ----------------	Colormap Course	  -----------------
+            -->
     <!-- Colorspace Preview-->
-    <div class="row" style="background:white; padding-top:2vh; padding-bottom:2vh;">
+    <div class="row" style="background:white; padding-top:2vh; padding-bottom:2vh; border-top:4px solid rgb(30,30,30);">
       <div style="widht:auto; margin-left:auto;">
       </div>
       <h4 style="width:auto; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Colormap Course</h4>
@@ -566,8 +569,52 @@
     </div>
 
 
+    <div class="row" style="background:none; width:100%; height:4vh; background:white; border-top: 1px solid rgb(220,220,220); border-bottom: 1px solid rgb(220,220,220); padding-top:1vh; padding-bottom:1vh;">
+        <p class="classAnalyseLabel" style="margin-left:auto; width:auto; font-weight:bold;"> Legend:</p>
+        <div style="margin-left:2vw; margin-right:1vw; height:2vh; width:2vh; margin-top:auto; margin-bottom:auto; border:2px solid black;">
+        </div>
+        <p class="classAnalyseLabel"> : Constant Band </p>
+        <div class="dropdown" style="widht:auto; margin-right:auto;">
+          <button class="dropbtn" style="border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 2vh; height:2vh; margin-left:2vh; border: 2px solid black; margin-top:1vh; margin-bottom:auto;"></button>
+          <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
+
+            <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>HELP:</strong> With
+            </p>
+          </div>
+        </div>
+        <svg style="margin-left:2vw; margin-right:0.5vw; height;4vh; width:20vw;">
+            <line x1="10%" y1="50%" x2="90%" y2="50%" style="stroke:rgb(0,0,0);stroke-width:9" />
+            <line x1="10%" y1="50%" x2="90%" y2="50%" style="stroke:rgb(255,255,255);stroke-width:3" />
+            <circle cx="10%" cy="50%" r="5%" stroke="black" stroke-width="3" fill="white" />
+            <circle cx="90%" cy="50%" r="5%" stroke="black" stroke-width="3" fill="white" />
+        </svg>
+        <p class="classAnalyseLabel">: Scaled Band </p>
+        <div class="dropdown" style="widht:auto; margin-right:auto;">
+          <button class="dropbtn" style="border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 2vh; height:2vh; margin-left:2vh; border: 2px solid black; margin-top:1vh; margin-bottom:auto;"></button>
+          <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
+
+            <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>HELP:</strong> With
+            </p>
+          </div>
+        </div>
+        <svg style="margin-left:2vw; margin-right:0.5vw; height;4vh; width:20vw;">
+            <line x1="10%" y1="50%" x2="90%" y2="50%" stroke-dasharray="10,5" style="stroke:rgb(0,0,0);stroke-width:9" />
+            <line x1="10%" y1="50%" x2="90%" y2="50%" stroke-dasharray="10,5" style="stroke:rgb(255,255,255);stroke-width:3" />
+        </svg>
+        <p class="classAnalyseLabel">: Jump</p>
+        <div class="dropdown" style="widht:auto; margin-right:auto;">
+          <button class="dropbtn" style="border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 2vh; height:2vh; margin-left:2vh; border: 2px solid black; margin-top:1vh; margin-bottom:auto; margin-right:auto;"></button>
+          <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
+
+            <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>HELP:</strong> With
+            </p>
+          </div>
+        </div>
+    </div>
+
+
     <div id='id_hueValueOptions' style="display:none;">
-      <div  class="row" style="width:100%; height:auto; background:white; padding-bottom:1vh;" >
+      <div  class="row" style="width:100%; height:auto; background:white; padding-bottom:1vh; padding-top:1vh;" >
 
         <!-- Hue -->
         <p class="classAnalyseLabel" style="margin-left:auto; width:auto; font-weight:bold;"> Options: </p>
@@ -598,9 +645,68 @@
         </canvas>
 
       </div>
+
     </div>
 
+  <div id="id_RGBCourseDiv" style="width:100%; height:auto; background:white;">
+    <div  class="row" style="width:100%; height:auto; padding-bottom:1vh; background:white;" >
+      <canvas id="id_canvasRG" style="width:30vw; height:30vw; margin:auto;">
 
+
+      </canvas>
+
+      <canvas id="id_canvasBG" style="width:30vw; height:30vw; margin:auto;">
+
+
+      </canvas>
+
+      <canvas id="id_canvasRB" style="width:30vw; height:30vw; margin:auto;">
+
+
+      </canvas>
+    </div>
+
+  </div>
+
+  <!--
+        ----------------	Contrast of Colorspaces	  -----------------
+  -->
+
+  <div class="row" style="background:white; padding-top:2vh; padding-bottom:2vh; border-top:4px solid rgb(30,30,30);">
+    <div style="widht:auto; margin-left:auto;">
+    </div>
+    <h4 style="width:auto; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Contrast of Colormap in Different Colorspaces</h4>
+    <div class="dropdown" style="widht:auto; margin-right:auto;">
+      <button class="dropbtn" style="border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 2.5vh; height:2.5vh; margin-left:2vh; border: 2px solid black; margin-top:auto; margin-bottom:auto;"></button>
+      <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
+
+        <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>HELP:</strong> With the analyse of the colormap in different colorspaces you can analyse .
+        </p>
+
+      </div>
+    </div>
+  </div>
+
+
+
+  <!--
+        ----------------	Analyse of the Difference Metrics	  -----------------
+  -->
+
+  <div class="row" style="background:white; padding-top:2vh; padding-bottom:2vh; border-top:4px solid rgb(30,30,30);">
+    <div style="widht:auto; margin-left:auto;">
+    </div>
+    <h4 style="width:auto; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Analyse of the Difference Metrics</h4>
+    <div class="dropdown" style="widht:auto; margin-right:auto;">
+      <button class="dropbtn" style="border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 2.5vh; height:2.5vh; margin-left:2vh; border: 2px solid black; margin-top:auto; margin-bottom:auto;"></button>
+      <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
+
+        <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>HELP:</strong> With the analyse of the colormap of the metric, which give you a value for the difference of two colors. For this we analyse the lab space with euclidean distance, with ciede2000, de94 and the din99 space with euclidean distance .......
+        </p>
+
+      </div>
+    </div>
+  </div>
 
 
 

@@ -84,6 +84,9 @@ var labSpaceRange = 128;
 var din99SpaceRange = 156;
 
 var colorspaceBackgroundData;
+var colorspaceBackgroundDataRG;
+var colorspaceBackgroundDataRG;
+var colorspaceBackgroundDataBG;
 
 // colorspace eventes
 var mouseAboveSpaceObjectID = -1;
