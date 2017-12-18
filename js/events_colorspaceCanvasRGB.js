@@ -157,7 +157,8 @@ function mouseMoveColorspaceRGB(event) {
 
       orderColorSketch(colorspaceModus);
       drawcolormap_RGBSpace(analysisColormap, "id_canvasRG","id_canvasRB","id_canvasBG", false); //drawcolormap_hueSpace(analysisColormap, "id_workcanvasAnalyseHue");
-
+        drawAnalyseMapPreviews();
+drawAnalyseDifferenceMaps(); 
     }
 
 

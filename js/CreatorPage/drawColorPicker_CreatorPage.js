@@ -1,8 +1,9 @@
 function drawHSBackground(id){
 
     var canvasColorspace = document.getElementById(id);
-    $("#"+id).attr("width", hs_resolution_X+"px");
-    $("#"+id).attr("height", hs_resolution_Y+"px");
+
+    canvasColorspace.width = hs_resolution_X;
+    canvasColorspace.height = hs_resolution_Y;
     var canvasColorspaceWidth = canvasColorspace.width;
     var canvasColorspaceHeight = canvasColorspace.height;
     //var ratioWidthHeight = canvasColorspaceWidth/canvasColorspaceHeight;
@@ -47,8 +48,8 @@ function drawColorCircles(){
     canvasColorspace.style.top = rectPickerCanvas.top+"px";
     canvasColorspace.style.left = rectPickerCanvas.left+"px";
 
-    $("#id_workcanvasPicker").attr("width", hs_resolution_X+"px");
-    $("#id_workcanvasPicker").attr("height", hs_resolution_Y+"px");
+    canvasColorspace.width = hs_resolution_X;
+    canvasColorspace.height = hs_resolution_Y;
     var canvasColorspaceWidth = canvasColorspace.width;
     var canvasColorspaceHeight = canvasColorspace.height;
     //var ratioWidthHeight = canvasColorspaceWidth/canvasColorspaceHeight;
@@ -270,14 +271,12 @@ function drawColorCircles(){
 function drawVChangeRects(){
 
     var canvasVInput1 = document.getElementById("id_canvasPickerC1V");
-    var resolution_X = v_resolution_X;
-    var resolution_Y = v_resolution_Y;
-    $("#id_canvasPickerC1V").attr("width", resolution_X+"px");
-    $("#id_canvasPickerC1V").attr("height", resolution_Y+"px");
+    canvasVInput1.width = v_resolution_X;
+    canvasVInput1.height = v_resolution_Y;
 
     var canvasVInputContex1 = canvasVInput1.getContext("2d");
 
-    drawValueRect(canvasVInputContex1, getHSVColor(), resolution_X, resolution_Y);
+    drawValueRect(canvasVInputContex1, getHSVColor(), v_resolution_X, v_resolution_Y);
 
 }
 

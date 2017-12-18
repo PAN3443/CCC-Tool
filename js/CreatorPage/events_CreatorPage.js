@@ -339,8 +339,8 @@ function updateCreatorBand(){
     var resolutionX = 1200;
     var resolutionY = 75;
 
-    $("#id_creatorBand").attr("width", resolutionX+"px");
-    $("#id_creatorBand").attr("height", resolutionY+"px");
+    canvasObject.width = resolutionX;
+    canvasObject.height = resolutionY;
 
     var canvasContex = canvasObject.getContext("2d");
     //canvasContex.clearRect(0, 0, resolutionX, resolutionY);

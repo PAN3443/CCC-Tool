@@ -5,6 +5,12 @@ window.onload = function () {
   /////////////////////////////// GLOBAL /////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    document.getElementById('id_creatorPage').style.display = "none";
+    document.getElementById('id_comparePage').style.display = "none";
+    document.getElementById('id_analysisPage').style.display = "none";
+    document.getElementById('id_editPage').style.display = "none";
+
+
     document.getElementById('id_ButtonToMyMapsPage').addEventListener("click", showMyMapsSide);
     document.getElementById('id_inputData').addEventListener("change", readSingleFile);
 
@@ -333,7 +339,7 @@ function orderColorSketch(forColorspace){
             tCan.style.width = tmpLength + "px"; //100 +'%';
             tCan.style.cursor = "pointer";
 
-            drawCanvasBand(tCan, bandSketch.getC1Color(i,colorspaceModus),  bandSketch.getC2Color(i,colorspaceModus),tCan.width,tCan.height );
+            drawCanvasBand(tCan, bandSketch.getC1Color(i,colorspaceModus),  bandSketch.getC2Color(i,colorspaceModus),tCan.width);
 
             //tCan.addEventListener("dragstart", createSide_BandOnDragStart);
             //tCan.addEventListener("dragend", createSide_BandOnDragEnd);
@@ -353,7 +359,7 @@ function orderColorSketch(forColorspace){
 
 
             /////////////////// draw ref /////////
-            var tmpText = ''+bandSketch.getRefR1(i).toFixed(numDecimalPlaces);
+            var tmpText = ''+bandSketch.getRefR1(i); //.toFixed(numDecimalPlaces);
 
             var box = sketchRefObj.getBoundingClientRect();
 
@@ -369,50 +375,106 @@ function orderColorSketch(forColorspace){
             var top  = box.top +  scrollTop - clientTop;
             var left = box.left + scrollLeft - clientLeft;
 
-            var p = document.createElement('p');
+
             var xposHTML = ((i)/bandSketch.getBandLenght())*box.width+left;
             var yposHTML = box.height+top;
 
-            document.body.appendChild(p);
-            p.innerHTML = tmpText;
-            p.width = "min-content";
-            p.style.background = "rgb(255,255,255)";
-            p.style.paddingLeft = 5+"px";
-            p.style.paddingRight = 5+"px";
-            p.style.border = "1px solid rgb(0,0,0)";
-            p.style.margin = "0px";
+            var inputField = document.createElement("input");
+            inputField.setAttribute('type', 'text');
+            inputField.setAttribute('value', tmpText);
+            var inputID = "id_SketchKeyValInput" + i;
+            inputField.id = inputID;
+            document.body.appendChild(inputField);
 
-            p.style.position = "absolute";
-            p.style.top = Math.round(yposHTML)+"px";
-            p.style.left = Math.round(xposHTML)+"px";
-            refLineSketchContainer.push(p);
-            xposHTML = xposHTML-(p.getBoundingClientRect().width/2);
-            p.style.left = Math.round(xposHTML)+"px";
+            //inputField.style.width = "min-content";
+            inputField.style.width = "3vw";
+            inputField.style.height = "2vh";
+            inputField.style.fontSize = "1.8vh";
+            //inputField.style.background = "rgb(255,255,255)";
+            inputField.style.paddingLeft = 5 + "px";
+            inputField.style.paddingRight = 5 + "px";
+            //inputField.style.border = "2px solid rgb(0,0,0)";
+            inputField.style.margin = "0px";
+            inputField.style.zIndex = "2";
+
+            inputField.style.position = "absolute";
+            inputField.style.top = Math.round(yposHTML) + "px";
+            inputField.style.left = Math.round(xposHTML) + "px";
+            refLineSketchContainer.push(inputField);
+            xposHTML = xposHTML - (inputField.getBoundingClientRect().width / 2);
+            inputField.style.left = Math.round(xposHTML) + "px";
+
+            inputField.onchange = (function(sketchIndex, id) {
+              return function() {
+
+                switch (id) {
+                  case 0:
+                    changeKeyValueInputSketch(sketchIndex,true, id);
+                    break;
+                  default:
+                    changeKeyValueInputSketch(sketchIndex,true, id);
+                    changeKeyValueInputSketch(sketchIndex-1,false, id);
+                }
+
+              };
+            })(i, inputID);
+
+            inputField.onkeyup = (function (id) {
+              return function() {
+
+                var inputObj = document.getElementById(id);
+
+                checkInputVal(inputObj, true, true);
+              };
+            })(inputID);
 
             /////////////////// special case: last element /////////
             if(i==bandSketch.getBandLenght()-1){
               refLineDiv.style.borderRight = "1px solid black";
-
-              var tmpText = ''+bandSketch.getRefR2(i).toFixed(numDecimalPlaces);
-
-              var p2 = document.createElement('p');
+              tmpText = ''+bandSketch.getRefR2(i); //.toFixed(numDecimalPlaces);
               xposHTML = box.width+left;
+              var inputField2 = document.createElement("input");
+              inputField2.setAttribute('type', 'text');
+              inputField2.setAttribute('value', tmpText);
+              var inputID = "id_SketchKeyValInput" + i+1;
+              inputField2.id = inputID;
+              document.body.appendChild(inputField2);
 
-              document.body.appendChild(p2);
-              p2.innerHTML = tmpText;
-              p2.width = "min-content";
-              p2.style.background = "rgb(255,255,255)";
-              p2.style.paddingLeft = 5+"px";
-              p2.style.paddingRight = 5+"px";
-              p2.style.border = "2px solid rgb(0,0,0)";
-              p2.style.margin = "0px";
+              //inputField.style.width = "min-content";
+              inputField2.style.width = "3vw";
+              inputField2.style.height = "2vh";
+              inputField2.style.fontSize = "1.8vh";
+              //inputField.style.background = "rgb(255,255,255)";
+              inputField2.style.paddingLeft = 5 + "px";
+              inputField2.style.paddingRight = 5 + "px";
+              //inputField.style.border = "2px solid rgb(0,0,0)";
+              inputField2.style.margin = "0px";
+              inputField2.style.zIndex = "2";
 
-              p2.style.position = "absolute";
-              p2.style.top = Math.round(yposHTML)+"px";
-              p2.style.left = Math.round(xposHTML)+"px";
-              refLineSketchContainer.push(p2);
-              xposHTML = xposHTML-(p.getBoundingClientRect().width/2);
-              p2.style.left = Math.round(xposHTML)+"px";
+              inputField2.style.position = "absolute";
+              inputField2.style.top = Math.round(yposHTML) + "px";
+              inputField2.style.left = Math.round(xposHTML) + "px";
+              refLineSketchContainer.push(inputField2);
+              xposHTML = xposHTML - (inputField2.getBoundingClientRect().width / 2);
+              inputField2.style.left = Math.round(xposHTML) + "px";
+
+              inputField2.onchange = (function(sketchIndex, id) {
+                return function() {
+
+                  changeKeyValueInputSketch(sketchIndex,false, id);
+
+                };
+              })(i, inputID);
+
+              inputField2.onkeyup = (function (id) {
+                return function() {
+
+                  var inputObj = document.getElementById(id);
+
+                  checkInputVal(inputObj, true, true);
+                };
+              })(inputID);
+
             }
         }
 
@@ -432,7 +494,7 @@ function orderColorSketch(forColorspace){
 
             t2Div.addEventListener("dragenter", bandOnEnter);
             t2Div.addEventListener("dragleave", bandOnLeave);
-
+0
             t2Div.ondrop = function(event){
                 event.preventDefault();
                 bandOnDrop();
@@ -471,6 +533,34 @@ function orderColorSketch(forColorspace){
 
     }
 
+
+}
+
+function changeKeyValueInputSketch(sketchIndex,doR1, fielID) {
+
+  var inputObj = document.getElementById(fielID);
+
+  checkInputVal(inputObj, true, true);
+
+  var newRef = parseFloat(inputObj.value);
+
+  if(doR1){
+    bandSketch.setRefR1(sketchIndex,newRef);
+  }
+  else{
+    bandSketch.setRefR2(sketchIndex,newRef);
+  }
+
+  if(showSideID == 1){
+    createColormap = bandSketch.sketch2Colormap(colorspaceModus);
+    drawCanvasColormap("id_linearColormap",linearMap_resolution_X, linearMap_resolution_Y, createColormap);
+    drawKeys("id_keyColormap",key_resolution_X, key_resolution_Y, createColormap, "id_keyColormapLinesBottom",false, true)
+    fillTable();
+  }
+
+  if(showSideID == 2){
+    analysisColormap = bandSketch.sketch2Colormap(colorspaceModus);
+  }
 
 }
 

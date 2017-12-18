@@ -97,8 +97,8 @@
   <script src="js/main.js"></script>
 
 </head>
-
-<body style="background: rgb(30,30,30);">
+<!--style="background: rgb(30,30,30);"-->
+<body style="background: white;">
   <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -128,7 +128,7 @@
   </div>
 
 
-  <div style="width:100%; height:10vh;   margin:0px;">
+  <div class="sticky" style="width:100%; height:10vh; margin:0px;">
 
     <div class="row" style="width:100%; background:rgb(0,191,255);">
       <div class="dropdown">
@@ -177,7 +177,7 @@
         ----------------	Creator Page ---------------
         ---------------- -------------------------------
         -->
-  <div id="id_creatorPage" style="width: 100%; height:auto; background:white; display: none;">
+  <div id="id_creatorPage" style="width: 100%; height:auto; background:white;">
 
 
     <div class="row" style="height:100%; width: 100%;">
@@ -231,7 +231,7 @@
                 <canvas style="margin-top: 0px; width:100%; height: 6vh; margin-left:0%; " id="id_keyColormap">
 
                                         </canvas>
-                <canvas style="margin-top: 0px; width:95%; height: 23vh; margin-left:2.5%; margin-bottom:0px;" id="id_linearColormap">
+                <canvas style="margin-top: 0px; width:95%; height: 23vh; margin-left:2.5%; margin-bottom:0px; border: 2px solid black;" id="id_linearColormap">
 
                                         </canvas>
                 <canvas style="margin-top: 0px; width:100%; height: 2vh; margin-left:0%;" id="id_keyColormapLinesBottom">
@@ -516,7 +516,7 @@
         ----------------	Compare	  -----------------
         -----------------------------------------------
         -->
-  <div id="id_comparePage" style="width: 100%; height:auto;  background:white; display:none;">
+  <div id="id_comparePage" style="width: 100%; height:auto;  background:white; ">
 
   </div>
 
@@ -525,7 +525,7 @@
         ----------------	Analysis	  -----------------
         -----------------------------------------------
         -->
-  <div id="id_analysisPage" style="width: 100%; height:auto; background:white; display:none;">
+  <div id="id_analysisPage" style="width: 100%; height:auto; background:white; ">
     <!-- Colormap Sketch Bands -->
 
       <div style="height:auto; width:100%; margin:auto; background:white; padding-bottom:1vh;">
@@ -539,11 +539,83 @@
       </div>
 
 
+
+      <!--
+            ----------------	Contrast of Colorspaces	  -----------------
+      -->
+
+      <div class="row" style="background:white; padding-top:2vh; padding-bottom:2vh; border-top:10px solid rgb(30,30,30);">
+        <div style="widht:auto; margin-left:auto;">
+        </div>
+        <h4 style="width:auto; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Contrast of Colormap in Different Colorspaces</h4>
+        <div class="dropdown" style="widht:auto; margin-right:auto;">
+          <button class="dropbtn" style="border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 2.5vh; height:2.5vh; margin-left:2vh; border: 2px solid black; margin-top:auto; margin-bottom:auto;"></button>
+          <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
+
+            <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>HELP:</strong> With the analyse of the colormap in different colorspaces you can analyse .
+            </p>
+
+          </div>
+        </div>
+      </div>
+
+      <!----------------	RGB	  --------------->
+      <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh;">
+
+
+        <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: center;  height:5vh; line-height:5vh">RGB Colorspace:</p>
+
+        <canvas id="id_anaylseRGB_Preview" style="width:70%; height:5vh; border: 2px solid black;">
+
+
+        </canvas>
+
+      </div>
+
+      <!----------------	HSV	  --------------->
+      <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh;">
+
+
+        <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: center;  height:5vh; line-height:5vh">HSV Colorspace:</p>
+
+        <canvas id="id_anaylseHSV_Preview" style="width:70%; height:5vh; border: 2px solid black;">
+
+
+        </canvas>
+
+      </div>
+
+      <!----------------	LAB	  --------------->
+      <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh;">
+
+
+        <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: center;  height:5vh; line-height:5vh">LAB Colorspace:</p>
+
+        <canvas id="id_anaylseLAB_Preview" style="width:70%; height:5vh; border: 2px solid black;">
+
+
+        </canvas>
+
+      </div>
+
+      <!----------------	DIN99	  --------------->
+      <div class="row" style="width:100%; height:auto; background:white; margin-bottom:4vh;">
+
+
+        <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: center;  height:5vh; line-height:5vh">DIN99 Colorspace:</p>
+
+        <canvas id="id_anaylseDIN99_Preview" style="width:70%; height:5vh; border: 2px solid black;">
+
+
+        </canvas>
+
+      </div>
+
       <!--
             ----------------	Colormap Course	  -----------------
             -->
     <!-- Colorspace Preview-->
-    <div class="row" style="background:white; padding-top:2vh; padding-bottom:2vh; border-top:4px solid rgb(30,30,30);">
+    <div class="row" style="background:white; padding-top:2vh; padding-bottom:2vh; border-top:10px solid rgb(30,30,30);">
       <div style="widht:auto; margin-left:auto;">
       </div>
       <h4 style="width:auto; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Colormap Course</h4>
@@ -578,7 +650,7 @@
           <button class="dropbtn" style="border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 2vh; height:2vh; margin-left:2vh; border: 2px solid black; margin-top:1vh; margin-bottom:auto;"></button>
           <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
-            <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>HELP:</strong> With
+            <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>INFO:</strong> A constant band is ...
             </p>
           </div>
         </div>
@@ -593,7 +665,7 @@
           <button class="dropbtn" style="border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 2vh; height:2vh; margin-left:2vh; border: 2px solid black; margin-top:1vh; margin-bottom:auto;"></button>
           <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
-            <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>HELP:</strong> With
+            <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>INFO:</strong> A scaled band is ...
             </p>
           </div>
         </div>
@@ -606,7 +678,7 @@
           <button class="dropbtn" style="border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 2vh; height:2vh; margin-left:2vh; border: 2px solid black; margin-top:1vh; margin-bottom:auto; margin-right:auto;"></button>
           <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
-            <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>HELP:</strong> With
+            <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>INFO:</strong> A jump is ...
             </p>
           </div>
         </div>
@@ -668,32 +740,13 @@
 
   </div>
 
-  <!--
-        ----------------	Contrast of Colorspaces	  -----------------
-  -->
-
-  <div class="row" style="background:white; padding-top:2vh; padding-bottom:2vh; border-top:4px solid rgb(30,30,30);">
-    <div style="widht:auto; margin-left:auto;">
-    </div>
-    <h4 style="width:auto; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Contrast of Colormap in Different Colorspaces</h4>
-    <div class="dropdown" style="widht:auto; margin-right:auto;">
-      <button class="dropbtn" style="border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 2.5vh; height:2.5vh; margin-left:2vh; border: 2px solid black; margin-top:auto; margin-bottom:auto;"></button>
-      <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
-
-        <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>HELP:</strong> With the analyse of the colormap in different colorspaces you can analyse .
-        </p>
-
-      </div>
-    </div>
-  </div>
-
 
 
   <!--
         ----------------	Analyse of the Difference Metrics	  -----------------
   -->
 
-  <div class="row" style="background:white; padding-top:2vh; padding-bottom:2vh; border-top:4px solid rgb(30,30,30);">
+  <div class="row" style="background:white; padding-top:2vh; padding-bottom:2vh; border-top:10px solid rgb(30,30,30);">
     <div style="widht:auto; margin-left:auto;">
     </div>
     <h4 style="width:auto; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Analyse of the Difference Metrics</h4>
@@ -709,6 +762,130 @@
   </div>
 
 
+  <!----------------	Ratio	Reference  --------------->
+  <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh;">
+
+
+    <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: left;  height:5vh; line-height:5vh">Ratio X	Reference:</p>
+
+    <canvas id="id_anaylseRatioRef" style="width:70%; height:5vh; border: 2px solid black;">
+
+
+    </canvas>
+
+  </div>
+
+  <!----------------	Ratio LAB Euclidean Distance:	  --------------->
+  <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh;">
+
+
+    <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: left;  height:5vh; line-height:5vh">Ratio RGB Euclidean Distance:</p>
+
+    <canvas id="id_anaylseRatioRGB" style="width:70%; height:5vh; border: 2px solid black;">
+
+
+    </canvas>
+
+  </div>
+
+  <!----------------	Ratio LAB Metric DE94:	  --------------->
+  <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh;">
+
+
+    <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: left;  height:5vh; line-height:5vh">Ratio HSV Euclidean Distance:</p>
+
+    <canvas id="id_anaylseRatioHSV" style="width:70%; height:5vh; border: 2px solid black;">
+
+
+    </canvas>
+
+  </div>
+
+  <!----------------	Ratio LAB Euclidean Distance:	  --------------->
+  <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh;">
+
+
+    <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: left;  height:5vh; line-height:5vh">Ratio LAB Euclidean Distance:</p>
+
+    <canvas id="id_anaylseRatioLAB" style="width:70%; height:5vh; border: 2px solid black;">
+
+
+    </canvas>
+
+  </div>
+
+  <!----------------	Ratio LAB Metric DE94:	  --------------->
+  <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh;">
+
+
+    <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: left;  height:5vh; line-height:5vh">Ratio LAB Metric DE94:</p>
+
+    <canvas id="id_anaylseRatioDE94" style="width:70%; height:5vh; border: 2px solid black;">
+
+
+    </canvas>
+
+  </div>
+
+  <!----------------	Ratio LAB Metric DE2000:	  --------------->
+  <div class="row" style="width:100%; height:auto; background:white; margin-bottom:4vh;">
+
+
+    <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: left;  height:5vh; line-height:5vh">Ratio LAB Metric DE2000:</p>
+
+    <canvas id="id_anaylseRatioDe2000" style="width:70%; height:5vh; border: 2px solid black;">
+
+
+    </canvas>
+
+  </div>
+
+  <!----------------	Ratio DIN99 Euclidean Distance:	  --------------->
+  <div class="row" style="width:100%; height:auto; background:white; margin-bottom:4vh;">
+
+
+    <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: left;  height:5vh; line-height:5vh">Ratio DIN99 Euclidean Distance:</p>
+
+    <canvas id="id_anaylseRatioDIN99" style="width:70%; height:5vh; border: 2px solid black;">
+
+
+    </canvas>
+
+  </div>
+
+
+  <div style="height:auto; overflow:auto; width:100%; margin-bottom:2vh;">
+    <h4 style="widht:100%; height:3vh; height:3vh; line-height:3vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; padding-left:20px; font-size:2.5vh; margin-bottom:2vh; background:black; margin-bottom:0px;"> Table of the Difference Maps </h4>
+
+    <table style="width:100%; background:white; overflow:auto;" id="id_table">
+      <thead>
+        <tr style="border-top:1px solid white;">
+          <th class="class_tablelabel" style="width:4%; border-left:1px solid white;"># Band</th>
+          <th class="class_tablelabel" style="min-width:6.4%;">delta Ref</th>
+          <th class="class_tablelabel" style="min-width:6.4%;">ratio Ref</th>
+          <th class="class_tablelabel" style="min-width:6.4%;">delta RGB</th>
+          <th class="class_tablelabel" style="min-width:6.4%;">ratio RGB</th>
+          <th class="class_tablelabel" style="min-width:6.4%;">delta HSV</th>
+          <th class="class_tablelabel" style="min-width:6.4%;">ratio HSV</th>
+          <th class="class_tablelabel" style="min-width:6.4%;">delta Lab</th>
+          <th class="class_tablelabel" style="min-width:6.4%;">ratio Lab</th>
+          <th class="class_tablelabel" style="min-width:6.4%;">delta DE94</th>
+          <th class="class_tablelabel" style="min-width:6.4%;">ratio DE94</th>
+          <th class="class_tablelabel" style="min-width:6.4%;">delta DE00</th>
+          <th class="class_tablelabel" style="min-width:6.4%;">ratio DE00</th>
+          <th class="class_tablelabel" style="min-width:6.4%;">delta DIN99</th>
+          <th class="class_tablelabel" style="min-width:6.4%;">ratio DIN99</th>
+        </tr>
+      </thead>
+
+      <tbody id="id_analyseTableBody">
+
+      </tbody>
+
+    </table>
+  </div>
+
+
 
 
 
@@ -719,7 +896,7 @@
         ----------------	Edit	  -----------------
         -----------------------------------------------
         -->
-  <div id="id_editPage" style="width: 100%; height:auto;   background:white; display:none;">
+  <div id="id_editPage" style="width: 100%; height:auto;   background:white;">
 
   </div>
 

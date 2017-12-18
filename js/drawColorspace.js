@@ -4,8 +4,7 @@
 function hueInit(canvasID){
 
           var canvasColorspace = document.getElementById(canvasID);
-          //$("#"+canvasID).attr("width", hue_resolution_X+"px");
-          //$("#"+canvasID).attr("height", hue_resolution_Y+"px");
+
           canvasColorspace.width = hue_resolution_X;
           canvasColorspace.height = hue_resolution_Y;
           canvasColorspaceWidth = canvasColorspace.width;
@@ -120,6 +119,10 @@ function hueInit(canvasID){
               var xWidth = canvasColorspaceWidth*labSpaceRectRange;
               var yHeight = canvasColorspaceHeight*labSpaceRectRange;
 
+
+              rangeA99 = rangeA99Pos-rangeA99Neg;
+              rangeB99 = rangeB99Pos-rangeB99Neg;
+
               colorspaceCenterX = Math.round(canvasColorspaceWidth/2);
               colorspaceCenterY = Math.round(canvasColorspaceHeight/2);
 
@@ -132,18 +135,20 @@ function hueInit(canvasID){
                    if(x>=xStart && x<=xEnd && y>=yStart && y<=yEnd){
                       // calc hsv color
                       var colorRGB;
+                      //var a99Val = ((x-colorspaceCenterX)/(xWidth/2))*din99SpaceRange;
+                      //var b99Val = ((y-colorspaceCenterY)/(yHeight/2))*din99SpaceRange;
+                      var a99Val =   ((x-xStart)/(xEnd-xStart))*rangeA99+rangeA99Neg;
+                      var b99Val = ((y-yStart)/(yEnd-yStart))*rangeB99+rangeB99Neg;
+
                       if(mouseGrappedSpaceObjectID==-1){
                         var l99Val = parseFloat(document.getElementById('id_setValueRange').value);
-                        var a99Val = ((x-colorspaceCenterX)/(xWidth/2))*din99SpaceRange;
-                        var b99Val = ((y-colorspaceCenterY)/(yHeight/2))*din99SpaceRange;
+
 
                         var colorDIN99 = new classColorDIN99(l99Val,a99Val,b99Val);
                         colorRGB = colorDIN99.calcRGBColor();
                       }
                       else{
                         var l99Val = analysisColormap.getDIN99Color(mouseGrappedSpaceObjectID).getL99Value();
-                        var a99Val = ((x-colorspaceCenterX)/(xWidth/2))*din99SpaceRange;
-                        var b99Val = ((y-colorspaceCenterY)/(yHeight/2))*din99SpaceRange;
 
                         var colorDIN99 = new classColorDIN99(l99Val,a99Val,b99Val);
 
@@ -154,6 +159,10 @@ function hueInit(canvasID){
                           colorRGB = colorDIN99.calcRGBColor();
                         }
                       }
+
+                      //console.log(a99Val+' '+b99Val);
+                      //console.log(colorRGB.getRValue()*255+' '+colorRGB.getGValue()*255+' '+colorRGB.getBValue()*255);
+                      //break;
 
                       var index = (x + y * canvasColorspaceWidth) * 4;
 
@@ -182,8 +191,6 @@ function init_VPlot(colormapTmp, canvasID){
     canvasVPlot.width = vPlot_resolution_X;
     canvasVPlot.height = vPlot_resolution_Y;
 
-    //$("#"+canvasID).attr("width", vPlot_resolution_X+"px");
-    //$("#"+canvasID).attr("height", vPlot_resolution_Y+"px");
     //var ratioWidthHeight = canvasColorspaceWidth/canvasColorspaceHeight;
     var vPlotContex = canvasVPlot.getContext("2d");
 
@@ -410,12 +417,16 @@ function drawcolormap_hueSpace(colormapTmp, canvasID, calcBackground){
   init_VPlot(colormapTmp,"id_anaylseValue");
 
   var canvasColorspace = document.getElementById(canvasID);
-  //$("#"+canvasID).attr("width", hue_resolution_X+"px");
-  //$("#"+canvasID).attr("height", hue_resolution_Y+"px");
+  
   canvasColorspace.width = hue_resolution_X;
   canvasColorspace.height = hue_resolution_Y;
   canvasColorspaceWidth = canvasColorspace.width;
   canvasColorspaceHeight = canvasColorspace.height;
+
+  var xStart = canvasColorspaceWidth*0.1;
+  var yStart = canvasColorspaceHeight*0.1;
+  var xEnd = canvasColorspaceWidth*0.9;
+  var yEnd = canvasColorspaceHeight*0.9;
 
   var xWidth = canvasColorspaceWidth*0.8;
   var yHeight = canvasColorspaceHeight*0.8;
@@ -486,12 +497,16 @@ function drawcolormap_hueSpace(colormapTmp, canvasID, calcBackground){
                           break;
                           case "din99":
                           tmpColor = colormapTmp.getDIN99Color(i);
-                          xPos = ((tmpColor.getA99Value()/din99SpaceRange)*xWidth/2)+colorspaceCenterX;
-                          yPos = ((tmpColor.getB99Value()/din99SpaceRange)*yHeight/2)+colorspaceCenterY;
+                          //xPos = ((tmpColor.getA99Value()/din99SpaceRange)*xWidth/2)+colorspaceCenterX;
+                          //yPos = ((tmpColor.getB99Value()/din99SpaceRange)*yHeight/2)+colorspaceCenterY;
+                          xPos = ((tmpColor.getA99Value()-rangeA99Neg)/rangeA99*(xEnd-xStart))+xStart;
+                          yPos = ((tmpColor.getB99Value()-rangeB99Neg)/rangeB99*(yEnd-yStart))+yStart;
 
                           tmpColor2 = colormapTmp.getDIN99Color(i+1);
-                          xPos2 = ((tmpColor2.getA99Value()/din99SpaceRange)*xWidth/2)+colorspaceCenterX;
-                          yPos2 = ((tmpColor2.getB99Value()/din99SpaceRange)*yHeight/2)+colorspaceCenterY;
+                          //xPos2 = ((tmpColor2.getA99Value()/din99SpaceRange)*xWidth/2)+colorspaceCenterX;
+                          //yPos2 = ((tmpColor2.getB99Value()/din99SpaceRange)*yHeight/2)+colorspaceCenterY;
+                          xPos2 = ((tmpColor2.getA99Value()-rangeA99Neg)/rangeA99*(xEnd-xStart))+xStart;
+                          yPos2 = ((tmpColor2.getB99Value()-rangeB99Neg)/rangeB99*(yEnd-yStart))+yStart;
                           break;
                           default:
                           console.log("Error at the changeColorspace function");
@@ -552,12 +567,16 @@ function drawcolormap_hueSpace(colormapTmp, canvasID, calcBackground){
                           break;
                           case "din99":
                           tmpColor = colormapTmp.getDIN99Color(i);
-                          xPos = ((tmpColor.getA99Value()/din99SpaceRange)*xWidth/2)+colorspaceCenterX;
-                          yPos = ((tmpColor.getB99Value()/din99SpaceRange)*yHeight/2)+colorspaceCenterY;
+                          //xPos = ((tmpColor.getA99Value()/din99SpaceRange)*xWidth/2)+colorspaceCenterX;
+                          //yPos = ((tmpColor.getB99Value()/din99SpaceRange)*yHeight/2)+colorspaceCenterY;
+                          xPos = ((tmpColor.getA99Value()-rangeA99Neg)/rangeA99*(xEnd-xStart))+xStart;
+                          yPos = ((tmpColor.getB99Value()-rangeB99Neg)/rangeB99*(yEnd-yStart))+yStart;
 
                           tmpColor2 = colormapTmp.getDIN99Color(i+1);
-                          xPos2 = ((tmpColor2.getA99Value()/din99SpaceRange)*xWidth/2)+colorspaceCenterX;
-                          yPos2 = ((tmpColor2.getB99Value()/din99SpaceRange)*yHeight/2)+colorspaceCenterY;
+                          //xPos2 = ((tmpColor2.getA99Value()/din99SpaceRange)*xWidth/2)+colorspaceCenterX;
+                          //yPos2 = ((tmpColor2.getB99Value()/din99SpaceRange)*yHeight/2)+colorspaceCenterY;
+                          xPos2 = ((tmpColor2.getA99Value()-rangeA99Neg)/rangeA99*(xEnd-xStart))+xStart;
+                          yPos2 = ((tmpColor2.getB99Value()-rangeB99Neg)/rangeB99*(yEnd-yStart))+yStart;
                           break;
                           default:
                           console.log("Error at the changeColorspace function");
@@ -633,13 +652,17 @@ function drawcolormap_hueSpace(colormapTmp, canvasID, calcBackground){
                             yPos2 = ((tmpColor2.getBValue()/labSpaceRange)*yHeight/2)+colorspaceCenterY;
                           break;
                           case "din99":
-                            tmpColor = colormapTmp.getDIN99Color(i);
-                            xPos = ((tmpColor.getA99Value()/din99SpaceRange)*xWidth/2)+colorspaceCenterX;
-                            yPos = ((tmpColor.getB99Value()/din99SpaceRange)*yHeight/2)+colorspaceCenterY;
+                          tmpColor = colormapTmp.getDIN99Color(i);
+                          //xPos = ((tmpColor.getA99Value()/din99SpaceRange)*xWidth/2)+colorspaceCenterX;
+                          //yPos = ((tmpColor.getB99Value()/din99SpaceRange)*yHeight/2)+colorspaceCenterY;
+                          xPos = ((tmpColor.getA99Value()-rangeA99Neg)/rangeA99*(xEnd-xStart))+xStart;
+                          yPos = ((tmpColor.getB99Value()-rangeB99Neg)/rangeB99*(yEnd-yStart))+yStart;
 
-                            tmpColor2 = colormapTmp.getDIN99Color(i+1);
-                            xPos2 = ((tmpColor2.getA99Value()/din99SpaceRange)*xWidth/2)+colorspaceCenterX;
-                            yPos2 = ((tmpColor2.getB99Value()/din99SpaceRange)*yHeight/2)+colorspaceCenterY;
+                          tmpColor2 = colormapTmp.getDIN99Color(i+1);
+                          //xPos2 = ((tmpColor2.getA99Value()/din99SpaceRange)*xWidth/2)+colorspaceCenterX;
+                          //yPos2 = ((tmpColor2.getB99Value()/din99SpaceRange)*yHeight/2)+colorspaceCenterY;
+                          xPos2 = ((tmpColor2.getA99Value()-rangeA99Neg)/rangeA99*(xEnd-xStart))+xStart;
+                          yPos2 = ((tmpColor2.getB99Value()-rangeB99Neg)/rangeB99*(yEnd-yStart))+yStart;
                           break;
                           default:
                           console.log("Error at the changeColorspace function");
@@ -877,8 +900,10 @@ function drawcolormap_hueSpace(colormapTmp, canvasID, calcBackground){
                             break;
                             case "din99":
                             tmpColor = colormapTmp.getDIN99Color(i);
-                            xPos = ((tmpColor.getA99Value()/din99SpaceRange)*xWidth/2)+colorspaceCenterX;
-                            yPos = ((tmpColor.getB99Value()/din99SpaceRange)*yHeight/2)+colorspaceCenterY;
+                            //xPos = ((tmpColor.getA99Value()/din99SpaceRange)*xWidth/2)+colorspaceCenterX;
+                            //yPos = ((tmpColor.getB99Value()/din99SpaceRange)*yHeight/2)+colorspaceCenterY;
+                          xPos = ((tmpColor.getA99Value()-rangeA99Neg)/rangeA99*(xEnd-xStart))+xStart;
+                            yPos = ((tmpColor.getB99Value()-rangeB99Neg)/rangeB99*(yEnd-yStart))+yStart;
                             break;
                             default:
                             console.log("Error at the changeColorspace function");
@@ -903,8 +928,10 @@ function drawcolormap_hueSpace(colormapTmp, canvasID, calcBackground){
                                 break;
                                 case "din99":
                                 tmpColor2 = colormapTmp.getDIN99Color(i+1);
-                                xPos2 = ((tmpColor2.getA99Value()/din99SpaceRange)*xWidth/2)+colorspaceCenterX;
-                                yPos2 = ((tmpColor2.getB99Value()/din99SpaceRange)*yHeight/2)+colorspaceCenterY;
+                                //xPos2 = ((tmpColor2.getA99Value()/din99SpaceRange)*xWidth/2)+colorspaceCenterX;
+                                //yPos2 = ((tmpColor2.getB99Value()/din99SpaceRange)*yHeight/2)+colorspaceCenterY;
+                              xPos2 = ((tmpColor2.getA99Value()-rangeA99Neg)/rangeA99*(xEnd-xStart))+xStart;
+                                yPos2 = ((tmpColor2.getB99Value()-rangeB99Neg)/rangeB99*(yEnd-yStart))+yStart;
                                 break;
                                 default:
                                 console.log("Error at the changeColorspace function");
@@ -1132,12 +1159,16 @@ function drawcolormap_hueSpace(colormapTmp, canvasID, calcBackground){
                       case "din99":
                         tmpColor = colormapTmp.getDIN99Color(i);
 
-                        xPos = ((tmpColor.getA99Value()/din99SpaceRange)*xWidth/2)+colorspaceCenterX;
-                        yPos = ((tmpColor.getB99Value()/din99SpaceRange)*yHeight/2)+colorspaceCenterY;
+                        //xPos = ((tmpColor.getA99Value()/din99SpaceRange)*xWidth/2)+colorspaceCenterX;
+                        //yPos = ((tmpColor.getB99Value()/din99SpaceRange)*yHeight/2)+colorspaceCenterY;
+                        xPos = ((tmpColor.getA99Value()-rangeA99Neg)/rangeA99*(xEnd-xStart))+xStart;
+                        yPos = ((tmpColor.getB99Value()-rangeB99Neg)/rangeB99*(yEnd-yStart))+yStart;
 
                         tmpColor2 = colormapTmp.getDIN99Color(i+1);
-                        xPos2 = ((tmpColor2.getA99Value()/din99SpaceRange)*xWidth/2)+colorspaceCenterX;
-                        yPos2 = ((tmpColor2.getB99Value()/din99SpaceRange)*yHeight/2)+colorspaceCenterY;
+                        //xPos2 = ((tmpColor2.getA99Value()/din99SpaceRange)*xWidth/2)+colorspaceCenterX;
+                        //yPos2 = ((tmpColor2.getB99Value()/din99SpaceRange)*yHeight/2)+colorspaceCenterY;
+                        xPos2 = ((tmpColor2.getA99Value()-rangeA99Neg)/rangeA99*(xEnd-xStart))+xStart;
+                        yPos2 = ((tmpColor2.getB99Value()-rangeB99Neg)/rangeB99*(yEnd-yStart))+yStart;
                       break;
                       default:
                       console.log("Error at the changeColorspace function");
@@ -1328,7 +1359,7 @@ function rgbInit(canvasIDRG,canvasIDRB,canvasIDBG, calcBackground){
               colorRGB = new classColor_RGB(r,0,b);
             }
             else{
-              var b = analysisColormap.getRGBColor(mouseGrappedSpaceObjectID).getGValue();
+              var g = analysisColormap.getRGBColor(mouseGrappedSpaceObjectID).getGValue();
               colorRGB = new classColor_RGB(r,g,b);
             }
 
@@ -1750,6 +1781,8 @@ function drawcolormap_RGBSpace(colormapTmp, canvasIDRG,canvasIDRB, canvasIDBG, c
                         tmpArray[0] = xPos;
                         tmpArray2[0] = yPos;
 
+                        // RB
+
                         xPos =  tmpColor.getRValue()*xWidth+xStart;
                         yPos =  yStart-tmpColor.getBValue()*yHeight;
 
@@ -1758,7 +1791,7 @@ function drawcolormap_RGBSpace(colormapTmp, canvasIDRG,canvasIDRB, canvasIDBG, c
                           xPos2 =  tmpColor2.getRValue()*xWidth+xStart;
                           yPos2 =  yStart-tmpColor2.getBValue()*yHeight;
 
-                          drawLine(colorspaceContexRG,xPos,yPos,xPos2,yPos2, true);
+                          drawLine(colorspaceContexRB,xPos,yPos,xPos2,yPos2, true);
                         }
                         drawElement(colormapTmp.getRGBColor(i).getRGBStringAplha(alphaVal),colorspaceContexRB,xPos,yPos, i, drawCircle);
 
@@ -1775,7 +1808,7 @@ function drawcolormap_RGBSpace(colormapTmp, canvasIDRG,canvasIDRB, canvasIDBG, c
                           xPos2 =  tmpColor2.getBValue()*xWidth+xStart;
                           yPos2 =  yStart-tmpColor2.getGValue()*yHeight;
 
-                          drawLine(colorspaceContexRG,xPos,yPos,xPos2,yPos2, true);
+                          drawLine(colorspaceContexBG,xPos,yPos,xPos2,yPos2, true);
                         }
 
                         drawElement(colormapTmp.getRGBColor(i).getRGBStringAplha(alphaVal),colorspaceContexBG,xPos,yPos, i, drawCircle);

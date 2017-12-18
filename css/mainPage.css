@@ -47,3 +47,11 @@
 .dropdown:hover .dropbtn {
     background-color: rgb(0,191,255);
 }
+
+
+div.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 49;
+}

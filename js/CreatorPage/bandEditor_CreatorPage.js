@@ -101,13 +101,14 @@ function deleteBandEditor(){
 
              var dist = Math.abs(bandSketch.getRefR1(bandOptionsIndex+1)-bandSketch.getRefR2(bandOptionsIndex-1));
 
-            bandSketch.getRefR2(bandOptionsIndex-1, bandSketch.setRefR2(bandOptionsIndex-1)+(dist*0.5));
-            bandSketch.getRefR1(bandOptionsIndex+1, bandSketch.setRefR1(bandOptionsIndex+1)-(dist*0.5));
+            bandSketch.setRefR2(bandOptionsIndex-1, bandSketch.getRefR2(bandOptionsIndex-1)+(dist*0.5));
+            bandSketch.setRefR1(bandOptionsIndex+1, bandSketch.getRefR1(bandOptionsIndex+1)-(dist*0.5));
     }
 
     bandSketch.deleteBand(bandOptionsIndex);
 
     orderColorSketch(colorspaceModus);
+
     /////////////
     ////  Save Band Process
     saveCreateProcess();
@@ -177,8 +178,8 @@ function editC1IsC2(){
 
 function drawEditorBandColorCircles(){
 
-    canvasColorspace = document.getElementById("id_bandEditWorkcanvasPicker");
-        rectPickerCanvas = document.getElementById("id_bandEditCanvasPickerHS").getBoundingClientRect();
+    var canvasColorspace = document.getElementById("id_bandEditWorkcanvasPicker");
+    var rectPickerCanvas = document.getElementById("id_bandEditCanvasPickerHS").getBoundingClientRect();
         //canvasColorspace.style.display = "initial";
         canvasColorspace.style.position = "absolute";
         canvasColorspace.style.width = rectPickerCanvas.width+"px";
@@ -186,10 +187,8 @@ function drawEditorBandColorCircles(){
         canvasColorspace.style.top = rectPickerCanvas.top+"px";
         canvasColorspace.style.left = rectPickerCanvas.left+"px";
 
-    var canvasColorspace = document.getElementById("id_bandEditWorkcanvasPicker");
-
-    $("#id_bandEditWorkcanvasPicker").attr("width", hs_resolution_X+"px");
-    $("#id_bandEditWorkcanvasPicker").attr("height", hs_resolution_Y+"px");
+    canvasColorspace.width = hs_resolution_X;
+    canvasColorspace.height = hs_resolution_Y;
     var canvasColorspaceWidth = canvasColorspace.width;
     var canvasColorspaceHeight = canvasColorspace.height;
     //var ratioWidthHeight = canvasColorspaceWidth/canvasColorspaceHeight;
@@ -259,17 +258,15 @@ function drawEditorBandColorCircles(){
 function drawBandEditorVChangeRects(){
 
     var canvasVInput1 = document.getElementById("id_BandEditcanvasPickerC1V");
-    var resolution_X = v_resolution_X;
-    var resolution_Y = v_resolution_Y;
-    $("#id_BandEditcanvasPickerC1V").attr("width", resolution_X+"px");
-    $("#id_BandEditcanvasPickerC1V").attr("height", resolution_Y+"px");
+    canvasVInput1.width = v_resolution_X;
+    canvasVInput1.height = v_resolution_Y;
 
     var canvasVInputContex1 = canvasVInput1.getContext("2d");
 
     if(c1IsActive)
-    drawValueRect(canvasVInputContex1, changedColorC1.calcHSVColor(), resolution_X, resolution_Y);
+    drawValueRect(canvasVInputContex1, changedColorC1.calcHSVColor(), v_resolution_X, v_resolution_Y);
     else
-    drawValueRect(canvasVInputContex1, changedColorC2.calcHSVColor(), resolution_X, resolution_Y);
+    drawValueRect(canvasVInputContex1, changedColorC2.calcHSVColor(), v_resolution_X, v_resolution_Y);
 
 }
 

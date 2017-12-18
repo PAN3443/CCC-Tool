@@ -19,8 +19,8 @@ function drawPredefinedBands(){
     document.getElementById('id_TripleBands_Div').innerHTML = "";
     document.getElementById('id_QuadrupelBands_Div').innerHTML = "";
 
-    var resolutionX = 400;
-    var resolutionY = 75;
+    var resolutionX = 100;
+    var resolutionY = 1;
 
     //---------------------------
     // --------- Const
@@ -58,8 +58,7 @@ function drawPredefinedBands(){
         var tmpC1RGB = scaleBands[i][0];
         var tmpC2RGB = scaleBands[i][1];
 
-
-        drawCanvasBand(iCan, tmpC1RGB, tmpC2RGB,resolutionX,resolutionY);
+        drawCanvasBand(iCan, tmpC1RGB, tmpC2RGB,resolutionX);
 
     }
     document.getElementById('id_ScaleBand_Div').appendChild(document.getElementById('button_AddScaleBand'));
@@ -85,11 +84,8 @@ function drawPredefinedBands(){
         var tmpC2RGB = doubleBands[i][1];
         var tmpC3RGB = doubleBands[i][2];
 
-        var resolutionX = iCan.width; //400;
-        var resolutionY = iCan.height; //75;
-
-        //$("#sclae"+i).attr("width", resolutionX+"px");
-        //$("#sclae"+i).attr("height", resolutionY+"px");
+        iCan.width = resolutionX;
+        iCan.height = resolutionY;
 
         var canvasContex = iCan.getContext("2d");
         //canvasContex.clearRect(0, 0, resolutionX, resolutionY);
@@ -145,11 +141,8 @@ function drawPredefinedBands(){
         var tmpC3RGB = tribleBands[i][2];
         var tmpC4RGB = tribleBands[i][3];
 
-        var resolutionX = 360;
-        var resolutionY = 75;
-
-        $("#"+id).attr("width", resolutionX+"px");
-        $("#"+id).attr("height", resolutionY+"px");
+        iCan.width = resolutionX;
+        iCan.height = resolutionY;
 
         var canvasContex = iCan.getContext("2d");
         //canvasContex.clearRect(0, 0, resolutionX, resolutionY);
@@ -211,11 +204,8 @@ function drawPredefinedBands(){
         var tmpC4RGB = quadBands[i][3];
         var tmpC5RGB = quadBands[i][3];
 
-        var resolutionX = 360;
-        var resolutionY = 75;
-
-        $("#"+id).attr("width", resolutionX+"px");
-        $("#"+id).attr("height", resolutionY+"px");
+        iCan.width = resolutionX;
+        iCan.height = resolutionY;
 
         var canvasContex = iCan.getContext("2d");
         //canvasContex.clearRect(0, 0, resolutionX, resolutionY);

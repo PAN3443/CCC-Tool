@@ -33,7 +33,7 @@ var hue_resolution_Y = 750;//1500; // hue colorspace
   var hs_resolution_X = 750;//1500; // Colorpicker
   var hs_resolution_Y = 750;//1500; // Colorpicker
 
-  var v_resolution_X = 150; // Colorpicker
+  var v_resolution_X = 1; // Colorpicker
   var v_resolution_Y = 500; // Colorpicker
 
   // key
@@ -41,12 +41,16 @@ var hue_resolution_Y = 750;//1500; // hue colorspace
   var key_resolution_Y = 100;
 
   // linear Colormap
-  var linearMap_resolution_X = 1920;
-  var linearMap_resolution_Y = 250;
+  var linearMap_resolution_X = 1024; //1920;
+  var linearMap_resolution_Y = 1; //250;
+
+  // analyselinear Colormap
+  var analysePreviewMap_resolution_X = 700;
+  var analysePreviewMap_resolution_Y = 1;
 
   // MyList Colormaps
   var myList_resolution_X = 700;
-  var myList_resolution_Y = 100;
+  var myList_resolution_Y = 1;
 
 
 
@@ -81,7 +85,15 @@ var plotLineWidth = 5;
 var plotLineColor = "rgb(0,0,0)";
 
 var labSpaceRange = 128;
-var din99SpaceRange = 156;
+//var din99SpaceRange = 156;
+
+var rangeA99Neg = -155;
+var rangeA99Pos = 105;
+var rangeA99;
+
+var rangeB99Neg = -83;
+var rangeB99Pos = 155;
+var rangeB99;
 
 var colorspaceBackgroundData;
 var colorspaceBackgroundDataRG;

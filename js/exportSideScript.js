@@ -305,8 +305,8 @@ function drawIntervalColormap(){
     // start
     var canvasObject = document.getElementById("IntervalPreviewColormapInterval");
 
-    $("#IntervalPreviewColormapInterval").attr("width", linearMap_resolution_X+"px");
-    $("#IntervalPreviewColormapInterval").attr("height", linearMap_resolution_Y+"px");
+    canvasObject.width =linearMap_resolution_X;
+    canvasObject.height=linearMap_resolution_Y;
 
     var canvasContex = canvasObject.getContext("2d");
     //canvasContex.clearRect(0, 0, resolutionX, resolutionY);

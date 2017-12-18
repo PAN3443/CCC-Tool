@@ -153,10 +153,18 @@ function mouseMoveColorspace(event) {
         }
       break;
       case "din99":
-        var a99Val = ((mousePosX-colorspaceCenterX)/(xWidth/2))*din99SpaceRange;
-        var b99Val = ((mousePosY-colorspaceCenterY)/(yHeight/2))*din99SpaceRange;
+        //var a99Val = ((mousePosX-colorspaceCenterX)/(xWidth/2))*din99SpaceRange;
+        //var b99Val = ((mousePosY-colorspaceCenterY)/(yHeight/2))*din99SpaceRange;
 
-        if (a99Val>=din99SpaceRange*-1 && a99Val<=din99SpaceRange && b99Val>=din99SpaceRange*-1 && b99Val<=din99SpaceRange){
+        var xStart = hue_resolution_X*0.1;
+        var yStart = hue_resolution_Y*0.1;
+        var xEnd = hue_resolution_X*0.9;
+        var yEnd = hue_resolution_Y*0.9;
+        var a99Val =   ((mousePosX-xStart)/(xEnd-xStart))*rangeA99+rangeA99Neg;
+        var b99Val = ((mousePosY-yStart)/(yEnd-yStart))*rangeB99+rangeB99Neg;
+
+        //if (a99Val>=din99SpaceRange*-1 && a99Val<=din99SpaceRange && b99Val>=din99SpaceRange*-1 && b99Val<=din99SpaceRange){
+        if (a99Val>=rangeA99Neg && a99Val<=rangeA99Pos && b99Val>=rangeB99Neg && b99Val<=rangeB99Pos){
           tmpColor = new classColorDIN99(updateCurrentValue,a99Val,b99Val);
           document.getElementById("id_huePositionLabel").innerHTML = "A99 : "+ a99Val.toFixed(numDecimalPlaces) +", B99 : "+ b99Val.toFixed(numDecimalPlaces);
 
@@ -189,7 +197,8 @@ function mouseMoveColorspace(event) {
 
       orderColorSketch(colorspaceModus);
       drawcolormap_hueSpace(analysisColormap, "id_anaylseCourseHueBackground",false); //drawcolormap_hueSpace(analysisColormap, "id_workcanvasAnalyseHue");
-
+      drawAnalyseMapPreviews();
+drawAnalyseDifferenceMaps();
     }
     else{
 
@@ -747,9 +756,9 @@ function mouseMoveValuePlot(event) {
 
 
             orderColorSketch(colorspaceModus);
-            if (showSideID == 2) {
-              drawcolormap_hueSpace(analysisColormap, "id_anaylseCourseHueBackground",false); //drawcolormap_hueSpace(analysisColormap, "id_workcanvasAnalyseHue");
-            }
+            drawcolormap_hueSpace(analysisColormap, "id_anaylseCourseHueBackground",false); //drawcolormap_hueSpace(analysisColormap, "id_workcanvasAnalyseHue");
+            drawAnalyseMapPreviews();
+drawAnalyseDifferenceMaps();
           }
       }
 

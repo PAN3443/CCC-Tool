@@ -61,7 +61,7 @@ function bandOnDragStart(event){
         else{
 
             var tmpRect = document.getElementById("id_colormapSketch").getBoundingClientRect();
-            var tmpLength = tmpRect.width/(bandSketch.getBandLenght()-1+bandSketch.getBandLenght());//100/(bandSketch.getBandLenght()-1);
+            var tmpLength = tmpRect.width/(bandSketch.getBandLenght()+1+bandSketch.getBandLenght());//100/(bandSketch.getBandLenght()-1);
 
             for(var i=0; i<dropPositionElements.length; i++){
                 dropPositionElements[i].style.display = "initial";
@@ -118,6 +118,8 @@ function bandOnDragEnd(event) {
 function bandOnEnter(event) {
     var tmpString = event.target.id;
 
+
+
     if(tmpString!=undefined){
 
          tmpString = tmpString.substr(7);
@@ -145,7 +147,8 @@ function bandOnDrop(event){
     /////////////
     //// Creator Band
 
-
+        if(indexOfDroppedPlace==-1)
+        return;
         //document.getElementById("dragPos"+indexOfDroppedPlace).style.background = "none";
 
         switch(dragPredefinedBandType){

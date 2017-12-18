@@ -7,8 +7,8 @@ function drawCanvasColormap(canvasID, resolutionX, resolutionY, tmpColormap) { /
   // start
   var canvasObject = document.getElementById(canvasID);
 
-  $("#" + canvasID).attr("width", resolutionX + "px");
-  $("#" + canvasID).attr("height", resolutionY + "px");
+  canvasObject.width = resolutionX;
+  canvasObject.height = resolutionY;
 
   var canvasContex = canvasObject.getContext("2d");
   //canvasContex.clearRect(0, 0, resolutionX, resolutionY);
@@ -143,9 +143,9 @@ function drawCanvasColormap(canvasID, resolutionX, resolutionY, tmpColormap) { /
 
   }
   canvasContex.putImageData(canvasData, 0, 0);
-  canvasContex.lineWidth = 2;
-  canvasContex.strokeStyle = 'rgb(0,0,0)';
-  canvasContex.strokeRect(0, 0, colormapWidth, colormapHeigth);
+  //canvasContex.lineWidth = 2;
+  //canvasContex.strokeStyle = 'rgb(0,0,0)';
+  //canvasContex.strokeRect(0, 0, colormapWidth, colormapHeigth);
 
 
 }
@@ -163,7 +163,7 @@ function createScaledBand(canvasData, xStart, bandWidth, bandHeight, color1, col
 
   switch (colorspaceModus) {
     case "rgb":
-      for (var x = xStart; x < xStart + bandWidth; x++) {
+      for (var x = xStart; x <= xStart + bandWidth; x++) {
 
         var tmpRatio = (x - xStart) / bandWidth;
 
@@ -200,7 +200,7 @@ function createScaledBand(canvasData, xStart, bandWidth, bandHeight, color1, col
       var zPos2 = color2.getVValue() - 50;
 
 
-      for (var x = xStart; x < xStart + bandWidth; x++) {
+      for (var x = xStart; x <= xStart + bandWidth; x++) {
 
         var tmpRatio = (x - xStart) / bandWidth;
 
@@ -226,7 +226,7 @@ function createScaledBand(canvasData, xStart, bandWidth, bandHeight, color1, col
 
       break;
     case "lab":
-      for (var x = xStart; x < xStart + bandWidth; x++) {
+      for (var x = xStart; x <= xStart + bandWidth; x++) {
 
         var tmpRatio = (x - xStart) / bandWidth;
 
@@ -250,7 +250,7 @@ function createScaledBand(canvasData, xStart, bandWidth, bandHeight, color1, col
       break;
     case "din99":
 
-      for (var x = xStart; x < xStart + bandWidth; x++) {
+      for (var x = xStart; x <= xStart + bandWidth; x++) {
 
         var tmpRatio = (x - xStart) / bandWidth;
 
@@ -291,7 +291,7 @@ function createConstantBand(canvasData, xStart, bandWidth, bandHeight, color1, c
   switch (colorspaceModus) {
     case "rgb":
 
-      for (var x = xStart; x < xStart + bandWidth; x++) {
+      for (var x = xStart; x <= xStart + bandWidth; x++) {
 
         for (var y = 0; y < bandHeight; y++) {
           var index = (x + y * canvasWidth) * 4;
@@ -308,7 +308,7 @@ function createConstantBand(canvasData, xStart, bandWidth, bandHeight, color1, c
 
       var tmpCurrentColor = color1.calcRGBColor();
 
-      for (var x = xStart; x < xStart + bandWidth; x++) {
+      for (var x = xStart; x <= xStart + bandWidth; x++) {
 
         for (var y = 0; y < bandHeight; y++) {
           var index = (x + y * canvasWidth) * 4;
@@ -324,7 +324,7 @@ function createConstantBand(canvasData, xStart, bandWidth, bandHeight, color1, c
 
       var tmpCurrentColor = color1.calcRGBColor();
 
-      for (var x = xStart; x < xStart + bandWidth; x++) {
+      for (var x = xStart; x <= xStart + bandWidth; x++) {
 
         for (var y = 0; y < bandHeight; y++) {
           var index = (x + y * canvasWidth) * 4;
@@ -341,7 +341,7 @@ function createConstantBand(canvasData, xStart, bandWidth, bandHeight, color1, c
 
       var tmpCurrentColor = color1.calcRGBColor();
 
-      for (var x = xStart; x < xStart + bandWidth; x++) {
+      for (var x = xStart; x <= xStart + bandWidth; x++) {
 
         for (var y = 0; y < bandHeight; y++) {
           var index = (x + y * canvasWidth) * 4;
@@ -377,9 +377,8 @@ function drawKeys(canvasID, resolutionX, resolutionY, tmpColormap, lineKeyID, do
   keyRectPoint = [];
 
   var canvasObject = document.getElementById(canvasID);
-
-  $("#" + canvasID).attr("width", resolutionX + "px");
-  $("#" + canvasID).attr("height", resolutionY + "px");
+  canvasObject.width = resolutionX;
+  canvasObject.height = resolutionY;
 
   var canvasContex = canvasObject.getContext("2d");
   //canvasContex.clearRect(0, 0, resolutionX, resolutionY);
@@ -388,9 +387,8 @@ function drawKeys(canvasID, resolutionX, resolutionY, tmpColormap, lineKeyID, do
   /////////////////////////////////////////////////////////
 
   var canvasObject2 = document.getElementById(lineKeyID);
-
-  $("#" + lineKeyID).attr("width", resolutionX + "px");
-  $("#" + lineKeyID).attr("height", resolutionY + "px");
+  canvasObject2.width = resolutionX;
+  canvasObject2.height = resolutionY;
 
   var canvasContex2 = canvasObject2.getContext("2d");
 
