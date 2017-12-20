@@ -416,8 +416,10 @@ function orderColorSketch(forColorspace){
                     changeKeyValueInputSketch(sketchIndex-1,false, id);
                 }
 
-                if(showSideID==2)
-                drawAnalyseDifferenceMaps();
+                if(showSideID==2){
+                  console.log(444);
+                  drawAnalyseDifferenceMaps();
+                }
 
               };
             })(i, inputID);
@@ -466,8 +468,10 @@ function orderColorSketch(forColorspace){
 
                   changeKeyValueInputSketch(sketchIndex,false, id);
 
-                  if(showSideID==2)
-                  drawAnalyseDifferenceMaps();
+                  if(showSideID==2){
+                    console.log(333);
+                    drawAnalyseDifferenceMaps();
+                  }
 
                 };
               })(i, inputID);

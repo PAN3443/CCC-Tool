@@ -69,7 +69,13 @@ function loadColormapCreateSide(){
 function saveColormapToList(){
 
   if(bandSketch.getBandLenght()>0){
-    myList.push(createColormap);
+
+
+    if(isEdit==-1)
+      myList.push(createColormap);
+    else
+      myList[isEdit]=createColormap;
+
     clearCreateSide();
 
     showSideID = 0;
@@ -82,5 +88,6 @@ function saveColormapToList(){
     document.getElementById("id_SideLabel").innerHTML = "My Maps";
 
     drawMyList();
+
   }
 }

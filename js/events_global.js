@@ -286,6 +286,7 @@ function showCreateSide() {
 
 
   if(myList.length<10){
+    isEdit = -1;
     showSideID = 1;
     styleCreatorPage();
     document.getElementById("id_myListPage").style.display = "none";
@@ -311,7 +312,7 @@ function showMyMapsSide(){
 
     var doIt = false;
     if(bandSketch.getBandLenght()!=0){
-      if (confirm("Do you really want to leave the create page and delete the colormap?") == true) {
+      if (confirm("Do you really want to leave the create page and delete the colormap or the changes?") == true) {
         doIt = true;
       }
     }

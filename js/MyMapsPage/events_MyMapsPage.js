@@ -27,7 +27,21 @@ function deletetColormapFromMyMaps(index){
 function openEditColormapFromMyMaps(index){
 
     if(index<myList.length){
+      isEdit = index;
+      showSideID = 1;
+      styleCreatorPage();
+      document.getElementById("id_myListPage").style.display = "none";
 
+      document.getElementById("id_Create_Menue").style.display = "inline";
+      document.getElementById("id_Create_Menue").style.marginLeft = "20px";
+
+      document.getElementById("id_creatorPage").style.display = "inline";
+
+      document.getElementById("id_SideLabel").innerHTML = "Create Colormap";
+
+      bandSketch.colormap2Sketch(myList[index]);
+      orderColorSketch(colorspaceModus);
+      changeColorspace(0);
     }
 
 }
@@ -82,7 +96,7 @@ function selectCompare(){
       document.getElementById("id_buttonAcceptMyList"+colormap1SelectIndex).style.borderColor = "rgb(180,180,180)";
       selectFirstForCompare=false;
     }
-    
+
     myListPageModus=0;
     document.getElementById("id_MyListCompareButton").style.color = "black";
     document.getElementById("id_MyListCompareButton").style.borderColor = "rgb(180,180,180)";

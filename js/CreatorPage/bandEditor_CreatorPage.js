@@ -84,6 +84,11 @@ function acceptBandEditor(){
         bandSketch.setRefR2(bandOptionsIndex-1, changedNeiRefR2);
 
         orderColorSketch(colorspaceModus);
+        if(showSideID==2){
+          changeCourseSpace();
+          drawAnalyseMapPreviews();
+          drawAnalyseDifferenceMaps();
+        }
 
         /////////////
         ////  Save Band Process

@@ -135,6 +135,7 @@ var selectFirstForCompare = false;
 ///////////////////////////
 /// Create
 //////////////////////////
+var isEdit = -1;
 
 // Create Menue button events
 var colormapProcess = [];
