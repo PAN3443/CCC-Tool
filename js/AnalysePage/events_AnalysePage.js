@@ -7,6 +7,7 @@ function initAnalysePage(){
     changeCourseSpace();
     drawAnalyseMapPreviews();
     drawAnalyseDifferenceMaps();
+    initRGB3D();
 }
 
 function changeCourseSpace(){
@@ -228,7 +229,7 @@ function drawAnalyseDifferenceMaps(){
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
     //// REF
-
+console.log(i);
     var tmpRatio = bandSketch.getRefDistance(i)/bandSketch.getDistanceSumRef();
     td = document.createElement('td')
     td.className = "class_tableInput";

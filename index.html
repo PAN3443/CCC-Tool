@@ -79,6 +79,12 @@
   <!-- Analyse PAGE -->
   <script src="js/AnalysePage/events_AnalysePage.js"></script>
 
+
+  <!-- WebGL -->
+  <script src="js/WebGL/ThreeJS/src/three.min.js"></script>
+  <script src="js/WebGL/ThreeJS/three_global.js"></script>
+  <script src="js/WebGL/ThreeJS/rgb3D.js"></script>
+
   <!-- global -->
   <script src="js/events_global.js"></script>
   <script src="js/globalVars.js"></script>
@@ -128,7 +134,7 @@
   </div>
 
 
-  <div class="sticky" style="width:100%; height:10vh; margin:0px;">
+  <!--div class="sticky" style="width:100%; height:10vh; margin:0px;"-->
 
     <div class="row" style="width:100%; background:rgb(0,191,255);">
       <div class="dropdown">
@@ -168,7 +174,7 @@
         </div>
       </div>
     </div>
-  </div>
+  <!--/div-->
 
 
 
@@ -540,76 +546,7 @@
 
 
 
-      <!--
-            ----------------	Contrast of Colorspaces	  -----------------
-      -->
 
-      <div class="row" style="background:white; padding-top:2vh; padding-bottom:2vh; border-top:10px solid rgb(30,30,30);">
-        <div style="widht:auto; margin-left:auto;">
-        </div>
-        <h4 style="width:auto; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Contrast of Colormap in Different Colorspaces</h4>
-        <div class="dropdown" style="widht:auto; margin-right:auto;">
-          <button class="dropbtn" style="border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 2.5vh; height:2.5vh; margin-left:2vh; border: 2px solid black; margin-top:auto; margin-bottom:auto;"></button>
-          <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
-
-            <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>HELP:</strong> With the analyse of the colormap in different colorspaces you can analyse .
-            </p>
-
-          </div>
-        </div>
-      </div>
-
-      <!----------------	RGB	  --------------->
-      <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh;">
-
-
-        <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: center;  height:5vh; line-height:5vh">RGB Colorspace:</p>
-
-        <canvas id="id_anaylseRGB_Preview" style="width:70%; height:5vh; border: 2px solid black;">
-
-
-        </canvas>
-
-      </div>
-
-      <!----------------	HSV	  --------------->
-      <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh;">
-
-
-        <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: center;  height:5vh; line-height:5vh">HSV Colorspace:</p>
-
-        <canvas id="id_anaylseHSV_Preview" style="width:70%; height:5vh; border: 2px solid black;">
-
-
-        </canvas>
-
-      </div>
-
-      <!----------------	LAB	  --------------->
-      <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh;">
-
-
-        <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: center;  height:5vh; line-height:5vh">LAB Colorspace:</p>
-
-        <canvas id="id_anaylseLAB_Preview" style="width:70%; height:5vh; border: 2px solid black;">
-
-
-        </canvas>
-
-      </div>
-
-      <!----------------	DIN99	  --------------->
-      <div class="row" style="width:100%; height:auto; background:white; margin-bottom:4vh;">
-
-
-        <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: center;  height:5vh; line-height:5vh">DIN99 Colorspace:</p>
-
-        <canvas id="id_anaylseDIN99_Preview" style="width:70%; height:5vh; border: 2px solid black;">
-
-
-        </canvas>
-
-      </div>
 
       <!--
             ----------------	Colormap Course	  -----------------
@@ -721,24 +658,107 @@
 
   <div id="id_RGBCourseDiv" style="width:100%; height:auto; background:white;">
     <div  class="row" style="width:100%; height:auto; padding-bottom:1vh; background:white;" >
-      <canvas id="id_canvasRG" style="width:30vw; height:30vw; margin:auto;">
+      <canvas id="id_canvasRG" style="width:30vw; height:30vw; margin-left:auto; margin-right:2.5vw;">
 
 
       </canvas>
 
-      <canvas id="id_canvasBG" style="width:30vw; height:30vw; margin:auto;">
+      <canvas id="id_canvasBG" style="width:30vw; height:30vw; margin-right:auto; margin-left:2.5vw;">
 
 
       </canvas>
 
-      <canvas id="id_canvasRB" style="width:30vw; height:30vw; margin:auto;">
 
-
-      </canvas>
     </div>
+
+    <div  class="row" style="width:100%; height:auto; background:white;" >
+      <canvas id="id_canvasRB" style="width:30vw; height:30vw; margin-left:auto; margin-right:2.5vw;">
+
+
+      </canvas>
+
+      <canvas id="id_rgb3D" style="width:30vw; height:30vw; margin-right:auto; margin-left:2.5vw; background:red;">
+
+
+      </canvas>
+
+
+    </div>
+
+
 
   </div>
 
+  <!--
+        ----------------	Contrast of Colorspaces	  -----------------
+  -->
+
+  <div class="row" style="background:white; padding-top:2vh; padding-bottom:2vh; border-top:10px solid rgb(30,30,30);">
+    <div style="widht:auto; margin-left:auto;">
+    </div>
+    <h4 style="width:auto; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Contrast of Colormap in Different Colorspaces</h4>
+    <div class="dropdown" style="widht:auto; margin-right:auto;">
+      <button class="dropbtn" style="border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 2.5vh; height:2.5vh; margin-left:2vh; border: 2px solid black; margin-top:auto; margin-bottom:auto;"></button>
+      <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
+
+        <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>HELP:</strong> With the analyse of the colormap in different colorspaces you can analyse .
+        </p>
+
+      </div>
+    </div>
+  </div>
+
+  <!----------------	RGB	  --------------->
+  <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh;">
+
+
+    <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: center;  height:5vh; line-height:5vh">RGB Colorspace:</p>
+
+    <canvas id="id_anaylseRGB_Preview" style="width:70%; height:5vh; border: 2px solid black;">
+
+
+    </canvas>
+
+  </div>
+
+  <!----------------	HSV	  --------------->
+  <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh;">
+
+
+    <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: center;  height:5vh; line-height:5vh">HSV Colorspace:</p>
+
+    <canvas id="id_anaylseHSV_Preview" style="width:70%; height:5vh; border: 2px solid black;">
+
+
+    </canvas>
+
+  </div>
+
+  <!----------------	LAB	  --------------->
+  <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh;">
+
+
+    <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: center;  height:5vh; line-height:5vh">LAB Colorspace:</p>
+
+    <canvas id="id_anaylseLAB_Preview" style="width:70%; height:5vh; border: 2px solid black;">
+
+
+    </canvas>
+
+  </div>
+
+  <!----------------	DIN99	  --------------->
+  <div class="row" style="width:100%; height:auto; background:white; margin-bottom:4vh;">
+
+
+    <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: center;  height:5vh; line-height:5vh">DIN99 Colorspace:</p>
+
+    <canvas id="id_anaylseDIN99_Preview" style="width:70%; height:5vh; border: 2px solid black;">
+
+
+    </canvas>
+
+  </div>
 
 
   <!--

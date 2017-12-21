@@ -477,7 +477,7 @@ class classBandSketch{
     this.distanceSumDIN99 = 0;
     this.numConstantBands = 0;
 
-    if(this.colormapBandSketchC1.length>1){
+
         var twinStarted = false;
         var leftStarted = false;
         for(var i = 0; i<this.colormapBandSketchC1.length; i++){
@@ -495,6 +495,7 @@ class classBandSketch{
             else{
               // ref
               var tmpDis = this.colormapBandSketchR2[i]-this.colormapBandSketchR1[i];
+              console.log("tmpDis: "+tmpDis);
               this.distanceRef.push(tmpDis);
               this.distanceSumRef= this.distanceSumRef + tmpDis;
 
@@ -544,7 +545,7 @@ class classBandSketch{
         }
 
 
-    }
+    
 
 
   }
