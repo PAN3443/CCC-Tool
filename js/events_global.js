@@ -114,6 +114,11 @@ function changeColorspace(type) {
     changeCourseSpace();
   }
 
+  if (showSideID == 3) { // Analyse SIDE
+    orderColorSketch(colorspaceModus);
+    changeCourseSpaceCompare();
+  }
+
   if (showSideID == 1) { // CREATE SIDE
 
     switch (type) {
@@ -328,29 +333,29 @@ function showMyMapsSide(){
 
   if(showSideID == 1){ // Create Side
 
-    var doIt = false;
-    if(bandSketch.getBandLenght()!=0){
-      if (confirm("Do you really want to leave the create page and delete the colormap or the changes?") == true) {
-        doIt = true;
-      }
+
+    if(bandSketch.getBandLenght()>0){
+
+
+      if(isEdit==-1)
+        myList.push(createColormap);
+      else
+        myList[isEdit]=createColormap;
+
+      clearCreateSide();
+
     }
-    else{
-        doIt = true;
-    }
 
-    if(doIt){
-        clearCreateSide();
-        showSideID = 0;
+    showSideID = 0;
 
-        document.getElementById("id_myListPage").style.display = "initial";
+    document.getElementById("id_myListPage").style.display = "initial";
 
-        document.getElementById("id_Create_Menue").style.display = "none";
-        document.getElementById("id_creatorPage").style.display = "none";
+    document.getElementById("id_Create_Menue").style.display = "none";
+    document.getElementById("id_creatorPage").style.display = "none";
 
-        document.getElementById("id_SideLabel").innerHTML = "My Maps";
+    document.getElementById("id_SideLabel").innerHTML = "My Maps";
 
-        drawMyList();
-    }
+    drawMyList();
 
   }
 
@@ -364,7 +369,7 @@ function showMyMapsSide(){
       refLineSketchContainer[i].remove();
       refLineSketchContainer.pop();
     }
-
+    bandSketch.clearSketch();
      myList[colormap1SelectIndex] = analysisColormap;
      drawMyList();
   }
@@ -375,6 +380,14 @@ function showMyMapsSide(){
     document.getElementById("id_myListPage").style.display = "initial";
     document.getElementById("id_comparePage").style.display = "none";
     document.getElementById("id_SideLabel").innerHTML = "My Maps";
+    for(var i = refLineSketchContainer.length-1; i>=0; i--){
+      refLineSketchContainer[i].remove();
+      refLineSketchContainer.pop();
+    }
+    bandSketch.clearSketch();
+    bandSketch2.clearSketch();
+     myList[colormap1SelectIndex] = compareColormap1;
+     myList[colormap2SelectIndex] = compareColormap2;
     drawMyList();
   }
 
@@ -392,6 +405,7 @@ function showCompareSide(){
     document.getElementById("id_myListPage").style.display = "none";
     document.getElementById("id_comparePage").style.display = "initial";
     document.getElementById("id_SideLabel").innerHTML = "Compare Colormaps";
+    initComparePage();
 }
 
 function showAnalysisSide(){

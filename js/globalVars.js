@@ -87,6 +87,8 @@ var plotLineColor = "rgb(0,0,0)";
 var labSpaceRange = 128;
 //var din99SpaceRange = 156;
 
+var lineWidth3D = 3;
+
 var rangeA99Neg = -155;
 var rangeA99Pos = 105;
 var rangeA99;
@@ -117,7 +119,7 @@ var spaceElementsKey = [];
 // Band Sketch
 /////
 var bandSketch;
-
+var bandSketch2;
 ////////////////////////////////////////////////////////////////////////////////
 
 

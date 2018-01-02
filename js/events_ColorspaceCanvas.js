@@ -194,7 +194,7 @@ function mouseMoveColorspace(event) {
 
       if(updateSketchID2 != -1)
           bandSketch.setC2(tmpColor, updateSketchID2);
-
+          
       orderColorSketch(colorspaceModus);
       drawcolormap_hueSpace(analysisColormap, "id_anaylseCourseHueBackground",false); //drawcolormap_hueSpace(analysisColormap, "id_workcanvasAnalyseHue");
       drawAnalyseMapPreviews();

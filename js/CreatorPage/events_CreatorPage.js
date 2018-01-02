@@ -1969,7 +1969,12 @@ function colormapRefInputChange(e){
 
   if (bandSketch.getBandLenght()!=0) {
 
-    if(parseFloat(document.getElementById("id_linearMap_InputLeftRef").value)>bandSketch.getRefR2(0)){
+    if(e.target.id=="id_linearMap_InputLeftRef")
+    bandSketch.setRefR1Update(0,parseFloat(document.getElementById("id_linearMap_InputLeftRef").value));
+    else
+    bandSketch.setRefR2Update(bandSketch.getBandLenght()-1,parseFloat(document.getElementById("id_linearMap_InputRightRef").value));
+
+    /*if(parseFloat(document.getElementById("id_linearMap_InputLeftRef").value)>bandSketch.getRefR2(0)){
       alert("The new value for the minimal x reference is not allowed to be bigger then his right neighbour value");
       document.getElementById("id_linearMap_InputLeftRef").value = bandSketch.getRefR1(0);
     }
@@ -1983,7 +1988,8 @@ function colormapRefInputChange(e){
     }
     else{
       bandSketch.setRefR2(bandSketch.getBandLenght()-1,parseFloat(document.getElementById("id_linearMap_InputRightRef").value));
-    }
+    }*/
+    createColormap = bandSketch.sketch2Colormap(colorspaceModus);
     orderColorSketch(colorspaceModus);
   }
 }

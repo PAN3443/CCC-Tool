@@ -827,40 +827,30 @@ function changeKeyValueInput(keyIndex, fielID) {
 
   var newRef = parseFloat(inputObj.value);
 
-  // first key
-  if(keyIndex==0){
-    if(newRef <= bandSketch.getRefR2(0)){
-      bandSketch.setRefR1(0,newRef);
-      orderColorSketch(colorspaceModus);
-    }
-    else {
-      inputObj.value = bandSketch.getRefR1(0);
-      alert("Input is not inside the neighboring range. Please check the values of the neighboring keys.");
-    }
-    return;
-  }
-
-  // last key
   if(keyIndex==bandSketch.getBandLenght()){
-    if(newRef > bandSketch.getRefR1(keyIndex-1)){
-      bandSketch.setRefR2(keyIndex-1, newRef);
-      orderColorSketch(colorspaceModus);
-    }
-    else {
-      inputObj.value = bandSketch.getRefR2(keyIndex-1);
-      alert("Input is not inside the neighboring range. Please check the values of the neighboring keys.");
-    }
-    return;
+    bandSketch.setRefR2Update(keyIndex-1,newRef);
+  }
+  else{
+    bandSketch.setRefR1Update(keyIndex,newRef);
   }
 
-      if (newRef >= bandSketch.getRefR1(keyIndex-1) && newRef <= bandSketch.getRefR2(keyIndex)) {
+  if(showSideID == 1){
+    createColormap = bandSketch.sketch2Colormap(colorspaceModus);
+    drawCanvasColormap("id_linearColormap",linearMap_resolution_X, linearMap_resolution_Y, createColormap);
+    drawKeys("id_keyColormap",key_resolution_X, key_resolution_Y, createColormap, "id_keyColormapLinesBottom",false, true)
+    fillTable();
+  }
+
+  orderColorSketch(); // for updating ref
+
+  /*    if (newRef >= bandSketch.getRefR1(keyIndex-1) && newRef <= bandSketch.getRefR2(keyIndex)) {
         bandSketch.setRefR2(keyIndex-1, newRef);
         bandSketch.setRefR1(keyIndex,newRef);
         orderColorSketch(colorspaceModus);
       } else {
         inputObj.value = bandSketch.getRefR2(keyIndex);
         alert("Input is not inside the neighboring range. Please check the values of the neighboring keys.");
-      }
+      }*/
 
 
 }

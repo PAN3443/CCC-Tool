@@ -7,7 +7,19 @@
 function resize()
 {
 
-  var canvasObj = document.getElementById("id_rgb3D");
+  var canvasObj;
+
+  switch (showSideID) {
+    case 2:
+        canvasObj = document.getElementById("id_rgb3D");
+      break;
+      case 3:
+        canvasObj = document.getElementById("id_rgb3DCompare");
+        break;
+    default:
+      return;
+  }
+
   var box = canvasObj.getBoundingClientRect();
   var drawWidth = box.width; //window.innerWidth;
   var drawHeight =box.height; // window.innerHeight;
@@ -61,7 +73,19 @@ function initRGB3D()
       return;
   }
 
-  var canvasObj = document.getElementById("id_rgb3D");
+  var canvasObj;
+
+  switch (showSideID) {
+    case 2:
+        canvasObj = document.getElementById("id_rgb3D");
+      break;
+      case 3:
+        canvasObj = document.getElementById("id_rgb3DCompare");
+        break;
+    default:
+      return;
+  }
+
   canvasObj.innerHTML = "";
   var box = canvasObj.getBoundingClientRect();
   var drawWidth = box.width; //window.innerWidth;
@@ -254,9 +278,7 @@ function initRGB3D()
 	camera.position.z = radius;
 
 	renderer.setSize(drawWidth,drawHeight);//(window.innerWidth, window.innerHeight);
-
   canvasObj.appendChild( renderer.domElement );
-
   //stats = new Stats();
 	//canvasObj.appendChild( stats.dom );
 
@@ -269,7 +291,7 @@ function initRGB3D()
 ////////////////////////////////////////////////////////////////////////////////
 
 function changeOpacityRange(){
-console.log(555);
+
       if(parseFloat(document.getElementById('id_setOpacityRange'))<0){
         document.getElementById('id_setOpacityRange').value = 0;
       }
@@ -285,8 +307,6 @@ console.log(555);
       planeRG255_material.opacity = opacityVal;
       planeBG255_material.opacity = opacityVal;
       planeBR255_material.opacity = opacityVal;
-
-      console.log(666);
 
 
 }

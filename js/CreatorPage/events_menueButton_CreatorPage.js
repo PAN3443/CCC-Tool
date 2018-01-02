@@ -66,7 +66,7 @@ function loadColormapCreateSide(){
   document.getElementById("id_inputData").click();
 }
 
-function saveColormapToList(){
+/*function saveColormapToList(){
 
   if(bandSketch.getBandLenght()>0){
 
@@ -90,4 +90,4 @@ function saveColormapToList(){
     drawMyList();
 
   }
-}
+}*/
