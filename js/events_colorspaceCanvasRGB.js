@@ -157,8 +157,45 @@ function mouseMoveColorspaceRGB(event) {
 
       orderColorSketch(colorspaceModus);
       drawcolormap_RGBSpace(analysisColormap, "id_canvasRG","id_canvasRB","id_canvasBG", false); //drawcolormap_hueSpace(analysisColormap, "id_workcanvasAnalyseHue");
-        drawAnalyseMapPreviews();
-drawAnalyseDifferenceMaps(); 
+
+      if(showSpace==1){
+        var newPos = updateCurrentValue*255-128;
+        var plane_geometry = new THREE.PlaneGeometry( 256, 256, 1, 1 );
+        plane_material = new THREE.MeshLambertMaterial({ color: 0xbdbdbd, side: THREE.DoubleSide });
+        //plane_material.transparent = true;
+        //plane_material.opacity =  1;
+        var plane = new THREE.Mesh( plane_geometry, plane_material );
+
+        switch (event.target.id) {
+          case "id_canvasRG":
+            //tmpColor = new classColor_RGB(val1,val2,updateCurrentValue);
+            plane.position.x = 0;
+            plane.position.y = 0;
+            plane.position.z = newPos;
+            break;
+          case "id_canvasRB":
+            //tmpColor = new classColor_RGB(val1,updateCurrentValue,val2);
+            plane.rotation.x = Math.PI/2;
+            plane.position.x = 0;
+            plane.position.y = newPos;
+            plane.position.z = 0;
+
+            break;
+          case "id_canvasBG":
+            //tmpColor = new classColor_RGB(updateCurrentValue,val2,val1);
+            plane.rotation.y = Math.PI+Math.PI/2;
+            plane.position.x = newPos;
+            plane.position.y = 0;
+            plane.position.z = 0;
+            break;
+          default:
+            return;
+        }
+        colormapRGB3D.add( plane );
+      }
+      drawAnalyseMapPreviews();
+      drawAnalyseDifferenceMaps();
+
     }
 
 
@@ -242,7 +279,42 @@ function mouseDownColorspaceRGB(event) {
                       updateSketchID2 = -1;
           }
 
-            drawcolormap_RGBSpace(analysisColormap, "id_canvasRG","id_canvasRB","id_canvasBG", true);
+          drawcolormap_RGBSpace(analysisColormap, "id_canvasRG","id_canvasRB","id_canvasBG", true);
+          if(showSpace==1){
+            var newPos = updateCurrentValue*255-128;
+            var plane_geometry = new THREE.PlaneGeometry( 256, 256, 1, 1 );
+            plane_material = new THREE.MeshLambertMaterial({ color: 0xbdbdbd, side: THREE.DoubleSide });
+            //plane_material.transparent = true;
+            //plane_material.opacity = 1;
+            var plane = new THREE.Mesh( plane_geometry, plane_material );
+
+            switch (event.target.id) {
+              case "id_canvasRG":
+                //tmpColor = new classColor_RGB(val1,val2,updateCurrentValue);
+                plane.position.x = 0;
+                plane.position.y = 0;
+                plane.position.z = newPos;
+                break;
+              case "id_canvasRB":
+                //tmpColor = new classColor_RGB(val1,updateCurrentValue,val2);
+                plane.rotation.x = Math.PI/2;
+                plane.position.x = 0;
+                plane.position.y = newPos;
+                plane.position.z = 0;
+
+                break;
+              case "id_canvasBG":
+                //tmpColor = new classColor_RGB(updateCurrentValue,val2,val1);
+                plane.rotation.y = Math.PI+Math.PI/2;
+                plane.position.x = newPos;
+                plane.position.y = 0;
+                plane.position.z = 0;
+                break;
+              default:
+                return;
+            }
+            colormapRGB3D.add( plane );
+          }
       }
 
 }

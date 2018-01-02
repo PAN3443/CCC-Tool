@@ -282,6 +282,24 @@ function changeColorspace(type) {
 }
 
 
+
+
+function showADDSide() {
+
+  if(myList.length<10){
+    showSideID = 4;
+    document.getElementById("id_myListPage").style.display = "none";
+
+    document.getElementById("id_addPage").style.display = "initial";
+
+    document.getElementById("id_SideLabel").innerHTML = "Add Existing Colormap";
+    changeColorspace(0);
+  }
+  else{
+    alert("There are only ten colormaps inside the My Maps list allowed. Please delete a colormap for adding a new one");
+  }
+}
+
 function showCreateSide() {
 
 
@@ -347,14 +365,25 @@ function showMyMapsSide(){
       refLineSketchContainer.pop();
     }
 
+     myList[colormap1SelectIndex] = analysisColormap;
+     drawMyList();
   }
 
 
   if(showSideID == 3){ // Compare Side
     showSideID = 0;
     document.getElementById("id_myListPage").style.display = "initial";
-    document.getElementById("id_analysisPage").style.display = "none";
+    document.getElementById("id_comparePage").style.display = "none";
     document.getElementById("id_SideLabel").innerHTML = "My Maps";
+    drawMyList();
+  }
+
+  if(showSideID == 4){ // add Side
+    showSideID = 0;
+    document.getElementById("id_myListPage").style.display = "initial";
+    document.getElementById("id_addPage").style.display = "none";
+    document.getElementById("id_SideLabel").innerHTML = "My Maps";
+    drawMyList();
   }
 }
 
@@ -411,7 +440,9 @@ function readSingleFile(e) {
                 break;
             case 1:
                 createColormap = colormap;
-                colormap2Sketch(createColormap);
+                //colormap2Sketch(createColormap);
+                bandSketch.colormap2Sketch(createColormap);
+                orderColorSketch();
                 break;
             default:
                 console.log("Error at readSingleFile function -> showSideID is unknown!");

@@ -417,7 +417,7 @@ function drawcolormap_hueSpace(colormapTmp, canvasID, calcBackground){
   init_VPlot(colormapTmp,"id_anaylseValue");
 
   var canvasColorspace = document.getElementById(canvasID);
-  
+
   canvasColorspace.width = hue_resolution_X;
   canvasColorspace.height = hue_resolution_Y;
   canvasColorspaceWidth = canvasColorspace.width;
@@ -1324,7 +1324,7 @@ function rgbInit(canvasIDRG,canvasIDRB,canvasIDBG, calcBackground){
             var g = (yStart-y)/yHeight;
 
             if(mouseGrappedSpaceObjectID==-1){
-              colorRGB = new classColor_RGB(r,g,0);
+              colorRGB = new classColor_RGB(r,g,255);
             }
             else{
               var b = analysisColormap.getRGBColor(mouseGrappedSpaceObjectID).getBValue();
@@ -1356,7 +1356,7 @@ function rgbInit(canvasIDRG,canvasIDRB,canvasIDBG, calcBackground){
             var b = (yStart-y)/yHeight;
 
             if(mouseGrappedSpaceObjectID==-1){
-              colorRGB = new classColor_RGB(r,0,b);
+              colorRGB = new classColor_RGB(r,255,b);
             }
             else{
               var g = analysisColormap.getRGBColor(mouseGrappedSpaceObjectID).getGValue();
@@ -1388,7 +1388,7 @@ function rgbInit(canvasIDRG,canvasIDRB,canvasIDBG, calcBackground){
             var g = (yStart-y)/yHeight;
 
             if(mouseGrappedSpaceObjectID==-1){
-              colorRGB = new classColor_RGB(0,g,b);
+              colorRGB = new classColor_RGB(255,g,b);
             }
             else{
               var r = analysisColormap.getRGBColor(mouseGrappedSpaceObjectID).getRValue();
@@ -1560,9 +1560,16 @@ function drawcolormap_RGBSpace(colormapTmp, canvasIDRG,canvasIDRB, canvasIDBG, c
   spaceElementsType = [];
   spaceElementsKey = [];
 
+    if(showSpace==1){
+      for(var i = colormapRGB3D.children.length-1; i>=0; i--){
+        colormapRGB3D.remove( colormapRGB3D.children[i]);
+      }
+
+    }
   ////////////////////////////////////////////////////////
   // draw Colormap
   if(bandSketch.getBandLenght()>0){
+
 
       /////////////////////////////////////////////////////////////////
 
@@ -1614,6 +1621,19 @@ function drawcolormap_RGBSpace(colormapTmp, canvasIDRG,canvasIDRB, canvasIDBG, c
                         yPos2 =  yStart-tmpColor2.getGValue()*yHeight;
 
                         drawLine(colorspaceContexBG,xPos,yPos,xPos2,yPos2, true);
+
+                        if(showSpace==1){
+
+                          var x1 = tmpColor.getRValue()*255-128;
+                          var y1 = tmpColor.getGValue()*255-128;
+                          var z1 = tmpColor.getBValue()*255-128;
+
+                          var x2 = tmpColor2.getRValue()*255-128;
+                          var y2 = tmpColor2.getGValue()*255-128;
+                          var z2 = tmpColor2.getBValue()*255-128;
+
+                            draw3DLine(x1,y1, z1, x2, y2, z2, true);
+                        }
                   }
 
                   //// for mouse events: nil key is not important
@@ -1676,6 +1696,21 @@ function drawcolormap_RGBSpace(colormapTmp, canvasIDRG,canvasIDRB, canvasIDBG, c
                       spaceElementsType.push(true);
                       spaceElementsKey.push("twin key2");
 
+
+                      if(showSpace==1){
+
+                                var x1 = tmpColor.getRValue()*255-128;
+                                                var y1 = tmpColor.getGValue()*255-128;
+                                                var z1 = tmpColor.getBValue()*255-128;
+
+                                                var x2 = tmpColor2.getRValue()*255-128;
+                                                var y2 = tmpColor2.getGValue()*255-128;
+                                                var z2 = tmpColor2.getBValue()*255-128;
+
+                                                  draw3DLine(x1,y1, z1, x2, y2, z2, false);
+                                                  draw3DElement(tmpColor.getHexString(),x1,y1,z1, i, true);
+                        }
+
                         break;
 
                   }
@@ -1737,6 +1772,20 @@ function drawcolormap_RGBSpace(colormapTmp, canvasIDRG,canvasIDRB, canvasIDBG, c
                       else
                           spaceElementsType.push(false);
                       spaceElementsKey.push("twin key1");
+
+                      if(showSpace==1){
+
+                                var x1 = tmpColor.getRValue()*255-128;
+                                                var y1 = tmpColor.getGValue()*255-128;
+                                                var z1 = tmpColor.getBValue()*255-128;
+
+                                                var x2 = tmpColor2.getRValue()*255-128;
+                                                var y2 = tmpColor2.getGValue()*255-128;
+                                                var z2 = tmpColor2.getBValue()*255-128;
+
+                                                draw3DLine(x1,y1, z1, x2, y2, z2, true);
+                                                draw3DElement(tmpColor.getHexString(),x1,y1,z1, i, drawCircle);
+                        }
 
 
                       twinStarted=true;
@@ -1811,6 +1860,25 @@ function drawcolormap_RGBSpace(colormapTmp, canvasIDRG,canvasIDRB, canvasIDBG, c
                           drawLine(colorspaceContexBG,xPos,yPos,xPos2,yPos2, true);
                         }
 
+                        if(showSpace==1){
+
+                                  var x1 = tmpColor.getRValue()*255-128;
+                                                  var y1 = tmpColor.getGValue()*255-128;
+                                                  var z1 = tmpColor.getBValue()*255-128;
+
+                                                  if(i!=colormapTmp.getNumColors()-1){
+                                                    tmpColor2 = colormapTmp.getRGBColor(i+1);
+                                                    var x2 = tmpColor2.getRValue()*255-128;
+                                                    var y2 = tmpColor2.getGValue()*255-128;
+                                                    var z2 = tmpColor2.getBValue()*255-128;
+                                                    draw3DLine(x1,y1, z1, x2, y2, z2, true);
+                                                  }
+
+                                                  draw3DElement(tmpColor.getHexString(),x1,y1,z1, i, drawCircle);
+                          }
+
+
+
                         drawElement(colormapTmp.getRGBColor(i).getRGBStringAplha(alphaVal),colorspaceContexBG,xPos,yPos, i, drawCircle);
 
                         tmpArray[2] = xPos;
@@ -1881,6 +1949,21 @@ function drawcolormap_RGBSpace(colormapTmp, canvasIDRG,canvasIDRB, canvasIDBG, c
                   spaceElementsYPos.push(tmpArray2);
                   spaceElementsType.push(true);
                   spaceElementsKey.push(tmpKey);
+
+                  if(showSpace==1){
+
+                    var x1 = tmpColor.getRValue()*255-128;
+                    var y1 = tmpColor.getGValue()*255-128;
+                    var z1 = tmpColor.getBValue()*255-128;
+
+                    var x2 = tmpColor2.getRValue()*255-128;
+                    var y2 = tmpColor2.getGValue()*255-128;
+                    var z2 = tmpColor2.getBValue()*255-128;
+
+                      draw3DLine(x1,y1, z1, x2, y2, z2, false);
+                      draw3DElement(tmpColor.getHexString(),x1,y1,z1, i, true);
+
+                  }
           }
 
       }
@@ -1889,6 +1972,80 @@ function drawcolormap_RGBSpace(colormapTmp, canvasIDRG,canvasIDRB, canvasIDBG, c
 
 }
 
+function draw3DLine(xPos,yPos, zPos, xPos2, yPos2, zPos2,dashed){
+
+    var lineMaterial = new THREE.LineBasicMaterial( { color: 0x000000, linewidth: 10 } );
+    if(dashed)
+      lineMaterial = new THREE.LineDashedMaterial( { color: 0x000000, dashSize: 10, gapSize: 10, linewidth: 10 } );
+
+    var geometry = new THREE.Geometry();
+
+    geometry.vertices.push(
+      new THREE.Vector3(xPos,yPos, zPos),
+      new THREE.Vector3(xPos2, yPos2, zPos2)
+    );
+    geometry.computeLineDistances();
+
+    var line = new THREE.Line( geometry, lineMaterial );
+    colormapRGB3D.add( line );
+}
+
+function draw3DElement(colorHexStr,xPos,yPos,zPos, index, circle){
+  // draw circle
+
+  var colorHex = parseInt(colorHexStr.replace(/^#/, ''), 16);
+
+  if(circle){
+
+    var geometry;
+
+    if(index==mouseAboveSpaceObjectID)
+      geometry = new THREE.SphereGeometry(bigcircleRad3D, 20, 20);
+    else
+      geometry = new THREE.SphereGeometry(circleRad3D, 20, 20);
+
+    var material = new THREE.MeshBasicMaterial( {color: colorHex} );
+    var sphere = new THREE.Mesh( geometry, material );
+    sphere.position.x = xPos;
+    sphere.position.y = yPos;
+    sphere.position.z = zPos;
+    colormapRGB3D.add( sphere );
+  }
+  else{
+
+    var geometry;
+
+    if(index==mouseAboveSpaceObjectID)
+      geometry = new THREE.BoxGeometry(bigcircleRad3D*2,bigcircleRad3D*2,bigcircleRad3D*2);
+    else
+      geometry = new THREE.BoxGeometry(circleRad3D*2,circleRad3D*2,circleRad3D*2);
+
+    var material = new THREE.MeshBasicMaterial( {color: colorHex} );
+    var cube = new THREE.Mesh( geometry, material );
+    cube.position.x = xPos;
+    cube.position.y = yPos;
+    cube.position.z = zPos;
+    colormapRGB3D.add( cube );
+        /*  var tmpRecSize = circleRad*2;
+          colorspaceContex.fillStyle = colorString;
+          var x1 = xPos-circleRad;
+          var y1 = yPos-circleRad;
+
+          if(i==mouseAboveSpaceObjectID){
+              tmpRecSize = bigcircleRad*2;
+              x1 = xPos-bigcircleRad;
+              y1 = yPos-bigcircleRad;
+           }
+
+          colorspaceContex.fillRect(x1, y1, tmpRecSize, tmpRecSize);
+          colorspaceContex.lineWidth = smallLineWidth;
+          if(i==mouseGrappedSpaceObjectID)
+              colorspaceContex.strokeStyle =  mouseGrappedColor;
+          else
+              colorspaceContex.strokeStyle = 'rgb(0,0,0)';
+          colorspaceContex.strokeRect(x1, y1, tmpRecSize, tmpRecSize);*/
+  }
+}
 
 function drawElement(colorString,colorspaceContex,xPos,yPos, index, circle){
   // draw circle

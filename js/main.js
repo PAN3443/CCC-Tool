@@ -10,7 +10,6 @@ window.onload = function () {
     document.getElementById('id_analysisPage').style.display = "none";
     document.getElementById('id_editPage').style.display = "none";
 
-
     document.getElementById('id_ButtonToMyMapsPage').addEventListener("click", showMyMapsSide);
     document.getElementById('id_inputData').addEventListener("change", readSingleFile);
 
@@ -116,6 +115,7 @@ window.onload = function () {
         ////////////////////////////////////////////////////////////////////////////////////////////////////
 
         document.getElementById('id_MyListCreateColormapButton').addEventListener("click", showCreateSide);
+        document.getElementById('id_MyListAddColormapButton').addEventListener("click", showADDSide);
         document.getElementById('id_MyListAnalysisButton').addEventListener("click", selectAnalysis);
         document.getElementById('id_MyListCompareButton').addEventListener("click", selectCompare);
 
@@ -127,6 +127,7 @@ window.onload = function () {
         //document.getElementById('id_workcanvasAnalyseHue').addEventListener("mousemove", mouseMoveColorspace);
         //document.getElementById('id_workcanvasAnalyseHue').addEventListener("mousedown", mouseDownColorspace);
         //document.getElementById('id_workcanvasAnalyseHue').addEventListener("mouseup", mouseUpColorspace);
+         //initRGB3D();
 
         document.getElementById('id_anaylseCourseHueBackground').addEventListener("mouseleave", mouseLeaveColorspace);
         document.getElementById('id_anaylseCourseHueBackground').addEventListener("mousemove", mouseMoveColorspace);
@@ -155,6 +156,14 @@ window.onload = function () {
 
         document.getElementById('id_setValueRange').addEventListener("change", changeValueRange);
         document.getElementById('id_checkboxRGB').addEventListener("change", analyseColormapRGBPossible);
+
+        document.getElementById('id_rgb3D').addEventListener("mousemove", eventRGB3D_mousemove);
+        document.getElementById('id_rgb3D').addEventListener("mouseleave", eventRGB3D_mouseleave);
+        document.getElementById('id_rgb3D').addEventListener("mousedown", eventRGB3D_mousedown);
+        document.getElementById('id_rgb3D').addEventListener("mouseup", eventRGB3D_mouseup);
+
+        document.getElementById('id_setOpacityRange').addEventListener("change", changeOpacityRange);
+
 
         //styleAnalysisPage();
 

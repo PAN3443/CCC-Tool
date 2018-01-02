@@ -12,6 +12,8 @@ class xclassColorMap {
     this.hsvColorArray = [];
     this.din99ColorArray = [];
 
+    this.nanVal = [];
+
     this.referenceRangeStart = 0;
     this.referenceRangeEnd = 0;
     this.positionPoints = [];

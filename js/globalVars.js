@@ -210,7 +210,7 @@ var c1IsActive = true;
 
 // predefined Bands
 
-var constBands = [  new classColor_RGB(1, 0.8, 0.8), new classColor_RGB(1, 0.4, 0.4), new classColor_RGB(1, 0.4, 0.2), new classColor_RGB(1, 0, 0), new classColor_RGB(0.8, 0, 0), new classColor_RGB(0.6, 0, 0), new classColor_RGB(0.4, 0, 0),  // red
+var constBands = [   new classColor_RGB(0,0,0), new classColor_RGB(1, 1,1), new classColor_RGB(1, 0.8, 0.8), new classColor_RGB(1, 0.4, 0.4), new classColor_RGB(1, 0.4, 0.2), new classColor_RGB(1, 0, 0), new classColor_RGB(0.8, 0, 0), new classColor_RGB(0.6, 0, 0), new classColor_RGB(0.4, 0, 0),  // red
                   new classColor_RGB(1, 0.917647059, 0.8), new classColor_RGB(1, 0.76, 0.4), new classColor_RGB(1, 0.682352941, 0.2), new classColor_RGB(1, 0.6, 0), new classColor_RGB(0.8, 0.48, 0), new classColor_RGB(0.6, 0.36, 0), new classColor_RGB(0.4, 0.24, 0),  // orange
                   new classColor_RGB(0.99999999956,1,0.78),  new classColor_RGB(0.99999999916,1,0.58), new classColor_RGB(0.99999999868,1,0.33999999999999997), new classColor_RGB(0.9999999988,1,0.4), new classColor_RGB(0.9999999982000001,1,0.09999999999999998), new classColor_RGB(0.9999999980000001,1,0), new classColor_RGB(0.7999999984000001,0.8,0), new classColor_RGB(0.5999999988,0.6,0), //yellow
                   new classColor_RGB(0.7800000000044001,1,0.78), new classColor_RGB(0.800000000004,1,0.8), new classColor_RGB(0.6000000000079999,1,0.6), new classColor_RGB(0.400000000012,1,0.4), new classColor_RGB(0.20000000001599993,1,0.19999999999999996), new classColor_RGB(2.000000165480742e-11,1,0), new classColor_RGB(1.3200001092172898e-11,0.66,0),new classColor_RGB(1.2000000992884451e-11,0.6,0),  // green

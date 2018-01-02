@@ -495,7 +495,6 @@ class classBandSketch{
             else{
               // ref
               var tmpDis = this.colormapBandSketchR2[i]-this.colormapBandSketchR1[i];
-              console.log("tmpDis: "+tmpDis);
               this.distanceRef.push(tmpDis);
               this.distanceSumRef= this.distanceSumRef + tmpDis;
 
@@ -545,7 +544,7 @@ class classBandSketch{
         }
 
 
-    
+
 
 
   }

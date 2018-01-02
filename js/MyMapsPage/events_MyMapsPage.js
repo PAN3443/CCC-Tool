@@ -143,6 +143,7 @@ function showEditButtons(){
     document.getElementById("id_buttonExportMyList"+i).style.display = "initial";
     document.getElementById("id_buttonEditMyList"+i).style.display = "initial";
     document.getElementById("id_buttonDeleteMyList"+i).style.display = "initial";
+    document.getElementById("id_placeHolderMyList"+i).style.display = "none";
   }
 
 }
@@ -162,6 +163,7 @@ function showAcceptButtons(){
     document.getElementById("id_buttonExportMyList"+i).style.display = "none";
     document.getElementById("id_buttonEditMyList"+i).style.display = "none";
     document.getElementById("id_buttonDeleteMyList"+i).style.display = "none";
+    document.getElementById("id_placeHolderMyList"+i).style.display = "initial";
 
   }
 

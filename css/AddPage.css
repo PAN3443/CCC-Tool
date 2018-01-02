@@ -1,0 +1,45 @@
+.class_AddLabel1 {
+    width:90%;
+    margin-left: 5%;
+    height:8vh;
+    line-height:8vh;
+    vertical-align:middle;
+    text-align:center;
+    color:black;
+    font-size:3vh;
+    font-style: italic;
+    font-family: " Times New Roman ", Georgia, Serif;
+    margin-top:2vh;
+    border-radius: 0.2vh;
+     border: 0.2vh solid black;
+     cursor: pointer;
+     box-shadow:  0.3vh  0.3vh grey;
+     transition: 0.5s;
+}
+
+.class_AddLabel1:hover {
+  box-shadow: inset 0 0 0 2em rgb(0,191,255);
+}
+
+.class_AddLabel2 {
+  width:90%;
+  margin-left: 5%;
+  height:5vh;
+  line-height:5vh;
+  vertical-align:middle;
+  text-align:center;
+  color:black;
+  font-size:2.5vh;
+  font-style: italic;
+  font-family: " Times New Roman ", Georgia, Serif;
+  margin-top:0.5vh;
+  border-radius: 0.2vh;
+  border: 0.2vh solid black;
+  cursor: pointer;
+  box-shadow:  0.3vh  0.3vh grey;
+  transition: 0.5s;
+}
+
+.class_AddLabel2:hover {
+     box-shadow: inset 0 0 0 2em rgb(0,191,255);
+}
