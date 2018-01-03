@@ -77,6 +77,7 @@ var lineWidthVPlot = 5;
 var arrowWidth = 15;
 
 var widthVArea =0; // width of plotelement
+var widthVArea2 =0; // width of plotelement
 var heigthVArea =0;
 var plotXStart =0;
 var plotYStart =0;

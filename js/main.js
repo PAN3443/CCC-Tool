@@ -179,6 +179,36 @@ window.onload = function() {
   document.getElementById('id_rgb3DCompare').addEventListener("mousedown", eventRGB3D_mousedown);
   document.getElementById('id_rgb3DCompare').addEventListener("mouseup", eventRGB3D_mouseup);
 
+  document.getElementById('id_compareCourseHueBackground').addEventListener("mouseleave", mouseLeaveColorspace);
+  document.getElementById('id_compareCourseHueBackground').addEventListener("mousemove", mouseMoveColorspace);
+  document.getElementById('id_compareCourseHueBackground').addEventListener("mousedown", mouseDownColorspace);
+  document.getElementById('id_compareCourseHueBackground').addEventListener("mouseup", mouseUpColorspace);
+
+  document.getElementById('id_compareValue').addEventListener("mouseleave", mouseLeaveValuePlot);
+  document.getElementById('id_compareValue').addEventListener("mousemove", mouseMoveValuePlot);
+  document.getElementById('id_compareValue').addEventListener("mousedown", mouseDownValuePlot);
+  document.getElementById('id_compareValue').addEventListener("mouseup", mouseUpValuePlot);
+
+  document.getElementById('id_canvasRGCompare').addEventListener("mouseleave", mouseLeaveColorspaceRGB);
+  document.getElementById('id_canvasRGCompare').addEventListener("mousemove", mouseMoveColorspaceRGB);
+  document.getElementById('id_canvasRGCompare').addEventListener("mousedown", mouseDownColorspaceRGB);
+  document.getElementById('id_canvasRGCompare').addEventListener("mouseup", mouseUpColorspaceRGB);
+
+  document.getElementById('id_canvasRBCompare').addEventListener("mouseleave", mouseLeaveColorspaceRGB);
+  document.getElementById('id_canvasRBCompare').addEventListener("mousemove", mouseMoveColorspaceRGB);
+  document.getElementById('id_canvasRBCompare').addEventListener("mousedown", mouseDownColorspaceRGB);
+  document.getElementById('id_canvasRBCompare').addEventListener("mouseup", mouseUpColorspaceRGB);
+
+  document.getElementById('id_canvasBGCompare').addEventListener("mouseleave", mouseLeaveColorspaceRGB);
+  document.getElementById('id_canvasBGCompare').addEventListener("mousemove", mouseMoveColorspaceRGB);
+  document.getElementById('id_canvasBGCompare').addEventListener("mousedown", mouseDownColorspaceRGB);
+  document.getElementById('id_canvasBGCompare').addEventListener("mouseup", mouseUpColorspaceRGB);
+
+  document.getElementById('id_setValueRangeCompare').addEventListener("change", changeValueRangeCompare);
+  document.getElementById('id_checkboxRGBCompare').addEventListener("change", compareColormapRGBPossible);
+
+  document.getElementById('id_setOpacityRangeCompare').addEventListener("change", changeOpacityRange);
+
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Export Side /////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -298,7 +328,8 @@ function orderColorSketch(forColorspace) {
   if (showSideID == 3) {
     sketchObject = document.getElementById("id_compare1ColormapSketch");
     sketchRefObj = document.getElementById("id_compare1ColormapSketch_Ref");
-
+    compareColormap1 = bandSketch.sketch2Colormap(forColorspace);
+    compareColormap2 = bandSketch2.sketch2Colormap(forColorspace);
   }
 
 

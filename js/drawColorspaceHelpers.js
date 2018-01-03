@@ -110,7 +110,7 @@ function drawElement(colorString,colorspaceContex,xPos,yPos, index, circle){
           var x1 = xPos-circleRad;
           var y1 = yPos-circleRad;
 
-          if(i==mouseAboveSpaceObjectID){
+          if(index==mouseAboveSpaceObjectID){
               tmpRecSize = bigcircleRad*2;
               x1 = xPos-bigcircleRad;
               y1 = yPos-bigcircleRad;

@@ -290,16 +290,16 @@ function initRGB3D()
 /////   Events
 ////////////////////////////////////////////////////////////////////////////////
 
-function changeOpacityRange(){
+function changeOpacityRange(event){
 
-      if(parseFloat(document.getElementById('id_setOpacityRange'))<0){
-        document.getElementById('id_setOpacityRange').value = 0;
+      if(parseFloat(document.getElementById(event.target.id).value)<0){
+        document.getElementById(event.target.id).value = 0;
       }
 
-      if(parseFloat(document.getElementById('id_setOpacityRange'))>100){
-        document.getElementById('id_setOpacityRange').value = 100;
+      if(parseFloat(document.getElementById(event.target.id).value)>100){
+        document.getElementById(event.target.id).value = 100;
       }
-      opacityVal = document.getElementById('id_setOpacityRange').value / 100;
+      opacityVal = parseFloat(document.getElementById(event.target.id).value) / 100;
 
       planeRG_material.opacity = opacityVal;
       planeBG_material.opacity = opacityVal;
@@ -312,9 +312,19 @@ function changeOpacityRange(){
 }
 
 function eventRGB3D_mousemove(event){
-
   // calc mouse pos
-  var rect = document.getElementById('id_rgb3D').getBoundingClientRect();//event.target.id
+  var rect;
+  switch (showSideID) {
+    case 2:
+      rect = document.getElementById('id_rgb3D').getBoundingClientRect();//event.target.id
+      break;
+    case 3:
+        rect = document.getElementById('id_rgb3DCompare').getBoundingClientRect();//event.target.id
+    break;
+    default:
+      return;
+  }
+
   var canvasPosX = event.clientX - rect.left;
   var canvasPosY = event.clientY - rect.top;
   //var ratioToColorspaceResolutionX = hue_resolution_X / rect.width;

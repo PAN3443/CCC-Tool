@@ -44,7 +44,13 @@ function rgbInit(canvasIDRG,canvasIDRB,canvasIDBG, calcBackground){
               colorRGB = new classColor_RGB(r,g,255);
             }
             else{
-              var b = analysisColormap.getRGBColor(mouseGrappedSpaceObjectID).getBValue();
+              var b;
+              if (showSideID == 2) {
+                b  = analysisColormap.getRGBColor(mouseGrappedSpaceObjectID).getBValue();
+              }
+              if (showSideID == 3) {
+                b  = compareColormap1.getRGBColor(mouseGrappedSpaceObjectID).getBValue();
+              }
               colorRGB = new classColor_RGB(r,g,b);
             }
 
@@ -76,7 +82,14 @@ function rgbInit(canvasIDRG,canvasIDRB,canvasIDBG, calcBackground){
               colorRGB = new classColor_RGB(r,255,b);
             }
             else{
-              var g = analysisColormap.getRGBColor(mouseGrappedSpaceObjectID).getGValue();
+              var g;
+              if (showSideID == 2) {
+                g = analysisColormap.getRGBColor(mouseGrappedSpaceObjectID).getGValue();
+              }
+              if (showSideID == 3) {
+                g  = compareColormap1.getRGBColor(mouseGrappedSpaceObjectID).getGValue();
+              }
+
               colorRGB = new classColor_RGB(r,g,b);
             }
 
@@ -108,7 +121,13 @@ function rgbInit(canvasIDRG,canvasIDRB,canvasIDBG, calcBackground){
               colorRGB = new classColor_RGB(255,g,b);
             }
             else{
-              var r = analysisColormap.getRGBColor(mouseGrappedSpaceObjectID).getRValue();
+              var r;
+              if (showSideID == 2) {
+                r = analysisColormap.getRGBColor(mouseGrappedSpaceObjectID).getRValue();
+              }
+              if (showSideID == 3) {
+                r  = compareColormap1.getRGBColor(mouseGrappedSpaceObjectID).getRValue();
+              }
               colorRGB = new classColor_RGB(r,g,b);
             }
 
@@ -817,7 +836,7 @@ function drawcolormap_compare_RGBSpace(colormapTmp, colormapTmp2, canvasIDRG,can
                         yPos2 =  yStart-tmpColor2.getGValue()*yHeight;
 
                         drawLine(colorspaceContexRG,xPos,yPos,xPos2,yPos2, false, true);
-                        drawElement(colormapTmp2.getRGBColor(i).getRGBStringAplha(alphaVal),colorspaceContexRG,xPos,yPos, i, true);
+                        drawElement(colormapTmp2.getRGBColor(i).getRGBStringAplha(alphaVal),colorspaceContexRG,xPos,yPos, -2, true);
 
 
                         // RB
@@ -829,7 +848,7 @@ function drawcolormap_compare_RGBSpace(colormapTmp, colormapTmp2, canvasIDRG,can
                         yPos2 =  yStart-tmpColor2.getBValue()*yHeight;
 
                         drawLine(colorspaceContexRB,xPos,yPos,xPos2,yPos2, false, true);
-                        drawElement(colormapTmp2.getRGBColor(i).getRGBStringAplha(alphaVal),colorspaceContexRB,xPos,yPos, i, true);
+                        drawElement(colormapTmp2.getRGBColor(i).getRGBStringAplha(alphaVal),colorspaceContexRB,xPos,yPos, -2, true);
 
 
                         // BG
@@ -841,7 +860,7 @@ function drawcolormap_compare_RGBSpace(colormapTmp, colormapTmp2, canvasIDRG,can
                         yPos2 =  yStart-tmpColor2.getGValue()*yHeight;
 
                         drawLine(colorspaceContexBG,xPos,yPos,xPos2,yPos2, false, true);
-                        drawElement(colormapTmp2.getRGBColor(i).getRGBStringAplha(alphaVal),colorspaceContexBG,xPos,yPos, i, true);
+                        drawElement(colormapTmp2.getRGBColor(i).getRGBStringAplha(alphaVal),colorspaceContexBG,xPos,yPos, -2, true);
 
 
                         if(showSpace==1){
@@ -855,7 +874,7 @@ function drawcolormap_compare_RGBSpace(colormapTmp, colormapTmp2, canvasIDRG,can
                                                   var z2 = tmpColor2.getBValue()*255-128;
 
                                                     draw3DLine(x1,y1, z1, x2, y2, z2, false, true);
-                                                    draw3DElement(tmpColor.getHexString(),x1,y1,z1, i, true);
+                                                    draw3DElement(tmpColor.getHexString(),x1,y1,z1, -2, true);
                           }
 
                           break;
@@ -878,7 +897,7 @@ function drawcolormap_compare_RGBSpace(colormapTmp, colormapTmp2, canvasIDRG,can
                         yPos2 =  yStart-tmpColor2.getGValue()*yHeight;
 
                         drawLine(colorspaceContexRG,xPos,yPos,xPos2,yPos2, true, true);
-                        drawElement(colormapTmp2.getRGBColor(i).getRGBStringAplha(alphaVal),colorspaceContexRG,xPos,yPos, i, drawCircle);
+                        drawElement(colormapTmp2.getRGBColor(i).getRGBStringAplha(alphaVal),colorspaceContexRG,xPos,yPos, -2, drawCircle);
 
 
                         // RB
@@ -890,7 +909,7 @@ function drawcolormap_compare_RGBSpace(colormapTmp, colormapTmp2, canvasIDRG,can
                         yPos2 =  yStart-tmpColor2.getBValue()*yHeight;
 
                         drawLine(colorspaceContexRB,xPos,yPos,xPos2,yPos2, true, true);
-                        drawElement(colormapTmp2.getRGBColor(i).getRGBStringAplha(alphaVal),colorspaceContexRB,xPos,yPos, i, drawCircle);
+                        drawElement(colormapTmp2.getRGBColor(i).getRGBStringAplha(alphaVal),colorspaceContexRB,xPos,yPos, -2, drawCircle);
 
                         // BG
 
@@ -901,7 +920,7 @@ function drawcolormap_compare_RGBSpace(colormapTmp, colormapTmp2, canvasIDRG,can
                         yPos2 =  yStart-tmpColor2.getGValue()*yHeight;
 
                         drawLine(colorspaceContexBG,xPos,yPos,xPos2,yPos2, true, true);
-                        drawElement(colormapTmp2.getRGBColor(i).getRGBStringAplha(alphaVal),colorspaceContexBG,xPos,yPos, i, drawCircle);
+                        drawElement(colormapTmp2.getRGBColor(i).getRGBStringAplha(alphaVal),colorspaceContexBG,xPos,yPos, -2, drawCircle);
 
 
 
@@ -916,7 +935,7 @@ function drawcolormap_compare_RGBSpace(colormapTmp, colormapTmp2, canvasIDRG,can
                                                   var z2 = tmpColor2.getBValue()*255-128;
 
                                                   draw3DLine(x1,y1, z1, x2, y2, z2, true, true);
-                                                  draw3DElement(tmpColor.getHexString(),x1,y1,z1, i, drawCircle);
+                                                  draw3DElement(tmpColor.getHexString(),x1,y1,z1, -2, drawCircle);
                           }
 
 
@@ -951,7 +970,7 @@ function drawcolormap_compare_RGBSpace(colormapTmp, colormapTmp2, canvasIDRG,can
                             drawLine(colorspaceContexRG,xPos,yPos,xPos2,yPos2, true, true);
                           }
 
-                          drawElement(colormapTmp2.getRGBColor(i).getRGBStringAplha(alphaVal),colorspaceContexRG,xPos,yPos, i, drawCircle);
+                          drawElement(colormapTmp2.getRGBColor(i).getRGBStringAplha(alphaVal),colorspaceContexRG,xPos,yPos, -2, drawCircle);
 
 
 
@@ -967,7 +986,7 @@ function drawcolormap_compare_RGBSpace(colormapTmp, colormapTmp2, canvasIDRG,can
 
                             drawLine(colorspaceContexRB,xPos,yPos,xPos2,yPos2, true, true);
                           }
-                          drawElement(colormapTmp2.getRGBColor(i).getRGBStringAplha(alphaVal),colorspaceContexRB,xPos,yPos, i, drawCircle);
+                          drawElement(colormapTmp2.getRGBColor(i).getRGBStringAplha(alphaVal),colorspaceContexRB,xPos,yPos, -2, drawCircle);
 
 
                           // BG
@@ -997,12 +1016,12 @@ function drawcolormap_compare_RGBSpace(colormapTmp, colormapTmp2, canvasIDRG,can
                                                       draw3DLine(x1,y1, z1, x2, y2, z2, true, true);
                                                     }
 
-                                                    draw3DElement(tmpColor.getHexString(),x1,y1,z1, i, drawCircle);
+                                                    draw3DElement(tmpColor.getHexString(),x1,y1,z1, -2, drawCircle);
                             }
 
 
 
-                          drawElement(colormapTmp2.getRGBColor(i).getRGBStringAplha(alphaVal),colorspaceContexBG,xPos,yPos, i, drawCircle);
+                          drawElement(colormapTmp2.getRGBColor(i).getRGBStringAplha(alphaVal),colorspaceContexBG,xPos,yPos, -2, drawCircle);
 
                         leftStarted=true;
                         break;
@@ -1022,7 +1041,7 @@ function drawcolormap_compare_RGBSpace(colormapTmp, colormapTmp2, canvasIDRG,can
                     yPos2 =  yStart-tmpColor2.getGValue()*yHeight;
 
                     drawLine(colorspaceContexRG,xPos,yPos,xPos2,yPos2, false, true);
-                    drawElement(colormapTmp2.getRGBColor(i).getRGBStringAplha(alphaVal),colorspaceContexRG,xPos,yPos, i, true);
+                    drawElement(colormapTmp2.getRGBColor(i).getRGBStringAplha(alphaVal),colorspaceContexRG,xPos,yPos, -2, true);
 
 
 
@@ -1035,7 +1054,7 @@ function drawcolormap_compare_RGBSpace(colormapTmp, colormapTmp2, canvasIDRG,can
                     yPos2 =  yStart-tmpColor2.getBValue()*yHeight;
 
                     drawLine(colorspaceContexRB,xPos,yPos,xPos2,yPos2, false, true);
-                    drawElement(colormapTmp2.getRGBColor(i).getRGBStringAplha(alphaVal),colorspaceContexRB,xPos,yPos, i, true);
+                    drawElement(colormapTmp2.getRGBColor(i).getRGBStringAplha(alphaVal),colorspaceContexRB,xPos,yPos, -2, true);
 
 
                     // BG
@@ -1047,7 +1066,7 @@ function drawcolormap_compare_RGBSpace(colormapTmp, colormapTmp2, canvasIDRG,can
                     yPos2 =  yStart-tmpColor2.getGValue()*yHeight;
 
                     drawLine(colorspaceContexBG ,xPos,yPos,xPos2,yPos2, false, true);
-                    drawElement(colormapTmp2.getRGBColor(i).getRGBStringAplha(alphaVal),colorspaceContexBG,xPos,yPos, i, true);
+                    drawElement(colormapTmp2.getRGBColor(i).getRGBStringAplha(alphaVal),colorspaceContexBG,xPos,yPos, -2, true);
 
 
                     if(showSpace==1){
@@ -1061,7 +1080,7 @@ function drawcolormap_compare_RGBSpace(colormapTmp, colormapTmp2, canvasIDRG,can
                       var z2 = tmpColor2.getBValue()*255-128;
 
                         draw3DLine(x1,y1, z1, x2, y2, z2, false, true);
-                        draw3DElement(tmpColor.getHexString(),x1,y1,z1, i, true);
+                        draw3DElement(tmpColor.getHexString(),x1,y1,z1, -2, true);
 
                     }
             }

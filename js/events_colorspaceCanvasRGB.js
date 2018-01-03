@@ -12,6 +12,9 @@ function mouseLeaveColorspaceRGB(event) {
     if (showSideID == 2) {
       drawcolormap_RGBSpace(analysisColormap, "id_canvasRG","id_canvasRB","id_canvasBG", true); //drawcolormap_hueSpace(analysisColormap, "id_workcanvasAnalyseHue");
     }
+    if (showSideID == 3) {
+      drawcolormap_compare_RGBSpace(compareColormap1, compareColormap2, "id_canvasRGCompare","id_canvasRBCompare","id_canvasBGCompare", true);
+    }
   }
 }
 
@@ -19,12 +22,15 @@ function mouseMoveColorspaceRGB(event) {
   var index;
   switch (event.target.id) {
     case "id_canvasRG":
+    case "id_canvasRGCompare":
       index=0;
       break;
     case "id_canvasRB":
+    case "id_canvasRBCompare":
       index=1;
       break;
     case "id_canvasBG":
+    case "id_canvasBGCompare":
       index=2;
       break;
     default:
@@ -54,7 +60,12 @@ function mouseMoveColorspaceRGB(event) {
         var dis = Math.sqrt(Math.pow(spaceElementsXPos[i][index] - mousePosX, 2) + Math.pow(spaceElementsYPos[i][index] - mousePosY, 2));
         if (dis > bigcircleRad) {
           mouseAboveSpaceObjectID = -1;
-            drawcolormap_RGBSpace(analysisColormap, "id_canvasRG","id_canvasRB","id_canvasBG", false); //drawcolormap_hueSpace(analysisColormap, "id_workcanvasAnalyseHue");
+            if (showSideID == 2) {
+              drawcolormap_RGBSpace(analysisColormap, "id_canvasRG","id_canvasRB","id_canvasBG", false); //drawcolormap_hueSpace(analysisColormap, "id_workcanvasAnalyseHue");
+            }
+            if (showSideID == 3) {
+              drawcolormap_compare_RGBSpace(compareColormap1, compareColormap2, "id_canvasRGCompare","id_canvasRBCompare","id_canvasBGCompare", false);
+            }
           document.getElementById(event.target.id).style.cursor = "default";
           break;
         } else {
@@ -71,7 +82,14 @@ function mouseMoveColorspaceRGB(event) {
             mousePosY < spaceElementsYPos[i][index] - bigcircleRad ||
             mousePosY > spaceElementsYPos[i][index] + bigcircleRad) {
             mouseAboveSpaceObjectID = -1;
-              drawcolormap_RGBSpace(analysisColormap, "id_canvasRG","id_canvasRB","id_canvasBG", false); //drawcolormap_hueSpace(analysisColormap, "id_workcanvasAnalyseHue");
+
+              if (showSideID == 2) {
+                drawcolormap_RGBSpace(analysisColormap, "id_canvasRG","id_canvasRB","id_canvasBG", false); //drawcolormap_hueSpace(analysisColormap, "id_workcanvasAnalyseHue");
+              }
+              if (showSideID == 3) {
+                drawcolormap_compare_RGBSpace(compareColormap1, compareColormap2, "id_canvasRGCompare","id_canvasRBCompare","id_canvasBGCompare", false);
+              }
+
             document.getElementById(event.target.id).style.cursor = "default";
             break;
           } else {
@@ -88,7 +106,12 @@ function mouseMoveColorspaceRGB(event) {
       if (dis <= circleRad) {
         mouseAboveSpaceObjectID = i;
         document.getElementById(event.target.id).style.cursor = "pointer";
-          drawcolormap_RGBSpace(analysisColormap, "id_canvasRG","id_canvasRB","id_canvasBG", false); //drawcolormap_hueSpace(analysisColormap, "id_workcanvasAnalyseHue");
+          if (showSideID == 2) {
+            drawcolormap_RGBSpace(analysisColormap, "id_canvasRG","id_canvasRB","id_canvasBG", false); //drawcolormap_hueSpace(analysisColormap, "id_workcanvasAnalyseHue");
+          }
+          if (showSideID == 3) {
+            drawcolormap_compare_RGBSpace(compareColormap1, compareColormap2, "id_canvasRGCompare","id_canvasRBCompare","id_canvasBGCompare", false);
+          }
         break;
       }
 
@@ -105,7 +128,12 @@ function mouseMoveColorspaceRGB(event) {
           mousePosY <= spaceElementsYPos[i][index] + circleRad) {
           mouseAboveSpaceObjectID = i;
           document.getElementById(event.target.id).style.cursor = "pointer";
-          drawcolormap_RGBSpace(analysisColormap, "id_canvasRG","id_canvasRB","id_canvasBG", false); //drawcolormap_hueSpace(analysisColormap, "id_workcanvasAnalyseHue");
+          if (showSideID == 2) {
+            drawcolormap_RGBSpace(analysisColormap, "id_canvasRG","id_canvasRB","id_canvasBG", false); //drawcolormap_hueSpace(analysisColormap, "id_workcanvasAnalyseHue");
+          }
+          if (showSideID == 3) {
+            drawcolormap_compare_RGBSpace(compareColormap1, compareColormap2, "id_canvasRGCompare","id_canvasRBCompare","id_canvasBGCompare", false);
+          }
           break;
         }
 
@@ -127,14 +155,17 @@ function mouseMoveColorspaceRGB(event) {
 
     switch (event.target.id) {
       case "id_canvasRG":
+      case "id_canvasRGCompare":
         tmpColor = new classColor_RGB(val1,val2,updateCurrentValue);
         //document.getElementById("id_huePositionLabel").innerHTML = "A : "+ aVal.toFixed(numDecimalPlaces) +", B : "+ bVal.toFixed(numDecimalPlaces);
         break;
       case "id_canvasRB":
+      case "id_canvasRBCompare":
         tmpColor = new classColor_RGB(val1,updateCurrentValue,val2);
         //document.getElementById("id_huePositionLabel").innerHTML = "A : "+ aVal.toFixed(numDecimalPlaces) +", B : "+ bVal.toFixed(numDecimalPlaces);
         break;
       case "id_canvasBG":
+      case "id_canvasBGCompare":
         tmpColor = new classColor_RGB(updateCurrentValue,val2,val1);
         //document.getElementById("id_huePositionLabel").innerHTML = "A : "+ aVal.toFixed(numDecimalPlaces) +", B : "+ bVal.toFixed(numDecimalPlaces);
         break;
@@ -156,9 +187,19 @@ function mouseMoveColorspaceRGB(event) {
           bandSketch.setC2(tmpColor, updateSketchID2);
 
       orderColorSketch(colorspaceModus);
-      drawcolormap_RGBSpace(analysisColormap, "id_canvasRG","id_canvasRB","id_canvasBG", false); //drawcolormap_hueSpace(analysisColormap, "id_workcanvasAnalyseHue");
+      if (showSideID == 2) {
+        drawcolormap_RGBSpace(analysisColormap, "id_canvasRG","id_canvasRB","id_canvasBG", false); //drawcolormap_hueSpace(analysisColormap, "id_workcanvasAnalyseHue");
+        drawAnalyseMapPreviews();
+        drawAnalyseDifferenceMaps();
+      }
+      if (showSideID == 3) {
+        drawcolormap_compare_RGBSpace(compareColormap1, compareColormap2, "id_canvasRGCompare","id_canvasRBCompare","id_canvasBGCompare", false);
+        drawCompareMapPreviews();
+        drawCompareDifferenceMaps();
+      }
 
       if(showSpace==1){
+
         var newPos = updateCurrentValue*255-128;
         var plane_geometry = new THREE.PlaneGeometry( 256, 256, 1, 1 );
         plane_material = new THREE.MeshLambertMaterial({ color: 0xbdbdbd, side: THREE.DoubleSide });
@@ -168,12 +209,14 @@ function mouseMoveColorspaceRGB(event) {
 
         switch (event.target.id) {
           case "id_canvasRG":
+          case "id_canvasRGCompare":
             //tmpColor = new classColor_RGB(val1,val2,updateCurrentValue);
             plane.position.x = 0;
             plane.position.y = 0;
             plane.position.z = newPos;
             break;
           case "id_canvasRB":
+          case "id_canvasRBCompare":
             //tmpColor = new classColor_RGB(val1,updateCurrentValue,val2);
             plane.rotation.x = Math.PI/2;
             plane.position.x = 0;
@@ -182,6 +225,7 @@ function mouseMoveColorspaceRGB(event) {
 
             break;
           case "id_canvasBG":
+          case "id_canvasBGCompare":
             //tmpColor = new classColor_RGB(updateCurrentValue,val2,val1);
             plane.rotation.y = Math.PI+Math.PI/2;
             plane.position.x = newPos;
@@ -193,8 +237,7 @@ function mouseMoveColorspaceRGB(event) {
         }
         colormapRGB3D.add( plane );
       }
-      drawAnalyseMapPreviews();
-      drawAnalyseDifferenceMaps();
+
 
     }
 
@@ -279,7 +322,13 @@ function mouseDownColorspaceRGB(event) {
                       updateSketchID2 = -1;
           }
 
-          drawcolormap_RGBSpace(analysisColormap, "id_canvasRG","id_canvasRB","id_canvasBG", true);
+          if (showSideID == 2) {
+            drawcolormap_RGBSpace(analysisColormap, "id_canvasRG","id_canvasRB","id_canvasBG", true); //drawcolormap_hueSpace(analysisColormap, "id_workcanvasAnalyseHue");
+          }
+          if (showSideID == 3) {
+            drawcolormap_compare_RGBSpace(compareColormap1, compareColormap2, "id_canvasRGCompare","id_canvasRBCompare","id_canvasBGCompare", true);
+          }
+
           if(showSpace==1){
             var newPos = updateCurrentValue*255-128;
             var plane_geometry = new THREE.PlaneGeometry( 256, 256, 1, 1 );
@@ -290,12 +339,14 @@ function mouseDownColorspaceRGB(event) {
 
             switch (event.target.id) {
               case "id_canvasRG":
+              case "id_canvasRGCompare":
                 //tmpColor = new classColor_RGB(val1,val2,updateCurrentValue);
                 plane.position.x = 0;
                 plane.position.y = 0;
                 plane.position.z = newPos;
                 break;
               case "id_canvasRB":
+              case "id_canvasRBCompare":
                 //tmpColor = new classColor_RGB(val1,updateCurrentValue,val2);
                 plane.rotation.x = Math.PI/2;
                 plane.position.x = 0;
@@ -304,6 +355,7 @@ function mouseDownColorspaceRGB(event) {
 
                 break;
               case "id_canvasBG":
+              case "id_canvasBGCompare":
                 //tmpColor = new classColor_RGB(updateCurrentValue,val2,val1);
                 plane.rotation.y = Math.PI+Math.PI/2;
                 plane.position.x = newPos;
@@ -323,12 +375,15 @@ function getC1CurrentRGBValue(index,id){
 
   switch (id) {
     case "id_canvasRG":
+    case "id_canvasRGCompare":
       return bandSketch.getC1Color(index,"rgb").getBValue();
       break;
     case "id_canvasRB":
+    case "id_canvasRBCompare":
       return bandSketch.getC1Color(index,"rgb").getGValue();
       break;
     case "id_canvasBG":
+    case "id_canvasBGCompare":
       return bandSketch.getC1Color(index,"rgb").getRValue();
       break;
     default:
@@ -342,12 +397,15 @@ function getC2CurrentRGBValue(index,id){
 
   switch (id) {
     case "id_canvasRG":
+    case "id_canvasRGCompare":
       return bandSketch.getC2Color(index,"rgb").getBValue();
       break;
     case "id_canvasRB":
+    case "id_canvasRBCompare":
       return bandSketch.getC2Color(index,"rgb").getGValue();
       break;
     case "id_canvasBG":
+    case "id_canvasBGCompare":
       return bandSketch.getC2Color(index,"rgb").getRValue();
       break;
     default:
@@ -360,5 +418,11 @@ function getC2CurrentRGBValue(index,id){
 
 function mouseUpColorspaceRGB() {
   mouseGrappedSpaceObjectID=-1;
-  drawcolormap_RGBSpace(analysisColormap, "id_canvasRG","id_canvasRB","id_canvasBG", true);
+
+  if (showSideID == 2) {
+    drawcolormap_RGBSpace(analysisColormap, "id_canvasRG","id_canvasRB","id_canvasBG", true); //drawcolormap_hueSpace(analysisColormap, "id_workcanvasAnalyseHue");
+  }
+  if (showSideID == 3) {
+    drawcolormap_compare_RGBSpace(compareColormap1, compareColormap2, "id_canvasRGCompare","id_canvasRBCompare","id_canvasBGCompare", true);
+  }
 }
