@@ -2,7 +2,7 @@ function initExportWindow(){
 
   //exportColormap
 
-  drawCanvasColormap("id_linearColormapExport",linearMap_resolution_X, linearMap_resolution_Y, exportColormap);
+  //drawCanvasColormap("id_linearColormapExport",linearMap_resolution_X, linearMap_resolution_Y, exportColormap);
 
 
   document.getElementById("exportSide_IntervalApproximationCheckbox").checked = false;
@@ -22,15 +22,17 @@ function initExportWindow(){
 
 
 
-  drawKeys("id_keyColormapExport",key_resolution_X, key_resolution_Y, exportColormap, "id_keyColormapLinesBottomExport",true,false)
+  //drawKeys("id_keyColormapExport",key_resolution_X, key_resolution_Y, exportColormap, "id_keyColormapLinesBottomExport",true,false)
 
-  fillExportTable();
+  //fillExportTable();
 
-  var box2 = document.getElementById("id_keyColormapLinesBottomExport").getBoundingClientRect();
-  for(var i=0; i<refElementContainer.length; i++){
-      refElementContainer[i].style.position = "fixed";
-      refElementContainer[i].style.top = box2.height+box2.top;
-  }
+  //var box2 = document.getElementById("id_keyColormapLinesBottomExport").getBoundingClientRect();
+  //for(var i=0; i<refElementContainer.length; i++){
+  //    refElementContainer[i].style.position = "fixed";
+//refElementContainer[i].style.top = box2.height+box2.top;
+  //}
+
+  changeExportColorspace(0);
 
 }
 
@@ -39,13 +41,13 @@ function cancelExport(){
 
     if(showSideID==1)
       orderColorSketch(colorspaceModus);
-
-    if(showSideID==0){
+    else{
       for(var i = refElementContainer.length-1; i>=0; i--){
           refElementContainer[i].remove();
           refElementContainer.pop();
       }
      }
+
 
     exportSideOpen = false;
 }
@@ -391,9 +393,9 @@ function drawIntervalColormap(){
    }//
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         canvasContex.putImageData(canvasData, 0, 0);
-        canvasContex.lineWidth = 2;
-        canvasContex.strokeStyle = 'rgb(0,0,0)';
-        canvasContex.strokeRect(0,0, colormapWidth, colormapHeigth);
+        //canvasContex.lineWidth = 2;
+        //canvasContex.strokeStyle = 'rgb(0,0,0)';
+        //canvasContex.strokeRect(0,0, colormapWidth, colormapHeigth);
 
 }
 
@@ -529,6 +531,23 @@ function exportSide_createXML(){
         }
     }
 
+    var tmpColor = exportColormap.getNaNColor(colorspaceModus);
+    switch(colorspaceModus) {
+        case "rgb":
+            xmltxt=xmltxt+"<NaN o=\"1\" r=\""+tmpColor.getRValue()+"\" g=\""+tmpColor.getGValue()+"\" b=\""+tmpColor.getBValue()+"\"/>\n";
+            break;
+        case "hsv":
+            xmltxt=xmltxt+"<NaN o=\"1\" h=\""+tmpColor.getHValue()+"\" s=\""+tmpColor.getSValue()+"\" v=\""+tmpColor.getVValue()+"\"/>\n";
+            break;
+        case "lab":
+            xmltxt=xmltxt+"<NaN o=\"1\" l=\""+tmpColor.getLValue()+"\" a=\""+tmpColor.getAValue()+"\" b=\""+tmpColor.getBValue()+"\"/>\n";
+            break;
+        case "din99":
+            xmltxt=xmltxt+"<NaN o=\"1\" l99=\""+tmpColor.getL99Value()+"\" a99=\""+tmpColor.getA99Value()+"\" b99=\""+tmpColor.getB99Value()+"\"/>\n";
+            break;
+        default:
+            return;
+    }//
     xmltxt=xmltxt+"</ColorMap>\n</ColorMaps>";
     return xmltxt;
 }
@@ -538,18 +557,19 @@ function exportSide_createCSV_Lookup(){
     var txt = "";
 
     var opacityVal =1;
+    var tmpColor = exportColormap.getNaNColor(colorspaceModus);
     switch(colorspaceModus) {
             case "rgb":
-                txt = txt+"Reference;R;G;B;Opacity;ccctype\n";
+                txt = txt+"Reference;R;G;B;Opacity;ccctype;;NaN;R;"+tmpColor.getRValue()+";G;"+tmpColor.getGValue()+";B;"+tmpColor.getBValue()+"\n";
                 break;
             case "hsv":
-                txt = txt+"Reference;H;S;V;Opacity;ccctype\n";
+                txt = txt+"Reference;H;S;V;Opacity;ccctype;;NaN;H;"+tmpColor.getHValue()+";S;"+tmpColor.getSValue()+";V;"+tmpColor.getVValue()+"\n";
                 break;
             case "lab":
-                txt = txt+"Reference;L;A;B;Opacity;ccctype\n";
+                txt = txt+"Reference;L;A;B;Opacity;ccctype;;NaN;L;"+tmpColor.getLValue()+";A;"+tmpColor.getAValue()+";B;"+tmpColor.getBValue()+"\n";
                 break;
             case "din99":
-                txt = txt+"Reference;L99;A99;B99;Opacity;ccctype\n";
+                txt = txt+"Reference;L99;A99;B99;Opacity;ccctype;;NaN;L99;"+tmpColor.getL99Value()+";A99;"+tmpColor.getA99Value()+";B99;"+tmpColor.getB99Value()+"\n";
                 break;
             default:
                 return;
@@ -607,16 +627,16 @@ function exportSide_createCSV_Lookup(){
 
         switch(colorspaceModus) {
             case "rgb":
-                txt=txt+bandObj.getRightRef()+";"+bandObj.getRightRGBColor().getRValue()+";"+bandObj.getRightRGBColor().getGValue()+";"+bandObj.getRightRGBColor().getBValue()+";"+opacityVal+";key";
+                txt=txt+bandObj.getRightRef()+";"+bandObj.getRightRGBColor().getRValue()+";"+bandObj.getRightRGBColor().getGValue()+";"+bandObj.getRightRGBColor().getBValue()+";"+opacityVal+";key\n";
                 break;
             case "hsv":
-                txt=txt+bandObj.getRightRef()+";"+bandObj.getRightHSVColor().getHValue()+";"+bandObj.getRightHSVColor().getSValue()+";"+bandObj.getRightHSVColor().getVValue()+";"+opacityVal+";key";
+                txt=txt+bandObj.getRightRef()+";"+bandObj.getRightHSVColor().getHValue()+";"+bandObj.getRightHSVColor().getSValue()+";"+bandObj.getRightHSVColor().getVValue()+";"+opacityVal+";key\n";
                 break;
             case "lab":
-                txt=txt+bandObj.getRightRef()+";"+bandObj.getRightLABColor().getLValue()+";"+bandObj.getRightLABColor().getAValue()+";"+bandObj.getRightLABColor().getBValue()+";"+opacityVal+";key";
+                txt=txt+bandObj.getRightRef()+";"+bandObj.getRightLABColor().getLValue()+";"+bandObj.getRightLABColor().getAValue()+";"+bandObj.getRightLABColor().getBValue()+";"+opacityVal+";key\n";
                 break;
             case "din99":
-                txt=txt+bandObj.getRightRef()+";"+bandObj.getRightDIN99Color().getL99Value()+";"+bandObj.getRightDIN99Color().getA99Value()+";"+bandObj.getRightDIN99Color().getB99Value()+";"+opacityVal+";key";
+                txt=txt+bandObj.getRightRef()+";"+bandObj.getRightDIN99Color().getL99Value()+";"+bandObj.getRightDIN99Color().getA99Value()+";"+bandObj.getRightDIN99Color().getB99Value()+";"+opacityVal+";key\n";
                 break;
             default:
                 return;

@@ -119,6 +119,11 @@ function changeColorspace(type) {
     changeCourseSpaceCompare();
   }
 
+
+  if(showSideID == 4){
+    //drawExistingColormaps_AddPage();
+  }
+
   if (showSideID == 1) { // CREATE SIDE
 
     switch (type) {
@@ -298,7 +303,20 @@ function showADDSide() {
     document.getElementById("id_addPage").style.display = "initial";
 
     document.getElementById("id_SideLabel").innerHTML = "Add Existing Colormap";
-    changeColorspace(0);
+
+    restSpace = sizeMyList-myList.length;
+
+    if(restSpace==0)
+      document.getElementById("id_addPageFreeLabel").style.color = "red";
+    else
+      document.getElementById("id_addPageFreeLabel").style.color = "black";
+
+    document.getElementById("id_addPageFreeLabel").innerHTML = "Free Space for Adding Maps to MyList : "+restSpace;
+
+    constructionExistingColormaps_AddPage();
+    addedIndex = [];
+    addedType = [];
+    addedPos = [];
   }
   else{
     alert("There are only ten colormaps inside the My Maps list allowed. Please delete a colormap for adding a new one");
@@ -306,7 +324,6 @@ function showADDSide() {
 }
 
 function showCreateSide() {
-
 
   if(myList.length<10){
     isEdit = -1;

@@ -1,6 +1,6 @@
 .class_AddLabel1 {
-    width:90%;
-    margin-left: 5%;
+    width:96%;
+    margin-left: 2%;
     height:8vh;
     line-height:8vh;
     vertical-align:middle;
@@ -8,13 +8,13 @@
     color:black;
     font-size:3vh;
     font-style: italic;
-    font-family: " Times New Roman ", Georgia, Serif;
     margin-top:2vh;
     border-radius: 0.2vh;
      border: 0.2vh solid black;
      cursor: pointer;
      box-shadow:  0.3vh  0.3vh grey;
      transition: 0.5s;
+     background: rgb(200,200,200);
 }
 
 .class_AddLabel1:hover {
@@ -22,8 +22,8 @@
 }
 
 .class_AddLabel2 {
-  width:90%;
-  margin-left: 5%;
+  width:96%;
+  margin-left: 2%;
   height:5vh;
   line-height:5vh;
   vertical-align:middle;
@@ -31,15 +31,53 @@
   color:black;
   font-size:2.5vh;
   font-style: italic;
-  font-family: " Times New Roman ", Georgia, Serif;
   margin-top:0.5vh;
   border-radius: 0.2vh;
   border: 0.2vh solid black;
   cursor: pointer;
   box-shadow:  0.3vh  0.3vh grey;
   transition: 0.5s;
+  background: rgb(230,230,230);
 }
 
 .class_AddLabel2:hover {
      box-shadow: inset 0 0 0 2em rgb(0,191,255);
+}
+
+.class_AddLabel3 {
+  width:96%;
+  margin-left: 2%;
+  margin-top:0.5vh;
+  border-radius: 0.2vh;
+  border: 0.2vh solid black;
+  box-shadow:  0.3vh  0.3vh grey;
+  transition: 0.5s;
+  background: rgb(250,250,250);
+}
+
+.class_ColormapRow {
+  display: flex;
+  width:100%;
+  margin-top: 0.5vh;
+  margin-bottom: 0.5vh;
+}
+
+.class_colormapAddPage{
+  width:70%;
+  height:2vw;
+  margin-left: 2%;
+  margin-right: 2%;
+  border-radius: 0.5vh;
+  border: 2px solid black;
+}
+
+.class_buttonAddPage{
+  width:5%;
+  height:2vw;
+  margin-right: 2%;
+  border-radius: 0.5vh;
+  background-size:cover;
+  background-repeat:no-repeat;
+  background-position: center center;
+  border: 2px solid black;
 }

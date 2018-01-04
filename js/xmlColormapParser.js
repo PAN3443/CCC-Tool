@@ -83,6 +83,28 @@ function xmlColormapParserPath(path){
               tmpColorMap.pushPositionPoints(xValues[i]);
               tmpColorMap.pushRGBColor(tmpColors[i]);
             }
+
+            try {
+
+                var nanObj = colormapObject[j].getElementsByTagName("NaN");
+
+                var r = parseFloat(nanObj[0].getAttribute("r"));
+                var g = parseFloat(nanObj[0].getAttribute("g"));
+                var b = parseFloat(nanObj[0].getAttribute("b"));
+
+                if(isrgb255){
+                    r=r/255.0;
+                    g=g/255.0;
+                    b=b/255.0;
+                }
+
+                var rgbColor = new classColor_RGB(r,g,b);
+                tmpColorMap.setNaNColor(rgbColor);
+
+            } catch (error) {
+                console.log("colormap has no NaN Value");
+            }
+
             try {
                 var name = colormapObject[j].getAttribute("name");
                 tmpColorMap.setColormapName(name);
@@ -94,7 +116,7 @@ function xmlColormapParserPath(path){
 
             return tmpColorMap;
 
-        }
+      }
     } catch (error) {
        alert("Error with XML File " + path);
     }
@@ -198,6 +220,28 @@ function xmlColormapParserFile(xmlString){
                            }
                        }
 
+                       try {
+
+                           var nanObj = colormapObject[0].getElementsByTagName("NaN");
+
+                           var r = parseFloat(nanObj[0].getAttribute("r"));
+                           var g = parseFloat(nanObj[0].getAttribute("g"));
+                           var b = parseFloat(nanObj[0].getAttribute("b"));
+
+                           if(isrgb255){
+                               r=r/255.0;
+                               g=g/255.0;
+                               b=b/255.0;
+                           }
+
+                           var rgbColor = new classColor_RGB(r,g,b);
+                           tmpColorMap.setNaNColor(rgbColor);
+
+                       } catch (error) {
+                           console.log("colormap has no NaN Value");
+                       }
+
+
                        break;
                    case "HSV": case "hsv": case "Hsv":
 
@@ -221,6 +265,21 @@ function xmlColormapParserFile(xmlString){
                                tmpColorMap.pushHSVColor(tmpColor);
 
                            }
+                       }
+
+                       try {
+
+                           var nanObj = colormapObject[0].getElementsByTagName("NaN");
+
+                           var h = parseFloat(nanObj[0].getAttribute("h"));
+                           var s = parseFloat(nanObj[0].getAttribute("s"));
+                           var v = parseFloat(nanObj[0].getAttribute("v"));
+
+                           var tmpColor = new classColor_HSV(h,s,v);
+                           tmpColorMap.setNaNColor(tmpColor);
+
+                       } catch (error) {
+                           console.log("colormap has no NaN Value");
                        }
 
                      break;
@@ -247,6 +306,21 @@ function xmlColormapParserFile(xmlString){
                             }
                         }
 
+                        try {
+
+                            var nanObj = colormapObject[0].getElementsByTagName("NaN");
+
+                            var l = parseFloat(nanObj[0].getAttribute("l"));
+                            var a = parseFloat(nanObj[0].getAttribute("a"));
+                            var b = parseFloat(nanObj[0].getAttribute("b"));
+
+                            var tmpColor = new classColor_LAB(l,a,b);
+                            tmpColorMap.setNaNColor(tmpColor);
+
+                        } catch (error) {
+                            console.log("colormap has no NaN Value");
+                        }
+
                      break;
                    case "DIN99": case "din99": case "Din99":
                        for (var i = 0; i < pointObject.length; i++)
@@ -269,6 +343,21 @@ function xmlColormapParserFile(xmlString){
                                tmpColorMap.pushDIN99Color(tmpColor);
 
                            }
+                       }
+
+                       try {
+
+                           var nanObj = colormapObject[0].getElementsByTagName("NaN");
+
+                           var l99 = parseFloat(nanObj[0].getAttribute("l99"));
+                           var a99 = parseFloat(nanObj[0].getAttribute("a99"));
+                           var b99 = parseFloat(nanObj[0].getAttribute("b99"));
+
+                           var tmpColor = new classColorDIN99(l99,a99,b99);
+                           tmpColorMap.setNaNColor(tmpColor);
+
+                       } catch (error) {
+                           console.log("colormap has no NaN Value");
                        }
                      break;
                    default:

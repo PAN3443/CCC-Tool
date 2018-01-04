@@ -12,7 +12,10 @@ class xclassColorMap {
     this.hsvColorArray = [];
     this.din99ColorArray = [];
 
-    this.nanVal = [];
+    this.NaN_RGB = new classColor_RGB(0,0,0);
+    this.NaN_HSV = new classColor_HSV(0,0,0);
+    this.NaN_LAB = new classColor_LAB(0,0,0);
+    this.NaN_DIN99 = new classColorDIN99(0,0,0);
 
     this.referenceRangeStart = 0;
     this.referenceRangeEnd = 0;
@@ -359,6 +362,60 @@ class xclassColorMap {
       default:
 
     }
+ }
+
+
+ setNaNColor(color){
+
+   var colorType = color.getColorType();
+   switch (colorType) {
+     case "rgb":
+     this.NaN_RGB = color;
+     this.NaN_HSV = color.calcHSVColor();
+     this.NaN_LAB = color.calcLABColor();
+     this.NaN_DIN99 = color.calcDIN99Color(1,1);
+       break;
+     case "hsv":
+     this.NaN_RGB = color.calcRGBColor();
+     this.NaN_HSV = color;
+     this.NaN_LAB = color.calcLABColor();
+     this.NaN_DIN99 = color.calcDIN99Color(1,1);
+       break;
+     case "lab":
+     this.NaN_RGB = color.calcRGBColor();
+     this.NaN_HSV = color.calcHSVColor();
+     this.NaN_LAB = color;
+     this.NaN_DIN99 = color.calcDIN99Color(1,1);
+       break;
+     case "din99":
+     this.NaN_RGB = color.calcRGBColor();
+     this.NaN_HSV = color.calcHSVColor();
+     this.NaN_LAB = color.calcLABColor();
+     this.NaN_DIN99 = color;
+       break;
+     default:
+
+   }
+ }
+
+ getNaNColor(colorspace){
+
+   switch (colorspace) {
+     case "rgb":
+     return this.NaN_RGB;
+
+     case "hsv":
+     return this.NaN_HSV;
+
+     case "lab":
+     return this.NaN_LAB;
+
+     case "din99":
+     return this.NaN_DIN99;
+
+     default:
+
+   }
  }
 
   pushPositionPoints(position){

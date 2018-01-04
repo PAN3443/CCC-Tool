@@ -95,7 +95,6 @@ function drawAnalyseDifferenceMaps(){
   var old_tbody = document.getElementById("id_analyseTableBody");
   var new_tbody = document.createElement('tbody');
 
-  var resolutionX = 1024;
 
   var canvasREF = document.getElementById("id_anaylseRatioRef");
   var canvasRGB = document.getElementById("id_anaylseRatioRGB");
@@ -105,35 +104,35 @@ function drawAnalyseDifferenceMaps(){
   var canvasDE94 = document.getElementById("id_anaylseRatioDE94");
   var canvasDIN99 = document.getElementById("id_anaylseRatioDIN99");
 
-  canvasREF.width = resolutionX;
+  canvasREF.width = resolutionX_differenceMetrics;
   canvasREF.height = 1;
-  canvasRGB.width = resolutionX;
+  canvasRGB.width = resolutionX_differenceMetrics;
   canvasRGB.height = 1;
-  canvasHSV.width = resolutionX;
+  canvasHSV.width = resolutionX_differenceMetrics;
   canvasHSV.height = 1;
-  canvasLAB.width = resolutionX;
+  canvasLAB.width = resolutionX_differenceMetrics;
   canvasLAB.height = 1;
-  canvasCIEDE2000.width = resolutionX;
+  canvasCIEDE2000.width = resolutionX_differenceMetrics;
   canvasCIEDE2000.height = 1;
-  canvasDE94.width = resolutionX;
+  canvasDE94.width = resolutionX_differenceMetrics;
   canvasDE94.height = 1;
-  canvasDIN99.width = resolutionX;
+  canvasDIN99.width = resolutionX_differenceMetrics;
   canvasDIN99.height = 1;
 
   var refCtx = canvasREF.getContext("2d");
-  var refData = refCtx.getImageData(0, 0, resolutionX, 1);
+  var refData = refCtx.getImageData(0, 0, resolutionX_differenceMetrics, 1);
   var rgbCtx = canvasRGB.getContext("2d");
-  var rgbData = rgbCtx.getImageData(0, 0, resolutionX, 1);
+  var rgbData = rgbCtx.getImageData(0, 0, resolutionX_differenceMetrics, 1);
   var hsvCtx = canvasHSV.getContext("2d");
-  var hsvData = hsvCtx.getImageData(0, 0, resolutionX, 1);
+  var hsvData = hsvCtx.getImageData(0, 0, resolutionX_differenceMetrics, 1);
   var labCtx = canvasLAB.getContext("2d");
-  var labData = labCtx.getImageData(0, 0, resolutionX, 1);
+  var labData = labCtx.getImageData(0, 0, resolutionX_differenceMetrics, 1);
   var de94Ctx = canvasDE94.getContext("2d");
-  var de94Data = de94Ctx.getImageData(0, 0, resolutionX, 1);
+  var de94Data = de94Ctx.getImageData(0, 0, resolutionX_differenceMetrics, 1);
   var de2000Ctx = canvasCIEDE2000.getContext("2d");
-  var de2000Data = de2000Ctx.getImageData(0, 0, resolutionX, 1);
+  var de2000Data = de2000Ctx.getImageData(0, 0, resolutionX_differenceMetrics, 1);
   var din99Ctx = canvasDIN99.getContext("2d");
-  var din99Data = din99Ctx.getImageData(0, 0, resolutionX, 1);
+  var din99Data = din99Ctx.getImageData(0, 0, resolutionX_differenceMetrics, 1);
 
   bandSketch.calcNewDistances();
 
@@ -143,7 +142,7 @@ function drawAnalyseDifferenceMaps(){
 
   var borderWidth = 2; //px
 
-  var restWidth = resolutionX-(bandSketch.getBandLenght()-bandSketch.getNumConstBands()-1)*borderWidth;
+  var restWidth = resolutionX_differenceMetrics-(bandSketch.getBandLenght()-bandSketch.getNumConstBands()-1)*borderWidth;
 
   for (var i = 0; i < bandSketch.getBandLenght(); i++) {
 

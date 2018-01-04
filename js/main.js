@@ -23,6 +23,16 @@ window.onload = function() {
   bandSketch2 = new classBandSketch();
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////// Add Side /////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
+  document.getElementById('id_expandYellowDiv').addEventListener("click", expandAddColormapDivs);
+  document.getElementById('id_expandRedPurpleDiv').addEventListener("click", expandAddColormapDivs);
+  document.getElementById('id_expandBlueDiv').addEventListener("click", expandAddColormapDivs);
+  document.getElementById('id_expandGreenDiv').addEventListener("click", expandAddColormapDivs);
+  document.getElementById('id_expandBrownDiv').addEventListener("click", expandAddColormapDivs);
+  document.getElementById('id_expandDivergentDiv').addEventListener("click", expandAddColormapDivs);
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Create Side /////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   // Style Init
@@ -268,7 +278,7 @@ function styleCreatorPage() {
 
   document.getElementById("bandEditWindow").style.height = document.height + "px"; // workRec.height+"px";
 
-  orderColorSketch(colorspaceModus);
+  //orderColorSketch(colorspaceModus);
 
 }
 
@@ -848,9 +858,9 @@ function fillTable() {
 
 
     if (bandSketch.isBandConstant(i, colorspaceModus))
-      td.appendChild(document.createTextNode("scaled"));
-    else
       td.appendChild(document.createTextNode("constant"));
+    else
+      td.appendChild(document.createTextNode("scaled"));
     tr.appendChild(td);
 
     td = document.createElement('td')

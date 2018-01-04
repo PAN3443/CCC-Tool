@@ -24,17 +24,19 @@ var mousePosY;
 
 // Resolutions
 
+var resolutionX_differenceMetrics = 1024;
+
 var vPlot_resolution_X = 1500; // hue colorspace
 var vPlot_resolution_Y = 650; // hue colorspace
 
 var hue_resolution_X = 750;//1500; // hue colorspace
 var hue_resolution_Y = 750;//1500; // hue colorspace
 
-  var hs_resolution_X = 750;//1500; // Colorpicker
+  var hs_resolution_X =  750;//1500; // Colorpicker
   var hs_resolution_Y = 750;//1500; // Colorpicker
 
   var v_resolution_X = 1; // Colorpicker
-  var v_resolution_Y = 500; // Colorpicker
+  var v_resolution_Y = 400; // Colorpicker
 
   // key
   var key_resolution_X = 1920;
@@ -51,6 +53,10 @@ var hue_resolution_Y = 750;//1500; // hue colorspace
   // MyList Colormaps
   var myList_resolution_X = 700;
   var myList_resolution_Y = 1;
+
+  // Existing Colormaps
+  var existingMap_resolution_X = 250;
+  var existingMap_resolution_Y = 1;
 
 
 
@@ -131,6 +137,36 @@ var myListPageModus = 0; // 0=standart, 1=analysis, 2=compare
 var colormap1SelectIndex = 0;
 var colormap2SelectIndex = 0;
 var selectFirstForCompare = false;
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+///////////////////////////
+/// ADD
+//////////////////////////
+
+var pathColormaps = "resource/sciviscolor/";
+var folderYellow = "Scaled/YellowOrange/";
+var folderBlue = "Scaled/Blues/";
+var folderRedPurple = "Scaled/RedPurple/";
+var folderGreen = "Scaled/Green/";
+var folderBrown = "Scaled/Brown/";
+var folderDivergent = "Divergent/";
+var fileYellowColormaps = ["YellowOrange1.xml", "YellowOrange2.xml", "YellowOrange3.xml", "YellowOrange4.xml", "YellowOrange5.xml", "YellowOrange6.xml", "YellowOrange7.xml", "YellowOrange8.xml"];
+var fileBlueColormaps = ["Blue1.xml", "Blue2.xml", "Blue3.xml", "Blue4.xml", "Blue5.xml", "Blue6.xml", "Blue7.xml", "Blue8.xml", "Blue9.xml", "Blue10.xml", "Blue11.xml",];
+var fileRedPurpleColormaps = ["RedPurple1.xml", "RedPurple2.xml", "RedPurple3.xml", "RedPurple4.xml", "RedPurple5.xml", "RedPurple6.xml", "RedPurple7.xml", "RedPurple8.xml"];
+var fileGreenColormaps = ["Green1.xml", "Green2.xml", "Green3.xml", "Green4.xml", "Green5.xml", "Green6.xml", "Green7.xml", "Green8.xml"];
+var fileBrownColormaps = ["Brown1.xml", "Brown2.xml", "Brown3.xml", "Brown4.xml", "Brown5.xml", "Brown6.xml", "Brown7.xml", "Brown8.xml", "Brown9.xml"];
+var fileDivergentColormaps = ["Blue_Orange.xml", "Green_Brown.xml", "Grey_Gold.xml", "Turqoise_Olive.xml"];
+
+
+var restSpace = 0;
+var sizeMyList = 10;
+var addedIndex = [];
+var addedType = [];
+var addedPos = [];
+
 
 ////////////////////////////////////////////////////////////////////////////////
 

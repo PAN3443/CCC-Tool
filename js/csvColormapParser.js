@@ -6,7 +6,9 @@ function csvColormapParserFile(csvString) {
   var tmpColorMap = new xclassColorMap();
 
   if (csvlines.length > 0) {
-    var space = checkCSVColorspace(csvlines[0])
+    var space = checkCSVColorspace(csvlines[0]);
+
+
 
     var isrgb255 = false;
     if (space === "RGB") {
@@ -94,6 +96,42 @@ function csvColormapParserFile(csvString) {
       }
     }
 
+    // get NaN
+    //tmpColorMap.
+
+    var headerAttr = csvlines[0].split(/[;,]+/);
+
+    if (headerAttr.length > 7) {
+      if (headerAttr[6] == "NaN" || headerAttr[6] == "NAN" || headerAttr[6] == "nan" ){
+
+        var c1 = parseFloat(headerAttr[8]);
+        var c2 = parseFloat(headerAttr[10]);
+        var c3 = parseFloat(headerAttr[12]);
+        var tmpColor;
+        switch (space) {
+          case "RGB":
+            if(isrgb255)
+             tmpColor = new classColor_RGB(c1/255,c2/255,c3/255);
+            else
+             tmpColor = new classColor_RGB(c1,c2,c3);
+            break;
+          case "HSV":
+            tmpColor = new classColor_HSV(c1,c2,c3);
+            break;
+          case "LAB":
+            tmpColor = new classColorCIELab(c1,c2,c3);
+            break;
+          case "DIN99":
+            tmpColor = new classColorDIN99(c1,c2,c3);
+            break;
+          default:
+            return;
+        }
+        tmpColorMap.setNaNColor(tmpColor);
+
+      }
+    }
+
     tmpColorMap.createKeys();
 
     tmpColorMap.calcBands();
@@ -111,7 +149,7 @@ function checkCSVColorspace(headerLine) {
 
   var headerAttr = headerLine.split(/[;,]+/);
 
-  if (headerAttr.length == 6) {
+  if (headerAttr.length >= 6) {
 
     if ((headerAttr[1] === "r" || headerAttr[1] === "R") && (headerAttr[2] === "g" || headerAttr[2] === "G") && (headerAttr[3] === "b" || headerAttr[3] === "B")) {
       return "RGB";

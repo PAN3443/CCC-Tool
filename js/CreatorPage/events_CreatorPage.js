@@ -33,6 +33,9 @@ function expandTable(){
         document.getElementById("id_table_workwindow").style.display = "none";
         document.getElementById("id_colormapsDiv").style.display = "initial";
         tableIsExpand=false;
+
+        orderColorSketch(colorspaceModus);
+
     }
     else{
         document.getElementById("id_table_workwindow").style.width = 99+"%";
@@ -40,6 +43,11 @@ function expandTable(){
         document.getElementById("id_table_workwindow").style.display = "initial";
         document.getElementById("id_colormapsDiv").style.display = "none";
         tableIsExpand=true;
+
+        for(var i = refElementContainer.length-1; i>=0; i--){
+            refElementContainer[i].remove();
+            refElementContainer.pop();
+        }
     }
     drawPredefinedBands();
     styleCreatorPage();
@@ -349,7 +357,7 @@ function updateCreatorBand(){
 
     var tmpActiveColor = activColorIndex;
 
-  /*  switch(createBandType) { // 0=constant, 1=scale, 2=double, 3=triple, 4=quadruple)
+    switch(createBandType) { // 0=constant, 1=scale, 2=double, 3=triple, 4=quadruple)
 
         case 0:
             activColorIndex=0;
@@ -663,7 +671,7 @@ function updateCreatorBand(){
 
     }
 
-  */  activColorIndex=tmpActiveColor;
+    activColorIndex=tmpActiveColor;
 
     canvasContex.putImageData(canvasData, 0, 0);
 }

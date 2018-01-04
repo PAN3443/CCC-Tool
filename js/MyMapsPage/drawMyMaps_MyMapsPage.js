@@ -12,6 +12,8 @@ function drawMyList(){
       document.getElementById("id_buttonExportMyList"+i).style.border = "0.2vh solid rgb(0,0,0)";
       document.getElementById("id_buttonEditMyList"+i).style.border = "0.2vh solid rgb(0,0,0)";
       document.getElementById("id_buttonDeleteMyList"+i).style.border = "0.2vh solid rgb(0,0,0)";
+
+      document.getElementById("id_nanMyListColormap"+i).style.background = myList[i].getNaNColor("rgb").getRGBString();
     }
 
     for(var i=9; i>myList.length-1; i--){
@@ -34,6 +36,8 @@ function drawMyList(){
       var canvasContex = canvasObject.getContext("2d");
 
       canvasContex.clearRect(0, 0, canvasObject.width, canvasObject.height);
+
+      document.getElementById("id_nanMyListColormap"+i).style.background = "rgb(180,180,180)";
 
     }
 }

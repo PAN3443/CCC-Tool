@@ -118,7 +118,7 @@ function drawElement(colorString,colorspaceContex,xPos,yPos, index, circle){
 
           colorspaceContex.fillRect(x1, y1, tmpRecSize, tmpRecSize);
           colorspaceContex.lineWidth = smallLineWidth;
-          if(i==mouseGrappedSpaceObjectID)
+          if(index==mouseGrappedSpaceObjectID)
               colorspaceContex.strokeStyle =  mouseGrappedColor;
           else
               colorspaceContex.strokeStyle = 'rgb(0,0,0)';

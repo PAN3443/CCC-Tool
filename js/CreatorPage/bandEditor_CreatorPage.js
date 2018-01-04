@@ -64,7 +64,7 @@ function changeBandEditorColorspace(type){
 
     changeColorspace(type);
     var oCan = document.getElementById("bandEdit_EditCanvas");
-    drawCanvasBand(oCan, changedColorC1, changedColorC2,oCan.width,oCan.height );
+    drawCanvasBand(oCan, changedColorC1, changedColorC2,oCan.width);
 
 }
 
@@ -142,7 +142,7 @@ function leftNeiColorToR1(){
        changedColorC1 = bandSketch.getC2Color(bandOptionsIndex-1,"rgb");
        document.getElementById("bandEdit_LeftColor").style.background = changedColorC1.getRGBString();
        var oCan = document.getElementById("bandEdit_EditCanvas");
-       drawCanvasBand(oCan, changedColorC1, changedColorC2,oCan.width,oCan.height );
+       drawCanvasBand(oCan, changedColorC1, changedColorC2,oCan.width);
        changedColor=true;
        drawEditorBandColorCircles();
     }
@@ -154,7 +154,7 @@ function rightNeiColorToR2(){
        changedColorC2 = bandSketch.getC1Color(bandOptionsIndex+1,"rgb");
        document.getElementById("bandEdit_RightColor").style.background = changedColorC2.getRGBString();
        var oCan = document.getElementById("bandEdit_EditCanvas");
-       drawCanvasBand(oCan, changedColorC1, changedColorC2,oCan.width,oCan.height );
+       drawCanvasBand(oCan, changedColorC1, changedColorC2,oCan.width);
        changedColor=true;
        drawEditorBandColorCircles();
    }
@@ -165,7 +165,7 @@ function editC2IsC1(){
    changedColorC2=changedColorC1;
    var oCan = document.getElementById("bandEdit_EditCanvas");
    document.getElementById("bandEdit_RightColor").style.background = changedColorC2.getRGBString();
-   drawCanvasBand(oCan, changedColorC1, changedColorC2,oCan.width,oCan.height );
+   drawCanvasBand(oCan, changedColorC1, changedColorC2,oCan.width);
    changedColor=true;
    drawEditorBandColorCircles();
 }
@@ -174,7 +174,7 @@ function editC1IsC2(){
    changedColorC1=changedColorC2;
    var oCan = document.getElementById("bandEdit_EditCanvas");
    document.getElementById("bandEdit_LeftColor").style.background = changedColorC1.getRGBString();
-   drawCanvasBand(oCan, changedColorC1, changedColorC2,oCan.width,oCan.height );
+   drawCanvasBand(oCan, changedColorC1, changedColorC2,oCan.width);
    changedColor=true;
    drawEditorBandColorCircles();
 }
@@ -304,7 +304,6 @@ function colorpickerBandEditor_MouseMove(event){
 
 function colorpickerBandEditor_MouseClick(){
 
-
         var hVal = mousePosX/hs_resolution_X;
         var sVal = 1-mousePosY/hs_resolution_Y;
 
@@ -327,7 +326,7 @@ function colorpickerBandEditor_MouseClick(){
 
     drawEditorBandColorCircles()
     var oCan = document.getElementById("bandEdit_EditCanvas");
-    drawCanvasBand(oCan, changedColorC1, changedColorC2,oCan.width,oCan.height );
+    drawCanvasBand(oCan, changedColorC1, changedColorC2,oCan.width);
      changedColor=true;
 
 }
@@ -373,7 +372,7 @@ function c1VpickerBandEditor_MouseClick(){
 
         drawEditorBandColorCircles()
         var oCan = document.getElementById("bandEdit_EditCanvas");
-        drawCanvasBand(oCan, changedColorC1, changedColorC2,oCan.width,oCan.height );
+        drawCanvasBand(oCan, changedColorC1, changedColorC2,oCan.width);
          changedColor=true;
 }
 
