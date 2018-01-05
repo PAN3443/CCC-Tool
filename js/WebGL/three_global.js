@@ -1,3 +1,5 @@
+var doingAnimation = false;
+var animationID;
 
 
 var dorotation = false;

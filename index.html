@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title>CCC</title>
-  <meta name="keywords" content="coloroptimizer,color,visualisation,colorbrewer">
+  <meta name="keywords" content="coloroptimizer,color,visualization,colorbrewer">
   <meta name="description" content="Determine a colormap for visualization with the CCC toolbox">
   <meta name="author" content="Pascal Nardini">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -147,20 +147,22 @@
   </div>
 
 
-  <!--div class="sticky" style="width:100%; height:10vh; margin:0px;"-->
 
-  <div class="row" style="width:100%; background:rgb(0,191,255);">
-    <div class="dropdown">
-      <button class="dropbtn">Go to ...</button>
-      <div class="dropdown-content">
-        <button id="id_ButtonToMyMapsPage">My Maps</button>
-        <button>Tutorial</button>
-        <button>About</button>
+
+  <div class="row" style="width:100%; background:rgb(0,191,255); z-index: 100;">
+    <div class="dropdown" style="z-index: 100;">
+      <button class="dropbtn" style="z-index: 100;">Go to ...</button>
+      <div class="dropdown-content" style="z-index: 100;">
+        <button id="id_ButtonToMyMapsPage" style="z-index: 100;">My Maps</button>
+        <button style="z-index: 100;" >Tutorial</button>
+        <button style="z-index: 100;" >About</button>
       </div>
     </div>
     <h2 id="id_SideLabel" style="width:80%; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; margin:0px; color:white; margin:0px; font-size:3vh; font-style: italic; font-family: " Times New Roman ", Georgia, Serif; "> My Maps</h2>
   </div>
 
+
+  <div class="sticky" style="width:100%; height:5vh; margin:0px;">
   <div class="row" style="width:100%; height:5vh;background:rgb(60,60,60); overflow-x:auto; margin-left:auto;">
     <div id="id_Create_Menue" style="height:100%; width: auto; display: none;">
       <div class="row" style="height:100%; width: auto;">
@@ -187,7 +189,8 @@
       </div>
     </div>
   </div>
-  <!--/div-->
+  </div>
+
 
 
 
@@ -353,6 +356,8 @@
   </div>
 
 
+
+  <!------------------	Help	  ------------------->
   <!--
         -----------------------------------------------
         ----------------	MY List	  -----------------
@@ -363,10 +368,10 @@
     <div style="background:white">
       <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:4vh; vertical-align:middle; margin-top:0vh; padding-top:2vh;"> Manage Your Colormaps </h1>
 
-      <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
+        <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
         <strong>Welcome</strong> to the CCC-Tool. The following is a short instruduction. For a comprehensive introduction please visit the tutorial. The present page is the My Maps side, where you can manage your set of colormaps and handle the available
-        options for the colormaps. You can reach this window everytime by clicking on the "My Maps" button at the right top corner. For a easy and fast start you can choose the option of adding an existing colormap (click on the "Add Existing Map" button).
-        The new displayed side show you a set of common used colormaps. Your selection will automatically tranfer to this side, where you can customize these maps. Alternative to the selction of a existing colormap you can create your own colormap, which
+        options for exporting, editing, analysing and comparing colormaps. You can reach this window everytime by clicking on the "My Maps" button at the "Go to ..." menu. For a easy and fast start you can choose the option of adding an existing colormap (click on the "Add Existing Map" button).
+        The new displayed side show you a set of common used colormaps (made available by <a target="_blank" href="http://sciviscolor.org">sciviscolor.org</a> ). Your selection will automatically tranfer to this side. Alternative to the selction of a existing colormap you can create your own colormap, which
         meet your special requirements (click on the "Create New Map" button). If you need help at the creator side please hover the questionmark button at the top for a short help or visit the tutorial.
         <strong>Start with:</strong>
         <p>
@@ -576,8 +581,8 @@
 
               <hr>
 
-              <button class="classButtonWhite" id="id_MyListCompareButton" title="Compare" style="border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 30%; height:5vh; line-height:5vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180); margin-left:15%;"> Compare two Maps </button>
-              <button class="classButtonWhite" id="id_MyListAnalysisButton" title="Analysis" style=" margin-bottom:2vh; border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 30%; height:5vh; line-height:5vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180); margin-left:5%;"> Analyse a Map </button>
+              <button class="classButtonWhite" id="id_MyListAnalysisButton" title="Analysis" style="border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 30%; height:5vh; line-height:5vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180); margin-left:15%;"> Analyse a Map </button>
+              <button class="classButtonWhite" id="id_MyListCompareButton" title="Compare" style=" margin-bottom:2vh; border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 30%; height:5vh; line-height:5vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180); margin-left:5%;"> Compare two Maps </button>
 
     </div>
   </div>
@@ -689,17 +694,11 @@
       <button class="dropbtn" style="border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 2.5vh; height:2.5vh; margin-left:2vh; border: 2px solid black; margin-top:auto; margin-bottom:auto;"></button>
       <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
-        <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>HELP:</strong> With the analyse of the colormap course, you can see how the colormap run to the hue space and how the colormap changes the lightness (brightness) value.
+        <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> With the analyse of the colormap course you can see how the colormap run inside the different colorspaces. Switch the colorspace to display the different colorspace visualizations.
         </p>
         <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; ">
-          With the course in the hue space you can see how close together the band courses are or if they are crossing. For a good colormap the band courses shouldn’t run to close together and they shouldn't cross. Inside the hue space the course of a scaled band
-          is shown with a solid line with a circle at the start- and end-color. (
-          <strong>Info:</strong>: You can modify the position of a circle with clicking and pressing the mousbotton above the circle and subsequent a move to the new position.) Constant Bands are shown as a quad and can also modify like the circles of
-          the scaled bands. The dashed lines show you the jumps between two bands with different neighboring colors. They are not part of the colormap and they do not take into account for the analysis.
-        </p>
-        <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; ">
-          The course of the colormap through the brightness is also an important part for the analyse. Inside the plot for the brightness course you can evaluate the in- or decrease of the brightness. For neighboring band colors it could be also important to have
-          a maximum or a minimus of difference.
+          Use the colormap course to observe that the colormap parts do not cross or run to close together (At the RGB space the 3D visualization should be helpful).
+          At the visualizations of the HSV, Lab and DIN99 space you can also check the increase and decrease of the lightness or the value.
         </p>
       </div>
     </div>
@@ -717,7 +716,7 @@
         <button class="dropbtn" style="margin-right:1vw; border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:1.5vh; margin-bottom:auto;"></button>
         <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
-          <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>INFO:</strong> A constant band is ...
+          <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:20vw; "> <strong>INFO:</strong> Constant bands define one color for a certain section. Inside of the visualization, a constant band will be represented by squares.
           </p>
         </div>
       </div>
@@ -735,7 +734,9 @@
       <button class="dropbtn" style=" margin-right:1vw; border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:1.5vh; margin-bottom:auto;"></button>
       <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
-        <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>INFO:</strong> A scaled band is ...
+        <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:20vw; "> <strong>INFO:</strong> Scaled bands define a color gradient for a certain section. Intermediate colors will be interpolate inside the selected colorspace. Inside of the visualization, a scaled band will be represented by two circles and a solid line.
+          The two circles are showing the start and the end color.
+          The line represent the interpolated colors.
         </p>
       </div>
     </div>
@@ -749,14 +750,16 @@
       <p class="classAnalyseLabel">: Jump</p>
       <div class="dropdown" style="widht:auto; margin-right:auto;">
         <button class="dropbtn" style=" margin-right:1vw; border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:1.5vh; margin-bottom:auto;"></button>
-        <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
+        <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3; right: 2vw;">
 
-          <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>INFO:</strong> A jump is ...
+          <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:20vw; float:right:"> <strong>INFO:</strong> If a neighbour of a band has a different start (end) color as the end (start) color of this band, there is a jump between those bands.
+            (This jump is not part of the colormap course, but it shows the connection between those bands.) Inside of the visualization, a jump will be represented by a dashed line.
           </p>
         </div>
       </div>
     </div>
   </div>
+
 
 
   <div id='id_hueValueOptionsCompare' style="display:none;">
@@ -840,7 +843,7 @@
         <button class="dropbtn" style="border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 2.5vh; height:2.5vh; margin-left:2vh; border: 2px solid black; margin-top:auto; margin-bottom:auto;"></button>
         <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
-          <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>HELP:</strong> With the analyse of the colormap in different colorspaces you can analyse .
+          <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> The following visualizations of the colormap are showing you, how different the interpolated colors look like inside the different colorspaces.
           </p>
 
         </div>
@@ -965,8 +968,12 @@
         <button class="dropbtn" style="border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 2.5vh; height:2.5vh; margin-left:2vh; border: 2px solid black; margin-top:auto; margin-bottom:auto;"></button>
         <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
-          <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>HELP:</strong> With the analyse of the colormap of the metric, which give you a value for the difference of two colors. For this we analyse the lab space with euclidean distance, with ciede2000, de94 and the din99 space with euclidean
-            distance .......
+          <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> The following visualizations are showing you the ratio value of the euclidean distances and the metrics (DE94, CIEDE2000)
+            to determine the difference of the used key colors, which define the start and the end of a band, in relation to the ratio values of the references (x-values). Use the information of one of the both metrics or the euclidean distance of the DIN99 space
+            to create a colormap as good as possible for the perceptual uniformity (Approach the selected ratio of the difference to the ratio of the reference values).
+          </p>
+
+          <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Attention:</strong> For this analyse only <strong>scaled</strong> band will be used.
           </p>
 
         </div>
@@ -1163,17 +1170,11 @@
         <button class="dropbtn" style="border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 2.5vh; height:2.5vh; margin-left:2vh; border: 2px solid black; margin-top:auto; margin-bottom:auto;"></button>
         <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
-          <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>HELP:</strong> With the analyse of the colormap course, you can see how the colormap run to the hue space and how the colormap changes the lightness (brightness) value.
+          <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> With the analyse of the colormap course you can see how the colormap run inside the different colorspaces. Switch the colorspace to display the different colorspace visualizations.
           </p>
           <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; ">
-            With the course in the hue space you can see how close together the band courses are or if they are crossing. For a good colormap the band courses shouldn’t run to close together and they shouldn't cross. Inside the hue space the course of a scaled band
-            is shown with a solid line with a circle at the start- and end-color. (
-            <strong>Info:</strong>: You can modify the position of a circle with clicking and pressing the mousbotton above the circle and subsequent a move to the new position.) Constant Bands are shown as a quad and can also modify like the circles
-            of the scaled bands. The dashed lines show you the jumps between two bands with different neighboring colors. They are not part of the colormap and they do not take into account for the analysis.
-          </p>
-          <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; ">
-            The course of the colormap through the brightness is also an important part for the analyse. Inside the plot for the brightness course you can evaluate the in- or decrease of the brightness. For neighboring band colors it could be also important to have
-            a maximum or a minimus of difference.
+            Use the colormap course to observe that the colormap parts do not cross or run to close together (At the RGB space the 3D visualization should be helpful).
+            At the visualizations of the HSV, Lab and DIN99 space you can also check the increase and decrease of the lightness or the value.
           </p>
         </div>
       </div>
@@ -1191,7 +1192,7 @@
           <button class="dropbtn" style="margin-right:1vw; border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:1.5vh; margin-bottom:auto;"></button>
           <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
-            <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>INFO:</strong> A constant band is ...
+            <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:20vw; "> <strong>INFO:</strong> Constant bands define one color for a certain section. Inside of the visualization, a constant band will be represented by squares.
             </p>
           </div>
         </div>
@@ -1209,7 +1210,9 @@
         <button class="dropbtn" style=" margin-right:1vw; border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:1.5vh; margin-bottom:auto;"></button>
         <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
-          <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>INFO:</strong> A scaled band is ...
+          <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:20vw; "> <strong>INFO:</strong> Scaled bands define a color gradient for a certain section. Intermediate colors will be interpolate inside the selected colorspace. Inside of the visualization, a scaled band will be represented by two circles and a solid line.
+            The two circles are showing the start and the end color.
+            The line represent the interpolated colors.
           </p>
         </div>
       </div>
@@ -1221,11 +1224,12 @@
               <line x1="10%" y1="50%" x2="90%" y2="50%" stroke-dasharray="10,5" style="stroke:rgb(255,255,255);stroke-width:3" />
           </svg>
         <p class="classAnalyseLabel">: Jump</p>
-        <div class="dropdown" style="widht:auto; margin-right:auto;">
+        <div class="dropdown" style="widht:auto;">
           <button class="dropbtn" style=" margin-right:1vw; border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:1.5vh; margin-bottom:auto;"></button>
-          <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
+          <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3; right: 2vw;">
 
-            <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>INFO:</strong> A jump is ...
+            <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:20vw;"> <strong>INFO:</strong> If a neighbour of a band has a different start (end) color as the end (start) color of this band, there is a jump between those bands.
+              (This jump is not part of the colormap course, but it shows the connection between those bands.) Inside of the visualization, a jump will be represented by a dashed line.
             </p>
           </div>
         </div>
@@ -1320,12 +1324,15 @@
         <button class="dropbtn" style="border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 2.5vh; height:2.5vh; margin-left:2vh; border: 2px solid black; margin-top:auto; margin-bottom:auto;"></button>
         <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
-          <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>HELP:</strong> With the analyse of the colormap in different colorspaces you can analyse .
+          <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> The following visualizations of the colormap are showing you, how different the interpolated colors look like inside the different colorspaces.
           </p>
 
         </div>
       </div>
     </div>
+
+
+
 
     <!----------------	RGB	  --------------->
     <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh;">
@@ -1392,8 +1399,12 @@
         <button class="dropbtn" style="border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 2.5vh; height:2.5vh; margin-left:2vh; border: 2px solid black; margin-top:auto; margin-bottom:auto;"></button>
         <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
-          <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>HELP:</strong> With the analyse of the colormap of the metric, which give you a value for the difference of two colors. For this we analyse the lab space with euclidean distance, with ciede2000, de94 and the din99 space with euclidean
-            distance .......
+          <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> The following visualizations are showing you the ratio value of the euclidean distances and the metrics (DE94, CIEDE2000)
+            to determine the difference of the used key colors, which define the start and the end of a band, in relation to the ratio values of the references (x-values). Use the information of one of the both metrics or the euclidean distance of the DIN99 space
+            to create a colormap as good as possible for the perceptual uniformity (Approach the selected ratio of the difference to the ratio of the reference values).
+          </p>
+
+          <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Attention:</strong> For this analyse only <strong>scaled</strong> band will be used.
           </p>
 
         </div>

@@ -12,7 +12,7 @@ function initAnalysePage(){
 }
 
 function changeCourseSpace(){
-
+console.log(666);
   document.getElementById("id_containerHueCourse").style.display = "none";
   document.getElementById("id_anaylseValue").style.display = "none";
   document.getElementById("id_hueValueOptions").style.display = "none";
@@ -23,18 +23,21 @@ function changeCourseSpace(){
         document.getElementById("id_RGBCourseDiv").style.display = "initial";
         //rgbInit("id_canvasRG","id_canvasRB","id_canvasBG", true);
         drawcolormap_RGBSpace(analysisColormap, "id_canvasRG","id_canvasRB","id_canvasBG", true);
+        animate();
       break;
       case "hsv":
+        stopAnimation();
         document.getElementById("id_containerHueCourse").style.display = "initial";
         document.getElementById("id_anaylseValue").style.display = "initial";
         document.getElementById("id_hueValueOptions").style.display = "initial";
         hueInit("id_anaylseCourseHueBackground");
         document.getElementById("id_setValueRange").value = 100;
-        //document.getElementById("id_hueValueRange").style.display = "inline-block";
+
         hueInit("id_anaylseCourseHueBackground");
         drawcolormap_hueSpace(analysisColormap, "id_anaylseCourseHueBackground",false); //drawcolormap_hueSpace(analysisColormap, "id_workcanvasAnalyseHue");
       break;
       case "lab": case "din99":
+        stopAnimation();
         document.getElementById("id_containerHueCourse").style.display = "initial";
         document.getElementById("id_anaylseValue").style.display = "initial";
         document.getElementById("id_hueValueOptions").style.display = "initial";
@@ -42,7 +45,7 @@ function changeCourseSpace(){
         document.getElementById("id_setValueRange").value = 65;
         hueInit("id_anaylseCourseHueBackground");
         drawcolormap_hueSpace(analysisColormap, "id_anaylseCourseHueBackground",false); //drawcolormap_hueSpace(analysisColormap, "id_workcanvasAnalyseHue");
-        //document.getElementById("id_hueValueRange").style.display = "inline-block";
+
       break;
       default:
       console.log("Error at the changeColorspace function");

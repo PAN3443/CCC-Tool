@@ -377,6 +377,7 @@ function showMyMapsSide(){
   }
 
   if(showSideID == 2){ // Analyse Side
+
     showSideID = 0;
     document.getElementById("id_myListPage").style.display = "initial";
     document.getElementById("id_analysisPage").style.display = "none";
@@ -389,6 +390,7 @@ function showMyMapsSide(){
     bandSketch.clearSketch();
      myList[colormap1SelectIndex] = analysisColormap;
      drawMyList();
+     stopAnimation();
   }
 
 
@@ -406,6 +408,7 @@ function showMyMapsSide(){
      myList[colormap1SelectIndex] = compareColormap1;
      myList[colormap2SelectIndex] = compareColormap2;
     drawMyList();
+    stopAnimation();
   }
 
   if(showSideID == 4){ // add Side

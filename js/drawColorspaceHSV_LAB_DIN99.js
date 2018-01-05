@@ -160,6 +160,7 @@ function hueInit(canvasID){
                       var a99Val =   ((x-xStart)/(xEnd-xStart))*rangeA99+rangeA99Neg;
                       var b99Val = ((y-yStart)/(yEnd-yStart))*rangeB99+rangeB99Neg;
 
+                      var colorDIN99;
                       if(mouseGrappedSpaceObjectID==-1){
                         var l99Val;
                         if(showSideID==2)
@@ -167,7 +168,7 @@ function hueInit(canvasID){
                         if(showSideID==3)
                         l99Val= parseFloat(document.getElementById('id_setValueRangeCompare').value);
 
-                        var colorDIN99 = new classColorDIN99(l99Val,a99Val,b99Val);
+                        colorDIN99 = new classColorDIN99(l99Val,a99Val,b99Val);
                         colorRGB = colorDIN99.calcRGBColor();
                       }
                       else{
@@ -177,13 +178,19 @@ function hueInit(canvasID){
                         if(showSideID==3)
                         l99Val = compareColormap1.getDIN99Color(mouseGrappedSpaceObjectID).getL99Value();
 
-                        var colorDIN99 = new classColorDIN99(l99Val,a99Val,b99Val);
+                        colorDIN99 = new classColorDIN99(l99Val,a99Val,b99Val);
 
                         if(document.getElementById("id_checkboxRGB").checked==true){
                           colorRGB = colorDIN99.calcRGBColorCorrect(errorRGBColor);
                         }
                         else{
                           colorRGB = colorDIN99.calcRGBColor();
+                        }
+                      }
+
+                      if(colorRGB.getRValue()==0 && colorRGB.getGValue()==0 && colorRGB.getBValue()==0){
+                        if(colorDIN99.getL99Value()!=0 || colorDIN99.getA99Value() !=0 || colorDIN99.getB99Value()!=0){
+                          colorRGB = new classColor_RGB(1,1,1);
                         }
                       }
 

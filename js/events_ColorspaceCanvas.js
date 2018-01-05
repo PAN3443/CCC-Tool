@@ -3,7 +3,7 @@
 /////////////////////////////////////
 
 function mouseLeaveColorspace(event) {
-
+  clearInterval(timer2DAnimation);
   document.getElementById(event.target.id).style.cursor = "default";
 
   document.getElementById("id_huePositionLabel").innerHTML = "";
@@ -19,6 +19,22 @@ function mouseLeaveColorspace(event) {
     if (showSideID == 3) {
       drawcolormap_compare_hueSpace(compareColormap1, compareColormap2, "id_compareCourseHueBackground", true);
     }
+  }
+}
+
+
+function hsvLabDinAnimation(){
+  orderColorSketch(colorspaceModus);
+
+  if (showSideID == 2) {
+    drawcolormap_hueSpace(analysisColormap, "id_anaylseCourseHueBackground", false);
+    drawAnalyseMapPreviews();
+    drawAnalyseDifferenceMaps();
+  }
+  if (showSideID == 3) {
+    drawcolormap_compare_hueSpace(compareColormap1, compareColormap2, "id_compareCourseHueBackground", false);
+    drawCompareMapPreviews();
+    drawCompareDifferenceMaps();
   }
 }
 
@@ -234,19 +250,6 @@ function mouseMoveColorspace(event) {
     if (updateSketchID2 != -1)
       bandSketch.setC2(tmpColor, updateSketchID2);
 
-    orderColorSketch(colorspaceModus);
-
-    if (showSideID == 2) {
-      drawcolormap_hueSpace(analysisColormap, "id_anaylseCourseHueBackground", false);
-      drawAnalyseMapPreviews();
-      drawAnalyseDifferenceMaps();
-    }
-    if (showSideID == 3) {
-      drawcolormap_compare_hueSpace(compareColormap1, compareColormap2, "id_compareCourseHueBackground", false);
-      drawCompareMapPreviews();
-      drawCompareDifferenceMaps();
-    }
-
   } else {
 
   }
@@ -257,7 +260,7 @@ function mouseDownColorspace() {
 
   if (mouseAboveSpaceObjectID != -1) {
     mouseGrappedSpaceObjectID = mouseAboveSpaceObjectID;
-
+    timer2DAnimation = setInterval(hsvLabDinAnimation, animationInterval);
     // Calc Band Index
     var saveNext = true;
     var keyCounter = -1;
@@ -394,6 +397,7 @@ function getC2CurrentValue(index) {
 
 function mouseUpColorspace() {
   mouseGrappedSpaceObjectID = -1;
+  clearInterval(timer2DAnimation);
   if (showSideID == 2) {
     drawcolormap_hueSpace(analysisColormap, "id_anaylseCourseHueBackground", true);
   }
@@ -408,6 +412,7 @@ function mouseUpColorspace() {
 /////////////////////////////////////
 
 function mouseLeaveValuePlot(event) {
+  clearInterval(timer2DAnimation);
   document.getElementById(event.target.id).style.cursor = "default";
   mouseAboveSpaceObjectID = -1;
   if (mouseGrappedSpaceObjectID != -1) {
@@ -855,28 +860,19 @@ function mouseMoveValuePlot(event) {
       if (updateSketchID2 != -1)
         bandSketch.setC2(tmpColor, updateSketchID2);
 
-
-      orderColorSketch(colorspaceModus);
-      if (showSideID == 2) {
-        drawcolormap_hueSpace(analysisColormap, "id_anaylseCourseHueBackground", false);
-        drawAnalyseMapPreviews();
-        drawAnalyseDifferenceMaps();
-      }
-      if (showSideID == 3) {
-        drawcolormap_compare_hueSpace(compareColormap1, compareColormap2, "id_compareCourseHueBackground", false);
-        drawCompareMapPreviews();
-        drawCompareDifferenceMaps();
-      }
-
     }
   }
+
+}
+
+function value2DAnimation(){
 
 }
 
 function mouseDownValuePlot() {
   if (mouseAboveSpaceObjectID != -1) {
     mouseGrappedSpaceObjectID = mouseAboveSpaceObjectID;
-
+    timer2DAnimation = setInterval(hsvLabDinAnimation, animationInterval);
     // Calc Band Index
     var saveNext = true;
     var keyCounter = -1;
@@ -966,7 +962,7 @@ function mouseDownValuePlot() {
 }
 
 function mouseUpValuePlot() {
-
+  clearInterval(timer2DAnimation);
   mouseGrappedSpaceObjectID = -1;
 
 }

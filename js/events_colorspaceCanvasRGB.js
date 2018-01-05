@@ -4,7 +4,8 @@
 
 function mouseLeaveColorspaceRGB(event) {
   document.getElementById(event.target.id).style.cursor = "default";
-  //document.getElementById("id_huePositionLabel").innerHTML = "";
+  clearInterval(timer2DAnimation);
+   //document.getElementById("id_huePositionLabel").innerHTML = "";
   mouseAboveSpaceObjectID = -1;
   if (mouseGrappedSpaceObjectID != -1) {
     mouseGrappedSpaceObjectID = -1;
@@ -16,6 +17,25 @@ function mouseLeaveColorspaceRGB(event) {
       drawcolormap_compare_RGBSpace(compareColormap1, compareColormap2, "id_canvasRGCompare","id_canvasRBCompare","id_canvasBGCompare", true);
     }
   }
+}
+
+
+
+function rgb2DAnimation(){
+
+  orderColorSketch(colorspaceModus);
+  if (showSideID == 2) {
+    drawcolormap_RGBSpace(analysisColormap, "id_canvasRG","id_canvasRB","id_canvasBG", false); //drawcolormap_hueSpace(analysisColormap, "id_workcanvasAnalyseHue");
+    drawAnalyseMapPreviews();
+    drawAnalyseDifferenceMaps();
+  }
+  if (showSideID == 3) {
+    drawcolormap_compare_RGBSpace(compareColormap1, compareColormap2, "id_canvasRGCompare","id_canvasRBCompare","id_canvasBGCompare", false);
+    drawCompareMapPreviews();
+    drawCompareDifferenceMaps();
+  }
+
+
 }
 
 function mouseMoveColorspaceRGB(event) {
@@ -186,57 +206,46 @@ function mouseMoveColorspaceRGB(event) {
       if(updateSketchID2 != -1)
           bandSketch.setC2(tmpColor, updateSketchID2);
 
-      orderColorSketch(colorspaceModus);
-      if (showSideID == 2) {
-        drawcolormap_RGBSpace(analysisColormap, "id_canvasRG","id_canvasRB","id_canvasBG", false); //drawcolormap_hueSpace(analysisColormap, "id_workcanvasAnalyseHue");
-        drawAnalyseMapPreviews();
-        drawAnalyseDifferenceMaps();
-      }
-      if (showSideID == 3) {
-        drawcolormap_compare_RGBSpace(compareColormap1, compareColormap2, "id_canvasRGCompare","id_canvasRBCompare","id_canvasBGCompare", false);
-        drawCompareMapPreviews();
-        drawCompareDifferenceMaps();
-      }
 
-      if(showSpace==1){
+        if(showSpace==1){
 
-        var newPos = updateCurrentValue*255-128;
-        var plane_geometry = new THREE.PlaneGeometry( 256, 256, 1, 1 );
-        plane_material = new THREE.MeshLambertMaterial({ color: 0xbdbdbd, side: THREE.DoubleSide });
-        //plane_material.transparent = true;
-        //plane_material.opacity =  1;
-        var plane = new THREE.Mesh( plane_geometry, plane_material );
+          var newPos = updateCurrentValue*255-128;
+          var plane_geometry = new THREE.PlaneGeometry( 256, 256, 1, 1 );
+          plane_material = new THREE.MeshLambertMaterial({ color: 0xbdbdbd, side: THREE.DoubleSide });
+          //plane_material.transparent = true;
+          //plane_material.opacity =  1;
+          var plane = new THREE.Mesh( plane_geometry, plane_material );
 
-        switch (event.target.id) {
-          case "id_canvasRG":
-          case "id_canvasRGCompare":
-            //tmpColor = new classColor_RGB(val1,val2,updateCurrentValue);
-            plane.position.x = 0;
-            plane.position.y = 0;
-            plane.position.z = newPos;
-            break;
-          case "id_canvasRB":
-          case "id_canvasRBCompare":
-            //tmpColor = new classColor_RGB(val1,updateCurrentValue,val2);
-            plane.rotation.x = Math.PI/2;
-            plane.position.x = 0;
-            plane.position.y = newPos;
-            plane.position.z = 0;
+          switch (event.target.id) {
+            case "id_canvasRG":
+            case "id_canvasRGCompare":
+              //tmpColor = new classColor_RGB(val1,val2,updateCurrentValue);
+              plane.position.x = 0;
+              plane.position.y = 0;
+              plane.position.z = newPos;
+              break;
+            case "id_canvasRB":
+            case "id_canvasRBCompare":
+              //tmpColor = new classColor_RGB(val1,updateCurrentValue,val2);
+              plane.rotation.x = Math.PI/2;
+              plane.position.x = 0;
+              plane.position.y = newPos;
+              plane.position.z = 0;
 
-            break;
-          case "id_canvasBG":
-          case "id_canvasBGCompare":
-            //tmpColor = new classColor_RGB(updateCurrentValue,val2,val1);
-            plane.rotation.y = Math.PI+Math.PI/2;
-            plane.position.x = newPos;
-            plane.position.y = 0;
-            plane.position.z = 0;
-            break;
-          default:
-            return;
+              break;
+            case "id_canvasBG":
+            case "id_canvasBGCompare":
+              //tmpColor = new classColor_RGB(updateCurrentValue,val2,val1);
+              plane.rotation.y = Math.PI+Math.PI/2;
+              plane.position.x = newPos;
+              plane.position.y = 0;
+              plane.position.z = 0;
+              break;
+            default:
+              return;
+          }
+          colormapRGB3D.add( plane );
         }
-        colormapRGB3D.add( plane );
-      }
 
 
     }
@@ -247,7 +256,7 @@ function mouseMoveColorspaceRGB(event) {
 function mouseDownColorspaceRGB(event) {
     if(mouseAboveSpaceObjectID!=-1){
       mouseGrappedSpaceObjectID = mouseAboveSpaceObjectID;
-
+      timer2DAnimation = setInterval(rgb2DAnimation, animationInterval);
       // Calc Band Index
           var saveNext=true;
           var keyCounter = -1;
@@ -371,6 +380,8 @@ function mouseDownColorspaceRGB(event) {
 
 }
 
+
+
 function getC1CurrentRGBValue(index,id){
 
   switch (id) {
@@ -418,7 +429,7 @@ function getC2CurrentRGBValue(index,id){
 
 function mouseUpColorspaceRGB() {
   mouseGrappedSpaceObjectID=-1;
-
+  clearInterval(timer2DAnimation);
   if (showSideID == 2) {
     drawcolormap_RGBSpace(analysisColormap, "id_canvasRG","id_canvasRB","id_canvasBG", true); //drawcolormap_hueSpace(analysisColormap, "id_workcanvasAnalyseHue");
   }

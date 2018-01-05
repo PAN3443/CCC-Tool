@@ -56,13 +56,23 @@ function render() {
 
 }
 
+function stopAnimation(){
+console.log(doingAnimation);
+  if(doingAnimation){
+    cancelAnimationFrame( animationID );
+    doingAnimation = false;
+  }
+
+}
+
 function animate() {
-				requestAnimationFrame( animate );
+				animationID = requestAnimationFrame( animate );
 				render();
+        doingAnimation = true;
 				//stats.update();
 }
 
-animate();
+
 
 function initRGB3D()
 {
@@ -186,8 +196,6 @@ function initRGB3D()
   planeBR255.position.y = 128;
   planeBR255.position.z = 0;
 
-
-
   /////////////////////////////////////////////////////////////
 
 
@@ -283,6 +291,7 @@ function initRGB3D()
 	//canvasObj.appendChild( stats.dom );
 
   showSpace=1;
+
 }
 
 

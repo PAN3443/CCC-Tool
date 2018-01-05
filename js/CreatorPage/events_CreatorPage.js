@@ -1662,6 +1662,7 @@ function addBand(type){
                 }
             }
             bandIndex = tribleBands.length-1;
+
         break;
         case 4:
             if(oldBandType == createBandType){
@@ -1790,6 +1791,14 @@ function addBand(type){
                 }
             }
             bandIndex = quadBands.length-1;
+
+            /*console.log(
+              "[new classColor_RGB("+quadBands[bandIndex][0].getRValue()+"," +quadBands[bandIndex][0].getGValue()+"," +quadBands[bandIndex][0].getBValue()+
+              "), new classColor_RGB("+quadBands[bandIndex][1].getRValue()+"," +quadBands[bandIndex][1].getGValue()+"," +quadBands[bandIndex][1].getBValue()+
+              "), new classColor_RGB("+quadBands[bandIndex][2].getRValue()+"," +quadBands[bandIndex][2].getGValue()+"," +quadBands[bandIndex][2].getBValue()+
+              "),new classColor_RGB("+quadBands[bandIndex][3].getRValue()+"," +quadBands[bandIndex][3].getGValue()+"," +quadBands[bandIndex][3].getBValue()+
+              "),new classColor_RGB("+quadBands[bandIndex][4].getRValue()+"," +quadBands[bandIndex][4].getGValue()+"," +quadBands[bandIndex][4].getBValue()+")]"
+            )*/
         break;
         default:
             console.log("Error saveBandToArray function");

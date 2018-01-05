@@ -38,6 +38,7 @@ function changeCourseSpaceCompare(){
         rgbInit("id_canvasRGCompare","id_canvasRBCompare","id_canvasBGCompare", true);
         //drawcolormap_RGBSpace(compareColormap1, "id_canvasRG","id_canvasRB","id_canvasBG", true);
         drawcolormap_compare_RGBSpace(compareColormap1, compareColormap2, "id_canvasRGCompare","id_canvasRBCompare","id_canvasBGCompare", true);
+        animate();
       break;
       case "hsv":
         document.getElementById("id_containerHueCourseCompare").style.display = "initial";
@@ -47,6 +48,7 @@ function changeCourseSpaceCompare(){
         document.getElementById("id_setValueRangeCompare").value = 100;
         //drawcolormap_hueSpace(compareColormap1, "id_anaylseCourseHueBackground",false);
         drawcolormap_compare_hueSpace(compareColormap1, compareColormap2, "id_compareCourseHueBackground",false);
+        stopAnimation();
       break;
       case "lab": case "din99":
         document.getElementById("id_containerHueCourseCompare").style.display = "initial";
@@ -56,6 +58,7 @@ function changeCourseSpaceCompare(){
         document.getElementById("id_setValueRangeCompare").value = 65;
         //drawcolormap_hueSpace(compareColormap1, "id_anaylseCourseHueBackground",false);
         drawcolormap_compare_hueSpace(compareColormap1, compareColormap2,"id_compareCourseHueBackground",false);
+        stopAnimation();
       break;
       default:
       console.log("Error at the changeColorspace function");
