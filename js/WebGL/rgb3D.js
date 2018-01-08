@@ -57,7 +57,6 @@ function render() {
 }
 
 function stopAnimation(){
-console.log(doingAnimation);
   if(doingAnimation){
     cancelAnimationFrame( animationID );
     doingAnimation = false;

@@ -1124,14 +1124,12 @@ function saveBandToArray(){
         case 0:
             if(newBandIsAdded == false){
                 activColorIndex = 0;
-                var tmpRGB = getRGBColor();
-                constBands.push(tmpRGB);
+                constBands.push(getRGBColor());
                 newBandIsAdded=true;
             }
             else{
                 activColorIndex = 0;
-                var tmpRGB = getRGBColor();
-                constBands[constBands.length-1] = tmpRGB;
+                constBands[constBands.length-1] = getRGBColor();
             }
         break;
         case 1:
@@ -1139,21 +1137,17 @@ function saveBandToArray(){
                 var tmpArray = [];
 
                 activColorIndex = 0;
-                var tmpRGB = getRGBColor();
-                tmpArray.push(tmpRGB);
+                tmpArray.push(getRGBColor());
                 activColorIndex = 4;
-                tmpRGB = getRGBColor();
-                tmpArray.push(tmpRGB);
+                tmpArray.push(getRGBColor());
                 scaleBands.push(tmpArray);
                 newBandIsAdded=true;
             }
             else{
                 activColorIndex = 0;
-                var tmpRGB = getRGBColor();
-                scaleBands[scaleBands.length-1][0] = tmpRGB;
+                scaleBands[scaleBands.length-1][0] = getRGBColor();
                 activColorIndex = 4;
-                tmpRGB = getRGBColor();
-                scaleBands[scaleBands.length-1][1] = tmpRGB;
+                scaleBands[scaleBands.length-1][1] = getRGBColor();
             }
         break;
         case 2:
@@ -1161,27 +1155,21 @@ function saveBandToArray(){
                 //doubleBands
                 var tmpArray = [];
                 activColorIndex = 0;
-                var tmpRGB = getRGBColor();
-                tmpArray.push(tmpRGB);
+                tmpArray.push(getRGBColor());
                 activColorIndex = 2;
-                tmpRGB = getRGBColor();
-                tmpArray.push(tmpRGB);
+                tmpArray.push(getRGBColor());
                 activColorIndex = 4;
-                tmpRGB = getRGBColor();
-                tmpArray.push(tmpRGB);
+                tmpArray.push(getRGBColor());
                 doubleBands.push(tmpArray);
                 newBandIsAdded=true;
             }
             else{
                 activColorIndex = 0;
-                var tmpRGB = getRGBColor();
-                doubleBands[doubleBands.length-1][0] = tmpRGB;
+                doubleBands[doubleBands.length-1][0] = getRGBColor();
                 activColorIndex = 2;
-                tmpRGB = getRGBColor();
-                doubleBands[doubleBands.length-1][1] = tmpRGB;
+                doubleBands[doubleBands.length-1][1] = getRGBColor();
                 activColorIndex = 4;
-                tmpRGB = getRGBColor();
-                doubleBands[doubleBands.length-1][2] = tmpRGB;
+                doubleBands[doubleBands.length-1][2] = getRGBColor();
             }
         break;
         case 3:
@@ -1189,33 +1177,25 @@ function saveBandToArray(){
                 //tribleBands
                 var tmpArray = [];
                  activColorIndex = 0;
-                var tmpRGB = getRGBColor();
-                tmpArray.push(tmpRGB);
+                tmpArray.push(getRGBColor());
                 activColorIndex = 1;
-                tmpRGB = getRGBColor();
-                tmpArray.push(tmpRGB);
+                tmpArray.push(getRGBColor());
                 activColorIndex = 3;
-                tmpRGB = getRGBColor();
-                tmpArray.push(tmpRGB);
+                tmpArray.push(getRGBColor());
                 activColorIndex = 4;
-                tmpRGB = getRGBColor();
-                tmpArray.push(tmpRGB);
+                tmpArray.push(getRGBColor());
                 tribleBands.push(tmpArray);
                 newBandIsAdded=true;
             }
             else{
                  activColorIndex = 0;
-                var tmpRGB = getRGBColor();
-                tribleBands[tribleBands.length-1][0] = tmpRGB;
+                tribleBands[tribleBands.length-1][0] = getRGBColor();
                  activColorIndex = 1;
-                var tmpRGB = getRGBColor();
-                tribleBands[tribleBands.length-1][1] = tmpRGB;
+                tribleBands[tribleBands.length-1][1] = getRGBColor();
                  activColorIndex = 3;
-                var tmpRGB = getRGBColor();
-                tribleBands[tribleBands.length-1][2] = tmpRGB;
+                tribleBands[tribleBands.length-1][2] = getRGBColor();
                  activColorIndex = 4;
-                var tmpRGB = getRGBColor();
-                tribleBands[tribleBands.length-1][3] = tmpRGB;
+                tribleBands[tribleBands.length-1][3] = getRGBColor();
             }
         break;
         case 4:
@@ -1223,39 +1203,29 @@ function saveBandToArray(){
                 //quadBands
                 var tmpArray = [];
                 activColorIndex = 0;
-                var tmpRGB = getRGBColor();
-                tmpArray.push(tmpRGB);
+                tmpArray.push(getRGBColor());
                 activColorIndex = 1;
-                tmpRGB = getRGBColor();
-                tmpArray.push(tmpRGB);
+                tmpArray.push(getRGBColor());
                 activColorIndex = 2;
-                tmpRGB = getRGBColor();
-                tmpArray.push(tmpRGB);
+                tmpArray.push(getRGBColor());
                 activColorIndex = 3;
-                tmpRGB = getRGBColor();
-                tmpArray.push(tmpRGB);
+                tmpArray.push(getRGBColor());
                 activColorIndex = 4;
-                tmpRGB = getRGBColor();
-                tmpArray.push(tmpRGB);
+                tmpArray.push(getRGBColor());
                 quadBands.push(tmpArray);
                 newBandIsAdded=true;
             }
             else{
                 activColorIndex = 0;
-                var tmpRGB = getRGBColor();
-                quadBands[quadBands.length-1][3] = tmpRGB;
+                quadBands[quadBands.length-1][0] = getRGBColor();
                 activColorIndex = 1;
-                tmpRGB = getRGBColor();
-                quadBands[quadBands.length-1][3] = tmpRGB;
+                quadBands[quadBands.length-1][1] = getRGBColor();
                 activColorIndex = 2;
-                tmpRGB = getRGBColor();
-                quadBands[quadBands.length-1][3] = tmpRGB;
+                quadBands[quadBands.length-1][2] = getRGBColor();
                 activColorIndex = 3;
-                tmpRGB = getRGBColor();
-                quadBands[quadBands.length-1][3] = tmpRGB;
+                quadBands[quadBands.length-1][3] = getRGBColor();
                 activColorIndex = 4;
-                tmpRGB = getRGBColor();
-                quadBands[quadBands.length-1][3] = tmpRGB;
+                quadBands[quadBands.length-1][4] = getRGBColor();
             }
         break;
         default:
@@ -2006,7 +1976,7 @@ function colormapRefInputChange(e){
     else{
       bandSketch.setRefR2(bandSketch.getBandLenght()-1,parseFloat(document.getElementById("id_linearMap_InputRightRef").value));
     }*/
-    createColormap = bandSketch.sketch2Colormap(colorspaceModus);
+    createColormap = bandSketch.sketch2Colormap(colorspaceModus, createColormap.getColormapName());
     orderColorSketch(colorspaceModus);
   }
 }

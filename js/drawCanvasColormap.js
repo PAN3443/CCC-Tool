@@ -762,7 +762,7 @@ function createKeyTextBox(leftVal, topVal, tmpText) {
   p.style.paddingRight = 5 + "px";
   p.style.border = "1px solid rgb(0,0,0)";
   p.style.margin = "0px";
-  p.style.zIndex = "51";
+  p.style.zIndex = tmpZIndex;
 
   p.style.position = "absolute";
   p.style.top = Math.round(topVal) + "px";
@@ -790,7 +790,7 @@ function createKeyInputBox(leftVal, topVal, tmpText, index) {
   inputField.style.paddingRight = 5 + "px";
   //inputField.style.border = "2px solid rgb(0,0,0)";
   inputField.style.margin = "0px";
-  inputField.style.zIndex = "51";
+  inputField.style.zIndex = tmpZIndex;
 
   inputField.style.position = "absolute";
   inputField.style.top = Math.round(topVal) + "px";
@@ -835,7 +835,7 @@ function changeKeyValueInput(keyIndex, fielID) {
   }
 
   if(showSideID == 1){
-    createColormap = bandSketch.sketch2Colormap(colorspaceModus);
+    createColormap = bandSketch.sketch2Colormap(colorspaceModus, createColormap.getColormapName());
     drawCanvasColormap("id_linearColormap",linearMap_resolution_X, linearMap_resolution_Y, createColormap);
     drawKeys("id_keyColormap",key_resolution_X, key_resolution_Y, createColormap, "id_keyColormapLinesBottom",false, true)
     fillTable();

@@ -67,6 +67,7 @@ var hue_resolution_Y = 750;//1500; // hue colorspace
 // using colormap
 var colorspaceModus = "rgb"; // 0=rgb,1=hsv,2=lab,3=din99
 
+var tmpZIndex = 1;
 
 ////////// Canvas colorspaceCenter
 var colorspaceCenterX;

@@ -1,7 +1,7 @@
 function drawMyList(){
 
     for(var i=0; i<myList.length; i++){
-
+        console.log(myList[i].getColormapName());
       drawCanvasColormap("id_canvasMyListColormap"+i, myList_resolution_X,  myList_resolution_Y, myList[i]);
       document.getElementById("id_canvasMyListColormap"+i).style.border = "0.2vh solid rgb(0,0,0)";
 

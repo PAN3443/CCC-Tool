@@ -8,9 +8,10 @@ window.onload = function() {
   document.getElementById('id_creatorPage').style.display = "none";
   document.getElementById('id_comparePage').style.display = "none";
   document.getElementById('id_analysisPage').style.display = "none";
-  document.getElementById('id_editPage').style.display = "none";
+  document.getElementById('id_tutorialPage').style.display = "none";
 
   document.getElementById('id_ButtonToMyMapsPage').addEventListener("click", showMyMapsSide);
+  document.getElementById('id_ButtonToTutorialPage').addEventListener("click", showTutorialSide);
   document.getElementById('id_inputData').addEventListener("change", readSingleFile);
 
   createColormap = new xclassColorMap();
@@ -80,7 +81,7 @@ window.onload = function() {
   // Band Editor
   document.getElementById('cancelBandEdit').addEventListener("click", cancelBandEditor);
   document.getElementById('acceptBandEdit').addEventListener("click", acceptBandEditor);
-  //document.getElementById('helpBandEdit').addEventListener("mouseenter", helpBandEditor);
+  //
   document.getElementById('deleteBandEdit').addEventListener("click", deleteBandEditor);
   document.getElementById('bandEdit_LeftNeiColor').addEventListener("click", leftNeiColorToR1);
   document.getElementById('bandEdit_RightNeiColor').addEventListener("click", rightNeiColorToR2);
@@ -94,6 +95,8 @@ window.onload = function() {
   document.getElementById('bandEdit_InputRightRef').addEventListener("keyup", checkR2Input);
   document.getElementById('bandEdit_InputLeftRef').addEventListener("change", checkR1Input_Change);
   document.getElementById('bandEdit_InputRightRef').addEventListener("change", checkR2Input_Change);
+  document.getElementById('helpBandEdit').addEventListener("mouseenter", showHelpBandEditor);
+  document.getElementById('helpBandEdit').addEventListener("mouseleave", hiddeHelpBandEditor);
 
   ////
   // Creat Colormap Menue
@@ -108,6 +111,8 @@ window.onload = function() {
   document.getElementById('id_buttonExportCreateColormap').addEventListener("click", createSideExport);
   document.getElementById('id_buttonLoadCreateColormap').addEventListener("click", loadColormapCreateSide);
   document.getElementById('exportSide_MergingCheckbox').addEventListener("change", exportSide_ChangeMerging);
+  document.getElementById('id_buttonHelpCreateColormap').addEventListener("mouseleave", createPage_hideHelp);
+  document.getElementById('id_buttonHelpCreateColormap').addEventListener("mouseenter", createPage_showHelp);
 
   // init //
   drawHSBackground("id_canvasPickerHS");
@@ -331,15 +336,15 @@ function orderColorSketch(forColorspace) {
   if (showSideID == 2) {
     sketchObject = document.getElementById("id_analyseColormapSketch");
     sketchRefObj = document.getElementById("id_analyseColormapSketch_Ref");
-    analysisColormap = bandSketch.sketch2Colormap(forColorspace);
+    analysisColormap = bandSketch.sketch2Colormap(forColorspace, analysisColormap.getColormapName());
     //drawcolormap_hueSpace(analysisColormap, "id_anaylseCourseHueBackground",false); //drawcolormap_hueSpace(analysisColormap, "id_workcanvasAnalyseHue");
   }
 
   if (showSideID == 3) {
     sketchObject = document.getElementById("id_compare1ColormapSketch");
     sketchRefObj = document.getElementById("id_compare1ColormapSketch_Ref");
-    compareColormap1 = bandSketch.sketch2Colormap(forColorspace);
-    compareColormap2 = bandSketch2.sketch2Colormap(forColorspace);
+    compareColormap1 = bandSketch.sketch2Colormap(forColorspace, compareColormap1.getColormapName());
+    compareColormap2 = bandSketch2.sketch2Colormap(forColorspace, compareColormap2.getColormapName());
   }
 
 
@@ -348,7 +353,7 @@ function orderColorSketch(forColorspace) {
     if (showSideID == 1) {
       // show and draw the colormap
       document.getElementById("id_LinearMap_Table_Div").style.display = "initial";
-      createColormap = bandSketch.sketch2Colormap(forColorspace);
+      createColormap = bandSketch.sketch2Colormap(forColorspace, createColormap.getColormapName());
       drawCanvasColormap("id_linearColormap", linearMap_resolution_X, linearMap_resolution_Y, createColormap);
       drawKeys("id_keyColormap", key_resolution_X, key_resolution_Y, createColormap, "id_keyColormapLinesBottom", false, true)
       fillTable();
@@ -793,7 +798,7 @@ function changeKeyValueInputSketch(sketchIndex, doR1, fielID, doBandSketch2) {
     }
 
     if (showSideID == 3) {
-      compareColormap2 = bandSketch2.sketch2Colormap(colorspaceModus);
+      compareColormap2 = bandSketch2.sketch2Colormap(colorspaceModus, compareColormap2.getColormapName());
       drawAnalyseDifferenceMaps();
     }
   } else {
@@ -804,19 +809,19 @@ function changeKeyValueInputSketch(sketchIndex, doR1, fielID, doBandSketch2) {
     }
 
     if (showSideID == 1) {
-      createColormap = bandSketch.sketch2Colormap(colorspaceModus);
+      createColormap = bandSketch.sketch2Colormap(colorspaceModus, createColormap.getColormapName());
       drawCanvasColormap("id_linearColormap", linearMap_resolution_X, linearMap_resolution_Y, createColormap);
       drawKeys("id_keyColormap", key_resolution_X, key_resolution_Y, createColormap, "id_keyColormapLinesBottom", false, true)
       fillTable();
     }
 
     if (showSideID == 2) {
-      analysisColormap = bandSketch.sketch2Colormap(colorspaceModus);
+      analysisColormap = bandSketch.sketch2Colormap(colorspaceModus, analysisColormap.getColormapName());
       drawAnalyseDifferenceMaps();
     }
 
     if (showSideID == 3) {
-      compareColormap1 = bandSketch.sketch2Colormap(colorspaceModus);
+      compareColormap1 = bandSketch.sketch2Colormap(colorspaceModus, compareColormap1.getColormapName());
       drawAnalyseDifferenceMaps();
     }
   }

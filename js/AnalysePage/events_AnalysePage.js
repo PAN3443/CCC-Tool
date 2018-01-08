@@ -12,7 +12,6 @@ function initAnalysePage(){
 }
 
 function changeCourseSpace(){
-console.log(666);
   document.getElementById("id_containerHueCourse").style.display = "none";
   document.getElementById("id_anaylseValue").style.display = "none";
   document.getElementById("id_hueValueOptions").style.display = "none";

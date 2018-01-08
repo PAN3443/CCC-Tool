@@ -476,7 +476,7 @@ class classBandSketch{
   }
 
 
-  sketch2Colormap(colorspace){
+  sketch2Colormap(colorspace, name){
 
       var saveNext = true;
       var tmpColormap = new xclassColorMap();
@@ -518,7 +518,7 @@ class classBandSketch{
         tmpColormap.calcBands();
 
         //tmpColormap.setColormapName(document.getElementById("id_InputMapName").value);
-
+        tmpColormap.setColormapName(name);
         return tmpColormap;
   }
 

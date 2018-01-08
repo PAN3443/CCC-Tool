@@ -96,7 +96,12 @@ function bandOnDragEnd(event) {
     else{
         // hide all drop positions
         var tmpRect = document.getElementById("id_colormapSketch").getBoundingClientRect();
-        var tmpLength = tmpRect.width/(bandSketch.getBandLenght()-1);//100/(bandSketch.getBandLenght()-1);
+        var tmpLength;
+        tmpLength = tmpRect.width/(bandSketch.getBandLenght());
+        //if(bandSketch.getBandLenght()==1)
+        // tmpLength = tmpRect.width;//100/(bandSketch.getBandLenght()-1);
+        //else
+        // tmpLength = tmpRect.width/(bandSketch.getBandLenght()-1);//100/(bandSketch.getBandLenght()-1);
 
 
         for(var i=0; i<dropPositionElements.length; i++){

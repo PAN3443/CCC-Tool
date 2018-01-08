@@ -55,3 +55,16 @@ div.sticky {
   top: 0;
   z-index: 49;
 }
+
+.helpDiv{
+  background: rgb(255,250,205);
+  border: 1px solid black;
+  display: none;
+  padding: 0.3vh;
+  line-height:2.2vh;
+  font-size: 2vh;
+  vertical-align:middle;
+  text-align:left;
+  position: absolute;
+  z-index: 105;
+}

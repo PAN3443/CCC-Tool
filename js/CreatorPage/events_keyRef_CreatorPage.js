@@ -6,10 +6,15 @@ function mouseEnterKeyRef(){
 function mouseLeaveKeyRef(){
   overKeyID = -1;
   grappedKey = false;
-
+  clearInterval(timer2DAnimation);
   if(mouseKeyChangeUp == false){
       saveCreateProcess();
   }
+}
+
+
+function keyChange2DAnimation(){
+  orderColorSketch(colorspaceModus);
 }
 
 function mouseMoveKeyRef(event){
@@ -55,7 +60,6 @@ function mouseMoveKeyRef(event){
    if(newRef >= bandSketch.getRefR1(overKeyID) && newRef <= bandSketch.getRefR2(overKeyID+1)){
      bandSketch.setRefR2(overKeyID,newRef);
      bandSketch.setRefR1(overKeyID+1,newRef);
-     orderColorSketch(colorspaceModus);
    }
 
  }
@@ -64,6 +68,7 @@ function mouseMoveKeyRef(event){
 function mouseDownKeyRef(){
 
   if(overKeyID!=-1){
+    timer2DAnimation = setInterval(keyChange2DAnimation, animationInterval);
     grappedKey = true;
     mouseKeyChangeUp = false;
   }
@@ -76,6 +81,6 @@ function mouseUpKeyRef(){
   mouseKeyChangeUp = true;
   /////////////
   ////  Save Band Process
-
+  clearInterval(timer2DAnimation);
   saveCreateProcess();
 }

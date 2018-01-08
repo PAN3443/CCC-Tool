@@ -4,7 +4,7 @@ function initExportWindow(){
 
   //drawCanvasColormap("id_linearColormapExport",linearMap_resolution_X, linearMap_resolution_Y, exportColormap);
 
-
+  tmpZIndex=105;
   document.getElementById("exportSide_IntervalApproximationCheckbox").checked = false;
   document.getElementById('exportSide_IntervallInput').value = "10";
   document.getElementById('exportSide_MergingCheckbox').checked=true;
@@ -38,7 +38,7 @@ function initExportWindow(){
 
 function cancelExport(){
     document.getElementById("id_exportWindow").style.display = "none";
-
+    tmpZIndex=1;
     if(showSideID==1)
       orderColorSketch(colorspaceModus);
     else{
@@ -47,8 +47,6 @@ function cancelExport(){
           refElementContainer.pop();
       }
      }
-
-
     exportSideOpen = false;
 }
 

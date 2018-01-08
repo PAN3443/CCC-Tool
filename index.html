@@ -87,13 +87,15 @@
   <!-- Compare PAGE -->
   <script src="js/ComparePage/events_ComparePage.js"></script>
 
+  <!-- Tutorial PAGE -->
+  <script src="js/Tutorial/events_TutorialPage.js"></script>
+
   <!-- WebGL -->
   <script src="js/WebGL/three/three.min.js"></script>
   <script src="js/WebGL/three/Detector.js"></script>
   <script src="js/WebGL/three/stats.min.js"></script>
   <script src="js/WebGL/three_global.js"></script>
   <script src="js/WebGL/rgb3D.js"></script>
-
 
   <!-- global -->
   <script src="js/events_global.js"></script>
@@ -146,15 +148,12 @@
     </div>
   </div>
 
-
-
-
   <div class="row" style="width:100%; background:rgb(0,191,255); z-index: 100;">
     <div class="dropdown" style="z-index: 100;">
       <button class="dropbtn" style="z-index: 100;">Go to ...</button>
       <div class="dropdown-content" style="z-index: 100;">
         <button id="id_ButtonToMyMapsPage" style="z-index: 100;">My Maps</button>
-        <button style="z-index: 100;" >Tutorial</button>
+        <button id="id_ButtonToTutorialPage" style="z-index: 100;" >Tutorial</button>
         <button style="z-index: 100;" >About</button>
       </div>
     </div>
@@ -188,12 +187,19 @@
         <button class="classButtonDark" id="button_DIN99" title="DIN99" onclick="changeColorspace(3)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:3vh; font-size:1.75vh; margin:1vh; border: 0.2vh solid white; color:white;">DIN99</button>
       </div>
     </div>
+
+    <div id="id_Tutorial_Menue" style="height:100%; width: auto; margin-left:auto; display:none;">
+      <div class="row" style="height:100%; width: 100%;">
+        <h3 style="height:1.5cm; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:1cm; font-size:2vh;"> Tutorial for: </h3>
+        <button class="classButtonDark" onclick="changeTutorial(0)" id="button_showMyMapsTutorial" title="My Maps Tutorial"  style="border-radius: 0.3vh; background: none; width: auto; height:3vh; font-size:1.75vh; margin:1vh; border: 0.2vh solid rgb(0,191,255); color: rgb(0,191,255); ">My Maps</button>
+        <button class="classButtonDark" onclick="changeTutorial(1)" id="button_showCreateTutorial" title="Create Tutorial" style="border-radius: 0.3vh; background: none; width: auto; height:3vh; font-size:1.75vh; margin:1vh; border: 0.2vh solid white; color:white; ">Create Colormap</button>
+        <button class="classButtonDark" onclick="changeTutorial(2)" id="button_showExportTutorial" title="Export Tutorial" style="border-radius: 0.3vh; background: none; width: auto; height:3vh; font-size:1.75vh; margin:1vh; border: 0.2vh solid white; color:white; ">Export Colormap</button>
+        <button class="classButtonDark" onclick="changeTutorial(3)" id="button_showAnalyseTutorial" title="Analyse Tutorial" style="border-radius: 0.3vh; background: none; width: auto; height:3vh; font-size:1.75vh; margin:1vh; border: 0.2vh solid white; color:white;">Analyse Colormap</button>
+      </div>
+    </div>
+
   </div>
   </div>
-
-
-
-
 
 
   <!--
@@ -357,7 +363,49 @@
 
 
 
-  <!------------------	Help	  ------------------->
+  <!------------------	Help	CreatorPage  ------------------->
+
+  <div class="helpDiv" id="createSide_colorspaceHelp">
+    <div class="row" style="margin:0px;">
+      <p style="margin:0px;">
+        Change here the colorspace for the interpolation.
+      </p>
+      <p style="margin:0px;">
+     	  &#8679;
+      </p>
+    </div>
+  </div>
+
+  <div class="helpDiv" id="createSide_sketchHelp">
+    &#8679; Drag the created bands from the bottom and drop it here. You can open a window for editing the band by mouse click on the band. Edit the reference values with the input fields under this field.
+  </div>
+
+  <div class="helpDiv" id="createSide_add1Help">
+    &#8679; Create a new constant band.
+  </div>
+
+  <div class="helpDiv" id="createSide_add2Help">
+    &#8679; Create a new scaled band.
+  </div>
+
+  <div class="helpDiv" id="createSide_add3Help">
+    &#8679; Create a new set of 2 scaled bands.
+  </div>
+
+  <div class="helpDiv" id="createSide_add4Help">
+    &#8679; Create a new set of 3 scaled bands.
+  </div>
+
+  <div class="helpDiv" id="createSide_add5Help">
+    &#8679; Create a new set of 4 scaled bands.
+  </div>
+
+
+  <div class="helpDiv" id="createSide_expandtableHelp">
+    &#8678; Click here to expand the table of the colormap
+  </div>
+
+  <!------------------  ------------------->
   <!--
         -----------------------------------------------
         ----------------	MY List	  -----------------
@@ -752,8 +800,8 @@
         <button class="dropbtn" style=" margin-right:1vw; border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:1.5vh; margin-bottom:auto;"></button>
         <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3; right: 2vw;">
 
-          <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:20vw; float:right:"> <strong>INFO:</strong> If a neighbour of a band has a different start (end) color as the end (start) color of this band, there is a jump between those bands.
-            (This jump is not part of the colormap course, but it shows the connection between those bands.) Inside of the visualization, a jump will be represented by a dashed line.
+          <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:20vw; float:right:"> <strong>INFO:</strong> If a neighbour of a band has a different start (end) color as the end (start) color of this band, there is a jump between the band and his neighbour.
+            This jump is not part of the colormap course, but it shows the connection between those bands. Inside of the visualization, a jump will be represented by a dashed line.
           </p>
         </div>
       </div>
@@ -1156,8 +1204,6 @@
 
 
 
-
-
     <!--
             ----------------	Colormap Course	  -----------------
             -->
@@ -1228,8 +1274,8 @@
           <button class="dropbtn" style=" margin-right:1vw; border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:1.5vh; margin-bottom:auto;"></button>
           <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3; right: 2vw;">
 
-            <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:20vw;"> <strong>INFO:</strong> If a neighbour of a band has a different start (end) color as the end (start) color of this band, there is a jump between those bands.
-              (This jump is not part of the colormap course, but it shows the connection between those bands.) Inside of the visualization, a jump will be represented by a dashed line.
+            <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:20vw;"> <strong>INFO:</strong> If a neighbour of a band has a different start (end) color as the end (start) color of this band, there is a jump between the band and his neighbour.
+              This jump is not part of the colormap course, but it shows the connection between those bands. Inside of the visualization, a jump will be represented by a dashed line.
             </p>
           </div>
         </div>
@@ -1542,12 +1588,31 @@
   </div>
 
   <!--
-        -----------------------------------------------
-        ----------------	Edit	  -----------------
-        -----------------------------------------------
+        ---------------------------------------------------
+        ----------------	Tutorial Window  -------------
+        ---------------------------------------------------
         -->
-  <div id="id_editPage" style="width: 100%; height:auto;   background:white;">
+  <div id="id_tutorialPage" style="width: 100%; height:auto; background:white;">
 
+
+    <div id="id_tutorialMyMapsPage" style="width: 100%; height:auto;">
+1
+    </div>
+    <div id="id_tutorialCreatePage" style="width: 100%; height:auto; display:none;">
+2
+
+<video style="width:50%; margin-left:25%;" controls>
+  <source src="video/tutorial_createColormap1.mp4" type="video/mp4">
+  Your browser does not support HTML5 video.
+</video>
+
+    </div>
+    <div id="id_tutorialExportPage" style="width: 100%; height:auto; display:none;">
+3
+    </div>
+    <div id="id_tutorialAnalysePage" style="width: 100%; height:auto; display:none;">
+4
+    </div>
   </div>
 
   <!--
@@ -1697,6 +1762,45 @@
 
   </div>
 
+  <!------------------	Help	CreatorPage  ------------------->
+
+  <div class="helpDiv" id="bandEditor_colorpickerHelp">
+    &#8679; Use the colorpicker to change the selected color. Select a color by clicking on it (green border).
+  </div>
+
+  <div class="helpDiv" id="bandEditor_rightNeighbourColorHelp">
+     	&#8678; Click on the right neighbour color to set the C2 color equal to the neighbour color (In case of scaled bands it results in a dual key).
+  </div>
+
+  <div class="helpDiv" id="bandEditor_leftNeighbourColorHelp">
+    <div class="row" style="margin:0px;">
+      <p style="margin:0px;">
+        Click on the left neighbour color to set the C1 color equal to the neighbour color (In case of scaled bands it results in a dual key).
+      </p>
+
+      <p style="margin:0px;">
+     	  &#8680;
+      </p>
+    </div>
+  </div>
+
+
+  <div class="helpDiv" id="bandEditor_selectC1Help">
+     		&#8681; Select C1 for Colorpicker
+  </div>
+
+  <div class="helpDiv" id="bandEditor_selectC2Help">
+     		&#8681; Select C2 for Colorpicker
+  </div>
+
+
+  <div class="helpDiv" id="bandEditor_arrowButtonHelp" style="width:20vw;">
+    &#8679; Use the arrow buttons to set the other color of the band equal to the color next to the button and create a constant band.
+  </div>
+
+
+
+
 
   <!--
         ----------------------------------------------------
@@ -1819,7 +1923,7 @@
         ---------------------------------------------------
         -->
 
-  <div id="id_exportWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:50; top:0px; left:0px; bottom:0px; display:none;">
+  <div id="id_exportWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
 
     <div style="margin-top:5vh; height:auto; max-height:90vh; background:rgb(230,230,230); width:100%; border-top: 1vh solid black; overflow:none;">
 
@@ -2002,6 +2106,9 @@
 
 
 
+
+
+
   <!--
         -----------------------------------------------
         ----------------	Footer	  -----------------
@@ -2010,7 +2117,7 @@
 
   <div class="row" style="width: 100%; height: 10vh; background:black; margin:0px; z-index:100; margin-top:2vh;">
 
-    <img title="BSV Workgroup, University Leipzig" src="img/bsv_logo_small.png" alt="Logo: The Coloroptimizer" style="margin-top:1vh; margin-bottom:1vh;margin-left:10%; height: 8vh; cursor: pointer;">
+    <!--img title="BSV Workgroup, University Leipzig" src="img/bsv_logo_small.png" alt="Logo: The Coloroptimizer" style="margin-top:1vh; margin-bottom:1vh;margin-left:10%; height: 8vh; cursor: pointer;"-->
 
     <p style="color:white; float:right; margin-left:auto;margin-right:1cm;">Copyright © 2017</p>
 

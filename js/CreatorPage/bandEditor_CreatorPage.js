@@ -125,10 +125,73 @@ function deleteBandEditor(){
 
 function showHelpBandEditor(){
 
+  var body = document.body;
+  var docEl = document.documentElement;
+
+  var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
+  var scrollLeft = window.pageXOffset || docEl.scrollLeft || body.scrollLeft;
+
+  var clientTop = docEl.clientTop || body.clientTop || 0;
+  var clientLeft = docEl.clientLeft || body.clientLeft || 0;
+
+  // Colorpicker
+  var workrect = document.getElementById("id_bandEditCanvasPickerHS").getBoundingClientRect();
+  var top = (workrect.top+workrect.height) + scrollTop - clientTop;
+  var left = workrect.left + scrollLeft - clientLeft;
+  document.getElementById("bandEditor_colorpickerHelp").style.display="inline-block";
+  document.getElementById("bandEditor_colorpickerHelp").style.left= left+"px";
+  document.getElementById("bandEditor_colorpickerHelp").style.top= top+"px";
+
+  // Neighbour Colors
+  workrect = document.getElementById("bandEdit_RightNeiColor").getBoundingClientRect();
+  top = workrect.top + scrollTop - clientTop;
+  left = workrect.left+workrect.width + scrollLeft - clientLeft;
+  document.getElementById("bandEditor_rightNeighbourColorHelp").style.display="inline-block";
+  document.getElementById("bandEditor_rightNeighbourColorHelp").style.left= left+"px";
+  document.getElementById("bandEditor_rightNeighbourColorHelp").style.top= top+"px";
+
+  workrect = document.getElementById("bandEdit_LeftNeiColor").getBoundingClientRect();
+  top = workrect.top + scrollTop - clientTop;
+  var right = workrect.right+workrect.width;
+  console.log(right+" "+left);
+  document.getElementById("bandEditor_leftNeighbourColorHelp").style.display="inline-block";
+  document.getElementById("bandEditor_leftNeighbourColorHelp").style.right= left+"px";
+  document.getElementById("bandEditor_leftNeighbourColorHelp").style.top= top+"px";
+
+  // Select Colors
+  document.getElementById("bandEditor_selectC1Help").style.display="inline-block";
+  workrect = document.getElementById("bandEdit_LeftColor").getBoundingClientRect();
+  var workrect2 = document.getElementById("bandEditor_selectC1Help").getBoundingClientRect();
+  top = workrect.top-workrect2.height+ scrollTop - clientTop;
+  left = workrect.left + scrollLeft - clientLeft;
+  document.getElementById("bandEditor_selectC1Help").style.left= left+"px";
+  document.getElementById("bandEditor_selectC1Help").style.top= top+"px";
+
+  document.getElementById("bandEditor_selectC2Help").style.display="inline-block";
+  workrect = document.getElementById("bandEdit_RightColor").getBoundingClientRect();
+  workrect2 = document.getElementById("bandEditor_selectC2Help").getBoundingClientRect();
+  top = workrect.top-workrect2.height + scrollTop - clientTop;
+  left = workrect.left + scrollLeft - clientLeft;
+  document.getElementById("bandEditor_selectC2Help").style.left= left+"px";
+  document.getElementById("bandEditor_selectC2Help").style.top= top+"px";
+
+  // Arrow Button
+  document.getElementById("bandEditor_arrowButtonHelp").style.display="inline-block";
+  workrect = document.getElementById("bandEdit_LeftColorToRight").getBoundingClientRect();
+  top = workrect.top+workrect.height + scrollTop - clientTop;
+  left = workrect.left + scrollLeft - clientLeft;
+  document.getElementById("bandEditor_arrowButtonHelp").style.left= left+"px";
+  document.getElementById("bandEditor_arrowButtonHelp").style.top= top+"px";
+
 }
 
 function hiddeHelpBandEditor(){
-
+  document.getElementById("bandEditor_colorpickerHelp").style.display="none";
+  document.getElementById("bandEditor_rightNeighbourColorHelp").style.display="none";
+  document.getElementById("bandEditor_leftNeighbourColorHelp").style.display="none";
+  document.getElementById("bandEditor_selectC1Help").style.display="none";
+  document.getElementById("bandEditor_selectC2Help").style.display="none";
+  document.getElementById("bandEditor_arrowButtonHelp").style.display="none";
 }
 
 

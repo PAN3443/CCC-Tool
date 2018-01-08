@@ -224,6 +224,13 @@ function mouseMoveColorspace(event) {
         document.getElementById("id_huePositionLabel").innerHTML = "A99 : " + a99Val.toFixed(numDecimalPlaces) + ", B99 : " + b99Val.toFixed(numDecimalPlaces);
         document.getElementById("id_huePositionLabelCompare").innerHTML = "A99 : " + a99Val.toFixed(numDecimalPlaces) + ", B99 : " + b99Val.toFixed(numDecimalPlaces);
 
+        var colorRGB = tmpColor.calcRGBColor();
+        if(colorRGB.getRValue()==0 && colorRGB.getGValue()==0 && colorRGB.getBValue()==0){
+          if(tmpColor.getL99Value()!=0 || tmpColor.getA99Value() !=0 || tmpColor.getB99Value()!=0){
+            return;
+          }
+        }
+
         if (document.getElementById("id_checkboxRGB").checked == true) {
           var testColor = tmpColor.calcRGBColorCorrect(errorRGBColor);
 
