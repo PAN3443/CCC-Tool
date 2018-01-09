@@ -180,7 +180,7 @@ window.onload = function() {
 
   document.getElementById('id_setOpacityRange').addEventListener("change", changeOpacityRange);
 
-
+  document.getElementById('analyse_SelectMetric').addEventListener("change", drawAnalyseDifferenceMaps);
   //styleAnalysisPage();
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -223,6 +223,17 @@ window.onload = function() {
   document.getElementById('id_checkboxRGBCompare').addEventListener("change", compareColormapRGBPossible);
 
   document.getElementById('id_setOpacityRangeCompare').addEventListener("change", changeOpacityRange);
+
+  document.getElementById('compare_SelectMetric').addEventListener("change", drawCompareDifferenceMaps);
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////// Tutorial Side /////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  document.getElementById('id_expandCreatePageMenueLayout').addEventListener("click", expandTutorialDivs);
+  document.getElementById('id_expandCreatePageHowCreateColormap').addEventListener("click", expandTutorialDivs);
+  document.getElementById('id_expandCreatePageHowCreateBand').addEventListener("click", expandTutorialDivs);
+  document.getElementById('id_expandCreatePageExampleVideos').addEventListener("click", expandTutorialDivs);
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Export Side /////////////////////////////////////

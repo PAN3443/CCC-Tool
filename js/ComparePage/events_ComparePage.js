@@ -165,6 +165,7 @@ function drawCompareDifferenceMaps(){
   canvasDIN99_2.width = resolutionX_differenceMetrics;
   canvasDIN99_2.height = 1;
 
+
   var refCtx = canvasREF.getContext("2d");
   var refData = refCtx.getImageData(0, 0, resolutionX_differenceMetrics, 1);
   var rgbCtx = canvasRGB.getContext("2d");
@@ -194,6 +195,32 @@ function drawCompareDifferenceMaps(){
   var de2000Data_2 = de2000Ctx_2.getImageData(0, 0, resolutionX_differenceMetrics, 1);
   var din99Ctx_2 = canvasDIN99_2.getContext("2d");
   var din99Data_2 = din99Ctx_2.getImageData(0, 0, resolutionX_differenceMetrics, 1);
+
+
+  // for Preview
+  var canvasPreviewREF = document.getElementById("id_comparePreviewRef1");
+  var canvasPreviewREF2 = document.getElementById("id_comparePreviewRef2");
+  var canvasPreviewC1 = document.getElementById("id_comparePreviewC1");
+  var canvasPreviewC2 = document.getElementById("id_comparePreviewC2");
+
+  canvasPreviewREF.width = resolutionX_differenceMetrics;
+  canvasPreviewREF.height = 1;
+  canvasPreviewREF2.width = resolutionX_differenceMetrics;
+  canvasPreviewREF2.height = 1;
+  canvasPreviewC1.width = resolutionX_differenceMetrics;
+  canvasPreviewC1.height = 1;
+  canvasPreviewC2.width = resolutionX_differenceMetrics;
+  canvasPreviewC2.height = 1;
+  var ref1PreviewCtx = canvasPreviewREF.getContext("2d");
+  var ref1PreviewData = ref1PreviewCtx.getImageData(0, 0, resolutionX_differenceMetrics, 1);
+  var ref2PreviewCtx = canvasPreviewREF2.getContext("2d");
+  var ref2PreviewData = ref2PreviewCtx.getImageData(0, 0, resolutionX_differenceMetrics, 1);
+  var c1PreviewCtx = canvasPreviewC1.getContext("2d");
+  var c1PreviewData = c1PreviewCtx.getImageData(0, 0, resolutionX_differenceMetrics, 1);
+  var c2PreviewCtx = canvasPreviewC2.getContext("2d");
+  var c2PreviewData = c2PreviewCtx.getImageData(0, 0, resolutionX_differenceMetrics, 1);
+
+
 
   bandSketch.calcNewDistances();
   bandSketch2.calcNewDistances();
@@ -315,6 +342,11 @@ function drawCompareDifferenceMaps(){
       refData.data[index + 1] = Math.round(colorRef.getGValue() * 255); // g
       refData.data[index + 2] = Math.round(colorRef.getBValue() * 255); // b
       refData.data[index + 3] = 255; //a
+
+      ref1PreviewData.data[index + 0] = Math.round(colorRef.getRValue() * 255); // r
+      ref1PreviewData.data[index + 1] = Math.round(colorRef.getGValue() * 255); // g
+      ref1PreviewData.data[index + 2] = Math.round(colorRef.getBValue() * 255); // b
+      ref1PreviewData.data[index + 3] = 255; //a
     }
     currentPos[0]=currentPos[0]+currentWidth[0];
 
@@ -325,6 +357,11 @@ function drawCompareDifferenceMaps(){
         refData.data[index + 1] = Math.round(0); // g
         refData.data[index + 2] = Math.round(0); // b
         refData.data[index + 3] = 255; //a
+
+        ref1PreviewData.data[index + 0] = Math.round(0); // r
+        ref1PreviewData.data[index + 1] = Math.round(0); // g
+        ref1PreviewData.data[index + 2] = Math.round(0); // b
+        ref1PreviewData.data[index + 3] = 255; //a
       }
       currentPos[0]=currentPos[0]+borderWidth;
     }
@@ -528,6 +565,13 @@ function drawCompareDifferenceMaps(){
       de94Data.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
       de94Data.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
       de94Data.data[index + 3] = 255; //a
+
+      if(document.getElementById("compare_SelectMetric").value==0){
+        c1PreviewData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
+        c1PreviewData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
+        c1PreviewData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
+        c1PreviewData.data[index + 3] = 255; //a
+      }
     }
     currentPos[4]=currentPos[4]+currentWidth[4];
 
@@ -538,6 +582,13 @@ function drawCompareDifferenceMaps(){
         de94Data.data[index + 1] = Math.round(0); // g
         de94Data.data[index + 2] = Math.round(0); // b
         de94Data.data[index + 3] = 255; //a
+
+        if(document.getElementById("compare_SelectMetric").value==0){
+          c1PreviewData.data[index + 0] = Math.round(0); // r
+          c1PreviewData.data[index + 1] = Math.round(0); // g
+          c1PreviewData.data[index + 2] = Math.round(0); // b
+          c1PreviewData.data[index + 3] = 255; //a
+        }
       }
 
     currentPos[4]=currentPos[4]+borderWidth;
@@ -576,6 +627,13 @@ function drawCompareDifferenceMaps(){
       de2000Data.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
       de2000Data.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
       de2000Data.data[index + 3] = 255; //a
+
+      if(document.getElementById("compare_SelectMetric").value==1){
+        c1PreviewData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
+        c1PreviewData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
+        c1PreviewData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
+        c1PreviewData.data[index + 3] = 255; //a
+      }
     }
     currentPos[5]=currentPos[5]+currentWidth[5];
 
@@ -586,6 +644,13 @@ function drawCompareDifferenceMaps(){
         de2000Data.data[index + 1] = Math.round(0); // g
         de2000Data.data[index + 2] = Math.round(0); // b
         de2000Data.data[index + 3] = 255; //a
+
+        if(document.getElementById("compare_SelectMetric").value==1){
+          c1PreviewData.data[index + 0] = Math.round(0); // r
+          c1PreviewData.data[index + 1] = Math.round(0); // g
+          c1PreviewData.data[index + 2] = Math.round(0); // b
+          c1PreviewData.data[index + 3] = 255; //a
+        }
       }
 
     currentPos[5]=currentPos[5]+borderWidth;
@@ -615,17 +680,24 @@ function drawCompareDifferenceMaps(){
 
       var tmpRatio = x/currentWidth[6];
 
-      var lValue = color1.get1Value() + (color2.get1Value() - color1.get1Value()) * tmpRatio;
-      var aValue = color1.get2Value() + (color2.get2Value() - color1.get2Value()) * tmpRatio;
-      var bValue = color1.get3Value() + (color2.get3Value() - color1.get3Value()) * tmpRatio;
+      var l99Value = color1.get1Value() + (color2.get1Value() - color1.get1Value()) * tmpRatio;
+      var a99Value = color1.get2Value() + (color2.get2Value() - color1.get2Value()) * tmpRatio;
+      var b99Value = color1.get3Value() + (color2.get3Value() - color1.get3Value()) * tmpRatio;
 
-      var tmpCurrentLABColor = new classColor_LAB(lValue,aValue,bValue);
-      var tmpCurrentColor = tmpCurrentLABColor.calcRGBColor();
+      var tmpCurrentDIN99Color = new classColorDIN99(l99Value,a99Value,b99Value);
+      var tmpCurrentColor = tmpCurrentDIN99Color.calcRGBColor();
 
       din99Data.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
       din99Data.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
       din99Data.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
       din99Data.data[index + 3] = 255; //a
+
+      if(document.getElementById("compare_SelectMetric").value==2){
+        c1PreviewData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
+        c1PreviewData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
+        c1PreviewData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
+        c1PreviewData.data[index + 3] = 255; //a
+      }
     }
     currentPos[6]=currentPos[6]+currentWidth[6];
 
@@ -636,6 +708,13 @@ function drawCompareDifferenceMaps(){
         din99Data.data[index + 1] = Math.round(0); // g
         din99Data.data[index + 2] = Math.round(0); // b
         din99Data.data[index + 3] = 255; //a
+
+        if(document.getElementById("compare_SelectMetric").value==2){
+          c1PreviewData.data[index + 0] = Math.round(0); // r
+          c1PreviewData.data[index + 1] = Math.round(0); // g
+          c1PreviewData.data[index + 2] = Math.round(0); // b
+          c1PreviewData.data[index + 3] = 255; //a
+        }
       }
 
     currentPos[6]=currentPos[6]+borderWidth;
@@ -760,6 +839,13 @@ function drawCompareDifferenceMaps(){
       refData_2.data[index + 1] = Math.round(colorRef.getGValue() * 255); // g
       refData_2.data[index + 2] = Math.round(colorRef.getBValue() * 255); // b
       refData_2.data[index + 3] = 255; //a
+
+      ref2PreviewData.data[index + 0] = Math.round(colorRef.getRValue() * 255); // r
+      ref2PreviewData.data[index + 1] = Math.round(colorRef.getGValue() * 255); // g
+      ref2PreviewData.data[index + 2] = Math.round(colorRef.getBValue() * 255); // b
+      ref2PreviewData.data[index + 3] = 255; //a
+
+
     }
     currentPos[0]=currentPos[0]+currentWidth[0];
 
@@ -770,6 +856,11 @@ function drawCompareDifferenceMaps(){
         refData_2.data[index + 1] = Math.round(0); // g
         refData_2.data[index + 2] = Math.round(0); // b
         refData_2.data[index + 3] = 255; //a
+
+        ref2PreviewData.data[index + 0] = Math.round(0); // r
+        ref2PreviewData.data[index + 1] = Math.round(0); // g
+        ref2PreviewData.data[index + 2] = Math.round(0); // b
+        ref2PreviewData.data[index + 3] = 255; //a
       }
       currentPos[0]=currentPos[0]+borderWidth;
     }
@@ -973,6 +1064,13 @@ function drawCompareDifferenceMaps(){
       de94Data_2.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
       de94Data_2.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
       de94Data_2.data[index + 3] = 255; //a
+
+      if(document.getElementById("compare_SelectMetric").value==0){
+        c2PreviewData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
+        c2PreviewData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
+        c2PreviewData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
+        c2PreviewData.data[index + 3] = 255; //a
+      }
     }
     currentPos[4]=currentPos[4]+currentWidth[4];
 
@@ -983,6 +1081,13 @@ function drawCompareDifferenceMaps(){
         de94Data_2.data[index + 1] = Math.round(0); // g
         de94Data_2.data[index + 2] = Math.round(0); // b
         de94Data_2.data[index + 3] = 255; //a
+
+        if(document.getElementById("compare_SelectMetric").value==0){
+          c2PreviewData.data[index + 0] = Math.round(0); // r
+          c2PreviewData.data[index + 1] = Math.round(0); // g
+          c2PreviewData.data[index + 2] = Math.round(0); // b
+          c2PreviewData.data[index + 3] = 255; //a
+        }
       }
 
     currentPos[4]=currentPos[4]+borderWidth;
@@ -1021,6 +1126,13 @@ function drawCompareDifferenceMaps(){
       de2000Data_2.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
       de2000Data_2.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
       de2000Data_2.data[index + 3] = 255; //a
+
+      if(document.getElementById("compare_SelectMetric").value==1){
+        c2PreviewData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
+        c2PreviewData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
+        c2PreviewData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
+        c2PreviewData.data[index + 3] = 255; //a
+      }
     }
     currentPos[5]=currentPos[5]+currentWidth[5];
 
@@ -1031,6 +1143,13 @@ function drawCompareDifferenceMaps(){
         de2000Data_2.data[index + 1] = Math.round(0); // g
         de2000Data_2.data[index + 2] = Math.round(0); // b
         de2000Data_2.data[index + 3] = 255; //a
+
+        if(document.getElementById("compare_SelectMetric").value==1){
+          c2PreviewData.data[index + 0] = Math.round(0); // r
+          c2PreviewData.data[index + 1] = Math.round(0); // g
+          c2PreviewData.data[index + 2] = Math.round(0); // b
+          c2PreviewData.data[index + 3] = 255; //a
+        }
       }
 
     currentPos[5]=currentPos[5]+borderWidth;
@@ -1060,17 +1179,24 @@ function drawCompareDifferenceMaps(){
 
       var tmpRatio = x/currentWidth[6];
 
-      var lValue = color1.get1Value() + (color2.get1Value() - color1.get1Value()) * tmpRatio;
-      var aValue = color1.get2Value() + (color2.get2Value() - color1.get2Value()) * tmpRatio;
-      var bValue = color1.get3Value() + (color2.get3Value() - color1.get3Value()) * tmpRatio;
+      var l99Value = color1.get1Value() + (color2.get1Value() - color1.get1Value()) * tmpRatio;
+      var a99Value = color1.get2Value() + (color2.get2Value() - color1.get2Value()) * tmpRatio;
+      var b99Value = color1.get3Value() + (color2.get3Value() - color1.get3Value()) * tmpRatio;
 
-      var tmpCurrentLABColor = new classColor_LAB(lValue,aValue,bValue);
-      var tmpCurrentColor = tmpCurrentLABColor.calcRGBColor();
+      var tmpCurrentDIN99Color = new classColorDIN99(l99Value,a99Value,b99Value);
+      var tmpCurrentColor = tmpCurrentDIN99Color.calcRGBColor();
 
       din99Data_2.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
       din99Data_2.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
       din99Data_2.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
       din99Data_2.data[index + 3] = 255; //a
+
+      if(document.getElementById("compare_SelectMetric").value==2){
+        c2PreviewData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
+        c2PreviewData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
+        c2PreviewData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
+        c2PreviewData.data[index + 3] = 255; //a
+      }
     }
     currentPos[6]=currentPos[6]+currentWidth[6];
 
@@ -1081,6 +1207,13 @@ function drawCompareDifferenceMaps(){
         din99Data_2.data[index + 1] = Math.round(0); // g
         din99Data_2.data[index + 2] = Math.round(0); // b
         din99Data_2.data[index + 3] = 255; //a
+
+        if(document.getElementById("compare_SelectMetric").value==2){
+          c2PreviewData.data[index + 0] = Math.round(0); // r
+          c2PreviewData.data[index + 1] = Math.round(0); // g
+          c2PreviewData.data[index + 2] = Math.round(0); // b
+          c2PreviewData.data[index + 3] = 255; //a
+        }
       }
 
     currentPos[6]=currentPos[6]+borderWidth;
@@ -1108,6 +1241,13 @@ function drawCompareDifferenceMaps(){
   de94Ctx_2.putImageData(de94Data_2, 0, 0); // update ColorspaceCanvas;
   de2000Ctx_2.putImageData(de2000Data_2, 0, 0); // update ColorspaceCanvas;
   din99Ctx_2.putImageData(din99Data_2, 0, 0); // update ColorspaceCanvas;
+
+
+  ref1PreviewCtx.putImageData(ref1PreviewData, 0, 0); // update ColorspaceCanvas;
+  ref2PreviewCtx.putImageData(ref2PreviewData, 0, 0); // update ColorspaceCanvas;
+  c1PreviewCtx.putImageData(c1PreviewData, 0, 0); // update ColorspaceCanvas;
+  c2PreviewCtx.putImageData(c2PreviewData, 0, 0); // update ColorspaceCanvas;
+
 
   old_tbody.parentNode.replaceChild(new_tbody, old_tbody);
   new_tbody.id="id_compareTableBody";

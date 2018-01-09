@@ -45,3 +45,37 @@ function changeTutorial(type) {
 
 
 }
+
+function expandTutorialDivs (event){
+
+  switch (event.target.id) {
+    case "id_expandCreatePageMenueLayout":
+      if(document.getElementById("id_createPageMenueLayout").style.display === "none")
+        document.getElementById("id_createPageMenueLayout").style.display = "inline-block";
+      else
+        document.getElementById("id_createPageMenueLayout").style.display = "none";
+      break;
+    case "id_expandCreatePageHowCreateColormap":
+      if(document.getElementById("id_createPageHowCreateColormap").style.display === "none")
+        document.getElementById("id_createPageHowCreateColormap").style.display = "inline-block";
+      else
+        document.getElementById("id_createPageHowCreateColormap").style.display = "none";
+
+      break;
+    case "id_expandCreatePageHowCreateBand":
+      if(document.getElementById("id_createPageHowCreateBand").style.display === "none")
+        document.getElementById("id_createPageHowCreateBand").style.display = "inline-block";
+      else
+        document.getElementById("id_createPageHowCreateBand").style.display = "none";
+      break;
+    case "id_expandCreatePageExampleVideos":
+      if(document.getElementById("id_createPageExampleVideos").style.display === "none")
+        document.getElementById("id_createPageExampleVideos").style.display = "inline-block";
+      else
+        document.getElementById("id_createPageExampleVideos").style.display = "none";
+      break;
+    default:
+
+  }
+
+}

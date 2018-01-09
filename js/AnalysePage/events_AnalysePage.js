@@ -136,6 +136,19 @@ function drawAnalyseDifferenceMaps(){
   var din99Ctx = canvasDIN99.getContext("2d");
   var din99Data = din99Ctx.getImageData(0, 0, resolutionX_differenceMetrics, 1);
 
+  // for Preview
+  var canvasPreviewREF = document.getElementById("id_anaylsePreviewRef");
+  var canvasPreviewC1 = document.getElementById("id_anaylsePreviewC");
+
+  canvasPreviewREF.width = resolutionX_differenceMetrics;
+  canvasPreviewREF.height = 1;
+  canvasPreviewC1.width = resolutionX_differenceMetrics;
+  canvasPreviewC1.height = 1;
+  var ref1PreviewCtx = canvasPreviewREF.getContext("2d");
+  var ref1PreviewData = ref1PreviewCtx.getImageData(0, 0, resolutionX_differenceMetrics, 1);
+  var c1PreviewCtx = canvasPreviewC1.getContext("2d");
+  var c1PreviewData = c1PreviewCtx.getImageData(0, 0, resolutionX_differenceMetrics, 1);
+
   bandSketch.calcNewDistances();
 
   var currentPos = [0,0,0,0,0,0,0];
@@ -251,6 +264,11 @@ function drawAnalyseDifferenceMaps(){
       refData.data[index + 1] = Math.round(colorRef.getGValue() * 255); // g
       refData.data[index + 2] = Math.round(colorRef.getBValue() * 255); // b
       refData.data[index + 3] = 255; //a
+
+      ref1PreviewData.data[index + 0] = Math.round(colorRef.getRValue() * 255); // r
+      ref1PreviewData.data[index + 1] = Math.round(colorRef.getGValue() * 255); // g
+      ref1PreviewData.data[index + 2] = Math.round(colorRef.getBValue() * 255); // b
+      ref1PreviewData.data[index + 3] = 255; //a
     }
     currentPos[0]=currentPos[0]+currentWidth[0];
 
@@ -261,6 +279,11 @@ function drawAnalyseDifferenceMaps(){
         refData.data[index + 1] = Math.round(0); // g
         refData.data[index + 2] = Math.round(0); // b
         refData.data[index + 3] = 255; //a
+
+        ref1PreviewData.data[index + 0] = Math.round(0); // r
+        ref1PreviewData.data[index + 1] = Math.round(0); // g
+        ref1PreviewData.data[index + 2] = Math.round(0); // b
+        ref1PreviewData.data[index + 3] = 255; //a
       }
       currentPos[0]=currentPos[0]+borderWidth;
     }
@@ -464,6 +487,13 @@ function drawAnalyseDifferenceMaps(){
       de94Data.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
       de94Data.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
       de94Data.data[index + 3] = 255; //a
+
+      if(document.getElementById("analyse_SelectMetric").value==0){
+        c1PreviewData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
+        c1PreviewData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
+        c1PreviewData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
+        c1PreviewData.data[index + 3] = 255; //a
+      }
     }
     currentPos[4]=currentPos[4]+currentWidth[4];
 
@@ -474,6 +504,13 @@ function drawAnalyseDifferenceMaps(){
         de94Data.data[index + 1] = Math.round(0); // g
         de94Data.data[index + 2] = Math.round(0); // b
         de94Data.data[index + 3] = 255; //a
+
+        if(document.getElementById("analyse_SelectMetric").value==0){
+          c1PreviewData.data[index + 0] = Math.round(0); // r
+          c1PreviewData.data[index + 1] = Math.round(0); // g
+          c1PreviewData.data[index + 2] = Math.round(0); // b
+          c1PreviewData.data[index + 3] = 255; //a
+        }
       }
 
     currentPos[4]=currentPos[4]+borderWidth;
@@ -512,6 +549,13 @@ function drawAnalyseDifferenceMaps(){
       de2000Data.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
       de2000Data.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
       de2000Data.data[index + 3] = 255; //a
+
+      if(document.getElementById("analyse_SelectMetric").value==1){
+        c1PreviewData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
+        c1PreviewData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
+        c1PreviewData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
+        c1PreviewData.data[index + 3] = 255; //a
+      }
     }
     currentPos[5]=currentPos[5]+currentWidth[5];
 
@@ -522,6 +566,13 @@ function drawAnalyseDifferenceMaps(){
         de2000Data.data[index + 1] = Math.round(0); // g
         de2000Data.data[index + 2] = Math.round(0); // b
         de2000Data.data[index + 3] = 255; //a
+
+        if(document.getElementById("analyse_SelectMetric").value==1){
+          c1PreviewData.data[index + 0] = Math.round(0); // r
+          c1PreviewData.data[index + 1] = Math.round(0); // g
+          c1PreviewData.data[index + 2] = Math.round(0); // b
+          c1PreviewData.data[index + 3] = 255; //a
+        }
       }
 
     currentPos[5]=currentPos[5]+borderWidth;
@@ -551,17 +602,24 @@ function drawAnalyseDifferenceMaps(){
 
       var tmpRatio = x/currentWidth[6];
 
-      var lValue = color1.get1Value() + (color2.get1Value() - color1.get1Value()) * tmpRatio;
-      var aValue = color1.get2Value() + (color2.get2Value() - color1.get2Value()) * tmpRatio;
-      var bValue = color1.get3Value() + (color2.get3Value() - color1.get3Value()) * tmpRatio;
+      var l99Value = color1.get1Value() + (color2.get1Value() - color1.get1Value()) * tmpRatio;
+      var a99Value = color1.get2Value() + (color2.get2Value() - color1.get2Value()) * tmpRatio;
+      var b99Value = color1.get3Value() + (color2.get3Value() - color1.get3Value()) * tmpRatio;
 
-      var tmpCurrentLABColor = new classColor_LAB(lValue,aValue,bValue);
-      var tmpCurrentColor = tmpCurrentLABColor.calcRGBColor();
+      var tmpCurrentDIN99Color = new classColorDIN99(l99Value,a99Value,b99Value);
+      var tmpCurrentColor = tmpCurrentDIN99Color.calcRGBColor();
 
       din99Data.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
       din99Data.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
       din99Data.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
       din99Data.data[index + 3] = 255; //a
+
+      if(document.getElementById("analyse_SelectMetric").value==2){
+        c1PreviewData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
+        c1PreviewData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
+        c1PreviewData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
+        c1PreviewData.data[index + 3] = 255; //a
+      }
     }
     currentPos[6]=currentPos[6]+currentWidth[6];
 
@@ -572,6 +630,13 @@ function drawAnalyseDifferenceMaps(){
         din99Data.data[index + 1] = Math.round(0); // g
         din99Data.data[index + 2] = Math.round(0); // b
         din99Data.data[index + 3] = 255; //a
+
+        if(document.getElementById("analyse_SelectMetric").value==2){
+          c1PreviewData.data[index + 0] = Math.round(0); // r
+          c1PreviewData.data[index + 1] = Math.round(0); // g
+          c1PreviewData.data[index + 2] = Math.round(0); // b
+          c1PreviewData.data[index + 3] = 255; //a
+        }
       }
 
     currentPos[6]=currentPos[6]+borderWidth;
@@ -589,6 +654,9 @@ function drawAnalyseDifferenceMaps(){
   de94Ctx.putImageData(de94Data, 0, 0); // update ColorspaceCanvas;
   de2000Ctx.putImageData(de2000Data, 0, 0); // update ColorspaceCanvas;
   din99Ctx.putImageData(din99Data, 0, 0); // update ColorspaceCanvas;
+
+  ref1PreviewCtx.putImageData(ref1PreviewData, 0, 0); // update ColorspaceCanvas;
+  c1PreviewCtx.putImageData(c1PreviewData, 0, 0); // update ColorspaceCanvas;
 
   old_tbody.parentNode.replaceChild(new_tbody, old_tbody);
   new_tbody.id="id_analyseTableBody";

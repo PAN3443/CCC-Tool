@@ -300,7 +300,7 @@ function showADDSide() {
     showSideID = 4;
     document.getElementById("id_myListPage").style.display = "none";
 
-    document.getElementById("id_addPage").style.display = "initial";
+    document.getElementById("id_addPage").style.display = "inline-block";
 
     document.getElementById("id_SideLabel").innerHTML = "Add Existing Colormap";
 
@@ -331,10 +331,10 @@ function showCreateSide() {
     styleCreatorPage();
     document.getElementById("id_myListPage").style.display = "none";
 
-    document.getElementById("id_Create_Menue").style.display = "inline";
+    document.getElementById("id_Create_Menue").style.display = "inline-block";
     document.getElementById("id_Create_Menue").style.marginLeft = "20px";
 
-    document.getElementById("id_creatorPage").style.display = "inline";
+    document.getElementById("id_creatorPage").style.display = "inline-block";
 
     document.getElementById("id_SideLabel").innerHTML = "Create Colormap";
     changeColorspace(0);
@@ -500,8 +500,8 @@ function showTutorialSide(){
 
 
   showSideID = 5;
-  document.getElementById("id_tutorialPage").style.display = "initial";
-  document.getElementById("id_Tutorial_Menue").style.display = "initial";
+  document.getElementById("id_tutorialPage").style.display = "inline-block";
+  document.getElementById("id_Tutorial_Menue").style.display = "inline-block";
   document.getElementById("id_SideLabel").innerHTML = "Tutorial";
   document.getElementById("id_Colorspace_Menue").style.display = "none";
 
@@ -510,7 +510,7 @@ function showTutorialSide(){
 function showCompareSide(){
     showSideID = 3;
     document.getElementById("id_myListPage").style.display = "none";
-    document.getElementById("id_comparePage").style.display = "initial";
+    document.getElementById("id_comparePage").style.display = "inline-block";
     document.getElementById("id_SideLabel").innerHTML = "Compare Colormaps";
     initComparePage();
 }
@@ -518,7 +518,7 @@ function showCompareSide(){
 function showAnalysisSide(){
     showSideID = 2;
     document.getElementById("id_myListPage").style.display = "none";
-    document.getElementById("id_analysisPage").style.display = "initial";
+    document.getElementById("id_analysisPage").style.display = "inline-block";
     document.getElementById("id_SideLabel").innerHTML = "Analyse Colormap";
     initAnalysePage();
 }
