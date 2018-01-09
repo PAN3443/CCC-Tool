@@ -191,6 +191,7 @@
     <div id="id_Tutorial_Menue" style="height:100%; width: auto; margin-left:auto; display:none;">
       <div class="row" style="height:100%; width: 100%;">
         <h3 style="height:1.5cm; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:1cm; font-size:2vh;"> Tutorial for: </h3>
+        <button class="classButtonDark" onclick="changeTutorial(4)" id="button_showSpecificationTutorial" title="Analyse Tutorial" style="border-radius: 0.3vh; background: none; width: auto; height:3vh; font-size:1.75vh; margin:1vh; border: 0.2vh solid white; color:white;">Colormap Specification</button>
         <button class="classButtonDark" onclick="changeTutorial(0)" id="button_showMyMapsTutorial" title="My Maps Tutorial"  style="border-radius: 0.3vh; background: none; width: auto; height:3vh; font-size:1.75vh; margin:1vh; border: 0.2vh solid rgb(0,191,255); color: rgb(0,191,255); ">My Maps</button>
         <button class="classButtonDark" onclick="changeTutorial(1)" id="button_showCreateTutorial" title="Create Tutorial" style="border-radius: 0.3vh; background: none; width: auto; height:3vh; font-size:1.75vh; margin:1vh; border: 0.2vh solid white; color:white; ">Create Colormap</button>
         <button class="classButtonDark" onclick="changeTutorial(2)" id="button_showExportTutorial" title="Export Tutorial" style="border-radius: 0.3vh; background: none; width: auto; height:3vh; font-size:1.75vh; margin:1vh; border: 0.2vh solid white; color:white; ">Export Colormap</button>
@@ -1547,7 +1548,6 @@
 
       <canvas id="id_anaylseRatioRGB" style="width:70%; height:5vh; border: 2px solid black;">
 
-
     </canvas>
 
     </div>
@@ -1559,7 +1559,6 @@
       <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: left;  height:5vh; line-height:5vh">Ratio HSV Euclidean Distance:</p>
 
       <canvas id="id_anaylseRatioHSV" style="width:70%; height:5vh; border: 2px solid black;">
-
 
     </canvas>
 
@@ -1664,9 +1663,22 @@
 
 
     <!--
-          ----------------	Tutorial My Maps  -------------
+          ----------------	Colorspace Specification  -------------
 
           -->
+  <div id="id_colormapspecification" style="width: 100%; height:auto; display:none;">
+    <h1 style="margin-left:2%; width:96%; text-align:center; height:3vh; line-height:3vh; font-size:3vh; vertical-align:middle; margin-top:2vh;"> Specification of Continuous Colormaps </h1>
+
+        <p style="margin-left:2%; width:96%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
+                Welcome to the specification of continuous colormaps.
+        <p>
+
+  </div>
+
+  <!--
+        ----------------	Tutorial My Maps  -------------
+
+        -->
     <div id="id_tutorialMyMapsPage" style="width: 100%; height:auto;">
       <h1 style="margin-left:2%; width:96%; text-align:center; height:3vh; line-height:3vh; font-size:3vh; vertical-align:middle; margin-top:2vh;"> Tutorial My Maps </h1>
 
@@ -1686,9 +1698,12 @@
       <h1 style="margin-left:2%; width:96%; text-align:center; height:3vh; line-height:3vh; font-size:3vh; vertical-align:middle; margin-top:2vh;"> Tutorial Create a Colormap </h1>
 
         <p style="margin-left:2%; width:96%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
-          Welcome to the tutorial about the creation of colormaps with the CCC-Tool. .... . You can expand a section by clicking on it.
-        <p>
-
+          Welcome to the tutorial about the creation of colormaps with the CCC-Tool. The following page will give you an instruction how to use the webtool to create a colormap.
+          The first section give an overview about the layout and the options at the menu bar.
+          At the "How to create a colormap" section is a instruduction about the methods to create a continuous colormap.
+          The existing bands for the creation of a colormap can be extended by a creation of new bands. The section "How to create bands" give you a short instruction how to create bands.
+          The last section include videos with examples for the creation of colormaps.
+          You can expand a section by clicking on it.
       <div id="id_expandCreatePageMenueLayout" class="class_AddLabel1">
         1. Menu and Layout
       </div>
@@ -1697,7 +1712,7 @@
         <h1 style="margin-left:10%; width:80%; text-align:left; height:3vh; line-height:3vh; font-size:2.5vh; vertical-align:middle; margin-top:2vh;"> 1.1 The Menu </h1>
 
           <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
-            The menu bar (Image 1.1) consist of two parts. One the left side you can see the colorspace options. This options are available on the most parts of the webtool. You can select one of the colorspaces and the webtool draw all displayed color gradients with an interpolation in the selected colorspace.
+            The menu bar (Image 1.1) consist of two parts. On the left side you can see the colorspace options. This options are available on the most parts of the webtool. You can select one of the colorspaces and the webtool draw all displayed color gradients with an interpolation in the selected colorspace.
           <p>
 
         <img title="Create Page Menu" src="img/Tutorial/createPage_Menu.png" style="margin-top:1vh; margin-bottom:0.2vh; margin-left:10%; width: 80%;">
@@ -1705,13 +1720,53 @@
         <strong>Image 1.1: </strong> Menu Bar of the Create Page
         <p>
 
+          <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
+            On the other side are the specific options for the creation page.
+            The options allow you to name, export, load a colormap and clear the colormap. It is also possible to make changes retrogressive or rerun the changes of the colormap.
+            To save a colormap to the My Maps page you only have to leave the creator page and the map will automatically saved to the My List set of colormaps. (Here you can display information containers with a short help)
+          <p>
+
+        <h1 style="margin-left:10%; width:80%; text-align:left; height:3vh; line-height:3vh; font-size:2.5vh; vertical-align:middle; margin-top:4vh;"> 1.2 Layout </h1>
+
+          <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
+            The first part of the layout is the Colormap Band Sketch (Image 1.2). This sketch is the main location for modifing your colormap.
+            For adding a new band to the colormap you have to drag an existing band from the bottom of the page to an red bordered area at the Colormap Band Sketch and drop it there.
+            If you want to edit or delete a band you can click on this band at the sketch and a pop up window for the band editing will open. You will find more informations about the band editor at the next section "How to create a colormap".
+          <p>
+
         <img title="Create Page Menu" src="img/Tutorial/createPage_BandSketchEmpty.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width: 80%;">
+        <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
+        <strong>Image 1.2: </strong> Colormap Band Sketch
+        <p>
+
+          <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
+            Below the Colormap Band Sketch you will find five containers with existing bands (Image 1.3). They enable you to add very fast constant bands, scaled band or a set of scaled bands (double, triple, quadrupel) to the colormap band sketch.
+            If the existing bands are not comply your requirements, every section of band types has a button for adding a own creation of a band or a set of bands. You can also use the band editor to adapted a band inside the colormap to your demands.
+            A creation of a new existing band has the advantage that you can use this band in serveral colormaps. You will find more informations about the band creator at the next section "How to create a colormap".
+          <p>
 
         <img title="Create Page Menu" src="img/Tutorial/createPage_ExistingBands.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width: 80%;">
+        <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
+        <strong>Image 1.3: </strong> Existing Bands
+        <p>
+
+          <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
+            If you add a band to a empty colormap band sketch. ....
+          <p>
 
         <img title="Create Page Menu" src="img/Tutorial/createPage_LinearColormap.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width: 80%;">
+        <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
+        <strong>Image 1.4: </strong> Linear Colormap vs Colormap Band Sketch
+        <p>
+
+          <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
+            Next to the linear colormap ...
+          <p>
 
         <img title="Create Page Menu" src="img/Tutorial/createPage_Table.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width: 80%;">
+        <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
+        <strong>Image 1.5: </strong> Colormap Table
+        <p>
 
 
       </div>
@@ -1733,6 +1788,11 @@
           <source src="video/tutorial_createColormap1.mp4" type="video/mp4">
           Your browser does not support HTML5 video.
         </video>
+        <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
+        <strong>Video 1: </strong> Creation of a temperatur colormap
+        <p>
+
+
       </div>
       <div style="height:2vh;">
       </div>
@@ -1740,7 +1800,7 @@
     </div>
 
     <!--
-          ----------------	Tutorial Create Page  -------------
+          ----------------	Tutorial Export  -------------
 
           -->
     <div id="id_tutorialExportPage" style="width: 100%; height:auto; display:none;">
@@ -1749,10 +1809,28 @@
         <p style="margin-left:2%; width:96%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
           Welcome to the tutorial about the Export.
         <p>
+
+          <img title="Example Colorspace Interval Approximation" src="img/Tutorial/exportPage_IntervalExample.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width: 80%;">
+          <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
+          <strong>Image 1: </strong> Example for Colorspace Interval Approximation. Save in RGB using intervals interpolated in Lab Colorspace.
+          <p>
+
+            <img title="Result Colorspace Interval Approximation" src="img/Tutorial/exportPage_IntervalResult.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width: 80%;">
+            <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
+            <strong>Image 2: </strong> Result of Colorspace Interval Approximation from Image 1 visualized in the RGB colorspace.
+            <p>
+
+              <video style="width:50%; margin-left:25%;" controls>
+                <source src="video/tutorial_exampleIntervals.mp4" type="video/mp4">
+                  Your browser does not support HTML5 video.
+              </video>
+              <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
+                <strong>Video 1: </strong> Exporting Colormap with Intervals
+              <p>
     </div>
 
     <!--
-          ----------------	Tutorial Create Page  -------------
+          ----------------	Tutorial Analyse  -------------
 
           -->
     <div id="id_tutorialAnalysePage" style="width: 100%; height:auto; display:none;">
