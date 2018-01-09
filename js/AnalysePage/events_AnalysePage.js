@@ -256,7 +256,7 @@ function drawAnalyseDifferenceMaps(){
     td.appendChild(document.createTextNode((tmpRatio*100).toFixed(numDecimalPlaces)+"%"));
     tr.appendChild(td);
 
-    currentWidth[0] = Math.round(restWidth*tmpRatio);
+    currentWidth[0] = Math.ceil(restWidth*tmpRatio);
 
     for(var x=0; x<currentWidth[0]; x++){
       var index = (currentPos[0]+x) * 4;
@@ -307,7 +307,7 @@ function drawAnalyseDifferenceMaps(){
     td.appendChild(document.createTextNode((tmpRatio*100).toFixed(numDecimalPlaces)+"%"));
     tr.appendChild(td);
 
-    currentWidth[1] = Math.round(restWidth*tmpRatio);
+    currentWidth[1] = Math.ceil(restWidth*tmpRatio);
 
     for(var x=0; x<currentWidth[1]; x++){
       var index = (currentPos[1]+x) * 4;
@@ -366,7 +366,7 @@ function drawAnalyseDifferenceMaps(){
     td.appendChild(document.createTextNode((tmpRatio*100).toFixed(numDecimalPlaces)+"%"));
     tr.appendChild(td);
 
-    currentWidth[2] = Math.round(restWidth*tmpRatio);
+    currentWidth[2] = Math.ceil(restWidth*tmpRatio);
 
     for(var x=0; x<currentWidth[2]; x++){
       var index = (currentPos[2]+x) * 4;
@@ -421,7 +421,7 @@ function drawAnalyseDifferenceMaps(){
     td.appendChild(document.createTextNode((tmpRatio*100).toFixed(numDecimalPlaces)+"%"));
     tr.appendChild(td);
 
-    currentWidth[3] = Math.round(restWidth*tmpRatio);
+    currentWidth[3] = Math.ceil(restWidth*tmpRatio);
 
     for(var x=0; x<currentWidth[3]; x++){
       var index = (currentPos[3]+x) * 4;
@@ -469,7 +469,7 @@ function drawAnalyseDifferenceMaps(){
     td.appendChild(document.createTextNode((tmpRatio*100).toFixed(numDecimalPlaces)+"%"));
     tr.appendChild(td);
 
-    currentWidth[4] = Math.round(restWidth*tmpRatio);
+    currentWidth[4] = Math.ceil(restWidth*tmpRatio);
 
     for(var x=0; x<currentWidth[4]; x++){
       var index = (currentPos[4]+x) * 4;
@@ -531,7 +531,7 @@ function drawAnalyseDifferenceMaps(){
     td.appendChild(document.createTextNode((tmpRatio*100).toFixed(numDecimalPlaces)+"%"));
     tr.appendChild(td);
 
-    currentWidth[5] = Math.round(restWidth*tmpRatio);
+    currentWidth[5] = Math.ceil(restWidth*tmpRatio);
 
     for(var x=0; x<currentWidth[5]; x++){
       var index = (currentPos[5]+x) * 4;
@@ -595,7 +595,7 @@ function drawAnalyseDifferenceMaps(){
     td.appendChild(document.createTextNode((tmpRatio*100).toFixed(numDecimalPlaces)+"%"));
     tr.appendChild(td);
 
-    currentWidth[6] = Math.round(restWidth*tmpRatio);
+    currentWidth[6] = Math.ceil(restWidth*tmpRatio);
 
     for(var x=0; x<currentWidth[6]; x++){
       var index = (currentPos[6]+x) * 4;
