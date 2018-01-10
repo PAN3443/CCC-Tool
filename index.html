@@ -191,7 +191,7 @@
     <div id="id_Tutorial_Menue" style="height:100%; width: auto; margin-left:auto; display:none;">
       <div class="row" style="height:100%; width: 100%;">
         <h3 style="height:1.5cm; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:1cm; font-size:2vh;"> Tutorial for: </h3>
-        <button class="classButtonDark" onclick="changeTutorial(4)" id="button_showSpecificationTutorial" title="Analyse Tutorial" style="border-radius: 0.3vh; background: none; width: auto; height:3vh; font-size:1.75vh; margin:1vh; border: 0.2vh solid white; color:white;">Colormap Specification</button>
+        <!--button class="classButtonDark" onclick="changeTutorial(4)" id="button_showSpecificationTutorial" title="Analyse Tutorial" style="border-radius: 0.3vh; background: none; width: auto; height:3vh; font-size:1.75vh; margin:1vh; border: 0.2vh solid white; color:white;">Colormap Specification</button-->
         <button class="classButtonDark" onclick="changeTutorial(0)" id="button_showMyMapsTutorial" title="My Maps Tutorial"  style="border-radius: 0.3vh; background: none; width: auto; height:3vh; font-size:1.75vh; margin:1vh; border: 0.2vh solid rgb(0,191,255); color: rgb(0,191,255); ">My Maps</button>
         <button class="classButtonDark" onclick="changeTutorial(1)" id="button_showCreateTutorial" title="Create Tutorial" style="border-radius: 0.3vh; background: none; width: auto; height:3vh; font-size:1.75vh; margin:1vh; border: 0.2vh solid white; color:white; ">Create Colormap</button>
         <button class="classButtonDark" onclick="changeTutorial(2)" id="button_showExportTutorial" title="Export Tutorial" style="border-radius: 0.3vh; background: none; width: auto; height:3vh; font-size:1.75vh; margin:1vh; border: 0.2vh solid white; color:white; ">Export Colormap</button>
@@ -1686,6 +1686,17 @@
           Welcome to the tutorial about the My Maps page.
         <p>
 
+
+        <img title="My Maps" src="img/Tutorial/myMapsTutorial1.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width: 80%;border: 1px solid black;">
+        <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
+        <strong>Image 1: </strong> My Maps page with some added colormaps.
+        <p>
+
+          <img title="My Maps Selection" src="img/Tutorial/myMapsTutorial2.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width: 80%;border: 1px solid black;">
+          <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
+          <strong>Image 2: </strong> My Maps page in selection mode for the analyse.
+          <p>
+
     </div>
 
 
@@ -1704,6 +1715,9 @@
           The existing bands for the creation of a colormap can be extended by a creation of new bands. The section "How to create bands" give you a short instruction how to create bands.
           The last section include videos with examples for the creation of colormaps.
           You can expand a section by clicking on it.
+
+
+      <!------------------	Menu Layout  --------------->
       <div id="id_expandCreatePageMenueLayout" class="class_AddLabel1">
         1. Menu and Layout
       </div>
@@ -1715,7 +1729,7 @@
             The menu bar (Image 1.1) consist of two parts. On the left side you can see the colorspace options. This options are available on the most parts of the webtool. You can select one of the colorspaces and the webtool draw all displayed color gradients with an interpolation in the selected colorspace.
           <p>
 
-        <img title="Create Page Menu" src="img/Tutorial/createPage_Menu.png" style="margin-top:1vh; margin-bottom:0.2vh; margin-left:10%; width: 80%;">
+        <img title="Create Page Menu" src="img/Tutorial/createPage_Menu.png" style="margin-top:1vh; margin-bottom:0.2vh; margin-left:10%; width: 80%;border: 1px solid black;">
         <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
         <strong>Image 1.1: </strong> Menu Bar of the Create Page
         <p>
@@ -1732,12 +1746,15 @@
             The first part of the layout is the Colormap Band Sketch (Image 1.2). This sketch is the main location for modifing your colormap.
             For adding a new band to the colormap you have to drag an existing band from the bottom of the page to an red bordered area at the Colormap Band Sketch and drop it there.
             If you want to edit or delete a band you can click on this band at the sketch and a pop up window for the band editing will open. You will find more informations about the band editor at the next section "How to create a colormap".
+            Directly under the sketch element are dynamicly input fields. With this input fields you can modify the reference range of the bands. For a better workflow it is allowed to update a reference value with a bigger number as the next reference value or with a smaller one for previous values.
+            In this case all following (or previous) values in the band sketch will be update, so that the distance to the new value is equal to old distance.
           <p>
 
-        <img title="Create Page Menu" src="img/Tutorial/createPage_BandSketchEmpty.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width: 80%;">
+        <img title="Create Page Menu" src="img/Tutorial/createPage_BandSketchEmpty.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width: 80%;border: 1px solid black;">
         <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
         <strong>Image 1.2: </strong> Colormap Band Sketch
         <p>
+
 
           <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
             Below the Colormap Band Sketch you will find five containers with existing bands (Image 1.3). They enable you to add very fast constant bands, scaled band or a set of scaled bands (double, triple, quadrupel) to the colormap band sketch.
@@ -1745,41 +1762,129 @@
             A creation of a new existing band has the advantage that you can use this band in serveral colormaps. You will find more informations about the band creator at the next section "How to create a colormap".
           <p>
 
-        <img title="Create Page Menu" src="img/Tutorial/createPage_ExistingBands.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width: 80%;">
+        <img title="Create Page Menu" src="img/Tutorial/createPage_ExistingBands.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width: 80%; border: 1px solid black;">
         <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
         <strong>Image 1.3: </strong> Existing Bands
         <p>
 
           <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
-            If you add a band to a empty colormap band sketch. ....
+            If you add a band to a empty colormap band sketch, a linear colormap will be drawn above the sketch element (Image 1.4). This visualization shows how the colormap look like.
+            The advantage of having a linear visualization and a non linear visualization (Colormap Band Sketch) of the colormap is that you have in one hand a correct representation of the colormap and in the other hand you have a representation, which give you always a good overview.
+            In case of very different reference range distances it is possible, that some bands at the linear colormap are too small to recognise. The visualization of the bands at the Colormap Band Sketch are independent of the range distance. This enables a good overview of the colormap and a good editing of every single band.
+            At the top of the linear colormap are the visualizations of the colormap keys (Further details to the keys you will find in the "Specification of Continuous Colormaps" tutorial). You can use this keys for the modifing of the reference values.
+            Grap one of the keys between the first and the last one and you can switching per mouse moving into the right or left direction. Alternative there are also inputfields for the reference value modification direktly under the linear colormap.
           <p>
 
-        <img title="Create Page Menu" src="img/Tutorial/createPage_LinearColormap.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width: 80%;">
+        <img title="Create Page Menu" src="img/Tutorial/linearColormap.gif" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width: 80%;border: 1px solid black;">
         <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
         <strong>Image 1.4: </strong> Linear Colormap vs Colormap Band Sketch
         <p>
 
           <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
-            Next to the linear colormap ...
+            Left next to the linear colormap you will find a black bar. Click on it and a table with the colormap informations will be open (Image 1.5). You can use this table for a alternative overview or you can copy it and paste the table into spreadsheet software (like excel, calc, ..).
           <p>
 
-        <img title="Create Page Menu" src="img/Tutorial/createPage_Table.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width: 80%;">
+        <img title="Create Page Menu" src="img/Tutorial/colormapTable.gif" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width: 80%;border: 1px solid black;">
         <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
         <strong>Image 1.5: </strong> Colormap Table
         <p>
 
 
       </div>
+
+      <!------------------	How create a colormap  --------------->
       <div id="id_expandCreatePageHowCreateColormap" class="class_AddLabel1">
         2. How to create a colormap.
       </div>
       <div id="id_createPageHowCreateColormap" class="class_AddLabel3" style="display:none;">
+
+          <h1 style="margin-left:10%; width:80%; text-align:left; height:3vh; line-height:3vh; font-size:2.5vh; vertical-align:middle; margin-top:2vh;"> 2.1 Create a Colormap </h1>
+
+          <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
+            The CCC-Tool allow a fast and easy creation of colormaps by drag and drop of bands (Image 2.1).
+            The page for the creation of colormaps offers a continent of different existing bands in the lower area of the page. Choose one of the constant bands, the scaled bands or the set of scaled bands (doulbe, triple, quadrupel) and drag it to the colormap band sketch. Drop it on the desired position.
+            During the adding of a band to the band sketch the reference the reference values of the prospective band neighbours have to be updated such there will be enought place for the new added band.
+            In view of this automatically updating it is a good way as first step to adding all the bands and after that to update all the reference values to your own preferences.
+            You can always modify the range of the single bands with the input fields under the colormap visualizations, with the key on the top of the linear colormap or with the band editor.
+          <p>
+
+          <img title="Drag Drop Bands" src="img/Tutorial/bandSketch.gif" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width: 80%;border: 1px solid black;">
+          <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
+            <strong>Image 2.1: </strong> Create Colormap by drag and drop of bands into the Colormap Band Sketch.
+          <p>
+
+
+          <h1 style="margin-left:10%; width:80%; text-align:left; height:3vh; line-height:3vh; font-size:2.5vh; vertical-align:middle; margin-top:2vh;"> 2.2 Band Editor </h1>
+
+          <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
+            In case that there are no to your preferences fitting existing colormaps, you can add one of the existing bands and edit it.
+            Click on the band, which one you want to edit, at the Colormap Band Sketch and the window for the band editing will open.
+            In the upper area of the window you will see a visualization of the modifiable band in the middle and the visualizations of the neighbouring bands on the left and on the right side.
+            Below the representations of the bands you fill find a colorpicker in the middle and on the left side of the colorpicker the options to change the interpolation colorspace.
+            On the right side of the colorpicker you will finde four buttons, where you can display a short help, cancel the editing, accept the editing or delete the band from the Colormap Band Sketch.
+          <p>
+
+            <img title="Band Editor" src="img/Tutorial/bandeditorScaledColor.gif" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width: 80%;border: 1px solid black;">
+            <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
+              <strong>Image 2.2: </strong> Band Editor Example: change the color with the colorpicker.
+            <p>
+
+            <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
+              Each band has a start and an end color.
+              For changing one of these colors you have to activate the color by mouse click on the rectangle above the band (Rectangle get a green border).
+              After that you can use the colorpicker to modify the activated color. You can see an example at the Image 2.2.
+            <p>
+            <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
+              If you want a sequence of bands where the neighbour colors are equal (Key with two equal colors &#8594; dual key ), it is nearly impossible to hit the identical color with the colorpicker.
+              In this case click on the rectangle above the neighbouring band and the color of the modifiable band will be updated. You can see an example at the Image 2.3.
+            <p>
+
+            <img title="Band Editor" src="img/Tutorial/bandeditorNeighbourColor.gif" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width: 80%;border: 1px solid black;">
+            <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
+              <strong>Image 2.3: </strong> Band Editor Example: change the color to the neighbouring color.
+            <p>
+
+              <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
+                To get a constant band both colors of a band have to be equal. Here it is also impossible to use the colorpicker to select two identical colors.
+                If you want a constant band you can click on one of the buttons with an arrow next to the colorrectangles of the band.
+                After the mouse click the other color will be update with the color next to the arrow button.
+                You can see an example at the Image 2.4.
+              <p>
+
+
+            <img title="Band Editor" src="img/Tutorial/bandeditorConstant.gif" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width: 80%;border: 1px solid black;">
+            <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
+              <strong>Image 2.4: </strong> Band Editor Example: create a constant band.
+            <p>
+
+
       </div>
+
       <div id="id_expandCreatePageHowCreateBand" class="class_AddLabel1">
         3. How to create bands.
       </div>
       <div id="id_createPageHowCreateBand" class="class_AddLabel3" style="display:none;">
+
+        <h1 style="margin-left:10%; width:80%; text-align:left; height:3vh; line-height:3vh; font-size:2.5vh; vertical-align:middle; margin-top:2vh;"> 3 The Band Creator </h1>
+
+        <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
+            In case that there are no to your preferences fitting existing colormaps and you want to use a edit band for more than one colormap, you have to use the band creator to add a new band to the extisting bands.
+            At each container of the different types of bands (constant, scaled, double scaled, triple scaled, quadrupel scaled) are "add" buttons.
+            Click on one of these buttons at the end of a containter to create a new band with the type of this container.
+            After the mouse click a window for the band creation will be open.
+            You will see a band sequence (depending on the band type with one, two, three or four bands) and the modifiable colors C1 till C5 as rectangles above the band sequence.
+            If you want to update a color you have to activate it by a mouse click on the rectangel (Border becomes green) and select in the colorpicker the wished color.
+            Next to the colorpicker you can also use the input fields to determine the color. The input fields are using the selected colorspace.
+            You can see an example for the creation of a band at the Image 3.1.
+        <p>
+
+          <img title="Band Creator" src="img/Tutorial/bandCreator.gif" style="margin-top:1vh; margin-bottom:1vh; margin-left:30%; width: 40%;border: 1px solid black;">
+          <p style="margin-left:30%; width:40%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
+            <strong>Image 3.1: </strong> Band Creator: Example for the creation of a band.
+          <p>
+
       </div>
+
       <div id="id_expandCreatePageExampleVideos" class="class_AddLabel1">
         4. Example Videos
       </div>
