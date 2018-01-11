@@ -504,6 +504,7 @@ function showTutorialSide(){
   document.getElementById("id_Tutorial_Menue").style.display = "inline-block";
   document.getElementById("id_SideLabel").innerHTML = "Tutorial";
   document.getElementById("id_Colorspace_Menue").style.display = "none";
+  changeTutorial(0);
 
 }
 
