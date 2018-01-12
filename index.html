@@ -1755,8 +1755,7 @@
           <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
             Welcome to the tutorial about the creation of colormaps with the CCC-Tool. The following page will give you an instruction how to use the webtool to create a colormap.
             The first section give an overview about the layout and the options at the menu bar.
-            At the "How to create a colormap" section is a instruction
- about the methods to create a continuous colormap.
+            At the "How to create a colormap" section is a instruction about the methods to create a continuous colormap.
             The existing bands for the creation of a colormap can be extended by a creation of new bands. The section "How to create bands" give you a short instruction how to create bands.
             The last section include videos with examples for the creation of colormaps.
             You can expand a section by clicking on it.
@@ -1792,7 +1791,7 @@
               The first part of the layout is the Colormap Band Sketch (Image 1.2). This sketch is the main location for modifing your colormap.
               For adding a new band to the colormap you have to drag an existing band from the bottom of the page to an red bordered area at the Colormap Band Sketch and drop it there.
               If you want to edit or delete a band you can click on this band at the sketch and a pop up window for the band editing will open. You will find more informations about the band editor at the next section "How to create a colormap".
-              Directly under the sketch element are dynamicly input fields. With this input fields you can modify the reference range of the bands. For a better workflow it is allowed to update a reference value with a bigger number as the next reference value or with a smaller one for previous values.
+              Directly under the sketch element are dynamic input fields. With this input fields you can modify the reference range of the bands. For a better workflow it is allowed to update a reference value with a bigger number as the next reference value or with a smaller one for previous values.
               In this case all following (or previous) values in the band sketch will be update, so that the distance to the new value is equal to old distance.
             </p>
 
@@ -1995,8 +1994,7 @@
            If you have to use the rgb colorspace as export colorspace, but you also want to use the aptitudes for perception of color of the Lab space or DIN99 space, the next option "Interval Colorspace Approximation" could help (Image 2).
            The assumption of this method is, that the inpolations of small ranges inside of different colorspace are nearly equal.
            With the calculation of interval colors inside a selected colorspace we can approximate the colomap to this colorspace and use another colorspace for the interpolation.
-           You can find an example
- for such a approximation at the video 1.
+           You can find an example for such a approximation at the video 1.
            If you want to use the approximation method you have to activate the check box for this processing and the box with the options for this technique will be unlocked.
            Furthermore a new conainter will be displayed below the box with the settings and the colormap table (Image 2).
            This container shows three visualizations of the colormap you want to export.
@@ -2026,13 +2024,19 @@
           <h1 style="margin-left:2%; width:96%; text-align:center; height:3vh; line-height:3vh; font-size:3vh; vertical-align:middle; margin-top:4vh;"> 2. File Formats </h1>
 
           <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
-           the xml
+           There are three possible output format a user can select at the export of a colormap using the CCC-Tool. Below this text is one example for each of the formats XML, JSON, TXT.
+           All Formats include the name of the colormap, the export space, a color for the NaN (Not a Number) values and the points, which construct the bands of the colormap.
+           Each point has a reference value, the color values, an opacity value and ccc-type variable. The ccc-type variable shows, if the point was originally a key point in the colormap or a during the export added interval point.
            </p>
 
 
            <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.7vh; font-size:2vh; vertical-align:middle; border-bottom: 2px solid black; border-top: 2px solid black;">
             1: &emsp; <span style="color:brown;">&lt;ColorMaps&gt;</span><br>
-            2: &emsp;&emsp; <span style="color:brown;">&lt;ColorMaps&gt;</span><br>
+            2: &emsp;&emsp; <span style="color:brown;">&lt;ColorMaps
+              <span style="color:red;">name</span>=<span style="color:blue;">"Test Colormap"</span>
+              <span style="color:red;">space</span>=<span style="color:blue;">"RGB"</span>
+              <span style="color:red;">creator</span>=<span style="color:blue;">"CCC-Tool"</span>
+              &gt;</span><br>
             3: &emsp;&emsp;&emsp;<span style="color:brown;">&lt;Point</span>
             <span style="color:red;">x</span>=<span style="color:blue;">"0"</span>
             <span style="color:red;">o</span>=<span style="color:blue;">"1"</span>
@@ -2070,12 +2074,40 @@
              <strong>XML 1: </strong> Example for export file with XML format. A colormap with two key colors, one interval point (two intervals) and the NaN color rgb(0,0,0)
            </p>
 
-          <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
-            the json
-          </p>
+          <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.7vh; font-size:2vh; vertical-align:middle; border-bottom: 2px solid black; border-top: 2px solid black;">
+           1: &emsp;{<span style="color:blue;">"colormaps":</span><br>
+           2: &emsp;&emsp;[{ <span style="color:blue;">"name"</span>:<span style="color:red;">"Test Colormap"</span>,<br>
+           3: &emsp;&emsp;&emsp;<span style="color:blue;">"space"</span>:<span style="color:red;">"RGB"</span>,<br>
+           4: &emsp;&emsp;&emsp;<span style="color:blue;">"NaN"</span>: [{
+                      <span style="color:blue;">"o"</span>:<span style="color:red;">"1"</span>,
+                      <span style="color:blue;">"r"</span>:<span style="color:red;">"0"</span>,
+                      <span style="color:blue;">"g"</span>:<span style="color:red;">"0"</span>,
+                      <span style="color:blue;">"b"</span>:<span style="color:red;">"0"</span>
+                    }],<br>
+            5: &emsp;&emsp;&emsp;<span style="color:blue;">"points"</span>: [{
+                      <span style="color:blue;">"o"</span>:<span style="color:red;">"1"</span>,
+                      <span style="color:blue;">"r"</span>:<span style="color:red;">"1"</span>,
+                       <span style="color:blue;">"g"</span>:<span style="color:red;">"0"</span>,
+                       <span style="color:blue;">"b"</span>:<span style="color:red;">"0"</span>},
+                       <span style="color:blue;">"ccctype"</span>:<span style="color:red;">"key"</span>},<br>
+            6: &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{
+                       <span style="color:blue;">"o"</span>:<span style="color:red;">"1"</span>,
+                                 <span style="color:blue;">"r"</span>:<span style="color:red;">"0.866029"</span>,
+                                  <span style="color:blue;">"g"</span>:<span style="color:red;">"0.647811"</span>,
+                                  <span style="color:blue;">"b"</span>:<span style="color:red;">"0.507426"</span>},
+                                  <span style="color:blue;">"ccctype"</span>:<span style="color:red;">"interval point"</span>},<br>
+            7: &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{
+                                            <span style="color:blue;">"o"</span>:<span style="color:red;">"1"</span>,
+                                            <span style="color:blue;">"r"</span>:<span style="color:red;">"0"</span>,
+                                             <span style="color:blue;">"g"</span>:<span style="color:red;">"1"</span>,
+                                             <span style="color:blue;">"b"</span>:<span style="color:red;">"1"</span>,
+                                            <span style="color:blue;">"ccctype"</span>:<span style="color:red;">"key"</span>}]<br>
+            8: &emsp;&emsp;}]<br>
+            9: &emsp;}
 
-          <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
-            the txt
+          </p>
+          <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
+            <strong>JSON 1: </strong> Example for export file with JSON format. A colormap with two key colors, one interval point (two intervals) and the NaN color rgb(0,0,0)
           </p>
 
           <table style="margin-left:10%; width:80%; overflow:auto;" id="id_table">
@@ -2159,10 +2191,25 @@
 
           <h1 style="margin-left:2%; width:96%; text-align:center; height:3vh; line-height:3vh; font-size:3vh; vertical-align:middle; margin-top:2vh;"> 3. Algorithm </h1>
 
-
+          <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
+           If you are coding your own software, there are different algorithms how you can calculate the colors for your visualization. Depending, if the pass through the colormap is from front to rear or the other way, different results are possible.
+           A additional affect is which color you prefer if you have a reference value for a key, which colors are not equal.<br>
+           This leads to the following possible Algorithm:<br>
+           &emsp;&emsp; - from left to right, prefering the current band<br>
+           &emsp;&emsp; - from left to right, prefering the next band<br>
+           &emsp;&emsp; - from right to left, prefering the current band<br>
+           &emsp;&emsp; - from right to left, prefering the next band<br>
+           <br>
+           Future Work:
+           Maybe it is important so set a fixed color for each key reference. For this situation the technique "Middle of the Triple" should help.
+           The idea is that every key has three color. The left and the right key color are determining the start or the end color of the respective band. The middle key color is equal with one of the other two colors and determine the color for the key reference value.
+           In this way it is possible to ensure that the result visualizations are equal.
+           Following are all 5 Algorithm written down:
+           <br>
+           </p>
 
           <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:3vh; font-size:2vh; vertical-align:middle; border-top: 2px solid black; border-bottom: 1px solid black;">
-            Algorithm 1 Middle of Triple Algorithm
+            Algorithm 5 Middle of Triple Algorithm
           </p>
           <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.7vh; font-size:2vh; vertical-align:middle; border-bottom: 2px solid black;">
             1: &emsp; <i>check:</i><br>
@@ -2325,14 +2372,14 @@
 
             The analyse of the interpolations in different colormaps show you for each offered colorspace a visualization of the colormap.
             With this information the user of the CCC-Tool gets a fast overview over the interpolations and how excessive the differences are.
-            This could be important if he want to approximate a colorspace at the export or if he want that user of this colormap also get the same result independent of the used colorspace.
+            This could be important if you want to approximate a colorspace at the export or if you want that user of this colormap also get the same result independent of the used colorspace.
             Image 2.1 one shows an example of the analyse of the interpolations in different colormaps.
 
           </p>
 
           <img title="Analyze Colorspace" src="img/Tutorial/analyseColorspaces.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
           <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
-          <strong>Image 2.1: </strong>
+          <strong>Image 2.1: </strong> Example of the analyse of the interpolations in different colormaps.
           </p>
         </div>
 
@@ -2347,26 +2394,34 @@
 
             The last area deal with the color distribution inside the bands in regards to the human perception of colors.
             The idea is that a user can set the proportion of distinguishable colors inside a band compared to the other bands.
-            In this way he can set a equal distribution, if all values of the ranges are tantamount.
-            Or he can give a range (or selected ranges) a higher priority than the rest ranges (Image 3.2).
+            In this way you can set a equal distribution, if all values of the ranges are tantamount.
+            Or you can give a range (or selected ranges) a higher priority than the rest ranges (Image 3.2).
 
           </p>
 
           <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
 
-            How can a user do that? The CCC-Tool offers Difference Maps for this requirement. rational
-
+            How can a user do that? The CCC-Tool offers Difference Maps for this requirement.
+            For the calculation of the Difference Maps only scaled bands observed.
+            First the tool calculate the rational value of each scaled band to the sum of the distances of all scaled bands and draw the results into horizontal bar graph "Ratio X Reference".
+            The width of a bar inside of these plots stands for the rational value of this band range.
+            This visualization should serve as comparison between the rational values of the reference ranges and rational values of the color difference.
+            There are the two colorspace Lab and DIN99, which are developed to meet the requirements for the human perception of colors. For the Lab space are additional the metrics DE94 and CIEDE2000 (instead of using the euclidean distance) to improve the determining of the color difference.
+            For the adjustment of a colormap using the Difference Maps you should use these colorspaces and metrics.
+            For the sake of completeness the euclidean distances of the RGB and the HSV space are also processed for Difference Maps.
+            Similar to the bar graph with the rational value of the reference ranges, the Difference Maps will be created with the rational values of the color difference between the start and end color of each scaled band compared to the sum of the differences of all scaled bands.
+            You can see the visualizations below the bar graph of the reference ranges.
           </p>
 
           <img title="Difference Maps" src="img/Tutorial/analyseDifferenceMaps.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
           <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
-          <strong>Image 3.1: </strong>
+          <strong>Image 3.1: </strong> Example of the analyse of the Difference Maps.
           </p>
 
           <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
 
-            How can a user do that? The CCC-Tool offers Difference Maps for this requirement. rational
-
+            For a dynamic modification of the colormap, one of the perceptual Difference Map (DIN99, DE94, CIEDE2000) is displayed above the visualizations of the colormap course.
+            You can see an example at the image 3.2.
           </p>
 
           <img title="Difference Maps" src="img/Tutorial/analyseDifferenceMapsExample.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
