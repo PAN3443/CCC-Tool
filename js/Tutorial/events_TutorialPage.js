@@ -85,6 +85,29 @@ function expandTutorialDivs (event){
       else
         document.getElementById("id_createPageExampleVideos").style.display = "none";
       break;
+
+      case "id_expandAnalyseCourse":
+        if(document.getElementById("id_analyseCourse").style.display === "none")
+          document.getElementById("id_analyseCourse").style.display = "inline-block";
+        else
+          document.getElementById("id_analyseCourse").style.display = "none";
+        break;
+
+        case "id_expandAnalyseColorspaces":
+          if(document.getElementById("id_analyseColorspaces").style.display === "none")
+            document.getElementById("id_analyseColorspaces").style.display = "inline-block";
+          else
+            document.getElementById("id_analyseColorspaces").style.display = "none";
+          break;
+
+          case "id_expandAnalyseDifferenceMaps":
+            if(document.getElementById("id_analyseDifferenceMaps").style.display === "none")
+              document.getElementById("id_analyseDifferenceMaps").style.display = "inline-block";
+            else
+              document.getElementById("id_analyseDifferenceMaps").style.display = "none";
+            break;
+
+
     default:
 
   }

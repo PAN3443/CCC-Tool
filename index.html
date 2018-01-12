@@ -418,7 +418,8 @@
       <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:4vh; vertical-align:middle; margin-top:0vh; padding-top:2vh;"> Manage Your Colormaps </h1>
 
         <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
-        <strong>Welcome</strong> to the CCC-Tool. The following is a short instruduction. For a comprehensive introduction please visit the tutorial ("Go to ..."  	&#8594;  Tutorial) and select one of the sections at the menu bar. The present page is the My Maps side, where you can manage your set of colormaps and handle the available
+        <strong>Welcome</strong> to the CCC-Tool. The following is a short instruction
+. For a comprehensive introduction please visit the tutorial ("Go to ..."  	&#8594;  Tutorial) and select one of the sections at the menu bar. The present page is the My Maps side, where you can manage your set of colormaps and handle the available
         options for exporting, editing, analyzing and comparing colormaps. You can reach this window everytime by clicking on the "My Maps" button at the "Go to ..." menu. For a easy and fast start you can choose the option of adding an existing colormap (click on the "Add Existing Map" button).
         The new displayed side show you a set of common used colormaps (made available by <a target="_blank" href="http://sciviscolor.org">sciviscolor.org</a> ). Your selection will automatically tranfer to this side. Alternative to the selction of a existing colormap you can create your own colormap, which
         meet your special requirements (click on the "Create New Map" button). If you need help at the creator side please hover the questionmark button at the top for a short help or visit the tutorial.
@@ -1754,7 +1755,8 @@
           <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
             Welcome to the tutorial about the creation of colormaps with the CCC-Tool. The following page will give you an instruction how to use the webtool to create a colormap.
             The first section give an overview about the layout and the options at the menu bar.
-            At the "How to create a colormap" section is a instruduction about the methods to create a continuous colormap.
+            At the "How to create a colormap" section is a instruction
+ about the methods to create a continuous colormap.
             The existing bands for the creation of a colormap can be extended by a creation of new bands. The section "How to create bands" give you a short instruction how to create bands.
             The last section include videos with examples for the creation of colormaps.
             You can expand a section by clicking on it.
@@ -1993,7 +1995,8 @@
            If you have to use the rgb colorspace as export colorspace, but you also want to use the aptitudes for perception of color of the Lab space or DIN99 space, the next option "Interval Colorspace Approximation" could help (Image 2).
            The assumption of this method is, that the inpolations of small ranges inside of different colorspace are nearly equal.
            With the calculation of interval colors inside a selected colorspace we can approximate the colomap to this colorspace and use another colorspace for the interpolation.
-           You can find a example for such a approximation at the video 1.
+           You can find an example
+ for such a approximation at the video 1.
            If you want to use the approximation method you have to activate the check box for this processing and the box with the options for this technique will be unlocked.
            Furthermore a new conainter will be displayed below the box with the settings and the colormap table (Image 2).
            This container shows three visualizations of the colormap you want to export.
@@ -2016,7 +2019,7 @@
                 <source src="video/tutorial_exampleIntervals.mp4" type="video/mp4">
                   Your browser does not support HTML5 video.
               </video>
-              <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
+              <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0.2vh;">
                 <strong>Video 1: </strong> Approximation of the Lab colorspace using the Colorspace Interval Approximation.
               </p>
 
@@ -2026,12 +2029,132 @@
            the xml
            </p>
 
+
+           <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.7vh; font-size:2vh; vertical-align:middle; border-bottom: 2px solid black; border-top: 2px solid black;">
+            1: &emsp; <span style="color:brown;">&lt;ColorMaps&gt;</span><br>
+            2: &emsp;&emsp; <span style="color:brown;">&lt;ColorMaps&gt;</span><br>
+            3: &emsp;&emsp;&emsp;<span style="color:brown;">&lt;Point</span>
+            <span style="color:red;">x</span>=<span style="color:blue;">"0"</span>
+            <span style="color:red;">o</span>=<span style="color:blue;">"1"</span>
+            <span style="color:red;">r</span>=<span style="color:blue;">"1"</span>
+            <span style="color:red;">g</span>=<span style="color:blue;">"0"</span>
+            <span style="color:red;">b</span>=<span style="color:blue;">"0"</span>
+            <span style="color:red;">ccctype</span>=<span style="color:blue;">"key"</span>
+            <span style="color:brown;">/&gt;</span><br>
+            4: &emsp;&emsp;&emsp;<span style="color:brown;">&lt;Point</span>
+            <span style="color:red;">x</span>=<span style="color:blue;">"0.5"</span>
+            <span style="color:red;">o</span>=<span style="color:blue;">"1"</span>
+            <span style="color:red;">r</span>=<span style="color:blue;">"0.866029"</span>
+            <span style="color:red;">g</span>=<span style="color:blue;">"0.647811"</span>
+            <span style="color:red;">b</span>=<span style="color:blue;">"0.507426"</span>
+            <span style="color:red;">ccctype</span>=<span style="color:blue;">"interval point"</span>
+            <span style="color:brown;">/&gt;</span><br>
+            5: &emsp;&emsp;&emsp;<span style="color:brown;">&lt;Point</span>
+            <span style="color:red;">x</span>=<span style="color:blue;">"1"</span>
+            <span style="color:red;">o</span>=<span style="color:blue;">"1"</span>
+            <span style="color:red;">r</span>=<span style="color:blue;">"0"</span>
+            <span style="color:red;">g</span>=<span style="color:blue;">"1"</span>
+            <span style="color:red;">b</span>=<span style="color:blue;">"1"</span>
+            <span style="color:red;">ccctype</span>=<span style="color:blue;">"key"</span>
+            <span style="color:brown;">/&gt;</span><br>
+            6: &emsp;&emsp;&emsp;<span style="color:brown;">&lt;NaN</span>
+            <span style="color:red;">o</span>=<span style="color:blue;">"1"</span>
+            <span style="color:red;">r</span>=<span style="color:blue;">"0"</span>
+            <span style="color:red;">g</span>=<span style="color:blue;">"0"</span>
+            <span style="color:red;">b</span>=<span style="color:blue;">"0"</span>
+            <span style="color:brown;">/&gt;</span><br>
+            7: &emsp;&emsp;<span style="color:brown;">&lt;/ColorMap&gt;</span><br>
+            8: &emsp;<span style="color:brown;">&lt;/ColorMaps&gt;</span><br>
+           </p>
+           <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
+             <strong>XML 1: </strong> Example for export file with XML format. A colormap with two key colors, one interval point (two intervals) and the NaN color rgb(0,0,0)
+           </p>
+
           <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
             the json
           </p>
 
           <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
             the txt
+          </p>
+
+          <table style="margin-left:10%; width:80%; overflow:auto;" id="id_table">
+            <thead>
+              <tr>
+                <th class="class_tablelabel" >Reference </th>
+                <th class="class_tablelabel">R</th>
+                <th class="class_tablelabel">G</th>
+                <th class="class_tablelabel">B</th>
+                <th class="class_tablelabel">Opacity</th>
+                <th class="class_tablelabel">ccctype</th>
+                <th class="class_tablelabel"> </th>
+                <th class="class_tablelabel">NaN </th>
+                <th class="class_tablelabel">R </th>
+                <th class="class_tablelabel">0</th>
+                <th class="class_tablelabel">G </th>
+                <th class="class_tablelabel">0 </th>
+                <th class="class_tablelabel">B </th>
+                <th class="class_tablelabel">0 </th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <th class="class_tableInput">0 </th>
+                <th class="class_tableInput">0</th>
+                <th class="class_tableInput">0</th>
+                <th class="class_tableInput">1</th>
+                <th class="class_tableInput">1</th>
+                <th class="class_tableInput">key</th>
+                <th class="class_tableInput"> </th>
+                <th class="class_tableInput"> </th>
+                <th class="class_tableInput"> </th>
+                <th class="class_tableInput"> </th>
+                <th class="class_tableInput"> </th>
+                <th class="class_tableInput"> </th>
+                <th class="class_tableInput"> </th>
+                <th class="class_tableInput"> </th>
+
+              </tr>
+
+              <tr>
+                <th class="class_tableInput">0.5 </th>
+                <th class="class_tableInput">0.8660293802718138</th>
+                <th class="class_tableInput">0.6478113035497385</th>
+                <th class="class_tableInput">0.5074263852081529</th>
+                <th class="class_tableInput">1</th>
+                <th class="class_tableInput">interval point</th>
+                <th class="class_tableInput"> </th>
+                <th class="class_tableInput"> </th>
+                <th class="class_tableInput"> </th>
+                <th class="class_tableInput"> </th>
+                <th class="class_tableInput"> </th>
+                <th class="class_tableInput"> </th>
+                <th class="class_tableInput"> </th>
+                <th class="class_tableInput"> </th>
+              </tr>
+
+              <tr>
+                <th class="class_tableInput">1 </th>
+                <th class="class_tableInput">0</th>
+                <th class="class_tableInput">1</th>
+                <th class="class_tableInput">1</th>
+                <th class="class_tableInput">1</th>
+                <th class="class_tableInput">key</th>
+                <th class="class_tableInput"> </th>
+                <th class="class_tableInput"> </th>
+                <th class="class_tableInput"> </th>
+                <th class="class_tableInput"> </th>
+                <th class="class_tableInput"> </th>
+                <th class="class_tableInput"> </th>
+                <th class="class_tableInput"> </th>
+                <th class="class_tableInput"> </th>
+              </tr>
+            </tbody>
+
+          </table>
+          <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
+            <strong>Table 1: </strong> Example for export file with TXT format. Lookup table with two key colors, one interval point (two intervals) and the NaN color rgb(0,0,0)
           </p>
 
           <h1 style="margin-left:2%; width:96%; text-align:center; height:3vh; line-height:3vh; font-size:3vh; vertical-align:middle; margin-top:2vh;"> 3. Algorithm </h1>
@@ -2056,7 +2179,7 @@
            12:&emsp;&emsp;&emsp;&emsp;u = U[i] <br>
            13:&emsp;&emsp;&emsp;&emsp;<span style="color:purple; font-weight:bold">return</span> u <br>
            14:&emsp;&emsp;<span style="color:purple; font-weight:bold">else</span> <br>
-           15:&emsp;&emsp;&emsp;<span style="color:purple; font-weight:bold">if</span> v > V[i]andv < V[i+1] <span style="color:purple; font-weight:bold">then</span> <br>
+           15:&emsp;&emsp;&emsp;<span style="color:purple; font-weight:bold">if</span> v > V[i] and v < V[i+1] <span style="color:purple; font-weight:bold">then</span> <br>
            16:&emsp;&emsp;&emsp;&emsp;u := (U[i+1] - U[i])*(v - V[i]) / (V[i+1] - V[i]) + U[i] <br>
            17:&emsp;&emsp;&emsp;&emsp;<span style="color:purple; font-weight:bold">return</span> u <br>
           </p>
@@ -2085,50 +2208,178 @@
       <h1 style="margin-left:2%; width:96%; text-align:center; height:3vh; line-height:3vh; font-size:3vh; vertical-align:middle; margin-top:2vh;"> Tutorial Analyze </h1>
 
         <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
-          Welcome to the tutorial about the analyze.
+          Welcome to the tutorial about the analyze. This tutorial give you the instruction how to use the analyse side.
+          There is no tutorial for the compare page.
+          You can also use this tutorial as instruction, bacause the construction is equal to the compare page.
+          The page for the analyze is divided into four broad areas.
+          At the top is a visualization of the colormap band sketch.
+          You can use the input fields to update the reference value.
+          If you want to update the colors of a band you can use the area for analyze the colormap course or you should visit the edit page.
+          In each of the three following containers is one explanation to the next three areas of the analyze page.
+          You can expand a section by clicking on it.
         </p>
 
-        <img title="Colormap Course Legend" src="img/Tutorial/analyseLegendCourse.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
-        <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
-        <strong>Image 1: </strong>
-        </p>
 
-        <img title="Colormap Course RGB" src="img/Tutorial/analyseRGBCourse.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
-        <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
-        <strong>Image 2: </strong>
-        </p>
+        <div id="id_expandAnalyseCourse" class="class_AddLabel1" style="background:rgb(250,250,250); margin-left:10%; width:80%;">
+          1. Colormap Course
+        </div>
+        <div id="id_analyseCourse" class="class_AddLabel3" style="display:none; margin-left:10%; width:80%;">
 
-        <img title="Colormap Course HSV" src="img/Tutorial/analyseHSVCourse.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
-        <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
-        <strong>Image 3: </strong>
-        </p>
+          <h1 style="margin-left:10%; width:80%; text-align:left; height:3vh; line-height:3vh; font-size:2.5vh; vertical-align:middle; margin-top:2vh;"> 1. Analyze the Colormap Course </h1>
 
-        <img title="Colormap Course LAB" src="img/Tutorial/analyseLabCourse.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
-        <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
-        <strong>Image 4: </strong>
-        </p>
+          <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
 
-        <img title="Colormap Course DIN99" src="img/Tutorial/analyseDIN99Course.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
-        <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
-        <strong>Image 5: </strong>
-        </p>
+                The idea of the analyze the colormap course is to give you a sense how the colormap run in different colorspaces.
+                To make this possible each colorspace has its own visualization, which you can the at Image 1.3 till 1.6. At the moment only the RGB colorspace has a 3D visualization.
+                The tutorial will get to the explain colorspace visualtisations later.
+          </p>
 
-        <img title="Colormap Course RGB Possible" src="img/Tutorial/analyseLabCourseRGBPossibleColors.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
-        <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
-        <strong>Image 6: </strong>
-        </p>
+          <img title="Colormap Course Legend" src="img/Tutorial/analyseLegendCourse.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
+          <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
+          <strong>Image 1.1: </strong> Legend for the colormap course
+          </p>
 
-        <img title="Analyze Colorspace" src="img/Tutorial/analyseColorspaces.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
-        <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
-        <strong>Image 7: </strong>
-        </p>
+          <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
+                Inside each visualization of the colorspace the colormap is plotted with lines, squares and circles (in 3D with cubes and shperes).
+                There are three different elements the webtool has to draw for the visualization of the colormap couse.
+                In the image 1.1 you can see the legend, which is also plotted under the colorspace visualizations at the analyze page.
+                The constant bands will be represented by squares.
+                There is a exception for the value or lightness plot at the visualizations of the  HSV, Lab and DIN99 space, where the represention of constant bands consist of two squares connected with one line.
+                For the scaled band the webtool draw two circles connected with a line. The two circles stand for the start and the end color of the band and the line for the route of the interpolated colors.
+                At last are the jumps between to bands with different neighbouring colors. These jumps are represented with dashed lines.
+          </p>
 
-        <img title="Difference Maps" src="img/Tutorial/analyseDifferenceMaps.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
-        <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
-        <strong>Image 8: </strong>
-        </p>
+
+          <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
+                Now, how you can use these information to improve you colormap.
+                A good colormap (human perception of color differences excepted) has for every value, which a user would like to differentiate, a unique color.
+                In order to do that, it is recommended to avoid that parts of the colormap course are crossing or run about each other (Image 1.2).
+                In addition to that, all colors of a band should be maximal distinguishable to the colors of the other bands of the colormap.
+                On the one hand there are colorspaces developed or human perception of color differences like Din99 or Lab, which could use to meet this requirement.
+                One the other hand the colormap course of this webtool allows it to easily identify bands, which are run close together.
+                Both requirements can be easily resolved by modifing the colormap course.
+                Click and hold the mouse button above the circle or square you want to modify. Now move the mouse and therefore also the circle or square to a desired position.
+          </p>
+
+          <img title="Colormap Course Cross" src="img/Tutorial/analyseCrossCourse.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
+          <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
+          <strong>Image 1.2: </strong> Example for a colormap course, where two parts are crossing. (HSV Colorspace)
+          </p>
+
+          <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
+                The following are some short lines to the colorspaces.
+                To get a 2D visualization of the RGB space, where you can interact with the course of the colormap, we were forced to draw the three view drawing of the space.
+                Because the complexity of the colormap course inside a three view drawing, we added a 3D rendering of the RGB colorspace and the colormap course (Image 1.3).
+                If you click on a circle or a squad for the modifing of the colormap course, the background of all three side views will be updated with the fixed value from the color, which is selected.
+                In this way the background show you all possible colors, you can reach for this element inside of the side view you do the modifing (look at the animation of Image 1.3).
+                During the mouse movement, there will be also drawn a plane inside of the 3D rendering, which shows the position of the side view.
+                You can update the opacity value of 3D colorspace the with the number input above the plots.
+          </p>
+
+          <img title="Colormap Course RGB" src="img/Tutorial/rgbColorspace.gif" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
+          <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
+          <strong>Image 1.3: </strong> Example for colormap course in the RGB colorspace.
+          </p>
+
+
+          <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
+            The HSV, Lab and DIN99 are constructed with a plot for the hue (hs, ab, a99b99) on the left side and on the right side a plot for the lightness (value, L, L99).
+            This is very conforable to check the  monotonous increasing of brightness at the colormap or rather at the single bands of a colormap, which is especially interesting for the distinguishability of colors for color-blind viewers.
+            If you click on a circle or a squad for the modifing of the colormap course, the background colors of the hue plot will be updated with value or lightness of the selected color.
+            You can also set the default value for the background color in the number input field above the plots.
+          </p>
+
+          <img title="Colormap Course HSV" src="img/Tutorial/hsvColorspace.gif" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
+          <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
+          <strong>Image 1.4: </strong> Example for colormap course in the HSV colorspace.
+          </p>
+
+          <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
+            At Last the colorspaces Lab and DIN99 habe a additional option. Both colorspaces include colors, which are not possible at the rgb colorspace.
+            The CCC-Tool offers the option to limit the colorspace to an area of colors, which are also include in the rgb space.
+            For this option activate the checkbox above the plots.
+            You can see an example for such a limitation at the animations of the Image 1.5 and 1.6.
+          </p>
+
+          <img title="Colormap Course LAB" src="img/Tutorial/labColorspace.gif" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
+          <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
+          <strong>Image 1.5: </strong> Example for colormap course in the Lab colorspace.
+          </p>
+
+          <img title="Colormap Course DIN99" src="img/Tutorial/din99Colorspace.gif" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
+          <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
+          <strong>Image 1.6: </strong> Example for colormap course in the DIN99 colorspace.
+          </p>
+
+
+        </div>
+
+        <div id="id_expandAnalyseColorspaces" class="class_AddLabel1" style="background:rgb(250,250,250); margin-left:10%; width:80%;">
+          2. Contrast of Interpolation in Different Colorspaces
+        </div>
+        <div id="id_analyseColorspaces" class="class_AddLabel3" style="display:none; margin-left:10%; width:80%;">
+
+          <h1 style="margin-left:10%; width:80%; text-align:left; height:3vh; line-height:3vh; font-size:2.5vh; vertical-align:middle; margin-top:2vh;"> 2. Analyze the Contrast of the Interpolation in Different Colorspaces </h1>
+
+          <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
+
+            The analyse of the interpolations in different colormaps show you for each offered colorspace a visualization of the colormap.
+            With this information the user of the CCC-Tool gets a fast overview over the interpolations and how excessive the differences are.
+            This could be important if he want to approximate a colorspace at the export or if he want that user of this colormap also get the same result independent of the used colorspace.
+            Image 2.1 one shows an example of the analyse of the interpolations in different colormaps.
+
+          </p>
+
+          <img title="Analyze Colorspace" src="img/Tutorial/analyseColorspaces.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
+          <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
+          <strong>Image 2.1: </strong>
+          </p>
+        </div>
+
+        <div id="id_expandAnalyseDifferenceMaps" class="class_AddLabel1" style="background:rgb(250,250,250); margin-left:10%; width:80%;">
+          3. Difference Maps
+        </div>
+        <div id="id_analyseDifferenceMaps" class="class_AddLabel3" style="display:none; margin-left:10%; width:80%;">
+
+          <h1 style="margin-left:10%; width:80%; text-align:left; height:3vh; line-height:3vh; font-size:2.5vh; vertical-align:middle; margin-top:2vh;"> 3. Analyze the DifferenceMaps </h1>
+
+          <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
+
+            The last area deal with the color distribution inside the bands in regards to the human perception of colors.
+            The idea is that a user can set the proportion of distinguishable colors inside a band compared to the other bands.
+            In this way he can set a equal distribution, if all values of the ranges are tantamount.
+            Or he can give a range (or selected ranges) a higher priority than the rest ranges (Image 3.2).
+
+          </p>
+
+          <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
+
+            How can a user do that? The CCC-Tool offers Difference Maps for this requirement. rational
+
+          </p>
+
+          <img title="Difference Maps" src="img/Tutorial/analyseDifferenceMaps.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
+          <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
+          <strong>Image 3.1: </strong>
+          </p>
+
+          <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
+
+            How can a user do that? The CCC-Tool offers Difference Maps for this requirement. rational
+
+          </p>
+
+          <img title="Difference Maps" src="img/Tutorial/analyseDifferenceMapsExample.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
+          <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
+          <strong>Image 3.2: </strong>
+          </p>
+
+
+        </div>
+
       </div>
     </div>
+
 
 
   </div>
