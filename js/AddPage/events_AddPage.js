@@ -46,6 +46,53 @@ function expandAddColormapDivs (event){
 }
 
 
+function expandAddColormapDivsIndex (index){
+
+  switch (index) {
+    case 0:
+      if(document.getElementById("id_addYellowDiv").style.display === "none")
+        document.getElementById("id_addYellowDiv").style.display = "inline-block";
+      else
+        document.getElementById("id_addYellowDiv").style.display = "none";
+      break;
+    case 1:
+      if(document.getElementById("id_addRedPurpleDiv").style.display === "none")
+        document.getElementById("id_addRedPurpleDiv").style.display = "inline-block";
+      else
+        document.getElementById("id_addRedPurpleDiv").style.display = "none";
+
+      break;
+    case 2:
+      if(document.getElementById("id_addBlueDiv").style.display === "none")
+        document.getElementById("id_addBlueDiv").style.display = "inline-block";
+      else
+        document.getElementById("id_addBlueDiv").style.display = "none";
+      break;
+    case 3:
+      if(document.getElementById("id_addGreenDiv").style.display === "none")
+        document.getElementById("id_addGreenDiv").style.display = "inline-block";
+      else
+        document.getElementById("id_addGreenDiv").style.display = "none";
+      break;
+    case 4:
+      if(document.getElementById("id_addBrownDiv").style.display === "none")
+        document.getElementById("id_addBrownDiv").style.display = "inline-block";
+      else
+        document.getElementById("id_addBrownDiv").style.display = "none";
+      break;
+    case 5:
+      if(document.getElementById("id_addDivergentDiv").style.display === "none")
+        document.getElementById("id_addDivergentDiv").style.display = "inline-block";
+      else
+        document.getElementById("id_addDivergentDiv").style.display = "none";
+      break;
+    default:
+
+  }
+
+}
+
+
 function searchAddedColormap(index, type){
 
   for(var i=0; i<addedType.length; i++){

@@ -297,13 +297,32 @@ function changeColorspace(type) {
 function showADDSide() {
 
   if(myList.length<10){
+
+
+    switch (showSideID) {
+
+      case -1:
+                  document.getElementById("id_welcomePage").style.display = "none";
+                  document.getElementById("id_DorpDownMenue").style.display = "inline-block";
+                  document.getElementById("id_Colorspace_Menue").style.display = "initial";
+      break;
+      case 0:
+                  document.getElementById("id_myListPage").style.display = "none";
+      break;
+
+      default:
+        return;
+
+    }
+
+
+
     showSideID = 4;
-    document.getElementById("id_myListPage").style.display = "none";
 
     document.getElementById("id_addPage").style.display = "inline-block";
 
     document.getElementById("id_SideLabel").innerHTML = "Add Existing Colormap";
-
+console.log(123 +"   "+document.getElementById("id_addPage").style.background);
     restSpace = sizeMyList-myList.length;
 
     if(restSpace==0)
@@ -326,10 +345,28 @@ function showADDSide() {
 function showCreateSide() {
 
   if(myList.length<10){
+
+
+    switch (showSideID) {
+
+      case -1:
+                  document.getElementById("id_welcomePage").style.display = "none";
+                  document.getElementById("id_DorpDownMenue").style.display = "inline-block";
+                  document.getElementById("id_Colorspace_Menue").style.display = "initial";
+      case 0:
+                  document.getElementById("id_myListPage").style.display = "none";
+      break;
+
+      default:
+        return;
+
+    }
+
+
     isEdit = -1;
     showSideID = 1;
     styleCreatorPage();
-    document.getElementById("id_myListPage").style.display = "none";
+
 
     document.getElementById("id_Create_Menue").style.display = "inline-block";
     document.getElementById("id_Create_Menue").style.marginLeft = "20px";
@@ -348,153 +385,147 @@ function showCreateSide() {
 
 function showMyMapsSide(){
 
-  if(showSideID == 1){ // Create Side
-
-    if(bandSketch.getBandLenght()>0){
-
-      if(isEdit==-1){
-        var newMap = bandSketch.sketch2Colormap(colorspaceModus, createColormap.getColormapName());
-        myList.push(newMap);
-      }
-      else{
-        var newMap = bandSketch.sketch2Colormap(colorspaceModus, createColormap.getColormapName());
-        myList[isEdit]=newMap;
-      }
-
-      clearCreateSide();
-
-    }
 
 
+  switch (showSideID) {
 
-    showSideID = 0;
+    case 1:
+              if(bandSketch.getBandLenght()>0){
 
-    document.getElementById("id_myListPage").style.display = "initial";
+                if(isEdit==-1){
+                  var newMap = bandSketch.sketch2Colormap(colorspaceModus, createColormap.getColormapName());
+                  myList.push(newMap);
+                }
+                else{
+                  var newMap = bandSketch.sketch2Colormap(colorspaceModus, createColormap.getColormapName());
+                  myList[isEdit]=newMap;
+                }
 
-    document.getElementById("id_Create_Menue").style.display = "none";
-    document.getElementById("id_creatorPage").style.display = "none";
+                clearCreateSide();
 
-    document.getElementById("id_SideLabel").innerHTML = "My Maps";
+              }
 
-    drawMyList();
+              document.getElementById("id_Create_Menue").style.display = "none";
+              document.getElementById("id_creatorPage").style.display = "none";
+
+
+    break;
+
+    case 2:
+
+                document.getElementById("id_analysisPage").style.display = "none";
+
+                bandSketch.clearSketch()
+                for(var i = refLineSketchContainer.length-1; i>=0; i--){
+                  refLineSketchContainer[i].remove();
+                  refLineSketchContainer.pop();
+                }
+                bandSketch.clearSketch();
+                 myList[colormap1SelectIndex] = analysisColormap;
+
+                 stopAnimation();
+    break;
+    case 3:
+                document.getElementById("id_comparePage").style.display = "none";
+                for(var i = refLineSketchContainer.length-1; i>=0; i--){
+                  refLineSketchContainer[i].remove();
+                  refLineSketchContainer.pop();
+                }
+                bandSketch.clearSketch();
+                bandSketch2.clearSketch();
+                 myList[colormap1SelectIndex] = compareColormap1;
+                 myList[colormap2SelectIndex] = compareColormap2;
+                stopAnimation();
+    break;
+
+    case 4:
+                document.getElementById("id_addPage").style.display = "none";
+    break;
+
+    case 5:
+                  document.getElementById("id_tutorialPage").style.display = "none";
+                  document.getElementById("id_Colorspace_Menue").style.display = "initial";
+                  document.getElementById("id_Tutorial_Menue").style.display = "none";
+    break;
+
+    default:
+      return;
 
   }
 
-  if(showSideID == 2){ // Analyse Side
+  document.getElementById("id_myListPage").style.display = "initial";
+  document.getElementById("id_SideLabel").innerHTML = "My Maps";
+  showSideID = 0;
+  drawMyList();
 
-    showSideID = 0;
-    document.getElementById("id_myListPage").style.display = "initial";
-    document.getElementById("id_analysisPage").style.display = "none";
-    document.getElementById("id_SideLabel").innerHTML = "My Maps";
-    bandSketch.clearSketch()
-    for(var i = refLineSketchContainer.length-1; i>=0; i--){
-      refLineSketchContainer[i].remove();
-      refLineSketchContainer.pop();
-    }
-    bandSketch.clearSketch();
-     myList[colormap1SelectIndex] = analysisColormap;
-     drawMyList();
-     stopAnimation();
-  }
-
-
-  if(showSideID == 3){ // Compare Side
-    showSideID = 0;
-    document.getElementById("id_myListPage").style.display = "initial";
-    document.getElementById("id_comparePage").style.display = "none";
-    document.getElementById("id_SideLabel").innerHTML = "My Maps";
-    for(var i = refLineSketchContainer.length-1; i>=0; i--){
-      refLineSketchContainer[i].remove();
-      refLineSketchContainer.pop();
-    }
-    bandSketch.clearSketch();
-    bandSketch2.clearSketch();
-     myList[colormap1SelectIndex] = compareColormap1;
-     myList[colormap2SelectIndex] = compareColormap2;
-    drawMyList();
-    stopAnimation();
-  }
-
-  if(showSideID == 4 ){ // add Side
-    showSideID = 0;
-    document.getElementById("id_myListPage").style.display = "initial";
-    document.getElementById("id_addPage").style.display = "none";
-    document.getElementById("id_SideLabel").innerHTML = "My Maps";
-    drawMyList();
-  }
-
-  if(showSideID == 5 ){ // add Side
-    showSideID = 0;
-    document.getElementById("id_myListPage").style.display = "initial";
-    document.getElementById("id_tutorialPage").style.display = "none";
-    document.getElementById("id_SideLabel").innerHTML = "My Maps";
-    document.getElementById("id_Colorspace_Menue").style.display = "initial";
-    document.getElementById("id_Tutorial_Menue").style.display = "none";
-    drawMyList();
-  }
 }
 
 function showTutorialSide(){
 
 
 
-  if(showSideID == 1){ // Create Side
+  switch (showSideID) {
+    case -1:
+              document.getElementById("id_welcomePage").style.display = "none";
+              document.getElementById("id_DorpDownMenue").style.display = "inline-block";
+    break;
 
-    if(bandSketch.getBandLenght()>0){
-      if(isEdit==-1){
-        if (confirm("Do you want to save the colormap to the My List page?") == true) {
-          var newMap = bandSketch.sketch2Colormap(colorspaceModus, createColormap.getColormapName());
-          myList.push(newMap);
-        }
-      }
-      else
-        if (confirm("Do you want to save the changes to the My List page?") == true) {
-          var newMap = bandSketch.sketch2Colormap(colorspaceModus, createColormap.getColormapName());
-          myList[isEdit]=newMap;
-        }
+    case 0:
+              document.getElementById("id_myListPage").style.display = "none";
+    break;
 
-      clearCreateSide();
+    case 1:
+              if(bandSketch.getBandLenght()>0){
+                if(isEdit==-1){
+                  if (confirm("Do you want to save the colormap to the My List page?") == true) {
+                    var newMap = bandSketch.sketch2Colormap(colorspaceModus, createColormap.getColormapName());
+                    myList.push(newMap);
+                  }
+                }
+                else
+                  if (confirm("Do you want to save the changes to the My List page?") == true) {
+                    var newMap = bandSketch.sketch2Colormap(colorspaceModus, createColormap.getColormapName());
+                    myList[isEdit]=newMap;
+                  }
 
-    }
+                clearCreateSide();
 
-    document.getElementById("id_Create_Menue").style.display = "none";
-    document.getElementById("id_creatorPage").style.display = "none";
-  }
+              }
 
-  if(showSideID == 2){ // Analyse Side
+              document.getElementById("id_Create_Menue").style.display = "none";
+              document.getElementById("id_creatorPage").style.display = "none";
+    break;
 
-    document.getElementById("id_analysisPage").style.display = "none";
-    bandSketch.clearSketch()
-    for(var i = refLineSketchContainer.length-1; i>=0; i--){
-      refLineSketchContainer[i].remove();
-      refLineSketchContainer.pop();
-    }
-    bandSketch.clearSketch();
-     myList[colormap1SelectIndex] = analysisColormap;
-     stopAnimation();
-  }
+    case 2:
+            document.getElementById("id_analysisPage").style.display = "none";
+            bandSketch.clearSketch()
+            for(var i = refLineSketchContainer.length-1; i>=0; i--){
+              refLineSketchContainer[i].remove();
+              refLineSketchContainer.pop();
+            }
+            bandSketch.clearSketch();
+             myList[colormap1SelectIndex] = analysisColormap;
+             stopAnimation();
+    break;
+    case 3:
+            document.getElementById("id_comparePage").style.display = "none";
+            for(var i = refLineSketchContainer.length-1; i>=0; i--){
+              refLineSketchContainer[i].remove();
+              refLineSketchContainer.pop();
+            }
+            bandSketch.clearSketch();
+            bandSketch2.clearSketch();
+             myList[colormap1SelectIndex] = compareColormap1;
+             myList[colormap2SelectIndex] = compareColormap2;
+            stopAnimation();
+    break;
 
+    case 4:
+          document.getElementById("id_addPage").style.display = "none";
+    break;
 
-  if(showSideID == 3){ // Compare Side
-    document.getElementById("id_comparePage").style.display = "none";
-    for(var i = refLineSketchContainer.length-1; i>=0; i--){
-      refLineSketchContainer[i].remove();
-      refLineSketchContainer.pop();
-    }
-    bandSketch.clearSketch();
-    bandSketch2.clearSketch();
-     myList[colormap1SelectIndex] = compareColormap1;
-     myList[colormap2SelectIndex] = compareColormap2;
-    stopAnimation();
-  }
-
-  if(showSideID == 4){ // add Side
-    document.getElementById("id_addPage").style.display = "none";
-  }
-
-  if(showSideID == 0){ // add Side
-
-    document.getElementById("id_myListPage").style.display = "none";
+    default:
+      return;
 
   }
 

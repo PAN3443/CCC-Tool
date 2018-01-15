@@ -8,8 +8,8 @@ function drawPredefinedBands(){
     document.getElementById('id_tmpContainer').appendChild(document.getElementById('button_AddDoubleBands'));
     document.getElementById('button_AddTripleBands').style.display = "none";
     document.getElementById('id_tmpContainer').appendChild(document.getElementById('button_AddTripleBands'));
-    document.getElementById('button_AddQuadrupelBands').style.display = "none";
-    document.getElementById('id_tmpContainer').appendChild(document.getElementById('button_AddQuadrupelBands'));
+    document.getElementById('button_AddQuadrupleBands').style.display = "none";
+    document.getElementById('id_tmpContainer').appendChild(document.getElementById('button_AddQuadrupleBands'));
 
     //---------------------------
     // --------- Empty Divs
@@ -17,7 +17,7 @@ function drawPredefinedBands(){
     document.getElementById('id_ScaleBand_Div').innerHTML = "";
     document.getElementById('id_DoubleBands_Div').innerHTML = "";
     document.getElementById('id_TripleBands_Div').innerHTML = "";
-    document.getElementById('id_QuadrupelBands_Div').innerHTML = "";
+    document.getElementById('id_QuadrupleBands_Div').innerHTML = "";
 
     var resolutionX = 100;
     var resolutionY = 1;
@@ -193,7 +193,7 @@ function drawPredefinedBands(){
         iCan.setAttribute('draggable', true);
         iCan.style.cursor = "move";
 
-        document.getElementById('id_QuadrupelBands_Div').appendChild(iCan);
+        document.getElementById('id_QuadrupleBands_Div').appendChild(iCan);
         iCan.addEventListener("click", openPredefinedBand);
         iCan.addEventListener("dragstart", bandOnDragStart);
         iCan.addEventListener("dragend", bandOnDragEnd);
@@ -245,6 +245,6 @@ function drawPredefinedBands(){
         canvasContex.putImageData(canvasData, 0, 0);
 
     }
-    document.getElementById('id_QuadrupelBands_Div').appendChild(document.getElementById('button_AddQuadrupelBands'));
-    document.getElementById('button_AddQuadrupelBands').style.display = "initial";
+    document.getElementById('id_QuadrupleBands_Div').appendChild(document.getElementById('button_AddQuadrupleBands'));
+    document.getElementById('button_AddQuadrupleBands').style.display = "initial";
 }

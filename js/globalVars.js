@@ -1,7 +1,7 @@
 ///////////////////////////
 /// GLOBAL
 //////////////////////////
-var showSideID = 0; // 0 = myList; 1=CreateSide, 2=Analyse
+var showSideID = -1; // 0 = myList; 1=CreateSide, 2=Analyse
 
 //// Colormaps
 var myList = [];

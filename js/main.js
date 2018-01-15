@@ -23,6 +23,16 @@ window.onload = function() {
   bandSketch = new classBandSketch();
   bandSketch2 = new classBandSketch();
 
+
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////// Welcoome Page /////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  document.getElementById('id_WelcomeCreateColormapButton').addEventListener("click", showCreateSide);
+  document.getElementById('id_WelcomeAddColormapButton').addEventListener("click", showADDSide);
+  document.getElementById('id_WelcomeTutorialButton').addEventListener("click", showTutorialSide);
+
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Add Side /////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -32,6 +42,29 @@ window.onload = function() {
   document.getElementById('id_expandGreenDiv').addEventListener("click", expandAddColormapDivs);
   document.getElementById('id_expandBrownDiv').addEventListener("click", expandAddColormapDivs);
   document.getElementById('id_expandDivergentDiv').addEventListener("click", expandAddColormapDivs);
+
+
+
+  var colormapPath = pathColormaps+folderYellow+fileYellowColormaps[0];
+  var tmpMap  = xmlColormapParserPath(colormapPath);
+  drawCanvasColormap( "canvasPreviewYellow", existingMap_resolution_X,  existingMap_resolution_Y, tmpMap);
+  colormapPath = pathColormaps+folderRedPurple+fileRedPurpleColormaps[0];
+  tmpMap  = xmlColormapParserPath(colormapPath);
+  drawCanvasColormap( "canvasPreviewRed", existingMap_resolution_X,  existingMap_resolution_Y, tmpMap);
+  colormapPath = pathColormaps+folderBlue+fileBlueColormaps[0];
+  tmpMap  = xmlColormapParserPath(colormapPath);
+  drawCanvasColormap( "canvasPreviewBlue", existingMap_resolution_X,  existingMap_resolution_Y, tmpMap);
+  colormapPath = pathColormaps+folderGreen+fileGreenColormaps[0];
+  tmpMap  = xmlColormapParserPath(colormapPath);
+  drawCanvasColormap( "canvasPreviewGreen", existingMap_resolution_X,  existingMap_resolution_Y, tmpMap);
+  colormapPath = pathColormaps+folderBrown+fileBrownColormaps[0];
+  tmpMap  = xmlColormapParserPath(colormapPath);
+  drawCanvasColormap( "canvasPreviewBrown", existingMap_resolution_X,  existingMap_resolution_Y, tmpMap);
+  colormapPath = pathColormaps+folderDivergent+fileDivergentColormaps[0];
+  tmpMap  = xmlColormapParserPath(colormapPath);
+  drawCanvasColormap("canvasPreviewDivergent", existingMap_resolution_X,  existingMap_resolution_Y, tmpMap);
+
+
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Create Side /////////////////////////////////////
@@ -774,7 +807,7 @@ function orderColorSketch(forColorspace) {
     t2Div.style.fontSize = "4vh";
     t2Div.style.textAlign = "center";
     t2Div.style.verticalAlign = "middle";
-    t2Div.innerHTML = "Drop Here";
+    t2Div.innerHTML = "Drop one or more bands here";
 
     t2Div.addEventListener("dragenter", bandOnEnter);
     t2Div.addEventListener("dragleave", bandOnLeave);
