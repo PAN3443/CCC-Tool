@@ -320,9 +320,7 @@ function showADDSide() {
     showSideID = 4;
 
     document.getElementById("id_addPage").style.display = "inline-block";
-
     document.getElementById("id_SideLabel").innerHTML = "Add Existing Colormap";
-console.log(123 +"   "+document.getElementById("id_addPage").style.background);
     restSpace = sizeMyList-myList.length;
 
     if(restSpace==0)
@@ -331,7 +329,7 @@ console.log(123 +"   "+document.getElementById("id_addPage").style.background);
       document.getElementById("id_addPageFreeLabel").style.color = "black";
 
     document.getElementById("id_addPageFreeLabel").innerHTML = "Free Space for Adding Maps to MyList : "+restSpace;
-
+    drawAddExistingAddPage();
     constructionExistingColormaps_AddPage();
     addedIndex = [];
     addedType = [];

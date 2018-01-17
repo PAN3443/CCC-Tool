@@ -1,6 +1,6 @@
 function drawPredefinedBands(){
 
-    document.getElementById('button_AddConstantBand').style.display = "none";
+    /*document.getElementById('button_AddConstantBand').style.display = "none";
     document.getElementById('id_tmpContainer').appendChild(document.getElementById('button_AddConstantBand'));
     document.getElementById('button_AddScaleBand').style.display = "none";
     document.getElementById('id_tmpContainer').appendChild(document.getElementById('button_AddScaleBand'));
@@ -9,7 +9,7 @@ function drawPredefinedBands(){
     document.getElementById('button_AddTripleBands').style.display = "none";
     document.getElementById('id_tmpContainer').appendChild(document.getElementById('button_AddTripleBands'));
     document.getElementById('button_AddQuadrupleBands').style.display = "none";
-    document.getElementById('id_tmpContainer').appendChild(document.getElementById('button_AddQuadrupleBands'));
+    document.getElementById('id_tmpContainer').appendChild(document.getElementById('button_AddQuadrupleBands'));*/
 
     //---------------------------
     // --------- Empty Divs
@@ -37,8 +37,8 @@ function drawPredefinedBands(){
         iDiv.addEventListener("dragend", bandOnDragEnd);
         iDiv.style.cursor = "move";
     }
-    document.getElementById('id_ConstantBand_Div').appendChild(document.getElementById('button_AddConstantBand'));
-    document.getElementById('button_AddConstantBand').style.display = "initial";
+    //document.getElementById('id_ConstantBand_Div').appendChild(document.getElementById('button_AddConstantBand'));
+    //document.getElementById('button_AddConstantBand').style.display = "initial";
 
     //---------------------------
     // --------- Scale
@@ -61,8 +61,8 @@ function drawPredefinedBands(){
         drawCanvasBand(iCan, tmpC1RGB, tmpC2RGB,resolutionX);
 
     }
-    document.getElementById('id_ScaleBand_Div').appendChild(document.getElementById('button_AddScaleBand'));
-    document.getElementById('button_AddScaleBand').style.display = "initial";
+    //document.getElementById('id_ScaleBand_Div').appendChild(document.getElementById('button_AddScaleBand'));
+    //document.getElementById('button_AddScaleBand').style.display = "initial";
 
     //---------------------------
     // --------- Double
@@ -117,8 +117,8 @@ function drawPredefinedBands(){
         canvasContex.putImageData(canvasData, 0, 0);
 
     }
-    document.getElementById('id_DoubleBands_Div').appendChild(document.getElementById('button_AddDoubleBands'));
-    document.getElementById('button_AddDoubleBands').style.display = "initial";
+    //document.getElementById('id_DoubleBands_Div').appendChild(document.getElementById('button_AddDoubleBands'));
+    //document.getElementById('button_AddDoubleBands').style.display = "initial";
 
      //---------------------------
     // --------- Tripe
@@ -178,8 +178,8 @@ function drawPredefinedBands(){
         canvasContex.putImageData(canvasData, 0, 0);
 
     }
-    document.getElementById('id_TripleBands_Div').appendChild(document.getElementById('button_AddTripleBands'));
-    document.getElementById('button_AddTripleBands').style.display = "initial";
+    //document.getElementById('id_TripleBands_Div').appendChild(document.getElementById('button_AddTripleBands'));
+    //document.getElementById('button_AddTripleBands').style.display = "initial";
 
      //---------------------------
     // --------- Quad
@@ -245,6 +245,6 @@ function drawPredefinedBands(){
         canvasContex.putImageData(canvasData, 0, 0);
 
     }
-    document.getElementById('id_QuadrupleBands_Div').appendChild(document.getElementById('button_AddQuadrupleBands'));
-    document.getElementById('button_AddQuadrupleBands').style.display = "initial";
+    //document.getElementById('id_QuadrupleBands_Div').appendChild(document.getElementById('button_AddQuadrupleBands'));
+    //document.getElementById('button_AddQuadrupleBands').style.display = "initial";
 }

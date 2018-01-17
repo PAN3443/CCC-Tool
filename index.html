@@ -220,7 +220,7 @@
         Start with:
         <p>
 
-        <button class="classButtonWhite" id="id_WelcomeAddColormapButton" title="ADD" style="border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 60%; height:8vh; line-height:8vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180); margin-left:20%; margin-top:2vh;"> Add Existing Map</button>
+        <button class="classButtonWhite" id="id_WelcomeAddColormapButton" title="ADD" style="border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 60%; height:8vh; line-height:8vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180); margin-left:20%; margin-top:2vh;"> Select from Existing Map</button>
 
         <button class="classButtonWhite" id="id_WelcomeCreateColormapButton" title="CREATE" style="border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 60%; height:8vh; line-height:8vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180); margin-left:20%; margin-top:2vh;"> Create New Map</button>
 
@@ -244,6 +244,11 @@
 
             </div>
           </div>
+
+          <p style="margin-left:20%; width:60%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px;">
+            Following is a plot about the construction of the webtool.
+          </p>
+          <img title="CCC-Tool Construction" src="img/Tutorial/webtoolConstruction.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;">
 
         </div>
   </div>
@@ -326,77 +331,66 @@
         </div>
 
         <!-- Colormap Sketch Bands -->
-        <div class="row" style="height:20vh; width:100%; margin:0px; background:rgb(230,230,230); border-top:2px solid black;">
+        <div class="row" style="height:20vh; width:100%; margin:0px; background:rgb(230,230,230); border-top:2px solid black; top:5vh;">
           <div style="height:auto; width:98%; margin:auto; background:white; padding-bottom:1vh;">
             <h4 style="width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Colormap Band Sketch</h4>
 
             <div class="row" style="margin-top: 1vh; width:95%; height: 8vh; margin-left:auto;  margin-right:auto;" id="id_colormapSketch">
             </div>
 
-            <div class="row" style="margin-top: 0px; width:95%; height: 2vh; margin-left:auto;  margin-right:auto; margin-bottom:3vh;" id="id_colormapSketch_Ref">
+            <div class="row" style="margin-top: 0px; width:95%; height: 2vh; margin-left:auto;  margin-right:auto; margin-bottom:3vh; z-index=3;" id="id_colormapSketch_Ref">
             </div>
           </div>
         </div>
 
         <!-- Predefined Bands -->
-        <div class="row" style="height:auto; width:100%; margin:0px; ">
-          <!-- existing colors -->
-
-          <div style="height:auto; width:100%; background:rgb(200,200,200);">
+        <div style="height:auto; width:100%; background:rgb(200,200,200);">
 
             <div id="id_tmpContainer" style="height:0px; width:0px;"></div>
 
-            <div class="row" style="width:100%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255);">
-              <h4 style=" margin: 0px; width:15%; height:3vh; line-height:3vh; font-size:2vh; text-align:right; vertical-align: middle;color:black; margin-top:1vh;">Constant Band:</h4>
-              <div style="width:85%; height:auto;">
-                <div id="id_ConstantBand_Div" style=" display: inline-block; width:100%; height:auto;">
-                  <button id="button_AddConstantBand" onclick="addBand(0)" title="Add Constant Band" class="class_predefinedConstBands" style="color: black;">add</button>
+            <div class="row" style="height:auto; width:100%; margin:0px; ">
+
+            <div style="width:20%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255); border-right: 1px solid black;">
+              <h4 style=" margin: 0px; width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:black; margin-top:1vh;">Constant Band:</h4>
+                <div id="id_ConstantBand_Div" style="width:100%; height:50vh; overflow-y:auto; border-bottom:1px solid black;">
+
                 </div>
-              </div>
+                <button id="button_AddConstantBand" onclick="addBand(0)" title="Add Constant Band" class="class_predefinedConstBands" style="color: black;">add</button>
             </div>
 
-            <div class="row" style="width:100%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255);">
-              <h4 style=" margin: 0px; width:15%; height:3vh; line-height:3vh; font-size:2vh; text-align:right; vertical-align: middle;color:black; margin-top:1vh;">Scale Band:</h4>
-              <div style="width:85%; height:auto;">
+            <div style="width:20%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255); border-right: 1px solid black;">
+              <h4 style=" margin: 0px; width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:black; margin-top:1vh;">Scale Band:</h4>
+                <div id="id_ScaleBand_Div" style="width:100%; height:50vh; overflow-y:auto;  border-bottom:1px solid black;">
 
-                <div id="id_ScaleBand_Div" style=" display: inline-block; width:100%; height:auto;">
-                  <button id="button_AddScaleBand" onclick="addBand(1)" title="Add Scale Band" class="class_predefinedConstBands" style="color: black;">add</button>
                 </div>
-              </div>
+                <button id="button_AddScaleBand" onclick="addBand(1)" title="Add Scale Band" class="class_predefinedConstBands" style="color: black;">add</button>
             </div>
 
-            <div class="row" style="width:100%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255);">
-              <h4 style=" margin: 0px; width:15%; height:3vh; line-height:3vh; font-size:2vh; text-align:right; vertical-align: middle;color:black; margin-top:1vh;">Double Bands:</h4>
-              <div style="width:85%; height:auto;">
+            <div style="width:20%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255); border-right: 1px solid black;">
+              <h4 style=" margin: 0px; width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:black; margin-top:1vh;">Double Bands:</h4>
+                <div id="id_DoubleBands_Div" style="width:100%;height:50vh; overflow-y:auto;  border-bottom:1px solid black;">
 
-                <div id="id_DoubleBands_Div" style=" display: inline-block; width:100%; height:auto;">
-                  <button id="button_AddDoubleBands" onclick="addBand(2)" title="Add Double Bands" class="class_predefinedConstBands" style="color: black;">add</button>
                 </div>
-              </div>
+                <button id="button_AddDoubleBands" onclick="addBand(2)" title="Add Double Bands" class="class_predefinedConstBands" style="color: black;">add</button>
             </div>
 
-            <div class="row" style="width:100%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255);">
-              <h4 style=" margin: 0px; width:15%; height:3vh; line-height:3vh; font-size:2vh; text-align:right; vertical-align: middle;color:black; margin-top:1vh;">Triple Bands:</h4>
-              <div style="width:85%; height:auto;">
+            <div style="width:20%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255); border-right: 1px solid black;">
+              <h4 style=" margin: 0px; width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:black; margin-top:1vh;">Triple Bands:</h4>
+                <div id="id_TripleBands_Div" style=" width:100%; height:50vh; overflow-y:auto;  border-bottom:1px solid black;">
 
-                <div id="id_TripleBands_Div" style=" display: inline-block; width:100%; height:auto;">
-                  <button id="button_AddTripleBands" onclick="addBand(3)" title="Add Triple Bands" class="class_predefinedConstBands" style="color: black;">add</button>
                 </div>
-              </div>
+                <button id="button_AddTripleBands" onclick="addBand(3)" title="Add Triple Bands" class="class_predefinedConstBands" style="color: black;">add</button>
             </div>
 
-            <div class="row" style="width:100%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255);">
-              <h4 style=" margin: 0px; width:15%; height:3vh; line-height:3vh; font-size:2vh; text-align:right; vertical-align: middle;color:black; margin-top:1vh;">Quadruple Bands:</h4>
-              <div style="width:85%; height:auto;">
-              <div id="id_QuadrupleBands_Div" style=" display: inline-block; width:100%; height:auto;">
-                  <button id="button_AddQuadrupleBands" onclick="addBand(4)" title="Add Quadruple Bands" class="class_predefinedConstBands" style="color: black;">add</button>
-                </div>
+            <div style="width:20%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255); border-right: 1px solid black;">
+              <h4 style=" margin: 0px; width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:black; margin-top:1vh;">Quadruple Bands:</h4>
+              <div id="id_QuadrupleBands_Div" style=" width:100%; height:50vh; overflow-y:auto;  border-bottom:1px solid black;">
+
               </div>
+              <button id="button_AddQuadrupleBands" onclick="addBand(4)" title="Add Quadruple Bands" class="class_predefinedConstBands" style="color: black;">add</button>
             </div>
 
           </div>
-
-
 
         </div>
 
@@ -733,11 +727,149 @@
 
       </div>
 
-       <div style="margin-left:10%; width:80%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:rgb(245,245,245); padding-top:2vh; padding-bottom:2vh; box-shadow:  0.3vh  0.3vh grey;">
 
+
+      <div class="sticky" style="margin-left:10%; width:80%; height:auto; margin-top:2vh; margin-bottom: 0px; background:rgb(245,245,245); padding-top:2vh; padding-bottom:2vh;box-shadow: 0.3vh 0 0.3vh 0 grey; top:5vh;">
         <p id="id_addPageFreeLabel"  style="margin-left:5%; width:90%; text-align:center; height:auto; line-height:2.5vh; font-size:2.5vh; vertical-align:middle; font-weight:bold;">
           Free Space for Adding Maps to MyList : 0
         </p>
+      </div>
+        <div style="margin-left:10%; width:80%; height:auto; margin-top:0px; margin-bottom: 2vh; background:rgb(245,245,245); padding-top:2vh; padding-bottom:2vh; box-shadow:  0.3vh  0.3vh grey;">
+          <div class="row" style="width:100%; margin-top:2vh;">
+
+            <p  style="margin:0px; margin-left:auto; width:3%; text-align:center; height:3vh; line-height:3vh; font-size:2.5vh; vertical-align:middle; font-weight:bold;">
+             1.
+            </p>
+
+              <canvas id="id_canvasAddExistingColormap0" class="class_MyListColormapCanvas" style="height:3vh; width:30%; border-radius: 0.5vh; margin-left:2%;">
+               Free Colormap
+              </canvas>
+
+              <div id="id_nanAddExistingColormap0" class="class_MyListColormapCanvas" style=" width: 3vh; height:3vh; margin-left:2%; border-radius: 0.5vh;">
+
+              </div>
+
+              <p  style="margin:0px; margin-left:5%; width:3%; text-align:center; height:3vh; line-height:3vh; font-size:2.5vh; vertical-align:middle; font-weight:bold;">
+               6.
+              </p>
+              <canvas id="id_canvasAddExistingColormap5" class="class_MyListColormapCanvas" style="height:3vh; width:30%; margin-left:2%; border-radius: 0.5vh;">
+               Free Colormap
+              </canvas>
+
+              <div id="id_nanAddExistingColormap5" class="class_MyListColormapCanvas" style=" width: 3vh; height:3vh; margin-left:2%; border-radius: 0.5vh;  margin-right:auto;">
+
+              </div>
+
+          </div>
+
+          <div class="row" style="width:100%; margin-top:2vh;">
+
+            <p  style="margin:0px; margin-left:auto; width:3%; text-align:center; height:3vh; line-height:3vh; font-size:2.5vh; vertical-align:middle; font-weight:bold;">
+             2.
+            </p>
+
+              <canvas id="id_canvasAddExistingColormap1" class="class_MyListColormapCanvas" style="height:3vh; width:30%; border-radius: 0.5vh; margin-left:2%;">
+               Free Colormap
+              </canvas>
+
+              <div id="id_nanAddExistingColormap1" class="class_MyListColormapCanvas" style=" width: 3vh; height:3vh; margin-left:2%; border-radius: 0.5vh;">
+
+              </div>
+
+              <p  style="margin:0px; margin-left:5%; width:3%; text-align:center; height:3vh; line-height:3vh; font-size:2.5vh; vertical-align:middle; font-weight:bold;">
+               7.
+              </p>
+              <canvas id="id_canvasAddExistingColormap6" class="class_MyListColormapCanvas" style="height:3vh; width:30%; margin-left:2%; border-radius: 0.5vh;">
+               Free Colormap
+              </canvas>
+
+              <div id="id_nanAddExistingColormap6" class="class_MyListColormapCanvas" style=" width: 3vh; height:3vh; margin-left:2%; border-radius: 0.5vh;  margin-right:auto;">
+
+              </div>
+
+          </div>
+
+          <div class="row" style="width:100%; margin-top:2vh;">
+
+            <p  style="margin:0px; margin-left:auto; width:3%; text-align:center; height:3vh; line-height:3vh; font-size:2.5vh; vertical-align:middle; font-weight:bold;">
+             3.
+            </p>
+
+              <canvas id="id_canvasAddExistingColormap2" class="class_MyListColormapCanvas" style="height:3vh; width:30%; border-radius: 0.5vh; margin-left:2%;">
+               Free Colormap
+              </canvas>
+
+              <div id="id_nanAddExistingColormap2" class="class_MyListColormapCanvas" style=" width: 3vh; height:3vh; margin-left:2%; border-radius: 0.5vh;">
+
+              </div>
+
+              <p  style="margin:0px; margin-left:5%; width:3%; text-align:center; height:3vh; line-height:3vh; font-size:2.5vh; vertical-align:middle; font-weight:bold;">
+               8.
+              </p>
+              <canvas id="id_canvasAddExistingColormap7" class="class_MyListColormapCanvas" style="height:3vh; width:30%; margin-left:2%; border-radius: 0.5vh;">
+               Free Colormap
+              </canvas>
+
+              <div id="id_nanAddExistingColormap7" class="class_MyListColormapCanvas" style=" width: 3vh; height:3vh; margin-left:2%; border-radius: 0.5vh;  margin-right:auto;">
+
+              </div>
+
+          </div>
+
+          <div class="row" style="width:100%; margin-top:2vh;">
+
+            <p  style="margin:0px; margin-left:auto; width:3%; text-align:center; height:3vh; line-height:3vh; font-size:2.5vh; vertical-align:middle; font-weight:bold;">
+             4.
+            </p>
+
+              <canvas id="id_canvasAddExistingColormap3" class="class_MyListColormapCanvas" style="height:3vh; width:30%; border-radius: 0.5vh; margin-left:2%;">
+               Free Colormap
+              </canvas>
+
+              <div id="id_nanAddExistingColormap3" class="class_MyListColormapCanvas" style=" width: 3vh; height:3vh; margin-left:2%; border-radius: 0.5vh;">
+
+              </div>
+
+              <p  style="margin:0px; margin-left:5%; width:3%; text-align:center; height:3vh; line-height:3vh; font-size:2.5vh; vertical-align:middle; font-weight:bold;">
+               9.
+              </p>
+              <canvas id="id_canvasAddExistingColormap8" class="class_MyListColormapCanvas" style="height:3vh; width:30%; margin-left:2%; border-radius: 0.5vh;">
+               Free Colormap
+              </canvas>
+
+              <div id="id_nanAddExistingColormap8" class="class_MyListColormapCanvas" style=" width: 3vh; height:3vh; margin-left:2%; border-radius: 0.5vh;  margin-right:auto;">
+
+              </div>
+
+          </div>
+
+          <div class="row" style="width:100%; margin-top:2vh;">
+
+            <p  style="margin:0px; margin-left:auto; width:3%; text-align:center; height:3vh; line-height:3vh; font-size:2.5vh; vertical-align:middle; font-weight:bold;">
+             5.
+            </p>
+
+              <canvas id="id_canvasAddExistingColormap4" class="class_MyListColormapCanvas" style="height:3vh; width:30%; border-radius: 0.5vh; margin-left:2%;">
+               Free Colormap
+              </canvas>
+
+              <div id="id_nanAddExistingColormap4" class="class_MyListColormapCanvas" style=" width: 3vh; height:3vh; margin-left:2%; border-radius: 0.5vh;">
+
+              </div>
+
+              <p  style="margin:0px; margin-left:5%; width:3%; text-align:center; height:3vh; line-height:3vh; font-size:2.5vh; vertical-align:middle; font-weight:bold;">
+               10.
+              </p>
+              <canvas id="id_canvasAddExistingColormap9" class="class_MyListColormapCanvas" style="height:3vh; width:30%; margin-left:2%; border-radius: 0.5vh;">
+               Free Colormap
+              </canvas>
+
+              <div id="id_nanAddExistingColormap9" class="class_MyListColormapCanvas" style=" width: 3vh; height:3vh; margin-left:2%; border-radius: 0.5vh;  margin-right:auto;">
+
+              </div>
+
+          </div>
+
 
         </div>
 

@@ -33,10 +33,12 @@
 .class_predefinedConstBands{
     height: 3vh;
     min-height: 3vh;
-    width: 5%;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
     border-radius: 0.5vh;
     border: 2px solid black;
-    margin:1vh;
+    margin-top: 1vh;
     float:left;
     line-height: 3vh;
     vertical-align: middle;
@@ -46,10 +48,12 @@
 
 .class_predefinedScaledBands{
     height: 3vh;
-    width: 12.5%;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
     border-radius: 0.5vh;
     border: 2px solid black;
-    margin: 1vh;
+    margin-top: 1vh;
     float:left;
     line-height: 3vh;
     vertical-align: middle;
