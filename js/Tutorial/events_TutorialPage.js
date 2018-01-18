@@ -8,8 +8,8 @@ function changeTutorial(type) {
   document.getElementById("button_showExportTutorial").style.color = "white";
   document.getElementById("button_showAnalyseTutorial").style.border = "0.2vh solid white";
   document.getElementById("button_showAnalyseTutorial").style.color = "white";
-  //document.getElementById("button_showSpecificationTutorial").style.border = "0.2vh solid white";
-  //document.getElementById("button_showSpecificationTutorial").style.color = "white";
+  document.getElementById("button_showSpecificationTutorial").style.border = "0.2vh solid white";
+  document.getElementById("button_showSpecificationTutorial").style.color = "white";
 
 
 
@@ -44,11 +44,11 @@ function changeTutorial(type) {
       document.getElementById("id_tutorialAnalysePage").style.display = "inline-block";
       break;
 
-    //case 4:
-    //  document.getElementById("button_showSpecificationTutorial").style.border = "0.2vh solid rgb(0,191,255)";
-    //  document.getElementById("button_showSpecificationTutorial").style.color = "rgb(0,191,255)";
-    //  document.getElementById("id_colormapspecification").style.display = "initial";
-    //break;
+    case 4:
+      document.getElementById("button_showSpecificationTutorial").style.border = "0.2vh solid rgb(0,191,255)";
+      document.getElementById("button_showSpecificationTutorial").style.color = "rgb(0,191,255)";
+      document.getElementById("id_colormapspecification").style.display = "inline-block";
+    break;
     default:
       return;
   }
