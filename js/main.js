@@ -46,7 +46,7 @@ window.onload = function() {
   document.getElementById('addCMS_ShowHelp').addEventListener("mouseenter", showAddCMSHelp);
   document.getElementById('addCMS_ShowHelp').addEventListener("mouseleave", hideAddCMSHelp);
 
-  
+
 
   var colormapPath = pathColormaps+folderYellow+fileYellowColormaps[0];
   var tmpMap  = xmlColormapParserPath(colormapPath);
@@ -298,9 +298,22 @@ window.onload = function() {
 }
 
 window.onresize = function(event) {
-  drawColorCircles();
-  styleCreatorPage();
+
+
   //styleAnalysisPage();
+
+  switch (showSideID) {
+    case 1:
+      styleCreatorPage();
+      drawColorCircles();
+      orderColorSketch(colorspaceModus);
+      break;
+    case 6:
+      orderColorSketch(colorspaceModus);
+      break;
+    default:
+
+  }
 };
 
 window.onscroll = function() {
