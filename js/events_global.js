@@ -105,7 +105,7 @@ function changeColorspace(type) {
   }
 
 
-  if (showSideID == 0) { // MyMaps SIDE
+  if (showSideID == 0) { // MyDesigns SIDE
     drawMyList();
   }
 
@@ -122,6 +122,10 @@ function changeColorspace(type) {
 
   if(showSideID == 4){
     //drawExistingColormaps_AddPage();
+  }
+
+  if (showSideID == 6) { // Analyse SIDE
+    orderColorSketch(colorspaceModus);
   }
 
   if (showSideID == 1) { // CREATE SIDE
@@ -320,7 +324,7 @@ function showADDSide() {
     showSideID = 4;
 
     document.getElementById("id_addPage").style.display = "inline-block";
-    document.getElementById("id_SideLabel").innerHTML = "Add Existing Colormap";
+    document.getElementById("id_SideLabel").innerHTML = "Select an Existing CMS";
     restSpace = sizeMyList-myList.length;
 
     if(restSpace==0)
@@ -328,7 +332,7 @@ function showADDSide() {
     else
       document.getElementById("id_addPageFreeLabel").style.color = "black";
 
-    document.getElementById("id_addPageFreeLabel").innerHTML = "Free Space for Adding Maps to MyList : "+restSpace;
+    document.getElementById("id_addPageFreeLabel").innerHTML = "Free Space for Adding Maps to MyDesigns : "+restSpace;
     drawAddExistingAddPage();
     constructionExistingColormaps_AddPage();
     addedIndex = [];
@@ -336,7 +340,7 @@ function showADDSide() {
     addedPos = [];
   }
   else{
-    alert("There are only ten colormaps inside the My Maps list allowed. Please delete a colormap for adding a new one");
+    alert("There are only ten colormaps inside the MyDesigns list allowed. Please delete a colormap for adding a new one");
   }
 }
 
@@ -371,17 +375,17 @@ function showCreateSide() {
 
     document.getElementById("id_creatorPage").style.display = "inline-block";
 
-    document.getElementById("id_SideLabel").innerHTML = "Create Colormap";
+    document.getElementById("id_SideLabel").innerHTML = "Create CMS";
     changeColorspace(0);
     orderColorSketch(colorspaceModus);
   }
   else{
-    alert("There are only ten colormaps inside the My Maps list allowed. Please delete a colormap for adding a new one");
+    alert("There are only ten colormaps inside the MyDesigns list allowed. Please delete a colormap for adding a new one");
   }
 }
 
 
-function showMyMapsSide(){
+function showMyDesignsSide(){
 
 
 
@@ -390,14 +394,14 @@ function showMyMapsSide(){
     case 1:
               if(bandSketch.getBandLenght()>0){
 
-                if(isEdit==-1){
+                //if(isEdit==-1){
                   var newMap = bandSketch.sketch2Colormap(colorspaceModus, createColormap.getColormapName());
                   myList.push(newMap);
-                }
+                /*}
                 else{
                   var newMap = bandSketch.sketch2Colormap(colorspaceModus, createColormap.getColormapName());
                   myList[isEdit]=newMap;
-                }
+                }*/
 
                 clearCreateSide();
 
@@ -446,13 +450,21 @@ function showMyMapsSide(){
                   document.getElementById("id_Tutorial_Menue").style.display = "none";
     break;
 
+    case 6:
+          document.getElementById("id_editPage").style.display = "none";
+          for(var i = refLineSketchContainer.length-1; i>=0; i--){
+            refLineSketchContainer[i].remove();
+            refLineSketchContainer.pop();
+          }
+    break;
+
     default:
       return;
 
   }
 
   document.getElementById("id_myListPage").style.display = "initial";
-  document.getElementById("id_SideLabel").innerHTML = "My Maps";
+  document.getElementById("id_SideLabel").innerHTML = "MyDesigns";
   showSideID = 0;
   drawMyList();
 
@@ -522,6 +534,16 @@ function showTutorialSide(){
           document.getElementById("id_addPage").style.display = "none";
     break;
 
+    case 6:
+          document.getElementById("id_editPage").style.display = "none";
+          for(var i = refLineSketchContainer.length-1; i>=0; i--){
+            refLineSketchContainer[i].remove();
+            refLineSketchContainer.pop();
+          }
+          var newMap = bandSketch.sketch2Colormap(colorspaceModus, editColormap.getColormapName());
+          myList[isEdit]=newMap;
+    break;
+
     default:
       return;
 
@@ -541,7 +563,7 @@ function showCompareSide(){
     showSideID = 3;
     document.getElementById("id_myListPage").style.display = "none";
     document.getElementById("id_comparePage").style.display = "inline-block";
-    document.getElementById("id_SideLabel").innerHTML = "Compare Colormaps";
+    document.getElementById("id_SideLabel").innerHTML = "Compare two CMS";
     initComparePage();
 }
 
@@ -549,7 +571,7 @@ function showAnalysisSide(){
     showSideID = 2;
     document.getElementById("id_myListPage").style.display = "none";
     document.getElementById("id_analysisPage").style.display = "inline-block";
-    document.getElementById("id_SideLabel").innerHTML = "Analyse Colormap";
+    document.getElementById("id_SideLabel").innerHTML = "Analyse a CMS";
     initAnalysePage();
 }
 

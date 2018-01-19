@@ -61,7 +61,7 @@ function bandOnDragStart(event){
         else{
 
             var tmpRect = document.getElementById("id_colormapSketch").getBoundingClientRect();
-            var tmpLength = tmpRect.width/(bandSketch.getBandLenght()+1+bandSketch.getBandLenght());//100/(bandSketch.getBandLenght()-1);
+            var tmpLength =(tmpRect.width-((bandSketch.getBandLenght()+1)*6)-bandSketch.getBandLenght()*2)/(bandSketch.getBandLenght()+1+bandSketch.getBandLenght());//100/(bandSketch.getBandLenght()-1);
 
             for(var i=0; i<dropPositionElements.length; i++){
                 dropPositionElements[i].style.display = "initial";
@@ -97,7 +97,9 @@ function bandOnDragEnd(event) {
         // hide all drop positions
         var tmpRect = document.getElementById("id_colormapSketch").getBoundingClientRect();
         var tmpLength;
-        tmpLength = tmpRect.width/(bandSketch.getBandLenght());
+        tmpLength = tmpRect.width/bandSketch.getBandLenght()-2; //2 = border width of each band.
+
+
         //if(bandSketch.getBandLenght()==1)
         // tmpLength = tmpRect.width;//100/(bandSketch.getBandLenght()-1);
         //else

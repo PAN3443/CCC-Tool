@@ -1,3 +1,11 @@
+function showAddCMSHelp(){
+  document.getElementById("addCMS_help").style.display="inline-block";
+}
+
+function hideAddCMSHelp(){
+  document.getElementById("addCMS_help").style.display="none";
+}
+
 function drawAddExistingAddPage(){
 
     for(var i=0; i<myList.length; i++){
@@ -220,7 +228,7 @@ function  createNewColormapRow(type, index, parent){
       else
         document.getElementById("id_addPageFreeLabel").style.color = "black";
 
-        document.getElementById("id_addPageFreeLabel").innerHTML = "Free Space for Adding Maps to myList : "+restSpace;
+        document.getElementById("id_addPageFreeLabel").innerHTML = "Free Space for Adding CMSs to MyDesings : "+restSpace;
 
         drawAddExistingAddPage();
   };

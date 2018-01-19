@@ -10,13 +10,14 @@ window.onload = function() {
   document.getElementById('id_analysisPage').style.display = "none";
   document.getElementById('id_tutorialPage').style.display = "none";
 
-  document.getElementById('id_ButtonToMyMapsPage').addEventListener("click", showMyMapsSide);
+  document.getElementById('id_ButtonToMyDesignsPage').addEventListener("click", showMyDesignsSide);
   document.getElementById('id_ButtonToTutorialPage').addEventListener("click", showTutorialSide);
   document.getElementById('id_inputData').addEventListener("change", readSingleFile);
 
   createColormap = new xclassColorMap();
   exportColormap = new xclassColorMap();
   analysisColormap = new xclassColorMap();
+  editColormap = new xclassColorMap();
   compareColormap1 = new xclassColorMap();
   compareColormap2 = new xclassColorMap();
 
@@ -42,8 +43,10 @@ window.onload = function() {
   document.getElementById('id_expandGreenDiv').addEventListener("click", expandAddColormapDivs);
   document.getElementById('id_expandBrownDiv').addEventListener("click", expandAddColormapDivs);
   document.getElementById('id_expandDivergentDiv').addEventListener("click", expandAddColormapDivs);
+  document.getElementById('addCMS_ShowHelp').addEventListener("mouseenter", showAddCMSHelp);
+  document.getElementById('addCMS_ShowHelp').addEventListener("mouseleave", hideAddCMSHelp);
 
-
+  
 
   var colormapPath = pathColormaps+folderYellow+fileYellowColormaps[0];
   var tmpMap  = xmlColormapParserPath(colormapPath);
@@ -394,6 +397,16 @@ function orderColorSketch(forColorspace) {
     compareColormap2 = bandSketch2.sketch2Colormap(forColorspace, compareColormap2.getColormapName());
   }
 
+  if (showSideID == 6) {
+    sketchObject = document.getElementById("id_editColormapSketch");
+    sketchRefObj = document.getElementById("id_editColormapSketch_Ref");
+    editColormap = bandSketch.sketch2Colormap(forColorspace, analysisColormap.getColormapName());
+    //drawcolormap_hueSpace(analysisColormap, "id_anaylseCourseHueBackground",false); //drawcolormap_hueSpace(analysisColormap, "id_workcanvasAnalyseHue");
+    editPage_drawKeys('id_editColormapKeys', editColormap);
+  }
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   if (bandSketch.getBandLenght() != 0) {
 
@@ -413,11 +426,9 @@ function orderColorSketch(forColorspace) {
 
     var tmpRect = sketchObject.getBoundingClientRect();
 
-    var tmpLength = tmpRect.width / bandSketch.getBandLenght() - 1;
+    var tmpLength = tmpRect.width/bandSketch.getBandLenght()-2;
 
     for (var i = 0; i < bandSketch.getBandLenght(); i++) {
-
-
 
       // create band
       var tCan = document.createElement('canvas');
@@ -426,6 +437,9 @@ function orderColorSketch(forColorspace) {
       tCan.style.border = "1px solid black";
       tCan.style.margin = "0px";
       tCan.setAttribute('draggable', true);
+      tCan.style.height = 100 + '%';
+      //tCan.style.maxWidth = tmpLength + "px"; //100 +'%';
+      tCan.style.width = tmpLength + "px"; //100 +'%';
 
 
       drawCanvasBand(tCan, bandSketch.getC1Color(i, colorspaceModus), bandSketch.getC2Color(i, colorspaceModus), tCan.width);
@@ -468,11 +482,6 @@ function orderColorSketch(forColorspace) {
 
       sketchObject.appendChild(tCan);
       droppedBandElements.push(tCan);
-
-      tCan.style.height = 100 + '%';
-      tCan.style.maxWidth = tmpLength + "px"; //100 +'%';
-      tCan.style.width = tmpLength + "px"; //100 +'%';
-
 
 
       //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -867,10 +876,10 @@ function changeKeyValueInputSketch(sketchIndex, doR1, fielID, doBandSketch2) {
       drawAnalyseDifferenceMaps();
     }
 
-    if (showSideID == 3) {
-      compareColormap1 = bandSketch.sketch2Colormap(colorspaceModus, compareColormap1.getColormapName());
-      drawAnalyseDifferenceMaps();
+    if (showSideID == 6) {
+      editColormap = bandSketch.sketch2Colormap(colorspaceModus, editColormap.getColormapName());
     }
+
   }
 
   orderColorSketch(); // for updating ref

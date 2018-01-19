@@ -1,4 +1,4 @@
-function exportColormapFromMyMaps(index){
+function exportColormapFromMyDesigns(index){
 
     if(index<myList.length){
       exportColormap = myList[index];
@@ -10,7 +10,7 @@ function exportColormapFromMyMaps(index){
 }
 
 
-function deletetColormapFromMyMaps(index){
+function deletetColormapFromMyDesigns(index){
 
     if(index<myList.length){
         if (confirm("Do you really want to delete the colormap?") == true) {
@@ -24,11 +24,11 @@ function deletetColormapFromMyMaps(index){
 }
 
 
-function openEditColormapFromMyMaps(index){
+function openEditColormapFromMyDesigns(index){
 
     if(index<myList.length){
       isEdit = index;
-      showSideID = 1;
+      /*showSideID = 1;
       styleCreatorPage();
       document.getElementById("id_myListPage").style.display = "none";
 
@@ -41,7 +41,16 @@ function openEditColormapFromMyMaps(index){
 
       bandSketch.colormap2Sketch(myList[index]);
       orderColorSketch(colorspaceModus);
-      changeColorspace(0);
+      changeColorspace(0);*/
+
+      document.getElementById("id_myListPage").style.display = "none";
+
+      document.getElementById("id_editPage").style.display = "inline-block";
+
+      document.getElementById("id_SideLabel").innerHTML = "Edit CMS";
+      showSideID = 6;
+      bandSketch.colormap2Sketch(myList[index]);
+      orderColorSketch(colorspaceModus);
     }
 
 }
@@ -73,7 +82,7 @@ function selectAnalysis(){
     if(myList.length>0){
       myListPageModus=1;
       if(myList.length==1){
-        acceptColormapFromMyMaps(0);
+        acceptColormapFromMyDesigns(0);
       }
       else{
         document.getElementById("id_MyListAnalysisButton").style.color = "rgb(0,191,255)";
@@ -114,8 +123,8 @@ function selectCompare(){
     if(myList.length>1){
       myListPageModus=2;
       if(myList.length==2){
-        acceptColormapFromMyMaps(0);
-        acceptColormapFromMyMaps(1);
+        acceptColormapFromMyDesigns(0);
+        acceptColormapFromMyDesigns(1);
       }
       else{
         document.getElementById("id_MyListCompareButton").style.color = "rgb(0,191,255)";
@@ -169,7 +178,7 @@ function showAcceptButtons(){
 
 }
 
-function acceptColormapFromMyMaps(index){
+function acceptColormapFromMyDesigns(index){
 
   if(myListPageModus==1 ){
     showSideID = 2;
