@@ -38,6 +38,18 @@ class classColor_HSV{
         return this.vValue;
     }
 
+    set1Value(newVal) {
+        this.hValue=newVal;
+    }
+
+    set2Value(newVal) {
+        this.sValue=newVal;
+    }
+
+    set3Value(newVal){
+        this.vValue=newVal;
+    }
+
     setHValue(newVal) {
         this.hValue = newVal;
     }

@@ -21,7 +21,6 @@ function drawAddExistingAddPage(){
       /*<canvas id="id_canvasColormap0" class="class_AddExistingColormapCanvas" style="height:100%; width:70%; margin-left:4%; border-radius: 0.5vh;">
 
       </canvas>*/
-      console.log("id_canvasAddExistingColormap"+i);
       document.getElementById("id_canvasAddExistingColormap"+i).style.border = "0.2vh solid rgb(180,180,180)";
 
       var canvasObject = document.getElementById("id_canvasAddExistingColormap"+i);

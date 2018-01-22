@@ -146,17 +146,17 @@ function showHelpBandEditor(){
   workrect = document.getElementById("bandEdit_RightNeiColor").getBoundingClientRect();
   top = workrect.top + scrollTop - clientTop;
   left = workrect.left+workrect.width + scrollLeft - clientLeft;
-  document.getElementById("bandEditor_rightNeighbourColorHelp").style.display="inline-block";
-  document.getElementById("bandEditor_rightNeighbourColorHelp").style.left= left+"px";
-  document.getElementById("bandEditor_rightNeighbourColorHelp").style.top= top+"px";
+  document.getElementById("bandEditor_rightNeighborColorHelp").style.display="inline-block";
+  document.getElementById("bandEditor_rightNeighborColorHelp").style.left= left+"px";
+  document.getElementById("bandEditor_rightNeighborColorHelp").style.top= top+"px";
 
   workrect = document.getElementById("bandEdit_LeftNeiColor").getBoundingClientRect();
   top = workrect.top + scrollTop - clientTop;
   var right = workrect.right+workrect.width;
   console.log(right+" "+left);
-  document.getElementById("bandEditor_leftNeighbourColorHelp").style.display="inline-block";
-  document.getElementById("bandEditor_leftNeighbourColorHelp").style.right= left+"px";
-  document.getElementById("bandEditor_leftNeighbourColorHelp").style.top= top+"px";
+  document.getElementById("bandEditor_leftNeighborColorHelp").style.display="inline-block";
+  document.getElementById("bandEditor_leftNeighborColorHelp").style.right= left+"px";
+  document.getElementById("bandEditor_leftNeighborColorHelp").style.top= top+"px";
 
   // Select Colors
   document.getElementById("bandEditor_selectC1Help").style.display="inline-block";
@@ -187,8 +187,8 @@ function showHelpBandEditor(){
 
 function hiddeHelpBandEditor(){
   document.getElementById("bandEditor_colorpickerHelp").style.display="none";
-  document.getElementById("bandEditor_rightNeighbourColorHelp").style.display="none";
-  document.getElementById("bandEditor_leftNeighbourColorHelp").style.display="none";
+  document.getElementById("bandEditor_rightNeighborColorHelp").style.display="none";
+  document.getElementById("bandEditor_leftNeighborColorHelp").style.display="none";
   document.getElementById("bandEditor_selectC1Help").style.display="none";
   document.getElementById("bandEditor_selectC2Help").style.display="none";
   document.getElementById("bandEditor_arrowButtonHelp").style.display="none";

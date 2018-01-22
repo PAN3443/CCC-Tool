@@ -420,41 +420,54 @@ class classBandSketch{
   }
 
   getC1RGBColor(index){
-    return this.colormapBandSketchC1[index][0];
+    var tmpColor = new classColor_RGB( this.colormapBandSketchC1[index][0].get1Value(),this.colormapBandSketchC1[index][0].get2Value(),this.colormapBandSketchC1[index][0].get3Value() );
+    return tmpColor;
   }
   getC1HSVColor(index){
-    return this.colormapBandSketchC1[index][1];
+    var tmpColor = new classColor_HSV( this.colormapBandSketchC1[index][1].get1Value(),this.colormapBandSketchC1[index][1].get2Value(),this.colormapBandSketchC1[index][1].get3Value() );
+    return tmpColor;
   }
   getC1LABColor(index){
-    return this.colormapBandSketchC1[index][2];
+    var tmpColor = new classColor_LAB( this.colormapBandSketchC1[index][2].get1Value(),this.colormapBandSketchC1[index][2].get2Value(),this.colormapBandSketchC1[index][2].get3Value() );
+    return tmpColor;
   }
   getC1DIN99Color(index){
-    return this.colormapBandSketchC1[index][3];
+    var tmpColor = new classColorDIN99( this.colormapBandSketchC1[index][3].get1Value(),this.colormapBandSketchC1[index][3].get2Value(),this.colormapBandSketchC1[index][3].get3Value() );
+    return tmpColor;
   }
 
   getC2RGBColor(index){
-    return this.colormapBandSketchC2[index][0];
+    var tmpColor = new classColor_RGB( this.colormapBandSketchC2[index][0].get1Value(),this.colormapBandSketchC2[index][0].get2Value(),this.colormapBandSketchC2[index][0].get3Value() );
+    return tmpColor;
   }
   getC2HSVColor(index){
-    return this.colormapBandSketchC2[index][1];
+    var tmpColor = new classColor_HSV( this.colormapBandSketchC2[index][1].get1Value(),this.colormapBandSketchC2[index][1].get2Value(),this.colormapBandSketchC2[index][1].get3Value() );
+    return tmpColor;
   }
   getC2LABColor(index){
-    return this.colormapBandSketchC2[index][2];
+    var tmpColor = new classColor_LAB( this.colormapBandSketchC2[index][2].get1Value(),this.colormapBandSketchC2[index][2].get2Value(),this.colormapBandSketchC2[index][2].get3Value() );
+    return tmpColor;
   }
   getC2DIN99Color(index){
-    return this.colormapBandSketchC2[index][3];
+    var tmpColor = new classColorDIN99( this.colormapBandSketchC2[index][3].get1Value(),this.colormapBandSketchC2[index][3].get2Value(),this.colormapBandSketchC2[index][3].get3Value() );
+    return tmpColor;
   }
+
 
   getC1Color(index,space){
     switch (space) {
       case "rgb":
-        return this.colormapBandSketchC1[index][0];
+        var tmpColor = new classColor_RGB( this.colormapBandSketchC1[index][0].get1Value(),this.colormapBandSketchC1[index][0].get2Value(),this.colormapBandSketchC1[index][0].get3Value() );
+        return tmpColor;
       case "hsv":
-        return this.colormapBandSketchC1[index][1];
+        var tmpColor = new classColor_HSV( this.colormapBandSketchC1[index][1].get1Value(),this.colormapBandSketchC1[index][1].get2Value(),this.colormapBandSketchC1[index][1].get3Value() );
+        return tmpColor;
       case "lab":
-        return this.colormapBandSketchC1[index][2];
+        var tmpColor = new classColor_LAB( this.colormapBandSketchC1[index][2].get1Value(),this.colormapBandSketchC1[index][2].get2Value(),this.colormapBandSketchC1[index][2].get3Value() );
+        return tmpColor;
       case "din99":
-        return this.colormapBandSketchC1[index][3];
+        var tmpColor = new classColorDIN99( this.colormapBandSketchC1[index][3].get1Value(),this.colormapBandSketchC1[index][3].get2Value(),this.colormapBandSketchC1[index][3].get3Value() );
+        return tmpColor;
       default:
         console.log("Error at getC1Color function of the bandSketch class");
     }
@@ -463,18 +476,21 @@ class classBandSketch{
   getC2Color(index,space){
     switch (space) {
       case "rgb":
-        return this.colormapBandSketchC2[index][0];
+        var tmpColor = new classColor_RGB( this.colormapBandSketchC2[index][0].get1Value(),this.colormapBandSketchC2[index][0].get2Value(),this.colormapBandSketchC2[index][0].get3Value() );
+        return tmpColor;
       case "hsv":
-        return this.colormapBandSketchC2[index][1];
+        var tmpColor = new classColor_HSV( this.colormapBandSketchC2[index][1].get1Value(),this.colormapBandSketchC2[index][1].get2Value(),this.colormapBandSketchC2[index][1].get3Value() );
+        return tmpColor;
       case "lab":
-        return this.colormapBandSketchC2[index][2];
+        var tmpColor = new classColor_LAB( this.colormapBandSketchC2[index][2].get1Value(),this.colormapBandSketchC2[index][2].get2Value(),this.colormapBandSketchC2[index][2].get3Value() );
+        return tmpColor;
       case "din99":
-        return this.colormapBandSketchC2[index][3];
+        var tmpColor = new classColorDIN99( this.colormapBandSketchC2[index][3].get1Value(),this.colormapBandSketchC2[index][3].get2Value(),this.colormapBandSketchC2[index][3].get3Value() );
+        return tmpColor;
       default:
-        console.log("Error at getC2Color function of the bandSketch class");
+        console.log("Error at getC1Color function of the bandSketch class");
     }
   }
-
 
   sketch2Colormap(colorspace, name){
 

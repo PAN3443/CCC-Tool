@@ -456,6 +456,7 @@ function showMyDesignsSide(){
             refLineSketchContainer[i].remove();
             refLineSketchContainer.pop();
           }
+          bandSketch.clearSketch();
     break;
 
     default:

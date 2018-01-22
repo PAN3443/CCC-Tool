@@ -51,6 +51,7 @@ function openEditColormapFromMyDesigns(index){
       showSideID = 6;
       bandSketch.colormap2Sketch(myList[index]);
       orderColorSketch(colorspaceModus);
+      addKeyButtons();
     }
 
 }

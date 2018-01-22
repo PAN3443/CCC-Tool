@@ -68,6 +68,17 @@ window.onload = function() {
   drawCanvasColormap("canvasPreviewDivergent", existingMap_resolution_X,  existingMap_resolution_Y, tmpMap);
 
 
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////// Edit Side /////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
+  document.getElementById('id_editPageScalarInput').addEventListener("change", editPage_ChangeScalar);
+  document.getElementById('id_editPageScalarInput').addEventListener("keyup", editPage_CheckScalar);
+
+  document.getElementById('editSide_Radiobutton_KeyTypeNil').addEventListener("change", changeKeyType);
+  document.getElementById('editSide_Radiobutton_KeyTypeTwin').addEventListener("change", changeKeyType);
+  document.getElementById('editSide_Radiobutton_KeyTypeLeft').addEventListener("change", changeKeyType);
+  document.getElementById('editSide_Radiobutton_KeyTypeRight').addEventListener("change", changeKeyType);
+  document.getElementById('editSide_Radiobutton_KeyTypeDual').addEventListener("change", changeKeyType);
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Create Side /////////////////////////////////////

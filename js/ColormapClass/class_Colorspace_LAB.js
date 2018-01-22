@@ -41,6 +41,18 @@ class classColor_LAB{
         return this.bValue;
       }
 
+      set1Value(newVal) {
+          this.lValue=newVal;
+      }
+
+      set2Value(newVal) {
+          this.aValue=newVal;
+      }
+
+      set3Value(newVal){
+          this.bValue=newVal;
+      }
+
       setLValue(newLVal) {
         this.lValue = newLVal;
       }

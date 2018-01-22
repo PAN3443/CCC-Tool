@@ -88,7 +88,7 @@ function createPage_showHelp(){
   document.getElementById("createSide_add4Help").style.left= left+"px";
   document.getElementById("createSide_add4Help").style.top= top+"px";
 
-  workrect = document.getElementById("button_AddQuadrupelBands").getBoundingClientRect();
+  workrect = document.getElementById("button_AddQuadrupleBands").getBoundingClientRect();
   top = (workrect.top+workrect.height) + scrollTop - clientTop;
   left = workrect.left + scrollLeft - clientLeft;
   document.getElementById("createSide_add5Help").style.display="inline-block";

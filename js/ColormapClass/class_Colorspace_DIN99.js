@@ -43,6 +43,18 @@ class classColorDIN99{
         return this.b99Value;
       }
 
+      set1Value(newVal) {
+          this.l99Value=newVal;
+      }
+
+      set2Value(newVal) {
+          this.a99Value=newVal;
+      }
+
+      set3Value(newVal){
+          this.b99Value=newVal;
+      }
+
       setL99Value(newLVal) {
         this.lValue = newLVal;
       }

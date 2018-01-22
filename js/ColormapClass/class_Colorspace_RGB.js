@@ -40,6 +40,18 @@ class classColor_RGB{
     return this.bValue;
   }
 
+  set1Value(newVal) {
+      this.rValue=newVal;
+  }
+
+  set2Value(newVal) {
+      this.gValue=newVal;
+  }
+
+  set3Value(newVal){
+      this.bValue=newVal;
+  }
+
   setRValue(r) {
     this.rValue = r;
   }
