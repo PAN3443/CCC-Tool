@@ -118,6 +118,7 @@
   <script src="js/events_ColorspaceCanvas.js"></script>
   <script src="js/class_colorBandSketch.js"></script>
   <script src="js/events_colorspaceCanvasRGB.js"></script>
+  <script src="js\drawColorpicker.js"></script>
   <script src="js/main.js"></script>
 
 </head>
@@ -214,7 +215,7 @@
         ----------------	Welcome Page ---------------
         ---------------- -------------------------------
         -->
-  <div id="id_welcomePage" style="width: 100%; height:auto; background:rgb(230,230,230); margin:0px;  padding-top:2vh; padding-bottom:2vh;">
+  <div id="id_welcomePage" style="width: 100%; height:auto; background:rgb(210,210,210); margin:0px;  padding-top:2vh; padding-bottom:2vh;">
 
      <div style="margin-left:20%; width:60%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:white; padding-top:2vh; padding-bottom:2vh; box-shadow:  0.3vh  0.3vh grey;">
 
@@ -259,235 +260,16 @@
 
   <!--
         -----------------------------------------------
-        ----------------	Edit Page ---------------
-        ---------------- -------------------------------
-        -->
-
-  <div id="id_editPage" style="width: 100%; height:auto; background:rgb(230,230,230); margin:0px; padding-top:2vh; padding-bottom:2vh; display:none;">
-
-
-    <div style="margin-left:2%; width:96%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:white; padding-top:2vh; padding-bottom:2vh; box-shadow:  0.3vh  0.3vh grey;">
-      <h4 style="width:100%; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Colormap Band Sketch </h4>
-
-      <canvas class="row" style="margin-top: 1vh; width:100%; height: 12vh;" id="id_editColormapKeys">
-      </canvas>
-      <div class="row" style="margin-top: 0px; width:95%; height: 8vh; margin-left:auto;  margin-right:auto;" id="id_editColormapSketch">
-      </div>
-
-      <div class="row" style="margin-top: 0px; width:95%; height: 2vh; margin-left:auto; margin-right:auto; margin-bottom:5vh;" id="id_editColormapSketch_Ref">
-      </div>
-    </div>
-
-    <div style="margin-left:10%; width:80%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:white; padding-top:2vh; padding-bottom:2vh; box-shadow:  0.3vh  0.3vh grey;">
-
-
-      <h4 style="width:100%; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px;"> Key Edit </h4>
-
-
-
-
-
-      <div class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
-
-        <div style="margin-top: 4vh; width:50%; height: auto; background:white;">
-
-            <div class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
-              <p style="margin:0px; margin-left:10%; width:15%; text-align:left; height:2.2vh; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px; font-weight:bold;">
-                Key:
-              </p>
-
-              <div id="editPage_KeyDiv" class="row" style="margin-left:5%; width:65%; height:auto; display: inline-block;">
-
-              </div>
-
-            </div>
-
-            <hr style="color:grey;">
-
-            <div class="row" style="margin-top:2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
-              <p style="margin:0px; margin-left:10%; width:15%; text-align:left; height:2.2vh; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px; font-weight:bold;">
-                Type:
-              </p>
-
-              <div class="row" style="width:auto; margin-left:5%;">
-              <input class="class_RadioButtonLabelEditPage" style="margin-right: 0px;" type="radio" id="editSide_Radiobutton_KeyTypeNil" name="editPage_keyType" value="1" checked="checked">
-              <label class="class_RadioButtonLabelEditPage" for="editSide_Radiobutton_KeyTypeNil" id="editSide_Radiobutton_KeyTypeNilLabel"> nil key </label><br>
-              <input class="class_RadioButtonLabelEditPage" style="margin-right: 0px;" type="radio" id="editSide_Radiobutton_KeyTypeRight" name="editPage_keyType" value="2">
-              <label class="class_RadioButtonLabelEditPage" for="editSide_Radiobutton_KeyTypeRight" id="editSide_Radiobutton_KeyTypeRightLabel"> right key </label><br>
-              <input class="class_RadioButtonLabelEditPage" style="margin-right: 0px;" type="radio" id="editSide_Radiobutton_KeyTypeLeft" name="editPage_keyType" value="3" >
-              <label class="class_RadioButtonLabelEditPage" for="editSide_Radiobutton_KeyTypeLeft" id="editSide_Radiobutton_KeyTypeLeftLabel"> left key </label><br>
-              <input class="class_RadioButtonLabelEditPage" style="margin-right: 0px;" type="radio" id="editSide_Radiobutton_KeyTypeDual" name="editPage_keyType" value="4">
-              <label class="class_RadioButtonLabelEditPage" for="editSide_Radiobutton_KeyTypeDual" id="editSide_Radiobutton_KeyTypeDualLabel"> dual key </label><br>
-              <input class="class_RadioButtonLabelEditPage" style="margin-right: 0px;" type="radio" id="editSide_Radiobutton_KeyTypeTwin" name="editPage_keyType" value="5">
-              <label class="class_RadioButtonLabelEditPage" for="editSide_Radiobutton_KeyTypeTwin" id="editSide_Radiobutton_KeyTypeTwinLabel"> twin key </label><br>
-              </div>
-
-
-              <div class="dropdown" style="width:auto; margin-left:2vw;">
-                <button class="dropbtn" style="border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width:2.2vh; height:2.2vh; border: 2px solid black; margin-top:auto; margin-bottom:auto;"></button>
-                <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
-
-                  <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong>
-                  </p>
-                  <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; ">
-                    Nil Key:
-                  </p>
-                  <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; ">
-                    Right Key:
-                  </p>
-                  <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; ">
-                    Left Key:
-                  </p>
-                  <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; ">
-                    Dual Key:
-                  </p>
-                  <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; ">
-                    Twin Key:
-                  </p>
-                </div>
-              </div>
-
-
-            </div>
-
-            <hr style="color:grey;">
-
-            <div class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
-              <p style="margin:0px; margin-left:10%; width:15%; text-align:left; height:2.2vh; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px; font-weight:bold; ">
-                Scalar Value:
-              </p>
-
-              <input id="id_editPageScalarInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:5%;">
-
-            </div>
-
-            <hr style="color:grey;">
-
-
-                    <div class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
-                        <p style="margin:0px; margin-left:10%; width:15%; text-align:left; height:2.2vh; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px; font-weight:bold; ">
-                          Color Picker:
-                        </p>
-
-                        <input class="class_RadioButtonLabelEditPage" style="margin-left: 5%; margin-right: 0px;" type="radio" id="editSide_Radiobutton_PickerRG_B" name="editPage_PickerType" value="1" checked="checked">
-                        <label class="class_RadioButtonLabelEditPage" for="editSide_Radiobutton_PickerRG_B" id="editSide_Radiobutton_PickerRG_B_Label"> RG+B </label><br>
-                        <input class="class_RadioButtonLabelEditPage" style="margin-right: 0px;" type="radio" id="editSide_Radiobutton_PickerRB_G" name="editPage_PickerType" value="2" >
-                        <label class="class_RadioButtonLabelEditPage" for="editSide_Radiobutton_PickerRB_G" id="editSide_Radiobutton_PickerRB_G_Label"> RB+G </label><br>
-                        <input class="class_RadioButtonLabelEditPage" style="margin-right: 0px;" type="radio" id="editSide_Radiobutton_PickerGB_R" name="editPage_PickerType" value="3" >
-                        <label class="class_RadioButtonLabelEditPage" for="editSide_Radiobutton_PickerGB_R" id="editSide_Radiobutton_PickerGB_R_Label"> GB+R </label><br>
-                    </div>
-
-                    <div class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
-                      <input class="class_RadioButtonLabelEditPage" style="margin-left: 30%; margin-right: 0px;" type="radio" id="editSide_Radiobutton_PickerHS_V" name="editPage_PickerType" value="4">
-                      <label class="class_RadioButtonLabelEditPage" for="editSide_Radiobutton_PickerHS_V" id="editSide_Radiobutton_PickerHS_V_Label"> HS+V </label><br>
-                      <input class="class_RadioButtonLabelEditPage" style="margin-right: 0px;" type="radio" id="editSide_Radiobutton_PickerHV_S" name="editPage_PickerType" value="5" >
-                      <label class="class_RadioButtonLabelEditPage" for="editSide_Radiobutton_PickerHV_S" id="editSide_Radiobutton_PickerHV_S_Label"> HV+S </label><br>
-                      <input class="class_RadioButtonLabelEditPage" style="margin-right: 0px;" type="radio" id="editSide_Radiobutton_PickerSV_H" name="editPage_PickerType" value="6" >
-                      <label class="class_RadioButtonLabelEditPage" for="editSide_Radiobutton_PickerSV_H" id="editSide_Radiobutton_PickerSV_H_Label"> SV+H </label><br>
-                    </div>
-
-                    <div id="editPage_Color1_1" class="row" style="margin-top: 5vh; margin-bottom: 0.5vh; width:100%; height: auto;">
-                      <input class="class_RadioButtonLabelEditPage" style="margin-left: 10%; margin-right: 0px; widht:3%" type="radio" id="editSide_Radiobutton_SelectColor1" name="editPage_SelectColor" value="0" checked="checked">
-                      <label class="class_RadioButtonLabelEditPage" style="font-weight: bold; widht:12%;" for="editSide_Radiobutton_SelectColor1" id="editSide_Radiobutton_SelectColor1_Label"> Color1: </label><br>
-                      <p class="class_RadioButtonLabelEditPage" style="margin:0px; margin-left:5%; width:10%">
-                        HSV
-                      </p>
-                      <input id="id_editPageC1HInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
-                      <input id="id_editPageC1SInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
-                      <input id="id_editPageC1VInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
-                    </div>
-                    <div id="editPage_Color1_2" class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
-                      <p class="class_RadioButtonLabelEditPage" style="margin:0px; margin-left:30%; width:10%">
-                        RGB
-                      </p>
-                      <input id="id_editPageC1RInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
-                      <input id="id_editPageC1GInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
-                      <input id="id_editPageC1BInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
-                    </div>
-
-                    <div id="editPage_Color2_1" class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
-                      <input class="class_RadioButtonLabelEditPage" style="margin-left: 10%; margin-right: 0px; widht:3%" type="radio" id="editSide_Radiobutton_SelectColor2" name="editPage_SelectColor" value="0" checked="checked">
-                      <label class="class_RadioButtonLabelEditPage" style="font-weight: bold; widht:12%;" for="editSide_Radiobutton_SelectColor2" id="editSide_Radiobutton_SelectColor2_Label"> Color2: </label><br>
-                      <p class="class_RadioButtonLabelEditPage" style="margin:0px; margin-left:5%; width:10%">
-                        HSV
-                      </p>
-                      <input id="id_editPageC2HInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
-                      <input id="id_editPageC2SInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
-                      <input id="id_editPageC2VInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
-                    </div>
-                    <div id="editPage_Color2_2" class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
-                      <p class="class_RadioButtonLabelEditPage" style="margin:0px; margin-left:30%; width:10%">
-                        RGB
-                      </p>
-                      <input id="id_editPageC2RInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
-                      <input id="id_editPageC2GInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
-                      <input id="id_editPageC2BInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
-                    </div>
-        </div>
-
-
-
-        <div style="margin-top: 4vh; width:50%; height: auto;">
-            <div class="row" style="margin-top: 1vh; margin-bottom: 0.5vh; width:100%; height: auto;">
-              <p class="class_RadioButtonLabelEditPage"id="editPage_canvasPicker_Label" style="margin:0px; width:20vw; margin-left:5vw; text-align:center; font-weight: bold;">RG</p>
-              <p class="class_RadioButtonLabelEditPage" id="editPage_canvasPicker_Label" style="margin:0px; width:5vw; margin-left:2vw; text-align:center; font-weight: bold;">B</p>
-            </div>
-
-            <div class="row" style="margin-top: 1vh; margin-bottom: 0.5vh; width:100%; height: auto;">
-              <canvas id="editPage_canvasPicker" style="width:20vw; height:20vw; border:1px solid black; margin-left:5vw;"></canvas>
-              <canvas id="editPage_canvasPicker2" style="width:5vw; height:20vw; border:1px solid black; margin-left:2vw;"></canvas>
-            </div>
-
-            <div class="row" style="margin-top: 3vh;">
-              <p class="class_RadioButtonLabelEditPage" style="margin:0px; margin-left:8vw; width:10vw">
-                Current Key Color:
-              </p>
-              <div style="width:10vw; margin-left:2vw; height:2.2vh; border:1px solid black;">
-
-              </div>
-            </div>
-
-            <div class="row" style="margin-top: 0px;">
-              <p class="class_RadioButtonLabelEditPage" style="margin:0px; margin-left:8vw; width:10vw">
-                Selected Color:
-              </p>
-              <div style="width:10vw; margin-left:2vw; height:2.2vh; border:1px solid black; border-top:none;">
-
-              </div>
-            </div>
-
-
-            <button class="classButtonWhite" id="id_EditPage_ConfirmButton" title="Confirm" style="border-radius: 0.5vh;  width:10vw; height:3vh; line-height:3vh; font-size:2vh; border: 0.2vh solid rgb(180,180,180); margin-left:20vw; margin-top:1vh;"> Confirm</button>
-
-
-
-
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!--
-        -----------------------------------------------
         ----------------	Creator Page ---------------
         ---------------- -------------------------------
         -->
-  <div id="id_creatorPage" style="width: 100%; height:auto; background:white; display:none;">
-
-
-    <div class="row" style="height:100%; width: 100%;">
-
-
-
-      <div id="id_colormap_workwindow" style="width:100%; background:white;">
+  <div id="id_creatorPage" style="width: 100%; height:auto; background:rgb(210,210,210); display:none;">
 
 
         <!-- Linear Colormap and Table -->
-        <div id="id_LinearMap_Table_Div" style="display:none;">
-          <div class="row" style="height:40vh; width:100%; margin:0px;">
+        <div id="id_LinearMap_Table_Div" style="margin-left:2%; width:96%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:white; box-shadow:  0.3vh  0.3vh grey; display:none;">
 
-            <div id="id_table_workwindow" style="height:99%; width:0%; display: flex; flex-direction: column; z-index:20;">
+            <div id="id_table_workwindow" style="height:100%; width:0%; display: flex; flex-direction: column; z-index:20;">
 
               <h4 style=" width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; margin:0px; background:grey; color:white;">Colormap Table</h4>
 
@@ -514,11 +296,12 @@
 
             </div>
 
-            <div id="id_expandTablebutton" title="expand table" style="height:100%; width:1%; border-radius: 0px 10px 10px 0px; height:100%; background: url(img/expandTableButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; cursor:pointer;">
+            <div id="id_expandTablebutton" title="expand table" style="height:3vh; width:100%; border-radius: 0px 0px 10px 10px; height:100%; background:black; cursor:pointer; color:white; text-align:center;">
+               &#11021; Click to expand the table
             </div>
 
             <!-- colormaps -->
-            <div id="id_colormapsDiv" style="height: 100%; width:99%; margin:0px;">
+            <div id="id_colormapsDiv" style="height: 40vh; width:100%; margin:0px;">
 
               <div style="height:100%; width:100%; padding-top: 0.5vh;">
 
@@ -542,11 +325,26 @@
 
             </div>
 
-          </div>
+
         </div>
 
         <!-- Colormap Sketch Bands -->
-        <div class="row" style="height:20vh; width:100%; margin:0px; background:rgb(230,230,230); border-top:2px solid black; top:5vh;">
+
+        <div style="margin-left:2%; width:96%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:white; box-shadow:  0.3vh  0.3vh grey;">
+            <h4 style="width:100%; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Colormap Band Sketch </h4>
+
+            <canvas style="margin-top: 0px; width:100%; height: 10vh;" id="id_createColormapKeys">
+            </canvas>
+            <div class="row" style="margin-top: 0px; width:95%; height: 8vh; margin-left:auto;  margin-right:auto;" id="id_colormapSketch">
+            </div>
+
+            <div class="row" style="margin-top: 0px; width:95%; height: 2vh; margin-left:auto; margin-right:auto;" id="id_colormapSketch_Ref">
+            </div>
+
+            <div style="margin-top: 0px; width:95%; height: 5vh; margin-left:auto; margin-right:auto;">
+            </div>
+        </div>
+        <!--div class="row" style="height:20vh; width:100%; margin:0px; background:rgb(210,210,210); border-top:2px solid black; top:5vh;">
           <div style="height:auto; width:98%; margin:auto; background:white; padding-bottom:1vh;">
             <h4 style="width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Colormap Band Sketch</h4>
 
@@ -556,65 +354,260 @@
             <div class="row" style="margin-top: 0px; width:95%; height: 2vh; margin-left:auto;  margin-right:auto; margin-bottom:3vh; z-index=3;" id="id_colormapSketch_Ref">
             </div>
           </div>
-        </div>
+        </div-->
 
         <!-- Predefined Bands -->
-        <div style="height:auto; width:100%; background:rgb(200,200,200);">
+        <div style="margin-left:2%; width:96%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:white; box-shadow:  0.3vh  0.3vh grey;">
+            <div class="row" style="height:auto; width:100%; margin:0px; border-bottom:2px solid black; ">
 
-            <div id="id_tmpContainer" style="height:0px; width:0px;"></div>
+              <button id="id_selectKeyModifying" style="width:50%; height:5vh; background:rgb(60,60,60); color:white; line-height:5vh; vertical-align:middle; text-align:center; font-size:3vh; cursor:pointer;">
+                  Modify Keys
+              </button>
 
-            <div class="row" style="height:auto; width:100%; margin:0px; ">
+              <button id="id_selectBandAdding" style="width:50%; height:5vh; background:white; color:black; line-height:5vh; vertical-align:middle; text-align:center; font-size:3vh; cursor:pointer;">
+                  Add Bands
+              </button>
 
-            <div style="width:20%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255); border-right: 1px solid black;">
-              <h4 style=" margin: 0px; width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:black; margin-top:1vh;">Constant Band:</h4>
-                <div id="id_ConstantBand_Div" style="width:100%; height:50vh; overflow-y:auto; border-bottom:1px solid black;">
+
+            </div>
+
+            <div id="id_DivAddBands" style="height:auto; width:100%; margin:0px;">
+
+
+                <div id="id_tmpContainer" style="height:0px; width:0px;"></div>
+
+                <div class="row" style="height:auto; width:100%; margin:0px; ">
+
+                <div style="width:20%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255); border-right: 1px solid black;">
+                  <h4 style=" margin: 0px; width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:black; margin-top:1vh;">Constant Band:</h4>
+                    <div id="id_ConstantBand_Div" style="width:100%; height:50vh; overflow-y:auto; border-bottom:1px solid black;">
+
+                    </div>
+                    <button id="button_AddConstantBand" onclick="addBand(0)" title="Add Constant Band" class="class_predefinedConstBands" style="color: black;">add</button>
+                </div>
+
+                <div style="width:20%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255); border-right: 1px solid black;">
+                  <h4 style=" margin: 0px; width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:black; margin-top:1vh;">Scale Band:</h4>
+                    <div id="id_ScaleBand_Div" style="width:100%; height:50vh; overflow-y:auto;  border-bottom:1px solid black;">
+
+                    </div>
+                    <button id="button_AddScaleBand" onclick="addBand(1)" title="Add Scale Band" class="class_predefinedConstBands" style="color: black;">add</button>
+                </div>
+
+                <div style="width:20%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255); border-right: 1px solid black;">
+                  <h4 style=" margin: 0px; width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:black; margin-top:1vh;">Double Bands:</h4>
+                    <div id="id_DoubleBands_Div" style="width:100%;height:50vh; overflow-y:auto;  border-bottom:1px solid black;">
+
+                    </div>
+                    <button id="button_AddDoubleBands" onclick="addBand(2)" title="Add Double Bands" class="class_predefinedConstBands" style="color: black;">add</button>
+                </div>
+
+                <div style="width:20%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255); border-right: 1px solid black;">
+                  <h4 style=" margin: 0px; width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:black; margin-top:1vh;">Triple Bands:</h4>
+                    <div id="id_TripleBands_Div" style=" width:100%; height:50vh; overflow-y:auto;  border-bottom:1px solid black;">
+
+                    </div>
+                    <button id="button_AddTripleBands" onclick="addBand(3)" title="Add Triple Bands" class="class_predefinedConstBands" style="color: black;">add</button>
+                </div>
+
+                <div style="width:20%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255); border-right: 1px solid black;">
+                  <h4 style=" margin: 0px; width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:black; margin-top:1vh;">Quadruple Bands:</h4>
+                  <div id="id_QuadrupleBands_Div" style=" width:100%; height:50vh; overflow-y:auto;  border-bottom:1px solid black;">
+
+                  </div>
+                  <button id="button_AddQuadrupleBands" onclick="addBand(4)" title="Add Quadruple Bands" class="class_predefinedConstBands" style="color: black;">add</button>
+                </div>
 
                 </div>
-                <button id="button_AddConstantBand" onclick="addBand(0)" title="Add Constant Band" class="class_predefinedConstBands" style="color: black;">add</button>
-            </div>
+           </div>
 
-            <div style="width:20%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255); border-right: 1px solid black;">
-              <h4 style=" margin: 0px; width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:black; margin-top:1vh;">Scale Band:</h4>
-                <div id="id_ScaleBand_Div" style="width:100%; height:50vh; overflow-y:auto;  border-bottom:1px solid black;">
+           <div id="id_DivModifyKeys" style="height:auto; width:100%; margin:0px; display:none;">
 
-                </div>
-                <button id="button_AddScaleBand" onclick="addBand(1)" title="Add Scale Band" class="class_predefinedConstBands" style="color: black;">add</button>
-            </div>
+               <div class="row" style="width:100%; height: auto;">
 
-            <div style="width:20%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255); border-right: 1px solid black;">
-              <h4 style=" margin: 0px; width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:black; margin-top:1vh;">Double Bands:</h4>
-                <div id="id_DoubleBands_Div" style="width:100%;height:50vh; overflow-y:auto;  border-bottom:1px solid black;">
+                 <div style="margin-top: 2vh; width:50%; height: auto; background:white;">
 
-                </div>
-                <button id="button_AddDoubleBands" onclick="addBand(2)" title="Add Double Bands" class="class_predefinedConstBands" style="color: black;">add</button>
-            </div>
+                     <div class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
+                       <p style="margin:0px; margin-left:10%; width:15%; text-align:left; height:2.2vh; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px; font-weight:bold;">
+                         Key:
+                       </p>
 
-            <div style="width:20%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255); border-right: 1px solid black;">
-              <h4 style=" margin: 0px; width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:black; margin-top:1vh;">Triple Bands:</h4>
-                <div id="id_TripleBands_Div" style=" width:100%; height:50vh; overflow-y:auto;  border-bottom:1px solid black;">
+                       <div id="editPage_KeyDiv" class="row" style="margin-left:5%; width:65%; height:auto; display: inline-block;">
 
-                </div>
-                <button id="button_AddTripleBands" onclick="addBand(3)" title="Add Triple Bands" class="class_predefinedConstBands" style="color: black;">add</button>
-            </div>
+                       </div>
 
-            <div style="width:20%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255); border-right: 1px solid black;">
-              <h4 style=" margin: 0px; width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:black; margin-top:1vh;">Quadruple Bands:</h4>
-              <div id="id_QuadrupleBands_Div" style=" width:100%; height:50vh; overflow-y:auto;  border-bottom:1px solid black;">
+                     </div>
 
-              </div>
-              <button id="button_AddQuadrupleBands" onclick="addBand(4)" title="Add Quadruple Bands" class="class_predefinedConstBands" style="color: black;">add</button>
-            </div>
+                     <hr style="color:grey;">
 
-          </div>
+                     <div class="row" style="margin-top:2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
+                       <p style="margin:0px; margin-left:10%; width:15%; text-align:left; height:2.2vh; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px; font-weight:bold;">
+                         Type:
+                       </p>
 
+                       <div class="row" style="width:auto; margin-left:5%;">
+                       <input class="class_RadioButtonLabelEditPage" style="margin-right: 0px;" type="radio" id="editSide_Radiobutton_KeyTypeNil" name="editPage_keyType" value="1" checked="checked">
+                       <label class="class_RadioButtonLabelEditPage" for="editSide_Radiobutton_KeyTypeNil" id="editSide_Radiobutton_KeyTypeNilLabel"> nil key </label><br>
+                       <input class="class_RadioButtonLabelEditPage" style="margin-right: 0px;" type="radio" id="editSide_Radiobutton_KeyTypeRight" name="editPage_keyType" value="2">
+                       <label class="class_RadioButtonLabelEditPage" for="editSide_Radiobutton_KeyTypeRight" id="editSide_Radiobutton_KeyTypeRightLabel"> right key </label><br>
+                       <input class="class_RadioButtonLabelEditPage" style="margin-right: 0px;" type="radio" id="editSide_Radiobutton_KeyTypeLeft" name="editPage_keyType" value="3" >
+                       <label class="class_RadioButtonLabelEditPage" for="editSide_Radiobutton_KeyTypeLeft" id="editSide_Radiobutton_KeyTypeLeftLabel"> left key </label><br>
+                       <input class="class_RadioButtonLabelEditPage" style="margin-right: 0px;" type="radio" id="editSide_Radiobutton_KeyTypeDual" name="editPage_keyType" value="4">
+                       <label class="class_RadioButtonLabelEditPage" for="editSide_Radiobutton_KeyTypeDual" id="editSide_Radiobutton_KeyTypeDualLabel"> dual key </label><br>
+                       <input class="class_RadioButtonLabelEditPage" style="margin-right: 0px;" type="radio" id="editSide_Radiobutton_KeyTypeTwin" name="editPage_keyType" value="5">
+                       <label class="class_RadioButtonLabelEditPage" for="editSide_Radiobutton_KeyTypeTwin" id="editSide_Radiobutton_KeyTypeTwinLabel"> twin key </label><br>
+                       </div>
+
+
+                       <div class="dropdown" style="height:auto; width:auto; margin-left:2vw;">
+                         <button class="dropbtn" style="border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width:2.2vh; height:2.2vh; border: 2px solid black; margin-top:0px; margin-bottom:0px;"></button>
+                         <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
+
+                           <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong>
+                           </p>
+                           <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; ">
+                             Nil Key:
+                           </p>
+                           <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; ">
+                             Right Key:
+                           </p>
+                           <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; ">
+                             Left Key:
+                           </p>
+                           <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; ">
+                             Dual Key:
+                           </p>
+                           <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; ">
+                             Twin Key:
+                           </p>
+                         </div>
+                       </div>
+
+
+                     </div>
+
+                     <hr style="color:grey;">
+
+                     <div class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
+                       <p style="margin:0px; margin-left:10%; width:15%; text-align:left; height:2.2vh; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px; font-weight:bold; ">
+                         Scalar Value:
+                       </p>
+
+                       <input id="id_editPageScalarInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:5%;">
+
+                     </div>
+
+                     <hr style="color:grey;">
+
+
+                             <div class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
+                                 <p style="margin:0px; margin-left:10%; width:15%; text-align:left; height:2.2vh; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px; font-weight:bold; ">
+                                   Color Picker:
+                                 </p>
+
+                                 <input class="class_RadioButtonLabelEditPage" style="margin-left: 5%; margin-right: 0px;" type="radio" id="editSide_Radiobutton_PickerRG_B" name="editPage_PickerType" value="1" checked="checked">
+                                 <label class="class_RadioButtonLabelEditPage" for="editSide_Radiobutton_PickerRG_B" id="editSide_Radiobutton_PickerRG_B_Label"> RG+B </label><br>
+                                 <input class="class_RadioButtonLabelEditPage" style="margin-right: 0px;" type="radio" id="editSide_Radiobutton_PickerRB_G" name="editPage_PickerType" value="2" >
+                                 <label class="class_RadioButtonLabelEditPage" for="editSide_Radiobutton_PickerRB_G" id="editSide_Radiobutton_PickerRB_G_Label"> RB+G </label><br>
+                                 <input class="class_RadioButtonLabelEditPage" style="margin-right: 0px;" type="radio" id="editSide_Radiobutton_PickerGB_R" name="editPage_PickerType" value="3" >
+                                 <label class="class_RadioButtonLabelEditPage" for="editSide_Radiobutton_PickerGB_R" id="editSide_Radiobutton_PickerGB_R_Label"> GB+R </label><br>
+                             </div>
+
+                             <div class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
+                               <input class="class_RadioButtonLabelEditPage" style="margin-left: 30%; margin-right: 0px;" type="radio" id="editSide_Radiobutton_PickerHS_V" name="editPage_PickerType" value="4">
+                               <label class="class_RadioButtonLabelEditPage" for="editSide_Radiobutton_PickerHS_V" id="editSide_Radiobutton_PickerHS_V_Label"> HS+V </label><br>
+                               <input class="class_RadioButtonLabelEditPage" style="margin-right: 0px;" type="radio" id="editSide_Radiobutton_PickerHV_S" name="editPage_PickerType" value="5" >
+                               <label class="class_RadioButtonLabelEditPage" for="editSide_Radiobutton_PickerHV_S" id="editSide_Radiobutton_PickerHV_S_Label"> HV+S </label><br>
+                               <input class="class_RadioButtonLabelEditPage" style="margin-right: 0px;" type="radio" id="editSide_Radiobutton_PickerSV_H" name="editPage_PickerType" value="6" >
+                               <label class="class_RadioButtonLabelEditPage" for="editSide_Radiobutton_PickerSV_H" id="editSide_Radiobutton_PickerSV_H_Label"> SV+H </label><br>
+                             </div>
+
+                             <div id="editPage_Color1_1" class="row" style="margin-top: 5vh; margin-bottom: 0.5vh; width:100%; height: auto;">
+                               <input class="class_RadioButtonLabelEditPage" style="margin-left: 10%; margin-right: 0px; widht:3%" type="radio" id="editSide_Radiobutton_SelectColor1" name="editPage_SelectColor" value="0" checked="checked">
+                               <label class="class_RadioButtonLabelEditPage" style="font-weight: bold; widht:12%;" for="editSide_Radiobutton_SelectColor1" id="editSide_Radiobutton_SelectColor1_Label"> Color1: </label><br>
+                               <p class="class_RadioButtonLabelEditPage" style="margin:0px; margin-left:5%; width:10%">
+                                 HSV
+                               </p>
+                               <input id="id_editPageC1HInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
+                               <input id="id_editPageC1SInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
+                               <input id="id_editPageC1VInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
+                             </div>
+                             <div id="editPage_Color1_2" class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
+                               <p class="class_RadioButtonLabelEditPage" style="margin:0px; margin-left:30%; width:10%">
+                                 RGB
+                               </p>
+                               <input id="id_editPageC1RInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
+                               <input id="id_editPageC1GInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
+                               <input id="id_editPageC1BInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
+                             </div>
+
+                             <div id="editPage_Color2_1" class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
+                               <input class="class_RadioButtonLabelEditPage" style="margin-left: 10%; margin-right: 0px; widht:3%" type="radio" id="editSide_Radiobutton_SelectColor2" name="editPage_SelectColor" value="0" checked="checked">
+                               <label class="class_RadioButtonLabelEditPage" style="font-weight: bold; widht:12%;" for="editSide_Radiobutton_SelectColor2" id="editSide_Radiobutton_SelectColor2_Label"> Color2: </label><br>
+                               <p class="class_RadioButtonLabelEditPage" style="margin:0px; margin-left:5%; width:10%">
+                                 HSV
+                               </p>
+                               <input id="id_editPageC2HInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
+                               <input id="id_editPageC2SInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
+                               <input id="id_editPageC2VInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
+                             </div>
+                             <div id="editPage_Color2_2" class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
+                               <p class="class_RadioButtonLabelEditPage" style="margin:0px; margin-left:30%; width:10%">
+                                 RGB
+                               </p>
+                               <input id="id_editPageC2RInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
+                               <input id="id_editPageC2GInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
+                               <input id="id_editPageC2BInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
+                             </div>
+                 </div>
+
+
+
+                 <div style="margin-top: 2vh; width:50%; height: auto;">
+                     <div class="row" style="margin-top: 1vh; margin-bottom: 0.5vh; width:100%; height: auto;">
+                       <p class="class_RadioButtonLabelEditPage"id="editPage_canvasPicker_Label" style="margin:0px; width:25vw; margin-left:9vw; text-align:center; font-weight: bold;">RG</p>
+                       <p class="class_RadioButtonLabelEditPage" id="editPage_canvasPicker2_Label" style="margin:0px; width:5vw; margin-left:2vw; text-align:center; font-weight: bold;">B</p>
+                     </div>
+
+                     <div class="row" style="margin-top: 1vh; margin-bottom: 0.5vh; width:100%; height: auto;">
+                       <canvas id="editPage_canvasPicker" style="width:25vw; height:25vw; border:1px solid black; margin-left:9vw; background:grey;"></canvas>
+                       <canvas id="editPage_canvasPicker2" style="width:5vw; height:25vw; border:1px solid black; margin-left:2vw;  background:grey;"></canvas>
+                     </div>
+
+                     <div class="row" style="margin-top: 3vh;">
+                       <p class="class_RadioButtonLabelEditPage" style="margin:0px; margin-left:10vw; width:10vw; height:4vh; line-height:4vh;">
+                         Current Key Color:
+                       </p>
+                       <div id="editPage_currentColor" style="width:10vw; margin-left:2vw; height:4vh; border:1px solid black; background:grey;">
+
+                       </div>
+                     </div>
+
+                     <div class="row" style="margin-top: 0px;">
+                       <p class="class_RadioButtonLabelEditPage" style="margin:0px; margin-left:10vw; width:10vw;  height:4vh; line-height:4vh">
+                         Selected Color:
+                       </p>
+                       <div id="editPage_SetColor" style="width:10vw; margin-left:2vw; height:4vh; border:1px solid black; border-top:none; background:grey;">
+
+                       </div>
+                     </div>
+
+
+                     <button class="classButtonWhite" id="id_EditPage_ConfirmButton" title="Confirm" style="border-radius: 0.5vh;  width:10vw; height:3vh; line-height:3vh; font-size:2vh; border: 0.2vh solid rgb(180,180,180); margin-left:22vw; margin-top:1vh;  margin-bottom:2vh;"> Confirm</button>
+
+
+
+
+                 </div>
+               </div>
+
+
+           </div>
         </div>
 
-      </div>
-
-    </div>
-
-
   </div>
+
+
 
 
 
@@ -896,7 +889,7 @@
         ----------------	Add Colormap	  -----------------
         -----------------------------------------------
         -->
-  <div id="id_addPage" style="width: 100%; height:auto; background:rgb(230,230,230); display:none; ">
+  <div id="id_addPage" style="width: 100%; height:auto; background:rgb(210,210,210); display:none; ">
 
 
       <div class="sticky" style="margin-left:10%; width:80%; height:auto; margin-top:2vh; margin-bottom: 0px; background:rgb(245,245,245); padding-top:0.5vh; padding-bottom:0.5vh;box-shadow: 0.3vh 0 0.3vh 0 grey; top:5vh;">
@@ -1361,7 +1354,7 @@
 
   </div>
 
-  <div class="row" style="background:none; width:100%; height:6vh; background:rgb(230,230,230); border-top: 1px solid rgb(120,120,120); border-bottom: 1px solid rgb(120,120,120);">
+  <div class="row" style="background:none; width:100%; height:6vh; background:rgb(210,210,210); border-top: 1px solid rgb(120,120,120); border-bottom: 1px solid rgb(120,120,120);">
     <p class="classAnalyseLabel" style="margin-left:auto; width:auto; font-weight:bold; margin-right:1vw;"> Legend:</p>
 
     <div class="row" style="height:100%; background:rgb(200,200,200);">
@@ -1864,7 +1857,7 @@
 
     </div>
 
-    <div class="row" style="background:none; width:100%; height:6vh; background:rgb(230,230,230); border-top: 1px solid rgb(120,120,120); border-bottom: 1px solid rgb(120,120,120);">
+    <div class="row" style="background:none; width:100%; height:6vh; background:rgb(210,210,210); border-top: 1px solid rgb(120,120,120); border-bottom: 1px solid rgb(120,120,120);">
       <p class="classAnalyseLabel" style="margin-left:auto; width:auto; font-weight:bold; margin-right:1vw;"> Legend:</p>
 
       <div class="row" style="height:100%; background:rgb(200,200,200);">
@@ -2162,7 +2155,7 @@
           ----------------	Colorspace Specification  -------------
 
           -->
-  <div id="id_colormapspecification" style="width: 100%; height:auto; background:rgb(230,230,230); display:none;">
+  <div id="id_colormapspecification" style="width: 100%; height:auto; background:rgb(210,210,210); display:none;">
 
       <div style="margin-left:10%; width:80%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:white; padding-top:2vh; padding-bottom:2vh; box-shadow:  0.3vh  0.3vh grey;">
 
@@ -2217,7 +2210,7 @@
         ----------------	Tutorial MyDesigns  -------------
 
         -->
-    <div id="id_tutorialMyDesignsPage" style="width: 100%; height:auto; background:rgb(230,230,230); display:none;">
+    <div id="id_tutorialMyDesignsPage" style="width: 100%; height:auto; background:rgb(210,210,210); display:none;">
 
      <div style="margin-left:10%; width:80%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:white; padding-top:2vh; padding-bottom:2vh; box-shadow:  0.3vh  0.3vh grey;">
       <h1 style="margin-left:10%; width:80%; text-align:center; height:3vh; line-height:3vh; font-size:3vh; vertical-align:middle; margin-top:2vh;"> Tutorial MyDesigns and Add of Existing Colormaps </h1>
@@ -2281,7 +2274,7 @@
           ----------------	Tutorial Create Page  -------------
 
           -->
-    <div id="id_tutorialCreatePage" style="width: 100%; height:auto; background:rgb(230,230,230); display:none;">
+    <div id="id_tutorialCreatePage" style="width: 100%; height:auto; background:rgb(210,210,210); display:none;">
 
       <div style="margin-left:10%; width:80%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:white; padding-top:2vh; padding-bottom:2vh; box-shadow:  0.3vh  0.3vh grey;">
 
@@ -2496,7 +2489,7 @@
           ----------------	Tutorial Export  -------------
 
           -->
-    <div id="id_tutorialExportPage" style="width: 100%; height:auto; display:none; background:rgb(230,230,230);">
+    <div id="id_tutorialExportPage" style="width: 100%; height:auto; display:none; background:rgb(210,210,210);">
 
       <div style="margin-left:10%; width:80%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:white; padding-top:2vh; padding-bottom:2vh; box-shadow:  0.3vh  0.3vh grey;">
       <h1 style="margin-left:2%; width:96%; text-align:center; height:3vh; line-height:3vh; font-size:3vh; vertical-align:middle; margin-top:2vh;"> 1. Tutorial Export </h1>
@@ -2789,7 +2782,7 @@
           ----------------	Tutorial Analyse  -------------
 
           -->
-    <div id="id_tutorialAnalysePage" style="width: 100%; height:auto; display:none; background:rgb(230,230,230);">
+    <div id="id_tutorialAnalysePage" style="width: 100%; height:auto; display:none; background:rgb(210,210,210);">
       <div style="margin-left:10%; width:80%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:white; padding-top:2vh; padding-bottom:2vh; box-shadow:  0.3vh  0.3vh grey;">
       <h1 style="margin-left:2%; width:96%; text-align:center; height:3vh; line-height:3vh; font-size:3vh; vertical-align:middle; margin-top:2vh;"> Tutorial Analyze </h1>
 
@@ -3291,7 +3284,7 @@
 
   <div id="id_exportWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
 
-    <div style="margin-top:5vh; height:auto; max-height:90vh; background:rgb(230,230,230); width:100%; border-top: 1vh solid black; overflow:none;">
+    <div style="margin-top:5vh; height:auto; max-height:90vh; background:rgb(210,210,210); width:100%; border-top: 1vh solid black; overflow:none;">
 
 
       <h3 style="width:100%; height:5vh; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; padding-left:20px; font-size:3vh; background:black;"> Export Colormap </h3>

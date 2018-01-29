@@ -17,7 +17,6 @@ window.onload = function() {
   createColormap = new xclassColorMap();
   exportColormap = new xclassColorMap();
   analysisColormap = new xclassColorMap();
-  editColormap = new xclassColorMap();
   compareColormap1 = new xclassColorMap();
   compareColormap2 = new xclassColorMap();
 
@@ -80,15 +79,66 @@ window.onload = function() {
   document.getElementById('editSide_Radiobutton_KeyTypeRight').addEventListener("change", changeKeyType);
   document.getElementById('editSide_Radiobutton_KeyTypeDual').addEventListener("change", changeKeyType);
 
+  document.getElementById('editSide_Radiobutton_PickerRG_B').addEventListener("change", changeColorpickerType);
+  document.getElementById('editSide_Radiobutton_PickerRB_G').addEventListener("change", changeColorpickerType);
+  document.getElementById('editSide_Radiobutton_PickerGB_R').addEventListener("change", changeColorpickerType);
+  document.getElementById('editSide_Radiobutton_PickerHS_V').addEventListener("change", changeColorpickerType);
+  document.getElementById('editSide_Radiobutton_PickerHV_S').addEventListener("change", changeColorpickerType);
+  document.getElementById('editSide_Radiobutton_PickerSV_H').addEventListener("change", changeColorpickerType);
+
+  document.getElementById('editPage_canvasPicker').addEventListener("mousemove", event_colorpicker_MouseMove);
+  document.getElementById('editPage_canvasPicker').addEventListener("click", event_colorpicker_MouseClick);
+  document.getElementById('editPage_canvasPicker2').addEventListener("mousemove", event_colorpicker_MouseMove);
+  document.getElementById('editPage_canvasPicker2').addEventListener("click", event_colorpicker_MouseClick);
+
+  document.getElementById('id_EditPage_ConfirmButton').addEventListener("click", editPageConfirmColor);
+
+  document.getElementById('editSide_Radiobutton_SelectColor1').addEventListener("change", colorChange);
+  document.getElementById('editSide_Radiobutton_SelectColor2').addEventListener("change", colorChange);
+
+  document.getElementById('id_editPageC1RInput').addEventListener("keyup", checkColorInputFieldsKey);
+    document.getElementById('id_editPageC1GInput').addEventListener("keyup", checkColorInputFieldsKey);
+      document.getElementById('id_editPageC1BInput').addEventListener("keyup", checkColorInputFieldsKey);
+        document.getElementById('id_editPageC2RInput').addEventListener("keyup", checkColorInputFieldsKey);
+          document.getElementById('id_editPageC2GInput').addEventListener("keyup", checkColorInputFieldsKey);
+            document.getElementById('id_editPageC2BInput').addEventListener("keyup", checkColorInputFieldsKey);
+              document.getElementById('id_editPageC1HInput').addEventListener("keyup", checkColorInputFieldsKey);
+                document.getElementById('id_editPageC2HInput').addEventListener("keyup", checkColorInputFieldsKey);
+                  document.getElementById('id_editPageC1SInput').addEventListener("keyup", checkColorInputFieldsKey);
+                    document.getElementById('id_editPageC1VInput').addEventListener("keyup", checkColorInputFieldsKey);
+                      document.getElementById('id_editPageC2SInput').addEventListener("keyup", checkColorInputFieldsKey);
+                        document.getElementById('id_editPageC2VInput').addEventListener("keyup", checkColorInputFieldsKey);
+
+                        document.getElementById('id_editPageC1RInput').addEventListener("change", checkColorInputFieldsChange);
+                          document.getElementById('id_editPageC1GInput').addEventListener("change", checkColorInputFieldsChange);
+                            document.getElementById('id_editPageC1BInput').addEventListener("change", checkColorInputFieldsChange);
+                              document.getElementById('id_editPageC2RInput').addEventListener("change", checkColorInputFieldsChange);
+                                document.getElementById('id_editPageC2GInput').addEventListener("change", checkColorInputFieldsChange);
+                                  document.getElementById('id_editPageC2BInput').addEventListener("change", checkColorInputFieldsChange);
+                                    document.getElementById('id_editPageC1HInput').addEventListener("change", checkColorInputFieldsChange);
+                                      document.getElementById('id_editPageC2HInput').addEventListener("change", checkColorInputFieldsChange);
+                                        document.getElementById('id_editPageC1SInput').addEventListener("change", checkColorInputFieldsChange);
+                                          document.getElementById('id_editPageC1VInput').addEventListener("change", checkColorInputFieldsChange);
+                                            document.getElementById('id_editPageC2SInput').addEventListener("change", checkColorInputFieldsChange);
+                                              document.getElementById('id_editPageC2VInput').addEventListener("change", checkColorInputFieldsChange);
+
+
+
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Create Side /////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   // Style Init
   document.getElementById("id_table_workwindow").style.display = "none";
 
+  document.getElementById("editSide_Radiobutton_PickerRG_B").checked=true;
+  colorpickerType="RG_B";
+
   //// set events
   // Table
   document.getElementById('id_expandTablebutton').addEventListener("click", expandTable);
+
+    document.getElementById('id_selectKeyModifying').addEventListener("click", switchModifyModus);
+      document.getElementById('id_selectBandAdding').addEventListener("click", switchModifyModus);
 
   // Color Input
   document.getElementById('id_color1_First').addEventListener("change", insertColorChange);
@@ -421,13 +471,13 @@ function orderColorSketch(forColorspace) {
     compareColormap2 = bandSketch2.sketch2Colormap(forColorspace, compareColormap2.getColormapName());
   }
 
-  if (showSideID == 6) {
+/*  if (showSideID == 6) {
     sketchObject = document.getElementById("id_editColormapSketch");
     sketchRefObj = document.getElementById("id_editColormapSketch_Ref");
     editColormap = bandSketch.sketch2Colormap(forColorspace, analysisColormap.getColormapName());
     //drawcolormap_hueSpace(analysisColormap, "id_anaylseCourseHueBackground",false); //drawcolormap_hueSpace(analysisColormap, "id_workcanvasAnalyseHue");
     editPage_drawKeys('id_editColormapKeys', editColormap);
-  }
+  }*/
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -436,10 +486,11 @@ function orderColorSketch(forColorspace) {
 
     if (showSideID == 1) {
       // show and draw the colormap
-      document.getElementById("id_LinearMap_Table_Div").style.display = "initial";
+      document.getElementById("id_LinearMap_Table_Div").style.display = "inline-block";
       createColormap = bandSketch.sketch2Colormap(forColorspace, createColormap.getColormapName());
       drawCanvasColormap("id_linearColormap", linearMap_resolution_X, linearMap_resolution_Y, createColormap);
-      drawKeys("id_keyColormap", key_resolution_X, key_resolution_Y, createColormap, "id_keyColormapLinesBottom", false, true)
+      drawKeys("id_keyColormap", key_resolution_X, key_resolution_Y, createColormap, "id_keyColormapLinesBottom", false, true);
+      editPage_drawKeys('id_createColormapKeys', createColormap);
       fillTable();
     }
 
@@ -500,7 +551,7 @@ function orderColorSketch(forColorspace) {
 
         sketchObject.appendChild(tDiv);
         dropPositionElements.push(tDiv);
-        tCan.addEventListener("click", bandOnClick);
+        //tCan.addEventListener("click", bandOnClick);
         tCan.style.cursor = "pointer";
       }
 
@@ -900,9 +951,9 @@ function changeKeyValueInputSketch(sketchIndex, doR1, fielID, doBandSketch2) {
       drawAnalyseDifferenceMaps();
     }
 
-    if (showSideID == 6) {
+  /*  if (showSideID == 6) {
       editColormap = bandSketch.sketch2Colormap(colorspaceModus, editColormap.getColormapName());
-    }
+    }*/
 
   }
 

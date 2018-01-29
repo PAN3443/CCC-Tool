@@ -1,6 +1,6 @@
 function editPage_drawKeys(canvasID, tmpColormap){
 
-    keyRectPoint = [];
+    keyRectPointSketch = [];
 
     var canvasObject = document.getElementById(canvasID);
     canvasObject.width = key_resolution_X;
@@ -65,7 +65,7 @@ function editPage_drawKeys(canvasID, tmpColormap){
           drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth, "rgb(125,125,125)", true);
 
           var tmpArray = [colorrectXPos, colorrectYPos];
-          keyRectPoint.push(tmpArray);
+          keyRectPointSketch.push(tmpArray);
 
           xPos+=bandWidth;
           break;
@@ -90,7 +90,7 @@ function editPage_drawKeys(canvasID, tmpColormap){
             //var colorrectXPos = xPos - (colorrectWitdh / 2);
 
             var tmpArray = [colorrectXPos, colorrectYPos];
-            keyRectPoint.push(tmpArray);
+            keyRectPointSketch.push(tmpArray);
 
             drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh / 2, colorrectHeigth, rgbColor1, false);
             var colorrectXPos = xPos;
@@ -157,7 +157,7 @@ function editPage_drawKeys(canvasID, tmpColormap){
           xPos+=bandWidth;
 
           var tmpArray = [colorrectXPos, colorrectYPos];
-          keyRectPoint.push(tmpArray);
+          keyRectPointSketch.push(tmpArray);
 
           break;
         default:
@@ -180,7 +180,7 @@ function editPage_drawKeys(canvasID, tmpColormap){
           //var colorrectXPos = xPos - (colorrectWitdh / 2);
 
           var tmpArray = [colorrectXPos, colorrectYPos];
-          keyRectPoint.push(tmpArray);
+          keyRectPointSketch.push(tmpArray);
 
           drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth, rgbColor1, false);
 
@@ -193,7 +193,17 @@ function editPage_drawKeys(canvasID, tmpColormap){
 
 }
 
-
+function colorChange(){
+  if(document.getElementById("editSide_Radiobutton_SelectColor1").checked==true){
+    selectedColor=0;
+  }
+  else{
+    selectedColor=1;
+  }
+  drawCurrentColor();
+  initColorpickerBackground("editPage_canvasPicker", colorpickerType);
+  drawEditPageColorCircles("editPage_canvasPicker","editPage_canvasPicker2", colorpickerType);
+}
 
 function addKeyButtons(){
   var container = document.getElementById("editPage_KeyDiv");
@@ -244,20 +254,74 @@ function selectKey(){
     case "nil key":
       document.getElementById("editSide_Radiobutton_KeyTypeNil").checked = true;
 
+      document.getElementById("editPage_Color1_1").style.visibility="hidden";
+      document.getElementById("editPage_Color1_2").style.visibility="hidden";
+      document.getElementById("editPage_Color2_1").style.visibility="hidden";
+      document.getElementById("editPage_Color2_2").style.visibility="hidden";
+      document.getElementById("editSide_Radiobutton_SelectColor1").style.visibility="hidden";
+      document.getElementById("editSide_Radiobutton_SelectColor2").style.visibility="hidden";
+      selectedColor=-1;
       break;
     case "twin key":
       document.getElementById("editSide_Radiobutton_KeyTypeTwin").checked = true;
 
+      document.getElementById("editPage_Color1_1").style.visibility="visible";
+      document.getElementById("editPage_Color1_2").style.visibility="visible";
+      document.getElementById("editPage_Color2_1").style.visibility="visible";
+      document.getElementById("editPage_Color2_2").style.visibility="visible";
+      document.getElementById("editSide_Radiobutton_SelectColor1").checked = true;
+
+
+      editColor1=bandSketch.getC2Color(selectedKey-1,"rgb");
+      editColor2=bandSketch.getC1Color(selectedKey,"rgb");
+
+      fillColorInputFields(false);
+      fillColorInputFields(true);
+
+      selectedColor=0;
       break;
     case "left key":
       document.getElementById("editSide_Radiobutton_KeyTypeLeft").checked = true;
+      document.getElementById("editPage_Color1_1").style.visibility="visible";
+      document.getElementById("editPage_Color1_2").style.visibility="visible";
+      document.getElementById("editPage_Color2_1").style.visibility="hidden";
+      document.getElementById("editPage_Color2_2").style.visibility="hidden";
+      document.getElementById("editSide_Radiobutton_SelectColor1").checked = true;
+      selectedColor=0;
+
+      editColor1=bandSketch.getC2Color(selectedKey-1,"rgb");
+      fillColorInputFields(true);
+
       break;
     case "right key":
       document.getElementById("editSide_Radiobutton_KeyTypeRight").checked = true;
+      document.getElementById("editPage_Color1_1").style.visibility="hidden";
+      document.getElementById("editPage_Color1_2").style.visibility="hidden";
+      document.getElementById("editPage_Color2_1").style.visibility="visible";
+      document.getElementById("editPage_Color2_2").style.visibility="visible";
+      document.getElementById("editSide_Radiobutton_SelectColor2").checked = true;
+
+      editColor2=bandSketch.getC1Color(0,"rgb");
+
+      fillColorInputFields(false);
+
+      selectedColor=1;
       break;
     default:
     document.getElementById("editSide_Radiobutton_KeyTypeDual").checked = true;
+    document.getElementById("editPage_Color1_1").style.visibility="visible";
+    document.getElementById("editPage_Color1_2").style.visibility="visible";
+    document.getElementById("editPage_Color2_1").style.visibility="visible";
+    document.getElementById("editPage_Color2_2").style.visibility="visible";
+    document.getElementById("editSide_Radiobutton_SelectColor1").checked = true;
 
+    editColor1=bandSketch.getC2Color(selectedKey-1,"rgb");
+    editColor2=bandSketch.getC1Color(selectedKey,"rgb");
+
+    fillColorInputFields(false);
+    fillColorInputFields(true);
+
+    selectedColor=0;
   }
 
   document.getElementById("editSide_Radiobutton_KeyTypeNil").style.display = "none";
@@ -307,6 +371,63 @@ function selectKey(){
   }
 
 
+
+  drawCurrentColor();
+  initColorpickerBackground("editPage_canvasPicker", colorpickerType);
+  drawEditPageColorCircles("editPage_canvasPicker","editPage_canvasPicker2", colorpickerType);
+
+}
+
+function drawCurrentColor(){
+  switch (selectedColor) {
+    case 0:
+        document.getElementById("editPage_currentColor").style.background=bandSketch.getC2Color(selectedKey-1,"rgb").getRGBString();
+        document.getElementById("editPage_SetColor").style.background=editColor1.getRGBString();
+    break;
+    case 1:
+      document.getElementById("editPage_currentColor").style.background=bandSketch.getC1Color(selectedKey,"rgb").getRGBString();
+      document.getElementById("editPage_SetColor").style.background=editColor2.getRGBString();
+    break;
+    default:
+      document.getElementById("editPage_currentColor").style.background="none";
+        document.getElementById("editPage_SetColor").style.background="none";
+  }
+}
+
+function fillColorInputFields(dofirst){
+
+  if(dofirst){
+
+    var tmpVal =editColor1.get1Value()*255;
+    document.getElementById("id_editPageC1RInput").value=tmpVal.toFixed(numDecimalPlaces);
+    tmpVal =editColor1.get2Value()*255;
+    document.getElementById("id_editPageC1GInput").value=tmpVal.toFixed(numDecimalPlaces);
+    tmpVal =editColor1.get3Value()*255;
+    document.getElementById("id_editPageC1BInput").value=tmpVal.toFixed(numDecimalPlaces);
+     var tmpHSV = editColor1.calcHSVColor();
+     tmpVal =tmpHSV.get1Value()*360;
+     document.getElementById("id_editPageC1HInput").value=tmpVal.toFixed(numDecimalPlaces);
+     tmpVal =tmpHSV.get2Value()*100;
+     document.getElementById("id_editPageC1SInput").value=tmpVal.toFixed(numDecimalPlaces);
+     tmpVal =tmpHSV.get3Value()*100;
+     document.getElementById("id_editPageC1VInput").value=tmpVal.toFixed(numDecimalPlaces);
+  }
+  else {
+    var tmpVal =editColor2.get1Value()*255;
+    document.getElementById("id_editPageC2RInput").value=tmpVal.toFixed(numDecimalPlaces);
+    tmpVal =editColor2.get2Value()*255;
+    document.getElementById("id_editPageC2GInput").value=tmpVal.toFixed(numDecimalPlaces);
+    tmpVal =editColor2.get3Value()*255;
+    document.getElementById("id_editPageC2BInput").value=tmpVal.toFixed(numDecimalPlaces);
+      var tmpHSV = editColor2.calcHSVColor();
+     tmpVal =tmpHSV.get1Value()*360;
+     document.getElementById("id_editPageC2HInput").value=tmpVal.toFixed(numDecimalPlaces);
+     tmpVal =tmpHSV.get2Value()*100;
+     document.getElementById("id_editPageC2SInput").value=tmpVal.toFixed(numDecimalPlaces);
+     tmpVal =tmpHSV.get3Value()*100;
+     document.getElementById("id_editPageC2VInput").value=tmpVal.toFixed(numDecimalPlaces);
+
+  }
 }
 
 function editPage_ChangeScalar(event){
@@ -343,16 +464,34 @@ function changeKeyType(event){
       if(keyType[selectedKey]==="dual key" || keyType[selectedKey]==="left key"){
 
         var tmpColor = bandSketch.getC2Color(selectedKey,colorspaceModus);
-        tmpColor.set1Value(tmpColor.get1Value()*0.75);
-        tmpColor.set2Value(tmpColor.get2Value()*0.75);
-        tmpColor.set3Value(tmpColor.get3Value()*0.75);
 
+
+        if(tmpColor.get1Value()!=0||tmpColor.get2Value()!=0||tmpColor.get3Value()!=0)
+        {
+          tmpColor.set1Value(tmpColor.get1Value()*0.75);
+          tmpColor.set2Value(tmpColor.get2Value()*0.75);
+          tmpColor.set3Value(tmpColor.get3Value()*0.75);
+        }
+        else{
+          tmpColor.set1Value(1);
+          tmpColor.set2Value(1);
+          tmpColor.set3Value(1);
+        }
         bandSketch.setC1(tmpColor, selectedKey);
 
         var tmpColor2 = bandSketch.getC1Color(selectedKey-1,colorspaceModus);
-        tmpColor2.set1Value(tmpColor.get1Value()*0.75);
-        tmpColor2.set2Value(tmpColor.get2Value()*0.75);
-        tmpColor2.set3Value(tmpColor.get3Value()*0.75);
+
+        if(tmpColor2.get1Value()!=0||tmpColor2.get2Value()!=0||tmpColor2.get3Value()!=0)
+        {
+          tmpColor2.set1Value(tmpColor2.get1Value()*0.75);
+          tmpColor2.set2Value(tmpColor2.get2Value()*0.75);
+          tmpColor2.set3Value(tmpColor2.get3Value()*0.75);
+        }
+        else{
+          tmpColor2.set1Value(1);
+          tmpColor2.set2Value(1);
+          tmpColor2.set3Value(1);
+        }
 
         bandSketch.setC2(tmpColor2, selectedKey-1);
 
@@ -369,9 +508,18 @@ function changeKeyType(event){
     case "editSide_Radiobutton_KeyTypeRight":
       if(keyType[selectedKey]==="nil key"){
         var tmpColor = bandSketch.getC2Color(0,colorspaceModus);
-        tmpColor.set1Value(tmpColor.get1Value()*0.5);
-        tmpColor.set2Value(tmpColor.get2Value()*0.5);
-        tmpColor.set3Value(tmpColor.get3Value()*0.5);
+
+        if(tmpColor.get1Value()!=0||tmpColor.get2Value()!=0||tmpColor.get3Value()!=0)
+        {
+          tmpColor.set1Value(tmpColor.get1Value()*0.5);
+          tmpColor.set2Value(tmpColor.get2Value()*0.5);
+          tmpColor.set3Value(tmpColor.get3Value()*0.5);
+        }
+        else{
+          tmpColor.set1Value(1);
+          tmpColor.set2Value(1);
+          tmpColor.set3Value(1);
+        }
 
         bandSketch.setC1(tmpColor, 0);
       }
@@ -381,9 +529,18 @@ function changeKeyType(event){
     // dual key+
         if(keyType[selectedKey]==="twin key" || keyType[selectedKey]==="left key"){
             var tmpColor = bandSketch.getC2Color(0,colorspaceModus);
-            tmpColor.set1Value(tmpColor.get1Value()*0.5);
-            tmpColor.set2Value(tmpColor.get2Value()*0.5);
-            tmpColor.set3Value(tmpColor.get3Value()*0.5);
+
+            if(tmpColor.get1Value()!=0||tmpColor.get2Value()!=0||tmpColor.get3Value()!=0)
+            {
+              tmpColor.set1Value(tmpColor.get1Value()*0.5);
+              tmpColor.set2Value(tmpColor.get2Value()*0.5);
+              tmpColor.set3Value(tmpColor.get3Value()*0.5);
+            }
+            else{
+              tmpColor.set1Value(1);
+              tmpColor.set2Value(1);
+              tmpColor.set3Value(1);
+            }
 
             bandSketch.setC1(tmpColor, selectedKey);
             bandSketch.setC2(tmpColor, selectedKey-1);
@@ -395,4 +552,318 @@ function changeKeyType(event){
 
   orderColorSketch();
   selectKey();
+}
+
+function changeColorpickerType(event){
+  switch (event.target.id) {
+    case "editSide_Radiobutton_PickerRG_B":
+      colorpickerType="RG_B";
+      document.getElementById("editPage_canvasPicker_Label").innerHTML="RG";
+      document.getElementById("editPage_canvasPicker2_Label").innerHTML="B";
+    break;
+    case "editSide_Radiobutton_PickerRB_G":
+      colorpickerType="RB_G";
+      document.getElementById("editPage_canvasPicker_Label").innerHTML="RB";
+      document.getElementById("editPage_canvasPicker2_Label").innerHTML="G";
+    break;
+    case "editSide_Radiobutton_PickerGB_R":
+      colorpickerType="GB_R";
+      document.getElementById("editPage_canvasPicker_Label").innerHTML="GB";
+      document.getElementById("editPage_canvasPicker2_Label").innerHTML="R";
+    break;
+    case "editSide_Radiobutton_PickerHS_V":
+      colorpickerType="HS_V";
+      document.getElementById("editPage_canvasPicker_Label").innerHTML="HS";
+      document.getElementById("editPage_canvasPicker2_Label").innerHTML="V";
+    break;
+    case "editSide_Radiobutton_PickerHV_S":
+      colorpickerType="HV_S";
+      document.getElementById("editPage_canvasPicker_Label").innerHTML="HV";
+      document.getElementById("editPage_canvasPicker2_Label").innerHTML="S";
+    break;
+    case "editSide_Radiobutton_PickerSV_H":
+      colorpickerType="SV_H";
+      document.getElementById("editPage_canvasPicker_Label").innerHTML="SV";
+      document.getElementById("editPage_canvasPicker2_Label").innerHTML="H";
+    break;
+    default:
+
+  }
+
+  initColorpickerBackground("editPage_canvasPicker", colorpickerType);
+  drawEditPageColorCircles("editPage_canvasPicker","editPage_canvasPicker2", colorpickerType);
+}
+
+
+function editPageConfirmColor(){
+
+  if(keyType[selectedKey]==="dual key"){
+    var tmpColor = new classColor_RGB(editColor1.get1Value(),editColor1.get2Value(),editColor1.get3Value());
+    bandSketch.setC2(tmpColor,selectedKey-1);
+    var tmpColor2 = new classColor_RGB(editColor2.get1Value(),editColor2.get2Value(),editColor2.get3Value());
+    bandSketch.setC1(tmpColor2,selectedKey);
+    orderColorSketch();
+    drawCurrentColor();
+  }
+  else{
+      switch (selectedColor) {
+        case 0:
+            var tmpColor = new classColor_RGB(editColor1.get1Value(),editColor1.get2Value(),editColor1.get3Value());
+            bandSketch.setC2(tmpColor,selectedKey-1);
+            orderColorSketch();
+            drawCurrentColor();
+
+        break;
+        case 1:
+              var tmpColor = new classColor_RGB(editColor2.get1Value(),editColor2.get2Value(),editColor2.get3Value());
+              bandSketch.setC1(tmpColor,selectedKey);
+              orderColorSketch();
+              drawCurrentColor();
+
+        break;
+        default:
+          document.getElementById("editPage_currentColor").style.background="none";
+            document.getElementById("editPage_SetColor").style.background="none";
+      }
+  }
+
+}
+
+
+function checkColorInputFieldsChange(event){
+
+
+  var doSpace =0;
+  switch (event.target.id) {
+    case "id_editPageC1RInput":
+    case "id_editPageC1GInput":
+    case "id_editPageC1BInput":
+    case "id_editPageC2RInput":
+    case "id_editPageC2GInput":
+    case "id_editPageC2BInput":
+        doSpace=1;
+        checkInputVal(document.getElementById(event.target.id),true,false);
+
+        if(parseFloat(document.getElementById(event.target.id).value)>255){
+            document.getElementById(event.target.id).value = 255;
+        }
+
+        if(parseFloat(document.getElementById(event.target.id).value)<0){
+            document.getElementById(event.target.id).value = 0;
+        }
+
+    break;
+    case "id_editPageC1HInput":
+    case "id_editPageC2HInput":
+    doSpace=2;
+      checkInputVal(document.getElementById(event.target.id),true,false);
+
+      if(parseFloat(document.getElementById(event.target.id).value)>360){
+           document.getElementById(event.target.id).value = 360;
+      }
+
+      if(parseFloat(document.getElementById(event.target.id).value)<0){
+           document.getElementById(event.target.id).value = 0;
+      }
+    break;
+
+    case "id_editPageC1SInput":
+    case "id_editPageC1VInput":
+    case "id_editPageC2SInput":
+    case "id_editPageC2VInput":
+      doSpace=2;
+       checkInputVal(document.getElementById(event.target.id),true,false);
+
+       if(parseFloat(document.getElementById(event.target.id).value)>100){
+            document.getElementById(event.target.id).value = 100;
+       }
+
+       if(parseFloat(document.getElementById(event.target.id).value)<0){
+            document.getElementById(event.target.id).value = 0;
+       }
+
+      break;
+    default:
+
+  }
+
+
+    if( doSpace==2){
+      var tmpVal1 = parseFloat(document.getElementById("id_editPageC1HInput").value/360);
+      var tmpVal2 = parseFloat(document.getElementById("id_editPageC1SInput").value/100);
+      var tmpVal3 = parseFloat(document.getElementById("id_editPageC1VInput").value/100);
+      var tmpHSV = new classColor_HSV(tmpVal1,tmpVal2,tmpVal3);
+      editColor1= tmpHSV.calcRGBColor();
+
+     tmpVal1 = parseFloat(document.getElementById("id_editPageC2HInput").value/360);
+     tmpVal2 = parseFloat(document.getElementById("id_editPageC2SInput").value/100);
+     tmpVal3 = parseFloat(document.getElementById("id_editPageC2VInput").value/100);
+     tmpHSV = new classColor_HSV(tmpVal1,tmpVal2,tmpVal3);
+      editColor2= tmpHSV.calcRGBColor();
+
+     document.getElementById("id_editPageC1RInput").value=editColor1.get1Value().toFixed(numDecimalPlaces)*255;
+     document.getElementById("id_editPageC1GInput").value=editColor1.get2Value().toFixed(numDecimalPlaces)*255;
+     document.getElementById("id_editPageC1BInput").value=editColor1.get3Value().toFixed(numDecimalPlaces)*255;
+     document.getElementById("id_editPageC2RInput").value=editColor2.get1Value().toFixed(numDecimalPlaces)*255;
+     document.getElementById("id_editPageC2GInput").value=editColor2.get2Value().toFixed(numDecimalPlaces)*255;
+     document.getElementById("id_editPageC2BInput").value=editColor2.get3Value().toFixed(numDecimalPlaces)*255;
+
+     initColorpickerBackground("editPage_canvasPicker", colorpickerType);
+     drawEditPageColorCircles("editPage_canvasPicker","editPage_canvasPicker2", colorpickerType);
+     drawCurrentColor();
+
+    }
+
+    if( doSpace==1){
+      var tmpVal1 = parseFloat(document.getElementById("id_editPageC1RInput").value/255);
+      var tmpVal2 = parseFloat(document.getElementById("id_editPageC1GInput").value/255);
+      var tmpVal3 = parseFloat(document.getElementById("id_editPageC1BInput").value/255);
+      editColor1 = new classColor_RGB(tmpVal1,tmpVal2,tmpVal3);
+
+
+     tmpVal1 = parseFloat(document.getElementById("id_editPageC2RInput").value/255);
+     tmpVal2 = parseFloat(document.getElementById("id_editPageC2GInput").value/255);
+     tmpVal3 = parseFloat(document.getElementById("id_editPageC2BInput").value/255);
+     editColor2 = new classColor_RGB(tmpVal1,tmpVal2,tmpVal3);
+
+     var tmpHSV = editColor1.calcHSVColor();
+     document.getElementById("id_editPageC1HInput").value=tmpHSV.get1Value().toFixed(numDecimalPlaces)*360;
+     document.getElementById("id_editPageC1SInput").value=tmpHSV.get2Value().toFixed(numDecimalPlaces)*100;
+     document.getElementById("id_editPageC1VInput").value=tmpHSV.get3Value().toFixed(numDecimalPlaces)*100;
+     tmpHSV = editColor2.calcHSVColor();
+     document.getElementById("id_editPageC2HInput").value=tmpHSV.get1Value().toFixed(numDecimalPlaces)*360;
+     document.getElementById("id_editPageC2SInput").value=tmpHSV.get2Value().toFixed(numDecimalPlaces)*100;
+     document.getElementById("id_editPageC2VInput").value=tmpHSV.get3Value().toFixed(numDecimalPlaces)*100;
+
+     initColorpickerBackground("editPage_canvasPicker", colorpickerType);
+     drawEditPageColorCircles("editPage_canvasPicker","editPage_canvasPicker2", colorpickerType);
+     drawCurrentColor();
+    }
+
+
+
+
+
+
+
+}
+
+function checkColorInputFieldsKey(event){
+
+
+  var doSpace =0;
+  switch (event.target.id) {
+    case "id_editPageC1RInput":
+    case "id_editPageC1GInput":
+    case "id_editPageC1BInput":
+    case "id_editPageC2RInput":
+    case "id_editPageC2GInput":
+    case "id_editPageC2BInput":
+        doSpace=1;
+        checkInputVal(document.getElementById(event.target.id),true,false);
+
+        if(parseFloat(document.getElementById(event.target.id).value)>255){
+            document.getElementById(event.target.id).value = 255;
+        }
+
+        if(parseFloat(document.getElementById(event.target.id).value)<0){
+            document.getElementById(event.target.id).value = 0;
+        }
+
+    break;
+    case "id_editPageC1HInput":
+    case "id_editPageC2HInput":
+    doSpace=2;
+      checkInputVal(document.getElementById(event.target.id),true,false);
+
+      if(parseFloat(document.getElementById(event.target.id).value)>360){
+           document.getElementById(event.target.id).value = 360;
+      }
+
+      if(parseFloat(document.getElementById(event.target.id).value)<0){
+           document.getElementById(event.target.id).value = 0;
+      }
+    break;
+
+    case "id_editPageC1SInput":
+    case "id_editPageC1VInput":
+    case "id_editPageC2SInput":
+    case "id_editPageC2VInput":
+      doSpace=2;
+       checkInputVal(document.getElementById(event.target.id),true,false);
+
+       if(parseFloat(document.getElementById(event.target.id).value)>100){
+            document.getElementById(event.target.id).value = 100;
+       }
+
+       if(parseFloat(document.getElementById(event.target.id).value)<0){
+            document.getElementById(event.target.id).value = 0;
+       }
+
+      break;
+    default:
+
+  }
+
+
+  if (event.keyCode == 13) {
+
+    if( doSpace==2){
+      var tmpVal1 = parseFloat(document.getElementById("id_editPageC1HInput").value/360);
+      var tmpVal2 = parseFloat(document.getElementById("id_editPageC1SInput").value/100);
+      var tmpVal3 = parseFloat(document.getElementById("id_editPageC1VInput").value/100);
+      var tmpHSV = new classColor_HSV(tmpVal1,tmpVal2,tmpVal3);
+      editColor1= tmpHSV.calcRGBColor();
+
+     tmpVal1 = parseFloat(document.getElementById("id_editPageC2HInput").value/360);
+     tmpVal2 = parseFloat(document.getElementById("id_editPageC2SInput").value/100);
+     tmpVal3 = parseFloat(document.getElementById("id_editPageC2VInput").value/100);
+     tmpHSV = new classColor_HSV(tmpVal1,tmpVal2,tmpVal3);
+      editColor2= tmpHSV.calcRGBColor();
+
+     document.getElementById("id_editPageC1RInput").value=editColor1.get1Value().toFixed(numDecimalPlaces)*255;
+     document.getElementById("id_editPageC1GInput").value=editColor1.get2Value().toFixed(numDecimalPlaces)*255;
+     document.getElementById("id_editPageC1BInput").value=editColor1.get3Value().toFixed(numDecimalPlaces)*255;
+     document.getElementById("id_editPageC2RInput").value=editColor2.get1Value().toFixed(numDecimalPlaces)*255;
+     document.getElementById("id_editPageC2GInput").value=editColor2.get2Value().toFixed(numDecimalPlaces)*255;
+     document.getElementById("id_editPageC2BInput").value=editColor2.get3Value().toFixed(numDecimalPlaces)*255;
+
+     initColorpickerBackground("editPage_canvasPicker", colorpickerType);
+     drawEditPageColorCircles("editPage_canvasPicker","editPage_canvasPicker2", colorpickerType);
+     drawCurrentColor();
+
+    }
+
+    if( doSpace==1){
+      var tmpVal1 = parseFloat(document.getElementById("id_editPageC1RInput").value/255);
+      var tmpVal2 = parseFloat(document.getElementById("id_editPageC1GInput").value/255);
+      var tmpVal3 = parseFloat(document.getElementById("id_editPageC1BInput").value/255);
+      editColor1 = new classColor_RGB(tmpVal1,tmpVal2,tmpVal3);
+
+
+     tmpVal1 = parseFloat(document.getElementById("id_editPageC2RInput").value/255);
+     tmpVal2 = parseFloat(document.getElementById("id_editPageC2GInput").value/255);
+     tmpVal3 = parseFloat(document.getElementById("id_editPageC2BInput").value/255);
+     editColor2 = new classColor_RGB(tmpVal1,tmpVal2,tmpVal3);
+
+     var tmpHSV = editColor1.calcHSVColor();
+     document.getElementById("id_editPageC1HInput").value=tmpHSV.get1Value().toFixed(numDecimalPlaces)*360;
+     document.getElementById("id_editPageC1SInput").value=tmpHSV.get2Value().toFixed(numDecimalPlaces)*100;
+     document.getElementById("id_editPageC1VInput").value=tmpHSV.get3Value().toFixed(numDecimalPlaces)*100;
+     tmpHSV = editColor2.calcHSVColor();
+     document.getElementById("id_editPageC2HInput").value=tmpHSV.get1Value().toFixed(numDecimalPlaces)*360;
+     document.getElementById("id_editPageC2SInput").value=tmpHSV.get2Value().toFixed(numDecimalPlaces)*100;
+     document.getElementById("id_editPageC2VInput").value=tmpHSV.get3Value().toFixed(numDecimalPlaces)*100;
+
+     initColorpickerBackground("editPage_canvasPicker", colorpickerType);
+     drawEditPageColorCircles("editPage_canvasPicker","editPage_canvasPicker2", colorpickerType);
+     drawCurrentColor();
+    }
+
+
+  }
+
+
+
+
 }

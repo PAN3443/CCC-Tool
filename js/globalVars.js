@@ -79,10 +79,11 @@ var labSpaceRectRange = 0.8;
 var bigLineWidth = 8;
 var smallLineWidth = 4;
 var circleRadPicker = 40;
+var circleRadColorPicker = 20;
 var circleRad = 8; //15;
 var bigcircleRad = 12;//25;
 var vBarWidth = 8;
-var circleStrokeWidth = 15;
+var circleStrokeWidth = 5; //15
 var alphaVal = 1.0;
 var lineWidthVPlot = 5;
 var arrowWidth = 15;
@@ -154,6 +155,11 @@ var keyCounter = 0;
 var keyType=[];
 var keyDivArray=[];
 var selectedKey = 0;
+var selectedColor = -1;
+var editColor1;
+var editColor2;
+var colorpickerType="";
+var  colorpickerData;
 ////////////////////////////////////////////////////////////////////////////////
 
 
@@ -230,6 +236,7 @@ var refElementContainer = [];
 
 // Key events
 var keyRectPoint = [];
+var keyRectPointSketch = [];
 var colorrectHeigth = 0;
 var colorrectWitdh = 0;
 var grappedKey = false;

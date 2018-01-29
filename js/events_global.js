@@ -124,9 +124,6 @@ function changeColorspace(type) {
     //drawExistingColormaps_AddPage();
   }
 
-  if (showSideID == 6) { // Analyse SIDE
-    orderColorSketch(colorspaceModus);
-  }
 
   if (showSideID == 1) { // CREATE SIDE
 
@@ -296,8 +293,6 @@ function changeColorspace(type) {
 }
 
 
-
-
 function showADDSide() {
 
   if(myList.length<10){
@@ -450,15 +445,6 @@ function showMyDesignsSide(){
                   document.getElementById("id_Tutorial_Menue").style.display = "none";
     break;
 
-    case 6:
-          document.getElementById("id_editPage").style.display = "none";
-          for(var i = refLineSketchContainer.length-1; i>=0; i--){
-            refLineSketchContainer[i].remove();
-            refLineSketchContainer.pop();
-          }
-          bandSketch.clearSketch();
-    break;
-
     default:
       return;
 
@@ -533,16 +519,6 @@ function showTutorialSide(){
 
     case 4:
           document.getElementById("id_addPage").style.display = "none";
-    break;
-
-    case 6:
-          document.getElementById("id_editPage").style.display = "none";
-          for(var i = refLineSketchContainer.length-1; i>=0; i--){
-            refLineSketchContainer[i].remove();
-            refLineSketchContainer.pop();
-          }
-          var newMap = bandSketch.sketch2Colormap(colorspaceModus, editColormap.getColormapName());
-          myList[isEdit]=newMap;
     break;
 
     default:

@@ -28,18 +28,17 @@ function saveCreateProcess(){
 function expandTable(){
 
     if(tableIsExpand){
-        document.getElementById("id_table_workwindow").style.width = 0+"%";
-        document.getElementById("id_colormapsDiv").style.width = 99+"%";
         document.getElementById("id_table_workwindow").style.display = "none";
-        document.getElementById("id_colormapsDiv").style.display = "initial";
+        document.getElementById("id_colormapsDiv").style.display = "inline-block";
+
+        document.getElementById("id_expandTablebutton").style.borderRadius= "0px 0px 10px 10px";
+        document.getElementById("id_expandTablebutton").innerHTML="&#11021; Click to expand the table";
         tableIsExpand=false;
 
         orderColorSketch(colorspaceModus);
 
     }
     else{
-        document.getElementById("id_table_workwindow").style.width = 99+"%";
-        document.getElementById("id_colormapsDiv").style.width = 0+"%";
         document.getElementById("id_table_workwindow").style.display = "initial";
         document.getElementById("id_colormapsDiv").style.display = "none";
         tableIsExpand=true;
@@ -48,6 +47,9 @@ function expandTable(){
             refElementContainer[i].remove();
             refElementContainer.pop();
         }
+
+        document.getElementById("id_expandTablebutton").style.borderRadius= "10px 10px 0px 0px";
+        document.getElementById("id_expandTablebutton").innerHTML="&#11021; Click to expand the linear Colormap";
     }
     drawPredefinedBands();
     styleCreatorPage();
@@ -55,10 +57,35 @@ function expandTable(){
 
 
 ///////////////////////////////
-//// switch colorspace //////
+//// switch modify //////
 ///////////////////////////////
 
+function switchModifyModus(event){
 
+  switch (event.target.id) {
+    case "id_selectBandAdding":
+      document.getElementById("id_selectBandAdding").style.background="white";
+      document.getElementById("id_selectBandAdding").style.color="black";
+      document.getElementById("id_selectKeyModifying").style.background="rgb(60,60,60)";
+      document.getElementById("id_selectKeyModifying").style.color="white";
+
+      document.getElementById("id_DivModifyKeys").style.display="none";
+      document.getElementById("id_DivAddBands").style.display="inline-block";
+    break;
+    case "id_selectKeyModifying":
+      document.getElementById("id_selectKeyModifying").style.background="white";
+      document.getElementById("id_selectKeyModifying").style.color="black";
+      document.getElementById("id_selectBandAdding").style.background="rgb(60,60,60)";
+      document.getElementById("id_selectBandAdding").style.color="white";
+
+      document.getElementById("id_DivModifyKeys").style.display="inline-block";
+      document.getElementById("id_DivAddBands").style.display="none";
+      addKeyButtons();
+    break;
+    default:
+
+  }
+}
 
 
 //////////////////////////////

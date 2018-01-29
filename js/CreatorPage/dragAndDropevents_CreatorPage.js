@@ -7,7 +7,7 @@ function bandOnDragStart(event){
 
     event.dataTransfer.dropEffect = "move";
     event.dataTransfer.setData("text", event.target.getAttribute('id') );
-
+    document.getElementById("id_createColormapKeys").style.visibility="hidden";
     var tmpString = event.target.id;
     //tmpString = tmpString.substr(4);
 
@@ -84,7 +84,7 @@ function bandOnDragStart(event){
 }
 
 function bandOnDragEnd(event) {
-
+    document.getElementById("id_createColormapKeys").style.visibility="visible";
     dragPredefinedBandIndex = bandIndex;
     dragPredefinedBandType = createBandType;
 

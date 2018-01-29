@@ -28,30 +28,21 @@ function openEditColormapFromMyDesigns(index){
 
     if(index<myList.length){
       isEdit = index;
-      /*showSideID = 1;
+
+      showSideID = 1;
       styleCreatorPage();
       document.getElementById("id_myListPage").style.display = "none";
 
-      document.getElementById("id_Create_Menue").style.display = "inline";
+      document.getElementById("id_Create_Menue").style.display = "inline-block";
       document.getElementById("id_Create_Menue").style.marginLeft = "20px";
 
-      document.getElementById("id_creatorPage").style.display = "inline";
+      document.getElementById("id_creatorPage").style.display = "inline-block";
 
       document.getElementById("id_SideLabel").innerHTML = "Create Colormap";
 
       bandSketch.colormap2Sketch(myList[index]);
       orderColorSketch(colorspaceModus);
-      changeColorspace(0);*/
-
-      document.getElementById("id_myListPage").style.display = "none";
-
-      document.getElementById("id_editPage").style.display = "inline-block";
-
-      document.getElementById("id_SideLabel").innerHTML = "Edit CMS";
-      showSideID = 6;
-      bandSketch.colormap2Sketch(myList[index]);
-      orderColorSketch(colorspaceModus);
-      addKeyButtons();
+      changeColorspace(0);
     }
 
 }
