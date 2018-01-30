@@ -3,18 +3,29 @@
 //////////////////////////
 var showSideID = -1; // 0 = myList; 1=CreateSide, 2=Analyse
 
+var styleActiveColor = "rgb(0,191,255)";
+var styleInactiveColor = "rgb(169,169,169)";//"rgb(65,105,225)";
+var size3D=50;
+
 //// Colormaps
 var myList = [];
-var createColormap;
+var globalColormap1;
+var globalColormap2;
+var colormap1SelectIndex = 0;
+var colormap2SelectIndex = 0;
+var pageIsLoaded=false;
+/*var createColormap;
 var exportColormap;
 var analysisColormap;
-var editColormap;
 var compareColormap1;
-var compareColormap2;
+var compareColormap2;*/
 
 /// Colorspace Parameter
 var kE = 1;
 var kCH = 1;
+
+var interactionIntervalSize = 20;
+var intervalSize = 200;
 
 //
 var numDecimalPlaces = 2;
@@ -67,6 +78,7 @@ var hue_resolution_Y = 750;//1500; // hue colorspace
 
 // using colormap
 var colorspaceModus = "rgb"; // 0=rgb,1=hsv,2=lab,3=din99
+var analyzeColorspaceModus = "rgb";
 
 var tmpZIndex = 5;
 
@@ -140,8 +152,7 @@ var bandSketch2;
 /// My List
 //////////////////////////
 var myListPageModus = 0; // 0=standart, 1=analysis, 2=compare
-var colormap1SelectIndex = 0;
-var colormap2SelectIndex = 0;
+
 var selectFirstForCompare = false;
 
 ////////////////////////////////////////////////////////////////////////////////

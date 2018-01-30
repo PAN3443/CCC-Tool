@@ -24,9 +24,9 @@ function xmlColormapParserPath(path){
 
             var pointObject = colormapObject[j].getElementsByTagName("Point");
 
-            //colormapObjects.push(new xclassColorMap());
+            //colormapObjects.push(new classColorMapSpecification());
             //var index = colormapObjects.length-1;
-            var tmpColorMap = new xclassColorMap();
+            var tmpColorMap = new classColorMapSpecification();
 
             var distToNull = 0-parseFloat(pointObject[0].getAttribute("x"));
             var checkLast = parseFloat(pointObject[pointObject.length-1].getAttribute("x"))+distToNull;
@@ -168,9 +168,9 @@ function xmlColormapParserFile(xmlString){
                     }
                   }
 
-                //colormapObjects.push(new xclassColorMap());
+                //colormapObjects.push(new classColorMapSpecification());
                 //var index = colormapObjects.length-1;
-                var tmpColorMap = new xclassColorMap();
+                var tmpColorMap = new classColorMapSpecification();
 
                 switch (space) {
                    case "RGB": case "rgb": case "Rgb":

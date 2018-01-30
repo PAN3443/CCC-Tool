@@ -1,7 +1,7 @@
 function exportColormapFromMyDesigns(index){
 
     if(index<myList.length){
-      exportColormap = myList[index];
+      globalColormap1 = myList[index];
       document.getElementById("id_exportWindow").style.display = "initial";
       exportSideOpen = true;
       initExportWindow();
@@ -24,28 +24,6 @@ function deletetColormapFromMyDesigns(index){
 }
 
 
-function openEditColormapFromMyDesigns(index){
-
-    if(index<myList.length){
-      isEdit = index;
-
-      showSideID = 1;
-      styleCreatorPage();
-      document.getElementById("id_myListPage").style.display = "none";
-
-      document.getElementById("id_Create_Menue").style.display = "inline-block";
-      document.getElementById("id_Create_Menue").style.marginLeft = "20px";
-
-      document.getElementById("id_creatorPage").style.display = "inline-block";
-
-      document.getElementById("id_SideLabel").innerHTML = "Create Colormap";
-
-      bandSketch.colormap2Sketch(myList[index]);
-      orderColorSketch(colorspaceModus);
-      changeColorspace(0);
-    }
-
-}
 
 function selectAnalysis(){
 
@@ -172,37 +150,18 @@ function showAcceptButtons(){
 
 function acceptColormapFromMyDesigns(index){
 
-  if(myListPageModus==1 ){
-    showSideID = 2;
+  if(index<myList.length){
+
+    document.getElementById("id_buttonAcceptMyList"+colormap1SelectIndex).style.border = "0.2vh solid rgb(0,0,0)";
+    document.getElementById("id_buttonAcceptMyList"+colormap1SelectIndex).style.color = "rgb(0,0,0)";
     colormap1SelectIndex = index;
-    analysisColormap = myList[index];
-    showAnalysisSide();
-    selectAnalysis(); // reset
-  }
+    document.getElementById("id_buttonAcceptMyList"+colormap1SelectIndex).style.border = "0.2vh solid "+styleActiveColor;
+    document.getElementById("id_buttonAcceptMyList"+colormap1SelectIndex).style.color = styleActiveColor;
 
-  if(myListPageModus==2 ){
-
-    if(selectFirstForCompare){
-
-      colormap2SelectIndex = index;
-      document.getElementById("id_buttonAcceptMyList"+colormap1SelectIndex).style.backgroundImage = "url(img/acceptButton_black.png)";
-      document.getElementById("id_buttonAcceptMyList"+colormap1SelectIndex).style.borderColor = "rgb(180,180,180)";
-      selectFirstForCompare=false;
-
-      if(colormap1SelectIndex!=colormap2SelectIndex){
-          compareColormap1 = myList[colormap1SelectIndex];
-          compareColormap2 = myList[colormap2SelectIndex];
-          showCompareSide();
-          selectCompare();
-      }
-
-    }
-    else{
-      colormap1SelectIndex = index;
-      document.getElementById("id_buttonAcceptMyList"+colormap1SelectIndex).style.backgroundImage = "url(img/acceptButton_blue.png)";
-      document.getElementById("id_buttonAcceptMyList"+colormap1SelectIndex).style.borderColor = "rgb(0,191,255)";
-      selectFirstForCompare=true;
-    }
+    globalColormap1=myList[colormap1SelectIndex];
+    bandSketch.colormap2Sketch(globalColormap1);
+    orderColorSketch(colorspaceModus);
 
   }
+
 }

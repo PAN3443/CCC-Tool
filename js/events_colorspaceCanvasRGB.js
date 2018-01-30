@@ -11,10 +11,10 @@ function mouseLeaveColorspaceRGB(event) {
     mouseGrappedSpaceObjectID = -1;
 
     if (showSideID == 2) {
-      drawcolormap_RGBSpace(analysisColormap, "id_canvasRG","id_canvasRB","id_canvasBG", true); //drawcolormap_hueSpace(analysisColormap, "id_workcanvasAnalyseHue");
+      drawcolormap_RGBSpace(globalColormap1, "id_canvasRG","id_canvasRB","id_canvasBG", true, true); //drawcolormap_hueSpace(globalColormap1, "id_workcanvasAnalyseHue");
     }
     if (showSideID == 3) {
-      drawcolormap_compare_RGBSpace(compareColormap1, compareColormap2, "id_canvasRGCompare","id_canvasRBCompare","id_canvasBGCompare", true);
+      drawcolormap_compare_RGBSpace(globalColormap1, globalColormap2, "id_canvasRGCompare","id_canvasRBCompare","id_canvasBGCompare", true, true);
     }
   }
 }
@@ -25,12 +25,12 @@ function rgb2DAnimation(){
 
   orderColorSketch(colorspaceModus);
   if (showSideID == 2) {
-    drawcolormap_RGBSpace(analysisColormap, "id_canvasRG","id_canvasRB","id_canvasBG", false); //drawcolormap_hueSpace(analysisColormap, "id_workcanvasAnalyseHue");
+    drawcolormap_RGBSpace(globalColormap1, "id_canvasRG","id_canvasRB","id_canvasBG", false, false); //drawcolormap_hueSpace(globalColormap1, "id_workcanvasAnalyseHue");
     drawAnalyseMapPreviews();
     drawAnalyseDifferenceMaps();
   }
   if (showSideID == 3) {
-    drawcolormap_compare_RGBSpace(compareColormap1, compareColormap2, "id_canvasRGCompare","id_canvasRBCompare","id_canvasBGCompare", false);
+    drawcolormap_compare_RGBSpace(globalColormap1, globalColormap2, "id_canvasRGCompare","id_canvasRBCompare","id_canvasBGCompare", false, false);
     drawCompareMapPreviews();
     drawCompareDifferenceMaps();
   }
@@ -81,10 +81,10 @@ function mouseMoveColorspaceRGB(event) {
         if (dis > bigcircleRad) {
           mouseAboveSpaceObjectID = -1;
             if (showSideID == 2) {
-              drawcolormap_RGBSpace(analysisColormap, "id_canvasRG","id_canvasRB","id_canvasBG", false); //drawcolormap_hueSpace(analysisColormap, "id_workcanvasAnalyseHue");
+              drawcolormap_RGBSpace(globalColormap1, "id_canvasRG","id_canvasRB","id_canvasBG", false, false); //drawcolormap_hueSpace(globalColormap1, "id_workcanvasAnalyseHue");
             }
             if (showSideID == 3) {
-              drawcolormap_compare_RGBSpace(compareColormap1, compareColormap2, "id_canvasRGCompare","id_canvasRBCompare","id_canvasBGCompare", false);
+              drawcolormap_compare_RGBSpace(globalColormap1, globalColormap2, "id_canvasRGCompare","id_canvasRBCompare","id_canvasBGCompare", false, false);
             }
           document.getElementById(event.target.id).style.cursor = "default";
           break;
@@ -104,10 +104,10 @@ function mouseMoveColorspaceRGB(event) {
             mouseAboveSpaceObjectID = -1;
 
               if (showSideID == 2) {
-                drawcolormap_RGBSpace(analysisColormap, "id_canvasRG","id_canvasRB","id_canvasBG", false); //drawcolormap_hueSpace(analysisColormap, "id_workcanvasAnalyseHue");
+                drawcolormap_RGBSpace(globalColormap1, "id_canvasRG","id_canvasRB","id_canvasBG", false,false); //drawcolormap_hueSpace(globalColormap1, "id_workcanvasAnalyseHue");
               }
               if (showSideID == 3) {
-                drawcolormap_compare_RGBSpace(compareColormap1, compareColormap2, "id_canvasRGCompare","id_canvasRBCompare","id_canvasBGCompare", false);
+                drawcolormap_compare_RGBSpace(globalColormap1, globalColormap2, "id_canvasRGCompare","id_canvasRBCompare","id_canvasBGCompare", false,false);
               }
 
             document.getElementById(event.target.id).style.cursor = "default";
@@ -127,10 +127,10 @@ function mouseMoveColorspaceRGB(event) {
         mouseAboveSpaceObjectID = i;
         document.getElementById(event.target.id).style.cursor = "pointer";
           if (showSideID == 2) {
-            drawcolormap_RGBSpace(analysisColormap, "id_canvasRG","id_canvasRB","id_canvasBG", false); //drawcolormap_hueSpace(analysisColormap, "id_workcanvasAnalyseHue");
+            drawcolormap_RGBSpace(globalColormap1, "id_canvasRG","id_canvasRB","id_canvasBG", false, false); //drawcolormap_hueSpace(globalColormap1, "id_workcanvasAnalyseHue");
           }
           if (showSideID == 3) {
-            drawcolormap_compare_RGBSpace(compareColormap1, compareColormap2, "id_canvasRGCompare","id_canvasRBCompare","id_canvasBGCompare", false);
+            drawcolormap_compare_RGBSpace(globalColormap1, globalColormap2, "id_canvasRGCompare","id_canvasRBCompare","id_canvasBGCompare", false, false);
           }
         break;
       }
@@ -149,10 +149,10 @@ function mouseMoveColorspaceRGB(event) {
           mouseAboveSpaceObjectID = i;
           document.getElementById(event.target.id).style.cursor = "pointer";
           if (showSideID == 2) {
-            drawcolormap_RGBSpace(analysisColormap, "id_canvasRG","id_canvasRB","id_canvasBG", false); //drawcolormap_hueSpace(analysisColormap, "id_workcanvasAnalyseHue");
+            drawcolormap_RGBSpace(globalColormap1, "id_canvasRG","id_canvasRB","id_canvasBG", false, false); //drawcolormap_hueSpace(globalColormap1, "id_workcanvasAnalyseHue");
           }
           if (showSideID == 3) {
-            drawcolormap_compare_RGBSpace(compareColormap1, compareColormap2, "id_canvasRGCompare","id_canvasRBCompare","id_canvasBGCompare", false);
+            drawcolormap_compare_RGBSpace(globalColormap1, globalColormap2, "id_canvasRGCompare","id_canvasRBCompare","id_canvasBGCompare", false, false);
           }
           break;
         }
@@ -332,10 +332,10 @@ function mouseDownColorspaceRGB(event) {
           }
 
           if (showSideID == 2) {
-            drawcolormap_RGBSpace(analysisColormap, "id_canvasRG","id_canvasRB","id_canvasBG", true); //drawcolormap_hueSpace(analysisColormap, "id_workcanvasAnalyseHue");
+            drawcolormap_RGBSpace(globalColormap1, "id_canvasRG","id_canvasRB","id_canvasBG", true, true); //drawcolormap_hueSpace(globalColormap1, "id_workcanvasAnalyseHue");
           }
           if (showSideID == 3) {
-            drawcolormap_compare_RGBSpace(compareColormap1, compareColormap2, "id_canvasRGCompare","id_canvasRBCompare","id_canvasBGCompare", true);
+            drawcolormap_compare_RGBSpace(globalColormap1, globalColormap2, "id_canvasRGCompare","id_canvasRBCompare","id_canvasBGCompare", true, true);
           }
 
           if(showSpace==1){
@@ -431,9 +431,9 @@ function mouseUpColorspaceRGB() {
   mouseGrappedSpaceObjectID=-1;
   clearInterval(timer2DAnimation);
   if (showSideID == 2) {
-    drawcolormap_RGBSpace(analysisColormap, "id_canvasRG","id_canvasRB","id_canvasBG", true); //drawcolormap_hueSpace(analysisColormap, "id_workcanvasAnalyseHue");
+    drawcolormap_RGBSpace(globalColormap1, "id_canvasRG","id_canvasRB","id_canvasBG", true, true); //drawcolormap_hueSpace(globalColormap1, "id_workcanvasAnalyseHue");
   }
   if (showSideID == 3) {
-    drawcolormap_compare_RGBSpace(compareColormap1, compareColormap2, "id_canvasRGCompare","id_canvasRBCompare","id_canvasBGCompare", true);
+    drawcolormap_compare_RGBSpace(globalColormap1, globalColormap2, "id_canvasRGCompare","id_canvasRBCompare","id_canvasBGCompare", true, true);
   }
 }

@@ -3,7 +3,7 @@ function csvColormapParserFile(csvString) {
   var csvlines = csvString.split("\n");
   var askInterval = false;
   var saveIntervals = true;
-  var tmpColorMap = new xclassColorMap();
+  var tmpColorMap = new classColorMapSpecification();
 
   if (csvlines.length > 0) {
     var space = checkCSVColorspace(csvlines[0]);

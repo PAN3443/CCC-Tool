@@ -1,8 +1,8 @@
 function initComparePage(){
     initRGB3D();
 
-    bandSketch.colormap2Sketch(compareColormap1);
-    bandSketch2.colormap2Sketch(compareColormap2);
+    bandSketch.colormap2Sketch(globalColormap1);
+    bandSketch2.colormap2Sketch(globalColormap2);
 
     orderColorSketch(colorspaceModus);
     changeCourseSpaceCompare();
@@ -18,9 +18,9 @@ function switchCompareMaps(){
   colormap2SelectIndex = colormap1SelectIndex;
   colormap1SelectIndex = tmp;
 
-  var tmpColormap = compareColormap2;
-  compareColormap2 = compareColormap1;
-  compareColormap1 = tmpColormap;
+  var tmpColormap = globalColormap2;
+  globalColormap2 = globalColormap1;
+  globalColormap1 = tmpColormap;
 
   initComparePage();
 }
@@ -32,12 +32,12 @@ function changeCourseSpaceCompare(){
   document.getElementById("id_hueValueOptionsCompare").style.display = "none";
   document.getElementById("id_RGBCourseDivCompare").style.display = "none";
 
-  switch(colorspaceModus){
+  switch(analyzeColorspaceModus){
       case "rgb":;
         document.getElementById("id_RGBCourseDivCompare").style.display = "initial";
         rgbInit("id_canvasRGCompare","id_canvasRBCompare","id_canvasBGCompare", true);
-        //drawcolormap_RGBSpace(compareColormap1, "id_canvasRG","id_canvasRB","id_canvasBG", true);
-        drawcolormap_compare_RGBSpace(compareColormap1, compareColormap2, "id_canvasRGCompare","id_canvasRBCompare","id_canvasBGCompare", true);
+        //drawcolormap_RGBSpace(globalColormap1, "id_canvasRG","id_canvasRB","id_canvasBG", true);
+        drawcolormap_compare_RGBSpace(globalColormap1, globalColormap2, "id_canvasRGCompare","id_canvasRBCompare","id_canvasBGCompare", true, true);
         animate();
       break;
       case "hsv":
@@ -46,8 +46,8 @@ function changeCourseSpaceCompare(){
         document.getElementById("id_hueValueOptionsCompare").style.display = "initial";
         hueInit("id_compareCourseHueBackground");
         document.getElementById("id_setValueRangeCompare").value = 100;
-        //drawcolormap_hueSpace(compareColormap1, "id_anaylseCourseHueBackground",false);
-        drawcolormap_compare_hueSpace(compareColormap1, compareColormap2, "id_compareCourseHueBackground",false);
+        //drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground",false);
+        drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground",false);
         stopAnimation();
       break;
       case "lab": case "din99":
@@ -56,8 +56,8 @@ function changeCourseSpaceCompare(){
         document.getElementById("id_hueValueOptionsCompare").style.display = "initial";
         hueInit("id_compareCourseHueBackground");
         document.getElementById("id_setValueRangeCompare").value = 65;
-        //drawcolormap_hueSpace(compareColormap1, "id_anaylseCourseHueBackground",false);
-        drawcolormap_compare_hueSpace(compareColormap1, compareColormap2,"id_compareCourseHueBackground",false);
+        //drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground",false);
+        drawcolormap_compare_hueSpace(globalColormap1, globalColormap2,"id_compareCourseHueBackground",false);
         stopAnimation();
       break;
       default:
@@ -79,15 +79,15 @@ function changeValueRangeCompare(){
       }
 
       hueInit("id_compareCourseHueBackground");
-      drawcolormap_compare_hueSpace(compareColormap1, compareColormap2,"id_compareCourseHueBackground",false);
+      drawcolormap_compare_hueSpace(globalColormap1, globalColormap2,"id_compareCourseHueBackground",false);
 }
 
 function compareColormapRGBPossible(){
   if(document.getElementById("id_checkboxRGBCompare").checked==true){
     orderColorSketch('rgb');
-    bandSketch.colormap2Sketch(compareColormap1);
-    bandSketch2.colormap2Sketch(compareColormap2);
-    drawcolormap_compare_hueSpace(compareColormap1, compareColormap2,"id_compareCourseHueBackground",false);
+    bandSketch.colormap2Sketch(globalColormap1);
+    bandSketch2.colormap2Sketch(globalColormap2);
+    drawcolormap_compare_hueSpace(globalColormap1, globalColormap2,"id_compareCourseHueBackground",false);
     document.getElementById("id_checkboxRGB").checked=true;
   }
   else{
@@ -100,17 +100,17 @@ function drawCompareMapPreviews(){
   var oldColorspace = colorspaceModus;
 
   colorspaceModus="rgb";
-      drawCanvasColormap("id_compare1RGB_Preview",analysePreviewMap_resolution_X, analysePreviewMap_resolution_Y, compareColormap1);
-      drawCanvasColormap("id_compare2RGB_Preview",analysePreviewMap_resolution_X, analysePreviewMap_resolution_Y, compareColormap2);
+      drawCanvasColormap("id_compare1RGB_Preview",analysePreviewMap_resolution_X, analysePreviewMap_resolution_Y, globalColormap1);
+      drawCanvasColormap("id_compare2RGB_Preview",analysePreviewMap_resolution_X, analysePreviewMap_resolution_Y, globalColormap2);
   colorspaceModus="hsv";
-      drawCanvasColormap("id_compare1HSV_Preview",analysePreviewMap_resolution_X, analysePreviewMap_resolution_Y, compareColormap1);
-      drawCanvasColormap("id_compare2HSV_Preview",analysePreviewMap_resolution_X, analysePreviewMap_resolution_Y, compareColormap2);
+      drawCanvasColormap("id_compare1HSV_Preview",analysePreviewMap_resolution_X, analysePreviewMap_resolution_Y, globalColormap1);
+      drawCanvasColormap("id_compare2HSV_Preview",analysePreviewMap_resolution_X, analysePreviewMap_resolution_Y, globalColormap2);
   colorspaceModus="lab";
-      drawCanvasColormap("id_compare1LAB_Preview",analysePreviewMap_resolution_X, analysePreviewMap_resolution_Y, compareColormap1);
-      drawCanvasColormap("id_compare2LAB_Preview",analysePreviewMap_resolution_X, analysePreviewMap_resolution_Y, compareColormap2);
+      drawCanvasColormap("id_compare1LAB_Preview",analysePreviewMap_resolution_X, analysePreviewMap_resolution_Y, globalColormap1);
+      drawCanvasColormap("id_compare2LAB_Preview",analysePreviewMap_resolution_X, analysePreviewMap_resolution_Y, globalColormap2);
   colorspaceModus="din99";
-      drawCanvasColormap("id_compare1DIN99_Preview",analysePreviewMap_resolution_X, analysePreviewMap_resolution_Y, compareColormap1);
-      drawCanvasColormap("id_compare2DIN99_Preview",analysePreviewMap_resolution_X, analysePreviewMap_resolution_Y, compareColormap2);
+      drawCanvasColormap("id_compare1DIN99_Preview",analysePreviewMap_resolution_X, analysePreviewMap_resolution_Y, globalColormap1);
+      drawCanvasColormap("id_compare2DIN99_Preview",analysePreviewMap_resolution_X, analysePreviewMap_resolution_Y, globalColormap2);
   colorspaceModus = oldColorspace;
 }
 

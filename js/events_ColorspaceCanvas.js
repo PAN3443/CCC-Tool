@@ -14,10 +14,10 @@ function mouseLeaveColorspace(event) {
     mouseGrappedSpaceObjectID = -1;
 
     if (showSideID == 2) {
-      drawcolormap_hueSpace(analysisColormap, "id_anaylseCourseHueBackground", true);
+      drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", true);
     }
     if (showSideID == 3) {
-      drawcolormap_compare_hueSpace(compareColormap1, compareColormap2, "id_compareCourseHueBackground", true);
+      drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", true);
     }
   }
 }
@@ -27,12 +27,12 @@ function hsvLabDinAnimation(){
   orderColorSketch(colorspaceModus);
 
   if (showSideID == 2) {
-    drawcolormap_hueSpace(analysisColormap, "id_anaylseCourseHueBackground", false);
+    drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false);
     drawAnalyseMapPreviews();
     drawAnalyseDifferenceMaps();
   }
   if (showSideID == 3) {
-    drawcolormap_compare_hueSpace(compareColormap1, compareColormap2, "id_compareCourseHueBackground", false);
+    drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", false);
     drawCompareMapPreviews();
     drawCompareDifferenceMaps();
   }
@@ -62,10 +62,10 @@ function mouseMoveColorspace(event) {
         if (dis > bigcircleRad) {
           mouseAboveSpaceObjectID = -1;
           if (showSideID == 2) {
-            drawcolormap_hueSpace(analysisColormap, "id_anaylseCourseHueBackground", false);
+            drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false);
           }
           if (showSideID == 3) {
-            drawcolormap_compare_hueSpace(compareColormap1, compareColormap2, "id_compareCourseHueBackground", false);
+            drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", false);
           }
           document.getElementById(event.target.id).style.cursor = "default";
           break;
@@ -84,10 +84,10 @@ function mouseMoveColorspace(event) {
             mousePosY > spaceElementsYPos[i] + bigcircleRad) {
             mouseAboveSpaceObjectID = -1;
             if (showSideID == 2) {
-              drawcolormap_hueSpace(analysisColormap, "id_anaylseCourseHueBackground", false);
+              drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false);
             }
             if (showSideID == 3) {
-              drawcolormap_compare_hueSpace(compareColormap1, compareColormap2, "id_compareCourseHueBackground", false);
+              drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", false);
             }
             document.getElementById(event.target.id).style.cursor = "default";
             break;
@@ -106,10 +106,10 @@ function mouseMoveColorspace(event) {
         mouseAboveSpaceObjectID = i;
         document.getElementById(event.target.id).style.cursor = "pointer";
         if (showSideID == 2) {
-          drawcolormap_hueSpace(analysisColormap, "id_anaylseCourseHueBackground", false);
+          drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false);
         }
         if (showSideID == 3) {
-          drawcolormap_compare_hueSpace(compareColormap1, compareColormap2, "id_compareCourseHueBackground", false);
+          drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", false);
         }
         break;
       }
@@ -128,10 +128,10 @@ function mouseMoveColorspace(event) {
           mouseAboveSpaceObjectID = i;
           document.getElementById(event.target.id).style.cursor = "pointer";
           if (showSideID == 2) {
-            drawcolormap_hueSpace(analysisColormap, "id_anaylseCourseHueBackground", false);
+            drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false);
           }
           if (showSideID == 3) {
-            drawcolormap_compare_hueSpace(compareColormap1, compareColormap2, "id_compareCourseHueBackground", false);
+            drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", false);
           }
           break;
         }
@@ -146,7 +146,7 @@ function mouseMoveColorspace(event) {
   var errorRGBColor = new classColor_RGB(-1, -1, -1);
   document.getElementById("id_huePositionLabel").innerHTML = "";
   document.getElementById("id_huePositionLabelCompare").innerHTML = "";
-  switch (colorspaceModus) {
+  switch(analyzeColorspaceModus) {
     case "hsv":
       var dis = Math.sqrt(Math.pow(colorspaceCenterX - mousePosX, 2) + Math.pow(colorspaceCenterY - mousePosY, 2));
       if (dis <= colorspaceRadius) {
@@ -166,20 +166,20 @@ function mouseMoveColorspace(event) {
           mouseGrappedSpaceObjectID = -1;
           mouseAboveSpaceObjectID = -1;
           if (showSideID == 2) {
-            drawcolormap_hueSpace(analysisColormap, "id_anaylseCourseHueBackground", true);
+            drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", true);
           }
           if (showSideID == 3) {
-            drawcolormap_compare_hueSpace(compareColormap1, compareColormap2, "id_compareCourseHueBackground", true);
+            drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", true);
           }
         }
 
         if (mouseAboveSpaceObjectID != -1) {
           mouseAboveSpaceObjectID = -1;
           if (showSideID == 2) {
-            drawcolormap_hueSpace(analysisColormap, "id_anaylseCourseHueBackground", false);
+            drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false);
           }
           if (showSideID == 3) {
-            drawcolormap_compare_hueSpace(compareColormap1, compareColormap2, "id_compareCourseHueBackground", false);
+            drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", false);
           }
         }
 
@@ -276,7 +276,7 @@ function mouseDownColorspace() {
     var bandindex = -1;
 
     var colorindex;
-    switch (colorspaceModus) {
+    switch(analyzeColorspaceModus) {
       case "hsv":
         colorindex = 1;
         break
@@ -357,10 +357,10 @@ function mouseDownColorspace() {
     }
 
     if (showSideID == 2) {
-      drawcolormap_hueSpace(analysisColormap, "id_anaylseCourseHueBackground", true);
+      drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", true);
     }
     if (showSideID == 3) {
-      drawcolormap_compare_hueSpace(compareColormap1, compareColormap2, "id_compareCourseHueBackground", true);
+      drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", true);
     }
 
   }
@@ -370,7 +370,7 @@ function mouseDownColorspace() {
 
 function getC1CurrentValue(index) {
 
-  switch (colorspaceModus) {
+  switch(analyzeColorspaceModus) {
     case "hsv":
       return bandSketch.getC1Color(index, "hsv").getVValue();
     case "lab":
@@ -386,7 +386,7 @@ function getC1CurrentValue(index) {
 
 function getC2CurrentValue(index) {
 
-  switch (colorspaceModus) {
+  switch(analyzeColorspaceModus) {
     case "hsv":
       return bandSketch.getC2Color(index, "hsv").getVValue();
     case "lab":
@@ -406,10 +406,10 @@ function mouseUpColorspace() {
   mouseGrappedSpaceObjectID = -1;
   clearInterval(timer2DAnimation);
   if (showSideID == 2) {
-    drawcolormap_hueSpace(analysisColormap, "id_anaylseCourseHueBackground", true);
+    drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", true);
   }
   if (showSideID == 3) {
-    drawcolormap_compare_hueSpace(compareColormap1, compareColormap2, "id_compareCourseHueBackground", true);
+    drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", true);
   }
 }
 
@@ -427,10 +427,10 @@ function mouseLeaveValuePlot(event) {
 
 
     if (showSideID == 2) {
-      drawcolormap_hueSpace(analysisColormap, "id_anaylseCourseHueBackground", false);
+      drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false);
     }
     if (showSideID == 3) {
-      drawcolormap_compare_hueSpace(compareColormap1, compareColormap2, "id_compareCourseHueBackground", false);
+      drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", false);
     }
 
   }
@@ -445,10 +445,10 @@ function checkInsideRect(centerPosX, centerPosY, i) {
       mousePosY > centerPosY + bigcircleRad) {
       mouseAboveSpaceObjectID = -1;
       if (showSideID == 2) {
-        drawcolormap_hueSpace(analysisColormap, "id_anaylseCourseHueBackground", false);
+        drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false);
       }
       if (showSideID == 3) {
-        drawcolormap_compare_hueSpace(compareColormap1, compareColormap2, "id_compareCourseHueBackground", false);
+        drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", false);
       }
       return false;
     } else {
@@ -462,10 +462,10 @@ function checkInsideRect(centerPosX, centerPosY, i) {
       mousePosY <= centerPosY + circleRad) {
       mouseAboveSpaceObjectID = i;
       if (showSideID == 2) {
-        drawcolormap_hueSpace(analysisColormap, "id_anaylseCourseHueBackground", false);
+        drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false);
       }
       if (showSideID == 3) {
-        drawcolormap_compare_hueSpace(compareColormap1, compareColormap2, "id_compareCourseHueBackground", false);
+        drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", false);
       }
       return true;
     } else {
@@ -483,10 +483,10 @@ function checkInsideCirce(centerPosX, centerPosY, i) {
     if (dis > bigcircleRad) {
       mouseAboveSpaceObjectID = -1;
       if (showSideID == 2) {
-        drawcolormap_hueSpace(analysisColormap, "id_anaylseCourseHueBackground", false);
+        drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false);
       }
       if (showSideID == 3) {
-        drawcolormap_compare_hueSpace(compareColormap1, compareColormap2, "id_compareCourseHueBackground", false);
+        drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", false);
       }
       return false;
     } else {
@@ -497,10 +497,10 @@ function checkInsideCirce(centerPosX, centerPosY, i) {
     if (dis <= circleRad) {
       mouseAboveSpaceObjectID = i;
       if (showSideID == 2) {
-        drawcolormap_hueSpace(analysisColormap, "id_anaylseCourseHueBackground", false);
+        drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false);
       }
       if (showSideID == 3) {
-        drawcolormap_compare_hueSpace(compareColormap1, compareColormap2, "id_compareCourseHueBackground", false);
+        drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", false);
       }
       return true;
     } else {
@@ -525,10 +525,10 @@ function mouseMoveValuePlot(event) {
 
   switch (showSideID) {
     case 2:
-      colormapTmp = analysisColormap;
+      colormapTmp = globalColormap1;
       break;
     case 3:
-        colormapTmp = compareColormap1;
+        colormapTmp = globalColormap1;
     break;
     default:
       return;
@@ -566,7 +566,7 @@ function mouseMoveValuePlot(event) {
             vPlotKeyPos++;
             tmpX2 = Math.round(plotXStart + ((vPlotKeyPos) * widthVArea));
 
-            switch (colorspaceModus) {
+            switch(analyzeColorspaceModus) {
               case "hsv":
                 var tmpHSVColor = colormapTmp.getHSVColor(i);
                 tmpY = Math.round(plotYStart - (heigthVArea * tmpHSVColor.getVValue()));
@@ -600,7 +600,7 @@ function mouseMoveValuePlot(event) {
             vPlotKeyPos++;
             tmpX2 = Math.round(plotXStart + ((vPlotKeyPos) * widthVArea));
 
-            switch (colorspaceModus) {
+            switch(analyzeColorspaceModus) {
               case "hsv":
                 var tmpHSVColor = colormapTmp.getHSVColor(i);
                 var tmpHSVColor2 = colormapTmp.getHSVColor(i - 1);
@@ -662,7 +662,7 @@ function mouseMoveValuePlot(event) {
             vPlotKeyPos++;
             tmpX2 = Math.round(plotXStart + ((vPlotKeyPos) * widthVArea));
 
-            switch (colorspaceModus) {
+            switch(analyzeColorspaceModus) {
               case "hsv":
                 var tmpHSVColor = colormapTmp.getHSVColor(i);
                 tmpY = Math.round(plotYStart - (heigthVArea * tmpHSVColor.getVValue()));
@@ -695,7 +695,7 @@ function mouseMoveValuePlot(event) {
             vPlotKeyPos++;
             tmpX2 = Math.round(plotXStart + ((vPlotKeyPos) * widthVArea));
 
-            switch (colorspaceModus) {
+            switch(analyzeColorspaceModus) {
               case "hsv":
                 var tmpHSVColor = colormapTmp.getHSVColor(i);
                 var tmpHSVColor2 = colormapTmp.getHSVColor(i - 1);
@@ -747,7 +747,7 @@ function mouseMoveValuePlot(event) {
           tmpX = Math.round(plotXStart + (vPlotKeyPos) * widthVArea);
           vPlotKeyPos++;
 
-          switch (colorspaceModus) {
+          switch(analyzeColorspaceModus) {
             case "hsv":
               var tmpHSVColor2 = colormapTmp.getHSVColor(i - 1);
               tmpY = Math.round(plotYStart - (heigthVArea * tmpHSVColor2.getVValue()));
@@ -796,15 +796,15 @@ function mouseMoveValuePlot(event) {
 
       var tmpColor;
 
-      switch (colorspaceModus) {
+      switch(analyzeColorspaceModus) {
         case "hsv":
           var oldHSV;
           switch (showSideID) {
             case 2:
-              oldHSV = analysisColormap.getHSVColor(mouseGrappedSpaceObjectID);
+              oldHSV = globalColormap1.getHSVColor(mouseGrappedSpaceObjectID);
               break;
             case 3:
-              oldHSV = compareColormap1.getHSVColor(mouseGrappedSpaceObjectID);
+              oldHSV = globalColormap1.getHSVColor(mouseGrappedSpaceObjectID);
             break;
             default:
               return;
@@ -815,10 +815,10 @@ function mouseMoveValuePlot(event) {
           var oldLAB;
           switch (showSideID) {
             case 2:
-              oldLAB = analysisColormap.getLabColor(mouseGrappedSpaceObjectID);
+              oldLAB = globalColormap1.getLabColor(mouseGrappedSpaceObjectID);
               break;
             case 3:
-              oldLAB = compareColormap1.getLabColor(mouseGrappedSpaceObjectID);
+              oldLAB = globalColormap1.getLabColor(mouseGrappedSpaceObjectID);
             break;
             default:
               return;
@@ -836,10 +836,10 @@ function mouseMoveValuePlot(event) {
           var oldDIN99;
           switch (showSideID) {
             case 2:
-              oldDIN99 = analysisColormap.getDIN99Color(mouseGrappedSpaceObjectID);
+              oldDIN99 = globalColormap1.getDIN99Color(mouseGrappedSpaceObjectID);
               break;
             case 3:
-              oldDIN99 = compareColormap1.getDIN99Color(mouseGrappedSpaceObjectID);
+              oldDIN99 = globalColormap1.getDIN99Color(mouseGrappedSpaceObjectID);
             break;
             default:
               return;
@@ -889,7 +889,7 @@ function mouseDownValuePlot() {
 
     var colorindex;
 
-    switch (colorspaceModus) {
+    switch(analyzeColorspaceModus) {
       case "hsv":
         colorindex = 1;
         break

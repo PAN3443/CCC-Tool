@@ -165,7 +165,7 @@ var colormapPath;
     default:
       return;
   }
-  return colormap = xmlColormapParserPath(colormapPath);
+  return xmlColormapParserPath(colormapPath);
 }
 
 function  createNewColormapRow(type, index, parent){
@@ -194,6 +194,10 @@ function  createNewColormapRow(type, index, parent){
       var searchIndex = searchAddedColormap(tmpIndex, tmpType);
       if(searchIndex !=-1){
 
+        var tmpPos = addedPos[searchIndex];
+
+
+
         myList.splice(addedPos[searchIndex], 1);
         addedPos.splice(searchIndex, 1);
         addedType.splice(searchIndex, 1);
@@ -203,6 +207,27 @@ function  createNewColormapRow(type, index, parent){
             if(addedPos[i]>searchIndex)
             addedPos[i]=addedPos[i]-1;
         }
+
+
+        if(myList.length==0){
+          colormap1SelectIndex=-1;
+          globalColormap1=new classColorMapSpecification();
+          bandSketch.clearSketch();
+        }
+        else{
+          if(colormap1SelectIndex==tmpPos){
+            colormap1SelectIndex=0;
+            globalColormap1=myList[0];
+          }
+          else{
+            if(colormap1SelectIndex>tmpPos){
+              colormap1SelectIndex--;
+              globalColormap1=myList[colormap1SelectIndex];
+
+            }
+          }
+        }
+
 
         //addedPos = [];
         this.style.backgroundImage = "url(img/acceptButton_black.png)";
@@ -214,11 +239,16 @@ function  createNewColormapRow(type, index, parent){
           addedType.push(tmpType);
           addedIndex.push(tmpIndex);
           myList.push(addPageGetColormap(tmpIndex, tmpType));
+          colormap1SelectIndex=myList.length-1;
+          globalColormap1=myList[myList.length-1];
           this.style.backgroundImage = "url(img/acceptButton_blue.png)";
           this.style.borderColor = "rgb(0,191,255)";
         }
 
       }
+
+      bandSketch.colormap2Sketch(globalColormap1);
+      orderColorSketch(colorspaceModus);
 
       restSpace = sizeMyList-myList.length;
 
@@ -241,7 +271,7 @@ function  createNewColormapRow(type, index, parent){
   exportButton.onclick = (function(tmpIndex, tmpType) {
   return function() {
 
-      exportColormap = addPageGetColormap(tmpIndex, tmpType);
+      globalColormap1 = addPageGetColormap(tmpIndex, tmpType);
       document.getElementById("id_exportWindow").style.display = "initial";
       exportSideOpen = true;
       initExportWindow();

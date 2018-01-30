@@ -6,11 +6,20 @@ function drawMyList(){
       document.getElementById("id_canvasMyListColormap"+i).style.border = "0.2vh solid rgb(0,0,0)";
 
       document.getElementById("id_buttonExportMyList"+i).style.backgroundImage = "url(img/exportButton_black.png)";
-      document.getElementById("id_buttonEditMyList"+i).style.backgroundImage = "url(img/editButton_black.png)";
       document.getElementById("id_buttonDeleteMyList"+i).style.backgroundImage = "url(img/trashButton_black.png)";
 
+
+
+      if(i!=colormap1SelectIndex){
+        document.getElementById("id_buttonAcceptMyList"+i).style.border = "0.2vh solid rgb(0,0,0)";
+        document.getElementById("id_buttonAcceptMyList"+i).style.color = "rgb(0,0,0)";
+      }
+      else{
+        document.getElementById("id_buttonAcceptMyList"+i).style.border = "0.2vh solid "+styleActiveColor;
+        document.getElementById("id_buttonAcceptMyList"+i).style.color = styleActiveColor;
+      }
+
       document.getElementById("id_buttonExportMyList"+i).style.border = "0.2vh solid rgb(0,0,0)";
-      document.getElementById("id_buttonEditMyList"+i).style.border = "0.2vh solid rgb(0,0,0)";
       document.getElementById("id_buttonDeleteMyList"+i).style.border = "0.2vh solid rgb(0,0,0)";
 
       document.getElementById("id_nanMyListColormap"+i).style.background = myList[i].getNaNColor("rgb").getRGBString();
@@ -24,11 +33,11 @@ function drawMyList(){
       document.getElementById("id_canvasMyListColormap"+i).style.border = "0.2vh solid rgb(180,180,180)";
 
       document.getElementById("id_buttonExportMyList"+i).style.backgroundImage = "url(img/exportButton_grey.png)";
-      document.getElementById("id_buttonEditMyList"+i).style.backgroundImage = "url(img/editButton_grey.png)";
+      document.getElementById("id_buttonAcceptMyList"+i).style.color = "rgb(180,180,180)";
       document.getElementById("id_buttonDeleteMyList"+i).style.backgroundImage = "url(img/trashButton_grey.png)";
 
       document.getElementById("id_buttonExportMyList"+i).style.border = "0.2vh solid rgb(180,180,180)";
-      document.getElementById("id_buttonEditMyList"+i).style.border = "0.2vh solid rgb(180,180,180)";
+      document.getElementById("id_buttonAcceptMyList"+i).style.border = "0.2vh solid rgb(180,180,180)";
       document.getElementById("id_buttonDeleteMyList"+i).style.border = "0.2vh solid rgb(180,180,180)";
 
       var canvasObject = document.getElementById("id_canvasMyListColormap"+i);

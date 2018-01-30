@@ -19,7 +19,7 @@ function hueInit(canvasID){
 
           var errorRGBColor = new classColor_RGB(0.5,0.5,0.5);
 
-          switch(colorspaceModus){
+          switch(analyzeColorspaceModus){
               case "hsv":
                 for(var x=0; x<canvasColorspaceWidth;x++){
 
@@ -44,10 +44,8 @@ function hueInit(canvasID){
                             vVal= parseFloat(document.getElementById('id_setValueRangeCompare').value)/100;
                           }
                           else{
-                            if(showSideID==2)
-                            vVal = analysisColormap.getHSVColor(mouseGrappedSpaceObjectID).getVValue();
-                            if(showSideID==3)
-                            vVal = compareColormap1.getHSVColor(mouseGrappedSpaceObjectID).getVValue();
+                            vVal = globalColormap1.getHSVColor(mouseGrappedSpaceObjectID).getVValue();
+
                           }
 
                         var colorHSV = new classColor_HSV(hVal,sVal,vVal);
@@ -103,9 +101,9 @@ function hueInit(canvasID){
                         else{
                           var lVal;
                           if(showSideID==2)
-                          lVal = analysisColormap.getLabColor(mouseGrappedSpaceObjectID).getLValue();
+                          lVal = globalColormap1.getLabColor(mouseGrappedSpaceObjectID).getLValue();
                           if(showSideID==3)
-                          lVal = compareColormap1.getLabColor(mouseGrappedSpaceObjectID).getLValue();
+                          lVal = globalColormap1.getLabColor(mouseGrappedSpaceObjectID).getLValue();
 
                           var aVal = ((x-colorspaceCenterX)/(xWidth/2))*labSpaceRange;
                           var bVal = ((y-colorspaceCenterY)/(yHeight/2))*labSpaceRange;
@@ -173,10 +171,7 @@ function hueInit(canvasID){
                       }
                       else{
                         var l99Val;
-                        if(showSideID==2)
-                        l99Val = analysisColormap.getDIN99Color(mouseGrappedSpaceObjectID).getL99Value();
-                        if(showSideID==3)
-                        l99Val = compareColormap1.getDIN99Color(mouseGrappedSpaceObjectID).getL99Value();
+                        l99Val = globalColormap1.getDIN99Color(mouseGrappedSpaceObjectID).getL99Value();
 
                         colorDIN99 = new classColorDIN99(l99Val,a99Val,b99Val);
 
@@ -450,7 +445,7 @@ function init_VPlot(colormapTmp, canvasID){
 
       vPlotContex.fillText("Keys",xEndArrow,yStart+labelFontSize);
 
-      switch(colorspaceModus){
+      switch(analyzeColorspaceModus){
           case "hsv":
             vPlotContex.fillText("Value",xStart-labelFontSize,yEndArrow);
           break;
@@ -524,7 +519,7 @@ function drawcolormap_hueSpace(colormapTmp, canvasID, calcBackground){
 
                   if(colormapTmp.getNumColors()>2){
 
-                      switch(colorspaceModus){
+                      switch(analyzeColorspaceModus){
                           case "hsv":
                           tmpColor = colormapTmp.getHSVColor(i);
                           var tmpDis = tmpColor.getSValue()*colorspaceRadius;
@@ -594,7 +589,7 @@ function drawcolormap_hueSpace(colormapTmp, canvasID, calcBackground){
                       twinStarted=false;
 
 
-                      switch(colorspaceModus){
+                      switch(analyzeColorspaceModus){
                           case "hsv":
                           tmpColor = colormapTmp.getHSVColor(i);
                           var tmpDis = tmpColor.getSValue()*colorspaceRadius;
@@ -680,7 +675,7 @@ function drawcolormap_hueSpace(colormapTmp, canvasID, calcBackground){
                       if(tmpKey2==="nil key" || tmpKey2==="left key")
                       drawCircle=false;
 
-                      switch(colorspaceModus){
+                      switch(analyzeColorspaceModus){
                           case "hsv":
                             tmpColor = colormapTmp.getHSVColor(i);
                             var tmpDis = tmpColor.getSValue()*colorspaceRadius;
@@ -802,7 +797,7 @@ function drawcolormap_hueSpace(colormapTmp, canvasID, calcBackground){
                         xPos2 = Math.round(plotXStart+((vPlotKeyPos)*widthVArea));
 
 
-                          switch(colorspaceModus){
+                          switch(analyzeColorspaceModus){
                               case "hsv":
                                 yPos = Math.round(plotYStart-(heigthVArea*tmpColor.getVValue()));
                               break;
@@ -860,7 +855,7 @@ function drawcolormap_hueSpace(colormapTmp, canvasID, calcBackground){
                         vPlotKeyPos++;
                         xPos2 = Math.round(plotXStart+((vPlotKeyPos)*widthVArea));
 
-                        switch(colorspaceModus){
+                        switch(analyzeColorspaceModus){
                             case "hsv":
                             tmpColor2 = colormapTmp.getHSVColor(i-1);
                             yPos = Math.round(plotYStart-(heigthVArea*tmpColor2.getVValue()));
@@ -937,7 +932,7 @@ function drawcolormap_hueSpace(colormapTmp, canvasID, calcBackground){
                       if(tmpKey2==="nil key" || tmpKey2==="left key")
                             drawCircle=false;
 
-                        switch(colorspaceModus){
+                        switch(analyzeColorspaceModus){
                             case "hsv":
                             tmpColor = colormapTmp.getHSVColor(i);
                             var tmpDis = tmpColor.getSValue()*colorspaceRadius;
@@ -965,7 +960,7 @@ function drawcolormap_hueSpace(colormapTmp, canvasID, calcBackground){
 
                       if(i!=colormapTmp.getNumColors()-1){
 
-                            switch(colorspaceModus){
+                            switch(analyzeColorspaceModus){
                                 case "hsv":
                                 tmpColor2 = colormapTmp.getHSVColor(i+1);
                                 var tmpDis2 = tmpColor2.getSValue()*colorspaceRadius;
@@ -1069,7 +1064,7 @@ function drawcolormap_hueSpace(colormapTmp, canvasID, calcBackground){
                           vPlotKeyPos++;
                           xPos2 = Math.round(plotXStart+((vPlotKeyPos)*widthVArea));
 
-                          switch(colorspaceModus){
+                          switch(analyzeColorspaceModus){
                               case "hsv":
                                 yPos = Math.round(plotYStart-(heigthVArea*tmpColor.getVValue()));
                               break;
@@ -1126,7 +1121,7 @@ function drawcolormap_hueSpace(colormapTmp, canvasID, calcBackground){
                         vPlotKeyPos++;
                         xPos2 = Math.round(plotXStart+((vPlotKeyPos)*widthVArea));
 
-                        switch(colorspaceModus){
+                        switch(analyzeColorspaceModus){
                             case "hsv":
                             tmpColor2 = colormapTmp.getHSVColor(i-1);
                             tmpColor = colormapTmp.getHSVColor(i);
@@ -1184,7 +1179,7 @@ function drawcolormap_hueSpace(colormapTmp, canvasID, calcBackground){
               default:
                   // dual Key, right key,
 
-                  switch(colorspaceModus){
+                  switch(analyzeColorspaceModus){
                       case "hsv":
                         tmpColor = colormapTmp.getHSVColor(i);
                         var tmpDis = tmpColor.getSValue()*colorspaceRadius;
@@ -1276,7 +1271,7 @@ function drawcolormap_hueSpace(colormapTmp, canvasID, calcBackground){
                     vPlotKeyPos++;
                     xPos2 = Math.round(plotXStart+((vPlotKeyPos)*widthVArea));
 
-                    switch(colorspaceModus){
+                    switch(analyzeColorspaceModus){
                         case "hsv":
                           tmpColor2 = colormapTmp.getHSVColor(i-1);
                           yPos = Math.round(plotYStart-(heigthVArea*tmpColor2.getVValue()));
@@ -1322,7 +1317,7 @@ function drawcolormap_hueSpace(colormapTmp, canvasID, calcBackground){
       }
 
   }
-  else{
+  /*else{
 
     //canvasVInputContex.putImageData(canvasVInputData, 0, 0); // update VValue Canvas;
     var grd = canvasVInputContex.createLinearGradient(0, 0, 0, canvasVInputHeight);
@@ -1330,7 +1325,7 @@ function drawcolormap_hueSpace(colormapTmp, canvasID, calcBackground){
     grd.addColorStop(1, "black");
     canvasVInputContex.fillStyle = grd;
     canvasVInputContex.fillRect(0,0, canvasVInputWidth, canvasVInputHeight);
-  }
+  }*/
 }
 
 
@@ -1396,7 +1391,7 @@ function drawcolormap_compare_hueSpace(colormapTmp, colormapTmp2, canvasID, calc
 
                   if(colormapTmp2.getNumColors()>2){
 
-                      switch(colorspaceModus){
+                      switch(analyzeColorspaceModus){
                           case "hsv":
                           tmpColor = colormapTmp2.getHSVColor(i);
                           var tmpDis = tmpColor.getSValue()*colorspaceRadius;
@@ -1448,7 +1443,7 @@ function drawcolormap_compare_hueSpace(colormapTmp, colormapTmp2, canvasID, calc
                       twinStarted=false;
 
 
-                      switch(colorspaceModus){
+                      switch(analyzeColorspaceModus){
                           case "hsv":
                           tmpColor = colormapTmp2.getHSVColor(i);
                           var tmpDis = tmpColor.getSValue()*colorspaceRadius;
@@ -1503,7 +1498,7 @@ function drawcolormap_compare_hueSpace(colormapTmp, colormapTmp2, canvasID, calc
                       if(tmpKey2==="nil key" || tmpKey2==="left key")
                       drawCircle=false;
 
-                      switch(colorspaceModus){
+                      switch(analyzeColorspaceModus){
                           case "hsv":
                             tmpColor = colormapTmp2.getHSVColor(i);
                             var tmpDis = tmpColor.getSValue()*colorspaceRadius;
@@ -1564,7 +1559,7 @@ function drawcolormap_compare_hueSpace(colormapTmp, colormapTmp2, canvasID, calc
                         xPos2 = Math.round(plotXStart+((vPlotKeyPos)*widthVArea2));
 
 
-                          switch(colorspaceModus){
+                          switch(analyzeColorspaceModus){
                               case "hsv":
                                 yPos = Math.round(plotYStart-(heigthVArea*tmpColor.getVValue()));
                               break;
@@ -1612,7 +1607,7 @@ function drawcolormap_compare_hueSpace(colormapTmp, colormapTmp2, canvasID, calc
                         vPlotKeyPos++;
                         xPos2 = Math.round(plotXStart+((vPlotKeyPos)*widthVArea2));
 
-                        switch(colorspaceModus){
+                        switch(analyzeColorspaceModus){
                             case "hsv":
                             tmpColor2 = colormapTmp2.getHSVColor(i-1);
                             yPos = Math.round(plotYStart-(heigthVArea*tmpColor2.getVValue()));
@@ -1676,7 +1671,7 @@ function drawcolormap_compare_hueSpace(colormapTmp, colormapTmp2, canvasID, calc
                       if(tmpKey2==="nil key" || tmpKey2==="left key")
                             drawCircle=false;
 
-                        switch(colorspaceModus){
+                        switch(analyzeColorspaceModus){
                             case "hsv":
                             tmpColor = colormapTmp2.getHSVColor(i);
                             var tmpDis = tmpColor.getSValue()*colorspaceRadius;
@@ -1704,7 +1699,7 @@ function drawcolormap_compare_hueSpace(colormapTmp, colormapTmp2, canvasID, calc
 
                       if(i!=colormapTmp2.getNumColors()-1){
 
-                            switch(colorspaceModus){
+                            switch(analyzeColorspaceModus){
                                 case "hsv":
                                 tmpColor2 = colormapTmp2.getHSVColor(i+1);
                                 var tmpDis2 = tmpColor2.getSValue()*colorspaceRadius;
@@ -1752,7 +1747,7 @@ function drawcolormap_compare_hueSpace(colormapTmp, colormapTmp2, canvasID, calc
                           vPlotKeyPos++;
                           xPos2 = Math.round(plotXStart+((vPlotKeyPos)*widthVArea2));
 
-                          switch(colorspaceModus){
+                          switch(analyzeColorspaceModus){
                               case "hsv":
                                 yPos = Math.round(plotYStart-(heigthVArea*tmpColor.getVValue()));
                               break;
@@ -1800,7 +1795,7 @@ function drawcolormap_compare_hueSpace(colormapTmp, colormapTmp2, canvasID, calc
                         vPlotKeyPos++;
                         xPos2 = Math.round(plotXStart+((vPlotKeyPos)*widthVArea2));
 
-                        switch(colorspaceModus){
+                        switch(analyzeColorspaceModus){
                             case "hsv":
                             tmpColor2 = colormapTmp2.getHSVColor(i-1);
                             tmpColor = colormapTmp2.getHSVColor(i);
@@ -1852,7 +1847,7 @@ function drawcolormap_compare_hueSpace(colormapTmp, colormapTmp2, canvasID, calc
               default:
                   // dual Key, right key,
 
-                  switch(colorspaceModus){
+                  switch(analyzeColorspaceModus){
                       case "hsv":
                         tmpColor = colormapTmp2.getHSVColor(i);
                         var tmpDis = tmpColor.getSValue()*colorspaceRadius;
@@ -1915,7 +1910,7 @@ function drawcolormap_compare_hueSpace(colormapTmp, colormapTmp2, canvasID, calc
                     vPlotKeyPos++;
                     xPos2 = Math.round(plotXStart+((vPlotKeyPos)*widthVArea2));
 
-                    switch(colorspaceModus){
+                    switch(analyzeColorspaceModus){
                         case "hsv":
                           tmpColor2 = colormapTmp2.getHSVColor(i-1);
                           yPos = Math.round(plotYStart-(heigthVArea*tmpColor2.getVValue()));
@@ -1979,7 +1974,7 @@ function drawcolormap_compare_hueSpace(colormapTmp, colormapTmp2, canvasID, calc
 
                   if(colormapTmp.getNumColors()>2){
 
-                      switch(colorspaceModus){
+                      switch(analyzeColorspaceModus){
                           case "hsv":
                           tmpColor = colormapTmp.getHSVColor(i);
                           var tmpDis = tmpColor.getSValue()*colorspaceRadius;
@@ -2049,7 +2044,7 @@ function drawcolormap_compare_hueSpace(colormapTmp, colormapTmp2, canvasID, calc
                       twinStarted=false;
 
 
-                      switch(colorspaceModus){
+                      switch(analyzeColorspaceModus){
                           case "hsv":
                           tmpColor = colormapTmp.getHSVColor(i);
                           var tmpDis = tmpColor.getSValue()*colorspaceRadius;
@@ -2135,7 +2130,7 @@ function drawcolormap_compare_hueSpace(colormapTmp, colormapTmp2, canvasID, calc
                       if(tmpKey2==="nil key" || tmpKey2==="left key")
                       drawCircle=false;
 
-                      switch(colorspaceModus){
+                      switch(analyzeColorspaceModus){
                           case "hsv":
                             tmpColor = colormapTmp.getHSVColor(i);
                             var tmpDis = tmpColor.getSValue()*colorspaceRadius;
@@ -2257,7 +2252,7 @@ function drawcolormap_compare_hueSpace(colormapTmp, colormapTmp2, canvasID, calc
                         xPos2 = Math.round(plotXStart+((vPlotKeyPos)*widthVArea));
 
 
-                          switch(colorspaceModus){
+                          switch(analyzeColorspaceModus){
                               case "hsv":
                                 yPos = Math.round(plotYStart-(heigthVArea*tmpColor.getVValue()));
                               break;
@@ -2315,7 +2310,7 @@ function drawcolormap_compare_hueSpace(colormapTmp, colormapTmp2, canvasID, calc
                         vPlotKeyPos++;
                         xPos2 = Math.round(plotXStart+((vPlotKeyPos)*widthVArea));
 
-                        switch(colorspaceModus){
+                        switch(analyzeColorspaceModus){
                             case "hsv":
                             tmpColor2 = colormapTmp.getHSVColor(i-1);
                             yPos = Math.round(plotYStart-(heigthVArea*tmpColor2.getVValue()));
@@ -2392,7 +2387,7 @@ function drawcolormap_compare_hueSpace(colormapTmp, colormapTmp2, canvasID, calc
                       if(tmpKey2==="nil key" || tmpKey2==="left key")
                             drawCircle=false;
 
-                        switch(colorspaceModus){
+                        switch(analyzeColorspaceModus){
                             case "hsv":
                             tmpColor = colormapTmp.getHSVColor(i);
                             var tmpDis = tmpColor.getSValue()*colorspaceRadius;
@@ -2420,7 +2415,7 @@ function drawcolormap_compare_hueSpace(colormapTmp, colormapTmp2, canvasID, calc
 
                       if(i!=colormapTmp.getNumColors()-1){
 
-                            switch(colorspaceModus){
+                            switch(analyzeColorspaceModus){
                                 case "hsv":
                                 tmpColor2 = colormapTmp.getHSVColor(i+1);
                                 var tmpDis2 = tmpColor2.getSValue()*colorspaceRadius;
@@ -2524,7 +2519,7 @@ function drawcolormap_compare_hueSpace(colormapTmp, colormapTmp2, canvasID, calc
                           vPlotKeyPos++;
                           xPos2 = Math.round(plotXStart+((vPlotKeyPos)*widthVArea));
 
-                          switch(colorspaceModus){
+                          switch(analyzeColorspaceModus){
                               case "hsv":
                                 yPos = Math.round(plotYStart-(heigthVArea*tmpColor.getVValue()));
                               break;
@@ -2581,7 +2576,7 @@ function drawcolormap_compare_hueSpace(colormapTmp, colormapTmp2, canvasID, calc
                         vPlotKeyPos++;
                         xPos2 = Math.round(plotXStart+((vPlotKeyPos)*widthVArea));
 
-                        switch(colorspaceModus){
+                        switch(analyzeColorspaceModus){
                             case "hsv":
                             tmpColor2 = colormapTmp.getHSVColor(i-1);
                             tmpColor = colormapTmp.getHSVColor(i);
@@ -2639,7 +2634,7 @@ function drawcolormap_compare_hueSpace(colormapTmp, colormapTmp2, canvasID, calc
               default:
                   // dual Key, right key,
 
-                  switch(colorspaceModus){
+                  switch(analyzeColorspaceModus){
                       case "hsv":
                         tmpColor = colormapTmp.getHSVColor(i);
                         var tmpDis = tmpColor.getSValue()*colorspaceRadius;
@@ -2731,7 +2726,7 @@ function drawcolormap_compare_hueSpace(colormapTmp, colormapTmp2, canvasID, calc
                     vPlotKeyPos++;
                     xPos2 = Math.round(plotXStart+((vPlotKeyPos)*widthVArea));
 
-                    switch(colorspaceModus){
+                    switch(analyzeColorspaceModus){
                         case "hsv":
                           tmpColor2 = colormapTmp.getHSVColor(i-1);
                           yPos = Math.round(plotYStart-(heigthVArea*tmpColor2.getVValue()));

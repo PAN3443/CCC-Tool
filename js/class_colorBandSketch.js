@@ -27,6 +27,7 @@ class classBandSketch{
       this.numConstantBands = 0;
   }
 
+
   setC1(colorC1, index){
 
     var colorType = colorC1.getColorType();
@@ -495,7 +496,7 @@ class classBandSketch{
   sketch2Colormap(colorspace, name){
 
       var saveNext = true;
-      var tmpColormap = new xclassColorMap();
+      var tmpColormap = new classColorMapSpecification();
 
       var index = 0;
 
@@ -617,10 +618,13 @@ class classBandSketch{
     }
   }
 
+
+  ////////////////////////////////////////////
+
+
   ///////////////////////////////////
   /// DISTANCE functions
   //////////////////////////////////
-
 
   calcNewDistances(){
 

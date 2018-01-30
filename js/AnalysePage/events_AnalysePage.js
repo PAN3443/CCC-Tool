@@ -1,14 +1,81 @@
 
+function increaseAnalyse3DDiv(){
+    if(size3D<100){
+
+      size3D+=5;
+      document.getElementById("id_rgb3D").style.height = size3D+"vh";
+
+      var canvasObj = document.getElementById("id_rgb3D");
+      canvasObj.innerHTML="";
+      var box = canvasObj.getBoundingClientRect();
+      var drawWidth = box.width; //window.innerWidth;
+      var drawHeight =box.height; // window.innerHeight;
+      camera.aspect = drawWidth/drawHeight;
+    	camera.updateProjectionMatrix();
+      renderer.setSize(drawWidth,drawHeight);//(window.innerWidth, window.innerHeight);
+      canvasObj.appendChild( renderer.domElement );
+
+      if(size3D==100){
+        document.getElementById("increaseAnalyse3D").style.color = "grey";
+      }
+      else{
+        document.getElementById("increaseAnalyse3D").style.color = "black";
+      }
+
+      if(size3D==50){
+        document.getElementById("decreaseAnalyse3D").style.color = "grey";
+      }
+      else{
+        document.getElementById("decreaseAnalyse3D").style.color = "black";
+      }
+
+    }
+
+}
+
+function decreaseAnalyse3DDiv(){
+  if(size3D>50){
+
+    size3D-=5;
+    document.getElementById("id_rgb3D").style.height = size3D+"vh";
+
+    var canvasObj = document.getElementById("id_rgb3D");
+    canvasObj.innerHTML="";
+    var box = canvasObj.getBoundingClientRect();
+    var drawWidth = box.width; //window.innerWidth;
+    var drawHeight =box.height; // window.innerHeight;
+    camera.aspect = drawWidth/drawHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(drawWidth,drawHeight);//(window.innerWidth, window.innerHeight);
+    canvasObj.appendChild( renderer.domElement );
+
+
+    if(size3D==100){
+      document.getElementById("increaseAnalyse3D").style.color = "grey";
+    }
+    else{
+      document.getElementById("increaseAnalyse3D").style.color = "black";
+    }
+
+    if(size3D==50){
+      document.getElementById("decreaseAnalyse3D").style.color = "grey";
+    }
+    else{
+      document.getElementById("decreaseAnalyse3D").style.color = "black";
+    }
+
+  }
+}
+
 
 function initAnalysePage(){
     initRGB3D();
-    bandSketch.colormap2Sketch(analysisColormap);
+    bandSketch.colormap2Sketch(globalColormap1);
     orderColorSketch(colorspaceModus);
     changeCourseSpace();
     drawAnalyseMapPreviews();
     drawAnalyseDifferenceMaps();
     //drawRGBSpace();
-
 }
 
 function changeCourseSpace(){
@@ -17,11 +84,11 @@ function changeCourseSpace(){
   document.getElementById("id_hueValueOptions").style.display = "none";
   document.getElementById("id_RGBCourseDiv").style.display = "none";
 
-  switch(colorspaceModus){
+  switch(analyzeColorspaceModus){
       case "rgb":;
         document.getElementById("id_RGBCourseDiv").style.display = "initial";
         //rgbInit("id_canvasRG","id_canvasRB","id_canvasBG", true);
-        drawcolormap_RGBSpace(analysisColormap, "id_canvasRG","id_canvasRB","id_canvasBG", true);
+        drawcolormap_RGBSpace(globalColormap1, "id_canvasRG","id_canvasRB","id_canvasBG", true, true);
         animate();
       break;
       case "hsv":
@@ -33,7 +100,7 @@ function changeCourseSpace(){
         document.getElementById("id_setValueRange").value = 100;
 
         hueInit("id_anaylseCourseHueBackground");
-        drawcolormap_hueSpace(analysisColormap, "id_anaylseCourseHueBackground",false); //drawcolormap_hueSpace(analysisColormap, "id_workcanvasAnalyseHue");
+        drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground",false); //drawcolormap_hueSpace(globalColormap1, "id_workcanvasAnalyseHue");
       break;
       case "lab": case "din99":
         stopAnimation();
@@ -43,7 +110,7 @@ function changeCourseSpace(){
         hueInit("id_anaylseCourseHueBackground");
         document.getElementById("id_setValueRange").value = 65;
         hueInit("id_anaylseCourseHueBackground");
-        drawcolormap_hueSpace(analysisColormap, "id_anaylseCourseHueBackground",false); //drawcolormap_hueSpace(analysisColormap, "id_workcanvasAnalyseHue");
+        drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground",false); //drawcolormap_hueSpace(globalColormap1, "id_workcanvasAnalyseHue");
 
       break;
       default:
@@ -65,14 +132,14 @@ function changeValueRange(){
       }
 
       hueInit("id_anaylseCourseHueBackground");
-      drawcolormap_hueSpace(analysisColormap, "id_anaylseCourseHueBackground",false);
+      drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground",false);
 }
 
 function analyseColormapRGBPossible(){
   if(document.getElementById("id_checkboxRGB").checked==true){
     orderColorSketch('rgb');
-    bandSketch.colormap2Sketch(analysisColormap);
-    drawcolormap_hueSpace(analysisColormap, "id_anaylseCourseHueBackground",false);
+    bandSketch.colormap2Sketch(globalColormap1);
+    drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground",false);
   }
 }
 
@@ -81,13 +148,13 @@ function drawAnalyseMapPreviews(){
   var oldColorspace = colorspaceModus;
 
   colorspaceModus="rgb";
-      drawCanvasColormap("id_anaylseRGB_Preview",analysePreviewMap_resolution_X, analysePreviewMap_resolution_Y, analysisColormap);
+      drawCanvasColormap("id_anaylseRGB_Preview",analysePreviewMap_resolution_X, analysePreviewMap_resolution_Y, globalColormap1);
   colorspaceModus="hsv";
-      drawCanvasColormap("id_anaylseHSV_Preview",analysePreviewMap_resolution_X, analysePreviewMap_resolution_Y, analysisColormap);
+      drawCanvasColormap("id_anaylseHSV_Preview",analysePreviewMap_resolution_X, analysePreviewMap_resolution_Y, globalColormap1);
   colorspaceModus="lab";
-      drawCanvasColormap("id_anaylseLAB_Preview",analysePreviewMap_resolution_X, analysePreviewMap_resolution_Y, analysisColormap);
+      drawCanvasColormap("id_anaylseLAB_Preview",analysePreviewMap_resolution_X, analysePreviewMap_resolution_Y, globalColormap1);
   colorspaceModus="din99";
-      drawCanvasColormap("id_anaylseDIN99_Preview",analysePreviewMap_resolution_X, analysePreviewMap_resolution_Y, analysisColormap);
+      drawCanvasColormap("id_anaylseDIN99_Preview",analysePreviewMap_resolution_X, analysePreviewMap_resolution_Y, globalColormap1);
   colorspaceModus = oldColorspace;
 }
 

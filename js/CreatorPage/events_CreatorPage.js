@@ -7,17 +7,17 @@ function saveCreateProcess(){
       if(processPosition<colormapProcess.length-1){
 
           colormapProcess = colormapProcess.slice(0, processPosition+1);
-          colormapProcess.push(createColormap);
+          colormapProcess.push(globalColormap1);
           processPosition = colormapProcess.length-1
       }
       else{
         if(colormapProcess.length <= processLimitation){
-          colormapProcess.push(createColormap);
+          colormapProcess.push(globalColormap1);
           processPosition = colormapProcess.length-1
         }
         else{
           colormapProcess.shift();
-          colormapProcess.push(createColormap);
+          colormapProcess.push(globalColormap1);
           processPosition = colormapProcess.length-1
         }
       }
@@ -60,26 +60,30 @@ function expandTable(){
 //// switch modify //////
 ///////////////////////////////
 
-function switchModifyModus(event){
+function switchModifyModus(type){
 
-  switch (event.target.id) {
-    case "id_selectBandAdding":
-      document.getElementById("id_selectBandAdding").style.background="white";
-      document.getElementById("id_selectBandAdding").style.color="black";
-      document.getElementById("id_selectKeyModifying").style.background="rgb(60,60,60)";
-      document.getElementById("id_selectKeyModifying").style.color="white";
+  switch (type) {
+    case 0:
+      document.getElementById("id_selectBandAdding").style.background=styleActiveColor;
+      document.getElementById("id_selectKeyModifying").style.background=styleInactiveColor;
 
       document.getElementById("id_DivModifyKeys").style.display="none";
       document.getElementById("id_DivAddBands").style.display="inline-block";
     break;
-    case "id_selectKeyModifying":
-      document.getElementById("id_selectKeyModifying").style.background="white";
-      document.getElementById("id_selectKeyModifying").style.color="black";
-      document.getElementById("id_selectBandAdding").style.background="rgb(60,60,60)";
-      document.getElementById("id_selectBandAdding").style.color="white";
+    case 1:
 
-      document.getElementById("id_DivModifyKeys").style.display="inline-block";
-      document.getElementById("id_DivAddBands").style.display="none";
+      if(bandSketch.getBandLenght() != 0){
+        document.getElementById("id_selectKeyModifying").style.background=styleActiveColor;
+        document.getElementById("id_selectBandAdding").style.background=styleInactiveColor;
+
+        document.getElementById("id_DivModifyKeys").style.display="inline-block";
+        document.getElementById("id_DivAddBands").style.display="none";
+      }
+      else{
+        alert("There are no keys for modyfing. Please use Add Bands to create a CMS.");
+        break;
+      }
+
       addKeyButtons();
     break;
     default:
@@ -1988,22 +1992,7 @@ function colormapRefInputChange(e){
     else
     bandSketch.setRefR2Update(bandSketch.getBandLenght()-1,parseFloat(document.getElementById("id_linearMap_InputRightRef").value));
 
-    /*if(parseFloat(document.getElementById("id_linearMap_InputLeftRef").value)>bandSketch.getRefR2(0)){
-      alert("The new value for the minimal x reference is not allowed to be bigger then his right neighbour value");
-      document.getElementById("id_linearMap_InputLeftRef").value = bandSketch.getRefR1(0);
-    }
-    else{
-      bandSketch.setRefR1(0,parseFloat(document.getElementById("id_linearMap_InputLeftRef").value));
-    }
-
-    if(parseFloat(document.getElementById("id_linearMap_InputRightRef").value)<bandSketch.getRefR1(bandSketch.getBandLenght()-1)){
-      alert("The new value for the maximal x reference is not allowed to be smaller then his left neighbour value");
-      document.getElementById("id_linearMap_InputRightRef").value = bandSketch.getRefR2(bandSketch.getBandLenght()-1);
-    }
-    else{
-      bandSketch.setRefR2(bandSketch.getBandLenght()-1,parseFloat(document.getElementById("id_linearMap_InputRightRef").value));
-    }*/
-    createColormap = bandSketch.sketch2Colormap(colorspaceModus, createColormap.getColormapName());
+    globalColormap1 = bandSketch.sketch2Colormap(colorspaceModus, globalColormap1.getColormapName());
     orderColorSketch(colorspaceModus);
   }
 }

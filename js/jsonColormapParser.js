@@ -5,7 +5,7 @@ function jsonColormapParserFile(jsonString){
         var name = jsonObj.colormaps[0].name;
         var space = jsonObj.colormaps[0].space;
         var saveIntervals = false;
-        var tmpColorMap = new xclassColorMap();
+        var tmpColorMap = new classColorMapSpecification();
         var xValues = [];
         var tmpColors = [];
         var isrgb255 = false;

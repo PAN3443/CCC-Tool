@@ -835,9 +835,9 @@ function changeKeyValueInput(keyIndex, fielID) {
   }
 
   if(showSideID == 1){
-    createColormap = bandSketch.sketch2Colormap(colorspaceModus, createColormap.getColormapName());
-    drawCanvasColormap("id_linearColormap",linearMap_resolution_X, linearMap_resolution_Y, createColormap);
-    drawKeys("id_keyColormap",key_resolution_X, key_resolution_Y, createColormap, "id_keyColormapLinesBottom",false, true)
+    globalColormap1 = bandSketch.sketch2Colormap(colorspaceModus, globalColormap1.getColormapName());
+    drawCanvasColormap("id_linearColormap",linearMap_resolution_X, linearMap_resolution_Y, globalColormap1);
+    drawKeys("id_keyColormap",key_resolution_X, key_resolution_Y, globalColormap1, "id_keyColormapLinesBottom",false, true)
     fillTable();
   }
 

@@ -1,9 +1,5 @@
 function initExportWindow(){
 
-  //exportColormap
-
-  //drawCanvasColormap("id_linearColormapExport",linearMap_resolution_X, linearMap_resolution_Y, exportColormap);
-
   tmpZIndex=105;
   document.getElementById("exportSide_IntervalApproximationCheckbox").checked = false;
   document.getElementById('exportSide_IntervallInput').value = "10";
@@ -19,18 +15,6 @@ function initExportWindow(){
   document.getElementById("id_coverIntervalRect").style.left = box.left + "px";
   document.getElementById("id_coverIntervalRect").style.width = box.width + "px";
   document.getElementById("id_coverIntervalRect").style.height = box.height + "px";
-
-
-
-  //drawKeys("id_keyColormapExport",key_resolution_X, key_resolution_Y, exportColormap, "id_keyColormapLinesBottomExport",true,false)
-
-  //fillExportTable();
-
-  //var box2 = document.getElementById("id_keyColormapLinesBottomExport").getBoundingClientRect();
-  //for(var i=0; i<refElementContainer.length; i++){
-  //    refElementContainer[i].style.position = "fixed";
-//refElementContainer[i].style.top = box2.height+box2.top;
-  //}
 
   changeExportColorspace(0);
 
@@ -58,12 +42,12 @@ function fillExportTable(){
     var expMapBandSketchR1 =[];
     var expMapBandSketchR2 =[];
 
-    for(var i=0; i<exportColormap.getNumberOfBands(); i++){
+    for(var i=0; i<globalColormap1.getNumberOfBands(); i++){
 
-      expMapBandSketchC1.push(exportColormap.getBand(i).getLeftRGBColor());
-      expMapBandSketchC2.push(exportColormap.getBand(i).getRightRGBColor());
-      expMapBandSketchR1.push(exportColormap.getBand(i).getLeftRef());
-      expMapBandSketchR2.push(exportColormap.getBand(i).getRightRef());
+      expMapBandSketchC1.push(globalColormap1.getBand(i).getLeftRGBColor());
+      expMapBandSketchC2.push(globalColormap1.getBand(i).getRightRGBColor());
+      expMapBandSketchR1.push(globalColormap1.getBand(i).getLeftRef());
+      expMapBandSketchR2.push(globalColormap1.getBand(i).getRightRef());
 
     }
 
@@ -157,8 +141,8 @@ function changeExportColorspace(type){
     changeColorspace(type);
 
     // Draw Colorspace
-    drawCanvasColormap("id_linearColormapExport",linearMap_resolution_X, linearMap_resolution_Y, exportColormap);
-    drawKeys("id_keyColormapExport",key_resolution_X, key_resolution_Y, exportColormap, "id_keyColormapLinesBottomExport",true,false);
+    drawCanvasColormap("id_linearColormapExport",linearMap_resolution_X, linearMap_resolution_Y, globalColormap1);
+    drawKeys("id_keyColormapExport",key_resolution_X, key_resolution_Y, globalColormap1, "id_keyColormapLinesBottomExport",true,false);
 
     var box = document.getElementById("id_keyColormapLinesBottomExport").getBoundingClientRect();
     for(var i=0; i<refElementContainer.length; i++){
@@ -170,7 +154,7 @@ function changeExportColorspace(type){
     //
     if(document.getElementById("exportSide_IntervalApproximationCheckbox").checked == true){
       // draw orginal colormap
-          drawCanvasColormap("id_IntervalPreviewColormapExport",linearMap_resolution_X, linearMap_resolution_Y, exportColormap);
+          drawCanvasColormap("id_IntervalPreviewColormapExport",linearMap_resolution_X, linearMap_resolution_Y, globalColormap1);
     }
 }
 
@@ -183,7 +167,7 @@ function showIntervalOptions(){
     exportSide_changeApproxSpace();
 
     // draw orginal colormap
-        drawCanvasColormap("id_IntervalPreviewColormapExport",linearMap_resolution_X, linearMap_resolution_Y, exportColormap);
+        drawCanvasColormap("id_IntervalPreviewColormapExport",linearMap_resolution_X, linearMap_resolution_Y, globalColormap1);
     // draw intervall interpolation
         drawIntervalColormap();
     // draw approx colormap
@@ -201,7 +185,7 @@ function showIntervalOptions(){
       if(document.getElementById("exportSide_Radiobutton_ApproxDIN99").checked==true){
         colorspaceModus="din99";
       }
-      drawCanvasColormap("id_IntervalPreviewColormapApprox",linearMap_resolution_X, linearMap_resolution_Y, exportColormap);
+      drawCanvasColormap("id_IntervalPreviewColormapApprox",linearMap_resolution_X, linearMap_resolution_Y, globalColormap1);
     colorspaceModus = oldColorspace;
 
   }
@@ -224,10 +208,10 @@ function showIntervalOptions(){
 function exportSide_ChangeMerging(){
 
         if(document.getElementById('exportSide_MergingCheckbox').checked==true){
-            exportColormap.setMerging(true);
+            globalColormap1.setMerging(true);
         }
         else{
-            exportColormap.setMerging(false);
+            globalColormap1.setMerging(false);
         }
 
 
@@ -240,23 +224,23 @@ function exportSide_changeApproxSpace(){
    var oldColorspace = colorspaceModus;
      if(document.getElementById("exportSide_Radiobutton_ApproxRGB").checked==true){
        colorspaceModus="rgb";
-       exportColormap.setIntervalMetric(0);
+       globalColormap1.setIntervalMetric(0);
      }
      if(document.getElementById("exportSide_Radiobutton_ApproxHSV").checked==true){
        colorspaceModus="hsv";
-       exportColormap.setIntervalMetric(1);
+       globalColormap1.setIntervalMetric(1);
      }
      if(document.getElementById("exportSide_Radiobutton_ApproxLAB").checked==true){
        colorspaceModus="lab";
-       exportColormap.setIntervalMetric(2);
+       globalColormap1.setIntervalMetric(2);
      }
      if(document.getElementById("exportSide_Radiobutton_ApproxDIN99").checked==true){
        colorspaceModus="din99";
-       exportColormap.setIntervalMetric(3);
+       globalColormap1.setIntervalMetric(3);
      }
 
     // draw approx colormap
-     drawCanvasColormap("id_IntervalPreviewColormapApprox",linearMap_resolution_X, linearMap_resolution_Y, exportColormap);
+     drawCanvasColormap("id_IntervalPreviewColormapApprox",linearMap_resolution_X, linearMap_resolution_Y, globalColormap1);
      colorspaceModus = oldColorspace;
 
    // draw interval colormap // Do it with the right colorspace!!!! -> aver draw approx colormap
@@ -269,7 +253,7 @@ function exportSide_changeIntervalNumEnter(e){
 
     if (e.keyCode == 13) {
       var intervalVal = parseInt(document.getElementById('exportSide_IntervallInput').value);
-      exportColormap.setNumberIntervalsAllBands(intervalVal);
+      globalColormap1.setNumberIntervalsAllBands(intervalVal);
     }
 
     drawIntervalColormap();
@@ -280,7 +264,7 @@ function exportSide_changeIntervalNumChange(){
     checkInputVal(document.getElementById('exportSide_IntervallInput'),false,false);
 
     var intervalVal = parseInt(document.getElementById('exportSide_IntervallInput').value);
-    exportColormap.setNumberIntervalsAllBands(intervalVal);
+    globalColormap1.setNumberIntervalsAllBands(intervalVal);
 
     drawIntervalColormap();
 }
@@ -300,7 +284,7 @@ function changeOutputformat(){
 function drawIntervalColormap(){
 
     // calc intervals
-    exportColormap.calcIntervalPointsAllBands();
+    globalColormap1.calcIntervalPointsAllBands();
 
     // start
     var canvasObject = document.getElementById("IntervalPreviewColormapInterval");
@@ -322,15 +306,15 @@ function drawIntervalColormap(){
     var twinStarted = false;
     var leftStarted = false;
 
-    for(var i=0; i<exportColormap.getNumberOfBands(); i++){
+    for(var i=0; i<globalColormap1.getNumberOfBands(); i++){
 
-       var bandObj = exportColormap.getBand(i);
+       var bandObj = globalColormap1.getBand(i);
        var tmpPos1, tmpPos2;
        var tmpColor1, tmpColor2;
        var elementwidth;
        // 1. KEY i=0
 
-       tmpPos1 = (bandObj.getLeftRef()-exportColormap.getRangeStart())/(exportColormap.getRangeEnd()-exportColormap.getRangeStart())*colormapWidth;
+       tmpPos1 = (bandObj.getLeftRef()-globalColormap1.getRangeStart())/(globalColormap1.getRangeEnd()-globalColormap1.getRangeStart())*colormapWidth;
 
         switch(bandObj.getIntervalMetric()) {
            case 0:
@@ -356,7 +340,7 @@ function drawIntervalColormap(){
 
            tmpColor2 = getRightColorSpace(colorspaceModus, tmpIntervalPointObj.getColor());
 
-           tmpPos2 = (tmpIntervalPointObj.getRefPosition()-exportColormap.getRangeStart())/(exportColormap.getRangeEnd()-exportColormap.getRangeStart())*colormapWidth;
+           tmpPos2 = (tmpIntervalPointObj.getRefPosition()-globalColormap1.getRangeStart())/(globalColormap1.getRangeEnd()-globalColormap1.getRangeStart())*colormapWidth;
            elementwidth =  tmpPos2-tmpPos1;
 
            canvasData = createScaledBand(canvasData, tmpPos1, elementwidth+1, colormapHeigth, tmpColor1, tmpColor2, colormapWidth);
@@ -367,7 +351,7 @@ function drawIntervalColormap(){
 
        // 2. KEY i=tmpNumObj-1
 
-       tmpPos2 = (bandObj.getRightRef()-exportColormap.getRangeStart())/(exportColormap.getRangeEnd()-exportColormap.getRangeStart())*colormapWidth;
+       tmpPos2 = (bandObj.getRightRef()-globalColormap1.getRangeStart())/(globalColormap1.getRangeEnd()-globalColormap1.getRangeStart())*colormapWidth;
        switch(bandObj.getIntervalMetric()) {
           case 0:
               tmpColor2 = getRightColorSpace(colorspaceModus, bandObj.getRightRGBColor());
@@ -406,16 +390,16 @@ function exportSide_downloadFile(){
      switch(outputFormat) {
         case 0:
             // lookup table
-            filename = "ccc-tool_colormap_"+exportColormap.getColormapName()+".csv";
+            filename = "ccc-tool_colormap_"+globalColormap1.getColormapName()+".csv";
             text = exportSide_createCSV_Lookup();
             break;
         case 1:
             // xml
-            filename = "ccc-tool_colormap_"+exportColormap.getColormapName()+".xml";
+            filename = "ccc-tool_colormap_"+globalColormap1.getColormapName()+".xml";
             text = exportSide_createXML();
             break;
         case 2:
-            filename = "ccc-tool_colormap_"+exportColormap.getColormapName()+".json";
+            filename = "ccc-tool_colormap_"+globalColormap1.getColormapName()+".json";
             text = exportSide_createJSON()
             break;
         default:
@@ -437,7 +421,7 @@ function exportSide_downloadFile(){
 
 function exportSide_createXML(){
 
-    var xmltxt = "<ColorMaps>\n<ColorMap name=\""+exportColormap.getColormapName()+"\" space=\"";
+    var xmltxt = "<ColorMaps>\n<ColorMap name=\""+globalColormap1.getColormapName()+"\" space=\"";
 
     switch(colorspaceModus) {
             case "rgb":
@@ -458,9 +442,9 @@ function exportSide_createXML(){
 
     xmltxt = xmltxt+"\" creator=\"CCC-Tool\">\n";
 
-    for(var i=0; i<exportColormap.getNumberOfBands(); i++){
+    for(var i=0; i<globalColormap1.getNumberOfBands(); i++){
 
-        var bandObj = exportColormap.getBand(i);
+        var bandObj = globalColormap1.getBand(i);
 
         xmltxt=xmltxt+"<Point x=\""+bandObj.getLeftRef()+"\" o=\"1\" ";
         // 1. KEY i=0
@@ -529,7 +513,7 @@ function exportSide_createXML(){
         }
     }
 
-    var tmpColor = exportColormap.getNaNColor(colorspaceModus);
+    var tmpColor = globalColormap1.getNaNColor(colorspaceModus);
     switch(colorspaceModus) {
         case "rgb":
             xmltxt=xmltxt+"<NaN o=\"1\" r=\""+tmpColor.getRValue()+"\" g=\""+tmpColor.getGValue()+"\" b=\""+tmpColor.getBValue()+"\"/>\n";
@@ -555,7 +539,7 @@ function exportSide_createCSV_Lookup(){
     var txt = "";
 
     var opacityVal =1;
-    var tmpColor = exportColormap.getNaNColor(colorspaceModus);
+    var tmpColor = globalColormap1.getNaNColor(colorspaceModus);
     switch(colorspaceModus) {
             case "rgb":
                 txt = txt+"Reference;R;G;B;Opacity;ccctype;;NaN;R;"+tmpColor.getRValue()+";G;"+tmpColor.getGValue()+";B;"+tmpColor.getBValue()+"\n";
@@ -573,9 +557,9 @@ function exportSide_createCSV_Lookup(){
                 return;
     }
 
-    for(var i=0; i<exportColormap.getNumberOfBands(); i++){
+    for(var i=0; i<globalColormap1.getNumberOfBands(); i++){
 
-        var bandObj = exportColormap.getBand(i);
+        var bandObj = globalColormap1.getBand(i);
 
         // 1. key i=0
         //console.log(bandObj.getLeftRef());
@@ -646,7 +630,7 @@ function exportSide_createCSV_Lookup(){
 
 function exportSide_createJSON(){
 
-    var jsontxt = "{\"colormaps\":[{\"name\":\""+exportColormap.getColormapName()+"\",\"space\":";
+    var jsontxt = "{\"colormaps\":[{\"name\":\""+globalColormap1.getColormapName()+"\",\"space\":";
 
     switch(colorspaceModus) {
             case "rgb":
@@ -667,9 +651,9 @@ function exportSide_createJSON(){
 
     jsontxt = jsontxt+",\"points\":[";
 
-    for(var i=0; i<exportColormap.getNumberOfBands(); i++){
+    for(var i=0; i<globalColormap1.getNumberOfBands(); i++){
 
-        var bandObj = exportColormap.getBand(i);
+        var bandObj = globalColormap1.getBand(i);
 
         jsontxt=jsontxt+"{\"x\":\""+bandObj.getLeftRef()+"\",\"o\":\"1\",";
         // 1. key i=0
@@ -736,7 +720,7 @@ function exportSide_createJSON(){
                 return;
         }
 
-        if(i != exportColormap.getNumberOfBands()-1){
+        if(i != globalColormap1.getNumberOfBands()-1){
           jsontxt=jsontxt+",";
         }
     }

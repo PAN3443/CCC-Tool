@@ -10,7 +10,6 @@ function editPage_drawKeys(canvasID, tmpColormap){
     //canvasContex.clearRect(0, 0, key_resolution_X, key_resolution_Y);
     var canvasData = canvasContex.getImageData(0, 0, canvasObject.width, canvasObject.height);
 
-
     //////////////////////////////////////////////////////////////
 
     var colormapWidth = key_resolution_X * 0.95;

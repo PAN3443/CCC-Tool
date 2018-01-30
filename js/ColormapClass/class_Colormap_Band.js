@@ -23,6 +23,8 @@ class class_Band{
         this.colorRatio = [];
         this.doMerge = true;
 
+
+
     }
 
     calcIntervalPoints(){
