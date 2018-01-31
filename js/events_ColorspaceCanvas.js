@@ -14,10 +14,10 @@ function mouseLeaveColorspace(event) {
     mouseGrappedSpaceObjectID = -1;
 
     if (showSideID == 2) {
-      drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", true);
+      drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", true, true);
     }
     if (showSideID == 3) {
-      drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", true);
+      drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", true, true);
     }
   }
 }
@@ -27,14 +27,14 @@ function hsvLabDinAnimation(){
   orderColorSketch(colorspaceModus);
 
   if (showSideID == 2) {
-    drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false);
-    drawAnalyseMapPreviews();
-    drawAnalyseDifferenceMaps();
+    drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false, false);
+    //drawAnalyseMapPreviews();
+    //drawAnalyseDifferenceMaps();
   }
   if (showSideID == 3) {
-    drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", false);
-    drawCompareMapPreviews();
-    drawCompareDifferenceMaps();
+    drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", false, false);
+    //drawCompareMapPreviews();
+    //drawCompareDifferenceMaps();
   }
 }
 
@@ -62,10 +62,10 @@ function mouseMoveColorspace(event) {
         if (dis > bigcircleRad) {
           mouseAboveSpaceObjectID = -1;
           if (showSideID == 2) {
-            drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false);
+            drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false, false);
           }
           if (showSideID == 3) {
-            drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", false);
+            drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", false, false);
           }
           document.getElementById(event.target.id).style.cursor = "default";
           break;
@@ -84,7 +84,7 @@ function mouseMoveColorspace(event) {
             mousePosY > spaceElementsYPos[i] + bigcircleRad) {
             mouseAboveSpaceObjectID = -1;
             if (showSideID == 2) {
-              drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false);
+              drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false, false);
             }
             if (showSideID == 3) {
               drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", false);
@@ -106,7 +106,7 @@ function mouseMoveColorspace(event) {
         mouseAboveSpaceObjectID = i;
         document.getElementById(event.target.id).style.cursor = "pointer";
         if (showSideID == 2) {
-          drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false);
+          drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false, false);
         }
         if (showSideID == 3) {
           drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", false);
@@ -128,7 +128,7 @@ function mouseMoveColorspace(event) {
           mouseAboveSpaceObjectID = i;
           document.getElementById(event.target.id).style.cursor = "pointer";
           if (showSideID == 2) {
-            drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false);
+            drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false, false);
           }
           if (showSideID == 3) {
             drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", false);
@@ -166,7 +166,7 @@ function mouseMoveColorspace(event) {
           mouseGrappedSpaceObjectID = -1;
           mouseAboveSpaceObjectID = -1;
           if (showSideID == 2) {
-            drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", true);
+            drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", true, true);
           }
           if (showSideID == 3) {
             drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", true);
@@ -176,7 +176,7 @@ function mouseMoveColorspace(event) {
         if (mouseAboveSpaceObjectID != -1) {
           mouseAboveSpaceObjectID = -1;
           if (showSideID == 2) {
-            drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false);
+            drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false, false);
           }
           if (showSideID == 3) {
             drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", false);
@@ -357,7 +357,7 @@ function mouseDownColorspace() {
     }
 
     if (showSideID == 2) {
-      drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", true);
+      drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", true, true);
     }
     if (showSideID == 3) {
       drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", true);
@@ -406,7 +406,7 @@ function mouseUpColorspace() {
   mouseGrappedSpaceObjectID = -1;
   clearInterval(timer2DAnimation);
   if (showSideID == 2) {
-    drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", true);
+    drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", true, true);
   }
   if (showSideID == 3) {
     drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", true);
@@ -427,7 +427,7 @@ function mouseLeaveValuePlot(event) {
 
 
     if (showSideID == 2) {
-      drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false);
+      drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false, false);
     }
     if (showSideID == 3) {
       drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", false);
@@ -445,7 +445,7 @@ function checkInsideRect(centerPosX, centerPosY, i) {
       mousePosY > centerPosY + bigcircleRad) {
       mouseAboveSpaceObjectID = -1;
       if (showSideID == 2) {
-        drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false);
+        drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false, false);
       }
       if (showSideID == 3) {
         drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", false);
@@ -462,7 +462,7 @@ function checkInsideRect(centerPosX, centerPosY, i) {
       mousePosY <= centerPosY + circleRad) {
       mouseAboveSpaceObjectID = i;
       if (showSideID == 2) {
-        drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false);
+        drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false, false);
       }
       if (showSideID == 3) {
         drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", false);
@@ -483,7 +483,7 @@ function checkInsideCirce(centerPosX, centerPosY, i) {
     if (dis > bigcircleRad) {
       mouseAboveSpaceObjectID = -1;
       if (showSideID == 2) {
-        drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false);
+        drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false, false);
       }
       if (showSideID == 3) {
         drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", false);
@@ -497,7 +497,7 @@ function checkInsideCirce(centerPosX, centerPosY, i) {
     if (dis <= circleRad) {
       mouseAboveSpaceObjectID = i;
       if (showSideID == 2) {
-        drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false);
+        drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false, false);
       }
       if (showSideID == 3) {
         drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", false);

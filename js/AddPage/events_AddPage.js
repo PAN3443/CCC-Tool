@@ -185,7 +185,10 @@ function  createNewColormapRow(type, index, parent){
 
   var acceptButton = document.createElement("div");
   acceptButton.className = "class_buttonAddPage classButtonWhite";
-  acceptButton.style.backgroundImage = "url(img/acceptButton_black.png)";
+  //acceptButton.style.backgroundImage = "url(img/acceptButton_black.png)";
+  acceptButton.style.color = "black";
+  acceptButton.style.borderColor = "black";
+  acceptButton.innerHTML = "&#10004;";
   acceptButton.style.cursor = "pointer";
 
   acceptButton.onclick = (function(tmpIndex, tmpType) {
@@ -230,7 +233,8 @@ function  createNewColormapRow(type, index, parent){
 
 
         //addedPos = [];
-        this.style.backgroundImage = "url(img/acceptButton_black.png)";
+        //this.style.backgroundImage = "url(img/acceptButton_black.png)";
+        this.style.color = "black";
         this.style.borderColor = "black";
       }
       else{
@@ -241,8 +245,10 @@ function  createNewColormapRow(type, index, parent){
           myList.push(addPageGetColormap(tmpIndex, tmpType));
           colormap1SelectIndex=myList.length-1;
           globalColormap1=myList[myList.length-1];
-          this.style.backgroundImage = "url(img/acceptButton_blue.png)";
-          this.style.borderColor = "rgb(0,191,255)";
+          //this.style.backgroundImage = "url(img/acceptButton_blue.png)";
+          //this.style.borderColor = "rgb(0,191,255)";
+          this.style.color = styleActiveColor;
+          this.style.borderColor = styleActiveColor;
         }
 
       }

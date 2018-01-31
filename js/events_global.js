@@ -1,13 +1,13 @@
 function changeAnalyzeColorspace(type) {
 
-  document.getElementById("button_AnalyzeRGB").style.border = "0.2vh solid white";
-  document.getElementById("button_AnalyzeRGB").style.color = "white";
-  document.getElementById("button_AnalyzeHSV").style.border = "0.2vh solid white";
-  document.getElementById("button_AnalyzeHSV").style.color = "white";
-  document.getElementById("button_AnalyzeLAB").style.border = "0.2vh solid white";
-  document.getElementById("button_AnalyzeLAB").style.color = "white";
-  document.getElementById("button_AnalyzeDIN99").style.border = "0.2vh solid white";
-  document.getElementById("button_AnalyzeDIN99").style.color = "white";
+  document.getElementById("button_AnalyzeRGB").style.border = "0.2vh solid black";
+  document.getElementById("button_AnalyzeRGB").style.color = "black";
+  document.getElementById("button_AnalyzeHSV").style.border = "0.2vh solid black";
+  document.getElementById("button_AnalyzeHSV").style.color = "black";
+  document.getElementById("button_AnalyzeLAB").style.border = "0.2vh solid black";
+  document.getElementById("button_AnalyzeLAB").style.color = "black";
+  document.getElementById("button_AnalyzeDIN99").style.border = "0.2vh solid black";
+  document.getElementById("button_AnalyzeDIN99").style.color = "black";
 
   switch (type) {
     case 0:
@@ -44,10 +44,6 @@ function changeAnalyzeColorspace(type) {
   }
 
 }
-
-
-
-
 
 
 
@@ -162,15 +158,14 @@ function changeColorspace(type) {
     drawMyList();
   }
 
-  /*if (showSideID == 2) { // Analyse SIDE
-    orderColorSketch(colorspaceModus);
+
+  if (showSideID == 2) { // Analyse SIDE
     changeCourseSpace();
   }
 
-  if (showSideID == 3) { // Analyse SIDE
-    orderColorSketch(colorspaceModus);
+  if (showSideID == 3) { // Comnpare SIDE
     changeCourseSpaceCompare();
-  }*/
+  }
 
 
   if(showSideID == 4){
@@ -422,7 +417,7 @@ function changePage(type){
                 alert("Ask user if he want to save as new or replace the CMS");
                 myList[colormap1SelectIndex] = globalColormap1;
                 stopAnimation();
-                document.getElementById("id_AnalyseColorspace_Menue").style.display = "none";
+                //document.getElementById("id_AnalyseColorspace_Menue").style.display = "none";
     break;
 
     case 3:
@@ -439,7 +434,7 @@ function changePage(type){
                 myList[colormap1SelectIndex] = globalColormap1;
                 myList[colormap2SelectIndex] = globalColormap1;
                 stopAnimation();
-                document.getElementById("id_AnalyseColorspace_Menue").style.display = "none";
+                //document.getElementById("id_AnalyseColorspace_Menue").style.display = "none";
 
     break;
 
@@ -554,7 +549,7 @@ function changePage(type){
       showSideID = 2;
       document.getElementById("id_analysisPage").style.display = "inline-block";
       document.getElementById("button_showAnalyze").style.background = styleActiveColor;
-      document.getElementById("id_AnalyseColorspace_Menue").style.display = "inline";
+      //document.getElementById("id_AnalyseColorspace_Menue").style.display = "inline";
       initAnalysePage();
       break;
     case 5:
@@ -563,7 +558,7 @@ function changePage(type){
       showSideID = 3;
       document.getElementById("id_comparePage").style.display = "inline-block";
       document.getElementById("button_showCompare").style.background = styleActiveColor;
-      document.getElementById("id_AnalyseColorspace_Menue").style.display = "inline";
+      //document.getElementById("id_AnalyseColorspace_Menue").style.display = "inline";
       initComparePage();
       break;
     case 6:

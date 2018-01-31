@@ -459,7 +459,7 @@ function init_VPlot(colormapTmp, canvasID){
 
 }
 
-function drawcolormap_hueSpace(colormapTmp, canvasID, calcBackground){
+function drawcolormap_hueSpace(colormapTmp, canvasID, calcBackground,drawInterpolationLine){
 
   init_VPlot(colormapTmp,"id_anaylseValue");
 
@@ -506,6 +506,13 @@ function drawcolormap_hueSpace(colormapTmp, canvasID, calcBackground){
   if(bandSketch.getBandLenght()>0){
 
       /////////////////////////////////////////////////////////////////
+
+      if(drawInterpolationLine){
+        drawInterpolationLineInHSV(colormapTmp, colorspaceContexRG,colorspaceContexRB,colorspaceContexBG,xWidth,yHeight,xStart,yStart,intervalSize);
+      }
+      else{
+        drawInterpolationLineInHSV(colormapTmp, colorspaceContexRG,colorspaceContexRB,colorspaceContexBG,xWidth,yHeight,xStart,yStart,interactionIntervalSize);
+      }
 
        var twinStarted=false;
        var leftStarted=false;
@@ -1329,7 +1336,7 @@ function drawcolormap_hueSpace(colormapTmp, canvasID, calcBackground){
 }
 
 
-function drawcolormap_compare_hueSpace(colormapTmp, colormapTmp2, canvasID, calcBackground){
+function drawcolormap_compare_hueSpace(colormapTmp, colormapTmp2, canvasID, calcBackground,drawInterpolationLine){
 
   init_VPlot(colormapTmp,"id_compareValue");
 
@@ -1954,7 +1961,7 @@ function drawcolormap_compare_hueSpace(colormapTmp, colormapTmp2, canvasID, calc
 
   }
 
-////////////////////////////////////////////////////////
+ ////////////////////////////////////////////////////////
   // draw Colormap 1
   vPlotKeyPos = 0;
 

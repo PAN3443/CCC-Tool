@@ -98,7 +98,7 @@ class classColorMapSpecification {
       var tmpIntervalRef=[];
       var intervalDistance = (this.positionPoints[this.positionPoints.length-1]-this.positionPoints[0])/intervals;
 
-      for(i=0; i<=intervals; i++){
+      for(var i=0; i<=intervals; i++){
           var tmpVal = this.positionPoints[0]+(i*intervalDistance);
           tmpIntervalRef.push(tmpVal);
       }
@@ -106,7 +106,7 @@ class classColorMapSpecification {
 
       var currentKeyPos = 0;
 
-      for(i=0; i<tmpIntervalRef.length; i++){
+      for(var i=0; i<tmpIntervalRef.length; i++){
 
           if(tmpIntervalRef[i]==this.positionPoints[currentKeyPos]){
 

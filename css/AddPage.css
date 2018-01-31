@@ -79,4 +79,9 @@
   background-repeat:no-repeat;
   background-position: center center;
   border: 2px solid black;
+  line-height:2vw;
+  font-size:1.7vw;
+  font-weight:bold;
+  text-align:center;
+  vertical-align:middle;
 }

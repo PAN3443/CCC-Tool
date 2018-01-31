@@ -170,6 +170,8 @@
 
 
   <div class="sticky" style="width:100%; height:5vh; margin:0px;">
+
+
   <div class="row" style="width:100%; height:5vh;background:rgb(60,60,60); overflow-x:auto; margin-left:auto;">
     <div id="id_Create_Menue" style="height:100%; width: auto; display: none;">
       <div class="row" style="height:100%; width: auto;">
@@ -182,18 +184,6 @@
         <button class="classButtonDark" id="id_buttonBackwardCreateColormap" title="backward" style="border-radius: 0.3vh; background: url(img/backwardsButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white;"></button>
         <button class="classButtonDark" id="id_buttonForwardCreateColormap" title="forward" style="border-radius: 0.3vh; background: url(img/forwardsButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
         <button class="classButtonDark" id="id_buttonHelpCreateColormap" title="hover for help" style="border-radius: 0.3vh; background: url(img/helpButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
-      </div>
-    </div>
-
-
-    <div id="id_AnalyseColorspace_Menue" style="height:100%; width: auto; margin-right:auto; display:none;">
-      <div class="row" style="height:100%; width: auto;">
-
-        <h3 style="height:1.5cm; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:1cm; font-size:2vh;"> Analyze Colorspace: </h3>
-        <button class="classButtonDark" id="button_AnalyzeRGB" title="RGB" onclick="changeAnalyzeColorspace(0)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:3vh; font-size:1.75vh; margin:1vh; border: 0.2vh solid rgb(0,191,255); color: rgb(0,191,255); ">RGB</button>
-        <button class="classButtonDark" id="button_AnalyzeHSV" title="HSV" onclick="changeAnalyzeColorspace(1)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:3vh; font-size:1.75vh; margin:1vh; border: 0.2vh solid white; color:white; ">HSV</button>
-        <button class="classButtonDark" id="button_AnalyzeLAB" title="LAB" onclick="changeAnalyzeColorspace(2)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:3vh; font-size:1.75vh; margin:1vh; border: 0.2vh solid white; color:white; ">LAB</button>
-        <button class="classButtonDark" id="button_AnalyzeDIN99" title="DIN99" onclick="changeAnalyzeColorspace(3)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:3vh; font-size:1.75vh; margin:1vh; border: 0.2vh solid white; color:white;">DIN99</button>
       </div>
     </div>
 
@@ -232,7 +222,7 @@
         -->
 
 
-  <div style="width: 100%; height:auto; background:rgb(210,210,210); margin:0px;  padding-top:2vh; padding-bottom:2vh;">
+  <div style="width: 100%; height:auto; margin:0px; background:url(img/background2.png); padding-top:2vh; padding-bottom:2vh;">
 
     <!--
           -----------------------------------------------
@@ -366,7 +356,7 @@
         </p>
 
           <div class="dropdown" style="width:auto; margin-left:48%; margin-top:2vh; margin-bottom:2vh;">
-            <button class="dropbtn" style="border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 2vw; height:2vw; border: 2px solid black;"></button>
+            <button class="dropbtn" style="border-radius: 0.5vh; line-height:2vh; font-size:1.8vh; font-weight:bold; text-align:center; vertical-align:middle; width: 2vw; height:2vw; border: 2px solid black;">?</button>
             <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
               <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> Show me help, please!
@@ -485,7 +475,7 @@
 
 
                        <div class="dropdown" style="height:auto; width:auto; margin-left:2vw;">
-                         <button class="dropbtn" style="border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width:2.2vh; height:2.2vh; border: 2px solid black; margin-top:0px; margin-bottom:0px;"></button>
+                         <button class="dropbtn" style="border-radius: 0.5vh; line-height:2.2vh; font-size:1.8vh; font-weight:bold; text-align:center; vertical-align:middle; width:2.2vh; height:2.2vh; border: 2px solid black; margin-top:0px; margin-bottom:0px;">?</button>
                          <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
                            <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong>
@@ -550,7 +540,7 @@
                              <div id="editPage_Color1_1" class="row" style="margin-top: 5vh; margin-bottom: 0.5vh; width:100%; height: auto;">
                                <input class="class_RadioButtonLabelEditPage" style="margin-left: 10%; margin-right: 0px; widht:3%" type="radio" id="editSide_Radiobutton_SelectColor1" name="editPage_SelectColor" value="0" checked="checked">
                                <label class="class_RadioButtonLabelEditPage" style="font-weight: bold; widht:12%;" for="editSide_Radiobutton_SelectColor1" id="editSide_Radiobutton_SelectColor1_Label"> Color1: </label><br>
-                               <p class="class_RadioButtonLabelEditPage" style="margin:0px; margin-left:5%; width:10%">
+                               <p class="class_RadioButtonLabelEditPage" id="editColor1HSVLAbel" style="margin:0px; margin-left:5%; width:10%">
                                  HSV
                                </p>
                                <input id="id_editPageC1HInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
@@ -558,7 +548,7 @@
                                <input id="id_editPageC1VInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
                              </div>
                              <div id="editPage_Color1_2" class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
-                               <p class="class_RadioButtonLabelEditPage" style="margin:0px; margin-left:30%; width:10%">
+                               <p class="class_RadioButtonLabelEditPage" id="editColor1RGBLAbel" style="margin:0px; margin-left:30%; width:10%">
                                  RGB
                                </p>
                                <input id="id_editPageC1RInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
@@ -569,7 +559,7 @@
                              <div id="editPage_Color2_1" class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
                                <input class="class_RadioButtonLabelEditPage" style="margin-left: 10%; margin-right: 0px; widht:3%" type="radio" id="editSide_Radiobutton_SelectColor2" name="editPage_SelectColor" value="0" checked="checked">
                                <label class="class_RadioButtonLabelEditPage" style="font-weight: bold; widht:12%;" for="editSide_Radiobutton_SelectColor2" id="editSide_Radiobutton_SelectColor2_Label"> Color2: </label><br>
-                               <p class="class_RadioButtonLabelEditPage" style="margin:0px; margin-left:5%; width:10%">
+                               <p class="class_RadioButtonLabelEditPage" id="editColor2HSVLAbel" style="margin:0px; margin-left:5%; width:10%">
                                  HSV
                                </p>
                                <input id="id_editPageC2HInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
@@ -577,7 +567,7 @@
                                <input id="id_editPageC2VInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
                              </div>
                              <div id="editPage_Color2_2" class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
-                               <p class="class_RadioButtonLabelEditPage" style="margin:0px; margin-left:30%; width:10%">
+                               <p class="class_RadioButtonLabelEditPage" id="editColor2RGBLAbel" style="margin:0px; margin-left:30%; width:10%">
                                  RGB
                                </p>
                                <input id="id_editPageC2RInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
@@ -585,8 +575,6 @@
                                <input id="id_editPageC2BInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
                              </div>
                  </div>
-
-
 
                  <div style="margin-top: 2vh; width:50%; height: auto;">
                      <div class="row" style="margin-top: 1vh; margin-bottom: 0.5vh; width:100%; height: auto;">
@@ -683,16 +671,17 @@
   <div id="id_myListPage" style="width: 100%; height:auto; display:none;">
 
     <div style="margin-left:2%; width:96%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:white; box-shadow:  0.3vh  0.3vh grey;">
-      <h1 style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin-top:0vh; padding-top:2vh;"> Manage Your Colormap Specifications (CMS) </h1>
+      <h1 style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin: 0vh; padding-top:2vh;"> MyDesigns</h1>
+      <h1 style="width:100%; text-align:center; height:2vh; line-height:2vh; font-size:1.8vh; vertical-align:middle; margin:0vh; padding-top:0.5vh;"> (Manage Your Colormap Specifications (CMS)) </h1>
 
-        <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
+        <!--p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
         <strong>Welcome</strong> to the CCC-Tool. The following is a short instruction
         . For a comprehensive introduction please visit the tutorial ("Go to ..."  	&#8594;  Tutorial) and select one of the sections at the menu bar. The present page is the MyDesigns side, where you can manage your set of CMS and handle the available
         options for exporting, editing, analyzing and comparing colormaps. You can reach this window everytime by clicking on the "MyDesigns" button at the "Go to ..." menu. For a easy and fast start you can choose the option of adding an existing colormap (click on the "Add Existing CMS" button).
         The new displayed side show you a set of common used colormaps (made available by <a target="_blank" href="http://sciviscolor.org">sciviscolor.org</a> ). Your selection will automatically tranfer to this side. Alternative to the selction of a existing colormap you can create your own colormap, which
         meet your special requirements (click on the "Create New CMS" button). If you need help at the creator side please hover the questionmark button at the top for a short help or visit the tutorial.
         <strong>Start with:</strong>
-        <p>
+        <p-->
 
           <hr>
           <p id="id_myListInfo" style=" width:100%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; color:red;">
@@ -711,7 +700,7 @@
                   </div>
 
                   <button onclick="exportColormapFromMyDesigns(0)" class="classButtonWhite" id="id_buttonExportMyList0" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
-                  <button onclick="acceptColormapFromMyDesigns(0)" class="classButtonWhite" id="id_buttonAcceptMyList0" title="select" style="border-radius: 0.5vh; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;line-height:5vh; font-size:4vh; font-weight:bold;text-align:center; vertical-align:middle;">&#10003;</button>
+                  <button onclick="acceptColormapFromMyDesigns(0)" class="classButtonWhite" id="id_buttonAcceptMyList0" title="select" style="border-radius: 0.5vh; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;line-height:5vh; font-size:4vh; font-weight:bold;text-align:center; vertical-align:middle;">&#10004;</button>
                   <button onclick="deletetColormapFromMyDesigns(0)" class="classButtonWhite" id="id_buttonDeleteMyList0" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:2%;"></button>
                   <div id="id_placeHolderMyList0" style="width: 5vh; height:5vh; padding-left:2%; display:none;"></div>
 
@@ -729,7 +718,7 @@
                   </div>
 
                   <button onclick="exportColormapFromMyDesigns(5)" class="classButtonWhite" id="id_buttonExportMyList5" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
-                  <button onclick="acceptColormapFromMyDesigns(5)" class="classButtonWhite" id="id_buttonAcceptMyList5" title="select" style="border-radius: 0.5vh; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;line-height:5vh; font-size:4vh; font-weight:bold;text-align:center; vertical-align:middle;">&#10003;</button>
+                  <button onclick="acceptColormapFromMyDesigns(5)" class="classButtonWhite" id="id_buttonAcceptMyList5" title="select" style="border-radius: 0.5vh; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;line-height:5vh; font-size:4vh; font-weight:bold;text-align:center; vertical-align:middle;">&#10004;</button>
                   <button onclick="deletetColormapFromMyDesigns(5)" class="classButtonWhite" id="id_buttonDeleteMyList5" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto;"></button>
                   <div id="id_placeHolderMyList5" style="width: 5vh; height:5vh; padding-left:2%; display:none;"></div>
 
@@ -749,7 +738,7 @@
                   </div>
 
                   <button onclick="exportColormapFromMyDesigns(1)" class="classButtonWhite" id="id_buttonExportMyList1" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
-                  <button onclick="acceptColormapFromMyDesigns(1)" class="classButtonWhite" id="id_buttonAcceptMyList1" title="select" style="border-radius: 0.5vh; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;line-height:5vh; font-size:4vh; font-weight:bold;text-align:center; vertical-align:middle;">&#10003;</button>
+                  <button onclick="acceptColormapFromMyDesigns(1)" class="classButtonWhite" id="id_buttonAcceptMyList1" title="select" style="border-radius: 0.5vh; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;line-height:5vh; font-size:4vh; font-weight:bold;text-align:center; vertical-align:middle;">&#10004;</button>
                   <button onclick="deletetColormapFromMyDesigns(1)" class="classButtonWhite" id="id_buttonDeleteMyList1" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:2%;"></button>
                   <div id="id_placeHolderMyList1" style="width: 5vh; height:5vh; padding-left:2%; display:none;"></div>
 
@@ -766,7 +755,7 @@
                   </div>
 
                   <button onclick="exportColormapFromMyDesigns(6)" class="classButtonWhite" id="id_buttonExportMyList6" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
-                  <button onclick="acceptColormapFromMyDesigns(6)" class="classButtonWhite" id="id_buttonAcceptMyList6" title="select" style="border-radius: 0.5vh; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; line-height:5vh; font-size:4vh; font-weight:bold;text-align:center; vertical-align:middle;">&#10003;</button>
+                  <button onclick="acceptColormapFromMyDesigns(6)" class="classButtonWhite" id="id_buttonAcceptMyList6" title="select" style="border-radius: 0.5vh; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; line-height:5vh; font-size:4vh; font-weight:bold;text-align:center; vertical-align:middle;">&#10004;</button>
                   <button onclick="deletetColormapFromMyDesigns(6)" class="classButtonWhite" id="id_buttonDeleteMyList6" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto;"></button>
                   <div id="id_placeHolderMyList6" style="width: 5vh; height:5vh; padding-left:2%; display:none;"></div>
 
@@ -786,7 +775,7 @@
                   </div>
 
                   <button onclick="exportColormapFromMyDesigns(2)" class="classButtonWhite" id="id_buttonExportMyList2" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
-                  <button onclick="acceptColormapFromMyDesigns(2)" class="classButtonWhite" id="id_buttonAcceptMyList2" title="select" style="border-radius: 0.5vh; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;line-height:5vh; font-size:4vh; font-weight:bold;text-align:center; vertical-align:middle;">&#10003;</button>
+                  <button onclick="acceptColormapFromMyDesigns(2)" class="classButtonWhite" id="id_buttonAcceptMyList2" title="select" style="border-radius: 0.5vh; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;line-height:5vh; font-size:4vh; font-weight:bold;text-align:center; vertical-align:middle;">&#10004;</button>
                   <button onclick="deletetColormapFromMyDesigns(2)" class="classButtonWhite" id="id_buttonDeleteMyList2" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:2%;"></button>
                   <div id="id_placeHolderMyList2" style="width: 5vh; height:5vh; padding-left:2%; display:none;"></div>
 
@@ -803,7 +792,7 @@
                   </div>
 
                   <button onclick="exportColormapFromMyDesigns(7)" class="classButtonWhite" id="id_buttonExportMyList7" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
-                  <button onclick="acceptColormapFromMyDesigns(7)" class="classButtonWhite" id="id_buttonAcceptMyList7" title="select" style="border-radius: 0.5vh; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;line-height:5vh; font-size:4vh; font-weight:bold;text-align:center; vertical-align:middle;">&#10003;</button>
+                  <button onclick="acceptColormapFromMyDesigns(7)" class="classButtonWhite" id="id_buttonAcceptMyList7" title="select" style="border-radius: 0.5vh; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;line-height:5vh; font-size:4vh; font-weight:bold;text-align:center; vertical-align:middle;">&#10004;</button>
                   <button onclick="deletetColormapFromMyDesigns(7)" class="classButtonWhite" id="id_buttonDeleteMyList7" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto;"></button>
                   <div id="id_placeHolderMyList7" style="width: 5vh; height:5vh; padding-left:2%; display:none;"></div>
 
@@ -823,7 +812,7 @@
                   </div>
 
                   <button onclick="exportColormapFromMyDesigns(3)" class="classButtonWhite" id="id_buttonExportMyList3" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
-                  <button onclick="acceptColormapFromMyDesigns(3)" class="classButtonWhite" id="id_buttonAcceptMyList3" title="select" style="border-radius: 0.5vh; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;line-height:5vh; font-size:4vh; font-weight:bold;text-align:center; vertical-align:middle;">&#10003;</button>
+                  <button onclick="acceptColormapFromMyDesigns(3)" class="classButtonWhite" id="id_buttonAcceptMyList3" title="select" style="border-radius: 0.5vh; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;line-height:5vh; font-size:4vh; font-weight:bold;text-align:center; vertical-align:middle;">&#10004;</button>
                   <button onclick="deletetColormapFromMyDesigns(3)" class="classButtonWhite" id="id_buttonDeleteMyList3" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:2%;"></button>
                   <div id="id_placeHolderMyList3" style="width: 5vh; height:5vh; padding-left:2%; display:none;"></div>
 
@@ -840,7 +829,7 @@
                   </div>
 
                   <button onclick="exportColormapFromMyDesigns(8)" class="classButtonWhite" id="id_buttonExportMyList8" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
-                  <button onclick="acceptColormapFromMyDesigns(8)" class="classButtonWhite" id="id_buttonAcceptMyList8" title="select" style="border-radius: 0.5vh; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;line-height:5vh; font-size:4vh; font-weight:bold;text-align:center; vertical-align:middle;">&#10003;</button>
+                  <button onclick="acceptColormapFromMyDesigns(8)" class="classButtonWhite" id="id_buttonAcceptMyList8" title="select" style="border-radius: 0.5vh; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;line-height:5vh; font-size:4vh; font-weight:bold;text-align:center; vertical-align:middle;">&#10004;</button>
                   <button onclick="deletetColormapFromMyDesigns(8)" class="classButtonWhite" id="id_buttonDeleteMyList8" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto;"></button>
                   <div id="id_placeHolderMyList8" style="width: 5vh; height:5vh; padding-left:2%; display:none;"></div>
 
@@ -860,7 +849,7 @@
                   </div>
 
                   <button onclick="exportColormapFromMyDesigns(4)" class="classButtonWhite" id="id_buttonExportMyList4" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
-                  <button onclick="acceptColormapFromMyDesigns(4)" class="classButtonWhite" id="id_buttonAcceptMyList4" title="select" style="border-radius: 0.5vh; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;line-height:5vh; font-size:4vh; font-weight:bold;text-align:center; vertical-align:middle;">&#10003;</button>
+                  <button onclick="acceptColormapFromMyDesigns(4)" class="classButtonWhite" id="id_buttonAcceptMyList4" title="select" style="border-radius: 0.5vh; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;line-height:5vh; font-size:4vh; font-weight:bold;text-align:center; vertical-align:middle;">&#10004;</button>
                   <button onclick="deletetColormapFromMyDesigns(4)" class="classButtonWhite" id="id_buttonDeleteMyList4" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:2%;"></button>
                   <div id="id_placeHolderMyList4" style="width: 5vh; height:5vh; padding-left:2%; display:none;"></div>
 
@@ -877,7 +866,7 @@
                   </div>
 
                   <button onclick="exportColormapFromMyDesigns(9)" class="classButtonWhite" id="id_buttonExportMyList9" title="export" style="border-radius: 0.5vh; background: url(img/exportButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;"></button>
-                  <button onclick="acceptColormapFromMyDesigns(9)" class="classButtonWhite" id="id_buttonAcceptMyList9" title="select" style="border-radius: 0.5vh; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;line-height:5vh; font-size:4vh; font-weight:bold;text-align:center; vertical-align:middle;">&#10003;</button>
+                  <button onclick="acceptColormapFromMyDesigns(9)" class="classButtonWhite" id="id_buttonAcceptMyList9" title="select" style="border-radius: 0.5vh; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;line-height:5vh; font-size:4vh; font-weight:bold;text-align:center; vertical-align:middle;">&#10004;</button>
                   <button onclick="deletetColormapFromMyDesigns(9)" class="classButtonWhite" id="id_buttonDeleteMyList9" title="delete" style="border-radius: 0.5vh; background: url(img/trashButton_grey.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; margin-right:auto;"></button>
                   <div id="id_placeHolderMyList9" style="width: 5vh; height:5vh; padding-left:2%; display:none;"></div>
 
@@ -1044,7 +1033,7 @@
         </div>
 
         <div style="margin-left:10%; width:80%; height:auto; margin-top:2vh; margin-bottom: 0px; background:rgb(245,245,245); padding-top:0.5vh; padding-bottom:0.5vh;box-shadow: 0.3vh 0 0.3vh 0 grey; top:5vh;">
-          <button id="addCMS_ShowHelp" style="border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 2vw; height:2vw; border: 2px solid black; margin-left:39vw; "></button>
+          <button id="addCMS_ShowHelp" style="border-radius: 0.5vh; line-height:2vw; font-size:1.7vw; font-weight:bold; text-align:center; vertical-align:middle; width: 2vw; height:2vw; border: 2px solid black; margin-left:39vw; ">?</button>
         </div>
         <div  id="addCMS_help" style="margin-left:10%; width:80%; height:auto; margin-top:0px; margin-bottom: 2vh; background:rgb(245,245,245); padding-top:2vh; padding-bottom:2vh; box-shadow:  0.3vh  0.3vh grey; display:none;">
 
@@ -1238,7 +1227,7 @@
     </div>
     <h4 style="width:auto; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Colormap Course</h4>
     <div class="dropdown" style="width:auto; margin-right:auto;">
-      <button class="dropbtn" style="border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 2.5vh; height:2.5vh; margin-left:2vh; border: 2px solid black; margin-top:auto; margin-bottom:auto;"></button>
+      <button class="dropbtn" style="border-radius: 0.5vh; line-height:2.5vh; font-size:2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 2.5vh; height:2.5vh; margin-left:2vh; border: 2px solid black; margin-top:auto; margin-bottom:auto;">?</button>
       <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
         <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> With the analyze of the colormap course you can see how the colormap run inside the different colorspaces. Switch the colorspace to display the different colorspace visualizations.
@@ -1368,7 +1357,7 @@
       </div>
       <p class="classAnalyseLabel"> : Constant Band </p>
       <div class="dropdown" style="width:auto; margin-right:auto;">
-        <button class="dropbtn" style="margin-right:1vw; border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:1.5vh; margin-bottom:auto;"></button>
+        <button class="dropbtn" style="margin-right:1vw; border-radius: 0.5vh; line-height:3vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:1.5vh; margin-bottom:auto;">?</button>
         <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
           <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:20vw; "> <strong>INFO:</strong> Constant bands define one color for a certain section. Inside of the visualization, a constant band will be represented by squares.
@@ -1386,7 +1375,7 @@
               </svg>
     <p class="classAnalyseLabel">: Scaled Band </p>
     <div class="dropdown" style="width:auto;">
-      <button class="dropbtn" style=" margin-right:1vw; border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:1.5vh; margin-bottom:auto;"></button>
+      <button class="dropbtn" style=" margin-right:1vw; border-radius: 0.5vh; line-height:3vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:1.5vh; margin-bottom:auto;">?</button>
       <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
         <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:20vw; "> <strong>INFO:</strong> Scaled bands define a color gradient for a certain section. Intermediate colors will be interpolate inside the selected colorspace. Inside of the visualization, a scaled band will be represented by two circles and a solid line.
@@ -1404,7 +1393,7 @@
               </svg>
       <p class="classAnalyseLabel">: Jump</p>
       <div class="dropdown" style="width:auto; margin-right:auto;">
-        <button class="dropbtn" style=" margin-right:1vw; border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:1.5vh; margin-bottom:auto;"></button>
+        <button class="dropbtn" style=" margin-right:1vw; border-radius: 0.5vh; line-height:3vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:1.5vh; margin-bottom:auto;">?</button>
         <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3; right: 2vw;">
 
           <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:20vw; float:right:"> <strong>INFO:</strong> If a neighbor of a band has a different start (end) color as the end (start) color of this band, there is a jump between the band and his neighbor.
@@ -1424,7 +1413,7 @@
       </div>
       <h4 style="width:auto; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Contrast of Colormap in Different Colorspaces</h4>
       <div class="dropdown" style="width:auto; margin-right:auto;">
-        <button class="dropbtn" style="border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 2.5vh; height:2.5vh; margin-left:2vh; border: 2px solid black; margin-top:auto; margin-bottom:auto;"></button>
+        <button class="dropbtn" style="border-radius: 0.5vh; line-height:2.5vh; font-size:2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 2.5vh; height:2.5vh; margin-left:2vh; border: 2px solid black; margin-top:auto; margin-bottom:auto;">?</button>
         <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
           <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> The following visualizations of the colormap are showing you, how different the interpolated colors look like inside the different colorspaces.
@@ -1549,7 +1538,7 @@
       </div>
       <h4 style="width:auto; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Analyze of the Difference Metrics</h4>
       <div class="dropdown" style="width:auto; margin-right:auto;">
-        <button class="dropbtn" style="border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 2.5vh; height:2.5vh; margin-left:2vh; border: 2px solid black; margin-top:auto; margin-bottom:auto;"></button>
+        <button class="dropbtn" style="border-radius: 0.5vh; line-height:2.5vh; font-size:2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 2.5vh; height:2.5vh; margin-left:2vh; border: 2px solid black; margin-top:auto; margin-bottom:auto;">?</button>
         <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
           <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> The following visualizations are showing you the ratio value of the euclidean distances and the metrics (DE94, CIEDE2000)
@@ -1751,11 +1740,11 @@
     <div id="analyzeColormapPath">
 
 
-      <div class="row">
+      <div class="row" style="padding-top:4vh; padding-bottom:4vh;">
         <!--h4 style="width:auto; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px; margin-left:auto;">Colormap Course</h4-->
-        <h1 style="width:auto; text-align:center; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin-top:0vh; padding-top:2vh; margin-left:auto;"> Colormap Course </h1>
+        <h1 style="width:auto; text-align:center; height:4vh; line-height:4vh; font-size:4vh; margin:0px; vertical-align:middle; margin-left:auto;"> Colormap Path </h1>
         <div class="dropdown" style="width:auto; margin-right:auto;">
-          <button class="dropbtn" style="border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:0.5vh; margin-bottom:0.5vh;"></button>
+          <button class="dropbtn" style="border-radius: 0.5vh; line-height:4vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 4vh; height:4vh;  margin-left:2vh; border: 2px solid black;">?</button>
           <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
             <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> With the analyze of the colormap course you can see how the colormap run inside the different colorspaces. Switch the colorspace to display the different colorspace visualizations.
@@ -1768,8 +1757,26 @@
         </div>
       </div>
 
+      <hr>
+
+      <!-- select colorspace -->
+      <div id="id_AnalyseColorspace_Menue" style="height:100%; width:auto; margin-top:2vh; margin-bottom:2vh; ">
+        <div class="row" style="height:100%;">
+          <p style="height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:1cm; font-size:3vh; color:black;  margin-left:auto;"><strong>Choose</strong> a Colorspace for the Analyze: </p>
+          <button class="classButtonWhite" id="button_AnalyzeRGB" title="RGB" onclick="changeAnalyzeColorspace(0)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid rgb(0,191,255); color: rgb(0,191,255); ">RGB</button>
+          <button class="classButtonWhite" id="button_AnalyzeHSV" title="HSV" onclick="changeAnalyzeColorspace(1)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid black; color:black; ">HSV</button>
+          <button class="classButtonWhite" id="button_AnalyzeLAB" title="LAB" onclick="changeAnalyzeColorspace(2)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid black; color:black; ">LAB</button>
+          <button class="classButtonWhite" id="button_AnalyzeDIN99" title="DIN99" onclick="changeAnalyzeColorspace(3)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid black; color:black; margin-right:auto;">DIN99</button>
+        </div>
+        <p style="width:50%; text-align:justify; height:auto; line-height:1.9vh; font-size:1.8vh; vertical-align:middle; margin-left:25%;margin-right:25%;">
+        <strong>Info:</strong> Please note that this colorspace and the colorspace for the interpolation are <strong>different</strong> options!!!
+        <p>
+      </div>
+
+      <hr>
+
       <!-- Legend -->
-      <div class="row" style="width:100%; height:6vh; border-bottom: 1px solid rgb(120,120,120); border-top: 1px solid rgb(120,120,120); background:rgb(240,240,240);">
+      <div class="row" style="width:80%; height:4vh; border: 1px solid rgb(120,120,120); background:rgb(240,240,240); margin-left:10%; margin-top:4vh;">
         <p class="classAnalyseLabel" style="margin-left:auto; width:auto; font-weight:bold; margin-right:1vw;"> Legend:</p>
 
         <div class="row" style="height:100%; border-right: 1px solid rgb(120,120,120);">
@@ -1777,7 +1784,7 @@
           </div>
           <p class="classAnalyseLabel"> : Constant Band </p>
           <div class="dropdown" style="width:auto; margin-right:auto;">
-            <button class="dropbtn" style="margin-right:1vw; border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:1.5vh; margin-bottom:auto;"></button>
+            <button class="dropbtn" style="margin-right:1vw; border-radius: 0.5vh; line-height:3vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:0.5vh; margin-bottom:auto;">?</button>
             <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
               <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:20vw; "> <strong>INFO:</strong> Constant bands define one color for a certain section. Inside of the visualization, a constant band will be represented by squares.
@@ -1788,7 +1795,7 @@
 
 
         <div class="row" style="height:100%; border-right: 1px solid rgb(120,120,120);">
-          <svg style="margin-left:1vw; margin-right:0.5vw; height;4vh; width:20vw;">
+          <svg style="margin-left:1vw; margin-right:0.5vw; height;4vh; width:15vw;">
                   <line x1="10%" y1="50%" x2="90%" y2="50%" style="stroke:rgb(0,0,0);stroke-width:9" />
                   <line x1="10%" y1="50%" x2="90%" y2="50%" style="stroke:rgb(255,255,255);stroke-width:3" />
                   <circle cx="10%" cy="50%" r="5%" stroke="black" stroke-width="3" fill="white" />
@@ -1796,7 +1803,7 @@
               </svg>
           <p class="classAnalyseLabel">: Scaled Band </p>
           <div class="dropdown" style="width:auto;">
-            <button class="dropbtn" style=" margin-right:1vw; border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:1.5vh; margin-bottom:auto;"></button>
+            <button class="dropbtn" style=" margin-right:1vw; border-radius: 0.5vh; line-height:3vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:0.5vh; margin-bottom:auto;">?</button>
             <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
               <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:20vw; "> <strong>INFO:</strong> Scaled bands define a color gradient for a certain section. Intermediate colors will be interpolate inside the selected colorspace. Inside of the visualization, a scaled band will be represented by two circles and a solid line.
@@ -1810,13 +1817,13 @@
 
 
         <div class="row" style="height:100%; margin-right:auto; mardin-left:0px;">
-          <svg style="margin-left:1vw; margin-right:0.5vw; height;4vh; width:20vw;">
+          <svg style="margin-left:1vw; margin-right:0.5vw; height;4vh; width:10vw;">
                 <line x1="10%" y1="50%" x2="90%" y2="50%" stroke-dasharray="10,5" style="stroke:rgb(0,0,0);stroke-width:9" />
                 <line x1="10%" y1="50%" x2="90%" y2="50%" stroke-dasharray="10,5" style="stroke:rgb(255,255,255);stroke-width:3" />
             </svg>
           <p class="classAnalyseLabel">: Jump</p>
           <div class="dropdown" style="width:auto;">
-            <button class="dropbtn" style=" margin-right:1vw; border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:1.5vh; margin-bottom:auto;"></button>
+            <button class="dropbtn" style=" margin-right:1vw; border-radius: 0.5vh; line-height:3vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:0.5vh; margin-bottom:auto;">?</button>
             <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3; right: 2vw;">
 
               <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:20vw;"> <strong>INFO:</strong> If a neighbor of a band has a different start (end) color as the end (start) color of this band, there is a jump between the band and his neighbor.
@@ -1830,7 +1837,7 @@
 
 
       <!-- Preview -->
-      <div class="row" style="width:100%; height:auto; margin-bottom:1vh; margin-top:2vh;">
+      <!--div class="row" style="width:100%; height:auto; margin-bottom:1vh; margin-top:2vh;">
 
           <p class="classAnalyseLabel" style="margin-left:10%; width:auto; font-weight:bold; margin-right:2%;"> Local Speed Map: </p>
 
@@ -1848,7 +1855,9 @@
           </div>
 
 
-      </div>
+      </div-->
+
+
 
 
       <div id='id_hueValueOptions' style="display:none;">
@@ -1970,7 +1979,7 @@
                   </div>
                   <h4 style="width:auto; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Analyze of the Difference Metrics</h4>
                   <div class="dropdown" style="width:auto; margin-right:auto;">
-                    <button class="dropbtn" style="border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 2.5vh; height:2.5vh; margin-left:2vh; border: 2px solid black; margin-top:auto; margin-bottom:auto;"></button>
+                    <button class="dropbtn" style="border-radius: 0.5vh; line-height:2.5vh; font-size:2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 2.5vh; height:2.5vh; margin-left:2vh; border: 2px solid black; margin-top:auto; margin-bottom:auto;">?</button>
                     <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
                       <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> The following visualizations are showing you the ratio value of the euclidean distances and the metrics (DE94, CIEDE2000)
@@ -2132,7 +2141,7 @@
                     </div>
                     <h4 style="width:auto; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Contrast of Colormap in Different Colorspaces</h4>
                     <div class="dropdown" style="width:auto; margin-right:auto;">
-                      <button class="dropbtn" style="border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 2.5vh; height:2.5vh; margin-left:2vh; border: 2px solid black; margin-top:auto; margin-bottom:auto;"></button>
+                      <button class="dropbtn" style="border-radius: 0.5vh; line-height:2.5vh; font-size:2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 2.5vh; height:2.5vh; margin-left:2vh; border: 2px solid black; margin-top:auto; margin-bottom:auto;">?</button>
                       <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
                         <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> The following visualizations of the colormap are showing you, how different the interpolated colors look like inside the different colorspaces.
@@ -3169,7 +3178,7 @@
         <div style="width:35%; margin-left:auto; background:rgb(255,255,255);  margin-right:auto; height:27vh; margin-top:0px;">
           <h3 style="height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:black; font-size:4vh;">Options:</h3>
           <div class="row" style=" height:10vh; padding-top:5vh; width:100%;">
-            <button title="help" id="helpBandEdit" style="border-radius: 0.3vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 10vh; height:10vh; margin-right:2vh; margin-left:auto; border: 0.4vh solid black; "></button>
+            <button title="help" id="helpBandEdit" style="border-radius: 0.3vh; line-height:10vh; font-size:8vh; font-weight:bold; text-align:center; vertical-align:middle; width: 10vh; height:10vh; margin-right:2vh; margin-left:auto; border: 0.4vh solid black; ">?</button>
             <button title="delete" id="deleteBandEdit" style="border-radius: 0.3vh; background: url(img/trashButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 10vh; height:10vh; margin-left:0px; margin-right:auto; border: 0.4vh solid black; "></button>
           </div>
           <div class="row" style=" height:10vh; margin-top:2vh; padding-bottom:1vh; width:100%;">
@@ -3407,7 +3416,7 @@
             <p class="exportSide_OptionRow_Element">Interval Colorspace Approximation</p>
 
             <div class="dropdown" style="z-index:57;">
-              <button class="dropbtn" style="border-radius: 0.5vh; background: url(img/helpButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; "></button>
+              <button class="dropbtn" style="border-radius: 0.5vh; line-height:3vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; ">?</button>
               <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:57;">
 
                 <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> With the interval approximation of a colorspace you can export your colormap in a colorspace and approximate this colormap to another colorspace. So you can choose a colorspace for the export, which is supported

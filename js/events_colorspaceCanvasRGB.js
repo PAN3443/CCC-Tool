@@ -26,13 +26,13 @@ function rgb2DAnimation(){
   orderColorSketch(colorspaceModus);
   if (showSideID == 2) {
     drawcolormap_RGBSpace(globalColormap1, "id_canvasRG","id_canvasRB","id_canvasBG", false, false); //drawcolormap_hueSpace(globalColormap1, "id_workcanvasAnalyseHue");
-    drawAnalyseMapPreviews();
-    drawAnalyseDifferenceMaps();
+    //drawAnalyseMapPreviews();
+    //drawAnalyseDifferenceMaps();
   }
   if (showSideID == 3) {
     drawcolormap_compare_RGBSpace(globalColormap1, globalColormap2, "id_canvasRGCompare","id_canvasRBCompare","id_canvasBGCompare", false, false);
-    drawCompareMapPreviews();
-    drawCompareDifferenceMaps();
+    //drawCompareMapPreviews();
+    //drawCompareDifferenceMaps();
   }
 
 

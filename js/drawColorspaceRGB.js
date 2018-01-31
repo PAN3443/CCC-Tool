@@ -616,7 +616,7 @@ function drawcolormap_RGBSpace(colormapTmp, canvasIDRG,canvasIDRB, canvasIDBG, c
 
 function drawInterpolationLineInRGB(colormapTmp, colorspaceContexRG,colorspaceContexRB,colorspaceContexBG,xWidth,yHeight,xStart,yStart, interval){
 
-  var intervalColormap = colormapTmp.calcColorMap(20, colorspaceModus);
+  var intervalColormap = colormapTmp.calcColorMap(100, colorspaceModus);
 
   var tmpColor,tmpColor2, xPos, xPos2, yPos, yPos2;
 

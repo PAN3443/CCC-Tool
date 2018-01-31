@@ -253,7 +253,7 @@ window.onload = function() {
 
   document.getElementById('id_setOpacityRange').addEventListener("change", changeOpacityRange);
 
-  document.getElementById('analyse_SelectMetric').addEventListener("change", drawAnalyseDifferenceMaps);
+  //document.getElementById('analyse_SelectMetric').addEventListener("change", drawAnalyseDifferenceMaps);
   //styleAnalysisPage();
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -253,23 +253,74 @@ function selectKey(){
     case "nil key":
       document.getElementById("editSide_Radiobutton_KeyTypeNil").checked = true;
 
-      document.getElementById("editPage_Color1_1").style.visibility="hidden";
-      document.getElementById("editPage_Color1_2").style.visibility="hidden";
-      document.getElementById("editPage_Color2_1").style.visibility="hidden";
-      document.getElementById("editPage_Color2_2").style.visibility="hidden";
-      document.getElementById("editSide_Radiobutton_SelectColor1").style.visibility="hidden";
-      document.getElementById("editSide_Radiobutton_SelectColor2").style.visibility="hidden";
+      document.getElementById("editSide_Radiobutton_SelectColor1").disabled = true;
+      document.getElementById("editSide_Radiobutton_SelectColor1_Label").style.color = "grey";
+      document.getElementById("id_editPageC1HInput").style.background = "grey";
+      document.getElementById("id_editPageC1SInput").style.background = "grey";
+      document.getElementById("id_editPageC1VInput").style.background = "grey";
+      document.getElementById("id_editPageC1RInput").style.background = "grey";
+      document.getElementById("id_editPageC1GInput").style.background = "grey";
+      document.getElementById("id_editPageC1BInput").style.background = "grey";
+      document.getElementById("id_editPageC1HInput").value = "";
+      document.getElementById("id_editPageC1SInput").value = "";
+      document.getElementById("id_editPageC1VInput").value = "";
+      document.getElementById("id_editPageC1RInput").value = "";
+      document.getElementById("id_editPageC1GInput").value = "";
+      document.getElementById("id_editPageC1BInput").value = "";
+      document.getElementById("editColor1HSVLAbel").style.color = "grey";
+      document.getElementById("editColor1RGBLAbel").style.color = "grey";
+
+
+
+
+
+      document.getElementById("editSide_Radiobutton_SelectColor2").disabled = true;
+      document.getElementById("editSide_Radiobutton_SelectColor2_Label").style.color = "grey";
+      document.getElementById("id_editPageC2HInput").style.background = "grey";
+      document.getElementById("id_editPageC2SInput").style.background = "grey";
+      document.getElementById("id_editPageC2VInput").style.background = "grey";
+      document.getElementById("id_editPageC2RInput").style.background = "grey";
+      document.getElementById("id_editPageC2GInput").style.background = "grey";
+      document.getElementById("id_editPageC2BInput").style.background = "grey";
+      document.getElementById("id_editPageC2HInput").value = "";
+      document.getElementById("id_editPageC2SInput").value = "";
+      document.getElementById("id_editPageC2VInput").value = "";
+      document.getElementById("id_editPageC2RInput").value = "";
+      document.getElementById("id_editPageC2GInput").value = "";
+      document.getElementById("id_editPageC2BInput").value = "";
+      document.getElementById("editColor2HSVLAbel").style.color = "grey";
+      document.getElementById("editColor2RGBLAbel").style.color = "grey";
+
+
+
+
+
       selectedColor=-1;
       break;
     case "twin key":
       document.getElementById("editSide_Radiobutton_KeyTypeTwin").checked = true;
-
-      document.getElementById("editPage_Color1_1").style.visibility="visible";
-      document.getElementById("editPage_Color1_2").style.visibility="visible";
-      document.getElementById("editPage_Color2_1").style.visibility="visible";
-      document.getElementById("editPage_Color2_2").style.visibility="visible";
       document.getElementById("editSide_Radiobutton_SelectColor1").checked = true;
+      document.getElementById("editSide_Radiobutton_SelectColor1").disabled = false;
+      document.getElementById("editSide_Radiobutton_SelectColor1_Label").style.color = "black";
+      document.getElementById("id_editPageC1HInput").style.background = "white";
+      document.getElementById("id_editPageC1SInput").style.background = "white";
+      document.getElementById("id_editPageC1VInput").style.background = "white";
+      document.getElementById("id_editPageC1RInput").style.background = "white";
+      document.getElementById("id_editPageC1GInput").style.background = "white";
+      document.getElementById("id_editPageC1BInput").style.background = "white";
+      document.getElementById("editColor1HSVLAbel").style.color = "black";
+      document.getElementById("editColor1RGBLAbel").style.color = "black";
 
+      document.getElementById("editSide_Radiobutton_SelectColor2").disabled = false;
+      document.getElementById("editSide_Radiobutton_SelectColor2_Label").style.color = "black";
+      document.getElementById("id_editPageC2HInput").style.background = "white";
+      document.getElementById("id_editPageC2SInput").style.background = "white";
+      document.getElementById("id_editPageC2VInput").style.background = "white";
+      document.getElementById("id_editPageC2RInput").style.background = "white";
+      document.getElementById("id_editPageC2GInput").style.background = "white";
+      document.getElementById("id_editPageC2BInput").style.background = "white";
+      document.getElementById("editColor2HSVLAbel").style.color = "black";
+      document.getElementById("editColor2RGBLAbel").style.color = "black";
 
       editColor1=bandSketch.getC2Color(selectedKey-1,"rgb");
       editColor2=bandSketch.getC1Color(selectedKey,"rgb");
@@ -281,11 +332,33 @@ function selectKey(){
       break;
     case "left key":
       document.getElementById("editSide_Radiobutton_KeyTypeLeft").checked = true;
-      document.getElementById("editPage_Color1_1").style.visibility="visible";
-      document.getElementById("editPage_Color1_2").style.visibility="visible";
-      document.getElementById("editPage_Color2_1").style.visibility="hidden";
-      document.getElementById("editPage_Color2_2").style.visibility="hidden";
-      document.getElementById("editSide_Radiobutton_SelectColor1").checked = true;
+      document.getElementById("editSide_Radiobutton_SelectColor1").disabled = false;
+      document.getElementById("editSide_Radiobutton_SelectColor1_Label").style.color = "black";
+      document.getElementById("id_editPageC1HInput").style.background = "white";
+      document.getElementById("id_editPageC1SInput").style.background = "white";
+      document.getElementById("id_editPageC1VInput").style.background = "white";
+      document.getElementById("id_editPageC1RInput").style.background = "white";
+      document.getElementById("id_editPageC1GInput").style.background = "white";
+      document.getElementById("id_editPageC1BInput").style.background = "white";
+      document.getElementById("editColor1HSVLAbel").style.color = "black";
+      document.getElementById("editColor1RGBLAbel").style.color = "black";
+
+      document.getElementById("editSide_Radiobutton_SelectColor2").disabled = true;
+      document.getElementById("editSide_Radiobutton_SelectColor2_Label").style.color = "grey";
+      document.getElementById("id_editPageC2HInput").style.background = "grey";
+      document.getElementById("id_editPageC2SInput").style.background = "grey";
+      document.getElementById("id_editPageC2VInput").style.background = "grey";
+      document.getElementById("id_editPageC2RInput").style.background = "grey";
+      document.getElementById("id_editPageC2GInput").style.background = "grey";
+      document.getElementById("id_editPageC2BInput").style.background = "grey";
+      document.getElementById("id_editPageC2HInput").value = "";
+      document.getElementById("id_editPageC2SInput").value = "";
+      document.getElementById("id_editPageC2VInput").value = "";
+      document.getElementById("id_editPageC2RInput").value = "";
+      document.getElementById("id_editPageC2GInput").value = "";
+      document.getElementById("id_editPageC2BInput").value = "";
+      document.getElementById("editColor2HSVLAbel").style.color = "grey";
+      document.getElementById("editColor2RGBLAbel").style.color = "grey";
       selectedColor=0;
 
       editColor1=bandSketch.getC2Color(selectedKey-1,"rgb");
@@ -294,10 +367,34 @@ function selectKey(){
       break;
     case "right key":
       document.getElementById("editSide_Radiobutton_KeyTypeRight").checked = true;
-      document.getElementById("editPage_Color1_1").style.visibility="hidden";
-      document.getElementById("editPage_Color1_2").style.visibility="hidden";
-      document.getElementById("editPage_Color2_1").style.visibility="visible";
-      document.getElementById("editPage_Color2_2").style.visibility="visible";
+      document.getElementById("editSide_Radiobutton_SelectColor1").disabled = true;
+      document.getElementById("editSide_Radiobutton_SelectColor1_Label").style.color = "grey";
+      document.getElementById("id_editPageC1HInput").style.background = "grey";
+      document.getElementById("id_editPageC1SInput").style.background = "grey";
+      document.getElementById("id_editPageC1VInput").style.background = "grey";
+      document.getElementById("id_editPageC1RInput").style.background = "grey";
+      document.getElementById("id_editPageC1GInput").style.background = "grey";
+      document.getElementById("id_editPageC1BInput").style.background = "grey";
+      document.getElementById("id_editPageC1HInput").value = "";
+      document.getElementById("id_editPageC1SInput").value = "";
+      document.getElementById("id_editPageC1VInput").value = "";
+      document.getElementById("id_editPageC1RInput").value = "";
+      document.getElementById("id_editPageC1GInput").value = "";
+      document.getElementById("id_editPageC1BInput").value = "";
+      document.getElementById("editColor1HSVLAbel").style.color = "grey";
+      document.getElementById("editColor1RGBLAbel").style.color = "grey";
+
+      document.getElementById("editSide_Radiobutton_SelectColor2").disabled = false;
+      document.getElementById("editSide_Radiobutton_SelectColor2_Label").style.color = "black";
+      document.getElementById("id_editPageC2HInput").style.background = "white";
+      document.getElementById("id_editPageC2SInput").style.background = "white";
+      document.getElementById("id_editPageC2VInput").style.background = "white";
+      document.getElementById("id_editPageC2RInput").style.background = "white";
+      document.getElementById("id_editPageC2GInput").style.background = "white";
+      document.getElementById("id_editPageC2BInput").style.background = "white";
+      document.getElementById("editColor2HSVLAbel").style.color = "black";
+      document.getElementById("editColor2RGBLAbel").style.color = "black";
+
       document.getElementById("editSide_Radiobutton_SelectColor2").checked = true;
 
       editColor2=bandSketch.getC1Color(0,"rgb");
@@ -308,10 +405,28 @@ function selectKey(){
       break;
     default:
     document.getElementById("editSide_Radiobutton_KeyTypeDual").checked = true;
-    document.getElementById("editPage_Color1_1").style.visibility="visible";
-    document.getElementById("editPage_Color1_2").style.visibility="visible";
-    document.getElementById("editPage_Color2_1").style.visibility="visible";
-    document.getElementById("editPage_Color2_2").style.visibility="visible";
+    document.getElementById("editSide_Radiobutton_SelectColor1").disabled = false;
+    document.getElementById("editSide_Radiobutton_SelectColor1_Label").style.color = "black";
+    document.getElementById("id_editPageC1HInput").style.background = "white";
+    document.getElementById("id_editPageC1SInput").style.background = "white";
+    document.getElementById("id_editPageC1VInput").style.background = "white";
+    document.getElementById("id_editPageC1RInput").style.background = "white";
+    document.getElementById("id_editPageC1GInput").style.background = "white";
+    document.getElementById("id_editPageC1BInput").style.background = "white";
+    document.getElementById("editColor1HSVLAbel").style.color = "black";
+    document.getElementById("editColor1RGBLAbel").style.color = "black";
+
+    document.getElementById("editSide_Radiobutton_SelectColor2").disabled = false;
+    document.getElementById("editSide_Radiobutton_SelectColor2_Label").style.color = "black";
+    document.getElementById("id_editPageC2HInput").style.background = "white";
+    document.getElementById("id_editPageC2SInput").style.background = "white";
+    document.getElementById("id_editPageC2VInput").style.background = "white";
+    document.getElementById("id_editPageC2RInput").style.background = "white";
+    document.getElementById("id_editPageC2GInput").style.background = "white";
+    document.getElementById("id_editPageC2BInput").style.background = "white";
+    document.getElementById("editColor2HSVLAbel").style.color = "black";
+    document.getElementById("editColor2RGBLAbel").style.color = "black";
+
     document.getElementById("editSide_Radiobutton_SelectColor1").checked = true;
 
     editColor1=bandSketch.getC2Color(selectedKey-1,"rgb");
