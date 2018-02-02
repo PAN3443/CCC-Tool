@@ -14,7 +14,24 @@ function deletetColormapFromMyDesigns(index){
 
     if(index<myList.length){
         if (confirm("Do you really want to delete the colormap?") == true) {
+
+
           myList.splice(index,1);
+
+          if(index==colormap1SelectIndex){
+            colormap1SelectIndex=0;
+          }
+
+          if(index<colormap1SelectIndex){
+            colormap1SelectIndex--;
+          }
+
+          if(myList.length==0){
+            colormap1SelectIndex=-1;
+            bandSketch.clearSketch();
+            orderColorSketch();
+          }
+
           drawMyList();
         } else {
             // do nothing
@@ -25,7 +42,7 @@ function deletetColormapFromMyDesigns(index){
 
 
 
-function selectAnalysis(){
+/*function selectAnalysis(){
 
   if(myListPageModus==1){
 
@@ -147,6 +164,8 @@ function showAcceptButtons(){
   }
 
 }
+
+*/
 
 function acceptColormapFromMyDesigns(index){
 

@@ -11,8 +11,8 @@ var size3D=50;
 var myList = [];
 var globalColormap1;
 var globalColormap2;
-var colormap1SelectIndex = 0;
-var colormap2SelectIndex = 0;
+var colormap1SelectIndex = -1;
+var colormap2SelectIndex = -1;
 var pageIsLoaded=false;
 /*var createColormap;
 var exportColormap;
@@ -24,7 +24,7 @@ var compareColormap2;*/
 var kE = 1;
 var kCH = 1;
 
-var interactionIntervalSize = 20;
+var interactionIntervalSize = 200;//50;
 var intervalSize = 200;
 
 //
@@ -104,6 +104,7 @@ var widthVArea =0; // width of plotelement
 var widthVArea2 =0; // width of plotelement
 var heigthVArea =0;
 var plotXStart =0;
+var plotXEnd =0;
 var plotYStart =0;
 var plotYEnd=0;
 var plotLineWidth = 5;
@@ -147,6 +148,14 @@ var bandSketch;
 var bandSketch2;
 ////////////////////////////////////////////////////////////////////////////////
 
+////////////////////////////////////////////////////////////////////////////////
+
+
+///////////////////////////
+/// Analyze Compare
+//////////////////////////
+
+var doOriginalValuePlot = true;
 
 ///////////////////////////
 /// My List

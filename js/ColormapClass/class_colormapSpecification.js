@@ -383,7 +383,6 @@ class classColorMapSpecification {
   }
 
   getBand(index){
-    console.log(index);
       return this.bandArray[index];
   }
 

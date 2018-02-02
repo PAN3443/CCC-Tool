@@ -350,12 +350,33 @@ function changePage(type){
   if(pageIsLoaded==false)
   return
 
-  if(type==3 && colormap1SelectIndex==-1){
-    alert("There is no CMS at the MyDesigns list for the edit page.");
+  if(colormap1SelectIndex==-1){
+    switch (type) {
+      case 3:
+        alert("There is no CMS at the MyDesigns list for the edit page.");
+        return;
+      case 4:
+        alert("There is no CMS at the MyDesigns list for the analyze page.");
+        return;
+      /*case 5:
+          if(){
+            alert("There is no CMS at the MyDesigns list for the analyze page.");
+            return;
+          }*/
+      default:
+  }
+
+
+
+  }
+
+
+  if(type==6){
+    alert("Not implemented now");
     return;
   }
 
-  if(type==6){
+  if(type==5){
     alert("Not implemented now");
     return;
   }
@@ -376,7 +397,6 @@ function changePage(type){
     break;
 
     case 1:
-              console.log(type+" "+isEdit);
               if( (type==2 && isEdit==-1) || (type==3 && isEdit!=-1) )
               return;
 

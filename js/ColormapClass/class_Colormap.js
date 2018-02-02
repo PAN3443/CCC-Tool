@@ -22,6 +22,36 @@ class classColormap {
     return this.ref[index];
   }
 
+  getRefNum(){ // exept the double of left and dual keys
+
+    var counter = 0;
+
+    var leftOrTwinStarted = false;
+
+    for(var i=0; i<this.type.length; i++){
+
+
+      if(this.type[i]=="left key" || this.type[i]=="interval left key" || this.type[i]=="twin key" ||  this.type[i]=="interval twin key"){
+        if(leftOrTwinStarted){
+          leftOrTwinStarted=false;
+        }
+        else{
+          leftOrTwinStarted=true;
+          counter++;
+        }
+      }
+      else{
+        counter++;
+      }
+
+      
+
+    }
+
+    return counter;
+
+  }
+
   getColor(index, colorspace){
 
     if(this.color[index].getColorType()===colorspace)

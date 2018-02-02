@@ -1,4 +1,65 @@
 
+function changeAnalyzePage(type){
+
+
+  document.getElementById("id_selectAnalyzeSpace").style.background=styleInactiveColor;
+  document.getElementById("id_selectAnalyzePath").style.background=styleInactiveColor;
+  document.getElementById("id_selectAnalyzeMatrix").style.background=styleInactiveColor;
+  document.getElementById("id_selectAnalyzeBar").style.background=styleInactiveColor;
+  document.getElementById("id_selectAnalyzeLine").style.background=styleInactiveColor;
+  document.getElementById("id_selectAnalyzeOrder").style.background=styleInactiveColor;
+
+
+  document.getElementById("analyzeColormapPath").style.display="none";
+  document.getElementById("analyzeGlobalSpeed").style.display="none";
+  document.getElementById("analyzeLocalLineSpeed").style.display="none";
+  document.getElementById("analyzeLocalBarSpeed").style.display="none";
+  document.getElementById("analyzeOrder").style.display="none";
+  document.getElementById("analyzeIntSpace").style.display="none";
+
+
+
+  switch (type) {
+    case 0:
+        document.getElementById("id_selectAnalyzeSpace").style.background=styleActiveColor;
+        document.getElementById("analyzeIntSpace").style.display="inline-block";
+        drawAnalyseMapPreviews();
+      break;
+      case 1:
+          document.getElementById("id_selectAnalyzePath").style.background=styleActiveColor;
+          document.getElementById("analyzeColormapPath").style.display="inline-block";
+          initRGB3D();
+          changeCourseSpace();
+        break;
+        case 2:
+            document.getElementById("id_selectAnalyzeMatrix").style.background=styleActiveColor;
+            document.getElementById("analyzeGlobalSpeed").style.display="inline-block";
+          break;
+          case 3:
+              document.getElementById("id_selectAnalyzeBar").style.background=styleActiveColor;
+              document.getElementById("analyzeLocalBarSpeed").style.display="inline-block";
+              drawAnalyseDifferenceMaps();
+            break;
+            case 4:
+                document.getElementById("id_selectAnalyzeLine").style.background=styleActiveColor;
+                document.getElementById("analyzeLocalLineSpeed").style.display="inline-block";
+              break;
+              case 5:
+                  document.getElementById("id_selectAnalyzeOrder").style.background=styleActiveColor;
+                  document.getElementById("analyzeOrder").style.display="inline-block";
+                break;
+    default:
+
+  }
+
+
+
+
+}
+
+
+
+
 function increaseAnalyse3DDiv(){
     if(size3D<100){
 
@@ -69,12 +130,11 @@ function decreaseAnalyse3DDiv(){
 
 
 function initAnalysePage(){
-    initRGB3D();
+
     bandSketch.colormap2Sketch(globalColormap1);
     orderColorSketch(colorspaceModus);
-    changeCourseSpace();
-    drawAnalyseMapPreviews();
-    drawAnalyseDifferenceMaps();
+
+    changeAnalyzePage(1);
     //drawRGBSpace();
 }
 

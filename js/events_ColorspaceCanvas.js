@@ -534,7 +534,7 @@ function mouseMoveValuePlot(event) {
       return;
   }
 
-
+  var plotwidth = plotXEnd-plotXStart;
   var vPlotKeyPos = 0;
   var twinStarted = false;
   var leftStarted = false;
@@ -562,9 +562,15 @@ function mouseMoveValuePlot(event) {
 
           if (colormapTmp.getKey(i - 1) === "left key" || colormapTmp.getKey(i - 1) === "nil key") {
             // -> constant band
-            tmpX = Math.round(plotXStart + (vPlotKeyPos) * widthVArea);
-            vPlotKeyPos++;
-            tmpX2 = Math.round(plotXStart + ((vPlotKeyPos) * widthVArea));
+            if(doOriginalValuePlot){
+              tmpX = plotXStart+((colormapTmp.getPosition(i-1)-colormapTmp.getPosition(0))/widthVArea)*plotwidth;
+              tmpX2 = plotXStart+((colormapTmp.getPosition(i)-colormapTmp.getPosition(0))/widthVArea)*plotwidth;
+            }
+            else{
+              tmpX = Math.round(plotXStart + (vPlotKeyPos) * widthVArea);
+              vPlotKeyPos++;
+              tmpX2 = Math.round(plotXStart + ((vPlotKeyPos) * widthVArea));
+            }
 
             switch(analyzeColorspaceModus) {
               case "hsv":
@@ -596,9 +602,16 @@ function mouseMoveValuePlot(event) {
 
           } else {
 
-            tmpX = Math.round(plotXStart + (vPlotKeyPos) * widthVArea);
-            vPlotKeyPos++;
-            tmpX2 = Math.round(plotXStart + ((vPlotKeyPos) * widthVArea));
+            if(doOriginalValuePlot){
+              tmpX = plotXStart+((colormapTmp.getPosition(i-1)-colormapTmp.getPosition(0))/widthVArea)*plotwidth;
+              tmpX2 = plotXStart+((colormapTmp.getPosition(i)-colormapTmp.getPosition(0))/widthVArea)*plotwidth;
+            }
+            else{
+              tmpX = Math.round(plotXStart + (vPlotKeyPos) * widthVArea);
+              vPlotKeyPos++;
+              tmpX2 = Math.round(plotXStart + ((vPlotKeyPos) * widthVArea));
+            }
+
 
             switch(analyzeColorspaceModus) {
               case "hsv":
@@ -658,9 +671,15 @@ function mouseMoveValuePlot(event) {
           if (colormapTmp.getKey(i - 1) === "left key" || colormapTmp.getKey(i - 1) === "nil key") {
             // -> constant band
 
-            tmpX = Math.round(plotXStart + (vPlotKeyPos) * widthVArea);
-            vPlotKeyPos++;
-            tmpX2 = Math.round(plotXStart + ((vPlotKeyPos) * widthVArea));
+            if(doOriginalValuePlot){
+              tmpX = plotXStart+((colormapTmp.getPosition(i-1)-colormapTmp.getPosition(0))/widthVArea)*plotwidth;
+              tmpX2 = plotXStart+((colormapTmp.getPosition(i)-colormapTmp.getPosition(0))/widthVArea)*plotwidth;
+            }
+            else{
+              tmpX = Math.round(plotXStart + (vPlotKeyPos) * widthVArea);
+              vPlotKeyPos++;
+              tmpX2 = Math.round(plotXStart + ((vPlotKeyPos) * widthVArea));
+            }
 
             switch(analyzeColorspaceModus) {
               case "hsv":
@@ -691,9 +710,15 @@ function mouseMoveValuePlot(event) {
             }
 
           } else {
-            tmpX = Math.round(plotXStart + (vPlotKeyPos) * widthVArea);
-            vPlotKeyPos++;
-            tmpX2 = Math.round(plotXStart + ((vPlotKeyPos) * widthVArea));
+            if(doOriginalValuePlot){
+              tmpX = plotXStart+((colormapTmp.getPosition(i-1)-colormapTmp.getPosition(0))/widthVArea)*plotwidth;
+              tmpX2 = plotXStart+((colormapTmp.getPosition(i)-colormapTmp.getPosition(0))/widthVArea)*plotwidth;
+            }
+            else{
+              tmpX = Math.round(plotXStart + (vPlotKeyPos) * widthVArea);
+              vPlotKeyPos++;
+              tmpX2 = Math.round(plotXStart + ((vPlotKeyPos) * widthVArea));
+            }
 
             switch(analyzeColorspaceModus) {
               case "hsv":
@@ -744,8 +769,14 @@ function mouseMoveValuePlot(event) {
         if (tmpKey == 'dual key') {
           tmpHSVColor2 = colormapTmp.getHSVColor(i - 1);
 
-          tmpX = Math.round(plotXStart + (vPlotKeyPos) * widthVArea);
-          vPlotKeyPos++;
+          if(doOriginalValuePlot){
+            tmpX = plotXStart+((colormapTmp.getPosition(i-1)-colormapTmp.getPosition(0))/widthVArea)*plotwidth;
+
+          }
+          else{
+            tmpX = Math.round(plotXStart + (vPlotKeyPos) * widthVArea);
+            vPlotKeyPos++;
+          }
 
           switch(analyzeColorspaceModus) {
             case "hsv":

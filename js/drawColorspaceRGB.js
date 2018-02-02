@@ -614,9 +614,9 @@ function drawcolormap_RGBSpace(colormapTmp, canvasIDRG,canvasIDRB, canvasIDBG, c
 }
 
 
-function drawInterpolationLineInRGB(colormapTmp, colorspaceContexRG,colorspaceContexRB,colorspaceContexBG,xWidth,yHeight,xStart,yStart, interval){
+function drawInterpolationLineInRGB(colormapTmp, colorspaceContexRG,colorspaceContexRB,colorspaceContexBG,xWidth,yHeight,xStart,yStart, intervalSize){
 
-  var intervalColormap = colormapTmp.calcColorMap(100, colorspaceModus);
+  var intervalColormap = colormapTmp.calcColorMap(intervalSize, colorspaceModus);
 
   var tmpColor,tmpColor2, xPos, xPos2, yPos, yPos2;
 
@@ -630,11 +630,12 @@ function drawInterpolationLineInRGB(colormapTmp, colorspaceContexRG,colorspaceCo
    tmpColor = intervalColormap.getColor(i, "rgb");
    tmpColor2 = intervalColormap.getColor(i+1, "rgb");
 
+      /*    console.log(tmpKey);
      if(tmpColor.get1Value()==tmpColor2.get1Value() &&
      tmpColor.get2Value()==tmpColor2.get2Value() &&
      tmpColor.get3Value()==tmpColor2.get3Value()){
        continue;
-     }
+     }*/
 
      switch(tmpKey) {
 
@@ -1029,7 +1030,7 @@ function drawcolormap_compare_RGBSpace(colormapTmp, colormapTmp2, canvasIDRG,can
                     else{
                         var tmpKey2 = colormapTmp2.getKey(i-1);
                         var drawCircle = true;
-                        if(tmpKey2==="nil key" || tmpKey2==="left key")
+                        if(tmpKey2==="nil key" || tmpKey2==="left key" || tmpKey2==="interval left key")
                         drawCircle=false;
 
 
@@ -1100,7 +1101,7 @@ function drawcolormap_compare_RGBSpace(colormapTmp, colormapTmp2, canvasIDRG,can
                     else{
                         var tmpKey2 = colormapTmp2.getKey(i-1);
                         var drawCircle = true;
-                        if(tmpKey2==="nil key" || tmpKey2==="left key")
+                        if(tmpKey2==="nil key" || tmpKey2==="left key" || tmpKey2==="interval left key")
                               drawCircle=false;
 
                           // RG
