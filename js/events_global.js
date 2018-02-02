@@ -353,9 +353,16 @@ function changePage(type){
   if(colormap1SelectIndex==-1){
     switch (type) {
       case 3:
+        if(showSideID==1 && bandSketch.getBandLenght()!=0){
+          break;
+        }
         alert("There is no CMS at the MyDesigns list for the edit page.");
+
         return;
       case 4:
+        if(showSideID==1 && bandSketch.getBandLenght()!=0){
+          break;
+        }
         alert("There is no CMS at the MyDesigns list for the analyze page.");
         return;
       /*case 5:
@@ -602,6 +609,12 @@ function changePage(type){
       return;
   }
 
+  if(colormap1SelectIndex != -1){
+    bandSketch.colormap2Sketch(globalColormap1);
+  }
+  else{
+    bandSketch.clearSketch();
+  }
   orderColorSketch(colorspaceModus);
 }
 

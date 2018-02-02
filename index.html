@@ -146,7 +146,7 @@
         -----------------------------------------------
         -->
 
-  <div id="id_menu" class="row" style="width:100%; height:auto; background:url(img/background.png);;position: -webkit-sticky; position: sticky; margin:0px;">
+  <div id="id_menu" class="row" style="width:100%; height:auto; background:url(img/background.png);;position: -webkit-sticky; position: sticky; margin:0px; padding-top:2vh;  padding-bottom:2vh;">
     <img src="img/CCC-LOGO.png" alt="CCC-Tool Logo" style="margin-top:0.1vh; margin-bottom:0.1vh; height:8vh; margin-left:auto;">
     <div style="margin-left:20px; margin-right:auto;">
       <h1 style="margin-top:0vh; margin-bottom:0vh; height:5.5vh; line-height:5.5vh; text-align:center; vertical-align: middle; color:white; font-size:5vh; font-family: " Times New Roman ", Georgia, Serif;"> CCC-TOOL </h1>
@@ -1737,7 +1737,7 @@
             ----------------	Analysis Colormap Course  ----------------------------------------------------------------
             ----------------------------------------------------------------------------------------------
             -->
-    <div id="analyzeColormapPath">
+    <div id="analyzeColormapPath" style="width:100%;">
 
 
       <div class="row" style="padding-top:4vh; padding-bottom:4vh;">
@@ -1950,9 +1950,9 @@
           ----------------	Analysis Global Speed  ----------------------------------------------------------------
           ----------------------------------------------------------------------------------------------
           -->
-          <div id="analyzeGlobalSpeed" style="display:none;">
+          <div id="analyzeGlobalSpeed" style="display:none; width:100%;">
 
-            <div class="row" style="padding-top:4vh; padding-bottom:4vh;">
+            <div class="row" style="padding-top:4vh; padding-bottom:4vh; width:100%;">
               <!--h4 style="width:auto; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px; margin-left:auto;">Colormap Course</h4-->
               <h1 style="width:auto; text-align:center; height:4vh; line-height:4vh; font-size:4vh; margin:0px; vertical-align:middle; margin-left:auto;"> Speed Matrix Plot </h1>
               <div class="dropdown" style="width:auto; margin-right:auto;">
@@ -1962,6 +1962,67 @@
                   <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong>
                   </p>
                 </div>
+              </div>
+            </div>
+
+            <hr>
+
+            <div class="row" style="padding-top:4vh; padding-bottom:2vh; width:100%;">
+
+                <div style="width:30%; border:1px solid black; background:rgb(230,230,230); margin-left: auto; margin-right:10%;">
+
+                  <div style="width:90%;margin-left: 5%;">
+                  <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> Lab Euclidean Distance </h1>
+                  <canvas id="analyze_GlobalSpeed_Canvas_Lab" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
+                  </canvas>
+
+                    <p id="analyze_GlobalSpeed_Label_Max_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
+                    <p id="analyze_GlobalSpeed_Label_Av_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
+                    <p id="analyze_GlobalSpeed_Label_Min_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                    <p id="analyze_GlobalSpeed_Label_Dev_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                    </div>
+                </div>
+
+                <div style="width:30%; border:1px solid black; background:rgb(230,230,230); margin-right: auto;">
+                  <div style="width:90%; margin-left: 5%;">
+                  <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> Lab de94 Metric </h1>
+                  <canvas id="analyze_GlobalSpeed_Canvas_de94" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
+                  </canvas>
+
+                    <p id="analyze_GlobalSpeed_Label_Max_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
+                    <p id="analyze_GlobalSpeed_Label_Av_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
+                    <p id="analyze_GlobalSpeed_Label_Min_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                    <p id="analyze_GlobalSpeed_Label_Dev_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="padding-top:2vh; padding-bottom:2vh; width:100%;">
+
+              <div style="width:30%; border:1px solid black; background:rgb(230,230,230); margin-left: auto; margin-right:10%;">
+
+                <div style="width:90%;margin-left: 5%;">
+                <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> Lab de2000 Metric </h1>
+                <canvas id="analyze_GlobalSpeed_Canvas_de2000" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
+                </canvas>
+
+                  <p id="analyze_GlobalSpeed_Label_Max_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
+                  <p id="analyze_GlobalSpeed_Label_Av_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
+                  <p id="analyze_GlobalSpeed_Label_Min_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                  <p id="analyze_GlobalSpeed_Label_Dev_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                  </div>
+              </div>
+
+              <div style="width:30%; border:1px solid black; background:rgb(230,230,230); margin-right: auto;">
+                <div style="width:90%; margin-left: 5%;">
+                <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> DIN99 Euclidean Distance </h1>
+                <canvas id="analyze_GlobalSpeed_Canvas_din99" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
+                </canvas>
+                  <p id="analyze_GlobalSpeed_Label_Max_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
+                  <p id="analyze_GlobalSpeed_Label_Av_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
+                  <p id="analyze_GlobalSpeed_Label_Min_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                  <p id="analyze_GlobalSpeed_Label_Dev_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                  </div>
               </div>
             </div>
 
@@ -1977,9 +2038,9 @@
             ----------------	Analysis Local Speed  ----------------------------------------------------------------
             ----------------------------------------------------------------------------------------------
             -->
-            <div id="analyzeLocalLineSpeed" style="display:none;">
+            <div id="analyzeLocalLineSpeed" style="display:none; width:100%;">
 
-              <div class="row" style="padding-top:4vh; padding-bottom:4vh;">
+              <div class="row" style="padding-top:4vh; padding-bottom:4vh; width:100%;">
                 <!--h4 style="width:auto; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px; margin-left:auto;">Colormap Course</h4-->
                 <h1 style="width:auto; text-align:center; height:4vh; line-height:4vh; font-size:4vh; margin:0px; vertical-align:middle; margin-left:auto;"> Speed Line Plot </h1>
                 <div class="dropdown" style="width:auto; margin-right:auto;">
@@ -2003,9 +2064,9 @@
               ----------------	Analysis Local Speed Maps ----------------------------------------------------------------
               ----------------------------------------------------------------------------------------------
               -->
-              <div id="analyzeLocalBarSpeed" style="display:none;">
+              <div id="analyzeLocalBarSpeed" style="display:none; width:100%;">
 
-                <div class="row" style="padding-top:4vh; padding-bottom:4vh;">
+                <div class="row" style="padding-top:4vh; padding-bottom:4vh; width:100%;">
                   <!--h4 style="width:auto; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px; margin-left:auto;">Colormap Course</h4-->
                   <h1 style="width:auto; text-align:center; height:4vh; line-height:4vh; font-size:4vh; margin:0px; vertical-align:middle; margin-left:auto;"> Speed Bar Plot </h1>
                   <div class="dropdown" style="width:auto; margin-right:auto;">
@@ -2154,7 +2215,22 @@
               ----------------	Analysis Order  ----------------------------------------------------------------
               ----------------------------------------------------------------------------------------------
               -->
-              <div id="analyzeOrder" style="background:white; padding-top:2vh; padding-bottom:2vh; border-top:5vh solid rgb(30,30,30); display:none;">
+              <div id="analyzeOrder" style="display:none; width:100%;">
+
+                <div class="row" style="padding-top:4vh; padding-bottom:4vh; width:100%;">
+                  <!--h4 style="width:auto; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px; margin-left:auto;">Colormap Course</h4-->
+                  <h1 style="width:auto; text-align:center; height:4vh; line-height:4vh; font-size:4vh; margin:0px; vertical-align:middle; margin-left:auto;"> Order Plot </h1>
+                  <div class="dropdown" style="width:auto; margin-right:auto;">
+                    <button class="dropbtn" style="border-radius: 0.5vh; line-height:4vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 4vh; height:4vh;  margin-left:2vh; border: 2px solid black;">?</button>
+                    <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
+
+                      <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <hr>
 
               </div>
 
@@ -2165,11 +2241,11 @@
                 ----------------	Integration Spaces  ----------------------------------------------------------------
                 ----------------------------------------------------------------------------------------------
                 -->
-                <div id="analyzeIntSpace" style="background:white; padding-top:2vh; padding-bottom:2vh; border-top:5vh solid rgb(30,30,30); display:none;">
-                  <div class="row" style="background:white; padding-top:2vh; padding-bottom:2vh; border-top:5vh solid rgb(30,30,30);">
-                    <div style="width:auto; margin-left:auto;">
-                    </div>
-                    <h4 style="width:auto; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Contrast of Colormap in Different Colorspaces</h4>
+                <div id="analyzeIntSpace" style="display:none; width:100%;">
+
+                  <div class="row" style="padding-top:4vh; padding-bottom:4vh; width:100%;">
+                    <!--h4 style="width:auto; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px; margin-left:auto;">Colormap Course</h4-->
+                    <h1 style="width:auto; text-align:center; height:4vh; line-height:4vh; font-size:4vh; margin:0px; vertical-align:middle; margin-left:auto;"> Speed Line Plot </h1>
                     <div class="dropdown" style="width:auto; margin-right:auto;">
                       <button class="dropbtn" style="border-radius: 0.5vh; line-height:2.5vh; font-size:2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 2.5vh; height:2.5vh; margin-left:2vh; border: 2px solid black; margin-top:auto; margin-bottom:auto;">?</button>
                       <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
@@ -2181,60 +2257,61 @@
                     </div>
                   </div>
 
+                  <hr>
 
 
 
-                  <!----------------	RGB	  --------------->
-                  <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh;">
+                        <!----------------	RGB	  --------------->
+                        <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh;">
 
 
-                    <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: center;  height:5vh; line-height:5vh">RGB Colorspace:</p>
+                          <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: center;  height:5vh; line-height:5vh">RGB Colorspace:</p>
 
-                    <canvas id="id_anaylseRGB_Preview" style="width:70%; height:5vh; border: 2px solid black;">
-
-
-                  </canvas>
-
-                  </div>
-
-                  <!----------------	HSV	  --------------->
-                  <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh;">
+                          <canvas id="id_anaylseRGB_Preview" style="width:70%; height:5vh; border: 2px solid black;">
 
 
-                    <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: center;  height:5vh; line-height:5vh">HSV Colorspace:</p>
+                        </canvas>
 
-                    <canvas id="id_anaylseHSV_Preview" style="width:70%; height:5vh; border: 2px solid black;">
+                        </div>
 
-
-                  </canvas>
-
-                  </div>
-
-                  <!----------------	LAB	  --------------->
-                  <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh;">
+                        <!----------------	HSV	  --------------->
+                        <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh;">
 
 
-                    <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: center;  height:5vh; line-height:5vh">LAB Colorspace:</p>
+                          <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: center;  height:5vh; line-height:5vh">HSV Colorspace:</p>
 
-                    <canvas id="id_anaylseLAB_Preview" style="width:70%; height:5vh; border: 2px solid black;">
-
-
-                  </canvas>
-
-                  </div>
-
-                  <!----------------	DIN99	  --------------->
-                  <div class="row" style="width:100%; height:auto; background:white; margin-bottom:4vh;">
+                          <canvas id="id_anaylseHSV_Preview" style="width:70%; height:5vh; border: 2px solid black;">
 
 
-                    <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: center;  height:5vh; line-height:5vh">DIN99 Colorspace:</p>
+                        </canvas>
 
-                    <canvas id="id_anaylseDIN99_Preview" style="width:70%; height:5vh; border: 2px solid black;">
+                        </div>
+
+                        <!----------------	LAB	  --------------->
+                        <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh;">
 
 
-                  </canvas>
+                          <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: center;  height:5vh; line-height:5vh">LAB Colorspace:</p>
 
-                  </div>
+                          <canvas id="id_anaylseLAB_Preview" style="width:70%; height:5vh; border: 2px solid black;">
+
+
+                        </canvas>
+
+                        </div>
+
+                        <!----------------	DIN99	  --------------->
+                        <div class="row" style="width:100%; height:auto; background:white; margin-bottom:4vh;">
+
+
+                          <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: center;  height:5vh; line-height:5vh">DIN99 Colorspace:</p>
+
+                          <canvas id="id_anaylseDIN99_Preview" style="width:70%; height:5vh; border: 2px solid black;">
+
+
+                        </canvas>
+
+                        </div>
                 </div>
 
 </div>

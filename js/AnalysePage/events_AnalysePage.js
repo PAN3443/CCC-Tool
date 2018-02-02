@@ -34,6 +34,11 @@ function changeAnalyzePage(type){
         case 2:
             document.getElementById("id_selectAnalyzeMatrix").style.background=styleActiveColor;
             document.getElementById("analyzeGlobalSpeed").style.display="inline-block";
+            var intervalColormap = globalColormap1.calcColorMap(intervalSize, colorspaceModus);
+            calcGlobalSpeedPlot(intervalColormap, "analyze_GlobalSpeed_Canvas_Lab", 0);
+            calcGlobalSpeedPlot(intervalColormap,"analyze_GlobalSpeed_Canvas_de94", 1);
+            calcGlobalSpeedPlot(intervalColormap,"analyze_GlobalSpeed_Canvas_de2000", 2);
+            calcGlobalSpeedPlot(intervalColormap,"analyze_GlobalSpeed_Canvas_din99", 3);
           break;
           case 3:
               document.getElementById("id_selectAnalyzeBar").style.background=styleActiveColor;
@@ -216,6 +221,71 @@ function drawAnalyseMapPreviews(){
   colorspaceModus="din99";
       drawCanvasColormap("id_anaylseDIN99_Preview",analysePreviewMap_resolution_X, analysePreviewMap_resolution_Y, globalColormap1);
   colorspaceModus = oldColorspace;
+}
+
+
+
+function calcGlobalSpeedPlot(intervalColormap, plotid, type){
+
+      var canvasPlot = document.getElementById(plotid);
+
+
+      canvasPlot.width = intervalColormap.getIntervalLength();
+      canvasPlot.height = intervalColormap.getIntervalLength();
+
+      var canvasCtx = canvasPlot.getContext("2d");
+      var canvasData = canvasCtx.getImageData(0, 0, canvasPlot.width, canvasPlot.height);
+
+      for(var x=0; x<intervalColormap.getIntervalLength(); x++){
+
+        for(var y=0; x<intervalColormap.getIntervalLength(); y++){
+
+            var colorRef = new classColor_RGB(0,0,0);
+            if(x==y){
+              colorRef = intervalColormap.getIntervalColor(x,"rgb")
+            }
+            else{
+
+              var deltaE=0;
+              switch (type) {
+                case 0:
+
+                deltaE = intervalColormap.calcDeltaE_Interval_Lab(x,y);
+                  break;
+
+                  case 1:
+                    deltaE = intervalColormap.calcDeltaE_Interval_De94(x,y);
+                    break;
+
+                    case 2:
+                      deltaE = intervalColormap.calcDeltaE_Interval_De2000(x,y);
+                      break;
+
+                      case 3:
+                      deltaE = intervalColormap.calcDeltaE_Interval_DIN99(x,y);
+                        break;
+                default:
+
+              }
+              var val = 1-(deltaE/5);
+
+              if(val < 0)
+              val=0;
+
+              colorRef = new classColor_RGB(val,val,val);
+
+
+            }
+            var index = (x + y * canvasPlot.width) * 4;
+            canvasData.data[index + 0] = Math.round(colorRef.getRValue() * 255); // r
+            canvasData.data[index + 1] = Math.round(colorRef.getGValue() * 255); // g
+            canvasData.data[index + 2] = Math.round(colorRef.getBValue() * 255); // b
+            canvasData.data[index + 3] = 255; //a
+
+        }
+      }
+
+      canvasCtx.putImageData(canvasData, 0, 0);
 }
 
 

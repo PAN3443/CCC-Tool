@@ -1243,8 +1243,7 @@ function drawcolormap_hueSpace(colormapTmp, canvasID, calcBackground,drawInterpo
 
 function drawInterpolationLineInHSV(colormapTmp, colorspaceContex, vPlotContex, xWidth,yHeight,xStart,yStart,intervalSize){
 
-        var intervalColormap = colormapTmp.calcColorMap(intervalSize, colorspaceModus);
-
+      
         var xPos, yPos, xPos2, yPos2, xVPos, xVPos2, tmpColor, tmpColor2;
         var plotwidth = plotXEnd-plotXStart;
         var twinStarted=false;
