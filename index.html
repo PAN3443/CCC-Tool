@@ -1721,8 +1721,8 @@
         <button id="id_selectAnalyzeSpace" onclick="changeAnalyzePage(0)" class="classButtonBlue" title="Key Modify" style="width:20%">Integration Spaces</button>
         <button id="id_selectAnalyzePath" onclick="changeAnalyzePage(1)" class="classButtonBlue" title="Key Modify" style="width:20%">Path Plot</button>
         <button id="id_selectAnalyzeMatrix" onclick="changeAnalyzePage(2)" class="classButtonBlue" title="Key Modify" style="width:20%">Speed Matrix Plot</button>
-        <button id="id_selectAnalyzeBar" onclick="changeAnalyzePage(3)" class="classButtonBlue" title="Key Modify" style="width:20%">Speed Bar Plot</button>
         <button id="id_selectAnalyzeLine" onclick="changeAnalyzePage(4)" class="classButtonBlue" title="Key Modify" style="width:20%">Speed Line Plot</button>
+        <button id="id_selectAnalyzeBar" onclick="changeAnalyzePage(3)" class="classButtonBlue" title="Key Modify" style="width:20%">Speed Bar Plot</button>
         <button id="id_selectAnalyzeOrder" onclick="changeAnalyzePage(5)" class="classButtonBlue" title="Key Modify" style="width:20%">Order Plot</button>
 
 
@@ -1973,7 +1973,7 @@
 
                   <div style="width:90%;margin-left: 5%;">
                   <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> Lab Euclidean Distance </h1>
-                  <canvas id="analyze_GlobalSpeed_Canvas_Lab" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
+                  <canvas class="globalSpeedCanvas" id="analyze_GlobalSpeed_Canvas_Lab" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
                   </canvas>
 
                     <p id="analyze_GlobalSpeed_Label_Max_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
@@ -1986,7 +1986,7 @@
                 <div style="width:30%; border:1px solid black; background:rgb(230,230,230); margin-right: auto;">
                   <div style="width:90%; margin-left: 5%;">
                   <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> Lab de94 Metric </h1>
-                  <canvas id="analyze_GlobalSpeed_Canvas_de94" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
+                  <canvas class="globalSpeedCanvas" id="analyze_GlobalSpeed_Canvas_de94" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
                   </canvas>
 
                     <p id="analyze_GlobalSpeed_Label_Max_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
@@ -2003,7 +2003,7 @@
 
                 <div style="width:90%;margin-left: 5%;">
                 <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> Lab de2000 Metric </h1>
-                <canvas id="analyze_GlobalSpeed_Canvas_de2000" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
+                <canvas class="globalSpeedCanvas" id="analyze_GlobalSpeed_Canvas_de2000" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
                 </canvas>
 
                   <p id="analyze_GlobalSpeed_Label_Max_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
@@ -2016,7 +2016,7 @@
               <div style="width:30%; border:1px solid black; background:rgb(230,230,230); margin-right: auto;">
                 <div style="width:90%; margin-left: 5%;">
                 <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> DIN99 Euclidean Distance </h1>
-                <canvas id="analyze_GlobalSpeed_Canvas_din99" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
+                <canvas class="globalSpeedCanvas" id="analyze_GlobalSpeed_Canvas_din99" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
                 </canvas>
                   <p id="analyze_GlobalSpeed_Label_Max_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
                   <p id="analyze_GlobalSpeed_Label_Av_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>

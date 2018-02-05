@@ -93,7 +93,7 @@ class classColormap {
   }
 
   addElement(color, ref, type){
-
+    console.log(type);
     if(type==="interval" || type==="interval nil key" || type==="interval twin key" || type==="interval left key" || type==="interval right key"){
       this.IntervalIndex.push(this.color.length);
     }
@@ -109,7 +109,6 @@ class classColormap {
   }
 
   getIntervalColor(index, colorspace){
-console.log(this.IntervalIndex[index]);
     if(this.color[this.IntervalIndex[index]].getColorType()===colorspace)
     return this.color[this.IntervalIndex[index]];
     else{

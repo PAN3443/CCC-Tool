@@ -162,57 +162,59 @@ class classColorMapSpecification {
             continue;
           }
 
-
           if(tmpIntervalRef[i]>this.positionPoints[currentKeyPos]){
 
-            var type = this.positionKeys[currentKeyPos];
-            var tmpColor;
-            switch (colorspace) {
-              case "rgb":
-                  tmpColor = new classColor_RGB(this.rgbColorArray[currentKeyPos].get1Value(),this.rgbColorArray[currentKeyPos].get2Value(),this.rgbColorArray[currentKeyPos].get3Value());
-                break;
-              case "hsv":
-                  tmpColor = new classColor_HSV(this.hsvColorArray[currentKeyPos].get1Value(),this.hsvColorArray[currentKeyPos].get2Value(),this.hsvColorArray[currentKeyPos].get3Value());
-                break;
-              case "lab":
-                  tmpColor = new classColor_LAB(this.cielabColorArray[currentKeyPos].get1Value(),this.cielabColorArray[currentKeyPos].get2Value(),this.cielabColorArray[currentKeyPos].get3Value());
-                break;
-              case "din99":
-                  tmpColor = new classColorDIN99(this.din99ColorArray[currentKeyPos].get1Value(),this.din99ColorArray[currentKeyPos].get2Value(),this.din99ColorArray[currentKeyPos].get3Value());
-                break;
-              default:
-              console.log("Error calcColorMap function");
-            }
-            tmpColormap.addElement(tmpColor, tmpIntervalRef[i], type);
-            currentKeyPos++;
+              while(tmpIntervalRef[i]>this.positionPoints[currentKeyPos]){
+                var type = this.positionKeys[currentKeyPos];
+                var tmpColor;
+                switch (colorspace) {
+                  case "rgb":
+                      tmpColor = new classColor_RGB(this.rgbColorArray[currentKeyPos].get1Value(),this.rgbColorArray[currentKeyPos].get2Value(),this.rgbColorArray[currentKeyPos].get3Value());
+                    break;
+                  case "hsv":
+                      tmpColor = new classColor_HSV(this.hsvColorArray[currentKeyPos].get1Value(),this.hsvColorArray[currentKeyPos].get2Value(),this.hsvColorArray[currentKeyPos].get3Value());
+                    break;
+                  case "lab":
+                      tmpColor = new classColor_LAB(this.cielabColorArray[currentKeyPos].get1Value(),this.cielabColorArray[currentKeyPos].get2Value(),this.cielabColorArray[currentKeyPos].get3Value());
+                    break;
+                  case "din99":
+                      tmpColor = new classColorDIN99(this.din99ColorArray[currentKeyPos].get1Value(),this.din99ColorArray[currentKeyPos].get2Value(),this.din99ColorArray[currentKeyPos].get3Value());
+                    break;
+                  default:
+                  console.log("Error calcColorMap function");
+                }
+                tmpColormap.addElement(tmpColor, tmpIntervalRef[i], type);
+                currentKeyPos++;
 
-            if(this.positionKeys[currentKeyPos-1]==="left key" || this.positionKeys[currentKeyPos-1]==="twin key"){
+                if(this.positionKeys[currentKeyPos-1]==="left key" || this.positionKeys[currentKeyPos-1]==="twin key"){
 
-              if(currentKeyPos == this.positionKeys.length-1){
-                  continue;
+                  if(currentKeyPos == this.positionKeys.length-1){
+                      continue;
+                  }
+                  var type2 = this.positionKeys[currentKeyPos];
+
+                  var tmpColor;
+                  switch (colorspace) {
+                    case "rgb":
+                        tmpColor = new classColor_RGB(this.rgbColorArray[currentKeyPos].get1Value(),this.rgbColorArray[currentKeyPos].get2Value(),this.rgbColorArray[currentKeyPos].get3Value());
+                      break;
+                    case "hsv":
+                        tmpColor = new classColor_HSV(this.hsvColorArray[currentKeyPos].get1Value(),this.hsvColorArray[currentKeyPos].get2Value(),this.hsvColorArray[currentKeyPos].get3Value());
+                      break;
+                    case "lab":
+                        tmpColor = new classColor_LAB(this.cielabColorArray[currentKeyPos].get1Value(),this.cielabColorArray[currentKeyPos].get2Value(),this.cielabColorArray[currentKeyPos].get3Value());
+                      break;
+                    case "din99":
+                        tmpColor = new classColorDIN99(this.din99ColorArray[currentKeyPos].get1Value(),this.din99ColorArray[currentKeyPos].get2Value(),this.din99ColorArray[currentKeyPos].get3Value());
+                      break;
+                    default:
+                    console.log("Error calcColorMap function");
+                  }
+                  tmpColormap.addElement(tmpColor, tmpIntervalRef[i], type2);
+                  currentKeyPos++;
+
+                }
               }
-              var type2 = this.positionKeys[currentKeyPos];
-
-              var tmpColor;
-              switch (colorspace) {
-                case "rgb":
-                    tmpColor = new classColor_RGB(this.rgbColorArray[currentKeyPos].get1Value(),this.rgbColorArray[currentKeyPos].get2Value(),this.rgbColorArray[currentKeyPos].get3Value());
-                  break;
-                case "hsv":
-                    tmpColor = new classColor_HSV(this.hsvColorArray[currentKeyPos].get1Value(),this.hsvColorArray[currentKeyPos].get2Value(),this.hsvColorArray[currentKeyPos].get3Value());
-                  break;
-                case "lab":
-                    tmpColor = new classColor_LAB(this.cielabColorArray[currentKeyPos].get1Value(),this.cielabColorArray[currentKeyPos].get2Value(),this.cielabColorArray[currentKeyPos].get3Value());
-                  break;
-                case "din99":
-                    tmpColor = new classColorDIN99(this.din99ColorArray[currentKeyPos].get1Value(),this.din99ColorArray[currentKeyPos].get2Value(),this.din99ColorArray[currentKeyPos].get3Value());
-                  break;
-                default:
-                console.log("Error calcColorMap function");
-              }
-              tmpColormap.addElement(tmpColor, tmpIntervalRef[i], type2);
-              currentKeyPos++;
-            }
 
             // here no continue because we want the interpolation of the next step
           }

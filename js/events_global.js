@@ -34,7 +34,7 @@ function changeAnalyzeColorspace(type) {
       return;
   }
 
-
+console.log(showSideID);
   if (showSideID == 2) { // Analyse SIDE
     changeCourseSpace();
   }
@@ -536,7 +536,7 @@ function changePage(type){
       // New
       /////////////////////////////////////////
 
-      bandSketch.clearSketch();
+
       isEdit = -1;
       showSideID = 1;
       styleCreatorPage();
@@ -550,6 +550,7 @@ function changePage(type){
       document.getElementById("button_showNewCMS").style.background = styleActiveColor;
       switchModifyModus(0);
       drawPredefinedBands();
+      bandSketch.clearSketch();
 
       break;
     case 3:
@@ -609,7 +610,7 @@ function changePage(type){
       return;
   }
 
-  if(colormap1SelectIndex != -1){
+  if(colormap1SelectIndex != -1 && type!=2){
     bandSketch.colormap2Sketch(globalColormap1);
   }
   else{
