@@ -1,3 +1,46 @@
+function updateAnalyzePage(){
+
+  if(document.getElementById("analyzeIntSpace").style.display!="none"){
+    drawAnalyseMapPreviews();
+    return;
+  }
+
+  if(document.getElementById("analyzeColormapPath").style.display!="none"){
+    initRGB3D();
+    changeCourseSpace();
+    return;
+  }
+
+  if(document.getElementById("analyzeGlobalSpeed").style.display!="none"){
+    var intervalColormap = globalColormap1.calcColorMap(intervalSize, colorspaceModus);
+    calcGlobalSpeedPlot(intervalColormap, "analyze_GlobalSpeed_Canvas_Lab", 0, "analyze_GlobalSpeed_Label_Min_Lab", "analyze_GlobalSpeed_Label_Max_Lab", "analyze_GlobalSpeed_Label_Av_Lab", "analyze_GlobalSpeed_Label_Dev_Lab");
+    calcGlobalSpeedPlot(intervalColormap,"analyze_GlobalSpeed_Canvas_de94", 1, "analyze_GlobalSpeed_Label_Min_de94", "analyze_GlobalSpeed_Label_Max_de94", "analyze_GlobalSpeed_Label_Av_de94", "analyze_GlobalSpeed_Label_Dev_de94");
+    calcGlobalSpeedPlot(intervalColormap,"analyze_GlobalSpeed_Canvas_de2000", 2, "analyze_GlobalSpeed_Label_Min_de2000", "analyze_GlobalSpeed_Label_Max_de2000", "analyze_GlobalSpeed_Label_Av_de2000", "analyze_GlobalSpeed_Label_Dev_de2000");
+    calcGlobalSpeedPlot(intervalColormap,"analyze_GlobalSpeed_Canvas_din99", 3, "analyze_GlobalSpeed_Label_Min_din99", "analyze_GlobalSpeed_Label_Max_din99", "analyze_GlobalSpeed_Label_Av_din99", "analyze_GlobalSpeed_Label_Dev_din99");
+    return;
+  }
+
+  if(document.getElementById("analyzeLocalBarSpeed").style.display!="none"){
+    drawAnalyseDifferenceMaps();
+    return;
+  }
+
+  if(document.getElementById("analyzeLocalLineSpeed").style.display!="none"){
+    var intervalColormap = globalColormap1.calcColorMap(intervalSize, colorspaceModus);
+    calcLocalSpeedPlot(intervalColormap, "analyze_LocalSpeed_Canvas_Lab", 0, "analyze_LocalSpeed_Label_Min_Lab", "analyze_LocalSpeed_Label_Max_Lab", "analyze_LocalSpeed_Label_Av_Lab", "analyze_LocalSpeed_Label_Dev_Lab");
+    calcLocalSpeedPlot(intervalColormap,"analyze_LocalSpeed_Canvas_de94", 1, "analyze_LocalSpeed_Label_Min_de94", "analyze_LocalSpeed_Label_Max_de94", "analyze_LocalSpeed_Label_Av_de94", "analyze_LocalSpeed_Label_Dev_de94");
+    calcLocalSpeedPlot(intervalColormap,"analyze_LocalSpeed_Canvas_de2000", 2, "analyze_LocalSpeed_Label_Min_de2000", "analyze_LocalSpeed_Label_Max_de2000", "analyze_LocalSpeed_Label_Av_de2000", "analyze_LocalSpeed_Label_Dev_de2000");
+    calcLocalSpeedPlot(intervalColormap,"analyze_LocalSpeed_Canvas_din99", 3, "analyze_LocalSpeed_Label_Min_din99", "analyze_LocalSpeed_Label_Max_din99", "analyze_LocalSpeed_Label_Av_din99", "analyze_LocalSpeed_Label_Dev_din99");
+    return;
+  }
+
+  if(document.getElementById("analyzeOrder").style.display!="none"){
+
+    return;
+  }
+
+}
+
 
 function changeAnalyzePage(type){
 
@@ -48,6 +91,11 @@ function changeAnalyzePage(type){
             case 4:
                 document.getElementById("id_selectAnalyzeLine").style.background=styleActiveColor;
                 document.getElementById("analyzeLocalLineSpeed").style.display="inline-block";
+                var intervalColormap = globalColormap1.calcColorMap(intervalSize, colorspaceModus);
+                calcLocalSpeedPlot(intervalColormap, "analyze_LocalSpeed_Canvas_Lab", 0, "analyze_LocalSpeed_Label_Min_Lab", "analyze_LocalSpeed_Label_Max_Lab", "analyze_LocalSpeed_Label_Av_Lab", "analyze_LocalSpeed_Label_Dev_Lab");
+                calcLocalSpeedPlot(intervalColormap,"analyze_LocalSpeed_Canvas_de94", 1, "analyze_LocalSpeed_Label_Min_de94", "analyze_LocalSpeed_Label_Max_de94", "analyze_LocalSpeed_Label_Av_de94", "analyze_LocalSpeed_Label_Dev_de94");
+                calcLocalSpeedPlot(intervalColormap,"analyze_LocalSpeed_Canvas_de2000", 2, "analyze_LocalSpeed_Label_Min_de2000", "analyze_LocalSpeed_Label_Max_de2000", "analyze_LocalSpeed_Label_Av_de2000", "analyze_LocalSpeed_Label_Dev_de2000");
+                calcLocalSpeedPlot(intervalColormap,"analyze_LocalSpeed_Canvas_din99", 3, "analyze_LocalSpeed_Label_Min_din99", "analyze_LocalSpeed_Label_Max_din99", "analyze_LocalSpeed_Label_Av_din99", "analyze_LocalSpeed_Label_Dev_din99");
               break;
               case 5:
                   document.getElementById("id_selectAnalyzeOrder").style.background=styleActiveColor;
@@ -225,6 +273,129 @@ function drawAnalyseMapPreviews(){
 
 
 
+function calcOrderPlot(intervalColormap, plotid, type, minId, maxId, avId, devId){
+
+      var canvasPlot = document.getElementById(plotid);
+
+
+      canvasPlot.width = intervalColormap.getIntervalLength();
+      canvasPlot.height = intervalColormap.getIntervalLength();
+
+      var canvasCtx = canvasPlot.getContext("2d");
+      canvasCtx.webkitImageSmoothingEnabled = false;
+      canvasCtx.mozImageSmoothingEnabled = false;
+      canvasCtx.imageSmoothingEnabled = false;
+      var canvasData = canvasCtx.createImageData(canvasPlot.width, canvasPlot.height); //getImageData(0, 0, canvasPlot.width, canvasPlot.height);
+      var sumForAverage = 0;
+      var min = 1000000;
+      var max = 0;
+
+      var globalOrderMinValues = [];
+      var globalOrderIntervalIndex = [];
+      var globalOrderMinValues = [];
+
+      for(var x=0; x<intervalColormap.getIntervalLength(); x++){
+
+        var column = [];
+        for(var y=0; y<intervalColormap.getIntervalLength(); y++){
+
+            var deltaE=0;
+            if(x!=y){
+              switch (type) {
+                case 0:
+
+                deltaE = intervalColormap.calcDeltaE_Interval_Lab(x,y);
+                  break;
+
+                  case 1:
+                    deltaE = intervalColormap.calcDeltaE_Interval_De94(x,y);
+                    break;
+
+                    case 2:
+                      deltaE = intervalColormap.calcDeltaE_Interval_De2000(x,y);
+                      break;
+
+                      case 3:
+                      deltaE = intervalColormap.calcDeltaE_Interval_DIN99(x,y);
+                        break;
+                default:
+
+              }
+
+              min = Math.min(min,deltaE);
+              max = Math.max(max,deltaE);
+              sumForAverage += deltaE;
+            }
+
+
+
+            column.push(deltaE);
+        }
+        matrix.push(column);
+      }
+
+
+      var average=sumForAverage/(intervalColormap.getIntervalLength()*intervalColormap.getIntervalLength()-intervalColormap.getIntervalLength());
+      var sumForVariance = 0;
+
+      //////////////////////////////////////////////////////////////////////////////////
+      // calc variance
+      ////////////////////////////////////////////////////////////////////////////////////
+
+      for(var x=0; x<intervalColormap.getIntervalLength(); x++){
+
+        for(var y=0; y<intervalColormap.getIntervalLength(); y++){
+
+            var colorRef = new classColor_RGB(0,0,0);
+            if(x==y){
+              colorRef = intervalColormap.getIntervalColor(x,"rgb")
+            }
+            else{
+
+              var deltaE= matrix[x][y];
+
+              var val = deltaE/max;
+
+              colorRef = new classColor_RGB(val,val,val);
+
+              sumForVariance += Math.pow(matrix[x][y]-average,2);
+
+            }
+            var index = (x + y * canvasPlot.width) * 4;
+            canvasData.data[index + 0] = Math.round(colorRef.getRValue() * 255); // r
+            canvasData.data[index + 1] = Math.round(colorRef.getGValue() * 255); // g
+            canvasData.data[index + 2] = Math.round(colorRef.getBValue() * 255); // b
+            canvasData.data[index + 3] = 255; //a
+
+
+
+
+        }
+      }
+
+
+      canvasCtx.putImageData(canvasData, 0, 0);
+
+      var variance = sumForVariance/(intervalColormap.getIntervalLength()*intervalColormap.getIntervalLength()-intervalColormap.getIntervalLength());
+      var deviation = Math.sqrt(variance);
+
+
+      document.getElementById(minId).innerHTML = "Global Minimum = "+ min.toFixed(numDecimalPlaces);
+
+      if(min==0)
+      document.getElementById(minId).style.color = "red";
+      else
+      document.getElementById(minId).style.color = "black";
+
+      document.getElementById(maxId).innerHTML = "Global Maximum = "+ max.toFixed(numDecimalPlaces);
+      document.getElementById(avId).innerHTML = "Global Average = "+ average.toFixed(numDecimalPlaces);
+      document.getElementById(devId).innerHTML = "Global Deviation = "+ deviation.toFixed(numDecimalPlaces);
+
+
+}
+
+
+
 function calcGlobalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId, devId){
 
       var canvasPlot = document.getElementById(plotid);
@@ -251,7 +422,6 @@ function calcGlobalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId,
 
             var deltaE=0;
             if(x!=y){
-              var deltaE=0;
               switch (type) {
                 case 0:
 
@@ -275,18 +445,18 @@ function calcGlobalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId,
 
               min = Math.min(min,deltaE);
               max = Math.max(max,deltaE);
-
+              sumForAverage += deltaE;
             }
 
 
-            sumForAverage += deltaE;
+
             column.push(deltaE);
         }
         matrix.push(column);
       }
 
 
-      var average=sumForAverage/(intervalColormap.getIntervalLength()*intervalColormap.getIntervalLength());
+      var average=sumForAverage/(intervalColormap.getIntervalLength()*intervalColormap.getIntervalLength()-intervalColormap.getIntervalLength());
       var sumForVariance = 0;
 
       //////////////////////////////////////////////////////////////////////////////////
@@ -309,6 +479,8 @@ function calcGlobalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId,
 
               colorRef = new classColor_RGB(val,val,val);
 
+              sumForVariance += Math.pow(matrix[x][y]-average,2);
+
             }
             var index = (x + y * canvasPlot.width) * 4;
             canvasData.data[index + 0] = Math.round(colorRef.getRValue() * 255); // r
@@ -317,7 +489,7 @@ function calcGlobalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId,
             canvasData.data[index + 3] = 255; //a
 
 
-            sumForVariance += Math.pow(matrix[x][y]-average,2);
+
 
         }
       }
@@ -325,23 +497,161 @@ function calcGlobalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId,
 
       canvasCtx.putImageData(canvasData, 0, 0);
 
-      var variance = sumForVariance/intervalColormap.getIntervalLength();
+      var variance = sumForVariance/(intervalColormap.getIntervalLength()*intervalColormap.getIntervalLength()-intervalColormap.getIntervalLength());
       var deviation = Math.sqrt(variance);
 
 
-      document.getElementById(minId).innerHTML = "Minimum = "+ min;
+      document.getElementById(minId).innerHTML = "Global Minimum = "+ min.toFixed(numDecimalPlaces);
 
       if(min==0)
       document.getElementById(minId).style.color = "red";
       else
       document.getElementById(minId).style.color = "black";
 
-      document.getElementById(maxId).innerHTML = "Maximum = "+ max;
-      document.getElementById(avId).innerHTML = "Average = "+ average;
-      document.getElementById(devId).innerHTML = "Deviation = "+ deviation;
+      document.getElementById(maxId).innerHTML = "Global Maximum = "+ max.toFixed(numDecimalPlaces);
+      document.getElementById(avId).innerHTML = "Global Average = "+ average.toFixed(numDecimalPlaces);
+      document.getElementById(devId).innerHTML = "Global Deviation = "+ deviation.toFixed(numDecimalPlaces);
 
 
 }
+
+
+function calcLocalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId, devId){
+
+      var canvasPlot = document.getElementById(plotid);
+
+      canvasPlot.width = 500;
+      canvasPlot.height = 500;
+
+      var canvasCtx = canvasPlot.getContext("2d");
+      canvasCtx.webkitImageSmoothingEnabled = false;
+      canvasCtx.mozImageSmoothingEnabled = false;
+      canvasCtx.imageSmoothingEnabled = false;
+      canvasCtx.clearRect(0, 0, canvasPlot.width, canvasPlot.height);
+      var canvasData = canvasCtx.createImageData(canvasPlot.width, canvasPlot.height); //getImageData(0, 0, canvasPlot.width, canvasPlot.height);
+      var sumForAverage = 0;
+      var min = 1000000;
+      var max = 0;
+
+      var bandWidth = canvasPlot.width/(intervalColormap.getIntervalLength()-1);
+
+      var vector = [];
+
+      var colorRef = new classColor_RGB(0,0,0);
+      var tmpColor = new classColor_RGB(1,1,1);
+      var counter =0;
+
+    /*  for(var x=0; x<canvasPlot.width; x++){
+
+        for(var y=0; y<canvasPlot.height; y++){
+
+            var index = (x + y * canvasPlot.width) * 4;
+            canvasData.data[index + 0] = Math.round(colorRef.getRValue() * 255); // r
+            canvasData.data[index + 1] = Math.round(colorRef.getGValue() * 255); // g
+            canvasData.data[index + 2] = Math.round(colorRef.getBValue() * 255); // b
+            canvasData.data[index + 3] = 255; //a
+
+        }
+
+        counter++;
+        if(counter==1){
+          var change = colorRef;
+          colorRef = tmpColor;
+          tmpColor = change;
+          counter=0;
+        }
+
+      }
+      canvasCtx.putImageData(canvasData, 0, 0);//*/
+
+      for(var x=0; x<intervalColormap.getIntervalLength()-1; x++){
+
+            var deltaE=0;
+            if(x!=y){
+
+              switch (type) {
+                case 0:
+
+                deltaE = intervalColormap.calcDeltaE_Interval_Lab(x,x+1);
+                  break;
+
+                  case 1:
+                    deltaE = intervalColormap.calcDeltaE_Interval_De94(x,x+1);
+                    break;
+
+                    case 2:
+                      deltaE = intervalColormap.calcDeltaE_Interval_De2000(x,x+1);
+                      break;
+
+                      case 3:
+                      deltaE = intervalColormap.calcDeltaE_Interval_DIN99(x,x+1);
+                        break;
+                default:
+
+              }
+
+              min = Math.min(min,deltaE);
+              max = Math.max(max,deltaE);
+              sumForAverage += deltaE;
+            }
+
+            vector.push(deltaE);
+      }
+
+
+      var average=sumForAverage/vector.length;
+      var sumForVariance = 0;
+
+      //////////////////////////////////////////////////////////////////////////////////
+      // calc variance
+      ////////////////////////////////////////////////////////////////////////////////////
+
+      var currentXPos = 0;
+      for(var y=0; y<vector.length; y++){
+
+            var colorRef = intervalColormap.getIntervalColor(y,"rgb");
+            var colorRef2 = intervalColormap.getIntervalColor(y+1,"rgb");
+
+            var deltaHeight = canvasPlot.height*(vector[y]/max);
+            var yPos= canvasPlot.height-deltaHeight;
+
+
+            var gradient=canvasCtx.createLinearGradient(0,0,0,canvasPlot.height);
+            gradient.addColorStop(0,colorRef2.getRGBString());
+            gradient.addColorStop(1,colorRef.getRGBString());
+            canvasCtx.fillStyle=gradient;
+            canvasCtx.fillRect(currentXPos,yPos,bandWidth,deltaHeight);
+
+            //canvasCtx.strokeStyle = "rgb(0,0,0)";
+            //canvasCtx.rect(currentXPos,yPos,bandWidth,deltaHeight);
+            //canvasCtx.stroke();
+
+            sumForVariance += Math.pow(vector[y]-average,2);
+
+            currentXPos+=bandWidth;
+
+      }
+
+      //canvasCtx.putImageData(canvasData, 0, 0);
+
+      var variance = sumForVariance/vector.length;
+      var deviation = Math.sqrt(variance);
+
+
+      document.getElementById(minId).innerHTML = "Local Minimum = "+ min.toFixed(numDecimalPlaces);
+
+      if(min==0)
+      document.getElementById(minId).style.color = "red";
+      else
+      document.getElementById(minId).style.color = "black";
+
+      document.getElementById(maxId).innerHTML = "Local Maximum = "+ max.toFixed(numDecimalPlaces);
+      document.getElementById(avId).innerHTML = "Local Average = "+ average.toFixed(numDecimalPlaces);
+      document.getElementById(devId).innerHTML = "Local Deviation = "+ deviation.toFixed(numDecimalPlaces);
+
+
+}
+
 
 
 function drawAnalyseDifferenceMaps(){

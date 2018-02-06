@@ -25,7 +25,7 @@ var kE = 1;
 var kCH = 1;
 
 var interactionIntervalSize = 200;//50;
-var intervalSize = 200;
+var intervalSize = 6;
 
 //
 var numDecimalPlaces = 2;

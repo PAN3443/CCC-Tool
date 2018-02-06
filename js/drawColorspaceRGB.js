@@ -294,12 +294,12 @@ function drawcolormap_RGBSpace(colormapTmp, canvasIDRG,canvasIDRB, canvasIDBG, c
   // draw Colormap
   if(bandSketch.getBandLenght()>0){
 
-      if(drawInterpolationLine){
+      //if(drawInterpolationLine){
         drawInterpolationLineInRGB(colormapTmp, colorspaceContexRG,colorspaceContexRB,colorspaceContexBG,xWidth,yHeight,xStart,yStart,intervalSize);
-      }
-      else{
-        drawInterpolationLineInRGB(colormapTmp, colorspaceContexRG,colorspaceContexRB,colorspaceContexBG,xWidth,yHeight,xStart,yStart,interactionIntervalSize);
-      }
+      //}
+      //else{
+      //  drawInterpolationLineInRGB(colormapTmp, colorspaceContexRG,colorspaceContexRB,colorspaceContexBG,xWidth,yHeight,xStart,yStart,interactionIntervalSize);
+      //}
       /////////////////////////////////////////////////////////////////
 
        var twinStarted=false;

@@ -64,7 +64,7 @@ function drawPredefinedBands(){
 
         var reverseButton = document.createElement("div");
         reverseButton.className = "class_reversebuttonCreatePage classButtonWhite";
-        reverseButton.innerHTML = "R";
+        reverseButton.innerHTML = "&#8646;";
         reverseButton.style.cursor = "pointer";
 
         reverseButton.onclick = (function(tmpIndex) {
@@ -117,7 +117,7 @@ function drawPredefinedBands(){
 
         var reverseButton = document.createElement("div");
         reverseButton.className = "class_reversebuttonCreatePage classButtonWhite";
-        reverseButton.innerHTML = "R";
+        reverseButton.innerHTML = "&#8646;";
         reverseButton.style.cursor = "pointer";
 
         reverseButton.onclick = (function(tmpIndex) {
@@ -229,7 +229,7 @@ function drawPredefinedBands(){
 
         var reverseButton = document.createElement("div");
         reverseButton.className = "class_reversebuttonCreatePage classButtonWhite";
-        reverseButton.innerHTML = "R";
+        reverseButton.innerHTML = "&#8646;";
         reverseButton.style.cursor = "pointer";
 
         reverseButton.onclick = (function(tmpIndex) {
@@ -364,7 +364,7 @@ function drawPredefinedBands(){
 
         var reverseButton = document.createElement("div");
         reverseButton.className = "class_reversebuttonCreatePage classButtonWhite";
-        reverseButton.innerHTML = "R";
+        reverseButton.innerHTML = "&#8646;";
         reverseButton.style.cursor = "pointer";
 
         reverseButton.onclick = (function(tmpIndex) {

@@ -1,3 +1,27 @@
+
+
+function checkIntervalInputFieldsChange(){
+
+    checkInputVal(document.getElementById("id_InputIntervalNum"),false,false);
+
+    intervalSize = parseFloat(document.getElementById("id_InputIntervalNum").value);
+    updateAnalyzePage();
+}
+
+function checkColorInputFieldsKey(event){
+
+  checkInputVal(document.getElementById("id_InputIntervalNum"),false,false);
+
+  if (event.keyCode == 13) {
+
+    intervalSize = parseFloat(document.getElementById("id_InputIntervalNum").value);
+    updateAnalyzePage();
+
+  }
+
+}
+
+
 function changeAnalyzeColorspace(type) {
 
   document.getElementById("button_AnalyzeRGB").style.border = "0.2vh solid black";
@@ -34,7 +58,6 @@ function changeAnalyzeColorspace(type) {
       return;
   }
 
-console.log(showSideID);
   if (showSideID == 2) { // Analyse SIDE
     changeCourseSpace();
   }
@@ -160,7 +183,7 @@ function changeColorspace(type) {
 
 
   if (showSideID == 2) { // Analyse SIDE
-    changeCourseSpace();
+    updateAnalyzePage();
   }
 
   if (showSideID == 3) { // Comnpare SIDE
@@ -423,6 +446,20 @@ function changePage(type){
                 clearCreateSide();
 
               }
+              else{
+                if(colormap1SelectIndex == -1 ){
+                  if(myListl.length>0){
+                      colormap1SelectIndex=0;
+                  }
+
+                }
+
+                if(colormap1SelectIndex != -1 ){
+                  globalColormap1 = myList[colormap1SelectIndex];
+                  bandSketch.colormap2Sketch(globalColormap1);
+                }
+
+              }
 
               document.getElementById("id_Create_Menue").style.display = "none";
               document.getElementById("id_creatorPage").style.display = "none";
@@ -436,7 +473,7 @@ function changePage(type){
                 return;
 
                 document.getElementById("id_analysisPage").style.display = "none";
-
+                document.getElementById("id_IntervalOption").style.display = "none";
                 for(var i = refLineSketchContainer.length-1; i>=0; i--){
                   refLineSketchContainer[i].remove();
                   refLineSketchContainer.pop();
@@ -451,6 +488,7 @@ function changePage(type){
                 if(type==5)
                 return;
 
+                document.getElementById("id_IntervalOption").style.display = "none";
                 document.getElementById("id_comparePage").style.display = "none";
                 for(var i = refLineSketchContainer.length-1; i>=0; i--){
                   refLineSketchContainer[i].remove();
@@ -575,6 +613,8 @@ function changePage(type){
       // Analyze
       /////////////////////////////////////////
       showSideID = 2;
+      document.getElementById("id_IntervalOption").style.display = "inline-block";
+      document.getElementById("id_IntervalOption").style.marginLeft = "20px";
       document.getElementById("id_analysisPage").style.display = "inline-block";
       document.getElementById("button_showAnalyze").style.background = styleActiveColor;
       //document.getElementById("id_AnalyseColorspace_Menue").style.display = "inline";
@@ -584,6 +624,8 @@ function changePage(type){
       // Compare
       /////////////////////////////////////////
       showSideID = 3;
+      document.getElementById("id_IntervalOption").style.display = "inline-block";
+      document.getElementById("id_IntervalOption").style.marginLeft = "20px";
       document.getElementById("id_comparePage").style.display = "inline-block";
       document.getElementById("button_showCompare").style.background = styleActiveColor;
       //document.getElementById("id_AnalyseColorspace_Menue").style.display = "inline";
@@ -610,12 +652,10 @@ function changePage(type){
       return;
   }
 
-  if(colormap1SelectIndex != -1 && type!=2){
-    bandSketch.colormap2Sketch(globalColormap1);
-  }
-  else{
-    bandSketch.clearSketch();
-  }
+
+
+
+
   orderColorSketch(colorspaceModus);
 }
 

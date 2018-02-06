@@ -217,6 +217,8 @@ window.onload = function() {
   //document.getElementById('id_workcanvasAnalyseHue').addEventListener("mousedown", mouseDownColorspace);
   //document.getElementById('id_workcanvasAnalyseHue').addEventListener("mouseup", mouseUpColorspace);
   //initRGB3D();
+  document.getElementById('id_InputIntervalNum').addEventListener("keyup", checkColorInputFieldsKey);
+  document.getElementById('id_InputIntervalNum').addEventListener("change", checkIntervalInputFieldsChange);
 
   document.getElementById('id_anaylseCourseHueBackground').addEventListener("mouseleave", mouseLeaveColorspace);
   document.getElementById('id_anaylseCourseHueBackground').addEventListener("mousemove", mouseMoveColorspace);
@@ -905,7 +907,7 @@ function changeKeyValueInputSketch(sketchIndex, doR1, fielID, doBandSketch2) {
     }
 
     if (showSideID == 2) {
-      drawAnalyseDifferenceMaps();
+      updateAnalyzePage();
     }
 
     if (showSideID == 3) {

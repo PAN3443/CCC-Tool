@@ -580,12 +580,12 @@ function drawcolormap_hueSpace(colormapTmp, canvasID, calcBackground,drawInterpo
 
       /////////////////////////////////////////////////////////////////
 
-      if(drawInterpolationLine){
+      //if(drawInterpolationLine){
         drawInterpolationLineInHSV(colormapTmp, colorspaceContex, vPlotContex, xWidth,yHeight,xStart,yStart,intervalSize);
-      }
-      else{
-        drawInterpolationLineInHSV(colormapTmp, colorspaceContex, vPlotContex, xWidth,yHeight,xStart,yStart,interactionIntervalSize);
-      }
+      //}
+      //else{
+      //  drawInterpolationLineInHSV(colormapTmp, colorspaceContex, vPlotContex, xWidth,yHeight,xStart,yStart,interactionIntervalSize);
+      //}
        var plotwidth = plotXEnd-plotXStart;
        var twinStarted=false;
        var leftStarted=false;
