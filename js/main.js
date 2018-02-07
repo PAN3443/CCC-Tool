@@ -219,6 +219,10 @@ window.onload = function() {
   //initRGB3D();
   document.getElementById('id_InputIntervalNum').addEventListener("keyup", checkColorInputFieldsKey);
   document.getElementById('id_InputIntervalNum').addEventListener("change", checkIntervalInputFieldsChange);
+  document.getElementById('id_InputIntervalNum2').addEventListener("keyup", checkColorInputFieldsKey);
+  document.getElementById('id_InputIntervalNum2').addEventListener("change", checkIntervalInputFieldsChange);
+  document.getElementById('id_InputIntervalNum3').addEventListener("keyup", checkColorInputFieldsKey);
+  document.getElementById('id_InputIntervalNum3').addEventListener("change", checkIntervalInputFieldsChange);
 
   document.getElementById('id_anaylseCourseHueBackground').addEventListener("mouseleave", mouseLeaveColorspace);
   document.getElementById('id_anaylseCourseHueBackground').addEventListener("mousemove", mouseMoveColorspace);

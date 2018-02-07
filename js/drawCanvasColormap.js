@@ -29,7 +29,7 @@ function drawCanvasColormap(canvasID, resolutionX, resolutionY, tmpColormap) { /
 
     var tmpKey = tmpColormap.getKey(i);
     switch (tmpKey) {
-      case "nil key":
+      case "nil key": case "interval nil key":
 
         var pos1 = (tmpColormap.getPosition(i) - tmpColormap.getRangeStart()) / (tmpColormap.getRangeEnd() - tmpColormap.getRangeStart()) * colormapWidth;
         var pos2 = (tmpColormap.getPosition(i + 1) - tmpColormap.getRangeStart()) / (tmpColormap.getRangeEnd() - tmpColormap.getRangeStart()) * colormapWidth;
@@ -53,7 +53,7 @@ function drawCanvasColormap(canvasID, resolutionX, resolutionY, tmpColormap) { /
             canvasData = createConstantBand(canvasData, xPos + pos1, elementwidth, colormapHeigth, tmpColormap.getRGBColor(i), resolutionX);
         }
         break;
-      case "twin key":
+      case "twin key": case "interval twin key":
 
         if (twinStarted == true) {
 
@@ -86,7 +86,7 @@ function drawCanvasColormap(canvasID, resolutionX, resolutionY, tmpColormap) { /
           twinStarted = true;
         }
         break;
-      case "left key":
+      case "left key": case "interval left key":
         if (leftStarted == true) {
 
           var pos1 = (tmpColormap.getPosition(i) - tmpColormap.getRangeStart()) / (tmpColormap.getRangeEnd() - tmpColormap.getRangeStart()) * colormapWidth;

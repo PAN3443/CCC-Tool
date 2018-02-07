@@ -516,7 +516,7 @@ function init_VPlot(colormapTmp, canvasID){
       ////////////////// TEXT /////////////////////
       vPlotContex.font = labelFontSize+"px Arial";
 
-      vPlotContex.fillText("Scalar",xEndArrow,yStart+labelFontSize);
+      vPlotContex.fillText("Key Position",xEndArrow,yStart+labelFontSize);
 
       switch(analyzeColorspaceModus){
           case "hsv":

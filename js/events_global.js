@@ -1,20 +1,20 @@
 
 
-function checkIntervalInputFieldsChange(){
+function checkIntervalInputFieldsChange(event){
 
-    checkInputVal(document.getElementById("id_InputIntervalNum"),false,false);
+    checkInputVal(document.getElementById(event.target.id),false,false);
 
-    intervalSize = parseFloat(document.getElementById("id_InputIntervalNum").value);
+    intervalSize = parseFloat(document.getElementById(event.target.id).value);
     updateAnalyzePage();
 }
 
 function checkColorInputFieldsKey(event){
 
-  checkInputVal(document.getElementById("id_InputIntervalNum"),false,false);
+  checkInputVal(document.getElementById(event.target.id),false,false);
 
   if (event.keyCode == 13) {
 
-    intervalSize = parseFloat(document.getElementById("id_InputIntervalNum").value);
+    intervalSize = parseFloat(document.getElementById(event.target.id).value);
     updateAnalyzePage();
 
   }
@@ -36,22 +36,22 @@ function changeAnalyzeColorspace(type) {
   switch (type) {
     case 0:
       analyzeColorspaceModus = "rgb";
-      document.getElementById("button_AnalyzeRGB").style.border = "0.2vh solid rgb(0,191,255)";
+      document.getElementById("button_AnalyzeRGB").style.border = "0.2vh solid "+styleActiveColor;
       document.getElementById("button_AnalyzeRGB").style.color = styleActiveColor;
       break;
     case 1:
       analyzeColorspaceModus = "hsv";
-      document.getElementById("button_AnalyzeHSV").style.border = "0.2vh solid rgb(0,191,255)";
+      document.getElementById("button_AnalyzeHSV").style.border = "0.2vh solid "+styleActiveColor;
       document.getElementById("button_AnalyzeHSV").style.color = styleActiveColor;
       break;
     case 2:
       analyzeColorspaceModus = "lab";
-      document.getElementById("button_AnalyzeLAB").style.border = "0.2vh solid rgb(0,191,255)";
+      document.getElementById("button_AnalyzeLAB").style.border = "0.2vh solid "+styleActiveColor;
       document.getElementById("button_AnalyzeLAB").style.color = styleActiveColor;
       break;
     case 3:
       analyzeColorspaceModus = "din99";
-      document.getElementById("button_AnalyzeDIN99").style.border = "0.2vh solid rgb(0,191,255)";
+      document.getElementById("button_AnalyzeDIN99").style.border = "0.2vh solid "+styleActiveColor;
       document.getElementById("button_AnalyzeDIN99").style.color = styleActiveColor;
       break;
     default:
@@ -473,7 +473,7 @@ function changePage(type){
                 return;
 
                 document.getElementById("id_analysisPage").style.display = "none";
-                document.getElementById("id_IntervalOption").style.display = "none";
+
                 for(var i = refLineSketchContainer.length-1; i>=0; i--){
                   refLineSketchContainer[i].remove();
                   refLineSketchContainer.pop();
@@ -488,7 +488,7 @@ function changePage(type){
                 if(type==5)
                 return;
 
-                document.getElementById("id_IntervalOption").style.display = "none";
+
                 document.getElementById("id_comparePage").style.display = "none";
                 for(var i = refLineSketchContainer.length-1; i>=0; i--){
                   refLineSketchContainer[i].remove();
@@ -570,7 +570,7 @@ function changePage(type){
       addedPos = [];
 
       break;
-    case 2:
+    case 2:200
       // New
       /////////////////////////////////////////
 
@@ -613,8 +613,8 @@ function changePage(type){
       // Analyze
       /////////////////////////////////////////
       showSideID = 2;
-      document.getElementById("id_IntervalOption").style.display = "inline-block";
-      document.getElementById("id_IntervalOption").style.marginLeft = "20px";
+
+      //document.getElementById("id_IntervalOption").style.marginLeft = "20px";
       document.getElementById("id_analysisPage").style.display = "inline-block";
       document.getElementById("button_showAnalyze").style.background = styleActiveColor;
       //document.getElementById("id_AnalyseColorspace_Menue").style.display = "inline";
@@ -624,8 +624,8 @@ function changePage(type){
       // Compare
       /////////////////////////////////////////
       showSideID = 3;
-      document.getElementById("id_IntervalOption").style.display = "inline-block";
-      document.getElementById("id_IntervalOption").style.marginLeft = "20px";
+
+      //document.getElementById("id_IntervalOption").style.marginLeft = "20px";
       document.getElementById("id_comparePage").style.display = "inline-block";
       document.getElementById("button_showCompare").style.background = styleActiveColor;
       //document.getElementById("id_AnalyseColorspace_Menue").style.display = "inline";

@@ -133,6 +133,10 @@ class classColormap {
     }
   }
 
+  getIntervalRef(index){
+    return this.ref[this.IntervalIndex[index]];
+  }
+
   calcDeltaE_Interval_DIN99(index1, index2){
       return this.calc3DEuclideanDistance(this.getIntervalColor(index1, "din99"),this.getIntervalColor(index2, "din99"));
   }

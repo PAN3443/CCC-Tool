@@ -25,7 +25,7 @@ var kE = 1;
 var kCH = 1;
 
 var interactionIntervalSize = 200;//50;
-var intervalSize = 6;
+var intervalSize = 200;
 
 //
 var numDecimalPlaces = 2;
@@ -155,6 +155,7 @@ var bandSketch2;
 /// Analyze Compare
 //////////////////////////
 
+var plotType =0;
 var doOriginalValuePlot = true;
 
 ///////////////////////////
