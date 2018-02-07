@@ -278,9 +278,7 @@ function  createNewColormapRow(type, index, parent){
   return function() {
 
       globalColormap1 = addPageGetColormap(tmpIndex, tmpType);
-      document.getElementById("id_exportWindow").style.display = "initial";
-      exportSideOpen = true;
-      initExportWindow();
+      changePage(6);
 
   };
 })(index, type);

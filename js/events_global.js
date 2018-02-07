@@ -396,14 +396,6 @@ function changePage(type){
       default:
   }
 
-
-
-  }
-
-
-  if(type==6){
-    alert("Not implemented now");
-    return;
   }
 
   if(type==5){
@@ -448,7 +440,7 @@ function changePage(type){
               }
               else{
                 if(colormap1SelectIndex == -1 ){
-                  if(myListl.length>0){
+                  if(myList.length>0){
                       colormap1SelectIndex=0;
                   }
 
@@ -520,6 +512,32 @@ function changePage(type){
 
     break;
 
+    case 6:
+                  if(type==6)
+                  return;
+                  document.getElementById("id_exportPage").style.display = "none";
+
+                  if(colormap1SelectIndex == -1 ){
+                    if(myList.length>0){
+                        colormap1SelectIndex=0;
+                        globalColormap1 = myList[colormap1SelectIndex];
+                        bandSketch.colormap2Sketch(globalColormap1);
+                    }
+                    else{
+                      bandSketch.clearSketch();
+                    }
+
+
+                  }
+
+                  if(colormap1SelectIndex != -1 ){
+                    globalColormap1 = myList[colormap1SelectIndex];
+                    bandSketch.colormap2Sketch(globalColormap1);
+                  }
+
+
+    break;
+
     default:
       return;
 
@@ -570,7 +588,7 @@ function changePage(type){
       addedPos = [];
 
       break;
-    case 2:200
+    case 2:
       // New
       /////////////////////////////////////////
 
@@ -634,7 +652,9 @@ function changePage(type){
     case 6:
       // Export
       /////////////////////////////////////////
+      showSideID = 6;
       document.getElementById("button_showExport").style.background = styleActiveColor;
+      document.getElementById("id_exportPage").style.display = "inline-block";
       break;
     case 7:
       // Tutorial

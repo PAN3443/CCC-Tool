@@ -2,9 +2,7 @@ function exportColormapFromMyDesigns(index){
 
     if(index<myList.length){
       globalColormap1 = myList[index];
-      document.getElementById("id_exportWindow").style.display = "initial";
-      exportSideOpen = true;
-      initExportWindow();
+      changePage(6);
     }
 
 }

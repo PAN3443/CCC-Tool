@@ -711,7 +711,7 @@ var t1,t2,t3;
                         var deltaHeight = (arrowPlotHeight*(tmpMin/maxNegMin)*2);
                         var yPosK1 = colormapYEnd+deltaHeight;
 
-                        //canvasCtx.globalAlpha=tmpMin/maxNegMin;
+                        canvasCtx.globalAlpha=1.0+(-0.8*(tmpMin/maxNegMin));
                         canvasCtx.strokeStyle = colorRef.getRGBString();//"rgb(0,0,0)";
                         canvasCtx.beginPath();
                         canvasCtx.lineWidth=2;
