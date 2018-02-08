@@ -1,3 +1,11 @@
+function editPage_delteKey(){
+bandSketch.deleteKey(selectedKey);
+globalColormap1=bandSketch.sketch2Colormap(colorspaceModus, globalColormap1.getColormapName());
+orderColorSketch();
+addKeyButtons();
+}
+
+
 function editPage_drawKeys(canvasID, tmpColormap){
 
     keyRectPointSketch = [];
@@ -249,6 +257,13 @@ function addKeyButtons(){
 
 function selectKey(){
 
+  if(selectedKey==0 || selectedKey==keyType.length-1){
+      document.getElementById("editPage_deleteButton").style.display = "none";
+  }
+  else {
+      document.getElementById("editPage_deleteButton").style.display = "inline-block";
+  }
+
   switch (keyType[selectedKey]) {
     case "nil key":
       document.getElementById("editSide_Radiobutton_KeyTypeNil").checked = true;
@@ -269,10 +284,6 @@ function selectKey(){
       document.getElementById("id_editPageC1BInput").value = "";
       document.getElementById("editColor1HSVLAbel").style.color = "grey";
       document.getElementById("editColor1RGBLAbel").style.color = "grey";
-
-
-
-
 
       document.getElementById("editSide_Radiobutton_SelectColor2").disabled = true;
       document.getElementById("editSide_Radiobutton_SelectColor2_Label").style.color = "grey";

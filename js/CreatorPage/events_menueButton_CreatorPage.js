@@ -25,6 +25,9 @@ function deleteCreatedColormap(){
 
   if (confirm("Do you really want to delete the colormap?") == true) {
       clearCreateSide();
+
+      bandSketch.clearSketch();
+      orderColorSketch();
   } else {
       // do nothing
   }

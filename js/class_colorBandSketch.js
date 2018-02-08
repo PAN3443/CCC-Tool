@@ -241,6 +241,17 @@ class classBandSketch{
   }
 
 
+  deleteKey(index){
+    if(index>0 && index<this.colormapBandSketchC1.length){
+      this.colormapBandSketchC2[index-1]=this.colormapBandSketchC2[index];
+      this.colormapBandSketchR2[index-1]=this.colormapBandSketchR2[index];
+      this.colormapBandSketchC1.splice(index, 1);
+      this.colormapBandSketchC2.splice(index, 1);
+      this.colormapBandSketchR1.splice(index, 1);
+      this.colormapBandSketchR2.splice(index, 1);
+    }
+  }
+
   deleteBand(index){
     this.colormapBandSketchC1.splice(index, 1);
     this.colormapBandSketchC2.splice(index, 1);

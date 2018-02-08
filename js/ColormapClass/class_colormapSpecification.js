@@ -25,6 +25,85 @@ class classColorMapSpecification {
 
   }
 
+  deleteKey(index){
+
+    switch (this.positionKeys[index]) {
+      case "twin key":
+        if(this.positionPoints[index]==this.positionPoints[index+1]){
+          this.positionPoints.splice(index, 2);
+          this.positionKeys.splice(index, 2);
+          this.rgbColorArray.splice(index, 2);
+          this.cielabColorArray.splice(index, 2);
+          this.hsvColorArray.splice(index, 2);
+          this.din99ColorArray.splice(index, 2);
+        }
+        else{
+          this.positionPoints.splice(index-1, 2);
+          this.positionKeys.splice(index-1, 2);
+          this.rgbColorArray.splice(index-1, 2);
+          this.cielabColorArray.splice(index-1, 2);
+          this.hsvColorArray.splice(index-1, 2);
+          this.din99ColorArray.splice(index-1, 2);
+        }
+        break;
+      case "left key":
+        if(index!=this.positionPoints.length-1){
+          if(this.positionPoints[index]==this.positionPoints[index+1]){
+            this.positionPoints.splice(index, 2);
+            this.positionKeys.splice(index, 2);
+            this.rgbColorArray.splice(index, 2);
+            this.cielabColorArray.splice(index, 2);
+            this.hsvColorArray.splice(index, 2);
+            this.din99ColorArray.splice(index, 2);
+          }
+          else{
+            this.positionPoints.splice(index-1, 2);
+            this.positionKeys.splice(index-1, 2);
+            this.rgbColorArray.splice(index-1, 2);
+            this.cielabColorArray.splice(index-1, 2);
+            this.hsvColorArray.splice(index-1, 2);
+            this.din99ColorArray.splice(index-1, 2);
+          }
+        }
+        else{
+          return;
+        }
+        break;
+      default:
+        this.positionPoints.splice(index, 1);
+        this.positionKeys.splice(index, 1);
+        this.rgbColorArray.splice(index, 1);
+        this.cielabColorArray.splice(index, 1);
+        this.hsvColorArray.splice(index, 1);
+        this.din99ColorArray.splice(index, 1);
+    }
+
+  }
+
+  clear(){
+    this.name = "Customer Colormap";
+
+    this.rgbColorArray = [];
+    this.cielabColorArray = [];
+    this.hsvColorArray = [];
+    this.din99ColorArray = [];
+
+    this.NaN_RGB = new classColor_RGB(0,0,0);
+    this.NaN_HSV = new classColor_HSV(0,0,0);
+    this.NaN_LAB = new classColor_LAB(0,0,0);
+    this.NaN_DIN99 = new classColorDIN99(0,0,0);
+
+    this.referenceRangeStart = 0;
+    this.referenceRangeEnd = 0;
+    this.positionPoints = [];
+    this.positionKeys = []; //twin key, dual key, nil key, left key)
+
+    this.bandArray  = []; //
+    this.default_NumberIntervals = 10;
+    this.default_NumberIntervalPoints = 9;
+    this.default_IntervalStepSize = 0.1;
+  }
+
   createKeys(){
 
     this.positionKeys=[];

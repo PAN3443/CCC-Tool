@@ -837,8 +837,10 @@ function orderColorSketch(forColorspace) {
     canvasContex.clearRect(0, 0, canvasObject.width, canvasObject.height);
 
 
-    if(showSideID==1)
-    t2Div.innerHTML = "Drop one or more bands here!";
+    if(showSideID==1){
+      t2Div.innerHTML = "Drop one or more bands here!";
+      document.getElementById("id_LinearMap_Table_Div").style.display = "none";
+    }
     else
     t2Div.innerHTML = "MyDesigns List is empty! Visit the Section Gallary or New.";
 
