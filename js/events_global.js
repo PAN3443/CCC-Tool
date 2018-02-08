@@ -70,7 +70,13 @@ function changeAnalyzeColorspace(type) {
 
 
 
+
+
 function changeColorspace(type) {
+
+  if(type>3){
+    alert("This interpolation color space is not ready implemented. Coming Soon!!!");
+  }
 
   document.getElementById("button_RGB").style.border = "0.2vh solid white";
   document.getElementById("button_RGB").style.color = "white";
@@ -81,97 +87,93 @@ function changeColorspace(type) {
   document.getElementById("button_DIN99").style.border = "0.2vh solid white";
   document.getElementById("button_DIN99").style.color = "white";
 
-  document.getElementById("exportSide_Radiobutton_ApproxRGB").style.display = "initial";
-  document.getElementById("exportSide_Radiobutton_ApproxHSV").style.display = "initial";
-  document.getElementById("exportSide_Radiobutton_ApproxLAB").style.display = "initial";
-  document.getElementById("exportSide_Radiobutton_ApproxDIN99").style.display = "initial";
-  document.getElementById("exportSide_Radiobutton_ApproxRGBLabel").style.display = "initial";
-  document.getElementById("exportSide_Radiobutton_ApproxHSVLabel").style.display = "initial";
-  document.getElementById("exportSide_Radiobutton_ApproxLABLabel").style.display = "initial";
-  document.getElementById("exportSide_Radiobutton_ApproxDIN99Label").style.display = "initial";
+  document.getElementById("button_ExportInterpolationSpaceRGB").style.border = "0.2vh solid black";
+  document.getElementById("button_ExportInterpolationSpaceRGB").style.color = "black";
+  document.getElementById("button_ExportInterpolationSpaceHSV").style.border = "0.2vh solid black";
+  document.getElementById("button_ExportInterpolationSpaceHSV").style.color = "black";
+  document.getElementById("button_ExportInterpolationSpaceLAB").style.border = "0.2vh solid black";
+  document.getElementById("button_ExportInterpolationSpaceLAB").style.color = "black";
+  document.getElementById("button_ExportInterpolationSpaceDIN99").style.border = "0.2vh solid black";
+  document.getElementById("button_ExportInterpolationSpaceDIN99").style.color = "black";
+  document.getElementById("button_ExportInterpolationSpaceDe94").style.border = "0.2vh solid grey";
+  document.getElementById("button_ExportInterpolationSpaceDe94").style.color = "grey";
+  document.getElementById("button_ExportInterpolationSpaceDe2000").style.border = "0.2vh solid grey";
+  document.getElementById("button_ExportInterpolationSpaceDe2000").style.color = "grey";
+
 
   switch (type) {
     case 0:
       colorspaceModus = "rgb";
-      document.getElementById("button_RGB").style.border = "0.2vh solid rgb(0,191,255)";
+      document.getElementById("button_RGB").style.border = "0.2vh solid "+styleActiveColor;
       document.getElementById("button_RGB").style.color = styleActiveColor;
-      document.getElementById("id_color1_FirstLabel").innerHTML = "R:";
+      /*document.getElementById("id_color1_FirstLabel").innerHTML = "R:";
       document.getElementById("id_color1_SecondLabel").innerHTML = "G:";
-      document.getElementById("id_color1_ThirdLabel").innerHTML = "B:";
+      document.getElementById("id_color1_ThirdLabel").innerHTML = "B:";*/
       document.getElementById("id_table_Color1").innerHTML = "C1 (RGB)";
       document.getElementById("id_table_Color2").innerHTML = "C2 (RGB)";
-      document.getElementById("id_table_exportColor1").innerHTML = "C1 (RGB)";
-      document.getElementById("id_table_exportColor2").innerHTML = "C2 (RGB)";
-      document.getElementById("exportSide_Radiobutton_RGB").checked = "true";
 
-      if(document.getElementById("exportSide_Radiobutton_ApproxRGB").checked){
-        document.getElementById("exportSide_Radiobutton_ApproxLAB").checked=true;
-        exportSide_changeApproxSpace();
-      }
-      document.getElementById("exportSide_Radiobutton_ApproxRGB").style.display = "none";
-      document.getElementById("exportSide_Radiobutton_ApproxRGBLabel").style.display = "none";
-
+      document.getElementById("button_ExportInterpolationSpaceRGB").style.border = "0.2vh solid "+styleActiveColor;
+      document.getElementById("button_ExportInterpolationSpaceRGB").style.color = styleActiveColor;
       break;
     case 1:
       colorspaceModus = "hsv";
-      document.getElementById("button_HSV").style.border = "0.2vh solid rgb(0,191,255)";
+      document.getElementById("button_HSV").style.border = "0.2vh solid "+styleActiveColor;
       document.getElementById("button_HSV").style.color = styleActiveColor;
-      document.getElementById("id_color1_FirstLabel").innerHTML = "H:";
+    /*  document.getElementById("id_color1_FirstLabel").innerHTML = "H:";
       document.getElementById("id_color1_SecondLabel").innerHTML = "S:";
-      document.getElementById("id_color1_ThirdLabel").innerHTML = "V:";
+      document.getElementById("id_color1_ThirdLabel").innerHTML = "V:";*/
       document.getElementById("id_table_Color1").innerHTML = "C1 (HSV)";
       document.getElementById("id_table_Color2").innerHTML = "C2 (HSV)";
-      document.getElementById("id_table_exportColor1").innerHTML = "C1 (HSV)";
-      document.getElementById("id_table_exportColor2").innerHTML = "C2 (HSV)";
-      document.getElementById("exportSide_Radiobutton_HSV").checked = "true";
-      document.getElementById("exportSide_Radiobutton_ApproxHSV").style.display = "none";
-      document.getElementById("exportSide_Radiobutton_ApproxHSVLabel").style.display = "none";
 
-      if(document.getElementById("exportSide_Radiobutton_ApproxHSV").checked==true){
-        document.getElementById("exportSide_Radiobutton_ApproxLAB").checked=true;
-        exportSide_changeApproxSpace();
-      }
+      document.getElementById("button_ExportInterpolationSpaceHSV").style.border = "0.2vh solid "+styleActiveColor;
+      document.getElementById("button_ExportInterpolationSpaceHSV").style.color = styleActiveColor;
       break;
     case 2:
       colorspaceModus = "lab";
-      document.getElementById("button_LAB").style.border = "0.2vh solid rgb(0,191,255)";
+      document.getElementById("button_LAB").style.border = "0.2vh solid "+styleActiveColor;
       document.getElementById("button_LAB").style.color = styleActiveColor;
-      document.getElementById("id_color1_FirstLabel").innerHTML = "L:";
+    /*  document.getElementById("id_color1_FirstLabel").innerHTML = "L:";
       document.getElementById("id_color1_SecondLabel").innerHTML = "A:";
-      document.getElementById("id_color1_ThirdLabel").innerHTML = "B:";
+      document.getElementById("id_color1_ThirdLabel").innerHTML = "B:";*/
       document.getElementById("id_table_Color1").innerHTML = "C1 (LAB)";
       document.getElementById("id_table_Color2").innerHTML = "C2 (LAB)";
-      document.getElementById("id_table_exportColor1").innerHTML = "C1 (LAB)";
-      document.getElementById("id_table_exportColor2").innerHTML = "C2 (LAB)";
-      document.getElementById("exportSide_Radiobutton_LAB").checked = "true";
-      document.getElementById("exportSide_Radiobutton_ApproxLAB").style.display = "none";
-      document.getElementById("exportSide_Radiobutton_ApproxLABLabel").style.display = "none";
 
-      if(document.getElementById("exportSide_Radiobutton_ApproxLAB").checked==true){
-        document.getElementById("exportSide_Radiobutton_ApproxDIN99").checked=true;
-        exportSide_changeApproxSpace();
-      }
+      document.getElementById("button_ExportInterpolationSpaceLAB").style.border = "0.2vh solid "+styleActiveColor;
+      document.getElementById("button_ExportInterpolationSpaceLAB").style.color = styleActiveColor;
       break;
     case 3:
       colorspaceModus = "din99";
-      document.getElementById("button_DIN99").style.border = "0.2vh solid rgb(0,191,255)";
+      document.getElementById("button_DIN99").style.border = "0.2vh solid "+styleActiveColor;
       document.getElementById("button_DIN99").style.color = styleActiveColor;
-      document.getElementById("id_color1_FirstLabel").innerHTML = "L99:";
+      /*document.getElementById("id_color1_FirstLabel").innerHTML = "L99:";
       document.getElementById("id_color1_SecondLabel").innerHTML = "A99:";
-      document.getElementById("id_color1_ThirdLabel").innerHTML = "B99:";
+      document.getElementById("id_color1_ThirdLabel").innerHTML = "B99:";*/
       document.getElementById("id_table_Color1").innerHTML = "C1 (DIN99)";
       document.getElementById("id_table_Color2").innerHTML = "C2 (DIN99)";
-      document.getElementById("id_table_exportColor1").innerHTML = "C1 (DIN99)";
-      document.getElementById("id_table_exportColor2").innerHTML = "C2 (DIN99)";
-      document.getElementById("exportSide_Radiobutton_DIN99").checked = "true";
-      document.getElementById("exportSide_Radiobutton_ApproxDIN99").style.display = "none";
-      document.getElementById("exportSide_Radiobutton_ApproxDIN99Label").style.display = "none";
 
-      if(document.getElementById("exportSide_Radiobutton_ApproxDIN99").checked==true){
-        document.getElementById("exportSide_Radiobutton_ApproxLAB").checked=true;
-        exportSide_changeApproxSpace();
-      }
+      document.getElementById("button_ExportInterpolationSpaceDIN99").style.border = "0.2vh solid "+styleActiveColor;
+      document.getElementById("button_ExportInterpolationSpaceDIN99").style.color = styleActiveColor;
       break;
+      case 4:
+        colorspaceModus = "de94";
+        //document.getElementById("button_DIN99").style.border = "0.2vh solid "+styleActiveColor;
+        //document.getElementById("button_DIN99").style.color = styleActiveColor;
+        document.getElementById("id_table_Color1").innerHTML = "C1 (LAB)";
+        document.getElementById("id_table_Color2").innerHTML = "C2 (LAB)";
+
+        document.getElementById("button_ExportInterpolationSpaceDe94").style.border = "0.2vh solid "+styleActiveColor;
+        document.getElementById("button_ExportInterpolationSpaceDe94").style.color = styleActiveColor;
+        break;
+        case 5:
+          colorspaceModus = "de2000";
+          //document.getElementById("button_DIN99").style.border = "0.2vh solid "+styleActiveColor;
+          //document.getElementById("button_DIN99").style.color = styleActiveColor;
+          document.getElementById("id_table_Color1").innerHTML = "C1 (LAB)";
+          document.getElementById("id_table_Color2").innerHTML = "C2 (LAB)";
+
+          document.getElementById("button_ExportInterpolationSpaceDe2000").style.border = "0.2vh solid "+styleActiveColor;
+          document.getElementById("button_ExportInterpolationSpaceDe2000").style.color = styleActiveColor;
+          break;
     default:
       return;
   }
@@ -193,6 +195,11 @@ function changeColorspace(type) {
 
   if(showSideID == 4){
     //drawExistingColormaps_AddPage();
+  }
+
+  if(showSideID == 6){
+    drawCanvasColormap("id_previewColormapExport", linearMap_resolution_X, linearMap_resolution_Y, globalColormap1);
+    fillExportTable();
   }
 
 
@@ -359,8 +366,10 @@ function changeColorspace(type) {
     }
     drawPredefinedBands();
     updateCreatorBand();
-    orderColorSketch(colorspaceModus);
+
   }
+
+  orderColorSketch(colorspaceModus);
 }
 
 
@@ -388,14 +397,26 @@ function changePage(type){
         }
         alert("There is no CMS at the MyDesigns list for the analyze page.");
         return;
-      /*case 5:
-          if(){
-            alert("There is no CMS at the MyDesigns list for the analyze page.");
+      case 5:
+          if(showSideID==1 && bandSketch.getBandLenght()!=0){
+            alert("There is no CMS at the MyDesigns list for the compare page.");
             return;
-          }*/
+          }
+      case 6:
+          if(bandSketch.getBandLenght()==0){
+            alert("There is no CMS at the MyDesigns list for the export page.");
+            return;
+          }
       default:
   }
 
+  }
+
+  if(type==2){
+    if(myList.length==10){
+      alert("The MyDesigns List is full.");
+      return;
+    }
   }
 
   if(type==5){
@@ -655,6 +676,9 @@ function changePage(type){
       showSideID = 6;
       document.getElementById("button_showExport").style.background = styleActiveColor;
       document.getElementById("id_exportPage").style.display = "inline-block";
+
+      initExportWindow();
+
       break;
     case 7:
       // Tutorial

@@ -126,9 +126,6 @@ function xmlColormapParserPath(path){
 
 function xmlColormapParserFile(xmlString){
 
-
-
-
       var xmlObject;
       // The GetBrowserType function returns a 2-letter code representing
       // ...the type of browser.
@@ -148,25 +145,23 @@ function xmlColormapParserFile(xmlString){
       // }
 
     try {
-
-
             var colormapObject = xmlObject.getElementsByTagName("ColorMap");
 
             if(colormapObject.length>0){
 
                 var pointObject = colormapObject[0].getElementsByTagName("Point");
                 var space = checkXMLColorspace(pointObject);
-console.log(space);
-                var checkIfCCC_Tool_File = false;
-                if(pointObject.length>0)
-                  checkIfCCC_Tool_File = pointObject[0].hasAttribute("ccctype");
+//console.log(space);
+                //var checkIfCCC_Tool_File = false;
+                /*if(pointObject.length>0)
+                  checkIfCCC_Tool_File = pointObject[0].hasAttribute("cms");
 
                   /// ASK if user want the Intervals
                   if(checkIfCCC_Tool_File){
-                    if (confirm("You are loading a colormap created by the ccc-tool. Do you want to upload the interval points as fixed key-colors?") == true) {
+                    if (confirm("You are loading a colormap created by the ccc-tool. Do you want to upload the falses as fixed key-colors?") == true) {
                       checkIfCCC_Tool_File = false;
                     }
-                  }
+                  }*/
 
                 //colormapObjects.push(new classColorMapSpecification());
                 //var index = colormapObjects.length-1;
@@ -194,7 +189,9 @@ console.log(space);
                        {
 
                            var saveAttribute = true;
-                           if(checkIfCCC_Tool_File && pointObject[i].getAttribute("ccctype")=="interval point"){
+                           //if(checkIfCCC_Tool_File && pointObject[i].getAttribute("cms")=="false"){
+                           console.log(pointObject[i].getAttribute("cms"));
+                           if(pointObject[i].getAttribute("cms")=="false"){
                                saveAttribute=false;
                            }
 
@@ -249,7 +246,7 @@ console.log(space);
                        {
 
                            var saveAttribute = true;
-                           if(checkIfCCC_Tool_File && pointObject[i].getAttribute("ccctype")=="interval point"){
+                           if(checkIfCCC_Tool_File && pointObject[i].getAttribute("cms")=="false"){
                                saveAttribute=false;
                            }
 
@@ -288,7 +285,7 @@ console.log(space);
                         {
 
                             var saveAttribute = true;
-                            if(checkIfCCC_Tool_File && pointObject[i].getAttribute("ccctype")=="interval point"){
+                            if(checkIfCCC_Tool_File && pointObject[i].getAttribute("cms")=="false"){
                                 saveAttribute=false;
                             }
 
@@ -327,7 +324,7 @@ console.log(space);
                        {
 
                            var saveAttribute = true;
-                           if(checkIfCCC_Tool_File && pointObject[i].getAttribute("ccctype")=="interval point"){
+                           if(checkIfCCC_Tool_File && pointObject[i].getAttribute("cms")=="false"){
                                saveAttribute=false;
                            }
 

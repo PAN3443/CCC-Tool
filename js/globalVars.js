@@ -357,7 +357,7 @@ var quadBands = [[new classColor_RGB(0.00392156862745098,0.011764705882352941,0.
 ///////////////////////////
 /// Export
 //////////////////////////
-
+var doMerging = true;
+var exportColorspace = "rgb";
 var outputFormat = 1; // 0=lookup, 1=xml, 2=json
-var exportSideOpen = false;
 ////////////////////////////////////////////////////////////////////////////////

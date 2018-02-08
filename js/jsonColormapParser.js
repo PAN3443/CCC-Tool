@@ -61,20 +61,20 @@ function jsonColormapParserFile(jsonString){
                 for(var i =0; i<jsonObj.colormaps[0].points.length; i++){
 
                   var saveAttribute = true;
-                  if(jsonObj.colormaps[0].points[i].ccctype=="interval point"){
-
-                      if(askInterval){
+                  if(jsonObj.colormaps[0].points[i].cms=="false"){
+                      saveAttribute=false;
+                      /*if(askInterval){
                           saveAttribute=saveIntervals;
                       }
                       else{
-                        if (confirm("You are loading a colormap created by the ccc-tool. Do you want to upload the interval points as fixed key-colors?") == true) {
+                        if (confirm("You are loading a colormap created by the ccc-tool. Do you want to upload the falses as fixed key-colors?") == true) {
                           saveIntervals = true;
                         }
                         else{
                           saveAttribute=false;
                         }
                         askInterval=true;
-                      }
+                      }*/
 
                   }
 
@@ -107,13 +107,13 @@ function jsonColormapParserFile(jsonString){
             for(var i =0; i<jsonObj.colormaps[0].points.length; i++){
 
               var saveAttribute = true;
-              if(jsonObj.colormaps[0].points[i].ccctype=="interval point"){
+              if(jsonObj.colormaps[0].points[i].cms=="false"){
 
                   if(askInterval){
                       saveAttribute=saveIntervals;
                   }
                   else{
-                    if (confirm("You are loading a colormap created by the ccc-tool. Do you want to upload the interval points as fixed key-colors?") == true) {
+                    if (confirm("You are loading a colormap created by the ccc-tool. Do you want to upload the falses as fixed key-colors?") == true) {
                       saveIntervals = true;
                     }
                     else{
@@ -147,13 +147,13 @@ function jsonColormapParserFile(jsonString){
            for(var i =0; i<jsonObj.colormaps[0].points.length; i++){
 
              var saveAttribute = true;
-             if(jsonObj.colormaps[0].points[i].ccctype=="interval point"){
+             if(jsonObj.colormaps[0].points[i].cms=="false"){
 
                  if(askInterval){
                      saveAttribute=saveIntervals;
                  }
                  else{
-                   if (confirm("You are loading a colormap created by the ccc-tool. Do you want to upload the interval points as fixed key-colors?") == true) {
+                   if (confirm("You are loading a colormap created by the ccc-tool. Do you want to upload the falses as fixed key-colors?") == true) {
                      saveIntervals = true;
                    }
                    else{
@@ -186,13 +186,13 @@ function jsonColormapParserFile(jsonString){
           for(var i =0; i<jsonObj.colormaps[0].points.length; i++){
 
             var saveAttribute = true;
-            if(jsonObj.colormaps[0].points[i].ccctype=="interval point"){
+            if(jsonObj.colormaps[0].points[i].cms=="false"){
 
                 if(askInterval){
                     saveAttribute=saveIntervals;
                 }
                 else{
-                  if (confirm("You are loading a colormap created by the ccc-tool. Do you want to upload the interval points as fixed key-colors?") == true) {
+                  if (confirm("You are loading a colormap created by the ccc-tool. Do you want to upload the falses as fixed key-colors?") == true) {
                     saveIntervals = true;
                   }
                   else{

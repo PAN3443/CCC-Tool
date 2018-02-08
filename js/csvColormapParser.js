@@ -40,9 +40,9 @@ function csvColormapParserFile(csvString) {
         var type = keyData[5];
 
 
-        if (type == "interval point") {
-
-          if (askInterval) {
+        if (type == "false") {
+          continue;
+          /*if (askInterval) {
             console.log(saveIntervals+" "+type);
             if (saveIntervals == false){
 
@@ -50,13 +50,13 @@ function csvColormapParserFile(csvString) {
             }
           } else {
             askInterval = true;
-            if (confirm("You are loading a colormap created by the ccc-tool. Do you want to upload the interval points as fixed key-colors?") == true) {
+            if (confirm("You are loading a colormap created by the ccc-tool. Do you want to upload the falses as fixed key-colors?") == true) {
               saveIntervals = true;
             } else {
               saveIntervals = false;
               continue;
             }
-          }
+          }*/
 
         }
 

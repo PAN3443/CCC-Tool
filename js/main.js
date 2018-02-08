@@ -190,7 +190,7 @@ window.onload = function() {
   document.getElementById('id_buttonBackwardCreateColormap').addEventListener("click", backwardColormapProcess);
   document.getElementById('id_buttonForwardCreateColormap').addEventListener("click", forwardColormapProcess);
   //document.getElementById('id_buttonSaveCreateColormap').addEventListener("click", saveColormapToList);
-  document.getElementById('id_buttonExportCreateColormap').addEventListener("click", createSideExport);
+  //document.getElementById('id_buttonExportCreateColormap').addEventListener("click", createSideExport);
   document.getElementById('id_buttonLoadCreateColormap').addEventListener("click", loadColormapCreateSide);
 
   document.getElementById('id_buttonHelpCreateColormap').addEventListener("mouseleave", createPage_hideHelp);
@@ -321,22 +321,8 @@ window.onload = function() {
   /////////////////////////////// Export Side /////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  /*document.getElementById('id_exportCancelButton').addEventListener("click", cancelExport);
-  document.getElementById('exportSide_IntervalApproximationCheckbox').addEventListener("change", showIntervalOptions);
-  document.getElementById('exportSide_MergingCheckbox').addEventListener("change", exportSide_ChangeMerging);
-  document.getElementById('exportSide_IntervallInput').addEventListener("change", exportSide_changeIntervalNumChange);
-  document.getElementById('exportSide_IntervallInput').addEventListener("keyup", exportSide_changeIntervalNumEnter);
-
-  document.getElementById('exportSide_Radiobutton_ApproxRGB').addEventListener("change", exportSide_changeApproxSpace);
-  document.getElementById('exportSide_Radiobutton_ApproxHSV').addEventListener("change", exportSide_changeApproxSpace);
-  document.getElementById('exportSide_Radiobutton_ApproxLAB').addEventListener("change", exportSide_changeApproxSpace);
-  document.getElementById('exportSide_Radiobutton_ApproxDIN99').addEventListener("change", exportSide_changeApproxSpace);
-
-  document.getElementById('exportSide_Radiobutton_XML').addEventListener("change", changeOutputformat);
-  document.getElementById('exportSide_Radiobutton_TEXT').addEventListener("change", changeOutputformat);
-  document.getElementById('exportSide_Radiobutton_JSON').addEventListener("change", changeOutputformat);
-
-  document.getElementById('id_exportExportButton').addEventListener("click", exportSide_downloadFile);*/
+  document.getElementById('id_InputIntervalExport').addEventListener("change", exportSide_changeIntervalNumChange);
+  document.getElementById('id_InputIntervalExport').addEventListener("keyup", exportSide_changeIntervalNumEnter);
 
  /////
   pageIsLoaded=true;
@@ -916,6 +902,11 @@ function changeKeyValueInputSketch(sketchIndex, doR1, fielID, doBandSketch2) {
 
     if (showSideID == 3) {
       drawCompareDifferenceMaps();
+    }
+
+    if (showSideID == 6) {
+      drawCanvasColormap("id_previewColormapExport", linearMap_resolution_X, linearMap_resolution_Y, globalColormap1);
+      fillExportTable();
     }
 
   }

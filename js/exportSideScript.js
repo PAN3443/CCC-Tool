@@ -1,135 +1,96 @@
 function initExportWindow(){
 
-  tmpZIndex=105;
-  document.getElementById("exportSide_IntervalApproximationCheckbox").checked = false;
-  document.getElementById('exportSide_IntervallInput').value = "10";
-  document.getElementById('exportSide_MergingCheckbox').checked=true;
-  document.getElementById('exportSide_Radiobutton_XML').checked=true;
-
-  var box = document.getElementById("id_intervalRect").getBoundingClientRect();
-
-  document.getElementById("id_coverIntervalRect").style.display ="initial";
-  document.getElementById("exportPage_IntervalPreview").style.display ="none";
-
-  document.getElementById("id_coverIntervalRect").style.top = box.top; + "px"
-  document.getElementById("id_coverIntervalRect").style.left = box.left + "px";
-  document.getElementById("id_coverIntervalRect").style.width = box.width + "px";
-  document.getElementById("id_coverIntervalRect").style.height = box.height + "px";
-
   changeExportColorspace(0);
+  drawCanvasColormap("id_previewColormapExport", linearMap_resolution_X, linearMap_resolution_Y, globalColormap1);
 
 }
 
-function cancelExport(){
-    document.getElementById("id_exportWindow").style.display = "none";
-    tmpZIndex=1;
-    if(showSideID==1)
-      orderColorSketch(colorspaceModus);
-    else{
-      for(var i = refElementContainer.length-1; i>=0; i--){
-          refElementContainer[i].remove();
-          refElementContainer.pop();
-      }
-     }
-    exportSideOpen = false;
-}
+function changeMergeOption(type){
 
+  document.getElementById("button_ExportMergeYes").style.border = "0.2vh solid black";
+  document.getElementById("button_ExportMergeYes").style.color = "black";
+  document.getElementById("button_ExportMergeNo").style.border = "0.2vh solid black";
+  document.getElementById("button_ExportMergeNo").style.color = "black";
+
+  switch (type) {
+    case 0:
+      doMerging=true;
+      document.getElementById("button_ExportMergeYes").style.border = "0.2vh solid "+styleActiveColor;
+      document.getElementById("button_ExportMergeYes").style.color = styleActiveColor;
+      break;
+    case 1:
+      doMerging=false;
+      document.getElementById("button_ExportMergeNo").style.border = "0.2vh solid "+styleActiveColor;
+      document.getElementById("button_ExportMergeNo").style.color = styleActiveColor;
+      break;
+    default:
+      return;
+  }
+
+    // Fill Table
+    fillExportTable();
+}
 
 function fillExportTable(){
 
-    var expMapBandSketchC1 =[];
-    var expMapBandSketchC2 =[];
-    var expMapBandSketchR1 =[];
-    var expMapBandSketchR2 =[];
-
-    for(var i=0; i<globalColormap1.getNumberOfBands(); i++){
-
-      expMapBandSketchC1.push(globalColormap1.getBand(i).getLeftRGBColor());
-      expMapBandSketchC2.push(globalColormap1.getBand(i).getRightRGBColor());
-      expMapBandSketchR1.push(globalColormap1.getBand(i).getLeftRef());
-      expMapBandSketchR2.push(globalColormap1.getBand(i).getRightRef());
-
-    }
-
+    intervalSize = parseFloat(document.getElementById("id_InputIntervalExport").value);
+    var intervalColormap = globalColormap1.calcColorMap(intervalSize, colorspaceModus);
 
     var old_tbody = document.getElementById("id_exportTableBody");
     var new_tbody = document.createElement('tbody');
 
-    //fill table
+    var counter = 1;
+    for(var i = 0; i<intervalColormap.getColormapLength(); i++){
 
-    for (i = 0; i < expMapBandSketchC1.length; i++) {
-        var tr = document.createElement('tr');
+      var tmpKey = intervalColormap.getType(i);
+      var tmpColor = intervalColormap.getColor(i, exportColorspace);
 
-        var td = document.createElement('td')
-        td.className = "class_tableInput";
-        td.appendChild(document.createTextNode(i+1));
-        tr.appendChild(td);
+      if(doMerging && i!=intervalColormap.getColormapLength()-1){
 
-        td = document.createElement('td')
-        td.className = "class_tableInput";
-        td.appendChild(document.createTextNode(expMapBandSketchR1[i]));
-        tr.appendChild(td);
-
-        td = document.createElement('td')
-        td.className = "class_tableInput";
-        td.appendChild(document.createTextNode(expMapBandSketchR2[i]));
-        tr.appendChild(td);
-
-        td = document.createElement('td')
-        td.className = "class_tableInput";
-        if(expMapBandSketchC2[i].getRValue()!=expMapBandSketchC1[i].getRValue() ||  // i = scaled
-           expMapBandSketchC2[i].getGValue()!=expMapBandSketchC1[i].getGValue() ||
-           expMapBandSketchC2[i].getBValue()!=expMapBandSketchC1[i].getBValue())
-            td.appendChild(document.createTextNode("scaled"));
-        else
-            td.appendChild(document.createTextNode("constant"));
-        tr.appendChild(td);
-
-        td = document.createElement('td')
-        td.className = "class_tableInput";
-        var td2 = document.createElement('td')
-        td2.className = "class_tableInput";
-
-
-        switch(colorspaceModus){
-                case "rgb":;
-                    td.appendChild(document.createTextNode(expMapBandSketchC1[i].getRGBString()));
-                    td2.appendChild(document.createTextNode(expMapBandSketchC2[i].getRGBString()));
-                break;
-                case "hsv":
-                    var tmpC1HSV = expMapBandSketchC1[i].calcHSVColor();
-                    var tmpC2HSV = expMapBandSketchC2[i].calcHSVColor();
-                    var string = "hsv("+tmpC1HSV.getHValue().toFixed(numDecimalPlaces)+","+tmpC1HSV.getSValue().toFixed(numDecimalPlaces)+","+tmpC1HSV.getVValue().toFixed(numDecimalPlaces)+")"
-                    td.appendChild(document.createTextNode(string));
-                    string = "hsv("+tmpC2HSV.getHValue().toFixed(numDecimalPlaces)+","+tmpC2HSV.getSValue().toFixed(numDecimalPlaces)+","+tmpC2HSV.getVValue().toFixed(numDecimalPlaces)+")"
-                    td2.appendChild(document.createTextNode(string));
-                break;
-                case "lab":
-                    var tmpC1LAB = expMapBandSketchC1[i].calcLABColor();
-                    var tmpC2LAB = expMapBandSketchC2[i].calcLABColor();
-                    var string = "lab("+tmpC1LAB.getLValue().toFixed(numDecimalPlaces)+","+tmpC1LAB.getAValue().toFixed(numDecimalPlaces)+","+tmpC1LAB.getBValue().toFixed(numDecimalPlaces)+")"
-                    td.appendChild(document.createTextNode(string));
-                    string = "lab("+tmpC2LAB.getLValue().toFixed(numDecimalPlaces)+","+tmpC2LAB.getAValue().toFixed(numDecimalPlaces)+","+tmpC2LAB.getBValue().toFixed(numDecimalPlaces)+")"
-                    td2.appendChild(document.createTextNode(string));
-                break;
-                case "din99":
-                    var tmpC1DIN99 = expMapBandSketchC1[i].calcDIN99Color(kE,kCH);
-                    var tmpC2DIN99 = expMapBandSketchC2[i].calcDIN99Color(kE,kCH);
-                    var string = "din99("+tmpC1DIN99.getL99Value().toFixed(numDecimalPlaces)+","+tmpC1DIN99.getA99Value().toFixed(numDecimalPlaces)+","+tmpC1DIN99.getB99Value().toFixed(numDecimalPlaces)+")"
-                    td.appendChild(document.createTextNode(string));
-                    string = "din99("+tmpC2DIN99.getL99Value().toFixed(numDecimalPlaces)+","+tmpC2DIN99.getA99Value().toFixed(numDecimalPlaces)+","+tmpC2DIN99.getB99Value().toFixed(numDecimalPlaces)+")"
-                    td2.appendChild(document.createTextNode(string));
-                break;
-                default:
-                console.log("Error at the changeColorspace function");
+        var tmpColor2 = intervalColormap.getColor(i+1, exportColorspace);
+        if(tmpColor.get1Value()==tmpColor2.get1Value()&&
+           tmpColor.get2Value()==tmpColor2.get2Value()&&
+           tmpColor.get3Value()==tmpColor2.get3Value()&&
+           tmpKey!="nil key"&&
+           tmpKey!="interval nil key"&&
+           tmpKey!="twin key"&&
+           tmpKey!="interval twin key"&&
+           tmpKey!="left key"&&
+           tmpKey!="interval left key"){
+           continue;
         }
+      }
 
+          var tr = document.createElement('tr');
 
-        tr.appendChild(td);
-        tr.appendChild(td2);
+          var td = document.createElement('td')
+          td.className = "class_tableInput";
+          td.appendChild(document.createTextNode(counter));
+          tr.appendChild(td);
 
-        new_tbody.appendChild(tr);
+          td = document.createElement('td')
+          td.className = "class_tableInput";
+          td.appendChild(document.createTextNode(intervalColormap.getRef(i)));
+          tr.appendChild(td);
 
+          td = document.createElement('td')
+          td.className = "class_tableInput";
+          td.appendChild(document.createTextNode(tmpKey));
+          tr.appendChild(td);
+
+          td = document.createElement('td')
+          td.className = "class_tableInput";
+          td.appendChild(document.createTextNode(exportColorspace+"("+tmpColor.get1Value()+','+tmpColor.get2Value()+','+tmpColor.get3Value()+')'));
+          tr.appendChild(td);
+
+          tmpColor = intervalColormap.getColor(i, "rgb");
+          td = document.createElement('td')
+          td.className = "class_tableInput";
+          td.style.background = tmpColor.getRGBString();
+          tr.appendChild(td);
+
+          new_tbody.appendChild(tr);
+          counter++;
     }
 
     old_tbody.parentNode.replaceChild(new_tbody, old_tbody);
@@ -138,248 +99,100 @@ function fillExportTable(){
 
 
 function changeExportColorspace(type){
-    changeColorspace(type);
 
-    // Draw Colorspace
-    drawCanvasColormap("id_linearColormapExport",linearMap_resolution_X, linearMap_resolution_Y, globalColormap1);
-    drawKeys("id_keyColormapExport",key_resolution_X, key_resolution_Y, globalColormap1, "id_keyColormapLinesBottomExport",true,false);
 
-    var box = document.getElementById("id_keyColormapLinesBottomExport").getBoundingClientRect();
-    for(var i=0; i<refElementContainer.length; i++){
-        refElementContainer[i].style.position = "fixed";
-        refElementContainer[i].style.top = box.height+box.top;
-    }
+  document.getElementById("button_ExportSpaceRGB").style.border = "0.2vh solid black";
+  document.getElementById("button_ExportSpaceRGB").style.color = "black";
+  document.getElementById("button_ExportSpaceHSV").style.border = "0.2vh solid black";
+  document.getElementById("button_ExportSpaceHSV").style.color = "black";
+  document.getElementById("button_ExportSpaceLAB").style.border = "0.2vh solid black";
+  document.getElementById("button_ExportSpaceLAB").style.color = "black";
+  document.getElementById("button_ExportSpaceDIN99").style.border = "0.2vh solid black";
+  document.getElementById("button_ExportSpaceDIN99").style.color = "black";
+
+  switch (type) {
+    case 0:
+      exportColorspace = "rgb";
+      document.getElementById("id_table_exportColor1").innerHTML = "Color (RGB)";
+      document.getElementById("button_ExportSpaceRGB").style.border = "0.2vh solid "+styleActiveColor;
+      document.getElementById("button_ExportSpaceRGB").style.color = styleActiveColor;
+      break;
+    case 1:
+      exportColorspace = "hsv";
+      document.getElementById("id_table_exportColor1").innerHTML = "Color (HSV)";
+      document.getElementById("button_ExportSpaceHSV").style.border = "0.2vh solid "+styleActiveColor;
+      document.getElementById("button_ExportSpaceHSV").style.color = styleActiveColor;
+      break;
+    case 2:
+      exportColorspace = "lab";
+      document.getElementById("id_table_exportColor1").innerHTML = "Color (LAB)";
+      document.getElementById("button_ExportSpaceLAB").style.border = "0.2vh solid "+styleActiveColor;
+      document.getElementById("button_ExportSpaceLAB").style.color = styleActiveColor;
+      break;
+    case 3:
+      exportColorspace = "din99";
+      document.getElementById("id_table_exportColor1").innerHTML = "Color (DIN99)";
+      document.getElementById("button_ExportSpaceDIN99").style.border = "0.2vh solid "+styleActiveColor;
+      document.getElementById("button_ExportSpaceDIN99").style.color = styleActiveColor;
+      break;
+    default:
+      return;
+  }
+
     // Fill Table
     fillExportTable();
-    //
-    if(document.getElementById("exportSide_IntervalApproximationCheckbox").checked == true){
-      // draw orginal colormap
-          drawCanvasColormap("id_IntervalPreviewColormapExport",linearMap_resolution_X, linearMap_resolution_Y, globalColormap1);
-    }
+
 }
 
-function showIntervalOptions(){
-  if(document.getElementById("exportSide_IntervalApproximationCheckbox").checked == true){
-
-    document.getElementById("id_coverIntervalRect").style.display ="none";
-    document.getElementById("exportPage_IntervalPreview").style.display ="initial";
-
-    exportSide_changeApproxSpace();
-
-    // draw orginal colormap
-        drawCanvasColormap("id_IntervalPreviewColormapExport",linearMap_resolution_X, linearMap_resolution_Y, globalColormap1);
-    // draw intervall interpolation
-        drawIntervalColormap();
-    // draw approx colormap
-
-    var oldColorspace = colorspaceModus;
-      if(document.getElementById("exportSide_Radiobutton_ApproxRGB").checked){
-        colorspaceModus="rgb";
-      }
-      if(document.getElementById("exportSide_Radiobutton_ApproxHSV").checked==true){
-        colorspaceModus="hsv";
-      }
-      if(document.getElementById("exportSide_Radiobutton_ApproxLAB").checked==true){
-        colorspaceModus="lab";
-      }
-      if(document.getElementById("exportSide_Radiobutton_ApproxDIN99").checked==true){
-        colorspaceModus="din99";
-      }
-      drawCanvasColormap("id_IntervalPreviewColormapApprox",linearMap_resolution_X, linearMap_resolution_Y, globalColormap1);
-    colorspaceModus = oldColorspace;
-
-  }
-  else{
-
-    var box = document.getElementById("id_intervalRect").getBoundingClientRect();
-
-    document.getElementById("id_coverIntervalRect").style.display ="initial";
-    document.getElementById("exportPage_IntervalPreview").style.display ="none";
-
-    document.getElementById("id_coverIntervalRect").style.top = box.top; + "px"
-    document.getElementById("id_coverIntervalRect").style.left = box.left + "px";
-    document.getElementById("id_coverIntervalRect").style.width = box.width + "px";
-    document.getElementById("id_coverIntervalRect").style.height = box.height + "px";
-
-  }
-}
-
-
-function exportSide_ChangeMerging(){
-
-        if(document.getElementById('exportSide_MergingCheckbox').checked==true){
-            globalColormap1.setMerging(true);
-        }
-        else{
-            globalColormap1.setMerging(false);
-        }
-
-
-    // draw interval colormap
-    drawIntervalColormap();
-}
-
-function exportSide_changeApproxSpace(){
-   // change Metric
-   var oldColorspace = colorspaceModus;
-     if(document.getElementById("exportSide_Radiobutton_ApproxRGB").checked==true){
-       colorspaceModus="rgb";
-       globalColormap1.setIntervalMetric(0);
-     }
-     if(document.getElementById("exportSide_Radiobutton_ApproxHSV").checked==true){
-       colorspaceModus="hsv";
-       globalColormap1.setIntervalMetric(1);
-     }
-     if(document.getElementById("exportSide_Radiobutton_ApproxLAB").checked==true){
-       colorspaceModus="lab";
-       globalColormap1.setIntervalMetric(2);
-     }
-     if(document.getElementById("exportSide_Radiobutton_ApproxDIN99").checked==true){
-       colorspaceModus="din99";
-       globalColormap1.setIntervalMetric(3);
-     }
-
-    // draw approx colormap
-     drawCanvasColormap("id_IntervalPreviewColormapApprox",linearMap_resolution_X, linearMap_resolution_Y, globalColormap1);
-     colorspaceModus = oldColorspace;
-
-   // draw interval colormap // Do it with the right colorspace!!!! -> aver draw approx colormap
-    drawIntervalColormap()
-}
 
 function exportSide_changeIntervalNumEnter(e){
 
-    checkInputVal(document.getElementById('exportSide_IntervallInput'),false,false);
+    checkInputVal(document.getElementById('id_InputIntervalExport'),false,false);
 
     if (e.keyCode == 13) {
-      var intervalVal = parseInt(document.getElementById('exportSide_IntervallInput').value);
-      globalColormap1.setNumberIntervalsAllBands(intervalVal);
+    fillExportTable();
     }
 
-    drawIntervalColormap();
 }
 
 function exportSide_changeIntervalNumChange(){
 
-    checkInputVal(document.getElementById('exportSide_IntervallInput'),false,false);
-
-    var intervalVal = parseInt(document.getElementById('exportSide_IntervallInput').value);
-    globalColormap1.setNumberIntervalsAllBands(intervalVal);
-
-    drawIntervalColormap();
-}
-
-function changeOutputformat(){
-  if(document.getElementById("exportSide_Radiobutton_XML").checked==true){
-    outputFormat=1;
-  }
-  if(document.getElementById("exportSide_Radiobutton_TEXT").checked==true){
-    outputFormat=0;
-  }
-  if(document.getElementById("exportSide_Radiobutton_JSON").checked==true){
-    outputFormat=2;
-  }
-}
-
-function drawIntervalColormap(){
-
-    // calc intervals
-    globalColormap1.calcIntervalPointsAllBands();
-
-    // start
-    var canvasObject = document.getElementById("IntervalPreviewColormapInterval");
-
-    canvasObject.width =linearMap_resolution_X;
-    canvasObject.height=linearMap_resolution_Y;
-
-    var canvasContex = canvasObject.getContext("2d");
-    //canvasContex.clearRect(0, 0, resolutionX, resolutionY);
-    var canvasData = canvasContex.getImageData(0, 0, canvasObject.width, canvasObject.height);
-
-        /////////////////////////////////////////////////////////
-
-    var colormapWidth = linearMap_resolution_X;
-    var xPos = 0;
-    var yPos = 0;
-    var colormapHeigth = linearMap_resolution_Y;
-
-    var twinStarted = false;
-    var leftStarted = false;
-
-    for(var i=0; i<globalColormap1.getNumberOfBands(); i++){
-
-       var bandObj = globalColormap1.getBand(i);
-       var tmpPos1, tmpPos2;
-       var tmpColor1, tmpColor2;
-       var elementwidth;
-       // 1. KEY i=0
-
-       tmpPos1 = (bandObj.getLeftRef()-globalColormap1.getRangeStart())/(globalColormap1.getRangeEnd()-globalColormap1.getRangeStart())*colormapWidth;
-
-        switch(bandObj.getIntervalMetric()) {
-           case 0:
-               tmpColor1 = getRightColorSpace(colorspaceModus, bandObj.getLeftRGBColor());
-               break;
-           case 1:
-               tmpColor1 = getRightColorSpace(colorspaceModus, bandObj.getLeftHSVColor());
-               break;
-           case 2:
-               tmpColor1 = getRightColorSpace(colorspaceModus, bandObj.getLeftLABColor());
-               break;
-           case 3:
-               tmpColor1 = getRightColorSpace(colorspaceModus, bandObj.getLeftDIN99Color());
-               break;
-           default:
-               return;
-       }
-
-
-       // Interval Points
-       for(var j=0; j<bandObj.getNumberOfIntervalsPoints(); j++){
-           var tmpIntervalPointObj = bandObj.getIntervalObject(j);
-
-           tmpColor2 = getRightColorSpace(colorspaceModus, tmpIntervalPointObj.getColor());
-
-           tmpPos2 = (tmpIntervalPointObj.getRefPosition()-globalColormap1.getRangeStart())/(globalColormap1.getRangeEnd()-globalColormap1.getRangeStart())*colormapWidth;
-           elementwidth =  tmpPos2-tmpPos1;
-
-           canvasData = createScaledBand(canvasData, tmpPos1, elementwidth+1, colormapHeigth, tmpColor1, tmpColor2, colormapWidth);
-
-           tmpColor1 = tmpColor2;
-           tmpPos1 = tmpPos2;
-       }
-
-       // 2. KEY i=tmpNumObj-1
-
-       tmpPos2 = (bandObj.getRightRef()-globalColormap1.getRangeStart())/(globalColormap1.getRangeEnd()-globalColormap1.getRangeStart())*colormapWidth;
-       switch(bandObj.getIntervalMetric()) {
-          case 0:
-              tmpColor2 = getRightColorSpace(colorspaceModus, bandObj.getRightRGBColor());
-              break;
-          case 1:
-              tmpColor2 = getRightColorSpace(colorspaceModus, bandObj.getRightHSVColor());
-              break;
-          case 2:
-              tmpColor2 = getRightColorSpace(colorspaceModus, bandObj.getRightLABColor());
-              break;
-          case 3:
-              tmpColor2 = getRightColorSpace(colorspaceModus, bandObj.getRightDIN99Color());
-              break;
-          default:
-              return;
-      }
-
-      elementwidth =  tmpPos2-tmpPos1;
-      canvasData = createScaledBand(canvasData, tmpPos1, elementwidth+1, colormapHeigth, tmpColor1, tmpColor2, colormapWidth);//*/
-
-   }//
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        canvasContex.putImageData(canvasData, 0, 0);
-        //canvasContex.lineWidth = 2;
-        //canvasContex.strokeStyle = 'rgb(0,0,0)';
-        //canvasContex.strokeRect(0,0, colormapWidth, colormapHeigth);
+    checkInputVal(document.getElementById('id_InputIntervalExport'),false,false);
+    fillExportTable();
 
 }
+
+function changeOutputformat(type){
+
+  document.getElementById("button_ExportFormatXML").style.border = "0.2vh solid black";
+  document.getElementById("button_ExportFormatXML").style.color = "black";
+  document.getElementById("button_ExportFormatCSV").style.border = "0.2vh solid black";
+  document.getElementById("button_ExportFormatCSV").style.color = "black";
+  document.getElementById("button_ExportFormatJSON").style.border = "0.2vh solid black";
+  document.getElementById("button_ExportFormatJSON").style.color = "black";
+
+  switch (type) {
+    case 0:
+      document.getElementById("button_ExportFormatCSV").style.border = "0.2vh solid "+styleActiveColor;
+      document.getElementById("button_ExportFormatCSV").style.color = styleActiveColor;
+      break;
+    case 1:
+      document.getElementById("button_ExportFormatXML").style.border = "0.2vh solid "+styleActiveColor;
+      document.getElementById("button_ExportFormatXML").style.color = styleActiveColor;
+      break;
+    case 2:
+      document.getElementById("button_ExportFormatJSON").style.border = "0.2vh solid "+styleActiveColor;
+      document.getElementById("button_ExportFormatJSON").style.color = styleActiveColor;
+      break;
+    default:
+      return;
+  }
+
+  outputFormat=type;
+
+}
+
+
 
 function exportSide_downloadFile(){
 
@@ -421,9 +234,12 @@ function exportSide_downloadFile(){
 
 function exportSide_createXML(){
 
+    intervalSize = parseFloat(document.getElementById("id_InputIntervalExport").value);
+    var intervalColormap = globalColormap1.calcColorMap(intervalSize, colorspaceModus);
+
     var xmltxt = "<ColorMaps>\n<ColorMap name=\""+globalColormap1.getColormapName()+"\" space=\"";
 
-    switch(colorspaceModus) {
+    switch(exportColorspace) {
             case "rgb":
                 xmltxt = xmltxt+"RGB";
                 break;
@@ -442,94 +258,39 @@ function exportSide_createXML(){
 
     xmltxt = xmltxt+"\" creator=\"CCC-Tool\">\n";
 
-    for(var i=0; i<globalColormap1.getNumberOfBands(); i++){
 
-        var bandObj = globalColormap1.getBand(i);
+    for(var i = 0; i<intervalColormap.getColormapLength(); i++){
 
-        xmltxt=xmltxt+"<Point x=\""+bandObj.getLeftRef()+"\" o=\"1\" ";
+      var tmpKey = intervalColormap.getType(i);
+      var tmpColor = intervalColormap.getColor(i, exportColorspace);
+
+        xmltxt=xmltxt+"<Point x=\""+intervalColormap.getRef(i)+"\" o=\"1\" ";
         // 1. KEY i=0
-        //console.log(bandObj.getLeftRef());
+        //console.log(bandObj.getRef(i));
+        var isCMS="true";
+         if(tmpKey=="interval"){
+           isCMS="false";
+         }
+
          switch(colorspaceModus) {
             case "rgb":
-                xmltxt=xmltxt+"r=\""+bandObj.getLeftRGBColor().getRValue()+"\" g=\""+bandObj.getLeftRGBColor().getGValue()+"\" b=\""+bandObj.getLeftRGBColor().getBValue()+"\" ccctype=\"key\"/>\n";
+                xmltxt=xmltxt+"r=\""+tmpColor.getRValue()+"\" g=\""+tmpColor.getGValue()+"\" b=\""+tmpColor.getBValue()+"\" cms=\""+isCMS+"\"/>\n";
                 break;
             case "hsv":
-                xmltxt=xmltxt+"h=\""+bandObj.getLeftHSVColor().getHValue()+"\" s=\""+bandObj.getLeftHSVColor().getSValue()+"\" v=\""+bandObj.getLeftHSVColor().getVValue()+"\" ccctype=\"key\"/>\n";
+                xmltxt=xmltxt+"h=\""+tmpColor.getHValue()+"\" s=\""+tmpColor.getSValue()+"\" v=\""+tmpColor.getVValue()+"\" cms=\""+isCMS+"\"/>\n";
                 break;
             case "lab":
-                xmltxt=xmltxt+"l=\""+bandObj.getLeftLABColor().getLValue()+"\" a=\""+bandObj.getLeftLABColor().getAValue()+"\" b=\""+bandObj.getLeftLABColor().getBValue()+"\" ccctype=\"key\"/>\n";
+                xmltxt=xmltxt+"l=\""+tmpColor.getLValue()+"\" a=\""+tmpColor.getAValue()+"\" b=\""+tmpColor.getBValue()+"\" cms=\""+isCMS+"\"/>\n";
                 break;
             case "din99":
-                xmltxt=xmltxt+"l99=\""+bandObj.getLeftDIN99Color().getL99Value()+"\" a99=\""+bandObj.getLeftDIN99Color().getA99Value()+"\" b99=\""+bandObj.getLeftDIN99Color().getB99Value()+"\" ccctype=\"key\"/>\n";
+                xmltxt=xmltxt+"l99=\""+tmpColor.getL99Value()+"\" a99=\""+tmpColor.getA99Value()+"\" b99=\""+tmpColor.getB99Value()+"\" cms=\""+isCMS+"\"/>\n";
                 break;
             default:
                 return;
         }
 
-
-        // Interval Points
-        for(var j=0; j<bandObj.getNumberOfIntervalsPoints(); j++){
-            var tmpIntervalPointObj = bandObj.getIntervalObject(j);
-            var tmpColor = getRightColorSpace(colorspaceModus, tmpIntervalPointObj.getColor());
-            xmltxt=xmltxt+"<Point x=\""+tmpIntervalPointObj.getRefPosition()+"\" o=\"1\" ";
-            switch(colorspaceModus) {
-            case "rgb":
-                xmltxt=xmltxt+"r=\""+tmpColor.getRValue()+"\" g=\""+tmpColor.getGValue()+"\" b=\""+tmpColor.getBValue()+"\" ccctype=\"interval point\"/>\n";
-                break;
-            case "hsv":
-                xmltxt=xmltxt+"h=\""+tmpColor.getHValue()+"\" s=\""+tmpColor.getSValue()+"\" v=\""+tmpColor.getVValue()+"\" ccctype=\"interval point\"/>\n";
-                break;
-            case "lab":
-                xmltxt=xmltxt+"l=\""+tmpColor.getLValue()+"\" a=\""+tmpColor.getAValue()+"\" b=\""+tmpColor.getBValue()+"\" ccctype=\"interval point\"/>\n";
-                break;
-            case "din99":
-                xmltxt=xmltxt+"l99=\""+tmpColor.getL99Value()+"\" a99=\""+tmpColor.getA99Value()+"\" b99=\""+tmpColor.getB99Value()+"\" ccctype=\"interval point\"/>\n";
-                break;
-            default:
-                return;
-            }
-
-        }
-
-        // 2. key i=tmpNumObj-1
-
-        xmltxt=xmltxt+"<Point x=\""+bandObj.getRightRef()+"\" o=\"1\" ";
-
-        switch(colorspaceModus) {
-            case "rgb":
-                xmltxt=xmltxt+"r=\""+bandObj.getRightRGBColor().getRValue()+"\" g=\""+bandObj.getRightRGBColor().getGValue()+"\" b=\""+bandObj.getRightRGBColor().getBValue()+"\" ccctype=\"key\"/>\n";
-                break;
-            case "hsv":
-                xmltxt=xmltxt+"h=\""+bandObj.getRightHSVColor().getHValue()+"\" s=\""+bandObj.getRightHSVColor().getSValue()+"\" v=\""+bandObj.getRightHSVColor().getVValue()+"\" ccctype=\"key\"/>\n";
-                break;
-            case "lab":
-                xmltxt=xmltxt+"l=\""+bandObj.getRightLABColor().getLValue()+"\" a=\""+bandObj.getRightLABColor().getAValue()+"\" b=\""+bandObj.getRightLABColor().getBValue()+"\" ccctype=\"key\"/>\n";
-                break;
-            case "din99":
-                xmltxt=xmltxt+"l99=\""+bandObj.getRightDIN99Color().getL99Value()+"\" a99=\""+bandObj.getRightDIN99Color().getA99Value()+"\" b99=\""+bandObj.getRightDIN99Color().getB99Value()+"\" ccctype=\"key\"/>\n";
-                break;
-            default:
-                return;
-        }
     }
 
-    var tmpColor = globalColormap1.getNaNColor(colorspaceModus);
-    switch(colorspaceModus) {
-        case "rgb":
-            xmltxt=xmltxt+"<NaN o=\"1\" r=\""+tmpColor.getRValue()+"\" g=\""+tmpColor.getGValue()+"\" b=\""+tmpColor.getBValue()+"\"/>\n";
-            break;
-        case "hsv":
-            xmltxt=xmltxt+"<NaN o=\"1\" h=\""+tmpColor.getHValue()+"\" s=\""+tmpColor.getSValue()+"\" v=\""+tmpColor.getVValue()+"\"/>\n";
-            break;
-        case "lab":
-            xmltxt=xmltxt+"<NaN o=\"1\" l=\""+tmpColor.getLValue()+"\" a=\""+tmpColor.getAValue()+"\" b=\""+tmpColor.getBValue()+"\"/>\n";
-            break;
-        case "din99":
-            xmltxt=xmltxt+"<NaN o=\"1\" l99=\""+tmpColor.getL99Value()+"\" a99=\""+tmpColor.getA99Value()+"\" b99=\""+tmpColor.getB99Value()+"\"/>\n";
-            break;
-        default:
-            return;
-    }//
     xmltxt=xmltxt+"</ColorMap>\n</ColorMaps>";
     return xmltxt;
 }
@@ -538,91 +299,57 @@ function exportSide_createCSV_Lookup(){
 
     var txt = "";
 
+
+    intervalSize = parseFloat(document.getElementById("id_InputIntervalExport").value);
+    var intervalColormap = globalColormap1.calcColorMap(intervalSize, colorspaceModus);
+
     var opacityVal =1;
-    var tmpColor = globalColormap1.getNaNColor(colorspaceModus);
-    switch(colorspaceModus) {
+    var tmpColor2 = globalColormap1.getNaNColor(exportColorspace);
+    switch(exportColorspace) {
             case "rgb":
-                txt = txt+"Reference;R;G;B;Opacity;ccctype;;NaN;R;"+tmpColor.getRValue()+";G;"+tmpColor.getGValue()+";B;"+tmpColor.getBValue()+"\n";
+                txt = txt+"Reference;R;G;B;Opacity;cms;;NaN;R;"+tmpColor2.getRValue()+";G;"+tmpColor2.getGValue()+";B;"+tmpColor2.getBValue()+"\n";
                 break;
             case "hsv":
-                txt = txt+"Reference;H;S;V;Opacity;ccctype;;NaN;H;"+tmpColor.getHValue()+";S;"+tmpColor.getSValue()+";V;"+tmpColor.getVValue()+"\n";
+                txt = txt+"Reference;H;S;V;Opacity;cms;;NaN;H;"+tmpColor2.getHValue()+";S;"+tmpColor2.getSValue()+";V;"+tmpColor2.getVValue()+"\n";
                 break;
             case "lab":
-                txt = txt+"Reference;L;A;B;Opacity;ccctype;;NaN;L;"+tmpColor.getLValue()+";A;"+tmpColor.getAValue()+";B;"+tmpColor.getBValue()+"\n";
+                txt = txt+"Reference;L;A;B;Opacity;cms;;NaN;L;"+tmpColor2.getLValue()+";A;"+tmpColor2.getAValue()+";B;"+tmpColor2.getBValue()+"\n";
                 break;
             case "din99":
-                txt = txt+"Reference;L99;A99;B99;Opacity;ccctype;;NaN;L99;"+tmpColor.getL99Value()+";A99;"+tmpColor.getA99Value()+";B99;"+tmpColor.getB99Value()+"\n";
+                txt = txt+"Reference;L99;A99;B99;Opacity;cms;;NaN;L99;"+tmpColor2.getL99Value()+";A99;"+tmpColor2.getA99Value()+";B99;"+tmpColor2.getB99Value()+"\n";
                 break;
             default:
                 return;
     }
 
-    for(var i=0; i<globalColormap1.getNumberOfBands(); i++){
+    for(var i = 0; i<intervalColormap.getColormapLength(); i++){
 
-        var bandObj = globalColormap1.getBand(i);
+      var tmpKey = intervalColormap.getType(i);
+      var tmpColor = intervalColormap.getColor(i, exportColorspace);
 
+        var isCMS="true";
+         if(tmpKey=="interval"){
+           isCMS="false";
+         }
         // 1. key i=0
-        //console.log(bandObj.getLeftRef());
-         switch(colorspaceModus) {
+        //console.log(bandObj.getRef(i));
+         switch(exportColorspace) {
             case "rgb":
-                txt=txt+bandObj.getLeftRef()+";"+bandObj.getLeftRGBColor().getRValue()+";"+bandObj.getLeftRGBColor().getGValue()+";"+bandObj.getLeftRGBColor().getBValue()+";"+opacityVal+";key\n";
+                txt=txt+intervalColormap.getRef(i)+";"+tmpColor.getRValue()+";"+tmpColor.getGValue()+";"+tmpColor.getBValue()+";"+opacityVal+";"+isCMS+"\n";
                 break;
             case "hsv":
-                txt=txt+bandObj.getLeftRef()+";"+bandObj.getLeftHSVColor().getHValue()+";"+bandObj.getLeftHSVColor().getSValue()+";"+bandObj.getLeftHSVColor().getVValue()+";"+opacityVal+";key\n";
+                txt=txt+intervalColormap.getRef(i)+";"+tmpColor.getHValue()+";"+tmpColor.getSValue()+";"+tmpColor.getVValue()+";"+opacityVal+";"+isCMS+"\n";
                 break;
             case "lab":
-                txt=txt+bandObj.getLeftRef()+";"+bandObj.getLeftLABColor().getLValue()+";"+bandObj.getLeftLABColor().getAValue()+";"+bandObj.getLeftLABColor().getBValue()+";"+opacityVal+";key\n";
+                txt=txt+intervalColormap.getRef(i)+";"+tmpColor.getLValue()+";"+tmpColor.getAValue()+";"+tmpColor.getBValue()+";"+opacityVal+""+isCMS+"\n";
                 break;
             case "din99":
-                txt=txt+bandObj.getLeftRef()+";"+bandObj.getLeftDIN99Color().getL99Value()+";"+bandObj.getLeftDIN99Color().getA99Value()+";"+bandObj.getLeftDIN99Color().getB99Value()+";"+opacityVal+";key\n";
+                txt=txt+intervalColormap.getRef(i)+";"+tmpColor.getL99Value()+";"+tmpColor.getA99Value()+";"+tmpColor.getB99Value()+";"+opacityVal+";"+isCMS+"\n";
                 break;
             default:
                 return;
         }
 
-
-        // Interval Points
-        for(var j=0; j<bandObj.getNumberOfIntervalsPoints(); j++){
-            var tmpIntervalPointObj = bandObj.getIntervalObject(j);
-            var tmpColor = getRightColorSpace(colorspaceModus, tmpIntervalPointObj.getColor());
-            switch(colorspaceModus) {
-            case "rgb":
-                txt=txt+tmpIntervalPointObj.getRefPosition()+";"+tmpColor.getRValue()+";"+tmpColor.getGValue()+";"+tmpColor.getBValue()+";"+opacityVal+";interval point\n";
-                break;
-            case "hsv":
-                txt=txt+tmpIntervalPointObj.getRefPosition()+";"+tmpColor.getHValue()+";"+tmpColor.getSValue()+";"+tmpColor.getVValue()+";"+opacityVal+";interval point\n";
-                break;
-            case "lab":
-                txt=txt+tmpIntervalPointObj.getRefPosition()+";"+tmpColor.getLValue()+";"+tmpColor.getAValue()+";"+tmpColor.getBValue()+";"+opacityVal+";interval point\n";
-                break;
-            case "din99":
-                txt=txt+tmpIntervalPointObj.getRefPosition()+";"+tmpColor.getL99Value()+";"+tmpColor.getA99Value()+";"+tmpColor.getB99Value()+";"+opacityVal+";interval point\n";
-                break;
-            default:
-                return;
-            }
-
-        }
-
-        // 2. key i=tmpNumObj-1
-
-
-        switch(colorspaceModus) {
-            case "rgb":
-                txt=txt+bandObj.getRightRef()+";"+bandObj.getRightRGBColor().getRValue()+";"+bandObj.getRightRGBColor().getGValue()+";"+bandObj.getRightRGBColor().getBValue()+";"+opacityVal+";key\n";
-                break;
-            case "hsv":
-                txt=txt+bandObj.getRightRef()+";"+bandObj.getRightHSVColor().getHValue()+";"+bandObj.getRightHSVColor().getSValue()+";"+bandObj.getRightHSVColor().getVValue()+";"+opacityVal+";key\n";
-                break;
-            case "lab":
-                txt=txt+bandObj.getRightRef()+";"+bandObj.getRightLABColor().getLValue()+";"+bandObj.getRightLABColor().getAValue()+";"+bandObj.getRightLABColor().getBValue()+";"+opacityVal+";key\n";
-                break;
-            case "din99":
-                txt=txt+bandObj.getRightRef()+";"+bandObj.getRightDIN99Color().getL99Value()+";"+bandObj.getRightDIN99Color().getA99Value()+";"+bandObj.getRightDIN99Color().getB99Value()+";"+opacityVal+";key\n";
-                break;
-            default:
-                return;
-        }
     }
 
     return txt;
@@ -630,9 +357,12 @@ function exportSide_createCSV_Lookup(){
 
 function exportSide_createJSON(){
 
+    intervalSize = parseFloat(document.getElementById("id_InputIntervalExport").value);
+    var intervalColormap = globalColormap1.calcColorMap(intervalSize, colorspaceModus);
+
     var jsontxt = "{\"colormaps\":[{\"name\":\""+globalColormap1.getColormapName()+"\",\"space\":";
 
-    switch(colorspaceModus) {
+    switch(exportColorspace) {
             case "rgb":
                 jsontxt = jsontxt+"\"RGB\"";
                 break;
@@ -651,76 +381,37 @@ function exportSide_createJSON(){
 
     jsontxt = jsontxt+",\"points\":[";
 
-    for(var i=0; i<globalColormap1.getNumberOfBands(); i++){
+    for(var i = 0; i<intervalColormap.getColormapLength(); i++){
 
-        var bandObj = globalColormap1.getBand(i);
+      var tmpKey = intervalColormap.getType(i);
+      var tmpColor = intervalColormap.getColor(i, exportColorspace);
 
-        jsontxt=jsontxt+"{\"x\":\""+bandObj.getLeftRef()+"\",\"o\":\"1\",";
+        var isCMS="true";
+         if(tmpKey=="interval"){
+           isCMS="false";
+         }
+
+        jsontxt=jsontxt+"{\"x\":\""+intervalColormap.getRef(i)+"\",\"o\":\"1\",";
         // 1. key i=0
-        //console.log(bandObj.getLeftRef());
-         switch(colorspaceModus) {
+        //console.log(bandObj.getRef(i));
+         switch(exportColorspace) {
             case "rgb":
-                jsontxt=jsontxt+"\"r\":\""+bandObj.getLeftRGBColor().getRValue()+"\",\"g\":\""+bandObj.getLeftRGBColor().getGValue()+"\",\"b\":\""+bandObj.getLeftRGBColor().getBValue()+"\",\"ccctype\":\"key\"},";
+                jsontxt=jsontxt+"\"r\":\""+tmpColor.getRValue()+"\",\"g\":\""+tmpColor.getGValue()+"\",\"b\":\""+tmpColor.getBValue()+"\",\"cms\":\""+isCMS+"\"}";
                 break;
             case "hsv":
-                jsontxt=jsontxt+"\"h\":\""+bandObj.getLeftHSVColor().getHValue()+"\",\"s\":\""+bandObj.getLeftHSVColor().getSValue()+"\",\"v\":\""+bandObj.getLeftHSVColor().getVValue()+"\",\"ccctype\":\"key\"},";
+                jsontxt=jsontxt+"\"h\":\""+tmpColor.getHValue()+"\",\"s\":\""+tmpColor.getSValue()+"\",\"v\":\""+tmpColor.getVValue()+"\",\"cms\":\""+isCMS+"\"}";
                 break;
             case "lab":
-                jsontxt=jsontxt+"\"l\":\""+bandObj.getLeftLABColor().getLValue()+"\",\"a\":\""+bandObj.getLeftLABColor().getAValue()+"\",\"b\":\""+bandObj.getLeftLABColor().getBValue()+"\",\"ccctype\":\"key\"},";
+                jsontxt=jsontxt+"\"l\":\""+tmpColor.getLValue()+"\",\"a\":\""+tmpColor.getAValue()+"\",\"b\":\""+tmpColor.getBValue()+"\",\"cms\":\""+isCMS+"\"}";
                 break;
             case "din99":
-                jsontxt=jsontxt+"\"l99\":\""+bandObj.getLeftDIN99Color().getL99Value()+"\",\"a99\":\""+bandObj.getLeftDIN99Color().getA99Value()+"\",\"b99\":\""+bandObj.getLeftDIN99Color().getB99Value()+"\",\"ccctype\":\"key\"},";
+                jsontxt=jsontxt+"\"l99\":\""+tmpColor.getL99Value()+"\",\"a99\":\""+tmpColor.getA99Value()+"\",\"b99\":\""+tmpColor.getB99Value()+"\",\"cms\":\""+isCMS+"\"}";
                 break;
             default:
                 return;
         }
 
-
-        // Interval Points
-        for(var j=0; j<bandObj.getNumberOfIntervalsPoints(); j++){
-            var tmpIntervalPointObj = bandObj.getIntervalObject(j);
-            var tmpColor = getRightColorSpace(colorspaceModus, tmpIntervalPointObj.getColor());
-            jsontxt=jsontxt+"{\"x\":\""+tmpIntervalPointObj.getRefPosition()+"\",\"o\":\"1\",";
-            switch(colorspaceModus) {
-            case "rgb":
-                jsontxt=jsontxt+"\"r\":\""+tmpColor.getRValue()+"\",\"g\":\""+tmpColor.getGValue()+"\",\"b\":\""+tmpColor.getBValue()+"\",\"ccctype\":\"interval point\"},";
-                break;
-            case "hsv":
-                jsontxt=jsontxt+"\"h\":\""+tmpColor.getHValue()+"\",\"s\":\""+tmpColor.getSValue()+"\",\"v\":\""+tmpColor.getVValue()+"\",\"ccctype\":\"interval point\"},";
-                break;
-            case "lab":
-                jsontxt=jsontxt+"\"l\":\""+tmpColor.getLValue()+"\",\"a\":\""+tmpColor.getAValue()+"\",\"b\":\""+tmpColor.getBValue()+"\",\"ccctype\":\"interval point\"},";
-                break;
-            case "din99":
-                jsontxt=jsontxt+"\"l99\":\""+tmpColor.getL99Value()+"\",\"a99\":\""+tmpColor.getA99Value()+"\",\"b99\":\""+tmpColor.getB99Value()+"\",\"ccctype\":\"interval point\"},";
-                break;
-            default:
-                return;
-            }
-
-        }
-
-        // 2. key i=tmpNumObj-1
-
-        jsontxt=jsontxt+"{\"x\":\""+bandObj.getRightRef()+"\",\"o\":\"1\",";
-        switch(colorspaceModus) {
-            case "rgb":
-                jsontxt=jsontxt+"\"r\":\""+bandObj.getRightRGBColor().getRValue()+"\",\"g\":\""+bandObj.getRightRGBColor().getGValue()+"\",\"b\":\""+bandObj.getRightRGBColor().getBValue()+"\",\"ccctype\":\"key\"}";
-                break;
-            case "hsv":
-                jsontxt=jsontxt+"\"h\":\""+bandObj.getRightHSVColor().getHValue()+"\",\"s\":\""+bandObj.getRightHSVColor().getSValue()+"\",\"v\":\""+bandObj.getRightHSVColor().getVValue()+"\",\"ccctype\":\"key\"}";
-                break;
-            case "lab":
-                jsontxt=jsontxt+"\"l\":\""+bandObj.getRightLABColor().getLValue()+"\",\"a\":\""+bandObj.getRightLABColor().getAValue()+"\",\"b\":\""+bandObj.getRightLABColor().getBValue()+"\",\"ccctype\":\"key\"}";
-                break;
-            case "din99":
-                jsontxt=jsontxt+"\"l99\":\""+bandObj.getRightDIN99Color().getL99Value()+"\",\"a99\":\""+bandObj.getRightDIN99Color().getA99Value()+"\",\"b99\":\""+bandObj.getRightDIN99Color().getB99Value()+"\",\"ccctype\":\"key\"}";
-                break;
-            default:
-                return;
-        }
-
-        if(i != globalColormap1.getNumberOfBands()-1){
+        if(i != intervalColormap.getColormapLength()-1){
           jsontxt=jsontxt+",";
         }
     }

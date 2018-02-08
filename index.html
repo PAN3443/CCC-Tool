@@ -177,13 +177,13 @@
       <div class="row" style="height:100%; width: auto;">
         <h3 style="height:5vh; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; padding-left:20px; font-size:2vh;"> NAME: </h3>
         <input id="id_InputMapName" type="text" name="key space" value="Cus. Colormap" style="height:2.5vh; line-height:2.5vh; font-size:2vh; text-align:center; vertical-align: middle; margin-top:0.5vh; margin-left:1vh; margin-right:1vh;">
-        <button class="classButtonDark" id="id_buttonExportCreateColormap" title="export" style="border-radius: 0.3vh; background: url(img/exportButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
+        <!--button class="classButtonDark" id="id_buttonExportCreateColormap" title="export" style="border-radius: 0.3vh; background: url(img/exportButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
         <!--button class="classButtonDark" id="id_buttonSaveCreateColormap" title="save to MyDesigns" style="border-radius: 0.3vh; background: url(img/saveButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button-->
         <button class="classButtonDark" id="id_buttonLoadCreateColormap" title="load" style="border-radius: 0.3vh; background: url(img/loadButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
         <button class="classButtonDark" id="id_buttonDeleteCreateColormap" title="delete" style="border-radius: 0.3vh; background: url(img/trashButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
         <button class="classButtonDark" id="id_buttonBackwardCreateColormap" title="backward" style="border-radius: 0.3vh; background: url(img/backwardsButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white;"></button>
         <button class="classButtonDark" id="id_buttonForwardCreateColormap" title="forward" style="border-radius: 0.3vh; background: url(img/forwardsButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
-        <button class="classButtonDark" id="id_buttonHelpCreateColormap" title="hover for help" style="border-radius: 0.3vh; line-height:3vh; font-size:2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 3vh; height:3vh;  margin:1vh;  border: 0.2vh solid white;">?</button>
+        <button class="classButtonDark" id="id_buttonHelpCreateColormap" title="hover for help" style="border-radius: 0.3vh; line-height:3vh; font-size:2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 3vh; height:3vh;  margin:1vh;  border: 0.2vh solid white; background:none;">?</button>
       </div>
     </div>
 
@@ -2489,236 +2489,97 @@
 
     <hr>
 
+    <div style="border:1px solid black; background:rgb(250,250,250); width:80%; margin-left:10%; margin-top: 4vh;">
 
+      <p style="margin:0px; margin-left:5%;height:5vh; line-height:5vh; vertical-align:middle; text-align:left; vertical-align: middle; font-size:3vh; color:black; margin-top:4vh; "><strong>Preview:</strong></p>
 
+      <canvas style="margin-top: 2vh; width:90%; height: 10vh; margin-left:5%; border:2px solid black; margin-bottom: 2vh; background:white;" id="id_previewColormapExport">
 
-
-
-    <!--div class="row">
-            <p style="width:20%; margin-left:20%;height:5vh; line-height:5vh; vertical-align:middle; text-align:left; vertical-align: middle; margin:0px; color:white; font-size:3vh; color:black; margin-top:4vh;"><strong>Export Color Space:</strong> </p>
+      </canvas>
     </div>
 
-    <div class="row">
-            <p style="width:20%; margin-left:20%;height:5vh; line-height:5vh; vertical-align:middle; text-align:left; vertical-align: middle; margin:0px; color:white; font-size:3vh; color:black; margin-top:4vh;"><strong>Export Color Space:</strong> </p>
-    </div>
-
-    <div class="row">
-            <p style="width:20%; margin-left:20%;height:5vh; line-height:5vh; vertical-align:middle; text-align:left; vertical-align: middle; margin:0px; color:white; font-size:3vh; color:black; margin-top:4vh;"><strong>Export Color Space:</strong> </p>
-    </div>
-
-    <div class="row">
-            <p style="width:20%; margin-left:20%;height:5vh; line-height:5vh; vertical-align:middle; text-align:left; vertical-align: middle; margin:0px; color:white; font-size:3vh; color:black; margin-top:4vh;"><strong>Export Color Space:</strong> </p>
-    </div>
-
-    <div class="row">
-            <p style="width:20%; margin-left:20%;height:5vh; line-height:5vh; vertical-align:middle; text-align:left; vertical-align: middle; margin:0px; color:white; font-size:3vh; color:black; margin-top:4vh;"><strong>Export Color Space:</strong> </p>
-    </div>
-
-    <div class="row"-->
-
-
-
-
-
-
-
-
-
-
-
-
-      <div style="width:20%; margin-left:20%; margin-right: 0px;">
-          <p style="height:5vh; line-height:5vh; vertical-align:middle; text-align:left; vertical-align: middle; margin:0px; color:white; font-size:3vh; color:black; margin-top:4vh;"><strong>Export Color Space:</strong> </p>
-          <p style="height:5vh; line-height:5vh; vertical-align:middle; text-align:left; vertical-align: middle; margin:0px; color:white; font-size:3vh; color:black; margin-top:10vh;  margin-bottom:2vh;"><strong>Interpolation Color Space:</strong> </p>
-          <p style="height:5vh; line-height:5vh; vertical-align:middle; text-align:left; vertical-align: middle; margin:0px; color:white; font-size:3vh; color:black; margin-top:6vh;"><strong>Number of Intervalpoints:</strong> </p>
-          <p style="height:5vh; line-height:5vh; vertical-align:middle; text-align:left; vertical-align: middle; margin:0px; color:white; font-size:3vh; color:black; margin-top:7vh;"><strong>Merge Equal Interval Colors:</strong> </p>
-      </div>
-
-      <div>
-        <div class="row" style="margin-top:4vh;">
-          <button class="classButtonWhite" id="button_ExportSpaceRGB" title="RGB"  style="border-radius: 0.3vh; background: white; width: 3.5vw; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid rgb(0,191,255); color: rgb(0,191,255); ">RGB</button>
-          <button class="classButtonWhite" id="button_ExportSpaceRGB" title="HSV"  style="border-radius: 0.3vh; background: white; width: 3.5vw; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid black; color:black; ">HSV</button>
-          <button class="classButtonWhite" id="button_ExportSpaceRGB" title="LAB"  style="border-radius: 0.3vh; background: white; width: 3.5vw; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid black; color:black; ">LAB</button>
-          <button class="classButtonWhite" id="button_ExportSpaceRGB" title="DIN99" style="border-radius: 0.3vh; background: white; width: auto; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid black; color:black; margin-right:auto;">DIN99</button>
-        </div>
-
-        <div class="row" style="margin-top:4vh;">
-          <p style="height:4vh; line-height:4vh; vertical-align:middle; text-align:left; vertical-align: middle; margin:0px; color:white; font-size:3vh; color:rgb(252,177,100); margin-left:9.5vw;"><strong>Perceptual Color Spaces</strong> </p>
-        </div>
-
-        <div class="row" style="margin-top:0px;">
-          <div class="row" style="padding-top:2vh; padding-bottom:2vh;">
-            <button class="classButtonWhite" id="button_ExportInterpolationSpaceRGB" title="RGB"  style="border-radius: 0.3vh; background: white; width: 3.5vw; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid rgb(0,191,255); color: rgb(0,191,255); ">RGB</button>
-            <button class="classButtonWhite" id="button_ExportInterpolationSpaceRGB" title="HSV"  style="border-radius: 0.3vh; background: white; width: 3.5vw; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid black; color:black; margin-right:0.5vw;">HSV</button>
-          </div>
-          <div class="row" style="background: rgb(252,222,191); padding-top:2vh; padding-bottom:2vh;">
-            <button class="classButtonWhite" id="button_ExportInterpolationSpaceRGB" title="LAB"  style="border-radius: 0.3vh; background: white; width: 3.5vw; height:5vh; font-size:3vh; margin-left:0.5vw; border: 0.2vh solid black; color:black; ">LAB</button>
-            <button class="classButtonWhite" id="button_ExportInterpolationSpaceRGB" title="de94"  style="border-radius: 0.3vh; background: white; width: 3.5vw; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid grey; color:grey; ">de94</button>
-            <button class="classButtonWhite" id="button_ExportInterpolationSpaceRGB" title="de2000"  style="border-radius: 0.3vh; background: white; width: auto; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid grey; color:grey; ">de2000</button>
-            <button class="classButtonWhite" id="button_ExportInterpolationSpaceRGB" title="DIN99" style="border-radius: 0.3vh; background: white; width: auto; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid black; color:black; margin-right:0.5vw;">DIN99</button>
-          </div>
-        </div>
-
-        <div  style="margin-top:4vh;">
-        <input id="id_InputIntervalExport" type="text" name="key space" value="200" style="height:5vh; line-height:5vh; font-size:3vh; text-align:center; vertical-align: middle; margin:auto; margin-left:1vw;">
-        </div>
-
-        <div class="row" style="margin-top:6vh;">
-          <button class="classButtonWhite" id="button_ExportMergeYes" title="Merge Yes"  style="border-radius: 0.3vh; background: white; width: 3.5vw; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid rgb(0,191,255); color: rgb(0,191,255); ">YES</button>
-          <button class="classButtonWhite" id="button_ExportMergeNo" title="Merge No"  style="border-radius: 0.3vh; background: white; width: 3.5vw; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid black; color:black; ">NO</button>
-        </div>
-
-      </div>
-    </div>
-
-
-
-    <!--div style="margin-top:5vh; height:auto; max-height:90vh; background:rgb(210,210,210); width:100%; border-top: 1vh solid black; overflow:none;">
-
-
-
-
-
-      <canvas style="margin-top: 0px; width:100%; height: 5vh; margin-left:0%;   " id="id_keyColormapExport">
-
-                          </canvas>
-      <canvas style="margin-top: 0px; width:95%; height: 5vh; margin-left:2.5%; margin-bottom:0px; border:2px solid black;" id="id_linearColormapExport">
-
-                          </canvas>
-      <canvas style="margin-top: 0px; width:100%; height: 1vh; margin-left:0%;" id="id_keyColormapLinesBottomExport">
-
-                          </canvas>
-
-
-
-      <div class="row" style="width:100%; height:auto; margin-top:4vh; border-bottom:2px solid black;">
-
-
-        <div style=" height:40vh; width:50%; border-right: 2px solid black; ">
-          <h4 style="width:100%; height:3vh; height:3vh; line-height:3vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; padding-left:20px; font-size:2.5vh; margin-bottom:2vh; background:black; margin-bottom:0px;"> Options </h4>
-
-
-          <div class="row" style="margin-left:5%; margin-top:1vh;">
-            <div class="row" style="width:12vw;">
-              <input class="exportSide_OptionRow_Element" style="margin-right: 1vw;" id="exportSide_IntervalApproximationCheckbox" type="checkbox" name="merging" value="1">
-              <p class="exportSide_OptionRow_Element" style="font-weight:bold;">Processing:</p>
-            </div>
-            <p class="exportSide_OptionRow_Element">Interval Colorspace Approximation</p>
-
-            <div class="dropdown" style="z-index:57;">
-              <button class="dropbtn" style="border-radius: 0.5vh; line-height:3vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; ">?</button>
-              <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:57;">
-
-                <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> With the interval approximation of a colorspace you can export your colormap in a colorspace and approximate this colormap to another colorspace. So you can choose a colorspace for the export, which is supported
-                  from the software you want to us or which are easy to implement into your own software, and can also have the attributes of the approximated colorspace.</p>
+    <div style="border:1px solid black; background:rgb(250,250,250); width:80%; margin-left:10%; margin-top: 2vh;">
+      <p style="margin:0px; margin-left:5%;height:5vh; line-height:5vh; vertical-align:middle; text-align:left; vertical-align: middle; font-size:3vh; color:black; margin-top:2vh; "><strong>Options:</strong></p>
+      <div class="row"  style="margin-top:2vh; width:100%;">
+              <p style="margin:0px; width:30%; margin-left:5%;height:5vh; line-height:5vh; vertical-align:middle; text-align:left; vertical-align: middle; font-size:3vh; color:black; ">Export Color Space:</p>
+              <div class="row">
+                <button class="classButtonWhite" id="button_ExportSpaceRGB" onclick="changeExportColorspace(0)" title="RGB"  style="border-radius: 0.3vh; background:rgb(250,250,250); width: 4.5vw; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid rgb(0,191,255); color: rgb(0,191,255); ">RGB</button>
+                <button class="classButtonWhite" id="button_ExportSpaceHSV" onclick="changeExportColorspace(1)" title="HSV"  style="border-radius: 0.3vh; background:rgb(250,250,250); width: 4.5vw; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid black; color:black; ">HSV</button>
+                <button class="classButtonWhite" id="button_ExportSpaceLAB" onclick="changeExportColorspace(2)" title="LAB"  style="border-radius: 0.3vh; background:rgb(250,250,250); width: 4.5vw; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid black; color:black; ">LAB</button>
+                <button class="classButtonWhite" id="button_ExportSpaceDIN99" onclick="changeExportColorspace(3)" title="DIN99" style="border-radius: 0.3vh; background:rgb(250,250,250); width: auto; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid black; color:black; margin-right:auto;">DIN99</button>
               </div>
-            </div>
-          </div>
+      </div>
 
+      <div class="row" style="margin-top:4vh; width:100%; margin-left:35%;">
+              <p style="margin:0px; height:4vh; line-height:4vh; vertical-align:middle; text-align:left; vertical-align: middle; color:white; font-size:3vh; color:rgb(252,177,100); margin-left:11.5vw;"><strong>Perceptual Color Spaces</strong> </p>
+      </div>
 
-          <div id="id_intervalRect" style="width:90%; border:1px solid black; margin-left:5%; margin-top:2vh; margin-bottom:2vh; z-index: 51; background:white;">
-
-            <div id="id_coverIntervalRect" style="position: absolute; background:rgba(220,220,220,0.7); margin:0px; z-index: 55;">
-
-            </div>
-
-            <h4 style="margin:0px; margin-left:1vw; width:100%; height:4vh; line-height:4vh; vertical-align:middle; text-align:left; vertical-align: middle; color:black; font-size:2vh; text-decoration: underline;"> Interval Options: </h4>
-
-            <div class="row" style="margin-left:2vw; margin-top:1vh;">
-              <p class="exportSide_OptionRow_Element" style="font-weight:bold; width: 17vw;"> # of Intervals (Band wisely):</p>
-              <input class="exportSide_OptionRow_Element" id="exportSide_IntervallInput" type="text" name="key space" value="10">
-            </div>
-
-
-            <div class="row" style="margin-left:2vw; margin-top:2vh;">
-              <p class="exportSide_OptionRow_Element" style="font-weight:bold; width: 17vw;">Colorspace to approximate:</p>
-              <input class="exportSide_OptionRow_Element" style="margin-right: 0.5vw;" type="radio" id="exportSide_Radiobutton_ApproxRGB" name="exportSide_ApproxSpace" value="1">
-              <label class="exportSide_OptionRow_Element" style="margin-right: 1vw;" for="exportSide_Radiobutton_ApproxRGB" id="exportSide_Radiobutton_ApproxRGBLabel"> RGB </label><br>
-              <input class="exportSide_OptionRow_Element" style="margin-right: 0.5vw;" type="radio" id="exportSide_Radiobutton_ApproxHSV" name="exportSide_ApproxSpace" value="2">
-              <label class="exportSide_OptionRow_Element" style="margin-right: 1vw;" for="exportSide_Radiobutton_ApproxHSV" id="exportSide_Radiobutton_ApproxHSVLabel"> HSV </label><br>
-              <input class="exportSide_OptionRow_Element" style="margin-right: 0.5vw;" type="radio" id="exportSide_Radiobutton_ApproxLAB" name="exportSide_ApproxSpace" value="3" checked="checked">
-              <label class="exportSide_OptionRow_Element" style="margin-right: 1vw;" for="exportSide_Radiobutton_ApproxLAB" id="exportSide_Radiobutton_ApproxLABLabel"> LAB </label><br>
-              <input class="exportSide_OptionRow_Element" style="margin-right: 0.5vw;" type="radio" id="exportSide_Radiobutton_ApproxDIN99" name="exportSide_ApproxSpace" value="4">
-              <label class="exportSide_OptionRow_Element" style="margin-right: 1vw;" for="exportSide_Radiobutton_ApproxDIN99" id="exportSide_Radiobutton_ApproxDIN99Label"> DIN99 </label><br>
-            </div>
-
-            <div class="row" style="margin-left:2vw; margin-top:1vh; margin-bottom:2vh;">
-
-              <div class="row" style="width:17vw;">
-                <input class="exportSide_OptionRow_Element" style="margin-right: 1vw;" id="exportSide_MergingCheckbox" type="checkbox" name="merging" value="1" checked="checked">
-                <p class="exportSide_OptionRow_Element" style="font-weight:bold;">Processing:</p>
+      <div class="row"  style="margin-top:0px; width:100%;">
+              <p style="margin:0px; width:30%; margin-left:5%; height:5vh; line-height:5vh; vertical-align:middle; text-align:left; vertical-align: middle; font-size:3vh; color:black; margin-top:2vh;">Interpolation Color Space:</p>
+              <div class="row" style="margin-top:0px;">
+                <div class="row" style="padding-top:2vh; padding-bottom:2vh;">
+                  <button class="classButtonWhite" id="button_ExportInterpolationSpaceRGB" onclick="changeColorspace(0)" title="RGB"  style="border-radius: 0.3vh; background:rgb(250,250,250); width: 4.5vw; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid rgb(0,191,255); color: rgb(0,191,255); ">RGB</button>
+                  <button class="classButtonWhite" id="button_ExportInterpolationSpaceHSV" onclick="changeColorspace(1)" title="HSV"  style="border-radius: 0.3vh; background:rgb(250,250,250); width: 4.5vw; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid black; color:black; margin-right:0.5vw;">HSV</button>
+                </div>
+                <div class="row" style="background: rgb(252,222,191); padding-top:2vh; padding-bottom:2vh;">
+                  <button class="classButtonWhite" id="button_ExportInterpolationSpaceLAB" onclick="changeColorspace(2)" title="LAB"  style="border-radius: 0.3vh; background:rgb(250,250,250); width: 4.5vw; height:5vh; font-size:3vh; margin-left:0.5vw; border: 0.2vh solid black; color:black; ">LAB</button>
+                  <button class="classButtonWhite" id="button_ExportInterpolationSpaceDe94" onclick="changeColorspace(4)" title="de94"  style="border-radius: 0.3vh; background:rgb(250,250,250); width: 4.5vw; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid grey; color:grey; ">de94</button>
+                  <button class="classButtonWhite" id="button_ExportInterpolationSpaceDe2000" onclick="changeColorspace(5)" title="de2000"  style="border-radius: 0.3vh; background:rgb(250,250,250); width: auto; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid grey; color:grey; ">de2000</button>
+                  <button class="classButtonWhite" id="button_ExportInterpolationSpaceDIN99" onclick="changeColorspace(3)" title="DIN99" style="border-radius: 0.3vh; background:rgb(250,250,250); width: auto; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid black; color:black; margin-right:0.5vw;">DIN99</button>
+                </div>
               </div>
-              <p class="exportSide_OptionRow_Element">Merge Identical Neighboring Intervals</p>
-
-            </div>
-          </div>
-
-
-        </div>
-
-
-        <div style="height:40vh; overflow:auto; width:50%;">
-          <h4 style="width:100%; height:3vh; height:3vh; line-height:3vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; padding-left:20px; font-size:2.5vh; margin-bottom:2vh; background:black; margin-bottom:0px;"> Table of the Colormap </h4>
-
-          <table style="width:100%; background:white;" id="id_table">
-            <thead>
-              <tr style="border-top:1px solid white;">
-                <th class="class_tablelabel" style="width:4%; border-left:1px solid white;">#</th>
-                <th class="class_tablelabel" style="width:9%;">Reference 1</th>
-                <th class="class_tablelabel" style="width:9%;">Reference 2</th>
-                <th class="class_tablelabel" style="width:9%;">Band Type</th>
-                <th class="class_tablelabel" id="id_table_exportColor1" style="width:9%;">C1 (RGB)</th>
-                <th class="class_tablelabel" id="id_table_exportColor2" style="width:9%;">C2 (RGB)</th>
-              </tr>
-            </thead>
-
-            <tbody id="id_exportTableBody">
-
-            </tbody>
-
-          </table>
-        </div>
-
       </div>
 
-
-      <div id="exportPage_IntervalPreview" style="margin-top:2vh; margin-bottom:2vh; width:100%; display:none; background:rgb(220,220,220);">
-
-
-        <div class="row" style="width:100%; margin-top:2vh;">
-          <div style="margin-left:2.5%; width: 15%;">
-            <p style="height: 2vh; line-height: 2vh; text-align: left; vertical-align: middle; font-size: 1.8vh; margin:0px; font-weight:bold;">Export Colospace:</p>
-            <p style="height: 2vh; line-height: 2vh; text-align: left; vertical-align: middle; font-size: 1.8vh; margin:0px; font-weight:bold;">(without Intervals)</p>
-          </div>
-          <canvas style="width:75%; height: 4vh; margin:0px; border:2px solid black;" id="id_IntervalPreviewColormapExport">
-
-                                </canvas>
-        </div>
-
-        <div class="row" style="width:100%; margin-top:2vh;">
-          <div style="margin-left:2.5%; width: 15%;">
-            <p style="height: 2vh; line-height: 2vh; text-align: left; vertical-align: middle; font-size: 1.8vh; margin:0px; font-weight:bold;">Export Colospace:</p>
-            <p style="height: 2vh; line-height: 2vh; text-align: left; vertical-align: middle; font-size: 1.8vh; margin:0px; font-weight:bold;">(with Intervals)</p>
-          </div>
-          <canvas style="width:75%; height: 4vh; margin:0px; border:2px solid black;" id="IntervalPreviewColormapInterval">
-
-                                </canvas>
-        </div>
-
-        <div class="row" style="width:100%; margin-top:2vh; margin-bottom:2vh;">
-          <p style="height: 2vh; line-height: 2vh; text-align: left; vertical-align: middle; font-size: 1.8vh; margin:0px; font-weight:bold; margin-left:2.5%; width: 15%;">Aim Colospace:</p>
-          <canvas style="width:75%; height: 4vh; margin:0px; border:2px solid black;" id="id_IntervalPreviewColormapApprox">
-
-                                </canvas>
-        </div>
+      <div class="row"  style="margin-top:4vh; width:100%;">
+              <p style=" margin:0px; width:30%; margin-left:5%;height:5vh; line-height:5vh; vertical-align:middle; text-align:left; vertical-align: middle; font-size:3vh; color:black;">Number of Intervalpoints:</p>
+              <input id="id_InputIntervalExport" type="text" name="key space" value="200" style="height:5vh; line-height:5vh; font-size:3vh; text-align:center; vertical-align: middle; margin:auto; margin-left:1vw;">
       </div>
 
-      <div style="background:black; width:100%;">
-        <button class="classButtonWhite" id="id_exportCancelButton" title="Cancel" style="margin-top:0.5vh; margin-bottom:0.5vh; border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 20%; height:3vh; line-height:3vh; font-size:1.7vh; border: 0.2vh solid rgb(180,180,180); margin-left:25%; margin-top:1vh; margin-bottom:1vh;"> Close </button>
-        <button class="classButtonWhite" id="id_exportExportButton" title="Export" style="margin-top:0.5vh; margin-bottom:0.5vh; border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 20%; height:3vh; line-height:3vh; font-size:1.7vh; border: 0.2vh solid rgb(180,180,180); margin-left:10%; margin-top:1vh; margin-bottom:1vh;"> Export </button>
+      <div class="row" style="margin-top:4vh; width:100%;  margin-bottom:2vh;">
+              <p style="margin:0px; width:30%; margin-left:5%;height:5vh; line-height:5vh; vertical-align:middle; text-align:left; vertical-align: middle; font-size:3vh; color:black; ">Merge Equal Interval Colors:</p>
+              <div class="row">
+                <button class="classButtonWhite" onclick="changeMergeOption(0)" id="button_ExportMergeYes" title="Merge Yes"  style="border-radius: 0.3vh; background:rgb(250,250,250); width: 4.5vw; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid rgb(0,191,255); color: rgb(0,191,255); ">YES</button>
+                <button class="classButtonWhite" onclick="changeMergeOption(1)" id="button_ExportMergeNo" title="Merge No"  style="border-radius: 0.3vh; background:rgb(250,250,250); width: 4.5vw; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid black; color:black; ">NO</button>
+              </div>
       </div>
-    </div-->
+    </div>
 
+    <div style="border:1px solid black; background:rgb(250,250,250); width:80%; margin-left:10%; margin-top: 2vh;">
+      <div class="row">
+        <p style="margin:0px; margin-left:5%; width:30%; height:5vh; line-height:5vh; vertical-align:middle; text-align:left; vertical-align: middle; font-size:3vh; color:black; margin-top:2vh; margin-bottom:2vh;"><strong>Format:</strong></p>
+        <button class="classButtonWhite" id="button_ExportFormatXML" onclick="changeOutputformat(1)" title="XML"  style="border-radius: 0.3vh; background:rgb(250,250,250); width: 6vw; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid rgb(0,191,255); color: rgb(0,191,255);  margin-top:2vh;">XML</button>
+        <button class="classButtonWhite" id="button_ExportFormatJSON" onclick="changeOutputformat(2)" title="JSON"  style="border-radius: 0.3vh; background:rgb(250,250,250); width: 6vw; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid black; color:black;  margin-top:2vh;">JSON</button>
+        <button class="classButtonWhite" id="button_ExportFormatCSV"onclick="changeOutputformat(0)" title="CSV"  style="border-radius: 0.3vh; background:rgb(250,250,250); width: 6vw; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid black; color:black;  margin-top:2vh;">CSV</button>
+      </div>
+    </div>
+
+  <!--div style="border:1px solid black; background: rgb(0,191,255); width:80%; margin-left:10%; margin-top: 2vh;"-->
+    <button class="classButtonWhite" onclick="exportSide_downloadFile()" title="Export" style="border-radius: 0.5vh; width: 60%; height:8vh; line-height:8vh; font-size:4vh; border: 0.2vh solid rgb(180,180,180); margin-left:20%; margin-top:2vh; margin-bottom:2vh; box-shadow:  0.3vh  0.3vh grey; background: rgb(0,191,255); color:white;"> Click to Export </button>
+  <!--/div-->
+
+
+    <div style="border:1px solid black; background:rgb(250,250,250); width:80%; margin-left:10%; margin-top: 2vh; padding-bottom:2vh;">
+
+      <p style="margin:0px; margin-left:5%;height:5vh; line-height:5vh; vertical-align:middle; text-align:left; vertical-align: middle; font-size:3vh; color:black; margin-top:4vh; "><strong>Table:</strong></p>
+
+      <table style="margin-left:5%; width:90%; background:white;" id="id_table">
+        <thead>
+          <tr style="border-top:1px solid white;">
+            <th class="class_tablelabel" style="width:4%; border-left:1px solid white;">#</th>
+            <th class="class_tablelabel" style="width:9%;">Scalar</th>
+            <th class="class_tablelabel" style="width:9%;">Type</th>
+            <th class="class_tablelabel" id="id_table_exportColor1" style="width:9%;">Color (RGB)</th>
+            <th class="class_tablelabel" style="width:9%;"></th>
+          </tr>
+        </thead>
+
+        <tbody id="id_exportTableBody">
+
+        </tbody>
+
+      </table>
+
+    </div>
 
   </div>
 </div>
@@ -3748,7 +3609,7 @@
 
   <div id="bandCreatorWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:101; top:0px; left:0px; bottom:0px; display:none;">
 
-    <div style="margin-top:15vh; height:auto; background: rgb(240,240,240); width:50%; border: 0.5vh solid black; margin-left:auto; margin-right:auto;">
+    <div style="margin-top:15vh; height:auto; background:rgb(240,240,240); width:50%; border: 0.5vh solid black; margin-left:auto; margin-right:auto;">
 
       <h3 style="width:100%; height:5vh; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; padding-left:20px; font-size:3vh; margin-bottom:2vh; background:black;"> Band Creator </h3>
       <!------------------>

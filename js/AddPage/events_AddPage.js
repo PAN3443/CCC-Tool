@@ -278,6 +278,8 @@ function  createNewColormapRow(type, index, parent){
   return function() {
 
       globalColormap1 = addPageGetColormap(tmpIndex, tmpType);
+      bandSketch.colormap2Sketch(globalColormap1);
+      colormap1SelectIndex=-1;
       changePage(6);
 
   };

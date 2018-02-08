@@ -54,7 +54,7 @@ class classColorMapSpecification {
             // twin/leftKey  or not
             if(this.positionPoints[i]==this.positionPoints[i+1]){
                 if(i+2>this.positionPoints.length-1){
-                    altert("Error in Colormap -> twin key at the end of colormap is not possible");
+                    alert("Error in Colormap -> twin key at the end of colormap is not possible");
                 }
                 else{
                     if(this.rgbColorArray[i+1].getRGBString()===this.rgbColorArray[i+2].getRGBString()){
@@ -102,9 +102,7 @@ class classColorMapSpecification {
       for(var i=0; i<=intervals; i++){
           var tmpVal = this.positionPoints[0]+(i*intervalDistance);
           tmpIntervalRef.push(tmpVal);
-
       }
-
 
 
 
@@ -122,6 +120,7 @@ class classColorMapSpecification {
           if(tmpIntervalRef[intervalRefIndex]<this.positionPoints[currentKeyPos]){
             docase = 3;
           }
+
 
         switch (docase) {
           case 1:
@@ -203,7 +202,7 @@ class classColorMapSpecification {
                                   default:
                                   console.log("Error calcColorMap function");
                                 }
-                                tmpColormap.addElement(tmpColor, tmpIntervalRef[intervalRefIndex], type);
+                                tmpColormap.addElement(tmpColor, this.positionPoints[currentKeyPos], type);
 
                                 currentKeyPos++;
 
@@ -231,7 +230,7 @@ class classColorMapSpecification {
                                     default:
                                     console.log("Error calcColorMap function");
                                   }
-                                  tmpColormap.addElement(tmpColor, tmpIntervalRef[intervalRefIndex], type2);
+                                  tmpColormap.addElement(tmpColor, this.positionPoints[currentKeyPos], type2);
                                   currentKeyPos++;
 
                                 }
