@@ -201,23 +201,29 @@ function editPage_drawKeys(canvasID, tmpColormap){
 }
 
 function colorChange(){
-  if(document.getElementById("editSide_Radiobutton_SelectColor1").checked==true || document.getElementById("bandCreator_Radiobutton_SelectColor1").checked==true){
-    selectedColor=0;
-    document.getElementById("editSide_Radiobutton_SelectColor1").checked=true;
-    document.getElementById("bandCreator_Radiobutton_SelectColor1").checked=true;
-  }
-  else{
-    selectedColor=1;
-    document.getElementById("editSide_Radiobutton_SelectColor2").checked=true;
-    document.getElementById("bandCreator_Radiobutton_SelectColor2").checked=true;
-  }
+
 
   if(bandCreatorOpen){
+
+    if(document.getElementById("bandCreator_Radiobutton_SelectColor1").checked==true){
+      selectedColor=0;
+    }
+    else{
+      selectedColor=1;
+    }
+
     drawCurrentBandColor();
     initColorpickerBackground("bandCreator_canvasPicker", colorpickerType);
     drawEditPageColorCircles("bandCreator_canvasPicker","bandCreator_canvasPicker2", colorpickerType);
   }
   else{
+
+    if(document.getElementById("editSide_Radiobutton_SelectColor1").checked==true){
+      selectedColor=0;
+    }
+    else{
+      selectedColor=1;
+    }
     drawCurrentColor();
     initColorpickerBackground("editPage_canvasPicker", colorpickerType);
     drawEditPageColorCircles("editPage_canvasPicker","editPage_canvasPicker2", colorpickerType);

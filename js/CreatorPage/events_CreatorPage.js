@@ -117,6 +117,9 @@ function switchModifyModus(type){
 
         document.getElementById("id_DivModifyKeys").style.display="inline-block";
         document.getElementById("id_DivAddBands").style.display="none";
+
+        document.getElementById("editSide_Radiobutton_SelectColor1").checked==true
+        selectedColor=0;
       }
       else{
         alert("There are no keys for modyfing. Please use Add Bands to create a CMS.");
@@ -218,7 +221,7 @@ switch (createBandType) {
 
   document.getElementById("bandCreatorWindow").style.display="inline-block";
   document.getElementById("bandCreator_Radiobutton_SelectColor1").checked=true;
-
+  selectedColor=0;
   addBandButtons();
 }
 
