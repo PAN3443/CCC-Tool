@@ -34,7 +34,6 @@ function mouseMoveKeyRef(event){
  mousePosY = canvasPosY*ratioToColorspaceResolutionY;
 
  // check if mouse is above a element
- var tmpC1HSV = getHSVColor(true);
 
  if(grappedKey == false){
    document.getElementById("id_keyColormap").style.cursor="default";
@@ -55,7 +54,7 @@ function mouseMoveKeyRef(event){
  }
  else{
    // change value
-   var newRef = mousePosX/key_resolution_X * Math.abs(bandSketch.getRefR2(bandSketch.getBandLenght()-1)-bandSketch.getRefR1(0))+bandSketch.getRefR1(0);
+   var newRef = mousePosX/key_resolution_X * Math.abs(bandSketch.getRefR2(bandSketch.getBandLength()-1)-bandSketch.getRefR1(0))+bandSketch.getRefR1(0);
    newRef = parseFloat(newRef.toFixed(numDecimalPlaces));
    if(newRef >= bandSketch.getRefR1(overKeyID) && newRef <= bandSketch.getRefR2(overKeyID+1)){
      bandSketch.setRefR2(overKeyID,newRef);

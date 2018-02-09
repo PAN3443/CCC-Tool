@@ -258,10 +258,10 @@ function init_VPlot(colormapTmp, canvasID){
     if(doOriginalValuePlot){
       var plotwidth = plotXEnd-plotXStart;
 
-          widthVArea = bandSketch.getRefR2(bandSketch.getBandLenght()-1)-bandSketch.getRefR1(0);
+          widthVArea = bandSketch.getRefR2(bandSketch.getBandLength()-1)-bandSketch.getRefR1(0);
       if(showSideID==3){
 
-        widthVArea2 = bandSketch2.getRefR2(bandSketch2.getBandLenght()-1)-bandSketch2.getRefR1(0);
+        widthVArea2 = bandSketch2.getRefR2(bandSketch2.getBandLength()-1)-bandSketch2.getRefR1(0);
 
         xPosPos = xStart;
         vPlotContex.beginPath();
@@ -275,7 +275,7 @@ function init_VPlot(colormapTmp, canvasID){
         vPlotContex.font = labelFontSizeSmall+"px Arial";
         vPlotContex.fillText(text,xPosPos,vPlot_resolution_Y*0.96+labelFontSizeSmall);
 
-        for(var i=0; i<bandSketch2.getBandLenght(); i++){
+        for(var i=0; i<bandSketch2.getBandLength(); i++){
 
           xPosPos += ((bandSketch2.getRefR2(i)-bandSketch2.getRefR1(i))/widthVArea2)*plotwidth;
 
@@ -306,7 +306,7 @@ function init_VPlot(colormapTmp, canvasID){
       vPlotContex.font = labelFontSizeSmall+"px Arial";
       vPlotContex.fillText(text,xPosPos,vPlot_resolution_Y*0.93+labelFontSizeSmall);
 
-      for(var i=0; i<bandSketch.getBandLenght(); i++){
+      for(var i=0; i<bandSketch.getBandLength(); i++){
 
         xPosPos += ((bandSketch.getRefR2(i)-bandSketch.getRefR1(i))/widthVArea)*plotwidth;
         vPlotContex.beginPath();
@@ -323,11 +323,11 @@ function init_VPlot(colormapTmp, canvasID){
       }
     }
     else{
-        widthVArea = Math.round((xEnd-xStart)/(bandSketch.getBandLenght()));
+        widthVArea = Math.round((xEnd-xStart)/(bandSketch.getBandLength()));
       if(showSideID==3){
-        widthVArea2 = Math.round((xEnd-xStart)/(bandSketch2.getBandLenght()));
+        widthVArea2 = Math.round((xEnd-xStart)/(bandSketch2.getBandLength()));
 
-        for(var i=0; i<=bandSketch2.getBandLenght(); i++){
+        for(var i=0; i<=bandSketch2.getBandLength(); i++){
 
           xPosPos = xStart+i*widthVArea2;
 
@@ -345,7 +345,7 @@ function init_VPlot(colormapTmp, canvasID){
         }
       }
 
-      for(var i=0; i<=bandSketch.getBandLenght(); i++){
+      for(var i=0; i<=bandSketch.getBandLength(); i++){
 
         xPosPos = xStart+i*widthVArea;
 
@@ -576,7 +576,7 @@ function drawcolormap_hueSpace(colormapTmp, canvasID, calcBackground,drawInterpo
 
   ////////////////////////////////////////////////////////
   // draw Colormap
-  if(bandSketch.getBandLenght()>0){
+  if(bandSketch.getBandLength()>0){
 
       /////////////////////////////////////////////////////////////////
 
@@ -1440,7 +1440,7 @@ function drawcolormap_compare_hueSpace(colormapTmp, colormapTmp2, canvasID, calc
   var vPlotKeyPos = 0;
 
 
-  if(bandSketch2.getBandLenght()>0){
+  if(bandSketch2.getBandLength()>0){
 
       /////////////////////////////////////////////////////////////////
 
@@ -2023,7 +2023,7 @@ function drawcolormap_compare_hueSpace(colormapTmp, colormapTmp2, canvasID, calc
   // draw Colormap 1
   vPlotKeyPos = 0;
 
-  if(bandSketch.getBandLenght()>0){
+  if(bandSketch.getBandLength()>0){
 
       /////////////////////////////////////////////////////////////////
 

@@ -266,7 +266,7 @@ class classBandSketch{
     this.colormapBandSketchR2 = [];
   }
 
-  getBandLenght(){
+  getBandLength(){
     return this.colormapBandSketchC1.length;
   }
 

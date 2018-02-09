@@ -28,7 +28,7 @@ function editPage_drawKeys(canvasID, tmpColormap){
     var leftStarted = false;
 
     var distanceColorrects = key_resolution_Y / 6;
-    var bandWidth = colormapWidth/bandSketch.getBandLenght();
+    var bandWidth = colormapWidth/bandSketch.getBandLength();
 
     var labelFontSize = key_resolution_Y / 6;
     colorrectHeigth = key_resolution_Y / 3;
@@ -201,15 +201,28 @@ function editPage_drawKeys(canvasID, tmpColormap){
 }
 
 function colorChange(){
-  if(document.getElementById("editSide_Radiobutton_SelectColor1").checked==true){
+  if(document.getElementById("editSide_Radiobutton_SelectColor1").checked==true || document.getElementById("bandCreator_Radiobutton_SelectColor1").checked==true){
     selectedColor=0;
+    document.getElementById("editSide_Radiobutton_SelectColor1").checked=true;
+    document.getElementById("bandCreator_Radiobutton_SelectColor1").checked=true;
   }
   else{
     selectedColor=1;
+    document.getElementById("editSide_Radiobutton_SelectColor2").checked=true;
+    document.getElementById("bandCreator_Radiobutton_SelectColor2").checked=true;
   }
-  drawCurrentColor();
-  initColorpickerBackground("editPage_canvasPicker", colorpickerType);
-  drawEditPageColorCircles("editPage_canvasPicker","editPage_canvasPicker2", colorpickerType);
+
+  if(bandCreatorOpen){
+    drawCurrentBandColor();
+    initColorpickerBackground("bandCreator_canvasPicker", colorpickerType);
+    drawEditPageColorCircles("bandCreator_canvasPicker","bandCreator_canvasPicker2", colorpickerType);
+  }
+  else{
+    drawCurrentColor();
+    initColorpickerBackground("editPage_canvasPicker", colorpickerType);
+    drawEditPageColorCircles("editPage_canvasPicker","editPage_canvasPicker2", colorpickerType);
+  }
+
 }
 
 function addKeyButtons(){
@@ -235,8 +248,8 @@ function addKeyButtons(){
         keyDivArray[selectedKey].style.borderColor = "black";
         keyDivArray[selectedKey].style.color = "black";
         selectedKey = tmpIndex;
-        keyDivArray[selectedKey].style.borderColor = "rgb(0,191,255)";
-        keyDivArray[selectedKey].style.color = "rgb(0,191,255)";
+        keyDivArray[selectedKey].style.borderColor = styleActiveColor;
+        keyDivArray[selectedKey].style.color = styleActiveColor;
         selectKey();
 
     };
@@ -250,8 +263,8 @@ function addKeyButtons(){
 
 
   selectedKey=0;
-  keyDivArray[selectedKey].style.borderColor = "rgb(0,191,255)";
-  keyDivArray[selectedKey].style.color = "rgb(0,191,255)";
+  keyDivArray[selectedKey].style.borderColor = styleActiveColor;
+  keyDivArray[selectedKey].style.color = styleActiveColor;
   selectKey();
 }
 
@@ -685,38 +698,165 @@ function changeColorpickerType(event){
       colorpickerType="RG_B";
       document.getElementById("editPage_canvasPicker_Label").innerHTML="RG";
       document.getElementById("editPage_canvasPicker2_Label").innerHTML="B";
+      document.getElementById("bandCreator_Radiobutton_PickerRG_B").checked=true;
     break;
     case "editSide_Radiobutton_PickerRB_G":
       colorpickerType="RB_G";
       document.getElementById("editPage_canvasPicker_Label").innerHTML="RB";
       document.getElementById("editPage_canvasPicker2_Label").innerHTML="G";
+      document.getElementById("bandCreator_Radiobutton_PickerRB_G").checked=true;
     break;
     case "editSide_Radiobutton_PickerGB_R":
       colorpickerType="GB_R";
       document.getElementById("editPage_canvasPicker_Label").innerHTML="GB";
       document.getElementById("editPage_canvasPicker2_Label").innerHTML="R";
+      document.getElementById("bandCreator_Radiobutton_PickerGB_R").checked=true;
     break;
     case "editSide_Radiobutton_PickerHS_V":
       colorpickerType="HS_V";
       document.getElementById("editPage_canvasPicker_Label").innerHTML="HS";
       document.getElementById("editPage_canvasPicker2_Label").innerHTML="V";
+      document.getElementById("bandCreator_Radiobutton_PickerHS_V").checked=true;
     break;
     case "editSide_Radiobutton_PickerHV_S":
       colorpickerType="HV_S";
       document.getElementById("editPage_canvasPicker_Label").innerHTML="HV";
       document.getElementById("editPage_canvasPicker2_Label").innerHTML="S";
+      document.getElementById("bandCreator_Radiobutton_PickerHV_S").checked=true;
     break;
     case "editSide_Radiobutton_PickerSV_H":
       colorpickerType="SV_H";
       document.getElementById("editPage_canvasPicker_Label").innerHTML="SV";
       document.getElementById("editPage_canvasPicker2_Label").innerHTML="H";
+      document.getElementById("bandCreator_Radiobutton_PickerSV_H").checked=true;
+    break;
+    case "bandCreator_Radiobutton_PickerRG_B":
+      colorpickerType="RG_B";
+      document.getElementById("editPage_canvasPicker_Label").innerHTML="RG";
+      document.getElementById("editPage_canvasPicker2_Label").innerHTML="B";
+      document.getElementById("editSide_Radiobutton_PickerRG_B").checked=true;
+    break;
+    case "bandCreator_Radiobutton_PickerRB_G":
+      colorpickerType="RB_G";
+      document.getElementById("editPage_canvasPicker_Label").innerHTML="RB";
+      document.getElementById("editPage_canvasPicker2_Label").innerHTML="G";
+      document.getElementById("editSide_Radiobutton_PickerRB_G").checked=true;
+    break;
+    case "bandCreator_Radiobutton_PickerGB_R":
+      colorpickerType="GB_R";
+      document.getElementById("editPage_canvasPicker_Label").innerHTML="GB";
+      document.getElementById("editPage_canvasPicker2_Label").innerHTML="R";
+      document.getElementById("editSide_Radiobutton_PickerGB_R").checked=true;
+    break;
+    case "bandCreator_Radiobutton_PickerHS_V":
+      colorpickerType="HS_V";
+      document.getElementById("editPage_canvasPicker_Label").innerHTML="HS";
+      document.getElementById("editPage_canvasPicker2_Label").innerHTML="V";
+      document.getElementById("editSide_Radiobutton_PickerHS_V").checked=true;
+    break;
+    case "bandCreator_Radiobutton_PickerHV_S":
+      colorpickerType="HV_S";
+      document.getElementById("editPage_canvasPicker_Label").innerHTML="HV";
+      document.getElementById("editPage_canvasPicker2_Label").innerHTML="S";
+      document.getElementById("editSide_Radiobutton_PickerHV_S").checked=true;
+    break;
+    case "bandCreator_Radiobutton_PickerSV_H":
+      colorpickerType="SV_H";
+      document.getElementById("editPage_canvasPicker_Label").innerHTML="SV";
+      document.getElementById("editPage_canvasPicker2_Label").innerHTML="H";
+      document.getElementById("editSide_Radiobutton_PickerSV_H").checked=true;
     break;
     default:
 
   }
 
-  initColorpickerBackground("editPage_canvasPicker", colorpickerType);
-  drawEditPageColorCircles("editPage_canvasPicker","editPage_canvasPicker2", colorpickerType);
+  if(bandCreatorOpen){
+    initColorpickerBackground("bandCreator_canvasPicker", colorpickerType);
+    drawEditPageColorCircles("bandCreator_canvasPicker","bandCreator_canvasPicker2", colorpickerType);
+    switch (event.target.id) {
+      case "bandCreator_Radiobutton_PickerRG_B":
+        colorpickerType="RG_B";
+        document.getElementById("editPage_canvasPicker_Label").innerHTML="RG";
+        document.getElementById("editPage_canvasPicker2_Label").innerHTML="B";
+        document.getElementById("editSide_Radiobutton_PickerRG_B").checked=true;
+      break;
+      case "bandCreator_Radiobutton_PickerRB_G":
+        colorpickerType="RB_G";
+        document.getElementById("editPage_canvasPicker_Label").innerHTML="RB";
+        document.getElementById("editPage_canvasPicker2_Label").innerHTML="G";
+        document.getElementById("editSide_Radiobutton_PickerRB_G").checked=true;
+      break;
+      case "bandCreator_Radiobutton_PickerGB_R":
+        colorpickerType="GB_R";
+        document.getElementById("editPage_canvasPicker_Label").innerHTML="GB";
+        document.getElementById("editPage_canvasPicker2_Label").innerHTML="R";
+        document.getElementById("editSide_Radiobutton_PickerGB_R").checked=true;
+      break;
+      case "bandCreator_Radiobutton_PickerHS_V":
+        colorpickerType="HS_V";
+        document.getElementById("editPage_canvasPicker_Label").innerHTML="HS";
+        document.getElementById("editPage_canvasPicker2_Label").innerHTML="V";
+        document.getElementById("editSide_Radiobutton_PickerHS_V").checked=true;
+      break;
+      case "bandCreator_Radiobutton_PickerHV_S":
+        colorpickerType="HV_S";
+        document.getElementById("editPage_canvasPicker_Label").innerHTML="HV";
+        document.getElementById("editPage_canvasPicker2_Label").innerHTML="S";
+        document.getElementById("editSide_Radiobutton_PickerHV_S").checked=true;
+      break;
+      case "bandCreator_Radiobutton_PickerSV_H":
+        colorpickerType="SV_H";
+        document.getElementById("editPage_canvasPicker_Label").innerHTML="SV";
+        document.getElementById("editPage_canvasPicker2_Label").innerHTML="H";
+        document.getElementById("editSide_Radiobutton_PickerSV_H").checked=true;
+      break;
+      default:
+    }
+  }else{
+    initColorpickerBackground("editPage_canvasPicker", colorpickerType);
+    drawEditPageColorCircles("editPage_canvasPicker","editPage_canvasPicker2", colorpickerType);
+    switch (event.target.id) {
+      case "editSide_Radiobutton_PickerRG_B":
+        colorpickerType="RG_B";
+        document.getElementById("editPage_canvasPicker_Label").innerHTML="RG";
+        document.getElementById("editPage_canvasPicker2_Label").innerHTML="B";
+        document.getElementById("bandCreator_Radiobutton_PickerRG_B").checked=true;
+      break;
+      case "editSide_Radiobutton_PickerRB_G":
+        colorpickerType="RB_G";
+        document.getElementById("editPage_canvasPicker_Label").innerHTML="RB";
+        document.getElementById("editPage_canvasPicker2_Label").innerHTML="G";
+        document.getElementById("bandCreator_Radiobutton_PickerRB_G").checked=true;
+      break;
+      case "editSide_Radiobutton_PickerGB_R":
+        colorpickerType="GB_R";
+        document.getElementById("editPage_canvasPicker_Label").innerHTML="GB";
+        document.getElementById("editPage_canvasPicker2_Label").innerHTML="R";
+        document.getElementById("bandCreator_Radiobutton_PickerGB_R").checked=true;
+      break;
+      case "editSide_Radiobutton_PickerHS_V":
+        colorpickerType="HS_V";
+        document.getElementById("editPage_canvasPicker_Label").innerHTML="HS";
+        document.getElementById("editPage_canvasPicker2_Label").innerHTML="V";
+        document.getElementById("bandCreator_Radiobutton_PickerHS_V").checked=true;
+      break;
+      case "editSide_Radiobutton_PickerHV_S":
+        colorpickerType="HV_S";
+        document.getElementById("editPage_canvasPicker_Label").innerHTML="HV";
+        document.getElementById("editPage_canvasPicker2_Label").innerHTML="S";
+        document.getElementById("bandCreator_Radiobutton_PickerHV_S").checked=true;
+      break;
+      case "editSide_Radiobutton_PickerSV_H":
+        colorpickerType="SV_H";
+        document.getElementById("editPage_canvasPicker_Label").innerHTML="SV";
+        document.getElementById("editPage_canvasPicker2_Label").innerHTML="H";
+        document.getElementById("bandCreator_Radiobutton_PickerSV_H").checked=true;
+      break;
+      default:
+
+    }
+  }
+
 }
 
 
@@ -757,7 +897,6 @@ function editPageConfirmColor(){
 
 function checkColorInputFieldsChange(event){
 
-
   var doSpace =0;
   switch (event.target.id) {
     case "id_editPageC1RInput":
@@ -766,6 +905,12 @@ function checkColorInputFieldsChange(event){
     case "id_editPageC2RInput":
     case "id_editPageC2GInput":
     case "id_editPageC2BInput":
+    case "id_bandCreatorC1RInput":
+    case "id_bandCreatorC1GInput":
+    case "id_bandCreatorC1BInput":
+    case "id_bandCreatorC2RInput":
+    case "id_bandCreatorC2GInput":
+    case "id_bandCreatorC2BInput":
         doSpace=1;
         checkInputVal(document.getElementById(event.target.id),true,false);
 
@@ -780,6 +925,8 @@ function checkColorInputFieldsChange(event){
     break;
     case "id_editPageC1HInput":
     case "id_editPageC2HInput":
+    case "id_bandCreatorC1HInput":
+    case "id_bandCreatorC2HInput":
     doSpace=2;
       checkInputVal(document.getElementById(event.target.id),true,false);
 
@@ -796,6 +943,10 @@ function checkColorInputFieldsChange(event){
     case "id_editPageC1VInput":
     case "id_editPageC2SInput":
     case "id_editPageC2VInput":
+    case "id_bandCreatorC1SInput":
+    case "id_bandCreatorC1VInput":
+    case "id_bandCreatorC2SInput":
+    case "id_bandCreatorC2VInput":
       doSpace=2;
        checkInputVal(document.getElementById(event.target.id),true,false);
 
@@ -813,62 +964,113 @@ function checkColorInputFieldsChange(event){
   }
 
 
-    if( doSpace==2){
-      var tmpVal1 = parseFloat(document.getElementById("id_editPageC1HInput").value/360);
-      var tmpVal2 = parseFloat(document.getElementById("id_editPageC1SInput").value/100);
-      var tmpVal3 = parseFloat(document.getElementById("id_editPageC1VInput").value/100);
-      var tmpHSV = new classColor_HSV(tmpVal1,tmpVal2,tmpVal3);
-      editColor1= tmpHSV.calcRGBColor();
 
-     tmpVal1 = parseFloat(document.getElementById("id_editPageC2HInput").value/360);
-     tmpVal2 = parseFloat(document.getElementById("id_editPageC2SInput").value/100);
-     tmpVal3 = parseFloat(document.getElementById("id_editPageC2VInput").value/100);
-     tmpHSV = new classColor_HSV(tmpVal1,tmpVal2,tmpVal3);
-      editColor2= tmpHSV.calcRGBColor();
+    if(bandCreatorOpen){
+      if( doSpace==2){
+        var tmpVal1 = parseFloat(document.getElementById("id_bandCreatorC1HInput").value/360);
+        var tmpVal2 = parseFloat(document.getElementById("id_bandCreatorC1SInput").value/100);
+        var tmpVal3 = parseFloat(document.getElementById("id_bandCreatorC1VInput").value/100);
+        var tmpHSV = new classColor_HSV(tmpVal1,tmpVal2,tmpVal3);
+        editColor1= tmpHSV.calcRGBColor();
 
-     document.getElementById("id_editPageC1RInput").value=editColor1.get1Value().toFixed(numDecimalPlaces)*255;
-     document.getElementById("id_editPageC1GInput").value=editColor1.get2Value().toFixed(numDecimalPlaces)*255;
-     document.getElementById("id_editPageC1BInput").value=editColor1.get3Value().toFixed(numDecimalPlaces)*255;
-     document.getElementById("id_editPageC2RInput").value=editColor2.get1Value().toFixed(numDecimalPlaces)*255;
-     document.getElementById("id_editPageC2GInput").value=editColor2.get2Value().toFixed(numDecimalPlaces)*255;
-     document.getElementById("id_editPageC2BInput").value=editColor2.get3Value().toFixed(numDecimalPlaces)*255;
+       tmpVal1 = parseFloat(document.getElementById("id_bandCreatorC2HInput").value/360);
+       tmpVal2 = parseFloat(document.getElementById("id_bandCreatorC2SInput").value/100);
+       tmpVal3 = parseFloat(document.getElementById("id_bandCreatorC2VInput").value/100);
+       tmpHSV = new classColor_HSV(tmpVal1,tmpVal2,tmpVal3);
+        editColor2= tmpHSV.calcRGBColor();
 
-     initColorpickerBackground("editPage_canvasPicker", colorpickerType);
-     drawEditPageColorCircles("editPage_canvasPicker","editPage_canvasPicker2", colorpickerType);
-     drawCurrentColor();
+       document.getElementById("id_bandCreatorC1RInput").value=editColor1.get1Value().toFixed(numDecimalPlaces)*255;
+       document.getElementById("id_bandCreatorC1GInput").value=editColor1.get2Value().toFixed(numDecimalPlaces)*255;
+       document.getElementById("id_bandCreatorC1BInput").value=editColor1.get3Value().toFixed(numDecimalPlaces)*255;
+       document.getElementById("id_bandCreatorC2RInput").value=editColor2.get1Value().toFixed(numDecimalPlaces)*255;
+       document.getElementById("id_bandCreatorC2GInput").value=editColor2.get2Value().toFixed(numDecimalPlaces)*255;
+       document.getElementById("id_bandCreatorC2BInput").value=editColor2.get3Value().toFixed(numDecimalPlaces)*255;
 
+       initColorpickerBackground("bandCreator_canvasPicker", colorpickerType);
+       drawEditPageColorCircles("bandCreator_canvasPicker","bandCreator_canvasPicker2", colorpickerType);
+       drawCurrentBandColor();
+
+      }
+
+      if( doSpace==1){
+        var tmpVal1 = parseFloat(document.getElementById("id_bandCreatorC1RInput").value/255);
+        var tmpVal2 = parseFloat(document.getElementById("id_bandCreatorC1GInput").value/255);
+        var tmpVal3 = parseFloat(document.getElementById("id_bandCreatorC1BInput").value/255);
+        editColor1 = new classColor_RGB(tmpVal1,tmpVal2,tmpVal3);
+
+
+       tmpVal1 = parseFloat(document.getElementById("id_bandCreatorC2RInput").value/255);
+       tmpVal2 = parseFloat(document.getElementById("id_bandCreatorC2GInput").value/255);
+       tmpVal3 = parseFloat(document.getElementById("id_bandCreatorC2BInput").value/255);
+       editColor2 = new classColor_RGB(tmpVal1,tmpVal2,tmpVal3);
+
+       var tmpHSV = editColor1.calcHSVColor();
+       document.getElementById("id_bandCreatorC1HInput").value=tmpHSV.get1Value().toFixed(numDecimalPlaces)*360;
+       document.getElementById("id_bandCreatorC1SInput").value=tmpHSV.get2Value().toFixed(numDecimalPlaces)*100;
+       document.getElementById("id_bandCreatorC1VInput").value=tmpHSV.get3Value().toFixed(numDecimalPlaces)*100;
+       tmpHSV = editColor2.calcHSVColor();
+       document.getElementById("id_bandCreatorC2HInput").value=tmpHSV.get1Value().toFixed(numDecimalPlaces)*360;
+       document.getElementById("id_bandCreatorC2SInput").value=tmpHSV.get2Value().toFixed(numDecimalPlaces)*100;
+       document.getElementById("id_bandCreatorC2VInput").value=tmpHSV.get3Value().toFixed(numDecimalPlaces)*100;
+
+       initColorpickerBackground("bandCreator_canvasPicker", colorpickerType);
+       drawEditPageColorCircles("bandCreator_canvasPicker","bandCreator_canvasPicker2", colorpickerType);
+       drawCurrentColor();
+      }
     }
+    else{
+      if( doSpace==2){
+        var tmpVal1 = parseFloat(document.getElementById("id_editPageC1HInput").value/360);
+        var tmpVal2 = parseFloat(document.getElementById("id_editPageC1SInput").value/100);
+        var tmpVal3 = parseFloat(document.getElementById("id_editPageC1VInput").value/100);
+        var tmpHSV = new classColor_HSV(tmpVal1,tmpVal2,tmpVal3);
+        editColor1= tmpHSV.calcRGBColor();
 
-    if( doSpace==1){
-      var tmpVal1 = parseFloat(document.getElementById("id_editPageC1RInput").value/255);
-      var tmpVal2 = parseFloat(document.getElementById("id_editPageC1GInput").value/255);
-      var tmpVal3 = parseFloat(document.getElementById("id_editPageC1BInput").value/255);
-      editColor1 = new classColor_RGB(tmpVal1,tmpVal2,tmpVal3);
+       tmpVal1 = parseFloat(document.getElementById("id_editPageC2HInput").value/360);
+       tmpVal2 = parseFloat(document.getElementById("id_editPageC2SInput").value/100);
+       tmpVal3 = parseFloat(document.getElementById("id_editPageC2VInput").value/100);
+       tmpHSV = new classColor_HSV(tmpVal1,tmpVal2,tmpVal3);
+        editColor2= tmpHSV.calcRGBColor();
+
+       document.getElementById("id_editPageC1RInput").value=editColor1.get1Value().toFixed(numDecimalPlaces)*255;
+       document.getElementById("id_editPageC1GInput").value=editColor1.get2Value().toFixed(numDecimalPlaces)*255;
+       document.getElementById("id_editPageC1BInput").value=editColor1.get3Value().toFixed(numDecimalPlaces)*255;
+       document.getElementById("id_editPageC2RInput").value=editColor2.get1Value().toFixed(numDecimalPlaces)*255;
+       document.getElementById("id_editPageC2GInput").value=editColor2.get2Value().toFixed(numDecimalPlaces)*255;
+       document.getElementById("id_editPageC2BInput").value=editColor2.get3Value().toFixed(numDecimalPlaces)*255;
+
+       initColorpickerBackground("editPage_canvasPicker", colorpickerType);
+       drawEditPageColorCircles("editPage_canvasPicker","editPage_canvasPicker2", colorpickerType);
+       drawCurrentColor();
+
+      }
+
+      if( doSpace==1){
+        var tmpVal1 = parseFloat(document.getElementById("id_editPageC1RInput").value/255);
+        var tmpVal2 = parseFloat(document.getElementById("id_editPageC1GInput").value/255);
+        var tmpVal3 = parseFloat(document.getElementById("id_editPageC1BInput").value/255);
+        editColor1 = new classColor_RGB(tmpVal1,tmpVal2,tmpVal3);
 
 
-     tmpVal1 = parseFloat(document.getElementById("id_editPageC2RInput").value/255);
-     tmpVal2 = parseFloat(document.getElementById("id_editPageC2GInput").value/255);
-     tmpVal3 = parseFloat(document.getElementById("id_editPageC2BInput").value/255);
-     editColor2 = new classColor_RGB(tmpVal1,tmpVal2,tmpVal3);
+       tmpVal1 = parseFloat(document.getElementById("id_editPageC2RInput").value/255);
+       tmpVal2 = parseFloat(document.getElementById("id_editPageC2GInput").value/255);
+       tmpVal3 = parseFloat(document.getElementById("id_editPageC2BInput").value/255);
+       editColor2 = new classColor_RGB(tmpVal1,tmpVal2,tmpVal3);
 
-     var tmpHSV = editColor1.calcHSVColor();
-     document.getElementById("id_editPageC1HInput").value=tmpHSV.get1Value().toFixed(numDecimalPlaces)*360;
-     document.getElementById("id_editPageC1SInput").value=tmpHSV.get2Value().toFixed(numDecimalPlaces)*100;
-     document.getElementById("id_editPageC1VInput").value=tmpHSV.get3Value().toFixed(numDecimalPlaces)*100;
-     tmpHSV = editColor2.calcHSVColor();
-     document.getElementById("id_editPageC2HInput").value=tmpHSV.get1Value().toFixed(numDecimalPlaces)*360;
-     document.getElementById("id_editPageC2SInput").value=tmpHSV.get2Value().toFixed(numDecimalPlaces)*100;
-     document.getElementById("id_editPageC2VInput").value=tmpHSV.get3Value().toFixed(numDecimalPlaces)*100;
+       var tmpHSV = editColor1.calcHSVColor();
+       document.getElementById("id_editPageC1HInput").value=tmpHSV.get1Value().toFixed(numDecimalPlaces)*360;
+       document.getElementById("id_editPageC1SInput").value=tmpHSV.get2Value().toFixed(numDecimalPlaces)*100;
+       document.getElementById("id_editPageC1VInput").value=tmpHSV.get3Value().toFixed(numDecimalPlaces)*100;
+       tmpHSV = editColor2.calcHSVColor();
+       document.getElementById("id_editPageC2HInput").value=tmpHSV.get1Value().toFixed(numDecimalPlaces)*360;
+       document.getElementById("id_editPageC2SInput").value=tmpHSV.get2Value().toFixed(numDecimalPlaces)*100;
+       document.getElementById("id_editPageC2VInput").value=tmpHSV.get3Value().toFixed(numDecimalPlaces)*100;
 
-     initColorpickerBackground("editPage_canvasPicker", colorpickerType);
-     drawEditPageColorCircles("editPage_canvasPicker","editPage_canvasPicker2", colorpickerType);
-     drawCurrentColor();
+       initColorpickerBackground("editPage_canvasPicker", colorpickerType);
+       drawEditPageColorCircles("editPage_canvasPicker","editPage_canvasPicker2", colorpickerType);
+       drawCurrentColor();
+      }
     }
-
-
-
-
-
 
 
 }
@@ -884,6 +1086,12 @@ function checkColorInputFieldsKey(event){
     case "id_editPageC2RInput":
     case "id_editPageC2GInput":
     case "id_editPageC2BInput":
+    case "id_bandCreatorC1RInput":
+    case "id_bandCreatorC1GInput":
+    case "id_bandCreatorC1BInput":
+    case "id_bandCreatorC2RInput":
+    case "id_bandCreatorC2GInput":
+    case "id_bandCreatorC2BInput":
         doSpace=1;
         checkInputVal(document.getElementById(event.target.id),true,false);
 
@@ -898,6 +1106,8 @@ function checkColorInputFieldsKey(event){
     break;
     case "id_editPageC1HInput":
     case "id_editPageC2HInput":
+    case "id_bandCreatorC1HInput":
+    case "id_bandCreatorC2HInput":
     doSpace=2;
       checkInputVal(document.getElementById(event.target.id),true,false);
 
@@ -914,6 +1124,10 @@ function checkColorInputFieldsKey(event){
     case "id_editPageC1VInput":
     case "id_editPageC2SInput":
     case "id_editPageC2VInput":
+    case "id_bandCreatorC1SInput":
+    case "id_bandCreatorC1VInput":
+    case "id_bandCreatorC2SInput":
+    case "id_bandCreatorC2VInput":
       doSpace=2;
        checkInputVal(document.getElementById(event.target.id),true,false);
 
@@ -933,56 +1147,111 @@ function checkColorInputFieldsKey(event){
 
   if (event.keyCode == 13) {
 
-    if( doSpace==2){
-      var tmpVal1 = parseFloat(document.getElementById("id_editPageC1HInput").value/360);
-      var tmpVal2 = parseFloat(document.getElementById("id_editPageC1SInput").value/100);
-      var tmpVal3 = parseFloat(document.getElementById("id_editPageC1VInput").value/100);
-      var tmpHSV = new classColor_HSV(tmpVal1,tmpVal2,tmpVal3);
-      editColor1= tmpHSV.calcRGBColor();
+    if(bandCreatorOpen){
+      if( doSpace==2){
+        var tmpVal1 = parseFloat(document.getElementById("id_bandCreatorC1HInput").value/360);
+        var tmpVal2 = parseFloat(document.getElementById("id_bandCreatorC1SInput").value/100);
+        var tmpVal3 = parseFloat(document.getElementById("id_bandCreatorC1VInput").value/100);
+        var tmpHSV = new classColor_HSV(tmpVal1,tmpVal2,tmpVal3);
+        editColor1= tmpHSV.calcRGBColor();
 
-     tmpVal1 = parseFloat(document.getElementById("id_editPageC2HInput").value/360);
-     tmpVal2 = parseFloat(document.getElementById("id_editPageC2SInput").value/100);
-     tmpVal3 = parseFloat(document.getElementById("id_editPageC2VInput").value/100);
-     tmpHSV = new classColor_HSV(tmpVal1,tmpVal2,tmpVal3);
-      editColor2= tmpHSV.calcRGBColor();
+       tmpVal1 = parseFloat(document.getElementById("id_bandCreatorC2HInput").value/360);
+       tmpVal2 = parseFloat(document.getElementById("id_bandCreatorC2SInput").value/100);
+       tmpVal3 = parseFloat(document.getElementById("id_bandCreatorC2VInput").value/100);
+       tmpHSV = new classColor_HSV(tmpVal1,tmpVal2,tmpVal3);
+        editColor2= tmpHSV.calcRGBColor();
 
-     document.getElementById("id_editPageC1RInput").value=editColor1.get1Value().toFixed(numDecimalPlaces)*255;
-     document.getElementById("id_editPageC1GInput").value=editColor1.get2Value().toFixed(numDecimalPlaces)*255;
-     document.getElementById("id_editPageC1BInput").value=editColor1.get3Value().toFixed(numDecimalPlaces)*255;
-     document.getElementById("id_editPageC2RInput").value=editColor2.get1Value().toFixed(numDecimalPlaces)*255;
-     document.getElementById("id_editPageC2GInput").value=editColor2.get2Value().toFixed(numDecimalPlaces)*255;
-     document.getElementById("id_editPageC2BInput").value=editColor2.get3Value().toFixed(numDecimalPlaces)*255;
+       document.getElementById("id_bandCreatorC1RInput").value=editColor1.get1Value().toFixed(numDecimalPlaces)*255;
+       document.getElementById("id_bandCreatorC1GInput").value=editColor1.get2Value().toFixed(numDecimalPlaces)*255;
+       document.getElementById("id_bandCreatorC1BInput").value=editColor1.get3Value().toFixed(numDecimalPlaces)*255;
+       document.getElementById("id_bandCreatorC2RInput").value=editColor2.get1Value().toFixed(numDecimalPlaces)*255;
+       document.getElementById("id_bandCreatorC2GInput").value=editColor2.get2Value().toFixed(numDecimalPlaces)*255;
+       document.getElementById("id_bandCreatorC2BInput").value=editColor2.get3Value().toFixed(numDecimalPlaces)*255;
 
-     initColorpickerBackground("editPage_canvasPicker", colorpickerType);
-     drawEditPageColorCircles("editPage_canvasPicker","editPage_canvasPicker2", colorpickerType);
-     drawCurrentColor();
+       initColorpickerBackground("bandCreator_canvasPicker", colorpickerType);
+       drawEditPageColorCircles("bandCreator_canvasPicker","bandCreator_canvasPicker2", colorpickerType);
+       drawCurrentBandColor();
 
+      }
+
+      if( doSpace==1){
+        var tmpVal1 = parseFloat(document.getElementById("id_bandCreatorC1RInput").value/255);
+        var tmpVal2 = parseFloat(document.getElementById("id_bandCreatorC1GInput").value/255);
+        var tmpVal3 = parseFloat(document.getElementById("id_bandCreatorC1BInput").value/255);
+        editColor1 = new classColor_RGB(tmpVal1,tmpVal2,tmpVal3);
+
+
+       tmpVal1 = parseFloat(document.getElementById("id_bandCreatorC2RInput").value/255);
+       tmpVal2 = parseFloat(document.getElementById("id_bandCreatorC2GInput").value/255);
+       tmpVal3 = parseFloat(document.getElementById("id_bandCreatorC2BInput").value/255);
+       editColor2 = new classColor_RGB(tmpVal1,tmpVal2,tmpVal3);
+
+       var tmpHSV = editColor1.calcHSVColor();
+       document.getElementById("id_bandCreatorC1HInput").value=tmpHSV.get1Value().toFixed(numDecimalPlaces)*360;
+       document.getElementById("id_bandCreatorC1SInput").value=tmpHSV.get2Value().toFixed(numDecimalPlaces)*100;
+       document.getElementById("id_bandCreatorC1VInput").value=tmpHSV.get3Value().toFixed(numDecimalPlaces)*100;
+       tmpHSV = editColor2.calcHSVColor();
+       document.getElementById("id_bandCreatorC2HInput").value=tmpHSV.get1Value().toFixed(numDecimalPlaces)*360;
+       document.getElementById("id_bandCreatorC2SInput").value=tmpHSV.get2Value().toFixed(numDecimalPlaces)*100;
+       document.getElementById("id_bandCreatorC2VInput").value=tmpHSV.get3Value().toFixed(numDecimalPlaces)*100;
+
+       initColorpickerBackground("bandCreator_canvasPicker", colorpickerType);
+       drawEditPageColorCircles("bandCreator_canvasPicker","bandCreator_canvasPicker2", colorpickerType);
+       drawCurrentColor();
+      }
     }
+    else{
+      if( doSpace==2){
+        var tmpVal1 = parseFloat(document.getElementById("id_editPageC1HInput").value/360);
+        var tmpVal2 = parseFloat(document.getElementById("id_editPageC1SInput").value/100);
+        var tmpVal3 = parseFloat(document.getElementById("id_editPageC1VInput").value/100);
+        var tmpHSV = new classColor_HSV(tmpVal1,tmpVal2,tmpVal3);
+        editColor1= tmpHSV.calcRGBColor();
 
-    if( doSpace==1){
-      var tmpVal1 = parseFloat(document.getElementById("id_editPageC1RInput").value/255);
-      var tmpVal2 = parseFloat(document.getElementById("id_editPageC1GInput").value/255);
-      var tmpVal3 = parseFloat(document.getElementById("id_editPageC1BInput").value/255);
-      editColor1 = new classColor_RGB(tmpVal1,tmpVal2,tmpVal3);
+       tmpVal1 = parseFloat(document.getElementById("id_editPageC2HInput").value/360);
+       tmpVal2 = parseFloat(document.getElementById("id_editPageC2SInput").value/100);
+       tmpVal3 = parseFloat(document.getElementById("id_editPageC2VInput").value/100);
+       tmpHSV = new classColor_HSV(tmpVal1,tmpVal2,tmpVal3);
+        editColor2= tmpHSV.calcRGBColor();
+
+       document.getElementById("id_editPageC1RInput").value=editColor1.get1Value().toFixed(numDecimalPlaces)*255;
+       document.getElementById("id_editPageC1GInput").value=editColor1.get2Value().toFixed(numDecimalPlaces)*255;
+       document.getElementById("id_editPageC1BInput").value=editColor1.get3Value().toFixed(numDecimalPlaces)*255;
+       document.getElementById("id_editPageC2RInput").value=editColor2.get1Value().toFixed(numDecimalPlaces)*255;
+       document.getElementById("id_editPageC2GInput").value=editColor2.get2Value().toFixed(numDecimalPlaces)*255;
+       document.getElementById("id_editPageC2BInput").value=editColor2.get3Value().toFixed(numDecimalPlaces)*255;
+
+       initColorpickerBackground("editPage_canvasPicker", colorpickerType);
+       drawEditPageColorCircles("editPage_canvasPicker","editPage_canvasPicker2", colorpickerType);
+       drawCurrentColor();
+
+      }
+
+      if( doSpace==1){
+        var tmpVal1 = parseFloat(document.getElementById("id_editPageC1RInput").value/255);
+        var tmpVal2 = parseFloat(document.getElementById("id_editPageC1GInput").value/255);
+        var tmpVal3 = parseFloat(document.getElementById("id_editPageC1BInput").value/255);
+        editColor1 = new classColor_RGB(tmpVal1,tmpVal2,tmpVal3);
 
 
-     tmpVal1 = parseFloat(document.getElementById("id_editPageC2RInput").value/255);
-     tmpVal2 = parseFloat(document.getElementById("id_editPageC2GInput").value/255);
-     tmpVal3 = parseFloat(document.getElementById("id_editPageC2BInput").value/255);
-     editColor2 = new classColor_RGB(tmpVal1,tmpVal2,tmpVal3);
+       tmpVal1 = parseFloat(document.getElementById("id_editPageC2RInput").value/255);
+       tmpVal2 = parseFloat(document.getElementById("id_editPageC2GInput").value/255);
+       tmpVal3 = parseFloat(document.getElementById("id_editPageC2BInput").value/255);
+       editColor2 = new classColor_RGB(tmpVal1,tmpVal2,tmpVal3);
 
-     var tmpHSV = editColor1.calcHSVColor();
-     document.getElementById("id_editPageC1HInput").value=tmpHSV.get1Value().toFixed(numDecimalPlaces)*360;
-     document.getElementById("id_editPageC1SInput").value=tmpHSV.get2Value().toFixed(numDecimalPlaces)*100;
-     document.getElementById("id_editPageC1VInput").value=tmpHSV.get3Value().toFixed(numDecimalPlaces)*100;
-     tmpHSV = editColor2.calcHSVColor();
-     document.getElementById("id_editPageC2HInput").value=tmpHSV.get1Value().toFixed(numDecimalPlaces)*360;
-     document.getElementById("id_editPageC2SInput").value=tmpHSV.get2Value().toFixed(numDecimalPlaces)*100;
-     document.getElementById("id_editPageC2VInput").value=tmpHSV.get3Value().toFixed(numDecimalPlaces)*100;
+       var tmpHSV = editColor1.calcHSVColor();
+       document.getElementById("id_editPageC1HInput").value=tmpHSV.get1Value().toFixed(numDecimalPlaces)*360;
+       document.getElementById("id_editPageC1SInput").value=tmpHSV.get2Value().toFixed(numDecimalPlaces)*100;
+       document.getElementById("id_editPageC1VInput").value=tmpHSV.get3Value().toFixed(numDecimalPlaces)*100;
+       tmpHSV = editColor2.calcHSVColor();
+       document.getElementById("id_editPageC2HInput").value=tmpHSV.get1Value().toFixed(numDecimalPlaces)*360;
+       document.getElementById("id_editPageC2SInput").value=tmpHSV.get2Value().toFixed(numDecimalPlaces)*100;
+       document.getElementById("id_editPageC2VInput").value=tmpHSV.get3Value().toFixed(numDecimalPlaces)*100;
 
-     initColorpickerBackground("editPage_canvasPicker", colorpickerType);
-     drawEditPageColorCircles("editPage_canvasPicker","editPage_canvasPicker2", colorpickerType);
-     drawCurrentColor();
+       initColorpickerBackground("editPage_canvasPicker", colorpickerType);
+       drawEditPageColorCircles("editPage_canvasPicker","editPage_canvasPicker2", colorpickerType);
+       drawCurrentColor();
+      }
     }
 
 

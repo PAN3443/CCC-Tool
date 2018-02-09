@@ -3,7 +3,7 @@
 //////////////////////////////
 
 function createSideExport(){
-  if(bandSketch.getBandLenght()!=0){
+  if(bandSketch.getBandLength()!=0){
     document.getElementById("id_exportWindow").style.display = "initial";
     exportSideOpen = true;
     initExportWindow();
@@ -102,7 +102,7 @@ function createPage_showHelp(){
 
 
 
-  if(bandSketch.getBandLenght() != 0){
+  if(bandSketch.getBandLength() != 0){
 
     if(tableIsExpand==false){
       workrect = document.getElementById("id_expandTablebutton").getBoundingClientRect();

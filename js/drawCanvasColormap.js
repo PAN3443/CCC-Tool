@@ -827,7 +827,7 @@ function changeKeyValueInput(keyIndex, fielID) {
 
   var newRef = parseFloat(inputObj.value);
 
-  if(keyIndex==bandSketch.getBandLenght()){
+  if(keyIndex==bandSketch.getBandLength()){
     bandSketch.setRefR2Update(keyIndex-1,newRef);
   }
   else{

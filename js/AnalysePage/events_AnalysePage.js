@@ -1174,9 +1174,9 @@ function drawAnalyseDifferenceMaps(){
 
   var borderWidth = 2; //px
 
-  var restWidth = resolutionX_differenceMetrics-(bandSketch.getBandLenght()-bandSketch.getNumConstBands()-1)*borderWidth;
+  var restWidth = resolutionX_differenceMetrics-(bandSketch.getBandLength()-bandSketch.getNumConstBands()-1)*borderWidth;
 
-  for (var i = 0; i < bandSketch.getBandLenght(); i++) {
+  for (var i = 0; i < bandSketch.getBandLength(); i++) {
 
     var tr = document.createElement('tr');
 
@@ -1289,7 +1289,7 @@ function drawAnalyseDifferenceMaps(){
     }
     currentPos[0]=currentPos[0]+currentWidth[0];
 
-    if(i != bandSketch.getBandLenght()-1){
+    if(i != bandSketch.getBandLength()-1){
       for(var x=0; x<borderWidth; x++){
         var index = (currentPos[0]+x) * 4;
         refData.data[index + 0] = Math.round(0); // r
@@ -1342,7 +1342,7 @@ function drawAnalyseDifferenceMaps(){
     }
     currentPos[1]=currentPos[1]+currentWidth[1];
 
-    if(i != bandSketch.getBandLenght()-1){
+    if(i != bandSketch.getBandLength()-1){
       for(var x=0; x<borderWidth; x++){
         var index = (currentPos[1]+x) * 4;
         rgbData.data[index + 0] = Math.round(0); // r
@@ -1408,7 +1408,7 @@ function drawAnalyseDifferenceMaps(){
     }
     currentPos[2]=currentPos[2]+currentWidth[2];
 
-    if(i != bandSketch.getBandLenght()-1){
+    if(i != bandSketch.getBandLength()-1){
       for(var x=0; x<borderWidth; x++){
         var index = (currentPos[2]+x) * 4;
         hsvData.data[index + 0] = Math.round(0); // r
@@ -1459,7 +1459,7 @@ function drawAnalyseDifferenceMaps(){
     }
     currentPos[3]=currentPos[3]+currentWidth[3];
 
-    if(i != bandSketch.getBandLenght()-1){
+    if(i != bandSketch.getBandLength()-1){
       for(var x=0; x<borderWidth; x++){
         var index = (currentPos[3]+x) * 4;
         labData.data[index + 0] = Math.round(0); // r
@@ -1514,7 +1514,7 @@ function drawAnalyseDifferenceMaps(){
     }
     currentPos[4]=currentPos[4]+currentWidth[4];
 
-    if(i != bandSketch.getBandLenght()-1){
+    if(i != bandSketch.getBandLength()-1){
       for(var x=0; x<borderWidth; x++){
         var index = (currentPos[4]+x) * 4;
         de94Data.data[index + 0] = Math.round(0); // r
@@ -1576,7 +1576,7 @@ function drawAnalyseDifferenceMaps(){
     }
     currentPos[5]=currentPos[5]+currentWidth[5];
 
-    if(i != bandSketch.getBandLenght()-1){
+    if(i != bandSketch.getBandLength()-1){
       for(var x=0; x<borderWidth; x++){
         var index = (currentPos[5]+x) * 4;
         de2000Data.data[index + 0] = Math.round(0); // r
@@ -1640,7 +1640,7 @@ function drawAnalyseDifferenceMaps(){
     }
     currentPos[6]=currentPos[6]+currentWidth[6];
 
-    if(i != bandSketch.getBandLenght()-1){
+    if(i != bandSketch.getBandLength()-1){
       for(var x=0; x<borderWidth; x++){
         var index = (currentPos[6]+x) * 4;
         din99Data.data[index + 0] = Math.round(0); // r

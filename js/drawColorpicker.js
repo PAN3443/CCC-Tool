@@ -403,7 +403,7 @@ function drawEditPageColorCircles(id12, id3, type){
                         }
                   }
                   canvasVInputContex.putImageData(tmpData, 0, 0);
-                  console.log(123123123);
+
                 }
 
               // Button
@@ -432,11 +432,11 @@ function event_colorpicker_MouseMove(event){
   var ratioToColorspaceResolutionY;
 
     switch (event.target.id) {
-      case "editPage_canvasPicker":
+      case "editPage_canvasPicker": case "bandCreator_canvasPicker":
         ratioToColorspaceResolutionX = hs_resolution_X/rect.width;
         ratioToColorspaceResolutionY = hs_resolution_Y/rect.height;
       break;
-      case "editPage_canvasPicker2":
+      case "editPage_canvasPicker2": case "bandCreator_canvasPicker2":
         ratioToColorspaceResolutionX = v_resolution_X/rect.width;
         ratioToColorspaceResolutionY = v_resolution_Y/rect.height;
       break;
@@ -469,16 +469,16 @@ function event_colorpicker_MouseClick(event){
   if(tmpHSV.getVValue()==0)
      tmpHSV.setVValue(0.00001);
 
-            switch (colorpickerType) {
+        switch (colorpickerType) {
               case "RG_B":
               switch (event.target.id) {
-                case "editPage_canvasPicker":
+                case "editPage_canvasPicker": case "bandCreator_canvasPicker":
                   var rVal = mousePosX/hs_resolution_X;
                   var gVal = 1-mousePosY/hs_resolution_Y;
 
                  tmpRGB = new classColor_RGB( rVal, gVal, tmpRGB.getBValue());
                 break;
-                case "editPage_canvasPicker2":
+                case "editPage_canvasPicker2": case "bandCreator_canvasPicker2":
                   var bVal = 1-mousePosY/v_resolution_Y;
                   tmpRGB = new classColor_RGB(tmpRGB.get1Value(), tmpRGB.get2Value(), bVal);
                 break;
@@ -491,13 +491,13 @@ function event_colorpicker_MouseClick(event){
               break;
               case "RB_G":
               switch (event.target.id) {
-                case "editPage_canvasPicker":
+                case "editPage_canvasPicker": case "bandCreator_canvasPicker":
                   var rVal = mousePosX/hs_resolution_X;
                   var bVal = 1-mousePosY/hs_resolution_Y;
 
                  tmpRGB = new classColor_RGB( rVal, tmpRGB.getGValue(), bVal);
                 break;
-                case "editPage_canvasPicker2":
+                case "editPage_canvasPicker2": case "bandCreator_canvasPicker2":
                   var gVal = 1-mousePosY/v_resolution_Y;
                   tmpRGB = new classColor_RGB(tmpRGB.get1Value(), gVal, tmpRGB.get3Value());
                 break;
@@ -510,13 +510,13 @@ function event_colorpicker_MouseClick(event){
               break;
               case "GB_R":
               switch (event.target.id) {
-                case "editPage_canvasPicker":
+                case "editPage_canvasPicker": case "bandCreator_canvasPicker":
                   var gVal = mousePosX/hs_resolution_X;
                   var bVal = 1-mousePosY/hs_resolution_Y;
 
                  tmpRGB = new classColor_RGB(  tmpRGB.getRValue(),gVal, bVal);
                 break;
-                case "editPage_canvasPicker2":
+                case "editPage_canvasPicker2": case "bandCreator_canvasPicker2":
                   var rVal = 1-mousePosY/v_resolution_Y;
                   tmpRGB = new classColor_RGB(rVal, tmpRGB.get2Value(), tmpRGB.get3Value());
                 break;
@@ -529,14 +529,14 @@ function event_colorpicker_MouseClick(event){
               break;
               case "HS_V":
               switch (event.target.id) {
-                case "editPage_canvasPicker":
+                case "editPage_canvasPicker": case "bandCreator_canvasPicker":
                       var hVal = mousePosX/hs_resolution_X;
                       var sVal = 1-mousePosY/hs_resolution_Y;
 
                      tmpHSV = new classColor_HSV(hVal, sVal, tmpHSV.getVValue());
                      tmpRGB = tmpHSV.calcRGBColor();
                 break;
-                case "editPage_canvasPicker2":
+                case "editPage_canvasPicker2": case "bandCreator_canvasPicker2":
                       var vVal = 1-mousePosY/v_resolution_Y;
                       tmpHSV = new classColor_HSV(tmpHSV.get1Value(), tmpHSV.get2Value(), vVal);
                       tmpRGB = tmpHSV.calcRGBColor();
@@ -551,14 +551,14 @@ function event_colorpicker_MouseClick(event){
               case "HV_S":
 
               switch (event.target.id) {
-                case "editPage_canvasPicker":
+                case "editPage_canvasPicker": case "bandCreator_canvasPicker":
                     var hVal = mousePosX/hs_resolution_X;
                     var vVal = 1-mousePosY/hs_resolution_Y;
 
                    tmpHSV = new classColor_HSV(hVal, tmpHSV.getSValue(), vVal);
                    tmpRGB = tmpHSV.calcRGBColor();
                 break;
-                case "editPage_canvasPicker2":
+                case "editPage_canvasPicker2": case "bandCreator_canvasPicker2":
                 var sVal = 1-mousePosY/v_resolution_Y;
                 tmpHSV = new classColor_HSV(tmpHSV.get1Value(), sVal, tmpHSV.get3Value());
                 tmpRGB = tmpHSV.calcRGBColor();
@@ -572,14 +572,14 @@ function event_colorpicker_MouseClick(event){
               case "SV_H":
 
               switch (event.target.id) {
-                case "editPage_canvasPicker":
+                case "editPage_canvasPicker": case "bandCreator_canvasPicker":
                   var sVal = mousePosX/hs_resolution_X;
                   var vVal = 1-mousePosY/hs_resolution_Y;
 
                  tmpHSV = new classColor_HSV( tmpHSV.getHValue(), sVal, vVal);
                  tmpRGB = tmpHSV.calcRGBColor();
                 break;
-                case "editPage_canvasPicker2":
+                case "editPage_canvasPicker2": case "bandCreator_canvasPicker2":
                 var hVal = 1-mousePosY/v_resolution_Y;
                 tmpHSV = new classColor_HSV(hVal, tmpHSV.get2Value(), tmpHSV.get3Value());
                 tmpRGB = tmpHSV.calcRGBColor();
@@ -594,35 +594,65 @@ function event_colorpicker_MouseClick(event){
               return;
             }
 
+        if(bandCreatorOpen){
+            if(createBandType==0){
+              editColor1=tmpRGB;
+              editColor2= new classColor_RGB(tmpRGB.get1Value(), tmpRGB.get2Value(), tmpRGB.get3Value());
+            }
+            else{
+              switch (selectedColor) {
+              case 0:
+                editColor1=tmpRGB;
+              break;
+              case 1:
+                editColor2=tmpRGB;
+              break;
+              default:
+              return;
 
-    if(keyType[selectedKey]==="dual key"){
-      editColor1=tmpRGB;
-      editColor2= new classColor_RGB(tmpRGB.get1Value(), tmpRGB.get2Value(), tmpRGB.get3Value());
-      fillColorInputFields(true);
-      fillColorInputFields(false);
+              }
+            }
+        }else{
+            if(keyType[selectedKey]==="dual key"){
+              editColor1=tmpRGB;
+              editColor2= new classColor_RGB(tmpRGB.get1Value(), tmpRGB.get2Value(), tmpRGB.get3Value());
+              fillColorInputFields(true);
+              fillColorInputFields(false);
+            }
+            else{
+              switch (selectedColor) {
+              case 0:
+                editColor1=tmpRGB;
+                fillColorInputFields(true);
+              break;
+              case 1:
+                editColor2=tmpRGB;
+                fillColorInputFields(false);
+              break;
+              default:
+              return;
+
+            }
+        }
     }
-    else{
-      switch (selectedColor) {
-      case 0:
-        editColor1=tmpRGB;
-        fillColorInputFields(true);
-      break;
-      case 1:
-        editColor2=tmpRGB;
-        fillColorInputFields(false);
-      break;
-      default:
-      return;
 
-    }
-    }
-
-
-  if(event.target.id==="editPage_canvasPicker2"){
-      initColorpickerBackground("editPage_canvasPicker", colorpickerType);
+  if(bandCreatorOpen){
+  if(event.target.id==="bandCreator_canvasPicker2"){
+      initColorpickerBackground("bandCreator_canvasPicker", colorpickerType);
   }
 
-  drawEditPageColorCircles("editPage_canvasPicker","editPage_canvasPicker2", colorpickerType);
-  drawCurrentColor();
+    drawEditPageColorCircles("bandCreator_canvasPicker","bandCreator_canvasPicker2", colorpickerType);
+    drawCurrentBandColor();
+    fillBandCreatorColorInputFields();
+  }
+  else{
+    if(event.target.id==="editPage_canvasPicker2"){
+        initColorpickerBackground("editPage_canvasPicker", colorpickerType);
+    }
+
+    drawEditPageColorCircles("editPage_canvasPicker","editPage_canvasPicker2", colorpickerType);
+    drawCurrentColor();
+  }
+
 
 }

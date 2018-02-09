@@ -185,7 +185,7 @@ function  createNewColormapRow(type, index, parent){
 
   var acceptButton = document.createElement("div");
   acceptButton.className = "class_buttonAddPage classButtonWhite";
-  //acceptButton.style.backgroundImage = "url(img/acceptButton_black.png)";
+  acceptButton.id = "id_acceptButton_"+type+"_"+index;
   acceptButton.style.color = "black";
   acceptButton.style.borderColor = "black";
   acceptButton.innerHTML = "&#10004;";

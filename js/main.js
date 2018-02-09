@@ -10,6 +10,10 @@ window.onload = function() {
   bandSketch = new classBandSketch();
   bandSketch2 = new classBandSketch();
 
+  document.getElementById("editSide_Radiobutton_PickerRG_B").checked=true;
+  document.getElementById("bandCreator_Radiobutton_PickerRG_B").checked=true;
+  colorpickerType="RG_B";
+
 
 
   document.getElementById('id_creatorPage').style.display = "none";
@@ -117,35 +121,51 @@ window.onload = function() {
   // Style Init
   document.getElementById("id_table_workwindow").style.display = "none";
 
-  document.getElementById("editSide_Radiobutton_PickerRG_B").checked=true;
-  colorpickerType="RG_B";
-
   //// set events
   // Table
   document.getElementById('id_expandTablebutton').addEventListener("click", expandTable);
 
-
-  // Color Input
-  document.getElementById('id_color1_First').addEventListener("change", insertColorChange);
-  document.getElementById('id_color1_First').addEventListener("keyup", insertColor);
-  document.getElementById('id_color1_Second').addEventListener("change", insertColorChange);
-  document.getElementById('id_color1_Second').addEventListener("keyup", insertColor);
-  document.getElementById('id_color1_Third').addEventListener("change", insertColorChange);
-  document.getElementById('id_color1_Third').addEventListener("keyup", insertColor);
-
-  // Color Input Colorpicker HS
-  document.getElementById('id_workcanvasPicker').addEventListener("mousemove", colorpicker_MouseMove);
-  document.getElementById('id_workcanvasPicker').addEventListener("click", colorpicker_MouseClick);
-
-  // Color Input Colorpicker V
-  document.getElementById('id_canvasPickerC1V').addEventListener("mousemove", c1Vpicker_MouseMove);
-  document.getElementById('id_canvasPickerC1V').addEventListener("click", c1Vpicker_MouseClick);
-
   // Band Creator
-  //document.getElementById('id_creatorBand').addEventListener("dragstart", bandOnDragStart);
-  //document.getElementById('id_creatorBand').addEventListener("dragend", bandOnDragEnd);
-  document.getElementById('acceptBandCreator').addEventListener("click", acceptNewBand);
-  document.getElementById('cancelBandCreator').addEventListener("click", cancelNewBand);
+  document.getElementById('bandCreator_Radiobutton_PickerRG_B').addEventListener("change", changeColorpickerType);
+  document.getElementById('bandCreator_Radiobutton_PickerRB_G').addEventListener("change", changeColorpickerType);
+  document.getElementById('bandCreator_Radiobutton_PickerGB_R').addEventListener("change", changeColorpickerType);
+  document.getElementById('bandCreator_Radiobutton_PickerHS_V').addEventListener("change", changeColorpickerType);
+  document.getElementById('bandCreator_Radiobutton_PickerHV_S').addEventListener("change", changeColorpickerType);
+  document.getElementById('bandCreator_Radiobutton_PickerSV_H').addEventListener("change", changeColorpickerType);
+
+  document.getElementById('bandCreator_Radiobutton_SelectColor1').addEventListener("change", colorChange);
+  document.getElementById('bandCreator_Radiobutton_SelectColor2').addEventListener("change", colorChange);
+
+  document.getElementById('id_bandCreatorC1RInput').addEventListener("keyup", checkColorInputFieldsKey);
+    document.getElementById('id_bandCreatorC1GInput').addEventListener("keyup", checkColorInputFieldsKey);
+      document.getElementById('id_bandCreatorC1BInput').addEventListener("keyup", checkColorInputFieldsKey);
+        document.getElementById('id_bandCreatorC2RInput').addEventListener("keyup", checkColorInputFieldsKey);
+          document.getElementById('id_bandCreatorC2GInput').addEventListener("keyup", checkColorInputFieldsKey);
+            document.getElementById('id_bandCreatorC2BInput').addEventListener("keyup", checkColorInputFieldsKey);
+              document.getElementById('id_bandCreatorC1HInput').addEventListener("keyup", checkColorInputFieldsKey);
+                document.getElementById('id_bandCreatorC2HInput').addEventListener("keyup", checkColorInputFieldsKey);
+                  document.getElementById('id_bandCreatorC1SInput').addEventListener("keyup", checkColorInputFieldsKey);
+                    document.getElementById('id_bandCreatorC1VInput').addEventListener("keyup", checkColorInputFieldsKey);
+                      document.getElementById('id_bandCreatorC2SInput').addEventListener("keyup", checkColorInputFieldsKey);
+                        document.getElementById('id_bandCreatorC2VInput').addEventListener("keyup", checkColorInputFieldsKey);
+
+                        document.getElementById('id_bandCreatorC1RInput').addEventListener("change", checkColorInputFieldsChange);
+                          document.getElementById('id_bandCreatorC1GInput').addEventListener("change", checkColorInputFieldsChange);
+                            document.getElementById('id_bandCreatorC1BInput').addEventListener("change", checkColorInputFieldsChange);
+                              document.getElementById('id_bandCreatorC2RInput').addEventListener("change", checkColorInputFieldsChange);
+                                document.getElementById('id_bandCreatorC2GInput').addEventListener("change", checkColorInputFieldsChange);
+                                  document.getElementById('id_bandCreatorC2BInput').addEventListener("change", checkColorInputFieldsChange);
+                                    document.getElementById('id_bandCreatorC1HInput').addEventListener("change", checkColorInputFieldsChange);
+                                      document.getElementById('id_bandCreatorC2HInput').addEventListener("change", checkColorInputFieldsChange);
+                                        document.getElementById('id_bandCreatorC1SInput').addEventListener("change", checkColorInputFieldsChange);
+                                          document.getElementById('id_bandCreatorC1VInput').addEventListener("change", checkColorInputFieldsChange);
+                                            document.getElementById('id_bandCreatorC2SInput').addEventListener("change", checkColorInputFieldsChange);
+                                              document.getElementById('id_bandCreatorC2VInput').addEventListener("change", checkColorInputFieldsChange);
+
+                                              document.getElementById('bandCreator_canvasPicker').addEventListener("mousemove", event_colorpicker_MouseMove);
+                                              document.getElementById('bandCreator_canvasPicker').addEventListener("click", event_colorpicker_MouseClick);
+                                              document.getElementById('bandCreator_canvasPicker2').addEventListener("mousemove", event_colorpicker_MouseMove);
+                                              document.getElementById('bandCreator_canvasPicker2').addEventListener("click", event_colorpicker_MouseClick);
 
   // Colormap Ref Min Max Change
   document.getElementById('id_linearMap_InputLeftRef').addEventListener("change", colormapRefInputChange);
@@ -160,25 +180,7 @@ window.onload = function() {
   document.getElementById('id_keyColormap').addEventListener("mousedown", mouseDownKeyRef);
   document.getElementById('id_keyColormap').addEventListener("mouseup", mouseUpKeyRef);
 
-  // Band Editor
-  document.getElementById('cancelBandEdit').addEventListener("click", cancelBandEditor);
-  document.getElementById('acceptBandEdit').addEventListener("click", acceptBandEditor);
-  //
-  document.getElementById('deleteBandEdit').addEventListener("click", deleteBandEditor);
-  document.getElementById('bandEdit_LeftNeiColor').addEventListener("click", leftNeiColorToR1);
-  document.getElementById('bandEdit_RightNeiColor').addEventListener("click", rightNeiColorToR2);
-  document.getElementById('bandEdit_LeftColorToRight').addEventListener("click", editC2IsC1);
-  document.getElementById('bandEdit_RightColorToLeft').addEventListener("click", editC1IsC2);
-  document.getElementById('id_bandEditWorkcanvasPicker').addEventListener("mousemove", colorpickerBandEditor_MouseMove);
-  document.getElementById('id_bandEditWorkcanvasPicker').addEventListener("click", colorpickerBandEditor_MouseClick);
-  document.getElementById('id_BandEditcanvasPickerC1V').addEventListener("mousemove", c1VpickerBandEditor_MouseMove);
-  document.getElementById('id_BandEditcanvasPickerC1V').addEventListener("click", c1VpickerBandEditor_MouseClick);
-  document.getElementById('bandEdit_InputLeftRef').addEventListener("keyup", checkR1Input);
-  document.getElementById('bandEdit_InputRightRef').addEventListener("keyup", checkR2Input);
-  document.getElementById('bandEdit_InputLeftRef').addEventListener("change", checkR1Input_Change);
-  document.getElementById('bandEdit_InputRightRef').addEventListener("change", checkR2Input_Change);
-  document.getElementById('helpBandEdit').addEventListener("mouseenter", showHelpBandEditor);
-  document.getElementById('helpBandEdit').addEventListener("mouseleave", hiddeHelpBandEditor);
+
 
   ////
   // Creat Colormap Menue
@@ -196,27 +198,12 @@ window.onload = function() {
   document.getElementById('id_buttonHelpCreateColormap').addEventListener("mouseleave", createPage_hideHelp);
   document.getElementById('id_buttonHelpCreateColormap').addEventListener("mouseenter", createPage_showHelp);
 
-  // init //
-  drawHSBackground("id_canvasPickerHS");
-  drawHSBackground("id_bandEditCanvasPickerHS");
-  drawColorCircles();
-  updateCreatorBand();
-  styleBandCreator();
 
-  // for reload with F5
-  document.getElementById('id_color1_First').value = 255;
-  document.getElementById('id_color1_Second').value = 255;
-  document.getElementById('id_color1_Third').value = 255;
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Analyse Side /////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  //document.getElementById('id_workcanvasAnalyseHue').addEventListener("mouseleave", mouseLeaveColorspace);
-  //document.getElementById('id_workcanvasAnalyseHue').addEventListener("mousemove", mouseMoveColorspace);
-  //document.getElementById('id_workcanvasAnalyseHue').addEventListener("mousedown", mouseDownColorspace);
-  //document.getElementById('id_workcanvasAnalyseHue').addEventListener("mouseup", mouseUpColorspace);
-  //initRGB3D();
   document.getElementById('id_InputIntervalNum').addEventListener("keyup", checkColorInputFieldsKey);
   document.getElementById('id_InputIntervalNum').addEventListener("change", checkIntervalInputFieldsChange);
   document.getElementById('id_InputIntervalNum2').addEventListener("keyup", checkColorInputFieldsKey);
@@ -331,62 +318,15 @@ window.onload = function() {
 window.onresize = function(event) {
 
 
-  //styleAnalysisPage();
   orderColorSketch(colorspaceModus);
-  switch (showSideID) {
-    case 1:
-      styleCreatorPage();
-      drawColorCircles();
-      break;
-    default:
 
-  }
 };
 
-window.onscroll = function() {
-  drawColorCircles();
-};
+/*window.onscroll = function() {
 
-function styleCreatorPage() {
-  //var workRec = document.getElementById("id_mainpage").getBoundingClientRect();
-  //document.getElementById("id_expandTablebutton").style.height = workRec.height+"px";
+};*/
 
-  // Main Page colorpicker
-  var canvasColorspace = document.getElementById("id_workcanvasPicker");
-  var rectPickerCanvas = document.getElementById("id_canvasPickerHS").getBoundingClientRect();
-  //canvasColorspace.style.display = "initial";
-  canvasColorspace.style.position = "absolute";
-  canvasColorspace.style.width = rectPickerCanvas.width + "px";
-  canvasColorspace.style.height = rectPickerCanvas.height + "px";
-  canvasColorspace.style.top = rectPickerCanvas.top + "px";
-  canvasColorspace.style.left = rectPickerCanvas.left + "px";
 
-  // Band Edit colorpicker
-  canvasColorspace = document.getElementById("id_bandEditWorkcanvasPicker");
-  rectPickerCanvas = document.getElementById("id_bandEditCanvasPickerHS").getBoundingClientRect();
-  //canvasColorspace.style.display = "initial";
-  canvasColorspace.style.position = "absolute";
-  canvasColorspace.style.width = rectPickerCanvas.width + "px";
-  canvasColorspace.style.height = rectPickerCanvas.height + "px";
-  canvasColorspace.style.top = rectPickerCanvas.top + "px";
-  canvasColorspace.style.left = rectPickerCanvas.left + "px";
-
-  document.getElementById("bandEditWindow").style.height = document.height + "px"; // workRec.height+"px";
-
-  //orderColorSketch(colorspaceModus);
-
-}
-
-/*function styleAnalysisPage(){
-  var canvasColorspace = document.getElementById("id_workcanvasAnalyseHue");
-  var backgroundCanvas = document.getElementById("id_anaylseCourseHueBackground").getBoundingClientRect();
-  //canvasColorspace.style.display = "initial";
-  canvasColorspace.style.position = "absolute";
-  canvasColorspace.style.width = backgroundCanvas.width+"px";
-  canvasColorspace.style.height = backgroundCanvas.height+"px";
-  canvasColorspace.style.top = backgroundCanvas.top+"px";
-  canvasColorspace.style.left = backgroundCanvas.left+"px";
-}*/
 
 ///////////////////////////////////////////////
 
@@ -420,7 +360,7 @@ function orderColorSketch(forColorspace) {
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  if (bandSketch.getBandLenght() != 0) {
+  if (bandSketch.getBandLength() != 0) {
 
     if (showSideID == 1) {
       // show and draw the colormap
@@ -439,9 +379,9 @@ function orderColorSketch(forColorspace) {
 
     var tmpRect = sketchObject.getBoundingClientRect();
 
-    var tmpLength = tmpRect.width/bandSketch.getBandLenght()-2;
+    var tmpLength = tmpRect.width/bandSketch.getBandLength()-2;
 
-    for (var i = 0; i < bandSketch.getBandLenght(); i++) {
+    for (var i = 0; i < bandSketch.getBandLength(); i++) {
 
       // create band
       var tCan = document.createElement('canvas');
@@ -528,7 +468,7 @@ function orderColorSketch(forColorspace) {
       var left = box.left + scrollLeft - clientLeft;
 
 
-      var xposHTML = ((i) / bandSketch.getBandLenght()) * box.width + left;
+      var xposHTML = ((i) / bandSketch.getBandLength()) * box.width + left;
       var yposHTML = box.height + top;
 
       var inputField = document.createElement("input");
@@ -581,7 +521,7 @@ function orderColorSketch(forColorspace) {
       })(inputID);
 
       /////////////////// special case: last element /////////
-      if (i == bandSketch.getBandLenght() - 1) {
+      if (i == bandSketch.getBandLength() - 1) {
         refLineDiv.style.borderRight = "1px solid black";
         tmpText = '' + bandSketch.getRefR2(i); //.toFixed(numDecimalPlaces);
         xposHTML = box.width + left;
@@ -632,7 +572,7 @@ function orderColorSketch(forColorspace) {
 
 
     var t2Div = document.createElement('div');
-    t2Div.id = 'dragPos' + bandSketch.getBandLenght();
+    t2Div.id = 'dragPos' + bandSketch.getBandLength();
     t2Div.style.border = "3px solid red";
     t2Div.style.height = 99 + '%';
     t2Div.style.width = 100 + '%';
@@ -659,11 +599,11 @@ function orderColorSketch(forColorspace) {
 
 
     if(showSideID == 3){
-      tmpLength = tmpRect.width / bandSketch2.getBandLenght() - 1;
+      tmpLength = tmpRect.width / bandSketch2.getBandLength() - 1;
       sketchObject = document.getElementById("id_compare2ColormapSketch");
       sketchRefObj = document.getElementById("id_compare2ColormapSketch_Ref");
 
-      for (var i = 0; i < bandSketch2.getBandLenght(); i++) {
+      for (var i = 0; i < bandSketch2.getBandLength(); i++) {
 
         // create band
         var tCan = document.createElement('canvas');
@@ -713,7 +653,7 @@ function orderColorSketch(forColorspace) {
         var left = box.left + scrollLeft - clientLeft;
 
 
-        var xposHTML = ((i) / bandSketch2.getBandLenght()) * box.width + left;
+        var xposHTML = ((i) / bandSketch2.getBandLength()) * box.width + left;
         var yposHTML = box.height + top;
 
         var inputField = document.createElement("input");
@@ -766,7 +706,7 @@ function orderColorSketch(forColorspace) {
         })(inputID);
 
         /////////////////// special case: last element /////////
-        if (i == bandSketch2.getBandLenght() - 1) {
+        if (i == bandSketch2.getBandLength() - 1) {
           refLineDiv.style.borderRight = "1px solid black";
           tmpText = '' + bandSketch2.getRefR2(i); //.toFixed(numDecimalPlaces);
           xposHTML = box.width + left;
@@ -821,7 +761,7 @@ function orderColorSketch(forColorspace) {
   } else {
 
     var t2Div = document.createElement('div');
-    t2Div.id = 'dragPos' + bandSketch.getBandLenght();
+    t2Div.id = 'dragPos' + bandSketch.getBandLength();
     t2Div.style.border = "2px dashed black";
     t2Div.style.height = 100 + '%';
     t2Div.style.width = 100 + '%';
@@ -926,7 +866,7 @@ function fillTable() {
 
   //fill table
 
-  for (i = 0; i < bandSketch.getBandLenght(); i++) {
+  for (i = 0; i < bandSketch.getBandLength(); i++) {
     var tr = document.createElement('tr');
 
     var td = document.createElement('td')

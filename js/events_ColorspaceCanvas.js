@@ -291,7 +291,7 @@ function mouseDownColorspace() {
         return;
     }
 
-    for (var i = 0; i < bandSketch.getBandLenght(); i++) {
+    for (var i = 0; i < bandSketch.getBandLength(); i++) {
 
       if (saveNext) {
         keyCounter++;
@@ -935,7 +935,7 @@ function mouseDownValuePlot() {
         return;
     }
 
-    for (var i = 0; i < bandSketch.getBandLenght(); i++) {
+    for (var i = 0; i < bandSketch.getBandLength(); i++) {
 
       if (saveNext) {
         keyCounter++;

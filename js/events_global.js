@@ -69,13 +69,11 @@ function changeAnalyzeColorspace(type) {
 }
 
 
-
-
-
 function changeColorspace(type) {
 
   if(type>3){
     alert("This interpolation color space is not ready implemented. Coming Soon!!!");
+    return;
   }
 
   document.getElementById("button_RGB").style.border = "0.2vh solid white";
@@ -374,8 +372,63 @@ function changeColorspace(type) {
 
 
 
+function openSavePopUp(){
+    document.getElementById("popupSaveWindow").style.display="inline-block";
+}
+
+function cancelSave(){
+    document.getElementById("popupSaveWindow").style.display="none";
+    globalColormap1 = myList[colormap1SelectIndex];
+    bandSketch.colormap2Sketch(globalColormap1);
+    orderColorSketch();
+}
+
+function doSave(){
+    myList[colormap1SelectIndex]=tmpSaveColormap;
+
+    if(saveTwoColormaps)
+    myList[colormap2SelectIndex]=tmpSaveColormap2;
+
+    document.getElementById("popupSaveWindow").style.display="none";
+
+    drawMyList();
+    drawAddExistingAddPage();
+}
+
+function doSaveAsNew(){
+
+    if(saveTwoColormaps){
+      if(myList.length<9){
+        myList.push(tmpSaveColormap);
+        myList.push(tmpSaveColormap2);
+        colormap1SelectIndex=myList.length-1;
+        colormap2SelectIndex=-1;
+        document.getElementById("popupSaveWindow").style.display="none";
+        drawMyList();
+        drawAddExistingAddPage();
+
+      }
+      else{
+        alert("Sorry there is not enough space at the MyDesigns list to save the two CMS as new!!!!");
+      }
+    }
+    else{
+      if(myList.length<10){
+        myList.push(tmpSaveColormap);
+        colormap1SelectIndex=myList.length-1;
+        document.getElementById("popupSaveWindow").style.display="none";
+        drawMyList();
+        drawAddExistingAddPage();
+      }
+      else{
+        alert("Sorry there is not enough space at the MyDesigns list to save the CMS as new!!!!");
+      }
+
+    }
 
 
+
+}
 
 function changePage(type){
 
@@ -385,25 +438,25 @@ function changePage(type){
   if(colormap1SelectIndex==-1){
     switch (type) {
       case 3:
-        if(showSideID==1 && bandSketch.getBandLenght()!=0){
+        if(showSideID==1 && bandSketch.getBandLength()!=0){
           break;
         }
         alert("There is no CMS at the MyDesigns list for the edit page.");
 
         return;
       case 4:
-        if(showSideID==1 && bandSketch.getBandLenght()!=0){
+        if(showSideID==1 && bandSketch.getBandLength()!=0){
           break;
         }
         alert("There is no CMS at the MyDesigns list for the analyze page.");
         return;
       case 5:
-          if(showSideID==1 && bandSketch.getBandLenght()!=0){
+          if(showSideID==1 && bandSketch.getBandLength()!=0){
             alert("There is no CMS at the MyDesigns list for the compare page.");
             return;
           }
       case 6:
-          if(bandSketch.getBandLenght()==0){
+          if(bandSketch.getBandLength()==0){
             alert("There is no CMS at the MyDesigns list for the export page.");
             return;
           }
@@ -443,7 +496,7 @@ function changePage(type){
               if( (type==2 && isEdit==-1) || (type==3 && isEdit!=-1) )
               return;
 
-              if(bandSketch.getBandLenght()>0){
+              if(bandSketch.getBandLength()>0){
 
                 if(isEdit==-1){
                   var newMap = bandSketch.sketch2Colormap(colorspaceModus, globalColormap1.getColormapName());
@@ -451,9 +504,14 @@ function changePage(type){
                   colormap1SelectIndex=myList.length-1;
                 }
                 else{
-                  alert("Ask user if he want to save as new or replace the CMS");
+
+
                   var newMap = bandSketch.sketch2Colormap(colorspaceModus, globalColormap1.getColormapName());
-                  myList[isEdit]=newMap;
+                  tmpSaveColormap = newMap;
+
+                  openSavePopUp();
+
+                  //myList[isEdit]=newMap;
                 }
 
                 clearCreateSide();
@@ -491,9 +549,16 @@ function changePage(type){
                   refLineSketchContainer[i].remove();
                   refLineSketchContainer.pop();
                 }
-                alert("Ask user if he want to save as new or replace the CMS");
-                myList[colormap1SelectIndex] = globalColormap1;
                 stopAnimation();
+
+                var newMap = bandSketch.sketch2Colormap(colorspaceModus, globalColormap1.getColormapName());
+                tmpSaveColormap = newMap;
+
+                openSavePopUp();
+
+                //alert("Ask user if he want to save as new or replace the CMS");
+                //myList[colormap1SelectIndex] = globalColormap1;
+
                 //document.getElementById("id_AnalyseColorspace_Menue").style.display = "none";
     break;
 
@@ -508,10 +573,17 @@ function changePage(type){
                   refLineSketchContainer.pop();
                 }
 
-                alert("Ask user if he want to save as new or replace the CMS");
-                myList[colormap1SelectIndex] = globalColormap1;
-                myList[colormap2SelectIndex] = globalColormap1;
+                //alert("Ask user if he want to save as new or replace the CMS");
+                //myList[colormap1SelectIndex] = globalColormap1;
+                //myList[colormap2SelectIndex] = globalColormap1;
                 stopAnimation();
+
+                var newMap = bandSketch.sketch2Colormap(colorspaceModus, globalColormap1.getColormapName());
+                tmpSaveColormap = newMap;
+
+                var newMap2 = bandSketch2.sketch2Colormap(colorspaceModus, globalColormap1.getColormapName());
+                tmpSaveColormap2 = newMap2;
+                openSavePopUp();
                 //document.getElementById("id_AnalyseColorspace_Menue").style.display = "none";
 
     break;
@@ -603,7 +675,17 @@ function changePage(type){
 
       document.getElementById("id_addPageFreeLabel").innerHTML = "Free Space for Adding Maps to MyDesigns : "+restSpace;
       drawAddExistingAddPage();
-      constructionExistingColormaps_AddPage();
+      if(existingColormapsAreDrawn==false){
+          constructionExistingColormaps_AddPage();
+          existingColormapsAreDrawn=true;
+      }
+      else{
+        for (var i = 0; i < addedIndex.length; i++) {
+          document.getElementById("id_acceptButton_"+addedType[i]+"_"+addedIndex[i]).style.color = "black";
+          document.getElementById("id_acceptButton_"+addedType[i]+"_"+addedIndex[i]).style.borderColor = "black";
+        }
+      }
+
       addedIndex = [];
       addedType = [];
       addedPos = [];
@@ -616,7 +698,7 @@ function changePage(type){
 
       isEdit = -1;
       showSideID = 1;
-      styleCreatorPage();
+      //styleCreatorPage();
 
       document.getElementById("id_InputMapName").value = "Costumer Colormap";
       document.getElementById("id_Create_Menue").style.display = "inline-block";
@@ -636,7 +718,7 @@ function changePage(type){
       isEdit = colormap1SelectIndex;
 
       showSideID = 1;
-      styleCreatorPage();
+      //styleCreatorPage();
       document.getElementById("id_InputMapName").value = myList[isEdit].getColormapName();
       document.getElementById("id_Create_Menue").style.display = "inline-block";
       document.getElementById("id_Create_Menue").style.marginLeft = "20px";

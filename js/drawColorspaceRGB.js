@@ -292,7 +292,7 @@ function drawcolormap_RGBSpace(colormapTmp, canvasIDRG,canvasIDRB, canvasIDBG, c
     }
   ////////////////////////////////////////////////////////
   // draw Colormap
-  if(bandSketch.getBandLenght()>0){
+  if(bandSketch.getBandLength()>0){
 
       //if(drawInterpolationLine){
         drawInterpolationLineInRGB(colormapTmp, colorspaceContexRG,colorspaceContexRB,colorspaceContexBG,xWidth,yHeight,xStart,yStart,intervalSize);
@@ -901,7 +901,7 @@ function drawcolormap_compare_RGBSpace(colormapTmp, colormapTmp2, canvasIDRG,can
     // draw Colormap 2
 
 
-  if(bandSketch2.getBandLenght()>0){
+  if(bandSketch2.getBandLength()>0){
 
 
         /////////////////////////////////////////////////////////////////
@@ -1240,7 +1240,7 @@ function drawcolormap_compare_RGBSpace(colormapTmp, colormapTmp2, canvasIDRG,can
 
   ////////////////////////////////////////////////////////
   // draw Colormap 1
-  if(bandSketch.getBandLenght()>0){
+  if(bandSketch.getBandLength()>0){
 
 
       /////////////////////////////////////////////////////////////////

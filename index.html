@@ -71,11 +71,8 @@
   <!-- CreatorPage PAGE -->
   <script src="js/CreatorPage/events_CreatorPage.js"></script>
   <script src="js/CreatorPage/drawExistingColormaps_CreatorPage.js"></script>
-  <script src="js/CreatorPage/drawColorPicker_CreatorPage.js"></script>
   <script src="js/CreatorPage/dependingColorspaceFunctions.js"></script>
-  <script src="js/CreatorPage/events_colorpicker_CreatorPage.js"></script>
   <script src="js/CreatorPage/dragAndDropevents_CreatorPage.js"></script>
-  <script src="js/CreatorPage/bandEditor_CreatorPage.js"></script>
   <script src="js/CreatorPage/events_keyRef_CreatorPage.js"></script>
   <script src="js/CreatorPage/events_menueButton_CreatorPage.js"></script>
 
@@ -181,8 +178,8 @@
         <!--button class="classButtonDark" id="id_buttonSaveCreateColormap" title="save to MyDesigns" style="border-radius: 0.3vh; background: url(img/saveButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button-->
         <button class="classButtonDark" id="id_buttonLoadCreateColormap" title="load" style="border-radius: 0.3vh; background: url(img/loadButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
         <button class="classButtonDark" id="id_buttonDeleteCreateColormap" title="delete" style="border-radius: 0.3vh; background: url(img/trashButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
-        <button class="classButtonDark" id="id_buttonBackwardCreateColormap" title="backward" style="border-radius: 0.3vh; background: url(img/backwardsButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white;"></button>
-        <button class="classButtonDark" id="id_buttonForwardCreateColormap" title="forward" style="border-radius: 0.3vh; background: url(img/forwardsButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
+        <button class="classButtonDark" id="id_buttonBackwardCreateColormap" title="backward" style="display:none; border-radius: 0.3vh; background: url(img/backwardsButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white;"></button>
+        <button class="classButtonDark" id="id_buttonForwardCreateColormap" title="forward" style="display:none; border-radius: 0.3vh; background: url(img/forwardsButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
         <button class="classButtonDark" id="id_buttonHelpCreateColormap" title="hover for help" style="border-radius: 0.3vh; line-height:3vh; font-size:2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 3vh; height:3vh;  margin:1vh;  border: 0.2vh solid white; background:none;">?</button>
       </div>
     </div>
@@ -259,7 +256,7 @@
 
         </div>
 
-        <div id="id_expandTablebutton" title="expand table" style="height:3vh; width:100%; border-radius: 0px 0px 10px 10px; height:100%; background:rgb(65,105,225); cursor:pointer; color:white; text-align:center;">
+        <div id="id_expandTablebutton" title="expand table" style="height:3vh; line-height:3vh; width:100%; border-radius: 0px 0px 10px 10px; background:rgb(65,105,225); cursor:pointer; color:white;  text-align:center; font-size:2.2vh; vertical-align:middle;">
            &#11021; Click to expand the table
         </div>
 
@@ -397,7 +394,7 @@
                     <div id="id_ConstantBand_Div" style="width:100%; height:50vh; overflow-y:auto; border-bottom:1px solid black;">
 
                     </div>
-                    <button id="button_AddConstantBand" onclick="addBand(0)" title="Add Constant Band" class="class_predefinedConstBands" style="color: black;">add</button>
+                    <button id="button_AddConstantBand" onclick="openBandCreator(0)" title="Add Constant Band" class="class_predefinedConstBands" style="color: black;">add</button>
                 </div>
 
                 <div style="width:20%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255); border-right: 1px solid black;">
@@ -405,7 +402,7 @@
                     <div id="id_ScaleBand_Div" style="width:100%; height:50vh; overflow-y:auto;  border-bottom:1px solid black;">
 
                     </div>
-                    <button id="button_AddScaleBand" onclick="addBand(1)" title="Add Scale Band" class="class_predefinedConstBands" style="color: black;">add</button>
+                    <button id="button_AddScaleBand" onclick="openBandCreator(1)" title="Add Scale Band" class="class_predefinedConstBands" style="color: black;">add</button>
                 </div>
 
                 <div style="width:20%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255); border-right: 1px solid black;">
@@ -413,7 +410,7 @@
                     <div id="id_DoubleBands_Div" style="width:100%;height:50vh; overflow-y:auto;  border-bottom:1px solid black;">
 
                     </div>
-                    <button id="button_AddDoubleBands" onclick="addBand(2)" title="Add Double Bands" class="class_predefinedConstBands" style="color: black;">add</button>
+                    <button id="button_AddDoubleBands" onclick="openBandCreator(2)" title="Add Double Bands" class="class_predefinedConstBands" style="color: black;">add</button>
                 </div>
 
                 <div style="width:20%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255); border-right: 1px solid black;">
@@ -421,7 +418,7 @@
                     <div id="id_TripleBands_Div" style=" width:100%; height:50vh; overflow-y:auto;  border-bottom:1px solid black;">
 
                     </div>
-                    <button id="button_AddTripleBands" onclick="addBand(3)" title="Add Triple Bands" class="class_predefinedConstBands" style="color: black;">add</button>
+                    <button id="button_AddTripleBands" onclick="openBandCreator(3)" title="Add Triple Bands" class="class_predefinedConstBands" style="color: black;">add</button>
                 </div>
 
                 <div style="width:20%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255); border-right: 1px solid black;">
@@ -429,7 +426,7 @@
                   <div id="id_QuadrupleBands_Div" style=" width:100%; height:50vh; overflow-y:auto;  border-bottom:1px solid black;">
 
                   </div>
-                  <button id="button_AddQuadrupleBands" onclick="addBand(4)" title="Add Quadruple Bands" class="class_predefinedConstBands" style="color: black;">add</button>
+                  <button id="button_AddQuadrupleBands" onclick="openBandCreator(4)" title="Add Quadruple Bands" class="class_predefinedConstBands" style="color: black;">add</button>
                 </div>
 
                 </div>
@@ -573,6 +570,8 @@
                                <input id="id_editPageC2GInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
                                <input id="id_editPageC2BInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
                              </div>
+
+                             <hr style="color:grey;">
 
                              <button class="classButtonWhite" id="editPage_deleteButton" onclick="editPage_delteKey()" title="Delete Key" style="border-radius: 0.5vh; width: 50%; height:4vh; line-height:4vh; font-size:2vh; border: 0.2vh solid rgb(180,180,180); margin-left:25%; margin-top:4vh; margin-bottom:2vh; box-shadow:  0.3vh  0.3vh grey; color:black;"> Delete Key</button>
 
@@ -3427,180 +3426,161 @@
 
 
   <!--
-        ---------------------------------------------------
-        ----------------	Band Edit Window  -------------
+        ----------------------------------------------------
+        ----------------	Band Creator Window	  -------------
         ---------------------------------------------------
         -->
 
-  <div id="bandEditWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:101; top:0px; left:0px; bottom:0px; display:none;">
+  <div id="bandCreatorWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:101; top:0px; left:0px; bottom:0px; display:none;">
 
-    <div style="margin-top:15vh; height:auto; background: rgb(255,255,255); width:100%; border-top: 1vh solid black; border-bottom: 1vh solid black;">
-      <div class="row" style="background: none; height:55vh; width:100%; height:30%; padding-bottom:5vh; border-bottom:2px solid black;">
+    <div style="margin-top:7vh; height:auto; background:rgb(240,240,240); width:80%; border: 0.5vh solid black; margin-left:auto; margin-right:auto;">
 
-        <div style="width: 25%; height:30vh; border: 1px solid rgb(200,200,200); margin:0px;">
+      <h3 style="width:100%; height:5vh; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; font-size:3vh; background:black;"> Band Creator </h3>
 
-          <h4 style="width:100%; margin:0px; width:100%; height:5vh; line-height:5vh; font-size:3vh; text-align:center; vertical-align: middle; color:white; background:rgb(100,100,100); ">Left neighbor</h4>
+          <div class="row" style="width:100%; height: auto;">
 
-          <div class="row" style="background:none; height:4vh; margin-top: 0.5vh;">
-            <div style="width: 87.5%"> </div>
-            <div id="bandEdit_LeftNeiColor" style=" width:10%; height:100%; background: rgb(120,120,120); border: 0.2vh solid rgb(180,180,180); cursor:pointer;"> </div>
+            <div style="width:50%; height: auto; background:white;">
+
+                <div class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
+                  <p style="margin:0px; margin-left:10%; width:15%; text-align:left; height:2.2vh; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px; font-weight:bold;">
+                    Band:
+                  </p>
+
+                  <div id="bandCreator_BandDiv" class="row" style="margin-left:5%; width:65%; height:auto; display: inline-block;">
+
+                  </div>
+
+                </div>
+
+                <hr style="color:grey;">
+
+
+                        <div class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
+                            <p style="margin:0px; margin-left:10%; width:15%; text-align:left; height:2.2vh; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px; font-weight:bold; ">
+                              Color Picker:
+                            </p>
+
+                            <input class="class_RadioButtonLabelEditPage" style="margin-left: 5%; margin-right: 0px;" type="radio" id="bandCreator_Radiobutton_PickerRG_B" name="bandCreator_PickerType" value="1" checked="checked">
+                            <label class="class_RadioButtonLabelEditPage" for="bandCreator_Radiobutton_PickerRG_B" id="bandCreator_Radiobutton_PickerRG_B_Label"> RG+B </label><br>
+                            <input class="class_RadioButtonLabelEditPage" style="margin-right: 0px;" type="radio" id="bandCreator_Radiobutton_PickerRB_G" name="bandCreator_PickerType" value="2" >
+                            <label class="class_RadioButtonLabelEditPage" for="bandCreator_Radiobutton_PickerRB_G" id="bandCreator_Radiobutton_PickerRB_G_Label"> RB+G </label><br>
+                            <input class="class_RadioButtonLabelEditPage" style="margin-right: 0px;" type="radio" id="bandCreator_Radiobutton_PickerGB_R" name="bandCreator_PickerType" value="3" >
+                            <label class="class_RadioButtonLabelEditPage" for="bandCreator_Radiobutton_PickerGB_R" id="bandCreator_Radiobutton_PickerGB_R_Label"> GB+R </label><br>
+                        </div>
+
+                        <div class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
+                          <input class="class_RadioButtonLabelEditPage" style="margin-left: 30%; margin-right: 0px;" type="radio" id="bandCreator_Radiobutton_PickerHS_V" name="bandCreator_PickerType" value="4">
+                          <label class="class_RadioButtonLabelEditPage" for="bandCreator_Radiobutton_PickerHS_V" id="bandCreator_Radiobutton_PickerHS_V_Label"> HS+V </label><br>
+                          <input class="class_RadioButtonLabelEditPage" style="margin-right: 0px;" type="radio" id="bandCreator_Radiobutton_PickerHV_S" name="bandCreator_PickerType" value="5" >
+                          <label class="class_RadioButtonLabelEditPage" for="bandCreator_Radiobutton_PickerHV_S" id="bandCreator_Radiobutton_PickerHV_S_Label"> HV+S </label><br>
+                          <input class="class_RadioButtonLabelEditPage" style="margin-right: 0px;" type="radio" id="bandCreator_Radiobutton_PickerSV_H" name="bandCreator_PickerType" value="6" >
+                          <label class="class_RadioButtonLabelEditPage" for="bandCreator_Radiobutton_PickerSV_H" id="bandCreator_Radiobutton_PickerSV_H_Label"> SV+H </label><br>
+                        </div>
+
+                        <div class="row" style="margin-top: 5vh; margin-bottom: 0.5vh; width:100%; height: auto;">
+                          <input class="class_RadioButtonLabelEditPage" style="margin-left: 10%; margin-right: 0px; widht:3%" type="radio" id="bandCreator_Radiobutton_SelectColor1" name="bandCreator_SelectColor" value="0" checked="checked">
+                          <label class="class_RadioButtonLabelEditPage" style="font-weight: bold; widht:12%;" for="bandCreator_Radiobutton_SelectColor1" id="bandCreator_Radiobutton_SelectColor1_Label"> Color1: </label><br>
+                          <p class="class_RadioButtonLabelEditPage" style="margin:0px; margin-left:5%; width:10%">
+                            HSV
+                          </p>
+                          <input id="id_bandCreatorC1HInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
+                          <input id="id_bandCreatorC1SInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
+                          <input id="id_bandCreatorC1VInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
+                        </div>
+                        <div class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
+                          <p class="class_RadioButtonLabelEditPage" style="margin:0px; margin-left:30%; width:10%">
+                            RGB
+                          </p>
+                          <input id="id_bandCreatorC1RInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
+                          <input id="id_bandCreatorC1GInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
+                          <input id="id_bandCreatorC1BInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
+                        </div>
+
+                        <div class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
+                          <input class="class_RadioButtonLabelEditPage" style="margin-left: 10%; margin-right: 0px; widht:3%" type="radio" id="bandCreator_Radiobutton_SelectColor2" name="bandCreator_SelectColor" value="0">
+                          <label class="class_RadioButtonLabelEditPage" style="font-weight: bold; widht:12%;" for="bandCreator_Radiobutton_SelectColor2" id="bandCreator_Radiobutton_SelectColor2_Label"> Color2: </label><br>
+                          <p class="class_RadioButtonLabelEditPage" id="editColor2HSVLAbel" style="margin:0px; margin-left:5%; width:10%">
+                            HSV
+                          </p>
+                          <input id="id_bandCreatorC2HInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
+                          <input id="id_bandCreatorC2SInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
+                          <input id="id_bandCreatorC2VInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
+                        </div>
+                        <div class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
+                          <p class="class_RadioButtonLabelEditPage" id="editColor2RGBLAbel" style="margin:0px; margin-left:30%; width:10%">
+                            RGB
+                          </p>
+                          <input id="id_bandCreatorC2RInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
+                          <input id="id_bandCreatorC2GInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
+                          <input id="id_bandCreatorC2BInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
+                        </div>
+
+                        <hr style="color:grey;">
+
+                        <p style="margin:0px; margin-left:10%; width:auto; text-align:left; height:2.2vh; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px; font-weight:bold; margin-top:2vh;">
+                          Band:
+                        </p>
+                        <canvas id="bandCreator_Original" style="margin-left:10%; width:80%; border:1px solid black; height:7vh; margin-top: 0.5vh;">
+
+                        </canvas>
+                        <p style="margin:0px; margin-left:10%; width:auto; text-align:left; height:2.2vh; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px; font-weight:bold; margin-top:2vh;">
+                          Preview:
+                        </p>
+                        <canvas id="bandCreator_Preview" style="margin-left:10%; width:80%; border:1px solid black; height:7vh; margin-top: 0.5vh;">
+
+                        </canvas>
+
+                        <hr style="color:grey;">
+
+                        <div class="row" style="margin-top: 2vh; margin-bottom: 2vh; width:100%; height: auto;">
+                          <button class="classButtonWhite" onclick="saveBandCreator()" id="id_bandCreator_AddButton" title="Add" style="border-radius: 0.5vh;  width:10vw; height:5vh; line-height:3vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180); margin-left:auto; margin-top:1vh;"> Add </button>
+                          <button class="classButtonWhite" onclick="cancelBandCreator()" id="id_bandCreator_CancelButton" title="Cancel" style="border-radius: 0.5vh;  width:10vw; height:5vh; line-height:3vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180); margin-left:2vw; margin-right:auto; margin-top:1vh;  "> Cancel </button>
+                        </div>
+            </div>
+
+            <div style="margin-top: 2vh; width:50%; height: auto;">
+                <div class="row" style="margin-top: 1vh; margin-bottom: 0.5vh; width:100%; height: auto;">
+                  <p class="class_RadioButtonLabelEditPage"id="bandCreator_canvasPicker_Label" style="margin:0px; width:25vw; margin-left:5vw; text-align:center; font-weight: bold;">RG</p>
+                  <p class="class_RadioButtonLabelEditPage" id="bandCreator_canvasPicker2_Label" style="margin:0px; width:5vw; margin-left:2vw; text-align:center; font-weight: bold;">B</p>
+                </div>
+
+                <div class="row" style="margin-top: 1vh; margin-bottom: 0.5vh; width:100%; height: auto;">
+                  <canvas id="bandCreator_canvasPicker" style="width:25vw; height:25vw; border:1px solid black; margin-left:5vw; background:grey;"></canvas>
+                  <canvas id="bandCreator_canvasPicker2" style="width:5vw; height:25vw; border:1px solid black; margin-left:2vw;  background:grey;"></canvas>
+                </div>
+
+
+                <div class="row" style="margin-top: 3vh;">
+                  <p class="class_RadioButtonLabelEditPage" style="margin:0px; margin-left:5vw; width:10vw; height:4vh; line-height:2vh;">
+                    Current Key Color:
+                  </p>
+                  <div id="bandCreator_currentColor" style="width:10vw; margin-left:2vw; height:4vh; border:1px solid black; background:grey;">
+
+                  </div>
+                </div>
+
+                <div class="row" style="margin-top: 0px;">
+                  <p class="class_RadioButtonLabelEditPage" style="margin:0px; margin-left:5vw; width:10vw;  height:4vh; line-height:4vh">
+                    Selected Color:
+                  </p>
+                  <div id="bandCreator_SetColor" style="width:10vw; margin-left:2vw; height:4vh; border:1px solid black; border-top:none; background:grey;">
+
+                  </div>
+                </div>
+
+
+                <button class="classButtonWhite" onclick="confirmCreateBand()" id="id_bandCreator_ConfirmButton" title="Confirm" style="border-radius: 0.5vh;  width:10vw; height:3vh; line-height:3vh; font-size:2vh; border: 0.2vh solid rgb(180,180,180); margin-left:17vw; margin-top:1vh;  margin-bottom:2vh;"> Confirm</button>
+
+
+
+
+            </div>
           </div>
-          <div style="width:95%; border-right: 2px solid black; height:2vh;"></div>
-          <canvas id="bandEdit_LeftNeigCanvas" style="margin:0px; margin-left:5%; width:90%; height:10vh; background: rgb(120,120,120); border: 2px solid black;">
-
-                                    </canvas>
-          <div style="margin:0px; width:90%; margin-left:5%; border-right: 2px solid black; border-left: 2px solid black; height:2vh;"></div>
-          <div class="row" style="background:none; height:2vh; margin:0px; margin-bottom:auto;">
-            <p id="bandEdit_LeftNeiLeftRef" style="margin:0px; height:2vh; line-height:2vh; font-size:1.8vh; text-align:center; vertical-align: middle; margin-left:5%; ">Nan</p>
-            <div style="width: 80%"> </div>
-            <p id="bandEdit_LeftNeiRightRef" style="margin:0px; height:2vh; line-height:2vh; font-size:1.8vh; text-align:center; vertical-align: middle; margin-right:5%; ">Nan</p>
-          </div>
-
-        </div>
-
-        <div style="width: 50%; height:30vh; margin:0px;">
-
-          <h4 style="width:100%; margin:0px; width:100%; height:5vh; line-height:5vh; font-size:3vh; text-align:center; vertical-align: middle;color:white; background:rgb(100,100,100);">Edit Band</h4>
-
-          <div class="row" style="background:none; height:4vh; margin-top: 0.5vh;">
-            <!--input id="createSide_AddLeftColor" class="createSide_AddBandColor" type="color" name="favcolor" value="#787878" style="margin-left:2.5%"-->
-
-            <!--input id="createSide_AddRightColor" class="createSide_AddBandColor" type="color" name="favcolor" value="#787878"-->
-            <div id="bandEdit_LeftColor" onclick="changeAcitveColorBandEditor(true)" style=" margin-left:2.5%;width:5%; height:100%; background: rgb(120,120,120); border: 0.4vh solid green;cursor:pointer;"> </div>
-            <div id="bandEdit_LeftColorToRight" style=" margin-left:0.5%; width:5%; height:4vh; line-height:4vh; font-size:3vh; text-align:center; vertical-align:top;cursor:pointer; background:grey; color:white; border:0.2vh solid rgb(180,180,180);">&rarr;</div>
-            <div style="width: 74%"> </div>
-            <div id="bandEdit_RightColorToLeft" style=" margin-right:0.5%; width:5%; height:4vh; line-height:4vh; font-size:3vh; text-align:center; vertical-align:top;cursor:pointer; background:grey; color:white; border:0.2vh solid rgb(180,180,180);">&larr;</div>
-            <div id="bandEdit_RightColor" onclick="changeAcitveColorBandEditor(false)" style=" width:5%; height:100%; background: rgb(120,120,120); border: 0.4vh solid black;cursor:pointer;"> </div>
-
-          </div>
-          <div style="width:90%; margin-left:5%; border-right: 2px solid black; border-left: 2px solid black; height:2vh;"></div>
-
-          <canvas id="bandEdit_EditCanvas" style="margin-left:5%; width:90%; height:10vh; background: rgb(120,120,120); border: 2px solid black;">
-
-
-                            </canvas>
-
-          <div style="width:90%; margin-left:5%; border-right: 2px solid black; border-left: 2px solid black; height:2vh;"></div>
-
-          <div class="row" style="background:none;height:2vh; margin:0px;">
-            <input id="bandEdit_InputLeftRef" type="text" name="key space" value="0" style="margin:0px; height:2vh; line-height:2vh; font-size:1.8vh; text-align:center; vertical-align: middle;margin-left:2.5%; width:10%;">
-            <div style="width: 75%"> </div>
-            <input id="bandEdit_InputRightRef" type="text" name="key space" value="1" style="margin:0px; height:2vh; line-height:2vh; font-size:1.8vh; text-align:center; vertical-align: middle;margin-right:2.5%; width:10%;">
-          </div>
-
-
-        </div>
-
-        <div style="width: 25%; height:30vh; border: 1px solid rgb(200,200,200); margin:0px;">
-
-          <h4 style="width:100%; margin:0px; width:100%; height:5vh; line-height:5vh; font-size:3vh; text-align:center; vertical-align: middle;color:white; background:rgb(100,100,100);">Right neighbor</h4>
-
-          <div class="row" style="background:none; height:4vh; margin-top: 0.5vh;">
-            <div id="bandEdit_RightNeiColor" style=" margin-left:2.5%; width:10%; height:100%; background: rgb(120,120,120); border: 0.2vh solid rgb(180,180,180);cursor:pointer;"> </div>
-            <div style="width: 87.5%"> </div>
-          </div>
-          <div style="margin-left:5%; width:95%; border-left: 2px solid black; height:2vh;"></div>
-          <canvas id="bandEdit_RightNeigCanvas" style="margin-left:5%; width:90%; height:10vh; background: rgb(120,120,120); border: 2px solid black;">
-
-                                    </canvas>
-          <div style="width:90%; margin-left:5%; border-right: 2px solid black; border-left: 2px solid black; height:2vh;"></div>
-          <div class="row" style="background:none;height:2vh; margin:0px;">
-            <p id="bandEdit_RightNeiLeftRef" style="margin:0px; height:2vh; line-height:2vh; font-size:1.8vh; text-align:center; vertical-align: middle;margin-left:5%">Nan</p>
-            <div style="width: 80%"> </div>
-            <p id="bandEdit_RightNeiRightRef" style="margin:0px; height:2vh; line-height:2vh; font-size:1.8vh; text-align:center; vertical-align: middle;margin-right:5%">Nan</p>
-          </div>
-
-
-        </div>
-
-      </div>
-
-      <div class="row" style="width:100%; height:35vh; ">
-
-        <div style="width:35%; margin-right:auto; background:rgb(255,255,255);  margin-left:auto; margin-top:0px;">
-          <h3 style="height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:black; font-size:4vh;"> Colorspace: </h3>
-          <div class="row" style=" height:10vh; margin-top:2vh; width:100%;">
-            <button id="id_BandEditbutton_RGB" title="RGB" onclick="changeBandEditorColorspace(0)" style="width: 30%; margin-left:auto; margin-right:2vh; margin-top:3vh; border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; height:10vh; font-size:4vh;  border: 0.4vh solid  green; color: 	green; ">RGB</button><br>
-            <button id="id_BandEditbutton_HSV" title="HSV" onclick="changeBandEditorColorspace(1)" style="width: 30%; margin-left:0px;; margin-right:auto; margin-top:3vh;border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center;  height:10vh; font-size:4vh;  border: 0.4vh solid black; color:black; ">HSV</button><br>
-          </div>
-          <div class="row" style=" height:10vh; margin-top:2vh; width:100%;">
-            <button id="id_BandEditbutton_LAB" title="LAB" onclick="changeBandEditorColorspace(2)" style="width: 30%; margin-left:auto; margin-right:2vh; margin-top:3vh;border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center;  height:10vh; font-size:4vh;  border: 0.4vh solid black; color:black; ">LAB</button><br>
-            <button id="id_BandEditbutton_DIN99" title="DIN99" onclick="changeBandEditorColorspace(3)" style="width: 30%; margin-left:0px; margin-right:auto; margin-top:3vh; margin-bottom:3vh;border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center;  height:10vh; font-size:4vh; border: 0.4vh solid black; color:black;">DIN99</button>
-          </div>
-        </div>
-
-        <div class="row" style="height:35vh; width:30%;  margin:0px; background:rgb(255,255,255); margin-top:0px;">
-
-          <div style="height:33vh; width:15%; margin-left:2.5%; margin-right:2.5%; margin-top: 1vh; margin-bottom: 1vh;">
-            <canvas id="id_BandEditcanvasPickerC1V" style="width:100%; height:100%; border: 1px solid black;">
-                                                </canvas>
-          </div>
-
-
-          <div style="height:33vh; width:77.5%; margin-right:2.5%; margin-top: 1vh; margin-bottom: 1vh;">
-            <canvas id="id_bandEditCanvasPickerHS" style="width:100%; height:100%; border: 1px solid black; z-index:102;">
-                                                </canvas>
-            <canvas id="id_bandEditWorkcanvasPicker" style="z-index:103;">
-                                                </canvas>
-          </div>
-        </div>
-
-        <div style="width:35%; margin-left:auto; background:rgb(255,255,255);  margin-right:auto; height:27vh; margin-top:0px;">
-          <h3 style="height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:black; font-size:4vh;">Options:</h3>
-          <div class="row" style=" height:10vh; padding-top:5vh; width:100%;">
-            <button title="help" id="helpBandEdit" style="border-radius: 0.3vh; line-height:10vh; font-size:8vh; font-weight:bold; text-align:center; vertical-align:middle; width: 10vh; height:10vh; margin-right:2vh; margin-left:auto; border: 0.4vh solid black; ">?</button>
-            <button title="delete" id="deleteBandEdit" style="border-radius: 0.3vh; background: url(img/trashButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 10vh; height:10vh; margin-left:0px; margin-right:auto; border: 0.4vh solid black; "></button>
-          </div>
-          <div class="row" style=" height:10vh; margin-top:2vh; padding-bottom:1vh; width:100%;">
-            <button title="cancel" id="cancelBandEdit" style="border-radius: 0.3vh; background: url(img/cancelButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 10vh; height:10vh; margin-right:2vh; margin-left:auto; border: 0.4vh solid black; "></button>
-            <button title="accept" id="acceptBandEdit" style="border-radius: 0.3vh; background: url(img/acceptButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 10vh; height:10vh; margin-left:0px; margin-right:auto; border: 0.4vh solid black; "></button>
-          </div>
-        </div>
-
-      </div>
 
 
     </div>
 
   </div>
-
-  <!------------------	Help	CreatorPage  ------------------->
-
-  <div class="helpDiv" id="bandEditor_colorpickerHelp">
-    &#8679; Use the colorpicker to change the selected color. Select a color by clicking on it (green border).
-  </div>
-
-  <div class="helpDiv" id="bandEditor_rightNeighborColorHelp">
-     	&#8678; Click on the right neighbor color to set the C2 color equal to the neighbor color (In case of scaled bands it results in a dual key).
-  </div>
-
-  <div class="helpDiv" id="bandEditor_leftNeighborColorHelp">
-    <div class="row" style="margin:0px;">
-      <p style="margin:0px;">
-        Click on the left neighbor color to set the C1 color equal to the neighbor color (In case of scaled bands it results in a dual key).
-      </p>
-
-      <p style="margin:0px;">
-     	  &#8680;
-      </p>
-    </div>
-  </div>
-
-
-  <div class="helpDiv" id="bandEditor_selectC1Help">
-     		&#8681; Select C1 for Colorpicker
-  </div>
-
-  <div class="helpDiv" id="bandEditor_selectC2Help">
-     		&#8681; Select C2 for Colorpicker
-  </div>
-
-
-  <div class="helpDiv" id="bandEditor_arrowButtonHelp" style="width:20vw;">
-    &#8679; Use the arrow buttons to set the other color of the band equal to the color next to the button and create a constant band.
-  </div>
-
-
 
 
 
@@ -3610,118 +3590,20 @@
         ---------------------------------------------------
         -->
 
-  <div id="bandCreatorWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:101; top:0px; left:0px; bottom:0px; display:none;">
+  <div id="popupSaveWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:101; top:0px; left:0px; bottom:0px; display:none;">
 
-    <div style="margin-top:15vh; height:auto; background:rgb(240,240,240); width:50%; border: 0.5vh solid black; margin-left:auto; margin-right:auto;">
+    <div style="margin-top:20vh; height:auto; background:rgb(240,240,240); width:30%; border: 0.5vh solid black; margin-left:auto; margin-right:auto;">
 
-      <h3 style="width:100%; height:5vh; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; padding-left:20px; font-size:3vh; margin-bottom:2vh; background:black;"> Band Creator </h3>
-      <!------------------>
-      <!-- BAND Creator -->
-      <div style="margin:auto; width:80%; height:auto; background:rgb(240,240,240);">
+      <h3 style="width:100%; height:5vh; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; font-size:3vh; background:black;"> Save the CMS Modifications? </h3>
 
-        <div class="row" style="height:auto; width:auto; ">
+      <button class="classButtonWhite"  onclick="doSave()" title="save" style="border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 80%; height:8vh; line-height:8vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180); margin-left:10%; margin-top:2vh; margin-bottom:2vh;"> Save </button>
 
-          <div style="height:auto; width:auto;">
-            <!-- hier flex flex-grow: 1;-->
+      <button class="classButtonWhite"  onclick="doSaveAsNew()" title="save as new" style="border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 80%; height:8vh; line-height:8vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180); margin-left:10%; margin-top:2vh; margin-bottom:2vh;"> Save As New </button>
 
-            <div class="row" style="height:23vh; width:auto; margin:0px;">
+      <button class="classButtonWhite"  onclick="cancelSave()" title="cancel save" style="border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 80%; height:8vh; line-height:8vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180); margin-left:10%; margin-top:2vh; margin-bottom:2vh;"> No Save </button>
 
-              <div style=" height:22vh; width:50%;">
-
-                <h3 style="height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; margin:auto;"> Color: </h3>
-
-                <div class="row" style="height:20%; line-height:auto; text-align:center; vertical-align: middle; margin:auto;">
-                  <p id="id_color1_FirstLabel" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin:auto; margin-right:0.25cm; font-weight:bold;"> R: </p>
-                  <input id="id_color1_First" type="text" name="key space" value="255" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin:auto; width:50%;">
-                </div>
-
-                <div class="row" style="height:20%; line-height:auto; text-align:center; vertical-align: middle; margin:auto;">
-                  <p id="id_color1_SecondLabel" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin:auto; margin-right:0.25cm; font-weight:bold;"> G: </p>
-                  <input id="id_color1_Second" type="text" name="key space" value="255" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin:auto; width:50%;">
-                </div>
-
-                <div class="row" style="height:20%; line-height:auto; text-align:center; vertical-align: middle; margin:auto;">
-                  <p id="id_color1_ThirdLabel" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin:auto; margin-right:0.25cm; font-weight:bold;"> B: </p>
-                  <input id="id_color1_Third" type="text" name="key space" value="255" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin:auto; width:50%;">
-                </div>
-              </div>
-
-
-              <div class="row" style="height:22vh; width:50%;">
-
-                <div style="height:21vh; width:15%; margin-left:2.5%; margin-right:2.5%; margin-top: 0.5vh; margin-bottom: 0.5vh;">
-                  <canvas id="id_canvasPickerC1V" style="width:100%; height:100%; border: 1px solid black;">
-                                                </canvas>
-                </div>
-
-
-                <div style="height:21vh; width:77.5%; margin-right:2.5%; margin-top: 0.5vh; margin-bottom: 0.5vh;">
-                  <canvas id="id_canvasPickerHS" style="width:100%; height:100%; border: 1px solid black; z-index:102;">
-                                                </canvas>
-                  <canvas id="id_workcanvasPicker" style="z-index:2;">
-                                                </canvas>
-                </div>
-
-
-              </div>
-
-            </div>
-
-            <!-- Band Creator: Band Sketch -->
-            <div style="height:20vh; width:100%; margin-top:0px;">
-              <div class="row" style=" height:3vh; width:100%; margin-top:1vh;">
-
-                <div style="height:100%; width:12.5%; "></div>
-                <p id="id_bandC1Label" style="height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; width:5%; margin:0px; margin-right:auto;  text-align:center">C1</p>
-                <p id="id_bandC2Label" style="height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; width:5%; margin:0px; margin-right:auto; margin-left:auto; text-align:center">C2</p>
-                <p id="id_bandC3Label" style="height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; width:5%; margin:0px; margin-right:auto; margin-left:auto; text-align:center">C3</p>
-                <p id="id_bandC4Label" style="height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; width:5%; margin:0px; margin-right:auto; margin-left:auto; text-align:center">C4</p>
-                <p id="id_bandC5Label" style="height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; width:5%; margin:0px; margin-left:auto; text-align:center">C5</p>
-                <div style="height:100%; width:12.5%;"></div>
-
-              </div>
-
-              <div class="row" style=" width:100%; height:3vh;">
-                <div style="height:100%; width:12.5%;"></div>
-                <div id="id_creatorBandC1" onclick="changeActiveColor(0)" style="height:100%; width:5%; border: 0.4vh solid green;margin:0px; background:white; margin-right:auto; z-index: 2; cursor:pointer;"></div>
-                <div id="id_creatorBandC2" onclick="changeActiveColor(1)" style="height:100%; width:5%; border: 0.2vh solid rgb(180,180,180);margin:0px; background:white; margin-right:auto; margin-left:auto; z-index: 2; cursor:pointer;"></div>
-                <div id="id_creatorBandC3" onclick="changeActiveColor(2)" style="height:100%; width:5%; border: 0.2vh solid rgb(180,180,180);margin:0px; background:white; margin-right:auto; margin-left:auto; z-index: 2; cursor:pointer;"></div>
-                <div id="id_creatorBandC4" onclick="changeActiveColor(3)" style="height:100%; width:5%; border: 0.2vh solid rgb(180,180,180);margin:0px; background:white; margin-right:auto; margin-left:auto; z-index: 2; cursor:pointer;"></div>
-                <div id="id_creatorBandC5" onclick="changeActiveColor(4)" style="height:100%; width:5%; border: 0.2vh solid rgb(180,180,180);margin:0px; background:white; margin-left:auto; z-index: 2; cursor:pointer;"></div>
-                <div style="height:100%; width:12.5%;"></div>
-              </div>
-
-              <div class="row" style=" width:100%; height:1vh; margin:0px;">
-                <div style="height:1vh; width:15%; border-right: 2px solid black;margin:0px; z-index: 1;"></div>
-                <div id="id_creatorBandLineC2" style="height:1vh; width:17.5%; border-right: 2px solid black;margin:0px; z-index: 1;"></div>
-                <div id="id_creatorBandLineC3" style="height:1vh; width:17.5%; border-right: 2px solid black;margin:0px; z-index: 1;"></div>
-                <div id="id_creatorBandLineC4" style="height:1vh; width:17.5%; border-right: 2px solid black;margin:0px; z-index: 1;"></div>
-                <div id="id_creatorBandLineC5" style="height:1vh; width:17.5%; border-right: 2px solid black;margin:0px; margin-left:auto; z-index: 1;"></div>
-                <div style="height:1vh; width:15%;"></div>
-              </div>
-
-              <canvas id="id_creatorBand" style="margin-left:15%; width:70%; height:10vh; border: 2px solid black;"> <!--draggable="true"-->
-                                        </canvas>
-            </div>
-
-
-          </div>
-
-        </div>
-
-      </div>
-
-      <div class="row" style=" height:10vh; margin-top:2vh; padding-bottom:1vh; width:100%; margin:auto;">
-        <button title="cancel" id="cancelBandCreator" style="border-radius: 0.3vh; background: url(img/cancelButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 10vh; height:10vh; margin-right:2vh; margin-left:auto; border: 0.4vh solid black; "></button>
-        <button title="accept" id="acceptBandCreator" style="border-radius: 0.3vh; background: url(img/acceptButton_black.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 10vh; height:10vh; margin-left:0px; margin-right:auto; border: 0.4vh solid black; "></button>
-      </div>
     </div>
-
   </div>
-
-
-
-
 
 
   <!--

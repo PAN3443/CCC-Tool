@@ -264,7 +264,7 @@ function mouseDownColorspaceRGB(event) {
           updateSketchID2 = -1;
           var bandindex = -1;
 
-          for(var i=0; i<bandSketch.getBandLenght(); i++){
+          for(var i=0; i<bandSketch.getBandLength(); i++){
 
               if(saveNext){
                   keyCounter++;
