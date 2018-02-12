@@ -551,7 +551,7 @@ function calcOrderPlot(intervalColormap, plotid, type, minId, minGlobalId){
           //////////////////////////////////////////////////////////////
 
           var arrayk0 = [];
-var t1,t2,t3;
+ var t1,t2,t3;
           for(var k0=0; k0<intervalColormap.getIntervalLength()-2; k0++){
 
                   var deltaE_K0_K2=0;
@@ -1115,7 +1115,7 @@ function drawAnalyseDifferenceMaps(){
   var new_tbody = document.createElement('tbody');
 
 
-  var canvasREF = document.getElementById("id_anaylseRatioRef");
+  //var canvasREF = document.getElementById("id_anaylseRatioRef");
   var canvasRGB = document.getElementById("id_anaylseRatioRGB");
   var canvasHSV = document.getElementById("id_anaylseRatioHSV");
   var canvasLAB = document.getElementById("id_anaylseRatioLAB");
@@ -1123,8 +1123,8 @@ function drawAnalyseDifferenceMaps(){
   var canvasDE94 = document.getElementById("id_anaylseRatioDE94");
   var canvasDIN99 = document.getElementById("id_anaylseRatioDIN99");
 
-  canvasREF.width = resolutionX_differenceMetrics;
-  canvasREF.height = 1;
+  //canvasREF.width = resolutionX_differenceMetrics;
+  //canvasREF.height = 1;
   canvasRGB.width = resolutionX_differenceMetrics;
   canvasRGB.height = 1;
   canvasHSV.width = resolutionX_differenceMetrics;
@@ -1138,8 +1138,8 @@ function drawAnalyseDifferenceMaps(){
   canvasDIN99.width = resolutionX_differenceMetrics;
   canvasDIN99.height = 1;
 
-  var refCtx = canvasREF.getContext("2d");
-  var refData = refCtx.getImageData(0, 0, resolutionX_differenceMetrics, 1);
+  //var refCtx = canvasREF.getContext("2d");
+  //var refData = refCtx.getImageData(0, 0, resolutionX_differenceMetrics, 1);
   var rgbCtx = canvasRGB.getContext("2d");
   var rgbData = rgbCtx.getImageData(0, 0, resolutionX_differenceMetrics, 1);
   var hsvCtx = canvasHSV.getContext("2d");
@@ -1176,78 +1176,116 @@ function drawAnalyseDifferenceMaps(){
 
   var restWidth = resolutionX_differenceMetrics-(bandSketch.getBandLength()-bandSketch.getNumConstBands()-1)*borderWidth;
 
+  var arrayRGBSpeed = [];
+  var arrayHSVSpeed = [];
+  var arrayLABSpeed = [];
+  var arrayDe94Speed = [];
+  var arrayDe2000Speed = [];
+  var arrayDIN99Speed = [];
+
+  var arrayRGBSpeedSum = 0;
+  var arrayHSVSpeedSum = 0;
+  var arrayLABSpeedSum = 0;
+  var arrayDe94SpeedSum = 0;
+  var arrayDe2000SpeedSum = 0;
+  var arrayDIN99SpeedSum = 0;
+
+  for (var i = 0; i < bandSketch.getBandLength(); i++) {
+    var refDis = bandSketch.getRefDistance(i);
+
+      if(refDis==0){
+        arrayRGBSpeed.push(0);
+        arrayHSVSpeed.push(0);
+        arrayLABSpeed.push(0);
+        arrayDe94Speed.push(0);
+        arrayDe2000Speed.push(0);
+        arrayDIN99Speed.push(0);
+      }
+      else{
+        arrayRGBSpeed.push(bandSketch.getRGBDistance(i)/refDis);
+        arrayHSVSpeed.push(bandSketch.getHSVDistance(i)/refDis);
+        arrayLABSpeed.push(bandSketch.getLABDistance(i)/refDis);
+        arrayDe94Speed.push(bandSketch.getDE94Distance(i)/refDis);
+        arrayDe2000Speed.push(bandSketch.getCIEDE2000Distance(i)/refDis);
+        arrayDIN99Speed.push(bandSketch.getDIN99Distance(i)/refDis);
+
+        arrayRGBSpeedSum += arrayRGBSpeed[arrayRGBSpeed.length-1];
+        arrayHSVSpeedSum += arrayHSVSpeed[arrayHSVSpeed.length-1];
+        arrayLABSpeedSum += arrayLABSpeed[arrayLABSpeed.length-1];
+        arrayDe94SpeedSum += arrayDe94Speed[arrayDe94Speed.length-1];
+        arrayDe2000SpeedSum += arrayDe2000Speed[arrayDe2000Speed.length-1];
+        arrayDIN99SpeedSum += arrayDIN99Speed[arrayDIN99Speed.length-1];
+      }
+
+
+
+  }
+
   for (var i = 0; i < bandSketch.getBandLength(); i++) {
 
     var tr = document.createElement('tr');
 
     if(bandSketch.getRefDistance(i)==0){
+
+
       var td = document.createElement('td');
       td.className = "class_tableInput";
       var tmpVal = i+1;
       td.appendChild(document.createTextNode("constant "+tmpVal));
       tr.appendChild(td);
-      // ref
-      td = document.createElement('td');
-      td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
-      tr.appendChild(td);
-      td = document.createElement('td');
-      td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
-      tr.appendChild(td);
       // rgb
       td = document.createElement('td');
       td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
+      td.appendChild(document.createTextNode("0"));
       tr.appendChild(td);
       td = document.createElement('td');
       td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
+      td.appendChild(document.createTextNode("0%"));
       tr.appendChild(td);
       // hsv
       td = document.createElement('td');
       td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
+      td.appendChild(document.createTextNode("0"));
       tr.appendChild(td);
       td = document.createElement('td');
       td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
+      td.appendChild(document.createTextNode("0%"));
       tr.appendChild(td);
       // lab
       td = document.createElement('td');
       td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
+      td.appendChild(document.createTextNode("0"));
       tr.appendChild(td);
       td = document.createElement('td');
       td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
+      td.appendChild(document.createTextNode("0%"));
       tr.appendChild(td);
       // DE94
       td = document.createElement('td');
       td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
+      td.appendChild(document.createTextNode("0"));
       tr.appendChild(td);
       td = document.createElement('td');
       td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
+      td.appendChild(document.createTextNode("0%"));
       tr.appendChild(td);
       // DE00
       td = document.createElement('td');
       td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
+      td.appendChild(document.createTextNode("0"));
       tr.appendChild(td);
       td = document.createElement('td');
       td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
+      td.appendChild(document.createTextNode("0%"));
       tr.appendChild(td);
       // DIN99
       td = document.createElement('td');
       td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
+      td.appendChild(document.createTextNode("0"));
       tr.appendChild(td);
       td = document.createElement('td');
       td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
+      td.appendChild(document.createTextNode("0%"));
       tr.appendChild(td);
       new_tbody.appendChild(tr);
       continue;
@@ -1259,51 +1297,6 @@ function drawAnalyseDifferenceMaps(){
     td.appendChild(document.createTextNode("scaled "+tmpVal));
     tr.appendChild(td);
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////
-    //// REF
-
-    var tmpRatio = bandSketch.getRefDistance(i)/bandSketch.getDistanceSumRef();
-    td = document.createElement('td')
-    td.className = "class_tableInput";
-    td.appendChild(document.createTextNode(bandSketch.getRefDistance(i).toFixed(numDecimalPlaces)));
-    tr.appendChild(td);
-
-    td = document.createElement('td')
-    td.className = "class_tableInput";
-    td.appendChild(document.createTextNode((tmpRatio*100).toFixed(numDecimalPlaces)+"%"));
-    tr.appendChild(td);
-
-    currentWidth[0] = Math.ceil(restWidth*tmpRatio);
-
-    for(var x=0; x<currentWidth[0]; x++){
-      var index = (currentPos[0]+x) * 4;
-      refData.data[index + 0] = Math.round(colorRef.getRValue() * 255); // r
-      refData.data[index + 1] = Math.round(colorRef.getGValue() * 255); // g
-      refData.data[index + 2] = Math.round(colorRef.getBValue() * 255); // b
-      refData.data[index + 3] = 255; //a
-
-      /*ref1PreviewData.data[index + 0] = Math.round(colorRef.getRValue() * 255); // r
-      ref1PreviewData.data[index + 1] = Math.round(colorRef.getGValue() * 255); // g
-      ref1PreviewData.data[index + 2] = Math.round(colorRef.getBValue() * 255); // b
-      ref1PreviewData.data[index + 3] = 255; //a*/
-    }
-    currentPos[0]=currentPos[0]+currentWidth[0];
-
-    if(i != bandSketch.getBandLength()-1){
-      for(var x=0; x<borderWidth; x++){
-        var index = (currentPos[0]+x) * 4;
-        refData.data[index + 0] = Math.round(0); // r
-        refData.data[index + 1] = Math.round(0); // g
-        refData.data[index + 2] = Math.round(0); // b
-        refData.data[index + 3] = 255; //a
-
-        /*ref1PreviewData.data[index + 0] = Math.round(0); // r
-        ref1PreviewData.data[index + 1] = Math.round(0); // g
-        ref1PreviewData.data[index + 2] = Math.round(0); // b
-        ref1PreviewData.data[index + 3] = 255; //a*/
-      }
-      currentPos[0]=currentPos[0]+borderWidth;
-    }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
     //// RGB
@@ -1312,11 +1305,11 @@ function drawAnalyseDifferenceMaps(){
     var color2 = bandSketch.getC2Color(i,"rgb");
 
 
-    tmpRatio = bandSketch.getRGBDistance(i)/bandSketch.getDistanceSumRGB();
+    var tmpRatio = arrayRGBSpeed[i]/arrayRGBSpeedSum;
 
     td = document.createElement('td')
     td.className = "class_tableInput";
-    td.appendChild(document.createTextNode(bandSketch.getRGBDistance(i).toFixed(numDecimalPlaces)));
+    td.appendChild(document.createTextNode(arrayRGBSpeed[i].toFixed(numDecimalPlaces)));
     tr.appendChild(td);
 
     td = document.createElement('td')
@@ -1371,11 +1364,11 @@ function drawAnalyseDifferenceMaps(){
     var yPos2 = tmpDis2 * Math.sin(tmpRad2);
     var zPos2 = color2.getVValue() - 50;
 
-    tmpRatio = bandSketch.getHSVDistance(i)/bandSketch.getDistanceSumHSV();
+    tmpRatio = arrayHSVSpeed[i]/arrayHSVSpeedSum;
 
     td = document.createElement('td')
     td.className = "class_tableInput";
-    td.appendChild(document.createTextNode(bandSketch.getHSVDistance(i).toFixed(numDecimalPlaces)));
+    td.appendChild(document.createTextNode(arrayHSVSpeed[i].toFixed(numDecimalPlaces)));
     tr.appendChild(td);
 
     td = document.createElement('td')
@@ -1426,11 +1419,11 @@ function drawAnalyseDifferenceMaps(){
     color1 = bandSketch.getC1Color(i,"lab");
     color2 = bandSketch.getC2Color(i,"lab");
 
-    tmpRatio = bandSketch.getLABDistance(i)/bandSketch.getDistanceSumLAB();
+    tmpRatio = arrayLABSpeed[i]/arrayLABSpeedSum;
 
     td = document.createElement('td')
     td.className = "class_tableInput";
-    td.appendChild(document.createTextNode(bandSketch.getLABDistance(i).toFixed(numDecimalPlaces)));
+    td.appendChild(document.createTextNode(arrayLABSpeed[i].toFixed(numDecimalPlaces)));
     tr.appendChild(td);
 
     td = document.createElement('td')
@@ -1474,11 +1467,11 @@ function drawAnalyseDifferenceMaps(){
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
     //// de94
-    tmpRatio = bandSketch.getDE94Distance(i)/bandSketch.getDistanceSumDE94();
+    tmpRatio = arrayDe94Speed[i]/arrayDe94SpeedSum;
 
     td = document.createElement('td')
     td.className = "class_tableInput";
-    td.appendChild(document.createTextNode(bandSketch.getDE94Distance(i).toFixed(numDecimalPlaces)));
+    td.appendChild(document.createTextNode(arrayDe94Speed[i].toFixed(numDecimalPlaces)));
     tr.appendChild(td);
 
     td = document.createElement('td')
@@ -1536,11 +1529,11 @@ function drawAnalyseDifferenceMaps(){
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
     //// de2000
-    tmpRatio = bandSketch.getCIEDE2000Distance(i)/bandSketch.getDistanceSumCIEDE2000();
+    tmpRatio = arrayDe2000Speed[i]/arrayDe2000SpeedSum;
 
     td = document.createElement('td')
     td.className = "class_tableInput";
-    td.appendChild(document.createTextNode(bandSketch.getCIEDE2000Distance(i).toFixed(numDecimalPlaces)));
+    td.appendChild(document.createTextNode(arrayDe2000Speed[i].toFixed(numDecimalPlaces)));
     tr.appendChild(td);
 
     td = document.createElement('td')
@@ -1600,11 +1593,11 @@ function drawAnalyseDifferenceMaps(){
     //// din99
     color1 = bandSketch.getC1Color(i,"din99");
     color2 = bandSketch.getC2Color(i,"din99");
-    tmpRatio = bandSketch.getDIN99Distance(i)/bandSketch.getDistanceSumDIN99();
+    tmpRatio = arrayDIN99Speed[i]/arrayDIN99SpeedSum;
 
     td = document.createElement('td')
     td.className = "class_tableInput";
-    td.appendChild(document.createTextNode(bandSketch.getDIN99Distance(i).toFixed(numDecimalPlaces)));
+    td.appendChild(document.createTextNode(arrayDIN99Speed[i].toFixed(numDecimalPlaces)));
     tr.appendChild(td);
 
     td = document.createElement('td')
@@ -1664,7 +1657,7 @@ function drawAnalyseDifferenceMaps(){
 
   }
 
-  refCtx.putImageData(refData, 0, 0); // update ColorspaceCanvas;
+  //refCtx.putImageData(refData, 0, 0); // update ColorspaceCanvas;
   rgbCtx.putImageData(rgbData, 0, 0); // update ColorspaceCanvas;
   hsvCtx.putImageData(hsvData, 0, 0); // update ColorspaceCanvas;
   labCtx.putImageData(labData, 0, 0); // update ColorspaceCanvas;

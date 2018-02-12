@@ -1723,7 +1723,7 @@
         <button id="id_selectAnalyzePath" onclick="changeAnalyzePage(1)" class="classButtonBlue" title="Path Plot" style="width:20%">Path Plot</button>
         <button id="id_selectAnalyzeMatrix" onclick="changeAnalyzePage(2)" class="classButtonBlue" title="Speed Matrix Plot" style="width:20%"> Matrix Plot</button>
         <button id="id_selectAnalyzeLine" onclick="changeAnalyzePage(4)" class="classButtonBlue" title="Speed Line Plot" style="width:20%"> Line Plot </button>
-        <button id="id_selectAnalyzeBar" onclick="changeAnalyzePage(3)" class="classButtonBlue" title="Difference Bar Plot" style="width:20%">Difference Bar Plot</button>
+        <button id="id_selectAnalyzeBar" onclick="changeAnalyzePage(3)" class="classButtonBlue" title="Difference Bar Plot" style="width:20%"> Keys Speed Plot</button>
         <button id="id_selectAnalyzeOrder" onclick="changeAnalyzePage(5)" class="classButtonBlue" title="Order Plot" style="width:20%">Order Plot</button>
 
 
@@ -2157,14 +2157,13 @@
 
                 <div class="row" style="padding-top:4vh; padding-bottom:4vh; width:100%;">
                   <!--h4 style="width:auto; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px; margin-left:auto;">Colormap Course</h4-->
-                  <h1 style="width:auto; text-align:center; height:4vh; line-height:4vh; font-size:4vh; margin:0px; vertical-align:middle; margin-left:auto;"> Difference Bar Plot </h1>
+                  <h1 style="width:auto; text-align:center; height:4vh; line-height:4vh; font-size:4vh; margin:0px; vertical-align:middle; margin-left:auto;"> Keys Speed Plot </h1>
                   <div class="dropdown" style="width:auto; margin-right:auto;">
                     <button class="dropbtn" style="border-radius: 0.5vh; line-height:4vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 4vh; height:4vh;  margin-left:2vh; border: 2px solid black;">?</button>
                     <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
-                      <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> The following visualizations are showing you the ratio value of the euclidean distances and the metrics (DE94, CIEDE2000)
-                        to determine the difference of the used key colors, which define the start and the end of a band, in relation to the ratio values of the references (x-values). Use the information of one of the both metrics or the euclidean distance of the DIN99 space
-                        to create a colormap as good as possible for the perceptual uniformity (Approach the selected ratio of the difference to the ratio of the reference values).
+                      <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> The following visualizations are showing you the ratio value of speed calculated with the euclidean distances and the metrics (DE94, CIEDE2000)
+                        to determine the difference of the used key colors. The speed give you a relation between the difference of the selected key colors and the reference distance between the keys.
                       </p>
 
                       <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Attention:</strong> For this analyze only <strong>scaled</strong> band will be used.
@@ -2176,116 +2175,49 @@
 
 
                 <!----------------	Ratio	Reference  --------------->
-                <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh;">
+                <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh; margin-top:2vh;">
 
 
-                  <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: left;  height:5vh; line-height:5vh">Ratio X Reference:</p>
+                  <div style="width:25%; margin-left:auto;">
+                      <p class="classAnalyseLabel" style="width:100%; font-weight:bold; text-align: left; height:5vh; line-height:5vh; margin-bottom:2vh;">RGB Euclidean Distance:</p>
+                      <p class="classAnalyseLabel" style="width:100%; font-weight:bold; text-align: left; height:5vh; line-height:5vh; margin-bottom:2vh;">HSV Euclidean Distance:</p>
+                      <p class="classAnalyseLabel" style="width:100%; font-weight:bold; text-align: left; height:5vh; line-height:5vh; margin-bottom:2vh;">LAB Euclidean Distance:</p>
+                      <p class="classAnalyseLabel" style="width:100%; font-weight:bold; text-align: left; height:5vh; line-height:5vh; margin-bottom:2vh;">LAB Metric DE94:</p>
+                      <p class="classAnalyseLabel" style="width:100%; font-weight:bold; text-align: left; height:5vh; line-height:5vh; margin-bottom:2vh;">LAB Metric DE2000:</p>
+                      <p class="classAnalyseLabel" style="width:100%; font-weight:bold; text-align: left; height:5vh; line-height:5vh; margin-bottom:2vh;">DIN99 Euclidean Distance:</p>
+                  </div>
 
-                  <canvas id="id_anaylseRatioRef" style="width:70%; height:5vh; border: 2px solid black;">
-
-
-                </canvas>
-
+                  <div style="width:65%; margin-right:auto;">
+                    <canvas id="id_anaylseRatioRGB" style="width:100%; height:5vh; border: 2px solid black;margin-bottom:2vh;"></canvas>
+                    <canvas id="id_anaylseRatioHSV" style="width:100%; height:5vh; border: 2px solid black;margin-bottom:2vh;"></canvas>
+                    <canvas id="id_anaylseRatioLAB" style="width:100%; height:5vh; border: 2px solid black;margin-bottom:2vh;"></canvas>
+                    <canvas id="id_anaylseRatioDE94" style="width:100%; height:5vh; border: 2px solid black;margin-bottom:2vh;"></canvas>
+                    <canvas id="id_anaylseRatioDe2000" style="width:100%; height:5vh; border: 2px solid black;margin-bottom:2vh;"></canvas>
+                    <canvas id="id_anaylseRatioDIN99" style="width:100%; height:5vh; border: 2px solid black;margin-bottom:2vh;"></canvas>
+                  </div>
                 </div>
 
-                <!----------------	Ratio LAB Euclidean Distance:	  --------------->
-                <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh;">
-
-
-                  <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: left;  height:5vh; line-height:5vh">Ratio RGB Euclidean Distance:</p>
-
-                  <canvas id="id_anaylseRatioRGB" style="width:70%; height:5vh; border: 2px solid black;">
-
-                </canvas>
-
-                </div>
-
-                <!----------------	Ratio LAB Metric DE94:	  --------------->
-                <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh;">
-
-
-                  <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: left;  height:5vh; line-height:5vh">Ratio HSV Euclidean Distance:</p>
-
-                  <canvas id="id_anaylseRatioHSV" style="width:70%; height:5vh; border: 2px solid black;">
-
-                </canvas>
-
-                </div>
-
-                <!----------------	Ratio LAB Euclidean Distance:	  --------------->
-                <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh;">
-
-
-                  <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: left;  height:5vh; line-height:5vh">Ratio LAB Euclidean Distance:</p>
-
-                  <canvas id="id_anaylseRatioLAB" style="width:70%; height:5vh; border: 2px solid black;">
-
-
-                </canvas>
-
-                </div>
-
-                <!----------------	Ratio LAB Metric DE94:	  --------------->
-                <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh;">
-
-
-                  <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: left;  height:5vh; line-height:5vh">Ratio LAB Metric DE94:</p>
-
-                  <canvas id="id_anaylseRatioDE94" style="width:70%; height:5vh; border: 2px solid black;">
-
-
-                </canvas>
-
-                </div>
-
-                <!----------------	Ratio LAB Metric DE2000:	  --------------->
-                <div class="row" style="width:100%; height:auto; background:white; margin-bottom:4vh;">
-
-
-                  <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: left;  height:5vh; line-height:5vh">Ratio LAB Metric DE2000:</p>
-
-                  <canvas id="id_anaylseRatioDe2000" style="width:70%; height:5vh; border: 2px solid black;">
-
-
-                </canvas>
-
-                </div>
-
-                <!----------------	Ratio DIN99 Euclidean Distance:	  --------------->
-                <div class="row" style="width:100%; height:auto; background:white; margin-bottom:4vh;">
-
-
-                  <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: left;  height:5vh; line-height:5vh">Ratio DIN99 Euclidean Distance:</p>
-
-                  <canvas id="id_anaylseRatioDIN99" style="width:70%; height:5vh; border: 2px solid black;">
-
-
-                </canvas>
-
-                </div>
 
 
                 <div style="height:auto; overflow:auto; width:100%; margin-bottom:2vh;">
-                  <h4 style="width:100%; height:3vh; height:3vh; line-height:3vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; padding-left:20px; font-size:2.5vh; margin-bottom:2vh; background:black; margin-bottom:0px;"> Table of the Difference Maps </h4>
+                  <h4 style="width:100%; height:3vh; height:3vh; line-height:3vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; padding-left:20px; font-size:2.5vh; margin-bottom:2vh; background:black; margin-bottom:0px;"> Key Speed Table </h4>
 
                   <table style="width:100%; background:white; overflow:auto;" id="id_table">
                     <thead>
                       <tr style="border-top:1px solid white;">
                         <th class="class_tablelabel" style="width:4%; border-left:1px solid white;"># Band</th>
-                        <th class="class_tablelabel" style="min-width:6.4%;">delta Ref</th>
-                        <th class="class_tablelabel" style="min-width:6.4%;">ratio Ref</th>
-                        <th class="class_tablelabel" style="min-width:6.4%;">delta RGB</th>
-                        <th class="class_tablelabel" style="min-width:6.4%;">ratio RGB</th>
-                        <th class="class_tablelabel" style="min-width:6.4%;">delta HSV</th>
-                        <th class="class_tablelabel" style="min-width:6.4%;">ratio HSV</th>
-                        <th class="class_tablelabel" style="min-width:6.4%;">delta Lab</th>
-                        <th class="class_tablelabel" style="min-width:6.4%;">ratio Lab</th>
-                        <th class="class_tablelabel" style="min-width:6.4%;">delta DE94</th>
-                        <th class="class_tablelabel" style="min-width:6.4%;">ratio DE94</th>
-                        <th class="class_tablelabel" style="min-width:6.4%;">delta DE00</th>
-                        <th class="class_tablelabel" style="min-width:6.4%;">ratio DE00</th>
-                        <th class="class_tablelabel" style="min-width:6.4%;">delta DIN99</th>
-                        <th class="class_tablelabel" style="min-width:6.4%;">ratio DIN99</th>
+                        <th class="class_tablelabel" style="min-width:6.4%;">speed RGB</th>
+                        <th class="class_tablelabel" style="min-width:6.4%;">ratio RGB Speed</th>
+                        <th class="class_tablelabel" style="min-width:6.4%;">speed HSV</th>
+                        <th class="class_tablelabel" style="min-width:6.4%;">ratio HSV Speed</th>
+                        <th class="class_tablelabel" style="min-width:6.4%;">speed Lab</th>
+                        <th class="class_tablelabel" style="min-width:6.4%;">ratio Lab Speed</th>
+                        <th class="class_tablelabel" style="min-width:6.4%;">speed DE94</th>
+                        <th class="class_tablelabel" style="min-width:6.4%;">ratio DE94 Speed</th>
+                        <th class="class_tablelabel" style="min-width:6.4%;">speed DE00</th>
+                        <th class="class_tablelabel" style="min-width:6.4%;">ratio DE00 Speed</th>
+                        <th class="class_tablelabel" style="min-width:6.4%;">speed DIN99</th>
+                        <th class="class_tablelabel" style="min-width:6.4%;">ratio DIN99 Speed</th>
                       </tr>
                     </thead>
 
