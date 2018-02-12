@@ -6,6 +6,7 @@ function updateAnalyzePage(){
   }
 
   if(document.getElementById("analyzeColormapPath").style.display!="none"){
+    intervalSize=100;
     initRGB3D();
     changeCourseSpace();
     return;
@@ -125,7 +126,7 @@ function changeAnalyzePage(type){
       case 1:
           document.getElementById("id_selectAnalyzePath").style.background=styleActiveColor;
           document.getElementById("analyzeColormapPath").style.display="inline-block";
-          intervalSize=200;
+          intervalSize=100;
           initRGB3D();
           changeCourseSpace();
         break;
@@ -177,8 +178,6 @@ function changeAnalyzePage(type){
 
 
 }
-
-
 
 
 function increaseAnalyse3DDiv(){
@@ -266,7 +265,8 @@ function changeCourseSpace(){
   document.getElementById("id_RGBCourseDiv").style.display = "none";
 
   switch(analyzeColorspaceModus){
-      case "rgb":;
+      case "rgb":
+        stopAnimation();
         document.getElementById("id_RGBCourseDiv").style.display = "initial";
         //rgbInit("id_canvasRG","id_canvasRB","id_canvasBG", true);
         drawcolormap_RGBSpace(globalColormap1, "id_canvasRG","id_canvasRB","id_canvasBG", true, true);
@@ -354,7 +354,33 @@ function calcOrderPlot(intervalColormap, plotid, type, minId, minGlobalId){
       canvasCtx.mozImageSmoothingEnabled = false;
       canvasCtx.imageSmoothingEnabled = false;
 
+      /*var canvasData = canvasCtx.createImageData(canvasPlot.width, canvasPlot.height); //getImageData(0, 0, canvasPlot.width, canvasPlot.height);
+            var colorRef = new classColor_RGB(0.5,0.5,0.5);
+            var tmpColor = new classColor_RGB(1,1,1);
+            var counter =0;
 
+            for(var y=0; y<canvasPlot.width; y++){
+
+              for(var x=0; x<canvasPlot.height; x++){
+
+                  var index = (x + y * canvasPlot.width) * 4;
+                  canvasData.data[index + 0] = Math.round(colorRef.getRValue() * 255); // r
+                  canvasData.data[index + 1] = Math.round(colorRef.getGValue() * 255); // g
+                  canvasData.data[index + 2] = Math.round(colorRef.getBValue() * 255); // b
+                  canvasData.data[index + 3] = 255; //a
+
+              }
+
+              counter++;
+              if(counter==5){
+                var change = colorRef;
+                colorRef = tmpColor;
+                tmpColor = change;
+                counter=0;
+              }
+
+            }
+            canvasCtx.putImageData(canvasData, 0, 0);//*/
 
       ///////////////////////////////////////////////////////////////
       ///// init order plot
@@ -399,6 +425,10 @@ function calcOrderPlot(intervalColormap, plotid, type, minId, minGlobalId){
 
           canvasCtx.font = labelFontSize+"px Arial";
           canvasCtx.fillText("|local Order|",colormapXStart+arrowWidth,labelYStart);
+          var width = canvasCtx.measureText("|local Order|").width;
+          var height = canvasCtx.measureText("|local Order|").height;
+          canvasCtx.fillStyle = "rgb(1,1,1)";
+          canvasCtx.fillRect(colormapXStart+arrowWidth,labelYStart, width, height);
           //////////////////////////////////////////////////////////////////////
           //// Arrow 2
           canvasCtx.strokeStyle = "rgb(0,0,0)";
@@ -421,6 +451,15 @@ function calcOrderPlot(intervalColormap, plotid, type, minId, minGlobalId){
 
           canvasCtx.font = labelFontSize+"px Arial";
           canvasCtx.fillText("negative global Order",colormapXStart+arrowWidth,canvasPlot.height-labelYStart);
+          var width = canvasCtx.measureText("negative global Order").width;
+          var height = canvasCtx.measureText("negative global Order").height;
+          canvasCtx.fillStyle = "rgb(1,1,1)";
+          canvasCtx.fillRect(colormapXStart+arrowWidth,canvasPlot.height-labelYStart, width, height);
+
+
+          //////////////////////////////////////////////////////////// draw refLineSketchContainer
+
+
 
           //////////////////////////////////////////////////////////////////////
           //// Draw intervals
@@ -551,18 +590,20 @@ function calcOrderPlot(intervalColormap, plotid, type, minId, minGlobalId){
           //////////////////////////////////////////////////////////////
 
           var arrayk0 = [];
- var t1,t2,t3;
+          var t1,t2,t3;
+
+          var minGlobal = 100000;
           for(var k0=0; k0<intervalColormap.getIntervalLength()-2; k0++){
 
                   var deltaE_K0_K2=0;
                   var deltaE_K1_K2=0;
                   var deltaE_K0_K1=0;
 
-                  var arrayk2 = [];
+                  //var arrayk2 = [-1,-1,-1,-1];
 
                   for(var k2=k0+2; k2<intervalColormap.getIntervalLength(); k2++){
 
-                      var arrayk1 = [];
+                      var arrayk2 = [-1,-1,-1,-1];
 
                       for(var k1=k0+1; k1<k2; k1++){
 
@@ -601,132 +642,55 @@ function calcOrderPlot(intervalColormap, plotid, type, minId, minGlobalId){
 
                         var orderVal = Math.min(tmpVal1,tmpVal2);
 
+                        if(orderVal<arrayk2[0]){
+                          minGlobal = Math.min(minGlobal,orderVal);
 
-
-                        minGlobal = Math.min(minGlobal,orderVal);
-
-                        if(orderVal<0)
-                        arrayk1.push(orderVal);
-                        else
-                        arrayk1.push(0);
-
+                          arrayk2[0]= orderVal;
+                          arrayk2[1]= k0;
+                          arrayk2[2]= k1;
+                          arrayk2[3]= k2;
+                          //
+                        }
 
                       }
 
-                      arrayk2.push(arrayk1);
-                  }
-                  arrayk0.push(arrayk2);
+                      if(arrayk2[3]!=-1)
+                      arrayk0.push(arrayk2);
 
+                  }
 
           }
 
+
+          if(minGlobal>=0)
+          return;
+
+          // sort
+          arrayk0 = quickSort(arrayk0);
 
           // draw
 
-          var maxNegMin = minGlobal;
-          if(maxNegMin<0){
-            maxNegMin*=-1;
-          }
+          for(var i=0; i<arrayk0.length; i++){
 
-          if(maxNegMin==0){
-            return;
-          }
+              var colorRef = intervalColormap.getIntervalColor(arrayk0[i][2],"rgb");//new classColor_RGB(0,0,0); //intervalColormap.getIntervalColor(k1Pos,"rgb");
 
-          //canvasCtx.globalAlpha=0.4;
-          for(var k0=0; k0<arrayk0.length; k0++){
+              var xPosK0 = colormapXStart+arrayk0[i][1]*bandWidth+(bandWidth/2);
+              var xPosK2 = colormapXStart+arrayk0[i][3]*bandWidth+(bandWidth/2);
+              var xPosK1 = colormapXStart+arrayk0[i][2]*bandWidth+(bandWidth/2);
 
+              var deltaHeight = (arrowPlotHeight*(arrayk0[i][0]/minGlobal)*2);
 
-            for(var k2=0; k2<arrayk0[k0].length; k2++){
+              var yPosK1 = colormapYEnd+deltaHeight;
 
-                var k2Pos = k0+2+k2;
-                var k1Pos = k0+1+localMinIndex;
-
-                var localMinIndex = -1;
-                var minVal = 100000;
-
-                /*for(var k1=0; k1<arrayk0[k0][k2].length; k1++){
-
-                  if(arrayk0[k0][k2][k1]<0){
-                    ////////////////////////////////////////////////////////////////////
-
-                    var colorRef = intervalColormap.getIntervalColor(k1Pos,"rgb");
-                    var xPosK0 = colormapXStart+k0*bandWidth+(bandWidth/2);
-                    var xPosK2 = colormapXStart+k2Pos*bandWidth+(bandWidth/2);
-                    var xPosK1 = colormapXStart+k1Pos*bandWidth+(bandWidth/2);
-
-                    var tmpMin = arrayk0[k0][k2][k1];
-
-                    if(tmpMin<0)
-                    tmpMin*=-1;
-
-                    /*if(tmpMin==maxNegMin)
-                        canvasCtx.globalAlpha=1.0;
-                    else
-                        canvasCtx.globalAlpha=0.2;* /
-
-                    var deltaHeight = (arrowPlotHeight*(tmpMin/maxNegMin)*2);
-                    var yPosK1 = colormapYEnd+deltaHeight;
-
-                    //canvasCtx.globalAlpha=tmpMin/maxNegMin;
-                    canvasCtx.strokeStyle = colorRef.getRGBString();//"rgb(0,0,0)";
-                    canvasCtx.beginPath();
-                    canvasCtx.lineWidth=2;
-                    canvasCtx.beginPath();
-                    canvasCtx.moveTo(xPosK0,colormapYEnd);
-                    canvasCtx.quadraticCurveTo(xPosK1,yPosK1,xPosK2,colormapYEnd);
-                    canvasCtx.stroke();
-                  }//*/
-
-
-
-
-                for(var k2=0; k2<arrayk0[k0].length; k2++){
-
-                      var localMinIndex = -1;
-                      var minVal = 100000;
-                      for(var k1=0; k1<arrayk0[k0][k2].length; k1++){
-
-                          if(arrayk0[k0][k2][k1]<minVal){
-                            minVal=arrayk0[k0][k2][k1];
-                            localMinIndex=k1;
-                          }
-                      }
-
-
-                      var k2Pos = k0+2+k2;
-                      var k1Pos = k0+1+localMinIndex;
-
-                      if(arrayk0[k0][k2][localMinIndex]<0){
-
-                        var colorRef = intervalColormap.getIntervalColor(k1Pos,"rgb");
-                        var xPosK0 = colormapXStart+k0*bandWidth+(bandWidth/2);
-                        var xPosK2 = colormapXStart+k2Pos*bandWidth+(bandWidth/2);
-                        var xPosK1 = colormapXStart+k1Pos*bandWidth+(bandWidth/2);
-
-                        var tmpMin = arrayk0[k0][k2][localMinIndex];
-
-                        if(tmpMin<0)
-                        tmpMin*=-1;
-
-                        var deltaHeight = (arrowPlotHeight*(tmpMin/maxNegMin)*2);
-                        var yPosK1 = colormapYEnd+deltaHeight;
-
-                        canvasCtx.globalAlpha=1.0+(-0.8*(tmpMin/maxNegMin));
-                        canvasCtx.strokeStyle = colorRef.getRGBString();//"rgb(0,0,0)";
-                        canvasCtx.beginPath();
-                        canvasCtx.lineWidth=2;
-                        canvasCtx.beginPath();
-                        canvasCtx.moveTo(xPosK0,colormapYEnd);
-                        canvasCtx.quadraticCurveTo(xPosK1,yPosK1,xPosK2,colormapYEnd);
-                        canvasCtx.stroke();
-                      }//*/
-
-
-                  }
-
-                }
-          }//*/
-
+              //canvasCtx.globalAlpha=1.0+(-0.8*(tmpMin/maxNegMin));
+                      canvasCtx.strokeStyle = colorRef.getRGBString();//"rgb(0,0,0)";
+                      canvasCtx.beginPath();
+                      canvasCtx.lineWidth=2;
+                      canvasCtx.beginPath();
+                      canvasCtx.moveTo(xPosK0,colormapYEnd);
+                      canvasCtx.quadraticCurveTo(xPosK1,yPosK1,xPosK2,colormapYEnd);
+                      canvasCtx.stroke();
+            }
 
 
 
@@ -945,7 +909,6 @@ function calcLocalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId, 
       var bandWidth = canvasPlot.width/(intervalColormap.getIntervalLength()-1);
 
       var vector = [];
-
       var colorRef = new classColor_RGB(0.5,0.5,0.5);
       var tmpColor = new classColor_RGB(1,1,1);
       var counter =0;
@@ -1161,7 +1124,7 @@ function drawAnalyseDifferenceMaps(){
   canvasPreviewREF.height = 1;
   canvasPreviewC1.width = resolutionX_differenceMetrics;
   canvasPreviewC1.height = 1;
-  var ref1PreviewCtx = canvasPreviewREF.getContext("2d");
+  var ref1iPreviewCtx = canvasPreviewREF.getContext("2d");
   var ref1PreviewData = ref1PreviewCtx.getImageData(0, 0, resolutionX_differenceMetrics, 1);
   var c1PreviewCtx = canvasPreviewC1.getContext("2d");
   var c1PreviewData = c1PreviewCtx.getImageData(0, 0, resolutionX_differenceMetrics, 1);*/
