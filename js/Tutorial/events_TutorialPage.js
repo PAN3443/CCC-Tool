@@ -1,6 +1,6 @@
 function changeTutorial(type) {
 
-  document.getElementById("button_showMyDesignsTutorial").style.border = "0.2vh solid white";
+  /*document.getElementById("button_showMyDesignsTutorial").style.border = "0.2vh solid white";
   document.getElementById("button_showMyDesignsTutorial").style.color = "white";
   document.getElementById("button_showCreateTutorial").style.border = "0.2vh solid white";
   document.getElementById("button_showCreateTutorial").style.color = "white";
@@ -51,7 +51,7 @@ function changeTutorial(type) {
     break;
     default:
       return;
-  }
+  }*/
 
 
 

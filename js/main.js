@@ -296,13 +296,13 @@ window.onload = function() {
   /////////////////////////////// Tutorial Side /////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  document.getElementById('id_expandCreatePageMenueLayout').addEventListener("click", expandTutorialDivs);
-  document.getElementById('id_expandCreatePageHowCreateColormap').addEventListener("click", expandTutorialDivs);
-  document.getElementById('id_expandCreatePageHowCreateBand').addEventListener("click", expandTutorialDivs);
-  document.getElementById('id_expandCreatePageExampleVideos').addEventListener("click", expandTutorialDivs);
-  document.getElementById('id_expandAnalyseCourse').addEventListener("click", expandTutorialDivs);
-  document.getElementById('id_expandAnalyseColorspaces').addEventListener("click", expandTutorialDivs);
-  document.getElementById('id_expandAnalyseDifferenceMaps').addEventListener("click", expandTutorialDivs);
+  //document.getElementById('id_expandCreatePageMenueLayout').addEventListener("click", expandTutorialDivs);
+  //document.getElementById('id_expandCreatePageHowCreateColormap').addEventListener("click", expandTutorialDivs);
+  //document.getElementById('id_expandCreatePageHowCreateBand').addEventListener("click", expandTutorialDivs);
+  //document.getElementById('id_expandCreatePageExampleVideos').addEventListener("click", expandTutorialDivs);
+  //document.getElementById('id_expandAnalyseCourse').addEventListener("click", expandTutorialDivs);
+  //document.getElementById('id_expandAnalyseColorspaces').addEventListener("click", expandTutorialDivs);
+  //document.getElementById('id_expandAnalyseDifferenceMaps').addEventListener("click", expandTutorialDivs);
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Export Side /////////////////////////////////////
