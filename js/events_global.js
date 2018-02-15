@@ -203,7 +203,7 @@ function changeColorspace(type) {
 
   if (showSideID == 1) { // CREATE SIDE
 
-    switch (type) {
+    /*switch (type) {
       case 0:
 
         var tmpactivColorIndex = activColorIndex;
@@ -361,9 +361,9 @@ function changeColorspace(type) {
       default:
         console.log("Error at the changeColorspace function");
 
-    }
+    }*/
     drawPredefinedBands();
-    updateCreatorBand();
+    //updateCreatorBand();
 
   }
 
@@ -373,10 +373,13 @@ function changeColorspace(type) {
 
 
 function openSavePopUp(){
+
     document.getElementById("popupSaveWindow").style.display="inline-block";
+    doSave();
 }
 
 function cancelSave(){
+
     document.getElementById("popupSaveWindow").style.display="none";
     globalColormap1 = myList[colormap1SelectIndex];
     bandSketch.colormap2Sketch(globalColormap1);
@@ -396,7 +399,6 @@ function doSave(){
 }
 
 function doSaveAsNew(){
-
     if(saveTwoColormaps){
       if(myList.length<9){
         myList.push(tmpSaveColormap);

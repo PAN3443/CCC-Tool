@@ -272,7 +272,7 @@ function exportSide_createXML(){
            isCMS="false";
          }
 
-         switch(colorspaceModus) {
+         switch(exportColorspace) {
             case "rgb":
                 xmltxt=xmltxt+"r=\""+tmpColor.getRValue()+"\" g=\""+tmpColor.getGValue()+"\" b=\""+tmpColor.getBValue()+"\" cms=\""+isCMS+"\"/>\n";
                 break;
