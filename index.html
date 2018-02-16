@@ -196,17 +196,6 @@
       </div>
     </div>
 
-    <div id="id_Tutorial_Menue" style="height:100%; width: auto; margin-left:auto; display:none;">
-      <div class="row" style="height:100%; width: 100%;">
-        <h3 style="height:1.5cm; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:1cm; font-size:2vh;"> Tutorial for: </h3>
-        <button class="classButtonDark" onclick="changeTutorial(4)" id="button_showSpecificationTutorial" title="Analyse Tutorial" style="border-radius: 0.3vh; background: none; width: auto; height:3vh; font-size:1.75vh; margin:1vh; border: 0.2vh solid rgb(0,191,255); color: rgb(0,191,255);">General</button-->
-        <button class="classButtonDark" onclick="changeTutorial(0)" id="button_showMyDesignsTutorial" title="MyDesigns Tutorial"  style="border-radius: 0.3vh; background: none; width: auto; height:3vh; font-size:1.75vh; margin:1vh; border: 0.2vh solid white; color: white; ">MyDesigns</button>
-        <button class="classButtonDark" onclick="changeTutorial(1)" id="button_showCreateTutorial" title="Create Tutorial" style="border-radius: 0.3vh; background: none; width: auto; height:3vh; font-size:1.75vh; margin:1vh; border: 0.2vh solid white; color:white; ">Create Colormap</button>
-        <button class="classButtonDark" onclick="changeTutorial(2)" id="button_showExportTutorial" title="Export Tutorial" style="border-radius: 0.3vh; background: none; width: auto; height:3vh; font-size:1.75vh; margin:1vh; border: 0.2vh solid white; color:white; ">Export Colormap</button>
-        <button class="classButtonDark" onclick="changeTutorial(3)" id="button_showAnalyseTutorial" title="Analyse Tutorial" style="border-radius: 0.3vh; background: none; width: auto; height:3vh; font-size:1.75vh; margin:1vh; border: 0.2vh solid white; color:white;">Analyze Colormap</button>
-      </div>
-    </div>
-
   </div>
   </div>
 
@@ -2516,13 +2505,24 @@
     </div>
 
   </div>
-</div>
+
   <!--
         ---------------------------------------------------
         ----------------	Tutorial Window  -------------
         ---------------------------------------------------
         -->
-  <div id="id_tutorialPage" style="width: 100%; height:auto; background:white;">
+  <div id="id_tutorialPage" style="width: 96%; height:auto; background:white; margin-left:2%;">
+
+
+    <div id="id_Tutorial_Menue" class="row" style="height:auto; width:100%; margin:0px;">
+
+      <button class="classButtonBlue" onclick="changeTutorial(4)" id="button_showSpecificationTutorial" title="Analyse Tutorial" style="width:20%">Colormap Specification</button-->
+      <button class="classButtonBlue" onclick="changeTutorial(0)" id="button_showMyDesignsTutorial" title="MyDesigns Tutorial"  style="width:20%">MyDesigns</button>
+      <button class="classButtonBlue" onclick="changeTutorial(1)" id="button_showCreateTutorial" title="Create Tutorial" style="width:20%">Create and Edit</button>
+      <button class="classButtonBlue" onclick="changeTutorial(2)" id="button_showExportTutorial" title="Export Tutorial" style="width:20%">Export</button>
+      <button class="classButtonBlue" onclick="changeTutorial(3)" id="button_showAnalyseTutorial" title="Analyse Tutorial" style="width:20%">Analyze and Compare</button>
+
+    </div>
 
 
     <!--
@@ -2531,11 +2531,11 @@
           -->
   <div id="id_colormapspecification" style="width: 100%; height:auto; background:rgb(210,210,210); display:none;">
 
-      <div style="margin-left:10%; width:80%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:white; padding-top:2vh; padding-bottom:2vh; box-shadow:  0.3vh  0.3vh grey;">
+      <div style="width:100%; height:auto; background:white; padding-top:2vh; padding-bottom:2vh; box-shadow:  0.3vh  0.3vh grey;">
 
           <h1 style="margin-left:2%; width:96%; text-align:center; height:3vh; line-height:3vh; font-size:3vh; vertical-align:middle; margin-top:2vh;"> 1. The Tutorial Page </h1>
 
-          <img title="CCC-Tool Construction" src="img/Tutorial/gerneralTutorial_MenuBar.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;">
+          <img title="CCC-Tool Construction" ssrc="img/Tutorial/gerneralTutorial_MenuBar.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;">
           <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
           <strong>Image 2.1: </strong> Diagram of the construction of the CCC-Tool
           </p>
@@ -2547,7 +2547,7 @@
             Following is a plot about the construction of the webtool.
           </p>
 
-          <img title="CCC-Tool Construction" src="img/Tutorial/webtoolConstruction.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:20%; width:60%;">
+          <img title="CCC-Tool Construction" ssrc="img/Tutorial/webtoolConstruction.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:20%; width:60%;">
           <p style="margin-left:20%; width:60%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
           <strong>Image 2.1: </strong> Diagram of the construction of the CCC-Tool
           </p>
@@ -2555,24 +2555,24 @@
 
           <h1 style="margin-left:2%; width:96%; text-align:center; height:3vh; line-height:3vh; font-size:3vh; vertical-align:middle; margin-top:2vh;"> 3. Specification of Continuous Colormaps </h1>
 
-          <img title="CCC-Tool Construction" src="img/Tutorial/definition_Colormap.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;">
+          <img title="CCC-Tool Construction" ssrc="img/Tutorial/definition_Colormap.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;">
           <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
           <strong>Image 3.1: </strong> Diagram of the construction of the CCC-Tool
           </p>
 
-          <img title="CCC-Tool Construction" src="img/Tutorial/example_Colormap.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;">
+          <img title="CCC-Tool Construction" ssrc="img/Tutorial/example_Colormap.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;">
           <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
           <strong>Image 3.2: </strong> Diagram of the construction of the CCC-Tool
           </p>
 
           <h1 style="margin-left:2%; width:96%; text-align:center; height:3vh; line-height:3vh; font-size:3vh; vertical-align:middle; margin-top:2vh;"> 4. Perceptual Uniform Colormaps</h1>
 
-          <img title="CCC-Tool Construction" src="img/Tutorial/definition_Interval.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;">
+          <img title="CCC-Tool Construction" ssrc="img/Tutorial/definition_Interval.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;">
           <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
           <strong>Image 4.1: </strong> Diagram of the construction of the CCC-Tool
           </p>
 
-          <img title="CCC-Tool Construction" src="img/Tutorial/definitions_Optimization.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;">
+          <img title="CCC-Tool Construction" ssrc="img/Tutorial/definitions_Optimization.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;">
           <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
           <strong>Image 4.2: </strong> Diagram of the construction of the CCC-Tool
           </p>
@@ -2585,8 +2585,8 @@
 
       -->
     <div id="id_tutorialMyDesignsPage" style="width: 100%; height:auto; background:rgb(210,210,210); display:none;">
-  <!--
-     <div style="margin-left:10%; width:80%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:white; padding-top:2vh; padding-bottom:2vh; box-shadow:  0.3vh  0.3vh grey;">
+
+     <div style="width:100%; height:auto; background:white; padding-top:2vh; padding-bottom:2vh; box-shadow:  0.3vh  0.3vh grey;">
       <h1 style="margin-left:10%; width:80%; text-align:center; height:3vh; line-height:3vh; font-size:3vh; vertical-align:middle; margin-top:2vh;"> Tutorial MyDesigns and Add of Existing Colormaps </h1>
 
         <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
@@ -2599,7 +2599,7 @@
         </p>
 
 
-        <img title="MyDesigns" src="img/Tutorial/MyDesignsTutorial1.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%; border: 1px solid black;">
+        <img title="MyDesigns" sssrc="img/Tutorial/MyDesignsTutorial1.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%; border: 1px solid black;">
         <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
         <strong>Image 1.: </strong> MyDesigns page with some added colormaps.
         </p>
@@ -2614,7 +2614,7 @@
           </p>
 
 
-        <img title="Add Page" src="img/Tutorial/tutorialAddPage.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
+        <img title="Add Page" sssrc="img/Tutorial/tutorialAddPage.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
         <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
           <strong>Image 2.: </strong> Page for adding a existing colormap.
         </p>
@@ -2626,7 +2626,7 @@
           You can find more informations about the create colormap page at the tutorial (Click on the button at the menu bar).
         </p>
 
-        <img title="MyDesigns Selection" src="img/Tutorial/MyDesignsTutorial2.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
+        <img title="MyDesigns Selection" ssrc="img/Tutorial/MyDesignsTutorial2.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
         <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
          <strong>Image 3.: </strong> MyDesigns page in selection mode for the analyze.
         </p>
@@ -2647,10 +2647,10 @@
     <!--
           ----------------	Tutorial Create Page  -------------
 
-          ->
+        -->
     <div id="id_tutorialCreatePage" style="width: 100%; height:auto; background:rgb(210,210,210); display:none;">
 
-      <div style="margin-left:10%; width:80%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:white; padding-top:2vh; padding-bottom:2vh; box-shadow:  0.3vh  0.3vh grey;">
+      <div style=" width:100%; height:auto; background:white; padding-top:2vh; padding-bottom:2vh; box-shadow:  0.3vh  0.3vh grey;">
 
         <h1 style="margin-left:10%; width:80%; text-align:center; height:3vh; line-height:3vh; font-size:3vh; vertical-align:middle; margin-top:2vh;"> Tutorial Create a Colormap </h1>
 
@@ -2666,7 +2666,7 @@
           </p>
 
 
-        <!------------------	Menu Layout  >
+        <!------------------	Menu Layout  -->
         <div id="id_expandCreatePageMenueLayout" class="class_AddLabel1" style="background:rgb(250,250,250); margin-left:10%; width:80%;">
           1. Menu and Layout
         </div>
@@ -2678,7 +2678,7 @@
               The menu bar (Image 1.1) consist of two parts. On the left side you can see the colorspace options. This options are available on the most parts of the webtool. You can select one of the colorspaces and the webtool draw all displayed color gradients with an interpolation in the selected colorspace.
             </p>
 
-          <img title="Create Page Menu" src="img/Tutorial/createPage_Menu.png" style="margin-top:1vh; margin-bottom:0.2vh; margin-left:10%; width: 80%;border: 1px solid black;">
+          <img title="Create Page Menu" ssrc="img/Tutorial/createPage_Menu.png" style="margin-top:1vh; margin-bottom:0.2vh; margin-left:10%; width: 80%;border: 1px solid black;">
           <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
           <strong>Image 1.1: </strong> Menu Bar of the Create Page
           </p>
@@ -2699,7 +2699,7 @@
               In this case all following (or previous) values in the band sketch will be update, so that the distance to the new value is equal to old distance.
             </p>
 
-          <img title="Create Page Menu" src="img/Tutorial/createPage_BandSketchEmpty.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width: 80%;border: 1px solid black;">
+          <img title="Create Page Menu" ssrc="img/Tutorial/createPage_BandSketchEmpty.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width: 80%;border: 1px solid black;">
           <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
           <strong>Image 1.2: </strong> Colormap Band Sketch
           </p>
@@ -2711,7 +2711,7 @@
               A creation of a new existing band has the advantage that you can use this band in several colormaps. You will find more informations about the band creator at the next section "How to create a colormap".
             </p>
 
-          <img title="Create Page Menu" src="img/Tutorial/createPage_ExistingBands.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width: 80%; border: 1px solid black;">
+          <img title="Create Page Menu" ssrc="img/Tutorial/createPage_ExistingBands.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width: 80%; border: 1px solid black;">
           <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
           <strong>Image 1.3: </strong> Existing Bands
           </p>
@@ -2724,7 +2724,7 @@
               Grap one of the keys between the first and the last one and you can switching per mouse moving into the right or left direction. Alternative there are also input fields for the reference value modification directly under the linear colormap.
             </p>
 
-          <img title="Create Page Menu" src="img/Tutorial/linearColormap.gif" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width: 80%;border: 1px solid black;">
+          <img title="Create Page Menu" ssrc="img/Tutorial/linearColormap.gif" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width: 80%;border: 1px solid black;">
           <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
           <strong>Image 1.4: </strong> Linear Colormap vs Colormap Band Sketch
           </p>
@@ -2733,7 +2733,7 @@
               Left next to the linear colormap you will find a black bar. Click on it and a table with the colormap informations will be open (Image 1.5). You can use this table for a alternative overview or you can copy it and paste the table into spreadsheet software (like excel, calc, ..).
             </p>
 
-          <img title="Create Page Menu" src="img/Tutorial/colormapTable.gif" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width: 80%;border: 1px solid black;">
+          <img title="Create Page Menu" ssrc="img/Tutorial/colormapTable.gif" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width: 80%;border: 1px solid black;">
           <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
           <strong>Image 1.5: </strong> Colormap Table
           </p>
@@ -2741,7 +2741,7 @@
 
         </div>
 
-        <!------------------	How create a colormap  >
+        <!------------------	How create a colormap  -->
         <div id="id_expandCreatePageHowCreateColormap" class="class_AddLabel1" style="background:rgb(250,250,250); margin-left:10%; width:80%;">
           2. How to create a colormap.
         </div>
@@ -2759,7 +2759,7 @@
               In the section 4. you can see a video of the creation of a colormap.
             </p>
 
-            <img title="Drag Drop Bands" src="img/Tutorial/bandSketch.gif" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width: 80%;border: 1px solid black;">
+            <img title="Drag Drop Bands" ssrc="img/Tutorial/bandSketch.gif" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width: 80%;border: 1px solid black;">
             <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
               <strong>Image 2.1: </strong> Create Colormap by drag and drop of bands into the Colormap Band Sketch.
             </p>
@@ -2775,7 +2775,7 @@
               On the right side of the colorpicker you will find four buttons, where you can display a short help, cancel the editing, accept the editing or delete the band from the Colormap Band Sketch.
             </p>
 
-              <img title="Band Editor" src="img/Tutorial/bandeditorScaledColor.gif" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width: 80%;border: 1px solid black;">
+              <img title="Band Editor" ssrc="img/Tutorial/bandeditorScaledColor.gif" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width: 80%;border: 1px solid black;">
               <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
                 <strong>Image 2.2: </strong> Band Editor Example: change the color with the colorpicker.
               </p>
@@ -2790,7 +2790,7 @@
                 In this case click on the rectangle above the neighboring band and the color of the modifiable band will be updated. You can see an example at the Image 2.3.
               </p>
 
-              <img title="Band Editor" src="img/Tutorial/bandeditorNeighborColor.gif" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width: 80%;border: 1px solid black;">
+              <img title="Band Editor" ssrc="img/Tutorial/bandeditorNeighborColor.gif" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width: 80%;border: 1px solid black;">
               <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
                 <strong>Image 2.3: </strong> Band Editor Example: change the color to the neighboring color.
               </p>
@@ -2803,7 +2803,7 @@
                 </p>
 
 
-              <img title="Band Editor" src="img/Tutorial/bandeditorConstant.gif" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width: 80%;border: 1px solid black;">
+              <img title="Band Editor" ssrc="img/Tutorial/bandeditorConstant.gif" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width: 80%;border: 1px solid black;">
               <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
                 <strong>Image 2.4: </strong> Band Editor Example: create a constant band.
               </p>
@@ -2830,7 +2830,7 @@
               You can see an example for the creation of a band at the Image 3.1.
           </p>
 
-            <img title="Band Creator" src="img/Tutorial/bandCreator.gif" style="margin-top:1vh; margin-bottom:1vh; margin-left:30%; width: 40%;border: 1px solid black;">
+            <img title="Band Creator" ssrc="img/Tutorial/bandCreator.gif" style="margin-top:1vh; margin-bottom:1vh; margin-left:30%; width: 40%;border: 1px solid black;">
             <p style="margin-left:30%; width:40%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
               <strong>Image 3.1: </strong> Band Creator: Example for the creation of a band.
             </p>
@@ -2862,10 +2862,10 @@
     <!--
           ----------------	Tutorial Export  -------------
 
-          ->
+        -->
     <div id="id_tutorialExportPage" style="width: 100%; height:auto; display:none; background:rgb(210,210,210);">
 
-      <div style="margin-left:10%; width:80%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:white; padding-top:2vh; padding-bottom:2vh; box-shadow:  0.3vh  0.3vh grey;">
+      <div style="width:100%; height:auto; background:white; padding-top:2vh; padding-bottom:2vh; box-shadow:  0.3vh  0.3vh grey;">
       <h1 style="margin-left:2%; width:96%; text-align:center; height:3vh; line-height:3vh; font-size:3vh; vertical-align:middle; margin-top:2vh;"> 1. Tutorial Export </h1>
 
         <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
@@ -2876,7 +2876,7 @@
           After activate a export button a pop up window will be displayed (Image 1).
          </p>
 
-         <img title="Export Window" src="img/Tutorial/exportPopUpWindow.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%; border: 1px solid black;">
+         <img title="Export Window" ssrc="img/Tutorial/exportPopUpWindow.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%; border: 1px solid black;">
          <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
          <strong>Image 1: </strong> Example for the export pop up window.
          </p>
@@ -2891,7 +2891,7 @@
           The next setting is the "Export Format", which determine the file format of the exported map. The CCC-Tool can save the data inside of a xml, a json or a text file. More informations about the different file formats you can find at the next section of this tutorial.
           </p>
 
-          <img title="Example Colorspace Interval Approximation" src="img/Tutorial/exportPage_IntervalExample.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%; border: 1px solid black;">
+          <img title="Example Colorspace Interval Approximation" ssrc="img/Tutorial/exportPage_IntervalExample.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%; border: 1px solid black;">
           <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
           <strong>Image 2: </strong> Example for Colorspace Interval Approximation. Save the colormap with the export colorspace RGB with the using of interval colors, calculated in the Lab Colorspace.
           </p>
@@ -2914,10 +2914,10 @@
            This process prevent the calculation of interval colors inside of constant bands.
           </p>
 
-          <!--img title="Result Colorspace Interval Approximation" src="img/Tutorial/exportPage_IntervalResult.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%; border: 1px solid black;">
+          <!--img title="Result Colorspace Interval Approximation" ssrc="img/Tutorial/exportPage_IntervalResult.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%; border: 1px solid black;">
             <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
             <strong>Image 3: </strong> Result of Colorspace Interval Approximation from Image 1 visualized in the RGB colorspace.
-          </p->
+          </p-->
 
               <video style="width:50%; margin-left:25%;" controls>
                 <source src="video/tutorial_exampleIntervals.mp4" type="video/mp4">
@@ -3155,9 +3155,9 @@
     <!--
           ----------------	Tutorial Analyse  -------------
 
-          ->
+        -->
     <div id="id_tutorialAnalysePage" style="width: 100%; height:auto; display:none; background:rgb(210,210,210);">
-      <div style="margin-left:10%; width:80%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:white; padding-top:2vh; padding-bottom:2vh; box-shadow:  0.3vh  0.3vh grey;">
+      <div style=" width:100%; height:auto; background:white; padding-top:2vh; padding-bottom:2vh; box-shadow:  0.3vh  0.3vh grey;">
       <h1 style="margin-left:2%; width:96%; text-align:center; height:3vh; line-height:3vh; font-size:3vh; vertical-align:middle; margin-top:2vh;"> Tutorial Analyze </h1>
 
         <p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
@@ -3187,7 +3187,7 @@
                 The tutorial will get to the explain colorspace visualizations later.
           </p>
 
-          <img title="Colormap Course Legend" src="img/Tutorial/analyseLegendCourse.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
+          <img title="Colormap Course Legend" ssrc="img/Tutorial/analyseLegendCourse.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
           <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
           <strong>Image 1.1: </strong> Legend for the colormap course
           </p>
@@ -3214,7 +3214,7 @@
                 Click and hold the mouse button above the circle or square you want to modify. Now move the mouse and therefore also the circle or square to a desired position.
           </p>
 
-          <img title="Colormap Course Cross" src="img/Tutorial/analyseCrossCourse.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
+          <img title="Colormap Course Cross" ssrc="img/Tutorial/analyseCrossCourse.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
           <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
           <strong>Image 1.2: </strong> Example for a colormap course, where two parts are crossing. (HSV Colorspace)
           </p>
@@ -3229,7 +3229,7 @@
                 You can update the opacity value of 3D colorspace the with the number input above the plots.
           </p>
 
-          <img title="Colormap Course RGB" src="img/Tutorial/rgbColorspace.gif" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
+          <img title="Colormap Course RGB" ssrc="img/Tutorial/rgbColorspace.gif" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
           <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
           <strong>Image 1.3: </strong> Example for colormap course in the RGB colorspace.
           </p>
@@ -3242,7 +3242,7 @@
             You can also set the default value for the background color in the number input field above the plots.
           </p>
 
-          <img title="Colormap Course HSV" src="img/Tutorial/hsvColorspace.gif" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
+          <img title="Colormap Course HSV" ssrc="img/Tutorial/hsvColorspace.gif" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
           <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
           <strong>Image 1.4: </strong> Example for colormap course in the HSV colorspace.
           </p>
@@ -3254,12 +3254,12 @@
             You can see an example for such a limitation at the animations of the Image 1.5 and 1.6.
           </p>
 
-          <img title="Colormap Course LAB" src="img/Tutorial/labColorspace.gif" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
+          <img title="Colormap Course LAB" ssrc="img/Tutorial/labColorspace.gif" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
           <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
           <strong>Image 1.5: </strong> Example for colormap course in the Lab colorspace.
           </p>
 
-          <img title="Colormap Course DIN99" src="img/Tutorial/din99Colorspace.gif" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
+          <img title="Colormap Course DIN99" ssrc="img/Tutorial/din99Colorspace.gif" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
           <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
           <strong>Image 1.6: </strong> Example for colormap course in the DIN99 colorspace.
           </p>
@@ -3283,7 +3283,7 @@
 
           </p>
 
-          <img title="Analyze Colorspace" src="img/Tutorial/analyseColorspaces.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
+          <img title="Analyze Colorspace" ssrc="img/Tutorial/analyseColorspaces.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
           <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
           <strong>Image 2.1: </strong> Example of the analyse of the interpolations in different colormaps.
           </p>
@@ -3319,7 +3319,7 @@
             You can see the visualizations below the bar graph of the reference ranges.
           </p>
 
-          <img title="Difference Maps" src="img/Tutorial/analyseDifferenceMaps.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
+          <img title="Difference Maps" ssrc="img/Tutorial/analyseDifferenceMaps.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
           <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
           <strong>Image 3.1: </strong> Example of the analyse of the Difference Maps.
           </p>
@@ -3330,7 +3330,7 @@
             You can see an example at the image 3.2.
           </p>
 
-          <img title="Difference Maps" src="img/Tutorial/analyseDifferenceMapsExample.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
+          <img title="Difference Maps" ssrc="img/Tutorial/analyseDifferenceMapsExample.png" style="margin-top:1vh; margin-bottom:1vh; margin-left:10%; width:80%;border: 1px solid black;">
           <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom: 2vh; margin-top: 0px;">
           <strong>Image 3.2: </strong>
           </p>
@@ -3343,9 +3343,11 @@
 
 
 
-  </div-->
+  </div>
 
   </div>
+
+</div>
 
 
   <!--

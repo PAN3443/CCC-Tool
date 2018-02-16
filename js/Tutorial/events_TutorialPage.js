@@ -1,17 +1,11 @@
 function changeTutorial(type) {
 
-  /*document.getElementById("button_showMyDesignsTutorial").style.border = "0.2vh solid white";
-  document.getElementById("button_showMyDesignsTutorial").style.color = "white";
-  document.getElementById("button_showCreateTutorial").style.border = "0.2vh solid white";
-  document.getElementById("button_showCreateTutorial").style.color = "white";
-  document.getElementById("button_showExportTutorial").style.border = "0.2vh solid white";
-  document.getElementById("button_showExportTutorial").style.color = "white";
-  document.getElementById("button_showAnalyseTutorial").style.border = "0.2vh solid white";
-  document.getElementById("button_showAnalyseTutorial").style.color = "white";
-  document.getElementById("button_showSpecificationTutorial").style.border = "0.2vh solid white";
-  document.getElementById("button_showSpecificationTutorial").style.color = "white";
 
-
+  document.getElementById("button_showMyDesignsTutorial").style.background=styleInactiveColor;
+  document.getElementById("button_showCreateTutorial").style.background=styleInactiveColor;
+  document.getElementById("button_showExportTutorial").style.background=styleInactiveColor;
+  document.getElementById("button_showAnalyseTutorial").style.background=styleInactiveColor;
+  document.getElementById("button_showSpecificationTutorial").style.background=styleInactiveColor;
 
   document.getElementById("id_colormapspecification").style.display = "none";
   document.getElementById("id_tutorialMyDesignsPage").style.display = "none";
@@ -21,37 +15,28 @@ function changeTutorial(type) {
 
   switch (type) {
     case 0:
-      document.getElementById("button_showMyDesignsTutorial").style.border = "0.2vh solid rgb(0,191,255)";
-      document.getElementById("button_showMyDesignsTutorial").style.color = "rgb(0,191,255)";
+      document.getElementById("button_showMyDesignsTutorial").style.background=styleActiveColor;
       document.getElementById("id_tutorialMyDesignsPage").style.display = "inline-block";
-
       break;
     case 1:
-      document.getElementById("button_showCreateTutorial").style.border = "0.2vh solid rgb(0,191,255)";
-      document.getElementById("button_showCreateTutorial").style.color = "rgb(0,191,255)";
+      document.getElementById("button_showCreateTutorial").style.background=styleActiveColor;
       document.getElementById("id_tutorialCreatePage").style.display = "inline-block";
-
       break;
     case 2:
-      document.getElementById("button_showExportTutorial").style.border = "0.2vh solid rgb(0,191,255)";
-      document.getElementById("button_showExportTutorial").style.color = "rgb(0,191,255)";
+      document.getElementById("button_showExportTutorial").style.background=styleActiveColor;
       document.getElementById("id_tutorialExportPage").style.display = "inline-block";
-
       break;
     case 3:
-      document.getElementById("button_showAnalyseTutorial").style.border = "0.2vh solid rgb(0,191,255)";
-      document.getElementById("button_showAnalyseTutorial").style.color = "rgb(0,191,255)";
+      document.getElementById("button_showAnalyseTutorial").style.background=styleActiveColor;
       document.getElementById("id_tutorialAnalysePage").style.display = "inline-block";
       break;
-
     case 4:
-      document.getElementById("button_showSpecificationTutorial").style.border = "0.2vh solid rgb(0,191,255)";
-      document.getElementById("button_showSpecificationTutorial").style.color = "rgb(0,191,255)";
+      document.getElementById("button_showSpecificationTutorial").style.background=styleActiveColor;
       document.getElementById("id_colormapspecification").style.display = "inline-block";
     break;
     default:
       return;
-  }*/
+  }
 
 
 

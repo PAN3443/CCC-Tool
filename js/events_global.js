@@ -371,11 +371,10 @@ function changeColorspace(type) {
 }
 
 
-
 function openSavePopUp(){
 
     document.getElementById("popupSaveWindow").style.display="inline-block";
-    doSave();
+
 }
 
 function cancelSave(){
@@ -601,7 +600,7 @@ function changePage(type){
                   return;
                   document.getElementById("id_tutorialPage").style.display = "none";
                   document.getElementById("id_Colorspace_Menue").style.display = "initial";
-                  document.getElementById("id_Tutorial_Menue").style.display = "none";
+                  //document.getElementById("id_Tutorial_Menue").style.display = "none";
                   document.getElementById("div_colormapBandSketch").style.display = "inline-block";
 
 
@@ -769,7 +768,7 @@ function changePage(type){
       /////////////////////////////////////////
       showSideID = 5;
       document.getElementById("id_tutorialPage").style.display = "inline-block";
-      document.getElementById("id_Tutorial_Menue").style.display = "inline-block";
+      //document.getElementById("id_Tutorial_Menue").style.display = "inline-block";
       document.getElementById("button_showTutorial").style.background = styleActiveColor;
       document.getElementById("id_Colorspace_Menue").style.display = "none";
       document.getElementById("div_colormapBandSketch").style.display = "none";
