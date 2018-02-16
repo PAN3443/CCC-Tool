@@ -6,6 +6,17 @@ function hideAddCMSHelp(){
   document.getElementById("addCMS_help").style.display="none";
 }
 
+
+function showMyDesingsPreview(){
+  document.getElementById("addPage_MyDesignsPreview").style.display="inline-block";
+}
+
+function hideMyDesingsPreview(){
+  document.getElementById("addPage_MyDesignsPreview").style.display="none";
+}
+
+
+
 function drawAddExistingAddPage(){
 
     for(var i=0; i<myList.length; i++){

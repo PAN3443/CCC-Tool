@@ -36,6 +36,11 @@ window.onload = function() {
   document.getElementById('addCMS_ShowHelp').addEventListener("mouseenter", showAddCMSHelp);
   document.getElementById('addCMS_ShowHelp').addEventListener("mouseleave", hideAddCMSHelp);
 
+  document.getElementById('buttonShowMyDesignsPreview').addEventListener("mouseenter", showMyDesingsPreview);
+  document.getElementById('buttonShowMyDesignsPreview').addEventListener("mouseleave", hideMyDesingsPreview);
+
+
+
 
 
   var colormapPath = pathColormaps+folderYellow+fileYellowColormaps[0];
