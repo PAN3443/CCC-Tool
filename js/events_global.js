@@ -854,7 +854,7 @@ function changePage(type){
 
 function initNewPage(){
 
-  colormap1SelectIndex=-1;
+  colormap2SelectIndex=-1;
   somethingChanged = false;
 
   document.getElementById("button_showMyDesigns").style.background = styleInactiveColor;
