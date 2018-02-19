@@ -769,7 +769,7 @@ function changePage(type){
                 tmpSaveColormap2 = newMap2;
 
                 saveTwoColormaps=true;
-                
+
                 if(somethingChanged)
                 openSavePopUp();
                 else if(initPageType!=5)
@@ -854,6 +854,7 @@ function changePage(type){
 
 function initNewPage(){
 
+  colormap1SelectIndex=-1;
   somethingChanged = false;
 
   document.getElementById("button_showMyDesigns").style.background = styleInactiveColor;

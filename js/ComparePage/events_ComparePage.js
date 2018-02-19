@@ -324,6 +324,7 @@ function switchCompareMaps(){
   bandSketch.colormap2Sketch(globalColormap1);
   bandSketch2.colormap2Sketch(globalColormap2);
 
+  orderColorSketch();
   updateComparePage()
 }
 
