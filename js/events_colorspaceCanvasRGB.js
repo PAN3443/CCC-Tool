@@ -206,6 +206,7 @@ function mouseMoveColorspaceRGB(event) {
       if(updateSketchID2 != -1)
           bandSketch.setC2(tmpColor, updateSketchID2);
 
+      somethingChanged = true;
 
         if(showSpace==1){
 

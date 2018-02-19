@@ -59,6 +59,7 @@ function mouseMoveKeyRef(event){
    if(newRef >= bandSketch.getRefR1(overKeyID) && newRef <= bandSketch.getRefR2(overKeyID+1)){
      bandSketch.setRefR2(overKeyID,newRef);
      bandSketch.setRefR1(overKeyID+1,newRef);
+     somethingChanged = true;
    }
 
  }

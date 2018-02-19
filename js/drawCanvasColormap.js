@@ -157,8 +157,8 @@ function createScaledBand(canvasData, xStart, bandWidth, bandHeight, color1, col
   bandWidth = Math.round(bandWidth);
   bandHeight = Math.round(bandHeight);
 
-//  console.log(typeof color1);
-//  console.log('createScaledBand: ' + color1.getColorType());
+  //  console.log(typeof color1);
+  //  console.log('createScaledBand: ' + color1.getColorType());
 
 
   switch (colorspaceModus) {
@@ -442,7 +442,7 @@ function drawKeys(canvasID, resolutionX, resolutionY, tmpColormap, lineKeyID, do
 
         /////////////////// draw ref /////////
         keySingCounter++;
-        if (doStartEndRef) {
+
           var tmpText = '' + tmpColormap.getPosition(i); //.toFixed(numDecimalPlaces);
 
           var body = document.body;
@@ -468,8 +468,7 @@ function drawKeys(canvasID, resolutionX, resolutionY, tmpColormap, lineKeyID, do
           }
 
 
-        } else
-          document.getElementById("id_linearMap_InputLeftRef").value = tmpColormap.getPosition(i).toFixed(numDecimalPlaces);
+
 
         break;
       case "twin key":
@@ -570,7 +569,6 @@ function drawKeys(canvasID, resolutionX, resolutionY, tmpColormap, lineKeyID, do
           if (i == tmpColormap.getNumColors() - 1) {
             /////////////////// draw ref /////////
             keySingCounter++;
-            if (doStartEndRef) {
               var tmpText = '' + tmpColormap.getPosition(i); //.toFixed(numDecimalPlaces);
 
               var body = document.body;
@@ -594,8 +592,7 @@ function drawKeys(canvasID, resolutionX, resolutionY, tmpColormap, lineKeyID, do
               } else {
                 createKeyTextBox(xposHTML, yposHTML, tmpText);
               }
-            } else
-              document.getElementById("id_linearMap_InputRightRef").value = tmpColormap.getPosition(i).toFixed(numDecimalPlaces);
+
             //tmpArray.pop();
           } else {
 
@@ -660,7 +657,6 @@ function drawKeys(canvasID, resolutionX, resolutionY, tmpColormap, lineKeyID, do
 
         /////////////////// draw ref /////////
         keySingCounter++;
-        if (doStartEndRef) {
           var tmpText = '' + tmpColormap.getPosition(i); //.toFixed(numDecimalPlaces);
 
           var body = document.body;
@@ -679,12 +675,11 @@ function drawKeys(canvasID, resolutionX, resolutionY, tmpColormap, lineKeyID, do
           var yposHTML = box.height + top;
 
           if (doInput) {
-                createKeyInputBox(xposHTML, yposHTML, tmpText, keySingCounter);
+            createKeyInputBox(xposHTML, yposHTML, tmpText, keySingCounter);
           } else {
             createKeyTextBox(xposHTML, yposHTML, tmpText);
           }
-        } else
-          document.getElementById("id_linearMap_InputLeftRef").value = tmpColormap.getPosition(i).toFixed(numDecimalPlaces);
+
 
         break;
       default:
@@ -813,6 +808,7 @@ function createKeyInputBox(leftVal, topVal, tmpText, index) {
       var inputObj = document.getElementById(id);
 
       checkInputVal(inputObj, true, true);
+
     };
   })(inputID);
 
@@ -840,7 +836,7 @@ function changeKeyValueInput(keyIndex, fielID) {
     drawKeys("id_keyColormap",key_resolution_X, key_resolution_Y, globalColormap1, "id_keyColormapLinesBottom",false, true)
     fillTable();
   }
-
+  somethingChanged = true;
   orderColorSketch(); // for updating ref
 
   /*    if (newRef >= bandSketch.getRefR1(keyIndex-1) && newRef <= bandSketch.getRefR2(keyIndex)) {

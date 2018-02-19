@@ -257,7 +257,7 @@ function mouseMoveColorspace(event) {
     if (updateSketchID2 != -1)
       bandSketch.setC2(tmpColor, updateSketchID2);
 
-  } else {
+      somethingChanged = true;
 
   }
 
@@ -898,6 +898,7 @@ function mouseMoveValuePlot(event) {
       if (updateSketchID2 != -1)
         bandSketch.setC2(tmpColor, updateSketchID2);
 
+      somethingChanged = true;
     }
   }
 

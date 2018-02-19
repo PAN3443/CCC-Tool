@@ -321,7 +321,10 @@ function switchCompareMaps(){
   globalColormap2 = globalColormap1;
   globalColormap1 = tmpColormap;
 
-  initComparePage();
+  bandSketch.colormap2Sketch(globalColormap1);
+  bandSketch2.colormap2Sketch(globalColormap2);
+
+  updateComparePage()
 }
 
 function changeCourseSpaceCompare(){

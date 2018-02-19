@@ -34,6 +34,40 @@ function deleteCreatedColormap(){
 
 }
 
+function saveColormapToList(){
+
+  if(bandSketch.getBandLength()>0){
+
+    if(isEdit==-1){
+
+      if(myList.length<9){
+        var newMap = bandSketch.sketch2Colormap(colorspaceModus, globalColormap1.getColormapName());
+        myList.push(newMap);
+        colormap1SelectIndex=myList.length-1;
+        clearCreateSide();
+
+        bandSketch.clearSketch();
+        orderColorSketch();
+      }
+      else{
+        changePage(0);
+      }
+
+    }
+    else{
+
+      var newMap = bandSketch.sketch2Colormap(colorspaceModus, globalColormap1.getColormapName());
+      tmpSaveColormap = newMap;
+
+      openSavePopUp();
+      //changePage(0);
+
+    }
+
+  }
+
+}
+
 function createPage_showHelp(){
 
   var body = document.body;

@@ -174,8 +174,8 @@
       <div class="row" style="height:100%; width: auto;">
         <h3 style="height:5vh; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; padding-left:20px; font-size:2vh;"> NAME: </h3>
         <input id="id_InputMapName" type="text" name="key space" value="Cus. Colormap" style="height:2.5vh; line-height:2.5vh; font-size:2vh; text-align:center; vertical-align: middle; margin-top:0.5vh; margin-left:1vh; margin-right:1vh;">
-        <!--button class="classButtonDark" id="id_buttonExportCreateColormap" title="export" style="border-radius: 0.3vh; background: url(img/exportButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
-        <!--button class="classButtonDark" id="id_buttonSaveCreateColormap" title="save to MyDesigns" style="border-radius: 0.3vh; background: url(img/saveButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button-->
+        <!--button class="classButtonDark" id="id_buttonExportCreateColormap" title="export" style="border-radius: 0.3vh; background: url(img/exportButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button-->
+        <button class="classButtonDark" id="id_buttonSaveCreateColormap" title="save to MyDesigns" style="border-radius: 0.3vh; background: url(img/saveButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
         <button class="classButtonDark" id="id_buttonLoadCreateColormap" title="load" style="border-radius: 0.3vh; background: url(img/loadButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
         <button class="classButtonDark" id="id_buttonDeleteCreateColormap" title="delete" style="border-radius: 0.3vh; background: url(img/trashButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white; "></button>
         <button class="classButtonDark" id="id_buttonBackwardCreateColormap" title="backward" style="display:none; border-radius: 0.3vh; background: url(img/backwardsButton.png); background-size:cover; background-repeat:no-repeat; background-position: center center; width: 3vh; height:3vh; margin:1vh; border: 0.2vh solid white;"></button>
@@ -250,7 +250,7 @@
         </div>
 
         <!-- colormaps -->
-        <div id="id_colormapsDiv" style="height: 42vh; width:100%; margin:0px;">
+        <div id="id_colormapsDiv" style="height: 42vh; width:100%; margin:0px; padding-bottom: 3vh;">
 
           <div style="height:100%; width:100%; padding-top: 0.5vh;">
 
@@ -266,11 +266,7 @@
             <canvas style="margin-top: 0px; width:100%; height: 2vh; margin-left:0%;" id="id_keyColormapLinesBottom">
 
                                     </canvas>
-            <div class="row" style="width:100%;">
-              <input id="id_linearMap_InputLeftRef" type="text" name="key space" value="0.00" style="margin:0px; height:2vh; line-height:2vh; font-size:1.8vh; text-align:center; vertical-align: middle;margin-left:2px; width:5%;">
-              <div style="width:89%"> </div>
-              <input id="id_linearMap_InputRightRef" type="text" name="key space" value="1.00" style="margin:0px; height:2vh; line-height:2vh; font-size:1.8vh; text-align:center; vertical-align: middle;margin-right:2px; width:5%;">
-            </div>
+
 
           </div>
 
@@ -306,6 +302,16 @@
           ----------------	Compare Colormap Band Sketch ---------------
           ---------------- -------------------------------
           -->
+    <div id="div_switchButton" style="margin-left:2%; width:96%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:white; box-shadow:  0.3vh  0.3vh grey; display:none;">
+              <!--h4 style="width:100%; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Colormap Band Sketch </h4-->
+              <div class="row" style="width:100%; margin-top:2vh; margin-bottom:2vh;">
+                <h1 style="width:auto; text-align:center; height:5vh; line-height:5vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-left:auto;"> Switch CMS 1 with CMS 2:  </h1>
+
+                <button class="classButtonWhite" onclick="switchCompareMaps()" title="Switch" style="margin:0px; margin-left:5%; margin-right:auto; border-radius: 0.5vh; width:5vw; height:5vh; line-height:5vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180);"> &#x21C5; </button>
+              </div>
+
+
+    </div>
 
     <div id="div_colormapBandSketch2" style="margin-left:2%; width:96%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:white; box-shadow:  0.3vh  0.3vh grey; display:none;">
         <!--h4 style="width:100%; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Colormap Band Sketch </h4-->

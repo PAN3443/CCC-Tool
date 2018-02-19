@@ -54,46 +54,6 @@ function expandTable(){
     drawPredefinedBands();
 }
 
-function colormapRefInputChange(e){
-  checkInputVal(document.getElementById(e.target.id),true,true);
-
-  if (bandSketch.getBandLength()!=0) {
-
-    if(e.target.id=="id_linearMap_InputLeftRef")
-    bandSketch.setRefR1Update(0,parseFloat(document.getElementById("id_linearMap_InputLeftRef").value));
-    else
-    bandSketch.setRefR2Update(bandSketch.getBandLength()-1,parseFloat(document.getElementById("id_linearMap_InputRightRef").value));
-
-    globalColormap1 = bandSketch.sketch2Colormap(colorspaceModus, globalColormap1.getColormapName());
-    orderColorSketch(colorspaceModus);
-  }
-}
-
-function colormapRefInputChangeEnter(e){
-  checkInputVal(document.getElementById(e.target.id),true,true);
-
-  if (e.keyCode == 13 && bandSketch.getBandLength()!=0) {
-
-    if(parseFloat(document.getElementById("id_linearMap_InputLeftRef").value)>bandSketch.getRefR2(0)){
-      alert("The new value for the minimal x reference is not allowed to be bigger then his right neighbour value");
-      document.getElementById("id_linearMap_InputLeftRef").value = bandSketch.getRefR1(0);
-    }
-    else{
-      bandSketch.setRefR1(0,parseFloat(document.getElementById("id_linearMap_InputLeftRef").value));
-    }
-
-    if(parseFloat(document.getElementById("id_linearMap_InputRightRef").value)<bandSketch.getRefR1(bandSketch.getBandLength()-1)){
-      alert("The new value for the maximal x reference is not allowed to be smaller then his left neighbour value");
-      document.getElementById("id_linearMap_InputRightRef").value = bandSketch.getRefR2(bandSketch.getBandLength()-1);
-    }
-    else{
-      bandSketch.setRefR2(bandSketch.getBandLength()-1,parseFloat(document.getElementById("id_linearMap_InputRightRef").value));
-    }
-    orderColorSketch(colorspaceModus);
-  }
-}
-
-
 ///////////////////////////////
 //// switch modify //////
 ///////////////////////////////

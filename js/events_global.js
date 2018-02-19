@@ -398,19 +398,21 @@ function changeColorspace(type) {
 function openSavePopUp(){
 
     document.getElementById("popupSaveWindow").style.display="inline-block";
-
+    somethingChanged = false;
 }
 
 function cancelSave(){
 
     document.getElementById("popupSaveWindow").style.display="none";
-    globalColormap1 = myList[colormap1SelectIndex];
-    bandSketch.colormap2Sketch(globalColormap1);
-    orderColorSketch();
+
     if(initPageType!=5)
     initNewPage();
     else
     openCompareSelect();
+
+    globalColormap1 = myList[colormap1SelectIndex];
+    bandSketch.colormap2Sketch(globalColormap1);
+    orderColorSketch();
 }
 
 function doSave(){
@@ -427,6 +429,7 @@ function doSave(){
     initNewPage();
     else
     openCompareSelect();
+
 }
 
 function doSaveAsNew(){
@@ -434,7 +437,7 @@ function doSaveAsNew(){
       if(myList.length<9){
         myList.push(tmpSaveColormap);
         myList.push(tmpSaveColormap2);
-        colormap1SelectIndex=myList.length-1;
+        colormap1SelectIndex=myList.length-2;
         colormap2SelectIndex=-1;
         document.getElementById("popupSaveWindow").style.display="none";
         drawMyList();
@@ -674,7 +677,12 @@ function changePage(type){
                   var newMap = bandSketch.sketch2Colormap(colorspaceModus, globalColormap1.getColormapName());
                   tmpSaveColormap = newMap;
 
+                  if(somethingChanged)
                   openSavePopUp();
+                  else if(initPageType!=5)
+                  initNewPage();
+                  else
+                  openCompareSelect();
 
                   //myList[isEdit]=newMap;
                 }
@@ -723,7 +731,12 @@ function changePage(type){
                 var newMap = bandSketch.sketch2Colormap(colorspaceModus, globalColormap1.getColormapName());
                 tmpSaveColormap = newMap;
 
+                if(somethingChanged)
                 openSavePopUp();
+                else if(initPageType!=5)
+                initNewPage();
+                else
+                openCompareSelect();
 
                 //alert("Ask user if he want to save as new or replace the CMS");
                 //myList[colormap1SelectIndex] = globalColormap1;
@@ -738,6 +751,7 @@ function changePage(type){
 
                 document.getElementById("id_comparePage").style.display = "none";
                 document.getElementById("div_colormapBandSketch2").style.display = "none";
+                document.getElementById("div_switchButton").style.display = "none";
                 for(var i = refLineSketchContainer.length-1; i>=0; i--){
                   refLineSketchContainer[i].remove();
                   refLineSketchContainer.pop();
@@ -754,7 +768,14 @@ function changePage(type){
                 var newMap2 = bandSketch2.sketch2Colormap(colorspaceModus, globalColormap1.getColormapName());
                 tmpSaveColormap2 = newMap2;
 
+                saveTwoColormaps=true;
+                
+                if(somethingChanged)
                 openSavePopUp();
+                else if(initPageType!=5)
+                initNewPage();
+                else
+                openCompareSelect();
 
 
 
@@ -832,6 +853,8 @@ function changePage(type){
 }
 
 function initNewPage(){
+
+  somethingChanged = false;
 
   document.getElementById("button_showMyDesigns").style.background = styleInactiveColor;
   document.getElementById("button_showGallary").style.background = styleInactiveColor;
@@ -944,6 +967,7 @@ function initNewPage(){
 
       //document.getElementById("id_IntervalOption").style.marginLeft = "20px";
       document.getElementById("div_colormapBandSketch2").style.display = "inline-block";
+      document.getElementById("div_switchButton").style.display = "inline-block";
       document.getElementById("id_comparePage").style.display = "inline-block";
       document.getElementById("button_showCompare").style.background = styleActiveColor;
       //document.getElementById("id_AnalyseColorspace_Menue").style.display = "inline";

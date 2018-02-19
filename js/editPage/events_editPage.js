@@ -232,6 +232,7 @@ function colorChange(){
     drawEditPageColorCircles("editPage_canvasPicker","editPage_canvasPicker2", colorpickerType);
   }
 
+
 }
 
 function addKeyButtons(){
@@ -595,6 +596,18 @@ function editPage_CheckScalar(event){
   var inputObj = document.getElementById(event.target.id);
 
   checkInputVal(inputObj, true, true);
+
+  if (event.keyCode == 13) {
+    var id = event.target.id;
+    switch (selectedKey) {
+      case 0:
+        changeKeyValueInputSketch(selectedKey, true, id, false);
+        break;
+      default:
+        changeKeyValueInputSketch(selectedKey-1, false, id, false);
+    }
+    orderColorSketch();
+  }
 }
 
 function changeKeyType(event){
@@ -699,6 +712,7 @@ function changeKeyType(event){
 
   orderColorSketch();
   selectKey();
+  somethingChanged = true;
 }
 
 function changeColorpickerType(event){
@@ -900,6 +914,8 @@ function editPageConfirmColor(){
             document.getElementById("editPage_SetColor").style.background="none";
       }
   }
+
+  somethingChanged = true;
 
 }
 

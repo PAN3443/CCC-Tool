@@ -40,9 +40,6 @@ window.onload = function() {
   document.getElementById('buttonShowMyDesignsPreview').addEventListener("mouseleave", hideMyDesingsPreview);
 
 
-
-
-
   var colormapPath = pathColormaps+folderYellow+fileYellowColormaps[0];
   var tmpMap  = xmlColormapParserPath(colormapPath);
   drawCanvasColormap( "canvasPreviewYellow", existingMap_resolution_X,  existingMap_resolution_Y, tmpMap);
@@ -172,11 +169,7 @@ window.onload = function() {
                                               document.getElementById('bandCreator_canvasPicker2').addEventListener("mousemove", event_colorpicker_MouseMove);
                                               document.getElementById('bandCreator_canvasPicker2').addEventListener("click", event_colorpicker_MouseClick);
 
-  // Colormap Ref Min Max Change
-  document.getElementById('id_linearMap_InputLeftRef').addEventListener("change", colormapRefInputChange);
-  document.getElementById('id_linearMap_InputLeftRef').addEventListener("keyup", colormapRefInputChangeEnter);
-  document.getElementById('id_linearMap_InputRightRef').addEventListener("change", colormapRefInputChange);
-  document.getElementById('id_linearMap_InputRightRef').addEventListener("keyup", colormapRefInputChangeEnter);
+
 
   // Ref Change Key Rects
   document.getElementById('id_keyColormap').addEventListener("mouseenter", mouseEnterKeyRef);
@@ -196,7 +189,7 @@ window.onload = function() {
   document.getElementById('id_buttonDeleteCreateColormap').addEventListener("click", deleteCreatedColormap);
   document.getElementById('id_buttonBackwardCreateColormap').addEventListener("click", backwardColormapProcess);
   document.getElementById('id_buttonForwardCreateColormap').addEventListener("click", forwardColormapProcess);
-  //document.getElementById('id_buttonSaveCreateColormap').addEventListener("click", saveColormapToList);
+  document.getElementById('id_buttonSaveCreateColormap').addEventListener("click", saveColormapToList);
   //document.getElementById('id_buttonExportCreateColormap').addEventListener("click", createSideExport);
   document.getElementById('id_buttonLoadCreateColormap').addEventListener("click", loadColormapCreateSide);
 
@@ -374,7 +367,7 @@ function orderColorSketch(forColorspace) {
       // show and draw the colormap
       document.getElementById("id_LinearMap_Table_Div").style.display = "inline-block";
       drawCanvasColormap("id_linearColormap", linearMap_resolution_X, linearMap_resolution_Y, globalColormap1);
-      drawKeys("id_keyColormap", key_resolution_X, key_resolution_Y, globalColormap1, "id_keyColormapLinesBottom", false, true);
+      drawKeys("id_keyColormap", key_resolution_X, key_resolution_Y, globalColormap1, "id_keyColormapLinesBottom", true, true);
       fillTable();
     }
 
@@ -820,6 +813,8 @@ function changeKeyValueInputSketch(sketchIndex, doR1, fielID, doBandSketch2) {
 
   var newRef = parseFloat(inputObj.value);
 
+
+
   if (doBandSketch2) {
 
     if (doR1) {
@@ -831,6 +826,7 @@ function changeKeyValueInputSketch(sketchIndex, doR1, fielID, doBandSketch2) {
     if (showSideID == 3) {
       globalColormap2 = bandSketch2.sketch2Colormap(colorspaceModus, globalColormap2.getColormapName());
       updateComparePage();
+      somethingChanged = true;
     }
   } else {
     if (doR1) {
@@ -841,23 +837,30 @@ function changeKeyValueInputSketch(sketchIndex, doR1, fielID, doBandSketch2) {
 
 
     globalColormap1 = bandSketch.sketch2Colormap(colorspaceModus, globalColormap1.getColormapName());
-    if (showSideID == 1) {
-      drawCanvasColormap("id_linearColormap", linearMap_resolution_X, linearMap_resolution_Y, globalColormap1);
-      drawKeys("id_keyColormap", key_resolution_X, key_resolution_Y, globalColormap1, "id_keyColormapLinesBottom", false, true)
-      fillTable();
-    }
 
-    if (showSideID == 2) {
-      updateAnalyzePage();
-    }
 
-    if (showSideID == 3) {
-      updateComparePage();
-    }
-
-    if (showSideID == 6) {
-      drawCanvasColormap("id_previewColormapExport", linearMap_resolution_X, linearMap_resolution_Y, globalColormap1);
-      fillExportTable();
+    switch (showSideID) {
+        case 1:
+        drawCanvasColormap("id_linearColormap", linearMap_resolution_X, linearMap_resolution_Y, globalColormap1);
+        drawKeys("id_keyColormap", key_resolution_X, key_resolution_Y, globalColormap1, "id_keyColormapLinesBottom", true, true)
+        fillTable();
+        somethingChanged = true;
+        break;
+        case 2:
+        updateAnalyzePage();
+        somethingChanged = true;
+        break;
+        case 3:
+        updateComparePage();
+        somethingChanged = true;
+        break;
+        case 6:
+        drawCanvasColormap("id_previewColormapExport", linearMap_resolution_X, linearMap_resolution_Y, globalColormap1);
+        fillExportTable();
+        break;
+      default:
+        var newMap = bandSketch.sketch2Colormap(colorspaceModus, globalColormap1.getColormapName());
+        myList[colormap1SelectIndex] = newMap;
     }
 
   }
