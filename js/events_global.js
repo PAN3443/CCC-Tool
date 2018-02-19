@@ -623,7 +623,7 @@ function changePage(type){
 
   }
 
-
+  colormap2SelectIndex=-1;
   initPageType=type;
 
   // old page
@@ -854,7 +854,6 @@ function changePage(type){
 
 function initNewPage(){
 
-  colormap2SelectIndex=-1;
   somethingChanged = false;
 
   document.getElementById("button_showMyDesigns").style.background = styleInactiveColor;
