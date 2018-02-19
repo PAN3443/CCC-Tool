@@ -287,7 +287,7 @@
 
     <div id="div_colormapBandSketch" style="margin-left:2%; width:96%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:white; box-shadow:  0.3vh  0.3vh grey; display:none;">
         <!--h4 style="width:100%; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Colormap Band Sketch </h4-->
-        <h1 style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin-top:0vh; padding-top:2vh;"> Colormap Band Sketch of active CMS </h1>
+        <h1 style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin-top:0vh; padding-top:2vh;"> Colormap Band Sketch of the active CMS </h1>
 
         <canvas style="margin-top: 0px; width:100%; height: 10vh;" id="id_createColormapKeys">
         </canvas>
@@ -295,6 +295,28 @@
         </div>
 
         <div class="row" style="margin-top: 0px; width:95%; height: 2vh; margin-left:auto; margin-right:auto;" id="id_colormapSketch_Ref">
+        </div>
+
+        <div style="margin-top: 0px; width:95%; height: 5vh; margin-left:auto; margin-right:auto;">
+        </div>
+    </div>
+
+    <!--
+          -----------------------------------------------
+          ----------------	Compare Colormap Band Sketch ---------------
+          ---------------- -------------------------------
+          -->
+
+    <div id="div_colormapBandSketch2" style="margin-left:2%; width:96%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:white; box-shadow:  0.3vh  0.3vh grey; display:none;">
+        <!--h4 style="width:100%; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Colormap Band Sketch </h4-->
+        <h1 style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin-top:0vh; padding-top:2vh;"> Colormap Band Sketch of the compare CMS (not modifiable) </h1>
+
+        <canvas style="margin-top: 0px; width:100%; height: 10vh;" id="id_createColormapKeys2">
+        </canvas>
+        <div class="row" style="margin-top: 0px; width:95%; height: 8vh; margin-left:auto;  margin-right:auto;" id="id_colormapSketch2">
+        </div>
+
+        <div class="row" style="margin-top: 0px; width:95%; height: 2vh; margin-left:auto; margin-right:auto;" id="id_colormapSketch_Ref2">
         </div>
 
         <div style="margin-top: 0px; width:95%; height: 5vh; margin-left:auto; margin-right:auto;">
@@ -662,7 +684,7 @@
 
     <div style="margin-left:2%; width:96%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:white; box-shadow:  0.3vh  0.3vh grey;">
       <h1 style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin: 0vh; padding-top:2vh;"> MyDesigns</h1>
-      <h1 style="width:100%; text-align:center; height:2vh; line-height:2vh; font-size:1.8vh; vertical-align:middle; margin:0vh; padding-top:0.5vh;"> (Manage Your Colormap Specifications (CMS)) </h1>
+      <h1 style="width:100%; text-align:center; height:2vh; line-height:2vh; font-size:1.8vh; vertical-align:middle; margin:0vh; padding-top:0.5vh;"> Manage Your Colormap Specifications (CMS) </h1>
 
         <!--p style="margin-left:10%; width:80%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
         <strong>Welcome</strong> to the CCC-Tool. The following is a short instruction
@@ -1180,532 +1202,888 @@
   </div>
 
 
+
+
   <!--
-        -----------------------------------------------
-        ----------------	Compare	  -----------------
-        -----------------------------------------------
+        ----------------------------------------------------------------------------------------------
+        ----------------------------------------------------------------------------------------------
+        ----------------	Compare	  ----------------------------------------------------------------
+        ----------------------------------------------------------------------------------------------
+        ----------------------------------------------------------------------------------------------
         -->
-  <div id="id_comparePage" style="width: 100%; height:auto; display:none;">
+  <div id="id_comparePage" style="margin-left:2%; width:96%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:white; box-shadow:  0.3vh  0.3vh grey; display:none; ">
 
-    <!--
-      ---------------- Colormap Sketch Bands ----------------
-      -->
+      <div class="row" style="height:auto; width:100%; margin:0px;">
+
+        <button id="id_selectCompareSpace" onclick="changeComparePage(0)" class="classButtonBlue" title="Integration Spaces" style="width:20%">Integration Spaces</button>
+        <button id="id_selectComparePath" onclick="changeComparePage(1)" class="classButtonBlue" title="Path Plot" style="width:20%">Path Plot</button>
+        <button id="id_selectCompareMatrix" onclick="changeComparePage(2)" class="classButtonBlue" title="Speed Matrix Plot" style="width:20%"> Matrix Plot</button>
+        <button id="id_selectCompareLine" onclick="changeComparePage(4)" class="classButtonBlue" title="Speed Line Plot" style="width:20%"> Line Plot </button>
+        <button id="id_selectCompareBar" onclick="changeComparePage(3)" class="classButtonBlue" title="Difference Bar Plot" style="width:20%"> Keys Speed Plot</button>
+        <button id="id_selectCompareOrder" onclick="changeComparePage(5)" class="classButtonBlue" title="Order Plot" style="width:20%">Order Plot</button>
 
 
-    <div style="height:auto; width:100%; margin:auto; background:white; padding-bottom:1vh; padding-top:1vh; margin-bottom:2vh;">
-      <h4 style="width:100%; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Colormap 1 (modifyable) </h4>
-
-      <div class="row" style="margin-top: 1vh; width:95%; height: 8vh; margin-left:auto;  margin-right:auto;" id="id_compare1ColormapSketch">
       </div>
 
-      <div class="row" style="margin-top: 0px; width:95%; height: 2vh; margin-left:auto; margin-right:auto; margin-bottom:3vh;" id="id_compare1ColormapSketch_Ref">
-      </div>
-    </div>
-
-    <div class="row" style="width:100%; padding: 1vh; background:rgb(240,240,240);">
-      <button class="classButtonWhite" id="id_compareSwitchColormap" title="Switch" style="margin-left:47vw; border-radius: 0.5vh; width:5vw; height:5vh; line-height:5vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180);"> &#x21C5; </button>
-    </div>
-
-    <div style="height:auto; width:100%; margin:auto; background:white; padding-bottom:1vh; padding-top:1vh; margin-bottom:2vh;">
-      <h4 style="width:100%; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Colormap 2 </h4>
-
-      <div class="row" style="margin-top: 1vh; width:95%; height: 8vh; margin-left:auto;  margin-right:auto;" id="id_compare2ColormapSketch">
-      </div>
-
-      <div class="row" style="margin-top: 0px; width:95%; height: 2vh; margin-left:auto; margin-right:auto; margin-bottom:3vh;" id="id_compare2ColormapSketch_Ref">
-      </div>
-    </div>
 
 
-  <!--
-          ----------------	Colormap Course	  -----------------
+
+      <!--
+
+            ----------------------------------------------------------------------------------------------
+            ----------------	Compare Colormap Course  ----------------------------------------------------------------
+            ----------------------------------------------------------------------------------------------
+            -->
+          <div id="compareColormapPath" style="width:100%;">
+
+
+            <div class="row" style="padding-top:4vh; padding-bottom:4vh;">
+              <!--h4 style="width:auto; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px; margin-left:auto;">Colormap Course</h4-->
+              <h1 style="width:auto; text-align:center; height:4vh; line-height:4vh; font-size:4vh; margin:0px; vertical-align:middle; margin-left:auto;"> Colormap Path </h1>
+              <div class="dropdown" style="width:auto; margin-right:auto;">
+                <button class="dropbtn" style="border-radius: 0.5vh; line-height:4vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 4vh; height:4vh;  margin-left:2vh; border: 2px solid black;">?</button>
+                <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
+
+                  <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> With the analyze of the colormap course you can see how the colormap run inside the different colorspaces. Switch the colorspace to display the different colorspace visualizations.
+                  </p>
+                  <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; ">
+                    Use the colormap course to observe that the colormap parts do not cross or run to close together (At the RGB space the 3D visualization should be helpful).
+                    At the visualizations of the HSV, Lab and DIN99 space you can also check the increase and decrease of the lightness or the value.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <hr>
+
+            <!-- select colorspace -->
+            <div id="id_CompareColorspace_Menue" style="height:100%; width:auto; margin-top:2vh; margin-bottom:2vh; ">
+              <div class="row" style="height:100%;">
+                <p style="height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:1cm; font-size:3vh; color:black;  margin-left:auto;"><strong>Choose</strong> a Colorspace for the Analyze: </p>
+                <button class="classButtonWhite" id="button_CompareRGB" title="RGB" onclick="changeAnalyzeColorspace(0)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid rgb(0,191,255); color: rgb(0,191,255); ">RGB</button>
+                <button class="classButtonWhite" id="button_CompareHSV" title="HSV" onclick="changeAnalyzeColorspace(1)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid black; color:black; ">HSV</button>
+                <button class="classButtonWhite" id="button_CompareLAB" title="LAB" onclick="changeAnalyzeColorspace(2)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid black; color:black; ">LAB</button>
+                <button class="classButtonWhite" id="button_CompareDIN99" title="DIN99" onclick="changeAnalyzeColorspace(3)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid black; color:black; margin-right:auto;">DIN99</button>
+              </div>
+              <p style="width:50%; text-align:justify; height:auto; line-height:1.9vh; font-size:1.8vh; vertical-align:middle; margin-left:25%;margin-right:25%;">
+              <strong>Info:</strong> Please note that this colorspace and the colorspace for the interpolation are <strong>different</strong> options!!!
+              <p>
+            </div>
+
+            <hr>
+
+            <!-- Legend -->
+            <div class="row" style="width:80%; height:4vh; border: 1px solid rgb(120,120,120); background:rgb(240,240,240); margin-left:10%; margin-top:4vh;">
+              <p class="classAnalyseLabel" style="margin-left:auto; width:auto; font-weight:bold; margin-right:1vw;"> Legend:</p>
+
+              <div class="row" style="height:100%; border-right: 1px solid rgb(120,120,120);">
+                <div style="margin-left:1vw; margin-right:1vw; height:2vh; width:2vh; margin-top:auto; margin-bottom:auto; border:2px solid black; background:white;">
+                </div>
+                <p class="classAnalyseLabel"> : Constant Band </p>
+                <div class="dropdown" style="width:auto; margin-right:auto;">
+                  <button class="dropbtn" style="margin-right:1vw; border-radius: 0.5vh; line-height:3vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:0.5vh; margin-bottom:auto;">?</button>
+                  <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
+
+                    <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:20vw; "> <strong>INFO:</strong> Constant bands define one color for a certain section. Inside of the visualization, a constant band will be represented by squares.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="row" style="height:100%; border-right: 1px solid rgb(120,120,120);">
+                <svg style="margin-left:1vw; margin-right:0.5vw; height;4vh; width:15vw;">
+                        <line x1="10%" y1="50%" x2="90%" y2="50%" style="stroke:rgb(0,0,0);stroke-width:9" />
+                        <line x1="10%" y1="50%" x2="90%" y2="50%" style="stroke:rgb(255,255,255);stroke-width:3" />
+                        <circle cx="10%" cy="50%" r="5%" stroke="black" stroke-width="3" fill="white" />
+                        <circle cx="90%" cy="50%" r="5%" stroke="black" stroke-width="3" fill="white" />
+                    </svg>
+                <p class="classAnalyseLabel">: Scaled Band </p>
+                <div class="dropdown" style="width:auto;">
+                  <button class="dropbtn" style=" margin-right:1vw; border-radius: 0.5vh; line-height:3vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:0.5vh; margin-bottom:auto;">?</button>
+                  <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
+
+                    <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:20vw; "> <strong>INFO:</strong> Scaled bands define a color gradient for a certain section. Intermediate colors will be interpolate inside the selected colorspace. Inside of the visualization, a scaled band will be represented by two circles and a solid line.
+                      The two circles are showing the start and the end color.
+                      The line represent the interpolated colors.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+
+
+              <div class="row" style="height:100%; margin-right:auto; mardin-left:0px;">
+                <svg style="margin-left:1vw; margin-right:0.5vw; height;4vh; width:10vw;">
+                      <line x1="10%" y1="50%" x2="90%" y2="50%" stroke-dasharray="10,5" style="stroke:rgb(0,0,0);stroke-width:9" />
+                      <line x1="10%" y1="50%" x2="90%" y2="50%" stroke-dasharray="10,5" style="stroke:rgb(255,255,255);stroke-width:3" />
+                  </svg>
+                <p class="classAnalyseLabel">: Jump</p>
+                <div class="dropdown" style="width:auto;">
+                  <button class="dropbtn" style=" margin-right:1vw; border-radius: 0.5vh; line-height:3vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:0.5vh; margin-bottom:auto;">?</button>
+                  <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3; right: 2vw;">
+
+                    <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:20vw;"> <strong>INFO:</strong> If a neighbor of a band has a different start (end) color as the end (start) color of this band, there is a jump between the band and his neighbor.
+                      This jump is not part of the colormap course, but it shows the connection between those bands. Inside of the visualization, a jump will be represented by a dashed line.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div id='id_hueValueOptionsCompare' style="display:none;">
+              <div class="row" style="width:100%; height:auto; background:white; padding-bottom:1vh; padding-top:1vh;">
+
+                <!-- Hue -->
+                <p class="classAnalyseLabel" style="margin-left:auto; width:auto; font-weight:bold;"> Options: </p>
+                <input style="width:auto; margin-left:2vw; margin-right:0.5vw; height:2.2vh;margin-top:auto;margin-bottom:auto;" id="id_checkboxRGBCompare" type="checkbox" name="do it" value="0">
+                <p class="classAnalyseLabel"> Allow only RGB Possible Colors </p>
+                <p class="classAnalyseLabel" style="margin-left:2vw; width:auto;">Default Value:</p>
+                <input class="classAnalyseLabel" id="id_setValueRangeCompare" type="number" min="0" max="100" value="50" name="points" step="10" style="width:7vw; margin-right:auto;">
+
+              </div>
+
+              <div class="row" style="width:100%; height:auto; background:white;">
+
+                <!-- Hue -->
+                <div id="id_containerHueCourseCompare" style="width:30vw; height:auto; display:none;">
+                  <canvas id="id_compareCourseHueBackground" style="width:30vw; height:30vw;">
+
+                </canvas>
+
+                  <p id="id_huePositionLabelCompare" class="classAnalyseLabel" style="width:30vw; font-weight:bold; text-align: center; margin-bottom:2vh;"></p>
+
+                </div>
+
+                <!-- Brightness -->
+                <canvas id="id_compareValue" style="width:68%; height:30vw; display:none;">
+
+
+                </canvas>
+
+              </div>
+
+            </div>
+
+            <div id="id_RGBCourseDivCompare" style="width:100%; height:auto; ">
+
+
+
+              <div class="row" style="width:100%; height:auto; padding-bottom:1vh; background:white;">
+
+              <canvas id="id_canvasRGCompare" style="width:25vw; height:25vw; margin:0px; margin-left:auto;">
+
+
+              </canvas>
+
+                <canvas id="id_canvasBGCompare" style="width:25vw; height:25vw; margin:0px;">
+
+
+              </canvas>
+
+                <canvas id="id_canvasRBCompare" style="width:25vw; height:25vw; margin:0px; margin-right:auto;">
+
+
+              </canvas>
+
+              </div>
+
+              <div class="row" style="width:100%; height:5vh; background:white;">
+                <p class="classAnalyseLabel" style="margin-left:auto; width:auto;">3D Space Opacity:</p>
+                <input class="classAnalyseLabel" id="id_setOpacityRangeCompare" type="number" min="0" max="100" value="50" name="points" step="10" style="width:7vw; ">
+                <button id="decreaseCompare3D" onclick="decreaseCompare3DDiv()" class="classAnalyseLabel" style="font-size: 1.5vh; color:grey;">-</button>
+                <button id="increaseCompare3D" onclick="increaseCompare3DDiv()" class="classAnalyseLabel" style="font-size: 1.5vh; margin-right:auto;">+</button>
+
+              </div>
+
+                <div id="id_rgb3DCompare" style="width:100%; height:50vh; margin-right:auto; margin-left:auto;">
+
+
+                </div>
+
+              </div>
+
+
+
+          </div>
+
+
+
+
+
+        <!--
+
+          ----------------------------------------------------------------------------------------------
+          ----------------	Compare Global Speed  ----------------------------------------------------------------
+          ----------------------------------------------------------------------------------------------
           -->
-  <!-- Colorspace Preview-->
-  <div class="row" style="background:white; padding-top:2vh; padding-bottom:2vh; border-top:5vh solid rgb(30,30,30);">
-    <div style="width:auto; margin-left:auto;">
-    </div>
-    <h4 style="width:auto; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Colormap Course</h4>
-    <div class="dropdown" style="width:auto; margin-right:auto;">
-      <button class="dropbtn" style="border-radius: 0.5vh; line-height:2.5vh; font-size:2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 2.5vh; height:2.5vh; margin-left:2vh; border: 2px solid black; margin-top:auto; margin-bottom:auto;">?</button>
-      <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
+          <div id="compareGlobalSpeed" style="display:none; width:100%;">
 
-        <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> With the analyze of the colormap course you can see how the colormap run inside the different colorspaces. Switch the colorspace to display the different colorspace visualizations.
-        </p>
-        <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; ">
-          Use the colormap course to observe that the colormap parts do not cross or run to close together (At the RGB space the 3D visualization should be helpful).
-          At the visualizations of the HSV, Lab and DIN99 space you can also check the increase and decrease of the lightness or the value.
-        </p>
-      </div>
-    </div>
+            <div class="row" style="padding-top:4vh; padding-bottom:4vh; width:100%;">
+              <!--h4 style="width:auto; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px; margin-left:auto;">Colormap Course</h4-->
+              <h1 style="width:auto; text-align:center; height:4vh; line-height:4vh; font-size:4vh; margin:0px; vertical-align:middle; margin-left:auto;"> Matrix Plot </h1>
+              <div class="dropdown" style="width:auto; margin-right:auto;">
+                <button class="dropbtn" style="border-radius: 0.5vh; line-height:4vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 4vh; height:4vh;  margin-left:2vh; border: 2px solid black;">?</button>
+                <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
+
+                  <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <hr>
+
+
+              <div class="row" style="width: 100%;">
+                <h3 style="height:5vh; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:black; padding-left:20px; font-size:3vh;  margin-left:auto; "> Number of Intervalpoints: </h3>
+                <input id="id_CompareInputIntervalNum" type="text" name="key space" value="50" style="height:3vh; line-height:3vh; font-size:3vh; text-align:center; vertical-align: middle; margin:auto; margin-left:1vh; margin-right:auto;">
+              </div>
+
+            <hr>
+
+              <div class="row" style="height:100%;">
+                <p style="height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:1cm; font-size:3vh; color:black;  margin-left:auto;"><strong>Show: </strong></p>
+                <button class="classButtonWhite" id="button_CompareSpeedMatrix" title="Speed" onclick="changePlotTypeCompare(0)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:5vh; font-size:3vh;  margin-left:1vh; border: 0.2vh solid rgb(0,191,255); color: rgb(0,191,255); ">Speed Matrix Plot</button>
+                <button class="classButtonWhite" id="button_CompareDifferenceMatrix" title="Difference" onclick="changePlotTypeCompare(1)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:5vh; font-size:3vh; margin-left:1vw;  margin-right:auto; border: 0.2vh solid black; color:black; ">Difference Matrix Plot</button>
+              </div>
+
+
+            <div class="row" style="padding-top:4vh; padding-bottom:2vh; width:100%;">
+
+                <div style="width:30%; border:1px solid black; background:rgb(230,230,230); margin-left: auto; margin-right:10%;">
+
+                  <div style="width:90%;margin-left: 5%;">
+                  <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> Lab Euclidean Distance CMS 1</h1>
+                  <canvas class="globalSpeedCanvas" id="compare1_GlobalSpeed_Canvas_Lab" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
+                  </canvas>
+
+                    <p id="compare1_GlobalSpeed_Label_Max_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
+                    <p id="compare1_GlobalSpeed_Label_Av_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
+                    <p id="compare1_GlobalSpeed_Label_Min_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                    <p id="compare1_GlobalSpeed_Label_Dev_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                    </div>
+                </div>
+
+                <div style="width:30%; border:1px solid black; background:rgb(230,230,230); margin-right: auto;">
+                  <div style="width:90%;margin-left: 5%;">
+                  <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> Lab Euclidean Distance CMS 2</h1>
+                  <canvas class="globalSpeedCanvas" id="compare2_GlobalSpeed_Canvas_Lab" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
+                  </canvas>
+
+                    <p id="compare2_GlobalSpeed_Label_Max_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
+                    <p id="compare2_GlobalSpeed_Label_Av_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
+                    <p id="compare2_GlobalSpeed_Label_Min_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                    <p id="compare2_GlobalSpeed_Label_Dev_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                  </div>
+                </div>
+            </div>
+
+            <div class="row" style="padding-top:4vh; padding-bottom:2vh; width:100%;">
+
+                <div style="width:30%; border:1px solid black; background:rgb(230,230,230); margin-left: auto; margin-right:10%;">
+
+                  <div style="width:90%; margin-left: 5%;">
+                  <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> Lab de94 Metric CMS 1</h1>
+                  <canvas class="globalSpeedCanvas" id="compare1_GlobalSpeed_Canvas_de94" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
+                  </canvas>
+
+                    <p id="compare1_GlobalSpeed_Label_Max_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
+                    <p id="compare1_GlobalSpeed_Label_Av_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
+                    <p id="compare1_GlobalSpeed_Label_Min_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                    <p id="compare1_GlobalSpeed_Label_Dev_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                    </div>
+                </div>
+
+                <div style="width:30%; border:1px solid black; background:rgb(230,230,230); margin-right: auto;">
+                  <div style="width:90%; margin-left: 5%;">
+                  <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> Lab de94 Metric CMS 2</h1>
+                  <canvas class="globalSpeedCanvas" id="compare2_GlobalSpeed_Canvas_de94" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
+                  </canvas>
+
+                    <p id="compare2_GlobalSpeed_Label_Max_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
+                    <p id="compare2_GlobalSpeed_Label_Av_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
+                    <p id="compare2_GlobalSpeed_Label_Min_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                    <p id="compare2_GlobalSpeed_Label_Dev_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="padding-top:2vh; padding-bottom:2vh; width:100%;">
+
+              <div style="width:30%; border:1px solid black; background:rgb(230,230,230); margin-left: auto; margin-right:10%;">
+
+                <div style="width:90%;margin-left: 5%;">
+                <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> Lab de2000 Metric CMS 1</h1>
+                <canvas class="globalSpeedCanvas" id="compare1_GlobalSpeed_Canvas_de2000" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
+                </canvas>
+                  <p id="compare1_GlobalSpeed_Label_Max_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
+                  <p id="compare1_GlobalSpeed_Label_Av_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
+                  <p id="compare1_GlobalSpeed_Label_Min_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                  <p id="compare1_GlobalSpeed_Label_Dev_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                  </div>
+              </div>
+
+              <div style="width:30%; border:1px solid black; background:rgb(230,230,230); margin-right: auto;">
+                <div style="width:90%;margin-left: 5%;">
+                <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> Lab de2000 Metric CMS 2</h1>
+                <canvas class="globalSpeedCanvas" id="compare2_GlobalSpeed_Canvas_de2000" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
+                </canvas>
+                  <p id="compare2_GlobalSpeed_Label_Max_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
+                  <p id="compare2_GlobalSpeed_Label_Av_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
+                  <p id="compare2_GlobalSpeed_Label_Min_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                  <p id="compare2_GlobalSpeed_Label_Dev_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                  </div>
+              </div>
+            </div>
+
+            <div class="row" style="padding-top:2vh; padding-bottom:2vh; width:100%;">
+
+              <div style="width:30%; border:1px solid black; background:rgb(230,230,230); margin-left: auto; margin-right:10%;">
+                <div style="width:90%; margin-left: 5%;">
+                <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> DIN99 Euclidean Distance CMS 2</h1>
+                <canvas class="globalSpeedCanvas" id="compare1_GlobalSpeed_Canvas_din99" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
+                </canvas>
+                  <p id="compare2_GlobalSpeed_Label_Max_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
+                  <p id="compare2_GlobalSpeed_Label_Av_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
+                  <p id="compare2_GlobalSpeed_Label_Min_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                  <p id="compare2_GlobalSpeed_Label_Dev_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                  </div>
+              </div>
+
+              <div style="width:30%; border:1px solid black; background:rgb(230,230,230); margin-right: auto;">
+                <div style="width:90%; margin-left: 5%;">
+                <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> DIN99 Euclidean Distance CMS 1</h1>
+                <canvas class="globalSpeedCanvas" id="compare2_GlobalSpeed_Canvas_din99" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
+                </canvas>
+                  <p id="compare1_GlobalSpeed_Label_Max_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
+                  <p id="compare1_GlobalSpeed_Label_Av_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
+                  <p id="compare1_GlobalSpeed_Label_Min_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                  <p id="compare1_GlobalSpeed_Label_Dev_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                  </div>
+              </div>
+            </div>
+
+
+
+          </div>
+
+
+
+          <!--
+
+            ----------------------------------------------------------------------------------------------
+            ----------------	Compare Local Speed  ----------------------------------------------------------------
+            ----------------------------------------------------------------------------------------------
+            -->
+            <div id="compareLocalLineSpeed" style="display:none; width:100%;">
+
+              <div class="row" style="padding-top:4vh; padding-bottom:4vh; width:100%;">
+                <!--h4 style="width:auto; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px; margin-left:auto;">Colormap Course</h4-->
+                <h1 style="width:auto; text-align:center; height:4vh; line-height:4vh; font-size:4vh; margin:0px; vertical-align:middle; margin-left:auto;"> Line Plot </h1>
+                <div class="dropdown" style="width:auto; margin-right:auto;">
+                  <button class="dropbtn" style="border-radius: 0.5vh; line-height:4vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 4vh; height:4vh;  margin-left:2vh; border: 2px solid black;">?</button>
+                  <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
+
+                    <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <hr>
+
+
+              <div class="row" style="width: 100%;">
+                <h3 style="height:5vh; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:black; padding-left:20px; font-size:3vh;  margin-left:auto; "> Number of Intervalpoints: </h3>
+                <input id="id_CompareInputIntervalNum2" type="text" name="key space" value="50" style="height:3vh; line-height:3vh; font-size:3vh; text-align:center; vertical-align: middle; margin:auto; margin-left:1vh; margin-right:auto;">
+              </div>
+
+              <hr>
+
+              <div class="row" style="height:100%;">
+                <p style="height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:1cm; font-size:3vh; color:black;  margin-left:auto;"><strong>Show: </strong></p>
+                <button class="classButtonWhite" id="button_CompareSpeedLine" title="Speed" onclick="changePlotTypeCompare(0)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:5vh; font-size:3vh;  margin-left:1vh; border: 0.2vh solid rgb(0,191,255); color: rgb(0,191,255); ">Speed Line Plot</button>
+                <button class="classButtonWhite" id="button_CompareDifferenceLine" title="Difference" onclick="changePlotTypeCompare(1)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:5vh; font-size:3vh; margin-left:1vw;  margin-right:auto; border: 0.2vh solid black; color:black; ">Difference Line Plot</button>
+              </div>
+
+              <div class="row" style="padding-top:4vh; padding-bottom:2vh; width:100%;">
+
+                  <div style="width:30%; border:1px solid black; background:rgb(230,230,230); margin-left: auto; margin-right:10%;">
+                    <div style="width:90%;margin-left: 5%;">
+                    <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> Lab Euclidean Distance CMS 1</h1>
+                    <canvas class="globalSpeedCanvas" id="compare1_LocalSpeed_Canvas_Lab" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
+                    </canvas>
+
+                      <p id="compare1_LocalSpeed_Label_Max_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
+                      <p id="compare1_LocalSpeed_Label_Av_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
+                      <p id="compare1_LocalSpeed_Label_Min_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                      <p id="compare1_LocalSpeed_Label_Dev_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                      </div>
+                  </div>
+
+                  <div style="width:30%; border:1px solid black; background:rgb(230,230,230); margin-right: auto;">
+                    <div style="width:90%;margin-left: 5%;">
+                    <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> Lab Euclidean Distance CMS 2</h1>
+                    <canvas class="globalSpeedCanvas" id="compare2_LocalSpeed_Canvas_Lab" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
+                    </canvas>
+
+                      <p id="compare2_LocalSpeed_Label_Max_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
+                      <p id="compare2_LocalSpeed_Label_Av_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
+                      <p id="compare2_LocalSpeed_Label_Min_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                      <p id="compare2_LocalSpeed_Label_Dev_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="row" style="padding-top:4vh; padding-bottom:2vh; width:100%;">
+
+                  <div style="width:30%; border:1px solid black; background:rgb(230,230,230); margin-left: auto; margin-right:10%;">
+                    <div style="width:90%; margin-left: 5%;">
+                    <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> Lab de94 Metric CMS 1</h1>
+                    <canvas class="globalSpeedCanvas" id="compare1_LocalSpeed_Canvas_de94" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
+                    </canvas>
+                      <p id="compare1_LocalSpeed_Label_Max_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
+                      <p id="compare1_LocalSpeed_Label_Av_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
+                      <p id="compare1_LocalSpeed_Label_Min_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                      <p id="compare1_LocalSpeed_Label_Dev_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                      </div>
+                  </div>
+
+                  <div style="width:30%; border:1px solid black; background:rgb(230,230,230); margin-right: auto;">
+                    <div style="width:90%; margin-left: 5%;">
+                    <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> Lab de94 Metric CMS 2</h1>
+                    <canvas class="globalSpeedCanvas" id="compare2_LocalSpeed_Canvas_de94" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
+                    </canvas>
+                      <p id="compare2_LocalSpeed_Label_Max_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
+                      <p id="compare2_LocalSpeed_Label_Av_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
+                      <p id="compare2_LocalSpeed_Label_Min_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                      <p id="compare2_LocalSpeed_Label_Dev_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="row" style="padding-top:2vh; padding-bottom:2vh; width:100%;">
+
+                <div style="width:30%; border:1px solid black; background:rgb(230,230,230); margin-left: auto; margin-right:10%;">
+
+                  <div style="width:90%;margin-left: 5%;">
+                  <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> Lab de2000 Metric CMS 1</h1>
+                  <canvas class="globalSpeedCanvas" id="compare1_LocalSpeed_Canvas_de2000" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
+                  </canvas>
+
+                    <p id="compare1_LocalSpeed_Label_Max_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
+                    <p id="compare1_LocalSpeed_Label_Av_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
+                    <p id="compare1_LocalSpeed_Label_Min_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                    <p id="compare1_LocalSpeed_Label_Dev_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                    </div>
+                </div>
+
+                <div style="width:30%; border:1px solid black; background:rgb(230,230,230); margin-right: auto;">
+                  <div style="width:90%;margin-left: 5%;">
+                  <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> Lab de2000 Metric CMS 2</h1>
+                  <canvas class="globalSpeedCanvas" id="compare2_LocalSpeed_Canvas_de2000" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
+                  </canvas>
+
+                    <p id="compare2_LocalSpeed_Label_Max_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
+                    <p id="compare2_LocalSpeed_Label_Av_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
+                    <p id="compare2_LocalSpeed_Label_Min_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                    <p id="compare2_LocalSpeed_Label_Dev_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                    </div>
+                </div>
+              </div>
+
+              <div class="row" style="padding-top:2vh; padding-bottom:2vh; width:100%;">
+
+                <div style="width:30%; border:1px solid black; background:rgb(230,230,230); margin-left: auto; margin-right:10%;">
+                  <div style="width:90%; margin-left: 5%;">
+                  <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> DIN99 Euclidean Distance CMS 1</h1>
+                  <canvas class="globalSpeedCanvas" id="compare1_LocalSpeed_Canvas_din99" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
+                  </canvas>
+                    <p id="compare1_LocalSpeed_Label_Max_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
+                    <p id="compare1_LocalSpeed_Label_Av_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
+                    <p id="compare1_LocalSpeed_Label_Min_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                    <p id="compare1_LocalSpeed_Label_Dev_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                    </div>
+                </div>
+
+                <div style="width:30%; border:1px solid black; background:rgb(230,230,230); margin-right: auto;">
+                  <div style="width:90%; margin-left: 5%;">
+                  <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> DIN99 Euclidean Distance CMS 2</h1>
+                  <canvas class="globalSpeedCanvas" id="compare2_LocalSpeed_Canvas_din99" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
+                  </canvas>
+                    <p id="compare2_LocalSpeed_Label_Max_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
+                    <p id="compare2_LocalSpeed_Label_Av_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
+                    <p id="compare2_LocalSpeed_Label_Min_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                    <p id="compare2_LocalSpeed_Label_Dev_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                    </div>
+                </div>
+              </div>
+
+            </div>
+
+
+            <!--
+
+              ----------------------------------------------------------------------------------------------
+              ----------------	Compare Difference Bar Plot ----------------------------------------------------------------
+              ----------------------------------------------------------------------------------------------
+              -->
+              <div id="compareLocalBarSpeed" style="display:none; width:100%;">
+
+                <div class="row" style="padding-top:4vh; padding-bottom:4vh; width:100%;">
+                  <!--h4 style="width:auto; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px; margin-left:auto;">Colormap Course</h4-->
+                  <h1 style="width:auto; text-align:center; height:4vh; line-height:4vh; font-size:4vh; margin:0px; vertical-align:middle; margin-left:auto;"> Keys Speed Plot </h1>
+                  <div class="dropdown" style="width:auto; margin-right:auto;">
+                    <button class="dropbtn" style="border-radius: 0.5vh; line-height:4vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 4vh; height:4vh;  margin-left:2vh; border: 2px solid black;">?</button>
+                    <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
+
+                      <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> The following visualizations are showing you the ratio value of speed calculated with the euclidean distances and the metrics (DE94, CIEDE2000)
+                        to determine the difference of the used key colors. The speed give you a relation between the difference of the selected key colors and the reference distance between the keys.
+                      </p>
+
+                      <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Attention:</strong> For this analyze only <strong>scaled</strong> band will be used.
+                      </p>
+
+                    </div>
+                  </div>
+                </div>
+
+
+                <!----------------	Ratio	Reference  --------------->
+                <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh; margin-top:2vh;">
+
+
+                  <div style="width:25%; margin-left:auto;">
+                      <p class="classAnalyseLabel" style="width:100%; font-weight:bold; text-align: left; height:10vh; line-height:10vh; margin-bottom:2vh;">RGB Euclidean Distance:</p>
+                      <p class="classAnalyseLabel" style="width:100%; font-weight:bold; text-align: left; height:10vh; line-height:10vh; margin-bottom:2vh;">HSV Euclidean Distance:</p>
+                      <p class="classAnalyseLabel" style="width:100%; font-weight:bold; text-align: left; height:10vh; line-height:10vh; margin-bottom:2vh;">LAB Euclidean Distance:</p>
+                      <p class="classAnalyseLabel" style="width:100%; font-weight:bold; text-align: left; height:10vh; line-height:10vh; margin-bottom:2vh;">LAB Metric DE94:</p>
+                      <p class="classAnalyseLabel" style="width:100%; font-weight:bold; text-align: left; height:10vh; line-height:10vh; margin-bottom:2vh;">LAB Metric DE2000:</p>
+                      <p class="classAnalyseLabel" style="width:100%; font-weight:bold; text-align: left; height:10vh; line-height:10vh; margin-bottom:2vh;">DIN99 Euclidean Distance:</p>
+                  </div>
+
+                  <div style="width:65%; margin-right:auto;">
+                    <canvas id="id_compare1RatioRGB" style="width:100%; height:5vh; border: 2px solid black;margin-bottom:0px;"></canvas>
+                    <canvas id="id_compare2RatioRGB" style="width:100%; height:5vh; border: 2px solid black;margin-bottom:2vh;"></canvas>
+                    <canvas id="id_compare1RatioHSV" style="width:100%; height:5vh; border: 2px solid black;margin-bottom:0px;"></canvas>
+                    <canvas id="id_compare2RatioHSV" style="width:100%; height:5vh; border: 2px solid black;margin-bottom:2vh;"></canvas>
+                    <canvas id="id_compare1RatioLAB" style="width:100%; height:5vh; border: 2px solid black;margin-bottom:0px;"></canvas>
+                    <canvas id="id_compare2RatioLAB" style="width:100%; height:5vh; border: 2px solid black;margin-bottom:2vh;"></canvas>
+                    <canvas id="id_compare1RatioDE94" style="width:100%; height:5vh; border: 2px solid black;margin-bottom:0px;"></canvas>
+                    <canvas id="id_compare2RatioDE94" style="width:100%; height:5vh; border: 2px solid black;margin-bottom:2vh;"></canvas>
+                    <canvas id="id_compare1RatioDe2000" style="width:100%; height:5vh; border: 2px solid black;margin-bottom:0px;"></canvas>
+                    <canvas id="id_compare2RatioDe2000" style="width:100%; height:5vh; border: 2px solid black;margin-bottom:2vh;"></canvas>
+                    <canvas id="id_compare1RatioDIN99" style="width:100%; height:5vh; border: 2px solid black;margin-bottom:0px;"></canvas>
+                    <canvas id="id_compare2RatioDIN99" style="width:100%; height:5vh; border: 2px solid black;margin-bottom:2vh;"></canvas>
+                  </div>
+                </div>
+
+
+
+                <div style="height:auto; overflow:auto; width:100%; margin-bottom:2vh;">
+                  <h4 style="width:100%; height:3vh; height:3vh; line-height:3vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; padding-left:20px; font-size:2.5vh; margin-bottom:2vh; background:black; margin-bottom:0px;"> Key Speed Table </h4>
+
+                  <table style="width:100%; background:white; overflow:auto;" id="id_table">
+                    <thead>
+                      <tr style="border-top:1px solid white;">
+                        <th class="class_tablelabel" style="width:4%; border-left:1px solid white;"># Band</th>
+                        <th class="class_tablelabel" style="min-width:6.4%;">speed RGB</th>
+                        <th class="class_tablelabel" style="min-width:6.4%;">ratio RGB Speed</th>
+                        <th class="class_tablelabel" style="min-width:6.4%;">speed HSV</th>
+                        <th class="class_tablelabel" style="min-width:6.4%;">ratio HSV Speed</th>
+                        <th class="class_tablelabel" style="min-width:6.4%;">speed Lab</th>
+                        <th class="class_tablelabel" style="min-width:6.4%;">ratio Lab Speed</th>
+                        <th class="class_tablelabel" style="min-width:6.4%;">speed DE94</th>
+                        <th class="class_tablelabel" style="min-width:6.4%;">ratio DE94 Speed</th>
+                        <th class="class_tablelabel" style="min-width:6.4%;">speed DE00</th>
+                        <th class="class_tablelabel" style="min-width:6.4%;">ratio DE00 Speed</th>
+                        <th class="class_tablelabel" style="min-width:6.4%;">speed DIN99</th>
+                        <th class="class_tablelabel" style="min-width:6.4%;">ratio DIN99 Speed</th>
+                      </tr>
+                    </thead>
+
+                    <tbody id="id_compareTableBody">
+
+                    </tbody>
+
+                  </table>
+                </div>
+              </div>
+
+
+            <!--
+
+              ----------------------------------------------------------------------------------------------
+              ----------------	Compare Order  ----------------------------------------------------------------
+              ----------------------------------------------------------------------------------------------
+              -->
+              <div id="compareOrder" style="display:none; width:100%;">
+
+                <div class="row" style="padding-top:4vh; padding-bottom:4vh; width:100%;">
+                  <!--h4 style="width:auto; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px; margin-left:auto;">Colormap Course</h4-->
+                  <h1 style="width:auto; text-align:center; height:4vh; line-height:4vh; font-size:4vh; margin:0px; vertical-align:middle; margin-left:auto;"> Order Plot </h1>
+                  <div class="dropdown" style="width:auto; margin-right:auto;">
+                    <button class="dropbtn" style="border-radius: 0.5vh; line-height:4vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 4vh; height:4vh;  margin-left:2vh; border: 2px solid black;">?</button>
+                    <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
+
+                      <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <hr>
+
+                <div class="row" style="width: 100%;">
+                  <h3 style="height:5vh; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:black; padding-left:20px; font-size:3vh;  margin-left:auto; "> Number of Intervalpoints: </h3>
+                  <input id="id_CompareInputIntervalNum3" type="text" name="key space" value="50" style="height:3vh; line-height:3vh; font-size:3vh; text-align:center; vertical-align: middle; margin:auto; margin-left:1vh; margin-right:auto;">
+                </div>
+
+                <hr>
+
+                <div class="row" style="padding-top:4vh; padding-bottom:2vh; width:100%;">
+
+                    <div style="width:30%; border:1px solid black; background:rgb(230,230,230); margin-left: auto; margin-right:10%;">
+
+                      <div style="width:90%;margin-left: 5%;">
+                      <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> Lab Euclidean Distance CMS 1</h1>
+                      <canvas class="globalSpeedCanvas" id="compare1_OrderSpeed_Canvas_Lab" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
+                      </canvas>
+
+                        <p id="compare1_OrderSpeed_Label_Min_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                        <p id="compare1_OrderSpeed_Label_MinGlobal_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                        </div>
+                    </div>
+
+                    <div style="width:30%; border:1px solid black; background:rgb(230,230,230); margin-right: auto;">
+                      <div style="width:90%;margin-left: 5%;">
+                      <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> Lab Euclidean Distance CMS 2</h1>
+                      <canvas class="globalSpeedCanvas" id="compare2_OrderSpeed_Canvas_Lab" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
+                      </canvas>
+
+                        <p id="compare2_OrderSpeed_Label_Min_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                        <p id="compare2_OrderSpeed_Label_MinGlobal_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="padding-top:4vh; padding-bottom:2vh; width:100%;">
+
+                    <div style="width:30%; border:1px solid black; background:rgb(230,230,230); margin-left: auto; margin-right:10%;">
+                      <div style="width:90%; margin-left: 5%;">
+                      <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> Lab de94 Metric CMS 1</h1>
+                      <canvas class="globalSpeedCanvas" id="compare1_OrderSpeed_Canvas_de94" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
+                      </canvas>
+
+                        <p id="compare1_OrderSpeed_Label_Min_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                        <p id="compare1_OrderSpeed_Label_MinGlobal_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                        </div>
+                    </div>
+
+                    <div style="width:30%; border:1px solid black; background:rgb(230,230,230); margin-right: auto;">
+                      <div style="width:90%; margin-left: 5%;">
+                      <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> Lab de94 Metric CMS 2</h1>
+                      <canvas class="globalSpeedCanvas" id="compare2_OrderSpeed_Canvas_de94" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
+                      </canvas>
+
+                        <p id="compare2_OrderSpeed_Label_Min_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                        <p id="compare2_OrderSpeed_Label_MinGlobal_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="padding-top:2vh; padding-bottom:2vh; width:100%;">
+
+                  <div style="width:30%; border:1px solid black; background:rgb(230,230,230); margin-left: auto; margin-right:10%;">
+
+                    <div style="width:90%;margin-left: 5%;">
+                    <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> Lab de2000 Metric CMS 1</h1>
+                    <canvas class="globalSpeedCanvas" id="compare1_OrderSpeed_Canvas_de2000" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
+                    </canvas>
+
+                      <p id="compare1_OrderSpeed_Label_Min_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                      <p id="compare1_OrderSpeed_Label_MinGlobal_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                      </div>
+                  </div>
+
+                  <div style="width:30%; border:1px solid black; background:rgb(230,230,230); margin-right: auto;">
+                    <div style="width:90%;margin-left: 5%;">
+                    <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> Lab de2000 Metric CMS 2</h1>
+                    <canvas class="globalSpeedCanvas" id="compare2_OrderSpeed_Canvas_de2000" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
+                    </canvas>
+
+                      <p id="compare2_OrderSpeed_Label_Min_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                      <p id="compare2_OrderSpeed_Label_MinGlobal_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                      </div>
+                  </div>
+                </div>
+
+                <div class="row" style="padding-top:2vh; padding-bottom:2vh; width:100%;">
+
+                  <div style="width:30%; border:1px solid black; background:rgb(230,230,230); margin-left: auto; margin-right:10%;">
+
+                    <div style="width:90%; margin-left: 5%;">
+                    <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> DIN99 Euclidean Distance CMS 1</h1>
+                    <canvas class="globalSpeedCanvas" id="compare1_OrderSpeed_Canvas_din99" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
+                    </canvas>
+                      <p id="compare1_OrderSpeed_Label_Min_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                      <p id="compare1_OrderSpeed_Label_MinGlobal_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                      </div>
+                  </div>
+
+                  <div style="width:30%; border:1px solid black; background:rgb(230,230,230); margin-right: auto;">
+                    <div style="width:90%; margin-left: 5%;">
+                    <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> DIN99 Euclidean Distance CMS 1</h1>
+                    <canvas class="globalSpeedCanvas" id="compare2_OrderSpeed_Canvas_din99" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
+                    </canvas>
+                      <p id="compare2_OrderSpeed_Label_Min_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                      <p id="compare2_OrderSpeed_Label_MinGlobal_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                      </div>
+                  </div>
+                </div>
+
+              </div>
+
+
+              <!--
+
+                ----------------------------------------------------------------------------------------------
+                ----------------	Integration Spaces  ----------------------------------------------------------------
+                ----------------------------------------------------------------------------------------------
+                -->
+                <div id="compareIntSpace" style="display:none; width:100%;">
+
+                  <div class="row" style="padding-top:4vh; padding-bottom:4vh; width:100%;">
+                    <!--h4 style="width:auto; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px; margin-left:auto;">Colormap Course</h4-->
+                    <h1 style="width:auto; text-align:center; height:4vh; line-height:4vh; font-size:4vh; margin:0px; vertical-align:middle; margin-left:auto;"> Integration Spaces </h1>
+                    <div class="dropdown" style="width:auto; margin-right:auto;">
+                      <button class="dropbtn" style="border-radius: 0.5vh; line-height:4vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 4vh; height:4vh;  margin-left:2vh; border: 2px solid black;">?</button>
+                      <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
+
+                        <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> The following visualizations of the colormap are showing you, how different the interpolated colors look like inside the different colorspaces.
+                        </p>
+
+                      </div>
+                    </div>
+                  </div>
+
+                  <hr>
+
+                        <!----------------	RGB	  --------------->
+                        <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh;">
+
+
+                          <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: center;  height:5vh; line-height:5vh">RGB Colorspace:</p>
+
+                          <canvas id="id_compare1RGB_Preview" style="width:70%; height:5vh; border: 2px solid black;">
+
+
+                        </canvas>
+
+                        </div>
+
+                        <!----------------	HSV	  --------------->
+                        <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh;">
+
+
+                          <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: center;  height:5vh; line-height:5vh">HSV Colorspace:</p>
+
+                          <canvas id="id_compare1HSV_Preview" style="width:70%; height:5vh; border: 2px solid black;">
+
+
+                        </canvas>
+
+                        </div>
+
+                        <!----------------	LAB	  --------------->
+                        <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh;">
+
+
+                          <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: center;  height:5vh; line-height:5vh">LAB Colorspace:</p>
+
+                          <canvas id="id_compare1LAB_Preview" style="width:70%; height:5vh; border: 2px solid black;">
+
+
+                        </canvas>
+
+                        </div>
+
+                        <!----------------	DIN99	  --------------->
+                        <div class="row" style="width:100%; height:auto; background:white; margin-bottom:4vh;">
+
+
+                          <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: center;  height:5vh; line-height:5vh">DIN99 Colorspace:</p>
+
+                          <canvas id="id_compare1DIN99_Preview" style="width:70%; height:5vh; border: 2px solid black;">
+
+
+                        </canvas>
+
+                        </div>
+
+                        <hr>
+                        <!----------------	RGB	  --------------->
+                        <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh;">
+
+
+                          <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: center;  height:5vh; line-height:5vh">RGB Colorspace:</p>
+
+                          <canvas id="id_compare2RGB_Preview" style="width:70%; height:5vh; border: 2px solid black;">
+
+
+                        </canvas>
+
+                        </div>
+
+                        <!----------------	HSV	  --------------->
+                        <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh;">
+
+
+                          <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: center;  height:5vh; line-height:5vh">HSV Colorspace:</p>
+
+                          <canvas id="id_compare2HSV_Preview" style="width:70%; height:5vh; border: 2px solid black;">
+
+
+                        </canvas>
+
+                        </div>
+
+                        <!----------------	LAB	  --------------->
+                        <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh;">
+
+
+                          <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: center;  height:5vh; line-height:5vh">LAB Colorspace:</p>
+
+                          <canvas id="id_compare2LAB_Preview" style="width:70%; height:5vh; border: 2px solid black;">
+
+
+                        </canvas>
+
+                        </div>
+
+                        <!----------------	DIN99	  --------------->
+                        <div class="row" style="width:100%; height:auto; background:white; margin-bottom:4vh;">
+
+
+                          <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: center;  height:5vh; line-height:5vh">DIN99 Colorspace:</p>
+
+                          <canvas id="id_compare2DIN99_Preview" style="width:70%; height:5vh; border: 2px solid black;">
+
+
+                        </canvas>
+
+                        </div>
+                </div>
+
   </div>
 
 
 
 
-  <!-- Preview -->
-  <div class="row" style="width:100%; height:auto; background:white; margin-bottom:1vh; margin-top:2vh;">
 
-      <p class="classAnalyseLabel" style="margin-left:10%; width:auto; font-weight:bold; margin-right:2%;"> Preview (Selected Metric): </p>
 
-      <select id="compare_SelectMetric" style="height:3vh: line-height:3vh; vertical-align:middle; text-align:center; color:black; font-size:2.5vh; margin-right:2%; margin-top:2.5vh; margin-bottom:2.5vh;"> <option value="0">De94</option> <option value="1">CIEDE2000</option> <option value="2">DIN99</option> </select>
-
-      <div style"margin-right:0.5vw;">
-        <div class="row">
-            <p class="classAnalyseLabel" style="text-align: right;  height:2vh; line-height:2vh; font-size:2vh; margin:auto;">Ref1</p>
-            <canvas id="id_comparePreviewRef1" style="width:50vw; height:2vh; border: 1px solid black; margin:0px;"></canvas>
-        </div>
-        <div class="row">
-            <p class="classAnalyseLabel" style="text-align: right;  height:2vh; line-height:2vh; font-size:2vh; margin:auto;">Ref2</p>
-            <canvas id="id_comparePreviewRef2" style="width:50vw; height:2vh; border: 1px solid black; margin:0px;"></canvas>
-        </div>
-        <div class="row">
-          <p class="classAnalyseLabel" style="text-align: right;  height:2vh; line-height:2vh; font-size:2vh; margin:auto;">C1</p>
-          <canvas id="id_comparePreviewC1" style="width:50vw; height:2vh; border: 1px solid black; margin:0px;"></canvas>
-        </div>
-        <div class="row">
-          <p class="classAnalyseLabel" style="text-align: right;  height:2vh; line-height:2vh; font-size:2vh; margin:auto;">C2</p>
-          <canvas id="id_comparePreviewC2" style="width:50vw; height:2vh; border: 1px solid black; margin:0px;"></canvas>
-        </div>
-      </div>
-
-
-  </div>
-
-  <hr>
-
-  <div id='id_hueValueOptionsCompare' style="display:none;">
-    <div class="row" style="width:100%; height:auto; background:white; padding-bottom:1vh; padding-top:1vh;">
-
-      <!-- Hue -->
-      <p class="classAnalyseLabel" style="margin-left:auto; width:auto; font-weight:bold;"> Options: </p>
-      <input style="width:auto; margin-left:2vw; margin-right:0.5vw; height:2.2vh;margin-top:auto;margin-bottom:auto;" id="id_checkboxRGBCompare" type="checkbox" name="do it" value="0">
-      <p class="classAnalyseLabel"> Allow only RGB Possible Colors </p>
-      <p class="classAnalyseLabel" style="margin-left:2vw; width:auto;">Default Value:</p>
-      <input class="classAnalyseLabel" id="id_setValueRangeCompare" type="number" min="0" max="100" value="50" name="points" step="10" style="width:7vw; margin-right:auto;">
-
-    </div>
-
-
-
-
-    <div class="row" style="width:100%; height:auto; background:white;">
-
-      <!-- Hue -->
-      <div id="id_containerHueCourseCompare" style="width:30vw; height:auto; display:none;">
-        <canvas id="id_compareCourseHueBackground" style="width:30vw; height:30vw;">
-
-            </canvas>
-
-        <p id="id_huePositionLabelCompare" class="classAnalyseLabel" style="width:30vw; font-weight:bold; text-align: center; margin-bottom:2vh;"></p>
-
-      </div>
-
-      <!-- Brightness -->
-      <canvas id="id_compareValue" style="width:68%; height:30vw; display:none;">
-
-
-            </canvas>
-
-    </div>
-
-  </div>
-
-  <div id="id_RGBCourseDivCompare" style="width:100%; height:auto; background:white;">
-
-    <div class="row" style="width:100%; height:auto; background:white; margin:1vh;">
-      <p class="classAnalyseLabel" style="margin-left:auto; width:auto;">3D Space Opacity:</p>
-      <input class="classAnalyseLabel" id="id_setOpacityRangeCompare" type="number" min="0" max="100" value="50" name="points" step="10" style="width:7vw; margin-right:auto;">
-    </div>
-
-    <div class="row" style="width:100%; height:auto; padding-bottom:1vh; background:white;">
-      <canvas id="id_canvasRGCompare" style="width:25vw; height:25vw; margin-left:auto; ">
-
-
-          </canvas>
-
-      <canvas id="id_canvasBGCompare" style="width:25vw; height:25vw; margin-right:auto;">
-
-
-          </canvas>
-
-
-    <!--/div>
-
-    <div class="row" style="width:100%; height:auto; background:white;"-->
-      <canvas id="id_canvasRBCompare" style="width:25vw; height:25vw; margin-left:auto; ">
-
-
-          </canvas>
-
-      <div id="id_rgb3DCompare" style="width:25vw; height:25vw; margin-right:auto;">
-
-
-      </div>
-
-
-    </div>
-
-
-  </div>
-
-  <div class="row" style="background:none; width:100%; height:6vh; background:rgb(210,210,210); border-top: 1px solid rgb(120,120,120); border-bottom: 1px solid rgb(120,120,120);">
-    <p class="classAnalyseLabel" style="margin-left:auto; width:auto; font-weight:bold; margin-right:1vw;"> Legend:</p>
-
-    <div class="row" style="height:100%; background:rgb(200,200,200);">
-      <div style="margin-left:1vw; margin-right:1vw; height:2vh; width:2vh; margin-top:auto; margin-bottom:auto; border:2px solid black; background:white;">
-      </div>
-      <p class="classAnalyseLabel"> : Constant Band </p>
-      <div class="dropdown" style="width:auto; margin-right:auto;">
-        <button class="dropbtn" style="margin-right:1vw; border-radius: 0.5vh; line-height:3vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:1.5vh; margin-bottom:auto;">?</button>
-        <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
-
-          <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:20vw; "> <strong>INFO:</strong> Constant bands define one color for a certain section. Inside of the visualization, a constant band will be represented by squares.
-          </p>
-        </div>
-      </div>
-    </div>
-
-
-    <svg style="margin-left:1vw; margin-right:0.5vw; height;4vh; width:20vw;">
-                  <line x1="10%" y1="50%" x2="90%" y2="50%" style="stroke:rgb(0,0,0);stroke-width:9" />
-                  <line x1="10%" y1="50%" x2="90%" y2="50%" style="stroke:rgb(255,255,255);stroke-width:3" />
-                  <circle cx="10%" cy="50%" r="5%" stroke="black" stroke-width="3" fill="white" />
-                  <circle cx="90%" cy="50%" r="5%" stroke="black" stroke-width="3" fill="white" />
-              </svg>
-    <p class="classAnalyseLabel">: Scaled Band </p>
-    <div class="dropdown" style="width:auto;">
-      <button class="dropbtn" style=" margin-right:1vw; border-radius: 0.5vh; line-height:3vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:1.5vh; margin-bottom:auto;">?</button>
-      <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
-
-        <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:20vw; "> <strong>INFO:</strong> Scaled bands define a color gradient for a certain section. Intermediate colors will be interpolate inside the selected colorspace. Inside of the visualization, a scaled band will be represented by two circles and a solid line.
-          The two circles are showing the start and the end color.
-          The line represent the interpolated colors.
-        </p>
-      </div>
-    </div>
-
-
-    <div class="row" style="height:100%; background:rgb(200,200,200); margin-right:auto; mardin-left:0px;">
-      <svg style="margin-left:1vw; margin-right:0.5vw; height;4vh; width:20vw;">
-                  <line x1="10%" y1="50%" x2="90%" y2="50%" stroke-dasharray="10,5" style="stroke:rgb(0,0,0);stroke-width:9" />
-                  <line x1="10%" y1="50%" x2="90%" y2="50%" stroke-dasharray="10,5" style="stroke:rgb(255,255,255);stroke-width:3" />
-              </svg>
-      <p class="classAnalyseLabel">: Jump</p>
-      <div class="dropdown" style="width:auto; margin-right:auto;">
-        <button class="dropbtn" style=" margin-right:1vw; border-radius: 0.5vh; line-height:3vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:1.5vh; margin-bottom:auto;">?</button>
-        <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3; right: 2vw;">
-
-          <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:20vw; float:right:"> <strong>INFO:</strong> If a neighbor of a band has a different start (end) color as the end (start) color of this band, there is a jump between the band and his neighbor.
-            This jump is not part of the colormap course, but it shows the connection between those bands. Inside of the visualization, a jump will be represented by a dashed line.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-    <!--
-        ----------------	Contrast of Colorspaces	  -----------------
-  -->
-
-    <div class="row" style="background:white; padding-top:2vh; padding-bottom:2vh; border-top:5vh solid rgb(30,30,30);">
-      <div style="width:auto; margin-left:auto;">
-      </div>
-      <h4 style="width:auto; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Contrast of Colormap in Different Colorspaces</h4>
-      <div class="dropdown" style="width:auto; margin-right:auto;">
-        <button class="dropbtn" style="border-radius: 0.5vh; line-height:2.5vh; font-size:2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 2.5vh; height:2.5vh; margin-left:2vh; border: 2px solid black; margin-top:auto; margin-bottom:auto;">?</button>
-        <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
-
-          <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> The following visualizations of the colormap are showing you, how different the interpolated colors look like inside the different colorspaces.
-          </p>
-
-        </div>
-      </div>
-    </div>
-
-  <!----------------	Colormap1	  --------------->
-    <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; height:5vh; line-height:5vh; font-size:3vh; font-weight: bold;">Colormap 1:</p>
-    <!----------------	RGB	  --------------->
-    <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh;">
-
-
-      <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: center;  height:5vh; line-height:5vh">RGB Colorspace:</p>
-
-      <canvas id="id_compare1RGB_Preview" style="width:70%; height:5vh; border: 2px solid black;">
-
-      </canvas>
-
-    </div>
-
-    <!----------------	HSV	  --------------->
-    <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh;">
-
-
-      <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: center;  height:5vh; line-height:5vh">HSV Colorspace:</p>
-
-      <canvas id="id_compare1HSV_Preview" style="width:70%; height:5vh; border: 2px solid black;">
-
-      </canvas>
-
-    </div>
-
-    <!----------------	LAB	  --------------->
-    <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh;">
-
-
-      <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: center;  height:5vh; line-height:5vh">LAB Colorspace:</p>
-
-      <canvas id="id_compare1LAB_Preview" style="width:70%; height:5vh; border: 2px solid black;">
-
-
-      </canvas>
-
-    </div>
-
-    <!----------------	DIN99	  --------------->
-    <div class="row" style="width:100%; height:auto; background:white; margin-bottom:4vh;">
-
-
-      <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: center;  height:5vh; line-height:5vh">DIN99 Colorspace:</p>
-
-      <canvas id="id_compare1DIN99_Preview" style="width:70%; height:5vh; border: 2px solid black;">
-
-
-      </canvas>
-
-    </div>
-
-    <!----------------	Colormap2	  --------------->
-    <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; height:5vh; line-height:5vh; font-size:3vh; font-weight: bold;">Colormap 2:</p>
-    <!----------------	RGB	  --------------->
-    <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh;">
-
-
-      <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: center;  height:5vh; line-height:5vh">RGB Colorspace:</p>
-
-      <canvas id="id_compare2RGB_Preview" style="width:70%; height:5vh; border: 2px solid black;">
-
-      </canvas>
-
-    </div>
-
-    <!----------------	HSV	  --------------->
-    <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh;">
-
-
-      <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: center;  height:5vh; line-height:5vh">HSV Colorspace:</p>
-
-      <canvas id="id_compare2HSV_Preview" style="width:70%; height:5vh; border: 2px solid black;">
-
-      </canvas>
-
-    </div>
-
-    <!----------------	LAB	  --------------->
-    <div class="row" style="width:100%; height:auto; background:white; margin-bottom:2vh;">
-
-
-      <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: center;  height:5vh; line-height:5vh">LAB Colorspace:</p>
-
-      <canvas id="id_compare2LAB_Preview" style="width:70%; height:5vh; border: 2px solid black;">
-
-
-      </canvas>
-
-    </div>
-
-    <!----------------	DIN99	  --------------->
-    <div class="row" style="width:100%; height:auto; background:white; margin-bottom:4vh;">
-
-
-      <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: center;  height:5vh; line-height:5vh">DIN99 Colorspace:</p>
-
-      <canvas id="id_compare2DIN99_Preview" style="width:70%; height:5vh; border: 2px solid black;">
-
-
-      </canvas>
-
-    </div>
-
-
-
-    <!--
-        ----------------	Analyse of the Difference Metrics	  -----------------
-  -->
-
-    <div class="row" style="background:white; padding-top:2vh; border-top:5vh solid rgb(30,30,30);">
-      <div style="width:auto; margin-left:auto;">
-      </div>
-      <h4 style="width:auto; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Analyze of the Difference Metrics</h4>
-      <div class="dropdown" style="width:auto; margin-right:auto;">
-        <button class="dropbtn" style="border-radius: 0.5vh; line-height:2.5vh; font-size:2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 2.5vh; height:2.5vh; margin-left:2vh; border: 2px solid black; margin-top:auto; margin-bottom:auto;">?</button>
-        <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
-
-          <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> The following visualizations are showing you the ratio value of the euclidean distances and the metrics (DE94, CIEDE2000)
-            to determine the difference of the used key colors, which define the start and the end of a band, in relation to the ratio values of the references (x-values). Use the information of one of the both metrics or the euclidean distance of the DIN99 space
-            to create a colormap as good as possible for the perceptual uniformity (Approach the selected ratio of the difference to the ratio of the reference values).
-          </p>
-
-          <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Attention:</strong> For this analyze only <strong>scaled</strong> band will be used.
-          </p>
-
-        </div>
-      </div>
-    </div>
-
-
-    <!----------------	Ratio	Reference  --------------->
-    <div class="row" style="width:100%; height:auto; background:white; margin-top:2vh;">
-
-
-      <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: left;  height:6vh; line-height:5vh">Ratio X Reference:</p>
-
-      <div style"margin-right:0.5vw;">
-      <p class="classAnalyseLabel" style="text-align: right;  height:3vh; line-height:3vh;">C1</p>
-      <p class="classAnalyseLabel" style="text-align: right;  height:3vh; line-height:3vh;">C2</p>
-      </div>
-
-      <div style="width:70%;">
-      <canvas id="id_compare1RatioRef" style="width:100%; height:3vh; border: 2px solid black;"></canvas>
-      <canvas id="id_compare2RatioRef" style="width:100%; height:3vh; border-right: 2px solid black; border-left: 2px solid black; border-bottom: 2px solid black;"></canvas>
-      </div>
-    </div>
-
-    <!----------------	Ratio LAB Euclidean Distance:	  --------------->
-    <div class="row" style="width:100%; height:auto; background:white; margin-top:2vh;">
-
-
-      <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: left;  height:6vh; line-height:5vh">Ratio RGB Euclidean Distance:</p>
-
-      <div style"margin-right:0.5vw;">
-      <p class="classAnalyseLabel" style="text-align: right;  height:3vh; line-height:3vh;">C1</p>
-      <p class="classAnalyseLabel" style="text-align: right;  height:3vh; line-height:3vh;">C2</p>
-      </div>
-
-      <div style="width:70%;">
-      <canvas id="id_compare1RatioRGB" style="width:100%; height:3vh; border: 2px solid black;"></canvas>
-      <canvas id="id_compare2RatioRGB" style="width:100%; height:3vh; border-right: 2px solid black; border-left: 2px solid black; border-bottom: 2px solid black;"></canvas>
-      </div>
-    </div>
-
-    <!----------------	Ratio LAB Metric DE94:	  --------------->
-    <div class="row" style="width:100%; height:auto; background:white; margin-top:2vh;">
-
-
-      <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: left;  height:6vh; line-height:5vh">Ratio HSV Euclidean Distance:</p>
-
-      <div style"margin-right:0.5vw;">
-      <p class="classAnalyseLabel" style="text-align: right;  height:3vh; line-height:3vh;">C1</p>
-      <p class="classAnalyseLabel" style="text-align: right;  height:3vh; line-height:3vh;">C2</p>
-      </div>
-
-      <div style="width:70%;">
-      <canvas id="id_compare1RatioHSV" style="width:100%; height:3vh; border: 2px solid black;"></canvas>
-      <canvas id="id_compare2RatioHSV" style="width:100%; height:3vh; border-right: 2px solid black; border-left: 2px solid black; border-bottom: 2px solid black;"></canvas>
-      </div>
-    </div>
-
-    <!----------------	Ratio LAB Euclidean Distance:	  --------------->
-    <div class="row" style="width:100%; height:auto; background:white; margin-top:2vh;">
-
-
-      <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: left;  height:6vh; line-height:5vh">Ratio LAB Euclidean Distance:</p>
-
-      <div style"margin-right:0.5vw;">
-      <p class="classAnalyseLabel" style="text-align: right;  height:3vh; line-height:3vh;">C1</p>
-      <p class="classAnalyseLabel" style="text-align: right;  height:3vh; line-height:3vh;">C2</p>
-      </div>
-
-      <div style="width:70%;">
-      <canvas id="id_compare1RatioLAB" style="width:100%; height:3vh; border: 2px solid black;">  </canvas>
-      <canvas id="id_compare2RatioLAB" style="width:100%; height:3vh; border-right: 2px solid black; border-left: 2px solid black; border-bottom: 2px solid black;">  </canvas>
-      </div>
-    </div>
-
-    <!----------------	Ratio LAB Metric DE94:	  --------------->
-    <div class="row" style="width:100%; height:auto; background:white; margin-top:2vh;">
-
-
-      <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: left;  height:6vh; line-height:5vh">Ratio LAB Metric DE94:</p>
-
-      <div style"margin-right:0.5vw;">
-      <p class="classAnalyseLabel" style="text-align: right;  height:3vh; line-height:3vh;">C1</p>
-      <p class="classAnalyseLabel" style="text-align: right;  height:3vh; line-height:3vh;">C2</p>
-      </div>
-
-      <div style="width:70%;">
-      <canvas id="id_compare1RatioDE94" style="width:100%; height:3vh; border: 2px solid black;"></canvas>
-      <canvas id="id_compare2RatioDE94" style="width:100%; height:3vh; border-right: 2px solid black; border-left: 2px solid black; border-bottom: 2px solid black;"></canvas>
-      </div>
-    </div>
-
-    <!----------------	Ratio LAB Metric DE2000:	  --------------->
-    <div class="row" style="width:100%; height:auto; background:white; margin-top:2vh;">
-
-
-      <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: left;  height:6vh; line-height:5vh">Ratio LAB Metric DE2000:</p>
-
-      <div style"margin-right:0.5vw;">
-      <p class="classAnalyseLabel" style="text-align: right;  height:3vh; line-height:3vh;">C1</p>
-      <p class="classAnalyseLabel" style="text-align: right;  height:3vh; line-height:3vh;">C2</p>
-      </div>
-
-      <div style="width:70%;">
-      <canvas id="id_compare1RatioDe2000" style="width:100%; height:3vh; border: 2px solid black;"></canvas>
-      <canvas id="id_compare2RatioDe2000" style="width:100%; height:3vh; border-right: 2px solid black; border-left: 2px solid black; border-bottom: 2px solid black;"></canvas>
-      </div>
-    </div>
-
-    <!----------------	Ratio DIN99 Euclidean Distance:	  --------------->
-    <div class="row" style="width:100%; height:auto; background:white; margin-top:2vh; margin-bottom:4vh;">
-
-
-      <p class="classAnalyseLabel" style="width:20vw; font-weight:bold; text-align: left;  height:6vh; line-height:5vh">Ratio DIN99 Euclidean Distance:</p>
-
-      <div style"margin-right:0.5vw;">
-      <p class="classAnalyseLabel" style="text-align: right;  height:3vh; line-height:3vh;">C1</p>
-      <p class="classAnalyseLabel" style="text-align: right;  height:3vh; line-height:3vh;">C2</p>
-      </div>
-
-      <div style="width:70%;">
-      <canvas id="id_compare1RatioDIN99" style="width:100%; height:3vh; border: 2px solid black;"></canvas>
-      <canvas id="id_compare2RatioDIN99" style="width:100%; height:3vh; border-right: 2px solid black; border-left: 2px solid black; border-bottom: 2px solid black;"></canvas>
-      </div>
-    </div>
-
-
-    <div style="height:auto; overflow:auto; width:100%; margin-bottom:2vh;">
-      <h4 style="width:100%; height:3vh; height:3vh; line-height:3vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; padding-top:1vh; padding-bottom:1vh; font-size:2.5vh; margin-bottom:2vh; background:black; margin-bottom:0px;"> Table of the Difference Bar Plot </h4>
-
-      <table style="width:100%; background:white; overflow:auto;" id="id_table">
-        <thead>
-          <tr style="border-top:1px solid white;">
-            <th class="class_tablelabel" style="width:4%; border-left:1px solid white;"># Band</th>
-            <th class="class_tablelabel" style="min-width:6.4%;">delta Ref</th>
-            <th class="class_tablelabel" style="min-width:6.4%;">ratio Ref</th>
-            <th class="class_tablelabel" style="min-width:6.4%;">delta RGB</th>
-            <th class="class_tablelabel" style="min-width:6.4%;">ratio RGB</th>
-            <th class="class_tablelabel" style="min-width:6.4%;">delta HSV</th>
-            <th class="class_tablelabel" style="min-width:6.4%;">ratio HSV</th>
-            <th class="class_tablelabel" style="min-width:6.4%;">delta Lab</th>
-            <th class="class_tablelabel" style="min-width:6.4%;">ratio Lab</th>
-            <th class="class_tablelabel" style="min-width:6.4%;">delta DE94</th>
-            <th class="class_tablelabel" style="min-width:6.4%;">ratio DE94</th>
-            <th class="class_tablelabel" style="min-width:6.4%;">delta DE00</th>
-            <th class="class_tablelabel" style="min-width:6.4%;">ratio DE00</th>
-            <th class="class_tablelabel" style="min-width:6.4%;">delta DIN99</th>
-            <th class="class_tablelabel" style="min-width:6.4%;">ratio DIN99</th>
-          </tr>
-        </thead>
-
-        <tbody id="id_compareTableBody">
-
-        </tbody>
-
-      </table>
-    </div>
-
-
-</div>
   <!--
         ----------------------------------------------------------------------------------------------
         ----------------------------------------------------------------------------------------------
@@ -1832,31 +2210,6 @@
           </div>
         </div>
       </div>
-
-
-
-      <!-- Preview -->
-      <!--div class="row" style="width:100%; height:auto; margin-bottom:1vh; margin-top:2vh;">
-
-          <p class="classAnalyseLabel" style="margin-left:10%; width:auto; font-weight:bold; margin-right:2%;"> Local Speed Map: </p>
-
-          <select id="analyse_SelectMetric" style="height:3vh: line-height:3vh; vertical-align:middle; text-align:center; color:black; font-size:2.5vh; margin-right:2%; margin-top:2.5vh; margin-bottom:2.5vh;"> <option value="0">De94</option> <option value="1">CIEDE2000</option> <option value="2">DIN99</option> </select>
-
-          <div style"margin-right:0.5vw;">
-            <div class="row">
-                <p class="classAnalyseLabel" style="text-align: right;  height:4vh; line-height:4vh; font-size:2vh; margin:auto; margin-right:0.5vw;">Ref:</p>
-                <canvas id="id_anaylsePreviewRef" style="width:50vw; height:4vh; border: 1px solid black; margin:0px;"></canvas>
-            </div>
-            <div class="row">
-              <p class="classAnalyseLabel" style="text-align: right;  height:4vh; line-height:4vh; font-size:2vh; margin:auto; margin-right:0.5vw;">Metric:</p>
-              <canvas id="id_anaylsePreviewC" style="width:50vw; height:4vh; border: 1px solid black; margin:0px;"></canvas>
-            </div>
-          </div>
-
-
-      </div-->
-
-
 
 
       <div id='id_hueValueOptions' style="display:none;">
@@ -3547,6 +3900,199 @@
 
     </div>
   </div>
+
+
+
+
+  <!--
+        ----------------------------------------------------
+        ----------------	Compare Select Window	  -------------
+        ---------------------------------------------------
+        -->
+
+  <div id="popupCompareSelectWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:101; top:0px; left:0px; bottom:0px; display:none;">
+
+    <div style="margin-top:20vh; height:auto; background:rgb(240,240,240); width:80%; border: 0.5vh solid black; margin-left:auto; margin-right:auto;">
+
+
+      <h1 style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin: 0vh; padding-top:2vh;"> Select CMS </h1>
+      <h1 style="width:100%; text-align:center; height:2vh; line-height:2vh; font-size:1.8vh; vertical-align:middle; margin:0vh; padding-top:0.5vh;"> choose two CMS for the compare page </h1>
+
+          <hr>
+
+              <div class="row" style="width:100%; margin-top:2vh;">
+
+
+                <div class="row" style="width:50%; height: 5vh;">
+
+                  <canvas id="id_canvasCompareSelectColormap0" class="class_MyListColormapCanvas" style="height:100%; width:65%; border-radius: 0.5vh; margin-left:10%;">
+
+                  </canvas>
+
+                  <div id="id_nanCompareSelectColormap0" class="class_MyListColormapCanvas" style=" width: 5vh; height:5vh; margin-left:2%; border-radius: 0.5vh;">
+
+                  </div>
+
+                  <button onclick="selectCompareCMS(0)" class="classButtonWhite" id="id_buttonAcceptCompareSelect0" title="select" style="border-radius: 0.5vh; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;line-height:5vh; font-size:4vh; font-weight:bold;text-align:center; vertical-align:middle;">&#10004;</button>
+
+                </div>
+
+                <div class="row" style="width:50%; height: 5vh;">
+
+                  <canvas id="id_canvasCompareSelectColormap5" class="class_MyListColormapCanvas" style="height:100%; width:65%; margin-left:2%; border-radius: 0.5vh;">
+
+                  </canvas>
+
+                  <div id="id_nanCompareSelectColormap5" class="class_MyListColormapCanvas" style=" width: 5vh; height:5vh; margin-left:2%; border-radius: 0.5vh;">
+
+                  </div>
+
+                  <button onclick="selectCompareCMS(5)" class="classButtonWhite" id="id_buttonAcceptCompareSelect5" title="select" style="border-radius: 0.5vh; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;line-height:5vh; font-size:4vh; font-weight:bold;text-align:center; vertical-align:middle;">&#10004;</button>
+
+                </div>
+
+              </div>
+
+              <div class="row" style="width:100%; margin-top:2vh;">
+                <div class="row" style="width:50%; height: 5vh;">
+
+                  <canvas id="id_canvasCompareSelectColormap1" class="class_MyListColormapCanvas" style="height:100%; width:65%; border-radius: 0.5vh; margin-left:10%;">
+
+                  </canvas>
+
+                  <div id="id_nanCompareSelectColormap1" class="class_MyListColormapCanvas" style=" width: 5vh; height:5vh; margin-left:2%; border-radius: 0.5vh;">
+
+                  </div>
+
+                  <button onclick="selectCompareCMS(1)" class="classButtonWhite" id="id_buttonAcceptCompareSelect1" title="select" style="border-radius: 0.5vh; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;line-height:5vh; font-size:4vh; font-weight:bold;text-align:center; vertical-align:middle;">&#10004;</button>
+
+
+                </div>
+
+                <div class="row" style="width:50%; height: 5vh;">
+
+                  <canvas id="id_canvasCompareSelectColormap6" class="class_MyListColormapCanvas" style="height:100%; width:65%; margin-left:2%; border-radius: 0.5vh;">
+
+                  </canvas>
+
+                  <div id="id_nanCompareSelectColormap6" class="class_MyListColormapCanvas" style=" width: 5vh; height:5vh; margin-left:2%; border-radius: 0.5vh;">
+
+                  </div>
+
+                  <button onclick="selectCompareCMS(6)" class="classButtonWhite" id="id_buttonAcceptCompareSelect6" title="select" style="border-radius: 0.5vh; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%; line-height:5vh; font-size:4vh; font-weight:bold;text-align:center; vertical-align:middle;">&#10004;</button>
+
+                </div>
+
+              </div>
+
+              <div class="row" style="width:100%; margin-top:2vh;">
+                <div class="row" style="width:50%; height: 5vh;">
+
+                  <canvas id="id_canvasCompareSelectColormap2" class="class_MyListColormapCanvas" style="height:100%; width:65%; border-radius: 0.5vh; margin-left:10%;">
+
+                  </canvas>
+
+                  <div id="id_nanCompareSelectColormap2" class="class_MyListColormapCanvas" style=" width: 5vh; height:5vh; margin-left:2%; border-radius: 0.5vh;">
+
+                  </div>
+
+                  <button onclick="selectCompareCMS(2)" class="classButtonWhite" id="id_buttonAcceptCompareSelect2" title="select" style="border-radius: 0.5vh; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;line-height:5vh; font-size:4vh; font-weight:bold;text-align:center; vertical-align:middle;">&#10004;</button>
+
+                </div>
+
+                <div class="row" style="width:50%; height: 5vh;">
+
+                  <canvas id="id_canvasCompareSelectColormap7" class="class_MyListColormapCanvas" style="height:100%; width:65%; margin-left:2%; border-radius: 0.5vh;">
+
+                  </canvas>
+
+                  <div id="id_nanCompareSelectColormap7" class="class_MyListColormapCanvas" style=" width: 5vh; height:5vh; margin-left:2%; border-radius: 0.5vh;">
+
+                  </div>
+
+                  <button onclick="selectCompareCMS(7)" class="classButtonWhite" id="id_buttonAcceptCompareSelect7" title="select" style="border-radius: 0.5vh; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;line-height:5vh; font-size:4vh; font-weight:bold;text-align:center; vertical-align:middle;">&#10004;</button>
+
+                </div>
+
+              </div>
+
+              <div class="row" style="width:100%; margin-top:2vh;">
+                <div class="row" style="width:50%; height: 5vh;">
+
+                  <canvas id="id_canvasCompareSelectColormap3" class="class_MyListColormapCanvas" style="height:100%; width:65%; border-radius: 0.5vh; margin-left:10%;">
+
+                  </canvas>
+
+                  <div id="id_nanCompareSelectColormap3" class="class_MyListColormapCanvas" style=" width: 5vh; height:5vh; margin-left:2%; border-radius: 0.5vh;">
+
+                  </div>
+
+                  <button onclick="selectCompareCMS(3)" class="classButtonWhite" id="id_buttonAcceptCompareSelect3" title="select" style="border-radius: 0.5vh; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;line-height:5vh; font-size:4vh; font-weight:bold;text-align:center; vertical-align:middle;">&#10004;</button>
+
+                </div>
+
+                <div class="row" style="width:50%; height: 5vh;">
+
+                  <canvas id="id_canvasCompareSelectColormap8" class="class_MyListColormapCanvas" style="height:100%; width:65%; margin-left:2%; border-radius: 0.5vh;">
+
+                  </canvas>
+
+                  <div id="id_nanCompareSelectColormap8" class="class_MyListColormapCanvas" style=" width: 5vh; height:5vh; margin-left:2%; border-radius: 0.5vh;">
+
+                  </div>
+
+                  <button onclick="selectCompareCMS(8)" class="classButtonWhite" id="id_buttonAcceptCompareSelect8" title="select" style="border-radius: 0.5vh; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;line-height:5vh; font-size:4vh; font-weight:bold;text-align:center; vertical-align:middle;">&#10004;</button>
+
+                </div>
+
+              </div>
+
+              <div class="row" style="width:100%; margin-top:2vh;margin-bottom:2vh;">
+                <div class="row" style="width:50%; height: 5vh;">
+
+                  <canvas id="id_canvasCompareSelectColormap4" class="class_MyListColormapCanvas" style="height:100%; width:65%; border-radius: 0.5vh; margin-left:10%;">
+
+                  </canvas>
+
+                  <div id="id_nanCompareSelectColormap4" class="class_MyListColormapCanvas" style=" width: 5vh; height:5vh; margin-left:2%; border-radius: 0.5vh;">
+
+                  </div>
+
+                  <button onclick="selectCompareCMS(4)" class="classButtonWhite" id="id_buttonAcceptCompareSelect4" title="select" style="border-radius: 0.5vh; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;line-height:5vh; font-size:4vh; font-weight:bold;text-align:center; vertical-align:middle;">&#10004;</button>
+
+                </div>
+
+                <div class="row" style="width:50%; height: 5vh;">
+
+                  <canvas id="id_canvasCompareSelectColormap9" class="class_MyListColormapCanvas" style="height:100%; width:65%; margin-left:2%; border-radius: 0.5vh;">
+
+                  </canvas>
+
+                  <div id="id_nanCompareSelectColormap9" class="class_MyListColormapCanvas" style=" width: 5vh; height:5vh; margin-left:2%; border-radius: 0.5vh;">
+
+                  </div>
+
+                  <button onclick="selectCompareCMS(9)" class="classButtonWhite" id="id_buttonAcceptCompareSelect9" title="select" style="border-radius: 0.5vh; width: 5vh; height:5vh; border: 0.2vh solid rgb(180,180,180); margin-left:2%;line-height:5vh; font-size:4vh; font-weight:bold;text-align:center; vertical-align:middle;">&#10004;</button>
+
+                </div>
+
+              </div>
+
+              <div class="row" style="width:100%; margin-top:2vh;margin-bottom:2vh;">
+
+                <button class="classButtonWhite" id="acceptCompareSelection" onclick="acceptCompareSelection()" title="accept selection" style="border-radius: 0.5vh;  width: 50%; height:5vh; line-height:5vh; font-size:2.5vh; border: 0.2vh solid rgb(180,180,180); margin-left:25%; visibility:hidden;"> Accept </button>
+
+              </div>
+
+
+    </div>
+  </div>
+
+
+
+
+
+
 
 
   <!--

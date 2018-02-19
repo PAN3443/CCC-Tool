@@ -92,18 +92,18 @@ window.onload = function() {
   document.getElementById('editSide_Radiobutton_SelectColor1').addEventListener("change", colorChange);
   document.getElementById('editSide_Radiobutton_SelectColor2').addEventListener("change", colorChange);
 
-  document.getElementById('id_editPageC1RInput').addEventListener("keyup", checkColorInputFieldsKey);
-    document.getElementById('id_editPageC1GInput').addEventListener("keyup", checkColorInputFieldsKey);
-      document.getElementById('id_editPageC1BInput').addEventListener("keyup", checkColorInputFieldsKey);
-        document.getElementById('id_editPageC2RInput').addEventListener("keyup", checkColorInputFieldsKey);
-          document.getElementById('id_editPageC2GInput').addEventListener("keyup", checkColorInputFieldsKey);
-            document.getElementById('id_editPageC2BInput').addEventListener("keyup", checkColorInputFieldsKey);
-              document.getElementById('id_editPageC1HInput').addEventListener("keyup", checkColorInputFieldsKey);
-                document.getElementById('id_editPageC2HInput').addEventListener("keyup", checkColorInputFieldsKey);
-                  document.getElementById('id_editPageC1SInput').addEventListener("keyup", checkColorInputFieldsKey);
-                    document.getElementById('id_editPageC1VInput').addEventListener("keyup", checkColorInputFieldsKey);
-                      document.getElementById('id_editPageC2SInput').addEventListener("keyup", checkColorInputFieldsKey);
-                        document.getElementById('id_editPageC2VInput').addEventListener("keyup", checkColorInputFieldsKey);
+  document.getElementById('id_editPageC1RInput').addEventListener("keyup", checkIntervalInputFieldsKey);
+    document.getElementById('id_editPageC1GInput').addEventListener("keyup", checkIntervalInputFieldsKey);
+      document.getElementById('id_editPageC1BInput').addEventListener("keyup", checkIntervalInputFieldsKey);
+        document.getElementById('id_editPageC2RInput').addEventListener("keyup", checkIntervalInputFieldsKey);
+          document.getElementById('id_editPageC2GInput').addEventListener("keyup", checkIntervalInputFieldsKey);
+            document.getElementById('id_editPageC2BInput').addEventListener("keyup", checkIntervalInputFieldsKey);
+              document.getElementById('id_editPageC1HInput').addEventListener("keyup", checkIntervalInputFieldsKey);
+                document.getElementById('id_editPageC2HInput').addEventListener("keyup", checkIntervalInputFieldsKey);
+                  document.getElementById('id_editPageC1SInput').addEventListener("keyup", checkIntervalInputFieldsKey);
+                    document.getElementById('id_editPageC1VInput').addEventListener("keyup", checkIntervalInputFieldsKey);
+                      document.getElementById('id_editPageC2SInput').addEventListener("keyup", checkIntervalInputFieldsKey);
+                        document.getElementById('id_editPageC2VInput').addEventListener("keyup", checkIntervalInputFieldsKey);
 
                         document.getElementById('id_editPageC1RInput').addEventListener("change", checkColorInputFieldsChange);
                           document.getElementById('id_editPageC1GInput').addEventListener("change", checkColorInputFieldsChange);
@@ -141,18 +141,18 @@ window.onload = function() {
   document.getElementById('bandCreator_Radiobutton_SelectColor1').addEventListener("change", colorChange);
   document.getElementById('bandCreator_Radiobutton_SelectColor2').addEventListener("change", colorChange);
 
-  document.getElementById('id_bandCreatorC1RInput').addEventListener("keyup", checkColorInputFieldsKey);
-    document.getElementById('id_bandCreatorC1GInput').addEventListener("keyup", checkColorInputFieldsKey);
-      document.getElementById('id_bandCreatorC1BInput').addEventListener("keyup", checkColorInputFieldsKey);
-        document.getElementById('id_bandCreatorC2RInput').addEventListener("keyup", checkColorInputFieldsKey);
-          document.getElementById('id_bandCreatorC2GInput').addEventListener("keyup", checkColorInputFieldsKey);
-            document.getElementById('id_bandCreatorC2BInput').addEventListener("keyup", checkColorInputFieldsKey);
-              document.getElementById('id_bandCreatorC1HInput').addEventListener("keyup", checkColorInputFieldsKey);
-                document.getElementById('id_bandCreatorC2HInput').addEventListener("keyup", checkColorInputFieldsKey);
-                  document.getElementById('id_bandCreatorC1SInput').addEventListener("keyup", checkColorInputFieldsKey);
-                    document.getElementById('id_bandCreatorC1VInput').addEventListener("keyup", checkColorInputFieldsKey);
-                      document.getElementById('id_bandCreatorC2SInput').addEventListener("keyup", checkColorInputFieldsKey);
-                        document.getElementById('id_bandCreatorC2VInput').addEventListener("keyup", checkColorInputFieldsKey);
+  document.getElementById('id_bandCreatorC1RInput').addEventListener("keyup", checkIntervalInputFieldsKey);
+    document.getElementById('id_bandCreatorC1GInput').addEventListener("keyup", checkIntervalInputFieldsKey);
+      document.getElementById('id_bandCreatorC1BInput').addEventListener("keyup", checkIntervalInputFieldsKey);
+        document.getElementById('id_bandCreatorC2RInput').addEventListener("keyup", checkIntervalInputFieldsKey);
+          document.getElementById('id_bandCreatorC2GInput').addEventListener("keyup", checkIntervalInputFieldsKey);
+            document.getElementById('id_bandCreatorC2BInput').addEventListener("keyup", checkIntervalInputFieldsKey);
+              document.getElementById('id_bandCreatorC1HInput').addEventListener("keyup", checkIntervalInputFieldsKey);
+                document.getElementById('id_bandCreatorC2HInput').addEventListener("keyup", checkIntervalInputFieldsKey);
+                  document.getElementById('id_bandCreatorC1SInput').addEventListener("keyup", checkIntervalInputFieldsKey);
+                    document.getElementById('id_bandCreatorC1VInput').addEventListener("keyup", checkIntervalInputFieldsKey);
+                      document.getElementById('id_bandCreatorC2SInput').addEventListener("keyup", checkIntervalInputFieldsKey);
+                        document.getElementById('id_bandCreatorC2VInput').addEventListener("keyup", checkIntervalInputFieldsKey);
 
                         document.getElementById('id_bandCreatorC1RInput').addEventListener("change", checkColorInputFieldsChange);
                           document.getElementById('id_bandCreatorC1GInput').addEventListener("change", checkColorInputFieldsChange);
@@ -209,11 +209,11 @@ window.onload = function() {
   /////////////////////////////// Analyse Side /////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  document.getElementById('id_InputIntervalNum').addEventListener("keyup", checkColorInputFieldsKey);
+  document.getElementById('id_InputIntervalNum').addEventListener("keyup", checkIntervalInputFieldsKey);
   document.getElementById('id_InputIntervalNum').addEventListener("change", checkIntervalInputFieldsChange);
-  document.getElementById('id_InputIntervalNum2').addEventListener("keyup", checkColorInputFieldsKey);
+  document.getElementById('id_InputIntervalNum2').addEventListener("keyup", checkIntervalInputFieldsKey);
   document.getElementById('id_InputIntervalNum2').addEventListener("change", checkIntervalInputFieldsChange);
-  document.getElementById('id_InputIntervalNum3').addEventListener("keyup", checkColorInputFieldsKey);
+  document.getElementById('id_InputIntervalNum3').addEventListener("keyup", checkIntervalInputFieldsKey);
   document.getElementById('id_InputIntervalNum3').addEventListener("change", checkIntervalInputFieldsChange);
 
   document.getElementById('id_anaylseCourseHueBackground').addEventListener("mouseleave", mouseLeaveColorspace);
@@ -256,9 +256,14 @@ window.onload = function() {
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Compare Side /////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////,
 
-  document.getElementById('id_compareSwitchColormap').addEventListener("click", switchCompareMaps);
+  document.getElementById('id_CompareInputIntervalNum').addEventListener("keyup", checkIntervalInputFieldsKey);
+  document.getElementById('id_CompareInputIntervalNum').addEventListener("change", checkIntervalInputFieldsChange);
+  document.getElementById('id_CompareInputIntervalNum2').addEventListener("keyup", checkIntervalInputFieldsKey);
+  document.getElementById('id_CompareInputIntervalNum2').addEventListener("change", checkIntervalInputFieldsChange);
+  document.getElementById('id_CompareInputIntervalNum3').addEventListener("keyup", checkIntervalInputFieldsKey);
+  document.getElementById('id_CompareInputIntervalNum3').addEventListener("change", checkIntervalInputFieldsChange);
 
   document.getElementById('id_rgb3DCompare').addEventListener("mousemove", eventRGB3D_mousemove);
   document.getElementById('id_rgb3DCompare').addEventListener("mouseleave", eventRGB3D_mouseleave);
@@ -294,8 +299,6 @@ window.onload = function() {
   document.getElementById('id_checkboxRGBCompare').addEventListener("change", compareColormapRGBPossible);
 
   document.getElementById('id_setOpacityRangeCompare').addEventListener("change", changeOpacityRange);
-
-  document.getElementById('compare_SelectMetric').addEventListener("change", drawCompareDifferenceMaps);
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Tutorial Side /////////////////////////////////////
@@ -375,7 +378,7 @@ function orderColorSketch(forColorspace) {
       fillTable();
     }
 
-    editPage_drawKeys('id_createColormapKeys', globalColormap1);
+    editPage_drawKeys('id_createColormapKeys', globalColormap1, false);
 
     //////////////////////////////////////////////////////////////////////////
 
@@ -605,8 +608,9 @@ function orderColorSketch(forColorspace) {
 
     if(showSideID == 3){
       tmpLength = tmpRect.width / bandSketch2.getBandLength() - 1;
-      sketchObject = document.getElementById("id_compare2ColormapSketch");
-      sketchRefObj = document.getElementById("id_compare2ColormapSketch_Ref");
+      sketchObject = document.getElementById("id_colormapSketch2");
+      sketchRefObj = document.getElementById("id_colormapSketch_Ref2");
+      editPage_drawKeys('id_createColormapKeys2', globalColormap2, true);
 
       for (var i = 0; i < bandSketch2.getBandLength(); i++) {
 
@@ -826,7 +830,7 @@ function changeKeyValueInputSketch(sketchIndex, doR1, fielID, doBandSketch2) {
 
     if (showSideID == 3) {
       globalColormap2 = bandSketch2.sketch2Colormap(colorspaceModus, globalColormap2.getColormapName());
-      drawCompareDifferenceMaps();
+      updateComparePage();
     }
   } else {
     if (doR1) {
@@ -848,7 +852,7 @@ function changeKeyValueInputSketch(sketchIndex, doR1, fielID, doBandSketch2) {
     }
 
     if (showSideID == 3) {
-      drawCompareDifferenceMaps();
+      updateComparePage();
     }
 
     if (showSideID == 6) {

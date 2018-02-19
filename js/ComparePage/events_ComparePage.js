@@ -1,15 +1,314 @@
-function initComparePage(){
+function updateComparePage(){
+
+  if(document.getElementById("compareIntSpace").style.display!="none"){
+    drawCompareMapPreviews();
+    return;
+  }
+
+  if(document.getElementById("compareColormapPath").style.display!="none"){
+    intervalSize=100;
     initRGB3D();
+    changeCourseSpaceCompare();
+    return;
+  }
+
+  if(document.getElementById("compareGlobalSpeed").style.display!="none"){
+    var intervalColormap = globalColormap1.calcColorMap(intervalSize, colorspaceModus);
+    calcGlobalSpeedPlot(intervalColormap, "compare1_GlobalSpeed_Canvas_Lab", 0, "compare1_GlobalSpeed_Label_Min_Lab", "compare1_GlobalSpeed_Label_Max_Lab", "compare1_GlobalSpeed_Label_Av_Lab", "compare1_GlobalSpeed_Label_Dev_Lab");
+    calcGlobalSpeedPlot(intervalColormap,"compare1_GlobalSpeed_Canvas_de94", 1, "compare1_GlobalSpeed_Label_Min_de94", "compare1_GlobalSpeed_Label_Max_de94", "compare1_GlobalSpeed_Label_Av_de94", "compare1_GlobalSpeed_Label_Dev_de94");
+    calcGlobalSpeedPlot(intervalColormap,"compare1_GlobalSpeed_Canvas_de2000", 2, "compare1_GlobalSpeed_Label_Min_de2000", "compare1_GlobalSpeed_Label_Max_de2000", "compare1_GlobalSpeed_Label_Av_de2000", "compare1_GlobalSpeed_Label_Dev_de2000");
+    calcGlobalSpeedPlot(intervalColormap,"compare1_GlobalSpeed_Canvas_din99", 3, "compare1_GlobalSpeed_Label_Min_din99", "compare1_GlobalSpeed_Label_Max_din99", "compare1_GlobalSpeed_Label_Av_din99", "compare1_GlobalSpeed_Label_Dev_din99");
+    intervalColormap = globalColormap2.calcColorMap(intervalSize, colorspaceModus);
+    calcGlobalSpeedPlot(intervalColormap, "compare2_GlobalSpeed_Canvas_Lab", 0, "compare2_GlobalSpeed_Label_Min_Lab", "compare2_GlobalSpeed_Label_Max_Lab", "compare2_GlobalSpeed_Label_Av_Lab", "compare2_GlobalSpeed_Label_Dev_Lab");
+    calcGlobalSpeedPlot(intervalColormap,"compare2_GlobalSpeed_Canvas_de94", 1, "compare2_GlobalSpeed_Label_Min_de94", "compare2_GlobalSpeed_Label_Max_de94", "compare2_GlobalSpeed_Label_Av_de94", "compare2_GlobalSpeed_Label_Dev_de94");
+    calcGlobalSpeedPlot(intervalColormap,"compare2_GlobalSpeed_Canvas_de2000", 2, "compare2_GlobalSpeed_Label_Min_de2000", "compare2_GlobalSpeed_Label_Max_de2000", "compare2_GlobalSpeed_Label_Av_de2000", "compare2_GlobalSpeed_Label_Dev_de2000");
+    calcGlobalSpeedPlot(intervalColormap,"compare2_GlobalSpeed_Canvas_din99", 3, "compare2_GlobalSpeed_Label_Min_din99", "compare2_GlobalSpeed_Label_Max_din99", "compare2_GlobalSpeed_Label_Av_din99", "compare2_GlobalSpeed_Label_Dev_din99");
+    return;
+  }
+
+  if(document.getElementById("compareLocalBarSpeed").style.display!="none"){
+    drawCompareDifferenceMaps();
+    return;
+  }
+
+  if(document.getElementById("compareLocalLineSpeed").style.display!="none"){
+    var intervalColormap = globalColormap1.calcColorMap(intervalSize, colorspaceModus);
+    calcLocalSpeedPlot(intervalColormap, "compare1_LocalSpeed_Canvas_Lab", 0, "compare1_LocalSpeed_Label_Min_Lab", "compare1_LocalSpeed_Label_Max_Lab", "compare1_LocalSpeed_Label_Av_Lab", "compare1_LocalSpeed_Label_Dev_Lab");
+    calcLocalSpeedPlot(intervalColormap,"compare1_LocalSpeed_Canvas_de94", 1, "compare1_LocalSpeed_Label_Min_de94", "compare1_LocalSpeed_Label_Max_de94", "compare1_LocalSpeed_Label_Av_de94", "compare1_LocalSpeed_Label_Dev_de94");
+    calcLocalSpeedPlot(intervalColormap,"compare1_LocalSpeed_Canvas_de2000", 2, "compare1_LocalSpeed_Label_Min_de2000", "compare1_LocalSpeed_Label_Max_de2000", "compare1_LocalSpeed_Label_Av_de2000", "compare1_LocalSpeed_Label_Dev_de2000");
+    calcLocalSpeedPlot(intervalColormap,"compare1_LocalSpeed_Canvas_din99", 3, "compare1_LocalSpeed_Label_Min_din99", "compare1_LocalSpeed_Label_Max_din99", "compare1_LocalSpeed_Label_Av_din99", "compare1_LocalSpeed_Label_Dev_din99");
+    intervalColormap = globalColormap2.calcColorMap(intervalSize, colorspaceModus);
+    calcLocalSpeedPlot(intervalColormap, "compare2_LocalSpeed_Canvas_Lab", 0, "compare2_LocalSpeed_Label_Min_Lab", "compare2_LocalSpeed_Label_Max_Lab", "compare2_LocalSpeed_Label_Av_Lab", "compare2_LocalSpeed_Label_Dev_Lab");
+    calcLocalSpeedPlot(intervalColormap,"compare2_LocalSpeed_Canvas_de94", 1, "compare2_LocalSpeed_Label_Min_de94", "compare2_LocalSpeed_Label_Max_de94", "compare2_LocalSpeed_Label_Av_de94", "compare2_LocalSpeed_Label_Dev_de94");
+    calcLocalSpeedPlot(intervalColormap,"compare2_LocalSpeed_Canvas_de2000", 2, "compare2_LocalSpeed_Label_Min_de2000", "compare2_LocalSpeed_Label_Max_de2000", "compare2_LocalSpeed_Label_Av_de2000", "compare2_LocalSpeed_Label_Dev_de2000");
+    calcLocalSpeedPlot(intervalColormap,"compare2_LocalSpeed_Canvas_din99", 3, "compare2_LocalSpeed_Label_Min_din99", "compare2_LocalSpeed_Label_Max_din99", "compare2_LocalSpeed_Label_Av_din99", "compare2_LocalSpeed_Label_Dev_din99");
+    return;
+  }
+
+  if(document.getElementById("compareOrder").style.display!="none"){
+    var intervalColormap = globalColormap1.calcColorMap(intervalSize, colorspaceModus);
+    calcOrderPlot(intervalColormap, "compare1_OrderSpeed_Canvas_Lab", 0, "compare1_OrderSpeed_Label_Min_Lab", "compare1_OrderSpeed_Label_MinGlobal_Lab");
+    calcOrderPlot(intervalColormap,"compare1_OrderSpeed_Canvas_de94", 1, "compare1_OrderSpeed_Label_Min_de94", "compare1_OrderSpeed_Label_MinGlobal_de94");
+    calcOrderPlot(intervalColormap,"compare1_OrderSpeed_Canvas_de2000", 2, "compare1_OrderSpeed_Label_Min_de2000", "compare1_OrderSpeed_Label_MinGlobal_de2000");
+    calcOrderPlot(intervalColormap,"compare1_OrderSpeed_Canvas_din99", 3, "compare1_OrderSpeed_Label_Min_din99", "compare1_OrderSpeed_Label_MinGlobal_din99");
+    intervalColormap = globalColormap2.calcColorMap(intervalSize, colorspaceModus);
+    calcOrderPlot(intervalColormap, "compare2_OrderSpeed_Canvas_Lab", 0, "compare2_OrderSpeed_Label_Min_Lab", "compare2_OrderSpeed_Label_MinGlobal_Lab");
+    calcOrderPlot(intervalColormap,"compare2_OrderSpeed_Canvas_de94", 1, "compare2_OrderSpeed_Label_Min_de94", "compare2_OrderSpeed_Label_MinGlobal_de94");
+    calcOrderPlot(intervalColormap,"compare2_OrderSpeed_Canvas_de2000", 2, "compare2_OrderSpeed_Label_Min_de2000", "compare2_OrderSpeed_Label_MinGlobal_de2000");
+    calcOrderPlot(intervalColormap,"compare2_OrderSpeed_Canvas_din99", 3, "compare2_OrderSpeed_Label_Min_din99", "compare2_OrderSpeed_Label_MinGlobal_din99");
+    return;
+  }
+
+}
+
+function changePlotTypeCompare(type){
+  plotType=type;
+
+  switch (type) {
+    case 0:
+      document.getElementById("button_AnalyzeDifferenceMatrix").style.border = "0.2vh solid black";
+      document.getElementById("button_AnalyzeDifferenceMatrix").style.color = "black";
+      document.getElementById("button_AnalyzeSpeedMatrix").style.border = "0.2vh solid "+styleActiveColor;
+      document.getElementById("button_AnalyzeSpeedMatrix").style.color = styleActiveColor;
+      document.getElementById("button_AnalyzeDifferenceLine").style.border = "0.2vh solid black";
+      document.getElementById("button_AnalyzeDifferenceLine").style.color = "black";
+      document.getElementById("button_AnalyzeSpeedLine").style.border = "0.2vh solid "+styleActiveColor;
+      document.getElementById("button_AnalyzeSpeedLine").style.color = styleActiveColor;
+      document.getElementById("button_CompareDifferenceMatrix").style.border = "0.2vh solid black";
+      document.getElementById("button_CompareDifferenceMatrix").style.color = "black";
+      document.getElementById("button_CompareSpeedMatrix").style.border = "0.2vh solid "+styleActiveColor;
+      document.getElementById("button_CompareSpeedMatrix").style.color = styleActiveColor;
+      document.getElementById("button_CompareDifferenceLine").style.border = "0.2vh solid black";
+      document.getElementById("button_CompareDifferenceLine").style.color = "black";
+      document.getElementById("button_CompareSpeedLine").style.border = "0.2vh solid "+styleActiveColor;
+      document.getElementById("button_CompareSpeedLine").style.color = styleActiveColor;
+      break;
+      case 1:
+      document.getElementById("button_AnalyzeSpeedMatrix").style.border = "0.2vh solid black";
+      document.getElementById("button_AnalyzeSpeedMatrix").style.color = "black";
+        document.getElementById("button_AnalyzeDifferenceMatrix").style.border = "0.2vh solid "+styleActiveColor;
+        document.getElementById("button_AnalyzeDifferenceMatrix").style.color = styleActiveColor;
+        document.getElementById("button_AnalyzeSpeedLine").style.border = "0.2vh solid black";
+        document.getElementById("button_AnalyzeSpeedLine").style.color = "black";
+          document.getElementById("button_AnalyzeDifferenceLine").style.border = "0.2vh solid "+styleActiveColor;
+          document.getElementById("button_AnalyzeDifferenceLine").style.color = styleActiveColor;
+          document.getElementById("button_CompareSpeedMatrix").style.border = "0.2vh solid black";
+          document.getElementById("button_CompareSpeedMatrix").style.color = "black";
+            document.getElementById("button_CompareDifferenceMatrix").style.border = "0.2vh solid "+styleActiveColor;
+            document.getElementById("button_CompareDifferenceMatrix").style.color = styleActiveColor;
+            document.getElementById("button_CompareSpeedLine").style.border = "0.2vh solid black";
+            document.getElementById("button_CompareSpeedLine").style.color = "black";
+              document.getElementById("button_CompareDifferenceLine").style.border = "0.2vh solid "+styleActiveColor;
+              document.getElementById("button_CompareDifferenceLine").style.color = styleActiveColor;
+        break;
+    default:
+
+
+  }
+
+
+  if(document.getElementById("compareGlobalSpeed").style.display!="none"){
+    var intervalColormap = globalColormap1.calcColorMap(intervalSize, colorspaceModus);
+    calcGlobalSpeedPlot(intervalColormap, "compare1_GlobalSpeed_Canvas_Lab", 0, "compare1_GlobalSpeed_Label_Min_Lab", "compare1_GlobalSpeed_Label_Max_Lab", "compare1_GlobalSpeed_Label_Av_Lab", "compare1_GlobalSpeed_Label_Dev_Lab");
+    calcGlobalSpeedPlot(intervalColormap,"compare1_GlobalSpeed_Canvas_de94", 1, "compare1_GlobalSpeed_Label_Min_de94", "compare1_GlobalSpeed_Label_Max_de94", "compare1_GlobalSpeed_Label_Av_de94", "compare1_GlobalSpeed_Label_Dev_de94");
+    calcGlobalSpeedPlot(intervalColormap,"compare1_GlobalSpeed_Canvas_de2000", 2, "compare1_GlobalSpeed_Label_Min_de2000", "compare1_GlobalSpeed_Label_Max_de2000", "compare1_GlobalSpeed_Label_Av_de2000", "compare1_GlobalSpeed_Label_Dev_de2000");
+    calcGlobalSpeedPlot(intervalColormap,"compare1_GlobalSpeed_Canvas_din99", 3, "compare1_GlobalSpeed_Label_Min_din99", "compare1_GlobalSpeed_Label_Max_din99", "compare1_GlobalSpeed_Label_Av_din99", "compare1_GlobalSpeed_Label_Dev_din99");
+    intervalColormap = globalColormap2.calcColorMap(intervalSize, colorspaceModus);
+    calcGlobalSpeedPlot(intervalColormap, "compare2_GlobalSpeed_Canvas_Lab", 0, "compare2_GlobalSpeed_Label_Min_Lab", "compare2_GlobalSpeed_Label_Max_Lab", "compare2_GlobalSpeed_Label_Av_Lab", "compare2_GlobalSpeed_Label_Dev_Lab");
+    calcGlobalSpeedPlot(intervalColormap,"compare2_GlobalSpeed_Canvas_de94", 1, "compare2_GlobalSpeed_Label_Min_de94", "compare2_GlobalSpeed_Label_Max_de94", "compare2_GlobalSpeed_Label_Av_de94", "compare2_GlobalSpeed_Label_Dev_de94");
+    calcGlobalSpeedPlot(intervalColormap,"compare2_GlobalSpeed_Canvas_de2000", 2, "compare2_GlobalSpeed_Label_Min_de2000", "compare2_GlobalSpeed_Label_Max_de2000", "compare2_GlobalSpeed_Label_Av_de2000", "compare2_GlobalSpeed_Label_Dev_de2000");
+    calcGlobalSpeedPlot(intervalColormap,"compare2_GlobalSpeed_Canvas_din99", 3, "compare2_GlobalSpeed_Label_Min_din99", "compare2_GlobalSpeed_Label_Max_din99", "compare2_GlobalSpeed_Label_Av_din99", "compare2_GlobalSpeed_Label_Dev_din99");
+    return;
+  }
+
+  if(document.getElementById("compareLocalLineSpeed").style.display!="none"){
+    var intervalColormap = globalColormap1.calcColorMap(intervalSize, colorspaceModus);
+    calcLocalSpeedPlot(intervalColormap, "compare1_LocalSpeed_Canvas_Lab", 0, "compare1_LocalSpeed_Label_Min_Lab", "compare1_LocalSpeed_Label_Max_Lab", "compare1_LocalSpeed_Label_Av_Lab", "compare1_LocalSpeed_Label_Dev_Lab");
+    calcLocalSpeedPlot(intervalColormap,"compare1_LocalSpeed_Canvas_de94", 1, "compare1_LocalSpeed_Label_Min_de94", "compare1_LocalSpeed_Label_Max_de94", "compare1_LocalSpeed_Label_Av_de94", "compare1_LocalSpeed_Label_Dev_de94");
+    calcLocalSpeedPlot(intervalColormap,"compare1_LocalSpeed_Canvas_de2000", 2, "compare1_LocalSpeed_Label_Min_de2000", "compare1_LocalSpeed_Label_Max_de2000", "compare1_LocalSpeed_Label_Av_de2000", "compare1_LocalSpeed_Label_Dev_de2000");
+    calcLocalSpeedPlot(intervalColormap,"compare1_LocalSpeed_Canvas_din99", 3, "compare1_LocalSpeed_Label_Min_din99", "compare1_LocalSpeed_Label_Max_din99", "compare1_LocalSpeed_Label_Av_din99", "compare1_LocalSpeed_Label_Dev_din99");
+    intervalColormap = globalColormap2.calcColorMap(intervalSize, colorspaceModus);
+    calcLocalSpeedPlot(intervalColormap, "compare2_LocalSpeed_Canvas_Lab", 0, "compare2_LocalSpeed_Label_Min_Lab", "compare2_LocalSpeed_Label_Max_Lab", "compare2_LocalSpeed_Label_Av_Lab", "compare2_LocalSpeed_Label_Dev_Lab");
+    calcLocalSpeedPlot(intervalColormap,"compare2_LocalSpeed_Canvas_de94", 1, "compare2_LocalSpeed_Label_Min_de94", "compare2_LocalSpeed_Label_Max_de94", "compare2_LocalSpeed_Label_Av_de94", "compare2_LocalSpeed_Label_Dev_de94");
+    calcLocalSpeedPlot(intervalColormap,"compare2_LocalSpeed_Canvas_de2000", 2, "compare2_LocalSpeed_Label_Min_de2000", "compare2_LocalSpeed_Label_Max_de2000", "compare2_LocalSpeed_Label_Av_de2000", "compare2_LocalSpeed_Label_Dev_de2000");
+    calcLocalSpeedPlot(intervalColormap,"compare2_LocalSpeed_Canvas_din99", 3, "compare2_LocalSpeed_Label_Min_din99", "compare2_LocalSpeed_Label_Max_din99", "compare2_LocalSpeed_Label_Av_din99", "compare2_LocalSpeed_Label_Dev_din99");
+    return;
+  }
+}
+
+
+function changeComparePage(type){
+
+  document.getElementById("id_selectCompareSpace").style.background=styleInactiveColor;
+  document.getElementById("id_selectComparePath").style.background=styleInactiveColor;
+  document.getElementById("id_selectCompareMatrix").style.background=styleInactiveColor;
+  document.getElementById("id_selectCompareBar").style.background=styleInactiveColor;
+  document.getElementById("id_selectCompareLine").style.background=styleInactiveColor;
+  document.getElementById("id_selectCompareOrder").style.background=styleInactiveColor;
+
+  document.getElementById("compareColormapPath").style.display="none";
+  document.getElementById("compareGlobalSpeed").style.display="none";
+  document.getElementById("compareLocalLineSpeed").style.display="none";
+  document.getElementById("compareLocalBarSpeed").style.display="none";
+  document.getElementById("compareOrder").style.display="none";
+  document.getElementById("compareIntSpace").style.display="none";
+
+  switch (type) {
+    case 0:
+        document.getElementById("id_selectCompareSpace").style.background=styleActiveColor;
+        document.getElementById("compareIntSpace").style.display="inline-block";
+
+        drawCompareMapPreviews();
+      break;
+      case 1:
+          document.getElementById("id_selectComparePath").style.background=styleActiveColor;
+          document.getElementById("compareColormapPath").style.display="inline-block";
+          intervalSize=100;
+          initRGB3D();
+          changeCourseSpaceCompare();
+        break;
+        case 2:
+            intervalSize=parseFloat(document.getElementById("id_CompareInputIntervalNum").value);
+            document.getElementById("id_selectCompareMatrix").style.background=styleActiveColor;
+            document.getElementById("compareGlobalSpeed").style.display="inline-block";
+            var intervalColormap = globalColormap1.calcColorMap(intervalSize, colorspaceModus);
+            calcGlobalSpeedPlot(intervalColormap, "compare1_GlobalSpeed_Canvas_Lab", 0, "compare1_GlobalSpeed_Label_Min_Lab", "compare1_GlobalSpeed_Label_Max_Lab", "compare1_GlobalSpeed_Label_Av_Lab", "compare1_GlobalSpeed_Label_Dev_Lab");
+            calcGlobalSpeedPlot(intervalColormap,"compare1_GlobalSpeed_Canvas_de94", 1, "compare1_GlobalSpeed_Label_Min_de94", "compare1_GlobalSpeed_Label_Max_de94", "compare1_GlobalSpeed_Label_Av_de94", "compare1_GlobalSpeed_Label_Dev_de94");
+            calcGlobalSpeedPlot(intervalColormap,"compare1_GlobalSpeed_Canvas_de2000", 2, "compare1_GlobalSpeed_Label_Min_de2000", "compare1_GlobalSpeed_Label_Max_de2000", "compare1_GlobalSpeed_Label_Av_de2000", "compare1_GlobalSpeed_Label_Dev_de2000");
+            calcGlobalSpeedPlot(intervalColormap,"compare1_GlobalSpeed_Canvas_din99", 3, "compare1_GlobalSpeed_Label_Min_din99", "compare1_GlobalSpeed_Label_Max_din99", "compare1_GlobalSpeed_Label_Av_din99", "compare1_GlobalSpeed_Label_Dev_din99");
+            intervalColormap = globalColormap2.calcColorMap(intervalSize, colorspaceModus);
+            calcGlobalSpeedPlot(intervalColormap, "compare2_GlobalSpeed_Canvas_Lab", 0, "compare2_GlobalSpeed_Label_Min_Lab", "compare2_GlobalSpeed_Label_Max_Lab", "compare2_GlobalSpeed_Label_Av_Lab", "compare2_GlobalSpeed_Label_Dev_Lab");
+            calcGlobalSpeedPlot(intervalColormap,"compare2_GlobalSpeed_Canvas_de94", 1, "compare2_GlobalSpeed_Label_Min_de94", "compare2_GlobalSpeed_Label_Max_de94", "compare2_GlobalSpeed_Label_Av_de94", "compare2_GlobalSpeed_Label_Dev_de94");
+            calcGlobalSpeedPlot(intervalColormap,"compare2_GlobalSpeed_Canvas_de2000", 2, "compare2_GlobalSpeed_Label_Min_de2000", "compare2_GlobalSpeed_Label_Max_de2000", "compare2_GlobalSpeed_Label_Av_de2000", "compare2_GlobalSpeed_Label_Dev_de2000");
+            calcGlobalSpeedPlot(intervalColormap,"compare2_GlobalSpeed_Canvas_din99", 3, "compare2_GlobalSpeed_Label_Min_din99", "compare2_GlobalSpeed_Label_Max_din99", "compare2_GlobalSpeed_Label_Av_din99", "compare2_GlobalSpeed_Label_Dev_din99");
+          break;
+          case 3:
+              document.getElementById("id_selectCompareBar").style.background=styleActiveColor;
+              document.getElementById("compareLocalBarSpeed").style.display="inline-block";
+              drawCompareDifferenceMaps();
+
+            break;
+            case 4:
+                  intervalSize=parseFloat(document.getElementById("id_CompareInputIntervalNum2").value);
+                document.getElementById("id_selectCompareLine").style.background=styleActiveColor;
+                document.getElementById("compareLocalLineSpeed").style.display="inline-block";
+                var intervalColormap = globalColormap1.calcColorMap(intervalSize, colorspaceModus);
+                calcLocalSpeedPlot(intervalColormap, "compare1_LocalSpeed_Canvas_Lab", 0, "compare1_LocalSpeed_Label_Min_Lab", "compare1_LocalSpeed_Label_Max_Lab", "compare1_LocalSpeed_Label_Av_Lab", "compare1_LocalSpeed_Label_Dev_Lab");
+                calcLocalSpeedPlot(intervalColormap,"compare1_LocalSpeed_Canvas_de94", 1, "compare1_LocalSpeed_Label_Min_de94", "compare1_LocalSpeed_Label_Max_de94", "compare1_LocalSpeed_Label_Av_de94", "compare1_LocalSpeed_Label_Dev_de94");
+                calcLocalSpeedPlot(intervalColormap,"compare1_LocalSpeed_Canvas_de2000", 2, "compare1_LocalSpeed_Label_Min_de2000", "compare1_LocalSpeed_Label_Max_de2000", "compare1_LocalSpeed_Label_Av_de2000", "compare1_LocalSpeed_Label_Dev_de2000");
+                calcLocalSpeedPlot(intervalColormap,"compare1_LocalSpeed_Canvas_din99", 3, "compare1_LocalSpeed_Label_Min_din99", "compare1_LocalSpeed_Label_Max_din99", "compare1_LocalSpeed_Label_Av_din99", "compare1_LocalSpeed_Label_Dev_din99");
+
+                intervalColormap = globalColormap2.calcColorMap(intervalSize, colorspaceModus);
+                calcLocalSpeedPlot(intervalColormap, "compare2_LocalSpeed_Canvas_Lab", 0, "compare2_LocalSpeed_Label_Min_Lab", "compare2_LocalSpeed_Label_Max_Lab", "compare2_LocalSpeed_Label_Av_Lab", "compare2_LocalSpeed_Label_Dev_Lab");
+                calcLocalSpeedPlot(intervalColormap,"compare2_LocalSpeed_Canvas_de94", 1, "compare2_LocalSpeed_Label_Min_de94", "compare2_LocalSpeed_Label_Max_de94", "compare2_LocalSpeed_Label_Av_de94", "compare2_LocalSpeed_Label_Dev_de94");
+                calcLocalSpeedPlot(intervalColormap,"compare2_LocalSpeed_Canvas_de2000", 2, "compare2_LocalSpeed_Label_Min_de2000", "compare2_LocalSpeed_Label_Max_de2000", "compare2_LocalSpeed_Label_Av_de2000", "compare2_LocalSpeed_Label_Dev_de2000");
+                calcLocalSpeedPlot(intervalColormap,"compare2_LocalSpeed_Canvas_din99", 3, "compare2_LocalSpeed_Label_Min_din99", "compare2_LocalSpeed_Label_Max_din99", "compare2_LocalSpeed_Label_Av_din99", "compare2_LocalSpeed_Label_Dev_din99");
+              break;
+              case 5:
+                  intervalSize=parseFloat(document.getElementById("id_CompareInputIntervalNum3").value);
+                  document.getElementById("id_selectCompareOrder").style.background=styleActiveColor;
+                  document.getElementById("compareOrder").style.display="inline-block";
+                  var intervalColormap = globalColormap1.calcColorMap(intervalSize, colorspaceModus);
+                  calcOrderPlot(intervalColormap, "compare1_OrderSpeed_Canvas_Lab", 0, "compare1_OrderSpeed_Label_Min_Lab", "compare1_OrderSpeed_Label_MinGlobal_Lab");
+                  calcOrderPlot(intervalColormap,"compare1_OrderSpeed_Canvas_de94", 1, "compare1_OrderSpeed_Label_Min_de94", "compare1_OrderSpeed_Label_MinGlobal_de94");
+                  calcOrderPlot(intervalColormap,"compare1_OrderSpeed_Canvas_de2000", 2, "compare1_OrderSpeed_Label_Min_de2000", "compare1_OrderSpeed_Label_MinGlobal_de2000");
+                  calcOrderPlot(intervalColormap,"compare1_OrderSpeed_Canvas_din99", 3, "compare1_OrderSpeed_Label_Min_din99", "compare1_OrderSpeed_Label_MinGlobal_din99");
+
+                  intervalColormap = globalColormap2.calcColorMap(intervalSize, colorspaceModus);
+                  calcOrderPlot(intervalColormap, "compare2_OrderSpeed_Canvas_Lab", 0, "compare2_OrderSpeed_Label_Min_Lab", "compare2_OrderSpeed_Label_MinGlobal_Lab");
+                  calcOrderPlot(intervalColormap,"compare2_OrderSpeed_Canvas_de94", 1, "compare2_OrderSpeed_Label_Min_de94", "compare2_OrderSpeed_Label_MinGlobal_de94");
+                  calcOrderPlot(intervalColormap,"compare2_OrderSpeed_Canvas_de2000", 2, "compare2_OrderSpeed_Label_Min_de2000", "compare2_OrderSpeed_Label_MinGlobal_de2000");
+                  calcOrderPlot(intervalColormap,"compare2_OrderSpeed_Canvas_din99", 3, "compare2_OrderSpeed_Label_Min_din99", "compare2_OrderSpeed_Label_MinGlobal_din99");
+                break;
+    default:
+
+  }
+
+
+
+
+
+
+}
+
+
+function increaseCompare3DDiv(){
+    if(size3D<100){
+
+      size3D+=5;
+      document.getElementById("id_rgb3DCompare").style.height = size3D+"vh";
+
+      var canvasObj = document.getElementById("id_rgb3DCompare");
+      canvasObj.innerHTML="";
+      var box = canvasObj.getBoundingClientRect();
+      var drawWidth = box.width; //window.innerWidth;
+      var drawHeight =box.height; // window.innerHeight;
+      camera.aspect = drawWidth/drawHeight;
+    	camera.updateProjectionMatrix();
+      renderer.setSize(drawWidth,drawHeight);//(window.innerWidth, window.innerHeight);
+      canvasObj.appendChild( renderer.domElement );
+
+      if(size3D==100){
+        document.getElementById("increaseCompare3D").style.color = "grey";
+      }
+      else{
+        document.getElementById("increaseCompare3D").style.color = "black";
+      }
+
+      if(size3D==50){
+        document.getElementById("decreaseCompare3D").style.color = "grey";
+      }
+      else{
+        document.getElementById("decreaseCompare3D").style.color = "black";
+      }
+
+    }
+
+}
+
+function decreaseCompare3DDiv(){
+  if(size3D>50){
+
+    size3D-=5;
+    document.getElementById("id_rgb3DCompare").style.height = size3D+"vh";
+
+    var canvasObj = document.getElementById("id_rgb3DCompare");
+    canvasObj.innerHTML="";
+    var box = canvasObj.getBoundingClientRect();
+    var drawWidth = box.width; //window.innerWidth;
+    var drawHeight =box.height; // window.innerHeight;
+    camera.aspect = drawWidth/drawHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(drawWidth,drawHeight);//(window.innerWidth, window.innerHeight);
+    canvasObj.appendChild( renderer.domElement );
+
+
+    if(size3D==100){
+      document.getElementById("increaseCompare3D").style.color = "grey";
+    }
+    else{
+      document.getElementById("increaseCompare3D").style.color = "black";
+    }
+
+    if(size3D==50){
+      document.getElementById("decreaseCompare3D").style.color = "grey";
+    }
+    else{
+      document.getElementById("decreaseCompare3D").style.color = "black";
+    }
+
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function initComparePage(){
 
     bandSketch.colormap2Sketch(globalColormap1);
     bandSketch2.colormap2Sketch(globalColormap2);
-
     orderColorSketch(colorspaceModus);
-    changeCourseSpaceCompare();
 
-    drawCompareMapPreviews();
-    drawCompareDifferenceMaps();
-    //drawRGBSpace();
+    changeComparePage(1);
 
 }
 
@@ -63,7 +362,7 @@ function changeCourseSpaceCompare(){
       default:
       console.log("Error at the changeColorspace function");
       return;
-  }//*/
+  }//
 
 
 }
@@ -119,7 +418,6 @@ function drawCompareDifferenceMaps(){
   var old_tbody = document.getElementById("id_compareTableBody");
   var new_tbody = document.createElement('tbody');
 
-  var canvasREF = document.getElementById("id_compare1RatioRef");
   var canvasRGB = document.getElementById("id_compare1RatioRGB");
   var canvasHSV = document.getElementById("id_compare1RatioHSV");
   var canvasLAB = document.getElementById("id_compare1RatioLAB");
@@ -127,7 +425,6 @@ function drawCompareDifferenceMaps(){
   var canvasDE94 = document.getElementById("id_compare1RatioDE94");
   var canvasDIN99 = document.getElementById("id_compare1RatioDIN99");
 
-  var canvasREF_2 = document.getElementById("id_compare2RatioRef");
   var canvasRGB_2 = document.getElementById("id_compare2RatioRGB");
   var canvasHSV_2 = document.getElementById("id_compare2RatioHSV");
   var canvasLAB_2 = document.getElementById("id_compare2RatioLAB");
@@ -135,8 +432,6 @@ function drawCompareDifferenceMaps(){
   var canvasDE94_2 = document.getElementById("id_compare2RatioDE94");
   var canvasDIN99_2 = document.getElementById("id_compare2RatioDIN99");
 
-  canvasREF.width = resolutionX_differenceMetrics;
-  canvasREF.height = 1;
   canvasRGB.width = resolutionX_differenceMetrics;
   canvasRGB.height = 1;
   canvasHSV.width = resolutionX_differenceMetrics;
@@ -150,8 +445,6 @@ function drawCompareDifferenceMaps(){
   canvasDIN99.width = resolutionX_differenceMetrics;
   canvasDIN99.height = 1;
 
-  canvasREF_2.width = resolutionX_differenceMetrics;
-  canvasREF_2.height = 1;
   canvasRGB_2.width = resolutionX_differenceMetrics;
   canvasRGB_2.height = 1;
   canvasHSV_2.width = resolutionX_differenceMetrics;
@@ -165,9 +458,6 @@ function drawCompareDifferenceMaps(){
   canvasDIN99_2.width = resolutionX_differenceMetrics;
   canvasDIN99_2.height = 1;
 
-
-  var refCtx = canvasREF.getContext("2d");
-  var refData = refCtx.getImageData(0, 0, resolutionX_differenceMetrics, 1);
   var rgbCtx = canvasRGB.getContext("2d");
   var rgbData = rgbCtx.getImageData(0, 0, resolutionX_differenceMetrics, 1);
   var hsvCtx = canvasHSV.getContext("2d");
@@ -181,8 +471,6 @@ function drawCompareDifferenceMaps(){
   var din99Ctx = canvasDIN99.getContext("2d");
   var din99Data = din99Ctx.getImageData(0, 0, resolutionX_differenceMetrics, 1);
 
-  var refCtx_2 = canvasREF_2.getContext("2d");
-  var refData_2 = refCtx_2.getImageData(0, 0, resolutionX_differenceMetrics, 1);
   var rgbCtx_2 = canvasRGB_2.getContext("2d");
   var rgbData_2 = rgbCtx_2.getImageData(0, 0, resolutionX_differenceMetrics, 1);
   var hsvCtx_2 = canvasHSV_2.getContext("2d");
@@ -196,45 +484,64 @@ function drawCompareDifferenceMaps(){
   var din99Ctx_2 = canvasDIN99_2.getContext("2d");
   var din99Data_2 = din99Ctx_2.getImageData(0, 0, resolutionX_differenceMetrics, 1);
 
-
-  // for Preview
-  var canvasPreviewREF = document.getElementById("id_comparePreviewRef1");
-  var canvasPreviewREF2 = document.getElementById("id_comparePreviewRef2");
-  var canvasPreviewC1 = document.getElementById("id_comparePreviewC1");
-  var canvasPreviewC2 = document.getElementById("id_comparePreviewC2");
-
-  canvasPreviewREF.width = resolutionX_differenceMetrics;
-  canvasPreviewREF.height = 1;
-  canvasPreviewREF2.width = resolutionX_differenceMetrics;
-  canvasPreviewREF2.height = 1;
-  canvasPreviewC1.width = resolutionX_differenceMetrics;
-  canvasPreviewC1.height = 1;
-  canvasPreviewC2.width = resolutionX_differenceMetrics;
-  canvasPreviewC2.height = 1;
-  var ref1PreviewCtx = canvasPreviewREF.getContext("2d");
-  var ref1PreviewData = ref1PreviewCtx.getImageData(0, 0, resolutionX_differenceMetrics, 1);
-  var ref2PreviewCtx = canvasPreviewREF2.getContext("2d");
-  var ref2PreviewData = ref2PreviewCtx.getImageData(0, 0, resolutionX_differenceMetrics, 1);
-  var c1PreviewCtx = canvasPreviewC1.getContext("2d");
-  var c1PreviewData = c1PreviewCtx.getImageData(0, 0, resolutionX_differenceMetrics, 1);
-  var c2PreviewCtx = canvasPreviewC2.getContext("2d");
-  var c2PreviewData = c2PreviewCtx.getImageData(0, 0, resolutionX_differenceMetrics, 1);
-
-
-
   bandSketch.calcNewDistances();
   bandSketch2.calcNewDistances();
 
   ///////////////////////////////////////////////////
   /// COLORMAP 1
 
+
   var currentPos = [0,0,0,0,0,0,0];
   var currentWidth = [0,0,0,0,0,0,0];
-  var colorRef = new classColor_RGB(0.5,0.5,0.5);
 
   var borderWidth = 2; //px
 
   var restWidth = resolutionX_differenceMetrics-(bandSketch.getBandLength()-bandSketch.getNumConstBands()-1)*borderWidth;
+
+  var arrayRGBSpeed = [];
+  var arrayHSVSpeed = [];
+  var arrayLABSpeed = [];
+  var arrayDe94Speed = [];
+  var arrayDe2000Speed = [];
+  var arrayDIN99Speed = [];
+
+  var arrayRGBSpeedSum = 0;
+  var arrayHSVSpeedSum = 0;
+  var arrayLABSpeedSum = 0;
+  var arrayDe94SpeedSum = 0;
+  var arrayDe2000SpeedSum = 0;
+  var arrayDIN99SpeedSum = 0;
+
+  for (var i = 0; i < bandSketch.getBandLength(); i++) {
+    var refDis = bandSketch.getRefDistance(i);
+
+      if(refDis==0){
+        arrayRGBSpeed.push(0);
+        arrayHSVSpeed.push(0);
+        arrayLABSpeed.push(0);
+        arrayDe94Speed.push(0);
+        arrayDe2000Speed.push(0);
+        arrayDIN99Speed.push(0);
+      }
+      else{
+        arrayRGBSpeed.push(bandSketch.getRGBDistance(i)/refDis);
+        arrayHSVSpeed.push(bandSketch.getHSVDistance(i)/refDis);
+        arrayLABSpeed.push(bandSketch.getLABDistance(i)/refDis);
+        arrayDe94Speed.push(bandSketch.getDE94Distance(i)/refDis);
+        arrayDe2000Speed.push(bandSketch.getCIEDE2000Distance(i)/refDis);
+        arrayDIN99Speed.push(bandSketch.getDIN99Distance(i)/refDis);
+
+        arrayRGBSpeedSum += arrayRGBSpeed[arrayRGBSpeed.length-1];
+        arrayHSVSpeedSum += arrayHSVSpeed[arrayHSVSpeed.length-1];
+        arrayLABSpeedSum += arrayLABSpeed[arrayLABSpeed.length-1];
+        arrayDe94SpeedSum += arrayDe94Speed[arrayDe94Speed.length-1];
+        arrayDe2000SpeedSum += arrayDe2000Speed[arrayDe2000Speed.length-1];
+        arrayDIN99SpeedSum += arrayDIN99Speed[arrayDIN99Speed.length-1];
+      }
+
+
+
+  }
 
   for (var i = 0; i < bandSketch.getBandLength(); i++) {
 
@@ -242,73 +549,66 @@ function drawCompareDifferenceMaps(){
     tr.style.background = 'rgb(144,238,144)';
 
     if(bandSketch.getRefDistance(i)==0){
+
+
       var td = document.createElement('td');
       td.className = "class_tableInput";
       var tmpVal = i+1;
       td.appendChild(document.createTextNode("constant "+tmpVal));
       tr.appendChild(td);
-      // ref
-      td = document.createElement('td');
-      td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
-      tr.appendChild(td);
-      td = document.createElement('td');
-      td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
-      tr.appendChild(td);
       // rgb
       td = document.createElement('td');
       td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
+      td.appendChild(document.createTextNode("0"));
       tr.appendChild(td);
       td = document.createElement('td');
       td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
+      td.appendChild(document.createTextNode("0%"));
       tr.appendChild(td);
       // hsv
       td = document.createElement('td');
       td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
+      td.appendChild(document.createTextNode("0"));
       tr.appendChild(td);
       td = document.createElement('td');
       td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
+      td.appendChild(document.createTextNode("0%"));
       tr.appendChild(td);
       // lab
       td = document.createElement('td');
       td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
+      td.appendChild(document.createTextNode("0"));
       tr.appendChild(td);
       td = document.createElement('td');
       td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
+      td.appendChild(document.createTextNode("0%"));
       tr.appendChild(td);
       // DE94
       td = document.createElement('td');
       td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
+      td.appendChild(document.createTextNode("0"));
       tr.appendChild(td);
       td = document.createElement('td');
       td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
+      td.appendChild(document.createTextNode("0%"));
       tr.appendChild(td);
       // DE00
       td = document.createElement('td');
       td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
+      td.appendChild(document.createTextNode("0"));
       tr.appendChild(td);
       td = document.createElement('td');
       td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
+      td.appendChild(document.createTextNode("0%"));
       tr.appendChild(td);
       // DIN99
       td = document.createElement('td');
       td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
+      td.appendChild(document.createTextNode("0"));
       tr.appendChild(td);
       td = document.createElement('td');
       td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
+      td.appendChild(document.createTextNode("0%"));
       tr.appendChild(td);
       new_tbody.appendChild(tr);
       continue;
@@ -320,51 +620,6 @@ function drawCompareDifferenceMaps(){
     td.appendChild(document.createTextNode("scaled "+tmpVal));
     tr.appendChild(td);
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////
-    //// REF
-
-    var tmpRatio = bandSketch.getRefDistance(i)/bandSketch.getDistanceSumRef();
-    td = document.createElement('td')
-    td.className = "class_tableInput";
-    td.appendChild(document.createTextNode(bandSketch.getRefDistance(i).toFixed(numDecimalPlaces)));
-    tr.appendChild(td);
-
-    td = document.createElement('td')
-    td.className = "class_tableInput";
-    td.appendChild(document.createTextNode((tmpRatio*100).toFixed(numDecimalPlaces)+"%"));
-    tr.appendChild(td);
-
-    currentWidth[0] = Math.ceil(restWidth*tmpRatio);
-
-    for(var x=0; x<currentWidth[0]; x++){
-      var index = (currentPos[0]+x) * 4;
-      refData.data[index + 0] = Math.round(colorRef.getRValue() * 255); // r
-      refData.data[index + 1] = Math.round(colorRef.getGValue() * 255); // g
-      refData.data[index + 2] = Math.round(colorRef.getBValue() * 255); // b
-      refData.data[index + 3] = 255; //a
-
-      ref1PreviewData.data[index + 0] = Math.round(colorRef.getRValue() * 255); // r
-      ref1PreviewData.data[index + 1] = Math.round(colorRef.getGValue() * 255); // g
-      ref1PreviewData.data[index + 2] = Math.round(colorRef.getBValue() * 255); // b
-      ref1PreviewData.data[index + 3] = 255; //a
-    }
-    currentPos[0]=currentPos[0]+currentWidth[0];
-
-    if(i != bandSketch.getBandLength()-1){
-      for(var x=0; x<borderWidth; x++){
-        var index = (currentPos[0]+x) * 4;
-        refData.data[index + 0] = Math.round(0); // r
-        refData.data[index + 1] = Math.round(0); // g
-        refData.data[index + 2] = Math.round(0); // b
-        refData.data[index + 3] = 255; //a
-
-        ref1PreviewData.data[index + 0] = Math.round(0); // r
-        ref1PreviewData.data[index + 1] = Math.round(0); // g
-        ref1PreviewData.data[index + 2] = Math.round(0); // b
-        ref1PreviewData.data[index + 3] = 255; //a
-      }
-      currentPos[0]=currentPos[0]+borderWidth;
-    }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
     //// RGB
@@ -373,11 +628,11 @@ function drawCompareDifferenceMaps(){
     var color2 = bandSketch.getC2Color(i,"rgb");
 
 
-    tmpRatio = bandSketch.getRGBDistance(i)/bandSketch.getDistanceSumRGB();
+    var tmpRatio = arrayRGBSpeed[i]/arrayRGBSpeedSum;
 
     td = document.createElement('td')
     td.className = "class_tableInput";
-    td.appendChild(document.createTextNode(bandSketch.getRGBDistance(i).toFixed(numDecimalPlaces)));
+    td.appendChild(document.createTextNode(arrayRGBSpeed[i].toFixed(numDecimalPlaces)));
     tr.appendChild(td);
 
     td = document.createElement('td')
@@ -432,11 +687,11 @@ function drawCompareDifferenceMaps(){
     var yPos2 = tmpDis2 * Math.sin(tmpRad2);
     var zPos2 = color2.getVValue() - 50;
 
-    tmpRatio = bandSketch.getHSVDistance(i)/bandSketch.getDistanceSumHSV();
+    tmpRatio = arrayHSVSpeed[i]/arrayHSVSpeedSum;
 
     td = document.createElement('td')
     td.className = "class_tableInput";
-    td.appendChild(document.createTextNode(bandSketch.getHSVDistance(i).toFixed(numDecimalPlaces)));
+    td.appendChild(document.createTextNode(arrayHSVSpeed[i].toFixed(numDecimalPlaces)));
     tr.appendChild(td);
 
     td = document.createElement('td')
@@ -487,11 +742,11 @@ function drawCompareDifferenceMaps(){
     color1 = bandSketch.getC1Color(i,"lab");
     color2 = bandSketch.getC2Color(i,"lab");
 
-    tmpRatio = bandSketch.getLABDistance(i)/bandSketch.getDistanceSumLAB();
+    tmpRatio = arrayLABSpeed[i]/arrayLABSpeedSum;
 
     td = document.createElement('td')
     td.className = "class_tableInput";
-    td.appendChild(document.createTextNode(bandSketch.getLABDistance(i).toFixed(numDecimalPlaces)));
+    td.appendChild(document.createTextNode(arrayLABSpeed[i].toFixed(numDecimalPlaces)));
     tr.appendChild(td);
 
     td = document.createElement('td')
@@ -535,11 +790,11 @@ function drawCompareDifferenceMaps(){
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
     //// de94
-    tmpRatio = bandSketch.getDE94Distance(i)/bandSketch.getDistanceSumDE94();
+    tmpRatio = arrayDe94Speed[i]/arrayDe94SpeedSum;
 
     td = document.createElement('td')
     td.className = "class_tableInput";
-    td.appendChild(document.createTextNode(bandSketch.getDE94Distance(i).toFixed(numDecimalPlaces)));
+    td.appendChild(document.createTextNode(arrayDe94Speed[i].toFixed(numDecimalPlaces)));
     tr.appendChild(td);
 
     td = document.createElement('td')
@@ -566,12 +821,6 @@ function drawCompareDifferenceMaps(){
       de94Data.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
       de94Data.data[index + 3] = 255; //a
 
-      if(document.getElementById("compare_SelectMetric").value==0){
-        c1PreviewData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
-        c1PreviewData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
-        c1PreviewData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
-        c1PreviewData.data[index + 3] = 255; //a
-      }
     }
     currentPos[4]=currentPos[4]+currentWidth[4];
 
@@ -583,12 +832,6 @@ function drawCompareDifferenceMaps(){
         de94Data.data[index + 2] = Math.round(0); // b
         de94Data.data[index + 3] = 255; //a
 
-        if(document.getElementById("compare_SelectMetric").value==0){
-          c1PreviewData.data[index + 0] = Math.round(0); // r
-          c1PreviewData.data[index + 1] = Math.round(0); // g
-          c1PreviewData.data[index + 2] = Math.round(0); // b
-          c1PreviewData.data[index + 3] = 255; //a
-        }
       }
 
     currentPos[4]=currentPos[4]+borderWidth;
@@ -597,11 +840,11 @@ function drawCompareDifferenceMaps(){
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
     //// de2000
-    tmpRatio = bandSketch.getCIEDE2000Distance(i)/bandSketch.getDistanceSumCIEDE2000();
+    tmpRatio = arrayDe2000Speed[i]/arrayDe2000SpeedSum;
 
     td = document.createElement('td')
     td.className = "class_tableInput";
-    td.appendChild(document.createTextNode(bandSketch.getCIEDE2000Distance(i).toFixed(numDecimalPlaces)));
+    td.appendChild(document.createTextNode(arrayDe2000Speed[i].toFixed(numDecimalPlaces)));
     tr.appendChild(td);
 
     td = document.createElement('td')
@@ -628,12 +871,6 @@ function drawCompareDifferenceMaps(){
       de2000Data.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
       de2000Data.data[index + 3] = 255; //a
 
-      if(document.getElementById("compare_SelectMetric").value==1){
-        c1PreviewData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
-        c1PreviewData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
-        c1PreviewData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
-        c1PreviewData.data[index + 3] = 255; //a
-      }
     }
     currentPos[5]=currentPos[5]+currentWidth[5];
 
@@ -645,12 +882,6 @@ function drawCompareDifferenceMaps(){
         de2000Data.data[index + 2] = Math.round(0); // b
         de2000Data.data[index + 3] = 255; //a
 
-        if(document.getElementById("compare_SelectMetric").value==1){
-          c1PreviewData.data[index + 0] = Math.round(0); // r
-          c1PreviewData.data[index + 1] = Math.round(0); // g
-          c1PreviewData.data[index + 2] = Math.round(0); // b
-          c1PreviewData.data[index + 3] = 255; //a
-        }
       }
 
     currentPos[5]=currentPos[5]+borderWidth;
@@ -661,11 +892,11 @@ function drawCompareDifferenceMaps(){
     //// din99
     color1 = bandSketch.getC1Color(i,"din99");
     color2 = bandSketch.getC2Color(i,"din99");
-    tmpRatio = bandSketch.getDIN99Distance(i)/bandSketch.getDistanceSumDIN99();
+    tmpRatio = arrayDIN99Speed[i]/arrayDIN99SpeedSum;
 
     td = document.createElement('td')
     td.className = "class_tableInput";
-    td.appendChild(document.createTextNode(bandSketch.getDIN99Distance(i).toFixed(numDecimalPlaces)));
+    td.appendChild(document.createTextNode(arrayDIN99Speed[i].toFixed(numDecimalPlaces)));
     tr.appendChild(td);
 
     td = document.createElement('td')
@@ -692,12 +923,6 @@ function drawCompareDifferenceMaps(){
       din99Data.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
       din99Data.data[index + 3] = 255; //a
 
-      if(document.getElementById("compare_SelectMetric").value==2){
-        c1PreviewData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
-        c1PreviewData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
-        c1PreviewData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
-        c1PreviewData.data[index + 3] = 255; //a
-      }
     }
     currentPos[6]=currentPos[6]+currentWidth[6];
 
@@ -709,12 +934,6 @@ function drawCompareDifferenceMaps(){
         din99Data.data[index + 2] = Math.round(0); // b
         din99Data.data[index + 3] = 255; //a
 
-        if(document.getElementById("compare_SelectMetric").value==2){
-          c1PreviewData.data[index + 0] = Math.round(0); // r
-          c1PreviewData.data[index + 1] = Math.round(0); // g
-          c1PreviewData.data[index + 2] = Math.round(0); // b
-          c1PreviewData.data[index + 3] = 255; //a
-        }
       }
 
     currentPos[6]=currentPos[6]+borderWidth;
@@ -726,86 +945,130 @@ function drawCompareDifferenceMaps(){
   }
 
 
+
+
   ///////////////////////////////////////////////////
   /// COLORMAP 2
 
-  currentPos = [0,0,0,0,0,0,0];
-  currentWidth = [0,0,0,0,0,0,0];
 
-  restWidth = resolutionX_differenceMetrics-(bandSketch2.getBandLength()-bandSketch2.getNumConstBands()-1)*borderWidth;
+   currentPos = [0,0,0,0,0,0,0];
+   currentWidth = [0,0,0,0,0,0,0];
+
+   borderWidth = 2; //px
+
+   restWidth = resolutionX_differenceMetrics-(bandSketch2.getBandLength()-bandSketch2.getNumConstBands()-1)*borderWidth;
+
+   arrayRGBSpeed = [];
+   arrayHSVSpeed = [];
+   arrayLABSpeed = [];
+   arrayDe94Speed = [];
+   arrayDe2000Speed = [];
+   arrayDIN99Speed = [];
+
+   arrayRGBSpeedSum = 0;
+   arrayHSVSpeedSum = 0;
+   arrayLABSpeedSum = 0;
+   arrayDe94SpeedSum = 0;
+   arrayDe2000SpeedSum = 0;
+   arrayDIN99SpeedSum = 0;
+
+  for (var i = 0; i < bandSketch2.getBandLength(); i++) {
+    var refDis = bandSketch2.getRefDistance(i);
+
+      if(refDis==0){
+        arrayRGBSpeed.push(0);
+        arrayHSVSpeed.push(0);
+        arrayLABSpeed.push(0);
+        arrayDe94Speed.push(0);
+        arrayDe2000Speed.push(0);
+        arrayDIN99Speed.push(0);
+      }
+      else{
+        arrayRGBSpeed.push(bandSketch2.getRGBDistance(i)/refDis);
+        arrayHSVSpeed.push(bandSketch2.getHSVDistance(i)/refDis);
+        arrayLABSpeed.push(bandSketch2.getLABDistance(i)/refDis);
+        arrayDe94Speed.push(bandSketch2.getDE94Distance(i)/refDis);
+        arrayDe2000Speed.push(bandSketch2.getCIEDE2000Distance(i)/refDis);
+        arrayDIN99Speed.push(bandSketch2.getDIN99Distance(i)/refDis);
+
+        arrayRGBSpeedSum += arrayRGBSpeed[arrayRGBSpeed.length-1];
+        arrayHSVSpeedSum += arrayHSVSpeed[arrayHSVSpeed.length-1];
+        arrayLABSpeedSum += arrayLABSpeed[arrayLABSpeed.length-1];
+        arrayDe94SpeedSum += arrayDe94Speed[arrayDe94Speed.length-1];
+        arrayDe2000SpeedSum += arrayDe2000Speed[arrayDe2000Speed.length-1];
+        arrayDIN99SpeedSum += arrayDIN99Speed[arrayDIN99Speed.length-1];
+      }
+
+
+
+  }
 
   for (var i = 0; i < bandSketch2.getBandLength(); i++) {
 
     var tr = document.createElement('tr');
     tr.style.background = 'rgb(255,250,205)';;//'rgb(255,255,224)';
+
     if(bandSketch2.getRefDistance(i)==0){
+
+
       var td = document.createElement('td');
       td.className = "class_tableInput";
       var tmpVal = i+1;
       td.appendChild(document.createTextNode("constant "+tmpVal));
       tr.appendChild(td);
-      // ref
-      td = document.createElement('td');
-      td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
-      tr.appendChild(td);
-      td = document.createElement('td');
-      td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
-      tr.appendChild(td);
       // rgb
       td = document.createElement('td');
       td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
+      td.appendChild(document.createTextNode("0"));
       tr.appendChild(td);
       td = document.createElement('td');
       td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
+      td.appendChild(document.createTextNode("0%"));
       tr.appendChild(td);
       // hsv
       td = document.createElement('td');
       td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
+      td.appendChild(document.createTextNode("0"));
       tr.appendChild(td);
       td = document.createElement('td');
       td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
+      td.appendChild(document.createTextNode("0%"));
       tr.appendChild(td);
       // lab
       td = document.createElement('td');
       td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
+      td.appendChild(document.createTextNode("0"));
       tr.appendChild(td);
       td = document.createElement('td');
       td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
+      td.appendChild(document.createTextNode("0%"));
       tr.appendChild(td);
       // DE94
       td = document.createElement('td');
       td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
+      td.appendChild(document.createTextNode("0"));
       tr.appendChild(td);
       td = document.createElement('td');
       td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
+      td.appendChild(document.createTextNode("0%"));
       tr.appendChild(td);
       // DE00
       td = document.createElement('td');
       td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
+      td.appendChild(document.createTextNode("0"));
       tr.appendChild(td);
       td = document.createElement('td');
       td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
+      td.appendChild(document.createTextNode("0%"));
       tr.appendChild(td);
       // DIN99
       td = document.createElement('td');
       td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
+      td.appendChild(document.createTextNode("0"));
       tr.appendChild(td);
       td = document.createElement('td');
       td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("/"));
+      td.appendChild(document.createTextNode("0%"));
       tr.appendChild(td);
       new_tbody.appendChild(tr);
       continue;
@@ -817,53 +1080,6 @@ function drawCompareDifferenceMaps(){
     td.appendChild(document.createTextNode("scaled "+tmpVal));
     tr.appendChild(td);
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////
-    //// REF
-
-    var tmpRatio = bandSketch2.getRefDistance(i)/bandSketch2.getDistanceSumRef();
-    td = document.createElement('td')
-    td.className = "class_tableInput";
-    td.appendChild(document.createTextNode(bandSketch2.getRefDistance(i).toFixed(numDecimalPlaces)));
-    tr.appendChild(td);
-
-    td = document.createElement('td')
-    td.className = "class_tableInput";
-    td.appendChild(document.createTextNode((tmpRatio*100).toFixed(numDecimalPlaces)+"%"));
-    tr.appendChild(td);
-
-    currentWidth[0] = Math.ceil(restWidth*tmpRatio);
-
-    for(var x=0; x<currentWidth[0]; x++){
-      var index = (currentPos[0]+x) * 4;
-      refData_2.data[index + 0] = Math.round(colorRef.getRValue() * 255); // r
-      refData_2.data[index + 1] = Math.round(colorRef.getGValue() * 255); // g
-      refData_2.data[index + 2] = Math.round(colorRef.getBValue() * 255); // b
-      refData_2.data[index + 3] = 255; //a
-
-      ref2PreviewData.data[index + 0] = Math.round(colorRef.getRValue() * 255); // r
-      ref2PreviewData.data[index + 1] = Math.round(colorRef.getGValue() * 255); // g
-      ref2PreviewData.data[index + 2] = Math.round(colorRef.getBValue() * 255); // b
-      ref2PreviewData.data[index + 3] = 255; //a
-
-
-    }
-    currentPos[0]=currentPos[0]+currentWidth[0];
-
-    if(i != bandSketch2.getBandLength()-1){
-      for(var x=0; x<borderWidth; x++){
-        var index = (currentPos[0]+x) * 4;
-        refData_2.data[index + 0] = Math.round(0); // r
-        refData_2.data[index + 1] = Math.round(0); // g
-        refData_2.data[index + 2] = Math.round(0); // b
-        refData_2.data[index + 3] = 255; //a
-
-        ref2PreviewData.data[index + 0] = Math.round(0); // r
-        ref2PreviewData.data[index + 1] = Math.round(0); // g
-        ref2PreviewData.data[index + 2] = Math.round(0); // b
-        ref2PreviewData.data[index + 3] = 255; //a
-      }
-      currentPos[0]=currentPos[0]+borderWidth;
-    }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
     //// RGB
@@ -872,11 +1088,11 @@ function drawCompareDifferenceMaps(){
     var color2 = bandSketch2.getC2Color(i,"rgb");
 
 
-    tmpRatio = bandSketch2.getRGBDistance(i)/bandSketch2.getDistanceSumRGB();
+    var tmpRatio = arrayRGBSpeed[i]/arrayRGBSpeedSum;
 
     td = document.createElement('td')
     td.className = "class_tableInput";
-    td.appendChild(document.createTextNode(bandSketch2.getRGBDistance(i).toFixed(numDecimalPlaces)));
+    td.appendChild(document.createTextNode(arrayRGBSpeed[i].toFixed(numDecimalPlaces)));
     tr.appendChild(td);
 
     td = document.createElement('td')
@@ -931,11 +1147,11 @@ function drawCompareDifferenceMaps(){
     var yPos2 = tmpDis2 * Math.sin(tmpRad2);
     var zPos2 = color2.getVValue() - 50;
 
-    tmpRatio = bandSketch2.getHSVDistance(i)/bandSketch2.getDistanceSumHSV();
+    tmpRatio = arrayHSVSpeed[i]/arrayHSVSpeedSum;
 
     td = document.createElement('td')
     td.className = "class_tableInput";
-    td.appendChild(document.createTextNode(bandSketch2.getHSVDistance(i).toFixed(numDecimalPlaces)));
+    td.appendChild(document.createTextNode(arrayHSVSpeed[i].toFixed(numDecimalPlaces)));
     tr.appendChild(td);
 
     td = document.createElement('td')
@@ -986,11 +1202,11 @@ function drawCompareDifferenceMaps(){
     color1 = bandSketch2.getC1Color(i,"lab");
     color2 = bandSketch2.getC2Color(i,"lab");
 
-    tmpRatio = bandSketch2.getLABDistance(i)/bandSketch2.getDistanceSumLAB();
+    tmpRatio = arrayLABSpeed[i]/arrayLABSpeedSum;
 
     td = document.createElement('td')
     td.className = "class_tableInput";
-    td.appendChild(document.createTextNode(bandSketch2.getLABDistance(i).toFixed(numDecimalPlaces)));
+    td.appendChild(document.createTextNode(arrayLABSpeed[i].toFixed(numDecimalPlaces)));
     tr.appendChild(td);
 
     td = document.createElement('td')
@@ -1034,11 +1250,11 @@ function drawCompareDifferenceMaps(){
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
     //// de94
-    tmpRatio = bandSketch2.getDE94Distance(i)/bandSketch2.getDistanceSumDE94();
+    tmpRatio = arrayDe94Speed[i]/arrayDe94SpeedSum;
 
     td = document.createElement('td')
     td.className = "class_tableInput";
-    td.appendChild(document.createTextNode(bandSketch2.getDE94Distance(i).toFixed(numDecimalPlaces)));
+    td.appendChild(document.createTextNode(arrayDe94Speed[i].toFixed(numDecimalPlaces)));
     tr.appendChild(td);
 
     td = document.createElement('td')
@@ -1065,12 +1281,6 @@ function drawCompareDifferenceMaps(){
       de94Data_2.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
       de94Data_2.data[index + 3] = 255; //a
 
-      if(document.getElementById("compare_SelectMetric").value==0){
-        c2PreviewData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
-        c2PreviewData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
-        c2PreviewData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
-        c2PreviewData.data[index + 3] = 255; //a
-      }
     }
     currentPos[4]=currentPos[4]+currentWidth[4];
 
@@ -1082,12 +1292,6 @@ function drawCompareDifferenceMaps(){
         de94Data_2.data[index + 2] = Math.round(0); // b
         de94Data_2.data[index + 3] = 255; //a
 
-        if(document.getElementById("compare_SelectMetric").value==0){
-          c2PreviewData.data[index + 0] = Math.round(0); // r
-          c2PreviewData.data[index + 1] = Math.round(0); // g
-          c2PreviewData.data[index + 2] = Math.round(0); // b
-          c2PreviewData.data[index + 3] = 255; //a
-        }
       }
 
     currentPos[4]=currentPos[4]+borderWidth;
@@ -1096,11 +1300,11 @@ function drawCompareDifferenceMaps(){
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
     //// de2000
-    tmpRatio = bandSketch2.getCIEDE2000Distance(i)/bandSketch2.getDistanceSumCIEDE2000();
+    tmpRatio = arrayDe2000Speed[i]/arrayDe2000SpeedSum;
 
     td = document.createElement('td')
     td.className = "class_tableInput";
-    td.appendChild(document.createTextNode(bandSketch2.getCIEDE2000Distance(i).toFixed(numDecimalPlaces)));
+    td.appendChild(document.createTextNode(arrayDe2000Speed[i].toFixed(numDecimalPlaces)));
     tr.appendChild(td);
 
     td = document.createElement('td')
@@ -1127,12 +1331,6 @@ function drawCompareDifferenceMaps(){
       de2000Data_2.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
       de2000Data_2.data[index + 3] = 255; //a
 
-      if(document.getElementById("compare_SelectMetric").value==1){
-        c2PreviewData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
-        c2PreviewData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
-        c2PreviewData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
-        c2PreviewData.data[index + 3] = 255; //a
-      }
     }
     currentPos[5]=currentPos[5]+currentWidth[5];
 
@@ -1144,12 +1342,6 @@ function drawCompareDifferenceMaps(){
         de2000Data_2.data[index + 2] = Math.round(0); // b
         de2000Data_2.data[index + 3] = 255; //a
 
-        if(document.getElementById("compare_SelectMetric").value==1){
-          c2PreviewData.data[index + 0] = Math.round(0); // r
-          c2PreviewData.data[index + 1] = Math.round(0); // g
-          c2PreviewData.data[index + 2] = Math.round(0); // b
-          c2PreviewData.data[index + 3] = 255; //a
-        }
       }
 
     currentPos[5]=currentPos[5]+borderWidth;
@@ -1160,11 +1352,11 @@ function drawCompareDifferenceMaps(){
     //// din99
     color1 = bandSketch2.getC1Color(i,"din99");
     color2 = bandSketch2.getC2Color(i,"din99");
-    tmpRatio = bandSketch2.getDIN99Distance(i)/bandSketch2.getDistanceSumDIN99();
+    tmpRatio = arrayDIN99Speed[i]/arrayDIN99SpeedSum;
 
     td = document.createElement('td')
     td.className = "class_tableInput";
-    td.appendChild(document.createTextNode(bandSketch2.getDIN99Distance(i).toFixed(numDecimalPlaces)));
+    td.appendChild(document.createTextNode(arrayDIN99Speed[i].toFixed(numDecimalPlaces)));
     tr.appendChild(td);
 
     td = document.createElement('td')
@@ -1191,12 +1383,6 @@ function drawCompareDifferenceMaps(){
       din99Data_2.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
       din99Data_2.data[index + 3] = 255; //a
 
-      if(document.getElementById("compare_SelectMetric").value==2){
-        c2PreviewData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
-        c2PreviewData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
-        c2PreviewData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
-        c2PreviewData.data[index + 3] = 255; //a
-      }
     }
     currentPos[6]=currentPos[6]+currentWidth[6];
 
@@ -1208,12 +1394,6 @@ function drawCompareDifferenceMaps(){
         din99Data_2.data[index + 2] = Math.round(0); // b
         din99Data_2.data[index + 3] = 255; //a
 
-        if(document.getElementById("compare_SelectMetric").value==2){
-          c2PreviewData.data[index + 0] = Math.round(0); // r
-          c2PreviewData.data[index + 1] = Math.round(0); // g
-          c2PreviewData.data[index + 2] = Math.round(0); // b
-          c2PreviewData.data[index + 3] = 255; //a
-        }
       }
 
     currentPos[6]=currentPos[6]+borderWidth;
@@ -1224,9 +1404,6 @@ function drawCompareDifferenceMaps(){
 
   }
 
-
-
-  refCtx.putImageData(refData, 0, 0); // update ColorspaceCanvas;
   rgbCtx.putImageData(rgbData, 0, 0); // update ColorspaceCanvas;
   hsvCtx.putImageData(hsvData, 0, 0); // update ColorspaceCanvas;
   labCtx.putImageData(labData, 0, 0); // update ColorspaceCanvas;
@@ -1234,20 +1411,12 @@ function drawCompareDifferenceMaps(){
   de2000Ctx.putImageData(de2000Data, 0, 0); // update ColorspaceCanvas;
   din99Ctx.putImageData(din99Data, 0, 0); // update ColorspaceCanvas;
 
-  refCtx_2.putImageData(refData_2, 0, 0); // update ColorspaceCanvas;
   rgbCtx_2.putImageData(rgbData_2, 0, 0); // update ColorspaceCanvas;
   hsvCtx_2.putImageData(hsvData_2, 0, 0); // update ColorspaceCanvas;
   labCtx_2.putImageData(labData_2, 0, 0); // update ColorspaceCanvas;
   de94Ctx_2.putImageData(de94Data_2, 0, 0); // update ColorspaceCanvas;
   de2000Ctx_2.putImageData(de2000Data_2, 0, 0); // update ColorspaceCanvas;
   din99Ctx_2.putImageData(din99Data_2, 0, 0); // update ColorspaceCanvas;
-
-
-  ref1PreviewCtx.putImageData(ref1PreviewData, 0, 0); // update ColorspaceCanvas;
-  ref2PreviewCtx.putImageData(ref2PreviewData, 0, 0); // update ColorspaceCanvas;
-  c1PreviewCtx.putImageData(c1PreviewData, 0, 0); // update ColorspaceCanvas;
-  c2PreviewCtx.putImageData(c2PreviewData, 0, 0); // update ColorspaceCanvas;
-
 
   old_tbody.parentNode.replaceChild(new_tbody, old_tbody);
   new_tbody.id="id_compareTableBody";

@@ -24,7 +24,6 @@ function drawCanvasBand(canvasObject, color1, color2,resolutionX){
 
                 break;
                 case "hsv":
-
                     if(color1.getColorType()===colorspaceModus)
                       tmpcolor1=color1;
                     else

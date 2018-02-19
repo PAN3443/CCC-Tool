@@ -6,7 +6,7 @@ addKeyButtons();
 }
 
 
-function editPage_drawKeys(canvasID, tmpColormap){
+function editPage_drawKeys(canvasID, tmpColormap, doBandSketch2){
 
     keyRectPointSketch = [];
 
@@ -29,6 +29,9 @@ function editPage_drawKeys(canvasID, tmpColormap){
 
     var distanceColorrects = key_resolution_Y / 6;
     var bandWidth = colormapWidth/bandSketch.getBandLength();
+
+    if(doBandSketch2)
+    bandWidth = colormapWidth/bandSketch2.getBandLength();
 
     var labelFontSize = key_resolution_Y / 6;
     colorrectHeigth = key_resolution_Y / 3;

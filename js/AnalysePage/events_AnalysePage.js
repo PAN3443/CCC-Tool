@@ -59,6 +59,14 @@ function changePlotType(type){
       document.getElementById("button_AnalyzeDifferenceLine").style.color = "black";
       document.getElementById("button_AnalyzeSpeedLine").style.border = "0.2vh solid "+styleActiveColor;
       document.getElementById("button_AnalyzeSpeedLine").style.color = styleActiveColor;
+      document.getElementById("button_CompareDifferenceMatrix").style.border = "0.2vh solid black";
+      document.getElementById("button_CompareDifferenceMatrix").style.color = "black";
+      document.getElementById("button_CompareSpeedMatrix").style.border = "0.2vh solid "+styleActiveColor;
+      document.getElementById("button_CompareSpeedMatrix").style.color = styleActiveColor;
+      document.getElementById("button_CompareDifferenceLine").style.border = "0.2vh solid black";
+      document.getElementById("button_CompareDifferenceLine").style.color = "black";
+      document.getElementById("button_CompareSpeedLine").style.border = "0.2vh solid "+styleActiveColor;
+      document.getElementById("button_CompareSpeedLine").style.color = styleActiveColor;
       break;
       case 1:
       document.getElementById("button_AnalyzeSpeedMatrix").style.border = "0.2vh solid black";
@@ -69,6 +77,14 @@ function changePlotType(type){
         document.getElementById("button_AnalyzeSpeedLine").style.color = "black";
           document.getElementById("button_AnalyzeDifferenceLine").style.border = "0.2vh solid "+styleActiveColor;
           document.getElementById("button_AnalyzeDifferenceLine").style.color = styleActiveColor;
+          document.getElementById("button_CompareSpeedMatrix").style.border = "0.2vh solid black";
+          document.getElementById("button_CompareSpeedMatrix").style.color = "black";
+            document.getElementById("button_CompareDifferenceMatrix").style.border = "0.2vh solid "+styleActiveColor;
+            document.getElementById("button_CompareDifferenceMatrix").style.color = styleActiveColor;
+            document.getElementById("button_CompareSpeedLine").style.border = "0.2vh solid black";
+            document.getElementById("button_CompareSpeedLine").style.color = "black";
+              document.getElementById("button_CompareDifferenceLine").style.border = "0.2vh solid "+styleActiveColor;
+              document.getElementById("button_CompareDifferenceLine").style.color = styleActiveColor;
         break;
     default:
 
@@ -354,33 +370,6 @@ function calcOrderPlot(intervalColormap, plotid, type, minId, minGlobalId){
       canvasCtx.mozImageSmoothingEnabled = false;
       canvasCtx.imageSmoothingEnabled = false;
 
-      /*var canvasData = canvasCtx.createImageData(canvasPlot.width, canvasPlot.height); //getImageData(0, 0, canvasPlot.width, canvasPlot.height);
-            var colorRef = new classColor_RGB(0.5,0.5,0.5);
-            var tmpColor = new classColor_RGB(1,1,1);
-            var counter =0;
-
-            for(var y=0; y<canvasPlot.width; y++){
-
-              for(var x=0; x<canvasPlot.height; x++){
-
-                  var index = (x + y * canvasPlot.width) * 4;
-                  canvasData.data[index + 0] = Math.round(colorRef.getRValue() * 255); // r
-                  canvasData.data[index + 1] = Math.round(colorRef.getGValue() * 255); // g
-                  canvasData.data[index + 2] = Math.round(colorRef.getBValue() * 255); // b
-                  canvasData.data[index + 3] = 255; //a
-
-              }
-
-              counter++;
-              if(counter==5){
-                var change = colorRef;
-                colorRef = tmpColor;
-                tmpColor = change;
-                counter=0;
-              }
-
-            }
-            canvasCtx.putImageData(canvasData, 0, 0);//*/
 
       ///////////////////////////////////////////////////////////////
       ///// init order plot
@@ -470,13 +459,7 @@ function calcOrderPlot(intervalColormap, plotid, type, minId, minGlobalId){
                   var colorRef = intervalColormap.getIntervalColor(y,"rgb");
 
 
-                  /*
-                  var colorRef2 = intervalColormap.getIntervalColor(y+1,"rgb");
 
-                  var gradient=canvasCtx.createLinearGradient(0,bandWidth,0,0);
-                  gradient.addColorStop(0,colorRef2.getRGBString());
-                  gradient.addColorStop(1,colorRef.getRGBString());
-                  canvasCtx.fillStyle=gradient;*/
                   canvasCtx.fillStyle=colorRef.getRGBString();
                   canvasCtx.fillRect(currentXPos,colormapYStart,bandWidth,colormapHeight);
 
@@ -1116,18 +1099,6 @@ function drawAnalyseDifferenceMaps(){
   var din99Ctx = canvasDIN99.getContext("2d");
   var din99Data = din99Ctx.getImageData(0, 0, resolutionX_differenceMetrics, 1);
 
-  // for Preview
-  //var canvasPreviewREF = document.getElementById("id_anaylsePreviewRef");
-  //var canvasPreviewC1 = document.getElementById("id_anaylsePreviewC");
-
-  /*canvasPreviewREF.width = resolutionX_differenceMetrics;
-  canvasPreviewREF.height = 1;
-  canvasPreviewC1.width = resolutionX_differenceMetrics;
-  canvasPreviewC1.height = 1;
-  var ref1iPreviewCtx = canvasPreviewREF.getContext("2d");
-  var ref1PreviewData = ref1PreviewCtx.getImageData(0, 0, resolutionX_differenceMetrics, 1);
-  var c1PreviewCtx = canvasPreviewC1.getContext("2d");
-  var c1PreviewData = c1PreviewCtx.getImageData(0, 0, resolutionX_differenceMetrics, 1);*/
 
   bandSketch.calcNewDistances();
 
