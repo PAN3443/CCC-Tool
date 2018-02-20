@@ -5,7 +5,14 @@ function checkIntervalInputFieldsChange(event){
     checkInputVal(document.getElementById(event.target.id),false,false);
 
     intervalSize = parseFloat(document.getElementById(event.target.id).value);
-    updateAnalyzePage();
+
+    if (showSideID == 2) { // Analyse SIDE
+      updateAnalyzePage();
+    }
+
+    if (showSideID == 3) { // Comnpare SIDE
+      updateComparePage();
+    }
 }
 
 function checkIntervalInputFieldsKey(event){
@@ -211,7 +218,7 @@ function changeColorspace(type) {
   }
 
   if (showSideID == 3) { // Comnpare SIDE
-    changeCourseSpaceCompare();
+    updateComparePage();
   }
 
 
@@ -413,6 +420,8 @@ function cancelSave(){
     globalColormap1 = myList[colormap1SelectIndex];
     bandSketch.colormap2Sketch(globalColormap1);
     orderColorSketch();
+
+    colormap2SelectIndex=-1;
 }
 
 function doSave(){
@@ -429,6 +438,8 @@ function doSave(){
     initNewPage();
     else
     openCompareSelect();
+
+    colormap2SelectIndex=-1;
 
 }
 
@@ -447,6 +458,8 @@ function doSaveAsNew(){
         else
         openCompareSelect();
 
+        colormap2SelectIndex=-1;
+
       }
       else{
         alert("Sorry there is not enough space at the MyDesigns list to save the two CMS as new!!!!");
@@ -456,6 +469,7 @@ function doSaveAsNew(){
       if(myList.length<10){
         myList.push(tmpSaveColormap);
         colormap1SelectIndex=myList.length-1;
+        colormap2SelectIndex=-1;
         document.getElementById("popupSaveWindow").style.display="none";
         drawMyList();
         drawAddExistingAddPage();
@@ -463,6 +477,8 @@ function doSaveAsNew(){
         initNewPage();
         else
         openCompareSelect();
+
+        colormap2SelectIndex=-1;
       }
       else{
         alert("Sorry there is not enough space at the MyDesigns list to save the CMS as new!!!!");
@@ -484,6 +500,14 @@ function openCompareSelect(){
       initNewPage();
     }
     else{
+
+      if(colormap1SelectIndex!=-1 && colormap2SelectIndex!=-1){
+        document.getElementById("acceptCompareSelection").style.visibility = "visible";
+      }
+      else{
+        document.getElementById("acceptCompareSelection").style.visibility = "hidden";
+      }
+
       document.getElementById("popupCompareSelectWindow").style.display="inline-block";
       for(var i=0; i<myList.length; i++){
         //  console.log(myList[i].getColormapName());
@@ -522,6 +546,8 @@ function openCompareSelect(){
         document.getElementById("id_nanCompareSelectColormap"+i).style.background = "rgb(180,180,180)";
 
       }
+
+
     }
 }
 
@@ -557,7 +583,7 @@ function selectCompareCMS(index){
   }
 
 
-  if(colormap1SelectIndex!=-1 && colormap1SelectIndex!=-1){
+  if(colormap1SelectIndex!=-1 && colormap2SelectIndex!=-1){
     document.getElementById("acceptCompareSelection").style.visibility = "visible";
   }
   else{
@@ -566,6 +592,7 @@ function selectCompareCMS(index){
 }
 
 function acceptCompareSelection(){
+
   document.getElementById("popupCompareSelectWindow").style.display="none";
   initNewPage();
 }
@@ -623,7 +650,7 @@ function changePage(type){
 
   }
 
-  colormap2SelectIndex=-1;
+
   initPageType=type;
 
   // old page
@@ -637,14 +664,19 @@ function changePage(type){
                 document.getElementById("id_Colorspace_Menue").style.display = "initial";
                 document.getElementById("div_colormapBandSketch").style.display = "inline-block";
 
+
+
                 if(initPageType!=5)
                 initNewPage();
                 else
                 openCompareSelect();
 
+
+
     break;
     case 0:
                 document.getElementById("id_myListPage").style.display = "none";
+
 
                 if(initPageType!=5)
                 initNewPage();
@@ -663,6 +695,7 @@ function changePage(type){
               if(bandSketch.getBandLength()>0){
 
                 if(isEdit==-1){
+
                   var newMap = bandSketch.sketch2Colormap(colorspaceModus, globalColormap1.getColormapName());
                   myList.push(newMap);
                   colormap1SelectIndex=myList.length-1;
@@ -770,12 +803,13 @@ function changePage(type){
 
                 saveTwoColormaps=true;
 
-                if(somethingChanged)
-                openSavePopUp();
-                else if(initPageType!=5)
-                initNewPage();
-                else
-                openCompareSelect();
+                if(somethingChanged){
+                  openSavePopUp();
+                }
+                else{
+                  initNewPage();
+                  colormap2SelectIndex=-1;
+                }
 
 
 
@@ -998,8 +1032,6 @@ function initNewPage(){
     default:
       return;
   }
-
-
 
   initPageType=-1;
 

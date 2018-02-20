@@ -303,7 +303,8 @@ function decreaseCompare3DDiv(){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function initComparePage(){
-
+    globalColormap1=myList[colormap1SelectIndex];
+    globalColormap2=myList[colormap2SelectIndex];
     bandSketch.colormap2Sketch(globalColormap1);
     bandSketch2.colormap2Sketch(globalColormap2);
     orderColorSketch(colorspaceModus);
