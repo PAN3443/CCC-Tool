@@ -555,12 +555,15 @@ function openCompareSelect(){
 
 function selectCompareCMS(index){
 
+  if(index>=myList.length)
+  return;
+
   if(colormap1SelectIndex==index){
     colormap1SelectIndex=-1;
     document.getElementById("id_buttonAcceptCompareSelect"+index).style.border = "0.2vh solid rgb(0,0,0)";
     document.getElementById("id_buttonAcceptCompareSelect"+index).style.color = "rgb(0,0,0)";
     document.getElementById("acceptCompareSelection").style.visibility = "hidden";
-    return
+    return;
   }
 
   if(colormap2SelectIndex==index){
@@ -568,7 +571,7 @@ function selectCompareCMS(index){
     document.getElementById("id_buttonAcceptCompareSelect"+index).style.border = "0.2vh solid rgb(0,0,0)";
     document.getElementById("id_buttonAcceptCompareSelect"+index).style.color = "rgb(0,0,0)";
     document.getElementById("acceptCompareSelection").style.visibility = "hidden";
-    return
+    return;
   }
 
   if(colormap1SelectIndex==-1){
@@ -600,7 +603,7 @@ function acceptCompareSelection(){
 function changePage(type){
 
   if(pageIsLoaded==false)
-  return
+  return;
 
   if(colormap1SelectIndex==-1){
     switch (type) {

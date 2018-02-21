@@ -297,7 +297,14 @@ function changeCourseSpace(){
         document.getElementById("id_setValueRange").value = 100;
 
         hueInit("id_anaylseCourseHueBackground");
-        drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground",true, true); //drawcolormap_hueSpace(globalColormap1, "id_workcanvasAnalyseHue");
+        if (browserCanWorker==false) {
+          drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground",true, true); //drawcolormap_hueSpace(globalColormap1, "id_workcanvasAnalyseHue");
+        }
+        else {
+          parallelDrawBackground("id_anaylseCourseHueBackground", globalColormap1);
+          parallelDrawPath("id_anaylseCourseHueBackground"+"2", globalColormap1, false);
+          parallelDrawElements("id_anaylseCourseHueBackground"+"3", globalColormap1, false);
+        }
       break;
       case "lab": case "din99":
         stopAnimation();
@@ -307,7 +314,14 @@ function changeCourseSpace(){
         hueInit("id_anaylseCourseHueBackground");
         document.getElementById("id_setValueRange").value = 65;
         hueInit("id_anaylseCourseHueBackground");
-        drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground",true, true); //drawcolormap_hueSpace(globalColormap1, "id_workcanvasAnalyseHue");
+        if (browserCanWorker==false) {
+            drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground",true, true); //drawcolormap_hueSpace(globalColormap1, "id_workcanvasAnalyseHue");
+        }
+        else {
+          parallelDrawBackground("id_anaylseCourseHueBackground", globalColormap1);
+          parallelDrawPath("id_anaylseCourseHueBackground"+"2", globalColormap1, false);
+          parallelDrawElements("id_anaylseCourseHueBackground"+"3", globalColormap1, false);
+        }
 
       break;
       default:
@@ -329,14 +343,29 @@ function changeValueRange(){
       }
 
       hueInit("id_anaylseCourseHueBackground");
-      drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground",true, true);
+      if (browserCanWorker==false) {
+        drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground",true, true);
+      }
+      else {
+        parallelDrawBackground("id_anaylseCourseHueBackground", globalColormap1);
+        parallelDrawPath("id_anaylseCourseHueBackground"+"2", globalColormap1, false);
+        parallelDrawElements("id_anaylseCourseHueBackground"+"3", globalColormap1, false);
+      }
 }
 
 function analyseColormapRGBPossible(){
   if(document.getElementById("id_checkboxRGB").checked==true){
     orderColorSketch('rgb');
     bandSketch.colormap2Sketch(globalColormap1);
-    drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground",true, true);
+
+      if (browserCanWorker==false) {
+        drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground",true, true);
+      }
+      else {
+        parallelDrawBackground("id_anaylseCourseHueBackground", globalColormap1);
+        parallelDrawPath("id_anaylseCourseHueBackground"+"2", globalColormap1, false);
+        parallelDrawElements("id_anaylseCourseHueBackground"+"3", globalColormap1, false);
+      }
   }
 }
 
@@ -625,9 +654,9 @@ function calcOrderPlot(intervalColormap, plotid, type, minId, minGlobalId){
 
                         var orderVal = Math.min(tmpVal1,tmpVal2);
 
-                        if(orderVal<arrayk2[0]){
-                          minGlobal = Math.min(minGlobal,orderVal);
+                        minGlobal = Math.min(minGlobal,orderVal);
 
+                        if(orderVal<arrayk2[0]){
                           arrayk2[0]= orderVal;
                           arrayk2[1]= k0;
                           arrayk2[2]= k1;
@@ -645,35 +674,43 @@ function calcOrderPlot(intervalColormap, plotid, type, minId, minGlobalId){
           }
 
 
+
+          var dodraw = true;
+
           if(minGlobal>=0)
-          return;
+          dodraw=false;
 
-          // sort
-          arrayk0 = quickSort(arrayk0);
+          if(dodraw){
 
-          // draw
+            // sort
+            arrayk0 = quickSort(arrayk0);
 
-          for(var i=0; i<arrayk0.length; i++){
+            // draw
 
-              var colorRef = intervalColormap.getIntervalColor(arrayk0[i][2],"rgb");//new classColor_RGB(0,0,0); //intervalColormap.getIntervalColor(k1Pos,"rgb");
+            for(var i=0; i<arrayk0.length; i++){
 
-              var xPosK0 = colormapXStart+arrayk0[i][1]*bandWidth+(bandWidth/2);
-              var xPosK2 = colormapXStart+arrayk0[i][3]*bandWidth+(bandWidth/2);
-              var xPosK1 = colormapXStart+arrayk0[i][2]*bandWidth+(bandWidth/2);
+                var colorRef = intervalColormap.getIntervalColor(arrayk0[i][2],"rgb");//new classColor_RGB(0,0,0); //intervalColormap.getIntervalColor(k1Pos,"rgb");
 
-              var deltaHeight = (arrowPlotHeight*(arrayk0[i][0]/minGlobal)*2);
+                var xPosK0 = colormapXStart+arrayk0[i][1]*bandWidth+(bandWidth/2);
+                var xPosK2 = colormapXStart+arrayk0[i][3]*bandWidth+(bandWidth/2);
+                var xPosK1 = colormapXStart+arrayk0[i][2]*bandWidth+(bandWidth/2);
 
-              var yPosK1 = colormapYEnd+deltaHeight;
+                var deltaHeight = (arrowPlotHeight*(arrayk0[i][0]/minGlobal)*2);
 
-              //canvasCtx.globalAlpha=1.0+(-0.8*(tmpMin/maxNegMin));
-                      canvasCtx.strokeStyle = colorRef.getRGBString();//"rgb(0,0,0)";
-                      canvasCtx.beginPath();
-                      canvasCtx.lineWidth=2;
-                      canvasCtx.beginPath();
-                      canvasCtx.moveTo(xPosK0,colormapYEnd);
-                      canvasCtx.quadraticCurveTo(xPosK1,yPosK1,xPosK2,colormapYEnd);
-                      canvasCtx.stroke();
-            }
+                var yPosK1 = colormapYEnd+deltaHeight;
+
+                //canvasCtx.globalAlpha=1.0+(-0.8*(tmpMin/maxNegMin));
+                        canvasCtx.strokeStyle = colorRef.getRGBString();//"rgb(0,0,0)";
+                        canvasCtx.beginPath();
+                        canvasCtx.lineWidth=2;
+                        canvasCtx.beginPath();
+                        canvasCtx.moveTo(xPosK0,colormapYEnd);
+                        canvasCtx.quadraticCurveTo(xPosK1,yPosK1,xPosK2,colormapYEnd);
+                        canvasCtx.stroke();
+              }
+
+          }
+
 
 
 
@@ -688,8 +725,6 @@ function calcOrderPlot(intervalColormap, plotid, type, minId, minGlobalId){
         document.getElementById(minGlobalId).style.color = "red";
         else
         document.getElementById(minGlobalId).style.color = "black";
-
-
 
         document.getElementById(minId).innerHTML = "Local Minimum = "+ minLocal.toFixed(numDecimalPlaces);
         document.getElementById(minGlobalId).innerHTML = "Global Minimum = "+ minGlobal.toFixed(numDecimalPlaces);

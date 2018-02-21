@@ -1,8 +1,15 @@
 window.onload = function() {
 
+
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// GLOBAL /////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////
+  if (typeof (Worker) === undefined)
+  browserCanWorker=false;
+  else
+  browserCanWorker=true;
+
+  browserCanWorker=false;
 
   globalColormap1 = new classColorMapSpecification();
   globalColormap2 = new classColorMapSpecification();
@@ -400,6 +407,14 @@ function orderColorSketch(forColorspace) {
 
       //tCan.addEventListener("dragstart", createSide_BandOnDragStart);
       //tCan.addEventListener("dragend", createSide_BandOnDragEnd);
+
+      tCan.onclick = (function(index) {
+          return function() {
+              deleteBand(index);
+          };
+        })(i);
+
+
       if(showSideID == 1){
         // Dropplace
         // create drop place

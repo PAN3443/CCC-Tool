@@ -94,6 +94,17 @@ function switchModifyModus(type){
 }
 
 
+function deleteBand(index){
+
+  if (confirm("Do you really want to delete the band?") == true) {
+
+      bandSketch.deleteBand(index);
+      orderColorSketch();
+
+  }
+
+}
+
 //////////////////////////////
 ///// Band Creator /////
 //////////////////////////////
