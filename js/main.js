@@ -410,6 +410,7 @@ function orderColorSketch(forColorspace) {
 
       tCan.onclick = (function(index) {
           return function() {
+            if(showSideID==1)
               deleteBand(index);
           };
         })(i);
