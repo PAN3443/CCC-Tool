@@ -277,7 +277,7 @@ function initAnalysePage(){
 function changeCourseSpace(){
   document.getElementById("id_containerHueCourse").style.display = "none";
   document.getElementById("id_anaylseValue").style.display = "none";
-  document.getElementById("id_hueValueOptions").style.display = "none";
+  //document.getElementById("id_hueValueOptions").style.display = "none";
   document.getElementById("id_RGBCourseDiv").style.display = "none";
 
   switch(analyzeColorspaceModus){
@@ -292,36 +292,36 @@ function changeCourseSpace(){
         stopAnimation();
         document.getElementById("id_containerHueCourse").style.display = "initial";
         document.getElementById("id_anaylseValue").style.display = "initial";
-        document.getElementById("id_hueValueOptions").style.display = "initial";
-        hueInit("id_anaylseCourseHueBackground");
+        //document.getElementById("id_hueValueOptions").style.display = "initial";
+//
         document.getElementById("id_setValueRange").value = 100;
 
-        hueInit("id_anaylseCourseHueBackground");
-        if (browserCanWorker==false) {
+        //hueInit("id_anaylseCourseHueBackground");
+        //if (browserCanWorker==false) {
           drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground",true, true); //drawcolormap_hueSpace(globalColormap1, "id_workcanvasAnalyseHue");
-        }
+        /*}
         else {
           parallelDrawBackground("id_anaylseCourseHueBackground", globalColormap1);
           parallelDrawPath("id_anaylseCourseHueBackground"+"2", globalColormap1, false);
           parallelDrawElements("id_anaylseCourseHueBackground"+"3", globalColormap1, false);
-        }
+        }*/
       break;
       case "lab": case "din99":
         stopAnimation();
         document.getElementById("id_containerHueCourse").style.display = "initial";
         document.getElementById("id_anaylseValue").style.display = "initial";
-        document.getElementById("id_hueValueOptions").style.display = "initial";
-        hueInit("id_anaylseCourseHueBackground");
+        //document.getElementById("id_hueValueOptions").style.display = "initial";
+
         document.getElementById("id_setValueRange").value = 65;
-        hueInit("id_anaylseCourseHueBackground");
-        if (browserCanWorker==false) {
+        //hueInit("id_anaylseCourseHueBackground");
+        //if (browserCanWorker==false) {
             drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground",true, true); //drawcolormap_hueSpace(globalColormap1, "id_workcanvasAnalyseHue");
-        }
+        /*}
         else {
           parallelDrawBackground("id_anaylseCourseHueBackground", globalColormap1);
           parallelDrawPath("id_anaylseCourseHueBackground"+"2", globalColormap1, false);
           parallelDrawElements("id_anaylseCourseHueBackground"+"3", globalColormap1, false);
-        }
+        }*/
 
       break;
       default:

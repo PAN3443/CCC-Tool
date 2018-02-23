@@ -216,10 +216,10 @@ window.onload = function() {
   document.getElementById('id_InputIntervalNum3').addEventListener("keyup", checkIntervalInputFieldsKey);
   document.getElementById('id_InputIntervalNum3').addEventListener("change", checkIntervalInputFieldsChange);
 
-  document.getElementById('id_anaylseCourseHueBackground3').addEventListener("mouseleave", mouseLeaveColorspace);
+  /*document.getElementById('id_anaylseCourseHueBackground3').addEventListener("mouseleave", mouseLeaveColorspace);
   document.getElementById('id_anaylseCourseHueBackground3').addEventListener("mousemove", mouseMoveColorspace);
   document.getElementById('id_anaylseCourseHueBackground3').addEventListener("mousedown", mouseDownColorspace);
-  document.getElementById('id_anaylseCourseHueBackground3').addEventListener("mouseup", mouseUpColorspace);
+  document.getElementById('id_anaylseCourseHueBackground3').addEventListener("mouseup", mouseUpColorspace);*/
 
   document.getElementById('id_anaylseValue').addEventListener("mouseleave", mouseLeaveValuePlot);
   document.getElementById('id_anaylseValue').addEventListener("mousemove", mouseMoveValuePlot);
@@ -265,10 +265,10 @@ window.onload = function() {
   document.getElementById('id_CompareInputIntervalNum3').addEventListener("keyup", checkIntervalInputFieldsKey);
   document.getElementById('id_CompareInputIntervalNum3').addEventListener("change", checkIntervalInputFieldsChange);
 
-  document.getElementById('id_rgb3DCompare').addEventListener("mousemove", eventRGB3D_mousemove);
+  /*document.getElementById('id_rgb3DCompare').addEventListener("mousemove", eventRGB3D_mousemove);
   document.getElementById('id_rgb3DCompare').addEventListener("mouseleave", eventRGB3D_mouseleave);
   document.getElementById('id_rgb3DCompare').addEventListener("mousedown", eventRGB3D_mousedown);
-  document.getElementById('id_rgb3DCompare').addEventListener("mouseup", eventRGB3D_mouseup);
+  document.getElementById('id_rgb3DCompare').addEventListener("mouseup", eventRGB3D_mouseup);*/
 
   document.getElementById('id_compareCourseHueBackground').addEventListener("mouseleave", mouseLeaveColorspace);
   document.getElementById('id_compareCourseHueBackground').addEventListener("mousemove", mouseMoveColorspace);
@@ -295,8 +295,8 @@ window.onload = function() {
   document.getElementById('id_canvasBGCompare').addEventListener("mousedown", mouseDownColorspaceRGB);
   document.getElementById('id_canvasBGCompare').addEventListener("mouseup", mouseUpColorspaceRGB);
 
-  document.getElementById('id_setValueRangeCompare').addEventListener("change", changeValueRangeCompare);
-  document.getElementById('id_checkboxRGBCompare').addEventListener("change", compareColormapRGBPossible);
+  //document.getElementById('id_setValueRangeCompare').addEventListener("change", changeValueRangeCompare);
+  //document.getElementById('id_checkboxRGBCompare').addEventListener("change", compareColormapRGBPossible);
 
   document.getElementById('id_setOpacityRangeCompare').addEventListener("change", changeOpacityRange);
 

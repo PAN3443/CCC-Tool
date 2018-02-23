@@ -348,8 +348,8 @@ function changeCourseSpaceCompare(){
         document.getElementById("id_containerHueCourseCompare").style.display = "initial";
         document.getElementById("id_compareValue").style.display = "initial";
         document.getElementById("id_hueValueOptionsCompare").style.display = "initial";
-        hueInit("id_compareCourseHueBackground");
         document.getElementById("id_setValueRangeCompare").value = 100;
+        hueInit("id_compareCourseHueBackground");
         //drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground",false);
         drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground",false);
         stopAnimation();
@@ -358,8 +358,8 @@ function changeCourseSpaceCompare(){
         document.getElementById("id_containerHueCourseCompare").style.display = "initial";
         document.getElementById("id_compareValue").style.display = "initial";
         document.getElementById("id_hueValueOptionsCompare").style.display = "initial";
-        hueInit("id_compareCourseHueBackground");
         document.getElementById("id_setValueRangeCompare").value = 65;
+        hueInit("id_compareCourseHueBackground");
         //drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground",false);
         drawcolormap_compare_hueSpace(globalColormap1, globalColormap2,"id_compareCourseHueBackground",false);
         stopAnimation();

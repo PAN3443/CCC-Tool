@@ -28,8 +28,7 @@ function deleteCreatedColormap(){
 
       bandSketch.clearSketch();
       orderColorSketch();
-  } else {
-      // do nothing
+
   }
 
 }
