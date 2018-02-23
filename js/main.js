@@ -216,10 +216,10 @@ window.onload = function() {
   document.getElementById('id_InputIntervalNum3').addEventListener("keyup", checkIntervalInputFieldsKey);
   document.getElementById('id_InputIntervalNum3').addEventListener("change", checkIntervalInputFieldsChange);
 
-  document.getElementById('id_anaylseCourseHueBackground').addEventListener("mouseleave", mouseLeaveColorspace);
-  document.getElementById('id_anaylseCourseHueBackground').addEventListener("mousemove", mouseMoveColorspace);
-  document.getElementById('id_anaylseCourseHueBackground').addEventListener("mousedown", mouseDownColorspace);
-  document.getElementById('id_anaylseCourseHueBackground').addEventListener("mouseup", mouseUpColorspace);
+  document.getElementById('id_anaylseCourseHueBackground3').addEventListener("mouseleave", mouseLeaveColorspace);
+  document.getElementById('id_anaylseCourseHueBackground3').addEventListener("mousemove", mouseMoveColorspace);
+  document.getElementById('id_anaylseCourseHueBackground3').addEventListener("mousedown", mouseDownColorspace);
+  document.getElementById('id_anaylseCourseHueBackground3').addEventListener("mouseup", mouseUpColorspace);
 
   document.getElementById('id_anaylseValue').addEventListener("mouseleave", mouseLeaveValuePlot);
   document.getElementById('id_anaylseValue').addEventListener("mousemove", mouseMoveValuePlot);

@@ -126,6 +126,7 @@ function mouseMoveColorspace(event) {
     if (spaceElementsType[i] == true) {
       // Circle -> Part of Scaled Band
       var dis = Math.sqrt(Math.pow(spaceElementsXPos[i] - mousePosX, 2) + Math.pow(spaceElementsYPos[i] - mousePosY, 2));
+
       if (dis <= circleRad) {
         mouseAboveSpaceObjectID = i;
         document.getElementById(event.target.id).style.cursor = "pointer";
@@ -294,7 +295,7 @@ function mouseMoveColorspace(event) {
       return;
   }
 
-  // if inside of colorelement
+  // if grepped a colorelement
   if (mouseGrappedSpaceObjectID != -1) {
 
     //draw the colorspace new
