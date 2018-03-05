@@ -7,25 +7,21 @@ function mouseLeaveColorspace(event) {
   document.getElementById(event.target.id).style.cursor = "default";
 
   document.getElementById("id_huePositionLabel").innerHTML = "";
-  document.getElementById("id_huePositionLabelCompare").innerHTML = "";
 
   mouseAboveSpaceObjectID = -1;
   if (mouseGrappedSpaceObjectID != -1) {
     mouseGrappedSpaceObjectID = -1;
 
-    if (showSideID == 2) {
+
       if (browserCanWorker==false) {
-        drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground",true, true);
+        drawcolormap_hueSpace(globalColormap1, "id_ModiyCourseHueBackground",true, true);
       }
       else {
-        parallelDrawBackground("id_anaylseCourseHueBackground", globalColormap1);
-        parallelDrawPath("id_anaylseCourseHueBackground"+"2", globalColormap1, false);
-        parallelDrawElements("id_anaylseCourseHueBackground"+"3", globalColormap1, false);
+        parallelDrawBackground("id_ModiyCourseHueBackground", globalColormap1);
+        parallelDrawPath("id_ModiyCourseHueBackground"+"2", globalColormap1, false);
+        parallelDrawElements("id_ModiyCourseHueBackground"+"3", globalColormap1, false);
       }
-    }
-    if (showSideID == 3) {
-      drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", true, true);
-    }
+
   }
 }
 
@@ -33,22 +29,16 @@ function mouseLeaveColorspace(event) {
 function hsvLabDinAnimation(){
   orderColorSketch(colorspaceModus);
 
-  if (showSideID == 2) {
+
     if (browserCanWorker==false) {
-      drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false, false);
+      drawcolormap_hueSpace(globalColormap1, "id_ModiyCourseHueBackground", false, false);
     }
     else {
-      parallelDrawPath("id_anaylseCourseHueBackground"+"2", globalColormap1, false);
-      parallelDrawElements("id_anaylseCourseHueBackground"+"3", globalColormap1, false);
+      parallelDrawPath("id_ModiyCourseHueBackground"+"2", globalColormap1, false);
+      parallelDrawElements("id_ModiyCourseHueBackground"+"3", globalColormap1, false);
     }
-    //drawAnalyseMapPreviews();
-    //drawAnalyseDifferenceMaps();
-  }
-  if (showSideID == 3) {
-    drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", false, false);
-    //drawCompareMapPreviews();
-    //drawCompareDifferenceMaps();
-  }
+
+
 }
 
 function mouseMoveColorspace(event) {
@@ -74,18 +64,15 @@ function mouseMoveColorspace(event) {
         var dis = Math.sqrt(Math.pow(spaceElementsXPos[i] - mousePosX, 2) + Math.pow(spaceElementsYPos[i] - mousePosY, 2));
         if (dis > bigcircleRad) {
           mouseAboveSpaceObjectID = -1;
-          if (showSideID == 2) {
+
             if (browserCanWorker==false) {
-              drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false, false);
+              drawcolormap_hueSpace(globalColormap1, "id_ModiyCourseHueBackground", false, false);
             }
             else {
-              parallelDrawElements("id_anaylseCourseHueBackground"+"3", globalColormap1, false);
+              parallelDrawElements("id_ModiyCourseHueBackground"+"3", globalColormap1, false);
             }
 
-          }
-          if (showSideID == 3) {
-            drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", false, false);
-          }
+
           document.getElementById(event.target.id).style.cursor = "default";
           break;
         } else {
@@ -102,17 +89,15 @@ function mouseMoveColorspace(event) {
             mousePosY < spaceElementsYPos[i] - bigcircleRad ||
             mousePosY > spaceElementsYPos[i] + bigcircleRad) {
             mouseAboveSpaceObjectID = -1;
-            if (showSideID == 2) {
+
               if (browserCanWorker==false) {
-                drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false, false);
+                drawcolormap_hueSpace(globalColormap1, "id_ModiyCourseHueBackground", false, false);
               }
               else {
-                parallelDrawElements("id_anaylseCourseHueBackground"+"3", globalColormap1, false);
+                parallelDrawElements("id_ModiyCourseHueBackground"+"3", globalColormap1, false);
               }
-            }
-            if (showSideID == 3) {
-              drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", false);
-            }
+
+
             document.getElementById(event.target.id).style.cursor = "default";
             break;
           } else {
@@ -130,17 +115,15 @@ function mouseMoveColorspace(event) {
       if (dis <= circleRad) {
         mouseAboveSpaceObjectID = i;
         document.getElementById(event.target.id).style.cursor = "pointer";
-        if (showSideID == 2) {
+
           if (browserCanWorker==false) {
-            drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false, false);
+            drawcolormap_hueSpace(globalColormap1, "id_ModiyCourseHueBackground", false, false);
           }
           else {
-            parallelDrawElements("id_anaylseCourseHueBackground"+"3", globalColormap1, false);
+            parallelDrawElements("id_ModiyCourseHueBackground"+"3", globalColormap1, false);
           }
-        }
-        if (showSideID == 3) {
-          drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", false);
-        }
+
+
         break;
       }
 
@@ -157,17 +140,15 @@ function mouseMoveColorspace(event) {
           mousePosY <= spaceElementsYPos[i] + circleRad) {
           mouseAboveSpaceObjectID = i;
           document.getElementById(event.target.id).style.cursor = "pointer";
-          if (showSideID == 2) {
+
             if (browserCanWorker==false) {
-              drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false, false);
+              drawcolormap_hueSpace(globalColormap1, "id_ModiyCourseHueBackground", false, false);
             }
             else {
-              parallelDrawElements("id_anaylseCourseHueBackground"+"3", globalColormap1, false);
+              parallelDrawElements("id_ModiyCourseHueBackground"+"3", globalColormap1, false);
             }
-          }
-          if (showSideID == 3) {
-            drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", false);
-          }
+
+
           break;
         }
 
@@ -180,7 +161,6 @@ function mouseMoveColorspace(event) {
   var tmpColor;
   var errorRGBColor = new classColor_RGB(-1, -1, -1);
   document.getElementById("id_huePositionLabel").innerHTML = "";
-  document.getElementById("id_huePositionLabelCompare").innerHTML = "";
   switch(analyzeColorspaceModus) {
     case "hsv":
       var dis = Math.sqrt(Math.pow(colorspaceCenterX - mousePosX, 2) + Math.pow(colorspaceCenterY - mousePosY, 2));
@@ -194,41 +174,36 @@ function mouseMoveColorspace(event) {
         tmpColor = new classColor_HSV(hVal, sVal, updateCurrentValue);
 
         document.getElementById("id_huePositionLabel").innerHTML = "H : " + hVal.toFixed(numDecimalPlaces) + ", S : " + sVal.toFixed(numDecimalPlaces);
-        document.getElementById("id_huePositionLabelCompare").innerHTML = "H : " + hVal.toFixed(numDecimalPlaces) + ", S : " + sVal.toFixed(numDecimalPlaces);
       } else {
         //document.getElementById(event.target.id).style.cursor = "default";
         if (mouseGrappedSpaceObjectID != -1) {
           mouseGrappedSpaceObjectID = -1;
           mouseAboveSpaceObjectID = -1;
-          if (showSideID == 2) {
+
             if (browserCanWorker==false) {
-              drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground",true, true);
+              drawcolormap_hueSpace(globalColormap1, "id_ModiyCourseHueBackground",true, true);
             }
             else {
-              parallelDrawBackground("id_anaylseCourseHueBackground", globalColormap1);
-              parallelDrawPath("id_anaylseCourseHueBackground"+"2", globalColormap1, false);
-              parallelDrawElements("id_anaylseCourseHueBackground"+"3", globalColormap1, false);
+              parallelDrawBackground("id_ModiyCourseHueBackground", globalColormap1);
+              parallelDrawPath("id_ModiyCourseHueBackground"+"2", globalColormap1, false);
+              parallelDrawElements("id_ModiyCourseHueBackground"+"3", globalColormap1, false);
             }
-          }
-          if (showSideID == 3) {
-            drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", true);
-          }
+
+
         }
 
         if (mouseAboveSpaceObjectID != -1) {
           mouseAboveSpaceObjectID = -1;
-          if (showSideID == 2) {
+
             if (browserCanWorker==false) {
-              drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false, false);
+              drawcolormap_hueSpace(globalColormap1, "id_ModiyCourseHueBackground", false, false);
             }
             else {
-              parallelDrawPath("id_anaylseCourseHueBackground"+"2", globalColormap1, false);
-              parallelDrawElements("id_anaylseCourseHueBackground"+"3", globalColormap1, false);
+              parallelDrawPath("id_ModiyCourseHueBackground"+"2", globalColormap1, false);
+              parallelDrawElements("id_ModiyCourseHueBackground"+"3", globalColormap1, false);
             }
-          }
-          if (showSideID == 3) {
-            drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", false);
-          }
+
+
         }
 
       }
@@ -241,7 +216,6 @@ function mouseMoveColorspace(event) {
 
         tmpColor = new classColor_LAB(updateCurrentValue, aVal, bVal);
         document.getElementById("id_huePositionLabel").innerHTML = "A : " + aVal.toFixed(numDecimalPlaces) + ", B : " + bVal.toFixed(numDecimalPlaces);
-        document.getElementById("id_huePositionLabelCompare").innerHTML = "A : " + aVal.toFixed(numDecimalPlaces) + ", B : " + bVal.toFixed(numDecimalPlaces);
 
         if (document.getElementById("id_checkboxRGB").checked == true) {
           var testColor = tmpColor.calcRGBColorCorrect(errorRGBColor);
@@ -270,7 +244,6 @@ function mouseMoveColorspace(event) {
       if (a99Val >= rangeA99Neg && a99Val <= rangeA99Pos && b99Val >= rangeB99Neg && b99Val <= rangeB99Pos) {
         tmpColor = new classColorDIN99(updateCurrentValue, a99Val, b99Val);
         document.getElementById("id_huePositionLabel").innerHTML = "A99 : " + a99Val.toFixed(numDecimalPlaces) + ", B99 : " + b99Val.toFixed(numDecimalPlaces);
-        document.getElementById("id_huePositionLabelCompare").innerHTML = "A99 : " + a99Val.toFixed(numDecimalPlaces) + ", B99 : " + b99Val.toFixed(numDecimalPlaces);
 
         var colorRGB = tmpColor.calcRGBColor();
         if(colorRGB.getRValue()==0 && colorRGB.getGValue()==0 && colorRGB.getBValue()==0){
@@ -404,17 +377,14 @@ function mouseDownColorspace() {
         updateSketchID2 = -1;
     }
 
-    if (showSideID == 2) {
+
       if (browserCanWorker==false) {
-        drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground",true, true);
+        drawcolormap_hueSpace(globalColormap1, "id_ModiyCourseHueBackground",true, true);
       }
       else {
-        parallelDrawBackground("id_anaylseCourseHueBackground", globalColormap1);
+        parallelDrawBackground("id_ModiyCourseHueBackground", globalColormap1);
       }
-    }
-    if (showSideID == 3) {
-      drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", true);
-    }
+
 
   }
 
@@ -458,17 +428,14 @@ function getC2CurrentValue(index) {
 function mouseUpColorspace() {
   mouseGrappedSpaceObjectID = -1;
   clearInterval(timer2DAnimation);
-  if (showSideID == 2) {
+
     if (browserCanWorker==false) {
-      drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground",true, true);
+      drawcolormap_hueSpace(globalColormap1, "id_ModiyCourseHueBackground",true, true);
     }
     else {
-      parallelDrawBackground("id_anaylseCourseHueBackground", globalColormap1);
+      parallelDrawBackground("id_ModiyCourseHueBackground", globalColormap1);
     }
-  }
-  if (showSideID == 3) {
-    drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", true);
-  }
+
 }
 
 
@@ -484,19 +451,16 @@ function mouseLeaveValuePlot(event) {
     mouseGrappedSpaceObjectID = -1;
 
 
-    if (showSideID == 2) {
+
 
       if (browserCanWorker==false) {
-        drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false, false);
+        drawcolormap_hueSpace(globalColormap1, "id_ModiyCourseHueBackground", false, false);
       }
       else {
-        parallelDrawPath("id_anaylseCourseHueBackground"+"2", globalColormap1, false);
-        parallelDrawElements("id_anaylseCourseHueBackground"+"3", globalColormap1, false);
+        parallelDrawPath("id_ModiyCourseHueBackground"+"2", globalColormap1, false);
+        parallelDrawElements("id_ModiyCourseHueBackground"+"3", globalColormap1, false);
       }
-    }
-    if (showSideID == 3) {
-      drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", false);
-    }
+
 
   }
 }
@@ -509,17 +473,14 @@ function checkInsideRect(centerPosX, centerPosY, i) {
       mousePosY < centerPosY - bigcircleRad ||
       mousePosY > centerPosY + bigcircleRad) {
       mouseAboveSpaceObjectID = -1;
-      if (showSideID == 2) {
+
         if (browserCanWorker==false) {
-          drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false, false);
+          drawcolormap_hueSpace(globalColormap1, "id_ModiyCourseHueBackground", false, false);
         }
         else {
-          parallelDrawElements("id_anaylseCourseHueBackground"+"3", globalColormap1, false);
+          parallelDrawElements("id_ModiyCourseHueBackground"+"3", globalColormap1, false);
         }
-      }
-      if (showSideID == 3) {
-        drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", false);
-      }
+
       return false;
     } else {
       return true;
@@ -531,17 +492,14 @@ function checkInsideRect(centerPosX, centerPosY, i) {
       mousePosY >= centerPosY - circleRad &&
       mousePosY <= centerPosY + circleRad) {
       mouseAboveSpaceObjectID = i;
-      if (showSideID == 2) {
+
         if (browserCanWorker==false) {
-          drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false, false);
+          drawcolormap_hueSpace(globalColormap1, "id_ModiyCourseHueBackground", false, false);
         }
         else {
-          parallelDrawElements("id_anaylseCourseHueBackground"+"3", globalColormap1, false);
+          parallelDrawElements("id_ModiyCourseHueBackground"+"3", globalColormap1, false);
         }
-      }
-      if (showSideID == 3) {
-        drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", false);
-      }
+
       return true;
     } else {
       return false;
@@ -557,17 +515,14 @@ function checkInsideCirce(centerPosX, centerPosY, i) {
     var dis = Math.sqrt(Math.pow(centerPosX - mousePosX, 2) + Math.pow(centerPosY - mousePosY, 2));
     if (dis > bigcircleRad) {
       mouseAboveSpaceObjectID = -1;
-      if (showSideID == 2) {
+
         if (browserCanWorker==false) {
-          drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false, false);
+          drawcolormap_hueSpace(globalColormap1, "id_ModiyCourseHueBackground", false, false);
         }
         else {
-          parallelDrawElements("id_anaylseCourseHueBackground"+"3", globalColormap1, false);
+          parallelDrawElements("id_ModiyCourseHueBackground"+"3", globalColormap1, false);
         }
-      }
-      if (showSideID == 3) {
-        drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", false);
-      }
+
       return false;
     } else {
       return true;
@@ -576,17 +531,14 @@ function checkInsideCirce(centerPosX, centerPosY, i) {
     var dis = Math.sqrt(Math.pow(centerPosX - mousePosX, 2) + Math.pow(centerPosY - mousePosY, 2));
     if (dis <= circleRad) {
       mouseAboveSpaceObjectID = i;
-      if (showSideID == 2) {
+
         if (browserCanWorker==false) {
-          drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground", false, false);
+          drawcolormap_hueSpace(globalColormap1, "id_ModiyCourseHueBackground", false, false);
         }
         else {
-          parallelDrawElements("id_anaylseCourseHueBackground"+"3", globalColormap1, false);
+          parallelDrawElements("id_ModiyCourseHueBackground"+"3", globalColormap1, false);
         }
-      }
-      if (showSideID == 3) {
-        drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground", false);
-      }
+
       return true;
     } else {
       return false;
@@ -608,16 +560,16 @@ function mouseMoveValuePlot(event) {
 
   var colormapTmp;
 
-  switch (showSideID) {
-    case 2:
+  /*switch (showSideID) {
+    case 2:*/
       colormapTmp = globalColormap1;
-      break;
+  /*    break;
     case 3:
         colormapTmp = globalColormap1;
     break;
     default:
       return;
-  }
+  }*/
 
   var plotwidth = plotXEnd-plotXStart;
   var vPlotKeyPos = 0;
@@ -915,30 +867,30 @@ function mouseMoveValuePlot(event) {
       switch(analyzeColorspaceModus) {
         case "hsv":
           var oldHSV;
-          switch (showSideID) {
-            case 2:
+          /*switch (showSideID) {
+            case 2:*/
               oldHSV = globalColormap1.getHSVColor(mouseGrappedSpaceObjectID);
-              break;
+          /*    break;
             case 3:
               oldHSV = globalColormap1.getHSVColor(mouseGrappedSpaceObjectID);
             break;
             default:
               return;
-          }
+          }*/
           tmpColor = new classColor_HSV(oldHSV.getHValue(), oldHSV.getSValue(), newValue);
           break
         case "lab":
           var oldLAB;
-          switch (showSideID) {
+        /*  switch (showSideID) {
             case 2:
               oldLAB = globalColormap1.getLabColor(mouseGrappedSpaceObjectID);
               break;
-            case 3:
+            case 3:*/
               oldLAB = globalColormap1.getLabColor(mouseGrappedSpaceObjectID);
-            break;
+        /*    break;
             default:
               return;
-          }
+          }*/
           tmpColor = new classColor_LAB(newValue * 100, oldLAB.getAValue(), oldLAB.getBValue());
           if (document.getElementById("id_checkboxRGB").checked == true) {
             var testColor = tmpColor.calcRGBColorCorrect(errorRGBColor);
@@ -950,16 +902,16 @@ function mouseMoveValuePlot(event) {
           break;
         case "din99":
           var oldDIN99;
-          switch (showSideID) {
-            case 2:
+        /*  switch (showSideID) {
+            case 2:*/
               oldDIN99 = globalColormap1.getDIN99Color(mouseGrappedSpaceObjectID);
-              break;
+        /*      break;
             case 3:
               oldDIN99 = globalColormap1.getDIN99Color(mouseGrappedSpaceObjectID);
             break;
             default:
               return;
-          }
+          }*/
           tmpColor = new classColorDIN99(newValue * 100, oldDIN99.getA99Value(), oldDIN99.getB99Value());
           if (document.getElementById("id_checkboxRGB").checked == true) {
             var testColor = tmpColor.calcRGBColorCorrect(errorRGBColor);

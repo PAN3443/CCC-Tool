@@ -540,6 +540,216 @@ function drawCurrentColor(){
       document.getElementById("editPage_currentColor").style.background="none";
         document.getElementById("editPage_SetColor").style.background="none";
   }
+  drawModifyPreview();
+}
+
+function drawModifyPreview(){
+
+  var bandIncludeKey=0;
+  var tmpSelectedColor = selectedColor;
+
+  if(keyType[selectedKey]==='dual key'){
+    selectedColor=0;
+  }
+
+    if(selectedColor==0){
+      bandIncludeKey=selectedKey-1;
+    }
+    else{
+      bandIncludeKey=selectedKey;
+    }
+
+  var canvas = document.getElementById("id_modifyBandPreview");
+
+
+  canvas.width = resolutionX_differenceMetrics;
+  canvas.height = 1;
+
+  var canvasCtx = canvas.getContext("2d");
+  var canvasData = canvasCtx.getImageData(0, 0, resolutionX_differenceMetrics, 1);
+
+
+  var borderWidth = 2;
+  var restWidth = resolutionX_differenceMetrics-(bandSketch.getBandLength()-1)*borderWidth;
+  var bandWith = restWidth/bandSketch.getBandLength();
+  var currentPos = 0;
+
+  for (var i = 0; i < bandSketch.getBandLength(); i++) {
+
+    var tmpDis,tmpRad,xPos,yPos, zPos,tmpDis2,tmpRad2,xPos2, yPos2,zPos2;
+
+    switch (colorspaceModus) {
+      case 'rgb':
+       color1 = bandSketch.getC1Color(i,"rgb");
+       color2 = bandSketch.getC2Color(i,"rgb");
+
+         if(bandIncludeKey==i){
+
+           if(selectedColor==0){
+             color2 = editColor1;
+           }
+           else{
+             color1 = editColor2;
+           }
+         }
+        break;
+        case 'hsv':
+        color1 = bandSketch.getC1Color(i,"hsv");
+        color2 = bandSketch.getC2Color(i,"hsv");
+
+        if(bandIncludeKey==i){
+
+          if(selectedColor==0){
+            color2 = editColor1.calcHSVColor();
+          }
+          else{
+            color1 = editColor2.calcHSVColor();
+          }
+        }
+
+        tmpDis = color1.getSValue() * 50; // radius 50; center(0,0,0);
+        tmpRad = (color1.getHValue() * Math.PI * 2) - Math.PI;
+        xPos = tmpDis * Math.cos(tmpRad);
+        yPos = tmpDis * Math.sin(tmpRad);
+        zPos = color1.getVValue() - 50;
+
+        tmpDis2 = color2.getSValue() * 50;
+        tmpRad2 = (color2.getHValue() * Math.PI * 2) - Math.PI;
+        xPos2 = tmpDis2 * Math.cos(tmpRad2);
+        yPos2 = tmpDis2 * Math.sin(tmpRad2);
+        zPos2 = color2.getVValue() - 50;
+        break;
+        case 'lab':
+        color1 = bandSketch.getC1Color(i,"lab");
+        color2 = bandSketch.getC2Color(i,"lab");
+
+        if(bandIncludeKey==i){
+
+          if(selectedColor==0){
+            color2 = editColor1.calcLABColor();
+          }
+          else{
+            color1 = editColor2.calcLABColor();
+          }
+        }
+        break;
+        case 'din99':
+        color1 = bandSketch.getC1Color(i,"din99");
+        color2 = bandSketch.getC2Color(i,"din99");
+
+        if(bandIncludeKey==i){
+
+          if(selectedColor==0){
+            color2 = editColor1.calcDIN99Color(kE,kCH);
+          }
+          else{
+            color1 = editColor2.calcDIN99Color(kE,kCH);
+          }
+        }
+        break;
+      default:
+
+    }
+
+    if(keyType[selectedKey]==='dual key'){
+      bandIncludeKey=selectedKey;
+      selectedColor=1;
+    }
+
+    for(var x=0; x<bandWith; x++){
+      var index = (currentPos+x) * 4;
+      var tmpRatio = x/bandWith;
+
+
+      switch (colorspaceModus) {
+        case 'rgb':
+
+          var rValue, gValue, bValue;
+
+
+           rValue = color1.getRValue() + (color2.getRValue() - color1.getRValue()) * tmpRatio;
+           gValue = color1.getGValue() + (color2.getGValue() - color1.getGValue()) * tmpRatio;
+           bValue = color1.getBValue() + (color2.getBValue() - color1.getBValue()) * tmpRatio;
+
+           canvasData.data[index + 0] = Math.round(rValue * 255); // r
+           canvasData.data[index + 1] = Math.round(gValue * 255); // g
+           canvasData.data[index + 2] = Math.round(bValue * 255); // b
+           canvasData.data[index + 3] = 255; //a
+          break;
+
+
+          case 'hsv':
+
+          var tmpX = xPos + (xPos2 - xPos) * tmpRatio;
+          var tmpY = yPos + (yPos2 - yPos) * tmpRatio;
+          var tmpZ = zPos + (zPos2 - zPos) * tmpRatio;
+
+          var tmpH = (Math.atan2(tmpY, tmpX) + Math.PI) / (Math.PI * 2);
+          var tmpS = Math.sqrt(Math.pow(tmpX, 2) + Math.pow(tmpY, 2)) / 50;
+          var tmpV = tmpZ + 50;
+          var tmpCurrentHSVColor = new classColor_HSV(tmpH, tmpS, tmpV);
+
+          var tmpCurrentColor = tmpCurrentHSVColor.calcRGBColor();
+
+          canvasData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
+          canvasData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
+          canvasData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
+          canvasData.data[index + 3] = 255; //a
+
+          break;
+          case 'lab':
+
+          var lValue = color1.get1Value() + (color2.get1Value() - color1.get1Value()) * tmpRatio;
+          var aValue = color1.get2Value() + (color2.get2Value() - color1.get2Value()) * tmpRatio;
+          var bValue = color1.get3Value() + (color2.get3Value() - color1.get3Value()) * tmpRatio;
+
+          var tmpCurrentLABColor = new classColor_LAB(lValue,aValue,bValue);
+          var tmpCurrentColor = tmpCurrentLABColor.calcRGBColor();
+
+          canvasData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
+          canvasData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
+          canvasData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
+          canvasData.data[index + 3] = 255; //a
+
+          break;
+          case 'din99':
+
+          var l99Value = color1.get1Value() + (color2.get1Value() - color1.get1Value()) * tmpRatio;
+          var a99Value = color1.get2Value() + (color2.get2Value() - color1.get2Value()) * tmpRatio;
+          var b99Value = color1.get3Value() + (color2.get3Value() - color1.get3Value()) * tmpRatio;
+
+          var tmpCurrentDIN99Color = new classColorDIN99(l99Value,a99Value,b99Value);
+          var tmpCurrentColor = tmpCurrentDIN99Color.calcRGBColor();
+
+          canvasData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
+          canvasData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
+          canvasData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
+          canvasData.data[index + 3] = 255; //a
+          break;
+        default:
+
+      }
+
+
+    }
+    currentPos=currentPos+bandWith;
+
+    if(i != bandSketch.getBandLength()-1){
+      for(var x=0; x<borderWidth; x++){
+        var index = (currentPos+x) * 4;
+        canvasData.data[index + 0] = Math.round(0); // r
+        canvasData.data[index + 1] = Math.round(0); // g
+        canvasData.data[index + 2] = Math.round(0); // b
+        canvasData.data[index + 3] = 255; //a
+      }
+      currentPos=currentPos+borderWidth;
+    }
+
+  }
+
+  canvasCtx.putImageData(canvasData, 0, 0); // update ColorspaceCanvas;
+
+   selectedColor=tmpSelectedColor;//
 }
 
 function fillColorInputFields(dofirst){

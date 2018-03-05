@@ -313,7 +313,7 @@ function initComparePage(){
 
 }
 
-function switchCompareMaps(){
+/*function switchCompareMaps(){
   var tmp = colormap2SelectIndex;
   colormap2SelectIndex = colormap1SelectIndex;
   colormap1SelectIndex = tmp;
@@ -327,7 +327,7 @@ function switchCompareMaps(){
 
   orderColorSketch();
   updateComparePage()
-}
+}*/
 
 function changeCourseSpaceCompare(){
 
@@ -348,7 +348,7 @@ function changeCourseSpaceCompare(){
         document.getElementById("id_containerHueCourseCompare").style.display = "initial";
         document.getElementById("id_compareValue").style.display = "initial";
         document.getElementById("id_hueValueOptionsCompare").style.display = "initial";
-        document.getElementById("id_setValueRangeCompare").value = 100;
+        //document.getElementById("id_setValueRangeCompare").value = 100;
         hueInit("id_compareCourseHueBackground");
         //drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground",false);
         drawcolormap_compare_hueSpace(globalColormap1, globalColormap2, "id_compareCourseHueBackground",false);
@@ -358,7 +358,7 @@ function changeCourseSpaceCompare(){
         document.getElementById("id_containerHueCourseCompare").style.display = "initial";
         document.getElementById("id_compareValue").style.display = "initial";
         document.getElementById("id_hueValueOptionsCompare").style.display = "initial";
-        document.getElementById("id_setValueRangeCompare").value = 65;
+        //document.getElementById("id_setValueRangeCompare").value = 65;
         hueInit("id_compareCourseHueBackground");
         //drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground",false);
         drawcolormap_compare_hueSpace(globalColormap1, globalColormap2,"id_compareCourseHueBackground",false);

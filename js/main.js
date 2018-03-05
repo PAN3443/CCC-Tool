@@ -203,7 +203,40 @@ window.onload = function() {
   document.getElementById('id_buttonHelpCreateColormap').addEventListener("mouseleave", createPage_hideHelp);
   document.getElementById('id_buttonHelpCreateColormap').addEventListener("mouseenter", createPage_showHelp);
 
+  // Edit Path
 
+  document.getElementById('id_ModiyCourseHueBackground3').addEventListener("mouseleave", mouseLeaveColorspace);
+  document.getElementById('id_ModiyCourseHueBackground3').addEventListener("mousemove", mouseMoveColorspace);
+  document.getElementById('id_ModiyCourseHueBackground3').addEventListener("mousedown", mouseDownColorspace);
+  document.getElementById('id_ModiyCourseHueBackground3').addEventListener("mouseup", mouseUpColorspace);
+
+  document.getElementById('id_ModifyValue').addEventListener("mouseleave", mouseLeaveValuePlot);
+  document.getElementById('id_ModifyValue').addEventListener("mousemove", mouseMoveValuePlot);
+  document.getElementById('id_ModifyValue').addEventListener("mousedown", mouseDownValuePlot);
+  document.getElementById('id_ModifyValue').addEventListener("mouseup", mouseUpValuePlot);
+
+  document.getElementById('id_canvasRGModiy').addEventListener("mouseleave", mouseLeaveColorspaceRGB);
+  document.getElementById('id_canvasRGModiy').addEventListener("mousemove", mouseMoveColorspaceRGB);
+  document.getElementById('id_canvasRGModiy').addEventListener("mousedown", mouseDownColorspaceRGB);
+  document.getElementById('id_canvasRGModiy').addEventListener("mouseup", mouseUpColorspaceRGB);
+
+  document.getElementById('id_canvasRBModiy').addEventListener("mouseleave", mouseLeaveColorspaceRGB);
+  document.getElementById('id_canvasRBModiy').addEventListener("mousemove", mouseMoveColorspaceRGB);
+  document.getElementById('id_canvasRBModiy').addEventListener("mousedown", mouseDownColorspaceRGB);
+  document.getElementById('id_canvasRBModiy').addEventListener("mouseup", mouseUpColorspaceRGB);
+
+  document.getElementById('id_canvasBGModiy').addEventListener("mouseleave", mouseLeaveColorspaceRGB);
+  document.getElementById('id_canvasBGModiy').addEventListener("mousemove", mouseMoveColorspaceRGB);
+  document.getElementById('id_canvasBGModiy').addEventListener("mousedown", mouseDownColorspaceRGB);
+  document.getElementById('id_canvasBGModiy').addEventListener("mouseup", mouseUpColorspaceRGB);
+
+  document.getElementById('id_setValueRange').addEventListener("change", changeValueRange);
+  document.getElementById('id_checkboxRGB').addEventListener("change", modifyColormapRGBPossible);
+
+  document.getElementById('id_rgb3DModiy').addEventListener("mousemove", eventRGB3D_mousemove);
+  document.getElementById('id_rgb3DModiy').addEventListener("mouseleave", eventRGB3D_mouseleave);
+  document.getElementById('id_rgb3DModiy').addEventListener("mousedown", eventRGB3D_mousedown);
+  document.getElementById('id_rgb3DModiy').addEventListener("mouseup", eventRGB3D_mouseup);
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Analyse Side /////////////////////////////////////
@@ -221,12 +254,12 @@ window.onload = function() {
   document.getElementById('id_anaylseCourseHueBackground3').addEventListener("mousedown", mouseDownColorspace);
   document.getElementById('id_anaylseCourseHueBackground3').addEventListener("mouseup", mouseUpColorspace);*/
 
-  document.getElementById('id_anaylseValue').addEventListener("mouseleave", mouseLeaveValuePlot);
+  /*document.getElementById('id_anaylseValue').addEventListener("mouseleave", mouseLeaveValuePlot);
   document.getElementById('id_anaylseValue').addEventListener("mousemove", mouseMoveValuePlot);
   document.getElementById('id_anaylseValue').addEventListener("mousedown", mouseDownValuePlot);
-  document.getElementById('id_anaylseValue').addEventListener("mouseup", mouseUpValuePlot);
+  document.getElementById('id_anaylseValue').addEventListener("mouseup", mouseUpValuePlot);*/
 
-  document.getElementById('id_canvasRG').addEventListener("mouseleave", mouseLeaveColorspaceRGB);
+  /*document.getElementById('id_canvasRG').addEventListener("mouseleave", mouseLeaveColorspaceRGB);
   document.getElementById('id_canvasRG').addEventListener("mousemove", mouseMoveColorspaceRGB);
   document.getElementById('id_canvasRG').addEventListener("mousedown", mouseDownColorspaceRGB);
   document.getElementById('id_canvasRG').addEventListener("mouseup", mouseUpColorspaceRGB);
@@ -242,7 +275,7 @@ window.onload = function() {
   document.getElementById('id_canvasBG').addEventListener("mouseup", mouseUpColorspaceRGB);
 
   document.getElementById('id_setValueRange').addEventListener("change", changeValueRange);
-  document.getElementById('id_checkboxRGB').addEventListener("change", analyseColormapRGBPossible);
+  document.getElementById('id_checkboxRGB').addEventListener("change", analyseColormapRGBPossible);*/
 
   document.getElementById('id_rgb3D').addEventListener("mousemove", eventRGB3D_mousemove);
   document.getElementById('id_rgb3D').addEventListener("mouseleave", eventRGB3D_mouseleave);
@@ -265,12 +298,12 @@ window.onload = function() {
   document.getElementById('id_CompareInputIntervalNum3').addEventListener("keyup", checkIntervalInputFieldsKey);
   document.getElementById('id_CompareInputIntervalNum3').addEventListener("change", checkIntervalInputFieldsChange);
 
-  /*document.getElementById('id_rgb3DCompare').addEventListener("mousemove", eventRGB3D_mousemove);
+  document.getElementById('id_rgb3DCompare').addEventListener("mousemove", eventRGB3D_mousemove);
   document.getElementById('id_rgb3DCompare').addEventListener("mouseleave", eventRGB3D_mouseleave);
   document.getElementById('id_rgb3DCompare').addEventListener("mousedown", eventRGB3D_mousedown);
-  document.getElementById('id_rgb3DCompare').addEventListener("mouseup", eventRGB3D_mouseup);*/
+  document.getElementById('id_rgb3DCompare').addEventListener("mouseup", eventRGB3D_mouseup);
 
-  document.getElementById('id_compareCourseHueBackground').addEventListener("mouseleave", mouseLeaveColorspace);
+  /*document.getElementById('id_compareCourseHueBackground').addEventListener("mouseleave", mouseLeaveColorspace);
   document.getElementById('id_compareCourseHueBackground').addEventListener("mousemove", mouseMoveColorspace);
   document.getElementById('id_compareCourseHueBackground').addEventListener("mousedown", mouseDownColorspace);
   document.getElementById('id_compareCourseHueBackground').addEventListener("mouseup", mouseUpColorspace);
@@ -293,7 +326,7 @@ window.onload = function() {
   document.getElementById('id_canvasBGCompare').addEventListener("mouseleave", mouseLeaveColorspaceRGB);
   document.getElementById('id_canvasBGCompare').addEventListener("mousemove", mouseMoveColorspaceRGB);
   document.getElementById('id_canvasBGCompare').addEventListener("mousedown", mouseDownColorspaceRGB);
-  document.getElementById('id_canvasBGCompare').addEventListener("mouseup", mouseUpColorspaceRGB);
+  document.getElementById('id_canvasBGCompare').addEventListener("mouseup", mouseUpColorspaceRGB);*/
 
   //document.getElementById('id_setValueRangeCompare').addEventListener("change", changeValueRangeCompare);
   //document.getElementById('id_checkboxRGBCompare').addEventListener("change", compareColormapRGBPossible);
@@ -320,6 +353,7 @@ window.onload = function() {
   document.getElementById('id_InputIntervalExport').addEventListener("keyup", exportSide_changeIntervalNumEnter);
 
  /////
+  changeColorspace(2);
   pageIsLoaded=true;
 }
 
@@ -488,94 +522,48 @@ function orderColorSketch(forColorspace) {
       var xposHTML = ((i) / bandSketch.getBandLength()) * box.width + left;
       var yposHTML = box.height + top;
 
-      var inputField = document.createElement("input");
-      inputField.setAttribute('type', 'text');
-      inputField.setAttribute('value', tmpText);
-      var inputID = "id_SketchKeyValInput" + i;
-      inputField.id = inputID;
-      document.body.appendChild(inputField);
-
-      //inputField.style.width = "min-content";
-      inputField.style.width = "3vw";
-      inputField.style.height = "2vh";
-      inputField.style.fontSize = "1.8vh";
-      //inputField.style.background = "rgb(255,255,255)";
-      inputField.style.paddingLeft = 5 + "px";
-      inputField.style.paddingRight = 5 + "px";
-      //inputField.style.border = "2px solid rgb(0,0,0)";
-      inputField.style.margin = "0px";
-      inputField.style.zIndex = "2";
-
-      inputField.style.position = "absolute";
-      inputField.style.top = Math.round(yposHTML) + "px";
-      inputField.style.left = Math.round(xposHTML) + "px";
-      refLineSketchContainer.push(inputField);
-      xposHTML = xposHTML - (inputField.getBoundingClientRect().width / 2);
-      inputField.style.left = Math.round(xposHTML) + "px";
-
-      inputField.onchange = (function(sketchIndex, id) {
-        return function() {
-
-          switch (id) {
-            case 0:
-              changeKeyValueInputSketch(sketchIndex, true, id, false);
-              break;
-            default:
-              changeKeyValueInputSketch(sketchIndex, true, id, false);
-              //changeKeyValueInputSketch(sketchIndex-1,false, id, false);
-          }
-
-        };
-      })(i, inputID);
-
-      inputField.onkeyup = (function(id) {
-        return function() {
-
-          var inputObj = document.getElementById(id);
-
-          checkInputVal(inputObj, true, true);
-        };
-      })(inputID);
-
-      /////////////////// special case: last element /////////
-      if (i == bandSketch.getBandLength() - 1) {
-        refLineDiv.style.borderRight = "1px solid black";
-        tmpText = '' + bandSketch.getRefR2(i); //.toFixed(numDecimalPlaces);
-        xposHTML = box.width + left;
-        var inputField2 = document.createElement("input");
-        inputField2.setAttribute('type', 'text');
-        inputField2.setAttribute('value', tmpText);
-        var inputID = "id_SketchKeyValInput" + i + 1;
-        inputField2.id = inputID;
-        document.body.appendChild(inputField2);
+      if(showSideID==1){
+        var inputField = document.createElement("input");
+        inputField.setAttribute('type', 'text');
+        inputField.setAttribute('value', tmpText);
+        var inputID = "id_SketchKeyValInput" + i;
+        inputField.id = inputID;
+        document.body.appendChild(inputField);
 
         //inputField.style.width = "min-content";
-        inputField2.style.width = "3vw";
-        inputField2.style.height = "2vh";
-        inputField2.style.fontSize = "1.8vh";
+        inputField.style.width = "3vw";
+        inputField.style.height = "2vh";
+        inputField.style.fontSize = "1.8vh";
         //inputField.style.background = "rgb(255,255,255)";
-        inputField2.style.paddingLeft = 5 + "px";
-        inputField2.style.paddingRight = 5 + "px";
+        inputField.style.paddingLeft = 5 + "px";
+        inputField.style.paddingRight = 5 + "px";
         //inputField.style.border = "2px solid rgb(0,0,0)";
-        inputField2.style.margin = "0px";
-        inputField2.style.zIndex = "2";
+        inputField.style.margin = "0px";
+        inputField.style.zIndex = "2";
 
-        inputField2.style.position = "absolute";
-        inputField2.style.top = Math.round(yposHTML) + "px";
-        inputField2.style.left = Math.round(xposHTML) + "px";
-        refLineSketchContainer.push(inputField2);
-        xposHTML = xposHTML - (inputField2.getBoundingClientRect().width / 2);
-        inputField2.style.left = Math.round(xposHTML) + "px";
+        inputField.style.position = "absolute";
+        inputField.style.top = Math.round(yposHTML) + "px";
+        inputField.style.left = Math.round(xposHTML) + "px";
+        refLineSketchContainer.push(inputField);
+        xposHTML = xposHTML - (inputField.getBoundingClientRect().width / 2);
+        inputField.style.left = Math.round(xposHTML) + "px";
 
-        inputField2.onchange = (function(sketchIndex, id) {
+        inputField.onchange = (function(sketchIndex, id) {
           return function() {
 
-            changeKeyValueInputSketch(sketchIndex, false, id, false);
+            switch (id) {
+              case 0:
+                changeKeyValueInputSketch(sketchIndex, true, id, false);
+                break;
+              default:
+                changeKeyValueInputSketch(sketchIndex, true, id, false);
+                //changeKeyValueInputSketch(sketchIndex-1,false, id, false);
+            }
 
           };
         })(i, inputID);
 
-        inputField2.onkeyup = (function(id) {
+        inputField.onkeyup = (function(id) {
           return function() {
 
             var inputObj = document.getElementById(id);
@@ -584,9 +572,113 @@ function orderColorSketch(forColorspace) {
           };
         })(inputID);
 
+        /////////////////// special case: last element /////////
+        if (i == bandSketch.getBandLength() - 1) {
+          refLineDiv.style.borderRight = "1px solid black";
+          tmpText = '' + bandSketch.getRefR2(i); //.toFixed(numDecimalPlaces);
+          xposHTML = box.width + left;
+          var inputField2 = document.createElement("input");
+          inputField2.setAttribute('type', 'text');
+          inputField2.setAttribute('value', tmpText);
+          var inputID = "id_SketchKeyValInput" + i + 1;
+          inputField2.id = inputID;
+          document.body.appendChild(inputField2);
+
+          //inputField.style.width = "min-content";
+          inputField2.style.width = "3vw";
+          inputField2.style.height = "2vh";
+          inputField2.style.fontSize = "1.8vh";
+          //inputField.style.background = "rgb(255,255,255)";
+          inputField2.style.paddingLeft = 5 + "px";
+          inputField2.style.paddingRight = 5 + "px";
+          //inputField.style.border = "2px solid rgb(0,0,0)";
+          inputField2.style.margin = "0px";
+          inputField2.style.zIndex = "2";
+
+          inputField2.style.position = "absolute";
+          inputField2.style.top = Math.round(yposHTML) + "px";
+          inputField2.style.left = Math.round(xposHTML) + "px";
+          refLineSketchContainer.push(inputField2);
+          xposHTML = xposHTML - (inputField2.getBoundingClientRect().width / 2);
+          inputField2.style.left = Math.round(xposHTML) + "px";
+
+          inputField2.onchange = (function(sketchIndex, id) {
+            return function() {
+
+              changeKeyValueInputSketch(sketchIndex, false, id, false);
+
+            };
+          })(i, inputID);
+
+          inputField2.onkeyup = (function(id) {
+            return function() {
+
+              var inputObj = document.getElementById(id);
+
+              checkInputVal(inputObj, true, true);
+            };
+          })(inputID);
+
+        }
+      }
+      else{
+        var inputField = document.createElement("p");
+        inputField.innerHTML = tmpText;
+        var inputID = "id_SketchKeyValInput" + i;
+        inputField.id = inputID;
+        document.body.appendChild(inputField);
+
+        inputField.style.width = "min-content";
+        //inputField.style.width = "3vw";
+        inputField.style.height = "2vh";
+        inputField.style.fontSize = "1.8vh";
+        inputField.style.background = "rgb(255,255,255)";
+        inputField.style.paddingLeft = 5 + "px";
+        inputField.style.paddingRight = 5 + "px";
+        //inputField.style.border = "1px solid rgb(0,0,0)";
+        inputField.style.margin = "0px";
+        inputField.style.zIndex = "2";
+
+        inputField.style.position = "absolute";
+        inputField.style.top = Math.round(yposHTML) + "px";
+        inputField.style.left = Math.round(xposHTML) + "px";
+        refLineSketchContainer.push(inputField);
+        xposHTML = xposHTML - (inputField.getBoundingClientRect().width / 2);
+        inputField.style.left = Math.round(xposHTML) + "px";
+
+
+        /////////////////// special case: last element /////////
+        if (i == bandSketch.getBandLength() - 1) {
+          refLineDiv.style.borderRight = "1px solid black";
+          tmpText = '' + bandSketch.getRefR2(i); //.toFixed(numDecimalPlaces);
+          xposHTML = box.width + left;
+          var inputField2 = document.createElement("p");
+          inputField2.innerHTML = tmpText;
+          var inputID = "id_SketchKeyValInput" + i + 1;
+          inputField2.id = inputID;
+          document.body.appendChild(inputField2);
+
+          inputField2.style.width = "min-content";
+          //inputField2.style.width = "3vw";
+          inputField2.style.height = "2vh";
+          inputField2.style.fontSize = "1.8vh";
+          inputField2.style.background = "rgb(255,255,255)";
+          inputField2.style.paddingLeft = 5 + "px";
+          inputField2.style.paddingRight = 5 + "px";
+          //inputField2.style.border = "1px solid rgb(0,0,0)";
+          inputField2.style.margin = "0px";
+          inputField2.style.zIndex = "2";
+
+          inputField2.style.position = "absolute";
+          inputField2.style.top = Math.round(yposHTML) + "px";
+          inputField2.style.left = Math.round(xposHTML) + "px";
+          refLineSketchContainer.push(inputField2);
+          xposHTML = xposHTML - (inputField2.getBoundingClientRect().width / 2);
+          inputField2.style.left = Math.round(xposHTML) + "px";
+        }
+
       }
     }
-
 
     var t2Div = document.createElement('div');
     t2Div.id = 'dragPos' + bandSketch.getBandLength();
@@ -674,7 +766,61 @@ function orderColorSketch(forColorspace) {
         var xposHTML = ((i) / bandSketch2.getBandLength()) * box.width + left;
         var yposHTML = box.height + top;
 
-        var inputField = document.createElement("input");
+        var inputField = document.createElement("p");
+        inputField.innerHTML = tmpText;
+        var inputID = "id_SketchKeyValInput" + i;
+        inputField.id = inputID;
+        document.body.appendChild(inputField);
+
+        inputField.style.width = "min-content";
+        //inputField.style.width = "3vw";
+        inputField.style.height = "2vh";
+        inputField.style.fontSize = "1.8vh";
+        inputField.style.background = "rgb(255,255,255)";
+        inputField.style.paddingLeft = 5 + "px";
+        inputField.style.paddingRight = 5 + "px";
+        //inputField.style.border = "1px solid rgb(0,0,0)";
+        inputField.style.margin = "0px";
+        inputField.style.zIndex = "2";
+
+        inputField.style.position = "absolute";
+        inputField.style.top = Math.round(yposHTML) + "px";
+        inputField.style.left = Math.round(xposHTML) + "px";
+        refLineSketchContainer.push(inputField);
+        xposHTML = xposHTML - (inputField.getBoundingClientRect().width / 2);
+        inputField.style.left = Math.round(xposHTML) + "px";
+
+
+        /////////////////// special case: last element /////////
+        if (i == bandSketch2.getBandLength() - 1) {
+          refLineDiv.style.borderRight = "1px solid black";
+          tmpText = '' + bandSketch2.getRefR2(i); //.toFixed(numDecimalPlaces);
+          xposHTML = box.width + left;
+          var inputField2 = document.createElement("p");
+          inputField2.innerHTML = tmpText;
+          var inputID = "id_SketchKeyValInput" + i + 1;
+          inputField2.id = inputID;
+          document.body.appendChild(inputField2);
+
+          inputField2.style.width = "min-content";
+          //inputField2.style.width = "3vw";
+          inputField2.style.height = "2vh";
+          inputField2.style.fontSize = "1.8vh";
+          inputField2.style.background = "rgb(255,255,255)";
+          inputField2.style.paddingLeft = 5 + "px";
+          inputField2.style.paddingRight = 5 + "px";
+          //inputField2.style.border = "1px solid rgb(0,0,0)";
+          inputField2.style.margin = "0px";
+          inputField2.style.zIndex = "2";
+
+          inputField2.style.position = "absolute";
+          inputField2.style.top = Math.round(yposHTML) + "px";
+          inputField2.style.left = Math.round(xposHTML) + "px";
+          refLineSketchContainer.push(inputField2);
+          xposHTML = xposHTML - (inputField2.getBoundingClientRect().width / 2);
+          inputField2.style.left = Math.round(xposHTML) + "px";
+        }
+        /*var inputField = document.createElement("input");
         inputField.setAttribute('type', 'text');
         inputField.setAttribute('value', tmpText);
         var inputID = "id_SketchKeyValInput2_" + i;
@@ -770,7 +916,7 @@ function orderColorSketch(forColorspace) {
             };
           })(inputID);
 
-        }
+        }*/
       }
 
     }

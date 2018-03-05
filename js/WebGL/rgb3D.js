@@ -10,6 +10,10 @@ function resize()
   var canvasObj;
 
   switch (showSideID) {
+    case 1:
+        canvasObj = document.getElementById("id_rgb3DModiy");
+      break;
+
     case 2:
         canvasObj = document.getElementById("id_rgb3D");
       break;
@@ -85,6 +89,10 @@ function initRGB3D()
   var canvasObj;
 
   switch (showSideID) {
+    case 1:
+        canvasObj = document.getElementById("id_rgb3DModiy");
+      break;
+
     case 2:
         canvasObj = document.getElementById("id_rgb3D");
       break;
@@ -323,6 +331,9 @@ function eventRGB3D_mousemove(event){
   // calc mouse pos
   var rect;
   switch (showSideID) {
+    case 1:
+      rect = document.getElementById('id_rgb3DModiy').getBoundingClientRect();//event.target.id
+      break;
     case 2:
       rect = document.getElementById('id_rgb3D').getBoundingClientRect();//event.target.id
       break;

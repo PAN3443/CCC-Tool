@@ -38,10 +38,10 @@ function hueInit(canvasID){
                         var vVal;
 
                           if(mouseGrappedSpaceObjectID==-1){
-                            if(showSideID==2)
+                            if(showSideID==1)
                             vVal= parseFloat(document.getElementById('id_setValueRange').value)/100;
-                            if(showSideID==3)
-                            vVal= parseFloat(document.getElementById('id_setValueRangeCompare').value)/100;
+                            else
+                            vVal=1.0;
                           }
                           else{
                             vVal = globalColormap1.getHSVColor(mouseGrappedSpaceObjectID).getVValue();
@@ -75,7 +75,6 @@ function hueInit(canvasID){
                 colorspaceCenterX = Math.round(canvasColorspaceWidth/2);
                 colorspaceCenterY = Math.round(canvasColorspaceHeight/2);
 
-
                 // draw colorspace
                 for(var x=0; x<canvasColorspaceWidth;x++){
 
@@ -87,28 +86,30 @@ function hueInit(canvasID){
                         if(mouseGrappedSpaceObjectID==-1){
 
                           var lVal;
-                          if(showSideID==2)
+
+                          if(showSideID==1)
                           lVal= parseFloat(document.getElementById('id_setValueRange').value);
-                          if(showSideID==3)
-                          lVal= parseFloat(document.getElementById('id_setValueRangeCompare').value);
+                          else
+                          lVal=65;
 
                           var aVal = ((x-colorspaceCenterX)/(xWidth/2))*labSpaceRange;
                           var bVal = ((y-colorspaceCenterY)/(yHeight/2))*labSpaceRange;
 
                           var colorLAB = new classColor_LAB(lVal,aVal,bVal);
                           colorRGB = colorLAB.calcRGBColor();
+
                         }
                         else{
                           var lVal;
-                          if(showSideID==2)
-                          lVal = globalColormap1.getLabColor(mouseGrappedSpaceObjectID).getLValue();
-                          if(showSideID==3)
+
                           lVal = globalColormap1.getLabColor(mouseGrappedSpaceObjectID).getLValue();
 
                           var aVal = ((x-colorspaceCenterX)/(xWidth/2))*labSpaceRange;
                           var bVal = ((y-colorspaceCenterY)/(yHeight/2))*labSpaceRange;
 
                           var colorLAB = new classColor_LAB(lVal,aVal,bVal);
+
+
 
                           if(document.getElementById("id_checkboxRGB").checked==true){
                             colorRGB = colorLAB.calcRGBColorCorrect(errorRGBColor);
@@ -119,6 +120,7 @@ function hueInit(canvasID){
                         }
 
                         var index = (x + y * canvasColorspaceWidth) * 4;
+
 
                         colorspaceBackgroundData.data[index + 0] = Math.round(colorRGB.getRValue()*255); // r
                         colorspaceBackgroundData.data[index + 1] = Math.round(colorRGB.getGValue()*255); // g
@@ -161,10 +163,10 @@ function hueInit(canvasID){
                       var colorDIN99;
                       if(mouseGrappedSpaceObjectID==-1){
                         var l99Val;
-                        if(showSideID==2)
+                        if(showSideID==1)
                         l99Val= parseFloat(document.getElementById('id_setValueRange').value);
-                        if(showSideID==3)
-                        l99Val= parseFloat(document.getElementById('id_setValueRangeCompare').value);
+                        else
+                        l99Val=65;
 
                         colorDIN99 = new classColorDIN99(l99Val,a99Val,b99Val);
                         colorRGB = colorDIN99.calcRGBColor();
@@ -213,8 +215,22 @@ function hueInit(canvasID){
 
 }
 
-function init_VPlot(colormapTmp, canvasID){
+function init_VPlot(colormapTmp){
 
+    var canvasID='';
+    switch (showSideID) {
+      case 1:
+         canvasID='id_ModifyValue';
+        break;
+        case 2:
+           canvasID='id_anaylseValue';
+          break;
+          case 3:
+             canvasID='id_compareValue';
+            break;
+      default:
+
+    }
     var canvasVPlot = document.getElementById(canvasID);
 
     canvasVPlot.width = vPlot_resolution_X;
@@ -541,7 +557,7 @@ function drawcolormap_hueSpace(colormapTmp, canvasID, calcBackground,drawInterpo
 
   ///////////////// do extra threat for drawing ///////////////////////
 
-          init_VPlot(colormapTmp,"id_anaylseValue");
+          init_VPlot(colormapTmp);
 
           var canvasColorspace = document.getElementById(canvasID);
 
@@ -576,7 +592,22 @@ function drawcolormap_hueSpace(colormapTmp, canvasID, calcBackground,drawInterpo
 
           ////////////////////////////////////////////////////////
 
-          var canvasVPlot = document.getElementById("id_anaylseValue");
+          var vCanvasID = '';
+          switch (showSideID) {
+            case 1:
+               vCanvasID='id_ModifyValue';
+              break;
+              case 2:
+                 vCanvasID='id_anaylseValue';
+                break;
+                case 3:
+                   vCanvasID='id_compareValue';
+                  break;
+            default:
+
+          }
+
+          var canvasVPlot = document.getElementById(vCanvasID);
           var vPlotContex = canvasVPlot.getContext("2d");
 
 
@@ -1010,7 +1041,22 @@ function parallelDrawPath(canvasID, colormapTmp, isCompareMap){
   workerDrawPathIsBusy=true;
 
   var canvasColorspace = document.getElementById(canvasID);
-  var canvasVPlot = document.getElementById("id_anaylseValue");
+
+  var vCanvasID = '';
+  switch (showSideID) {
+    case 1:
+       vCanvasID='id_ModifyValue';
+      break;
+      case 2:
+         vCanvasID='id_anaylseValue';
+        break;
+        case 3:
+           vCanvasID='id_compareValue';
+          break;
+    default:
+
+  }
+  var canvasVPlot = document.getElementById(vCanvasID);
 
   canvasColorspace.width = hue_resolution_X;
   canvasColorspace.height = hue_resolution_Y;
@@ -1105,7 +1151,7 @@ function parallelDrawBackground(canvasID, colormapTmp){
   workerBackgroundData = workerBackgroundContext.getImageData(0, 0, canvasColorspaceWidth, canvasColorspaceHeight);
 
 
-  init_VPlot(colormapTmp,"id_anaylseValue");
+  init_VPlot(colormapTmp);
   hueInit(canvasID);
 
   workerBackgroundContext.putImageData(colorspaceBackgroundData, 0, 0);
@@ -1261,7 +1307,7 @@ function drawInterpolationLineInHSV(colormapTmp, colorspaceContex, vPlotContex, 
 
 function drawcolormap_compare_hueSpace(colormapTmp, colormapTmp2, canvasID, calcBackground,drawInterpolationLine){
 
-  init_VPlot(colormapTmp,"id_compareValue");
+  init_VPlot(colormapTmp);
 
   var canvasColorspace = document.getElementById(canvasID);
 
@@ -1292,8 +1338,21 @@ function drawcolormap_compare_hueSpace(colormapTmp, colormapTmp2, canvasID, calc
 
 
   ////////////////////////////////////////////////////////
+  var vCanvasID = '';
+  switch (showSideID) {
+    case 1:
+       vCanvasID='id_ModifyValue';
+      break;
+      case 2:
+         vCanvasID='id_anaylseValue';
+        break;
+        case 3:
+           vCanvasID='id_compareValue';
+          break;
+    default:
 
-  var canvasVPlot = document.getElementById("id_compareValue");
+  }
+  var canvasVPlot = document.getElementById(vCanvasID);
   var vPlotContex = canvasVPlot.getContext("2d");
 
 

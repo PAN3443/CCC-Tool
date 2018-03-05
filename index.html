@@ -75,6 +75,8 @@
   <script src="js/CreatorPage/dragAndDropevents_CreatorPage.js"></script>
   <script src="js/CreatorPage/events_keyRef_CreatorPage.js"></script>
   <script src="js/CreatorPage/events_menueButton_CreatorPage.js"></script>
+  <script src="js/CreatorPage/editPath.js"></script>
+
 
   <!-- Edit PAGE -->
   <script src="js/editPage/events_editPage.js"></script>
@@ -308,8 +310,8 @@
           ----------------	Compare Colormap Band Sketch ---------------
           ---------------- -------------------------------
           -->
-    <div id="div_switchButton" style="margin-left:2%; width:96%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:white; box-shadow:  0.3vh  0.3vh grey; display:none;">
-              <!--h4 style="width:100%; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Colormap Band Sketch </h4-->
+    <!--div id="div_switchButton" style="margin-left:2%; width:96%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:white; box-shadow:  0.3vh  0.3vh grey; display:none;">
+
               <div class="row" style="width:100%; margin-top:2vh; margin-bottom:2vh;">
                 <h1 style="width:auto; text-align:center; height:5vh; line-height:5vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-left:auto;"> Switch CMS 1 with CMS 2:  </h1>
 
@@ -317,11 +319,11 @@
               </div>
 
 
-    </div>
+    </div-->
 
     <div id="div_colormapBandSketch2" style="margin-left:2%; width:96%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:white; box-shadow:  0.3vh  0.3vh grey; display:none;">
         <!--h4 style="width:100%; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Colormap Band Sketch </h4-->
-        <h1 style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin-top:0vh; padding-top:2vh;"> Colormap Band Sketch of the compare CMS (not modifiable) </h1>
+        <h1 style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin-top:0vh; padding-top:2vh;"> Colormap Band Sketch of the compare CMS</h1>
 
         <canvas style="margin-top: 0px; width:100%; height: 10vh;" id="id_createColormapKeys2">
         </canvas>
@@ -402,7 +404,7 @@
 
               <button id="id_selectBandAdding" onclick="switchModifyModus(0)" class="classButtonBlue" title="Key Modify" style="width:33%">Add Bands</button>
               <button id="id_selectKeyModifying" onclick="switchModifyModus(1)" class="classButtonBlue" title="Key Modify" style="width:33%">Modify Keys</button>
-              <button id="id_selectPathModifying" onclick="switchModifyModus(2)" class="classButtonBlue" title="Key Modify" style="width:34%">Modify Path</button>
+              <button id="id_selectPathModifying" onclick="switchModifyModus(2)" class="classButtonBlue" title="Key Modify" style="width:34%">Modify via Path Plot</button>
 
             </div>
 
@@ -463,11 +465,11 @@
                  <div style="margin-top: 2vh; width:50%; height: auto; background:white;">
 
                      <div class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
-                       <p style="margin:0px; margin-left:10%; width:15%; text-align:left; height:2.2vh; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px; font-weight:bold;">
+                       <p style="margin:0px; margin-left:10%; width:20%; text-align:left; height:2.2vh; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px; font-weight:bold;">
                          Key:
                        </p>
 
-                       <div id="editPage_KeyDiv" class="row" style="margin-left:5%; width:65%; height:auto; display: inline-block;">
+                       <div id="editPage_KeyDiv" class="row" style="margin-left:5%; width:60%; height:auto; display: inline-block;">
 
                        </div>
 
@@ -476,7 +478,7 @@
                      <hr style="color:grey;">
 
                      <div class="row" style="margin-top:2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
-                       <p style="margin:0px; margin-left:10%; width:15%; text-align:left; height:2.2vh; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px; font-weight:bold;">
+                       <p style="margin:0px; margin-left:10%; width:20%; text-align:left; height:2.2vh; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px; font-weight:bold;">
                          Type:
                        </p>
 
@@ -524,7 +526,7 @@
                      <hr style="color:grey;">
 
                      <div class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
-                       <p style="margin:0px; margin-left:10%; width:15%; text-align:left; height:2.2vh; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px; font-weight:bold; ">
+                       <p style="margin:0px; margin-left:10%; width:20%; text-align:left; height:2.2vh; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px; font-weight:bold; ">
                          Scalar Value:
                        </p>
 
@@ -536,7 +538,7 @@
 
 
                              <div class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
-                                 <p style="margin:0px; margin-left:10%; width:15%; text-align:left; height:2.2vh; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px; font-weight:bold; ">
+                                 <p style="margin:0px; margin-left:10%; width:20%; text-align:left; height:2.2vh; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px; font-weight:bold; ">
                                    Color Picker:
                                  </p>
 
@@ -549,7 +551,7 @@
                              </div>
 
                              <div class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
-                               <input class="class_RadioButtonLabelEditPage" style="margin-left: 30%; margin-right: 0px;" type="radio" id="editSide_Radiobutton_PickerHS_V" name="editPage_PickerType" value="4">
+                               <input class="class_RadioButtonLabelEditPage" style="margin-left: 35%; margin-right: 0px;" type="radio" id="editSide_Radiobutton_PickerHS_V" name="editPage_PickerType" value="4">
                                <label class="class_RadioButtonLabelEditPage" for="editSide_Radiobutton_PickerHS_V" id="editSide_Radiobutton_PickerHS_V_Label"> HS+V </label><br>
                                <input class="class_RadioButtonLabelEditPage" style="margin-right: 0px;" type="radio" id="editSide_Radiobutton_PickerHV_S" name="editPage_PickerType" value="5" >
                                <label class="class_RadioButtonLabelEditPage" for="editSide_Radiobutton_PickerHV_S" id="editSide_Radiobutton_PickerHV_S_Label"> HV+S </label><br>
@@ -558,8 +560,8 @@
                              </div>
 
                              <div id="editPage_Color1_1" class="row" style="margin-top: 5vh; margin-bottom: 0.5vh; width:100%; height: auto;">
-                               <input class="class_RadioButtonLabelEditPage" style="margin-left: 10%; margin-right: 0px; widht:3%" type="radio" id="editSide_Radiobutton_SelectColor1" name="editPage_SelectColor" value="0" checked="checked">
-                               <label class="class_RadioButtonLabelEditPage" style="font-weight: bold; widht:12%;" for="editSide_Radiobutton_SelectColor1" id="editSide_Radiobutton_SelectColor1_Label"> Color1: </label><br>
+                               <input class="class_RadioButtonLabelEditPage" style="margin-left: 10%; margin-right:2%; width:3%" type="radio" id="editSide_Radiobutton_SelectColor1" name="editPage_SelectColor" value="0" checked="checked">
+                               <p class="class_RadioButtonLabelEditPage" style="font-weight: bold; width:15%; margin:0px;" for="editSide_Radiobutton_SelectColor1" id="editSide_Radiobutton_SelectColor1_Label"> Color Left: </p>
                                <p class="class_RadioButtonLabelEditPage" id="editColor1HSVLAbel" style="margin:0px; margin-left:5%; width:10%">
                                  HSV
                                </p>
@@ -568,7 +570,7 @@
                                <input id="id_editPageC1VInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
                              </div>
                              <div id="editPage_Color1_2" class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
-                               <p class="class_RadioButtonLabelEditPage" id="editColor1RGBLAbel" style="margin:0px; margin-left:30%; width:10%">
+                               <p class="class_RadioButtonLabelEditPage" id="editColor1RGBLAbel" style="margin:0px; margin-left:35%; width:10%">
                                  RGB
                                </p>
                                <input id="id_editPageC1RInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
@@ -577,8 +579,8 @@
                              </div>
 
                              <div id="editPage_Color2_1" class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
-                               <input class="class_RadioButtonLabelEditPage" style="margin-left: 10%; margin-right: 0px; widht:3%" type="radio" id="editSide_Radiobutton_SelectColor2" name="editPage_SelectColor" value="0" checked="checked">
-                               <label class="class_RadioButtonLabelEditPage" style="font-weight: bold; widht:12%;" for="editSide_Radiobutton_SelectColor2" id="editSide_Radiobutton_SelectColor2_Label"> Color2: </label><br>
+                               <input class="class_RadioButtonLabelEditPage" style="margin-left: 10%; margin-right: 2%; width:3%" type="radio" id="editSide_Radiobutton_SelectColor2" name="editPage_SelectColor" value="0" checked="checked">
+                               <p class="class_RadioButtonLabelEditPage" style="font-weight: bold; width:15%; margin:0px;" for="editSide_Radiobutton_SelectColor2" id="editSide_Radiobutton_SelectColor2_Label"> Color Right: </p>
                                <p class="class_RadioButtonLabelEditPage" id="editColor2HSVLAbel" style="margin:0px; margin-left:5%; width:10%">
                                  HSV
                                </p>
@@ -587,7 +589,7 @@
                                <input id="id_editPageC2VInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
                              </div>
                              <div id="editPage_Color2_2" class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
-                               <p class="class_RadioButtonLabelEditPage" id="editColor2RGBLAbel" style="margin:0px; margin-left:30%; width:10%">
+                               <p class="class_RadioButtonLabelEditPage" id="editColor2RGBLAbel" style="margin:0px; margin-left:35%; width:10%">
                                  RGB
                                </p>
                                <input id="id_editPageC2RInput" type="text" name="key space" value="0" style="height:2.2vh; line-height:2.2vh; font-size:2vh; text-align:center; vertical-align: middle; margin-left:1vw; width:10%;">
@@ -597,8 +599,25 @@
 
                              <hr style="color:grey;">
 
-                             <button class="classButtonWhite" id="editPage_deleteButton" onclick="editPage_delteKey()" title="Delete Key" style="border-radius: 0.5vh; width: 50%; height:4vh; line-height:4vh; font-size:2vh; border: 0.2vh solid rgb(180,180,180); margin-left:25%; margin-top:4vh; margin-bottom:2vh; box-shadow:  0.3vh  0.3vh grey; color:black;"> Delete Key</button>
+                             <div class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
+                                 <p style="margin:0px; margin-left:10%; width:20%; text-align:left; height:2.2vh; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px; font-weight:bold; ">
+                                   Delete Key:
+                                 </p>
+                                 <button class="classButtonWhite" id="editPage_deleteButton" onclick="editPage_delteKey()" title="Delete Key" style="border-radius: 0.5vh; width: 50%; height:4vh; line-height:4vh; font-size:2vh; border: 0.2vh solid rgb(180,180,180); margin-left:17.5%; margin-top:4vh; margin-bottom:2vh; box-shadow:  0.3vh  0.3vh grey; color:black;"> Delete Key</button>
+                            </div>
 
+                            <hr style="color:grey;">
+
+                            <div class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
+                                <p style="margin:0px; margin-left:10%; width:20%; text-align:left; height:2.2vh; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px; font-weight:bold; ">
+                                  Set Middle Of Triple:
+                                </p>
+                                <input class="class_RadioButtonLabelEditPage" style="margin-left: 5%; margin-right: 0px;" type="radio" id="editSide_Radiobutton_MiddleOfTripleColor1" name="editPage_MiddleOfTriple" value="1" checked="checked">
+                                <label class="class_RadioButtonLabelEditPage" for="editSide_Radiobutton_MiddleOfTripleColor1" id="editSide_Radiobutton_MiddleOfTripleColor1Label"> Color Left </label>
+                                <input class="class_RadioButtonLabelEditPage" style="margin-right: 0px;" type="radio" id="editSide_Radiobutton_MiddleOfTripleColor2" name="editPage_MiddleOfTriple" value="2" >
+                                <label class="class_RadioButtonLabelEditPage" for="editSide_Radiobutton_MiddleOfTripleColor2" id="editSide_Radiobutton_MiddleOfTripleColor2Label"> Color Right </label>
+
+                            </div>
                  </div>
 
                  <div style="margin-top: 2vh; width:50%; height: auto;">
@@ -639,16 +658,21 @@
                  </div>
                </div>
 
+               <hr>
+
+               <p style="margin:0px; margin-left:10%; width:auto; text-align:left; height:2.4vh; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px; font-weight:bold;">
+                 Preview:
+               </p>
+
+               <canvas style="margin-top: 0px; width:80%; height: 8vh; margin-left:10%; margin-bottom:2vh; border: 2px solid black;" id="id_modifyBandPreview">
+
+               </canvas>
+
 
            </div>
 
            <div id="modifyColormapPath" style="height:auto; width:100%; margin:0px; display:none;">
 
-
-            <h1 style="width:auto; text-align:center; height:4vh; line-height:4vh; font-size:4vh; margin:0px; vertical-align:middle; margin-left:auto;"> Modify Colormap Path </h1>
-
-
-             <hr>
 
              <!-- select colorspace -->
             <div class="row" style="height:100%; margin-top:2vh; margin-bottom:2vh; ">
@@ -661,65 +685,6 @@
 
 
              <hr>
-
-             <!-- Legend -->
-             <div class="row" style="width:80%; height:4vh; border: 1px solid rgb(120,120,120); background:rgb(240,240,240); margin-left:10%; margin-top:4vh;">
-               <p class="classAnalyseLabel" style="margin-left:auto; width:auto; font-weight:bold; margin-right:1vw;"> Legend:</p>
-
-               <div class="row" style="height:100%; border-right: 1px solid rgb(120,120,120);">
-                 <div style="margin-left:1vw; margin-right:1vw; height:2vh; width:2vh; margin-top:auto; margin-bottom:auto; border:2px solid black; background:white;">
-                 </div>
-                 <p class="classAnalyseLabel"> : Constant Band </p>
-                 <div class="dropdown" style="width:auto; margin-right:auto;">
-                   <button class="dropbtn" style="margin-right:1vw; border-radius: 0.5vh; line-height:3vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:0.5vh; margin-bottom:auto;">?</button>
-                   <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
-
-                     <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:20vw; "> <strong>INFO:</strong> Constant bands define one color for a certain section. Inside of the visualization, a constant band will be represented by squares.
-                     </p>
-                   </div>
-                 </div>
-               </div>
-
-
-               <div class="row" style="height:100%; border-right: 1px solid rgb(120,120,120);">
-                 <svg style="margin-left:1vw; margin-right:0.5vw; height;4vh; width:15vw;">
-                         <line x1="10%" y1="50%" x2="90%" y2="50%" style="stroke:rgb(0,0,0);stroke-width:9" />
-                         <line x1="10%" y1="50%" x2="90%" y2="50%" style="stroke:rgb(255,255,255);stroke-width:3" />
-                         <circle cx="10%" cy="50%" r="5%" stroke="black" stroke-width="3" fill="white" />
-                         <circle cx="90%" cy="50%" r="5%" stroke="black" stroke-width="3" fill="white" />
-                     </svg>
-                 <p class="classAnalyseLabel">: Scaled Band </p>
-                 <div class="dropdown" style="width:auto;">
-                   <button class="dropbtn" style=" margin-right:1vw; border-radius: 0.5vh; line-height:3vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:0.5vh; margin-bottom:auto;">?</button>
-                   <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
-
-                     <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:20vw; "> <strong>INFO:</strong> Scaled bands define a color gradient for a certain section. Intermediate colors will be interpolate inside the selected colorspace. Inside of the visualization, a scaled band will be represented by two circles and a solid line.
-                       The two circles are showing the start and the end color.
-                       The line represent the interpolated colors.
-                     </p>
-                   </div>
-                 </div>
-               </div>
-
-
-
-               <div class="row" style="height:100%; margin-right:auto; mardin-left:0px;">
-                 <svg style="margin-left:1vw; margin-right:0.5vw; height;4vh; width:10vw;">
-                       <line x1="10%" y1="50%" x2="90%" y2="50%" stroke-dasharray="10,5" style="stroke:rgb(0,0,0);stroke-width:9" />
-                       <line x1="10%" y1="50%" x2="90%" y2="50%" stroke-dasharray="10,5" style="stroke:rgb(255,255,255);stroke-width:3" />
-                   </svg>
-                 <p class="classAnalyseLabel">: Jump</p>
-                 <div class="dropdown" style="width:auto;">
-                   <button class="dropbtn" style=" margin-right:1vw; border-radius: 0.5vh; line-height:3vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:0.5vh; margin-bottom:auto;">?</button>
-                   <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3; right: 2vw;">
-
-                     <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:20vw;"> <strong>INFO:</strong> If a neighbor of a band has a different start (end) color as the end (start) color of this band, there is a jump between the band and his neighbor.
-                       This jump is not part of the colormap course, but it shows the connection between those bands. Inside of the visualization, a jump will be represented by a dashed line.
-                     </p>
-                   </div>
-                 </div>
-               </div>
-             </div>
 
 
              <div id='id_hueValueOptions' style="display:none;">
@@ -757,7 +722,7 @@
                  </div>
 
                  <!-- Brightness -->
-                 <canvas id="id_ModiyValue" style="width:68%; height:30vw; display:none;">
+                 <canvas id="id_ModifyValue" style="width:68%; height:30vw; display:none;">
 
 
                  </canvas>
@@ -792,8 +757,8 @@
                <div class="row" style="width:100%; height:5vh; background:white;">
                  <p class="classAnalyseLabel" style="margin-left:auto; width:auto;">3D Space Opacity:</p>
                  <input class="classAnalyseLabel" id="id_setOpacityRangeModiy" type="number" min="0" max="100" value="50" name="points" step="10" style="width:7vw; ">
-                 <button id="decreaseModiy3D" onclick="decreaseAnalyse3DDiv()" class="classAnalyseLabel" style="font-size: 1.5vh; color:grey;">-</button>
-                 <button id="increaseModiy3D" onclick="increaseAnalyse3DDiv()" class="classAnalyseLabel" style="font-size: 1.5vh; margin-right:auto;">+</button>
+                 <button id="decreaseModiy3D" onclick="decreaseModify3DDiv()" class="classAnalyseLabel" style="font-size: 1.5vh; color:grey;">-</button>
+                 <button id="increaseModiy3D" onclick="increaseModify3DDiv()" class="classAnalyseLabel" style="font-size: 1.5vh; margin-right:auto;">+</button>
 
                </div>
 
@@ -806,6 +771,65 @@
 
 
 
+               </div>
+
+               <!-- Legend -->
+               <div class="row" style="width:80%; height:4vh; border: 1px solid rgb(120,120,120); background:rgb(240,240,240); margin-left:10%; margin-top:2vh;  margin-bottom:2vh;">
+                 <p class="classAnalyseLabel" style="margin-left:auto; width:auto; font-weight:bold; margin-right:1vw;"> Legend:</p>
+
+                 <div class="row" style="height:100%; border-right: 1px solid rgb(120,120,120);">
+                   <div style="margin-left:1vw; margin-right:1vw; height:2vh; width:2vh; margin-top:auto; margin-bottom:auto; border:2px solid black; background:white;">
+                   </div>
+                   <p class="classAnalyseLabel"> : Constant Band </p>
+                   <div class="dropdown" style="width:auto; margin-right:auto;">
+                     <button class="dropbtn" style="margin-right:1vw; border-radius: 0.5vh; line-height:3vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:0.5vh; margin-bottom:auto;">?</button>
+                     <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
+
+                       <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:20vw; "> <strong>INFO:</strong> Constant bands define one color for a certain section. Inside of the visualization, a constant band will be represented by squares.
+                       </p>
+                     </div>
+                   </div>
+                 </div>
+
+
+                 <div class="row" style="height:100%; border-right: 1px solid rgb(120,120,120);">
+                   <svg style="margin-left:1vw; margin-right:0.5vw; height;4vh; width:15vw;">
+                           <line x1="10%" y1="50%" x2="90%" y2="50%" style="stroke:rgb(0,0,0);stroke-width:9" />
+                           <line x1="10%" y1="50%" x2="90%" y2="50%" style="stroke:rgb(255,255,255);stroke-width:3" />
+                           <circle cx="10%" cy="50%" r="5%" stroke="black" stroke-width="3" fill="white" />
+                           <circle cx="90%" cy="50%" r="5%" stroke="black" stroke-width="3" fill="white" />
+                       </svg>
+                   <p class="classAnalyseLabel">: Scaled Band </p>
+                   <div class="dropdown" style="width:auto;">
+                     <button class="dropbtn" style=" margin-right:1vw; border-radius: 0.5vh; line-height:3vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:0.5vh; margin-bottom:auto;">?</button>
+                     <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
+
+                       <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:20vw; "> <strong>INFO:</strong> Scaled bands define a color gradient for a certain section. Intermediate colors will be interpolate inside the selected colorspace. Inside of the visualization, a scaled band will be represented by two circles and a solid line.
+                         The two circles are showing the start and the end color.
+                         The line represent the interpolated colors.
+                       </p>
+                     </div>
+                   </div>
+                 </div>
+
+
+
+                 <div class="row" style="height:100%; margin-right:auto; mardin-left:0px;">
+                   <svg style="margin-left:1vw; margin-right:0.5vw; height;4vh; width:10vw;">
+                         <line x1="10%" y1="50%" x2="90%" y2="50%" stroke-dasharray="10,5" style="stroke:rgb(0,0,0);stroke-width:9" />
+                         <line x1="10%" y1="50%" x2="90%" y2="50%" stroke-dasharray="10,5" style="stroke:rgb(255,255,255);stroke-width:3" />
+                     </svg>
+                   <p class="classAnalyseLabel">: Jump</p>
+                   <div class="dropdown" style="width:auto;">
+                     <button class="dropbtn" style=" margin-right:1vw; border-radius: 0.5vh; line-height:3vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:0.5vh; margin-bottom:auto;">?</button>
+                     <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3; right: 2vw;">
+
+                       <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:20vw;"> <strong>INFO:</strong> If a neighbor of a band has a different start (end) color as the end (start) color of this band, there is a jump between the band and his neighbor.
+                         This jump is not part of the colormap course, but it shows the connection between those bands. Inside of the visualization, a jump will be represented by a dashed line.
+                       </p>
+                     </div>
+                   </div>
+                 </div>
                </div>
 
 
@@ -2398,7 +2422,7 @@
       </div>
 
 
-      <div id='id_hueValueOptions' style="display:none;">
+      <div id='id_divHSVLABDIN' style="display:none;">
         <!--div class="row" style="width:100%; height:auto; background:white; padding-bottom:1vh; padding-top:1vh;">
 
           <!-- Hue ->
@@ -2413,16 +2437,13 @@
         <div class="row" style="width:100%; height:auto; background:white;">
 
           <!-- Hue -->
-          <div id="id_containerHueCourse" style="width:30vw; height:auto; display:none;">
-
-
             <div style="position: relative; width:30vw; height:30vw; ">
              <canvas id="id_anaylseCourseHueBackground"
                style="position: absolute; left: 0; top: 0; z-index: 0; width:30vw; height:30vw;"></canvas>
-             <!--canvas id="id_anaylseCourseHueBackground2"
+             <canvas id="id_anaylseCourseHueBackground2"
                style="position: absolute; left: 0; top: 0; z-index: 1; width:30vw; height:30vw;"></canvas>
                <canvas id="id_anaylseCourseHueBackground3"
-                 style="position: absolute; left: 0; top: 0; z-index: 2; width:30vw; height:30vw;"></canvas-->
+                 style="position: absolute; left: 0; top: 0; z-index: 2; width:30vw; height:30vw;"></canvas>
             </div>
             <!--canvas id="id_anaylseCourseHueBackground" style="width:30vw; height:30vw;">
 
@@ -2430,7 +2451,7 @@
 
             <!--p id="id_huePositionLabel" class="classAnalyseLabel" style="width:30vw; font-weight:bold; text-align: center; margin-bottom:2vh;"></p-->
 
-          </div>
+
 
           <!-- Brightness -->
           <canvas id="id_anaylseValue" style="width:68%; height:30vw; display:none;">
@@ -4044,7 +4065,7 @@
 
                 <div class="row" style="margin-top: 3vh;">
                   <p class="class_RadioButtonLabelEditPage" style="margin:0px; margin-left:5vw; width:10vw; height:4vh; line-height:2vh;">
-                    Current Key Color:
+                    Current Color:
                   </p>
                   <div id="bandCreator_currentColor" style="width:10vw; margin-left:2vw; height:4vh; border:1px solid black; background:grey;">
 

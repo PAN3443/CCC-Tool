@@ -17,6 +17,7 @@ class classColorMapSpecification {
     this.referenceRangeEnd = 0;
     this.positionPoints = [];
     this.positionKeys = []; //twin key, dual key, nil key, left key)
+    this.middleOfTriple = [];
 
     this.bandArray  = []; //
     this.default_NumberIntervals = 10;
@@ -107,26 +108,31 @@ class classColorMapSpecification {
   createKeys(){
 
     this.positionKeys=[];
+    this.middleOfTriple = [];
     var lastElementTwin = false;
     var lastElementLeft = false;
 
      for(var i = 0; i<this.positionPoints.length-1; i++){
         if(lastElementLeft==true){
             this.positionKeys.push("left key");
+            this.middleOfTriple.push(false);
             lastElementLeft = false;
             continue;
         }
         if(lastElementTwin==true){
             this.positionKeys.push("twin key");
+            this.middleOfTriple.push(false);
             lastElementTwin = false;
             continue;
         }
         if(i==0){
             if(this.rgbColorArray[i].getRGBString()===this.rgbColorArray[i+1].getRGBString()){
                 this.positionKeys.push("nil key"); // start with constant colorband
+                this.middleOfTriple.push(false);
             }
             else{
                 this.positionKeys.push("right key"); // start with scaled colorband
+                this.middleOfTriple.push(false);
             }
         }
         else{
@@ -138,10 +144,12 @@ class classColorMapSpecification {
                 else{
                     if(this.rgbColorArray[i+1].getRGBString()===this.rgbColorArray[i+2].getRGBString()){
                         this.positionKeys.push("left key"); // start with constant colorband
+                        this.middleOfTriple.push(true);
                         lastElementLeft = true;
                     }
                     else{
                         this.positionKeys.push("twin key"); // start with scaled colorband
+                        this.middleOfTriple.push(true);
                         lastElementTwin = true;
                     }
                 }
@@ -150,6 +158,7 @@ class classColorMapSpecification {
             else{
 
                 this.positionKeys.push("dual key");
+                this.middleOfTriple.push(false);
 
             }
         }
@@ -602,6 +611,10 @@ class classColorMapSpecification {
     this.hsvColorArray[index] = color;
    }
 
+
+   setMiddleOfTripple(){
+     /// hier weiter
+   }
 
 
   /////////////// Insert ////////////////////

@@ -71,7 +71,7 @@ function switchModifyModus(type){
       document.getElementById("modifyColormapPath").style.display="none";
       document.getElementById("id_DivAddBands").style.display="inline-block";
 
-
+      drawPredefinedBands();
     break;
     case 1:
 
@@ -115,60 +115,6 @@ function switchModifyModus(type){
     default:
 
   }
-}
-
-function drawPathEditPath(){
-  document.getElementById("id_containerHueCourse").style.display = "none";
-  document.getElementById("id_ModiyValue").style.display = "none";
-  document.getElementById("id_hueValueOptions").style.display = "none";
-  document.getElementById("id_RGBCourseDivModiy").style.display = "none";
-
-  switch(analyzeColorspaceModus){
-      case "rgb":
-        stopAnimation();
-        document.getElementById("id_RGBCourseDiv").style.display = "initial";
-        //rgbInit("id_canvasRG","id_canvasRB","id_canvasBG", true);
-        drawcolormap_RGBSpace(globalColormap1, "id_canvasRGModiy","id_canvasRBModiy","id_canvasBGModiy", true, true);
-        animate();
-      break;
-      case "hsv":
-        stopAnimation();
-        document.getElementById("id_containerHueCourse").style.display = "initial";
-        document.getElementById("id_ModiyValue").style.display = "initial";
-        document.getElementById("id_hueValueOptions").style.display = "initial";
-        //hueInit("id_anaylseCourseHueBackground");
-        document.getElementById("id_setValueRange").value = 100;
-
-        if (browserCanWorker==false) {
-          drawcolormap_hueSpace(globalColormap1, "id_ModiyCourseHueBackground",true, true); //drawcolormap_hueSpace(globalColormap1, "id_workcanvasAnalyseHue");
-        }
-        else {
-          parallelDrawBackground("id_ModiyCourseHueBackground", globalColormap1);
-          parallelDrawPath("id_ModiyCourseHueBackground"+"2", globalColormap1, false);
-          parallelDrawElements("id_ModiyCourseHueBackground"+"3", globalColormap1, false);
-        }
-      break;
-      case "lab": case "din99":
-        stopAnimation();
-        document.getElementById("id_containerHueCourse").style.display = "initial";
-        document.getElementById("id_ModiyValue").style.display = "initial";
-        document.getElementById("id_hueValueOptions").style.display = "initial";
-        document.getElementById("id_setValueRange").value = 65;
-        //hueInit("id_anaylseCourseHueBackground");
-        if (browserCanWorker==false) {
-            drawcolormap_hueSpace(globalColormap1, "id_ModiyCourseHueBackground",true, true); //drawcolormap_hueSpace(globalColormap1, "id_workcanvasAnalyseHue");
-        }
-        else {
-          parallelDrawBackground("id_ModiyCourseHueBackground", globalColormap1);
-          parallelDrawPath("id_ModiyCourseHueBackground"+"2", globalColormap1, false);
-          parallelDrawElements("id_ModiyCourseHueBackground"+"3", globalColormap1, false);
-        }
-
-      break;
-      default:
-      console.log("Error at the changeColorspace function");
-      return;
-  }//*/
 }
 
 
