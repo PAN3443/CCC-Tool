@@ -946,7 +946,7 @@ function orderColorSketch(forColorspace) {
       document.getElementById("id_LinearMap_Table_Div").style.display = "none";
     }
     else
-    t2Div.innerHTML = "MyDesigns List is empty! Visit the Section Gallary or New.";
+    t2Div.innerHTML = "MyDesigns List is empty! Visit the Section Gallery or New.";
 
     t2Div.addEventListener("dragenter", bandOnEnter);
     t2Div.addEventListener("dragleave", bandOnLeave);

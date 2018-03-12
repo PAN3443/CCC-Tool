@@ -760,7 +760,7 @@ function initNewPage(){
   somethingChanged = false;
 
   document.getElementById("button_showMyDesigns").style.background = styleInactiveColor;
-  document.getElementById("button_showGallary").style.background = styleInactiveColor;
+  document.getElementById("button_showGallery").style.background = styleInactiveColor;
   document.getElementById("button_showNewCMS").style.background = styleInactiveColor;
   document.getElementById("button_showEditCMS").style.background = styleInactiveColor;
   document.getElementById("button_showAnalyze").style.background = styleInactiveColor;
@@ -780,14 +780,14 @@ function initNewPage(){
 
       break;
     case 1:
-      // Gallary
+      // Gallery
       /////////////////////////////////////////
       //
 
       showSideID = 4;
 
       document.getElementById("id_addPage").style.display = "inline-block";
-      document.getElementById("button_showGallary").style.background = styleActiveColor;
+      document.getElementById("button_showGallery").style.background = styleActiveColor;
       restSpace = sizeMyList-myList.length;
 
       if(restSpace==0)

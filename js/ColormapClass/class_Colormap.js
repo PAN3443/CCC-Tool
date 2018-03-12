@@ -6,7 +6,7 @@
 class classColormap {
 
     constructor(colorspace) {
-    this.name = "Customer Colormap";
+    this.name = "Custom Colormap";
     this.colorspace = colorspace;
     this.ref = [];
     this.color = [];
