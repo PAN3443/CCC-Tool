@@ -818,7 +818,7 @@ function initNewPage(){
       showSideID = 1;
       //styleCreatorPage();
 
-      document.getElementById("id_InputMapName").value = "Costumer Colormap";
+      document.getElementById("id_InputMapName").value = "Custom Colormap";
       document.getElementById("id_Create_Menue").style.display = "inline-block";
       document.getElementById("id_Create_Menue").style.marginLeft = "20px";
 
