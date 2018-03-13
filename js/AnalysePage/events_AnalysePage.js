@@ -921,7 +921,7 @@ function calcLocalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId, 
 
             var deltaE=0;
             var speed=0;
-            if(x!=y){
+            //if(x!=y){
 
               switch (type) {
                 case 0:
@@ -959,33 +959,18 @@ function calcLocalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId, 
                     max = Math.max(max,speed);
                     sumForAverage += speed;
                   }
+                  vector.push(speed);
                   break;
                 case 1:
                     min = Math.min(min,deltaE);
                     max = Math.max(max,deltaE);
                     sumForAverage += deltaE;
+                    vector.push(deltaE);
                     break;
                 default:
                   return;
 
               }
-
-
-
-            }
-
-
-            switch (plotType) {
-              case 0:
-                  vector.push(speed);
-                break;
-              case 1:
-                  vector.push(deltaE);
-                  break;
-              default:
-                return;
-
-            }
 
       }
 

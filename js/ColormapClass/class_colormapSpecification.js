@@ -187,10 +187,16 @@ class classColorMapSpecification {
       var tmpIntervalRef=[];
       var intervalDistance = (this.positionPoints[this.positionPoints.length-1]-this.positionPoints[0])/intervals;
 
-      for(var i=0; i<=intervals; i++){
+    /*  for(var i=0; i<=intervals; i++){
           var tmpVal = this.positionPoints[0]+(i*intervalDistance);
           tmpIntervalRef.push(tmpVal);
-      }
+      }*/
+
+      for(var i=0; i<intervals; i++){
+            var tmpVal = this.positionPoints[0]+(i*intervalDistance);
+            tmpIntervalRef.push(tmpVal);
+        }
+        tmpIntervalRef.push(this.positionPoints[this.positionPoints.length-1]);
 
 
 

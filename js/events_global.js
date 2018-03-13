@@ -506,7 +506,7 @@ function changePage(type){
   }
 
   if(type==5 && myList.length<2 ){
-    if(myList.length == 1 && isEdit==-1 && bandSketch.getBandLength()!=0){
+    if(myList.length == 1 && showSideID==1 && isEdit==-1 && bandSketch.getBandLength()!=0){
 
     }
     else{
@@ -530,14 +530,10 @@ function changePage(type){
                 document.getElementById("id_Colorspace_Menue").style.display = "initial";
                 document.getElementById("div_colormapBandSketch").style.display = "inline-block";
 
-
-
                 if(initPageType!=5)
                 initNewPage();
                 else
                 openCompareSelect();
-
-
 
     break;
     case 0:

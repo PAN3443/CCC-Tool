@@ -105,6 +105,13 @@ class classColormap {
   }
 
   getIntervalLength(){
+
+    /*for(var i = 0; i < this.IntervalIndex.length; i++) {
+      console.log(this.type[this.IntervalIndex[i]]);
+      console.log(this.ref[this.IntervalIndex[i]]);
+      console.log("");
+    }*/
+
     return this.IntervalIndex.length;
   }
 
@@ -150,7 +157,25 @@ class classColormap {
   }
 
   calcDeltaE_Interval_De94(index1, index2){
+
+    /*if(index1==0 && index2==this.getIntervalLength()-1){
+      console.log(this.getIntervalColor(index1, "lab").get1Value()+" "+this.getIntervalColor(index2, "lab").get1Value());
+      console.log(this.getIntervalColor(index1, "lab").get2Value()+" "+this.getIntervalColor(index2, "lab").get2Value());
+      console.log(this.getIntervalColor(index1, "lab").get3Value()+" "+this.getIntervalColor(index2, "lab").get3Value());
+      console.log("");
+    }
+
+
+    if(index1==this.getIntervalLength()-1 && index2==0){
+    console.log(this.getIntervalColor(index1, "lab").get1Value()+" "+this.getIntervalColor(index2, "lab").get1Value());
+    console.log(this.getIntervalColor(index1, "lab").get2Value()+" "+this.getIntervalColor(index2, "lab").get2Value());
+    console.log(this.getIntervalColor(index1, "lab").get3Value()+" "+this.getIntervalColor(index2, "lab").get3Value());
+    console.log("");
+  }*/
+
       return this.calcDeltaDE94(this.getIntervalColor(index1, "lab"),this.getIntervalColor(index2, "lab"));
+
+
   }
 
   clear(){
@@ -164,31 +189,43 @@ class classColormap {
   /////////////// DE94 ////////////////////
   calcDeltaDE94(color1,color2){
 
-            var k_L = 1.0, k_C = 1.0, k_H = 1.0;
+            var k_L = 1.0, k_C = 1.0, k_H = 1.0; // K_l = 1 default, = 2 textiles
             var k_1 = 0.045, k_2 = 0.015; // K1: 0.045 graphic arts  0.048 textiles  K2: 0.015 graphic arts 0.014 textiles
-
-
-            var deg360InRad = deg2rad(360.0);
-            var deg180InRad = deg2rad(180.0);
-            var pow25To7 = Math.pow(25, 7);
 
             // Step 1
             var deltaL = color1.getLValue()-color2.getLValue();
-            var C1 = Math.sqrt((color1.getAValue() * color1.getAValue()) + (color1.getBValue() * color1.getBValue()));
-            var C2 = Math.sqrt((color2.getAValue() * color2.getAValue()) + (color2.getBValue() * color2.getBValue()));
-            var deltaC = C1-C2;
             var deltaA = color1.getAValue()-color2.getAValue();
             var deltaB = color1.getBValue()-color2.getBValue();
-            var deltaH = Math.sqrt((deltaA * deltaA) + (deltaB * deltaB) - (deltaC * deltaC));
-            var s_L =1;
-            var s_C =1+k_1*C1;
-            var s_H =1+k_2*C2;
 
+
+            var vC1 = Math.sqrt(Math.pow(color1.getAValue(), 2) + Math.pow(color1.getBValue(), 2));
+            var vC2 = Math.sqrt(Math.pow(color2.getAValue(), 2) + Math.pow(color2.getBValue(), 2));
+            var deltaC = vC1 - vC2;
+
+            var deltaH = Math.pow(deltaA, 2) + Math.pow(deltaB, 2) - Math.pow(deltaC, 2);
+
+            if(deltaH<0){
+              deltaH = 0;
+            }
+            else{
+              deltaH = Math.sqrt(deltaH);
+            }
+
+            var s_L =1;
+            var s_C =1+k_1*vC1;
+            var s_H =1+k_2*vC1;
 
             var elem1 = deltaL/(k_L*s_L);
             var elem2 = deltaC/(k_C*s_C);
             var elem3 = deltaH/(k_H*s_H);
-            var deltaE =  Math.sqrt((elem1 * elem1) + (elem2 * elem2) + (elem3 * elem3));
+            var deltaE =  Math.pow(elem1, 2) + Math.pow(elem2, 2) + Math.pow(elem3, 2);
+
+            if(deltaE<0){
+              deltaE = 0;
+            }
+            else{
+              deltaE = Math.sqrt(deltaE);
+            }
 
             return deltaE;
 
@@ -202,8 +239,8 @@ class classColormap {
             var pow25To7 = Math.pow(25, 7);
 
             // Step 1
-            var C1 = Math.sqrt((color1.getAValue() * color1.getAValue()) + (color1.getBValue() * color1.getBValue()));
-            var C2 = Math.sqrt((color2.getAValue() * color2.getAValue()) + (color2.getBValue() * color2.getBValue()));
+            var C1 = Math.sqrt(Math.pow(color1.getAValue(), 2) + Math.pow(color1.getBValue(), 2));
+            var C2 = Math.sqrt(Math.pow(color2.getAValue(), 2) + Math.pow(color2.getBValue(), 2));
 
             var barC = (C1 + C2) / 2.0;
 

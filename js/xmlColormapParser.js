@@ -190,7 +190,7 @@ function xmlColormapParserFile(xmlString){
 
                            var saveAttribute = true;
                            //if(checkIfCCC_Tool_File && pointObject[i].getAttribute("cms")=="false"){
-                           console.log(pointObject[i].getAttribute("cms"));
+                           //console.log(pointObject[i].getAttribute("cms"));
                            if(pointObject[i].getAttribute("cms")=="false"){
                                saveAttribute=false;
                            }

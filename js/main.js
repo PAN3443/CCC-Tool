@@ -502,7 +502,7 @@ function orderColorSketch(forColorspace) {
 
 
       /////////////////// draw ref /////////
-      var tmpText = '' + bandSketch.getRefR1(i); //.toFixed(numDecimalPlaces);
+
 
       var box = sketchRefObj.getBoundingClientRect();
 
@@ -521,8 +521,10 @@ function orderColorSketch(forColorspace) {
 
       var xposHTML = ((i) / bandSketch.getBandLength()) * box.width + left;
       var yposHTML = box.height + top;
+      var tmpText = '' + bandSketch.getRefR1(i); //.toFixed(numDecimalPlaces);
 
       if(showSideID==1){
+
         var inputField = document.createElement("input");
         inputField.setAttribute('type', 'text');
         inputField.setAttribute('value', tmpText);
@@ -622,6 +624,9 @@ function orderColorSketch(forColorspace) {
         }
       }
       else{
+        if(bandSketch.getRefR1(i).countDecimals()>2){
+          tmpText = bandSketch.getRefR1(i).toFixed(2) + "..";
+        }
         var inputField = document.createElement("p");
         inputField.innerHTML = tmpText;
         var inputID = "id_SketchKeyValInput" + i;
@@ -650,7 +655,10 @@ function orderColorSketch(forColorspace) {
         /////////////////// special case: last element /////////
         if (i == bandSketch.getBandLength() - 1) {
           refLineDiv.style.borderRight = "1px solid black";
-          tmpText = '' + bandSketch.getRefR2(i); //.toFixed(numDecimalPlaces);
+          tmpText = bandSketch.getRefR2(i) + "";
+          if(bandSketch.getRefR2(i).countDecimals()>2){
+            tmpText = bandSketch.getRefR2(i).toFixed(2) + "..";
+          }
           xposHTML = box.width + left;
           var inputField2 = document.createElement("p");
           inputField2.innerHTML = tmpText;
