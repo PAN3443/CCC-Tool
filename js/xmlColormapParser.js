@@ -151,7 +151,7 @@ function xmlColormapParserFile(xmlString){
 
                 var pointObject = colormapObject[0].getElementsByTagName("Point");
                 var space = checkXMLColorspace(pointObject);
-//console.log(space);
+                //console.log(space);
                 //var checkIfCCC_Tool_File = false;
                 /*if(pointObject.length>0)
                   checkIfCCC_Tool_File = pointObject[0].hasAttribute("cms");

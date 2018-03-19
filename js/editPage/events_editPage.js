@@ -571,8 +571,10 @@ function drawModifyPreview(){
 
   var borderWidth = 2;
   var restWidth = resolutionX_differenceMetrics-(bandSketch.getBandLength()-1)*borderWidth;
-  var bandWith = restWidth/bandSketch.getBandLength();
+  var bandWith = Math.round(restWidth/bandSketch.getBandLength());
   var currentPos = 0;
+
+  var color1, color2;
 
   for (var i = 0; i < bandSketch.getBandLength(); i++) {
 
@@ -657,6 +659,11 @@ function drawModifyPreview(){
     }
 
     for(var x=0; x<bandWith; x++){
+
+      if(x==0){
+        console.log(i+" "+bandWith);
+      }
+
       var index = (currentPos+x) * 4;
       var tmpRatio = x/bandWith;
 
@@ -732,6 +739,7 @@ function drawModifyPreview(){
 
 
     }
+
     currentPos=currentPos+bandWith;
 
     if(i != bandSketch.getBandLength()-1){
