@@ -895,6 +895,12 @@ function initNewPage(){
       document.getElementById("id_Colorspace_Menue").style.display = "none";
       document.getElementById("div_colormapBandSketch").style.display = "none";
       changeTutorial(4);
+
+      for(var i = refLineSketchContainer.length-1; i>=0; i--){
+        refLineSketchContainer[i].remove();
+        refLineSketchContainer.pop();
+      }
+      
       break;
 
     default:
