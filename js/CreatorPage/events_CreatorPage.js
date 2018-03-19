@@ -31,7 +31,7 @@ function expandTable(){
         document.getElementById("id_table_workwindow").style.display = "none";
         document.getElementById("id_colormapsDiv").style.display = "inline-block";
 
-        document.getElementById("id_expandTablebutton").style.borderRadius= "0px 0px 10px 10px";
+        //document.getElementById("id_expandTablebutton").style.borderRadius= "0px 0px 10px 10px";
         document.getElementById("id_expandTablebutton").innerHTML="&#11021; Click to expand the table";
         tableIsExpand=false;
 
@@ -48,7 +48,7 @@ function expandTable(){
             refElementContainer.pop();
         }
 
-        document.getElementById("id_expandTablebutton").style.borderRadius= "10px 10px 0px 0px";
+        //document.getElementById("id_expandTablebutton").style.borderRadius= "10px 10px 0px 0px";
         document.getElementById("id_expandTablebutton").innerHTML="&#11021; Click to expand the linear Colormap";
     }
     drawPredefinedBands();

@@ -5,8 +5,8 @@ var showSideID = -1; // 0 = myList; 1=CreateSide, 2=Analyse
 var initPageType = -1;
 var somethingChanged = false;
 
-var styleActiveColor = "rgb(0,191,255)";
-var styleInactiveColor = "rgb(169,169,169)";//"rgb(65,105,225)";
+var styleActiveColor = "rgba(0,191,255,0.7)";
+var styleInactiveColor = "none";//"rgba(169,169,169,0.3)";//"rgb(65,105,225)";
 var size3D=50;
 
 //// Colormaps

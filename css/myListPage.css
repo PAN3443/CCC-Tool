@@ -34,19 +34,20 @@
 
 
 .classButtonBlue:hover {
-  box-shadow: inset 0 0 0 2em rgb(72,61,139);
+  box-shadow: inset 0 0 0 2em rgba(72,61,139,0.5);
 }
 
 
 .classButtonBlue {
   color: white;
-  background: rgb(65,105,225);
+  background: none;/*background: rgb(65,105,225);*/
   transition: 0.5s;
   width: 12.5%;
   height:5vh;
   line-height: 5vh;
   font-size:2.2vh;
-  border-radius: 0px 0px 1vh 1vh;
+  /*border-radius: 0px 0px 1vh 1vh;*/
+  border: 1px solid white;
   color:white;
   font-weight: bold;
 }

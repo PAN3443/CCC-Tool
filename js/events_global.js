@@ -527,6 +527,7 @@ function changePage(type){
     case -1:
                 document.getElementById("id_welcomePage").style.display = "none";
                 document.getElementById("id_MainMenue").style.display = "inline-block";
+                document.getElementById("id_Mod_Menue").style.display = "inline-block";
                 document.getElementById("id_Colorspace_Menue").style.display = "initial";
                 document.getElementById("div_colormapBandSketch").style.display = "inline-block";
 
@@ -755,14 +756,14 @@ function initNewPage(){
 
   somethingChanged = false;
 
-  document.getElementById("button_showMyDesigns").style.background = styleInactiveColor;
-  document.getElementById("button_showGallery").style.background = styleInactiveColor;
-  document.getElementById("button_showNewCMS").style.background = styleInactiveColor;
-  document.getElementById("button_showEditCMS").style.background = styleInactiveColor;
-  document.getElementById("button_showAnalyze").style.background = styleInactiveColor;
-  document.getElementById("button_showCompare").style.background = styleInactiveColor;
-  document.getElementById("button_showExport").style.background = styleInactiveColor;
-  document.getElementById("button_showTutorial").style.background = styleInactiveColor;
+  document.getElementById("button_showMyDesigns").style.background = "none"; //styleInactiveColor;
+  document.getElementById("button_showGallery").style.background = "none"; //styleInactiveColor;
+  document.getElementById("button_showNewCMS").style.background = "none"; //styleInactiveColor;
+  document.getElementById("button_showEditCMS").style.background = "none"; //styleInactiveColor;
+  document.getElementById("button_showAnalyze").style.background = "none"; //styleInactiveColor;
+  document.getElementById("button_showCompare").style.background = "none"; //styleInactiveColor;
+  document.getElementById("button_showExport").style.background = "none"; //styleInactiveColor;
+  document.getElementById("button_showTutorial").style.background = "none"; //styleInactiveColor;
 
  // new page
   switch (initPageType) {
