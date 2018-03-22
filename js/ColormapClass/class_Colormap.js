@@ -140,6 +140,10 @@ class classColormap {
     }
   }
 
+  getIntervalType(index){
+    return this.ref[this.IntervalIndex[index]];
+  }
+
   getIntervalRef(index){
     return this.ref[this.IntervalIndex[index]];
   }

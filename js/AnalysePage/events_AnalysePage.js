@@ -711,6 +711,8 @@ function calcGlobalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId,
       var canvasData = canvasCtx.createImageData(canvasPlot.width, canvasPlot.height); //getImageData(0, 0, canvasPlot.width, canvasPlot.height);
       var sumForAverage = 0;
       var min = 1000000;
+      var realMax = 0;
+      var realMin = 1000000;
       var max = 0;
         var numTwinOrLeft=0;
 
@@ -754,12 +756,18 @@ function calcGlobalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId,
                   }
                   else{
                     speed = deltaE/distance;
+                    realMin = Math.min(realMin,speed);
+                    realMax = Math.max(realMax,speed);
+                    speed = Math.log(speed+1);
                     min = Math.min(min,speed);
                     max = Math.max(max,speed);
                     sumForAverage += speed;
                   }
                   break;
                 case 1:
+                    realMin = Math.min(realMin,deltaE);
+                    realMax = Math.max(realMax,deltaE);
+                    deltaE = Math.log(deltaE+1);
                     min = Math.min(min,deltaE);
                     max = Math.max(max,deltaE);
                     sumForAverage += deltaE;
@@ -812,7 +820,7 @@ function calcGlobalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId,
               switch (plotType) {
                 case 0:
                   var speed= matrix[x][y];
-                  var val = speed/max;
+                  var val = (speed-min)/(max-min);
                   if(speed==-1){
                     val=1;
                   }
@@ -824,7 +832,7 @@ function calcGlobalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId,
                   break;
                 case 1:
                     var deltaE= matrix[x][y];
-                    var val = deltaE/max;
+                    var val = (deltaE-min)/(max-min);
                     sumForVariance += Math.pow(matrix[x][y]-average,2);
                     colorRef = new classColor_RGB(val,val,val);
                     break;
@@ -855,14 +863,14 @@ function calcGlobalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId,
       var deviation = Math.sqrt(variance);
 
 
-      document.getElementById(minId).innerHTML = "Global Minimum = "+ min.toFixed(numDecimalPlaces);
+      document.getElementById(minId).innerHTML = "Global Minimum = "+ realMin.toFixed(numDecimalPlaces);
 
       if(min==0)
       document.getElementById(minId).style.color = "red";
       else
       document.getElementById(minId).style.color = "black";
 
-      document.getElementById(maxId).innerHTML = "Global Maximum = "+ max.toFixed(numDecimalPlaces);
+      document.getElementById(maxId).innerHTML = "Global Maximum = "+ realMax.toFixed(numDecimalPlaces);
       document.getElementById(avId).innerHTML = "Global Average = "+ average.toFixed(numDecimalPlaces);
       document.getElementById(devId).innerHTML = "Global Deviation = "+ deviation.toFixed(numDecimalPlaces);
 
