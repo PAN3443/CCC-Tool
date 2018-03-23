@@ -1,5 +1,3 @@
-
-
 function checkIntervalInputFieldsChange(event){
 
     checkInputVal(document.getElementById(event.target.id),false,false);
@@ -468,6 +466,11 @@ function changePage(type){
   if(pageIsLoaded==false)
   return;
 
+  if(type==7){
+    alert("Sorry! Because of current work at this page, the tutorial is not accessible.");
+    return;
+  }
+
   if(colormap1SelectIndex==-1){
     switch (type) {
       case 3:
@@ -518,6 +521,8 @@ function changePage(type){
 
 
   initPageType=type;
+
+
 
   // old page
   switch (showSideID) {
@@ -743,6 +748,24 @@ function changePage(type){
 
     break;
 
+    case 7:
+                  if(type==7)
+                  return;
+
+                  document.getElementById("id_impressumPage").style.display = "none";
+
+                  document.getElementById("id_Colorspace_Menue").style.display = "initial";
+                  //document.getElementById("id_Tutorial_Menue").style.display = "none";
+                  document.getElementById("div_colormapBandSketch").style.display = "inline-block";
+
+                  if(initPageType!=5)
+                  initNewPage();
+                  else
+                  openCompareSelect();
+
+
+    break;
+
     default:
       return;
 
@@ -896,12 +919,18 @@ function initNewPage(){
       document.getElementById("div_colormapBandSketch").style.display = "none";
       changeTutorial(4);
 
-      for(var i = refLineSketchContainer.length-1; i>=0; i--){
-        refLineSketchContainer[i].remove();
-        refLineSketchContainer.pop();
-      }
-      
       break;
+
+      case 8:
+        // Impressum
+        /////////////////////////////////////////
+        showSideID = 7;
+        document.getElementById("id_impressumPage").style.display = "inline-block";
+
+        document.getElementById("id_Colorspace_Menue").style.display = "none";
+        document.getElementById("div_colormapBandSketch").style.display = "none";
+
+        break;
 
     default:
       return;
@@ -909,7 +938,20 @@ function initNewPage(){
 
   initPageType=-1;
 
+  if(showSideID!=5 && showSideID!=7)
   orderColorSketch(colorspaceModus);
+  else{
+
+    for(var i = refLineSketchContainer.length-1; i>=0; i--){
+      refLineSketchContainer[i].remove();
+      refLineSketchContainer.pop();
+    }
+
+    for(var i = refElementContainer.length-1; i>=0; i--){
+      refElementContainer[i].remove();
+      refElementContainer.pop();
+    }
+  }
 }
 
 

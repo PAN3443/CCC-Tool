@@ -4,7 +4,7 @@
 
 self.addEventListener('message', function(e) {
 
-  var data = e.data;
+  /*var data = e.data;
 
 
     var xPos, yPos, xPos2, yPos2, xVPos, xVPos2, tmpColor, tmpColor2;
@@ -109,7 +109,7 @@ self.addEventListener('message', function(e) {
          /*}
          else{
            xVPos2 = xVPos+widthVAreaInterval;
-         }*/
+         }* /
 
          switch(data.analyzeColorspaceModus){
              case "hsv":
@@ -143,14 +143,14 @@ self.addEventListener('message', function(e) {
 
          /*if(doOriginalValuePlot==false){
            xVPos = xVPos2;
-         }*/
+         }* /
 
   }
 
 
   jsonObj.modus = "finish";
 
-  self.postMessage(jsonObj);
+  self.postMessage(jsonObj);*/
 
 
 
