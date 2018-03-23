@@ -91,24 +91,50 @@ function changePlotType(type){
 
   }
 
+  if(showSideID==2)
+  updateAnalyzePage();
 
-  if(document.getElementById("analyzeGlobalSpeed").style.display!="none"){
-    var intervalColormap = globalColormap1.calcColorMap(intervalSize, colorspaceModus);
-    calcGlobalSpeedPlot(intervalColormap, "analyze_GlobalSpeed_Canvas_Lab", 0, "analyze_GlobalSpeed_Label_Min_Lab", "analyze_GlobalSpeed_Label_Max_Lab", "analyze_GlobalSpeed_Label_Av_Lab", "analyze_GlobalSpeed_Label_Dev_Lab");
-    calcGlobalSpeedPlot(intervalColormap,"analyze_GlobalSpeed_Canvas_de94", 1, "analyze_GlobalSpeed_Label_Min_de94", "analyze_GlobalSpeed_Label_Max_de94", "analyze_GlobalSpeed_Label_Av_de94", "analyze_GlobalSpeed_Label_Dev_de94");
-    calcGlobalSpeedPlot(intervalColormap,"analyze_GlobalSpeed_Canvas_de2000", 2, "analyze_GlobalSpeed_Label_Min_de2000", "analyze_GlobalSpeed_Label_Max_de2000", "analyze_GlobalSpeed_Label_Av_de2000", "analyze_GlobalSpeed_Label_Dev_de2000");
-    calcGlobalSpeedPlot(intervalColormap,"analyze_GlobalSpeed_Canvas_din99", 3, "analyze_GlobalSpeed_Label_Min_din99", "analyze_GlobalSpeed_Label_Max_din99", "analyze_GlobalSpeed_Label_Av_din99", "analyze_GlobalSpeed_Label_Dev_din99");
-    return;
+  if(showSideID==3)
+  updateComparePage();
+}
+
+
+function changePlotMode(mode){
+
+  switch (mode) {
+    case 0:
+      doLogMartixPlot=false;
+      document.getElementById("button_AnalyzeDoLogPlot").style.border = "0.2vh solid black";
+      document.getElementById("button_AnalyzeDoLogPlot").style.color = "black";
+      document.getElementById("button_AnalyzeDoLinearPlot").style.border = "0.2vh solid "+styleActiveColor;
+      document.getElementById("button_AnalyzeDoLinearPlot").style.color = styleActiveColor;
+      document.getElementById("button_CompareDoLogPlot").style.border = "0.2vh solid black";
+      document.getElementById("button_CompareDoLogPlot").style.color = "black";
+      document.getElementById("button_CompareDoLinearPlot").style.border = "0.2vh solid "+styleActiveColor;
+      document.getElementById("button_CompareDoLinearPlot").style.color = styleActiveColor;
+      break;
+      case 1:
+      doLogMartixPlot=true;
+      document.getElementById("button_AnalyzeDoLinearPlot").style.border = "0.2vh solid black";
+      document.getElementById("button_AnalyzeDoLinearPlot").style.color = "black";
+      document.getElementById("button_AnalyzeDoLogPlot").style.border = "0.2vh solid "+styleActiveColor;
+      document.getElementById("button_AnalyzeDoLogPlot").style.color = styleActiveColor;
+      document.getElementById("button_CompareDoLinearPlot").style.border = "0.2vh solid black";
+      document.getElementById("button_CompareDoLinearPlot").style.color = "black";
+      document.getElementById("button_CompareDoLogPlot").style.border = "0.2vh solid "+styleActiveColor;
+      document.getElementById("button_CompareDoLogPlot").style.color = styleActiveColor;
+        break;
+    default:
+
   }
 
-  if(document.getElementById("analyzeLocalLineSpeed").style.display!="none"){
-    var intervalColormap = globalColormap1.calcColorMap(intervalSize, colorspaceModus);
-    calcLocalSpeedPlot(intervalColormap, "analyze_LocalSpeed_Canvas_Lab", 0, "analyze_LocalSpeed_Label_Min_Lab", "analyze_LocalSpeed_Label_Max_Lab", "analyze_LocalSpeed_Label_Av_Lab", "analyze_LocalSpeed_Label_Dev_Lab");
-    calcLocalSpeedPlot(intervalColormap,"analyze_LocalSpeed_Canvas_de94", 1, "analyze_LocalSpeed_Label_Min_de94", "analyze_LocalSpeed_Label_Max_de94", "analyze_LocalSpeed_Label_Av_de94", "analyze_LocalSpeed_Label_Dev_de94");
-    calcLocalSpeedPlot(intervalColormap,"analyze_LocalSpeed_Canvas_de2000", 2, "analyze_LocalSpeed_Label_Min_de2000", "analyze_LocalSpeed_Label_Max_de2000", "analyze_LocalSpeed_Label_Av_de2000", "analyze_LocalSpeed_Label_Dev_de2000");
-    calcLocalSpeedPlot(intervalColormap,"analyze_LocalSpeed_Canvas_din99", 3, "analyze_LocalSpeed_Label_Min_din99", "analyze_LocalSpeed_Label_Max_din99", "analyze_LocalSpeed_Label_Av_din99", "analyze_LocalSpeed_Label_Dev_din99");
-    return;
-  }
+
+  if(showSideID==2)
+  updateAnalyzePage();
+
+  if(showSideID==3)
+  updateComparePage();
+
 }
 
 
@@ -758,6 +784,7 @@ function calcGlobalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId,
                     speed = deltaE/distance;
                     realMin = Math.min(realMin,speed);
                     realMax = Math.max(realMax,speed);
+                    if(doLogMartixPlot)
                     speed = Math.log(speed+1);
                     min = Math.min(min,speed);
                     max = Math.max(max,speed);
@@ -767,6 +794,7 @@ function calcGlobalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId,
                 case 1:
                     realMin = Math.min(realMin,deltaE);
                     realMax = Math.max(realMax,deltaE);
+                    if(doLogMartixPlot)
                     deltaE = Math.log(deltaE+1);
                     min = Math.min(min,deltaE);
                     max = Math.max(max,deltaE);

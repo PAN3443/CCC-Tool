@@ -163,6 +163,7 @@ var bandSketch2;
 
 var plotType =0;
 var doOriginalValuePlot = true;
+var doLogMartixPlot = false;
 
 ///////////////////////////
 /// My List
