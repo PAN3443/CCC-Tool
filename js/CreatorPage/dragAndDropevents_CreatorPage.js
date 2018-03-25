@@ -175,8 +175,14 @@ function bandOnDrop(event){
                         }
                         else{
 
+                          var tmpVal = bandSketch.getRefR1(indexOfDroppedPlace);
+                          var dist = Math.abs(tmpVal-bandSketch.getRefR2(indexOfDroppedPlace));
+                          bandSketch.setRefR1(indexOfDroppedPlace,tmpVal+dist*0.5);
+
+                          bandSketch.spliceBand(indexOfDroppedPlace, constBands[dragPredefinedBandIndex], constBands[dragPredefinedBandIndex], tmpVal, tmpVal+dist*0.5);
+
                             // band in the middle
-                            if(bandSketch.getBandLength() > indexOfDroppedPlace && indexOfDroppedPlace!=0){
+                            /*if(bandSketch.getBandLength() > indexOfDroppedPlace && indexOfDroppedPlace!=0){
                                 var newPos = bandSketch.getRefR2(indexOfDroppedPlace-1)-Math.abs(bandSketch.getRefR2(indexOfDroppedPlace-1)-bandSketch.getRefR1(indexOfDroppedPlace-1))/2;
                                 bandSketch.setRefR2(indexOfDroppedPlace-1,newPos);
 
@@ -184,18 +190,18 @@ function bandOnDrop(event){
                                 bandSketch.setRefR1(indexOfDroppedPlace,newPos2);
 
                                 bandSketch.spliceBand(indexOfDroppedPlace, constBands[dragPredefinedBandIndex], constBands[dragPredefinedBandIndex], newPos, newPos2);
-                            }
+                            }*/
                         }
 
                         // band as frist
-                        if(indexOfDroppedPlace==0){
+                        /*if(indexOfDroppedPlace==0){
                             var tmpVal = bandSketch.getRefR1(0);
                             var dist = Math.abs(tmpVal-bandSketch.getRefR2(0));
                             bandSketch.setRefR1(0,tmpVal+dist*0.5);
 
                             bandSketch.spliceBand(indexOfDroppedPlace, constBands[dragPredefinedBandIndex], constBands[dragPredefinedBandIndex], tmpVal, tmpVal+dist*0.5);
 
-                        }
+                        }*/
 
                     }
             break;
@@ -214,8 +220,13 @@ function bandOnDrop(event){
                             bandSketch.spliceBand(indexOfDroppedPlace, scaleBands[dragPredefinedBandIndex][0], scaleBands[dragPredefinedBandIndex][1], tmpVal-dist*0.5, tmpVal);
                         }
                         else{
+
+                            var tmpVal = bandSketch.getRefR1(indexOfDroppedPlace);
+                            var dist = Math.abs(tmpVal-bandSketch.getRefR2(indexOfDroppedPlace));
+                            bandSketch.setRefR1(indexOfDroppedPlace,tmpVal+dist*0.5);
+                            bandSketch.spliceBand(indexOfDroppedPlace, scaleBands[dragPredefinedBandIndex][0], scaleBands[dragPredefinedBandIndex][1], tmpVal, tmpVal+dist*0.5);
                             // band in the middle
-                            if(indexOfDroppedPlace < bandSketch.getBandLength() && indexOfDroppedPlace!=0){
+                            /*if(indexOfDroppedPlace < bandSketch.getBandLength() && indexOfDroppedPlace!=0){
 
                                 var newPos = bandSketch.getRefR2(indexOfDroppedPlace-1)-Math.abs(bandSketch.getRefR2(indexOfDroppedPlace-1)-bandSketch.getRefR1(indexOfDroppedPlace-1))/2;
                                 bandSketch.setRefR2(indexOfDroppedPlace-1,newPos);
@@ -224,16 +235,16 @@ function bandOnDrop(event){
                                 bandSketch.setRefR1(indexOfDroppedPlace,newPos2);
                                 bandSketch.spliceBand(indexOfDroppedPlace, scaleBands[dragPredefinedBandIndex][0], scaleBands[dragPredefinedBandIndex][1], newPos, newPos2);
 
-                            }
+                            }*/
                         }
 
                         // band as frist
-                        if(indexOfDroppedPlace==0){
+                        /*if(indexOfDroppedPlace==0){
                             var tmpVal = bandSketch.getRefR1(0);
                             var dist = Math.abs(tmpVal-bandSketch.getRefR2(0));
                             bandSketch.setRefR1(0,tmpVal+dist*0.5);
                             bandSketch.spliceBand(indexOfDroppedPlace, scaleBands[dragPredefinedBandIndex][0], scaleBands[dragPredefinedBandIndex][1], tmpVal, tmpVal+dist*0.5);
-                        }
+                        }*/
 
                     }
             break;
@@ -257,7 +268,14 @@ function bandOnDrop(event){
                         }
                         else{
                             // band in the middle
-                            if(bandSketch.getBandLength() > indexOfDroppedPlace && indexOfDroppedPlace!=0){
+
+                            var tmpVal = bandSketch.getRefR1(indexOfDroppedPlace);
+                            var dist = Math.abs(tmpVal-bandSketch.getRefR2(indexOfDroppedPlace));
+                            bandSketch.setRefR1(indexOfDroppedPlace,tmpVal+dist*0.5);
+                            bandSketch.spliceBand(indexOfDroppedPlace, doubleBands[dragPredefinedBandIndex][2], doubleBands[dragPredefinedBandIndex][3], tmpVal+dist*0.25, tmpVal+dist*0.5);
+                            bandSketch.spliceBand(indexOfDroppedPlace, doubleBands[dragPredefinedBandIndex][0], doubleBands[dragPredefinedBandIndex][1], tmpVal, tmpVal+dist*0.25);
+
+                            /*if(bandSketch.getBandLength() > indexOfDroppedPlace && indexOfDroppedPlace!=0){
 
                                 var newPos = bandSketch.getRefR2(indexOfDroppedPlace-1)-Math.abs(bandSketch.getRefR2(indexOfDroppedPlace-1)-bandSketch.getRefR1(indexOfDroppedPlace-1))/2;
                                 bandSketch.setRefR2(indexOfDroppedPlace-1,newPos);
@@ -271,13 +289,13 @@ function bandOnDrop(event){
                             }
 
                             // band as frist
-                            if(indexOfDroppedPlace==0){
+                            /*if(indexOfDroppedPlace==0){
                                 var tmpVal = bandSketch.getRefR1(0);
                                 var dist = Math.abs(tmpVal-bandSketch.getRefR2(0));
                                 bandSketch.setRefR1(0,tmpVal+dist*0.5);
                                 bandSketch.spliceBand(indexOfDroppedPlace, doubleBands[dragPredefinedBandIndex][2], doubleBands[dragPredefinedBandIndex][3], tmpVal+dist*0.25, tmpVal+dist*0.5);
                                 bandSketch.spliceBand(indexOfDroppedPlace, doubleBands[dragPredefinedBandIndex][0], doubleBands[dragPredefinedBandIndex][1], tmpVal, tmpVal+dist*0.25);
-                            }
+                            }*/
                         }
 
                     }
@@ -301,8 +319,15 @@ function bandOnDrop(event){
                             bandSketch.spliceBand(indexOfDroppedPlace, tribleBands[dragPredefinedBandIndex][0], tribleBands[dragPredefinedBandIndex][1], tmpVal-dist*0.5, tmpVal-dist*(1/3));
                         }
                         else{
+
+                          var tmpVal = bandSketch.getRefR1(indexOfDroppedPlace);
+                          var dist = Math.abs(tmpVal-bandSketch.getRefR2(indexOfDroppedPlace));
+                          bandSketch.setRefR1(indexOfDroppedPlace,tmpVal+dist*0.5);
+                          bandSketch.spliceBand(indexOfDroppedPlace, tribleBands[dragPredefinedBandIndex][4], tribleBands[dragPredefinedBandIndex][5], tmpVal+dist*1/3, tmpVal+dist*0.5);
+                          bandSketch.spliceBand(indexOfDroppedPlace, tribleBands[dragPredefinedBandIndex][2], tribleBands[dragPredefinedBandIndex][3], tmpVal+dist*0.5/3, tmpVal+dist*1/3);
+                          bandSketch.spliceBand(indexOfDroppedPlace, tribleBands[dragPredefinedBandIndex][0], tribleBands[dragPredefinedBandIndex][1], tmpVal, tmpVal+dist*0.5/3);
                             // band in the middle
-                            if(bandSketch.getBandLength() > indexOfDroppedPlace && indexOfDroppedPlace!=0){
+                            /*if(bandSketch.getBandLength() > indexOfDroppedPlace && indexOfDroppedPlace!=0){
 
                                 var newPos = bandSketch.getRefR2(indexOfDroppedPlace-1)-Math.abs(bandSketch.getRefR2(indexOfDroppedPlace-1)-bandSketch.getRefR1(indexOfDroppedPlace-1))/2;
                                 bandSketch.setRefR2(indexOfDroppedPlace-1,newPos);
@@ -324,7 +349,7 @@ function bandOnDrop(event){
                                 bandSketch.spliceBand(indexOfDroppedPlace, tribleBands[dragPredefinedBandIndex][4], tribleBands[dragPredefinedBandIndex][5], tmpVal+dist*1/3, tmpVal+dist*0.5);
                                 bandSketch.spliceBand(indexOfDroppedPlace, tribleBands[dragPredefinedBandIndex][2], tribleBands[dragPredefinedBandIndex][3], tmpVal+dist*0.5/3, tmpVal+dist*1/3);
                                 bandSketch.spliceBand(indexOfDroppedPlace, tribleBands[dragPredefinedBandIndex][0], tribleBands[dragPredefinedBandIndex][1], tmpVal, tmpVal+dist*0.5/3);
-                            }
+                            }*/
                         }
 
                     }
@@ -350,8 +375,17 @@ function bandOnDrop(event){
                             bandSketch.spliceBand(indexOfDroppedPlace, quadBands[dragPredefinedBandIndex][0], quadBands[dragPredefinedBandIndex][1], tmpVal-dist*0.5 , tmpVal-(dist*0.375));
                         }
                         else{
+
+                          var tmpVal = bandSketch.getRefR1(indexOfDroppedPlace);
+                          var dist = Math.abs(tmpVal-bandSketch.getRefR2(indexOfDroppedPlace));
+                          bandSketch.setRefR1(indexOfDroppedPlace,tmpVal+dist*0.5);
+                          bandSketch.spliceBand(indexOfDroppedPlace, quadBands[dragPredefinedBandIndex][6], quadBands[dragPredefinedBandIndex][7], tmpVal+(dist*0.375), tmpVal+dist*0.5);
+                          bandSketch.spliceBand(indexOfDroppedPlace, quadBands[dragPredefinedBandIndex][4], quadBands[dragPredefinedBandIndex][5], tmpVal+(dist*0.25), tmpVal+(dist*0.375));
+                          bandSketch.spliceBand(indexOfDroppedPlace, quadBands[dragPredefinedBandIndex][2], quadBands[dragPredefinedBandIndex][3], tmpVal+(dist*0.125), tmpVal+(dist*0.25));
+                          bandSketch.spliceBand(indexOfDroppedPlace, quadBands[dragPredefinedBandIndex][0], quadBands[dragPredefinedBandIndex][1], tmpVal, tmpVal+(dist*0.125));
+
                             // band in the middle
-                            if(bandSketch.getBandLength() > indexOfDroppedPlace && indexOfDroppedPlace!=0){
+                            /*if(bandSketch.getBandLength() > indexOfDroppedPlace && indexOfDroppedPlace!=0){
 
                                 var newPos = bandSketch.getRefR2(indexOfDroppedPlace-1)-Math.abs(bandSketch.getRefR2(indexOfDroppedPlace-1)-bandSketch.getRefR1(indexOfDroppedPlace-1))/2;
                                 bandSketch.setRefR2(indexOfDroppedPlace-1,newPos);
@@ -375,7 +409,7 @@ function bandOnDrop(event){
                                 bandSketch.spliceBand(indexOfDroppedPlace, quadBands[dragPredefinedBandIndex][4], quadBands[dragPredefinedBandIndex][5], tmpVal+(dist*0.25), tmpVal+(dist*0.375));
                                 bandSketch.spliceBand(indexOfDroppedPlace, quadBands[dragPredefinedBandIndex][2], quadBands[dragPredefinedBandIndex][3], tmpVal+(dist*0.125), tmpVal+(dist*0.25));
                                 bandSketch.spliceBand(indexOfDroppedPlace, quadBands[dragPredefinedBandIndex][0], quadBands[dragPredefinedBandIndex][1], tmpVal, tmpVal+(dist*0.125));
-                            }
+                            }*/
                         }
                     }
 
