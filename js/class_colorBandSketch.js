@@ -290,6 +290,9 @@ class classBandSketch{
     switch (index) {
       case 0:
       if(this.colormapBandSketchR2[0]<=val){
+        alert("Value is bigger than neighboring reference! This is not allowed!");
+        break;
+
         var tmpDis = this.colormapBandSketchR2[0]-this.colormapBandSketchR1[0];
         this.colormapBandSketchR2[0] = val+tmpDis;
         if(this.colormapBandSketchC1.length>1)
@@ -321,6 +324,10 @@ class classBandSketch{
       break;*/
       default:
         if(this.colormapBandSketchR2[index]<=val){
+
+          alert("Value is bigger than neighboring reference! This is not allowed!");
+          break;
+
           var tmpDis = this.colormapBandSketchR2[index]-this.colormapBandSketchR1[index];
           this.colormapBandSketchR2[index] = val+tmpDis;
           if(this.colormapBandSketchC1.length>index+1)
@@ -334,6 +341,10 @@ class classBandSketch{
 
 
         if(this.colormapBandSketchR1[index-1]>=val){
+
+          alert("Value is smaller than neighboring reference! This is not allowed!");
+          break;
+
           var tmpDis = this.colormapBandSketchR2[index]-this.colormapBandSketchR1[index-1];
           this.colormapBandSketchR1[index-1] = val-tmpDis;
 
