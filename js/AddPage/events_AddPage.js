@@ -86,6 +86,18 @@ function expandAddColormapDivs (event){
       else
         document.getElementById("id_addDivergentDiv").style.display = "none";
       break;
+      case "id_expandComplexThreeDiv":
+        if(document.getElementById("id_addComplexThreeDiv").style.display === "none")
+          document.getElementById("id_addComplexThreeDiv").style.display = "inline-block";
+        else
+          document.getElementById("id_addComplexThreeDiv").style.display = "none";
+        break;
+        case "id_expandComplexFourDiv":
+          if(document.getElementById("id_addComplexFourDiv").style.display === "none")
+            document.getElementById("id_addComplexFourDiv").style.display = "inline-block";
+          else
+            document.getElementById("id_addComplexFourDiv").style.display = "none";
+          break;
     default:
 
   }
@@ -133,6 +145,18 @@ function expandAddColormapDivsIndex (index){
       else
         document.getElementById("id_addDivergentDiv").style.display = "none";
       break;
+      case 6:
+        if(document.getElementById("id_addComplexThreeDiv").style.display === "none")
+          document.getElementById("id_addComplexThreeDiv").style.display = "inline-block";
+        else
+          document.getElementById("id_addComplexThreeDiv").style.display = "none";
+        break;
+        case 7:
+          if(document.getElementById("id_addComplexFourDiv").style.display === "none")
+            document.getElementById("id_addComplexFourDiv").style.display = "inline-block";
+          else
+            document.getElementById("id_addComplexFourDiv").style.display = "none";
+          break;
     default:
 
   }
@@ -173,6 +197,12 @@ var colormapPath;
               case 5:
               colormapPath = pathColormaps+folderDivergent+fileDivergentColormaps[index];
                 break;
+                case 6:
+                colormapPath = pathColormaps+folderThreeBand+fileThreeBandColormaps[index];
+                  break;
+                  case 7:
+                  colormapPath = folderFourBand+folderDivergent+fileFourBandColormaps[index];
+                    break;
     default:
       return;
   }
@@ -399,6 +429,37 @@ function constructionExistingColormaps_AddPage(){
       }
     }
 
+    /// Three Band
+    document.getElementById("id_addComplexThreeDiv").innerHTML = "";
+
+    for(var i=0; i<fileThreeBandColormaps.length; i++){
+      var div = document.createElement("div");
+      div.className = "class_ColormapRow";
+      document.getElementById("id_addComplexThreeDiv").appendChild(div);
+      createNewColormapRow(6, i, div);
+
+      if(i+1<fileDivergentColormaps.length){
+        i++;
+        createNewColormapRow(6, i, div);
+      }
+    }
+
+    /// Four Band
+    document.getElementById("id_addComplexFourDiv").innerHTML = "";
+
+    for(var i=0; i<fileFourBandColormaps.length; i++){
+
+      var div = document.createElement("div");
+      div.className = "class_ColormapRow";
+      document.getElementById("id_addComplexFourDiv").appendChild(div);
+      createNewColormapRow(7, i, div);
+
+      if(i+1<fileDivergentColormaps.length){
+        i++;
+        createNewColormapRow(7, i, div);
+      }
+    }
+
 drawExistingColormaps_AddPage();
 }
 
@@ -469,6 +530,28 @@ function drawExistingColormaps_AddPage(){
 
     drawCanvasColormap(tmpId, existingMap_resolution_X,  existingMap_resolution_Y, colormap);
     tmpId="id_divNaN_"+5+"_"+i;
+    document.getElementById(tmpId).style.background = colormap.getNaNColor("rgb").getRGBString();
+  }
+
+  for(var i=0; i<fileThreeBandColormaps.length; i++){
+    var colormapPath = pathColormaps+folderThreeBand+fileThreeBandColormaps[i];
+
+    var colormap = xmlColormapParserPath(colormapPath);
+    var tmpId = "id_can_"+6+"_"+i;
+
+    drawCanvasColormap(tmpId, existingMap_resolution_X,  existingMap_resolution_Y, colormap);
+    tmpId="id_divNaN_"+6+"_"+i;
+    document.getElementById(tmpId).style.background = colormap.getNaNColor("rgb").getRGBString();
+  }
+
+  for(var i=0; i<fileFourBandColormaps.length; i++){
+    var colormapPath = pathColormaps+folderFourBand+fileFourBandColormaps[i];
+
+    var colormap = xmlColormapParserPath(colormapPath);
+    var tmpId = "id_can_"+7+"_"+i;
+
+    drawCanvasColormap(tmpId, existingMap_resolution_X,  existingMap_resolution_Y, colormap);
+    tmpId="id_divNaN_"+7+"_"+i;
     document.getElementById(tmpId).style.background = colormap.getNaNColor("rgb").getRGBString();
   }
 

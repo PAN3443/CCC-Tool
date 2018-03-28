@@ -139,7 +139,9 @@ class classColorMapSpecification {
             // twin/leftKey  or not
             if(this.positionPoints[i]==this.positionPoints[i+1]){
                 if(i+2>this.positionPoints.length-1){
+
                     alert("Error in Colormap -> twin key at the end of colormap is not possible");
+
                 }
                 else{
                     if(this.rgbColorArray[i+1].getRGBString()===this.rgbColorArray[i+2].getRGBString()){

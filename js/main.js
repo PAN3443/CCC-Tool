@@ -66,6 +66,14 @@ window.onload = function() {
   tmpMap  = xmlColormapParserPath(colormapPath);
   drawCanvasColormap("canvasPreviewDivergent", existingMap_resolution_X,  existingMap_resolution_Y, tmpMap);
 
+  colormapPath = pathColormaps+folderThreeBand+fileThreeBandColormaps[0];
+  tmpMap  = xmlColormapParserPath(colormapPath);
+  drawCanvasColormap("canvasPreviewComplexThree", existingMap_resolution_X,  existingMap_resolution_Y, tmpMap);
+
+  colormapPath = pathColormaps+folderFourBand+fileFourBandColormaps[0];
+  tmpMap  = xmlColormapParserPath(colormapPath);
+  drawCanvasColormap("canvasPreviewComplexFour", existingMap_resolution_X,  existingMap_resolution_Y, tmpMap);
+
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Edit Side /////////////////////////////////////
