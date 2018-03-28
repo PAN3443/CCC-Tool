@@ -96,18 +96,18 @@ window.onload = function() {
   document.getElementById('editSide_Radiobutton_SelectColor1').addEventListener("change", colorChange);
   document.getElementById('editSide_Radiobutton_SelectColor2').addEventListener("change", colorChange);
 
-  document.getElementById('id_editPageC1RInput').addEventListener("keyup", checkIntervalInputFieldsKey);
-    document.getElementById('id_editPageC1GInput').addEventListener("keyup", checkIntervalInputFieldsKey);
-      document.getElementById('id_editPageC1BInput').addEventListener("keyup", checkIntervalInputFieldsKey);
-        document.getElementById('id_editPageC2RInput').addEventListener("keyup", checkIntervalInputFieldsKey);
-          document.getElementById('id_editPageC2GInput').addEventListener("keyup", checkIntervalInputFieldsKey);
-            document.getElementById('id_editPageC2BInput').addEventListener("keyup", checkIntervalInputFieldsKey);
-              document.getElementById('id_editPageC1HInput').addEventListener("keyup", checkIntervalInputFieldsKey);
-                document.getElementById('id_editPageC2HInput').addEventListener("keyup", checkIntervalInputFieldsKey);
-                  document.getElementById('id_editPageC1SInput').addEventListener("keyup", checkIntervalInputFieldsKey);
-                    document.getElementById('id_editPageC1VInput').addEventListener("keyup", checkIntervalInputFieldsKey);
-                      document.getElementById('id_editPageC2SInput').addEventListener("keyup", checkIntervalInputFieldsKey);
-                        document.getElementById('id_editPageC2VInput').addEventListener("keyup", checkIntervalInputFieldsKey);
+  document.getElementById('id_editPageC1RInput').addEventListener("keyup", checkColorInputFieldsKey);
+    document.getElementById('id_editPageC1GInput').addEventListener("keyup", checkColorInputFieldsKey);
+      document.getElementById('id_editPageC1BInput').addEventListener("keyup", checkColorInputFieldsKey);
+        document.getElementById('id_editPageC2RInput').addEventListener("keyup", checkColorInputFieldsKey);
+          document.getElementById('id_editPageC2GInput').addEventListener("keyup", checkColorInputFieldsKey);
+            document.getElementById('id_editPageC2BInput').addEventListener("keyup", checkColorInputFieldsKey);
+              document.getElementById('id_editPageC1HInput').addEventListener("keyup", checkColorInputFieldsKey);
+                document.getElementById('id_editPageC2HInput').addEventListener("keyup", checkColorInputFieldsKey);
+                  document.getElementById('id_editPageC1SInput').addEventListener("keyup", checkColorInputFieldsKey);
+                    document.getElementById('id_editPageC1VInput').addEventListener("keyup", checkColorInputFieldsKey);
+                      document.getElementById('id_editPageC2SInput').addEventListener("keyup", checkColorInputFieldsKey);
+                        document.getElementById('id_editPageC2VInput').addEventListener("keyup", checkColorInputFieldsKey);
 
                         document.getElementById('id_editPageC1RInput').addEventListener("change", checkColorInputFieldsChange);
                           document.getElementById('id_editPageC1GInput').addEventListener("change", checkColorInputFieldsChange);
@@ -145,18 +145,18 @@ window.onload = function() {
   document.getElementById('bandCreator_Radiobutton_SelectColor1').addEventListener("change", colorChange);
   document.getElementById('bandCreator_Radiobutton_SelectColor2').addEventListener("change", colorChange);
 
-  document.getElementById('id_bandCreatorC1RInput').addEventListener("keyup", checkIntervalInputFieldsKey);
-    document.getElementById('id_bandCreatorC1GInput').addEventListener("keyup", checkIntervalInputFieldsKey);
-      document.getElementById('id_bandCreatorC1BInput').addEventListener("keyup", checkIntervalInputFieldsKey);
-        document.getElementById('id_bandCreatorC2RInput').addEventListener("keyup", checkIntervalInputFieldsKey);
-          document.getElementById('id_bandCreatorC2GInput').addEventListener("keyup", checkIntervalInputFieldsKey);
-            document.getElementById('id_bandCreatorC2BInput').addEventListener("keyup", checkIntervalInputFieldsKey);
-              document.getElementById('id_bandCreatorC1HInput').addEventListener("keyup", checkIntervalInputFieldsKey);
-                document.getElementById('id_bandCreatorC2HInput').addEventListener("keyup", checkIntervalInputFieldsKey);
-                  document.getElementById('id_bandCreatorC1SInput').addEventListener("keyup", checkIntervalInputFieldsKey);
-                    document.getElementById('id_bandCreatorC1VInput').addEventListener("keyup", checkIntervalInputFieldsKey);
-                      document.getElementById('id_bandCreatorC2SInput').addEventListener("keyup", checkIntervalInputFieldsKey);
-                        document.getElementById('id_bandCreatorC2VInput').addEventListener("keyup", checkIntervalInputFieldsKey);
+  document.getElementById('id_bandCreatorC1RInput').addEventListener("keyup", checkColorInputFieldsKey);
+    document.getElementById('id_bandCreatorC1GInput').addEventListener("keyup", checkColorInputFieldsKey);
+      document.getElementById('id_bandCreatorC1BInput').addEventListener("keyup", checkColorInputFieldsKey);
+        document.getElementById('id_bandCreatorC2RInput').addEventListener("keyup", checkColorInputFieldsKey);
+          document.getElementById('id_bandCreatorC2GInput').addEventListener("keyup", checkColorInputFieldsKey);
+            document.getElementById('id_bandCreatorC2BInput').addEventListener("keyup", checkColorInputFieldsKey);
+              document.getElementById('id_bandCreatorC1HInput').addEventListener("keyup", checkColorInputFieldsKey);
+                document.getElementById('id_bandCreatorC2HInput').addEventListener("keyup", checkColorInputFieldsKey);
+                  document.getElementById('id_bandCreatorC1SInput').addEventListener("keyup", checkColorInputFieldsKey);
+                    document.getElementById('id_bandCreatorC1VInput').addEventListener("keyup", checkColorInputFieldsKey);
+                      document.getElementById('id_bandCreatorC2SInput').addEventListener("keyup", checkColorInputFieldsKey);
+                        document.getElementById('id_bandCreatorC2VInput').addEventListener("keyup", checkColorInputFieldsKey);
 
                         document.getElementById('id_bandCreatorC1RInput').addEventListener("change", checkColorInputFieldsChange);
                           document.getElementById('id_bandCreatorC1GInput').addEventListener("change", checkColorInputFieldsChange);

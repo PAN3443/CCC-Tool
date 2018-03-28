@@ -660,9 +660,6 @@ function drawModifyPreview(){
 
     for(var x=0; x<bandWith; x++){
 
-      if(x==0){
-        console.log(i+" "+bandWith);
-      }
 
       var index = (currentPos+x) * 4;
       var tmpRatio = x/bandWith;
@@ -1336,6 +1333,7 @@ function checkColorInputFieldsKey(event){
     case "id_bandCreatorC2GInput":
     case "id_bandCreatorC2BInput":
         doSpace=1;
+
         checkInputVal(document.getElementById(event.target.id),true,false);
 
         if(parseFloat(document.getElementById(event.target.id).value)>255){
@@ -1352,6 +1350,7 @@ function checkColorInputFieldsKey(event){
     case "id_bandCreatorC1HInput":
     case "id_bandCreatorC2HInput":
     doSpace=2;
+
       checkInputVal(document.getElementById(event.target.id),true,false);
 
       if(parseFloat(document.getElementById(event.target.id).value)>360){
@@ -1372,6 +1371,7 @@ function checkColorInputFieldsKey(event){
     case "id_bandCreatorC2SInput":
     case "id_bandCreatorC2VInput":
       doSpace=2;
+
        checkInputVal(document.getElementById(event.target.id),true,false);
 
        if(parseFloat(document.getElementById(event.target.id).value)>100){
