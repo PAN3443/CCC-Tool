@@ -201,7 +201,7 @@ var colormapPath;
                 colormapPath = pathColormaps+folderThreeBand+fileThreeBandColormaps[index];
                   break;
                   case 7:
-                  colormapPath = folderFourBand+folderDivergent+fileFourBandColormaps[index];
+                  colormapPath = pathColormaps+folderFourBand+fileFourBandColormaps[index];
                     break;
     default:
       return;

@@ -1,6 +1,25 @@
 <ColorMaps>
 	<ColorMap space="Lab" indexedLookup="false" group="Interlinked" name="Red Purple 1 / Yellow Orange 8 / Blue 5 / Blue 3">
 		<Point x="0" o="1" r="0.278431" g="0.039216" b="0.117647"/>
+		<Point x="0.075" o="1" r="0.6" g="0.133333" b="0.188235"/>
+		<Point x="0.15" o="1" r="0.878431" g="0.403922" b="0.309804"/>
+		<Point x="0.25" o="1" r="0.968627" g="0.92549" b="0.745098"/>
+		<Point x="0.25" o="1" r="0.988235" g="0.976471" b="0.909804"/>
+		<Point x="0.30" o="1" r="0.929412" g="0.894118" b="0.556863"/>
+		<Point x="0.5" o="1" r="0.301961" g="0.266667" b="0.239216"/>
+		<Point x="0.5" o="1" r="0.23921568627450981" g="0.2549019607843137" b="0.33725490196078434"/>
+		<Point x="0.60" o="1" r="0.40784313725490196" g="0.6745098039215687" b="0.7176470588235294"/>
+		<Point x="0.70" o="1" r="0.7843137254901961" g="0.9647058823529412" b="0.8980392156862745"/>
+		<Point x="0.75" o="1" r="0.94902" g="1" b="0.980392"/>
+		<Point x="0.75" o="1" r="0.8" g="1" b="0.984314"/>
+		<Point x="0.8" o="1" r="0.4" g="0.776471" b="0.870588"/>
+		<Point x="0.90" o="1" r="0.086275" g="0.313725" b="0.729412"/>
+		<Point x="1" o="1" r="0.129412" g="0.058824" b="0.301961"/>
+	</ColorMap>
+</ColorMaps>
+<!--ColorMaps>
+	<ColorMap space="Lab" indexedLookup="false" group="Interlinked" name="Red Purple 1 / Yellow Orange 8 / Blue 5 / Blue 3">
+		<Point x="0" o="1" r="0.278431" g="0.039216" b="0.117647"/>
 		<Point x="0.012534940242767356" o="1" r="0.341176" g="0.05098" b="0.137255"/>
 		<Point x="0.025069880485534657" o="1" r="0.419608" g="0.066667" b="0.160784"/>
 		<Point x="0.03760482072830201" o="1" r="0.439216" g="0.078431" b="0.164706"/>
@@ -78,4 +97,4 @@
 		<Section colorMapName="Blue 5" startIndex="3" endIndex="4" startPos="0.4991264743148349" endPos="0.7554157972335815" startValue="-0.059304700746898614" endValue="1" flipped="true" startAlpha="1" endAlpha="1"/>
 		<Section colorMapName="Blue 3" startIndex="4" endIndex="1" startPos="0.7554157972335815" endPos="1" startValue="0" endValue="1" flipped="false" startAlpha="1" endAlpha="1"/>
 	</ColorMap>
-</ColorMaps>
+</ColorMaps-->

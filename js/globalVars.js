@@ -314,12 +314,16 @@ var constBands = [   new classColor_RGB(0,0,0),
 var scaleBands = [
                   [ new classColor_RGB(1,1,1), new classColor_RGB(0, 0, 0)], // FROM HERE Constant
                   [ new classColor_RGB(1,1,1), new classColor_RGB(172/255, 148/255, 126/255)],
+                  [ new classColor_RGB(247/255, 248/255, 190/255), new classColor_RGB(231/255, 143/255, 47/255)],
                   [ new classColor_RGB(1,1,1), new classColor_RGB(205/255, 90/255, 25/255)],
                   [ new classColor_RGB(253/255,112/255,71/255), new classColor_RGB(0, 0, 0)],
+                  [ new classColor_RGB(252/255, 190/255, 134/255), new classColor_RGB(97/255, 0/255, 29/255)],
                   [ new classColor_RGB(95/255,198/255,116/255), new classColor_RGB(0, 0, 0)],
-                  [ new classColor_RGB(70/255,116/255,229/255), new classColor_RGB(0, 0, 0)],
                   [ new classColor_RGB(1,1,1), new classColor_RGB(42/255, 93/255, 43/255)],
-                  [ new classColor_RGB(1,1,1), new classColor_RGB(44/255, 72/255, 143/255)]
+                  [ new classColor_RGB(171/255, 246/255, 134/255), new classColor_RGB(0, 64/255, 22/255)],
+                  [ new classColor_RGB(70/255,116/255,229/255), new classColor_RGB(0, 0, 0)],
+                  [ new classColor_RGB(1,1,1), new classColor_RGB(44/255, 72/255, 143/255)],
+                  [ new classColor_RGB(36/255, 244/255, 252/255), new classColor_RGB(3/255, 34/255, 136/255)]
                 ];
 
                 bandIndex = scaleBands.length-1;
