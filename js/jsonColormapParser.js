@@ -2,54 +2,57 @@ function jsonColormapParserFile(jsonString){
 
       var jsonObj = JSON.parse(jsonString);
 
-        var name = jsonObj.colormaps[0].name;
-        var space = jsonObj.colormaps[0].space;
-        var saveIntervals = false;
+        var name = jsonObj[0].Name;
+        var space = "";//jsonObj[0].ColorSpace;
+
+        if(jsonObj[0].RGBPoints!=undefined){
+          space = "rgb";
+        }
+        if(jsonObj[0].HSVPoints!=undefined){
+          space = "hsv";
+        }
+        if(jsonObj[0].LabPoints!=undefined){
+          space = "lab";
+        }
+        if(jsonObj[0].DIN99Points!=undefined){
+          space = "din99";
+        }
+
         var tmpColorMap = new classColorMapSpecification();
         var xValues = [];
         var tmpColors = [];
         var isrgb255 = false;
         var askInterval = false;
         var saveIntervals = false;
-
-        if(jsonObj.colormaps[0].points.length==0)return;
-        ///////////////////////////////////////////// check if saved colors like the space
-
-       switch (space) {
-          case "RGB": case "rgb": case "Rgb":
-                if(jsonObj.colormaps[0].points[0].r == "undefined" || jsonObj.colormaps[0].points[0].g == "undefined" || jsonObj.colormaps[0].points[0].b == "undefined"){
-                    space = checkJSONColorspace(jsonObj);
-                }
-            break;
-          case "HSV": case "hsv": case "Hsv":
-                if(jsonObj.colormaps[0].points[0].h == "undefined" || jsonObj.colormaps[0].points[0].s == "undefined" || jsonObj.colormaps[0].points[0].v == "undefined"){
-                    space = checkJSONColorspace(jsonObj);
-                }
-            break;
-           case "LAB": case "lab": case "Lab":
-                 if(jsonObj.colormaps[0].points[0].l == "undefined" || jsonObj.colormaps[0].points[0].a== "undefined" || jsonObj.colormaps[0].points[0].b == "undefined"){
-                     space = checkJSONColorspace(jsonObj);
-                 }
-            break;
-          case "DIN99": case "din99": case "Din99":
-                if(jsonObj.colormaps[0].points[0].r == "undefined" || jsonObj.colormaps[0].points[0].g == "undefined" || jsonObj.colormaps[0].points[0].b == "undefined"){
-                    space = checkJSONColorspace(jsonObj);
-                }
-            break;
-          default:
-                  space = checkJSONColorspace(jsonObj);
+        var hasKeyInfo = false;
+        if(jsonObj[0].isCMS != undefined){
+          hasKeyInfo = true;
         }
 
-      if(space==="NoSpace")return;
-        ////////////////////////////////////////////
+
+        var hasNaNColor = false;
+        if(jsonObj[0].NanColor != undefined){
+          hasNaNColor = true;
+        }
+
+
+
+
+      if(space==undefined)return;
+      ////////////////////////////////////////////
+
+
         switch (space) {
           case "RGB": case "rgb": case "Rgb":
 
-                for (var i = 0; i <jsonObj.colormaps[0].points.length; i++)
+
+                if(jsonObj[0].RGBPoints.length==0)return;
+
+                for(var i =0; i<jsonObj[0].RGBPoints.length/4; i++)
                 {
-                    var r = parseFloat(jsonObj.colormaps[0].points[i].r);
-                    var g = parseFloat(jsonObj.colormaps[0].points[i].g);
-                    var b = parseFloat(jsonObj.colormaps[0].points[i].b);
+                    var r = parseFloat(jsonObj[0].RGBPoints[i*4+1]);
+                    var g = parseFloat(jsonObj[0].RGBPoints[i*4+2]);
+                    var b = parseFloat(jsonObj[0].RGBPoints[i*4+3]);
 
                     if(r>1.0 || g>1.0 || b>1.0){
                         isrgb255=true;
@@ -58,10 +61,12 @@ function jsonColormapParserFile(jsonString){
 
                 }
 
-                for(var i =0; i<jsonObj.colormaps[0].points.length; i++){
+                for(var i =0; i<jsonObj[0].RGBPoints.length/4; i++){
 
                   var saveAttribute = true;
-                  if(jsonObj.colormaps[0].points[i].cms=="false"){
+
+                  if(hasKeyInfo)
+                  if(jsonObj[0].isCMS[i]==false){
                       saveAttribute=false;
                       /*if(askInterval){
                           saveAttribute=saveIntervals;
@@ -79,10 +84,10 @@ function jsonColormapParserFile(jsonString){
                   }
 
                   if(saveAttribute){
-                      var x = parseFloat(jsonObj.colormaps[0].points[i].x);
-                      var r = parseFloat(jsonObj.colormaps[0].points[i].r);
-                      var g = parseFloat(jsonObj.colormaps[0].points[i].g);
-                      var b = parseFloat(jsonObj.colormaps[0].points[i].b);
+                      var x = parseFloat(jsonObj[0].RGBPoints[i*4]);
+                      var r = parseFloat(jsonObj[0].RGBPoints[i*4+1]);
+                      var g = parseFloat(jsonObj[0].RGBPoints[i*4+2]);
+                      var b = parseFloat(jsonObj[0].RGBPoints[i*4+3]);
                       //console.log("x="+x+",r="+x+",g="+g+",b="+b);
 
                       if(isrgb255){
@@ -100,16 +105,23 @@ function jsonColormapParserFile(jsonString){
                 tmpColorMap.createKeys();
                 tmpColorMap.calcBands();
 
+                if(hasNaNColor){
+                  var tmpColor = new classColor_RGB(jsonObj[0].NanColor[0],jsonObj[0].NanColor[1],jsonObj[0].NanColor[2]);
+                  tmpColorMap.setNaNColor(tmpColor);
+                }
+
                 return tmpColorMap;
           case "HSV": case "hsv": case "Hsv":
 
 
-            for(var i =0; i<jsonObj.colormaps[0].points.length; i++){
+            for(var i =0; i<jsonObj[0].HSVPoints.length/4; i++){
 
               var saveAttribute = true;
-              if(jsonObj.colormaps[0].points[i].cms=="false"){
 
-                  if(askInterval){
+                if(hasKeyInfo)
+                if(jsonObj[0].isCMS[i]==false){
+                  saveAttribute=false;
+                  /*if(askInterval){
                       saveAttribute=saveIntervals;
                   }
                   else{
@@ -120,16 +132,16 @@ function jsonColormapParserFile(jsonString){
                       saveAttribute=false;
                     }
                     askInterval=true;
-                  }
+                  }*/
 
               }
 
                 if(saveAttribute){
-                    var x = parseFloat(jsonObj.colormaps[0].points[i].x);
-                    var h = parseFloat(jsonObj.colormaps[0].points[i].h);
-                    var s = parseFloat(jsonObj.colormaps[0].points[i].s);
-                    var v = parseFloat(jsonObj.colormaps[0].points[i].v);
 
+                    var x = parseFloat(jsonObj[0].HSVPoints[i*4]);
+                    var h = parseFloat(jsonObj[0].HSVPoints[i*4+1]);
+                    var s = parseFloat(jsonObj[0].HSVPoints[i*4+2]);
+                    var v = parseFloat(jsonObj[0].HSVPoints[i*4+3]);
 
                     var tmpColor = new classColor_HSV(h,s,v);
                     tmpColorMap.pushPositionPoints(x);
@@ -140,16 +152,22 @@ function jsonColormapParserFile(jsonString){
             tmpColorMap.createKeys();
             tmpColorMap.calcBands();
 
+            if(hasNaNColor){
+              var tmpColor = new classColor_HSV(jsonObj[0].NanColor[0],jsonObj[0].NanColor[1],jsonObj[0].NanColor[2]);
+              tmpColorMap.setNaNColor(tmpColor);
+            }
+
             return tmpColorMap;
 
         case "LAB": case "lab": case "Lab":
 
-           for(var i =0; i<jsonObj.colormaps[0].points.length; i++){
+           for(var i =0; i<jsonObj[0].LabPoints.length/4; i++){
 
              var saveAttribute = true;
-             if(jsonObj.colormaps[0].points[i].cms=="false"){
-
-                 if(askInterval){
+             if(hasKeyInfo)
+             if(jsonObj[0].isCMS[i]==false){
+                saveAttribute=false;
+                 /*if(askInterval){
                      saveAttribute=saveIntervals;
                  }
                  else{
@@ -160,18 +178,17 @@ function jsonColormapParserFile(jsonString){
                      saveAttribute=false;
                    }
                    askInterval=true;
-                 }
+                 }*/
 
              }
 
              if(saveAttribute){
-                 var x = parseFloat(jsonObj.colormaps[0].points[i].x);
-                 var l = parseFloat(jsonObj.colormaps[0].points[i].l);
-                 var a = parseFloat(jsonObj.colormaps[0].points[i].a);
-                 var b = parseFloat(jsonObj.colormaps[0].points[i].b);
+                 var x = parseFloat(jsonObj[0].LabPoints[i*4]);
+                 var l = parseFloat(jsonObj[0].LabPoints[i*4+1]);
+                 var a = parseFloat(jsonObj[0].LabPoints[i*4+2]);
+                 var b = parseFloat(jsonObj[0].LabPoints[i*4+3]);
 
-
-                 var tmpColor = new classColorCIELab(l,a,b);
+                 var tmpColor = new classColor_LAB(l,a,b);
                  tmpColorMap.pushPositionPoints(x);
                  tmpColorMap.pushCIELabColor(tmpColor);
              }
@@ -180,15 +197,21 @@ function jsonColormapParserFile(jsonString){
            tmpColorMap.createKeys();
            tmpColorMap.calcBands();
 
+           if(hasNaNColor){
+             var tmpColor = new classColor_LAB(jsonObj[0].NanColor[0],jsonObj[0].NanColor[1],jsonObj[0].NanColor[2]);
+             tmpColorMap.setNaNColor(tmpColor);
+           }
+
             return tmpColorMap;
           case "DIN99": case "din99": case "Din99":
 
-          for(var i =0; i<jsonObj.colormaps[0].points.length; i++){
+          for(var i =0; i<jsonObj[0].DIN99Points.length/4; i++){
 
             var saveAttribute = true;
-            if(jsonObj.colormaps[0].points[i].cms=="false"){
-
-                if(askInterval){
+            if(hasKeyInfo)
+            if(jsonObj[0].isCMS[i]==false){
+                saveAttribute=false;
+                /*if(askInterval){
                     saveAttribute=saveIntervals;
                 }
                 else{
@@ -199,15 +222,15 @@ function jsonColormapParserFile(jsonString){
                     saveAttribute=false;
                   }
                   askInterval=true;
-                }
+                }*/
 
             }
 
             if(saveAttribute){
-                var x = parseFloat(jsonObj.colormaps[0].points[i].x);
-                var l99 = parseFloat(jsonObj.colormaps[0].points[i].l99);
-                var a99 = parseFloat(jsonObj.colormaps[0].points[i].a99);
-                var b99 = parseFloat(jsonObj.colormaps[0].points[i].b99);
+                var x = parseFloat(jsonObj[0].DIN99Points[i*4]);
+                var l99 = parseFloat(jsonObj[0].DIN99Points[i*4+1]);
+                var a99 = parseFloat(jsonObj[0].DIN99Points[i*4+2]);
+                var b99 = parseFloat(jsonObj[0].DIN99Points[i*4+3]);
 
 
                 var tmpColor = new classColorDIN99(l99,a99,b99);
@@ -219,6 +242,11 @@ function jsonColormapParserFile(jsonString){
           tmpColorMap.createKeys();
           tmpColorMap.calcBands();
 
+          if(hasNaNColor){
+            var tmpColor = new classColorDIN99(jsonObj[0].NanColor[0],jsonObj[0].NanColor[1],jsonObj[0].NanColor[2]);
+            tmpColorMap.setNaNColor(tmpColor);
+          }
+
            return tmpColorMap;
           default:
 
@@ -227,24 +255,24 @@ function jsonColormapParserFile(jsonString){
 }
 
 
-function checkJSONColorspace(jsonObj){
+/*function checkJSONColorspace(jsonObj){
 
-    if(jsonObj.colormaps[0].points[0].r != "undefined" && jsonObj.colormaps[0].points[0].g != "undefined" && jsonObj.colormaps[0].points[0].b != "undefined"){
+    if(jsonObj[0].points[0].r != "undefined" && jsonObj[0].points[0].g != "undefined" && jsonObj[0].points[0].b != "undefined"){
         return "RGB";
     }
 
-    if(jsonObj.colormaps[0].points[0].h != "undefined" && jsonObj.colormaps[0].points[0].s != "undefined" && jsonObj.colormaps[0].points[0].v != "undefined"){
+    if(jsonObj[0].points[0].h != "undefined" && jsonObj[0].points[0].s != "undefined" && jsonObj[0].points[0].v != "undefined"){
         return "HSV";
     }
 
-    if(jsonObj.colormaps[0].points[0].l != "undefined" && jsonObj.colormaps[0].points[0].a != "undefined" && jsonObj.colormaps[0].points[0].b != "undefined"){
+    if(jsonObj[0].points[0].l != "undefined" && jsonObj[0].points[0].a != "undefined" && jsonObj[0].points[0].b != "undefined"){
         return "LAB";
     }
 
-    if(jsonObj.colormaps[0].points[0].l99 != "undefined" && jsonObj.colormaps[0].points[0].a99 != "undefined" && jsonObj.colormaps[0].points[0].b99 != "undefined"){
+    if(jsonObj[0].points[0].l99 != "undefined" && jsonObj[0].points[0].a99 != "undefined" && jsonObj[0].points[0].b99 != "undefined"){
         return "DIN99";
     }
 
     return "NoSpace";
 
-}
+}*/

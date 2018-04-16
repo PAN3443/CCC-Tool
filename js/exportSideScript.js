@@ -291,6 +291,29 @@ function exportSide_createXML(){
 
     }
 
+    switch(exportColorspace) {
+            case "rgb":
+                var tmpColor = globalColormap1.getNaNColor(exportColorspace);
+                xmltxt=xmltxt+"<NaN r=\""+tmpColor.getRValue()+"\" g=\""+tmpColor.getGValue()+"\" b=\""+tmpColor.getBValue()+"\"/>\n";
+                break;
+            case "hsv":
+                var tmpColor = globalColormap1.getNaNColor(exportColorspace);
+                xmltxt=xmltxt+"<NaN h=\""+tmpColor.getHValue()+"\" s=\""+tmpColor.getSValue()+"\" v=\""+tmpColor.getVValue()+"\"/>\n";
+                break;
+            case "lab":
+                var tmpColor = globalColormap1.getNaNColor(exportColorspace);
+                xmltxt=xmltxt+"<NaN l=\""+tmpColor.getLValue()+"\" a=\""+tmpColor.getAValue()+"\" b=\""+tmpColor.getBValue()+"\"/>\n";
+                break;
+            case "din99":
+                var tmpColor = globalColormap1.getNaNColor(exportColorspace);
+                  xmltxt=xmltxt+"<NaN l99=\""+tmpColor.getL99Value()+"\" a99=\""+tmpColor.getA99Value()+"\" b99=\""+tmpColor.getB99Value()+"\"/>\n";
+                break;
+            default:
+                return;
+    }
+
+
+
     xmltxt=xmltxt+"</ColorMap>\n</ColorMaps>";
     return xmltxt;
 }
@@ -360,9 +383,9 @@ function exportSide_createJSON(){
     intervalSize = parseFloat(document.getElementById("id_InputIntervalExport").value);
     var intervalColormap = globalColormap1.calcColorMap(intervalSize, colorspaceModus);
 
-    var jsontxt = "{\"colormaps\":[{\"name\":\""+globalColormap1.getColormapName()+"\",\"space\":";
+    var jsontxt = "[\n\t{\n\t\t\"ColorSpace\" : ";
 
-    switch(exportColorspace) {
+    switch(colorspaceModus) {
             case "rgb":
                 jsontxt = jsontxt+"\"RGB\"";
                 break;
@@ -379,43 +402,86 @@ function exportSide_createJSON(){
                 return;
     }
 
-    jsontxt = jsontxt+",\"points\":[";
+
+
+    jsontxt = jsontxt+",\n\t\t\"Creator\" : \"CCC-Tool\",\n\t\t\"Name\" : \""+globalColormap1.getColormapName()+"\",\n\t\t\"NanColor\" : [";
+
+    switch(exportColorspace) {
+            case "rgb":
+                var tmpColor = globalColormap1.getNaNColor(exportColorspace);
+                jsontxt = jsontxt+ tmpColor.get1Value() +","+tmpColor.get2Value()+","+tmpColor.get3Value()+"],\n\t\t\"RGBPoints\" : [";
+                break;
+            case "hsv":
+                var tmpColor = globalColormap1.getNaNColor(exportColorspace);
+                jsontxt = jsontxt+tmpColor.get1Value() +","+tmpColor.get2Value()+","+tmpColor.get3Value()+"],\n\t\t\"HSVPoints\" : [";
+                break;
+            case "lab":
+                var tmpColor = globalColormap1.getNaNColor(exportColorspace);
+                jsontxt = jsontxt+tmpColor.get1Value() +","+tmpColor.get2Value()+","+tmpColor.get3Value()+"],\n\t\t\"LabPoints\" : [";
+                break;
+            case "din99":
+                var tmpColor = globalColormap1.getNaNColor(exportColorspace);
+                jsontxt = jsontxt+tmpColor.get1Value() +","+tmpColor.get2Value()+","+tmpColor.get3Value()+"],\n\t\t\"DIN99Points\" : [";
+                break;
+            default:
+                return;
+    }
+
+
+    var colorTxt ="";
+    var isCMSTxt ="\n\t\t],\n\t\t\"isCMS\" : [";
+    var isMoTTxt="\n\t\t],\n\t\t\"isMoT\" : [";
 
     for(var i = 0; i<intervalColormap.getColormapLength(); i++){
 
-      var tmpKey = intervalColormap.getType(i);
       var tmpColor = intervalColormap.getColor(i, exportColorspace);
+      var tmpKey = intervalColormap.getType(i);
 
-        var isCMS="true";
+        var isCMS=true;
          if(tmpKey=="interval"){
-           isCMS="false";
+           isCMS=false;
          }
 
-        jsontxt=jsontxt+"{\"x\":\""+intervalColormap.getRef(i)+"\",\"o\":\"1\",";
+         var isMoT=false;
+          /*if(tmpKey=="interval"){
+            isCMS=false;
+          }*/
+
+
+        isCMSTxt=isCMSTxt+"\n\t\t\t"+isCMS;
+
+        isMoTTxt=isMoTTxt+"\n\t\t\t"+isMoT;
+
+        colorTxt=colorTxt+"\n\t\t\t"+intervalColormap.getRef(i)+",";
+
         // 1. key i=0
         //console.log(bandObj.getRef(i));
          switch(exportColorspace) {
             case "rgb":
-                jsontxt=jsontxt+"\"r\":\""+tmpColor.getRValue()+"\",\"g\":\""+tmpColor.getGValue()+"\",\"b\":\""+tmpColor.getBValue()+"\",\"cms\":\""+isCMS+"\"}";
+                colorTxt=colorTxt+"\n\t\t\t"+tmpColor.getRValue()+",\n\t\t\t"+tmpColor.getGValue()+",\n\t\t\t"+tmpColor.getBValue();
                 break;
             case "hsv":
-                jsontxt=jsontxt+"\"h\":\""+tmpColor.getHValue()+"\",\"s\":\""+tmpColor.getSValue()+"\",\"v\":\""+tmpColor.getVValue()+"\",\"cms\":\""+isCMS+"\"}";
+                colorTxt=colorTxt+"\n\t\t\t"+tmpColor.getHValue()+",\n\t\t\t"+tmpColor.getSValue()+",\n\t\t\t"+tmpColor.getVValue();
                 break;
             case "lab":
-                jsontxt=jsontxt+"\"l\":\""+tmpColor.getLValue()+"\",\"a\":\""+tmpColor.getAValue()+"\",\"b\":\""+tmpColor.getBValue()+"\",\"cms\":\""+isCMS+"\"}";
+                colorTxt=colorTxt+"\n\t\t\t"+tmpColor.getLValue()+",\n\t\t\t"+tmpColor.getAValue()+",\n\t\t\t"+tmpColor.getBValue();
                 break;
             case "din99":
-                jsontxt=jsontxt+"\"l99\":\""+tmpColor.getL99Value()+"\",\"a99\":\""+tmpColor.getA99Value()+"\",\"b99\":\""+tmpColor.getB99Value()+"\",\"cms\":\""+isCMS+"\"}";
+                colorTxt=colorTxt+"\n\t\t\t"+tmpColor.getL99Value()+",\n\t\t\t"+tmpColor.getA99Value()+",\n\t\t\t"+tmpColor.getB99Value();
                 break;
             default:
                 return;
         }
 
         if(i != intervalColormap.getColormapLength()-1){
-          jsontxt=jsontxt+",";
+          colorTxt=colorTxt+",";
+          isCMSTxt=isCMSTxt+",";
+          isMoTTxt=isMoTTxt+",";
         }
     }
 
-    jsontxt=jsontxt+"]}]}";
+
+    jsontxt=jsontxt+colorTxt+isCMSTxt+isMoTTxt+"\n\t\t]\n\t}\n]";
+
     return jsontxt;
 }
