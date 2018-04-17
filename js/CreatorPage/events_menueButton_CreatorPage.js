@@ -95,40 +95,42 @@ function createPage_showHelp(){
   document.getElementById("createSide_colorspaceHelp").style.top= top+"px";
 
   // Add band buttons
-  workrect = document.getElementById("button_AddConstantBand").getBoundingClientRect();
-  top = (workrect.top+workrect.height) + scrollTop - clientTop;
-  left = workrect.left + scrollLeft - clientLeft;
-  document.getElementById("createSide_add1Help").style.display="inline-block";
-  document.getElementById("createSide_add1Help").style.left= left+"px";
-  document.getElementById("createSide_add1Help").style.top= top+"px";
+  if(document.getElementById("id_DivAddBands").style.display!="none"){
+    workrect = document.getElementById("button_AddConstantBand").getBoundingClientRect();
+    top = (workrect.top+workrect.height) + scrollTop - clientTop;
+    left = workrect.left + scrollLeft - clientLeft;
+    document.getElementById("createSide_add1Help").style.display="inline-block";
+    document.getElementById("createSide_add1Help").style.left= left+"px";
+    document.getElementById("createSide_add1Help").style.top= top+"px";
 
-  workrect = document.getElementById("button_AddScaleBand").getBoundingClientRect();
-  top = (workrect.top+workrect.height) + scrollTop - clientTop;
-  left = workrect.left + scrollLeft - clientLeft;
-  document.getElementById("createSide_add2Help").style.display="inline-block";
-  document.getElementById("createSide_add2Help").style.left= left+"px";
-  document.getElementById("createSide_add2Help").style.top= top+"px";
+    workrect = document.getElementById("button_AddScaleBand").getBoundingClientRect();
+    top = (workrect.top+workrect.height) + scrollTop - clientTop;
+    left = workrect.left + scrollLeft - clientLeft;
+    document.getElementById("createSide_add2Help").style.display="inline-block";
+    document.getElementById("createSide_add2Help").style.left= left+"px";
+    document.getElementById("createSide_add2Help").style.top= top+"px";
 
-  workrect = document.getElementById("button_AddDoubleBands").getBoundingClientRect();
-  top = (workrect.top+workrect.height) + scrollTop - clientTop;
-  left = workrect.left + scrollLeft - clientLeft;
-  document.getElementById("createSide_add3Help").style.display="inline-block";
-  document.getElementById("createSide_add3Help").style.left= left+"px";
-  document.getElementById("createSide_add3Help").style.top= top+"px";
+    workrect = document.getElementById("button_AddDoubleBands").getBoundingClientRect();
+    top = (workrect.top+workrect.height) + scrollTop - clientTop;
+    left = workrect.left + scrollLeft - clientLeft;
+    document.getElementById("createSide_add3Help").style.display="inline-block";
+    document.getElementById("createSide_add3Help").style.left= left+"px";
+    document.getElementById("createSide_add3Help").style.top= top+"px";
 
-  workrect = document.getElementById("button_AddTripleBands").getBoundingClientRect();
-  top = (workrect.top+workrect.height) + scrollTop - clientTop;
-  left = workrect.left + scrollLeft - clientLeft;
-  document.getElementById("createSide_add4Help").style.display="inline-block";
-  document.getElementById("createSide_add4Help").style.left= left+"px";
-  document.getElementById("createSide_add4Help").style.top= top+"px";
+    workrect = document.getElementById("button_AddTripleBands").getBoundingClientRect();
+    top = (workrect.top+workrect.height) + scrollTop - clientTop;
+    left = workrect.left + scrollLeft - clientLeft;
+    document.getElementById("createSide_add4Help").style.display="inline-block";
+    document.getElementById("createSide_add4Help").style.left= left+"px";
+    document.getElementById("createSide_add4Help").style.top= top+"px";
 
-  workrect = document.getElementById("button_AddQuadrupleBands").getBoundingClientRect();
-  top = (workrect.top+workrect.height) + scrollTop - clientTop;
-  left = workrect.left + scrollLeft - clientLeft;
-  document.getElementById("createSide_add5Help").style.display="inline-block";
-  document.getElementById("createSide_add5Help").style.left= left+"px";
-  document.getElementById("createSide_add5Help").style.top= top+"px";
+    workrect = document.getElementById("button_AddQuadrupleBands").getBoundingClientRect();
+    top = (workrect.top+workrect.height) + scrollTop - clientTop;
+    left = workrect.left + scrollLeft - clientLeft;
+    document.getElementById("createSide_add5Help").style.display="inline-block";
+    document.getElementById("createSide_add5Help").style.left= left+"px";
+    document.getElementById("createSide_add5Help").style.top= top+"px";
+  }
 
 
 
@@ -139,8 +141,8 @@ function createPage_showHelp(){
 
     if(tableIsExpand==false){
       workrect = document.getElementById("id_expandTablebutton").getBoundingClientRect();
-      top = (workrect.top+(workrect.height/2)) + scrollTop - clientTop;
-      left = workrect.left+workrect.width + scrollLeft - clientLeft;
+      top = (workrect.top+workrect.height) + scrollTop - clientTop;
+      left = workrect.left+scrollLeft - clientLeft;
       document.getElementById("createSide_expandtableHelp").style.display="inline-block";
       document.getElementById("createSide_expandtableHelp").style.left= left+"px";
       document.getElementById("createSide_expandtableHelp").style.top= top+"px";

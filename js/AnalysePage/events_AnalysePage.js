@@ -398,9 +398,9 @@ function calcOrderPlot(intervalColormap, plotid, type, minId, minGlobalId){
       var plotHeight = canvasPlot.height*0.9;
       var plotyStart = (canvasPlot.height-plotHeight)/2;
 
-      var arrowHeight = canvasPlot.height*0.025;
-      var arrowWidth = canvasPlot.width*0.0125;
-      var labelFontSize = canvasPlot.height*0.02;
+      var arrowHeight = canvasPlot.height*0.05;
+      var arrowWidth = canvasPlot.width*0.025;
+      var labelFontSize = canvasPlot.height*0.04;
       var labelYStart = (((canvasPlot.height-plotHeight)/2)-(arrowHeight/2)-labelFontSize)/2+labelFontSize;
 
       var arrowPlotHeight = (plotHeight*0.95)/2;
@@ -412,9 +412,9 @@ function calcOrderPlot(intervalColormap, plotid, type, minId, minGlobalId){
 
           //////////////////////////////////////////////////////////////////////
           //// Arrow 1
-          canvasCtx.strokeStyle = "rgb(0,0,0)";
+          canvasCtx.strokeStyle = "rgb(255,127,80)";
           canvasCtx.beginPath();
-          canvasCtx.lineWidth=2;
+          canvasCtx.lineWidth=10;
           canvasCtx.moveTo(colormapXStart, colormapYStart);
           canvasCtx.lineTo(colormapXStart, plotyStart);
           canvasCtx.stroke();
@@ -427,20 +427,20 @@ function calcOrderPlot(intervalColormap, plotid, type, minId, minGlobalId){
           canvasCtx.closePath();
 
           // the fill color
-          canvasCtx.fillStyle = "rgb(0,0,0)";
+          canvasCtx.fillStyle = "rgb(255,127,80)";
           canvasCtx.fill();
 
-          canvasCtx.font = labelFontSize+"px Arial";
+          /*canvasCtx.font = labelFontSize+"px Arial";
           canvasCtx.fillText("|local Order|",colormapXStart+arrowWidth,labelYStart);
           var width = canvasCtx.measureText("|local Order|").width;
           var height = canvasCtx.measureText("|local Order|").height;
           canvasCtx.fillStyle = "rgb(1,1,1)";
-          canvasCtx.fillRect(colormapXStart+arrowWidth,labelYStart, width, height);
+          canvasCtx.fillRect(colormapXStart+arrowWidth,labelYStart, width, height);*/
           //////////////////////////////////////////////////////////////////////
           //// Arrow 2
-          canvasCtx.strokeStyle = "rgb(0,0,0)";
+          canvasCtx.strokeStyle = "rgb(30,144,255)";
           canvasCtx.beginPath();
-          canvasCtx.lineWidth=2;
+          canvasCtx.lineWidth=10;
           canvasCtx.moveTo(colormapXStart, colormapYEnd);
           canvasCtx.lineTo(colormapXStart, plotyStart+plotHeight);
           canvasCtx.stroke();
@@ -453,19 +453,19 @@ function calcOrderPlot(intervalColormap, plotid, type, minId, minGlobalId){
           canvasCtx.closePath();
 
           // the fill color
-          canvasCtx.fillStyle = "rgb(0,0,0)";
+          canvasCtx.fillStyle = "rgb(30,144,255)";
           canvasCtx.fill();
 
-          canvasCtx.font = labelFontSize+"px Arial";
+          /*canvasCtx.font = labelFontSize+"px Arial";
           canvasCtx.fillText("negative global Order",colormapXStart+arrowWidth,canvasPlot.height-labelYStart);
           var width = canvasCtx.measureText("negative global Order").width;
           var height = canvasCtx.measureText("negative global Order").height;
           canvasCtx.fillStyle = "rgb(1,1,1)";
-          canvasCtx.fillRect(colormapXStart+arrowWidth,canvasPlot.height-labelYStart, width, height);
+          canvasCtx.fillRect(colormapXStart+arrowWidth,canvasPlot.height-labelYStart, width, height);*/
 
 
           //////////////////////////////////////////////////////////// draw refLineSketchContainer
-
+          canvasCtx.lineWidth=1;
 
 
           //////////////////////////////////////////////////////////////////////
@@ -926,7 +926,7 @@ function calcLocalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId, 
       var bandWidth = canvasPlot.width/(intervalColormap.getIntervalLength()-1);
 
       var vector = [];
-      var colorRef = new classColor_RGB(0.5,0.5,0.5);
+      /*var colorRef = new classColor_RGB(0.5,0.5,0.5);
       var tmpColor = new classColor_RGB(1,1,1);
       var counter =0;
 
@@ -951,7 +951,7 @@ function calcLocalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId, 
         }
 
       }
-      canvasCtx.putImageData(canvasData, 0, 0);//
+      canvasCtx.putImageData(canvasData, 0, 0);//*/
       var numTwinOrLeft=0;
       for(var x=0; x<intervalColormap.getIntervalLength()-1; x++){
 

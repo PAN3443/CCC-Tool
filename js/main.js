@@ -40,6 +40,8 @@ window.onload = function() {
   document.getElementById('id_expandGreenDiv').addEventListener("click", expandAddColormapDivs);
   document.getElementById('id_expandBrownDiv').addEventListener("click", expandAddColormapDivs);
   document.getElementById('id_expandDivergentDiv').addEventListener("click", expandAddColormapDivs);
+  document.getElementById('id_expandComplexThreeDiv').addEventListener("click", expandAddColormapDivs);
+  document.getElementById('id_expandComplexFourDiv').addEventListener("click", expandAddColormapDivs);
   document.getElementById('addCMS_ShowHelp').addEventListener("mouseenter", showAddCMSHelp);
   document.getElementById('addCMS_ShowHelp').addEventListener("mouseleave", hideAddCMSHelp);
 
