@@ -731,9 +731,13 @@ function calcGlobalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId,
       canvasPlot.height = intervalColormap.getIntervalLength();
 
       var canvasCtx = canvasPlot.getContext("2d");
-      canvasCtx.webkitImageSmoothingEnabled = false;
-      canvasCtx.mozImageSmoothingEnabled = false;
-      canvasCtx.imageSmoothingEnabled = false;
+
+       canvasCtx.mozImageSmoothingEnabled = false;
+       canvasCtx.webkitImageSmoothingEnabled = false;
+       canvasCtx.msImageSmoothingEnabled = false;
+       canvasCtx.imageSmoothingEnabled = false; // did not work !?!?!
+       canvasCtx.oImageSmoothingEnabled = false;
+
       var canvasData = canvasCtx.createImageData(canvasPlot.width, canvasPlot.height); //getImageData(0, 0, canvasPlot.width, canvasPlot.height);
       var sumForAverage = 0;
       var min = 1000000;
@@ -883,7 +887,6 @@ function calcGlobalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId,
 
         }
       }
-
 
       canvasCtx.putImageData(canvasData, 0, 0);
 
