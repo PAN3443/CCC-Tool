@@ -382,12 +382,25 @@
           </p>
 
           <p style="margin-left:20%; width:60%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
-          <strong> Info: </strong> Use the drop down menu at the left top corner to move the pages of this webtool (except this page). You can always reach the Tutorial and the MyDesigns page. The MyDesigns page is the control centre of this tool, where you can manage your colormap specifications and use all functionalities of this webpage.
+          <strong> Start: </strong> Start the creation of your specific continuous colormap with the creation of a new CMS or the selection of a predefined colormap from the Gallery. After leaving this welcome page a menu bar will be displayed at the top of the webpage to navigate between "MyDesings", "Gallery", "New", "Edit", "Analyze", "Compare", "Export" and "Tutorial".
+          Visit the "MyDesigns" page to manage your CMSs and activate a CMS. The active CMS will be shown at the top of each page (except at "New" and "Tutorial") and can be edited, exported, analyzed or compared with another CMS.
+          </p>
 
+          <p style="margin-left:20%; width:60%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
+          <strong> Easy Use: </strong> For the easy mode use, users have the choice to select predefined CMS from the Gallery, which can directly be exported.
+          Alternatively, they can create a new CMS easy and quick by using the predefined bands in the new/edit section. Subsequent the colormap can be exported with a low amount of settings. At the export, users should prefer perceptual color spaces for the interpolation.
+          </p>
+
+          <p style="margin-left:20%; width:60%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
+          <strong> Expert Use: </strong>  Experienced users can make more detailed changes with "Modify Keys" and "Modify via Path Plot" mode at the "New" and "Edit" page. For expert-use of the tool, the analyze and compare page can be used to evaluate the CMS before exporting it.
           </p>
 
           <p style="margin-left:20%; width:60%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px;">
-            If you see a button with a question mark, hover your mouse above this button to display a short help. For more instruction please visit the tutorial. Example button:
+          <strong> Info: </strong> It is always possible to do a retrospective amendment by importing a colormap from the new/edit section.
+          </p>
+
+          <p style="margin-left:20%; width:60%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px;">
+          <strong> Help: </strong>  If you see a button with a question mark, hover your mouse above this button to display a short help. For more instruction please visit the tutorial. Example:
           </p>
 
             <div class="dropdown" style="width:auto; margin-left:48%; margin-top:2vh; margin-bottom:2vh;">
@@ -1188,7 +1201,7 @@
 
     <!--
           -----------------------------------------------
-          ----------------	Add Colormap	  -----------------
+          ----------------	Gallery Page	  -----------------
           -----------------------------------------------
           -->
     <div id="id_addPage" style="width: 100%; height:auto; display:none; ">
@@ -1201,12 +1214,12 @@
 
             <p  style="width:auto; height:auto; margin-right: 4vw; line-height:4vh; font-size:3vh; text-align:center; vertical-align:middle; font-weight:bold;">Introduction:</p>
 
-            <p  style="width:90%; margin-left:5%; line-height:2.2vh; font-size:2vh; text-align:left; vertical-align:middle;"> <strong> My Designs Overview: </strong> Directly blow this introduction you can see the CMS storage information of the MyDesigns. Move your mourse above the "Show MyDesigns" field to view the selected MyDesigns-colormaps.</p>
+            <p  style="width:90%; margin-left:5%; line-height:2.2vh; font-size:2vh; text-align:left; vertical-align:middle;"> <strong> My Designs Overview: </strong> Below this introduction, you can see the CMS storage information of the MyDesigns. Move your mouse above the "Show MyDesigns" field to view the selected MyDesigns-colormaps.</p>
 
-            <p  style="width:90%; margin-left:5%; line-height:2.2vh; font-size:2vh; text-align:left; vertical-align:middle;">  <strong> Add CMS from the Gallery: </strong> At this page you can find containers with the predefiend colormap specifications (CMS). The CMSs are splitted into the four sections "Scaled CMS", "Divergent CMS", "Three Bands CMS" and "Four Bands CMS". The scaled CMS have also subsections clustered by the main color. To expand a container, click on it.
+            <p  style="width:90%; margin-left:5%; line-height:2.2vh; font-size:2vh; text-align:left; vertical-align:middle;">  <strong> Add CMS from the Gallery: </strong> At this page, you can find containers with the predefined colormap specifications (CMS). The CMSs are split into the four sections "Scaled CMS", "Divergent CMS", "Three Bands CMS" and "Four Bands CMS". The scaled CMS have also subsections clustered by the main color. To expand a container, click on it.
             If you want to add a CMS to the MyDesings click on the check button. You can also go to the export page without adding the CMS to the MyDesings by clicking on the export button.</p>
 
-            <div style="width:100%; border: 1px solid black; padding-top:1vh; padding-bottom:1vh;">
+            <div style="width:100%; padding-top:1vh; padding-bottom:1vh;">
                 <div class="row" style="width:90%; margin:0px; margin-left:5%;">
 
                     <div title="colormap" style="background: linear-gradient(to right, white , blue); width:30vw;  height:2vw;  margin-right: 7vw; border-radius: 0.5vh; border: 2px solid black;"></div>
@@ -1584,11 +1597,10 @@
                   <button class="dropbtn" style="border-radius: 0.5vh; line-height:4vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 4vh; height:4vh;  margin-left:2vh; border: 2px solid black;">?</button>
                   <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
-                    <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> With the analyze of the colormap course you can see how the colormap run inside the different colorspaces. Switch the colorspace to display the different colorspace visualizations.
+                    <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> The ”Path Plot” uses the colormap to illustrate in different color spaces. The colormap path includes information regarding the key color positions and interval color positions. Likewise, the colormap path in one color space is indicated by an interpolation in another color space.
                     </p>
                     <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; ">
-                      Use the colormap course to observe that the colormap parts do not cross or run to close together (At the RGB space the 3D visualization should be helpful).
-                      At the visualizations of the HSV, Lab and DIN99 space you can also check the increase and decrease of the lightness or the value.
+                      Use the path to observe for crossing colormap parts, close proximity colormap parts and the lightness process of the colormap.
                     </p>
                   </div>
                 </div>
@@ -1767,7 +1779,9 @@
                   <button class="dropbtn" style="border-radius: 0.5vh; line-height:4vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 4vh; height:4vh;  margin-left:2vh; border: 2px solid black;">?</button>
                   <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
-                    <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong>
+                    <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> Use the matrix plot to analyze the perceptual uniformity. The plot shows the difference or the speed value for each interval color to the other interval colors.
+                      The diagonal pixels are displaying the interval colors and the other pixels are showing the speed or difference value for the row- and column interval colors. For the mapping, the application is using a linear or logarithmic color gradient from black (min) to white (max).
+                      If the global minimum is null, there are at least two equal interval colors.
                     </p>
                   </div>
                 </div>
@@ -1936,7 +1950,8 @@
                     <button class="dropbtn" style="border-radius: 0.5vh; line-height:4vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 4vh; height:4vh;  margin-left:2vh; border: 2px solid black;">?</button>
                     <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
-                      <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong>
+                      <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> Use the line plot to analyze the perceptual uniformity. The plot shows for each pair of neighboring interval colors color the difference or the speed. The height of each bar shows the relation of each value to the maximum.
+                        For a perfect local perceptual uniformity, each bar has an equal height.
                       </p>
                     </div>
                   </div>
@@ -2089,11 +2104,9 @@
                       <button class="dropbtn" style="border-radius: 0.5vh; line-height:4vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 4vh; height:4vh;  margin-left:2vh; border: 2px solid black;">?</button>
                       <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
-                        <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> The following visualizations are showing you the ratio value of speed calculated with the euclidean distances and the metrics (DE94, CIEDE2000)
-                          to determine the difference of the used key colors. The speed give you a relation between the difference of the selected key colors and the reference distance between the keys.
-                        </p>
-
-                        <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Attention:</strong> For this analyze only <strong>scaled</strong> band will be used.
+                        <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> These figures show for every space or metric a stacked bar graph for the speed from one key to the next one.
+                          This information allows you to more easily assess which keys must be changed for an approximation of the perceptual uniformity.
+                          You can also assign fast speed bands to value ranges, which are coloring areas in the application with higher relevance, and lower speed bands to such with lower importance.
                         </p>
 
                       </div>
@@ -2178,7 +2191,11 @@
                       <button class="dropbtn" style="border-radius: 0.5vh; line-height:4vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 4vh; height:4vh;  margin-left:2vh; border: 2px solid black;">?</button>
                       <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
-                        <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong>
+                        <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> Intuitively sequential colors are especially useful if one’s data contains visually presented non-sequential data ranges.
+                          In the middle of the plot is an illustration of the interval colors. Above them, the negative, as well as the positive order values, are drawn as bars. For the distinction, we are using different coloring for the positive (blue) and the negative (red) values.
+                          The visualization of the global order shows only the interesting negative values. For each interval of colors c<sub>i</sub> and c<sub>j</sub>, we calculate the minimal order value of the colors c<sub>k</sub> with i < k < j.
+                          In case of a negative value, we draw an arc from the position of c<sub>i</sub> to c<sub>j</sub> colored in c<sub>k</sub> . The maximal distance from the arc to the colormap correlates with the magnitude of order value.
+                          The negative values are showing the colors, which disturb the intuitive order of the colors.
                         </p>
                       </div>
                     </div>
@@ -2343,7 +2360,7 @@
                         <button class="dropbtn" style="border-radius: 0.5vh; line-height:4vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 4vh; height:4vh;  margin-left:2vh; border: 2px solid black;">?</button>
                         <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
-                          <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> The following visualizations of the colormap are showing you, how different the interpolated colors look like inside the different colorspaces.
+                          <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> The following plot gives the viewer a quick overview of possible excessive differences between the interpolations in different colorspaces.
                           </p>
 
                         </div>
@@ -2505,11 +2522,12 @@
             <button class="dropbtn" style="border-radius: 0.5vh; line-height:4vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 4vh; height:4vh;  margin-left:2vh; border: 2px solid black;">?</button>
             <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
-              <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> With the analyze of the colormap course you can see how the colormap run inside the different colorspaces. Switch the colorspace to display the different colorspace visualizations.
+              <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> The ”Path Plot” uses the colormap to illustrate in different color spaces.
+                The colormap path includes information regarding the key color positions and interval color positions.
+                Likewise, the colormap path in one color space is indicated by an interpolation in another color space.
               </p>
               <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; ">
-                Use the colormap course to observe that the colormap parts do not cross or run to close together (At the RGB space the 3D visualization should be helpful).
-                At the visualizations of the HSV, Lab and DIN99 space you can also check the increase and decrease of the lightness or the value.
+                Use the path to observe for crossing colormap parts, close proximity colormap parts and the lightness process of the colormap.
               </p>
             </div>
           </div>
@@ -2699,7 +2717,9 @@
                   <button class="dropbtn" style="border-radius: 0.5vh; line-height:4vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 4vh; height:4vh;  margin-left:2vh; border: 2px solid black;">?</button>
                   <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
-                    <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong>
+                    <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> Use the matrix plot to analyze the perceptual uniformity. The plot shows the difference or the speed value for each interval color to the other interval colors.
+                      The diagonal pixels are displaying the interval colors and the other pixels are showing the speed or difference value for the row- and column interval colors. For the mapping, the application is using a linear or logarithmic color gradient from black (min) to white (max).
+                      If the global minimum is null, there are at least two equal interval colors.
                     </p>
                   </div>
                 </div>
@@ -2813,7 +2833,8 @@
                     <button class="dropbtn" style="border-radius: 0.5vh; line-height:4vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 4vh; height:4vh;  margin-left:2vh; border: 2px solid black;">?</button>
                     <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
-                      <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong>
+                      <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> Use the line plot to analyze the perceptual uniformity. The plot shows for each pair of neighboring interval colors color the difference or the speed. The height of each bar shows the relation of each value to the maximum.
+                        For a perfect local perceptual uniformity, each bar has an equal height.
                       </p>
                     </div>
                   </div>
@@ -2912,11 +2933,9 @@
                       <button class="dropbtn" style="border-radius: 0.5vh; line-height:4vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 4vh; height:4vh;  margin-left:2vh; border: 2px solid black;">?</button>
                       <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
-                        <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> The following visualizations are showing you the ratio value of speed calculated with the euclidean distances and the metrics (DE94, CIEDE2000)
-                          to determine the difference of the used key colors. The speed give you a relation between the difference of the selected key colors and the reference distance between the keys.
-                        </p>
-
-                        <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Attention:</strong> For this analyze only <strong>scaled</strong> band will be used.
+                        <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> These figures show for every space or metric a stacked bar graph for the speed from one key to the next one.
+                          This information allows you to more easily assess which keys must be changed for an approximation of the perceptual uniformity.
+                          You can also assign fast speed bands to value ranges, which are coloring areas in the application with higher relevance, and lower speed bands to such with lower importance.
                         </p>
 
                       </div>
@@ -2995,7 +3014,11 @@
                       <button class="dropbtn" style="border-radius: 0.5vh; line-height:4vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 4vh; height:4vh;  margin-left:2vh; border: 2px solid black;">?</button>
                       <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
-                        <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong>
+                        <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> Intuitively sequential colors are especially useful if one’s data contains visually presented non-sequential data ranges.
+                          In the middle of the plot is an illustration of the interval colors. Above them, the negative, as well as the positive order values, are drawn as bars. For the distinction, we are using different coloring for the positive (blue) and the negative (red) values.
+                          The visualization of the global order shows only the interesting negative values. For each interval of colors c<sub>i</sub> and c<sub>j</sub>, we calculate the minimal order value of the colors c<sub>k</sub> with i < k < j.
+                          In case of a negative value, we draw an arc from the position of c<sub>i</sub> to c<sub>j</sub> colored in c<sub>k</sub>. The maximal distance from the arc to the colormap correlates with the magnitude of order value.
+                          The negative values are showing the colors, which disturb the intuitive order of the colors.
                         </p>
                       </div>
                     </div>
@@ -3095,7 +3118,7 @@
                         <button class="dropbtn" style="border-radius: 0.5vh; line-height:4vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 4vh; height:4vh;  margin-left:2vh; border: 2px solid black;">?</button>
                         <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
-                          <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> The following visualizations of the colormap are showing you, how different the interpolated colors look like inside the different colorspaces.
+                          <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:30vw; "> <strong>Info:</strong> The following plot gives the viewer a quick overview of possible excessive differences between the interpolations in different colorspaces.
                           </p>
 
                         </div>
