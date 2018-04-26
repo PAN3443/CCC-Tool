@@ -19,7 +19,6 @@ function bandOnDragStart(event){
 
     }
     else{
-
                 switch(tmpString[0]){
                     case "c":
                         dragPredefinedBandType = 0;
@@ -55,13 +54,13 @@ function bandOnDragStart(event){
     }
 
     // show  all drop positions
-        if(bandSketch.getBandLength()==0){
+        if(globalCMS1.getKeyLength()==0){
             dropPositionElements[0].style.border = "3px dashed red";
         }
         else{
 
             var tmpRect = document.getElementById("id_colormapSketch").getBoundingClientRect();
-            var tmpLength =(tmpRect.width-((bandSketch.getBandLength()+1)*6)-bandSketch.getBandLength()*2)/(bandSketch.getBandLength()+1+bandSketch.getBandLength());//100/(bandSketch.getBandLength()-1);
+            var tmpLength =(tmpRect.width-((globalCMS1.getKeyLength())*6)-(globalCMS1.getKeyLength()-1)*2)/(globalCMS1.getKeyLength()+globalCMS1.getKeyLength()-1);//100/(bandSketch.getBandLength()-1);
 
             for(var i=0; i<dropPositionElements.length; i++){
                 dropPositionElements[i].style.display = "initial";
@@ -88,7 +87,7 @@ function bandOnDragEnd(event) {
     dragPredefinedBandIndex = bandIndex;
     dragPredefinedBandType = createBandType;
 
-    if(bandSketch.getBandLength()==0){
+    if(globalCMS1.getKeyLength()==0){
          //document.getElementById("createSide_SketchLabel").style.display = "initial";
          //document.getElementById("createSide_YourColormapDummy").style.border = "2px dashed black";
          dropPositionElements[0].style.border = "3px dashed black";
@@ -97,13 +96,7 @@ function bandOnDragEnd(event) {
         // hide all drop positions
         var tmpRect = document.getElementById("id_colormapSketch").getBoundingClientRect();
         var tmpLength;
-        tmpLength = tmpRect.width/bandSketch.getBandLength()-2; //2 = border width of each band.
-
-
-        //if(bandSketch.getBandLength()==1)
-        // tmpLength = tmpRect.width;//100/(bandSketch.getBandLength()-1);
-        //else
-        // tmpLength = tmpRect.width/(bandSketch.getBandLength()-1);//100/(bandSketch.getBandLength()-1);
+        tmpLength = tmpRect.width/(globalCMS1.getKeyLength()-1)-2; //2 = border width of each band.
 
 
         for(var i=0; i<dropPositionElements.length; i++){
@@ -125,13 +118,12 @@ function bandOnDragEnd(event) {
 function bandOnEnter(event) {
     var tmpString = event.target.id;
 
-
-
     if(tmpString!=undefined){
 
          tmpString = tmpString.substr(7);
          indexOfDroppedPlace = parseInt(tmpString);
          document.getElementById("dragPos"+indexOfDroppedPlace).style.innerHTML = "";
+
          document.getElementById("dragPos"+indexOfDroppedPlace).style.background = "rgb(220,220,220)";
     }
 
@@ -161,90 +153,75 @@ function bandOnDrop(event){
         switch(dragPredefinedBandType){
             case 0:
                     // ->const
-                    if(bandSketch.getBandLength()==0){
-                            bandSketch.spliceBand(indexOfDroppedPlace, constBands[dragPredefinedBandIndex], constBands[dragPredefinedBandIndex], 0.0, 1.0);
+                    if(globalCMS1.getKeyLength()==0){
+                            globalCMS1.pushKey(new class_Key(undefined, undefined,0.0)); // nil key
+                            globalCMS1.pushKey(new class_Key(constBands[dragPredefinedBandIndex], undefined,1.0)); // left key
                     }
                     else{
 
-                        // band as least
-                        if(bandSketch.getBandLength() == indexOfDroppedPlace){
-                            var tmpVal = bandSketch.getRefR2(indexOfDroppedPlace-1);
-                            var dist = Math.abs(tmpVal-bandSketch.getRefR1(indexOfDroppedPlace-1));
-                            bandSketch.setRefR2(indexOfDroppedPlace-1,tmpVal-dist*0.5);
-                            bandSketch.spliceBand(indexOfDroppedPlace, constBands[dragPredefinedBandIndex], constBands[dragPredefinedBandIndex], tmpVal-dist*0.5, tmpVal);
+                        // band at the end
+
+                        switch (indexOfDroppedPlace) {
+                          case globalCMS1.getKeyLength()-1:
+                            // case constant
+                            var tmpVal = globalCMS1.getRefPosition(indexOfDroppedPlace);
+                            var dist = Math.abs(tmpVal-globalCMS1.getRefPosition(indexOfDroppedPlace-1));
+                            globalCMS1.setRefPosition(indexOfDroppedPlace,tmpVal-dist*0.5);
+                            globalCMS1.pushKey(new class_Key(constBands[dragPredefinedBandIndex],undefined,tmpVal)); // push left key
+                            break;
+
+                          default:
+                            var startPos = globalCMS1.getRefPosition(indexOfDroppedPlace);
+                            var endPos = (startPos+Math.abs(globalCMS1.getRefPosition(indexOfDroppedPlace+1)-startPos)*0.5);
+
+                            ///////////
+                            ///// split key
+                            globalCMS1.setRefPosition(indexOfDroppedPlace,endPos);
+
+                            // case constant add Keys
+                            var oldColor = globalCMS1.getLeftKeyColor(indexOfDroppedPlace,"lab");
+                            globalCMS1.setLeftKeyColor(indexOfDroppedPlace,constBands[dragPredefinedBandIndex]); // create left key
+                            globalCMS1.insertKey(indexOfDroppedPlace, new class_Key(oldColor,undefined,startPos));
+
                         }
-                        else{
 
-                          var tmpVal = bandSketch.getRefR1(indexOfDroppedPlace);
-                          var dist = Math.abs(tmpVal-bandSketch.getRefR2(indexOfDroppedPlace));
-                          bandSketch.setRefR1(indexOfDroppedPlace,tmpVal+dist*0.5);
-
-                          bandSketch.spliceBand(indexOfDroppedPlace, constBands[dragPredefinedBandIndex], constBands[dragPredefinedBandIndex], tmpVal, tmpVal+dist*0.5);
-
-                            // band in the middle
-                            /*if(bandSketch.getBandLength() > indexOfDroppedPlace && indexOfDroppedPlace!=0){
-                                var newPos = bandSketch.getRefR2(indexOfDroppedPlace-1)-Math.abs(bandSketch.getRefR2(indexOfDroppedPlace-1)-bandSketch.getRefR1(indexOfDroppedPlace-1))/2;
-                                bandSketch.setRefR2(indexOfDroppedPlace-1,newPos);
-
-                                var newPos2 = bandSketch.getRefR2(indexOfDroppedPlace)-Math.abs(bandSketch.getRefR2(indexOfDroppedPlace)-bandSketch.getRefR1(indexOfDroppedPlace))/2;
-                                bandSketch.setRefR1(indexOfDroppedPlace,newPos2);
-
-                                bandSketch.spliceBand(indexOfDroppedPlace, constBands[dragPredefinedBandIndex], constBands[dragPredefinedBandIndex], newPos, newPos2);
-                            }*/
-                        }
-
-                        // band as frist
-                        /*if(indexOfDroppedPlace==0){
-                            var tmpVal = bandSketch.getRefR1(0);
-                            var dist = Math.abs(tmpVal-bandSketch.getRefR2(0));
-                            bandSketch.setRefR1(0,tmpVal+dist*0.5);
-
-                            bandSketch.spliceBand(indexOfDroppedPlace, constBands[dragPredefinedBandIndex], constBands[dragPredefinedBandIndex], tmpVal, tmpVal+dist*0.5);
-
-                        }*/
 
                     }
             break;
             case 1:
                     // ->scale
-                    if(bandSketch.getBandLength()==0){
-                            bandSketch.spliceBand(indexOfDroppedPlace, scaleBands[dragPredefinedBandIndex][0], scaleBands[dragPredefinedBandIndex][1], 0.0, 1.0);
+                    if(globalCMS1.getKeyLength()==0){
+                            globalCMS1.pushKey(new class_Key(undefined, scaleBands[dragPredefinedBandIndex][0],0.0)); // right key
+                            globalCMS1.pushKey(new class_Key(scaleBands[dragPredefinedBandIndex][1], undefined,1.0)); // left key
                     }
                     else{
 
-                        // band as least
-                        if(indexOfDroppedPlace == bandSketch.getBandLength()){
-                            var tmpVal = bandSketch.getRefR2(indexOfDroppedPlace-1);
-                            var dist = Math.abs(tmpVal-bandSketch.getRefR1(indexOfDroppedPlace-1));
-                            bandSketch.setRefR2(indexOfDroppedPlace-1,tmpVal-dist*0.5);
-                            bandSketch.spliceBand(indexOfDroppedPlace, scaleBands[dragPredefinedBandIndex][0], scaleBands[dragPredefinedBandIndex][1], tmpVal-dist*0.5, tmpVal);
-                        }
-                        else{
 
-                            var tmpVal = bandSketch.getRefR1(indexOfDroppedPlace);
-                            var dist = Math.abs(tmpVal-bandSketch.getRefR2(indexOfDroppedPlace));
-                            bandSketch.setRefR1(indexOfDroppedPlace,tmpVal+dist*0.5);
-                            bandSketch.spliceBand(indexOfDroppedPlace, scaleBands[dragPredefinedBandIndex][0], scaleBands[dragPredefinedBandIndex][1], tmpVal, tmpVal+dist*0.5);
-                            // band in the middle
-                            /*if(indexOfDroppedPlace < bandSketch.getBandLength() && indexOfDroppedPlace!=0){
+                      switch (indexOfDroppedPlace) {
+                        case globalCMS1.getKeyLength()-1:
+                          // case scaled band
+                          var tmpVal = globalCMS1.getRefPosition(indexOfDroppedPlace);
+                          var dist = Math.abs(tmpVal-globalCMS1.getRefPosition(indexOfDroppedPlace-1));
+                          globalCMS1.setRefPosition(indexOfDroppedPlace,tmpVal-dist*0.5);
+                          globalCMS1.setRightKeyColor(indexOfDroppedPlace,scaleBands[dragPredefinedBandIndex][0]); // update old left key
+                          globalCMS1.pushKey(new class_Key(scaleBands[dragPredefinedBandIndex][1],undefined,tmpVal)); // push new left key
+                          break;
 
-                                var newPos = bandSketch.getRefR2(indexOfDroppedPlace-1)-Math.abs(bandSketch.getRefR2(indexOfDroppedPlace-1)-bandSketch.getRefR1(indexOfDroppedPlace-1))/2;
-                                bandSketch.setRefR2(indexOfDroppedPlace-1,newPos);
+                        default:
+                          var startPos = globalCMS1.getRefPosition(indexOfDroppedPlace);
+                          var endPos = (startPos+Math.abs(globalCMS1.getRefPosition(indexOfDroppedPlace+1)-startPos)*0.5);
 
-                                var newPos2 = bandSketch.getRefR2(indexOfDroppedPlace)-Math.abs(bandSketch.getRefR2(indexOfDroppedPlace)-bandSketch.getRefR1(indexOfDroppedPlace))/2;
-                                bandSketch.setRefR1(indexOfDroppedPlace,newPos2);
-                                bandSketch.spliceBand(indexOfDroppedPlace, scaleBands[dragPredefinedBandIndex][0], scaleBands[dragPredefinedBandIndex][1], newPos, newPos2);
+                          ///////////
+                          ///// split key
+                          globalCMS1.setRefPosition(indexOfDroppedPlace,endPos);
 
-                            }*/
-                        }
+                          // case constant add Keys
+                          var oldColor = globalCMS1.getLeftKeyColor(indexOfDroppedPlace,"lab");
+                          globalCMS1.setLeftKeyColor(indexOfDroppedPlace,scaleBands[dragPredefinedBandIndex][1]);
+                          globalCMS1.insertKey(indexOfDroppedPlace, new class_Key(oldColor,scaleBands[dragPredefinedBandIndex][0],startPos));
 
-                        // band as frist
-                        /*if(indexOfDroppedPlace==0){
-                            var tmpVal = bandSketch.getRefR1(0);
-                            var dist = Math.abs(tmpVal-bandSketch.getRefR2(0));
-                            bandSketch.setRefR1(0,tmpVal+dist*0.5);
-                            bandSketch.spliceBand(indexOfDroppedPlace, scaleBands[dragPredefinedBandIndex][0], scaleBands[dragPredefinedBandIndex][1], tmpVal, tmpVal+dist*0.5);
-                        }*/
+                      }
+
 
                     }
             break;
@@ -252,165 +229,130 @@ function bandOnDrop(event){
                     // ->double
 
 
-                    if(bandSketch.getBandLength()==0){
-                            bandSketch.spliceBand(indexOfDroppedPlace, doubleBands[dragPredefinedBandIndex][2], doubleBands[dragPredefinedBandIndex][3], 0.5, 1.0);
-                            bandSketch.spliceBand(indexOfDroppedPlace, doubleBands[dragPredefinedBandIndex][0], doubleBands[dragPredefinedBandIndex][1], 0.0, 0.5);
+                    if(globalCMS1.getKeyLength()==0){
+
+                            globalCMS1.pushKey(new class_Key(undefined, checkConstantBand(doubleBands[dragPredefinedBandIndex][0], doubleBands[dragPredefinedBandIndex][1]),0.0)); // nil or right key
+                            globalCMS1.pushKey(new class_Key(doubleBands[dragPredefinedBandIndex][1], checkConstantBand(doubleBands[dragPredefinedBandIndex][2], doubleBands[dragPredefinedBandIndex][3]),0.5)); // left key
+                            globalCMS1.pushKey(new class_Key(doubleBands[dragPredefinedBandIndex][3], undefined,1.0)); // left key
+
                     }
                     else{
 
-                        // band as least
-                        if(bandSketch.getBandLength() == indexOfDroppedPlace){
-                            var tmpVal = bandSketch.getRefR2(indexOfDroppedPlace-1);
-                            var dist = Math.abs(tmpVal-bandSketch.getRefR1(indexOfDroppedPlace-1));
-                            bandSketch.setRefR2(indexOfDroppedPlace-1,tmpVal-dist*0.5);
-                            bandSketch.spliceBand(indexOfDroppedPlace, doubleBands[dragPredefinedBandIndex][2], doubleBands[dragPredefinedBandIndex][3], tmpVal-dist*0.25, tmpVal);
-                            bandSketch.spliceBand(indexOfDroppedPlace, doubleBands[dragPredefinedBandIndex][0], doubleBands[dragPredefinedBandIndex][1], tmpVal-dist*0.5,  tmpVal-dist*0.25);
-                        }
-                        else{
-                            // band in the middle
+                      switch (indexOfDroppedPlace) {
+                        case globalCMS1.getKeyLength()-1:
+                          var tmpVal = globalCMS1.getRefPosition(indexOfDroppedPlace);
+                          var dist = Math.abs(tmpVal-globalCMS1.getRefPosition(indexOfDroppedPlace-1))*0.5;
+                          globalCMS1.setRefPosition(indexOfDroppedPlace,tmpVal-dist);
+                          globalCMS1.setRightKeyColor(indexOfDroppedPlace,checkConstantBand(doubleBands[dragPredefinedBandIndex][0], doubleBands[dragPredefinedBandIndex][1])); // update old left key
+                          globalCMS1.pushKey(new class_Key(doubleBands[dragPredefinedBandIndex][1], checkConstantBand(doubleBands[dragPredefinedBandIndex][2], doubleBands[dragPredefinedBandIndex][3]),tmpVal-dist*0.5)); // push new left key
+                          globalCMS1.pushKey(new class_Key(doubleBands[dragPredefinedBandIndex][3], undefined,tmpVal)); // push new left key
+                          break;
 
-                            var tmpVal = bandSketch.getRefR1(indexOfDroppedPlace);
-                            var dist = Math.abs(tmpVal-bandSketch.getRefR2(indexOfDroppedPlace));
-                            bandSketch.setRefR1(indexOfDroppedPlace,tmpVal+dist*0.5);
-                            bandSketch.spliceBand(indexOfDroppedPlace, doubleBands[dragPredefinedBandIndex][2], doubleBands[dragPredefinedBandIndex][3], tmpVal+dist*0.25, tmpVal+dist*0.5);
-                            bandSketch.spliceBand(indexOfDroppedPlace, doubleBands[dragPredefinedBandIndex][0], doubleBands[dragPredefinedBandIndex][1], tmpVal, tmpVal+dist*0.25);
+                        default:
+                          var startPos = globalCMS1.getRefPosition(indexOfDroppedPlace);
+                          var endPos = (startPos+Math.abs(globalCMS1.getRefPosition(indexOfDroppedPlace+1)-startPos)*0.5);
+                          var dist = endPos-startPos;
+                          ///////////
+                          ///// split key
+                          globalCMS1.setRefPosition(indexOfDroppedPlace,endPos);
 
-                            /*if(bandSketch.getBandLength() > indexOfDroppedPlace && indexOfDroppedPlace!=0){
+                          // case constant add Keys
+                          var oldColor = globalCMS1.getLeftKeyColor(indexOfDroppedPlace,"lab");
+                          globalCMS1.setLeftKeyColor(indexOfDroppedPlace,doubleBands[dragPredefinedBandIndex][3]);
+                          globalCMS1.insertKey(indexOfDroppedPlace, new class_Key(doubleBands[dragPredefinedBandIndex][1], checkConstantBand(doubleBands[dragPredefinedBandIndex][2], doubleBands[dragPredefinedBandIndex][3]),startPos+dist*0.5));
+                          globalCMS1.insertKey(indexOfDroppedPlace, new class_Key(oldColor,checkConstantBand(doubleBands[dragPredefinedBandIndex][0], doubleBands[dragPredefinedBandIndex][1]),startPos));
 
-                                var newPos = bandSketch.getRefR2(indexOfDroppedPlace-1)-Math.abs(bandSketch.getRefR2(indexOfDroppedPlace-1)-bandSketch.getRefR1(indexOfDroppedPlace-1))/2;
-                                bandSketch.setRefR2(indexOfDroppedPlace-1,newPos);
-
-                                var newPos2 = bandSketch.getRefR2(indexOfDroppedPlace)-Math.abs(bandSketch.getRefR2(indexOfDroppedPlace)-bandSketch.getRefR1(indexOfDroppedPlace))/2;
-                                bandSketch.setRefR1(indexOfDroppedPlace,newPos2);
-
-                                var dist = Math.abs(newPos2-newPos);
-                                bandSketch.spliceBand(indexOfDroppedPlace, doubleBands[dragPredefinedBandIndex][2], doubleBands[dragPredefinedBandIndex][3], newPos+(0.5*dist), newPos2);
-                                bandSketch.spliceBand(indexOfDroppedPlace, doubleBands[dragPredefinedBandIndex][0], doubleBands[dragPredefinedBandIndex][1], newPos, newPos+(0.5*dist));
-                            }
-
-                            // band as frist
-                            /*if(indexOfDroppedPlace==0){
-                                var tmpVal = bandSketch.getRefR1(0);
-                                var dist = Math.abs(tmpVal-bandSketch.getRefR2(0));
-                                bandSketch.setRefR1(0,tmpVal+dist*0.5);
-                                bandSketch.spliceBand(indexOfDroppedPlace, doubleBands[dragPredefinedBandIndex][2], doubleBands[dragPredefinedBandIndex][3], tmpVal+dist*0.25, tmpVal+dist*0.5);
-                                bandSketch.spliceBand(indexOfDroppedPlace, doubleBands[dragPredefinedBandIndex][0], doubleBands[dragPredefinedBandIndex][1], tmpVal, tmpVal+dist*0.25);
-                            }*/
-                        }
+                      }
 
                     }
             break;
             case 3:
                     // ->triple
 
-                    if(bandSketch.getBandLength()==0){
-                            bandSketch.spliceBand(indexOfDroppedPlace, tribleBands[dragPredefinedBandIndex][4], tribleBands[dragPredefinedBandIndex][5], 0.66, 1.0);
-                            bandSketch.spliceBand(indexOfDroppedPlace, tribleBands[dragPredefinedBandIndex][2], tribleBands[dragPredefinedBandIndex][3], 0.33, 0.66);
-                            bandSketch.spliceBand(indexOfDroppedPlace, tribleBands[dragPredefinedBandIndex][0], tribleBands[dragPredefinedBandIndex][1], 0.0, 0.33);
+                    if(globalCMS1.getKeyLength()==0){
+
+                      globalCMS1.pushKey(new class_Key(undefined, checkConstantBand(tribleBands[dragPredefinedBandIndex][0], tribleBands[dragPredefinedBandIndex][1]),0.0)); // nil or right key
+                      globalCMS1.pushKey(new class_Key(tribleBands[dragPredefinedBandIndex][1], checkConstantBand(tribleBands[dragPredefinedBandIndex][2], tribleBands[dragPredefinedBandIndex][3]),0.33)); // left key
+                      globalCMS1.pushKey(new class_Key(tribleBands[dragPredefinedBandIndex][3], checkConstantBand(tribleBands[dragPredefinedBandIndex][4], tribleBands[dragPredefinedBandIndex][5]),0.66)); // left key
+                      globalCMS1.pushKey(new class_Key(tribleBands[dragPredefinedBandIndex][5], undefined,1.0)); // left key
+
                     }
                     else{
-                            // band as least
-                        if(bandSketch.getBandLength() == indexOfDroppedPlace){
-                            var tmpVal = bandSketch.getRefR2(indexOfDroppedPlace-1);
-                            var dist = Math.abs(tmpVal-bandSketch.getRefR1(indexOfDroppedPlace-1));
-                            bandSketch.setRefR2(indexOfDroppedPlace-1,tmpVal-dist*0.5);
-                            bandSketch.spliceBand(indexOfDroppedPlace, tribleBands[dragPredefinedBandIndex][4], tribleBands[dragPredefinedBandIndex][5], tmpVal-dist*(0.5/3), tmpVal);
-                            bandSketch.spliceBand(indexOfDroppedPlace, tribleBands[dragPredefinedBandIndex][2], tribleBands[dragPredefinedBandIndex][3], tmpVal-dist*(1/3), tmpVal-dist*(0.5/3));
-                            bandSketch.spliceBand(indexOfDroppedPlace, tribleBands[dragPredefinedBandIndex][0], tribleBands[dragPredefinedBandIndex][1], tmpVal-dist*0.5, tmpVal-dist*(1/3));
-                        }
-                        else{
 
-                          var tmpVal = bandSketch.getRefR1(indexOfDroppedPlace);
-                          var dist = Math.abs(tmpVal-bandSketch.getRefR2(indexOfDroppedPlace));
-                          bandSketch.setRefR1(indexOfDroppedPlace,tmpVal+dist*0.5);
-                          bandSketch.spliceBand(indexOfDroppedPlace, tribleBands[dragPredefinedBandIndex][4], tribleBands[dragPredefinedBandIndex][5], tmpVal+dist*1/3, tmpVal+dist*0.5);
-                          bandSketch.spliceBand(indexOfDroppedPlace, tribleBands[dragPredefinedBandIndex][2], tribleBands[dragPredefinedBandIndex][3], tmpVal+dist*0.5/3, tmpVal+dist*1/3);
-                          bandSketch.spliceBand(indexOfDroppedPlace, tribleBands[dragPredefinedBandIndex][0], tribleBands[dragPredefinedBandIndex][1], tmpVal, tmpVal+dist*0.5/3);
-                            // band in the middle
-                            /*if(bandSketch.getBandLength() > indexOfDroppedPlace && indexOfDroppedPlace!=0){
 
-                                var newPos = bandSketch.getRefR2(indexOfDroppedPlace-1)-Math.abs(bandSketch.getRefR2(indexOfDroppedPlace-1)-bandSketch.getRefR1(indexOfDroppedPlace-1))/2;
-                                bandSketch.setRefR2(indexOfDroppedPlace-1,newPos);
+                      switch (indexOfDroppedPlace) {
+                        case globalCMS1.getKeyLength()-1:
+                          var tmpVal = globalCMS1.getRefPosition(indexOfDroppedPlace);
+                          var dist = Math.abs(tmpVal-globalCMS1.getRefPosition(indexOfDroppedPlace-1))*0.5;
+                          globalCMS1.setRefPosition(indexOfDroppedPlace,tmpVal-dist);
+                          globalCMS1.setRightKeyColor(indexOfDroppedPlace,checkConstantBand(tribleBands[dragPredefinedBandIndex][0], tribleBands[dragPredefinedBandIndex][1])); // update old left key
+                          globalCMS1.pushKey(new class_Key(tribleBands[dragPredefinedBandIndex][1], checkConstantBand(tribleBands[dragPredefinedBandIndex][2], tribleBands[dragPredefinedBandIndex][3]),tmpVal-dist*0.66)); // push new left key
+                          globalCMS1.pushKey(new class_Key(tribleBands[dragPredefinedBandIndex][3], checkConstantBand(tribleBands[dragPredefinedBandIndex][4], tribleBands[dragPredefinedBandIndex][5]),tmpVal-dist*0.33)); // push new left key
+                          globalCMS1.pushKey(new class_Key(tribleBands[dragPredefinedBandIndex][5], undefined,tmpVal)); // push new left key
+                          break;
 
-                                var newPos2 = bandSketch.getRefR2(indexOfDroppedPlace)-Math.abs(bandSketch.getRefR2(indexOfDroppedPlace)-bandSketch.getRefR1(indexOfDroppedPlace))/2;
-                                bandSketch.setRefR1(indexOfDroppedPlace,newPos2);
+                        default:
+                          var startPos = globalCMS1.getRefPosition(indexOfDroppedPlace);
+                          var endPos = (startPos+Math.abs(globalCMS1.getRefPosition(indexOfDroppedPlace+1)-startPos)*0.5);
+                          var dist = endPos-startPos;
+                          ///////////
+                          ///// split key
+                          globalCMS1.setRefPosition(indexOfDroppedPlace,endPos);
 
-                                var dist = Math.abs(newPos2-newPos);
-                                bandSketch.spliceBand(indexOfDroppedPlace, tribleBands[dragPredefinedBandIndex][4], tribleBands[dragPredefinedBandIndex][5], newPos+(2/3*dist), newPos2);
-                                bandSketch.spliceBand(indexOfDroppedPlace, tribleBands[dragPredefinedBandIndex][2], tribleBands[dragPredefinedBandIndex][3], newPos+(1/3*dist), newPos+(2/3*dist));
-                                bandSketch.spliceBand(indexOfDroppedPlace, tribleBands[dragPredefinedBandIndex][0], tribleBands[dragPredefinedBandIndex][1], newPos, newPos+(1/3*dist));
-                            }
+                          // case constant add Keys
+                          var oldColor = globalCMS1.getLeftKeyColor(indexOfDroppedPlace,"lab");
+                          globalCMS1.setLeftKeyColor(indexOfDroppedPlace,tribleBands[dragPredefinedBandIndex][5]);
+                          globalCMS1.insertKey(indexOfDroppedPlace, new class_Key(tribleBands[dragPredefinedBandIndex][3], checkConstantBand(tribleBands[dragPredefinedBandIndex][4], tribleBands[dragPredefinedBandIndex][5]),startPos+dist*0.66));
+                          globalCMS1.insertKey(indexOfDroppedPlace, new class_Key(tribleBands[dragPredefinedBandIndex][1], checkConstantBand(tribleBands[dragPredefinedBandIndex][2], tribleBands[dragPredefinedBandIndex][3]),startPos+dist*0.33));
+                          globalCMS1.insertKey(indexOfDroppedPlace, new class_Key(oldColor,checkConstantBand(tribleBands[dragPredefinedBandIndex][0], tribleBands[dragPredefinedBandIndex][1]),startPos));
 
-                            // band as frist
-                            if(indexOfDroppedPlace==0){
-                                var tmpVal = bandSketch.getRefR1(0);
-                                var dist = Math.abs(tmpVal-bandSketch.getRefR2(0));
-                                bandSketch.setRefR1(0,tmpVal+dist*0.5);
-                                bandSketch.spliceBand(indexOfDroppedPlace, tribleBands[dragPredefinedBandIndex][4], tribleBands[dragPredefinedBandIndex][5], tmpVal+dist*1/3, tmpVal+dist*0.5);
-                                bandSketch.spliceBand(indexOfDroppedPlace, tribleBands[dragPredefinedBandIndex][2], tribleBands[dragPredefinedBandIndex][3], tmpVal+dist*0.5/3, tmpVal+dist*1/3);
-                                bandSketch.spliceBand(indexOfDroppedPlace, tribleBands[dragPredefinedBandIndex][0], tribleBands[dragPredefinedBandIndex][1], tmpVal, tmpVal+dist*0.5/3);
-                            }*/
-                        }
+                      }
 
                     }
             break;
             case 4:
                     // ->quad
 
-                    if(bandSketch.getBandLength()==0){
-                            bandSketch.spliceBand(indexOfDroppedPlace, quadBands[dragPredefinedBandIndex][6], quadBands[dragPredefinedBandIndex][7], 0.75, 1.0 );
-                            bandSketch.spliceBand(indexOfDroppedPlace, quadBands[dragPredefinedBandIndex][4], quadBands[dragPredefinedBandIndex][5], 0.5, 0.75 );
-                            bandSketch.spliceBand(indexOfDroppedPlace, quadBands[dragPredefinedBandIndex][2], quadBands[dragPredefinedBandIndex][3], 0.25, 0.5 );
-                            bandSketch.spliceBand(indexOfDroppedPlace, quadBands[dragPredefinedBandIndex][0], quadBands[dragPredefinedBandIndex][1], 0.0, 0.25);
+                    if(globalCMS1.getKeyLength()==0){
+
+                      globalCMS1.pushKey(new class_Key(undefined, checkConstantBand(quadBands[dragPredefinedBandIndex][0], quadBands[dragPredefinedBandIndex][1]),0.0)); // nil or right key
+                      globalCMS1.pushKey(new class_Key(quadBands[dragPredefinedBandIndex][1], checkConstantBand(quadBands[dragPredefinedBandIndex][2], quadBands[dragPredefinedBandIndex][3]),0.25)); // left key
+                      globalCMS1.pushKey(new class_Key(quadBands[dragPredefinedBandIndex][3], checkConstantBand(quadBands[dragPredefinedBandIndex][4], quadBands[dragPredefinedBandIndex][5]),0.5)); // left key
+                      globalCMS1.pushKey(new class_Key(quadBands[dragPredefinedBandIndex][5], checkConstantBand(quadBands[dragPredefinedBandIndex][6], quadBands[dragPredefinedBandIndex][7]),0.75)); // left key
+                      globalCMS1.pushKey(new class_Key(quadBands[dragPredefinedBandIndex][7], undefined,1.0)); // left key
+
                     }
                     else{
-                          // band as least
-                        if(bandSketch.getBandLength() == indexOfDroppedPlace){
-                            var tmpVal = bandSketch.getRefR2(indexOfDroppedPlace-1);
-                            var dist = Math.abs(tmpVal-bandSketch.getRefR1(indexOfDroppedPlace-1));
-                            bandSketch.setRefR2(indexOfDroppedPlace-1,tmpVal-dist*0.5);
-                            bandSketch.spliceBand(indexOfDroppedPlace, quadBands[dragPredefinedBandIndex][6], quadBands[dragPredefinedBandIndex][7], tmpVal-(dist*0.125), tmpVal);
-                            bandSketch.spliceBand(indexOfDroppedPlace, quadBands[dragPredefinedBandIndex][4], quadBands[dragPredefinedBandIndex][5], tmpVal-(dist*0.25), tmpVal-(dist*0.125));
-                            bandSketch.spliceBand(indexOfDroppedPlace, quadBands[dragPredefinedBandIndex][2], quadBands[dragPredefinedBandIndex][3], tmpVal-(dist*0.375), tmpVal-(dist*0.25));
-                            bandSketch.spliceBand(indexOfDroppedPlace, quadBands[dragPredefinedBandIndex][0], quadBands[dragPredefinedBandIndex][1], tmpVal-dist*0.5 , tmpVal-(dist*0.375));
-                        }
-                        else{
 
-                          var tmpVal = bandSketch.getRefR1(indexOfDroppedPlace);
-                          var dist = Math.abs(tmpVal-bandSketch.getRefR2(indexOfDroppedPlace));
-                          bandSketch.setRefR1(indexOfDroppedPlace,tmpVal+dist*0.5);
-                          bandSketch.spliceBand(indexOfDroppedPlace, quadBands[dragPredefinedBandIndex][6], quadBands[dragPredefinedBandIndex][7], tmpVal+(dist*0.375), tmpVal+dist*0.5);
-                          bandSketch.spliceBand(indexOfDroppedPlace, quadBands[dragPredefinedBandIndex][4], quadBands[dragPredefinedBandIndex][5], tmpVal+(dist*0.25), tmpVal+(dist*0.375));
-                          bandSketch.spliceBand(indexOfDroppedPlace, quadBands[dragPredefinedBandIndex][2], quadBands[dragPredefinedBandIndex][3], tmpVal+(dist*0.125), tmpVal+(dist*0.25));
-                          bandSketch.spliceBand(indexOfDroppedPlace, quadBands[dragPredefinedBandIndex][0], quadBands[dragPredefinedBandIndex][1], tmpVal, tmpVal+(dist*0.125));
+                      switch (indexOfDroppedPlace) {
+                        case globalCMS1.getKeyLength()-1:
+                          var tmpVal = globalCMS1.getRefPosition(indexOfDroppedPlace);
+                          var dist = Math.abs(tmpVal-globalCMS1.getRefPosition(indexOfDroppedPlace-1))*0.5;
+                          globalCMS1.setRefPosition(indexOfDroppedPlace,tmpVal-dist);
+                          globalCMS1.setRightKeyColor(indexOfDroppedPlace,checkConstantBand(quadBands[dragPredefinedBandIndex][0], quadBands[dragPredefinedBandIndex][1])); // update old left key
+                          globalCMS1.pushKey(new class_Key(quadBands[dragPredefinedBandIndex][1], checkConstantBand(quadBands[dragPredefinedBandIndex][2], quadBands[dragPredefinedBandIndex][3]),tmpVal-dist*0.75)); // push new left key
+                          globalCMS1.pushKey(new class_Key(quadBands[dragPredefinedBandIndex][3], checkConstantBand(quadBands[dragPredefinedBandIndex][4], quadBands[dragPredefinedBandIndex][5]),tmpVal-dist*0.5)); // push new left key
+                          globalCMS1.pushKey(new class_Key(quadBands[dragPredefinedBandIndex][5], checkConstantBand(quadBands[dragPredefinedBandIndex][6], quadBands[dragPredefinedBandIndex][7]),tmpVal-dist*0.25)); // push new left key
+                          globalCMS1.pushKey(new class_Key(quadBands[dragPredefinedBandIndex][7], undefined,tmpVal)); // push new left key
+                          break;
 
-                            // band in the middle
-                            /*if(bandSketch.getBandLength() > indexOfDroppedPlace && indexOfDroppedPlace!=0){
+                        default:
+                          var startPos = globalCMS1.getRefPosition(indexOfDroppedPlace);
+                          var endPos = (startPos+Math.abs(globalCMS1.getRefPosition(indexOfDroppedPlace+1)-startPos)*0.5);
+                          var dist = endPos-startPos;
+                          ///////////
+                          ///// split key
+                          globalCMS1.setRefPosition(indexOfDroppedPlace,endPos);
 
-                                var newPos = bandSketch.getRefR2(indexOfDroppedPlace-1)-Math.abs(bandSketch.getRefR2(indexOfDroppedPlace-1)-bandSketch.getRefR1(indexOfDroppedPlace-1))/2;
-                                bandSketch.setRefR2(indexOfDroppedPlace-1,newPos);
+                          // case constant add Keys
+                          var oldColor = globalCMS1.getLeftKeyColor(indexOfDroppedPlace,"lab");
+                          globalCMS1.setLeftKeyColor(indexOfDroppedPlace,quadBands[dragPredefinedBandIndex][7]);
+                          globalCMS1.insertKey(indexOfDroppedPlace, new class_Key(quadBands[dragPredefinedBandIndex][5], checkConstantBand(quadBands[dragPredefinedBandIndex][6], quadBands[dragPredefinedBandIndex][7]),startPos+dist*0.75));
+                          globalCMS1.insertKey(indexOfDroppedPlace, new class_Key(quadBands[dragPredefinedBandIndex][3], checkConstantBand(quadBands[dragPredefinedBandIndex][4], quadBands[dragPredefinedBandIndex][5]),startPos+dist*0.5));
+                          globalCMS1.insertKey(indexOfDroppedPlace, new class_Key(quadBands[dragPredefinedBandIndex][1], checkConstantBand(quadBands[dragPredefinedBandIndex][2], quadBands[dragPredefinedBandIndex][3]),startPos+dist*0.25));
+                          globalCMS1.insertKey(indexOfDroppedPlace, new class_Key(oldColor,checkConstantBand(quadBands[dragPredefinedBandIndex][0], quadBands[dragPredefinedBandIndex][1]),startPos));
 
-                                var newPos2 = bandSketch.getRefR2(indexOfDroppedPlace)-Math.abs(bandSketch.getRefR2(indexOfDroppedPlace)-bandSketch.getRefR1(indexOfDroppedPlace))/2;
-                                bandSketch.setRefR1(indexOfDroppedPlace,newPos2);
-
-                                var dist = Math.abs(newPos2-newPos);
-                                bandSketch.spliceBand(indexOfDroppedPlace, quadBands[dragPredefinedBandIndex][6], quadBands[dragPredefinedBandIndex][7], newPos+(0.75*dist), newPos2);
-                                bandSketch.spliceBand(indexOfDroppedPlace, quadBands[dragPredefinedBandIndex][4], quadBands[dragPredefinedBandIndex][5], newPos+(0.5*dist), newPos+(0.75*dist));
-                                bandSketch.spliceBand(indexOfDroppedPlace, quadBands[dragPredefinedBandIndex][2], quadBands[dragPredefinedBandIndex][3], newPos+(0.25*dist), newPos+(0.5*dist));
-                                bandSketch.spliceBand(indexOfDroppedPlace, quadBands[dragPredefinedBandIndex][0], quadBands[dragPredefinedBandIndex][1], newPos, newPos+(0.25*dist));
-                            }
-
-                            // band as frist
-                            if(indexOfDroppedPlace==0){
-                                var tmpVal = bandSketch.getRefR1(0);
-                                var dist = Math.abs(tmpVal-bandSketch.getRefR2(0));
-                                bandSketch.setRefR1(0,tmpVal+dist*0.5);
-                                bandSketch.spliceBand(indexOfDroppedPlace, quadBands[dragPredefinedBandIndex][6], quadBands[dragPredefinedBandIndex][7], tmpVal+(dist*0.375), tmpVal+dist*0.5);
-                                bandSketch.spliceBand(indexOfDroppedPlace, quadBands[dragPredefinedBandIndex][4], quadBands[dragPredefinedBandIndex][5], tmpVal+(dist*0.25), tmpVal+(dist*0.375));
-                                bandSketch.spliceBand(indexOfDroppedPlace, quadBands[dragPredefinedBandIndex][2], quadBands[dragPredefinedBandIndex][3], tmpVal+(dist*0.125), tmpVal+(dist*0.25));
-                                bandSketch.spliceBand(indexOfDroppedPlace, quadBands[dragPredefinedBandIndex][0], quadBands[dragPredefinedBandIndex][1], tmpVal, tmpVal+(dist*0.125));
-                            }*/
-                        }
+                      }
                     }
 
             break;
@@ -429,6 +371,16 @@ function bandOnDrop(event){
 
       saveCreateProcess();
 
+
+}
+
+
+function checkConstantBand(c1,c2){
+
+  if(c1.equalTo(c2)) // case constant band
+    return undefined;
+  else
+    return c1;
 
 }
 

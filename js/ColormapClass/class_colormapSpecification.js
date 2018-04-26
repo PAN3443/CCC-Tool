@@ -773,3 +773,454 @@ class classColorMapSpecification {
 
 
 }
+
+
+
+
+
+class class_CMS {
+
+    constructor() {
+    this.name = "Customer Colormap";
+
+    this.NaN_RGB = new classColor_RGB(0,0,0);
+    this.NaN_HSV = new classColor_HSV(0,0,0);
+    this.NaN_LAB = new classColor_LAB(0,0,0);
+    this.NaN_DIN99 = new classColorDIN99(0,0,0);
+
+    /// color array from import and for the export
+    this.preprocessingColorArray = [];
+    this.preprocessingPositionPoints = [];
+
+    //// Real CMS structure
+    this.keyArray = [];
+    this.intervalArray=[];
+
+    /// color transformation settings (future work)
+    this.ref_X = 94.811;
+    this.ref_Y = 100.000;
+    this.ref_Z = 107.304;
+    this.kE =1;
+    this.kCH =1;
+
+  }
+
+  /////////////////////////////////
+  //// Key Structure
+  /////////////////////////////////
+
+  deleteKey(index){
+    this.keyArray.splice(index, 1);
+  }
+
+  clear(){
+    this.name = "Customer Colormap";
+
+    this.NaN_RGB = new classColor_RGB(0,0,0);
+    this.NaN_HSV = new classColor_HSV(0,0,0);
+    this.NaN_LAB = new classColor_LAB(0,0,0);
+    this.NaN_DIN99 = new classColorDIN99(0,0,0);
+
+    /// color array from import and for the export
+    this.preprocessingColorArray = [];
+    this.preprocessingPositionPoints = [];
+
+    //// Real CMS structure
+    this.keyArray = [];
+
+  }
+
+  createKeys(){
+
+    this.keyArray=[];
+
+    var lastElementTwin = false;
+    var lastElementLeft = false;
+
+     for(var i = 0; i<this.preprocessingPositionPoints.length-1; i++){
+        if(lastElementLeft==true){
+            lastElementLeft = false;
+            continue;
+        }
+        if(lastElementTwin==true){
+            lastElementTwin = false;
+            continue;
+        }
+        if(i==0){
+            if(preprocessingColorArray[i].equalTo(preprocessingColorArray[i+1])){
+                // nil key
+                var cL = undefined;
+                var cR = undefined;
+                var newKey = new class_Key(cL,cR,preprocessingPositionPoints[i]);
+                this.keyArray.push(newKey);
+            }
+            else{
+                // right key
+                var cL = undefined;
+                var cR = preprocessingColorArray[i];
+                var newKey = new class_Key(cL,cR,preprocessingPositionPoints[i]);
+                this.keyArray.push(newKey);
+            }
+        }
+        else{
+            // twin/leftKey  or not
+            if(this.preprocessingPositionPoints[i]==this.preprocessingPositionPoints[i+1]){
+                if(i+2>this.preprocessingPositionPoints.length-1){
+
+                    alert("Error in Colormap -> twin key at the end of colormap is not possible");
+
+                }
+                else{
+                    if(this.rgbColorArray[i+1].getRGBString()===this.rgbColorArray[i+2].getRGBString()){
+                        this.positionKeys.push("left key");
+                        this.middleOfTriple.push(true);
+
+                        // left key
+                        var cL = preprocessingColorArray[i];
+                        var cR = undefined;
+                        var newKey = new class_Key(cL,cR,preprocessingPositionPoints[i]);
+                        this.keyArray.push(newKey);
+
+                        lastElementLeft = true;
+                    }
+                    else{
+                        this.positionKeys.push("twin key");
+                        this.middleOfTriple.push(true);
+
+                        // right key
+                        var cL = preprocessingColorArray[i];
+                        var cR = preprocessingColorArray[i+1];
+                        var newKey = new class_Key(cL,cR,preprocessingPositionPoints[i]);
+                        this.keyArray.push(newKey);
+
+                        lastElementTwin = true;
+                    }
+                }
+
+            }
+            else{
+
+                var cL = preprocessingColorArray[i];
+                var cR = preprocessingColorArray[i];
+                var newKey = new class_Key(cL,cR,preprocessingPositionPoints[i]);
+                this.keyArray.push(newKey);
+
+            }
+        }
+
+     }
+
+
+     var cL = preprocessingColorArray[preprocessingColorArray.lenght-1];
+     var cR = undefined;
+     var newKey = new class_Key(cL,cR,preprocessingPositionPoints[preprocessingPositionPoints.lenght-1]);
+     this.keyArray.push(newKey);
+
+
+  }
+
+  getKeyLength(){
+    return this.keyArray.length;
+  }
+
+  getKey(index){
+    return this.keyArray[index];
+  }
+
+  setRefPosition(index, ref){
+    this.keyArray[index].setRefPosition(ref);
+  }
+
+  getRefPosition(index){
+    return this.keyArray[index].getRefPosition();
+  }
+
+
+  setLeftKeyColor(index, color){
+    this.keyArray[index].setLeftKeyColor(color);
+  }
+
+  getLeftKeyColor(index, colorspace){
+    return this.keyArray[index].getLeftKeyColor(colorspace);
+  }
+
+  setRightKeyColor(index, color){
+    this.keyArray[index].setRightKeyColor(color);
+  }
+
+  getRightKeyColor(index, colorspace){
+    return this.keyArray[index].getRightKeyColor(colorspace);
+  }
+
+  getKeyType(index){
+    return this.keyArray[index].getKeyType();
+  }
+
+  getMoT(index){
+    return this.keyArray[index].getMoT();
+  }
+
+  insertKey(index,key){
+      this.keyArray.splice(index, 0,key);
+  }
+
+  pushKey(key){
+      this.keyArray.push(key);
+  }
+
+  ///////////////////////////////////
+  /// CMS to Colormap
+  //////////////////////////////////
+
+
+  calcIntervalColors(intervals, colorspace){
+    this.intervalArray=[];
+
+    var tmpColormap=  new classColormap(colorspace);
+
+
+
+    if(this.keyArray.length>1 && intervals !=0){
+
+      var tmpIntervalRef=[];
+      var intervalDistance = (this.keyArray[this.keyArray.length-1].getRefPosition()-this.keyArray[0].getRefPosition())/intervals;
+
+
+      for(var i=0; i<intervals; i++){
+            var tmpVal = this.keyArray[0].getRefPosition()+(i*intervalDistance);
+            tmpIntervalRef.push(tmpVal);
+        }
+        tmpIntervalRef.push(this.keyArray[this.keyArray.length-1].getRefPosition());
+
+
+
+      var currentKeyPos = 0;
+
+      for(var refIndex=0; refIndex<tmpIntervalRef.length; refIndex++)
+
+          if(tmpIntervalRef[refIndex]>this.keyArray[currentKeyPos+1].getRefPosition())
+          currentKeyPos++;
+
+          if(tmpIntervalRef[refIndex]==this.keyArray[currentKeyPos].getRefPosition()){
+            var tmpColor;
+            switch (this.keyArray[currentKeyPos].getKeyType()) {
+                case "nil key":
+                tmpColor = this.keyArray[currentKeyPos+1].getLeftKeyColor(colorspace);
+                break;
+              case "twin key":
+                if(this.keyArray[currentKeyPos].getMoT())
+                tmpColor = this.keyArray[currentKeyPos].getRightKeyColor(colorspace);
+                else
+                tmpColor = this.keyArray[currentKeyPos].getLeftKeyColor(colorspace);
+                break;
+              case "left key":
+                if(currentKeyPos==this.keyArray.length-1){
+                  tmpColor = this.keyArray[currentKeyPos].getRightKeyColor(colorspace);
+                }
+                else {
+                  if(this.keyArray[currentKeyPos].getMoT())
+                  tmpColor = this.keyArray[currentKeyPos].getRightKeyColor(colorspace+1);
+                  else
+                  tmpColor = this.keyArray[currentKeyPos].getLeftKeyColor(colorspace);
+                }
+                break;
+              default:
+                // right or dual key
+                tmpColor = this.keyArray[currentKeyPos].getRightKeyColor(colorspace);
+            }
+
+            var newInterval = new class_Interval(tmpColor, true, tmpIntervalRef[refIndex]);
+            this.intervalArray.push(newInterval);
+            currentKeyPos++;
+          }
+          else{
+            /////////////////////////////////////////
+            //// calc new interval color
+            /////////////////////////////////////////
+
+            var color1;
+            var color2;
+            var tmpColor;
+            var doInterpolation=true;
+            ///// get color1
+            switch (this.keyArray[currentKeyPos-1].getKeyType()) {
+              case "nil key": case "left key":
+                tmpColor = this.keyArray[currentKeyPos].getLeftKeyColor(colorspace);
+                doInterpolation=false;
+              default:
+                // right or dual key
+                color1 = this.keyArray[currentKeyPos-1].getRightKeyColor(colorspace);
+            }
+
+            ///// get color2
+            // twin left or dual key
+            color2 = this.keyArray[currentKeyPos].getLeftKeyColor(colorspace);
+
+          if(doInterpolation){
+            var leftRef = this.keyArray[currentKeyPos-1].getRefPosition();
+            var rightRef = this.keyArray[currentKeyPos].getRefPosition();
+            var tmpRatio = (tmpIntervalRef[refIndex]-leftRef)/(rightRef-leftRef);
+
+            switch (colorspace) {
+              case "rgb":
+                  var rValue = color1.get1Value()+(color2.get1Value() - color1.get1Value())*tmpRatio;
+                  var gValue = color1.get2Value()+(color2.get2Value() - color1.get2Value())*tmpRatio;
+                  var bValue = color1.get3Value()+(color2.get3Value() - color1.get3Value())*tmpRatio;
+
+                  tmpColor = new classColor_RGB(rValue,gValue,bValue);
+                break;
+              case "hsv":
+
+                  var tmpDis = color1.getSValue()*50; // radius 50; center(0,0,0);
+                  var tmpRad = (color1.getHValue()*Math.PI*2)-Math.PI;
+                  var xPos = tmpDis*Math.cos(tmpRad);
+                  var yPos = tmpDis*Math.sin(tmpRad);
+                  var zPos = color1.getVValue()-50;
+
+                  var tmpDis2 = color2.getSValue()*50;
+                  var tmpRad2 = (color2.getHValue()*Math.PI*2)-Math.PI;
+                  var xPos2 = tmpDis2*Math.cos(tmpRad2);
+                  var yPos2 = tmpDis2*Math.sin(tmpRad2);
+                  var zPos2 = color2.getVValue()-50;
+
+                  var tmpX = xPos+(xPos2 - xPos)*tmpRatio;
+                  var tmpY = yPos+(yPos2 - yPos)*tmpRatio;
+                  var tmpZ = zPos+(zPos2 - zPos)*tmpRatio;
+
+                  var tmpH =(Math.atan2(tmpY,tmpX)+Math.PI)/(Math.PI*2);
+                  var tmpS = Math.sqrt(Math.pow(tmpX,2)+Math.pow(tmpY,2))/50;
+                  var tmpV = tmpZ+50;
+                  tmpColor = new classColor_HSV(tmpH,tmpS,tmpV);
+
+                break;
+              case "lab":
+
+                  var lValue = color1.get1Value()+(color2.get1Value() - color1.get1Value())*tmpRatio;
+                  var aValue = color1.get2Value()+(color2.get2Value() - color1.get2Value())*tmpRatio;
+                  var bValue = color1.get3Value()+(color2.get3Value() - color1.get3Value())*tmpRatio;
+
+                  tmpColor = new classColor_LAB(lValue,aValue,bValue);
+
+                break;
+              case "din99":
+                  var l99Value = color1.get1Value()+(color2.get1Value() - color1.get1Value())*tmpRatio;
+                  var a99Value = color1.get2Value()+(color2.get2Value() - color1.get2Value())*tmpRatio;
+                  var b99Value = color1.get3Value()+(color2.get3Value() - color1.get3Value())*tmpRatio;
+
+                  tmpColor = new classColorDIN99(l99Value,a99Value,b99Value);
+                break;
+              default:
+              console.log("Error calcColorMap function");
+            }
+          }//if
+
+              // calc color
+              var newInterval = new class_Interval(tmpColor, false, tmpIntervalRef[refIndex]);
+              this.intervalArray.push(newInterval);
+
+
+
+      }//for
+
+
+    }//
+
+
+
+  }//
+
+
+  /////////////// Other GET SET ////////////////////
+
+
+   getColormapName() {
+    return this.name;
+   }
+
+   setColormapName(newName) {
+    this.name = newName;
+   }
+
+   pushPreprocessColor(color){
+     preprocessingColorArray.push(color);
+
+   }
+
+    pushPreprocessRef(position){
+        this.preprocessingPositionPoints.push(position);
+    }
+
+
+   setNaNColor(color){
+
+     var colorType = color.getColorType();
+     switch (colorType) {
+       case "rgb":
+       this.NaN_RGB = color;
+       this.NaN_HSV = color.calcHSVColor();
+       this.NaN_LAB = color.calcLABColor();
+       this.NaN_DIN99 = color.calcDIN99Color(1,1);
+         break;
+       case "hsv":
+       this.NaN_RGB = color.calcRGBColor();
+       this.NaN_HSV = color;
+       this.NaN_LAB = color.calcLABColor();
+       this.NaN_DIN99 = color.calcDIN99Color(1,1);
+         break;
+       case "lab":
+       this.NaN_RGB = color.calcRGBColor();
+       this.NaN_HSV = color.calcHSVColor();
+       this.NaN_LAB = color;
+       this.NaN_DIN99 = color.calcDIN99Color(1,1);
+         break;
+       case "din99":
+       this.NaN_RGB = color.calcRGBColor();
+       this.NaN_HSV = color.calcHSVColor();
+       this.NaN_LAB = color.calcLABColor();
+       this.NaN_DIN99 = color;
+         break;
+       default:
+
+     }
+   }
+
+   getNaNColor(colorspace){
+
+     switch (colorspace) {
+       case "rgb":
+       return this.NaN_RGB;
+
+       case "hsv":
+       return this.NaN_HSV;
+
+       case "lab":
+       return this.NaN_LAB;
+
+       case "din99":
+       return this.NaN_DIN99;
+
+       default:
+
+     }
+   }
+
+
+
+}
+
+
+function cloneCMS(cmsObj){
+
+  var newCMS = new class_CMS();
+  newCMS.setColormapName(cmsObj.getColormapName());
+  newCMS.setNaNColor(cmsObj.getNaNColor("lab"));
+
+  //clone Keys
+  for(var i=0; i<cmsObj.getKeyLength(); i++){
+    var keyObj = cmsObj.getKey(i);
+    var newKey = new class_Key(keyObj.getLeftKeyColor("lab"),keyObj.getRightKeyColor("lab"),keyObj.getRefPosition());
+    newCMS.pushKey(newKey);
+  }
+
+  return newCMS;
+}

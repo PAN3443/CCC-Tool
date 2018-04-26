@@ -4,6 +4,11 @@ function drawCanvasBand(canvasObject, color1, color2,resolutionX){
             canvasObject.width = resolutionX;
             canvasObject.height = 1;
 
+            if(color1 == undefined){
+              // case constant band
+              color1=color2;
+            }
+
             var canvasContex = canvasObject.getContext("2d");
             var canvasData = canvasContex.getImageData(0, 0, resolutionX, 1);
 

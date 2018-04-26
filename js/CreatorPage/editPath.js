@@ -10,7 +10,7 @@ function drawPathEditPath(){
         document.getElementById("id_RGBCourseDivModiy").style.display = "initial";
         initRGB3D();
         animate();
-        drawcolormap_RGBSpace(globalColormap1, "id_canvasRGModiy","id_canvasRBModiy","id_canvasBGModiy", true, true);
+        drawcolormap_RGBSpace(globalCMS1, "id_canvasRGModiy","id_canvasRBModiy","id_canvasBGModiy", true, true);
       break;
       case "hsv":
         stopAnimation();
@@ -20,12 +20,12 @@ function drawPathEditPath(){
         document.getElementById("id_setValueRange").value = 100;
 
         if (browserCanWorker==false) {
-          drawcolormap_hueSpace(globalColormap1, "id_ModiyCourseHueBackground",true, true); //drawcolormap_hueSpace(globalColormap1, "id_workcanvasAnalyseHue");
+          drawcolormap_hueSpace(globalCMS1, "id_ModiyCourseHueBackground",true, true); //drawcolormap_hueSpace(globalColormap1, "id_workcanvasAnalyseHue");
         }
         else {
-          parallelDrawBackground("id_ModiyCourseHueBackground", globalColormap1);
-          parallelDrawPath("id_ModiyCourseHueBackground"+"2", globalColormap1, false);
-          parallelDrawElements("id_ModiyCourseHueBackground"+"3", globalColormap1, false);
+          parallelDrawBackground("id_ModiyCourseHueBackground", globalCMS1);
+          parallelDrawPath("id_ModiyCourseHueBackground"+"2", globalCMS1, false);
+          parallelDrawElements("id_ModiyCourseHueBackground"+"3", globalCMS1, false);
         }
       break;
       case "lab": case "din99":
@@ -35,12 +35,12 @@ function drawPathEditPath(){
         document.getElementById("id_setValueRange").value = 65;
         //hueInit("id_ModiyCourseHueBackground");
         if (browserCanWorker==false) {
-            drawcolormap_hueSpace(globalColormap1, "id_ModiyCourseHueBackground",true, true); //drawcolormap_hueSpace(globalColormap1, "id_workcanvasAnalyseHue");
+            drawcolormap_hueSpace(globalCMS1, "id_ModiyCourseHueBackground",true, true); //drawcolormap_hueSpace(globalColormap1, "id_workcanvasAnalyseHue");
         }
         else {
-          parallelDrawBackground("id_ModiyCourseHueBackground", globalColormap1);
-          parallelDrawPath("id_ModiyCourseHueBackground"+"2", globalColormap1, false);
-          parallelDrawElements("id_ModiyCourseHueBackground"+"3", globalColormap1, false);
+          parallelDrawBackground("id_ModiyCourseHueBackground", globalCMS1);
+          parallelDrawPath("id_ModiyCourseHueBackground"+"2", globalCMS1, false);
+          parallelDrawElements("id_ModiyCourseHueBackground"+"3", globalCMS1, false);
         }
 
       break;
@@ -62,27 +62,27 @@ function changeValueRange(){
 
       hueInit("id_ModiyCourseHueBackground");
       if (browserCanWorker==false) {
-        drawcolormap_hueSpace(globalColormap1, "id_ModiyCourseHueBackground",true, true);
+        drawcolormap_hueSpace(globalCMS1, "id_ModiyCourseHueBackground",true, true);
       }
       else {
-        parallelDrawBackground("id_ModiyCourseHueBackground", globalColormap1);
-        parallelDrawPath("id_ModiyCourseHueBackground"+"2", globalColormap1, false);
-        parallelDrawElements("id_ModiyCourseHueBackground"+"3", globalColormap1, false);
+        parallelDrawBackground("id_ModiyCourseHueBackground", globalCMS1);
+        parallelDrawPath("id_ModiyCourseHueBackground"+"2", globalCMS1, false);
+        parallelDrawElements("id_ModiyCourseHueBackground"+"3", globalCMS1, false);
       }
 }
 
 function modifyColormapRGBPossible(){
   if(document.getElementById("id_checkboxRGB").checked==true){
     orderColorSketch('rgb');
-    bandSketch.colormap2Sketch(globalColormap1);
+    bandSketch.colormap2Sketch(globalCMS1);
 
       if (browserCanWorker==false) {
-        drawcolormap_hueSpace(globalColormap1, "id_ModiyCourseHueBackground",true, true);
+        drawcolormap_hueSpace(globalCMS1, "id_ModiyCourseHueBackground",true, true);
       }
       else {
-        parallelDrawBackground("id_ModiyCourseHueBackground", globalColormap1);
-        parallelDrawPath("id_ModiyCourseHueBackground"+"2", globalColormap1, false);
-        parallelDrawElements("id_ModiyCourseHueBackground"+"3", globalColormap1, false);
+        parallelDrawBackground("id_ModiyCourseHueBackground", globalCMS1);
+        parallelDrawPath("id_ModiyCourseHueBackground"+"2", globalCMS1, false);
+        parallelDrawElements("id_ModiyCourseHueBackground"+"3", globalCMS1, false);
       }
   }
 

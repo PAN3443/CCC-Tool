@@ -17,22 +17,53 @@ function changeTutorial(type) {
     case 0:
       document.getElementById("button_showMyDesignsTutorial").style.background=styleActiveColor;
       document.getElementById("id_tutorialMyDesignsPage").style.display = "inline-block";
+
+      if(loadWebtoolImages == false){
+        document.getElementById("tutImg_toolConstruction").src="img/Tutorial/webtoolConstruction.png";
+        document.getElementById("tutImg_example_myDesigns").src="img/Tutorial/myDesignsExample.png";
+        document.getElementById("tutImg_example_Gallery").src="img/Tutorial/galleryExample.png";
+        document.getElementById("tutImg_example_SelectCompare").src="img/Tutorial/chooseCompareCMSExample.png";
+        loadWebtoolImages=true;
+      }
+
       break;
     case 1:
       document.getElementById("button_showCreateTutorial").style.background=styleActiveColor;
       document.getElementById("id_tutorialCreatePage").style.display = "inline-block";
+
+      if(loadCMSImages == false){
+        loadCMSImages=true;
+      }
+
       break;
     case 2:
       document.getElementById("button_showExportTutorial").style.background=styleActiveColor;
       document.getElementById("id_tutorialExportPage").style.display = "inline-block";
+
+      if(loadCreationImages == false){
+        loadCreationImages=true;
+      }
+
       break;
     case 3:
       document.getElementById("button_showAnalyseTutorial").style.background=styleActiveColor;
       document.getElementById("id_tutorialAnalysePage").style.display = "inline-block";
+
+
+
+      if(loadAnalyzeImages == false){
+        loadAnalyzeImages=true;
+      }
+
       break;
     case 4:
       document.getElementById("button_showSpecificationTutorial").style.background=styleActiveColor;
       document.getElementById("id_colormapspecification").style.display = "inline-block";
+
+      if(loadExportImages == false){
+        loadExportImages=true;
+      }
+
     break;
     default:
       return;

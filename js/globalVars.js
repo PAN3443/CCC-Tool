@@ -3,7 +3,7 @@
 //////////////////////////
 var showSideID = -1; // 0 = myList; 1=CreateSide, 2=Analyse
 var initPageType = -1;
-var somethingChanged = false;
+var somethingChanged = false; 
 
 var styleActiveColor = "rgba(0,191,255,0.7)";
 var styleInactiveColor = "none";//"rgba(169,169,169,0.3)";//"rgb(65,105,225)";
@@ -13,6 +13,8 @@ var size3D=50;
 var myList = [];
 var globalColormap1;
 var globalColormap2;
+var globalCMS1;
+var globalCMS2;
 var tmpSaveColormap;
 var saveTwoColormaps=false;
 var tmpSaveColormap2;
@@ -153,6 +155,17 @@ var spaceElementsKey = [];
 var bandSketch;
 var bandSketch2;
 ////////////////////////////////////////////////////////////////////////////////
+
+
+///////////////////////////
+/// Tutorial Page
+//////////////////////////
+
+var loadWebtoolImages = false;
+var loadCMSImages = false;
+var loadCreationImages = false;
+var loadExportImages = false;
+var loadAnalyzeImages = false;
 
 ////////////////////////////////////////////////////////////////////////////////
 

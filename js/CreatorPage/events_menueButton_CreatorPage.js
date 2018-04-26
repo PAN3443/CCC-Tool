@@ -11,13 +11,13 @@ function createSideExport(){
 }
 
 function colormapNameChangeEnter(e){
-   if (e.keyCode == 13 && globalColormap1!=undefined)
-    globalColormap1.setColormapName(document.getElementById("id_InputMapName").value);
+   if (e.keyCode == 13 && globalCMS1!=undefined)
+    globalCMS1.setColormapName(document.getElementById("id_InputMapName").value);
 }
 
 function colormapNameChange(e){
-    if(globalColormap1!=undefined){
-     globalColormap1.setColormapName(document.getElementById("id_InputMapName").value);
+    if(globalCMS1!=undefined){
+     globalCMS1.setColormapName(document.getElementById("id_InputMapName").value);
     }
 }
 
@@ -40,8 +40,8 @@ function saveColormapToList(){
     if(isEdit==-1){
 
       if(myList.length<9){
-        var newMap = bandSketch.sketch2Colormap(colorspaceModus, globalColormap1.getColormapName());
-        myList.push(newMap);
+        //var newMap = bandSketch.sketch2Colormap(colorspaceModus, globalColormap1.getColormapName());
+        myList.push(cloneCMS(globalCMS1));
         colormap1SelectIndex=myList.length-1;
         clearCreateSide();
 
@@ -55,8 +55,8 @@ function saveColormapToList(){
     }
     else{
 
-      var newMap = bandSketch.sketch2Colormap(colorspaceModus, globalColormap1.getColormapName());
-      tmpSaveColormap = newMap;
+      //var newMap = bandSketch.sketch2Colormap(colorspaceModus, globalColormap1.getColormapName());
+      tmpSaveColormap = cloneCMS(globalCMS1);
 
       openSavePopUp();
       //changePage(0);
@@ -180,16 +180,14 @@ function clearCreateSide(){
 function backwardColormapProcess(){
   if(processPosition>0){
     processPosition--;
-    globalColormap1 = colormapProcess[processPosition];
-    colormap2Sketch(globalColormap1);
+    globalCMS1 = colormapProcess[processPosition];
   }
 }
 
 function forwardColormapProcess(){
   if(processPosition<colormapProcess.length-1){
     processPosition++;
-    globalColormap1 = colormapProcess[processPosition];
-    colormap2Sketch(globalColormap1);
+    globalCMS1 = colormapProcess[processPosition];
   }
 }
 

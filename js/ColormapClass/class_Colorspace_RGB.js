@@ -74,6 +74,29 @@ class classColor_RGB{
       return tmpString;
   }
 
+  equalTo(color){
+
+    switch (color.getColorType()) {
+      case "rgb":
+          if(color.get1Value()==this.get1Value()&&
+             color.get2Value()==this.get2Value()&&
+             color.get3Value()==this.get3Value())
+             return true;
+          else
+            return false;
+      default:
+        var tmpColor = color.calcRGBColor();
+        if(color.get1Value()==this.get1Value()&&
+           color.get2Value()==this.get2Value()&&
+           color.get3Value()==this.get3Value())
+           return true;
+        else
+          return false;
+
+    }
+
+  }
+
   calcLABColor(){
     /// from RGB -> XYZ
 

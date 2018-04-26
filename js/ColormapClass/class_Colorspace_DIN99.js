@@ -67,6 +67,39 @@ class classColorDIN99{
         this.bValue = newBVal;
       }
 
+      equalTo(color){
+
+        switch (color.getColorType()) {
+          case "din99":
+              if(color.get1Value()==this.get1Value()&&
+                 color.get2Value()==this.get2Value()&&
+                 color.get3Value()==this.get3Value())
+                 return true;
+              else
+                return false;
+          default:
+            var tmpColor = color.calcDIN99Color(this.kE,this.kCH);
+            if(color.get1Value()==this.get1Value()&&
+               color.get2Value()==this.get2Value()&&
+               color.get3Value()==this.get3Value())
+               return true;
+            else
+              return false;
+
+        }
+
+      }
+
+      getDIN99String(){
+          var tmpString = "din99("+this.l99Value+","+this.a99Value+","+this.b99Value+")";
+          return tmpString;
+      }
+
+      getDIN99String(numDecimalPlaces){
+          var tmpString = "din99("+this.l99Value.toFixed(numDecimalPlaces)+","+this.a99Value.toFixed(numDecimalPlaces)+","+this.b99Value.toFixed(numDecimalPlaces)+")";
+          return tmpString;
+      }
+
       calcRGBColor(){
             var tmpLAB = this.calcLABColor();
             return tmpLAB.calcRGBColor();

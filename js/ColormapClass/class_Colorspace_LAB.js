@@ -65,6 +65,39 @@ class classColor_LAB{
         this.bValue = newBVal;
       }
 
+      equalTo(color){
+
+        switch (color.getColorType()) {
+          case "lab":
+              if(color.get1Value()==this.get1Value()&&
+                 color.get2Value()==this.get2Value()&&
+                 color.get3Value()==this.get3Value())
+                 return true;
+              else
+                return false;
+          default:
+            var tmpColor = color.calcLABColor();
+            if(color.get1Value()==this.get1Value()&&
+               color.get2Value()==this.get2Value()&&
+               color.get3Value()==this.get3Value())
+               return true;
+            else
+              return false;
+
+        }
+
+      }
+
+      getLABString(){
+          var tmpString = "lab("+this.lValue+","+this.aValue+","+this.bValue+")";
+          return tmpString;
+      }
+
+      getLABString(numDecimalPlaces){
+          var tmpString = "lab("+this.lValue.toFixed(numDecimalPlaces)+","+this.aValue.toFixed(numDecimalPlaces)+","+this.bValue.toFixed(numDecimalPlaces)+")";
+          return tmpString;
+      }
+
       calcRGBColor(){
             var error = 100.0; //0.01;
 
@@ -234,6 +267,7 @@ class classColor_LAB{
       }
 
       calcDIN99Color(kE,kCH){
+
         var valueL99, valueA99, valueB99;
         var lScale = 100/Math.log(139/100.0); // = 303.67
         valueL99 = lScale/kE*Math.log(1+.0039*this.lValue);
@@ -252,6 +286,7 @@ class classColor_LAB{
             valueA99 = C99 * Math.cos(h99);
             valueB99 = C99 * Math.sin(h99);
         }
+
         return new classColorDIN99(valueL99, valueA99, valueB99);
       }
 

@@ -14,6 +14,9 @@ window.onload = function() {
   globalColormap1 = new classColorMapSpecification();
   globalColormap2 = new classColorMapSpecification();
 
+  globalCMS1 = new class_CMS();
+  globalCMS2 = new class_CMS();
+
   bandSketch = new classBandSketch();
   bandSketch2 = new classBandSketch();
 
@@ -49,7 +52,7 @@ window.onload = function() {
   document.getElementById('buttonShowMyDesignsPreview').addEventListener("mouseleave", hideMyDesingsPreview);
 
 
-  var colormapPath = pathColormaps+folderYellow+fileYellowColormaps[0];
+  /*var colormapPath = pathColormaps+folderYellow+fileYellowColormaps[0];
   var tmpMap  = xmlColormapParserPath(colormapPath);
   drawCanvasColormap( "canvasPreviewYellow", existingMap_resolution_X,  existingMap_resolution_Y, tmpMap);
   colormapPath = pathColormaps+folderRedPurple+fileRedPurpleColormaps[0];
@@ -74,7 +77,7 @@ window.onload = function() {
 
   colormapPath = pathColormaps+folderFourBand+fileFourBandColormaps[0];
   tmpMap  = xmlColormapParserPath(colormapPath);
-  drawCanvasColormap("canvasPreviewComplexFour", existingMap_resolution_X,  existingMap_resolution_Y, tmpMap);
+  drawCanvasColormap("canvasPreviewComplexFour", existingMap_resolution_X,  existingMap_resolution_Y, tmpMap);*/
 
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -405,25 +408,20 @@ function orderColorSketch(forColorspace) {
   var sketchObject = document.getElementById("id_colormapSketch");
   var sketchRefObj = document.getElementById("id_colormapSketch_Ref");
 
-  globalColormap1 = bandSketch.sketch2Colormap(forColorspace, globalColormap1.getColormapName());
 
-  if(showSideID==3)
-  globalColormap2 = bandSketch2.sketch2Colormap(forColorspace, globalColormap1.getColormapName());
+ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  if (bandSketch.getBandLength() != 0) {
+  if (globalCMS1.getKeyLength() != 0) {
 
     if (showSideID == 1) {
       // show and draw the colormap
       document.getElementById("id_LinearMap_Table_Div").style.display = "inline-block";
-      drawCanvasColormap("id_linearColormap", linearMap_resolution_X, linearMap_resolution_Y, globalColormap1);
-      drawKeys("id_keyColormap", key_resolution_X, key_resolution_Y, globalColormap1, "id_keyColormapLinesBottom", true, true);
+      drawCanvasColormap("id_linearColormap", linearMap_resolution_X, linearMap_resolution_Y, globalCMS1);
+      drawKeys("id_keyColormap", key_resolution_X, key_resolution_Y, globalCMS1, "id_keyColormapLinesBottom");
       fillTable();
     }
 
-    editPage_drawKeys('id_createColormapKeys', globalColormap1, false);
+    editPage_drawKeys('id_createColormapKeys', globalCMS1);
 
     //////////////////////////////////////////////////////////////////////////
 
@@ -432,9 +430,9 @@ function orderColorSketch(forColorspace) {
 
     var tmpRect = sketchObject.getBoundingClientRect();
 
-    var tmpLength = tmpRect.width/bandSketch.getBandLength()-2;
+    var tmpLength = tmpRect.width/(globalCMS1.getKeyLength()-1)-2;
 
-    for (var i = 0; i < bandSketch.getBandLength(); i++) {
+    for (var i = 0; i < globalCMS1.getKeyLength()-1; i++) {
 
       // create band
       var tCan = document.createElement('canvas');
@@ -448,7 +446,7 @@ function orderColorSketch(forColorspace) {
       tCan.style.width = tmpLength + "px"; //100 +'%';
 
 
-      drawCanvasBand(tCan, bandSketch.getC1Color(i, colorspaceModus), bandSketch.getC2Color(i, colorspaceModus), tCan.width);
+      drawCanvasBand(tCan, globalCMS1.getRightKeyColor(i,colorspaceModus), globalCMS1.getLeftKeyColor(i+1,colorspaceModus), tCan.width);
 
       //tCan.addEventListener("dragstart", createSide_BandOnDragStart);
       //tCan.addEventListener("dragend", createSide_BandOnDragEnd);
@@ -530,9 +528,9 @@ function orderColorSketch(forColorspace) {
       var left = box.left + scrollLeft - clientLeft;
 
 
-      var xposHTML = ((i) / bandSketch.getBandLength()) * box.width + left;
+      var xposHTML = (i / (globalCMS1.getKeyLength()-1)) * box.width + left;
       var yposHTML = box.height + top;
-      var tmpText = '' + bandSketch.getRefR1(i); //.toFixed(numDecimalPlaces);
+      var tmpText = '' + globalCMS1.getRefPosition(i); //.toFixed(numDecimalPlaces);
 
       if(showSideID==1){
 
@@ -561,16 +559,15 @@ function orderColorSketch(forColorspace) {
         xposHTML = xposHTML - (inputField.getBoundingClientRect().width / 2);
         inputField.style.left = Math.round(xposHTML) + "px";
 
-        inputField.onchange = (function(sketchIndex, id) {
+        inputField.onchange = (function(keyIndex, id) {
           return function() {
 
             switch (id) {
               case 0:
-                changeKeyValueInputSketch(sketchIndex, true, id, false);
+                changeKeyValueInput(keyIndex, id);
                 break;
               default:
-                changeKeyValueInputSketch(sketchIndex, true, id, false);
-                //changeKeyValueInputSketch(sketchIndex-1,false, id, false);
+                changeKeyValueInput(keyIndex, id);
             }
 
           };
@@ -586,9 +583,9 @@ function orderColorSketch(forColorspace) {
         })(inputID);
 
         /////////////////// special case: last element /////////
-        if (i == bandSketch.getBandLength() - 1) {
+        if (i == globalCMS1.getKeyLength()-2) {
           refLineDiv.style.borderRight = "1px solid black";
-          tmpText = '' + bandSketch.getRefR2(i); //.toFixed(numDecimalPlaces);
+          tmpText = '' + globalCMS1.getRefPosition(i+1); //.toFixed(numDecimalPlaces);
           xposHTML = box.width + left;
           var inputField2 = document.createElement("input");
           inputField2.setAttribute('type', 'text');
@@ -615,10 +612,10 @@ function orderColorSketch(forColorspace) {
           xposHTML = xposHTML - (inputField2.getBoundingClientRect().width / 2);
           inputField2.style.left = Math.round(xposHTML) + "px";
 
-          inputField2.onchange = (function(sketchIndex, id) {
+          inputField2.onchange = (function(keyIndex, id) {
             return function() {
 
-              changeKeyValueInputSketch(sketchIndex, false, id, false);
+              changeKeyValueInput(keyIndex, id);
 
             };
           })(i, inputID);
@@ -635,8 +632,11 @@ function orderColorSketch(forColorspace) {
         }
       }
       else{
-        if(bandSketch.getRefR1(i).countDecimals()>2){
-          tmpText = bandSketch.getRefR1(i).toFixed(2) + "..";
+        // no input fields !
+
+
+        if(globalCMS1.getRefPosition(i).countDecimals()>2){
+          tmpText = globalCMS1.getRefPosition(i).toFixed(2) + "..";
         }
         var inputField = document.createElement("p");
         inputField.innerHTML = tmpText;
@@ -664,11 +664,11 @@ function orderColorSketch(forColorspace) {
 
 
         /////////////////// special case: last element /////////
-        if (i == bandSketch.getBandLength() - 1) {
+        if (i == globalCMS1.getKeyLength()-2) {
           refLineDiv.style.borderRight = "1px solid black";
-          tmpText = bandSketch.getRefR2(i) + "";
-          if(bandSketch.getRefR2(i).countDecimals()>2){
-            tmpText = bandSketch.getRefR2(i).toFixed(2) + "..";
+          tmpText = globalCMS1.getRefPosition(i+1) + "";
+          if(globalCMS1.getRefPosition(i+1).countDecimals()>2){
+            tmpText = globalCMS1.getRefPosition(i+1).toFixed(2) + "..";
           }
           xposHTML = box.width + left;
           var inputField2 = document.createElement("p");
@@ -700,7 +700,7 @@ function orderColorSketch(forColorspace) {
     }
 
     var t2Div = document.createElement('div');
-    t2Div.id = 'dragPos' + bandSketch.getBandLength();
+    t2Div.id = 'dragPos' + (globalCMS1.getKeyLength()-1);
     t2Div.style.border = "3px solid red";
     t2Div.style.height = 99 + '%';
     t2Div.style.width = 100 + '%';
@@ -727,12 +727,12 @@ function orderColorSketch(forColorspace) {
 
 
     if(showSideID == 3){
-      tmpLength = tmpRect.width / bandSketch2.getBandLength() - 1;
+      tmpLength = tmpRect.width /(globalCMS2.getKeyLength()-1) - 1;
       sketchObject = document.getElementById("id_colormapSketch2");
       sketchRefObj = document.getElementById("id_colormapSketch_Ref2");
-      editPage_drawKeys('id_createColormapKeys2', globalColormap2, true);
+      editPage_drawKeys('id_createColormapKeys2', globalCMS2);
 
-      for (var i = 0; i < bandSketch2.getBandLength(); i++) {
+      for (var i = 0; i < globalCMS2.getKeyLength()-1; i++) {
 
         // create band
         var tCan = document.createElement('canvas');
@@ -749,7 +749,7 @@ function orderColorSketch(forColorspace) {
         tCan.style.maxWidth = tmpLength + "px"; //100 +'%';
         tCan.style.width = tmpLength + "px"; //100 +'%';
 
-        drawCanvasBand(tCan, bandSketch2.getC1Color(i, colorspaceModus), bandSketch2.getC2Color(i, colorspaceModus), tCan.width);
+        drawCanvasBand(tCan, globalCMS2.getRightKeyColor(i, colorspaceModus), globalCMS2.getRightKeyColor(i+1, colorspaceModus), tCan.width);
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -765,7 +765,7 @@ function orderColorSketch(forColorspace) {
 
 
         /////////////////// draw ref /////////
-        var tmpText = '' + bandSketch2.getRefR1(i); //.toFixed(numDecimalPlaces);
+        var tmpText = '' + globalCMS2.getRefPosition(i); //.toFixed(numDecimalPlaces);
 
         var box = sketchRefObj.getBoundingClientRect();
 
@@ -782,7 +782,7 @@ function orderColorSketch(forColorspace) {
         var left = box.left + scrollLeft - clientLeft;
 
 
-        var xposHTML = ((i) / bandSketch2.getBandLength()) * box.width + left;
+        var xposHTML = ((i) / (globalCMS2.getKeyLength()-1)) * box.width + left;
         var yposHTML = box.height + top;
 
         var inputField = document.createElement("p");
@@ -811,9 +811,9 @@ function orderColorSketch(forColorspace) {
 
 
         /////////////////// special case: last element /////////
-        if (i == bandSketch2.getBandLength() - 1) {
+        if (i == globalCMS2.getKeyLength()-2) {
           refLineDiv.style.borderRight = "1px solid black";
-          tmpText = '' + bandSketch2.getRefR2(i); //.toFixed(numDecimalPlaces);
+          tmpText = '' + globalCMS2.getRefPosition(i+1); //.toFixed(numDecimalPlaces);
           xposHTML = box.width + left;
           var inputField2 = document.createElement("p");
           inputField2.innerHTML = tmpText;
@@ -839,103 +839,7 @@ function orderColorSketch(forColorspace) {
           xposHTML = xposHTML - (inputField2.getBoundingClientRect().width / 2);
           inputField2.style.left = Math.round(xposHTML) + "px";
         }
-        /*var inputField = document.createElement("input");
-        inputField.setAttribute('type', 'text');
-        inputField.setAttribute('value', tmpText);
-        var inputID = "id_SketchKeyValInput2_" + i;
-        inputField.id = inputID;
-        document.body.appendChild(inputField);
 
-        //inputField.style.width = "min-content";
-        inputField.style.width = "3vw";
-        inputField.style.height = "2vh";
-        inputField.style.fontSize = "1.8vh";
-        //inputField.style.background = "rgb(255,255,255)";
-        inputField.style.paddingLeft = 5 + "px";
-        inputField.style.paddingRight = 5 + "px";
-        //inputField.style.border = "2px solid rgb(0,0,0)";
-        inputField.style.margin = "0px";
-        inputField.style.zIndex = "2";
-
-        inputField.style.position = "absolute";
-        inputField.style.top = Math.round(yposHTML) + "px";
-        inputField.style.left = Math.round(xposHTML) + "px";
-        refLineSketchContainer.push(inputField);
-        xposHTML = xposHTML - (inputField.getBoundingClientRect().width / 2);
-        inputField.style.left = Math.round(xposHTML) + "px";
-
-        inputField.onchange = (function(sketchIndex, id) {
-          return function() {
-
-            switch (id) {
-              case 0:
-                changeKeyValueInputSketch(sketchIndex, true, id, true);
-                break;
-              default:
-                changeKeyValueInputSketch(sketchIndex, true, id, true);
-                //changeKeyValueInputSketch(sketchIndex-1,false, id, false);
-            }
-
-          };
-        })(i, inputID);
-
-        inputField.onkeyup = (function(id) {
-          return function() {
-
-            var inputObj = document.getElementById(id);
-
-            checkInputVal(inputObj, true, true);
-          };
-        })(inputID);
-
-        /////////////////// special case: last element /////////
-        if (i == bandSketch2.getBandLength() - 1) {
-          refLineDiv.style.borderRight = "1px solid black";
-          tmpText = '' + bandSketch2.getRefR2(i); //.toFixed(numDecimalPlaces);
-          xposHTML = box.width + left;
-          var inputField2 = document.createElement("input");
-          inputField2.setAttribute('type', 'text');
-          inputField2.setAttribute('value', tmpText);
-          var inputID = "id_SketchKeyValInput2_" + i + 1;
-          inputField2.id = inputID;
-          document.body.appendChild(inputField2);
-
-          //inputField.style.width = "min-content";
-          inputField2.style.width = "3vw";
-          inputField2.style.height = "2vh";
-          inputField2.style.fontSize = "1.8vh";
-          //inputField.style.background = "rgb(255,255,255)";
-          inputField2.style.paddingLeft = 5 + "px";
-          inputField2.style.paddingRight = 5 + "px";
-          //inputField.style.border = "2px solid rgb(0,0,0)";
-          inputField2.style.margin = "0px";
-          inputField2.style.zIndex = "2";
-
-          inputField2.style.position = "absolute";
-          inputField2.style.top = Math.round(yposHTML) + "px";
-          inputField2.style.left = Math.round(xposHTML) + "px";
-          refLineSketchContainer.push(inputField2);
-          xposHTML = xposHTML - (inputField2.getBoundingClientRect().width / 2);
-          inputField2.style.left = Math.round(xposHTML) + "px";
-
-          inputField2.onchange = (function(sketchIndex, id) {
-            return function() {
-
-              changeKeyValueInputSketch(sketchIndex, false, id, true);
-
-            };
-          })(i, inputID);
-
-          inputField2.onkeyup = (function(id) {
-            return function() {
-
-              var inputObj = document.getElementById(id);
-
-              checkInputVal(inputObj, true, true);
-            };
-          })(inputID);
-
-        }*/
       }
 
     }
@@ -944,7 +848,7 @@ function orderColorSketch(forColorspace) {
   } else {
 
     var t2Div = document.createElement('div');
-    t2Div.id = 'dragPos' + bandSketch.getBandLength();
+    t2Div.id = 'dragPos0';
     t2Div.style.border = "2px dashed black";
     t2Div.style.height = 100 + '%';
     t2Div.style.width = 100 + '%';
@@ -986,7 +890,7 @@ function orderColorSketch(forColorspace) {
 
 }
 
-function changeKeyValueInputSketch(sketchIndex, doR1, fielID, doBandSketch2) {
+function changeKeyValueInput(keyIndex, fielID) {
 
   var inputObj = document.getElementById(fielID);
 
@@ -994,59 +898,9 @@ function changeKeyValueInputSketch(sketchIndex, doR1, fielID, doBandSketch2) {
 
   var newRef = parseFloat(inputObj.value);
 
+  globalCMS1.setRefPosition(keyIndex,newRef)
 
-
-  if (doBandSketch2) {
-
-    if (doR1) {
-      bandSketch2.setRefR1Update(sketchIndex, newRef);
-    } else {
-      bandSketch2.setRefR2Update(sketchIndex, newRef);
-    }
-
-    if (showSideID == 3) {
-      globalColormap2 = bandSketch2.sketch2Colormap(colorspaceModus, globalColormap2.getColormapName());
-      updateComparePage();
-      somethingChanged = true;
-    }
-  } else {
-    if (doR1) {
-      bandSketch.setRefR1Update(sketchIndex, newRef);
-    } else {
-      bandSketch.setRefR2Update(sketchIndex, newRef);
-    }
-
-
-    globalColormap1 = bandSketch.sketch2Colormap(colorspaceModus, globalColormap1.getColormapName());
-
-
-    switch (showSideID) {
-        case 1:
-        drawCanvasColormap("id_linearColormap", linearMap_resolution_X, linearMap_resolution_Y, globalColormap1);
-        drawKeys("id_keyColormap", key_resolution_X, key_resolution_Y, globalColormap1, "id_keyColormapLinesBottom", true, true)
-        fillTable();
-        somethingChanged = true;
-        break;
-        case 2:
-        updateAnalyzePage();
-        somethingChanged = true;
-        break;
-        case 3:
-        updateComparePage();
-        somethingChanged = true;
-        break;
-        case 6:
-        drawCanvasColormap("id_previewColormapExport", linearMap_resolution_X, linearMap_resolution_Y, globalColormap1);
-        fillExportTable();
-        break;
-      default:
-        var newMap = bandSketch.sketch2Colormap(colorspaceModus, globalColormap1.getColormapName());
-        myList[colormap1SelectIndex] = newMap;
-    }
-
-  }
-
-  orderColorSketch(); // for updating ref
+  orderColorSketch(); // for updating ref and linear colormap
 
 
 }
@@ -1059,7 +913,7 @@ function fillTable() {
 
   //fill table
 
-  for (i = 0; i < bandSketch.getBandLength(); i++) {
+  for (i = 0; i < globalCMS1.getKeyLength()-1; i++) {
     var tr = document.createElement('tr');
 
     var td = document.createElement('td')
@@ -1069,23 +923,30 @@ function fillTable() {
 
     td = document.createElement('td')
     td.className = "class_tableInput";
-    td.appendChild(document.createTextNode(bandSketch.getRefR1(i)));
+    td.appendChild(document.createTextNode(globalCMS1.getRefPosition(i)));
     tr.appendChild(td);
 
     td = document.createElement('td')
     td.className = "class_tableInput";
-    td.appendChild(document.createTextNode(bandSketch.getRefR2(i)));
+    td.appendChild(document.createTextNode(globalCMS1.getRefPosition(i+1)));
     tr.appendChild(td);
 
     td = document.createElement('td')
     td.className = "class_tableInput";
 
 
+    var color1 = globalCMS1.getRightKeyColor(i,colorspaceModus);
+    var color2 = globalCMS1.getLeftKeyColor(i+1,colorspaceModus)
 
-    if (bandSketch.isBandConstant(i, colorspaceModus))
+    if(color1==undefined){
       td.appendChild(document.createTextNode("constant"));
-    else
+      color1 = color2;
+    }
+    else{
       td.appendChild(document.createTextNode("scaled"));
+    }
+
+
     tr.appendChild(td);
 
     td = document.createElement('td')
@@ -1094,36 +955,23 @@ function fillTable() {
     td2.className = "class_tableInput";
 
 
+
     switch (colorspaceModus) {
       case "rgb":
-
-        var test = bandSketch.getC1Color(i, colorspaceModus);
-        td.appendChild(document.createTextNode(bandSketch.getC1Color(i, colorspaceModus).getRGBString()));
-        td2.appendChild(document.createTextNode(bandSketch.getC2Color(i, colorspaceModus).getRGBString()));
+        td.appendChild(document.createTextNode(color1.getRGBString()));
+        td2.appendChild(document.createTextNode(color2.getRGBString()));
         break;
       case "hsv":
-        var tmpC1HSV = bandSketch.getC1Color(i, colorspaceModus);
-        var tmpC2HSV = bandSketch.getC2Color(i, colorspaceModus);
-        var string = "hsv(" + tmpC1HSV.getHValue().toFixed(numDecimalPlaces) + "," + tmpC1HSV.getSValue().toFixed(numDecimalPlaces) + "," + tmpC1HSV.getVValue().toFixed(numDecimalPlaces) + ")"
-        td.appendChild(document.createTextNode(string));
-        string = "hsv(" + tmpC2HSV.getHValue().toFixed(numDecimalPlaces) + "," + tmpC2HSV.getSValue().toFixed(numDecimalPlaces) + "," + tmpC2HSV.getVValue().toFixed(numDecimalPlaces) + ")"
-        td2.appendChild(document.createTextNode(string));
+       td.appendChild(document.createTextNode(color1.getHSVString(numDecimalPlaces)));
+       td2.appendChild(document.createTextNode(color2.getHSVString(numDecimalPlaces)));
         break;
       case "lab":
-        var tmpC1LAB = bandSketch.getC1Color(i, colorspaceModus);
-        var tmpC2LAB = bandSketch.getC2Color(i, colorspaceModus);
-        var string = "lab(" + tmpC1LAB.getLValue().toFixed(numDecimalPlaces) + "," + tmpC1LAB.getAValue().toFixed(numDecimalPlaces) + "," + tmpC1LAB.getBValue().toFixed(numDecimalPlaces) + ")"
-        td.appendChild(document.createTextNode(string));
-        string = "lab(" + tmpC2LAB.getLValue().toFixed(numDecimalPlaces) + "," + tmpC2LAB.getAValue().toFixed(numDecimalPlaces) + "," + tmpC2LAB.getBValue().toFixed(numDecimalPlaces) + ")"
-        td2.appendChild(document.createTextNode(string));
+       td.appendChild(document.createTextNode(color1.getLABString(numDecimalPlaces)));
+       td2.appendChild(document.createTextNode(color2.getLABString(numDecimalPlaces)));
         break;
       case "din99":
-        var tmpC1DIN99 = bandSketch.getC1Color(i, colorspaceModus);
-        var tmpC2DIN99 = bandSketch.getC2Color(i, colorspaceModus);
-        var string = "din99(" + tmpC1DIN99.getL99Value().toFixed(numDecimalPlaces) + "," + tmpC1DIN99.getA99Value().toFixed(numDecimalPlaces) + "," + tmpC1DIN99.getB99Value().toFixed(numDecimalPlaces) + ")"
-        td.appendChild(document.createTextNode(string));
-        string = "din99(" + tmpC2DIN99.getL99Value().toFixed(numDecimalPlaces) + "," + tmpC2DIN99.getA99Value().toFixed(numDecimalPlaces) + "," + tmpC2DIN99.getB99Value().toFixed(numDecimalPlaces) + ")"
-        td2.appendChild(document.createTextNode(string));
+       td.appendChild(document.createTextNode(color1.getDIN99String(numDecimalPlaces)));
+       td2.appendChild(document.createTextNode(color2.getDIN99String(numDecimalPlaces)));
         break;
       default:
         console.log("Error at the changeColorspace function");

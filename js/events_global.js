@@ -466,11 +466,6 @@ function changePage(type){
   if(pageIsLoaded==false)
   return;
 
-  if(type==7){
-    alert("Sorry! Because of current work at this page, the tutorial is not accessible.");
-    return;
-  }
-
   if(colormap1SelectIndex==-1){
     switch (type) {
       case 3:
@@ -749,7 +744,7 @@ function changePage(type){
     break;
 
     case 7:
-                  if(type==7)
+                  if(type==8)
                   return;
 
                   document.getElementById("id_impressumPage").style.display = "none";
@@ -917,7 +912,7 @@ function initNewPage(){
       document.getElementById("button_showTutorial").style.background = styleActiveColor;
       document.getElementById("id_Colorspace_Menue").style.display = "none";
       document.getElementById("div_colormapBandSketch").style.display = "none";
-      changeTutorial(4);
+      changeTutorial(0);
 
       break;
 

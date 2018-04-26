@@ -62,6 +62,39 @@ class classColor_HSV{
         this.vValue = newVal;
     }
 
+    equalTo(color){
+
+      switch (color.getColorType()) {
+        case "hsv":
+            if(color.get1Value()==this.get1Value()&&
+               color.get2Value()==this.get2Value()&&
+               color.get3Value()==this.get3Value())
+               return true;
+            else
+              return false;
+        default:
+          var tmpColor = color.calcHSVColor();
+          if(color.get1Value()==this.get1Value()&&
+             color.get2Value()==this.get2Value()&&
+             color.get3Value()==this.get3Value())
+             return true;
+          else
+            return false;
+
+      }
+
+    }
+
+    getHSVString(){
+        var tmpString = "hsv("+this.hValue+","+this.sValue+","+this.vValue+")";
+        return tmpString;
+    }
+
+    getHSVString(numDecimalPlaces){
+        var tmpString = "hsv("+this.hValue.toFixed(numDecimalPlaces)+","+this.sValue.toFixed(numDecimalPlaces)+","+this.vValue.toFixed(numDecimalPlaces)+")";
+        return tmpString;
+    }
+
     calcLABColor(){
         var tmpRGB = this.calcRGBColor();
 
