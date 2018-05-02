@@ -38,9 +38,6 @@ class class_Interval{
           break;
           default:
         }
-
-        this.determineType();
-
     }
 
     getColor(colorspace) {

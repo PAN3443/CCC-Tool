@@ -219,4 +219,9 @@ class class_Key{
     getMoT(){
       return this.middleOfTriple;
     }
-}
+
+    setMoT(mot){
+      this.middleOfTriple=mot;
+    }
+
+  }

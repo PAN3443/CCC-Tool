@@ -795,6 +795,7 @@ class class_CMS {
     //// Real CMS structure
     this.keyArray = [];
     this.intervalArray=[];
+    this.intervalPosition=[];
 
     /// color transformation settings (future work)
     this.ref_X = 94.811;
@@ -827,8 +828,14 @@ class class_CMS {
 
     //// Real CMS structure
     this.keyArray = [];
+    this.intervalArray=[];
+    this.intervalPosition=[];
 
   }
+
+  ///////////////////////////////////
+  /// key functions
+  //////////////////////////////////
 
   createKeys(){
 
@@ -960,6 +967,11 @@ class class_CMS {
     return this.keyArray[index].getMoT();
   }
 
+  setMoT(index,mot){
+    this.keyArray[index].setMoT(mot);
+  }
+
+
   insertKey(index,key){
       this.keyArray.splice(index, 0,key);
   }
@@ -968,18 +980,17 @@ class class_CMS {
       this.keyArray.push(key);
   }
 
+
   ///////////////////////////////////
-  /// CMS to Colormap
+  /// Interval functions
   //////////////////////////////////
 
-
+  /// CMS Interval Colors
   calcIntervalColors(intervals, colorspace){
     this.intervalArray=[];
+    this.intervalPosition=[];
 
-    var tmpColormap=  new classColormap(colorspace);
-
-
-
+    var arrayPos = [0,1];
     if(this.keyArray.length>1 && intervals !=0){
 
       var tmpIntervalRef=[];
@@ -998,8 +1009,13 @@ class class_CMS {
 
       for(var refIndex=0; refIndex<tmpIntervalRef.length; refIndex++)
 
-          if(tmpIntervalRef[refIndex]>this.keyArray[currentKeyPos+1].getRefPosition())
-          currentKeyPos++;
+          if(tmpIntervalRef[refIndex]>this.keyArray[currentKeyPos+1].getRefPosition()){
+            arrayPos[1]=this.intervalArray.length-1;
+            this.intervalPosition.push(arrayPos);
+            arrayPos[0]=this.intervalArray.length;
+            currentKeyPos++;
+          }
+
 
           if(tmpIntervalRef[refIndex]==this.keyArray[currentKeyPos].getRefPosition()){
             var tmpColor;
@@ -1012,6 +1028,11 @@ class class_CMS {
                 tmpColor = this.keyArray[currentKeyPos].getRightKeyColor(colorspace);
                 else
                 tmpColor = this.keyArray[currentKeyPos].getLeftKeyColor(colorspace);
+
+                arrayPos[1]=this.intervalArray.length;
+                this.intervalPosition.push(arrayPos);
+                arrayPos[0]=this.intervalArray.length+1;
+
                 break;
               case "left key":
                 if(currentKeyPos==this.keyArray.length-1){
@@ -1023,10 +1044,22 @@ class class_CMS {
                   else
                   tmpColor = this.keyArray[currentKeyPos].getLeftKeyColor(colorspace);
                 }
+
+                arrayPos[1]=this.intervalArray.length;
+                this.intervalPosition.push(arrayPos);
+                arrayPos[0]=this.intervalArray.length+1;
+
+                break;
+              case "right key":
+                tmpColor = this.keyArray[currentKeyPos].getRightKeyColor(colorspace);
                 break;
               default:
                 // right or dual key
                 tmpColor = this.keyArray[currentKeyPos].getRightKeyColor(colorspace);
+
+                arrayPos[1]=this.intervalArray.length;
+                this.intervalPosition.push(arrayPos);
+                arrayPos[0]=this.intervalArray.length+1;
             }
 
             var newInterval = new class_Interval(tmpColor, true, tmpIntervalRef[refIndex]);
@@ -1129,8 +1162,24 @@ class class_CMS {
 
   }//
 
+  getIntervalColor(index,colorspace){
+      return this.intervalArray[index].getColor(colorspace);
+  }
+
+  getIntervalisKey(index){
+      return this.intervalArray[index].getIsKeyPart();
+  }
 
   /////////////// Other GET SET ////////////////////
+
+  getIntervalPositions(keyIndex){
+    // gives the first interval index and the last interval index between the key with keyIndex and the key with the keyIndex+1
+    if(keyIndex!=this.keyArray.length-1)
+      return this.intervalPosition[keyIndex];
+    else
+      return [0,0]
+
+  }
 
 
    getColormapName() {

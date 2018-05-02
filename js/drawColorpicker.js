@@ -613,7 +613,7 @@ function event_colorpicker_MouseClick(event){
               }
             }
         }else{
-            if(keyType[selectedKey]==="dual key"){
+            if(globalCMS1.getKeyType(selectedKey)==="dual key"){
               editColor1=tmpRGB;
               editColor2= new classColor_RGB(tmpRGB.get1Value(), tmpRGB.get2Value(), tmpRGB.get3Value());
               fillColorInputFields(true);

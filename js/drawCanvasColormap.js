@@ -379,7 +379,7 @@ function drawKeys(canvasID, resolutionX, resolutionY, tmpCMS, lineKeyID) {
 
           if(i!=tmpCMS.getKeyLength()-1)
             if(tmpCMS.getMoT(i))
-              drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth/2, tmpCMS.getRightKeyColor(i,"rgb").getRGBString(), false);
+              drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth/2, tmpCMS.getLeftKeyColor(i+1,"rgb").getRGBString(), false);
             else
               drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth/2, tmpCMS.getLeftKeyColor(i,"rgb").getRGBString(), false);
           else

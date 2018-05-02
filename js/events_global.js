@@ -457,8 +457,10 @@ function selectCompareCMS(index){
 
 function acceptCompareSelection(){
 
-  document.getElementById("popupCompareSelectWindow").style.display="none";
-  initNewPage();
+  if(colormap1SelectIndex!=-1 && colormap2SelectIndex!=-1){
+    document.getElementById("popupCompareSelectWindow").style.display="none";
+    initNewPage();
+  }
 }
 
 function changePage(type){
@@ -469,25 +471,25 @@ function changePage(type){
   if(colormap1SelectIndex==-1){
     switch (type) {
       case 3:
-        if(showSideID==1 && bandSketch.getBandLength()!=0){
+        if(showSideID==1 && globalCMS1.getKeyLength()!=0){
           break;
         }
         alert("There is no CMS at the MyDesigns list for the edit page.");
 
         return;
       case 4:
-        if(showSideID==1 && bandSketch.getBandLength()!=0){
+        if(showSideID==1 && globalCMS1.getKeyLength()!=0){
           break;
         }
         alert("There is no CMS at the MyDesigns list for the analyze page.");
         return;
       case 5:
-          if(showSideID==1 && bandSketch.getBandLength()!=0){
+          if(showSideID==1 && globalCMS1.getKeyLength()!=0){
             alert("There is no CMS at the MyDesigns list for the compare page.");
             return;
           }
       case 6:
-          if(bandSketch.getBandLength()==0){
+          if(globalCMS1.getKeyLength()==0){
             alert("There is no CMS at the MyDesigns list for the export page.");
             return;
           }
@@ -504,7 +506,7 @@ function changePage(type){
   }
 
   if(type==5 && myList.length<2 ){
-    if(myList.length == 1 && showSideID==1 && isEdit==-1 && bandSketch.getBandLength()!=0){
+    if(myList.length == 1 && showSideID==1 && isEdit==-1 && globalCMS1.getKeyLength()!=0){
 
     }
     else{
@@ -562,7 +564,7 @@ function changePage(type){
 
                 if(isEdit==-1){
 
-                  var newMap = bandSketch.sketch2Colormap(colorspaceModus, globalColormap1.getColormapName());
+                  var newMap = cloneCMS(globalCMS1);
                   myList.push(newMap);
                   colormap1SelectIndex=myList.length-1;
                   if(initPageType!=5)
@@ -573,7 +575,7 @@ function changePage(type){
                 else{
 
 
-                  var newMap = bandSketch.sketch2Colormap(colorspaceModus, globalColormap1.getColormapName());
+                  var newMap = cloneCMS(globalCMS1);
                   tmpSaveColormap = newMap;
 
                   if(somethingChanged)
@@ -598,9 +600,7 @@ function changePage(type){
                 }
 
                 if(colormap1SelectIndex != -1 ){
-                  globalColormap1 = myList[colormap1SelectIndex];
-                  bandSketch.colormap2Sketch(globalColormap1);
-
+                  globalCMS1= cloneCMS(myList[colormap1SelectIndex]);
                 }
 
                 if(initPageType!=5)
@@ -627,12 +627,7 @@ function changePage(type){
                 }
                 stopAnimation();
 
-                var newMap = bandSketch.sketch2Colormap(colorspaceModus, globalColormap1.getColormapName());
-                tmpSaveColormap = newMap;
-
-                if(somethingChanged)
-                openSavePopUp();
-                else if(initPageType!=5)
+                if(initPageType!=5)
                 initNewPage();
                 else
                 openCompareSelect();
@@ -661,22 +656,9 @@ function changePage(type){
                 //myList[colormap2SelectIndex] = globalColormap1;
                 stopAnimation();
 
-                var newMap = bandSketch.sketch2Colormap(colorspaceModus, globalColormap1.getColormapName());
-                tmpSaveColormap = newMap;
 
-                var newMap2 = bandSketch2.sketch2Colormap(colorspaceModus, globalColormap1.getColormapName());
-                tmpSaveColormap2 = newMap2;
-
-                saveTwoColormaps=true;
-
-                if(somethingChanged){
-                  openSavePopUp();
-                }
-                else{
-                  initNewPage();
-                  colormap2SelectIndex=-1;
-                }
-
+                initNewPage();
+                colormap2SelectIndex=-1;
 
 
     break;
@@ -701,14 +683,10 @@ function changePage(type){
                   //document.getElementById("id_Tutorial_Menue").style.display = "none";
                   document.getElementById("div_colormapBandSketch").style.display = "inline-block";
 
-
-
                   if(initPageType!=5)
                   initNewPage();
                   else
                   openCompareSelect();
-
-
 
     break;
 
@@ -720,19 +698,12 @@ function changePage(type){
                   if(colormap1SelectIndex == -1 ){
                     if(myList.length>0){
                         colormap1SelectIndex=0;
-                        globalColormap1 = myList[colormap1SelectIndex];
-                        bandSketch.colormap2Sketch(globalColormap1);
+                        globalCMS1= cloneCMS(myList[colormap1SelectIndex]);
                     }
-                    else{
-                      bandSketch.clearSketch();
-                    }
-
-
                   }
 
                   if(colormap1SelectIndex != -1 ){
-                    globalColormap1 = myList[colormap1SelectIndex];
-                    bandSketch.colormap2Sketch(globalColormap1);
+                    globalCMS1= cloneCMS(myList[colormap1SelectIndex]);
                   }
 
                   if(initPageType!=5)
@@ -847,7 +818,7 @@ function initNewPage(){
       switchModifyModus(0);
       drawPredefinedBands();
 
-      bandSketch.clearSketch();
+      globalCMS1.clear();
 
       break;
     case 3:
@@ -863,7 +834,7 @@ function initNewPage(){
 
       document.getElementById("id_creatorPage").style.display = "inline-block";
 
-      bandSketch.colormap2Sketch(myList[colormap1SelectIndex]);
+      globalCMS1= cloneCMS(myList[colormap1SelectIndex]);
       switchModifyModus(1);
       drawPredefinedBands();
 

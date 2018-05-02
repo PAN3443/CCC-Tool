@@ -75,7 +75,7 @@ function switchModifyModus(type){
     break;
     case 1:
 
-      if(bandSketch.getBandLength() != 0){
+      if(globalCMS1.getKeyLength() != 0){
         document.getElementById("id_selectKeyModifying").style.background=styleActiveColor;
         document.getElementById("id_selectBandAdding").style.background=styleInactiveColor;
         document.getElementById("id_selectPathModifying").style.background=styleInactiveColor;
@@ -96,7 +96,7 @@ function switchModifyModus(type){
     break;
     case 2:
 
-    if(bandSketch.getBandLength() != 0){
+    if(globalCMS1.getKeyLength() != 0){
       document.getElementById("id_selectKeyModifying").style.background=styleInactiveColor;
       document.getElementById("id_selectBandAdding").style.background=styleInactiveColor;
       document.getElementById("id_selectPathModifying").style.background=styleActiveColor;

@@ -136,6 +136,8 @@ window.onload = function() {
                                               document.getElementById('id_editPageC2VInput').addEventListener("change", checkColorInputFieldsChange);
 
 
+  document.getElementById('editSide_Radiobutton_MiddleOfTripleColor1').addEventListener("change", motChange);
+  document.getElementById('editSide_Radiobutton_MiddleOfTripleColor2').addEventListener("change", motChange);
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Create Side /////////////////////////////////////
