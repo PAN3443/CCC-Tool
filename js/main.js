@@ -51,35 +51,6 @@ window.onload = function() {
   document.getElementById('buttonShowMyDesignsPreview').addEventListener("mouseenter", showMyDesingsPreview);
   document.getElementById('buttonShowMyDesignsPreview').addEventListener("mouseleave", hideMyDesingsPreview);
 
-
-  /*var colormapPath = pathColormaps+folderYellow+fileYellowColormaps[0];
-  var tmpMap  = xmlColormapParserPath(colormapPath);
-  drawCanvasColormap( "canvasPreviewYellow", existingMap_resolution_X,  existingMap_resolution_Y, tmpMap);
-  colormapPath = pathColormaps+folderRedPurple+fileRedPurpleColormaps[0];
-  tmpMap  = xmlColormapParserPath(colormapPath);
-  drawCanvasColormap( "canvasPreviewRed", existingMap_resolution_X,  existingMap_resolution_Y, tmpMap);
-  colormapPath = pathColormaps+folderBlue+fileBlueColormaps[0];
-  tmpMap  = xmlColormapParserPath(colormapPath);
-  drawCanvasColormap( "canvasPreviewBlue", existingMap_resolution_X,  existingMap_resolution_Y, tmpMap);
-  colormapPath = pathColormaps+folderGreen+fileGreenColormaps[0];
-  tmpMap  = xmlColormapParserPath(colormapPath);
-  drawCanvasColormap( "canvasPreviewGreen", existingMap_resolution_X,  existingMap_resolution_Y, tmpMap);
-  colormapPath = pathColormaps+folderBrown+fileBrownColormaps[0];
-  tmpMap  = xmlColormapParserPath(colormapPath);
-  drawCanvasColormap( "canvasPreviewBrown", existingMap_resolution_X,  existingMap_resolution_Y, tmpMap);
-  colormapPath = pathColormaps+folderDivergent+fileDivergentColormaps[0];
-  tmpMap  = xmlColormapParserPath(colormapPath);
-  drawCanvasColormap("canvasPreviewDivergent", existingMap_resolution_X,  existingMap_resolution_Y, tmpMap);
-
-  colormapPath = pathColormaps+folderThreeBand+fileThreeBandColormaps[0];
-  tmpMap  = xmlColormapParserPath(colormapPath);
-  drawCanvasColormap("canvasPreviewComplexThree", existingMap_resolution_X,  existingMap_resolution_Y, tmpMap);
-
-  colormapPath = pathColormaps+folderFourBand+fileFourBandColormaps[0];
-  tmpMap  = xmlColormapParserPath(colormapPath);
-  drawCanvasColormap("canvasPreviewComplexFour", existingMap_resolution_X,  existingMap_resolution_Y, tmpMap);*/
-
-
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Edit Side /////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -142,12 +113,6 @@ window.onload = function() {
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Create Side /////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////
-  // Style Init
-  document.getElementById("id_table_workwindow").style.display = "none";
-
-  //// set events
-  // Table
-  document.getElementById('id_expandTablebutton').addEventListener("click", expandTable);
 
   // Band Creator
   document.getElementById('bandCreator_Radiobutton_PickerRG_B').addEventListener("change", changeColorpickerType);
@@ -220,30 +185,30 @@ window.onload = function() {
 
   // Edit Path
 
-  document.getElementById('id_ModiyCourseHueBackground3').addEventListener("mouseleave", mouseLeaveColorspace);
-  document.getElementById('id_ModiyCourseHueBackground3').addEventListener("mousemove", mouseMoveColorspace);
-  document.getElementById('id_ModiyCourseHueBackground3').addEventListener("mousedown", mouseDownColorspace);
-  document.getElementById('id_ModiyCourseHueBackground3').addEventListener("mouseup", mouseUpColorspace);
+  document.getElementById('id_ModiyCourseHueTop').addEventListener("mouseleave", mouseLeaveColorspace);
+  document.getElementById('id_ModiyCourseHueTop').addEventListener("mousemove", mouseMoveColorspace);
+  document.getElementById('id_ModiyCourseHueTop').addEventListener("mousedown", mouseDownColorspace);
+  document.getElementById('id_ModiyCourseHueTop').addEventListener("mouseup", mouseUpColorspace);
 
-  document.getElementById('id_ModifyValue').addEventListener("mouseleave", mouseLeaveValuePlot);
-  document.getElementById('id_ModifyValue').addEventListener("mousemove", mouseMoveValuePlot);
-  document.getElementById('id_ModifyValue').addEventListener("mousedown", mouseDownValuePlot);
-  document.getElementById('id_ModifyValue').addEventListener("mouseup", mouseUpValuePlot);
+  document.getElementById('id_ModifyValueTop').addEventListener("mouseleave", mouseLeaveValuePlot);
+  document.getElementById('id_ModifyValueTop').addEventListener("mousemove", mouseMoveValuePlot);
+  document.getElementById('id_ModifyValueTop').addEventListener("mousedown", mouseDownValuePlot);
+  document.getElementById('id_ModifyValueTop').addEventListener("mouseup", mouseUpValuePlot);
 
-  document.getElementById('id_canvasRGModiy').addEventListener("mouseleave", mouseLeaveColorspaceRGB);
-  document.getElementById('id_canvasRGModiy').addEventListener("mousemove", mouseMoveColorspaceRGB);
-  document.getElementById('id_canvasRGModiy').addEventListener("mousedown", mouseDownColorspaceRGB);
-  document.getElementById('id_canvasRGModiy').addEventListener("mouseup", mouseUpColorspaceRGB);
+  document.getElementById('id_canvasRGModiyTop').addEventListener("mouseleave", mouseLeaveColorspaceRGB);
+  document.getElementById('id_canvasRGModiyTop').addEventListener("mousemove", mouseMoveColorspaceRGB);
+  document.getElementById('id_canvasRGModiyTop').addEventListener("mousedown", mouseDownColorspaceRGB);
+  document.getElementById('id_canvasRGModiyTop').addEventListener("mouseup", mouseUpColorspaceRGB);
 
-  document.getElementById('id_canvasRBModiy').addEventListener("mouseleave", mouseLeaveColorspaceRGB);
-  document.getElementById('id_canvasRBModiy').addEventListener("mousemove", mouseMoveColorspaceRGB);
-  document.getElementById('id_canvasRBModiy').addEventListener("mousedown", mouseDownColorspaceRGB);
-  document.getElementById('id_canvasRBModiy').addEventListener("mouseup", mouseUpColorspaceRGB);
+  document.getElementById('id_canvasRBModiyTop').addEventListener("mouseleave", mouseLeaveColorspaceRGB);
+  document.getElementById('id_canvasRBModiyTop').addEventListener("mousemove", mouseMoveColorspaceRGB);
+  document.getElementById('id_canvasRBModiyTop').addEventListener("mousedown", mouseDownColorspaceRGB);
+  document.getElementById('id_canvasRBModiyTop').addEventListener("mouseup", mouseUpColorspaceRGB);
 
-  document.getElementById('id_canvasBGModiy').addEventListener("mouseleave", mouseLeaveColorspaceRGB);
-  document.getElementById('id_canvasBGModiy').addEventListener("mousemove", mouseMoveColorspaceRGB);
-  document.getElementById('id_canvasBGModiy').addEventListener("mousedown", mouseDownColorspaceRGB);
-  document.getElementById('id_canvasBGModiy').addEventListener("mouseup", mouseUpColorspaceRGB);
+  document.getElementById('id_canvasBGModiyTop').addEventListener("mouseleave", mouseLeaveColorspaceRGB);
+  document.getElementById('id_canvasBGModiyTop').addEventListener("mousemove", mouseMoveColorspaceRGB);
+  document.getElementById('id_canvasBGModiyTop').addEventListener("mousedown", mouseDownColorspaceRGB);
+  document.getElementById('id_canvasBGModiyTop').addEventListener("mouseup", mouseUpColorspaceRGB);
 
   document.getElementById('id_setValueRange').addEventListener("change", changeValueRange);
   document.getElementById('id_checkboxRGB').addEventListener("change", modifyColormapRGBPossible);
@@ -252,6 +217,8 @@ window.onload = function() {
   document.getElementById('id_rgb3DModiy').addEventListener("mouseleave", eventRGB3D_mouseleave);
   document.getElementById('id_rgb3DModiy').addEventListener("mousedown", eventRGB3D_mousedown);
   document.getElementById('id_rgb3DModiy').addEventListener("mouseup", eventRGB3D_mouseup);
+
+  document.getElementById('id_setOpacityRangeModiy').addEventListener("change", changeOpacityRange);
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Analyse Side /////////////////////////////////////
@@ -264,40 +231,13 @@ window.onload = function() {
   document.getElementById('id_InputIntervalNum3').addEventListener("keyup", checkIntervalInputFieldsKey);
   document.getElementById('id_InputIntervalNum3').addEventListener("change", checkIntervalInputFieldsChange);
 
-  /*document.getElementById('id_anaylseCourseHueBackground3').addEventListener("mouseleave", mouseLeaveColorspace);
-  document.getElementById('id_anaylseCourseHueBackground3').addEventListener("mousemove", mouseMoveColorspace);
-  document.getElementById('id_anaylseCourseHueBackground3').addEventListener("mousedown", mouseDownColorspace);
-  document.getElementById('id_anaylseCourseHueBackground3').addEventListener("mouseup", mouseUpColorspace);*/
-
-  /*document.getElementById('id_anaylseValue').addEventListener("mouseleave", mouseLeaveValuePlot);
-  document.getElementById('id_anaylseValue').addEventListener("mousemove", mouseMoveValuePlot);
-  document.getElementById('id_anaylseValue').addEventListener("mousedown", mouseDownValuePlot);
-  document.getElementById('id_anaylseValue').addEventListener("mouseup", mouseUpValuePlot);*/
-
-  /*document.getElementById('id_canvasRG').addEventListener("mouseleave", mouseLeaveColorspaceRGB);
-  document.getElementById('id_canvasRG').addEventListener("mousemove", mouseMoveColorspaceRGB);
-  document.getElementById('id_canvasRG').addEventListener("mousedown", mouseDownColorspaceRGB);
-  document.getElementById('id_canvasRG').addEventListener("mouseup", mouseUpColorspaceRGB);
-
-  document.getElementById('id_canvasRB').addEventListener("mouseleave", mouseLeaveColorspaceRGB);
-  document.getElementById('id_canvasRB').addEventListener("mousemove", mouseMoveColorspaceRGB);
-  document.getElementById('id_canvasRB').addEventListener("mousedown", mouseDownColorspaceRGB);
-  document.getElementById('id_canvasRB').addEventListener("mouseup", mouseUpColorspaceRGB);
-
-  document.getElementById('id_canvasBG').addEventListener("mouseleave", mouseLeaveColorspaceRGB);
-  document.getElementById('id_canvasBG').addEventListener("mousemove", mouseMoveColorspaceRGB);
-  document.getElementById('id_canvasBG').addEventListener("mousedown", mouseDownColorspaceRGB);
-  document.getElementById('id_canvasBG').addEventListener("mouseup", mouseUpColorspaceRGB);
-
-  document.getElementById('id_setValueRange').addEventListener("change", changeValueRange);
-  document.getElementById('id_checkboxRGB').addEventListener("change", analyseColormapRGBPossible);*/
-
   document.getElementById('id_rgb3D').addEventListener("mousemove", eventRGB3D_mousemove);
   document.getElementById('id_rgb3D').addEventListener("mouseleave", eventRGB3D_mouseleave);
   document.getElementById('id_rgb3D').addEventListener("mousedown", eventRGB3D_mousedown);
   document.getElementById('id_rgb3D').addEventListener("mouseup", eventRGB3D_mouseup);
 
   document.getElementById('id_setOpacityRange').addEventListener("change", changeOpacityRange);
+
 
   //document.getElementById('analyse_SelectMetric').addEventListener("change", drawAnalyseDifferenceMaps);
   //styleAnalysisPage();
@@ -317,34 +257,6 @@ window.onload = function() {
   document.getElementById('id_rgb3DCompare').addEventListener("mouseleave", eventRGB3D_mouseleave);
   document.getElementById('id_rgb3DCompare').addEventListener("mousedown", eventRGB3D_mousedown);
   document.getElementById('id_rgb3DCompare').addEventListener("mouseup", eventRGB3D_mouseup);
-
-  /*document.getElementById('id_compareCourseHueBackground').addEventListener("mouseleave", mouseLeaveColorspace);
-  document.getElementById('id_compareCourseHueBackground').addEventListener("mousemove", mouseMoveColorspace);
-  document.getElementById('id_compareCourseHueBackground').addEventListener("mousedown", mouseDownColorspace);
-  document.getElementById('id_compareCourseHueBackground').addEventListener("mouseup", mouseUpColorspace);
-
-  document.getElementById('id_compareValue').addEventListener("mouseleave", mouseLeaveValuePlot);
-  document.getElementById('id_compareValue').addEventListener("mousemove", mouseMoveValuePlot);
-  document.getElementById('id_compareValue').addEventListener("mousedown", mouseDownValuePlot);
-  document.getElementById('id_compareValue').addEventListener("mouseup", mouseUpValuePlot);
-
-  document.getElementById('id_canvasRGCompare').addEventListener("mouseleave", mouseLeaveColorspaceRGB);
-  document.getElementById('id_canvasRGCompare').addEventListener("mousemove", mouseMoveColorspaceRGB);
-  document.getElementById('id_canvasRGCompare').addEventListener("mousedown", mouseDownColorspaceRGB);
-  document.getElementById('id_canvasRGCompare').addEventListener("mouseup", mouseUpColorspaceRGB);
-
-  document.getElementById('id_canvasRBCompare').addEventListener("mouseleave", mouseLeaveColorspaceRGB);
-  document.getElementById('id_canvasRBCompare').addEventListener("mousemove", mouseMoveColorspaceRGB);
-  document.getElementById('id_canvasRBCompare').addEventListener("mousedown", mouseDownColorspaceRGB);
-  document.getElementById('id_canvasRBCompare').addEventListener("mouseup", mouseUpColorspaceRGB);
-
-  document.getElementById('id_canvasBGCompare').addEventListener("mouseleave", mouseLeaveColorspaceRGB);
-  document.getElementById('id_canvasBGCompare').addEventListener("mousemove", mouseMoveColorspaceRGB);
-  document.getElementById('id_canvasBGCompare').addEventListener("mousedown", mouseDownColorspaceRGB);
-  document.getElementById('id_canvasBGCompare').addEventListener("mouseup", mouseUpColorspaceRGB);*/
-
-  //document.getElementById('id_setValueRangeCompare').addEventListener("change", changeValueRangeCompare);
-  //document.getElementById('id_checkboxRGBCompare').addEventListener("change", compareColormapRGBPossible);
 
   document.getElementById('id_setOpacityRangeCompare').addEventListener("change", changeOpacityRange);
 
@@ -917,6 +829,7 @@ function fillTable() {
 
   for (i = 0; i < globalCMS1.getKeyLength()-1; i++) {
     var tr = document.createElement('tr');
+    tr.style.background = "white";
 
     var td = document.createElement('td')
     td.className = "class_tableInput";

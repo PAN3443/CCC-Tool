@@ -1,6 +1,6 @@
 function drawPathEditPath(){
 
-  document.getElementById("id_ModifyValue").style.display = "none";
+
   document.getElementById("id_hueValueOptions").style.display = "none";
   document.getElementById("id_RGBCourseDivModiy").style.display = "none";
 
@@ -10,38 +10,26 @@ function drawPathEditPath(){
         document.getElementById("id_RGBCourseDivModiy").style.display = "initial";
         initRGB3D();
         animate();
-        drawcolormap_RGBSpace(globalCMS1, "id_canvasRGModiy","id_canvasRBModiy","id_canvasBGModiy", true, true);
+        intervalSize=50;
+        drawcolormap_RGBSpace(true,true);
       break;
       case "hsv":
         stopAnimation();
-        document.getElementById("id_ModifyValue").style.display = "initial";
+
         document.getElementById("id_hueValueOptions").style.display = "initial";
         //hueInit("id_ModiyCourseHueBackground");
         document.getElementById("id_setValueRange").value = 100;
 
-        if (browserCanWorker==false) {
-          drawcolormap_hueSpace(globalCMS1, "id_ModiyCourseHueBackground",true, true); //drawcolormap_hueSpace(globalColormap1, "id_workcanvasAnalyseHue");
-        }
-        else {
-          parallelDrawBackground("id_ModiyCourseHueBackground", globalCMS1);
-          parallelDrawPath("id_ModiyCourseHueBackground"+"2", globalCMS1, false);
-          parallelDrawElements("id_ModiyCourseHueBackground"+"3", globalCMS1, false);
-        }
+        drawcolormap_hueSpace(true, true, true); //drawcolormap_hueSpace(globalColormap1, "id_workcanvasAnalyseHue");
+
       break;
       case "lab": case "din99":
         stopAnimation();
-        document.getElementById("id_ModifyValue").style.display = "initial";
+
         document.getElementById("id_hueValueOptions").style.display = "initial";
         document.getElementById("id_setValueRange").value = 65;
-        //hueInit("id_ModiyCourseHueBackground");
-        if (browserCanWorker==false) {
-            drawcolormap_hueSpace(globalCMS1, "id_ModiyCourseHueBackground",true, true); //drawcolormap_hueSpace(globalColormap1, "id_workcanvasAnalyseHue");
-        }
-        else {
-          parallelDrawBackground("id_ModiyCourseHueBackground", globalCMS1);
-          parallelDrawPath("id_ModiyCourseHueBackground"+"2", globalCMS1, false);
-          parallelDrawElements("id_ModiyCourseHueBackground"+"3", globalCMS1, false);
-        }
+
+        drawcolormap_hueSpace(true, true, true); //drawcolormap_hueSpace(globalColormap1, "id_workcanvasAnalyseHue");
 
       break;
       default:

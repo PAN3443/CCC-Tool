@@ -131,7 +131,7 @@ function colorChange(){
   }
   else{
 
-    if(document.getElementById("editSide_Radiobutton_MiddleOfTripleColor1").checked==true){
+    if(document.getElementById("editSide_Radiobutton_SelectColor1").checked==true){
       selectedColor=0;
     }
     else{
@@ -141,7 +141,6 @@ function colorChange(){
     initColorpickerBackground("editPage_canvasPicker", colorpickerType);
     drawEditPageColorCircles("editPage_canvasPicker","editPage_canvasPicker2", colorpickerType);
   }
-
 
 }
 
@@ -299,6 +298,7 @@ function selectKey(){
       break;
     case "left key":
       document.getElementById("editSide_Radiobutton_KeyTypeLeft").checked = true;
+      document.getElementById("editSide_Radiobutton_SelectColor1").checked = true;
       document.getElementById("editSide_Radiobutton_SelectColor1").disabled = false;
       document.getElementById("editSide_Radiobutton_SelectColor1_Label").style.color = "black";
       document.getElementById("id_editPageC1HInput").style.background = "white";
@@ -309,6 +309,7 @@ function selectKey(){
       document.getElementById("id_editPageC1BInput").style.background = "white";
       document.getElementById("editColor1HSVLAbel").style.color = "black";
       document.getElementById("editColor1RGBLAbel").style.color = "black";
+
 
       document.getElementById("editSide_Radiobutton_SelectColor2").disabled = true;
       document.getElementById("editSide_Radiobutton_SelectColor2_Label").style.color = "grey";
@@ -370,6 +371,7 @@ function selectKey(){
       document.getElementById("editColor1HSVLAbel").style.color = "grey";
       document.getElementById("editColor1RGBLAbel").style.color = "grey";
 
+      document.getElementById("editSide_Radiobutton_SelectColor2").checked = true;
       document.getElementById("editSide_Radiobutton_SelectColor2").disabled = false;
       document.getElementById("editSide_Radiobutton_SelectColor2_Label").style.color = "black";
       document.getElementById("id_editPageC2HInput").style.background = "white";
@@ -786,7 +788,7 @@ function changeKeyType(event){
         globalCMS1.setRightKeyColor(selectedKey,tmpColor);
 
         var tmpColor2;
-        if(globalCMS1.getKeyType(selectedKey-1)==="left key")
+        if(globalCMS1.getKeyType(selectedKey-1)==="left key" || globalCMS1.getKeyType(selectedKey-1)==="nil key")
           tmpColor2 = globalCMS1.getLeftKeyColor(selectedKey,colorspaceModus);
         else{
           tmpColor2 = globalCMS1.getRightKeyColor(selectedKey-1,colorspaceModus);

@@ -231,65 +231,60 @@
             ---------------- -------------------------------
             -->
       <!-- Linear Colormap and Table -->
-      <div id="id_LinearMap_Table_Div" style="margin-left:2%; width:96%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:white; box-shadow:  0.3vh  0.3vh grey; display:none;">
+      <div id="id_LinearMap_Table_Div" style="margin-left:2%; width:96%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:none; display:none;">
 
-          <div id="id_table_workwindow" style="height:100%; width:0%; display: flex; flex-direction: column; z-index:20;">
+          <div style="height:auto; width:100%; display: flex; flex-direction: column; z-index:20; background:white; box-shadow:  0.3vh  0.3vh grey;">
 
-            <!--h4 style=" width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; margin:0px; background:grey; color:white;">Colormap Table</h4-->
-            <h1 style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; padding-top:2vh; padding-bottom:2vh;">CMS Table</h1>
+            <div class="row" style="height:auto; width:100%; margin:0px; background:url(img/background.png)">
 
-
-            <div style="height:39vh; overflow:auto;">
-              <table style="width:100%" id="id_table">
-                <thead>
-                  <tr style="border-top:1px solid white;">
-                    <th class="class_tablelabel" id="id_table_Number" style="width:4%; border-left:1px solid white;">#</th>
-                    <th class="class_tablelabel" id="id_table_Reference1" style="width:9%;">Reference 1</th>
-                    <th class="class_tablelabel" id="id_table_Reference2" style="width:9%;">Reference 2</th>
-                    <th class="class_tablelabel" id="id_table_Bandtype" style="width:9%;">Band Type</th>
-                    <th class="class_tablelabel" id="id_table_Color1" style="width:9%;">C1 (RGB)</th>
-                    <th class="class_tablelabel" id="id_table_Color2" style="width:9%;">C2 (RGB)</th>
-                  </tr>
-                </thead>
-
-                <tbody id="id_tableBody">
-
-                </tbody>
-
-              </table>
-            </div>
-
-          </div>
-
-          <div style="width:auto; height:auto; background:url(img/background.png);">
-          <div id="id_expandTablebutton" title="expand table" style="height:3vh; line-height:3vh; width:100%; background:rgba(0,191,255,0.7); cursor:pointer; color:white;  text-align:center; font-size:2.2vh; vertical-align:middle;"> <!--border-radius: 0px 0px 10px 10px; background:rgb(65,105,225);-->
-             &#11021; Click to expand the CMS table
-          </div>
-          </div>
-
-          <!-- colormaps -->
-          <div id="id_colormapsDiv" style="height: 42vh; width:100%; margin:0px; padding-bottom: 3vh;">
-
-            <div style="height:100%; width:100%; padding-top: 0.5vh;">
-
-              <!--h4 style="width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Linear Colormap</h4-->
-              <h1 style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; padding-top:2vh;">Linear Colormap</h1>
-
-              <canvas style="margin-top: 0px; width:100%; height: 6vh; margin-left:0%; " id="id_keyColormap">
-
-                                      </canvas>
-              <canvas style="margin-top: 0px; width:95%; height: 23vh; margin-left:2.5%; margin-bottom:0px; border: 2px solid black;" id="id_linearColormap">
-
-                                      </canvas>
-              <canvas style="margin-top: 0px; width:100%; height: 2vh; margin-left:0%;" id="id_keyColormapLinesBottom">
-
-                                      </canvas>
-
+              <button id="id_selectShowCMSTable" onclick="switchTableTestFunction(0)" class="classButtonBlue" title="Key Modify" style="width:50%">CMS Table</button>
+              <button id="id_selectShowTestFunction" onclick="switchTableTestFunction(1)" class="classButtonBlue" title="Key Modify" style="width:50%">Mapping Testfunctions</button>
 
             </div>
 
+            <div style="height:30vh; width:100%; display: flex; flex-direction: column; z-index:20; background:white;">
+              <h1 style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; padding-top:2vh; padding-bottom:2vh;">CMS Table</h1>
+
+
+              <div style="height:auto; overflow:auto; background:grey;">
+                <table style="width:100%" id="id_table">
+                  <thead>
+                    <tr style="border-top:1px solid white;">
+                      <th class="class_tablelabel" id="id_table_Number" style="width:4%; border-left:1px solid white;">#</th>
+                      <th class="class_tablelabel" id="id_table_Reference1" style="width:9%;">Reference 1</th>
+                      <th class="class_tablelabel" id="id_table_Reference2" style="width:9%;">Reference 2</th>
+                      <th class="class_tablelabel" id="id_table_Bandtype" style="width:9%;">Band Type</th>
+                      <th class="class_tablelabel" id="id_table_Color1" style="width:9%;">C1 (RGB)</th>
+                      <th class="class_tablelabel" id="id_table_Color2" style="width:9%;">C2 (RGB)</th>
+                    </tr>
+                  </thead>
+
+                  <tbody id="id_tableBody">
+
+                  </tbody>
+
+                </table>
+              </div>
+            </div>
+
+
           </div>
 
+          <div style="height:auto; width:100%; display: flex; flex-direction: column; z-index:20; background:white; margin-top:4vh; padding-bottom:4vh; box-shadow:  0.3vh  0.3vh grey;">
+
+            <h1 style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; padding-top:2vh;">Linear Colormap</h1>
+
+            <canvas style="margin-top: 0px; width:100%; height: 6vh; margin-left:0%; " id="id_keyColormap">
+
+                                    </canvas>
+            <canvas style="margin-top: 0px; width:95%; height: 8vh; margin-left:2.5%; margin-bottom:0px; border: 2px solid black;" id="id_linearColormap">
+
+                                    </canvas>
+            <canvas style="margin-top: 0px; width:100%; height: 2vh; margin-left:0%;" id="id_keyColormapLinesBottom">
+
+                                    </canvas>
+
+          </div>
 
       </div>
 
@@ -806,9 +801,9 @@
                      <div style="position: relative; width:30vw; height:30vw; ">
                       <canvas id="id_ModiyCourseHueBackground"
                         style="position: absolute; left: 0; top: 0; z-index: 0; width:30vw; height:30vw;"></canvas>
-                      <canvas id="id_ModiyCourseHueBackground2"
+                      <canvas id="id_ModiyCourseHueMiddle"
                         style="position: absolute; left: 0; top: 0; z-index: 1; width:30vw; height:30vw;"></canvas>
-                        <canvas id="id_ModiyCourseHueBackground3"
+                        <canvas id="id_ModiyCourseHueTop"
                           style="position: absolute; left: 0; top: 0; z-index: 2; width:30vw; height:30vw;"></canvas>
                      </div>
                      <!--canvas id="id_anaylseCourseHueBackground" style="width:30vw; height:30vw;">
@@ -820,10 +815,12 @@
                    </div>
 
                    <!-- Brightness -->
-                   <canvas id="id_ModifyValue" style="width:68%; height:30vw; display:none;">
-
-
-                   </canvas>
+                   <div style="position: relative; width:68%; height:30vw;">
+                    <canvas id="id_ModifyValueBackground"
+                      style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:30vw;"></canvas>
+                    <canvas id="id_ModifyValueTop"
+                      style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:30vw;"></canvas>
+                   </div>
 
                  </div>
 
@@ -835,20 +832,33 @@
 
                  <div class="row" style="width:100%; height:auto; padding-bottom:1vh; background:white;">
 
-                 <canvas id="id_canvasRGModiy" style="width:25vw; height:25vw; margin:0px; margin-left:auto;">
+                   <div style="position: relative; width:25vw; height:25vw; margin:0px; margin-left:auto;">
+                    <canvas id="id_canvasRGModiyBackground"
+                      style="position: absolute; left: 0; top: 0; z-index: 0; width:25vw; height:25vw;"></canvas>
+                    <canvas id="id_canvasRGModiyMiddle"
+                      style="position: absolute; left: 0; top: 0; z-index: 1; width:25vw; height:25vw;"></canvas>
+                      <canvas id="id_canvasRGModiyTop"
+                        style="position: absolute; left: 0; top: 0; z-index: 2; width:25vw; height:25vw;"></canvas>
+                   </div>
 
+                   <div style="position: relative; width:25vw; height:25vw; margin:0px;">
+                    <canvas id="id_canvasBGModiyBackground"
+                      style="position: absolute; left: 0; top: 0; z-index: 0; width:25vw; height:25vw;"></canvas>
+                    <canvas id="id_canvasBGModiyMiddle"
+                      style="position: absolute; left: 0; top: 0; z-index: 1; width:25vw; height:25vw;"></canvas>
+                      <canvas id="id_canvasBGModiyTop"
+                        style="position: absolute; left: 0; top: 0; z-index: 2; width:25vw; height:25vw;"></canvas>
+                   </div>
 
-                 </canvas>
+                   <div style="position: relative; width:25vw; height:25vw; margin:0px; margin-right:auto;">
+                    <canvas id="id_canvasRBModiyBackground"
+                      style="position: absolute; left: 0; top: 0; z-index: 0; width:25vw; height:25vw;"></canvas>
+                    <canvas id="id_canvasRBModiyMiddle"
+                      style="position: absolute; left: 0; top: 0; z-index: 1; width:25vw; height:25vw;"></canvas>
+                      <canvas id="id_canvasRBModiyTop"
+                        style="position: absolute; left: 0; top: 0; z-index: 2; width:25vw; height:25vw;"></canvas>
+                   </div>
 
-                   <canvas id="id_canvasBGModiy" style="width:25vw; height:25vw; margin:0px;">
-
-
-                 </canvas>
-
-                   <canvas id="id_canvasRBModiy" style="width:25vw; height:25vw; margin:0px; margin-right:auto;">
-
-
-                 </canvas>
 
                  </div>
 
