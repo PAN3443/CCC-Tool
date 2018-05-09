@@ -8,14 +8,14 @@ function rgbInit() {
       canvasIDBG="id_canvasBGModiyBackground";
       break;
     case 2:
-      canvasIDRG="";
-      canvasIDRB="";
-      canvasIDBG="";
+    canvasIDRG="id_canvasRGAnalyzeBackground";
+    canvasIDRB="id_canvasRBAnalyzeBackground";
+    canvasIDBG="id_canvasBGAnalyzeBackground";
       break;
     case 3:
-      canvasIDRG="";
-      canvasIDRB="";
-      canvasIDBG="";
+    canvasIDRG="id_canvasRGCompareBackground";
+    canvasIDRB="id_canvasRBCompareBackground";
+    canvasIDBG="id_canvasBGCompareBackground";
       break;
     default:
 
@@ -192,8 +192,8 @@ function rgbPlot(context, canvasWidth, canvasHidth, xlabel, ylabel) {
   var yEndLine = Math.round(canvasHidth * 0.15);
   var yEndArrow = Math.round(canvasHidth * 0.1);
   var arrowHeight = Math.round((yEndLine - yEndArrow) * 0.75);
-  var labelFontSize = arrowHeight * 0.75;
-  var labelFontSizeSmall = arrowHeight * 0.5;
+  var labelFontSize = arrowHeight * 0.85;
+  var labelFontSizeSmall = arrowHeight * 0.75;
   var xStart = Math.round(canvasWidth * 0.1);
   var xEnd = Math.round(canvasWidth * 0.8);
   var xEndLine = Math.round(canvasWidth * 0.85);
@@ -245,7 +245,7 @@ function rgbPlot(context, canvasWidth, canvasHidth, xlabel, ylabel) {
     context.stroke();
     context.strokeStyle = arrowFontColor;
     var text = "" + i * (255 / steps);
-    context.fillText(text, xPosPos * 0.75, yPos);
+    context.fillText(text, xPosPos * 0.5, yPos);
   }
 
 
@@ -261,9 +261,9 @@ function rgbPlot(context, canvasWidth, canvasHidth, xlabel, ylabel) {
 
   // the triangle
   context.beginPath();
-  context.moveTo(xEndLine, yStart - arrowWidth);
+  context.moveTo(xEndLine, yStart - arrowWidth/2);
   context.lineTo(xEndArrow, yStart);
-  context.lineTo(xEndLine, yStart + arrowWidth);
+  context.lineTo(xEndLine, yStart + arrowWidth/2);
   context.closePath();
 
   // the fill color
@@ -278,9 +278,9 @@ function rgbPlot(context, canvasWidth, canvasHidth, xlabel, ylabel) {
 
   // the triangle
   context.beginPath();
-  context.moveTo(xStart - arrowWidth, yEndLine);
+  context.moveTo(xStart - arrowWidth/2, yEndLine);
   context.lineTo(xStart, yEndArrow);
-  context.lineTo(xStart + arrowWidth, yEndLine);
+  context.lineTo(xStart + arrowWidth/2, yEndLine);
   context.closePath();
 
   // the fill color
@@ -305,14 +305,14 @@ function drawcolormap_RGBSpace(calcBackground, drawInterpolationLine) {
       canvasIDBG="id_canvasBGModiyTop";
       break;
     case 2:
-      canvasIDRG="";
-      canvasIDRB="";
-      canvasIDBG="";
+    canvasIDRG="id_canvasRGAnalyzeTop";
+    canvasIDRB="id_canvasRBAnalyzeTop";
+    canvasIDBG="id_canvasBGAnalyzeTop";
       break;
     case 3:
-      canvasIDRG="";
-      canvasIDRB="";
-      canvasIDBG="";
+    canvasIDRG="id_canvasRGCompareTop";
+    canvasIDRB="id_canvasRBCompareTop";
+    canvasIDBG="id_canvasBGCompareTop";
       break;
     default:
 
@@ -451,14 +451,14 @@ function drawInterpolationLineInRGB(isCompareMap, intervalSize) {
       canvasIDBG="id_canvasBGModiyMiddle";
       break;
     case 2:
-      canvasIDRG="";
-      canvasIDRB="";
-      canvasIDBG="";
+    canvasIDRG="id_canvasRGAnalyzeMiddle";
+    canvasIDRB="id_canvasRBAnalyzeMiddle";
+    canvasIDBG="id_canvasBGAnalyzeMiddle";
       break;
     case 3:
-      canvasIDRG="";
-      canvasIDRB="";
-      canvasIDBG="";
+    canvasIDRG="id_canvasRGCompareMiddle";
+    canvasIDRB="id_canvasRBCompareMiddle";
+    canvasIDBG="id_canvasBGCompareMiddle";
       break;
     default:
 
@@ -493,12 +493,9 @@ function drawInterpolationLineInRGB(isCompareMap, intervalSize) {
 
   for (var i = 0; i < globalCMS1.getKeyLength()-1; i++) {
 
-    tmpArray = [-1, -1, -1];
-    tmpArray2 = [-1, -1, -1];
-
     switch (globalCMS1.getKeyType(i)) {
       case "nil key":
-        drawRGBline(globalCMS1.getLeftKeyColor(i,"rgb"),globalCMS1.getLeftKeyColor(i+1,"rgb"),xWidth,yHeight,xStart,yStart, true,isCompareMap,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
+        //drawRGBline(globalCMS1.getLeftKeyColor(i+1,"rgb"),globalCMS1.getLeftKeyColor(i+1,"rgb"),xWidth,yHeight,xStart,yStart, true,isCompareMap,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
       break;
       case "twin key":
         var intervalIndexA = globalCMS1.getIntervalPositions(i);

@@ -560,7 +560,7 @@ function changePage(type){
 
               stopAnimation();
 
-              if(bandSketch.getBandLength()>0){
+              if(globalCMS1.getKeyLength()>0){
 
                 if(isEdit==-1){
 
@@ -609,8 +609,6 @@ function changePage(type){
                 openCompareSelect();
 
               }
-
-
 
 
     break;

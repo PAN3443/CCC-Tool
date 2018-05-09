@@ -13,34 +13,39 @@ function updateAnalyzePage(){
   }
 
   if(document.getElementById("analyzeGlobalSpeed").style.display!="none"){
-    var intervalColormap = globalColormap1.calcColorMap(intervalSize, colorspaceModus);
-    calcGlobalSpeedPlot(intervalColormap, "analyze_GlobalSpeed_Canvas_Lab", 0, "analyze_GlobalSpeed_Label_Min_Lab", "analyze_GlobalSpeed_Label_Max_Lab", "analyze_GlobalSpeed_Label_Av_Lab", "analyze_GlobalSpeed_Label_Dev_Lab");
-    calcGlobalSpeedPlot(intervalColormap,"analyze_GlobalSpeed_Canvas_de94", 1, "analyze_GlobalSpeed_Label_Min_de94", "analyze_GlobalSpeed_Label_Max_de94", "analyze_GlobalSpeed_Label_Av_de94", "analyze_GlobalSpeed_Label_Dev_de94");
-    calcGlobalSpeedPlot(intervalColormap,"analyze_GlobalSpeed_Canvas_de2000", 2, "analyze_GlobalSpeed_Label_Min_de2000", "analyze_GlobalSpeed_Label_Max_de2000", "analyze_GlobalSpeed_Label_Av_de2000", "analyze_GlobalSpeed_Label_Dev_de2000");
-    calcGlobalSpeedPlot(intervalColormap,"analyze_GlobalSpeed_Canvas_din99", 3, "analyze_GlobalSpeed_Label_Min_din99", "analyze_GlobalSpeed_Label_Max_din99", "analyze_GlobalSpeed_Label_Av_din99", "analyze_GlobalSpeed_Label_Dev_din99");
+    globalCMS1.calcIntervalColors(intervalSize, colorspaceModus);
+    calcGlobalSpeedPlot(globalCMS1,"analyze_GlobalSpeed_Canvas_Lab", 0, "analyze_GlobalSpeed_Label_Min_Lab", "analyze_GlobalSpeed_Label_Max_Lab", "analyze_GlobalSpeed_Label_Av_Lab", "analyze_GlobalSpeed_Label_Dev_Lab");
+    calcGlobalSpeedPlot(globalCMS1,"analyze_GlobalSpeed_Canvas_de94", 1, "analyze_GlobalSpeed_Label_Min_de94", "analyze_GlobalSpeed_Label_Max_de94", "analyze_GlobalSpeed_Label_Av_de94", "analyze_GlobalSpeed_Label_Dev_de94");
+    calcGlobalSpeedPlot(globalCMS1,"analyze_GlobalSpeed_Canvas_de2000", 2, "analyze_GlobalSpeed_Label_Min_de2000", "analyze_GlobalSpeed_Label_Max_de2000", "analyze_GlobalSpeed_Label_Av_de2000", "analyze_GlobalSpeed_Label_Dev_de2000");
+    calcGlobalSpeedPlot(globalCMS1,"analyze_GlobalSpeed_Canvas_din99", 3, "analyze_GlobalSpeed_Label_Min_din99", "analyze_GlobalSpeed_Label_Max_din99", "analyze_GlobalSpeed_Label_Av_din99", "analyze_GlobalSpeed_Label_Dev_din99");
     return;
   }
 
   if(document.getElementById("analyzeLocalBarSpeed").style.display!="none"){
-    drawAnalyseDifferenceMaps();
+    drawKeySpeed(globalCMS1,"id_anaylseRatioRGB",0);
+    drawKeySpeed(globalCMS1,"id_anaylseRatioHSV",1);
+    drawKeySpeed(globalCMS1,"id_anaylseRatioLAB",2);
+    drawKeySpeed(globalCMS1,"id_anaylseRatioDE94",3);
+    drawKeySpeed(globalCMS1,"id_anaylseRatioDe2000",4);
+    drawKeySpeed(globalCMS1,"id_anaylseRatioDIN99",5);
     return;
   }
 
   if(document.getElementById("analyzeLocalLineSpeed").style.display!="none"){
-    var intervalColormap = globalColormap1.calcColorMap(intervalSize, colorspaceModus);
-    calcLocalSpeedPlot(intervalColormap, "analyze_LocalSpeed_Canvas_Lab", 0, "analyze_LocalSpeed_Label_Min_Lab", "analyze_LocalSpeed_Label_Max_Lab", "analyze_LocalSpeed_Label_Av_Lab", "analyze_LocalSpeed_Label_Dev_Lab");
-    calcLocalSpeedPlot(intervalColormap,"analyze_LocalSpeed_Canvas_de94", 1, "analyze_LocalSpeed_Label_Min_de94", "analyze_LocalSpeed_Label_Max_de94", "analyze_LocalSpeed_Label_Av_de94", "analyze_LocalSpeed_Label_Dev_de94");
-    calcLocalSpeedPlot(intervalColormap,"analyze_LocalSpeed_Canvas_de2000", 2, "analyze_LocalSpeed_Label_Min_de2000", "analyze_LocalSpeed_Label_Max_de2000", "analyze_LocalSpeed_Label_Av_de2000", "analyze_LocalSpeed_Label_Dev_de2000");
-    calcLocalSpeedPlot(intervalColormap,"analyze_LocalSpeed_Canvas_din99", 3, "analyze_LocalSpeed_Label_Min_din99", "analyze_LocalSpeed_Label_Max_din99", "analyze_LocalSpeed_Label_Av_din99", "analyze_LocalSpeed_Label_Dev_din99");
+    globalCMS1.calcIntervalColors(intervalSize, colorspaceModus);
+    calcLocalSpeedPlot(globalCMS1,"analyze_LocalSpeed_Canvas_Lab", 0, "analyze_LocalSpeed_Label_Min_Lab", "analyze_LocalSpeed_Label_Max_Lab", "analyze_LocalSpeed_Label_Av_Lab", "analyze_LocalSpeed_Label_Dev_Lab");
+    calcLocalSpeedPlot(globalCMS1,"analyze_LocalSpeed_Canvas_de94", 1, "analyze_LocalSpeed_Label_Min_de94", "analyze_LocalSpeed_Label_Max_de94", "analyze_LocalSpeed_Label_Av_de94", "analyze_LocalSpeed_Label_Dev_de94");
+    calcLocalSpeedPlot(globalCMS1,"analyze_LocalSpeed_Canvas_de2000", 2, "analyze_LocalSpeed_Label_Min_de2000", "analyze_LocalSpeed_Label_Max_de2000", "analyze_LocalSpeed_Label_Av_de2000", "analyze_LocalSpeed_Label_Dev_de2000");
+    calcLocalSpeedPlot(globalCMS1,"analyze_LocalSpeed_Canvas_din99", 3, "analyze_LocalSpeed_Label_Min_din99", "analyze_LocalSpeed_Label_Max_din99", "analyze_LocalSpeed_Label_Av_din99", "analyze_LocalSpeed_Label_Dev_din99");
     return;
   }
 
   if(document.getElementById("analyzeOrder").style.display!="none"){
-    var intervalColormap = globalColormap1.calcColorMap(intervalSize, colorspaceModus);
-    calcOrderPlot(intervalColormap, "analyze_OrderSpeed_Canvas_Lab", 0, "analyze_OrderSpeed_Label_Min_Lab", "analyze_OrderSpeed_Label_MinGlobal_Lab");
-    calcOrderPlot(intervalColormap,"analyze_OrderSpeed_Canvas_de94", 1, "analyze_OrderSpeed_Label_Min_de94", "analyze_OrderSpeed_Label_MinGlobal_de94");
-    calcOrderPlot(intervalColormap,"analyze_OrderSpeed_Canvas_de2000", 2, "analyze_OrderSpeed_Label_Min_de2000", "analyze_OrderSpeed_Label_MinGlobal_de2000");
-    calcOrderPlot(intervalColormap,"analyze_OrderSpeed_Canvas_din99", 3, "analyze_OrderSpeed_Label_Min_din99", "analyze_OrderSpeed_Label_MinGlobal_din99");
+    globalCMS1.calcIntervalColors(intervalSize, colorspaceModus);
+    calcOrderPlot(globalCMS1,"analyze_OrderSpeed_Canvas_Lab", 0, "analyze_OrderSpeed_Label_Min_Lab", "analyze_OrderSpeed_Label_MinGlobal_Lab");
+    calcOrderPlot(globalCMS1,"analyze_OrderSpeed_Canvas_de94", 1, "analyze_OrderSpeed_Label_Min_de94", "analyze_OrderSpeed_Label_MinGlobal_de94");
+    calcOrderPlot(globalCMS1,"analyze_OrderSpeed_Canvas_de2000", 2, "analyze_OrderSpeed_Label_Min_de2000", "analyze_OrderSpeed_Label_MinGlobal_de2000");
+    calcOrderPlot(globalCMS1,"analyze_OrderSpeed_Canvas_din99", 3, "analyze_OrderSpeed_Label_Min_din99", "analyze_OrderSpeed_Label_MinGlobal_din99");
     return;
   }
 
@@ -176,39 +181,43 @@ function changeAnalyzePage(type){
             intervalSize=parseFloat(document.getElementById("id_InputIntervalNum").value);
             document.getElementById("id_selectAnalyzeMatrix").style.background=styleActiveColor;
             document.getElementById("analyzeGlobalSpeed").style.display="inline-block";
-            var intervalColormap = globalColormap1.calcColorMap(intervalSize, colorspaceModus);
-            calcGlobalSpeedPlot(intervalColormap, "analyze_GlobalSpeed_Canvas_Lab", 0, "analyze_GlobalSpeed_Label_Min_Lab", "analyze_GlobalSpeed_Label_Max_Lab", "analyze_GlobalSpeed_Label_Av_Lab", "analyze_GlobalSpeed_Label_Dev_Lab");
-            calcGlobalSpeedPlot(intervalColormap,"analyze_GlobalSpeed_Canvas_de94", 1, "analyze_GlobalSpeed_Label_Min_de94", "analyze_GlobalSpeed_Label_Max_de94", "analyze_GlobalSpeed_Label_Av_de94", "analyze_GlobalSpeed_Label_Dev_de94");
-            calcGlobalSpeedPlot(intervalColormap,"analyze_GlobalSpeed_Canvas_de2000", 2, "analyze_GlobalSpeed_Label_Min_de2000", "analyze_GlobalSpeed_Label_Max_de2000", "analyze_GlobalSpeed_Label_Av_de2000", "analyze_GlobalSpeed_Label_Dev_de2000");
-            calcGlobalSpeedPlot(intervalColormap,"analyze_GlobalSpeed_Canvas_din99", 3, "analyze_GlobalSpeed_Label_Min_din99", "analyze_GlobalSpeed_Label_Max_din99", "analyze_GlobalSpeed_Label_Av_din99", "analyze_GlobalSpeed_Label_Dev_din99");
+            globalCMS1.calcIntervalColors(intervalSize, colorspaceModus);
+            calcGlobalSpeedPlot(globalCMS1, "analyze_GlobalSpeed_Canvas_Lab", 0, "analyze_GlobalSpeed_Label_Min_Lab", "analyze_GlobalSpeed_Label_Max_Lab", "analyze_GlobalSpeed_Label_Av_Lab", "analyze_GlobalSpeed_Label_Dev_Lab");
+            calcGlobalSpeedPlot(globalCMS1,"analyze_GlobalSpeed_Canvas_de94", 1, "analyze_GlobalSpeed_Label_Min_de94", "analyze_GlobalSpeed_Label_Max_de94", "analyze_GlobalSpeed_Label_Av_de94", "analyze_GlobalSpeed_Label_Dev_de94");
+            calcGlobalSpeedPlot(globalCMS1,"analyze_GlobalSpeed_Canvas_de2000", 2, "analyze_GlobalSpeed_Label_Min_de2000", "analyze_GlobalSpeed_Label_Max_de2000", "analyze_GlobalSpeed_Label_Av_de2000", "analyze_GlobalSpeed_Label_Dev_de2000");
+            calcGlobalSpeedPlot(globalCMS1,"analyze_GlobalSpeed_Canvas_din99", 3, "analyze_GlobalSpeed_Label_Min_din99", "analyze_GlobalSpeed_Label_Max_din99", "analyze_GlobalSpeed_Label_Av_din99", "analyze_GlobalSpeed_Label_Dev_din99");
 
           break;
           case 3:
               document.getElementById("id_selectAnalyzeBar").style.background=styleActiveColor;
               document.getElementById("analyzeLocalBarSpeed").style.display="inline-block";
-              drawAnalyseDifferenceMaps();
-
+              drawKeySpeed(globalCMS1,"id_anaylseRatioRGB",0);
+              drawKeySpeed(globalCMS1,"id_anaylseRatioHSV",1);
+              drawKeySpeed(globalCMS1,"id_anaylseRatioLAB",2);
+              drawKeySpeed(globalCMS1,"id_anaylseRatioDE94",3);
+              drawKeySpeed(globalCMS1,"id_anaylseRatioDe2000",4);
+              drawKeySpeed(globalCMS1,"id_anaylseRatioDIN99",5);
             break;
             case 4:
                   intervalSize=parseFloat(document.getElementById("id_InputIntervalNum2").value);
                 document.getElementById("id_selectAnalyzeLine").style.background=styleActiveColor;
                 document.getElementById("analyzeLocalLineSpeed").style.display="inline-block";
-                var intervalColormap = globalColormap1.calcColorMap(intervalSize, colorspaceModus);
-                calcLocalSpeedPlot(intervalColormap, "analyze_LocalSpeed_Canvas_Lab", 0, "analyze_LocalSpeed_Label_Min_Lab", "analyze_LocalSpeed_Label_Max_Lab", "analyze_LocalSpeed_Label_Av_Lab", "analyze_LocalSpeed_Label_Dev_Lab");
-                calcLocalSpeedPlot(intervalColormap,"analyze_LocalSpeed_Canvas_de94", 1, "analyze_LocalSpeed_Label_Min_de94", "analyze_LocalSpeed_Label_Max_de94", "analyze_LocalSpeed_Label_Av_de94", "analyze_LocalSpeed_Label_Dev_de94");
-                calcLocalSpeedPlot(intervalColormap,"analyze_LocalSpeed_Canvas_de2000", 2, "analyze_LocalSpeed_Label_Min_de2000", "analyze_LocalSpeed_Label_Max_de2000", "analyze_LocalSpeed_Label_Av_de2000", "analyze_LocalSpeed_Label_Dev_de2000");
-                calcLocalSpeedPlot(intervalColormap,"analyze_LocalSpeed_Canvas_din99", 3, "analyze_LocalSpeed_Label_Min_din99", "analyze_LocalSpeed_Label_Max_din99", "analyze_LocalSpeed_Label_Av_din99", "analyze_LocalSpeed_Label_Dev_din99");
+                globalCMS1.calcIntervalColors(intervalSize, colorspaceModus);
+                calcLocalSpeedPlot(globalCMS1, "analyze_LocalSpeed_Canvas_Lab", 0, "analyze_LocalSpeed_Label_Min_Lab", "analyze_LocalSpeed_Label_Max_Lab", "analyze_LocalSpeed_Label_Av_Lab", "analyze_LocalSpeed_Label_Dev_Lab");
+                calcLocalSpeedPlot(globalCMS1,"analyze_LocalSpeed_Canvas_de94", 1, "analyze_LocalSpeed_Label_Min_de94", "analyze_LocalSpeed_Label_Max_de94", "analyze_LocalSpeed_Label_Av_de94", "analyze_LocalSpeed_Label_Dev_de94");
+                calcLocalSpeedPlot(globalCMS1,"analyze_LocalSpeed_Canvas_de2000", 2, "analyze_LocalSpeed_Label_Min_de2000", "analyze_LocalSpeed_Label_Max_de2000", "analyze_LocalSpeed_Label_Av_de2000", "analyze_LocalSpeed_Label_Dev_de2000");
+                calcLocalSpeedPlot(globalCMS1,"analyze_LocalSpeed_Canvas_din99", 3, "analyze_LocalSpeed_Label_Min_din99", "analyze_LocalSpeed_Label_Max_din99", "analyze_LocalSpeed_Label_Av_din99", "analyze_LocalSpeed_Label_Dev_din99");
 
               break;
               case 5:
                   intervalSize=parseFloat(document.getElementById("id_InputIntervalNum3").value);
                   document.getElementById("id_selectAnalyzeOrder").style.background=styleActiveColor;
                   document.getElementById("analyzeOrder").style.display="inline-block";
-                  var intervalColormap = globalColormap1.calcColorMap(intervalSize, colorspaceModus);
-                  calcOrderPlot(intervalColormap, "analyze_OrderSpeed_Canvas_Lab", 0, "analyze_OrderSpeed_Label_Min_Lab", "analyze_OrderSpeed_Label_MinGlobal_Lab");
-                  calcOrderPlot(intervalColormap,"analyze_OrderSpeed_Canvas_de94", 1, "analyze_OrderSpeed_Label_Min_de94", "analyze_OrderSpeed_Label_MinGlobal_de94");
-                  calcOrderPlot(intervalColormap,"analyze_OrderSpeed_Canvas_de2000", 2, "analyze_OrderSpeed_Label_Min_de2000", "analyze_OrderSpeed_Label_MinGlobal_de2000");
-                  calcOrderPlot(intervalColormap,"analyze_OrderSpeed_Canvas_din99", 3, "analyze_OrderSpeed_Label_Min_din99", "analyze_OrderSpeed_Label_MinGlobal_din99");
+                  globalCMS1.calcIntervalColors(intervalSize, colorspaceModus);
+                  calcOrderPlot(globalCMS1, "analyze_OrderSpeed_Canvas_Lab", 0, "analyze_OrderSpeed_Label_Min_Lab", "analyze_OrderSpeed_Label_MinGlobal_Lab");
+                  calcOrderPlot(globalCMS1,"analyze_OrderSpeed_Canvas_de94", 1, "analyze_OrderSpeed_Label_Min_de94", "analyze_OrderSpeed_Label_MinGlobal_de94");
+                  calcOrderPlot(globalCMS1,"analyze_OrderSpeed_Canvas_de2000", 2, "analyze_OrderSpeed_Label_Min_de2000", "analyze_OrderSpeed_Label_MinGlobal_de2000");
+                  calcOrderPlot(globalCMS1,"analyze_OrderSpeed_Canvas_din99", 3, "analyze_OrderSpeed_Label_Min_din99", "analyze_OrderSpeed_Label_MinGlobal_din99");
                 break;
     default:
 
@@ -292,90 +301,60 @@ function decreaseAnalyse3DDiv(){
 
 
 function initAnalysePage(){
-
-    bandSketch.colormap2Sketch(globalColormap1);
     orderColorSketch(colorspaceModus);
-
     changeAnalyzePage(1);
-    //drawRGBSpace();
 }
 
 function changeCourseSpace(){
   document.getElementById("id_divHSVLABDIN").style.display = "none";
-  document.getElementById("id_anaylseValue").style.display = "none";
   document.getElementById("id_RGBCourseDiv").style.display = "none";
 
   switch(analyzeColorspaceModus){
       case "rgb":
         stopAnimation();
         document.getElementById("id_RGBCourseDiv").style.display = "initial";
-        //rgbInit("id_canvasRG","id_canvasRB","id_canvasBG", true);
-        drawcolormap_RGBSpace(globalColormap1, "id_canvasRG","id_canvasRB","id_canvasBG", true, true);
+        drawcolormap_RGBSpace(true,true);
         animate();
         camera.updateProjectionMatrix();
       break;
       case "hsv":
         stopAnimation();
         document.getElementById("id_divHSVLABDIN").style.display = "initial";
-        document.getElementById("id_anaylseValue").style.display = "initial";
-//
         document.getElementById("id_setValueRange").value = 100;
 
-        //hueInit("id_anaylseCourseHueBackground");
-        if (browserCanWorker==false) {
-          drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground",true, true); //drawcolormap_hueSpace(globalColormap1, "id_workcanvasAnalyseHue");
-        }
-        else {
-          parallelDrawBackground("id_anaylseCourseHueBackground", globalColormap1);
-          parallelDrawPath("id_anaylseCourseHueBackground"+"2", globalColormap1, false);
-          parallelDrawElements("id_anaylseCourseHueBackground"+"3", globalColormap1, false);
-        }
+        drawcolormap_hueSpace(true, true, true);
       break;
       case "lab": case "din99":
         stopAnimation();
         document.getElementById("id_divHSVLABDIN").style.display = "initial";
-        document.getElementById("id_anaylseValue").style.display = "initial";
-
         document.getElementById("id_setValueRange").value = 65;
-        //hueInit("id_anaylseCourseHueBackground");
-      if (browserCanWorker==false) {
-            drawcolormap_hueSpace(globalColormap1, "id_anaylseCourseHueBackground",true, true); //drawcolormap_hueSpace(globalColormap1, "id_workcanvasAnalyseHue");
-       }
-        else {
-          parallelDrawBackground("id_anaylseCourseHueBackground", globalColormap1);
-          parallelDrawPath("id_anaylseCourseHueBackground"+"2", globalColormap1, false);
-          parallelDrawElements("id_anaylseCourseHueBackground"+"3", globalColormap1, false);
-        }
+        drawcolormap_hueSpace(true, true, true);
 
       break;
       default:
       console.log("Error at the changeColorspace function");
       return;
-  }//*/
-
-
+  }
 }
 
 
 
 function drawAnalyseMapPreviews(){
-
   var oldColorspace = colorspaceModus;
-
   colorspaceModus="rgb";
-      drawCanvasColormap("id_anaylseRGB_Preview",analysePreviewMap_resolution_X, analysePreviewMap_resolution_Y, globalColormap1);
+      drawCanvasColormap("id_anaylseRGB_Preview",analysePreviewMap_resolution_X, analysePreviewMap_resolution_Y, globalCMS1);
   colorspaceModus="hsv";
-      drawCanvasColormap("id_anaylseHSV_Preview",analysePreviewMap_resolution_X, analysePreviewMap_resolution_Y, globalColormap1);
+      drawCanvasColormap("id_anaylseHSV_Preview",analysePreviewMap_resolution_X, analysePreviewMap_resolution_Y, globalCMS1);
   colorspaceModus="lab";
-      drawCanvasColormap("id_anaylseLAB_Preview",analysePreviewMap_resolution_X, analysePreviewMap_resolution_Y, globalColormap1);
+      drawCanvasColormap("id_anaylseLAB_Preview",analysePreviewMap_resolution_X, analysePreviewMap_resolution_Y, globalCMS1);
   colorspaceModus="din99";
-      drawCanvasColormap("id_anaylseDIN99_Preview",analysePreviewMap_resolution_X, analysePreviewMap_resolution_Y, globalColormap1);
+      drawCanvasColormap("id_anaylseDIN99_Preview",analysePreviewMap_resolution_X, analysePreviewMap_resolution_Y, globalCMS1);
   colorspaceModus = oldColorspace;
 }
 
 
 
-function calcOrderPlot(intervalColormap, plotid, type, minId, minGlobalId){
+function calcOrderPlot(intervalColormap,plotid, type, minId, minGlobalId){
 
       var canvasPlot = document.getElementById(plotid);
 
@@ -514,27 +493,27 @@ function calcOrderPlot(intervalColormap, plotid, type, minId, minGlobalId){
 
                   switch (type) {
                       case 0:
-                       deltaE_K0_K2= intervalColormap.calcDeltaE_Interval_Lab(x-1,x+1);
-                       deltaE_K1_K2= intervalColormap.calcDeltaE_Interval_Lab(x,x+1);
-                       deltaE_K0_K1= intervalColormap.calcDeltaE_Interval_Lab(x-1,x);
+                       deltaE_K0_K2= calc3DEuclideanDistance(intervalColormap.getIntervalColor(x-1,"lab"),intervalColormap.getIntervalColor(x+1,"lab"));
+                       deltaE_K1_K2= calc3DEuclideanDistance(intervalColormap.getIntervalColor(x,"lab"),intervalColormap.getIntervalColor(x+1,"lab"));
+                       deltaE_K0_K1= calc3DEuclideanDistance(intervalColormap.getIntervalColor(x-1,"lab"),intervalColormap.getIntervalColor(x,"lab"));
                         break;
 
                         case 1:
-                         deltaE_K0_K2= intervalColormap.calcDeltaE_Interval_De94(x-1,x+1);
-                         deltaE_K1_K2= intervalColormap.calcDeltaE_Interval_De94(x,x+1);
-                         deltaE_K0_K1= intervalColormap.calcDeltaE_Interval_De94(x-1,x);
+                         deltaE_K0_K2= calcDeltaDE94(intervalColormap.getIntervalColor(x-1,"lab"),intervalColormap.getIntervalColor(x+1,"lab"));
+                         deltaE_K1_K2= calcDeltaDE94(intervalColormap.getIntervalColor(x,"lab"),intervalColormap.getIntervalColor(x+1,"lab"));
+                         deltaE_K0_K1= calcDeltaDE94(intervalColormap.getIntervalColor(x-1,"lab"),intervalColormap.getIntervalColor(x,"lab"));
                           break;
 
                           case 2:
-                           deltaE_K0_K2= intervalColormap.calcDeltaE_Interval_De2000(x-1,x+1);
-                           deltaE_K1_K2= intervalColormap.calcDeltaE_Interval_De2000(x,x+1);
-                           deltaE_K0_K1= intervalColormap.calcDeltaE_Interval_De2000(x-1,x);
+                           deltaE_K0_K2= calcDeltaCIEDE2000(intervalColormap.getIntervalColor(x-1,"lab"),intervalColormap.getIntervalColor(x+1,"lab"));
+                           deltaE_K1_K2= calcDeltaCIEDE2000(intervalColormap.getIntervalColor(x,"lab"),intervalColormap.getIntervalColor(x+1,"lab"));
+                           deltaE_K0_K1= calcDeltaCIEDE2000(intervalColormap.getIntervalColor(x-1,"lab"),intervalColormap.getIntervalColor(x,"lab"));
                             break;
 
                           case 3:
-                             deltaE_K0_K2= intervalColormap.calcDeltaE_Interval_DIN99(x-1,x+1);
-                             deltaE_K1_K2= intervalColormap.calcDeltaE_Interval_DIN99(x,x+1);
-                             deltaE_K0_K1= intervalColormap.calcDeltaE_Interval_DIN99(x-1,x);
+                            deltaE_K0_K2= calc3DEuclideanDistance(intervalColormap.getIntervalColor(x-1,"din99"),intervalColormap.getIntervalColor(x+1,"din99"));
+                            deltaE_K1_K2= calc3DEuclideanDistance(intervalColormap.getIntervalColor(x,"din99"),intervalColormap.getIntervalColor(x+1,"din99"));
+                            deltaE_K0_K1= calc3DEuclideanDistance(intervalColormap.getIntervalColor(x-1,"din99"),intervalColormap.getIntervalColor(x,"din99"));
                             break;
                       default:
 
@@ -611,28 +590,28 @@ function calcOrderPlot(intervalColormap, plotid, type, minId, minGlobalId){
 
                         switch (type) {
                             case 0:
-                             deltaE_K0_K2= intervalColormap.calcDeltaE_Interval_Lab(k0,k2);
-                             deltaE_K1_K2= intervalColormap.calcDeltaE_Interval_Lab(k1,k2);
-                             deltaE_K0_K1= intervalColormap.calcDeltaE_Interval_Lab(k0,k1);
-                              break;
+                              deltaE_K0_K2= calc3DEuclideanDistance(intervalColormap.getIntervalColor(k0,"lab"),intervalColormap.getIntervalColor(k2,"lab"));
+                              deltaE_K1_K2= calc3DEuclideanDistance(intervalColormap.getIntervalColor(k1,"lab"),intervalColormap.getIntervalColor(k2,"lab"));
+                              deltaE_K0_K1= calc3DEuclideanDistance(intervalColormap.getIntervalColor(k0,"lab"),intervalColormap.getIntervalColor(k1,"lab"));
+                            break;
 
                               case 1:
-                               deltaE_K0_K2= intervalColormap.calcDeltaE_Interval_De94(k0,k2);
-                               deltaE_K1_K2= intervalColormap.calcDeltaE_Interval_De94(k1,k2);
-                               deltaE_K0_K1= intervalColormap.calcDeltaE_Interval_De94(k0,k1);
+                               deltaE_K0_K2= calcDeltaDE94(intervalColormap.getIntervalColor(k0,"lab"),intervalColormap.getIntervalColor(k2,"lab"));
+                               deltaE_K1_K2= calcDeltaDE94(intervalColormap.getIntervalColor(k1,"lab"),intervalColormap.getIntervalColor(k2,"lab"));
+                               deltaE_K0_K1= calcDeltaDE94(intervalColormap.getIntervalColor(k0,"lab"),intervalColormap.getIntervalColor(k1,"lab"));
                                 break;
 
-                                case 2:
-                                 deltaE_K0_K2= intervalColormap.calcDeltaE_Interval_De2000(k0,k2);
-                                 deltaE_K1_K2= intervalColormap.calcDeltaE_Interval_De2000(k1,k2);
-                                 deltaE_K0_K1= intervalColormap.calcDeltaE_Interval_De2000(k0,k1);
-                                  break;
+                              case 2:
+                                deltaE_K0_K2= calcDeltaCIEDE2000(intervalColormap.getIntervalColor(k0,"lab"),intervalColormap.getIntervalColor(k2,"lab"));
+                                deltaE_K1_K2= calcDeltaCIEDE2000(intervalColormap.getIntervalColor(k1,"lab"),intervalColormap.getIntervalColor(k2,"lab"));
+                                deltaE_K0_K1= calcDeltaCIEDE2000(intervalColormap.getIntervalColor(k0,"lab"),intervalColormap.getIntervalColor(k1,"lab"));
+                                break;
 
-                                case 3:
-                                   deltaE_K0_K2= intervalColormap.calcDeltaE_Interval_DIN99(k0,k2);
-                                   deltaE_K1_K2= intervalColormap.calcDeltaE_Interval_DIN99(k1,k2);
-                                   deltaE_K0_K1= intervalColormap.calcDeltaE_Interval_DIN99(k0,k1);
-                                  break;
+                              case 3:
+                                deltaE_K0_K2= calc3DEuclideanDistance(intervalColormap.getIntervalColor(k0,"din99"),intervalColormap.getIntervalColor(k2,"din99"));
+                                deltaE_K1_K2= calc3DEuclideanDistance(intervalColormap.getIntervalColor(k1,"din99"),intervalColormap.getIntervalColor(k2,"din99"));
+                                deltaE_K0_K1= calc3DEuclideanDistance(intervalColormap.getIntervalColor(k0,"din99"),intervalColormap.getIntervalColor(k1,"din99"));
+                                break;
                             default:
 
                         }
@@ -759,19 +738,19 @@ function calcGlobalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId,
               switch (type) {
                 case 0:
 
-                deltaE = intervalColormap.calcDeltaE_Interval_Lab(x,y);
+                deltaE = calc3DEuclideanDistance(intervalColormap.getIntervalColor(x,"lab"),intervalColormap.getIntervalColor(y,"lab"));
                   break;
 
                   case 1:
-                    deltaE = intervalColormap.calcDeltaE_Interval_De94(x,y);
+                    deltaE = calcDeltaDE94(intervalColormap.getIntervalColor(x,"lab"),intervalColormap.getIntervalColor(y,"lab"));
                     break;
 
                     case 2:
-                      deltaE = intervalColormap.calcDeltaE_Interval_De2000(x,y);
+                      deltaE = calcDeltaCIEDE2000(intervalColormap.getIntervalColor(x,"lab"),intervalColormap.getIntervalColor(y,"lab"));
                       break;
 
                       case 3:
-                      deltaE = intervalColormap.calcDeltaE_Interval_DIN99(x,y);
+                      deltaE = calc3DEuclideanDistance(intervalColormap.getIntervalColor(x,"din99"),intervalColormap.getIntervalColor(y,"din99"));
                         break;
                 default:
 
@@ -929,32 +908,7 @@ function calcLocalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId, 
       var bandWidth = canvasPlot.width/(intervalColormap.getIntervalLength()-1);
 
       var vector = [];
-      /*var colorRef = new classColor_RGB(0.5,0.5,0.5);
-      var tmpColor = new classColor_RGB(1,1,1);
-      var counter =0;
 
-      for(var y=0; y<canvasPlot.width; y++){
-
-        for(var x=0; x<canvasPlot.height; x++){
-
-            var index = (x + y * canvasPlot.width) * 4;
-            canvasData.data[index + 0] = Math.round(colorRef.getRValue() * 255); // r
-            canvasData.data[index + 1] = Math.round(colorRef.getGValue() * 255); // g
-            canvasData.data[index + 2] = Math.round(colorRef.getBValue() * 255); // b
-            canvasData.data[index + 3] = 255; //a
-
-        }
-
-        counter++;
-        if(counter==5){
-          var change = colorRef;
-          colorRef = tmpColor;
-          tmpColor = change;
-          counter=0;
-        }
-
-      }
-      canvasCtx.putImageData(canvasData, 0, 0);//*/
       var numTwinOrLeft=0;
       for(var x=0; x<intervalColormap.getIntervalLength()-1; x++){
 
@@ -965,23 +919,25 @@ function calcLocalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId, 
               switch (type) {
                 case 0:
 
-                deltaE = intervalColormap.calcDeltaE_Interval_Lab(x,x+1);
+                deltaE = calc3DEuclideanDistance(intervalColormap.getIntervalColor(x,"lab"),intervalColormap.getIntervalColor(x+1,"lab"));
                   break;
 
                   case 1:
-                    deltaE = intervalColormap.calcDeltaE_Interval_De94(x,x+1);
+                    deltaE = calcDeltaDE94(intervalColormap.getIntervalColor(x,"lab"),intervalColormap.getIntervalColor(x+1,"lab"));
                     break;
 
                     case 2:
-                      deltaE = intervalColormap.calcDeltaE_Interval_De2000(x,x+1);
+                      deltaE = calcDeltaCIEDE2000(intervalColormap.getIntervalColor(x,"lab"),intervalColormap.getIntervalColor(x+1,"lab"));
                       break;
 
                       case 3:
-                      deltaE = intervalColormap.calcDeltaE_Interval_DIN99(x,x+1);
+                      deltaE = calc3DEuclideanDistance(intervalColormap.getIntervalColor(x,"din99"),intervalColormap.getIntervalColor(x+1,"din99"));
                         break;
                 default:
 
               }
+
+
 
 
               switch (plotType) {
@@ -1077,555 +1033,237 @@ function calcLocalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId, 
 
 
 
-function drawAnalyseDifferenceMaps(){
 
-  var old_tbody = document.getElementById("id_analyseTableBody");
-  var new_tbody = document.createElement('tbody');
+function drawKeySpeed(cms, plotid, type){
 
+  var canvasPlot = document.getElementById(plotid);
 
-  //var canvasREF = document.getElementById("id_anaylseRatioRef");
-  var canvasRGB = document.getElementById("id_anaylseRatioRGB");
-  var canvasHSV = document.getElementById("id_anaylseRatioHSV");
-  var canvasLAB = document.getElementById("id_anaylseRatioLAB");
-  var canvasCIEDE2000 = document.getElementById("id_anaylseRatioDe2000");
-  var canvasDE94 = document.getElementById("id_anaylseRatioDE94");
-  var canvasDIN99 = document.getElementById("id_anaylseRatioDIN99");
+  canvasPlot.width = resolutionX_differenceMetrics;
+  canvasPlot.height = 1;
 
-  //canvasREF.width = resolutionX_differenceMetrics;
-  //canvasREF.height = 1;
-  canvasRGB.width = resolutionX_differenceMetrics;
-  canvasRGB.height = 1;
-  canvasHSV.width = resolutionX_differenceMetrics;
-  canvasHSV.height = 1;
-  canvasLAB.width = resolutionX_differenceMetrics;
-  canvasLAB.height = 1;
-  canvasCIEDE2000.width = resolutionX_differenceMetrics;
-  canvasCIEDE2000.height = 1;
-  canvasDE94.width = resolutionX_differenceMetrics;
-  canvasDE94.height = 1;
-  canvasDIN99.width = resolutionX_differenceMetrics;
-  canvasDIN99.height = 1;
-
-  //var refCtx = canvasREF.getContext("2d");
-  //var refData = refCtx.getImageData(0, 0, resolutionX_differenceMetrics, 1);
-  var rgbCtx = canvasRGB.getContext("2d");
-  var rgbData = rgbCtx.getImageData(0, 0, resolutionX_differenceMetrics, 1);
-  var hsvCtx = canvasHSV.getContext("2d");
-  var hsvData = hsvCtx.getImageData(0, 0, resolutionX_differenceMetrics, 1);
-  var labCtx = canvasLAB.getContext("2d");
-  var labData = labCtx.getImageData(0, 0, resolutionX_differenceMetrics, 1);
-  var de94Ctx = canvasDE94.getContext("2d");
-  var de94Data = de94Ctx.getImageData(0, 0, resolutionX_differenceMetrics, 1);
-  var de2000Ctx = canvasCIEDE2000.getContext("2d");
-  var de2000Data = de2000Ctx.getImageData(0, 0, resolutionX_differenceMetrics, 1);
-  var din99Ctx = canvasDIN99.getContext("2d");
-  var din99Data = din99Ctx.getImageData(0, 0, resolutionX_differenceMetrics, 1);
-
-
-  bandSketch.calcNewDistances();
-
-  var currentPos = [0,0,0,0,0,0,0];
-  var currentWidth = [0,0,0,0,0,0,0];
-  var colorRef = new classColor_RGB(0.5,0.5,0.5);
+  var canvasCtx = canvasPlot.getContext("2d");
+  canvasCtx.webkitImageSmoothingEnabled = false;
+  canvasCtx.mozImageSmoothingEnabled = false;
+  canvasCtx.imageSmoothingEnabled = false;
+  canvasCtx.clearRect(0, 0, canvasPlot.width, canvasPlot.height);
+  var canvasData = canvasCtx.createImageData(resolutionX_differenceMetrics, 1); //getImageData(0, 0, canvasPlot.width, canvasPlot.height);
 
   var borderWidth = 2; //px
 
   var restWidth = resolutionX_differenceMetrics-(bandSketch.getBandLength()-bandSketch.getNumConstBands()-1)*borderWidth;
+  var currentWidth=0;
+  var currentPos=0;
 
-  var arrayRGBSpeed = [];
-  var arrayHSVSpeed = [];
-  var arrayLABSpeed = [];
-  var arrayDe94Speed = [];
-  var arrayDe2000Speed = [];
-  var arrayDIN99Speed = [];
+  var arraySpeed = [];
+  var arraySpeedSum = 0;
+  /////////////////////////////////////////////////////////////////////////////
+  // Calc Speed
+  for(var x=0; x<cms.getKeyLength()-1; x++){
 
-  var arrayRGBSpeedSum = 0;
-  var arrayHSVSpeedSum = 0;
-  var arrayLABSpeedSum = 0;
-  var arrayDe94SpeedSum = 0;
-  var arrayDe2000SpeedSum = 0;
-  var arrayDIN99SpeedSum = 0;
+          var speed=0;
+          var dis = cms.getRefPosition(x+1)-cms.getRefPosition(x);
 
-  for (var i = 0; i < bandSketch.getBandLength(); i++) {
-    var refDis = bandSketch.getRefDistance(i);
+          if(dis!=0){
+            switch (type) {
+              case 0:
+                var c1 = cms.getRightKeyColor(x,"rgb");
+                var c2 = cms.getLeftKeyColor(x+1,"rgb");
 
-      if(refDis==0){
-        arrayRGBSpeed.push(0);
-        arrayHSVSpeed.push(0);
-        arrayLABSpeed.push(0);
-        arrayDe94Speed.push(0);
-        arrayDe2000Speed.push(0);
-        arrayDIN99Speed.push(0);
-      }
-      else{
-        arrayRGBSpeed.push(bandSketch.getRGBDistance(i)/refDis);
-        arrayHSVSpeed.push(bandSketch.getHSVDistance(i)/refDis);
-        arrayLABSpeed.push(bandSketch.getLABDistance(i)/refDis);
-        arrayDe94Speed.push(bandSketch.getDE94Distance(i)/refDis);
-        arrayDe2000Speed.push(bandSketch.getCIEDE2000Distance(i)/refDis);
-        arrayDIN99Speed.push(bandSketch.getDIN99Distance(i)/refDis);
+                if(c1!=undefined)
+                 speed= calc3DEuclideanDistance(c1,c2)/dis;
+                break;
+              case 1:
+                  var c1 = cms.getRightKeyColor(x,"hsv");
+                  var c2 = cms.getLeftKeyColor(x+1,"hsv");
 
-        arrayRGBSpeedSum += arrayRGBSpeed[arrayRGBSpeed.length-1];
-        arrayHSVSpeedSum += arrayHSVSpeed[arrayHSVSpeed.length-1];
-        arrayLABSpeedSum += arrayLABSpeed[arrayLABSpeed.length-1];
-        arrayDe94SpeedSum += arrayDe94Speed[arrayDe94Speed.length-1];
-        arrayDe2000SpeedSum += arrayDe2000Speed[arrayDe2000Speed.length-1];
-        arrayDIN99SpeedSum += arrayDIN99Speed[arrayDIN99Speed.length-1];
-      }
+                  if(c1!=undefined)
+                   speed= calc3DEuclideanDistance(c1,c2)/dis;
+                  break;
+              case 2:
+                var c1 = cms.getRightKeyColor(x,"lab");
+                var c2 = cms.getLeftKeyColor(x+1,"lab");
+
+                if(c1!=undefined)
+                 speed= calc3DEuclideanDistance(c1,c2)/dis;
+
+                break;
+                case 3:
+                var c1 = cms.getRightKeyColor(x,"lab");
+                var c2 = cms.getLeftKeyColor(x+1,"lab");
+
+                if(c1!=undefined)
+                 speed= calcDeltaDE94(c1,c2)/dis;
+
+                  break;
+
+                  case 4:
+                  var c1 = cms.getRightKeyColor(x,"lab");
+                  var c2 = cms.getLeftKeyColor(x+1,"lab");
+
+                  if(c1!=undefined)
+                   speed= calcDeltaCIEDE2000(c1,c2)/dis;
+                    break;
+
+                    case 5:
+                    var c1 = cms.getRightKeyColor(x,"din99");
+                    var c2 = cms.getLeftKeyColor(x+1,"din99");
+
+                    if(c1!=undefined)
+                     speed= calc3DEuclideanDistance(c1,c2)/dis;
+
+                      break;
+              default:
+            }
+
+          }
 
 
-
+          arraySpeed.push(speed);
+          arraySpeedSum += speed;
   }
 
-  for (var i = 0; i < bandSketch.getBandLength(); i++) {
+  /////////////////////////////////////////////////////////////////////////////
+  // Calc Speed
+  for (var i = 0; i < arraySpeed.length; i++) {
 
     var tr = document.createElement('tr');
 
-    if(bandSketch.getRefDistance(i)==0){
+    if(speed[i]==0){
 
+      // table
 
-      var td = document.createElement('td');
-      td.className = "class_tableInput";
-      var tmpVal = i+1;
-      td.appendChild(document.createTextNode("constant "+tmpVal));
-      tr.appendChild(td);
-      // rgb
-      td = document.createElement('td');
-      td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("0"));
-      tr.appendChild(td);
-      td = document.createElement('td');
-      td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("0%"));
-      tr.appendChild(td);
-      // hsv
-      td = document.createElement('td');
-      td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("0"));
-      tr.appendChild(td);
-      td = document.createElement('td');
-      td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("0%"));
-      tr.appendChild(td);
-      // lab
-      td = document.createElement('td');
-      td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("0"));
-      tr.appendChild(td);
-      td = document.createElement('td');
-      td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("0%"));
-      tr.appendChild(td);
-      // DE94
-      td = document.createElement('td');
-      td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("0"));
-      tr.appendChild(td);
-      td = document.createElement('td');
-      td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("0%"));
-      tr.appendChild(td);
-      // DE00
-      td = document.createElement('td');
-      td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("0"));
-      tr.appendChild(td);
-      td = document.createElement('td');
-      td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("0%"));
-      tr.appendChild(td);
-      // DIN99
-      td = document.createElement('td');
-      td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("0"));
-      tr.appendChild(td);
-      td = document.createElement('td');
-      td.className = "class_tableInput";
-      td.appendChild(document.createTextNode("0%"));
-      tr.appendChild(td);
-      new_tbody.appendChild(tr);
       continue;
     }
 
-    var td = document.createElement('td')
-    td.className = "class_tableInput";
-    var tmpVal = i+1;
-    td.appendChild(document.createTextNode("scaled "+tmpVal));
-    tr.appendChild(td);
 
+    var tmpRatio = arraySpeed[i]/arraySpeedSum;
+    currentWidth = Math.ceil(restWidth*tmpRatio);
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////
-    //// RGB
+    var color1;
+    var color2;
 
-    var color1 = bandSketch.getC1Color(i,"rgb");
-    var color2 = bandSketch.getC2Color(i,"rgb");
+    switch (type) {
+      case 0:
+      color1 = cms.getRightKeyColor(i,"rgb");
+      color2 = cms.getLeftKeyColor(i+1,"rgb");
 
+        for(var x=0; x<currentWidth; x++){
+          var index = (currentPos+x) * 4;
 
-    var tmpRatio = arrayRGBSpeed[i]/arrayRGBSpeedSum;
+          var tmpRatio = x/currentWidth;
 
-    td = document.createElement('td')
-    td.className = "class_tableInput";
-    td.appendChild(document.createTextNode(arrayRGBSpeed[i].toFixed(numDecimalPlaces)));
-    tr.appendChild(td);
+          var rValue = color1.getRValue() + (color2.getRValue() - color1.getRValue()) * tmpRatio;
+          var gValue = color1.getGValue() + (color2.getGValue() - color1.getGValue()) * tmpRatio;
+          var bValue = color1.getBValue() + (color2.getBValue() - color1.getBValue()) * tmpRatio;
 
-    td = document.createElement('td')
-    td.className = "class_tableInput";
-    td.appendChild(document.createTextNode((tmpRatio*100).toFixed(numDecimalPlaces)+"%"));
-    tr.appendChild(td);
+          canvasData.data[index + 0] = Math.round(rValue * 255); // r
+          canvasData.data[index + 1] = Math.round(gValue * 255); // g
+          canvasData.data[index + 2] = Math.round(bValue * 255); // b
+          canvasData.data[index + 3] = 255; //a
+        }
 
-    currentWidth[1] = Math.ceil(restWidth*tmpRatio);
+        break;
+      case 1:
+      color1 = cms.getRightKeyColor(i,"hsv");
+      color2 = cms.getLeftKeyColor(i+1,"hsv");
 
-    for(var x=0; x<currentWidth[1]; x++){
-      var index = (currentPos[1]+x) * 4;
+      var tmpDis = color1.getSValue()*50; // radius 50; center(0,0,0);
+                                    var tmpRad = (color1.getHValue()*Math.PI*2)-Math.PI;
+                                    var xPos = tmpDis*Math.cos(tmpRad);
+                                    var yPos = tmpDis*Math.sin(tmpRad);
+                                    var zPos = color1.getVValue()-50;
 
-      var tmpRatio = x/currentWidth[1];
+                                    var tmpDis2 = color2.getSValue()*50;
+                                    var tmpRad2 = (color2.getHValue()*Math.PI*2)-Math.PI;
+                                    var xPos2 = tmpDis2*Math.cos(tmpRad2);
+                                    var yPos2 = tmpDis2*Math.sin(tmpRad2);
+                                    var zPos2 = color2.getVValue()-50;
 
-      var rValue = color1.getRValue() + (color2.getRValue() - color1.getRValue()) * tmpRatio;
-      var gValue = color1.getGValue() + (color2.getGValue() - color1.getGValue()) * tmpRatio;
-      var bValue = color1.getBValue() + (color2.getBValue() - color1.getBValue()) * tmpRatio;
+        for(var x=0; x<currentWidth; x++){
+          var index = (currentPos+x) * 4;
 
-      rgbData.data[index + 0] = Math.round(rValue * 255); // r
-      rgbData.data[index + 1] = Math.round(gValue * 255); // g
-      rgbData.data[index + 2] = Math.round(bValue * 255); // b
-      rgbData.data[index + 3] = 255; //a
+          var tmpRatio = x/currentWidth;
+
+          var tmpX = xPos + (xPos2 - xPos) * tmpRatio;
+          var tmpY = yPos + (yPos2 - yPos) * tmpRatio;
+          var tmpZ = zPos + (zPos2 - zPos) * tmpRatio;
+
+          var tmpH = (Math.atan2(tmpY, tmpX) + Math.PI) / (Math.PI * 2);
+          var tmpS = Math.sqrt(Math.pow(tmpX, 2) + Math.pow(tmpY, 2)) / 50;
+          var tmpV = tmpZ + 50;
+          var tmpCurrentHSVColor = new classColor_HSV(tmpH, tmpS, tmpV);
+
+          var tmpCurrentColor = tmpCurrentHSVColor.calcRGBColor();
+
+          canvasData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
+          canvasData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
+          canvasData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
+          canvasData.data[index + 3] = 255; //a
+        }
+          break;
+      case 2: case 3: case 4:
+      color1 = cms.getRightKeyColor(i,"lab");
+      color2 = cms.getLeftKeyColor(i+1,"lab");
+
+        for(var x=0; x<currentWidth; x++){
+          var index = (currentPos+x) * 4;
+
+          var tmpRatio = x/currentWidth;
+
+          var lValue = color1.get1Value() + (color2.get1Value() - color1.get1Value()) * tmpRatio;
+          var aValue = color1.get2Value() + (color2.get2Value() - color1.get2Value()) * tmpRatio;
+          var bValue = color1.get3Value() + (color2.get3Value() - color1.get3Value()) * tmpRatio;
+
+          var tmpCurrentLABColor = new classColor_LAB(lValue,aValue,bValue);
+          var tmpCurrentColor = tmpCurrentLABColor.calcRGBColor();
+
+          canvasData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
+          canvasData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
+          canvasData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
+          canvasData.data[index + 3] = 255; //a
+        }
+        break;
+      case 5:
+      color1 = cms.getRightKeyColor(i,"din99");
+      color2 = cms.getLeftKeyColor(i+1,"din99");
+
+      for(var x=0; x<currentWidth; x++){
+        var index = (currentPos+x) * 4;
+
+        var tmpRatio = x/currentWidth;
+
+        var l99Value = color1.get1Value() + (color2.get1Value() - color1.get1Value()) * tmpRatio;
+        var a99Value = color1.get2Value() + (color2.get2Value() - color1.get2Value()) * tmpRatio;
+        var b99Value = color1.get3Value() + (color2.get3Value() - color1.get3Value()) * tmpRatio;
+
+        var tmpCurrentDIN99Color = new classColorDIN99(l99Value,a99Value,b99Value);
+        var tmpCurrentColor = tmpCurrentDIN99Color.calcRGBColor();
+
+        canvasData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
+        canvasData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
+        canvasData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
+        canvasData.data[index + 3] = 255; //a
+      }
+      break;
+      default:
+
     }
-    currentPos[1]=currentPos[1]+currentWidth[1];
-
-    if(i != bandSketch.getBandLength()-1){
+    currentPos+=currentWidth;
+    if(i != arraySpeed.length-1){
       for(var x=0; x<borderWidth; x++){
-        var index = (currentPos[1]+x) * 4;
-        rgbData.data[index + 0] = Math.round(0); // r
-        rgbData.data[index + 1] = Math.round(0); // g
-        rgbData.data[index + 2] = Math.round(0); // b
-        rgbData.data[index + 3] = 255; //a
+        var index = (currentPos+x) * 4;
+        canvasData.data[index + 0] = Math.round(0); // r
+        canvasData.data[index + 1] = Math.round(0); // g
+        canvasData.data[index + 2] = Math.round(0); // b
+        canvasData.data[index + 3] = 255; //a
       }
 
-    currentPos[1]=currentPos[1]+borderWidth;
-    }
-    ///////////////////////////////////////////////////////////////////////////////////////////////
-    //// hsv
-
-    color1 = bandSketch.getC1Color(i,"hsv");
-    color2 = bandSketch.getC2Color(i,"hsv");
-
-    var tmpDis = color1.getSValue() * 50; // radius 50; center(0,0,0);
-    var tmpRad = (color1.getHValue() * Math.PI * 2) - Math.PI;
-    var xPos = tmpDis * Math.cos(tmpRad);
-    var yPos = tmpDis * Math.sin(tmpRad);
-    var zPos = color1.getVValue() - 50;
-
-    var tmpDis2 = color2.getSValue() * 50;
-    var tmpRad2 = (color2.getHValue() * Math.PI * 2) - Math.PI;
-    var xPos2 = tmpDis2 * Math.cos(tmpRad2);
-    var yPos2 = tmpDis2 * Math.sin(tmpRad2);
-    var zPos2 = color2.getVValue() - 50;
-
-    tmpRatio = arrayHSVSpeed[i]/arrayHSVSpeedSum;
-
-    td = document.createElement('td')
-    td.className = "class_tableInput";
-    td.appendChild(document.createTextNode(arrayHSVSpeed[i].toFixed(numDecimalPlaces)));
-    tr.appendChild(td);
-
-    td = document.createElement('td')
-    td.className = "class_tableInput";
-    td.appendChild(document.createTextNode((tmpRatio*100).toFixed(numDecimalPlaces)+"%"));
-    tr.appendChild(td);
-
-    currentWidth[2] = Math.ceil(restWidth*tmpRatio);
-
-    for(var x=0; x<currentWidth[2]; x++){
-      var index = (currentPos[2]+x) * 4;
-
-      var tmpRatio = x/currentWidth[2];
-
-      var tmpX = xPos + (xPos2 - xPos) * tmpRatio;
-      var tmpY = yPos + (yPos2 - yPos) * tmpRatio;
-      var tmpZ = zPos + (zPos2 - zPos) * tmpRatio;
-
-      var tmpH = (Math.atan2(tmpY, tmpX) + Math.PI) / (Math.PI * 2);
-      var tmpS = Math.sqrt(Math.pow(tmpX, 2) + Math.pow(tmpY, 2)) / 50;
-      var tmpV = tmpZ + 50;
-      var tmpCurrentHSVColor = new classColor_HSV(tmpH, tmpS, tmpV);
-
-      var tmpCurrentColor = tmpCurrentHSVColor.calcRGBColor();
-
-      hsvData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
-      hsvData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
-      hsvData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
-      hsvData.data[index + 3] = 255; //a
-    }
-    currentPos[2]=currentPos[2]+currentWidth[2];
-
-    if(i != bandSketch.getBandLength()-1){
-      for(var x=0; x<borderWidth; x++){
-        var index = (currentPos[2]+x) * 4;
-        hsvData.data[index + 0] = Math.round(0); // r
-        hsvData.data[index + 1] = Math.round(0); // g
-        hsvData.data[index + 2] = Math.round(0); // b
-        hsvData.data[index + 3] = 255; //a
-      }
-
-    currentPos[2]=currentPos[2]+borderWidth;
+      currentPos+=borderWidth;
     }
 
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////
-    //// lab
-    color1 = bandSketch.getC1Color(i,"lab");
-    color2 = bandSketch.getC2Color(i,"lab");
-
-    tmpRatio = arrayLABSpeed[i]/arrayLABSpeedSum;
-
-    td = document.createElement('td')
-    td.className = "class_tableInput";
-    td.appendChild(document.createTextNode(arrayLABSpeed[i].toFixed(numDecimalPlaces)));
-    tr.appendChild(td);
-
-    td = document.createElement('td')
-    td.className = "class_tableInput";
-    td.appendChild(document.createTextNode((tmpRatio*100).toFixed(numDecimalPlaces)+"%"));
-    tr.appendChild(td);
-
-    currentWidth[3] = Math.ceil(restWidth*tmpRatio);
-
-    for(var x=0; x<currentWidth[3]; x++){
-      var index = (currentPos[3]+x) * 4;
-
-      var tmpRatio = x/currentWidth[3];
-
-      var lValue = color1.get1Value() + (color2.get1Value() - color1.get1Value()) * tmpRatio;
-      var aValue = color1.get2Value() + (color2.get2Value() - color1.get2Value()) * tmpRatio;
-      var bValue = color1.get3Value() + (color2.get3Value() - color1.get3Value()) * tmpRatio;
-
-      var tmpCurrentLABColor = new classColor_LAB(lValue,aValue,bValue);
-      var tmpCurrentColor = tmpCurrentLABColor.calcRGBColor();
-
-      labData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
-      labData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
-      labData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
-      labData.data[index + 3] = 255; //a
-    }
-    currentPos[3]=currentPos[3]+currentWidth[3];
-
-    if(i != bandSketch.getBandLength()-1){
-      for(var x=0; x<borderWidth; x++){
-        var index = (currentPos[3]+x) * 4;
-        labData.data[index + 0] = Math.round(0); // r
-        labData.data[index + 1] = Math.round(0); // g
-        labData.data[index + 2] = Math.round(0); // b
-        labData.data[index + 3] = 255; //a
-      }
-
-    currentPos[3]=currentPos[3]+borderWidth;
-    }
+  }// for loop speed array
 
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////
-    //// de94
-    tmpRatio = arrayDe94Speed[i]/arrayDe94SpeedSum;
-
-    td = document.createElement('td')
-    td.className = "class_tableInput";
-    td.appendChild(document.createTextNode(arrayDe94Speed[i].toFixed(numDecimalPlaces)));
-    tr.appendChild(td);
-
-    td = document.createElement('td')
-    td.className = "class_tableInput";
-    td.appendChild(document.createTextNode((tmpRatio*100).toFixed(numDecimalPlaces)+"%"));
-    tr.appendChild(td);
-
-    currentWidth[4] = Math.ceil(restWidth*tmpRatio);
-
-    for(var x=0; x<currentWidth[4]; x++){
-      var index = (currentPos[4]+x) * 4;
-
-      var tmpRatio = x/currentWidth[4];
-
-      var lValue = color1.get1Value() + (color2.get1Value() - color1.get1Value()) * tmpRatio;
-      var aValue = color1.get2Value() + (color2.get2Value() - color1.get2Value()) * tmpRatio;
-      var bValue = color1.get3Value() + (color2.get3Value() - color1.get3Value()) * tmpRatio;
-
-      var tmpCurrentLABColor = new classColor_LAB(lValue,aValue,bValue);
-      var tmpCurrentColor = tmpCurrentLABColor.calcRGBColor();
-
-      de94Data.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
-      de94Data.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
-      de94Data.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
-      de94Data.data[index + 3] = 255; //a
-
-      /*if(document.getElementById("analyse_SelectMetric").value==0){
-        c1PreviewData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
-        c1PreviewData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
-        c1PreviewData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
-        c1PreviewData.data[index + 3] = 255; //a
-      }*/
-    }
-    currentPos[4]=currentPos[4]+currentWidth[4];
-
-    if(i != bandSketch.getBandLength()-1){
-      for(var x=0; x<borderWidth; x++){
-        var index = (currentPos[4]+x) * 4;
-        de94Data.data[index + 0] = Math.round(0); // r
-        de94Data.data[index + 1] = Math.round(0); // g
-        de94Data.data[index + 2] = Math.round(0); // b
-        de94Data.data[index + 3] = 255; //a
-
-        /*if(document.getElementById("analyse_SelectMetric").value==0){
-          c1PreviewData.data[index + 0] = Math.round(0); // r
-          c1PreviewData.data[index + 1] = Math.round(0); // g
-          c1PreviewData.data[index + 2] = Math.round(0); // b
-          c1PreviewData.data[index + 3] = 255; //a
-        }*/
-      }
-
-    currentPos[4]=currentPos[4]+borderWidth;
-    }
-
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////
-    //// de2000
-    tmpRatio = arrayDe2000Speed[i]/arrayDe2000SpeedSum;
-
-    td = document.createElement('td')
-    td.className = "class_tableInput";
-    td.appendChild(document.createTextNode(arrayDe2000Speed[i].toFixed(numDecimalPlaces)));
-    tr.appendChild(td);
-
-    td = document.createElement('td')
-    td.className = "class_tableInput";
-    td.appendChild(document.createTextNode((tmpRatio*100).toFixed(numDecimalPlaces)+"%"));
-    tr.appendChild(td);
-
-    currentWidth[5] = Math.ceil(restWidth*tmpRatio);
-
-    for(var x=0; x<currentWidth[5]; x++){
-      var index = (currentPos[5]+x) * 4;
-
-      var tmpRatio = x/currentWidth[5];
-
-      var lValue = color1.get1Value() + (color2.get1Value() - color1.get1Value()) * tmpRatio;
-      var aValue = color1.get2Value() + (color2.get2Value() - color1.get2Value()) * tmpRatio;
-      var bValue = color1.get3Value() + (color2.get3Value() - color1.get3Value()) * tmpRatio;
-
-      var tmpCurrentLABColor = new classColor_LAB(lValue,aValue,bValue);
-      var tmpCurrentColor = tmpCurrentLABColor.calcRGBColor();
-
-      de2000Data.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
-      de2000Data.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
-      de2000Data.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
-      de2000Data.data[index + 3] = 255; //a
-
-      /*if(document.getElementById("analyse_SelectMetric").value==1){
-        c1PreviewData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
-        c1PreviewData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
-        c1PreviewData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
-        c1PreviewData.data[index + 3] = 255; //a
-      }*/
-    }
-    currentPos[5]=currentPos[5]+currentWidth[5];
-
-    if(i != bandSketch.getBandLength()-1){
-      for(var x=0; x<borderWidth; x++){
-        var index = (currentPos[5]+x) * 4;
-        de2000Data.data[index + 0] = Math.round(0); // r
-        de2000Data.data[index + 1] = Math.round(0); // g
-        de2000Data.data[index + 2] = Math.round(0); // b
-        de2000Data.data[index + 3] = 255; //a
-
-        /*if(document.getElementById("analyse_SelectMetric").value==1){
-          c1PreviewData.data[index + 0] = Math.round(0); // r
-          c1PreviewData.data[index + 1] = Math.round(0); // g
-          c1PreviewData.data[index + 2] = Math.round(0); // b
-          c1PreviewData.data[index + 3] = 255; //a
-        }*/
-      }
-
-    currentPos[5]=currentPos[5]+borderWidth;
-    }
-
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////
-    //// din99
-    color1 = bandSketch.getC1Color(i,"din99");
-    color2 = bandSketch.getC2Color(i,"din99");
-    tmpRatio = arrayDIN99Speed[i]/arrayDIN99SpeedSum;
-
-    td = document.createElement('td')
-    td.className = "class_tableInput";
-    td.appendChild(document.createTextNode(arrayDIN99Speed[i].toFixed(numDecimalPlaces)));
-    tr.appendChild(td);
-
-    td = document.createElement('td')
-    td.className = "class_tableInput";
-    td.appendChild(document.createTextNode((tmpRatio*100).toFixed(numDecimalPlaces)+"%"));
-    tr.appendChild(td);
-
-    currentWidth[6] = Math.ceil(restWidth*tmpRatio);
-
-    for(var x=0; x<currentWidth[6]; x++){
-      var index = (currentPos[6]+x) * 4;
-
-      var tmpRatio = x/currentWidth[6];
-
-      var l99Value = color1.get1Value() + (color2.get1Value() - color1.get1Value()) * tmpRatio;
-      var a99Value = color1.get2Value() + (color2.get2Value() - color1.get2Value()) * tmpRatio;
-      var b99Value = color1.get3Value() + (color2.get3Value() - color1.get3Value()) * tmpRatio;
-
-      var tmpCurrentDIN99Color = new classColorDIN99(l99Value,a99Value,b99Value);
-      var tmpCurrentColor = tmpCurrentDIN99Color.calcRGBColor();
-
-      din99Data.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
-      din99Data.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
-      din99Data.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
-      din99Data.data[index + 3] = 255; //a
-
-      /*if(document.getElementById("analyse_SelectMetric").value==2){
-        c1PreviewData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
-        c1PreviewData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
-        c1PreviewData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
-        c1PreviewData.data[index + 3] = 255; //a
-      }*/
-    }
-    currentPos[6]=currentPos[6]+currentWidth[6];
-
-    if(i != bandSketch.getBandLength()-1){
-      for(var x=0; x<borderWidth; x++){
-        var index = (currentPos[6]+x) * 4;
-        din99Data.data[index + 0] = Math.round(0); // r
-        din99Data.data[index + 1] = Math.round(0); // g
-        din99Data.data[index + 2] = Math.round(0); // b
-        din99Data.data[index + 3] = 255; //a
-
-        /*if(document.getElementById("analyse_SelectMetric").value==2){
-          c1PreviewData.data[index + 0] = Math.round(0); // r
-          c1PreviewData.data[index + 1] = Math.round(0); // g
-          c1PreviewData.data[index + 2] = Math.round(0); // b
-          c1PreviewData.data[index + 3] = 255; //a
-        }*/
-      }
-
-    currentPos[6]=currentPos[6]+borderWidth;
-    }
-
-
-    new_tbody.appendChild(tr);
-
-  }
-
-  //refCtx.putImageData(refData, 0, 0); // update ColorspaceCanvas;
-  rgbCtx.putImageData(rgbData, 0, 0); // update ColorspaceCanvas;
-  hsvCtx.putImageData(hsvData, 0, 0); // update ColorspaceCanvas;
-  labCtx.putImageData(labData, 0, 0); // update ColorspaceCanvas;
-  de94Ctx.putImageData(de94Data, 0, 0); // update ColorspaceCanvas;
-  de2000Ctx.putImageData(de2000Data, 0, 0); // update ColorspaceCanvas;
-  din99Ctx.putImageData(din99Data, 0, 0); // update ColorspaceCanvas;
-
-  //.putImageData(ref1PreviewData, 0, 0); // update ColorspaceCanvas;
-  //c1PreviewCtx.putImageData(c1PreviewData, 0, 0); // update ColorspaceCanvas;
-
-  old_tbody.parentNode.replaceChild(new_tbody, old_tbody);
-  new_tbody.id="id_analyseTableBody";
-
+  canvasCtx.putImageData(canvasData, 0, 0); // update ColorspaceCanvas;
 
 }

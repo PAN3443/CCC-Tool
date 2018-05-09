@@ -22,9 +22,11 @@ class class_Key{
         this.middleOfTriple = false; // if left or twin key -> false = cL, true = cR;
 
 
+
     }
 
-    setLeftKeyColor(color) {
+    setLeftKeyColor(color){
+
 
         this.cL = [undefined,undefined,undefined,undefined];
 

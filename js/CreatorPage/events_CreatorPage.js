@@ -93,13 +93,13 @@ function deleteBand(index){
 
   if (confirm("Do you really want to delete the band?") == true) {
 
-      bandSketch.deleteBand(index);
+      globalCMS1.deleteBand(index);
       orderColorSketch();
 
       if(document.getElementById("id_DivModifyKeys").style.display=="inline-block")
       addKeyButtons();
 
-      if(document.getElementById("modifyColormapPath").style.display="inline-block")
+      if(document.getElementById("modifyColormapPath").style.display=="inline-block")
       drawPathEditPath();
 
   }

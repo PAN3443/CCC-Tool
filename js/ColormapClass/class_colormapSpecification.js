@@ -778,6 +778,36 @@ class classColorMapSpecification {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class class_CMS {
 
     constructor() {
@@ -985,6 +1015,14 @@ class class_CMS {
   }
 
 
+  deleteBand(index){
+    var tmpRightColor = this.keyArray[index+1].getRightKeyColor("lab");
+    this.keyArray[index].setRightKeyColor(tmpRightColor);
+    this.deleteKey(index+1);
+
+  }
+
+
   ///////////////////////////////////
   /// Interval functions
   //////////////////////////////////
@@ -1169,12 +1207,21 @@ class class_CMS {
 
   }//
 
+
+  getIntervalLength(){
+    return this.intervalArray.length;
+  }
+
   getIntervalColor(index,colorspace){
       return this.intervalArray[index].getColor(colorspace);
   }
 
   getIntervalisKey(index){
       return this.intervalArray[index].getIsKeyPart();
+  }
+
+  getIntervalRef(index){
+      return this.intervalArray[index].getRefPosition();
   }
 
   /////////////// Other GET SET ////////////////////

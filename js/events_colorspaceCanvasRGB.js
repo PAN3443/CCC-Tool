@@ -14,6 +14,7 @@ function mouseLeaveColorspaceRGB(event) {
 
       drawcolormap_RGBSpace(true,true);
 
+
   }
 }
 

@@ -1,6 +1,17 @@
 ///////////////////////////
 /// GLOBAL
 //////////////////////////
+
+
+////////////////////////////////////
+//// possible User Settings
+var k_L = 1.0, k_C = 1.0, k_H = 1.0; // K_l = 1 default, = 2 textiles
+var k_1 = 0.045, k_2 = 0.015; // K1: 0.045 graphic arts  0.048 textiles  K2: 0.015 graphic arts 0.014 textiles
+
+
+//////////////////////////////////////////
+
+
 var showSideID = -1; // 0 = myList; 1=CreateSide, 2=Analyse
 var initPageType = -1;
 var somethingChanged = false;
@@ -58,8 +69,8 @@ var vPlot_bg_resolution_Y = 650; // hue colorspace
 var hue_resolution_X = 400; //750; // hue colorspace
 var hue_resolution_Y = 400; //750;; // hue colorspace
 
-var hue_bg_resolution_X = 800; //750; // hue colorspace
-var hue_bg_resolution_Y = 800; //750;; // hue colorspace
+var hue_bg_resolution_X = 400;//800; //750; // hue colorspace
+var hue_bg_resolution_Y = 400;//800; //750;; // hue colorspace
 
   var hs_resolution_X =  750; // Colorpicker
   var hs_resolution_Y = 750; // Colorpicker
@@ -109,7 +120,7 @@ var bigcircleRad = 8;// 12;
 var vBarWidth = 8;
 var circleStrokeWidth = 5; //15
 var alphaVal = 1.0;
-var lineWidthVPlot = 5;
+var lineWidthVPlot = 2;
 var arrowWidth = 15;
 
 var plotLineWidth = 5;

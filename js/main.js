@@ -51,6 +51,33 @@ window.onload = function() {
   document.getElementById('buttonShowMyDesignsPreview').addEventListener("mouseenter", showMyDesingsPreview);
   document.getElementById('buttonShowMyDesignsPreview').addEventListener("mouseleave", hideMyDesingsPreview);
 
+  var colormapPath = pathColormaps+folderYellow+fileYellowColormaps[0];
+  var tmpMap  = xmlColormapParserPath(colormapPath);
+  drawCanvasColormap( "canvasPreviewYellow", existingMap_resolution_X,  existingMap_resolution_Y, tmpMap);
+  colormapPath = pathColormaps+folderRedPurple+fileRedPurpleColormaps[0];
+  tmpMap  = xmlColormapParserPath(colormapPath);
+  drawCanvasColormap( "canvasPreviewRed", existingMap_resolution_X,  existingMap_resolution_Y, tmpMap);
+  colormapPath = pathColormaps+folderBlue+fileBlueColormaps[0];
+  tmpMap  = xmlColormapParserPath(colormapPath);
+  drawCanvasColormap( "canvasPreviewBlue", existingMap_resolution_X,  existingMap_resolution_Y, tmpMap);
+  colormapPath = pathColormaps+folderGreen+fileGreenColormaps[0];
+  tmpMap  = xmlColormapParserPath(colormapPath);
+  drawCanvasColormap( "canvasPreviewGreen", existingMap_resolution_X,  existingMap_resolution_Y, tmpMap);
+  colormapPath = pathColormaps+folderBrown+fileBrownColormaps[0];
+  tmpMap  = xmlColormapParserPath(colormapPath);
+  drawCanvasColormap( "canvasPreviewBrown", existingMap_resolution_X,  existingMap_resolution_Y, tmpMap);
+  colormapPath = pathColormaps+folderDivergent+fileDivergentColormaps[0];
+  tmpMap  = xmlColormapParserPath(colormapPath);
+  drawCanvasColormap("canvasPreviewDivergent", existingMap_resolution_X,  existingMap_resolution_Y, tmpMap);
+
+  colormapPath = pathColormaps+folderThreeBand+fileThreeBandColormaps[0];
+  tmpMap  = xmlColormapParserPath(colormapPath);
+  drawCanvasColormap("canvasPreviewComplexThree", existingMap_resolution_X,  existingMap_resolution_Y, tmpMap);
+
+  colormapPath = pathColormaps+folderFourBand+fileFourBandColormaps[0];
+  tmpMap  = xmlColormapParserPath(colormapPath);
+  drawCanvasColormap("canvasPreviewComplexFour", existingMap_resolution_X, existingMap_resolution_Y, tmpMap);
+
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Edit Side /////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -193,7 +220,7 @@ window.onload = function() {
   document.getElementById('id_ModifyValueTop').addEventListener("mouseleave", mouseLeaveValuePlot);
   document.getElementById('id_ModifyValueTop').addEventListener("mousemove", mouseMoveValuePlot);
   document.getElementById('id_ModifyValueTop').addEventListener("mousedown", mouseDownValuePlot);
-  document.getElementById('id_ModifyValueTop').addEventListener("mouseup", mouseUpValuePlot);
+  document.getElementById('id_ModifyValueTop').addEventListener("mouseup", mouseUpColorspace);
 
   document.getElementById('id_canvasRGModiyTop').addEventListener("mouseleave", mouseLeaveColorspaceRGB);
   document.getElementById('id_canvasRGModiyTop').addEventListener("mousemove", mouseMoveColorspaceRGB);
@@ -319,15 +346,9 @@ function orderColorSketch(forColorspace) {
     refLineSketchContainer.pop();
   }
 
-  var sketchObject = document.getElementById("id_colormapSketch");
-  var sketchRefObj = document.getElementById("id_colormapSketch_Ref");
-
-
  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  if (globalCMS1.getKeyLength() != 0) {
-
-    if (showSideID == 1) {
+    if (showSideID == 1 && globalCMS1.getKeyLength() != 0) {
       // show and draw the colormap
       document.getElementById("id_LinearMap_Table_Div").style.display = "inline-block";
       drawCanvasColormap("id_linearColormap", linearMap_resolution_X, linearMap_resolution_Y, globalCMS1);
@@ -335,431 +356,282 @@ function orderColorSketch(forColorspace) {
       fillTable();
     }
 
-    editPage_drawKeys('id_createColormapKeys', globalCMS1);
-
     //////////////////////////////////////////////////////////////////////////
+    if(showSideID == 1)
+    drawBandSketch(globalCMS1,"id_colormapSketch","id_colormapSketch_Ref", true, 'id_createColormapKeys');
+    else
+    drawBandSketch(globalCMS1,"id_colormapSketch","id_colormapSketch_Ref", false, 'id_createColormapKeys');
 
+    if(showSideID == 3)
+    drawBandSketch(globalCMS2,"id_colormapSketch2","id_colormapSketch_Ref2", false, 'id_createColormapKeys2');
 
-    sketchObject.style.border = "none";
+}
 
-    var tmpRect = sketchObject.getBoundingClientRect();
+ function drawBandSketch(cms,sketchObjectID,sketchRefObjID, withEditOptions, sketchKeyID){
 
-    var tmpLength = tmpRect.width/(globalCMS1.getKeyLength()-1)-2;
+   editPage_drawKeys(sketchKeyID, cms);
 
-    for (var i = 0; i < globalCMS1.getKeyLength()-1; i++) {
+   var sketchObject = document.getElementById(sketchObjectID);
+   var sketchRefObj = document.getElementById(sketchRefObjID);
 
-      // create band
-      var tCan = document.createElement('canvas');
-      tCan.id = 'band' + i;
+   var box = sketchRefObj.getBoundingClientRect();
 
-      tCan.style.border = "1px solid black";
-      tCan.style.margin = "0px";
-      tCan.setAttribute('draggable', true);
-      tCan.style.height = 100 + '%';
-      //tCan.style.maxWidth = tmpLength + "px"; //100 +'%';
-      tCan.style.width = tmpLength + "px"; //100 +'%';
+   var body = document.body;
+   var docEl = document.documentElement;
 
+   var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
+   var scrollLeft = window.pageXOffset || docEl.scrollLeft || body.scrollLeft;
 
-      drawCanvasBand(tCan, globalCMS1.getRightKeyColor(i,colorspaceModus), globalCMS1.getLeftKeyColor(i+1,colorspaceModus), tCan.width);
+   var clientTop = docEl.clientTop || body.clientTop || 0;
+   var clientLeft = docEl.clientLeft || body.clientLeft || 0;
 
-      //tCan.addEventListener("dragstart", createSide_BandOnDragStart);
-      //tCan.addEventListener("dragend", createSide_BandOnDragEnd);
+   var top = box.top + scrollTop - clientTop;
+   var left = box.left + scrollLeft - clientLeft;
+   var yposHTML = box.height + top;
 
-      tCan.onclick = (function(index) {
-          return function() {
-            if(showSideID==1)
-              deleteBand(index);
-          };
-        })(i);
+   sketchObject.style.border = "none";
+
+   var tmpRect = sketchObject.getBoundingClientRect();
 
+   var tmpLength = tmpRect.width/(cms.getKeyLength()-1)-2;
 
-      if(showSideID == 1){
-        // Dropplace
-        // create drop place
-        var tDiv = document.createElement('div');
-        tDiv.id = 'dragPos' + i;
-        tDiv.style.border = "3px solid red";
-        tDiv.style.height = 100 + '%';
-        tDiv.style.width = 100 + '%';
-        tDiv.style.display = "none";
-        //tDiv.style.visibility = "hidden";
-        tDiv.style.lineHeight = "8vh";
-        tDiv.style.fontSize = "2vh";
-        tDiv.style.textAlign = "center";
-        tDiv.style.verticalAlign = "middle";
-        tDiv.innerHTML = "Here";
+   for (var i = 0; i < cms.getKeyLength()-1; i++) {
 
-        tDiv.addEventListener("dragenter", bandOnEnter);
-        tDiv.addEventListener("dragleave", bandOnLeave);
-        //tDiv.addEventListener("drop dragdrop", createSide_BandOnDrop);
+     // create band
+     var tCan = document.createElement('canvas');
+     tCan.id = 'band' + i;
+
+     tCan.style.border = "1px solid black";
+     tCan.style.margin = "0px";
+     tCan.setAttribute('draggable', true);
+     tCan.style.height = 100 + '%';
+     tCan.style.width = tmpLength + "px";
+
+     drawCanvasBand(tCan, cms.getRightKeyColor(i,colorspaceModus), cms.getLeftKeyColor(i+1,colorspaceModus), tCan.width);
 
-        tDiv.ondrop = function(event) {
-          event.preventDefault();
-          bandOnDrop();
-        }; // allow Drop
-        tDiv.ondragover = function(event) {
-          event.preventDefault();
-        }; // allow Drop
+     if(withEditOptions){
+       tCan.onclick = (function(index) {
+           return function() {
+             if(showSideID==1)
+               deleteBand(index);
+           };
+         })(i);
 
-        sketchObject.appendChild(tDiv);
-        dropPositionElements.push(tDiv);
-        //tCan.addEventListener("click", bandOnClick);
-        tCan.style.cursor = "pointer";
-      }
-
-      sketchObject.appendChild(tCan);
-      droppedBandElements.push(tCan);
-
-
-      //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-      var refLineDiv = document.createElement('div');
-      refLineDiv.style.height = 100 + '%';
-      refLineDiv.style.width = 100 + '%';
-      refLineDiv.style.borderLeft = "1px solid black";
-
-      //tDiv.style.visibility = "hidden";
-
-      sketchRefObj.appendChild(refLineDiv);
-      refLineSketchContainer.push(refLineDiv);
-
-
-      /////////////////// draw ref /////////
-
-
-      var box = sketchRefObj.getBoundingClientRect();
-
-      var body = document.body;
-      var docEl = document.documentElement;
-
-      var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
-      var scrollLeft = window.pageXOffset || docEl.scrollLeft || body.scrollLeft;
-
-      var clientTop = docEl.clientTop || body.clientTop || 0;
-      var clientLeft = docEl.clientLeft || body.clientLeft || 0;
-
-      var top = box.top + scrollTop - clientTop;
-      var left = box.left + scrollLeft - clientLeft;
-
-
-      var xposHTML = (i / (globalCMS1.getKeyLength()-1)) * box.width + left;
-      var yposHTML = box.height + top;
-      var tmpText = '' + globalCMS1.getRefPosition(i); //.toFixed(numDecimalPlaces);
-
-      if(showSideID==1){
-
-        var inputField = document.createElement("input");
-        inputField.setAttribute('type', 'text');
-        inputField.setAttribute('value', tmpText);
-        var inputID = "id_SketchKeyValInput" + i;
-        inputField.id = inputID;
-        document.body.appendChild(inputField);
-
-        //inputField.style.width = "min-content";
-        inputField.style.width = "3vw";
-        inputField.style.height = "2vh";
-        inputField.style.fontSize = "1.8vh";
-        //inputField.style.background = "rgb(255,255,255)";
-        inputField.style.paddingLeft = 5 + "px";
-        inputField.style.paddingRight = 5 + "px";
-        //inputField.style.border = "2px solid rgb(0,0,0)";
-        inputField.style.margin = "0px";
-        inputField.style.zIndex = "2";
-
-        inputField.style.position = "absolute";
-        inputField.style.top = Math.round(yposHTML) + "px";
-        inputField.style.left = Math.round(xposHTML) + "px";
-        refLineSketchContainer.push(inputField);
-        xposHTML = xposHTML - (inputField.getBoundingClientRect().width / 2);
-        inputField.style.left = Math.round(xposHTML) + "px";
-
-        inputField.onchange = (function(keyIndex, id) {
-          return function() {
-
-            switch (id) {
-              case 0:
-                changeKeyValueInput(keyIndex, id);
-                break;
-              default:
-                changeKeyValueInput(keyIndex, id);
-            }
-
-          };
-        })(i, inputID);
-
-        inputField.onkeyup = (function(id) {
-          return function() {
-
-            var inputObj = document.getElementById(id);
-
-            checkInputVal(inputObj, true, true);
-          };
-        })(inputID);
-
-        /////////////////// special case: last element /////////
-        if (i == globalCMS1.getKeyLength()-2) {
-          refLineDiv.style.borderRight = "1px solid black";
-          tmpText = '' + globalCMS1.getRefPosition(i+1); //.toFixed(numDecimalPlaces);
-          xposHTML = box.width + left;
-          var inputField2 = document.createElement("input");
-          inputField2.setAttribute('type', 'text');
-          inputField2.setAttribute('value', tmpText);
-          var inputID = "id_SketchKeyValInput" + i + 1;
-          inputField2.id = inputID;
-          document.body.appendChild(inputField2);
-
-          //inputField.style.width = "min-content";
-          inputField2.style.width = "3vw";
-          inputField2.style.height = "2vh";
-          inputField2.style.fontSize = "1.8vh";
-          //inputField.style.background = "rgb(255,255,255)";
-          inputField2.style.paddingLeft = 5 + "px";
-          inputField2.style.paddingRight = 5 + "px";
-          //inputField.style.border = "2px solid rgb(0,0,0)";
-          inputField2.style.margin = "0px";
-          inputField2.style.zIndex = "2";
-
-          inputField2.style.position = "absolute";
-          inputField2.style.top = Math.round(yposHTML) + "px";
-          inputField2.style.left = Math.round(xposHTML) + "px";
-          refLineSketchContainer.push(inputField2);
-          xposHTML = xposHTML - (inputField2.getBoundingClientRect().width / 2);
-          inputField2.style.left = Math.round(xposHTML) + "px";
-
-          inputField2.onchange = (function(keyIndex, id) {
-            return function() {
-
-              changeKeyValueInput(keyIndex, id);
-
-            };
-          })(i, inputID);
-
-          inputField2.onkeyup = (function(id) {
-            return function() {
-
-              var inputObj = document.getElementById(id);
-
-              checkInputVal(inputObj, true, true);
-            };
-          })(inputID);
-
-        }
-      }
-      else{
-        // no input fields !
-
-
-        if(globalCMS1.getRefPosition(i).countDecimals()>2){
-          tmpText = globalCMS1.getRefPosition(i).toFixed(2) + "..";
-        }
-        var inputField = document.createElement("p");
-        inputField.innerHTML = tmpText;
-        var inputID = "id_SketchKeyValInput" + i;
-        inputField.id = inputID;
-        document.body.appendChild(inputField);
-
-        inputField.style.width = "min-content";
-        //inputField.style.width = "3vw";
-        inputField.style.height = "2vh";
-        inputField.style.fontSize = "1.8vh";
-        inputField.style.background = "rgb(255,255,255)";
-        inputField.style.paddingLeft = 5 + "px";
-        inputField.style.paddingRight = 5 + "px";
-        //inputField.style.border = "1px solid rgb(0,0,0)";
-        inputField.style.margin = "0px";
-        inputField.style.zIndex = "2";
-
-        inputField.style.position = "absolute";
-        inputField.style.top = Math.round(yposHTML) + "px";
-        inputField.style.left = Math.round(xposHTML) + "px";
-        refLineSketchContainer.push(inputField);
-        xposHTML = xposHTML - (inputField.getBoundingClientRect().width / 2);
-        inputField.style.left = Math.round(xposHTML) + "px";
-
-
-        /////////////////// special case: last element /////////
-        if (i == globalCMS1.getKeyLength()-2) {
-          refLineDiv.style.borderRight = "1px solid black";
-          tmpText = globalCMS1.getRefPosition(i+1) + "";
-          if(globalCMS1.getRefPosition(i+1).countDecimals()>2){
-            tmpText = globalCMS1.getRefPosition(i+1).toFixed(2) + "..";
-          }
-          xposHTML = box.width + left;
-          var inputField2 = document.createElement("p");
-          inputField2.innerHTML = tmpText;
-          var inputID = "id_SketchKeyValInput" + i + 1;
-          inputField2.id = inputID;
-          document.body.appendChild(inputField2);
-
-          inputField2.style.width = "min-content";
-          //inputField2.style.width = "3vw";
-          inputField2.style.height = "2vh";
-          inputField2.style.fontSize = "1.8vh";
-          inputField2.style.background = "rgb(255,255,255)";
-          inputField2.style.paddingLeft = 5 + "px";
-          inputField2.style.paddingRight = 5 + "px";
-          //inputField2.style.border = "1px solid rgb(0,0,0)";
-          inputField2.style.margin = "0px";
-          inputField2.style.zIndex = "2";
-
-          inputField2.style.position = "absolute";
-          inputField2.style.top = Math.round(yposHTML) + "px";
-          inputField2.style.left = Math.round(xposHTML) + "px";
-          refLineSketchContainer.push(inputField2);
-          xposHTML = xposHTML - (inputField2.getBoundingClientRect().width / 2);
-          inputField2.style.left = Math.round(xposHTML) + "px";
-        }
-
-      }
-    }
-
-    var t2Div = document.createElement('div');
-    t2Div.id = 'dragPos' + (globalCMS1.getKeyLength()-1);
-    t2Div.style.border = "3px solid red";
-    t2Div.style.height = 99 + '%';
-    t2Div.style.width = 100 + '%';
-    t2Div.style.display = "none";
-    t2Div.style.lineHeight = "8vh";
-    t2Div.style.fontSize = "2vh";
-    t2Div.style.textAlign = "center";
-    t2Div.style.verticalAlign = "middle";
-    t2Div.innerHTML = "Here";
-
-    t2Div.addEventListener("dragenter", bandOnEnter);
-    t2Div.addEventListener("dragleave", bandOnLeave);
-
-    t2Div.ondrop = function(event) {
-      event.preventDefault();
-      bandOnDrop();
-    }; // allow Drop
-    t2Div.ondragover = function(event) {
-      event.preventDefault();
-    }; // allow Drop
-
-    sketchObject.appendChild(t2Div);
-    dropPositionElements.push(t2Div);
-
-
-    if(showSideID == 3){
-      tmpLength = tmpRect.width /(globalCMS2.getKeyLength()-1) - 1;
-      sketchObject = document.getElementById("id_colormapSketch2");
-      sketchRefObj = document.getElementById("id_colormapSketch_Ref2");
-      editPage_drawKeys('id_createColormapKeys2', globalCMS2);
-
-      for (var i = 0; i < globalCMS2.getKeyLength()-1; i++) {
-
-        // create band
-        var tCan = document.createElement('canvas');
-        tCan.id = 'band' + i;
-
-        tCan.style.border = "1px solid black";
-        tCan.style.margin = "0px";
-        tCan.setAttribute('draggable', true);
-
-        sketchObject.appendChild(tCan);
-        droppedBandElements.push(tCan);
-
-        tCan.style.height = 100 + '%';
-        tCan.style.maxWidth = tmpLength + "px"; //100 +'%';
-        tCan.style.width = tmpLength + "px"; //100 +'%';
-
-        drawCanvasBand(tCan, globalCMS2.getRightKeyColor(i, colorspaceModus), globalCMS2.getRightKeyColor(i+1, colorspaceModus), tCan.width);
-
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        var refLineDiv = document.createElement('div');
-        refLineDiv.style.height = 100 + '%';
-        refLineDiv.style.width = 100 + '%';
-        refLineDiv.style.borderLeft = "1px solid black";
-
-        //tDiv.style.visibility = "hidden";
-
-        sketchRefObj.appendChild(refLineDiv);
-        refLineSketchContainer.push(refLineDiv);
-
-
-        /////////////////// draw ref /////////
-        var tmpText = '' + globalCMS2.getRefPosition(i); //.toFixed(numDecimalPlaces);
-
-        var box = sketchRefObj.getBoundingClientRect();
-
-        var body = document.body;
-        var docEl = document.documentElement;
-
-        var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
-        var scrollLeft = window.pageXOffset || docEl.scrollLeft || body.scrollLeft;
-
-        var clientTop = docEl.clientTop || body.clientTop || 0;
-        var clientLeft = docEl.clientLeft || body.clientLeft || 0;
-
-        var top = box.top + scrollTop - clientTop;
-        var left = box.left + scrollLeft - clientLeft;
-
-
-        var xposHTML = ((i) / (globalCMS2.getKeyLength()-1)) * box.width + left;
-        var yposHTML = box.height + top;
-
-        var inputField = document.createElement("p");
-        inputField.innerHTML = tmpText;
-        var inputID = "id_SketchKeyValInput" + i;
-        inputField.id = inputID;
-        document.body.appendChild(inputField);
-
-        inputField.style.width = "min-content";
-        //inputField.style.width = "3vw";
-        inputField.style.height = "2vh";
-        inputField.style.fontSize = "1.8vh";
-        inputField.style.background = "rgb(255,255,255)";
-        inputField.style.paddingLeft = 5 + "px";
-        inputField.style.paddingRight = 5 + "px";
-        //inputField.style.border = "1px solid rgb(0,0,0)";
-        inputField.style.margin = "0px";
-        inputField.style.zIndex = "2";
-
-        inputField.style.position = "absolute";
-        inputField.style.top = Math.round(yposHTML) + "px";
-        inputField.style.left = Math.round(xposHTML) + "px";
-        refLineSketchContainer.push(inputField);
-        xposHTML = xposHTML - (inputField.getBoundingClientRect().width / 2);
-        inputField.style.left = Math.round(xposHTML) + "px";
-
-
-        /////////////////// special case: last element /////////
-        if (i == globalCMS2.getKeyLength()-2) {
-          refLineDiv.style.borderRight = "1px solid black";
-          tmpText = '' + globalCMS2.getRefPosition(i+1); //.toFixed(numDecimalPlaces);
-          xposHTML = box.width + left;
-          var inputField2 = document.createElement("p");
-          inputField2.innerHTML = tmpText;
-          var inputID = "id_SketchKeyValInput" + i + 1;
-          inputField2.id = inputID;
-          document.body.appendChild(inputField2);
-
-          inputField2.style.width = "min-content";
-          //inputField2.style.width = "3vw";
-          inputField2.style.height = "2vh";
-          inputField2.style.fontSize = "1.8vh";
-          inputField2.style.background = "rgb(255,255,255)";
-          inputField2.style.paddingLeft = 5 + "px";
-          inputField2.style.paddingRight = 5 + "px";
-          //inputField2.style.border = "1px solid rgb(0,0,0)";
-          inputField2.style.margin = "0px";
-          inputField2.style.zIndex = "2";
-
-          inputField2.style.position = "absolute";
-          inputField2.style.top = Math.round(yposHTML) + "px";
-          inputField2.style.left = Math.round(xposHTML) + "px";
-          refLineSketchContainer.push(inputField2);
-          xposHTML = xposHTML - (inputField2.getBoundingClientRect().width / 2);
-          inputField2.style.left = Math.round(xposHTML) + "px";
-        }
-
-      }
-
-    }
-
-
-  } else {
+         var tDiv = document.createElement('div');
+         tDiv.id = 'dragPos' + i;
+         tDiv.style.border = "3px solid red";
+         tDiv.style.height = 100 + '%';
+         tDiv.style.width = 100 + '%';
+         tDiv.style.display = "none";
+         //tDiv.style.visibility = "hidden";
+         tDiv.style.lineHeight = "8vh";
+         tDiv.style.fontSize = "2vh";
+         tDiv.style.textAlign = "center";
+         tDiv.style.verticalAlign = "middle";
+         tDiv.innerHTML = "Here";
+
+         tDiv.addEventListener("dragenter", bandOnEnter);
+         tDiv.addEventListener("dragleave", bandOnLeave);
+         //tDiv.addEventListener("drop dragdrop", createSide_BandOnDrop);
+
+         tDiv.ondrop = function(event) {
+           event.preventDefault();
+           bandOnDrop();
+         }; // allow Drop
+         tDiv.ondragover = function(event) {
+           event.preventDefault();
+         }; // allow Drop
+
+         sketchObject.appendChild(tDiv);
+         dropPositionElements.push(tDiv);
+         //tCan.addEventListener("click", bandOnClick);
+         tCan.style.cursor = "pointer";
+     }
+
+     sketchObject.appendChild(tCan);
+     droppedBandElements.push(tCan);
+
+
+     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+     var refLineDiv = document.createElement('div');
+     refLineDiv.style.height = 100 + '%';
+     refLineDiv.style.width = 100 + '%';
+     refLineDiv.style.borderLeft = "1px solid black";
+
+     sketchRefObj.appendChild(refLineDiv);
+     refLineSketchContainer.push(refLineDiv);
+
+
+     /////////////////// draw ref /////////
+     var xposHTML = (i / (cms.getKeyLength()-1)) * box.width + left;
+     var tmpText = '' + cms.getRefPosition(i); //.toFixed(numDecimalPlaces);
+
+     if(withEditOptions){
+
+       var inputField = document.createElement("input");
+       inputField.setAttribute('type', 'text');
+       inputField.setAttribute('value', tmpText);
+       var inputID = "id_SketchKeyValInput" + i;
+       inputField.id = inputID;
+       document.body.appendChild(inputField);
+
+       inputField.style.width = "3vw";
+       inputField.style.height = "2vh";
+       inputField.style.fontSize = "1.8vh";
+       inputField.style.paddingLeft = 5 + "px";
+       inputField.style.paddingRight = 5 + "px";
+       inputField.style.margin = "0px";
+       inputField.style.zIndex = "2";
+
+       inputField.style.position = "absolute";
+       inputField.style.top = Math.round(yposHTML) + "px";
+       inputField.style.left = Math.round(xposHTML) + "px";
+       refLineSketchContainer.push(inputField);
+       xposHTML = xposHTML - (inputField.getBoundingClientRect().width / 2);
+       inputField.style.left = Math.round(xposHTML) + "px";
+
+       inputField.onchange = (function(keyIndex, id) {
+         return function() {
+
+           switch (id) {
+             case 0:
+               changeKeyValueInput(keyIndex, id);
+               break;
+             default:
+               changeKeyValueInput(keyIndex, id);
+           }
+
+         };
+       })(i, inputID);
+
+       inputField.onkeyup = (function(id) {
+         return function() {
+
+           var inputObj = document.getElementById(id);
+
+           checkInputVal(inputObj, true, true);
+         };
+       })(inputID);
+
+       /////////////////// special case: last element /////////
+       if (i == cms.getKeyLength()-2) {
+         refLineDiv.style.borderRight = "1px solid black";
+         tmpText = '' + cms.getRefPosition(i+1); //.toFixed(numDecimalPlaces);
+         xposHTML = box.width + left;
+         var inputField2 = document.createElement("input");
+         inputField2.setAttribute('type', 'text');
+         inputField2.setAttribute('value', tmpText);
+         var inputID = "id_SketchKeyValInput" + i + 1;
+         inputField2.id = inputID;
+         document.body.appendChild(inputField2);
+
+         //inputField.style.width = "min-content";
+         inputField2.style.width = "3vw";
+         inputField2.style.height = "2vh";
+         inputField2.style.fontSize = "1.8vh";
+         //inputField.style.background = "rgb(255,255,255)";
+         inputField2.style.paddingLeft = 5 + "px";
+         inputField2.style.paddingRight = 5 + "px";
+         //inputField.style.border = "2px solid rgb(0,0,0)";
+         inputField2.style.margin = "0px";
+         inputField2.style.zIndex = "2";
+
+         inputField2.style.position = "absolute";
+         inputField2.style.top = Math.round(yposHTML) + "px";
+         inputField2.style.left = Math.round(xposHTML) + "px";
+         refLineSketchContainer.push(inputField2);
+         xposHTML = xposHTML - (inputField2.getBoundingClientRect().width / 2);
+         inputField2.style.left = Math.round(xposHTML) + "px";
+
+         inputField2.onchange = (function(keyIndex, id) {
+           return function() {
+
+             changeKeyValueInput(keyIndex, id);
+
+           };
+         })(i, inputID);
+
+         inputField2.onkeyup = (function(id) {
+           return function() {
+
+             var inputObj = document.getElementById(id);
+
+             checkInputVal(inputObj, true, true);
+           };
+         })(inputID);
+
+       }
+     }
+     else{
+       // no input fields !
+
+
+       if(cms.getRefPosition(i).countDecimals()>2){
+         tmpText = cms.getRefPosition(i).toFixed(2) + "..";
+       }
+       var inputField = document.createElement("p");
+       inputField.innerHTML = tmpText;
+       var inputID = "id_SketchKeyValInput" + i;
+       inputField.id = inputID;
+       document.body.appendChild(inputField);
+
+       inputField.style.width = "min-content";
+       //inputField.style.width = "3vw";
+       inputField.style.height = "2vh";
+       inputField.style.fontSize = "1.8vh";
+       inputField.style.background = "rgb(255,255,255)";
+       inputField.style.paddingLeft = 5 + "px";
+       inputField.style.paddingRight = 5 + "px";
+       //inputField.style.border = "1px solid rgb(0,0,0)";
+       inputField.style.margin = "0px";
+       inputField.style.zIndex = "2";
+
+       inputField.style.position = "absolute";
+       inputField.style.top = Math.round(yposHTML) + "px";
+       inputField.style.left = Math.round(xposHTML) + "px";
+       refLineSketchContainer.push(inputField);
+       xposHTML = xposHTML - (inputField.getBoundingClientRect().width / 2);
+       inputField.style.left = Math.round(xposHTML) + "px";
+
+
+       /////////////////// special case: last element /////////
+       if (i == cms.getKeyLength()-2) {
+         refLineDiv.style.borderRight = "1px solid black";
+         tmpText = cms.getRefPosition(i+1) + "";
+         if(cms.getRefPosition(i+1).countDecimals()>2){
+           tmpText = cms.getRefPosition(i+1).toFixed(2) + "..";
+         }
+         xposHTML = box.width + left;
+         var inputField2 = document.createElement("p");
+         inputField2.innerHTML = tmpText;
+         var inputID = "id_SketchKeyValInput" + i + 1;
+         inputField2.id = inputID;
+         document.body.appendChild(inputField2);
+
+         inputField2.style.width = "min-content";
+         //inputField2.style.width = "3vw";
+         inputField2.style.height = "2vh";
+         inputField2.style.fontSize = "1.8vh";
+         inputField2.style.background = "rgb(255,255,255)";
+         inputField2.style.paddingLeft = 5 + "px";
+         inputField2.style.paddingRight = 5 + "px";
+         //inputField2.style.border = "1px solid rgb(0,0,0)";
+         inputField2.style.margin = "0px";
+         inputField2.style.zIndex = "2";
+
+         inputField2.style.position = "absolute";
+         inputField2.style.top = Math.round(yposHTML) + "px";
+         inputField2.style.left = Math.round(xposHTML) + "px";
+         refLineSketchContainer.push(inputField2);
+         xposHTML = xposHTML - (inputField2.getBoundingClientRect().width / 2);
+         inputField2.style.left = Math.round(xposHTML) + "px";
+       }
+
+     }
+   }
+
+   if(cms.getKeyLength()==0){
 
     var t2Div = document.createElement('div');
     t2Div.id = 'dragPos0';
@@ -771,7 +643,6 @@ function orderColorSketch(forColorspace) {
     t2Div.style.textAlign = "center";
     t2Div.style.verticalAlign = "middle";
     //t2Div.style.color = "red";
-
 
     var canvasObject = document.getElementById("id_createColormapKeys");
     var canvasContex = canvasObject.getContext("2d");
@@ -800,9 +671,38 @@ function orderColorSketch(forColorspace) {
     dropPositionElements.push(t2Div);
 
   }
+  else{
+    if(withEditOptions){
+      var t2Div = document.createElement('div');
+      t2Div.id = 'dragPos' + (cms.getKeyLength()-1);
+      t2Div.style.border = "3px solid red";
+      t2Div.style.height = 99 + '%';
+      t2Div.style.width = 100 + '%';
+      t2Div.style.display = "none";
+      t2Div.style.lineHeight = "8vh";
+      t2Div.style.fontSize = "2vh";
+      t2Div.style.textAlign = "center";
+      t2Div.style.verticalAlign = "middle";
+      t2Div.innerHTML = "Here";
+
+      t2Div.addEventListener("dragenter", bandOnEnter);
+      t2Div.addEventListener("dragleave", bandOnLeave);
+
+      t2Div.ondrop = function(event) {
+        event.preventDefault();
+        bandOnDrop();
+      }; // allow Drop
+      t2Div.ondragover = function(event) {
+        event.preventDefault();
+      }; // allow Drop
+
+      sketchObject.appendChild(t2Div);
+      dropPositionElements.push(t2Div);
+    }
+  }
+ }
 
 
-}
 
 function changeKeyValueInput(keyIndex, fielID) {
 

@@ -106,6 +106,7 @@
   <script src="js/WebGL/rgb3D.js"></script>
 
   <!-- global -->
+  <script src="js/calcColordifference.js"></script>
   <script src="js/events_global.js"></script>
   <script src="js/globalVars.js"></script>
   <script src="js/globalHelpers.js"></script>
@@ -818,6 +819,8 @@
                    <div style="position: relative; width:68%; height:30vw;">
                     <canvas id="id_ModifyValueBackground"
                       style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:30vw;"></canvas>
+                    <canvas id="id_ModifyValueMiddle"
+                      style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:30vw;"></canvas>
                     <canvas id="id_ModifyValueTop"
                       style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:30vw;"></canvas>
                    </div>
@@ -987,9 +990,6 @@
       &#8679; Create a new set <br> of four bands.
     </div>
 
-    <div class="helpDiv" id="createSide_expandtableHelp">
-      Click here to expand the table of the colormap &#8679;
-    </div>
 
     <!------------------  ------------------->
     <!--
@@ -1708,45 +1708,58 @@
                 <div class="row" style="width:100%; height:auto; background:white;">
 
                   <!-- Hue -->
-                  <div id="id_containerHueCourseCompare" style="width:30vw; height:auto; display:none;">
-                    <canvas id="id_compareCourseHueBackground" style="width:30vw; height:30vw;">
-
-                  </canvas>
-
-                    <!--p id="id_huePositionLabelCompare" class="classAnalyseLabel" style="width:30vw; font-weight:bold; text-align: center; margin-bottom:2vh;"></p-->
-
+                  <div style="position: relative; width:30vw; height:30vw; ">
+                   <canvas id="id_compareCourseHueBackground"
+                     style="position: absolute; left: 0; top: 0; z-index: 0; width:30vw; height:30vw;"></canvas>
+                   <canvas id="id_compareCourseHueMiddle"
+                     style="position: absolute; left: 0; top: 0; z-index: 1; width:30vw; height:30vw;"></canvas>
+                     <canvas id="id_compareCourseHueTop"
+                       style="position: absolute; left: 0; top: 0; z-index: 2; width:30vw; height:30vw;"></canvas>
                   </div>
 
                   <!-- Brightness -->
-                  <canvas id="id_compareValue" style="width:68%; height:30vw; display:none;">
-
-
-                  </canvas>
+                  <div style="position: relative; width:68%; height:30vw;">
+                   <canvas id="id_compareValueBackground"
+                     style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:30vw;"></canvas>
+                   <canvas id="id_compareValueMiddle"
+                     style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:30vw;"></canvas>
+                   <canvas id="id_compareValueTop"
+                     style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:30vw;"></canvas>
+                  </div>
 
                 </div>
 
               </div>
 
-              <div id="id_RGBCourseDivCompare" style="width:100%; height:auto; ">
-
-
+              <div id="id_RGBCourseDivCompare" style="width:100%; height:auto;">
 
                 <div class="row" style="width:100%; height:auto; padding-bottom:1vh; background:white;">
+                  <div style="position: relative; width:25vw; height:25vw; margin:0px; margin-left:auto;">
+                   <canvas id="id_canvasRGCompareBackground"
+                     style="position: absolute; left: 0; top: 0; z-index: 0; width:25vw; height:25vw;"></canvas>
+                   <canvas id="id_canvasRGCompareMiddle"
+                     style="position: absolute; left: 0; top: 0; z-index: 1; width:25vw; height:25vw;"></canvas>
+                     <canvas id="id_canvasRGCompareTop"
+                       style="position: absolute; left: 0; top: 0; z-index: 2; width:25vw; height:25vw;"></canvas>
+                  </div>
 
-                <canvas id="id_canvasRGCompare" style="width:25vw; height:25vw; margin:0px; margin-left:auto;">
+                  <div style="position: relative; width:25vw; height:25vw; margin:0px;">
+                   <canvas id="id_canvasBGCompareBackground"
+                     style="position: absolute; left: 0; top: 0; z-index: 0; width:25vw; height:25vw;"></canvas>
+                   <canvas id="id_canvasBGCompareMiddle"
+                     style="position: absolute; left: 0; top: 0; z-index: 1; width:25vw; height:25vw;"></canvas>
+                     <canvas id="id_canvasBGCompareTop"
+                       style="position: absolute; left: 0; top: 0; z-index: 2; width:25vw; height:25vw;"></canvas>
+                  </div>
 
-
-                </canvas>
-
-                  <canvas id="id_canvasBGCompare" style="width:25vw; height:25vw; margin:0px;">
-
-
-                </canvas>
-
-                  <canvas id="id_canvasRBCompare" style="width:25vw; height:25vw; margin:0px; margin-right:auto;">
-
-
-                </canvas>
+                  <div style="position: relative; width:25vw; height:25vw; margin:0px; margin-right:auto;">
+                   <canvas id="id_canvasRBCompareBackground"
+                     style="position: absolute; left: 0; top: 0; z-index: 0; width:25vw; height:25vw;"></canvas>
+                   <canvas id="id_canvasRBCompareMiddle"
+                     style="position: absolute; left: 0; top: 0; z-index: 1; width:25vw; height:25vw;"></canvas>
+                     <canvas id="id_canvasRBCompareTop"
+                       style="position: absolute; left: 0; top: 0; z-index: 2; width:25vw; height:25vw;"></canvas>
+                  </div>
 
                 </div>
 
@@ -2154,7 +2167,7 @@
 
 
 
-                  <div style="height:auto; overflow:auto; width:100%; margin-bottom:2vh;">
+                  <!--div style="height:auto; overflow:auto; width:100%; margin-bottom:2vh;">
                     <h4 style="width:100%; height:3vh; height:3vh; line-height:3vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; padding-left:20px; font-size:2.5vh; margin-bottom:2vh; background:black; margin-bottom:0px;"> Key Speed Table </h4>
 
                     <table style="width:100%; background:white; overflow:auto;" id="id_table">
@@ -2181,7 +2194,7 @@
                       </tbody>
 
                     </table>
-                  </div>
+                  </div-->
                 </div>
 
 
@@ -2636,11 +2649,11 @@
 
             <!-- Hue -->
               <div style="position: relative; width:30vw; height:30vw; ">
-               <canvas id="id_anaylseCourseHueBackground"
+               <canvas id="id_anaylzeCourseHueBackground"
                  style="position: absolute; left: 0; top: 0; z-index: 0; width:30vw; height:30vw;"></canvas>
-               <canvas id="id_anaylseCourseHueBackground2"
+               <canvas id="id_anaylzeCourseHueMiddle"
                  style="position: absolute; left: 0; top: 0; z-index: 1; width:30vw; height:30vw;"></canvas>
-                 <canvas id="id_anaylseCourseHueBackground3"
+                 <canvas id="id_anaylzeCourseHueTop"
                    style="position: absolute; left: 0; top: 0; z-index: 2; width:30vw; height:30vw;"></canvas>
               </div>
               <!--canvas id="id_anaylseCourseHueBackground" style="width:30vw; height:30vw;">
@@ -2652,10 +2665,15 @@
 
 
             <!-- Brightness -->
-            <canvas id="id_anaylseValue" style="width:68%; height:30vw; display:none;">
+            <div style="position: relative; width:68%; height:30vw;">
+             <canvas id="id_analyzeValueBackground"
+               style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:30vw;"></canvas>
+             <canvas id="id_analyzeValueMiddle"
+               style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:30vw;"></canvas>
+             <canvas id="id_analyzeValueTop"
+               style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:30vw;"></canvas>
+            </div>
 
-
-            </canvas>
 
           </div>
 
@@ -2667,20 +2685,32 @@
 
           <div class="row" style="width:100%; height:auto; padding-bottom:1vh; background:white;">
 
-          <canvas id="id_canvasRG" style="width:25vw; height:25vw; margin:0px; margin-left:auto;">
+              <div style="position: relative; width:25vw; height:25vw; margin:0px; margin-left:auto; ">
+               <canvas id="id_canvasRGAnalyzeBackground"
+                 style="position: absolute; left: 0; top: 0; z-index: 0; width:25vw; height:25vw;"></canvas>
+               <canvas id="id_canvasRGAnalyzeMiddle"
+                 style="position: absolute; left: 0; top: 0; z-index: 1; width:25vw; height:25vw;"></canvas>
+                 <canvas id="id_canvasRGAnalyzeTop"
+                   style="position: absolute; left: 0; top: 0; z-index: 2; width:25vw; height:25vw;"></canvas>
+              </div>
 
+              <div style="position: relative; width:25vw; height:25vw; margin:0px;">
+               <canvas id="id_canvasBGAnalyzeBackground"
+                 style="position: absolute; left: 0; top: 0; z-index: 0; width:25vw; height:25vw;"></canvas>
+               <canvas id="id_canvasBGAnalyzeMiddle"
+                 style="position: absolute; left: 0; top: 0; z-index: 1; width:25vw; height:25vw;"></canvas>
+                 <canvas id="id_canvasBGAnalyzeTop"
+                   style="position: absolute; left: 0; top: 0; z-index: 2; width:25vw; height:25vw;"></canvas>
+              </div>
 
-          </canvas>
-
-            <canvas id="id_canvasBG" style="width:25vw; height:25vw; margin:0px;">
-
-
-          </canvas>
-
-            <canvas id="id_canvasRB" style="width:25vw; height:25vw; margin:0px; margin-right:auto;">
-
-
-          </canvas>
+              <div style="position: relative; width:25vw; height:25vw; margin:0px; margin-right:auto;">
+               <canvas id="id_canvasRBAnalyzeBackground"
+                 style="position: absolute; left: 0; top: 0; z-index: 0; width:25vw; height:25vw;"></canvas>
+               <canvas id="id_canvasRBAnalyzeMiddle"
+                 style="position: absolute; left: 0; top: 0; z-index: 1; width:25vw; height:25vw;"></canvas>
+                 <canvas id="id_canvasRBAnalyzeTop"
+                   style="position: absolute; left: 0; top: 0; z-index: 2; width:25vw; height:25vw;"></canvas>
+              </div>
 
           </div>
 
@@ -2977,7 +3007,7 @@
 
 
 
-                  <div style="height:auto; overflow:auto; width:100%; margin-bottom:2vh;">
+                  <!--div style="height:auto; overflow:auto; width:100%; margin-bottom:2vh;">
                     <h4 style="width:100%; height:3vh; height:3vh; line-height:3vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; padding-left:20px; font-size:2.5vh; margin-bottom:2vh; background:black; margin-bottom:0px;"> Key Speed Table </h4>
 
                     <table style="width:100%; background:white; overflow:auto;" id="id_table">
@@ -3004,7 +3034,7 @@
                       </tbody>
 
                     </table>
-                  </div>
+                  </div-->
                 </div>
 
 

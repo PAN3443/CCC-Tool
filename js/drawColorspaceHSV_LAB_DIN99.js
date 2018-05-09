@@ -2,17 +2,16 @@
 // -------------HSV LAB DIN99---------------//
 //////////////////////////////////////////
 function hueInit(){
-
           var canvasID;
           switch (showSideID) {
             case 1:
               canvasID="id_ModiyCourseHueBackground";
               break;
             case 2:
-              canvasID="";
+              canvasID="id_anaylzeCourseHueBackground";
               break;
             case 3:
-              canvasID="";
+              canvasID="id_compareCourseHueBackground";
               break;
             default:
 
@@ -58,7 +57,6 @@ function hueInit(){
                           else
                           vVal=1.0;
                         } else {
-
                           switch (mouseGrappedColorSide) {
                             case 0:
                             // left color
@@ -204,7 +202,6 @@ function hueInit(){
                       } else {
 
                         var l99Val;
-                        l99Val = globalColormap1.getDIN99Color(mouseGrappedSpaceObjectID).getL99Value();
 
                         switch (mouseGrappedColorSide) {
                           case 0:
@@ -265,10 +262,10 @@ function init_VPlot(){
          canvasID='id_ModifyValueBackground';
         break;
         case 2:
-           canvasID='id_anaylseValue';
+           canvasID='id_analyzeValueBackground';
           break;
           case 3:
-             canvasID='id_compareValue';
+             canvasID='id_compareValueBackground';
             break;
       default:
 
@@ -528,12 +525,12 @@ function drawcolormap_hueSpace(calcBackground,drawInterpolationLine, doInitVplot
       vCanvasID='id_ModifyValueTop';
       break;
     case 2:
-      canvasID="";
-      vCanvasID='id_anaylseValue';
+      canvasID="id_anaylzeCourseHueTop";
+      vCanvasID='id_analyzeValueTop';
       break;
     case 3:
-      canvasID="";
-      vCanvasID='id_compareValue';
+      canvasID="id_compareCourseHueTop";
+      vCanvasID='id_compareValueTop';
       break;
     default:
 
@@ -586,13 +583,19 @@ function drawcolormap_hueSpace(calcBackground,drawInterpolationLine, doInitVplot
             hueInit();
 
           if(drawInterpolationLine)
-            //drawInterpolationLineInHSV(false, intervalSize);
+            drawInterpolationLineHSV_LAB_DIN99(false, intervalSize);
 
           /////////////////////////////////////////////////////////////////
 
           var xPos, yPos, xPos2, yPos2, xVPos, xVPos2, tmpColor, tmpColor2;
           xVPos=xStart;
           xVPos2=xStart;
+
+          spaceElementsXPos = [];
+          spaceElementsYPos = [];
+          spaceElementsType = [];
+          spaceElementsKey = [];
+          spaceElementsColor = [];
 
 
           for (var i = 0; i < globalCMS1.getKeyLength(); i++) {
@@ -614,28 +617,28 @@ function drawcolormap_hueSpace(calcBackground,drawInterpolationLine, doInitVplot
                 ////////////////////////////////////////////////////////////////
                 /////// left Color
 
-                drawHueElement(tmpColor,xWidth,yHeight,xStart,yStart,colorspaceRadius, colorspaceCenterY, colorspaceCenterX, drawCircle,colorspaceContex, i,0);
+                drawHueElement(tmpColor,xWidth,yHeight,xStart,yStart,xEnd,yEnd,colorspaceRadius, colorspaceCenterY, colorspaceCenterX, drawCircle,colorspaceContex, i,0);
 
                 ////////////////////////////////////////////////////////////////
                 /////// Right Color
 
                 var tmpColor2 = globalCMS1.getRightKeyColor(i, analyzeColorspaceModus);
 
-                drawHueElement(tmpColor2,xWidth,yHeight,xStart,yStart,colorspaceRadius, colorspaceCenterY, colorspaceCenterX, true,colorspaceContex, i,1);
+                drawHueElement(tmpColor2,xWidth,yHeight,xStart,yStart,xEnd,yEnd,colorspaceRadius, colorspaceCenterY, colorspaceCenterX, true,colorspaceContex, i,1);
 
 
                 ////////////////////////////////////////////////////////////////
                 /////// V Plot
 
                 if(drawCircle){
-                  drawVElement(tmpColor,globalCMS1.getRefPosition(i), globalCMS1.getRefPosition(0), globalCMS1.getRefRange(),vPlotxStart,vPlotyStart,heigthVArea,plotwidth, true,vPlotContex, i,0)
-                  drawVElement(tmpColor2,globalCMS1.getRefPosition(i), globalCMS1.getRefPosition(0), globalCMS1.getRefRange(),vPlotxStart,vPlotyStart,heigthVArea,plotwidth, true,vPlotContex, i,1)
+                  drawVElement(tmpColor,globalCMS1.getRefPosition(i), globalCMS1.getRefPosition(0), globalCMS1.getRefRange(),vPlotxStart,vPlotyStart,heigthVArea,plotwidth, true,vPlotContex, i,0);
+                  drawVElement(tmpColor2,globalCMS1.getRefPosition(i), globalCMS1.getRefPosition(0), globalCMS1.getRefRange(),vPlotxStart,vPlotyStart,heigthVArea,plotwidth, true,vPlotContex, i,1);
                 }
                 else{
 
-                  drawVElement(tmpColor,globalCMS1.getRefPosition(i-1), globalCMS1.getRefPosition(0), globalCMS1.getRefRange(),vPlotxStart,vPlotyStart,heigthVArea,plotwidth, drawCircle,vPlotContex, i,0)
-                  drawVElement(tmpColor,globalCMS1.getRefPosition(i), globalCMS1.getRefPosition(0), globalCMS1.getRefRange(),vPlotxStart,vPlotyStart,heigthVArea,plotwidth, drawCircle,vPlotContex, i,0)
-                  drawVElement(tmpColor2,globalCMS1.getRefPosition(i), globalCMS1.getRefPosition(0), globalCMS1.getRefRange(),vPlotxStart,vPlotyStart,heigthVArea,plotwidth, true,vPlotContex, i,1)
+                  drawVElement(tmpColor,globalCMS1.getRefPosition(i-1), globalCMS1.getRefPosition(0), globalCMS1.getRefRange(),vPlotxStart,vPlotyStart,heigthVArea,plotwidth, drawCircle,vPlotContex, i,0);
+                  drawVElement(tmpColor,globalCMS1.getRefPosition(i), globalCMS1.getRefPosition(0), globalCMS1.getRefRange(),vPlotxStart,vPlotyStart,heigthVArea,plotwidth, drawCircle,vPlotContex, i,0);
+                  drawVElement(tmpColor2,globalCMS1.getRefPosition(i), globalCMS1.getRefPosition(0), globalCMS1.getRefRange(),vPlotxStart,vPlotyStart,heigthVArea,plotwidth, true,vPlotContex, i,1);
 
                 }
 
@@ -651,23 +654,22 @@ function drawcolormap_hueSpace(calcBackground,drawInterpolationLine, doInitVplot
 
                 tmpColor = globalCMS1.getLeftKeyColor(i, analyzeColorspaceModus);
 
-                drawHueElement(tmpColor,xWidth,yHeight,xStart,yStart,colorspaceRadius, colorspaceCenterY, colorspaceCenterX, drawCircle,colorspaceContex, i, 0);
+                drawHueElement(tmpColor,xWidth,yHeight,xStart,yStart,xEnd,yEnd,colorspaceRadius, colorspaceCenterY, colorspaceCenterX, drawCircle,colorspaceContex, i, 0);
 
                 ////////////////////////////////////////////////////////
                 ///// Right Color
 
                   // do nothing
 
-
                 ////////////////////////////////////////////////////////////////
                 /////// V Plot
 
                 if(drawCircle){
-                    drawVElement(tmpColor,globalCMS1.getRefPosition(i), globalCMS1.getRefPosition(0), globalCMS1.getRefRange(),vPlotxStart,vPlotyStart,heigthVArea,plotwidth, true,vPlotContex, i,0)
+                    drawVElement(tmpColor,globalCMS1.getRefPosition(i), globalCMS1.getRefPosition(0), globalCMS1.getRefRange(),vPlotxStart,vPlotyStart,heigthVArea,plotwidth, true,vPlotContex, i,0);
                 }
                 else{
-                    drawVElement(tmpColor,globalCMS1.getRefPosition(i-1), globalCMS1.getRefPosition(0), globalCMS1.getRefRange(),vPlotxStart,vPlotyStart,heigthVArea,plotwidth, drawCircle,vPlotContex, i,0)
-                    drawVElement(tmpColor,globalCMS1.getRefPosition(i), globalCMS1.getRefPosition(0), globalCMS1.getRefRange(),vPlotxStart,vPlotyStart,heigthVArea,plotwidth, drawCircle,vPlotContex, i,0)
+                    drawVElement(tmpColor,globalCMS1.getRefPosition(i-1), globalCMS1.getRefPosition(0), globalCMS1.getRefRange(),vPlotxStart,vPlotyStart,heigthVArea,plotwidth, drawCircle,vPlotContex, i,0);
+                    drawVElement(tmpColor,globalCMS1.getRefPosition(i), globalCMS1.getRefPosition(0), globalCMS1.getRefRange(),vPlotxStart,vPlotyStart,heigthVArea,plotwidth, drawCircle,vPlotContex, i,0);
                 }
                 break;
 
@@ -675,12 +677,12 @@ function drawcolormap_hueSpace(calcBackground,drawInterpolationLine, doInitVplot
 
                 tmpColor = globalCMS1.getRightKeyColor(i, analyzeColorspaceModus); // right color because of right key
 
-                drawHueElement(tmpColor,xWidth,yHeight,xStart,yStart,colorspaceRadius, colorspaceCenterY, colorspaceCenterX, true,colorspaceContex, i, 1);
+                drawHueElement(tmpColor,xWidth,yHeight,xStart,yStart,xEnd,yEnd,colorspaceRadius, colorspaceCenterY, colorspaceCenterX, true,colorspaceContex, i, 1);
 
                 ////////////////////////////////////////////////////////////////
                 /////// V Plot
 
-                drawVElement(tmpColor,globalCMS1.getRefPosition(i), globalCMS1.getRefPosition(0), globalCMS1.getRefRange(),vPlotxStart,vPlotyStart,heigthVArea,plotwidth, true,vPlotContex, i,1)
+                drawVElement(tmpColor,globalCMS1.getRefPosition(i), globalCMS1.getRefPosition(0), globalCMS1.getRefRange(),vPlotxStart,vPlotyStart,heigthVArea,plotwidth, true,vPlotContex, i,1);
 
                 break;
               default:
@@ -688,12 +690,12 @@ function drawcolormap_hueSpace(calcBackground,drawInterpolationLine, doInitVplot
 
                 tmpColor = globalCMS1.getRightKeyColor(i, analyzeColorspaceModus); // right color because of right key
 
-                drawHueElement(tmpColor,xWidth,yHeight,xStart,yStart,colorspaceRadius, colorspaceCenterY, colorspaceCenterX, true,colorspaceContex, i, 2);
+                drawHueElement(tmpColor,xWidth,yHeight,xStart,yStart,xEnd,yEnd,colorspaceRadius, colorspaceCenterY, colorspaceCenterX, true,colorspaceContex, i, 2);
 
                 ////////////////////////////////////////////////////////////////
                 /////// V Plot
 
-                drawVElement(tmpColor,globalCMS1.getRefPosition(i), globalCMS1.getRefPosition(0), globalCMS1.getRefRange(),vPlotxStart,vPlotyStart,heigthVArea,plotwidth, true,vPlotContex, i,2)
+                drawVElement(tmpColor,globalCMS1.getRefPosition(i), globalCMS1.getRefPosition(0), globalCMS1.getRefRange(),vPlotxStart,vPlotyStart,heigthVArea,plotwidth, true,vPlotContex, i,2);
 
             }
 
@@ -701,6 +703,310 @@ function drawcolormap_hueSpace(calcBackground,drawInterpolationLine, doInitVplot
 
 }
 
+function drawInterpolationLineHSV_LAB_DIN99(isCompareMap, intervalSize) {
+
+
+  var canvasID, vCanvasID;
+  switch (showSideID) {
+    case 1:
+      canvasID="id_ModiyCourseHueMiddle";
+      vCanvasID='id_ModifyValueMiddle';
+      break;
+    case 2:
+      canvasID="id_anaylzeCourseHueMiddle";
+      vCanvasID='id_analyzeValueMiddle';
+      break;
+    case 3:
+      canvasID="id_compareCourseHueMiddle";
+      vCanvasID='id_compareValueMiddle';
+      break;
+    default:
+
+  }
+
+  var canvasColorspace = document.getElementById(canvasID);
+
+  canvasColorspace.width = hue_resolution_X;
+  canvasColorspace.height = hue_resolution_Y;
+  var canvasColorspaceWidth = canvasColorspace.width;
+  var canvasColorspaceHeight = canvasColorspace.height;
+
+  var colorspaceCenterX = Math.round(canvasColorspaceWidth/2);
+  var colorspaceCenterY = Math.round(canvasColorspaceHeight/2);
+  var colorspaceRadius = Math.round((canvasColorspaceWidth/2)*radiusratio);
+  var xStart = canvasColorspaceWidth*0.1;
+  var yStart = canvasColorspaceHeight*0.1;
+  var xEnd = canvasColorspaceWidth*0.9;
+  var yEnd = canvasColorspaceHeight*0.9;
+
+  var xWidth = canvasColorspaceWidth*0.8;
+  var yHeight = canvasColorspaceHeight*0.8;
+
+  //var ratioWidthHeight = canvasColorspaceWidth/canvasColorspaceHeight;
+  var colorspaceContex = canvasColorspace.getContext("2d");
+  var canvasColorspaceData = colorspaceContex.getImageData(0, 0, canvasColorspaceWidth, canvasColorspaceHeight);
+
+
+  var canvasVPlot = document.getElementById(vCanvasID);
+
+  canvasVPlot.width = vPlot_resolution_X;
+  canvasVPlot.height = vPlot_resolution_Y;
+
+  var vPlotContex = canvasVPlot.getContext("2d");
+
+  var vPlotyStart =  Math.round(vPlot_resolution_Y*0.9);
+  var vPlotyEnd =  Math.round(vPlot_resolution_Y*0.2);
+  var vPlotxStart =  Math.round(vPlot_resolution_X*0.1);
+  var vPlotxEnd =  Math.round(vPlot_resolution_X*0.85);
+  var heigthVArea =vPlotyStart-vPlotyEnd;
+  var plotwidth = vPlotxEnd-vPlotxStart;
+
+  globalCMS1.calcIntervalColors(intervalSize, colorspaceModus);
+
+  var tmpColor, tmpColor2, xPos, xPos2, yPos, yPos2;
+
+  for (var i = 0; i < globalCMS1.getKeyLength()-1; i++) {
+
+    switch (globalCMS1.getKeyType(i)) {
+      case "nil key":
+        //drawHueLine(globalCMS1.getLeftKeyColor(i,analyzeColorspaceModus),globalCMS1.getLeftKeyColor(i+1,analyzeColorspaceModus),xWidth,yHeight,xStart,yStart,xEnd,yEnd,colorspaceRadius, colorspaceCenterY, colorspaceCenterX, isDashed,isCompareMap,colorspaceContex);
+        drawVLine(  globalCMS1.getLeftKeyColor(i+1,analyzeColorspaceModus),
+                    globalCMS1.getLeftKeyColor(i+1,analyzeColorspaceModus),
+                    globalCMS1.getRefPosition(i),
+                    globalCMS1.getRefPosition(i+1),
+                    globalCMS1.getRefPosition(0),
+                    globalCMS1.getRefRange(),
+                    vPlotxStart,vPlotyStart,heigthVArea,plotwidth,false,isCompareMap,vPlotContex);
+      break;
+      case "twin key":
+        var intervalIndexA = globalCMS1.getIntervalPositions(i);
+        drawHueLine(globalCMS1.getLeftKeyColor(i,analyzeColorspaceModus),globalCMS1.getRightKeyColor(i,analyzeColorspaceModus),xWidth,yHeight,xStart,yStart,xEnd,yEnd,colorspaceRadius, colorspaceCenterY, colorspaceCenterX, true,isCompareMap,colorspaceContex);
+        drawHueLine(globalCMS1.getRightKeyColor(i,analyzeColorspaceModus),globalCMS1.getIntervalColor(intervalIndexA[0],analyzeColorspaceModus),xWidth,yHeight,xStart,yStart,xEnd,yEnd,colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false,isCompareMap,colorspaceContex);
+        drawVLine(  globalCMS1.getRightKeyColor(i,analyzeColorspaceModus),
+                    globalCMS1.getIntervalColor(intervalIndexA[0],analyzeColorspaceModus),
+                    globalCMS1.getRefPosition(i),
+                    globalCMS1.getIntervalRef(intervalIndexA[0]),
+                    globalCMS1.getRefPosition(0),
+                    globalCMS1.getRefRange(),
+                    vPlotxStart,vPlotyStart,heigthVArea,plotwidth,false,isCompareMap,vPlotContex);
+
+        for(var j=intervalIndexA[0]; j<intervalIndexA[1]; j++){
+          drawHueLine(globalCMS1.getIntervalColor(j,analyzeColorspaceModus),globalCMS1.getIntervalColor(j+1,analyzeColorspaceModus),xWidth,yHeight,xStart,yStart,xEnd,yEnd,colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false,isCompareMap,colorspaceContex);
+          drawVLine(  globalCMS1.getIntervalColor(j,analyzeColorspaceModus),
+                      globalCMS1.getIntervalColor(j+1,analyzeColorspaceModus),
+                      globalCMS1.getIntervalRef(j),
+                      globalCMS1.getIntervalRef(j+1),
+                      globalCMS1.getRefPosition(0),
+                      globalCMS1.getRefRange(),
+                      vPlotxStart,vPlotyStart,heigthVArea,plotwidth,false,isCompareMap,vPlotContex);
+        }
+
+        if(globalCMS1.getIntervalisKey(intervalIndexA[1])!=true){
+          drawHueLine(globalCMS1.getIntervalColor(intervalIndexA[1],analyzeColorspaceModus),globalCMS1.getLeftKeyColor(i+1,analyzeColorspaceModus),xWidth,yHeight,xStart,yStart,xEnd,yEnd,colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false,isCompareMap,colorspaceContex);
+          drawVLine(  globalCMS1.getIntervalColor(intervalIndexA[1],analyzeColorspaceModus),
+                      globalCMS1.getLeftKeyColor(i+1,analyzeColorspaceModus),
+                      globalCMS1.getIntervalRef(intervalIndexA[1]),
+                      globalCMS1.getRefPosition(i+1),
+                      globalCMS1.getRefPosition(0),
+                      globalCMS1.getRefRange(),
+                      vPlotxStart,vPlotyStart,heigthVArea,plotwidth,false,isCompareMap,vPlotContex);
+        }
+
+          break;
+      case "left key":
+        drawHueLine(globalCMS1.getLeftKeyColor(i,analyzeColorspaceModus),globalCMS1.getLeftKeyColor(i+1,analyzeColorspaceModus),xWidth,yHeight,xStart,yStart,xEnd,yEnd,colorspaceRadius, colorspaceCenterY, colorspaceCenterX, true,isCompareMap,colorspaceContex);
+        drawVLine(  globalCMS1.getLeftKeyColor(i+1,analyzeColorspaceModus),
+                    globalCMS1.getLeftKeyColor(i+1,analyzeColorspaceModus),
+                    globalCMS1.getRefPosition(i),
+                    globalCMS1.getRefPosition(i+1),
+                    globalCMS1.getRefPosition(0),
+                    globalCMS1.getRefRange(),
+                    vPlotxStart,vPlotyStart,heigthVArea,plotwidth,false,isCompareMap,vPlotContex);
+        break;
+      default:
+
+        var intervalIndexA = globalCMS1.getIntervalPositions(i);
+        drawHueLine(globalCMS1.getRightKeyColor(i,analyzeColorspaceModus),globalCMS1.getIntervalColor(intervalIndexA[0],analyzeColorspaceModus),xWidth,yHeight,xStart,yStart,xEnd,yEnd,colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false,isCompareMap,colorspaceContex);
+        drawVLine(  globalCMS1.getRightKeyColor(i,analyzeColorspaceModus),
+                    globalCMS1.getIntervalColor(intervalIndexA[0],analyzeColorspaceModus),
+                    globalCMS1.getRefPosition(i),
+                    globalCMS1.getIntervalRef(intervalIndexA[0]),
+                    globalCMS1.getRefPosition(0),
+                    globalCMS1.getRefRange(),
+                    vPlotxStart,vPlotyStart,heigthVArea,plotwidth,false,isCompareMap,vPlotContex);
+
+        for(var j=intervalIndexA[0]; j<intervalIndexA[1]; j++){
+
+          drawHueLine(globalCMS1.getIntervalColor(j,analyzeColorspaceModus),globalCMS1.getIntervalColor(j+1,analyzeColorspaceModus),xWidth,yHeight,xStart,yStart,xEnd,yEnd,colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false,isCompareMap,colorspaceContex);
+          drawVLine(  globalCMS1.getIntervalColor(j,analyzeColorspaceModus),
+                      globalCMS1.getIntervalColor(j+1,analyzeColorspaceModus),
+                      globalCMS1.getIntervalRef(j),
+                      globalCMS1.getIntervalRef(j+1),
+                      globalCMS1.getRefPosition(0),
+                      globalCMS1.getRefRange(),
+                      vPlotxStart,vPlotyStart,heigthVArea,plotwidth,false,isCompareMap,vPlotContex);
+        }
+
+        if(globalCMS1.getIntervalisKey(intervalIndexA[1])!=true){
+          drawHueLine(globalCMS1.getIntervalColor(intervalIndexA[1],analyzeColorspaceModus),globalCMS1.getLeftKeyColor(i+1,analyzeColorspaceModus),xWidth,yHeight,xStart,yStart,xEnd,yEnd,colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false,isCompareMap,colorspaceContex);
+          drawVLine(  globalCMS1.getIntervalColor(intervalIndexA[1],analyzeColorspaceModus),
+                      globalCMS1.getLeftKeyColor(i+1,analyzeColorspaceModus),
+                      globalCMS1.getIntervalRef(intervalIndexA[1]),
+                      globalCMS1.getRefPosition(i+1),
+                      globalCMS1.getRefPosition(0),
+                      globalCMS1.getRefRange(),
+                      vPlotxStart,vPlotyStart,heigthVArea,plotwidth,false,isCompareMap,vPlotContex);
+        }
+      }
+
+
+    }
+
+}
+
+function drawHueElement(tmpColor,xWidth,yHeight,xStart,yStart,xEnd,yEnd,colorspaceRadius, colorspaceCenterY, colorspaceCenterX, drawCircle,colorspaceContex, keyIndex,colorSide){
+
+  switch(analyzeColorspaceModus){
+      case "hsv":
+        var tmpDis = tmpColor.getSValue()*colorspaceRadius;
+        var tmpRad = (tmpColor.getHValue()*Math.PI*2)-Math.PI;
+        xPos = tmpDis*Math.cos(tmpRad)+colorspaceCenterX;
+        yPos = tmpDis*Math.sin(tmpRad)+colorspaceCenterY;
+      break;
+      case "lab":
+        xPos = ((tmpColor.getAValue()/labSpaceRange)*xWidth/2)+colorspaceCenterX;
+        yPos = ((tmpColor.getBValue()/labSpaceRange)*yHeight/2)+colorspaceCenterY;
+      break;
+      case "din99":
+        xPos = ((tmpColor.getA99Value()-rangeA99Neg)/rangeA99*(xEnd-xStart))+xStart;
+        yPos = ((tmpColor.getB99Value()-rangeB99Neg)/rangeB99*(yEnd-yStart))+yStart;
+      break;
+      default:
+      console.log("Error at the changeColorspace function");
+      return;
+  }
+
+  drawElement(tmpColor.calcRGBColor().getRGBStringAplha(alphaVal), colorspaceContex, xPos, yPos, keyIndex,colorSide, drawCircle);
+
+  spaceElementsXPos.push(xPos);
+  spaceElementsYPos.push(yPos);
+
+  if (drawCircle)
+    spaceElementsType.push(true);
+  else
+    spaceElementsType.push(false);
+
+  spaceElementsKey.push(keyIndex);
+  spaceElementsColor.push(colorSide); // colorSide 0=left color, 1= right color, 2=both colors
+
+}
+
+function drawVElement(tmpColor,currentRef, startRef, rangeSize,vPlotxStart,vPlotyStart,heigthVArea,plotwidth, drawCircle,vPlotContex, keyIndex,colorSide){
+
+
+  var xVPos = vPlotxStart+((currentRef-startRef)/rangeSize)*plotwidth;
+
+  var yPos;
+  switch(analyzeColorspaceModus){
+      case "hsv":
+          yPos = Math.round(vPlotyStart-(heigthVArea*tmpColor.getVValue()));
+      break;
+      case "lab":
+          yPos = Math.round(vPlotyStart-(heigthVArea*tmpColor.getLValue()/100));
+      break;
+      case "din99":
+          yPos = Math.round(vPlotyStart-(heigthVArea*tmpColor.getL99Value()/100));
+      break;
+      default:
+      console.log("Error at the changeColorspace function");
+      return;
+  }
+
+  drawElement(tmpColor.calcRGBColor().getRGBStringAplha(alphaVal),vPlotContex,xVPos,yPos, keyIndex,colorSide, drawCircle);
+
+}
+
+function drawHueLine(tmpColor,tmpColor2,xWidth,yHeight,xStart,yStart,xEnd,yEnd,colorspaceRadius, colorspaceCenterY, colorspaceCenterX, isDashed,isCompareMap,colorspaceContex){
+  // RG
+
+  switch(analyzeColorspaceModus){
+      case "hsv":
+      var tmpDis = tmpColor.getSValue()*colorspaceRadius;
+      var tmpRad = (tmpColor.getHValue()*Math.PI*2)-Math.PI;
+      xPos = tmpDis*Math.cos(tmpRad)+colorspaceCenterX;
+      yPos = tmpDis*Math.sin(tmpRad)+colorspaceCenterY;
+
+      var tmpDis2 = tmpColor2.getSValue()*colorspaceRadius;
+      var tmpRad2 = (tmpColor2.getHValue()*Math.PI*2)-Math.PI;
+      xPos2 = tmpDis2*Math.cos(tmpRad2)+colorspaceCenterX;
+      yPos2 = tmpDis2*Math.sin(tmpRad2)+colorspaceCenterY;
+      break;
+      case "lab":
+      xPos = ((tmpColor.getAValue()/labSpaceRange)*xWidth/2)+colorspaceCenterX;
+      yPos = ((tmpColor.getBValue()/labSpaceRange)*yHeight/2)+colorspaceCenterY;
+
+      xPos2 = ((tmpColor2.getAValue()/labSpaceRange)*xWidth/2)+colorspaceCenterX;
+      yPos2 = ((tmpColor2.getBValue()/labSpaceRange)*yHeight/2)+colorspaceCenterY;
+      break;
+      case "din99":
+      xPos = ((tmpColor.getA99Value()-rangeA99Neg)/rangeA99*(xEnd-xStart))+xStart;
+      yPos = ((tmpColor.getB99Value()-rangeB99Neg)/rangeB99*(yEnd-yStart))+yStart;
+
+      xPos2 = ((tmpColor2.getA99Value()-rangeA99Neg)/rangeA99*(xEnd-xStart))+xStart;
+      yPos2 = ((tmpColor2.getB99Value()-rangeB99Neg)/rangeB99*(yEnd-yStart))+yStart;
+
+      break;
+      default:
+      console.log("Error at the changeColorspace function");
+      return;
+  }
+
+  drawLine(colorspaceContex, xPos, yPos, xPos2, yPos2, isDashed, isCompareMap);
+
+
+  /*if (showSpace == 1) {
+
+    var x1 = tmpColor.getRValue() * 255 - 128;
+    var y1 = tmpColor.getGValue() * 255 - 128;
+    var z1 = tmpColor.getBValue() * 255 - 128;
+
+    var x2 = tmpColor2.getRValue() * 255 - 128;
+    var y2 = tmpColor2.getGValue() * 255 - 128;
+    var z2 = tmpColor2.getBValue() * 255 - 128;
+
+
+    draw3DLine(x1, y1, z1, x2, y2, z2, isDashed, isCompareMap);
+
+  }*/
+}
+
+function drawVLine(tmpColor,tmpColor2,ref,ref2,startRef, rangeSize,vPlotxStart,vPlotyStart,heigthVArea,plotwidth,isDashed,isCompareMap,colorspaceContex){
+  var xPos = vPlotxStart+((ref-startRef)/rangeSize)*plotwidth;
+  var xPos2 = vPlotxStart+((ref2-startRef)/rangeSize)*plotwidth;
+
+  var yPos, yPos2;
+   switch(analyzeColorspaceModus){
+       case "hsv":
+       yPos = Math.round(vPlotyStart-(heigthVArea*tmpColor.getVValue()));
+       yPos2 = Math.round(vPlotyStart-(heigthVArea*tmpColor2.getVValue()));
+       break;
+       case "lab":
+       yPos = Math.round(vPlotyStart-(heigthVArea*tmpColor.getLValue()/100));
+       yPos2 = Math.round(vPlotyStart-(heigthVArea*tmpColor2.getLValue()/100));
+       break;
+       case "din99":
+       yPos = Math.round(vPlotyStart-(heigthVArea*tmpColor.getL99Value()/100));
+       yPos2 = Math.round(vPlotyStart-(heigthVArea*tmpColor2.getL99Value()/100));
+       break;
+       default:
+       console.log("Error at the changeColorspace function");
+       return;
+   }
+
+   drawLine(colorspaceContex, xPos, yPos, xPos2, yPos2, isDashed, isCompareMap);
+}
+
+/********************  old *******************/
 
 function parallelDrawPath(canvasID, colormapTmp, isCompareMap){
 
@@ -845,134 +1151,6 @@ function parallelDrawElements(canvasID, colormapTmp, isCompareMap){
   spaceElementsType = [];
   spaceElementsKey = [];
 }
-
-
-
-function drawInterpolationLineInHSV(colormapTmp, colorspaceContex, vPlotContex, xWidth,yHeight,xStart,yStart,isCompareMap,intervalSize){
-
-
-        var xPos, yPos, xPos2, yPos2, xVPos, xVPos2, tmpColor, tmpColor2;
-        var plotwidth = xEnd-xStart;
-        var twinStarted=false;
-        var leftStarted=false;
-        xVPos=xStart;
-        xVPos2=xStart;
-
-        var xStart = canvasColorspaceWidth*0.1;
-        var yStart = canvasColorspaceHeight*0.1;
-        var xEnd = canvasColorspaceWidth*0.9;
-        var yEnd = canvasColorspaceHeight*0.9;
-
-        var intervalColormap = colormapTmp.calcColorMap(intervalSize, colorspaceModus);
-
-        var widthVAreaInterval = plotwidth/(intervalColormap.getRefNum()-1); //getColormapLength()-1);
-        var refLength = intervalColormap.getRef(intervalColormap.getColormapLength()-1)-intervalColormap.getRef(0);
-
-        var leftOrTwinStarted = false;
-
-        for(var i = 0; i<intervalColormap.getColormapLength()-1; i++){
-
-
-             var tmpKey = intervalColormap.getType(i);
-             tmpColor = intervalColormap.getColor(i, analyzeColorspaceModus);
-             tmpColor2 = intervalColormap.getColor(i+1, analyzeColorspaceModus);
-
-
-             switch(analyzeColorspaceModus){
-                 case "hsv":
-                 var tmpDis = tmpColor.getSValue()*colorspaceRadius;
-                 var tmpRad = (tmpColor.getHValue()*Math.PI*2)-Math.PI;
-                 xPos = tmpDis*Math.cos(tmpRad)+colorspaceCenterX;
-                 yPos = tmpDis*Math.sin(tmpRad)+colorspaceCenterY;
-
-                 var tmpDis2 = tmpColor2.getSValue()*colorspaceRadius;
-                 var tmpRad2 = (tmpColor2.getHValue()*Math.PI*2)-Math.PI;
-                 xPos2 = tmpDis2*Math.cos(tmpRad2)+colorspaceCenterX;
-                 yPos2 = tmpDis2*Math.sin(tmpRad2)+colorspaceCenterY;
-                 break;
-                 case "lab":
-                 xPos = ((tmpColor.getAValue()/labSpaceRange)*xWidth/2)+colorspaceCenterX;
-                 yPos = ((tmpColor.getBValue()/labSpaceRange)*yHeight/2)+colorspaceCenterY;
-
-                 xPos2 = ((tmpColor2.getAValue()/labSpaceRange)*xWidth/2)+colorspaceCenterX;
-                 yPos2 = ((tmpColor2.getBValue()/labSpaceRange)*yHeight/2)+colorspaceCenterY;
-                 break;
-                 case "din99":
-                 xPos = ((tmpColor.getA99Value()-rangeA99Neg)/rangeA99*(xEnd-xStart))+xStart;
-                 yPos = ((tmpColor.getB99Value()-rangeB99Neg)/rangeB99*(yEnd-yStart))+yStart;
-
-                 xPos2 = ((tmpColor2.getA99Value()-rangeA99Neg)/rangeA99*(xEnd-xStart))+xStart;
-                 yPos2 = ((tmpColor2.getB99Value()-rangeB99Neg)/rangeB99*(yEnd-yStart))+yStart;
-                 break;
-                 default:
-                 console.log("Error at the changeColorspace function");
-                 return;
-             }
-
-             if(tmpKey=="left key" || tmpKey=="interval left key" || tmpKey=="twin key" ||  tmpKey=="interval twin key"){
-                 if(leftOrTwinStarted){
-                   leftOrTwinStarted=false;
-                 }
-                 else{
-                   leftOrTwinStarted=true;
-
-                   drawLine(colorspaceContex,xPos,yPos,xPos2,yPos2, true, isCompareMap);
-
-
-                   continue;
-                 }
-             }
-
-
-
-             drawLine(colorspaceContex,xPos,yPos,xPos2,yPos2, false, isCompareMap);
-
-
-
-             if(doOriginalValuePlot){
-               xVPos = xStart+((intervalColormap.getRef(i)-intervalColormap.getRef(0))/refLength)*plotwidth;
-               xVPos2 = xStart+((intervalColormap.getRef(i+1)-intervalColormap.getRef(0))/refLength)*plotwidth;
-             }
-             else{
-               xVPos2 = xVPos+widthVAreaInterval;
-             }
-
-             switch(analyzeColorspaceModus){
-                 case "hsv":
-                 yPos = Math.round(yStart-(heigthVArea*tmpColor.getVValue()));
-                 yPos2 = Math.round(yStart-(heigthVArea*tmpColor2.getVValue()));
-                 break;
-                 case "lab":
-                 yPos = Math.round(yStart-(heigthVArea*tmpColor.getLValue()/100));
-                 yPos2 = Math.round(yStart-(heigthVArea*tmpColor2.getLValue()/100));
-                 break;
-                 case "din99":
-                 yPos = Math.round(yStart-(heigthVArea*tmpColor.getL99Value()/100));
-                 yPos2 = Math.round(yStart-(heigthVArea*tmpColor2.getL99Value()/100));
-                 break;
-                 default:
-                 console.log("Error at the changeColorspace function");
-                 return;
-             }
-
-
-             drawLine(vPlotContex,xVPos,yPos,xVPos2,yPos2, false, isCompareMap)
-
-             /*
-             vPlotContex.strokeStyle="rgb(1,1,1)";
-             vPlotContex.moveTo(xVPos,yPos);
-             vPlotContex.lineTo(xVPos2,yPos2);
-             vPlotContex.stroke();*/
-
-             if(doOriginalValuePlot==false){
-               xVPos = xVPos2;
-             }
-
-}
-
-
-}
-
 
 function drawcolormap_compare_hueSpace(colormapTmp, colormapTmp2, canvasID, calcBackground,drawInterpolationLine){
 
@@ -1831,69 +2009,5 @@ function drawcolormap_compare_hueSpace(colormapTmp, colormapTmp2, canvasID, calc
 
   }
 
-
-}
-
-
-function drawHueElement(tmpColor,xWidth,yHeight,xStart,yStart,colorspaceRadius, colorspaceCenterY, colorspaceCenterX, drawCircle,colorspaceContex, keyIndex,colorSide){
-
-  switch(analyzeColorspaceModus){
-      case "hsv":
-        var tmpDis = tmpColor.getSValue()*colorspaceRadius;
-        var tmpRad = (tmpColor.getHValue()*Math.PI*2)-Math.PI;
-        xPos = tmpDis*Math.cos(tmpRad)+colorspaceCenterX;
-        yPos = tmpDis*Math.sin(tmpRad)+colorspaceCenterY;
-      break;
-      case "lab":
-        xPos = ((tmpColor.getAValue()/labSpaceRange)*xWidth/2)+colorspaceCenterX;
-        yPos = ((tmpColor.getBValue()/labSpaceRange)*yHeight/2)+colorspaceCenterY;
-      break;
-      case "din99":
-        xPos = ((tmpColor.getA99Value()-rangeA99Neg)/rangeA99*(xEnd-xStart))+xStart;
-        yPos = ((tmpColor.getB99Value()-rangeB99Neg)/rangeB99*(yEnd-yStart))+yStart;
-      break;
-      default:
-      console.log("Error at the changeColorspace function");
-      return;
-  }
-
-  drawElement(tmpColor.calcRGBColor().getRGBStringAplha(alphaVal), colorspaceContex, xPos, yPos, keyIndex,colorSide, drawCircle);
-
-  spaceElementsXPos.push(xPos);
-  spaceElementsYPos.push(yPos);
-
-  if (drawCircle)
-    spaceElementsType.push(true);
-  else
-    spaceElementsType.push(false);
-
-  spaceElementsKey.push(keyIndex);
-  spaceElementsColor.push(colorSide); // colorSide 0=left color, 1= right color, 2=both colors
-
-}
-
-
-function drawVElement(tmpColor,currentRef, startRef, rangeSize,vPlotxStart,vPlotyStart,heigthVArea,plotwidth, drawCircle,vPlotContex, keyIndex,colorSide){
-
-
-  var xVPos = vPlotxStart+((currentRef-startRef)/rangeSize)*plotwidth;
-
-  var yPos;
-  switch(analyzeColorspaceModus){
-      case "hsv":
-          yPos = Math.round(vPlotyStart-(heigthVArea*tmpColor.getVValue()));
-      break;
-      case "lab":
-          yPos = Math.round(vPlotyStart-(heigthVArea*tmpColor.getLValue()/100));
-      break;
-      case "din99":
-          yPos = Math.round(vPlotyStart-(heigthVArea*tmpColor.getL99Value()/100));
-      break;
-      default:
-      console.log("Error at the changeColorspace function");
-      return;
-  }
-
-  drawElement(tmpColor.calcRGBColor().getRGBStringAplha(alphaVal),vPlotContex,xVPos,yPos, keyIndex,colorSide, drawCircle);
 
 }

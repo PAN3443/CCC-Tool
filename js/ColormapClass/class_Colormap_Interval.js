@@ -4,10 +4,17 @@
 
 class class_Interval{
     constructor(color, isKeyPart, refPos) {
+
+        this.kE = 1;
+        this.kCH = 1;
+
         this.isKeyPart = isKeyPart;
         this.iColor= [];
-        this.setColor(color);
         this.ref = refPos;
+
+        this.setColor(color);
+
+
     }
 
     setColor(color) {
@@ -16,19 +23,19 @@ class class_Interval{
           this.iColor[0]=color;
           this.iColor[1]=color.calcHSVColor();
           this.iColor[2]=color.calcLABColor();
-          this.iColor[3]=color.calcDIN99Color();
+          this.iColor[3]=color.calcDIN99Color(this.kE,this.kCH);
           break;
           case "hsv":
           this.iColor[0]=color.calcRGBColor();
           this.iColor[1]=color;
           this.iColor[2]=color.calcLABColor();
-          this.iColor[3]=color.calcDIN99Color();
+          this.iColor[3]=color.calcDIN99Color(this.kE,this.kCH);
           break;
           case "lab":
           this.iColor[0]=color.calcRGBColor();
           this.iColor[1]=color.calcHSVColor();
           this.iColor[2]=color;
-          this.iColor[3]=color.calcDIN99Color();
+          this.iColor[3]=color.calcDIN99Color(this.kE,this.kCH);
           break;
           case "din99":
           this.iColor[0]=color.calcRGBColor();
@@ -38,6 +45,7 @@ class class_Interval{
           break;
           default:
         }
+
     }
 
     getColor(colorspace) {
@@ -66,6 +74,10 @@ class class_Interval{
 
     setRefPosition(pos) {
         this.ref = pos;
+    }
+
+    getRefPosition() {
+      return this.ref;
     }
 
 }

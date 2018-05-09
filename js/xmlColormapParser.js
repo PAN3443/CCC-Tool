@@ -1,126 +1,15 @@
 function xmlColormapParserPath(path){
-
-    var xmlFile;
+  var xmlFile;
         if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
             xmlFile = new XMLHttpRequest();
         }
         else {// code for IE6, IE5
             xmlFile = new ActiveXObject("Microsoft.XMLHTTP");
         }
-    var allText = "";
-    xmlFile.open("GET", path, false);
-    xmlFile.setRequestHeader("Content-Type", "text/xml");
-    xmlFile.send(null);
+        xmlFile.open("GET", path, false);
+        xmlFile.send(null);
 
-    // Place the response in an XML document.
-    var xmlObject = xmlFile.responseXML;
-    // Place the root node in an element.
-
-    try {
-
-        var colormapObject = xmlObject.getElementsByTagName("ColorMap");
-
-        for(var j=0; j<colormapObject.length; j++){
-
-            var pointObject = colormapObject[j].getElementsByTagName("Point");
-
-            //colormapObjects.push(new classColorMapSpecification());
-            //var index = colormapObjects.length-1;
-            var tmpColorMap = new classColorMapSpecification();
-
-            var distToNull = 0-parseFloat(pointObject[0].getAttribute("x"));
-            var checkLast = parseFloat(pointObject[pointObject.length-1].getAttribute("x"))+distToNull;
-            var notOne = false;
-
-            if(checkLast!=1){
-                notOne = true;
-            }
-
-            var xValues = [];
-            var tmpColors = [];
-
-            // check RGB Values
-            var isrgb255 = false;
-            for (var i = 0; i < pointObject.length; i++)
-            {
-                var r = parseFloat(pointObject[i].getAttribute("r"));
-                var g = parseFloat(pointObject[i].getAttribute("g"));
-                var b = parseFloat(pointObject[i].getAttribute("b"));
-
-                if(r>1.0 || g>1.0 || b>1.0){
-                    isrgb255=true;
-                    break;
-                }
-
-            }
-
-            for (var i = 0; i < pointObject.length; i++)
-            {
-
-                var x = parseFloat(pointObject[i].getAttribute("x"));
-                var r = parseFloat(pointObject[i].getAttribute("r"));
-                var g = parseFloat(pointObject[i].getAttribute("g"));
-                var b = parseFloat(pointObject[i].getAttribute("b"));
-                //console.log("x="+x+",r="+x+",g="+g+",b="+b);
-
-                if(isrgb255){
-                    r=r/255.0;
-                    g=g/255.0;
-                    b=b/255.0;
-                }
-
-                if(notOne)
-                    xValues.push((x+distToNull)/checkLast);
-                else
-                    xValues.push(x+distToNull);
-
-                var tmpColor = new classColor_RGB(r,g,b);
-                tmpColors.push(tmpColor);
-            }
-
-            for (var i = 0; i < xValues.length; ++i)
-            {
-              tmpColorMap.pushPositionPoints(xValues[i]);
-              tmpColorMap.pushRGBColor(tmpColors[i]);
-            }
-
-            try {
-
-                var nanObj = colormapObject[j].getElementsByTagName("NaN");
-
-                var r = parseFloat(nanObj[0].getAttribute("r"));
-                var g = parseFloat(nanObj[0].getAttribute("g"));
-                var b = parseFloat(nanObj[0].getAttribute("b"));
-
-                if(isrgb255){
-                    r=r/255.0;
-                    g=g/255.0;
-                    b=b/255.0;
-                }
-
-                var rgbColor = new classColor_RGB(r,g,b);
-                tmpColorMap.setNaNColor(rgbColor);
-
-            } catch (error) {
-                console.log("colormap has no NaN Value");
-            }
-
-            try {
-                var name = colormapObject[j].getAttribute("name");
-                tmpColorMap.setColormapName(name);
-            } catch (error) {
-                console.log("colormap has no name");
-            }
-            tmpColorMap.createKeys();
-            tmpColorMap.calcBands();
-
-            return tmpColorMap;
-
-      }
-    } catch (error) {
-       alert("Error with XML File " + path);
-    }
-
+        return xmlColormapParserFile(xmlFile.responseText);
 }
 
 
@@ -151,25 +40,18 @@ function xmlColormapParserFile(xmlString){
 
                 var pointObject = colormapObject[0].getElementsByTagName("Point");
                 var space = checkXMLColorspace(pointObject);
-                //console.log(space);
-                //var checkIfCCC_Tool_File = false;
-                /*if(pointObject.length>0)
-                  checkIfCCC_Tool_File = pointObject[0].hasAttribute("cms");
 
-                  /// ASK if user want the Intervals
-                  if(checkIfCCC_Tool_File){
-                    if (confirm("You are loading a colormap created by the ccc-tool. Do you want to upload the falses as fixed key-colors?") == true) {
-                      checkIfCCC_Tool_File = false;
-                    }
-                  }*/
 
                 //colormapObjects.push(new classColorMapSpecification());
                 //var index = colormapObjects.length-1;
-                var tmpColorMap = new classColorMapSpecification();
+                var tmpCMS = new class_CMS();
+
+                var isrgb255=false;
+                var val1Name,val2Name,val3Name;
 
                 switch (space) {
                    case "RGB": case "rgb": case "Rgb":
-                      var isrgb255 = false;
+
                       for (var i = 0; i < pointObject.length; i++)
                       {
 
@@ -183,194 +65,172 @@ function xmlColormapParserFile(xmlString){
                          }
                        }
 
-
-
-                       for (var i = 0; i < pointObject.length; i++)
-                       {
-
-                           var saveAttribute = true;
-                           //if(checkIfCCC_Tool_File && pointObject[i].getAttribute("cms")=="false"){
-                           //console.log(pointObject[i].getAttribute("cms"));
-                           if(pointObject[i].getAttribute("cms")=="false"){
-                               saveAttribute=false;
-                           }
-
-
-                           if(saveAttribute){
-                               var x = parseFloat(pointObject[i].getAttribute("x"));
-                               var r = parseFloat(pointObject[i].getAttribute("r"));
-                               var g = parseFloat(pointObject[i].getAttribute("g"));
-                               var b = parseFloat(pointObject[i].getAttribute("b"));
-                               //console.log("x="+x+",r="+x+",g="+g+",b="+b);
-
-                               if(isrgb255){
-                                   r=r/255.0;
-                                   g=g/255.0;
-                                   b=b/255.0;
-                               }
-
-                               tmpColorMap.pushPositionPoints(x);
-
-                               var tmpColor = new classColor_RGB(r,g,b);
-                               tmpColorMap.pushRGBColor(tmpColor);
-
-                           }
-                       }
-
-                       try {
-
-                           var nanObj = colormapObject[0].getElementsByTagName("NaN");
-
-                           var r = parseFloat(nanObj[0].getAttribute("r"));
-                           var g = parseFloat(nanObj[0].getAttribute("g"));
-                           var b = parseFloat(nanObj[0].getAttribute("b"));
-
-                           if(isrgb255){
-                               r=r/255.0;
-                               g=g/255.0;
-                               b=b/255.0;
-                           }
-
-                           var rgbColor = new classColor_RGB(r,g,b);
-                           tmpColorMap.setNaNColor(rgbColor);
-
-                       } catch (error) {
-                           console.log("colormap has no NaN Value");
-                       }
-
+                       val1Name="r";
+                       val2Name="g";
+                       val3Name="b";
 
                        break;
                    case "HSV": case "hsv": case "Hsv":
-
-                       for (var i = 0; i < pointObject.length; i++)
-                       {
-
-                           var saveAttribute = true;
-                           if(checkIfCCC_Tool_File && pointObject[i].getAttribute("cms")=="false"){
-                               saveAttribute=false;
-                           }
-
-
-                           if(saveAttribute){
-                               var x = parseFloat(pointObject[i].getAttribute("x"));
-                               var h = parseFloat(pointObject[i].getAttribute("h"));
-                               var s = parseFloat(pointObject[i].getAttribute("s"));
-                               var v = parseFloat(pointObject[i].getAttribute("v"));
-
-                               tmpColorMap.pushPositionPoints(x);
-                               var tmpColor = new classColor_HSV(h,s,v);
-                               tmpColorMap.pushHSVColor(tmpColor);
-
-                           }
-                       }
-
-                       try {
-
-                           var nanObj = colormapObject[0].getElementsByTagName("NaN");
-
-                           var h = parseFloat(nanObj[0].getAttribute("h"));
-                           var s = parseFloat(nanObj[0].getAttribute("s"));
-                           var v = parseFloat(nanObj[0].getAttribute("v"));
-
-                           var tmpColor = new classColor_HSV(h,s,v);
-                           tmpColorMap.setNaNColor(tmpColor);
-
-                       } catch (error) {
-                           console.log("colormap has no NaN Value");
-                       }
-
+                       val1Name="h";
+                       val2Name="s";
+                       val3Name="v";
                      break;
                     case "LAB": case "lab": case "Lab":
-                        for (var i = 0; i < pointObject.length; i++)
-                        {
-
-                            var saveAttribute = true;
-                            if(checkIfCCC_Tool_File && pointObject[i].getAttribute("cms")=="false"){
-                                saveAttribute=false;
-                            }
-
-
-                            if(saveAttribute){
-                                var x = parseFloat(pointObject[i].getAttribute("x"));
-                                var l = parseFloat(pointObject[i].getAttribute("l"));
-                                var a = parseFloat(pointObject[i].getAttribute("a"));
-                                var b = parseFloat(pointObject[i].getAttribute("b"));
-
-                                tmpColorMap.pushPositionPoints(x);
-                                var tmpColor = new classColor_LAB(l,a,b);
-                                tmpColorMap.pushCIELabColor(tmpColor);
-
-                            }
-                        }
-
-                        try {
-
-                            var nanObj = colormapObject[0].getElementsByTagName("NaN");
-
-                            var l = parseFloat(nanObj[0].getAttribute("l"));
-                            var a = parseFloat(nanObj[0].getAttribute("a"));
-                            var b = parseFloat(nanObj[0].getAttribute("b"));
-
-                            var tmpColor = new classColor_LAB(l,a,b);
-                            tmpColorMap.setNaNColor(tmpColor);
-
-                        } catch (error) {
-                            console.log("colormap has no NaN Value");
-                        }
-
+                        val1Name="l";
+                        val2Name="a";
+                        val3Name="b";
                      break;
                    case "DIN99": case "din99": case "Din99":
-                       for (var i = 0; i < pointObject.length; i++)
-                       {
-
-                           var saveAttribute = true;
-                           if(checkIfCCC_Tool_File && pointObject[i].getAttribute("cms")=="false"){
-                               saveAttribute=false;
-                           }
-
-                           if(saveAttribute){
-
-                               var x = parseFloat(pointObject[i].getAttribute("x"));
-                               var l99 = parseFloat(pointObject[i].getAttribute("l99"));
-                               var a99 = parseFloat(pointObject[i].getAttribute("a99"));
-                               var b99 = parseFloat(pointObject[i].getAttribute("b99"));
-
-                               tmpColorMap.pushPositionPoints(x);
-                               var tmpColor = new classColorDIN99(l99,a99,b99);
-                               tmpColorMap.pushDIN99Color(tmpColor);
-
-                           }
-                       }
-
-                       try {
-
-                           var nanObj = colormapObject[0].getElementsByTagName("NaN");
-
-                           var l99 = parseFloat(nanObj[0].getAttribute("l99"));
-                           var a99 = parseFloat(nanObj[0].getAttribute("a99"));
-                           var b99 = parseFloat(nanObj[0].getAttribute("b99"));
-
-                           var tmpColor = new classColorDIN99(l99,a99,b99);
-                           tmpColorMap.setNaNColor(tmpColor);
-
-                       } catch (error) {
-                           console.log("colormap has no NaN Value");
-                       }
+                       val1Name="l99";
+                       val2Name="a99";
+                       val3Name="b99";
                      break;
                    default:
                          console.log("Error with XML File -> found no space ");
                  }
 
+
+                 for (var i = 0; i < pointObject.length; i++)
+                 {
+
+                         var x = parseFloat(pointObject[i].getAttribute("x"));
+                         var val1 = parseFloat(pointObject[i].getAttribute(val1Name));
+                         var val2 = parseFloat(pointObject[i].getAttribute(val2Name));
+                         var val3 = parseFloat(pointObject[i].getAttribute(val3Name));
+
+
+                         //console.log("x="+x+",r="+x+",g="+g+",b="+b);
+
+                         if(isrgb255){
+                             val1=val1/255.0;
+                             val2=val2/255.0;
+                             val3=val2/255.0;
+                         }
+
+                         var tmpColor = getLoadedColor(val1,val2,val3,space);
+
+
+                         switch (i) {
+                           case 0:
+
+                               var val1_Next = parseFloat(pointObject[i+1].getAttribute(val1Name));
+                               var val2_Next = parseFloat(pointObject[i+1].getAttribute(val2Name));
+                               var val3_Next = parseFloat(pointObject[i+1].getAttribute(val3Name));
+
+                               if(isrgb255){
+                                   val1_Next=val1_Next/255.0;
+                                   val2_Next=val2_Next/255.0;
+                                   val3_Next=val2_Next/255.0;
+                               }
+
+                               var tmpColor2 = new classColor_RGB(val1_Next,val2_Next,val3_Next);
+
+
+                              if(tmpColor2.equalTo(tmpColor)){
+                                // nil key
+                                var newKey = new class_Key(undefined,undefined,x);
+                                tmpCMS.pushKey(newKey);
+                              }else{
+                                // right key
+                                var newKey = new class_Key(undefined,tmpColor,x);
+                                tmpCMS.pushKey(newKey);
+                              }
+                             break;
+                            case pointObject.length-1:
+                                // right key
+                                var newKey = new class_Key(tmpColor,undefined,x);
+                                tmpCMS.pushKey(newKey);
+                             break;
+                           default:
+
+                              if(pointObject[i].getAttribute("cms")=="false"){
+                                continue; // continue if cms attribute exist and if it is false
+                              }
+
+                              var x_Previous = parseFloat(pointObject[i-1].getAttribute("x"));
+
+                              var x_Next = parseFloat(pointObject[i+1].getAttribute("x"));
+                              var val1_Next = parseFloat(pointObject[i+1].getAttribute(val1Name));
+                              var val2_Next = parseFloat(pointObject[i+1].getAttribute(val2Name));
+                              var val3_Next = parseFloat(pointObject[i+1].getAttribute(val3Name));
+
+                              if(isrgb255){
+                                  val1_Next=val1_Next/255.0;
+                                  val2_Next=val2_Next/255.0;
+                                  val3_Next=val2_Next/255.0;
+                              }
+
+                              var tmpColor2 = new classColor_RGB(val1_Next,val2_Next,val3_Next);
+
+                              if(x_Previous==x){
+
+                                var val1_Prev = parseFloat(pointObject[i-1].getAttribute(val1Name));
+                                var val2_Prev = parseFloat(pointObject[i-1].getAttribute(val2Name));
+                                var val3_Prev = parseFloat(pointObject[i-1].getAttribute(val3Name));
+
+                                if(isrgb255){
+                                    val1_Prev=val1_Prev/255.0;
+                                    val2_Prev=val2_Prev/255.0;
+                                    val3_Prev=val3_Prev/255.0;
+                                }
+
+                                var tmpColor_Prev = new classColor_RGB(val1_Prev,val2_Prev,val3_Prev);
+
+
+                                if(tmpColor2.equalTo(tmpColor)){
+                                  // left key
+                                  var newKey = new class_Key(tmpColor_Prev,undefined,x);
+                                  tmpCMS.pushKey(newKey);
+                                }else{
+                                  // twin key
+                                  var newKey = new class_Key(tmpColor_Prev,tmpColor,x);
+                                  tmpCMS.pushKey(newKey);
+                                }
+
+                              }
+                              else{
+                                if(x!=x_Next){
+                                  // dual key
+                                  var newKey = new class_Key(tmpColor,tmpColor,x);
+                                  tmpCMS.pushKey(newKey);
+                                }
+                              }
+                            }//switch
+
+                        } // for
+
+                       try {
+
+                           var nanObj = colormapObject[0].getElementsByTagName("NaN");
+
+                           var val1 = parseFloat(nanObj[0].getAttribute(val1Name));
+                           var val2 = parseFloat(nanObj[0].getAttribute(val2Name));
+                           var val3 = parseFloat(nanObj[0].getAttribute(val3Name));
+
+
+                           //console.log("x="+x+",r="+x+",g="+g+",b="+b);
+
+                           if(isrgb255){
+                               val1=val1/255.0;
+                               val2=val2/255.0;
+                               val3=val2/255.0;
+                           }
+
+                           var tmpColor = new classColor_RGB(val1,val2,val3);
+                           tmpCMS.setNaNColor(tmpColor);
+
+                       } catch (error) {
+                           console.log("colormap has no NaN Value");
+                       }
+
                  try {
                      var name = colormapObject[0].getAttribute("name");
-                     tmpColorMap.setColormapName(name);
+                     tmpCMS.setColormapName(name);
                  } catch (error) {
                      console.log("colormap has no name");
                  }
-                 tmpColorMap.createKeys();
-                 tmpColorMap.calcBands();
 
-                 return tmpColorMap;
+                 return tmpCMS;
 
 
 
@@ -385,7 +245,27 @@ function xmlColormapParserFile(xmlString){
 
 }
 
+function getLoadedColor(val1,val2,val3,space){
+  var tmpColor;
+  switch (space) {
+     case "RGB": case "rgb": case "Rgb":
+         tmpColor = new classColor_RGB(val1,val2,val3);
+         break;
+     case "HSV": case "hsv": case "Hsv":
+         tmpColor = new classColor_HSV(val1,val2,val3);
+       break;
+      case "LAB": case "lab": case "Lab":
+          tmpColor = new classColor_LAB(val1,val2,val3);
+       break;
+     case "DIN99": case "din99": case "Din99":
+         tmpColor = new classColorDIN99(val1,val2,val3);
+       break;
+     default:
+           console.log("Error with XML File -> found no space ");
+   }
 
+   return tmpColor;
+}
 
 function checkXMLColorspace(xmlObj){
 
