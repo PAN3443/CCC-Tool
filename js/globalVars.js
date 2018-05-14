@@ -22,8 +22,6 @@ var size3D=50;
 
 //// Colormaps
 var myList = [];
-var globalColormap1;
-var globalColormap2;
 var globalCMS1;
 var globalCMS2;
 var tmpSaveColormap;
@@ -153,11 +151,6 @@ var spaceElementsType = [];
 var spaceElementsKey = [];
 var spaceElementsColor = [];
 
-/////
-// Band Sketch
-/////
-var bandSketch;
-var bandSketch2;
 ////////////////////////////////////////////////////////////////////////////////
 
 

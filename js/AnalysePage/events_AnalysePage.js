@@ -1050,18 +1050,27 @@ function drawKeySpeed(cms, plotid, type){
 
   var borderWidth = 2; //px
 
-  var restWidth = resolutionX_differenceMetrics-(bandSketch.getBandLength()-bandSketch.getNumConstBands()-1)*borderWidth;
+
+  var numberOfScaledBands=0;
   var currentWidth=0;
   var currentPos=0;
 
   var arraySpeed = [];
   var arraySpeedSum = 0;
+  var indexList = [];
   /////////////////////////////////////////////////////////////////////////////
   // Calc Speed
   for(var x=0; x<cms.getKeyLength()-1; x++){
 
           var speed=0;
           var dis = cms.getRefPosition(x+1)-cms.getRefPosition(x);
+
+          if(cms.getKeyType(x)==="nil key" || cms.getKeyType(x)==="left key")
+          continue;
+
+
+          numberOfScaledBands++;
+          indexList.push(x);
 
           if(dis!=0){
             switch (type) {
@@ -1122,6 +1131,7 @@ function drawKeySpeed(cms, plotid, type){
           arraySpeedSum += speed;
   }
 
+  var restWidth = resolutionX_differenceMetrics-(numberOfScaledBands-1)*borderWidth;
   /////////////////////////////////////////////////////////////////////////////
   // Calc Speed
   for (var i = 0; i < arraySpeed.length; i++) {
@@ -1144,8 +1154,8 @@ function drawKeySpeed(cms, plotid, type){
 
     switch (type) {
       case 0:
-      color1 = cms.getRightKeyColor(i,"rgb");
-      color2 = cms.getLeftKeyColor(i+1,"rgb");
+      color1 = cms.getRightKeyColor(indexList[i],"rgb");
+      color2 = cms.getLeftKeyColor(indexList[i]+1,"rgb");
 
         for(var x=0; x<currentWidth; x++){
           var index = (currentPos+x) * 4;
@@ -1164,8 +1174,8 @@ function drawKeySpeed(cms, plotid, type){
 
         break;
       case 1:
-      color1 = cms.getRightKeyColor(i,"hsv");
-      color2 = cms.getLeftKeyColor(i+1,"hsv");
+      color1 = cms.getRightKeyColor(indexList[i],"hsv");
+      color2 = cms.getLeftKeyColor(indexList[i]+1,"hsv");
 
       var tmpDis = color1.getSValue()*50; // radius 50; center(0,0,0);
                                     var tmpRad = (color1.getHValue()*Math.PI*2)-Math.PI;
@@ -1202,8 +1212,8 @@ function drawKeySpeed(cms, plotid, type){
         }
           break;
       case 2: case 3: case 4:
-      color1 = cms.getRightKeyColor(i,"lab");
-      color2 = cms.getLeftKeyColor(i+1,"lab");
+      color1 = cms.getRightKeyColor(indexList[i],"lab");
+      color2 = cms.getLeftKeyColor(indexList[i]+1,"lab");
 
         for(var x=0; x<currentWidth; x++){
           var index = (currentPos+x) * 4;
@@ -1224,8 +1234,8 @@ function drawKeySpeed(cms, plotid, type){
         }
         break;
       case 5:
-      color1 = cms.getRightKeyColor(i,"din99");
-      color2 = cms.getLeftKeyColor(i+1,"din99");
+      color1 = cms.getRightKeyColor(indexList[i],"din99");
+      color2 = cms.getLeftKeyColor(indexList[i]+1,"din99");
 
       for(var x=0; x<currentWidth; x++){
         var index = (currentPos+x) * 4;

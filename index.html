@@ -59,7 +59,6 @@
   <script src="js/plugins.js"></script>
 
   <!-- Classes -->
-  <script src="js/ColormapClass/class_Colormap.js"></script>
   <script src="js/ColormapClass/class_colormapSpecification.js"></script>
   <script src="js/ColormapClass/class_Colormap_Key.js"></script>
   <script src="js/ColormapClass/class_Colormap_Interval.js"></script>
@@ -105,14 +104,16 @@
   <script src="js/WebGL/three_global.js"></script>
   <script src="js/WebGL/rgb3D.js"></script>
 
+  <!-- parser -->
+  <script src="js/Parser/xmlColormapParser.js"></script>
+  <script src="js/Parser/jsonColormapParser.js"></script>
+  <script src="js/Parser/csvColormapParser.js"></script>
+
   <!-- global -->
   <script src="js/calcColordifference.js"></script>
   <script src="js/events_global.js"></script>
   <script src="js/globalVars.js"></script>
   <script src="js/globalHelpers.js"></script>
-  <script src="js/xmlColormapParser.js"></script>
-  <script src="js/jsonColormapParser.js"></script>
-  <script src="js/csvColormapParser.js"></script>
   <script src="js/drawCanvasColormap.js"></script>
   <script src="js/checkInput.js"></script>
   <script src="js/exportSideScript.js"></script>
@@ -121,7 +122,6 @@
   <script src="js/drawColorspaceRGB.js"></script>
   <script src="js/drawColorspaceHSV_LAB_DIN99.js"></script>
   <script src="js/events_ColorspaceCanvas.js"></script>
-  <script src="js/class_colorBandSketch.js"></script>
   <script src="js/events_colorspaceCanvasRGB.js"></script>
   <script src="js/drawColorpicker.js"></script>
   <script src="js/main.js"></script>
@@ -178,6 +178,7 @@
         <button class="classButtonBlue" onclick="changePage(5)" id="button_showCompare" title="Compare CMS" >Compare</button>
         <button class="classButtonBlue" onclick="changePage(6)" id="button_showExport" title="Export" >Export</button>
         <button class="classButtonBlue" onclick="changePage(7)" id="button_showTutorial" title="Tutorial" >Tutorial</button>
+        <button class="classButtonBlue" onclick="changePage(9)" id="button_showSettings" title="Settings" >Settings</button>
       </div>
     </div>
 
@@ -239,11 +240,11 @@
             <div class="row" style="height:auto; width:100%; margin:0px; background:url(img/background.png)">
 
               <button id="id_selectShowCMSTable" onclick="switchTableTestFunction(0)" class="classButtonBlue" title="Key Modify" style="width:50%">CMS Table</button>
-              <button id="id_selectShowTestFunction" onclick="switchTableTestFunction(1)" class="classButtonBlue" title="Key Modify" style="width:50%">Mapping Testfunctions</button>
+              <button id="id_selectShowTestFunction" onclick="switchTableTestFunction(1)" class="classButtonBlue" title="Key Modify" style="width:50%">Mapping</button>
 
             </div>
 
-            <div style="height:30vh; width:100%; display: flex; flex-direction: column; z-index:20; background:white;">
+            <div id="id_table_Div" style="height:30vh; width:100%; display: flex; flex-direction: column; z-index:20; background:white;">
               <h1 style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; padding-top:2vh; padding-bottom:2vh;">CMS Table</h1>
 
 
@@ -266,6 +267,13 @@
 
                 </table>
               </div>
+            </div>
+
+
+            <div id="id_mapping_Div" style="height:30vh; width:100%; display: flex; flex-direction: column; z-index:20; background:white;">
+              <h1 style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; padding-top:2vh; padding-bottom:2vh;">Mapping</h1>
+
+
             </div>
 
 
@@ -482,6 +490,24 @@
             <strong>Urheber- und Kennzeichenrecht:</strong><br>
             Alle innerhalb unserer Seiten genannten und ggf. durch Dritte gesch&uuml;tzten Marken- und Warenzeichen unterliegen uneingeschr&auml;nkt den Bestimmungen des jeweils g&uuml;ltigen Kennzeichenrechts und den Besitzrechten der jeweiligen eingetragenen Eigent&uuml;mer. Allein aufgrund der bloßen Nennung ist nicht der Schluss zu ziehen, dass Markenzeichen nicht durch Rechte Dritter gesch&uuml;tzt sind! Das Copyright für ver&ouml;ffentlichte, von uns selbst erstellte Objekte bleibt allein beim Urheber der Objekte. Eine Vervielf&auml;ltigung oder Verwendung solcher Grafiken, Tondokumente, Videosequenzen und Texte in anderen elektronischen oder gedruckten Publikationen ist ohne ausdr&uuml;ckliche Zustimmung des Urhebers nicht gestattet.
           </p>
+
+        </div>
+    </div>
+
+
+    <!--
+          -----------------------------------------------
+          ----------------	Setting Page ---------------
+          ---------------- -------------------------------
+          -->
+
+    <div id="id_settingPage" style="width: 100%; height:auto; margin:0px; display:none;">
+
+       <div style="margin-left:20%; width:60%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:white; padding-top:2vh; padding-bottom:2vh; box-shadow:  0.3vh  0.3vh grey;">
+
+          <h1 style="margin-left:10%; width:80%; text-align:left; height:4vh; line-height:4vh; font-size:3vh; vertical-align:middle; padding-top:2vh;">  Settings  </h1>
+
+
 
         </div>
     </div>
@@ -4391,6 +4417,29 @@
 
       </div>
     </div>
+
+
+
+    <!--
+          ----------------------------------------------------
+          ----------------	Alert Window	  -------------
+          ---------------------------------------------------
+          -->
+
+    <div id="popupAlertWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:101; top:0px; left:0px; bottom:0px; display:none;">
+
+      <div style="margin-top:20vh; height:auto; background:rgb(240,240,240); width:60%; border: 0.5vh solid black; margin-left:auto; margin-right:auto;">
+
+        <h3 style="width:100%; height:5vh; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; font-size:4vh; background:black;"> Warning </h3>
+
+        <p id="id_alertText" style="margin-left:20%; width:60%; text-align:left; height:auto; line-height:3.2vh; font-size:3vh; vertical-align:middle;">
+        </p>
+
+        <button class="classButtonWhite"  onclick="closeAlert()" title="close" style="border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 60%; height:6vh; line-height:6vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180); margin-left:20%; margin-top:2vh; margin-bottom:2vh;"> Close </button>
+
+      </div>
+    </div>
+
 
 
 

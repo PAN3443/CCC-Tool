@@ -170,7 +170,6 @@ class classColor_LAB{
                     if(var_B<0.0 && 1.0-var_B<error){
                         var_B=0.0;
                     }
-                    //alert(var_R+" "+var_G+" "+var_B);
                     if (var_R>1.0 || var_G>1.0 || var_B>1.0 || var_R<0.0 || var_G<0.0 || var_B<0.0){
                         //var rgbString = "rgb(0,0,0)";
                         //return rgbString;

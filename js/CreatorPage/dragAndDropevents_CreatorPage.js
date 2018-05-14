@@ -60,7 +60,7 @@ function bandOnDragStart(event){
         else{
 
             var tmpRect = document.getElementById("id_colormapSketch").getBoundingClientRect();
-            var tmpLength =(tmpRect.width-((globalCMS1.getKeyLength())*6)-(globalCMS1.getKeyLength()-1)*2)/(globalCMS1.getKeyLength()+globalCMS1.getKeyLength()-1);//100/(bandSketch.getBandLength()-1);
+            var tmpLength =(tmpRect.width-((globalCMS1.getKeyLength())*6)-(globalCMS1.getKeyLength()-1)*2)/(globalCMS1.getKeyLength()+globalCMS1.getKeyLength()-1);//100/
 
             for(var i=0; i<dropPositionElements.length; i++){
                 dropPositionElements[i].style.display = "initial";

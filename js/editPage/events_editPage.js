@@ -3,6 +3,7 @@ function editPage_delteKey(){
 globalCMS1.deleteKey(selectedKey);
 orderColorSketch();
 addKeyButtons();
+somethingChanged = true;
 }
 
 
@@ -153,6 +154,7 @@ function motChange(){
     globalCMS1.setMoT(selectedKey,true);
   }
   orderColorSketch();
+  somethingChanged = true;
 }
 
 function addKeyButtons(){
@@ -600,6 +602,7 @@ function drawModifyPreview(){
 
     if(globalCMS1.getKeyType(selectedKey)==='dual key'){
       bandIncludeKey=selectedKey;
+      tmpSelectedColor=selectedColor;
       selectedColor=1;
     }
 

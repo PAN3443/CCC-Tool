@@ -19,9 +19,7 @@ function mouseLeaveColorspace(event) {
 
 function hsvLabDinAnimation(){
   orderColorSketch(colorspaceModus);
-console.log(1);
   drawcolormap_hueSpace(false,true,false);
-
 }
 
 function mouseMoveColorspace(event) {

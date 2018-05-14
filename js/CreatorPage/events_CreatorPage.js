@@ -30,6 +30,32 @@ function saveCreateProcess(){
 ///////////////////////////////
 
 
+function switchTableTestFunction(type){
+
+  switch (type) {
+    case 0:
+      document.getElementById("id_selectShowTestFunction").style.background=styleInactiveColor;
+      document.getElementById("id_selectShowCMSTable").style.background=styleActiveColor;
+
+      document.getElementById("id_mapping_Div").style.display="none";
+      document.getElementById("id_table_Div").style.display="inline-block";
+
+    break;
+    case 1:
+
+      document.getElementById("id_selectShowTestFunction").style.background=styleActiveColor;
+      document.getElementById("id_selectShowCMSTable").style.background=styleInactiveColor;
+
+      document.getElementById("id_mapping_Div").style.display="inline-block";
+      document.getElementById("id_table_Div").style.display="none";
+
+      break;
+    default:
+
+  }
+}
+
+
 function switchModifyModus(type){
 
   switch (type) {
@@ -59,7 +85,7 @@ function switchModifyModus(type){
         selectedColor=0;
       }
       else{
-        alert("There are no keys for modyfing. Please use Add Bands to create a CMS.");
+        openAlert("There are no keys for modyfing. Please use Add Bands to create a CMS.");
         break;
       }
 
@@ -77,7 +103,7 @@ function switchModifyModus(type){
       document.getElementById("id_DivAddBands").style.display="none";
     }
     else{
-      alert("There are no keys for modyfing. Please use Add Bands to create a CMS.");
+      openAlert("There are no keys for modyfing. Please use Add Bands to create a CMS.");
       break;
     }
 

@@ -121,7 +121,7 @@ function changeAnalyzeColorspace(type) {
 function changeColorspace(type) {
 
   if(type>3){
-    alert("This interpolation color space is not ready implemented. Coming Soon!!!");
+    openAlert("This interpolation color space is not ready implemented. Coming Soon!!!");
     return;
   }
 
@@ -240,7 +240,6 @@ function changeColorspace(type) {
   }
 
   if(showSideID == 6){
-    drawCanvasColormap("id_previewColormapExport", linearMap_resolution_X, linearMap_resolution_Y, globalColormap1);
     fillExportTable();
   }
 
@@ -278,8 +277,7 @@ function cancelSave(){
     else
     openCompareSelect();
 
-    globalColormap1 = myList[colormap1SelectIndex];
-    bandSketch.colormap2Sketch(globalColormap1);
+    globalCMS1 = cloneCMS(myList[colormap1SelectIndex]);
     orderColorSketch();
 
     colormap2SelectIndex=-1;
@@ -305,28 +303,7 @@ function doSave(){
 }
 
 function doSaveAsNew(){
-    if(saveTwoColormaps){
-      if(myList.length<9){
-        myList.push(tmpSaveColormap);
-        myList.push(tmpSaveColormap2);
-        colormap1SelectIndex=myList.length-2;
-        colormap2SelectIndex=-1;
-        document.getElementById("popupSaveWindow").style.display="none";
-        drawMyList();
-        drawAddExistingAddPage();
-        if(initPageType!=5)
-        initNewPage();
-        else
-        openCompareSelect();
 
-        colormap2SelectIndex=-1;
-
-      }
-      else{
-        alert("Sorry there is not enough space at the MyDesigns list to save the two CMS as new!!!!");
-      }
-    }
-    else{
       if(myList.length<10){
         myList.push(tmpSaveColormap);
         colormap1SelectIndex=myList.length-1;
@@ -342,12 +319,8 @@ function doSaveAsNew(){
         colormap2SelectIndex=-1;
       }
       else{
-        alert("Sorry there is not enough space at the MyDesigns list to save the CMS as new!!!!");
+        openAlert("Sorry there is not enough space at the MyDesigns list to save the CMS as new!!!!");
       }
-
-    }
-
-
 
 }
 
@@ -356,8 +329,8 @@ function openCompareSelect(){
     if(myList.length==2){
       colormap1SelectIndex=0;
       colormap2SelectIndex=1;
-      globalColormap1 = myList[colormap1SelectIndex];
-      globalColormap2 = myList[colormap2SelectIndex];
+      globalCMS1 = cloneCMS(myList[colormap1SelectIndex]);
+      globalCMS2 = cloneCMS(myList[colormap2SelectIndex]);
       initNewPage();
     }
     else{
@@ -474,23 +447,23 @@ function changePage(type){
         if(showSideID==1 && globalCMS1.getKeyLength()!=0){
           break;
         }
-        alert("There is no CMS at the MyDesigns list for the edit page.");
+        openAlert("There is no CMS at the MyDesigns list for the edit page.");
 
         return;
       case 4:
         if(showSideID==1 && globalCMS1.getKeyLength()!=0){
           break;
         }
-        alert("There is no CMS at the MyDesigns list for the analyze page.");
+        openAlert("There is no CMS at the MyDesigns list for the analyze page.");
         return;
       case 5:
           if(showSideID==1 && globalCMS1.getKeyLength()!=0){
-            alert("There is no CMS at the MyDesigns list for the compare page.");
+            openAlert("There is no CMS at the MyDesigns list for the compare page.");
             return;
           }
       case 6:
           if(globalCMS1.getKeyLength()==0){
-            alert("There is no CMS at the MyDesigns list for the export page.");
+            openAlert("There is no CMS at the MyDesigns list for the export page.");
             return;
           }
       default:
@@ -500,7 +473,7 @@ function changePage(type){
 
   if(type==2){
     if(myList.length==10){
-      alert("The MyDesigns List is full.");
+      openAlert("The MyDesigns List is full.");
       return;
     }
   }
@@ -510,7 +483,7 @@ function changePage(type){
 
     }
     else{
-      alert("There is not enough CMSs at the MyDesigns list for the compare page. You need at least two CMS!");
+      openAlert("There is not enough CMSs at the MyDesigns list for the compare page. You need at least two CMS!");
       return;
     }
 
@@ -630,10 +603,7 @@ function changePage(type){
                 else
                 openCompareSelect();
 
-                //alert("Ask user if he want to save as new or replace the CMS");
-                //myList[colormap1SelectIndex] = globalColormap1;
 
-                //document.getElementById("id_AnalyseColorspace_Menue").style.display = "none";
     break;
 
     case 3:
@@ -649,9 +619,7 @@ function changePage(type){
                   refLineSketchContainer.pop();
                 }
 
-                //alert("Ask user if he want to save as new or replace the CMS");
-                //myList[colormap1SelectIndex] = globalColormap1;
-                //myList[colormap2SelectIndex] = globalColormap1;
+
                 stopAnimation();
 
 
@@ -730,6 +698,23 @@ function changePage(type){
 
     break;
 
+    case 8:
+
+                if(type==9)
+                return;
+
+                document.getElementById("id_settingPage").style.display = "none";
+
+                document.getElementById("id_Colorspace_Menue").style.display = "initial";
+                //document.getElementById("id_Tutorial_Menue").style.display = "none";
+                document.getElementById("div_colormapBandSketch").style.display = "inline-block";
+
+                if(initPageType!=5)
+                initNewPage();
+                else
+                openCompareSelect();
+    break;
+
     default:
       return;
 
@@ -751,6 +736,7 @@ function initNewPage(){
   document.getElementById("button_showCompare").style.background = "none"; //styleInactiveColor;
   document.getElementById("button_showExport").style.background = "none"; //styleInactiveColor;
   document.getElementById("button_showTutorial").style.background = "none"; //styleInactiveColor;
+  document.getElementById("button_showSettings").style.background = "none"; //styleInactiveColor;
 
  // new page
   switch (initPageType) {
@@ -780,8 +766,12 @@ function initNewPage(){
         document.getElementById("id_addPageFreeLabel").style.color = "black";
 
       document.getElementById("id_addPageFreeLabel").innerHTML = "Free Space for Adding Maps to MyDesigns : "+restSpace;
-      drawAddExistingAddPage();
+      //drawAddExistingAddPage();
       if(existingColormapsAreDrawn==false){
+          for (var i = refElementContainer.length - 1; i >= 0; i--) {
+            refElementContainer[i].remove();
+            refElementContainer.pop();
+          }
           constructionExistingColormaps_AddPage();
           existingColormapsAreDrawn=true;
       }
@@ -896,6 +886,18 @@ function initNewPage(){
 
         break;
 
+        case 9:
+          // Setting
+          /////////////////////////////////////////
+          showSideID = 8;
+          document.getElementById("id_settingPage").style.display = "inline-block";
+          document.getElementById("button_showSettings").style.background = styleActiveColor; //styleInactiveColor;
+
+          document.getElementById("id_Colorspace_Menue").style.display = "none";
+          document.getElementById("div_colormapBandSketch").style.display = "none";
+
+          break;
+
     default:
       return;
   }
@@ -934,17 +936,17 @@ function readSingleFile(e) {
 
 
     var fileExtension = fileName.replace(/^.*\./, '');
-    var colormap;
+    var cms;
 
     switch (fileExtension) {
             case 'xml': case 'XML':
-                colormap = xmlColormapParserFile(contents);
+                cms = xmlColormapParserFile(contents);
                 break;
             case 'json': case 'JSON':
-                colormap = jsonColormapParserFile(contents);
+                cms = jsonColormapParserFile(contents);
                 break;
             case 'csv': case 'CSV':
-                colormap = csvColormapParserFile(contents);
+                cms = csvColormapParserFile(contents);
                 break;
             default:
                 console.log("Error at readSingleFile function -> file extension is unknown!");
@@ -955,10 +957,15 @@ function readSingleFile(e) {
     switch (showSideID) {
             case 0:
 
+                // check if is enough space in MyDesings
+
+                // check if CMS is empty (key length)
+
+
+
                 break;
             case 1:
-                globalColormap1 = colormap;
-                bandSketch.colormap2Sketch(globalColormap1);
+                globalCMS1=cms;
                 orderColorSketch();
                 break;
             default:
@@ -966,16 +973,21 @@ function readSingleFile(e) {
                 return;
     }
 
-
-
-
-
-
-
   };
 
 
   reader.readAsText(file);
 
 
+}
+
+
+
+function closeAlert(){
+  document.getElementById("popupAlertWindow").style.display="none";
+}
+
+function openAlert(txt){
+  document.getElementById("popupAlertWindow").style.display="inline-block";
+  document.getElementById("id_alertText").innerHTML=txt;
 }

@@ -21,7 +21,8 @@ class class_Key{
         this.ref = refPos;
         this.middleOfTriple = false; // if left or twin key -> false = cL, true = cR;
 
-
+        this.opacityValLeft=1.0;
+        this.opacityValRight=1.0;
 
     }
 
@@ -211,6 +212,33 @@ class class_Key{
 
     getRefPosition() {
         return this.ref;
+    }
+
+    setOpacityVal(val,side) {
+      switch (side) {
+        case "left":
+          this.opacityValLeft=val;
+          break;
+          case "right":
+            this.opacityValRight=val;
+            break;
+        default:
+
+      }
+
+    }
+
+    getOpacityVal(side){
+        switch (side) {
+          case "left":
+            return this.opacityValLeft;
+            break;
+            case "right":
+              return this.opacityValRight;
+              break;
+          default:
+
+        }
     }
 
     getKeyType(){

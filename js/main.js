@@ -1,6 +1,6 @@
 window.onload = function() {
 
-
+  document.onkeydown = keyDownDocumentHandler;
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// GLOBAL /////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -11,14 +11,8 @@ window.onload = function() {
 
   browserCanWorker=false;
 
-  globalColormap1 = new classColorMapSpecification();
-  globalColormap2 = new classColorMapSpecification();
-
   globalCMS1 = new class_CMS();
   globalCMS2 = new class_CMS();
-
-  bandSketch = new classBandSketch();
-  bandSketch2 = new classBandSketch();
 
   document.getElementById("editSide_Radiobutton_PickerRG_B").checked=true;
   document.getElementById("bandCreator_Radiobutton_PickerRG_B").checked=true;
@@ -204,7 +198,6 @@ window.onload = function() {
   document.getElementById('id_buttonBackwardCreateColormap').addEventListener("click", backwardColormapProcess);
   document.getElementById('id_buttonForwardCreateColormap').addEventListener("click", forwardColormapProcess);
   document.getElementById('id_buttonSaveCreateColormap').addEventListener("click", saveColormapToList);
-  //document.getElementById('id_buttonExportCreateColormap').addEventListener("click", createSideExport);
   document.getElementById('id_buttonLoadCreateColormap').addEventListener("click", loadColormapCreateSide);
 
   document.getElementById('id_buttonHelpCreateColormap').addEventListener("mouseleave", createPage_hideHelp);
@@ -308,6 +301,8 @@ window.onload = function() {
 
  /////
   changeColorspace(2);
+  switchTableTestFunction(0);
+  switchModifyModus(0);
   pageIsLoaded=true;
 }
 
@@ -323,6 +318,13 @@ window.onresize = function(event) {
 
 };*/
 
+
+function keyDownDocumentHandler(event){
+  if (event.keyCode == 13) {
+    if(document.getElementById("popupAlertWindow").style.display!="none")
+    document.getElementById("popupAlertWindow").style.display="none";
+  }
+}
 
 
 ///////////////////////////////////////////////
@@ -712,10 +714,48 @@ function changeKeyValueInput(keyIndex, fielID) {
 
   var newRef = parseFloat(inputObj.value);
 
-  globalCMS1.setRefPosition(keyIndex,newRef)
+  switch (keyIndex) {
+    case 0:
+      var nextRef = globalCMS1.getRefPosition(1);
+      if(nextRef<=newRef){
+        openAlert("Attention: You can not set the reference value greater than or equal to the reference value of the right neighboring key! Please enter another value.");
+        inputObj.value=globalCMS1.getRefPosition(0);
+      }
+      else {
+        globalCMS1.setRefPosition(keyIndex,newRef);
+        orderColorSketch();
+      }
+      break;
+    case globalCMS1.getKeyLength()-1:
+      var prevRef = globalCMS1.getRefPosition(keyIndex-1);
+      if(prevRef>=newRef){
+        openAlert("Attention: You can not set the reference value smaller than or equal to the reference value of the left neighboring key! Please enter another value.");
+        inputObj.value=globalCMS1.getRefPosition(keyIndex);
+      }
+      else {
+        globalCMS1.setRefPosition(keyIndex,newRef);
+        orderColorSketch();
+      }
 
-  orderColorSketch(); // for updating ref and linear colormap
-
+      break;
+    default:
+    var nextRef = globalCMS1.getRefPosition(keyIndex+1);
+    if(nextRef<=newRef){
+      openAlert("Attention: You can not set the reference value greater than or equal to the reference value of the right neighboring key! Please enter another value.");
+      inputObj.value=globalCMS1.getRefPosition(keyIndex);
+    }
+    else{
+      var prevRef = globalCMS1.getRefPosition(keyIndex-1);
+      if(prevRef>=newRef){
+        openAlert("Attention: You can not set the reference value smaller than or equal to the reference value of the left neighboring key! Please enter another value.");
+        inputObj.value=globalCMS1.getRefPosition(keyIndex);
+      }
+      else{
+        globalCMS1.setRefPosition(keyIndex,newRef);
+        orderColorSketch();
+      }
+    }
+  }
 
 }
 

@@ -1,7 +1,7 @@
 function exportColormapFromMyDesigns(index){
 
     if(index<myList.length){
-      globalColormap1 = myList[index];
+      globalCMS1 = cloneCMS(myList[index]);
       changePage(6);
     }
 
@@ -27,9 +27,12 @@ function deletetColormapFromMyDesigns(index){
           if(myList.length==0){
             colormap1SelectIndex=-1;
             globalCMS1.clear();
-            orderColorSketch();
+          }
+          else{
+            globalCMS1=cloneCMS(myList[colormap1SelectIndex]);
           }
 
+          orderColorSketch();
           drawMyList();
         } else {
             // do nothing
@@ -49,7 +52,7 @@ function acceptColormapFromMyDesigns(index){
     document.getElementById("id_buttonAcceptMyList"+colormap1SelectIndex).style.border = "0.2vh solid "+styleActiveColor;
     document.getElementById("id_buttonAcceptMyList"+colormap1SelectIndex).style.color = styleActiveColor;
 
-    globalColormap1=cloneCMS(myList[colormap1SelectIndex]);
+    globalCMS1=cloneCMS(myList[colormap1SelectIndex]);
     orderColorSketch(colorspaceModus);
 
   }

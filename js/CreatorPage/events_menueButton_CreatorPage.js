@@ -2,13 +2,6 @@
 ///// Menue button Events /////
 //////////////////////////////
 
-function createSideExport(){
-  if(bandSketch.getBandLength()!=0){
-    document.getElementById("id_exportWindow").style.display = "initial";
-    exportSideOpen = true;
-    initExportWindow();
-  }
-}
 
 function colormapNameChangeEnter(e){
    if (e.keyCode == 13 && globalCMS1!=undefined)
@@ -40,7 +33,6 @@ function saveColormapToList(){
     if(isEdit==-1){
 
       if(myList.length<9){
-        //var newMap = bandSketch.sketch2Colormap(colorspaceModus, globalColormap1.getColormapName());
         myList.push(cloneCMS(globalCMS1));
         colormap1SelectIndex=myList.length-1;
         clearCreateSide();
@@ -54,13 +46,8 @@ function saveColormapToList(){
 
     }
     else{
-
-      //var newMap = bandSketch.sketch2Colormap(colorspaceModus, globalColormap1.getColormapName());
       tmpSaveColormap = cloneCMS(globalCMS1);
-
       openSavePopUp();
-      //changePage(0);
-
     }
 
   }

@@ -297,6 +297,36 @@ function rgbPlot(context, canvasWidth, canvasHidth, xlabel, ylabel) {
 
 function drawcolormap_RGBSpace(calcBackground, drawInterpolationLine) {
 
+
+  // 3D init
+  if (showSpace == 1) {
+    for (var i = colormapRGB3D.children.length - 1; i >= 0; i--) {
+      colormapRGB3D.remove(colormapRGB3D.children[i]);
+    }
+  }
+
+  if(calcBackground)
+  rgbInit();
+
+
+  if(showSideID==3) // is Compare PAGE
+  {
+    drawElements(true);
+
+    //if(drawInterpolationLine)// have to think about that later
+    drawInterpolationLineInRGB(true, intervalSize);
+  }
+  else {
+    drawElements(false);
+
+    //if(drawInterpolationLine)// have to think about that later
+    drawInterpolationLineInRGB(false, intervalSize);
+  }
+
+}
+
+function drawElements(isCompareMap){
+
   var canvasIDRG, canvasIDRB, canvasIDBG;
   switch (showSideID) {
     case 1:
@@ -340,11 +370,8 @@ function drawcolormap_RGBSpace(calcBackground, drawInterpolationLine) {
   canvasColorspaceBG.height = hue_resolution_Y;
   var colorspaceContexBG = canvasColorspaceBG.getContext("2d");
 
-  // check
-  if(calcBackground)
-  rgbInit();
 
-  ////////////////////////////////////////////////////////
+  var xPos, yPos, xPos2, yPos2, tmpColor, tmpColor2;
 
   spaceElementsXPos = [];
   spaceElementsYPos = [];
@@ -352,37 +379,38 @@ function drawcolormap_RGBSpace(calcBackground, drawInterpolationLine) {
   spaceElementsKey = [];
   spaceElementsColor = [];
 
-  if (showSpace == 1) {
-    for (var i = colormapRGB3D.children.length - 1; i >= 0; i--) {
-      colormapRGB3D.remove(colormapRGB3D.children[i]);
+  var border=1;
+
+  if(isCompareMap)
+  border=2;
+
+  for(var j=0; j<border; j++){
+    var workCMS;
+    switch (j) {
+      case 0:
+        workCMS=globalCMS1;
+        break;
+      case 1:
+        workCMS=globalCMS2;
+        break;
+      default:
     }
 
-  }
-  ////////////////////////////////////////////////////////
-  // draw Colormap
-  if (globalCMS1.getKeyLength() > 0) {
 
-    //if(drawInterpolationLine){ // have to think about that later
-      drawInterpolationLineInRGB(false, intervalSize);
-    //}
 
-    /////////////////////////////////////////////////////////////////
+    for (var i = 0; i < workCMS.getKeyLength(); i++) {
 
-    var xPos, yPos, xPos2, yPos2, tmpColor, tmpColor2;
-
-    for (var i = 0; i < globalCMS1.getKeyLength(); i++) {
-
-      switch (globalCMS1.getKeyType(i)) {
+      switch (workCMS.getKeyType(i)) {
         case "nil key":
           // do nothing
 
           break;
         case "twin key":
 
-          tmpColor = globalCMS1.getLeftKeyColor(i, "rgb");
+          tmpColor = workCMS.getLeftKeyColor(i, "rgb");
 
           var drawCircle = true;
-          if (globalCMS1.getKeyType(i - 1) === "nil key" || globalCMS1.getKeyType(i - 1) === "left key")
+          if (workCMS.getKeyType(i - 1) === "nil key" || workCMS.getKeyType(i - 1) === "left key")
             drawCircle = false;
 
           ////////////////////////////////////////////////////////////////
@@ -393,7 +421,7 @@ function drawcolormap_RGBSpace(calcBackground, drawInterpolationLine) {
           ////////////////////////////////////////////////////////////////
           /////// Right Color
 
-          tmpColor = globalCMS1.getRightKeyColor(i, "rgb");
+          tmpColor = workCMS.getRightKeyColor(i, "rgb");
 
           drawRGBElement(tmpColor,xWidth,yHeight,xStart,yStart, true,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG, i,1);
 
@@ -401,13 +429,13 @@ function drawcolormap_RGBSpace(calcBackground, drawInterpolationLine) {
         case "left key":
 
           var drawCircle = true;
-          if (globalCMS1.getKeyType(i - 1) === "nil key" || globalCMS1.getKeyType(i - 1) === "left key")
+          if (workCMS.getKeyType(i - 1) === "nil key" || workCMS.getKeyType(i - 1) === "left key")
             drawCircle = false;
 
           ////////////////////////////////////////////////////////////////
           /////// left Color
 
-          tmpColor = globalCMS1.getLeftKeyColor(i, "rgb");
+          tmpColor = workCMS.getLeftKeyColor(i, "rgb");
 
           drawRGBElement(tmpColor,xWidth,yHeight,xStart,yStart, drawCircle,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG, i, 0);
 
@@ -419,7 +447,7 @@ function drawcolormap_RGBSpace(calcBackground, drawInterpolationLine) {
 
           case "right key":
 
-          tmpColor = globalCMS1.getRightKeyColor(i, "rgb"); // right color because of right key
+          tmpColor = workCMS.getRightKeyColor(i, "rgb"); // right color because of right key
 
           drawRGBElement(tmpColor,xWidth,yHeight,xStart,yStart, true,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG, i, 1);
 
@@ -427,18 +455,18 @@ function drawcolormap_RGBSpace(calcBackground, drawInterpolationLine) {
         default:
           // dual Key
 
-          tmpColor = globalCMS1.getRightKeyColor(i, "rgb"); // right color because of right key
+          tmpColor = workCMS.getRightKeyColor(i, "rgb"); // right color because of right key
 
           drawRGBElement(tmpColor,xWidth,yHeight,xStart,yStart, true,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG, i, 2);
 
       }
 
     }
-
   }
 
-}
 
+
+}
 
 function drawInterpolationLineInRGB(isCompareMap, intervalSize) {
 
@@ -491,575 +519,68 @@ function drawInterpolationLineInRGB(isCompareMap, intervalSize) {
   var tmpColor, tmpColor2, xPos, xPos2, yPos, yPos2;
 
 
-  for (var i = 0; i < globalCMS1.getKeyLength()-1; i++) {
+  var border=1;
 
-    switch (globalCMS1.getKeyType(i)) {
+  if(isCompareMap){
+    border=2;
+    globalCMS2.calcIntervalColors(intervalSize, colorspaceModus);
+  }
+
+  for(var x=0; x<border; x++){
+      var workCMS;
+      var compareColor=false;
+      switch (x) {
+        case 0:
+          workCMS=globalCMS1;
+          break;
+        case 1:
+          workCMS=globalCMS2;
+          compareColor=true;
+          break;
+        default:
+      }
+
+  for (var i = 0; i < workCMS.getKeyLength()-1; i++) {
+
+    switch (workCMS.getKeyType(i)) {
       case "nil key":
-        //drawRGBline(globalCMS1.getLeftKeyColor(i+1,"rgb"),globalCMS1.getLeftKeyColor(i+1,"rgb"),xWidth,yHeight,xStart,yStart, true,isCompareMap,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
+        //drawRGBline(workCMS.getLeftKeyColor(i+1,"rgb"),workCMS.getLeftKeyColor(i+1,"rgb"),xWidth,yHeight,xStart,yStart, true,compareColor,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
       break;
       case "twin key":
-        var intervalIndexA = globalCMS1.getIntervalPositions(i);
-        drawRGBline(globalCMS1.getLeftKeyColor(i,"rgb"),globalCMS1.getRightKeyColor(i,"rgb"),xWidth,yHeight,xStart,yStart, true,isCompareMap,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
-        drawRGBline(globalCMS1.getRightKeyColor(i,"rgb"),globalCMS1.getIntervalColor(intervalIndexA[0],"rgb"),xWidth,yHeight,xStart,yStart, false,isCompareMap,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
+        var intervalIndexA = workCMS.getIntervalPositions(i);
+        drawRGBline(workCMS.getLeftKeyColor(i,"rgb"),workCMS.getRightKeyColor(i,"rgb"),xWidth,yHeight,xStart,yStart, true,compareColor,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
+        drawRGBline(workCMS.getRightKeyColor(i,"rgb"),workCMS.getIntervalColor(intervalIndexA[0],"rgb"),xWidth,yHeight,xStart,yStart, false,compareColor,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
 
         for(var j=intervalIndexA[0]; j<intervalIndexA[1]; j++){
-          drawRGBline(globalCMS1.getIntervalColor(j,"rgb"),globalCMS1.getIntervalColor(j+1,"rgb"),xWidth,yHeight,xStart,yStart, false,isCompareMap,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
+          drawRGBline(workCMS.getIntervalColor(j,"rgb"),workCMS.getIntervalColor(j+1,"rgb"),xWidth,yHeight,xStart,yStart, false,compareColor,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
         }
 
-        if(globalCMS1.getIntervalisKey(intervalIndexA[1])!=true)
-          drawRGBline(globalCMS1.getIntervalColor(intervalIndexA[1],"rgb"),globalCMS1.getLeftKeyColor(i+1,"rgb"),xWidth,yHeight,xStart,yStart, false,isCompareMap,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
+        if(workCMS.getIntervalisKey(intervalIndexA[1])!=true)
+          drawRGBline(workCMS.getIntervalColor(intervalIndexA[1],"rgb"),workCMS.getLeftKeyColor(i+1,"rgb"),xWidth,yHeight,xStart,yStart, false,compareColor,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
 
           break;
       case "left key":
 
-        drawRGBline(globalCMS1.getLeftKeyColor(i,"rgb"),globalCMS1.getLeftKeyColor(i+1,"rgb"),xWidth,yHeight,xStart,yStart,true, isCompareMap,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
+        drawRGBline(workCMS.getLeftKeyColor(i,"rgb"),workCMS.getLeftKeyColor(i+1,"rgb"),xWidth,yHeight,xStart,yStart,true, compareColor,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
         break;
 
       default:
 
-        var intervalIndexA = globalCMS1.getIntervalPositions(i);
-        drawRGBline(globalCMS1.getRightKeyColor(i,"rgb"),globalCMS1.getIntervalColor(intervalIndexA[0],"rgb"),xWidth,yHeight,xStart,yStart, false,isCompareMap,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
-
+        var intervalIndexA = workCMS.getIntervalPositions(i);
+        drawRGBline(workCMS.getRightKeyColor(i,"rgb"),workCMS.getIntervalColor(intervalIndexA[0],"rgb"),xWidth,yHeight,xStart,yStart, false,compareColor,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
 
         for(var j=intervalIndexA[0]; j<intervalIndexA[1]; j++){
-          drawRGBline(globalCMS1.getIntervalColor(j,"rgb"),globalCMS1.getIntervalColor(j+1,"rgb"),xWidth,yHeight,xStart,yStart, false,isCompareMap,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
+          drawRGBline(workCMS.getIntervalColor(j,"rgb"),workCMS.getIntervalColor(j+1,"rgb"),xWidth,yHeight,xStart,yStart, false,compareColor,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
+
         }
 
-        if(globalCMS1.getIntervalisKey(intervalIndexA[1])!=true)
-          drawRGBline(globalCMS1.getIntervalColor(intervalIndexA[1],"rgb"),globalCMS1.getLeftKeyColor(i+1,"rgb"),xWidth,yHeight,xStart,yStart, false,isCompareMap,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
+        if(workCMS.getIntervalisKey(intervalIndexA[1])!=true)
+          drawRGBline(workCMS.getIntervalColor(intervalIndexA[1],"rgb"),workCMS.getLeftKeyColor(i+1,"rgb"),xWidth,yHeight,xStart,yStart, false,compareColor,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
 
       }
     }
 
-}
-
-
-function drawcolormap_compare_RGBSpace(colormapTmp, colormapTmp2, canvasIDRG, canvasIDRB, canvasIDBG, calcBackground, drawInterpolationLine) {
-
-  var xStart = hue_resolution_X * 0.1;
-  var yStart = hue_resolution_Y * 0.9;
-  var xEnd = hue_resolution_X * 0.8;
-  var yEnd = hue_resolution_Y * 0.2;
-  var xWidth = xEnd - xStart;
-  var yHeight = yStart - yEnd;
-
-  var canvasColorspaceRG = document.getElementById(canvasIDRG);
-  canvasColorspaceRG.width = hue_resolution_X;
-  canvasColorspaceRG.height = hue_resolution_Y;
-  var colorspaceContexRG = canvasColorspaceRG.getContext("2d");
-
-  var canvasColorspaceRB = document.getElementById(canvasIDRB);
-  canvasColorspaceRB.width = hue_resolution_X;
-  canvasColorspaceRB.height = hue_resolution_Y;
-  var colorspaceContexRB = canvasColorspaceRB.getContext("2d");
-
-  var canvasColorspaceBG = document.getElementById(canvasIDBG);
-  canvasColorspaceBG.width = hue_resolution_X;
-  canvasColorspaceBG.height = hue_resolution_Y;
-  var colorspaceContexBG = canvasColorspaceBG.getContext("2d");
-
-  rgbInit(canvasIDRG, canvasIDRB, canvasIDBG, calcBackground);
-
-  ////////////////////////////////////////////////////////
-
-  if (showSpace == 1) {
-    for (var i = colormapRGB3D.children.length - 1; i >= 0; i--) {
-      colormapRGB3D.remove(colormapRGB3D.children[i]);
-    }
-
   }
-
-
-  ////////////////////////////////////////////////////////
-  // draw Colormap 2
-
-
-  if (bandSketch2.getBandLength() > 0) {
-
-    //if(drawInterpolationLine){
-    drawInterpolationLineInRGB(colormapTmp2, colorspaceContexRG, colorspaceContexRB, colorspaceContexBG, xWidth, yHeight, xStart, yStart, true, intervalSize);
-    //}
-    //else{
-    //  drawInterpolationLineInRGB(colormapTmp, colorspaceContexRG,colorspaceContexRB,colorspaceContexBG,xWidth,yHeight,xStart,yStart, true,interactionIntervalSize);
-    //}
-
-    /////////////////////////////////////////////////////////////////
-
-    var twinStarted = false;
-    var leftStarted = false;
-    var xPos, yPos, xPos2, yPos2, tmpColor, tmpColor2;
-
-    for (var i = 0; i < colormapTmp2.getNumColors(); i++) {
-
-      tmpColor = colormapTmp2.getRGBColor(i);
-
-      var tmpKey = colormapTmp2.getKey(i);
-
-      switch (tmpKey) {
-        case "nil key":
-
-          break;
-        case "twin key":
-          if (twinStarted == true) {
-            twinStarted = false;
-
-            // RG
-
-            xPos = tmpColor.getRValue() * xWidth + xStart;
-            yPos = yStart - tmpColor.getGValue() * yHeight;
-
-            drawElement(colormapTmp2.getRGBColor(i).getRGBStringAplha(alphaVal), colorspaceContexRG, xPos, yPos, -2, true);
-
-
-            // RB
-
-            xPos = tmpColor.getRValue() * xWidth + xStart;
-            yPos = yStart - tmpColor.getBValue() * yHeight;
-
-            drawElement(colormapTmp2.getRGBColor(i).getRGBStringAplha(alphaVal), colorspaceContexRB, xPos, yPos, -2, true);
-
-
-            // BG
-
-            xPos = tmpColor.getBValue() * xWidth + xStart;
-            yPos = yStart - tmpColor.getGValue() * yHeight;
-
-            drawElement(colormapTmp2.getRGBColor(i).getRGBStringAplha(alphaVal), colorspaceContexBG, xPos, yPos, -2, true);
-
-
-            if (showSpace == 1) {
-
-              var x1 = tmpColor.getRValue() * 255 - 128;
-              var y1 = tmpColor.getGValue() * 255 - 128;
-              var z1 = tmpColor.getBValue() * 255 - 128;
-
-
-              draw3DElement(tmpColor.getHexString(), x1, y1, z1, -2, true);
-            }
-
-            break;
-
-          } else {
-            var tmpKey2 = colormapTmp2.getKey(i - 1);
-            var drawCircle = true;
-            if (tmpKey2 === "nil key" || tmpKey2 === "left key" || tmpKey2 === "interval left key")
-              drawCircle = false;
-
-
-            // RG
-
-            xPos = tmpColor.getRValue() * xWidth + xStart;
-            yPos = yStart - tmpColor.getGValue() * yHeight;
-
-            drawElement(colormapTmp2.getRGBColor(i).getRGBStringAplha(alphaVal), colorspaceContexRG, xPos, yPos, -2, drawCircle);
-
-
-            // RB
-
-            xPos = tmpColor.getRValue() * xWidth + xStart;
-            yPos = yStart - tmpColor.getBValue() * yHeight;
-
-            drawElement(colormapTmp2.getRGBColor(i).getRGBStringAplha(alphaVal), colorspaceContexRB, xPos, yPos, -2, drawCircle);
-
-            // BG
-
-            xPos = tmpColor.getBValue() * xWidth + xStart;
-            yPos = yStart - tmpColor.getGValue() * yHeight;
-
-            drawElement(colormapTmp2.getRGBColor(i).getRGBStringAplha(alphaVal), colorspaceContexBG, xPos, yPos, -2, drawCircle);
-
-
-
-            if (showSpace == 1) {
-
-              var x1 = tmpColor.getRValue() * 255 - 128;
-              var y1 = tmpColor.getGValue() * 255 - 128;
-              var z1 = tmpColor.getBValue() * 255 - 128;
-              draw3DElement(tmpColor.getHexString(), x1, y1, z1, -2, drawCircle);
-            }
-
-
-            twinStarted = true;
-
-
-            break;
-          }
-        case "left key":
-          if (leftStarted == true) {
-
-            leftStarted = false;
-            break;
-
-          } else {
-            var tmpKey2 = colormapTmp2.getKey(i - 1);
-            var drawCircle = true;
-            if (tmpKey2 === "nil key" || tmpKey2 === "left key" || tmpKey2 === "interval left key")
-              drawCircle = false;
-
-            // RG
-
-            xPos = tmpColor.getRValue() * xWidth + xStart;
-            yPos = yStart - tmpColor.getGValue() * yHeight;
-
-            drawElement(colormapTmp2.getRGBColor(i).getRGBStringAplha(alphaVal), colorspaceContexRG, xPos, yPos, -2, drawCircle);
-
-
-
-            // RB
-
-            xPos = tmpColor.getRValue() * xWidth + xStart;
-            yPos = yStart - tmpColor.getBValue() * yHeight;
-
-            drawElement(colormapTmp2.getRGBColor(i).getRGBStringAplha(alphaVal), colorspaceContexRB, xPos, yPos, -2, drawCircle);
-
-
-            // BG
-
-            xPos = tmpColor.getBValue() * xWidth + xStart;
-            yPos = yStart - tmpColor.getGValue() * yHeight;
-
-            drawElement(colormapTmp2.getRGBColor(i).getRGBStringAplha(alphaVal), colorspaceContexBG, xPos, yPos, -2, drawCircle);
-
-            if (showSpace == 1) {
-
-              var x1 = tmpColor.getRValue() * 255 - 128;
-              var y1 = tmpColor.getGValue() * 255 - 128;
-              var z1 = tmpColor.getBValue() * 255 - 128;
-
-              draw3DElement(tmpColor.getHexString(), x1, y1, z1, -2, drawCircle);
-            }
-
-
-
-
-
-            leftStarted = true;
-            break;
-          }
-
-        default:
-          // dual Key, right key,
-
-
-          // RG
-
-          xPos = tmpColor.getRValue() * xWidth + xStart;
-          yPos = yStart - tmpColor.getGValue() * yHeight;
-
-          drawElement(colormapTmp2.getRGBColor(i).getRGBStringAplha(alphaVal), colorspaceContexRG, xPos, yPos, -2, true);
-
-
-
-          // RB
-
-          xPos = tmpColor.getRValue() * xWidth + xStart;
-          yPos = yStart - tmpColor.getBValue() * yHeight;
-
-          drawElement(colormapTmp2.getRGBColor(i).getRGBStringAplha(alphaVal), colorspaceContexRB, xPos, yPos, -2, true);
-
-
-          // BG
-
-          xPos = tmpColor.getBValue() * xWidth + xStart;
-          yPos = yStart - tmpColor.getGValue() * yHeight;
-
-          drawElement(colormapTmp2.getRGBColor(i).getRGBStringAplha(alphaVal), colorspaceContexBG, xPos, yPos, -2, true);
-
-
-          if (showSpace == 1) {
-
-            var x1 = tmpColor.getRValue() * 255 - 128;
-            var y1 = tmpColor.getGValue() * 255 - 128;
-            var z1 = tmpColor.getBValue() * 255 - 128;
-
-            draw3DElement(tmpColor.getHexString(), x1, y1, z1, -2, true);
-
-          }
-      }
-
-    }
-
-  }
-
-
-
-  ////////////////////////////////////////////////////////
-  // draw Colormap 1
-  if (bandSketch.getBandLength() > 0) {
-
-    //if(drawInterpolationLine){
-    drawInterpolationLineInRGB(colormapTmp, colorspaceContexRG, colorspaceContexRB, colorspaceContexBG, xWidth, yHeight, xStart, yStart, false, intervalSize);
-    //}
-    //else{
-    //  drawInterpolationLineInRGB(colormapTmp, colorspaceContexRG,colorspaceContexRB,colorspaceContexBG,xWidth,yHeight,xStart,yStart,false,interactionIntervalSize);
-    //}
-    /////////////////////////////////////////////////////////////////
-
-    var twinStarted = false;
-    var leftStarted = false;
-    var xPos, yPos, xPos2, yPos2, tmpColor, tmpColor2;
-    var tmpArray = [];
-    var tmpArray2 = [];
-    for (var i = 0; i < colormapTmp.getNumColors(); i++) {
-
-      tmpColor = colormapTmp.getRGBColor(i);
-
-      var tmpKey = colormapTmp.getKey(i);
-      tmpArray = [-1, -1, -1];
-      tmpArray2 = [-1, -1, -1];
-      switch (tmpKey) {
-        case "nil key":
-
-          //// for mouse events: nil key is not important
-          /*spaceElementsXPos.push(tmpArray);
-          spaceElementsYPos.push(tmpArray2);
-          spaceElementsType.push(false);
-          spaceElementsKey.push("nil key");*/
-
-          break;
-        case "twin key":
-          if (twinStarted == true) {
-            twinStarted = false;
-
-            // RG
-
-            xPos = tmpColor.getRValue() * xWidth + xStart;
-            yPos = yStart - tmpColor.getGValue() * yHeight;
-
-            drawElement(tmpColor.getRGBStringAplha(alphaVal), colorspaceContexRG, xPos, yPos, i, true);
-
-            tmpArray[0] = xPos;
-            tmpArray2[0] = yPos;
-
-            // RB
-
-            xPos = tmpColor.getRValue() * xWidth + xStart;
-            yPos = yStart - tmpColor.getBValue() * yHeight;
-            drawElement(tmpColor.getRGBStringAplha(alphaVal), colorspaceContexRB, xPos, yPos, i, true);
-
-            tmpArray[1] = xPos;
-            tmpArray2[1] = yPos;
-
-            // BG
-
-            xPos = tmpColor.getBValue() * xWidth + xStart;
-            yPos = yStart - tmpColor.getGValue() * yHeight;
-
-            drawElement(tmpColor.getRGBStringAplha(alphaVal), colorspaceContexBG, xPos, yPos, i, true);
-
-            tmpArray[2] = xPos;
-            tmpArray2[2] = yPos;
-
-            //// for mouse events: twin key second = circle
-            /*spaceElementsXPos.push(tmpArray);
-            spaceElementsYPos.push(tmpArray2);
-            spaceElementsType.push(true);
-            spaceElementsKey.push("twin key2");*/
-
-
-            if (showSpace == 1) {
-
-              var x1 = tmpColor.getRValue() * 255 - 128;
-              var y1 = tmpColor.getGValue() * 255 - 128;
-              var z1 = tmpColor.getBValue() * 255 - 128;
-              draw3DElement(tmpColor.getHexString(), x1, y1, z1, i, true);
-            }
-
-            break;
-
-          } else {
-            var tmpKey2 = colormapTmp.getKey(i - 1);
-            var drawCircle = true;
-            if (tmpKey2 === "nil key" || tmpKey2 === "left key")
-              drawCircle = false;
-
-
-            // RG
-
-            xPos = tmpColor.getRValue() * xWidth + xStart;
-            yPos = yStart - tmpColor.getGValue() * yHeight;
-
-
-            drawElement(tmpColor.getRGBStringAplha(alphaVal), colorspaceContexRG, xPos, yPos, i, drawCircle);
-
-            tmpArray[0] = xPos;
-            tmpArray2[0] = yPos;
-
-            // RB
-
-            xPos = tmpColor.getRValue() * xWidth + xStart;
-            yPos = yStart - tmpColor.getBValue() * yHeight;
-
-
-            drawElement(tmpColor.getRGBStringAplha(alphaVal), colorspaceContexRB, xPos, yPos, i, drawCircle);
-
-            tmpArray[1] = xPos;
-            tmpArray2[1] = yPos;
-
-            // BG
-
-            xPos = tmpColor.getBValue() * xWidth + xStart;
-            yPos = yStart - tmpColor.getGValue() * yHeight;
-
-
-            drawElement(tmpColor.getRGBStringAplha(alphaVal), colorspaceContexBG, xPos, yPos, i, drawCircle);
-
-            tmpArray[2] = xPos;
-            tmpArray2[2] = yPos;
-
-            //// for mouse events: twin key second = circle
-            /*spaceElementsXPos.push(tmpArray);
-            spaceElementsYPos.push(tmpArray2);
-            if (drawCircle)
-              spaceElementsType.push(true);
-            else
-              spaceElementsType.push(false);
-            spaceElementsKey.push("twin key1");*/
-
-            if (showSpace == 1) {
-
-              var x1 = tmpColor.getRValue() * 255 - 128;
-              var y1 = tmpColor.getGValue() * 255 - 128;
-              var z1 = tmpColor.getBValue() * 255 - 128;
-
-              draw3DElement(tmpColor.getHexString(), x1, y1, z1, i, drawCircle);
-            }
-
-
-            twinStarted = true;
-
-
-            break;
-          }
-        case "left key":
-          if (leftStarted == true) {
-
-            // do nothing
-            /*spaceElementsXPos.push(tmpArray);
-            spaceElementsYPos.push(tmpArray2);
-            spaceElementsType.push(false);
-            spaceElementsKey.push("left key2");*/
-
-            leftStarted = false;
-            break;
-
-          } else {
-            var tmpKey2 = colormapTmp.getKey(i - 1);
-            var drawCircle = true;
-            if (tmpKey2 === "nil key" || tmpKey2 === "left key")
-              drawCircle = false;
-
-            // RG
-
-            xPos = tmpColor.getRValue() * xWidth + xStart;
-            yPos = yStart - tmpColor.getGValue() * yHeight;
-
-            drawElement(tmpColor.getRGBStringAplha(alphaVal), colorspaceContexRG, xPos, yPos, i, drawCircle);
-
-            tmpArray[0] = xPos;
-            tmpArray2[0] = yPos;
-
-            // RB
-
-            xPos = tmpColor.getRValue() * xWidth + xStart;
-            yPos = yStart - tmpColor.getBValue() * yHeight;
-
-            drawElement(tmpColor.getRGBStringAplha(alphaVal), colorspaceContexRB, xPos, yPos, i, drawCircle);
-
-            tmpArray[1] = xPos;
-            tmpArray2[1] = yPos;
-
-            // BG
-
-            xPos = tmpColor.getBValue() * xWidth + xStart;
-            yPos = yStart - tmpColor.getGValue() * yHeight;
-
-            drawElement(tmpColor.getRGBStringAplha(alphaVal), colorspaceContexBG, xPos, yPos, i, drawCircle);
-
-            tmpArray[2] = xPos;
-            tmpArray2[2] = yPos;
-
-            if (showSpace == 1) {
-
-              var x1 = tmpColor.getRValue() * 255 - 128;
-              var y1 = tmpColor.getGValue() * 255 - 128;
-              var z1 = tmpColor.getBValue() * 255 - 128;
-
-              draw3DElement(tmpColor.getHexString(), x1, y1, z1, i, drawCircle);
-            }
-
-
-
-
-
-            //// for mouse events: twin key second = circle
-            /*spaceElementsXPos.push(tmpArray);
-            spaceElementsYPos.push(tmpArray2);
-            if (drawCircle)
-              spaceElementsType.push(true);
-            else
-              spaceElementsType.push(false);
-            spaceElementsKey.push("left key1");*/
-
-            leftStarted = true;
-            break;
-          }
-
-        default:
-          // dual Key, right key,
-
-
-          // RG
-
-          xPos = tmpColor.getRValue() * xWidth + xStart;
-          yPos = yStart - tmpColor.getGValue() * yHeight;
-
-          drawElement(tmpColor.getRGBStringAplha(alphaVal), colorspaceContexRG, xPos, yPos, i, true);
-
-          tmpArray[0] = xPos;
-          tmpArray2[0] = yPos;
-
-          // RB
-
-          xPos = tmpColor.getRValue() * xWidth + xStart;
-          yPos = yStart - tmpColor.getBValue() * yHeight;
-
-          drawElement(tmpColor.getRGBStringAplha(alphaVal), colorspaceContexRB, xPos, yPos, i, true);
-
-          tmpArray[1] = xPos;
-          tmpArray2[1] = yPos;
-
-          // BG
-
-          xPos = tmpColor.getBValue() * xWidth + xStart;
-          yPos = yStart - tmpColor.getGValue() * yHeight;
-
-          drawElement(tmpColor.getRGBStringAplha(alphaVal), colorspaceContexBG, xPos, yPos, i, true);
-
-          tmpArray[2] = xPos;
-          tmpArray2[2] = yPos;
-
-          //// for mouse events: twin key second = circle
-          /*spaceElementsXPos.push(tmpArray);
-          spaceElementsYPos.push(tmpArray2);
-          spaceElementsType.push(true);
-          spaceElementsKey.push(tmpKey);*/
-
-          if (showSpace == 1) {
-
-            var x1 = tmpColor.getRValue() * 255 - 128;
-            var y1 = tmpColor.getGValue() * 255 - 128;
-            var z1 = tmpColor.getBValue() * 255 - 128;
-            draw3DElement(tmpColor.getHexString(), x1, y1, z1, i, true);
-
-          }
-      }
-
-    }
-
-  }
-
-
 
 }
 

@@ -20,7 +20,7 @@ function drawPathEditPath(){
         //hueInit("id_ModiyCourseHueBackground");
         document.getElementById("id_setValueRange").value = 100;
 
-        drawcolormap_hueSpace(true, true, true); //drawcolormap_hueSpace(globalColormap1, "id_workcanvasAnalyseHue");
+        drawcolormap_hueSpace(true, true, true);
 
       break;
       case "lab": case "din99":
@@ -29,7 +29,7 @@ function drawPathEditPath(){
         document.getElementById("id_hueValueOptions").style.display = "initial";
         document.getElementById("id_setValueRange").value = 65;
 
-        drawcolormap_hueSpace(true, true, true); //drawcolormap_hueSpace(globalColormap1, "id_workcanvasAnalyseHue");
+        drawcolormap_hueSpace(true, true, true);
 
       break;
       default:
@@ -48,34 +48,14 @@ function changeValueRange(){
         document.getElementById('id_setValueRange').value = 100;
       }
 
-      hueInit("id_ModiyCourseHueBackground");
-      if (browserCanWorker==false) {
-        drawcolormap_hueSpace(globalCMS1, "id_ModiyCourseHueBackground",true, true);
-      }
-      else {
-        parallelDrawBackground("id_ModiyCourseHueBackground", globalCMS1);
-        parallelDrawPath("id_ModiyCourseHueBackground"+"2", globalCMS1, false);
-        parallelDrawElements("id_ModiyCourseHueBackground"+"3", globalCMS1, false);
-      }
+      drawcolormap_hueSpace(true, true, true);
 }
 
 function modifyColormapRGBPossible(){
   if(document.getElementById("id_checkboxRGB").checked==true){
     orderColorSketch('rgb');
-    bandSketch.colormap2Sketch(globalCMS1);
-
-      if (browserCanWorker==false) {
-        drawcolormap_hueSpace(globalCMS1, "id_ModiyCourseHueBackground",true, true);
-      }
-      else {
-        parallelDrawBackground("id_ModiyCourseHueBackground", globalCMS1);
-        parallelDrawPath("id_ModiyCourseHueBackground"+"2", globalCMS1, false);
-        parallelDrawElements("id_ModiyCourseHueBackground"+"3", globalCMS1, false);
-      }
+    drawcolormap_hueSpace(true, true, true);
   }
-
-
-
 }
 
 function increaseModify3DDiv(){
