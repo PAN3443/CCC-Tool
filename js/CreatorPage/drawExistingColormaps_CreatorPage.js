@@ -157,8 +157,8 @@ function drawDoubleBands(){
                           data=createScaledBand(data, bandWidth, bandWidth, resolutionY, tmpC3.calcLABColor(), tmpC4.calcLABColor(), resolutionX);
                       break;
                       case "din99":
-                          data=createScaledBand(data, 0, bandWidth, resolutionY, tmpC1.calcDIN99Color(kE,kCH), tmpC2.calcDIN99Color(kE,kCH), resolutionX);
-                          data=createScaledBand(data, bandWidth, bandWidth, resolutionY, tmpC3.calcDIN99Color(kE,kCH), tmpC4.calcDIN99Color(kE,kCH), resolutionX);
+                          data=createScaledBand(data, 0, bandWidth, resolutionY, tmpC1.calcDIN99Color(), tmpC2.calcDIN99Color(), resolutionX);
+                          data=createScaledBand(data, bandWidth, bandWidth, resolutionY, tmpC3.calcDIN99Color(), tmpC4.calcDIN99Color(), resolutionX);
                       break;
                       default:
                           console.log("Error at the updateCreatorBand function");
@@ -198,8 +198,8 @@ function drawDoubleBands(){
                       canvasData=createScaledBand(canvasData, bandWidth, bandWidth, resolutionY, tmpC3RGB.calcLABColor(), tmpC4RGB.calcLABColor(), resolutionX);
                   break;
                   case "din99":
-                      canvasData=createScaledBand(canvasData, 0, bandWidth, resolutionY, tmpC1RGB.calcDIN99Color(kE,kCH), tmpC2RGB.calcDIN99Color(kE,kCH), resolutionX);
-                      canvasData=createScaledBand(canvasData, bandWidth, bandWidth, resolutionY, tmpC3RGB.calcDIN99Color(kE,kCH), tmpC4RGB.calcDIN99Color(kE,kCH), resolutionX);
+                      canvasData=createScaledBand(canvasData, 0, bandWidth, resolutionY, tmpC1RGB.calcDIN99Color(), tmpC2RGB.calcDIN99Color(), resolutionX);
+                      canvasData=createScaledBand(canvasData, bandWidth, bandWidth, resolutionY, tmpC3RGB.calcDIN99Color(), tmpC4RGB.calcDIN99Color(), resolutionX);
                   break;
                   default:
                       console.log("Error at the updateCreatorBand function");
@@ -295,9 +295,9 @@ function drawTripleBands(){
                           canvasData=createScaledBand(canvasData, bandWidth*2, bandWidth, resolutionY, tmpC5RGB.calcLABColor(), tmpC6RGB.calcLABColor(), resolutionX);
                       break;
                       case "din99":
-                          canvasData=createScaledBand(canvasData, 0, bandWidth, resolutionY, tmpC1RGB.calcDIN99Color(kE,kCH), tmpC2RGB.calcDIN99Color(kE,kCH), resolutionX);
-                          canvasData=createScaledBand(canvasData, bandWidth, bandWidth, resolutionY, tmpC3RGB.calcDIN99Color(kE,kCH), tmpC4RGB.calcDIN99Color(kE,kCH), resolutionX);
-                          canvasData=createScaledBand(canvasData, bandWidth*2, bandWidth, resolutionY, tmpC5RGB.calcDIN99Color(kE,kCH), tmpC6RGB.calcDIN99Color(kE,kCH), resolutionX);
+                          canvasData=createScaledBand(canvasData, 0, bandWidth, resolutionY, tmpC1RGB.calcDIN99Color(), tmpC2RGB.calcDIN99Color(), resolutionX);
+                          canvasData=createScaledBand(canvasData, bandWidth, bandWidth, resolutionY, tmpC3RGB.calcDIN99Color(), tmpC4RGB.calcDIN99Color(), resolutionX);
+                          canvasData=createScaledBand(canvasData, bandWidth*2, bandWidth, resolutionY, tmpC5RGB.calcDIN99Color(), tmpC6RGB.calcDIN99Color(), resolutionX);
                       break;
                       default:
                           console.log("Error at the updateCreatorBand function");
@@ -347,9 +347,9 @@ function drawTripleBands(){
                       canvasData=createScaledBand(canvasData, bandWidth*2, bandWidth, resolutionY, tmpC5RGB.calcLABColor(), tmpC6RGB.calcLABColor(), resolutionX);
                   break;
                   case "din99":
-                      canvasData=createScaledBand(canvasData, 0, bandWidth, resolutionY, tmpC1RGB.calcDIN99Color(kE,kCH), tmpC2RGB.calcDIN99Color(kE,kCH), resolutionX);
-                      canvasData=createScaledBand(canvasData, bandWidth, bandWidth, resolutionY, tmpC3RGB.calcDIN99Color(kE,kCH), tmpC4RGB.calcDIN99Color(kE,kCH), resolutionX);
-                      canvasData=createScaledBand(canvasData, bandWidth*2, bandWidth, resolutionY, tmpC5RGB.calcDIN99Color(kE,kCH), tmpC6RGB.calcDIN99Color(kE,kCH), resolutionX);
+                      canvasData=createScaledBand(canvasData, 0, bandWidth, resolutionY, tmpC1RGB.calcDIN99Color(), tmpC2RGB.calcDIN99Color(), resolutionX);
+                      canvasData=createScaledBand(canvasData, bandWidth, bandWidth, resolutionY, tmpC3RGB.calcDIN99Color(), tmpC4RGB.calcDIN99Color(), resolutionX);
+                      canvasData=createScaledBand(canvasData, bandWidth*2, bandWidth, resolutionY, tmpC5RGB.calcDIN99Color(), tmpC6RGB.calcDIN99Color(), resolutionX);
                   break;
                   default:
                       console.log("Error at the updateCreatorBand function");
@@ -453,10 +453,10 @@ function drawQuadrupleBands(){
                          canvasData=createScaledBand(canvasData, bandWidth*3, bandWidth, resolutionY, tmpC7RGB.calcLABColor(), tmpC8RGB.calcLABColor(), resolutionX);
                      break;
                      case "din99":
-                         canvasData=createScaledBand(canvasData, 0, bandWidth, resolutionY, tmpC1RGB.calcDIN99Color(kE,kCH), tmpC2RGB.calcDIN99Color(kE,kCH), resolutionX);
-                         canvasData=createScaledBand(canvasData, bandWidth, bandWidth, resolutionY, tmpC3RGB.calcDIN99Color(kE,kCH), tmpC4RGB.calcDIN99Color(kE,kCH), resolutionX);
-                         canvasData=createScaledBand(canvasData, bandWidth*2, bandWidth, resolutionY, tmpC5RGB.calcDIN99Color(kE,kCH), tmpC6RGB.calcDIN99Color(kE,kCH), resolutionX);
-                         canvasData=createScaledBand(canvasData, bandWidth*3, bandWidth, resolutionY, tmpC7RGB.calcDIN99Color(kE,kCH), tmpC8RGB.calcDIN99Color(kE,kCH), resolutionX);
+                         canvasData=createScaledBand(canvasData, 0, bandWidth, resolutionY, tmpC1RGB.calcDIN99Color(), tmpC2RGB.calcDIN99Color(), resolutionX);
+                         canvasData=createScaledBand(canvasData, bandWidth, bandWidth, resolutionY, tmpC3RGB.calcDIN99Color(), tmpC4RGB.calcDIN99Color(), resolutionX);
+                         canvasData=createScaledBand(canvasData, bandWidth*2, bandWidth, resolutionY, tmpC5RGB.calcDIN99Color(), tmpC6RGB.calcDIN99Color(), resolutionX);
+                         canvasData=createScaledBand(canvasData, bandWidth*3, bandWidth, resolutionY, tmpC7RGB.calcDIN99Color(), tmpC8RGB.calcDIN99Color(), resolutionX);
                      break;
                      default:
                          console.log("Error at the updateCreatorBand function");
@@ -510,10 +510,10 @@ function drawQuadrupleBands(){
                      canvasData=createScaledBand(canvasData, bandWidth*3, bandWidth, resolutionY, tmpC7RGB.calcLABColor(), tmpC8RGB.calcLABColor(), resolutionX);
                  break;
                  case "din99":
-                     canvasData=createScaledBand(canvasData, 0, bandWidth, resolutionY, tmpC1RGB.calcDIN99Color(kE,kCH), tmpC2RGB.calcDIN99Color(kE,kCH), resolutionX);
-                     canvasData=createScaledBand(canvasData, bandWidth, bandWidth, resolutionY, tmpC3RGB.calcDIN99Color(kE,kCH), tmpC4RGB.calcDIN99Color(kE,kCH), resolutionX);
-                     canvasData=createScaledBand(canvasData, bandWidth*2, bandWidth, resolutionY, tmpC5RGB.calcDIN99Color(kE,kCH), tmpC6RGB.calcDIN99Color(kE,kCH), resolutionX);
-                     canvasData=createScaledBand(canvasData, bandWidth*3, bandWidth, resolutionY, tmpC7RGB.calcDIN99Color(kE,kCH), tmpC8RGB.calcDIN99Color(kE,kCH), resolutionX);
+                     canvasData=createScaledBand(canvasData, 0, bandWidth, resolutionY, tmpC1RGB.calcDIN99Color(), tmpC2RGB.calcDIN99Color(), resolutionX);
+                     canvasData=createScaledBand(canvasData, bandWidth, bandWidth, resolutionY, tmpC3RGB.calcDIN99Color(), tmpC4RGB.calcDIN99Color(), resolutionX);
+                     canvasData=createScaledBand(canvasData, bandWidth*2, bandWidth, resolutionY, tmpC5RGB.calcDIN99Color(), tmpC6RGB.calcDIN99Color(), resolutionX);
+                     canvasData=createScaledBand(canvasData, bandWidth*3, bandWidth, resolutionY, tmpC7RGB.calcDIN99Color(), tmpC8RGB.calcDIN99Color(), resolutionX);
                  break;
                  default:
                      console.log("Error at the updateCreatorBand function");

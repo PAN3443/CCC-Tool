@@ -561,7 +561,7 @@ function drawModifyPreview(){
             color2=editColor1.calcLABColor();
             break;
           case "hsv":
-            color2=editColor1.calcDIN99Color(kE,kCH);
+            color2=editColor1.calcDIN99Color();
             break;
           default:
             color2=editColor1;
@@ -578,7 +578,7 @@ function drawModifyPreview(){
             color1=editColor2.calcLABColor();
             break;
           case "hsv":
-            color1=editColor2.calcDIN99Color(kE,kCH);
+            color1=editColor2.calcDIN99Color();
             break;
           default:
             color1=editColor2;

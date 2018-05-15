@@ -101,10 +101,10 @@ class classColor_HSV{
         return tmpRGB.calcLABColor();
     }
 
-    calcDIN99Color(kE,kCH){
+    calcDIN99Color(){
         var tmpRGB = this.calcRGBColor();
 
-        return tmpRGB.calcDIN99Color(kE,kCH);
+        return tmpRGB.calcDIN99Color();
     }
 
     calcRGBColor(){

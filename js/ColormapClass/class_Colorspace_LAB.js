@@ -8,9 +8,6 @@ class classColor_LAB{
         this.lValue = lValue;
         this.aValue = aValue;
         this.bValue = bValue;
-        this.ref_X = 94.811;
-        this.ref_Y = 100.000;
-        this.ref_Z = 107.304;
         this.colorType = "lab"
       }
 
@@ -128,9 +125,9 @@ class classColor_LAB{
                 var_Z = ( var_Z - 16.0 / 116.0 ) / 7.787;
             }
 
-            var_X = (var_X * this.ref_X);
-            var_Y = (var_Y * this.ref_Y);
-            var_Z = (var_Z * this.ref_Z);
+            var_X = (var_X * cielab_ref_X);
+            var_Y = (var_Y * cielab_ref_Y);
+            var_Z = (var_Z * cielab_ref_Z);
 
             //    Calc RGB
                 var var_X = var_X / 100.0;
@@ -222,9 +219,9 @@ class classColor_LAB{
                 var_Z = ( var_Z - 16.0 / 116.0 ) / 7.787;
             }
 
-            var_X = (var_X * this.ref_X);
-            var_Y = (var_Y * this.ref_Y);
-            var_Z = (var_Z * this.ref_Z);
+            var_X = (var_X * cielab_ref_X);
+            var_Y = (var_Y * cielab_ref_Y);
+            var_Z = (var_Z * cielab_ref_Z);
 
             //    Calc RGB
                 var var_X = var_X / 100.0;
@@ -265,11 +262,11 @@ class classColor_LAB{
         return tmpRGBColor.calcHSVColor();
       }
 
-      calcDIN99Color(kE,kCH){
+      calcDIN99Color(){
 
         var valueL99, valueA99, valueB99;
         var lScale = 100/Math.log(139/100.0); // = 303.67
-        valueL99 = lScale/kE*Math.log(1+.0039*this.lValue);
+        valueL99 = lScale/din99_kE*Math.log(1+.0039*this.lValue);
 
         if (this.aValue==0.0 && this.bValue==0.0) {
             valueA99 = 0.0;
@@ -279,7 +276,7 @@ class classColor_LAB{
             var e = this.aValue*Math.cos(angle) + this.bValue*Math.sin(angle);
             var f = 0.83*(this.bValue*Math.cos(angle) - this.aValue*Math.sin(angle));
             var G = Math.sqrt(Math.pow(e,2)+Math.pow(f,2));
-            var C99 = Math.log(1+0.075*G)/(0.0435*kCH*kE);
+            var C99 = Math.log(1+0.075*G)/(0.0435*din99_kCH*din99_kE);
             var hef = Math.atan2(f,e);
             var h99 = hef+angle;
             valueA99 = C99 * Math.cos(h99);

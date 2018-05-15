@@ -619,6 +619,14 @@ function drawElements_HSV_LAB_DIN99(isCompareMap) {
     globalCMS2.calcIntervalColors(intervalSize, colorspaceModus);
   }
 
+  var csModus=analyzeColorspaceModus;
+  if((analyzeColorspaceModus=="lab" || analyzeColorspaceModus=="din99") && showSideID==1 && document.getElementById("id_checkboxRGB").checked==true){
+    if(analyzeColorspaceModus=="lab")
+    csModus = "lab_rgb_possible";
+    if(analyzeColorspaceModus=="din99")
+    csModus = "din99_rgb_possible";
+  }
+
   for (var j = 0; j < border; j++) {
     var workCMS;
     switch (j) {
@@ -640,7 +648,8 @@ function drawElements_HSV_LAB_DIN99(isCompareMap) {
           break;
         case "twin key":
 
-          tmpColor = workCMS.getLeftKeyColor(i, analyzeColorspaceModus);
+            tmpColor = workCMS.getLeftKeyColor(i, csModus);
+
 
           var drawCircle = true;
 
@@ -655,7 +664,7 @@ function drawElements_HSV_LAB_DIN99(isCompareMap) {
           ////////////////////////////////////////////////////////////////
           /////// Right Color
 
-          var tmpColor2 = workCMS.getRightKeyColor(i, analyzeColorspaceModus);
+          var tmpColor2 = workCMS.getRightKeyColor(i, csModus);
 
           drawHueElement(tmpColor2, xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, true, colorspaceContex, i, 1);
 
@@ -684,7 +693,7 @@ function drawElements_HSV_LAB_DIN99(isCompareMap) {
           ////////////////////////////////////////////////////////////////
           /////// left Color
 
-          tmpColor = workCMS.getLeftKeyColor(i, analyzeColorspaceModus);
+            tmpColor = workCMS.getLeftKeyColor(i, csModus);
 
           drawHueElement(tmpColor, xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, drawCircle, colorspaceContex, i, 0);
 
@@ -706,7 +715,7 @@ function drawElements_HSV_LAB_DIN99(isCompareMap) {
 
         case "right key":
 
-          tmpColor = workCMS.getRightKeyColor(i, analyzeColorspaceModus); // right color because of right key
+            tmpColor = workCMS.getRightKeyColor(i, csModus);
 
           drawHueElement(tmpColor, xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, true, colorspaceContex, i, 1);
 
@@ -719,7 +728,7 @@ function drawElements_HSV_LAB_DIN99(isCompareMap) {
         default:
           // dual Key
 
-          tmpColor = workCMS.getRightKeyColor(i, analyzeColorspaceModus); // right color because of right key
+          tmpColor = workCMS.getRightKeyColor(i, csModus);
 
           drawHueElement(tmpColor, xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, true, colorspaceContex, i, 2);
 
@@ -820,13 +829,22 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap, intervalSize) {
       default:
     }
 
+    var csModus=analyzeColorspaceModus;
+    if((analyzeColorspaceModus=="lab" || analyzeColorspaceModus=="din99") && showSideID==1 && document.getElementById("id_checkboxRGB").checked==true){
+      if(analyzeColorspaceModus=="lab")
+      csModus = "lab_rgb_possible";
+      if(analyzeColorspaceModus=="din99")
+      csModus = "din99_rgb_possible";
+    }
+
+
     for (var i = 0; i < workCMS.getKeyLength() - 1; i++) {
 
       switch (workCMS.getKeyType(i)) {
         case "nil key":
           //drawHueLine(workCMS.getLeftKeyColor(i,analyzeColorspaceModus),workCMS.getLeftKeyColor(i+1,analyzeColorspaceModus),xWidth,yHeight,xStart,yStart,xEnd,yEnd,colorspaceRadius, colorspaceCenterY, colorspaceCenterX, isDashed,compareColor,colorspaceContex);
-          drawVLine(workCMS.getLeftKeyColor(i + 1, analyzeColorspaceModus),
-            workCMS.getLeftKeyColor(i + 1, analyzeColorspaceModus),
+          drawVLine(workCMS.getLeftKeyColor(i + 1, csModus),
+            workCMS.getLeftKeyColor(i + 1, csModus),
             workCMS.getRefPosition(i),
             workCMS.getRefPosition(i + 1),
             workCMS.getRefPosition(0),
@@ -835,10 +853,10 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap, intervalSize) {
           break;
         case "twin key":
           var intervalIndexA = workCMS.getIntervalPositions(i);
-          drawHueLine(workCMS.getLeftKeyColor(i, analyzeColorspaceModus), workCMS.getRightKeyColor(i, analyzeColorspaceModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, true, compareColor, colorspaceContex);
-          drawHueLine(workCMS.getRightKeyColor(i, analyzeColorspaceModus), workCMS.getIntervalColor(intervalIndexA[0], analyzeColorspaceModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false, compareColor, colorspaceContex);
-          drawVLine(workCMS.getRightKeyColor(i, analyzeColorspaceModus),
-            workCMS.getIntervalColor(intervalIndexA[0], analyzeColorspaceModus),
+          drawHueLine(workCMS.getLeftKeyColor(i, analyzeColorspaceModus), workCMS.getRightKeyColor(i, csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, true, compareColor, colorspaceContex);
+          drawHueLine(workCMS.getRightKeyColor(i, csModus), workCMS.getIntervalColor(intervalIndexA[0], csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false, compareColor, colorspaceContex);
+          drawVLine(workCMS.getRightKeyColor(i, csModus),
+            workCMS.getIntervalColor(intervalIndexA[0], csModus),
             workCMS.getRefPosition(i),
             workCMS.getIntervalRef(intervalIndexA[0]),
             workCMS.getRefPosition(0),
@@ -846,9 +864,9 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap, intervalSize) {
             vPlotxStart, vPlotyStart, heigthVArea, plotwidth, false, compareColor, vPlotContex);
 
           for (var j = intervalIndexA[0]; j < intervalIndexA[1]; j++) {
-            drawHueLine(workCMS.getIntervalColor(j, analyzeColorspaceModus), workCMS.getIntervalColor(j + 1, analyzeColorspaceModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false, compareColor, colorspaceContex);
-            drawVLine(workCMS.getIntervalColor(j, analyzeColorspaceModus),
-              workCMS.getIntervalColor(j + 1, analyzeColorspaceModus),
+            drawHueLine(workCMS.getIntervalColor(j, csModus), workCMS.getIntervalColor(j + 1, csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false, compareColor, colorspaceContex);
+            drawVLine(workCMS.getIntervalColor(j, csModus),
+              workCMS.getIntervalColor(j + 1, csModus),
               workCMS.getIntervalRef(j),
               workCMS.getIntervalRef(j + 1),
               workCMS.getRefPosition(0),
@@ -857,9 +875,9 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap, intervalSize) {
           }
 
           if (workCMS.getIntervalisKey(intervalIndexA[1]) != true) {
-            drawHueLine(workCMS.getIntervalColor(intervalIndexA[1], analyzeColorspaceModus), workCMS.getLeftKeyColor(i + 1, analyzeColorspaceModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false, compareColor, colorspaceContex);
-            drawVLine(workCMS.getIntervalColor(intervalIndexA[1], analyzeColorspaceModus),
-              workCMS.getLeftKeyColor(i + 1, analyzeColorspaceModus),
+            drawHueLine(workCMS.getIntervalColor(intervalIndexA[1], csModus), workCMS.getLeftKeyColor(i + 1, csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false, compareColor, colorspaceContex);
+            drawVLine(workCMS.getIntervalColor(intervalIndexA[1], csModus),
+              workCMS.getLeftKeyColor(i + 1, csModus),
               workCMS.getIntervalRef(intervalIndexA[1]),
               workCMS.getRefPosition(i + 1),
               workCMS.getRefPosition(0),
@@ -869,9 +887,9 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap, intervalSize) {
 
           break;
         case "left key":
-          drawHueLine(workCMS.getLeftKeyColor(i, analyzeColorspaceModus), workCMS.getLeftKeyColor(i + 1, analyzeColorspaceModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, true, compareColor, colorspaceContex);
-          drawVLine(workCMS.getLeftKeyColor(i + 1, analyzeColorspaceModus),
-            workCMS.getLeftKeyColor(i + 1, analyzeColorspaceModus),
+          drawHueLine(workCMS.getLeftKeyColor(i, csModus), workCMS.getLeftKeyColor(i + 1, csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, true, compareColor, colorspaceContex);
+          drawVLine(workCMS.getLeftKeyColor(i + 1, csModus),
+            workCMS.getLeftKeyColor(i + 1, csModus),
             workCMS.getRefPosition(i),
             workCMS.getRefPosition(i + 1),
             workCMS.getRefPosition(0),
@@ -881,9 +899,9 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap, intervalSize) {
         default:
 
           var intervalIndexA = workCMS.getIntervalPositions(i);
-          drawHueLine(workCMS.getRightKeyColor(i, analyzeColorspaceModus), workCMS.getIntervalColor(intervalIndexA[0], analyzeColorspaceModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false, compareColor, colorspaceContex);
-          drawVLine(workCMS.getRightKeyColor(i, analyzeColorspaceModus),
-            workCMS.getIntervalColor(intervalIndexA[0], analyzeColorspaceModus),
+          drawHueLine(workCMS.getRightKeyColor(i, csModus), workCMS.getIntervalColor(intervalIndexA[0], csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false, compareColor, colorspaceContex);
+          drawVLine(workCMS.getRightKeyColor(i, csModus),
+            workCMS.getIntervalColor(intervalIndexA[0], csModus),
             workCMS.getRefPosition(i),
             workCMS.getIntervalRef(intervalIndexA[0]),
             workCMS.getRefPosition(0),
@@ -892,9 +910,9 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap, intervalSize) {
 
           for (var j = intervalIndexA[0]; j < intervalIndexA[1]; j++) {
 
-            drawHueLine(workCMS.getIntervalColor(j, analyzeColorspaceModus), workCMS.getIntervalColor(j + 1, analyzeColorspaceModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false, compareColor, colorspaceContex);
-            drawVLine(workCMS.getIntervalColor(j, analyzeColorspaceModus),
-              workCMS.getIntervalColor(j + 1, analyzeColorspaceModus),
+            drawHueLine(workCMS.getIntervalColor(j, csModus), workCMS.getIntervalColor(j + 1, csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false, compareColor, colorspaceContex);
+            drawVLine(workCMS.getIntervalColor(j, csModus),
+              workCMS.getIntervalColor(j + 1, csModus),
               workCMS.getIntervalRef(j),
               workCMS.getIntervalRef(j + 1),
               workCMS.getRefPosition(0),
@@ -903,9 +921,9 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap, intervalSize) {
           }
 
           if (workCMS.getIntervalisKey(intervalIndexA[1]) != true) {
-            drawHueLine(workCMS.getIntervalColor(intervalIndexA[1], analyzeColorspaceModus), workCMS.getLeftKeyColor(i + 1, analyzeColorspaceModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false, compareColor, colorspaceContex);
-            drawVLine(workCMS.getIntervalColor(intervalIndexA[1], analyzeColorspaceModus),
-              workCMS.getLeftKeyColor(i + 1, analyzeColorspaceModus),
+            drawHueLine(workCMS.getIntervalColor(intervalIndexA[1], csModus), workCMS.getLeftKeyColor(i + 1, csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false, compareColor, colorspaceContex);
+            drawVLine(workCMS.getIntervalColor(intervalIndexA[1], csModus),
+              workCMS.getLeftKeyColor(i + 1, csModus),
               workCMS.getIntervalRef(intervalIndexA[1]),
               workCMS.getRefPosition(i + 1),
               workCMS.getRefPosition(0),

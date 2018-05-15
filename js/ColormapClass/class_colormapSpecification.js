@@ -17,13 +17,6 @@ class class_CMS {
     this.intervalArray=[];
     this.intervalPosition=[];
 
-    /// color transformation settings (future work)
-    this.ref_X = 94.811;
-    this.ref_Y = 100.000;
-    this.ref_Z = 107.304;
-    this.kE =1;
-    this.kCH =1;
-
   }
 
   /////////////////////////////////

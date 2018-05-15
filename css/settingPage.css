@@ -1,0 +1,27 @@
+.class_settingRow{
+  width:100%;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+}
+
+.class_settingLabel{
+  margin:0px;
+  margin-left:10%;
+  width:15%;
+  text-align:left;
+  height:2.2vh;
+  line-height:2.2vh;
+  font-size:2vh;
+  vertical-align:middle;
+  margin-bottom:0px;
+  font-weight:bold;
+}
+
+.class_settingInput{
+  height:2.2vh;
+  line-height:2.2vh;
+  font-size:2vh;
+  text-align:center;
+  vertical-align: middle;
+  margin-left:5%;
+}

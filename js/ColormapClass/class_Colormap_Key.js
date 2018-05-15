@@ -5,13 +5,6 @@
 class class_Key{
     constructor(colorL, colorR, refPos) {
 
-        /// color transformation settings (future work)
-        this.ref_X = 94.811;
-        this.ref_Y = 100.000;
-        this.ref_Z = 107.304;
-        this.kE = 1;
-        this.kCH = 1;
-
         this.type = "";
         this.cL=[undefined,undefined,undefined,undefined];
         this.cR = [undefined,undefined,undefined,undefined];
@@ -37,19 +30,19 @@ class class_Key{
           this.cL[0]=color;
           this.cL[1]=color.calcHSVColor();
           this.cL[2]=color.calcLABColor();
-          this.cL[3]=color.calcDIN99Color(this.kE,this.kCH);
+          this.cL[3]=color.calcDIN99Color();
           break;
           case "hsv":
           this.cL[0]=color.calcRGBColor();
           this.cL[1]=color;
           this.cL[2]=color.calcLABColor();
-          this.cL[3]=color.calcDIN99Color(this.kE,this.kCH);
+          this.cL[3]=color.calcDIN99Color();
           break;
           case "lab":
           this.cL[0]=color.calcRGBColor();
           this.cL[1]=color.calcHSVColor();
           this.cL[2]=color;
-          this.cL[3]=color.calcDIN99Color(this.kE,this.kCH);
+          this.cL[3]=color.calcDIN99Color();
           break;
           case "din99":
           this.cL[0]=color.calcRGBColor();
@@ -73,19 +66,19 @@ class class_Key{
         this.cR[0]=color;
         this.cR[1]=color.calcHSVColor();
         this.cR[2]=color.calcLABColor();
-        this.cR[3]=color.calcDIN99Color(this.kE,this.kCH);
+        this.cR[3]=color.calcDIN99Color();
         break;
         case "hsv":
         this.cR[0]=color.calcRGBColor();
         this.cR[1]=color;
         this.cR[2]=color.calcLABColor();
-        this.cR[3]=color.calcDIN99Color(this.kE,this.kCH);
+        this.cR[3]=color.calcDIN99Color();
         break;
         case "lab":
         this.cR[0]=color.calcRGBColor();
         this.cR[1]=color.calcHSVColor();
         this.cR[2]=color;
-        this.cR[3]=color.calcDIN99Color(this.kE,this.kCH);
+        this.cR[3]=color.calcDIN99Color();
         break;
         case "din99":
         this.cR[0]=color.calcRGBColor();
@@ -161,8 +154,10 @@ class class_Key{
           return ncolor;
           break;
           case "hsv":
-          var ncolor = new classColor_HSV(this.cL[1].get1Value(),this.cL[1].get2Value(),this.cL[1].get3Value());
-          return ncolor;
+          //var ncolor = new classColor_HSV(this.cL[1].get1Value(),this.cL[1].get2Value(),this.cL[1].get3Value());
+          //return ncolor;
+          var ncolor = new classColor_RGB(this.cL[0].get1Value(),this.cL[0].get2Value(),this.cL[0].get3Value());
+          return ncolor.calcHSVColor();
           break;
           case "lab":
           var ncolor = new classColor_LAB(this.cL[2].get1Value(),this.cL[2].get2Value(),this.cL[2].get3Value());
@@ -171,6 +166,14 @@ class class_Key{
           case "din99":
           var ncolor = new classColorDIN99(this.cL[3].get1Value(),this.cL[3].get2Value(),this.cL[3].get3Value());
           return ncolor;
+          break;
+          case "lab_rgb_possible":
+          var ncolor = new classColor_RGB(this.cL[0].get1Value(),this.cL[0].get2Value(),this.cL[0].get3Value());
+          return ncolor.calcLABColor();
+          break;
+          case "din99_rgb_possible":
+          var ncolor = new classColor_RGB(this.cL[0].get1Value(),this.cL[0].get2Value(),this.cL[0].get3Value());
+          return ncolor.calcDIN99Color();
           break;
           default:
           return undefined;
@@ -189,8 +192,10 @@ class class_Key{
         return ncolor;
         break;
         case "hsv":
-        var ncolor = new classColor_HSV(this.cR[1].get1Value(),this.cR[1].get2Value(),this.cR[1].get3Value());
-        return ncolor;
+        //var ncolor = new classColor_HSV(this.cR[1].get1Value(),this.cR[1].get2Value(),this.cR[1].get3Value());
+        //return ncolor;
+        var ncolor = new classColor_RGB(this.cR[0].get1Value(),this.cR[0].get2Value(),this.cR[0].get3Value());
+        return ncolor.calcHSVColor();
         break;
         case "lab":
         var ncolor = new classColor_LAB(this.cR[2].get1Value(),this.cR[2].get2Value(),this.cR[2].get3Value());
@@ -199,6 +204,14 @@ class class_Key{
         case "din99":
         var ncolor = new classColorDIN99(this.cR[3].get1Value(),this.cR[3].get2Value(),this.cR[3].get3Value());
         return ncolor;
+        break;
+        case "lab_rgb_possible":
+        var ncolor = new classColor_RGB(this.cR[0].get1Value(),this.cR[0].get2Value(),this.cR[0].get3Value());
+        return ncolor.calcLABColor();
+        break;
+        case "din99_rgb_possible":
+        var ncolor = new classColor_RGB(this.cR[0].get1Value(),this.cR[0].get2Value(),this.cR[0].get3Value());
+        return ncolor.calcDIN99Color();
         break;
         default:
       }

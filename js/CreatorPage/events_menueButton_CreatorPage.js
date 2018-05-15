@@ -160,5 +160,5 @@ function forwardColormapProcess(){
 }
 
 function loadColormapCreateSide(){
-  document.getElementById("id_inputData").click();
+  document.getElementById("id_inputCMSData").click();
 }

@@ -27,12 +27,12 @@ function calcDeltaDE94(color1,color2){
           }
 
           var s_L =1;
-          var s_C =1+k_1*vC1;
-          var s_H =1+k_2*vC1;
+          var s_C =1+de94_k_1*vC1;
+          var s_H =1+de94_k_2*vC1;
 
-          var elem1 = deltaL/(k_L*s_L);
-          var elem2 = deltaC/(k_C*s_C);
-          var elem3 = deltaH/(k_H*s_H);
+          var elem1 = deltaL/(de94_k_L*s_L);
+          var elem2 = deltaC/(de94_k_C*s_C);
+          var elem3 = deltaH/(de94_k_H*s_H);
           var deltaE =  Math.pow(elem1, 2) + Math.pow(elem2, 2) + Math.pow(elem3, 2);
 
           if(deltaE<0){
@@ -157,10 +157,10 @@ function calcDeltaCIEDE2000(color1,color2){
 
 
           var deltaE = Math.sqrt(
-              Math.pow(deltaLPrime / (k_L * S_L), 2.0) +
-              Math.pow(deltaCPrime / (k_C * S_C), 2.0) +
-              Math.pow(deltaHPrime / (k_H * S_H), 2.0) +
-              (R_T * (deltaCPrime / (k_C * S_C)) * (deltaHPrime / (k_H * S_H))));
+              Math.pow(deltaLPrime / (de2000_k_L * S_L), 2.0) +
+              Math.pow(deltaCPrime / (de2000_k_C * S_C), 2.0) +
+              Math.pow(deltaHPrime / (de2000_k_H * S_H), 2.0) +
+              (R_T * (deltaCPrime / (de2000_k_C * S_C)) * (deltaHPrime / (de2000_k_H * S_H))));
 
           return deltaE;
 
@@ -184,7 +184,7 @@ function calc3DEuclideanDistance(color1,color2){
             color2=color2.calcLABColor();
             break;
             case "din99":
-              color2=color2.calcDIN99Color(kE,kCH);
+              color2=color2.calcDIN99Color();
               break;
       default:
       console.log("Error: function calc3DEuclideanDistance");

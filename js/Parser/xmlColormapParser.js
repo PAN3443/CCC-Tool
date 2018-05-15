@@ -33,7 +33,7 @@ function xmlColormapParserFile(xmlString){
       //     break;
       // }
 
-    try {
+   //try {
             var colormapObject = xmlObject.getElementsByTagName("ColorMap");
 
             if(colormapObject.length>0){
@@ -217,34 +217,31 @@ function xmlColormapParserFile(xmlString){
                             tmpCMS.setColormapName(name);
                         }
 
-                       try {
+                       if(colormapObject[0].getElementsByTagName("NaN").length!=0){
 
-                           var nanObj = colormapObject[0].getElementsByTagName("NaN");
+                         var nanObj = colormapObject[0].getElementsByTagName("NaN");
 
-                           var val1 = parseFloat(nanObj[0].getAttribute(val1Name));
-                           var val2 = parseFloat(nanObj[0].getAttribute(val2Name));
-                           var val3 = parseFloat(nanObj[0].getAttribute(val3Name));
+                         var val1 = parseFloat(nanObj[0].getAttribute(val1Name));
+                         var val2 = parseFloat(nanObj[0].getAttribute(val2Name));
+                         var val3 = parseFloat(nanObj[0].getAttribute(val3Name));
 
-                           if(isrgb255){
-                               val1=val1/255.0;
-                               val2=val2/255.0;
-                               val3=val2/255.0;
-                           }
+                         if(isrgb255){
+                             val1=val1/255.0;
+                             val2=val2/255.0;
+                             val3=val2/255.0;
+                         }
 
-                           var tmpColor = getLoadedColor(val1,val2,val3,space);
-                           tmpCMS.setNaNColor(tmpColor);
-
-                       } catch (error) {
-                           console.log("colormap has no NaN Value");
+                         var tmpColor = getLoadedColor(val1,val2,val3,space);
+                         tmpCMS.setNaNColor(tmpColor);
                        }
 
                  return tmpCMS;
 
             }
 
-         } catch (error) {
+        /*} catch (error) {
          console.log("Error with XML File ");
-       }
+       }*/
 
 }
 

@@ -25,8 +25,42 @@ window.onload = function() {
   document.getElementById('id_analysisPage').style.display = "none";
   document.getElementById('id_tutorialPage').style.display = "none";
 
-  document.getElementById('id_inputData').addEventListener("change", readSingleFile);
+  document.getElementById('id_inputCMSData').addEventListener("change", readCMSFile);
+  document.getElementById('id_inputSessionData').addEventListener("change", readSessionFile);
 
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////// Setting Side /////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  document.getElementById("id_cielab_refX_Input").addEventListener("keyup", checkSettingInputKey);
+  document.getElementById("id_cielab_refY_Input").addEventListener("keyup", checkSettingInputKey);
+  document.getElementById("id_cielab_refZ_Input").addEventListener("keyup", checkSettingInputKey);
+  document.getElementById("id_din99_k_E_Input").addEventListener("keyup", checkSettingInputKey);
+  document.getElementById("id_din99_k_CH_Input").addEventListener("keyup", checkSettingInputKey);
+  document.getElementById("id_de94_k_L_Input").addEventListener("keyup", checkSettingInputKey);
+  document.getElementById("id_de94_k_C_Input").addEventListener("keyup", checkSettingInputKey);
+  document.getElementById("id_de94_k_H_Input").addEventListener("keyup", checkSettingInputKey);
+  document.getElementById("id_de94_k_1_Input").addEventListener("keyup", checkSettingInputKey);
+  document.getElementById("id_de94_k_2_Input").addEventListener("keyup", checkSettingInputKey);
+  document.getElementById("id_de2000_k_L_Input").addEventListener("keyup", checkSettingInputKey);
+  document.getElementById("id_de2000_k_C_Input").addEventListener("keyup", checkSettingInputKey);
+  document.getElementById("id_de2000_k_H_Input").addEventListener("keyup", checkSettingInputKey);
+
+  document.getElementById("id_cielab_refX_Input").addEventListener("change", checkSettingInputChange);
+  document.getElementById("id_cielab_refY_Input").addEventListener("change", checkSettingInputChange);
+  document.getElementById("id_cielab_refZ_Input").addEventListener("change", checkSettingInputChange);
+  document.getElementById("id_din99_k_E_Input").addEventListener("change", checkSettingInputChange);
+  document.getElementById("id_din99_k_CH_Input").addEventListener("change", checkSettingInputChange);
+  document.getElementById("id_de94_k_L_Input").addEventListener("change", checkSettingInputChange);
+  document.getElementById("id_de94_k_C_Input").addEventListener("change", checkSettingInputChange);
+  document.getElementById("id_de94_k_H_Input").addEventListener("change", checkSettingInputChange);
+  document.getElementById("id_de94_k_1_Input").addEventListener("change", checkSettingInputChange);
+  document.getElementById("id_de94_k_2_Input").addEventListener("change", checkSettingInputChange);
+  document.getElementById("id_de2000_k_L_Input").addEventListener("change", checkSettingInputChange);
+  document.getElementById("id_de2000_k_C_Input").addEventListener("change", checkSettingInputChange);
+  document.getElementById("id_de2000_k_H_Input").addEventListener("change", checkSettingInputChange);
+
+  updateAllSetting();
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Add Side /////////////////////////////////////
@@ -296,8 +330,8 @@ window.onload = function() {
   /////////////////////////////// Export Side /////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  document.getElementById('id_InputIntervalExport').addEventListener("change", exportSide_changeIntervalNumChange);
-  document.getElementById('id_InputIntervalExport').addEventListener("keyup", exportSide_changeIntervalNumEnter);
+  document.getElementById('id_InputIntervalExport').addEventListener("change", checkIntervalInputFieldsChange);
+  document.getElementById('id_InputIntervalExport').addEventListener("keyup", checkIntervalInputFieldsKey);
 
  /////
   changeColorspace(2);

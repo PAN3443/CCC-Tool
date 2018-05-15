@@ -1,8 +1,15 @@
+
 function checkIntervalInputFieldsChange(event){
 
     checkInputVal(document.getElementById(event.target.id),false,false);
 
+    if(parseFloat(document.getElementById(event.target.id).value)>1)
     intervalSize = parseFloat(document.getElementById(event.target.id).value);
+    else{
+      openAlert("Attention: The number of interval points have to be at least two.");
+      document.getElementById(event.target.id).value=intervalSize;
+      return;
+    }
 
     if (showSideID == 2) { // Analyse SIDE
       updateAnalyzePage();
@@ -10,6 +17,10 @@ function checkIntervalInputFieldsChange(event){
 
     if (showSideID == 3) { // Comnpare SIDE
       updateComparePage();
+    }
+
+    if(showSideID == 6){ // export
+      fillExportTable();
     }
 }
 
@@ -19,7 +30,13 @@ function checkIntervalInputFieldsKey(event){
 
   if (event.keyCode == 13) {
 
+    if(parseFloat(document.getElementById(event.target.id).value)>1)
     intervalSize = parseFloat(document.getElementById(event.target.id).value);
+    else{
+      openAlert("Attention: The number of interval points have to be at least two.");
+      document.getElementById(event.target.id).value=intervalSize;
+      return;
+    }
 
     if (showSideID == 2) { // Analyse SIDE
       updateAnalyzePage();
@@ -27,6 +44,9 @@ function checkIntervalInputFieldsKey(event){
 
     if (showSideID == 3) { // Comnpare SIDE
       updateComparePage();
+    }
+    if(showSideID == 6){ // export
+      fillExportTable();
     }
 
 
@@ -921,7 +941,7 @@ function initNewPage(){
 }
 
 
-function readSingleFile(e) {
+function readCMSFile(e) {
 
   var file = e.target.files[0];
   if (!file) {
@@ -949,7 +969,7 @@ function readSingleFile(e) {
                 cms = csvColormapParserFile(contents);
                 break;
             default:
-                console.log("Error at readSingleFile function -> file extension is unknown!");
+                console.log("Error at readCMSFile function -> file extension is unknown!");
                 return;
     }
 
@@ -957,11 +977,14 @@ function readSingleFile(e) {
     switch (showSideID) {
             case 0:
 
-                // check if is enough space in MyDesings
-
                 // check if CMS is empty (key length)
-
-
+                if(cms.getKeyLength()!=0){
+                  globalCMS1=cloneCMS(cms);
+                  myList.push(cms);
+                  colormap1SelectIndex=myList.length-1;
+                  orderColorSketch();
+                  drawMyList();
+                }
 
                 break;
             case 1:
@@ -969,7 +992,7 @@ function readSingleFile(e) {
                 orderColorSketch();
                 break;
             default:
-                console.log("Error at readSingleFile function -> showSideID is unknown!");
+                console.log("Error at readCMSFile function -> showSideID is unknown!");
                 return;
     }
 

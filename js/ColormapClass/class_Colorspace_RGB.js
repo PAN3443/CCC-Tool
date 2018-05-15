@@ -6,9 +6,6 @@ class classColor_RGB{
     this.rValue = rValue;
     this.gValue = gValue;
     this.bValue = bValue;
-    this.ref_X = 94.811;
-    this.ref_Y = 100.000;
-    this.ref_Z = 107.304;
     this.colorType = "rgb"
   }
 
@@ -120,9 +117,9 @@ class classColor_RGB{
     var var_Z = var_R * 0.0193 + var_G * 0.1192 + var_B * 0.9505;
 
     /// from XYZ -> LAB
-    var_X = var_X / this.ref_X;
-    var_Y = var_Y / this.ref_Y;
-    var_Z = var_Z / this.ref_Z;
+    var_X = var_X / cielab_ref_X;
+    var_Y = var_Y / cielab_ref_Y;
+    var_Z = var_Z / cielab_ref_Z;
 
     if ( var_X > 0.008856 ) var_X = Math.pow(var_X , ( 1/3 ));
     else                    var_X = ( 7.787 * var_X ) + ( 16 / 116 );
@@ -193,9 +190,9 @@ class classColor_RGB{
 
   }
 
-  calcDIN99Color(kE,kCH){
+  calcDIN99Color(){
     var tmpLAB = this.calcLABColor();
-    return tmpLAB.calcDIN99Color(kE,kCH);
+    return tmpLAB.calcDIN99Color();
   }
 
   setColorFromHEX(hex){

@@ -200,7 +200,7 @@ function changeExportColorspace(type){
 }
 
 
-function exportSide_changeIntervalNumEnter(e){
+/*function exportSide_changeIntervalNumEnter(e){
 
     checkInputVal(document.getElementById('id_InputIntervalExport'),false,false);
 
@@ -215,7 +215,7 @@ function exportSide_changeIntervalNumChange(){
     checkInputVal(document.getElementById('id_InputIntervalExport'),false,false);
     fillExportTable();
 
-}
+}*/
 
 function changeOutputformat(type){
 
@@ -362,10 +362,6 @@ function createCMSText(format){
           text = text+createLine(format,globalCMS1.getLeftKeyColor(i,exportColorspace),globalCMS1.getRefPosition(i),globalCMS1.getOpacityVal(i,"left"),true,true);
         else{
 
-          var intervalIndexA = globalCMS1.getIntervalPositions(i);
-          var numOfIntervals = (intervalIndexA[1]+1)-(intervalIndexA[0]+1);
-          var intervalOpacityStep = (globalCMS1.getOpacityVal(i+1,"left")-globalCMS1.getOpacityVal(i,"right"))/(numOfIntervals+1);
-
           var isMot=false;
           if(globalCMS1.getKeyType(i)=="left key"){
             if(globalCMS1.getMoT(i)==false){
@@ -380,6 +376,13 @@ function createCMSText(format){
           text = text+createLine(format,globalCMS1.getLeftKeyColor(i+1,exportColorspace),globalCMS1.getRefPosition(i),globalCMS1.getOpacityVal(i,"right"),true,isMot)  ;
 
         if(doMerging==false){
+
+          if(globalCMS1.getIntervalLength()==0)
+          break;
+
+          var intervalIndexA = globalCMS1.getIntervalPositions(i);
+          var numOfIntervals = (intervalIndexA[1]+1)-(intervalIndexA[0]+1);
+          var intervalOpacityStep = (globalCMS1.getOpacityVal(i+1,"left")-globalCMS1.getOpacityVal(i,"right"))/(numOfIntervals+1);
 
           if(globalCMS1.getIntervalisKey(intervalIndexA[0])!=true){
             var intervalOpacity = globalCMS1.getOpacityVal(i,"right")-intervalOpacityStep;
@@ -401,9 +404,6 @@ function createCMSText(format){
 
       break;
       case "twin key":
-        var intervalIndexA = globalCMS1.getIntervalPositions(i);
-        var numOfIntervals = (intervalIndexA[1]+1)-(intervalIndexA[0]+1);
-        var intervalOpacityStep = (globalCMS1.getOpacityVal(i+1,"left")-globalCMS1.getOpacityVal(i,"right"))/(numOfIntervals+1);
 
         var isMot=false;
         if(globalCMS1.getMoT(i)==false){
@@ -415,6 +415,12 @@ function createCMSText(format){
         }
         text = text+createLine(format,globalCMS1.getRightKeyColor(i,exportColorspace),globalCMS1.getRefPosition(i),globalCMS1.getOpacityVal(i,"right"),true,isMot)  ;
 
+        if(globalCMS1.getIntervalLength()==0)
+        break;
+
+        var intervalIndexA = globalCMS1.getIntervalPositions(i);
+        var numOfIntervals = (intervalIndexA[1]+1)-(intervalIndexA[0]+1);
+        var intervalOpacityStep = (globalCMS1.getOpacityVal(i+1,"left")-globalCMS1.getOpacityVal(i,"right"))/(numOfIntervals+1);
 
         for(var j=intervalIndexA[0]; j<intervalIndexA[1]; j++){
           var intervalOpacity = globalCMS1.getOpacityVal(i,"right")-(intervalOpacityStep*(j-intervalIndexA[0]));
@@ -428,10 +434,15 @@ function createCMSText(format){
 
         break;
       default:
+
+        text = text+createLine(format,globalCMS1.getRightKeyColor(i,exportColorspace),globalCMS1.getRefPosition(i),globalCMS1.getOpacityVal(i,"right"),true,false);
+
+        if(globalCMS1.getIntervalLength()==0)
+        break;
+
         var intervalIndexA = globalCMS1.getIntervalPositions(i);
         var numOfIntervals = (intervalIndexA[1]+1)-(intervalIndexA[0]+1);
         var intervalOpacityStep = (globalCMS1.getOpacityVal(i+1,"left")-globalCMS1.getOpacityVal(i,"right"))/(numOfIntervals+1);
-        text = text+createLine(format,globalCMS1.getRightKeyColor(i,exportColorspace),globalCMS1.getRefPosition(i),globalCMS1.getOpacityVal(i,"right"),true,false);
 
         for(var j=intervalIndexA[0]; j<intervalIndexA[1]; j++){
           var intervalOpacity = globalCMS1.getOpacityVal(i,"right")-(intervalOpacityStep*(j-intervalIndexA[0]));
