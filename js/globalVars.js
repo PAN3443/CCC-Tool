@@ -260,6 +260,8 @@ var newBandIsAdded = true;
 var dragPredefinedBandIndex = -1;
 var dragPredefinedBandType = -1;
 
+var dropRects = [];
+var bandSketchObjLength = 100;
 
 // table expand button
 var tableIsExpand = false;

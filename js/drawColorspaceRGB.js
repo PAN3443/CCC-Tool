@@ -549,15 +549,17 @@ function drawInterpolationLineInRGB(isCompareMap, intervalSize) {
       case "twin key":
         var intervalIndexA = workCMS.getIntervalPositions(i);
         drawRGBline(workCMS.getLeftKeyColor(i,"rgb"),workCMS.getRightKeyColor(i,"rgb"),xWidth,yHeight,xStart,yStart, true,compareColor,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
-        drawRGBline(workCMS.getRightKeyColor(i,"rgb"),workCMS.getIntervalColor(intervalIndexA[0],"rgb"),xWidth,yHeight,xStart,yStart, false,compareColor,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
 
-        for(var j=intervalIndexA[0]; j<intervalIndexA[1]; j++){
-          drawRGBline(workCMS.getIntervalColor(j,"rgb"),workCMS.getIntervalColor(j+1,"rgb"),xWidth,yHeight,xStart,yStart, false,compareColor,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
+        if(intervalIndexA[0]>intervalIndexA[1]){
+          drawRGBline(workCMS.getRightKeyColor(i,"rgb"),workCMS.getLeftKeyColor(i+1,"rgb"),xWidth,yHeight,xStart,yStart, false,compareColor,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
+        }else{
+          for(var j=intervalIndexA[0]; j<intervalIndexA[1]; j++){
+            drawRGBline(workCMS.getIntervalColor(j,"rgb"),workCMS.getIntervalColor(j+1,"rgb"),xWidth,yHeight,xStart,yStart, false,compareColor,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
+          }
+
+          if(workCMS.getIntervalisKey(intervalIndexA[1])!=true)
+            drawRGBline(workCMS.getIntervalColor(intervalIndexA[1],"rgb"),workCMS.getLeftKeyColor(i+1,"rgb"),xWidth,yHeight,xStart,yStart, false,compareColor,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
         }
-
-        if(workCMS.getIntervalisKey(intervalIndexA[1])!=true)
-          drawRGBline(workCMS.getIntervalColor(intervalIndexA[1],"rgb"),workCMS.getLeftKeyColor(i+1,"rgb"),xWidth,yHeight,xStart,yStart, false,compareColor,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
-
           break;
       case "left key":
 
@@ -567,16 +569,19 @@ function drawInterpolationLineInRGB(isCompareMap, intervalSize) {
       default:
 
         var intervalIndexA = workCMS.getIntervalPositions(i);
-        drawRGBline(workCMS.getRightKeyColor(i,"rgb"),workCMS.getIntervalColor(intervalIndexA[0],"rgb"),xWidth,yHeight,xStart,yStart, false,compareColor,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
+        if(intervalIndexA[0]>intervalIndexA[1]){
+          drawRGBline(workCMS.getRightKeyColor(i,"rgb"),workCMS.getLeftKeyColor(i+1,"rgb"),xWidth,yHeight,xStart,yStart, false,compareColor,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
+        }else{
+          drawRGBline(workCMS.getRightKeyColor(i,"rgb"),workCMS.getIntervalColor(intervalIndexA[0],"rgb"),xWidth,yHeight,xStart,yStart, false,compareColor,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
 
-        for(var j=intervalIndexA[0]; j<intervalIndexA[1]; j++){
-          drawRGBline(workCMS.getIntervalColor(j,"rgb"),workCMS.getIntervalColor(j+1,"rgb"),xWidth,yHeight,xStart,yStart, false,compareColor,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
+          for(var j=intervalIndexA[0]; j<intervalIndexA[1]; j++){
+            drawRGBline(workCMS.getIntervalColor(j,"rgb"),workCMS.getIntervalColor(j+1,"rgb"),xWidth,yHeight,xStart,yStart, false,compareColor,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
 
+          }
+
+          if(workCMS.getIntervalisKey(intervalIndexA[1])!=true)
+            drawRGBline(workCMS.getIntervalColor(intervalIndexA[1],"rgb"),workCMS.getLeftKeyColor(i+1,"rgb"),xWidth,yHeight,xStart,yStart, false,compareColor,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
         }
-
-        if(workCMS.getIntervalisKey(intervalIndexA[1])!=true)
-          drawRGBline(workCMS.getIntervalColor(intervalIndexA[1],"rgb"),workCMS.getLeftKeyColor(i+1,"rgb"),xWidth,yHeight,xStart,yStart, false,compareColor,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
-
       }
     }
 

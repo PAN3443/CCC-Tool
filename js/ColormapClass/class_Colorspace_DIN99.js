@@ -88,6 +88,23 @@ class classColorDIN99{
 
       }
 
+      getInColorFormat(format){
+
+        switch (format) {
+          case "rgb":
+              return this.calcRGBColor();
+          case "hsv":
+              return this.calcHSVColor();
+          case "lab":
+              return this.calcLABColor();
+          case "din99":
+              return new classColorDIN99(this.get1Value(),this.get2Value(),this.get3Value());
+          default:
+            console.log("Error in function getColorFormat of DIN99 class");
+        }
+
+      }
+
       getDIN99String(){
           var tmpString = "din99("+this.l99Value+","+this.a99Value+","+this.b99Value+")";
           return tmpString;

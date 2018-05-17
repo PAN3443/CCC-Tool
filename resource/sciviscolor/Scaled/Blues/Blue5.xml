@@ -1,4 +1,4 @@
-<ColorMaps>
+<!--ColorMaps>
 <ColorMap space="CIELAB" indexedLookup="false" name="BlueB1">
 <Point x="0.000000" o="1" r="0.882353" g="0.980392" b="0.964706"/>
 <Point x="0.100000" o="1" r="0.690196" g="0.921569" b="0.913725"/>
@@ -13,13 +13,13 @@
 <Point x="1.000000" o="1" r="0.098039" g="0.086275" b="0.349020"/>
 <NaN r="0.25" g="0" b="0"/>
 </ColorMap>
-</ColorMaps>
+</ColorMaps!-->
 
-<!--ColorMaps>
+<ColorMaps>
 <ColorMap space="CIELAB" indexedLookup="false" name="BlueB1">
 <Point x="0.000000" o="1" r="0.882353" g="0.980392" b="0.964706"/>
 <Point x="0.500000" o="1" r="0.321569" g="0.490196" b="0.639216"/>
 <Point x="1.000000" o="1" r="0.098039" g="0.086275" b="0.349020"/>
 <NaN r="0.25" g="0" b="0"/>
 </ColorMap>
-</ColorMaps!-->
+</ColorMaps>

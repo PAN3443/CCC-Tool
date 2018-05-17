@@ -94,6 +94,23 @@ class classColor_RGB{
 
   }
 
+  getInColorFormat(format){
+
+    switch (format) {
+      case "rgb":
+          return new classColor_RGB(this.get1Value(),this.get2Value(),this.get3Value());
+      case "hsv":
+          return this.calcHSVColor();
+      case "lab":
+          return this.calcLABColor();
+      case "din99":
+          return this.calcDIN99Color();
+      default:
+        console.log("Error in function getColorFormat of RGB class");
+    }
+
+  }
+
   calcLABColor(){
     /// from RGB -> XYZ
 

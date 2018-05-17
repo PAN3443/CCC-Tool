@@ -12,7 +12,6 @@ function bandOnDragStart(event){
     //tmpString = tmpString.substr(4);
 
 
-
     if(tmpString=="id_creatorBand"){
         dragPredefinedBandIndex = bandIndex;
         dragPredefinedBandType = createBandType;
@@ -53,7 +52,7 @@ function bandOnDragStart(event){
 
     }
 
-    // show  all drop positions
+    /*// show  all drop positions
         if(globalCMS1.getKeyLength()==0){
             dropPositionElements[0].style.border = "3px dashed red";
         }
@@ -77,13 +76,15 @@ function bandOnDragStart(event){
 
 
 
-        }
+        }*/
 
+    drawBandSketch(globalCMS1,"id_colormapSketch","id_colormapSketch_Ref", true, -1);
 
 }
 
 function bandOnDragEnd(event) {
-    document.getElementById("id_createColormapKeys").style.visibility="visible";
+    drawBandSketch(globalCMS1,"id_colormapSketch","id_colormapSketch_Ref", false, -1);
+    /*document.getElementById("id_createColormapKeys").style.visibility="visible";
     dragPredefinedBandIndex = bandIndex;
     dragPredefinedBandType = createBandType;
 
@@ -111,12 +112,12 @@ function bandOnDragEnd(event) {
             refLineSketchContainer[i].style.display = "initial";
         }
 
-    }
+    }*/
 
 }
 
 function bandOnEnter(event) {
-    var tmpString = event.target.id;
+    /*var tmpString = event.target.id;
 
     if(tmpString!=undefined){
 
@@ -125,19 +126,23 @@ function bandOnEnter(event) {
          document.getElementById("dragPos"+indexOfDroppedPlace).style.innerHTML = "";
 
          document.getElementById("dragPos"+indexOfDroppedPlace).style.background = "rgb(220,220,220)";
+    }*/
+    if(globalCMS1.getKeyLength()==0){
+      drawBandSketch(globalCMS1,"id_colormapSketch","id_colormapSketch_Ref", true, 0);
     }
-
 
 }
 
 function bandOnLeave(event) {
 
+    drawBandSketch(globalCMS1,"id_colormapSketch","id_colormapSketch_Ref", true, -1);
+    indexOfDroppedPlace = -1;
 
-    if(indexOfDroppedPlace >=0){
+    /*if(indexOfDroppedPlace >=0){
         document.getElementById("dragPos"+indexOfDroppedPlace).style.background = "none";
         document.getElementById("dragPos"+indexOfDroppedPlace).style.innerHTML = "Drop here";
-        indexOfDroppedPlace = -1;
-    }
+
+    }/*/
 }
 
 function bandOnDrop(event){
@@ -145,6 +150,10 @@ function bandOnDrop(event){
   somethingChanged = true;
     /////////////
     //// Creator Band
+
+    if(globalCMS1.getKeyLength()==0){
+      indexOfDroppedPlace=0;
+    }
 
         if(indexOfDroppedPlace==-1)
         return;
@@ -360,18 +369,13 @@ function bandOnDrop(event){
             default:
         }
 
+      indexOfDroppedPlace==-1;
 
-
-
-        orderColorSketch(colorspaceModus);
-
+      orderColorSketch(colorspaceModus);
 
   /////////////
   ////  Save Band Process
-
       saveCreateProcess();
-
-
 }
 
 

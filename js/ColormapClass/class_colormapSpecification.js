@@ -242,11 +242,16 @@ class class_CMS {
       var startIndex = 0;
 
       for(var refIndex=0; refIndex<tmpIntervalRef.length; refIndex++){
+
           if(tmpIntervalRef[refIndex]>this.keyArray[currentKeyPos].getRefPosition()){
-            var arrayPos = [startIndex, this.intervalArray.length-1];
-            this.intervalPosition.push(arrayPos);
-            startIndex=this.intervalArray.length;
-            currentKeyPos++;
+
+            while(tmpIntervalRef[refIndex]>this.keyArray[currentKeyPos].getRefPosition()){
+              var arrayPos = [startIndex, this.intervalArray.length-1];
+              this.intervalPosition.push(arrayPos);
+              startIndex=this.intervalArray.length;
+              currentKeyPos++;
+            }
+
           }
 
           if(tmpIntervalRef[refIndex]==this.keyArray[currentKeyPos].getRefPosition()){
@@ -387,13 +392,9 @@ class class_CMS {
 
         }//else
 
-
-
       }//for
 
     }//
-
-
 
   }//
 

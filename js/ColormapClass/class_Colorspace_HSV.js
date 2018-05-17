@@ -85,6 +85,23 @@ class classColor_HSV{
 
     }
 
+    getInColorFormat(format){
+
+      switch (format) {
+        case "rgb":
+            return this.calcRGBColor();
+        case "hsv":
+            return new classColor_HSV(this.get1Value(),this.get2Value(),this.get3Value());
+        case "lab":
+            return this.calcLABColor();
+        case "din99":
+            return this.calcDIN99Color();
+        default:
+          console.log("Error in function getColorFormat of HSV class");
+      }
+
+    }
+
     getHSVString(){
         var tmpString = "hsv("+this.hValue+","+this.sValue+","+this.vValue+")";
         return tmpString;

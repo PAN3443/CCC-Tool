@@ -46,6 +46,20 @@ function drawCanvasColormap(canvasID, resolutionX, resolutionY, tmpCMS) { //1920
 }
 
 
+
+function createUnknownTypeBand(canvasData, xStart, bandWidth, bandHeight, color1, color2, canvasWidth) {
+
+  if(color1.equalTo(color2)){
+    canvasData=createConstantBand(canvasData, xStart, bandWidth, bandHeight, color1, canvasWidth);
+  }
+  else{
+    canvasData=createScaledBand(canvasData, xStart, bandWidth, bandHeight, color1, color2, canvasWidth);
+  }
+
+  return canvasData;
+
+}
+
 function createScaledBand(canvasData, xStart, bandWidth, bandHeight, color1, color2, canvasWidth) {
 
   xStart = Math.round(xStart);

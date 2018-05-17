@@ -52,7 +52,6 @@ function fillExportTable(){
           }
           else{
 
-            var intervalIndexA = globalCMS1.getIntervalPositions(i);
 
             if(globalCMS1.getKeyType(i)=="left key"){
             new_tbody.appendChild(createExportTableRow(counter,globalCMS1.getRefPosition(i), globalCMS1.getKeyType(i), globalCMS1.getLeftKeyColor(i,"rgb")));
@@ -63,6 +62,11 @@ function fillExportTable(){
             counter++;
 
           if(doMerging==false){
+
+            var intervalIndexA = globalCMS1.getIntervalPositions(i);
+
+            if(intervalIndexA[0]>intervalIndexA[1])
+            break;
 
             if(globalCMS1.getIntervalisKey(intervalIndexA[0])!=true){
               new_tbody.appendChild(createExportTableRow(counter,globalCMS1.getIntervalRef(intervalIndexA[0]), "interval", globalCMS1.getIntervalColor(intervalIndexA[0],"rgb")));
@@ -84,11 +88,15 @@ function fillExportTable(){
 
         break;
         case "twin key":
+
           var intervalIndexA = globalCMS1.getIntervalPositions(i);
           new_tbody.appendChild(createExportTableRow(counter,globalCMS1.getRefPosition(i), globalCMS1.getKeyType(i), globalCMS1.getLeftKeyColor(i,"rgb")));
           counter++;
           new_tbody.appendChild(createExportTableRow(counter,globalCMS1.getRefPosition(i), globalCMS1.getKeyType(i), globalCMS1.getRightKeyColor(i,"rgb")));
           counter++;
+
+          if(intervalIndexA[0]>intervalIndexA[1])
+          break;
 
           for(var j=intervalIndexA[0]; j<intervalIndexA[1]; j++){
             new_tbody.appendChild(createExportTableRow(counter,globalCMS1.getIntervalRef(j), "interval", globalCMS1.getIntervalColor(j,"rgb")));
@@ -104,6 +112,9 @@ function fillExportTable(){
           var intervalIndexA = globalCMS1.getIntervalPositions(i);
           new_tbody.appendChild(createExportTableRow(counter,globalCMS1.getRefPosition(i), globalCMS1.getKeyType(i), globalCMS1.getRightKeyColor(i,"rgb")));
           counter++;
+
+          if(intervalIndexA[0]>intervalIndexA[1])
+          break;
 
           for(var j=intervalIndexA[0]; j<intervalIndexA[1]; j++){
             new_tbody.appendChild(createExportTableRow(counter,globalCMS1.getIntervalRef(j), "interval", globalCMS1.getIntervalColor(j,"rgb")));
@@ -384,6 +395,9 @@ function createCMSText(format){
           var numOfIntervals = (intervalIndexA[1]+1)-(intervalIndexA[0]+1);
           var intervalOpacityStep = (globalCMS1.getOpacityVal(i+1,"left")-globalCMS1.getOpacityVal(i,"right"))/(numOfIntervals+1);
 
+          if(intervalIndexA[0]>intervalIndexA[1])
+          break;
+
           if(globalCMS1.getIntervalisKey(intervalIndexA[0])!=true){
             var intervalOpacity = globalCMS1.getOpacityVal(i,"right")-intervalOpacityStep;
             text = text+createLine(format,globalCMS1.getLeftKeyColor(i,exportColorspace),globalCMS1.getIntervalRef(intervalIndexA[0]),intervalOpacity,false,false);
@@ -422,6 +436,9 @@ function createCMSText(format){
         var numOfIntervals = (intervalIndexA[1]+1)-(intervalIndexA[0]+1);
         var intervalOpacityStep = (globalCMS1.getOpacityVal(i+1,"left")-globalCMS1.getOpacityVal(i,"right"))/(numOfIntervals+1);
 
+        if(intervalIndexA[0]>intervalIndexA[1])
+        break;
+
         for(var j=intervalIndexA[0]; j<intervalIndexA[1]; j++){
           var intervalOpacity = globalCMS1.getOpacityVal(i,"right")-(intervalOpacityStep*(j-intervalIndexA[0]));
           text = text+createLine(format,globalCMS1.getIntervalColor(j,exportColorspace),globalCMS1.getIntervalRef(j),intervalOpacity,false,false);
@@ -443,6 +460,9 @@ function createCMSText(format){
         var intervalIndexA = globalCMS1.getIntervalPositions(i);
         var numOfIntervals = (intervalIndexA[1]+1)-(intervalIndexA[0]+1);
         var intervalOpacityStep = (globalCMS1.getOpacityVal(i+1,"left")-globalCMS1.getOpacityVal(i,"right"))/(numOfIntervals+1);
+
+        if(intervalIndexA[0]>intervalIndexA[1])
+        break;
 
         for(var j=intervalIndexA[0]; j<intervalIndexA[1]; j++){
           var intervalOpacity = globalCMS1.getOpacityVal(i,"right")-(intervalOpacityStep*(j-intervalIndexA[0]));
@@ -602,10 +622,6 @@ function exportSide_createJSON(){
               }
               else{
 
-                var intervalIndexA = globalCMS1.getIntervalPositions(i);
-                var numOfIntervals = (intervalIndexA[1]+1)-(intervalIndexA[0]+1);
-                var intervalOpacityStep = (globalCMS1.getOpacityVal(i+1,"left")-globalCMS1.getOpacityVal(i,"right"))/(numOfIntervals+1);
-
                 var isMot=false;
                 if(globalCMS1.getKeyType(i)=="left key"){
                   if(globalCMS1.getMoT(i)==false){
@@ -627,6 +643,13 @@ function exportSide_createJSON(){
                 isMoTtext=isMoTtext+"\n\t\t\t"+isMot+",";
 
               if(doMerging==false){
+
+                var intervalIndexA = globalCMS1.getIntervalPositions(i);
+                var numOfIntervals = (intervalIndexA[1]+1)-(intervalIndexA[0]+1);
+                var intervalOpacityStep = (globalCMS1.getOpacityVal(i+1,"left")-globalCMS1.getOpacityVal(i,"right"))/(numOfIntervals+1);
+
+                if(intervalIndexA[0]>intervalIndexA[1])
+                break;
 
                 if(globalCMS1.getIntervalisKey(intervalIndexA[0])!=true){
                   var intervalOpacity = globalCMS1.getOpacityVal(i,"right")-intervalOpacityStep;
@@ -675,6 +698,8 @@ function exportSide_createJSON(){
               isCMStext=isCMStext+"\n\t\t\t"+true+",";
               isMoTtext=isMoTtext+"\n\t\t\t"+isMot+",";
 
+              if(intervalIndexA[0]>intervalIndexA[1])
+              break;
 
               for(var j=intervalIndexA[0]; j<intervalIndexA[1]; j++){
                 var intervalOpacity = globalCMS1.getOpacityVal(i,"right")-(intervalOpacityStep*(j-intervalIndexA[0]));
@@ -698,6 +723,9 @@ function exportSide_createJSON(){
               colortext = colortext+createLine("json",globalCMS1.getRightKeyColor(i,exportColorspace),globalCMS1.getRefPosition(i),globalCMS1.getOpacityVal(i,"right"),true,false)+",";
               isCMStext=isCMStext+"\n\t\t\t"+true+",";
               isMoTtext=isMoTtext+"\n\t\t\t"+false+",";
+
+              if(intervalIndexA[0]>intervalIndexA[1])
+              break;
 
               for(var j=intervalIndexA[0]; j<intervalIndexA[1]; j++){
                 var intervalOpacity = globalCMS1.getOpacityVal(i,"right")-(intervalOpacityStep*(j-intervalIndexA[0]));

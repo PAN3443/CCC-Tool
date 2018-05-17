@@ -1,4 +1,4 @@
-<!--ColorMaps>
+<ColorMaps>
 	<ColorMap space="Lab" indexedLookup="false" group="Interlinked" name="Brown 5 / Green 4 / Blue 6">
 		<Point x="0" o="1" r="0.219608" g="0.180392" b="0.176471"/>
 		<Point x="0.15" o="1" r="0.490196" g="0.454902" b="0.407843"/>
@@ -13,8 +13,8 @@
 		<Section colorMapName="Green 4" startIndex="2" endIndex="3" startPos="0.33350802958011627" endPos="0.6647449284791946" startValue="0" endValue="1" flipped="false" startAlpha="1" endAlpha="1"/>
 		<Section colorMapName="Blue 6" startIndex="3" endIndex="1" startPos="0.6647449284791946" endPos="1" startValue="0" endValue="1" flipped="true" startAlpha="1" endAlpha="1"/>
 	</ColorMap>
-</ColorMaps-->
-<ColorMaps>
+</ColorMaps>
+<!--ColorMaps>
 	<ColorMap space="Lab" indexedLookup="false" group="Interlinked" name="Brown 5 / Green 4 / Blue 6">
 		<Point x="0" o="1" r="0.219608" g="0.180392" b="0.176471"/>
 		<Point x="0.016675401479005814" o="1" r="0.25098" g="0.203922" b="0.2"/>
@@ -64,4 +64,4 @@
 		<Section colorMapName="Green 4" startIndex="2" endIndex="3" startPos="0.33350802958011627" endPos="0.6647449284791946" startValue="0" endValue="1" flipped="false" startAlpha="1" endAlpha="1"/>
 		<Section colorMapName="Blue 6" startIndex="3" endIndex="1" startPos="0.6647449284791946" endPos="1" startValue="0" endValue="1" flipped="true" startAlpha="1" endAlpha="1"/>
 	</ColorMap>
-</ColorMaps>
+</ColorMaps-->

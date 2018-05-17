@@ -85,6 +85,23 @@ class classColor_LAB{
 
       }
 
+      getInColorFormat(format){
+
+        switch (format) {
+          case "rgb":
+              return this.calcRGBColor();
+          case "hsv":
+              return this.calcHSVColor();
+          case "lab":
+              return new classColor_LAB(this.get1Value(),this.get2Value(),this.get3Value());
+          case "din99":
+              return this.calcDIN99Color();
+          default:
+            console.log("Error in function getColorFormat of LAB class");
+        }
+
+      }
+
       getLABString(){
           var tmpString = "lab("+this.lValue+","+this.aValue+","+this.bValue+")";
           return tmpString;

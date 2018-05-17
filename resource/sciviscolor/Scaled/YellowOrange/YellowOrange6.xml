@@ -1,4 +1,4 @@
-<ColorMap space="CIELAB" indexedLookup="false" name="red_orange1">
+<!--ColorMap space="CIELAB" indexedLookup="false" name="red_orange1">
 <Point x="0.000000" o="1" r="0.941176" g="0.800000" b="0.552941"/>
 <Point x="0.050000" o="1" r="0.921569" g="0.745098" b="0.478431"/>
 <Point x="0.100000" o="1" r="0.901961" g="0.682353" b="0.396078"/>
@@ -12,10 +12,10 @@
 <Point x="0.900000" o="1" r="0.701961" g="0.250980" b="0.125490"/>
 <Point x="0.950000" o="1" r="0.678431" g="0.227451" b="0.113725"/>
 <Point x="1.000000" o="1" r="0.650980" g="0.196078" b="0.105882"/>
-</ColorMap>
+</ColorMap!-->
 
-<!--ColorMap space="CIELAB" indexedLookup="false" name="red_orange1">
+<ColorMap space="CIELAB" indexedLookup="false" name="red_orange1">
 <Point x="0.000000" o="1" r="0.941176" g="0.800000" b="0.552941"/>
 <Point x="0.500000" o="1" r="0.780392" g="0.415686" b="0.203922"/>
 <Point x="1.000000" o="1" r="0.650980" g="0.196078" b="0.105882"/>
-</ColorMap!-->
+</ColorMap>

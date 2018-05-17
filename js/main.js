@@ -169,6 +169,20 @@ window.onload = function() {
   /////////////////////////////// Create Side /////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+  var sketchElement = document.getElementById('id_colormapSketch');
+  sketchElement.addEventListener("dragenter", bandOnEnter);
+  sketchElement.addEventListener("dragleave", bandOnLeave);
+  //sketchElement.addEventListener("drop dragdrop", createSide_BandOnDrop);
+
+  sketchElement.ondrop = function(event) {
+    event.preventDefault();
+    bandOnDrop();
+  }; // allow Drop
+  sketchElement.ondragover = function(event) {
+    event.preventDefault();
+  }; // allow Drop
+
   // Band Creator
   document.getElementById('bandCreator_Radiobutton_PickerRG_B').addEventListener("change", changeColorpickerType);
   document.getElementById('bandCreator_Radiobutton_PickerRB_G').addEventListener("change", changeColorpickerType);
@@ -393,17 +407,24 @@ function orderColorSketch(forColorspace) {
     }
 
     //////////////////////////////////////////////////////////////////////////
-    if(showSideID == 1)
-    drawBandSketch(globalCMS1,"id_colormapSketch","id_colormapSketch_Ref", true, 'id_createColormapKeys');
-    else
-    drawBandSketch(globalCMS1,"id_colormapSketch","id_colormapSketch_Ref", false, 'id_createColormapKeys');
+    drawBandSketch(globalCMS1,"id_colormapSketch","id_colormapSketch_Ref", false, -1);
+    if(showSideID == 1){
+      //create input fields
+      //drawBandSketch(globalCMS1,"id_colormapSketch","id_colormapSketch_Ref", true, 'id_createColormapKeys');
+    }
+    else{
+      // create text
+      //drawBandSketch(globalCMS1,"id_colormapSketch","id_colormapSketch_Ref", false, 'id_createColormapKeys');
+
+    }
 
     if(showSideID == 3)
-    drawBandSketch(globalCMS2,"id_colormapSketch2","id_colormapSketch_Ref2", false, 'id_createColormapKeys2');
+    drawBandSketch(globalCMS2,"id_colormapSketch2","id_colormapSketch_Ref2", false, -1);
+    //drawBandSketch(globalCMS2,"id_colormapSketch2","id_colormapSketch_Ref2", false, 'id_createColormapKeys2');
 
 }
 
- function drawBandSketch(cms,sketchObjectID,sketchRefObjID, withEditOptions, sketchKeyID){
+ /*function drawBandSketch(cms,sketchObjectID,sketchRefObjID, withEditOptions, sketchKeyID){
 
    editPage_drawKeys(sketchKeyID, cms);
 
@@ -429,7 +450,8 @@ function orderColorSketch(forColorspace) {
 
    var tmpRect = sketchObject.getBoundingClientRect();
 
-   var tmpLength = tmpRect.width/(cms.getKeyLength()-1)-2;
+   var borderWidth = 1;
+   var tmpLength = Math.floor((tmpRect.width/(cms.getKeyLength()-1))-(2*borderWidth));
 
    for (var i = 0; i < cms.getKeyLength()-1; i++) {
 
@@ -437,11 +459,11 @@ function orderColorSketch(forColorspace) {
      var tCan = document.createElement('canvas');
      tCan.id = 'band' + i;
 
-     tCan.style.border = "1px solid black";
+     tCan.style.border = borderWidth+"px solid black";
      tCan.style.margin = "0px";
      tCan.setAttribute('draggable', true);
      tCan.style.height = 100 + '%';
-     tCan.style.width = tmpLength + "px";
+     tCan.style.width = tmpLength+"px";
 
      drawCanvasBand(tCan, cms.getRightKeyColor(i,colorspaceModus), cms.getLeftKeyColor(i+1,colorspaceModus), tCan.width);
 
@@ -739,7 +761,7 @@ function orderColorSketch(forColorspace) {
  }
 
 
-
+*/
 function changeKeyValueInput(keyIndex, fielID) {
 
   var inputObj = document.getElementById(fielID);
