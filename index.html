@@ -251,29 +251,39 @@
 
             </div>
 
-            <div id="id_table_Div" style="height:30vh; width:100%; display: flex; flex-direction: column; z-index:20; background:white;">
+            <div id="id_table_Div" style="height:auto; width:100%; display: flex; flex-direction: column; z-index:20; background:white;">
               <h1 style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; padding-top:2vh; padding-bottom:2vh;">CMS Table</h1>
 
 
-              <div style="height:auto; overflow:auto; background:grey;">
-                <table style="width:100%" id="id_table">
-                  <thead>
-                    <tr style="border-top:1px solid white;">
-                      <th class="class_tablelabel" id="id_table_Number" style="width:4%; border-left:1px solid white;">#</th>
-                      <th class="class_tablelabel" id="id_table_Reference1" style="width:9%;">Reference 1</th>
-                      <th class="class_tablelabel" id="id_table_Reference2" style="width:9%;">Reference 2</th>
-                      <th class="class_tablelabel" id="id_table_Bandtype" style="width:9%;">Band Type</th>
-                      <th class="class_tablelabel" id="id_table_Color1" style="width:9%;">C1 (RGB)</th>
-                      <th class="class_tablelabel" id="id_table_Color2" style="width:9%;">C2 (RGB)</th>
-                    </tr>
-                  </thead>
+                <table cellspacing="0" cellpadding="0" border="0" style="width:100%;" >
+               <tr>
+                <td>
+                 <table cellspacing="0" cellpadding="1" border="1" style="width:100%;">
+                   <tr style="color:white;background-color:grey">
+                     <th class="class_tablelabel" id="id_table_Number" style="width:4%; border-left:1px solid white;">#</th>
+                     <th class="class_tablelabel" id="id_table_Reference1" style="width:9%;">Reference 1</th>
+                     <th class="class_tablelabel" id="id_table_Reference2" style="width:9%;">Reference 2</th>
+                     <th class="class_tablelabel" id="id_table_Bandtype" style="width:9%;">Band Type</th>
+                     <th class="class_tablelabel" id="id_table_Color1" style="width:9%;">C1 (RGB)</th>
+                     <th class="class_tablelabel" id="id_table_Color2" style="width:9%;">C2 (RGB)</th>
+                   </tr>
+                 </table>
+                </td>
+               </tr>
+              <tr>
+              <td>
+                 <div style="width:100%; height:21vh; overflow:auto;">
+                   <table cellspacing="0" cellpadding="1" border="1"  id="id_table" style="width:100%;">
+                     <tbody id="id_tableBody">
 
-                  <tbody id="id_tableBody">
+                     </tbody>
+                   </table>
+                 </div>
+                </td>
+               </tr>
+              </table>
 
-                  </tbody>
 
-                </table>
-              </div>
             </div>
 
 
@@ -316,7 +326,7 @@
 
           <canvas style="margin-top: 0px; width:100%; height: 10vh;" id="id_createColormapKeys">
           </canvas>
-          <canvas class="row" style="margin-top: 0px; width:95%; height: 8vh; margin-left:auto;  margin-right:auto;" id="id_colormapSketch">
+          <canvas class="classSketchCanvas" id="id_colormapSketch">
           </canvas>
 
           <div class="row" style="margin-top: 0px; width:95%; height: 2vh; margin-left:auto; margin-right:auto;" id="id_colormapSketch_Ref">
@@ -348,7 +358,7 @@
 
           <canvas style="margin-top: 0px; width:100%; height: 10vh;" id="id_createColormapKeys2">
           </canvas>
-          <canvas class="row" style="margin-top: 0px; width:95%; height: 8vh; margin-left:auto;  margin-right:auto;" id="id_colormapSketch2">
+          <canvas class="classSketchCanvas" id="id_colormapSketch2">
           </canvas>
 
           <div class="row" style="margin-top: 0px; width:95%; height: 2vh; margin-left:auto; margin-right:auto;" id="id_colormapSketch_Ref2">
@@ -376,19 +386,19 @@
 
        <div style="margin-left:20%; width:60%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:white; padding-top:2vh; padding-bottom:2vh; box-shadow:  0.3vh  0.3vh grey;">
 
-          <h1 style="margin-left:10%; width:80%; text-align:center; height:4vh; line-height:4vh; font-size:4vh; vertical-align:middle; padding-top:2vh;"> Welcome to the CCC-Tool </h1>
+          <h1 style="margin-left:10%; width:80%; text-align:center; height:4vh; line-height:4vh; font-size:4vh; vertical-align:middle; padding-top:2vh;  overflow: hidden; text-overflow:clip;"> Welcome to the CCC-Tool </h1>
 
           <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
           Start with:
           <p>
 
-          <button class="classButtonWhite" onclick="loadSession()" title="ADD" style="border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 60%; height:8vh; line-height:8vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180); margin-left:20%; margin-top:2vh;"> Load Session </button>
+          <button class="classButtonWhite" onclick="loadSession()" title="ADD" style="border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 60%; height:8vh; line-height:8vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180); margin-left:20%; margin-top:2vh; overflow: hidden; text-overflow:initial;"> Load Session </button>
 
-          <button class="classButtonWhite" onclick="changePage(1)" title="ADD" style="border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 60%; height:8vh; line-height:8vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180); margin-left:20%; margin-top:2vh;"> Select CMS* from the Gallery</button>
+          <button class="classButtonWhite" onclick="changePage(1)" title="ADD" style="border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 60%; height:8vh; line-height:8vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180); margin-left:20%; margin-top:2vh;  text-overflow:initial;"> Select CMS* from the Gallery</button>
 
-          <button class="classButtonWhite" onclick="changePage(2)" title="CREATE" style="border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 60%; height:8vh; line-height:8vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180); margin-left:20%; margin-top:2vh;"> Create New CMS*</button>
+          <button class="classButtonWhite" onclick="changePage(2)" title="CREATE" style="border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 60%; height:8vh; line-height:8vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180); margin-left:20%; margin-top:2vh;  text-overflow:initial;"> Create New CMS*</button>
 
-          <button class="classButtonWhite" onclick="changePage(7)" title="Tutorial" style="border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 60%; height:8vh; line-height:8vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180); margin-left:20%; margin-top:2vh; margin-bottom:2vh;"> Tutorial</button>
+          <button class="classButtonWhite" onclick="changePage(7)" title="Tutorial" style="border-radius: 0.5vh;  background-size:cover; background-repeat:no-repeat; background-position: center center; width: 60%; height:8vh; line-height:8vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180); margin-left:20%; margin-top:2vh; margin-bottom:2vh; overflow: hidden; text-overflow:initial;"> Tutorial</button>
 
           <p style="margin-left:20%; width:60%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
           (*CMS = Colormap Specification)
@@ -645,7 +655,7 @@
                   <div class="row" style="height:auto; width:100%; margin:0px; ">
 
                   <div style="width:20%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255); border-right: 1px solid black;">
-                    <h4 style=" margin: 0px; width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:black; margin-top:1vh;">Constant Band:</h4>
+                    <h4 class="class_overflowText" style=" margin: 0px; width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:black; margin-top:1vh;">Constant Band:</h4>
                       <div id="id_ConstantBand_Div" style="width:100%; height:50vh; overflow-y:auto; border-bottom:1px solid black;">
 
                       </div>
@@ -653,7 +663,7 @@
                   </div>
 
                   <div style="width:20%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255); border-right: 1px solid black;">
-                    <h4 style=" margin: 0px; width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:black; margin-top:1vh;">Scale Band:</h4>
+                    <h4 class="class_overflowText" style=" margin: 0px; width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:black; margin-top:1vh;">Scale Band:</h4>
                       <div id="id_ScaleBand_Div" style="width:100%; height:50vh; overflow-y:auto;  border-bottom:1px solid black;">
 
                       </div>
@@ -661,7 +671,7 @@
                   </div>
 
                   <div style="width:20%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255); border-right: 1px solid black;">
-                    <h4 style=" margin: 0px; width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:black; margin-top:1vh;">Double Bands:</h4>
+                    <h4 class="class_overflowText" style=" margin: 0px; width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:black; margin-top:1vh;">Double Bands:</h4>
                       <div id="id_DoubleBands_Div" style="width:100%;height:50vh; overflow-y:auto;  border-bottom:1px solid black;">
 
                       </div>
@@ -669,7 +679,7 @@
                   </div>
 
                   <div style="width:20%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255); border-right: 1px solid black;">
-                    <h4 style=" margin: 0px; width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:black; margin-top:1vh;">Triple Bands:</h4>
+                    <h4 class="class_overflowText" style=" margin: 0px; width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:black; margin-top:1vh;">Triple Bands:</h4>
                       <div id="id_TripleBands_Div" style=" width:100%; height:50vh; overflow-y:auto;  border-bottom:1px solid black;">
 
                       </div>
@@ -677,7 +687,7 @@
                   </div>
 
                   <div style="width:20%; margin-top:0.5vh; padding-top:1vh; padding-bottom:1vh; background:rgb(255,255,255); border-right: 1px solid black;">
-                    <h4 style=" margin: 0px; width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:black; margin-top:1vh;">Quadruple Bands:</h4>
+                    <h4 class="class_overflowText" style=" margin: 0px; width:100%; height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; color:black; margin-top:1vh;">Quadruple Bands:</h4>
                     <div id="id_QuadrupleBands_Div" style=" width:100%; height:50vh; overflow-y:auto;  border-bottom:1px solid black;">
 
                     </div>
@@ -694,7 +704,7 @@
                    <div style="margin-top: 2vh; width:50%; height: auto; background:white;">
 
                        <div class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
-                         <p style="margin:0px; margin-left:10%; width:20%; text-align:left; height:2.2vh; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px; font-weight:bold;">
+                         <p class="class_overflowText" style="margin:0px; margin-left:10%; width:20%; text-align:left; height:2.2vh; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px; font-weight:bold;">
                            Key:
                          </p>
 
@@ -707,7 +717,7 @@
                        <hr style="color:grey;">
 
                        <div class="row" style="margin-top:2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
-                         <p style="margin:0px; margin-left:10%; width:20%; text-align:left; height:2.2vh; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px; font-weight:bold;">
+                         <p class="class_overflowText" style="margin:0px; margin-left:10%; width:20%; text-align:left; height:2.2vh; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px; font-weight:bold;">
                            Type:
                          </p>
 
@@ -753,7 +763,7 @@
                        <hr style="color:grey;">
 
                        <div class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
-                         <p style="margin:0px; margin-left:10%; width:20%; text-align:left; height:2.2vh; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px; font-weight:bold; ">
+                         <p class="class_overflowText" style="margin:0px; margin-left:10%; width:20%; text-align:left; height:2.2vh; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px; font-weight:bold; ">
                            Scalar Value:
                          </p>
 
@@ -765,7 +775,7 @@
 
 
                                <div class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
-                                   <p style="margin:0px; margin-left:10%; width:20%; text-align:left; height:2.2vh; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px; font-weight:bold; ">
+                                   <p class="class_overflowText" style="margin:0px; margin-left:10%; width:20%; text-align:left; height:2.2vh; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px; font-weight:bold; ">
                                      Color Picker:
                                    </p>
 
@@ -827,7 +837,7 @@
                                <hr style="color:grey;">
 
                                <div class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
-                                   <p style="margin:0px; margin-left:10%; width:20%; text-align:left; height:2.2vh; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px; font-weight:bold; ">
+                                   <p class="class_overflowText" style="margin:0px; margin-left:10%; width:20%; text-align:left; height:2.2vh; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px; font-weight:bold; ">
                                      Delete Key:
                                    </p>
                                    <button class="classButtonWhite" id="editPage_deleteButton" onclick="editPage_delteKey()" title="Delete Key" style="border-radius: 0.5vh; width: 50%; height:4vh; line-height:4vh; font-size:2vh; border: 0.2vh solid rgb(180,180,180); margin-left:17.5%; margin-top:4vh; margin-bottom:2vh; box-shadow:  0.3vh  0.3vh grey; color:black;"> Delete Key</button>
@@ -836,7 +846,7 @@
                               <hr style="color:grey;">
 
                               <div class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
-                                  <p style="margin:0px; margin-left:10%; width:20%; text-align:left; height:2.2vh; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px; font-weight:bold;">
+                                  <p  style="margin:0px; margin-left:10%; width:20%; text-align:left; height:2.2vh; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px; font-weight:bold;">
                                     Set Middle Of Triple:
                                   </p>
                                   <input class="class_RadioButtonLabelEditPage" style="margin-left: 5%; margin-right: 0px;" type="radio" id="editSide_Radiobutton_MiddleOfTripleColor1" name="editPage_MiddleOfTriple" value="1" checked="checked">
@@ -902,7 +912,7 @@
 
                <!-- select colorspace -->
               <div class="row" style="height:100%; margin-top:2vh; margin-bottom:2vh; ">
-                   <p style="height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:1cm; font-size:3vh; color:black;  margin-left:auto;"><strong>Choose</strong> a Colorspace: </p>
+                   <p class="class_overflowText" style="height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:1cm; font-size:3vh; color:black;  margin-left:auto;"><strong>Choose</strong> a Colorspace: </p>
                    <button class="classButtonWhite" id="button_modifyPathRGB" title="RGB" onclick="changeAnalyzeColorspace(0)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid rgb(0,191,255); color: rgb(0,191,255); ">RGB</button>
                    <button class="classButtonWhite" id="button_modifyPathHSV" title="HSV" onclick="changeAnalyzeColorspace(1)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid black; color:black; ">HSV</button>
                    <button class="classButtonWhite" id="button_modifyPathLAB" title="LAB" onclick="changeAnalyzeColorspace(2)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid black; color:black; ">LAB</button>
@@ -1018,14 +1028,14 @@
 
                  <!-- Legend -->
                  <div class="row" style="width:80%; height:4vh; border: 1px solid rgb(120,120,120); background:rgb(240,240,240); margin-left:10%; margin-top:2vh;  margin-bottom:2vh;">
-                   <p class="classAnalyseLabel" style="margin-left:auto; width:auto; font-weight:bold; margin-right:1vw;"> Legend:</p>
+                   <p class="class_overflowText"  style="margin:0px; margin-left:2%; width:8%; height:4vh; line-height:4vh; font-size:2vh; vertical-align:middle; text-align:center; font-weight:bold;"> Legend:</p>
 
-                   <div class="row" style="height:100%; border-right: 1px solid rgb(120,120,120);">
-                     <div style="margin-left:1vw; margin-right:1vw; height:2vh; width:2vh; margin-top:auto; margin-bottom:auto; border:2px solid black; background:white;">
+                   <div class="row" style="height:100%; border-right: 1px solid rgb(120,120,120); width:30%;">
+                     <div style="margin-left:10%; margin-right:10%; height:2vh; width:5%; margin-top:auto; margin-bottom:auto; border:2px solid black; background:white;">
                      </div>
-                     <p class="classAnalyseLabel"> : Constant Band </p>
-                     <div class="dropdown" style="width:auto; margin-right:auto;">
-                       <button class="dropbtn" style="margin-right:1vw; border-radius: 0.5vh; line-height:3vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:0.5vh; margin-bottom:auto;">?</button>
+                     <p class="class_overflowText"  style="margin:0px; width:45%; height:4vh; line-height:4vh; font-size:2vh; vertical-align:middle; text-align:center; font-weight:bold;"> : Constant Band </p>
+                     <div class="dropdown" style="height:2vh; width:10%; margin-right:5%; margin-left:5%;">
+                       <button class="dropbtn" style="margin-right:1vw; border-radius: 0.5vh; line-height:3vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 100%; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:0.5vh; margin-bottom:auto;">?</button>
                        <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
                          <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:20vw; "> <strong>INFO:</strong> Constant bands define one color for a certain section. Inside of the visualization, a constant band will be represented by squares.
@@ -1035,16 +1045,16 @@
                    </div>
 
 
-                   <div class="row" style="height:100%; border-right: 1px solid rgb(120,120,120);">
-                     <svg style="margin-left:1vw; margin-right:0.5vw; height;4vh; width:15vw;">
-                             <line x1="10%" y1="50%" x2="90%" y2="50%" style="stroke:rgb(0,0,0);stroke-width:9" />
-                             <line x1="10%" y1="50%" x2="90%" y2="50%" style="stroke:rgb(255,255,255);stroke-width:3" />
-                             <circle cx="10%" cy="50%" r="5%" stroke="black" stroke-width="3" fill="white" />
-                             <circle cx="90%" cy="50%" r="5%" stroke="black" stroke-width="3" fill="white" />
+                   <div class="row" style="height:100%; border-right: 1px solid rgb(120,120,120); width:30%;">
+                     <svg style="margin-left:5%; margin-right:5%; width:30%; height:4vh;">
+                             <line x1="20%" y1="50%" x2="80%" y2="50%" style="stroke:rgb(0,0,0);stroke-width:9" />
+                             <line x1="20%" y1="50%" x2="80%" y2="50%" style="stroke:rgb(255,255,255);stroke-width:3" />
+                             <circle cx="20%" cy="50%" r="10%" stroke="black" stroke-width="3" fill="white" />
+                             <circle cx="80%" cy="50%" r="10%" stroke="black" stroke-width="3" fill="white" />
                          </svg>
-                     <p class="classAnalyseLabel">: Scaled Band </p>
-                     <div class="dropdown" style="width:auto;">
-                       <button class="dropbtn" style=" margin-right:1vw; border-radius: 0.5vh; line-height:3vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:0.5vh; margin-bottom:auto;">?</button>
+                     <p class="class_overflowText"  style="margin:0px; width:35%; height:4vh; line-height:4vh; font-size:2vh; vertical-align:middle; text-align:center; font-weight:bold;"> : Scaled Band </p>
+                     <div class="dropdown" style="height:2vh; width:10%; margin-right:5%; margin-left:5%;">
+                       <button class="dropbtn" style="margin-right:1vw; border-radius: 0.5vh; line-height:3vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 100%; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:0.5vh; margin-bottom:auto;">?</button>
                        <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
                          <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:20vw; "> <strong>INFO:</strong> Scaled bands define a color gradient for a certain section. Intermediate colors will be interpolate inside the selected colorspace. Inside of the visualization, a scaled band will be represented by two circles and a solid line.
@@ -1057,18 +1067,17 @@
 
 
 
-                   <div class="row" style="height:100%; margin-right:auto; mardin-left:0px;">
-                     <svg style="margin-left:1vw; margin-right:0.5vw; height;4vh; width:10vw;">
+                   <div class="row" style="height:100%; margin-right:auto; mardin-left:0px; width:30%;">
+                     <svg style="margin-left:5%; margin-right:5%; width:20%; height:4vh;">
                            <line x1="10%" y1="50%" x2="90%" y2="50%" stroke-dasharray="10,5" style="stroke:rgb(0,0,0);stroke-width:9" />
                            <line x1="10%" y1="50%" x2="90%" y2="50%" stroke-dasharray="10,5" style="stroke:rgb(255,255,255);stroke-width:3" />
                        </svg>
-                     <p class="classAnalyseLabel">: Jump</p>
-                     <div class="dropdown" style="width:auto;">
-                       <button class="dropbtn" style=" margin-right:1vw; border-radius: 0.5vh; line-height:3vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:0.5vh; margin-bottom:auto;">?</button>
+                     <p class="class_overflowText"  style="margin:0px; width:45%; height:4vh; line-height:4vh; font-size:2vh; vertical-align:middle; text-align:center; font-weight:bold;">: Transition Point </p>
+                     <div class="dropdown" style="height:2vh; width:10%; margin-right:5%; margin-left:5%;">
+                       <button class="dropbtn" style="margin-right:1vw; border-radius: 0.5vh; line-height:3vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 100%; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:0.5vh; margin-bottom:auto;">?</button>
                        <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3; right: 2vw;">
-
-                         <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:20vw;"> <strong>INFO:</strong> If a neighbor of a band has a different start (end) color as the end (start) color of this band, there is a jump between the band and his neighbor.
-                           This jump is not part of the colormap course, but it shows the connection between those bands. Inside of the visualization, a jump will be represented by a dashed line.
+                         <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:25vw;"> <strong>INFO:</strong> If a neighbor of a band has a different start (end) color as the end (start) color of this band, there is a discontinuous transition point between the band and his neighbor.
+                           The transition paths are not part of the colormap course, but they are showing the connection between bands connected with a twin or a left key. Inside of the visualization, the transition path will be represented by a dashed line.
                          </p>
                        </div>
                      </div>
@@ -1099,7 +1108,7 @@
     </div>
 
     <div class="helpDiv" id="createSide_sketchHelp">
-      &#8679; Drag a predefined band from one the five columns bottom and drop it here. Delete a band by doulbe click on it.
+      &#8679; Drag a predefined band from one the five columns bottom and drop it here. You can delete a band with a mouse click on it.
     </div>
 
     <div class="helpDiv" id="createSide_add1Help">
@@ -1568,7 +1577,7 @@
                   -->
                   <div class="row" style="background: rgb(200,200,200); font-size:3vh;  font-weight:bold; margin-top:2vh; border-radius: 0.2vh; border: 0.2vh solid black; box-shadow: 0.3vh  0.3vh grey; width:96%; margin-left: 2%; height:10vh; line-height:10vh; vertical-align:middle; text-align:center; color:black; ">
 
-                    <p   style="height:10vh; width:25%; line-height:10vh; font-size:3vh; vertical-align:center;  text-align:left; margin:0px; margin-left:5%;">
+                    <p  class="class_overflowText" style="height:10vh; width:25%; line-height:10vh; font-size:3vh; vertical-align:center;  text-align:left; margin:0px; margin-left:5%;">
                       1. Scaled CMS
                     </p>
 
@@ -1576,24 +1585,24 @@
 
                   </div>
                   <div id="id_expandYellowDiv" class="class_AddLabel2 row">
-                    <p  onclick="expandAddColormapDivsIndex(0)" style="height:8vh; width:20%; line-height:8vh; font-size:2.5vh; vertical-align:center;  text-align:left; margin:0px; margin-left:10%;">
+                    <p class="class_overflowText" onclick="expandAddColormapDivsIndex(0)" style="height:8vh; width:20%; line-height:8vh; font-size:2.5vh; vertical-align:center;  text-align:left; margin:0px; margin-left:10%;">
                       1.1 Yellow Orange
                     </p>
 
                     <canvas onclick="expandAddColormapDivsIndex(0)" id="canvasPreviewYellow" style="height:4vh; width:40%; border-radius: 0.5vh; margin-left:2vw; margin-top:2vh; border: 1px solid black;"></canvas>
-                    <p onclick="expandAddColormapDivsIndex(0)"  style="height:8vh; width:20%; line-height:8vh; font-size:2.5vh; vertical-align:center;  text-align:left; margin:0px; margin-left:5%;">
+                    <p class="class_overflowText" onclick="expandAddColormapDivsIndex(0)"  style="height:8vh; width:20%; line-height:8vh; font-size:2.5vh; vertical-align:center;  text-align:left; margin:0px; margin-left:5%;">
                       (  &#11021; Click to expand)
                     </p>
                   </div>
                   <div id="id_addYellowDiv" class="class_AddLabel3" style="display:none; padding-top:1vh; padding-bottom:1vh;">
                   </div>
                   <div id="id_expandRedPurpleDiv" class="class_AddLabel2 row">
-                    <p  onclick="expandAddColormapDivsIndex(1)" style="height:8vh; width:20%; line-height:8vh; font-size:2.5vh; vertical-align:center;  text-align:left; margin:0px; margin-left:10%;">
+                    <p class="class_overflowText" onclick="expandAddColormapDivsIndex(1)" style="height:8vh; width:20%; line-height:8vh; font-size:2.5vh; vertical-align:center;  text-align:left; margin:0px; margin-left:10%;">
                       1.2 Red Purple
                     </p>
 
                     <canvas onclick="expandAddColormapDivsIndex(1)" id="canvasPreviewRed" style="height:4vh; width:40%; border-radius: 0.5vh; margin-left:2vw; margin-top:2vh; border: 1px solid black;"></canvas>
-                    <p onclick="expandAddColormapDivsIndex(1)"  style="height:8vh; width:20%; line-height:8vh; font-size:2.5vh; vertical-align:center;  text-align:left; margin:0px; margin-left:5%;">
+                    <p class="class_overflowText" onclick="expandAddColormapDivsIndex(1)"  style="height:8vh; width:20%; line-height:8vh; font-size:2.5vh; vertical-align:center;  text-align:left; margin:0px; margin-left:5%;">
                       (  &#11021; Click to expand)
                     </p>
                   </div>
@@ -1601,12 +1610,12 @@
                   </div>
                   <div id="id_expandBlueDiv" class="class_AddLabel2 row">
 
-                    <p onclick="expandAddColormapDivsIndex(2)"  style="height:8vh; width:20%; line-height:8vh; font-size:2.5vh; vertical-align:center;  text-align:left; margin:0px; margin-left:10%;">
+                    <p class="class_overflowText" onclick="expandAddColormapDivsIndex(2)"  style="height:8vh; width:20%; line-height:8vh; font-size:2.5vh; vertical-align:center;  text-align:left; margin:0px; margin-left:10%;">
                      1.3 Blue
                     </p>
 
                     <canvas onclick="expandAddColormapDivsIndex(2)"  id="canvasPreviewBlue" style="height:4vh; width:40%; border-radius: 0.5vh; margin-left:2vw; margin-top:2vh; border: 1px solid black;"></canvas>
-                    <p  onclick="expandAddColormapDivsIndex(2)"  style="height:8vh; width:20%; line-height:8vh; font-size:2.5vh; vertical-align:center;  text-align:left; margin:0px; margin-left:5%;">
+                    <p  class="class_overflowText" onclick="expandAddColormapDivsIndex(2)"  style="height:8vh; width:20%; line-height:8vh; font-size:2.5vh; vertical-align:center;  text-align:left; margin:0px; margin-left:5%;">
                       (  &#11021; Click to expand)
                     </p>
                   </div>
@@ -1614,12 +1623,12 @@
                   </div>
                   <div id="id_expandGreenDiv" class="class_AddLabel2 row">
 
-                    <p  onclick="expandAddColormapDivsIndex(3)"  style="height:8vh; width:20%; line-height:8vh; font-size:2.5vh; vertical-align:center;  text-align:left; margin:0px; margin-left:10%;">
+                    <p class="class_overflowText" onclick="expandAddColormapDivsIndex(3)"  style="height:8vh; width:20%; line-height:8vh; font-size:2.5vh; vertical-align:center;  text-align:left; margin:0px; margin-left:10%;">
                       1.4 Green
                     </p>
 
                     <canvas onclick="expandAddColormapDivsIndex(3)" id="canvasPreviewGreen" style="height:4vh; width:40%; border-radius: 0.5vh; margin-left:2vw; margin-top:2vh; border: 1px solid black;"></canvas>
-                    <p  onclick="expandAddColormapDivsIndex(3)" style="height:8vh; width:20%; line-height:8vh; font-size:2.5vh; vertical-align:center;  text-align:left; margin:0px; margin-left:5%;">
+                    <p class="class_overflowText" onclick="expandAddColormapDivsIndex(3)" style="height:8vh; width:20%; line-height:8vh; font-size:2.5vh; vertical-align:center;  text-align:left; margin:0px; margin-left:5%;">
                       (  &#11021; Click to expand)
                     </p>
                   </div>
@@ -1627,12 +1636,12 @@
                   </div>
                   <div id="id_expandBrownDiv" class="class_AddLabel2 row">
 
-                    <p onclick="expandAddColormapDivsIndex(4)" onclick="expandAddColormapDivsIndex(4)"  style="height:8vh; width:20%; line-height:8vh; font-size:2.5vh; vertical-align:center;  text-align:left; margin:0px; margin-left:10%;">
+                    <p class="class_overflowText" onclick="expandAddColormapDivsIndex(4)" onclick="expandAddColormapDivsIndex(4)"  style="height:8vh; width:20%; line-height:8vh; font-size:2.5vh; vertical-align:center;  text-align:left; margin:0px; margin-left:10%;">
                       1.5 Brown
                     </p>
 
                     <canvas onclick="expandAddColormapDivsIndex(4)" id="canvasPreviewBrown" style="height:4vh; width:40%; border-radius: 0.5vh; margin-left:2vw; margin-top:2vh; border: 1px solid black;"></canvas>
-                    <p onclick="expandAddColormapDivsIndex(4)"  style="height:8vh; width:20%; line-height:8vh; font-size:2.5vh; vertical-align:center;  text-align:left; margin:0px; margin-left:5%;">
+                    <p class="class_overflowText" onclick="expandAddColormapDivsIndex(4)"  style="height:8vh; width:20%; line-height:8vh; font-size:2.5vh; vertical-align:center;  text-align:left; margin:0px; margin-left:5%;">
                       (  &#11021; Click to expand)
                     </p>
                   </div>
@@ -1643,7 +1652,7 @@
                     ----------------	Divergent	  -----------------
                   -->
                   <div id="id_expandDivergentDiv" class="class_AddLabel1 row" >
-                    <p onclick="expandAddColormapDivsIndex(5)" style="height:10vh; width:25%; line-height:10vh; font-size:3vh; vertical-align:center;  text-align:left; margin:0px; margin-left:5%;">
+                    <p class="class_overflowText" onclick="expandAddColormapDivsIndex(5)" style="height:10vh; width:25%; line-height:10vh; font-size:3vh; vertical-align:center;  text-align:left; margin:0px; margin-left:5%;">
                       2. Divergent CMS
                     </p>
 
@@ -1651,7 +1660,7 @@
 
                     </canvas>
 
-                    <p onclick="expandAddColormapDivsIndex(5)" style="height:10vh; line-height:10vh; font-size:2.5vh; vertical-align:middle; margin:0px; margin-left:5%;">
+                    <p class="class_overflowText" onclick="expandAddColormapDivsIndex(5)" style="height:10vh; line-height:10vh; font-size:2.5vh; vertical-align:middle; margin:0px; margin-left:5%;">
                       (  &#11021; Click to expand)
                     </p>
                   </div>
@@ -1664,7 +1673,7 @@
                     ----------------	Complex Three Band	  -----------------
                   -->
                   <div id="id_expandComplexThreeDiv" class="class_AddLabel1 row" >
-                    <p onclick="expandAddColormapDivsIndex(6)" style="height:10vh; width:25%; line-height:10vh; font-size:3vh; vertical-align:center;  text-align:left; margin:0px; margin-left:5%;">
+                    <p class="class_overflowText" onclick="expandAddColormapDivsIndex(6)" style="height:10vh; width:25%; line-height:10vh; font-size:3vh; vertical-align:center;  text-align:left; margin:0px; margin-left:5%;">
                       3. Three Bands CMS
                     </p>
 
@@ -1672,7 +1681,7 @@
 
                     </canvas>
 
-                    <p onclick="expandAddColormapDivsIndex(6)" style="height:10vh; line-height:10vh; font-size:2.5vh; vertical-align:middle; margin:0px; margin-left:5%;">
+                    <p class="class_overflowText" onclick="expandAddColormapDivsIndex(6)" style="height:10vh; line-height:10vh; font-size:2.5vh; vertical-align:middle; margin:0px; margin-left:5%;">
                       (  &#11021; Click to expand)
                     </p>
                   </div>
@@ -1684,7 +1693,7 @@
                     ----------------	Comples Four Band	  -----------------
                   -->
                   <div id="id_expandComplexFourDiv" class="class_AddLabel1 row" >
-                    <p onclick="expandAddColormapDivsIndex(7)" style="height:10vh; width:25%; line-height:10vh; font-size:3vh; vertical-align:center;  text-align:left; margin:0px; margin-left:5%;">
+                    <p class="class_overflowText" onclick="expandAddColormapDivsIndex(7)" style="height:10vh; width:25%; line-height:10vh; font-size:3vh; vertical-align:center;  text-align:left; margin:0px; margin-left:5%;">
                       4. Four Bands CMS
                     </p>
 
@@ -1692,7 +1701,7 @@
 
                     </canvas>
 
-                    <p onclick="expandAddColormapDivsIndex(7)" style="height:10vh; line-height:10vh; font-size:2.5vh; vertical-align:middle; margin:0px; margin-left:5%;">
+                    <p class="class_overflowText" onclick="expandAddColormapDivsIndex(7)" style="height:10vh; line-height:10vh; font-size:2.5vh; vertical-align:middle; margin:0px; margin-left:5%;">
                       (  &#11021; Click to expand)
                     </p>
                   </div>
@@ -1761,7 +1770,7 @@
               <!-- select colorspace -->
               <div id="id_CompareColorspace_Menue" style="height:100%; width:auto; margin-top:2vh; margin-bottom:2vh; ">
                 <div class="row" style="height:100%;">
-                  <p style="height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:1cm; font-size:3vh; color:black;  margin-left:auto;"><strong>Choose</strong> a Colorspace for the Analysis: </p>
+                  <p class="class_overflowText" style="height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:1cm; font-size:3vh; color:black;  margin-left:auto;"><strong>Choose</strong> a Colorspace for the Analysis: </p>
                   <button class="classButtonWhite" id="button_CompareRGB" title="RGB" onclick="changeAnalyzeColorspace(0)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid rgb(0,191,255); color: rgb(0,191,255); ">RGB</button>
                   <button class="classButtonWhite" id="button_CompareHSV" title="HSV" onclick="changeAnalyzeColorspace(1)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid black; color:black; ">HSV</button>
                   <button class="classButtonWhite" id="button_CompareLAB" title="LAB" onclick="changeAnalyzeColorspace(2)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid black; color:black; ">LAB</button>
@@ -1775,15 +1784,15 @@
               <hr>
 
               <!-- Legend -->
-              <div class="row" style="width:80%; height:4vh; border: 1px solid rgb(120,120,120); background:rgb(240,240,240); margin-left:10%; margin-top:4vh;">
-                <p class="classAnalyseLabel" style="margin-left:auto; width:auto; font-weight:bold; margin-right:1vw;"> Legend:</p>
+              <div class="row" style="width:80%; height:4vh; border: 1px solid rgb(120,120,120); background:rgb(240,240,240); margin-left:10%; margin-top:2vh;  margin-bottom:2vh;">
+                <p class="class_overflowText"  style="margin:0px; margin-left:2%; width:8%; height:4vh; line-height:4vh; font-size:2vh; vertical-align:middle; text-align:center; font-weight:bold;"> Legend:</p>
 
-                <div class="row" style="height:100%; border-right: 1px solid rgb(120,120,120);">
-                  <div style="margin-left:1vw; margin-right:1vw; height:2vh; width:2vh; margin-top:auto; margin-bottom:auto; border:2px solid black; background:white;">
+                <div class="row" style="height:100%; border-right: 1px solid rgb(120,120,120); width:30%;">
+                  <div style="margin-left:10%; margin-right:10%; height:2vh; width:5%; margin-top:auto; margin-bottom:auto; border:2px solid black; background:white;">
                   </div>
-                  <p class="classAnalyseLabel"> : Constant Band </p>
-                  <div class="dropdown" style="width:auto; margin-right:auto;">
-                    <button class="dropbtn" style="margin-right:1vw; border-radius: 0.5vh; line-height:3vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:0.5vh; margin-bottom:auto;">?</button>
+                  <p class="class_overflowText"  style="margin:0px; width:45%; height:4vh; line-height:4vh; font-size:2vh; vertical-align:middle; text-align:center; font-weight:bold;"> : Constant Band </p>
+                  <div class="dropdown" style="height:2vh; width:10%; margin-right:5%; margin-left:5%;">
+                    <button class="dropbtn" style="margin-right:1vw; border-radius: 0.5vh; line-height:3vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 100%; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:0.5vh; margin-bottom:auto;">?</button>
                     <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
                       <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:20vw; "> <strong>INFO:</strong> Constant bands define one color for a certain section. Inside of the visualization, a constant band will be represented by squares.
@@ -1793,16 +1802,16 @@
                 </div>
 
 
-                <div class="row" style="height:100%; border-right: 1px solid rgb(120,120,120);">
-                  <svg style="margin-left:1vw; margin-right:0.5vw; height;4vh; width:15vw;">
-                          <line x1="10%" y1="50%" x2="90%" y2="50%" style="stroke:rgb(0,0,0);stroke-width:9" />
-                          <line x1="10%" y1="50%" x2="90%" y2="50%" style="stroke:rgb(255,255,255);stroke-width:3" />
-                          <circle cx="10%" cy="50%" r="5%" stroke="black" stroke-width="3" fill="white" />
-                          <circle cx="90%" cy="50%" r="5%" stroke="black" stroke-width="3" fill="white" />
+                <div class="row" style="height:100%; border-right: 1px solid rgb(120,120,120); width:30%;">
+                  <svg style="margin-left:5%; margin-right:5%; width:30%; height:4vh;">
+                          <line x1="20%" y1="50%" x2="80%" y2="50%" style="stroke:rgb(0,0,0);stroke-width:9" />
+                          <line x1="20%" y1="50%" x2="80%" y2="50%" style="stroke:rgb(255,255,255);stroke-width:3" />
+                          <circle cx="20%" cy="50%" r="10%" stroke="black" stroke-width="3" fill="white" />
+                          <circle cx="80%" cy="50%" r="10%" stroke="black" stroke-width="3" fill="white" />
                       </svg>
-                  <p class="classAnalyseLabel">: Scaled Band </p>
-                  <div class="dropdown" style="width:auto;">
-                    <button class="dropbtn" style=" margin-right:1vw; border-radius: 0.5vh; line-height:3vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:0.5vh; margin-bottom:auto;">?</button>
+                  <p class="class_overflowText"  style="margin:0px; width:35%; height:4vh; line-height:4vh; font-size:2vh; vertical-align:middle; text-align:center; font-weight:bold;"> : Scaled Band </p>
+                  <div class="dropdown" style="height:2vh; width:10%; margin-right:5%; margin-left:5%;">
+                    <button class="dropbtn" style="margin-right:1vw; border-radius: 0.5vh; line-height:3vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 100%; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:0.5vh; margin-bottom:auto;">?</button>
                     <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
                       <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:20vw; "> <strong>INFO:</strong> Scaled bands define a color gradient for a certain section. Intermediate colors will be interpolate inside the selected colorspace. Inside of the visualization, a scaled band will be represented by two circles and a solid line.
@@ -1815,18 +1824,17 @@
 
 
 
-                <div class="row" style="height:100%; margin-right:auto; mardin-left:0px;">
-                  <svg style="margin-left:1vw; margin-right:0.5vw; height;4vh; width:10vw;">
+                <div class="row" style="height:100%; margin-right:auto; mardin-left:0px; width:30%;">
+                  <svg style="margin-left:5%; margin-right:5%; width:20%; height:4vh;">
                         <line x1="10%" y1="50%" x2="90%" y2="50%" stroke-dasharray="10,5" style="stroke:rgb(0,0,0);stroke-width:9" />
                         <line x1="10%" y1="50%" x2="90%" y2="50%" stroke-dasharray="10,5" style="stroke:rgb(255,255,255);stroke-width:3" />
                     </svg>
-                  <p class="classAnalyseLabel">: Jump</p>
-                  <div class="dropdown" style="width:auto;">
-                    <button class="dropbtn" style=" margin-right:1vw; border-radius: 0.5vh; line-height:3vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:0.5vh; margin-bottom:auto;">?</button>
+                  <p class="class_overflowText"  style="margin:0px; width:45%; height:4vh; line-height:4vh; font-size:2vh; vertical-align:middle; text-align:center; font-weight:bold;">: Transition Point </p>
+                  <div class="dropdown" style="height:2vh; width:10%; margin-right:5%; margin-left:5%;">
+                    <button class="dropbtn" style="margin-right:1vw; border-radius: 0.5vh; line-height:3vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 100%; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:0.5vh; margin-bottom:auto;">?</button>
                     <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3; right: 2vw;">
-
-                      <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:20vw;"> <strong>INFO:</strong> If a neighbor of a band has a different start (end) color as the end (start) color of this band, there is a jump between the band and his neighbor.
-                        This jump is not part of the colormap course, but it shows the connection between those bands. Inside of the visualization, a jump will be represented by a dashed line.
+                      <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:25vw;"> <strong>INFO:</strong> If a neighbor of a band has a different start (end) color as the end (start) color of this band, there is a discontinuous transition point between the band and his neighbor.
+                        The transition paths are not part of the colormap course, but they are showing the connection between bands connected with a twin or a left key. Inside of the visualization, the transition path will be represented by a dashed line.
                       </p>
                     </div>
                   </div>
@@ -1986,10 +1994,10 @@
                     <canvas class="globalSpeedCanvas" id="compare1_GlobalSpeed_Canvas_Lab" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
                     </canvas>
 
-                      <p id="compare1_GlobalSpeed_Label_Max_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
-                      <p id="compare1_GlobalSpeed_Label_Av_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
-                      <p id="compare1_GlobalSpeed_Label_Min_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
-                      <p id="compare1_GlobalSpeed_Label_Dev_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                      <p id="compare1_GlobalSpeed_Label_Max_Lab" class="classAnalyzePlotLabel"> Maximum = /</p>
+                      <p id="compare1_GlobalSpeed_Label_Av_Lab" class="classAnalyzePlotLabel"> Average = /</p>
+                      <p id="compare1_GlobalSpeed_Label_Min_Lab" class="classAnalyzePlotLabel"> Minimum = /</p>
+                      <p id="compare1_GlobalSpeed_Label_Dev_Lab" class="classAnalyzePlotLabel"> Deviation = /</p>
                       </div>
                   </div>
 
@@ -1999,10 +2007,10 @@
                     <canvas class="globalSpeedCanvas" id="compare2_GlobalSpeed_Canvas_Lab" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
                     </canvas>
 
-                      <p id="compare2_GlobalSpeed_Label_Max_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
-                      <p id="compare2_GlobalSpeed_Label_Av_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
-                      <p id="compare2_GlobalSpeed_Label_Min_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
-                      <p id="compare2_GlobalSpeed_Label_Dev_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                      <p id="compare2_GlobalSpeed_Label_Max_Lab" class="classAnalyzePlotLabel"> Maximum = /</p>
+                      <p id="compare2_GlobalSpeed_Label_Av_Lab" class="classAnalyzePlotLabel"> Average = /</p>
+                      <p id="compare2_GlobalSpeed_Label_Min_Lab" class="classAnalyzePlotLabel"> Minimum = /</p>
+                      <p id="compare2_GlobalSpeed_Label_Dev_Lab" class="classAnalyzePlotLabel"> Deviation = /</p>
                     </div>
                   </div>
               </div>
@@ -2016,10 +2024,10 @@
                     <canvas class="globalSpeedCanvas" id="compare1_GlobalSpeed_Canvas_de94" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
                     </canvas>
 
-                      <p id="compare1_GlobalSpeed_Label_Max_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
-                      <p id="compare1_GlobalSpeed_Label_Av_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
-                      <p id="compare1_GlobalSpeed_Label_Min_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
-                      <p id="compare1_GlobalSpeed_Label_Dev_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                      <p id="compare1_GlobalSpeed_Label_Max_de94" class="classAnalyzePlotLabel"> Maximum = /</p>
+                      <p id="compare1_GlobalSpeed_Label_Av_de94" class="classAnalyzePlotLabel"> Average = /</p>
+                      <p id="compare1_GlobalSpeed_Label_Min_de94" class="classAnalyzePlotLabel"> Minimum = /</p>
+                      <p id="compare1_GlobalSpeed_Label_Dev_de94" class="classAnalyzePlotLabel"> Deviation = /</p>
                       </div>
                   </div>
 
@@ -2029,10 +2037,10 @@
                     <canvas class="globalSpeedCanvas" id="compare2_GlobalSpeed_Canvas_de94" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
                     </canvas>
 
-                      <p id="compare2_GlobalSpeed_Label_Max_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
-                      <p id="compare2_GlobalSpeed_Label_Av_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
-                      <p id="compare2_GlobalSpeed_Label_Min_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
-                      <p id="compare2_GlobalSpeed_Label_Dev_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                      <p id="compare2_GlobalSpeed_Label_Max_de94" class="classAnalyzePlotLabel"> Maximum = /</p>
+                      <p id="compare2_GlobalSpeed_Label_Av_de94" class="classAnalyzePlotLabel"> Average = /</p>
+                      <p id="compare2_GlobalSpeed_Label_Min_de94" class="classAnalyzePlotLabel"> Minimum = /</p>
+                      <p id="compare2_GlobalSpeed_Label_Dev_de94" class="classAnalyzePlotLabel"> Deviation = /</p>
                       </div>
                   </div>
               </div>
@@ -2045,10 +2053,10 @@
                   <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> Lab de2000 Metric CMS 1</h1>
                   <canvas class="globalSpeedCanvas" id="compare1_GlobalSpeed_Canvas_de2000" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
                   </canvas>
-                    <p id="compare1_GlobalSpeed_Label_Max_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
-                    <p id="compare1_GlobalSpeed_Label_Av_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
-                    <p id="compare1_GlobalSpeed_Label_Min_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
-                    <p id="compare1_GlobalSpeed_Label_Dev_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                    <p id="compare1_GlobalSpeed_Label_Max_de2000" class="classAnalyzePlotLabel"> Maximum = /</p>
+                    <p id="compare1_GlobalSpeed_Label_Av_de2000" class="classAnalyzePlotLabel"> Average = /</p>
+                    <p id="compare1_GlobalSpeed_Label_Min_de2000" class="classAnalyzePlotLabel"> Minimum = /</p>
+                    <p id="compare1_GlobalSpeed_Label_Dev_de2000" class="classAnalyzePlotLabel"> Deviation = /</p>
                     </div>
                 </div>
 
@@ -2057,10 +2065,10 @@
                   <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> Lab de2000 Metric CMS 2</h1>
                   <canvas class="globalSpeedCanvas" id="compare2_GlobalSpeed_Canvas_de2000" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
                   </canvas>
-                    <p id="compare2_GlobalSpeed_Label_Max_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
-                    <p id="compare2_GlobalSpeed_Label_Av_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
-                    <p id="compare2_GlobalSpeed_Label_Min_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
-                    <p id="compare2_GlobalSpeed_Label_Dev_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                    <p id="compare2_GlobalSpeed_Label_Max_de2000" class="classAnalyzePlotLabel"> Maximum = /</p>
+                    <p id="compare2_GlobalSpeed_Label_Av_de2000" class="classAnalyzePlotLabel"> Average = /</p>
+                    <p id="compare2_GlobalSpeed_Label_Min_de2000" class="classAnalyzePlotLabel"> Minimum = /</p>
+                    <p id="compare2_GlobalSpeed_Label_Dev_de2000" class="classAnalyzePlotLabel"> Deviation = /</p>
                     </div>
                 </div>
               </div>
@@ -2072,10 +2080,10 @@
                   <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> DIN99 Euclidean Distance CMS 2</h1>
                   <canvas class="globalSpeedCanvas" id="compare1_GlobalSpeed_Canvas_din99" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
                   </canvas>
-                    <p id="compare2_GlobalSpeed_Label_Max_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
-                    <p id="compare2_GlobalSpeed_Label_Av_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
-                    <p id="compare2_GlobalSpeed_Label_Min_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
-                    <p id="compare2_GlobalSpeed_Label_Dev_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                    <p id="compare2_GlobalSpeed_Label_Max_din99" class="classAnalyzePlotLabel"> Maximum = /</p>
+                    <p id="compare2_GlobalSpeed_Label_Av_din99" class="classAnalyzePlotLabel"> Average = /</p>
+                    <p id="compare2_GlobalSpeed_Label_Min_din99" class="classAnalyzePlotLabel"> Minimum = /</p>
+                    <p id="compare2_GlobalSpeed_Label_Dev_din99" class="classAnalyzePlotLabel"> Deviation = /</p>
                     </div>
                 </div>
 
@@ -2084,10 +2092,10 @@
                   <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> DIN99 Euclidean Distance CMS 1</h1>
                   <canvas class="globalSpeedCanvas" id="compare2_GlobalSpeed_Canvas_din99" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
                   </canvas>
-                    <p id="compare1_GlobalSpeed_Label_Max_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
-                    <p id="compare1_GlobalSpeed_Label_Av_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
-                    <p id="compare1_GlobalSpeed_Label_Min_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
-                    <p id="compare1_GlobalSpeed_Label_Dev_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                    <p id="compare1_GlobalSpeed_Label_Max_din99" class="classAnalyzePlotLabel"> Maximum = /</p>
+                    <p id="compare1_GlobalSpeed_Label_Av_din99" class="classAnalyzePlotLabel"> Average = /</p>
+                    <p id="compare1_GlobalSpeed_Label_Min_din99" class="classAnalyzePlotLabel"> Minimum = /</p>
+                    <p id="compare1_GlobalSpeed_Label_Dev_din99" class="classAnalyzePlotLabel"> Deviation = /</p>
                     </div>
                 </div>
               </div>
@@ -2144,10 +2152,10 @@
                       <canvas class="globalSpeedCanvas" id="compare1_LocalSpeed_Canvas_Lab" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:url(img/lineplot_background.png);">
                       </canvas>
 
-                        <p id="compare1_LocalSpeed_Label_Max_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
-                        <p id="compare1_LocalSpeed_Label_Av_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
-                        <p id="compare1_LocalSpeed_Label_Min_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
-                        <p id="compare1_LocalSpeed_Label_Dev_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                        <p id="compare1_LocalSpeed_Label_Max_Lab" class="classAnalyzePlotLabel"> Maximum = /</p>
+                        <p id="compare1_LocalSpeed_Label_Av_Lab" class="classAnalyzePlotLabel"> Average = /</p>
+                        <p id="compare1_LocalSpeed_Label_Min_Lab" class="classAnalyzePlotLabel"> Minimum = /</p>
+                        <p id="compare1_LocalSpeed_Label_Dev_Lab" class="classAnalyzePlotLabel"> Deviation = /</p>
                         </div>
                     </div>
 
@@ -2157,10 +2165,10 @@
                       <canvas class="globalSpeedCanvas" id="compare2_LocalSpeed_Canvas_Lab" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:url(img/lineplot_background.png);">
                       </canvas>
 
-                        <p id="compare2_LocalSpeed_Label_Max_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
-                        <p id="compare2_LocalSpeed_Label_Av_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
-                        <p id="compare2_LocalSpeed_Label_Min_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
-                        <p id="compare2_LocalSpeed_Label_Dev_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                        <p id="compare2_LocalSpeed_Label_Max_Lab" class="classAnalyzePlotLabel"> Maximum = /</p>
+                        <p id="compare2_LocalSpeed_Label_Av_Lab" class="classAnalyzePlotLabel"> Average = /</p>
+                        <p id="compare2_LocalSpeed_Label_Min_Lab" class="classAnalyzePlotLabel"> Minimum = /</p>
+                        <p id="compare2_LocalSpeed_Label_Dev_Lab" class="classAnalyzePlotLabel"> Deviation = /</p>
                         </div>
                     </div>
                 </div>
@@ -2172,10 +2180,10 @@
                       <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> Lab de94 Metric CMS 1</h1>
                       <canvas class="globalSpeedCanvas" id="compare1_LocalSpeed_Canvas_de94" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:url(img/lineplot_background.png);">
                       </canvas>
-                        <p id="compare1_LocalSpeed_Label_Max_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
-                        <p id="compare1_LocalSpeed_Label_Av_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
-                        <p id="compare1_LocalSpeed_Label_Min_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
-                        <p id="compare1_LocalSpeed_Label_Dev_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                        <p id="compare1_LocalSpeed_Label_Max_de94" class="classAnalyzePlotLabel"> Maximum = /</p>
+                        <p id="compare1_LocalSpeed_Label_Av_de94" class="classAnalyzePlotLabel"> Average = /</p>
+                        <p id="compare1_LocalSpeed_Label_Min_de94" class="classAnalyzePlotLabel"> Minimum = /</p>
+                        <p id="compare1_LocalSpeed_Label_Dev_de94" class="classAnalyzePlotLabel"> Deviation = /</p>
                         </div>
                     </div>
 
@@ -2184,10 +2192,10 @@
                       <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> Lab de94 Metric CMS 2</h1>
                       <canvas class="globalSpeedCanvas" id="compare2_LocalSpeed_Canvas_de94" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:url(img/lineplot_background.png);">
                       </canvas>
-                        <p id="compare2_LocalSpeed_Label_Max_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
-                        <p id="compare2_LocalSpeed_Label_Av_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
-                        <p id="compare2_LocalSpeed_Label_Min_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
-                        <p id="compare2_LocalSpeed_Label_Dev_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                        <p id="compare2_LocalSpeed_Label_Max_de94" class="classAnalyzePlotLabel"> Maximum = /</p>
+                        <p id="compare2_LocalSpeed_Label_Av_de94" class="classAnalyzePlotLabel"> Average = /</p>
+                        <p id="compare2_LocalSpeed_Label_Min_de94" class="classAnalyzePlotLabel"> Minimum = /</p>
+                        <p id="compare2_LocalSpeed_Label_Dev_de94" class="classAnalyzePlotLabel"> Deviation = /</p>
                         </div>
                     </div>
                 </div>
@@ -2201,10 +2209,10 @@
                     <canvas class="globalSpeedCanvas" id="compare1_LocalSpeed_Canvas_de2000" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:url(img/lineplot_background.png);">
                     </canvas>
 
-                      <p id="compare1_LocalSpeed_Label_Max_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
-                      <p id="compare1_LocalSpeed_Label_Av_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
-                      <p id="compare1_LocalSpeed_Label_Min_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
-                      <p id="compare1_LocalSpeed_Label_Dev_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                      <p id="compare1_LocalSpeed_Label_Max_de2000" class="classAnalyzePlotLabel"> Maximum = /</p>
+                      <p id="compare1_LocalSpeed_Label_Av_de2000" class="classAnalyzePlotLabel"> Average = /</p>
+                      <p id="compare1_LocalSpeed_Label_Min_de2000" class="classAnalyzePlotLabel"> Minimum = /</p>
+                      <p id="compare1_LocalSpeed_Label_Dev_de2000" class="classAnalyzePlotLabel"> Deviation = /</p>
                       </div>
                   </div>
 
@@ -2214,10 +2222,10 @@
                     <canvas class="globalSpeedCanvas" id="compare2_LocalSpeed_Canvas_de2000" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:url(img/lineplot_background.png);">
                     </canvas>
 
-                      <p id="compare2_LocalSpeed_Label_Max_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
-                      <p id="compare2_LocalSpeed_Label_Av_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
-                      <p id="compare2_LocalSpeed_Label_Min_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
-                      <p id="compare2_LocalSpeed_Label_Dev_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                      <p id="compare2_LocalSpeed_Label_Max_de2000" class="classAnalyzePlotLabel"> Maximum = /</p>
+                      <p id="compare2_LocalSpeed_Label_Av_de2000" class="classAnalyzePlotLabel"> Average = /</p>
+                      <p id="compare2_LocalSpeed_Label_Min_de2000" class="classAnalyzePlotLabel"> Minimum = /</p>
+                      <p id="compare2_LocalSpeed_Label_Dev_de2000" class="classAnalyzePlotLabel"> Deviation = /</p>
                       </div>
                   </div>
                 </div>
@@ -2229,10 +2237,10 @@
                     <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> DIN99 Euclidean Distance CMS 1</h1>
                     <canvas class="globalSpeedCanvas" id="compare1_LocalSpeed_Canvas_din99" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:url(img/lineplot_background.png);">
                     </canvas>
-                      <p id="compare1_LocalSpeed_Label_Max_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
-                      <p id="compare1_LocalSpeed_Label_Av_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
-                      <p id="compare1_LocalSpeed_Label_Min_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
-                      <p id="compare1_LocalSpeed_Label_Dev_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                      <p id="compare1_LocalSpeed_Label_Max_din99" class="classAnalyzePlotLabel"> Maximum = /</p>
+                      <p id="compare1_LocalSpeed_Label_Av_din99" class="classAnalyzePlotLabel"> Average = /</p>
+                      <p id="compare1_LocalSpeed_Label_Min_din99" class="classAnalyzePlotLabel"> Minimum = /</p>
+                      <p id="compare1_LocalSpeed_Label_Dev_din99" class="classAnalyzePlotLabel"> Deviation = /</p>
                       </div>
                   </div>
 
@@ -2241,10 +2249,10 @@
                     <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> DIN99 Euclidean Distance CMS 2</h1>
                     <canvas class="globalSpeedCanvas" id="compare2_LocalSpeed_Canvas_din99" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:url(img/lineplot_background.png);">
                     </canvas>
-                      <p id="compare2_LocalSpeed_Label_Max_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
-                      <p id="compare2_LocalSpeed_Label_Av_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
-                      <p id="compare2_LocalSpeed_Label_Min_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
-                      <p id="compare2_LocalSpeed_Label_Dev_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                      <p id="compare2_LocalSpeed_Label_Max_din99" class="classAnalyzePlotLabel"> Maximum = /</p>
+                      <p id="compare2_LocalSpeed_Label_Av_din99" class="classAnalyzePlotLabel"> Average = /</p>
+                      <p id="compare2_LocalSpeed_Label_Min_din99" class="classAnalyzePlotLabel"> Minimum = /</p>
+                      <p id="compare2_LocalSpeed_Label_Dev_din99" class="classAnalyzePlotLabel"> Deviation = /</p>
                       </div>
                   </div>
                 </div>
@@ -2385,8 +2393,8 @@
                         </canvas>
                         <p style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; font-weight:bold; margin:0px; vertical-align:middle; color:rgb(30,144,255); "> Negative Global Order </p>
                         <hr>
-                          <p id="compare1_OrderSpeed_Label_Min_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
-                          <p id="compare1_OrderSpeed_Label_MinGlobal_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                          <p id="compare1_OrderSpeed_Label_Min_Lab" class="classAnalyzePlotLabel"> Minimum = /</p>
+                          <p id="compare1_OrderSpeed_Label_MinGlobal_Lab" class="classAnalyzePlotLabel"> Minimum = /</p>
                           </div>
                       </div>
 
@@ -2400,8 +2408,8 @@
                         <p style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; font-weight:bold; margin:0px; vertical-align:middle; color:rgb(30,144,255); "> Negative Global Order </p>
                         <hr>
 
-                          <p id="compare2_OrderSpeed_Label_Min_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
-                          <p id="compare2_OrderSpeed_Label_MinGlobal_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                          <p id="compare2_OrderSpeed_Label_Min_Lab" class="classAnalyzePlotLabel"> Minimum = /</p>
+                          <p id="compare2_OrderSpeed_Label_MinGlobal_Lab" class="classAnalyzePlotLabel"> Minimum = /</p>
                           </div>
                       </div>
                   </div>
@@ -2418,8 +2426,8 @@
                         <p style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; font-weight:bold; margin:0px; vertical-align:middle; color:rgb(30,144,255); "> Negative Global Order </p>
                         <hr>
 
-                          <p id="compare1_OrderSpeed_Label_Min_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
-                          <p id="compare1_OrderSpeed_Label_MinGlobal_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                          <p id="compare1_OrderSpeed_Label_Min_de94" class="classAnalyzePlotLabel"> Minimum = /</p>
+                          <p id="compare1_OrderSpeed_Label_MinGlobal_de94" class="classAnalyzePlotLabel"> Minimum = /</p>
                           </div>
                       </div>
 
@@ -2433,8 +2441,8 @@
                         <p style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; font-weight:bold; margin:0px; vertical-align:middle; color:rgb(30,144,255); "> Negative Global Order </p>
                         <hr>
 
-                          <p id="compare2_OrderSpeed_Label_Min_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
-                          <p id="compare2_OrderSpeed_Label_MinGlobal_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                          <p id="compare2_OrderSpeed_Label_Min_de94" class="classAnalyzePlotLabel"> Minimum = /</p>
+                          <p id="compare2_OrderSpeed_Label_MinGlobal_de94" class="classAnalyzePlotLabel"> Minimum = /</p>
                           </div>
                       </div>
                   </div>
@@ -2452,8 +2460,8 @@
                       <p style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; font-weight:bold; margin:0px; vertical-align:middle; color:rgb(30,144,255); "> Negative Global Order </p>
                       <hr>
 
-                        <p id="compare1_OrderSpeed_Label_Min_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
-                        <p id="compare1_OrderSpeed_Label_MinGlobal_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                        <p id="compare1_OrderSpeed_Label_Min_de2000" class="classAnalyzePlotLabel"> Minimum = /</p>
+                        <p id="compare1_OrderSpeed_Label_MinGlobal_de2000" class="classAnalyzePlotLabel"> Minimum = /</p>
                         </div>
                     </div>
 
@@ -2467,8 +2475,8 @@
                       <p style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; font-weight:bold; margin:0px; vertical-align:middle; color:rgb(30,144,255); "> Negative Global Order </p>
                       <hr>
 
-                        <p id="compare2_OrderSpeed_Label_Min_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
-                        <p id="compare2_OrderSpeed_Label_MinGlobal_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                        <p id="compare2_OrderSpeed_Label_Min_de2000" class="classAnalyzePlotLabel"> Minimum = /</p>
+                        <p id="compare2_OrderSpeed_Label_MinGlobal_de2000" class="classAnalyzePlotLabel"> Minimum = /</p>
                         </div>
                     </div>
                   </div>
@@ -2485,8 +2493,8 @@
                       </canvas>
                       <p style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; font-weight:bold; margin:0px; vertical-align:middle; color:rgb(30,144,255); "> Negative Global Order </p>
                       <hr>
-                        <p id="compare1_OrderSpeed_Label_Min_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
-                        <p id="compare1_OrderSpeed_Label_MinGlobal_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                        <p id="compare1_OrderSpeed_Label_Min_din99" class="classAnalyzePlotLabel"> Minimum = /</p>
+                        <p id="compare1_OrderSpeed_Label_MinGlobal_din99" class="classAnalyzePlotLabel"> Minimum = /</p>
                         </div>
                     </div>
 
@@ -2499,8 +2507,8 @@
                       </canvas>
                       <p style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; font-weight:bold; margin:0px; vertical-align:middle; color:rgb(30,144,255); "> Negative Global Order </p>
                       <hr>
-                        <p id="compare2_OrderSpeed_Label_Min_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
-                        <p id="compare2_OrderSpeed_Label_MinGlobal_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                        <p id="compare2_OrderSpeed_Label_Min_din99" class="classAnalyzePlotLabel"> Minimum = /</p>
+                        <p id="compare2_OrderSpeed_Label_MinGlobal_din99" class="classAnalyzePlotLabel"> Minimum = /</p>
                         </div>
                     </div>
                   </div>
@@ -2701,7 +2709,7 @@
         <!-- select colorspace -->
         <div id="id_AnalyseColorspace_Menue" style="height:100%; width:auto; margin-top:2vh; margin-bottom:2vh; ">
           <div class="row" style="height:100%;">
-            <p style="height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:1cm; font-size:3vh; color:black;  margin-left:auto;"><strong>Choose</strong> a Colorspace for the Analysis: </p>
+            <p class="class_overflowText" style="height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:1cm; font-size:3vh; color:black;  margin-left:auto;"><strong>Choose</strong> a Colorspace for the Analysis: </p>
             <button class="classButtonWhite" id="button_AnalyzeRGB" title="RGB" onclick="changeAnalyzeColorspace(0)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid rgb(0,191,255); color: rgb(0,191,255); ">RGB</button>
             <button class="classButtonWhite" id="button_AnalyzeHSV" title="HSV" onclick="changeAnalyzeColorspace(1)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid black; color:black; ">HSV</button>
             <button class="classButtonWhite" id="button_AnalyzeLAB" title="LAB" onclick="changeAnalyzeColorspace(2)" style="border-radius: 0.3vh; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid black; color:black; ">LAB</button>
@@ -2715,15 +2723,15 @@
         <hr>
 
         <!-- Legend -->
-        <div class="row" style="width:80%; height:4vh; border: 1px solid rgb(120,120,120); background:rgb(240,240,240); margin-left:10%; margin-top:4vh;">
-          <p class="classAnalyseLabel" style="margin-left:auto; width:auto; font-weight:bold; margin-right:1vw;"> Legend:</p>
+        <div class="row" style="width:80%; height:4vh; border: 1px solid rgb(120,120,120); background:rgb(240,240,240); margin-left:10%; margin-top:2vh;  margin-bottom:2vh;">
+          <p class="class_overflowText"  style="margin:0px; margin-left:2%; width:8%; height:4vh; line-height:4vh; font-size:2vh; vertical-align:middle; text-align:center; font-weight:bold;"> Legend:</p>
 
-          <div class="row" style="height:100%; border-right: 1px solid rgb(120,120,120);">
-            <div style="margin-left:1vw; margin-right:1vw; height:2vh; width:2vh; margin-top:auto; margin-bottom:auto; border:2px solid black; background:white;">
+          <div class="row" style="height:100%; border-right: 1px solid rgb(120,120,120); width:30%;">
+            <div style="margin-left:10%; margin-right:10%; height:2vh; width:5%; margin-top:auto; margin-bottom:auto; border:2px solid black; background:white;">
             </div>
-            <p class="classAnalyseLabel"> : Constant Band </p>
-            <div class="dropdown" style="width:auto; margin-right:auto;">
-              <button class="dropbtn" style="margin-right:1vw; border-radius: 0.5vh; line-height:3vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:0.5vh; margin-bottom:auto;">?</button>
+            <p class="class_overflowText"  style="margin:0px; width:45%; height:4vh; line-height:4vh; font-size:2vh; vertical-align:middle; text-align:center; font-weight:bold;"> : Constant Band </p>
+            <div class="dropdown" style="height:2vh; width:10%; margin-right:5%; margin-left:5%;">
+              <button class="dropbtn" style="margin-right:1vw; border-radius: 0.5vh; line-height:3vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 100%; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:0.5vh; margin-bottom:auto;">?</button>
               <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
                 <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:20vw; "> <strong>INFO:</strong> Constant bands define one color for a certain section. Inside of the visualization, a constant band will be represented by squares.
@@ -2733,16 +2741,16 @@
           </div>
 
 
-          <div class="row" style="height:100%; border-right: 1px solid rgb(120,120,120);">
-            <svg style="margin-left:1vw; margin-right:0.5vw; height;4vh; width:15vw;">
-                    <line x1="10%" y1="50%" x2="90%" y2="50%" style="stroke:rgb(0,0,0);stroke-width:9" />
-                    <line x1="10%" y1="50%" x2="90%" y2="50%" style="stroke:rgb(255,255,255);stroke-width:3" />
-                    <circle cx="10%" cy="50%" r="5%" stroke="black" stroke-width="3" fill="white" />
-                    <circle cx="90%" cy="50%" r="5%" stroke="black" stroke-width="3" fill="white" />
+          <div class="row" style="height:100%; border-right: 1px solid rgb(120,120,120); width:30%;">
+            <svg style="margin-left:5%; margin-right:5%; width:30%; height:4vh;">
+                    <line x1="20%" y1="50%" x2="80%" y2="50%" style="stroke:rgb(0,0,0);stroke-width:9" />
+                    <line x1="20%" y1="50%" x2="80%" y2="50%" style="stroke:rgb(255,255,255);stroke-width:3" />
+                    <circle cx="20%" cy="50%" r="10%" stroke="black" stroke-width="3" fill="white" />
+                    <circle cx="80%" cy="50%" r="10%" stroke="black" stroke-width="3" fill="white" />
                 </svg>
-            <p class="classAnalyseLabel">: Scaled Band </p>
-            <div class="dropdown" style="width:auto;">
-              <button class="dropbtn" style=" margin-right:1vw; border-radius: 0.5vh; line-height:3vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:0.5vh; margin-bottom:auto;">?</button>
+            <p class="class_overflowText"  style="margin:0px; width:35%; height:4vh; line-height:4vh; font-size:2vh; vertical-align:middle; text-align:center; font-weight:bold;"> : Scaled Band </p>
+            <div class="dropdown" style="height:2vh; width:10%; margin-right:5%; margin-left:5%;">
+              <button class="dropbtn" style="margin-right:1vw; border-radius: 0.5vh; line-height:3vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 100%; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:0.5vh; margin-bottom:auto;">?</button>
               <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3;">
 
                 <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:20vw; "> <strong>INFO:</strong> Scaled bands define a color gradient for a certain section. Intermediate colors will be interpolate inside the selected colorspace. Inside of the visualization, a scaled band will be represented by two circles and a solid line.
@@ -2755,18 +2763,17 @@
 
 
 
-          <div class="row" style="height:100%; margin-right:auto; mardin-left:0px;">
-            <svg style="margin-left:1vw; margin-right:0.5vw; height;4vh; width:10vw;">
+          <div class="row" style="height:100%; margin-right:auto; mardin-left:0px; width:30%;">
+            <svg style="margin-left:5%; margin-right:5%; width:20%; height:4vh;">
                   <line x1="10%" y1="50%" x2="90%" y2="50%" stroke-dasharray="10,5" style="stroke:rgb(0,0,0);stroke-width:9" />
                   <line x1="10%" y1="50%" x2="90%" y2="50%" stroke-dasharray="10,5" style="stroke:rgb(255,255,255);stroke-width:3" />
               </svg>
-            <p class="classAnalyseLabel">: Jump</p>
-            <div class="dropdown" style="width:auto;">
-              <button class="dropbtn" style=" margin-right:1vw; border-radius: 0.5vh; line-height:3vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 3vh; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:0.5vh; margin-bottom:auto;">?</button>
+            <p class="class_overflowText"  style="margin:0px; width:45%; height:4vh; line-height:4vh; font-size:2vh; vertical-align:middle; text-align:center; font-weight:bold;">: Transition Point </p>
+            <div class="dropdown" style="height:2vh; width:10%; margin-right:5%; margin-left:5%;">
+              <button class="dropbtn" style="margin-right:1vw; border-radius: 0.5vh; line-height:3vh; font-size:2.2vh; font-weight:bold; text-align:center; vertical-align:middle; width: 100%; height:3vh; margin-left:2vh; border: 2px solid black; margin-top:0.5vh; margin-bottom:auto;">?</button>
               <div class="dropdown-content" style="border: 2px solid black; background: rgb(220,220,220); z-index:3; right: 2vw;">
-
-                <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:20vw;"> <strong>INFO:</strong> If a neighbor of a band has a different start (end) color as the end (start) color of this band, there is a jump between the band and his neighbor.
-                  This jump is not part of the colormap course, but it shows the connection between those bands. Inside of the visualization, a jump will be represented by a dashed line.
+                <p style="margin:1vh; font-size: 1.8vh; line-height: 2vh; width:25vw;"> <strong>INFO:</strong> If a neighbor of a band has a different start (end) color as the end (start) color of this band, there is a discontinuous transition point between the band and his neighbor.
+                  The transition paths are not part of the colormap course, but they are showing the connection between bands connected with a twin or a left key. Inside of the visualization, the transition path will be represented by a dashed line.
                 </p>
               </div>
             </div>
@@ -2942,10 +2949,10 @@
                     <canvas class="globalSpeedCanvas" id="analyze_GlobalSpeed_Canvas_Lab" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
                     </canvas>
 
-                      <p id="analyze_GlobalSpeed_Label_Max_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
-                      <p id="analyze_GlobalSpeed_Label_Av_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
-                      <p id="analyze_GlobalSpeed_Label_Min_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
-                      <p id="analyze_GlobalSpeed_Label_Dev_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                      <p id="analyze_GlobalSpeed_Label_Max_Lab" class="classAnalyzePlotLabel"> Maximum = /</p>
+                      <p id="analyze_GlobalSpeed_Label_Av_Lab" class="classAnalyzePlotLabel"> Average = /</p>
+                      <p id="analyze_GlobalSpeed_Label_Min_Lab" class="classAnalyzePlotLabel"> Minimum = /</p>
+                      <p id="analyze_GlobalSpeed_Label_Dev_Lab" class="classAnalyzePlotLabel"> Deviation = /</p>
                       </div>
                   </div>
 
@@ -2955,10 +2962,10 @@
                     <canvas class="globalSpeedCanvas" id="analyze_GlobalSpeed_Canvas_de94" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
                     </canvas>
 
-                      <p id="analyze_GlobalSpeed_Label_Max_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
-                      <p id="analyze_GlobalSpeed_Label_Av_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
-                      <p id="analyze_GlobalSpeed_Label_Min_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
-                      <p id="analyze_GlobalSpeed_Label_Dev_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                      <p id="analyze_GlobalSpeed_Label_Max_de94" class="classAnalyzePlotLabel"> Maximum = /</p>
+                      <p id="analyze_GlobalSpeed_Label_Av_de94" class="classAnalyzePlotLabel"> Average = /</p>
+                      <p id="analyze_GlobalSpeed_Label_Min_de94" class="classAnalyzePlotLabel"> Minimum = /</p>
+                      <p id="analyze_GlobalSpeed_Label_Dev_de94" class="classAnalyzePlotLabel"> Deviation = /</p>
                       </div>
                   </div>
               </div>
@@ -2972,10 +2979,10 @@
                   <canvas class="globalSpeedCanvas" id="analyze_GlobalSpeed_Canvas_de2000" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
                   </canvas>
 
-                    <p id="analyze_GlobalSpeed_Label_Max_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
-                    <p id="analyze_GlobalSpeed_Label_Av_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
-                    <p id="analyze_GlobalSpeed_Label_Min_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
-                    <p id="analyze_GlobalSpeed_Label_Dev_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                    <p id="analyze_GlobalSpeed_Label_Max_de2000" class="classAnalyzePlotLabel"> Maximum = /</p>
+                    <p id="analyze_GlobalSpeed_Label_Av_de2000" class="classAnalyzePlotLabel"> Average = /</p>
+                    <p id="analyze_GlobalSpeed_Label_Min_de2000" class="classAnalyzePlotLabel"> Minimum = /</p>
+                    <p id="analyze_GlobalSpeed_Label_Dev_de2000" class="classAnalyzePlotLabel"> Deviation = /</p>
                     </div>
                 </div>
 
@@ -2984,10 +2991,10 @@
                   <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> DIN99 Euclidean Distance </h1>
                   <canvas class="globalSpeedCanvas" id="analyze_GlobalSpeed_Canvas_din99" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:white;">
                   </canvas>
-                    <p id="analyze_GlobalSpeed_Label_Max_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
-                    <p id="analyze_GlobalSpeed_Label_Av_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
-                    <p id="analyze_GlobalSpeed_Label_Min_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
-                    <p id="analyze_GlobalSpeed_Label_Dev_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                    <p id="analyze_GlobalSpeed_Label_Max_din99" class="classAnalyzePlotLabel"> Maximum = /</p>
+                    <p id="analyze_GlobalSpeed_Label_Av_din99" class="classAnalyzePlotLabel"> Average = /</p>
+                    <p id="analyze_GlobalSpeed_Label_Min_din99" class="classAnalyzePlotLabel"> Minimum = /</p>
+                    <p id="analyze_GlobalSpeed_Label_Dev_din99" class="classAnalyzePlotLabel"> Deviation = /</p>
                     </div>
                 </div>
               </div>
@@ -3045,10 +3052,10 @@
                       <canvas class="globalSpeedCanvas" id="analyze_LocalSpeed_Canvas_Lab" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:url(img/lineplot_background.png);">
                       </canvas>
 
-                        <p id="analyze_LocalSpeed_Label_Max_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
-                        <p id="analyze_LocalSpeed_Label_Av_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
-                        <p id="analyze_LocalSpeed_Label_Min_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
-                        <p id="analyze_LocalSpeed_Label_Dev_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                        <p id="analyze_LocalSpeed_Label_Max_Lab" class="classAnalyzePlotLabel"> Maximum = /</p>
+                        <p id="analyze_LocalSpeed_Label_Av_Lab" class="classAnalyzePlotLabel"> Average = /</p>
+                        <p id="analyze_LocalSpeed_Label_Min_Lab" class="classAnalyzePlotLabel"> Minimum = /</p>
+                        <p id="analyze_LocalSpeed_Label_Dev_Lab" class="classAnalyzePlotLabel"> Deviation = /</p>
                         </div>
                     </div>
 
@@ -3058,10 +3065,10 @@
                       <canvas class="globalSpeedCanvas" id="analyze_LocalSpeed_Canvas_de94" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:url(img/lineplot_background.png);">
                       </canvas>
 
-                        <p id="analyze_LocalSpeed_Label_Max_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
-                        <p id="analyze_LocalSpeed_Label_Av_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
-                        <p id="analyze_LocalSpeed_Label_Min_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
-                        <p id="analyze_LocalSpeed_Label_Dev_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                        <p id="analyze_LocalSpeed_Label_Max_de94" class="classAnalyzePlotLabel"> Maximum = /</p>
+                        <p id="analyze_LocalSpeed_Label_Av_de94" class="classAnalyzePlotLabel"> Average = /</p>
+                        <p id="analyze_LocalSpeed_Label_Min_de94" class="classAnalyzePlotLabel"> Minimum = /</p>
+                        <p id="analyze_LocalSpeed_Label_Dev_de94" class="classAnalyzePlotLabel"> Deviation = /</p>
                         </div>
                     </div>
                 </div>
@@ -3075,10 +3082,10 @@
                     <canvas class="globalSpeedCanvas" id="analyze_LocalSpeed_Canvas_de2000" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:url(img/lineplot_background.png);">
                     </canvas>
 
-                      <p id="analyze_LocalSpeed_Label_Max_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
-                      <p id="analyze_LocalSpeed_Label_Av_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
-                      <p id="analyze_LocalSpeed_Label_Min_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
-                      <p id="analyze_LocalSpeed_Label_Dev_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                      <p id="analyze_LocalSpeed_Label_Max_de2000" class="classAnalyzePlotLabel"> Maximum = /</p>
+                      <p id="analyze_LocalSpeed_Label_Av_de2000" class="classAnalyzePlotLabel"> Average = /</p>
+                      <p id="analyze_LocalSpeed_Label_Min_de2000" class="classAnalyzePlotLabel"> Minimum = /</p>
+                      <p id="analyze_LocalSpeed_Label_Dev_de2000" class="classAnalyzePlotLabel"> Deviation = /</p>
                       </div>
                   </div>
 
@@ -3087,10 +3094,10 @@
                     <h1 style="width:100%; text-align:center; height:5vh; line-height:5vh; font-size:2vh; margin:0px; vertical-align:middle; "> DIN99 Euclidean Distance </h1>
                     <canvas class="globalSpeedCanvas" id="analyze_LocalSpeed_Canvas_din99" style="width:100%; height:25vw; margin:0px; margin-right:auto; background:url(img/lineplot_background.png);">
                     </canvas>
-                      <p id="analyze_LocalSpeed_Label_Max_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Maximum = /</p>
-                      <p id="analyze_LocalSpeed_Label_Av_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh;font-size:2vh; margin:0px; vertical-align:middle; "> Average = /</p>
-                      <p id="analyze_LocalSpeed_Label_Min_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
-                      <p id="analyze_LocalSpeed_Label_Dev_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Deviation = /</p>
+                      <p id="analyze_LocalSpeed_Label_Max_din99" class="classAnalyzePlotLabel"> Maximum = /</p>
+                      <p id="analyze_LocalSpeed_Label_Av_din99" class="classAnalyzePlotLabel"> Average = /</p>
+                      <p id="analyze_LocalSpeed_Label_Min_din99" class="classAnalyzePlotLabel"> Minimum = /</p>
+                      <p id="analyze_LocalSpeed_Label_Dev_din99" class="classAnalyzePlotLabel"> Deviation = /</p>
                       </div>
                   </div>
                 </div>
@@ -3226,8 +3233,8 @@
                         <p style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; font-weight:bold; margin:0px; vertical-align:middle; color:rgb(30,144,255); "> Negative Global Order </p>
                         <hr>
 
-                          <p id="analyze_OrderSpeed_Label_Min_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
-                          <p id="analyze_OrderSpeed_Label_MinGlobal_Lab" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                          <p id="analyze_OrderSpeed_Label_Min_Lab" class="classAnalyzePlotLabel"> Minimum = /</p>
+                          <p id="analyze_OrderSpeed_Label_MinGlobal_Lab" class="classAnalyzePlotLabel"> Minimum = /</p>
                           </div>
                       </div>
 
@@ -3241,8 +3248,8 @@
                         <p style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; font-weight:bold; margin:0px; vertical-align:middle; color:rgb(30,144,255); "> Negative Global Order </p>
                         <hr>
 
-                          <p id="analyze_OrderSpeed_Label_Min_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
-                          <p id="analyze_OrderSpeed_Label_MinGlobal_de94" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                          <p id="analyze_OrderSpeed_Label_Min_de94" class="classAnalyzePlotLabel"> Minimum = /</p>
+                          <p id="analyze_OrderSpeed_Label_MinGlobal_de94" class="classAnalyzePlotLabel"> Minimum = /</p>
                           </div>
                       </div>
                   </div>
@@ -3260,8 +3267,8 @@
                       <p style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; font-weight:bold; margin:0px; vertical-align:middle; color:rgb(30,144,255); "> Negative Global Order </p>
                       <hr>
 
-                        <p id="analyze_OrderSpeed_Label_Min_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
-                        <p id="analyze_OrderSpeed_Label_MinGlobal_de2000" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                        <p id="analyze_OrderSpeed_Label_Min_de2000" class="classAnalyzePlotLabel"> Minimum = /</p>
+                        <p id="analyze_OrderSpeed_Label_MinGlobal_de2000" class="classAnalyzePlotLabel"> Minimum = /</p>
                         </div>
                     </div>
 
@@ -3274,8 +3281,8 @@
                       </canvas>
                       <p style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; font-weight:bold; margin:0px; vertical-align:middle; color:rgb(30,144,255); "> Negative Global Order </p>
                       <hr>
-                        <p id="analyze_OrderSpeed_Label_Min_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
-                        <p id="analyze_OrderSpeed_Label_MinGlobal_din99" style="width:100%; text-align:left; height:4vh; line-height:4vh; font-size:2vh; margin:0px; vertical-align:middle; "> Minimum = /</p>
+                        <p id="analyze_OrderSpeed_Label_Min_din99" class="classAnalyzePlotLabel"> Minimum = /</p>
+                        <p id="analyze_OrderSpeed_Label_MinGlobal_din99" class="classAnalyzePlotLabel"> Minimum = /</p>
                         </div>
                     </div>
                   </div>
@@ -3425,8 +3432,8 @@
                     <button class="classButtonWhite" id="button_ExportInterpolationSpaceHSV" onclick="changeColorspace(1)" title="HSV"  style="border-radius: 0.3vh; background:rgb(250,250,250); width: 4.5vw; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid black; color:black; margin-right:0.5vw;">HSV</button>
                   </div>
                   <div class="row" style="background: rgb(252,222,191); padding-top:2vh; padding-bottom:2vh;">
-                    <button class="classButtonWhite" id="button_ExportInterpolationSpaceLAB" onclick="changeColorspace(2)" title="LAB"  style="border-radius: 0.3vh; background:rgb(250,250,250); width: 4.5vw; height:5vh; font-size:3vh; margin-left:0.5vw; border: 0.2vh solid black; color:black; ">LAB</button>
-                    <button class="classButtonWhite" id="button_ExportInterpolationSpaceDe94" onclick="changeColorspace(4)" title="de94"  style="border-radius: 0.3vh; background:rgb(250,250,250); width: 4.5vw; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid grey; color:grey; ">de94</button>
+                    <button class="classButtonWhite" id="button_ExportInterpolationSpaceLAB" onclick="changeColorspace(2)" title="LAB"  style="border-radius: 0.3vh; background:rgb(250,250,250); width: 5vw; height:5vh; font-size:3vh; margin-left:0.5vw; border: 0.2vh solid black; color:black; ">LAB</button>
+                    <button class="classButtonWhite" id="button_ExportInterpolationSpaceDe94" onclick="changeColorspace(4)" title="de94"  style="border-radius: 0.3vh; background:rgb(250,250,250); width: 5vw; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid grey; color:grey; ">de94</button>
                     <button class="classButtonWhite" id="button_ExportInterpolationSpaceDe2000" onclick="changeColorspace(5)" title="de2000"  style="border-radius: 0.3vh; background:rgb(250,250,250); width: auto; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid grey; color:grey; ">de2000</button>
                     <button class="classButtonWhite" id="button_ExportInterpolationSpaceDIN99" onclick="changeColorspace(3)" title="DIN99" style="border-radius: 0.3vh; background:rgb(250,250,250); width: auto; height:5vh; font-size:3vh; margin-left:1vw; border: 0.2vh solid black; color:black; margin-right:0.5vw;">DIN99</button>
                   </div>
@@ -4555,6 +4562,30 @@
       </div>
     </div>
 
+
+
+    <!--
+          ----------------------------------------------------
+          ----------------	Ask Window	  -------------
+          ---------------------------------------------------
+          -->
+
+    <div id="popupAskWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:101; top:0px; left:0px; bottom:0px; display:none;">
+
+      <div style="margin-top:20vh; height:auto; background:rgb(240,240,240); width:60%; border: 0.5vh solid black; margin-left:auto; margin-right:auto;">
+
+        <h3 style="width:100%; height:5vh; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; font-size:4vh; background:black;"> Confirm </h3>
+
+        <p id="id_askText" style="margin-left:20%; width:60%; text-align:center; height:auto; line-height:3.2vh; font-size:3vh; vertical-align:middle;">
+        </p>
+
+        <div class="row" style="margin-top:2vh; margin-bottom:2vh;">
+          <button class="classButtonWhite"  onclick="closeAsk()" title="close" style="border-radius: 0.5vh;  width: 25%; height:6vh; line-height:6vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180); margin-left:20%;"> Cancel </button>
+          <button class="classButtonWhite"  onclick="checkAsk()" title="check" style="border-radius: 0.5vh;  width: 25%; height:6vh; line-height:6vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180); margin-left:10%;"> Do it! </button>
+        </div>
+
+      </div>
+    </div>
 
 
 

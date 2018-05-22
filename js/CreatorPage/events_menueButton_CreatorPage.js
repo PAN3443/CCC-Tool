@@ -15,14 +15,15 @@ function colormapNameChange(e){
 }
 
 function deleteCreatedColormap(){
-
-  if (confirm("Do you really want to delete the colormap?") == true) {
+  askType=0;
+  openAskWindow()
+  /*if (confirm("Do you really want to delete the colormap?") == true) {
       clearCreateSide();
 
       globalCMS1.clear();
       orderColorSketch();
 
-  }
+  }*/
 
 }
 

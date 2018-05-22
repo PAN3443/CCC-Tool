@@ -263,8 +263,26 @@ textarea {
  * Address `overflow` set to `hidden` in IE 8/9/10/11.
  */
 
+
 button {
-  overflow: visible;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis;
+}
+
+button:hover {
+    overflow: visible;
+}
+
+
+.class_overflowText {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis;
+}
+
+.class_overflowText:hover {
+    overflow: visible;
 }
 
 /**
@@ -274,7 +292,7 @@ button {
  * Correct `select` style inheritance in Firefox.
  */
 
-button,
+/*button,
 select {
   text-transform: none;
 }

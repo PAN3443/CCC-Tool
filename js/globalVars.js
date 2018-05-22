@@ -49,8 +49,6 @@ var analysisColormap;
 var compareColormap1;
 var compareColormap2;*/
 
-
-
 var interactionIntervalSize = 200;//50;
 var intervalSize = 200;
 
@@ -261,7 +259,7 @@ var dragPredefinedBandIndex = -1;
 var dragPredefinedBandType = -1;
 
 var dropRects = [];
-var bandSketchObjLength = 100;
+var bandSketchObjLength = 200;//100;
 
 // table expand button
 var tableIsExpand = false;
@@ -280,7 +278,6 @@ var overKeyID = -1;
 var mouseKeyChangeUp = false;
 
 var dropPositionElements = [];
-var droppedBandElements = [];
 var refLineSketchContainer = [];
 
 // drag and drop
@@ -297,6 +294,15 @@ var createBandType = 1; // 0=constant, 1=scale, 2=double, 3=triple, 4=quadruple
 var selectedBand=0;
 var bandDivArray=[];
 var bandCreatorOpen=false;
+
+
+//////////////////////////
+// ask Window
+//////////////////////////
+var askIndex=0;
+var askType=0;
+
+
 //////////////////////////
 // predefined Bands
 //////////////////////////

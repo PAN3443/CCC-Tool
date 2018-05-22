@@ -363,9 +363,12 @@ function calcOrderPlot(intervalColormap,plotid, type, minId, minGlobalId){
 
 
       var canvasCtx = canvasPlot.getContext("2d");
-      canvasCtx.webkitImageSmoothingEnabled = false;
+
       canvasCtx.mozImageSmoothingEnabled = false;
-      canvasCtx.imageSmoothingEnabled = false;
+      canvasCtx.webkitImageSmoothingEnabled = false;
+      canvasCtx.msImageSmoothingEnabled = false;
+      canvasCtx.imageSmoothingEnabled = false; // did not work !?!?!
+      canvasCtx.oImageSmoothingEnabled = false;
 
 
       ///////////////////////////////////////////////////////////////

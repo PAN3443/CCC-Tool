@@ -11,31 +11,9 @@ function exportColormapFromMyDesigns(index) {
 function deletetColormapFromMyDesigns(index) {
 
   if (index < myList.length) {
-    if (confirm("Do you really want to delete the colormap?") == true) {
-
-
-      myList.splice(index, 1);
-
-      if (index == colormap1SelectIndex) {
-        colormap1SelectIndex = 0;
-      }
-
-      if (index < colormap1SelectIndex) {
-        colormap1SelectIndex--;
-      }
-
-      if (myList.length == 0) {
-        colormap1SelectIndex = -1;
-        globalCMS1.clear();
-      } else {
-        globalCMS1 = cloneCMS(myList[colormap1SelectIndex]);
-      }
-
-      orderColorSketch();
-      drawMyList();
-    } else {
-      // do nothing
-    }
+    askType=3;
+    askIndex=index;
+    openAskWindow();
   }
 
 }
@@ -187,9 +165,8 @@ function saveSession() {
 
 function loadSession() {
   if (myList.length != 0) {
-    if (confirm("Do you really want to load a session and reject the current session?") == true) {
-      document.getElementById("id_inputSessionData").click();
-    }
+    askType=2;
+    openAskWindow();
   } else
     document.getElementById("id_inputSessionData").click();
 
@@ -500,6 +477,9 @@ function readSessionFile(e){
 
     if (showSideID == -1)
       changePage(0);
+
+      orderColorSketch();
+      drawMyList();
   };
 
 

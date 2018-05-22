@@ -45,7 +45,7 @@ function mouseMoveColorspaceRGB(event) {
   }
   // calc mouse pos
   var rect = document.getElementById(event.target.id).getBoundingClientRect();
-  var canvasPosX = event.clientX - rect.left;globalCMS1
+  var canvasPosX = event.clientX - rect.left;
   var canvasPosY = event.clientY - rect.top;
   var ratioToColorspaceResolutionX = hue_resolution_X / rect.width;
   var ratioToColorspaceResolutionY = hue_resolution_Y / rect.height;

@@ -216,7 +216,7 @@ function drawDoubleBands(){
 function drawTripleBands(){
   document.getElementById('id_TripleBands_Div').innerHTML = "";
 
-  var resolutionX = 100;
+  var resolutionX = 120;
   var resolutionY = 1;
 
   //---------------------------

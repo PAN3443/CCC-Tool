@@ -52,68 +52,14 @@ function bandOnDragStart(event){
 
     }
 
-    /*// show  all drop positions
-        if(globalCMS1.getKeyLength()==0){
-            dropPositionElements[0].style.border = "3px dashed red";
-        }
-        else{
 
-            var tmpRect = document.getElementById("id_colormapSketch").getBoundingClientRect();
-            var tmpLength =(tmpRect.width-((globalCMS1.getKeyLength())*6)-(globalCMS1.getKeyLength()-1)*2)/(globalCMS1.getKeyLength()+globalCMS1.getKeyLength()-1);//100/
-
-            for(var i=0; i<dropPositionElements.length; i++){
-                dropPositionElements[i].style.display = "initial";
-                dropPositionElements[i].style.width = tmpLength+"px";
-            }
-
-            for(var i=0; i<droppedBandElements.length; i++){
-                droppedBandElements[i].style.width = tmpLength+"px";
-            }
-
-            for(var i=0; i<refLineSketchContainer.length; i++){
-                refLineSketchContainer[i].style.display = "none";
-            }
-
-
-
-        }*/
-
-    drawBandSketch(globalCMS1,"id_colormapSketch","id_colormapSketch_Ref", true, -1);
+    drawBandSketch(globalCMS1,"id_colormapSketch","id_createColormapKeys","id_colormapSketch_Ref", true, -1);
 
 }
 
 function bandOnDragEnd(event) {
-    drawBandSketch(globalCMS1,"id_colormapSketch","id_colormapSketch_Ref", false, -1);
-    /*document.getElementById("id_createColormapKeys").style.visibility="visible";
-    dragPredefinedBandIndex = bandIndex;
-    dragPredefinedBandType = createBandType;
-
-    if(globalCMS1.getKeyLength()==0){
-         //document.getElementById("createSide_SketchLabel").style.display = "initial";
-         //document.getElementById("createSide_YourColormapDummy").style.border = "2px dashed black";
-         dropPositionElements[0].style.border = "3px dashed black";
-    }
-    else{
-        // hide all drop positions
-        var tmpRect = document.getElementById("id_colormapSketch").getBoundingClientRect();
-        var tmpLength;
-        tmpLength = tmpRect.width/(globalCMS1.getKeyLength()-1)-2; //2 = border width of each band.
-
-
-        for(var i=0; i<dropPositionElements.length; i++){
-                dropPositionElements[i].style.display = "none";
-        }
-
-        for(var i=0; i<droppedBandElements.length; i++){
-                droppedBandElements[i].style.width = tmpLength+"px";
-        }
-
-        for(var i=0; i<refLineSketchContainer.length; i++){
-            refLineSketchContainer[i].style.display = "initial";
-        }
-
-    }*/
-
+    drawBandSketch(globalCMS1,"id_colormapSketch","id_createColormapKeys","id_colormapSketch_Ref", false, -1);
+    document.getElementById("id_createColormapKeys").style.visibility="visible";
 }
 
 function bandOnEnter(event) {
@@ -128,14 +74,15 @@ function bandOnEnter(event) {
          document.getElementById("dragPos"+indexOfDroppedPlace).style.background = "rgb(220,220,220)";
     }*/
     if(globalCMS1.getKeyLength()==0){
-      drawBandSketch(globalCMS1,"id_colormapSketch","id_colormapSketch_Ref", true, 0);
+      drawBandSketch(globalCMS1,"id_colormapSketch","id_createColormapKeys","id_colormapSketch_Ref", true, 0);
+      indexOfDroppedPlace=0;
     }
 
 }
 
 function bandOnLeave(event) {
 
-    drawBandSketch(globalCMS1,"id_colormapSketch","id_colormapSketch_Ref", true, -1);
+    drawBandSketch(globalCMS1,"id_colormapSketch","id_createColormapKeys","id_colormapSketch_Ref", true, -1);
     indexOfDroppedPlace = -1;
 
     /*if(indexOfDroppedPlace >=0){

@@ -175,12 +175,45 @@ window.onload = function() {
   sketchElement.addEventListener("dragleave", bandOnLeave);
   //sketchElement.addEventListener("drop dragdrop", createSide_BandOnDrop);
 
+  sketchElement.addEventListener("mousemove", sketch_MouseMove);
+  sketchElement.addEventListener("click", sketch_MouseClick);
+
   sketchElement.ondrop = function(event) {
     event.preventDefault();
     bandOnDrop();
   }; // allow Drop
+
+
   sketchElement.ondragover = function(event) {
     event.preventDefault();
+
+    event = event || window.event;
+    //var dragX = event.pageX, dragY = event.pageY;
+
+    var rect = event.target.getBoundingClientRect();
+    var canvasPosX = event.clientX - rect.left;
+    //var canvasPosY = event.clientY - rect.top;
+    var ratioToColorspaceResolutionX = event.target.width / rect.width;
+    //var ratioToColorspaceResolutionY = event.target.height / rect.height;
+    mousePosX = canvasPosX * ratioToColorspaceResolutionX;
+    //mousePosY = canvasPosY * ratioToColorspaceResolutionY;
+
+    if(globalCMS1.getKeyLength()==0){
+      indexOfDroppedPlace=0;
+      return;
+    }
+
+    for (var i = 0; i < dropRects.length; i++) {
+      if(mousePosX>=dropRects[i] && mousePosX<=dropRects[i]+bandSketchObjLength){
+        if(indexOfDroppedPlace!=i){
+          indexOfDroppedPlace=i;
+          drawBandSketch(globalCMS1,"id_colormapSketch","id_createColormapKeys","id_colormapSketch_Ref", true, i);
+        }
+        return;
+      }
+    }
+    indexOfDroppedPlace=-1;
+
   }; // allow Drop
 
   // Band Creator
@@ -386,382 +419,32 @@ function orderColorSketch(forColorspace) {
     dropPositionElements.pop();
   }
 
-  for (var i = droppedBandElements.length - 1; i >= 0; i--) {
-    droppedBandElements[i].remove();
-    droppedBandElements.pop();
-  }
-
-  for (var i = refLineSketchContainer.length - 1; i >= 0; i--) {
-    refLineSketchContainer[i].remove();
-    refLineSketchContainer.pop();
-  }
-
  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    if (showSideID == 1 && globalCMS1.getKeyLength() != 0) {
+    if (showSideID == 1) {
       // show and draw the colormap
-      document.getElementById("id_LinearMap_Table_Div").style.display = "inline-block";
-      drawCanvasColormap("id_linearColormap", linearMap_resolution_X, linearMap_resolution_Y, globalCMS1);
-      drawKeys("id_keyColormap", key_resolution_X, key_resolution_Y, globalCMS1, "id_keyColormapLinesBottom");
-      fillTable();
+      if(globalCMS1.getKeyLength() != 0){
+        document.getElementById("id_LinearMap_Table_Div").style.display = "inline-block";
+        drawCanvasColormap("id_linearColormap", linearMap_resolution_X, linearMap_resolution_Y, globalCMS1);
+        drawKeys("id_keyColormap", key_resolution_X, key_resolution_Y, globalCMS1, "id_keyColormapLinesBottom");
+        fillTable();
+      }
+      else{
+        document.getElementById("id_LinearMap_Table_Div").style.display = "none";
+      }
     }
 
     //////////////////////////////////////////////////////////////////////////
-    drawBandSketch(globalCMS1,"id_colormapSketch","id_colormapSketch_Ref", false, -1);
-    if(showSideID == 1){
-      //create input fields
-      //drawBandSketch(globalCMS1,"id_colormapSketch","id_colormapSketch_Ref", true, 'id_createColormapKeys');
-    }
-    else{
-      // create text
-      //drawBandSketch(globalCMS1,"id_colormapSketch","id_colormapSketch_Ref", false, 'id_createColormapKeys');
+    drawBandSketch(globalCMS1,"id_colormapSketch","id_createColormapKeys","id_colormapSketch_Ref", false, -1);
 
-    }
 
     if(showSideID == 3)
-    drawBandSketch(globalCMS2,"id_colormapSketch2","id_colormapSketch_Ref2", false, -1);
-    //drawBandSketch(globalCMS2,"id_colormapSketch2","id_colormapSketch_Ref2", false, 'id_createColormapKeys2');
+    drawBandSketch(globalCMS2,"id_colormapSketch2","id_createColormapKeys2","id_colormapSketch_Ref2", false, -1);
+
 
 }
 
- /*function drawBandSketch(cms,sketchObjectID,sketchRefObjID, withEditOptions, sketchKeyID){
 
-   editPage_drawKeys(sketchKeyID, cms);
-
-   var sketchObject = document.getElementById(sketchObjectID);
-   var sketchRefObj = document.getElementById(sketchRefObjID);
-
-   var box = sketchRefObj.getBoundingClientRect();
-
-   var body = document.body;
-   var docEl = document.documentElement;
-
-   var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
-   var scrollLeft = window.pageXOffset || docEl.scrollLeft || body.scrollLeft;
-
-   var clientTop = docEl.clientTop || body.clientTop || 0;
-   var clientLeft = docEl.clientLeft || body.clientLeft || 0;
-
-   var top = box.top + scrollTop - clientTop;
-   var left = box.left + scrollLeft - clientLeft;
-   var yposHTML = box.height + top;
-
-   sketchObject.style.border = "none";
-
-   var tmpRect = sketchObject.getBoundingClientRect();
-
-   var borderWidth = 1;
-   var tmpLength = Math.floor((tmpRect.width/(cms.getKeyLength()-1))-(2*borderWidth));
-
-   for (var i = 0; i < cms.getKeyLength()-1; i++) {
-
-     // create band
-     var tCan = document.createElement('canvas');
-     tCan.id = 'band' + i;
-
-     tCan.style.border = borderWidth+"px solid black";
-     tCan.style.margin = "0px";
-     tCan.setAttribute('draggable', true);
-     tCan.style.height = 100 + '%';
-     tCan.style.width = tmpLength+"px";
-
-     drawCanvasBand(tCan, cms.getRightKeyColor(i,colorspaceModus), cms.getLeftKeyColor(i+1,colorspaceModus), tCan.width);
-
-     if(withEditOptions){
-       tCan.onclick = (function(index) {
-           return function() {
-             if(showSideID==1)
-               deleteBand(index);
-           };
-         })(i);
-
-         var tDiv = document.createElement('div');
-         tDiv.id = 'dragPos' + i;
-         tDiv.style.border = "3px solid red";
-         tDiv.style.height = 100 + '%';
-         tDiv.style.width = 100 + '%';
-         tDiv.style.display = "none";
-         //tDiv.style.visibility = "hidden";
-         tDiv.style.lineHeight = "8vh";
-         tDiv.style.fontSize = "2vh";
-         tDiv.style.textAlign = "center";
-         tDiv.style.verticalAlign = "middle";
-         tDiv.innerHTML = "Here";
-
-         tDiv.addEventListener("dragenter", bandOnEnter);
-         tDiv.addEventListener("dragleave", bandOnLeave);
-         //tDiv.addEventListener("drop dragdrop", createSide_BandOnDrop);
-
-         tDiv.ondrop = function(event) {
-           event.preventDefault();
-           bandOnDrop();
-         }; // allow Drop
-         tDiv.ondragover = function(event) {
-           event.preventDefault();
-         }; // allow Drop
-
-         sketchObject.appendChild(tDiv);
-         dropPositionElements.push(tDiv);
-         //tCan.addEventListener("click", bandOnClick);
-         tCan.style.cursor = "pointer";
-     }
-
-     sketchObject.appendChild(tCan);
-     droppedBandElements.push(tCan);
-
-
-     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-     var refLineDiv = document.createElement('div');
-     refLineDiv.style.height = 100 + '%';
-     refLineDiv.style.width = 100 + '%';
-     refLineDiv.style.borderLeft = "1px solid black";
-
-     sketchRefObj.appendChild(refLineDiv);
-     refLineSketchContainer.push(refLineDiv);
-
-
-     /////////////////// draw ref /////////
-     var xposHTML = (i / (cms.getKeyLength()-1)) * box.width + left;
-     var tmpText = '' + cms.getRefPosition(i); //.toFixed(numDecimalPlaces);
-
-     if(withEditOptions){
-
-       var inputField = document.createElement("input");
-       inputField.setAttribute('type', 'text');
-       inputField.setAttribute('value', tmpText);
-       var inputID = "id_SketchKeyValInput" + i;
-       inputField.id = inputID;
-       document.body.appendChild(inputField);
-
-       inputField.style.width = "3vw";
-       inputField.style.height = "2vh";
-       inputField.style.fontSize = "1.8vh";
-       inputField.style.paddingLeft = 5 + "px";
-       inputField.style.paddingRight = 5 + "px";
-       inputField.style.margin = "0px";
-       inputField.style.zIndex = "2";
-
-       inputField.style.position = "absolute";
-       inputField.style.top = Math.round(yposHTML) + "px";
-       inputField.style.left = Math.round(xposHTML) + "px";
-       refLineSketchContainer.push(inputField);
-       xposHTML = xposHTML - (inputField.getBoundingClientRect().width / 2);
-       inputField.style.left = Math.round(xposHTML) + "px";
-
-       inputField.onchange = (function(keyIndex, id) {
-         return function() {
-
-           switch (id) {
-             case 0:
-               changeKeyValueInput(keyIndex, id);
-               break;
-             default:
-               changeKeyValueInput(keyIndex, id);
-           }
-
-         };
-       })(i, inputID);
-
-       inputField.onkeyup = (function(id) {
-         return function() {
-
-           var inputObj = document.getElementById(id);
-
-           checkInputVal(inputObj, true, true);
-         };
-       })(inputID);
-
-       /////////////////// special case: last element /////////
-       if (i == cms.getKeyLength()-2) {
-         refLineDiv.style.borderRight = "1px solid black";
-         tmpText = '' + cms.getRefPosition(i+1); //.toFixed(numDecimalPlaces);
-         xposHTML = box.width + left;
-         var inputField2 = document.createElement("input");
-         inputField2.setAttribute('type', 'text');
-         inputField2.setAttribute('value', tmpText);
-         var inputID = "id_SketchKeyValInput" + i + 1;
-         inputField2.id = inputID;
-         document.body.appendChild(inputField2);
-
-         //inputField.style.width = "min-content";
-         inputField2.style.width = "3vw";
-         inputField2.style.height = "2vh";
-         inputField2.style.fontSize = "1.8vh";
-         //inputField.style.background = "rgb(255,255,255)";
-         inputField2.style.paddingLeft = 5 + "px";
-         inputField2.style.paddingRight = 5 + "px";
-         //inputField.style.border = "2px solid rgb(0,0,0)";
-         inputField2.style.margin = "0px";
-         inputField2.style.zIndex = "2";
-
-         inputField2.style.position = "absolute";
-         inputField2.style.top = Math.round(yposHTML) + "px";
-         inputField2.style.left = Math.round(xposHTML) + "px";
-         refLineSketchContainer.push(inputField2);
-         xposHTML = xposHTML - (inputField2.getBoundingClientRect().width / 2);
-         inputField2.style.left = Math.round(xposHTML) + "px";
-
-         inputField2.onchange = (function(keyIndex, id) {
-           return function() {
-
-             changeKeyValueInput(keyIndex, id);
-
-           };
-         })(i, inputID);
-
-         inputField2.onkeyup = (function(id) {
-           return function() {
-
-             var inputObj = document.getElementById(id);
-
-             checkInputVal(inputObj, true, true);
-           };
-         })(inputID);
-
-       }
-     }
-     else{
-       // no input fields !
-
-
-       if(cms.getRefPosition(i).countDecimals()>2){
-         tmpText = cms.getRefPosition(i).toFixed(2) + "..";
-       }
-       var inputField = document.createElement("p");
-       inputField.innerHTML = tmpText;
-       var inputID = "id_SketchKeyValInput" + i;
-       inputField.id = inputID;
-       document.body.appendChild(inputField);
-
-       inputField.style.width = "min-content";
-       //inputField.style.width = "3vw";
-       inputField.style.height = "2vh";
-       inputField.style.fontSize = "1.8vh";
-       inputField.style.background = "rgb(255,255,255)";
-       inputField.style.paddingLeft = 5 + "px";
-       inputField.style.paddingRight = 5 + "px";
-       //inputField.style.border = "1px solid rgb(0,0,0)";
-       inputField.style.margin = "0px";
-       inputField.style.zIndex = "2";
-
-       inputField.style.position = "absolute";
-       inputField.style.top = Math.round(yposHTML) + "px";
-       inputField.style.left = Math.round(xposHTML) + "px";
-       refLineSketchContainer.push(inputField);
-       xposHTML = xposHTML - (inputField.getBoundingClientRect().width / 2);
-       inputField.style.left = Math.round(xposHTML) + "px";
-
-
-       /////////////////// special case: last element /////////
-       if (i == cms.getKeyLength()-2) {
-         refLineDiv.style.borderRight = "1px solid black";
-         tmpText = cms.getRefPosition(i+1) + "";
-         if(cms.getRefPosition(i+1).countDecimals()>2){
-           tmpText = cms.getRefPosition(i+1).toFixed(2) + "..";
-         }
-         xposHTML = box.width + left;
-         var inputField2 = document.createElement("p");
-         inputField2.innerHTML = tmpText;
-         var inputID = "id_SketchKeyValInput" + i + 1;
-         inputField2.id = inputID;
-         document.body.appendChild(inputField2);
-
-         inputField2.style.width = "min-content";
-         //inputField2.style.width = "3vw";
-         inputField2.style.height = "2vh";
-         inputField2.style.fontSize = "1.8vh";
-         inputField2.style.background = "rgb(255,255,255)";
-         inputField2.style.paddingLeft = 5 + "px";
-         inputField2.style.paddingRight = 5 + "px";
-         //inputField2.style.border = "1px solid rgb(0,0,0)";
-         inputField2.style.margin = "0px";
-         inputField2.style.zIndex = "2";
-
-         inputField2.style.position = "absolute";
-         inputField2.style.top = Math.round(yposHTML) + "px";
-         inputField2.style.left = Math.round(xposHTML) + "px";
-         refLineSketchContainer.push(inputField2);
-         xposHTML = xposHTML - (inputField2.getBoundingClientRect().width / 2);
-         inputField2.style.left = Math.round(xposHTML) + "px";
-       }
-
-     }
-   }
-
-   if(cms.getKeyLength()==0){
-
-    var t2Div = document.createElement('div');
-    t2Div.id = 'dragPos0';
-    t2Div.style.border = "2px dashed black";
-    t2Div.style.height = 100 + '%';
-    t2Div.style.width = 100 + '%';
-    t2Div.style.lineHeight = "8vh";
-    t2Div.style.fontSize = "4vh";
-    t2Div.style.textAlign = "center";
-    t2Div.style.verticalAlign = "middle";
-    //t2Div.style.color = "red";
-
-    var canvasObject = document.getElementById("id_createColormapKeys");
-    var canvasContex = canvasObject.getContext("2d");
-    canvasContex.clearRect(0, 0, canvasObject.width, canvasObject.height);
-
-
-    if(showSideID==1){
-      t2Div.innerHTML = "Drop one or more bands here!";
-      document.getElementById("id_LinearMap_Table_Div").style.display = "none";
-    }
-    else
-    t2Div.innerHTML = "MyDesigns List is empty! Visit the Section Gallery or New.";
-
-    t2Div.addEventListener("dragenter", bandOnEnter);
-    t2Div.addEventListener("dragleave", bandOnLeave);
-
-    t2Div.ondrop = function(event) {
-      event.preventDefault();
-      bandOnDrop();
-    }; // allow Drop
-    t2Div.ondragover = function(event) {
-      event.preventDefault();
-    }; // allow Drop
-
-    sketchObject.appendChild(t2Div);
-    dropPositionElements.push(t2Div);
-
-  }
-  else{
-    if(withEditOptions){
-      var t2Div = document.createElement('div');
-      t2Div.id = 'dragPos' + (cms.getKeyLength()-1);
-      t2Div.style.border = "3px solid red";
-      t2Div.style.height = 99 + '%';
-      t2Div.style.width = 100 + '%';
-      t2Div.style.display = "none";
-      t2Div.style.lineHeight = "8vh";
-      t2Div.style.fontSize = "2vh";
-      t2Div.style.textAlign = "center";
-      t2Div.style.verticalAlign = "middle";
-      t2Div.innerHTML = "Here";
-
-      t2Div.addEventListener("dragenter", bandOnEnter);
-      t2Div.addEventListener("dragleave", bandOnLeave);
-
-      t2Div.ondrop = function(event) {
-        event.preventDefault();
-        bandOnDrop();
-      }; // allow Drop
-      t2Div.ondragover = function(event) {
-        event.preventDefault();
-      }; // allow Drop
-
-      sketchObject.appendChild(t2Div);
-      dropPositionElements.push(t2Div);
-    }
-  }
- }
-
-
-*/
 function changeKeyValueInput(keyIndex, fielID) {
 
   var inputObj = document.getElementById(fielID);
@@ -830,16 +513,19 @@ function fillTable() {
     var td = document.createElement('td')
     td.className = "class_tableInput";
     td.appendChild(document.createTextNode(i + 1));
+    td.style.width="4%";
     tr.appendChild(td);
 
     td = document.createElement('td')
     td.className = "class_tableInput";
     td.appendChild(document.createTextNode(globalCMS1.getRefPosition(i)));
+    td.style.width="9%";
     tr.appendChild(td);
 
     td = document.createElement('td')
     td.className = "class_tableInput";
     td.appendChild(document.createTextNode(globalCMS1.getRefPosition(i+1)));
+    td.style.width="9%";
     tr.appendChild(td);
 
     td = document.createElement('td')
@@ -856,7 +542,7 @@ function fillTable() {
     else{
       td.appendChild(document.createTextNode("scaled"));
     }
-
+    td.style.width="9%";
 
     tr.appendChild(td);
 
@@ -888,6 +574,8 @@ function fillTable() {
         console.log("Error at the changeColorspace function");
     }
 
+    td.style.width="9%";
+    td2.style.width="9%";
 
     tr.appendChild(td);
     tr.appendChild(td2);

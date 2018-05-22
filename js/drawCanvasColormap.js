@@ -24,8 +24,8 @@ function drawCanvasColormap(canvasID, resolutionX, resolutionY, tmpCMS) { //1920
   // draw colormap
   for (var i = 0; i < tmpCMS.getKeyLength()-1; i++) {
 
-    var pos1 = (tmpCMS.getRefPosition(i) - tmpCMS.getRefPosition(0)) / (tmpCMS.getRefPosition(tmpCMS.getKeyLength()-1) - tmpCMS.getRefPosition(0)) * colormapWidth;
-    var pos2 = (tmpCMS.getRefPosition(i+1) - tmpCMS.getRefPosition(0)) / (tmpCMS.getRefPosition(tmpCMS.getKeyLength()-1) - tmpCMS.getRefPosition(0)) * colormapWidth;
+    var pos1 = Math.round((tmpCMS.getRefPosition(i) - tmpCMS.getRefPosition(0)) / (tmpCMS.getRefPosition(tmpCMS.getKeyLength()-1) - tmpCMS.getRefPosition(0)) * colormapWidth);
+    var pos2 = Math.round((tmpCMS.getRefPosition(i+1) - tmpCMS.getRefPosition(0)) / (tmpCMS.getRefPosition(tmpCMS.getKeyLength()-1) - tmpCMS.getRefPosition(0)) * colormapWidth);
     var elementwidth = pos2 - pos1;
 
     switch (tmpCMS.getKeyType(i)) {
@@ -69,21 +69,32 @@ function createScaledBand(canvasData, xStart, bandWidth, bandHeight, color1, col
   //  console.log(typeof color1);
   //  console.log('createScaledBand: ' + color1.getColorType());
 
-
   switch (colorspaceModus) {
-    case "rgb":
-      for (var x = xStart; x <= xStart + bandWidth; x++) {
+    case "rgb": case "lab": case "din99":
 
-        var tmpRatio = (x - xStart) / bandWidth;
+      var tmpWorkColor;
 
-        var rValue = color1.getRValue() + (color2.getRValue() - color1.getRValue()) * tmpRatio;
-        var gValue = color1.getGValue() + (color2.getGValue() - color1.getGValue()) * tmpRatio;
-        var bValue = color1.getBValue() + (color2.getBValue() - color1.getBValue()) * tmpRatio;
+      if(colorspaceModus==="rgb")
+        tmpWorkColor = new classColor_RGB(0, 0, 0);
 
-        var tmpCurrentColor = new classColor_RGB(rValue, gValue, bValue);
+      if(colorspaceModus==="lab")
+        tmpWorkColor = new classColor_LAB(0, 0, 0);
+
+      if(colorspaceModus==="din99")
+        tmpWorkColor = new classColorDIN99(0, 0, 0);
+
+      for (var x = xStart; x < xStart + bandWidth; x++) {
+       var tmpRatio = (x - xStart) / bandWidth;
+
+        tmpWorkColor.set1Value(color1.get1Value() + (color2.get1Value() - color1.get1Value()) * tmpRatio);
+        tmpWorkColor.set2Value(color1.get2Value() + (color2.get2Value() - color1.get2Value()) * tmpRatio);
+        tmpWorkColor.set3Value(color1.get3Value() + (color2.get3Value() - color1.get3Value()) * tmpRatio);
+
+        var tmpCurrentColor=tmpWorkColor.getInColorFormat("rgb");
 
         for (var y = 0; y < bandHeight; y++) {
           var index = (x + y * canvasWidth) * 4;
+          //var index = ((xStart+x) + y * canvasWidth) * 4;
           canvasData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
           canvasData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
           canvasData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
@@ -134,7 +145,7 @@ function createScaledBand(canvasData, xStart, bandWidth, bandHeight, color1, col
       }
 
       break;
-    case "lab":
+
       for (var x = xStart; x <= xStart + bandWidth; x++) {
 
         var tmpRatio = (x - xStart) / bandWidth;
@@ -157,7 +168,7 @@ function createScaledBand(canvasData, xStart, bandWidth, bandHeight, color1, col
       }
 
       break;
-    case "din99":
+
 
       for (var x = xStart; x <= xStart + bandWidth; x++) {
 
