@@ -7,17 +7,17 @@ function saveCreateProcess(){
       if(processPosition<colormapProcess.length-1){
 
           colormapProcess = colormapProcess.slice(0, processPosition+1);
-          colormapProcess.push(globalColormap1);
+          colormapProcess.push(cloneCMS(globalCMS1));
           processPosition = colormapProcess.length-1
       }
       else{
         if(colormapProcess.length <= processLimitation){
-          colormapProcess.push(globalColormap1);
+          colormapProcess.push(cloneCMS(globalCMS1));
           processPosition = colormapProcess.length-1
         }
         else{
           colormapProcess.shift();
-          colormapProcess.push(globalColormap1);
+          colormapProcess.push(cloneCMS(globalCMS1));
           processPosition = colormapProcess.length-1
         }
       }
@@ -25,38 +25,37 @@ function saveCreateProcess(){
 
 //////////////////////////////////////////
 
-function expandTable(){
-
-    if(tableIsExpand){
-        document.getElementById("id_table_workwindow").style.display = "none";
-        document.getElementById("id_colormapsDiv").style.display = "inline-block";
-
-        //document.getElementById("id_expandTablebutton").style.borderRadius= "0px 0px 10px 10px";
-        document.getElementById("id_expandTablebutton").innerHTML="&#11021; Click to expand the table";
-        tableIsExpand=false;
-
-        orderColorSketch(colorspaceModus);
-
-    }
-    else{
-        document.getElementById("id_table_workwindow").style.display = "initial";
-        document.getElementById("id_colormapsDiv").style.display = "none";
-        tableIsExpand=true;
-
-        for(var i = refElementContainer.length-1; i>=0; i--){
-            refElementContainer[i].remove();
-            refElementContainer.pop();
-        }
-
-        //document.getElementById("id_expandTablebutton").style.borderRadius= "10px 10px 0px 0px";
-        document.getElementById("id_expandTablebutton").innerHTML="&#11021; Click to expand the linear Colormap";
-    }
-    drawPredefinedBands();
-}
-
 ///////////////////////////////
 //// switch modify //////
 ///////////////////////////////
+
+
+function switchTableTestFunction(type){
+
+  switch (type) {
+    case 0:
+      document.getElementById("id_selectShowTestFunction").style.background=styleInactiveColor;
+      document.getElementById("id_selectShowCMSTable").style.background=styleActiveColor;
+
+      document.getElementById("id_mapping_Div").style.display="none";
+      document.getElementById("id_table_Div").style.display="inline-block";
+
+    break;
+    case 1:
+
+      openAlert("Sorry. The mapping of uploaded data or test functions is not available at the moment. It will come with one of the next updates.");
+      break;
+      document.getElementById("id_selectShowTestFunction").style.background=styleActiveColor;
+      document.getElementById("id_selectShowCMSTable").style.background=styleInactiveColor;
+
+      document.getElementById("id_mapping_Div").style.display="inline-block";
+      document.getElementById("id_table_Div").style.display="none";
+
+      break;
+    default:
+
+  }
+}
 
 
 function switchModifyModus(type){
@@ -75,7 +74,7 @@ function switchModifyModus(type){
     break;
     case 1:
 
-      if(bandSketch.getBandLength() != 0){
+      if(globalCMS1.getKeyLength() != 0){
         document.getElementById("id_selectKeyModifying").style.background=styleActiveColor;
         document.getElementById("id_selectBandAdding").style.background=styleInactiveColor;
         document.getElementById("id_selectPathModifying").style.background=styleInactiveColor;
@@ -88,7 +87,7 @@ function switchModifyModus(type){
         selectedColor=0;
       }
       else{
-        alert("There are no keys for modyfing. Please use Add Bands to create a CMS.");
+        openAlert("There are no keys for modyfing. Please use Add Bands to create a CMS.");
         break;
       }
 
@@ -96,7 +95,7 @@ function switchModifyModus(type){
     break;
     case 2:
 
-    if(bandSketch.getBandLength() != 0){
+    if(globalCMS1.getKeyLength() != 0){
       document.getElementById("id_selectKeyModifying").style.background=styleInactiveColor;
       document.getElementById("id_selectBandAdding").style.background=styleInactiveColor;
       document.getElementById("id_selectPathModifying").style.background=styleActiveColor;
@@ -106,7 +105,7 @@ function switchModifyModus(type){
       document.getElementById("id_DivAddBands").style.display="none";
     }
     else{
-      alert("There are no keys for modyfing. Please use Add Bands to create a CMS.");
+      openAlert("There are no keys for modyfing. Please use Add Bands to create a CMS.");
       break;
     }
 
@@ -122,13 +121,13 @@ function deleteBand(index){
 
   if (confirm("Do you really want to delete the band?") == true) {
 
-      bandSketch.deleteBand(index);
+      globalCMS1.deleteBand(index);
       orderColorSketch();
 
       if(document.getElementById("id_DivModifyKeys").style.display=="inline-block")
       addKeyButtons();
 
-      if(document.getElementById("modifyColormapPath").style.display="inline-block")
+      if(document.getElementById("modifyColormapPath").style.display=="inline-block")
       drawPathEditPath();
 
   }
@@ -401,10 +400,10 @@ function drawCreatedBand(){
                         canvasData2=createScaledBand(canvasData2, bandWidth, bandWidth, resolutionY, previewArray[2].calcLABColor(), previewArray[3].calcLABColor(), resolutionX);
                     break;
                     case "din99":
-                        canvasData=createScaledBand(canvasData, 0, bandWidth, resolutionY, tmpBandArray[0].calcDIN99Color(kE,kCH), tmpBandArray[1].calcDIN99Color(kE,kCH), resolutionX);
-                        canvasData=createScaledBand(canvasData, bandWidth, bandWidth, resolutionY, tmpBandArray[2].calcDIN99Color(kE,kCH), tmpBandArray[3].calcDIN99Color(kE,kCH), resolutionX);
-                        canvasData2=createScaledBand(canvasData2, 0, bandWidth, resolutionY, previewArray[0].calcDIN99Color(kE,kCH), previewArray[1].calcDIN99Color(kE,kCH), resolutionX);
-                        canvasData2=createScaledBand(canvasData2, bandWidth, bandWidth, resolutionY, previewArray[2].calcDIN99Color(kE,kCH), previewArray[3].calcDIN99Color(kE,kCH), resolutionX);
+                        canvasData=createScaledBand(canvasData, 0, bandWidth, resolutionY, tmpBandArray[0].calcDIN99Color(), tmpBandArray[1].calcDIN99Color(), resolutionX);
+                        canvasData=createScaledBand(canvasData, bandWidth, bandWidth, resolutionY, tmpBandArray[2].calcDIN99Color(), tmpBandArray[3].calcDIN99Color(), resolutionX);
+                        canvasData2=createScaledBand(canvasData2, 0, bandWidth, resolutionY, previewArray[0].calcDIN99Color(), previewArray[1].calcDIN99Color(), resolutionX);
+                        canvasData2=createScaledBand(canvasData2, bandWidth, bandWidth, resolutionY, previewArray[2].calcDIN99Color(), previewArray[3].calcDIN99Color(), resolutionX);
                     break;
                     default:
                         console.log("Error at the updateCreatorBand function");
@@ -441,12 +440,12 @@ function drawCreatedBand(){
                           canvasData2=createScaledBand(canvasData2, bandWidth*2, bandWidth, resolutionY, previewArray[4].calcLABColor(), previewArray[5].calcLABColor(), resolutionX);
                       break;
                       case "din99":
-                          canvasData=createScaledBand(canvasData, 0, bandWidth, resolutionY, tmpBandArray[0].calcDIN99Color(kE,kCH), tmpBandArray[1].calcDIN99Color(kE,kCH), resolutionX);
-                          canvasData=createScaledBand(canvasData, bandWidth, bandWidth, resolutionY, tmpBandArray[2].calcDIN99Color(kE,kCH), tmpBandArray[3].calcDIN99Color(kE,kCH), resolutionX);
-                          canvasData=createScaledBand(canvasData, bandWidth*2, bandWidth, resolutionY, tmpBandArray[4].calcDIN99Color(kE,kCH), tmpBandArray[5].calcDIN99Color(kE,kCH), resolutionX);
-                          canvasData2=createScaledBand(canvasData2, 0, bandWidth, resolutionY, previewArray[0].calcDIN99Color(kE,kCH), previewArray[1].calcDIN99Color(kE,kCH), resolutionX);
-                          canvasData2=createScaledBand(canvasData2, bandWidth, bandWidth, resolutionY, previewArray[2].calcDIN99Color(kE,kCH), previewArray[3].calcDIN99Color(kE,kCH), resolutionX);
-                          canvasData2=createScaledBand(canvasData2, bandWidth*2, bandWidth, resolutionY, previewArray[4].calcDIN99Color(kE,kCH), previewArray[5].calcDIN99Color(kE,kCH), resolutionX);
+                          canvasData=createScaledBand(canvasData, 0, bandWidth, resolutionY, tmpBandArray[0].calcDIN99Color(), tmpBandArray[1].calcDIN99Color(), resolutionX);
+                          canvasData=createScaledBand(canvasData, bandWidth, bandWidth, resolutionY, tmpBandArray[2].calcDIN99Color(), tmpBandArray[3].calcDIN99Color(), resolutionX);
+                          canvasData=createScaledBand(canvasData, bandWidth*2, bandWidth, resolutionY, tmpBandArray[4].calcDIN99Color(), tmpBandArray[5].calcDIN99Color(), resolutionX);
+                          canvasData2=createScaledBand(canvasData2, 0, bandWidth, resolutionY, previewArray[0].calcDIN99Color(), previewArray[1].calcDIN99Color(), resolutionX);
+                          canvasData2=createScaledBand(canvasData2, bandWidth, bandWidth, resolutionY, previewArray[2].calcDIN99Color(), previewArray[3].calcDIN99Color(), resolutionX);
+                          canvasData2=createScaledBand(canvasData2, bandWidth*2, bandWidth, resolutionY, previewArray[4].calcDIN99Color(), previewArray[5].calcDIN99Color(), resolutionX);
                       break;
                       default:
                           console.log("Error at the updateCreatorBand function");
@@ -487,14 +486,14 @@ function drawCreatedBand(){
                         canvasData2=createScaledBand(canvasData2, bandWidth*3, bandWidth, resolutionY, previewArray[6].calcLABColor(), previewArray[7].calcLABColor(), resolutionX);
                     break;
                     case "din99":
-                        canvasData=createScaledBand(canvasData, 0, bandWidth, resolutionY, tmpBandArray[0].calcDIN99Color(kE,kCH), tmpBandArray[1].calcDIN99Color(kE,kCH), resolutionX);
-                        canvasData=createScaledBand(canvasData, bandWidth, bandWidth, resolutionY, tmpBandArray[2].calcDIN99Color(kE,kCH), tmpBandArray[3].calcDIN99Color(kE,kCH), resolutionX);
-                        canvasData=createScaledBand(canvasData, bandWidth*2, bandWidth, resolutionY, tmpBandArray[4].calcDIN99Color(kE,kCH), tmpBandArray[5].calcDIN99Color(kE,kCH), resolutionX);
-                        canvasData=createScaledBand(canvasData, bandWidth*3, bandWidth, resolutionY, tmpBandArray[6].calcDIN99Color(kE,kCH), tmpBandArray[7].calcDIN99Color(kE,kCH), resolutionX);
-                        canvasData2=createScaledBand(canvasData2, 0, bandWidth, resolutionY, previewArray[0].calcDIN99Color(kE,kCH), previewArray[1].calcDIN99Color(kE,kCH), resolutionX);
-                        canvasData2=createScaledBand(canvasData2, bandWidth, bandWidth, resolutionY, previewArray[2].calcDIN99Color(kE,kCH), previewArray[3].calcDIN99Color(kE,kCH), resolutionX);
-                        canvasData2=createScaledBand(canvasData2, bandWidth*2, bandWidth, resolutionY, previewArray[4].calcDIN99Color(kE,kCH), previewArray[5].calcDIN99Color(kE,kCH), resolutionX);
-                        canvasData2=createScaledBand(canvasData2, bandWidth*3, bandWidth, resolutionY, previewArray[6].calcDIN99Color(kE,kCH), previewArray[7].calcDIN99Color(kE,kCH), resolutionX);
+                        canvasData=createScaledBand(canvasData, 0, bandWidth, resolutionY, tmpBandArray[0].calcDIN99Color(), tmpBandArray[1].calcDIN99Color(), resolutionX);
+                        canvasData=createScaledBand(canvasData, bandWidth, bandWidth, resolutionY, tmpBandArray[2].calcDIN99Color(), tmpBandArray[3].calcDIN99Color(), resolutionX);
+                        canvasData=createScaledBand(canvasData, bandWidth*2, bandWidth, resolutionY, tmpBandArray[4].calcDIN99Color(), tmpBandArray[5].calcDIN99Color(), resolutionX);
+                        canvasData=createScaledBand(canvasData, bandWidth*3, bandWidth, resolutionY, tmpBandArray[6].calcDIN99Color(), tmpBandArray[7].calcDIN99Color(), resolutionX);
+                        canvasData2=createScaledBand(canvasData2, 0, bandWidth, resolutionY, previewArray[0].calcDIN99Color(), previewArray[1].calcDIN99Color(), resolutionX);
+                        canvasData2=createScaledBand(canvasData2, bandWidth, bandWidth, resolutionY, previewArray[2].calcDIN99Color(), previewArray[3].calcDIN99Color(), resolutionX);
+                        canvasData2=createScaledBand(canvasData2, bandWidth*2, bandWidth, resolutionY, previewArray[4].calcDIN99Color(), previewArray[5].calcDIN99Color(), resolutionX);
+                        canvasData2=createScaledBand(canvasData2, bandWidth*3, bandWidth, resolutionY, previewArray[6].calcDIN99Color(), previewArray[7].calcDIN99Color(), resolutionX);
                     break;
                     default:
                         console.log("Error at the updateCreatorBand function");

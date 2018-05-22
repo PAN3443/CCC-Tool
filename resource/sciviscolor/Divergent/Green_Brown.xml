@@ -1,4 +1,4 @@
-<ColorMaps>
+<!--ColorMaps>
 <ColorMap space="Lab" indexedLookup="false" group="Interlinked" name="Divergent 5">
 <Point x="0" o="1" r="0.023529" g="0.14902" b="0.098039"/>
 <Point x="0.025" o="1" r="0.05098" g="0.2" b="0.121569"/>
@@ -26,9 +26,9 @@
 <Point x="1" o="1" r="0.121569" g="0.05098" b="0.047059"/>
 <Section colorMapName="Divergent 5" startIndex="0" endIndex="1" startPos="0" endPos="1" startValue="0" endValue="1" flipped="false" startAlpha="1" endAlpha="1"/>
 </ColorMap>
-</ColorMaps>
+</ColorMaps-->
 
-<!--ColorMaps>
+<ColorMaps>
 <ColorMap space="Lab" indexedLookup="false" group="Interlinked" name="Divergent 5">
 <Point x="0" o="1" r="0.023529" g="0.14902" b="0.098039"/>
 <Point x="0.15" o="1" r="0.270588" g="0.411765" b="0.286275"/>
@@ -39,4 +39,4 @@
 <Point x="1" o="1" r="0.121569" g="0.05098" b="0.047059"/>
 <Section colorMapName="Divergent 5" startIndex="0" endIndex="1" startPos="0" endPos="1" startValue="0" endValue="1" flipped="false" startAlpha="1" endAlpha="1"/>
 </ColorMap>
-</ColorMaps-->
+</ColorMaps>

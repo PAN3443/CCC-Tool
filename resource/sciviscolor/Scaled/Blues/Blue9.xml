@@ -1,4 +1,4 @@
-<ColorMaps>
+<!--ColorMaps>
 <ColorMap space="Lab" indexedLookup="false" group="Interlinked" name="Blue 10">
 <Point x="0" o="1" r="0.94902" g="1" b="0.992157"/>
 <Point x="0.05" o="1" r="0.843137" g="0.980392" b="0.968627"/>
@@ -17,9 +17,9 @@
 <Point x="1" o="1" r="0.254902" g="0.286275" b="0.458824"/>
 <Section colorMapName="Blue 10" startIndex="0" endIndex="1" startPos="0" endPos="1" startValue="0" endValue="1" flipped="false" startAlpha="1" endAlpha="1"/>
 </ColorMap>
-</ColorMaps>
+</ColorMaps!-->
 
-<!--ColorMaps>
+<ColorMaps>
 <ColorMap space="Lab" indexedLookup="false" group="Interlinked" name="Blue 10">
 <Point x="0" o="1" r="0.94902" g="1" b="0.992157"/>
 <Point x="0.2" o="1" r="0.690196" g="0.890196" b="0.909804"/>
@@ -28,4 +28,4 @@
 <Point x="1" o="1" r="0.254902" g="0.286275" b="0.458824"/>
 <Section colorMapName="Blue 10" startIndex="0" endIndex="1" startPos="0" endPos="1" startValue="0" endValue="1" flipped="false" startAlpha="1" endAlpha="1"/>
 </ColorMap>
-</ColorMaps!-->
+</ColorMaps>

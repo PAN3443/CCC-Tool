@@ -8,6 +8,13 @@
   width: auto;
   margin-top:auto;
   margin-bottom:auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow:ellipsis;
+}
+
+.classAnalyseLabel:hover {
+    overflow: visible;
 }
 
 
@@ -21,4 +28,21 @@
 
 
     background: black;
+}
+
+.classAnalyzePlotLabel{
+  width:100%;
+  text-align:left;
+  height:4vh;
+  line-height:4vh;
+  font-size:2vh;
+  margin:0px;
+  vertical-align:middle;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow:ellipsis;
+}
+
+.classAnalyzePlotLabel:hover {
+    overflow: visible;
 }

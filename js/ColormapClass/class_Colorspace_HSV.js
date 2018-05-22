@@ -62,16 +62,66 @@ class classColor_HSV{
         this.vValue = newVal;
     }
 
+    equalTo(color){
+
+      switch (color.getColorType()) {
+        case "hsv":
+            if(color.get1Value()==this.get1Value()&&
+               color.get2Value()==this.get2Value()&&
+               color.get3Value()==this.get3Value())
+               return true;
+            else
+              return false;
+        default:
+          var tmpColor = color.calcHSVColor();
+          if(color.get1Value()==this.get1Value()&&
+             color.get2Value()==this.get2Value()&&
+             color.get3Value()==this.get3Value())
+             return true;
+          else
+            return false;
+
+      }
+
+    }
+
+    getInColorFormat(format){
+
+      switch (format) {
+        case "rgb":
+            return this.calcRGBColor();
+        case "hsv":
+            return new classColor_HSV(this.get1Value(),this.get2Value(),this.get3Value());
+        case "lab":
+            return this.calcLABColor();
+        case "din99":
+            return this.calcDIN99Color();
+        default:
+          console.log("Error in function getColorFormat of HSV class");
+      }
+
+    }
+
+    getHSVString(){
+        var tmpString = "hsv("+this.hValue+","+this.sValue+","+this.vValue+")";
+        return tmpString;
+    }
+
+    getHSVString(numDecimalPlaces){
+        var tmpString = "hsv("+this.hValue.toFixed(numDecimalPlaces)+","+this.sValue.toFixed(numDecimalPlaces)+","+this.vValue.toFixed(numDecimalPlaces)+")";
+        return tmpString;
+    }
+
     calcLABColor(){
         var tmpRGB = this.calcRGBColor();
 
         return tmpRGB.calcLABColor();
     }
 
-    calcDIN99Color(kE,kCH){
+    calcDIN99Color(){
         var tmpRGB = this.calcRGBColor();
 
-        return tmpRGB.calcDIN99Color(kE,kCH);
+        return tmpRGB.calcDIN99Color();
     }
 
     calcRGBColor(){

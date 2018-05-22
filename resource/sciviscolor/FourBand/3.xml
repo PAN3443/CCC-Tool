@@ -1,4 +1,4 @@
-<!--ColorMaps>
+<ColorMaps>
    <ColorMap space="Lab" indexedLookup="false" group="Interlinked" name="yel15 / Green 4 / 17f / BrownGray">
       <Point x="0" o="1" r="0.301961" g="0.047059" b="0.090196" />
       <Point x="0.075" o="1" r="0.8" g="0.305882" b="0" />
@@ -14,9 +14,9 @@
       <Point x="1" o="1" r="0.180392" g="0.12549" b="0.121569" />
        <NaN r="0.25" g="0" b="0"/>
 </ColorMap>
-</ColorMaps-->
+</ColorMaps>
 
-<ColorMaps>
+<!--ColorMaps>
    <ColorMap space="Lab" indexedLookup="false" group="Interlinked" name="yel15 / Green 4 / 17f / BrownGray">
       <Point x="0" o="1" r="0.301961" g="0.047059" b="0.090196" />
       <Point x="0.0125" o="1" r="0.4" g="0.039216" b="0.058824" />
@@ -89,4 +89,4 @@
       <Point x="1" o="1" r="0.180392" g="0.12549" b="0.121569" />
        <NaN r="0.25" g="0" b="0"/>
 </ColorMap>
-</ColorMaps>
+</ColorMaps-->

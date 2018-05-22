@@ -15,6 +15,9 @@
   border: 1px solid black;
   float:left;
   display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow:ellipsis;
 }
 
 .class_RadioButtonLabelEditPage{
@@ -26,4 +29,9 @@
   vertical-align:middle; margin-bottom:0px;
   margin-left: 1vw;
   margin-right: 1vw;
+}
+
+
+.class_RadioButtonLabelEditPage:hover {
+    overflow: visible;
 }

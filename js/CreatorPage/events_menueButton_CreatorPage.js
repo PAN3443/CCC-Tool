@@ -2,50 +2,43 @@
 ///// Menue button Events /////
 //////////////////////////////
 
-function createSideExport(){
-  if(bandSketch.getBandLength()!=0){
-    document.getElementById("id_exportWindow").style.display = "initial";
-    exportSideOpen = true;
-    initExportWindow();
-  }
-}
 
 function colormapNameChangeEnter(e){
-   if (e.keyCode == 13 && globalColormap1!=undefined)
-    globalColormap1.setColormapName(document.getElementById("id_InputMapName").value);
+   if (e.keyCode == 13 && globalCMS1!=undefined)
+    globalCMS1.setColormapName(document.getElementById("id_InputMapName").value);
 }
 
 function colormapNameChange(e){
-    if(globalColormap1!=undefined){
-     globalColormap1.setColormapName(document.getElementById("id_InputMapName").value);
+    if(globalCMS1!=undefined){
+     globalCMS1.setColormapName(document.getElementById("id_InputMapName").value);
     }
 }
 
 function deleteCreatedColormap(){
-
-  if (confirm("Do you really want to delete the colormap?") == true) {
+  askType=0;
+  openAskWindow()
+  /*if (confirm("Do you really want to delete the colormap?") == true) {
       clearCreateSide();
 
-      bandSketch.clearSketch();
+      globalCMS1.clear();
       orderColorSketch();
 
-  }
+  }*/
 
 }
 
 function saveColormapToList(){
 
-  if(bandSketch.getBandLength()>0){
+  if(globalCMS1.getKeyLength()>0){
 
     if(isEdit==-1){
 
       if(myList.length<9){
-        var newMap = bandSketch.sketch2Colormap(colorspaceModus, globalColormap1.getColormapName());
-        myList.push(newMap);
+        myList.push(cloneCMS(globalCMS1));
         colormap1SelectIndex=myList.length-1;
         clearCreateSide();
 
-        bandSketch.clearSketch();
+        globalCMS1.clear();
         orderColorSketch();
       }
       else{
@@ -54,13 +47,8 @@ function saveColormapToList(){
 
     }
     else{
-
-      var newMap = bandSketch.sketch2Colormap(colorspaceModus, globalColormap1.getColormapName());
-      tmpSaveColormap = newMap;
-
+      tmpSaveColormap = cloneCMS(globalCMS1);
       openSavePopUp();
-      //changePage(0);
-
     }
 
   }
@@ -133,22 +121,6 @@ function createPage_showHelp(){
   }
 
 
-
-
-
-
-  if(bandSketch.getBandLength() != 0){
-
-    if(tableIsExpand==false){
-      workrect = document.getElementById("id_expandTablebutton").getBoundingClientRect();
-      top = (workrect.top+workrect.height) + scrollTop - clientTop;
-      left = workrect.left+scrollLeft - clientLeft;
-      document.getElementById("createSide_expandtableHelp").style.display="inline-block";
-      document.getElementById("createSide_expandtableHelp").style.left= left+"px";
-      document.getElementById("createSide_expandtableHelp").style.top= top+"px";
-    }
-  }
-
 }
 
 function createPage_hideHelp(){
@@ -160,7 +132,6 @@ function createPage_hideHelp(){
   document.getElementById("createSide_add3Help").style.display="none";
   document.getElementById("createSide_add4Help").style.display="none";
   document.getElementById("createSide_add5Help").style.display="none";
-  document.getElementById("createSide_expandtableHelp").style.display="none";
 
 }
 
@@ -168,8 +139,6 @@ function clearCreateSide(){
   colormapProcess = [];
   processPosition = -1;
 
-  //bandSketch.clearSketch();
-  //orderColorSketch(colorspaceModus);
 
   for(var i = refElementContainer.length-1; i>=0; i--){
     refElementContainer[i].remove();
@@ -180,19 +149,17 @@ function clearCreateSide(){
 function backwardColormapProcess(){
   if(processPosition>0){
     processPosition--;
-    globalColormap1 = colormapProcess[processPosition];
-    colormap2Sketch(globalColormap1);
+    globalCMS1 = colormapProcess[processPosition];
   }
 }
 
 function forwardColormapProcess(){
   if(processPosition<colormapProcess.length-1){
     processPosition++;
-    globalColormap1 = colormapProcess[processPosition];
-    colormap2Sketch(globalColormap1);
+    globalCMS1 = colormapProcess[processPosition];
   }
 }
 
 function loadColormapCreateSide(){
-  document.getElementById("id_inputData").click();
+  document.getElementById("id_inputCMSData").click();
 }

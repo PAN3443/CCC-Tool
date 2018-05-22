@@ -1,4 +1,4 @@
-<ColorMaps>
+<!--ColorMaps>
 <ColorMap space="CIELAB" indexedLookup="false" name="peach_rose_5_19">
 <Point x="0.000000" o="1" r="0.988235" g="0.976471" b="0.909804"/>
 <Point x="0.050000" o="1" r="0.968627" g="0.925490" b="0.745098"/>
@@ -23,9 +23,9 @@
 <Point x="1.000000" o="1" r="0.278431" g="0.039216" b="0.117647"/>
 <NaN r="0.25" g="0" b="0"/>
 </ColorMap>
-</ColorMaps>
+</ColorMaps!-->
 
-<!--ColorMaps>
+<ColorMaps>
 <ColorMap space="CIELAB" indexedLookup="false" name="peach_rose_5_19">
 <Point x="0.000000" o="1" r="0.988235" g="0.976471" b="0.909804"/>
 <Point x="0.250000" o="1" r="0.909804" g="0.615686" b="0.392157"/>
@@ -34,4 +34,4 @@
 <Point x="1.000000" o="1" r="0.278431" g="0.039216" b="0.117647"/>
 <NaN r="0.25" g="0" b="0"/>
 </ColorMap>
-</ColorMaps!-->
+</ColorMaps>

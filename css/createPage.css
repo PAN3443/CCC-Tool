@@ -1,3 +1,17 @@
+.classSketchCanvas{
+  /*image-rendering: optimizeSpeed;             /* Older versions of FF*/
+  /*image-rendering: -moz-crisp-edges;          /* FF 6.0+*/
+  /*image-rendering: -webkit-optimize-contrast; /* Webkit (non standard naming)*/
+  /*image-rendering: -o-crisp-edges;            /* OS X & Windows Opera (12.02+)*/
+  /*image-rendering: pixelated;               /* Possible future browsers.*/
+  /*-ms-interpolation-mode: nearest-neighbor;   /* IE (non standard naming)*/
+  margin-top: 0px;
+  width:95%;
+  height: 8vh;
+  margin-left:2.5%;
+}
+
+
 .class_tablelabel{
     height:3vh;
     line-height:3vh;

@@ -4,6 +4,11 @@ function drawCanvasBand(canvasObject, color1, color2,resolutionX){
             canvasObject.width = resolutionX;
             canvasObject.height = 1;
 
+            if(color1 == undefined){
+              // case constant band
+              color1=color2;
+            }
+
             var canvasContex = canvasObject.getContext("2d");
             var canvasData = canvasContex.getImageData(0, 0, resolutionX, 1);
 
@@ -52,12 +57,12 @@ function drawCanvasBand(canvasObject, color1, color2,resolutionX){
                     if(color1.getColorType()===colorspaceModus)
                       tmpcolor1=color1;
                     else
-                      tmpcolor1=color1.calcDIN99Color(kE,kCH);
+                      tmpcolor1=color1.calcDIN99Color();
 
                     if(color2.getColorType()===colorspaceModus)
                       tmpcolor2=color2;
                     else
-                      tmpcolor2=color2.calcDIN99Color(kE,kCH);
+                      tmpcolor2=color2.calcDIN99Color();
 
                 break;
                 default:

@@ -1,4 +1,4 @@
-<ColorMaps>
+<!--ColorMaps>
 <ColorMap space="CIELAB" indexedLookup="false" name="GrVarySatVal2">
 <Point x="0.000000" o="1" r="0.054902" g="0.101961" b="0.011765"/>
 <Point x="0.100000" o="1" r="0.105882" g="0.180392" b="0.031373"/>
@@ -13,13 +13,13 @@
 <Point x="1.000000" o="1" r="0.854902" g="0.901961" b="0.811765"/>
 <NaN r="0.25" g="0" b="0"/>
 </ColorMap>
-</ColorMaps>
+</ColorMaps!-->
 
-<!--ColorMaps>
+<ColorMaps>
 <ColorMap space="CIELAB" indexedLookup="false" name="GrVarySatVal2">
 <Point x="0.000000" o="1" r="0.054902" g="0.101961" b="0.011765"/>
 <Point x="0.500000" o="1" r="0.376471" g="0.501961" b="0.250980"/>
 <Point x="1.000000" o="1" r="0.854902" g="0.901961" b="0.811765"/>
 <NaN r="0.25" g="0" b="0"/>
 </ColorMap>
-</ColorMaps!-->
+</ColorMaps>

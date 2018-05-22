@@ -1,8 +1,15 @@
+
 function checkIntervalInputFieldsChange(event){
 
     checkInputVal(document.getElementById(event.target.id),false,false);
 
+    if(parseFloat(document.getElementById(event.target.id).value)>1)
     intervalSize = parseFloat(document.getElementById(event.target.id).value);
+    else{
+      openAlert("Attention: The number of interval points have to be at least two.");
+      document.getElementById(event.target.id).value=intervalSize;
+      return;
+    }
 
     if (showSideID == 2) { // Analyse SIDE
       updateAnalyzePage();
@@ -10,6 +17,10 @@ function checkIntervalInputFieldsChange(event){
 
     if (showSideID == 3) { // Comnpare SIDE
       updateComparePage();
+    }
+
+    if(showSideID == 6){ // export
+      fillExportTable();
     }
 }
 
@@ -19,7 +30,13 @@ function checkIntervalInputFieldsKey(event){
 
   if (event.keyCode == 13) {
 
+    if(parseFloat(document.getElementById(event.target.id).value)>1)
     intervalSize = parseFloat(document.getElementById(event.target.id).value);
+    else{
+      openAlert("Attention: The number of interval points have to be at least two.");
+      document.getElementById(event.target.id).value=intervalSize;
+      return;
+    }
 
     if (showSideID == 2) { // Analyse SIDE
       updateAnalyzePage();
@@ -27,6 +44,9 @@ function checkIntervalInputFieldsKey(event){
 
     if (showSideID == 3) { // Comnpare SIDE
       updateComparePage();
+    }
+    if(showSideID == 6){ // export
+      fillExportTable();
     }
 
 
@@ -121,7 +141,7 @@ function changeAnalyzeColorspace(type) {
 function changeColorspace(type) {
 
   if(type>3){
-    alert("This interpolation color space is not ready implemented. Coming Soon!!!");
+    openAlert("This interpolation color space is not ready implemented. Coming Soon!!!");
     return;
   }
 
@@ -240,7 +260,6 @@ function changeColorspace(type) {
   }
 
   if(showSideID == 6){
-    drawCanvasColormap("id_previewColormapExport", linearMap_resolution_X, linearMap_resolution_Y, globalColormap1);
     fillExportTable();
   }
 
@@ -263,6 +282,88 @@ function changeColorspace(type) {
 }
 
 
+function openAskWindow(){
+    document.getElementById("popupAskWindow").style.display="inline";
+    switch (askType) {
+      case 0:
+      //delete CMS
+        document.getElementById("id_askText").innerHTML="Do you really want to delete the CMS?";
+        break;
+      case 1:
+        //delete Band
+        document.getElementById("id_askText").innerHTML="Do you really want to delete the Band?";
+        break;
+
+        case 2:
+          //load Session
+          document.getElementById("id_askText").innerHTML="Do you really want to load a session and reject the current session?";
+          break;
+
+          case 3:
+            //load Session
+            document.getElementById("id_askText").innerHTML="Do you really want to delete the colormap?";
+            break;
+      default:
+
+    }
+}
+
+function checkAsk(){
+  document.getElementById("popupAskWindow").style.display="none";
+
+  switch (askType) {
+    case 0:
+      //delete CMS
+      clearCreateSide();
+      globalCMS1.clear();
+      orderColorSketch();
+      break;
+    case 1:
+      //delete Band
+      globalCMS1.deleteBand(askIndex);
+      orderColorSketch();
+      somethingChanged = true;
+      saveCreateProcess();
+      break;
+
+      case 2:
+        //load Session
+        document.getElementById("id_inputSessionData").click();
+        break;
+
+        case 3:
+
+          myList.splice(askIndex, 1);
+
+          if (askIndex == colormap1SelectIndex) {
+            colormap1SelectIndex = 0;
+          }
+
+          if (askIndex < colormap1SelectIndex) {
+            colormap1SelectIndex--;
+          }
+
+          if (myList.length == 0) {
+            colormap1SelectIndex = -1;
+            globalCMS1.clear();
+          } else {
+            globalCMS1 = cloneCMS(myList[colormap1SelectIndex]);
+          }
+
+          orderColorSketch();
+          drawMyList();
+        break;
+
+    default:
+
+  }
+}
+
+
+function closeAsk(){
+  document.getElementById("popupAskWindow").style.display="none";
+}
+
 function openSavePopUp(){
 
     document.getElementById("popupSaveWindow").style.display="inline-block";
@@ -278,8 +379,7 @@ function cancelSave(){
     else
     openCompareSelect();
 
-    globalColormap1 = myList[colormap1SelectIndex];
-    bandSketch.colormap2Sketch(globalColormap1);
+    globalCMS1 = cloneCMS(myList[colormap1SelectIndex]);
     orderColorSketch();
 
     colormap2SelectIndex=-1;
@@ -305,28 +405,7 @@ function doSave(){
 }
 
 function doSaveAsNew(){
-    if(saveTwoColormaps){
-      if(myList.length<9){
-        myList.push(tmpSaveColormap);
-        myList.push(tmpSaveColormap2);
-        colormap1SelectIndex=myList.length-2;
-        colormap2SelectIndex=-1;
-        document.getElementById("popupSaveWindow").style.display="none";
-        drawMyList();
-        drawAddExistingAddPage();
-        if(initPageType!=5)
-        initNewPage();
-        else
-        openCompareSelect();
 
-        colormap2SelectIndex=-1;
-
-      }
-      else{
-        alert("Sorry there is not enough space at the MyDesigns list to save the two CMS as new!!!!");
-      }
-    }
-    else{
       if(myList.length<10){
         myList.push(tmpSaveColormap);
         colormap1SelectIndex=myList.length-1;
@@ -342,12 +421,8 @@ function doSaveAsNew(){
         colormap2SelectIndex=-1;
       }
       else{
-        alert("Sorry there is not enough space at the MyDesigns list to save the CMS as new!!!!");
+        openAlert("Sorry there is not enough space at the MyDesigns list to save the CMS as new!!!!");
       }
-
-    }
-
-
 
 }
 
@@ -356,8 +431,8 @@ function openCompareSelect(){
     if(myList.length==2){
       colormap1SelectIndex=0;
       colormap2SelectIndex=1;
-      globalColormap1 = myList[colormap1SelectIndex];
-      globalColormap2 = myList[colormap2SelectIndex];
+      globalCMS1 = cloneCMS(myList[colormap1SelectIndex]);
+      globalCMS2 = cloneCMS(myList[colormap2SelectIndex]);
       initNewPage();
     }
     else{
@@ -457,8 +532,10 @@ function selectCompareCMS(index){
 
 function acceptCompareSelection(){
 
-  document.getElementById("popupCompareSelectWindow").style.display="none";
-  initNewPage();
+  if(colormap1SelectIndex!=-1 && colormap2SelectIndex!=-1){
+    document.getElementById("popupCompareSelectWindow").style.display="none";
+    initNewPage();
+  }
 }
 
 function changePage(type){
@@ -467,33 +544,34 @@ function changePage(type){
   return;
 
   if(type==7){
-    alert("Sorry! Because of current work at this page, the tutorial is not accessible.");
+    openAlert("Sorry. The work on the tutorial is not finished yet. It will be available with the upload of the version 1.0. Please use the help buttons at the tool or contact us via ccchelp\'@\'informatik.uni-leipzig.de!");
     return;
   }
+
 
   if(colormap1SelectIndex==-1){
     switch (type) {
       case 3:
-        if(showSideID==1 && bandSketch.getBandLength()!=0){
+        if(showSideID==1 && globalCMS1.getKeyLength()!=0){
           break;
         }
-        alert("There is no CMS at the MyDesigns list for the edit page.");
+        openAlert("There is no CMS at the MyDesigns list for the edit page.");
 
         return;
       case 4:
-        if(showSideID==1 && bandSketch.getBandLength()!=0){
+        if(showSideID==1 && globalCMS1.getKeyLength()!=0){
           break;
         }
-        alert("There is no CMS at the MyDesigns list for the analyze page.");
+        openAlert("There is no CMS at the MyDesigns list for the analyze page.");
         return;
       case 5:
-          if(showSideID==1 && bandSketch.getBandLength()!=0){
-            alert("There is no CMS at the MyDesigns list for the compare page.");
+          if(showSideID==1 && globalCMS1.getKeyLength()!=0){
+            openAlert("There is no CMS at the MyDesigns list for the compare page.");
             return;
           }
       case 6:
-          if(bandSketch.getBandLength()==0){
-            alert("There is no CMS at the MyDesigns list for the export page.");
+          if(globalCMS1.getKeyLength()==0){
+            openAlert("There is no CMS at the MyDesigns list for the export page.");
             return;
           }
       default:
@@ -503,17 +581,17 @@ function changePage(type){
 
   if(type==2){
     if(myList.length==10){
-      alert("The MyDesigns List is full.");
+      openAlert("The MyDesigns List is full.");
       return;
     }
   }
 
   if(type==5 && myList.length<2 ){
-    if(myList.length == 1 && showSideID==1 && isEdit==-1 && bandSketch.getBandLength()!=0){
+    if(myList.length == 1 && showSideID==1 && isEdit==-1 && globalCMS1.getKeyLength()!=0){
 
     }
     else{
-      alert("There is not enough CMSs at the MyDesigns list for the compare page. You need at least two CMS!");
+      openAlert("There is not enough CMSs at the MyDesigns list for the compare page. You need at least two CMS!");
       return;
     }
 
@@ -563,11 +641,11 @@ function changePage(type){
 
               stopAnimation();
 
-              if(bandSketch.getBandLength()>0){
+              if(globalCMS1.getKeyLength()>0){
 
                 if(isEdit==-1){
 
-                  var newMap = bandSketch.sketch2Colormap(colorspaceModus, globalColormap1.getColormapName());
+                  var newMap = cloneCMS(globalCMS1);
                   myList.push(newMap);
                   colormap1SelectIndex=myList.length-1;
                   if(initPageType!=5)
@@ -578,7 +656,7 @@ function changePage(type){
                 else{
 
 
-                  var newMap = bandSketch.sketch2Colormap(colorspaceModus, globalColormap1.getColormapName());
+                  var newMap = cloneCMS(globalCMS1);
                   tmpSaveColormap = newMap;
 
                   if(somethingChanged)
@@ -603,9 +681,7 @@ function changePage(type){
                 }
 
                 if(colormap1SelectIndex != -1 ){
-                  globalColormap1 = myList[colormap1SelectIndex];
-                  bandSketch.colormap2Sketch(globalColormap1);
-
+                  globalCMS1= cloneCMS(myList[colormap1SelectIndex]);
                 }
 
                 if(initPageType!=5)
@@ -614,8 +690,6 @@ function changePage(type){
                 openCompareSelect();
 
               }
-
-
 
 
     break;
@@ -632,20 +706,12 @@ function changePage(type){
                 }
                 stopAnimation();
 
-                var newMap = bandSketch.sketch2Colormap(colorspaceModus, globalColormap1.getColormapName());
-                tmpSaveColormap = newMap;
-
-                if(somethingChanged)
-                openSavePopUp();
-                else if(initPageType!=5)
+                if(initPageType!=5)
                 initNewPage();
                 else
                 openCompareSelect();
 
-                //alert("Ask user if he want to save as new or replace the CMS");
-                //myList[colormap1SelectIndex] = globalColormap1;
 
-                //document.getElementById("id_AnalyseColorspace_Menue").style.display = "none";
     break;
 
     case 3:
@@ -661,27 +727,12 @@ function changePage(type){
                   refLineSketchContainer.pop();
                 }
 
-                //alert("Ask user if he want to save as new or replace the CMS");
-                //myList[colormap1SelectIndex] = globalColormap1;
-                //myList[colormap2SelectIndex] = globalColormap1;
+
                 stopAnimation();
 
-                var newMap = bandSketch.sketch2Colormap(colorspaceModus, globalColormap1.getColormapName());
-                tmpSaveColormap = newMap;
 
-                var newMap2 = bandSketch2.sketch2Colormap(colorspaceModus, globalColormap1.getColormapName());
-                tmpSaveColormap2 = newMap2;
-
-                saveTwoColormaps=true;
-
-                if(somethingChanged){
-                  openSavePopUp();
-                }
-                else{
-                  initNewPage();
-                  colormap2SelectIndex=-1;
-                }
-
+                initNewPage();
+                colormap2SelectIndex=-1;
 
 
     break;
@@ -706,14 +757,10 @@ function changePage(type){
                   //document.getElementById("id_Tutorial_Menue").style.display = "none";
                   document.getElementById("div_colormapBandSketch").style.display = "inline-block";
 
-
-
                   if(initPageType!=5)
                   initNewPage();
                   else
                   openCompareSelect();
-
-
 
     break;
 
@@ -725,19 +772,12 @@ function changePage(type){
                   if(colormap1SelectIndex == -1 ){
                     if(myList.length>0){
                         colormap1SelectIndex=0;
-                        globalColormap1 = myList[colormap1SelectIndex];
-                        bandSketch.colormap2Sketch(globalColormap1);
+                        globalCMS1= cloneCMS(myList[colormap1SelectIndex]);
                     }
-                    else{
-                      bandSketch.clearSketch();
-                    }
-
-
                   }
 
                   if(colormap1SelectIndex != -1 ){
-                    globalColormap1 = myList[colormap1SelectIndex];
-                    bandSketch.colormap2Sketch(globalColormap1);
+                    globalCMS1= cloneCMS(myList[colormap1SelectIndex]);
                   }
 
                   if(initPageType!=5)
@@ -749,7 +789,7 @@ function changePage(type){
     break;
 
     case 7:
-                  if(type==7)
+                  if(type==8)
                   return;
 
                   document.getElementById("id_impressumPage").style.display = "none";
@@ -764,6 +804,23 @@ function changePage(type){
                   openCompareSelect();
 
 
+    break;
+
+    case 8:
+
+                if(type==9)
+                return;
+
+                document.getElementById("id_settingPage").style.display = "none";
+
+                document.getElementById("id_Colorspace_Menue").style.display = "initial";
+                //document.getElementById("id_Tutorial_Menue").style.display = "none";
+                document.getElementById("div_colormapBandSketch").style.display = "inline-block";
+
+                if(initPageType!=5)
+                initNewPage();
+                else
+                openCompareSelect();
     break;
 
     default:
@@ -787,6 +844,7 @@ function initNewPage(){
   document.getElementById("button_showCompare").style.background = "none"; //styleInactiveColor;
   document.getElementById("button_showExport").style.background = "none"; //styleInactiveColor;
   document.getElementById("button_showTutorial").style.background = "none"; //styleInactiveColor;
+  document.getElementById("button_showSettings").style.background = "none"; //styleInactiveColor;
 
  // new page
   switch (initPageType) {
@@ -816,8 +874,12 @@ function initNewPage(){
         document.getElementById("id_addPageFreeLabel").style.color = "black";
 
       document.getElementById("id_addPageFreeLabel").innerHTML = "Free Space for Adding Maps to MyDesigns : "+restSpace;
-      drawAddExistingAddPage();
+      //drawAddExistingAddPage();
       if(existingColormapsAreDrawn==false){
+          for (var i = refElementContainer.length - 1; i >= 0; i--) {
+            refElementContainer[i].remove();
+            refElementContainer.pop();
+          }
           constructionExistingColormaps_AddPage();
           existingColormapsAreDrawn=true;
       }
@@ -852,7 +914,7 @@ function initNewPage(){
       switchModifyModus(0);
       drawPredefinedBands();
 
-      bandSketch.clearSketch();
+      globalCMS1.clear();
 
       break;
     case 3:
@@ -868,7 +930,7 @@ function initNewPage(){
 
       document.getElementById("id_creatorPage").style.display = "inline-block";
 
-      bandSketch.colormap2Sketch(myList[colormap1SelectIndex]);
+      globalCMS1= cloneCMS(myList[colormap1SelectIndex]);
       switchModifyModus(1);
       drawPredefinedBands();
 
@@ -917,7 +979,7 @@ function initNewPage(){
       document.getElementById("button_showTutorial").style.background = styleActiveColor;
       document.getElementById("id_Colorspace_Menue").style.display = "none";
       document.getElementById("div_colormapBandSketch").style.display = "none";
-      changeTutorial(4);
+      changeTutorial(0);
 
       break;
 
@@ -931,6 +993,18 @@ function initNewPage(){
         document.getElementById("div_colormapBandSketch").style.display = "none";
 
         break;
+
+        case 9:
+          // Setting
+          /////////////////////////////////////////
+          showSideID = 8;
+          document.getElementById("id_settingPage").style.display = "inline-block";
+          document.getElementById("button_showSettings").style.background = styleActiveColor; //styleInactiveColor;
+
+          document.getElementById("id_Colorspace_Menue").style.display = "none";
+          document.getElementById("div_colormapBandSketch").style.display = "none";
+
+          break;
 
     default:
       return;
@@ -955,7 +1029,7 @@ function initNewPage(){
 }
 
 
-function readSingleFile(e) {
+function readCMSFile(e) {
 
   var file = e.target.files[0];
   if (!file) {
@@ -970,20 +1044,20 @@ function readSingleFile(e) {
 
 
     var fileExtension = fileName.replace(/^.*\./, '');
-    var colormap;
+    var cms;
 
     switch (fileExtension) {
             case 'xml': case 'XML':
-                colormap = xmlColormapParserFile(contents);
+                cms = xmlColormapParserFile(contents);
                 break;
             case 'json': case 'JSON':
-                colormap = jsonColormapParserFile(contents);
+                cms = jsonColormapParserFile(contents);
                 break;
             case 'csv': case 'CSV':
-                colormap = csvColormapParserFile(contents);
+                cms = csvColormapParserFile(contents);
                 break;
             default:
-                console.log("Error at readSingleFile function -> file extension is unknown!");
+                console.log("Error at readCMSFile function -> file extension is unknown!");
                 return;
     }
 
@@ -991,22 +1065,24 @@ function readSingleFile(e) {
     switch (showSideID) {
             case 0:
 
+                // check if CMS is empty (key length)
+                if(cms.getKeyLength()!=0){
+                  globalCMS1=cloneCMS(cms);
+                  myList.push(cms);
+                  colormap1SelectIndex=myList.length-1;
+                  orderColorSketch();
+                  drawMyList();
+                }
+
                 break;
             case 1:
-                globalColormap1 = colormap;
-                bandSketch.colormap2Sketch(globalColormap1);
+                globalCMS1=cms;
                 orderColorSketch();
                 break;
             default:
-                console.log("Error at readSingleFile function -> showSideID is unknown!");
+                console.log("Error at readCMSFile function -> showSideID is unknown!");
                 return;
     }
-
-
-
-
-
-
 
   };
 
@@ -1014,4 +1090,15 @@ function readSingleFile(e) {
   reader.readAsText(file);
 
 
+}
+
+
+
+function closeAlert(){
+  document.getElementById("popupAlertWindow").style.display="none";
+}
+
+function openAlert(txt){
+  document.getElementById("popupAlertWindow").style.display="inline-block";
+  document.getElementById("id_alertText").innerHTML=txt;
 }

@@ -1,207 +1,11 @@
 function editPage_delteKey(){
-bandSketch.deleteKey(selectedKey);
-globalColormap1=bandSketch.sketch2Colormap(colorspaceModus, globalColormap1.getColormapName());
+
+globalCMS1.deleteKey(selectedKey);
 orderColorSketch();
 addKeyButtons();
+somethingChanged = true;
 }
 
-
-function editPage_drawKeys(canvasID, tmpColormap, doBandSketch2){
-
-    keyRectPointSketch = [];
-
-    var canvasObject = document.getElementById(canvasID);
-    canvasObject.width = key_resolution_X;
-    canvasObject.height = key_resolution_Y;
-
-    var canvasContex = canvasObject.getContext("2d");
-    //canvasContex.clearRect(0, 0, key_resolution_X, key_resolution_Y);
-    var canvasData = canvasContex.getImageData(0, 0, canvasObject.width, canvasObject.height);
-
-    //////////////////////////////////////////////////////////////
-
-    var colormapWidth = key_resolution_X * 0.95;
-    var xPos = key_resolution_X * 0.025;
-    var yPos = key_resolution_Y;
-
-    var twinStarted = false;
-    var leftStarted = false;
-
-    var distanceColorrects = key_resolution_Y / 6;
-    var bandWidth = colormapWidth/bandSketch.getBandLength();
-
-    if(doBandSketch2)
-    bandWidth = colormapWidth/bandSketch2.getBandLength();
-
-    var labelFontSize = key_resolution_Y / 6;
-    colorrectHeigth = key_resolution_Y / 3;
-    colorrectWitdh = key_resolution_X / 50;
-
-    keyCounter = 0;
-    keyType=[];
-    // draw keys
-    for (var i = 0; i < tmpColormap.getNumColors(); i++) {
-
-      var tmpKey = tmpColormap.getKey(i);
-      var colorrectYPos = yPos - distanceColorrects - colorrectHeigth;
-      var colorrectXPos = xPos - (colorrectWitdh / 2);
-
-
-
-      if(twinStarted!=true && leftStarted!=true){
-        keyCounter++;
-        keyType.push(tmpKey);
-        var text = ""+keyCounter;
-        canvasContex.font = labelFontSize+"px Arial";
-        canvasContex.fillStyle = 'rgb(0,0,0)';
-        canvasContex.fillText(text,xPos-(labelFontSize/2),colorrectYPos-labelFontSize);
-      }
-
-      switch (tmpKey) {
-        case "nil key":
-
-          canvasContex.beginPath();
-          canvasContex.lineWidth = 1;
-          canvasContex.moveTo(xPos, yPos);
-          canvasContex.lineTo(xPos, yPos - distanceColorrects);
-          canvasContex.strokeStyle = 'rgb(0,0,0)';
-          canvasContex.stroke();
-
-
-          //var colorrectYPos = yPos - distanceColorrects - colorrectHeigth;
-          //var colorrectXPos = xPos - (colorrectWitdh / 2);
-
-
-          drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth, "rgb(125,125,125)", true);
-
-          var tmpArray = [colorrectXPos, colorrectYPos];
-          keyRectPointSketch.push(tmpArray);
-
-          xPos+=bandWidth;
-          break;
-        case "twin key":
-
-          if (twinStarted == true) {
-            twinStarted = false;
-          } else {
-
-            var rgbColor1 = tmpColormap.getRGBColor(i).getRGBString();
-            var rgbColor2 = tmpColormap.getRGBColor(i + 1).getRGBString();
-
-            canvasContex.beginPath();
-            canvasContex.lineWidth = 1;
-            canvasContex.moveTo(xPos, yPos);
-            canvasContex.lineTo(xPos, yPos - distanceColorrects);
-            canvasContex.strokeStyle = 'rgb(0,0,0)';
-            canvasContex.stroke();
-
-
-            //var colorrectYPos = yPos - distanceColorrects - colorrectHeigth;
-            //var colorrectXPos = xPos - (colorrectWitdh / 2);
-
-            var tmpArray = [colorrectXPos, colorrectYPos];
-            keyRectPointSketch.push(tmpArray);
-
-            drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh / 2, colorrectHeigth, rgbColor1, false);
-            var colorrectXPos = xPos;
-            drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh / 2, colorrectHeigth, rgbColor2, false);
-
-            xPos+=bandWidth;
-
-            twinStarted = true;
-
-          }
-
-          break;
-        case "left key":
-          if (leftStarted == true) {
-
-            leftStarted = false;
-
-          } else {
-            var pos1 = (tmpColormap.getPosition(i) - tmpColormap.getRangeStart()) / (tmpColormap.getRangeEnd() - tmpColormap.getRangeStart()) * colormapWidth;
-            var rgbColor1 = tmpColormap.getRGBColor(i).getRGBString();
-
-            canvasContex.beginPath();
-            canvasContex.lineWidth = 1;
-            canvasContex.moveTo(xPos, yPos);
-            canvasContex.lineTo(xPos, yPos - distanceColorrects);
-            canvasContex.strokeStyle = 'rgb(0,0,0)';
-            canvasContex.stroke();
-
-
-            //var colorrectYPos = yPos - distanceColorrects - colorrectHeigth;
-            //var colorrectXPos = xPos - (colorrectWitdh / 2);
-
-            var tmpArray = [colorrectXPos, colorrectYPos];
-            drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh / 2, colorrectHeigth, rgbColor1, false);
-            var colorrectXPos = xPos;
-            drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh / 2, colorrectHeigth, "rgb(125,125,125)", true);
-
-            leftStarted = true;
-
-            xPos+=bandWidth;
-          }
-          break;
-        case "right key":
-
-          var rgbColor1 = tmpColormap.getRGBColor(i).getRGBString();
-
-          var pos1 = (tmpColormap.getPosition(i) - tmpColormap.getRangeStart()) / (tmpColormap.getRangeEnd() - tmpColormap.getRangeStart()) * colormapWidth;
-
-          canvasContex.beginPath();
-          canvasContex.lineWidth = 1;
-          canvasContex.moveTo(xPos, yPos);
-          canvasContex.lineTo(xPos, yPos - distanceColorrects);
-          canvasContex.strokeStyle = 'rgb(0,0,0)';
-          canvasContex.stroke();
-
-
-          //var colorrectYPos = yPos - distanceColorrects - colorrectHeigth;
-          //var colorrectXPos = xPos - (colorrectWitdh / 2);
-
-          drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh / 2, colorrectHeigth, "rgb(125,125,125)", true);
-          var colorrectXPos = xPos;
-          drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh / 2, colorrectHeigth, rgbColor1, false);
-
-          xPos+=bandWidth;
-
-          var tmpArray = [colorrectXPos, colorrectYPos];
-          keyRectPointSketch.push(tmpArray);
-
-          break;
-        default:
-          var rgbColor1 = tmpColormap.getRGBColor(i).getRGBString();
-
-
-          var pos1 = (tmpColormap.getPosition(i) - tmpColormap.getRangeStart()) / (tmpColormap.getRangeEnd() - tmpColormap.getRangeStart()) * colormapWidth;
-
-
-          ////
-          canvasContex.beginPath();
-          canvasContex.lineWidth = 1;
-          canvasContex.moveTo(xPos, yPos);
-          canvasContex.lineTo(xPos, yPos - distanceColorrects);
-          canvasContex.strokeStyle = 'rgb(0,0,0)';
-          canvasContex.stroke();
-
-
-          //var colorrectYPos = yPos - distanceColorrects - colorrectHeigth;
-          //var colorrectXPos = xPos - (colorrectWitdh / 2);
-
-          var tmpArray = [colorrectXPos, colorrectYPos];
-          keyRectPointSketch.push(tmpArray);
-
-          drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth, rgbColor1, false);
-
-          xPos+=bandWidth;
-
-      }
-
-    }
-
-
-}
 
 function colorChange(){
 
@@ -232,7 +36,18 @@ function colorChange(){
     drawEditPageColorCircles("editPage_canvasPicker","editPage_canvasPicker2", colorpickerType);
   }
 
+}
 
+// modify middle of triple
+function motChange(){
+  if(document.getElementById("editSide_Radiobutton_MiddleOfTripleColor1").checked==true){
+    globalCMS1.setMoT(selectedKey,false);
+  }
+  else{
+    globalCMS1.setMoT(selectedKey,true);
+  }
+  orderColorSketch();
+  somethingChanged = true;
 }
 
 function addKeyButtons(){
@@ -245,7 +60,7 @@ function addKeyButtons(){
 
   container.innerHTML = "";
 
-  for (var i = 0; i < keyCounter; i++) {
+  for (var i = 0; i < globalCMS1.getKeyLength(); i++) {
 
     var selectButton = document.createElement("div");
     selectButton.className = "class_keybuttonEditPage classButtonWhite";
@@ -280,14 +95,14 @@ function addKeyButtons(){
 
 function selectKey(){
 
-  if(selectedKey==0 || selectedKey==keyType.length-1){
+  if(selectedKey==0 || selectedKey==globalCMS1.getKeyLength()-1){
       document.getElementById("editPage_deleteButton").style.display = "none";
   }
   else {
       document.getElementById("editPage_deleteButton").style.display = "inline-block";
   }
 
-  switch (keyType[selectedKey]) {
+  switch (globalCMS1.getKeyType(selectedKey)) {
     case "nil key":
       document.getElementById("editSide_Radiobutton_KeyTypeNil").checked = true;
 
@@ -325,8 +140,10 @@ function selectKey(){
       document.getElementById("editColor2HSVLAbel").style.color = "grey";
       document.getElementById("editColor2RGBLAbel").style.color = "grey";
 
-
-
+      document.getElementById("editSide_Radiobutton_MiddleOfTripleColor1").disabled = true;
+      document.getElementById("editSide_Radiobutton_MiddleOfTripleColor1Label").style.color = "grey";
+      document.getElementById("editSide_Radiobutton_MiddleOfTripleColor2").disabled = true;
+      document.getElementById("editSide_Radiobutton_MiddleOfTripleColor2Label").style.color = "grey";
 
 
       selectedColor=-1;
@@ -356,8 +173,18 @@ function selectKey(){
       document.getElementById("editColor2HSVLAbel").style.color = "black";
       document.getElementById("editColor2RGBLAbel").style.color = "black";
 
-      editColor1=bandSketch.getC2Color(selectedKey-1,"rgb");
-      editColor2=bandSketch.getC1Color(selectedKey,"rgb");
+      document.getElementById("editSide_Radiobutton_MiddleOfTripleColor1").disabled = false;
+      document.getElementById("editSide_Radiobutton_MiddleOfTripleColor1Label").style.color = "black";
+      document.getElementById("editSide_Radiobutton_MiddleOfTripleColor2").disabled = false;
+      document.getElementById("editSide_Radiobutton_MiddleOfTripleColor2Label").style.color = "black";
+
+      if(globalCMS1.getMoT(selectedKey))
+        document.getElementById("editSide_Radiobutton_MiddleOfTripleColor2").checked = true;
+      else
+        document.getElementById("editSide_Radiobutton_MiddleOfTripleColor1").checked = true;
+
+      editColor1=globalCMS1.getLeftKeyColor(selectedKey,"rgb");
+      editColor2=globalCMS1.getRightKeyColor(selectedKey,"rgb");
 
       fillColorInputFields(false);
       fillColorInputFields(true);
@@ -366,6 +193,7 @@ function selectKey(){
       break;
     case "left key":
       document.getElementById("editSide_Radiobutton_KeyTypeLeft").checked = true;
+      document.getElementById("editSide_Radiobutton_SelectColor1").checked = true;
       document.getElementById("editSide_Radiobutton_SelectColor1").disabled = false;
       document.getElementById("editSide_Radiobutton_SelectColor1_Label").style.color = "black";
       document.getElementById("id_editPageC1HInput").style.background = "white";
@@ -376,6 +204,7 @@ function selectKey(){
       document.getElementById("id_editPageC1BInput").style.background = "white";
       document.getElementById("editColor1HSVLAbel").style.color = "black";
       document.getElementById("editColor1RGBLAbel").style.color = "black";
+
 
       document.getElementById("editSide_Radiobutton_SelectColor2").disabled = true;
       document.getElementById("editSide_Radiobutton_SelectColor2_Label").style.color = "grey";
@@ -395,7 +224,26 @@ function selectKey(){
       document.getElementById("editColor2RGBLAbel").style.color = "grey";
       selectedColor=0;
 
-      editColor1=bandSketch.getC2Color(selectedKey-1,"rgb");
+      editColor1=globalCMS1.getLeftKeyColor(selectedKey,"rgb");
+
+      if(selectedKey!=globalCMS1.getKeyLength()-1){
+      document.getElementById("editSide_Radiobutton_MiddleOfTripleColor1").disabled = false;
+      document.getElementById("editSide_Radiobutton_MiddleOfTripleColor1Label").style.color = "black";
+      document.getElementById("editSide_Radiobutton_MiddleOfTripleColor2").disabled = false;
+      document.getElementById("editSide_Radiobutton_MiddleOfTripleColor2Label").style.color = "black";
+
+      if(globalCMS1.getMoT(selectedKey))
+        document.getElementById("editSide_Radiobutton_MiddleOfTripleColor2").checked = true;
+      else
+        document.getElementById("editSide_Radiobutton_MiddleOfTripleColor1").checked = true;
+      }
+      else{
+        document.getElementById("editSide_Radiobutton_MiddleOfTripleColor1").disabled = true;
+        document.getElementById("editSide_Radiobutton_MiddleOfTripleColor1Label").style.color = "grey";
+        document.getElementById("editSide_Radiobutton_MiddleOfTripleColor2").disabled = true;
+        document.getElementById("editSide_Radiobutton_MiddleOfTripleColor2Label").style.color = "grey";
+      }
+
       fillColorInputFields(true);
 
       break;
@@ -418,6 +266,7 @@ function selectKey(){
       document.getElementById("editColor1HSVLAbel").style.color = "grey";
       document.getElementById("editColor1RGBLAbel").style.color = "grey";
 
+      document.getElementById("editSide_Radiobutton_SelectColor2").checked = true;
       document.getElementById("editSide_Radiobutton_SelectColor2").disabled = false;
       document.getElementById("editSide_Radiobutton_SelectColor2_Label").style.color = "black";
       document.getElementById("id_editPageC2HInput").style.background = "white";
@@ -431,9 +280,14 @@ function selectKey(){
 
       document.getElementById("editSide_Radiobutton_SelectColor2").checked = true;
 
-      editColor2=bandSketch.getC1Color(0,"rgb");
+      editColor2=globalCMS1.getRightKeyColor(selectedKey,"rgb");
 
       fillColorInputFields(false);
+
+      document.getElementById("editSide_Radiobutton_MiddleOfTripleColor1").disabled = true;
+      document.getElementById("editSide_Radiobutton_MiddleOfTripleColor1Label").style.color = "grey";
+      document.getElementById("editSide_Radiobutton_MiddleOfTripleColor2").disabled = true;
+      document.getElementById("editSide_Radiobutton_MiddleOfTripleColor2Label").style.color = "grey";
 
       selectedColor=1;
       break;
@@ -463,8 +317,13 @@ function selectKey(){
 
     document.getElementById("editSide_Radiobutton_SelectColor1").checked = true;
 
-    editColor1=bandSketch.getC2Color(selectedKey-1,"rgb");
-    editColor2=bandSketch.getC1Color(selectedKey,"rgb");
+    editColor1=globalCMS1.getLeftKeyColor(selectedKey,"rgb");
+    editColor2=globalCMS1.getRightKeyColor(selectedKey,"rgb");
+
+    document.getElementById("editSide_Radiobutton_MiddleOfTripleColor1").disabled = true;
+    document.getElementById("editSide_Radiobutton_MiddleOfTripleColor1Label").style.color = "grey";
+    document.getElementById("editSide_Radiobutton_MiddleOfTripleColor2").disabled = true;
+    document.getElementById("editSide_Radiobutton_MiddleOfTripleColor2Label").style.color = "grey";
 
     fillColorInputFields(false);
     fillColorInputFields(true);
@@ -487,10 +346,9 @@ function selectKey(){
   document.getElementById("editSide_Radiobutton_KeyTypeDual").style.display = "none";
   document.getElementById("editSide_Radiobutton_KeyTypeDualLabel").style.display = "none";
 
-
+  document.getElementById("id_editPageScalarInput").value=globalCMS1.getRefPosition(selectedKey);
   switch (selectedKey) {
     case 0:
-      document.getElementById("id_editPageScalarInput").value=bandSketch.getRefR1(selectedKey);
 
       document.getElementById("editSide_Radiobutton_KeyTypeNil").style.display = "inline-block";
       document.getElementById("editSide_Radiobutton_KeyTypeNilLabel").style.display = "inline-block";
@@ -499,10 +357,8 @@ function selectKey(){
       document.getElementById("editSide_Radiobutton_KeyTypeRightLabel").style.display = "inline-block";
       break;
     default:
-      document.getElementById("id_editPageScalarInput").value=bandSketch.getRefR2(selectedKey-1);
 
-
-      if(selectedKey+1==keyCounter){
+      if(selectedKey+1==globalCMS1.getKeyLength()){
         document.getElementById("editSide_Radiobutton_KeyTypeLeft").style.display = "inline-block";
         document.getElementById("editSide_Radiobutton_KeyTypeLeftLabel").style.display = "inline-block";
       }
@@ -518,8 +374,6 @@ function selectKey(){
       }
   }
 
-
-
   drawCurrentColor();
   initColorpickerBackground("editPage_canvasPicker", colorpickerType);
   drawEditPageColorCircles("editPage_canvasPicker","editPage_canvasPicker2", colorpickerType);
@@ -529,11 +383,11 @@ function selectKey(){
 function drawCurrentColor(){
   switch (selectedColor) {
     case 0:
-        document.getElementById("editPage_currentColor").style.background=bandSketch.getC2Color(selectedKey-1,"rgb").getRGBString();
+        document.getElementById("editPage_currentColor").style.background=globalCMS1.getLeftKeyColor(selectedKey,"rgb").getRGBString();
         document.getElementById("editPage_SetColor").style.background=editColor1.getRGBString();
     break;
     case 1:
-      document.getElementById("editPage_currentColor").style.background=bandSketch.getC1Color(selectedKey,"rgb").getRGBString();
+      document.getElementById("editPage_currentColor").style.background=globalCMS1.getRightKeyColor(selectedKey,"rgb").getRGBString();
       document.getElementById("editPage_SetColor").style.background=editColor2.getRGBString();
     break;
     default:
@@ -548,7 +402,7 @@ function drawModifyPreview(){
   var bandIncludeKey=0;
   var tmpSelectedColor = selectedColor;
 
-  if(keyType[selectedKey]==='dual key'){
+  if(globalCMS1.getKeyType(selectedKey)==='dual key'){
     selectedColor=0;
   }
 
@@ -570,91 +424,78 @@ function drawModifyPreview(){
 
 
   var borderWidth = 2;
-  var restWidth = resolutionX_differenceMetrics-(bandSketch.getBandLength()-1)*borderWidth;
-  var bandWith = Math.round(restWidth/bandSketch.getBandLength());
+  var restWidth = resolutionX_differenceMetrics-(globalCMS1.getKeyLength()-2)*borderWidth;
+  var bandWith = Math.round(restWidth/(globalCMS1.getKeyLength()-1));
   var currentPos = 0;
 
   var color1, color2;
 
-  for (var i = 0; i < bandSketch.getBandLength(); i++) {
+  for (var i = 0; i < globalCMS1.getKeyLength()-1; i++) {
 
     var tmpDis,tmpRad,xPos,yPos, zPos,tmpDis2,tmpRad2,xPos2, yPos2,zPos2;
 
-    switch (colorspaceModus) {
-      case 'rgb':
-       color1 = bandSketch.getC1Color(i,"rgb");
-       color2 = bandSketch.getC2Color(i,"rgb");
+    color1 = globalCMS1.getRightKeyColor(i,colorspaceModus);
+    color2 = globalCMS1.getLeftKeyColor(i+1,colorspaceModus);
 
-         if(bandIncludeKey==i){
+    if(color1==undefined)
+      color1=color2;
 
-           if(selectedColor==0){
-             color2 = editColor1;
-           }
-           else{
-             color1 = editColor2;
-           }
-         }
-        break;
-        case 'hsv':
-        color1 = bandSketch.getC1Color(i,"hsv");
-        color2 = bandSketch.getC2Color(i,"hsv");
 
-        if(bandIncludeKey==i){
 
-          if(selectedColor==0){
-            color2 = editColor1.calcHSVColor();
-          }
-          else{
-            color1 = editColor2.calcHSVColor();
-          }
+    if(bandIncludeKey==i){
+
+      if(selectedColor==0){
+        if(editColor1!=undefined)
+        switch (colorspaceModus) {
+          case "hsv":
+            color2=editColor1.calcHSVColor();
+            break;
+          case "lab":
+            color2=editColor1.calcLABColor();
+            break;
+          case "hsv":
+            color2=editColor1.calcDIN99Color();
+            break;
+          default:
+            color2=editColor1;
         }
+      }
+      else{
 
-        tmpDis = color1.getSValue() * 50; // radius 50; center(0,0,0);
-        tmpRad = (color1.getHValue() * Math.PI * 2) - Math.PI;
-        xPos = tmpDis * Math.cos(tmpRad);
-        yPos = tmpDis * Math.sin(tmpRad);
-        zPos = color1.getVValue() - 50;
-
-        tmpDis2 = color2.getSValue() * 50;
-        tmpRad2 = (color2.getHValue() * Math.PI * 2) - Math.PI;
-        xPos2 = tmpDis2 * Math.cos(tmpRad2);
-        yPos2 = tmpDis2 * Math.sin(tmpRad2);
-        zPos2 = color2.getVValue() - 50;
-        break;
-        case 'lab':
-        color1 = bandSketch.getC1Color(i,"lab");
-        color2 = bandSketch.getC2Color(i,"lab");
-
-        if(bandIncludeKey==i){
-
-          if(selectedColor==0){
-            color2 = editColor1.calcLABColor();
-          }
-          else{
-            color1 = editColor2.calcLABColor();
-          }
+        if(editColor2!=undefined)
+        switch (colorspaceModus) {
+          case "hsv":
+            color1=editColor2.calcHSVColor();
+            break;
+          case "lab":
+            color1=editColor2.calcLABColor();
+            break;
+          case "hsv":
+            color1=editColor2.calcDIN99Color();
+            break;
+          default:
+            color1=editColor2;
         }
-        break;
-        case 'din99':
-        color1 = bandSketch.getC1Color(i,"din99");
-        color2 = bandSketch.getC2Color(i,"din99");
-
-        if(bandIncludeKey==i){
-
-          if(selectedColor==0){
-            color2 = editColor1.calcDIN99Color(kE,kCH);
-          }
-          else{
-            color1 = editColor2.calcDIN99Color(kE,kCH);
-          }
-        }
-        break;
-      default:
-
+      }
     }
 
-    if(keyType[selectedKey]==='dual key'){
+    if (colorspaceModus === 'hsv'){
+      tmpDis = color1.getSValue() * 50; // radius 50; center(0,0,0);
+      tmpRad = (color1.getHValue() * Math.PI * 2) - Math.PI;
+      xPos = tmpDis * Math.cos(tmpRad);
+      yPos = tmpDis * Math.sin(tmpRad);
+      zPos = color1.getVValue() - 50;
+
+      tmpDis2 = color2.getSValue() * 50;
+      tmpRad2 = (color2.getHValue() * Math.PI * 2) - Math.PI;
+      xPos2 = tmpDis2 * Math.cos(tmpRad2);
+      yPos2 = tmpDis2 * Math.sin(tmpRad2);
+      zPos2 = color2.getVValue() - 50;
+    }
+
+    if(globalCMS1.getKeyType(selectedKey)==='dual key'){
       bandIncludeKey=selectedKey;
+      tmpSelectedColor=selectedColor;
       selectedColor=1;
     }
 
@@ -734,12 +575,11 @@ function drawModifyPreview(){
 
       }
 
-
     }
 
     currentPos=currentPos+bandWith;
 
-    if(i != bandSketch.getBandLength()-1){
+    if(i != globalCMS1.getKeyLength()-2){
       for(var x=0; x<borderWidth; x++){
         var index = (currentPos+x) * 4;
         canvasData.data[index + 0] = Math.round(0); // r
@@ -760,7 +600,6 @@ function drawModifyPreview(){
 function fillColorInputFields(dofirst){
 
   if(dofirst){
-
     var tmpVal =editColor1.get1Value()*255;
     document.getElementById("id_editPageC1RInput").value=tmpVal.toFixed(numDecimalPlaces);
     tmpVal =editColor1.get2Value()*255;
@@ -789,21 +628,16 @@ function fillColorInputFields(dofirst){
      document.getElementById("id_editPageC2SInput").value=tmpVal.toFixed(numDecimalPlaces);
      tmpVal =tmpHSV.get3Value()*100;
      document.getElementById("id_editPageC2VInput").value=tmpVal.toFixed(numDecimalPlaces);
-
   }
 }
 
 function editPage_ChangeScalar(event){
 
+  var inputObj = document.getElementById(event.target.id);
+  checkInputVal(inputObj, true, true);
   var id = event.target.id;
-  switch (selectedKey) {
-    case 0:
-      changeKeyValueInputSketch(selectedKey, true, id, false);
-      break;
-    default:
-      changeKeyValueInputSketch(selectedKey-1, false, id, false);
-  }
-  orderColorSketch();
+  changeKeyValueInput(selectedKey, id);
+
 }
 
 
@@ -814,14 +648,7 @@ function editPage_CheckScalar(event){
 
   if (event.keyCode == 13) {
     var id = event.target.id;
-    switch (selectedKey) {
-      case 0:
-        changeKeyValueInputSketch(selectedKey, true, id, false);
-        break;
-      default:
-        changeKeyValueInputSketch(selectedKey-1, false, id, false);
-    }
-    orderColorSketch();
+    changeKeyValueInput(selectedKey, id);
   }
 }
 
@@ -829,16 +656,18 @@ function changeKeyType(event){
 
   switch (event.target.id) {
     case "editSide_Radiobutton_KeyTypeNil":
-    if(keyType[selectedKey]==="right key"){
-      var tmpColor = bandSketch.getC2Color(0,colorspaceModus);
-      bandSketch.setC1(tmpColor, 0);
+    if(globalCMS1.getKeyType(selectedKey)==="right key"){
+
+      globalCMS1.setRightKeyColor(selectedKey,undefined);
+      globalCMS1.setLeftKeyColor(selectedKey,undefined);
+
     }
 
       break;
     case "editSide_Radiobutton_KeyTypeTwin":
-      if(keyType[selectedKey]==="dual key" || keyType[selectedKey]==="left key"){
+      if(globalCMS1.getKeyType(selectedKey)==="dual key" || globalCMS1.getKeyType(selectedKey)==="left key"){
 
-        var tmpColor = bandSketch.getC2Color(selectedKey,colorspaceModus);
+        var tmpColor = globalCMS1.getLeftKeyColor(selectedKey+1,colorspaceModus);
 
 
         if(tmpColor.get1Value()!=0||tmpColor.get2Value()!=0||tmpColor.get3Value()!=0)
@@ -852,37 +681,40 @@ function changeKeyType(event){
           tmpColor.set2Value(1);
           tmpColor.set3Value(1);
         }
-        bandSketch.setC1(tmpColor, selectedKey);
+        globalCMS1.setRightKeyColor(selectedKey,tmpColor);
 
-        var tmpColor2 = bandSketch.getC1Color(selectedKey-1,colorspaceModus);
-
-        if(tmpColor2.get1Value()!=0||tmpColor2.get2Value()!=0||tmpColor2.get3Value()!=0)
-        {
-          tmpColor2.set1Value(tmpColor2.get1Value()*0.75);
-          tmpColor2.set2Value(tmpColor2.get2Value()*0.75);
-          tmpColor2.set3Value(tmpColor2.get3Value()*0.75);
-        }
+        var tmpColor2;
+        if(globalCMS1.getKeyType(selectedKey-1)==="left key" || globalCMS1.getKeyType(selectedKey-1)==="nil key")
+          tmpColor2 = globalCMS1.getLeftKeyColor(selectedKey,colorspaceModus);
         else{
-          tmpColor2.set1Value(1);
-          tmpColor2.set2Value(1);
-          tmpColor2.set3Value(1);
+          tmpColor2 = globalCMS1.getRightKeyColor(selectedKey-1,colorspaceModus);
+
+          if(tmpColor2.get1Value()!=0||tmpColor2.get2Value()!=0||tmpColor2.get3Value()!=0)
+          {
+            tmpColor2.set1Value(tmpColor2.get1Value()*0.75);
+            tmpColor2.set2Value(tmpColor2.get2Value()*0.75);
+            tmpColor2.set3Value(tmpColor2.get3Value()*0.75);
+          }
+          else{
+            tmpColor2.set1Value(1);
+            tmpColor2.set2Value(1);
+            tmpColor2.set3Value(1);
+          }
         }
 
-        bandSketch.setC2(tmpColor2, selectedKey-1);
+        globalCMS1.setLeftKeyColor(selectedKey,tmpColor2);
 
       }
       break;
     case "editSide_Radiobutton_KeyTypeLeft":
-      if(keyType[selectedKey]==="dual key" || keyType[selectedKey]==="twin key"){
-        var tmpColor = bandSketch.getC2Color(selectedKey,colorspaceModus);
-
-        bandSketch.setC1(tmpColor, selectedKey);
+      if(globalCMS1.getKeyType(selectedKey)==="dual key" || globalCMS1.getKeyType(selectedKey)==="twin key"){
+        globalCMS1.setRightKeyColor(selectedKey,undefined);
       }
 
       break;
     case "editSide_Radiobutton_KeyTypeRight":
-      if(keyType[selectedKey]==="nil key"){
-        var tmpColor = bandSketch.getC2Color(0,colorspaceModus);
+      if(globalCMS1.getKeyType(selectedKey)==="nil key"){
+        var tmpColor = globalCMS1.getLeftKeyColor(selectedKey+1,colorspaceModus);
 
         if(tmpColor.get1Value()!=0||tmpColor.get2Value()!=0||tmpColor.get3Value()!=0)
         {
@@ -895,15 +727,15 @@ function changeKeyType(event){
           tmpColor.set2Value(1);
           tmpColor.set3Value(1);
         }
-
-        bandSketch.setC1(tmpColor, 0);
+        globalCMS1.setRightKeyColor(selectedKey,tmpColor);
+        globalCMS1.setLeftKeyColor(selectedKey,undefined);
       }
 
       break;
     default:
     // dual key+
-        if(keyType[selectedKey]==="twin key" || keyType[selectedKey]==="left key"){
-            var tmpColor = bandSketch.getC2Color(0,colorspaceModus);
+        if(globalCMS1.getKeyType(selectedKey)==="twin key" || globalCMS1.getKeyType(selectedKey)==="left key"){
+            var tmpColor = globalCMS1.getLeftKeyColor(selectedKey,colorspaceModus);
 
             if(tmpColor.get1Value()!=0||tmpColor.get2Value()!=0||tmpColor.get3Value()!=0)
             {
@@ -917,8 +749,9 @@ function changeKeyType(event){
               tmpColor.set3Value(1);
             }
 
-            bandSketch.setC1(tmpColor, selectedKey);
-            bandSketch.setC2(tmpColor, selectedKey-1);
+            globalCMS1.setRightKeyColor(selectedKey,tmpColor);
+            globalCMS1.setLeftKeyColor(selectedKey,tmpColor);
+
 
         }
 
@@ -1100,11 +933,13 @@ function changeColorpickerType(event){
 
 function editPageConfirmColor(){
 
-  if(keyType[selectedKey]==="dual key"){
+  if(globalCMS1.getKeyType(selectedKey)==="dual key"){
     var tmpColor = new classColor_RGB(editColor1.get1Value(),editColor1.get2Value(),editColor1.get3Value());
-    bandSketch.setC2(tmpColor,selectedKey-1);
     var tmpColor2 = new classColor_RGB(editColor2.get1Value(),editColor2.get2Value(),editColor2.get3Value());
-    bandSketch.setC1(tmpColor2,selectedKey);
+
+    globalCMS1.setRightKeyColor(selectedKey,tmpColor);
+    globalCMS1.setLeftKeyColor(selectedKey,tmpColor2);
+
     orderColorSketch();
     drawCurrentColor();
   }
@@ -1112,14 +947,14 @@ function editPageConfirmColor(){
       switch (selectedColor) {
         case 0:
             var tmpColor = new classColor_RGB(editColor1.get1Value(),editColor1.get2Value(),editColor1.get3Value());
-            bandSketch.setC2(tmpColor,selectedKey-1);
+            globalCMS1.setLeftKeyColor(selectedKey,tmpColor);
             orderColorSketch();
             drawCurrentColor();
 
         break;
         case 1:
               var tmpColor = new classColor_RGB(editColor2.get1Value(),editColor2.get2Value(),editColor2.get3Value());
-              bandSketch.setC1(tmpColor,selectedKey);
+              globalCMS1.setRightKeyColor(selectedKey,tmpColor);
               orderColorSketch();
               drawCurrentColor();
 
@@ -1385,6 +1220,38 @@ function checkColorInputFieldsKey(event){
       break;
     default:
 
+  }
+
+  if(globalCMS1.getKeyType(selectedKey)==="dual key"){
+    switch (event.target.id) {
+      case "id_editPageC1RInput":
+      case "id_editPageC1GInput":
+      case "id_editPageC1BInput":
+      case "id_editPageC1HInput":
+      case "id_editPageC1SInput":
+      case "id_editPageC1VInput":
+        document.getElementById("id_editPageC2RInput").value = document.getElementById("id_editPageC1RInput").value;
+        document.getElementById("id_editPageC2GInput").value = document.getElementById("id_editPageC1GInput").value;
+        document.getElementById("id_editPageC2BInput").value = document.getElementById("id_editPageC1BInput").value;
+        document.getElementById("id_editPageC2HInput").value = document.getElementById("id_editPageC1HInput").value;
+        document.getElementById("id_editPageC2SInput").value = document.getElementById("id_editPageC1SInput").value;
+        document.getElementById("id_editPageC2VInput").value = document.getElementById("id_editPageC1VInput").value;
+        break;
+      case "id_editPageC2RInput":
+      case "id_editPageC2GInput":
+      case "id_editPageC2BInput":
+      case "id_editPageC2HInput":
+      case "id_editPageC2SInput":
+      case "id_editPageC2VInput":
+        document.getElementById("id_editPageC1RInput").value = document.getElementById("id_editPageC2RInput").value;
+        document.getElementById("id_editPageC1GInput").value = document.getElementById("id_editPageC2GInput").value;
+        document.getElementById("id_editPageC1BInput").value = document.getElementById("id_editPageC2BInput").value;
+        document.getElementById("id_editPageC1HInput").value = document.getElementById("id_editPageC2HInput").value;
+        document.getElementById("id_editPageC1SInput").value = document.getElementById("id_editPageC2SInput").value;
+        document.getElementById("id_editPageC1VInput").value = document.getElementById("id_editPageC2VInput").value;
+        break;
+      default:
+    }
   }
 
 

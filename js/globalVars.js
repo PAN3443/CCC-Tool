@@ -1,6 +1,29 @@
 ///////////////////////////
 /// GLOBAL
 //////////////////////////
+
+
+////////////////////////////////////
+//// possible User Settings
+
+
+// 2000
+var de2000_k_L = 1.0, de2000_k_C = 1.0, de2000_k_H = 1.0; // K_l = 1 default, = 2 textiles
+
+// 94
+var de94_k_L = 1.0, de94_k_C = 1.0, de94_k_H = 1.0; // K_l = 1 default, = 2 textiles
+var de94_k_1 = 0.045, de94_k_2 = 0.015; // K1: 0.045 graphic arts  0.048 textiles  K2: 0.015 graphic arts 0.014 textiles
+
+/// Colorspace Parameter
+var din99_kE = 1;
+var din99_kCH = 1;
+
+var cielab_ref_X = 94.811;
+var cielab_ref_Y = 100.000;
+var cielab_ref_Z = 107.304;
+//////////////////////////////////////////
+
+
 var showSideID = -1; // 0 = myList; 1=CreateSide, 2=Analyse
 var initPageType = -1;
 var somethingChanged = false;
@@ -11,8 +34,8 @@ var size3D=50;
 
 //// Colormaps
 var myList = [];
-var globalColormap1;
-var globalColormap2;
+var globalCMS1;
+var globalCMS2;
 var tmpSaveColormap;
 var saveTwoColormaps=false;
 var tmpSaveColormap2;
@@ -25,10 +48,6 @@ var exportColormap;
 var analysisColormap;
 var compareColormap1;
 var compareColormap2;*/
-
-/// Colorspace Parameter
-var kE = 1;
-var kCH = 1;
 
 var interactionIntervalSize = 200;//50;
 var intervalSize = 200;
@@ -47,14 +66,20 @@ var animationInterval = 1000/30;
 
 var resolutionX_differenceMetrics = 1024;
 
-var vPlot_resolution_X = 1500; // hue colorspace
-var vPlot_resolution_Y = 650; // hue colorspace
+var vPlot_resolution_X = 800; // hue colorspace
+var vPlot_resolution_Y = 400; // hue colorspace
 
-var hue_resolution_X = 750;//1500; // hue colorspace
-var hue_resolution_Y = 750;//1500; // hue colorspace
+var vPlot_bg_resolution_X = 1500; // hue colorspace
+var vPlot_bg_resolution_Y = 650; // hue colorspace
 
-  var hs_resolution_X =  750;//1500; // Colorpicker
-  var hs_resolution_Y = 750;//1500; // Colorpicker
+var hue_resolution_X = 400; //750; // hue colorspace
+var hue_resolution_Y = 400; //750;; // hue colorspace
+
+var hue_bg_resolution_X = 400;//800; //750; // hue colorspace
+var hue_bg_resolution_Y = 400;//800; //750;; // hue colorspace
+
+  var hs_resolution_X =  750; // Colorpicker
+  var hs_resolution_Y = 750; // Colorpicker
 
   var v_resolution_X = 1; // Colorpicker
   var v_resolution_Y = 400; // Colorpicker
@@ -89,30 +114,21 @@ var analyzeColorspaceModus = "rgb";
 var tmpZIndex = 5;
 
 ////////// Canvas colorspaceCenter
-var colorspaceCenterX;
-var colorspaceCenterY;
-var colorspaceRadius;
+
 var radiusratio = 0.95;
 var labSpaceRectRange = 0.8;
-var bigLineWidth = 8;
-var smallLineWidth = 4;
+var bigLineWidth = 4;//8;
+var smallLineWidth = 2;//4;
 var circleRadPicker = 40;
 var circleRadColorPicker = 20;
-var circleRad = 8; //15;
-var bigcircleRad = 12;//25;
+var circleRad = 6;//8;
+var bigcircleRad = 8;// 12;
 var vBarWidth = 8;
 var circleStrokeWidth = 5; //15
 var alphaVal = 1.0;
-var lineWidthVPlot = 5;
+var lineWidthVPlot = 2;
 var arrowWidth = 15;
 
-var widthVArea =0; // width of plotelement
-var widthVArea2 =0; // width of plotelement
-var heigthVArea =0;
-var plotXStart =0;
-var plotXEnd =0;
-var plotYStart =0;
-var plotYEnd=0;
 var plotLineWidth = 5;
 var plotLineColor = "rgb(0,0,0)";
 
@@ -129,30 +145,32 @@ var rangeB99Neg = -83;
 var rangeB99Pos = 155;
 var rangeB99;
 
-var colorspaceBackgroundData;
-var colorspaceBackgroundDataRG;
-var colorspaceBackgroundDataRG;
-var colorspaceBackgroundDataBG;
-
 // colorspace eventes
-var mouseAboveSpaceObjectID = -1;
-var mouseGrappedSpaceObjectID = -1;
-var updateSketchID1 = -1;
-var updateSketchID2 = -1;
-var updateCurrentValue = 0;
+var mouseAboveKeyID = -1;
+var mouseGrappedKeyID = -1;
+var mouseGrappedColorSide = -1;
+
+//var updateCurrentValue = 0;
 var mouseGrappedColor = "rgb(120,120,120)";
 
 var spaceElementsXPos = [];
 var spaceElementsYPos = [];
 var spaceElementsType = [];
 var spaceElementsKey = [];
+var spaceElementsColor = [];
 
-/////
-// Band Sketch
-/////
-var bandSketch;
-var bandSketch2;
 ////////////////////////////////////////////////////////////////////////////////
+
+
+///////////////////////////
+/// Tutorial Page
+//////////////////////////
+
+var loadWebtoolImages = false;
+var loadCMSImages = false;
+var loadCreationImages = false;
+var loadExportImages = false;
+var loadAnalyzeImages = false;
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -162,7 +180,6 @@ var bandSketch2;
 //////////////////////////
 
 var plotType =0;
-var doOriginalValuePlot = true;
 var doLogMartixPlot = false;
 
 ///////////////////////////
@@ -179,8 +196,6 @@ var selectFirstForCompare = false;
 /// Edit
 //////////////////////////
 
-var keyCounter = 0;
-var keyType=[];
 var keyDivArray=[];
 var selectedKey = 0;
 var selectedColor = -1;
@@ -243,6 +258,8 @@ var newBandIsAdded = true;
 var dragPredefinedBandIndex = -1;
 var dragPredefinedBandType = -1;
 
+var dropRects = [];
+var bandSketchObjLength = 200;//100;
 
 // table expand button
 var tableIsExpand = false;
@@ -261,7 +278,6 @@ var overKeyID = -1;
 var mouseKeyChangeUp = false;
 
 var dropPositionElements = [];
-var droppedBandElements = [];
 var refLineSketchContainer = [];
 
 // drag and drop
@@ -278,6 +294,15 @@ var createBandType = 1; // 0=constant, 1=scale, 2=double, 3=triple, 4=quadruple
 var selectedBand=0;
 var bandDivArray=[];
 var bandCreatorOpen=false;
+
+
+//////////////////////////
+// ask Window
+//////////////////////////
+var askIndex=0;
+var askType=0;
+
+
 //////////////////////////
 // predefined Bands
 //////////////////////////

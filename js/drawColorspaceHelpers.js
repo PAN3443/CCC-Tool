@@ -27,7 +27,7 @@ function draw3DLine(xPos,yPos, zPos, xPos2, yPos2, zPos2,dashed, secondStrokeSty
     colormapRGB3D.add( line );
 }
 
-function draw3DElement(colorHexStr,xPos,yPos,zPos, index, circle){
+function draw3DElement(colorHexStr,xPos,yPos,zPos, index,colorside, circle){
   // draw circle
 
   var colorHex = parseInt(colorHexStr.replace(/^#/, ''), 16);
@@ -36,7 +36,7 @@ function draw3DElement(colorHexStr,xPos,yPos,zPos, index, circle){
 
     var geometry;
 
-    if(index==mouseAboveSpaceObjectID)
+    if(index==mouseAboveKeyID && colorside==mouseGrappedColorSide)
       geometry = new THREE.SphereGeometry(bigcircleRad3D, 20, 20);
     else
       geometry = new THREE.SphereGeometry(circleRad3D, 20, 20);
@@ -52,7 +52,7 @@ function draw3DElement(colorHexStr,xPos,yPos,zPos, index, circle){
 
     var geometry;
 
-    if(index==mouseAboveSpaceObjectID)
+    if(index==mouseAboveKeyID && colorside==mouseGrappedColorSide)
       geometry = new THREE.BoxGeometry(bigcircleRad3D*2,bigcircleRad3D*2,bigcircleRad3D*2);
     else
       geometry = new THREE.BoxGeometry(circleRad3D*2,circleRad3D*2,circleRad3D*2);
@@ -63,42 +63,24 @@ function draw3DElement(colorHexStr,xPos,yPos,zPos, index, circle){
     cube.position.y = yPos;
     cube.position.z = zPos;
     colormapRGB3D.add( cube );
-        /*  var tmpRecSize = circleRad*2;
-          colorspaceContex.fillStyle = colorString;
-          var x1 = xPos-circleRad;
-          var y1 = yPos-circleRad;
-
-          if(i==mouseAboveSpaceObjectID){
-              tmpRecSize = bigcircleRad*2;
-              x1 = xPos-bigcircleRad;
-              y1 = yPos-bigcircleRad;
-           }
-
-          colorspaceContex.fillRect(x1, y1, tmpRecSize, tmpRecSize);
-          colorspaceContex.lineWidth = smallLineWidth;
-          if(i==mouseGrappedSpaceObjectID)
-              colorspaceContex.strokeStyle =  mouseGrappedColor;
-          else
-              colorspaceContex.strokeStyle = 'rgb(0,0,0)';
-          colorspaceContex.strokeRect(x1, y1, tmpRecSize, tmpRecSize);*/
   }
 }
 
-function drawElement(colorString,colorspaceContex,xPos,yPos, index, circle){
+function drawElement(colorString,colorspaceContex,xPos,yPos, index, colorside, circle){
   // draw circle
 
   colorspaceContex.setLineDash([]);
 
   if(circle){
     colorspaceContex.beginPath();
-    if(index==mouseAboveSpaceObjectID)
+    if(index==mouseAboveKeyID && colorside==mouseGrappedColorSide)
       colorspaceContex.arc(xPos, yPos, bigcircleRad, 0, 2 * Math.PI, false);
     else
       colorspaceContex.arc(xPos, yPos, circleRad, 0, 2 * Math.PI, false);
     colorspaceContex.fillStyle = colorString;
     colorspaceContex.fill();
     colorspaceContex.lineWidth = smallLineWidth;
-    if(index==mouseGrappedSpaceObjectID)
+    if(index==mouseAboveKeyID && colorside==mouseGrappedColorSide)
       colorspaceContex.strokeStyle =  mouseGrappedColor;
     else
       colorspaceContex.strokeStyle = 'rgb(0,0,0)';
@@ -110,7 +92,7 @@ function drawElement(colorString,colorspaceContex,xPos,yPos, index, circle){
           var x1 = xPos-circleRad;
           var y1 = yPos-circleRad;
 
-          if(index==mouseAboveSpaceObjectID){
+          if(index==mouseAboveKeyID && colorside==mouseGrappedColorSide){
               tmpRecSize = bigcircleRad*2;
               x1 = xPos-bigcircleRad;
               y1 = yPos-bigcircleRad;
@@ -118,7 +100,7 @@ function drawElement(colorString,colorspaceContex,xPos,yPos, index, circle){
 
           colorspaceContex.fillRect(x1, y1, tmpRecSize, tmpRecSize);
           colorspaceContex.lineWidth = smallLineWidth;
-          if(index==mouseGrappedSpaceObjectID)
+          if(index==mouseAboveKeyID && colorside==mouseGrappedColorSide)
               colorspaceContex.strokeStyle =  mouseGrappedColor;
           else
               colorspaceContex.strokeStyle = 'rgb(0,0,0)';

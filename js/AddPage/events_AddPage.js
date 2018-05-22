@@ -255,18 +255,18 @@ function  createNewColormapRow(type, index, parent){
 
         if(myList.length==0){
           colormap1SelectIndex=-1;
-          globalColormap1=new classColorMapSpecification();
-          bandSketch.clearSketch();
+          //globalCMS1 = new class_CMS();
+          globalCMS1.clear();
         }
         else{
           if(colormap1SelectIndex==tmpPos){
             colormap1SelectIndex=0;
-            globalColormap1=myList[0];
+            globalCMS1=cloneCMS(myList[0]);
           }
           else{
             if(colormap1SelectIndex>tmpPos){
               colormap1SelectIndex--;
-              globalColormap1=myList[colormap1SelectIndex];
+              globalCMS1=cloneCMS(myList[colormap1SelectIndex]);
 
             }
           }
@@ -285,7 +285,7 @@ function  createNewColormapRow(type, index, parent){
           addedIndex.push(tmpIndex);
           myList.push(addPageGetColormap(tmpIndex, tmpType));
           colormap1SelectIndex=myList.length-1;
-          globalColormap1=myList[myList.length-1];
+          globalCMS1=cloneCMS(myList[colormap1SelectIndex]);
           //this.style.backgroundImage = "url(img/acceptButton_blue.png)";
           //this.style.borderColor = "rgb(0,191,255)";
           this.style.color = styleActiveColor;
@@ -293,8 +293,6 @@ function  createNewColormapRow(type, index, parent){
         }
 
       }
-
-      bandSketch.colormap2Sketch(globalColormap1);
       orderColorSketch(colorspaceModus);
 
       restSpace = sizeMyList-myList.length;
@@ -318,8 +316,7 @@ function  createNewColormapRow(type, index, parent){
   exportButton.onclick = (function(tmpIndex, tmpType) {
   return function() {
 
-      globalColormap1 = addPageGetColormap(tmpIndex, tmpType);
-      bandSketch.colormap2Sketch(globalColormap1);
+      globalCMS1 = addPageGetColormap(tmpIndex, tmpType);
       colormap1SelectIndex=-1;
       changePage(6);
 
