@@ -1,10 +1,5 @@
 function drawBandSketch(cms,sketchObjectID, sketchKeyID, sketchRefID, withInputFields, aboveInputField){
 
-  for (var i = refLineSketchContainer.length - 1; i >= 0; i--) {
-    refLineSketchContainer[i].remove();
-    refLineSketchContainer.pop();
-  }
-
   // start
   var canvasObject = document.getElementById(sketchObjectID);
   var canvasContex = canvasObject.getContext("2d");

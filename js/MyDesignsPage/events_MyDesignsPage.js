@@ -20,7 +20,6 @@ function deletetColormapFromMyDesigns(index) {
 
 
 function acceptColormapFromMyDesigns(index) {
-
   if (index < myList.length) {
 
     document.getElementById("id_buttonAcceptMyList" + colormap1SelectIndex).style.border = "0.2vh solid rgb(0,0,0)";
@@ -178,6 +177,8 @@ function readSessionFile(e){
   if (!file) {
     return;
   }
+
+  myList=[];
 
   var fileName = file.name;
 
@@ -474,12 +475,18 @@ function readSessionFile(e){
      }
    }
 
+   colormap1SelectIndex=myList.length-1;
+   globalCMS1 = cloneCMS(myList[colormap1SelectIndex]);
 
     if (showSideID == -1)
       changePage(0);
-
+    else{
       orderColorSketch();
       drawMyList();
+    }
+
+
+
   };
 
 

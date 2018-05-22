@@ -419,6 +419,11 @@ function orderColorSketch(forColorspace) {
     dropPositionElements.pop();
   }
 
+  for (var i = refLineSketchContainer.length - 1; i >= 0; i--) {
+    refLineSketchContainer[i].remove();
+    refLineSketchContainer.pop();
+  }
+
  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     if (showSideID == 1) {

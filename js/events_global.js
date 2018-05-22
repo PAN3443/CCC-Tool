@@ -1012,7 +1012,7 @@ function initNewPage(){
 
   initPageType=-1;
 
-  if(showSideID!=5 && showSideID!=7)
+  if(showSideID!=5 && showSideID!=7 && showSideID!=8)
   orderColorSketch(colorspaceModus);
   else{
 
