@@ -1,4 +1,4 @@
-class class_Grid{
+class class_Field{
     constructor() {
         this.type = "";
         this.dimension = "";

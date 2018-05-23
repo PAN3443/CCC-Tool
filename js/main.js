@@ -9,16 +9,12 @@ window.onload = function() {
   else
   browserCanWorker=true;
 
-  browserCanWorker=false;
-
   globalCMS1 = new class_CMS();
   globalCMS2 = new class_CMS();
 
   document.getElementById("editSide_Radiobutton_PickerRG_B").checked=true;
   document.getElementById("bandCreator_Radiobutton_PickerRG_B").checked=true;
   colorpickerType="RG_B";
-
-
 
   document.getElementById('id_creatorPage').style.display = "none";
   document.getElementById('id_comparePage').style.display = "none";
@@ -27,6 +23,7 @@ window.onload = function() {
 
   document.getElementById('id_inputCMSData').addEventListener("change", readCMSFile);
   document.getElementById('id_inputSessionData').addEventListener("change", readSessionFile);
+  //document.getElementById('id_inputData').addEventListener("change", readDataFile);
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Setting Side /////////////////////////////////////

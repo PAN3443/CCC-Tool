@@ -115,6 +115,15 @@
   <script src="js/Parser/jsonColormapParser.js"></script>
   <script src="js/Parser/csvColormapParser.js"></script>
 
+
+  <!-- Mapping -->
+  <!--script src="js/Visualization/DataParser/events_loadData.js"></script>
+  <script src="js/Visualization/DataParser/vtkParser.js"></script>
+  <script src="js/Visualization/Domain/class_domain.js"></script>
+  <script src="js/Visualization/Domain/class_grid.js"></script>
+  <script src="js/Visualization/Domain/class_field.js"></script>
+  <script src="js/Visualization/Domain/class_cell.js"></script-->
+
   <!-- global -->
   <script src="js/bandsketch.js"></script>
   <script src="js/calcColordifference.js"></script>
@@ -155,6 +164,7 @@
         -->
 
   <div id="wrapper">
+    <input type="file" id="id_inputData" style="width: 0px; height:0px; margin:0px; display:none;" accept=".vtk">
     <input type="file" id="id_inputCMSData" style="width: 0px; height:0px; margin:0px; display:none;" accept=".csv, .xml, .json">
     <input type="file" id="id_inputSessionData" style="width: 0px; height:0px; margin:0px; display:none;" accept=".xml">
 

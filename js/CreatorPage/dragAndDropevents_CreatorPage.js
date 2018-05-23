@@ -46,8 +46,6 @@ function bandOnDragStart(event){
                     break;
                     default:
                         console.log("Error at the openpredefinedbands function");
-
-
                 }
 
     }
@@ -55,24 +53,26 @@ function bandOnDragStart(event){
 
     drawBandSketch(globalCMS1,"id_colormapSketch","id_createColormapKeys","id_colormapSketch_Ref", true, -1);
 
+    for (var i = dropPositionElements.length - 1; i >= 0; i--) {
+      dropPositionElements[i].remove();
+      dropPositionElements.pop();
+    }
+
+    for (var i = refLineSketchContainer.length - 1; i >= 0; i--) {
+      refLineSketchContainer[i].remove();
+      refLineSketchContainer.pop();
+    }
+
 }
 
 function bandOnDragEnd(event) {
-    drawBandSketch(globalCMS1,"id_colormapSketch","id_createColormapKeys","id_colormapSketch_Ref", false, -1);
+
+    orderColorSketch(colorspaceModus);
+    //drawBandSketch(globalCMS1,"id_colormapSketch","id_createColormapKeys","id_colormapSketch_Ref", false, -1);
     document.getElementById("id_createColormapKeys").style.visibility="visible";
 }
 
 function bandOnEnter(event) {
-    /*var tmpString = event.target.id;
-
-    if(tmpString!=undefined){
-
-         tmpString = tmpString.substr(7);
-         indexOfDroppedPlace = parseInt(tmpString);
-         document.getElementById("dragPos"+indexOfDroppedPlace).style.innerHTML = "";
-
-         document.getElementById("dragPos"+indexOfDroppedPlace).style.background = "rgb(220,220,220)";
-    }*/
     if(globalCMS1.getKeyLength()==0){
       drawBandSketch(globalCMS1,"id_colormapSketch","id_createColormapKeys","id_colormapSketch_Ref", true, 0);
       indexOfDroppedPlace=0;
@@ -84,12 +84,6 @@ function bandOnLeave(event) {
 
     drawBandSketch(globalCMS1,"id_colormapSketch","id_createColormapKeys","id_colormapSketch_Ref", true, -1);
     indexOfDroppedPlace = -1;
-
-    /*if(indexOfDroppedPlace >=0){
-        document.getElementById("dragPos"+indexOfDroppedPlace).style.background = "none";
-        document.getElementById("dragPos"+indexOfDroppedPlace).style.innerHTML = "Drop here";
-
-    }/*/
 }
 
 function bandOnDrop(event){
@@ -104,7 +98,6 @@ function bandOnDrop(event){
 
         if(indexOfDroppedPlace==-1)
         return;
-        //document.getElementById("dragPos"+indexOfDroppedPlace).style.background = "none";
 
         switch(dragPredefinedBandType){
             case 0:
@@ -318,7 +311,7 @@ function bandOnDrop(event){
 
       indexOfDroppedPlace==-1;
 
-      orderColorSketch(colorspaceModus);
+      //orderColorSketch(colorspaceModus);
 
   /////////////
   ////  Save Band Process
