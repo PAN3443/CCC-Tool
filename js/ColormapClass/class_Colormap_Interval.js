@@ -50,23 +50,17 @@ class class_Interval{
         switch (colorspace) {
           case "rgb":
           return this.iColor[0];
-          break;
           case "hsv":
-          //return this.iColor[1];
-          //break;
-          return this.iColor[0].calcHSVColor();
+          return this.iColor[1];
+          //return this.iColor[0].calcHSVColor();
           case "lab":
           return this.iColor[2];
-          break;
           case "din99":
           return this.iColor[3];
-          break;
           case "lab_rgb_possible":
           return this.iColor[0].calcLABColor();
-          break;
           case "din99_rgb_possible":
           return this.iColor[0].calcDIN99Color();
-          break;
           default:
         }
 
