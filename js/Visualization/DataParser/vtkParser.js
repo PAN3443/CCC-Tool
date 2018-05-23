@@ -8,9 +8,175 @@ function vtk_reader(content){
   DIMENSIONS 1415 979 1
   POINTS 1385285 double*/
 
+  var vtklines = content.split("\n");
 
-  console.log(content);
+  // found Attributes
+  var foundFileFormat=false;
+  var foundDimension=false;
 
+  // attributes
+  var isASCII = false;
+  var is3D=undefined;
+  var xDimension=1;
+  var yDimension=1;
+  var zDimension=1;
+
+  // other
+  var modus = 0; // 0=header, 1=point data, 2=cell data
+  var loadedSomething=false;
+
+  var vtkVersion = -1;
+
+  for (var line = 0; line < vtklines.length; line++) {
+
+      var vtkLineElements = vtklines[line].split(" ");
+
+      if(line==0){
+        if(vtkLineElements[0]!="#"){
+          openAlert("Sorry, the vtk file is not correct. The first line has to start with \"# vtk DataFile Version X.X\"");
+          return;
+        }
+
+        if(vtkLineElements[1]!="vtk" && vtkLineElements[1]!="VTK" && vtkLineElements[1]!="Vtk"){
+          openAlert("Sorry, the vtk file is not correct. The first line has to start with \"# vtk DataFile Version X.X\"");
+          return;
+        }
+
+        if(vtkLineElements[2]!="DataFile" && vtkLineElements[2]!="datafile" && vtkLineElements[2]!="DATAFILE" && vtkLineElements[2]!="dataFile" && vtkLineElements[2]!="Datafile"){
+          openAlert("Sorry, the vtk file is not correct. The first line has to start with \"# vtk DataFile Version X.X\"");
+          return;
+        }
+
+        if(vtkLineElements[3]!="Version" && vtkLineElements[3]!="VERSION" && vtkLineElements[3]!="version"){
+          openAlert("Sorry, the vtk file is not correct. The first line has to start with \"# vtk DataFile Version X.X\"");
+          return;
+        }
+
+        vtkVersion=parseFloat(vtkLineElements[4]);
+        console.log("Start vtk load process (vtk version "+vtkVersion+")");
+
+      }
+
+      switch (modus) {
+        case 0:
+
+          // Check File Format
+          if(foundFileFormat==false){
+            if(vtkLineElements[0]==="BINARY" || vtkLineElements[0]==="binary" || vtkLineElements[0]==="Binary"){
+              isASCII = false;
+              foundFileFormat=true;
+              break;
+            }
+
+            if(vtkLineElements[0]==="ASCII" || vtkLineElements[0]==="ascii" || vtkLineElements[0]==="Ascii"){
+              isASCII = true;
+              foundFileFormat=true;
+              break;
+            }
+          }
+
+
+          if(vtkLineElements[0]==="DATASET" || vtkLineElements[0]==="dataset" || vtkLineElements[0]==="Dataset"){
+
+            break;
+          }
+
+          if(vtkLineElements[0]==="DIMENSIONS" || vtkLineElements[0]==="dimensions" || vtkLineElements[0]==="Dimensions"){
+
+            foundDimension=true;
+
+            if(vtkLineElements.length==3){
+              is3D=false;
+            }
+
+            if(vtkLineElements.length==4){
+              if(parseFloat(vtkLineElements[1])==1.0 || parseFloat(vtkLineElements[2])==1.0 || parseFloat(vtkLineElements[3])==1.0){
+                is3D=false;
+
+                if(parseFloat(vtkLineElements[1])==1.0){
+                  xDimension=parseFloat(vtkLineElements[2]);
+                  yDimension=parseFloat(vtkLineElements[3]);
+                }
+
+                if(parseFloat(vtkLineElements[2])==1.0){
+                  xDimension=parseFloat(vtkLineElements[1]);
+                  yDimension=parseFloat(vtkLineElements[3]);
+                }
+
+                if(parseFloat(vtkLineElements[3])==1.0){
+                  xDimension=parseFloat(vtkLineElements[1]);
+                  yDimension=parseFloat(vtkLineElements[2]);
+                }
+
+              }
+              else{
+                is3D=true;
+                openAlert("Sorry, the current version of the ccc-tool only support 2D datasets.");
+                return;
+                xDimension=parseFloat(vtkLineElements[1]);
+                yDimension=parseFloat(vtkLineElements[2]);
+                zDimension=parseFloat(vtkLineElements[3]);
+              }
+
+            }
+
+            if(is3D==undefined){
+              openAlert("Sorry, the vtk file is not correct. The line with the dimension information couln't be readed.");
+              return;
+            }
+
+            break;
+          }
+
+
+
+          break;
+        case 1:
+          loadedSomething=true;
+        break;
+
+        case 2:
+          loadedSomething=true;
+        break;
+
+        default:
+
+      }
+
+      if(loadedSomething==false){
+        openAlert("Sorry, the vtk file loader was not able to load field values. Please check the vtk format.");
+        return;
+      }
+      // search identifier # vtk DataFile Version x.x
+
+      // Header
+
+      // File Format (ASCII or BINARY)
+
+      // DATASET Structure
+            /*STRUCTURED_POINTS
+            STRUCTURED_GRID
+            UNSTRUCTURED_GRID
+            POLYDATA
+            RECTILINEAR_GRID
+            FIELD*/
+
+      // DATASET Attributes POINT DATA or CELL_DATA
+
+          // Integer = number of points or cells
+
+          // Data typeof
+            //if(unsigned_short,short,unsigned_int,int,unsigned_long,long,float,double => SCALAR Values)
+
+
+
+
+
+      if(pointDataStarted)
+      for (var i = 0; i < vtkLineElements.length; i++) {
+
+      }
+  }
 
 
 }
@@ -18,5 +184,5 @@ function vtk_reader(content){
 
 function vtk_XML_reader(){
 
-
+console.log(123);
 }

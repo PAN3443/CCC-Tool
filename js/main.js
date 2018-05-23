@@ -23,7 +23,7 @@ window.onload = function() {
 
   document.getElementById('id_inputCMSData').addEventListener("change", readCMSFile);
   document.getElementById('id_inputSessionData').addEventListener("change", readSessionFile);
-  //document.getElementById('id_inputData').addEventListener("change", readDataFile);
+  document.getElementById('id_inputData').addEventListener("change", readDataFile);
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Setting Side /////////////////////////////////////
@@ -382,6 +382,8 @@ window.onload = function() {
   switchTableTestFunction(0);
   switchModifyModus(0);
   pageIsLoaded=true;
+
+  document.getElementById('id_inputData').click();
 }
 
 window.onresize = function(event) {
