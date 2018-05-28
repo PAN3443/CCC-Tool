@@ -195,6 +195,9 @@ function changeColorspace(type) {
 
       document.getElementById("button_ExportInterpolationSpaceHSV").style.border = "0.2vh solid "+styleActiveColor;
       document.getElementById("button_ExportInterpolationSpaceHSV").style.color = styleActiveColor;
+
+      document.getElementById('id_checkboxRGB').checked = true;
+      document.getElementById('id_checkboxRGB').disabled = true;
       break;
     case 2:
       colorspaceModus = "lab";
@@ -543,10 +546,10 @@ function changePage(type){
   if(pageIsLoaded==false)
   return;
 
-  /*if(type==7){
+  if(type==7){
     openAlert("Sorry. The work on the tutorial is not finished yet. It will be available with the upload of the version 1.0. Please use the help buttons at the tool or contact us via ccchelp\'@\'informatik.uni-leipzig.de!");
     return;
-  }*/
+  }//*/
 
 
   if(colormap1SelectIndex==-1){

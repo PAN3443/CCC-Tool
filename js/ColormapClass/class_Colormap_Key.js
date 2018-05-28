@@ -154,10 +154,10 @@ class class_Key{
           return ncolor;
           break;
           case "hsv":
-          var ncolor = new classColor_HSV(this.cL[1].get1Value(),this.cL[1].get2Value(),this.cL[1].get3Value());
-          return ncolor;
-          //var ncolor = new classColor_RGB(this.cL[0].get1Value(),this.cL[0].get2Value(),this.cL[0].get3Value());
-          //return ncolor.calcHSVColor();
+          //var ncolor = new classColor_HSV(this.cL[1].get1Value(),this.cL[1].get2Value(),this.cL[1].get3Value());
+          //return ncolor;
+          var ncolor = new classColor_RGB(this.cL[0].get1Value(),this.cL[0].get2Value(),this.cL[0].get3Value());
+          return ncolor.calcHSVColor();
           break;
           case "lab":
           var ncolor = new classColor_LAB(this.cL[2].get1Value(),this.cL[2].get2Value(),this.cL[2].get3Value());
@@ -192,10 +192,10 @@ class class_Key{
         return ncolor;
         break;
         case "hsv":
-        var ncolor = new classColor_HSV(this.cR[1].get1Value(),this.cR[1].get2Value(),this.cR[1].get3Value());
-        return ncolor;
-        //var ncolor = new classColor_RGB(this.cR[0].get1Value(),this.cR[0].get2Value(),this.cR[0].get3Value());
-        //return ncolor.calcHSVColor();
+        //var ncolor = new classColor_HSV(this.cR[1].get1Value(),this.cR[1].get2Value(),this.cR[1].get3Value());
+        //return ncolor;
+        var ncolor = new classColor_RGB(this.cR[0].get1Value(),this.cR[0].get2Value(),this.cR[0].get3Value());
+        return ncolor.calcHSVColor();
         break;
         case "lab":
         var ncolor = new classColor_LAB(this.cR[2].get1Value(),this.cR[2].get2Value(),this.cR[2].get3Value());

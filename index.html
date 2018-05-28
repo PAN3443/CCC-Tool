@@ -117,7 +117,7 @@
 
 
   <!-- Mapping -->
-  <script src="js/Visualization/DataParser/events_loadData.js"></script>
+  <!--script src="js/Visualization/DataParser/events_loadData.js"></script>
   <script src="js/Visualization/DataParser/vtkParser.js"></script>
   <script src="js/Visualization/Domain/class_domain.js"></script>
   <script src="js/Visualization/Domain/class_grid.js"></script>
@@ -946,39 +946,57 @@
 
                  </div>
 
-                 <div class="row" style="width:100%; height:auto; background:white;">
+
+                 <p id="id_huePositionLabel" class="classAnalyseLabel" style="width:50%; font-weight:bold; text-align: center; margin-bottom:1vh; margin-top:1vh;"></p>
+                 <div class="row" style="width:100%; height:auto;">
 
                    <!-- Hue -->
-                   <div style="width:30vw; height:auto;">
-
-
-                     <div style="position: relative; width:30vw; height:30vw; ">
-                      <canvas id="id_ModiyCourseHueBackground"
-                        style="position: absolute; left: 0; top: 0; z-index: 0; width:30vw; height:30vw;"></canvas>
-                      <canvas id="id_ModiyCourseHueMiddle"
-                        style="position: absolute; left: 0; top: 0; z-index: 1; width:30vw; height:30vw;"></canvas>
-                        <canvas id="id_ModiyCourseHueTop"
-                          style="position: absolute; left: 0; top: 0; z-index: 2; width:30vw; height:30vw;"></canvas>
+                     <div style="width:50%; height:auto; border-right: 3px double grey;">
+                       <div style="position: relative; width:50%; height:50vh; margin:auto;">
+                        <canvas id="id_ModiyCourseHueBackground"
+                          style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:100%;"></canvas>
+                        <canvas id="id_ModiyCourseHueMiddle"
+                          style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:100%;"></canvas>
+                          <canvas id="id_ModiyCourseHueTop"
+                            style="position: absolute; left: 0; top: 0; z-index: 2; width:100%; height:100%;"></canvas>
+                        </div>
                      </div>
                      <!--canvas id="id_anaylseCourseHueBackground" style="width:30vw; height:30vw;">
 
                    </canvas--->
 
-                     <p id="id_huePositionLabel" class="classAnalyseLabel" style="width:30vw; font-weight:bold; text-align: center; margin-bottom:2vh;"></p>
+                     <div style="position: relative; width:50%; height:50vh;">
+                      <canvas id="id_ModifyValue3Background"
+                        style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:100%;"></canvas>
+                      <canvas id="id_ModifyValue3Middle"
+                        style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:100%;"></canvas>
+                      <canvas id="id_ModifyValue3Top"
+                        style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:100%;"></canvas>
+                     </div>
+
+                  </div>
+
+                   <div class="row" style="width:100%; height:auto; border-top: 3px double grey;">
+                     <div style="position: relative; width:50%; height:50vh; border-right: 3px double grey;">
+                      <canvas id="id_ModifyValue1Background"
+                        style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:100%;"></canvas>
+                      <canvas id="id_ModifyValue1Middle"
+                        style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:100%;"></canvas>
+                      <canvas id="id_ModifyValue1Top"
+                        style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:100%;"></canvas>
+                     </div>
+
+                     <div style="position: relative; width:50%; height:50vh;">
+                      <canvas id="id_ModifyValue2Background"
+                        style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:100%;"></canvas>
+                      <canvas id="id_ModifyValue2Middle"
+                        style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:100%;"></canvas>
+                      <canvas id="id_ModifyValue2Top"
+                        style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:100%;"></canvas>
+                     </div>
+
 
                    </div>
-
-                   <!-- Brightness -->
-                   <div style="position: relative; width:68%; height:30vw;">
-                    <canvas id="id_ModifyValueBackground"
-                      style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:30vw;"></canvas>
-                    <canvas id="id_ModifyValueMiddle"
-                      style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:30vw;"></canvas>
-                    <canvas id="id_ModifyValueTop"
-                      style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:30vw;"></canvas>
-                   </div>
-
-                 </div>
 
                </div>
 
@@ -1864,28 +1882,52 @@
                   <input class="classAnalyseLabel" id="id_setValueRangeCompare" type="number" min="0" max="100" value="50" name="points" step="10" style="width:7vw; margin-right:auto;">
 
                 </div-->
+              <div class="row" style="width:100%; height:auto;">
+                <!-- Hue -->
+                  <div style="width:50%; height:auto; border-right: 3px double grey;">
+                    <div style="position: relative; width:50%; height:50vh; margin:auto;">
+                      <canvas id="id_compareCourseHueBackground"
+                        style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:100%;"></canvas>
+                      <canvas id="id_compareCourseHueMiddle"
+                        style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:100%;"></canvas>
+                        <canvas id="id_compareCourseHueTop"
+                          style="position: absolute; left: 0; top: 0; z-index: 2; width:100%; height:100%;"></canvas>
+                     </div>
+                  </div>
+                  <!--canvas id="id_anaylseCourseHueBackground" style="width:100%; height:100%;">
 
-                <div class="row" style="width:100%; height:auto; background:white;">
+                </canvas--->
 
-                  <!-- Hue -->
-                  <div style="position: relative; width:30vw; height:30vw; ">
-                   <canvas id="id_compareCourseHueBackground"
-                     style="position: absolute; left: 0; top: 0; z-index: 0; width:30vw; height:30vw;"></canvas>
-                   <canvas id="id_compareCourseHueMiddle"
-                     style="position: absolute; left: 0; top: 0; z-index: 1; width:30vw; height:30vw;"></canvas>
-                     <canvas id="id_compareCourseHueTop"
-                       style="position: absolute; left: 0; top: 0; z-index: 2; width:30vw; height:30vw;"></canvas>
+                  <div style="position: relative; width:50%; height:50vh;">
+                    <canvas id="id_compareValue3Background"
+                      style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:100%;"></canvas>
+                    <canvas id="id_compareValue3Middle"
+                      style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:100%;"></canvas>
+                    <canvas id="id_compareValue3Top"
+                      style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:100%;"></canvas>
                   </div>
 
-                  <!-- Brightness -->
-                  <div style="position: relative; width:68%; height:30vw;">
-                   <canvas id="id_compareValueBackground"
-                     style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:30vw;"></canvas>
-                   <canvas id="id_compareValueMiddle"
-                     style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:30vw;"></canvas>
-                   <canvas id="id_compareValueTop"
-                     style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:30vw;"></canvas>
+               </div>
+
+                <div class="row" style="width:100%; height:auto; border-top: 3px double grey;">
+                  <div style="position: relative; width:50%; height:50vh; border-right: 3px double grey;">
+                   <canvas id="id_compareValue1Background"
+                     style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:100%;"></canvas>
+                   <canvas id="id_compareValue1Middle"
+                     style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:100%;"></canvas>
+                   <canvas id="id_compareValue1Top"
+                     style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:100%;"></canvas>
                   </div>
+
+                  <div style="position: relative; width:50%; height:50vh;">
+                   <canvas id="id_compareValue2Background"
+                     style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:100%;"></canvas>
+                   <canvas id="id_compareValue2Middle"
+                     style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:100%;"></canvas>
+                   <canvas id="id_compareValue2Top"
+                     style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:100%;"></canvas>
+                  </div>
+
 
                 </div>
 
@@ -2804,37 +2846,55 @@
 
           </div-->
 
-          <div class="row" style="width:100%; height:auto; background:white;">
+          <div class="row" style="width:100%; height:auto;">
 
             <!-- Hue -->
-              <div style="position: relative; width:30vw; height:30vw; ">
-               <canvas id="id_anaylzeCourseHueBackground"
-                 style="position: absolute; left: 0; top: 0; z-index: 0; width:30vw; height:30vw;"></canvas>
-               <canvas id="id_anaylzeCourseHueMiddle"
-                 style="position: absolute; left: 0; top: 0; z-index: 1; width:30vw; height:30vw;"></canvas>
-                 <canvas id="id_anaylzeCourseHueTop"
-                   style="position: absolute; left: 0; top: 0; z-index: 2; width:30vw; height:30vw;"></canvas>
+              <div style="width:50%; height:auto; border-right: 3px double grey;">
+                <div style="position: relative; width:50%; height:50vh; margin:auto;">
+                  <canvas id="id_analyzeCourseHueBackground"
+                    style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:100%;"></canvas>
+                  <canvas id="id_analyzeCourseHueMiddle"
+                    style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:100%;"></canvas>
+                    <canvas id="id_analyzeCourseHueTop"
+                      style="position: absolute; left: 0; top: 0; z-index: 2; width:100%; height:100%;"></canvas>
+                 </div>
               </div>
-              <!--canvas id="id_anaylseCourseHueBackground" style="width:30vw; height:30vw;">
+              <!--canvas id="id_anaylseCourseHueBackground" style="width:100%; height:100%;">
 
             </canvas--->
 
-              <!--p id="id_huePositionLabel" class="classAnalyseLabel" style="width:30vw; font-weight:bold; text-align: center; margin-bottom:2vh;"></p-->
+              <div style="position: relative; width:50%; height:50vh;">
+                <canvas id="id_analyzeValue3Background"
+                  style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:100%;"></canvas>
+                <canvas id="id_analyzeValue3Middle"
+                  style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:100%;"></canvas>
+                <canvas id="id_analyzeValue3Top"
+                  style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:100%;"></canvas>
+              </div>
+
+           </div>
+
+            <div class="row" style="width:100%; height:auto; border-top: 3px double grey;">
+              <div style="position: relative; width:50%; height:50vh; border-right: 3px double grey;">
+               <canvas id="id_analyzeValue1Background"
+                 style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:100%;"></canvas>
+               <canvas id="id_analyzeValue1Middle"
+                 style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:100%;"></canvas>
+               <canvas id="id_analyzeValue1Top"
+                 style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:100%;"></canvas>
+              </div>
+
+              <div style="position: relative; width:50%; height:50vh;">
+               <canvas id="id_analyzeValue2Background"
+                 style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:100%;"></canvas>
+               <canvas id="id_analyzeValue2Middle"
+                 style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:100%;"></canvas>
+               <canvas id="id_analyzeValue2Top"
+                 style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:100%;"></canvas>
+              </div>
 
 
-
-            <!-- Brightness -->
-            <div style="position: relative; width:68%; height:30vw;">
-             <canvas id="id_analyzeValueBackground"
-               style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:30vw;"></canvas>
-             <canvas id="id_analyzeValueMiddle"
-               style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:30vw;"></canvas>
-             <canvas id="id_analyzeValueTop"
-               style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:30vw;"></canvas>
             </div>
-
-
-          </div>
 
         </div>
 

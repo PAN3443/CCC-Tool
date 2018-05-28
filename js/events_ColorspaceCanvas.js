@@ -348,29 +348,84 @@ function checkInsideCirce(centerPosX, centerPosY, i, colorside) {
 
 }
 
-function calcVYPos(tmpColor,plotYStart,heigthVArea){
+function calcVYPos(tmpColor,plotYStart,heigthVArea, type){
 
   var tmpY;
 
-  switch(analyzeColorspaceModus) {
-    case "hsv":
-      tmpY = Math.round(plotYStart - (heigthVArea * tmpColor.getVValue()));
-      break
-    case "lab":
-      tmpY = Math.round(plotYStart - (heigthVArea * tmpColor.getLValue() / 100));
+  switch (type) {
+    case 1:
+    switch(analyzeColorspaceModus) {
+      case "hsv":
+        tmpY = Math.round(plotYStart - (heigthVArea * tmpColor.getVValue()));
+        break
+      case "lab":
+        tmpY = Math.round(plotYStart - (heigthVArea * tmpColor.getLValue() / 100));
+        break;
+      case "din99":
+        tmpY = Math.round(plotYStart - (heigthVArea * tmpColor.getL99Value() / 100));
+        break;
+      default:
+        console.log("Error at the getC1CurrentValue function");
+        return;
+    }
       break;
-    case "din99":
-      tmpY = Math.round(plotYStart - (heigthVArea * tmpColor.getL99Value() / 100));
-      break;
+      case 2:
+      switch (analyzeColorspaceModus) {
+        case "hsv":
+          tmpY = Math.round(plotYStart - (heigthVArea * tmpColor.getHValue()));
+          break;
+        case "lab":
+          tmpY = Math.round(plotYStart - (heigthVArea * (tmpColor.getAValue()+labSpaceRange) / (labSpaceRange*2)));
+          break;
+        case "din99":
+          tmpY = Math.round(plotYStart - (heigthVArea * (tmpColor.getA99Value()+(rangeA99Neg*-1)) / (rangeA99Pos-rangeA99Neg)));
+          break;
+        default:
+          console.log("Error at the changeColorspace function");
+          return;
+      }
+        break;
+        case 3:
+        switch (analyzeColorspaceModus) {
+          case "hsv":
+            tmpY = Math.round(plotYStart - (heigthVArea * tmpColor.getSValue()));
+            break;
+          case "lab":
+            tmpY = Math.round(plotYStart - (heigthVArea * (tmpColor.getBValue()+labSpaceRange) / (labSpaceRange*2)));
+            break;
+          case "din99":
+            tmpY = Math.round(plotYStart - (heigthVArea * (tmpColor.getB99Value()+(rangeB99Neg*-1)) / (rangeB99Pos-rangeB99Neg)));
+            break;
+          default:
+            console.log("Error at the changeColorspace function");
+            return;
+        }
+
+          break;
     default:
-      console.log("Error at the getC1CurrentValue function");
-      return;
   }
+
 
   return tmpY;
 }
 
 function mouseMoveValuePlot(event) {
+
+  var type;
+
+  switch (event.target.id) {
+    case "id_ModifyValue3Top":
+      type=1;
+      break;
+      case "id_ModifyValue1Top":
+        type=2;
+        break;
+        case "id_ModifyValue2Top":
+          type=3;
+          break;
+    default:
+    return;
+  }
 
   // calc mouse pos
   var rect = document.getElementById(event.target.id).getBoundingClientRect();
@@ -424,13 +479,13 @@ function mouseMoveValuePlot(event) {
 
           if(drawCircle){
 
-            tmpY=calcVYPos(tmpColor,vPlotyStart,heigthVArea);
+            tmpY=calcVYPos(tmpColor,vPlotyStart,heigthVArea,type);
             if (checkInsideCirce(tmpX, tmpY, i,0)) {
               found = true;
               break;
             }
 
-            tmpY=calcVYPos(tmpColor2,vPlotyStart,heigthVArea);
+            tmpY=calcVYPos(tmpColor2,vPlotyStart,heigthVArea,type);
             if (checkInsideCirce(tmpX, tmpY, i,1)) {
               found = true;
               break;
@@ -439,14 +494,14 @@ function mouseMoveValuePlot(event) {
           }
           else{
 
-            tmpY=calcVYPos(tmpColor2,vPlotyStart,heigthVArea);
+            tmpY=calcVYPos(tmpColor2,vPlotyStart,heigthVArea,type);
             if (checkInsideCirce(tmpX, tmpY, i,1)) {
               found = true;
               break;
             }
 
 
-            tmpY=calcVYPos(tmpColor,vPlotyStart,heigthVArea);
+            tmpY=calcVYPos(tmpColor,vPlotyStart,heigthVArea,type);
             if (checkInsideRect(tmpX, tmpY, i,0)) {
               found = true;
               break;
@@ -470,7 +525,7 @@ function mouseMoveValuePlot(event) {
             drawCircle = false;
 
 
-            tmpY=calcVYPos(tmpColor,vPlotyStart,heigthVArea);
+            tmpY=calcVYPos(tmpColor,vPlotyStart,heigthVArea,type);
           if(drawCircle){
               if (checkInsideCirce(tmpX, tmpY, i,0)) {
                 found = true;
@@ -495,7 +550,7 @@ function mouseMoveValuePlot(event) {
 
           tmpColor = globalCMS1.getRightKeyColor(i, analyzeColorspaceModus); // right color because of right key
 
-          tmpY=calcVYPos(tmpColor,vPlotyStart,heigthVArea);
+          tmpY=calcVYPos(tmpColor,vPlotyStart,heigthVArea,type);
 
           if (checkInsideCirce(tmpX, tmpY, i,1)) {
             found = true;
@@ -507,7 +562,7 @@ function mouseMoveValuePlot(event) {
 
           tmpColor = globalCMS1.getRightKeyColor(i, analyzeColorspaceModus); // right color because of right key
 
-          tmpY=calcVYPos(tmpColor,vPlotyStart,heigthVArea);
+          tmpY=calcVYPos(tmpColor,vPlotyStart,heigthVArea,type);
           if (checkInsideCirce(tmpX, tmpY, i,2)) {
             found = true;
           }
@@ -546,34 +601,114 @@ function mouseMoveValuePlot(event) {
           oldColor = globalCMS1.getLeftKeyColor(mouseGrappedKeyID, analyzeColorspaceModus);
       }
 
-      switch(analyzeColorspaceModus) {
-        case "hsv":
-          tmpColor = new classColor_HSV(oldColor.getHValue(), oldColor.getSValue(), newValue);
-          break
-        case "lab":
-          tmpColor = new classColor_LAB(newValue * 100, oldColor.getAValue(), oldColor.getBValue());
-          if (document.getElementById("id_checkboxRGB").checked == true) {
-            var testColor = tmpColor.calcRGBColorCorrect(errorRGBColor);
 
-            if (testColor.getRValue() == -1) {
-              return;
-            }
-          }
-          break;
-        case "din99":
-          tmpColor = new classColorDIN99(newValue * 100, oldColor.getA99Value(), oldColor.getB99Value());
-          if (document.getElementById("id_checkboxRGB").checked == true) {
-            var testColor = tmpColor.calcRGBColorCorrect(errorRGBColor);
 
-            if (testColor.getRValue() == -1) {
-              return;
+      switch (type) {
+        case 1:
+            switch(analyzeColorspaceModus) {
+              case "hsv":
+                tmpColor = new classColor_HSV(oldColor.getHValue(), oldColor.getSValue(), newValue);
+                break
+              case "lab":
+                tmpColor = new classColor_LAB(newValue * 100, oldColor.getAValue(), oldColor.getBValue());
+                if (document.getElementById("id_checkboxRGB").checked == true) {
+                  var testColor = tmpColor.calcRGBColorCorrect(errorRGBColor);
+
+                  if (testColor.getRValue() == -1) {
+                    return;
+                  }
+                }
+                break;
+              case "din99":
+                tmpColor = new classColorDIN99(newValue * 100, oldColor.getA99Value(), oldColor.getB99Value());
+                if (document.getElementById("id_checkboxRGB").checked == true) {
+                  var testColor = tmpColor.calcRGBColorCorrect(errorRGBColor);
+
+                  if (testColor.getRValue() == -1) {
+                    return;
+                  }
+                }
+                break;
+              default:
+                console.log("Error at the getC1CurrentValue function");
+                return;
             }
-          }
           break;
+          case 2:
+          switch(analyzeColorspaceModus) {
+            case "hsv":
+              tmpColor = new classColor_HSV(newValue, oldColor.getSValue(), oldColor.getVValue());
+              break
+            case "lab":
+              newValue= newValue*(labSpaceRange*2)+(labSpaceRange*-1);
+              tmpColor = new classColor_LAB(oldColor.getLValue(), newValue, oldColor.getBValue());
+              if (document.getElementById("id_checkboxRGB").checked == true) {
+                var testColor = tmpColor.calcRGBColorCorrect(errorRGBColor);
+
+                if (testColor.getRValue() == -1) {
+                  return;
+                }
+              }
+              break;
+            case "din99":
+              newValue= newValue*(rangeA99Pos-rangeA99Neg)+(rangeA99Neg);
+              tmpColor = new classColorDIN99(oldColor.getL99Value(),newValue, oldColor.getB99Value());
+
+              if (document.getElementById("id_checkboxRGB").checked == true) {
+                var testColor = tmpColor.calcRGBColorCorrect(errorRGBColor);
+                if (testColor.getRValue() == -1) {
+                  return;
+                }
+              }
+              var testColor2 = tmpColor.calcRGBColor();
+              if((tmpColor.getA99Value()!=0 || tmpColor.getB99Value()!=0)  && testColor2.equalTo(new classColor_RGB(0,0,0)))
+                return;
+              break;
+            default:
+              console.log("Error at the getC1CurrentValue function");
+              return;
+          }
+            break;
+            case 3:
+            switch(analyzeColorspaceModus) {
+              case "hsv":
+                tmpColor = new classColor_HSV(oldColor.getHValue(), newValue, oldColor.getVValue());
+                break
+              case "lab":
+                newValue= newValue*(labSpaceRange*2)+(labSpaceRange*-1);
+                tmpColor = new classColor_LAB(oldColor.getLValue(), oldColor.getAValue(),newValue);
+                if (document.getElementById("id_checkboxRGB").checked == true) {
+                  var testColor = tmpColor.calcRGBColorCorrect(errorRGBColor);
+
+                  if (testColor.getRValue() == -1) {
+                    return;
+                  }
+                }
+                break;
+              case "din99":
+                newValue= newValue*(rangeB99Pos-rangeB99Neg)+(rangeB99Neg);
+                tmpColor = new classColorDIN99(oldColor.getL99Value(), oldColor.getA99Value(), newValue);
+
+                if (document.getElementById("id_checkboxRGB").checked == true) {
+                  var testColor = tmpColor.calcRGBColorCorrect(errorRGBColor);
+                  if (testColor.getRValue() == -1) {
+                    return;
+                  }
+                }
+
+                var testColor2 = tmpColor.calcRGBColor();
+                if((tmpColor.getA99Value()!=0 || tmpColor.getB99Value()!=0)  && testColor2.equalTo(new classColor_RGB(0,0,0)))
+                  return;
+                break;
+              default:
+                console.log("Error at the getC1CurrentValue function");
+                return;
+            }
+              break;
         default:
-          console.log("Error at the getC1CurrentValue function");
-          return;
+        return;
       }
+
 
       switch (mouseGrappedColorSide) {
         case 0:

@@ -23,7 +23,8 @@ window.onload = function() {
 
   document.getElementById('id_inputCMSData').addEventListener("change", readCMSFile);
   document.getElementById('id_inputSessionData').addEventListener("change", readSessionFile);
-  document.getElementById('id_inputData').addEventListener("change", readDataFile);
+  //document.getElementById('id_inputData').addEventListener("change", readDataFile);
+  //document.getElementById('id_inputData').click();
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Setting Side /////////////////////////////////////
@@ -288,10 +289,20 @@ window.onload = function() {
   document.getElementById('id_ModiyCourseHueTop').addEventListener("mousedown", mouseDownColorspace);
   document.getElementById('id_ModiyCourseHueTop').addEventListener("mouseup", mouseUpColorspace);
 
-  document.getElementById('id_ModifyValueTop').addEventListener("mouseleave", mouseLeaveValuePlot);
-  document.getElementById('id_ModifyValueTop').addEventListener("mousemove", mouseMoveValuePlot);
-  document.getElementById('id_ModifyValueTop').addEventListener("mousedown", mouseDownValuePlot);
-  document.getElementById('id_ModifyValueTop').addEventListener("mouseup", mouseUpColorspace);
+  document.getElementById('id_ModifyValue3Top').addEventListener("mouseleave", mouseLeaveValuePlot);
+  document.getElementById('id_ModifyValue3Top').addEventListener("mousemove", mouseMoveValuePlot);
+  document.getElementById('id_ModifyValue3Top').addEventListener("mousedown", mouseDownValuePlot);
+  document.getElementById('id_ModifyValue3Top').addEventListener("mouseup", mouseUpColorspace);
+
+  document.getElementById('id_ModifyValue2Top').addEventListener("mouseleave", mouseLeaveValuePlot);
+  document.getElementById('id_ModifyValue2Top').addEventListener("mousemove", mouseMoveValuePlot);
+  document.getElementById('id_ModifyValue2Top').addEventListener("mousedown", mouseDownValuePlot);
+  document.getElementById('id_ModifyValue2Top').addEventListener("mouseup", mouseUpColorspace);
+
+  document.getElementById('id_ModifyValue1Top').addEventListener("mouseleave", mouseLeaveValuePlot);
+  document.getElementById('id_ModifyValue1Top').addEventListener("mousemove", mouseMoveValuePlot);
+  document.getElementById('id_ModifyValue1Top').addEventListener("mousedown", mouseDownValuePlot);
+  document.getElementById('id_ModifyValue1Top').addEventListener("mouseup", mouseUpColorspace);
 
   document.getElementById('id_canvasRGModiyTop').addEventListener("mouseleave", mouseLeaveColorspaceRGB);
   document.getElementById('id_canvasRGModiyTop').addEventListener("mousemove", mouseMoveColorspaceRGB);
@@ -383,7 +394,7 @@ window.onload = function() {
   switchModifyModus(0);
   pageIsLoaded=true;
 
-  document.getElementById('id_inputData').click();
+
 }
 
 window.onresize = function(event) {

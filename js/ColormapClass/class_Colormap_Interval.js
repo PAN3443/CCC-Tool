@@ -51,8 +51,8 @@ class class_Interval{
           case "rgb":
           return this.iColor[0];
           case "hsv":
-          return this.iColor[1];
-          //return this.iColor[0].calcHSVColor();
+          //return this.iColor[1];
+          return this.iColor[0].calcHSVColor();
           case "lab":
           return this.iColor[2];
           case "din99":

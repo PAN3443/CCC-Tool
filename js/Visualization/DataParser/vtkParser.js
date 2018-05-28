@@ -30,6 +30,10 @@ function vtk_reader(content){
   var dimension_z=1;  // equal or greater than 1
   var datasetType=0;
 
+  var fieldName;
+  var tableName;
+  var valueType; // double, float, char ....
+
     // for structured points
       var originFound = false;
       var origin_x = undefined;
@@ -74,6 +78,7 @@ function vtk_reader(content){
   var modus = 0; // 0=header, 1=point data, 2=cell data
   var loadedField=false;
   var loadedGrid=false;
+  var doLoadValues=false;
 
   var vtkVersion = -1;
 
@@ -250,17 +255,27 @@ function vtk_reader(content){
               case 2: case 3: case 4:
 
                   // for structured grid, unstructured grid, polydata grid
-                     var numberPoints = 0;
+                      var numberPoints = 0;
+                     if(vtkLineElements[0]==="POINTS" || vtkLineElements[0]==="Points" || vtkLineElements[0]==="points"){
 
-                     // for unstructured grid, polydata grid
-                       var numberCells = 0;
-                       var sizeOfCellList = 0; // (i.e., sum of numPoints and connectivity indices over each cell).
+                       if(foundDimension){
+                         // structured or unstructured
+                         if(parseFloat(vtkLineElements[1])!=(dimension_x*dimension_y*dimension_z)){
+                           openAlert("Sorry, the vtk file is not correct. The number of points is not equal to the dimension.");
+                           return;
+                         }
 
-                       // for polydata grid
-                         var isVertices = false;
-                         var isLines = false;
-                         var isPolygons = false;
-                         var isTriangleStrip = false;
+                       }
+                       else{
+                         // polygon data
+                       }
+
+
+                     }
+
+
+
+
 
               break;
               case 5:
@@ -297,57 +312,76 @@ function vtk_reader(content){
 
           // check for Field Data line
           switch (vtkLineElements[0]) {
-            case "POINT_DATA":  case "Point_Data":  case "POINT_DATA":
-              numberFieldValues=parseFloat(vtkLineElements[1]);
+            case "LOOKUP_TABLE":  case "Lookup_Table":  case "lookup_table":
+              tableName=vtkLineElements[1];
               break;
-
-            case "SCALARS":  case "Scalars":  case "POINT_DATA":
-              var fieldName=vtkLineElements[1];
-              var valueType=vtkLineElements[1]; // float double ....
+            case "SCALARS":  case "Scalars":  case "scalars":
+              fieldName=vtkLineElements[1];
+              valueType=vtkLineElements[2]; // float double ....
+              doLoadValues=true;
+              modus=2;
               break;
             case "COLOR_SCALARS":  case "Color_Scalars":  case "color_scalars":
-
+              doLoadValues=false;
+              modus=2;
               break;
 
-              case "VECTORS":  case "Vectors":  case "vectors":
+            case "VECTORS":  case "Vectors":  case "vectors":
+              // calc length, ....
+              doLoadValues=false;
+              modus=2;
+              break;
 
-                break;
+            case "NORMALS":  case "Normals":  case "normals":
+              doLoadValues=false;
+              modus=2;
+              break;
 
-                case "NORMALS":  case "Normals":  case "normals":
+            case "TEXTURE_COORDINATES":  case "Texture_Coordinates":  case "texture_coordinates":
+              doLoadValues=false;
+              modus=2;
+              break;
 
-                  break;
+            case "TENSORS":  case "Tensors":  case "tensors":
+              doLoadValues=false;
+              modus=2;
+              break;
 
-                  case "TEXTURE_COORDINATES":  case "Texture_Coordinates":  case "texture_coordinates":
-
-                    break;
-
-
-                    case "TENSORS":  case "Tensors":  case "tensors":
-
-                      break;
-
-                      case "FIELD":  case "Field":  case "field":
-
-                        break;
+            case "FIELD":  case "Field":  case "field":
+              doLoadValues=false;
+              modus=2;
+              break;
 
 
 
 
             default:
             switch (datasetType) {
-              case 2:
+              //case 1: //STRUCTURED_POINTS
+              //break;
+              case 2: //STRUCTURED_GRID
+
               break;
-              case 3:
+              case 3: //UNSTRUCTURED_GRID
+                // for unstructured grid, polydata grid
+                var numberCells = 0;
+                var sizeOfCellList = 0; // (i.e., sum of numPoints and connectivity indices over each cell).
+
+                // for polydata grid
+                  var isVertices = false;
+                  var isLines = false;
+                  var isPolygons = false;
+                  var isTriangleStrip = false;
               break;
-              case 4:
+              case 4: //POLYDATA:
               break;
               case 5:
               // for RECTILINEAR_GRID
-
                   if(vtkLineElements[0]==="X_COORDINATES" || vtkLineElements[0]==="X_Coordinates" || vtkLineElements[0]==="x_Coordinates" || vtkLineElements[0]==="x_coordinates"){
                     xCoordinatesStarted=true;
                     yCoordinatesStarted=false;
                     zCoordinatesStarted=false;
+                    xCoordinatesArray= new Array(parseFloat(vtkLineElements[1]));
                     break;
                   }
 
@@ -355,6 +389,7 @@ function vtk_reader(content){
                     yCoordinatesStarted=true;
                     xCoordinatesStarted=false;
                     zCoordinatesStarted=false;
+                    yCoordinatesArray= new Array(4);
                     break;
                   }
 
@@ -362,32 +397,52 @@ function vtk_reader(content){
                     zCoordinatesStarted=true;
                     yCoordinatesStarted=false;
                     xCoordinatesStarted=false;
+                    zCoordinatesArray= new Array(4);
                     break;
                   }
 
-                    for (var i = 0; i < vtkLineElements.length; i++) {
-                      if(xCoordinatesStarted)
-                      xCoordinatesArray.push(parseFloat(vtkLineElements[i]));
 
-                      if(yCoordinatesStarted)
-                      yCoordinatesArray.push(parseFloat(vtkLineElements[i]));
 
-                      if(zCoordinatesStarted)
-                      zCoordinatesArray.push(parseFloat(vtkLineElements[i]));
-                    }
+                      if(xCoordinatesStarted){
+                        if(vtkLineElements.length!=xCoordinatesArray.length){
+                          openAlert("Sorry, the vtk file is not correct. The number of X_COORDINATES points is not equal to the dimension of the X_COORDINATES.");
+                          return;
+                        }
+
+                        for (var i = 0; i < vtkLineElements.length; i++) {
+                          xCoordinatesArray[i]=parseFloat(vtkLineElements[i]);
+                        }
+                      }
+
+                      if(yCoordinatesStarted){
+                        if(vtkLineElements.length!=xCoordinatesArray.length){
+                          openAlert("Sorry, the vtk file is not correct. The number of Y_COORDINATES points is not equal to the dimension of the Y_COORDINATES.");
+                          return;
+                        }
+
+                        for (var i = 0; i < vtkLineElements.length; i++) {
+                          yCoordinatesArray[i]=parseFloat(vtkLineElements[i]);
+                        }
+                      }
+
+                      if(zCoordinatesStarted){
+                        if(vtkLineElements.length!=ZCoordinatesArray.length){
+                          openAlert("Sorry, the vtk file is not correct. The number of Z_COORDINATES points is not equal to the dimension of the Z_COORDINATES.");
+                          return;
+                        }
+
+                        for (var i = 0; i < vtkLineElements.length; i++) {
+                          zCoordinatesArray[i]=parseFloat(vtkLineElements[i]);
+                        }
+                      }
+
               break;
-              case 6:
+              case 6: //FIELD
               break;
               default:
             }
 
           }
-
-
-
-
-
-
 
         break;
 
@@ -415,7 +470,7 @@ function vtk_reader(content){
       }
 
       }
-  }
+  //}
 
 
 }

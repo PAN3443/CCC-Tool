@@ -8,7 +8,7 @@ function hueInit() {
       canvasID = "id_ModiyCourseHueBackground";
       break;
     case 2:
-      canvasID = "id_anaylzeCourseHueBackground";
+      canvasID = "id_analyzeCourseHueBackground";
       break;
     case 3:
       canvasID = "id_compareCourseHueBackground";
@@ -254,27 +254,47 @@ function hueInit() {
 
 function init_VPlot() {
 
-  var canvasID = '';
+  var canvasID1 = '';
+  var canvasID2 = '';
+  var canvasID3 = '';
+
   switch (showSideID) {
     case 1:
-      canvasID = 'id_ModifyValueBackground';
-      break;
+     canvasID1 = 'id_ModifyValue3Background';
+     canvasID2 = 'id_ModifyValue1Background';
+     canvasID3 = 'id_ModifyValue2Background';
+    break;
     case 2:
-      canvasID = 'id_analyzeValueBackground';
+      canvasID1 = 'id_analyzeValue3Background';
+      canvasID2 = 'id_analyzeValue1Background';
+      canvasID3 = 'id_analyzeValue2Background';
       break;
     case 3:
-      canvasID = 'id_compareValueBackground';
+      canvasID1 = 'id_compareValue3Background';
+      canvasID2 = 'id_compareValue1Background';
+      canvasID3 = 'id_compareValue2Background';
       break;
     default:
 
   }
-  var canvasVPlot = document.getElementById(canvasID);
 
-  canvasVPlot.width = vPlot_bg_resolution_X;
-  canvasVPlot.height = vPlot_bg_resolution_Y;
+  var canvasVPlot1 = document.getElementById(canvasID1);
+  var canvasVPlot2 = document.getElementById(canvasID2);
+  var canvasVPlot3 = document.getElementById(canvasID3);
+
+  canvasVPlot1.width = vPlot_bg_resolution_X;
+  canvasVPlot1.height = vPlot_bg_resolution_Y;
+
+  canvasVPlot2.width = vPlot_bg_resolution_X;
+  canvasVPlot2.height = vPlot_bg_resolution_Y;
+
+  canvasVPlot3.width = vPlot_bg_resolution_X;
+  canvasVPlot3.height = vPlot_bg_resolution_Y;
 
   //var ratioWidthHeight = canvasColorspaceWidth/canvasColorspaceHeight;
-  var vPlotContex = canvasVPlot.getContext("2d");
+  var vPlotContex1 = canvasVPlot1.getContext("2d");
+  var vPlotContex2 = canvasVPlot2.getContext("2d");
+  var vPlotContex3 = canvasVPlot3.getContext("2d");
 
   var yStart = Math.round(vPlot_bg_resolution_Y * 0.9);
   var yEnd = Math.round(vPlot_bg_resolution_Y * 0.2);
@@ -291,7 +311,9 @@ function init_VPlot() {
   var lineColor = 'rgb(200,200,200)';
   var arrowFontColor = 'rgb(90,90,90)';
 
-  vPlotContex.fillStyle = arrowFontColor;
+  vPlotContex1.fillStyle = arrowFontColor;
+  vPlotContex2.fillStyle = arrowFontColor;
+  vPlotContex3.fillStyle = arrowFontColor;
   /////////////////////////////////////////////////////////////////
   // init vars for V-Value Overview
   var widthVArea = 0;
@@ -312,16 +334,36 @@ function init_VPlot() {
 
       xPosPos = xStart + ((globalCMS2.getRefPosition(i) - globalCMS2.getRefPosition(0)) / widthVArea2) * plotwidth;
 
-      vPlotContex.beginPath();
-      vPlotContex.lineWidth = Math.round(lineWidthVPlot / 2);
-      vPlotContex.moveTo(xPosPos, yStart);
-      vPlotContex.lineTo(xPosPos, vPlot_bg_resolution_Y * 0.93);
-      vPlotContex.strokeStyle = "rgb(200,200,200)";
-      vPlotContex.stroke();
-      vPlotContex.strokeStyle = "rgb(200,200,200)";
+      vPlotContex1.beginPath();
+      vPlotContex1.lineWidth = Math.round(lineWidthVPlot / 2);
+      vPlotContex1.moveTo(xPosPos, yStart);
+      vPlotContex1.lineTo(xPosPos, vPlot_bg_resolution_Y * 0.93);
+      vPlotContex1.strokeStyle = "rgb(200,200,200)";
+      vPlotContex1.stroke();
+      vPlotContex1.strokeStyle = "rgb(200,200,200)";
       var text = "" + (i + 1);
-      vPlotContex.font = labelFontSizeSmall + "px Arial";
-      vPlotContex.fillText(text, xPosPos, vPlot_bg_resolution_Y * 0.96 + labelFontSizeSmall);
+      vPlotContex1.font = labelFontSizeSmall + "px Arial";
+      vPlotContex1.fillText(text, xPosPos, vPlot_bg_resolution_Y * 0.96 + labelFontSizeSmall);
+
+      vPlotContex.beginPath();
+      vPlotContex2.lineWidth = Math.round(lineWidthVPlot / 2);
+      vPlotContex2.moveTo(xPosPos, yStart);
+      vPlotContex2.lineTo(xPosPos, vPlot_bg_resolution_Y * 0.93);
+      vPlotContex2.strokeStyle = "rgb(200,200,200)";
+      vPlotContex2.stroke();
+      vPlotContex2.strokeStyle = "rgb(200,200,200)";
+      vPlotContex2.font = labelFontSizeSmall + "px Arial";
+      vPlotContex2.fillText(text, xPosPos, vPlot_bg_resolution_Y * 0.96 + labelFontSizeSmall);
+
+      vPlotContex3.beginPath();
+      vPlotContex3.lineWidth = Math.round(lineWidthVPlot / 2);
+      vPlotContex3.moveTo(xPosPos, yStart);
+      vPlotContex3.lineTo(xPosPos, vPlot_bg_resolution_Y * 0.93);
+      vPlotContex3.strokeStyle = "rgb(200,200,200)";
+      vPlotContex3.stroke();
+      vPlotContex3.strokeStyle = "rgb(200,200,200)";
+      vPlotContex3.font = labelFontSizeSmall + "px Arial";
+      vPlotContex3.fillText(text, xPosPos, vPlot_bg_resolution_Y * 0.96 + labelFontSizeSmall);
 
     }
   }
@@ -331,182 +373,273 @@ function init_VPlot() {
 
     xPosPos = xStart + ((globalCMS1.getRefPosition(i) - globalCMS1.getRefPosition(0)) / widthVArea) * plotwidth;
 
-    vPlotContex.beginPath();
-    vPlotContex.lineWidth = Math.round(lineWidthVPlot / 2);
-    vPlotContex.moveTo(xPosPos, yStart);
-    vPlotContex.lineTo(xPosPos, vPlot_bg_resolution_Y * 0.93);
-    vPlotContex.strokeStyle = lineColor;
-    vPlotContex.stroke();
-    vPlotContex.strokeStyle = arrowFontColor;
+    vPlotContex1.beginPath();
+    vPlotContex1.lineWidth = Math.round(lineWidthVPlot / 2);
+    vPlotContex1.moveTo(xPosPos, yStart);
+    vPlotContex1.lineTo(xPosPos, vPlot_bg_resolution_Y * 0.93);
+    vPlotContex1.strokeStyle = lineColor;
+    vPlotContex1.stroke();
+    vPlotContex1.strokeStyle = arrowFontColor;
     var text = "" + (i + 1);
-    vPlotContex.font = labelFontSizeSmall + "px Arial";
-    vPlotContex.fillText(text, xPosPos, vPlot_bg_resolution_Y * 0.93 + labelFontSizeSmall);
+    vPlotContex1.font = labelFontSizeSmall + "px Arial";
+    vPlotContex1.fillText(text, xPosPos, vPlot_bg_resolution_Y * 0.93 + labelFontSizeSmall);
+
+    vPlotContex2.beginPath();
+    vPlotContex2.lineWidth = Math.round(lineWidthVPlot / 2);
+    vPlotContex2.moveTo(xPosPos, yStart);
+    vPlotContex2.lineTo(xPosPos, vPlot_bg_resolution_Y * 0.93);
+    vPlotContex2.strokeStyle = lineColor;
+    vPlotContex2.stroke();
+    vPlotContex2.strokeStyle = arrowFontColor;
+    vPlotContex2.font = labelFontSizeSmall + "px Arial";
+    vPlotContex2.fillText(text, xPosPos, vPlot_bg_resolution_Y * 0.93 + labelFontSizeSmall);
+
+    vPlotContex3.beginPath();
+    vPlotContex3.lineWidth = Math.round(lineWidthVPlot / 2);
+    vPlotContex3.moveTo(xPosPos, yStart);
+    vPlotContex3.lineTo(xPosPos, vPlot_bg_resolution_Y * 0.93);
+    vPlotContex3.strokeStyle = lineColor;
+    vPlotContex3.stroke();
+    vPlotContex3.strokeStyle = arrowFontColor;
+    vPlotContex3.font = labelFontSizeSmall + "px Arial";
+    vPlotContex3.fillText(text, xPosPos, vPlot_bg_resolution_Y * 0.93 + labelFontSizeSmall);
 
   }
 
-
   xPosPos = Math.round(vPlot_bg_resolution_X * 0.09);
   var yPos = yStart;
-  vPlotContex.font = labelFontSizeSmall + "px Arial";
+  vPlotContex1.font = labelFontSizeSmall + "px Arial";
+  vPlotContex2.font = labelFontSizeSmall + "px Arial";
+  vPlotContex3.font = labelFontSizeSmall + "px Arial";
 
-  vPlotContex.beginPath();
-  vPlotContex.lineWidth = 1;
-  vPlotContex.moveTo(xPosPos, yPos);
-  vPlotContex.lineTo(xStart, yPos);
-  vPlotContex.strokeStyle = lineColor;
-  vPlotContex.stroke();
-  vPlotContex.strokeStyle = arrowFontColor;
-  vPlotContex.fillText("0.00", xPosPos * 0.75, yPos);
+  var steps = 10;
 
-  yPos = yStart - (yStart - yEnd) * 0.10;
-  vPlotContex.beginPath();
-  vPlotContex.lineWidth = 1;
-  vPlotContex.moveTo(xPosPos, yPos);
-  vPlotContex.lineTo(xEnd, yPos);
-  vPlotContex.strokeStyle = lineColor;
-  vPlotContex.stroke();
-  vPlotContex.strokeStyle = arrowFontColor;
-  vPlotContex.fillText("0.10", xPosPos * 0.75, yPos);
+  var startValue1=0;
+  var endValue1=1.0;
 
-  yPos = yStart - (yStart - yEnd) * 0.20;
-  vPlotContex.beginPath();
-  vPlotContex.lineWidth = 1;
-  vPlotContex.moveTo(xPosPos, yPos);
-  vPlotContex.lineTo(xEnd, yPos);
-  vPlotContex.strokeStyle = lineColor;
-  vPlotContex.stroke();
-  vPlotContex.strokeStyle = arrowFontColor;
-  vPlotContex.fillText("0.20", xPosPos * 0.75, yPos);
+  var startValue2=0;
+  var endValue2=1.0;
 
-  yPos = yStart - (yStart - yEnd) * 0.30;
-  vPlotContex.beginPath();
-  vPlotContex.lineWidth = 1;
-  vPlotContex.moveTo(xPosPos, yPos);
-  vPlotContex.lineTo(xEnd, yPos);
-  vPlotContex.strokeStyle = lineColor;
-  vPlotContex.stroke();
-  vPlotContex.strokeStyle = arrowFontColor;
-  vPlotContex.fillText("0.30", xPosPos * 0.75, yPos);
+  var startValue3=0;
+  var endValue3=1.0;
 
-  yPos = yStart - (yStart - yEnd) * 0.40;
-  vPlotContex.beginPath();
-  vPlotContex.lineWidth = 1;
-  vPlotContex.moveTo(xPosPos, yPos);
-  vPlotContex.lineTo(xEnd, yPos);
-  vPlotContex.strokeStyle = lineColor;
-  vPlotContex.stroke();
-  vPlotContex.strokeStyle = arrowFontColor;
-  vPlotContex.fillText("0.40", xPosPos * 0.75, yPos);
+  switch (analyzeColorspaceModus) {
+    case "hsv":
+      break;
+    case "lab":
+      startValue2=labSpaceRange*-1;
+      endValue2=labSpaceRange;
+      startValue3=labSpaceRange*-1;
+      endValue3=labSpaceRange;
+      break;
+    case "din99":
+      startValue2=rangeA99Neg;
+      endValue2=rangeA99Pos;
+      startValue3=rangeB99Neg;
+      endValue3=rangeB99Pos;
 
-  yPos = yStart - (yStart - yEnd) * 0.50;
-  vPlotContex.beginPath();
-  vPlotContex.lineWidth = 2;
-  vPlotContex.moveTo(xPosPos, yPos);
-  vPlotContex.lineTo(xEnd, yPos);
-  vPlotContex.strokeStyle = lineColor;
-  vPlotContex.stroke();
-  vPlotContex.strokeStyle = arrowFontColor;
-  vPlotContex.fillText("0.50", xPosPos * 0.75, yPos);
 
-  yPos = yStart - (yStart - yEnd) * 0.60;
-  vPlotContex.beginPath();
-  vPlotContex.lineWidth = 1;
-  vPlotContex.moveTo(xPosPos, yPos);
-  vPlotContex.lineTo(xEnd, yPos);
-  vPlotContex.strokeStyle = lineColor;
-  vPlotContex.stroke();
-  vPlotContex.strokeStyle = arrowFontColor;
-  vPlotContex.fillText("0.60", xPosPos * 0.75, yPos);
+      yPos = yStart - (yStart - yEnd) * (rangeA99Neg*-1)/(rangeA99Pos-rangeA99Neg);
+      vPlotContex2.beginPath();
+      vPlotContex2.lineWidth = 2;
+      vPlotContex2.moveTo(xPosPos, yPos);
+      vPlotContex2.lineTo(xEnd, yPos);
+      vPlotContex2.strokeStyle = lineColor;
+      vPlotContex2.stroke();
+      vPlotContex2.strokeStyle = arrowFontColor;
+      //vPlotContex2.fillText("0", xPosPos * 0.75, yPos);
 
-  yPos = yStart - (yStart - yEnd) * 0.70;
-  vPlotContex.beginPath();
-  vPlotContex.lineWidth = 1;
-  vPlotContex.moveTo(xPosPos, yPos);
-  vPlotContex.lineTo(xEnd, yPos);
-  vPlotContex.strokeStyle = lineColor;
-  vPlotContex.stroke();
-  vPlotContex.strokeStyle = arrowFontColor;
-  vPlotContex.fillText("0.70", xPosPos * 0.75, yPos);
+      yyPos = yStart - (yStart - yEnd) * (rangeA99Neg*-1)/(rangeB99Pos-rangeB99Neg);
+      vPlotContex3.beginPath();
+      vPlotContex3.lineWidth = 2;
+      vPlotContex3.moveTo(xPosPos, yPos);
+      vPlotContex3.lineTo(xEnd, yPos);
+      vPlotContex3.strokeStyle = lineColor;
+      vPlotContex3.stroke();
+      vPlotContex3.strokeStyle = arrowFontColor;
+      //vPlotContex3.fillText("0", xPosPos * 0.75, yPos);
 
-  yPos = yStart - (yStart - yEnd) * 0.80;
-  vPlotContex.beginPath();
-  vPlotContex.lineWidth = 1;
-  vPlotContex.moveTo(xPosPos, yPos);
-  vPlotContex.lineTo(xEnd, yPos);
-  vPlotContex.strokeStyle = lineColor;
-  vPlotContex.stroke();
-  vPlotContex.strokeStyle = arrowFontColor;
-  vPlotContex.fillText("0.80", xPosPos * 0.75, yPos);
+      break;
+    default:
+      console.log("Error at the changeColorspace function");
+      return;
+  }
 
-  yPos = yStart - (yStart - yEnd) * 0.90;
-  vPlotContex.beginPath();
-  vPlotContex.lineWidth = 1;
-  vPlotContex.moveTo(xPosPos, yPos);
-  vPlotContex.lineTo(xEnd, yPos);
-  vPlotContex.strokeStyle = lineColor;
-  vPlotContex.stroke();
-  vPlotContex.strokeStyle = arrowFontColor;
-  vPlotContex.fillText("0.90", xPosPos * 0.75, yPos);
 
-  yPos = yStart - (yStart - yEnd);
-  vPlotContex.beginPath();
-  vPlotContex.lineWidth = 1;
-  vPlotContex.moveTo(xPosPos, yPos);
-  vPlotContex.lineTo(xEnd, yPos);
-  vPlotContex.strokeStyle = lineColor;
-  vPlotContex.stroke();
-  vPlotContex.strokeStyle = arrowFontColor;
-  vPlotContex.fillText("1.00", xPosPos * 0.75, yPos);
+  for (var i = 0; i <= steps; i++) {
+    yPos = yStart - (yStart - yEnd) * i/steps;
+    var tmpVal = (startValue1+(endValue1-startValue1)*i/steps);
+    var text = ""+tmpVal.toFixed(2);
+    vPlotContex1.beginPath();
+    vPlotContex1.lineWidth = 1;
+    vPlotContex1.moveTo(xPosPos, yPos);
+    vPlotContex1.lineTo(xEnd, yPos);
+    vPlotContex1.strokeStyle = lineColor;
+    vPlotContex1.stroke();
+    vPlotContex1.strokeStyle = arrowFontColor;
+    vPlotContex1.fillText(text, xPosPos * 0.75, yPos);
+
+    yPos = yStart - (yStart - yEnd) * i/steps;
+    var tmpVal =(startValue2+(endValue2-startValue2)*i/steps);
+    var text = ""+tmpVal.toFixed(2);
+    vPlotContex2.beginPath();
+    vPlotContex2.lineWidth = 1;
+    vPlotContex2.moveTo(xPosPos, yPos);
+    vPlotContex2.lineTo(xEnd, yPos);
+    vPlotContex2.strokeStyle = lineColor;
+    vPlotContex2.stroke();
+    vPlotContex2.strokeStyle = arrowFontColor;
+    vPlotContex2.fillText(text, xPosPos * 0.75, yPos);
+
+    yPos = yStart - (yStart - yEnd) * i/steps;
+    var tmpVal =(startValue3+(endValue3-startValue3)*i/steps);
+    var text = ""+tmpVal.toFixed(2);
+    vPlotContex3.beginPath();
+    vPlotContex3.lineWidth = 1;
+    vPlotContex3.moveTo(xPosPos, yPos);
+    vPlotContex3.lineTo(xEnd, yPos);
+    vPlotContex3.strokeStyle = lineColor;
+    vPlotContex3.stroke();
+    vPlotContex3.strokeStyle = arrowFontColor;
+    vPlotContex3.fillText(text, xPosPos * 0.75, yPos);
+  }
+
 
   ////////////////////////////////////////////////////////////
   /////////////ARROWS////////////////////
   ////////////////////////////////////////////////////////////
-  vPlotContex.strokeStyle = arrowFontColor;
-  vPlotContex.beginPath();
-  vPlotContex.lineWidth = lineWidthVPlot;
-  vPlotContex.moveTo(xStart, yStart);
-  vPlotContex.lineTo(xEndLine, yStart);
-  vPlotContex.stroke();
-
-  // the triangle
-  vPlotContex.beginPath();
-  vPlotContex.moveTo(xEndLine, yStart - arrowWidth);
-  vPlotContex.lineTo(xEndArrow, yStart);
-  vPlotContex.lineTo(xEndLine, yStart + arrowWidth);
-  vPlotContex.closePath();
 
   // the fill color
-  vPlotContex.fillStyle = arrowFontColor;
-  vPlotContex.fill();
+  vPlotContex2.fill();
 
-  vPlotContex.beginPath();
-  vPlotContex.lineWidth = lineWidthVPlot;
-  vPlotContex.moveTo(xStart, yStart);
-  vPlotContex.lineTo(xStart, yEndLine);
-  vPlotContex.stroke();
+  vPlotContex1.strokeStyle = arrowFontColor;
+  vPlotContex1.beginPath();
+  vPlotContex1.lineWidth = lineWidthVPlot;
+  vPlotContex1.moveTo(xStart, yStart);
+  vPlotContex1.lineTo(xEndLine, yStart);
+  vPlotContex1.stroke();
 
   // the triangle
-  vPlotContex.beginPath();
-  vPlotContex.moveTo(xStart - arrowWidth, yEndLine);
-  vPlotContex.lineTo(xStart, yEndArrow);
-  vPlotContex.lineTo(xStart + arrowWidth, yEndLine);
-  vPlotContex.closePath();
+  vPlotContex1.beginPath();
+  vPlotContex1.moveTo(xEndLine, yStart - arrowWidth);
+  vPlotContex1.lineTo(xEndArrow, yStart);
+  vPlotContex1.lineTo(xEndLine, yStart + arrowWidth);
+  vPlotContex1.closePath();
 
   // the fill color
-  vPlotContex.fill();
+  vPlotContex1.fillStyle = arrowFontColor;
+  vPlotContex1.fill();
+
+  vPlotContex1.beginPath();
+  vPlotContex1.lineWidth = lineWidthVPlot;
+  vPlotContex1.moveTo(xStart, yStart);
+  vPlotContex1.lineTo(xStart, yEndLine);
+  vPlotContex1.stroke();
+
+  // the triangle
+  vPlotContex1.beginPath();
+  vPlotContex1.moveTo(xStart - arrowWidth, yEndLine);
+  vPlotContex1.lineTo(xStart, yEndArrow);
+  vPlotContex1.lineTo(xStart + arrowWidth, yEndLine);
+  vPlotContex1.closePath();
+
+  // the fill color
+  vPlotContex1.fill();
+
+  vPlotContex2.strokeStyle = arrowFontColor;
+  vPlotContex2.beginPath();
+  vPlotContex2.lineWidth = lineWidthVPlot;
+  vPlotContex2.moveTo(xStart, yStart);
+  vPlotContex2.lineTo(xEndLine, yStart);
+  vPlotContex2.stroke();
+
+  // the triangle
+  vPlotContex2.beginPath();
+  vPlotContex2.moveTo(xEndLine, yStart - arrowWidth);
+  vPlotContex2.lineTo(xEndArrow, yStart);
+  vPlotContex2.lineTo(xEndLine, yStart + arrowWidth);
+  vPlotContex2.closePath();
+
+  // the fill color
+  vPlotContex2.fillStyle = arrowFontColor;
+  vPlotContex2.fill();
+
+  vPlotContex2.beginPath();
+  vPlotContex2.lineWidth = lineWidthVPlot;
+  vPlotContex2.moveTo(xStart, yStart);
+  vPlotContex2.lineTo(xStart, yEndLine);
+  vPlotContex2.stroke();
+
+  // the triangle
+  vPlotContex2.beginPath();
+  vPlotContex2.moveTo(xStart - arrowWidth, yEndLine);
+  vPlotContex2.lineTo(xStart, yEndArrow);
+  vPlotContex2.lineTo(xStart + arrowWidth, yEndLine);
+  vPlotContex2.closePath();
+
+  // the fill color
+  vPlotContex2.fill();
+
+  vPlotContex3.strokeStyle = arrowFontColor;
+  vPlotContex3.beginPath();
+  vPlotContex3.lineWidth = lineWidthVPlot;
+  vPlotContex3.moveTo(xStart, yStart);
+  vPlotContex3.lineTo(xEndLine, yStart);
+  vPlotContex3.stroke();
+
+  // the triangle
+  vPlotContex3.beginPath();
+  vPlotContex3.moveTo(xEndLine, yStart - arrowWidth);
+  vPlotContex3.lineTo(xEndArrow, yStart);
+  vPlotContex3.lineTo(xEndLine, yStart + arrowWidth);
+  vPlotContex3.closePath();
+
+  // the fill color
+  vPlotContex3.fillStyle = arrowFontColor;
+  vPlotContex3.fill();
+
+  vPlotContex3.beginPath();
+  vPlotContex3.lineWidth = lineWidthVPlot;
+  vPlotContex3.moveTo(xStart, yStart);
+  vPlotContex3.lineTo(xStart, yEndLine);
+  vPlotContex3.stroke();
+
+  // the triangle
+  vPlotContex3.beginPath();
+  vPlotContex3.moveTo(xStart - arrowWidth, yEndLine);
+  vPlotContex3.lineTo(xStart, yEndArrow);
+  vPlotContex3.lineTo(xStart + arrowWidth, yEndLine);
+  vPlotContex3.closePath();
+
+  // the fill color
+  vPlotContex3.fill();
 
   ////////////////// TEXT /////////////////////
-  vPlotContex.font = labelFontSize + "px Arial";
+  vPlotContex1.font = labelFontSize + "px Arial";
+  vPlotContex1.fillText("Key Position", xEndArrow, yStart + labelFontSize);
 
-  vPlotContex.fillText("Key Position", xEndArrow, yStart + labelFontSize);
+  vPlotContex2.font = labelFontSize + "px Arial";
+  vPlotContex2.fillText("Key Position", xEndArrow, yStart + labelFontSize);
+
+  vPlotContex3.font = labelFontSize + "px Arial";
+  vPlotContex3.fillText("Key Position", xEndArrow, yStart + labelFontSize);
+
 
   switch (analyzeColorspaceModus) {
     case "hsv":
-      vPlotContex.fillText("Value", xStart - labelFontSize, yEndArrow);
+      vPlotContex1.fillText("Value", xStart - labelFontSize, yEndArrow);
+      vPlotContex2.fillText("Hue", xStart - labelFontSize, yEndArrow);
+      vPlotContex3.fillText("Saturation", xStart - labelFontSize, yEndArrow);
       break;
     case "lab":
+      vPlotContex1.fillText("Lightness", xStart - labelFontSize, yEndArrow);
+      vPlotContex2.fillText("A (Green-Red)", xStart - labelFontSize, yEndArrow);
+      vPlotContex3.fillText("B (Yellow-Blue)", xStart - labelFontSize, yEndArrow);
+      break;
     case "din99":
-      vPlotContex.fillText("Lightness", xStart - labelFontSize, yEndArrow);
+      vPlotContex1.fillText("Lightness 99", xStart - labelFontSize, yEndArrow);
+      vPlotContex2.fillText("A99 (Green-Red)", xStart - labelFontSize, yEndArrow);
+      vPlotContex3.fillText("B99 (Yellow-Blue)", xStart - labelFontSize, yEndArrow);
       break;
     default:
       console.log("Error at the changeColorspace function");
@@ -542,23 +675,31 @@ function drawcolormap_hueSpace(calcBackground, drawInterpolationLine, doInitVplo
 
 function drawElements_HSV_LAB_DIN99(isCompareMap) {
 
-  var canvasID, vCanvasID;
+  var canvasID, pCanvasID1,pCanvasID2,pCanvasID3;
   switch (showSideID) {
     case 1:
       canvasID = "id_ModiyCourseHueTop";
-      vCanvasID = 'id_ModifyValueTop';
+      pCanvasID1 = 'id_ModifyValue3Top';
+      pCanvasID2 = 'id_ModifyValue1Top';
+      pCanvasID3 = 'id_ModifyValue2Top';
       break;
     case 2:
-      canvasID = "id_anaylzeCourseHueTop";
-      vCanvasID = 'id_analyzeValueTop';
+      canvasID = "id_analyzeCourseHueTop";
+      pCanvasID1 = 'id_analyzeValue3Top';
+      pCanvasID2 = 'id_analyzeValue1Top';
+      pCanvasID3 = 'id_analyzeValue2Top';
       break;
     case 3:
       canvasID = "id_compareCourseHueTop";
-      vCanvasID = 'id_compareValueTop';
+      pCanvasID2 = 'id_compareValue3Top';
+      pCanvasID2 = 'id_compareValue1Top';
+      pCanvasID3 = 'id_compareValue2Top';
       break;
     default:
 
   }
+
+
 
   var canvasColorspace = document.getElementById(canvasID);
 
@@ -583,12 +724,22 @@ function drawElements_HSV_LAB_DIN99(isCompareMap) {
   var canvasColorspaceData = colorspaceContex.getImageData(0, 0, canvasColorspaceWidth, canvasColorspaceHeight);
 
 
-  var canvasVPlot = document.getElementById(vCanvasID);
+  var canvasVPlot1 = document.getElementById(pCanvasID1);
+  var canvasVPlot2 = document.getElementById(pCanvasID2);
+  var canvasVPlot3 = document.getElementById(pCanvasID3);
 
-  canvasVPlot.width = vPlot_resolution_X;
-  canvasVPlot.height = vPlot_resolution_Y;
+  canvasVPlot1.width = vPlot_resolution_X;
+  canvasVPlot1.height = vPlot_resolution_Y;
 
-  var vPlotContex = canvasVPlot.getContext("2d");
+  canvasVPlot2.width = vPlot_resolution_X;
+  canvasVPlot2.height = vPlot_resolution_Y;
+
+  canvasVPlot3.width = vPlot_resolution_X;
+  canvasVPlot3.height = vPlot_resolution_Y;
+
+  var vPlotContex1 = canvasVPlot1.getContext("2d");
+  var vPlotContex2 = canvasVPlot2.getContext("2d");
+  var vPlotContex3 = canvasVPlot3.getContext("2d");
 
   var vPlotyStart = Math.round(vPlot_resolution_Y * 0.9);
   var vPlotyEnd = Math.round(vPlot_resolution_Y * 0.2);
@@ -673,13 +824,13 @@ function drawElements_HSV_LAB_DIN99(isCompareMap) {
           /////// V Plot
 
           if (drawCircle) {
-            drawVElement(tmpColor, workCMS.getRefPosition(i), workCMS.getRefPosition(0), workCMS.getRefRange(), vPlotxStart, vPlotyStart, heigthVArea, plotwidth, true, vPlotContex, i, 0);
-            drawVElement(tmpColor2, workCMS.getRefPosition(i), workCMS.getRefPosition(0), workCMS.getRefRange(), vPlotxStart, vPlotyStart, heigthVArea, plotwidth, true, vPlotContex, i, 1);
+            drawVElement(tmpColor, workCMS.getRefPosition(i), workCMS.getRefPosition(0), workCMS.getRefRange(), vPlotxStart, vPlotyStart, heigthVArea, plotwidth, true, vPlotContex1,vPlotContex2,vPlotContex3, i, 0);
+            drawVElement(tmpColor2, workCMS.getRefPosition(i), workCMS.getRefPosition(0), workCMS.getRefRange(), vPlotxStart, vPlotyStart, heigthVArea, plotwidth, true, vPlotContex1,vPlotContex2,vPlotContex3, i, 1);
           } else {
 
-            drawVElement(tmpColor, workCMS.getRefPosition(i - 1), workCMS.getRefPosition(0), workCMS.getRefRange(), vPlotxStart, vPlotyStart, heigthVArea, plotwidth, drawCircle, vPlotContex, i, 0);
-            drawVElement(tmpColor, workCMS.getRefPosition(i), workCMS.getRefPosition(0), workCMS.getRefRange(), vPlotxStart, vPlotyStart, heigthVArea, plotwidth, drawCircle, vPlotContex, i, 0);
-            drawVElement(tmpColor2, workCMS.getRefPosition(i), workCMS.getRefPosition(0), workCMS.getRefRange(), vPlotxStart, vPlotyStart, heigthVArea, plotwidth, true, vPlotContex, i, 1);
+            drawVElement(tmpColor, workCMS.getRefPosition(i - 1), workCMS.getRefPosition(0), workCMS.getRefRange(), vPlotxStart, vPlotyStart, heigthVArea, plotwidth, drawCircle, vPlotContex1,vPlotContex2,vPlotContex3, i, 0);
+            drawVElement(tmpColor, workCMS.getRefPosition(i), workCMS.getRefPosition(0), workCMS.getRefRange(), vPlotxStart, vPlotyStart, heigthVArea, plotwidth, drawCircle, vPlotContex1,vPlotContex2,vPlotContex3, i, 0);
+            drawVElement(tmpColor2, workCMS.getRefPosition(i), workCMS.getRefPosition(0), workCMS.getRefRange(), vPlotxStart, vPlotyStart, heigthVArea, plotwidth, true, vPlotContex1,vPlotContex2,vPlotContex3, i, 1);
 
           }
 
@@ -706,10 +857,10 @@ function drawElements_HSV_LAB_DIN99(isCompareMap) {
           /////// V Plot
 
           if (drawCircle) {
-            drawVElement(tmpColor, workCMS.getRefPosition(i), workCMS.getRefPosition(0), workCMS.getRefRange(), vPlotxStart, vPlotyStart, heigthVArea, plotwidth, true, vPlotContex, i, 0);
+            drawVElement(tmpColor, workCMS.getRefPosition(i), workCMS.getRefPosition(0), workCMS.getRefRange(), vPlotxStart, vPlotyStart, heigthVArea, plotwidth, true, vPlotContex1,vPlotContex2,vPlotContex3, i, 0);
           } else {
-            drawVElement(tmpColor, workCMS.getRefPosition(i - 1), workCMS.getRefPosition(0), workCMS.getRefRange(), vPlotxStart, vPlotyStart, heigthVArea, plotwidth, drawCircle, vPlotContex, i, 0);
-            drawVElement(tmpColor, workCMS.getRefPosition(i), workCMS.getRefPosition(0), workCMS.getRefRange(), vPlotxStart, vPlotyStart, heigthVArea, plotwidth, drawCircle, vPlotContex, i, 0);
+            drawVElement(tmpColor, workCMS.getRefPosition(i - 1), workCMS.getRefPosition(0), workCMS.getRefRange(), vPlotxStart, vPlotyStart, heigthVArea, plotwidth, drawCircle, vPlotContex1,vPlotContex2,vPlotContex3, i, 0);
+            drawVElement(tmpColor, workCMS.getRefPosition(i), workCMS.getRefPosition(0), workCMS.getRefRange(), vPlotxStart, vPlotyStart, heigthVArea, plotwidth, drawCircle, vPlotContex1,vPlotContex2,vPlotContex3, i, 0);
           }
           break;
 
@@ -722,7 +873,7 @@ function drawElements_HSV_LAB_DIN99(isCompareMap) {
           ////////////////////////////////////////////////////////////////
           /////// V Plot
 
-          drawVElement(tmpColor, workCMS.getRefPosition(i), workCMS.getRefPosition(0), workCMS.getRefRange(), vPlotxStart, vPlotyStart, heigthVArea, plotwidth, true, vPlotContex, i, 1);
+          drawVElement(tmpColor, workCMS.getRefPosition(i), workCMS.getRefPosition(0), workCMS.getRefRange(), vPlotxStart, vPlotyStart, heigthVArea, plotwidth, true, vPlotContex1,vPlotContex2,vPlotContex3, i, 1);
 
           break;
         default:
@@ -735,7 +886,7 @@ function drawElements_HSV_LAB_DIN99(isCompareMap) {
           ////////////////////////////////////////////////////////////////
           /////// V Plot
 
-          drawVElement(tmpColor, workCMS.getRefPosition(i), workCMS.getRefPosition(0), workCMS.getRefRange(), vPlotxStart, vPlotyStart, heigthVArea, plotwidth, true, vPlotContex, i, 2);
+          drawVElement(tmpColor, workCMS.getRefPosition(i), workCMS.getRefPosition(0), workCMS.getRefRange(), vPlotxStart, vPlotyStart, heigthVArea, plotwidth, true, vPlotContex1,vPlotContex2,vPlotContex3, i, 2);
 
       }
 
@@ -749,22 +900,28 @@ function drawElements_HSV_LAB_DIN99(isCompareMap) {
 
 function drawInterpolationLineHSV_LAB_DIN99(isCompareMap, intervalSize) {
 
-
-  var canvasID, vCanvasID;
+  var canvasID, pCanvasID1,pCanvasID2,pCanvasID3;
   switch (showSideID) {
     case 1:
       canvasID = "id_ModiyCourseHueMiddle";
-      vCanvasID = 'id_ModifyValueMiddle';
+      pCanvasID1 = 'id_ModifyValue3Middle';
+      pCanvasID2 = 'id_ModifyValue1Middle';
+      pCanvasID3 = 'id_ModifyValue2Middle';
       break;
     case 2:
-      canvasID = "id_anaylzeCourseHueMiddle";
-      vCanvasID = 'id_analyzeValueMiddle';
+      canvasID = "id_analyzeCourseHueMiddle";
+      pCanvasID1 = 'id_analyzeValue3Middle';
+      pCanvasID2 = 'id_analyzeValue1Middle';
+      pCanvasID3 = 'id_analyzeValue2Middle';
       break;
     case 3:
       canvasID = "id_compareCourseHueMiddle";
-      vCanvasID = 'id_compareValueMiddle';
+      pCanvasID2 = 'id_compareValue3Middle';
+      pCanvasID2 = 'id_compareValue1Middle';
+      pCanvasID3 = 'id_compareValue2Middle';
       break;
     default:
+
   }
 
   var canvasColorspace = document.getElementById(canvasID);
@@ -790,12 +947,22 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap, intervalSize) {
   var canvasColorspaceData = colorspaceContex.getImageData(0, 0, canvasColorspaceWidth, canvasColorspaceHeight);
 
 
-  var canvasVPlot = document.getElementById(vCanvasID);
+  var canvasVPlot1 = document.getElementById(pCanvasID1);
+  var canvasVPlot2 = document.getElementById(pCanvasID2);
+  var canvasVPlot3 = document.getElementById(pCanvasID3);
 
-  canvasVPlot.width = vPlot_resolution_X;
-  canvasVPlot.height = vPlot_resolution_Y;
+  canvasVPlot1.width = vPlot_resolution_X;
+  canvasVPlot1.height = vPlot_resolution_Y;
 
-  var vPlotContex = canvasVPlot.getContext("2d");
+  canvasVPlot2.width = vPlot_resolution_X;
+  canvasVPlot2.height = vPlot_resolution_Y;
+
+  canvasVPlot3.width = vPlot_resolution_X;
+  canvasVPlot3.height = vPlot_resolution_Y;
+
+  var vPlotContex1 = canvasVPlot1.getContext("2d");
+  var vPlotContex2 = canvasVPlot2.getContext("2d");
+  var vPlotContex3 = canvasVPlot3.getContext("2d");
 
   var vPlotyStart = Math.round(vPlot_resolution_Y * 0.9);
   var vPlotyEnd = Math.round(vPlot_resolution_Y * 0.2);
@@ -849,7 +1016,7 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap, intervalSize) {
             workCMS.getRefPosition(i + 1),
             workCMS.getRefPosition(0),
             workCMS.getRefRange(),
-            vPlotxStart, vPlotyStart, heigthVArea, plotwidth, false, compareColor, vPlotContex);
+            vPlotxStart, vPlotyStart, heigthVArea, plotwidth, false, compareColor, vPlotContex1,vPlotContex2,vPlotContex3);
           break;
         case "twin key":
           var intervalIndexA = workCMS.getIntervalPositions(i);
@@ -864,7 +1031,7 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap, intervalSize) {
               workCMS.getRefPosition(i+1),
               workCMS.getRefPosition(0),
               workCMS.getRefRange(),
-              vPlotxStart, vPlotyStart, heigthVArea, plotwidth, false, compareColor, vPlotContex);
+              vPlotxStart, vPlotyStart, heigthVArea, plotwidth, false, compareColor, vPlotContex1,vPlotContex2,vPlotContex3);
 
           }else{
             drawHueLine(workCMS.getRightKeyColor(i, csModus), workCMS.getIntervalColor(intervalIndexA[0], csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false, compareColor, colorspaceContex);
@@ -874,7 +1041,7 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap, intervalSize) {
               workCMS.getIntervalRef(intervalIndexA[0]),
               workCMS.getRefPosition(0),
               workCMS.getRefRange(),
-              vPlotxStart, vPlotyStart, heigthVArea, plotwidth, false, compareColor, vPlotContex);
+              vPlotxStart, vPlotyStart, heigthVArea, plotwidth, false, compareColor, vPlotContex1,vPlotContex2,vPlotContex3);
 
             for (var j = intervalIndexA[0]; j < intervalIndexA[1]; j++) {
               drawHueLine(workCMS.getIntervalColor(j, csModus), workCMS.getIntervalColor(j + 1, csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false, compareColor, colorspaceContex);
@@ -884,7 +1051,7 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap, intervalSize) {
                 workCMS.getIntervalRef(j + 1),
                 workCMS.getRefPosition(0),
                 workCMS.getRefRange(),
-                vPlotxStart, vPlotyStart, heigthVArea, plotwidth, false, compareColor, vPlotContex);
+                vPlotxStart, vPlotyStart, heigthVArea, plotwidth, false, compareColor, vPlotContex1,vPlotContex2,vPlotContex3);
             }
 
             if (workCMS.getIntervalisKey(intervalIndexA[1]) != true) {
@@ -895,7 +1062,7 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap, intervalSize) {
                 workCMS.getRefPosition(i + 1),
                 workCMS.getRefPosition(0),
                 workCMS.getRefRange(),
-                vPlotxStart, vPlotyStart, heigthVArea, plotwidth, false, compareColor, vPlotContex);
+                vPlotxStart, vPlotyStart, heigthVArea, plotwidth, false, compareColor, vPlotContex1,vPlotContex2,vPlotContex3);
             }
           }
 
@@ -909,7 +1076,7 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap, intervalSize) {
             workCMS.getRefPosition(i + 1),
             workCMS.getRefPosition(0),
             workCMS.getRefRange(),
-            vPlotxStart, vPlotyStart, heigthVArea, plotwidth, false, compareColor, vPlotContex);
+            vPlotxStart, vPlotyStart, heigthVArea, plotwidth, false, compareColor, vPlotContex1,vPlotContex2,vPlotContex3);
           break;
         default:
 
@@ -924,7 +1091,7 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap, intervalSize) {
               workCMS.getRefPosition(i+1),
               workCMS.getRefPosition(0),
               workCMS.getRefRange(),
-              vPlotxStart, vPlotyStart, heigthVArea, plotwidth, false, compareColor, vPlotContex);
+              vPlotxStart, vPlotyStart, heigthVArea, plotwidth, false, compareColor, vPlotContex1,vPlotContex2,vPlotContex3);
 
           }else{
             drawHueLine(workCMS.getRightKeyColor(i, csModus), workCMS.getIntervalColor(intervalIndexA[0], csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false, compareColor, colorspaceContex);
@@ -934,7 +1101,7 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap, intervalSize) {
               workCMS.getIntervalRef(intervalIndexA[0]),
               workCMS.getRefPosition(0),
               workCMS.getRefRange(),
-              vPlotxStart, vPlotyStart, heigthVArea, plotwidth, false, compareColor, vPlotContex);
+              vPlotxStart, vPlotyStart, heigthVArea, plotwidth, false, compareColor, vPlotContex1,vPlotContex2,vPlotContex3);
 
 
 
@@ -947,7 +1114,7 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap, intervalSize) {
                 workCMS.getIntervalRef(j + 1),
                 workCMS.getRefPosition(0),
                 workCMS.getRefRange(),
-                vPlotxStart, vPlotyStart, heigthVArea, plotwidth, false, compareColor, vPlotContex);
+                vPlotxStart, vPlotyStart, heigthVArea, plotwidth, false, compareColor, vPlotContex1,vPlotContex2,vPlotContex3);
             }
 
             if (workCMS.getIntervalisKey(intervalIndexA[1]) != true) {
@@ -958,7 +1125,7 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap, intervalSize) {
                 workCMS.getRefPosition(i + 1),
                 workCMS.getRefPosition(0),
                 workCMS.getRefRange(),
-                vPlotxStart, vPlotyStart, heigthVArea, plotwidth, false, compareColor, vPlotContex);
+                vPlotxStart, vPlotyStart, heigthVArea, plotwidth, false, compareColor, vPlotContex1,vPlotContex2,vPlotContex3);
             }
          }
       }
@@ -1006,7 +1173,7 @@ function drawHueElement(tmpColor, xWidth, yHeight, xStart, yStart, xEnd, yEnd, c
 
 }
 
-function drawVElement(tmpColor, currentRef, startRef, rangeSize, vPlotxStart, vPlotyStart, heigthVArea, plotwidth, drawCircle, vPlotContex, keyIndex, colorSide) {
+function drawVElement(tmpColor, currentRef, startRef, rangeSize, vPlotxStart, vPlotyStart, heigthVArea, plotwidth, drawCircle, vPlotContex1,vPlotContex2,vPlotContex3, keyIndex, colorSide) {
 
 
   var xVPos = vPlotxStart + ((currentRef - startRef) / rangeSize) * plotwidth;
@@ -1027,7 +1194,42 @@ function drawVElement(tmpColor, currentRef, startRef, rangeSize, vPlotxStart, vP
       return;
   }
 
-  drawElement(tmpColor.calcRGBColor().getRGBStringAplha(alphaVal), vPlotContex, xVPos, yPos, keyIndex, colorSide, drawCircle);
+  drawElement(tmpColor.calcRGBColor().getRGBStringAplha(alphaVal), vPlotContex1, xVPos, yPos, keyIndex, colorSide, drawCircle);
+
+  switch (analyzeColorspaceModus) {
+    case "hsv":
+      yPos = Math.round(vPlotyStart - (heigthVArea * tmpColor.getHValue()));
+      break;
+    case "lab":
+      yPos = Math.round(vPlotyStart - (heigthVArea * (tmpColor.getAValue()+labSpaceRange) / (labSpaceRange*2)));
+      break;
+    case "din99":
+      yPos = Math.round(vPlotyStart - (heigthVArea * (tmpColor.getA99Value()+(rangeA99Neg*-1)) / (rangeA99Pos-rangeA99Neg)));
+      break;
+    default:
+      console.log("Error at the changeColorspace function");
+      return;
+  }
+
+  drawElement(tmpColor.calcRGBColor().getRGBStringAplha(alphaVal), vPlotContex2, xVPos, yPos, keyIndex, colorSide, drawCircle);
+
+  switch (analyzeColorspaceModus) {
+    case "hsv":
+      yPos = Math.round(vPlotyStart - (heigthVArea * tmpColor.getSValue()));
+      break;
+    case "lab":
+      yPos = Math.round(vPlotyStart - (heigthVArea * (tmpColor.getBValue()+labSpaceRange) / (labSpaceRange*2)));
+      break;
+    case "din99":
+      yPos = Math.round(vPlotyStart - (heigthVArea * (tmpColor.getB99Value()+(rangeB99Neg*-1)) / (rangeB99Pos-rangeB99Neg)));
+      break;
+    default:
+      console.log("Error at the changeColorspace function");
+      return;
+  }
+
+  drawElement(tmpColor.calcRGBColor().getRGBStringAplha(alphaVal), vPlotContex3, xVPos, yPos, keyIndex, colorSide, drawCircle);
+
 
 }
 
@@ -1085,7 +1287,7 @@ function drawHueLine(tmpColor, tmpColor2, xWidth, yHeight, xStart, yStart, xEnd,
   }*/
 }
 
-function drawVLine(tmpColor, tmpColor2, ref, ref2, startRef, rangeSize, vPlotxStart, vPlotyStart, heigthVArea, plotwidth, isDashed, isCompareMap, colorspaceContex) {
+function drawVLine(tmpColor, tmpColor2, ref, ref2, startRef, rangeSize, vPlotxStart, vPlotyStart, heigthVArea, plotwidth, isDashed, isCompareMap, vPlotContex1,vPlotContex2,vPlotContex3) {
   var xPos = vPlotxStart + ((ref - startRef) / rangeSize) * plotwidth;
   var xPos2 = vPlotxStart + ((ref2 - startRef) / rangeSize) * plotwidth;
 
@@ -1108,5 +1310,45 @@ function drawVLine(tmpColor, tmpColor2, ref, ref2, startRef, rangeSize, vPlotxSt
       return;
   }
 
-  drawLine(colorspaceContex, xPos, yPos, xPos2, yPos2, isDashed, isCompareMap);
+  drawLine(vPlotContex1, xPos, yPos, xPos2, yPos2, isDashed, isCompareMap);
+
+  switch (analyzeColorspaceModus) {
+    case "hsv":
+      yPos = Math.round(vPlotyStart - (heigthVArea * tmpColor.getHValue()));
+      yPos2 = Math.round(vPlotyStart - (heigthVArea * tmpColor2.getHValue()));
+      break;
+    case "lab":
+      yPos = Math.round(vPlotyStart - (heigthVArea * (tmpColor.getAValue()+labSpaceRange) / (labSpaceRange*2)));
+      yPos2 = Math.round(vPlotyStart - (heigthVArea * (tmpColor2.getAValue()+labSpaceRange) / (labSpaceRange*2)));
+      break;
+    case "din99":
+      yPos = Math.round(vPlotyStart - (heigthVArea * (tmpColor.getA99Value()+(rangeA99Neg*-1)) / (rangeA99Pos-rangeA99Neg)));
+      yPos2 = Math.round(vPlotyStart - (heigthVArea * (tmpColor2.getA99Value()+(rangeA99Neg*-1)) / (rangeA99Pos-rangeA99Neg)));
+      break;
+    default:
+      console.log("Error at the changeColorspace function");
+      return;
+  }
+
+  drawLine(vPlotContex2, xPos, yPos, xPos2, yPos2, isDashed, isCompareMap);
+
+  switch (analyzeColorspaceModus) {
+    case "hsv":
+      yPos = Math.round(vPlotyStart - (heigthVArea * tmpColor.getSValue()));
+      yPos2 = Math.round(vPlotyStart - (heigthVArea * tmpColor2.getSValue()));
+      break;
+    case "lab":
+      yPos = Math.round(vPlotyStart - (heigthVArea * (tmpColor.getBValue()+labSpaceRange) / (labSpaceRange*2)));
+      yPos2 = Math.round(vPlotyStart - (heigthVArea * (tmpColor2.getBValue()+labSpaceRange) / (labSpaceRange*2)));
+      break;
+    case "din99":
+      yPos = Math.round(vPlotyStart - (heigthVArea * (tmpColor.getB99Value()+(rangeB99Neg*-1)) / (rangeB99Pos-rangeB99Neg)));
+      yPos2 = Math.round(vPlotyStart - (heigthVArea * (tmpColor2.getB99Value()+(rangeB99Neg*-1)) / (rangeB99Pos-rangeB99Neg)));
+      break;
+    default:
+      console.log("Error at the changeColorspace function");
+      return;
+  }
+
+  drawLine(vPlotContex3, xPos, yPos, xPos2, yPos2, isDashed, isCompareMap);
 }
