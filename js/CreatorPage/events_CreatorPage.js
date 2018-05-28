@@ -43,8 +43,8 @@ function switchTableTestFunction(type){
     break;
     case 1:
 
-      //openAlert("Sorry. The mapping of uploaded data or test functions is not available at the moment. It will come with one of the next updates.");
-      //break;
+      openAlert("Sorry. The mapping of uploaded data or test functions is not available at the moment. It will come with one of the next updates.");
+      break;
       document.getElementById("id_selectShowTestFunction").style.background=styleActiveColor;
       document.getElementById("id_selectShowCMSTable").style.background=styleInactiveColor;
 
