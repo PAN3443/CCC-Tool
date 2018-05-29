@@ -345,7 +345,7 @@ function init_VPlot() {
       vPlotContex1.font = labelFontSizeSmall + "px Arial";
       vPlotContex1.fillText(text, xPosPos, vPlot_bg_resolution_Y * 0.96 + labelFontSizeSmall);
 
-      vPlotContex.beginPath();
+      vPlotContex2.beginPath();
       vPlotContex2.lineWidth = Math.round(lineWidthVPlot / 2);
       vPlotContex2.moveTo(xPosPos, yStart);
       vPlotContex2.lineTo(xPosPos, vPlot_bg_resolution_Y * 0.93);
@@ -691,7 +691,7 @@ function drawElements_HSV_LAB_DIN99(isCompareMap) {
       break;
     case 3:
       canvasID = "id_compareCourseHueTop";
-      pCanvasID2 = 'id_compareValue3Top';
+      pCanvasID1 = 'id_compareValue3Top';
       pCanvasID2 = 'id_compareValue1Top';
       pCanvasID3 = 'id_compareValue2Top';
       break;
@@ -722,7 +722,6 @@ function drawElements_HSV_LAB_DIN99(isCompareMap) {
   //var ratioWidthHeight = canvasColorspaceWidth/canvasColorspaceHeight;
   var colorspaceContex = canvasColorspace.getContext("2d");
   var canvasColorspaceData = colorspaceContex.getImageData(0, 0, canvasColorspaceWidth, canvasColorspaceHeight);
-
 
   var canvasVPlot1 = document.getElementById(pCanvasID1);
   var canvasVPlot2 = document.getElementById(pCanvasID2);
@@ -916,7 +915,7 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap, intervalSize) {
       break;
     case 3:
       canvasID = "id_compareCourseHueMiddle";
-      pCanvasID2 = 'id_compareValue3Middle';
+      pCanvasID1 = 'id_compareValue3Middle';
       pCanvasID2 = 'id_compareValue1Middle';
       pCanvasID3 = 'id_compareValue2Middle';
       break;
