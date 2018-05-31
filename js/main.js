@@ -23,8 +23,8 @@ window.onload = function() {
 
   document.getElementById('id_inputCMSData').addEventListener("change", readCMSFile);
   document.getElementById('id_inputSessionData').addEventListener("change", readSessionFile);
-  //document.getElementById('id_inputData').addEventListener("change", readDataFile);
-  //document.getElementById('id_inputData').click();
+  document.getElementById('id_inputData').addEventListener("change", readDataFile);
+  document.getElementById('id_inputData').click();
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Setting Side /////////////////////////////////////
