@@ -96,7 +96,33 @@ function vtk_reader(content) {
   var nextLoadZCoordinates=false;
   var nextLoadfieldValues=false; // cell data, point data
 
+  // 60% == content
+  var phase1 = 60;
+  // 10% == cellgeneration
+  var phase2 = 10;
+  // 30% ==
+  var phase3 = 30;
+
+  var steps = Math.round(content.length/100);
+  var stepcounter=0;
+
+  document.getElementById("id_currentProcessText").innerHTML = "Load Text Content";
+  document.getElementById("id_processBar").style.width = "0px";
+
   for (var i = 0; i < content.length; i++) {
+
+    if(stepcounter==steps){
+      var status = i/content.length*phase1;
+      console.log(status);
+      document.getElementById("id_processBar").style.width = status+"%";
+      stepcounter=0;
+
+    }
+    else {
+      stepcounter++;
+    }
+
+
 
     switch (content[i]) {
       case " ":
@@ -140,7 +166,7 @@ function vtk_reader(content) {
                   openAlert("Error. The loader algorithm was not able to load the number of field values. The algorithm found a value less than 1!");
                   return;
                 }
-                console.log("Number of field values: "+numberFieldValues);
+                document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Start loading of "  +numberFieldValues+ " SCALAR field values.";
                 tmpValueArray = new Array(numberFieldValues).fill(NaN);
                 valueType=0;
                 break;
@@ -178,7 +204,7 @@ function vtk_reader(content) {
                             console.log("Algorithm was not able to loading the field values of the type SCALARS.");
                           }
                           else{
-                            console.log("Finished loading field values of the type SCALARS.");
+                            document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Finished loading field values of the type SCALARS.";
                           }
                           nextLoadfieldValues=false;
                           loadedField=true;
@@ -237,7 +263,7 @@ function vtk_reader(content) {
           }
           /////////////////////////////////////////////////////////
           if (nextVersionNumber) {
-            console.log("Start vtk load process (vtk version " + tmpSubstring + ")");
+            document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Start vtk load process (vtk version " + tmpSubstring + ").";
             nextVersionNumber = false;
             continue;
           }
@@ -272,7 +298,8 @@ function vtk_reader(content) {
                     nextDimension=false;
                     foundDimension = true;
                     is3D = true;
-                    console.log("3D Dimension: X = "+dimension_x+", Y = "+dimension_y+", Z = "+dimension_z);
+                    document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Found 3D Dimension: X = "+dimension_x+", Y = "+dimension_y+", Z = "+dimension_z+".";
+
                     break;
               default:
               openAlert("Sorry, the vtk loader was not able to load the vtk file. There was an error at the code part to indentify the dimension. Please inform us about this error!");
@@ -303,7 +330,8 @@ function vtk_reader(content) {
                     }
                     else{
                       is3D = true;
-                      console.log("3D Origin: X = "+origin_x+", Y = "+origin_y+", Z = "+origin_z);
+                      document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Found 3D Origin: X = "+origin_x+", Y = "+origin_y+", Z = "+origin_z+".";
+
                       originFound = true;
                       if (spacingFound) {
                           numberPoints = dimension_x * dimension_y * dimension_z;
@@ -356,7 +384,8 @@ function vtk_reader(content) {
                     }
                     else{
                       is3D = true;
-                      console.log("3D Spacing: X = "+spacing_x+", Y = "+spacing_y+", Z = "+spacing_z);
+                      document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Found 3D Spacing: X = "+spacing_x+", Y = "+spacing_y+", Z = "+spacing_z+".";
+
                       originFound = true;
                       if (spacingFound) {
                           numberPoints = dimension_x * dimension_y * dimension_z;
@@ -521,7 +550,8 @@ function vtk_reader(content) {
                       globalDomain.setGrid_XDimension(dimension_x);
                       globalDomain.setGrid_YDimension(dimension_y);
                       globalDomain.setGrid_ZDimension(1);
-                      console.log("Start generating grid for 3D structured points dataset.");
+                      document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Start generating grid for 3D structured points dataset.";
+
                       for (var x = 0; x < dimension_x; x++) {
                         for (var y = 0; y < dimension_y; y++) {
                             var tmpX = xCoordinatesArray[x];
@@ -574,7 +604,7 @@ function vtk_reader(content) {
                     globalDomain.setGrid_XDimension(dimension_x);
                     globalDomain.setGrid_YDimension(dimension_y);
                     globalDomain.setGrid_ZDimension(dimension_z);
-                    console.log("Start generating grid for 3D structured points dataset.");
+                    document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Start generating grid for 3D structured points dataset.";
                     for (var x = 0; x < dimension_x; x++) {
                       for (var y = 0; y < dimension_y; y++) {
                         for (var z = 0; z < dimension_z; z++) {
@@ -602,7 +632,7 @@ function vtk_reader(content) {
                 switch (tmpSubstring) {
                   case "SCALARS":
                     valueType = 1;
-                    console.log("Start loading field values of the type SCALARS.");
+                    document.getElementById("id_currentProcessText").innerHTML = "Load Text Content:Start loading field values of the type SCALARS.";
                     counter=-5;
                   break;
                   case "COLOR_SCALARS":
@@ -683,12 +713,12 @@ function vtk_reader(content) {
                         counter++;
                       }
                       else{
-
                         if(!globalDomain.addNewField(tmpValueArray, isCellData)){
                           console.log("Algorithm was not able to loading the field values of the type SCALARS.");
+                          document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Algorithm was not able to loading the field values of the type SCALARS.";
                         }
                         else{
-                          console.log("Finished loading field values of the type SCALARS.");
+                          document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Finished loading field values of the type SCALARS.";
                         }
                         counter=0;
                         nextLoadfieldValues=false;
@@ -718,31 +748,31 @@ function vtk_reader(content) {
             switch (tmpSubstring) {
               case "STRUCTURED_POINTS":
                 datasetType = 1;
-                console.log("DATASET Format: STRUCTURED_POINTS");
+                document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Found DATASET Format: STRUCTURED_POINTS";
                 openAlert("Sorry, the ccc-tool did not support STRUCTURED_POINTS datasets.");
                 return;
                 break;
               case "STRUCTURED_GRID":
                 datasetType = 2;
-                console.log("DATASET Format: STRUCTURED_GRID");
+                document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Found DATASET Format: STRUCTURED_GRID";
                 break;
               case "UNSTRUCTURED_GRID":
                 datasetType = 3;
-                console.log("DATASET Format: UNSTRUCTURED_GRID");
+                document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Found DATASET Format: UNSTRUCTURED_GRID";
                 break;
               case "POLYDATA":
                 datasetType = 4;
-                console.log("DATASET Format: POLYDATA");
+                document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Found DATASET Format: POLYDATA";
                 openAlert("Sorry, the ccc-tool did not support POLYDATA datasets.");
                 return;
                 break;
               case "RECTILINEAR_GRID":
                 datasetType = 5;
-                console.log("DATASET Format: RECTILINEAR_GRID");
+                document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Found DATASET Format: RECTILINEAR_GRID";
                 break;
               case "FIELD":
                 datasetType = 6;
-                console.log("DATASET Format: FIELD");
+                document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Found DATASET Format: FIELD";
                 openAlert("Sorry, the ccc-tool did not support FIELD datasets.");
                 return;
                 break;
@@ -762,7 +792,7 @@ function vtk_reader(content) {
                   counter=0;
                   nextDimension=false;
                   foundDimension = true;
-                  console.log("2D Dimension: X = "+dimension_x+", Y = "+dimension_y);
+                  document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Found 2D Dimension: X = "+dimension_x+", Y = "+dimension_y+".";
                 break;
               default:
               openAlert("Sorry, the vtk loader was not able to load the vtk file. There was an error at the code part to indentify the dimension. Please inform us about this error!");
@@ -784,7 +814,7 @@ function vtk_reader(content) {
                     }
                     else{
                       is3D = false;
-                      console.log("2D Origin: X = "+origin_x+", Y = "+origin_y);
+                      document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Found 2D Origin: X = "+origin_x+", Y = "+origin_y+".";
                       originFound = true;
                       if (spacingFound) {
                           numberPoints = dimension_x * dimension_y;
@@ -792,7 +822,7 @@ function vtk_reader(content) {
                           globalDomain.setGrid_XDimension(dimension_x);
                           globalDomain.setGrid_YDimension(dimension_y);
                           globalDomain.setGrid_ZDimension(1);
-                          console.log("Start generating grid for 3D structured points dataset.");
+                          document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Start generating grid for 3D structured points dataset.";
                           for (var x = 0; x < dimension_x; x++) {
                             for (var y = 0; y < dimension_y; y++) {
                               var tmpX = origin_x + (spacing_x * x);
@@ -824,7 +854,7 @@ function vtk_reader(content) {
                     }
                     else{
                       is3D = false;
-                      console.log("2D Origin: X = "+origin_x+", Y = "+origin_y);
+                      document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Found 2D Spacing: X = "+spacing_x+", Y = "+spacing_y+".";
                       originFound = true;
                       if (spacingFound) {
                           numberPoints = dimension_x * dimension_y;
@@ -832,7 +862,7 @@ function vtk_reader(content) {
                           globalDomain.setGrid_XDimension(dimension_x);
                           globalDomain.setGrid_YDimension(dimension_y);
                           globalDomain.setGrid_ZDimension(1);
-                          console.log("Start generating grid for 3D structured points dataset.");
+                          document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Start generating grid for 3D structured points dataset.";
                           for (var x = 0; x < dimension_x; x++) {
                             for (var y = 0; y < dimension_y; y++) {
                               var tmpX = origin_x + (spacing_x * x);
@@ -927,14 +957,14 @@ function vtk_reader(content) {
               break;
               case "BINARY":
                 isASCII = false;
-                console.log("File Format: BINARY");
+                document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Found File Format: BINARY.";
                 foundFileFormat = true;
                 openAlert("Sorry, the current version of the vtk loader algorithm is not albe to read binary data.");
                 return;
                 break;
               case "ASCII":
                 isASCII = true;
-                console.log("File Format: ASCII");
+                document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Found File Format: ASCII.";
                 foundFileFormat = true;
                 break;
               case "DATASET":
@@ -1027,6 +1057,17 @@ function vtk_reader(content) {
 
     }
   }
+  document.getElementById("id_processBar").style.width = phase1+"%";
+  document.getElementById("id_currentProcessText").innerHTML = "Generate Cells";
+  document.getElementById("id_currentProcessText").innerHTML = "Number of generated Cells = "+ globalDomain.generateCells(0,0);
+  document.getElementById("id_processBar").style.width = (phase1+phase2)+"%";
+
+  initMapping();
+  animateMapping();
+
+  document.getElementById("id_currentProcessText").innerHTML = "Start Rendering of Color Mapping";
+  drawMapping();
+  document.getElementById("id_processBar").style.width = "100%";
 }
 
 

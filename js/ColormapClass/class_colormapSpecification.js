@@ -23,6 +23,93 @@ class class_CMS {
   //// Key Structure
   /////////////////////////////////
 
+  calculateColor(val, interpolationSpace){
+
+    if(val<this.keyArray[0].getRefPosition())
+    return this.NaN_RGB;
+
+    if(val>this.keyArray[this.keyArray.length-1].getRefPosition())
+    return this.NaN_RGB;
+
+    for (var i = 0; i < this.keyArray.length-1; i++) {
+
+      if(val>this.keyArray[i].getRefPosition() && val<this.keyArray[i+1].getRefPosition()){
+
+        var color1 = this.keyArray[i].getRightKeyColor(interpolationSpace);
+        var color2 = this.keyArray[i+1].getLeftKeyColor(interpolationSpace);
+
+        if(color1==undefined){
+          if(interpolationSpace==="rgb")
+          return color2;
+          else
+          return color2.calcRGBColor();
+        }
+
+        var leftRef = this.keyArray[i].getRefPosition();
+        var rightRef = this.keyArray[i+1].getRefPosition();
+
+        var tmpRatio = (val-leftRef)/(rightRef-leftRef);
+
+        switch (interpolationSpace) {
+          case "rgb":
+
+              var rValue = color1.get1Value()+(color2.get1Value() - color1.get1Value())*tmpRatio;
+              var gValue = color1.get2Value()+(color2.get2Value() - color1.get2Value())*tmpRatio;
+              var bValue = color1.get3Value()+(color2.get3Value() - color1.get3Value())*tmpRatio;
+
+            return new classColor_RGB(rValue,gValue,bValue);
+          case "hsv":
+
+              var tmpDis = color1.getSValue()*50; // radius 50; center(0,0,0);
+              var tmpRad = (color1.getHValue()*Math.PI*2)-Math.PI;
+              var xPos = tmpDis*Math.cos(tmpRad);
+              var yPos = tmpDis*Math.sin(tmpRad);
+              var zPos = color1.getVValue()-50;
+
+              var tmpDis2 = color2.getSValue()*50;
+              var tmpRad2 = (color2.getHValue()*Math.PI*2)-Math.PI;
+              var xPos2 = tmpDis2*Math.cos(tmpRad2);
+              var yPos2 = tmpDis2*Math.sin(tmpRad2);
+              var zPos2 = color2.getVValue()-50;
+
+              var tmpX = xPos+(xPos2 - xPos)*tmpRatio;
+              var tmpY = yPos+(yPos2 - yPos)*tmpRatio;
+              var tmpZ = zPos+(zPos2 - zPos)*tmpRatio;
+
+              var tmpH =(Math.atan2(tmpY,tmpX)+Math.PI)/(Math.PI*2);
+              var tmpS = Math.sqrt(Math.pow(tmpX,2)+Math.pow(tmpY,2))/50;
+              var tmpV = tmpZ+50;
+              var tmpColor = new classColor_HSV(tmpH,tmpS,tmpV);
+              return tmpColor.calcRGBColor();
+            break;
+          case "lab":
+
+              var lValue = color1.get1Value()+(color2.get1Value() - color1.get1Value())*tmpRatio;
+              var aValue = color1.get2Value()+(color2.get2Value() - color1.get2Value())*tmpRatio;
+              var bValue = color1.get3Value()+(color2.get3Value() - color1.get3Value())*tmpRatio;
+
+              var tmpColor = new classColor_LAB(lValue,aValue,bValue);
+              return tmpColor.calcRGBColor();
+            break;
+          case "din99":
+              var l99Value = color1.get1Value()+(color2.get1Value() - color1.get1Value())*tmpRatio;
+              var a99Value = color1.get2Value()+(color2.get2Value() - color1.get2Value())*tmpRatio;
+              var b99Value = color1.get3Value()+(color2.get3Value() - color1.get3Value())*tmpRatio;
+
+              var tmpColor = new classColorDIN99(l99Value,a99Value,b99Value);
+              return tmpColor.calcRGBColor();
+            break;
+          default:
+          console.log("Error calculateColor function");
+          return this.NaN_RGB;
+        }
+
+      }
+    }
+
+    return this.NaN_RGB;
+  }
+
   deleteKey(index){
     this.keyArray.splice(index, 1);
   }

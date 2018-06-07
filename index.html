@@ -123,6 +123,8 @@
   <script src="js/Visualization/Domain/class_domain.js"></script>
   <script src="js/Visualization/Domain/class_cell.js"></script>
   <script src="js/Visualization/Domain/class_point.js"></script>
+  <script src="js/Visualization/Rendering/drawMapping.js"></script>
+  <script src="js/Visualization/Rendering/rendering.js"></script>
 
   <!-- global -->
   <script src="js/bandsketch.js"></script>
@@ -199,9 +201,6 @@
       </div>
     </div>
 
-
-
-
     <div id="id_Mod_Menue" class="sticky" style="width:100%; height:5vh; margin:0px; display:none;">
 
     <div  class="row" style="width:100%; height:5vh;background:url(img/background3.png); overflow-x:auto; margin-left:auto;">
@@ -244,10 +243,6 @@
 
     <div style="width: 100%; height:auto; margin:0px; background:url(img/background2.png); padding-top:2vh; padding-bottom:2vh;">
 
-
-      <div id="testVis" style="margin-left:2%; width:96%; height:100vh; margin-top:2vh; margin-bottom: 2vh; background:white; box-shadow:  0.3vh  0.3vh grey;">
-
-      </div>
       <!--
             -----------------------------------------------
             ----------------	Linear Colormap, Table ---------------
@@ -301,10 +296,14 @@
             </div>
 
 
-            <div id="id_mapping_Div" style="height:30vh; width:100%; display: flex; flex-direction: column; z-index:20; background:white;">
+            <div id="id_mapping_Div" style="height:auto; width:100%; display: flex; flex-direction: column; z-index:20; background:white;">
               <h1 style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; padding-top:2vh; padding-bottom:2vh;">Mapping</h1>
 
+              <button class="classButtonWhite"  onclick="startReadFile()" title="Load Data" style="border-radius: 0.5vh;  width: 25%; height:6vh; line-height:6vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180); margin-left:10%;"> Load Data </button>
 
+              <div id="testVis" style=" width:100%; height:100vh; margin-top:2vh; margin-bottom: 2vh; background:white; box-shadow:  0.3vh  0.3vh grey;" oncontextmenu="return false;">
+
+              </div>
             </div>
 
 
@@ -4660,6 +4659,34 @@
 
       </div>
     </div>
+
+
+    <!--
+          ----------------------------------------------------
+          ----------------	Ask Window	  -------------
+          ---------------------------------------------------
+          -->
+
+    <div id="processWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:101; top:0px; left:0px; bottom:0px; display:none;">
+
+      <div style="margin-top:20vh; height:auto; background:rgb(240,240,240); width:60%; border: 0.5vh solid black; margin-left:auto; margin-right:auto;">
+
+        <h3 style="width:100%; height:5vh; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; font-size:4vh; background:black;"> Process Window </h3>
+
+        <p id="id_taskText" style="margin-left:20%; width:60%; text-align:center; height:auto; line-height:3.2vh; font-size:3vh; vertical-align:middle;">
+        </p>
+
+        <div style="width:80%; margin-left:10%; border: 1px solid black; height:4vh;">
+          <div id="id_processBar" style="margin:0px; width:0px; height:100%;">
+
+          </div>
+        </div>
+        <p id="id_currentProcessText" style="margin:0px; margin-left:20%; width:60%; text-align:center; height:auto; line-height:2vh; font-size:1.8vh; vertical-align:middle;">
+        </p>
+
+      </div>
+    </div>
+
 
 
 

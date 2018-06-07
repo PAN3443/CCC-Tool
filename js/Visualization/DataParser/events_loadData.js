@@ -2,7 +2,13 @@
 
 
 function startReadFile(){
+
+  document.getElementById("processWindow").style.display="inline-block";
   document.getElementById('id_inputData').click();
+
+  document.getElementById("id_processBar").style.width = "0px";
+  document.getElementById("id_processBar").style.background = styleActiveColor;
+
 }
 
 function readDataFile(e) {
@@ -24,12 +30,16 @@ function readDataFile(e) {
 
     switch (fileExtension) {
             case 'vtk': case 'VTK':
+
+                document.getElementById("id_taskText").innerHTML="Task: Load and render VTK file.";
                 cms = vtk_reader(content);
                 break;
             default:
                 console.log("Error at readCMSFile function -> file extension is unknown!");
                 return;
     }
+
+    document.getElementById("processWindow").style.display="none";
 
 
   };

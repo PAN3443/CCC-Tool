@@ -24,8 +24,7 @@ window.onload = function() {
   document.getElementById('id_inputCMSData').addEventListener("change", readCMSFile);
   document.getElementById('id_inputSessionData').addEventListener("change", readSessionFile);
   document.getElementById('id_inputData').addEventListener("change", readDataFile);
-  document.getElementById('id_inputData').click();
-
+  
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Setting Side /////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -395,10 +394,16 @@ window.onload = function() {
   pageIsLoaded=true;
 
 
+  document.getElementById('testVis').addEventListener("mousemove", eventMapping_mousemove);
+  document.getElementById('testVis').addEventListener("mouseleave", eventMapping_mouseleave);
+  document.getElementById('testVis').addEventListener("mouseenter", eventMapping_mouseenter);
+  document.getElementById('testVis').addEventListener("mousedown", eventMapping_mousedown);
+  document.getElementById('testVis').addEventListener("mouseup", eventMapping_mouseup);
+  document.getElementById("testVis").addEventListener("wheel", eventMapping_mousewheel);
+
 }
 
 window.onresize = function(event) {
-
 
   orderColorSketch(colorspaceModus);
 
