@@ -100,6 +100,10 @@ class class_Domain {
 
   }
 
+  getPointArray(){
+    return this.gridPoints;
+  }
+
   setGrid_XDimension(val) {
     this.dimensionX = val;
   }
@@ -123,6 +127,8 @@ class class_Domain {
   getGrid_ZDimension(val) {
     return this.dimensionZ;
   }
+
+
 
   // for field
 
@@ -167,14 +173,14 @@ class class_Domain {
             if (tmp3D) {
               for (var z = 0; z < this.dimensionZ- 1; z++) {
                 // cell points
-                var pointArray = [this.gridPoints[x + y * this.dimensionX + z*xyDim],
-                  this.gridPoints[(x + 1) + y * this.dimensionX+ z*xyDim],
-                  this.gridPoints[(x + 1) + (y + 1) * this.dimensionX+ z*xyDim],
-                  this.gridPoints[x + (y + 1) * this.dimensionX+ z*xyDim],
-                  this.gridPoints[x + (y + 1) * this.dimensionX+ (z+1)*xyDim],
-                  this.gridPoints[(x + 1) + (y + 1) * this.dimensionX+ (z+1)*xyDim],
-                  this.gridPoints[(x + 1) + y * this.dimensionX+ (z+1)*xyDim],
-                  this.gridPoints[x + y * this.dimensionX+ (z+1)*xyDim]
+                var pointArray = [x + y * this.dimensionX + z*xyDim,
+                  (x + 1) + y * this.dimensionX+ z*xyDim,
+                  (x + 1) + (y + 1) * this.dimensionX+ z*xyDim,
+                  x + (y + 1) * this.dimensionX+ z*xyDim,
+                  x + (y + 1) * this.dimensionX+ (z+1)*xyDim,
+                  (x + 1) + (y + 1) * this.dimensionX+ (z+1)*xyDim,
+                  (x + 1) + y * this.dimensionX+ (z+1)*xyDim,
+                  x + y * this.dimensionX+ (z+1)*xyDim
                 ];
 
                 var valueArray;
@@ -200,10 +206,10 @@ class class_Domain {
             } else {
 
               // cell points
-              var pointArray = [this.gridPoints[x + y * this.dimensionX],
-                this.gridPoints[(x + 1) + y * this.dimensionX],
-                this.gridPoints[(x + 1) + (y + 1) * this.dimensionX],
-                this.gridPoints[x + (y + 1) * this.dimensionX]
+              var pointArray = [x + y * this.dimensionX,
+                (x + 1) + y * this.dimensionX,
+                (x + 1) + (y + 1) * this.dimensionX,
+                x + (y + 1) * this.dimensionX
               ];
 
               var valueArray;

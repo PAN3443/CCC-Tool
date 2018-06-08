@@ -53,15 +53,15 @@ class class_Cell{
       return this.type;
     }
 
-    getCellPoints(){
+    getCellIndices(){
       return this.points;
     }
 
-    getCellPoint(index){
+    getCellIndex(index){
       return this.points[index];
     }
 
-    getPointLength(){
+    getIndicesLength(){
       return this.points.length;
     }
 

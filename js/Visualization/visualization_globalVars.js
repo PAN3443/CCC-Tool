@@ -32,6 +32,8 @@ var oldYPos=0;
 
 var mapping_scene, mapping_camera, mapping_renderer, mapping_stats;
 
+
+
 var mapping_cameraLight;
 
 var mapping_maxRadius = 400;
@@ -39,7 +41,8 @@ var mapping_radius = 200;
 var mapping_minRadius = 10;
 var mapping_zoomFactor = 20;
 
-var coordinateArrowsGroup, mappingGroup;
+var coordinateArrowsGroup;
+var mappingMesh;
 
 
 

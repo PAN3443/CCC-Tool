@@ -282,6 +282,8 @@ function changeColorspace(type) {
   }
 
   orderColorSketch(colorspaceModus);
+
+  updateMesh();
 }
 
 

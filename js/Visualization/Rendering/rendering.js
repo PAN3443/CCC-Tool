@@ -20,14 +20,19 @@ function renderMapping() {
 
           coordinateArrowsGroup.rotation.y += ( mapping_xRotationAngle - coordinateArrowsGroup.rotation.y ) * 0.05;
           coordinateArrowsGroup.rotation.x += ( mapping_yRotationAngle - coordinateArrowsGroup.rotation.x ) * 0.05;
-          mappingGroup.rotation.y += ( mapping_xRotationAngle - mappingGroup.rotation.y ) * 0.05;
-          mappingGroup.rotation.x += ( mapping_yRotationAngle - mappingGroup.rotation.x ) * 0.05;
 
           coordinateArrowsGroup.position.x += mapping_Translation_X;
           coordinateArrowsGroup.position.y += mapping_Translation_Y;
 
-          mappingGroup.position.x += mapping_Translation_X;
-          mappingGroup.position.y += mapping_Translation_Y;
+
+          if(mappingMesh != undefined){
+            mappingMesh.rotation.y += ( mapping_xRotationAngle - mappingMesh.rotation.y ) * 0.05;
+            mappingMesh.rotation.x += ( mapping_yRotationAngle - mappingMesh.rotation.x ) * 0.05;
+
+            mappingMesh.position.x += mapping_Translation_X;
+            mappingMesh.position.y += mapping_Translation_Y;
+
+          }
 
           mapping_Translation_X=0;
           mapping_Translation_Y=0;
@@ -71,13 +76,11 @@ function initMapping()
   mapping_scene.background = new THREE.Color( 0xffffff); //0xf6f6f6
 	mapping_camera = new THREE.PerspectiveCamera(50,drawWidth /drawHeight, 1, 10000);//new THREE.PerspectiveCamera(75,drawWidth /drawHeight, 0.1, 1000);//new THREE.Orthographicmapping_camera( 0.5 * drawWidth * 2 / - 2, 0.5 * drawWidth * 2 / 2, drawWidth / 2, drawWidth / - 2, 150, 1000 ); //new THREE.Perspectivemapping_camera(75,drawWidth /drawHeight, 0.1, 1000);
 	mapping_renderer = new THREE.WebGLRenderer();
-  mapping_renderer.setClearColor( 0xffffff, 0);
+  mapping_renderer.setClearColor( 0x000000, 0);
 
   coordinateArrowsGroup = new THREE.Group();
-  mappingGroup = new THREE.Group();
 
   mapping_scene.add( coordinateArrowsGroup );
-  mapping_scene.add( mappingGroup );
 
   var from = new THREE.Vector3( 0, 0, 0 );
   var to = new THREE.Vector3( 100, 0, 0 );
@@ -149,8 +152,8 @@ function eventMapping_mousemove(event){
   }
 
   if(mapping_doTranslation){
-    mapping_Translation_X = mousePosX-oldXPos;
-    mapping_Translation_Y = oldYPos-mousePosY;
+    mapping_Translation_X = (mousePosX-oldXPos)/rect.width * (mapping_camera.position.z);
+    mapping_Translation_Y = (oldYPos-mousePosY)/rect.height * (mapping_camera.position.z);
 
     oldXPos=mousePosX;
     oldYPos=mousePosY;
