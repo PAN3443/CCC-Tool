@@ -2,6 +2,7 @@
 
 var globalDomain;
 
+var mappingContainerHeight=30;
 
 ////////// rendering
 
@@ -37,7 +38,6 @@ var mapping_scene, mapping_camera, mapping_renderer, mapping_stats;
 var mapping_cameraLight;
 
 var mapping_maxRadius = 400;
-var mapping_radius = 200;
 var mapping_minRadius = 10;
 var mapping_zoomFactor = 20;
 
@@ -50,3 +50,13 @@ var mappingMesh;
 var mapping_MaterialPositions;
 var mapping_MaterialColors;
 var mapping_MaterialNormals;
+
+
+
+////
+var numWorkers = 22;
+var workerArray=[];
+var workerFinished=[];
+var allWorkerFinished=true;
+var doneWorkerPreparation=false;
+var workerJSON=[];

@@ -125,6 +125,8 @@
   <script src="js/Visualization/Domain/class_point.js"></script>
   <script src="js/Visualization/Rendering/drawMapping.js"></script>
   <script src="js/Visualization/Rendering/rendering.js"></script>
+  <script src="js/Visualization/VisWorker/mappingWorkerEvents.js"></script>
+
 
   <!-- global -->
   <script src="js/bandsketch.js"></script>
@@ -297,11 +299,47 @@
 
 
             <div id="id_mapping_Div" style="height:auto; width:100%; display: flex; flex-direction: column; z-index:20; background:white;">
-              <h1 style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; padding-top:2vh; padding-bottom:2vh;">Mapping</h1>
 
-              <button class="classButtonWhite"  onclick="startReadFile()" title="Load Data" style="border-radius: 0.5vh;  width: 25%; height:6vh; line-height:6vh; font-size:3vh; border: 0.2vh solid rgb(180,180,180); margin-left:10%;"> Load Data </button>
+              <div class="row">
+                <button class="classButtonWhite"  onclick="startReadFile()" title="Load Data" style="border-radius: 0.5vh;  width: 25%; height:4vh; line-height:4vh; font-size:3vh; border: 0.2vh solid rgb(0,0,0); margin:2vh; margin-left:auto; margin-right:auto;"> Load Data </button>
+                <button class="classButtonWhite"  title="Create Test Function" style="border-radius: 0.5vh;  width: 25%; height:4vh; line-height:4vh; font-size:3vh; border: 0.2vh solid rgb(0,0,0); margin:2vh; margin-left:auto; margin-right:auto;"> Create Test-Function </button>
+              </div>
+              <hr>
+                <div class="row">
 
-              <div id="testVis" style=" width:100%; height:100vh; margin-top:2vh; margin-bottom: 2vh; background:white; box-shadow:  0.3vh  0.3vh grey;" oncontextmenu="return false;">
+                  <p style="text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-left:5%;">Multi Thread Processing (if supported):</p>
+                  <input id="mapping_checkMultiThread" type="checkbox" style="text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin-left:2.5%;" name="multiThreadMapping" value="multiThread" checked>
+                  <p style="text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-left:auto;;">Do Auto-Update:</p>
+                  <input id="mapping_checkAutoUpdate" type="checkbox" style="text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin-left:2.5%; margin-right:2.5%;" name="multiThreadMapping" value="multiThread"> <br>
+
+                  <button onclick="updateMesh()" class="classButtonWhite"  onclick="startReadFile()" title="Load Data" style="border-radius: 0.5vh;  height:3vh; line-height:3vh; font-size:2.3vh; vertical-align:middle; border: 0.2vh solid rgb(0,0,0);  margin-right:5%; margin-left:5%;"> Manuel Update </button>
+                </div>
+              <hr>
+
+              <div class="row">
+                <p style="text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-left:5%;">Size:</p>
+                <div onclick="updateMappingSize(1)" style=" background:white; border: 2px solid black; height:3vh; width:3vh; line-height:3vh; font-size:2.8vh; margin-left:2.5%; text-align:center; cursor:pointer;">
+                  -
+                </div>
+                <div onclick="updateMappingSize(0)" style=" background:white; border: 2px solid black; height:3vh; width:3vh; line-height:3vh; font-size:2.8vh;margin-left:2.5%; text-align:center; cursor:pointer;">
+                 +
+                </div>
+
+                <p style="text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-left:auto;">Background:</p>
+                <div id="mappingBG1" onclick="backgroundMapping(0)" style=" background:white; border: 2px solid black; height:3vh; width:3vh;margin-left:2.5%; cursor:pointer;">
+
+                </div>
+                <div id="mappingBG2" onclick="backgroundMapping(1)" style=" background:grey; border: 2px solid black; height:3vh; width:3vh;margin-left:2.5%; cursor:pointer;">
+
+                </div>
+                <div id="mappingBG3" onclick="backgroundMapping(2)" style=" background:black; border: 2px solid black; height:3vh; width:3vh;margin-left:2.5%; margin-right:5%; cursor:pointer;">
+
+                </div>
+              </div>
+
+              <hr>
+
+              <div id="mappingDiv" style="width:100%; height:30vh;" oncontextmenu="return false;">
 
               </div>
             </div>

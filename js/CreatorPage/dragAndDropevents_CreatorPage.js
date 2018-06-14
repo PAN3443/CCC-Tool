@@ -53,10 +53,6 @@ function bandOnDragStart(event){
 
     drawBandSketch(globalCMS1,"id_colormapSketch","id_createColormapKeys","id_colormapSketch_Ref", true, -1);
 
-    for (var i = dropPositionElements.length - 1; i >= 0; i--) {
-      dropPositionElements[i].remove();
-      dropPositionElements.pop();
-    }
 
     for (var i = refLineSketchContainer.length - 1; i >= 0; i--) {
       refLineSketchContainer[i].remove();

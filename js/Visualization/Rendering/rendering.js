@@ -1,8 +1,53 @@
 
-function resizeMapping()
+
+function backgroundMapping(type){
+
+  var canvasObj = document.getElementById("mappingDiv");
+
+  document.getElementById("mappingBG1").style.borderColor="black";
+  document.getElementById("mappingBG2").style.borderColor="black";
+  document.getElementById("mappingBG3").style.borderColor="black";
+
+  switch (type) {
+    case 0:
+      mapping_scene.background = new THREE.Color( 0xffffff );
+      document.getElementById("mappingBG1").style.borderColor=styleActiveColor;
+      break;
+      case 1:
+        mapping_scene.background = new THREE.Color( 0x878787 );
+        document.getElementById("mappingBG2").style.borderColor=styleActiveColor;
+        break;
+        case 2:
+          mapping_scene.background = new THREE.Color( 0x000000 );
+          document.getElementById("mappingBG3").style.borderColor=styleActiveColor;
+          break;
+    default:
+    mapping_scene.background = new THREE.Color( 0x000000 );
+    document.getElementById("mappingBG3").style.borderColor=styleActiveColor;
+
+  }
+}
+
+function updateMappingSize(type)
 {
 
-  var canvasObj = document.getElementById("testVis");
+  var canvasObj = document.getElementById("mappingDiv");
+
+
+  switch (type) {
+    case 0:
+        if(mappingContainerHeight<100)
+        mappingContainerHeight+=5;
+      break;
+      case 1:
+          if(mappingContainerHeight>30)
+          mappingContainerHeight-=5;
+        break;
+    default:
+
+  }
+
+  canvasObj.style.height=mappingContainerHeight+"vh";
 
   var box = canvasObj.getBoundingClientRect();
   var drawWidth = box.width; //window.innerWidth;
@@ -12,6 +57,17 @@ function resizeMapping()
 	mapping_camera.updateProjectionMatrix();
 
 	mapping_renderer.setSize(drawWidth, drawHeight);//*/
+
+
+  ////////////// updating the input elements
+
+  for (var i = refLineSketchContainer.length - 1; i >= 0; i--) {
+    refLineSketchContainer[i].remove();
+    refLineSketchContainer.pop();
+  }
+
+  drawKeys("id_keyColormap", key_resolution_X, key_resolution_Y, globalCMS1, "id_keyColormapLinesBottom");
+  drawBandSketch(globalCMS1,"id_colormapSketch","id_createColormapKeys","id_colormapSketch_Ref", false, -1);
 }
 
 function renderMapping() {
@@ -66,17 +122,19 @@ function initMapping()
       return;
   }
 
-  var canvasObj = document.getElementById("testVis");
+  var canvasObj = document.getElementById("mappingDiv");
 
   canvasObj.innerHTML = "";
   var box = canvasObj.getBoundingClientRect();
   var drawWidth = box.width; //window.innerWidth;
   var drawHeight =box.height; // window.innerHeight;
 	mapping_scene = new THREE.Scene();
-  mapping_scene.background = new THREE.Color( 0xffffff); //0xf6f6f6
+  mapping_scene.background = new THREE.Color( 0x000000 );
 	mapping_camera = new THREE.PerspectiveCamera(50,drawWidth /drawHeight, 1, 10000);//new THREE.PerspectiveCamera(75,drawWidth /drawHeight, 0.1, 1000);//new THREE.Orthographicmapping_camera( 0.5 * drawWidth * 2 / - 2, 0.5 * drawWidth * 2 / 2, drawWidth / 2, drawWidth / - 2, 150, 1000 ); //new THREE.Perspectivemapping_camera(75,drawWidth /drawHeight, 0.1, 1000);
 	mapping_renderer = new THREE.WebGLRenderer();
-  mapping_renderer.setClearColor( 0x000000, 0);
+
+  //mapping_renderer = new THREE.WebGLRenderer({ alpha: true });
+  //mapping_renderer.setClearColor( 0xffffff, 0);
 
   coordinateArrowsGroup = new THREE.Group();
 
@@ -103,7 +161,7 @@ function initMapping()
   ////////////////////////////////////////////////////////////////////////////////
 
   /*mapping_cameraLight = new THREE.PointLight( 0xffffff,1 );
-  mapping_cameraLight.position.set( 0, 0, mapping_radius );
+  mapping_cameraLight.position.set( 0, 0, mapping_maxRadius/2 );
   mapping_scene.add( mapping_cameraLight );*/
 
   var ambientLight = new THREE.AmbientLight( 0xffffff );
@@ -116,7 +174,7 @@ function initMapping()
 
   mapping_camera.position.x = 0;
   mapping_camera.position.y = 0;
-	mapping_camera.position.z = mapping_radius;
+	mapping_camera.position.z = mapping_maxRadius/2;
 
 	mapping_renderer.setSize(drawWidth,drawHeight);//(window.innerWidth, window.innerHeight);
   canvasObj.appendChild( mapping_renderer.domElement );
@@ -132,7 +190,7 @@ function initMapping()
 
 function eventMapping_mousemove(event){
   // calc mouse pos
-  var rect = document.getElementById('testVis').getBoundingClientRect();//event.target.id
+  var rect = document.getElementById('mappingDiv').getBoundingClientRect();//event.target.id
 
   var canvasPosX = event.clientX - rect.left;
   var canvasPosY = event.clientY - rect.top;
@@ -208,28 +266,24 @@ function eventMapping_mousewheel(event){
 
   if(event.deltaY>0){
 
-    var newRadius=mapping_radius+mapping_zoomFactor;
+    var newRadius=mapping_camera.position.z+mapping_zoomFactor;
 
     if(newRadius>mapping_maxRadius)
     return;
 
-    mapping_radius=newRadius;
+    mapping_camera.position.z=newRadius;
 
-    //mapping_cameraLight.position.set( 0, 0, mapping_radius );
-    mapping_camera.position.z = mapping_radius;
     return;
   }
 
   if(event.deltaY<0){
-    var newRadius=mapping_radius-mapping_zoomFactor;
+    var newRadius=mapping_camera.position.z-mapping_zoomFactor;
 
     if(newRadius<mapping_minRadius)
     return;
 
-    mapping_radius=newRadius;
+    mapping_camera.position.z=newRadius;
 
-    //mapping_cameraLight.position.set( 0, 0, mapping_radius );
-    mapping_camera.position.z = mapping_radius;
     return;
   }
 

@@ -7,7 +7,6 @@ function startReadFile(){
   document.getElementById('id_inputData').click();
 
 
-
 }
 
 function readDataFile(e) {
@@ -48,5 +47,5 @@ function readDataFile(e) {
 
   reader.readAsText(file);
 
-
+  doneWorkerPreparation=false;
 }

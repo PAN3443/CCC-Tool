@@ -40,6 +40,8 @@ function switchTableTestFunction(type){
       document.getElementById("id_mapping_Div").style.display="none";
       document.getElementById("id_table_Div").style.display="inline-block";
 
+      stopAnimationMapping();
+
     break;
     case 1:
 
@@ -50,6 +52,9 @@ function switchTableTestFunction(type){
 
       document.getElementById("id_mapping_Div").style.display="inline-block";
       document.getElementById("id_table_Div").style.display="none";
+
+      animateMapping();
+      updateMappingSize(2);
 
       break;
     default:

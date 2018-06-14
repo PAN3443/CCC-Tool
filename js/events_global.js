@@ -645,6 +645,7 @@ function changePage(type){
               document.getElementById("id_LinearMap_Table_Div").style.display = "none";
 
               stopAnimation();
+              stopAnimationMapping();
 
               if(globalCMS1.getKeyLength()>0){
 
@@ -919,6 +920,10 @@ function initNewPage(){
       switchModifyModus(0);
       drawPredefinedBands();
 
+      if(document.getElementById("id_mapping_Div").style.display !="none"){
+        switchTableTestFunction(0);
+      }
+
       globalCMS1.clear();
 
       break;
@@ -938,6 +943,11 @@ function initNewPage(){
       globalCMS1= cloneCMS(myList[colormap1SelectIndex]);
       switchModifyModus(1);
       drawPredefinedBands();
+
+      if(document.getElementById("id_mapping_Div").style.display !="none"){
+        animateMapping();
+        updateMesh();
+      }
 
       document.getElementById("button_showEditCMS").style.background = styleActiveColor;
       break;

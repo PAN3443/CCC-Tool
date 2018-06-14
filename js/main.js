@@ -24,7 +24,7 @@ window.onload = function() {
   document.getElementById('id_inputCMSData').addEventListener("change", readCMSFile);
   document.getElementById('id_inputSessionData').addEventListener("change", readSessionFile);
   document.getElementById('id_inputData').addEventListener("change", readDataFile);
-  
+
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Setting Side /////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -328,6 +328,19 @@ window.onload = function() {
 
   document.getElementById('id_setOpacityRangeModiy').addEventListener("change", changeOpacityRange);
 
+
+
+  ///// Color Mapping
+  document.getElementById('mappingDiv').addEventListener("mousemove", eventMapping_mousemove);
+  document.getElementById('mappingDiv').addEventListener("mouseleave", eventMapping_mouseleave);
+  document.getElementById('mappingDiv').addEventListener("mouseenter", eventMapping_mouseenter);
+  document.getElementById('mappingDiv').addEventListener("mousedown", eventMapping_mousedown);
+  document.getElementById('mappingDiv').addEventListener("mouseup", eventMapping_mouseup);
+  document.getElementById("mappingDiv").addEventListener("wheel", eventMapping_mousewheel);
+
+  document.getElementById("mappingBG3").style.borderColor=styleActiveColor;
+
+
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Analyse Side /////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -394,12 +407,10 @@ window.onload = function() {
   pageIsLoaded=true;
 
 
-  document.getElementById('testVis').addEventListener("mousemove", eventMapping_mousemove);
-  document.getElementById('testVis').addEventListener("mouseleave", eventMapping_mouseleave);
-  document.getElementById('testVis').addEventListener("mouseenter", eventMapping_mouseenter);
-  document.getElementById('testVis').addEventListener("mousedown", eventMapping_mousedown);
-  document.getElementById('testVis').addEventListener("mouseup", eventMapping_mouseup);
-  document.getElementById("testVis").addEventListener("wheel", eventMapping_mousewheel);
+  initMapping();
+
+
+
 
 }
 
@@ -429,11 +440,6 @@ function orderColorSketch(forColorspace) {
 
   document.getElementById("id_colormapSketch").innerHTML = null;
 
-  for (var i = dropPositionElements.length - 1; i >= 0; i--) {
-    dropPositionElements[i].remove();
-    dropPositionElements.pop();
-  }
-
   for (var i = refLineSketchContainer.length - 1; i >= 0; i--) {
     refLineSketchContainer[i].remove();
     refLineSketchContainer.pop();
@@ -451,6 +457,10 @@ function orderColorSketch(forColorspace) {
       }
       else{
         document.getElementById("id_LinearMap_Table_Div").style.display = "none";
+      }
+
+      if(document.getElementById("mapping_checkAutoUpdate").checked==true && mapping_doingAnimation){
+        updateMesh();
       }
     }
 

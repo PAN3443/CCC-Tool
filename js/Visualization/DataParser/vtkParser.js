@@ -1062,8 +1062,8 @@ function vtk_reader(content) {
   document.getElementById("id_processBar").style.width = (phase1+phase2)+"%";*/
   console.log("Number of generated Cells = "+ globalDomain.generateCells(0,0));
 
-  initMapping();
-  animateMapping();
+  //initMapping();
+  //animateMapping();
 
   //document.getElementById("id_currentProcessText").innerHTML = "Start Rendering of Color Mapping";
   drawMapping();

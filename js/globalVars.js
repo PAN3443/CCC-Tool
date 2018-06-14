@@ -277,7 +277,6 @@ var grappedKey = false;
 var overKeyID = -1;
 var mouseKeyChangeUp = false;
 
-var dropPositionElements = [];
 var refLineSketchContainer = [];
 
 // drag and drop
