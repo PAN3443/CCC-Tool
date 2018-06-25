@@ -80,15 +80,17 @@ function renderMapping() {
           coordinateArrowsGroup.position.x += mapping_Translation_X;
           coordinateArrowsGroup.position.y += mapping_Translation_Y;
 
+          currentOriginX+= mapping_Translation_X;
+          currentOriginY+= mapping_Translation_Y;
 
-          if(mappingMesh != undefined){
+
+          /*if(mappingMesh != undefined){
             mappingMesh.rotation.y += ( mapping_xRotationAngle - mappingMesh.rotation.y ) * 0.05;
             mappingMesh.rotation.x += ( mapping_yRotationAngle - mappingMesh.rotation.x ) * 0.05;
 
             mappingMesh.position.x += mapping_Translation_X;
             mappingMesh.position.y += mapping_Translation_Y;
-
-          }
+          }*/
 
           mapping_Translation_X=0;
           mapping_Translation_Y=0;
@@ -121,6 +123,10 @@ function initMapping()
      Detector.addGetWebGLMessage();
       return;
   }
+
+
+  currentOriginX=0;
+  currentOriginY=0;
 
   var canvasObj = document.getElementById("mappingDiv");
 

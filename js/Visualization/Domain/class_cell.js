@@ -8,6 +8,9 @@ class class_Cell{
     / \      |    |
    /   \     |    |
   ?-----?    0----1
+
+
+  NOPE :
     Tetrahedron        Prism        Pyramid       Hexahedron
                           ?                        4--------5
          ?              / |\             ?        /|       /|
@@ -21,32 +24,28 @@ class class_Cell{
 
   */
 
-    constructor(pointArray,valueArray, type) {
+    constructor(pointArray,averageValue, type) {
         this.points = pointArray;
-        this.valueArray = valueArray;
-        this.type = type; // 1. Rectangle, 2. Triangle, 3. Hexahedron
+        this.averageValue = averageValue;
+        this.type = type; // 1. Rectangle, 2. Triangle, 
 
-        /*if(valueArray.length==1){
-          this.cellValue = valueArray[0];
+        /*if(averageValue.length==1){
+          this.cellValue = averageValue[0];
         }
         else{
-          if(valueArray.length==this.points.lenght){
+          if(averageValue.length==this.points.lenght){
             var sum =0;
-            for (var i = 0; i < valueArray.length; i++) {
-              sum += valueArray[i];
+            for (var i = 0; i < averageValue.length; i++) {
+              sum += averageValue[i];
             }
-            this.cellValue = sum/valueArray.length;
+            this.cellValue = sum/averageValue.length;
           }
         }*/
     }
 
 
-    getCellValueSize(){
-      return this.valueArray.length;
-    }
-
-    getCellValue(index){
-      return this.valueArray[index];
+    getCellValue(){
+      return this.averageValue;
     }
 
     getCellType(){

@@ -10,10 +10,12 @@ function eventFunctionColorMapping(e){
   for (var index = 0; index < data.cVal1.length; index++) {
 
     if(mappingMesh.geometry.faces[(data.cellStartIndex+index) * 2 + 0]==undefined){
+      console.log(data.cellStartIndex+index);
       continue;
     }
 
     if(mappingMesh.geometry.faces[(data.cellStartIndex+index) * 2 + 1]==undefined){
+      console.log(data.cellStartIndex+index);
       continue;
     }
 
@@ -21,7 +23,6 @@ function eventFunctionColorMapping(e){
     if(data.cVal1[index]==undefined){
       mappingMesh.geometry.faces[(data.cellStartIndex+index) * 2 + 0].color.setRGB( nanColor.getRValue(),nanColor.getGValue(),nanColor.getBValue());
       mappingMesh.geometry.faces[(data.cellStartIndex+index) * 2 + 1].color.setRGB( nanColor.getRValue(),nanColor.getGValue(),nanColor.getBValue());
-      counter++;
     }
     else{
       mappingMesh.geometry.faces[(data.cellStartIndex+index) * 2 + 0].color.setRGB( data.cVal1[index],data.cVal2[index],data.cVal3[index]);

@@ -23,6 +23,9 @@ var mapping_yRotationDownAngle=0;
 var mapping_Translation_X = 0;
 var mapping_Translation_Y = 0;
 
+var currentOriginX=0;
+var currentOriginY=0;
+
 var oldXPos=0;
 var oldYPos=0;
 
@@ -33,8 +36,6 @@ var oldYPos=0;
 
 var mapping_scene, mapping_camera, mapping_renderer, mapping_stats;
 
-
-
 var mapping_cameraLight;
 
 var mapping_maxRadius = 400;
@@ -44,17 +45,13 @@ var mapping_zoomFactor = 20;
 var coordinateArrowsGroup;
 var mappingMesh;
 
-
-
 // mapping material arrays
 var mapping_MaterialPositions;
 var mapping_MaterialColors;
 var mapping_MaterialNormals;
 
-
-
 ////
-var numWorkers = 22;
+var numWorkers = 12;
 var workerArray=[];
 var workerFinished=[];
 var allWorkerFinished=true;

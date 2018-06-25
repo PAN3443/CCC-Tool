@@ -66,6 +66,8 @@ function vtk_reader(content) {
   var fieldName;
   var tableName;
   var isCellData = false; // cell or point data
+  var alreadyFoundE = false;
+  var foundCharE = false;
 
   // other
 
@@ -80,6 +82,7 @@ function vtk_reader(content) {
 
   var substring = "";
   var isNum = true;
+  var foundMinus=false;
   var pointIsSet = false;
   var counter = 0;
   var dimCounter = 0;
@@ -121,14 +124,21 @@ function vtk_reader(content) {
       stepcounter++;
     }*/
 
-
-
     switch (content[i]) {
       case " ":
       case "\n":
+      case "\t":
+      case "\r":
+
         // substr is ready
 
+        while(content[i+1]===" " || content[i+1]==="\n" || content[i+1]==="\t" || content[i+1]==="\r"){
+          i++;
+        }
 
+        foundMinus=false;
+        alreadyFoundE = false;
+        foundCharE = false;
         var tmpIsNum = isNum;
         isNum = true;
         var tmpPointIsSet = pointIsSet;
@@ -166,6 +176,7 @@ function vtk_reader(content) {
                   return;
                 }
                 //document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Start loading of "  +numberFieldValues+ " SCALAR field values.";
+                console.log("Load Text Content: Start loading of "  +numberFieldValues+ " SCALAR field values.");
                 tmpValueArray = new Array(numberFieldValues).fill(NaN);
                 valueType=0;
                 break;
@@ -177,11 +188,13 @@ function vtk_reader(content) {
                   switch (counter) {
                     case -5: case -4: case -2: case -1:
                       //console.log("Error at the field value loader part for SCALAR FIELDS. This should be a text part, but the algorithm found a number.");
+                      nextLoadfieldValues=false;
                       return;
                       break;
                     case -3:
                       var numComp = parseFloat(tmpSubstring);
-                      return;
+                      //console.log("Error. The loader algorithm was not able to load the number of field values. The algorithm found a value less than 1!");
+
                       /*if(tmpPointIsSet){
                         console.log("Error. The loader algorithm was not able to determine the nValues variable. The algorithm found a float number instead of an integer.");
                       }
@@ -194,9 +207,10 @@ function vtk_reader(content) {
                       break;
                     default:
 
-
                         tmpValueArray[counter]=parseFloat(tmpSubstring);
+
                         counter++;
+
                         if(counter==numberFieldValues){
                           counter=0;
                           if(!globalDomain.addNewField(tmpValueArray, isCellData)){
@@ -204,6 +218,7 @@ function vtk_reader(content) {
                           }
                           else{
                             //document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Finished loading field values of the type SCALARS.";
+                            console.log("Load Text Content: Finished loading field values of the type SCALARS.");
                           }
                           nextLoadfieldValues=false;
                           loadedField=true;
@@ -263,6 +278,7 @@ function vtk_reader(content) {
           /////////////////////////////////////////////////////////
           if (nextVersionNumber) {
             //document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Start vtk load process (vtk version " + tmpSubstring + ").";
+            console.log("Load Text Content: Start vtk load process (vtk version " + tmpSubstring + ").");
             nextVersionNumber = false;
             continue;
           }
@@ -298,7 +314,7 @@ function vtk_reader(content) {
                     foundDimension = true;
                     is3D = true;
                     //document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Found 3D Dimension: X = "+dimension_x+", Y = "+dimension_y+", Z = "+dimension_z+".";
-
+                    console.log("Load Text Content: Found 3D Dimension: X = "+dimension_x+", Y = "+dimension_y+", Z = "+dimension_z+".");
                     break;
               default:
               openAlert("Sorry, the vtk loader was not able to load the vtk file. There was an error at the code part to indentify the dimension. Please inform us about this error!");
@@ -330,7 +346,7 @@ function vtk_reader(content) {
                     else{
                       is3D = true;
                       //document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Found 3D Origin: X = "+origin_x+", Y = "+origin_y+", Z = "+origin_z+".";
-
+                      console.log("Load Text Content: Found 3D Origin: X = "+origin_x+", Y = "+origin_y+", Z = "+origin_z+".");
                       originFound = true;
                       if (spacingFound) {
                           numberPoints = dimension_x * dimension_y * dimension_z;
@@ -339,6 +355,7 @@ function vtk_reader(content) {
                           globalDomain.setGrid_YDimension(dimension_y);
                           globalDomain.setGrid_ZDimension(dimension_z);
                           console.log("Start generating grid for 3D structured points dataset.");
+                          var xyDim = dimension_x*dimension_y;
                           for (var x = 0; x < dimension_x; x++) {
                             for (var y = 0; y < dimension_y; y++) {
                               for (var z = 0; z < dimension_z; z++) {
@@ -346,7 +363,8 @@ function vtk_reader(content) {
                                 var tmpY = origin_y + (spacing_y * y);
                                 var tmpZ = origin_z + (spacing_z * z);
                                 var newPoint = new THREE.Vector3(tmpX, tmpY, tmpZ);
-                                globalDomain.insertGridPoint(newPoint, pointIndex);
+                                var index = x+y*dimension_y+z*xyDim;
+                                globalDomain.insertGridPoint(newPoint, index);
                               }
                             }
                           }
@@ -384,7 +402,7 @@ function vtk_reader(content) {
                     else{
                       is3D = true;
                       //document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Found 3D Spacing: X = "+spacing_x+", Y = "+spacing_y+", Z = "+spacing_z+".";
-
+                      console.log("Load Text Content: Found 3D Spacing: X = "+spacing_x+", Y = "+spacing_y+", Z = "+spacing_z+".");
                       originFound = true;
                       if (spacingFound) {
                           numberPoints = dimension_x * dimension_y * dimension_z;
@@ -393,6 +411,7 @@ function vtk_reader(content) {
                           globalDomain.setGrid_YDimension(dimension_y);
                           globalDomain.setGrid_ZDimension(dimension_z);
                           console.log("Start generating grid for 3D structured points dataset.");
+                          var xyDim = dimension_x*dimension_y;
                           for (var x = 0; x < dimension_x; x++) {
                             for (var y = 0; y < dimension_y; y++) {
                               for (var z = 0; z < dimension_z; z++) {
@@ -400,7 +419,8 @@ function vtk_reader(content) {
                                 var tmpY = origin_y + (spacing_y * y);
                                 var tmpZ = origin_z + (spacing_z * z);
                                 var newPoint = new THREE.Vector3(tmpX, tmpY, tmpZ);
-                                globalDomain.insertGridPoint(newPoint, pointIndex);
+                                var index = x+y*dimension_y+z*xyDim;
+                                globalDomain.insertGridPoint(newPoint, index);
                               }
                             }
                           }
@@ -502,11 +522,10 @@ function vtk_reader(content) {
                 counter++;
                 break;
               default:
-                if(counter<dimension_x){
+
                   xCoordinatesArray[counter]=parseFloat(tmpSubstring);
                   counter++;
-                }
-                else{
+                if(counter==dimension_x){
                   counter=0;
                   nextLoadXCoordinates=false;
                 }
@@ -534,11 +553,11 @@ function vtk_reader(content) {
                   counter++;
                   break;
                 default:
-                  if(counter<dimension_y){
+
                     yCoordinatesArray[counter]=parseFloat(tmpSubstring);
                     counter++;
-                  }
-                  else{
+
+                  if(counter==dimension_y){
                     counter=0;
                     nextLoadYCoordinates=false;
 
@@ -550,14 +569,15 @@ function vtk_reader(content) {
                       globalDomain.setGrid_YDimension(dimension_y);
                       globalDomain.setGrid_ZDimension(1);
                       //document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Start generating grid for 3D structured points dataset.";
-
+                      console.log("Load Text Content: Start generating grid for 2D rectlinear points dataset.");
                       for (var x = 0; x < dimension_x; x++) {
                         for (var y = 0; y < dimension_y; y++) {
                             var tmpX = xCoordinatesArray[x];
                             var tmpY = yCoordinatesArray[y];
                             var tmpZ = 0.0; //zCoordinatesArray[z];
                             var newPoint = new THREE.Vector3(tmpX, tmpY, tmpZ);
-                            globalDomain.insertGridPoint(newPoint, pointIndex);
+                            var index = x+y*dimension_x;
+                            globalDomain.insertGridPoint(newPoint, index);
                         }
                       }
 
@@ -589,29 +609,39 @@ function vtk_reader(content) {
                 counter++;
                 break;
               default:
-                if(counter<dimension_z){
+
                   zCoordinatesArray[counter]=parseFloat(tmpSubstring);
                   counter++;
-                }
-                else{
+
+                if(counter==dimension_z){
                   counter=0;
                   nextLoadZCoordinates=false;
                   if(is3D){
+
+                    console.log(xCoordinatesArray);
+                    console.log(yCoordinatesArray);
+                    console.log(zCoordinatesArray);
 
                     numberPoints = dimension_x * dimension_y * dimension_z;
                     globalDomain = new class_Domain(datasetType, numberPoints, is3D);
                     globalDomain.setGrid_XDimension(dimension_x);
                     globalDomain.setGrid_YDimension(dimension_y);
                     globalDomain.setGrid_ZDimension(dimension_z);
+                    var xyDim = dimension_x*dimension_y;
                     //document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Start generating grid for 3D structured points dataset.";
+                    console.log("Load Text Content: Start generating grid for 3D rectlinear points dataset.");
+
                     for (var x = 0; x < dimension_x; x++) {
                       for (var y = 0; y < dimension_y; y++) {
                         for (var z = 0; z < dimension_z; z++) {
                           var tmpX = xCoordinatesArray[x];
                           var tmpY = yCoordinatesArray[y];
                           var tmpZ = zCoordinatesArray[z];
+
                           var newPoint = new THREE.Vector3(tmpX, tmpY, tmpZ);
-                          globalDomain.insertGridPoint(newPoint, pointIndex);
+                          var index = x+y*dimension_x+z*xyDim;
+
+                          globalDomain.insertGridPoint(newPoint, index);
                         }
                       }
                     }
@@ -632,6 +662,7 @@ function vtk_reader(content) {
                   case "SCALARS":
                     valueType = 1;
                     //document.getElementById("id_currentProcessText").innerHTML = "Load Text Content:Start loading field values of the type SCALARS.";
+                    console.log("Load Text Content:Start loading field values of the type SCALARS.");
                     counter=-5;
                   break;
                   case "COLOR_SCALARS":
@@ -713,11 +744,12 @@ function vtk_reader(content) {
                       }
                       else{
                         if(!globalDomain.addNewField(tmpValueArray, isCellData)){
-                          console.log("Algorithm was not able to loading the field values of the type SCALARS.");
                           //document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Algorithm was not able to loading the field values of the type SCALARS.";
+                          console.log("Load Text Content: Algorithm was not able to loading the field values of the type SCALARS.");
                         }
                         else{
                           //document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Finished loading field values of the type SCALARS.";
+                          console.log("Load Text Content: Finished loading field values of the type SCALARS.");
                         }
                         counter=0;
                         nextLoadfieldValues=false;
@@ -733,6 +765,7 @@ function vtk_reader(content) {
           }
           /////////////////////////////////////////////////////////
           if(nextLoadPoints){
+            console.log(tmpSubstring);
             openAlert("Sorry, there is a bug at the vtk loader algorithm. The loader was not able to load the grid points.");
             return;
           }
@@ -744,38 +777,46 @@ function vtk_reader(content) {
           }
           /////////////////////////////////////////////////////////
           if (nextDataset) {
+
             switch (tmpSubstring) {
               case "STRUCTURED_POINTS":
                 datasetType = 1;
                 //document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Found DATASET Format: STRUCTURED_POINTS";
+                console.log("Load Text Content: Found DATASET Format: STRUCTURED_POINTS");
                 openAlert("Sorry, the ccc-tool did not support STRUCTURED_POINTS datasets.");
                 return;
                 break;
               case "STRUCTURED_GRID":
                 datasetType = 2;
                 //document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Found DATASET Format: STRUCTURED_GRID";
+                console.log("Load Text Content: Found DATASET Format: STRUCTURED_GRID");
                 break;
               case "UNSTRUCTURED_GRID":
                 datasetType = 3;
                 //document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Found DATASET Format: UNSTRUCTURED_GRID";
+                console.log("Load Text Content: Found DATASET Format: UNSTRUCTURED_GRID");
                 break;
               case "POLYDATA":
                 datasetType = 4;
                 //document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Found DATASET Format: POLYDATA";
+                console.log("Load Text Content: Found DATASET Format: POLYDATA");
                 openAlert("Sorry, the ccc-tool did not support POLYDATA datasets.");
                 return;
                 break;
               case "RECTILINEAR_GRID":
                 datasetType = 5;
                 //document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Found DATASET Format: RECTILINEAR_GRID";
+                console.log("Load Text Content: Found DATASET Format: RECTILINEAR_GRID");
                 break;
               case "FIELD":
                 datasetType = 6;
                 //document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Found DATASET Format: FIELD";
+                console.log("Load Text Content: Found DATASET Format: FIELD");
                 openAlert("Sorry, the ccc-tool did not support FIELD datasets.");
                 return;
                 break;
               default:
+              console.log(tmpSubstring);
                 openAlert("Sorry, the vtk file is maybe not correct. The DATASET " + tmpSubstring + " is unknown or can't be handled by the loader algorithm.");
                 return;
             }
@@ -792,6 +833,7 @@ function vtk_reader(content) {
                   nextDimension=false;
                   foundDimension = true;
                   //document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Found 2D Dimension: X = "+dimension_x+", Y = "+dimension_y+".";
+                  console.log("Load Text Content: Found 2D Dimension: X = "+dimension_x+", Y = "+dimension_y+".");
                 break;
               default:
               openAlert("Sorry, the vtk loader was not able to load the vtk file. There was an error at the code part to indentify the dimension. Please inform us about this error!");
@@ -814,6 +856,7 @@ function vtk_reader(content) {
                     else{
                       is3D = false;
                       //document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Found 2D Origin: X = "+origin_x+", Y = "+origin_y+".";
+                      console.log("Load Text Content: Found 2D Origin: X = "+origin_x+", Y = "+origin_y+".");
                       originFound = true;
                       if (spacingFound) {
                           numberPoints = dimension_x * dimension_y;
@@ -822,12 +865,14 @@ function vtk_reader(content) {
                           globalDomain.setGrid_YDimension(dimension_y);
                           globalDomain.setGrid_ZDimension(1);
                           //document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Start generating grid for 3D structured points dataset.";
+                          console.log("Load Text Content: Start generating grid for 3D structured points dataset.");
                           for (var x = 0; x < dimension_x; x++) {
                             for (var y = 0; y < dimension_y; y++) {
                               var tmpX = origin_x + (spacing_x * x);
                               var tmpY = origin_y + (spacing_y * y);
                               var newPoint = new THREE.Vector3(tmpX, tmpY, 0.0);
-                              globalDomain.insertGridPoint(newPoint, pointIndex);
+                              var index = x+y*dimension_y;
+                              globalDomain.insertGridPoint(newPoint,index );
                             }
                           }
                           loadedGrid = true;
@@ -854,6 +899,7 @@ function vtk_reader(content) {
                     else{
                       is3D = false;
                       //document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Found 2D Spacing: X = "+spacing_x+", Y = "+spacing_y+".";
+                      console.log("Load Text Content: Found 2D Spacing: X = "+spacing_x+", Y = "+spacing_y+".");
                       originFound = true;
                       if (spacingFound) {
                           numberPoints = dimension_x * dimension_y;
@@ -862,12 +908,14 @@ function vtk_reader(content) {
                           globalDomain.setGrid_YDimension(dimension_y);
                           globalDomain.setGrid_ZDimension(1);
                           //document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Start generating grid for 3D structured points dataset.";
+                          console.log("Load Text Content: Start generating grid for 3D structured points dataset.");
                           for (var x = 0; x < dimension_x; x++) {
                             for (var y = 0; y < dimension_y; y++) {
                               var tmpX = origin_x + (spacing_x * x);
                               var tmpY = origin_y + (spacing_y * y);
                               var newPoint = new THREE.Vector3(tmpX, tmpY, 0.0);
-                              globalDomain.insertGridPoint(newPoint, pointIndex);
+                              var index = x+y*dimension_y;
+                              globalDomain.insertGridPoint(newPoint, index);
                             }
                           }
                           loadedGrid = true;
@@ -957,6 +1005,7 @@ function vtk_reader(content) {
               case "BINARY":
                 isASCII = false;
                 //document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Found File Format: BINARY.";
+                console.log("Load Text Content: Found File Format: BINARY.");
                 foundFileFormat = true;
                 openAlert("Sorry, the current version of the vtk loader algorithm is not albe to read binary data.");
                 return;
@@ -964,6 +1013,7 @@ function vtk_reader(content) {
               case "ASCII":
                 isASCII = true;
                 //document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Found File Format: ASCII.";
+                console.log("Load Text Content: Found File Format: ASCII.");
                 foundFileFormat = true;
                 break;
               case "DATASET":
@@ -1008,64 +1058,103 @@ function vtk_reader(content) {
 
           }
         }
+
+
+
         break;
 
       default:
 
-        if (isNum) {
-          //
-          switch (content[i]) {
-            case "0":
-              break;
-            case "1":
-              break;
-            case "2":
-              break;
-            case "3":
-              break;
-            case "4":
-              break;
-            case "5":
-              break;
-            case "6":
-              break;
-            case "7":
-              break;
-            case "8":
-              break;
-            case "9":
-              break;
-            case ".":
-              if (pointIsSet == true) {
-                isNum = false;
-              } else {
-                pointIsSet = true;
-              }
-              break;
-            case "-":
-              if (i != 0) {
-                isNum = false;
-              }
-              break;
-            default:
-              isNum = false;
+        if(foundCharE){
 
-          }
+            if(content[i]!="-")
+            isNum = false;
+
+
+            foundCharE=false;
+        }
+
+        if (isNum) {
+
+
+            switch (content[i]) {
+              case "0":
+                break;
+              case "1":
+                break;
+              case "2":
+                break;
+              case "3":
+                break;
+              case "4":
+                break;
+              case "5":
+                break;
+              case "6":
+                break;
+              case "7":
+                break;
+              case "8":
+                break;
+              case "9":
+                break;
+              case ".":
+                if (pointIsSet == true) {
+                  isNum = false;
+                } else {
+                  pointIsSet = true;
+                }
+                break;
+              case "-":
+                if (foundMinus) {
+                  isNum = false;
+                }
+                else{
+                  foundMinus=true;
+                }
+                break;
+              case "e":
+
+              if(alreadyFoundE){
+                isNum = false;
+              }
+              else{
+                alreadyFoundE=true;
+                foundCharE=true;
+                foundMinus=false;
+              }
+                break;
+              default:
+                isNum = false;
+
+            }
+
+
         }
         substring = substring + content[i];
 
     }
   }
-  /*document.getElementById("id_processBar").style.width = phase1+"%";
+
+
+  if(globalDomain.getNumberOfFields()==0){
+    openAlert("Sorry, the algorithm was not able to find a useable field.");
+    return;
+  }
+
+  //document.getElementById("id_processBar").style.width = phase1+"%";
   //document.getElementById("id_currentProcessText").innerHTML = "Generate Cells";
+  console.log("Generate Cells");
   //document.getElementById("id_currentProcessText").innerHTML = "Number of generated Cells = "+ globalDomain.generateCells(0,0);
-  document.getElementById("id_processBar").style.width = (phase1+phase2)+"%";*/
+  //document.getElementById("id_processBar").style.width = (phase1+phase2)+"%";
   console.log("Number of generated Cells = "+ globalDomain.generateCells(0,0));
+
 
   //initMapping();
   //animateMapping();
 
   //document.getElementById("id_currentProcessText").innerHTML = "Start Rendering of Color Mapping";
+  console.log("Start Color Mapping");
   drawMapping();
   //document.getElementById("id_processBar").style.width = "100%";
 }

@@ -17,60 +17,75 @@ function drawMapping() {
   switch (type) {
     case 1: // 1. Rectangle
 
+
+      // Test
+
+      /*var ttt = globalDomain.getPointArray();
+      var vertices=[];
+      var colors=[];
+      var color = new THREE.Color();
+
+      for (var i = 0; i < ttt.length; i++) {
+        vertices.push( ttt[ i ].x, ttt[ i ].y, ttt[ i ].z );
+        color.setHSL( 0.6, 1.0, Math.max( 0, ( 200 - ttt[ i ].x ) / 400 ) * 0.5 + 0.5 );
+        colors.push( color.r, color.g, color.b );
+      }
+
+
+
+      var geometry = new THREE.BufferGeometry();
+      geometry.addAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
+      geometry.addAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3 ) );
+
+      var	material = new THREE.LineBasicMaterial( { color: 0xffffff, vertexColors: THREE.VertexColors } );
+
+      var lines = new THREE.Line( geometry, material, THREE.LineStrip );
+
+      mapping_scene.add(lines);
+
+
+      return;//*/
+
       /// new version
 
       var geometry = new THREE.Geometry();
       geometry.vertices = globalDomain.getPointArray();
+
       var facesArray = new Array(globalDomain.getNumberOfCells()*2);
-      var pointValues = true;
 
-      if (globalDomain.getCell(0).getIndicesLength() != 4) {
-        console.log("Error");
-        return;
-      }
-
-      if (globalDomain.getCell(0).getCellValueSize() == 1) {
-        pointValues=false;
-      }
 
       for (var index = 0; index < globalDomain.getNumberOfCells(); index++) {
 
-        var value;
-        if(pointValues){
-          value = (globalDomain.getCell(index).getCellValue(0)+
-                  globalDomain.getCell(index).getCellValue(1)+
-                  globalDomain.getCell(index).getCellValue(2)+
-                  globalDomain.getCell(index).getCellValue(3))/4;
-        }
-        else
-          value= globalDomain.getCell(index).getCellValue(0);
+        var value= globalDomain.getCell(index).getCellValue();
 
-        var toolColor = globalCMS1.calculateColor(globalDomain.getCell(index).getCellValue(0), colorspaceModus);
+        var toolColor = globalCMS1.calculateColor(globalDomain.getCell(index).getCellValue(), colorspaceModus);
 
         facesArray[index * 2 + 0] = new THREE.Face3( globalDomain.getCell(index).getCellIndex(0), globalDomain.getCell(index).getCellIndex(1),globalDomain.getCell(index).getCellIndex(2));
         facesArray[index * 2 + 0].color.setRGB( toolColor.getRValue(),toolColor.getGValue(),toolColor.getBValue());
         facesArray[index * 2 + 1] = new THREE.Face3( globalDomain.getCell(index).getCellIndex(0), globalDomain.getCell(index).getCellIndex(2),globalDomain.getCell(index).getCellIndex(3));
         facesArray[index * 2 + 1].color.setRGB( toolColor.getRValue(),toolColor.getGValue(),toolColor.getBValue());
-
       }
 
       geometry.faces=facesArray;
 
-      /*geometry.computeFaceNormals();
-      geometry.computeVertexNormals();*/
+      geometry.computeFaceNormals();
+      //geometry.computeVertexNormals();*/
+
+
       geometry.computeBoundingBox ();
 
       var largestDis = Math.hypot(geometry.boundingBox.size().x,geometry.boundingBox.size().y,geometry.boundingBox.size().z);
 
-      mapping_Translation_X = -1*geometry.boundingBox.size().x/2;
-      mapping_Translation_Y = -1*geometry.boundingBox.size().y/2;
+      var center = geometry.boundingBox.getCenter()
 
-      mapping_maxRadius = largestDis;
-      mapping_zoomFactor = largestDis / 100;
+
+      mapping_minRadius = largestDis*0.01;
+      mapping_maxRadius = largestDis*2;
+      mapping_zoomFactor = largestDis / 50;
 
       mapping_camera.position.z = mapping_maxRadius/2;
 
-      mapping_camera.far = largestDis*2;
+      mapping_camera.far = mapping_maxRadius*2;
       mapping_camera.updateProjectionMatrix();
 
       var material = new THREE.MeshLambertMaterial( {
@@ -85,33 +100,37 @@ function drawMapping() {
 
       mappingMesh = new THREE.Mesh(geometry, material);
 
-      mapping_scene.add(mappingMesh);
+      mappingMesh.position.x += currentOriginX-center.x;
+      mappingMesh.position.y += currentOriginY-center.y;
+      mappingMesh.position.z += -1*center.z;
 
 
       //// update arrow
 
-      /*for (var i = coordinateArrowsGroup.children.length - 1; i >= 0; i--) {
+      for (var i = coordinateArrowsGroup.children.length - 1; i >= 0; i--) {
         coordinateArrowsGroup.remove(coordinateArrowsGroup.children[i]);
       }
 
+      coordinateArrowsGroup.add(mappingMesh);
+
       var from = new THREE.Vector3( 0, 0, 0 );
-      var to = new THREE.Vector3( largestDis, 0, 0 );
+      var to = new THREE.Vector3( geometry.boundingBox.size().x, 0, 0 );
       var direction = to.clone().sub(from);
       var length = direction.length();
       var arrowXCoord = new THREE.ArrowHelper(direction.normalize(), from, length, 0x0000ff );
       coordinateArrowsGroup.add( arrowXCoord );
 
-      to = new THREE.Vector3( 0, largestDis,  0 );
+      to = new THREE.Vector3( 0, geometry.boundingBox.size().y,  0 );
       direction = to.clone().sub(from);
       length = direction.length();
       var arrowYCoord = new THREE.ArrowHelper(direction.normalize(), from, length, 0xff0000 );
       coordinateArrowsGroup.add( arrowYCoord );
 
-      to = new THREE.Vector3( 0, 0, largestDis );
+      to = new THREE.Vector3( 0, 0, geometry.boundingBox.size().z );
       direction = to.clone().sub(from);
       length = direction.length();
       var arrowZCoord = new THREE.ArrowHelper(direction.normalize(), from, length, 0x00ff00 );
-      coordinateArrowsGroup.add( arrowZCoord );*/
+      coordinateArrowsGroup.add( arrowZCoord );
 
       break;
     case 2: // 2. Triangle
@@ -141,16 +160,6 @@ function updateMesh() {
   if(globalDomain==undefined || mappingMesh==undefined)
   return;
 
-  var pointValues = true;
-
-  if (globalDomain.getCell(0).getIndicesLength() != 4) {
-    console.log("Error");
-    return;
-  }
-
-  if (globalDomain.getCell(0).getCellValueSize() == 1) {
-    pointValues=false;
-  }
 
 
   ///////////////
@@ -172,6 +181,7 @@ function updateMesh() {
       var tmpkey2CVal1 = [];
       var tmpkey2CVal2 = [];
       var tmpkey2CVal3 = [];
+      var tmpMoT = [];
 
       for (var i = 0; i < globalCMS1.getKeyLength()-1; i++) {
 
@@ -200,6 +210,8 @@ function updateMesh() {
           tmpkey2CVal2.push(undefined);
           tmpkey2CVal3.push(undefined);
         }
+
+        tmpMoT.push(globalCMS1.getKey(i).getMoT());
       }
       tmpRefVal.push(globalCMS1.getKey(globalCMS1.getKeyLength()-1).getRefPosition());
 
@@ -214,6 +226,7 @@ function updateMesh() {
         workerJSON[i].key2cVal1=tmpkey2CVal1;
         workerJSON[i].key2cVal2=tmpkey2CVal2;
         workerJSON[i].key2cVal3=tmpkey2CVal3;
+        workerJSON[i].MoT = tmpMoT;
         workerJSON[i].din99_kE = din99_kE;
         workerJSON[i].din99_kCH = din99_kCH;
         workerJSON[i].cielab_ref_X = cielab_ref_X;
@@ -251,18 +264,9 @@ function updateMesh() {
 
     for (var index = 0; index < globalDomain.getNumberOfCells(); index++) {
 
-      var value;
+      var value= globalDomain.getCell(index).getCellValue();
 
-      if(pointValues){
-        value = (globalDomain.getCell(index).getCellValue(0)+
-                globalDomain.getCell(index).getCellValue(1)+
-                globalDomain.getCell(index).getCellValue(2)+
-                globalDomain.getCell(index).getCellValue(3))/4;
-      }
-      else
-        value= globalDomain.getCell(index).getCellValue(0);
-
-      var toolColor = globalCMS1.calculateColor(globalDomain.getCell(index).getCellValue(0), colorspaceModus);
+      var toolColor = globalCMS1.calculateColor(globalDomain.getCell(index).getCellValue(), colorspaceModus);
 
       mappingMesh.geometry.faces[index * 2 + 0].color.setRGB( toolColor.getRValue(),toolColor.getGValue(),toolColor.getBValue());
       mappingMesh.geometry.faces[index * 2 + 1].color.setRGB( toolColor.getRValue(),toolColor.getGValue(),toolColor.getBValue());
@@ -284,17 +288,6 @@ function workerPreparation(){
    var numberOfCellsPerWorker= Math.floor(globalDomain.getNumberOfCells()/numWorkers);
    var rest = globalDomain.getNumberOfCells()%numWorkers;
 
-   var pointValues = true;
-
-   if (globalDomain.getCell(0).getIndicesLength() != 4) {
-     console.log("Error");
-     return;
-   }
-
-   if (globalDomain.getCell(0).getCellValueSize() == 1) {
-     pointValues=false;
-   }
-
    var currentIndex=0;
    for (var i = 0; i < numWorkers; i++) {
      var jsonObj = {};
@@ -310,6 +303,7 @@ function workerPreparation(){
      jsonObj['key2cVal1'] = [];
      jsonObj['key2cVal2'] = [];
      jsonObj['key2cVal3'] = [];
+     jsonObj['MoT'] = [];
 
      jsonObj['din99_kE'] = din99_kE;
      jsonObj['din99_kCH'] = din99_kCH;
@@ -324,21 +318,11 @@ function workerPreparation(){
      }
 
 
-     if(pointValues){
-      for (var j = 0; j < numberOfCellsPerWorker; j++) {
-         jsonObj.cellValues.push((globalDomain.getCell(currentIndex).getCellValue(0)+
-                 globalDomain.getCell(currentIndex).getCellValue(1)+
-                 globalDomain.getCell(currentIndex).getCellValue(2)+
-                 globalDomain.getCell(currentIndex).getCellValue(3))/4);
-         currentIndex++;
-       }
-     }
-     else{
        for (var j = 0; j < numberOfCellsPerWorker; j++) {
-          jsonObj.cellValues.push(globalDomain.getCell(currentIndex).getCellValue(0));
+          jsonObj.cellValues.push(globalDomain.getCell(currentIndex).getCellValue());
           currentIndex++;
         }
-     }
+
 
      workerJSON.push(jsonObj)
    }

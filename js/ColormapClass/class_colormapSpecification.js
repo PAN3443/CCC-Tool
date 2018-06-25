@@ -25,11 +25,16 @@ class class_CMS {
 
   calculateColor(val, interpolationSpace){
 
-    if(val<this.keyArray[0].getRefPosition())
-    return this.NaN_RGB;
+    if(val<this.keyArray[0].getRefPosition()){
+      //console.log(val);
+      return this.NaN_RGB;
+    }
 
-    if(val>this.keyArray[this.keyArray.length-1].getRefPosition())
-    return this.NaN_RGB;
+
+    if(val>this.keyArray[this.keyArray.length-1].getRefPosition()){
+      //console.log(val);
+      return this.NaN_RGB;
+    }
 
     for (var i = 0; i < this.keyArray.length-1; i++) {
 
@@ -56,6 +61,10 @@ class class_CMS {
               var rValue = color1.get1Value()+(color2.get1Value() - color1.get1Value())*tmpRatio;
               var gValue = color1.get2Value()+(color2.get2Value() - color1.get2Value())*tmpRatio;
               var bValue = color1.get3Value()+(color2.get3Value() - color1.get3Value())*tmpRatio;
+
+              if(rValue==0 &&  gValue==0 && bValue==0) {
+                console.log(val);
+              }
 
             return new classColor_RGB(rValue,gValue,bValue);
           case "hsv":
@@ -104,6 +113,50 @@ class class_CMS {
           return this.NaN_RGB;
         }
 
+      }
+
+
+      if(val==this.keyArray[i].getRefPosition()){
+
+        var color;
+
+        if(i==0){
+          color = this.keyArray[i].getRightKeyColor(interpolationSpace);
+        }
+        else{
+          if(this.keyArray[i].getMoT()){
+            if(this.keyArray[i].getKeyType()==="left key"){
+              color = this.keyArray[i+1].getLeftKeyColor(interpolationSpace);
+            }
+            else{
+              color = this.keyArray[i].getRightKeyColor(interpolationSpace);
+            }
+          }
+          else{
+            color = this.keyArray[i].getLeftKeyColor(interpolationSpace);
+          }
+        }
+
+        switch (interpolationSpace) {
+          case "rgb":
+            return color;
+          default:
+           return color.calcRGBColor();
+        }
+      }
+
+
+
+    }
+
+    if(val==this.keyArray[this.keyArray.length-1].getRefPosition()){
+      var color = this.keyArray[this.keyArray.length-1].getLeftKeyColor(interpolationSpace);
+
+      switch (interpolationSpace) {
+        case "rgb":
+          return color;
+        default:
+         return color.calcRGBColor();
       }
     }
 
