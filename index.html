@@ -115,7 +115,6 @@
   <script src="js/Parser/jsonColormapParser.js"></script>
   <script src="js/Parser/csvColormapParser.js"></script>
 
-
   <!-- Mapping -->
   <script src="js/Visualization/visualization_globalVars.js"></script>
   <script src="js/Visualization/DataParser/events_loadData.js"></script>
@@ -126,7 +125,7 @@
   <script src="js/Visualization/Rendering/drawMapping.js"></script>
   <script src="js/Visualization/Rendering/rendering.js"></script>
   <script src="js/Visualization/VisWorker/mappingWorkerEvents.js"></script>
-
+  <script src="js/Visualization/mapping_events.js"></script>
 
   <!-- global -->
   <script src="js/bandsketch.js"></script>
@@ -253,7 +252,7 @@
       <!-- Linear Colormap and Table -->
       <div id="id_LinearMap_Table_Div" style="margin-left:2%; width:96%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:none; display:none;">
 
-          <div style="height:auto; width:100%; display: flex; flex-direction: column; z-index:20; background:white; box-shadow:  0.3vh  0.3vh grey;">
+          <div style="height:auto; width:100%; display: flex; flex-direction: column; z-index:20; box-shadow:  0.3vh  0.3vh grey;">
 
             <div class="row" style="height:auto; width:100%; margin:0px; background:url(img/background.png)">
 
@@ -262,7 +261,7 @@
 
             </div>
 
-            <div id="id_table_Div" style="height:auto; width:100%; display: flex; flex-direction: column; z-index:20; background:white;">
+            <div id="id_table_Div" style="height:auto; width:100%; background:white;">
               <h1 style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; padding-top:2vh; padding-bottom:2vh;">CMS Table</h1>
 
 
@@ -298,54 +297,172 @@
             </div>
 
 
-            <div id="id_mapping_Div" style="height:auto; width:100%; display: flex; flex-direction: column; z-index:20; background:white;">
+            <div id="id_mapping_Div" style="height:auto; width:100%; margin:0px; ">
 
-              <div class="row">
-                <button class="classButtonWhite"  onclick="startReadFile()" title="Load Data" style="border-radius: 0.5vh;  width: 25%; height:4vh; line-height:4vh; font-size:3vh; border: 0.2vh solid rgb(0,0,0); margin:2vh; margin-left:auto; margin-right:auto;"> Load Data </button>
-                <button class="classButtonWhite"  title="Create Test Function" style="border-radius: 0.5vh;  width: 25%; height:4vh; line-height:4vh; font-size:3vh; border: 0.2vh solid rgb(0,0,0); margin:2vh; margin-left:auto; margin-right:auto;"> Create Test-Function </button>
+              <div style="background:white;">
+                <p style="text-align:center; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; width:100%; font-weight:bold; margin:0px;">Start with:</p>
+                <div class="row">
+                  <button class="classButtonWhite"  onclick="startReadFile()" title="Load Data" style="border-radius: 0.5vh;  width: 25%; height:4vh; line-height:4vh; font-size:3vh; border: 0.2vh solid rgb(0,0,0); margin:2vh; margin-left:auto; margin-right:auto;"> Load Data </button>
+                  <button   title="Create Test Function" style="border-radius: 0.5vh;  width: 25%; height:4vh; line-height:4vh; font-size:3vh; border: 0.2vh solid rgb(125,125,125); color: rgb(125,125,125); margin:2vh; margin-left:auto; margin-right:auto;"> Create Test-Function </button>
+                </div>
               </div>
-              <hr>
+              <!------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+              <div id="colormappingOptions_Container" style="display:none;  width:100%;">
+
+                <div id="showHideMappingOptionsText" onclick="showHideMappingContainer(0)" class="classButtonBlue" style="text-align:center; height:3vh; line-height:3vh; vertical-align:middle; width:100%; border:none; border-top: thin solid grey; border-bottom: thin solid grey;">
+                  Show Mapping Options &#8661;
+                </div>
+
+                <div id="showHideMappingOptions" style="display:none; width:100%; background:white; padding-top: 2vh;">
+                  <div class="row">
+
+                    <div style="width:50%; ">
+
+                        <p style="text-align:center; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; width:100%; font-weight:bold;">Domain:</p>
+
+
+                        <div class="row" style="margin-top:2vh; margin-bottom:2vh;">
+                          <p style="margin:0px; text-align:left; width:30%; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin-left:auto;">Field:</p>
+                          <select id="combobox_selectField" style=" margin-left:10%; margin-right:auto; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; width:20%; ">
+                          <option value="1">1</option>
+                          </select>
+                        </div>
+
+                        <div class="row" style="margin-bottom:2vh;">
+                          <p style="margin:0px; text-align:left; width:30%; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-left:auto;">Time Step:</p>
+                          <select id="combobox_selectTimeStep" style=" margin-left:10%; margin-right:auto; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; width:20%;">
+                          <option value="1">1</option>
+                          </select>
+                        </div>
+
+                        <div class="row" style="margin-bottom:2vh;">
+                          <p style="margin:0px; text-align:left; width:30%; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-left:auto;">Field Max Value:</p>
+                          <p id="id_fieldMaxValue" style="margin:0px; text-align:left; width:20%; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-left:10%; margin-right:auto;">/</p>
+                        </div>
+
+                        <div class="row" style="margin-bottom:2vh;">
+                          <p style="margin:0px; text-align:left; width:30%; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-left:auto;">Field Min Value:</p>
+                          <p id="id_fieldMinValue" style="margin:0px; text-align:left; width:20%; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-left:10%; margin-right:auto;">/</p>
+                        </div>
+
+                    </div>
+
+                    <!------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+
+                    <div style="width:50%;">
+
+                        <p style="text-align:center; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; width:100%; font-weight:bold;">Visualization:</p>
+
+                        <div class="row" style="width:100%; margin-top:2vh; margin-bottom:2vh;">
+                          <input id="mapping_checkMultiThread" type="checkbox" style="margin:0px; text-align:left; width:5%; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-left:auto;" name="multiThreadMapping" value="multiThread" checked>
+                          <p style="margin:0px; text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-left:10%; margin-right:auto; width:60%;">Parallel Processing (if supported)</p>
+                        </div>
+
+                        <div class="row" style="width:100%; margin-bottom:3vh;">
+                          <input id="mapping_checkAutoUpdate" type="checkbox" style="margin:0px; text-align:left; width:5%; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-left:auto;" name="autoUpdate" value="autoUpdate" checked>
+                          <p style="margin:0px; text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-left:10%; margin-right:auto; width:60%;">Auto-Update</p>
+                        </div>
+
+                        <button onclick="updateMesh()" class="classButtonWhite" title="Update Mesh" style="border-radius: 0.5vh; height:4vh; line-height:4vh; font-size:2.3vh; vertical-align:middle; border: 0.2vh solid rgb(0,0,0); margin-right:30%; margin-left:30%; margin-bottom:3vh; width:40%;"> Manual Update </button>
+
+                        <div class="row" style="width:100%; margin-bottom:3vh;">
+                          <input id="mapping_showAxes" type="checkbox" style="margin:0px; text-align:left; width:5%; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-left:auto;" name="autoUpdate" value="autoUpdate" checked>
+                          <p style="margin:0px; text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-left:10%; margin-right:auto; width:60%;">Show Axes</p>
+                        </div>
+                    </div>
+
+
+                    </div>
+                </div>
+
+              </div>
+
+              <!------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+
+              <div id="colormappingHistogram_Container" style="display:none; width:100%;">
+
+
+                <div id="showHideMappingHistogramText" onclick="showHideMappingContainer(1)" class="classButtonBlue" style="text-align:center; height:3vh; line-height:3vh; vertical-align:middle; width:100%; border:none; border-top: thin solid grey; border-bottom: thin solid grey;">
+                  Show Histogram &#8661;
+                </div>
+
+                <div id="showHideMappingHistogram" style="display:none; width:100%; background:white; padding-top: 2vh;">
+
+                <p style="text-align:center; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; width:100%; font-weight:bold;">Histogram:</p>
+
                 <div class="row">
 
-                  <p style="text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-left:5%;">Parallel Processing (if supported):</p>
-                  <input id="mapping_checkMultiThread" type="checkbox" style="text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin-left:2.5%;" name="multiThreadMapping" value="multiThread" checked>
-                  <p style="text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-left:auto;;">Auto-Update:</p>
-                  <input id="mapping_checkAutoUpdate" type="checkbox" style="text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin-left:2.5%; margin-right:2.5%;" name="multiThreadMapping" value="multiThread"> <br>
+                    <p style="margin:0px; text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-left:auto;"> # Hitoram-Ranges:</p>
+                    <input type="number" id="idNumberHistoRanges" value="100" style="margin-left:2.5%; height:2.5vh; line-height:2.5vh; font-size:2.3vh; vertical-align:middle;">
 
-                  <button onclick="updateMesh()" class="classButtonWhite"  onclick="startReadFile()" title="Load Data" style="border-radius: 0.5vh;  height:3vh; line-height:3vh; font-size:2.3vh; vertical-align:middle; border: 0.2vh solid rgb(0,0,0);  margin-right:5%; margin-left:5%;"> Manual Update </button>
-                </div>
-              <hr>
 
-              <div class="row">
-                <p style="text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-left:5%;">Size:</p>
-                <div onclick="updateMappingSize(1)" style=" background:white; border: 2px solid black; height:3vh; width:3vh; line-height:3vh; font-size:2.8vh; margin-left:2.5%; text-align:center; cursor:pointer;">
-                  -
-                </div>
-                <div onclick="updateMappingSize(0)" style=" background:white; border: 2px solid black; height:3vh; width:3vh; line-height:3vh; font-size:2.8vh;margin-left:2.5%; text-align:center; cursor:pointer;">
-                 +
-                </div>
+                    <p style=" margin:0px; text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-left:10%;"> Data-Set: </p>
+                    <input type="radio" name="selectHistoData" value="1" style="margin-left:2.5%;"> <p style=" margin:0px; text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-left:1.5%;"> Selected Time Step </p>
+                    <input type="radio" name="selectHistoData" value="2" style="margin-left:2.5%;" checked> <p style=" margin:0px; text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-left:1.5%; margin-right:auto;"> Full Field </p>
 
-                <p style="text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-left:auto;">Background:</p>
-                <div id="mappingBG1" onclick="backgroundMapping(0)" style=" background:white; border: 2px solid black; height:3vh; width:3vh;margin-left:2.5%; cursor:pointer;">
 
                 </div>
-                <div id="mappingBG2" onclick="backgroundMapping(1)" style=" background:grey; border: 2px solid black; height:3vh; width:3vh;margin-left:2.5%; cursor:pointer;">
 
-                </div>
-                <div id="mappingBG3" onclick="backgroundMapping(2)" style=" background:black; border: 2px solid black; height:3vh; width:3vh;margin-left:2.5%; margin-right:5%; cursor:pointer;">
+                <canvas style="margin-top: 2vh; width:100%; height: 50vh; margin-left:0%;" id="id_HistogramCanvas">
 
+                </canvas>
                 </div>
               </div>
 
-              <hr>
+              <!------------------------------------------------------------------------------------------------------------------------------------------------------------------->
 
-              <div id="mappingDiv" style="width:100%; height:30vh;" oncontextmenu="return false;">
+              <div id="colormappingVis_Container" style="display:none; width:100%;">
+
+                  <div id="showHideMappingVisualizationText" onclick="showHideMappingContainer(2)" class="classButtonBlue" style="text-align:center; height:3vh; line-height:3vh; vertical-align:middle; width:100%; border:none; border-top: thin solid grey; border-bottom: thin solid grey;">
+                    Hide Visualization &#8661;
+                  </div>
+
+                  <div id="showHideMappingVisualization" style="width:100%; background:white; padding-top: 2vh;">
+
+                  <div class="row" style="width:100%; margin-bottom:1vh;">
+                    <p style="text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-left:10%;">Size:</p>
+                    <div onclick="updateMappingSize(1)" style=" background:white; border: 2px solid black; height:3vh; width:3vh; line-height:3vh; font-size:2.8vh; margin-left:2.5%; text-align:center; cursor:pointer;">
+                      -
+                    </div>
+                    <div onclick="updateMappingSize(0)" style=" background:white; border: 2px solid black; height:3vh; width:3vh; line-height:3vh; font-size:2.8vh;margin-left:2.5%; text-align:center; cursor:pointer;">
+                     +
+                    </div>
+
+                    <p style="text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-left:auto;">Background:</p>
+                    <div id="mappingBG1" onclick="backgroundMapping(0)" style=" background:white; border: 2px solid black; height:3vh; width:3vh;margin-left:2.5%; cursor:pointer;">
+
+                    </div>
+                    <div id="mappingBG2" onclick="backgroundMapping(1)" style=" background:grey; border: 2px solid black; height:3vh; width:3vh;margin-left:2.5%; cursor:pointer;">
+
+                    </div>
+                    <div id="mappingBG3" onclick="backgroundMapping(2)" style=" background:black; border: 2px solid black; height:3vh; width:3vh;margin-left:2.5%; margin-right:10%; cursor:pointer;">
+
+                    </div>
+
+                  </div>
+
+
+                  <div id="mappingDiv" style="width:100%; height:30vh;" oncontextmenu="return false;">
+
+                  </div>
+
+                  <div id="mappingProcessBackground" style=" background:black; width:100%; height:2vh;" oncontextmenu="return false;">
+                    <div id="id_ProcessbarContainer"  style="width:100%;">
+                      <div class="row" style="width:100%;">
+                        <p id="mappingProcessText" style="  text-align:left; height:2vh; line-height:2vh; font-size:1.8vh; vertical-align:middle; margin:0px; margin-left:5%; width:5%; color:white;">Process:</p>
+                        <progress id="mappingProcessBar" style=" background:grey; height:1vh; margin-top:0.5vh; margin-left:2.5%; width:82.5%; border-radius: 0.5vh;" value="0" max="100">
+                        </progress>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
               </div>
-            </div>
+              </div>
 
 
           </div>
+
 
           <div style="height:auto; width:100%; display: flex; flex-direction: column; z-index:20; background:white; margin-top:4vh; padding-bottom:4vh; box-shadow:  0.3vh  0.3vh grey;">
 
@@ -354,7 +471,7 @@
             <canvas style="margin-top: 0px; width:100%; height: 6vh; margin-left:0%; " id="id_keyColormap">
 
                                     </canvas>
-            <canvas style="margin-top: 0px; width:95%; height: 8vh; margin-left:2.5%; margin-bottom:0px; border: 2px solid black;" id="id_linearColormap">
+            <canvas style="margin-top: 0px; width:95%; height: 8vh; margin-left:2.5%; margin-bottom:0px; border: thin solid black;" id="id_linearColormap">
 
                                     </canvas>
             <canvas style="margin-top: 0px; width:100%; height: 2vh; margin-left:0%;" id="id_keyColormapLinesBottom">

@@ -66,7 +66,7 @@ function drawBandSketch(cms,sketchObjectID, sketchKeyID, sketchRefID, withInputF
   }
   else{
 
-    canvasObject.style.border = "2px solid black";
+    canvasObject.style.border = "thin solid black";
 
     if(withInputFields){
       dropRects = [];

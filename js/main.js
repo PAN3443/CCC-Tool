@@ -103,6 +103,7 @@ window.onload = function() {
   tmpMap  = xmlColormapParserPath(colormapPath);
   drawCanvasColormap("canvasPreviewComplexFour", existingMap_resolution_X, existingMap_resolution_Y, tmpMap);
 
+
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Edit Side /////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -161,6 +162,33 @@ window.onload = function() {
 
   document.getElementById('editSide_Radiobutton_MiddleOfTripleColor1').addEventListener("change", motChange);
   document.getElementById('editSide_Radiobutton_MiddleOfTripleColor2').addEventListener("change", motChange);
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////// Create Side  Mapping/////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  document.getElementById('showHideMappingOptionsText').style.background = styleActiveColor;
+  document.getElementById('showHideMappingHistogramText').style.background = styleActiveColor;
+  document.getElementById('showHideMappingVisualizationText').style.background = styleActiveColor;
+
+
+  //document.getElementById("mappingProcessBar").style.background=styleActiveColor;
+  document.getElementById("mappingProcessBar").style.color=styleActiveColor;
+
+
+
+  if(browserCanWorker){
+    document.getElementById('mapping_checkMultiThread').checked = true;
+  }
+  else{
+    document.getElementById('mapping_checkMultiThread').checked = false;
+    document.getElementById('mapping_checkMultiThread').disabled = true;
+  }
+
+  document.getElementById('mapping_checkAutoUpdate').addEventListener("change", changeAutoUpdate);
+  document.getElementById('mapping_showAxes').addEventListener("change", changeAxisVisibility);
+
+
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Create Side /////////////////////////////////////
@@ -408,6 +436,7 @@ window.onload = function() {
 
 
   initMapping();
+  backgroundMapping(0);
 
 
 

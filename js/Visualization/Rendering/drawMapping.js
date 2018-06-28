@@ -117,20 +117,26 @@ function drawMapping() {
       var to = new THREE.Vector3( geometry.boundingBox.size().x, 0, 0 );
       var direction = to.clone().sub(from);
       var length = direction.length();
-      var arrowXCoord = new THREE.ArrowHelper(direction.normalize(), from, length, 0x0000ff );
-      coordinateArrowsGroup.add( arrowXCoord );
+      var arrowXAxis = new THREE.ArrowHelper(direction.normalize(), from, length, 0x0000ff );
+      if(document.getElementById('mapping_showAxes').checked==false)
+        arrowXAxis.visible=false;
+      coordinateArrowsGroup.add( arrowXAxis );
 
       to = new THREE.Vector3( 0, geometry.boundingBox.size().y,  0 );
       direction = to.clone().sub(from);
       length = direction.length();
-      var arrowYCoord = new THREE.ArrowHelper(direction.normalize(), from, length, 0xff0000 );
-      coordinateArrowsGroup.add( arrowYCoord );
+      var arrowYAxis = new THREE.ArrowHelper(direction.normalize(), from, length, 0xff0000 );
+      if(document.getElementById('mapping_showAxes').checked==false)
+        arrowYAxis.visible=false;
+      coordinateArrowsGroup.add( arrowYAxis );
 
       to = new THREE.Vector3( 0, 0, geometry.boundingBox.size().z );
       direction = to.clone().sub(from);
       length = direction.length();
-      var arrowZCoord = new THREE.ArrowHelper(direction.normalize(), from, length, 0x00ff00 );
-      coordinateArrowsGroup.add( arrowZCoord );
+      var arrowZAxis = new THREE.ArrowHelper(direction.normalize(), from, length, 0x00ff00 );
+      if(document.getElementById('mapping_showAxes').checked==false)
+        arrowZAxis.visible=false;
+      coordinateArrowsGroup.add( arrowZAxis );
 
       break;
     case 2: // 2. Triangle
@@ -279,6 +285,9 @@ function updateMesh() {
   }
 
 
+  if(document.getElementById("showHideMappingHistogram").style.display!="none"){
+      drawHistogram();
+  }
 }
 
 

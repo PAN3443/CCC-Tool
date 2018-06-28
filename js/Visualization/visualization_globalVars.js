@@ -1,8 +1,9 @@
-
+var domainContent;
+var fileType=0; // 0=vtk;
 
 var globalDomain;
 
-var mappingContainerHeight=30;
+var mappingContainerHeight=50;
 
 ////////// rendering
 

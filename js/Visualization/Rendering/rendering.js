@@ -1,4 +1,17 @@
 
+function changeAxisVisibility(){
+
+  var tmpVisibility = false;
+  if(document.getElementById('mapping_showAxes').checked){
+    tmpVisibility=true;
+  }
+
+  for (var i = 0; i < coordinateArrowsGroup.children.length; i++) {
+    if (coordinateArrowsGroup.children[i] instanceof THREE.ArrowHelper) {
+        coordinateArrowsGroup.children[i].visible = tmpVisibility;
+    }
+  }
+}
 
 function backgroundMapping(type){
 
@@ -12,14 +25,31 @@ function backgroundMapping(type){
     case 0:
       mapping_scene.background = new THREE.Color( 0xffffff );
       document.getElementById("mappingBG1").style.borderColor=styleActiveColor;
+
+
+      //document.getElementById("mappingProcessBackground").style.borderTop="1px solid rgb(85,85,85)";
+      document.getElementById("mappingProcessBackground").style.background="rgb(255,255,255)";
+      document.getElementById("mappingProcessText").style.color="rgb(85,85,85)";
+      document.getElementById("mappingProcessBar").style.background="rgb(85,85,85)";
+
       break;
       case 1:
-        mapping_scene.background = new THREE.Color( 0x878787 );
+        mapping_scene.background = new THREE.Color( 0x7d7d7d );
         document.getElementById("mappingBG2").style.borderColor=styleActiveColor;
+
+        //document.getElementById("mappingProcessBackground").style.borderTop="1px solid rgb(255,255,255)";
+        document.getElementById("mappingProcessBackground").style.background="rgb(125,125,125)";
+        document.getElementById("mappingProcessText").style.color="rgb(255,255,255)";
+        document.getElementById("mappingProcessBar").style.background="rgb(255,255,255)";
         break;
         case 2:
           mapping_scene.background = new THREE.Color( 0x000000 );
           document.getElementById("mappingBG3").style.borderColor=styleActiveColor;
+
+          //document.getElementById("mappingProcessBackground").style.borderTop="1px solid rgb(170,170,170)";
+          document.getElementById("mappingProcessBackground").style.background="rgb(0,0,0)";
+          document.getElementById("mappingProcessText").style.color="rgb(170,170,170)";
+          document.getElementById("mappingProcessBar").style.background="rgb(170,170,170)";
           break;
     default:
     mapping_scene.background = new THREE.Color( 0x000000 );
@@ -37,11 +67,17 @@ function updateMappingSize(type)
   switch (type) {
     case 0:
         if(mappingContainerHeight<100)
-        mappingContainerHeight+=5;
+          mappingContainerHeight+=5;
+        else
+          return;
+
+
       break;
       case 1:
           if(mappingContainerHeight>30)
-          mappingContainerHeight-=5;
+            mappingContainerHeight-=5;
+          else
+            return;
         break;
     default:
 
@@ -68,6 +104,9 @@ function updateMappingSize(type)
 
   drawKeys("id_keyColormap", key_resolution_X, key_resolution_Y, globalCMS1, "id_keyColormapLinesBottom");
   drawBandSketch(globalCMS1,"id_colormapSketch","id_createColormapKeys","id_colormapSketch_Ref", false, -1);
+
+  // update the positions of the input fields
+  orderColorSketch(colorspaceModus);
 }
 
 function renderMapping() {
@@ -150,21 +189,28 @@ function initMapping()
   var to = new THREE.Vector3( 100, 0, 0 );
   var direction = to.clone().sub(from);
   var length = direction.length();
-  var arrowXCoord = new THREE.ArrowHelper(direction.normalize(), from, length, 0x0000ff );
-  coordinateArrowsGroup.add( arrowXCoord );
+  var arrowXAxis= new THREE.ArrowHelper(direction.normalize(), from, length, 0x0000ff );
+  if(document.getElementById('mapping_showAxes').checked==false)
+    arrowXAxis.visible=false;
+  coordinateArrowsGroup.add( arrowXAxis);
 
   to = new THREE.Vector3( 0, 100,  0 );
   direction = to.clone().sub(from);
   length = direction.length();
-  var arrowYCoord = new THREE.ArrowHelper(direction.normalize(), from, length, 0xff0000 );
-  coordinateArrowsGroup.add( arrowYCoord );
+  var arrowYAxis= new THREE.ArrowHelper(direction.normalize(), from, length, 0xff0000 );
+  if(document.getElementById('mapping_showAxes').checked==false)
+    arrowYAxis.visible=false;
+  coordinateArrowsGroup.add( arrowYAxis);
 
   to = new THREE.Vector3( 0, 0, 100 );
   direction = to.clone().sub(from);
   length = direction.length();
-  var arrowZCoord = new THREE.ArrowHelper(direction.normalize(), from, length, 0x00ff00 );
-  coordinateArrowsGroup.add( arrowZCoord );
+  var arrowZAxis= new THREE.ArrowHelper(direction.normalize(), from, length, 0x00ff00 );
+  if(document.getElementById('mapping_showAxes').checked==false)
+    arrowZAxis.visible=false;
+  coordinateArrowsGroup.add( arrowZAxis);
   ////////////////////////////////////////////////////////////////////////////////
+
 
   /*mapping_cameraLight = new THREE.PointLight( 0xffffff,1 );
   mapping_cameraLight.position.set( 0, 0, mapping_maxRadius/2 );
@@ -186,6 +232,7 @@ function initMapping()
   canvasObj.appendChild( mapping_renderer.domElement );
   //stats = new Stats();
 	//canvasObj.appendChild( stats.dom );
+
 
 }
 

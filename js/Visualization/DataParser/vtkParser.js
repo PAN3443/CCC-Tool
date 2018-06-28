@@ -1,4 +1,7 @@
+
 function vtk_reader(content) {
+
+
 
   /*var vtkline = content.replace("\n", ";");
   vtkline = vtkline.replace(" ",";");
@@ -100,29 +103,30 @@ function vtk_reader(content) {
   var nextLoadfieldValues=false; // cell data, point data
 
   // 60% == content
-  var phase1 = 60;
+  var phase1 = 50;
   // 10% == cellgeneration
-  var phase2 = 10;
+  var phase2 = 15;
   // 30% ==
-  var phase3 = 30;
+  var phase3 = 25;
 
-  /*var steps = Math.round(content.length/100);
-  var stepcounter=0;*/
+  var steps = Math.round(content.length/50);
+  var stepcounter=0;
 
 /*  //document.getElementById("id_currentProcessText").innerHTML = "Load Text Content";
   document.getElementById("id_processBar").style.width = "0px";*/
 
+  var barElement =  document.getElementById("mappingProcessBar");
+
   for (var i = 0; i < content.length; i++) {
 
-    /*if(stepcounter==steps){
-      var status = i/content.length*phase1;
-      //document.getElementById("id_processBar").style.width = status+"%";
+    if(stepcounter==steps){
+      var status = Math.round(i/content.length*phase1)+10;
+      updateProgressBar(status);
       stepcounter=0;
-
     }
     else {
       stepcounter++;
-    }*/
+    }
 
     switch (content[i]) {
       case " ":
@@ -167,13 +171,13 @@ function vtk_reader(content) {
               case -1: // just got the information of cell or point data
                 if(tmpPointIsSet){
                   openAlert("Error. The loader algorithm was not able to load the number of field values. The algorithm found a float number instead of an integer.");
-                  return;
+                  return false;
                 }
                 numberFieldValues = parseFloat(tmpSubstring);
 
                 if(dimension_z<1){
                   openAlert("Error. The loader algorithm was not able to load the number of field values. The algorithm found a value less than 1!");
-                  return;
+                  return false;
                 }
                 //document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Start loading of "  +numberFieldValues+ " SCALAR field values.";
                 console.log("Load Text Content: Start loading of "  +numberFieldValues+ " SCALAR field values.");
@@ -189,7 +193,7 @@ function vtk_reader(content) {
                     case -5: case -4: case -2: case -1:
                       //console.log("Error at the field value loader part for SCALAR FIELDS. This should be a text part, but the algorithm found a number.");
                       nextLoadfieldValues=false;
-                      return;
+                      return false;
                       break;
                     case -3:
                       var numComp = parseFloat(tmpSubstring);
@@ -273,7 +277,7 @@ function vtk_reader(content) {
           /////////////////////////////////////////////////////////
           if (nextDataset) {
             openAlert("Sorry, the vtk file is maybe not correct. The DATASET " + tmpSubstring + " is unknown or can't be handled by the loader algorithm.");
-            return;
+            return false;
           }
           /////////////////////////////////////////////////////////
           if (nextVersionNumber) {
@@ -288,12 +292,12 @@ function vtk_reader(content) {
             if(counter<3){
               if(tmpPointIsSet==true){
                 openAlert("Sorry, the vtk loader was not able to load the vtk file. There was an error at the code part to indentify the dimension. The dimension information was not an integer!");
-                return;
+                return false;
               }
 
               if(parseFloat(tmpSubstring)<1){
                 openAlert("Sorry, the vtk loader was not able to load the vtk file. There was an error at the code part to indentify the dimension. The dimension information is not allowed to be smaller than 1!");
-                return;
+                return false;
               }
 
             }
@@ -318,7 +322,7 @@ function vtk_reader(content) {
                     break;
               default:
               openAlert("Sorry, the vtk loader was not able to load the vtk file. There was an error at the code part to indentify the dimension. Please inform us about this error!");
-              return;
+              return false;
             }
             continue;
           }
@@ -341,7 +345,7 @@ function vtk_reader(content) {
                     nextOrigin=false;
                     if(is3D==false){
                       openAlert("Sorry, the vtk loader was not able to load the vtk file. The Dimension and the Orgin information are not compatible!");
-                      return;
+                      return false;
                     }
                     else{
                       is3D = true;
@@ -374,7 +378,7 @@ function vtk_reader(content) {
                     break;
               default:
               openAlert("Sorry, the vtk loader was not able to load the vtk file. There was an error at the code part to indentify the origin. Please inform us about this error!");
-              return;
+              return false;
             }
             continue;
           }
@@ -397,7 +401,7 @@ function vtk_reader(content) {
                     nextSpacing=false;
                     if(is3D==false){
                       openAlert("Sorry, the vtk loader was not able to load the vtk file. The Dimension and the Spacing information are not compatible!");
-                      return;
+                      return false;
                     }
                     else{
                       is3D = true;
@@ -430,7 +434,7 @@ function vtk_reader(content) {
                     break;
               default:
               openAlert("Sorry, the vtk loader was not able to load the vtk file. There was an error at the code part to indentify the spacing. Please inform us about this error!");
-              return;
+              return false;
             }
             continue;
           }
@@ -440,7 +444,7 @@ function vtk_reader(content) {
               case 0:
                 if(tmpPointIsSet==true){
                   openAlert("Sorry, the vtk loader was not able to load the vtk file. There was an error at the code part to indentify the grid points. The number of grid points is not an integer!");
-                  return;
+                  return false;
                 }
 
                 numberPoints=parseFloat(tmpSubstring);
@@ -449,7 +453,7 @@ function vtk_reader(content) {
                   case 1: //STRUCTURED_POINTS
                     if(numberPoints<1){
                       openAlert("Sorry, the vtk loader was not able to load the vtk file. There was an error at the code part to indentify the grid points. The number of grid points is not allowed to be smaller than 1!");
-                      return;
+                      return false;
                     }
                     break;
                   case 2: case 3: // STRUCTURED_GRID //UNSTRUCTURED_GRID
@@ -457,13 +461,13 @@ function vtk_reader(content) {
                     if(is3D){
                       if(numberPoints<8){
                         openAlert("Sorry, the vtk loader was not able to load the vtk file. There was an error at the code part to indentify the grid points. The number of grid points should be at least 8 points for a 3D STRUCTURED_GRID or UNSTRUCTURED_GRID!");
-                        return;
+                        return false;
                       }
                     }
                     else{
                       if(numberPoints<4){
                         openAlert("Sorry, the vtk loader was not able to load the vtk file. There was an error at the code part to indentify the grid points. The number of grid points should be at least 4 points for a 2D STRUCTURED_GRID or UNSTRUCTURED_GRID!");
-                        return;
+                        return false;
                       }
                     }
                     break;
@@ -472,14 +476,14 @@ function vtk_reader(content) {
                     break;
                   case 5: //RECTILINEAR_GRID
                     openAlert("Sorry, the vtk loader was not able to load the vtk file. There should not be grid point informations for rectlinear datasets.");
-                    return;
+                    return false;
                     break;
                   case 6: //FIELD
 
                     break;
                   default:
                     openAlert("Sorry, the vtk file is maybe not correct. The DATASET has to be defined before the grid point informations.");
-                    return;
+                    return false;
                 }
                 counter++;
                 break;
@@ -495,7 +499,7 @@ function vtk_reader(content) {
                 break;
               default:
                 openAlert("Sorry, there is a bug at the vtk loader algorithm. The loader was not able to get the grid point informations");
-                return;
+                return false;
 
             }
           }
@@ -505,13 +509,13 @@ function vtk_reader(content) {
               case -2:
               if(tmpPointIsSet){
                 openAlert("Error. The loader algorithm was not able to load the number of the x-coordinates. The algorithm found a float number instead of an integer.");
-                return;
+                return false;
               }
               dimension_x = parseFloat(tmpSubstring);
 
               if(dimension_x<1){
                 openAlert("Error. The loader algorithm was not able to load the number of the x-coordinates. The algorithm found a value less than 1!");
-                return;
+                return false;
               }
 
               xCoordinatesArray = new Array(dimension_x).fill(NaN);;
@@ -537,13 +541,13 @@ function vtk_reader(content) {
                 case -2:
                 if(tmpPointIsSet){
                   openAlert("Error. The loader algorithm was not able to load the number of the y-coordinates. The algorithm found a float number instead of an integer.");
-                  return;
+                  return false;
                 }
                 dimension_y = parseFloat(tmpSubstring);
 
                 if(dimension_y<1){
                   openAlert("Error. The loader algorithm was not able to load the number of the y-coordinates. The algorithm found a value less than 1!");
-                  return;
+                  return false;
                 }
                 yCoordinatesArray = new Array(dimension_y).fill(NaN);;
                 counter++;
@@ -594,12 +598,12 @@ function vtk_reader(content) {
               case -2:
               if(tmpPointIsSet){
                 openAlert("Error. The loader algorithm was not able to load the number of the z-coordinates. The algorithm found a float number instead of an integer.");
-                return;
+                return false;
               }
               dimension_z = parseFloat(tmpSubstring);
               if(dimension_z<1){
                 openAlert("Error. The loader algorithm was not able to load the number of the z-coordinates. The algorithm found a value less than 1!");
-                return;
+                return false;
               }
               zCoordinatesArray = new Array(dimension_z).fill(NaN);;
               counter++;
@@ -722,7 +726,7 @@ function vtk_reader(content) {
                         }
                         else{
                           openAlert("Sorry, the vtk file seems to be not correct. After the \"SCALARS\" part, there should be \"LOOKUP_TABLE\" !");
-                          return;
+                          return false;
                         }
                       break;
                       case -1:
@@ -767,7 +771,7 @@ function vtk_reader(content) {
           if(nextLoadPoints){
             console.log(tmpSubstring);
             openAlert("Sorry, there is a bug at the vtk loader algorithm. The loader was not able to load the grid points.");
-            return;
+            return false;
           }
           /////////////////////////////////////////////////////////
           if (nextVersionNumber) {
@@ -784,7 +788,7 @@ function vtk_reader(content) {
                 //document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Found DATASET Format: STRUCTURED_POINTS";
                 console.log("Load Text Content: Found DATASET Format: STRUCTURED_POINTS");
                 openAlert("Sorry, the ccc-tool did not support STRUCTURED_POINTS datasets.");
-                return;
+                return false;
                 break;
               case "STRUCTURED_GRID":
                 datasetType = 2;
@@ -801,7 +805,7 @@ function vtk_reader(content) {
                 //document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Found DATASET Format: POLYDATA";
                 console.log("Load Text Content: Found DATASET Format: POLYDATA");
                 openAlert("Sorry, the ccc-tool did not support POLYDATA datasets.");
-                return;
+                return false;
                 break;
               case "RECTILINEAR_GRID":
                 datasetType = 5;
@@ -813,12 +817,12 @@ function vtk_reader(content) {
                 //document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Found DATASET Format: FIELD";
                 console.log("Load Text Content: Found DATASET Format: FIELD");
                 openAlert("Sorry, the ccc-tool did not support FIELD datasets.");
-                return;
+                return false;
                 break;
               default:
               console.log(tmpSubstring);
                 openAlert("Sorry, the vtk file is maybe not correct. The DATASET " + tmpSubstring + " is unknown or can't be handled by the loader algorithm.");
-                return;
+                return false;
             }
             nextDataset = false;
             continue;
@@ -837,7 +841,7 @@ function vtk_reader(content) {
                 break;
               default:
               openAlert("Sorry, the vtk loader was not able to load the vtk file. There was an error at the code part to indentify the dimension. Please inform us about this error!");
-              return;
+              return false;
             }
 
             continue;
@@ -851,7 +855,7 @@ function vtk_reader(content) {
                     nextOrigin=false;
                     if(is3D==true){
                       openAlert("Sorry, the vtk loader was not able to load the vtk file. The Dimension and the Orgin information are not compatible!");
-                      return;
+                      return false;
                     }
                     else{
                       is3D = false;
@@ -881,7 +885,7 @@ function vtk_reader(content) {
                     break;
               default:
               openAlert("Sorry, the vtk loader was not able to load the vtk file. There was an error at the code part to indentify the origin. Please inform us about this error!");
-              return;
+              return false;
             }
             continue;
           }
@@ -894,7 +898,7 @@ function vtk_reader(content) {
                     nextSpacing=false;
                     if(is3D==true){
                       openAlert("Sorry, the vtk loader was not able to load the vtk file. The dimension and the spacing information are not compatible!");
-                      return;
+                      return false;
                     }
                     else{
                       is3D = false;
@@ -924,7 +928,7 @@ function vtk_reader(content) {
                     break;
               default:
               openAlert("Sorry, the vtk loader was not able to load the vtk file. There was an error at the code part to indentify the spaxing. Please inform us about this error!");
-              return;
+              return false;
             }
             continue;
           }
@@ -933,7 +937,7 @@ function vtk_reader(content) {
             switch (counter) {
               case 0:
                 openAlert("Sorry, the vtk loader was not able to get the grid point informations. Please check the file for the right vkt format.");
-                return;
+                return false;
               case 1: // datatype
                   gridPointsDatatype=tmpSubstring;
                   counter=0;
@@ -946,7 +950,7 @@ function vtk_reader(content) {
                 break;
               default:
                 openAlert("Sorry, there is a bug at the vtk loader algorithm. The loader was not able to get the grid point informations");
-                return;
+                return false;
 
             }
           }
@@ -955,14 +959,14 @@ function vtk_reader(content) {
             switch (counter) {
               case -2:
                 openAlert("Sorry, the vtk loader was not able to determine the size of the x-coordinates.");
-                return;
+                return false;
               case -1:
                 dataType_xCoordinates=tmpSubstring;
                 counter++;
                 break;
               default:
                 openAlert("Sorry, there was an error at the load part of the x-coordinates. Please inform us!");
-                return;
+                return false;
             }
           }
           /////////////////////////////////////////////////////////
@@ -970,14 +974,14 @@ function vtk_reader(content) {
             switch (counter) {
               case -2:
                 openAlert("Sorry, the vtk loader was not able to determine the size of the y-coordinates.");
-                return;
+                return false;
               case -1:
                 dataType_yCoordinates=tmpSubstring;
                 counter++;
                 break;
               default:
                 openAlert("Sorry, there was an error at the load part of the y-coordinates. Please inform us!");
-                return;
+                return false;
             }
           }
           /////////////////////////////////////////////////////////
@@ -985,14 +989,14 @@ function vtk_reader(content) {
             switch (counter) {
               case -2:
                 openAlert("Sorry, the vtk loader was not able to determine the size of the z-coordinates.");
-                return;
+                return false;
               case -1:
                 dataType_zCoordinates=tmpSubstring;
                 counter++;
                 break;
               default:
                 openAlert("Sorry, there was an error at the load part of the z-coordinates. Please inform us!");
-                return;
+                return false;
             }
           }
 
@@ -1008,7 +1012,7 @@ function vtk_reader(content) {
                 console.log("Load Text Content: Found File Format: BINARY.");
                 foundFileFormat = true;
                 openAlert("Sorry, the current version of the vtk loader algorithm is not albe to read binary data.");
-                return;
+                return false;
                 break;
               case "ASCII":
                 isASCII = true;
@@ -1139,24 +1143,10 @@ function vtk_reader(content) {
 
   if(globalDomain.getNumberOfFields()==0){
     openAlert("Sorry, the algorithm was not able to find a useable field.");
-    return;
+    return false;
   }
 
-  //document.getElementById("id_processBar").style.width = phase1+"%";
-  //document.getElementById("id_currentProcessText").innerHTML = "Generate Cells";
-  console.log("Generate Cells");
-  //document.getElementById("id_currentProcessText").innerHTML = "Number of generated Cells = "+ globalDomain.generateCells(0,0);
-  //document.getElementById("id_processBar").style.width = (phase1+phase2)+"%";
-  console.log("Number of generated Cells = "+ globalDomain.generateCells(0,0));
-
-
-  //initMapping();
-  //animateMapping();
-
-  //document.getElementById("id_currentProcessText").innerHTML = "Start Rendering of Color Mapping";
-  console.log("Start Color Mapping");
-  drawMapping();
-  //document.getElementById("id_processBar").style.width = "100%";
+  return true;
 }
 
 

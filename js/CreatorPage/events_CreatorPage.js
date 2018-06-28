@@ -60,6 +60,11 @@ function switchTableTestFunction(type){
     default:
 
   }
+
+  // update the positions of the input fields
+  orderColorSketch(colorspaceModus);
+
+
 }
 
 
