@@ -4,7 +4,11 @@ function eventFunctionColorMapping(e){
 
   var nanColor = globalCMS1.getNaNColor("rgb");
 
-
+  if(data.mmm!=undefined){
+    console.log(data.mmm);
+    console.log(data.mm);
+    return;
+  }
   //console.log(data.test);
 
   for (var index = 0; index < data.cVal1.length; index++) {

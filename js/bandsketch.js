@@ -2,6 +2,8 @@ function drawBandSketch(cms,sketchObjectID, sketchKeyID, sketchRefID, withInputF
 
   // start
   var canvasObject = document.getElementById(sketchObjectID);
+  var rect = canvasObject.getBoundingClientRect();
+
   var canvasContex = canvasObject.getContext("2d");
   /*canvasContex.mozImageSmoothingEnabled = false;
   canvasContex.webkitImageSmoothingEnabled = false;
@@ -14,7 +16,16 @@ function drawBandSketch(cms,sketchObjectID, sketchKeyID, sketchRefID, withInputF
   canvasObject.height = 80;//40;
   var fontSize = 40;//20;
   var smallFontSize = 30;//15;
-  var bandLength = bandSketchObjLength;
+  var bandLength; //= bandSketchObjLength;
+
+  if(withInputFields){
+    bandLength= Math.round(rect.width/(cms.getKeyLength()-1));
+
+  }else{
+    bandLength= Math.round(rect.width/(cms.getKeyLength()-1 + cms.getKeyLength()));
+  }
+
+  bandSketchObjLength=bandLength;
 
   if(withInputFields==false){
     drawSketchKeys(sketchKeyID, cms);
@@ -75,8 +86,6 @@ function drawBandSketch(cms,sketchObjectID, sketchKeyID, sketchRefID, withInputF
     else{
       canvasObject.width = (cms.getKeyLength()-1)*bandLength;
     }
-
-
 
 
     var canvasData = canvasContex.getImageData(0, 0, canvasObject.width, canvasObject.height);
@@ -327,13 +336,7 @@ function drawSketchRefElements(cms,sketchRefObjID){
       inputField.onchange = (function(keyIndex, id) {
         return function() {
 
-          switch (id) {
-            case 0:
               changeKeyValueInput(keyIndex, id);
-              break;
-            default:
-              changeKeyValueInput(keyIndex, id);
-          }
 
         };
       })(i, inputID);
@@ -380,7 +383,7 @@ function drawSketchRefElements(cms,sketchRefObjID){
         inputField2.onchange = (function(keyIndex, id) {
           return function() {
 
-            changeKeyValueInput(keyIndex, id);
+            changeKeyValueInput(keyIndex+1, id);
 
           };
         })(i, inputID);

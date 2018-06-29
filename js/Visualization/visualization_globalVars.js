@@ -1,5 +1,8 @@
 var domainContent;
 var fileType=0; // 0=vtk;
+var currentFieldIndex = 0;
+var currentTimeIndex = 0;
+
 
 var globalDomain;
 
@@ -29,7 +32,6 @@ var currentOriginY=0;
 
 var oldXPos=0;
 var oldYPos=0;
-
 
 
 ///////////////////////////////////////

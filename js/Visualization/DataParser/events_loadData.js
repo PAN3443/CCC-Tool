@@ -4,6 +4,17 @@
 function startReadFile(){
 
 
+  var selectobject=document.getElementById("combobox_selectField")
+  for (var i=selectobject.length-1; i>=0; i--){
+     selectobject.remove(i);
+  }
+
+  selectobject=document.getElementById("combobox_selectTimeStep")
+  for (var i=selectobject.length-1; i>=0; i--){
+     selectobject.remove(i);
+  }
+
+
   document.getElementById('id_inputData').click();
 
 
@@ -56,7 +67,7 @@ function readDataFile(e) {
 
 
         console.log("Generate Cells");
-        console.log("Number of generated Cells = "+ globalDomain.generateCells(0,0));
+        console.log("Number of generated Cells = "+ globalDomain.generateCells(currentFieldIndex,currentTimeIndex));
         updateProgressBar(75);
 
         console.log("Start Color Mapping");
@@ -79,7 +90,7 @@ function readDataFile(e) {
         document.getElementById("id_ProcessbarContainer").style.display="none";
 
         if(document.getElementById("showHideMappingHistogram").style.display!="none"){
-            drawHistogram();
+            drawHistogram(false);
         }
 
         // update the positions of the input fields

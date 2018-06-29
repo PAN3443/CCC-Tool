@@ -188,7 +188,8 @@ window.onload = function() {
   document.getElementById('mapping_checkAutoUpdate').addEventListener("change", changeAutoUpdate);
   document.getElementById('mapping_showAxes').addEventListener("change", changeAxisVisibility);
 
-
+  document.getElementById('combobox_selectField').addEventListener("change", changeField);
+  document.getElementById('combobox_selectTimeStep').addEventListener("change", changeTimeStep);
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Create Side /////////////////////////////////////

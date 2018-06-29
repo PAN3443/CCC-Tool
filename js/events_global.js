@@ -596,7 +596,7 @@ function changePage(type){
 
     }
     else{
-      openAlert("There is not enough CMSs at the MyDesigns list for the compare page. You need at least two CMS!");
+      openAlert("There are not enough CMSs at the MyDesigns list for the compare page. You need at least two CMS!");
       return;
     }
 

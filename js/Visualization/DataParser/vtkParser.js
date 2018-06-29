@@ -66,7 +66,7 @@ function vtk_reader(content) {
   var loadedField=false;
   var valueType = 0;
   var valueDataType; // double, float, char ....
-  var fieldName;
+  var fieldNames = [];
   var tableName;
   var isCellData = false; // cell or point data
   var alreadyFoundE = false;
@@ -190,7 +190,11 @@ function vtk_reader(content) {
               break;
               case 1: //SCALAR FIELD
                   switch (counter) {
-                    case -5: case -4: case -2: case -1:
+                    case -5:
+                      fieldNames.push(tmpSubstring);
+                      counter++;
+                    break;
+                    case -4: case -2: case -1:
                       //console.log("Error at the field value loader part for SCALAR FIELDS. This should be a text part, but the algorithm found a number.");
                       nextLoadfieldValues=false;
                       return false;
@@ -216,6 +220,8 @@ function vtk_reader(content) {
                         counter++;
 
                         if(counter==numberFieldValues){
+
+                          console.log(numberFieldValues, tmpSubstring);
                           counter=0;
                           if(!globalDomain.addNewField(tmpValueArray, isCellData)){
                             console.log("Algorithm was not able to loading the field values of the type SCALARS.");
@@ -713,7 +719,7 @@ function vtk_reader(content) {
                 case 1: //SCALAR FIELD
                     switch (counter) {
                       case -5:
-                      fieldName = tmpSubstring;
+                      fieldNames.push(tmpSubstring);
                       counter++;
                       break;
                       case -4:
@@ -740,13 +746,17 @@ function vtk_reader(content) {
                         counter++;
                         break;
                       default:
-                      if(counter<dimension_y){
+                      if(counter<numberFieldValues){
                         if(loadedField==true){
                           tmpValueArray[counter]=parseFloat(tmpSubstring);
                         }
                         counter++;
                       }
                       else{
+
+                        console.log(numberFieldValues, tmpSubstring);
+                        counter=0;
+
                         if(!globalDomain.addNewField(tmpValueArray, isCellData)){
                           //document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Algorithm was not able to loading the field values of the type SCALARS.";
                           console.log("Load Text Content: Algorithm was not able to loading the field values of the type SCALARS.");
@@ -769,7 +779,6 @@ function vtk_reader(content) {
           }
           /////////////////////////////////////////////////////////
           if(nextLoadPoints){
-            console.log(tmpSubstring);
             openAlert("Sorry, there is a bug at the vtk loader algorithm. The loader was not able to load the grid points.");
             return false;
           }
@@ -820,7 +829,6 @@ function vtk_reader(content) {
                 return false;
                 break;
               default:
-              console.log(tmpSubstring);
                 openAlert("Sorry, the vtk file is maybe not correct. The DATASET " + tmpSubstring + " is unknown or can't be handled by the loader algorithm.");
                 return false;
             }
@@ -1146,6 +1154,23 @@ function vtk_reader(content) {
     return false;
   }
 
+  currentFieldIndex = 0;
+  currentTimeIndex = 0;
+
+  for (var i = fieldNames.length-1; i >=0; i--) {
+    var option = document.createElement("option");
+    option.text = fieldNames[i];
+    document.getElementById("combobox_selectField").add(option);
+  }
+
+  for (var i = 1; i <= globalDomain.getNumberOfTimeSteps(currentFieldIndex); i++) {
+    var option = document.createElement("option");
+    option.text = i+"";
+    document.getElementById("combobox_selectTimeStep").add(option);
+  }
+
+  document.getElementById("id_fieldMinValue").innerHTML = globalDomain.getMinField(currentFieldIndex);
+  document.getElementById("id_fieldMaxValue").innerHTML = globalDomain.getMaxField(currentFieldIndex);
   return true;
 }
 

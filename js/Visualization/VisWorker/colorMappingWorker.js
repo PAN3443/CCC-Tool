@@ -61,7 +61,7 @@ self.addEventListener('message', function(e) {
               jsonObj.cVal3.push(data.key1cVal3[i]);
             }
             else{
-              if(jsonObj.MoT[i]){
+              if(data.MoT[i]){
                 //
                 jsonObj.cVal1.push(data.key1cVal1[i]);
                 jsonObj.cVal2.push(data.key1cVal2[i]);
@@ -146,7 +146,8 @@ self.addEventListener('message', function(e) {
               val3 = data.key1cVal3[i];
             }
             else{
-              if(jsonObj.MoT[i]){
+
+              if(data.MoT[i]){
                 //
                 val1 = data.key1cVal1[i];
                 val2 = data.key1cVal2[i];
@@ -351,7 +352,7 @@ self.addEventListener('message', function(e) {
                 tmpV = data.key1cVal3[i];
               }
               else{
-                if(jsonObj.MoT[i]){
+                if(data.MoT[i]){
                   //
                   tmpH = data.key1cVal1[i];
                   tmpS = data.key1cVal2[i];

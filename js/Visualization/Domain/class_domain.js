@@ -9,9 +9,9 @@ class class_Domain {
     this.fieldArray = [];
     this.timeSteps = [];
     this.fieldType = [];
-    this.dimensionX = 0;
-    this.dimensionY = 0;
-    this.dimensionZ = 0;
+    this.dimensionX = 1;
+    this.dimensionY = 1;
+    this.dimensionZ = 1;
     this.is3D = is3D;
     this.gridPoints = new Array(numberOfPoints);
     this.cellArray = [];
@@ -452,5 +452,78 @@ class class_Domain {
     return this.fieldArray.length;
   }
 
+  getNumberOfTimeSteps(fieldIndex){
+    if(fieldIndex<this.fieldArray.length){
+      return this.timeSteps[fieldIndex];
+    }else {
+      return 0;
+    }
+  }
 
+  getMinField(fieldIndex){
+    if(fieldIndex<this.fieldArray.length){
+
+      var minVal = Infinity;
+      for (var i = 0; i < this.fieldArray[fieldIndex].length; i++) {
+        minVal=Math.min(minVal, this.fieldArray[fieldIndex][i]);
+      }
+
+      return minVal;
+    }else {
+      return undefined;
+    }
+  }
+
+  getMaxField(fieldIndex){
+    if(fieldIndex<this.fieldArray.length){
+      var maxVal = -Infinity;
+      for (var i = 0; i < this.fieldArray[fieldIndex].length; i++) {
+        maxVal=Math.max(maxVal, this.fieldArray[fieldIndex][i]);
+      }
+
+      return maxVal;
+    }else {
+      return undefined;
+    }
+  }
+
+
+  getMinTimeStep(fieldIndex,timeStep){
+
+
+    if(fieldIndex<this.fieldArray.length){
+
+      var numValPerTime = this.fieldArray[fieldIndex].length/this.timeSteps[fieldIndex];
+      var startIndex = numValPerTime*(timeStep);
+
+      var minVal = Infinity;
+      for (var i = startIndex; i < startIndex+numValPerTime; i++) {
+        minVal=Math.min(minVal, this.fieldArray[fieldIndex][i]);
+      }
+
+      return minVal;
+    }else {
+      return undefined;
+    }
+
+  }
+
+  getMaxTimeStep(fieldIndex,timeStep){
+
+    if(fieldIndex<this.fieldArray.length){
+
+      var numValPerTime = this.fieldArray[fieldIndex].length/this.timeSteps[fieldIndex];
+      var startIndex = numValPerTime*(timeStep);
+
+      var maxVal = -Infinity;
+      for (var i = startIndex; i < startIndex+numValPerTime; i++) {
+        maxVal=Math.max(maxVal, this.fieldArray[fieldIndex][i]);
+      }
+
+      return maxVal;
+    }else {
+      return undefined;
+    }
+
+  }
 }

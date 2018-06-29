@@ -1,5 +1,5 @@
 function drawMapping() {
-
+console.log(123);
   if(globalCMS1.getKeyLength()==0)
   return;
 
@@ -220,6 +220,7 @@ function updateMesh() {
         tmpMoT.push(globalCMS1.getKey(i).getMoT());
       }
       tmpRefVal.push(globalCMS1.getKey(globalCMS1.getKeyLength()-1).getRefPosition());
+      tmpMoT.push(globalCMS1.getKey(globalCMS1.getKeyLength()-1).getMoT());
 
       workerArray=[];
       workerFinished=[];
@@ -286,7 +287,7 @@ function updateMesh() {
 
 
   if(document.getElementById("showHideMappingHistogram").style.display!="none"){
-      drawHistogram();
+      drawHistogram(true);
   }
 }
 
