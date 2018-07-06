@@ -170,11 +170,36 @@ window.onload = function() {
   document.getElementById('showHideMappingOptionsText').style.background = styleActiveColor;
   document.getElementById('showHideMappingHistogramText').style.background = styleActiveColor;
   document.getElementById('showHideMappingVisualizationText').style.background = styleActiveColor;
+  document.getElementById('showHideColorBlindnessSimText').style.background = styleActiveColor;
+
+  document.getElementById('customTransferMatrix00').value = 1;
+  document.getElementById('customTransferMatrix01').value = 0;
+  document.getElementById('customTransferMatrix02').value = 0;
+  document.getElementById('customTransferMatrix10').value = 0;
+  document.getElementById('customTransferMatrix11').value = 1;
+  document.getElementById('customTransferMatrix12').value = 0;
+  document.getElementById('customTransferMatrix20').value = 0;
+  document.getElementById('customTransferMatrix21').value = 0;
+  document.getElementById('customTransferMatrix22').value = 1;
+
+  document.getElementById('id_doColorBlindSim').checked = false;
+  document.getElementById('id_doColorBlindSim').addEventListener("change", changeColorblindness);
+
+  document.getElementById('id_radio_Protanopia').addEventListener("change", changeColorblindnessType);
+  document.getElementById('id_radio_Deuteranopia').addEventListener("change", changeColorblindnessType);
+  document.getElementById('id_radio_Tritanopes').addEventListener("change", changeColorblindnessType);
+  document.getElementById('id_radio_Achromatopsia').addEventListener("change", changeColorblindnessType);
+  document.getElementById('id_radio_BlueCone').addEventListener("change", changeColorblindnessType);
+  document.getElementById('id_radio_CustomColorblindness').addEventListener("change", changeColorblindnessType);
 
 
   //document.getElementById("mappingProcessBar").style.background=styleActiveColor;
   document.getElementById("mappingProcessBar").style.color=styleActiveColor;
 
+  document.getElementById('idNumberHistoRanges').addEventListener("keyup", updateHistogramKey);
+  document.getElementById('idNumberHistoRanges').addEventListener("change", updateHistogramChange);
+  document.getElementById('histogram_SelectTimeStep').addEventListener("click", updateHistogramChange);
+  document.getElementById('histogram_SelectFullData').addEventListener("click", updateHistogramChange);
 
 
   if(browserCanWorker){
@@ -438,7 +463,7 @@ window.onload = function() {
 
   initMapping();
   backgroundMapping(0);
-
+  updateColorBlindness_TransferMatrices();
 
 
 

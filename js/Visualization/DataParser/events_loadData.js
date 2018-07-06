@@ -81,11 +81,11 @@ function readDataFile(e) {
         if(document.getElementById("colormappingHistogram_Container").style.display==="none")
         document.getElementById("colormappingHistogram_Container").style.display="inline-block";
 
+        if(document.getElementById("colormappingColorBlindnessSim_Container").style.display==="none")
+        document.getElementById("colormappingColorBlindnessSim_Container").style.display="inline-block";
 
         if(document.getElementById("colormappingVis_Container").style.display==="none")
         document.getElementById("colormappingVis_Container").style.display="inline-block";
-
-
 
         document.getElementById("id_ProcessbarContainer").style.display="none";
 

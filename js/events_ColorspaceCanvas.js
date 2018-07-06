@@ -601,7 +601,8 @@ function mouseMoveValuePlot(event) {
           oldColor = globalCMS1.getLeftKeyColor(mouseGrappedKeyID, analyzeColorspaceModus);
       }
 
-
+      if(oldColor==undefined)
+      return;
 
       switch (type) {
         case 1:

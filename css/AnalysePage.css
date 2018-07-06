@@ -27,7 +27,7 @@
     -ms-interpolation-mode: nearest-neighbor;   /* IE (non standard naming)*/
 
 
-    background: black;
+    /*background: black;*/
 }
 
 .classAnalyzePlotLabel{

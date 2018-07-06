@@ -1,7 +1,7 @@
 self.addEventListener('message', function(e) {
 
   var data = e.data;
-
+  var error = 100; // 0.01
   var jsonObj = {};
 
   jsonObj['workerIndex'] = data.workerIndex;
@@ -200,8 +200,6 @@ self.addEventListener('message', function(e) {
           }
 
           /// LAB -> RGB
-          var error = 100.0; //0.01;
-
 
           //  Calc XYZ
           var var_Y = (value_L + 16.0) / 116.0;
@@ -235,9 +233,13 @@ self.addEventListener('message', function(e) {
           var var_Y = var_Y / 100.0;
           var var_Z = var_Z / 100.0;
 
-          var_R = var_X * 3.2406 + var_Y * -1.5372 + var_Z * -0.4986;
+          /*var_R = var_X * 3.2406 + var_Y * -1.5372 + var_Z * -0.4986;
           var_G = var_X * -0.9689 + var_Y * 1.8758 + var_Z * 0.0415;
-          var_B = var_X * 0.0557 + var_Y * -0.2040 + var_Z * 1.0570;
+          var_B = var_X * 0.0557 + var_Y * -0.2040 + var_Z * 1.0570;*/
+
+          var_R = var_X * data.transferMatrixColorXYZ_Inv[0][0] + var_Y * data.transferMatrixColorXYZ_Inv[0][1] + var_Z * data.transferMatrixColorXYZ_Inv[0][2];
+          var_G = var_X * data.transferMatrixColorXYZ_Inv[1][0] + var_Y * data.transferMatrixColorXYZ_Inv[1][1] + var_Z * data.transferMatrixColorXYZ_Inv[1][2];
+          var_B = var_X * data.transferMatrixColorXYZ_Inv[2][0] + var_Y * data.transferMatrixColorXYZ_Inv[2][1] + var_Z * data.transferMatrixColorXYZ_Inv[2][2];
 
           if (var_R > 0.0031308) var_R = 1.055 * Math.pow(var_R, (1.0 / 2.4)) - 0.055;
           else var_R = 12.92 * var_R;
@@ -246,49 +248,49 @@ self.addEventListener('message', function(e) {
           if (var_B > 0.0031308) var_B = 1.055 * Math.pow(var_B, (1.0 / 2.4)) - 0.055;
           else var_B = 12.92 * var_B;
 
-          if (var_R > 1.0 || var_G > 1.0 || var_B > 1.0 || var_R < 0.0 || var_G < 0.0 || var_B < 0.0) {
-            // Wrong RGB -Values
 
-            if (var_R > 1.0 && var_R - 1.0 < error) {
-              var_R = 1.0;
+          if (var_R>1.0 || var_G>1.0 || var_B>1.0 || var_R<0.0 || var_G<0.0 || var_B<0.0){
+              // Wrong RGB -Values
 
-            }
-            if (var_G > 1.0 && var_G - 1.0 < error) {
-              var_G = 1.0;
-            }
-            if (var_B > 1.0 && var_B - 1.0 < error) {
-              var_B = 1.0;
-            }
-            if (var_R < 0.0 && 1.0 - var_R < error) {
-              var_R = 0.0;
-            }
-            if (var_G < 0.0 && 1.0 - var_G < error) {
-              var_G = 0.0;
-            }
-            if (var_B < 0.0 && 1.0 - var_B < error) {
-              var_B = 0.0;
-            }
-            if (var_R > 1.0 || var_G > 1.0 || var_B > 1.0 || var_R < 0.0 || var_G < 0.0 || var_B < 0.0) {
-              //var rgbString = "rgb(0,0,0)";
-              //return rgbString;
-              jsonObj.cVal1.push(0);
-              jsonObj.cVal2.push(0);
-              jsonObj.cVal3.push(0);
-            } else {
-              //var rgbString = "rgb("+var_R*255+","+var_G*255+","+var_B*255+")";
-              //return rgbString;
+              if(var_R>1.0 && var_R-1.0<error){
+                  var_R=1.0;
+
+              }
+              if(var_G>1.0 && var_G-1.0<error){
+                  var_G=1.0;
+              }
+              if(var_B>1.0 && var_B-1.0<error){
+                  var_B=1.0;
+              }
+              if(var_R<0.0 && 1.0-var_R<error){
+                  var_R=0.0;
+              }
+              if(var_G<0.0 && 1.0-var_G<error){
+                  var_G=0.0;
+              }
+              if(var_B<0.0 && 1.0-var_B<error){
+                  var_B=0.0;
+              }
+              if (var_R>1.0 || var_G>1.0 || var_B>1.0 || var_R<0.0 || var_G<0.0 || var_B<0.0){
+                  //var rgbString = "rgb(0,0,0)";
+                  //return rgbString;
+                  jsonObj.cVal1.push(undefined);
+                  jsonObj.cVal2.push(undefined);
+                  jsonObj.cVal3.push(undefined);
+              }
+              else{
+                  jsonObj.cVal1.push(var_R);
+                  jsonObj.cVal2.push(var_G);
+                  jsonObj.cVal3.push(var_B);
+              }
+          }
+          else{
               jsonObj.cVal1.push(var_R);
               jsonObj.cVal2.push(var_G);
               jsonObj.cVal3.push(var_B);
-            }
-          } else {
-            // Right RGB -Values
-            //var rgbString = "rgba("+var_R*255+","+var_G*255+","+var_B*255+",1.0)";
-            //return rgbString;
-            jsonObj.cVal1.push(var_R);
-            jsonObj.cVal2.push(var_G);
-            jsonObj.cVal3.push(var_B);
           }
+
+
         }
 
 
@@ -424,7 +426,94 @@ self.addEventListener('message', function(e) {
 
   }
 
+/*  if(data.simColorBlind){
+    for (var i = 0; i < jsonObj.cVal1.length; i++) {
 
+      if(jsonObj.cVal1[i]!=undefined){
+
+        // to xyz
+
+        if (jsonObj.cVal1[i] > 0.04045) jsonObj.cVal1[i] = Math.pow(((jsonObj.cVal1[i] + 0.055) / 1.055), 2.4);
+        else jsonObj.cVal1[i] = jsonObj.cVal1[i] / 12.92;
+        if (jsonObj.cVal2[i] > 0.04045) jsonObj.cVal2[i] = Math.pow(((jsonObj.cVal2[i] + 0.055) / 1.055), 2.4);
+        else jsonObj.cVal2[i] = jsonObj.cVal2[i] / 12.92;
+        if (jsonObj.cVal3[i] > 0.04045) jsonObj.cVal3[i] = Math.pow(((jsonObj.cVal3[i] + 0.055) / 1.055), 2.4);
+        else jsonObj.cVal3[i] = jsonObj.cVal3[i] / 12.92;
+
+        jsonObj.cVal1[i] = jsonObj.cVal1[i] * 100;
+        jsonObj.cVal2[i] = jsonObj.cVal2[i] * 100;
+        jsonObj.cVal3[i] = jsonObj.cVal3[i] * 100;
+
+        jsonObj.cVal1[i] = jsonObj.cVal1[i] * data.transferMatrixColorXYZ[0][0] + jsonObj.cVal2[i] * data.transferMatrixColorXYZ[0][1] + jsonObj.cVal3[i] * data.transferMatrixColorXYZ[0][2];
+        jsonObj.cVal2[i] = jsonObj.cVal1[i] * data.transferMatrixColorXYZ[1][0] + jsonObj.cVal2[i] * data.transferMatrixColorXYZ[1][1] + jsonObj.cVal3[i] * data.transferMatrixColorXYZ[1][2];
+        jsonObj.cVal3[i] = jsonObj.cVal1[i] * data.transferMatrixColorXYZ[2][0] + jsonObj.cVal2[i] * data.transferMatrixColorXYZ[2][1] + jsonObj.cVal3[i] * data.transferMatrixColorXYZ[2][2];
+
+        // to lms
+        jsonObj.cVal1[i] = jsonObj.cVal1[i] * data.transferMatrixColorLMS[0][0] + jsonObj.cVal2[i] * data.transferMatrixColorLMS[0][1] + jsonObj.cVal3[i] * data.transferMatrixColorLMS[0][2];
+        jsonObj.cVal2[i] = jsonObj.cVal1[i] * data.transferMatrixColorLMS[1][0] + jsonObj.cVal2[i] * data.transferMatrixColorLMS[1][1] + jsonObj.cVal3[i] * data.transferMatrixColorLMS[1][2];
+        jsonObj.cVal3[i] = jsonObj.cVal1[i] * data.transferMatrixColorLMS[2][0] + jsonObj.cVal2[i] * data.transferMatrixColorLMS[2][1] + jsonObj.cVal3[i] * data.transferMatrixColorLMS[2][2];
+
+        // to l'm's'
+        jsonObj.cVal1[i] = jsonObj.cVal1[i] * data.transferMatrixColorSIM[0][0] + jsonObj.cVal2[i] * data.transferMatrixColorSIM[0][1] + jsonObj.cVal3[i] * data.transferMatrixColorSIM[0][2];
+        jsonObj.cVal2[i] = jsonObj.cVal1[i] * data.transferMatrixColorSIM[1][0] + jsonObj.cVal2[i] * data.transferMatrixColorSIM[1][1] + jsonObj.cVal3[i] * data.transferMatrixColorSIM[1][2];
+        jsonObj.cVal3[i] = jsonObj.cVal1[i] * data.transferMatrixColorSIM[2][0] + jsonObj.cVal2[i] * data.transferMatrixColorSIM[2][1] + jsonObj.cVal3[i] * data.transferMatrixColorSIM[2][2];
+
+        // to xyz
+        jsonObj.cVal1[i] = jsonObj.cVal1[i] * data.transferMatrixColorLMS_Inv[0][0] + jsonObj.cVal2[i] * data.transferMatrixColorLMS_Inv[0][1] + jsonObj.cVal3[i] * data.transferMatrixColorLMS_Inv[0][2];
+        jsonObj.cVal2[i] = jsonObj.cVal1[i] * data.transferMatrixColorLMS_Inv[1][0] + jsonObj.cVal2[i] * data.transferMatrixColorLMS_Inv[1][1] + jsonObj.cVal3[i] * data.transferMatrixColorLMS_Inv[1][2];
+        jsonObj.cVal3[i] = jsonObj.cVal1[i] * data.transferMatrixColorLMS_Inv[2][0] + jsonObj.cVal2[i] * data.transferMatrixColorLMS_Inv[2][1] + jsonObj.cVal3[i] * data.transferMatrixColorLMS_Inv[2][2];
+
+        // to rgb
+        jsonObj.cVal1[i] = jsonObj.cVal1[i] * data.transferMatrixColorXYZ_Inv[0][0] + jsonObj.cVal2[i] * data.transferMatrixColorXYZ_Inv[0][1] + jsonObj.cVal3[i] * data.transferMatrixColorXYZ_Inv[0][2];
+        jsonObj.cVal2[i] = jsonObj.cVal1[i] * data.transferMatrixColorXYZ_Inv[1][0] + jsonObj.cVal2[i] * data.transferMatrixColorXYZ_Inv[1][1] + jsonObj.cVal3[i] * data.transferMatrixColorXYZ_Inv[1][2];
+        jsonObj.cVal3[i] = jsonObj.cVal1[i] * data.transferMatrixColorXYZ_Inv[2][0] + jsonObj.cVal2[i] * data.transferMatrixColorXYZ_Inv[2][1] + jsonObj.cVal3[i] * data.transferMatrixColorXYZ_Inv[2][2];
+
+
+        //apply standard gamma correction
+        if ( jsonObj.cVal1[i] > 0.0031308 ) jsonObj.cVal1[i] = 1.055 * Math.pow( jsonObj.cVal1[i] , ( 1.0 / 2.4 ) ) - 0.055;
+        else                     jsonObj.cVal1[i] = 12.92 * jsonObj.cVal1[i];
+        if ( jsonObj.cVal2[i] > 0.0031308 ) jsonObj.cVal2[i] = 1.055 * Math.pow( jsonObj.cVal2[i] , ( 1.0 / 2.4 ) ) - 0.055;
+        else                     jsonObj.cVal2[i] = 12.92 * jsonObj.cVal2[i];
+        if ( jsonObj.cVal3[i] > 0.0031308 ) jsonObj.cVal3[i] = 1.055 * Math.pow( jsonObj.cVal3[i] , ( 1.0 / 2.4 ) ) - 0.055;
+        else                     jsonObj.cVal3[i] = 12.92 * jsonObj.cVal3[i];
+
+
+        if (jsonObj.cVal1[i]>1.0 || jsonObj.cVal2[i]>1.0 || jsonObj.cVal3[i]>1.0 || jsonObj.cVal1[i]<0.0 || jsonObj.cVal2[i]<0.0 || jsonObj.cVal3[i]<0.0){
+            // Wrong RGB -Values
+
+            if(jsonObj.cVal1[i]>1.0 && jsonObj.cVal1[i]-1.0<error){
+                jsonObj.cVal1[i]=1.0;
+
+            }
+            if(jsonObj.cVal2[i]>1.0 && jsonObj.cVal2[i]-1.0<error){
+                jsonObj.cVal2[i]=1.0;
+            }
+            if(jsonObj.cVal3[i]>1.0 && jsonObj.cVal3[i]-1.0<error){
+                jsonObj.cVal3[i]=1.0;
+            }
+            if(jsonObj.cVal1[i]<0.0 && 1.0-jsonObj.cVal1[i]<error){
+                jsonObj.cVal1[i]=0.0;
+            }
+            if(jsonObj.cVal2[i]<0.0 && 1.0-jsonObj.cVal2[i]<error){
+                jsonObj.cVal2[i]=0.0;
+            }
+            if(jsonObj.cVal3[i]<0.0 && 1.0-jsonObj.cVal3[i]<error){
+                jsonObj.cVal3[i]=0.0;
+            }
+            if (jsonObj.cVal1[i]>1.0 || jsonObj.cVal2[i]>1.0 || jsonObj.cVal3[i]>1.0 || jsonObj.cVal1[i]<0.0 || jsonObj.cVal2[i]<0.0 || jsonObj.cVal3[i]<0.0){
+                jsonObj.cVal1[i]=undefined;
+                jsonObj.cVal1[i]=undefined;
+                jsonObj.cVal1[i]=undefined;
+            }
+        }
+
+
+      }
+
+    }
+  }
+
+*/
   self.postMessage(jsonObj);
 
 

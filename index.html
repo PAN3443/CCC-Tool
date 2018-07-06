@@ -68,6 +68,8 @@
   <script src="js/ColormapClass/class_Colorspace_LAB.js"></script>
   <script src="js/ColormapClass/class_Colorspace_RGB.js"></script>
   <script src="js/ColormapClass/class_Colorspace_DIN99.js"></script>
+  <script src="js/ColormapClass/class_Colorspace_XYZ.js"></script>
+  <script src="js/ColormapClass/class_Colorspace_LMS.js"></script>
 
   <!-- ADD PAGE -->
   <script src="js/AddPage/events_AddPage.js"></script>
@@ -128,6 +130,7 @@
   <script src="js/Visualization/mapping_events.js"></script>
 
   <!-- global -->
+  <script src="js/colorTransformationVariables.js"></script>
   <script src="js/bandsketch.js"></script>
   <script src="js/calcColordifference.js"></script>
   <script src="js/events_global.js"></script>
@@ -142,12 +145,14 @@
   <script src="js/events_ColorspaceCanvas.js"></script>
   <script src="js/events_colorspaceCanvasRGB.js"></script>
   <script src="js/drawColorpicker.js"></script>
-  <script src="js/main.js"></script>
+
 
   <!-- Worker -->
   <script src="js/worker/worker_vars.js"></script>
   <script src="js/worker/worker_drawHSVIntervalPath.js"></script>
   <script src="js/worker/worker_events_drawPath.js"></script>
+
+  <!-- MAIN-->
   <script src="js/main.js"></script>
 
 </head>
@@ -376,7 +381,95 @@
               </div>
 
               <!------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+              <div id="colormappingColorBlindnessSim_Container" style="display:none; width:100%;">
 
+
+                <div id="showHideColorBlindnessSimText" onclick="showHideMappingContainer(3)" class="classButtonBlue" style="text-align:center; height:3vh; line-height:3vh; vertical-align:middle; width:100%; border:none; border-top: thin solid grey; border-bottom: thin solid grey;">
+                  Show Colorblindness Simulation &#8661;
+                </div>
+
+                <div id="showHideColorBlindnessSim" style="display:none; width:100%; background:white; padding-top: 2vh; padding-bottom: 2vh;">
+
+                <p style="text-align:center; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; width:100%; font-weight:bold;">Colorblindness Simulation:</p>
+
+                <div class="row" style:"margin-top:3vh;">
+                <input id="id_doColorBlindSim" type="checkbox" name="CheckColorBlindSim" value="DoColorBlindSim" style="margin-left:auto; margin-right:0.5%; height:2.5vh; line-height:2.5vh; font-size:2.3vh; vertical-align:middle;">
+                <p style="margin:0px; text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-right:10%;"> Do Colorblindness Simulation</p>
+                <input id="id_affectHistogram" type="checkbox" name="CheckColorBlindSim" value="DoColorBlindSim" style="margin-right:0.5%; height:2.5vh; line-height:2.5vh; font-size:2.3vh; vertical-align:middle;">
+                <p style="margin:0px; text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-right:auto;"> Affect the Histogram Colormap View</p>
+                </div>
+
+
+                <div id="colorblindnessOptions" style="display:none; width:100%;">
+                  <hr>
+
+                  <div class="row">
+                      <div style="width:33%;">
+                        <p style=" text-align:center; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; width:100%; font-weight:bold;"> Dichromatic View:</p>
+                        <div class="row">
+                          <input id="id_radio_Protanopia" style="margin-left:auto;" type="radio" name="selectColorblindness" value="0" checked>
+                          <p style=" text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin-left:5%; margin-right:auto; width:50%;"> Protanopia (Red Blind)</p>
+                        </div>
+
+                        <div class="row">
+                          <input id="id_radio_Deuteranopia"  style="margin-left:auto;" type="radio" name="selectColorblindness" value="0" >
+                          <p style=" text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin-left:5%; margin-right:auto; width:50%;"> Deuteranopia (Green Blind)</p>
+                        </div>
+
+                        <div class="row">
+                          <input id="id_radio_Tritanopes" style="margin-left:auto;" type="radio" name="selectColorblindness" value="0">
+                          <p style=" text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin-left:5%; margin-right:auto; width:50%;"> Tritanopes (Blue Blind)</p>
+                        </div>
+                      </div>
+
+                      <div style="width:33%;">
+                        <p style=" text-align:center; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; width:100%; font-weight:bold;"> Monochromatic View: </p>
+
+                        <div class="row">
+                            <input id="id_radio_Achromatopsia" style="margin-left:auto;" type="radio" name="selectColorblindness" value="0">
+                            <p style=" text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin-left:5%; margin-right:auto; width:50%;"> Achromatopsia </p>
+                        </div>
+
+                        <div class="row">
+                          <input id="id_radio_BlueCone" style="margin-left:auto;" type="radio" name="selectColorblindness" value="0">
+                          <p style=" text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin-left:5%; margin-right:auto; width:50%;"> Blue Cone Monochromatism</p>
+                        </div>
+                      </div>
+
+                      <div style="width:34%;">
+                        <p style=" text-align:center; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; width:100%; font-weight:bold;"> Custom View: </p>
+
+                        <div class="row">
+                          <input id="id_radio_CustomColorblindness" style="margin-left:auto;" type="radio" name="selectColorblindness" value="0">
+                          <p style=" text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin-left:5%; margin-right:auto;"> use custom tranformation matrix </p>
+                        </div>
+
+                        <div class="row" style="width: 100%;">
+                          <p style=" text-align:left; height:20vh; line-height:20vh; font-size:20vh; margin:0px; margin-left:auto; font-weight: lighter;"> ( </p>
+                          <div style="width: 20%; margin-left:2.5%; height:20vh;">
+                            <input type="number" id="customTransferMatrix00" step="0.001" min="0" max="1" style="height:2.5vh; line-height:2.5vh; font-size:2.3vh; vertical-align:middle; margin-top:3vh; width: 90%;"><br>
+                            <input type="number" id="customTransferMatrix10" step="0.001" min="0" max="1" style="height:2.5vh; line-height:2.5vh; font-size:2.3vh; vertical-align:middle; margin-top:0.5vh; width: 90%;"><br>
+                            <input type="number" id="customTransferMatrix20" step="0.001" min="0" max="1" style="height:2.5vh; line-height:2.5vh; font-size:2.3vh; vertical-align:middle; margin-top:0.5vh; margin-bottom:auto; width: 90%;"><br>
+                          </div>
+                          <div style="width: 20%; margin-left:2.5%; height:20vh;">
+                            <input type="number" id="customTransferMatrix01" step="0.001" min="0" max="1" style="height:2.5vh; line-height:2.5vh; font-size:2.3vh; vertical-align:middle; margin-top:3vh; width: 90%;"><br>
+                            <input type="number" id="customTransferMatrix11" step="0.001" min="0" max="1" style="height:2.5vh; line-height:2.5vh; font-size:2.3vh; vertical-align:middle; margin-top:0.5vh; width: 90%;"><br>
+                            <input type="number" id="customTransferMatrix21" step="0.001" min="0" max="1" style="height:2.5vh; line-height:2.5vh; font-size:2.3vh; vertical-align:middle; margin-top:0.5vh; margin-bottom:auto; width: 90%;"><br>
+                          </div>
+                          <div style="width: 20%; margin-left:2.5%; height:20vh;">
+                            <input type="number" id="customTransferMatrix02" step="0.1" min="0" max="1" style="height:2.5vh; line-height:2.5vh; font-size:2.3vh; vertical-align:middle; margin-top:3vh; width: 90%;"><br>
+                            <input type="number" id="customTransferMatrix12" step="0.1" min="0" max="1" style="height:2.5vh; line-height:2.5vh; font-size:2.3vh; vertical-align:middle; margin-top:0.5vh; width: 90%;"><br>
+                            <input type="number" id="customTransferMatrix22" step="0.1" min="0" max="1" style="height:2.5vh; line-height:2.5vh; font-size:2.3vh; vertical-align:middle; margin-top:0.5vh; margin-bottom:auto; width: 90%;"><br>
+                          </div>
+                          <p style=" text-align:left; height:20vh; line-height:20vh; font-size:20vh; vertical-align:middle; margin:0px; margin-left:2.5%; margin-right:auto; font-weight: lighter;"> ) </p>
+                        </div>
+
+                      </div>
+                  </div>
+                </div>
+                </div>
+              </div>
+              <!------------------------------------------------------------------------------------------------------------------------------------------------------------------->
               <div id="colormappingHistogram_Container" style="display:none; width:100%;">
 
 
@@ -390,21 +483,20 @@
 
                 <div class="row">
 
-                    <p style="margin:0px; text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-left:auto;"> # Hitoram-Ranges:</p>
+                    <p style="text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-left:auto;"> # Hitoram-Ranges:</p>
                     <input type="number" id="idNumberHistoRanges" value="100" style="margin-left:2.5%; height:2.5vh; line-height:2.5vh; font-size:2.3vh; vertical-align:middle;">
 
-
-                    <p style=" margin:0px; text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-left:10%;"> Data-Set: </p>
-                    <input type="radio" name="selectHistoData" value="1" style="margin-left:2.5%;"> <p style=" margin:0px; text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-left:1.5%;"> Selected Time Step </p>
+                    <p style="text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-left:10%;"> Data-Set: </p>
+                    <input id="histogram_SelectTimeStep" type="radio" name="selectHistoData" value="1" style="margin-left:2.5%;"> <p style=" margin:0px; text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-left:1.5%;"> Selected Time Step </p>
                     <input id="histogram_SelectFullData" type="radio" name="selectHistoData" value="2" style="margin-left:2.5%;" checked> <p style=" margin:0px; text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-left:1.5%; margin-right:auto;"> Full Field </p>
 
 
                 </div>
 
-                <canvas style="margin-top: 2vh; margin-left:5%; width:90%; height: 40vh;" id="id_HistogramCanvas">
+                <canvas class="globalSpeedCanvas" style="margin-top: 2vh; margin-left:5%; width:90%; height: 40vh;" id="id_HistogramCanvas">
 
                 </canvas>
-                <canvas style="margin-top: 2vh; margin-left:5%; width:90%; height: 5vh; border:thin solid black;" id="id_HistogramMappingCanvas">
+                <canvas style="margin: 0px; margin-left:5%; width:90%; height: 5vh; border:thin solid black;" id="id_HistogramMappingCanvas">
 
                 </canvas>
                 <div style="width:90%; margin-left:5%; border-left:thin solid black; border-right:thin solid black; height:2vh;">

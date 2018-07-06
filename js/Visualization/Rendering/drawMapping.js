@@ -1,5 +1,4 @@
 function drawMapping() {
-console.log(123);
   if(globalCMS1.getKeyLength()==0)
   return;
 
@@ -17,37 +16,6 @@ console.log(123);
   switch (type) {
     case 1: // 1. Rectangle
 
-
-      // Test
-
-      /*var ttt = globalDomain.getPointArray();
-      var vertices=[];
-      var colors=[];
-      var color = new THREE.Color();
-
-      for (var i = 0; i < ttt.length; i++) {
-        vertices.push( ttt[ i ].x, ttt[ i ].y, ttt[ i ].z );
-        color.setHSL( 0.6, 1.0, Math.max( 0, ( 200 - ttt[ i ].x ) / 400 ) * 0.5 + 0.5 );
-        colors.push( color.r, color.g, color.b );
-      }
-
-
-
-      var geometry = new THREE.BufferGeometry();
-      geometry.addAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
-      geometry.addAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3 ) );
-
-      var	material = new THREE.LineBasicMaterial( { color: 0xffffff, vertexColors: THREE.VertexColors } );
-
-      var lines = new THREE.Line( geometry, material, THREE.LineStrip );
-
-      mapping_scene.add(lines);
-
-
-      return;//*/
-
-      /// new version
-
       var geometry = new THREE.Geometry();
       geometry.vertices = globalDomain.getPointArray();
 
@@ -59,6 +27,11 @@ console.log(123);
         var value= globalDomain.getCell(index).getCellValue();
 
         var toolColor = globalCMS1.calculateColor(globalDomain.getCell(index).getCellValue(), colorspaceModus);
+
+        if(doColorblindnessSim){
+          var tmpLMS = toolColor.calcLMSColor();
+          toolColor = tmpLMS.calcColorBlindRGBColor();
+        }
 
         facesArray[index * 2 + 0] = new THREE.Face3( globalDomain.getCell(index).getCellIndex(0), globalDomain.getCell(index).getCellIndex(1),globalDomain.getCell(index).getCellIndex(2));
         facesArray[index * 2 + 0].color.setRGB( toolColor.getRValue(),toolColor.getGValue(),toolColor.getBValue());
@@ -166,14 +139,13 @@ function updateMesh() {
   if(globalDomain==undefined || mappingMesh==undefined)
   return;
 
-
-
   ///////////////
   // Lets start with coloring
 
   if(browserCanWorker && document.getElementById("mapping_checkMultiThread").checked==true){
 
     if(allWorkerFinished){
+
       if(doneWorkerPreparation==false)
       workerPreparation();
 
@@ -268,12 +240,17 @@ function updateMesh() {
     }
   }
   else{
-
+    
     for (var index = 0; index < globalDomain.getNumberOfCells(); index++) {
 
       var value= globalDomain.getCell(index).getCellValue();
 
       var toolColor = globalCMS1.calculateColor(globalDomain.getCell(index).getCellValue(), colorspaceModus);
+
+      if(doColorblindnessSim){
+        var tmpLMS = toolColor.calcLMSColor();
+        toolColor = tmpLMS.calcColorBlindRGBColor();
+      }
 
       mappingMesh.geometry.faces[index * 2 + 0].color.setRGB( toolColor.getRValue(),toolColor.getGValue(),toolColor.getBValue());
       mappingMesh.geometry.faces[index * 2 + 1].color.setRGB( toolColor.getRValue(),toolColor.getGValue(),toolColor.getBValue());
@@ -315,23 +292,30 @@ function workerPreparation(){
      jsonObj['key2cVal3'] = [];
      jsonObj['MoT'] = [];
 
+     jsonObj['simColorBlind'] = doColorblindnessSim;
+
+     jsonObj['transferMatrixColorXYZ'] = tmXYZ_Selected;
+     jsonObj['transferMatrixColorXYZ_Inv'] = tmXYZ_Selected_Inv;
+     jsonObj['transferMatrixColorLMS'] = tmLMS_Selected;
+     jsonObj['transferMatrixColorLMS_Inv'] = tmLMS_Selected_Inv;
+     jsonObj['transferMatrixColorSIM'] = sim_AdaptiveColorblindness;
+
      jsonObj['din99_kE'] = din99_kE;
      jsonObj['din99_kCH'] = din99_kCH;
      jsonObj['cielab_ref_X'] = cielab_ref_X;
      jsonObj['cielab_ref_Y'] = cielab_ref_Y;
      jsonObj['cielab_ref_Z'] = cielab_ref_Z;
 
-     // fill cellIndices and cellValues
 
+     // fill cellIndices and cellValues
      if(i==numWorkers-1){
        numberOfCellsPerWorker+=rest; // last worker has to do a few more cells
      }
 
-
-       for (var j = 0; j < numberOfCellsPerWorker; j++) {
-          jsonObj.cellValues.push(globalDomain.getCell(currentIndex).getCellValue());
-          currentIndex++;
-        }
+      for (var j = 0; j < numberOfCellsPerWorker; j++) {
+        jsonObj.cellValues.push(globalDomain.getCell(currentIndex).getCellValue());
+        currentIndex++;
+      }
 
 
      workerJSON.push(jsonObj)

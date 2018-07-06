@@ -60,3 +60,7 @@ var workerFinished=[];
 var allWorkerFinished=true;
 var doneWorkerPreparation=false;
 var workerJSON=[];
+
+// simulate ColorBlindness
+var doColorblindnessSim = false;
+var colorblindnessType = 0;

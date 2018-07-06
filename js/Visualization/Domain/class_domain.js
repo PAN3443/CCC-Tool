@@ -101,6 +101,8 @@ class class_Domain {
     return this.gridPoints.length;
   }
 
+
+
   insertGridPoint(point, index) {
     if (index < this.gridPoints.length){
 
@@ -450,6 +452,50 @@ class class_Domain {
 
   getNumberOfFields(){
     return this.fieldArray.length;
+  }
+
+  getNumberOfFieldValues(fieldIndex){
+    if(fieldIndex<this.fieldArray.length){
+      return this.fieldArray[fieldIndex].length;
+    }else {
+      return 0;
+    }
+  }
+
+  getFieldValue(fieldIndex, index){
+    if(fieldIndex<this.fieldArray.length){
+      if(index<this.fieldArray[fieldIndex].length){
+        return this.fieldArray[fieldIndex][index];
+      }else {
+        return undefined;
+      }
+    }else {
+      return undefined;
+    }
+  }
+
+  getFieldTimeValue(fieldIndex,time, index){
+
+    if(fieldIndex<this.fieldArray.length){
+      var numValPerTime = this.fieldArray[fieldIndex].length/this.timeSteps[fieldIndex];
+      if(index<numValPerTime){
+        var startIndex = numValPerTime*(time);
+        return this.fieldArray[fieldIndex][startIndex+index];
+      }else {
+        return undefined;
+      }
+    }else {
+      return undefined;
+    }
+
+  }
+
+  getNumValPerTime(fieldIndex){
+    if(fieldIndex<this.fieldArray.length){
+      return this.fieldArray[fieldIndex].length/this.timeSteps[fieldIndex];
+    }else {
+      return 0;
+    }
   }
 
   getNumberOfTimeSteps(fieldIndex){

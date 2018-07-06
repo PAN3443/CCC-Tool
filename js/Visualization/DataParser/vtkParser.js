@@ -221,7 +221,6 @@ function vtk_reader(content) {
 
                         if(counter==numberFieldValues){
 
-                          console.log(numberFieldValues, tmpSubstring);
                           counter=0;
                           if(!globalDomain.addNewField(tmpValueArray, isCellData)){
                             console.log("Algorithm was not able to loading the field values of the type SCALARS.");
