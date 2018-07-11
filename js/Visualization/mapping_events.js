@@ -257,7 +257,7 @@ function drawHistogramMap(rangeStart,rangeEnd){
     var tmpCurrentColor = globalCMS1.calculateColor(value, colorspaceModus);
 
 
-    if(document.getElementById("id_affectHistogram") && doColorblindnessSim){
+    if(document.getElementById("id_affectHistogram").checked && doColorblindnessSim){
       var tmpLMS = tmpCurrentColor.calcLMSColor();
       tmpCurrentColor = tmpLMS.calcColorBlindRGBColor();
     }
@@ -319,6 +319,14 @@ function changeColorblindness(){
     doColorblindnessSim=true;
     changeColorblindnessType();
     document.getElementById('colorblindnessOptions').style.display = "inline-block";
+
+    switch (colorblindnessType) {
+      case 0:
+
+        break;
+      default:
+
+    }
   }
   else{
     doColorblindnessSim=false;
@@ -327,30 +335,102 @@ function changeColorblindness(){
   changeColorblindnessType();
 }
 
+
+function changeColorblindnessSection(){
+  document.getElementById('AnomalousTrichomacy_Dichromatism_View_Div').style.display="none";
+  document.getElementById('Monochromatic_View_Div').style.display="none";
+
+  document.getElementById('input_transferMatrixCol1').style.display="none";
+  document.getElementById('input_transferMatrixCol2').style.display="none";
+  document.getElementById('input_transferMatrixCol3').style.display="none";
+  document.getElementById('label_transferMatrixCol1').style.display="none";
+  document.getElementById('label_transferMatrixCol2').style.display="none";
+  document.getElementById('label_transferMatrixCol3').style.display="none";
+
+  if(document.getElementById('id_radio_SelectTrichomacy_Dichromatism').checked){
+    document.getElementById('AnomalousTrichomacy_Dichromatism_View_Div').style.display="inline-block";
+    document.getElementById('label_transferMatrixCol1').style.display="inline-block";
+    document.getElementById('label_transferMatrixCol2').style.display="inline-block";
+    document.getElementById('label_transferMatrixCol3').style.display="inline-block";
+  }
+
+  if(document.getElementById('id_radio_Monochromatic').checked){
+    document.getElementById('Monochromatic_View_Div').style.display="inline-block";
+    document.getElementById('label_transferMatrixCol1').style.display="inline-block";
+    document.getElementById('label_transferMatrixCol2').style.display="inline-block";
+    document.getElementById('label_transferMatrixCol3').style.display="inline-block";
+  }
+
+  if(document.getElementById('id_radio_CustomColorblindness').checked){
+    document.getElementById('input_transferMatrixCol1').style.display="inline-block";
+    document.getElementById('input_transferMatrixCol2').style.display="inline-block";
+    document.getElementById('input_transferMatrixCol3').style.display="inline-block";
+  }
+
+  changeColorblindnessType();
+}
+
+
 function changeColorblindnessType(){
 
-  if(document.getElementById('id_radio_Protanopia').checked)
-    colorblindnessType=0;
+  if(document.getElementById('id_radio_SelectTrichomacy_Dichromatism').checked){
 
-  if(document.getElementById('id_radio_Deuteranopia').checked)
-    colorblindnessType=1;
+    if(document.getElementById('id_radio_Protanopia').checked)
+      colorblindnessType=0;
 
-  if(document.getElementById('id_radio_Tritanopes').checked)
-    colorblindnessType=2;
+    if(document.getElementById('id_radio_Deuteranopia').checked)
+      colorblindnessType=1;
 
-  if(document.getElementById('id_radio_Achromatopsia').checked)
-    colorblindnessType=3;
+    if(document.getElementById('id_radio_Tritanopes').checked)
+      colorblindnessType=2;
+  }
 
-  if(document.getElementById('id_radio_BlueCone').checked)
-    colorblindnessType=4;
+  if(document.getElementById('id_radio_Monochromatic').checked){
 
-  if(document.getElementById('id_radio_CustomColorblindness').checked)
+    if(document.getElementById('id_radio_Achromatopsia').checked)
+      colorblindnessType=3;
+
+    if(document.getElementById('id_radio_BlueCone').checked)
+      colorblindnessType=4;
+  }
+
+
+  if(document.getElementById('id_radio_CustomColorblindness').checked){
     colorblindnessType=5;
-
-
+  }
 
   updateColorBlindness_TransferMatrices()
   doneWorkerPreparation=false;
   orderColorSketch(colorspaceModus);
 
+}
+
+
+function changeColorblindnessDegree(){
+
+  if(parseFloat(document.getElementById("range_DegreeProtanopia").value)==100)
+    document.getElementById("ProtanopiaLabel").style.visibility="visible";
+  else
+    document.getElementById("ProtanopiaLabel").style.visibility="hidden";
+
+    if(parseFloat(document.getElementById("range_DegreeDeuteranopia").value)==100)
+      document.getElementById("DeuteranopiaLabel").style.visibility="visible";
+    else
+      document.getElementById("DeuteranopiaLabel").style.visibility="hidden";
+
+      if(parseFloat(document.getElementById("range_DegreeTritanopes").value)==100)
+        document.getElementById("TritanopiaLabel").style.visibility="visible";
+      else
+        document.getElementById("TritanopiaLabel").style.visibility="hidden";
+
+  updateColorBlindness_TransferMatrices()
+  doneWorkerPreparation=false;
+  orderColorSketch(colorspaceModus);
+
+}
+
+function changeCustomTransferMatrix(){
+  updateColorBlindness_TransferMatrices()
+  doneWorkerPreparation=false;
+  orderColorSketch(colorspaceModus);
 }

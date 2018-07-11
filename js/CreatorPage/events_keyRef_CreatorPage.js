@@ -19,6 +19,9 @@ function keyChange2DAnimation(){
 
 function mouseMoveKeyRef(event){
 
+ if(showSideID!=1)
+ return;
+
  // cursor style:
 
  // calc mouse pos
@@ -65,6 +68,8 @@ function mouseMoveKeyRef(event){
 }
 
 function mouseDownKeyRef(){
+  if(showSideID!=1)
+  return;
 
   if(overKeyID!=-1){
     timer2DAnimation = setInterval(keyChange2DAnimation, animationInterval);

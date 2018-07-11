@@ -85,8 +85,98 @@ var tmLMS_BFD_Inv = [[353346710000/358003292671,-52645908000/358003292671,572671
 var tmLMS_CAT97s_Inv = [[185338101/187703177,-33190618/187703177,35555694/187703177],[84548101/187703177,87269382/187703177,15885694/187703177],[-2621899/187703177,5219382/187703177,185105694/187703177]]; //  (CIECAM97s)
 var tmLMS_CAT02_Inv = [[83461927/76142791,-21233864/76142791,13914728/76142791],[34596927/76142791,36056136/76142791,5489728/76142791],[-733073/76142791,-433864/76142791,77309728/76142791 ]]; //  (CIECAM02)
 
-var tmLMS_Selected = tmLMS_vK;
-var tmLMS_Selected_Inv = tmLMS_vK_Inv;
+var tmLMS_Selected;
+var tmLMS_Selected_Inv;
+
+function updateXYZtoLMS_TransferMatrices(){
+
+  if(document.getElementById("select_LMSTransferMatrix").selectedIndex==5){
+    document.getElementById("label_lmstransferMatrixCol1").style.display = "none";
+    document.getElementById("label_lmstransferMatrixCol2").style.display = "none";
+    document.getElementById("label_lmstransferMatrixCol3").style.display = "none";
+    document.getElementById("input_lmstransferMatrixCol1").style.display = "inline-block";
+    document.getElementById("input_lmstransferMatrixCol2").style.display = "inline-block";
+    document.getElementById("input_lmstransferMatrixCol3").style.display = "inline-block";
+  }
+  else{
+    document.getElementById("label_lmstransferMatrixCol1").style.display = "inline-block";
+    document.getElementById("label_lmstransferMatrixCol2").style.display = "inline-block";
+    document.getElementById("label_lmstransferMatrixCol3").style.display = "inline-block";
+    document.getElementById("input_lmstransferMatrixCol1").style.display = "none";
+    document.getElementById("input_lmstransferMatrixCol2").style.display = "none";
+    document.getElementById("input_lmstransferMatrixCol3").style.display = "none";
+  }
+
+  switch ( document.getElementById("select_LMSTransferMatrix").selectedIndex) {
+    case 0:
+      tmLMS_Selected=tmLMS_HPE;
+      tmLMS_Selected_Inv=tmLMS_HPE_Inv;
+      break;
+      case 1:
+        tmLMS_Selected=tmLMS_vK;
+        tmLMS_Selected_Inv=tmLMS_vK_Inv;
+        break;
+        case 2:
+          tmLMS_Selected=tmLMS_BFD;
+          tmLMS_Selected_Inv=tmLMS_BFD_Inv;
+          break;
+          case 3:
+            tmLMS_Selected=tmLMS_CAT97s;
+            tmLMS_Selected_Inv=tmLMS_CAT97s_Inv;
+            break;
+            case 4:
+              tmLMS_Selected=tmLMS_CAT02;
+              tmLMS_Selected_Inv=tmLMS_CAT02_Inv;
+              break;
+
+              case 5: // Custom
+
+                tmLMS_Selected= [[parseFloat(document.getElementById("inputXyztoLSMTransferMatrix00").value),parseFloat(document.getElementById("inputXyztoLSMTransferMatrix01").value),parseFloat(document.getElementById("inputXyztoLSMTransferMatrix02").value)],
+                                              [parseFloat(document.getElementById("inputXyztoLSMTransferMatrix10").value),parseFloat(document.getElementById("inputXyztoLSMTransferMatrix11").value),parseFloat(document.getElementById("inputXyztoLSMTransferMatrix12").value)],
+                                              [parseFloat(document.getElementById("inputXyztoLSMTransferMatrix20").value),parseFloat(document.getElementById("inputXyztoLSMTransferMatrix21").value),parseFloat(document.getElementById("inputXyztoLSMTransferMatrix22").value)]];
+
+
+                var determinant =    +A(0,0)*(A(1,1)*A(2,2)-A(2,1)*A(1,2))-A(0,1)*(A(1,0)*A(2,2)-A(1,2)*A(2,0))+A(0,2)*(A(1,0)*A(2,1)-A(1,1)*A(2,0));
+
+                if(determinant==0){
+                  document.getElementById("mySelect").selectedIndex=1;
+                  tmLMS_Selected=tmLMS_vK;
+                  tmLMS_Selected_Inv=tmLMS_vK_Inv;
+                  break;
+                }
+                var invdet = 1/determinant;
+                tmLMS_Selected_Inv=[[0,0,0],[0,0,0],[0,0,0]];
+                              tmLMS_Selected_Inv[0,0] = (tmLMS_Selected[1,1]*tmLMS_Selected[2,2]-tmLMS_Selected[2,1]*tmLMS_Selected[1,2])*invdet;
+                              tmLMS_Selected_Inv[1,0] = -(tmLMS_Selected[0,1]*tmLMS_Selected[2,2]-tmLMS_Selected[0,2]*tmLMS_Selected[2,1])*invdet;
+                              tmLMS_Selected_Inv[2,0] = (tmLMS_Selected[0,1]*tmLMS_Selected[1,2]-tmLMS_Selected[0,2]*tmLMS_Selected[1,1])*invdet;
+                              tmLMS_Selected_Inv[0,1] = -(tmLMS_Selected[1,0]*tmLMS_Selected[2,2]-tmLMS_Selected[1,2]*tmLMS_Selected[2,0])*invdet;
+                              tmLMS_Selected_Inv[1,1] = (tmLMS_Selected[0,0]*tmLMS_Selected[2,2]-tmLMS_Selected[0,2]*tmLMS_Selected[2,0])*invdet;
+                              tmLMS_Selected_Inv[2,1] = -(tmLMS_Selected[0,0]*tmLMS_Selected[1,2]-tmLMS_Selected[1,0]*tmLMS_Selected[0,2])*invdet;
+                              tmLMS_Selected_Inv[0,2] = (tmLMS_Selected[1,0]*tmLMS_Selected[2,1]-tmLMS_Selected[2,0]*tmLMS_Selected[1,1])*invdet;
+                              tmLMS_Selected_Inv[1,2] = -(tmLMS_Selected[0,0]*tmLMS_Selected[2,1]-tmLMS_Selected[2,0]*tmLMS_Selected[0,1])*invdet;
+                              tmLMS_Selected_Inv[2,2] = (tmLMS_Selected[0,0]*tmLMS_Selected[1,1]-tmLMS_Selected[1,0]*tmLMS_Selected[0,1])*invdet;
+                break;
+
+    default:
+    document.getElementById("mySelect").selectedIndex=2;
+    tmLMS_Selected=tmLMS_vK;
+    tmLMS_Selected_Inv=tmLMS_vK_Inv;
+
+  }
+
+  document.getElementById("xyztoLSMTransferMatrix00").innerHTML=tmLMS_Selected[0][0];
+  document.getElementById("xyztoLSMTransferMatrix01").innerHTML=tmLMS_Selected[1][0];
+  document.getElementById("xyztoLSMTransferMatrix02").innerHTML=tmLMS_Selected[2][0];
+
+  document.getElementById("xyztoLSMTransferMatrix10").innerHTML=tmLMS_Selected[0][1];
+  document.getElementById("xyztoLSMTransferMatrix11").innerHTML=tmLMS_Selected[1][1];
+  document.getElementById("xyztoLSMTransferMatrix12").innerHTML=tmLMS_Selected[2][1];
+
+  document.getElementById("xyztoLSMTransferMatrix20").innerHTML=tmLMS_Selected[0][2];
+  document.getElementById("xyztoLSMTransferMatrix21").innerHTML=tmLMS_Selected[1][2];
+  document.getElementById("xyztoLSMTransferMatrix22").innerHTML=tmLMS_Selected[2][2];
+
+}
 
 ////////////////////////// http://ixora.io/projects/colorblindness/color-blindness-simulation-research/
 
@@ -122,8 +212,14 @@ function updateColorBlindness_TransferMatrices(){
   //var lmsGreenPrimary = xyzGreenPrimary.calcLMSColor();
 
 
+
   switch (colorblindnessType) {
     case 0: // Protanopia
+
+      degreeOFColorblindness=parseFloat(document.getElementById("range_DegreeProtanopia").value)/100;
+
+
+
         //// Calc Protanopia
         //
         //  [ 0 a b ][l]    [a*m+b*s]
@@ -138,8 +234,26 @@ function updateColorBlindness_TransferMatrices(){
         var a = (lmsBluePrimary.getLValue()*lmsWhiteOrigin.getSValue()-lmsWhiteOrigin.getLValue()*lmsBluePrimary.getSValue())/(lmsBluePrimary.getMValue()*lmsWhiteOrigin.getSValue()-lmsWhiteOrigin.getMValue()*lmsBluePrimary.getSValue());// new a value
         var b = (lmsBluePrimary.getLValue()*lmsWhiteOrigin.getMValue()-lmsWhiteOrigin.getLValue()*lmsBluePrimary.getMValue())/(lmsBluePrimary.getSValue()*lmsWhiteOrigin.getMValue()-lmsWhiteOrigin.getSValue()*lmsBluePrimary.getMValue());;// new b value
         sim_AdaptiveColorblindness= [[1-degreeOFColorblindness,a*degreeOFColorblindness,b*degreeOFColorblindness],[0,1,0],[0,0,1]];
+
+        document.getElementById("infolabelTransferMatrix00").innerHTML="1-"+degreeOFColorblindness;
+        document.getElementById("infolabelTransferMatrix01").innerHTML=degreeOFColorblindness+"*"+a.toFixed(5);
+        document.getElementById("infolabelTransferMatrix02").innerHTML=degreeOFColorblindness+"*"+b.toFixed(5);
+
+        document.getElementById("infolabelTransferMatrix10").innerHTML="0";
+        document.getElementById("infolabelTransferMatrix11").innerHTML="1";
+        document.getElementById("infolabelTransferMatrix12").innerHTML="0";
+
+        document.getElementById("infolabelTransferMatrix20").innerHTML="0";
+        document.getElementById("infolabelTransferMatrix21").innerHTML="0";
+        document.getElementById("infolabelTransferMatrix22").innerHTML="1";
+
       break;
     case 1:
+
+      degreeOFColorblindness=parseFloat(document.getElementById("range_DegreeDeuteranopia").value)/100;
+
+
+
         //// Calc Deuteranopia
         //
         //  [ 1 0 0 ][l]    [l]
@@ -156,8 +270,25 @@ function updateColorBlindness_TransferMatrices(){
         var b = (lmsBluePrimary.getMValue()*lmsWhiteOrigin.getLValue()-lmsWhiteOrigin.getMValue()*lmsBluePrimary.getLValue())/(lmsBluePrimary.getSValue()*lmsWhiteOrigin.getLValue()-lmsWhiteOrigin.getSValue()*lmsBluePrimary.getLValue());;// new b value
 
         sim_AdaptiveColorblindness= [[1,0,0],[a*degreeOFColorblindness,1-degreeOFColorblindness,b*degreeOFColorblindness],[0,0,1]];
+
+        document.getElementById("infolabelTransferMatrix00").innerHTML="1";
+        document.getElementById("infolabelTransferMatrix01").innerHTML="0";
+        document.getElementById("infolabelTransferMatrix02").innerHTML="0";
+
+        document.getElementById("infolabelTransferMatrix10").innerHTML=degreeOFColorblindness+"*"+a.toFixed(5);
+        document.getElementById("infolabelTransferMatrix11").innerHTML="1-"+degreeOFColorblindness;
+        document.getElementById("infolabelTransferMatrix12").innerHTML=degreeOFColorblindness+"*"+b.toFixed(5);
+
+        document.getElementById("infolabelTransferMatrix20").innerHTML="0";
+        document.getElementById("infolabelTransferMatrix21").innerHTML="0";
+        document.getElementById("infolabelTransferMatrix22").innerHTML="1";
         break;
         case 2:
+
+        degreeOFColorblindness=parseFloat(document.getElementById("range_DegreeTritanopes").value)/100;
+
+
+
         //// Calc Tritanopes
         //
         //  [ 1 0 0 ][l]    [l]
@@ -174,6 +305,19 @@ function updateColorBlindness_TransferMatrices(){
         var b = (lmsRedPrimary.getSValue()*lmsWhiteOrigin.getLValue()-lmsWhiteOrigin.getSValue()*lmsRedPrimary.getLValue())/(lmsRedPrimary.getMValue()*lmsWhiteOrigin.getLValue()-lmsWhiteOrigin.getMValue()*lmsRedPrimary.getLValue());;// new b value
 
           sim_AdaptiveColorblindness= [[1,0,0],[0,1,0],[a*degreeOFColorblindness,b*degreeOFColorblindness,1-degreeOFColorblindness]];
+
+          document.getElementById("infolabelTransferMatrix00").innerHTML="1";
+          document.getElementById("infolabelTransferMatrix01").innerHTML="0";
+          document.getElementById("infolabelTransferMatrix02").innerHTML="0";
+
+          document.getElementById("infolabelTransferMatrix10").innerHTML="0";
+          document.getElementById("infolabelTransferMatrix11").innerHTML="1";
+          document.getElementById("infolabelTransferMatrix12").innerHTML="0";
+
+          document.getElementById("infolabelTransferMatrix20").innerHTML=degreeOFColorblindness+"*"+a.toFixed(5);
+          document.getElementById("infolabelTransferMatrix21").innerHTML=degreeOFColorblindness+"*"+b.toFixed(5);
+          document.getElementById("infolabelTransferMatrix22").innerHTML="1-"+degreeOFColorblindness;
+
           break;
           case 3: // Achromatopsia
             sim_AdaptiveColorblindness= [[1,0,0],[0,1,0],[0,0,1]];
@@ -182,7 +326,10 @@ function updateColorBlindness_TransferMatrices(){
               sim_AdaptiveColorblindness= [[1,0,0],[0,1,0],[0,0,1]];
               break;
               case 5: // CustomColorblindness
-                sim_AdaptiveColorblindness= [[1,0,0],[0,1,0],[0,0,1]];
+
+                sim_AdaptiveColorblindness= [[parseFloat(document.getElementById("customTransferMatrix00").value),parseFloat(document.getElementById("customTransferMatrix01").value),parseFloat(document.getElementById("customTransferMatrix02").value)],
+                                              [parseFloat(document.getElementById("customTransferMatrix10").value),parseFloat(document.getElementById("customTransferMatrix11").value),parseFloat(document.getElementById("customTransferMatrix12").value)],
+                                              [parseFloat(document.getElementById("customTransferMatrix20").value),parseFloat(document.getElementById("customTransferMatrix21").value),parseFloat(document.getElementById("customTransferMatrix22").value)]];
                 break;
     default:
 

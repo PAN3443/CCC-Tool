@@ -1,3 +1,48 @@
+function switchCCCToolMode(){
+
+  if(document.getElementById('switchExpertMode').checked){
+
+    document.getElementById("button_showAnalyze").style.display = "inline-block";
+    document.getElementById("button_showCompare").style.display = "inline-block";
+    document.getElementById("button_showSettings").style.display = "inline-block";
+    document.getElementById("id_selectPathModifying").style.display = "inline-block";
+
+
+    if (showSideID == 1) {
+
+      if(globalCMS1.getKeyLength() != 0){
+        document.getElementById("id_Mapping_Table_Div").style.display = "inline-block";
+        fillTable();
+      }
+
+      if(document.getElementById("mapping_checkAutoUpdate").checked==true && mapping_doingAnimation && document.getElementById('switchExpertMode').checked){
+        updateMesh();
+      }
+
+    }
+
+
+  }
+  else{
+
+    document.getElementById("button_showAnalyze").style.display = "none";
+    document.getElementById("button_showCompare").style.display = "none";
+    document.getElementById("button_showSettings").style.display = "none";
+    document.getElementById("id_Mapping_Table_Div").style.display = "none";
+    document.getElementById("id_selectPathModifying").style.display = "none";
+
+    if(document.getElementById("modifyColormapPath").style.display != "none"){
+      switchModifyModus(0);
+    }
+
+    if (showSideID==2 || showSideID==3) {
+      changePage(0);
+    }
+
+  }
+
+  orderColorSketch(colorspaceModus);
+}
 
 function checkIntervalInputFieldsChange(event){
 
@@ -618,6 +663,7 @@ function changePage(type){
                 document.getElementById("id_Mod_Menue").style.display = "inline-block";
                 document.getElementById("id_Colorspace_Menue").style.display = "initial";
                 document.getElementById("div_colormapBandSketch").style.display = "inline-block";
+                document.getElementById("showModeSwitch").style.visibility = "visible";
 
                 if(initPageType!=5)
                 initNewPage();
@@ -642,7 +688,8 @@ function changePage(type){
 
               document.getElementById("id_Create_Menue").style.display = "none";
               document.getElementById("id_creatorPage").style.display = "none";
-              document.getElementById("id_LinearMap_Table_Div").style.display = "none";
+              document.getElementById("id_Mapping_Table_Div").style.display = "none";
+              //document.getElementById("div_colormapLinear").style.display = "none";
 
               stopAnimation();
               stopAnimationMapping();

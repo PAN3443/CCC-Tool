@@ -8,6 +8,8 @@ function bandOnDragStart(event){
     event.dataTransfer.dropEffect = "move";
     event.dataTransfer.setData("text", event.target.getAttribute('id') );
     document.getElementById("id_createColormapKeys").style.visibility="hidden";
+    document.getElementById("id_keyColormapLinesBottom").style.visibility="hidden";
+
     var tmpString = event.target.id;
     //tmpString = tmpString.substr(4);
 
@@ -66,6 +68,7 @@ function bandOnDragEnd(event) {
     orderColorSketch(colorspaceModus);
     //drawBandSketch(globalCMS1,"id_colormapSketch","id_createColormapKeys","id_colormapSketch_Ref", false, -1);
     document.getElementById("id_createColormapKeys").style.visibility="visible";
+    document.getElementById("id_keyColormapLinesBottom").style.visibility="visible";
 }
 
 function bandOnEnter(event) {

@@ -25,6 +25,10 @@ window.onload = function() {
   document.getElementById('id_inputSessionData').addEventListener("change", readSessionFile);
   document.getElementById('id_inputData').addEventListener("change", readDataFile);
 
+  document.getElementById('switchExpertMode').addEventListener("change", switchCCCToolMode);
+
+
+
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Setting Side /////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -58,6 +62,37 @@ window.onload = function() {
   document.getElementById("id_de2000_k_H_Input").addEventListener("change", checkSettingInputChange);
 
   updateAllSetting();
+
+  document.getElementById("select_LMSTransferMatrix").addEventListener("change", updateXYZtoLMS_TransferMatrices);
+
+  document.getElementById("inputXyztoLSMTransferMatrix00").addEventListener("change", updateXYZtoLMS_TransferMatrices);
+  document.getElementById("inputXyztoLSMTransferMatrix10").addEventListener("change", updateXYZtoLMS_TransferMatrices);
+  document.getElementById("inputXyztoLSMTransferMatrix20").addEventListener("change", updateXYZtoLMS_TransferMatrices);
+
+  document.getElementById("inputXyztoLSMTransferMatrix01").addEventListener("change", updateXYZtoLMS_TransferMatrices);
+  document.getElementById("inputXyztoLSMTransferMatrix11").addEventListener("change", updateXYZtoLMS_TransferMatrices);
+  document.getElementById("inputXyztoLSMTransferMatrix21").addEventListener("change", updateXYZtoLMS_TransferMatrices);
+
+  document.getElementById("inputXyztoLSMTransferMatrix02").addEventListener("change", updateXYZtoLMS_TransferMatrices);
+  document.getElementById("inputXyztoLSMTransferMatrix12").addEventListener("change", updateXYZtoLMS_TransferMatrices);
+  document.getElementById("inputXyztoLSMTransferMatrix22").addEventListener("change", updateXYZtoLMS_TransferMatrices);
+
+
+  document.getElementById("inputXyztoLSMTransferMatrix00").value=1;
+  document.getElementById("inputXyztoLSMTransferMatrix10").value=0;
+  document.getElementById("inputXyztoLSMTransferMatrix20").value=0;
+
+  document.getElementById("inputXyztoLSMTransferMatrix01").value=0;
+  document.getElementById("inputXyztoLSMTransferMatrix11").value=1;
+  document.getElementById("inputXyztoLSMTransferMatrix21").value=0;
+
+  document.getElementById("inputXyztoLSMTransferMatrix02").value=0;
+  document.getElementById("inputXyztoLSMTransferMatrix12").value=0;
+  document.getElementById("inputXyztoLSMTransferMatrix22").value=1;
+
+  //updateColorBlindness_TransferMatrices();
+  document.getElementById("select_LMSTransferMatrix").selectedIndex=1;
+  updateXYZtoLMS_TransferMatrices();
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Add Side /////////////////////////////////////
@@ -172,6 +207,11 @@ window.onload = function() {
   document.getElementById('showHideMappingVisualizationText').style.background = styleActiveColor;
   document.getElementById('showHideColorBlindnessSimText').style.background = styleActiveColor;
 
+  document.getElementById('id_radio_SelectTrichomacy_Dichromatism').checked=true;
+  document.getElementById("id_radio_Monochromatic").disabled = true;
+  document.getElementById('id_radio_Protanopia').checked=true;
+  colorblindnessType=0;
+
   document.getElementById('customTransferMatrix00').value = 1;
   document.getElementById('customTransferMatrix01').value = 0;
   document.getElementById('customTransferMatrix02').value = 0;
@@ -182,6 +222,16 @@ window.onload = function() {
   document.getElementById('customTransferMatrix21').value = 0;
   document.getElementById('customTransferMatrix22').value = 1;
 
+  document.getElementById('customTransferMatrix00').addEventListener("change", changeCustomTransferMatrix);
+  document.getElementById('customTransferMatrix01').addEventListener("change", changeCustomTransferMatrix);
+  document.getElementById('customTransferMatrix02').addEventListener("change", changeCustomTransferMatrix);
+  document.getElementById('customTransferMatrix10').addEventListener("change", changeCustomTransferMatrix);
+  document.getElementById('customTransferMatrix11').addEventListener("change", changeCustomTransferMatrix);
+  document.getElementById('customTransferMatrix12').addEventListener("change", changeCustomTransferMatrix);
+  document.getElementById('customTransferMatrix20').addEventListener("change", changeCustomTransferMatrix);
+  document.getElementById('customTransferMatrix21').addEventListener("change", changeCustomTransferMatrix);
+  document.getElementById('customTransferMatrix22').addEventListener("change", changeCustomTransferMatrix);
+
   document.getElementById('id_doColorBlindSim').checked = false;
   document.getElementById('id_doColorBlindSim').addEventListener("change", changeColorblindness);
 
@@ -190,7 +240,17 @@ window.onload = function() {
   document.getElementById('id_radio_Tritanopes').addEventListener("change", changeColorblindnessType);
   document.getElementById('id_radio_Achromatopsia').addEventListener("change", changeColorblindnessType);
   document.getElementById('id_radio_BlueCone').addEventListener("change", changeColorblindnessType);
-  document.getElementById('id_radio_CustomColorblindness').addEventListener("change", changeColorblindnessType);
+
+
+  document.getElementById('range_DegreeProtanopia').addEventListener("change", changeColorblindnessDegree);
+  document.getElementById('range_DegreeDeuteranopia').addEventListener("change", changeColorblindnessDegree);
+  document.getElementById('range_DegreeTritanopes').addEventListener("change", changeColorblindnessDegree);
+
+  document.getElementById('id_radio_SelectTrichomacy_Dichromatism').addEventListener("change", changeColorblindnessSection);
+  document.getElementById('id_radio_Monochromatic').addEventListener("change", changeColorblindnessSection);
+  document.getElementById('id_radio_CustomColorblindness').addEventListener("change", changeColorblindnessSection);
+
+  document.getElementById('id_affectHistogram').addEventListener("change", orderColorSketch);
 
 
   //document.getElementById("mappingProcessBar").style.background=styleActiveColor;
@@ -200,7 +260,6 @@ window.onload = function() {
   document.getElementById('idNumberHistoRanges').addEventListener("change", updateHistogramChange);
   document.getElementById('histogram_SelectTimeStep').addEventListener("click", updateHistogramChange);
   document.getElementById('histogram_SelectFullData').addEventListener("click", updateHistogramChange);
-
 
   if(browserCanWorker){
     document.getElementById('mapping_checkMultiThread').checked = true;
@@ -460,10 +519,12 @@ window.onload = function() {
   switchModifyModus(0);
   pageIsLoaded=true;
 
+  switchCCCToolMode();
+
 
   initMapping();
   backgroundMapping(0);
-  updateColorBlindness_TransferMatrices();
+  changeColorblindnessDegree();
 
 
 
@@ -502,22 +563,37 @@ function orderColorSketch(forColorspace) {
 
  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    if (showSideID == 1) {
+    if (showSideID == 1 && globalCMS1.getKeyLength() != 0) {
+
+        if(document.getElementById('switchExpertMode').checked){
+          document.getElementById("id_Mapping_Table_Div").style.display = "inline-block";
+          fillTable();
+        }
+
+        if(document.getElementById("mapping_checkAutoUpdate").checked==true && mapping_doingAnimation && document.getElementById('switchExpertMode').checked){
+          updateMesh();
+        }
+
+    }
+    else{
+      document.getElementById("id_Mapping_Table_Div").style.display = "none";
+    }
+
+
       // show and draw the colormap
       if(globalCMS1.getKeyLength() != 0){
-        document.getElementById("id_LinearMap_Table_Div").style.display = "inline-block";
+
         drawCanvasColormap("id_linearColormap", linearMap_resolution_X, linearMap_resolution_Y, globalCMS1);
         drawKeys("id_keyColormap", key_resolution_X, key_resolution_Y, globalCMS1, "id_keyColormapLinesBottom");
-        fillTable();
+
+        document.getElementById("div_colormapLinear").style.display = "inline-block";
+
       }
       else{
-        document.getElementById("id_LinearMap_Table_Div").style.display = "none";
+        document.getElementById("div_colormapLinear").style.display = "none";
       }
 
-      if(document.getElementById("mapping_checkAutoUpdate").checked==true && mapping_doingAnimation){
-        updateMesh();
-      }
-    }
+
 
     //////////////////////////////////////////////////////////////////////////
     drawBandSketch(globalCMS1,"id_colormapSketch","id_createColormapKeys","id_colormapSketch_Ref", false, -1);

@@ -183,7 +183,23 @@
           -->
 
     <div id="id_menu" style="width:100%; height:auto; margin:0px;  padding-bottom:2vh; background:url(img/background3.png);"><!-- background:url(img/background.png);;position: -webkit-sticky; position: sticky; margin:0px; padding-top:2vh;  padding-bottom:2vh;"-->
-      <p style=" float:right; margin-right:5px; margin-top:0vh; margin-bottom:0vh; height:2vh; line-height:2vh; width:auto; vertical-align: middle; color:white; font-size:1.5vh;"> Version: 0.5.2 </p>
+
+      <div class="row">
+
+        <div id="showModeSwitch" style="visibility:hidden;">
+          <div class="row">
+            <label class="switch" style="margin-left:5px; margin-top:5px;">
+              <input id="switchExpertMode" type="checkbox">
+              <span class="slider round"></span>
+            </label>
+            <p style=" margin:0vh;  margin-left:10px; height:4vh; line-height:4vh; width:auto; vertical-align: middle; color:white; font-size:2vh;"> Expert Mode </p>
+          </div>
+        </div>
+
+        <p style=" margin:0vh;  margin-right:5px; margin-left:auto;  height:2vh; line-height:2vh; width:auto; vertical-align: middle; color:white; font-size:1.5vh;"> Version: 0.5.3 </p>
+      </div>
+
+
       <div class="row" style="width:100%; height:auto; margin:0px;">
         <img src="img/CCC-LOGO.png" alt="CCC-Tool Logo" style="margin-top:0.1vh; margin-bottom:0.1vh; height:8vh; margin-left:auto;">
         <div style="margin-left:20px; margin-right:auto;">
@@ -195,7 +211,7 @@
 
     <div id="id_MainMenue" style="display:none; width:100%; background:url(img/background.png);">
       <div class="row" style="width:100%; background:none; z-index: 100 padding-bottom:0.5vh;"> <!-- background:rgb(60,60,60)-->
-        <button class="classButtonBlue" onclick="changePage(0)" id="button_showMyDesigns" title="MyDesigns">MyDesigns</button>
+        <button class="classButtonBlue" onclick="changePage(0)" id="button_showMyDesigns" title="MyDesigns" >MyDesigns</button>
         <button class="classButtonBlue" onclick="changePage(1)" id="button_showGallery" title="Gallery" >Gallery</button>
         <button class="classButtonBlue" onclick="changePage(2)" id="button_showNewCMS" title="New CMS"  >New</button>
         <button class="classButtonBlue" onclick="changePage(3)" id="button_showEditCMS" title="Edit CMS" >Edit</button>
@@ -255,7 +271,7 @@
             ---------------- -------------------------------
             -->
       <!-- Linear Colormap and Table -->
-      <div id="id_LinearMap_Table_Div" style="margin-left:2%; width:96%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:none; display:none;">
+      <div id="id_Mapping_Table_Div" style="margin-left:2%; width:96%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:none; display:none;">
 
           <div style="height:auto; width:100%; display: flex; flex-direction: column; z-index:20; box-shadow:  0.3vh  0.3vh grey;">
 
@@ -393,9 +409,9 @@
                 <p style="text-align:center; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; width:100%; font-weight:bold;">Colorblindness Simulation:</p>
 
                 <div class="row" style:"margin-top:3vh;">
-                <input id="id_doColorBlindSim" type="checkbox" name="CheckColorBlindSim" value="DoColorBlindSim" style="margin-left:auto; margin-right:0.5%; height:2.5vh; line-height:2.5vh; font-size:2.3vh; vertical-align:middle;">
+                <input id="id_doColorBlindSim" type="checkbox" name="CheckColorBlindSim" value="DoColorBlindSim" style="margin-left:auto; margin-right:0.5%; height:2vh; line-height:2vh; font-size:1.8vh; vertical-align:middle;">
                 <p style="margin:0px; text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-right:10%;"> Do Colorblindness Simulation</p>
-                <input id="id_affectHistogram" type="checkbox" name="CheckColorBlindSim" value="DoColorBlindSim" style="margin-right:0.5%; height:2.5vh; line-height:2.5vh; font-size:2.3vh; vertical-align:middle;">
+                <input id="id_affectHistogram" type="checkbox" name="CheckColorBlindSim" value="DoColorBlindSim" style="margin-right:0.5%; height:2vh; line-height:2vh; font-size:1.8vh; vertical-align:middle;">
                 <p style="margin:0px; text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-right:auto;"> Affect the Histogram Colormap View</p>
                 </div>
 
@@ -403,69 +419,132 @@
                 <div id="colorblindnessOptions" style="display:none; width:100%;">
                   <hr>
 
-                  <div class="row">
-                      <div style="width:33%;">
-                        <p style=" text-align:center; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; width:100%; font-weight:bold;"> Dichromatic View:</p>
-                        <div class="row">
-                          <input id="id_radio_Protanopia" style="margin-left:auto;" type="radio" name="selectColorblindness" value="0" checked>
-                          <p style=" text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin-left:5%; margin-right:auto; width:50%;"> Protanopia (Red Blind)</p>
-                        </div>
+                  <div class="row" style="width:100%;">
 
-                        <div class="row">
-                          <input id="id_radio_Deuteranopia"  style="margin-left:auto;" type="radio" name="selectColorblindness" value="0" >
-                          <p style=" text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin-left:5%; margin-right:auto; width:50%;"> Deuteranopia (Green Blind)</p>
-                        </div>
+                    <p style=" text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; font-weight:bold; vertical-align:middle; margin-left:auto; margin-right:5%; "> Select: </p>
 
-                        <div class="row">
-                          <input id="id_radio_Tritanopes" style="margin-left:auto;" type="radio" name="selectColorblindness" value="0">
-                          <p style=" text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin-left:5%; margin-right:auto; width:50%;"> Tritanopes (Blue Blind)</p>
-                        </div>
-                      </div>
+                    <input id="id_radio_SelectTrichomacy_Dichromatism" type="radio" name="selectColorblindnessChapter" value="0" checked>
+                    <p style=" text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin-left:1%; margin-right:5%; "> AnomalousTrichomacy Dichromatism View</p>
 
-                      <div style="width:33%;">
-                        <p style=" text-align:center; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; width:100%; font-weight:bold;"> Monochromatic View: </p>
+                    <input id="id_radio_Monochromatic"   type="radio" name="selectColorblindnessChapter" value="0" >
+                    <p style="color:grey; text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin-left:1%; margin-right:5%; "> Monochromatic View</p>
 
-                        <div class="row">
-                            <input id="id_radio_Achromatopsia" style="margin-left:auto;" type="radio" name="selectColorblindness" value="0">
-                            <p style=" text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin-left:5%; margin-right:auto; width:50%;"> Achromatopsia </p>
-                        </div>
-
-                        <div class="row">
-                          <input id="id_radio_BlueCone" style="margin-left:auto;" type="radio" name="selectColorblindness" value="0">
-                          <p style=" text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin-left:5%; margin-right:auto; width:50%;"> Blue Cone Monochromatism</p>
-                        </div>
-                      </div>
-
-                      <div style="width:34%;">
-                        <p style=" text-align:center; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; width:100%; font-weight:bold;"> Custom View: </p>
-
-                        <div class="row">
-                          <input id="id_radio_CustomColorblindness" style="margin-left:auto;" type="radio" name="selectColorblindness" value="0">
-                          <p style=" text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin-left:5%; margin-right:auto;"> use custom tranformation matrix </p>
-                        </div>
-
-                        <div class="row" style="width: 100%;">
-                          <p style=" text-align:left; height:20vh; line-height:20vh; font-size:20vh; margin:0px; margin-left:auto; font-weight: lighter;"> ( </p>
-                          <div style="width: 20%; margin-left:2.5%; height:20vh;">
-                            <input type="number" id="customTransferMatrix00" step="0.001" min="0" max="1" style="height:2.5vh; line-height:2.5vh; font-size:2.3vh; vertical-align:middle; margin-top:3vh; width: 90%;"><br>
-                            <input type="number" id="customTransferMatrix10" step="0.001" min="0" max="1" style="height:2.5vh; line-height:2.5vh; font-size:2.3vh; vertical-align:middle; margin-top:0.5vh; width: 90%;"><br>
-                            <input type="number" id="customTransferMatrix20" step="0.001" min="0" max="1" style="height:2.5vh; line-height:2.5vh; font-size:2.3vh; vertical-align:middle; margin-top:0.5vh; margin-bottom:auto; width: 90%;"><br>
-                          </div>
-                          <div style="width: 20%; margin-left:2.5%; height:20vh;">
-                            <input type="number" id="customTransferMatrix01" step="0.001" min="0" max="1" style="height:2.5vh; line-height:2.5vh; font-size:2.3vh; vertical-align:middle; margin-top:3vh; width: 90%;"><br>
-                            <input type="number" id="customTransferMatrix11" step="0.001" min="0" max="1" style="height:2.5vh; line-height:2.5vh; font-size:2.3vh; vertical-align:middle; margin-top:0.5vh; width: 90%;"><br>
-                            <input type="number" id="customTransferMatrix21" step="0.001" min="0" max="1" style="height:2.5vh; line-height:2.5vh; font-size:2.3vh; vertical-align:middle; margin-top:0.5vh; margin-bottom:auto; width: 90%;"><br>
-                          </div>
-                          <div style="width: 20%; margin-left:2.5%; height:20vh;">
-                            <input type="number" id="customTransferMatrix02" step="0.1" min="0" max="1" style="height:2.5vh; line-height:2.5vh; font-size:2.3vh; vertical-align:middle; margin-top:3vh; width: 90%;"><br>
-                            <input type="number" id="customTransferMatrix12" step="0.1" min="0" max="1" style="height:2.5vh; line-height:2.5vh; font-size:2.3vh; vertical-align:middle; margin-top:0.5vh; width: 90%;"><br>
-                            <input type="number" id="customTransferMatrix22" step="0.1" min="0" max="1" style="height:2.5vh; line-height:2.5vh; font-size:2.3vh; vertical-align:middle; margin-top:0.5vh; margin-bottom:auto; width: 90%;"><br>
-                          </div>
-                          <p style=" text-align:left; height:20vh; line-height:20vh; font-size:20vh; vertical-align:middle; margin:0px; margin-left:2.5%; margin-right:auto; font-weight: lighter;"> ) </p>
-                        </div>
-
-                      </div>
+                    <input id="id_radio_CustomColorblindness"  type="radio" name="selectColorblindnessChapter" value="0">
+                    <p style=" text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin-left:1%; margin-right:auto; "> Custom View</p>
                   </div>
+
+                  <div style="width:80%; margin-left:10%; background:rgb(240,240,240); border: thin solid black; ">
+
+                    <div id="AnomalousTrichomacy_Dichromatism_View_Div" style="width:100%; ">
+
+                        <div class="row" style="margin-top:1vh;">
+                          <input id="id_radio_Protanopia" style="margin:0px; margin-left:5%;" type="radio" name="selectColorblindnessDichromatism" value="0" checked>
+                          <p style=" text-align:left; height:3vh; line-height:3vh;  vertical-align:middle; margin:0px; margin-left:1.25%; margin-right:2%; width:25%;"> Protanomaly (Red Weak)</p>
+
+                          <p style=" text-align:left; height:3vh; line-height:3vh;  vertical-align:middle; margin:0px; margin-right:0.25%; "> Degree:</p>
+                          <input type="range" min="0" max="100" value="50" class="rangeslider" id="range_DegreeProtanopia" style="width:30%; margin-right:1.25%;">
+                          <p id="ProtanopiaLabel" style=" text-align:left; height:3vh; line-height:3vh;  vertical-align:middle; margin:0px; margin-right:auto; visibility:hidden;"> &rarr; Protanopia (Red Blind) </p>
+
+                        </div>
+
+                        <div class="row" style="margin-top:1vh;">
+                          <input id="id_radio_Deuteranopia"  style="margin:0px; margin-left:5%;" type="radio" name="selectColorblindnessDichromatism" value="1" >
+                          <p style="text-align:left; height:3vh; line-height:3vh;  vertical-align:middle; margin:0px; margin-left:1.25%; margin-right:2%; width:25%;"> Deuteranomaly (Green Weak)</p>
+
+                          <p style=" text-align:left; height:3vh; line-height:3vh;  vertical-align:middle; margin:0px; margin-right:0.25%; "> Degree:</p>
+                          <input type="range" min="0" max="100" value="50" class="rangeslider" id="range_DegreeDeuteranopia" style="width:30%; margin-right:1.25%;">
+                          <p id="DeuteranopiaLabel" style=" text-align:left; height:3vh; line-height:3vh; vertical-align:middle; margin:0px; margin-right:auto; visibility:hidden;"> &rarr; Deuteranopia (Green Blind) </p>
+                        </div>
+
+                        <div class="row" style="margin-top:1vh;">
+                          <input id="id_radio_Tritanopes" style="margin:0px; margin-left:5%;" type="radio" name="selectColorblindnessDichromatism" value="2">
+                          <p style="text-align:left; height:3vh; line-height:3vh;  vertical-align:middle; margin:0px; margin-left:1.25%; margin-right:2%; width:25%;"> Tritanomaly (Blue Weak)</p>
+
+                          <p style=" text-align:left; height:3vh; line-height:3vh;  vertical-align:middle; margin:0px; margin-right:0.25%; "> Degree:</p>
+                          <input type="range" min="0" max="100" value="50" class="rangeslider" id="range_DegreeTritanopes" style="width:30%; margin-right:1.25%;">
+                          <p id="TritanopiaLabel" style=" text-align:left; height:3vh; line-height:3vh;  vertical-align:middle; margin:0px; margin-right:auto; visibility:hidden;">  &rarr; Tritanopia (Blue Blind) </p>
+                        </div>
+
+
+                        <hr>
+                      </div>
+
+
+                        <div id="Monochromatic_View_Div" style="width:100%; display:none;">
+                          <div class="row">
+                              <input id="id_radio_Achromatopsia" style="margin-left:auto;" type="radio" name="selectColorblindness" value="0">
+                              <p style=" text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin-left:5%; margin-right:auto; width:50%;"> Achromatopsia </p>
+                          </div>
+
+                          <div class="row">
+                            <input id="id_radio_BlueCone" style="margin-left:auto;" type="radio" name="selectColorblindness" value="0">
+                            <p style=" text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin-left:5%; margin-right:auto; width:50%;"> Blue Cone Monochromatism</p>
+                          </div>
+
+                          <hr>
+                        </div>
+
+
+                          <p style=" text-align:center; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; width:100%; font-weight:bold;"> Used Transfer-Matrix: </p>
+
+                          <div class="row" style="width:100%;">
+                            <p style=" text-align:left; height:10vh; line-height:10vh; vertical-align:middle; font-size:10vh; margin:0px; font-weight: lighter; margin-left:auto;"> [ </p>
+
+                            <div id="input_transferMatrixCol1" style="height:10vh; width:10%; display:none;">
+                              <input type="number" id="customTransferMatrix00" step="0.001"  style="height:2vh; line-height:2vh; font-size:1.5vh; vertical-align:middle;  margin:0px; width: 90%;"><br>
+                              <input type="number" id="customTransferMatrix10" step="0.001"  style="height:2vh; line-height:2vh; font-size:1.5vh; vertical-align:middle;  margin:0px; width: 90%;"><br>
+                              <input type="number" id="customTransferMatrix20" step="0.001"  style="height:2vh; line-height:2vh; font-size:1.5vh; vertical-align:middle;  margin:0px; width: 90%;"><br>
+                            </div>
+                            <div id="input_transferMatrixCol2" style=" height:10vh; width:10%; display:none;">
+                              <input type="number" id="customTransferMatrix01" step="0.001"  style="height:2vh; line-height:2vh; font-size:1.5vh; vertical-align:middle;  margin:0px; width: 90%;"><br>
+                              <input type="number" id="customTransferMatrix11" step="0.001"  style="height:2vh; line-height:2vh; font-size:1.5vh; vertical-align:middle; margin:0px; width: 90%;"><br>
+                              <input type="number" id="customTransferMatrix21" step="0.001"  style="height:2vh; line-height:2vh; font-size:1.5vh; vertical-align:middle; margin:0px; width: 90%;"><br>
+                            </div>
+                            <div id="input_transferMatrixCol3" style=" height:10vh; width:10%; display:none;">
+                              <input type="number" id="customTransferMatrix02" step="0.1" style="height:2vh; line-height:2vh; font-size:1.5vh; vertical-align:middle; margin:0px; width: 90%;"><br>
+                              <input type="number" id="customTransferMatrix12" step="0.1" style="height:2vh; line-height:2vh; font-size:1.5vh; vertical-align:middle; margin:0px; width: 90%;"><br>
+                              <input type="number" id="customTransferMatrix22" step="0.1" style="height:2vh; line-height:2vh; font-size:1.5vh; vertical-align:middle; margin:0px; width: 90%;"><br>
+                            </div>
+
+                            <div id="label_transferMatrixCol1" style="height:10vh; margin-right:30px;">
+                              <p id="infolabelTransferMatrix00" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px;">1</p>
+                              <p id="infolabelTransferMatrix10" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">0</p>
+                              <p id="infolabelTransferMatrix20" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">0</p>
+                            </div>
+                            <div id="label_transferMatrixCol2" style=" height:10vh; margin-right:30px;">
+                              <p id="infolabelTransferMatrix01" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; width: 100%;">0</p>
+                              <p id="infolabelTransferMatrix11" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">1</p>
+                              <p id="infolabelTransferMatrix21" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">0</p>
+                            </div>
+                            <div id="label_transferMatrixCol3" style=" height:10vh; ">
+                              <p id="infolabelTransferMatrix02" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px;">0</p>
+                              <p id="infolabelTransferMatrix12" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">0</p>
+                              <p id="infolabelTransferMatrix22" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">1</p>
+                            </div>
+
+                            <p style=" text-align:left; height:10vh; line-height:10vh; font-size:10vh; vertical-align:middle; margin:0px;  font-weight: lighter;"> ] </p>
+                            <p style=" text-align:left; height:10vh; line-height:10vh; font-size:10vh; vertical-align:middle; margin:0px;  font-weight: lighter;"> [ </p>
+                            <div style="height:10vh;">
+                              <p style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center;  margin:0px; width: 100%;">L</p>
+                              <p style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center;  margin:0px; margin-top:0.5vh; width: 100%;">M</p>
+                              <p style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center;  margin:0px; margin-top:0.5vh;  width: 100%;">S</p>
+                            </div>
+                            <p style=" text-align:left; height:10vh; line-height:10vh; font-size:10vh; vertical-align:middle; margin:0px;  font-weight: lighter;"> ] </p>
+                            <p style=" text-align:left; height:10vh; line-height:10vh; font-size:5vh; vertical-align:middle; margin:0px;  font-weight: lighter;"> = </p>
+                            <p style=" text-align:left; height:10vh; line-height:10vh; font-size:10vh; vertical-align:middle; margin:0px;  font-weight: lighter;"> [ </p>
+                            <div style="height:10vh;">
+                              <p style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center;  margin:0px; width: 100%;">L'</p>
+                              <p style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center;  margin:0px; margin-top:0.5vh; width: 100%;">M'</p>
+                              <p style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center;  margin:0px; margin-top:0.5vh;  width: 100%;">S'</p>
+                            </div>
+                            <p style=" text-align:left; height:10vh; line-height:10vh; font-size:10vh; vertical-align:middle; margin:0px;  font-weight: lighter; margin-right:auto;"> ] </p>
+                          </div>
+
+                          <p style=" text-align:left; line-height:2vh; font-size:1.5vh; vertical-align:middle; width:50%; margin-left:25%; margin-top:2.5vh;"> Info: The values of the transfer matrix for color blindness simulation are depenting on the selected transfer-matrix for the RGB to XYZ conversion and the selected transer-matrix for XYZ to LMS conversion (see section settings). </p>
+
+                  </div>
+
+
                 </div>
                 </div>
               </div>
@@ -483,8 +562,8 @@
 
                 <div class="row">
 
-                    <p style="text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-left:auto;"> # Hitoram-Ranges:</p>
-                    <input type="number" id="idNumberHistoRanges" value="100" style="margin-left:2.5%; height:2.5vh; line-height:2.5vh; font-size:2.3vh; vertical-align:middle;">
+                    <p style="text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-left:auto;"> # Historam-Ranges:</p>
+                    <input type="number" id="idNumberHistoRanges" value="100" style="margin-left:2.5%; height:2vh; line-height:2vh; font-size:1.8vh; vertical-align:middle;">
 
                     <p style="text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-left:10%;"> Data-Set: </p>
                     <input id="histogram_SelectTimeStep" type="radio" name="selectHistoData" value="1" style="margin-left:2.5%;"> <p style=" margin:0px; text-align:left; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; margin-left:1.5%;"> Selected Time Step </p>
@@ -566,9 +645,25 @@
           </div>
 
 
-          <div style="height:auto; width:100%; display: flex; flex-direction: column; z-index:20; background:white; margin-top:4vh; padding-bottom:4vh; box-shadow:  0.3vh  0.3vh grey;">
 
-            <h1 style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin:0px; padding-top:2vh;">Linear Colormap</h1>
+
+      </div>
+
+
+      <!--
+            -----------------------------------------------
+            ----------------	Colormap Band Sketch ---------------
+            ---------------- -------------------------------
+            -->
+
+      <div id="div_colormapBandSketch" style="margin-left:2%; width:96%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:white; box-shadow:  0.3vh  0.3vh grey; display:none;">
+          <!--h4 style="width:100%; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Colormap Band Sketch </h4-->
+          <h1 style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin-top:0vh; padding-top:2vh;"> Linear Colormap and Colormap Band Sketch of the active CMS </h1>
+
+
+
+          <div id="div_colormapLinear" style="width:100%; height:auto; display:none;">
+
 
             <canvas style="margin-top: 0px; width:100%; height: 6vh; margin-left:0%; " id="id_keyColormap">
 
@@ -581,19 +676,6 @@
                                     </canvas>
 
           </div>
-
-      </div>
-
-      <!--
-            -----------------------------------------------
-            ----------------	Colormap Band Sketch ---------------
-            ---------------- -------------------------------
-            -->
-
-      <div id="div_colormapBandSketch" style="margin-left:2%; width:96%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:white; box-shadow:  0.3vh  0.3vh grey; display:none;">
-          <!--h4 style="width:100%; height:4vh; line-height:4vh; font-size:2.5vh; text-align:center; vertical-align: middle; color:black; margin:0px;">Colormap Band Sketch </h4-->
-          <h1 style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.8vh; vertical-align:middle; margin-top:0vh; padding-top:2vh;"> Colormap Band Sketch of the active CMS </h1>
-
           <canvas style="margin-top: 0px; width:100%; height: 10vh;" id="id_createColormapKeys">
           </canvas>
           <canvas class="classSketchCanvas" id="id_colormapSketch">
@@ -658,7 +740,9 @@
 
           <h1 style="margin-left:10%; width:80%; text-align:center; height:4vh; line-height:4vh; font-size:4vh; vertical-align:middle; padding-top:2vh;  overflow: hidden; text-overflow:clip;"> Welcome to the CCC-Tool </h1>
 
-          <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
+
+
+          <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; ">
           Start with:
           <p>
 
@@ -797,7 +881,7 @@
           <h1 style="margin-left:10%; width:80%; text-align:center; height:4vh; line-height:4vh; font-size:3vh; vertical-align:middle; padding-top:2vh;">  Color Conversion  </h1>
           <div class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
             <div style="width:50%; height: auto;">
-                <h1 style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.5vh; vertical-align:middle;">  to CIELab:  </h1>
+                <h1 style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.5vh; vertical-align:middle;">  CIELab Conversion:  </h1>
                 <div class="row class_settingRow">
                 <p class="class_settingLabel">
                   ref_X:
@@ -818,7 +902,7 @@
                 </div>
             </div>
             <div style="width:50%; height: auto;">
-                <h1 style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.5vh; vertical-align:middle;">  to DIN99:  </h1>
+                <h1 style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.5vh; vertical-align:middle;">  DIN99 Conversion:  </h1>
                 <div class="row class_settingRow">
                 <p class="class_settingLabel">
                   k_E:
@@ -834,6 +918,178 @@
             </div>
 
           </div>
+
+
+          <h1 style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.5vh; vertical-align:middle; margin-top:2vh;">  XYZ Conversion:  </h1>
+
+          <div class="row" style="width:100%; ">
+            <select id="select_XYZTransferMatrix" style="height:4vh; line-height:4vh; font-size:1.8vh; margin-top:3vh; margin-left:auto; margin-right:5%;">
+              <option value="sRGB_D65">sRGB D65</option>
+              <option value="sRGB_D50">sRGB D50</option>
+              <option value="tmXYZ_AdobeRGB_D65">Adobe RGB D65</option>
+              <option value="AdobeRGB_D50">Adobe RGB D50</option>
+              <option value="AppleRGB_D65">Apple RGB D65</option>
+              <option value="AppleRGB_D50">Apple RGB_D50</option>
+              <option value="BestRGB_D50">Best RGB D50</option>
+              <option value="BetaRGB_D50">Beta RGB D50</option>
+              <option value="BruceRGB_D65">Bruce RGB D65</option>
+              <option value="BruceRGB_D50">Bruce RGB D50</option>
+              <option value="CIERGB_E">CIE RGB E</option>
+              <option value="CIERGB_D50">CIE RGB D50</option>
+              <option value="ColorMatchRGB_D50">ColorMatch RGB D50</option>
+              <option value="DonRGB4_D50">Don RGB 4 D50</option>
+              <option value="ECIRGB_D50">ECI RGB D50</option>
+              <option value="EktaSpacePS5_D50">Ekta Space PS5 D50</option>
+              <option value="NTSC_RGB_C">NTSC RGB C</option>
+              <option value="NTSC_RGB_D50">NTSC RGB D50</option>
+              <option value="PAL_SECAM_RGB_D65">PAL/SECAM RGB D65</option>
+              <option value="PAL_SECAM_RGB_D50">PAL/SECAM RGB D50</option>
+              <option value="ProPhotoRGB_D50">ProPhoto RGB D50</option>
+              <option value="SMPTE_C_RGB_D65">SMPTE-C RGB D65</option>
+              <option value="SMPTE_C_RGB_D50">SMPTE-C RGB D50</option>
+              <option value="Wide_Gamut_RGB_D50">Wide Gamut RGB D50</option>
+              <option value="Custom">Custom</option>
+            </select>
+
+            <p style=" text-align:left; height:10vh; line-height:10vh; vertical-align:middle; font-size:10vh; margin:0px; font-weight: lighter;"> [ </p>
+
+            <div  style="height:10vh; width:10%; display:none;">
+              <input type="number" id="inputRgbToXYZTransferMatrix00" step="0.001"  style="height:2vh; line-height:2vh; font-size:1.5vh; vertical-align:middle;  margin:0px; width: 90%;"><br>
+              <input type="number" id="inputRgbToXYZTransferMatrix10" step="0.001"  style="height:2vh; line-height:2vh; font-size:1.5vh; vertical-align:middle;  margin:0px; width: 90%;"><br>
+              <input type="number" id="inputRgbToXYZTransferMatrix20" step="0.001"  style="height:2vh; line-height:2vh; font-size:1.5vh; vertical-align:middle;  margin:0px; width: 90%;"><br>
+            </div>
+            <div  style=" height:10vh; width:10%; display:none;">
+              <input type="number" id="inputRgbToXYZTransferMatrix01" step="0.001"  style="height:2vh; line-height:2vh; font-size:1.5vh; vertical-align:middle;  margin:0px; width: 90%;"><br>
+              <input type="number" id="inputRgbToXYZTransferMatrix11" step="0.001"  style="height:2vh; line-height:2vh; font-size:1.5vh; vertical-align:middle; margin:0px; width: 90%;"><br>
+              <input type="number" id="inputRgbToXYZTransferMatrix21" step="0.001"  style="height:2vh; line-height:2vh; font-size:1.5vh; vertical-align:middle; margin:0px; width: 90%;"><br>
+            </div>
+            <div  style=" height:10vh; width:10%; display:none;">
+              <input type="number" id="inputRgbToXYZTransferMatrix02" step="0.1" style="height:2vh; line-height:2vh; font-size:1.5vh; vertical-align:middle; margin:0px; width: 90%;"><br>
+              <input type="number" id="inputRgbToXYZTransferMatrix12" step="0.1" style="height:2vh; line-height:2vh; font-size:1.5vh; vertical-align:middle; margin:0px; width: 90%;"><br>
+              <input type="number" id="inputRgbToXYZTransferMatrix22" step="0.1" style="height:2vh; line-height:2vh; font-size:1.5vh; vertical-align:middle; margin:0px; width: 90%;"><br>
+            </div>
+
+            <div id="label_transferMatrixCol1" style="height:10vh; margin-right:30px;">
+              <p id="rgbToXYZTransferMatrix00" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px;">1</p>
+              <p id="rgbToXYZTransferMatrix10" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">0</p>
+              <p id="rgbToXYZTransferMatrix20" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">0</p>
+            </div>
+            <div id="label_transferMatrixCol2" style=" height:10vh; margin-right:30px;">
+              <p id="rgbToXYZTransferMatrix01" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; width: 100%;">0</p>
+              <p id="rgbToXYZTransferMatrix11" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">1</p>
+              <p id="rgbToXYZTransferMatrix21" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">0</p>
+            </div>
+            <div id="label_transferMatrixCol3" style=" height:10vh; ">
+              <p id="rgbToXYZTransferMatrix02" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px;">0</p>
+              <p id="rgbToXYZTransferMatrix12" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">0</p>
+              <p id="rgbToXYZTransferMatrix22" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">1</p>
+            </div>
+
+            <p style=" text-align:left; height:10vh; line-height:10vh; font-size:10vh; vertical-align:middle; margin:0px;  font-weight: lighter;"> ] </p>
+            <p style=" text-align:left; height:10vh; line-height:10vh; font-size:10vh; vertical-align:middle; margin:0px;  font-weight: lighter;"> [ </p>
+            <div style="height:10vh;">
+              <p style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center;  margin:0px; width: 100%;">R</p>
+              <p style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center;  margin:0px; margin-top:0.5vh; width: 100%;">G</p>
+              <p style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center;  margin:0px; margin-top:0.5vh;  width: 100%;">B</p>
+            </div>
+            <p style=" text-align:left; height:10vh; line-height:10vh; font-size:10vh; vertical-align:middle; margin:0px;  font-weight: lighter;"> ] </p>
+            <p style=" text-align:left; height:10vh; line-height:10vh; font-size:5vh; vertical-align:middle; margin:0px;  font-weight: lighter;"> = </p>
+            <p style=" text-align:left; height:10vh; line-height:10vh; font-size:10vh; vertical-align:middle; margin:0px;  font-weight: lighter;"> [ </p>
+            <div style="height:10vh;">
+              <p style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center;  margin:0px; width: 100%;">X</p>
+              <p style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center;  margin:0px; margin-top:0.5vh; width: 100%;">Y</p>
+              <p style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center;  margin:0px; margin-top:0.5vh;  width: 100%;">Z</p>
+            </div>
+            <p style=" text-align:left; height:10vh; line-height:10vh; font-size:10vh; vertical-align:middle; margin:0px;  font-weight: lighter; margin-right:auto;"> ] </p>
+          </div>
+
+
+
+          <h1 style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.5vh; vertical-align:middle; margin-top:2vh;">  LMS Conversion:  </h1>
+
+          <div class="row" style="width:100%; ">
+            <select id="select_LMSTransferMatrix" style="height:4vh; line-height:4vh; font-size:1.8vh; margin-top:3vh; margin-left:auto; margin-right:5%;">
+              <option value="HPE">Hunt-Pointer-Estevez</option>
+              <option value="vK">von Kries</option>
+              <option value="BFD">Bradford</option>
+              <option value="CAT97s">CIECAM97s</option>
+              <option value="CAT02">CIECAM02</option>
+              <option value="Custom">Custom</option>
+            </select>
+
+            <p style=" text-align:left; height:10vh; line-height:10vh; vertical-align:middle; font-size:10vh; margin:0px; font-weight: lighter;"> [ </p>
+
+            <div id="input_lmstransferMatrixCol1" style="height:10vh; width:10%; display:none;">
+              <input type="number" id="inputXyztoLSMTransferMatrix00" step="0.001"  style="height:2vh; line-height:2vh; font-size:1.5vh; vertical-align:middle;  margin:0px; width: 90%;"><br>
+              <input type="number" id="inputXyztoLSMTransferMatrix10" step="0.001"  style="height:2vh; line-height:2vh; font-size:1.5vh; vertical-align:middle;  margin:0px; width: 90%;"><br>
+              <input type="number" id="inputXyztoLSMTransferMatrix20" step="0.001"  style="height:2vh; line-height:2vh; font-size:1.5vh; vertical-align:middle;  margin:0px; width: 90%;"><br>
+            </div>
+            <div id="input_lmstransferMatrixCol2" style=" height:10vh; width:10%; display:none;">
+              <input type="number" id="inputXyztoLSMTransferMatrix01" step="0.001"  style="height:2vh; line-height:2vh; font-size:1.5vh; vertical-align:middle;  margin:0px; width: 90%;"><br>
+              <input type="number" id="inputXyztoLSMTransferMatrix11" step="0.001"  style="height:2vh; line-height:2vh; font-size:1.5vh; vertical-align:middle; margin:0px; width: 90%;"><br>
+              <input type="number" id="inputXyztoLSMTransferMatrix21" step="0.001"  style="height:2vh; line-height:2vh; font-size:1.5vh; vertical-align:middle; margin:0px; width: 90%;"><br>
+            </div>
+            <div id="input_lmstransferMatrixCol3" style=" height:10vh; width:10%; display:none;">
+              <input type="number" id="inputXyztoLSMTransferMatrix02" step="0.1" style="height:2vh; line-height:2vh; font-size:1.5vh; vertical-align:middle; margin:0px; width: 90%;"><br>
+              <input type="number" id="inputXyztoLSMTransferMatrix12" step="0.1" style="height:2vh; line-height:2vh; font-size:1.5vh; vertical-align:middle; margin:0px; width: 90%;"><br>
+              <input type="number" id="inputXyztoLSMTransferMatrix22" step="0.1" style="height:2vh; line-height:2vh; font-size:1.5vh; vertical-align:middle; margin:0px; width: 90%;"><br>
+            </div>
+
+            <div id="label_lmstransferMatrixCol1" style="height:10vh; margin-right:30px;">
+              <p id="xyztoLSMTransferMatrix00" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px;">1</p>
+              <p id="xyztoLSMTransferMatrix10" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">0</p>
+              <p id="xyztoLSMTransferMatrix20" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">0</p>
+            </div>
+            <div id="label_lmstransferMatrixCol2" style=" height:10vh; margin-right:30px;">
+              <p id="xyztoLSMTransferMatrix01" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; width: 100%;">0</p>
+              <p id="xyztoLSMTransferMatrix11" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">1</p>
+              <p id="xyztoLSMTransferMatrix21" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">0</p>
+            </div>
+            <div id="label_lmstransferMatrixCol3" style=" height:10vh; ">
+              <p id="xyztoLSMTransferMatrix02" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px;">0</p>
+              <p id="xyztoLSMTransferMatrix12" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">0</p>
+              <p id="xyztoLSMTransferMatrix22" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">1</p>
+            </div>
+
+            <p style=" text-align:left; height:10vh; line-height:10vh; font-size:10vh; vertical-align:middle; margin:0px;  font-weight: lighter;"> ] </p>
+            <p style=" text-align:left; height:10vh; line-height:10vh; font-size:10vh; vertical-align:middle; margin:0px;  font-weight: lighter;"> [ </p>
+            <div style="height:10vh;">
+              <p style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center;  margin:0px; width: 100%;">X</p>
+              <p style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center;  margin:0px; margin-top:0.5vh; width: 100%;">Y</p>
+              <p style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center;  margin:0px; margin-top:0.5vh;  width: 100%;">Z</p>
+            </div>
+            <p style=" text-align:left; height:10vh; line-height:10vh; font-size:10vh; vertical-align:middle; margin:0px;  font-weight: lighter;"> ] </p>
+            <p style=" text-align:left; height:10vh; line-height:10vh; font-size:5vh; vertical-align:middle; margin:0px;  font-weight: lighter;"> = </p>
+            <p style=" text-align:left; height:10vh; line-height:10vh; font-size:10vh; vertical-align:middle; margin:0px;  font-weight: lighter;"> [ </p>
+            <div style="height:10vh;">
+              <p style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center;  margin:0px; width: 100%;">L</p>
+              <p style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center;  margin:0px; margin-top:0.5vh; width: 100%;">M</p>
+              <p style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center;  margin:0px; margin-top:0.5vh;  width: 100%;">S</p>
+            </div>
+            <p style=" text-align:left; height:10vh; line-height:10vh; font-size:10vh; vertical-align:middle; margin:0px;  font-weight: lighter; margin-right:auto;"> ] </p>
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           <hr>
           <h1 style="width:100%; text-align:center; height:4vh; line-height:4vh; font-size:3vh; vertical-align:middle; padding-top:2vh;">  Color Difference Metrics  </h1>
           <div class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
@@ -911,9 +1167,9 @@
           <div style="margin-left:2%; width:96%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:white; box-shadow:  0.3vh  0.3vh grey;">
               <div class="row" style="height:auto; width:100%; margin:0px; background:url(img/background.png)">
 
-                <button id="id_selectBandAdding" onclick="switchModifyModus(0)" class="classButtonBlue" title="Key Modify" style="width:33%">Add Bands</button>
-                <button id="id_selectKeyModifying" onclick="switchModifyModus(1)" class="classButtonBlue" title="Key Modify" style="width:33%">Modify Keys</button>
-                <button id="id_selectPathModifying" onclick="switchModifyModus(2)" class="classButtonBlue" title="Key Modify" style="width:34%">Modify via Path Plot</button>
+                <button id="id_selectBandAdding" onclick="switchModifyModus(0)" class="classButtonBlue" title="Key Modify" >Add Bands</button>
+                <button id="id_selectKeyModifying" onclick="switchModifyModus(1)" class="classButtonBlue" title="Key Modify" >Modify Keys</button>
+                <button id="id_selectPathModifying" onclick="switchModifyModus(2)" class="classButtonBlue" title="Key Modify">Modify via Path Plot</button>
 
               </div>
 

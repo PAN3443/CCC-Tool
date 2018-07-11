@@ -1,3 +1,96 @@
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 3vw;
+  height: 4vh;
+}
+
+.switch input {display:none;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 3vh%;
+  width: 1vw;
+  left: 0.5vw;
+  top: 0.5vh;
+  bottom: 0.5vh;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(1vw);
+  -ms-transform: translateX(1vw);
+  transform: translateX(1vw);
+}
+
+
+.rangeslider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 3vh;
+    background: rgb(225,225,225);
+    outline: none;
+    opacity: 0.8;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.rangeslider:hover {
+    opacity: 1;
+}
+
+.rangeslider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 3vh;
+    height: 3vh;
+    background: rgb(0,191,255);
+    cursor: pointer;
+}
+
+.rangeslider::-moz-range-thumb {
+    width: 3vh;
+    height: 3vh;
+    background: rgb(0,191,255);
+    cursor: pointer;
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 1vh;
+}
+
+.slider.round:before {
+  border-radius: 1vh;
+}
+
+
+
+
 .dropbtn {
     background:rgb(255,255,255);
     color: black;
