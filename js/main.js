@@ -26,7 +26,12 @@ window.onload = function() {
   document.getElementById('id_inputData').addEventListener("change", readDataFile);
 
   document.getElementById('switchExpertMode').addEventListener("change", switchCCCToolMode);
+  document.getElementById('switchExpertModeWelcomePage').addEventListener("change", switchCCCToolMode);
+  document.getElementById('switchExpertMode').checked=true;
+  document.getElementById('switchExpertModeWelcomePage').checked=true;
 
+
+  document.getElementById('switchExpertMode').click();
 
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -61,7 +66,39 @@ window.onload = function() {
   document.getElementById("id_de2000_k_C_Input").addEventListener("change", checkSettingInputChange);
   document.getElementById("id_de2000_k_H_Input").addEventListener("change", checkSettingInputChange);
 
-  updateAllSetting();
+  ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+  document.getElementById("select_XYZTransferMatrix").addEventListener("change", updateRGBtoXYZ_TransferMatrices);
+
+  document.getElementById("inputRgbToXYZTransferMatrix00").addEventListener("change", updateRGBtoXYZ_TransferMatrices);
+  document.getElementById("inputRgbToXYZTransferMatrix10").addEventListener("change", updateRGBtoXYZ_TransferMatrices);
+  document.getElementById("inputRgbToXYZTransferMatrix20").addEventListener("change", updateRGBtoXYZ_TransferMatrices);
+
+  document.getElementById("inputRgbToXYZTransferMatrix01").addEventListener("change", updateRGBtoXYZ_TransferMatrices);
+  document.getElementById("inputRgbToXYZTransferMatrix11").addEventListener("change", updateRGBtoXYZ_TransferMatrices);
+  document.getElementById("inputRgbToXYZTransferMatrix21").addEventListener("change", updateRGBtoXYZ_TransferMatrices);
+
+  document.getElementById("inputRgbToXYZTransferMatrix02").addEventListener("change", updateRGBtoXYZ_TransferMatrices);
+  document.getElementById("inputRgbToXYZTransferMatrix12").addEventListener("change", updateRGBtoXYZ_TransferMatrices);
+  document.getElementById("inputRgbToXYZTransferMatrix22").addEventListener("change", updateRGBtoXYZ_TransferMatrices);
+
+
+  document.getElementById("inputRgbToXYZTransferMatrix00").value=1;
+  document.getElementById("inputRgbToXYZTransferMatrix10").value=0;
+  document.getElementById("inputRgbToXYZTransferMatrix20").value=0;
+
+  document.getElementById("inputRgbToXYZTransferMatrix01").value=0;
+  document.getElementById("inputRgbToXYZTransferMatrix11").value=1;
+  document.getElementById("inputRgbToXYZTransferMatrix21").value=0;
+
+  document.getElementById("inputRgbToXYZTransferMatrix02").value=0;
+  document.getElementById("inputRgbToXYZTransferMatrix12").value=0;
+  document.getElementById("inputRgbToXYZTransferMatrix22").value=1;
+
+  //updateColorBlindness_TransferMatrices();
+  document.getElementById("select_LMSTransferMatrix").selectedIndex=0;
+
+  //////////////////////////////////////////////////////////////////////
 
   document.getElementById("select_LMSTransferMatrix").addEventListener("change", updateXYZtoLMS_TransferMatrices);
 
@@ -92,7 +129,10 @@ window.onload = function() {
 
   //updateColorBlindness_TransferMatrices();
   document.getElementById("select_LMSTransferMatrix").selectedIndex=1;
-  updateXYZtoLMS_TransferMatrices();
+
+  ///////////////////////////////////////////
+  updateAllSetting();
+
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Add Side /////////////////////////////////////
@@ -519,14 +559,11 @@ window.onload = function() {
   switchModifyModus(0);
   pageIsLoaded=true;
 
-  switchCCCToolMode();
 
 
   initMapping();
   backgroundMapping(0);
   changeColorblindnessDegree();
-
-
 
 }
 

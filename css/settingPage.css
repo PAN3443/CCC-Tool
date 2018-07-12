@@ -1,13 +1,13 @@
 .class_settingRow{
-  width:100%;
   margin-top: 1vh;
   margin-bottom: 1vh;
 }
 
 .class_settingLabel{
   margin:0px;
-  margin-left:10%;
-  width:15%;
+  /*margin-left:10%;*/
+  /*width:15%;*/
+  margin-left: auto;
   text-align:left;
   height:2.2vh;
   line-height:2.2vh;
@@ -24,4 +24,5 @@
   text-align:center;
   vertical-align: middle;
   margin-left:5%;
+  margin-right: auto;
 }

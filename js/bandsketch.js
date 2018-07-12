@@ -202,60 +202,62 @@ function drawInsertBandPreview(canvasData, currentPos, bandLength, canvasHeight,
       case 2:
               // ->double
               var numberOfBands=2;
-              bandLength/=numberOfBands;
-              if(bandLength%1!=0){
-                var rest=bandLength-1;
-                bandLength=Math.floor(bandLength);
-                var lesspixels=Math.round(rest*numberOfBands);
-                canvasData=createUnknownTypeBand(canvasData, currentPos, bandLength+lesspixels, canvasHeight, doubleBands[dragPredefinedBandIndex][0].getInColorFormat(colorspaceModus),doubleBands[dragPredefinedBandIndex][1].getInColorFormat(colorspaceModus), canvasWidth);
+              var tmpbandLength=bandLength/numberOfBands;
+              if(tmpbandLength%1!=0){
+                var rest=tmpbandLength%1;
+                tmpbandLength=Math.floor(tmpbandLength);
+                var lesspixels=Math.round(rest*numberOfBands); // should be an integer
+                canvasData=createUnknownTypeBand(canvasData, currentPos, tmpbandLength+lesspixels, canvasHeight, doubleBands[dragPredefinedBandIndex][0].getInColorFormat(colorspaceModus),doubleBands[dragPredefinedBandIndex][1].getInColorFormat(colorspaceModus), canvasWidth);
+                currentPos+=(tmpbandLength+lesspixels);
               }
               else{
-                canvasData=createUnknownTypeBand(canvasData, currentPos, bandLength, canvasHeight, doubleBands[dragPredefinedBandIndex][0].getInColorFormat(colorspaceModus),doubleBands[dragPredefinedBandIndex][1].getInColorFormat(colorspaceModus), canvasWidth);
+                canvasData=createUnknownTypeBand(canvasData, currentPos, tmpbandLength, canvasHeight, doubleBands[dragPredefinedBandIndex][0].getInColorFormat(colorspaceModus),doubleBands[dragPredefinedBandIndex][1].getInColorFormat(colorspaceModus), canvasWidth);
+                currentPos+=tmpbandLength;
               }
-              currentPos+=bandLength;
-              canvasData=createUnknownTypeBand(canvasData, currentPos, bandLength, canvasHeight, doubleBands[dragPredefinedBandIndex][2].getInColorFormat(colorspaceModus),doubleBands[dragPredefinedBandIndex][3].getInColorFormat(colorspaceModus), canvasWidth);
+              canvasData=createUnknownTypeBand(canvasData, currentPos, tmpbandLength, canvasHeight, doubleBands[dragPredefinedBandIndex][2].getInColorFormat(colorspaceModus),doubleBands[dragPredefinedBandIndex][3].getInColorFormat(colorspaceModus), canvasWidth);
       break;
       case 3:
               // ->tripleX
               var numberOfBands=3;
-              bandLength=Math.round(bandLength/numberOfBands);
+              var tmpbandLength=bandLength/numberOfBands; //Math.round(bandLength/numberOfBands);
 
-              if(bandLength%1!=0){
-                var rest=bandLength-1;
-                bandLength=Math.floor(bandLength);
+              if(tmpbandLength%1!=0){
+                var rest=tmpbandLength%1;
+                tmpbandLength=Math.floor(tmpbandLength);
                 var lesspixels=Math.round(rest*numberOfBands);
-                canvasData=createUnknownTypeBand(canvasData, currentPos, bandLength+lesspixels, canvasHeight, tribleBands[dragPredefinedBandIndex][0].getInColorFormat(colorspaceModus),tribleBands[dragPredefinedBandIndex][1].getInColorFormat(colorspaceModus), canvasWidth);
+                canvasData=createUnknownTypeBand(canvasData, currentPos, tmpbandLength+lesspixels, canvasHeight, tribleBands[dragPredefinedBandIndex][0].getInColorFormat(colorspaceModus),tribleBands[dragPredefinedBandIndex][1].getInColorFormat(colorspaceModus), canvasWidth);
+                currentPos+=(tmpbandLength+lesspixels);
               }
               else{
-                canvasData=createUnknownTypeBand(canvasData, currentPos, bandLength, canvasHeight, tribleBands[dragPredefinedBandIndex][0].getInColorFormat(colorspaceModus),tribleBands[dragPredefinedBandIndex][1].getInColorFormat(colorspaceModus), canvasWidth);
+                canvasData=createUnknownTypeBand(canvasData, currentPos, tmpbandLength, canvasHeight, tribleBands[dragPredefinedBandIndex][0].getInColorFormat(colorspaceModus),tribleBands[dragPredefinedBandIndex][1].getInColorFormat(colorspaceModus), canvasWidth);
+                currentPos+=tmpbandLength;
               }
-              currentPos+=bandLength;
-              canvasData=createUnknownTypeBand(canvasData, currentPos, bandLength, canvasHeight, tribleBands[dragPredefinedBandIndex][2].getInColorFormat(colorspaceModus),tribleBands[dragPredefinedBandIndex][3].getInColorFormat(colorspaceModus), canvasWidth);
-              currentPos+=bandLength;
-              canvasData=createUnknownTypeBand(canvasData, currentPos, bandLength, canvasHeight, tribleBands[dragPredefinedBandIndex][4].getInColorFormat(colorspaceModus),tribleBands[dragPredefinedBandIndex][5].getInColorFormat(colorspaceModus), canvasWidth);
+              canvasData=createUnknownTypeBand(canvasData, currentPos, tmpbandLength, canvasHeight, tribleBands[dragPredefinedBandIndex][2].getInColorFormat(colorspaceModus),tribleBands[dragPredefinedBandIndex][3].getInColorFormat(colorspaceModus), canvasWidth);
+              currentPos+=tmpbandLength;
+              canvasData=createUnknownTypeBand(canvasData, currentPos, tmpbandLength, canvasHeight, tribleBands[dragPredefinedBandIndex][4].getInColorFormat(colorspaceModus),tribleBands[dragPredefinedBandIndex][5].getInColorFormat(colorspaceModus), canvasWidth);
 
       break;
       case 4:
               // ->quad
               var numberOfBands=4;
-              bandLength/=numberOfBands;
-              if(bandLength%1!=0){
-                var rest=bandLength-1;
-                bandLength=Math.floor(bandLength);
+              var tmpbandLength=bandLength/numberOfBands;
+              if(tmpbandLength%1!=0){
+                var rest=tmpbandLength%1;
+                tmpbandLength=Math.floor(tmpbandLength);
                 var lesspixels=Math.round(rest*numberOfBands);
-                canvasData=createUnknownTypeBand(canvasData, currentPos, bandLength+lesspixels, canvasHeight, quadBands[dragPredefinedBandIndex][0].getInColorFormat(colorspaceModus),quadBands[dragPredefinedBandIndex][1].getInColorFormat(colorspaceModus), canvasWidth);
+                canvasData=createUnknownTypeBand(canvasData, currentPos, tmpbandLength+lesspixels, canvasHeight, quadBands[dragPredefinedBandIndex][0].getInColorFormat(colorspaceModus),quadBands[dragPredefinedBandIndex][1].getInColorFormat(colorspaceModus), canvasWidth);
+                currentPos+=(tmpbandLength+lesspixels);
               }
               else{
-                canvasData=createUnknownTypeBand(canvasData, currentPos, bandLength, canvasHeight, quadBands[dragPredefinedBandIndex][0].getInColorFormat(colorspaceModus),quadBands[dragPredefinedBandIndex][1].getInColorFormat(colorspaceModus), canvasWidth);
+                canvasData=createUnknownTypeBand(canvasData, currentPos, tmpbandLength, canvasHeight, quadBands[dragPredefinedBandIndex][0].getInColorFormat(colorspaceModus),quadBands[dragPredefinedBandIndex][1].getInColorFormat(colorspaceModus), canvasWidth);
+                currentPos+=tmpbandLength;
               }
-              currentPos+=bandLength;
-              canvasData=createUnknownTypeBand(canvasData, currentPos, bandLength, canvasHeight, quadBands[dragPredefinedBandIndex][2].getInColorFormat(colorspaceModus),quadBands[dragPredefinedBandIndex][3].getInColorFormat(colorspaceModus), canvasWidth);
-              currentPos+=bandLength;
-              canvasData=createUnknownTypeBand(canvasData, currentPos, bandLength, canvasHeight, quadBands[dragPredefinedBandIndex][4].getInColorFormat(colorspaceModus),quadBands[dragPredefinedBandIndex][5].getInColorFormat(colorspaceModus), canvasWidth);
-              currentPos+=bandLength;
-              canvasData=createUnknownTypeBand(canvasData, currentPos, bandLength, canvasHeight, quadBands[dragPredefinedBandIndex][6].getInColorFormat(colorspaceModus),quadBands[dragPredefinedBandIndex][7].getInColorFormat(colorspaceModus), canvasWidth);
-
-      break;
+              canvasData=createUnknownTypeBand(canvasData, currentPos, tmpbandLength, canvasHeight, quadBands[dragPredefinedBandIndex][2].getInColorFormat(colorspaceModus),quadBands[dragPredefinedBandIndex][3].getInColorFormat(colorspaceModus), canvasWidth);
+              currentPos+=tmpbandLength;
+              canvasData=createUnknownTypeBand(canvasData, currentPos, tmpbandLength, canvasHeight, quadBands[dragPredefinedBandIndex][4].getInColorFormat(colorspaceModus),quadBands[dragPredefinedBandIndex][5].getInColorFormat(colorspaceModus), canvasWidth);
+              currentPos+=tmpbandLength;
+              canvasData=createUnknownTypeBand(canvasData, currentPos, tmpbandLength, canvasHeight, quadBands[dragPredefinedBandIndex][6].getInColorFormat(colorspaceModus),quadBands[dragPredefinedBandIndex][7].getInColorFormat(colorspaceModus), canvasWidth);
+    break;
 
       default:
       console.log("Error in drawInsertBandPreview function.");

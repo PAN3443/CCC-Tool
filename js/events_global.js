@@ -1,4 +1,17 @@
-function switchCCCToolMode(){
+
+
+function switchCCCToolMode(event){
+
+  switch (event.target.id) {
+    case 'switchExpertMode':
+        document.getElementById('switchExpertModeWelcomePage').checked=document.getElementById('switchExpertMode').checked;
+      break;
+      case 'switchExpertModeWelcomePage':
+        document.getElementById('switchExpertMode').checked=document.getElementById('switchExpertModeWelcomePage').checked;
+        break;
+    default:
+
+  }
 
   if(document.getElementById('switchExpertMode').checked){
 

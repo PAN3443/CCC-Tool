@@ -112,6 +112,10 @@ function updateAllSetting(){
   de2000_k_L = parseFloat(document.getElementById("id_de2000_k_L_Input").value);
   de2000_k_C = parseFloat(document.getElementById("id_de2000_k_C_Input").value);
   de2000_k_H = parseFloat(document.getElementById("id_de2000_k_H_Input").value);
+
+  updateXYZtoLMS_TransferMatrices();
+  updateRGBtoXYZ_TransferMatrices();
+  
 }
 
 function updateSettingInputFields(){

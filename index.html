@@ -740,9 +740,34 @@
 
           <h1 style="margin-left:10%; width:80%; text-align:center; height:4vh; line-height:4vh; font-size:4vh; vertical-align:middle; padding-top:2vh;  overflow: hidden; text-overflow:clip;"> Welcome to the CCC-Tool </h1>
 
-
-
           <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; ">
+          Switch On/Off Expert Mode:
+          <p>
+
+            <div class="row" style="margin-top:2vh;">
+              <label class="switch" style="margin-left:auto;">
+                <input id="switchExpertModeWelcomePage" type="checkbox">
+                <span class="slider round"></span>
+              </label>
+              <p style=" margin:0vh; margin-left:10px; margin-right:auto; height:4vh; line-height:4vh; width:auto; vertical-align: middle; font-size:2vh;"> Expert Mode </p>
+            </div>
+
+          <p style="margin-left:20%; width:60%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
+            The <strong> Nonexpert Modus </strong> of CCC-Tool offers the standart functionality to create and export a colormap. For the creation process the user can select a CMS from the Gallery section or he has also the choice to create a new CMS.
+            Both variants can be edit and to the user requirements. At the easy mode the user The user is
+            not overwhelmed with information and to much functionality, which is a good start to explore this tool.<!--At the export the CCC-Tool generate interval colors, so on the one hand the colormap can be used at software or custom applications  and on the other hand the colormap also has the benefits of other colorspaces. -->
+            The user has always to choice to switch to the expert modus or back to the nonexpert modus by clicking on the button at the left top corner.
+            </p>
+          <p style="margin-left:20%; width:60%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
+            The <strong> Expert Modus: </strong>  Expert modus will unlock some functionalities at CCC-Tool.
+            The user allowed to use the analysis and the compare section of the tool. At the new/edit part the user has the option to edit the CMS via the colormap "Path Plot".
+            It is also possible to upload a vtk-file (ASCII;Structured,Rectlinear) and edit the CMS on the basis of a colormapping visualization, a histogram of the data and the option to simulate colorblindness.
+            Additional the user can change the settings for the colorspace-conversions and the calculation of the color difference metrics.
+          </p>
+
+
+
+          <p style="margin-left:10%; width:80%; text-align:center; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-top:2vh;">
           Start with:
           <p>
 
@@ -763,18 +788,9 @@
           Visit the "MyDesigns" page to manage your CMSs and activate a CMS. The active CMS will be shown at the top of each page (except at "New" and "Tutorial") and can be edited, exported, analyzed or compared with another CMS.
           </p>
 
-          <p style="margin-left:20%; width:60%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
-          <strong> Easy Use: </strong> For the easy mode use, users have the choice to select predefined CMS from the Gallery, which can directly be exported.
-          Alternatively, they can create a new CMS easy and quick by using the predefined bands in the new/edit section. Subsequent the colormap can be exported with a low amount of settings. At the export, users should prefer perceptual color spaces for the interpolation.
-          </p>
-
-          <p style="margin-left:20%; width:60%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle;">
-          <strong> Expert Use: </strong>  Experienced users can make more detailed changes with "Modify Keys" and "Modify via Path Plot" mode at the "New" and "Edit" page. For expert-use of the tool, the analyze and compare page can be used to evaluate the CMS before exporting it.
-          </p>
-
-          <p style="margin-left:20%; width:60%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px;">
+          <!--p style="margin-left:20%; width:60%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px;">
           <strong> Info: </strong> It is always possible to do a retrospective amendment by importing a colormap from the new/edit section.
-          </p>
+        </p-->
 
           <p style="margin-left:20%; width:60%; text-align:justify; height:auto; line-height:2.2vh; font-size:2vh; vertical-align:middle; margin-bottom:0px;">
           <strong> Help: </strong>  If you see a button with a question mark, hover your mouse above this button to display a short help. For more instruction please visit the tutorial. Example:
@@ -878,49 +894,10 @@
 
        <div style="margin-left:20%; width:60%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:white; padding-top:2vh; padding-bottom:2vh; box-shadow:  0.3vh  0.3vh grey;">
 
-          <h1 style="margin-left:10%; width:80%; text-align:center; height:4vh; line-height:4vh; font-size:3vh; vertical-align:middle; padding-top:2vh;">  Color Conversion  </h1>
-          <div class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
-            <div style="width:50%; height: auto;">
-                <h1 style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.5vh; vertical-align:middle;">  CIELab Conversion:  </h1>
-                <div class="row class_settingRow">
-                <p class="class_settingLabel">
-                  ref_X:
-                </p>
-                <input id="id_cielab_refX_Input" type="text" name="key space" value="94.811" class="class_settingInput">
-                </div>
-                <div class="row class_settingRow">
-                <p class="class_settingLabel">
-                  ref_Y:
-                </p>
-                <input id="id_cielab_refY_Input" type="text" name="key space" value="100.000" class="class_settingInput">
-                </div>
-                <div class="row class_settingRow">
-                <p class="class_settingLabel">
-                  ref_Z:
-                </p>
-                <input id="id_cielab_refZ_Input" type="text" name="key space" value="107.304" class="class_settingInput">
-                </div>
-            </div>
-            <div style="width:50%; height: auto;">
-                <h1 style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.5vh; vertical-align:middle;">  DIN99 Conversion:  </h1>
-                <div class="row class_settingRow">
-                <p class="class_settingLabel">
-                  k_E:
-                </p>
-                <input id="id_din99_k_E_Input" type="text" name="key space" value="1.0" class="class_settingInput">
-                </div>
-                <div class="row class_settingRow">
-                <p class="class_settingLabel">
-                  k_CH:
-                </p>
-                <input id="id_din99_k_CH_Input" type="text" name="key space" value="1.0" class="class_settingInput">
-                </div>
-            </div>
-
-          </div>
+          <h1 style="margin-left:10%; width:80%; text-align:center; height:4vh; line-height:4vh; font-size:3.5vh; vertical-align:middle; margin-top:2vh; margin-bottom:2vh; text-decoration: underline;">  Color Conversion  </h1>
 
 
-          <h1 style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.5vh; vertical-align:middle; margin-top:2vh;">  XYZ Conversion:  </h1>
+          <p style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.5vh; vertical-align:middle; margin-top:2vh; margin-bottom:2vh;">  RGB to XYZ Conversion:  </p>
 
           <div class="row" style="width:100%; ">
             <select id="select_XYZTransferMatrix" style="height:4vh; line-height:4vh; font-size:1.8vh; margin-top:3vh; margin-left:auto; margin-right:5%;">
@@ -953,36 +930,36 @@
 
             <p style=" text-align:left; height:10vh; line-height:10vh; vertical-align:middle; font-size:10vh; margin:0px; font-weight: lighter;"> [ </p>
 
-            <div  style="height:10vh; width:10%; display:none;">
+            <div id="input_xyzTransferMatrixCol1" style="height:10vh; width:10%; display:none;">
               <input type="number" id="inputRgbToXYZTransferMatrix00" step="0.001"  style="height:2vh; line-height:2vh; font-size:1.5vh; vertical-align:middle;  margin:0px; width: 90%;"><br>
               <input type="number" id="inputRgbToXYZTransferMatrix10" step="0.001"  style="height:2vh; line-height:2vh; font-size:1.5vh; vertical-align:middle;  margin:0px; width: 90%;"><br>
               <input type="number" id="inputRgbToXYZTransferMatrix20" step="0.001"  style="height:2vh; line-height:2vh; font-size:1.5vh; vertical-align:middle;  margin:0px; width: 90%;"><br>
             </div>
-            <div  style=" height:10vh; width:10%; display:none;">
+            <div id="input_xyzTransferMatrixCol2" style=" height:10vh; width:10%; display:none;">
               <input type="number" id="inputRgbToXYZTransferMatrix01" step="0.001"  style="height:2vh; line-height:2vh; font-size:1.5vh; vertical-align:middle;  margin:0px; width: 90%;"><br>
               <input type="number" id="inputRgbToXYZTransferMatrix11" step="0.001"  style="height:2vh; line-height:2vh; font-size:1.5vh; vertical-align:middle; margin:0px; width: 90%;"><br>
               <input type="number" id="inputRgbToXYZTransferMatrix21" step="0.001"  style="height:2vh; line-height:2vh; font-size:1.5vh; vertical-align:middle; margin:0px; width: 90%;"><br>
             </div>
-            <div  style=" height:10vh; width:10%; display:none;">
+            <div id="input_xyzTransferMatrixCol3" style=" height:10vh; width:10%; display:none;">
               <input type="number" id="inputRgbToXYZTransferMatrix02" step="0.1" style="height:2vh; line-height:2vh; font-size:1.5vh; vertical-align:middle; margin:0px; width: 90%;"><br>
               <input type="number" id="inputRgbToXYZTransferMatrix12" step="0.1" style="height:2vh; line-height:2vh; font-size:1.5vh; vertical-align:middle; margin:0px; width: 90%;"><br>
               <input type="number" id="inputRgbToXYZTransferMatrix22" step="0.1" style="height:2vh; line-height:2vh; font-size:1.5vh; vertical-align:middle; margin:0px; width: 90%;"><br>
             </div>
 
-            <div id="label_transferMatrixCol1" style="height:10vh; margin-right:30px;">
-              <p id="rgbToXYZTransferMatrix00" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px;">1</p>
-              <p id="rgbToXYZTransferMatrix10" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">0</p>
-              <p id="rgbToXYZTransferMatrix20" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">0</p>
+            <div id="label_xyzTransferMatrixCol1" style="height:10vh; margin-right:30px;">
+              <p id="labelrgbToXYZTransferMatrix00" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px;">1</p>
+              <p id="labelrgbToXYZTransferMatrix10" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">0</p>
+              <p id="labelrgbToXYZTransferMatrix20" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">0</p>
             </div>
-            <div id="label_transferMatrixCol2" style=" height:10vh; margin-right:30px;">
-              <p id="rgbToXYZTransferMatrix01" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; width: 100%;">0</p>
-              <p id="rgbToXYZTransferMatrix11" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">1</p>
-              <p id="rgbToXYZTransferMatrix21" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">0</p>
+            <div id="label_xyzTransferMatrixCol2" style=" height:10vh; margin-right:30px;">
+              <p id="labelrgbToXYZTransferMatrix01" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; width: 100%;">0</p>
+              <p id="labelrgbToXYZTransferMatrix11" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">1</p>
+              <p id="labelrgbToXYZTransferMatrix21" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">0</p>
             </div>
-            <div id="label_transferMatrixCol3" style=" height:10vh; ">
-              <p id="rgbToXYZTransferMatrix02" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px;">0</p>
-              <p id="rgbToXYZTransferMatrix12" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">0</p>
-              <p id="rgbToXYZTransferMatrix22" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">1</p>
+            <div id="label_xyzTransferMatrixCol3" style=" height:10vh; ">
+              <p id="labelrgbToXYZTransferMatrix02" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px;">0</p>
+              <p id="labelrgbToXYZTransferMatrix12" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">0</p>
+              <p id="labelrgbToXYZTransferMatrix22" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">1</p>
             </div>
 
             <p style=" text-align:left; height:10vh; line-height:10vh; font-size:10vh; vertical-align:middle; margin:0px;  font-weight: lighter;"> ] </p>
@@ -1004,8 +981,9 @@
           </div>
 
 
+          <hr style="border-top: dotted 1px;" />
 
-          <h1 style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.5vh; vertical-align:middle; margin-top:2vh;">  LMS Conversion:  </h1>
+          <p style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.5vh; vertical-align:middle; margin-top:2vh; margin-bottom:2vh;">  XYZ to LMS Conversion:  </p>
 
           <div class="row" style="width:100%; ">
             <select id="select_LMSTransferMatrix" style="height:4vh; line-height:4vh; font-size:1.8vh; margin-top:3vh; margin-left:auto; margin-right:5%;">
@@ -1036,19 +1014,19 @@
             </div>
 
             <div id="label_lmstransferMatrixCol1" style="height:10vh; margin-right:30px;">
-              <p id="xyztoLSMTransferMatrix00" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px;">1</p>
-              <p id="xyztoLSMTransferMatrix10" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">0</p>
-              <p id="xyztoLSMTransferMatrix20" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">0</p>
+              <p id="labelxyztoLSMTransferMatrix00" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px;">1</p>
+              <p id="labelxyztoLSMTransferMatrix10" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">0</p>
+              <p id="labelxyztoLSMTransferMatrix20" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">0</p>
             </div>
             <div id="label_lmstransferMatrixCol2" style=" height:10vh; margin-right:30px;">
-              <p id="xyztoLSMTransferMatrix01" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; width: 100%;">0</p>
-              <p id="xyztoLSMTransferMatrix11" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">1</p>
-              <p id="xyztoLSMTransferMatrix21" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">0</p>
+              <p id="labelxyztoLSMTransferMatrix01" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; width: 100%;">0</p>
+              <p id="labelxyztoLSMTransferMatrix11" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">1</p>
+              <p id="labelxyztoLSMTransferMatrix21" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">0</p>
             </div>
             <div id="label_lmstransferMatrixCol3" style=" height:10vh; ">
-              <p id="xyztoLSMTransferMatrix02" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px;">0</p>
-              <p id="xyztoLSMTransferMatrix12" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">0</p>
-              <p id="xyztoLSMTransferMatrix22" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">1</p>
+              <p id="labelxyztoLSMTransferMatrix02" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px;">0</p>
+              <p id="labelxyztoLSMTransferMatrix12" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">0</p>
+              <p id="labelxyztoLSMTransferMatrix22" style="height:3vh; line-height:3vh; font-size:1.5vh; vertical-align:middle; text-align:center; margin:0px; margin-top:0.5vh;">1</p>
             </div>
 
             <p style=" text-align:left; height:10vh; line-height:10vh; font-size:10vh; vertical-align:middle; margin:0px;  font-weight: lighter;"> ] </p>
@@ -1069,32 +1047,55 @@
             <p style=" text-align:left; height:10vh; line-height:10vh; font-size:10vh; vertical-align:middle; margin:0px;  font-weight: lighter; margin-right:auto;"> ] </p>
           </div>
 
+          <hr style="border-top: dotted 1px;" />
 
+            <div style="margin-left:auto; margin-right:auto; height: auto; ">
+                <p style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.5vh; vertical-align:middle; margin-top: 2vh; margin-bottom: 2vh;">  XYZ to CIELab Conversion:  </p>
+                <div class="row class_settingRow">
+                <p class="class_settingLabel">
+                  ref_X:
+                </p>
+                <input id="id_cielab_refX_Input" type="text" name="key space" value="94.811" class="class_settingInput">
+                </div>
+                <div class="row class_settingRow">
+                <p class="class_settingLabel">
+                  ref_Y:
+                </p>
+                <input id="id_cielab_refY_Input" type="text" name="key space" value="100.000" class="class_settingInput">
+                </div>
+                <div class="row class_settingRow">
+                <p class="class_settingLabel">
+                  ref_Z:
+                </p>
+                <input id="id_cielab_refZ_Input" type="text" name="key space" value="107.304" class="class_settingInput">
+                </div>
+            </div>
 
+            <hr style="border-top: dotted 1px;" />
 
+            <div style="margin-left:auto; margin-right:auto; height: auto;">
+                <p style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.5vh; vertical-align:middle;  margin-top: 2vh; margin-bottom: 2vh;"> CIELab to DIN99 Conversion:  </p>
+                <div class="row class_settingRow">
+                <p class="class_settingLabel">
+                  k_E:
+                </p>
+                <input id="id_din99_k_E_Input" type="text" name="key space" value="1.0" class="class_settingInput">
+                </div>
+                <div class="row class_settingRow">
+                <p class="class_settingLabel">
+                  k_CH:
+                </p>
+                <input id="id_din99_k_CH_Input" type="text" name="key space" value="1.0" class="class_settingInput">
+                </div>
+            </div>
 
+      </div>
+      <div style="margin-left:20%; width:60%; height:auto; margin-top:2vh; margin-bottom: 2vh; background:white; padding-top:2vh; padding-bottom:2vh; box-shadow:  0.3vh  0.3vh grey;">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          <hr>
-          <h1 style="width:100%; text-align:center; height:4vh; line-height:4vh; font-size:3vh; vertical-align:middle; padding-top:2vh;">  Color Difference Metrics  </h1>
+          <h1 style="margin-left:10%; width:80%; text-align:center; height:4vh; line-height:4vh; font-size:3.5vh; vertical-align:middle; margin-top:2vh; margin-bottom:2vh; text-decoration: underline;">  Color Difference Metrics  </h1>
           <div class="row" style="margin-top: 2vh; margin-bottom: 0.5vh; width:100%; height: auto;">
             <div style="width:50%; height: auto;">
-                <h1 style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.5vh; vertical-align:middle;">  DE94:  </h1>
+                <p style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.5vh; vertical-align:middle;">  DE94:  </p>
                 <div class="row class_settingRow" >
                 <p class="class_settingLabel">
                   k_L:
@@ -1127,7 +1128,7 @@
                 </div>
             </div>
             <div style="width:50%; height: auto;">
-                <h1 style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.5vh; vertical-align:middle;">  DE2000:  </h1>
+                <p style="width:100%; text-align:center; height:3vh; line-height:3vh; font-size:2.5vh; vertical-align:middle;">  DE2000:  </p>
                 <div class="row class_settingRow">
                 <p class="class_settingLabel">
                   k_L:
@@ -1149,7 +1150,7 @@
             </div>
 
           </div>
-          <hr>
+
       </div>
   </div>
 
