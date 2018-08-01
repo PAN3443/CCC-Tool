@@ -33,9 +33,10 @@
 .classAnalyzePlotLabel{
   width:100%;
   text-align:left;
-  height:4vh;
-  line-height:4vh;
-  font-size:2vh;
+  height:auto;
+  margin-top: 5px;
+  line-height:40px;
+  font-size:20px;
   margin:0px;
   vertical-align:middle;
   white-space: nowrap;

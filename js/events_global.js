@@ -2,18 +2,29 @@
 
 function switchCCCToolMode(event){
 
+  console.log(event.target.id);
   switch (event.target.id) {
     case 'switchExpertMode':
-        document.getElementById('switchExpertModeWelcomePage').checked=document.getElementById('switchExpertMode').checked;
+
+        if(document.getElementById('switchExpertModeWelcomePage').checked==true){
+          document.getElementById('switchExpertModeWelcomePage').checked=false;
+        }
+        else{
+          document.getElementById('switchExpertModeWelcomePage').checked=true;
+        }
+
+
       break;
-      case 'switchExpertModeWelcomePage':
-        document.getElementById('switchExpertMode').checked=document.getElementById('switchExpertModeWelcomePage').checked;
-        break;
     default:
 
   }
 
-  if(document.getElementById('switchExpertMode').checked){
+
+
+  if(document.getElementById('switchExpertModeWelcomePage').checked){
+
+    document.getElementById('switchExpertMode').style.color = styleActiveColor2;
+    document.getElementById('switchExpertMode').style.borderColor = styleActiveColor2;
 
     document.getElementById("button_showAnalyze").style.display = "inline-block";
     document.getElementById("button_showCompare").style.display = "inline-block";
@@ -24,7 +35,7 @@ function switchCCCToolMode(event){
     if (showSideID == 1) {
 
       if(globalCMS1.getKeyLength() != 0){
-        document.getElementById("id_Mapping_Table_Div").style.display = "inline-block";
+        document.getElementById("id_Mapping_Table_Div").style.display = "block";
         fillTable();
       }
 
@@ -37,6 +48,9 @@ function switchCCCToolMode(event){
 
   }
   else{
+
+    document.getElementById('switchExpertMode').style.color = "white";
+    document.getElementById('switchExpertMode').style.borderColor = "white";
 
     document.getElementById("button_showAnalyze").style.display = "none";
     document.getElementById("button_showCompare").style.display = "none";
@@ -429,7 +443,7 @@ function closeAsk(){
 
 function openSavePopUp(){
 
-    document.getElementById("popupSaveWindow").style.display="inline-block";
+    document.getElementById("popupSaveWindow").style.display="block";
     somethingChanged = false;
 }
 
@@ -507,7 +521,7 @@ function openCompareSelect(){
         document.getElementById("acceptCompareSelection").style.visibility = "hidden";
       }
 
-      document.getElementById("popupCompareSelectWindow").style.display="inline-block";
+      document.getElementById("popupCompareSelectWindow").style.display="block";
       for(var i=0; i<myList.length; i++){
         //  console.log(myList[i].getColormapName());
         drawCanvasColormap("id_canvasCompareSelectColormap"+i, myList_resolution_X,  myList_resolution_Y, myList[i]);
@@ -672,11 +686,11 @@ function changePage(type){
 
     case -1:
                 document.getElementById("id_welcomePage").style.display = "none";
-                document.getElementById("id_MainMenue").style.display = "inline-block";
-                document.getElementById("id_Mod_Menue").style.display = "inline-block";
+                document.getElementById("id_MainMenue").style.display = "block";
+                document.getElementById("id_Mod_Menue").style.display = "block";
                 document.getElementById("id_Colorspace_Menue").style.display = "initial";
-                document.getElementById("div_colormapBandSketch").style.display = "inline-block";
-                document.getElementById("showModeSwitch").style.visibility = "visible";
+                document.getElementById("div_colormapBandSketch").style.display = "block";
+                document.getElementById("switchExpertMode").style.visibility = "visible";
 
                 if(initPageType!=5)
                 initNewPage();
@@ -821,7 +835,7 @@ function changePage(type){
                   document.getElementById("id_tutorialPage").style.display = "none";
                   document.getElementById("id_Colorspace_Menue").style.display = "initial";
                   //document.getElementById("id_Tutorial_Menue").style.display = "none";
-                  document.getElementById("div_colormapBandSketch").style.display = "inline-block";
+                  document.getElementById("div_colormapBandSketch").style.display = "block";
 
                   if(initPageType!=5)
                   initNewPage();
@@ -862,7 +876,7 @@ function changePage(type){
 
                   document.getElementById("id_Colorspace_Menue").style.display = "initial";
                   //document.getElementById("id_Tutorial_Menue").style.display = "none";
-                  document.getElementById("div_colormapBandSketch").style.display = "inline-block";
+                  document.getElementById("div_colormapBandSketch").style.display = "block";
 
                   if(initPageType!=5)
                   initNewPage();
@@ -881,7 +895,7 @@ function changePage(type){
 
                 document.getElementById("id_Colorspace_Menue").style.display = "initial";
                 //document.getElementById("id_Tutorial_Menue").style.display = "none";
-                document.getElementById("div_colormapBandSketch").style.display = "inline-block";
+                document.getElementById("div_colormapBandSketch").style.display = "block";
 
                 if(initPageType!=5)
                 initNewPage();
@@ -917,7 +931,7 @@ function initNewPage(){
     case 0:
       // MyDesings
       /////////////////////////////////////////
-      document.getElementById("id_myListPage").style.display = "initial";
+      document.getElementById("id_myListPage").style.display = "block";
       document.getElementById("button_showMyDesigns").style.background = styleActiveColor;
       showSideID = 0;
       drawMyList();
@@ -930,7 +944,7 @@ function initNewPage(){
 
       showSideID = 4;
 
-      document.getElementById("id_addPage").style.display = "inline-block";
+      document.getElementById("id_addPage").style.display = "block";
       document.getElementById("button_showGallery").style.background = styleActiveColor;
       restSpace = sizeMyList-myList.length;
 
@@ -971,10 +985,10 @@ function initNewPage(){
       //styleCreatorPage();
 
       document.getElementById("id_InputMapName").value = "Custom Colormap";
-      document.getElementById("id_Create_Menue").style.display = "inline-block";
+      document.getElementById("id_Create_Menue").style.display = "block";
       document.getElementById("id_Create_Menue").style.marginLeft = "20px";
 
-      document.getElementById("id_creatorPage").style.display = "inline-block";
+      document.getElementById("id_creatorPage").style.display = "block";
 
       document.getElementById("button_showNewCMS").style.background = styleActiveColor;
       switchModifyModus(0);
@@ -995,10 +1009,10 @@ function initNewPage(){
       showSideID = 1;
       //styleCreatorPage();
       document.getElementById("id_InputMapName").value = myList[isEdit].getColormapName();
-      document.getElementById("id_Create_Menue").style.display = "inline-block";
+      document.getElementById("id_Create_Menue").style.display = "block";
       document.getElementById("id_Create_Menue").style.marginLeft = "20px";
 
-      document.getElementById("id_creatorPage").style.display = "inline-block";
+      document.getElementById("id_creatorPage").style.display = "block";
 
       globalCMS1= cloneCMS(myList[colormap1SelectIndex]);
       switchModifyModus(1);
@@ -1017,7 +1031,7 @@ function initNewPage(){
       showSideID = 2;
 
       //document.getElementById("id_IntervalOption").style.marginLeft = "20px";
-      document.getElementById("id_analysisPage").style.display = "inline-block";
+      document.getElementById("id_analysisPage").style.display = "block";
       document.getElementById("button_showAnalyze").style.background = styleActiveColor;
       //document.getElementById("id_AnalyseColorspace_Menue").style.display = "inline";
       initAnalysePage();
@@ -1027,12 +1041,9 @@ function initNewPage(){
       /////////////////////////////////////////
       showSideID = 3;
 
-      //document.getElementById("id_IntervalOption").style.marginLeft = "20px";
-      document.getElementById("div_colormapBandSketch2").style.display = "inline-block";
-      //document.getElementById("div_switchButton").style.display = "inline-block";
-      document.getElementById("id_comparePage").style.display = "inline-block";
+      document.getElementById("div_colormapBandSketch2").style.display = "block";
+      document.getElementById("id_comparePage").style.display = "block";
       document.getElementById("button_showCompare").style.background = styleActiveColor;
-      //document.getElementById("id_AnalyseColorspace_Menue").style.display = "inline";
       initComparePage();
       break;
     case 6:
@@ -1040,7 +1051,7 @@ function initNewPage(){
       /////////////////////////////////////////
       showSideID = 6;
       document.getElementById("button_showExport").style.background = styleActiveColor;
-      document.getElementById("id_exportPage").style.display = "inline-block";
+      document.getElementById("id_exportPage").style.display = "block";
 
       initExportWindow();
 
@@ -1049,8 +1060,7 @@ function initNewPage(){
       // Tutorial
       /////////////////////////////////////////
       showSideID = 5;
-      document.getElementById("id_tutorialPage").style.display = "inline-block";
-      //document.getElementById("id_Tutorial_Menue").style.display = "inline-block";
+      document.getElementById("id_tutorialPage").style.display = "block";
       document.getElementById("button_showTutorial").style.background = styleActiveColor;
       document.getElementById("id_Colorspace_Menue").style.display = "none";
       document.getElementById("div_colormapBandSketch").style.display = "none";
@@ -1062,8 +1072,7 @@ function initNewPage(){
         // Impressum
         /////////////////////////////////////////
         showSideID = 7;
-        document.getElementById("id_impressumPage").style.display = "inline-block";
-
+        document.getElementById("id_impressumPage").style.display = "block";
         document.getElementById("id_Colorspace_Menue").style.display = "none";
         document.getElementById("div_colormapBandSketch").style.display = "none";
 
@@ -1073,9 +1082,8 @@ function initNewPage(){
           // Setting
           /////////////////////////////////////////
           showSideID = 8;
-          document.getElementById("id_settingPage").style.display = "inline-block";
-          document.getElementById("button_showSettings").style.background = styleActiveColor; //styleInactiveColor;
-
+          document.getElementById("id_settingPage").style.display = "block";
+          document.getElementById("button_showSettings").style.background = styleActiveColor;
           document.getElementById("id_Colorspace_Menue").style.display = "none";
           document.getElementById("div_colormapBandSketch").style.display = "none";
 
@@ -1174,6 +1182,6 @@ function closeAlert(){
 }
 
 function openAlert(txt){
-  document.getElementById("popupAlertWindow").style.display="inline-block";
+  document.getElementById("popupAlertWindow").style.display="block";
   document.getElementById("id_alertText").innerHTML=txt;
 }

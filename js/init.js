@@ -546,22 +546,85 @@ function init_Size(){
 
 
   //document.getElementById("id_menu").style.width = windowWidth+"px";
-  document.getElementById("id_welcomePage").style.width = windowWidth+"px";
+  var divWidth = windowWidth*0.6;
+  document.getElementById("id_welcomePage").style.width = divWidth+"px";
+  document.getElementById("id_impressumPage").style.width = divWidth+"px";
+  document.getElementById("id_settingPage").style.width = divWidth+"px";
+
+  divWidth = windowWidth*0.96;
+  document.getElementById("div_colormapBandSketch").style.width = divWidth+"px";
+  document.getElementById("div_colormapBandSketch2").style.width = divWidth+"px";
+  document.getElementById("id_creatorPage").style.width = divWidth+"px";
+  document.getElementById("id_myListPage").style.width = divWidth+"px";
+  document.getElementById("id_addPage").style.width = divWidth+"px";
+  document.getElementById("id_comparePage").style.width = divWidth+"px";
+  document.getElementById("id_analysisPage").style.width = divWidth+"px";
+  document.getElementById("id_exportPage").style.width = divWidth+"px";
+  document.getElementById("id_tutorialPage").style.width = divWidth+"px";
+  document.getElementById("id_Mapping_Table_Div").style.width = divWidth+"px";
+
+  divWidth = windowWidth*0.35;
+  document.getElementById("analyze_GlobalSpeed_Canvas_Lab").style.width = divWidth+"px";
+  document.getElementById("analyze_GlobalSpeed_Canvas_de94").style.width = divWidth+"px";
+  document.getElementById("analyze_GlobalSpeed_Canvas_de2000").style.width = divWidth+"px";
+  document.getElementById("analyze_GlobalSpeed_Canvas_din99").style.width = divWidth+"px";
+
+  document.getElementById("compare1_GlobalSpeed_Canvas_Lab").style.width = divWidth+"px";
+  document.getElementById("compare1_GlobalSpeed_Canvas_de94").style.width = divWidth+"px";
+  document.getElementById("compare1_GlobalSpeed_Canvas_de2000").style.width = divWidth+"px";
+  document.getElementById("compare1_GlobalSpeed_Canvas_din99").style.width = divWidth+"px";
+
+  document.getElementById("compare2_GlobalSpeed_Canvas_Lab").style.width = divWidth+"px";
+  document.getElementById("compare2_GlobalSpeed_Canvas_de94").style.width = divWidth+"px";
+  document.getElementById("compare2_GlobalSpeed_Canvas_de2000").style.width = divWidth+"px";
+  document.getElementById("compare2_GlobalSpeed_Canvas_din99").style.width = divWidth+"px";
+
+  document.getElementById("analyze_GlobalSpeed_Canvas_Lab").style.height = divWidth+"px";
+  document.getElementById("analyze_GlobalSpeed_Canvas_de94").style.height = divWidth+"px";
+  document.getElementById("analyze_GlobalSpeed_Canvas_de2000").style.height = divWidth+"px";
+  document.getElementById("analyze_GlobalSpeed_Canvas_din99").style.height = divWidth+"px";
+
+  document.getElementById("compare1_GlobalSpeed_Canvas_Lab").style.height = divWidth+"px";
+  document.getElementById("compare1_GlobalSpeed_Canvas_de94").style.height = divWidth+"px";
+  document.getElementById("compare1_GlobalSpeed_Canvas_de2000").style.height = divWidth+"px";
+  document.getElementById("compare1_GlobalSpeed_Canvas_din99").style.height = divWidth+"px";
+
+  document.getElementById("compare2_GlobalSpeed_Canvas_Lab").style.height = divWidth+"px";
+  document.getElementById("compare2_GlobalSpeed_Canvas_de94").style.height = divWidth+"px";
+  document.getElementById("compare2_GlobalSpeed_Canvas_de2000").style.height = divWidth+"px";
+  document.getElementById("compare2_GlobalSpeed_Canvas_din99").style.height = divWidth+"px";
+
 
   var pElements = document.getElementsByTagName("p");
   for(var i =0, il = pElements.length;i<il;i++){
-     pElements[i].style.lineHeight = windowHeight*0.025+"px";
-     pElements[i].style.fontSize = windowHeight*0.02+"px";
+
+    if(pElements[i].classList.contains("constText"))
+      continue;
+
+     pElements[i].style.lineHeight = windowHeight*0.02+"px";
+     pElements[i].style.fontSize = windowHeight*0.016+"px";
+  }
+
+  var labelElements = document.getElementsByTagName("label");
+  for(var i =0, il = labelElements.length;i<il;i++){
+
+    if(labelElements[i].classList.contains("constText"))
+      continue;
+
+     labelElements[i].style.lineHeight = windowHeight*0.02+"px";
+     labelElements[i].style.fontSize = windowHeight*0.016+"px";
   }
 
   var sectionLabels = document.getElementsByTagName("h1");
   for(var i =0, il = sectionLabels.length;i<il;i++){
-     sectionLabels[i].style.lineHeight = windowHeight*0.045+"px";
-     sectionLabels[i].style.fontSize = windowHeight*0.04+"px";
+
+     sectionLabels[i].style.lineHeight = windowHeight*0.035+"px";
+     sectionLabels[i].style.fontSize = windowHeight*0.03+"px";
   }
 
   var subsectionLabels = document.getElementsByTagName("h2");
   for(var i =0, il = subsectionLabels.length;i<il;i++){
+
      subsectionLabels[i].style.lineHeight = windowHeight*0.025+"px";
      subsectionLabels[i].style.fontSize = windowHeight*0.02+"px";
   }
@@ -569,12 +632,16 @@ function init_Size(){
 
   var buttons = document.getElementsByTagName("button");
   for(var i =0, il = buttons.length;i<il;i++){
-     buttons[i].style.height = windowHeight*0.05+"px";
-     buttons[i].style.lineHeight = windowHeight*0.05+"px";
+
+    if(buttons[i].name=="constStyle")
+      continue;
+
+     buttons[i].style.height = windowHeight*0.03+"px";
+     buttons[i].style.lineHeight = windowHeight*0.03+"px";
      buttons[i].style.fontSize = windowHeight*0.02+"px";
   }
 
-  var myDesingElementHight = windowHeight*0.05+"px";
+  /*var myDesingElementHight = windowHeight*0.05+"px";
   for(var i=0; i<10; i++){
     //  console.log(myList[i].getColormapName());
 
@@ -592,6 +659,6 @@ function init_Size(){
     document.getElementById("id_nanMyListColormap"+i).style.height =  myDesingElementHight;
     document.getElementById("id_nanMyListColormap"+i).style.width =  myDesingElementHight;
 
-  }
+  }*/
 
 }

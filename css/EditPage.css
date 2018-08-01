@@ -1,16 +1,16 @@
 .class_keybuttonEditPage{
-  width:4vh;
-  height:4vh;
-  min-width:4vh;
-  min-height:4vh;
-  line-height:4vh;
+  width:40px;
+  height:40px;
+  min-width:40px;
+  min-height:40px;
+  line-height:40px;
   vertical-align:middle;
   text-align:center;
   color:black;
-  font-size:2.5vh;
-  margin-right: 1vh;
-  margin-bottom: 1vh;
-  border-radius: 0.5vh;
+  font-size:18px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  border-radius: 10px;
   color: black;
   border: 1px solid black;
   float:left;
@@ -23,12 +23,12 @@
 .class_RadioButtonLabelEditPage{
   margin:0px;
   text-align:left;
-  height:2.2vh;
-  line-height:2.2vh;
-  font-size:2vh;
+  height:20px;
+  line-height:20px;
+  font-size:12px;
   vertical-align:middle; margin-bottom:0px;
-  margin-left: 1vw;
-  margin-right: 1vw;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 

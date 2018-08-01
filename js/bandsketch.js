@@ -318,11 +318,11 @@ function drawSketchRefElements(cms,sketchRefObjID){
       inputField.id = inputID;
       document.body.appendChild(inputField);
 
-      inputField.style.width = "3vw";
-      inputField.style.height = "2vh";
-      inputField.style.fontSize = "1.8vh";
-      inputField.style.paddingLeft = 5 + "px";
-      inputField.style.paddingRight = 5 + "px";
+      inputField.style.width = "30px";
+      inputField.style.height = "15px";
+      inputField.style.fontSize = "12px";
+      inputField.style.paddingLeft = "5px";
+      inputField.style.paddingRight = "5px";
       inputField.style.margin = "0px";
       inputField.style.zIndex = "2";
 
@@ -363,12 +363,12 @@ function drawSketchRefElements(cms,sketchRefObjID){
         document.body.appendChild(inputField2);
 
         //inputField.style.width = "min-content";
-        inputField2.style.width = "3vw";
-        inputField2.style.height = "2vh";
-        inputField2.style.fontSize = "1.8vh";
+        inputField2.style.width = "30px";
+        inputField2.style.height = "15px";
+        inputField2.style.fontSize = "12px";
         //inputField.style.background = "rgb(255,255,255)";
-        inputField2.style.paddingLeft = 5 + "px";
-        inputField2.style.paddingRight = 5 + "px";
+        inputField2.style.paddingLeft = "5px";
+        inputField2.style.paddingRight = "5px";
         //inputField.style.border = "2px solid rgb(0,0,0)";
         inputField2.style.margin = "0px";
         inputField2.style.zIndex = "2";
@@ -414,11 +414,11 @@ function drawSketchRefElements(cms,sketchRefObjID){
 
       inputField.style.width = "min-content";
       //inputField.style.width = "3vw";
-      inputField.style.height = "2vh";
-      inputField.style.fontSize = "1.8vh";
+      inputField.style.height = "15px";
+      inputField.style.fontSize = "12px";
       inputField.style.background = "rgb(255,255,255)";
-      inputField.style.paddingLeft = 5 + "px";
-      inputField.style.paddingRight = 5 + "px";
+      inputField.style.paddingLeft = "5px";
+      inputField.style.paddingRight = "5px";
       //inputField.style.border = "1px solid rgb(0,0,0)";
       inputField.style.margin = "0px";
       inputField.style.zIndex = "2";
@@ -447,11 +447,11 @@ function drawSketchRefElements(cms,sketchRefObjID){
 
         inputField2.style.width = "min-content";
         //inputField2.style.width = "3vw";
-        inputField2.style.height = "2vh";
-        inputField2.style.fontSize = "1.8vh";
+        inputField2.style.height = "15px";
+        inputField2.style.fontSize = "12px";
         inputField2.style.background = "rgb(255,255,255)";
-        inputField2.style.paddingLeft = 5 + "px";
-        inputField2.style.paddingRight = 5 + "px";
+        inputField2.style.paddingLeft ="5px";
+        inputField2.style.paddingRight = "5px";
         //inputField2.style.border = "1px solid rgb(0,0,0)";
         inputField2.style.margin = "0px";
         inputField2.style.zIndex = "2";

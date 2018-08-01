@@ -1,3 +1,9 @@
+
+.constText{
+  vertical-align:middle;
+  margin:0px;
+}
+
 .standardText{
   font-size: 12px;
   line-height: 16px;
@@ -6,6 +12,7 @@
   vertical-align:middle;
   margin:0px;
 }
+
 
 .sectionLabel{
   font-size: 28px;
@@ -34,8 +41,8 @@
 .switch {
   position: relative;
   display: inline-block;
-  width: 3vw;
-  height: 4vh;
+  width: 30px;
+  height: 14px;
 }
 
 .switch input {display:none;}
@@ -55,16 +62,15 @@
 .slider:before {
   position: absolute;
   content: "";
-  height: 3vh;
-  width: 1vw;
-  left: 0.5vw;
-  top: 0.5vh;
-  bottom: 0.5vh;
+  height: 10px;
+  width: 10px;
+  left: 5px;
+  margin-top:2px;
+  margin-bottom:2px;
   background-color: white;
   -webkit-transition: .4s;
   transition: .4s;
 }
-
 
 input:checked + .slider {
   background-color: #2196F3;
@@ -75,16 +81,28 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(1vw);
-  -ms-transform: translateX(1vw);
-  transform: translateX(1vw);
+  -webkit-transform: translateX(10px);
+  -ms-transform: translateX(10px);
+  transform: translateX(10px);
 }
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+
+
 
 
 .rangeslider {
     -webkit-appearance: none;
     width: 100%;
-    height: 3vh;
+    height: 30px;
     background: rgb(225,225,225);
     outline: none;
     opacity: 0.8;
@@ -99,38 +117,25 @@ input:checked + .slider:before {
 .rangeslider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 3vh;
-    height: 3vh;
+    width: 30px;
+    height: 30px;
     background: rgb(0,191,255);
     cursor: pointer;
 }
 
 .rangeslider::-moz-range-thumb {
-    width: 3vh;
-    height: 3vh;
+    width: 30px;
+    height: 30px;
     background: rgb(0,191,255);
     cursor: pointer;
 }
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 1vh;
-
-}
-
-.slider.round:before {
-  border-radius: 1vh;
-  
-}
-
-
 
 
 .dropbtn {
     background:rgb(255,255,255);
     color: black;
-    height:5vh;
-    line-height:5vh;
+    height:50px;
+    line-height:50px;
     vertical-align:middle;
     text-align:center;
     border: none;
@@ -156,8 +161,8 @@ input:checked + .slider:before {
     font-weight: bold;
     background:rgb(0,191,255);
     width:10vw;
-    height:5vh;
-    line-height:5vh;
+    height:50px;
+    line-height:50px;
     vertical-align:middle;
     text-align:center;
     display: block;
@@ -188,11 +193,51 @@ div.sticky {
   background: rgb(255,250,205);
   border: 1px solid black;
   display: none;
-  padding: 0.3vh;
-  line-height:2.2vh;
-  font-size: 2vh;
+  padding: 5px;
+  line-height:25px;
+  font-size: 25px;
   vertical-align:middle;
   text-align:left;
   position: absolute;
   z-index: 105;
+}
+
+
+.class_RadioButtonLabelPopUpWindow{
+  margin:0px;
+  text-align:left;
+  height:20px;
+  line-height:20px;
+  font-size:16px;
+  vertical-align:middle; margin-bottom:0px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+
+.class_RadioButtonLabelPopUpWindow:hover {
+    overflow: visible;
+}
+
+
+.class_keybuttonBandCreatorPage{
+  width:40px;
+  height:40px;;
+  min-width:40px;;
+  min-height:40px;;
+  line-height:40px;;
+  vertical-align:middle;
+  text-align:center;
+  color:black;
+  font-size:20px;
+  margin-right: 5px;;
+  margin-bottom: 5px;;
+  border-radius: 5px;;
+  color: black;
+  border: 1px solid black;
+  float:left;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow:ellipsis;
 }

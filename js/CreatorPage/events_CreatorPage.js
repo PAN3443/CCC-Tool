@@ -251,7 +251,7 @@ function addBandButtons(){
   for (var i = 0; i < tmpVal; i++) {
 
     var selectButton = document.createElement("div");
-    selectButton.className = "class_keybuttonEditPage classButtonWhite";
+    selectButton.className = "class_keybuttonBandCreatorPage classButtonWhite";
     selectButton.innerHTML = ""+(i+1);
     selectButton.style.cursor = "pointer";
 

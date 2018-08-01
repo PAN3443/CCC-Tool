@@ -1,5 +1,8 @@
 window.onload = function() {
 
+  // if possible zoom to 100%
+  document.body.style.zoom="100%";
+
   document.onkeydown = keyDownDocumentHandler;
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// GLOBAL /////////////////////////////////////
@@ -25,9 +28,8 @@ window.onload = function() {
   document.getElementById('id_inputSessionData').addEventListener("change", readSessionFile);
   document.getElementById('id_inputData').addEventListener("change", readDataFile);
 
-  document.getElementById('switchExpertMode').addEventListener("change", switchCCCToolMode);
+  document.getElementById('switchExpertMode').addEventListener("click", switchCCCToolMode);
   document.getElementById('switchExpertModeWelcomePage').addEventListener("change", switchCCCToolMode);
-  document.getElementById('switchExpertMode').checked=true;
   document.getElementById('switchExpertModeWelcomePage').checked=true;
 
 
@@ -64,13 +66,23 @@ window.onresize = function(event) {
 
   orderColorSketch(colorspaceModus);
 
+  if( document.getElementById("id_Mapping_Table_Div").style.display!="none"&&
+      document.getElementById("id_mapping_Div").style.display!="none"&&
+      document.getElementById("showHideMappingVisualization").style.display!="none"){
+
+      updateMappingSize(2);
+  }
 };
 
 
 window.onscroll = function() {
   //console.log(document.documentElement.scrollLeft);
   document.getElementById("id_menu").style.marginLeft = document.documentElement.scrollLeft+"px";
+  document.getElementById("id_MainMenue").style.marginLeft = document.documentElement.scrollLeft+"px";
+  document.getElementById("id_Mod_Menue").style.marginLeft = document.documentElement.scrollLeft+"px";
   document.getElementById("footerDiv").style.marginLeft = document.documentElement.scrollLeft+"px";
+
+
 };
 
 
@@ -97,12 +109,12 @@ function orderColorSketch(forColorspace) {
 
     if (showSideID == 1 && globalCMS1.getKeyLength() != 0) {
 
-        if(document.getElementById('switchExpertMode').checked){
+        if(document.getElementById('switchExpertModeWelcomePage').checked){
           document.getElementById("id_Mapping_Table_Div").style.display = "inline-block";
           fillTable();
         }
 
-        if(document.getElementById("mapping_checkAutoUpdate").checked==true && mapping_doingAnimation && document.getElementById('switchExpertMode').checked){
+        if(document.getElementById("mapping_checkAutoUpdate").checked==true && mapping_doingAnimation && document.getElementById('switchExpertModeWelcomePage').checked){
           updateMesh();
         }
 
