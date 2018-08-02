@@ -594,9 +594,172 @@ function init_Size(){
   document.getElementById("compare2_GlobalSpeed_Canvas_de2000").style.height = divWidth+"px";
   document.getElementById("compare2_GlobalSpeed_Canvas_din99").style.height = divWidth+"px";
 
+  document.getElementById("analyze_LocalSpeed_Canvas_Lab").style.width = divWidth+"px";
+  document.getElementById("analyze_LocalSpeed_Canvas_de94").style.width = divWidth+"px";
+  document.getElementById("analyze_LocalSpeed_Canvas_de2000").style.width = divWidth+"px";
+  document.getElementById("analyze_LocalSpeed_Canvas_din99").style.width = divWidth+"px";
+
+  document.getElementById("analyze_LocalSpeed_Canvas_Lab").style.height = divWidth+"px";
+  document.getElementById("analyze_LocalSpeed_Canvas_de94").style.height = divWidth+"px";
+  document.getElementById("analyze_LocalSpeed_Canvas_de2000").style.height = divWidth+"px";
+  document.getElementById("analyze_LocalSpeed_Canvas_din99").style.height = divWidth+"px";
+
+  document.getElementById("compare1_LocalSpeed_Canvas_Lab").style.width = divWidth+"px";
+  document.getElementById("compare1_LocalSpeed_Canvas_de94").style.width = divWidth+"px";
+  document.getElementById("compare1_LocalSpeed_Canvas_de2000").style.width = divWidth+"px";
+  document.getElementById("compare1_LocalSpeed_Canvas_din99").style.width = divWidth+"px";
+
+  document.getElementById("compare1_LocalSpeed_Canvas_Lab").style.height = divWidth+"px";
+  document.getElementById("compare1_LocalSpeed_Canvas_de94").style.height = divWidth+"px";
+  document.getElementById("compare1_LocalSpeed_Canvas_de2000").style.height = divWidth+"px";
+  document.getElementById("compare1_LocalSpeed_Canvas_din99").style.height = divWidth+"px";
+
+  document.getElementById("compare2_LocalSpeed_Canvas_Lab").style.width = divWidth+"px";
+  document.getElementById("compare2_LocalSpeed_Canvas_de94").style.width = divWidth+"px";
+  document.getElementById("compare2_LocalSpeed_Canvas_de2000").style.width = divWidth+"px";
+  document.getElementById("compare2_LocalSpeed_Canvas_din99").style.width = divWidth+"px";
+
+  document.getElementById("compare2_LocalSpeed_Canvas_Lab").style.height = divWidth+"px";
+  document.getElementById("compare2_LocalSpeed_Canvas_de94").style.height = divWidth+"px";
+  document.getElementById("compare2_LocalSpeed_Canvas_de2000").style.height = divWidth+"px";
+  document.getElementById("compare2_LocalSpeed_Canvas_din99").style.height = divWidth+"px";
+
+
+  document.getElementById("analyze_OrderSpeed_Canvas_Lab").style.width = divWidth+"px";
+  document.getElementById("analyze_OrderSpeed_Canvas_de94").style.width = divWidth+"px";
+  document.getElementById("analyze_OrderSpeed_Canvas_de2000").style.width = divWidth+"px";
+  document.getElementById("analyze_OrderSpeed_Canvas_din99").style.width = divWidth+"px";
+
+  document.getElementById("analyze_OrderSpeed_Canvas_Lab").style.height = divWidth+"px";
+  document.getElementById("analyze_OrderSpeed_Canvas_de94").style.height = divWidth+"px";
+  document.getElementById("analyze_OrderSpeed_Canvas_de2000").style.height = divWidth+"px";
+  document.getElementById("analyze_OrderSpeed_Canvas_din99").style.height = divWidth+"px";
+
+  document.getElementById("compare1_OrderSpeed_Canvas_Lab").style.width = divWidth+"px";
+  document.getElementById("compare1_OrderSpeed_Canvas_de94").style.width = divWidth+"px";
+  document.getElementById("compare1_OrderSpeed_Canvas_de2000").style.width = divWidth+"px";
+  document.getElementById("compare1_OrderSpeed_Canvas_din99").style.width = divWidth+"px";
+
+  document.getElementById("compare1_OrderSpeed_Canvas_Lab").style.height = divWidth+"px";
+  document.getElementById("compare1_OrderSpeed_Canvas_de94").style.height = divWidth+"px";
+  document.getElementById("compare1_OrderSpeed_Canvas_de2000").style.height = divWidth+"px";
+  document.getElementById("compare1_OrderSpeed_Canvas_din99").style.height = divWidth+"px";
+
+  document.getElementById("compare2_OrderSpeed_Canvas_Lab").style.width = divWidth+"px";
+  document.getElementById("compare2_OrderSpeed_Canvas_de94").style.width = divWidth+"px";
+  document.getElementById("compare2_OrderSpeed_Canvas_de2000").style.width = divWidth+"px";
+  document.getElementById("compare2_OrderSpeed_Canvas_din99").style.width = divWidth+"px";
+
+  document.getElementById("compare2_OrderSpeed_Canvas_Lab").style.height = divWidth+"px";
+  document.getElementById("compare2_OrderSpeed_Canvas_de94").style.height = divWidth+"px";
+  document.getElementById("compare2_OrderSpeed_Canvas_de2000").style.height = divWidth+"px";
+  document.getElementById("compare2_OrderSpeed_Canvas_din99").style.height = divWidth+"px";
+
+  divWidth = windowWidth*0.25;
+  document.getElementById("id_canvasRGModiyBackground").style.height = divWidth+"px";
+  document.getElementById("id_canvasRGModiyMiddle").style.height = divWidth+"px";
+  document.getElementById("id_canvasRGModiyTop").style.height = divWidth+"px";
+
+  document.getElementById("id_canvasBGModiyBackground").style.height = divWidth+"px";
+  document.getElementById("id_canvasBGModiyMiddle").style.height = divWidth+"px";
+  document.getElementById("id_canvasBGModiyTop").style.height = divWidth+"px";
+
+  document.getElementById("id_canvasRBModiyBackground").style.height = divWidth+"px";
+  document.getElementById("id_canvasRBModiyMiddle").style.height = divWidth+"px";
+  document.getElementById("id_canvasRBModiyTop").style.height = divWidth+"px";
+
+  document.getElementById("id_canvasRGModiyBackground").style.width = divWidth+"px";
+  document.getElementById("id_canvasRGModiyMiddle").style.width = divWidth+"px";
+  document.getElementById("id_canvasRGModiyTop").style.width = divWidth+"px";
+
+  document.getElementById("id_canvasBGModiyBackground").style.width = divWidth+"px";
+  document.getElementById("id_canvasBGModiyMiddle").style.width = divWidth+"px";
+  document.getElementById("id_canvasBGModiyTop").style.width = divWidth+"px";
+
+  document.getElementById("id_canvasRBModiyBackground").style.width = divWidth+"px";
+  document.getElementById("id_canvasRBModiyMiddle").style.width = divWidth+"px";
+  document.getElementById("id_canvasRBModiyTop").style.width = divWidth+"px";
+
+
+  document.getElementById("id_canvasRGAnalyzeBackground").style.height = divWidth+"px";
+  document.getElementById("id_canvasRGAnalyzeMiddle").style.height = divWidth+"px";
+  document.getElementById("id_canvasRGAnalyzeTop").style.height = divWidth+"px";
+
+  document.getElementById("id_canvasBGAnalyzeBackground").style.height = divWidth+"px";
+  document.getElementById("id_canvasBGAnalyzeMiddle").style.height = divWidth+"px";
+  document.getElementById("id_canvasBGAnalyzeTop").style.height = divWidth+"px";
+
+  document.getElementById("id_canvasRBAnalyzeBackground").style.height = divWidth+"px";
+  document.getElementById("id_canvasRBAnalyzeMiddle").style.height = divWidth+"px";
+  document.getElementById("id_canvasRBAnalyzeTop").style.height = divWidth+"px";
+
+  document.getElementById("id_canvasRGAnalyzeBackground").style.width = divWidth+"px";
+  document.getElementById("id_canvasRGAnalyzeMiddle").style.width = divWidth+"px";
+  document.getElementById("id_canvasRGAnalyzeTop").style.width = divWidth+"px";
+
+  document.getElementById("id_canvasBGAnalyzeBackground").style.width = divWidth+"px";
+  document.getElementById("id_canvasBGAnalyzeMiddle").style.width = divWidth+"px";
+  document.getElementById("id_canvasBGAnalyzeTop").style.width = divWidth+"px";
+
+  document.getElementById("id_canvasRBAnalyzeBackground").style.width = divWidth+"px";
+  document.getElementById("id_canvasRBAnalyzeMiddle").style.width = divWidth+"px";
+  document.getElementById("id_canvasRBAnalyzeTop").style.width = divWidth+"px";
+
+
+
+
+  document.getElementById("id_canvasRGCompareBackground").style.height = divWidth+"px";
+  document.getElementById("id_canvasRGCompareMiddle").style.height = divWidth+"px";
+  document.getElementById("id_canvasRGCompareTop").style.height = divWidth+"px";
+
+  document.getElementById("id_canvasBGCompareBackground").style.height = divWidth+"px";
+  document.getElementById("id_canvasBGCompareMiddle").style.height = divWidth+"px";
+  document.getElementById("id_canvasBGCompareTop").style.height = divWidth+"px";
+
+  document.getElementById("id_canvasRBCompareBackground").style.height = divWidth+"px";
+  document.getElementById("id_canvasRBCompareMiddle").style.height = divWidth+"px";
+  document.getElementById("id_canvasRBCompareTop").style.height = divWidth+"px";
+
+  document.getElementById("id_canvasRGCompareBackground").style.width = divWidth+"px";
+  document.getElementById("id_canvasRGCompareMiddle").style.width = divWidth+"px";
+  document.getElementById("id_canvasRGCompareTop").style.width = divWidth+"px";
+
+  document.getElementById("id_canvasBGCompareBackground").style.width = divWidth+"px";
+  document.getElementById("id_canvasBGCompareMiddle").style.width = divWidth+"px";
+  document.getElementById("id_canvasBGCompareTop").style.width = divWidth+"px";
+
+  document.getElementById("id_canvasRBCompareBackground").style.width = divWidth+"px";
+  document.getElementById("id_canvasRBCompareMiddle").style.width = divWidth+"px";
+  document.getElementById("id_canvasRBCompareTop").style.width = divWidth+"px";
+
+
+
+  document.getElementById("id_RG_Modify_Div").style.height = divWidth+"px";
+  document.getElementById("id_RB_Modify_Div").style.height = divWidth+"px";
+  document.getElementById("id_BG_Modify_Div").style.height = divWidth+"px";
+  document.getElementById("id_RG_Modify_Div").style.width = divWidth+"px";
+  document.getElementById("id_RB_Modify_Div").style.width = divWidth+"px";
+  document.getElementById("id_BG_Modify_Div").style.width = divWidth+"px";
+
+  document.getElementById("id_RG_Analyze_Div").style.height = divWidth+"px";
+  document.getElementById("id_RB_Analyze_Div").style.height = divWidth+"px";
+  document.getElementById("id_BG_Analyze_Div").style.height = divWidth+"px";
+  document.getElementById("id_RG_Analyze_Div").style.width = divWidth+"px";
+  document.getElementById("id_RB_Analyze_Div").style.width = divWidth+"px";
+  document.getElementById("id_BG_Analyze_Div").style.width = divWidth+"px";
+
+  document.getElementById("id_RG_Compare_Div").style.height = divWidth+"px";
+  document.getElementById("id_RB_Compare_Div").style.height = divWidth+"px";
+  document.getElementById("id_BG_Compare_Div").style.height = divWidth+"px";
+  document.getElementById("id_RG_Compare_Div").style.width = divWidth+"px";
+  document.getElementById("id_RB_Compare_Div").style.width = divWidth+"px";
+  document.getElementById("id_BG_Compare_Div").style.width = divWidth+"px";
+
+  ///////////////////////////////////////////////////////////////////////////////
+
 
   var pElements = document.getElementsByTagName("p");
-  for(var i =0, il = pElements.length;i<il;i++){
+  for(var i =0; i<pElements.length;i++){
 
     if(pElements[i].classList.contains("constText"))
       continue;
@@ -606,7 +769,7 @@ function init_Size(){
   }
 
   var labelElements = document.getElementsByTagName("label");
-  for(var i =0, il = labelElements.length;i<il;i++){
+  for(var i =0; i<labelElements.length;i++){
 
     if(labelElements[i].classList.contains("constText"))
       continue;
@@ -616,14 +779,14 @@ function init_Size(){
   }
 
   var sectionLabels = document.getElementsByTagName("h1");
-  for(var i =0, il = sectionLabels.length;i<il;i++){
+  for(var i =0; i<sectionLabels.length;i++){
 
      sectionLabels[i].style.lineHeight = windowHeight*0.035+"px";
      sectionLabels[i].style.fontSize = windowHeight*0.03+"px";
   }
 
   var subsectionLabels = document.getElementsByTagName("h2");
-  for(var i =0, il = subsectionLabels.length;i<il;i++){
+  for(var i =0; i<subsectionLabels.length;i++){
 
      subsectionLabels[i].style.lineHeight = windowHeight*0.025+"px";
      subsectionLabels[i].style.fontSize = windowHeight*0.02+"px";
@@ -631,15 +794,28 @@ function init_Size(){
 
 
   var buttons = document.getElementsByTagName("button");
-  for(var i =0, il = buttons.length;i<il;i++){
+  for(var i =0; i<buttons.length;i++){
 
     if(buttons[i].name=="constStyle")
       continue;
 
-     buttons[i].style.height = windowHeight*0.03+"px";
-     buttons[i].style.lineHeight = windowHeight*0.03+"px";
-     buttons[i].style.fontSize = windowHeight*0.02+"px";
+     buttons[i].style.height = windowHeight*0.04+"px";
+     buttons[i].style.lineHeight = windowHeight*0.04+"px";
+     buttons[i].style.fontSize = windowHeight*0.022+"px";
   }
+
+  var inputs = document.getElementsByTagName("input");
+  for(var i =0; i<inputs.length;i++){
+
+    if(inputs[i].classList.contains("constText"))
+      continue;
+
+     inputs[i].style.height = windowHeight*0.025+"px";
+     inputs[i].style.lineHeight = windowHeight*0.025+"px";
+     inputs[i].style.fontSize = windowHeight*0.022+"px";
+  }
+
+
 
   /*var myDesingElementHight = windowHeight*0.05+"px";
   for(var i=0; i<10; i++){

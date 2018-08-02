@@ -206,12 +206,12 @@ div.sticky {
 .class_RadioButtonLabelPopUpWindow{
   margin:0px;
   text-align:left;
-  height:20px;
-  line-height:20px;
-  font-size:16px;
+  height:2vh;
+  line-height:2vh;
+  font-size:1.6vh;
   vertical-align:middle; margin-bottom:0px;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 1vh;
+  margin-right: 1vh;
 }
 
 
@@ -221,20 +221,20 @@ div.sticky {
 
 
 .class_keybuttonBandCreatorPage{
-  width:40px;
-  height:40px;;
-  min-width:40px;;
-  min-height:40px;;
-  line-height:40px;;
+  width:4vh;
+  height:4vh;;
+  min-width:4vh;;
+  min-height:4vh;;
+  line-height:4vh;;
   vertical-align:middle;
   text-align:center;
   color:black;
-  font-size:20px;
-  margin-right: 5px;;
-  margin-bottom: 5px;;
-  border-radius: 5px;;
+  font-size:2vh;
+  margin-right: 0.5vh;
+  margin-bottom: 0.5vh;
+  border-radius: 0.5vh;
   color: black;
-  border: 1px solid black;
+  border: 0.2vh solid black;
   float:left;
   display: inline-block;
   white-space: nowrap;
