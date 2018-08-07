@@ -764,8 +764,16 @@ function init_Size(){
     if(pElements[i].classList.contains("constText"))
       continue;
 
-     pElements[i].style.lineHeight = windowHeight*0.02+"px";
-     pElements[i].style.fontSize = windowHeight*0.016+"px";
+      if(pElements[i].classList.contains("matrixText")){
+        pElements[i].style.lineHeight = windowHeight*0.06+"px";
+        pElements[i].style.fontSize = windowHeight*0.048+"px";
+      }
+      else{
+        pElements[i].style.lineHeight = windowHeight*0.02+"px";
+        pElements[i].style.fontSize = windowHeight*0.016+"px";
+      }
+
+
   }
 
   var labelElements = document.getElementsByTagName("label");
@@ -810,9 +818,9 @@ function init_Size(){
     if(inputs[i].classList.contains("constText"))
       continue;
 
-     inputs[i].style.height = windowHeight*0.025+"px";
-     inputs[i].style.lineHeight = windowHeight*0.025+"px";
-     inputs[i].style.fontSize = windowHeight*0.022+"px";
+     inputs[i].style.height = windowHeight*0.02+"px";
+     inputs[i].style.lineHeight = windowHeight*0.02+"px";
+     inputs[i].style.fontSize = windowHeight*0.016+"px";
   }
 
 

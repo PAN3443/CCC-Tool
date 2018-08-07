@@ -275,10 +275,10 @@
             -->
       <!-- Linear Colormap and Table -->
 
-      <div id="id_Mapping_Table_Div" style="margin-left:auto; margin-right:auto; width:96%; height:auto; margin-top:10px; margin-bottom: 10px; background:none; display:none;">
+      <div id="id_Mapping_Table_Div" style="margin-left:auto; margin-right:auto; width:96%; height:auto; margin-top:10px; margin-bottom: 10px; background:white; box-shadow:  5px  5px grey; display:none;">
 
-          <div style="height:auto; width:100%; display: flex; flex-direction: column; z-index:20; box-shadow:  5px  5px grey;">
-
+          <!--div style="height:auto; width:100%;  z-index:20; box-shadow:  5px  5px grey;">
+          </div-->
             <div class="row" style="height:auto; width:100%; margin:0px; background:url(img/background.png)">
 
               <button id="id_selectShowCMSTable" onclick="switchTableTestFunction(0)" class="classButtonBlue" title="Key Modify" style="width:50%">CMS Table</button>
@@ -332,9 +332,9 @@
               <!------------------------------------------------------------------------------------------------------------------------------------------------------------------->
               <div id="colormappingOptions_Container" style="display:none;  width:100%;">
 
-                <div id="showHideMappingOptionsText" onclick="showHideMappingContainer(0)" class="classButtonBlue" style="text-align:center; height:30px; line-height:30px; vertical-align:middle; width:100%; border:none; border-top: thin solid grey; border-bottom: thin solid grey;">
+                <button id="showHideMappingOptionsText" onclick="showHideMappingContainer(0)" class="classButtonBlue" style="text-align:center; height:30px; line-height:30px; vertical-align:middle; width:100%; border:none; border-top: thin solid grey; border-bottom: thin solid grey;">
                   Show Mapping Options &#8661;
-                </div>
+                </button>
 
                 <div id="showHideMappingOptions" style="display:none; width:100%; background:white; padding-top: 20px;">
                   <div class="row">
@@ -402,9 +402,9 @@
               <div id="colormappingColorBlindnessSim_Container" style="display:none; width:100%;">
 
 
-                <div id="showHideColorBlindnessSimText" onclick="showHideMappingContainer(3)" class="classButtonBlue" style="text-align:center; height:30px; line-height:30px; vertical-align:middle; width:100%; border:none; border-top: thin solid grey; border-bottom: thin solid grey;">
+                <button id="showHideColorBlindnessSimText" onclick="showHideMappingContainer(3)" class="classButtonBlue" style="text-align:center; height:30px; line-height:30px; vertical-align:middle; width:100%; border:none; border-top: thin solid grey; border-bottom: thin solid grey;">
                   Show Colorblindness Simulation &#8661;
-                </div>
+                </button>
 
                 <div id="showHideColorBlindnessSim" style="display:none; width:100%; background:white; padding-top: 20px; padding-bottom: 20px;">
 
@@ -487,62 +487,62 @@
                         </div>
 
 
-                          <p style=" text-align:center; height:30px; line-height:30px; font-size:18px; vertical-align:middle; width:100%; font-weight:bold;"> Used Transfer-Matrix: </p>
+                          <h2 class="subsectionLabel" style="width:100%; margin-top:10px; margin-bottom:15px;"> Used Transfer-Matrix: </h2>
 
                           <div class="row" style="width:100%;">
-                            <p style=" text-align:left; height:100px; line-height:100px; vertical-align:middle; font-size:80px; margin:0px; font-weight: lighter; margin-left:auto;"> [ </p>
+                            <p class="standardText matrixText" style="margin-left:auto; margin-top:auto; margin-bottom:auto;" > [ </p>
 
-                            <div id="input_transferMatrixCol1" style="height:100px; width:10%; display:none;">
-                              <input type="number" id="customTransferMatrix00" step="0.001"  style="height:20px; line-height:20px; font-size:12px; vertical-align:middle;  margin:0px; width: 90%;"><br>
-                              <input type="number" id="customTransferMatrix10" step="0.001"  style="height:20px; line-height:20px; font-size:12px; vertical-align:middle;  margin:0px; width: 90%;"><br>
-                              <input type="number" id="customTransferMatrix20" step="0.001"  style="height:20px; line-height:20px; font-size:12px; vertical-align:middle;  margin:0px; width: 90%;"><br>
+                            <div id="input_transferMatrixCol1" style="width:10%; display:none;">
+                              <input type="number" id="customTransferMatrix00" step="0.001"  style="height:auto; line-height:20px; font-size:12px; vertical-align:middle;  margin:0px; width: 90%;"><br>
+                              <input type="number" id="customTransferMatrix10" step="0.001"  style="height:auto; line-height:20px; font-size:12px; vertical-align:middle;  margin:0px; width: 90%;"><br>
+                              <input type="number" id="customTransferMatrix20" step="0.001"  style="height:auto; line-height:20px; font-size:12px; vertical-align:middle;  margin:0px; width: 90%;"><br>
                             </div>
-                            <div id="input_transferMatrixCol2" style=" height:100px; width:10%; display:none;">
-                              <input type="number" id="customTransferMatrix01" step="0.001"  style="height:20px; line-height:20px; font-size:12px; vertical-align:middle;  margin:0px; width: 90%;"><br>
-                              <input type="number" id="customTransferMatrix11" step="0.001"  style="height:20px; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
-                              <input type="number" id="customTransferMatrix21" step="0.001"  style="height:20px; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
+                            <div id="input_transferMatrixCol2" style="width:10%; display:none;">
+                              <input type="number" id="customTransferMatrix01" step="0.001"  style="height:auto; line-height:20px; font-size:12px; vertical-align:middle;  margin:0px; width: 90%;"><br>
+                              <input type="number" id="customTransferMatrix11" step="0.001"  style="height:auto; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
+                              <input type="number" id="customTransferMatrix21" step="0.001"  style="height:auto; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
                             </div>
-                            <div id="input_transferMatrixCol3" style=" height:100px; width:10%; display:none;">
-                              <input type="number" id="customTransferMatrix02" step="0.1" style="height:20px; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
-                              <input type="number" id="customTransferMatrix12" step="0.1" style="height:20px; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
-                              <input type="number" id="customTransferMatrix22" step="0.1" style="height:20px; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
-                            </div>
-
-                            <div id="label_transferMatrixCol1" style="height:100px; margin-right:30px;">
-                              <p id="infolabelTransferMatrix00" style="height:30px; line-height:30px; font-size:12px; vertical-align:middle; text-align:center; margin:0px;">1</p>
-                              <p id="infolabelTransferMatrix10" style="height:30px; line-height:30px; font-size:12px; vertical-align:middle; text-align:center; margin:0px; margin-top:5px;">0</p>
-                              <p id="infolabelTransferMatrix20" style="height:30px; line-height:30px; font-size:12px; vertical-align:middle; text-align:center; margin:0px; margin-top:5px;">0</p>
-                            </div>
-                            <div id="label_transferMatrixCol2" style=" height:100px; margin-right:30px;">
-                              <p id="infolabelTransferMatrix01" style="height:30px; line-height:30px; font-size:12px; vertical-align:middle; text-align:center; margin:0px; width: 100%;">0</p>
-                              <p id="infolabelTransferMatrix11" style="height:30px; line-height:30px; font-size:12px; vertical-align:middle; text-align:center; margin:0px; margin-top:5px;">1</p>
-                              <p id="infolabelTransferMatrix21" style="height:30px; line-height:30px; font-size:12px; vertical-align:middle; text-align:center; margin:0px; margin-top:5px;">0</p>
-                            </div>
-                            <div id="label_transferMatrixCol3" style=" height:100px; ">
-                              <p id="infolabelTransferMatrix02" style="height:30px; line-height:30px; font-size:12px; vertical-align:middle; text-align:center; margin:0px;">0</p>
-                              <p id="infolabelTransferMatrix12" style="height:30px; line-height:30px; font-size:12px; vertical-align:middle; text-align:center; margin:0px; margin-top:5px;">0</p>
-                              <p id="infolabelTransferMatrix22" style="height:30px; line-height:30px; font-size:12px; vertical-align:middle; text-align:center; margin:0px; margin-top:5px;">1</p>
+                            <div id="input_transferMatrixCol3" style="width:10%; display:none;">
+                              <input type="number" id="customTransferMatrix02" step="0.1" style="height:auto; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
+                              <input type="number" id="customTransferMatrix12" step="0.1" style="height:auto; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
+                              <input type="number" id="customTransferMatrix22" step="0.1" style="height:auto; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
                             </div>
 
-                            <p class="standardText" style=" text-align:left; height:100px; line-height:100px; font-size:80px;  font-weight: lighter;"> ] </p>
-                            <p class="standardText" style=" text-align:left; height:100px; line-height:100px; font-size:80px;  font-weight: lighter;"> [ </p>
-                            <div style="height:100px;">
-                              <p style="height:30px; line-height:30px; font-size:12px; vertical-align:middle; text-align:center;  margin:0px; width: 100%;">L</p>
-                              <p style="height:30px; line-height:30px; font-size:12px; vertical-align:middle; text-align:center;  margin:0px; margin-top:5px; width: 100%;">M</p>
-                              <p style="height:30px; line-height:30px; font-size:12px; vertical-align:middle; text-align:center;  margin:0px; margin-top:5px;  width: 100%;">S</p>
+                            <div id="label_transferMatrixCol1" style="margin-right:30px; margin-top:auto; margin-bottom:auto;">
+                              <p id="infolabelTransferMatrix00" class="standardText" style="text-align:center;">1</p>
+                              <p id="infolabelTransferMatrix10" class="standardText" style="text-align:center;">0</p>
+                              <p id="infolabelTransferMatrix20" class="standardText" style="text-align:center;">0</p>
                             </div>
-                            <p class="standardText" style=" text-align:left; height:100px; line-height:100px; font-size:80px;  font-weight: lighter;"> ] </p>
-                            <p style=" text-align:left; height:100px; line-height:100px; font-size:32px; vertical-align:middle; margin:0px;  font-weight: lighter;"> = </p>
-                            <p class="standardText" style=" text-align:left; height:100px; line-height:100px; font-size:80px;  font-weight: lighter;"> [ </p>
-                            <div style="height:100px;">
-                              <p style="height:30px; line-height:30px; font-size:12px; vertical-align:middle; text-align:center;  margin:0px; width: 100%;">L'</p>
-                              <p style="height:30px; line-height:30px; font-size:12px; vertical-align:middle; text-align:center;  margin:0px; margin-top:5px; width: 100%;">M'</p>
-                              <p style="height:30px; line-height:30px; font-size:12px; vertical-align:middle; text-align:center;  margin:0px; margin-top:5px;  width: 100%;">S'</p>
+                            <div id="label_transferMatrixCol2" style="margin-right:30px; margin-top:auto; margin-bottom:auto;">
+                              <p id="infolabelTransferMatrix01" class="standardText" style="text-align:center;">0</p>
+                              <p id="infolabelTransferMatrix11" class="standardText" style="text-align:center;">1</p>
+                              <p id="infolabelTransferMatrix21" class="standardText" style="text-align:center;">0</p>
                             </div>
-                            <p class="standardText" style=" text-align:left; height:100px; line-height:100px; font-size:80px;  font-weight: lighter; margin-right:auto;"> ] </p>
+                            <div id="label_transferMatrixCol3" style="margin-top:auto; margin-bottom:auto;">
+                              <p id="infolabelTransferMatrix02" class="standardText" style="text-align:center;">0</p>
+                              <p id="infolabelTransferMatrix12" class="standardText" style="text-align:center;">0</p>
+                              <p id="infolabelTransferMatrix22" class="standardText" style="text-align:center;">1</p>
+                            </div>
+
+                            <p class="standardText matrixText" > ] </p>
+                            <p class="standardText matrixText" > [ </p>
+                            <div style="margin-top:auto; margin-bottom:auto;">
+                              <p class="standardText" style="text-align:center;">L</p>
+                              <p class="standardText" style="text-align:center;">M</p>
+                              <p class="standardText" style="text-align:center;">S</p>
+                            </div>
+                            <p class="standardText matrixText"> ] </p>
+                            <p class="standardText matrixText"> = </p>
+                            <p class="standardText matrixText"> [ </p>
+                            <div style="margin-top:auto; margin-bottom:auto;">
+                              <p class="standardText" style="text-align:center;">L'</p>
+                              <p class="standardText" style="text-align:center;">M'</p>
+                              <p class="standardText" style="text-align:center;">S'</p>
+                            </div>
+                            <p class="standardText matrixText" style="margin-right:auto;"> ] </p>
                           </div>
 
-                          <p style=" text-align:left; line-height:20px; font-size:12px; vertical-align:middle; width:50%; margin-left:25%; margin-top:25px;"> Info: The values of the transfer matrix for color blindness simulation are depenting on the selected transfer-matrix for the RGB to XYZ conversion and the selected transer-matrix for XYZ to LMS conversion (see section settings). </p>
+                          <p class="standardText" style=" text-align:left; width:50%; margin-left:25%; margin-top:10px; margin-bottom:10px;"> Info: The values of the transfer matrix for color blindness simulation are depenting on the selected transfer-matrix for the RGB to XYZ conversion and the selected transer-matrix for XYZ to LMS conversion (see section settings). </p>
 
                   </div>
 
@@ -554,9 +554,9 @@
               <div id="colormappingHistogram_Container" style="display:none; width:100%;">
 
 
-                <div id="showHideMappingHistogramText" onclick="showHideMappingContainer(1)" class="classButtonBlue" style="text-align:center; height:30px; line-height:30px; vertical-align:middle; width:100%; border:none; border-top: thin solid grey; border-bottom: thin solid grey;">
+                <button id="showHideMappingHistogramText" onclick="showHideMappingContainer(1)" class="classButtonBlue" style="text-align:center; height:30px; line-height:30px; vertical-align:middle; width:100%; border:none; border-top: thin solid grey; border-bottom: thin solid grey;">
                   Show Histogram &#8661;
-                </div>
+                </button>
 
                 <div id="showHideMappingHistogram" style="display:none; width:100%; background:white; padding-top: 20px; padding-bottom: 20px;">
 
@@ -596,9 +596,9 @@
 
               <div id="colormappingVis_Container" style="display:none; width:100%;">
 
-                  <div id="showHideMappingVisualizationText" onclick="showHideMappingContainer(2)" class="classButtonBlue" style="text-align:center; height:30px; line-height:30px; vertical-align:middle; width:100%; border:none; border-top: thin solid grey; border-bottom: thin solid grey;">
+                  <button id="showHideMappingVisualizationText" onclick="showHideMappingContainer(2)" class="classButtonBlue" style="text-align:center; height:30px; line-height:30px; vertical-align:middle; width:100%; border:none; border-top: thin solid grey; border-bottom: thin solid grey;">
                     Hide Visualization &#8661;
-                  </div>
+                  </button>
 
                   <div id="showHideMappingVisualization" style="width:100%; background:white; padding-top: 20px;">
 
@@ -641,10 +641,10 @@
                 </div>
 
               </div>
-              </div>
+            </div>
 
 
-          </div>
+
 
 
 
@@ -871,7 +871,7 @@
           ---------------- -------------------------------
           -->
 
-    <div id="id_settingPage" style="margin-left:auto; margin-right:auto; width:60%; height:auto; margin:0px; display:none;">
+    <div id="id_settingPage" style="margin-left:auto; margin-right:auto; width:60%; height:auto; display:none;">
 
        <div style="width: 100%; height:auto; margin-top:20px; margin-bottom: 20px; background:white; padding-top:20px; padding-bottom:20px; box-shadow:  5px  5px grey;">
 

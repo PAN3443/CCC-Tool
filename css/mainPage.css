@@ -13,6 +13,18 @@
   margin:0px;
 }
 
+.matrixText{
+  font-size: 36px;
+  line-height: 48px;
+  color:black;
+  height:auto;
+  vertical-align:middle;
+  margin:0px;
+  font-weight: lighter;
+  margin-top:auto;
+  margin-bottom:auto;
+}
+
 
 .sectionLabel{
   font-size: 28px;

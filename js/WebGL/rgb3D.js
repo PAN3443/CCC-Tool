@@ -42,8 +42,8 @@ function render() {
           renderer.clear();
           rgbGroup.rotation.y += ( xRotationAngle - rgbGroup.rotation.y ) * 0.05;
           rgbGroup.rotation.x += ( yRotationAngle - rgbGroup.rotation.x ) * 0.05;
-          colormapRGB3D.rotation.y += ( xRotationAngle - rgbGroup.rotation.y ) * 0.05;
-          colormapRGB3D.rotation.x += ( yRotationAngle - rgbGroup.rotation.x ) * 0.05;
+          colormapRGB3D.rotation.y += ( xRotationAngle - colormapRGB3D.rotation.y ) * 0.05;
+          colormapRGB3D.rotation.x += ( yRotationAngle - colormapRGB3D.rotation.x ) * 0.05;
           /*colormapRGB3D.rotation.y = colormapRGB3D.rotation.y;
           colormapRGB3D.rotation.x = colormapRGB3D.rotation.x;*/
 

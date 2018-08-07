@@ -110,7 +110,7 @@ function orderColorSketch(forColorspace) {
     if (showSideID == 1 && globalCMS1.getKeyLength() != 0) {
 
         if(document.getElementById('switchExpertModeWelcomePage').checked){
-          document.getElementById("id_Mapping_Table_Div").style.display = "inline-block";
+          document.getElementById("id_Mapping_Table_Div").style.display = "block";
           fillTable();
         }
 

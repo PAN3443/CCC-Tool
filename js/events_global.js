@@ -2,7 +2,6 @@
 
 function switchCCCToolMode(event){
 
-  console.log(event.target.id);
   switch (event.target.id) {
     case 'switchExpertMode':
 
