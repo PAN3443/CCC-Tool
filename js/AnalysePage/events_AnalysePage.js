@@ -13,7 +13,10 @@ function updateAnalyzePage(){
   }
 
   if(document.getElementById("analyzeGlobalSpeed").style.display!="none"){
-    globalCMS1.calcIntervalColors(intervalSize, colorspaceModus);
+    //globalCMS1.calcIntervalColors(intervalSize, colorspaceModus);
+
+    //parseInt(document.)
+    globalCMS1.calcDeltaIntervalColors(intervalDelta, colorspaceModus,document.getElementById("analyze_globalSpeed_StartKey").selectedIndex,document.getElementById("analyze_globalSpeed_EndKey").selectedIndex);
     calcGlobalSpeedPlot(globalCMS1,"analyze_GlobalSpeed_Canvas_Lab", 0, "analyze_GlobalSpeed_Label_Min_Lab", "analyze_GlobalSpeed_Label_Max_Lab", "analyze_GlobalSpeed_Label_Av_Lab", "analyze_GlobalSpeed_Label_Dev_Lab");
     calcGlobalSpeedPlot(globalCMS1,"analyze_GlobalSpeed_Canvas_de94", 1, "analyze_GlobalSpeed_Label_Min_de94", "analyze_GlobalSpeed_Label_Max_de94", "analyze_GlobalSpeed_Label_Av_de94", "analyze_GlobalSpeed_Label_Dev_de94");
     calcGlobalSpeedPlot(globalCMS1,"analyze_GlobalSpeed_Canvas_de2000", 2, "analyze_GlobalSpeed_Label_Min_de2000", "analyze_GlobalSpeed_Label_Max_de2000", "analyze_GlobalSpeed_Label_Av_de2000", "analyze_GlobalSpeed_Label_Dev_de2000");
@@ -32,7 +35,8 @@ function updateAnalyzePage(){
   }
 
   if(document.getElementById("analyzeLocalLineSpeed").style.display!="none"){
-    globalCMS1.calcIntervalColors(intervalSize, colorspaceModus);
+    //globalCMS1.calcIntervalColors(intervalSize, colorspaceModus);
+    globalCMS1.calcDeltaIntervalColors(intervalDelta, colorspaceModus,document.getElementById("analyze_localSpeed_StartKey").selectedIndex,document.getElementById("analyze_localSpeed_EndKey").selectedIndex);
     calcLocalSpeedPlot(globalCMS1,"analyze_LocalSpeed_Canvas_Lab", 0, "analyze_LocalSpeed_Label_Min_Lab", "analyze_LocalSpeed_Label_Max_Lab", "analyze_LocalSpeed_Label_Av_Lab", "analyze_LocalSpeed_Label_Dev_Lab");
     calcLocalSpeedPlot(globalCMS1,"analyze_LocalSpeed_Canvas_de94", 1, "analyze_LocalSpeed_Label_Min_de94", "analyze_LocalSpeed_Label_Max_de94", "analyze_LocalSpeed_Label_Av_de94", "analyze_LocalSpeed_Label_Dev_de94");
     calcLocalSpeedPlot(globalCMS1,"analyze_LocalSpeed_Canvas_de2000", 2, "analyze_LocalSpeed_Label_Min_de2000", "analyze_LocalSpeed_Label_Max_de2000", "analyze_LocalSpeed_Label_Av_de2000", "analyze_LocalSpeed_Label_Dev_de2000");
@@ -41,7 +45,8 @@ function updateAnalyzePage(){
   }
 
   if(document.getElementById("analyzeOrder").style.display!="none"){
-    globalCMS1.calcIntervalColors(intervalSize, colorspaceModus);
+    //globalCMS1.calcIntervalColors(intervalSize, colorspaceModus);
+    globalCMS1.calcDeltaIntervalColors(intervalDelta, colorspaceModus,document.getElementById("analyze_Order_StartKey").selectedIndex,document.getElementById("analyze_Order_EndKey").selectedIndex);
     calcOrderPlot(globalCMS1,"analyze_OrderSpeed_Canvas_Lab", 0, "analyze_OrderSpeed_Label_Min_Lab", "analyze_OrderSpeed_Label_MinGlobal_Lab");
     calcOrderPlot(globalCMS1,"analyze_OrderSpeed_Canvas_de94", 1, "analyze_OrderSpeed_Label_Min_de94", "analyze_OrderSpeed_Label_MinGlobal_de94");
     calcOrderPlot(globalCMS1,"analyze_OrderSpeed_Canvas_de2000", 2, "analyze_OrderSpeed_Label_Min_de2000", "analyze_OrderSpeed_Label_MinGlobal_de2000");
@@ -51,7 +56,7 @@ function updateAnalyzePage(){
 
 }
 
-function changePlotType(type){
+/*function changePlotType(type){
   plotType=type;
 
   switch (type) {
@@ -101,7 +106,7 @@ function changePlotType(type){
 
   if(showSideID==3)
   updateComparePage();
-}
+}*/
 
 
 function changePlotMode(mode){
@@ -178,10 +183,12 @@ function changeAnalyzePage(type){
           changeCourseSpace();
         break;
         case 2:
-            intervalSize=parseFloat(document.getElementById("id_InputIntervalNum").value);
+            //intervalSize=parseFloat(document.getElementById("id_InputIntervalNum").value);
             document.getElementById("id_selectAnalyzeMatrix").style.background=styleActiveColor;
             document.getElementById("analyzeGlobalSpeed").style.display="inline-block";
-            globalCMS1.calcIntervalColors(intervalSize, colorspaceModus);
+            fillKeyCombobox(globalCMS1,"analyze_globalSpeed_StartKey","analyze_globalSpeed_EndKey");
+            //globalCMS1.calcIntervalColors(intervalSize, colorspaceModus);
+            globalCMS1.calcDeltaIntervalColors(intervalDelta, colorspaceModus,document.getElementById("analyze_globalSpeed_StartKey").selectedIndex,document.getElementById("analyze_globalSpeed_EndKey").selectedIndex);
             calcGlobalSpeedPlot(globalCMS1, "analyze_GlobalSpeed_Canvas_Lab", 0, "analyze_GlobalSpeed_Label_Min_Lab", "analyze_GlobalSpeed_Label_Max_Lab", "analyze_GlobalSpeed_Label_Av_Lab", "analyze_GlobalSpeed_Label_Dev_Lab");
             calcGlobalSpeedPlot(globalCMS1,"analyze_GlobalSpeed_Canvas_de94", 1, "analyze_GlobalSpeed_Label_Min_de94", "analyze_GlobalSpeed_Label_Max_de94", "analyze_GlobalSpeed_Label_Av_de94", "analyze_GlobalSpeed_Label_Dev_de94");
             calcGlobalSpeedPlot(globalCMS1,"analyze_GlobalSpeed_Canvas_de2000", 2, "analyze_GlobalSpeed_Label_Min_de2000", "analyze_GlobalSpeed_Label_Max_de2000", "analyze_GlobalSpeed_Label_Av_de2000", "analyze_GlobalSpeed_Label_Dev_de2000");
@@ -199,10 +206,12 @@ function changeAnalyzePage(type){
               drawKeySpeed(globalCMS1,"id_anaylseRatioDIN99",5);
             break;
             case 4:
-                  intervalSize=parseFloat(document.getElementById("id_InputIntervalNum2").value);
+                  //intervalSize=parseFloat(document.getElementById("id_InputIntervalNum2").value);
                 document.getElementById("id_selectAnalyzeLine").style.background=styleActiveColor;
                 document.getElementById("analyzeLocalLineSpeed").style.display="inline-block";
-                globalCMS1.calcIntervalColors(intervalSize, colorspaceModus);
+                //globalCMS1.calcIntervalColors(intervalSize, colorspaceModus);
+                fillKeyCombobox(globalCMS1,"analyze_localSpeed_StartKey","analyze_localSpeed_EndKey");
+                globalCMS1.calcDeltaIntervalColors(intervalDelta, colorspaceModus,document.getElementById("analyze_localSpeed_StartKey").selectedIndex,document.getElementById("analyze_localSpeed_EndKey").selectedIndex);
                 calcLocalSpeedPlot(globalCMS1, "analyze_LocalSpeed_Canvas_Lab", 0, "analyze_LocalSpeed_Label_Min_Lab", "analyze_LocalSpeed_Label_Max_Lab", "analyze_LocalSpeed_Label_Av_Lab", "analyze_LocalSpeed_Label_Dev_Lab");
                 calcLocalSpeedPlot(globalCMS1,"analyze_LocalSpeed_Canvas_de94", 1, "analyze_LocalSpeed_Label_Min_de94", "analyze_LocalSpeed_Label_Max_de94", "analyze_LocalSpeed_Label_Av_de94", "analyze_LocalSpeed_Label_Dev_de94");
                 calcLocalSpeedPlot(globalCMS1,"analyze_LocalSpeed_Canvas_de2000", 2, "analyze_LocalSpeed_Label_Min_de2000", "analyze_LocalSpeed_Label_Max_de2000", "analyze_LocalSpeed_Label_Av_de2000", "analyze_LocalSpeed_Label_Dev_de2000");
@@ -210,10 +219,12 @@ function changeAnalyzePage(type){
 
               break;
               case 5:
-                  intervalSize=parseFloat(document.getElementById("id_InputIntervalNum3").value);
+                  //intervalSize=parseFloat(document.getElementById("id_InputIntervalNum3").value);
                   document.getElementById("id_selectAnalyzeOrder").style.background=styleActiveColor;
                   document.getElementById("analyzeOrder").style.display="inline-block";
-                  globalCMS1.calcIntervalColors(intervalSize, colorspaceModus);
+                  //globalCMS1.calcIntervalColors(intervalSize, colorspaceModus);
+                  fillKeyCombobox(globalCMS1,"analyze_Order_StartKey","analyze_Order_EndKey");
+                  globalCMS1.calcDeltaIntervalColors(intervalDelta, colorspaceModus,document.getElementById("analyze_Order_StartKey").selectedIndex,document.getElementById("analyze_Order_EndKey").selectedIndex);
                   calcOrderPlot(globalCMS1, "analyze_OrderSpeed_Canvas_Lab", 0, "analyze_OrderSpeed_Label_Min_Lab", "analyze_OrderSpeed_Label_MinGlobal_Lab");
                   calcOrderPlot(globalCMS1,"analyze_OrderSpeed_Canvas_de94", 1, "analyze_OrderSpeed_Label_Min_de94", "analyze_OrderSpeed_Label_MinGlobal_de94");
                   calcOrderPlot(globalCMS1,"analyze_OrderSpeed_Canvas_de2000", 2, "analyze_OrderSpeed_Label_Min_de2000", "analyze_OrderSpeed_Label_MinGlobal_de2000");
@@ -452,13 +463,18 @@ function calcOrderPlot(intervalColormap,plotid, type, minId, minGlobalId){
 
           //////////////////////////////////////////////////////////////////////
           //// Draw intervals
+
+          var numKeyBars = 0;
+
+
+
           var currentXPos = colormapXStart;
-          var bandWidth = colormapbarwidth/(intervalColormap.getIntervalLength());
+          var bandWidth = colormapbarwidth/(intervalColormap.getIntervalLength()); //+numKeyBars);
+
+
           for(var y=0; y<intervalColormap.getIntervalLength(); y++){
 
                   var colorRef = intervalColormap.getIntervalColor(y,"rgb");
-
-
 
                   canvasCtx.fillStyle=colorRef.getRGBString();
                   canvasCtx.fillRect(currentXPos,colormapYStart,bandWidth,colormapHeight);
@@ -467,11 +483,12 @@ function calcOrderPlot(intervalColormap,plotid, type, minId, minGlobalId){
                   canvasCtx.rect(currentXPos,colormapYStart,bandWidth,colormapHeight);
                   canvasCtx.stroke();
 
-
-
-                currentXPos+=bandWidth;
+                  currentXPos+=bandWidth;
 
           }
+
+
+
 
 
         ///////////////////////////////////////////////////////////////
@@ -759,14 +776,16 @@ function calcGlobalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId,
 
               }
 
-              switch (plotType) {
-                case 0:
-                  var distance = Math.sqrt(Math.pow(intervalColormap.getIntervalRef(x)-intervalColormap.getIntervalRef(y),2))
-                  if(distance==0){
+              /*switch (plotType) {
+                case 0:*/
+
+                  if(intervalColormap.getIntervalRef(x)==intervalColormap.getIntervalRef(y)){
+                    console.log(x,y);
                     speed=-1;
                     numTwinOrLeft++;
                   }
                   else{
+                    var distance = Math.sqrt(Math.pow(intervalColormap.getIntervalRef(x)-intervalColormap.getIntervalRef(y),2))
                     speed = deltaE/distance;
                     realMin = Math.min(realMin,speed);
                     realMax = Math.max(realMax,speed);
@@ -776,7 +795,7 @@ function calcGlobalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId,
                     max = Math.max(max,speed);
                     sumForAverage += speed;
                   }
-                  break;
+                /*  break;
                 case 1:
                     realMin = Math.min(realMin,deltaE);
                     realMax = Math.max(realMax,deltaE);
@@ -789,23 +808,23 @@ function calcGlobalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId,
                 default:
                   return;
 
-              }
+              }*/
 
 
             }
 
 
-            switch (plotType) {
-              case 0:
+            /*switch (plotType) {
+              case 0:*/
                 column.push(speed);
-                break;
+            /*    break;
               case 1:
                 column.push(deltaE);
                   break;
               default:
                 return;
 
-            }
+            }*/
 
         }
         matrix.push(column);
@@ -831,8 +850,8 @@ function calcGlobalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId,
             {
 
 
-              switch (plotType) {
-                case 0:
+              /*switch (plotType) {
+                case 0:*/
                   var speed= matrix[x][y];
                   var val = (speed-min)/(max-min);
                   if(speed==-1){
@@ -843,7 +862,7 @@ function calcGlobalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId,
                   }
 
                   colorRef = new classColor_RGB(val,val,val);
-                  break;
+              /*    break;
                 case 1:
                     var deltaE= matrix[x][y];
                     var val = (deltaE-min)/(max-min);
@@ -853,7 +872,7 @@ function calcGlobalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId,
                 default:
                   return;
 
-              }
+              }*/
 
 
 
@@ -876,16 +895,16 @@ function calcGlobalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId,
       var deviation = Math.sqrt(variance);
 
 
-      document.getElementById(minId).innerHTML = "Global Minimum = "+ realMin.toFixed(numDecimalPlaces);
+      document.getElementById(minId).innerHTML = "Global Speed Minimum = "+ realMin.toFixed(numDecimalPlaces);
 
       if(min==0)
       document.getElementById(minId).style.color = "red";
       else
       document.getElementById(minId).style.color = "black";
 
-      document.getElementById(maxId).innerHTML = "Global Maximum = "+ realMax.toFixed(numDecimalPlaces);
-      document.getElementById(avId).innerHTML = "Global Average = "+ average.toFixed(numDecimalPlaces);
-      document.getElementById(devId).innerHTML = "Global Deviation = "+ deviation.toFixed(numDecimalPlaces);
+      document.getElementById(maxId).innerHTML = "Global Speed Maximum = "+ realMax.toFixed(numDecimalPlaces);
+      document.getElementById(avId).innerHTML = "Global Speed Average = "+ average.toFixed(numDecimalPlaces);
+      document.getElementById(devId).innerHTML = "Global Speed Deviation = "+ deviation.toFixed(numDecimalPlaces);
 
 
 }
@@ -943,8 +962,8 @@ function calcLocalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId, 
 
 
 
-              switch (plotType) {
-                case 0:
+              /*switch (plotType) {
+                case 0:*/
                   var distance = intervalColormap.getIntervalRef(x+1)-intervalColormap.getIntervalRef(x);
 
                   if(distance==0){
@@ -958,7 +977,7 @@ function calcLocalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId, 
                     sumForAverage += speed;
                   }
                   vector.push(speed);
-                  break;
+              /*    break;
                 case 1:
                     min = Math.min(min,deltaE);
                     max = Math.max(max,deltaE);
@@ -968,7 +987,7 @@ function calcLocalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId, 
                 default:
                   return;
 
-              }
+              }*/
 
       }
 
@@ -1020,16 +1039,16 @@ function calcLocalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId, 
       var deviation = Math.sqrt(variance);
 
 
-      document.getElementById(minId).innerHTML = "Local Minimum = "+ min.toFixed(numDecimalPlaces);
+      document.getElementById(minId).innerHTML = "Local Speed Minimum = "+ min.toFixed(numDecimalPlaces);
 
       if(min==0)
       document.getElementById(minId).style.color = "red";
       else
       document.getElementById(minId).style.color = "black";
 
-      document.getElementById(maxId).innerHTML = "Local Maximum = "+ max.toFixed(numDecimalPlaces);
-      document.getElementById(avId).innerHTML = "Local Average = "+ average.toFixed(numDecimalPlaces);
-      document.getElementById(devId).innerHTML = "Local Deviation = "+ deviation.toFixed(numDecimalPlaces);
+      document.getElementById(maxId).innerHTML = "Local Speed Maximum = "+ max.toFixed(numDecimalPlaces);
+      document.getElementById(avId).innerHTML = "Local Speed Average = "+ average.toFixed(numDecimalPlaces);
+      document.getElementById(devId).innerHTML = "Local Speed Deviation = "+ deviation.toFixed(numDecimalPlaces);
 
 
 }
@@ -1279,4 +1298,128 @@ function drawKeySpeed(cms, plotid, type){
 
   canvasCtx.putImageData(canvasData, 0, 0); // update ColorspaceCanvas;
 
+}
+
+
+function changeAnalyzeCompareKeyIndex(event){
+  switch (event.target.id) {
+    case "analyze_globalSpeed_StartKey": case "analyze_globalSpeed_EndKey":
+      updateAnalyzeCompareKeyIndex("analyze_globalSpeed_StartKey","analyze_globalSpeed_EndKey");
+      break;
+
+      case "analyze_localSpeed_StartKey": case "analyze_localSpeed_EndKey":
+        updateAnalyzeCompareKeyIndex("analyze_localSpeed_StartKey","analyze_localSpeed_EndKey");
+        break;
+
+        case "analyze_Order_StartKey": case "analyze_Order_EndKey":
+          updateAnalyzeCompareKeyIndex("analyze_Order_StartKey","analyze_Order_EndKey");
+          break;
+
+
+          case "compare1_globalSpeed_StartKey": case "compare1_globalSpeed_EndKey":
+            updateAnalyzeCompareKeyIndex("compare1_globalSpeed_StartKey","compare1_globalSpeed_EndKey");
+            break;
+
+            case "compare1_localSpeed_StartKey": case "compare1_localSpeed_EndKey":
+              updateAnalyzeCompareKeyIndex("compare1_localSpeed_StartKey","compare1_localSpeed_EndKey");
+              break;
+
+              case "compare1_Order_StartKey": case "compare1_Order_EndKey":
+                updateAnalyzeCompareKeyIndex("compare1_Order_StartKey","compare1_Order_EndKey");
+                break;
+
+
+                case "compare2_globalSpeed_StartKey": case "compare2_globalSpeed_EndKey":
+                  updateAnalyzeCompareKeyIndex("compare2_globalSpeed_StartKey","compare2_globalSpeed_EndKey");
+                  break;
+
+                  case "compare2_localSpeed_StartKey": case "compare2_localSpeed_EndKey":
+                    updateAnalyzeCompareKeyIndex("compare2_localSpeed_StartKey","compare2_localSpeed_EndKey");
+                    break;
+
+                    case "compare2_Order_StartKey": case "compare2_Order_EndKey":
+                      updateAnalyzeCompareKeyIndex("compare2_Order_StartKey","compare2_Order_EndKey");
+                      break;
+
+    default:
+
+  }
+}
+
+
+function updateAnalyzeCompareKeyIndex(startComboID,endComboID){
+
+  var startIndex = document.getElementById(startComboID).selectedIndex;
+  var endIndex = document.getElementById(endComboID).selectedIndex;
+
+  var options = document.getElementById(startComboID).options;
+  for (var i = 0; i < options.length; i++) {
+    if(i<endIndex)
+      options[i].disabled = false;
+    else
+      options[i].disabled = true;
+  }
+
+  options = document.getElementById(endComboID).options;
+  for (var i = 0; i < options.length; i++) {
+    if(i>startIndex)
+      options[i].disabled = false;
+    else
+      options[i].disabled = true;
+  }
+
+  if(showSideID==2)
+  updateAnalyzePage();
+
+  if(showSideID==3)
+  updateComparePage();
+}
+
+function fillKeyCombobox(colormap,startComboID,endComboID){
+
+    var selectbox = document.getElementById(startComboID);
+    for(var i = selectbox.options.length - 1 ; i >= 0 ; i--)
+    {
+        selectbox.remove(i);
+    }
+
+    // fill startbox
+
+    for (var i = 1; i <= colormap.getKeyLength(); i++) {
+
+      var opt = document.createElement('option');
+      opt.innerHTML = i;
+      opt.value = i;
+
+      if(i == colormap.getKeyLength()){
+        opt.disabled = true;
+      }
+
+      selectbox.appendChild(opt);
+    }
+    document.getElementById(startComboID).options[0].selected = true;
+    ///////////////////////////////////////////////////////////////////////
+    selectbox = document.getElementById(endComboID);
+    for(var i = selectbox.options.length - 1 ; i >= 0 ; i--)
+    {
+        selectbox.remove(i);
+    }
+
+    // fill endbox
+
+    // fill startbox
+
+    for (var i = 1; i <= colormap.getKeyLength(); i++) {
+
+      var opt = document.createElement('option');
+      opt.innerHTML = i;
+      opt.value = i;
+
+      if(i == 1){
+        opt.disabled = true;
+      }
+
+      selectbox.appendChild(opt);
+    }
+    document.getElementById(endComboID).options[document.getElementById(endComboID).options.length-1].selected = true;
 }

@@ -49,6 +49,12 @@ function calcDeltaDE94(color1,color2){
 /////////////// CIEDE2000 ////////////////////
 function calcDeltaCIEDE2000(color1,color2){
 
+        if(color1.getColorType()!="lab")
+        color1=color1.calcLABColor();
+
+        if(color2.getColorType()!="lab")
+        color2=color2.calcLABColor();
+
           var deg360InRad = deg2rad(360.0);
           var deg180InRad = deg2rad(180.0);
           var pow25To7 = Math.pow(25, 7);

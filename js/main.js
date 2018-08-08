@@ -19,10 +19,10 @@ window.onload = function() {
   document.getElementById("bandCreator_Radiobutton_PickerRG_B").checked=true;
   colorpickerType="RG_B";
 
-  document.getElementById('id_creatorPage').style.display = "none";
+  /*document.getElementById('id_creatorPage').style.display = "none";
   document.getElementById('id_comparePage').style.display = "none";
   document.getElementById('id_analysisPage').style.display = "none";
-  document.getElementById('id_tutorialPage').style.display = "none";
+  document.getElementById('id_tutorialPage').style.display = "none";*/
 
   document.getElementById('id_inputCMSData').addEventListener("change", readCMSFile);
   document.getElementById('id_inputSessionData').addEventListener("change", readSessionFile);
@@ -143,8 +143,23 @@ function orderColorSketch(forColorspace) {
     drawBandSketch(globalCMS1,"id_colormapSketch","id_createColormapKeys","id_colormapSketch_Ref", false, -1);
 
 
-    if(showSideID == 3)
-    drawBandSketch(globalCMS2,"id_colormapSketch2","id_createColormapKeys2","id_colormapSketch_Ref2", false, -1);
+    if(showSideID == 3){
+
+      if(globalCMS2.getKeyLength() != 0){
+
+        drawCanvasColormap("id_linearColormap2", linearMap_resolution_X, linearMap_resolution_Y, globalCMS2);
+        drawKeys("id_keyColormap2", key_resolution_X, key_resolution_Y, globalCMS2, "id_keyColormapLinesBottom2");
+
+        document.getElementById("div_colormapLinear2").style.display = "inline-block";
+
+      }
+      else{
+        document.getElementById("div_colormapLinear2").style.display = "none";
+      }
+
+      drawBandSketch(globalCMS2,"id_colormapSketch2","id_createColormapKeys2","id_colormapSketch_Ref2", false, -1);
+    }
+
 
 
 }

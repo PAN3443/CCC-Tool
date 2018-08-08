@@ -699,8 +699,22 @@
 
       <div id="div_colormapBandSketch2" style="margin-left:auto; margin-right:auto; width:96%; height:auto; margin-top:10px; margin-bottom: 10px; background:white; box-shadow:  5px  5px grey; display:none;">
           <!--h4 style="width:100%; height:40px; line-height:40px; font-size:12px; text-align:center; vertical-align: middle; color:black; margin:0px;">Colormap Band Sketch </h4-->
-          <h1 class="sectionLabel" style=" padding-top:20px;"> Colormap Band Sketch of the compare CMS</h1>
+          <h1 class="sectionLabel" style=" padding-top:20px;"> Linear Colormap and Colormap Band Sketch of the compare CMS</h1>
 
+          <div id="div_colormapLinear2" style="width:100%; height:auto; display:none;">
+
+
+            <canvas style="margin-top: 0px; width:100%; height: 50px; margin-left:0%; " id="id_keyColormap2">
+
+                                    </canvas>
+            <canvas style="margin-top: 0px; width:95%; height: 50px; margin-left:2.5%; margin-bottom:0px; border: thin solid black;" id="id_linearColormap2">
+
+                                    </canvas>
+            <canvas style="margin-top: 0px; width:100%; height: 20px; margin-left:0%;" id="id_keyColormapLinesBottom2">
+
+                                    </canvas>
+
+          </div>
           <canvas style="margin-top: 0px; width:100%; height: 100px;" id="id_createColormapKeys2">
           </canvas>
           <canvas class="classSketchCanvas" id="id_colormapSketch2">
@@ -1144,7 +1158,7 @@
           -->
 
 
-    <div id="id_creatorPage"  style="margin-left:auto; margin-right:auto; width:96%; height:auto; margin-top:20px; margin-bottom: 20px; background:white; box-shadow:  5px  5px grey;">
+    <div id="id_creatorPage"  style="margin-left:auto; margin-right:auto; width:96%; height:auto; margin-top:20px; margin-bottom: 20px; background:white; box-shadow:  5px  5px grey; display:none;">
               <div class="row" style="height:auto; width:100%; margin:0px; background:url(img/background.png)">
 
                 <button id="id_selectBandAdding" onclick="switchModifyModus(0)" class="classButtonBlue" title="Key Modify" >Add Bands</button>
@@ -1550,15 +1564,15 @@
                  </div>
 
                  <!-- Legend -->
-                 <div class="row" style="width:80%; height:40px; border: 1px solid rgb(120,120,120); background:rgb(240,240,240); margin-left:10%; margin-top:20px;  margin-bottom:20px;">
-                   <p class="constText class_overflowText"  style="margin:0px; margin-left:2%; width:8%; height:40px; line-height:40px; font-size:12px; vertical-align:middle; text-align:center; font-weight:bold;"> Legend:</p>
+                 <div class="row" style="width:80%; height:auto; border: 1px solid rgb(120,120,120); background:rgb(240,240,240); margin-left:10%; margin-top:10px;  margin-bottom:10px; padding-top:10px;  padding-bottom:10px;">
+                   <p class="class_overflowText standardText"  style="margin-left:2%; width:8%; text-align:center; font-weight:bold; margin-top:auto; margin-bottom:auto;"> Legend:</p>
 
-                   <div class="row" style="height:100%; border-right: 1px solid rgb(120,120,120); width:30%;">
-                     <div style="margin-left:10%; margin-right:10%; height:20px; width:5%; margin-top:auto; margin-bottom:auto; border:2px solid black; background:white;">
+                   <div class="row" style="height:auto; border-right: 1px solid rgb(120,120,120); width:30%;">
+                     <div style="margin-left:10%; margin-right:10%; height:20px; width:20px; margin-top:auto; margin-bottom:auto; border:2px solid black; background:white;">
                      </div>
-                     <p class="constText class_overflowText"  style="margin:0px; width:45%; height:40px; line-height:40px; font-size:12px; vertical-align:middle; text-align:center; font-weight:bold;"> : Constant Band </p>
-                     <div class="dropdown" style="height:40px; width:10%; margin-right:5%; margin-left:5%;">
-                       <button class="dropbtn constStyle" style="margin-right:10px; border-radius: 10px; line-height:24px; font-weight:bold; text-align:center; width: 100%; height:24px; border: 1px solid black; margin-top:auto; margin-bottom:auto;">?</button>
+                     <p class="class_overflowText standardText"  style="width:45%; text-align:center; font-weight:bold; margin-top:auto; margin-bottom:auto;"> : Constant Band </p>
+                     <div class="dropdown" style="height:40px; width:10%; margin-right:5%; margin-left:5%; margin-top:auto; margin-bottom:auto;">
+                       <button class="dropbtn" style="margin-right:10px; border-radius: 10px; line-height:24px; font-weight:bold; text-align:center; width: 100%; height:24px; border: 1px solid black;">?</button>
                        <div class="dropdown-content" style="border: 1px solid black; background: rgb(220,220,220); z-index:3;">
 
                          <p style="margin:10px; font-size: 12px; line-height: 16px; width:200px; "> <strong>INFO:</strong> Constant bands define one color for a certain section. Inside of the visualization, a constant band will be represented by squares.
@@ -1568,16 +1582,16 @@
                    </div>
 
 
-                   <div class="row" style="height:100%; border-right: 1px solid rgb(120,120,120); width:30%;">
-                     <svg style="margin-left:5%; margin-right:5%; width:30%; height:40px;">
+                   <div class="row" style="height:auto; border-right: 1px solid rgb(120,120,120); width:30%;">
+                     <svg style="margin-left:5%; margin-right:5%; width:30%; height:40px; margin-top:auto; margin-bottom:auto;">
                              <line x1="20%" y1="50%" x2="80%" y2="50%" style="stroke:rgb(0,0,0);stroke-width:9" />
                              <line x1="20%" y1="50%" x2="80%" y2="50%" style="stroke:rgb(255,255,255);stroke-width:3" />
                              <circle cx="20%" cy="50%" r="10%" stroke="black" stroke-width="3" fill="white" />
                              <circle cx="80%" cy="50%" r="10%" stroke="black" stroke-width="3" fill="white" />
                          </svg>
-                     <p class="constText class_overflowText"  style="margin:0px; width:35%; height:40px; line-height:40px; font-size:12px; vertical-align:middle; text-align:center; font-weight:bold;"> : Scaled Band </p>
-                     <div class="dropdown" style="height:40px; width:10%; margin-right:5%; margin-left:5%;">
-                       <button class="dropbtn constStyle" style="margin-right:10px; border-radius: 10px; line-height:24px; font-weight:bold; text-align:center; width: 100%; height:24px; border: 1px solid black; margin-top:auto; margin-bottom:auto;">?</button>
+                     <p class="class_overflowText standardText"  style="width:35%; text-align:center; font-weight:bold; margin-top:auto; margin-bottom:auto;"> : Scaled Band </p>
+                     <div class="dropdown" style="height:40px; width:10%; margin-right:5%; margin-left:5%; margin-top:auto; margin-bottom:auto;">
+                       <button class="dropbtn" style="margin-right:10px; border-radius: 10px; line-height:24px; font-weight:bold; text-align:center; width: 100%; height:24px; border: 1px solid black;">?</button>
                        <div class="dropdown-content" style="border: 1px solid black; background: rgb(220,220,220); z-index:3;">
 
                          <p style="margin:10px; font-size: 12px; line-height: 16px; width:200px; "> <strong>INFO:</strong> Scaled bands define a color gradient for a certain section. Intermediate colors will be interpolate inside the selected colorspace. Inside of the visualization, a scaled band will be represented by two circles and a solid line.
@@ -1590,14 +1604,14 @@
 
 
 
-                   <div class="row" style="height:100%; margin-right:auto; mardin-left:0px; width:30%;">
-                     <svg style="margin-left:5%; margin-right:5%; width:20%; height:40px;">
+                   <div class="row" style="height:auto; margin-right:auto; mardin-left:0px; width:30%;">
+                     <svg style="margin-left:5%; margin-right:5%; width:20%; height:40px; margin-top:auto; margin-bottom:auto;">
                            <line x1="10%" y1="50%" x2="90%" y2="50%" stroke-dasharray="10,5" style="stroke:rgb(0,0,0);stroke-width:9" />
                            <line x1="10%" y1="50%" x2="90%" y2="50%" stroke-dasharray="10,5" style="stroke:rgb(255,255,255);stroke-width:3" />
                        </svg>
-                     <p class="constText class_overflowText"  style="margin:0px; width:45%; height:40px; line-height:40px; font-size:12px; vertical-align:middle; text-align:center; font-weight:bold;">: Transition Point </p>
-                     <div class="dropdown" style="height:40px; width:10%; margin-right:5%; margin-left:5%;">
-                       <button class="dropbtn constStyle" style="margin-right:10px; border-radius: 10px; line-height:24px; font-weight:bold; text-align:center; width: 100%; height:24px; border: 1px solid black; margin-top:auto; margin-bottom:auto;">?</button>
+                     <p class="class_overflowText standardText"  style="width:45%; text-align:center; font-weight:bold; margin-top:auto; margin-bottom:auto;">: Transition Point </p>
+                     <div class="dropdown" style="height:40px; width:10%; margin-right:5%; margin-left:5%; margin-top:auto; margin-bottom:auto;">
+                       <button class="dropbtn" style="margin-right:10px; border-radius: 10px; line-height:24px; font-weight:bold; text-align:center; width: 100%; height:24px; border: 1px solid black;">?</button>
                        <div class="dropdown-content" style="border: 1px solid black; background: rgb(220,220,220); z-index:3; right: 2vw;">
                          <p style="margin:10px; font-size: 12px; line-height: 16px; width:200px;"> <strong>INFO:</strong> If a neighbor of a band has a different start (end) color as the end (start) color of this band, there is a discontinuous transition point between the band and his neighbor.
                            The transition paths are not part of the colormap course, but they are showing the connection between bands connected with a twin or a left key. Inside of the visualization, the transition path will be represented by a dashed line.
@@ -2309,37 +2323,37 @@
               <hr>
 
               <!-- Legend -->
-              <div class="row" style="width:80%; height:40px; border: 1px solid rgb(120,120,120); background:rgb(240,240,240); margin-left:10%; margin-top:20px;  margin-bottom:20px;">
-                <p class="constText class_overflowText"  style="margin:0px; margin-left:2%; width:8%; height:40px; line-height:40px; font-size:12px; vertical-align:middle; text-align:center; font-weight:bold;"> Legend:</p>
+              <div class="row" style="width:80%; height:auto; border: 1px solid rgb(120,120,120); background:rgb(240,240,240); margin-left:10%; margin-top:10px;  margin-bottom:10px; padding-top:10px;  padding-bottom:10px;">
+                <p class="class_overflowText standardText"  style="margin-left:2%; width:8%; text-align:center; font-weight:bold; margin-top:auto; margin-bottom:auto;"> Legend:</p>
 
-                <div class="row" style="height:100%; border-right: 1px solid rgb(120,120,120); width:30%;">
-                  <div style="margin-left:10%; margin-right:10%; height:20px; width:5%; margin-top:auto; margin-bottom:auto; border:2px solid black; background:white;">
+                <div class="row" style="height:auto; border-right: 1px solid rgb(120,120,120); width:30%;">
+                  <div style="margin-left:10%; margin-right:10%; height:20px; width:20px; margin-top:auto; margin-bottom:auto; border:2px solid black; background:white;">
                   </div>
-                  <p class="constText class_overflowText"  style="margin:0px; width:45%; height:40px; line-height:40px; font-size:12px; vertical-align:middle; text-align:center; font-weight:bold;"> : Constant Band </p>
-                  <div class="dropdown" style="height:20px; width:10%; margin-right:5%; margin-left:5%;">
-                    <button class="dropbtn standardText" style="margin-right:10px; border-radius: 10px; line-height:30px; font-weight:bold; text-align:center; width: 100%; height:30px; margin-left:20px; border: 1px solid black; margin-top:5px; margin-bottom:auto;">?</button>
+                  <p class="class_overflowText standardText"  style="width:45%; text-align:center; font-weight:bold; margin-top:auto; margin-bottom:auto;"> : Constant Band </p>
+                  <div class="dropdown" style="height:40px; width:10%; margin-right:5%; margin-left:5%; margin-top:auto; margin-bottom:auto;">
+                    <button class="dropbtn" style="margin-right:10px; border-radius: 10px; line-height:24px; font-weight:bold; text-align:center; width: 100%; height:24px; border: 1px solid black;">?</button>
                     <div class="dropdown-content" style="border: 1px solid black; background: rgb(220,220,220); z-index:3;">
 
-                      <p style="margin:10px; font-size: 12px; line-height: 16px; width:20%; "> <strong>INFO:</strong> Constant bands define one color for a certain section. Inside of the visualization, a constant band will be represented by squares.
+                      <p style="margin:10px; font-size: 12px; line-height: 16px; width:200px; "> <strong>INFO:</strong> Constant bands define one color for a certain section. Inside of the visualization, a constant band will be represented by squares.
                       </p>
                     </div>
                   </div>
                 </div>
 
 
-                <div class="row" style="height:100%; border-right: 1px solid rgb(120,120,120); width:30%;">
-                  <svg style="margin-left:5%; margin-right:5%; width:30%; height:40px;">
+                <div class="row" style="height:auto; border-right: 1px solid rgb(120,120,120); width:30%;">
+                  <svg style="margin-left:5%; margin-right:5%; width:30%; height:40px; margin-top:auto; margin-bottom:auto;">
                           <line x1="20%" y1="50%" x2="80%" y2="50%" style="stroke:rgb(0,0,0);stroke-width:9" />
                           <line x1="20%" y1="50%" x2="80%" y2="50%" style="stroke:rgb(255,255,255);stroke-width:3" />
                           <circle cx="20%" cy="50%" r="10%" stroke="black" stroke-width="3" fill="white" />
                           <circle cx="80%" cy="50%" r="10%" stroke="black" stroke-width="3" fill="white" />
                       </svg>
-                  <p class="constText class_overflowText"  style="margin:0px; width:35%; height:40px; line-height:40px; font-size:12px; vertical-align:middle; text-align:center; font-weight:bold;"> : Scaled Band </p>
-                  <div class="dropdown" style="height:20px; width:10%; margin-right:5%; margin-left:5%;">
-                    <button class="dropbtn standardText" style="margin-right:10px; border-radius: 10px; line-height:30px; font-weight:bold; text-align:center; width: 100%; height:30px; margin-left:20px; border: 1px solid black; margin-top:5px; margin-bottom:auto;">?</button>
+                  <p class="class_overflowText standardText"  style="width:35%; text-align:center; font-weight:bold; margin-top:auto; margin-bottom:auto;"> : Scaled Band </p>
+                  <div class="dropdown" style="height:40px; width:10%; margin-right:5%; margin-left:5%; margin-top:auto; margin-bottom:auto;">
+                    <button class="dropbtn" style="margin-right:10px; border-radius: 10px; line-height:24px; font-weight:bold; text-align:center; width: 100%; height:24px; border: 1px solid black;">?</button>
                     <div class="dropdown-content" style="border: 1px solid black; background: rgb(220,220,220); z-index:3;">
 
-                      <p style="margin:10px; font-size: 12px; line-height: 16px; width:20%; "> <strong>INFO:</strong> Scaled bands define a color gradient for a certain section. Intermediate colors will be interpolate inside the selected colorspace. Inside of the visualization, a scaled band will be represented by two circles and a solid line.
+                      <p style="margin:10px; font-size: 12px; line-height: 16px; width:200px; "> <strong>INFO:</strong> Scaled bands define a color gradient for a certain section. Intermediate colors will be interpolate inside the selected colorspace. Inside of the visualization, a scaled band will be represented by two circles and a solid line.
                         The two circles are showing the start and the end color.
                         The line represent the interpolated colors.
                       </p>
@@ -2349,16 +2363,16 @@
 
 
 
-                <div class="row" style="height:100%; margin-right:auto; mardin-left:0px; width:30%;">
-                  <svg style="margin-left:5%; margin-right:5%; width:20%; height:40px;">
+                <div class="row" style="height:auto; margin-right:auto; mardin-left:0px; width:30%;">
+                  <svg style="margin-left:5%; margin-right:5%; width:20%; height:40px; margin-top:auto; margin-bottom:auto;">
                         <line x1="10%" y1="50%" x2="90%" y2="50%" stroke-dasharray="10,5" style="stroke:rgb(0,0,0);stroke-width:9" />
                         <line x1="10%" y1="50%" x2="90%" y2="50%" stroke-dasharray="10,5" style="stroke:rgb(255,255,255);stroke-width:3" />
                     </svg>
-                  <p class="constText class_overflowText"  style="margin:0px; width:45%; height:40px; line-height:40px; font-size:12px; vertical-align:middle; text-align:center; font-weight:bold;">: Transition Point </p>
-                  <div class="dropdown" style="height:20px; width:10%; margin-right:5%; margin-left:5%;">
-                    <button class="dropbtn standardText" style="margin-right:10px; border-radius: 10px; line-height:30px; font-weight:bold; text-align:center; width: 100%; height:30px; margin-left:20px; border: 1px solid black; margin-top:5px; margin-bottom:auto;">?</button>
+                  <p class="class_overflowText standardText"  style="width:45%; text-align:center; font-weight:bold; margin-top:auto; margin-bottom:auto;">: Transition Point </p>
+                  <div class="dropdown" style="height:40px; width:10%; margin-right:5%; margin-left:5%; margin-top:auto; margin-bottom:auto;">
+                    <button class="dropbtn" style="margin-right:10px; border-radius: 10px; line-height:24px; font-weight:bold; text-align:center; width: 100%; height:24px; border: 1px solid black;">?</button>
                     <div class="dropdown-content" style="border: 1px solid black; background: rgb(220,220,220); z-index:3; right: 2vw;">
-                      <p style="margin:10px; font-size: 12px; line-height: 16px; width:25vw;"> <strong>INFO:</strong> If a neighbor of a band has a different start (end) color as the end (start) color of this band, there is a discontinuous transition point between the band and his neighbor.
+                      <p style="margin:10px; font-size: 12px; line-height: 16px; width:200px;"> <strong>INFO:</strong> If a neighbor of a band has a different start (end) color as the end (start) color of this band, there is a discontinuous transition point between the band and his neighbor.
                         The transition paths are not part of the colormap course, but they are showing the connection between bands connected with a twin or a left key. Inside of the visualization, the transition path will be represented by a dashed line.
                       </p>
                     </div>
@@ -2498,7 +2512,7 @@
                 </div>
               </div>
 
-              <hr>
+              <!--hr>
 
 
                 <div class="row" style="width: 100%;">
@@ -2512,14 +2526,45 @@
                   <p style="height:50px; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:1cm; font-size:20px; color:black;  margin-left:auto;"><strong>Show: </strong></p>
                   <button class="classButtonWhite standardText" id="button_CompareSpeedMatrix" title="Speed" onclick="changePlotTypeCompare(0)" style="border-radius: 5px; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:50px; font-size:20px;  margin-left:10px; border: 1px solid rgb(0,191,255); color: rgb(0,191,255); ">Speed Matrix Plot</button>
                   <button class="classButtonWhite standardText" id="button_CompareDifferenceMatrix" title="Difference" onclick="changePlotTypeCompare(1)" style="border-radius: 5px; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:50px; font-size:20px; margin-left:10px;  margin-right:auto; border: 1px solid black; color:black; ">Difference Matrix Plot</button>
-                </div>
+                </div-->
 
                 <hr>
 
                   <div class="row" style="height:100%;">
-                    <p style="height:50px; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:1cm; font-size:20px; color:black;  margin-left:auto;"><strong>Mode: </strong></p>
+                    <h2 style="height:auto; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:1cm; font-size:20px; color:black;  margin-left:auto;">Mode:</h2>
                     <button class="classButtonWhite standardText" id="button_CompareDoLinearPlot" title="Linear" onclick="changePlotMode(0)" style="border-radius: 5px; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:50px; font-size:20px;  margin-left:10px; border: 1px solid rgb(0,191,255); color: rgb(0,191,255); ">Linear Plot</button>
                     <button class="classButtonWhite standardText" id="button_CompareDoLogPlot" title="Log" onclick="changePlotMode(1)" style="border-radius: 5px; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:50px; font-size:20px; margin-left:10px;  margin-right:auto; border: 1px solid black; color:black; ">Log Plot</button>
+
+
+                    <div style=" margin-right:20px;">
+                      <div class="row">
+                        <h2 style="height:auto; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; font-size:20px; color:black; ">CMS 1: From Key:</h2>
+                        <select id="compare1_globalSpeed_StartKey" style="height:auto; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:20px; font-size:20px; color:black;">
+
+                        </select>
+                      </div>
+                      <div class="row" style="margin-top:5px;">
+                        <h2 style="height:auto; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; font-size:20px; color:black; ">CMS 2: From Key:</h2>
+                        <select id="compare2_globalSpeed_StartKey" style="height:auto; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:20px; font-size:20px; color:black;">
+
+                        </select>
+                      </div>
+                    </div>
+
+                    <div style="margin-right:auto;">
+                      <div class="row">
+                        <h2 style="height:auto; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; font-size:20px; color:black;">Till Key:</h2>
+                        <select id="compare1_globalSpeed_EndKey" style="height:auto; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:20px; font-size:20px; color:black;">
+
+                        </select>
+                      </div>
+                      <div class="row" style="margin-top:5px;">
+                        <h2 style="height:auto; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; font-size:20px; color:black;">Till Key:</h2>
+                        <select id="compare2_globalSpeed_EndKey" style="height:auto; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:20px; font-size:20px; color:black;">
+
+                        </select>
+                      </div>
+                    </div>
                   </div>
 
                 <hr>
@@ -2672,17 +2717,49 @@
 
 
                 <div class="row" style="width: 100%;">
-                  <h3 style="height:50px; height:50px; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:black; padding-left:20px; font-size:20px;  margin-left:auto; "> Number of Intervalpoints: </h3>
-                  <input id="id_CompareInputIntervalNum2" type="text" name="key space" value="50" style="height:30px; line-height:30px; font-size:20px; text-align:center; vertical-align: middle; margin:auto; margin-left:10px; margin-right:auto;">
+                  <!--h3 style="height:50px; height:50px; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:black; padding-left:20px; font-size:20px;  margin-left:auto; "> Number of Intervalpoints: </h3>
+                  <input id="id_CompareInputIntervalNum2" type="text" name="key space" value="50" style="height:30px; line-height:30px; font-size:20px; text-align:center; vertical-align: middle; margin:auto; margin-left:10px; margin-right:auto;"-->
+
+                  <div style="margin-left:auto; margin-right:20px;">
+                    <div class="row">
+                      <h2 style="height:auto; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; font-size:20px; color:black; ">CMS 1: From Key:</h2>
+                      <select id="compare1_localSpeed_StartKey" style="height:auto; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:20px; font-size:20px; color:black;">
+
+                      </select>
+                    </div>
+                    <div class="row" style="margin-top:5px;">
+                      <h2 style="height:auto; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; font-size:20px; color:black; ">CMS 2: From Key:</h2>
+                      <select id="compare2_localSpeed_StartKey" style="height:auto; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:20px; font-size:20px; color:black;">
+
+                      </select>
+                    </div>
+                  </div>
+
+                  <div style="margin-right:auto;">
+                    <div class="row">
+                      <h2 style="height:auto; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; font-size:20px; color:black;">Till Key:</h2>
+                      <select id="compare1_localSpeed_EndKey" style="height:auto; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:20px; font-size:20px; color:black;">
+
+                      </select>
+                    </div>
+                    <div class="row" style="margin-top:5px;">
+                      <h2 style="height:auto; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; font-size:20px; color:black;">Till Key:</h2>
+                      <select id="compare2_localSpeed_EndKey" style="height:auto; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:20px; font-size:20px; color:black;">
+
+                      </select>
+                    </div>
+                  </div>
                 </div>
 
-                <hr>
+                <!--hr>
 
                 <div class="row" style="height:100%;">
                   <p style="height:50px; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:1cm; font-size:20px; color:black;  margin-left:auto;"><strong>Show: </strong></p>
                   <button class="classButtonWhite standardText" id="button_CompareSpeedLine" title="Speed" onclick="changePlotTypeCompare(0)" style="border-radius: 5px; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:50px; font-size:20px;  margin-left:10px; border: 1px solid rgb(0,191,255); color: rgb(0,191,255); ">Speed Line Plot</button>
                   <button class="classButtonWhite standardText" id="button_CompareDifferenceLine" title="Difference" onclick="changePlotTypeCompare(1)" style="border-radius: 5px; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:50px; font-size:20px; margin-left:10px;  margin-right:auto; border: 1px solid black; color:black; ">Difference Line Plot</button>
-                </div>
+                </div-->
+
+                <hr>
 
                 <div class="row" style="padding-top:20px; padding-bottom:20px; width:100%;">
 
@@ -2915,8 +2992,43 @@
                   <hr>
 
                   <div class="row" style="width: 100%;">
-                    <h3 style="height:50px; height:50px; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:black; padding-left:20px; font-size:20px;  margin-left:auto; "> Number of Intervalpoints: </h3>
-                    <input id="id_CompareInputIntervalNum3" type="text" name="key space" value="50" style="height:30px; line-height:30px; font-size:20px; text-align:center; vertical-align: middle; margin:auto; margin-left:10px; margin-right:auto;">
+                    <!--h3 style="height:50px; height:50px; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:black; padding-left:20px; font-size:20px;  margin-left:auto; "> Number of Intervalpoints: </h3>
+                    <input id="id_CompareInputIntervalNum3" type="text" name="key space" value="50" style="height:30px; line-height:30px; font-size:20px; text-align:center; vertical-align: middle; margin:auto; margin-left:10px; margin-right:auto;"-->
+
+
+                    <div style="margin-left:auto; margin-right:20px;">
+                      <div class="row">
+                        <h2 style="height:auto; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; font-size:20px; color:black; ">CMS 1: From Key:</h2>
+                        <select id="compare1_Order_StartKey" style="height:auto; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:20px; font-size:20px; color:black;">
+
+                        </select>
+                      </div>
+                      <div class="row" style="margin-top:5px;">
+                        <h2 style="height:auto; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; font-size:20px; color:black; ">CMS 2: From Key:</h2>
+                        <select id="compare2_Order_StartKey" style="height:auto; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:20px; font-size:20px; color:black;">
+
+                        </select>
+                      </div>
+                    </div>
+
+                    <div style="margin-right:auto;">
+                      <div class="row">
+                        <h2 style="height:auto; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; font-size:20px; color:black;">Till Key:</h2>
+                        <select id="compare1_Order_EndKey" style="height:auto; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:20px; font-size:20px; color:black;">
+
+                        </select>
+                      </div>
+                      <div class="row" style="margin-top:5px;">
+                        <h2 style="height:auto; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; font-size:20px; color:black;">Till Key:</h2>
+                        <select id="compare2_Order_EndKey" style="height:auto; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:20px; font-size:20px; color:black;">
+
+                        </select>
+                      </div>
+                    </div>
+
+
+
+
                   </div>
 
                   <hr>
@@ -2928,10 +3040,10 @@
 
                         <h1 style="width:100%; text-align:center; height:50px; line-height:50px; font-size:12px; margin:0px; vertical-align:middle; "> Lab Euclidean Distance CMS 1</h1>
                         <hr>
-                        <p style="width:100%; text-align:left; height:40px; line-height:40px; font-size:12px; font-weight:bold; margin:0px; vertical-align:middle; color:rgb(255,127,80);"> |Local Order|</p>
+                        <p class="standardText" style="width:100%; text-align:left; font-weight:bold; color:rgb(255,127,80);"> |Local Order|</p>
                         <canvas class="globalSpeedCanvas" id="compare1_OrderSpeed_Canvas_Lab" style="width:450px; height:450px; margin:0px; margin-right:auto; background:url(img/order_background.png); ">
                         </canvas>
-                        <p style="width:100%; text-align:left; height:40px; line-height:40px; font-size:12px; font-weight:bold; margin:0px; vertical-align:middle; color:rgb(30,144,255); "> Negative Global Order </p>
+                        <p class="standardText" style="width:100%; text-align:left; font-weight:bold; color:rgb(30,144,255);">Negative Global Order</p>
                         <hr>
                           <p id="compare1_OrderSpeed_Label_Min_Lab" class="classAnalyzePlotLabel"> Minimum = /</p>
                           <p id="compare1_OrderSpeed_Label_MinGlobal_Lab" class="classAnalyzePlotLabel"> Minimum = /</p>
@@ -2942,10 +3054,10 @@
 
                         <h1 style="width:100%; text-align:center; height:50px; line-height:50px; font-size:12px; margin:0px; vertical-align:middle; "> Lab Euclidean Distance CMS 2</h1>
                         <hr>
-                        <p style="width:100%; text-align:left; height:40px; line-height:40px; font-size:12px; font-weight:bold; margin:0px; vertical-align:middle; color:rgb(255,127,80);"> |Local Order|</p>
+                        <p class="standardText" style="width:100%; text-align:left; font-weight:bold; color:rgb(255,127,80);"> |Local Order|</p>
                         <canvas class="globalSpeedCanvas" id="compare2_OrderSpeed_Canvas_Lab" style="width:450px; height:450px; margin:0px; margin-right:auto; background:url(img/order_background.png);">
                         </canvas>
-                        <p style="width:100%; text-align:left; height:40px; line-height:40px; font-size:12px; font-weight:bold; margin:0px; vertical-align:middle; color:rgb(30,144,255); "> Negative Global Order </p>
+                        <p class="standardText" style="width:100%; text-align:left; font-weight:bold; color:rgb(30,144,255);">Negative Global Order</p>
                         <hr>
 
                           <p id="compare2_OrderSpeed_Label_Min_Lab" class="classAnalyzePlotLabel"> Minimum = /</p>
@@ -2960,10 +3072,10 @@
 
                         <h1 style="width:100%; text-align:center; height:50px; line-height:50px; font-size:12px; margin:0px; vertical-align:middle; "> Lab de94 Metric CMS 1</h1>
                         <hr>
-                        <p style="width:100%; text-align:left; height:40px; line-height:40px; font-size:12px; font-weight:bold; margin:0px; vertical-align:middle; color:rgb(255,127,80);"> |Local Order|</p>
+                        <p class="standardText" style="width:100%; text-align:left; font-weight:bold; color:rgb(255,127,80);"> |Local Order|</p>
                         <canvas class="globalSpeedCanvas" id="compare1_OrderSpeed_Canvas_de94" style="width:450px; height:450px; margin:0px; margin-right:auto; background:url(img/order_background.png);">
                         </canvas>
-                        <p style="width:100%; text-align:left; height:40px; line-height:40px; font-size:12px; font-weight:bold; margin:0px; vertical-align:middle; color:rgb(30,144,255); "> Negative Global Order </p>
+                        <p class="standardText" style="width:100%; text-align:left; font-weight:bold; color:rgb(30,144,255);">Negative Global Order</p>
                         <hr>
 
                           <p id="compare1_OrderSpeed_Label_Min_de94" class="classAnalyzePlotLabel"> Minimum = /</p>
@@ -2975,10 +3087,10 @@
 
                         <h1 style="width:100%; text-align:center; height:50px; line-height:50px; font-size:12px; margin:0px; vertical-align:middle; "> Lab de94 Metric CMS 2</h1>
                         <hr>
-                        <p style="width:100%; text-align:left; height:40px; line-height:40px; font-size:12px; font-weight:bold; margin:0px; vertical-align:middle; color:rgb(255,127,80);"> |Local Order|</p>
+                        <p class="standardText" style="width:100%; text-align:left; font-weight:bold; color:rgb(255,127,80);"> |Local Order|</p>
                         <canvas class="globalSpeedCanvas" id="compare2_OrderSpeed_Canvas_de94" style="width:450px; height:450px; margin:0px; margin-right:auto; background:url(img/order_background.png);">
                         </canvas>
-                        <p style="width:100%; text-align:left; height:40px; line-height:40px; font-size:12px; font-weight:bold; margin:0px; vertical-align:middle; color:rgb(30,144,255); "> Negative Global Order </p>
+                        <p class="standardText" style="width:100%; text-align:left; font-weight:bold; color:rgb(30,144,255);">Negative Global Order</p>
                         <hr>
 
                           <p id="compare2_OrderSpeed_Label_Min_de94" class="classAnalyzePlotLabel"> Minimum = /</p>
@@ -2994,10 +3106,10 @@
 
                       <h1 style="width:100%; text-align:center; height:50px; line-height:50px; font-size:12px; margin:0px; vertical-align:middle; "> Lab de2000 Metric CMS 1</h1>
                       <hr>
-                      <p style="width:100%; text-align:left; height:40px; line-height:40px; font-size:12px; font-weight:bold; margin:0px; vertical-align:middle; color:rgb(255,127,80);"> |Local Order|</p>
+                      <p class="standardText" style="width:100%; text-align:left; font-weight:bold; color:rgb(255,127,80);"> |Local Order|</p>
                       <canvas class="globalSpeedCanvas" id="compare1_OrderSpeed_Canvas_de2000" style="width:450px; height:450px; margin:0px; margin-right:auto; background:url(img/order_background.png);">
                       </canvas>
-                      <p style="width:100%; text-align:left; height:40px; line-height:40px; font-size:12px; font-weight:bold; margin:0px; vertical-align:middle; color:rgb(30,144,255); "> Negative Global Order </p>
+                      <p class="standardText" style="width:100%; text-align:left; font-weight:bold; color:rgb(30,144,255);">Negative Global Order</p>
                       <hr>
 
                         <p id="compare1_OrderSpeed_Label_Min_de2000" class="classAnalyzePlotLabel"> Minimum = /</p>
@@ -3009,10 +3121,10 @@
 
                       <h1 style="width:100%; text-align:center; height:50px; line-height:50px; font-size:12px; margin:0px; vertical-align:middle; "> Lab de2000 Metric CMS 2</h1>
                       <hr>
-                      <p style="width:100%; text-align:left; height:40px; line-height:40px; font-size:12px; font-weight:bold; margin:0px; vertical-align:middle; color:rgb(255,127,80);"> |Local Order|</p>
+                      <p class="standardText" style="width:100%; text-align:left; font-weight:bold; color:rgb(255,127,80);"> |Local Order|</p>
                       <canvas class="globalSpeedCanvas" id="compare2_OrderSpeed_Canvas_de2000" style="width:450px; height:450px; margin:0px; margin-right:auto; background:url(img/order_background.png);">
                       </canvas>
-                      <p style="width:100%; text-align:left; height:40px; line-height:40px; font-size:12px; font-weight:bold; margin:0px; vertical-align:middle; color:rgb(30,144,255); "> Negative Global Order </p>
+                      <p class="standardText" style="width:100%; text-align:left; font-weight:bold; color:rgb(30,144,255);">Negative Global Order</p>
                       <hr>
 
                         <p id="compare2_OrderSpeed_Label_Min_de2000" class="classAnalyzePlotLabel"> Minimum = /</p>
@@ -3027,11 +3139,11 @@
 
 
                       <h1 style="width:100%; text-align:center; height:50px; line-height:50px; font-size:12px; margin:0px; vertical-align:middle; "> DIN99 Euclidean Distance CMS 1</h1>
-                      <p style="width:100%; text-align:left; height:40px; line-height:40px; font-size:12px; font-weight:bold; margin:0px; vertical-align:middle; color:rgb(255,127,80);"> |Local Order|</p>
+                      <p class="standardText" style="width:100%; text-align:left; font-weight:bold; color:rgb(255,127,80);"> |Local Order|</p>
                       <hr>
                       <canvas class="globalSpeedCanvas" id="compare1_OrderSpeed_Canvas_din99" style="width:450px; height:450px; margin:0px; margin-right:auto; background:url(img/order_background.png);">
                       </canvas>
-                      <p style="width:100%; text-align:left; height:40px; line-height:40px; font-size:12px; font-weight:bold; margin:0px; vertical-align:middle; color:rgb(30,144,255); "> Negative Global Order </p>
+                      <p class="standardText" style="width:100%; text-align:left; font-weight:bold; color:rgb(30,144,255);">Negative Global Order</p>
                       <hr>
                         <p id="compare1_OrderSpeed_Label_Min_din99" class="classAnalyzePlotLabel"> Minimum = /</p>
                         <p id="compare1_OrderSpeed_Label_MinGlobal_din99" class="classAnalyzePlotLabel"> Minimum = /</p>
@@ -3041,11 +3153,11 @@
                     <div style="width:auto; border:1px solid black; background:rgb(230,230,230); margin-right: auto; margin-left: auto; padding:20px;">
 
                       <h1 style="width:100%; text-align:center; height:50px; line-height:50px; font-size:12px; margin:0px; vertical-align:middle; "> DIN99 Euclidean Distance CMS 1</h1>
-                      <p style="width:100%; text-align:left; height:40px; line-height:40px; font-size:12px; font-weight:bold; margin:0px; vertical-align:middle; color:rgb(255,127,80);"> |Local Order|</p>
+                      <p class="standardText" style="width:100%; text-align:left; font-weight:bold; color:rgb(255,127,80);"> |Local Order|</p>
                       <hr>
                       <canvas class="globalSpeedCanvas" id="compare2_OrderSpeed_Canvas_din99" style="width:450px; height:450px; margin:0px; margin-right:auto; background:url(img/order_background.png);">
                       </canvas>
-                      <p style="width:100%; text-align:left; height:40px; line-height:40px; font-size:12px; font-weight:bold; margin:0px; vertical-align:middle; color:rgb(30,144,255); "> Negative Global Order </p>
+                      <p class="standardText" style="width:100%; text-align:left; font-weight:bold; color:rgb(30,144,255);">Negative Global Order</p>
                       <hr>
                         <p id="compare2_OrderSpeed_Label_Min_din99" class="classAnalyzePlotLabel"> Minimum = /</p>
                         <p id="compare2_OrderSpeed_Label_MinGlobal_din99" class="classAnalyzePlotLabel"> Minimum = /</p>
@@ -3265,37 +3377,37 @@
         <hr>
 
         <!-- Legend -->
-        <div class="row" style="width:80%; height:40px; border: 1px solid rgb(120,120,120); background:rgb(240,240,240); margin-left:10%; margin-top:20px;  margin-bottom:20px;">
-          <p class="constText class_overflowText"  style="margin:0px; margin-left:2%; width:8%; height:40px; line-height:40px; font-size:12px; vertical-align:middle; text-align:center; font-weight:bold;"> Legend:</p>
+        <div class="row" style="width:80%; height:auto; border: 1px solid rgb(120,120,120); background:rgb(240,240,240); margin-left:10%; margin-top:10px;  margin-bottom:10px; padding-top:10px;  padding-bottom:10px;">
+          <p class="class_overflowText standardText"  style="margin-left:2%; width:8%; text-align:center; font-weight:bold; margin-top:auto; margin-bottom:auto;"> Legend:</p>
 
-          <div class="row" style="height:100%; border-right: 1px solid rgb(120,120,120); width:30%;">
-            <div style="margin-left:10%; margin-right:10%; height:20px; width:5%; margin-top:auto; margin-bottom:auto; border:2px solid black; background:white;">
+          <div class="row" style="height:auto; border-right: 1px solid rgb(120,120,120); width:30%;">
+            <div style="margin-left:10%; margin-right:10%; height:20px; width:20px; margin-top:auto; margin-bottom:auto; border:2px solid black; background:white;">
             </div>
-            <p class="constText class_overflowText"  style="margin:0px; width:45%; height:40px; line-height:40px; font-size:12px; vertical-align:middle; text-align:center; font-weight:bold;"> : Constant Band </p>
-            <div class="dropdown" style="height:20px; width:10%; margin-right:5%; margin-left:5%;">
-              <button class="dropbtn standardText" style="margin-right:10px; border-radius: 10px; line-height:30px; font-weight:bold; text-align:center; width: 100%; height:30px; margin-left:20px; border: 1px solid black; margin-top:5px; margin-bottom:auto;">?</button>
+            <p class="class_overflowText standardText"  style="width:45%; text-align:center; font-weight:bold; margin-top:auto; margin-bottom:auto;"> : Constant Band </p>
+            <div class="dropdown" style="height:40px; width:10%; margin-right:5%; margin-left:5%; margin-top:auto; margin-bottom:auto;">
+              <button class="dropbtn" style="margin-right:10px; border-radius: 10px; line-height:24px; font-weight:bold; text-align:center; width: 100%; height:24px; border: 1px solid black;">?</button>
               <div class="dropdown-content" style="border: 1px solid black; background: rgb(220,220,220); z-index:3;">
 
-                <p style="margin:10px; font-size: 12px; line-height: 16px; width:20%; "> <strong>INFO:</strong> Constant bands define one color for a certain section. Inside of the visualization, a constant band will be represented by squares.
+                <p style="margin:10px; font-size: 12px; line-height: 16px; width:200px; "> <strong>INFO:</strong> Constant bands define one color for a certain section. Inside of the visualization, a constant band will be represented by squares.
                 </p>
               </div>
             </div>
           </div>
 
 
-          <div class="row" style="height:100%; border-right: 1px solid rgb(120,120,120); width:30%;">
-            <svg style="margin-left:5%; margin-right:5%; width:30%; height:40px;">
+          <div class="row" style="height:auto; border-right: 1px solid rgb(120,120,120); width:30%;">
+            <svg style="margin-left:5%; margin-right:5%; width:30%; height:40px; margin-top:auto; margin-bottom:auto;">
                     <line x1="20%" y1="50%" x2="80%" y2="50%" style="stroke:rgb(0,0,0);stroke-width:9" />
                     <line x1="20%" y1="50%" x2="80%" y2="50%" style="stroke:rgb(255,255,255);stroke-width:3" />
                     <circle cx="20%" cy="50%" r="10%" stroke="black" stroke-width="3" fill="white" />
                     <circle cx="80%" cy="50%" r="10%" stroke="black" stroke-width="3" fill="white" />
                 </svg>
-            <p class="constText class_overflowText"  style="margin:0px; width:35%; height:40px; line-height:40px; font-size:12px; vertical-align:middle; text-align:center; font-weight:bold;"> : Scaled Band </p>
-            <div class="dropdown" style="height:20px; width:10%; margin-right:5%; margin-left:5%;">
-              <button class="dropbtn standardText" style="margin-right:10px; border-radius: 10px; line-height:30px; font-weight:bold; text-align:center; width: 100%; height:30px; margin-left:20px; border: 1px solid black; margin-top:5px; margin-bottom:auto;">?</button>
+            <p class="class_overflowText standardText"  style="width:35%; text-align:center; font-weight:bold; margin-top:auto; margin-bottom:auto;"> : Scaled Band </p>
+            <div class="dropdown" style="height:40px; width:10%; margin-right:5%; margin-left:5%; margin-top:auto; margin-bottom:auto;">
+              <button class="dropbtn" style="margin-right:10px; border-radius: 10px; line-height:24px; font-weight:bold; text-align:center; width: 100%; height:24px; border: 1px solid black;">?</button>
               <div class="dropdown-content" style="border: 1px solid black; background: rgb(220,220,220); z-index:3;">
 
-                <p style="margin:10px; font-size: 12px; line-height: 16px; width:20%; "> <strong>INFO:</strong> Scaled bands define a color gradient for a certain section. Intermediate colors will be interpolate inside the selected colorspace. Inside of the visualization, a scaled band will be represented by two circles and a solid line.
+                <p style="margin:10px; font-size: 12px; line-height: 16px; width:200px; "> <strong>INFO:</strong> Scaled bands define a color gradient for a certain section. Intermediate colors will be interpolate inside the selected colorspace. Inside of the visualization, a scaled band will be represented by two circles and a solid line.
                   The two circles are showing the start and the end color.
                   The line represent the interpolated colors.
                 </p>
@@ -3305,16 +3417,16 @@
 
 
 
-          <div class="row" style="height:100%; margin-right:auto; mardin-left:0px; width:30%;">
-            <svg style="margin-left:5%; margin-right:5%; width:20%; height:40px;">
+          <div class="row" style="height:auto; margin-right:auto; mardin-left:0px; width:30%;">
+            <svg style="margin-left:5%; margin-right:5%; width:20%; height:40px; margin-top:auto; margin-bottom:auto;">
                   <line x1="10%" y1="50%" x2="90%" y2="50%" stroke-dasharray="10,5" style="stroke:rgb(0,0,0);stroke-width:9" />
                   <line x1="10%" y1="50%" x2="90%" y2="50%" stroke-dasharray="10,5" style="stroke:rgb(255,255,255);stroke-width:3" />
               </svg>
-            <p class="constText class_overflowText"  style="margin:0px; width:45%; height:40px; line-height:40px; font-size:12px; vertical-align:middle; text-align:center; font-weight:bold;">: Transition Point </p>
-            <div class="dropdown" style="height:20px; width:10%; margin-right:5%; margin-left:5%;">
-              <button class="dropbtn standardText" style="margin-right:10px; border-radius: 10px; line-height:30px; font-weight:bold; text-align:center; width: 100%; height:30px; margin-left:20px; border: 1px solid black; margin-top:5px; margin-bottom:auto;">?</button>
+            <p class="class_overflowText standardText"  style="width:45%; text-align:center; font-weight:bold; margin-top:auto; margin-bottom:auto;">: Transition Point </p>
+            <div class="dropdown" style="height:40px; width:10%; margin-right:5%; margin-left:5%; margin-top:auto; margin-bottom:auto;">
+              <button class="dropbtn" style="margin-right:10px; border-radius: 10px; line-height:24px; font-weight:bold; text-align:center; width: 100%; height:24px; border: 1px solid black;">?</button>
               <div class="dropdown-content" style="border: 1px solid black; background: rgb(220,220,220); z-index:3; right: 2vw;">
-                <p style="margin:10px; font-size: 12px; line-height: 16px; width:25vw;"> <strong>INFO:</strong> If a neighbor of a band has a different start (end) color as the end (start) color of this band, there is a discontinuous transition point between the band and his neighbor.
+                <p style="margin:10px; font-size: 12px; line-height: 16px; width:200px;"> <strong>INFO:</strong> If a neighbor of a band has a different start (end) color as the end (start) color of this band, there is a discontinuous transition point between the band and his neighbor.
                   The transition paths are not part of the colormap course, but they are showing the connection between bands connected with a twin or a left key. Inside of the visualization, the transition path will be represented by a dashed line.
                 </p>
               </div>
@@ -3447,7 +3559,7 @@
 
               <div class="row" style="padding-top:20px; padding-bottom:20px; width:100%;">
                 <!--h4 style="width:auto; height:40px; line-height:40px; font-size:12px; text-align:center; vertical-align: middle; color:black; margin:0px; margin-left:auto;">Colormap Course</h4-->
-                <h1 style="width:auto; text-align:center; height:40px; line-height:40px; font-size:30px; margin:0px; vertical-align:middle; margin-left:auto;"> Matrix Plot </h1>
+                <h1 style="width:auto; text-align:center; height:40px; line-height:40px; font-size:30px; margin:0px; vertical-align:middle; margin-left:auto;"> Matrix Speed Plot </h1>
                 <div class="dropdown" style="width:auto; margin-right:auto;">
                   <button class="dropbtn standardText" style="margin-right:10px; border-radius: 10px; line-height:40px; font-weight:bold; text-align:center; width: 40px; height:40px; margin-left:20px; border: 1px solid black;">?</button>
                   <div class="dropdown-content" style="border: 1px solid black; background: rgb(220,220,220); z-index:3;">
@@ -3460,7 +3572,7 @@
                 </div>
               </div>
 
-              <hr>
+              <!--hr>
 
 
                 <div class="row" style="width: 100%;">
@@ -3474,14 +3586,24 @@
                   <p style="height:50px; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:1cm; font-size:20px; color:black;  margin-left:auto;"><strong>Show: </strong></p>
                   <button class="classButtonWhite standardText" id="button_AnalyzeSpeedMatrix" title="Speed" onclick="changePlotType(0)" style="border-radius: 5px; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:50px; font-size:20px;  margin-left:10px; border: 1px solid rgb(0,191,255); color: rgb(0,191,255); ">Speed Matrix Plot</button>
                   <button class="classButtonWhite standardText" id="button_AnalyzeDifferenceMatrix" title="Difference" onclick="changePlotType(1)" style="border-radius: 5px; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:50px; font-size:20px; margin-left:10px;  margin-right:auto; border: 1px solid black; color:black; ">Difference Matrix Plot</button>
-                </div>
+                </div-->
 
               <hr>
 
                 <div class="row" style="height:100%;">
-                  <p style="height:50px; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:1cm; font-size:20px; color:black;  margin-left:auto;"><strong>Mode: </strong></p>
+                  <h2 style="height:auto; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:1cm; font-size:20px; color:black;  margin-left:auto;">Mode:</h2>
                   <button class="classButtonWhite standardText" id="button_AnalyzeDoLinearPlot" title="Linear" onclick="changePlotMode(0)" style="border-radius: 5px; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:50px; font-size:20px;  margin-left:10px; border: 1px solid rgb(0,191,255); color: rgb(0,191,255); ">Linear Plot</button>
                   <button class="classButtonWhite standardText" id="button_AnalyzeDoLogPlot" title="Log" onclick="changePlotMode(1)" style="border-radius: 5px; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:50px; font-size:20px; margin-left:10px;  margin-right:auto; border: 1px solid black; color:black; ">Log Plot</button>
+
+                  <h2 style="height:auto; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:1cm; font-size:20px; color:black;">From Key:</h2>
+                  <select id="analyze_globalSpeed_StartKey" style="height:auto; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:1cm; font-size:20px; color:black;  margin-right:20px;">
+
+                  </select>
+
+                  <h2 style="height:auto; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:1cm; font-size:20px; color:black;">Till Key:</h2>
+                  <select id="analyze_globalSpeed_EndKey" style="height:auto; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:1cm; font-size:20px; color:black;  margin-right:auto;">
+
+                  </select>
                 </div>
 
               <hr>
@@ -3576,17 +3698,27 @@
 
 
                 <div class="row" style="width: 100%;">
-                  <h3 style="height:50px; height:50px; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:black; padding-left:20px; font-size:20px;  margin-left:auto; "> Number of Intervalpoints: </h3>
-                  <input id="id_InputIntervalNum2" type="text" name="key space" value="50" style="height:30px; line-height:30px; font-size:20px; text-align:center; vertical-align: middle; margin:auto; margin-left:10px; margin-right:auto;">
+                  <!--h3 style="height:50px; height:50px; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:black; padding-left:20px; font-size:20px;  margin-left:auto; "> Number of Intervalpoints: </h3>
+                  <input id="id_InputIntervalNum2" type="text" name="key space" value="50" style="height:30px; line-height:30px; font-size:20px; text-align:center; vertical-align: middle; margin:auto; margin-left:10px; margin-right:auto;"-->
+
+                  <h2 style="height:auto; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; font-size:20px; color:black;  margin-left:auto;">From Key:</h2>
+                  <select id="analyze_localSpeed_StartKey" style="height:auto; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:20px; font-size:20px; color:black;  margin-right:20px;">
+
+                  </select>
+
+                  <h2 style="height:auto; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; font-size:20px; color:black;">Till Key:</h2>
+                  <select id="analyze_localSpeed_EndKey" style="height:auto; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:20px; font-size:20px; color:black;  margin-right:auto;">
+
+                  </select>
                 </div>
 
-                <hr>
+                <!--hr>
 
                 <div class="row" style="height:100%;">
                   <p style="height:50px; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:1cm; font-size:20px; color:black;  margin-left:auto;"><strong>Show: </strong></p>
                   <button class="classButtonWhite standardText" id="button_AnalyzeSpeedLine" title="Speed" onclick="changePlotType(0)" style="border-radius: 5px; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:50px; font-size:20px;  margin-left:10px; border: 1px solid rgb(0,191,255); color: rgb(0,191,255); ">Speed Line Plot</button>
                   <button class="classButtonWhite standardText" id="button_AnalyzeDifferenceLine" title="Difference" onclick="changePlotType(1)" style="border-radius: 5px; background: none; background-size:cover; background-repeat:no-repeat; background-position: center center; width: auto; height:50px; font-size:20px; margin-left:10px;  margin-right:auto; border: 1px solid black; color:black; ">Difference Line Plot</button>
-                </div>
+                </div-->
 
                 <div class="row" style="padding-top:20px; padding-bottom:20px; width:100%;">
 
@@ -3759,8 +3891,20 @@
                   <hr>
 
                   <div class="row" style="width: 100%;">
-                    <h3 style="height:50px; height:50px; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:black; padding-left:20px; font-size:20px;  margin-left:auto; "> Number of Intervalpoints: </h3>
-                    <input id="id_InputIntervalNum3" type="text" name="key space" value="50" style="height:30px; line-height:30px; font-size:20px; text-align:center; vertical-align: middle; margin:auto; margin-left:10px; margin-right:auto;">
+                    <!--h3 style="height:50px; height:50px; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:black; padding-left:20px; font-size:20px;  margin-left:auto; "> Number of Intervalpoints: </h3>
+                    <input id="id_InputIntervalNum3" type="text" name="key space" value="50" style="height:30px; line-height:30px; font-size:20px; text-align:center; vertical-align: middle; margin:auto; margin-left:10px; margin-right:auto;"-->
+
+
+                      <h2 style="height:auto; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; font-size:20px; color:black;  margin-left:auto;">From Key:</h2>
+                      <select id="analyze_Order_StartKey" style="height:auto; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:20px; font-size:20px; color:black;  margin-right:20px;">
+
+                      </select>
+
+                      <h2 style="height:auto; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; font-size:20px; color:black;">Till Key:</h2>
+                      <select id="analyze_Order_EndKey" style="height:auto; line-height:50px; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; margin-left:20px; font-size:20px; color:black;  margin-right:auto;">
+
+                      </select>
+
                   </div>
 
                   <hr>
@@ -3772,10 +3916,10 @@
 
                         <h1 style="width:100%; text-align:center; height:50px; line-height:50px; font-size:12px; margin:0px; vertical-align:middle; "> Lab Euclidean Distance </h1>
                         <hr>
-                        <p style="width:100%; text-align:left; height:40px; line-height:40px; font-size:12px; font-weight:bold; margin:0px; vertical-align:middle; color:rgb(255,127,80);"> |Local Order|</p>
+                        <p class="standardText" style="width:100%; text-align:left; font-weight:bold; color:rgb(255,127,80);"> |Local Order|</p>
                         <canvas class="globalSpeedCanvas" id="analyze_OrderSpeed_Canvas_Lab" style="width:450px; height:450px; margin:0px; margin-right:auto; background:url(img/order_background.png);">
                         </canvas>
-                        <p style="width:100%; text-align:left; height:40px; line-height:40px; font-size:12px; font-weight:bold; margin:0px; vertical-align:middle; color:rgb(30,144,255); "> Negative Global Order </p>
+                        <p class="standardText" style="width:100%; text-align:left; font-weight:bold; color:rgb(30,144,255);">Negative Global Order</p>
                         <hr>
 
                           <p id="analyze_OrderSpeed_Label_Min_Lab" class="classAnalyzePlotLabel"> Minimum = /</p>
@@ -3787,10 +3931,10 @@
 
                         <h1 style="width:100%; text-align:center; height:50px; line-height:50px; font-size:12px; margin:0px; vertical-align:middle; "> Lab de94 Metric </h1>
                         <hr>
-                        <p style="width:100%; text-align:left; height:40px; line-height:40px; font-size:12px; font-weight:bold; margin:0px; vertical-align:middle; color:rgb(255,127,80);"> |Local Order|</p>
+                        <p class="standardText" style="width:100%; text-align:left; font-weight:bold; color:rgb(255,127,80);"> |Local Order|</p>
                         <canvas class="globalSpeedCanvas" id="analyze_OrderSpeed_Canvas_de94" style="width:450px; height:450px; margin:0px; margin-right:auto; background:url(img/order_background.png);">
                         </canvas>
-                        <p style="width:100%; text-align:left; height:40px; line-height:40px; font-size:12px; font-weight:bold; margin:0px; vertical-align:middle; color:rgb(30,144,255); "> Negative Global Order </p>
+                        <p class="standardText" style="width:100%; text-align:left; font-weight:bold; color:rgb(30,144,255);">Negative Global Order</p>
                         <hr>
 
                           <p id="analyze_OrderSpeed_Label_Min_de94" class="classAnalyzePlotLabel"> Minimum = /</p>
@@ -3806,10 +3950,10 @@
 
                       <h1 style="width:100%; text-align:center; height:50px; line-height:50px; font-size:12px; margin:0px; vertical-align:middle; "> Lab de2000 Metric </h1>
                       <hr>
-                      <p style="width:100%; text-align:left; height:40px; line-height:40px; font-size:12px; font-weight:bold; margin:0px; vertical-align:middle; color:rgb(255,127,80);"> |Local Order|</p>
+                      <p class="standardText" style="width:100%; text-align:left; font-weight:bold; color:rgb(255,127,80);"> |Local Order|</p>
                       <canvas class="globalSpeedCanvas" id="analyze_OrderSpeed_Canvas_de2000" style="width:450px; height:450px; margin:0px; margin-right:auto; background:url(img/order_background.png);">
                       </canvas>
-                      <p style="width:100%; text-align:left; height:40px; line-height:40px; font-size:12px; font-weight:bold; margin:0px; vertical-align:middle; color:rgb(30,144,255); "> Negative Global Order </p>
+                      <p class="standardText" style="width:100%; text-align:left; font-weight:bold; color:rgb(30,144,255);">Negative Global Order</p>
                       <hr>
 
                         <p id="analyze_OrderSpeed_Label_Min_de2000" class="classAnalyzePlotLabel"> Minimum = /</p>
@@ -3821,10 +3965,10 @@
 
                       <h1 style="width:100%; text-align:center; height:50px; line-height:50px; font-size:12px; margin:0px; vertical-align:middle; "> DIN99 Euclidean Distance </h1>
                       <hr>
-                      <p style="width:100%; text-align:left; height:40px; line-height:40px; font-size:12px; font-weight:bold; margin:0px; vertical-align:middle; color:rgb(255,127,80);"> |Local Order|</p>
+                      <p class="standardText" style="width:100%; text-align:left; font-weight:bold; color:rgb(255,127,80);"> |Local Order|</p>
                       <canvas class="globalSpeedCanvas" id="analyze_OrderSpeed_Canvas_din99" style="width:450px; height:450px; margin:0px; margin-right:auto; background:url(img/order_background.png);">
                       </canvas>
-                      <p style="width:100%; text-align:left; height:40px; line-height:40px; font-size:12px; font-weight:bold; margin:0px; vertical-align:middle; color:rgb(30,144,255); "> Negative Global Order </p>
+                      <p class="standardText" style="width:100%; text-align:left; font-weight:bold; color:rgb(30,144,255);">Negative Global Order</p>
                       <hr>
                         <p id="analyze_OrderSpeed_Label_Min_din99" class="classAnalyzePlotLabel"> Minimum = /</p>
                         <p id="analyze_OrderSpeed_Label_MinGlobal_din99" class="classAnalyzePlotLabel"> Minimum = /</p>
@@ -3945,68 +4089,56 @@
 
       <hr>
 
-      <div style="border:1px solid black; background:rgb(250,250,250); width:80%; margin-left:10%; margin-top: 20px;">
+      <!--div style="border:1px solid black; background:rgb(250,250,250); width:80%; margin-left:10%; margin-top: 20px;">
 
-        <p style="margin:0px; margin-left:5%;height:50px; line-height:50px; vertical-align:middle; text-align:left; vertical-align: middle; font-size:20px; color:black; margin-top:20px; "><strong>Preview:</strong></p>
+        <h2 class="subsectionLabel" style="margin-left:5%; margin-top:20px; ">Preview:</h2>
 
         <canvas style="margin-top:20px; width:90%; height: 50px; margin-left:5%; border:2px solid black; margin-bottom: 20px; background:white;" id="id_previewColormapExport">
 
         </canvas>
-      </div>
+      </div-->
 
       <div style="border:1px solid black; background:rgb(250,250,250); width:80%; margin-left:10%; margin-top:20px;">
-        <p style="margin:0px; margin-left:5%;height:50px; line-height:50px; vertical-align:middle; text-align:left; vertical-align: middle; font-size:20px; color:black; margin-top:20px; "><strong>Options:</strong></p>
+        <h2 class="subsectionLabel" style="margin-left:5%; margin-top:20px; ">Options:</h2>
         <div class="row"  style="margin-top:20px; width:100%;">
                 <p style="margin:0px; width:30%; margin-left:5%;height:50px; line-height:50px; vertical-align:middle; text-align:left; vertical-align: middle; font-size:20px; color:black; ">Export Color Space:</p>
                 <div class="row">
-                  <button class="classButtonWhite standardText" id="button_ExportSpaceRGB" onclick="changeExportColorspace(0)" title="RGB"  style="border-radius: 5px; background:rgb(250,250,250); width: 80px; height:50px; font-size:20px; border: 1px solid rgb(0,191,255); color: rgb(0,191,255); ">RGB</button>
-                  <button class="classButtonWhite standardText" id="button_ExportSpaceHSV" onclick="changeExportColorspace(1)" title="HSV"  style="border-radius: 5px; background:rgb(250,250,250); width: 80px; height:50px; font-size:20px; margin-left:10px; border: 1px solid black; color:black; ">HSV</button>
-                  <button class="classButtonWhite standardText" id="button_ExportSpaceLAB" onclick="changeExportColorspace(2)" title="LAB"  style="border-radius: 5px; background:rgb(250,250,250); width: 80px; height:50px; font-size:20px; margin-left:10px; border: 1px solid black; color:black; ">LAB</button>
-                  <button class="classButtonWhite standardText" id="button_ExportSpaceDIN99" onclick="changeExportColorspace(3)" title="DIN99" style="border-radius: 5px; background:rgb(250,250,250); width: 80px; height:50px; font-size:20px; margin-left:10px; border: 1px solid black; color:black; margin-right:auto;">DIN99</button>
+                  <button class="classButtonWhite standardText" id="button_ExportSpaceRGB" onclick="changeExportColorspace(0)" title="RGB"  style="border-radius: 5px; background:rgb(250,250,250); width: 150px; height:50px; font-size:20px; border: 1px solid rgb(0,191,255); color: rgb(0,191,255); ">RGB</button>
+                  <button class="classButtonWhite standardText" id="button_ExportSpaceHSV" onclick="changeExportColorspace(1)" title="HSV"  style="border-radius: 5px; background:rgb(250,250,250); width: 150px; height:50px; font-size:20px; margin-left:10px; border: 1px solid black; color:black; ">HSV</button>
+                  <button class="classButtonWhite standardText" id="button_ExportSpaceLAB" onclick="changeExportColorspace(2)" title="LAB"  style="border-radius: 5px; background:rgb(250,250,250); width: 150px; height:50px; font-size:20px; margin-left:10px; border: 1px solid black; color:black; ">LAB</button>
+                  <button class="classButtonWhite standardText" id="button_ExportSpaceDIN99" onclick="changeExportColorspace(3)" title="DIN99" style="border-radius: 5px; background:rgb(250,250,250); width: 150px; height:50px; font-size:20px; margin-left:10px; border: 1px solid black; color:black; margin-right:auto;">DIN99</button>
                 </div>
         </div>
 
-        <div style="margin-bottom:0px; margin-left:35%; ">
-          <p style="margin:0px; height:auto; line-height:40px; vertical-align:middle; text-align:left; vertical-align: middle; color:white; font-size:20px; color:rgb(252,177,100); margin-left:180px;"><strong>Perceptual Color Spaces</strong> </p>
+        <div style="margin-bottom:0px; margin-top:10px; margin-left:35%; ">
+          <p style="margin:0px; height:auto; line-height:40px; vertical-align:middle; text-align:left; vertical-align: middle; color:white; font-size:20px; color:rgb(252,177,100); margin-left:320px;"><strong>Perceptual Color Spaces</strong> </p>
         </div>
 
 
-        <div class="row"  style="margin-top:0px; width:100%;">
-                <p style="margin:0px; width:30%; margin-left:5%; height:50px; line-height:50px; vertical-align:middle; text-align:left; vertical-align: middle; font-size:20px; color:black; margin-top:20px;">Interpolation Color Space:</p>
+        <div class="row"  style="margin-top:0px; margin-bottom:10px; width:100%;">
+                <p style="margin:0px; width:30%; margin-left:5%; height:auto; line-height:50px; vertical-align:middle; text-align:left; vertical-align: middle; font-size:20px; color:black; margin-top:20px;">Interpolation Color Space:</p>
                 <div class="row" style="margin-top:0px;">
                   <div class="row" style="padding-top:10px; padding-bottom:10px;">
-                    <button class="classButtonWhite standardText" id="button_ExportInterpolationSpaceRGB" onclick="changeColorspace(0)" title="RGB"  style="border-radius: 5px; background:rgb(250,250,250); width: 80px; height:50px; font-size:20px; border: 1px solid rgb(0,191,255); color: rgb(0,191,255); ">RGB</button>
-                    <button class="classButtonWhite standardText" id="button_ExportInterpolationSpaceHSV" onclick="changeColorspace(1)" title="HSV"  style="border-radius: 5px; background:rgb(250,250,250); width: 80px; height:50px; font-size:20px; margin-left:10px; border: 1px solid black; color:black; margin-right:10px;">HSV</button>
+                    <button class="classButtonWhite standardText" id="button_ExportInterpolationSpaceRGB" onclick="changeColorspace(0)" title="RGB"  style="border-radius: 5px; background:rgb(250,250,250); width: 150px; height:50px; font-size:20px; border: 1px solid rgb(0,191,255); color: rgb(0,191,255); ">RGB</button>
+                    <button class="classButtonWhite standardText" id="button_ExportInterpolationSpaceHSV" onclick="changeColorspace(1)" title="HSV"  style="border-radius: 5px; background:rgb(250,250,250); width: 150px; height:50px; font-size:20px; margin-left:10px; border: 1px solid black; color:black; margin-right:10px;">HSV</button>
                   </div>
-                  <div class="row" style="background: rgb(252,222,191); padding-top:20px; padding-bottom:20px;">
-                    <button class="classButtonWhite standardText" id="button_ExportInterpolationSpaceLAB" onclick="changeColorspace(2)" title="LAB"  style="border-radius: 5px; background:rgb(250,250,250); width: 80px; height:50px; font-size:20px; margin-left:10px; border: 1px solid black; color:black; ">LAB</button>
-                    <button class="classButtonWhite standardText" id="button_ExportInterpolationSpaceDe94" onclick="changeColorspace(4)" title="de94"  style="border-radius: 5px; background:rgb(250,250,250); width: 80px; height:50px; font-size:20px; margin-left:10px; border: 1px solid grey; color:grey; ">de94</button>
-                    <button class="classButtonWhite standardText" id="button_ExportInterpolationSpaceDe2000" onclick="changeColorspace(5)" title="de2000"  style="border-radius: 5px; background:rgb(250,250,250); width: auto; height:50px; font-size:20px; margin-left:10px; border: 1px solid grey; color:grey; ">de2000</button>
-                    <button class="classButtonWhite standardText" id="button_ExportInterpolationSpaceDIN99" onclick="changeColorspace(3)" title="DIN99" style="border-radius: 5px; background:rgb(250,250,250); width: auto; height:50px; font-size:20px; margin-left:10px; border: 1px solid black; color:black; margin-right:10px;">DIN99</button>
+                  <div class="row" style="background: rgb(252,222,191); padding-top:10px; padding-bottom:10px;">
+                    <button class="classButtonWhite standardText" id="button_ExportInterpolationSpaceLAB" onclick="changeColorspace(2)" title="LAB"  style="border-radius: 5px; background:rgb(250,250,250); width: 150px; height:50px; font-size:20px; margin-left:10px; border: 1px solid black; color:black; ">LAB</button>
+                    <button class="classButtonWhite standardText" id="button_ExportInterpolationSpaceDe94" onclick="changeColorspace(4)" title="de94"  style="border-radius: 5px; background:rgb(250,250,250); width: 150px; height:50px; font-size:20px; margin-left:10px; border: 1px solid grey; color:grey; ">de94</button>
+                    <button class="classButtonWhite standardText" id="button_ExportInterpolationSpaceDe2000" onclick="changeColorspace(5)" title="de2000"  style="border-radius: 5px; background:rgb(250,250,250); width: 150px; height:50px; font-size:20px; margin-left:10px; border: 1px solid grey; color:grey; ">de2000</button>
+                    <button class="classButtonWhite standardText" id="button_ExportInterpolationSpaceDIN99" onclick="changeColorspace(3)" title="DIN99" style="border-radius: 5px; background:rgb(250,250,250); width: 150px; height:50px; font-size:20px; margin-left:10px; border: 1px solid black; color:black; margin-right:10px;">DIN99</button>
                   </div>
                 </div>
         </div>
 
-        <div class="row"  style="margin-top:20px; width:100%;">
-                <p style=" margin:0px; width:30%; margin-left:5%;height:50px; line-height:50px; vertical-align:middle; text-align:left; vertical-align: middle; font-size:20px; color:black;">Number of Intervalpoints:</p>
-                <input id="id_InputIntervalExport" type="text" name="key space" value="200" style="height:50px; line-height:50px; font-size:20px; text-align:center; vertical-align: middle; margin-right:auto; ">
-        </div>
-
-        <div class="row" style="margin-top:20px; width:100%;  margin-bottom:20px;">
-                <p style="margin:0px; width:30%; margin-left:5%;height:50px; line-height:50px; vertical-align:middle; text-align:left; vertical-align: middle; font-size:20px; color:black; ">Merge Equal Interval Colors:</p>
-                <div class="row">
-                  <button class="classButtonWhite standardText" onclick="changeMergeOption(0)" id="button_ExportMergeYes" title="Merge Yes"  style="border-radius: 5px; background:rgb(250,250,250); width: 80px; height:50px; font-size:20px; border: 1px solid rgb(0,191,255); color: rgb(0,191,255); ">YES</button>
-                  <button class="classButtonWhite standardText" onclick="changeMergeOption(1)" id="button_ExportMergeNo" title="Merge No"  style="border-radius: 5px; background:rgb(250,250,250); width: 80px; height:50px; font-size:20px; margin-left:10px; border: 1px solid black; color:black; ">NO</button>
-                </div>
-        </div>
       </div>
 
       <div style="border:1px solid black; background:rgb(250,250,250); width:80%; margin-left:10%; margin-top:20px;">
-        <div class="row">
-          <p style="margin:0px; margin-left:5%; width:30%; height:50px; line-height:50px; vertical-align:middle; text-align:left; vertical-align: middle; font-size:20px; color:black; margin-top:20px; margin-bottom:20px;"><strong>Format:</strong></p>
-          <button class="classButtonWhite standardText" id="button_ExportFormatXML" onclick="changeOutputformat(1)" title="XML"  style="border-radius: 5px; background:rgb(250,250,250); width: 80px; height:50px; font-size:20px; border: 1px solid rgb(0,191,255); color: rgb(0,191,255);  margin-top:20px;">XML</button>
-          <button class="classButtonWhite standardText" id="button_ExportFormatJSON" onclick="changeOutputformat(2)" title="JSON"  style="border-radius: 5px; background:rgb(250,250,250); width: 80px; height:50px; font-size:20px; margin-left:10px; border: 1px solid black; color:black;  margin-top:20px;">JSON</button>
-          <button class="classButtonWhite standardText" id="button_ExportFormatCSV"onclick="changeOutputformat(0)" title="CSV"  style="border-radius: 5px; background:rgb(250,250,250); width: 80px; height:50px; font-size:20px; margin-left:10px; border: 1px solid black; color:black;  margin-top:20px;">CSV</button>
+        <div class="row" style="margin-top:10px;margin-bottom:10px;">
+          <h2 class="subsectionLabel" style="margin-left:5%; width:30%;  ">Format:</h2>
+          <button class="classButtonWhite standardText" id="button_ExportFormatXML" onclick="changeOutputformat(1)" title="XML"  style="border-radius: 5px; background:rgb(250,250,250); width: 150px; height:50px; font-size:20px; border: 1px solid rgb(0,191,255); color: rgb(0,191,255);">XML</button>
+          <button class="classButtonWhite standardText" id="button_ExportFormatJSON" onclick="changeOutputformat(2)" title="JSON"  style="border-radius: 5px; background:rgb(250,250,250); width: 150px; height:50px; font-size:20px; margin-left:10px; border: 1px solid black; color:black;">JSON</button>
+          <button class="classButtonWhite standardText" id="button_ExportFormatCSV" onclick="changeOutputformat(0)" title="CSV"  style="border-radius: 5px; background:rgb(250,250,250); width: 150px; height:50px; font-size:20px; margin-left:10px; border: 1px solid black; color:black;">CSV</button>
         </div>
       </div>
 
@@ -4017,7 +4149,7 @@
 
       <div style="border:1px solid black; background:rgb(250,250,250); width:80%; margin-left:10%; margin-top:20px; padding-bottom:20px;">
 
-        <p style="margin:0px; margin-left:5%;height:50px; line-height:50px; vertical-align:middle; text-align:left; vertical-align: middle; font-size:20px; color:black; margin-top:20px; "><strong>Table:</strong></p>
+        <h2 class="subsectionLabel" style="margin-left:5%; margin-top:20px; ">Table:</h2>
 
         <table style="margin-left:5%; width:90%; background:white;" id="id_table">
           <thead>

@@ -17,6 +17,9 @@ class class_CMS {
     this.intervalArray=[];
     this.intervalPosition=[];
 
+    /// Probes
+    this.probeArray=[];
+
   }
 
   /////////////////////////////////
@@ -349,6 +352,7 @@ class class_CMS {
             var newInterval = new class_Interval(tmpColor, true, tmpIntervalRef[refIndex]);
             this.intervalArray.push(newInterval);
             currentKeyPos++;
+
           }
           else{
               /////////////////////////////////////////
@@ -444,6 +448,166 @@ class class_CMS {
     }//
 
   }//
+
+
+  calcDeltaIntervalColors(intervalDeltaDis, colorspace, startKey, endKey){
+
+    this.intervalArray=[];
+    this.intervalPosition=[];
+
+    if(this.keyArray.length==0)
+    return;
+
+    for(var keyIndex=startKey; keyIndex<endKey; keyIndex++){
+
+
+      var tmpColor,tmpColor2;
+      switch (this.keyArray[keyIndex].getKeyType()) {
+          case "nil key": case "left key":
+
+
+          var arrayPos = [this.intervalArray.length-1,this.intervalArray.length-1];
+
+          //// test
+          tmpColor = this.keyArray[keyIndex+1].getLeftKeyColor(colorspace);
+
+          /*arrayPos.push(this.intervalArray.length);
+          var newKeyInterval = new class_Interval(tmpColor, true, this.keyArray[keyIndex].getRefPosition());
+          this.intervalArray.push(newKeyInterval);
+          arrayPos[0]=this.intervalArray.length-1;*/
+
+          // this is only
+          arrayPos.push(this.intervalArray.length);
+          var newKeyInterval2 = new class_Interval(tmpColor, true, this.keyArray[keyIndex+1].getRefPosition());
+          this.intervalArray.push(newKeyInterval2);
+          arrayPos[1]=this.intervalArray.length-1;
+          //// test
+
+          this.intervalPosition.push(arrayPos);
+
+          break;
+
+        default:
+
+        var arrayPos = [];
+        tmpColor = this.keyArray[keyIndex].getRightKeyColor(colorspace);
+        var ref1 = this.keyArray[keyIndex].getRefPosition();
+        tmpColor2 = this.keyArray[keyIndex+1].getLeftKeyColor(colorspace);
+        var ref2 = this.keyArray[keyIndex+1].getRefPosition();
+
+        arrayPos.push(this.intervalArray.length);
+        //// test
+        if(this.keyArray[keyIndex].getKeyType()!="dual key"){
+          var newKeyInterval = new class_Interval(tmpColor, true, this.keyArray[keyIndex].getRefPosition());
+          this.intervalArray.push(newKeyInterval);
+        }
+        //// test
+
+          ///// Calc Interval Colors
+          var tmpDelta = 0;
+
+          if(colorspace==="din99"){
+            tmpDelta = calc3DEuclideanDistance(tmpColor,tmpColor2);
+          }
+          else {
+            tmpDelta = calcDeltaCIEDE2000(tmpColor,tmpColor2); // if not lab the function is converting into lab for the difference calculation.
+          }
+
+          var numberIntervals = Math.round(tmpDelta/intervalDeltaDis);
+          var intervalDistance =  (ref2-ref1)/numberIntervals;
+
+          if(numberIntervals<=0){
+            arrayPos = [this.intervalArray.length-1,this.intervalArray.length-1];
+            this.intervalPosition.push(arrayPos);
+            continue;
+          }
+
+          for (var i = 1; i < numberIntervals; i++) {
+            var intervalRef = ref1+(i*intervalDistance);
+
+            var intervalColor;
+
+            var tmpRatio = (intervalRef-ref1)/(ref2-ref1);
+
+            switch (colorspace) {
+              case "rgb":
+                  var rValue = tmpColor.get1Value()+(tmpColor2.get1Value() - tmpColor.get1Value())*tmpRatio;
+                  var gValue = tmpColor.get2Value()+(tmpColor2.get2Value() - tmpColor.get2Value())*tmpRatio;
+                  var bValue = tmpColor.get3Value()+(tmpColor2.get3Value() - tmpColor.get3Value())*tmpRatio;
+
+                  intervalColor = new classColor_RGB(rValue,gValue,bValue);
+                break;
+              case "hsv":
+
+                  var tmpDis = tmpColor.getSValue()*50; // radius 50; center(0,0,0);
+                  var tmpRad = (tmpColor.getHValue()*Math.PI*2)-Math.PI;
+                  var xPos = tmpDis*Math.cos(tmpRad);
+                  var yPos = tmpDis*Math.sin(tmpRad);
+                  var zPos = tmpColor.getVValue()-50;
+
+                  var tmpDis2 = tmpColor2.getSValue()*50;
+                  var tmpRad2 = (tmpColor2.getHValue()*Math.PI*2)-Math.PI;
+                  var xPos2 = tmpDis2*Math.cos(tmpRad2);
+                  var yPos2 = tmpDis2*Math.sin(tmpRad2);
+                  var zPos2 = tmpColor2.getVValue()-50;
+
+                  var tmpX = xPos+(xPos2 - xPos)*tmpRatio;
+                  var tmpY = yPos+(yPos2 - yPos)*tmpRatio;
+                  var tmpZ = zPos+(zPos2 - zPos)*tmpRatio;
+
+                  var tmpH =(Math.atan2(tmpY,tmpX)+Math.PI)/(Math.PI*2);
+                  var tmpS = Math.sqrt(Math.pow(tmpX,2)+Math.pow(tmpY,2))/50;
+                  var tmpV = tmpZ+50;
+                  intervalColor = new classColor_HSV(tmpH,tmpS,tmpV);
+
+                break;
+              case "lab":
+
+                  var lValue = tmpColor.get1Value()+(tmpColor2.get1Value() - tmpColor.get1Value())*tmpRatio;
+                  var aValue = tmpColor.get2Value()+(tmpColor2.get2Value() - tmpColor.get2Value())*tmpRatio;
+                  var bValue = tmpColor.get3Value()+(tmpColor2.get3Value() - tmpColor.get3Value())*tmpRatio;
+
+                  intervalColor = new classColor_LAB(lValue,aValue,bValue);
+
+                break;
+              case "din99":
+                  var l99Value = tmpColor.get1Value()+(tmpColor2.get1Value() - tmpColor.get1Value())*tmpRatio;
+                  var a99Value = tmpColor.get2Value()+(tmpColor2.get2Value() - tmpColor.get2Value())*tmpRatio;
+                  var b99Value = tmpColor.get3Value()+(tmpColor2.get3Value() - tmpColor.get3Value())*tmpRatio;
+
+                  intervalColor = new classColorDIN99(l99Value,a99Value,b99Value);
+                break;
+              default:
+              console.log("Error calcColorMap function");
+            }
+
+            var newInterval = new class_Interval(intervalColor, false, intervalRef);
+            this.intervalArray.push(newInterval);
+
+
+            /// TEST /////
+
+            /*if(colorspace === "lab"){
+              console.log(calcDeltaCIEDE2000(this.intervalArray[this.intervalArray.length-2].getColor("lab"),this.intervalArray[this.intervalArray.length-1].getColor("lab")));
+            }*/
+
+          }
+
+        //// test
+          arrayPos.push(this.intervalArray.length);
+          var newKeyInterval2 = new class_Interval(tmpColor2, true, this.keyArray[keyIndex+1].getRefPosition());
+          this.intervalArray.push(newKeyInterval2);
+        //// test
+
+        this.intervalPosition.push(arrayPos);
+
+      }
+
+    }//for
+
+
+
+  }
 
 
   getIntervalLength(){

@@ -661,13 +661,13 @@ function drawcolormap_hueSpace(calcBackground, drawInterpolationLine, doInitVplo
       drawElements_HSV_LAB_DIN99(true);
 
       if (drawInterpolationLine)
-        drawInterpolationLineHSV_LAB_DIN99(true, intervalSize);
+        drawInterpolationLineHSV_LAB_DIN99(true);
     }
     else {
       drawElements_HSV_LAB_DIN99(false);
 
       if (drawInterpolationLine)
-        drawInterpolationLineHSV_LAB_DIN99(false, intervalSize);
+        drawInterpolationLineHSV_LAB_DIN99(false);
     }
 
 }
@@ -766,7 +766,8 @@ function drawElements_HSV_LAB_DIN99(isCompareMap) {
   var border=1;
   if (isCompareMap) {
     border = 2;
-    globalCMS2.calcIntervalColors(intervalSize, colorspaceModus);
+    //globalCMS2.calcIntervalColors(intervalSize, colorspaceModus);
+    globalCMS2.calcDeltaIntervalColors(intervalDelta, colorspaceModus,0,globalCMS2.getKeyLength()-1);
   }
 
   var csModus=analyzeColorspaceModus;
@@ -897,7 +898,7 @@ function drawElements_HSV_LAB_DIN99(isCompareMap) {
 }
 
 
-function drawInterpolationLineHSV_LAB_DIN99(isCompareMap, intervalSize) {
+function drawInterpolationLineHSV_LAB_DIN99(isCompareMap) {
 
   var canvasID, pCanvasID1,pCanvasID2,pCanvasID3;
   switch (showSideID) {
@@ -970,7 +971,8 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap, intervalSize) {
   var heigthVArea = vPlotyStart - vPlotyEnd;
   var plotwidth = vPlotxEnd - vPlotxStart;
 
-  globalCMS1.calcIntervalColors(intervalSize, colorspaceModus);
+  globalCMS1.calcDeltaIntervalColors(intervalDelta, colorspaceModus,0,globalCMS1.getKeyLength()-1);
+
 
   var tmpColor, tmpColor2, xPos, xPos2, yPos, yPos2;
 
@@ -978,7 +980,8 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap, intervalSize) {
 
   if (isCompareMap) {
     border = 2;
-    globalCMS2.calcIntervalColors(intervalSize, colorspaceModus);
+
+    globalCMS1.calcDeltaIntervalColors(intervalDelta, colorspaceModus,0,globalCMS1.getKeyLength()-1);
   }
 
   for (var x = 0; x < border; x++) {
@@ -1021,27 +1024,6 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap, intervalSize) {
           var intervalIndexA = workCMS.getIntervalPositions(i);
           drawHueLine(workCMS.getLeftKeyColor(i, analyzeColorspaceModus), workCMS.getRightKeyColor(i, csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, true, compareColor, colorspaceContex);
 
-          if(intervalIndexA[0]>intervalIndexA[1]){
-
-            drawHueLine(workCMS.getRightKeyColor(i, csModus), workCMS.getLeftKeyColor(i+1, csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false, compareColor, colorspaceContex);
-            drawVLine(workCMS.getRightKeyColor(i, csModus),
-              workCMS.getLeftKeyColor(i+1, csModus),
-              workCMS.getRefPosition(i),
-              workCMS.getRefPosition(i+1),
-              workCMS.getRefPosition(0),
-              workCMS.getRefRange(),
-              vPlotxStart, vPlotyStart, heigthVArea, plotwidth, false, compareColor, vPlotContex1,vPlotContex2,vPlotContex3);
-
-          }else{
-            drawHueLine(workCMS.getRightKeyColor(i, csModus), workCMS.getIntervalColor(intervalIndexA[0], csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false, compareColor, colorspaceContex);
-            drawVLine(workCMS.getRightKeyColor(i, csModus),
-              workCMS.getIntervalColor(intervalIndexA[0], csModus),
-              workCMS.getRefPosition(i),
-              workCMS.getIntervalRef(intervalIndexA[0]),
-              workCMS.getRefPosition(0),
-              workCMS.getRefRange(),
-              vPlotxStart, vPlotyStart, heigthVArea, plotwidth, false, compareColor, vPlotContex1,vPlotContex2,vPlotContex3);
-
             for (var j = intervalIndexA[0]; j < intervalIndexA[1]; j++) {
               drawHueLine(workCMS.getIntervalColor(j, csModus), workCMS.getIntervalColor(j + 1, csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false, compareColor, colorspaceContex);
               drawVLine(workCMS.getIntervalColor(j, csModus),
@@ -1052,20 +1034,6 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap, intervalSize) {
                 workCMS.getRefRange(),
                 vPlotxStart, vPlotyStart, heigthVArea, plotwidth, false, compareColor, vPlotContex1,vPlotContex2,vPlotContex3);
             }
-
-            if (workCMS.getIntervalisKey(intervalIndexA[1]) != true) {
-              drawHueLine(workCMS.getIntervalColor(intervalIndexA[1], csModus), workCMS.getLeftKeyColor(i + 1, csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false, compareColor, colorspaceContex);
-              drawVLine(workCMS.getIntervalColor(intervalIndexA[1], csModus),
-                workCMS.getLeftKeyColor(i + 1, csModus),
-                workCMS.getIntervalRef(intervalIndexA[1]),
-                workCMS.getRefPosition(i + 1),
-                workCMS.getRefPosition(0),
-                workCMS.getRefRange(),
-                vPlotxStart, vPlotyStart, heigthVArea, plotwidth, false, compareColor, vPlotContex1,vPlotContex2,vPlotContex3);
-            }
-          }
-
-
           break;
         case "left key":
           drawHueLine(workCMS.getLeftKeyColor(i, csModus), workCMS.getLeftKeyColor(i + 1, csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, true, compareColor, colorspaceContex);
@@ -1081,31 +1049,19 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap, intervalSize) {
 
           var intervalIndexA = workCMS.getIntervalPositions(i);
 
-          if(intervalIndexA[0]>intervalIndexA[1]){
-
-            drawHueLine(workCMS.getRightKeyColor(i, csModus), workCMS.getLeftKeyColor(i+1, csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false, compareColor, colorspaceContex);
-            drawVLine(workCMS.getRightKeyColor(i, csModus),
-              workCMS.getLeftKeyColor(i+1, csModus),
-              workCMS.getRefPosition(i),
-              workCMS.getRefPosition(i+1),
-              workCMS.getRefPosition(0),
-              workCMS.getRefRange(),
-              vPlotxStart, vPlotyStart, heigthVArea, plotwidth, false, compareColor, vPlotContex1,vPlotContex2,vPlotContex3);
-
-          }else{
-            drawHueLine(workCMS.getRightKeyColor(i, csModus), workCMS.getIntervalColor(intervalIndexA[0], csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false, compareColor, colorspaceContex);
-            drawVLine(workCMS.getRightKeyColor(i, csModus),
-              workCMS.getIntervalColor(intervalIndexA[0], csModus),
+          if(workCMS.getKeyType(i)=="dual key"){
+            // we do not save the interval colors for dual key double -> it is easier for the analyze algorithm
+            drawHueLine(workCMS.getLeftKeyColor(i,csModus), workCMS.getIntervalColor(intervalIndexA[0],csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false, compareColor, colorspaceContex);
+            drawVLine(workCMS.getLeftKeyColor(i,csModus),
+              workCMS.getIntervalColor(intervalIndexA[0],csModus),
               workCMS.getRefPosition(i),
               workCMS.getIntervalRef(intervalIndexA[0]),
               workCMS.getRefPosition(0),
               workCMS.getRefRange(),
               vPlotxStart, vPlotyStart, heigthVArea, plotwidth, false, compareColor, vPlotContex1,vPlotContex2,vPlotContex3);
-
-
+          }
 
             for (var j = intervalIndexA[0]; j < intervalIndexA[1]; j++) {
-
               drawHueLine(workCMS.getIntervalColor(j, csModus), workCMS.getIntervalColor(j + 1, csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false, compareColor, colorspaceContex);
               drawVLine(workCMS.getIntervalColor(j, csModus),
                 workCMS.getIntervalColor(j + 1, csModus),
@@ -1116,17 +1072,6 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap, intervalSize) {
                 vPlotxStart, vPlotyStart, heigthVArea, plotwidth, false, compareColor, vPlotContex1,vPlotContex2,vPlotContex3);
             }
 
-            if (workCMS.getIntervalisKey(intervalIndexA[1]) != true) {
-              drawHueLine(workCMS.getIntervalColor(intervalIndexA[1], csModus), workCMS.getLeftKeyColor(i + 1, csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false, compareColor, colorspaceContex);
-              drawVLine(workCMS.getIntervalColor(intervalIndexA[1], csModus),
-                workCMS.getLeftKeyColor(i + 1, csModus),
-                workCMS.getIntervalRef(intervalIndexA[1]),
-                workCMS.getRefPosition(i + 1),
-                workCMS.getRefPosition(0),
-                workCMS.getRefRange(),
-                vPlotxStart, vPlotyStart, heigthVArea, plotwidth, false, compareColor, vPlotContex1,vPlotContex2,vPlotContex3);
-            }
-         }
       }
 
 

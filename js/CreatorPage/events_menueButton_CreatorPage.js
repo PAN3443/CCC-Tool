@@ -51,6 +51,7 @@ function saveColormapToList(){
       openSavePopUp();
     }
 
+    switchModifyModus(0);
   }
 
 }

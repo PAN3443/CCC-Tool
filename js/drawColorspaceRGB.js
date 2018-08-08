@@ -314,13 +314,13 @@ function drawcolormap_RGBSpace(calcBackground, drawInterpolationLine) {
     drawElements(true);
 
     //if(drawInterpolationLine)// have to think about that later
-    drawInterpolationLineInRGB(true, intervalSize);
+    drawInterpolationLineInRGB(true);
   }
   else {
     drawElements(false);
 
     //if(drawInterpolationLine)// have to think about that later
-    drawInterpolationLineInRGB(false, intervalSize);
+    drawInterpolationLineInRGB(false);
   }
 
 }
@@ -468,7 +468,7 @@ function drawElements(isCompareMap){
 
 }
 
-function drawInterpolationLineInRGB(isCompareMap, intervalSize) {
+function drawInterpolationLineInRGB(isCompareMap) {
 
 
   var canvasIDRG, canvasIDRB, canvasIDBG;
@@ -514,7 +514,7 @@ function drawInterpolationLineInRGB(isCompareMap, intervalSize) {
   canvasColorspaceBG.height = hue_resolution_Y;
   var colorspaceContexBG = canvasColorspaceBG.getContext("2d");
 
-  globalCMS1.calcIntervalColors(intervalSize, colorspaceModus);
+  globalCMS1.calcDeltaIntervalColors(intervalDelta, colorspaceModus,0,globalCMS1.getKeyLength()-1);
 
   var tmpColor, tmpColor2, xPos, xPos2, yPos, yPos2;
 
@@ -523,7 +523,7 @@ function drawInterpolationLineInRGB(isCompareMap, intervalSize) {
 
   if(isCompareMap){
     border=2;
-    globalCMS2.calcIntervalColors(intervalSize, colorspaceModus);
+    globalCMS2.calcDeltaIntervalColors(intervalDelta, colorspaceModus,0,globalCMS2.getKeyLength()-1);
   }
 
   for(var x=0; x<border; x++){
@@ -550,16 +550,10 @@ function drawInterpolationLineInRGB(isCompareMap, intervalSize) {
         var intervalIndexA = workCMS.getIntervalPositions(i);
         drawRGBline(workCMS.getLeftKeyColor(i,"rgb"),workCMS.getRightKeyColor(i,"rgb"),xWidth,yHeight,xStart,yStart, true,compareColor,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
 
-        if(intervalIndexA[0]>intervalIndexA[1]){
-          drawRGBline(workCMS.getRightKeyColor(i,"rgb"),workCMS.getLeftKeyColor(i+1,"rgb"),xWidth,yHeight,xStart,yStart, false,compareColor,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
-        }else{
           for(var j=intervalIndexA[0]; j<intervalIndexA[1]; j++){
             drawRGBline(workCMS.getIntervalColor(j,"rgb"),workCMS.getIntervalColor(j+1,"rgb"),xWidth,yHeight,xStart,yStart, false,compareColor,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
           }
 
-          if(workCMS.getIntervalisKey(intervalIndexA[1])!=true)
-            drawRGBline(workCMS.getIntervalColor(intervalIndexA[1],"rgb"),workCMS.getLeftKeyColor(i+1,"rgb"),xWidth,yHeight,xStart,yStart, false,compareColor,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
-        }
           break;
       case "left key":
 
@@ -569,20 +563,18 @@ function drawInterpolationLineInRGB(isCompareMap, intervalSize) {
       default:
 
         var intervalIndexA = workCMS.getIntervalPositions(i);
-        if(intervalIndexA[0]>intervalIndexA[1]){
-          drawRGBline(workCMS.getRightKeyColor(i,"rgb"),workCMS.getLeftKeyColor(i+1,"rgb"),xWidth,yHeight,xStart,yStart, false,compareColor,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
-        }else{
-          drawRGBline(workCMS.getRightKeyColor(i,"rgb"),workCMS.getIntervalColor(intervalIndexA[0],"rgb"),xWidth,yHeight,xStart,yStart, false,compareColor,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
+
+          if(workCMS.getKeyType(i)=="dual key"){
+            // we do not save the interval colors for dual key double -> it is easier for the analyze algorithm
+            drawRGBline(workCMS.getLeftKeyColor(i,"rgb"),workCMS.getIntervalColor(intervalIndexA[0],"rgb"),xWidth,yHeight,xStart,yStart, false,compareColor,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
+          }
 
           for(var j=intervalIndexA[0]; j<intervalIndexA[1]; j++){
             drawRGBline(workCMS.getIntervalColor(j,"rgb"),workCMS.getIntervalColor(j+1,"rgb"),xWidth,yHeight,xStart,yStart, false,compareColor,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
-
           }
 
-          if(workCMS.getIntervalisKey(intervalIndexA[1])!=true)
-            drawRGBline(workCMS.getIntervalColor(intervalIndexA[1],"rgb"),workCMS.getLeftKeyColor(i+1,"rgb"),xWidth,yHeight,xStart,yStart, false,compareColor,colorspaceContexRG,colorspaceContexRB,colorspaceContexBG);
-        }
       }
+
     }
 
   }

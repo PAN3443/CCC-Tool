@@ -28,14 +28,16 @@ var colormap1SelectIndex = -1;
 var colormap2SelectIndex = -1;
 var pageIsLoaded=false;
 
+var intervalDelta = 1;
+
 /*var createColormap;
 var exportColormap;
 var analysisColormap;
 var compareColormap1;
 var compareColormap2;*/
 
-var interactionIntervalSize = 200;//50;
-var intervalSize = 200;
+/*var interactionIntervalSize = 200;//50;
+var intervalSize = 200;*/
 
 //
 var numDecimalPlaces = 2;
@@ -398,7 +400,7 @@ var quadBands = [ [new classColor_RGB(1,1,1),new classColor_RGB(254/255,213/255,
 ///////////////////////////
 /// Export
 //////////////////////////
-var doMerging = true;
+//var doMerging = true;
 var exportColorspace = "rgb";
 var outputFormat = 1; // 0=lookup, 1=xml, 2=json
 ////////////////////////////////////////////////////////////////////////////////

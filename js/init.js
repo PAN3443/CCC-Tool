@@ -472,12 +472,12 @@ function init_analyzeComparePage(){
   /////////////////////////////// Analyze Side /////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  document.getElementById('id_InputIntervalNum').addEventListener("keyup", checkIntervalInputFieldsKey);
+  /*document.getElementById('id_InputIntervalNum').addEventListener("keyup", checkIntervalInputFieldsKey);
   document.getElementById('id_InputIntervalNum').addEventListener("change", checkIntervalInputFieldsChange);
   document.getElementById('id_InputIntervalNum2').addEventListener("keyup", checkIntervalInputFieldsKey);
   document.getElementById('id_InputIntervalNum2').addEventListener("change", checkIntervalInputFieldsChange);
   document.getElementById('id_InputIntervalNum3').addEventListener("keyup", checkIntervalInputFieldsKey);
-  document.getElementById('id_InputIntervalNum3').addEventListener("change", checkIntervalInputFieldsChange);
+  document.getElementById('id_InputIntervalNum3').addEventListener("change", checkIntervalInputFieldsChange);*/
 
   document.getElementById('id_rgb3D').addEventListener("mousemove", eventRGB3D_mousemove);
   document.getElementById('id_rgb3D').addEventListener("mouseleave", eventRGB3D_mouseleave);
@@ -494,12 +494,12 @@ function init_analyzeComparePage(){
   /////////////////////////////// Compare Side /////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////,
 
-  document.getElementById('id_CompareInputIntervalNum').addEventListener("keyup", checkIntervalInputFieldsKey);
+  /*document.getElementById('id_CompareInputIntervalNum').addEventListener("keyup", checkIntervalInputFieldsKey);
   document.getElementById('id_CompareInputIntervalNum').addEventListener("change", checkIntervalInputFieldsChange);
   document.getElementById('id_CompareInputIntervalNum2').addEventListener("keyup", checkIntervalInputFieldsKey);
   document.getElementById('id_CompareInputIntervalNum2').addEventListener("change", checkIntervalInputFieldsChange);
   document.getElementById('id_CompareInputIntervalNum3').addEventListener("keyup", checkIntervalInputFieldsKey);
-  document.getElementById('id_CompareInputIntervalNum3').addEventListener("change", checkIntervalInputFieldsChange);
+  document.getElementById('id_CompareInputIntervalNum3').addEventListener("change", checkIntervalInputFieldsChange);*/
 
   document.getElementById('id_rgb3DCompare').addEventListener("mousemove", eventRGB3D_mousemove);
   document.getElementById('id_rgb3DCompare').addEventListener("mouseleave", eventRGB3D_mouseleave);
@@ -507,6 +507,28 @@ function init_analyzeComparePage(){
   document.getElementById('id_rgb3DCompare').addEventListener("mouseup", eventRGB3D_mouseup);
 
   document.getElementById('id_setOpacityRangeCompare').addEventListener("change", changeOpacityRange);
+
+  document.getElementById("analyze_globalSpeed_StartKey").addEventListener("change", changeAnalyzeCompareKeyIndex);
+  document.getElementById("analyze_globalSpeed_EndKey").addEventListener("change", changeAnalyzeCompareKeyIndex);
+  document.getElementById("analyze_localSpeed_StartKey").addEventListener("change", changeAnalyzeCompareKeyIndex);
+  document.getElementById("analyze_localSpeed_EndKey").addEventListener("change", changeAnalyzeCompareKeyIndex);
+  document.getElementById("analyze_Order_StartKey").addEventListener("change", changeAnalyzeCompareKeyIndex);
+  document.getElementById("analyze_Order_EndKey").addEventListener("change", changeAnalyzeCompareKeyIndex);
+
+  document.getElementById("compare1_Order_StartKey").addEventListener("change", changeAnalyzeCompareKeyIndex);
+  document.getElementById("compare1_Order_EndKey").addEventListener("change", changeAnalyzeCompareKeyIndex);
+  document.getElementById("compare2_Order_StartKey").addEventListener("change", changeAnalyzeCompareKeyIndex);
+  document.getElementById("compare2_Order_EndKey").addEventListener("change", changeAnalyzeCompareKeyIndex);
+
+  document.getElementById("compare1_localSpeed_StartKey").addEventListener("change", changeAnalyzeCompareKeyIndex);
+  document.getElementById("compare1_localSpeed_EndKey").addEventListener("change", changeAnalyzeCompareKeyIndex);
+  document.getElementById("compare2_localSpeed_StartKey").addEventListener("change", changeAnalyzeCompareKeyIndex);
+  document.getElementById("compare2_localSpeed_EndKey").addEventListener("change", changeAnalyzeCompareKeyIndex);
+
+  document.getElementById("compare1_globalSpeed_StartKey").addEventListener("change", changeAnalyzeCompareKeyIndex);
+  document.getElementById("compare1_globalSpeed_EndKey").addEventListener("change", changeAnalyzeCompareKeyIndex);
+  document.getElementById("compare2_globalSpeed_StartKey").addEventListener("change", changeAnalyzeCompareKeyIndex);
+  document.getElementById("compare2_globalSpeed_EndKey").addEventListener("change", changeAnalyzeCompareKeyIndex);
 }
 
 function init_TutorialPage(){
@@ -530,8 +552,8 @@ function init_ExportPage(){
   /////////////////////////////// Export Side /////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  document.getElementById('id_InputIntervalExport').addEventListener("change", checkIntervalInputFieldsChange);
-  document.getElementById('id_InputIntervalExport').addEventListener("keyup", checkIntervalInputFieldsKey);
+  /*document.getElementById('id_InputIntervalExport').addEventListener("change", checkIntervalInputFieldsChange);
+  document.getElementById('id_InputIntervalExport').addEventListener("keyup", checkIntervalInputFieldsKey);*/
 }
 
 
@@ -812,6 +834,17 @@ function init_Size(){
      buttons[i].style.fontSize = windowHeight*0.022+"px";
   }
 
+  var selects = document.getElementsByTagName("select");
+  for(var i =0; i<selects.length;i++){
+
+    /*if(selects[i].name=="constStyle")
+      continue;*/
+
+     selects[i].style.height = windowHeight*0.02+"px";
+     selects[i].style.lineHeight = windowHeight*0.02+"px";
+     selects[i].style.fontSize = windowHeight*0.016+"px";
+  }
+
   var inputs = document.getElementsByTagName("input");
   for(var i =0; i<inputs.length;i++){
 
@@ -822,6 +855,8 @@ function init_Size(){
      inputs[i].style.lineHeight = windowHeight*0.02+"px";
      inputs[i].style.fontSize = windowHeight*0.016+"px";
   }
+
+
 
 
 
