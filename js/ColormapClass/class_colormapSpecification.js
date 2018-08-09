@@ -265,6 +265,30 @@ class class_CMS {
 
 
   ///////////////////////////////////
+  /// Probe
+  ///////////////////////////////////
+
+  getProbeLength(){
+    return this.probeArray.length;
+  }
+
+  deleteProbe(index){
+    this.probeArray.splice(index, 1);
+  }
+
+  getProbe(index){
+    return this.probeArray[index];
+  }
+
+  addProbe(probe){
+    this.probeArray.push(probe);
+  }
+
+  insertKey(index,probe){
+      this.probeArray.splice(index, 0,probe);
+  }
+
+  ///////////////////////////////////
   /// Interval functions
   //////////////////////////////////
 

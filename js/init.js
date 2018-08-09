@@ -1,4 +1,4 @@
-function init_settingPage(){
+function init_settingPage() {
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Init Setting Side /////////////////////////////////////
@@ -49,20 +49,20 @@ function init_settingPage(){
   document.getElementById("inputRgbToXYZTransferMatrix22").addEventListener("change", updateRGBtoXYZ_TransferMatrices);
 
 
-  document.getElementById("inputRgbToXYZTransferMatrix00").value=1;
-  document.getElementById("inputRgbToXYZTransferMatrix10").value=0;
-  document.getElementById("inputRgbToXYZTransferMatrix20").value=0;
+  document.getElementById("inputRgbToXYZTransferMatrix00").value = 1;
+  document.getElementById("inputRgbToXYZTransferMatrix10").value = 0;
+  document.getElementById("inputRgbToXYZTransferMatrix20").value = 0;
 
-  document.getElementById("inputRgbToXYZTransferMatrix01").value=0;
-  document.getElementById("inputRgbToXYZTransferMatrix11").value=1;
-  document.getElementById("inputRgbToXYZTransferMatrix21").value=0;
+  document.getElementById("inputRgbToXYZTransferMatrix01").value = 0;
+  document.getElementById("inputRgbToXYZTransferMatrix11").value = 1;
+  document.getElementById("inputRgbToXYZTransferMatrix21").value = 0;
 
-  document.getElementById("inputRgbToXYZTransferMatrix02").value=0;
-  document.getElementById("inputRgbToXYZTransferMatrix12").value=0;
-  document.getElementById("inputRgbToXYZTransferMatrix22").value=1;
+  document.getElementById("inputRgbToXYZTransferMatrix02").value = 0;
+  document.getElementById("inputRgbToXYZTransferMatrix12").value = 0;
+  document.getElementById("inputRgbToXYZTransferMatrix22").value = 1;
 
   //updateColorBlindness_TransferMatrices();
-  document.getElementById("select_LMSTransferMatrix").selectedIndex=0;
+  document.getElementById("select_LMSTransferMatrix").selectedIndex = 0;
 
   //////////////////////////////////////////////////////////////////////
 
@@ -81,26 +81,26 @@ function init_settingPage(){
   document.getElementById("inputXyztoLSMTransferMatrix22").addEventListener("change", updateXYZtoLMS_TransferMatrices);
 
 
-  document.getElementById("inputXyztoLSMTransferMatrix00").value=1;
-  document.getElementById("inputXyztoLSMTransferMatrix10").value=0;
-  document.getElementById("inputXyztoLSMTransferMatrix20").value=0;
+  document.getElementById("inputXyztoLSMTransferMatrix00").value = 1;
+  document.getElementById("inputXyztoLSMTransferMatrix10").value = 0;
+  document.getElementById("inputXyztoLSMTransferMatrix20").value = 0;
 
-  document.getElementById("inputXyztoLSMTransferMatrix01").value=0;
-  document.getElementById("inputXyztoLSMTransferMatrix11").value=1;
-  document.getElementById("inputXyztoLSMTransferMatrix21").value=0;
+  document.getElementById("inputXyztoLSMTransferMatrix01").value = 0;
+  document.getElementById("inputXyztoLSMTransferMatrix11").value = 1;
+  document.getElementById("inputXyztoLSMTransferMatrix21").value = 0;
 
-  document.getElementById("inputXyztoLSMTransferMatrix02").value=0;
-  document.getElementById("inputXyztoLSMTransferMatrix12").value=0;
-  document.getElementById("inputXyztoLSMTransferMatrix22").value=1;
+  document.getElementById("inputXyztoLSMTransferMatrix02").value = 0;
+  document.getElementById("inputXyztoLSMTransferMatrix12").value = 0;
+  document.getElementById("inputXyztoLSMTransferMatrix22").value = 1;
 
   //updateColorBlindness_TransferMatrices();
-  document.getElementById("select_LMSTransferMatrix").selectedIndex=1;
+  document.getElementById("select_LMSTransferMatrix").selectedIndex = 1;
 
   ///////////////////////////////////////////
   updateAllSetting();
 }
 
-function init_AddPage(){
+function init_AddPage() {
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Add Side /////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -118,35 +118,35 @@ function init_AddPage(){
   document.getElementById('buttonShowMyDesignsPreview').addEventListener("mouseenter", showMyDesingsPreview);
   document.getElementById('buttonShowMyDesignsPreview').addEventListener("mouseleave", hideMyDesingsPreview);
 
-  var colormapPath = pathColormaps+folderYellow+fileYellowColormaps[0];
-  var tmpMap  = xmlColormapParserPath(colormapPath);
-  drawCanvasColormap( "canvasPreviewYellow", existingMap_resolution_X,  existingMap_resolution_Y, tmpMap);
-  colormapPath = pathColormaps+folderRedPurple+fileRedPurpleColormaps[0];
-  tmpMap  = xmlColormapParserPath(colormapPath);
-  drawCanvasColormap( "canvasPreviewRed", existingMap_resolution_X,  existingMap_resolution_Y, tmpMap);
-  colormapPath = pathColormaps+folderBlue+fileBlueColormaps[0];
-  tmpMap  = xmlColormapParserPath(colormapPath);
-  drawCanvasColormap( "canvasPreviewBlue", existingMap_resolution_X,  existingMap_resolution_Y, tmpMap);
-  colormapPath = pathColormaps+folderGreen+fileGreenColormaps[0];
-  tmpMap  = xmlColormapParserPath(colormapPath);
-  drawCanvasColormap( "canvasPreviewGreen", existingMap_resolution_X,  existingMap_resolution_Y, tmpMap);
-  colormapPath = pathColormaps+folderBrown+fileBrownColormaps[0];
-  tmpMap  = xmlColormapParserPath(colormapPath);
-  drawCanvasColormap( "canvasPreviewBrown", existingMap_resolution_X,  existingMap_resolution_Y, tmpMap);
-  colormapPath = pathColormaps+folderDivergent+fileDivergentColormaps[0];
-  tmpMap  = xmlColormapParserPath(colormapPath);
-  drawCanvasColormap("canvasPreviewDivergent", existingMap_resolution_X,  existingMap_resolution_Y, tmpMap);
+  var colormapPath = pathColormaps + folderYellow + fileYellowColormaps[0];
+  var tmpMap = xmlColormapParserPath(colormapPath);
+  drawCanvasColormap("canvasPreviewYellow", existingMap_resolution_X, existingMap_resolution_Y, tmpMap);
+  colormapPath = pathColormaps + folderRedPurple + fileRedPurpleColormaps[0];
+  tmpMap = xmlColormapParserPath(colormapPath);
+  drawCanvasColormap("canvasPreviewRed", existingMap_resolution_X, existingMap_resolution_Y, tmpMap);
+  colormapPath = pathColormaps + folderBlue + fileBlueColormaps[0];
+  tmpMap = xmlColormapParserPath(colormapPath);
+  drawCanvasColormap("canvasPreviewBlue", existingMap_resolution_X, existingMap_resolution_Y, tmpMap);
+  colormapPath = pathColormaps + folderGreen + fileGreenColormaps[0];
+  tmpMap = xmlColormapParserPath(colormapPath);
+  drawCanvasColormap("canvasPreviewGreen", existingMap_resolution_X, existingMap_resolution_Y, tmpMap);
+  colormapPath = pathColormaps + folderBrown + fileBrownColormaps[0];
+  tmpMap = xmlColormapParserPath(colormapPath);
+  drawCanvasColormap("canvasPreviewBrown", existingMap_resolution_X, existingMap_resolution_Y, tmpMap);
+  colormapPath = pathColormaps + folderDivergent + fileDivergentColormaps[0];
+  tmpMap = xmlColormapParserPath(colormapPath);
+  drawCanvasColormap("canvasPreviewDivergent", existingMap_resolution_X, existingMap_resolution_Y, tmpMap);
 
-  colormapPath = pathColormaps+folderThreeBand+fileThreeBandColormaps[0];
-  tmpMap  = xmlColormapParserPath(colormapPath);
-  drawCanvasColormap("canvasPreviewComplexThree", existingMap_resolution_X,  existingMap_resolution_Y, tmpMap);
+  colormapPath = pathColormaps + folderThreeBand + fileThreeBandColormaps[0];
+  tmpMap = xmlColormapParserPath(colormapPath);
+  drawCanvasColormap("canvasPreviewComplexThree", existingMap_resolution_X, existingMap_resolution_Y, tmpMap);
 
-  colormapPath = pathColormaps+folderFourBand+fileFourBandColormaps[0];
-  tmpMap  = xmlColormapParserPath(colormapPath);
+  colormapPath = pathColormaps + folderFourBand + fileFourBandColormaps[0];
+  tmpMap = xmlColormapParserPath(colormapPath);
   drawCanvasColormap("canvasPreviewComplexFour", existingMap_resolution_X, existingMap_resolution_Y, tmpMap);
 }
 
-function init_EditPage(){
+function init_EditPage() {
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Edit Side /////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -180,27 +180,27 @@ function init_EditPage(){
   document.getElementById('id_editPageC1GInput').addEventListener("keyup", checkColorInputFieldsKey);
   document.getElementById('id_editPageC1BInput').addEventListener("keyup", checkColorInputFieldsKey);
   document.getElementById('id_editPageC2RInput').addEventListener("keyup", checkColorInputFieldsKey);
-          document.getElementById('id_editPageC2GInput').addEventListener("keyup", checkColorInputFieldsKey);
-            document.getElementById('id_editPageC2BInput').addEventListener("keyup", checkColorInputFieldsKey);
-              document.getElementById('id_editPageC1HInput').addEventListener("keyup", checkColorInputFieldsKey);
-                document.getElementById('id_editPageC2HInput').addEventListener("keyup", checkColorInputFieldsKey);
-                  document.getElementById('id_editPageC1SInput').addEventListener("keyup", checkColorInputFieldsKey);
-                    document.getElementById('id_editPageC1VInput').addEventListener("keyup", checkColorInputFieldsKey);
-                      document.getElementById('id_editPageC2SInput').addEventListener("keyup", checkColorInputFieldsKey);
-                        document.getElementById('id_editPageC2VInput').addEventListener("keyup", checkColorInputFieldsKey);
+  document.getElementById('id_editPageC2GInput').addEventListener("keyup", checkColorInputFieldsKey);
+  document.getElementById('id_editPageC2BInput').addEventListener("keyup", checkColorInputFieldsKey);
+  document.getElementById('id_editPageC1HInput').addEventListener("keyup", checkColorInputFieldsKey);
+  document.getElementById('id_editPageC2HInput').addEventListener("keyup", checkColorInputFieldsKey);
+  document.getElementById('id_editPageC1SInput').addEventListener("keyup", checkColorInputFieldsKey);
+  document.getElementById('id_editPageC1VInput').addEventListener("keyup", checkColorInputFieldsKey);
+  document.getElementById('id_editPageC2SInput').addEventListener("keyup", checkColorInputFieldsKey);
+  document.getElementById('id_editPageC2VInput').addEventListener("keyup", checkColorInputFieldsKey);
 
-                        document.getElementById('id_editPageC1RInput').addEventListener("change", checkColorInputFieldsChange);
-                          document.getElementById('id_editPageC1GInput').addEventListener("change", checkColorInputFieldsChange);
-                            document.getElementById('id_editPageC1BInput').addEventListener("change", checkColorInputFieldsChange);
-                              document.getElementById('id_editPageC2RInput').addEventListener("change", checkColorInputFieldsChange);
-                                document.getElementById('id_editPageC2GInput').addEventListener("change", checkColorInputFieldsChange);
-                                  document.getElementById('id_editPageC2BInput').addEventListener("change", checkColorInputFieldsChange);
-                                    document.getElementById('id_editPageC1HInput').addEventListener("change", checkColorInputFieldsChange);
-                                      document.getElementById('id_editPageC2HInput').addEventListener("change", checkColorInputFieldsChange);
-                                        document.getElementById('id_editPageC1SInput').addEventListener("change", checkColorInputFieldsChange);
-                                          document.getElementById('id_editPageC1VInput').addEventListener("change", checkColorInputFieldsChange);
-                                            document.getElementById('id_editPageC2SInput').addEventListener("change", checkColorInputFieldsChange);
-                                              document.getElementById('id_editPageC2VInput').addEventListener("change", checkColorInputFieldsChange);
+  document.getElementById('id_editPageC1RInput').addEventListener("change", checkColorInputFieldsChange);
+  document.getElementById('id_editPageC1GInput').addEventListener("change", checkColorInputFieldsChange);
+  document.getElementById('id_editPageC1BInput').addEventListener("change", checkColorInputFieldsChange);
+  document.getElementById('id_editPageC2RInput').addEventListener("change", checkColorInputFieldsChange);
+  document.getElementById('id_editPageC2GInput').addEventListener("change", checkColorInputFieldsChange);
+  document.getElementById('id_editPageC2BInput').addEventListener("change", checkColorInputFieldsChange);
+  document.getElementById('id_editPageC1HInput').addEventListener("change", checkColorInputFieldsChange);
+  document.getElementById('id_editPageC2HInput').addEventListener("change", checkColorInputFieldsChange);
+  document.getElementById('id_editPageC1SInput').addEventListener("change", checkColorInputFieldsChange);
+  document.getElementById('id_editPageC1VInput').addEventListener("change", checkColorInputFieldsChange);
+  document.getElementById('id_editPageC2SInput').addEventListener("change", checkColorInputFieldsChange);
+  document.getElementById('id_editPageC2VInput').addEventListener("change", checkColorInputFieldsChange);
 
 
   document.getElementById('editSide_Radiobutton_MiddleOfTripleColor1').addEventListener("change", motChange);
@@ -208,96 +208,7 @@ function init_EditPage(){
 }
 
 
-function init_MappingCreatePage(){
-  ////////////////////////////////////////////////////////////////////////////////////////////////////
-  /////////////////////////////// Create Side  Mapping/////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  document.getElementById('showHideMappingOptionsText').style.background = styleActiveColor;
-  document.getElementById('showHideMappingHistogramText').style.background = styleActiveColor;
-  document.getElementById('showHideMappingVisualizationText').style.background = styleActiveColor;
-  document.getElementById('showHideColorBlindnessSimText').style.background = styleActiveColor;
-
-  document.getElementById('id_radio_SelectTrichomacy_Dichromatism').checked=true;
-  document.getElementById("id_radio_Monochromatic").disabled = true;
-  document.getElementById('id_radio_Protanopia').checked=true;
-  colorblindnessType=0;
-
-  document.getElementById('customTransferMatrix00').value = 1;
-  document.getElementById('customTransferMatrix01').value = 0;
-  document.getElementById('customTransferMatrix02').value = 0;
-  document.getElementById('customTransferMatrix10').value = 0;
-  document.getElementById('customTransferMatrix11').value = 1;
-  document.getElementById('customTransferMatrix12').value = 0;
-  document.getElementById('customTransferMatrix20').value = 0;
-  document.getElementById('customTransferMatrix21').value = 0;
-  document.getElementById('customTransferMatrix22').value = 1;
-
-  document.getElementById('customTransferMatrix00').addEventListener("change", changeCustomTransferMatrix);
-  document.getElementById('customTransferMatrix01').addEventListener("change", changeCustomTransferMatrix);
-  document.getElementById('customTransferMatrix02').addEventListener("change", changeCustomTransferMatrix);
-  document.getElementById('customTransferMatrix10').addEventListener("change", changeCustomTransferMatrix);
-  document.getElementById('customTransferMatrix11').addEventListener("change", changeCustomTransferMatrix);
-  document.getElementById('customTransferMatrix12').addEventListener("change", changeCustomTransferMatrix);
-  document.getElementById('customTransferMatrix20').addEventListener("change", changeCustomTransferMatrix);
-  document.getElementById('customTransferMatrix21').addEventListener("change", changeCustomTransferMatrix);
-  document.getElementById('customTransferMatrix22').addEventListener("change", changeCustomTransferMatrix);
-
-  document.getElementById('id_doColorBlindSim').checked = false;
-  document.getElementById('id_doColorBlindSim').addEventListener("change", changeColorblindness);
-
-  document.getElementById('id_radio_Protanopia').addEventListener("change", changeColorblindnessType);
-  document.getElementById('id_radio_Deuteranopia').addEventListener("change", changeColorblindnessType);
-  document.getElementById('id_radio_Tritanopes').addEventListener("change", changeColorblindnessType);
-  document.getElementById('id_radio_Achromatopsia').addEventListener("change", changeColorblindnessType);
-  document.getElementById('id_radio_BlueCone').addEventListener("change", changeColorblindnessType);
-
-
-  document.getElementById('range_DegreeProtanopia').addEventListener("change", changeColorblindnessDegree);
-  document.getElementById('range_DegreeDeuteranopia').addEventListener("change", changeColorblindnessDegree);
-  document.getElementById('range_DegreeTritanopes').addEventListener("change", changeColorblindnessDegree);
-
-  document.getElementById('id_radio_SelectTrichomacy_Dichromatism').addEventListener("change", changeColorblindnessSection);
-  document.getElementById('id_radio_Monochromatic').addEventListener("change", changeColorblindnessSection);
-  document.getElementById('id_radio_CustomColorblindness').addEventListener("change", changeColorblindnessSection);
-
-  document.getElementById('id_affectHistogram').addEventListener("change", orderColorSketch);
-
-
-  //document.getElementById("mappingProcessBar").style.background=styleActiveColor;
-  document.getElementById("mappingProcessBar").style.color=styleActiveColor;
-
-  document.getElementById('idNumberHistoRanges').addEventListener("keyup", updateHistogramKey);
-  document.getElementById('idNumberHistoRanges').addEventListener("change", updateHistogramChange);
-  document.getElementById('histogram_SelectTimeStep').addEventListener("click", updateHistogramChange);
-  document.getElementById('histogram_SelectFullData').addEventListener("click", updateHistogramChange);
-
-  if(browserCanWorker){
-    document.getElementById('mapping_checkMultiThread').checked = true;
-  }
-  else{
-    document.getElementById('mapping_checkMultiThread').checked = false;
-    document.getElementById('mapping_checkMultiThread').disabled = true;
-  }
-
-  document.getElementById('mapping_checkAutoUpdate').addEventListener("change", changeAutoUpdate);
-  document.getElementById('mapping_showAxes').addEventListener("change", changeAxisVisibility);
-
-  document.getElementById('combobox_selectField').addEventListener("change", changeField);
-  document.getElementById('combobox_selectTimeStep').addEventListener("change", changeTimeStep);
-
-  document.getElementById('mappingDiv').addEventListener("mousemove", eventMapping_mousemove);
-  document.getElementById('mappingDiv').addEventListener("mouseleave", eventMapping_mouseleave);
-  document.getElementById('mappingDiv').addEventListener("mouseenter", eventMapping_mouseenter);
-  document.getElementById('mappingDiv').addEventListener("mousedown", eventMapping_mousedown);
-  document.getElementById('mappingDiv').addEventListener("mouseup", eventMapping_mouseup);
-  document.getElementById("mappingDiv").addEventListener("wheel", eventMapping_mousewheel);
-
-  document.getElementById("mappingBG3").style.borderColor=styleActiveColor;
-}
-
-
-function init_CreatePage(){
+function init_CreatePage() {
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Create Side /////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -331,21 +242,21 @@ function init_CreatePage(){
     mousePosX = canvasPosX * ratioToColorspaceResolutionX;
     //mousePosY = canvasPosY * ratioToColorspaceResolutionY;
 
-    if(globalCMS1.getKeyLength()==0){
-      indexOfDroppedPlace=0;
+    if (globalCMS1.getKeyLength() == 0) {
+      indexOfDroppedPlace = 0;
       return;
     }
 
     for (var i = 0; i < dropRects.length; i++) {
-      if(mousePosX>=dropRects[i] && mousePosX<=dropRects[i]+bandSketchObjLength){
-        if(indexOfDroppedPlace!=i){
-          indexOfDroppedPlace=i;
-          drawBandSketch(globalCMS1,"id_colormapSketch","id_createColormapKeys","id_colormapSketch_Ref", true, i);
+      if (mousePosX >= dropRects[i] && mousePosX <= dropRects[i] + bandSketchObjLength) {
+        if (indexOfDroppedPlace != i) {
+          indexOfDroppedPlace = i;
+          drawBandSketch(globalCMS1, "id_colormapSketch", "id_createColormapKeys", "id_colormapSketch_Ref", true, i);
         }
         return;
       }
     }
-    indexOfDroppedPlace=-1;
+    indexOfDroppedPlace = -1;
 
   }; // allow Drop
 
@@ -361,37 +272,35 @@ function init_CreatePage(){
   document.getElementById('bandCreator_Radiobutton_SelectColor2').addEventListener("change", colorChange);
 
   document.getElementById('id_bandCreatorC1RInput').addEventListener("keyup", checkColorInputFieldsKey);
-    document.getElementById('id_bandCreatorC1GInput').addEventListener("keyup", checkColorInputFieldsKey);
-      document.getElementById('id_bandCreatorC1BInput').addEventListener("keyup", checkColorInputFieldsKey);
-        document.getElementById('id_bandCreatorC2RInput').addEventListener("keyup", checkColorInputFieldsKey);
-          document.getElementById('id_bandCreatorC2GInput').addEventListener("keyup", checkColorInputFieldsKey);
-            document.getElementById('id_bandCreatorC2BInput').addEventListener("keyup", checkColorInputFieldsKey);
-              document.getElementById('id_bandCreatorC1HInput').addEventListener("keyup", checkColorInputFieldsKey);
-                document.getElementById('id_bandCreatorC2HInput').addEventListener("keyup", checkColorInputFieldsKey);
-                  document.getElementById('id_bandCreatorC1SInput').addEventListener("keyup", checkColorInputFieldsKey);
-                    document.getElementById('id_bandCreatorC1VInput').addEventListener("keyup", checkColorInputFieldsKey);
-                      document.getElementById('id_bandCreatorC2SInput').addEventListener("keyup", checkColorInputFieldsKey);
-                        document.getElementById('id_bandCreatorC2VInput').addEventListener("keyup", checkColorInputFieldsKey);
+  document.getElementById('id_bandCreatorC1GInput').addEventListener("keyup", checkColorInputFieldsKey);
+  document.getElementById('id_bandCreatorC1BInput').addEventListener("keyup", checkColorInputFieldsKey);
+  document.getElementById('id_bandCreatorC2RInput').addEventListener("keyup", checkColorInputFieldsKey);
+  document.getElementById('id_bandCreatorC2GInput').addEventListener("keyup", checkColorInputFieldsKey);
+  document.getElementById('id_bandCreatorC2BInput').addEventListener("keyup", checkColorInputFieldsKey);
+  document.getElementById('id_bandCreatorC1HInput').addEventListener("keyup", checkColorInputFieldsKey);
+  document.getElementById('id_bandCreatorC2HInput').addEventListener("keyup", checkColorInputFieldsKey);
+  document.getElementById('id_bandCreatorC1SInput').addEventListener("keyup", checkColorInputFieldsKey);
+  document.getElementById('id_bandCreatorC1VInput').addEventListener("keyup", checkColorInputFieldsKey);
+  document.getElementById('id_bandCreatorC2SInput').addEventListener("keyup", checkColorInputFieldsKey);
+  document.getElementById('id_bandCreatorC2VInput').addEventListener("keyup", checkColorInputFieldsKey);
 
-                        document.getElementById('id_bandCreatorC1RInput').addEventListener("change", checkColorInputFieldsChange);
-                          document.getElementById('id_bandCreatorC1GInput').addEventListener("change", checkColorInputFieldsChange);
-                            document.getElementById('id_bandCreatorC1BInput').addEventListener("change", checkColorInputFieldsChange);
-                              document.getElementById('id_bandCreatorC2RInput').addEventListener("change", checkColorInputFieldsChange);
-                                document.getElementById('id_bandCreatorC2GInput').addEventListener("change", checkColorInputFieldsChange);
-                                  document.getElementById('id_bandCreatorC2BInput').addEventListener("change", checkColorInputFieldsChange);
-                                    document.getElementById('id_bandCreatorC1HInput').addEventListener("change", checkColorInputFieldsChange);
-                                      document.getElementById('id_bandCreatorC2HInput').addEventListener("change", checkColorInputFieldsChange);
-                                        document.getElementById('id_bandCreatorC1SInput').addEventListener("change", checkColorInputFieldsChange);
-                                          document.getElementById('id_bandCreatorC1VInput').addEventListener("change", checkColorInputFieldsChange);
-                                            document.getElementById('id_bandCreatorC2SInput').addEventListener("change", checkColorInputFieldsChange);
-                                              document.getElementById('id_bandCreatorC2VInput').addEventListener("change", checkColorInputFieldsChange);
+  document.getElementById('id_bandCreatorC1RInput').addEventListener("change", checkColorInputFieldsChange);
+  document.getElementById('id_bandCreatorC1GInput').addEventListener("change", checkColorInputFieldsChange);
+  document.getElementById('id_bandCreatorC1BInput').addEventListener("change", checkColorInputFieldsChange);
+  document.getElementById('id_bandCreatorC2RInput').addEventListener("change", checkColorInputFieldsChange);
+  document.getElementById('id_bandCreatorC2GInput').addEventListener("change", checkColorInputFieldsChange);
+  document.getElementById('id_bandCreatorC2BInput').addEventListener("change", checkColorInputFieldsChange);
+  document.getElementById('id_bandCreatorC1HInput').addEventListener("change", checkColorInputFieldsChange);
+  document.getElementById('id_bandCreatorC2HInput').addEventListener("change", checkColorInputFieldsChange);
+  document.getElementById('id_bandCreatorC1SInput').addEventListener("change", checkColorInputFieldsChange);
+  document.getElementById('id_bandCreatorC1VInput').addEventListener("change", checkColorInputFieldsChange);
+  document.getElementById('id_bandCreatorC2SInput').addEventListener("change", checkColorInputFieldsChange);
+  document.getElementById('id_bandCreatorC2VInput').addEventListener("change", checkColorInputFieldsChange);
 
-                                              document.getElementById('bandCreator_canvasPicker').addEventListener("mousemove", event_colorpicker_MouseMove);
-                                              document.getElementById('bandCreator_canvasPicker').addEventListener("click", event_colorpicker_MouseClick);
-                                              document.getElementById('bandCreator_canvasPicker2').addEventListener("mousemove", event_colorpicker_MouseMove);
-                                              document.getElementById('bandCreator_canvasPicker2').addEventListener("click", event_colorpicker_MouseClick);
-
-
+  document.getElementById('bandCreator_canvasPicker').addEventListener("mousemove", event_colorpicker_MouseMove);
+  document.getElementById('bandCreator_canvasPicker').addEventListener("click", event_colorpicker_MouseClick);
+  document.getElementById('bandCreator_canvasPicker2').addEventListener("mousemove", event_colorpicker_MouseMove);
+  document.getElementById('bandCreator_canvasPicker2').addEventListener("click", event_colorpicker_MouseClick);
 
   // Ref Change Key Rects
   document.getElementById('id_keyColormap').addEventListener("mouseenter", mouseEnterKeyRef);
@@ -399,8 +308,6 @@ function init_CreatePage(){
   document.getElementById('id_keyColormap').addEventListener("mousemove", mouseMoveKeyRef);
   document.getElementById('id_keyColormap').addEventListener("mousedown", mouseDownKeyRef);
   document.getElementById('id_keyColormap').addEventListener("mouseup", mouseUpKeyRef);
-
-
 
   ////
   // Creat Colormap Menue
@@ -464,10 +371,124 @@ function init_CreatePage(){
 
   document.getElementById('id_setOpacityRangeModiy').addEventListener("change", changeOpacityRange);
 
+  init_MappingCreatePage();
+  init_ProbeSectionCreatPage();
+}
+
+function init_MappingCreatePage() {
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////// Create Side  Mapping/////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  document.getElementById('showHideMappingOptionsText').style.background = styleActiveColor;
+  document.getElementById('showHideMappingHistogramText').style.background = styleActiveColor;
+  document.getElementById('showHideMappingVisualizationText').style.background = styleActiveColor;
+  document.getElementById('showHideColorBlindnessSimText').style.background = styleActiveColor;
+
+  document.getElementById('id_radio_SelectTrichomacy_Dichromatism').checked = true;
+  document.getElementById("id_radio_Monochromatic").disabled = true;
+  document.getElementById('id_radio_Protanopia').checked = true;
+  colorblindnessType = 0;
+
+  document.getElementById('customTransferMatrix00').value = 1;
+  document.getElementById('customTransferMatrix01').value = 0;
+  document.getElementById('customTransferMatrix02').value = 0;
+  document.getElementById('customTransferMatrix10').value = 0;
+  document.getElementById('customTransferMatrix11').value = 1;
+  document.getElementById('customTransferMatrix12').value = 0;
+  document.getElementById('customTransferMatrix20').value = 0;
+  document.getElementById('customTransferMatrix21').value = 0;
+  document.getElementById('customTransferMatrix22').value = 1;
+
+  document.getElementById('customTransferMatrix00').addEventListener("change", changeCustomTransferMatrix);
+  document.getElementById('customTransferMatrix01').addEventListener("change", changeCustomTransferMatrix);
+  document.getElementById('customTransferMatrix02').addEventListener("change", changeCustomTransferMatrix);
+  document.getElementById('customTransferMatrix10').addEventListener("change", changeCustomTransferMatrix);
+  document.getElementById('customTransferMatrix11').addEventListener("change", changeCustomTransferMatrix);
+  document.getElementById('customTransferMatrix12').addEventListener("change", changeCustomTransferMatrix);
+  document.getElementById('customTransferMatrix20').addEventListener("change", changeCustomTransferMatrix);
+  document.getElementById('customTransferMatrix21').addEventListener("change", changeCustomTransferMatrix);
+  document.getElementById('customTransferMatrix22').addEventListener("change", changeCustomTransferMatrix);
+
+  document.getElementById('id_doColorBlindSim').checked = false;
+  document.getElementById('id_doColorBlindSim').addEventListener("change", changeColorblindness);
+
+  document.getElementById('id_radio_Protanopia').addEventListener("change", changeColorblindnessType);
+  document.getElementById('id_radio_Deuteranopia').addEventListener("change", changeColorblindnessType);
+  document.getElementById('id_radio_Tritanopes').addEventListener("change", changeColorblindnessType);
+  document.getElementById('id_radio_Achromatopsia').addEventListener("change", changeColorblindnessType);
+  document.getElementById('id_radio_BlueCone').addEventListener("change", changeColorblindnessType);
+
+
+  document.getElementById('range_DegreeProtanopia').addEventListener("change", changeColorblindnessDegree);
+  document.getElementById('range_DegreeDeuteranopia').addEventListener("change", changeColorblindnessDegree);
+  document.getElementById('range_DegreeTritanopes').addEventListener("change", changeColorblindnessDegree);
+
+  document.getElementById('id_radio_SelectTrichomacy_Dichromatism').addEventListener("change", changeColorblindnessSection);
+  document.getElementById('id_radio_Monochromatic').addEventListener("change", changeColorblindnessSection);
+  document.getElementById('id_radio_CustomColorblindness').addEventListener("change", changeColorblindnessSection);
+
+  document.getElementById('id_affectHistogram').addEventListener("change", orderColorSketch);
+
+
+  //document.getElementById("mappingProcessBar").style.background=styleActiveColor;
+  document.getElementById("mappingProcessBar").style.color = styleActiveColor;
+
+  document.getElementById('idNumberHistoRanges').addEventListener("keyup", updateHistogramKey);
+  document.getElementById('idNumberHistoRanges').addEventListener("change", updateHistogramChange);
+  document.getElementById('histogram_SelectTimeStep').addEventListener("click", updateHistogramChange);
+  document.getElementById('histogram_SelectFullData').addEventListener("click", updateHistogramChange);
+
+  if (browserCanWorker) {
+    document.getElementById('mapping_checkMultiThread').checked = true;
+  } else {
+    document.getElementById('mapping_checkMultiThread').checked = false;
+    document.getElementById('mapping_checkMultiThread').disabled = true;
+  }
+
+  document.getElementById('mapping_checkAutoUpdate').addEventListener("change", changeAutoUpdate);
+  document.getElementById('mapping_showAxes').addEventListener("change", changeAxisVisibility);
+
+  document.getElementById('combobox_selectField').addEventListener("change", changeField);
+  document.getElementById('combobox_selectTimeStep').addEventListener("change", changeTimeStep);
+
+  document.getElementById('mappingDiv').addEventListener("mousemove", eventMapping_mousemove);
+  document.getElementById('mappingDiv').addEventListener("mouseleave", eventMapping_mouseleave);
+  document.getElementById('mappingDiv').addEventListener("mouseenter", eventMapping_mouseenter);
+  document.getElementById('mappingDiv').addEventListener("mousedown", eventMapping_mousedown);
+  document.getElementById('mappingDiv').addEventListener("mouseup", eventMapping_mouseup);
+  document.getElementById("mappingDiv").addEventListener("wheel", eventMapping_mousewheel);
+
+  document.getElementById("mappingBG3").style.borderColor = styleActiveColor;
 }
 
 
-function init_analyzeComparePage(){
+function init_ProbeSectionCreatPage() {
+
+  document.getElementById("id_selectProbeList").selectedIndex = 0;
+  document.getElementById("id_selectProbeFunctionType").selectedIndex = 0;
+  document.getElementById("id_selectProbeType").selectedIndex = 0;
+  document.getElementById("id_selectProbeRangeType").selectedIndex = 0;
+
+  document.getElementById("id_selectProbeList").addEventListener("change", changeProbeSelection);
+  document.getElementById("id_selectProbeRangeType").addEventListener("change",selectProbeRangeType);
+  document.getElementById("id_selectProbeFunctionType").addEventListener("change",selectProbeFunction);
+  document.getElementById("id_selectProbeType").addEventListener("change",selectProbeType);
+
+  document.getElementById("id_inputSingleProbeRangeStart").addEventListener("change", checkProbeRangeInput);
+  document.getElementById("id_inputSingleProbeRangeEnd").addEventListener("change", checkProbeRangeInput);
+  document.getElementById("id_inputProbeIntervalLength").addEventListener("change", checkProbeRangeInput);
+  document.getElementById("id_inputNumberIntervalAuto").addEventListener("change", checkProbeRangeInput);
+  document.getElementById("id_inputCustomProbeRanges").addEventListener("change", checkProbeRangeInput);
+
+  document.getElementById("id_buttonRemoveProbe").addEventListener("click", probeRemove);
+  document.getElementById("id_buttonAddUpdateProbe").addEventListener("click", probeAction);
+
+
+
+}
+
+function init_analyzeComparePage() {
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Analyze Side /////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -531,7 +552,7 @@ function init_analyzeComparePage(){
   document.getElementById("compare2_globalSpeed_EndKey").addEventListener("change", changeAnalyzeCompareKeyIndex);
 }
 
-function init_TutorialPage(){
+function init_TutorialPage() {
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Tutorial Side /////////////////////////////////////
@@ -547,7 +568,7 @@ function init_TutorialPage(){
 
 }
 
-function init_ExportPage(){
+function init_ExportPage() {
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Export Side /////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -558,7 +579,7 @@ function init_ExportPage(){
 
 
 
-function init_Size(){
+function init_Size() {
 
   var windowWidth = window.innerWidth;
   var windowHeight = window.innerHeight;
@@ -568,292 +589,294 @@ function init_Size(){
 
 
   //document.getElementById("id_menu").style.width = windowWidth+"px";
-  var divWidth = windowWidth*0.6;
-  document.getElementById("id_welcomePage").style.width = divWidth+"px";
-  document.getElementById("id_impressumPage").style.width = divWidth+"px";
-  document.getElementById("id_settingPage").style.width = divWidth+"px";
+  var divWidth = windowWidth * 0.6;
+  document.getElementById("id_welcomePage").style.width = divWidth + "px";
+  document.getElementById("id_impressumPage").style.width = divWidth + "px";
+  document.getElementById("id_settingPage").style.width = divWidth + "px";
 
-  divWidth = windowWidth*0.96;
-  document.getElementById("div_colormapBandSketch").style.width = divWidth+"px";
-  document.getElementById("div_colormapBandSketch2").style.width = divWidth+"px";
-  document.getElementById("id_creatorPage").style.width = divWidth+"px";
-  document.getElementById("id_myListPage").style.width = divWidth+"px";
-  document.getElementById("id_addPage").style.width = divWidth+"px";
-  document.getElementById("id_comparePage").style.width = divWidth+"px";
-  document.getElementById("id_analysisPage").style.width = divWidth+"px";
-  document.getElementById("id_exportPage").style.width = divWidth+"px";
-  document.getElementById("id_tutorialPage").style.width = divWidth+"px";
-  document.getElementById("id_Mapping_Table_Div").style.width = divWidth+"px";
+  divWidth = windowWidth * 0.96;
+  document.getElementById("div_colormapBandSketch").style.width = divWidth + "px";
+  document.getElementById("div_colormapBandSketch2").style.width = divWidth + "px";
+  document.getElementById("id_creatorPage").style.width = divWidth + "px";
+  document.getElementById("id_myListPage").style.width = divWidth + "px";
+  document.getElementById("id_addPage").style.width = divWidth + "px";
+  document.getElementById("id_comparePage").style.width = divWidth + "px";
+  document.getElementById("id_analysisPage").style.width = divWidth + "px";
+  document.getElementById("id_exportPage").style.width = divWidth + "px";
+  document.getElementById("id_tutorialPage").style.width = divWidth + "px";
+  document.getElementById("id_Mapping_Table_Div").style.width = divWidth + "px";
 
-  divWidth = windowWidth*0.35;
-  document.getElementById("analyze_GlobalSpeed_Canvas_Lab").style.width = divWidth+"px";
-  document.getElementById("analyze_GlobalSpeed_Canvas_de94").style.width = divWidth+"px";
-  document.getElementById("analyze_GlobalSpeed_Canvas_de2000").style.width = divWidth+"px";
-  document.getElementById("analyze_GlobalSpeed_Canvas_din99").style.width = divWidth+"px";
+  divWidth = windowWidth * 0.35;
+  document.getElementById("analyze_GlobalSpeed_Canvas_Lab").style.width = divWidth + "px";
+  document.getElementById("analyze_GlobalSpeed_Canvas_de94").style.width = divWidth + "px";
+  document.getElementById("analyze_GlobalSpeed_Canvas_de2000").style.width = divWidth + "px";
+  document.getElementById("analyze_GlobalSpeed_Canvas_din99").style.width = divWidth + "px";
 
-  document.getElementById("compare1_GlobalSpeed_Canvas_Lab").style.width = divWidth+"px";
-  document.getElementById("compare1_GlobalSpeed_Canvas_de94").style.width = divWidth+"px";
-  document.getElementById("compare1_GlobalSpeed_Canvas_de2000").style.width = divWidth+"px";
-  document.getElementById("compare1_GlobalSpeed_Canvas_din99").style.width = divWidth+"px";
+  document.getElementById("compare1_GlobalSpeed_Canvas_Lab").style.width = divWidth + "px";
+  document.getElementById("compare1_GlobalSpeed_Canvas_de94").style.width = divWidth + "px";
+  document.getElementById("compare1_GlobalSpeed_Canvas_de2000").style.width = divWidth + "px";
+  document.getElementById("compare1_GlobalSpeed_Canvas_din99").style.width = divWidth + "px";
 
-  document.getElementById("compare2_GlobalSpeed_Canvas_Lab").style.width = divWidth+"px";
-  document.getElementById("compare2_GlobalSpeed_Canvas_de94").style.width = divWidth+"px";
-  document.getElementById("compare2_GlobalSpeed_Canvas_de2000").style.width = divWidth+"px";
-  document.getElementById("compare2_GlobalSpeed_Canvas_din99").style.width = divWidth+"px";
+  document.getElementById("compare2_GlobalSpeed_Canvas_Lab").style.width = divWidth + "px";
+  document.getElementById("compare2_GlobalSpeed_Canvas_de94").style.width = divWidth + "px";
+  document.getElementById("compare2_GlobalSpeed_Canvas_de2000").style.width = divWidth + "px";
+  document.getElementById("compare2_GlobalSpeed_Canvas_din99").style.width = divWidth + "px";
 
-  document.getElementById("analyze_GlobalSpeed_Canvas_Lab").style.height = divWidth+"px";
-  document.getElementById("analyze_GlobalSpeed_Canvas_de94").style.height = divWidth+"px";
-  document.getElementById("analyze_GlobalSpeed_Canvas_de2000").style.height = divWidth+"px";
-  document.getElementById("analyze_GlobalSpeed_Canvas_din99").style.height = divWidth+"px";
+  document.getElementById("analyze_GlobalSpeed_Canvas_Lab").style.height = divWidth + "px";
+  document.getElementById("analyze_GlobalSpeed_Canvas_de94").style.height = divWidth + "px";
+  document.getElementById("analyze_GlobalSpeed_Canvas_de2000").style.height = divWidth + "px";
+  document.getElementById("analyze_GlobalSpeed_Canvas_din99").style.height = divWidth + "px";
 
-  document.getElementById("compare1_GlobalSpeed_Canvas_Lab").style.height = divWidth+"px";
-  document.getElementById("compare1_GlobalSpeed_Canvas_de94").style.height = divWidth+"px";
-  document.getElementById("compare1_GlobalSpeed_Canvas_de2000").style.height = divWidth+"px";
-  document.getElementById("compare1_GlobalSpeed_Canvas_din99").style.height = divWidth+"px";
+  document.getElementById("compare1_GlobalSpeed_Canvas_Lab").style.height = divWidth + "px";
+  document.getElementById("compare1_GlobalSpeed_Canvas_de94").style.height = divWidth + "px";
+  document.getElementById("compare1_GlobalSpeed_Canvas_de2000").style.height = divWidth + "px";
+  document.getElementById("compare1_GlobalSpeed_Canvas_din99").style.height = divWidth + "px";
 
-  document.getElementById("compare2_GlobalSpeed_Canvas_Lab").style.height = divWidth+"px";
-  document.getElementById("compare2_GlobalSpeed_Canvas_de94").style.height = divWidth+"px";
-  document.getElementById("compare2_GlobalSpeed_Canvas_de2000").style.height = divWidth+"px";
-  document.getElementById("compare2_GlobalSpeed_Canvas_din99").style.height = divWidth+"px";
+  document.getElementById("compare2_GlobalSpeed_Canvas_Lab").style.height = divWidth + "px";
+  document.getElementById("compare2_GlobalSpeed_Canvas_de94").style.height = divWidth + "px";
+  document.getElementById("compare2_GlobalSpeed_Canvas_de2000").style.height = divWidth + "px";
+  document.getElementById("compare2_GlobalSpeed_Canvas_din99").style.height = divWidth + "px";
 
-  document.getElementById("analyze_LocalSpeed_Canvas_Lab").style.width = divWidth+"px";
-  document.getElementById("analyze_LocalSpeed_Canvas_de94").style.width = divWidth+"px";
-  document.getElementById("analyze_LocalSpeed_Canvas_de2000").style.width = divWidth+"px";
-  document.getElementById("analyze_LocalSpeed_Canvas_din99").style.width = divWidth+"px";
+  document.getElementById("analyze_LocalSpeed_Canvas_Lab").style.width = divWidth + "px";
+  document.getElementById("analyze_LocalSpeed_Canvas_de94").style.width = divWidth + "px";
+  document.getElementById("analyze_LocalSpeed_Canvas_de2000").style.width = divWidth + "px";
+  document.getElementById("analyze_LocalSpeed_Canvas_din99").style.width = divWidth + "px";
 
-  document.getElementById("analyze_LocalSpeed_Canvas_Lab").style.height = divWidth+"px";
-  document.getElementById("analyze_LocalSpeed_Canvas_de94").style.height = divWidth+"px";
-  document.getElementById("analyze_LocalSpeed_Canvas_de2000").style.height = divWidth+"px";
-  document.getElementById("analyze_LocalSpeed_Canvas_din99").style.height = divWidth+"px";
+  document.getElementById("analyze_LocalSpeed_Canvas_Lab").style.height = divWidth + "px";
+  document.getElementById("analyze_LocalSpeed_Canvas_de94").style.height = divWidth + "px";
+  document.getElementById("analyze_LocalSpeed_Canvas_de2000").style.height = divWidth + "px";
+  document.getElementById("analyze_LocalSpeed_Canvas_din99").style.height = divWidth + "px";
 
-  document.getElementById("compare1_LocalSpeed_Canvas_Lab").style.width = divWidth+"px";
-  document.getElementById("compare1_LocalSpeed_Canvas_de94").style.width = divWidth+"px";
-  document.getElementById("compare1_LocalSpeed_Canvas_de2000").style.width = divWidth+"px";
-  document.getElementById("compare1_LocalSpeed_Canvas_din99").style.width = divWidth+"px";
+  document.getElementById("compare1_LocalSpeed_Canvas_Lab").style.width = divWidth + "px";
+  document.getElementById("compare1_LocalSpeed_Canvas_de94").style.width = divWidth + "px";
+  document.getElementById("compare1_LocalSpeed_Canvas_de2000").style.width = divWidth + "px";
+  document.getElementById("compare1_LocalSpeed_Canvas_din99").style.width = divWidth + "px";
 
-  document.getElementById("compare1_LocalSpeed_Canvas_Lab").style.height = divWidth+"px";
-  document.getElementById("compare1_LocalSpeed_Canvas_de94").style.height = divWidth+"px";
-  document.getElementById("compare1_LocalSpeed_Canvas_de2000").style.height = divWidth+"px";
-  document.getElementById("compare1_LocalSpeed_Canvas_din99").style.height = divWidth+"px";
+  document.getElementById("compare1_LocalSpeed_Canvas_Lab").style.height = divWidth + "px";
+  document.getElementById("compare1_LocalSpeed_Canvas_de94").style.height = divWidth + "px";
+  document.getElementById("compare1_LocalSpeed_Canvas_de2000").style.height = divWidth + "px";
+  document.getElementById("compare1_LocalSpeed_Canvas_din99").style.height = divWidth + "px";
 
-  document.getElementById("compare2_LocalSpeed_Canvas_Lab").style.width = divWidth+"px";
-  document.getElementById("compare2_LocalSpeed_Canvas_de94").style.width = divWidth+"px";
-  document.getElementById("compare2_LocalSpeed_Canvas_de2000").style.width = divWidth+"px";
-  document.getElementById("compare2_LocalSpeed_Canvas_din99").style.width = divWidth+"px";
+  document.getElementById("compare2_LocalSpeed_Canvas_Lab").style.width = divWidth + "px";
+  document.getElementById("compare2_LocalSpeed_Canvas_de94").style.width = divWidth + "px";
+  document.getElementById("compare2_LocalSpeed_Canvas_de2000").style.width = divWidth + "px";
+  document.getElementById("compare2_LocalSpeed_Canvas_din99").style.width = divWidth + "px";
 
-  document.getElementById("compare2_LocalSpeed_Canvas_Lab").style.height = divWidth+"px";
-  document.getElementById("compare2_LocalSpeed_Canvas_de94").style.height = divWidth+"px";
-  document.getElementById("compare2_LocalSpeed_Canvas_de2000").style.height = divWidth+"px";
-  document.getElementById("compare2_LocalSpeed_Canvas_din99").style.height = divWidth+"px";
-
-
-  document.getElementById("analyze_OrderSpeed_Canvas_Lab").style.width = divWidth+"px";
-  document.getElementById("analyze_OrderSpeed_Canvas_de94").style.width = divWidth+"px";
-  document.getElementById("analyze_OrderSpeed_Canvas_de2000").style.width = divWidth+"px";
-  document.getElementById("analyze_OrderSpeed_Canvas_din99").style.width = divWidth+"px";
-
-  document.getElementById("analyze_OrderSpeed_Canvas_Lab").style.height = divWidth+"px";
-  document.getElementById("analyze_OrderSpeed_Canvas_de94").style.height = divWidth+"px";
-  document.getElementById("analyze_OrderSpeed_Canvas_de2000").style.height = divWidth+"px";
-  document.getElementById("analyze_OrderSpeed_Canvas_din99").style.height = divWidth+"px";
-
-  document.getElementById("compare1_OrderSpeed_Canvas_Lab").style.width = divWidth+"px";
-  document.getElementById("compare1_OrderSpeed_Canvas_de94").style.width = divWidth+"px";
-  document.getElementById("compare1_OrderSpeed_Canvas_de2000").style.width = divWidth+"px";
-  document.getElementById("compare1_OrderSpeed_Canvas_din99").style.width = divWidth+"px";
-
-  document.getElementById("compare1_OrderSpeed_Canvas_Lab").style.height = divWidth+"px";
-  document.getElementById("compare1_OrderSpeed_Canvas_de94").style.height = divWidth+"px";
-  document.getElementById("compare1_OrderSpeed_Canvas_de2000").style.height = divWidth+"px";
-  document.getElementById("compare1_OrderSpeed_Canvas_din99").style.height = divWidth+"px";
-
-  document.getElementById("compare2_OrderSpeed_Canvas_Lab").style.width = divWidth+"px";
-  document.getElementById("compare2_OrderSpeed_Canvas_de94").style.width = divWidth+"px";
-  document.getElementById("compare2_OrderSpeed_Canvas_de2000").style.width = divWidth+"px";
-  document.getElementById("compare2_OrderSpeed_Canvas_din99").style.width = divWidth+"px";
-
-  document.getElementById("compare2_OrderSpeed_Canvas_Lab").style.height = divWidth+"px";
-  document.getElementById("compare2_OrderSpeed_Canvas_de94").style.height = divWidth+"px";
-  document.getElementById("compare2_OrderSpeed_Canvas_de2000").style.height = divWidth+"px";
-  document.getElementById("compare2_OrderSpeed_Canvas_din99").style.height = divWidth+"px";
-
-  divWidth = windowWidth*0.25;
-  document.getElementById("id_canvasRGModiyBackground").style.height = divWidth+"px";
-  document.getElementById("id_canvasRGModiyMiddle").style.height = divWidth+"px";
-  document.getElementById("id_canvasRGModiyTop").style.height = divWidth+"px";
-
-  document.getElementById("id_canvasBGModiyBackground").style.height = divWidth+"px";
-  document.getElementById("id_canvasBGModiyMiddle").style.height = divWidth+"px";
-  document.getElementById("id_canvasBGModiyTop").style.height = divWidth+"px";
-
-  document.getElementById("id_canvasRBModiyBackground").style.height = divWidth+"px";
-  document.getElementById("id_canvasRBModiyMiddle").style.height = divWidth+"px";
-  document.getElementById("id_canvasRBModiyTop").style.height = divWidth+"px";
-
-  document.getElementById("id_canvasRGModiyBackground").style.width = divWidth+"px";
-  document.getElementById("id_canvasRGModiyMiddle").style.width = divWidth+"px";
-  document.getElementById("id_canvasRGModiyTop").style.width = divWidth+"px";
-
-  document.getElementById("id_canvasBGModiyBackground").style.width = divWidth+"px";
-  document.getElementById("id_canvasBGModiyMiddle").style.width = divWidth+"px";
-  document.getElementById("id_canvasBGModiyTop").style.width = divWidth+"px";
-
-  document.getElementById("id_canvasRBModiyBackground").style.width = divWidth+"px";
-  document.getElementById("id_canvasRBModiyMiddle").style.width = divWidth+"px";
-  document.getElementById("id_canvasRBModiyTop").style.width = divWidth+"px";
+  document.getElementById("compare2_LocalSpeed_Canvas_Lab").style.height = divWidth + "px";
+  document.getElementById("compare2_LocalSpeed_Canvas_de94").style.height = divWidth + "px";
+  document.getElementById("compare2_LocalSpeed_Canvas_de2000").style.height = divWidth + "px";
+  document.getElementById("compare2_LocalSpeed_Canvas_din99").style.height = divWidth + "px";
 
 
-  document.getElementById("id_canvasRGAnalyzeBackground").style.height = divWidth+"px";
-  document.getElementById("id_canvasRGAnalyzeMiddle").style.height = divWidth+"px";
-  document.getElementById("id_canvasRGAnalyzeTop").style.height = divWidth+"px";
+  document.getElementById("analyze_OrderSpeed_Canvas_Lab").style.width = divWidth + "px";
+  document.getElementById("analyze_OrderSpeed_Canvas_de94").style.width = divWidth + "px";
+  document.getElementById("analyze_OrderSpeed_Canvas_de2000").style.width = divWidth + "px";
+  document.getElementById("analyze_OrderSpeed_Canvas_din99").style.width = divWidth + "px";
 
-  document.getElementById("id_canvasBGAnalyzeBackground").style.height = divWidth+"px";
-  document.getElementById("id_canvasBGAnalyzeMiddle").style.height = divWidth+"px";
-  document.getElementById("id_canvasBGAnalyzeTop").style.height = divWidth+"px";
+  document.getElementById("analyze_OrderSpeed_Canvas_Lab").style.height = divWidth + "px";
+  document.getElementById("analyze_OrderSpeed_Canvas_de94").style.height = divWidth + "px";
+  document.getElementById("analyze_OrderSpeed_Canvas_de2000").style.height = divWidth + "px";
+  document.getElementById("analyze_OrderSpeed_Canvas_din99").style.height = divWidth + "px";
 
-  document.getElementById("id_canvasRBAnalyzeBackground").style.height = divWidth+"px";
-  document.getElementById("id_canvasRBAnalyzeMiddle").style.height = divWidth+"px";
-  document.getElementById("id_canvasRBAnalyzeTop").style.height = divWidth+"px";
+  document.getElementById("compare1_OrderSpeed_Canvas_Lab").style.width = divWidth + "px";
+  document.getElementById("compare1_OrderSpeed_Canvas_de94").style.width = divWidth + "px";
+  document.getElementById("compare1_OrderSpeed_Canvas_de2000").style.width = divWidth + "px";
+  document.getElementById("compare1_OrderSpeed_Canvas_din99").style.width = divWidth + "px";
 
-  document.getElementById("id_canvasRGAnalyzeBackground").style.width = divWidth+"px";
-  document.getElementById("id_canvasRGAnalyzeMiddle").style.width = divWidth+"px";
-  document.getElementById("id_canvasRGAnalyzeTop").style.width = divWidth+"px";
+  document.getElementById("compare1_OrderSpeed_Canvas_Lab").style.height = divWidth + "px";
+  document.getElementById("compare1_OrderSpeed_Canvas_de94").style.height = divWidth + "px";
+  document.getElementById("compare1_OrderSpeed_Canvas_de2000").style.height = divWidth + "px";
+  document.getElementById("compare1_OrderSpeed_Canvas_din99").style.height = divWidth + "px";
 
-  document.getElementById("id_canvasBGAnalyzeBackground").style.width = divWidth+"px";
-  document.getElementById("id_canvasBGAnalyzeMiddle").style.width = divWidth+"px";
-  document.getElementById("id_canvasBGAnalyzeTop").style.width = divWidth+"px";
+  document.getElementById("compare2_OrderSpeed_Canvas_Lab").style.width = divWidth + "px";
+  document.getElementById("compare2_OrderSpeed_Canvas_de94").style.width = divWidth + "px";
+  document.getElementById("compare2_OrderSpeed_Canvas_de2000").style.width = divWidth + "px";
+  document.getElementById("compare2_OrderSpeed_Canvas_din99").style.width = divWidth + "px";
 
-  document.getElementById("id_canvasRBAnalyzeBackground").style.width = divWidth+"px";
-  document.getElementById("id_canvasRBAnalyzeMiddle").style.width = divWidth+"px";
-  document.getElementById("id_canvasRBAnalyzeTop").style.width = divWidth+"px";
+  document.getElementById("compare2_OrderSpeed_Canvas_Lab").style.height = divWidth + "px";
+  document.getElementById("compare2_OrderSpeed_Canvas_de94").style.height = divWidth + "px";
+  document.getElementById("compare2_OrderSpeed_Canvas_de2000").style.height = divWidth + "px";
+  document.getElementById("compare2_OrderSpeed_Canvas_din99").style.height = divWidth + "px";
+
+  divWidth = windowWidth * 0.25;
+  document.getElementById("id_canvasRGModiyBackground").style.height = divWidth + "px";
+  document.getElementById("id_canvasRGModiyMiddle").style.height = divWidth + "px";
+  document.getElementById("id_canvasRGModiyTop").style.height = divWidth + "px";
+
+  document.getElementById("id_canvasBGModiyBackground").style.height = divWidth + "px";
+  document.getElementById("id_canvasBGModiyMiddle").style.height = divWidth + "px";
+  document.getElementById("id_canvasBGModiyTop").style.height = divWidth + "px";
+
+  document.getElementById("id_canvasRBModiyBackground").style.height = divWidth + "px";
+  document.getElementById("id_canvasRBModiyMiddle").style.height = divWidth + "px";
+  document.getElementById("id_canvasRBModiyTop").style.height = divWidth + "px";
+
+  document.getElementById("id_canvasRGModiyBackground").style.width = divWidth + "px";
+  document.getElementById("id_canvasRGModiyMiddle").style.width = divWidth + "px";
+  document.getElementById("id_canvasRGModiyTop").style.width = divWidth + "px";
+
+  document.getElementById("id_canvasBGModiyBackground").style.width = divWidth + "px";
+  document.getElementById("id_canvasBGModiyMiddle").style.width = divWidth + "px";
+  document.getElementById("id_canvasBGModiyTop").style.width = divWidth + "px";
+
+  document.getElementById("id_canvasRBModiyBackground").style.width = divWidth + "px";
+  document.getElementById("id_canvasRBModiyMiddle").style.width = divWidth + "px";
+  document.getElementById("id_canvasRBModiyTop").style.width = divWidth + "px";
 
 
+  document.getElementById("id_canvasRGAnalyzeBackground").style.height = divWidth + "px";
+  document.getElementById("id_canvasRGAnalyzeMiddle").style.height = divWidth + "px";
+  document.getElementById("id_canvasRGAnalyzeTop").style.height = divWidth + "px";
 
+  document.getElementById("id_canvasBGAnalyzeBackground").style.height = divWidth + "px";
+  document.getElementById("id_canvasBGAnalyzeMiddle").style.height = divWidth + "px";
+  document.getElementById("id_canvasBGAnalyzeTop").style.height = divWidth + "px";
 
-  document.getElementById("id_canvasRGCompareBackground").style.height = divWidth+"px";
-  document.getElementById("id_canvasRGCompareMiddle").style.height = divWidth+"px";
-  document.getElementById("id_canvasRGCompareTop").style.height = divWidth+"px";
+  document.getElementById("id_canvasRBAnalyzeBackground").style.height = divWidth + "px";
+  document.getElementById("id_canvasRBAnalyzeMiddle").style.height = divWidth + "px";
+  document.getElementById("id_canvasRBAnalyzeTop").style.height = divWidth + "px";
 
-  document.getElementById("id_canvasBGCompareBackground").style.height = divWidth+"px";
-  document.getElementById("id_canvasBGCompareMiddle").style.height = divWidth+"px";
-  document.getElementById("id_canvasBGCompareTop").style.height = divWidth+"px";
+  document.getElementById("id_canvasRGAnalyzeBackground").style.width = divWidth + "px";
+  document.getElementById("id_canvasRGAnalyzeMiddle").style.width = divWidth + "px";
+  document.getElementById("id_canvasRGAnalyzeTop").style.width = divWidth + "px";
 
-  document.getElementById("id_canvasRBCompareBackground").style.height = divWidth+"px";
-  document.getElementById("id_canvasRBCompareMiddle").style.height = divWidth+"px";
-  document.getElementById("id_canvasRBCompareTop").style.height = divWidth+"px";
+  document.getElementById("id_canvasBGAnalyzeBackground").style.width = divWidth + "px";
+  document.getElementById("id_canvasBGAnalyzeMiddle").style.width = divWidth + "px";
+  document.getElementById("id_canvasBGAnalyzeTop").style.width = divWidth + "px";
 
-  document.getElementById("id_canvasRGCompareBackground").style.width = divWidth+"px";
-  document.getElementById("id_canvasRGCompareMiddle").style.width = divWidth+"px";
-  document.getElementById("id_canvasRGCompareTop").style.width = divWidth+"px";
-
-  document.getElementById("id_canvasBGCompareBackground").style.width = divWidth+"px";
-  document.getElementById("id_canvasBGCompareMiddle").style.width = divWidth+"px";
-  document.getElementById("id_canvasBGCompareTop").style.width = divWidth+"px";
-
-  document.getElementById("id_canvasRBCompareBackground").style.width = divWidth+"px";
-  document.getElementById("id_canvasRBCompareMiddle").style.width = divWidth+"px";
-  document.getElementById("id_canvasRBCompareTop").style.width = divWidth+"px";
+  document.getElementById("id_canvasRBAnalyzeBackground").style.width = divWidth + "px";
+  document.getElementById("id_canvasRBAnalyzeMiddle").style.width = divWidth + "px";
+  document.getElementById("id_canvasRBAnalyzeTop").style.width = divWidth + "px";
 
 
 
-  document.getElementById("id_RG_Modify_Div").style.height = divWidth+"px";
-  document.getElementById("id_RB_Modify_Div").style.height = divWidth+"px";
-  document.getElementById("id_BG_Modify_Div").style.height = divWidth+"px";
-  document.getElementById("id_RG_Modify_Div").style.width = divWidth+"px";
-  document.getElementById("id_RB_Modify_Div").style.width = divWidth+"px";
-  document.getElementById("id_BG_Modify_Div").style.width = divWidth+"px";
 
-  document.getElementById("id_RG_Analyze_Div").style.height = divWidth+"px";
-  document.getElementById("id_RB_Analyze_Div").style.height = divWidth+"px";
-  document.getElementById("id_BG_Analyze_Div").style.height = divWidth+"px";
-  document.getElementById("id_RG_Analyze_Div").style.width = divWidth+"px";
-  document.getElementById("id_RB_Analyze_Div").style.width = divWidth+"px";
-  document.getElementById("id_BG_Analyze_Div").style.width = divWidth+"px";
+  document.getElementById("id_canvasRGCompareBackground").style.height = divWidth + "px";
+  document.getElementById("id_canvasRGCompareMiddle").style.height = divWidth + "px";
+  document.getElementById("id_canvasRGCompareTop").style.height = divWidth + "px";
 
-  document.getElementById("id_RG_Compare_Div").style.height = divWidth+"px";
-  document.getElementById("id_RB_Compare_Div").style.height = divWidth+"px";
-  document.getElementById("id_BG_Compare_Div").style.height = divWidth+"px";
-  document.getElementById("id_RG_Compare_Div").style.width = divWidth+"px";
-  document.getElementById("id_RB_Compare_Div").style.width = divWidth+"px";
-  document.getElementById("id_BG_Compare_Div").style.width = divWidth+"px";
+  document.getElementById("id_canvasBGCompareBackground").style.height = divWidth + "px";
+  document.getElementById("id_canvasBGCompareMiddle").style.height = divWidth + "px";
+  document.getElementById("id_canvasBGCompareTop").style.height = divWidth + "px";
+
+  document.getElementById("id_canvasRBCompareBackground").style.height = divWidth + "px";
+  document.getElementById("id_canvasRBCompareMiddle").style.height = divWidth + "px";
+  document.getElementById("id_canvasRBCompareTop").style.height = divWidth + "px";
+
+  document.getElementById("id_canvasRGCompareBackground").style.width = divWidth + "px";
+  document.getElementById("id_canvasRGCompareMiddle").style.width = divWidth + "px";
+  document.getElementById("id_canvasRGCompareTop").style.width = divWidth + "px";
+
+  document.getElementById("id_canvasBGCompareBackground").style.width = divWidth + "px";
+  document.getElementById("id_canvasBGCompareMiddle").style.width = divWidth + "px";
+  document.getElementById("id_canvasBGCompareTop").style.width = divWidth + "px";
+
+  document.getElementById("id_canvasRBCompareBackground").style.width = divWidth + "px";
+  document.getElementById("id_canvasRBCompareMiddle").style.width = divWidth + "px";
+  document.getElementById("id_canvasRBCompareTop").style.width = divWidth + "px";
+
+
+
+  document.getElementById("id_RG_Modify_Div").style.height = divWidth + "px";
+  document.getElementById("id_RB_Modify_Div").style.height = divWidth + "px";
+  document.getElementById("id_BG_Modify_Div").style.height = divWidth + "px";
+  document.getElementById("id_RG_Modify_Div").style.width = divWidth + "px";
+  document.getElementById("id_RB_Modify_Div").style.width = divWidth + "px";
+  document.getElementById("id_BG_Modify_Div").style.width = divWidth + "px";
+
+  document.getElementById("id_RG_Analyze_Div").style.height = divWidth + "px";
+  document.getElementById("id_RB_Analyze_Div").style.height = divWidth + "px";
+  document.getElementById("id_BG_Analyze_Div").style.height = divWidth + "px";
+  document.getElementById("id_RG_Analyze_Div").style.width = divWidth + "px";
+  document.getElementById("id_RB_Analyze_Div").style.width = divWidth + "px";
+  document.getElementById("id_BG_Analyze_Div").style.width = divWidth + "px";
+
+  document.getElementById("id_RG_Compare_Div").style.height = divWidth + "px";
+  document.getElementById("id_RB_Compare_Div").style.height = divWidth + "px";
+  document.getElementById("id_BG_Compare_Div").style.height = divWidth + "px";
+  document.getElementById("id_RG_Compare_Div").style.width = divWidth + "px";
+  document.getElementById("id_RB_Compare_Div").style.width = divWidth + "px";
+  document.getElementById("id_BG_Compare_Div").style.width = divWidth + "px";
 
   ///////////////////////////////////////////////////////////////////////////////
 
 
   var pElements = document.getElementsByTagName("p");
-  for(var i =0; i<pElements.length;i++){
+  for (var i = 0; i < pElements.length; i++) {
 
-    if(pElements[i].classList.contains("constText"))
+    if (pElements[i].classList.contains("constText"))
       continue;
 
-      if(pElements[i].classList.contains("matrixText")){
-        pElements[i].style.lineHeight = windowHeight*0.06+"px";
-        pElements[i].style.fontSize = windowHeight*0.048+"px";
-      }
-      else{
-        pElements[i].style.lineHeight = windowHeight*0.02+"px";
-        pElements[i].style.fontSize = windowHeight*0.016+"px";
-      }
+    if (pElements[i].classList.contains("matrixText")) {
+      pElements[i].style.lineHeight = windowHeight * 0.06 + "px";
+      pElements[i].style.fontSize = windowHeight * 0.048 + "px";
+    } else {
+      pElements[i].style.lineHeight = windowHeight * 0.02 + "px";
+      pElements[i].style.fontSize = windowHeight * 0.016 + "px";
+    }
 
 
   }
 
   var labelElements = document.getElementsByTagName("label");
-  for(var i =0; i<labelElements.length;i++){
+  for (var i = 0; i < labelElements.length; i++) {
 
-    if(labelElements[i].classList.contains("constText"))
+    if (labelElements[i].classList.contains("constText"))
       continue;
 
-     labelElements[i].style.lineHeight = windowHeight*0.02+"px";
-     labelElements[i].style.fontSize = windowHeight*0.016+"px";
+    labelElements[i].style.lineHeight = windowHeight * 0.02 + "px";
+    labelElements[i].style.fontSize = windowHeight * 0.016 + "px";
   }
 
   var sectionLabels = document.getElementsByTagName("h1");
-  for(var i =0; i<sectionLabels.length;i++){
+  for (var i = 0; i < sectionLabels.length; i++) {
 
-     sectionLabels[i].style.lineHeight = windowHeight*0.035+"px";
-     sectionLabels[i].style.fontSize = windowHeight*0.03+"px";
+    sectionLabels[i].style.lineHeight = windowHeight * 0.035 + "px";
+    sectionLabels[i].style.fontSize = windowHeight * 0.03 + "px";
   }
 
   var subsectionLabels = document.getElementsByTagName("h2");
-  for(var i =0; i<subsectionLabels.length;i++){
+  for (var i = 0; i < subsectionLabels.length; i++) {
 
-     subsectionLabels[i].style.lineHeight = windowHeight*0.025+"px";
-     subsectionLabels[i].style.fontSize = windowHeight*0.02+"px";
+    subsectionLabels[i].style.lineHeight = windowHeight * 0.025 + "px";
+    subsectionLabels[i].style.fontSize = windowHeight * 0.02 + "px";
   }
 
 
   var buttons = document.getElementsByTagName("button");
-  for(var i =0; i<buttons.length;i++){
+  for (var i = 0; i < buttons.length; i++) {
 
-    if(buttons[i].name=="constStyle")
+    if (buttons[i].name == "constStyle")
       continue;
 
-     buttons[i].style.height = windowHeight*0.04+"px";
-     buttons[i].style.lineHeight = windowHeight*0.04+"px";
-     buttons[i].style.fontSize = windowHeight*0.022+"px";
+    buttons[i].style.height = windowHeight * 0.04 + "px";
+    buttons[i].style.lineHeight = windowHeight * 0.04 + "px";
+    buttons[i].style.fontSize = windowHeight * 0.022 + "px";
   }
 
   var selects = document.getElementsByTagName("select");
-  for(var i =0; i<selects.length;i++){
+  for (var i = 0; i < selects.length; i++) {
 
     /*if(selects[i].name=="constStyle")
       continue;*/
 
-     selects[i].style.height = windowHeight*0.02+"px";
-     selects[i].style.lineHeight = windowHeight*0.02+"px";
-     selects[i].style.fontSize = windowHeight*0.016+"px";
+    if (selects[i].classList.contains("constText"))
+      continue;
+
+    selects[i].style.height = "auto"; //windowHeight*0.02+"px";
+    selects[i].style.lineHeight = windowHeight * 0.02 + "px";
+    selects[i].style.fontSize = windowHeight * 0.016 + "px";
   }
 
   var inputs = document.getElementsByTagName("input");
-  for(var i =0; i<inputs.length;i++){
+  for (var i = 0; i < inputs.length; i++) {
 
-    if(inputs[i].classList.contains("constText"))
+    if (inputs[i].classList.contains("constText"))
       continue;
 
-     inputs[i].style.height = windowHeight*0.02+"px";
-     inputs[i].style.lineHeight = windowHeight*0.02+"px";
-     inputs[i].style.fontSize = windowHeight*0.016+"px";
+    inputs[i].style.height = windowHeight * 0.02 + "px";
+    inputs[i].style.lineHeight = windowHeight * 0.02 + "px";
+    inputs[i].style.fontSize = windowHeight * 0.016 + "px";
   }
 
 

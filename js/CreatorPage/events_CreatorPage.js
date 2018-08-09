@@ -38,7 +38,7 @@ function switchTableTestFunction(type){
       document.getElementById("id_selectShowCMSTable").style.background=styleActiveColor;
 
       document.getElementById("id_mapping_Div").style.display="none";
-      document.getElementById("id_table_Div").style.display="inline-block";
+      document.getElementById("id_table_Div").style.display="block";
 
       stopAnimationMapping();
 
@@ -50,7 +50,7 @@ function switchTableTestFunction(type){
       document.getElementById("id_selectShowTestFunction").style.background=styleActiveColor;
       document.getElementById("id_selectShowCMSTable").style.background=styleInactiveColor;
 
-      document.getElementById("id_mapping_Div").style.display="inline-block";
+      document.getElementById("id_mapping_Div").style.display="block";
       document.getElementById("id_table_Div").style.display="none";
 
       animateMapping();
@@ -75,10 +75,12 @@ function switchModifyModus(type){
       document.getElementById("id_selectBandAdding").style.background=styleActiveColor;
       document.getElementById("id_selectKeyModifying").style.background=styleInactiveColor;
       document.getElementById("id_selectPathModifying").style.background=styleInactiveColor;
+      document.getElementById("id_selectManageProbes").style.background=styleInactiveColor;
 
       document.getElementById("id_DivModifyKeys").style.display="none";
       document.getElementById("modifyColormapPath").style.display="none";
-      document.getElementById("id_DivAddBands").style.display="inline-block";
+      document.getElementById("id_DivAddBands").style.display="block";
+      document.getElementById("id_manageProbes").style.display="none";
 
       drawPredefinedBands();
     break;
@@ -88,10 +90,12 @@ function switchModifyModus(type){
         document.getElementById("id_selectKeyModifying").style.background=styleActiveColor;
         document.getElementById("id_selectBandAdding").style.background=styleInactiveColor;
         document.getElementById("id_selectPathModifying").style.background=styleInactiveColor;
+        document.getElementById("id_selectManageProbes").style.background=styleInactiveColor;
 
-        document.getElementById("id_DivModifyKeys").style.display="inline-block";
+        document.getElementById("id_DivModifyKeys").style.display="block";
         document.getElementById("modifyColormapPath").style.display="none";
         document.getElementById("id_DivAddBands").style.display="none";
+        document.getElementById("id_manageProbes").style.display="none";
 
         document.getElementById("editSide_Radiobutton_SelectColor1").checked==true
         selectedColor=0;
@@ -109,10 +113,13 @@ function switchModifyModus(type){
       document.getElementById("id_selectKeyModifying").style.background=styleInactiveColor;
       document.getElementById("id_selectBandAdding").style.background=styleInactiveColor;
       document.getElementById("id_selectPathModifying").style.background=styleActiveColor;
+      document.getElementById("id_selectManageProbes").style.background=styleInactiveColor;
 
       document.getElementById("id_DivModifyKeys").style.display="none";
-      document.getElementById("modifyColormapPath").style.display="inline-block";
+      document.getElementById("modifyColormapPath").style.display="block";
       document.getElementById("id_DivAddBands").style.display="none";
+      document.getElementById("id_manageProbes").style.display="none";
+
     }
     else{
       openAlert("There are no keys for modyfing. Please use Add Bands to create a CMS.");
@@ -121,6 +128,33 @@ function switchModifyModus(type){
 
     drawPathEditPath();
     break;
+
+    case 3:
+
+    if(globalCMS1.getKeyLength() != 0){
+      document.getElementById("id_selectKeyModifying").style.background=styleInactiveColor;
+      document.getElementById("id_selectBandAdding").style.background=styleInactiveColor;
+      document.getElementById("id_selectPathModifying").style.background=styleInactiveColor;
+      document.getElementById("id_selectManageProbes").style.background=styleActiveColor;
+
+      document.getElementById("id_DivModifyKeys").style.display="none";
+      document.getElementById("modifyColormapPath").style.display="none";
+      document.getElementById("id_DivAddBands").style.display="none";
+      document.getElementById("id_manageProbes").style.display="block";
+    }
+    else{
+      openAlert("There is no CMS for adding probes. Please use Add Bands to create a CMS.");
+      break;
+    }
+
+
+    updateProbeList();
+    document.getElementById("id_selectProbeList").selectedIndex = 0;
+    selectProbe(0);
+
+
+    break;
+
     default:
 
   }
@@ -229,7 +263,7 @@ switch (createBandType) {
       editColor2=tmpBandArray[selectedBand*2+1];
   }
 
-  document.getElementById("bandCreatorWindow").style.display="inline-block";
+  document.getElementById("bandCreatorWindow").style.display="block";
   document.getElementById("bandCreator_Radiobutton_SelectColor1").checked=true;
   selectedColor=0;
   addBandButtons();

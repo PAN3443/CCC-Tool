@@ -70,6 +70,7 @@
   <script src="js/ColormapClass/class_Colorspace_DIN99.js"></script>
   <script src="js/ColormapClass/class_Colorspace_XYZ.js"></script>
   <script src="js/ColormapClass/class_Colorspace_LMS.js"></script>
+  <script src="js/ColormapClass/class_Colormap_Probe.js"></script>
 
   <!-- ADD PAGE -->
   <script src="js/AddPage/events_AddPage.js"></script>
@@ -83,6 +84,7 @@
   <script src="js/CreatorPage/events_keyRef_CreatorPage.js"></script>
   <script src="js/CreatorPage/events_menueButton_CreatorPage.js"></script>
   <script src="js/CreatorPage/editPath.js"></script>
+  <script src="js/CreatorPage/events_probe.js"></script>
 
 
   <!-- Edit PAGE -->
@@ -286,7 +288,7 @@
 
             </div>
 
-            <div id="id_table_Div" style="height:auto; width:100%; background:white;">
+            <div id="id_table_Div" style="height:auto; width:100%; background:grey;">
 
                 <table cellspacing="0" cellpadding="0" border="0" style="width:100%;" >
                <tr>
@@ -493,19 +495,19 @@
                             <p class="standardText matrixText" style="margin-left:auto; margin-top:auto; margin-bottom:auto;" > [ </p>
 
                             <div id="input_transferMatrixCol1" style="width:10%; display:none;">
-                              <input type="number" id="customTransferMatrix00" step="0.001"  style="height:auto; line-height:20px; font-size:12px; vertical-align:middle;  margin:0px; width: 90%;"><br>
-                              <input type="number" id="customTransferMatrix10" step="0.001"  style="height:auto; line-height:20px; font-size:12px; vertical-align:middle;  margin:0px; width: 90%;"><br>
-                              <input type="number" id="customTransferMatrix20" step="0.001"  style="height:auto; line-height:20px; font-size:12px; vertical-align:middle;  margin:0px; width: 90%;"><br>
+                              <input type="number" id="customTransferMatrix00" step="any"  style="height:auto; line-height:20px; font-size:12px; vertical-align:middle;  margin:0px; width: 90%;"><br>
+                              <input type="number" id="customTransferMatrix10" step="any"  style="height:auto; line-height:20px; font-size:12px; vertical-align:middle;  margin:0px; width: 90%;"><br>
+                              <input type="number" id="customTransferMatrix20" step="any"  style="height:auto; line-height:20px; font-size:12px; vertical-align:middle;  margin:0px; width: 90%;"><br>
                             </div>
                             <div id="input_transferMatrixCol2" style="width:10%; display:none;">
-                              <input type="number" id="customTransferMatrix01" step="0.001"  style="height:auto; line-height:20px; font-size:12px; vertical-align:middle;  margin:0px; width: 90%;"><br>
-                              <input type="number" id="customTransferMatrix11" step="0.001"  style="height:auto; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
-                              <input type="number" id="customTransferMatrix21" step="0.001"  style="height:auto; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
+                              <input type="number" id="customTransferMatrix01" step="any"  style="height:auto; line-height:20px; font-size:12px; vertical-align:middle;  margin:0px; width: 90%;"><br>
+                              <input type="number" id="customTransferMatrix11" step="any"  style="height:auto; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
+                              <input type="number" id="customTransferMatrix21" step="any"  style="height:auto; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
                             </div>
                             <div id="input_transferMatrixCol3" style="width:10%; display:none;">
-                              <input type="number" id="customTransferMatrix02" step="0.1" style="height:auto; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
-                              <input type="number" id="customTransferMatrix12" step="0.1" style="height:auto; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
-                              <input type="number" id="customTransferMatrix22" step="0.1" style="height:auto; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
+                              <input type="number" id="customTransferMatrix02" step="any" style="height:auto; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
+                              <input type="number" id="customTransferMatrix12" step="any" style="height:auto; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
+                              <input type="number" id="customTransferMatrix22" step="any" style="height:auto; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
                             </div>
 
                             <div id="label_transferMatrixCol1" style="margin-right:30px; margin-top:auto; margin-bottom:auto;">
@@ -678,7 +680,7 @@
                                     </canvas>
 
           </div>
-          <canvas style="margin-top: 0px; width:100%; height: 70px;" id="id_createColormapKeys">
+          <canvas style="margin-top: 0px; width:100%; height: 80px;" id="id_createColormapKeys">
           </canvas>
           <canvas class="classSketchCanvas" id="id_colormapSketch">
           </canvas>
@@ -715,7 +717,7 @@
                                     </canvas>
 
           </div>
-          <canvas style="margin-top: 0px; width:100%; height: 100px;" id="id_createColormapKeys2">
+          <canvas style="margin-top: 0px; width:100%; height:80px;" id="id_createColormapKeys2">
           </canvas>
           <canvas class="classSketchCanvas" id="id_colormapSketch2">
           </canvas>
@@ -926,19 +928,19 @@
             <p style=" text-align:left; height:100px; line-height:100px; vertical-align:middle; font-size:80px; margin:0px; font-weight: lighter;"> [ </p>
 
             <div id="input_xyzTransferMatrixCol1" style="height:100px; width:10%; display:none;">
-              <input type="number" id="inputRgbToXYZTransferMatrix00" step="0.001"  style="height:20px; line-height:20px; font-size:12px; vertical-align:middle;  margin:0px; width: 90%;"><br>
-              <input type="number" id="inputRgbToXYZTransferMatrix10" step="0.001"  style="height:20px; line-height:20px; font-size:12px; vertical-align:middle;  margin:0px; width: 90%;"><br>
-              <input type="number" id="inputRgbToXYZTransferMatrix20" step="0.001"  style="height:20px; line-height:20px; font-size:12px; vertical-align:middle;  margin:0px; width: 90%;"><br>
+              <input type="number" id="inputRgbToXYZTransferMatrix00" step="any"  style="height:20px; line-height:20px; font-size:12px; vertical-align:middle;  margin:0px; width: 90%;"><br>
+              <input type="number" id="inputRgbToXYZTransferMatrix10" step="any"  style="height:20px; line-height:20px; font-size:12px; vertical-align:middle;  margin:0px; width: 90%;"><br>
+              <input type="number" id="inputRgbToXYZTransferMatrix20" step="any"  style="height:20px; line-height:20px; font-size:12px; vertical-align:middle;  margin:0px; width: 90%;"><br>
             </div>
             <div id="input_xyzTransferMatrixCol2" style=" height:100px; width:10%; display:none;">
-              <input type="number" id="inputRgbToXYZTransferMatrix01" step="0.001"  style="height:20px; line-height:20px; font-size:12px; vertical-align:middle;  margin:0px; width: 90%;"><br>
-              <input type="number" id="inputRgbToXYZTransferMatrix11" step="0.001"  style="height:20px; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
-              <input type="number" id="inputRgbToXYZTransferMatrix21" step="0.001"  style="height:20px; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
+              <input type="number" id="inputRgbToXYZTransferMatrix01" step="any"  style="height:20px; line-height:20px; font-size:12px; vertical-align:middle;  margin:0px; width: 90%;"><br>
+              <input type="number" id="inputRgbToXYZTransferMatrix11" step="any"  style="height:20px; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
+              <input type="number" id="inputRgbToXYZTransferMatrix21" step="any"  style="height:20px; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
             </div>
             <div id="input_xyzTransferMatrixCol3" style=" height:100px; width:10%; display:none;">
-              <input type="number" id="inputRgbToXYZTransferMatrix02" step="0.1" style="height:20px; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
-              <input type="number" id="inputRgbToXYZTransferMatrix12" step="0.1" style="height:20px; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
-              <input type="number" id="inputRgbToXYZTransferMatrix22" step="0.1" style="height:20px; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
+              <input type="number" id="inputRgbToXYZTransferMatrix02" step="any" style="height:20px; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
+              <input type="number" id="inputRgbToXYZTransferMatrix12" step="any" style="height:20px; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
+              <input type="number" id="inputRgbToXYZTransferMatrix22" step="any" style="height:20px; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
             </div>
 
             <div id="label_xyzTransferMatrixCol1" style="height:100px; margin-right:30px;">
@@ -993,19 +995,19 @@
             <p style=" text-align:left; height:100px; line-height:100px; vertical-align:middle; font-size:80px; margin:0px; font-weight: lighter;"> [ </p>
 
             <div id="input_lmstransferMatrixCol1" style="height:100px; width:10%; display:none;">
-              <input type="number" id="inputXyztoLSMTransferMatrix00" step="0.001"  style="height:20px; line-height:20px; font-size:12px; vertical-align:middle;  margin:0px; width: 90%;"><br>
-              <input type="number" id="inputXyztoLSMTransferMatrix10" step="0.001"  style="height:20px; line-height:20px; font-size:12px; vertical-align:middle;  margin:0px; width: 90%;"><br>
-              <input type="number" id="inputXyztoLSMTransferMatrix20" step="0.001"  style="height:20px; line-height:20px; font-size:12px; vertical-align:middle;  margin:0px; width: 90%;"><br>
+              <input type="number" id="inputXyztoLSMTransferMatrix00" step="any"  style="height:20px; line-height:20px; font-size:12px; vertical-align:middle;  margin:0px; width: 90%;"><br>
+              <input type="number" id="inputXyztoLSMTransferMatrix10" step="any"  style="height:20px; line-height:20px; font-size:12px; vertical-align:middle;  margin:0px; width: 90%;"><br>
+              <input type="number" id="inputXyztoLSMTransferMatrix20" step="any"  style="height:20px; line-height:20px; font-size:12px; vertical-align:middle;  margin:0px; width: 90%;"><br>
             </div>
             <div id="input_lmstransferMatrixCol2" style=" height:100px; width:10%; display:none;">
-              <input type="number" id="inputXyztoLSMTransferMatrix01" step="0.001"  style="height:20px; line-height:20px; font-size:12px; vertical-align:middle;  margin:0px; width: 90%;"><br>
-              <input type="number" id="inputXyztoLSMTransferMatrix11" step="0.001"  style="height:20px; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
-              <input type="number" id="inputXyztoLSMTransferMatrix21" step="0.001"  style="height:20px; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
+              <input type="number" id="inputXyztoLSMTransferMatrix01" step="any"  style="height:20px; line-height:20px; font-size:12px; vertical-align:middle;  margin:0px; width: 90%;"><br>
+              <input type="number" id="inputXyztoLSMTransferMatrix11" step="any"  style="height:20px; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
+              <input type="number" id="inputXyztoLSMTransferMatrix21" step="any"  style="height:20px; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
             </div>
             <div id="input_lmstransferMatrixCol3" style=" height:100px; width:10%; display:none;">
-              <input type="number" id="inputXyztoLSMTransferMatrix02" step="0.1" style="height:20px; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
-              <input type="number" id="inputXyztoLSMTransferMatrix12" step="0.1" style="height:20px; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
-              <input type="number" id="inputXyztoLSMTransferMatrix22" step="0.1" style="height:20px; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
+              <input type="number" id="inputXyztoLSMTransferMatrix02" step="any" style="height:20px; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
+              <input type="number" id="inputXyztoLSMTransferMatrix12" step="any" style="height:20px; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
+              <input type="number" id="inputXyztoLSMTransferMatrix22" step="any" style="height:20px; line-height:20px; font-size:12px; vertical-align:middle; margin:0px; width: 90%;"><br>
             </div>
 
             <div id="label_lmstransferMatrixCol1" style="height:100px; margin-right:30px;">
@@ -1161,9 +1163,10 @@
     <div id="id_creatorPage"  style="margin-left:auto; margin-right:auto; width:96%; height:auto; margin-top:20px; margin-bottom: 20px; background:white; box-shadow:  5px  5px grey; display:none;">
               <div class="row" style="height:auto; width:100%; margin:0px; background:url(img/background.png)">
 
-                <button id="id_selectBandAdding" onclick="switchModifyModus(0)" class="classButtonBlue" title="Key Modify" >Add Bands</button>
+                <button id="id_selectBandAdding" onclick="switchModifyModus(0)" class="classButtonBlue" title="Add Bands" >Add Bands</button>
                 <button id="id_selectKeyModifying" onclick="switchModifyModus(1)" class="classButtonBlue" title="Key Modify" >Modify Keys</button>
-                <button id="id_selectPathModifying" onclick="switchModifyModus(2)" class="classButtonBlue" title="Key Modify">Modify via Path Plot</button>
+                <button id="id_selectPathModifying" onclick="switchModifyModus(2)" class="classButtonBlue" title="Path Modify">Modify via Path Plot</button>
+                <button id="id_selectManageProbes" onclick="switchModifyModus(3)" class="classButtonBlue" title="Probe Modify">Manage Probes</button>
 
               </div>
 
@@ -1625,7 +1628,124 @@
 
              </div>
 
+             <div id="id_manageProbes" style="height:auto; width:100%; margin:0px; display:none;">
 
+
+                <div class="row" style="padding-top:15px; padding-bottom:15px;">
+                  <div style="width:50%; border-right:1px solid black;">
+                    <h2 class="subsectionLabel" style="width:100%; margin-top:15px; margin-bottom:15px;">Probe List</h2>
+
+                    <select id="id_selectProbeList" class="constText" name="ProbeList" size="20" style="width:50%; margin-left:25%;">
+                      <option value="0" style="font-weight:bold;">Create New Probe</option>
+                      <option value="1" >Probe 1; Type: Gradient; Function: linear;</option>
+                    </select>
+
+                    <button id="id_buttonRemoveProbe" type="button" name="ProbeRemoveButton" class="classButtonWhite standardText" style="border-radius: 10px;  width:50%; line-height:30px; border: 1px solid rgb(180,180,180); margin-left:25%; margin-top: 10px;">Remove</button>
+
+                  </div>
+
+                  <div style="width:50%;">
+                    <h2 id="probeActionLabel" class="subsectionLabel" style="width:100%; margin-top:15px; margin-bottom:15px;">Generate Probe</h2>
+
+                    <div class="row" style="margin-left:15%; width:70%; margin-top:5px; margin-bottom:15px;">
+                      <p class="standardText" style="width:40%; font-weight:bold;">Type:</p>
+
+                      <select id="id_selectProbeType" name="ProbeTypeList" style="width:60%;">
+                        <option value="0">Gradient Probe</option>
+                        <option value="1" disabled>Contour Probe</option>
+                      </select>
+                    </div>
+
+
+
+                    <div class="row" style="margin-left:15%; width:70%; margin-top:5px; margin-bottom:15px;">
+                      <hr>
+                      <p class="standardText" style="width:40%; font-weight:bold;">Function:</p>
+
+                      <select id="id_selectProbeFunctionType" name="ProbeTypeList" style="width:60%;">
+                        <option value="0">Linear</option>
+                        <!--option value="1" disabled></option-->
+                      </select>
+                    </div>
+
+
+
+                    <div class="row" style="margin-left:15%; width:70%; margin-top:5px; margin-bottom:5px;">
+                      <hr>
+                      <p class="standardText" style="width:40%; font-weight:bold;">Probe Ranges:</p>
+
+                      <select id="id_selectProbeRangeType" name="ProbeRangeTypeList" style="width:60%; height:auto;">
+                        <option value="0" checked>Single Custom Probe</option>
+                        <option value="1">Interval Probes</option>
+                        <option value="2">Interval Auto Subdivision</option>
+                        <option value="3" disabled>Multiple Custom Probes</option>
+                      </select>
+                    </div>
+
+                    <div id="id_divProbeRangesSingle" style="margin-left:15%; width:70%; margin-top:5px; margin-bottom:5px;">
+                      <div class="row" style="width:100%; margin-top:10px; margin-bottom:10px;" >
+                        <p class="standardText" style="width:40%;">Range Start:</p>
+                        <input id="id_inputSingleProbeRangeStart" type="number" name="ProbeRangeStart" value="0" step="any" class="standardText" style="width:60%;">
+                      </div>
+                      <div class="row" style="width:100%; margin-top:5px; ">
+                        <p class="standardText" style="width:40%;">Range End:</p>
+                        <input id="id_inputSingleProbeRangeEnd" type="number" name="ProbeRangeEnd" value="1" step="any" class="standardText" style="width:60%;">
+                      </div>
+                    </div>
+
+                    <div id="id_divProbeRangesInterval" style="margin-left:15%; width:70%; margin-top:5px; margin-bottom:5px; display:none;">
+                      <div class="row" style="width:100%; margin-top:15px; ">
+                        <p class="standardText" style="width:40%;">Interval Length:</p>
+                        <input id="id_inputProbeIntervalLength" type="number" name="ProbeIntervalLength" value="1" step="any" min="0" class="standardText" style="width:60%;">
+                      </div>
+                    </div>
+
+                    <div id="id_divProbeRangesIntervalAuto" style="margin-left:15%; width:70%; margin-top:10px; margin-bottom:5px; display:none;">
+                      <div class="row" style="width:100%; margin-top:15px; ">
+                        <p class="standardText" style="width:40%;">Number of Intervals:</p>
+                        <input id="id_inputNumberIntervalAuto" type="number" name="ProbeRanges" value="1" step="1" min="1" class="standardText" style="width:60%;">
+                      </div>
+                    </div>
+
+                    <div id="id_divProbeRangesCustom" class="row" style="margin-left:15%; width:70%; margin-top:10px; margin-bottom:5px; display:none;">
+                      <p class="standardText" style="width:40%;">Custom Range:</p>
+                      <input id="id_inputCustomProbeRanges" type="text" name="ProbeCustomRanges" value="" class="standardText" style="width:60%;">
+                    </div>
+
+                    <p id="backgroundColorDiv" class="standardText" style="margin-left:15%; width:70%; margin-top:15px; margin-bottom:5px;"> Info: The probe range is allowed to be over the borders of the CMS range. Probe value out of the CMS range will be excluded during the calculation of the probe colormap.</p>
+
+
+
+
+                    <div id="id_divProbeNumberIntervalColros" class="row" style="margin-left:15%; width:70%; margin-top:5px; margin-bottom:5px; display:none;">
+
+                      <hr>
+
+                      <p class="standardText" style="width:40%; font-weight:bold;">Number of Colors:</p>
+
+                      <input id="id_inputProbeNumberIntervalColors" type="number" name="ProbeRanges" value="10" step="1" min="1" class="standardText" style="width:60%;">
+
+                      <p id="backgroundColorDiv" class="standardText" style="width:100%; margin-top:15px; margin-bottom:5px;"> Info: The </p>
+                    </div>
+
+
+
+                    <div id="backgroundColorDiv" class="row" style="margin-left:15%; width:70%; margin-top:5px; margin-bottom:5px; display:none;">
+
+                      <hr>
+
+                      <p class="standardText" style="width:40%; font-weight:bold;">Background Color:</p>
+
+
+                    </div>
+
+                    <hr style="margin-left:15%; width:70%;">
+
+                    <button id="id_buttonAddUpdateProbe" type="button" name="ProbeRemoveButton" class="classButtonWhite standardText" style="border-radius: 10px;  width:50%; line-height:30px; border: 1px solid rgb(180,180,180); margin-left:25%; margin-top: 10px;">Add</button>
+                  </div>
+                </div>
+
+             </div>
     </div>
 
     <!------------------	Help	CreatorPage  ------------------->

@@ -39,7 +39,6 @@ window.onload = function() {
   init_settingPage();
   init_AddPage();
   init_EditPage();
-  init_MappingCreatePage();
   init_CreatePage();
   init_analyzeComparePage();
   init_TutorialPage();

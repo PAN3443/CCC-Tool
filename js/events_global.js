@@ -29,6 +29,7 @@ function switchCCCToolMode(event){
     document.getElementById("button_showCompare").style.display = "inline-block";
     document.getElementById("button_showSettings").style.display = "inline-block";
     document.getElementById("id_selectPathModifying").style.display = "inline-block";
+    document.getElementById("id_selectManageProbes").style.display = "inline-block";
 
 
     if (showSideID == 1) {
@@ -56,6 +57,7 @@ function switchCCCToolMode(event){
     document.getElementById("button_showSettings").style.display = "none";
     document.getElementById("id_Mapping_Table_Div").style.display = "none";
     document.getElementById("id_selectPathModifying").style.display = "none";
+    document.getElementById("id_selectManageProbes").style.display = "none";
 
     if(document.getElementById("modifyColormapPath").style.display != "none"){
       switchModifyModus(0);
