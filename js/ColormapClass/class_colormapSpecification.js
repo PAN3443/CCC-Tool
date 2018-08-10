@@ -280,11 +280,15 @@ class class_CMS {
     return this.probeArray[index];
   }
 
+  setProbe(index,probe){
+    this.probeArray[index]=probe;
+  }
+
   addProbe(probe){
     this.probeArray.push(probe);
   }
 
-  insertKey(index,probe){
+  insertProbe(index,probe){
       this.probeArray.splice(index, 0,probe);
   }
 

@@ -12,13 +12,12 @@ function updateProbeList() {
 
   // fill startbox
 
-console.log(globalCMS1.getProbeLength());
 
   for (var i = 0; i < globalCMS1.getProbeLength(); i++) {
 
     var opt = document.createElement('option');
 
-    var tmpProbe = globalCMS1.getProbe();
+    var tmpProbe = globalCMS1.getProbe(i);
     var type="";
 
     switch (tmpProbe.getType()) {
@@ -52,6 +51,19 @@ console.log(globalCMS1.getProbeLength());
 
 function selectProbe(index) {
 
+
+  // Proposal Probe Inputs
+  //single
+  document.getElementById("id_inputSingleProbeRangeStart").value=globalCMS1.getRefPosition(0);
+  document.getElementById("id_inputSingleProbeRangeEnd").value=globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1);
+  //intervals
+  document.getElementById("id_inputProbeIntervalLength").value=globalCMS1.getRefRange()/10;
+  //auto interval
+  document.getElementById("id_inputNumberIntervalAuto").value=100;
+  //custom
+  document.getElementById("id_inputCustomProbeRanges").value=globalCMS1.getRefPosition(0)+","+globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1)+";";
+
+
   if (index == 0) {
     document.getElementById("probeActionLabel").innerHTML = "Generate Probe";
     document.getElementById("id_selectProbeFunctionType").selectedIndex = 0;
@@ -64,22 +76,43 @@ function selectProbe(index) {
     document.getElementById("id_divProbeRangesCustom").style.display = "none";
     document.getElementById("id_divProbeNumberIntervalColros").style.display = "none";
     document.getElementById("id_buttonAddUpdateProbe").innerHTML = "Add";
-
-    // Proposal Probe Inputs
-    //single
-    document.getElementById("id_inputSingleProbeRangeStart").value=globalCMS1.getRefPosition(0);
-    document.getElementById("id_inputSingleProbeRangeEnd").value=globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1);
-    //intervals
-    document.getElementById("id_inputProbeIntervalLength").value=globalCMS1.getRefRange()/10;
-    //auto interval
-    document.getElementById("id_inputNumberIntervalAuto").value=100;
-    //custom
-    document.getElementById("id_inputCustomProbeRanges").value=globalCMS1.getRefPosition(0)+","+globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1)+";";
-
+    document.getElementById("divProbePreview").style.display="none";
   } else {
     document.getElementById("probeActionLabel").innerHTML = "Modify Probe";
     document.getElementById("id_buttonRemoveProbe").style.display = "block";
     document.getElementById("id_buttonAddUpdateProbe").innerHTML = "Update";
+
+    var tmpProbe = getProbe(document.getElementById("id_selectProbeList").selectedIndex-1);
+    document.getElementById("id_selectProbeType").selectedIndex=tmpProbe.getType();
+    document.getElementById("id_selectProbeFunctionType").selectedIndex=tmpProbe.getFunction();
+    document.getElementById("id_selectProbeRangeType").selectedIndex=tmpProbe.getRangeType();
+
+    // fill range Information
+    switch (document.getElementById("id_selectProbeRangeType").selectedIndex) {
+      case 0:
+        document.getElementById("id_inputSingleProbeRangeStart").value=globalCMS1.getRefPosition(0);
+        document.getElementById("id_inputSingleProbeRangeEnd").value=globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1);
+        break;
+        case 1:
+          document.getElementById("id_inputSingleProbeRangeStart").value=globalCMS1.getRefPosition(0);
+          document.getElementById("id_inputSingleProbeRangeEnd").value=globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1);
+          document.getElementById("id_inputProbeIntervalLength").value=globalCMS1.getRefRange()/10;
+          break;
+          case 2:
+            document.getElementById("id_inputSingleProbeRangeStart").value=globalCMS1.getRefPosition(0);
+            document.getElementById("id_inputSingleProbeRangeEnd").value=globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1);
+            document.getElementById("id_inputNumberIntervalAuto").value=100;
+            break;
+            case 3:
+              document.getElementById("id_inputCustomProbeRanges").value=globalCMS1.getRefPosition(0)+","+globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1)+";";
+              break;
+      default:
+
+    }
+
+    // draw Preview
+    document.getElementById("divProbePreview").style.display="block";
+    drawProbePreview(tmpProbe);
   }
 
 
@@ -168,18 +201,98 @@ function probeRemove(){
 
 function probeAction(){
 
-  console.log(123);
+  if(document.getElementById("id_selectProbeRangeType").selectedIndex==3){
+    //check if custom range is correct
+  }
 
+  var tmpProbe;
   if(document.getElementById("id_selectProbeList").selectedIndex==0){
     // ADD new Probe
-    var tmpProbe = new classProbe(document.getElementById("id_selectProbeType").selectedIndex, document.getElementById("id_selectProbeFunctionType").selectedIndex, document.getElementById("id_selectProbeRangeType").selectedIndex);
+    tmpProbe = new classProbe(document.getElementById("id_selectProbeType").selectedIndex, document.getElementById("id_selectProbeFunctionType").selectedIndex, document.getElementById("id_selectProbeRangeType").selectedIndex);
     globalCMS1.addProbe(tmpProbe);
+    updateProbeList();
+    document.getElementById("id_selectProbeList").selectedIndex=document.getElementById("id_selectProbeList").options.length-1;
+    document.getElementById("divProbePreview").style.display="block";
 
   }
   else{
-
     // Update Probe
+    tmpProbe = getProbe(document.getElementById("id_selectProbeList").selectedIndex-1);
+    tmpProbe.changeType(document.getElementById("id_selectProbeType").selectedIndex);
+    tmpProbe.changeFunction(document.getElementById("id_selectProbeFunctionType").selectedIndex);
+    tmpProbe.changeRangeType(document.getElementById("id_selectProbeRangeType").selectedIndex);
+    tmpProbe.clearIntervalColors();
+    updateProbeList();
   }
 
-  updateProbeList();
+  /////////// Calclate Colors
+
+  switch (document.getElementById("id_selectProbeFunctionType").selectedIndex) {
+    case 0:
+      switch (document.getElementById("id_selectProbeRangeType").selectedIndex) {
+        case 0:
+          tmpProbe.addIntervalColorPos(parseFloat(document.getElementById("id_inputSingleProbeRangeStart"), parseFloat(document.getElementById("id_inputSingleProbeRangeEnd"))));
+          break;
+          case 1:
+
+            var startVal = parseFloat(document.getElementById("id_inputSingleProbeRangeStart").value);
+            var endVal = globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1);
+            var intervalLength = parseFloat(document.getElementById("id_inputProbeIntervalLength").value);
+            var numberOfSteps = Math.round((endVal-startVal)/intervalLength);
+            endVal=startVal+intervalLength*numberOfSteps; // real End out of the border of the CMS
+
+            var currentPos = startVal;
+
+            for (var i = 0; i < numberOfSteps; i++) {
+
+              if(i == numberOfSteps-1){
+                tmpProbe.addIntervalColorPos(currentPos, globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1));
+              }
+              else
+                tmpProbe.addIntervalColorPos(currentPos, currentPos+intervalLength);
+              currentPos+=intervalLength;
+            }
+
+            break;
+            case 2:
+              var startVal = parseFloat(document.getElementById("id_inputSingleProbeRangeStart").value);
+              var endVal = parseFloat(document.getElementById("id_inputSingleProbeRangeEnd").value);
+
+              var numberOfIntervals = parseFloat(document.getElementById("id_inputNumberIntervalAuto").value);
+              var intervalLength = (endVal-startVal)/numberOfIntervals;
+              var currentPos=startVal;
+
+              for (var i = 0; i < numberOfIntervals; i++) {
+                if(i == numberOfSteps-1){
+                  tmpProbe.addIntervalColorPos(currentPos, globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1));
+                }
+                else
+                  tmpProbe.addIntervalColorPos(currentPos, currentPos+intervalLength);
+                currentPos+=intervalLength;
+              }
+
+              break;
+              case 3:
+
+                break;
+        default:
+
+      }
+      break;
+    default:
+    console.log("Error at the probeAction function.");
+  }
+
+
+
+  //
+  globalCMS1.setProbe(document.getElementById("id_selectProbeList").selectedIndex-1,tmpProbe)
+
+  // draw Probe Preview
+  drawProbePreview(tmpProbe);
+}
+
+
+function drawProbePreview(probe){
+  drawCanvasColormap("id_linearProbePreview", linearMap_resolution_X, linearMap_resolution_Y, probe.generateProbeCMS(globalCMS1,colorspaceModus));
 }
