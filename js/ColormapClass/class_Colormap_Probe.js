@@ -27,9 +27,23 @@ class classProbe{
         this.intervalEndPos=[];
       }
 
-      generateProbeCMS(tmpCMS,interpolationSpace){
+      getProbeArrayLength(){
+        return this.intervalStartPos.length;
+      }
+
+      getProbeRangeStart(index){
+        return this.intervalStartPos[index];
+      }
+
+      getProbeRangeEnd(index){
+        return this.intervalEndPos[index];
+      }
+
+      generateProbeCMS(tmpCMS,interpolationSpace,newName){
 
           var newCMS = cloneCMS(tmpCMS);
+
+          newCMS.setColormapName(newName);
 
           var posArray=[];
           var typeArray=[]; // s = start, e=end, se= start and end, k=key;
@@ -66,8 +80,6 @@ class classProbe{
             if(currentArrayPos>=posArray.length)
             break;
           }
-
-
 
 
           for (var i = 0; i < tmpCMS.getKeyLength(); i++) {
@@ -140,10 +152,29 @@ class classProbe{
               while (posArray[currentArrayPos]<tmpCMS.getRefPosition(i+1)) {
 
                 var colorL = tmpCMS.calculateColor(posArray[currentArrayPos], interpolationSpace);
-
                 colorL=colorL.calcHSVColor();
-                colorL.set3Value(1);
-                var colorR = new classColor_HSV(colorL.get1Value(),colorL.get2Value(),0);
+                var colorR;
+
+
+
+
+                switch (typeArray[currentArrayPos]) {
+                  case "S":
+                    colorR = new classColor_HSV(colorL.get1Value(),colorL.get2Value(),0);
+                    break;
+                    case "E":
+                      colorR = new classColor_HSV(colorL.get1Value(),colorL.get2Value(),colorL.get3Value());
+                      colorL.set3Value(1);
+                      break;
+                      case "SE":
+                        colorL.set3Value(1);
+                        colorR = new classColor_HSV(colorL.get1Value(),colorL.get2Value(),0);
+                        break;
+                  default:
+                    console.log("Error at function generateProbeCMS");
+                    return;
+                }
+
 
                 numberOfInsertIntervals++;
                 newCMS.insertKey(i+numberOfInsertIntervals,new class_Key(colorL, colorR, posArray[currentArrayPos]));

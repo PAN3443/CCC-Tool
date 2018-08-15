@@ -131,9 +131,16 @@ function orderColorSketch(forColorspace) {
 
         document.getElementById("div_colormapLinear").style.display = "inline-block";
 
+        if(showSideID==1)
+          document.getElementById("bandSketchAutoRangeDiv").style.display="block";
+        else
+          document.getElementById("bandSketchAutoRangeDiv").style.display="none";
+
+
       }
       else{
         document.getElementById("div_colormapLinear").style.display = "none";
+        document.getElementById("bandSketchAutoRangeDiv").style.display="none";
       }
 
 
@@ -215,6 +222,8 @@ function changeKeyValueInput(keyIndex, fielID) {
     }
   }
 
+
+  updateAutoRangeInput();
 }
 
 

@@ -26,6 +26,20 @@ class class_CMS {
   //// Key Structure
   /////////////////////////////////
 
+  setAutoRange(newStart,newEnd){
+
+    var currentStart = this.keyArray[0].getRefPosition();
+    var currentdistance = this.keyArray[this.keyArray.length-1].getRefPosition()-currentStart;
+    var newDistance = newEnd-newStart;
+
+    for (var i = 0; i < this.keyArray.length; i++) {
+      var ratio = (this.keyArray[i].getRefPosition()-currentStart)/currentdistance;
+      var newPos = newStart+ratio*newDistance;
+      this.keyArray[i].setRefPosition(newPos);
+    }
+
+  }
+
   calculateColor(val, interpolationSpace){
 
     if(val<this.keyArray[0].getRefPosition()){

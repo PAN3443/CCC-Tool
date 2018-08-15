@@ -30,6 +30,8 @@ function switchCCCToolMode(event){
     document.getElementById("button_showSettings").style.display = "inline-block";
     document.getElementById("id_selectPathModifying").style.display = "inline-block";
     document.getElementById("id_selectManageProbes").style.display = "inline-block";
+    document.getElementById("exportprobeDiv").style.display = "block";
+
 
 
     if (showSideID == 1) {
@@ -58,6 +60,7 @@ function switchCCCToolMode(event){
     document.getElementById("id_Mapping_Table_Div").style.display = "none";
     document.getElementById("id_selectPathModifying").style.display = "none";
     document.getElementById("id_selectManageProbes").style.display = "none";
+    document.getElementById("exportprobeDiv").style.display = "none";
 
     if(document.getElementById("modifyColormapPath").style.display != "none"){
       switchModifyModus(0);

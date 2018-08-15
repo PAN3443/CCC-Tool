@@ -7,31 +7,48 @@ function initExportWindow(){
 
 function fillExportTable(){
 
-    globalCMS1.calcDeltaIntervalColors(intervalDelta, colorspaceModus,0,globalCMS1.getKeyLength()-1);
+
+    var workCMS;
+
+    if(document.getElementById("id_selectProbeListExport").selectedIndex==-1 || document.getElementById('switchExpertModeWelcomePage').checked==false){
+      document.getElementById("id_selectProbeListExport").selectedIndex=0;
+    }
+    if(document.getElementById("id_selectProbeListExport").selectedIndex!=0){
+        var probe = globalCMS1.getProbe(document.getElementById("id_selectProbeListExport").selectedIndex-1);
+        var newname = globalCMS1.setColormapName()+"_Probe-"+document.getElementById("id_selectProbeListExport").selectedIndex;
+
+        workCMS = probe.generateProbeCMS(globalCMS1,colorspaceModus,newname);
+    }
+    else{
+        workCMS = cloneCMS(globalCMS1);
+    }
+
+
+    workCMS.calcDeltaIntervalColors(intervalDelta, colorspaceModus,0,workCMS.getKeyLength()-1);
 
     var old_tbody = document.getElementById("id_exportTableBody");
     var new_tbody = document.createElement('tbody');
 
     var counter = 1;
 
-    for (var i = 0; i < globalCMS1.getKeyLength(); i++) {
+    for (var i = 0; i < workCMS.getKeyLength(); i++) {
 
-      switch (globalCMS1.getKeyType(i)) {
+      switch (workCMS.getKeyType(i)) {
         case "nil key": case "left key":
 
-          if(i==globalCMS1.getKeyLength()-1){
-            new_tbody.appendChild(createExportTableRow(counter,globalCMS1.getRefPosition(i), globalCMS1.getKeyType(i), globalCMS1.getLeftKeyColor(i,"rgb")));
+          if(i==workCMS.getKeyLength()-1){
+            new_tbody.appendChild(createExportTableRow(counter,workCMS.getRefPosition(i), workCMS.getKeyType(i), workCMS.getLeftKeyColor(i,"rgb")));
             counter++;
           }
           else{
 
 
-            if(globalCMS1.getKeyType(i)=="left key"){
-            new_tbody.appendChild(createExportTableRow(counter,globalCMS1.getRefPosition(i), globalCMS1.getKeyType(i), globalCMS1.getLeftKeyColor(i,"rgb")));
+            if(workCMS.getKeyType(i)=="left key"){
+            new_tbody.appendChild(createExportTableRow(counter,workCMS.getRefPosition(i), workCMS.getKeyType(i), workCMS.getLeftKeyColor(i,"rgb")));
             counter++;
             }
 
-            new_tbody.appendChild(createExportTableRow(counter,globalCMS1.getRefPosition(i), globalCMS1.getKeyType(i), globalCMS1.getLeftKeyColor(i+1,"rgb")));
+            new_tbody.appendChild(createExportTableRow(counter,workCMS.getRefPosition(i), workCMS.getKeyType(i), workCMS.getLeftKeyColor(i+1,"rgb")));
             counter++;
 
         }
@@ -39,34 +56,34 @@ function fillExportTable(){
         break;
         case "twin key":
 
-          var intervalIndexA = globalCMS1.getIntervalPositions(i);
-          new_tbody.appendChild(createExportTableRow(counter,globalCMS1.getRefPosition(i), globalCMS1.getKeyType(i), globalCMS1.getLeftKeyColor(i,"rgb")));
+          var intervalIndexA = workCMS.getIntervalPositions(i);
+          new_tbody.appendChild(createExportTableRow(counter,workCMS.getRefPosition(i), workCMS.getKeyType(i), workCMS.getLeftKeyColor(i,"rgb")));
           counter++;
-          new_tbody.appendChild(createExportTableRow(counter,globalCMS1.getRefPosition(i), globalCMS1.getKeyType(i), globalCMS1.getRightKeyColor(i,"rgb")));
+          new_tbody.appendChild(createExportTableRow(counter,workCMS.getRefPosition(i), workCMS.getKeyType(i), workCMS.getRightKeyColor(i,"rgb")));
           counter++;
 
 
           for(var j=intervalIndexA[0]; j<=intervalIndexA[1]; j++){
 
-            if(globalCMS1.getIntervalisKey(j))
+            if(workCMS.getIntervalisKey(j))
             continue;
 
-            new_tbody.appendChild(createExportTableRow(counter,globalCMS1.getIntervalRef(j), "interval", globalCMS1.getIntervalColor(j,"rgb")));
+            new_tbody.appendChild(createExportTableRow(counter,workCMS.getIntervalRef(j), "interval", workCMS.getIntervalColor(j,"rgb")));
             counter++;
           }
 
           break;
         default:
-          var intervalIndexA = globalCMS1.getIntervalPositions(i);
-          new_tbody.appendChild(createExportTableRow(counter,globalCMS1.getRefPosition(i), globalCMS1.getKeyType(i), globalCMS1.getRightKeyColor(i,"rgb")));
+          var intervalIndexA = workCMS.getIntervalPositions(i);
+          new_tbody.appendChild(createExportTableRow(counter,workCMS.getRefPosition(i), workCMS.getKeyType(i), workCMS.getRightKeyColor(i,"rgb")));
           counter++;
 
           for(var j=intervalIndexA[0]; j<=intervalIndexA[1]; j++){
 
-            if(globalCMS1.getIntervalisKey(j))
+            if(workCMS.getIntervalisKey(j))
             continue;
 
-            new_tbody.appendChild(createExportTableRow(counter,globalCMS1.getIntervalRef(j), "interval", globalCMS1.getIntervalColor(j,"rgb")));
+            new_tbody.appendChild(createExportTableRow(counter,workCMS.getIntervalRef(j), "interval", workCMS.getIntervalColor(j,"rgb")));
             counter++;
           }
 
@@ -191,21 +208,33 @@ function exportSide_downloadFile(){
     var filename;
     var text;
 
+    var workCMS;
+
+    if(document.getElementById("id_selectProbeListExport").selectedIndex==-1 || document.getElementById('switchExpertModeWelcomePage').checked==false){
+      document.getElementById("id_selectProbeListExport").selectedIndex=0;
+    }
+    if(document.getElementById("id_selectProbeListExport").selectedIndex!=0){
+        var probe = globalCMS1.getProbe(document.getElementById("id_selectProbeListExport").selectedIndex-1);
+        workCMS = probe.generateProbeCMS(globalCMS1,colorspaceModus);
+    }
+    else{
+        workCMS = cloneCMS(globalCMS1);
+    }
 
      switch(outputFormat) {
         case 0:
             // lookup table
-            filename = "ccc-tool_colormap_"+globalCMS1.getColormapName()+".csv";
-            text = exportSide_createCSV_Lookup();
+            filename = "ccc-tool_colormap_"+workCMS.getColormapName()+".csv";
+            text = exportSide_createCSV_Lookup(workCMS);
             break;
         case 1:
             // xml
-            filename = "ccc-tool_colormap_"+globalCMS1.getColormapName()+".xml";
-            text = exportSide_createXML();
+            filename = "ccc-tool_colormap_"+workCMS.getColormapName()+".xml";
+            text = exportSide_createXML(workCMS);
             break;
         case 2:
-            filename = "ccc-tool_colormap_"+globalCMS1.getColormapName()+".json";
-            text = exportSide_createJSON()
+            filename = "ccc-tool_colormap_"+workCMS.getColormapName()+".json";
+            text = exportSide_createJSON(workCMS)
             break;
         default:
             return;
@@ -224,13 +253,13 @@ function exportSide_downloadFile(){
     document.body.removeChild(element);
 }
 
-function exportSide_createXML(){
+function exportSide_createXML(workCMS){
 
     /*intervalSize = parseFloat(document.getElementById("id_InputIntervalExport").value);
-    globalCMS1.calcIntervalColors(intervalSize, colorspaceModus);*/
-    globalCMS1.calcDeltaIntervalColors(intervalDelta, colorspaceModus,0,globalCMS1.getKeyLength()-1);
+    workCMS.calcIntervalColors(intervalSize, colorspaceModus);*/
+    workCMS.calcDeltaIntervalColors(intervalDelta, colorspaceModus,0,workCMS.getKeyLength()-1);
 
-    var xmltext = "<ColorMaps>\n<ColorMap name=\""+globalCMS1.getColormapName()+"\" space=\"";
+    var xmltext = "<ColorMaps>\n<ColorMap name=\""+workCMS.getColormapName()+"\" space=\"";
 
     switch(exportColorspace) {
             case "rgb":
@@ -251,22 +280,22 @@ function exportSide_createXML(){
 
     xmltext = xmltext+"\" creator=\"CCC-Tool\">\n";
 
-      xmltext = xmltext+createCMSText("xml");
+      xmltext = xmltext+createCMSText(workCMS,"xml");
 
       xmltext=xmltext+"</ColorMap>\n</ColorMaps>";
       return xmltext;
 }
 
-function exportSide_createCSV_Lookup(){
+function exportSide_createCSV_Lookup(workCMS){
 
     var text = "";
 
     /*intervalSize = parseFloat(document.getElementById("id_InputIntervalExport").value);
-    globalCMS1.calcIntervalColors(intervalSize, colorspaceModus);*/
-    globalCMS1.calcDeltaIntervalColors(intervalDelta, colorspaceModus,0,globalCMS1.getKeyLength()-1);
+    workCMS.calcIntervalColors(intervalSize, colorspaceModus);*/
+    workCMS.calcDeltaIntervalColors(intervalDelta, colorspaceModus,0,workCMS.getKeyLength()-1);
 
     var opacityVal =1;
-    var tmpColor2 = globalCMS1.getNaNColor(exportColorspace);
+    var tmpColor2 = workCMS.getNaNColor(exportColorspace);
     switch(exportColorspace) {
             case "rgb":
                 text = text+"Reference;R;G;B;Opacity;cms;isMoT;;NaN;R;"+tmpColor2.getRValue()+";G;"+tmpColor2.getGValue()+";B;"+tmpColor2.getBValue()+"\n";
@@ -289,30 +318,30 @@ function exportSide_createCSV_Lookup(){
     return text.substring(0, text.length - 1);
 }
 
-function createCMSText(format){
+function createCMSText(workCMS,format){
 
   var text = "";
-  for (var i = 0; i < globalCMS1.getKeyLength(); i++) {
+  for (var i = 0; i < workCMS.getKeyLength(); i++) {
 
-    switch (globalCMS1.getKeyType(i)) {
+    switch (workCMS.getKeyType(i)) {
       case "nil key": case "left key":
 
-        if(i==globalCMS1.getKeyLength()-1)
-          text = text+createLine(format,globalCMS1.getLeftKeyColor(i,exportColorspace),globalCMS1.getRefPosition(i),globalCMS1.getOpacityVal(i,"left"),true,true);
+        if(i==workCMS.getKeyLength()-1)
+          text = text+createLine(format,workCMS.getLeftKeyColor(i,exportColorspace),workCMS.getRefPosition(i),workCMS.getOpacityVal(i,"left"),true,true);
         else{
 
           var isMot=false;
-          if(globalCMS1.getKeyType(i)=="left key"){
-            if(globalCMS1.getMoT(i)==false){
-              text = text+createLine(format,globalCMS1.getLeftKeyColor(i,exportColorspace),globalCMS1.getRefPosition(i),globalCMS1.getOpacityVal(i,"left"),true,true);
+          if(workCMS.getKeyType(i)=="left key"){
+            if(workCMS.getMoT(i)==false){
+              text = text+createLine(format,workCMS.getLeftKeyColor(i,exportColorspace),workCMS.getRefPosition(i),workCMS.getOpacityVal(i,"left"),true,true);
             }
             else{
-              text = text+createLine(format,globalCMS1.getLeftKeyColor(i,exportColorspace),globalCMS1.getRefPosition(i),globalCMS1.getOpacityVal(i,"left"),true,false);
+              text = text+createLine(format,workCMS.getLeftKeyColor(i,exportColorspace),workCMS.getRefPosition(i),workCMS.getOpacityVal(i,"left"),true,false);
               isMot=true;
             }
 
           }
-          text = text+createLine(format,globalCMS1.getLeftKeyColor(i+1,exportColorspace),globalCMS1.getRefPosition(i),globalCMS1.getOpacityVal(i,"right"),true,isMot)  ;
+          text = text+createLine(format,workCMS.getLeftKeyColor(i+1,exportColorspace),workCMS.getRefPosition(i),workCMS.getOpacityVal(i,"right"),true,isMot)  ;
 
 
       }
@@ -321,50 +350,50 @@ function createCMSText(format){
       case "twin key":
 
         var isMot=false;
-        if(globalCMS1.getMoT(i)==false){
-          text = text+createLine(format,globalCMS1.getLeftKeyColor(i,exportColorspace),globalCMS1.getRefPosition(i),globalCMS1.getOpacityVal(i,"left"),true,true);
+        if(workCMS.getMoT(i)==false){
+          text = text+createLine(format,workCMS.getLeftKeyColor(i,exportColorspace),workCMS.getRefPosition(i),workCMS.getOpacityVal(i,"left"),true,true);
         }
         else{
-          text = text+createLine(format,globalCMS1.getLeftKeyColor(i,exportColorspace),globalCMS1.getRefPosition(i),globalCMS1.getOpacityVal(i,"left"),true,false);
+          text = text+createLine(format,workCMS.getLeftKeyColor(i,exportColorspace),workCMS.getRefPosition(i),workCMS.getOpacityVal(i,"left"),true,false);
           isMot=true;
         }
-        text = text+createLine(format,globalCMS1.getRightKeyColor(i,exportColorspace),globalCMS1.getRefPosition(i),globalCMS1.getOpacityVal(i,"right"),true,isMot)  ;
+        text = text+createLine(format,workCMS.getRightKeyColor(i,exportColorspace),workCMS.getRefPosition(i),workCMS.getOpacityVal(i,"right"),true,isMot)  ;
 
-        if(globalCMS1.getIntervalLength()==0)
+        if(workCMS.getIntervalLength()==0)
         break;
 
-        var intervalIndexA = globalCMS1.getIntervalPositions(i);
+        var intervalIndexA = workCMS.getIntervalPositions(i);
         var numOfIntervals = (intervalIndexA[1]+1)-(intervalIndexA[0]+1);
-        var intervalOpacityStep = (globalCMS1.getOpacityVal(i+1,"left")-globalCMS1.getOpacityVal(i,"right"))/(numOfIntervals+1);
+        var intervalOpacityStep = (workCMS.getOpacityVal(i+1,"left")-workCMS.getOpacityVal(i,"right"))/(numOfIntervals+1);
 
         for(var j=intervalIndexA[0]; j<=intervalIndexA[1]; j++){
 
-          if(globalCMS1.getIntervalisKey(j))
+          if(workCMS.getIntervalisKey(j))
           continue;
 
-          var intervalOpacity = globalCMS1.getOpacityVal(i,"right")-(intervalOpacityStep*(j-intervalIndexA[0]));
-          text = text+createLine(format,globalCMS1.getIntervalColor(j,exportColorspace),globalCMS1.getIntervalRef(j),intervalOpacity,false,false);
+          var intervalOpacity = workCMS.getOpacityVal(i,"right")-(intervalOpacityStep*(j-intervalIndexA[0]));
+          text = text+createLine(format,workCMS.getIntervalColor(j,exportColorspace),workCMS.getIntervalRef(j),intervalOpacity,false,false);
         }
 
         break;
       default:
 
-        text = text+createLine(format,globalCMS1.getRightKeyColor(i,exportColorspace),globalCMS1.getRefPosition(i),globalCMS1.getOpacityVal(i,"right"),true,false);
+        text = text+createLine(format,workCMS.getRightKeyColor(i,exportColorspace),workCMS.getRefPosition(i),workCMS.getOpacityVal(i,"right"),true,false);
 
-        if(globalCMS1.getIntervalLength()==0)
+        if(workCMS.getIntervalLength()==0)
         break;
 
-        var intervalIndexA = globalCMS1.getIntervalPositions(i);
+        var intervalIndexA = workCMS.getIntervalPositions(i);
         var numOfIntervals = (intervalIndexA[1]+1)-(intervalIndexA[0]+1);
-        var intervalOpacityStep = (globalCMS1.getOpacityVal(i+1,"left")-globalCMS1.getOpacityVal(i,"right"))/(numOfIntervals+1);
+        var intervalOpacityStep = (workCMS.getOpacityVal(i+1,"left")-workCMS.getOpacityVal(i,"right"))/(numOfIntervals+1);
 
         for(var j=intervalIndexA[0]; j<=intervalIndexA[1]; j++){
 
-          if(globalCMS1.getIntervalisKey(j))
+          if(workCMS.getIntervalisKey(j))
           continue;
 
-          var intervalOpacity = globalCMS1.getOpacityVal(i,"right")-(intervalOpacityStep*(j-intervalIndexA[0]));
-          text = text+createLine(format,globalCMS1.getIntervalColor(j,exportColorspace),globalCMS1.getIntervalRef(j),intervalOpacity,false,false);
+          var intervalOpacity = workCMS.getOpacityVal(i,"right")-(intervalOpacityStep*(j-intervalIndexA[0]));
+          text = text+createLine(format,workCMS.getIntervalColor(j,exportColorspace),workCMS.getIntervalRef(j),intervalOpacity,false,false);
         }
 
       }
@@ -452,11 +481,11 @@ function createLine(format,tmpColor,refVal,opacityVal,isCMS,isMoT){
 
 
 
-function exportSide_createJSON(){
+function exportSide_createJSON(workCMS){
 
     /*intervalSize = parseFloat(document.getElementById("id_InputIntervalExport").value);
-    globalCMS1.calcIntervalColors(intervalSize, colorspaceModus);*/
-    globalCMS1.calcDeltaIntervalColors(intervalDelta, colorspaceModus,0,globalCMS1.getKeyLength()-1);
+    workCMS.calcIntervalColors(intervalSize, colorspaceModus);*/
+    workCMS.calcDeltaIntervalColors(intervalDelta, colorspaceModus,0,workCMS.getKeyLength()-1);
 
     var jsontext = "[\n\t{\n\t\t\"ColorSpace\" : ";
 
@@ -479,8 +508,8 @@ function exportSide_createJSON(){
 
 
 
-    jsontext = jsontext+",\n\t\t\"Creator\" : \"CCC-Tool\",\n\t\t\"Name\" : \""+globalCMS1.getColormapName()+"\",\n\t\t\"NanColor\" : [";
-    var tmpColor = globalCMS1.getNaNColor(exportColorspace);
+    jsontext = jsontext+",\n\t\t\"Creator\" : \"CCC-Tool\",\n\t\t\"Name\" : \""+workCMS.getColormapName()+"\",\n\t\t\"NanColor\" : [";
+    var tmpColor = workCMS.getNaNColor(exportColorspace);
 
     switch(exportColorspace) {
             case "rgb":
@@ -505,26 +534,26 @@ function exportSide_createJSON(){
     var isMoTtext="\n\t\t],\n\t\t\"isMoT\" : [";
 
 
-    for (var i = 0; i < globalCMS1.getKeyLength(); i++) {
+    for (var i = 0; i < workCMS.getKeyLength(); i++) {
 
-          switch (globalCMS1.getKeyType(i)) {
+          switch (workCMS.getKeyType(i)) {
             case "nil key": case "left key":
 
-              if(i==globalCMS1.getKeyLength()-1){
-                colortext = colortext+createLine("json",globalCMS1.getLeftKeyColor(i,exportColorspace),globalCMS1.getRefPosition(i),globalCMS1.getOpacityVal(i,"left"),true,true);
+              if(i==workCMS.getKeyLength()-1){
+                colortext = colortext+createLine("json",workCMS.getLeftKeyColor(i,exportColorspace),workCMS.getRefPosition(i),workCMS.getOpacityVal(i,"left"),true,true);
                 isCMStext=isCMStext+"\n\t\t\t"+true;
                 isMoTtext=isMoTtext+"\n\t\t\t"+false;
               }
               else{
 
                 var isMot=false;
-                if(globalCMS1.getKeyType(i)=="left key"){
-                  if(globalCMS1.getMoT(i)==false){
-                    colortext = colortext+createLine("json",globalCMS1.getLeftKeyColor(i,exportColorspace),globalCMS1.getRefPosition(i),globalCMS1.getOpacityVal(i,"left"),true,true)+",";
+                if(workCMS.getKeyType(i)=="left key"){
+                  if(workCMS.getMoT(i)==false){
+                    colortext = colortext+createLine("json",workCMS.getLeftKeyColor(i,exportColorspace),workCMS.getRefPosition(i),workCMS.getOpacityVal(i,"left"),true,true)+",";
                     isMoTtext=isMoTtext+"\n\t\t\t"+true+",";
                   }
                   else{
-                    colortext = colortext+createLine("json",globalCMS1.getLeftKeyColor(i,exportColorspace),globalCMS1.getRefPosition(i),globalCMS1.getOpacityVal(i,"left"),true,false)+",";
+                    colortext = colortext+createLine("json",workCMS.getLeftKeyColor(i,exportColorspace),workCMS.getRefPosition(i),workCMS.getOpacityVal(i,"left"),true,false)+",";
                     isMot=true;
                     isMoTtext=isMoTtext+"\n\t\t\t"+false+",";
                   }
@@ -533,7 +562,7 @@ function exportSide_createJSON(){
 
 
                 }
-                colortext = colortext+createLine("json",globalCMS1.getLeftKeyColor(i+1,exportColorspace),globalCMS1.getRefPosition(i),globalCMS1.getOpacityVal(i,"right"),true,isMot)+",";
+                colortext = colortext+createLine("json",workCMS.getLeftKeyColor(i+1,exportColorspace),workCMS.getRefPosition(i),workCMS.getOpacityVal(i,"right"),true,isMot)+",";
                 isCMStext=isCMStext+"\n\t\t\t"+true+",";
                 isMoTtext=isMoTtext+"\n\t\t\t"+isMot+",";
 
@@ -542,35 +571,35 @@ function exportSide_createJSON(){
 
             break;
             case "twin key":
-              var intervalIndexA = globalCMS1.getIntervalPositions(i);
+              var intervalIndexA = workCMS.getIntervalPositions(i);
               var numOfIntervals = (intervalIndexA[1]+1)-(intervalIndexA[0]+1);
-              var intervalOpacityStep = (globalCMS1.getOpacityVal(i+1,"left")-globalCMS1.getOpacityVal(i,"right"))/(numOfIntervals+1);
+              var intervalOpacityStep = (workCMS.getOpacityVal(i+1,"left")-workCMS.getOpacityVal(i,"right"))/(numOfIntervals+1);
 
               var isMot=false;
 
               isCMStext=isCMStext+"\n\t\t\t"+true+",";
-              if(globalCMS1.getMoT(i)==false){
-                colortext = colortext+createLine("json",globalCMS1.getLeftKeyColor(i,exportColorspace),globalCMS1.getRefPosition(i),globalCMS1.getOpacityVal(i,"left"),true,true)+",";
+              if(workCMS.getMoT(i)==false){
+                colortext = colortext+createLine("json",workCMS.getLeftKeyColor(i,exportColorspace),workCMS.getRefPosition(i),workCMS.getOpacityVal(i,"left"),true,true)+",";
                 isMoTtext=isMoTtext+"\n\t\t\t"+true+",";
               }
               else{
-                colortext = colortext+createLine("json",globalCMS1.getLeftKeyColor(i,exportColorspace),globalCMS1.getRefPosition(i),globalCMS1.getOpacityVal(i,"left"),true,false)+",";
+                colortext = colortext+createLine("json",workCMS.getLeftKeyColor(i,exportColorspace),workCMS.getRefPosition(i),workCMS.getOpacityVal(i,"left"),true,false)+",";
                 isMot=true;
                 isMoTtext=isMoTtext+"\n\t\t\t"+false+",";
               }
 
-              colortext = colortext+createLine("json",globalCMS1.getRightKeyColor(i,exportColorspace),globalCMS1.getRefPosition(i),globalCMS1.getOpacityVal(i,"right"),true,isMot)+",";
+              colortext = colortext+createLine("json",workCMS.getRightKeyColor(i,exportColorspace),workCMS.getRefPosition(i),workCMS.getOpacityVal(i,"right"),true,isMot)+",";
               isCMStext=isCMStext+"\n\t\t\t"+true+",";
               isMoTtext=isMoTtext+"\n\t\t\t"+isMot+",";
 
 
               for(var j=intervalIndexA[0]; j<=intervalIndexA[1]; j++){
 
-                if(globalCMS1.getIntervalisKey(j))
+                if(workCMS.getIntervalisKey(j))
                 continue;
 
-                var intervalOpacity = globalCMS1.getOpacityVal(i,"right")-(intervalOpacityStep*(j-intervalIndexA[0]));
-                colortext = colortext+createLine("json",globalCMS1.getIntervalColor(j,exportColorspace),globalCMS1.getIntervalRef(j),intervalOpacity,false,false)+",";
+                var intervalOpacity = workCMS.getOpacityVal(i,"right")-(intervalOpacityStep*(j-intervalIndexA[0]));
+                colortext = colortext+createLine("json",workCMS.getIntervalColor(j,exportColorspace),workCMS.getIntervalRef(j),intervalOpacity,false,false)+",";
                 isCMStext=isCMStext+"\n\t\t\t"+false+",";
                 isMoTtext=isMoTtext+"\n\t\t\t"+false+",";
               }
@@ -579,21 +608,21 @@ function exportSide_createJSON(){
 
               break;
             default:
-              var intervalIndexA = globalCMS1.getIntervalPositions(i);
+              var intervalIndexA = workCMS.getIntervalPositions(i);
               var numOfIntervals = (intervalIndexA[1]+1)-(intervalIndexA[0]+1);
-              var intervalOpacityStep = (globalCMS1.getOpacityVal(i+1,"left")-globalCMS1.getOpacityVal(i,"right"))/(numOfIntervals+1);
-              colortext = colortext+createLine("json",globalCMS1.getRightKeyColor(i,exportColorspace),globalCMS1.getRefPosition(i),globalCMS1.getOpacityVal(i,"right"),true,false)+",";
+              var intervalOpacityStep = (workCMS.getOpacityVal(i+1,"left")-workCMS.getOpacityVal(i,"right"))/(numOfIntervals+1);
+              colortext = colortext+createLine("json",workCMS.getRightKeyColor(i,exportColorspace),workCMS.getRefPosition(i),workCMS.getOpacityVal(i,"right"),true,false)+",";
               isCMStext=isCMStext+"\n\t\t\t"+true+",";
               isMoTtext=isMoTtext+"\n\t\t\t"+false+",";
 
 
               for(var j=intervalIndexA[0]; j<=intervalIndexA[1]; j++){
 
-                if(globalCMS1.getIntervalisKey(j))
+                if(workCMS.getIntervalisKey(j))
                 continue;
 
-                var intervalOpacity = globalCMS1.getOpacityVal(i,"right")-(intervalOpacityStep*(j-intervalIndexA[0]));
-                colortext = colortext+createLine("json",globalCMS1.getIntervalColor(j,exportColorspace),globalCMS1.getIntervalRef(j),intervalOpacity,false,false)+",";
+                var intervalOpacity = workCMS.getOpacityVal(i,"right")-(intervalOpacityStep*(j-intervalIndexA[0]));
+                colortext = colortext+createLine("json",workCMS.getIntervalColor(j,exportColorspace),workCMS.getIntervalRef(j),intervalOpacity,false,false)+",";
                 isCMStext=isCMStext+"\n\t\t\t"+false+",";
                 isMoTtext=isMoTtext+"\n\t\t\t"+false+",";
               }

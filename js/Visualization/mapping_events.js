@@ -1,6 +1,11 @@
 
 
+function updateDomainCMSRange(){
 
+  globalCMS1.setAutoRange(globalDomain.getMinField(currentFieldIndex),globalDomain.getMaxField(currentFieldIndex));
+  orderColorSketch();
+
+}
 
 
 function updateProgressBar(status){
@@ -251,10 +256,24 @@ function drawHistogramMap(rangeStart,rangeEnd){
 
   var range = rangeEnd-rangeStart;
 
+  var workCMS;
+  if(document.getElementById("mapping_checkProbeVis").checked){
+    if(document.getElementById("id_selectProbeListVIS").selectedIndex!=-1){
+      var probe = globalCMS1.getProbe(document.getElementById("id_selectProbeListVIS").selectedIndex);
+      workCMS = probe.generateProbeCMS(globalCMS1,colorspaceModus);
+    }
+    else{
+      workCMS = cloneCMS(globalCMS1);
+    }
+  }
+  else{
+    workCMS = cloneCMS(globalCMS1);
+  }
+
   for (var x = 0; x < canvasPlot.width; x++) {
     var value = x / canvasPlot.width * range + rangeStart;
 
-    var tmpCurrentColor = globalCMS1.calculateColor(value, colorspaceModus);
+    var tmpCurrentColor = workCMS.calculateColor(value, colorspaceModus);
 
 
     if(document.getElementById("id_affectHistogram").checked && doColorblindnessSim){
@@ -273,8 +292,8 @@ function drawHistogramMap(rangeStart,rangeEnd){
 
   canvasCtx.putImageData(canvasData, 0, 0);
 
-  var start = globalCMS1.getKey(0).getRefPosition();
-  var end = globalCMS1.getKey(globalCMS1.getKeyLength()-1).getRefPosition();
+  var start = workCMS.getKey(0).getRefPosition();
+  var end = workCMS.getKey(workCMS.getKeyLength()-1).getRefPosition();
 
   if(start >= rangeEnd || end <= rangeStart){
     document.getElementById("id_histogramCoveringLabel").innerHTML = "Colormap is covering 0% of the Data-Range.";

@@ -21,12 +21,25 @@ function drawMapping() {
 
       var facesArray = new Array(globalDomain.getNumberOfCells()*2);
 
+      var workCMS;
+      if(document.getElementById("mapping_checkProbeVis").checked){
+        if(document.getElementById("id_selectProbeListVIS").selectedIndex!=-1){
+          var probe = globalCMS1.getProbe(document.getElementById("id_selectProbeListVIS").selectedIndex);
+          workCMS = probe.generateProbeCMS(globalCMS1,colorspaceModus,"");
+        }
+        else{
+          workCMS = cloneCMS(globalCMS1);
+        }
+      }
+      else{
+        workCMS = cloneCMS(globalCMS1);
+      }
 
       for (var index = 0; index < globalDomain.getNumberOfCells(); index++) {
 
         var value= globalDomain.getCell(index).getCellValue();
 
-        var toolColor = globalCMS1.calculateColor(globalDomain.getCell(index).getCellValue(), colorspaceModus);
+        var toolColor = workCMS.calculateColor(globalDomain.getCell(index).getCellValue(), colorspaceModus);
 
         if(doColorblindnessSim){
           var tmpLMS = toolColor.calcLMSColor();
@@ -161,11 +174,25 @@ function updateMesh() {
       var tmpkey2CVal3 = [];
       var tmpMoT = [];
 
-      for (var i = 0; i < globalCMS1.getKeyLength()-1; i++) {
+      var workCMS;
+      if(document.getElementById("mapping_checkProbeVis").checked){
+        if(document.getElementById("id_selectProbeListVIS").selectedIndex!=-1){
+          var probe = globalCMS1.getProbe(document.getElementById("id_selectProbeListVIS").selectedIndex);
+          workCMS = probe.generateProbeCMS(globalCMS1,colorspaceModus,"");
+        }
+        else{
+          workCMS = cloneCMS(globalCMS1);
+        }
+      }
+      else{
+        workCMS = cloneCMS(globalCMS1);
+      }
 
-        tmpRefVal.push(globalCMS1.getKey(i).getRefPosition());
-        var color1=globalCMS1.getKey(i).getRightKeyColor(colorspaceModus);
-        var color2=globalCMS1.getKey(i+1).getLeftKeyColor(colorspaceModus);
+      for (var i = 0; i < workCMS.getKeyLength()-1; i++) {
+
+        tmpRefVal.push(workCMS.getKey(i).getRefPosition());
+        var color1=workCMS.getKey(i).getRightKeyColor(colorspaceModus);
+        var color2=workCMS.getKey(i+1).getLeftKeyColor(colorspaceModus);
 
         if(color1!=undefined){
           tmpkey1CVal1.push(color1.get1Value());
@@ -189,10 +216,10 @@ function updateMesh() {
           tmpkey2CVal3.push(undefined);
         }
 
-        tmpMoT.push(globalCMS1.getKey(i).getMoT());
+        tmpMoT.push(workCMS.getKey(i).getMoT());
       }
-      tmpRefVal.push(globalCMS1.getKey(globalCMS1.getKeyLength()-1).getRefPosition());
-      tmpMoT.push(globalCMS1.getKey(globalCMS1.getKeyLength()-1).getMoT());
+      tmpRefVal.push(workCMS.getKey(workCMS.getKeyLength()-1).getRefPosition());
+      tmpMoT.push(workCMS.getKey(workCMS.getKeyLength()-1).getMoT());
 
       workerArray=[];
       workerFinished=[];
@@ -240,12 +267,26 @@ function updateMesh() {
     }
   }
   else{
-    
+
+    var workCMS;
+    if(document.getElementById("mapping_checkProbeVis").checked){
+      if(document.getElementById("id_selectProbeListVIS").selectedIndex!=-1){
+        var probe = globalCMS1.getProbe(document.getElementById("id_selectProbeListVIS").selectedIndex);
+        workCMS = probe.generateProbeCMS(globalCMS1,colorspaceModus,"");
+      }
+      else{
+        workCMS = cloneCMS(globalCMS1);
+      }
+    }
+    else{
+      workCMS = cloneCMS(globalCMS1);
+    }
+
     for (var index = 0; index < globalDomain.getNumberOfCells(); index++) {
 
       var value= globalDomain.getCell(index).getCellValue();
 
-      var toolColor = globalCMS1.calculateColor(globalDomain.getCell(index).getCellValue(), colorspaceModus);
+      var toolColor = workCMS.calculateColor(globalDomain.getCell(index).getCellValue(), colorspaceModus);
 
       if(doColorblindnessSim){
         var tmpLMS = toolColor.calcLMSColor();

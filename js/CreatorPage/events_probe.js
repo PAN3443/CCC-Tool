@@ -5,10 +5,17 @@ function changeProbeSelection() {
 function updateProbeList() {
 
   var selectbox = document.getElementById("id_selectProbeList");
+  var selectbox2 = document.getElementById("id_selectProbeListVIS");
+  var selectbox3 = document.getElementById("id_selectProbeListExport");
+
   for(var i = selectbox.options.length - 1 ; i > 0 ; i--)
   {
       selectbox.remove(i);
+      selectbox2.remove(i-1);
+      selectbox3.remove(i);
   }
+
+
 
   // fill startbox
 
@@ -16,6 +23,8 @@ function updateProbeList() {
   for (var i = 0; i < globalCMS1.getProbeLength(); i++) {
 
     var opt = document.createElement('option');
+    var opt2 = document.createElement('option');
+    var opt3 = document.createElement('option');
 
     var tmpProbe = globalCMS1.getProbe(i);
     var type="";
@@ -35,16 +44,23 @@ function updateProbeList() {
 
     switch (tmpProbe.getFunction()) {
       case 0:
-        type="linear";
+        functionType="linear";
         break;
       default:
-
     }
 
     opt.innerHTML = "Probe: "+(i+1)+"; Type: "+type+"; Function: "+functionType+";";
     opt.value = i;
 
+    opt2.innerHTML = "Probe: "+(i+1)+"; Type: "+type+"; Function: "+functionType+";";
+    opt2.value = i;
+
+    opt3.innerHTML = "Probe: "+(i+1)+"; Type: "+type+"; Function: "+functionType+";";
+    opt3.value = i;
+
     selectbox.appendChild(opt);
+    selectbox2.appendChild(opt2);
+    selectbox3.appendChild(opt3);
   }
 
 }
@@ -57,9 +73,9 @@ function selectProbe(index) {
   document.getElementById("id_inputSingleProbeRangeStart").value=globalCMS1.getRefPosition(0);
   document.getElementById("id_inputSingleProbeRangeEnd").value=globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1);
   //intervals
-  document.getElementById("id_inputProbeIntervalLength").value=globalCMS1.getRefRange()/10;
+  document.getElementById("id_inputProbeIntervalLength").value=globalCMS1.getRefRange()/5;
   //auto interval
-  document.getElementById("id_inputNumberIntervalAuto").value=100;
+  document.getElementById("id_inputNumberIntervalAuto").value=5;
   //custom
   document.getElementById("id_inputCustomProbeRanges").value=globalCMS1.getRefPosition(0)+","+globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1)+";";
 
@@ -70,7 +86,8 @@ function selectProbe(index) {
     document.getElementById("id_selectProbeType").selectedIndex = 0;
     document.getElementById("id_selectProbeRangeType").selectedIndex = 0;
     document.getElementById("id_buttonRemoveProbe").style.display = "none";
-    document.getElementById("id_divProbeRangesSingle").style.display = "block";
+    document.getElementById("id_divProbeRangesSingleStart").style.display = "block";
+    document.getElementById("id_divProbeRangesSingleEnd").style.display = "block";
     document.getElementById("id_divProbeRangesInterval").style.display = "none";
     document.getElementById("id_divProbeRangesIntervalAuto").style.display = "none";
     document.getElementById("id_divProbeRangesCustom").style.display = "none";
@@ -82,7 +99,7 @@ function selectProbe(index) {
     document.getElementById("id_buttonRemoveProbe").style.display = "block";
     document.getElementById("id_buttonAddUpdateProbe").innerHTML = "Update";
 
-    var tmpProbe = getProbe(document.getElementById("id_selectProbeList").selectedIndex-1);
+    var tmpProbe = globalCMS1.getProbe(document.getElementById("id_selectProbeList").selectedIndex-1);
     document.getElementById("id_selectProbeType").selectedIndex=tmpProbe.getType();
     document.getElementById("id_selectProbeFunctionType").selectedIndex=tmpProbe.getFunction();
     document.getElementById("id_selectProbeRangeType").selectedIndex=tmpProbe.getRangeType();
@@ -90,21 +107,33 @@ function selectProbe(index) {
     // fill range Information
     switch (document.getElementById("id_selectProbeRangeType").selectedIndex) {
       case 0:
-        document.getElementById("id_inputSingleProbeRangeStart").value=globalCMS1.getRefPosition(0);
-        document.getElementById("id_inputSingleProbeRangeEnd").value=globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1);
+        document.getElementById("id_inputSingleProbeRangeStart").value=tmpProbe.getProbeRangeStart(0);
+        document.getElementById("id_inputSingleProbeRangeEnd").value=tmpProbe.getProbeRangeEnd(0);
         break;
         case 1:
-          document.getElementById("id_inputSingleProbeRangeStart").value=globalCMS1.getRefPosition(0);
-          document.getElementById("id_inputSingleProbeRangeEnd").value=globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1);
-          document.getElementById("id_inputProbeIntervalLength").value=globalCMS1.getRefRange()/10;
+          var length = tmpProbe.getProbeRangeEnd(0) - tmpProbe.getProbeRangeStart(0);
+          document.getElementById("id_inputSingleProbeRangeStart").value=tmpProbe.getProbeRangeStart(0);
+          document.getElementById("id_inputProbeIntervalLength").value=length;
           break;
           case 2:
-            document.getElementById("id_inputSingleProbeRangeStart").value=globalCMS1.getRefPosition(0);
-            document.getElementById("id_inputSingleProbeRangeEnd").value=globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1);
-            document.getElementById("id_inputNumberIntervalAuto").value=100;
+          document.getElementById("id_inputSingleProbeRangeStart").value=tmpProbe.getProbeRangeStart(0);
+          document.getElementById("id_inputSingleProbeRangeEnd").value=tmpProbe.getProbeRangeEnd(0);
+            document.getElementById("id_inputNumberIntervalAuto").value=tmpProbe.getProbeArrayLength();
             break;
             case 3:
-              document.getElementById("id_inputCustomProbeRanges").value=globalCMS1.getRefPosition(0)+","+globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1)+";";
+
+              var inputString = "";
+
+
+              for (var i = 0; i < tmpProbe.getProbeArrayLength(); i++) {
+                inputString=inputString+tmpProbe.getProbeRangeStart(i)+","+tmpProbe.getProbeRangeEnd(i)+";";
+              }
+
+              document.getElementById("id_inputCustomProbeRanges").value=inputString;
+              document.getElementById("CustomProbeInfoText").innerHTML = "";
+              customRangeInputIsOkay=checkProbeInputVal("id_inputCustomProbeRanges", true);
+
+
               break;
       default:
 
@@ -119,24 +148,29 @@ function selectProbe(index) {
 }
 
 function selectProbeRangeType() {
-  document.getElementById("id_divProbeRangesSingle").style.display = "none";
+  document.getElementById("id_divProbeRangesSingleStart").style.display = "none";
+  document.getElementById("id_divProbeRangesSingleEnd").style.display = "none";
   document.getElementById("id_divProbeRangesInterval").style.display = "none";
   document.getElementById("id_divProbeRangesIntervalAuto").style.display = "none";
   document.getElementById("id_divProbeRangesCustom").style.display = "none";
   switch (document.getElementById("id_selectProbeRangeType").selectedIndex) {
     case 0:
-      document.getElementById("id_divProbeRangesSingle").style.display = "block";
+      document.getElementById("id_divProbeRangesSingleStart").style.display = "block";
+      document.getElementById("id_divProbeRangesSingleEnd").style.display = "block";
       break;
     case 1:
-      document.getElementById("id_divProbeRangesSingle").style.display = "block";
+      document.getElementById("id_divProbeRangesSingleStart").style.display = "block";
       document.getElementById("id_divProbeRangesInterval").style.display = "block";
       break;
     case 2:
-      document.getElementById("id_divProbeRangesSingle").style.display = "block";
+      document.getElementById("id_divProbeRangesSingleStart").style.display = "block";
+      document.getElementById("id_divProbeRangesSingleEnd").style.display = "block";
       document.getElementById("id_divProbeRangesIntervalAuto").style.display = "block";
       break;
     case 3:
       document.getElementById("id_divProbeRangesCustom").style.display = "block";
+      document.getElementById("CustomProbeInfoText").innerHTML = "";
+      customRangeInputIsOkay=checkProbeInputVal("id_inputCustomProbeRanges", true);
       break;
     default:
 
@@ -183,7 +217,7 @@ function checkProbeRangeInput(){
       }
       break;
     case 3:
-      // 1. split with ";", 2. split with ",", 3. check the elements for right order and ....
+      customRangeInputIsOkay=checkProbeInputVal("id_inputCustomProbeRanges", true);
       break;
     default:
 
@@ -201,9 +235,6 @@ function probeRemove(){
 
 function probeAction(){
 
-  if(document.getElementById("id_selectProbeRangeType").selectedIndex==3){
-    //check if custom range is correct
-  }
 
   var tmpProbe;
   if(document.getElementById("id_selectProbeList").selectedIndex==0){
@@ -214,15 +245,21 @@ function probeAction(){
     document.getElementById("id_selectProbeList").selectedIndex=document.getElementById("id_selectProbeList").options.length-1;
     document.getElementById("divProbePreview").style.display="block";
 
+    document.getElementById("probeActionLabel").innerHTML = "Modify Probe";
+    document.getElementById("id_buttonRemoveProbe").style.display = "block";
+    document.getElementById("id_buttonAddUpdateProbe").innerHTML = "Update";
+
   }
   else{
     // Update Probe
-    tmpProbe = getProbe(document.getElementById("id_selectProbeList").selectedIndex-1);
+    tmpProbe = globalCMS1.getProbe(document.getElementById("id_selectProbeList").selectedIndex-1);
     tmpProbe.changeType(document.getElementById("id_selectProbeType").selectedIndex);
     tmpProbe.changeFunction(document.getElementById("id_selectProbeFunctionType").selectedIndex);
     tmpProbe.changeRangeType(document.getElementById("id_selectProbeRangeType").selectedIndex);
     tmpProbe.clearIntervalColors();
+    var tmpSelectedIndex = document.getElementById("id_selectProbeList").selectedIndex;
     updateProbeList();
+    document.getElementById("id_selectProbeList").selectedIndex=tmpSelectedIndex;
   }
 
   /////////// Calclate Colors
@@ -231,7 +268,7 @@ function probeAction(){
     case 0:
       switch (document.getElementById("id_selectProbeRangeType").selectedIndex) {
         case 0:
-          tmpProbe.addIntervalColorPos(parseFloat(document.getElementById("id_inputSingleProbeRangeStart"), parseFloat(document.getElementById("id_inputSingleProbeRangeEnd"))));
+          tmpProbe.addIntervalColorPos(parseFloat(document.getElementById("id_inputSingleProbeRangeStart").value), parseFloat(document.getElementById("id_inputSingleProbeRangeEnd").value));
           break;
           case 1:
 
@@ -239,17 +276,11 @@ function probeAction(){
             var endVal = globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1);
             var intervalLength = parseFloat(document.getElementById("id_inputProbeIntervalLength").value);
             var numberOfSteps = Math.round((endVal-startVal)/intervalLength);
-            endVal=startVal+intervalLength*numberOfSteps; // real End out of the border of the CMS
 
             var currentPos = startVal;
 
             for (var i = 0; i < numberOfSteps; i++) {
-
-              if(i == numberOfSteps-1){
-                tmpProbe.addIntervalColorPos(currentPos, globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1));
-              }
-              else
-                tmpProbe.addIntervalColorPos(currentPos, currentPos+intervalLength);
+              tmpProbe.addIntervalColorPos(currentPos, currentPos+intervalLength);
               currentPos+=intervalLength;
             }
 
@@ -273,7 +304,20 @@ function probeAction(){
 
               break;
               case 3:
+                var ranges = document.getElementById("id_inputCustomProbeRanges").value.split(";");
 
+                for (var i = 0; i < ranges.length; i++) {
+                  var range = ranges[i].split(",");
+
+                  if(range.length==2){
+
+                    var start =parseFloat(range[0]);
+                    var end = parseFloat(range[1]);
+
+                    if(end>start)
+                    tmpProbe.addIntervalColorPos(start,end);
+                  }
+                }
                 break;
         default:
 
@@ -290,9 +334,28 @@ function probeAction(){
 
   // draw Probe Preview
   drawProbePreview(tmpProbe);
+
+  if(document.getElementById("id_selectProbeList").selectedIndex-1==document.getElementById("id_selectProbeListVIS").selectedIndex)
+  orderColorSketch();
+
 }
 
 
 function drawProbePreview(probe){
-  drawCanvasColormap("id_linearProbePreview", linearMap_resolution_X, linearMap_resolution_Y, probe.generateProbeCMS(globalCMS1,colorspaceModus));
+  drawCanvasColormap("id_linearProbePreview", linearMap_resolution_X, linearMap_resolution_Y, probe.generateProbeCMS(globalCMS1,colorspaceModus,""));
+}
+
+
+
+function checkKeyCustomRangeInput(event){
+
+
+  /*if (event.keyCode == 13) {
+    customRangeInputIsOkay=checkProbeInputVal("id_inputCustomProbeRanges", true);
+  }
+  else{*/
+    customRangeInputIsOkay=checkProbeInputVal("id_inputCustomProbeRanges", false);
+  //}
+
+
 }

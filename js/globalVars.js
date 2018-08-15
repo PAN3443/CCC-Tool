@@ -390,9 +390,14 @@ var quadBands = [ [new classColor_RGB(1,1,1),new classColor_RGB(254/255,213/255,
                  [new classColor_RGB(56/255,88/255,181/255),new classColor_RGB(56/255,88/255,181/255),new classColor_RGB(141/255,221/255,236/255),new classColor_RGB(141/255,221/255,236/255),new classColor_RGB(203/255,221/255,158/255),new classColor_RGB(203/255,221/255,158/255),new classColor_RGB(99/255,162/255,62/255),new classColor_RGB(99/255,162/255,62/255)],
                  [new classColor_RGB(4/255,52/255,81/255),new classColor_RGB(4/255,52/255,81/255),new classColor_RGB(141/255,221/255,236/255),new classColor_RGB(141/255,221/255,236/255),new classColor_RGB(154/255,221/255,116/255),new classColor_RGB(154/255,221/255,116/255),new classColor_RGB(62/255,83/255,15/255),new classColor_RGB(62/255,83/255,15/255)],
                  [new classColor_RGB(184/255,231/255,199/255),new classColor_RGB(184/255,231/255,199/255),new classColor_RGB(15/255,88/255,52/255),new classColor_RGB(15/255,88/255,52/255),new classColor_RGB(43/255,68/255,138/255),new classColor_RGB(43/255,68/255,138/255),new classColor_RGB(175/255,212/255,228/255),new classColor_RGB(175/255,212/255,228/255)],
-                 [new classColor_RGB(1,1,1),new classColor_RGB(1,1,1),new classColor_RGB(254/255,221/255,152/255),new classColor_RGB(254/255,221/255,152/255),new classColor_RGB(96/255,68/255,50/255),new classColor_RGB(96/255,68/255,50/255),new classColor_RGB(0, 0, 0),new classColor_RGB(0, 0, 0)]
+                 [new classColor_RGB(1,1,1),new classColor_RGB(1,1,1),new classColor_RGB(254/255,221/255,152/255),new classColor_RGB(254/255,221/255,152/255),new classColor_RGB(96/255,68/255,50/255),new classColor_RGB(96/255,68/255,50/255),new classColor_RGB(0, 0, 0),new classColor_RGB(0, 0, 0)],
+                 [new classColor_RGB(215/255,221/255,219/255),new classColor_RGB(79/255,138/255,131/255),new classColor_RGB(79/255,138/255,131/255),new classColor_RGB(231/255,98/255,120/255),new classColor_RGB(231/255,98/255,120/255),new classColor_RGB(250/255,198/255,153/255),new classColor_RGB(250/255,198/255,153/255),new classColor_RGB(113/255, 33/255, 100/255)]
                 ];
 
+//////////////////////////
+// Probe
+//////////////////////////
+var customRangeInputIsOkay=false;
 
 ////////////////////////////////////////////////////////////////////////////////
 

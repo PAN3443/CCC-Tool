@@ -341,7 +341,7 @@
                 <div id="showHideMappingOptions" style="display:none; width:100%; background:white; padding-top: 20px;">
                   <div class="row">
 
-                    <div style="width:50%; ">
+                    <div style="width:30%; ">
 
                         <p style="text-align:center; height:30px; line-height:30px; font-size:18px; vertical-align:middle; margin:0px; width:100%; font-weight:bold;">Domain:</p>
 
@@ -368,30 +368,54 @@
                           <p id="id_fieldMinValue" style="margin:0px; text-align:left; width:20%; height:30px; line-height:30px; font-size:18px; vertical-align:middle; margin:0px; margin-left:10%; margin-right:auto;">/</p>
                         </div>
 
+                        <button onclick="updateDomainCMSRange()" class="classButtonWhite standardText" title="Update Mesh" style="border-radius: 10px; height:40px; line-height:40px; font-size:20px; vertical-align:middle; border: 1px solid rgb(0,0,0); margin-right:30%; margin-left:30%; margin-bottom:20px; width:40%;"> Set CMS Range </button>
+
                     </div>
 
                     <!------------------------------------------------------------------------------------------------------------------------------------------------------------------->
 
-                    <div style="width:50%;">
+                    <div style="width:70%; border-left:1px solid grey;">
 
                         <p style="text-align:center; height:30px; line-height:30px; font-size:18px; vertical-align:middle; margin:0px; width:100%; font-weight:bold;">Visualization:</p>
 
-                        <div class="row" style="width:100%; margin-top:20px; margin-bottom:20px;">
-                          <input id="mapping_checkMultiThread" type="checkbox" style="margin:0px; text-align:left; width:5%; height:30px; line-height:30px; font-size:18px; vertical-align:middle; margin:0px; margin-left:auto;" name="multiThreadMapping" value="multiThread" checked>
-                          <p class="standardText" style="text-align:left; height:30px; line-height:30px; font-size:18px; margin-left:10%; margin-right:auto; width:60%;">Parallel Processing (if supported)</p>
+                        <div class="row" style="width:100%;">
+                          <div style="width:50%;">
+
+                            <div class="row" style="width:100%; margin-top:20px; margin-bottom:20px;">
+                              <input id="mapping_checkMultiThread" type="checkbox" style="margin:0px; text-align:left; width:5%; height:30px; line-height:30px; font-size:18px; vertical-align:middle; margin:0px; margin-left:auto;" name="multiThreadMapping" value="multiThread" checked>
+                              <p class="standardText" style="text-align:left; height:30px; line-height:30px; font-size:18px; margin-left:10%; margin-right:auto; width:60%;">Parallel Processing (if supported)</p>
+                            </div>
+
+                            <div class="row" style="width:100%; margin-bottom:20px;">
+                              <input id="mapping_checkAutoUpdate" type="checkbox" style="margin:0px; text-align:left; width:5%; height:30px; line-height:30px; font-size:18px; vertical-align:middle; margin:0px; margin-left:auto;" name="autoUpdate" value="autoUpdate" checked>
+                              <p class="standardText" style="text-align:left; height:30px; line-height:30px; font-size:18px; margin-left:10%; margin-right:auto; width:60%;">Auto-Update</p>
+                            </div>
+
+                            <button onclick="updateMesh()" class="classButtonWhite standardText" title="Update Mesh" style="border-radius: 10px; height:40px; line-height:40px; font-size:20px; vertical-align:middle; border: 1px solid rgb(0,0,0); margin-right:30%; margin-left:30%; margin-bottom:20px; width:40%;"> Manual Update </button>
+
+                            <div class="row" style="width:100%; margin-bottom:20px;">
+                              <input id="mapping_showAxes" type="checkbox" style="margin:0px; text-align:left; width:5%; height:30px; line-height:30px; font-size:18px; vertical-align:middle; margin:0px; margin-left:auto;" name="autoUpdate" value="autoUpdate" checked>
+                              <p class="standardText" style="text-align:left; height:30px; line-height:30px; font-size:18px; margin-left:10%; margin-right:auto; width:60%;">Show Axes</p>
+                            </div>
+                          </div>
+
+                          <div style="width:50%;">
+
+                            <div class="row" style="width:100%; margin-top:20px; margin-bottom:20px;">
+                              <input id="mapping_checkProbeVis" type="checkbox" style="margin:0px; text-align:left; width:5%; height:30px; line-height:30px; font-size:18px; vertical-align:middle; margin:0px; margin-left:auto;" name="probeVisMapping" value="probeVis">
+                              <p class="standardText" style="text-align:left; height:30px; line-height:30px; font-size:18px; margin-left:10%; margin-right:auto; width:60%;">Do ProbeVis </p>
+                            </div>
+
+                            <h2 class="subsectionLabel" style="width:100%; margin-top:15px; margin-bottom:15px;"> Select From Probe List</h2>
+
+                            <select id="id_selectProbeListVIS" class="constText" name="ProbeVISList" size="8" style="width:50%; margin-left:25%; margin-bottom:20px;">
+
+                            </select>
+
+                          </div>
                         </div>
 
-                        <div class="row" style="width:100%; margin-bottom:20px;">
-                          <input id="mapping_checkAutoUpdate" type="checkbox" style="margin:0px; text-align:left; width:5%; height:30px; line-height:30px; font-size:18px; vertical-align:middle; margin:0px; margin-left:auto;" name="autoUpdate" value="autoUpdate" checked>
-                          <p class="standardText" style="text-align:left; height:30px; line-height:30px; font-size:18px; margin-left:10%; margin-right:auto; width:60%;">Auto-Update</p>
-                        </div>
 
-                        <button onclick="updateMesh()" class="classButtonWhite standardText" title="Update Mesh" style="border-radius: 10px; height:40px; line-height:40px; font-size:20px; vertical-align:middle; border: 1px solid rgb(0,0,0); margin-right:30%; margin-left:30%; margin-bottom:20px; width:40%;"> Manual Update </button>
-
-                        <div class="row" style="width:100%; margin-bottom:20px;">
-                          <input id="mapping_showAxes" type="checkbox" style="margin:0px; text-align:left; width:5%; height:30px; line-height:30px; font-size:18px; vertical-align:middle; margin:0px; margin-left:auto;" name="autoUpdate" value="autoUpdate" checked>
-                          <p class="standardText" style="text-align:left; height:30px; line-height:30px; font-size:18px; margin-left:10%; margin-right:auto; width:60%;">Show Axes</p>
-                        </div>
                     </div>
 
 
@@ -689,6 +713,23 @@
           </div>
 
           <div style="margin-top: 0px; width:95%; height: 50px; margin-left:auto; margin-right:auto;">
+          </div>
+
+
+          <div id="bandSketchAutoRangeDiv" style="width=100%; display:none; padding-top:15px; padding-bottom:15px; border-top: 1px solid grey;">
+
+            <div class="row" style="width:100%;">
+
+                <h2 class="standardText" style="margin-left:auto; margin-right:15px; margin-top:auto; margin-bottom:auto;">Scale the CMS to the range from:</h2>
+                <input id="id_inputAutoRangeStart" type="number" name="ProbeRangeStart" value="0" step="any" class="standardText" style="width:10%;">
+
+                <h2 class="standardText" style="margin-left:15px; margin-right:15px; margin-top:auto; margin-bottom:auto;">till:</h2>
+                <input id="id_inputAutoRangeEnd" type="number" name="ProbeRangeEnd" value="1" step="any" class="standardText" style="width:10%;">
+
+                <button id="id_buttonUpdateAutoRange" type="button" name="ProbeRemoveButton" class="classButtonWhite standardText" style="margin-left:30px; margin-right:auto; border-radius: 10px;  border: 1px solid black; ">Update</button>
+
+            </div>
+
           </div>
       </div>
 
@@ -1678,19 +1719,22 @@
                         <option value="0" checked>Single Custom Probe</option>
                         <option value="1">Interval Probes</option>
                         <option value="2">Interval Auto Subdivision</option>
-                        <option value="3" disabled>Multiple Custom Probes</option>
+                        <option value="3">Custom Probes</option>
                       </select>
                     </div>
 
-                    <div id="id_divProbeRangesSingle" style="margin-left:15%; width:70%; margin-top:5px; margin-bottom:5px;">
+                    <div id="id_divProbeRangesSingleStart" style="margin-left:15%; width:70%; margin-top:5px; margin-bottom:5px;">
                       <div class="row" style="width:100%; margin-top:10px; margin-bottom:10px;" >
                         <p class="standardText" style="width:40%;">Range Start:</p>
                         <input id="id_inputSingleProbeRangeStart" type="number" name="ProbeRangeStart" value="0" step="any" class="standardText" style="width:60%;">
                       </div>
-                      <div class="row" style="width:100%; margin-top:5px; ">
-                        <p class="standardText" style="width:40%;">Range End:</p>
-                        <input id="id_inputSingleProbeRangeEnd" type="number" name="ProbeRangeEnd" value="1" step="any" class="standardText" style="width:60%;">
-                      </div>
+                    </div>
+
+                    <div id="id_divProbeRangesSingleEnd" style="margin-left:15%; width:70%; margin-top:5px; margin-bottom:5px;">
+                    <div class="row" style="width:100%; margin-top:5px; ">
+                      <p class="standardText" style="width:40%;">Range End:</p>
+                      <input id="id_inputSingleProbeRangeEnd" type="number" name="ProbeRangeEnd" value="1" step="any" class="standardText" style="width:60%;">
+                    </div>
                     </div>
 
                     <div id="id_divProbeRangesInterval" style="margin-left:15%; width:70%; margin-top:5px; margin-bottom:5px; display:none;">
@@ -1707,9 +1751,14 @@
                       </div>
                     </div>
 
-                    <div id="id_divProbeRangesCustom" class="row" style="margin-left:15%; width:70%; margin-top:10px; margin-bottom:5px; display:none;">
+                    <div id="id_divProbeRangesCustom" style="margin-left:15%; width:70%; margin-top:10px; margin-bottom:5px; display:none;">
+                      <div class="row" style="width:100%; margin-top:15px; ">
                       <p class="standardText" style="width:40%;">Custom Range:</p>
                       <input id="id_inputCustomProbeRanges" type="text" name="ProbeCustomRanges" value="" class="standardText" style="width:60%;">
+                      </div>
+                      <p id="CustomProbeInfoText" class="standardText" style="margin-top:5px; margin-left:40%; width:60%; color:red; font-weight:bold;"></p>
+                      <p class="standardText" style="margin-top:5px; margin-left:40%; width:60%;">Semantic: A custom range is defined by two values separated by comma. The range concludes with a semicolon at the end. (Example: "0.1,0.4;0.75,0.8;" results in two custom ranges) Please check that the second value of a range is alwasy bigger than the first one. Overlapping range are not allowed!</p>
+
                     </div>
 
                     <p id="backgroundColorDiv" class="standardText" style="margin-left:15%; width:70%; margin-top:15px; margin-bottom:5px;"> Info: The probe range is allowed to be over the borders of the CMS range. Probe value out of the CMS range will be excluded during the calculation of the probe colormap.</p>
@@ -2086,7 +2135,7 @@
                 Free Space for Adding CMSs to MyDesings : 0
               </p>
 
-              <button id="buttonShowMyDesignsPreview" class="classButtonWhite standardText" name="constStyle" style=" width:auto; height:40px;  margin-left: 0px; border-radius: 10px;  border: 1px solid black; text-align:center; height:4; line-height:2.50px; font-size:12px; font-weight:bold;text-align:center; vertical-align:middle;">Show MyDesings</button>
+              <button id="buttonShowMyDesignsPreview" class="classButtonWhite standardText" name="constStyle" style=" width:auto; height:40px;  margin-left: 0px; border-radius: 10px;  border: 1px solid black; text-align:center;  line-height:18px; font-size:12px; font-weight:bold;text-align:center; vertical-align:middle;">Show MyDesings</button>
 
             </div>
 
@@ -4225,10 +4274,18 @@
         </canvas>
       </div-->
 
+      <div id="exportprobeDiv" style="border:1px solid black; background:rgb(250,250,250); width:80%; margin-left:10%; margin-top:20px; display:none;">
+        <div class="row" style="margin-top:10px;margin-bottom:10px;">
+          <h2 class="subsectionLabel" style="margin-left:5%; width:30%; text-align: left;">Select:</h2>
+          <select id="id_selectProbeListExport" class="constText" name="ProbeListExport" size="8" style="width:40%; margin-right:auto;">
+            <option value="0" style="font-weight:bold;">Original CMS</option>
+          </select>
+        </div>
+      </div>
+
       <div style="border:1px solid black; background:rgb(250,250,250); width:80%; margin-left:10%; margin-top:20px;">
-        <h2 class="subsectionLabel" style="margin-left:5%; margin-top:20px; ">Options:</h2>
         <div class="row"  style="margin-top:20px; width:100%;">
-                <p style="margin:0px; width:30%; margin-left:5%;height:50px; line-height:50px; vertical-align:middle; text-align:left; vertical-align: middle; font-size:20px; color:black; ">Export Color Space:</p>
+                <h2 style="margin:0px; width:30%; margin-left:5%;height:50px; line-height:50px; vertical-align:middle; text-align:left; vertical-align: middle; font-size:20px; color:black; ">Export Color Space:</h2>
                 <div class="row">
                   <button class="classButtonWhite standardText" id="button_ExportSpaceRGB" onclick="changeExportColorspace(0)" title="RGB"  style="border-radius: 5px; background:rgb(250,250,250); width: 150px; height:50px; font-size:20px; border: 1px solid rgb(0,191,255); color: rgb(0,191,255); ">RGB</button>
                   <button class="classButtonWhite standardText" id="button_ExportSpaceHSV" onclick="changeExportColorspace(1)" title="HSV"  style="border-radius: 5px; background:rgb(250,250,250); width: 150px; height:50px; font-size:20px; margin-left:10px; border: 1px solid black; color:black; ">HSV</button>
@@ -4243,7 +4300,7 @@
 
 
         <div class="row"  style="margin-top:0px; margin-bottom:10px; width:100%;">
-                <p style="margin:0px; width:30%; margin-left:5%; height:auto; line-height:50px; vertical-align:middle; text-align:left; vertical-align: middle; font-size:20px; color:black; margin-top:20px;">Interpolation Color Space:</p>
+                <h2 style="margin:0px; width:30%; margin-left:5%; height:auto; line-height:50px; vertical-align:middle; text-align:left; vertical-align: middle; font-size:20px; color:black; margin-top:20px;">Interpolation Color Space:</h2>
                 <div class="row" style="margin-top:0px;">
                   <div class="row" style="padding-top:10px; padding-bottom:10px;">
                     <button class="classButtonWhite standardText" id="button_ExportInterpolationSpaceRGB" onclick="changeColorspace(0)" title="RGB"  style="border-radius: 5px; background:rgb(250,250,250); width: 150px; height:50px; font-size:20px; border: 1px solid rgb(0,191,255); color: rgb(0,191,255); ">RGB</button>
@@ -4262,12 +4319,14 @@
 
       <div style="border:1px solid black; background:rgb(250,250,250); width:80%; margin-left:10%; margin-top:20px;">
         <div class="row" style="margin-top:10px;margin-bottom:10px;">
-          <h2 class="subsectionLabel" style="margin-left:5%; width:30%;  ">Format:</h2>
+          <h2 class="subsectionLabel" style="margin-left:5%; width:30%; text-align: left;">Format:</h2>
           <button class="classButtonWhite standardText" id="button_ExportFormatXML" onclick="changeOutputformat(1)" title="XML"  style="border-radius: 5px; background:rgb(250,250,250); width: 150px; height:50px; font-size:20px; border: 1px solid rgb(0,191,255); color: rgb(0,191,255);">XML</button>
           <button class="classButtonWhite standardText" id="button_ExportFormatJSON" onclick="changeOutputformat(2)" title="JSON"  style="border-radius: 5px; background:rgb(250,250,250); width: 150px; height:50px; font-size:20px; margin-left:10px; border: 1px solid black; color:black;">JSON</button>
           <button class="classButtonWhite standardText" id="button_ExportFormatCSV" onclick="changeOutputformat(0)" title="CSV"  style="border-radius: 5px; background:rgb(250,250,250); width: 150px; height:50px; font-size:20px; margin-left:10px; border: 1px solid black; color:black;">CSV</button>
         </div>
       </div>
+
+
 
     <!--div style="border:1px solid black; background: rgb(0,191,255); width:80%; margin-left:10%; margin-top:20px;"-->
       <button class="classButtonWhite standardText" onclick="exportSide_downloadFile()" title="Export" style="border-radius: 10px; width: 60%; height:80px; line-height:80px; font-size:30px; border: 1px solid rgb(180,180,180); margin-left:20%; margin-top:20px; margin-bottom:20px; box-shadow:  5px  5px grey; background: rgb(0,191,255); color:white;"> Click to Export </button>

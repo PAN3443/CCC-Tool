@@ -178,6 +178,34 @@ function deleteBand(index){
 
 }
 
+
+
+function updateAutoRangeInput(){
+  document.getElementById("id_inputAutoRangeStart").value=globalCMS1.getRefPosition(0);
+  document.getElementById("id_inputAutoRangeEnd").value=globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1);
+}
+
+function changeAutoRangeInput(){
+  document.getElementById("id_inputAutoRangeEnd").min = document.getElementById("id_inputAutoRangeStart").value;
+  document.getElementById("id_inputAutoRangeStart").max = document.getElementById("id_inputAutoRangeEnd").value;
+}
+
+function calcAutoRange(){
+
+  var start = parseFloat(document.getElementById("id_inputAutoRangeStart").value);
+  var end = parseFloat(document.getElementById("id_inputAutoRangeEnd").value);
+
+  if(start>=end){
+    openAlert("The range start has to be smaller than the range end!");
+    return;
+  }
+
+    globalCMS1.setAutoRange(start,end);
+    orderColorSketch();
+
+
+}
+
 //////////////////////////////
 ///// Band Creator /////
 //////////////////////////////

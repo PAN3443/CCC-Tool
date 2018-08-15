@@ -260,6 +260,15 @@ function init_CreatePage() {
 
   }; // allow Drop
 
+
+
+  document.getElementById('id_inputAutoRangeStart').addEventListener("change", changeAutoRangeInput);
+  document.getElementById('id_inputAutoRangeEnd').addEventListener("change", changeAutoRangeInput);
+  document.getElementById('id_inputAutoRangeStart').value=0;
+  document.getElementById('id_inputAutoRangeEnd').value=1;
+  document.getElementById('id_buttonUpdateAutoRange').addEventListener("click", calcAutoRange);
+
+
   // Band Creator
   document.getElementById('bandCreator_Radiobutton_PickerRG_B').addEventListener("change", changeColorpickerType);
   document.getElementById('bandCreator_Radiobutton_PickerRB_G').addEventListener("change", changeColorpickerType);
@@ -385,6 +394,11 @@ function init_MappingCreatePage() {
   document.getElementById('showHideMappingVisualizationText').style.background = styleActiveColor;
   document.getElementById('showHideColorBlindnessSimText').style.background = styleActiveColor;
 
+
+  document.getElementById("mapping_checkProbeVis").addEventListener("change", orderColorSketch);
+  document.getElementById("id_selectProbeListVIS").addEventListener("change", orderColorSketch);
+
+
   document.getElementById('id_radio_SelectTrichomacy_Dichromatism').checked = true;
   document.getElementById("id_radio_Monochromatic").disabled = true;
   document.getElementById('id_radio_Protanopia').checked = true;
@@ -480,9 +494,12 @@ function init_ProbeSectionCreatPage() {
   document.getElementById("id_inputProbeIntervalLength").addEventListener("change", checkProbeRangeInput);
   document.getElementById("id_inputNumberIntervalAuto").addEventListener("change", checkProbeRangeInput);
   document.getElementById("id_inputCustomProbeRanges").addEventListener("change", checkProbeRangeInput);
+  document.getElementById("id_inputCustomProbeRanges").addEventListener("keyup", checkKeyCustomRangeInput);
 
   document.getElementById("id_buttonRemoveProbe").addEventListener("click", probeRemove);
   document.getElementById("id_buttonAddUpdateProbe").addEventListener("click", probeAction);
+
+
 
 
 
@@ -573,6 +590,7 @@ function init_ExportPage() {
   /////////////////////////////// Export Side /////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+  document.getElementById("id_selectProbeListExport").addEventListener("change", fillExportTable);
   /*document.getElementById('id_InputIntervalExport').addEventListener("change", checkIntervalInputFieldsChange);
   document.getElementById('id_InputIntervalExport').addEventListener("keyup", checkIntervalInputFieldsKey);*/
 }
