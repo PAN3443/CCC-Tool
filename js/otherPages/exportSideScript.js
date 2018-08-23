@@ -1,5 +1,6 @@
 function initExportWindow(){
 
+  intervalSize = parseFloat(document.getElementById("id_ExportIntervalNum").value);
   changeExportColorspace(0);
 
 }
@@ -24,7 +25,7 @@ function fillExportTable(){
     }
 
 
-    workCMS.calcDeltaIntervalColors(intervalDelta, colorspaceModus,0,workCMS.getKeyLength()-1);
+    workCMS = calcCMSIntervals(workCMS,0,workCMS.getKeyLength()-1);
 
     var old_tbody = document.getElementById("id_exportTableBody");
     var new_tbody = document.createElement('tbody');
@@ -257,7 +258,7 @@ function exportSide_createXML(workCMS){
 
     /*intervalSize = parseFloat(document.getElementById("id_InputIntervalExport").value);
     workCMS.calcIntervalColors(intervalSize, colorspaceModus);*/
-    workCMS.calcDeltaIntervalColors(intervalDelta, colorspaceModus,0,workCMS.getKeyLength()-1);
+    workCMS = calcCMSIntervals(workCMS,0,workCMS.getKeyLength()-1);
 
     var xmltext = "<ColorMaps>\n<ColorMap name=\""+workCMS.getColormapName()+"\" space=\"";
 
@@ -292,7 +293,7 @@ function exportSide_createCSV_Lookup(workCMS){
 
     /*intervalSize = parseFloat(document.getElementById("id_InputIntervalExport").value);
     workCMS.calcIntervalColors(intervalSize, colorspaceModus);*/
-    workCMS.calcDeltaIntervalColors(intervalDelta, colorspaceModus,0,workCMS.getKeyLength()-1);
+    workCMS = calcCMSIntervals(workCMS,0,workCMS.getKeyLength()-1);
 
     var opacityVal =1;
     var tmpColor2 = workCMS.getNaNColor(exportColorspace);
@@ -485,7 +486,7 @@ function exportSide_createJSON(workCMS){
 
     /*intervalSize = parseFloat(document.getElementById("id_InputIntervalExport").value);
     workCMS.calcIntervalColors(intervalSize, colorspaceModus);*/
-    workCMS.calcDeltaIntervalColors(intervalDelta, colorspaceModus,0,workCMS.getKeyLength()-1);
+    workCMS = calcCMSIntervals(workCMS,0,workCMS.getKeyLength()-1);
 
     var jsontext = "[\n\t{\n\t\t\"ColorSpace\" : ";
 

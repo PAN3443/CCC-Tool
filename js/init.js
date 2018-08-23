@@ -510,12 +510,12 @@ function init_analyzeComparePage() {
   /////////////////////////////// Analyze Side /////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  /*document.getElementById('id_InputIntervalNum').addEventListener("keyup", checkIntervalInputFieldsKey);
+  document.getElementById('id_InputIntervalNum').addEventListener("keyup", checkIntervalInputFieldsKey);
   document.getElementById('id_InputIntervalNum').addEventListener("change", checkIntervalInputFieldsChange);
   document.getElementById('id_InputIntervalNum2').addEventListener("keyup", checkIntervalInputFieldsKey);
   document.getElementById('id_InputIntervalNum2').addEventListener("change", checkIntervalInputFieldsChange);
   document.getElementById('id_InputIntervalNum3').addEventListener("keyup", checkIntervalInputFieldsKey);
-  document.getElementById('id_InputIntervalNum3').addEventListener("change", checkIntervalInputFieldsChange);*/
+  document.getElementById('id_InputIntervalNum3').addEventListener("change", checkIntervalInputFieldsChange);
 
   document.getElementById('id_rgb3D').addEventListener("mousemove", eventRGB3D_mousemove);
   document.getElementById('id_rgb3D').addEventListener("mouseleave", eventRGB3D_mouseleave);
@@ -532,12 +532,12 @@ function init_analyzeComparePage() {
   /////////////////////////////// Compare Side /////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////,
 
-  /*document.getElementById('id_CompareInputIntervalNum').addEventListener("keyup", checkIntervalInputFieldsKey);
+  document.getElementById('id_CompareInputIntervalNum').addEventListener("keyup", checkIntervalInputFieldsKey);
   document.getElementById('id_CompareInputIntervalNum').addEventListener("change", checkIntervalInputFieldsChange);
   document.getElementById('id_CompareInputIntervalNum2').addEventListener("keyup", checkIntervalInputFieldsKey);
   document.getElementById('id_CompareInputIntervalNum2').addEventListener("change", checkIntervalInputFieldsChange);
   document.getElementById('id_CompareInputIntervalNum3').addEventListener("keyup", checkIntervalInputFieldsKey);
-  document.getElementById('id_CompareInputIntervalNum3').addEventListener("change", checkIntervalInputFieldsChange);*/
+  document.getElementById('id_CompareInputIntervalNum3').addEventListener("change", checkIntervalInputFieldsChange);
 
   document.getElementById('id_rgb3DCompare').addEventListener("mousemove", eventRGB3D_mousemove);
   document.getElementById('id_rgb3DCompare').addEventListener("mouseleave", eventRGB3D_mouseleave);
@@ -591,8 +591,8 @@ function init_ExportPage() {
   ////////////////////////////////////////////////////////////////////////////////////////////////////
 
   document.getElementById("id_selectProbeListExport").addEventListener("change", fillExportTable);
-  /*document.getElementById('id_InputIntervalExport').addEventListener("change", checkIntervalInputFieldsChange);
-  document.getElementById('id_InputIntervalExport').addEventListener("keyup", checkIntervalInputFieldsKey);*/
+  document.getElementById('id_ExportIntervalNum').addEventListener("change", checkIntervalInputFieldsChange);
+  document.getElementById('id_ExportIntervalNum').addEventListener("keyup", checkIntervalInputFieldsKey);
 }
 
 

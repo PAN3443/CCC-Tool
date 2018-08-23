@@ -311,7 +311,7 @@ class class_CMS {
   //////////////////////////////////
 
   /// CMS Interval Colors
-  calcIntervalColors(intervals, colorspace){
+/*  calcIntervalColors(intervals, colorspace){
     this.intervalArray=[];
     this.intervalPosition=[];
 
@@ -489,7 +489,124 @@ class class_CMS {
 
     }//
 
-  }//
+  }//*/
+
+  calcGlobalIntervalColors(numIntervals, colorspace, startKey, endKey, withoutMerge){
+
+    this.intervalArray=[];
+    this.intervalPosition=[];
+
+
+    var startPos = this.keyArray[startKey].getRefPosition();
+    var endPos = this.keyArray[endKey].getRefPosition();
+
+    var intervalDistance = (endPos-startPos)/(numIntervals);
+
+    var currentIntervalPointPos = startPos;
+    var intervalPointCounter = 0;
+
+    var error = 1e12;//1e-12; // because of common known problem 0.1+0.2 will be 0.30000000000000004
+
+    for(var keyIndex=startKey; keyIndex<endKey; keyIndex++){
+
+      var currentPos = this.keyArray[keyIndex].getRefPosition();
+      var nextPos = this.keyArray[keyIndex+1].getRefPosition();
+
+
+      if(currentIntervalPointPos==currentPos){
+        currentIntervalPointPos=Math.round((currentIntervalPointPos+intervalDistance) * error) / error; //currentIntervalPointPos+=intervalDistance;
+      }
+
+
+      var tmpColor,tmpColor2;
+
+      switch (this.keyArray[keyIndex].getKeyType()) {
+
+
+          case "nil key": case "left key":
+
+          var arrayPos = [this.intervalArray.length-1,this.intervalArray.length-1];
+
+          //// test
+          tmpColor = this.keyArray[keyIndex+1].getLeftKeyColor(colorspace);
+
+          /*arrayPos.push(this.intervalArray.length);
+          var newKeyInterval = new class_Interval(tmpColor, true, this.keyArray[keyIndex].getRefPosition());
+          this.intervalArray.push(newKeyInterval);
+          arrayPos[0]=this.intervalArray.length-1;*/
+
+          while (currentIntervalPointPos<nextPos) {
+
+            intervalPointCounter++;
+            if(intervalPointCounter==numIntervals) // last interval point has to hit the last key reference, but it is possible that the algorithm did not hit this value exactly and we have to stop it then and only adding the last key as interval
+            break;
+
+            if(withoutMerge){
+              var intervalColor = this.calculateColor(currentIntervalPointPos, colorspace);
+              var newInterval = new class_Interval(intervalColor, false, currentIntervalPointPos);
+              this.intervalArray.push(newInterval);
+            }
+            currentIntervalPointPos=Math.round((currentIntervalPointPos+intervalDistance) * error) / error; //currentIntervalPointPos+=intervalDistance;
+
+          }
+
+          // this is only
+          arrayPos.push(this.intervalArray.length);
+          var newKeyInterval2 = new class_Interval(tmpColor, true, this.keyArray[keyIndex+1].getRefPosition());
+          this.intervalArray.push(newKeyInterval2);
+          arrayPos[1]=this.intervalArray.length-1;
+          //// test
+
+          this.intervalPosition.push(arrayPos);
+
+          break;
+
+        default:
+
+        var arrayPos = [];
+        tmpColor = this.keyArray[keyIndex].getRightKeyColor(colorspace);
+        var ref1 = this.keyArray[keyIndex].getRefPosition();
+        tmpColor2 = this.keyArray[keyIndex+1].getLeftKeyColor(colorspace);
+        var ref2 = this.keyArray[keyIndex+1].getRefPosition();
+
+        arrayPos.push(this.intervalArray.length);
+        //// test
+        if(this.keyArray[keyIndex].getKeyType()!="dual key"){
+          var newKeyInterval = new class_Interval(tmpColor, true, this.keyArray[keyIndex].getRefPosition());
+          this.intervalArray.push(newKeyInterval);
+        }
+        //// test
+
+
+        while (currentIntervalPointPos<nextPos) {
+
+          intervalPointCounter++;
+          if(intervalPointCounter==numIntervals) // last interval point has to hit the last key reference, but it is possible that the algorithm did not hit this value exactly and we have to stop it then and only adding the last key as interval
+          break;
+
+          var intervalColor = this.calculateColor(currentIntervalPointPos, colorspace);
+          var newInterval = new class_Interval(intervalColor, false, currentIntervalPointPos);
+          this.intervalArray.push(newInterval);
+
+          currentIntervalPointPos=Math.round((currentIntervalPointPos+intervalDistance) * error) / error; //currentIntervalPointPos+=intervalDistance;
+
+        }
+
+        //// test
+          arrayPos.push(this.intervalArray.length);
+          var newKeyInterval2 = new class_Interval(tmpColor2, true, this.keyArray[keyIndex+1].getRefPosition());
+          this.intervalArray.push(newKeyInterval2);
+        //// test
+
+        this.intervalPosition.push(arrayPos);
+
+      }
+
+    }//for
+
+
+
+  }
 
 
   calcDeltaIntervalColors(intervalDeltaDis, colorspace, startKey, endKey){

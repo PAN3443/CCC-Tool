@@ -79,10 +79,10 @@ function checkIntervalInputFieldsChange(event){
 
     checkInputVal(document.getElementById(event.target.id),false,false);
 
-    if(parseFloat(document.getElementById(event.target.id).value)>1)
+    if(parseFloat(document.getElementById(event.target.id).value)>=1)
     intervalSize = parseFloat(document.getElementById(event.target.id).value);
     else{
-      openAlert("Attention: The number of interval points have to be at least two.");
+      //openAlert("Attention: The number of interval points have to be at least two.");
       document.getElementById(event.target.id).value=intervalSize;
       return;
     }
@@ -106,10 +106,10 @@ function checkIntervalInputFieldsKey(event){
 
   if (event.keyCode == 13) {
 
-    if(parseFloat(document.getElementById(event.target.id).value)>1)
+    if(parseFloat(document.getElementById(event.target.id).value)>=1)
     intervalSize = parseFloat(document.getElementById(event.target.id).value);
     else{
-      openAlert("Attention: The number of interval points have to be at least two.");
+      //openAlert("Attention: The number of interval points have to be at least two.");
       document.getElementById(event.target.id).value=intervalSize;
       return;
     }
@@ -345,13 +345,13 @@ function changeColorspace(type) {
 
   if (showSideID == 1) { // CREATE SIDE
 
-    if(document.getElementById("id_DivAddBands").style.display=="inline-block")
+    if(document.getElementById("id_DivAddBands").style.display!="none")
     drawPredefinedBands();
 
-    if(document.getElementById("id_DivModifyKeys").style.display=="inline-block")
+    if(document.getElementById("id_DivModifyKeys").style.display!="none")
     drawModifyPreview();
 
-    if(document.getElementById("modifyColormapPath").style.display=="inline-block")
+    if(document.getElementById("modifyColormapPath").style.display!="none")
     drawPathEditPath();
     //updateCreatorBand();
 

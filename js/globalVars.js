@@ -36,8 +36,11 @@ var analysisColormap;
 var compareColormap1;
 var compareColormap2;*/
 
-/*var interactionIntervalSize = 200;//50;
-var intervalSize = 200;*/
+/*var interactionIntervalSize = 200;//50;*/
+
+var intervalMode = 0; // 0 = global, 1=sectional, 2=sectional color difference depenting
+var intervalSize = 200;
+var doNoMerge = false;
 
 //
 var numDecimalPlaces = 2;
