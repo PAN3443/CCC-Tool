@@ -888,6 +888,10 @@ function drawElements_HSV_LAB_DIN99(isCompareMap) {
 
           drawVElement(tmpColor, workCMS.getRefPosition(i), workCMS.getRefPosition(0), workCMS.getRefRange(), vPlotxStart, vPlotyStart, heigthVArea, plotwidth, true, vPlotContex1,vPlotContex2,vPlotContex3, i, 2);
 
+
+          if(workCMS.getKeyType(i-1)==="left key"){
+            drawVElement(tmpColor, workCMS.getRefPosition(i - 1), workCMS.getRefPosition(0), workCMS.getRefRange(), vPlotxStart, vPlotyStart, heigthVArea, plotwidth, drawCircle, vPlotContex1,vPlotContex2,vPlotContex3, i, 2);
+          }
       }
 
     }

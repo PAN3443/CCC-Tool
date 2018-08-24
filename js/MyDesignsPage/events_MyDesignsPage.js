@@ -115,7 +115,9 @@ function saveSession() {
 
   for (var i = 0; i < myList.length; i++) {
     globalCMS1 = cloneCMS(myList[i]);
-    globalCMS1.calcIntervalColors(0, colorspaceModus);
+
+
+    /*globalCMS1 = calcCMSIntervals(globalCMS1,0,globalCMS1.getKeyLength()-1);*/
     text = text + "<ColorMap name=\"" + globalCMS1.getColormapName() + "\" space=\"";
 
     switch (exportColorspace) {
@@ -137,7 +139,7 @@ function saveSession() {
 
     text = text + "\" creator=\"CCC-Tool\">\n";
 
-    text = text + createCMSText("xml");
+    text = text + createCMSText(globalCMS1,"xml");
 
     text = text + "</ColorMap>\n";
 

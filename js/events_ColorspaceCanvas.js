@@ -292,7 +292,7 @@ function checkInsideRect(centerPosX, centerPosY, i, colorside) {
       mousePosY > centerPosY + bigcircleRad) {
       mouseAboveKeyID = -1;
       mouseGrappedColorSide=-1;
-        drawcolormap_hueSpace(false,false,false);
+        //drawcolormap_hueSpace(false,false,false);
 
       return false;
     } else {
@@ -306,7 +306,7 @@ function checkInsideRect(centerPosX, centerPosY, i, colorside) {
       mousePosY <= centerPosY + circleRad) {
       mouseAboveKeyID = i;
       mouseGrappedColorSide=colorside;
-        drawcolormap_hueSpace(false,false,false);
+        //drawcolormap_hueSpace(false,false,false);
 
       return true;
     } else {
@@ -508,7 +508,7 @@ function mouseMoveValuePlot(event) {
             }
 
             tmpX = vPlotxStart+((globalCMS1.getRefPosition(i-1)-globalCMS1.getRefPosition(0))/globalCMS1.getRefRange())*plotwidth;
-            if (checkInsideRect(tmpX, tmpY, i-1,0)) {
+            if (checkInsideRect(tmpX, tmpY, i,0)) {
               found = true;
               break;
             }
@@ -539,7 +539,7 @@ function mouseMoveValuePlot(event) {
               }
 
               tmpX = vPlotxStart+((globalCMS1.getRefPosition(i-1)-globalCMS1.getRefPosition(0))/globalCMS1.getRefRange())*plotwidth;
-              if (checkInsideRect(tmpX, tmpY, i-1,0)) {
+              if (checkInsideRect(tmpX, tmpY, i,0)) {
                 found = true;
                 break;
               }
@@ -565,6 +565,15 @@ function mouseMoveValuePlot(event) {
           tmpY=calcVYPos(tmpColor,vPlotyStart,heigthVArea,type);
           if (checkInsideCirce(tmpX, tmpY, i,2)) {
             found = true;
+            break;
+          }
+
+          if(globalCMS1.getKeyType(i-1)==="left key"){
+            tmpX = vPlotxStart+((globalCMS1.getRefPosition(i-1)-globalCMS1.getRefPosition(0))/globalCMS1.getRefRange())*plotwidth;
+            if (checkInsideRect(tmpX, tmpY, i,2)) {
+              found = true;
+              break;
+            }
           }
 
       }
@@ -573,9 +582,14 @@ function mouseMoveValuePlot(event) {
         document.getElementById(event.target.id).style.cursor = "pointer";
         break;
       }
+      else{
+        mouseAboveKeyID = -1;
+        mouseGrappedColorSide = -1;
+      }
+
 
     }
-
+    drawcolormap_hueSpace(false,false,false);
 
   }//if grapped key == -1
   else{
