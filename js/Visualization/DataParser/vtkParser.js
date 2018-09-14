@@ -220,7 +220,6 @@ function vtk_reader(content) {
                         counter++;
 
                         if(counter==numberFieldValues){
-
                           counter=0;
                           if(!globalDomain.addNewField(tmpValueArray, isCellData)){
                             console.log("Algorithm was not able to loading the field values of the type SCALARS.");
@@ -348,6 +347,7 @@ function vtk_reader(content) {
 
                     counter=0;
                     nextOrigin=false;
+
                     if(is3D==false){
                       openAlert("Sorry, the vtk loader was not able to load the vtk file. The Dimension and the Orgin information are not compatible!");
                       return false;
@@ -412,8 +412,8 @@ function vtk_reader(content) {
                       is3D = true;
                       //document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Found 3D Spacing: X = "+spacing_x+", Y = "+spacing_y+", Z = "+spacing_z+".";
                       console.log("Load Text Content: Found 3D Spacing: X = "+spacing_x+", Y = "+spacing_y+", Z = "+spacing_z+".");
-                      originFound = true;
-                      if (spacingFound) {
+                      spacingFound = true;
+                      if (originFound) {
                           numberPoints = dimension_x * dimension_y * dimension_z;
                           globalDomain = new class_Domain(datasetType, numberPoints, is3D);
                           globalDomain.setGrid_XDimension(dimension_x);
@@ -671,7 +671,7 @@ function vtk_reader(content) {
                   case "SCALARS":
                     valueType = 1;
                     //document.getElementById("id_currentProcessText").innerHTML = "Load Text Content:Start loading field values of the type SCALARS.";
-                    console.log("Load Text Content:Start loading field values of the type SCALARS.");
+                    console.log("Load Text Content: Start loading field values of the type SCALARS.");
                     counter=-5;
                   break;
                   case "COLOR_SCALARS":
@@ -795,8 +795,8 @@ function vtk_reader(content) {
                 datasetType = 1;
                 //document.getElementById("id_currentProcessText").innerHTML = "Load Text Content: Found DATASET Format: STRUCTURED_POINTS";
                 console.log("Load Text Content: Found DATASET Format: STRUCTURED_POINTS");
-                openAlert("Sorry, the ccc-tool did not support STRUCTURED_POINTS datasets.");
-                return false;
+                //openAlert("Sorry, the ccc-tool did not support STRUCTURED_POINTS datasets.");
+                //return false;
                 break;
               case "STRUCTURED_GRID":
                 datasetType = 2;

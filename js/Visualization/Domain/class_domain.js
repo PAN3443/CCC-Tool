@@ -27,7 +27,7 @@ class class_Domain {
     switch (this.gridType) {
       case 1: //STRUCTURED_POINTS
 
-        return true;
+        //return true;
       case 2: //"STRUCTURED_GRID"
       case 3: //"UNSTRUCTURED_GRID"
       case 5: //"RECTILINEAR_GRID"
@@ -184,13 +184,15 @@ class class_Domain {
 
     this.cellArray = [];
     switch (this.gridType) {
-      case 1: //STRUCTURED_POINTS
 
-        return 0;
+
+
 
       case 3: //"UNSTRUCTURED_GRID"
 
         return 0;
+
+      case 1: //STRUCTURED_POINTS //return 0;
       case 2: //"STRUCTURED_GRID"
       case 5: //"RECTILINEAR_GRID"
 
