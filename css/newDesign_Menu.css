@@ -1,0 +1,18 @@
+
+
+.menu_button {
+  padding-right:20px;
+  padding-left:20px;
+  font-size: 20px;
+  line-height: 50px;
+  cursor:pointer;
+  color:white;
+  vertical-align: middle;
+  text-align: center;
+  background:none;
+}
+
+
+.menu_button:hover {
+  background: rgba(255,255,255,0.5);
+}

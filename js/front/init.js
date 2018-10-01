@@ -922,3 +922,17 @@ function init_Size() {
   }*/
 
 }
+
+
+
+///////////////////////////////////////////////////////////////
+
+function init_Style(){
+  var windowWidth = window.innerWidth;
+  var windowHeight = window.innerHeight;
+
+  document.getElementById("id_ccctoolPage").style.width = windowWidth + "px";
+  document.getElementById("id_ccctoolPage").style.height = windowHeight + "px";
+
+  console.log(123);
+}

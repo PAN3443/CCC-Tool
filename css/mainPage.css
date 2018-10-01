@@ -4,14 +4,7 @@
   margin:0px;
 }
 
-.standardText{
-  font-size: 12px;
-  line-height: 16px;
-  color:black;
-  height:auto;
-  vertical-align:middle;
-  margin:0px;
-}
+
 
 .matrixText{
   font-size: 36px;
@@ -26,28 +19,7 @@
 }
 
 
-.sectionLabel{
-  font-size: 28px;
-  line-height: 32px;
-  color:black;
-  height:auto;
-  vertical-align:middle;
-  text-align:center;
-  width:100%;
-  text-decoration: underline;
-  margin:0px;
-}
 
-.subsectionLabel{
-  font-size: 18px;
-  line-height: 16px;
-  color:black;
-  height:auto;
-  vertical-align:middle;
-  text-align:center;
-  width:100%;
-  margin:0px;
-}
 
 
 .switch {
