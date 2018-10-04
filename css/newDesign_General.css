@@ -3,17 +3,18 @@
 ************************************************************/
 
 .standardText{
-  font-size: 12px;
-  line-height: 16px;
+  font-size: 18px;
+  line-height: 20px;
   color:black;
   height:auto;
   vertical-align:middle;
   margin:0px;
+  overflow: auto;
 }
 
 .sectionLabel{
-  font-size: 28px;
-  line-height: 32px;
+  font-size: 35px;
+  line-height: 40px;
   color:black;
   height:auto;
   vertical-align:middle;
@@ -21,6 +22,7 @@
   width:100%;
   text-decoration: underline;
   margin:0px;
+
 }
 
 .subsectionLabel{
@@ -32,4 +34,58 @@
   text-align:center;
   width:100%;
   margin:0px;
+}
+
+.class_generalbutton{
+    background-color: rgb(76, 175, 80);
+    border: 2px solid rgb(0, 143, 0);
+    color: white;
+    /*padding: 20px;*/
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 8px;
+    /*margin-left: auto;*/
+    overflow: auto;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.class_generalbutton:hover{
+  background-color: rgb(0, 143, 0);
+}
+
+.class_RotateLeft{
+  width:40px;
+  border-radius : 0px 10px 10px 0px;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 40px;
+  vertical-align: middle;
+  text-align: center;
+
+  writing-mode: sideways-lr;
+  -webkit-writing-mode: sideways-lr;
+  -ms-writing-mode: sideways-lr;
+
+}
+
+
+.class_RotateRight{
+  width:40px;
+  border-radius : 10px 0px 0px 10px;
+  cursor: pointer;
+
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 40px;
+  vertical-align: middle;
+  text-align: center;
+
+  writing-mode: sideways-rl;
+  -webkit-writing-mode: sideways-rl;
+  -ms-writing-mode: sideways-rl;
 }

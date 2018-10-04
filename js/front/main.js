@@ -319,5 +319,13 @@ function fillTable() {
 
 
   //// STYLE
-  init_Style();
+
+  initMyDesignObj();
+
+
+//*  init_Style();
+
+
+  // at least
+  pageIsLoaded=true;
 }

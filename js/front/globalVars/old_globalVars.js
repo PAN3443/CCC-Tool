@@ -1,9 +1,3 @@
-///////////////////////////
-/// GLOBAL
-//////////////////////////
-
-
-
 
 //////////////////////////////////////////
 
@@ -26,7 +20,7 @@ var saveTwoColormaps=false;
 var tmpSaveColormap2;
 var colormap1SelectIndex = -1;
 var colormap2SelectIndex = -1;
-var pageIsLoaded=false;
+
 
 var intervalDelta = 1;
 

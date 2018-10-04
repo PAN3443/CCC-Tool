@@ -1,4 +1,11 @@
-function init_settingPage() {
+
+
+
+
+
+
+
+/*function init_settingPage() {
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// Init Setting Side /////////////////////////////////////
@@ -595,8 +602,6 @@ function init_ExportPage() {
   document.getElementById('id_ExportIntervalNum').addEventListener("keyup", checkIntervalInputFieldsKey);
 }
 
-
-
 function init_Size() {
 
   var windowWidth = window.innerWidth;
@@ -876,7 +881,7 @@ function init_Size() {
   for (var i = 0; i < selects.length; i++) {
 
     /*if(selects[i].name=="constStyle")
-      continue;*/
+      continue;*
 
     if (selects[i].classList.contains("constText"))
       continue;
@@ -919,20 +924,20 @@ function init_Size() {
     document.getElementById("id_nanMyListColormap"+i).style.height =  myDesingElementHight;
     document.getElementById("id_nanMyListColormap"+i).style.width =  myDesingElementHight;
 
-  }*/
+  }*
 
-}
+}*/
 
 
 
 ///////////////////////////////////////////////////////////////
 
-function init_Style(){
-  var windowWidth = window.innerWidth;
+/*function init_Style(){
+  /*var windowWidth = window.innerWidth;
   var windowHeight = window.innerHeight;
 
-  document.getElementById("id_ccctoolPage").style.width = windowWidth + "px";
-  document.getElementById("id_ccctoolPage").style.height = windowHeight + "px";
+  /*document.getElementById("id_ccctoolPage").style.width = windowWidth + "px";
+  document.getElementById("id_ccctoolPage").style.height = windowHeight + "px";*
 
-  console.log(123);
-}
+
+}*/
