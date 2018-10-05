@@ -1,45 +1,45 @@
 
 
 #id_EditPage_backButton{
-  background-color: rgb(153, 255, 153);
+  background-color: rgb(204, 255, 204);
   border: 2px solid rgb(0, 204, 0);
 }
 
 #id_EditPage_backButton:hover{
-  background-color: rgb(204, 255, 204);
+  background-color: rgb(153, 255, 153);
 }
 
 
 #id_EditPage_savePartButton{
-  background-color: rgb(255, 204, 102);
+  background-color: rgb(255, 230, 179);
   border: 2px solid rgb(230, 153, 0);
 }
 
 #id_EditPage_savePartButton:hover{
-  background-color: rgb(255, 230, 179);
+  background-color: rgb(255, 204, 102);
 }
 
 #id_EditPage_savePartDiv{
   height: 250px;
   width: 500px;
-  background-color: rgb(255, 204, 102);
+  background-color: rgb(255, 230, 179);
   border: 2px solid rgb(230, 153, 0);
   display: none;
 }
 
 #id_EditPage_guideLinePartButton{
-  background-color: rgb(255, 102, 102);
+  background-color: rgb(255, 204, 204);
   border: 2px solid rgb(179, 0, 0);
 }
 
 #id_EditPage_guideLinePartButton:hover{
-  background-color: rgb(255, 204, 204);
+  background-color: rgb(255, 102, 102);
 }
 
 #id_EditPage_GuideLineDiv{
   height: 758px;
   width: 500px;
-  background-color: rgb(255, 102, 102);
+  background-color: rgb(255, 204, 204);
   border: 2px solid rgb(179, 0, 0);
   display: none;
 }
@@ -48,19 +48,18 @@
 
 #id_EditPage_interpolationPartButton{
   float:right;
-  background-color: rgb(204, 153, 255);
+  background-color: rgb(230, 204, 255);
   border: 2px solid rgb(140, 26, 255);
 }
 
 #id_EditPage_interpolationPartButton:hover{
-  background-color: rgb(230, 204, 255);
+  background-color: rgb(204, 153, 255);
 }
 
 #id_EditPage_interpolationPartDiv{
   float:right;
   height: 375px;
-  width: 500px;
-  background-color: rgb(204, 153, 255);
+  background-color: rgb(230, 204, 255);
   border: 2px solid rgb(140, 26, 255);
   display: none;
 }
@@ -68,19 +67,78 @@
 
 #id_EditPage_cmsTablePartButton{
   float:right;
-  background-color: rgb(128, 191, 255);
+  background-color: rgb(204, 230, 255);
   border: 2px solid rgb(0, 79, 153);
 }
 
 #id_EditPage_cmsTablePartButton:hover{
-  background-color: rgb(204, 230, 255);
+  background-color: rgb(128, 191, 255);
 }
 
 #id_EditPage_cmsTablePartDiv{
   float:right;
   height: 375px;
   width: 500px;
-  background-color: rgb(128, 191, 255);
+  background-color: rgb(204, 230, 255);
   border: 2px solid rgb(0, 79, 153);
   display: none;
+}
+
+
+
+.class_EditPage_SelectInterpolationColorspace{
+  height:26px;
+  width:26px;
+  border: 2px solid black;
+  line-height: 26px;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 18px;
+  color: black;
+  position: relative;
+  overflow: hidden;
+  background: rgb(230, 204, 255);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/**
+ * The "shine" element
+ */
+
+.class_EditPage_SelectInterpolationColorspace:after {
+  content: "";
+  position: absolute;
+  top: -110%;
+  left: -210%;
+  width: 200%;
+  height: 200%;
+  opacity: 0;
+  transform: rotate(30deg);
+
+  background: rgba(255, 255, 255, 0.13);
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.13) 0%,
+    rgba(255, 255, 255, 0.13) 77%,
+    rgba(255, 255, 255, 0.5) 92%,
+    rgba(255, 255, 255, 0.0) 100%
+  );
+}
+
+/* Hover state - trigger effect */
+
+.class_EditPage_SelectInterpolationColorspace:hover:after {
+  opacity: 1;
+  top: -30%;
+  left: -30%;
+  transition-property: left, top, opacity;
+  transition-duration: 0.7s, 0.7s, 0.15s;
+  transition-timing-function: ease;
+}
+
+/* Active state */
+
+.class_EditPage_SelectInterpolationColorspace:active:after {
+  opacity: 0;
 }

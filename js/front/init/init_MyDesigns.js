@@ -39,19 +39,16 @@ function createMyDesignObject(id){
   var tmpDiv = document.createElement('div');
   tmpDiv.className = 'class_MyDesignObjCMSDiv';
 
-  var tmpFirstRow = document.createElement('div');
-  tmpFirstRow.className = "row";
-  tmpFirstRow.style.width="100%";
+
 
   var tmpLabel = document.createElement('div');
   tmpLabel.id="myDesignObj_Label_"+id;
   tmpLabel.className = 'class_MyDesignObjCMSCanvas';
-  tmpLabel.style.width="95%";
   tmpLabel.style.color="white";
   tmpLabel.style.background="rgb(128, 128, 128)";
   tmpLabel.style.border = "2px solid rgb(64, 64, 64)";
   tmpLabel.style.borderBottom = "none";
-  tmpLabel.style.borderRadius = "5px 0px 0px 0px";
+  tmpLabel.style.borderRadius = "5px 5px 0px 0px";
   tmpLabel.innerHTML="Emty CMS:"
 
 
@@ -61,12 +58,10 @@ function createMyDesignObject(id){
   tmpCMSInfo.style.width="5%";
   tmpCMSInfo.style.color="white";
   tmpCMSInfo.style.background="rgb(80, 80, 80)";
-  tmpCMSInfo.style.border = "2px solid rgb(64, 64, 64)";
-  tmpCMSInfo.style.borderBottom = "none";
-  tmpCMSInfo.style.borderLeft = "none";
-  tmpCMSInfo.style.borderRadius = "0px 5px 0px 0px";
+  tmpCMSInfo.style.borderLeft = "2px solid rgb(64, 64, 64)";
   tmpCMSInfo.style.textAlign="center";
   tmpCMSInfo.style.cursor="pointer";
+  tmpCMSInfo.style.float="right";
   tmpCMSInfo.innerHTML="i"
 
   tmpCMSInfo.onmouseover = function() {
@@ -77,9 +72,8 @@ function createMyDesignObject(id){
     this.style.backgroundColor = "rgb(80, 80, 80)";
   }
 
-  tmpFirstRow.appendChild(tmpLabel);
-  tmpFirstRow.appendChild(tmpCMSInfo);
-  tmpDiv.appendChild(tmpFirstRow);
+  tmpLabel.appendChild(tmpCMSInfo);
+  tmpDiv.appendChild(tmpLabel);
 
   var tmpCMSlinear = document.createElement('canvas');
   tmpCMSlinear.id="myDesignObj_CMSlinear_"+id;

@@ -298,8 +298,38 @@
 
                  <div style="position: absolute; z-index: 0; width:100%; left: 0; top: 0;">  <!-- -------------- Main Part Edit Page ---------------->
 
-                   <div style="width:90%; margin-left:5%; margin-right:5%; height:100px;">
-                     <p>NAME:</p>
+                   <div class="row" style="width:90%; margin-left:5%; margin-right:5%; height:100px; border: 2px solid grey; border-radius: 0px 0px 5px 5px; background:rgb(210,210,210); height:50px; overflow:auto;">
+                     <p class="standardText" id="id_EditPage_CMSName" style="margin-left:2.5%; line-height:50px; height:50px; font-weight:bold; cursor:pointer;">Your CMS Name</p>
+
+                     <p class="standardText"  style="margin-left:2.5%; line-height:50px; height:50px;"> NaN:</p>
+                     <div style="height:26px; width: 26px; background:white; border: 2px solid black; border-radius: 5px; margin-top:10px; margin-left:5px; cursor:pointer;">
+
+                     </div>
+                     <p class="standardText"  style="margin-left:2.5%; line-height:50px; height:50px;">Below Range:</p>
+                     <div style="height:26px; width: 26px; background:white; border: 2px solid black; border-radius: 5px; margin-top:10px; margin-left:5px; cursor:pointer;">
+
+                     </div>
+                     <p class="standardText"  style="margin-left:2.5%; line-height:50px; height:50px;">Above Range:</p>
+                     <div style="height:26px; width: 26px; background:white; border: 2px solid black; border-radius: 5px; margin-top:10px; margin-left:5px; cursor:pointer;">
+
+                     </div>
+                     <div style="height:50px; width: 2.5%; border-right: 2px solid grey;">
+
+                     </div>
+
+                     <p class="standardText" id="id_EditPage_CMSName" style="margin-left:2.5%; line-height:50px; height:50px; font-weight:bold; cursor:pointer;" onclick="showInterpolationOptions()">Space: DIN99</p>
+
+                     <img  id="id_EditPage_SmileyImg" src="img/smiley.png" style="margin-top: 5px; margin-left:5px; max-height:40px;">
+                     <img  id="id_EditPage_SadleyImg" src="img/sadley.png" style="margin-top: 5px; margin-left:5px; max-height:40px; display:none;">
+
+                     <div style="height:50px; width: 2.5%; border-right: 2px solid grey;">
+
+                     </div>
+
+                     <button onclick="showMyDesignsPage()" class="class_generalbutton" style="margin-left:auto;  width:120px; height:40px; line-height:40px; margin-top:5px;">Clear</button>
+
+                     <button onclick="showMyDesignsPage()" class="class_generalbutton" style="margin-left:auto; margin-right:auto;  width:120px; height:40px; line-height:40px; margin-top:5px;">Export</button>
+
                    </div>
 
                  </div>
@@ -358,6 +388,51 @@
                            Interpolation Space
                          </div>
                          <div id="id_EditPage_interpolationPartDiv">
+
+
+                           <div style="margin:15px; height:341px; background:white; border:2px solid rgb(204, 153, 255);">
+
+
+                             <div class="row" style="margin-left:10px; margin-right:10px;  margin-bottom:10px; margin-top:auto;">
+                               <img  id="id_EditPage_SmileyImg" src="img/smiley.png" style="margin-left:5px; height:40px;">
+                               <p class="standardText" style="margin-left:5px; height:40px; line-height:40px; font-weight:bold; margin-right:5px;"> Perceptuall Uniform Spaces:</p>
+                             </div>
+
+                             <div class="row" style="margin:10px; widht:100%;">
+
+                               <div id="id_EditPage_SelectLab" class="class_EditPage_SelectInterpolationColorspace" style="margin-left: auto;">
+
+                               </div>
+                               <p class="standardText" style="margin-left:5px; height:30px; line-height:30px; margin-left:5px; margin-right:50px;"> : LAB</p>
+
+                               <div id="id_EditPage_SelectDIN99" class="class_EditPage_SelectInterpolationColorspace">
+                                 &#10004;
+                               </div>
+                               <p class="standardText" style="margin-left:5px; height:30px; line-height:30px; margin-left:5px; margin-right:auto;"> : DIN99</p>
+                             </div>
+
+                             <div class="row" style="margin:10px; margin-top:40px;">
+                               <img  id="id_EditPage_SadleyImg" src="img/sadley.png" style="margin-left:5px; height:40px;">
+                               <p class="standardText" style="margin-left:5px; height:40px; line-height:40px; font-weight:bold; margin-right:5px;"> Non Perceptuall Uniform Spaces:</p>
+                             </div>
+
+                             <div class="row" style="widht:100%; margin-left:10px; margin-right:10px;  margin-bottom:auto; margin-top:10px;">
+
+                               <div id="id_EditPage_SelectRGB" class="class_EditPage_SelectInterpolationColorspace" style="margin-left: auto;">
+
+                               </div>
+                               <p class="standardText" style="margin-left:5px; height:30px; line-height:30px; margin-left:5px; margin-right:50px;"> : RGB</p>
+
+                               <div id="id_EditPage_SelectHSV" class="class_EditPage_SelectInterpolationColorspace">
+
+                               </div>
+                               <p class="standardText" style="margin-left:5px; height:30px; line-height:30px; margin-left:5px; margin-right:auto;"> : HSV</p>
+                             </div>
+
+
+                           </div>
+
+
 
                          </div>
                        </div>

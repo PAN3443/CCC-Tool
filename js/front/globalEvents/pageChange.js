@@ -1,6 +1,13 @@
 
 function startLeaveEditPage(){
 
+  document.getElementById("id_EditPage_savePartDiv").style.display="none";
+  document.getElementById("id_EditPage_interpolationPartDiv").style.display="none";
+  document.getElementById("id_EditPage_cmsTablePartDiv").style.display="none";
+  document.getElementById("id_EditPage_GuideLineDiv").style.display="none"
+  document.getElementById("id_EditPage_StopInteractionDiv").style.width="0%"
+
+
   if(somethingChanged){
     askType=4;
     openAskWindow();
