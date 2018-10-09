@@ -8,6 +8,16 @@ class class_CMS {
     this.NaN_LAB = new classColor_LAB(0,0,0);
     this.NaN_DIN99 = new classColorDIN99(0,0,0);
 
+    this.Below_RGB = new classColor_RGB(0,0,0);
+    this.Below_HSV = new classColor_HSV(0,0,0);
+    this.Below_LAB = new classColor_LAB(0,0,0);
+    this.Below_DIN99 = new classColorDIN99(0,0,0);
+
+    this.Above_RGB = new classColor_RGB(0,0,0);
+    this.Above_HSV = new classColor_HSV(0,0,0);
+    this.Above_LAB = new classColor_LAB(0,0,0);
+    this.Above_DIN99 = new classColorDIN99(0,0,0);
+
     /// color array from import and for the export
     this.preprocessingColorArray = [];
     this.preprocessingPositionPoints = [];
@@ -867,6 +877,117 @@ class class_CMS {
 
      }
    }
+
+
+
+   setBelowColor(color){
+
+     var colorType = color.getColorType();
+     switch (colorType) {
+       case "rgb":
+       this.Below_RGB = color;
+       this.Below_HSV = color.calcHSVColor();
+       this.Below_LAB = color.calcLABColor();
+       this.Below_DIN99 = color.calcDIN99Color(1,1);
+         break;
+       case "hsv":
+       this.Below_RGB = color.calcRGBColor();
+       this.Below_HSV = color;
+       this.Below_LAB = color.calcLABColor();
+       this.Below_DIN99 = color.calcDIN99Color(1,1);
+         break;
+       case "lab":
+       this.Below_RGB = color.calcRGBColor();
+       this.Below_HSV = color.calcHSVColor();
+       this.Below_LAB = color;
+       this.Below_DIN99 = color.calcDIN99Color(1,1);
+         break;
+       case "din99":
+       this.Below_RGB = color.calcRGBColor();
+       this.Below_HSV = color.calcHSVColor();
+       this.Below_LAB = color.calcLABColor();
+       this.Below_DIN99 = color;
+         break;
+       default:
+
+     }
+   }
+
+   getBelowColor(colorspace){
+
+     switch (colorspace) {
+       case "rgb":
+       return this.Below_RGB;
+
+       case "hsv":
+       return this.Below_HSV;
+
+       case "lab":
+       return this.Below_LAB;
+
+       case "din99":
+       return this.Below_DIN99;
+
+       default:
+
+     }
+   }
+
+
+
+   setAboveColor(color){
+
+     var colorType = color.getColorType();
+     switch (colorType) {
+       case "rgb":
+       this.Above_RGB = color;
+       this.Above_HSV = color.calcHSVColor();
+       this.Above_LAB = color.calcLABColor();
+       this.Above_DIN99 = color.calcDIN99Color(1,1);
+         break;
+       case "hsv":
+       this.Above_RGB = color.calcRGBColor();
+       this.Above_HSV = color;
+       this.Above_LAB = color.calcLABColor();
+       this.Above_DIN99 = color.calcDIN99Color(1,1);
+         break;
+       case "lab":
+       this.Above_RGB = color.calcRGBColor();
+       this.Above_HSV = color.calcHSVColor();
+       this.Above_LAB = color;
+       this.Above_DIN99 = color.calcDIN99Color(1,1);
+         break;
+       case "din99":
+       this.Above_RGB = color.calcRGBColor();
+       this.Above_HSV = color.calcHSVColor();
+       this.Above_LAB = color.calcLABColor();
+       this.Above_DIN99 = color;
+         break;
+       default:
+
+     }
+   }
+
+   getAboveColor(colorspace){
+
+     switch (colorspace) {
+       case "rgb":
+       return this.Above_RGB;
+
+       case "hsv":
+       return this.Above_HSV;
+
+       case "lab":
+       return this.Above_LAB;
+
+       case "din99":
+       return this.Above_DIN99;
+
+       default:
+
+     }
+   }
+
 
 
 

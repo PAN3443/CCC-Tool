@@ -3,7 +3,7 @@
 ************************************************************/
 
 .standardText{
-  font-size: 18px;
+  font-size: 16px;
   line-height: 20px;
   color:black;
   height:auto;
@@ -88,4 +88,39 @@
   writing-mode: sideways-rl;
   -webkit-writing-mode: sideways-rl;
   -ms-writing-mode: sideways-rl;
+}
+
+.class_subsectionButtonUnderground{
+  border-radius: 0px 0px 10px 10px;
+}
+
+.class_subsectionButton{
+   background: none;
+   height:30px;
+   line-height: 30px;
+   font-size: 18px;
+   font-weight: bold;
+   color:white;
+   text-align: center;
+   vertical-align: middle;
+   cursor:pointer;
+   border-radius: 0px 0px 10px 10px;
+   width:100%;
+   /*border: 2px solid rgb(20,20,20);*/
+}
+
+.class_subsectionButton:hover{
+   background: rgba(180,180,180,0.5);
+}
+
+
+.classButtonWhite:hover {
+  box-shadow: inset 0 0 0 2em rgba(180,180,180,0.3);
+}
+
+
+.classButtonWhite {
+  color: black;
+  background:white;
+  /*transition: 0.5s;*/
 }

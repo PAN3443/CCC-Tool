@@ -42,6 +42,9 @@ function showEditPage(){
     somethingChanged=true;
 
     // create new CMS
+
+    globalCMS1 = new class_CMS();
+    globalCMS1.setColormapName(document.getElementById("id_newCMSPage_ColormapName").value);
   }
   else{
     // CMS from MyDesigns
@@ -49,7 +52,15 @@ function showEditPage(){
   }
 
 
+  // fill Edit pages
+  document.getElementById("id_EditPage_CMSName").innerHTML=globalCMS1.getColormapName();
+
+  document.getElementById("id_EditPage_CMS_NaN_Color").style.background=globalCMS1.getNaNColor("rgb").getRGBString();
+  document.getElementById("id_EditPage_CMS_Below_Color").style.background=globalCMS1.getBelowColor("rgb").getRGBString();
+  document.getElementById("id_EditPage_CMS_Above_Color").style.background=globalCMS1.getAboveColor("rgb").getRGBString();
+
   document.getElementById("id_EditPage").style.display="block";
+  updateEditPage();
 
 }
 

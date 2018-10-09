@@ -41,7 +41,6 @@ function openAskWindow(){
             case 4:
               // leave edit page
               document.getElementById("id_askText").innerHTML="Do you really want to leave the edit page and reject unsaved content?";
-  
               break;
       default:
 

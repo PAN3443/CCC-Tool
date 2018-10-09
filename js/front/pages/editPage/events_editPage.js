@@ -1,4 +1,133 @@
-function editPage_delteKey(){
+
+
+function updateEditPage(){
+
+  drawBandSketch(globalCMS1,"id_EditPage_CMS_VIS_ColormapSketch", false, -1);
+
+
+
+
+
+  if(globalCMS1.getKeyLength() != 0){
+
+        drawCanvasColormap("id_EditPage_CMS_VIS_ColormapLinear", linearMap_resolution_X, linearMap_resolution_Y, globalCMS1);
+        drawKeys("id_EditPage_CMS_VIS_LinearKeys", key_resolution_X, key_resolution_Y, globalCMS1, "id_keyColormapLinesBottom");
+        drawSketchKeys("id_EditPage_CMS_VIS_SketchKeys", globalCMS1);
+        drawLines("id_EditPage_CMS_VIS_Lines1",true, true, key_resolution_X, key_resolution_Y, globalCMS1);
+        drawLines("id_EditPage_CMS_VIS_Lines2",false, false, key_resolution_X, key_resolution_Y, globalCMS1);
+        drawLines("id_EditPage_CMS_VIS_Lines3",false, false, key_resolution_X, key_resolution_Y, globalCMS1);
+
+        document.getElementById("id_EditPage_CMS_VIS_LinearKeys").style.display="block";
+        document.getElementById("id_EditPage_CMS_VIS_KeyBurs").style.display="block";
+        document.getElementById("id_EditPage_CMS_VIS_ColormapLinear").style.display="block";
+        document.getElementById("id_EditPage_RefPlaceholder").style.display="block";
+        document.getElementById("id_EditPage_CMS_VIS_SketchKeys").style.display="block";
+        document.getElementById("id_EditPage_CMS_VIS_Lines1").style.display="block";
+          document.getElementById("id_EditPage_CMS_VIS_Lines2").style.display="block";
+            document.getElementById("id_EditPage_CMS_VIS_Lines3").style.display="block";
+
+        document.getElementById("id_editPage_HelpImage1").style.display="none";
+
+        /*document.getElementById("div_colormapLinear").style.display = "inline-block";
+
+        if(showSideID==1)
+          document.getElementById("bandSketchAutoRangeDiv").style.display="block";
+        else
+          document.getElementById("bandSketchAutoRangeDiv").style.display="none";*/
+
+
+  }
+  else{
+    /*document.getElementById("div_colormapLinear").style.display = "none";
+    document.getElementById("bandSketchAutoRangeDiv").style.display="none";*/
+
+    document.getElementById("id_EditPage_CMS_VIS_LinearKeys").style.display="none";
+    document.getElementById("id_EditPage_CMS_VIS_KeyBurs").style.display="none";
+    document.getElementById("id_EditPage_CMS_VIS_ColormapLinear").style.display="none";
+    document.getElementById("id_EditPage_RefPlaceholder").style.display="none";
+    document.getElementById("id_EditPage_CMS_VIS_SketchKeys").style.display="none";
+    document.getElementById("id_EditPage_CMS_VIS_Lines1").style.display="none";
+      document.getElementById("id_EditPage_CMS_VIS_Lines2").style.display="none";
+        document.getElementById("id_EditPage_CMS_VIS_Lines3").style.display="none";
+
+    document.getElementById("id_editPage_HelpImage1").style.display="block";
+  }
+
+
+
+
+
+  var rect = document.getElementById("id_EditPage_MainPartDiv").getBoundingClientRect();
+  document.getElementById("id_EditPage").style.height =  rect.height +"px";
+
+    /*for (var i = refLineSketchContainer.length - 1; i >= 0; i--) {
+      refLineSketchContainer[i].remove();
+      refLineSketchContainer.pop();
+    }*/
+
+   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+   /*if(document.getElementById("mapping_checkAutoUpdate").checked==true && mapping_doingAnimation && document.getElementById('switchExpertModeWelcomePage').checked){
+     updateMesh();
+   }*/
+
+
+
+
+    // show and draw the colormap
+    /*if(globalCMS1.getKeyLength() != 0){
+
+          drawCanvasColormap("id_linearColormap", linearMap_resolution_X, linearMap_resolution_Y, globalCMS1);
+          drawKeys("id_keyColormap", key_resolution_X, key_resolution_Y, globalCMS1, "id_keyColormapLinesBottom");
+
+          document.getElementById("div_colormapLinear").style.display = "inline-block";
+
+          if(showSideID==1)
+            document.getElementById("bandSketchAutoRangeDiv").style.display="block";
+          else
+            document.getElementById("bandSketchAutoRangeDiv").style.display="none";
+
+
+    }
+    else{
+      document.getElementById("div_colormapLinear").style.display = "none";
+      document.getElementById("bandSketchAutoRangeDiv").style.display="none";
+    }
+
+
+
+      //////////////////////////////////////////////////////////////////////////
+      drawBandSketch(globalCMS1,"id_colormapSketch","id_createColormapKeys","id_colormapSketch_Ref", false, -1);
+
+
+      if(showSideID == 3){
+
+        if(globalCMS2.getKeyLength() != 0){
+
+          drawCanvasColormap("id_linearColormap2", linearMap_resolution_X, linearMap_resolution_Y, globalCMS2);
+          drawKeys("id_keyColormap2", key_resolution_X, key_resolution_Y, globalCMS2, "id_keyColormapLinesBottom2");
+
+          document.getElementById("div_colormapLinear2").style.display = "inline-block";
+
+        }
+        else{
+          document.getElementById("div_colormapLinear2").style.display = "none";
+        }
+
+        drawBandSketch(globalCMS2,"id_colormapSketch2","id_createColormapKeys2","id_colormapSketch_Ref2", false, -1);
+      }*/
+
+
+
+
+
+}
+
+
+
+
+
+/*function editPage_delteKey(){
 
 globalCMS1.deleteKey(selectedKey);
 orderColorSketch();
@@ -1370,4 +1499,4 @@ function checkColorInputFieldsKey(event){
 
 
 
-}
+}*/

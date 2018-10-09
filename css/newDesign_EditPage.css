@@ -19,9 +19,33 @@
   background-color: rgb(255, 204, 102);
 }
 
+.class_savebutton{
+    background-color: rgb(255, 230, 179);
+    border: 2px solid rgb(230, 153, 0);
+    color: black;
+    /*padding: 20px;*/
+    width:240px;
+    height: 70px;
+    line-height: 70px;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 8px;
+    /*margin-left: auto;*/
+    overflow: auto;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.class_savebutton:hover{
+  background-color: rgb(255, 204, 102);
+}
+
+
 #id_EditPage_savePartDiv{
   height: 250px;
-  width: 500px;
+  width: 300px;
   background-color: rgb(255, 230, 179);
   border: 2px solid rgb(230, 153, 0);
   display: none;
@@ -63,27 +87,6 @@
   border: 2px solid rgb(140, 26, 255);
   display: none;
 }
-
-
-#id_EditPage_cmsTablePartButton{
-  float:right;
-  background-color: rgb(204, 230, 255);
-  border: 2px solid rgb(0, 79, 153);
-}
-
-#id_EditPage_cmsTablePartButton:hover{
-  background-color: rgb(128, 191, 255);
-}
-
-#id_EditPage_cmsTablePartDiv{
-  float:right;
-  height: 375px;
-  width: 500px;
-  background-color: rgb(204, 230, 255);
-  border: 2px solid rgb(0, 79, 153);
-  display: none;
-}
-
 
 
 .class_EditPage_SelectInterpolationColorspace{
@@ -141,4 +144,98 @@
 
 .class_EditPage_SelectInterpolationColorspace:active:after {
   opacity: 0;
+}
+
+
+
+#id_EditPage_cmsTablePartButton{
+  float:right;
+  background-color: rgb(204, 230, 255);
+  border: 2px solid rgb(0, 79, 153);
+}
+
+#id_EditPage_cmsTablePartButton:hover{
+  background-color: rgb(128, 191, 255);
+}
+
+#id_EditPage_cmsTablePartDiv{
+  float:right;
+  height: 375px;
+  width: 700px;
+  background-color: rgb(204, 230, 255);
+  border: 2px solid rgb(0, 79, 153);
+  display: none;
+}
+
+
+
+.class_tablelabel{
+    height:20px;
+    line-height:20px;
+    font-size:12px;
+    font-weight: bold;
+    padding-right:5px;
+    padding-left:5px;
+    background:rgb(128, 191, 255);
+    color: white;
+    border-right: 1px solid white;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.class_tableInput{
+    height:20px;
+    line-height:20px;
+    font-size:12px;
+    color: black;
+    border: 1px solid black;
+    vertical-align: middle;
+    text-align: center;
+}
+
+
+
+
+.class_predefinedConstBands{
+    height: 20px;
+    min-height: 20px;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    border-radius: 3px;
+    border: 1px solid black;
+    margin-top: 10px;
+    float:left;
+    line-height: 30px;
+    vertical-align: middle;
+    text-align:  center;
+    font-size: 12px;
+}
+
+.class_predefinedScaledBands{
+    height: 20px;
+    width: 65%;
+    margin-left: 10%;
+    margin-right: 5%;
+    border-radius: 3px;
+    border: 1px solid black;
+    float:left;
+    line-height: 30px;
+    vertical-align: middle;
+    text-align:  center;
+    font-size: 12px;
+
+}
+
+.class_reversebuttonCreatePage{
+  width:10%;
+  height:20px;
+  margin-right: 10%;
+  border-radius: 3px;
+  border: 1px solid black;
+  line-height: 20px;
+  font-size: 12px;
+  color:black;
+  vertical-align: middle;
+  text-align:  center;
 }

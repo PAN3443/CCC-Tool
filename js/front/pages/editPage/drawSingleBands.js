@@ -1,3 +1,83 @@
+function drawConstantBands(){
+  //---------------------------
+  // --------- Empty Divs
+  document.getElementById('id_EditPage_ConstBandDiv').innerHTML = "";
+
+  var resolutionX = 100;
+  var resolutionY = 1;
+
+  //---------------------------
+  // --------- Const
+  for(var i=0; i<constBands.length; i++){
+
+      var iDiv = document.createElement('div');
+      iDiv.id = 'const'+i;
+      iDiv.className = 'class_predefinedConstBands';
+      iDiv.setAttribute('draggable', true);
+      iDiv.style.background = constBands[i].getRGBString();
+      document.getElementById('id_EditPage_ConstBandDiv').appendChild(iDiv);
+      iDiv.addEventListener("dragstart", bandOnDragStart);
+      iDiv.addEventListener("dragend", bandOnDragEnd);
+      iDiv.style.cursor = "move";
+  }
+}
+
+function drawScaledBands(){
+  document.getElementById('id_EditPage_ScaleBandDiv').innerHTML = "";
+
+  var resolutionX = 100;
+  var resolutionY = 1;
+
+  //---------------------------
+  // --------- Scale
+  for(var i=0; i<scaleBands.length; i++){
+
+      var div = document.createElement("div");
+      div.className = "row";
+      div.style.width = "100%";
+      div.style.marginTop = "1vh";
+
+      var iCan = document.createElement('canvas');
+      var id = 'scale'+i
+      iCan.id = id;
+      iCan.className = 'class_predefinedScaledBands';
+      iCan.setAttribute('draggable', true);
+      iCan.addEventListener("dragstart", bandOnDragStart);
+      iCan.addEventListener("dragend", bandOnDragEnd);
+      iCan.style.cursor = "move";
+
+      var tmpC1RGB = scaleBands[i][0];
+      var tmpC2RGB = scaleBands[i][1];
+
+      var reverseButton = document.createElement("div");
+      reverseButton.className = "class_reversebuttonCreatePage classButtonWhite";
+      reverseButton.innerHTML = "&#8646;";
+      reverseButton.style.cursor = "pointer";
+
+      reverseButton.onclick = (function(tmpIndex) {
+      return function() {
+          // do the reverse
+          var tmpVar = scaleBands[tmpIndex][0];
+          scaleBands[tmpIndex][0]=scaleBands[tmpIndex][1];
+          scaleBands[tmpIndex][1]=tmpVar;
+          var canObj = document.getElementById("scale"+tmpIndex);
+          var tmpC1 = scaleBands[tmpIndex][0];
+          var tmpC2 = scaleBands[tmpIndex][1];
+          drawCanvasBand(canObj, tmpC1, tmpC2,resolutionX);
+
+      };
+    })(i);
+
+      div.appendChild(iCan);
+      div.appendChild(reverseButton);
+      document.getElementById('id_EditPage_ScaleBandDiv').appendChild(div);
+
+      drawCanvasBand(iCan, tmpC1RGB, tmpC2RGB,resolutionX);
+
+  }
+}
+
+
 
 function drawCanvasBand(canvasObject, color1, color2,resolutionX){
 
@@ -14,7 +94,7 @@ function drawCanvasBand(canvasObject, color1, color2,resolutionX){
 
             var tmpcolor1, tmpcolor2;
             switch(colorspaceModus){
-                case "rgb":;
+                case "rgb":
 
                     if(color1.getColorType()===colorspaceModus)
                       tmpcolor1=color1;

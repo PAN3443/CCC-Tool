@@ -1,5 +1,30 @@
 window.onload = function() {
 
+
+
+  var windowWidth = document.body.offsetWidth;
+  //var windowHeight = window.innerHeight;
+
+  document.getElementById("headerDiv").style.width = windowWidth + "px";
+  document.getElementById("id_ccctoolPage").style.width = windowWidth + "px";
+  document.getElementById("footerDiv").style.width = windowWidth + "px";
+
+
+  initAutoCompleteInputs();
+
+  // Init Edit Page
+  drawConstantBands();
+  drawScaledBands();
+
+  // init global vars
+  globalCMS1 = new class_CMS();
+
+
+  // init events
+  init_events_EditPage();
+
+
+
   // if possible zoom to 100%
   /*document.body.style.zoom="100%";
 

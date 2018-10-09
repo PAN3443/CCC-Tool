@@ -1,4 +1,4 @@
-function drawBandSketch(cms,sketchObjectID, sketchKeyID, sketchRefID, withInputFields, aboveInputField){
+function drawBandSketch(cms,sketchObjectID, withInputFields, aboveInputField){
 
   // start
   var canvasObject = document.getElementById(sketchObjectID);
@@ -25,10 +25,10 @@ function drawBandSketch(cms,sketchObjectID, sketchKeyID, sketchRefID, withInputF
 
   bandSketchObjLength=bandLength;
 
-  if(withInputFields==false){
+  /*if(withInputFields==false){
     drawSketchKeys(sketchKeyID, cms);
     drawSketchRefElements(cms,sketchRefID);
-  }
+  }*/
 
   if(cms.getKeyLength()==0){
     canvasObject.width = 2500;//1500;
@@ -57,7 +57,7 @@ function drawBandSketch(cms,sketchObjectID, sketchKeyID, sketchRefID, withInputF
       }
 
     }
-    else{
+    /*else{
       canvasContex.font = fontSize+"px Arial";
 
       var txt;
@@ -70,7 +70,7 @@ function drawBandSketch(cms,sketchObjectID, sketchKeyID, sketchRefID, withInputF
       var xPos=(canvasObject.width/2)-(canvasContex.measureText(txt).width/2);
       var yPos=(canvasObject.height/2)+(fontSize/2);
       canvasContex.fillText(txt,xPos,yPos);
-    }
+    }*/
 
   }
   else{
@@ -267,7 +267,7 @@ function drawInsertBandPreview(canvasData, currentPos, bandLength, canvasHeight,
 
 }
 
-function drawSketchRefElements(cms,sketchRefObjID){
+function drawSketchRefElements(cms,sketchRefObjID, asInputFields){
 
   var sketchRefObj = document.getElementById(sketchRefObjID);
 
@@ -309,7 +309,7 @@ function drawSketchRefElements(cms,sketchRefObjID){
     var xposHTML = (i / (cms.getKeyLength()-1)) * box.width + left;
     var tmpText = '' + cms.getRefPosition(i); //.toFixed(numDecimalPlaces);
 
-    if(showSideID==1){
+    if(asInputFields){
 
       var inputField = document.createElement("input");
       inputField.setAttribute('type', 'text');
@@ -471,115 +471,11 @@ function drawSketchRefElements(cms,sketchRefObjID){
 }
 
 
-function drawSketchKeys(canvasID, tmpCMS){
 
-    var canvasObject = document.getElementById(canvasID);
-    canvasObject.width = key_resolution_X;
-    canvasObject.height = key_resolution_Y;
-
-    var canvasContex = canvasObject.getContext("2d");
-    var canvasData = canvasContex.getImageData(0, 0, canvasObject.width, canvasObject.height);
-
-    //////////////////////////////////////////////////////////////
-
-    var colormapWidth = key_resolution_X * 0.95;
-    var xPos = key_resolution_X * 0.025;
-    var yPos = key_resolution_Y;
-
-    var distanceColorrects = key_resolution_Y / 6;
-    var bandWidth = colormapWidth/(tmpCMS.getKeyLength()-1);
-
-    var labelFontSize = key_resolution_Y / 6;
-    colorrectHeigth = key_resolution_Y / 3;
-    colorrectWitdh = key_resolution_X / 50;
-
-    // draw keys
-    for (var i = 0; i < tmpCMS.getKeyLength(); i++) {
-
-      var tmpKey = tmpCMS.getKeyType(i);
-      var colorrectYPos = yPos - distanceColorrects - colorrectHeigth;
-      var colorrectXPos = xPos - (colorrectWitdh / 2);
-
-      canvasContex.beginPath();
-      canvasContex.lineWidth = 1;
-      canvasContex.moveTo(xPos, yPos);
-      canvasContex.lineTo(xPos, yPos - distanceColorrects);
-      canvasContex.strokeStyle = 'rgb(0,0,0)';
-      canvasContex.stroke();
-
-      var text = ""+(i+1);
-      canvasContex.font = labelFontSize+"px Arial";
-      canvasContex.fillStyle = 'rgb(0,0,0)';
-      canvasContex.fillText(text,xPos-(labelFontSize/2),colorrectYPos-labelFontSize);
-
-      switch (tmpKey) {
-        case "nil key":
-
-          drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth, "rgb(125,125,125)", true);
-
-          xPos+=bandWidth;
-          break;
-        case "twin key":
-
-            // draw Middle of triple
-
-            if(tmpCMS.getMoT(i))
-              drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth/2, tmpCMS.getRightKeyColor(i,"rgb").getRGBString(), false);
-            else
-              drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth/2, tmpCMS.getLeftKeyColor(i,"rgb").getRGBString(), false);
-
-            colorrectYPos=colorrectYPos+colorrectWitdh / 2;
-            drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh / 2, colorrectHeigth/2, tmpCMS.getLeftKeyColor(i,"rgb").getRGBString(), false);
-            colorrectXPos = xPos;
-            drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh / 2, colorrectHeigth/2, tmpCMS.getRightKeyColor(i,"rgb").getRGBString(), false);
-
-
-
-            xPos+=bandWidth;
-
-          break;
-        case "left key":
-
-            if(i!=tmpCMS.getKeyLength()-1)
-              if(tmpCMS.getMoT(i))
-                drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth/2, tmpCMS.getLeftKeyColor(i+1,"rgb").getRGBString(), false);
-              else
-                drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth/2, tmpCMS.getLeftKeyColor(i,"rgb").getRGBString(), false);
-            else
-              drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth/2, tmpCMS.getLeftKeyColor(i,"rgb").getRGBString(), false);
-
-            colorrectYPos=colorrectYPos+colorrectWitdh / 2;
-            drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh / 2, colorrectHeigth/ 2, tmpCMS.getLeftKeyColor(i,"rgb").getRGBString(), false);
-            colorrectXPos = xPos;
-            drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh / 2, colorrectHeigth/ 2, "rgb(125,125,125)", true);
-
-            leftStarted = true;
-
-            xPos+=bandWidth;
-
-          break;
-        case "right key":
-
-          drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh / 2, colorrectHeigth, "rgb(125,125,125)", true);
-          colorrectXPos = xPos;
-          drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh / 2, colorrectHeigth, tmpCMS.getRightKeyColor(i,"rgb").getRGBString(), false);
-
-          xPos+=bandWidth;
-
-          break;
-        default:
-
-          drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth, tmpCMS.getRightKeyColor(i,"rgb").getRGBString(), false);
-
-          xPos+=bandWidth;
-      }
-    }
-
-}
 
 
 function sketch_MouseMove(event){
-  if(showSideID!=1)
+  if(document.getElementById("id_EditPage").style.display == "none")
   return;
 
   var rect = event.target.getBoundingClientRect();
@@ -592,7 +488,7 @@ function sketch_MouseMove(event){
 }
 
 function sketch_MouseClick(){
-  if(showSideID!=1)
+  if(document.getElementById("id_EditPage").style.display == "none")
   return;
 
   for (var i = 1; i <= globalCMS1.getKeyLength()-1; i++) {

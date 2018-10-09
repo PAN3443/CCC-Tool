@@ -24,10 +24,14 @@
         -->
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/general.css">
+
+
   <link rel="stylesheet" href="css/newDesign_Menu.css">
   <link rel="stylesheet" href="css/newDesign_General.css">
   <link rel="stylesheet" href="css/newDesign_MyDesigns.css">
   <link rel="stylesheet" href="css/newDesign_EditPage.css">
+
+  <link rel="stylesheet" href="css/newDesign_SearchAutoComplete.css">
 
   <!--link rel="stylesheet" href="css/createPage.css">
   <link rel="stylesheet" href="css/mainPage.css">
@@ -63,19 +67,19 @@
   <!--script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script-->
 
 
-  <script src="js/plugins.js"></script>
+  <!--script src="js/plugins.js"></script-->
 
-  <!-- Classes ->
-  <script src="js/ColormapClass/class_colormapSpecification.js"></script>
-  <script src="js/ColormapClass/class_Colormap_Key.js"></script>
-  <script src="js/ColormapClass/class_Colormap_Interval.js"></script>
-  <script src="js/ColormapClass/class_Colorspace_HSV.js"></script>
-  <script src="js/ColormapClass/class_Colorspace_LAB.js"></script>
-  <script src="js/ColormapClass/class_Colorspace_RGB.js"></script>
-  <script src="js/ColormapClass/class_Colorspace_DIN99.js"></script>
-  <script src="js/ColormapClass/class_Colorspace_XYZ.js"></script>
-  <script src="js/ColormapClass/class_Colorspace_LMS.js"></script>
-  <script src="js/ColormapClass/class_Colormap_Probe.js"></script>
+  <!-- Classes -->
+  <script src="js/front/classes/ColormapClass/class_colormapSpecification.js"></script>
+  <script src="js/front/classes/ColormapClass/class_Colormap_Key.js"></script>
+  <script src="js/front/classes/ColormapClass/class_Colormap_Interval.js"></script>
+  <script src="js/front/classes/ColormapClass/class_Colorspace_HSV.js"></script>
+  <script src="js/front/classes/ColormapClass/class_Colorspace_LAB.js"></script>
+  <script src="js/front/classes/ColormapClass/class_Colorspace_RGB.js"></script>
+  <script src="js/front/classes/ColormapClass/class_Colorspace_DIN99.js"></script>
+  <script src="js/front/classes/ColormapClass/class_Colorspace_XYZ.js"></script>
+  <script src="js/front/classes/ColormapClass/class_Colorspace_LMS.js"></script>
+  <!--script src="js/ColormapClass/class_Colormap_Probe.js"></script>
 
   <!-- ADD PAGE ->
   <script src="js/AddPage/events_AddPage.js"></script>
@@ -91,22 +95,58 @@
   <script src="js/CreatorPage/editPath.js"></script>
   <script src="js/CreatorPage/events_probe.js"></script>
 
+
+  <!------------------------------------------->
+
+
+
+
+
   <!------------------------------------------->
   <!-- Edit PAGE -->
 
     <!-- Edit PAGE: Side Options-->
     <script src="js/front/pages/editPage/sideOptions/events_EditPage_showSideOptions.js"></script>
+    <script src="js/front/pages/editPage/events_editPage.js"></script>
+    <script src="js/front/pages/editPage/drawSingleBands.js"></script>
+    <script src="js/front/pages/editPage/dragAndDropevents.js"></script>
+    <script src="js/front/pages/editPage/saveCreateProcess.js"></script>
+
+
+
+
+
 
   <!------------------------------------------->
   <!-- global Vars-->
-  <script src="js/front/globalVars/pageIndependent_Vars.js"></script>
+
   <script src="js/front/globalVars/myDesigns_Vars.js"></script>
   <script src="js/front/globalVars/editPage_Vars.js"></script>
+
+  <!-- global Vars : pageIndepenend -->
+  <script src="js/front/globalVars/pageIndepenend/pageIndependent_Vars.js"></script>
+  <script src="js/front/globalVars/pageIndepenend/autoCompleteArrays.js"></script>
+  <script src="js/front/globalVars/pageIndepenend/predefinedSingleBands.js"></script>
+  <script src="js/front/globalVars/pageIndepenend/colorTransformationVariables.js"></script>
+  <script src="js/front/globalVars/pageIndepenend/plotResolutions.js"></script>
+
+
+
+
 
   <!------------------------------------------->
   <!-- global Events-->
   <script src="js/front/globalEvents/pageChange.js"></script>
   <script src="js/front/globalEvents/popUp_events.js"></script>
+  <script src="js/front/globalEvents/autocompleteSearch.js"></script>
+
+      <!-- Colormap Drawer -->
+      <script src="js/front/globalEvents/ColormapDrawer/drawBandSegments.js"></script>
+      <script src="js/front/globalEvents/ColormapDrawer/drawColormapLinear.js"></script>
+      <script src="js/front/globalEvents/ColormapDrawer/drawColormapSketch.js"></script>
+      <script src="js/front/globalEvents/ColormapDrawer/drawLinearKeys.js"></script>
+      <script src="js/front/globalEvents/ColormapDrawer/drawColormaplinesAndInputFields.js"></script>
+      <script src="js/front/globalEvents/ColormapDrawer/drawSketchKeys.js"></script>
 
 
   <!-- Worker ->
@@ -117,6 +157,8 @@
   <!------------------------------------------->
   <!-- Init-->
   <script src="js/front/init/init_MyDesigns.js"></script>
+  <script src="js/front/init/init_EditPage.js"></script>
+  <script src="js/front/init/init.js"></script>
 
   <!------------------------------------------->
   <!-- MAIN-->
@@ -150,7 +192,7 @@
           -----------------------------------------------
           -->
 
-    <div style="width:100%; height:auto; margin:0px;  "><!-- background:url(img/background.png);;position: -webkit-sticky; position: sticky; margin:0px; padding-top:20px;  padding-bottom:20px;"-->
+    <div  id="headerDiv" style="max-width:100%; height:auto; margin:0px;  "><!-- background:url(img/background.png);;position: -webkit-sticky; position: sticky; margin:0px; padding-top:20px;  padding-bottom:20px;"-->
 
       <div class="row" style="width:100%; height:50px; margin:0px;">
 
@@ -291,26 +333,27 @@
                     -----------------------------------------------
                     -->
 
-              <div id="id_EditPage" style="width:100%; height:auto; min-height:1000px; display:none; ">
+              <div id="id_EditPage" style="width:100%; height:auto; display:none; ">
 
 
                 <div style="position: relative; width:100%; height:100%;">
 
-                 <div style="position: absolute; z-index: 0; width:100%; left: 0; top: 0;">  <!-- -------------- Main Part Edit Page ---------------->
+                 <div  id="id_EditPage_MainPartDiv" style="position: absolute; z-index: 0; width:100%; left: 0; top: 0;">  <!-- -------------- Main Part Edit Page ---------------->
 
-                   <div class="row" style="width:90%; margin-left:5%; margin-right:5%; height:100px; border: 2px solid grey; border-radius: 0px 0px 5px 5px; background:rgb(210,210,210); height:50px; overflow:auto;">
+                   <!-- -------------- Main Part: HEADER ---------------->
+                   <div class="row" style="width:90%; margin-left:5%; margin-right:5%; height:100px; border: 2px solid grey; border-radius: 0px 0px 5px 5px; background:rgb(210,210,210); height:50px; overflow:auto; margin-bottom:15px;">
                      <p class="standardText" id="id_EditPage_CMSName" style="margin-left:2.5%; line-height:50px; height:50px; font-weight:bold; cursor:pointer;">Your CMS Name</p>
 
                      <p class="standardText"  style="margin-left:2.5%; line-height:50px; height:50px;"> NaN:</p>
-                     <div style="height:26px; width: 26px; background:white; border: 2px solid black; border-radius: 5px; margin-top:10px; margin-left:5px; cursor:pointer;">
+                     <div id="id_EditPage_CMS_NaN_Color" style="height:26px; width: 26px; background:white; border: 2px solid black; border-radius: 5px; margin-top:10px; margin-left:5px; cursor:pointer;">
 
                      </div>
                      <p class="standardText"  style="margin-left:2.5%; line-height:50px; height:50px;">Below Range:</p>
-                     <div style="height:26px; width: 26px; background:white; border: 2px solid black; border-radius: 5px; margin-top:10px; margin-left:5px; cursor:pointer;">
+                     <div id="id_EditPage_CMS_Below_Color" style="height:26px; width: 26px; background:white; border: 2px solid black; border-radius: 5px; margin-top:10px; margin-left:5px; cursor:pointer;">
 
                      </div>
                      <p class="standardText"  style="margin-left:2.5%; line-height:50px; height:50px;">Above Range:</p>
-                     <div style="height:26px; width: 26px; background:white; border: 2px solid black; border-radius: 5px; margin-top:10px; margin-left:5px; cursor:pointer;">
+                     <div id="id_EditPage_CMS_Above_Color" style="height:26px; width: 26px; background:white; border: 2px solid black; border-radius: 5px; margin-top:10px; margin-left:5px; cursor:pointer;">
 
                      </div>
                      <div style="height:50px; width: 2.5%; border-right: 2px solid grey;">
@@ -326,10 +369,182 @@
 
                      </div>
 
+                     <button onclick="showMyDesignsPage()" class="class_generalbutton" style="margin-left:auto;  width:120px; height:40px; line-height:40px; margin-top:5px;">Scale</button>
+
+                     <button onclick="showMyDesignsPage()" class="class_generalbutton" style="margin-left:auto;  width:120px;height:40px; line-height:40px; margin-top:5px; display:none;">Histogram</button>
+
                      <button onclick="showMyDesignsPage()" class="class_generalbutton" style="margin-left:auto;  width:120px; height:40px; line-height:40px; margin-top:5px;">Clear</button>
 
                      <button onclick="showMyDesignsPage()" class="class_generalbutton" style="margin-left:auto; margin-right:auto;  width:120px; height:40px; line-height:40px; margin-top:5px;">Export</button>
 
+                   </div>
+
+
+                   <!-- -------------- Main Part: CMS Visualization ---------------->
+
+
+                     <canvas id="id_EditPage_CMS_VIS_LinearKeys" style="width:100%; height:20px; "></canvas>
+                     <canvas id="id_EditPage_CMS_VIS_Lines1" style="width:100%; height:10px; "></canvas>
+                     <canvas id="id_EditPage_CMS_VIS_Histogramm" style="width:90%; margin-left:5%; margin-right:5%; height:200px; display:none; "></canvas>
+                     <canvas id="id_EditPage_CMS_VIS_ColormapLinear" style="width:90%; margin-left:5%; margin-right:5%; height:40px; border: 1px solid black;"></canvas>
+
+                     <canvas id="id_EditPage_CMS_VIS_KeyBurs" style="width:100%; height:60px; "></canvas>
+
+                     <canvas id="id_EditPage_CMS_VIS_SketchKeys" style="width:100%; height:30px;"></canvas>
+                     <canvas id="id_EditPage_CMS_VIS_Lines2" style="width:100%; height:10px; "></canvas>
+                     <canvas id="id_EditPage_CMS_VIS_ColormapSketch" style="width:90%; margin-left:5%; margin-right:5%; height:40px;"></canvas>
+                     <canvas id="id_EditPage_CMS_VIS_Lines3" style="width:100%; height:10px; "></canvas>
+                     <div id="id_EditPage_RefPlaceholder" name="placeholder" style="width:100%; height:30px; margin-bottom:15px;"></div>
+
+
+                     <img id="id_editPage_HelpImage1" src="img/editPage.png" style="height:120px; margin-left:auto; margin-right:auto;">
+                   <!-- -------------- Main Part: CMS Editor  ---------------->
+                   <div class="row" style="width:90%; margin-left:5%;  ">
+
+                   <div style=" width:100%; background:url(img/background3.png); border-radius:10px;">
+
+                     <div style="margin:5px; background:white; border-radius:10px;">
+                       <div class="row">
+                         <div class="class_subsectionButtonUnderground" style="width:25%; background: url(img/background3.png);">
+                           <div class="class_subsectionButton" >
+                             ADD CMS
+                           </div>
+                         </div>
+                         <div class="class_subsectionButtonUnderground" style="width:25%; background: url(img/background3.png);">
+                         <div class="class_subsectionButton">
+                           ADD Keys
+                         </div>
+                         </div>
+                         <div class="class_subsectionButtonUnderground" style="width:25%; background: url(img/background3.png);">
+                         <div class="class_subsectionButton">
+                           Edit Keys
+                         </div>
+                         </div>
+                         <div class="class_subsectionButtonUnderground" style="width:25%; background: url(img/background3.png);">
+                         <div class="class_subsectionButton" >
+                           Edit via Path Plot
+                         </div>
+                         </div>
+                       </div>
+
+                       <div  id="id_EditPage_Add_Structures" style="width:100%;  height:500px; ">
+
+                         <div class="row" style="width:100%; height:100%;">
+
+
+
+                                         <div style="width:30%; height:100%; border-right:1px solid black; ">
+
+                                                                                      <div style="height:8%; width:100%;">
+                                                                                        <h1 class="subsectionLabel" style="height:100%; line-height:inherit;  "> Single Bands </h1>
+                                                                                      </div>
+
+                                            <div class="row" style="width:100%; height:92%;">
+                                              <div id="id_EditPage_ConstBandDiv" style="width:50%; height:100%; border-right:1px solid grey; overflow-y: auto; ">
+
+                                              </div>
+
+                                              <div id="id_EditPage_ScaleBandDiv" style="width:50%; height:100%; overflow-y: auto;">
+
+                                              </div>
+                                            </div>
+
+                                         </div>
+
+                                         <div style="width:70%; height:100%;">
+
+                                           <div style="height:8%; width:100%;">
+                                             <h1 class="subsectionLabel" style="height:100%; line-height:inherit;  "> Predefined CMS </h1>
+                                           </div>
+
+                                           <div id="id_EditPage_PredefinedDiv" style="width:100%; height:82%; overflow-y: auto;  ">
+
+                                           </div>
+
+                                           <div class="row" style="width: 100%; height:10%; background: rgb(220,220,220); border-top:1px solid grey;">
+                                             <div class="autocomplete" style="width:auto; height:90%;">
+                                               <input id="id_EditPage_Add_Structures_Input_FilterSemantics" type="text" name="filterSemantics" placeholder="Semantics" style="height:60%; margin:auto;">
+                                              </div>
+                                           </div>
+
+                                         </div>
+
+
+
+                         </div>
+                       </div>
+
+
+
+                      </div>
+
+
+                     </div>
+
+                   </div>
+
+
+
+                   <!-- -------------- Main Part: CMS Description ---------------->
+                   <div class="row" style="width:90%; margin-left:5%; margin-top:10px; ">
+
+                     <!-- -------------- Main Part: CMS Description ---------------->
+                     <div style="width:38%; background:url(img/background3.png); border-radius:10px;">
+
+                       <div style="margin:5px; background:white; border-radius:10px;">
+                         <div class="row">
+                           <div class="class_subsectionButtonUnderground" style="width:50%; background: url(img/background3.png);">
+                           <div class="class_subsectionButton" >
+                             CMS Discription
+                           </div>
+                           </div>
+                           <div class="class_subsectionButtonUnderground" style="width:50%; background: url(img/background3.png);">
+                           <div class="class_subsectionButton" >
+                             Key Discription
+                           </div>
+                           </div>
+                         </div>
+
+                         <div  id="id_EditPage_DivCMSDescription" style="width:100%;  height:300px; ">
+
+                         </div>
+
+                         <div  id="id_EditPage_DivKeyDescription" style="width:100%;  height:300px; display:none;">
+
+                         </div>
+
+                       </div>
+
+                     </div>
+
+                     <!-- -------------- Main Part: Analyze Mapping ---------------->
+                     <div style="width:60%; background:url(img/background3.png); border-radius:10px; margin-left:2%;">
+
+                       <div style="margin:5px; background:white; border-radius:10px;">
+                         <div class="row">
+                           <div class="class_subsectionButtonUnderground" style="width:50%; background: url(img/background3.png);">
+                           <div class="class_subsectionButton" >
+                             Analyze
+                           </div>
+                           </div>
+                           <div class="class_subsectionButtonUnderground" style="width:50%; background: url(img/background3.png);">
+                           <div class="class_subsectionButton" >
+                             Mapping
+                           </div>
+                           </div>
+                         </div>
+
+                         <div  id="id_EditPage_DivAnalyze" style="width:100%;  height:300px; ">
+
+                         </div>
+
+                         <div  id="id_EditPage_DivMapping" style="width:100%;  height:300px; display:none;">
+
+                         </div>
+
+                       </div>
+
+                     </div>
                    </div>
 
                  </div>
@@ -358,6 +573,14 @@
                        <div class="row">
                          <div id="id_EditPage_savePartDiv">
 
+                            <div style="margin:15px; height:216px; background:white; border:2px solid rgb(255, 204, 102); ">
+
+                              <button onclick="showMyDesignsPage()" class="class_savebutton" style="margin-left:auto; margin-right:auto;  margin-top:20px; "> Save </button>
+
+                              <button onclick="showMyDesignsPage()" class="class_savebutton" style="margin-left:auto; margin-right:auto;  margin-top:20px; "> Save As New</button>
+                               <p class="standardText" style="margin-left:auto; margin-right:auto; width:240px; height:25px; line-height:25px; font-size:12px; font-weight:bold;"> Free Places: 0</p>
+
+                            </div>
 
                          </div>
                          <div class="class_RotateLeft" id="id_EditPage_savePartButton" style="height:250px;" onclick="showSaveOptions()">
@@ -390,10 +613,10 @@
                          <div id="id_EditPage_interpolationPartDiv">
 
 
-                           <div style="margin:15px; height:341px; background:white; border:2px solid rgb(204, 153, 255);">
+                           <div style="margin:15px; height:341px; background:white; border:2px solid rgb(204, 153, 255);  overflow:auto;">
 
 
-                             <div class="row" style="margin-left:10px; margin-right:10px;  margin-bottom:10px; margin-top:auto;">
+                             <div class="row" style="margin-left:10px; margin-right:10px;  margin-bottom:10px; margin-top:40px;">
                                <img  id="id_EditPage_SmileyImg" src="img/smiley.png" style="margin-left:5px; height:40px;">
                                <p class="standardText" style="margin-left:5px; height:40px; line-height:40px; font-weight:bold; margin-right:5px;"> Perceptuall Uniform Spaces:</p>
                              </div>
@@ -403,12 +626,25 @@
                                <div id="id_EditPage_SelectLab" class="class_EditPage_SelectInterpolationColorspace" style="margin-left: auto;">
 
                                </div>
-                               <p class="standardText" style="margin-left:5px; height:30px; line-height:30px; margin-left:5px; margin-right:50px;"> : LAB</p>
+                               <p class="standardText" style="margin-left:5px; height:30px; line-height:30px; margin-left:5px; margin-right:50px; width:120px;"> : LAB</p>
 
                                <div id="id_EditPage_SelectDIN99" class="class_EditPage_SelectInterpolationColorspace">
                                  &#10004;
                                </div>
-                               <p class="standardText" style="margin-left:5px; height:30px; line-height:30px; margin-left:5px; margin-right:auto;"> : DIN99</p>
+                               <p class="standardText" style="margin-left:5px; height:30px; line-height:30px; width:120px; margin-right:auto;"> : DIN99</p>
+                             </div>
+
+                             <div class="row" style="margin:10px; widht:100%;">
+
+                               <div id="id_EditPage_SelectDE94" class="class_EditPage_SelectInterpolationColorspace" style="margin-left: auto; border-color:grey; background:rgb(180,180,180); cursor:not-allowed;">
+
+                               </div>
+                               <p class="standardText" style="margin-left:5px; height:30px; line-height:30px; margin-left:5px; margin-right:50px; width:120px; color:grey;"> : DE94</p>
+
+                               <div id="id_EditPage_SelectCIEDE2000" class="class_EditPage_SelectInterpolationColorspace" style="border-color:grey; background:rgb(180,180,180); cursor:not-allowed;">
+
+                               </div>
+                               <p class="standardText" style="margin-left:5px; height:30px; line-height:30px; width:120px; margin-right:auto; color:grey;"> : CIEDE2000</p>
                              </div>
 
                              <div class="row" style="margin:10px; margin-top:40px;">
@@ -416,17 +652,17 @@
                                <p class="standardText" style="margin-left:5px; height:40px; line-height:40px; font-weight:bold; margin-right:5px;"> Non Perceptuall Uniform Spaces:</p>
                              </div>
 
-                             <div class="row" style="widht:100%; margin-left:10px; margin-right:10px;  margin-bottom:auto; margin-top:10px;">
+                             <div class="row" style="widht:100%; margin-left:10px; margin-right:10px; margin-top:10px;">
 
                                <div id="id_EditPage_SelectRGB" class="class_EditPage_SelectInterpolationColorspace" style="margin-left: auto;">
 
                                </div>
-                               <p class="standardText" style="margin-left:5px; height:30px; line-height:30px; margin-left:5px; margin-right:50px;"> : RGB</p>
+                               <p class="standardText" style="margin-left:5px; height:30px; line-height:30px; width:120px; margin-left:5px; margin-right:50px;"> : RGB</p>
 
                                <div id="id_EditPage_SelectHSV" class="class_EditPage_SelectInterpolationColorspace">
 
                                </div>
-                               <p class="standardText" style="margin-left:5px; height:30px; line-height:30px; margin-left:5px; margin-right:auto;"> : HSV</p>
+                               <p class="standardText" style="margin-left:5px; height:30px; line-height:30px; width:120px;  margin-right:auto;"> : HSV</p>
                              </div>
 
 
@@ -446,6 +682,37 @@
                          </div>
                          <div id="id_EditPage_cmsTablePartDiv">
 
+                           <div style="margin:15px; height:341px; background:white; border:2px solid rgb(128, 191, 255);  overflow:auto;">
+
+                             <table cellspacing="0" cellpadding="0"  style="width:100%;" >
+                            <tr>
+                             <td>
+                              <table cellspacing="0" cellpadding="1"  style="width:100%;">
+                                <tr style="color:white;background-color:grey">
+                                  <th class="class_tablelabel" id="id_table_Number" style="width:4%;">#</th>
+                                  <th class="class_tablelabel" id="id_table_Reference1" style="width:9%;">Start</th>
+                                  <th class="class_tablelabel" id="id_table_Reference2" style="width:9%;">End</th>
+                                  <th class="class_tablelabel" id="id_table_Bandtype" style="width:9%;">Band Type</th>
+                                  <th class="class_tablelabel" id="id_table_Color1" style="width:9%;">C1 (RGB)</th>
+                                  <th class="class_tablelabel" id="id_table_Color2" style="width:9%; border-right: none;">C2 (RGB)</th>
+                                </tr>
+                              </table>
+                             </td>
+                            </tr>
+                           <tr>
+                           <td>
+                              <div style="width:100%; height:200px; overflow:auto;">
+                                <table cellspacing="0" cellpadding="1" border="1"  id="id_table" style="width:100%;">
+                                  <tbody id="id_tableBody">
+
+                                  </tbody>
+                                </table>
+                              </div>
+                             </td>
+                            </tr>
+                           </table>
+
+                           </div>
 
                          </div>
                        </div>
