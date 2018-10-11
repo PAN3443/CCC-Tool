@@ -41,14 +41,22 @@ function createMyDesignObject(id){
 
 
 
+  var tmpLabelDiv = document.createElement('div');
+  tmpLabelDiv.id="myDesignObj_Label_Div"+id;
+  tmpLabelDiv.className = 'class_MyDesignObjCMSCanvas row';
+  tmpLabelDiv.style.background="rgb(128, 128, 128)";
+  tmpLabelDiv.style.border = "2px solid rgb(64, 64, 64)";
+  tmpLabelDiv.style.borderBottom = "none";
+  tmpLabelDiv.style.borderRadius = "5px 5px 0px 0px";
+
   var tmpLabel = document.createElement('div');
   tmpLabel.id="myDesignObj_Label_"+id;
+  tmpLabel.style.width="auto";
+  tmpLabel.style.maxWidth="90%";
+  tmpLabel.style.marginRight="auto";
+  tmpLabel.style.marginLeft="5%";
   tmpLabel.className = 'class_MyDesignObjCMSCanvas';
   tmpLabel.style.color="white";
-  tmpLabel.style.background="rgb(128, 128, 128)";
-  tmpLabel.style.border = "2px solid rgb(64, 64, 64)";
-  tmpLabel.style.borderBottom = "none";
-  tmpLabel.style.borderRadius = "5px 5px 0px 0px";
   tmpLabel.innerHTML="Emty CMS:"
 
 
@@ -72,8 +80,9 @@ function createMyDesignObject(id){
     this.style.backgroundColor = "rgb(80, 80, 80)";
   }
 
-  tmpLabel.appendChild(tmpCMSInfo);
-  tmpDiv.appendChild(tmpLabel);
+  tmpLabelDiv.appendChild(tmpLabel);
+  tmpLabelDiv.appendChild(tmpCMSInfo);
+  tmpDiv.appendChild(tmpLabelDiv);
 
   var tmpCMSlinear = document.createElement('canvas');
   tmpCMSlinear.id="myDesignObj_CMSlinear_"+id;
@@ -101,11 +110,24 @@ function createMyDesignObject(id){
   tmpSubDiv1_Buttons.style.width = "50%";
 
   var editButton = document.createElement("div");
+  editButton.id="myDesignObj_editButton_"+id;
   editButton.className = "class_MyDesignButton";
   editButton.style.backgroundImage = "url(img/editButton_grey.png)";
+  editButton.addEventListener("click", bandOnDragStart);
+
+
+  editButton.onclick = (function(cmsID) {
+  return function() {
+     if(cmsID<=myDesignsList.length-1){
+       indexActiveCMS=cmsID;
+       showEditPage();
+     }
+  };
+  })(id);
   tmpSubDiv1_Buttons.appendChild(editButton);
 
   var exportButton = document.createElement("div");
+  exportButton.id="myDesignObj_exportButton_"+id;
   exportButton.className = "class_MyDesignButton";
   exportButton.style.backgroundImage = "url(img/exportButton_grey.png)";
   tmpSubDiv1_Buttons.appendChild(exportButton);
@@ -114,11 +136,13 @@ function createMyDesignObject(id){
   tmpSubDiv2_Buttons.style.width = "50%";
 
   var shareButton = document.createElement("div");
+  shareButton.id="myDesignObj_shareButton_"+id;
   shareButton.className = "class_MyDesignButton";
   shareButton.style.backgroundImage = "url(img/shareButton_grey.png)";
   tmpSubDiv2_Buttons.appendChild(shareButton);
 
   var deleteButton = document.createElement("div");
+  deleteButton.id="myDesignObj_deleteButton_"+id;
   deleteButton.className = "class_MyDesignButton";
   deleteButton.style.backgroundImage = "url(img/trashButton_grey.png)";
   tmpSubDiv2_Buttons.appendChild(deleteButton);

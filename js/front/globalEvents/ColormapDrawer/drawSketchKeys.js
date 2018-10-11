@@ -4,40 +4,29 @@ function drawSketchKeys(canvasID, tmpCMS){
     canvasObject.width = key_resolution_X;
     canvasObject.height = key_resolution_Y;
 
+    var relation = window.innerHeight/window.innerWidth; //key_resolution_Y/key_resolution_X;
+
     var canvasContex = canvasObject.getContext("2d");
     var canvasData = canvasContex.getImageData(0, 0, canvasObject.width, canvasObject.height);
 
     //////////////////////////////////////////////////////////////
 
-    var colormapWidth = key_resolution_X * 0.95;
-    var xPos = key_resolution_X * 0.025;
+    var colormapWidth = key_resolution_X * 0.9;
+    var xPos = key_resolution_X * 0.05;
     var yPos = key_resolution_Y;
 
-    var distanceColorrects = key_resolution_Y / 6;
     var bandWidth = colormapWidth/(tmpCMS.getKeyLength()-1);
 
-    var labelFontSize = key_resolution_Y / 6;
-    colorrectHeigth = key_resolution_Y / 3;
-    colorrectWitdh = key_resolution_X / 50;
+    colorrectHeigth = key_resolution_Y;
+    colorrectWitdh = (colorrectHeigth*relation)/2;
 
     // draw keys
     for (var i = 0; i < tmpCMS.getKeyLength(); i++) {
 
       var tmpKey = tmpCMS.getKeyType(i);
-      var colorrectYPos = yPos - distanceColorrects - colorrectHeigth;
+      var colorrectYPos = 1;
       var colorrectXPos = xPos - (colorrectWitdh / 2);
 
-      canvasContex.beginPath();
-      canvasContex.lineWidth = 1;
-      canvasContex.moveTo(xPos, yPos);
-      canvasContex.lineTo(xPos, yPos - distanceColorrects);
-      canvasContex.strokeStyle = 'rgb(0,0,0)';
-      canvasContex.stroke();
-
-      var text = ""+(i+1);
-      canvasContex.font = labelFontSize+"px Arial";
-      canvasContex.fillStyle = 'rgb(0,0,0)';
-      canvasContex.fillText(text,xPos-(labelFontSize/2),colorrectYPos-labelFontSize);
 
       switch (tmpKey) {
         case "nil key":
@@ -100,6 +89,48 @@ function drawSketchKeys(canvasID, tmpCMS){
 
           xPos+=bandWidth;
       }
+    }
+
+}
+
+
+function drawKeyNumber(canvasID, tmpCMS){
+
+    var canvasObject = document.getElementById(canvasID);
+    var rect = canvasObject.getBoundingClientRect();
+    canvasObject.width = rect.width; //key_resolution_X;
+    canvasObject.height = rect.height; //key_resolution_Y;
+
+
+    var canvasContex = canvasObject.getContext("2d");
+    var canvasData = canvasContex.getImageData(0, 0, canvasObject.width, canvasObject.height);
+
+    //////////////////////////////////////////////////////////////
+
+    var colormapWidth = canvasObject.width * 0.9;
+    var xPos = canvasObject.width * 0.05;
+    var yPos = canvasObject.height;
+
+    var distanceColorrects = canvasObject.height / 6;
+    var bandWidth = colormapWidth/(tmpCMS.getKeyLength()-1);
+
+    var labelFontSize = (canvasObject.height / 3) * 2;
+    var distanceTop = (canvasObject.height / 6);
+
+    // draw keys
+    for (var i = 0; i < tmpCMS.getKeyLength(); i++) {
+
+      var tmpKey = tmpCMS.getKeyType(i);
+      var colorrectYPos = yPos - distanceTop;
+      var colorrectXPos = xPos - (colorrectWitdh / 2);
+
+
+      var text = ""+(i+1);
+      canvasContex.font = labelFontSize+"px Arial";
+      canvasContex.fillStyle = 'rgb(0,0,0)';
+      canvasContex.fillText(text,xPos-(labelFontSize/3),colorrectYPos);
+
+      xPos+=bandWidth;
     }
 
 }

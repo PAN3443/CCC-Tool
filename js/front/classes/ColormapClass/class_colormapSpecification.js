@@ -2,6 +2,7 @@ class class_CMS {
 
     constructor() {
     this.name = "Customer Colormap";
+    this.interpolationSpace="lab";
 
     this.NaN_RGB = new classColor_RGB(0,0,0);
     this.NaN_HSV = new classColor_HSV(0,0,0);
@@ -32,6 +33,16 @@ class class_CMS {
 
   }
 
+  setInterpolationSpace(space){
+    this.interpolationSpace=space;
+  }
+
+  getInterpolationSpace(){
+    return this.interpolationSpace;
+  }
+
+
+
   /////////////////////////////////
   //// Key Structure
   /////////////////////////////////
@@ -50,7 +61,7 @@ class class_CMS {
 
   }
 
-  calculateColor(val, interpolationSpace){
+  calculateColor(val){
 
     if(val<this.keyArray[0].getRefPosition()){
       //console.log(val);
@@ -67,11 +78,11 @@ class class_CMS {
 
       if(val>this.keyArray[i].getRefPosition() && val<this.keyArray[i+1].getRefPosition()){
 
-        var color1 = this.keyArray[i].getRightKeyColor(interpolationSpace);
-        var color2 = this.keyArray[i+1].getLeftKeyColor(interpolationSpace);
+        var color1 = this.keyArray[i].getRightKeyColor(this.interpolationSpace);
+        var color2 = this.keyArray[i+1].getLeftKeyColor(this.interpolationSpace);
 
         if(color1==undefined){
-          if(interpolationSpace==="rgb")
+          if(this.interpolationSpace==="rgb")
           return color2;
           else
           return color2.calcRGBColor();
@@ -82,7 +93,7 @@ class class_CMS {
 
         var tmpRatio = (val-leftRef)/(rightRef-leftRef);
 
-        switch (interpolationSpace) {
+        switch (this.interpolationSpace) {
           case "rgb":
 
               var rValue = color1.get1Value()+(color2.get1Value() - color1.get1Value())*tmpRatio;
@@ -148,23 +159,23 @@ class class_CMS {
         var color;
 
         if(i==0){
-          color = this.keyArray[i].getRightKeyColor(interpolationSpace);
+          color = this.keyArray[i].getRightKeyColor(this.interpolationSpace);
         }
         else{
           if(this.keyArray[i].getMoT()){
             if(this.keyArray[i].getKeyType()==="left key"){
-              color = this.keyArray[i+1].getLeftKeyColor(interpolationSpace);
+              color = this.keyArray[i+1].getLeftKeyColor(this.interpolationSpace);
             }
             else{
-              color = this.keyArray[i].getRightKeyColor(interpolationSpace);
+              color = this.keyArray[i].getRightKeyColor(this.interpolationSpace);
             }
           }
           else{
-            color = this.keyArray[i].getLeftKeyColor(interpolationSpace);
+            color = this.keyArray[i].getLeftKeyColor(this.interpolationSpace);
           }
         }
 
-        switch (interpolationSpace) {
+        switch (this.interpolationSpace) {
           case "rgb":
             return color;
           default:
@@ -177,9 +188,9 @@ class class_CMS {
     }
 
     if(val==this.keyArray[this.keyArray.length-1].getRefPosition()){
-      var color = this.keyArray[this.keyArray.length-1].getLeftKeyColor(interpolationSpace);
+      var color = this.keyArray[this.keyArray.length-1].getLeftKeyColor(this.interpolationSpace);
 
-      switch (interpolationSpace) {
+      switch (this.interpolationSpace) {
         case "rgb":
           return color;
         default:
@@ -195,7 +206,7 @@ class class_CMS {
   }
 
   clear(){
-    this.name = "Customer Colormap";
+    /*this.name = "Customer Colormap";*/
 
     this.NaN_RGB = new classColor_RGB(0,0,0);
     this.NaN_HSV = new classColor_HSV(0,0,0);
@@ -321,187 +332,9 @@ class class_CMS {
   //////////////////////////////////
 
   /// CMS Interval Colors
-/*  calcIntervalColors(intervals, colorspace){
-    this.intervalArray=[];
-    this.intervalPosition=[];
 
 
-    if(this.keyArray.length>1 && intervals !=0){
-
-      var tmpIntervalRef=[];
-      var intervalDistance = (this.keyArray[this.keyArray.length-1].getRefPosition()-this.keyArray[0].getRefPosition())/(intervals-1);
-
-
-      for(var i=0; i<intervals-1; i++){
-            var tmpVal = this.keyArray[0].getRefPosition()+(i*intervalDistance);
-            tmpIntervalRef.push(tmpVal);
-        }
-        tmpIntervalRef.push(this.keyArray[this.keyArray.length-1].getRefPosition());
-
-
-
-      var currentKeyPos = 0;
-      var startIndex = 0;
-
-      for(var refIndex=0; refIndex<tmpIntervalRef.length; refIndex++){
-
-          if(tmpIntervalRef[refIndex]>this.keyArray[currentKeyPos].getRefPosition()){
-
-            while(tmpIntervalRef[refIndex]>this.keyArray[currentKeyPos].getRefPosition()){
-              var arrayPos = [startIndex, this.intervalArray.length-1];
-              this.intervalPosition.push(arrayPos);
-              startIndex=this.intervalArray.length;
-              currentKeyPos++;
-            }
-
-          }
-
-          if(tmpIntervalRef[refIndex]==this.keyArray[currentKeyPos].getRefPosition()){
-            var tmpColor;
-            switch (this.keyArray[currentKeyPos].getKeyType()) {
-                case "nil key":
-                tmpColor = this.keyArray[currentKeyPos+1].getLeftKeyColor(colorspace);
-                break;
-              case "twin key":
-                if(this.keyArray[currentKeyPos].getMoT())
-                tmpColor = this.keyArray[currentKeyPos].getRightKeyColor(colorspace);
-                else
-                tmpColor = this.keyArray[currentKeyPos].getLeftKeyColor(colorspace);
-
-                var arrayPos = [startIndex, this.intervalArray.length];
-                this.intervalPosition.push(arrayPos);
-                startIndex=this.intervalArray.length+1;
-
-                break;
-              case "left key":
-                if(currentKeyPos==this.keyArray.length-1){
-                  tmpColor = this.keyArray[currentKeyPos].getLeftKeyColor(colorspace);
-                }
-                else {
-                  if(this.keyArray[currentKeyPos].getMoT())
-                  tmpColor = this.keyArray[currentKeyPos].getRightKeyColor(colorspace+1);
-                  else
-                  tmpColor = this.keyArray[currentKeyPos].getLeftKeyColor(colorspace);
-                }
-
-                var arrayPos = [startIndex, this.intervalArray.length];
-                this.intervalPosition.push(arrayPos);
-                startIndex=this.intervalArray.length+1;
-
-                break;
-              case "right key":
-                tmpColor = this.keyArray[currentKeyPos].getRightKeyColor(colorspace);
-                break;
-              default:
-                //  dual key
-                tmpColor = this.keyArray[currentKeyPos].getRightKeyColor(colorspace);
-
-                var arrayPos = [startIndex, this.intervalArray.length];
-                this.intervalPosition.push(arrayPos);
-                startIndex=this.intervalArray.length+1;
-            }
-
-            var newInterval = new class_Interval(tmpColor, true, tmpIntervalRef[refIndex]);
-            this.intervalArray.push(newInterval);
-            currentKeyPos++;
-
-          }
-          else{
-              /////////////////////////////////////////
-              //// calc new interval color
-              /////////////////////////////////////////
-              var color1;
-              var color2;
-              var tmpColor;
-              var doInterpolation=true;
-              ///// get color1
-
-              switch (this.keyArray[currentKeyPos-1].getKeyType()) {
-                case "nil key": case "left key":
-                  tmpColor = this.keyArray[currentKeyPos].getLeftKeyColor(colorspace);
-                  doInterpolation=false;
-                default:
-                  // right or dual key
-                  color1 = this.keyArray[currentKeyPos-1].getRightKeyColor(colorspace);
-
-              }
-
-              ///// get color2
-              // twin left or dual key
-              color2 = this.keyArray[currentKeyPos].getLeftKeyColor(colorspace);
-
-            if(doInterpolation){
-              var leftRef = this.keyArray[currentKeyPos-1].getRefPosition();
-              var rightRef = this.keyArray[currentKeyPos].getRefPosition();
-              var tmpRatio = (tmpIntervalRef[refIndex]-leftRef)/(rightRef-leftRef);
-
-              switch (colorspace) {
-                case "rgb":
-                    var rValue = color1.get1Value()+(color2.get1Value() - color1.get1Value())*tmpRatio;
-                    var gValue = color1.get2Value()+(color2.get2Value() - color1.get2Value())*tmpRatio;
-                    var bValue = color1.get3Value()+(color2.get3Value() - color1.get3Value())*tmpRatio;
-
-                    tmpColor = new classColor_RGB(rValue,gValue,bValue);
-                  break;
-                case "hsv":
-
-                    var tmpDis = color1.getSValue()*50; // radius 50; center(0,0,0);
-                    var tmpRad = (color1.getHValue()*Math.PI*2)-Math.PI;
-                    var xPos = tmpDis*Math.cos(tmpRad);
-                    var yPos = tmpDis*Math.sin(tmpRad);
-                    var zPos = color1.getVValue()-50;
-
-                    var tmpDis2 = color2.getSValue()*50;
-                    var tmpRad2 = (color2.getHValue()*Math.PI*2)-Math.PI;
-                    var xPos2 = tmpDis2*Math.cos(tmpRad2);
-                    var yPos2 = tmpDis2*Math.sin(tmpRad2);
-                    var zPos2 = color2.getVValue()-50;
-
-                    var tmpX = xPos+(xPos2 - xPos)*tmpRatio;
-                    var tmpY = yPos+(yPos2 - yPos)*tmpRatio;
-                    var tmpZ = zPos+(zPos2 - zPos)*tmpRatio;
-
-                    var tmpH =(Math.atan2(tmpY,tmpX)+Math.PI)/(Math.PI*2);
-                    var tmpS = Math.sqrt(Math.pow(tmpX,2)+Math.pow(tmpY,2))/50;
-                    var tmpV = tmpZ+50;
-                    tmpColor = new classColor_HSV(tmpH,tmpS,tmpV);
-
-                  break;
-                case "lab":
-
-                    var lValue = color1.get1Value()+(color2.get1Value() - color1.get1Value())*tmpRatio;
-                    var aValue = color1.get2Value()+(color2.get2Value() - color1.get2Value())*tmpRatio;
-                    var bValue = color1.get3Value()+(color2.get3Value() - color1.get3Value())*tmpRatio;
-
-                    tmpColor = new classColor_LAB(lValue,aValue,bValue);
-
-                  break;
-                case "din99":
-                    var l99Value = color1.get1Value()+(color2.get1Value() - color1.get1Value())*tmpRatio;
-                    var a99Value = color1.get2Value()+(color2.get2Value() - color1.get2Value())*tmpRatio;
-                    var b99Value = color1.get3Value()+(color2.get3Value() - color1.get3Value())*tmpRatio;
-
-                    tmpColor = new classColorDIN99(l99Value,a99Value,b99Value);
-                  break;
-                default:
-                console.log("Error calcColorMap function");
-              }
-
-            }//if
-
-            // calc color
-            var newInterval = new class_Interval(tmpColor, false, tmpIntervalRef[refIndex]);
-            this.intervalArray.push(newInterval);
-
-        }//else
-
-      }//for
-
-    }//
-
-  }//*/
-
-  calcGlobalIntervalColors(numIntervals, colorspace, startKey, endKey, withoutMerge){
+  calcGlobalIntervalColors(numIntervals, startKey, endKey, withoutMerge){
 
     this.intervalArray=[];
     this.intervalPosition=[];
@@ -538,7 +371,7 @@ class class_CMS {
           var arrayPos = [this.intervalArray.length-1,this.intervalArray.length-1];
 
           //// test
-          tmpColor = this.keyArray[keyIndex+1].getLeftKeyColor(colorspace);
+          tmpColor = this.keyArray[keyIndex+1].getLeftKeyColor(this.interpolationSpace);
 
           /*arrayPos.push(this.intervalArray.length);
           var newKeyInterval = new class_Interval(tmpColor, true, this.keyArray[keyIndex].getRefPosition());
@@ -552,7 +385,7 @@ class class_CMS {
             break;
 
             if(withoutMerge){
-              var intervalColor = this.calculateColor(currentIntervalPointPos, colorspace);
+              var intervalColor = this.calculateColor(currentIntervalPointPos, this.interpolationSpace);
               var newInterval = new class_Interval(intervalColor, false, currentIntervalPointPos);
               this.intervalArray.push(newInterval);
             }
@@ -574,9 +407,9 @@ class class_CMS {
         default:
 
         var arrayPos = [];
-        tmpColor = this.keyArray[keyIndex].getRightKeyColor(colorspace);
+        tmpColor = this.keyArray[keyIndex].getRightKeyColor(this.interpolationSpace);
         var ref1 = this.keyArray[keyIndex].getRefPosition();
-        tmpColor2 = this.keyArray[keyIndex+1].getLeftKeyColor(colorspace);
+        tmpColor2 = this.keyArray[keyIndex+1].getLeftKeyColor(this.interpolationSpace);
         var ref2 = this.keyArray[keyIndex+1].getRefPosition();
 
         arrayPos.push(this.intervalArray.length);
@@ -594,7 +427,7 @@ class class_CMS {
           if(intervalPointCounter==numIntervals) // last interval point has to hit the last key reference, but it is possible that the algorithm did not hit this value exactly and we have to stop it then and only adding the last key as interval
           break;
 
-          var intervalColor = this.calculateColor(currentIntervalPointPos, colorspace);
+          var intervalColor = this.calculateColor(currentIntervalPointPos, this.interpolationSpace);
           var newInterval = new class_Interval(intervalColor, false, currentIntervalPointPos);
           this.intervalArray.push(newInterval);
 
@@ -619,7 +452,7 @@ class class_CMS {
   }
 
 
-  calcDeltaIntervalColors(intervalDeltaDis, colorspace, startKey, endKey){
+  calcDeltaIntervalColors(intervalDeltaDis, startKey, endKey){
 
     this.intervalArray=[];
     this.intervalPosition=[];
@@ -638,7 +471,7 @@ class class_CMS {
           var arrayPos = [this.intervalArray.length-1,this.intervalArray.length-1];
 
           //// test
-          tmpColor = this.keyArray[keyIndex+1].getLeftKeyColor(colorspace);
+          tmpColor = this.keyArray[keyIndex+1].getLeftKeyColor(this.interpolationSpace);
 
           /*arrayPos.push(this.intervalArray.length);
           var newKeyInterval = new class_Interval(tmpColor, true, this.keyArray[keyIndex].getRefPosition());
@@ -659,9 +492,9 @@ class class_CMS {
         default:
 
         var arrayPos = [];
-        tmpColor = this.keyArray[keyIndex].getRightKeyColor(colorspace);
+        tmpColor = this.keyArray[keyIndex].getRightKeyColor(this.interpolationSpace);
         var ref1 = this.keyArray[keyIndex].getRefPosition();
-        tmpColor2 = this.keyArray[keyIndex+1].getLeftKeyColor(colorspace);
+        tmpColor2 = this.keyArray[keyIndex+1].getLeftKeyColor(this.interpolationSpace);
         var ref2 = this.keyArray[keyIndex+1].getRefPosition();
 
         arrayPos.push(this.intervalArray.length);
@@ -675,7 +508,7 @@ class class_CMS {
           ///// Calc Interval Colors
           var tmpDelta = 0;
 
-          if(colorspace==="din99"){
+          if(this.interpolationSpace==="din99"){
             tmpDelta = calc3DEuclideanDistance(tmpColor,tmpColor2);
           }
           else {
@@ -698,7 +531,7 @@ class class_CMS {
 
             var tmpRatio = (intervalRef-ref1)/(ref2-ref1);
 
-            switch (colorspace) {
+            switch (this.interpolationSpace) {
               case "rgb":
                   var rValue = tmpColor.get1Value()+(tmpColor2.get1Value() - tmpColor.get1Value())*tmpRatio;
                   var gValue = tmpColor.get2Value()+(tmpColor2.get2Value() - tmpColor.get2Value())*tmpRatio;
@@ -753,12 +586,6 @@ class class_CMS {
             var newInterval = new class_Interval(intervalColor, false, intervalRef);
             this.intervalArray.push(newInterval);
 
-
-            /// TEST /////
-
-            /*if(colorspace === "lab"){
-              console.log(calcDeltaCIEDE2000(this.intervalArray[this.intervalArray.length-2].getColor("lab"),this.intervalArray[this.intervalArray.length-1].getColor("lab")));
-            }*/
 
           }
 

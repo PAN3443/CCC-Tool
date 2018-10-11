@@ -19,4 +19,6 @@ function saveCreateProcess(){
           processPosition = colormapProcess.length-1
         }
       }
+
+      somethingChanged=true;
 }

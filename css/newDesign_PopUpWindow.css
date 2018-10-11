@@ -1,0 +1,46 @@
+.class_RadioButtonPopUpWindow{
+
+  font-size: 2vh;
+  line-height: 2.5vh;
+  height:auto;
+  color:black;
+  vertical-align:middle;
+  margin:0px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom:0.5vh;
+
+}
+
+.class_InputPopUpWindow{
+  font-size: 2vh;
+  line-height: 2.5vh;
+  height:2.5;
+  color:black;
+  vertical-align:middle;
+  margin:0px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top:auto;
+  margin-bottom:auto;
+}
+
+#id_popupWindow_CloseColorpicker{
+  height:3vh;
+  width:3vh;
+  border-left:2px solid grey;
+  line-height:3vh;
+  vertical-align:middle;
+  text-align:center;
+  vertical-align: middle;
+  margin:0px;
+  color:white;
+  font-size:2.5vh;
+  background:black;
+  cursor: pointer;
+}
+
+
+#id_popupWindow_CloseColorpicker:hover{
+  background:grey;
+}

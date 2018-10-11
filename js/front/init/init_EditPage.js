@@ -47,4 +47,22 @@ function init_events_EditPage(){
     indexOfDroppedPlace = -1;
 
   }; // allow Drop
+
+
+  document.getElementById('id_editPage_customConstBand').addEventListener("dragstart", bandOnDragStart);
+  document.getElementById('id_editPage_customConstBand').addEventListener("dragend", bandOnDragEnd);
+  document.getElementById('id_editPage_customScaleBand').addEventListener("dragstart", bandOnDragStart);
+  document.getElementById('id_editPage_customScaleBand').addEventListener("dragend", bandOnDragEnd);
+
+
+  // Ref Change Key Rects
+  document.getElementById('id_EditPage_CMS_VIS_LinearKeys').addEventListener("mouseenter", mouseEnterKeyRef);
+  document.getElementById('id_EditPage_CMS_VIS_LinearKeys').addEventListener("mouseleave", mouseLeaveKeyRef);
+  document.getElementById('id_EditPage_CMS_VIS_LinearKeys').addEventListener("mousemove", mouseMoveKeyRef);
+  document.getElementById('id_EditPage_CMS_VIS_LinearKeys').addEventListener("mousedown", mouseDownKeyRef);
+  document.getElementById('id_EditPage_CMS_VIS_LinearKeys').addEventListener("mouseup", mouseUpKeyRef);
+
+
+
+
 }

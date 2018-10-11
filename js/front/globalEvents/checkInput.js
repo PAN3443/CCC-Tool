@@ -3,7 +3,8 @@ function checkInputVal(obj, allowFloat, allowNegative){
     var checkstring = obj.value;
     var pointIsSet = false;
     var pointIndex = 0;
-    var foundCharE = false;
+
+    var firstE = true;
 
     for(var i=checkstring.length-1; i>=0; i--){
 
@@ -84,15 +85,77 @@ function checkInputVal(obj, allowFloat, allowNegative){
             case "-":
             if(allowNegative==true){
                 if(i!=0){
-                    if(i==checkstring.length-1){
-                        checkstring = checkstring.slice(0, i);
-                    }
-                    else{
-                        checkstring = checkstring.slice(0, i) + checkstring.slice(i+1);
-                    }
+
+                    if(allowFloat && checkstring[i-1]=="e")
+                    break;
+
+                      if(i==checkstring.length-1){
+                          checkstring = checkstring.slice(0, i);
+                      }
+                      else{
+                          checkstring = checkstring.slice(0, i) + checkstring.slice(i+1);
+                      }
                 }
                 break;
             }
+            else{
+              if(i==0){
+                  checkstring = checkstring.slice(i+1);
+              }
+              else{
+                  if(i==checkstring.length-1){
+                      checkstring = checkstring.slice(0, i);
+                  }
+                  else{
+                      checkstring = checkstring.slice(0, i) + checkstring.slice(i+1);
+                  }
+              }
+              break;
+            }
+
+            case "e":
+
+              if(i==0){
+                checkstring = checkstring.slice(0, i) + checkstring.slice(i+1);
+              }
+              else{
+
+                if(allowFloat){
+
+                  if(firstE){
+
+                    if(i!=checkstring.length-1){
+                        if(firstE && checkstring[i+1]==="+" || checkstring[i+1]==="-"){
+                          firstE=false;
+                        }
+                        else{
+                          indexArray.push(i);
+                        }
+                    }
+                    else{
+                      firstE=false;
+                    }
+                    break;
+                  }
+                }
+                if(i==checkstring.length-1){
+                    checkstring = checkstring.slice(0, i);
+                }
+                else{
+                    checkstring = checkstring.slice(0, i) + checkstring.slice(i+1);
+                }
+
+              }
+
+
+            break;
+            case "+":
+
+              if(i!=0){
+                  if(allowFloat && checkstring[i-1]=="e")
+                  break;
+              }
+              // else default
 
 
             default:

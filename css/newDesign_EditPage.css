@@ -161,7 +161,7 @@
 #id_EditPage_cmsTablePartDiv{
   float:right;
   height: 375px;
-  width: 700px;
+  /*width: 750px;*/
   background-color: rgb(204, 230, 255);
   border: 2px solid rgb(0, 79, 153);
   display: none;
@@ -191,6 +191,9 @@
     border: 1px solid black;
     vertical-align: middle;
     text-align: center;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 
@@ -227,7 +230,7 @@
 
 }
 
-.class_reversebuttonCreatePage{
+.class_reversebuttonEditPage{
   width:10%;
   height:20px;
   margin-right: 10%;

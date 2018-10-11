@@ -124,6 +124,10 @@ class classColor_HSV{
         return tmpRGB.calcDIN99Color();
     }
 
+    calcHSVColor() {
+      return this;
+    }
+
     calcRGBColor(){
 
         /*var R,G,B,var_r,var_g,var_b;

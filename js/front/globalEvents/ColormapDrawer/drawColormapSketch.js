@@ -25,11 +25,6 @@ function drawBandSketch(cms,sketchObjectID, withInputFields, aboveInputField){
 
   bandSketchObjLength=bandLength;
 
-  /*if(withInputFields==false){
-    drawSketchKeys(sketchKeyID, cms);
-    drawSketchRefElements(cms,sketchRefID);
-  }*/
-
   if(cms.getKeyLength()==0){
     canvasObject.width = 2500;//1500;
 
@@ -103,8 +98,8 @@ function drawBandSketch(cms,sketchObjectID, withInputFields, aboveInputField){
         currentPos += bandLength;
       }
 
-      color1 = cms.getRightKeyColor(x,colorspaceModus);
-      color2 = cms.getLeftKeyColor(x+1,colorspaceModus);
+      color1 = cms.getRightKeyColor(x,globalCMS1.getInterpolationSpace());
+      color2 = cms.getLeftKeyColor(x+1,globalCMS1.getInterpolationSpace());
 
       if(color1==undefined)
         canvasData=createConstantBand(canvasData, currentPos, bandLength, canvasObject.height, color2, canvasObject.width);
@@ -193,71 +188,23 @@ function drawInsertBandPreview(canvasData, currentPos, bandLength, canvasHeight,
   switch(dragPredefinedBandType){
       case 0:
               // ->const
-              canvasData=createConstantBand(canvasData, currentPos, bandLength, canvasHeight, constBands[dragPredefinedBandIndex].getInColorFormat(colorspaceModus), canvasWidth);
+              canvasData=createConstantBand(canvasData, currentPos, bandLength, canvasHeight, constBands[dragPredefinedBandIndex].getInColorFormat(globalCMS1.getInterpolationSpace()), canvasWidth);
       break;
       case 1:
               // ->scale
-              canvasData=createScaledBand(canvasData, currentPos, bandLength, canvasHeight, scaleBands[dragPredefinedBandIndex][0].getInColorFormat(colorspaceModus),scaleBands[dragPredefinedBandIndex][1].getInColorFormat(colorspaceModus), canvasWidth);
+              canvasData=createScaledBand(canvasData, currentPos, bandLength, canvasHeight, scaleBands[dragPredefinedBandIndex][0].getInColorFormat(globalCMS1.getInterpolationSpace()),scaleBands[dragPredefinedBandIndex][1].getInColorFormat(globalCMS1.getInterpolationSpace()), canvasWidth);
       break;
       case 2:
-              // ->double
-              var numberOfBands=2;
-              var tmpbandLength=bandLength/numberOfBands;
-              if(tmpbandLength%1!=0){
-                var rest=tmpbandLength%1;
-                tmpbandLength=Math.floor(tmpbandLength);
-                var lesspixels=Math.round(rest*numberOfBands); // should be an integer
-                canvasData=createUnknownTypeBand(canvasData, currentPos, tmpbandLength+lesspixels, canvasHeight, doubleBands[dragPredefinedBandIndex][0].getInColorFormat(colorspaceModus),doubleBands[dragPredefinedBandIndex][1].getInColorFormat(colorspaceModus), canvasWidth);
-                currentPos+=(tmpbandLength+lesspixels);
-              }
-              else{
-                canvasData=createUnknownTypeBand(canvasData, currentPos, tmpbandLength, canvasHeight, doubleBands[dragPredefinedBandIndex][0].getInColorFormat(colorspaceModus),doubleBands[dragPredefinedBandIndex][1].getInColorFormat(colorspaceModus), canvasWidth);
-                currentPos+=tmpbandLength;
-              }
-              canvasData=createUnknownTypeBand(canvasData, currentPos, tmpbandLength, canvasHeight, doubleBands[dragPredefinedBandIndex][2].getInColorFormat(colorspaceModus),doubleBands[dragPredefinedBandIndex][3].getInColorFormat(colorspaceModus), canvasWidth);
-      break;
+              // ->predefined CMS
+            break;
       case 3:
-              // ->tripleX
-              var numberOfBands=3;
-              var tmpbandLength=bandLength/numberOfBands; //Math.round(bandLength/numberOfBands);
-
-              if(tmpbandLength%1!=0){
-                var rest=tmpbandLength%1;
-                tmpbandLength=Math.floor(tmpbandLength);
-                var lesspixels=Math.round(rest*numberOfBands);
-                canvasData=createUnknownTypeBand(canvasData, currentPos, tmpbandLength+lesspixels, canvasHeight, tribleBands[dragPredefinedBandIndex][0].getInColorFormat(colorspaceModus),tribleBands[dragPredefinedBandIndex][1].getInColorFormat(colorspaceModus), canvasWidth);
-                currentPos+=(tmpbandLength+lesspixels);
-              }
-              else{
-                canvasData=createUnknownTypeBand(canvasData, currentPos, tmpbandLength, canvasHeight, tribleBands[dragPredefinedBandIndex][0].getInColorFormat(colorspaceModus),tribleBands[dragPredefinedBandIndex][1].getInColorFormat(colorspaceModus), canvasWidth);
-                currentPos+=tmpbandLength;
-              }
-              canvasData=createUnknownTypeBand(canvasData, currentPos, tmpbandLength, canvasHeight, tribleBands[dragPredefinedBandIndex][2].getInColorFormat(colorspaceModus),tribleBands[dragPredefinedBandIndex][3].getInColorFormat(colorspaceModus), canvasWidth);
-              currentPos+=tmpbandLength;
-              canvasData=createUnknownTypeBand(canvasData, currentPos, tmpbandLength, canvasHeight, tribleBands[dragPredefinedBandIndex][4].getInColorFormat(colorspaceModus),tribleBands[dragPredefinedBandIndex][5].getInColorFormat(colorspaceModus), canvasWidth);
-
+              // -> custom const
+              canvasData=createConstantBand(canvasData, currentPos, bandLength, canvasHeight, customConstBandColor.getInColorFormat(globalCMS1.getInterpolationSpace()), canvasWidth);
       break;
       case 4:
-              // ->quad
-              var numberOfBands=4;
-              var tmpbandLength=bandLength/numberOfBands;
-              if(tmpbandLength%1!=0){
-                var rest=tmpbandLength%1;
-                tmpbandLength=Math.floor(tmpbandLength);
-                var lesspixels=Math.round(rest*numberOfBands);
-                canvasData=createUnknownTypeBand(canvasData, currentPos, tmpbandLength+lesspixels, canvasHeight, quadBands[dragPredefinedBandIndex][0].getInColorFormat(colorspaceModus),quadBands[dragPredefinedBandIndex][1].getInColorFormat(colorspaceModus), canvasWidth);
-                currentPos+=(tmpbandLength+lesspixels);
-              }
-              else{
-                canvasData=createUnknownTypeBand(canvasData, currentPos, tmpbandLength, canvasHeight, quadBands[dragPredefinedBandIndex][0].getInColorFormat(colorspaceModus),quadBands[dragPredefinedBandIndex][1].getInColorFormat(colorspaceModus), canvasWidth);
-                currentPos+=tmpbandLength;
-              }
-              canvasData=createUnknownTypeBand(canvasData, currentPos, tmpbandLength, canvasHeight, quadBands[dragPredefinedBandIndex][2].getInColorFormat(colorspaceModus),quadBands[dragPredefinedBandIndex][3].getInColorFormat(colorspaceModus), canvasWidth);
-              currentPos+=tmpbandLength;
-              canvasData=createUnknownTypeBand(canvasData, currentPos, tmpbandLength, canvasHeight, quadBands[dragPredefinedBandIndex][4].getInColorFormat(colorspaceModus),quadBands[dragPredefinedBandIndex][5].getInColorFormat(colorspaceModus), canvasWidth);
-              currentPos+=tmpbandLength;
-              canvasData=createUnknownTypeBand(canvasData, currentPos, tmpbandLength, canvasHeight, quadBands[dragPredefinedBandIndex][6].getInColorFormat(colorspaceModus),quadBands[dragPredefinedBandIndex][7].getInColorFormat(colorspaceModus), canvasWidth);
-    break;
+              // -> custom scale
+              canvasData=createScaledBand(canvasData, currentPos, bandLength, canvasHeight, customScaleBandColor1.getInColorFormat(globalCMS1.getInterpolationSpace()),customScaleBandColor2.getInColorFormat(globalCMS1.getInterpolationSpace()), canvasWidth);
+      break;
 
       default:
       console.log("Error in drawInsertBandPreview function.");
@@ -267,208 +214,7 @@ function drawInsertBandPreview(canvasData, currentPos, bandLength, canvasHeight,
 
 }
 
-function drawSketchRefElements(cms,sketchRefObjID, asInputFields){
 
-  var sketchRefObj = document.getElementById(sketchRefObjID);
-
-  var box = sketchRefObj.getBoundingClientRect();
-
-  var body = document.body;
-  var docEl = document.documentElement;
-
-  var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
-  var scrollLeft = window.pageXOffset || docEl.scrollLeft || body.scrollLeft;
-
-  var clientTop = docEl.clientTop || body.clientTop || 0;
-  var clientLeft = docEl.clientLeft || body.clientLeft || 0;
-
-  var top = box.top + scrollTop - clientTop;
-  var left = box.left + scrollLeft - clientLeft;
-  var yposHTML = box.height + top;
-
-  //sketchObject.style.border = "none";
-
-  //var tmpRect = sketchObject.getBoundingClientRect();
-
-  //var borderWidth = 1;
-  //var tmpLength = Math.floor((tmpRect.width/(cms.getKeyLength()-1))-(2*borderWidth));
-
-  for (var i = 0; i < cms.getKeyLength()-1; i++) {
-
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    var refLineDiv = document.createElement('div');
-    refLineDiv.style.height = 100 + '%';
-    refLineDiv.style.width = 100 + '%';
-    refLineDiv.style.borderLeft = "1px solid black";
-
-    sketchRefObj.appendChild(refLineDiv);
-    refLineSketchContainer.push(refLineDiv);
-
-    /////////////////// draw ref /////////
-    var xposHTML = (i / (cms.getKeyLength()-1)) * box.width + left;
-    var tmpText = '' + cms.getRefPosition(i); //.toFixed(numDecimalPlaces);
-
-    if(asInputFields){
-
-      var inputField = document.createElement("input");
-      inputField.setAttribute('type', 'text');
-      inputField.setAttribute('value', tmpText);
-      var inputID = "id_SketchKeyValInput" + i;
-      inputField.id = inputID;
-      document.body.appendChild(inputField);
-
-      inputField.style.width = "30px";
-      inputField.style.height = "15px";
-      inputField.style.fontSize = "12px";
-      inputField.style.paddingLeft = "5px";
-      inputField.style.paddingRight = "5px";
-      inputField.style.margin = "0px";
-      inputField.style.zIndex = "2";
-
-      inputField.style.position = "absolute";
-      inputField.style.top = Math.round(yposHTML) + "px";
-      inputField.style.left = Math.round(xposHTML) + "px";
-      refLineSketchContainer.push(inputField);
-      xposHTML = xposHTML - (inputField.getBoundingClientRect().width / 2);
-      inputField.style.left = Math.round(xposHTML) + "px";
-
-      inputField.onchange = (function(keyIndex, id) {
-        return function() {
-
-              changeKeyValueInput(keyIndex, id);
-
-        };
-      })(i, inputID);
-
-      inputField.onkeyup = (function(id) {
-        return function() {
-
-          var inputObj = document.getElementById(id);
-
-          checkInputVal(inputObj, true, true);
-        };
-      })(inputID);
-
-      /////////////////// special case: last element /////////
-      if (i == cms.getKeyLength()-2) {
-        refLineDiv.style.borderRight = "1px solid black";
-        tmpText = '' + cms.getRefPosition(i+1); //.toFixed(numDecimalPlaces);
-        xposHTML = box.width + left;
-        var inputField2 = document.createElement("input");
-        inputField2.setAttribute('type', 'text');
-        inputField2.setAttribute('value', tmpText);
-        var inputID = "id_SketchKeyValInput" + i + 1;
-        inputField2.id = inputID;
-        document.body.appendChild(inputField2);
-
-        //inputField.style.width = "min-content";
-        inputField2.style.width = "30px";
-        inputField2.style.height = "15px";
-        inputField2.style.fontSize = "12px";
-        //inputField.style.background = "rgb(255,255,255)";
-        inputField2.style.paddingLeft = "5px";
-        inputField2.style.paddingRight = "5px";
-        //inputField.style.border = "2px solid rgb(0,0,0)";
-        inputField2.style.margin = "0px";
-        inputField2.style.zIndex = "2";
-
-        inputField2.style.position = "absolute";
-        inputField2.style.top = Math.round(yposHTML) + "px";
-        inputField2.style.left = Math.round(xposHTML) + "px";
-        refLineSketchContainer.push(inputField2);
-        xposHTML = xposHTML - (inputField2.getBoundingClientRect().width / 2);
-        inputField2.style.left = Math.round(xposHTML) + "px";
-
-        inputField2.onchange = (function(keyIndex, id) {
-          return function() {
-
-            changeKeyValueInput(keyIndex+1, id);
-
-          };
-        })(i, inputID);
-
-        inputField2.onkeyup = (function(id) {
-          return function() {
-
-            var inputObj = document.getElementById(id);
-
-            checkInputVal(inputObj, true, true);
-          };
-        })(inputID);
-
-      }
-    }
-    else{
-      // no input fields !
-
-
-      if(cms.getRefPosition(i).countDecimals()>2){
-        tmpText = cms.getRefPosition(i).toFixed(2) + "..";
-      }
-      var inputField = document.createElement("p");
-      inputField.innerHTML = tmpText;
-      var inputID = "id_SketchKeyValInput" + i;
-      inputField.id = inputID;
-      document.body.appendChild(inputField);
-
-      inputField.style.width = "min-content";
-      //inputField.style.width = "3vw";
-      inputField.style.height = "15px";
-      inputField.style.fontSize = "12px";
-      inputField.style.background = "rgb(255,255,255)";
-      inputField.style.paddingLeft = "5px";
-      inputField.style.paddingRight = "5px";
-      //inputField.style.border = "1px solid rgb(0,0,0)";
-      inputField.style.margin = "0px";
-      inputField.style.zIndex = "2";
-
-      inputField.style.position = "absolute";
-      inputField.style.top = Math.round(yposHTML) + "px";
-      inputField.style.left = Math.round(xposHTML) + "px";
-      refLineSketchContainer.push(inputField);
-      xposHTML = xposHTML - (inputField.getBoundingClientRect().width / 2);
-      inputField.style.left = Math.round(xposHTML) + "px";
-
-
-      /////////////////// special case: last element /////////
-      if (i == cms.getKeyLength()-2) {
-        refLineDiv.style.borderRight = "1px solid black";
-        tmpText = cms.getRefPosition(i+1) + "";
-        if(cms.getRefPosition(i+1).countDecimals()>2){
-          tmpText = cms.getRefPosition(i+1).toFixed(2) + "..";
-        }
-        xposHTML = box.width + left;
-        var inputField2 = document.createElement("p");
-        inputField2.innerHTML = tmpText;
-        var inputID = "id_SketchKeyValInput" + i + 1;
-        inputField2.id = inputID;
-        document.body.appendChild(inputField2);
-
-        inputField2.style.width = "min-content";
-        //inputField2.style.width = "3vw";
-        inputField2.style.height = "15px";
-        inputField2.style.fontSize = "12px";
-        inputField2.style.background = "rgb(255,255,255)";
-        inputField2.style.paddingLeft ="5px";
-        inputField2.style.paddingRight = "5px";
-        //inputField2.style.border = "1px solid rgb(0,0,0)";
-        inputField2.style.margin = "0px";
-        inputField2.style.zIndex = "2";
-
-        inputField2.style.position = "absolute";
-        inputField2.style.top = Math.round(yposHTML) + "px";
-        inputField2.style.left = Math.round(xposHTML) + "px";
-        refLineSketchContainer.push(inputField2);
-        xposHTML = xposHTML - (inputField2.getBoundingClientRect().width / 2);
-        inputField2.style.left = Math.round(xposHTML) + "px";
-      }
-
-    }
-  }
-
-
-}
 
 
 

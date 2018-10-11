@@ -154,6 +154,10 @@ class classColor_RGB {
     return tmpXYZ.calcLABColor();
   }
 
+  calcRGBColor() {
+    return this;
+  }
+
   calcHSVColor() {
 
     //R, G and B input range = 0 ÷ 255

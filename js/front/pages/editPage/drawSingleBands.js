@@ -3,9 +3,6 @@ function drawConstantBands(){
   // --------- Empty Divs
   document.getElementById('id_EditPage_ConstBandDiv').innerHTML = "";
 
-  var resolutionX = 100;
-  var resolutionY = 1;
-
   //---------------------------
   // --------- Const
   for(var i=0; i<constBands.length; i++){
@@ -26,7 +23,6 @@ function drawScaledBands(){
   document.getElementById('id_EditPage_ScaleBandDiv').innerHTML = "";
 
   var resolutionX = 100;
-  var resolutionY = 1;
 
   //---------------------------
   // --------- Scale
@@ -50,7 +46,7 @@ function drawScaledBands(){
       var tmpC2RGB = scaleBands[i][1];
 
       var reverseButton = document.createElement("div");
-      reverseButton.className = "class_reversebuttonCreatePage classButtonWhite";
+      reverseButton.className = "class_reversebuttonEditPage classButtonWhite";
       reverseButton.innerHTML = "&#8646;";
       reverseButton.style.cursor = "pointer";
 
@@ -78,6 +74,20 @@ function drawScaledBands(){
 }
 
 
+function drawConstCustomBand(){
+  document.getElementById("id_editPage_customConstBand").style.background=customConstBandColor.getRGBString();
+  document.getElementById("id_editPage_customConstColor").style.background=customConstBandColor.getRGBString();
+}
+
+
+function drawScaleCustomBand(){
+  document.getElementById("id_editPage_customScaleColor1").style.background=customScaleBandColor1.getRGBString();
+  document.getElementById("id_editPage_customScaleColor2").style.background=customScaleBandColor2.getRGBString();
+
+  var resolutionX = 100;
+  drawCanvasBand(document.getElementById("id_editPage_customScaleBand"), customScaleBandColor1, customScaleBandColor2,resolutionX);
+}
+
 
 function drawCanvasBand(canvasObject, color1, color2,resolutionX){
 
@@ -93,15 +103,15 @@ function drawCanvasBand(canvasObject, color1, color2,resolutionX){
             var canvasData = canvasContex.getImageData(0, 0, resolutionX, 1);
 
             var tmpcolor1, tmpcolor2;
-            switch(colorspaceModus){
+            switch(globalCMS1.getInterpolationSpace()){
                 case "rgb":
 
-                    if(color1.getColorType()===colorspaceModus)
+                    if(color1.getColorType()===globalCMS1.getInterpolationSpace())
                       tmpcolor1=color1;
                     else
                       tmpcolor1=color1.calcRGBColor();
 
-                    if(color2.getColorType()===colorspaceModus)
+                    if(color2.getColorType()===globalCMS1.getInterpolationSpace())
                       tmpcolor2=color2;
                     else
                       tmpcolor2=color2.calcRGBColor();
@@ -109,12 +119,12 @@ function drawCanvasBand(canvasObject, color1, color2,resolutionX){
 
                 break;
                 case "hsv":
-                    if(color1.getColorType()===colorspaceModus)
+                    if(color1.getColorType()===globalCMS1.getInterpolationSpace())
                       tmpcolor1=color1;
                     else
                       tmpcolor1=color1.calcHSVColor();
 
-                    if(color2.getColorType()===colorspaceModus)
+                    if(color2.getColorType()===globalCMS1.getInterpolationSpace())
                       tmpcolor2=color2;
                     else
                       tmpcolor2=color2.calcHSVColor();
@@ -122,24 +132,24 @@ function drawCanvasBand(canvasObject, color1, color2,resolutionX){
                 break;
                 case "lab":
 
-                    if(color1.getColorType()===colorspaceModus)
+                    if(color1.getColorType()===globalCMS1.getInterpolationSpace())
                       tmpcolor1=color1;
                     else
                       tmpcolor1=color1.calcLABColor();
 
-                    if(color2.getColorType()===colorspaceModus)
+                    if(color2.getColorType()===globalCMS1.getInterpolationSpace())
                       tmpcolor2=color2;
                     else
                       tmpcolor2=color2.calcLABColor();
 
                 break;
                 case "din99":
-                    if(color1.getColorType()===colorspaceModus)
+                    if(color1.getColorType()===globalCMS1.getInterpolationSpace())
                       tmpcolor1=color1;
                     else
                       tmpcolor1=color1.calcDIN99Color();
 
-                    if(color2.getColorType()===colorspaceModus)
+                    if(color2.getColorType()===globalCMS1.getInterpolationSpace())
                       tmpcolor2=color2;
                     else
                       tmpcolor2=color2.calcDIN99Color();

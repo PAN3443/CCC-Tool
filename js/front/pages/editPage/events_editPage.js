@@ -2,13 +2,32 @@
 
 function updateEditPage(){
 
+
   drawBandSketch(globalCMS1,"id_EditPage_CMS_VIS_ColormapSketch", false, -1);
 
 
-
+  for (var i = refElementContainer.length - 1; i >= 0; i--) {
+    refElementContainer[i].remove();
+    refElementContainer.pop();
+  }
 
 
   if(globalCMS1.getKeyLength() != 0){
+
+
+        document.getElementById("id_EditPage_CMS_VIS_SketchKeyNumbers").style.display="block";
+        document.getElementById("id_EditPage_CMS_VIS_LinearKeys").style.display="block";
+        document.getElementById("id_EditPage_CMS_VIS_KeyBurs").style.display="block";
+        document.getElementById("id_EditPage_CMS_VIS_ColormapLinear").style.display="block";
+        document.getElementById("id_EditPage_RefPlaceholder").style.display="block";
+        document.getElementById("id_EditPage_CMS_VIS_SketchKeys").style.display="block";
+        document.getElementById("id_EditPage_CMS_VIS_Lines1").style.display="block";
+        document.getElementById("id_EditPage_CMS_VIS_Lines2").style.display="block";
+        document.getElementById("id_EditPage_CMS_VIS_Lines3").style.display="block";
+
+        document.getElementById("id_EditPage_scaleButton").style.display="inline-block";
+        document.getElementById("id_editPage_HelpImage1").style.display="none";
+
 
         drawCanvasColormap("id_EditPage_CMS_VIS_ColormapLinear", linearMap_resolution_X, linearMap_resolution_Y, globalCMS1);
         drawKeys("id_EditPage_CMS_VIS_LinearKeys", key_resolution_X, key_resolution_Y, globalCMS1, "id_keyColormapLinesBottom");
@@ -16,31 +35,16 @@ function updateEditPage(){
         drawLines("id_EditPage_CMS_VIS_Lines1",true, true, key_resolution_X, key_resolution_Y, globalCMS1);
         drawLines("id_EditPage_CMS_VIS_Lines2",false, false, key_resolution_X, key_resolution_Y, globalCMS1);
         drawLines("id_EditPage_CMS_VIS_Lines3",false, false, key_resolution_X, key_resolution_Y, globalCMS1);
+        drawKeyNumber("id_EditPage_CMS_VIS_SketchKeyNumbers", globalCMS1);
+        drawSketchInputFields(globalCMS1,"id_EditPage_CMS_VIS_Lines3", true);
 
-        document.getElementById("id_EditPage_CMS_VIS_LinearKeys").style.display="block";
-        document.getElementById("id_EditPage_CMS_VIS_KeyBurs").style.display="block";
-        document.getElementById("id_EditPage_CMS_VIS_ColormapLinear").style.display="block";
-        document.getElementById("id_EditPage_RefPlaceholder").style.display="block";
-        document.getElementById("id_EditPage_CMS_VIS_SketchKeys").style.display="block";
-        document.getElementById("id_EditPage_CMS_VIS_Lines1").style.display="block";
-          document.getElementById("id_EditPage_CMS_VIS_Lines2").style.display="block";
-            document.getElementById("id_EditPage_CMS_VIS_Lines3").style.display="block";
-
-        document.getElementById("id_editPage_HelpImage1").style.display="none";
-
-        /*document.getElementById("div_colormapLinear").style.display = "inline-block";
-
-        if(showSideID==1)
-          document.getElementById("bandSketchAutoRangeDiv").style.display="block";
-        else
-          document.getElementById("bandSketchAutoRangeDiv").style.display="none";*/
 
 
   }
   else{
     /*document.getElementById("div_colormapLinear").style.display = "none";
     document.getElementById("bandSketchAutoRangeDiv").style.display="none";*/
-
+    document.getElementById("id_EditPage_CMS_VIS_SketchKeyNumbers").style.display="none";
     document.getElementById("id_EditPage_CMS_VIS_LinearKeys").style.display="none";
     document.getElementById("id_EditPage_CMS_VIS_KeyBurs").style.display="none";
     document.getElementById("id_EditPage_CMS_VIS_ColormapLinear").style.display="none";
@@ -50,13 +54,14 @@ function updateEditPage(){
       document.getElementById("id_EditPage_CMS_VIS_Lines2").style.display="none";
         document.getElementById("id_EditPage_CMS_VIS_Lines3").style.display="none";
 
+    document.getElementById("id_EditPage_scaleButton").style.display="none";
     document.getElementById("id_editPage_HelpImage1").style.display="block";
   }
 
 
 
 
-
+  fillTable();
   var rect = document.getElementById("id_EditPage_MainPartDiv").getBoundingClientRect();
   document.getElementById("id_EditPage").style.height =  rect.height +"px";
 
@@ -121,6 +126,101 @@ function updateEditPage(){
 
 
 
+}
+
+
+
+
+
+function switchModifyModus(type){
+
+
+  document.getElementById("id_editPage_SelectAddStructures").style.background="none";
+  document.getElementById("id_editPage_SelectAddKeys").style.background="none";
+  document.getElementById("id_editPage_SelectEditKeys").style.background="none";
+  document.getElementById("id_editPage_SelectEditPath").style.background="none";
+
+  document.getElementById("id_EditPage_Add_Structures").style.display="none";
+  document.getElementById("id_EditPage_Add_Keys").style.display="none";
+  document.getElementById("id_EditPage_Edit_Keys").style.display="none";
+  document.getElementById("id_EditPage_Edit_Path").style.display="none";
+
+
+  switch (type) {
+    case 0:
+      document.getElementById("id_editPage_SelectAddStructures").style.background=styleActiveColor;
+      document.getElementById("id_EditPage_Add_Structures").style.display="block";
+    break;
+    case 1:
+      if(globalCMS1.getKeyLength() != 0){
+        document.getElementById("id_editPage_SelectAddKeys").style.background=styleActiveColor;
+        document.getElementById("id_EditPage_Add_Keys").style.display="block";
+        //addKeyButtons();
+      }
+      else{
+        openAlert("Adding Keys needs a CMS structure. Please use Add Bands to create a CMS.");
+        switchModifyModus(0);
+      }
+    break;
+    case 2:
+
+    if(globalCMS1.getKeyLength() != 0){
+      document.getElementById("id_editPage_SelectEditKeys").style.background=styleActiveColor;
+      document.getElementById("id_EditPage_Edit_Keys").style.display="block";
+      //drawPathEditPath();
+    }
+    else{
+      openAlert("There are no keys for modyfing. Please use Add Bands to create a CMS.");
+      switchModifyModus(0);
+    }
+    break;
+
+    case 3:
+
+    if(globalCMS1.getKeyLength() != 0){
+      document.getElementById("id_editPage_SelectEditPath").style.background=styleActiveColor;
+      document.getElementById("id_EditPage_Edit_Path").style.display="block";
+    }
+    else{
+      openAlert("There is no CMS for adding probes. Please use Add Bands to create a CMS.");
+      switchModifyModus(0);
+    }
+    break;
+    default:
+    switchModifyModus(0);
+  }
+}
+
+
+
+
+
+function updateAutoRangeInput(){
+  document.getElementById("id_inputAutoRangeStart").value=globalCMS1.getRefPosition(0);
+  document.getElementById("id_inputAutoRangeEnd").value=globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1);
+  document.getElementById("id_inputAutoRangeEnd").min = document.getElementById("id_inputAutoRangeStart").value;
+  document.getElementById("id_inputAutoRangeStart").max = document.getElementById("id_inputAutoRangeEnd").value;
+}
+
+
+
+function switchCustomScaleColors(){
+
+  var tmp = customScaleBandColor1;
+  customScaleBandColor1 = customScaleBandColor2;
+  customScaleBandColor2 = tmp;
+
+  drawScaleCustomBand();
+
+  if(document.getElementById("id_popupColorPicker").style.display!="none"){
+    document.getElementById("id_popupColorPicker").style.display="none";
+  }
+}
+
+
+function clearColormap(){
+  askType=0;
+  openAskWindow()
 }
 
 

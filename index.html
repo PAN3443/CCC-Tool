@@ -33,6 +33,9 @@
 
   <link rel="stylesheet" href="css/newDesign_SearchAutoComplete.css">
 
+
+  <link rel="stylesheet" href="css/newDesign_PopUpWindow.css">
+
   <!--link rel="stylesheet" href="css/createPage.css">
   <link rel="stylesheet" href="css/mainPage.css">
   <link rel="stylesheet" href="css/myListPage.css">
@@ -97,7 +100,9 @@
 
 
   <!------------------------------------------->
+  <!-- MyDesigns PAGE -->
 
+  <script src="js/front/pages/MyDesignsPage/drawMyDesigns_MyDesignsPage.js"></script>
 
 
 
@@ -105,15 +110,16 @@
   <!------------------------------------------->
   <!-- Edit PAGE -->
 
+  <script src="js/front/pages/editPage/events_editPage.js"></script>
+  <script src="js/front/pages/editPage/drawSingleBands.js"></script>
+  <script src="js/front/pages/editPage/dragAndDropevents.js"></script>
+  <script src="js/front/pages/editPage/saveCreateProcess.js"></script>
+  <script src="js/front/pages/editPage/events_keyRef_editPage.js"></script>
+
     <!-- Edit PAGE: Side Options-->
     <script src="js/front/pages/editPage/sideOptions/events_EditPage_showSideOptions.js"></script>
-    <script src="js/front/pages/editPage/events_editPage.js"></script>
-    <script src="js/front/pages/editPage/drawSingleBands.js"></script>
-    <script src="js/front/pages/editPage/dragAndDropevents.js"></script>
-    <script src="js/front/pages/editPage/saveCreateProcess.js"></script>
-
-
-
+    <script src="js/front/pages/editPage/sideOptions/fillTable.js"></script>
+    <script src="js/front/pages/editPage/sideOptions/changeInterpolationSpace.js"></script>
 
 
 
@@ -137,8 +143,8 @@
   <!------------------------------------------->
   <!-- global Events-->
   <script src="js/front/globalEvents/pageChange.js"></script>
-  <script src="js/front/globalEvents/popUp_events.js"></script>
   <script src="js/front/globalEvents/autocompleteSearch.js"></script>
+  <script src="js/front/globalEvents/checkInput.js"></script>
 
       <!-- Colormap Drawer -->
       <script src="js/front/globalEvents/ColormapDrawer/drawBandSegments.js"></script>
@@ -147,6 +153,10 @@
       <script src="js/front/globalEvents/ColormapDrawer/drawLinearKeys.js"></script>
       <script src="js/front/globalEvents/ColormapDrawer/drawColormaplinesAndInputFields.js"></script>
       <script src="js/front/globalEvents/ColormapDrawer/drawSketchKeys.js"></script>
+
+      <!-- Pop Up Windows -->
+      <script src="js/front/globalEvents/PopUpWindows/colorPicker.js"></script>
+      <script src="js/front/globalEvents/PopUpWindows/popUp_events.js"></script>
 
 
   <!-- Worker ->
@@ -158,6 +168,7 @@
   <!-- Init-->
   <script src="js/front/init/init_MyDesigns.js"></script>
   <script src="js/front/init/init_EditPage.js"></script>
+  <script src="js/front/init/init_PopUpWindow.js"></script>
   <script src="js/front/init/init.js"></script>
 
   <!------------------------------------------->
@@ -212,8 +223,56 @@
         </div>
 
 
-        <div style="height:50px; width:50px; background: url(img/gear_wheel.png); background-size:cover; background-repeat:no-repeat; background-position: center center;">
-          <div class="menu_button" style="height:50px; width:50px; ">
+        <!--div style="height:50px; width:50px; background: url(img/gear_wheel.png); background-size:cover; background-repeat:no-repeat; background-position: center center;">
+
+        </div-->
+
+        <div style="height:50px; width:auto; position: relative; display: inline-block;">
+        <div onclick="activateDropdown()" class="menu_button"> Menu </div>
+          <div id="id_dropDownContainer" style="background: url(img/background3.png); display: none; position: absolute; right: 0; z-index: 100;">
+            <div class="settingMenuLabel">
+              Settings:
+            </div>
+            <div class="settingNotActiveMenuButton">
+              Account
+            </div>
+            <div class="settingNotActiveMenuButton">
+              Color Transformation
+            </div>
+            <div class="settingNotActiveMenuButton">
+              Color Difference Metrics
+            </div>
+
+              <div class="settingMenuLabel">
+                Action:
+              </div>
+              <div id="id_actionMenu_editPart" style="display:none;">
+                <div class="settingMenuButton" >
+                  Clear CMS
+                </div>
+                <div class="settingMenuButton" >
+                  Scale CMS
+                </div>
+                <div class="settingMenuButton" >
+                  Export CMS
+                </div>
+              </div>
+
+              <div id="id_actionMenu_myDesignPart" style="display:none;">
+                <div class="settingMenuButton" >
+                  Import CMS
+                </div>
+                <div class="settingMenuButton" >
+                  Import Session
+                </div>
+                <div class="settingMenuButton" >
+                  Export Session
+                </div>
+              </div>
+
+            <div class="settingNotActiveMenuButton">
+              Log Out
+            </div>
 
           </div>
         </div>
@@ -221,6 +280,12 @@
 
       </div>
     </div>
+
+
+
+
+
+
 
     <!--  -----------------------------------------------
           -----------------------------------------------
@@ -230,7 +295,7 @@
           -->
 
 
-    <div id="id_ccctoolPage" style="width: 100%; height:100%; margin:0px; padding-top:20px; padding-bottom:20px; background:white;">
+    <div id="id_ccctoolPage" style="position:relative; width: 100%; height:100%; margin:0px; padding-top:20px; padding-bottom:20px; background:white;">
 
 
           <!--  -----------------------------------------------
@@ -345,7 +410,7 @@
                      <p class="standardText" id="id_EditPage_CMSName" style="margin-left:2.5%; line-height:50px; height:50px; font-weight:bold; cursor:pointer;">Your CMS Name</p>
 
                      <p class="standardText"  style="margin-left:2.5%; line-height:50px; height:50px;"> NaN:</p>
-                     <div id="id_EditPage_CMS_NaN_Color" style="height:26px; width: 26px; background:white; border: 2px solid black; border-radius: 5px; margin-top:10px; margin-left:5px; cursor:pointer;">
+                     <div id="id_EditPage_CMS_NaN_Color" style="height:26px; width: 26px; background:white; border: 2px solid black; border-radius: 5px; margin-top:10px; margin-left:5px; cursor:pointer;" >
 
                      </div>
                      <p class="standardText"  style="margin-left:2.5%; line-height:50px; height:50px;">Below Range:</p>
@@ -360,7 +425,7 @@
 
                      </div>
 
-                     <p class="standardText" id="id_EditPage_CMSName" style="margin-left:2.5%; line-height:50px; height:50px; font-weight:bold; cursor:pointer;" onclick="showInterpolationOptions()">Space: DIN99</p>
+                     <p class="standardText" id="id_EditPage_CMSSpaceLabel" style="margin-left:2.5%; line-height:50px; height:50px; font-weight:bold; cursor:pointer;" onclick="showInterpolationOptions()">Space: DIN99</p>
 
                      <img  id="id_EditPage_SmileyImg" src="img/smiley.png" style="margin-top: 5px; margin-left:5px; max-height:40px;">
                      <img  id="id_EditPage_SadleyImg" src="img/sadley.png" style="margin-top: 5px; margin-left:5px; max-height:40px; display:none;">
@@ -369,13 +434,13 @@
 
                      </div>
 
-                     <button onclick="showMyDesignsPage()" class="class_generalbutton" style="margin-left:auto;  width:120px; height:40px; line-height:40px; margin-top:5px;">Scale</button>
+                     <button onclick="openScale()" id="id_EditPage_scaleButton" class="class_generalbutton" style="margin-left:auto;  width:120px; height:40px; line-height:40px; margin-top:5px;">Scale</button>
 
-                     <button onclick="showMyDesignsPage()" class="class_generalbutton" style="margin-left:auto;  width:120px;height:40px; line-height:40px; margin-top:5px; display:none;">Histogram</button>
+                     <button onclick="showMyDesignsPage()" id="id_EditPage_histogramButton" class="class_generalbutton" style="margin-left:auto;  width:120px;height:40px; line-height:40px; margin-top:5px; display:none;">Histogram</button>
 
-                     <button onclick="showMyDesignsPage()" class="class_generalbutton" style="margin-left:auto;  width:120px; height:40px; line-height:40px; margin-top:5px;">Clear</button>
+                     <button onclick="clearColormap()" class="class_generalbutton" style="margin-left:auto;  width:120px; height:40px; line-height:40px; margin-top:5px;">Clear</button>
 
-                     <button onclick="showMyDesignsPage()" class="class_generalbutton" style="margin-left:auto; margin-right:auto;  width:120px; height:40px; line-height:40px; margin-top:5px;">Export</button>
+                     <button onclick="" class="class_generalbutton" style="margin-left:auto; margin-right:auto;  width:120px; height:40px; line-height:40px; margin-top:5px;">Export</button>
 
                    </div>
 
@@ -390,7 +455,8 @@
 
                      <canvas id="id_EditPage_CMS_VIS_KeyBurs" style="width:100%; height:60px; "></canvas>
 
-                     <canvas id="id_EditPage_CMS_VIS_SketchKeys" style="width:100%; height:30px;"></canvas>
+                     <canvas id="id_EditPage_CMS_VIS_SketchKeyNumbers" style="width:100%; height:30px;"></canvas>
+                     <canvas id="id_EditPage_CMS_VIS_SketchKeys" style="width:100%; height:20px;"></canvas>
                      <canvas id="id_EditPage_CMS_VIS_Lines2" style="width:100%; height:10px; "></canvas>
                      <canvas id="id_EditPage_CMS_VIS_ColormapSketch" style="width:90%; margin-left:5%; margin-right:5%; height:40px;"></canvas>
                      <canvas id="id_EditPage_CMS_VIS_Lines3" style="width:100%; height:10px; "></canvas>
@@ -406,47 +472,121 @@
                      <div style="margin:5px; background:white; border-radius:10px;">
                        <div class="row">
                          <div class="class_subsectionButtonUnderground" style="width:25%; background: url(img/background3.png);">
-                           <div class="class_subsectionButton" >
+                           <div onclick="switchModifyModus(0)" id="id_editPage_SelectAddStructures" class="class_subsectionButton" >
                              ADD CMS
                            </div>
                          </div>
-                         <div class="class_subsectionButtonUnderground" style="width:25%; background: url(img/background3.png);">
-                         <div class="class_subsectionButton">
+                         <div  class="class_subsectionButtonUnderground" style="width:25%; background: url(img/background3.png);">
+                         <div onclick="switchModifyModus(1)" id="id_editPage_SelectAddKeys" class="class_subsectionButton">
                            ADD Keys
                          </div>
                          </div>
-                         <div class="class_subsectionButtonUnderground" style="width:25%; background: url(img/background3.png);">
-                         <div class="class_subsectionButton">
+                         <div  class="class_subsectionButtonUnderground" style="width:25%; background: url(img/background3.png);">
+                         <div onclick="switchModifyModus(2)" id="id_editPage_SelectEditKeys" class="class_subsectionButton">
                            Edit Keys
                          </div>
                          </div>
-                         <div class="class_subsectionButtonUnderground" style="width:25%; background: url(img/background3.png);">
-                         <div class="class_subsectionButton" >
+                         <div  class="class_subsectionButtonUnderground" style="width:25%; background: url(img/background3.png);">
+                         <div onclick="switchModifyModus(3)" id="id_editPage_SelectEditPath" class="class_subsectionButton" >
                            Edit via Path Plot
                          </div>
                          </div>
                        </div>
 
-                       <div  id="id_EditPage_Add_Structures" style="width:100%;  height:500px; ">
+                       <div  id="id_EditPage_Add_Structures" style="width:100%;  height:450px; display:none;">
 
                          <div class="row" style="width:100%; height:100%;">
 
 
 
-                                         <div style="width:30%; height:100%; border-right:1px solid black; ">
+                                         <div style="width:30%; height:100%; border-right:3px solid black; ">
 
-                                                                                      <div style="height:8%; width:100%;">
-                                                                                        <h1 class="subsectionLabel" style="height:100%; line-height:inherit;  "> Single Bands </h1>
-                                                                                      </div>
+                                              <div style="height:8%; width:100%;">
+                                                    <h1 class="subsectionLabel" style="height:100%; line-height:inherit; margin:0px; "> Single Bands </h1>
+                                              </div>
 
                                             <div class="row" style="width:100%; height:92%;">
-                                              <div id="id_EditPage_ConstBandDiv" style="width:50%; height:100%; border-right:1px solid grey; overflow-y: auto; ">
 
+                                              <div style="width:50%; height:100%; border-right:1px solid grey; ">
+                                                <div id="id_EditPage_ConstBandDiv" style="width:100%; height:80%; overflow-y: auto;">
+
+                                                </div>
+                                                <div style="width:100%; height:19%; border-top: 3px solid grey; ">
+
+                                                    <p class="standardText" style="width:100%; text-align: center; font-weight:bold; margin-top:auto;"> Custom: </p>
+
+                                                    <div class="row" style="width:100%; height:25%; margin-top:2.5%;">
+
+                                                      <svg style="background:rgb(125,125,125); width:10%; height:100%; margin-left:5%; cursor:not-allowed; border:1px solid black;">
+                                                        <line x1="0" y1="100%" x2="100%" y2="0" style="stroke:rgb(0,0,0);stroke-width:2" />
+                                                      </svg>
+
+                                                      <div id="id_editPage_customConstColor" style="background:red; width:10%; height:100%; margin-left:70%; cursor:pointer; border:1px solid black;">
+
+                                                      </div>
+
+                                                    </div>
+
+
+                                                    <div style="margin-left:auto; margin-right:auto; width:80%; height:5%; border-left: 1px solid black;  border-right: 1px solid black;">
+
+                                                    </div>
+                                                    <div id="id_editPage_customConstBand" style="border-radius:2.5px; margin-left:auto; margin-right:auto; width:80%; height:30%; border: 1px solid black; background:red; cursor: grabbing;" draggable="true">
+
+                                                    </div>
+
+                                                </div>
                                               </div>
 
-                                              <div id="id_EditPage_ScaleBandDiv" style="width:50%; height:100%; overflow-y: auto;">
+                                              <div style="width:50%; height:100%;">
+                                                <div id="id_EditPage_ScaleBandDiv" style="width:100%; height:80%; overflow-y: auto;">
 
+                                                </div>
+                                                <div style="width:100%; height:19%; border-top: 3px solid grey; ">
+
+                                                    <p class="standardText" style="width:100%; text-align: center; font-weight:bold;"> Custom: </p>
+
+                                                    <div class="row" style="width:100%; height:25%; margin-top:2.5%;">
+
+                                                      <div class="row" style="width:10%; height:100%; margin-left:5%; ">
+                                                        <svg style="background:rgb(125,125,125); width:50%; height:100%; border:1px solid black;">auto
+                                                          <line x1="0" y1="100%" x2="100%" y2="0" style="stroke:rgb(0,0,0);stroke-width:2" />
+                                                        </svg>
+                                                        <div id="id_editPage_customScaleColor1" style="background:red; width:50%; height:100%; border:1px solid black; cursor:pointer;">
+
+                                                        </div>
+                                                      </div>
+
+                                                      <div class="row"  style="width:10%; height:100%; margin-left:55%; ">
+                                                        <div id="id_editPage_customScaleColor2" style="background:blue; width:50%; height:100%; border:1px solid black; cursor:pointer;">
+
+                                                        </div>
+                                                        <svg style="background:rgb(125,125,125); width:50%; height:100%; border:1px solid black; ">
+                                                          <line x1="0" y1="100%" x2="100%" y2="0" style="stroke:rgb(0,0,0);stroke-width:2" />
+                                                        </svg>
+                                                      </div>
+
+                                                    </div>
+
+
+                                                    <div style="margin-left:10%; width:65%; height:5%; border-left: 1px solid black;  border-right: 1px solid black;">
+
+                                                    </div>
+
+                                                    <div class="row" style="height:30%; width:100%;">
+                                                      <canvas id="id_editPage_customScaleBand" style="border-radius:2.5px; margin-left:10%; margin-right:auto; width:65%; height:100%; border: 1px solid black; background:red; cursor: grabbing;" draggable="true">
+
+                                                      </canvas>
+
+                                                      <div onclick="switchCustomScaleColors()" class="classButtonWhite" style="cursor:pointer; border: 1px solid black; height:100%; width:10%; border-radius:2.5px; margin-right:auto; text-align:center; vertical-align:middle;">
+                                                        &#8646;
+                                                      </div>
+                                                    </div>
+
+
+                                                </div>
                                               </div>
+
                                             </div>
 
                                          </div>
@@ -473,6 +613,26 @@
 
                          </div>
                        </div>
+
+
+                       <div  id="id_EditPage_Add_Keys" style="width:100%;  height:450px; display:none;">
+
+
+
+                      </div>
+
+                      <div  id="id_EditPage_Edit_Keys" style="width:100%;  height:450px; display:none;">
+
+
+
+                     </div>
+
+                     <div  id="id_EditPage_Edit_Path" style="width:100%;  height:450px; display:none;">
+
+
+
+                    </div>
+
 
 
 
@@ -549,13 +709,13 @@
 
                  </div>
 
-                 <div id="id_EditPage_StopInteractionDiv" style="position: absolute; z-index: 1; width:0%; height:100%; position: fixed; left: 0; top: 0; background:rgba(120,120,120,0.7);">
+                 <div id="id_EditPage_StopInteractionDiv" style="position: absolute; z-index: 99; width:0%; height:100%; position: fixed; left: 0; top: 0; background:rgba(120,120,120,0.7);">
                  </div>
 
                  <!--
                  ---------- LEFT Option Bar ------------
                -->
-                 <div style="position: absolute; z-index: 2; width:auto; height:100%; left: 0; top: 0; ">  <!-- -------------- Back Button Edit Page ---------------->
+                 <div style="position: absolute; z-index: 100; width:auto; height:100%; left: 0; top: 0; ">  <!-- -------------- Back Button Edit Page ---------------->
 
                    <div class="row">
 
@@ -567,7 +727,7 @@
 
                      <div>
                        <div class="class_RotateLeft" id="id_EditPage_backButton" onclick="startLeaveEditPage()" style="height:250px;">
-                         Back
+                         Return
                        </div>
 
                        <div class="row">
@@ -575,10 +735,10 @@
 
                             <div style="margin:15px; height:216px; background:white; border:2px solid rgb(255, 204, 102); ">
 
-                              <button onclick="showMyDesignsPage()" class="class_savebutton" style="margin-left:auto; margin-right:auto;  margin-top:20px; "> Save </button>
+                              <button onclick="saveCMS()" class="class_savebutton" style="margin-left:auto; margin-right:auto;  margin-top:20px; "> Save </button>
 
-                              <button onclick="showMyDesignsPage()" class="class_savebutton" style="margin-left:auto; margin-right:auto;  margin-top:20px; "> Save As New</button>
-                               <p class="standardText" style="margin-left:auto; margin-right:auto; width:240px; height:25px; line-height:25px; font-size:12px; font-weight:bold;"> Free Places: 0</p>
+                              <button onclick="saveCMSasNew()" class="class_savebutton" style="margin-left:auto; margin-right:auto;  margin-top:20px; "> Save As New</button>
+                               <p class="standardText" id="edit_Page_FreeSpaceInfo" style="margin-left:auto; margin-right:auto; width:240px; height:25px; line-height:25px; font-size:12px; font-weight:bold;"> Free Places: 0</p>
 
                             </div>
 
@@ -602,7 +762,7 @@
                  <!--
                  ---------- RIGHT Option Bar ------------
                -->
-                 <div style="position: absolute; z-index: 2; width:auto; height:100%; right: 0; top: 0; ">  <!-- -------------- Back Button Edit Page ---------------->
+                 <div style="position: absolute; z-index: 100; width:auto; height:100%; right: 0; top: 0; ">  <!-- -------------- Back Button Edit Page ---------------->
 
 
                        <div class="row" style="float:right;">
@@ -623,12 +783,12 @@
 
                              <div class="row" style="margin:10px; widht:100%;">
 
-                               <div id="id_EditPage_SelectLab" class="class_EditPage_SelectInterpolationColorspace" style="margin-left: auto;">
+                               <div id="id_EditPage_SelectLab" class="class_EditPage_SelectInterpolationColorspace" style="margin-left: auto;" onclick="changeColorspace(2)">
 
                                </div>
                                <p class="standardText" style="margin-left:5px; height:30px; line-height:30px; margin-left:5px; margin-right:50px; width:120px;"> : LAB</p>
 
-                               <div id="id_EditPage_SelectDIN99" class="class_EditPage_SelectInterpolationColorspace">
+                               <div id="id_EditPage_SelectDIN99" class="class_EditPage_SelectInterpolationColorspace" onclick="changeColorspace(3)">
                                  &#10004;
                                </div>
                                <p class="standardText" style="margin-left:5px; height:30px; line-height:30px; width:120px; margin-right:auto;"> : DIN99</p>
@@ -654,12 +814,12 @@
 
                              <div class="row" style="widht:100%; margin-left:10px; margin-right:10px; margin-top:10px;">
 
-                               <div id="id_EditPage_SelectRGB" class="class_EditPage_SelectInterpolationColorspace" style="margin-left: auto;">
+                               <div id="id_EditPage_SelectRGB" class="class_EditPage_SelectInterpolationColorspace" style="margin-left: auto;" onclick="changeColorspace(0)">
 
                                </div>
                                <p class="standardText" style="margin-left:5px; height:30px; line-height:30px; width:120px; margin-left:5px; margin-right:50px;"> : RGB</p>
 
-                               <div id="id_EditPage_SelectHSV" class="class_EditPage_SelectInterpolationColorspace">
+                               <div id="id_EditPage_SelectHSV" class="class_EditPage_SelectInterpolationColorspace" onclick="changeColorspace(1)">
 
                                </div>
                                <p class="standardText" style="margin-left:5px; height:30px; line-height:30px; width:120px;  margin-right:auto;"> : HSV</p>
@@ -682,26 +842,26 @@
                          </div>
                          <div id="id_EditPage_cmsTablePartDiv">
 
-                           <div style="margin:15px; height:341px; background:white; border:2px solid rgb(128, 191, 255);  overflow:auto;">
+                           <div style="margin:15px; height:341px; background:white; border:2px solid rgb(128, 191, 255); ">
 
                              <table cellspacing="0" cellpadding="0"  style="width:100%;" >
                             <tr>
                              <td>
                               <table cellspacing="0" cellpadding="1"  style="width:100%;">
                                 <tr style="color:white;background-color:grey">
-                                  <th class="class_tablelabel" id="id_table_Number" style="width:4%;">#</th>
-                                  <th class="class_tablelabel" id="id_table_Reference1" style="width:9%;">Start</th>
-                                  <th class="class_tablelabel" id="id_table_Reference2" style="width:9%;">End</th>
-                                  <th class="class_tablelabel" id="id_table_Bandtype" style="width:9%;">Band Type</th>
-                                  <th class="class_tablelabel" id="id_table_Color1" style="width:9%;">C1 (RGB)</th>
-                                  <th class="class_tablelabel" id="id_table_Color2" style="width:9%; border-right: none;">C2 (RGB)</th>
+                                  <th class="class_tablelabel" id="id_table_Number" style="width:50px;">#</th>
+                                  <th class="class_tablelabel" id="id_table_Reference1" style="width:250px;">Start</th>
+                                  <th class="class_tablelabel" id="id_table_Reference2" style="width:250px;">End</th>
+                                  <th class="class_tablelabel" id="id_table_Bandtype" style="width:150px;">Band Type</th>
+                                  <th class="class_tablelabel" id="id_table_Color1" style="width:250px;">C1 (RGB)</th>
+                                  <th class="class_tablelabel" id="id_table_Color2" style="width:250px; border-right: none;">C2 (RGB)</th>
                                 </tr>
                               </table>
                              </td>
                             </tr>
                            <tr>
                            <td>
-                              <div style="width:100%; height:200px; overflow:auto;">
+                              <div style="width:100%; height:320px; overflow:auto;">
                                 <table cellspacing="0" cellpadding="1" border="1"  id="id_table" style="width:100%;">
                                   <tbody id="id_tableBody">
 
@@ -731,6 +891,114 @@
                     -------------- Pop Up Pages ---------------
                     -----------------------------------------------
                     -->
+
+                    <!--
+                          ----------------------------------------------------
+                          ----------------	ColorSelector	  -------------
+                          ---------------------------------------------------
+                          -->
+
+                    <div id="id_popupColorPicker" style=" height: 30vh; position:absolute; z-index:50; top:50px; left:50px; bottom:0px; border: 0.4vh solid black; background:white; display:none;">
+
+
+                      <div class="row" style="margin-bottom:1vh;">
+                        <h1 style="width:100%; height:3vh; line-height:3vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; font-size:2.5vh; background:black;"> Color Picker </h1>
+                        <div id="id_popupWindow_CloseColorpicker" onclick="closeColorPicker()">
+                          X
+                        </div>
+                      </div>
+
+
+                      <div class="row" style="height:20vh; width:20vw;">
+
+                        <div style="margin:auto; height: auto; width:5vw; overflow:auto;">
+
+                            <p class="class_RadioButtonPopUpWindow" style="font-weight:bold;"> Select:</p>
+                            <input  class="class_RadioButtonPopUpWindow" type="radio" id="id_popupWindow_Colorpicker_RG_B" name="popupWindow_Colorpicker_Type" value="1" checked="checked">
+                            <label class="class_RadioButtonPopUpWindow" for="id_popupWindow_Colorpicker_RG_B" > RG+B </label><br>
+                            <input  class="class_RadioButtonPopUpWindow" type="radio" id="id_popupWindow_Colorpicker_RB_G" name="popupWindow_Colorpicker_Type" value="2" >
+                            <label class="class_RadioButtonPopUpWindow" for="id_popupWindow_Colorpicker_RB_G" > RB+G </label><br>
+                            <input  class="class_RadioButtonPopUpWindow" type="radio" id="id_popupWindow_Colorpicker_GB_R" name="popupWindow_Colorpicker_Type" value="3" >
+                            <label class="class_RadioButtonPopUpWindow" for="id_popupWindow_Colorpicker_GB_R" > GB+R </label><br>
+                            <input  class="class_RadioButtonPopUpWindow" type="radio" id="id_popupWindow_Colorpicker_HS_V" name="popupWindow_Colorpicker_Type" value="4" >
+                            <label class="class_RadioButtonPopUpWindow" for="id_popupWindow_Colorpicker_HS_V" > HS+V </label><br>
+                            <input  class="class_RadioButtonPopUpWindow" type="radio" id="id_popupWindow_Colorpicker_HV_S" name="popupWindow_Colorpicker_Type" value="5" >
+                            <label class="class_RadioButtonPopUpWindow" for="id_popupWindow_Colorpicker_HV_S" > HV_S </label><br>
+                            <input  class="class_RadioButtonPopUpWindow" type="radio" id="id_popupWindow_Colorpicker_SV_H" name="popupWindow_Colorpicker_Type" value="6" >
+                            <label class="class_RadioButtonPopUpWindow" for="id_popupWindow_Colorpicker_SV_H" > SV_H </label><br>
+
+                        </div>
+
+
+                        <div style="position: relative; width:10vw; height:20vh; margin:auto; border:0.2vh solid black; background:grey;">
+                          <canvas id="id_popupWindow_Colorpicker_canvasPicker"
+                            style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:100%;"></canvas>
+                          <canvas id="id_popupWindow_Colorpicker_canvasPicker_circle"
+                            style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:100%;"></canvas>
+                         </div>
+
+                         <div style="position: relative; width:3vw; height:20vh; margin:auto; border:0.2vh solid black; background:grey;">
+                           <canvas id="id_popupWindow_Colorpicker_canvasPicker2"
+                             style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:100%;"></canvas>
+                           <canvas id="id_popupWindow_Colorpicker_canvasPicker2_bar"
+                             style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:100%;"></canvas>
+                          </div>
+
+                      </div>
+
+                      <div class="row" style="width:20vw; height:6vh; overflow:auto;">
+                        <p class="class_InputPopUpWindow" id="id_popupWindow_Colorpicker_Label1" style="font-weight:bold; margin-left:auto; width:2vw;">
+                          R :
+                        </p>
+                        <input id="id_popupWindow_Colorpicker_Input1" class="class_InputPopUpWindow" type="number" step="any" value="0" min="0" max="255" style="text-align:center;  width:3vw">
+                        <p class="class_InputPopUpWindow" id="id_popupWindow_Colorpicker_Label2" style="font-weight:bold; width:2vw; margin-left:0.5vw;">
+                          G :
+                        </p>
+                        <input id="id_popupWindow_Colorpicker_Input2" class="class_InputPopUpWindow" type="number" step="any" value="0" min="0" max="255" style="text-align:center;  width:3vw">
+                        <p class="class_InputPopUpWindow" id="id_popupWindow_Colorpicker_Label3" style="font-weight:bold; width:2vw; margin-left:0.5vw;">
+                          B :
+                        </p>
+                        <input id="id_popupWindow_Colorpicker_Input3" class="class_InputPopUpWindow" type="number" step="any" value="0" min="0" max="255" style="text-align:center; margin-right:auto; width:3vw">
+                      </div>
+
+                    </div>
+
+
+                    <!---------------- Scale ---------------  -->
+                    <div id="id_PopUp_ScaleWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:101; top:0px; left:0px; bottom:0px; display:none;">
+
+                      <div style="margin-top:20vh; height:auto; background:white; width:60%; border: 1px solid black; margin-left:auto; margin-right:auto;">
+
+                        <h3 style="width:100%; height:5vh; height:5vh; line-height:5vh; vertical-align:middle; text-align:center; vertical-align: middle; margin:0px; color:white; font-size:4vh; background:black;"> Scale CMS </h3>
+
+
+
+                            <img src="img/scalePage.png" style="width:50%; margin-left:25%;" >
+
+
+
+                            <div class="row" style="width:100%; margin-bottom:2vh; padding-top:2vh; padding-bottom:2vh; border-top:1px solid grey; border-bottom:1px solid grey; background:rgb(220,220,220);">
+
+                                <p class="standardText" style="margin-left:auto; line-height:3.2vh; font-size:3vh; margin-right:2vw; margin-top:auto; margin-bottom:auto;">Scale from:</p>
+                                <input id="id_inputAutoRangeStart" type="number" name="RangeStart" value="0" step="any" class="standardText" style="width:10%; line-height:3.2vh; font-size:3vh;">
+
+                                <p class="standardText" style="margin-left:2vw; line-height:3.2vh; font-size:3vh; margin-right:2vw; margin-top:auto; margin-bottom:auto;">till:</p>
+                                <input id="id_inputAutoRangeEnd" type="number" name="RangeEnd" value="1" step="any" class="standardText" style="width:10%; line-height:3.2vh; font-size:3vh; margin-right:auto;">
+
+                            </div>
+
+                            <p id="id_popupWindow_ScaleInfoText" class="standardText" style="margin-left:auto; margin-right:auto; line-height:2.5vh; font-size:2.2vh; color:red; display:none;">The range start has to be smaller than the range end!</p>
+
+                            <div class="row" style="margin-top:2vh; margin-bottom:2vh; width:100%;">
+                              <button class="class_generalbutton"  onclick="closeScale()" title="close" style=" width: 30%; height:6vh; line-height:6vh; font-size:3vh; margin-left:15%;"> Cancel </button>
+                              <button class="class_generalbutton"  onclick="checkScale()" title="check" style=" width: 30%; height:6vh; line-height:6vh; font-size:3vh; margin-left:10%;"> Scale! </button>
+                            </div>
+                        </div>
+
+
+
+                      </div>
+                    </div>
 
                     <!---------------- Register ---------------  -->
 

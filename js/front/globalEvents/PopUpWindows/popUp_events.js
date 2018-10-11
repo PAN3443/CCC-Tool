@@ -13,6 +13,41 @@ function openAlert(txt){
 }
 
 
+//////////////////////////////////////
+/// Ask Window /////
+///////////////////////////////////
+
+function openScale(){
+    document.getElementById("id_PopUp_ScaleWindow").style.display="block";
+    document.getElementById("id_popupWindow_ScaleInfoText").style.display="none";
+    updateAutoRangeInput();
+}
+
+function checkScale(){
+
+  var start = parseFloat(document.getElementById("id_inputAutoRangeStart").value);
+  var end = parseFloat(document.getElementById("id_inputAutoRangeEnd").value);
+
+  if(start>=end){
+    //document.getElementById("id_PopUp_ScaleWindow").style.display="none";
+    document.getElementById("id_popupWindow_ScaleInfoText").style.display="block";
+  }
+  else{
+    globalCMS1.setAutoRange(start,end);
+    updateEditPage();
+    document.getElementById("id_PopUp_ScaleWindow").style.display="none";
+    document.getElementById("id_popupWindow_ScaleInfoText").style.display="none";
+  }
+
+}
+
+
+function closeScale(){
+  document.getElementById("id_PopUp_ScaleWindow").style.display="none";
+}
+
+
+
 
 //////////////////////////////////////
 /// Ask Window /////
@@ -23,7 +58,7 @@ function openAskWindow(){
     switch (askType) {
       case 0:
       //delete CMS
-        document.getElementById("id_askText").innerHTML="Do you really want to delete the CMS?";
+        document.getElementById("id_askText").innerHTML="Do you really want to clear the CMS?";
         break;
       case 1:
         //delete Band
@@ -51,13 +86,12 @@ function checkAsk(){
   document.getElementById("popupAskWindow").style.display="none";
 
   switch (askType) {
-    /*case 0:
+    case 0:
       //delete CMS
-      clearCreateSide();
       globalCMS1.clear();
-      orderColorSketch();
+      updateEditPage();
       break;
-    case 1:
+    /*case 1:
       //delete Band
       globalCMS1.deleteBand(askIndex);
       orderColorSketch();

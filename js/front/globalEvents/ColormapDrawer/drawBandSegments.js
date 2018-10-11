@@ -20,18 +20,18 @@ function createScaledBand(canvasData, xStart, bandWidth, bandHeight, color1, col
   //  console.log(typeof color1);
   //  console.log('createScaledBand: ' + color1.getColorType());
 
-  switch (colorspaceModus) {
+  switch (globalCMS1.getInterpolationSpace()) {
     case "rgb": case "lab": case "din99":
 
       var tmpWorkColor;
 
-      if(colorspaceModus==="rgb")
+      if(globalCMS1.getInterpolationSpace()==="rgb")
         tmpWorkColor = new classColor_RGB(0, 0, 0);
 
-      if(colorspaceModus==="lab")
+      if(globalCMS1.getInterpolationSpace()==="lab")
         tmpWorkColor = new classColor_LAB(0, 0, 0);
 
-      if(colorspaceModus==="din99")
+      if(globalCMS1.getInterpolationSpace()==="din99")
         tmpWorkColor = new classColorDIN99(0, 0, 0);
 
       for (var x = xStart; x < xStart + bandWidth; x++) {
@@ -159,7 +159,7 @@ function createConstantBand(canvasData, xStart, bandWidth, bandHeight, color1, c
   bandWidth = Math.round(bandWidth);
   bandHeight = Math.round(bandHeight);
 
-  switch (colorspaceModus) {
+  switch (globalCMS1.getInterpolationSpace()) {
     case "rgb":
 
       for (var x = xStart; x <= xStart + bandWidth; x++) {

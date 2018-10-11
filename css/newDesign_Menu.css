@@ -16,3 +16,46 @@
 .menu_button:hover {
   background: rgba(255,255,255,0.5);
 }
+
+
+.settingMenuLabel{
+  display: block;
+  width:250px;
+  font-size: 18px;
+  line-height: 25px;
+  font-weight: bold;
+  color:white;
+  vertical-align: middle;
+  text-align: center;
+  background:rgba(255,255,255,0.3);
+  border-bottom: 1px solid white;
+}
+
+.settingMenuButton{
+  display: block;
+  width:225px;
+  margin-left: 25px;
+  font-size: 16px;
+  line-height: 25px;
+  cursor:pointer;
+  color:white;
+  vertical-align: middle;
+  text-align: left;
+}
+
+.settingMenuButton:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+
+.settingNotActiveMenuButton{
+  display: block;
+  width:225px;
+  margin-left: 25px;
+  font-size: 16px;
+  line-height: 25px;
+  cursor:not-allowed;
+  color:rgb(180,180,180);
+  vertical-align: middle;
+  text-align: left;
+}

@@ -1,6 +1,7 @@
 window.onload = function() {
 
-
+  // init global vars
+  globalCMS1 = new class_CMS();
 
   var windowWidth = document.body.offsetWidth;
   //var windowHeight = window.innerHeight;
@@ -12,16 +13,10 @@ window.onload = function() {
 
   initAutoCompleteInputs();
 
-  // Init Edit Page
-  drawConstantBands();
-  drawScaledBands();
-
-  // init global vars
-  globalCMS1 = new class_CMS();
-
 
   // init events
   init_events_EditPage();
+  init_events_PopUp_ColorPicker();
 
 
 

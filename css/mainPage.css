@@ -116,7 +116,6 @@ input:checked + .slider:before {
 
 
 .dropbtn {
-    background:rgb(255,255,255);
     color: black;
     height:50px;
     line-height:50px;
@@ -128,50 +127,8 @@ input:checked + .slider:before {
     font-weight: bold;
 }
 
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: background:rgb(240,240,240);
-    z-index: 1;
-}
-
-.dropdown-content button {
-    color: white;
-    font-weight: bold;
-    background:rgb(0,191,255);
-    width:10vw;
-    height:50px;
-    line-height:50px;
-    vertical-align:middle;
-    text-align:center;
-    display: block;
-    transition: 0.25s;
-}
-
-.dropdown-content button:hover {
-  box-shadow: inset 0 0 0 2em rgb(240,240,240);
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-.dropdown:hover .dropbtn {
-    background-color: rgb(240,240,240);
-}
 
 
-div.sticky {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-  z-index: 49;
-}
 
 .helpDiv{
   background: rgb(255,250,205);

@@ -8,8 +8,10 @@ function drawKeys(canvasID, resolutionX, resolutionY, tmpCMS) {
   keyRectPoint = [];
 
   var canvasObject = document.getElementById(canvasID);
-  canvasObject.width = resolutionX;
-  canvasObject.height = resolutionY;
+  canvasObject.width = key_resolution_X;
+  canvasObject.height = key_resolution_Y;
+
+  var relation = window.innerHeight/window.innerWidth; //key_resolution_Y/key_resolution_X;
 
   var canvasContex = canvasObject.getContext("2d");
   //canvasContex.clearRect(0, 0, resolutionX, resolutionY);
@@ -29,7 +31,7 @@ function drawKeys(canvasID, resolutionX, resolutionY, tmpCMS) {
 
 
   colorrectHeigth = resolutionY;
-  colorrectWitdh = (colorrectHeigth*9/16)/2;
+  colorrectWitdh = (colorrectHeigth*relation)/2;
 
   var box = document.getElementById(canvasID).getBoundingClientRect();
 
@@ -44,30 +46,12 @@ function drawKeys(canvasID, resolutionX, resolutionY, tmpCMS) {
     var colorrectXPos = xPos + pos1 - (colorrectWitdh / 2);
     var tmpArray = [colorrectXPos, colorrectYPos];
 
-    var tmpText = '' + tmpCMS.getRefPosition(i); //.toFixed(numDecimalPlaces);
-
-    var body = document.body;
-    var docEl = document.documentElement;
-
-    var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
-    var scrollLeft = window.pageXOffset || docEl.scrollLeft || body.scrollLeft;
-
-    var clientTop = docEl.clientTop || body.clientTop || 0;
-    var clientLeft = docEl.clientLeft || body.clientLeft || 0;
-
-    var top = box.top + scrollTop - clientTop;
-    var left = box.left + scrollLeft - clientLeft;
-
-    var xposHTML = ((xPos + pos1) / resolutionX) * box.width + left;
-    var yposHTML = box.height + top;
 
     switch (tmpCMS.getKeyType(i)) {
       case "nil key":
 
         drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth, "rgb(125,125,125)", true);
 
-        /////////////////// draw ref /////////
-        //createKeyInputBox(xposHTML, yposHTML, tmpText, i);
 
         break;
       case "twin key":
@@ -84,10 +68,6 @@ function drawKeys(canvasID, resolutionX, resolutionY, tmpCMS) {
           drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh / 2, colorrectHeigth/2, tmpCMS.getLeftKeyColor(i,"rgb").getRGBString(), false);
           var colorrectXPos = xPos + pos1;
           drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh / 2, colorrectHeigth/2, tmpCMS.getRightKeyColor(i,"rgb").getRGBString(), false);
-
-          /////////////////// draw ref /////////
-          //createKeyInputBox(xposHTML, yposHTML, tmpText, i);
-
 
 
         break;
@@ -110,7 +90,6 @@ function drawKeys(canvasID, resolutionX, resolutionY, tmpCMS) {
           if (i != tmpCMS.getKeyLength() - 1)
               keyRectPoint.push(tmpArray);
 
-          //createKeyInputBox(xposHTML, yposHTML, tmpText, i);
 
         break;
       case "right key":
@@ -119,8 +98,6 @@ function drawKeys(canvasID, resolutionX, resolutionY, tmpCMS) {
         var colorrectXPos = xPos + pos1;
         drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh / 2, colorrectHeigth, tmpCMS.getRightKeyColor(i,"rgb").getRGBString(), false);
 
-        /////////////////// draw ref /////////
-          //createKeyInputBox(xposHTML, yposHTML, tmpText, i);
 
 
         break;
@@ -130,8 +107,6 @@ function drawKeys(canvasID, resolutionX, resolutionY, tmpCMS) {
 
         drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth, tmpCMS.getRightKeyColor(i,"rgb").getRGBString(), false);
 
-        /////////////////// draw ref /////////
-        //createKeyInputBox(xposHTML, yposHTML, tmpText, i);
 
     }
 

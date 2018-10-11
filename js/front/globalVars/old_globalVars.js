@@ -39,12 +39,7 @@ var doNoMerge = false;
 //
 var numDecimalPlaces = 2;
 
-// mouseposition
-var mousePosX;
-var mousePosY;
 
-var timer2DAnimation;
-var animationInterval = 1000/30;
 
 // Resolutions
 
@@ -63,11 +58,11 @@ var labSpaceRectRange = 0.8;
 var bigLineWidth = 4;//8;
 var smallLineWidth = 2;//4;
 var circleRadPicker = 40;
-var circleRadColorPicker = 20;
+
 var circleRad = 6;//8;
 var bigcircleRad = 8;// 12;
 var vBarWidth = 8;
-var circleStrokeWidth = 5; //15
+
 var alphaVal = 1.0;
 var lineWidthVPlot = 2;
 var arrowWidth = 15;
@@ -216,9 +211,7 @@ var keyRectPoint = [];
 var keyRectPointSketch = [];
 var colorrectHeigth = 0;
 var colorrectWitdh = 0;
-var grappedKey = false;
-var overKeyID = -1;
-var mouseKeyChangeUp = false;
+
 
 var refLineSketchContainer = [];
 

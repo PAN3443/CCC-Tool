@@ -26,10 +26,10 @@ function drawCanvasColormap(canvasID, resolutionX, resolutionY, tmpCMS) { //1920
 
     switch (tmpCMS.getKeyType(i)) {
       case "nil key": case "left key":
-        canvasData = createConstantBand(canvasData, xPos + pos1, elementwidth, colormapHeigth, tmpCMS.getLeftKeyColor(i+1,colorspaceModus), resolutionX);
+        canvasData = createConstantBand(canvasData, xPos + pos1, elementwidth, colormapHeigth, tmpCMS.getLeftKeyColor(i+1,globalCMS1.getInterpolationSpace()), resolutionX);
         break;
       default:
-        canvasData = createScaledBand(canvasData, xPos + pos1, elementwidth, colormapHeigth, tmpCMS.getRightKeyColor(i,colorspaceModus), tmpCMS.getLeftKeyColor(i+1,colorspaceModus), resolutionX);
+        canvasData = createScaledBand(canvasData, xPos + pos1, elementwidth, colormapHeigth, tmpCMS.getRightKeyColor(i,globalCMS1.getInterpolationSpace()), tmpCMS.getLeftKeyColor(i+1,globalCMS1.getInterpolationSpace()), resolutionX);
     }
 
   }
