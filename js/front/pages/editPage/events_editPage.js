@@ -25,7 +25,27 @@ function updateEditPage(){
         document.getElementById("id_EditPage_CMS_VIS_Lines2").style.display="block";
         document.getElementById("id_EditPage_CMS_VIS_Lines3").style.display="block";
 
-        document.getElementById("id_EditPage_scaleButton").style.display="inline-block";
+        var scaleButton = document.getElementById("id_actionMenu_scaleButton");
+        if (scaleButton.classList.contains('settingNotActiveMenuButton'))
+        scaleButton.classList.remove('settingNotActiveMenuButton');
+
+        if (!scaleButton.classList.contains('settingMenuButton'))
+        scaleButton.classList.toggle("settingMenuButton");
+
+        var exportButton = document.getElementById("id_actionMenu_exportButton");
+        if (exportButton.classList.contains('settingNotActiveMenuButton'))
+        exportButton.classList.remove('settingNotActiveMenuButton');
+
+        if (!exportButton.classList.contains('settingMenuButton'))
+        exportButton.classList.toggle("settingMenuButton");
+
+        var clearButton = document.getElementById("id_actionMenu_clearButton");
+        if (clearButton.classList.contains('settingNotActiveMenuButton'))
+        clearButton.classList.remove('settingNotActiveMenuButton');
+
+        if (!clearButton.classList.contains('settingMenuButton'))
+        clearButton.classList.toggle("settingMenuButton");
+
         document.getElementById("id_editPage_HelpImage1").style.display="none";
 
 
@@ -54,7 +74,30 @@ function updateEditPage(){
       document.getElementById("id_EditPage_CMS_VIS_Lines2").style.display="none";
         document.getElementById("id_EditPage_CMS_VIS_Lines3").style.display="none";
 
-    document.getElementById("id_EditPage_scaleButton").style.display="none";
+        var scaleButton = document.getElementById("id_actionMenu_scaleButton");
+        if (scaleButton.classList.contains('settingMenuButton'))
+        scaleButton.classList.remove('settingMenuButton');
+
+        if (!scaleButton.classList.contains('settingNotActiveMenuButton'))
+        scaleButton.classList.toggle("settingNotActiveMenuButton");
+
+        var exportButton = document.getElementById("id_actionMenu_exportButton");
+        if (exportButton.classList.contains('settingMenuButton'))
+        exportButton.classList.remove('settingMenuButton');
+
+        if (!exportButton.classList.contains('settingNotActiveMenuButton'))
+        exportButton.classList.toggle("settingNotActiveMenuButton");
+
+        var clearButton = document.getElementById("id_actionMenu_clearButton");
+        if (clearButton.classList.contains('settingMenuButton'))
+        clearButton.classList.remove('settingMenuButton');
+
+        if (!clearButton.classList.contains('settingNotActiveMenuButton'))
+        clearButton.classList.toggle("settingNotActiveMenuButton");
+
+
+
+
     document.getElementById("id_editPage_HelpImage1").style.display="block";
   }
 
@@ -194,6 +237,56 @@ function switchModifyModus(type){
 
 
 
+function switchCMSInformation(type){
+
+  if(type==0){
+    document.getElementById("id_EditPage_DivCMSDescription").style.display="block";
+    document.getElementById("id_EditPage_DivKeyDescription").style.display="none";
+    document.getElementById("id_editPage_SelectCMSDescription").style.background=styleActiveColor;
+    document.getElementById("id_editPage_SelectKeyDescription").style.background="none";
+  }
+  else{
+    document.getElementById("id_EditPage_DivKeyDescription").style.display="block";
+    document.getElementById("id_EditPage_DivCMSDescription").style.display="none";
+    document.getElementById("id_editPage_SelectKeyDescription").style.background=styleActiveColor;
+    document.getElementById("id_editPage_SelectCMSDescription").style.background="none";
+  }
+
+}
+
+
+function switchAnalyzeMapping(type){
+
+  if(type==0){
+    document.getElementById("id_EditPage_DivAnalyze").style.display="block";
+    document.getElementById("id_EditPage_DivMapping").style.display="none";
+    document.getElementById("id_editPage_SelectAnalyze").style.background=styleActiveColor;
+    document.getElementById("id_editPage_SelectMapping").style.background="none";
+  }
+  else{
+    document.getElementById("id_EditPage_DivMapping").style.display="block";
+    document.getElementById("id_EditPage_DivAnalyze").style.display="none";
+    document.getElementById("id_editPage_SelectMapping").style.background=styleActiveColor;
+    document.getElementById("id_editPage_SelectAnalyze").style.background="none";
+  }
+
+}
+
+
+function updateDescription(){
+  globalCMS1.setDescription(document.getElementById("id_editPage_CMSDescription").value);
+  somethingChanged=true;
+}
+
+function updateColormapName(){
+  globalCMS1.setColormapName(document.getElementById("id_EditPage_CMSName").value);
+  somethingChanged=true;
+}
+
+
+
+
+
 
 function updateAutoRangeInput(){
   document.getElementById("id_inputAutoRangeStart").value=globalCMS1.getRefPosition(0);
@@ -219,10 +312,33 @@ function switchCustomScaleColors(){
 
 
 function clearColormap(){
-  askType=0;
-  openAskWindow()
+
+  if(document.getElementById("id_actionMenu_clearButton").classList.contains('settingMenuButton')){
+    askType=0;
+    openAskWindow()
+  }
+  document.getElementById("id_dropDownContainer").style.display="none";
+
 }
 
+
+//////////////////////////
+//// Display Options
+
+function showHideEditContainer(){
+
+  document.getElementById("id_dropDownContainer").style.display="none";
+}
+
+function showHideAnalyzeContainer(){
+
+  document.getElementById("id_dropDownContainer").style.display="none";
+}
+
+function showHideCMSInfoContainer(){
+
+  document.getElementById("id_dropDownContainer").style.display="none";
+}
 
 
 

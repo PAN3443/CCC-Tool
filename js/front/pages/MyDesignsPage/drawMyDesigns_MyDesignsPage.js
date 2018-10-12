@@ -6,7 +6,7 @@ function drawMyDesigns(){
         document.getElementById("myDesignObj_Label_"+i).innerHTML=myDesignsList[i].getColormapName()+":";
 
         drawCanvasColormap("myDesignObj_CMSlinear_"+i, myList_resolution_X,  myList_resolution_Y, myDesignsList[i]);
-        document.getElementById("myDesignObj_CMSsketch_"+i).style.borderColor = "black";
+        document.getElementById("myDesignObj_CMSlinear_"+i).style.borderColor = "black";
         drawBandSketch(myDesignsList[i],"myDesignObj_CMSsketch_"+i, false, -1);
         document.getElementById("myDesignObj_CMSsketch_"+i).style.border = "2px solid black";
 
@@ -20,26 +20,27 @@ function drawMyDesigns(){
         document.getElementById("myDesignObj_deleteButton_"+i).style.borderColor = "black";
         document.getElementById("myDesignObj_editButton_"+i).style.cursor = "pointer";
         document.getElementById("myDesignObj_exportButton_"+i).style.cursor = "pointer";
-        //document.getElementById("myDesignObj_shareButton_"+i).style.cursor = "pointer";
+        document.getElementById("myDesignObj_shareButton_"+i).style.cursor = "not-allowed";
         document.getElementById("myDesignObj_deleteButton_"+i).style.cursor = "pointer";
 
-
+        document.getElementById("myDesignObj_Info_"+i).style.cursor = "pointer";
 
     }
 
     for(var i=numberOfMyDesignsObj-1; i>myDesignsList.length-1; i--){
-      document.getElementById("myDesignObj_Label_Div"+i).background="rgb(128, 128, 128)";
+      document.getElementById("myDesignObj_Label_Div"+i).style.background="rgb(128, 128, 128)";
+      document.getElementById("myDesignObj_Label_Div"+i).style.borderColor = "rgb(64, 64, 64)";
       document.getElementById("myDesignObj_Label_"+i).innerHTML="Emty CMS:";
 
       var canvasObject = document.getElementById("myDesignObj_CMSlinear_"+i);
       var canvasContex = canvasObject.getContext("2d");
       canvasContex.clearRect(0, 0, canvasObject.width, canvasObject.height);
-      document.getElementById("myDesignObj_CMSsketch_"+i).style.borderColor = "rgb(64, 64, 64)";
+      canvasObject.style.borderColor = "rgb(64, 64, 64)";
 
       canvasObject = document.getElementById("myDesignObj_CMSsketch_"+i);
       canvasContex = canvasObject.getContext("2d");
       canvasContex.clearRect(0, 0, canvasObject.width, canvasObject.height);
-      document.getElementById("myDesignObj_CMSsketch_"+i).style.borderColor = "rgb(64, 64, 64)";
+      canvasObject.style.borderColor = "rgb(64, 64, 64)";
 
 
       document.getElementById("myDesignObj_editButton_"+i).style.backgroundImage = "url(img/editButton_grey.png)";
@@ -54,6 +55,13 @@ function drawMyDesigns(){
       document.getElementById("myDesignObj_exportButton_"+i).style.cursor = "default";
       //document.getElementById("myDesignObj_shareButton_"+i).style.cursor = "default";
       document.getElementById("myDesignObj_deleteButton_"+i).style.cursor = "default";
+
+      document.getElementById("myDesignObj_editButton_"+i).style.cursor = "not-allowed";
+      document.getElementById("myDesignObj_exportButton_"+i).style.cursor = "not-allowed";
+      document.getElementById("myDesignObj_shareButton_"+i).style.cursor = "not-allowed";
+      document.getElementById("myDesignObj_deleteButton_"+i).style.cursor = "not-allowed";
+      document.getElementById("myDesignObj_Info_"+i).style.cursor = "not-allowed";
+
     }
 
 

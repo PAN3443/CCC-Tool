@@ -52,3 +52,4 @@ var circleStrokeWidth = 5; //15
 
 // Ast Window
 var askType = 0;
+var askIndex = 0;

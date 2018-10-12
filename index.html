@@ -214,11 +214,11 @@
         <p style="margin:0px; height:50px; line-height:50px; text-align:left; vertical-align: middle; color:white; font-size: 25px; margin-right:auto;"> <strong>C</strong>harting <strong>C</strong>ontinuous <strong>C</strong>olormap </p>
 
 
-        <div class="menu_button" style="height:50px; width:auto;">
+        <div class="menu_buttonNotActive" style="height:50px; width:auto;">
           Log In
         </div>
 
-        <div class="menu_button" style="height:50px; width:auto;">
+        <div class="menu_buttonNotActive" style="height:50px; width:auto;">
           Register
         </div>
 
@@ -229,31 +229,45 @@
 
         <div style="height:50px; width:auto; position: relative; display: inline-block;">
         <div onclick="activateDropdown()" class="menu_button"> Menu </div>
-          <div id="id_dropDownContainer" style="background: url(img/background3.png); display: none; position: absolute; right: 0; z-index: 100;">
-            <div class="settingMenuLabel">
-              Settings:
-            </div>
-            <div class="settingNotActiveMenuButton">
-              Account
-            </div>
-            <div class="settingNotActiveMenuButton">
-              Color Transformation
-            </div>
-            <div class="settingNotActiveMenuButton">
-              Color Difference Metrics
-            </div>
+          <div id="id_dropDownContainer" style="background: url(img/background3.png); display: none; position: absolute; right: 0; z-index: 101;">
+            <div class="row settingMenuLabelBox" style="background:rgba(255,255,255,0.3); border-bottom: 1px solid white;">
 
-              <div class="settingMenuLabel">
-                Action:
+              <div class="settingMenuLabelImg" style=" background: url(img/gear_wheel.png);background-size:cover;
+              background-repeat:no-repeat;
+              background-position: center center;">
+
               </div>
+
+              <p class="settingMenuLabel"> Settings: </p>
+
+            </div>
+                <div class="settingNotActiveMenuButton">
+                  Account
+                </div>
+                <div class="settingNotActiveMenuButton">
+                  Color Transformation
+                </div>
+                <div class="settingNotActiveMenuButton">
+                  Color Difference Metrics
+                </div>
+            <div id="id_actionMenu_Label" class="row settingMenuLabelBox" style="background:rgba(255,255,255,0.3); border-bottom: 1px solid white; display:none;">
+
+                <div class="settingMenuLabelImg" style=" background: url(img/actionImg.png);background-size:cover;
+                  background-repeat:no-repeat;
+                  background-position: center center;">
+                </div>
+
+                  <p class="settingMenuLabel"> Action: </p>
+
+                </div>
               <div id="id_actionMenu_editPart" style="display:none;">
-                <div class="settingMenuButton" >
+                <div id="id_actionMenu_clearButton" onclick="clearColormap()" class="settingMenuButton" >
                   Clear CMS
                 </div>
-                <div class="settingMenuButton" >
+                <div id="id_actionMenu_scaleButton" onclick="openScale()" class="settingMenuButton" >
                   Scale CMS
                 </div>
-                <div class="settingMenuButton" >
+                <div id="id_actionMenu_exportButton" class="settingMenuButton" >
                   Export CMS
                 </div>
               </div>
@@ -270,12 +284,42 @@
                 </div>
               </div>
 
-            <div class="settingNotActiveMenuButton">
-              Log Out
+
+            <div id="id_dropDownMenu_DisplayOptions" style="display:none;">
+              <div class="row settingMenuLabelBox" style="background:rgba(255,255,255,0.3); border-bottom: 1px solid white;">
+
+                <div class="settingMenuLabelImg" style=" background: url(img/displayImg.png);background-size:cover;
+                background-repeat:no-repeat;
+                background-position: center center;">
+
+                </div>
+
+                <p class="settingMenuLabel"> Display: </p>
+
+              </div>
+
+              <div onclick="showHideEditContainer()" class="settingMenuButton">
+                Hide Edit
+              </div>
+              <div onclick="showHideCMSInfoContainer()" class="settingMenuButton">
+                Hide CMS-Info
+              </div>
+              <div onclick="showHideAnalyzeContainer()" class="settingMenuButton">
+                Hide Analyze/Mapping
+              </div>
+
+
+            </div>
+
+            <div style="width:100%; border-top:2px double white;">
+              <div class="settingNotActiveMenuButton">
+                Log Out
+              </div>
             </div>
 
           </div>
         </div>
+
 
 
       </div>
@@ -405,45 +449,6 @@
 
                  <div  id="id_EditPage_MainPartDiv" style="position: absolute; z-index: 0; width:100%; left: 0; top: 0;">  <!-- -------------- Main Part Edit Page ---------------->
 
-                   <!-- -------------- Main Part: HEADER ---------------->
-                   <div class="row" style="width:90%; margin-left:5%; margin-right:5%; height:100px; border: 2px solid grey; border-radius: 0px 0px 5px 5px; background:rgb(210,210,210); height:50px; overflow:auto; margin-bottom:15px;">
-                     <p class="standardText" id="id_EditPage_CMSName" style="margin-left:2.5%; line-height:50px; height:50px; font-weight:bold; cursor:pointer;">Your CMS Name</p>
-
-                     <p class="standardText"  style="margin-left:2.5%; line-height:50px; height:50px;"> NaN:</p>
-                     <div id="id_EditPage_CMS_NaN_Color" style="height:26px; width: 26px; background:white; border: 2px solid black; border-radius: 5px; margin-top:10px; margin-left:5px; cursor:pointer;" >
-
-                     </div>
-                     <p class="standardText"  style="margin-left:2.5%; line-height:50px; height:50px;">Below Range:</p>
-                     <div id="id_EditPage_CMS_Below_Color" style="height:26px; width: 26px; background:white; border: 2px solid black; border-radius: 5px; margin-top:10px; margin-left:5px; cursor:pointer;">
-
-                     </div>
-                     <p class="standardText"  style="margin-left:2.5%; line-height:50px; height:50px;">Above Range:</p>
-                     <div id="id_EditPage_CMS_Above_Color" style="height:26px; width: 26px; background:white; border: 2px solid black; border-radius: 5px; margin-top:10px; margin-left:5px; cursor:pointer;">
-
-                     </div>
-                     <div style="height:50px; width: 2.5%; border-right: 2px solid grey;">
-
-                     </div>
-
-                     <p class="standardText" id="id_EditPage_CMSSpaceLabel" style="margin-left:2.5%; line-height:50px; height:50px; font-weight:bold; cursor:pointer;" onclick="showInterpolationOptions()">Space: DIN99</p>
-
-                     <img  id="id_EditPage_SmileyImg" src="img/smiley.png" style="margin-top: 5px; margin-left:5px; max-height:40px;">
-                     <img  id="id_EditPage_SadleyImg" src="img/sadley.png" style="margin-top: 5px; margin-left:5px; max-height:40px; display:none;">
-
-                     <div style="height:50px; width: 2.5%; border-right: 2px solid grey;">
-
-                     </div>
-
-                     <button onclick="openScale()" id="id_EditPage_scaleButton" class="class_generalbutton" style="margin-left:auto;  width:120px; height:40px; line-height:40px; margin-top:5px;">Scale</button>
-
-                     <button onclick="showMyDesignsPage()" id="id_EditPage_histogramButton" class="class_generalbutton" style="margin-left:auto;  width:120px;height:40px; line-height:40px; margin-top:5px; display:none;">Histogram</button>
-
-                     <button onclick="clearColormap()" class="class_generalbutton" style="margin-left:auto;  width:120px; height:40px; line-height:40px; margin-top:5px;">Clear</button>
-
-                     <button onclick="" class="class_generalbutton" style="margin-left:auto; margin-right:auto;  width:120px; height:40px; line-height:40px; margin-top:5px;">Export</button>
-
-                   </div>
-
 
                    <!-- -------------- Main Part: CMS Visualization ---------------->
 
@@ -451,14 +456,14 @@
                      <canvas id="id_EditPage_CMS_VIS_LinearKeys" style="width:100%; height:20px; "></canvas>
                      <canvas id="id_EditPage_CMS_VIS_Lines1" style="width:100%; height:10px; "></canvas>
                      <canvas id="id_EditPage_CMS_VIS_Histogramm" style="width:90%; margin-left:5%; margin-right:5%; height:200px; display:none; "></canvas>
-                     <canvas id="id_EditPage_CMS_VIS_ColormapLinear" style="width:90%; margin-left:5%; margin-right:5%; height:40px; border: 1px solid black;"></canvas>
+                     <canvas id="id_EditPage_CMS_VIS_ColormapLinear" class="classColormapCanvas" style="width:90%; margin-left:5%; margin-right:5%; height:60px; border: 1px solid black;"></canvas>
 
                      <canvas id="id_EditPage_CMS_VIS_KeyBurs" style="width:100%; height:60px; "></canvas>
 
                      <canvas id="id_EditPage_CMS_VIS_SketchKeyNumbers" style="width:100%; height:30px;"></canvas>
                      <canvas id="id_EditPage_CMS_VIS_SketchKeys" style="width:100%; height:20px;"></canvas>
                      <canvas id="id_EditPage_CMS_VIS_Lines2" style="width:100%; height:10px; "></canvas>
-                     <canvas id="id_EditPage_CMS_VIS_ColormapSketch" style="width:90%; margin-left:5%; margin-right:5%; height:40px;"></canvas>
+                     <canvas id="id_EditPage_CMS_VIS_ColormapSketch" class="classColormapCanvas" style="width:90%; margin-left:5%; margin-right:5%; height:60px;"></canvas>
                      <canvas id="id_EditPage_CMS_VIS_Lines3" style="width:100%; height:10px; "></canvas>
                      <div id="id_EditPage_RefPlaceholder" name="placeholder" style="width:100%; height:30px; margin-bottom:15px;"></div>
 
@@ -478,7 +483,7 @@
                          </div>
                          <div  class="class_subsectionButtonUnderground" style="width:25%; background: url(img/background3.png);">
                          <div onclick="switchModifyModus(1)" id="id_editPage_SelectAddKeys" class="class_subsectionButton">
-                           ADD Keys
+                           ADD Key
                          </div>
                          </div>
                          <div  class="class_subsectionButtonUnderground" style="width:25%; background: url(img/background3.png);">
@@ -496,7 +501,6 @@
                        <div  id="id_EditPage_Add_Structures" style="width:100%;  height:450px; display:none;">
 
                          <div class="row" style="width:100%; height:100%;">
-
 
 
                                          <div style="width:30%; height:100%; border-right:3px solid black; ">
@@ -651,25 +655,71 @@
                      <!-- -------------- Main Part: CMS Description ---------------->
                      <div style="width:38%; background:url(img/background3.png); border-radius:10px;">
 
-                       <div style="margin:5px; background:white; border-radius:10px;">
+                       <div style="margin:5px; background:rgb(220,220,220); border-radius:10px;">
                          <div class="row">
-                           <div class="class_subsectionButtonUnderground" style="width:50%; background: url(img/background3.png);">
-                           <div class="class_subsectionButton" >
-                             CMS Discription
+                           <div onclick="switchCMSInformation(0)" class="class_subsectionButtonUnderground" style="width:50%; background: url(img/background3.png);">
+                           <div id="id_editPage_SelectCMSDescription" class="class_subsectionButton" >
+                             CMS Description
                            </div>
                            </div>
                            <div class="class_subsectionButtonUnderground" style="width:50%; background: url(img/background3.png);">
-                           <div class="class_subsectionButton" >
-                             Key Discription
+                           <div onclick="switchCMSInformation(1)" id="id_editPage_SelectKeyDescription" class="class_subsectionButton" >
+                             Key Description
                            </div>
                            </div>
                          </div>
 
-                         <div  id="id_EditPage_DivCMSDescription" style="width:100%;  height:300px; ">
+                         <div  id="id_EditPage_DivCMSDescription" style="width:100%; height:450px; ">
+
+                           <div class="row" style="width:100%; height: 70px; border-bottom:1px solid black; ">
+
+                             <div class="row" style="width:65%; height:100%;">
+                               <p class="standardText" style="margin-left:auto; line-height:70px; height:70px; font-weight:bold;">Name:</p>
+
+                               <input type="text" id="id_EditPage_CMSName" style="width:40%; margin-left:10px; margin-right:auto; margin-top:auto; margin-bottom:auto; max-height:30px; height:30px;" name="mapname" required placeholder="Please enter a name for your colormap" />
+
+                             </div>
+
+                             <div class="row" style="width:34%; border-left: 1px solid black; height:100%;">
+                               <p class="standardText" id="id_EditPage_CMSSpaceLabel" style="margin-left:auto; line-height:70px; height:70px; font-weight:bold; cursor:pointer;" onclick="showInterpolationOptions()">Space: DIN99</p>
+
+                               <img  id="id_EditPage_SmileyImg" src="img/smiley.png" style="margin-top: 15px; margin-left:15px; max-height:40px; margin-right:auto;">
+                               <img  id="id_EditPage_SadleyImg" src="img/sadley.png" style="margin-top: 15px; margin-left:15px; max-height:40px; margin-right:auto; display:none;">
+                             </div>
+
+                           </div>
+
+                           <div class="row" style="width:100%; height: 50px; border-bottom:1px solid black; ">
+
+
+                             <p class="standardText"  style="margin-left:auto; line-height:50px; height:50px; font-weight:bold;"> Extra Colors:</p>
+                             <p class="standardText"  style="margin-left:10px;; line-height:50px; height:50px;"> NaN:</p>
+                             <div id="id_EditPage_CMS_NaN_Color" style="height:26px; width: 26px; background:white; border: 2px solid black; border-radius: 5px; margin-top:10px; margin-left:5px; cursor:pointer;" >
+
+                             </div>
+                             <p class="standardText"  style="margin-left:2.5%; line-height:50px; height:50px;">Below Range:</p>
+                             <div id="id_EditPage_CMS_Below_Color" style="height:26px; width: 26px; background:white; border: 2px solid black; border-radius: 5px; margin-top:10px; margin-left:5px; cursor:pointer;">
+
+                             </div>
+                             <p class="standardText"  style="margin-left:2.5%; line-height:50px; height:50px;">Above Range:</p>
+                             <div id="id_EditPage_CMS_Above_Color" style="height:26px; width: 26px; background:white; border: 2px solid black; border-radius: 5px; margin-top:10px; margin-left:5px; margin-right:auto; cursor:pointer;">
+
+                             </div>
+                           </div>
+
+                           <div style="height:198px;">
+                              <p class="standardText" style="width:100%; text-align:center; font-weight:bold; margin-top:10px; margin-bottom:10px; height:20px;">Description: </p>
+
+                              <textarea id="id_editPage_CMSDescription" name="colormap description" style="width:90%; max-width:90%; background:white; margin-left:5%; max-height: 250px; height: 250px; overflow-y:auto; padding:5px;" placeholder="Enter a rough description of the colormap here. This is primarily used as note or reminder for you and in the case of sharing to inform other users what you want to show with this colormap. For more detailed information like semantics or special meaning of colormap components, the tool offers an additional description for keys or key strings."></textarea>
+
+                           </div>
+
+
+
 
                          </div>
 
-                         <div  id="id_EditPage_DivKeyDescription" style="width:100%;  height:300px; display:none;">
+                         <div  id="id_EditPage_DivKeyDescription" style="width:100%;  height:450px; display:none;">
 
                          </div>
 
@@ -683,22 +733,22 @@
                        <div style="margin:5px; background:white; border-radius:10px;">
                          <div class="row">
                            <div class="class_subsectionButtonUnderground" style="width:50%; background: url(img/background3.png);">
-                           <div class="class_subsectionButton" >
+                           <div onclick="switchAnalyzeMapping(0)" id="id_editPage_SelectAnalyze" class="class_subsectionButton" >
                              Analyze
                            </div>
                            </div>
                            <div class="class_subsectionButtonUnderground" style="width:50%; background: url(img/background3.png);">
-                           <div class="class_subsectionButton" >
+                           <div onclick="switchAnalyzeMapping(1)" id="id_editPage_SelectMapping" class="class_subsectionButton" >
                              Mapping
                            </div>
                            </div>
                          </div>
 
-                         <div  id="id_EditPage_DivAnalyze" style="width:100%;  height:300px; ">
+                         <div  id="id_EditPage_DivAnalyze" style="width:100%;  height:450px; ">
 
                          </div>
 
-                         <div  id="id_EditPage_DivMapping" style="width:100%;  height:300px; display:none;">
+                         <div  id="id_EditPage_DivMapping" style="width:100%;  height:450px; display:none;">
 
                          </div>
 
@@ -965,7 +1015,7 @@
 
 
                     <!---------------- Scale ---------------  -->
-                    <div id="id_PopUp_ScaleWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:101; top:0px; left:0px; bottom:0px; display:none;">
+                    <div id="id_PopUp_ScaleWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
 
                       <div style="margin-top:20vh; height:auto; background:white; width:60%; border: 1px solid black; margin-left:auto; margin-right:auto;">
 
@@ -1006,7 +1056,7 @@
 
 
                     <!---------------- Alert ---------------  -->
-                    <div id="id_PopUp_AlertWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:101; top:0px; left:0px; bottom:0px; display:none;">
+                    <div id="id_PopUp_AlertWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
 
                       <div style="margin-top:20vh; height:auto; background:white; width:60%; border: 1px solid black; margin-left:auto; margin-right:auto;">
 
@@ -1039,7 +1089,7 @@
                           ---------------------------------------------------
                           -->
 
-                    <div id="popupAskWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:101; top:0px; left:0px; bottom:0px; display:none;">
+                    <div id="popupAskWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
 
                       <div style="margin-top:20vh; height:auto; background:white; width:60%; border: 1px solid black; margin-left:auto; margin-right:auto;">
 

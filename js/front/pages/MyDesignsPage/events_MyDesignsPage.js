@@ -1,48 +1,4 @@
-function exportColormapFromMyDesigns(index) {
 
-  if (index < myList.length) {
-    globalCMS1 = cloneCMS(myList[index]);
-    changePage(6);
-  }
-
-}
-
-
-function deletetColormapFromMyDesigns(index) {
-
-  if (index < myList.length) {
-    askType=3;
-    askIndex=index;
-    openAskWindow();
-  }
-
-}
-
-
-function acceptColormapFromMyDesigns(index) {
-  if (index < myList.length) {
-
-    document.getElementById("id_buttonAcceptMyList" + colormap1SelectIndex).style.border = "0.2vh solid rgb(0,0,0)";
-    document.getElementById("id_buttonAcceptMyList" + colormap1SelectIndex).style.color = "rgb(0,0,0)";
-    colormap1SelectIndex = index;
-    document.getElementById("id_buttonAcceptMyList" + colormap1SelectIndex).style.border = "0.2vh solid " + styleActiveColor;
-    document.getElementById("id_buttonAcceptMyList" + colormap1SelectIndex).style.color = styleActiveColor;
-
-    globalCMS1 = cloneCMS(myList[colormap1SelectIndex]);
-    orderColorSketch(colorspaceModus);
-
-  }
-
-}
-
-
-function loadCMStoGallery() {
-  if (myList.length > 9) {
-    openAlert("Sorry, the CMS could not be uploaded, because the MyDesigns list is full.");
-  } else {
-    document.getElementById("id_inputCMSData").click();
-  }
-}
 
 function saveSession() {
 

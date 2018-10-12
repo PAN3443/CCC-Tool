@@ -18,17 +18,45 @@
 }
 
 
-.settingMenuLabel{
-  display: block;
+.menu_buttonNotActive {
+  padding-right:20px;
+  padding-left:20px;
+  font-size: 20px;
+  line-height: 50px;
+  cursor:not-allowed;
+  color:rgb(180,180,180);
+  vertical-align: middle;
+  text-align: left;
+  background:none;
+}
+
+
+.settingMenuLabelBox{
   width:250px;
+  height: 25px;
+  background:rgba(255,255,255,0.3);
+  border-bottom: 1px solid white;
+}
+
+
+.settingMenuLabel{
+  width:180px;
   font-size: 18px;
   line-height: 25px;
+  height: 25px;
   font-weight: bold;
   color:white;
   vertical-align: middle;
-  text-align: center;
-  background:rgba(255,255,255,0.3);
-  border-bottom: 1px solid white;
+  text-align: left;
+  margin: 0px;
+}
+
+.settingMenuLabelImg{
+  width:25px;
+  height: 25px;
+  margin-left: 20px;
+  margin-right: 20px;
+
 }
 
 .settingMenuButton{

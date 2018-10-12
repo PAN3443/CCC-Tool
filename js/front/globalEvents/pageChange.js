@@ -54,6 +54,18 @@ function showMyDesignsPage(){
   document.getElementById("id_myDesignsPage").style.display="block";
   drawMyDesigns();
 
+
+  //DropDown
+  if(document.getElementById("id_dropDownContainer").style.display=="block")
+document.getElementById("id_dropDownContainer").style.display="none";
+
+
+document.getElementById("id_actionMenu_Label").style.display="flex";
+document.getElementById("id_actionMenu_editPart").style.display="none";
+document.getElementById("id_actionMenu_myDesignPart").style.display="block";
+document.getElementById("id_dropDownMenu_DisplayOptions").style.display="none";
+
+
 }
 
 //////////////////////
@@ -76,6 +88,7 @@ function showEditPage(){
 
     globalCMS1 = new class_CMS();
     globalCMS1.setColormapName(document.getElementById("id_newCMSPage_ColormapName").value);
+    globalCMS1.setDescription(document.getElementById("id_newCMSPage_MapDescription").value);
 
     myDesignsList.push(cloneCMS(globalCMS1));
     indexActiveCMS=myDesignsList.length-1;
@@ -85,12 +98,21 @@ function showEditPage(){
   else{
     // CMS from MyDesigns
     document.getElementById("id_myDesignsPage").style.display="none";
+
+    globalCMS1 = cloneCMS(myDesignsList[indexActiveCMS]);
+
+    if(globalCMS1.getKeyLength() != 0)
     switchModifyModus(2);
+    else
+    switchModifyModus(0);
   }
 
+  switchCMSInformation(0);
+  switchAnalyzeMapping(0);
 
   // fill Edit pages
-  document.getElementById("id_EditPage_CMSName").innerHTML=globalCMS1.getColormapName();
+  document.getElementById("id_EditPage_CMSName").value=globalCMS1.getColormapName();
+  document.getElementById("id_editPage_CMSDescription").value=globalCMS1.getDescription();
 
   document.getElementById("id_EditPage_CMS_NaN_Color").style.background=globalCMS1.getNaNColor("rgb").getRGBString();
   document.getElementById("id_EditPage_CMS_Below_Color").style.background=globalCMS1.getBelowColor("rgb").getRGBString();
@@ -109,6 +131,15 @@ function showEditPage(){
 
 
   updateInterpolationSpaceEditPage();
+
+  //DropDown
+  if(document.getElementById("id_dropDownContainer").style.display=="block")
+document.getElementById("id_dropDownContainer").style.display="none";
+
+document.getElementById("id_actionMenu_Label").style.display="flex";
+document.getElementById("id_actionMenu_editPart").style.display="block";
+document.getElementById("id_actionMenu_myDesignPart").style.display="none";
+document.getElementById("id_dropDownMenu_DisplayOptions").style.display="block";
 
 }
 
@@ -135,6 +166,15 @@ function showNewCMSPage(){
 
   document.getElementById("id_newCMSPage_ColormapName").value = "";
   document.getElementById("id_newCMSPage_MapDescription").value = "";
+
+  //DropDown
+  if(document.getElementById("id_dropDownContainer").style.display=="block")
+document.getElementById("id_dropDownContainer").style.display="none";
+
+document.getElementById("id_actionMenu_Label").style.display="none";
+document.getElementById("id_actionMenu_editPart").style.display="none";
+document.getElementById("id_actionMenu_myDesignPart").style.display="none";
+document.getElementById("id_dropDownMenu_DisplayOptions").style.display="none";
 
 }
 

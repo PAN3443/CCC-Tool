@@ -68,7 +68,7 @@ function createMyDesignObject(id){
   tmpCMSInfo.style.background="rgb(80, 80, 80)";
   tmpCMSInfo.style.borderLeft = "2px solid rgb(64, 64, 64)";
   tmpCMSInfo.style.textAlign="center";
-  tmpCMSInfo.style.cursor="pointer";
+  tmpCMSInfo.style.cursor="not-allowed";
   tmpCMSInfo.style.float="right";
   tmpCMSInfo.innerHTML="i"
 
@@ -86,7 +86,7 @@ function createMyDesignObject(id){
 
   var tmpCMSlinear = document.createElement('canvas');
   tmpCMSlinear.id="myDesignObj_CMSlinear_"+id;
-  tmpCMSlinear.className = 'class_MyDesignObjCMSCanvas';
+  tmpCMSlinear.className = 'class_MyDesignObjCMSCanvas classColormapCanvas';
   tmpCMSlinear.style.background="rgb(191, 191, 191)";
   tmpCMSlinear.style.border = "2px solid rgb(64, 64, 64)";
   tmpCMSlinear.style.borderBottom = "none";
@@ -94,7 +94,7 @@ function createMyDesignObject(id){
 
   var tmpCMSsketch = document.createElement('canvas');
   tmpCMSsketch.id="myDesignObj_CMSsketch_"+id;
-  tmpCMSsketch.className = 'class_MyDesignObjCMSCanvas';
+  tmpCMSsketch.className = 'class_MyDesignObjCMSCanvas classColormapCanvas';
   tmpCMSsketch.style.background="rgb(191, 191, 191)";
   tmpCMSsketch.style.border = "2px solid rgb(64, 64, 64)";
   tmpCMSsketch.style.borderRadius = "0px 0px 5px 5px";
@@ -114,6 +114,7 @@ function createMyDesignObject(id){
   editButton.className = "class_MyDesignButton";
   editButton.style.backgroundImage = "url(img/editButton_grey.png)";
   editButton.addEventListener("click", bandOnDragStart);
+  editButton.style.cursor="not-allowed";
 
 
   editButton.onclick = (function(cmsID) {
@@ -130,6 +131,7 @@ function createMyDesignObject(id){
   exportButton.id="myDesignObj_exportButton_"+id;
   exportButton.className = "class_MyDesignButton";
   exportButton.style.backgroundImage = "url(img/exportButton_grey.png)";
+  exportButton.style.cursor="not-allowed";
   tmpSubDiv1_Buttons.appendChild(exportButton);
 
   var tmpSubDiv2_Buttons = document.createElement('div');
@@ -139,12 +141,25 @@ function createMyDesignObject(id){
   shareButton.id="myDesignObj_shareButton_"+id;
   shareButton.className = "class_MyDesignButton";
   shareButton.style.backgroundImage = "url(img/shareButton_grey.png)";
+  shareButton.style.cursor="not-allowed";
   tmpSubDiv2_Buttons.appendChild(shareButton);
 
   var deleteButton = document.createElement("div");
   deleteButton.id="myDesignObj_deleteButton_"+id;
   deleteButton.className = "class_MyDesignButton";
   deleteButton.style.backgroundImage = "url(img/trashButton_grey.png)";
+  deleteButton.style.cursor="not-allowed";
+
+  deleteButton.onclick = (function(cmsID) {
+  return function() {
+     if(cmsID<=myDesignsList.length-1){
+       askType=3;
+       askIndex=cmsID;
+       openAskWindow();
+     }
+  };
+  })(id);
+
   tmpSubDiv2_Buttons.appendChild(deleteButton);
 
   tmpDivButtons.appendChild(tmpSubDiv1_Buttons);

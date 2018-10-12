@@ -18,9 +18,13 @@ function openAlert(txt){
 ///////////////////////////////////
 
 function openScale(){
+
+  if(document.getElementById("id_actionMenu_scaleButton").classList.contains('settingMenuButton')){
     document.getElementById("id_PopUp_ScaleWindow").style.display="block";
     document.getElementById("id_popupWindow_ScaleInfoText").style.display="none";
     updateAutoRangeInput();
+  }
+  document.getElementById("id_dropDownContainer").style.display="none";
 }
 
 function checkScale(){
@@ -103,29 +107,13 @@ function checkAsk(){
         //load Session
         document.getElementById("id_inputSessionData").click();
         break;
-
+        */
         case 3:
 
-          myList.splice(askIndex, 1);
+          myDesignsList.splice(askIndex, 1);
 
-          if (askIndex == colormap1SelectIndex) {
-            colormap1SelectIndex = 0;
-          }
-
-          if (askIndex < colormap1SelectIndex) {
-            colormap1SelectIndex--;
-          }
-
-          if (myList.length == 0) {
-            colormap1SelectIndex = -1;
-            globalCMS1.clear();
-          } else {
-            globalCMS1 = cloneCMS(myList[colormap1SelectIndex]);
-          }
-
-          orderColorSketch();
-          drawMyList();
-        break;*/
+          drawMyDesigns();
+        break;
 
         case 4:
           //leave edit page

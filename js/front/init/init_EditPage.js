@@ -63,6 +63,8 @@ function init_events_EditPage(){
   document.getElementById('id_EditPage_CMS_VIS_LinearKeys').addEventListener("mouseup", mouseUpKeyRef);
 
 
+  document.getElementById('id_editPage_CMSDescription').addEventListener("change", updateDescription);
+  document.getElementById('id_EditPage_CMSName').addEventListener("change", updateColormapName);
 
 
 }

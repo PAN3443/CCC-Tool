@@ -4,6 +4,8 @@ class class_CMS {
     this.name = "Customer Colormap";
     this.interpolationSpace="lab";
 
+    this.description = "";
+
     this.NaN_RGB = new classColor_RGB(0,0,0);
     this.NaN_HSV = new classColor_HSV(0,0,0);
     this.NaN_LAB = new classColor_LAB(0,0,0);
@@ -640,6 +642,14 @@ class class_CMS {
 
    setColormapName(newName) {
     this.name = newName;
+   }
+
+   getDescription() {
+    return this.description;
+   }
+
+   setDescription(description) {
+    this.description = description;
    }
 
    pushPreprocessColor(color){

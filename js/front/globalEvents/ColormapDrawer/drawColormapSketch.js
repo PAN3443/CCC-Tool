@@ -116,6 +116,7 @@ function drawBandSketch(cms,sketchObjectID, withInputFields, aboveInputField){
 
     ///////////////////////////////
     // draw cms band
+    if(withInputFields){
     currentPos=0;
     var borderWidth=1;//canvasObject.width/canvasObject.getBoundingClientRect().width;
     //console.log(canvasObject.getBoundingClientRect().width+"/"+canvasObject.width+"="+borderWidth);
@@ -123,7 +124,7 @@ function drawBandSketch(cms,sketchObjectID, withInputFields, aboveInputField){
       for(var x=0; x<cms.getKeyLength(); x++){
       // push to drop Rects
 
-          if(withInputFields){
+
             dropRects.push(currentPos);
             if(aboveInputField!=x){
 
@@ -137,7 +138,7 @@ function drawBandSketch(cms,sketchObjectID, withInputFields, aboveInputField){
               canvasContex.lineWidth=borderWidth;
               canvasContex.strokeStyle = "black";
               canvasContex.strokeRect(currentPos,0,bandLength,canvasObject.height);
-              canvasContex.lineWidth=2;
+              //canvasContex.lineWidth=2;
               canvasContex.beginPath();
               canvasContex.moveTo(currentPos+(bandLength/2),0+canvasObject.height/16);
               canvasContex.lineTo(currentPos+(bandLength/2),canvasObject.height-canvasObject.height/16);
@@ -168,17 +169,12 @@ function drawBandSketch(cms,sketchObjectID, withInputFields, aboveInputField){
               canvasContex.arc(currentPos+(bandLength/2),canvasObject.height/2,3,0,2*Math.PI);
               canvasContex.fill();
 
-            }
-            currentPos += bandLength;
           }
+          currentPos += bandLength*2;
 
-          canvasContex.lineWidth=borderWidth;
-          canvasContex.strokeStyle = "black";
-          canvasContex.strokeRect(currentPos,0,bandLength,canvasObject.height);
-
-          currentPos += bandLength;
     }
-   }
+  }
+ }
 
 }
 

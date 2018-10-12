@@ -3,7 +3,9 @@ window.onload = function() {
   // init global vars
   globalCMS1 = new class_CMS();
 
-  var windowWidth = document.body.offsetWidth;
+
+  var windowWidth = window.screen.availWidth;
+  //var windowWidth = document.body.offsetWidth;
   //var windowHeight = window.innerHeight;
 
   document.getElementById("headerDiv").style.width = windowWidth + "px";
