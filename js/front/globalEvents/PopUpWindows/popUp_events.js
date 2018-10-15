@@ -1,3 +1,13 @@
+
+function closeFilterWindow(){
+  document.getElementById("id_PopUp_FilterWindow").style.display="none";
+}
+
+function openFilterWindow(){
+  document.getElementById("id_PopUp_FilterWindow").style.display="block";
+}
+
+
 //////////////////////////////////////
 /// Alert Window /////
 ///////////////////////////////////

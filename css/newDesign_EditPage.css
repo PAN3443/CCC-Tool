@@ -252,3 +252,36 @@
   image-rendering: pixelated;               /* Possible future browsers.*/
   -ms-interpolation-mode: nearest-neighbor;   /* IE (non standard naming)*/
 }
+
+
+
+
+#id_editPage_OrderLabel{
+  overflow: hidden;
+  color:white;
+  font-size: 16px;
+  cursor:pointer;
+  /*vertical-align: middle;*/
+  text-align: center;
+}
+
+#id_editPage_OrderLabel:hover {
+  background: rgba(255,255,255,0.5);
+}
+
+
+.settingOrderDropdownButton{
+  display: block;
+  width:150px;
+  margin-left: 25px;
+  font-size: 16px;
+  line-height: 25px;
+  cursor:pointer;
+  color:white;
+  vertical-align: middle;
+  text-align: left;
+}
+
+.settingOrderDropdownButton:hover {
+  background: rgba(255,255,255,0.2);
+}

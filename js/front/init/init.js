@@ -933,5 +933,5 @@ function init_Size() {
 ///////////////////////////////////////////////////////////////
 
 function initAutoCompleteInputs(){
-  autocomplete(document.getElementById("id_EditPage_Add_Structures_Input_FilterSemantics"), semanticsArray);
+  autocomplete(document.getElementById("id_popupWindow_Input_FilterSemantics"), semanticsArray);
 }

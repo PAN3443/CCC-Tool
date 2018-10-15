@@ -12,12 +12,24 @@ function bandOnDragStart(event){
     event.dataTransfer.dropEffect = "move";
     event.dataTransfer.setData("text", event.target.getAttribute('id') );
 
+
+    /*if(document.getElementById("id_EditPage_CMS_VIS_Histogramm").style.display=="none" && globalCMS1.getKeyLength()!=0){
+      document.getElementById("id_editPage_DragImage").style.display="block";
+      document.getElementById("id_EditPage_CMS_VIS_LinearKeys").style.display="none";
+      document.getElementById("id_EditPage_CMS_VIS_KeyBurs").style.display="none";
+      document.getElementById("id_EditPage_CMS_VIS_ColormapLinear").style.display="none";
+      document.getElementById("id_EditPage_CMS_VIS_SketchKeyNumbers").style.display="none";
+      document.getElementById("id_EditPage_CMS_VIS_Lines1").style.display="none";
+      document.getElementById("id_EditPage_CMS_VIS_SketchKeys").style.display="none";
+    }*/
+
     document.getElementById("id_EditPage_CMS_VIS_LinearKeys").style.visibility="hidden";
     document.getElementById("id_EditPage_CMS_VIS_KeyBurs").style.visibility="hidden";
     document.getElementById("id_EditPage_CMS_VIS_ColormapLinear").style.visibility="hidden";
     document.getElementById("id_EditPage_CMS_VIS_SketchKeyNumbers").style.visibility="hidden";
-    document.getElementById("id_EditPage_CMS_VIS_SketchKeys").style.visibility="hidden";
     document.getElementById("id_EditPage_CMS_VIS_Lines1").style.visibility="hidden";
+    document.getElementById("id_EditPage_CMS_VIS_SketchKeys").style.visibility="hidden";
+
     document.getElementById("id_EditPage_CMS_VIS_Lines2").style.visibility="hidden";
     document.getElementById("id_EditPage_CMS_VIS_Lines3").style.visibility="hidden";
 
@@ -86,12 +98,24 @@ function bandOnDragEnd(event) {
 
     updateEditPage()
 
+    /*document.getElementById("id_editPage_DragImage").style.display="none";
+    document.getElementById("id_EditPage_CMS_VIS_LinearKeys").style.display="block";
+    document.getElementById("id_EditPage_CMS_VIS_KeyBurs").style.display="block";
+    document.getElementById("id_EditPage_CMS_VIS_ColormapLinear").style.display="block";
+    document.getElementById("id_EditPage_CMS_VIS_SketchKeyNumbers").style.display="block";
+    document.getElementById("id_EditPage_CMS_VIS_Lines1").style.display="block";
+    document.getElementById("id_EditPage_CMS_VIS_SketchKeys").style.display="block";*/
+
+
     document.getElementById("id_EditPage_CMS_VIS_LinearKeys").style.visibility="visible";
     document.getElementById("id_EditPage_CMS_VIS_KeyBurs").style.visibility="visible";
     document.getElementById("id_EditPage_CMS_VIS_ColormapLinear").style.visibility="visible";
     document.getElementById("id_EditPage_CMS_VIS_SketchKeyNumbers").style.visibility="visible";
-    document.getElementById("id_EditPage_CMS_VIS_SketchKeys").style.visibility="visible";
     document.getElementById("id_EditPage_CMS_VIS_Lines1").style.visibility="visible";
+    document.getElementById("id_EditPage_CMS_VIS_SketchKeys").style.visibility="visible";
+
+
+
     document.getElementById("id_EditPage_CMS_VIS_Lines2").style.visibility="visible";
     document.getElementById("id_EditPage_CMS_VIS_Lines3").style.visibility="visible";
 

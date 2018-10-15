@@ -29,14 +29,14 @@ div.sticky {
   width:100%;
   text-decoration: underline;
   margin:0px;
-
+  
 }
 
 .subsectionLabel{
   font-size: 18px;
   line-height: 16px;
   color:black;
-  height:auto;
+  height: 18px; /*auto;*/
   vertical-align:middle;
   text-align:center;
   width:100%;
