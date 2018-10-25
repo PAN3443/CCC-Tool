@@ -1,5 +1,14 @@
 
 
+function updatePageWidth(){
+  var actualInnerWidth = document.body.clientWidth;
+  //var actualInnerWidth = document.body.scrollWidth;
+
+  console.log(document.body.clientWidth, document.body.scrollWidth);
+
+  document.getElementById("id_ccctoolPage").style.width = actualInnerWidth + "px";
+}
+
 function activateDropdown() {
 
     if(document.getElementById("id_dropDownContainer").style.display=="none")
@@ -43,6 +52,8 @@ function startLeaveEditPage(){
 
 function showMyDesignsPage(){
 
+
+
   for (var i = refElementContainer.length - 1; i >= 0; i--) {
     refElementContainer[i].remove();
     refElementContainer.pop();
@@ -65,7 +76,7 @@ document.getElementById("id_actionMenu_editPart").style.display="none";
 document.getElementById("id_actionMenu_myDesignPart").style.display="block";
 document.getElementById("id_dropDownMenu_DisplayOptions").style.display="none";
 
-
+updatePageWidth();
 }
 
 //////////////////////
@@ -141,6 +152,10 @@ document.getElementById("id_actionMenu_editPart").style.display="block";
 document.getElementById("id_actionMenu_myDesignPart").style.display="none";
 document.getElementById("id_dropDownMenu_DisplayOptions").style.display="block";
 
+updatePageWidth();
+
+
+
 }
 
 
@@ -149,6 +164,8 @@ document.getElementById("id_dropDownMenu_DisplayOptions").style.display="block";
 
 function showGallery(){
   document.getElementById("id_myDesignsPage").style.display="none";
+
+  updatePageWidth();
 }
 
 //////////////////////
@@ -175,6 +192,8 @@ document.getElementById("id_actionMenu_Label").style.display="none";
 document.getElementById("id_actionMenu_editPart").style.display="none";
 document.getElementById("id_actionMenu_myDesignPart").style.display="none";
 document.getElementById("id_dropDownMenu_DisplayOptions").style.display="none";
+
+updatePageWidth();
 
 }
 

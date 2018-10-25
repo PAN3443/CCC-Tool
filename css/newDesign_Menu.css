@@ -10,6 +10,7 @@
   vertical-align: middle;
   text-align: center;
   background:none;
+  font-family:verdana;
 }
 
 
@@ -28,62 +29,68 @@
   vertical-align: middle;
   text-align: left;
   background:none;
+  font-family:verdana;
 }
 
 
-.settingMenuLabelBox{
-  width:250px;
-  height: 25px;
+.dropdownMenuLabelBox{
+  width:20vw;
+  height: auto;
   background:rgba(255,255,255,0.3);
   border-bottom: 1px solid white;
 }
 
 
-.settingMenuLabel{
-  width:180px;
-  font-size: 18px;
-  line-height: 25px;
-  height: 25px;
+.dropdownMenuLabel{
+  width:15vw;
+  font-size: 2.2vh;
+  line-height: 3vh;
+  height: 3vh;
   font-weight: bold;
   color:white;
   vertical-align: middle;
   text-align: left;
   margin: 0px;
+  font-family:verdana;
 }
 
-.settingMenuLabelImg{
-  width:25px;
-  height: 25px;
-  margin-left: 20px;
-  margin-right: 20px;
+.dropdownMenuLabelImg{
+  width: 3vh;
+  height: 3vh;
+  margin-left: auto;
+  margin-right: auto;
 
 }
 
-.settingMenuButton{
+.dropdownMenuButton{
   display: block;
-  width:225px;
-  margin-left: 25px;
-  font-size: 16px;
-  line-height: 25px;
+  width:17vw;
+  margin-left: 1vw;
+  font-size: 2.2vh;
+  line-height: 3vh;
+  height: 3vh;
   cursor:pointer;
   color:white;
   vertical-align: middle;
   text-align: left;
+  font-family:verdana;
 }
 
-.settingMenuButton:hover {
+.dropdownMenuButton:hover {
   background: rgba(255,255,255,0.2);
 }
 
 
-.settingNotActiveMenuButton{
+.dropdownNotActiveMenuButton{
   display: block;
-  width:225px;
-  margin-left: 25px;
-  font-size: 16px;
-  line-height: 25px;
+  width:17vw;
+  margin-left: 1vw;
+  font-size: 2.2vh;
+  line-height: 3vh;
+  height: 3vh;
   cursor:not-allowed;
   color:rgb(180,180,180);
   vertical-align: middle;
   text-align: left;
+  font-family:verdana;
 }

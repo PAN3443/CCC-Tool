@@ -17,6 +17,7 @@ div.sticky {
   margin:0px;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-family:courier;
 }
 
 .sectionLabel{
@@ -29,7 +30,7 @@ div.sticky {
   width:100%;
   text-decoration: underline;
   margin:0px;
-  
+  font-family:verdana;
 }
 
 .subsectionLabel{
@@ -41,6 +42,7 @@ div.sticky {
   text-align:center;
   width:100%;
   margin:0px;
+  font-family:verdana;
 }
 
 .class_generalbutton{
@@ -61,10 +63,15 @@ div.sticky {
     vertical-align: middle;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-family:courier;
 }
 
 .class_generalbutton:hover{
   background-color: rgb(0, 143, 0);
+}
+
+.class_noSizeUpdate{
+
 }
 
 .class_RotateLeft{

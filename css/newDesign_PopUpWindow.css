@@ -1,3 +1,19 @@
+
+.class_popupWindow_Label{
+  width:100%;
+  height:5vh;
+  height:5vh;
+  line-height:5vh;
+  vertical-align:middle;
+  text-align:center;
+  vertical-align: middle;
+  margin:0px;
+  color:white;
+  font-size:4vh;
+  background: url(../img/background3.png);
+  font-family:verdana;
+}
+
 .class_RadioButtonPopUpWindow{
 
   font-size: 2vh;
@@ -9,6 +25,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   margin-bottom:0.5vh;
+  font-family:courier;
 
 }
 
@@ -23,6 +40,7 @@
   text-overflow: ellipsis;
   margin-top:auto;
   margin-bottom:auto;
+  font-family:courier;
 }
 
 #id_popupWindow_CloseColorpicker{
@@ -38,6 +56,7 @@
   font-size:2.5vh;
   background:black;
   cursor: pointer;
+  font-family:verdana;
 }
 
 

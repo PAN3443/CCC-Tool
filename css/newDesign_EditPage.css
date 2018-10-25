@@ -1,5 +1,4 @@
 
-
 #id_EditPage_backButton{
   background-color: rgb(204, 255, 204);
   border: 2px solid rgb(0, 204, 0);
@@ -270,7 +269,7 @@
 }
 
 
-.settingOrderDropdownButton{
+.dropdownOrderDropdownButton{
   display: block;
   width:150px;
   margin-left: 25px;
@@ -282,6 +281,6 @@
   text-align: left;
 }
 
-.settingOrderDropdownButton:hover {
+.dropdownOrderDropdownButton:hover {
   background: rgba(255,255,255,0.2);
 }

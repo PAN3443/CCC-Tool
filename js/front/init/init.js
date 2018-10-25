@@ -1,7 +1,75 @@
+function init_CCCPageStyle(){
+
+  var windowWidth = document.body.offsetWidth; //window.screen.availWidth; //document.body.offsetWidth;
+  var windowHeight = window.innerHeight;
+
+  var tmpElementList = document.getElementsByClassName('class_generalbutton');
+  var tmpHeight1 = Math.floor(windowHeight*0.05);
+  var tmpHeight2 = Math.floor(windowHeight*0.03);
+  for (var i = 0; i < tmpElementList.length; ++i) {
+
+    if (tmpElementList[i].classList.contains("class_noSizeUpdate"))
+      continue;
+
+      tmpElementList[i].style.height = tmpHeight1 + "px";
+      tmpElementList[i].style.fontSize = tmpHeight2 + "px";
+  }
+
+  tmpElementList = document.getElementsByClassName('standardText');
+  tmpHeight1 = Math.floor(windowHeight*0.025);
+  tmpHeight2 = Math.floor(windowHeight*0.02);
+  for (var i = 0; i < tmpElementList.length; ++i) {
+
+    if (tmpElementList[i].classList.contains("class_noSizeUpdate"))
+      continue;
+
+      tmpElementList[i].style.lineHeight = tmpHeight1 + "px";
+      tmpElementList[i].style.fontSize = tmpHeight2 + "px";
+  }
+
+  ///////////////
+  // HEADER
+  document.getElementById("headerDiv").style.width = windowWidth + "px";
+  document.getElementById("headerDiv").style.height = Math.floor(windowHeight*0.05) + "px";
+  document.getElementById("id_header_ccctoolLabel").style.fontSize = Math.floor(windowHeight*0.03) + "px";
+
+  tmpElementList = document.getElementsByClassName('menu_buttonNotActive');
+  tmpHeight1 = Math.floor(windowHeight*0.02);
+  tmpHeight2 = Math.floor(windowHeight*0.05);
+  for (var i = 0; i < tmpElementList.length; ++i) {
+      tmpElementList[i].style.fontSize =  tmpHeight1 + "px";
+      tmpElementList[i].style.lineHeight = tmpHeight2 + "px";
+  }
+
+  tmpElementList = document.getElementsByClassName('menu_button');
+  for (var i = 0; i < tmpElementList.length; ++i) {
+      tmpElementList[i].style.fontSize = tmpHeight1 + "px";
+      tmpElementList[i].style.lineHeight = tmpHeight2 + "px";
+  }
 
 
 
+  ///////////////
+  // FOOTER
+  document.getElementById("footerDiv").style.width = windowWidth + "px";
+  document.getElementById("footerDiv").style.height = Math.floor(windowHeight*0.10) + "px";
+  document.getElementById("id_footer_impressum").style.fontSize = Math.floor(windowHeight*0.025) + "px";
+  document.getElementById("id_footer_copyRight").style.fontSize = Math.floor(windowHeight*0.02) + "px";
+  document.getElementById("id_footer_version").style.fontSize = Math.floor(windowHeight*0.015) + "px";
 
+
+  document.getElementById("id_ccctoolPage").style.width = windowWidth + "px";
+
+  ///////////////
+  // WELCOME PAGE
+  document.getElementById("id_welcomePage").style.height = Math.floor(windowHeight*0.78) + "px";
+  document.getElementById("id_welcomePage_Img").style.height = Math.floor(windowHeight*0.5) + "px";
+  var tmpBox = document.getElementById("id_welcomePage_Img").getBoundingClientRect();
+  var tmpMargin = (windowWidth-tmpBox.width)/2;
+  document.getElementById("id_welcomePage_Img").style.marginLeft = tmpMargin + "px";
+  document.getElementById("id_welcomePage_Txt").style.height = Math.floor(windowHeight*0.2) + "px";
+
+}
 
 
 
