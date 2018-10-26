@@ -4,7 +4,7 @@ window.onload = function() {
   globalCMS1 = new class_CMS();
 
 
-  init_CCCPageStyle();
+
 
 
 
@@ -78,12 +78,9 @@ window.onload = function() {
   //// STYLE
 
   initMyDesignObj();
-
-
-//*  init_Style();
-
-
+  init_CCCPageStyle();
   // at least
+
   pageIsLoaded=true;
 
 

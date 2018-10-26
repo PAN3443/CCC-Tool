@@ -12,6 +12,7 @@ function init_CCCPageStyle(){
       continue;
 
       tmpElementList[i].style.height = tmpHeight1 + "px";
+      tmpElementList[i].style.lineHeight = tmpHeight1 + "px";
       tmpElementList[i].style.fontSize = tmpHeight2 + "px";
   }
 
@@ -23,6 +24,19 @@ function init_CCCPageStyle(){
     if (tmpElementList[i].classList.contains("class_noSizeUpdate"))
       continue;
 
+      tmpElementList[i].style.lineHeight = tmpHeight1 + "px";
+      tmpElementList[i].style.fontSize = tmpHeight2 + "px";
+  }
+
+  tmpElementList = document.getElementsByClassName('sectionLabel');
+  tmpHeight1 = Math.floor(windowHeight*0.08);
+  tmpHeight2 = Math.floor(windowHeight*0.075);
+  for (var i = 0; i < tmpElementList.length; ++i) {
+
+    if (tmpElementList[i].classList.contains("class_noSizeUpdate"))
+      continue;
+
+      tmpElementList[i].style.lineHeight = tmpHeight1 + "px";
       tmpElementList[i].style.lineHeight = tmpHeight1 + "px";
       tmpElementList[i].style.fontSize = tmpHeight2 + "px";
   }
@@ -65,9 +79,73 @@ function init_CCCPageStyle(){
   document.getElementById("id_welcomePage").style.height = Math.floor(windowHeight*0.78) + "px";
   document.getElementById("id_welcomePage_Img").style.height = Math.floor(windowHeight*0.5) + "px";
   var tmpBox = document.getElementById("id_welcomePage_Img").getBoundingClientRect();
-  var tmpMargin = (windowWidth-tmpBox.width)/2;
+  var tmpMargin = Math.floor((windowWidth-tmpBox.width)/2);
   document.getElementById("id_welcomePage_Img").style.marginLeft = tmpMargin + "px";
   document.getElementById("id_welcomePage_Txt").style.height = Math.floor(windowHeight*0.2) + "px";
+
+
+  ///////////////
+  // MyDesigns PAGE
+  document.getElementById("id_myDesignsPage").style.height = Math.floor(windowHeight*0.78) + "px";
+  document.getElementById("id_MyDesings_Label").style.marginTop = Math.floor(windowHeight*0.035) + "px";
+  document.getElementById("id_MyDesings_IMG").style.height = Math.floor(windowHeight*0.15) + "px";
+  document.getElementById("id_myDesignsPage_colormap_container").style.height = Math.floor(windowHeight*0.58) + "px";
+  tmpBox = document.getElementById("id_MyDesings_IMG").getBoundingClientRect();
+  tmpMargin = Math.floor((windowWidth-tmpBox.width)/2);
+  var tmpBox2 = document.getElementById("id_MyDesings_Label").getBoundingClientRect();
+  var tmpMargin2 = Math.floor((windowWidth-tmpBox2.width)/2);
+  var tmpMargin3 = tmpMargin2-tmpBox.width;
+  document.getElementById("id_MyDesings_Label").style.marginLeft = tmpMargin2 + "px";
+  document.getElementById("id_MyDesings_Label").style.marginRight = tmpMargin3 + "px";
+
+  tmpElementList = document.getElementsByClassName('class_MyDesignObjContainer');
+  tmpHeight1 = Math.floor(windowHeight*0.1);
+  tmpHeight2 = Math.floor(windowHeight*0.008);
+  for (var i = 0; i < tmpElementList.length; ++i) {
+      tmpElementList[i].style.height =  tmpHeight1 + "px";
+      tmpElementList[i].style.marginTop =  tmpHeight2 + "px";
+      tmpElementList[i].style.marginBottom = tmpHeight2 + "px";
+  }
+
+  tmpElementList = document.getElementsByClassName('class_MyDesignObjCMSCanvas');
+  tmpHeight2 = Math.floor(tmpHeight1/3);
+  // tmpHeight2 = tmpHeight2-4;
+  tmpHeight1 =Math.floor(tmpHeight2*0.75);
+  for (var i = 0; i < tmpElementList.length; ++i) {
+      tmpElementList[i].style.height =  tmpHeight2 + "px";
+      tmpElementList[i].style.lineHeight =  tmpHeight2 + "px";
+      tmpElementList[i].style.fontSize =  tmpHeight1 + "px";
+  }
+
+  tmpElementList = document.getElementsByClassName('class_MyDesignButton');
+  tmpHeight1 = Math.floor(windowHeight*0.1);
+  tmpHeight2 = Math.floor(tmpHeight1/2.5);
+  tmpHeight1 = Math.floor((tmpHeight1-2*tmpHeight2)/4)
+  for (var i = 0; i < tmpElementList.length; ++i) {
+      tmpElementList[i].style.height =  tmpHeight2 + "px";
+      tmpElementList[i].style.width =  tmpHeight2 + "px";
+      tmpElementList[i].style.marginTop =  tmpHeight1 + "px";
+      tmpElementList[i].style.marginBottom =  tmpHeight1 + "px";
+  }
+
+  document.getElementById("id_myDesignsPage").style.display = "none";
+
+
+  ///////////////
+  // New Page
+  document.getElementById("id_newCMSPage").style.height = Math.floor(windowHeight*0.78) + "px";
+
+  document.getElementById("id_newCMSPage_Label").style.marginTop = Math.floor(windowHeight*0.035) + "px";
+  document.getElementById("id_newCMSPage_Label").style.marginBottom = Math.floor(windowHeight*0.035) + "px";
+  var tmpBox = document.getElementById("id_newCMSPage_Label").getBoundingClientRect();
+  var tmpMargin = Math.floor((windowWidth-tmpBox.width)/2);
+  document.getElementById("id_newCMSPage_Label").style.marginLeft = tmpMargin + "px";
+
+  document.getElementById("id_newCMSPage_Img").style.height =  Math.floor(windowHeight*0.5) + "px";
+  document.getElementById("id_newCMSPage_MapDescription").style.height =  Math.floor(windowHeight*0.4) + "px";
+  document.getElementById("id_newCMSPage_MapDescription").style.maxHeight =  Math.floor(windowHeight*0.4) + "px";
+
+  document.getElementById("id_newCMSPage").style.display = "none";
 
 }
 

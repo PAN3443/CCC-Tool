@@ -1,8 +1,5 @@
 .class_MyDesignObjContainer {
   width: 50%;
-  height: 100px;
-  margin-top: 5px;
-  margin-bottom: 5px;
 }
 
 .class_MyDesignObjCMSDiv{
@@ -12,9 +9,6 @@
 
 .class_MyDesignObjCMSCanvas{
   width: 100%;
-  height: 30px;
-  line-height: 30px;
-  font-size: : 18px;
   overflow: auto;
   font-family:courier;
 }
@@ -26,11 +20,10 @@
 }
 
 .class_MyDesignButton{
-  height: 36px;
+  height: 40%;
   width: 100%;
-  max-width: 36px;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin-top: auto;
+  margin-bottom: auto;
   margin-left: auto;
   margin-right: auto;
   border: 2px solid rgb(180, 180, 180);

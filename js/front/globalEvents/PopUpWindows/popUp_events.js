@@ -9,6 +9,19 @@ function openFilterWindow(){
 
 
 //////////////////////////////////////
+/// Impressum Window /////
+///////////////////////////////////
+
+
+function closeImpressum(){
+  document.getElementById("id_PopUp_ImpessumWindow").style.display="none";
+}
+
+function openImpressum(){
+  document.getElementById("id_PopUp_ImpessumWindow").style.display="block";
+}
+
+//////////////////////////////////////
 /// Alert Window /////
 ///////////////////////////////////
 

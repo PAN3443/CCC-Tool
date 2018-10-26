@@ -20,4 +20,9 @@ function init_events_PopUp_ColorPicker(){
   document.getElementById('id_popupWindow_Colorpicker_canvasPicker2_bar').addEventListener("mousemove", event_colorpicker_MouseMove);
   document.getElementById('id_popupWindow_Colorpicker_canvasPicker2_bar').addEventListener("click", event_colorpicker_MouseClick);
 
+  document.getElementById('id_popupWindow_Colorpicker_Input1').addEventListener("change", changeColorPickerInput);
+  document.getElementById('id_popupWindow_Colorpicker_Input2').addEventListener("change", changeColorPickerInput);
+  document.getElementById('id_popupWindow_Colorpicker_Input3').addEventListener("change", changeColorPickerInput);
+
+
 }

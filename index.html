@@ -387,25 +387,23 @@
                     -----------------------------------------------
                     -->
 
-    <div id="id_myDesignsPage" style="width:100%; height:100%; display:none; ">
+    <div id="id_myDesignsPage" style="width:100%; height:auto;">
 
       <div class="row">
-        <h1 class="sectionLabel" style="margin-top:auto; margin-bottom:50px;  margin-left:25%; width:50%;">My Designs</h1>
+        <h1 id="id_MyDesings_Label" class="sectionLabel">My Designs</h1>
 
-        <img src="img/MyDesignsPage.png" style="width:25%;">
+        <img  id="id_MyDesings_IMG" src="img/MyDesignsPage.png">
       </div>
 
 
-      <div id="id_myDesignsPage_colormap_container" style="width:80%; height:50%; margin-left:10%; margin-top:10px; margin-bottom:10px;">
+      <div id="id_myDesignsPage_colormap_container" style="width:80%; height:50%; margin-left:10%; overflow:auto;">
 
       </div>
 
-      <div class="row">
+      <div class="row" style="margin-top:auto; margin-bottom:auto;">
         <button class="class_generalbutton" style="margin-left:25%; margin-right:10%;  width:20%;">Visit Gallery</button>
         <button class="class_generalbutton" onclick="showNewCMSPage()" style="margin-right:25%;  width:20%;">New CMS</button>
       </div>
-
-
 
     </div>
 
@@ -415,15 +413,15 @@
                     -----------------------------------------------
                     -->
 
-    <div id="id_newCMSPage" style="width:100%; height:100%; display:none; ">
+    <div id="id_newCMSPage" style="width:100%; height:100%; ">
 
-      <h1 class="sectionLabel" style="margin-top:20px; margin-bottom:30px;  margin-left:25%; width:50%;">New CMS</h1>
+      <h1 id="id_newCMSPage_Label" class="sectionLabel" >New CMS</h1>
 
       <div class="row" style="width:100%;">
 
-        <img src="img/newPage.png" style="width:25%; margin-left:12.25%;">
+        <img id="id_newCMSPage_Img" src="img/newPage.png" style="margin-left:auto; margin-top:auto; margin-bottom:auto;">
 
-        <div style="width:50%;">
+        <div style="width:50%; margin-right:auto;">
 
           <p class="standardText " style="margin-left:10%; font-weight:bold; margin-bottom:5px;">Name: </p>
           <input type="text" id="id_newCMSPage_ColormapName" style="width:80%; margin-left:10%;" name="mapname" required placeholder="Please enter a name for your colormap" />
@@ -435,7 +433,7 @@
       </div>
 
 
-      <div class="row">
+      <div class="row" style="margin-top:20px;">
         <button class="class_generalbutton" onclick="showMyDesignsPage()" style="margin-left:25%; margin-right:10%;  width:20%;">Cancel</button>
         <button class="class_generalbutton" onclick="showEditPage()" style="margin-right:25%;  width:20%;">Create</button>
       </div>
@@ -1065,63 +1063,87 @@
                       ----------------	ColorSelector	  -------------
                      -->
 
-    <div id="id_popupColorPicker" style=" height: 30vh; position:absolute; z-index:50; top:50px; left:50px; bottom:0px; border: 0.4vh solid black; background:white; display:none;">
+    <div id="id_popupColorPicker" style=" height: 36vh; position:absolute; z-index:50; top:50px; left:50px; bottom:0px; border: 0.4vh solid black; background:white; display:none;">
+
+      <div class="row">
 
 
-      <div class="row" style="margin-bottom:1vh;">
-        <h1 class="class_popupWindow_Label" style="height:3vh; line-height:3vh; font-size:2.5vh;"> Color Picker </h1>
-        <div id="id_popupWindow_CloseColorpicker" onclick="closeColorPicker()">
-          X
-        </div>
+          <div id="id_popupColorPicker_settingDiv" style="height: 36vh; width:8vw; overflow-x:hidden; overflow-y:hidden; display:none; ">
+
+            <h1 class="class_popupWindow_Label" style="height:3vh; line-height:3vh; font-size:2vh;"> Settings </h1>
+
+            <p class="class_RadioButtonPopUpWindow" style="font-weight:bold; color:white; background:black; width:100%; padding-left:0.5vw;"> Select:</p>
+            <input class="class_RadioButtonPopUpWindow" style="margin-left:0.5vw;" type="radio" id="id_popupWindow_Colorpicker_RG_B" name="popupWindow_Colorpicker_Type" value="1" checked="checked">
+            <label class="class_RadioButtonPopUpWindow" for="id_popupWindow_Colorpicker_RG_B"> RG+B </label><br>
+            <input class="class_RadioButtonPopUpWindow" style="margin-left:0.5vw;" type="radio" id="id_popupWindow_Colorpicker_RB_G" name="popupWindow_Colorpicker_Type" value="2">
+            <label class="class_RadioButtonPopUpWindow" for="id_popupWindow_Colorpicker_RB_G"> RB+G </label><br>
+            <input class="class_RadioButtonPopUpWindow" style="margin-left:0.5vw; "type="radio" id="id_popupWindow_Colorpicker_GB_R" name="popupWindow_Colorpicker_Type" value="3">
+            <label class="class_RadioButtonPopUpWindow" for="id_popupWindow_Colorpicker_GB_R"> GB+R </label><br>
+            <input class="class_RadioButtonPopUpWindow" style="margin-left:0.5vw;" type="radio" id="id_popupWindow_Colorpicker_HS_V" name="popupWindow_Colorpicker_Type" value="4">
+            <label class="class_RadioButtonPopUpWindow" for="id_popupWindow_Colorpicker_HS_V"> HS+V </label><br>
+            <input class="class_RadioButtonPopUpWindow" style="margin-left:0.5vw;" type="radio" id="id_popupWindow_Colorpicker_HV_S" name="popupWindow_Colorpicker_Type" value="5">
+            <label class="class_RadioButtonPopUpWindow" for="id_popupWindow_Colorpicker_HV_S"> HV_S </label><br>
+            <input class="class_RadioButtonPopUpWindow" style="margin-left:0.5vw;" type="radio" id="id_popupWindow_Colorpicker_SV_H" name="popupWindow_Colorpicker_Type" value="6">
+            <label class="class_RadioButtonPopUpWindow" for="id_popupWindow_Colorpicker_SV_H"> SV_H </label><br>
+
+            <p id="id_popupColorPicker_InputLabel" class="class_RadioButtonPopUpWindow" style="font-weight:bold; color:white; background:black; width:100%; margin-top:1vh; padding-left:0.5vw;"> RGB:</p>
+
+            <div class="row" style="margin-left:0.5vw;">
+
+              <p  id="id_popupColorPicker_InputLabel1" class="class_InputPopUpWindow" id="id_popupWindow_Colorpicker_Label1" style="font-weight:bold; width:2vw;">
+                R :
+              </p>
+              <input id="id_popupWindow_Colorpicker_Input1" class="class_InputPopUpWindow" type="number" step="any" value="0" min="0" max="255" style="text-align:center;  width:3vw">
+            </div>
+            <div class="row" style="margin-left:0.5vw;">
+              <p id="id_popupColorPicker_InputLabel2" class="class_InputPopUpWindow" id="id_popupWindow_Colorpicker_Label2" style="font-weight:bold; width:2vw;">
+                G :
+              </p>
+              <input id="id_popupWindow_Colorpicker_Input2" class="class_InputPopUpWindow" type="number" step="any" value="0" min="0" max="255" style="text-align:center;  width:3vw">
+            </div>
+            <div class="row" style="margin-left:0.5vw;">
+              <p  id="id_popupColorPicker_InputLabel3" class="class_InputPopUpWindow" id="id_popupWindow_Colorpicker_Label3" style="font-weight:bold; width:2vw;">
+                B :
+              </p>
+              <input id="id_popupWindow_Colorpicker_Input3" class="class_InputPopUpWindow" type="number" step="any" value="0" min="0" max="255" style="text-align:center; margin-right:auto; width:3vw">
+            </div>
+
+
+          </div>
+
+          <div >
+
+            <div class="row" style="background:black;">
+
+              <div onclick="openColorPickerSettings()" style="height:3vh; width:3vh; background: url(img/gear_wheel.png); background-size:cover;
+                background-repeat:no-repeat;
+                background-position: center center; cursor:pointer;">
+              </div>
+
+              <h1 class="class_popupWindow_Label" style="height:3vh; line-height:3vh; font-size:2.5vh;"> Color Picker </h1>
+              <div id="id_popupWindow_CloseColorpicker" onclick="closeColorPicker()">
+                X
+              </div>
+            </div>
+
+            <div class="row" style="height:33vh; width:43vh;">
+
+              <div style="position: relative; width:33vh; height:33vh; border:0.2vh solid black; background:grey;">
+                <canvas id="id_popupWindow_Colorpicker_canvasPicker" style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:100%;"></canvas>
+                <canvas id="id_popupWindow_Colorpicker_canvasPicker_circle" style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:100%;"></canvas>
+              </div>
+
+              <div style="position: relative;width:10vh; height:33vh; border:0.2vh solid black; background:grey;">
+                <canvas id="id_popupWindow_Colorpicker_canvasPicker2" style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:100%;"></canvas>
+                <canvas id="id_popupWindow_Colorpicker_canvasPicker2_bar" style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:100%;"></canvas>
+              </div>
+
+            </div>
+          </div>
+
+
       </div>
 
-      <div class="row" style="height:20vh; width:20vw;">
-
-        <div style="margin:auto; height: auto; width:5vw; overflow:auto;">
-
-          <p class="class_RadioButtonPopUpWindow" style="font-weight:bold;"> Select:</p>
-          <input class="class_RadioButtonPopUpWindow" type="radio" id="id_popupWindow_Colorpicker_RG_B" name="popupWindow_Colorpicker_Type" value="1" checked="checked">
-          <label class="class_RadioButtonPopUpWindow" for="id_popupWindow_Colorpicker_RG_B"> RG+B </label><br>
-          <input class="class_RadioButtonPopUpWindow" type="radio" id="id_popupWindow_Colorpicker_RB_G" name="popupWindow_Colorpicker_Type" value="2">
-          <label class="class_RadioButtonPopUpWindow" for="id_popupWindow_Colorpicker_RB_G"> RB+G </label><br>
-          <input class="class_RadioButtonPopUpWindow" type="radio" id="id_popupWindow_Colorpicker_GB_R" name="popupWindow_Colorpicker_Type" value="3">
-          <label class="class_RadioButtonPopUpWindow" for="id_popupWindow_Colorpicker_GB_R"> GB+R </label><br>
-          <input class="class_RadioButtonPopUpWindow" type="radio" id="id_popupWindow_Colorpicker_HS_V" name="popupWindow_Colorpicker_Type" value="4">
-          <label class="class_RadioButtonPopUpWindow" for="id_popupWindow_Colorpicker_HS_V"> HS+V </label><br>
-          <input class="class_RadioButtonPopUpWindow" type="radio" id="id_popupWindow_Colorpicker_HV_S" name="popupWindow_Colorpicker_Type" value="5">
-          <label class="class_RadioButtonPopUpWindow" for="id_popupWindow_Colorpicker_HV_S"> HV_S </label><br>
-          <input class="class_RadioButtonPopUpWindow" type="radio" id="id_popupWindow_Colorpicker_SV_H" name="popupWindow_Colorpicker_Type" value="6">
-          <label class="class_RadioButtonPopUpWindow" for="id_popupWindow_Colorpicker_SV_H"> SV_H </label><br>
-
-        </div>
-
-
-        <div style="position: relative; width:10vw; height:20vh; margin:auto; border:0.2vh solid black; background:grey;">
-          <canvas id="id_popupWindow_Colorpicker_canvasPicker" style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:100%;"></canvas>
-          <canvas id="id_popupWindow_Colorpicker_canvasPicker_circle" style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:100%;"></canvas>
-        </div>
-
-        <div style="position: relative; width:3vw; height:20vh; margin:auto; border:0.2vh solid black; background:grey;">
-          <canvas id="id_popupWindow_Colorpicker_canvasPicker2" style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:100%;"></canvas>
-          <canvas id="id_popupWindow_Colorpicker_canvasPicker2_bar" style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:100%;"></canvas>
-        </div>
-
-      </div>
-
-      <div class="row" style="width:20vw; height:6vh; overflow:auto;">
-        <p class="class_InputPopUpWindow" id="id_popupWindow_Colorpicker_Label1" style="font-weight:bold; margin-left:auto; width:2vw;">
-          R :
-        </p>
-        <input id="id_popupWindow_Colorpicker_Input1" class="class_InputPopUpWindow" type="number" step="any" value="0" min="0" max="255" style="text-align:center;  width:3vw">
-        <p class="class_InputPopUpWindow" id="id_popupWindow_Colorpicker_Label2" style="font-weight:bold; width:2vw; margin-left:0.5vw;">
-          G :
-        </p>
-        <input id="id_popupWindow_Colorpicker_Input2" class="class_InputPopUpWindow" type="number" step="any" value="0" min="0" max="255" style="text-align:center;  width:3vw">
-        <p class="class_InputPopUpWindow" id="id_popupWindow_Colorpicker_Label3" style="font-weight:bold; width:2vw; margin-left:0.5vw;">
-          B :
-        </p>
-        <input id="id_popupWindow_Colorpicker_Input3" class="class_InputPopUpWindow" type="number" step="any" value="0" min="0" max="255" style="text-align:center; margin-right:auto; width:3vw">
-      </div>
 
     </div>
 
@@ -1195,6 +1217,89 @@
     </div>
   </div>
 
+
+  <!---------------- Impressum ---------------  -->
+  <div id="id_PopUp_ImpessumWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
+
+    <div style="margin-top:10vh; height:auto; background:white; width:70%; border: 1px solid black; margin-left:auto; margin-right:auto;">
+
+      <h3  class="class_popupWindow_Label"  > Impressum / Contact </h3>
+
+      <div  style="width:100%; height:60vh; overflow:auto; border-bottom: 1px solid grey;">
+
+
+          <h1 class="subsectionLabel class_noSizeUpdate" style="margin-left:10%; width:80%; text-align:left; height:4vh; line-height:4vh; font-size:3vh; vertical-align:middle; margin-top:3vh;  margin-bottom:2vh; text-decoration:underline;">  Contact  </h1>
+
+
+            <p class="standardText class_noSizeUpdate" style="margin-top:1vh; margin-left:10%; width:80%; text-align:left; line-height:2.2vh; font-size:2vh;">
+              <strong>Postbox:</strong> <br>
+              Postfach 100920 <br>
+              D-04009 Leipzig <br>
+            </p>
+
+            <p class="standardText class_noSizeUpdate" style="margin-top:1vh; margin-left:10%; width:80%; text-align:left; line-height:2.2vh; font-size:2vh;">
+              <strong>Address:</strong> <br>
+              Ritterstraße 26 <br>
+              D-04109 Leipzig <br>
+            </p>
+
+            <p class="standardText class_noSizeUpdate" style="margin-top:1vh; margin-left:10%; width:80%; text-align:left; line-height:2.2vh; font-size:2vh;">
+              <strong>Contact for Informations or Help:</strong> <br>
+              Pascal Nardini <br>
+              Phone: +49 341 97-32255 <br>
+              E-Mail: ccchelp'at'informatik.uni-leipzig.de <br>
+            </p>
+
+
+
+          <h1 class="subsectionLabel class_noSizeUpdate" style="margin-left:10%; width:80%; text-align:left; height:4vh; line-height:4vh; font-size:3vh; vertical-align:middle; text-decoration:underline;margin-top:3vh;  margin-bottom:2vh;">  Impressum (nach § 5 Allgemeine Informationspflichten) </h1>
+
+          <p class="standardText class_noSizeUpdate" style="margin-top:1vh; margin-left:10%; width:80%; text-align:left; line-height:2.2vh; font-size:2vh;">
+            Diese Internet Seite mit dem Domainname "ccctool.com" ist ein Angebot von der Universit&auml;t Leipzig (<a target="_blank" href="https://www.uni-leipzig.de/service/impressum.html">Impressum Universit&auml;t Leipzig</a>) und wurde in der Abteilung Bild- und Signalverarbeitung BSV (<a target="_blank" href="https://www.informatik.uni-leipzig.de/bsv/homepage/de/content/impressum">Impressum BSV</a>) von Pascal Nardini entwickelt.
+          </p>
+
+          <p class="standardText class_noSizeUpdate" style="margin-top:1vh; margin-left:10%; width:80%; text-align:left; line-height:2.2vh; font-size:2vh;">
+            <strong>Postfachadresse:</strong> <br>
+            Postfach 100920 <br>
+            D-04009 Leipzig <br>
+          </p>
+
+          <p class="standardText class_noSizeUpdate" style="margin-top:1vh; margin-left:10%; width:80%; text-align:left; line-height:2.2vh; font-size:2vh;">
+            <strong>Hausadresse:</strong> <br>
+            Ritterstraße 26 <br>
+            D-04109 Leipzig <br>
+          </p>
+
+          <p class="standardText class_noSizeUpdate" style="margin-top:1vh; margin-left:10%; width:80%; text-align:left; line-height:2.2vh; font-size:2vh;">
+            <strong>Kontakt:</strong> <br>
+            Pascal Nardini <br>
+            Telefon: +49 341 97-32255 <br>
+            E-Mail: ccchelp'at'informatik.uni-leipzig.de <br>
+          </p>
+
+
+          <p class="standardText class_noSizeUpdate" style="margin-top:1vh; margin-left:10%; width:80%; text-align:left; line-height:2.2vh; font-size:2vh;">
+            <strong>Haftungshinweis:</strong><br>
+            Trotz sorgf&auml;ltiger inhaltlicher Kontrolle &uuml;bernehmen wir keine Haftung für die Inhalte externer Links. F&uuml;r den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich. Wir &uuml;bernehmen keine Gew&auml;hr f&uuml;r die Aktualit&auml;t, Korrektheit, Vollst&auml;ndigkeit oder Qualit&auml;t der bereitgestellten Daten und Informationen. Falls Links unserer Seiten auf Seiten verweist, deren Inhalt Anlass zur Beanstandung gibt, bitten wir um Mitteilung. Wir behalten uns das Recht vor, ohne vorherige Ank&uuml;ndigung die bereitgestellten Informationen zu &auml;ndern, zu erg&auml;nzen oder zu entfernen.
+          </p>
+
+          <p class="standardText class_noSizeUpdate" style="margin-top:1vh; margin-left:10%; width:80%; text-align:left; line-height:2.2vh; font-size:2vh; margin-bottom:2vh;">
+            <strong>Urheber- und Kennzeichenrecht:</strong><br>
+            Alle innerhalb unserer Seiten genannten und ggf. durch Dritte gesch&uuml;tzten Marken- und Warenzeichen unterliegen uneingeschr&auml;nkt den Bestimmungen des jeweils g&uuml;ltigen Kennzeichenrechts und den Besitzrechten der jeweiligen eingetragenen Eigent&uuml;mer. Allein aufgrund der bloßen Nennung ist nicht der Schluss zu ziehen, dass Markenzeichen nicht durch Rechte Dritter gesch&uuml;tzt sind! Das Copyright für ver&ouml;ffentlichte, von uns selbst erstellte Objekte bleibt allein beim Urheber der Objekte. Eine Vervielf&auml;ltigung oder Verwendung solcher Grafiken, Tondokumente, Videosequenzen und Texte in anderen elektronischen oder gedruckten Publikationen ist ohne ausdr&uuml;ckliche Zustimmung des Urhebers nicht gestattet.
+          </p>
+
+          </div>
+
+            <button class="class_generalbutton class_noSizeUpdate" onclick="closeImpressum()" title="close" style=" margin-left:25%; margin-right:25%; width:50%; height:6vh; line-height:6vh; font-size:3vh;  margin-top:2vh; margin-bottom:2vh;"> Close </button>
+
+
+      </div>
+
+
+
+
+  </div>
+
   <!--
                           ----------------------------------------------------
                           ----------------	Ask Window	  -------------
@@ -1249,7 +1354,7 @@
       <img title="University of Texas at Austin" src="img/Logos/UT.png" style="margin-left:auto; height: 80%; cursor: pointer; margin-top:auto; margin-bottom:auto;">
 
       <div style="margin-left:auto; margin-right:auto; height: 100%;">
-        <p id="id_footer_impressum" onclick="changePage(8)" style="color:white; margin-bottom:auto; margin-top:auto; font-size:20px; vertical-align: middle; text-decoration:underline; cursor:pointer; margin:0px; font-family:courier;">Impressum / Contact</p>
+        <p id="id_footer_impressum" onclick="openImpressum()" style="color:white; margin-bottom:auto; margin-top:auto; font-size:20px; vertical-align: middle; text-decoration:underline; cursor:pointer; margin:0px; font-family:courier;">Impressum / Contact</p>
         <p id="id_footer_copyRight" style="color:white; vertical-align: middle; font-size:15px; margin:0px; margin-bottom:auto; font-family:courier;"> Copyright © 2018 </p>
         <p id="id_footer_version" style=" margin:0px; height:15px; vertical-align: middle; color:white; font-size:15px; margin-bottom:auto; font-family:courier;"> Version: 0.6.0 </p>
       </div>

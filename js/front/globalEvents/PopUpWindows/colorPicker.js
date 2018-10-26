@@ -1,6 +1,14 @@
 
 function closeColorPicker(){
   document.getElementById("id_popupColorPicker").style.display="none";
+  document.getElementById("id_popupColorPicker_settingDiv").style.display="none";
+}
+
+function openColorPickerSettings(){
+  if(document.getElementById("id_popupColorPicker_settingDiv").style.display=="none")
+    document.getElementById("id_popupColorPicker_settingDiv").style.display="inline-block";
+  else
+    document.getElementById("id_popupColorPicker_settingDiv").style.display="none";
 }
 
 function openColorPicker(event){
@@ -72,10 +80,47 @@ function openColorPicker(event){
   }
 
 
+
+  if(document.getElementById("id_popupWindow_Colorpicker_HS_V").checked ||
+    document.getElementById("id_popupWindow_Colorpicker_HV_S").checked ||
+      document.getElementById("id_popupWindow_Colorpicker_SV_H").checked ){
+  colorpickerColor=colorpickerColor.calcHSVColor();
+  document.getElementById("id_popupWindow_Colorpicker_Input1").max = 360;
+  document.getElementById("id_popupWindow_Colorpicker_Input2").max = 100;
+  document.getElementById("id_popupWindow_Colorpicker_Input3").max = 100;
+  document.getElementById("id_popupWindow_Colorpicker_Input1").value = Math.round(colorpickerColor.getHValue()*360);
+    document.getElementById("id_popupWindow_Colorpicker_Input2").value = Math.round(colorpickerColor.getSValue()*100);
+      document.getElementById("id_popupWindow_Colorpicker_Input3").value = Math.round(colorpickerColor.getVValue()*100);
+
+      document.getElementById("id_popupColorPicker_InputLabel").innerHTML = "HSV";
+      document.getElementById("id_popupColorPicker_InputLabel1").innerHTML = "H : ";
+      document.getElementById("id_popupColorPicker_InputLabel2").innerHTML = "S : ";
+      document.getElementById("id_popupColorPicker_InputLabel3").innerHTML = "V : ";
+}
+else{
+  document.getElementById("id_popupWindow_Colorpicker_Input1").max = 255;
+  document.getElementById("id_popupWindow_Colorpicker_Input2").max = 255;
+  document.getElementById("id_popupWindow_Colorpicker_Input3").max = 255;
+  document.getElementById("id_popupWindow_Colorpicker_Input1").value = Math.round(colorpickerColor.getRValue()*255);
+    document.getElementById("id_popupWindow_Colorpicker_Input2").value = Math.round(colorpickerColor.getGValue()*255);
+      document.getElementById("id_popupWindow_Colorpicker_Input3").value = Math.round(colorpickerColor.getBValue()*255);
+
+      document.getElementById("id_popupColorPicker_InputLabel").innerHTML = "RGB";
+      document.getElementById("id_popupColorPicker_InputLabel1").innerHTML = "R : ";
+      document.getElementById("id_popupColorPicker_InputLabel2").innerHTML = "G : ";
+      document.getElementById("id_popupColorPicker_InputLabel3").innerHTML = "B : ";
+}
+
+
+
   initColorpickerBackground();
   drawColorPickerCircle();
   initColorPickerVBarBackground();
   drawColorPickerVBar();
+
+
+  var tmpRGB = colorpickerColor.calcHSVColor();
+
 }
 
 function changeColorpickerType(event){
@@ -114,6 +159,37 @@ function changeColorpickerType(event){
   drawColorPickerCircle();
   initColorPickerVBarBackground();
   drawColorPickerVBar();
+
+
+  if(document.getElementById("id_popupWindow_Colorpicker_HS_V").checked ||
+    document.getElementById("id_popupWindow_Colorpicker_HV_S").checked ||
+      document.getElementById("id_popupWindow_Colorpicker_SV_H").checked ){
+  colorpickerColor=colorpickerColor.calcHSVColor();
+  document.getElementById("id_popupWindow_Colorpicker_Input1").max = 360;
+  document.getElementById("id_popupWindow_Colorpicker_Input2").max = 100;
+  document.getElementById("id_popupWindow_Colorpicker_Input3").max = 100;
+  document.getElementById("id_popupWindow_Colorpicker_Input1").value = Math.round(colorpickerColor.getHValue()*360);
+    document.getElementById("id_popupWindow_Colorpicker_Input2").value = Math.round(colorpickerColor.getSValue()*100);
+      document.getElementById("id_popupWindow_Colorpicker_Input3").value = Math.round(colorpickerColor.getVValue()*100);
+
+      document.getElementById("id_popupColorPicker_InputLabel").innerHTML = "HSV";
+      document.getElementById("id_popupColorPicker_InputLabel1").innerHTML = "H : ";
+      document.getElementById("id_popupColorPicker_InputLabel2").innerHTML = "S : ";
+      document.getElementById("id_popupColorPicker_InputLabel3").innerHTML = "V : ";
+}
+else{
+  document.getElementById("id_popupWindow_Colorpicker_Input1").max = 255;
+  document.getElementById("id_popupWindow_Colorpicker_Input2").max = 255;
+  document.getElementById("id_popupWindow_Colorpicker_Input3").max = 255;
+  document.getElementById("id_popupWindow_Colorpicker_Input1").value = Math.round(colorpickerColor.getRValue()*255);
+    document.getElementById("id_popupWindow_Colorpicker_Input2").value = Math.round(colorpickerColor.getGValue()*255);
+      document.getElementById("id_popupWindow_Colorpicker_Input3").value = Math.round(colorpickerColor.getBValue()*255);
+
+      document.getElementById("id_popupColorPicker_InputLabel").innerHTML = "RGB";
+      document.getElementById("id_popupColorPicker_InputLabel1").innerHTML = "R : ";
+      document.getElementById("id_popupColorPicker_InputLabel2").innerHTML = "G : ";
+      document.getElementById("id_popupColorPicker_InputLabel3").innerHTML = "B : ";
+}
 }
 
 function initColorpickerBackground(){
@@ -665,6 +741,7 @@ function event_colorpicker_MouseClick(event){
 
           initColorpickerBackground();
           drawColorPickerVBar();
+          //drawColorPickerCircle();
 
 
       break;
@@ -673,8 +750,34 @@ function event_colorpicker_MouseClick(event){
 
   }
 
+  affectColorpickerChange();
+
+    var tmpRGB  = colorpickerColor.calcRGBColor();
+
+    if(document.getElementById("id_popupWindow_Colorpicker_HS_V").checked ||
+      document.getElementById("id_popupWindow_Colorpicker_HV_S").checked ||
+        document.getElementById("id_popupWindow_Colorpicker_SV_H").checked ){
+
+    document.getElementById("id_popupWindow_Colorpicker_Input1").value = Math.round(colorpickerColor.getHValue()*360);
+      document.getElementById("id_popupWindow_Colorpicker_Input2").value = Math.round(colorpickerColor.getSValue()*100);
+        document.getElementById("id_popupWindow_Colorpicker_Input3").value = Math.round(colorpickerColor.getVValue()*100);
+
+  }
+  else{
+    document.getElementById("id_popupWindow_Colorpicker_Input1").value = Math.round(colorpickerColor.getRValue()*255);
+      document.getElementById("id_popupWindow_Colorpicker_Input2").value = Math.round(colorpickerColor.getGValue()*255);
+        document.getElementById("id_popupWindow_Colorpicker_Input3").value = Math.round(colorpickerColor.getBValue()*255);
+
+  }
 
 
+  document.getElementById(colorpickerAffectID).style.background = tmpRGB.getRGBString();
+
+}
+
+
+
+function affectColorpickerChange(){
   switch (colorpickerAffectID) {
     case "id_EditPage_CMS_NaN_Color":
     globalCMS1.setNaNColor(colorpickerColor);
@@ -702,9 +805,106 @@ function event_colorpicker_MouseClick(event){
 
   }
 
+}
+
+
+function changeColorPickerInput(){
+
+
+  if(document.getElementById("id_popupWindow_Colorpicker_HS_V").checked ||
+    document.getElementById("id_popupWindow_Colorpicker_HV_S").checked ||
+      document.getElementById("id_popupWindow_Colorpicker_SV_H").checked ){
+
+
+        var hVal = parseFloat(document.getElementById("id_popupWindow_Colorpicker_Input1").value)/360;
+        var sVal = parseFloat(document.getElementById("id_popupWindow_Colorpicker_Input2").value)/100;
+        var vVal = parseFloat(document.getElementById("id_popupWindow_Colorpicker_Input3").value)/100;
+
+
+        if(hVal>1.0){
+          hVal = 1.0;
+          document.getElementById("id_popupWindow_Colorpicker_Input1").value=360;
+        }
+
+        if(hVal<0){
+          hVal = 0;
+          document.getElementById("id_popupWindow_Colorpicker_Input1").value=0;
+        }
+
+
+        if(sVal>1.0){
+          sVal = 1.0;
+          document.getElementById("id_popupWindow_Colorpicker_Input2").value=100;
+        }
+
+        if(sVal<0){
+          sVal = 0;
+          document.getElementById("id_popupWindow_Colorpicker_Input2").value=0;
+        }
+
+
+        if(vVal>1.0){
+          vVal = 1.0;
+          document.getElementById("id_popupWindow_Colorpicker_Input3").value=100;
+        }
+
+        if(vVal<0){
+          vVal = 0;
+          document.getElementById("id_popupWindow_Colorpicker_Input3").value=0;
+        }
+
+
+        colorpickerColor = new classColor_HSV(hVal,sVal,vVal);
+
+}
+else{
+  var rVal = parseFloat(document.getElementById("id_popupWindow_Colorpicker_Input1").value)/255;
+  var gVal = parseFloat(document.getElementById("id_popupWindow_Colorpicker_Input2").value)/255;
+  var bVal = parseFloat(document.getElementById("id_popupWindow_Colorpicker_Input3").value)/255;
+
+
+  if(rVal>1.0){
+    rVal = 1.0;
+    document.getElementById("id_popupWindow_Colorpicker_Input1").value=255;
+  }
+
+  if(rVal<0){
+    rVal = 0;
+    document.getElementById("id_popupWindow_Colorpicker_Input1").value=0;
+  }
+
+
+  if(gVal>1.0){
+    gVal = 1.0;
+    document.getElementById("id_popupWindow_Colorpicker_Input2").value=255;
+  }
+
+  if(gVal<0){
+    gVal = 0;
+    document.getElementById("id_popupWindow_Colorpicker_Input2").value=0;
+  }
+
+
+  if(bVal>1.0){
+    bVal = 1.0;
+    document.getElementById("id_popupWindow_Colorpicker_Input3").value=255;
+  }
+
+  if(bVal<0){
+    bVal = 0;
+    document.getElementById("id_popupWindow_Colorpicker_Input3").value=0;
+  }
+
+
+  colorpickerColor = new classColor_RGB(rVal,gVal,bVal);
+
+}
 
 
 
-  document.getElementById(colorpickerAffectID).style.background = colorpickerColor.calcRGBColor().getRGBString();
+  initColorpickerBackground();
+  drawColorPickerVBar();
+  drawColorPickerCircle();
 
+  affectColorpickerChange();
 }

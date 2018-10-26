@@ -75,14 +75,14 @@ function drawScaledBands(){
 
 
 function drawConstCustomBand(){
-  document.getElementById("id_editPage_customConstBand").style.background=customConstBandColor.getRGBString();
-  document.getElementById("id_editPage_customConstColor").style.background=customConstBandColor.getRGBString();
+  document.getElementById("id_editPage_customConstBand").style.background=customConstBandColor.calcRGBColor().getRGBString();
+  document.getElementById("id_editPage_customConstColor").style.background=customConstBandColor.calcRGBColor().getRGBString();
 }
 
 
 function drawScaleCustomBand(){
-  document.getElementById("id_editPage_customScaleColor1").style.background=customScaleBandColor1.getRGBString();
-  document.getElementById("id_editPage_customScaleColor2").style.background=customScaleBandColor2.getRGBString();
+  document.getElementById("id_editPage_customScaleColor1").style.background=customScaleBandColor1.calcRGBColor().getRGBString();
+  document.getElementById("id_editPage_customScaleColor2").style.background=customScaleBandColor2.calcRGBColor().getRGBString();
 
   var resolutionX = 100;
   drawCanvasBand(document.getElementById("id_editPage_customScaleBand"), customScaleBandColor1, customScaleBandColor2,resolutionX);
