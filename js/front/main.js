@@ -20,7 +20,7 @@ window.onload = function() {
   // if possible zoom to 100%
   /*document.body.style.zoom="100%";
 
-  document.onkeydown = keyDownDocumentHandler;
+
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// GLOBAL /////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -87,12 +87,24 @@ window.onload = function() {
 }
 
 
-
-/*window.onresize = function(event) {
-
-  init_CCCPageStyle();
-
+/*window.onscroll = function() {
+  document.getElementById("headerDiv").style.marginLeft = document.documentElement.scrollLeft+"px";
+  document.getElementById("footerDiv").style.marginLeft = document.documentElement.scrollLeft+"px";
 };*/
+
+
+
+
+
+
+window.onresize = function(event) {
+
+
+  var windowWidth = document.body.offsetWidth;
+  document.getElementById("id_ccctoolPage").style.width = windowWidth+"px";
+  //document.getElementById("id_EditPage").style.width = windowWidth+"px";
+
+};
 
 
 /*
@@ -108,10 +120,5 @@ window.onscroll = function() {
 };
 
 
-function keyDownDocumentHandler(event){
-  if (event.keyCode == 13) {
-    if(document.getElementById("popupAlertWindow").style.display!="none")
-    document.getElementById("popupAlertWindow").style.display="none";
-  }
-}
+
 */

@@ -7,13 +7,13 @@ function showSaveOptions(){
   document.getElementById("id_EditPage_cmsTablePartDiv").style.display="none";
 
   if(document.getElementById("id_EditPage_savePartDiv").style.display=="none"){
-    document.getElementById("id_EditPage_savePartDiv").style.display="block"
-    document.getElementById("id_EditPage_StopInteractionDiv").style.width="100%"
+    document.getElementById("id_EditPage_savePartDiv").style.display="block";
+    //document.getElementById("id_EditPage_StopInteractionDiv").style.width="100%";
 
   }
   else {
-    document.getElementById("id_EditPage_savePartDiv").style.display="none"
-    document.getElementById("id_EditPage_StopInteractionDiv").style.width="0%"
+    document.getElementById("id_EditPage_savePartDiv").style.display="none";
+    //document.getElementById("id_EditPage_StopInteractionDiv").style.width="0%";
   }
 
 }
@@ -22,8 +22,10 @@ function showSaveOptions(){
 function saveCMS(){
 
   myDesignsList[indexActiveCMS] = cloneCMS(globalCMS1);
+  document.getElementById("id_header_editWarning").style.display="none";
   somethingChanged=false;
-  showSaveOptions();
+  document.getElementById("id_EditPage_savePartDiv").style.display="none";
+  //document.getElementById("id_EditPage_StopInteractionDiv").style.width="0%";
 
 }
 
@@ -33,7 +35,9 @@ function saveCMSasNew(){
   if(myDesignsList.length<numberOfMyDesignsObj){
     myDesignsList.push(cloneCMS(globalCMS1));
     somethingChanged=false;
-    showSaveOptions();
+    document.getElementById("id_header_editWarning").style.display="none";
+    document.getElementById("id_EditPage_savePartDiv").style.display="none";
+    //document.getElementById("id_EditPage_StopInteractionDiv").style.width="0%";
   }
   else{
     openAlert("You already used the full CMS-storage and the CMS can not saved as new one!");
@@ -89,11 +93,11 @@ function showGuideLine(){
 
   if(document.getElementById("id_EditPage_GuideLineDiv").style.display=="none"){
     document.getElementById("id_EditPage_GuideLineDiv").style.display="block"
-    document.getElementById("id_EditPage_StopInteractionDiv").style.width="100%"
+    //document.getElementById("id_EditPage_StopInteractionDiv").style.width="100%"
   }
   else {
     document.getElementById("id_EditPage_GuideLineDiv").style.display="none"
-    document.getElementById("id_EditPage_StopInteractionDiv").style.width="0%"
+    //document.getElementById("id_EditPage_StopInteractionDiv").style.width="0%"
   }
 
 }
@@ -105,11 +109,11 @@ function showInterpolationOptions () {
 
   if(document.getElementById("id_EditPage_interpolationPartDiv").style.display=="none"){
     document.getElementById("id_EditPage_interpolationPartDiv").style.display="block"
-    document.getElementById("id_EditPage_StopInteractionDiv").style.width="100%"
+    //document.getElementById("id_EditPage_StopInteractionDiv").style.width="100%"
   }
   else {
     document.getElementById("id_EditPage_interpolationPartDiv").style.display="none"
-    document.getElementById("id_EditPage_StopInteractionDiv").style.width="0%"
+    //document.getElementById("id_EditPage_StopInteractionDiv").style.width="0%"
   }
 }
 
@@ -120,10 +124,10 @@ function showCMSTable () {
 
   if(document.getElementById("id_EditPage_cmsTablePartDiv").style.display=="none"){
     document.getElementById("id_EditPage_cmsTablePartDiv").style.display="block"
-    document.getElementById("id_EditPage_StopInteractionDiv").style.width="100%"
+    //document.getElementById("id_EditPage_StopInteractionDiv").style.width="100%"
   }
   else {
     document.getElementById("id_EditPage_cmsTablePartDiv").style.display="none"
-    document.getElementById("id_EditPage_StopInteractionDiv").style.width="0%"
+    //document.getElementById("id_EditPage_StopInteractionDiv").style.width="0%"
   }
 }

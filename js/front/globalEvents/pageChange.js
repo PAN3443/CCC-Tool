@@ -4,8 +4,6 @@ function updatePageWidth(){
   var actualInnerWidth = document.body.clientWidth;
   //var actualInnerWidth = document.body.scrollWidth;
 
-  console.log(document.body.clientWidth, document.body.scrollWidth);
-
   document.getElementById("id_ccctoolPage").style.width = actualInnerWidth + "px";
 }
 
@@ -36,8 +34,8 @@ function startLeaveEditPage(){
   document.getElementById("id_EditPage_savePartDiv").style.display="none";
   document.getElementById("id_EditPage_interpolationPartDiv").style.display="none";
   document.getElementById("id_EditPage_cmsTablePartDiv").style.display="none";
-  document.getElementById("id_EditPage_GuideLineDiv").style.display="none"
-  document.getElementById("id_EditPage_StopInteractionDiv").style.width="0%"
+  document.getElementById("id_EditPage_GuideLineDiv").style.display="none";
+  //document.getElementById("id_EditPage_StopInteractionDiv").style.width="0%"
 
 
   if(somethingChanged){
@@ -129,7 +127,8 @@ function showEditPage(){
   document.getElementById("id_EditPage_CMS_Below_Color").style.background=globalCMS1.getBelowColor("rgb").getRGBString();
   document.getElementById("id_EditPage_CMS_Above_Color").style.background=globalCMS1.getAboveColor("rgb").getRGBString();
 
-  document.getElementById("id_EditPage").style.display="block";
+  document.getElementById("id_EditPage").style.display="inline-block";
+
 
   document.getElementById("edit_Page_FreeSpaceInfo").innerHTML="Free Places: "+(numberOfMyDesignsObj-myDesignsList.length);
 
@@ -153,6 +152,7 @@ document.getElementById("id_actionMenu_myDesignPart").style.display="none";
 document.getElementById("id_dropDownMenu_DisplayOptions").style.display="block";
 
 updatePageWidth();
+updateEditPage();
 
 
 
@@ -173,7 +173,7 @@ function showGallery(){
 
 function showNewCMSPage(){
 
-  if(myDesignsList.lenght>=numberOfMyDesignsObj){
+  if(myDesignsList.length>=numberOfMyDesignsObj){
     openAlert("Your My Designs storage is full. Please delete a CMS before the creation of a new one!");
     return;
   }

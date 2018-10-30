@@ -75,11 +75,11 @@ div.sticky {
 }
 
 .class_RotateLeft{
-  width:40px;
-  border-radius : 0px 10px 10px 0px;
+  width:2.5vw;
+  border-radius : 0px 1vw 1vw 0px;
   cursor: pointer;
-  font-size: 20px;
-  line-height: 40px;
+  font-size: 1.5vw;
+  line-height: 2.5vw;
   vertical-align: middle;
   text-align: center;
 
@@ -91,13 +91,11 @@ div.sticky {
 
 
 .class_RotateRight{
-  width:40px;
-  border-radius : 10px 0px 0px 10px;
+  width:2.5vw;
+  border-radius : 1vw 0px 0px 1vw;
   cursor: pointer;
-
-  cursor: pointer;
-  font-size: 20px;
-  line-height: 40px;
+  font-size: 1.5vw;
+  line-height: 2.5vw;
   vertical-align: middle;
   text-align: center;
 

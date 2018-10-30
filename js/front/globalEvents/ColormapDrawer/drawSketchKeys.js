@@ -103,7 +103,6 @@ function drawKeyNumber(canvasID, tmpCMS){
 
 
     var canvasContex = canvasObject.getContext("2d");
-    var canvasData = canvasContex.getImageData(0, 0, canvasObject.width, canvasObject.height);
 
     //////////////////////////////////////////////////////////////
 

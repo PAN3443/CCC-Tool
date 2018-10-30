@@ -781,12 +781,15 @@ function affectColorpickerChange(){
   switch (colorpickerAffectID) {
     case "id_EditPage_CMS_NaN_Color":
     globalCMS1.setNaNColor(colorpickerColor);
+    saveCreateProcess();
     break;
     case "id_EditPage_CMS_Below_Color":
     globalCMS1.setBelowColor(colorpickerColor);
+    saveCreateProcess();
     break;
     case "id_EditPage_CMS_Above_Color":
       globalCMS1.setAboveColor(colorpickerColor);
+      saveCreateProcess();
       break;
       case "id_editPage_customConstColor":
         customConstBandColor=colorpickerColor;

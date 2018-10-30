@@ -1,10 +1,10 @@
 
 
 .menu_button {
-  padding-right:20px;
-  padding-left:20px;
-  font-size: 20px;
-  line-height: 50px;
+  padding-right:1vw;
+  padding-left:1vw;
+  font-size: 2.5vh;
+  line-height: 5vh;
   cursor:pointer;
   color:white;
   vertical-align: middle;
@@ -20,10 +20,10 @@
 
 
 .menu_buttonNotActive {
-  padding-right:20px;
-  padding-left:20px;
-  font-size: 20px;
-  line-height: 50px;
+  padding-right:1vw;
+  padding-left:1vw;
+  font-size: 2.5vh;
+  line-height: 5vh;
   cursor:not-allowed;
   color:rgb(180,180,180);
   vertical-align: middle;

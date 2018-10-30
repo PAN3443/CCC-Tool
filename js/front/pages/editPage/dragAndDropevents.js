@@ -135,7 +135,7 @@ function bandOnLeave(event) {
 
 function bandOnDrop(event){
 
-  somethingChanged = true;
+
     /////////////
     //// Creator Band
 

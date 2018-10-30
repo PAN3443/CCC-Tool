@@ -1,7 +1,7 @@
 
 #id_EditPage_backButton{
   background-color: rgb(204, 255, 204);
-  border: 2px solid rgb(0, 204, 0);
+  border: 0.2vh solid rgb(0, 204, 0);
 }
 
 #id_EditPage_backButton:hover{
@@ -11,7 +11,7 @@
 
 #id_EditPage_savePartButton{
   background-color: rgb(255, 230, 179);
-  border: 2px solid rgb(230, 153, 0);
+  border: 0.2vh solid rgb(230, 153, 0);
 }
 
 #id_EditPage_savePartButton:hover{
@@ -20,17 +20,17 @@
 
 .class_savebutton{
     background-color: rgb(255, 230, 179);
-    border: 2px solid rgb(230, 153, 0);
+    border: 0.2vh solid rgb(230, 153, 0);
     color: black;
     /*padding: 20px;*/
-    width:240px;
-    height: 70px;
-    line-height: 70px;
+    width:20vw;
+    height: 5vh;
+    line-height: 5vh;
     display: block;
     text-align: center;
     text-decoration: none;
-    font-size: 16px;
-    border-radius: 8px;
+    font-size: 2.5vh;
+    border-radius: 1vh;
     /*margin-left: auto;*/
     overflow: auto;
     font-weight: bold;
@@ -43,16 +43,16 @@
 
 
 #id_EditPage_savePartDiv{
-  height: 250px;
-  width: 300px;
+  height: 26vh;
+  width: 30vw;
   background-color: rgb(255, 230, 179);
-  border: 2px solid rgb(230, 153, 0);
+  border: 0.2vh solid rgb(230, 153, 0);
   display: none;
 }
 
 #id_EditPage_guideLinePartButton{
   background-color: rgb(255, 204, 204);
-  border: 2px solid rgb(179, 0, 0);
+  border: 0.2vh solid rgb(179, 0, 0);
 }
 
 #id_EditPage_guideLinePartButton:hover{
@@ -60,10 +60,10 @@
 }
 
 #id_EditPage_GuideLineDiv{
-  height: 758px;
-  width: 500px;
+  height: 78vh;
+  width: 70vw;
   background-color: rgb(255, 204, 204);
-  border: 2px solid rgb(179, 0, 0);
+  border: 0.2vh solid rgb(179, 0, 0);
   display: none;
 }
 
@@ -72,7 +72,7 @@
 #id_EditPage_interpolationPartButton{
   float:right;
   background-color: rgb(230, 204, 255);
-  border: 2px solid rgb(140, 26, 255);
+  border: 0.2vh solid rgb(140, 26, 255);
 }
 
 #id_EditPage_interpolationPartButton:hover{
@@ -81,26 +81,26 @@
 
 #id_EditPage_interpolationPartDiv{
   float:right;
-  height: 375px;
+  height: 40vh;
   background-color: rgb(230, 204, 255);
-  border: 2px solid rgb(140, 26, 255);
+  border: 0.2vh solid rgb(140, 26, 255);
   display: none;
 }
 
 
 .class_EditPage_SelectInterpolationColorspace{
-  height:26px;
-  width:26px;
-  border: 2px solid black;
-  line-height: 26px;
+  height:3vh;
+  width:3vh;
+  border: 0.2vh solid black;
+  line-height: 3vh;
   vertical-align: middle;
   text-align: center;
-  font-size: 18px;
+  font-size: 2vh;
   color: black;
   position: relative;
   overflow: hidden;
   background: rgb(230, 204, 255);
-  border-radius: 5px;
+  border-radius: 0.5vh;
   cursor: pointer;
 }
 
@@ -150,7 +150,7 @@
 #id_EditPage_cmsTablePartButton{
   float:right;
   background-color: rgb(204, 230, 255);
-  border: 2px solid rgb(0, 79, 153);
+  border: 0.2vh solid rgb(0, 79, 153);
 }
 
 #id_EditPage_cmsTablePartButton:hover{
@@ -159,35 +159,35 @@
 
 #id_EditPage_cmsTablePartDiv{
   float:right;
-  height: 375px;
+  height: 40vh;
   /*width: 750px;*/
   background-color: rgb(204, 230, 255);
-  border: 2px solid rgb(0, 79, 153);
+  border: 0.2vh solid rgb(0, 79, 153);
   display: none;
 }
 
 
 
 .class_tablelabel{
-    height:20px;
-    line-height:20px;
-    font-size:12px;
+    height:2.5vh;
+    line-height:2.5vh;
+    font-size:2vh;
     font-weight: bold;
-    padding-right:5px;
-    padding-left:5px;
+    padding-right:1vw;
+    padding-left:1vw;
     background:rgb(128, 191, 255);
     color: white;
-    border-right: 1px solid white;
+    border-right: 0.1vh solid white;
     vertical-align: middle;
     text-align: center;
 }
 
 .class_tableInput{
-    height:20px;
-    line-height:20px;
-    font-size:12px;
+    height:2.5vh;
+    line-height:2.5vh;
+    font-size:2vh;
     color: black;
-    border: 1px solid black;
+    border: 0.1vh solid black;
     vertical-align: middle;
     text-align: center;
 

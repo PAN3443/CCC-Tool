@@ -171,6 +171,8 @@
   <script src="js/front/init/init_PopUpWindow.js"></script>
   <script src="js/front/init/init.js"></script>
 
+  <script src="js/front/shortcuts.js"></script>
+
   <!------------------------------------------->
   <!-- MAIN-->
   <script src="js/front/main.js"></script>
@@ -178,7 +180,7 @@
 </head>
 <!--style="background: rgb(30,30,30);"-->
 
-<body style="background:url(img/background3.png); overflow-x:hidden;">
+<body style="background:white;">
   <!--style="background:url(img/background2.png);"-->
   <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -204,7 +206,7 @@
           -----------------------------------------------
           -->
 
-  <div id="headerDiv" style="max-width:100%; height:50px; margin:0px;  ">
+  <div id="headerDiv" style="width:100vw; height:5vh; margin:0px;  position:fixed; top:0px; left:0px; z-index:90; background:url(img/background3.png);">
     <!-- background:url(img/background.png);;position: -webkit-sticky; position: sticky; margin:0px; padding-top:20px;  padding-bottom:20px;"-->
 
 
@@ -212,9 +214,13 @@
 
       <img src="img/CCC-LOGO_new.png" alt="CCC-Tool Logo" style="height:80%; margin-left:20px; margin-right:20px; margin-top:auto; margin-bottom:auto;">
 
+
       <!--div style="margin-left:1vw;">
         <h3 style="margin:0px; height:3vh; line-height:3vh; text-align:left; vertical-align: middle; color:white; font-size:2.0 vh; font-family: " Times New Roman ", Georgia, Serif;"> CCC-TOOL </h1-->
-      <p id="id_header_ccctoolLabel" style="margin:0px; text-align:left; vertical-align: middle; color:white; font-size: 25px; margin-top:auto; margin-bottom:auto; margin-right:auto; font-family:verdana;"> <strong>C</strong>harting <strong>C</strong>ontinuous <strong>C</strong>olormap </p>
+      <p id="id_header_ccctoolLabel" style="margin:0px; text-align:left; vertical-align: middle; color:white; font-size: 3vh; margin-top:auto; line-height:5vh; margin-bottom:auto; margin-right:auto; font-family:verdana;"> <strong>C</strong>harting <strong>C</strong>ontinuous <strong>C</strong>olormap </p>
+
+      <p id="id_header_editWarning" class="standardText class_noSizeUpdate" style="margin:0px; vertical-align: middle; color:white; font-size: 3vh; line-height:5vh; margin-top:auto; margin-bottom:auto; color:red; display:none;"> &#9888; </p>
+
 
 
       <div class="menu_buttonNotActive" style="height:100%; width:auto;">
@@ -310,13 +316,13 @@
 
             </div>
 
-            <div onclick="showHideEditContainer()" class="dropdownMenuButton">
+            <div id="id_dropDownMenue_HideEdit_Label" onclick="showHideEditContainer()" class="dropdownMenuButton">
               Hide Edit
             </div>
-            <div onclick="showHideCMSInfoContainer()" class="dropdownMenuButton">
+            <div id="id_dropDownMenue_HideDescription_Label" onclick="showHideCMSInfoContainer()" class="dropdownMenuButton">
               Hide CMS-Info
             </div>
-            <div onclick="showHideAnalyzeContainer()" class="dropdownMenuButton">
+            <div id="id_dropDownMenue_HideAnalyze_Label" onclick="showHideAnalyzeContainer()" class="dropdownMenuButton">
               Hide Analyze/Mapping
             </div>
 
@@ -358,7 +364,7 @@
           -->
 
 
-  <div id="id_ccctoolPage" style="position:relative; width: 100%; height:auto; margin:0px; padding-top:20px; padding-bottom:20px; background:white;">
+  <div id="id_ccctoolPage" style="width:100%; height:auto; margin:0px; padding-top:20px; padding-bottom:20px; background:white; margin-top:5vh;">
 
 
     <!--  -----------------------------------------------
@@ -366,7 +372,7 @@
                 -----------------------------------------------
                 -->
 
-    <div id="id_welcomePage" style="width:100%; height:100%; margin:0px;">
+    <div id="id_welcomePage" style="margin-left:auto; margin-right:auto;">
 
 
       <img id="id_welcomePage_Img" src="img/welcome.png" style="margin:auto;">
@@ -387,7 +393,7 @@
                     -----------------------------------------------
                     -->
 
-    <div id="id_myDesignsPage" style="width:100%; height:auto;">
+    <div id="id_myDesignsPage" style="margin-left:auto; margin-right:auto;">
 
       <div class="row">
         <h1 id="id_MyDesings_Label" class="sectionLabel">My Designs</h1>
@@ -413,7 +419,7 @@
                     -----------------------------------------------
                     -->
 
-    <div id="id_newCMSPage" style="width:100%; height:100%; ">
+    <div id="id_newCMSPage" style="margin-left:auto; margin-right:auto;">
 
       <h1 id="id_newCMSPage_Label" class="sectionLabel" >New CMS</h1>
 
@@ -457,14 +463,66 @@
                     -----------------------------------------------
                     -->
 
-    <div id="id_EditPage" style="width:100%; height:auto; display:none; ">
+    <div id="id_EditPage"  style="min-height:80vh; display:none;">
+
+      <div class="row">
 
 
-      <div style=" width:100%; height:100%;">
         <!--position: relative;-->
 
+        <!--
+                 ---------- LEFT Option Bar ------------
+               -->
+        <div id="id_EditPage_LeftOptionDiv" style="position: fixed; z-index: 80; width:2.5vw; height:auto; left: 0px; top: 7.5vh; display:inline-block;">
+          <!-- -------------- Back Button Edit Page ---------------->
+
+          <div class="row">
+
+
+            <div id="id_EditPage_GuideLineDiv" style="margin-left:auto; margin-right:auto;">
+
+              <p id="id_EditPage_GuideLineLabel class_noSizeUpdate" class="sectionLabel" style="width:100%; font-size:3vh;">Guide Line</p>
+            </div>
+
+            <div>
+              <div class="class_RotateLeft" id="id_EditPage_backButton" onclick="startLeaveEditPage()" style="height:26vh;">
+                Return
+              </div>
+
+              <div class="row">
+                <div id="id_EditPage_savePartDiv">
+
+                  <div id="id_EditPage_savePartInnerDiv" style="margin:2vh; height: 22vh; background:white; border:0.2vh solid rgb(255, 204, 102); ">
+
+                    <button id="id_EditPage_saveButton" onclick="saveCMS()" class="class_savebutton" style="margin-left:auto; margin-right:auto; margin-top:2.5vh; "> Save </button>
+
+                    <button id="id_EditPage_saveAsNewButton" onclick="saveCMSasNew()" class="class_savebutton" style="margin-left:auto; margin-right:auto; margin-top:2.5vh; "> Save As New</button>
+                    <p class="standardText class_noSizeUpdate" id="edit_Page_FreeSpaceInfo" style="margin-left:auto; margin-right:auto; width:20vw; height:2.5vh; line-height:2.5vh; font-size:2vh; font-weight:bold;"> Free Places: 0</p>
+
+                  </div>
+
+                </div>
+                <div class="class_RotateLeft" id="id_EditPage_savePartButton" style="height: 26vh;" onclick="showSaveOptions()">
+                  Save
+                </div>
+              </div>
+
+
+              <div class="class_RotateLeft" id="id_EditPage_guideLinePartButton" style="height: 26vh;" onclick="showGuideLine()">
+                Guide Line
+              </div>
+
+            </div>
+          </div>
+
+
+        </div>
+
+
+
+
         <!-- -------------- Main Part Edit Page ---------------->
-        <div id="id_EditPage_MainPartDiv" style=" z-index: 0; width:100%; left: 0; top: 0;">
+        <div id="id_EditPage_MainPartDiv" style=" z-index: 0; margin-left:auto; margin-right:auto; left: 0px; top: 0px; display:inline-block;">
           <!--position: absolute;-->
 
 
@@ -490,7 +548,7 @@
 
           <img id="id_editPage_HelpImage1" src="img/editPage.png" style="height:120px; margin-left:auto; margin-right:auto;">
           <!-- -------------- Main Part: CMS Editor  ---------------->
-          <div class="row" style="width:90%; margin-left:5%;  ">
+          <div id="id_editPage_EditDiv" class="row" style="width:90%; margin-left:5%;  ">
 
             <div style=" width:100%; background:url(img/background3.png); border-radius:10px;">
 
@@ -697,7 +755,7 @@
           <div class="row" style="width:90%; margin-left:5%; margin-top:10px; ">
 
             <!-- -------------- Main Part: CMS Description ---------------->
-            <div style="width:38%; background:url(img/background3.png); border-radius:10px;">
+            <div id="id_editPage_DescriptionDiv" style="width:38%; background:url(img/background3.png); border-radius:10px;">
 
               <div style="margin:5px; background:rgb(220,220,220); border-radius:10px;">
                 <div class="row">
@@ -772,7 +830,7 @@
             </div>
 
             <!-- -------------- Main Part: Analyze Mapping ---------------->
-            <div style="width:60%; background:url(img/background3.png); border-radius:10px; margin-left:2%;">
+            <div id="id_editPage_AnalyzeDiv" style="width:60%; background:url(img/background3.png); border-radius:10px; margin-left:2%;">
 
               <div style="margin:5px; background:white; border-radius:10px;">
                 <div class="row">
@@ -803,122 +861,73 @@
 
         </div>
 
-        <div id="id_EditPage_StopInteractionDiv" style="position: absolute; z-index: 99; width:0%; height:100%; position: fixed; left: 0; top: 0; background:rgba(120,120,120,0.7);">
-        </div>
-
-        <!--
-                 ---------- LEFT Option Bar ------------
-               -->
-        <div style="position: absolute; z-index: 100; width:auto; height:100%; left: 0; top: 0; ">
-          <!-- -------------- Back Button Edit Page ---------------->
-
-          <div class="row">
 
 
-            <div id="id_EditPage_GuideLineDiv">
-
-
-            </div>
-
-            <div>
-              <div class="class_RotateLeft" id="id_EditPage_backButton" onclick="startLeaveEditPage()" style="height:250px;">
-                Return
-              </div>
-
-              <div class="row">
-                <div id="id_EditPage_savePartDiv">
-
-                  <div style="margin:15px; height:216px; background:white; border:2px solid rgb(255, 204, 102); ">
-
-                    <button onclick="saveCMS()" class="class_savebutton" style="margin-left:auto; margin-right:auto;  margin-top:20px; "> Save </button>
-
-                    <button onclick="saveCMSasNew()" class="class_savebutton" style="margin-left:auto; margin-right:auto;  margin-top:20px; "> Save As New</button>
-                    <p class="standardText" id="edit_Page_FreeSpaceInfo" style="margin-left:auto; margin-right:auto; width:240px; height:25px; line-height:25px; font-size:12px; font-weight:bold;"> Free Places: 0</p>
-
-                  </div>
-
-                </div>
-                <div class="class_RotateLeft" id="id_EditPage_savePartButton" style="height:250px;" onclick="showSaveOptions()">
-                  Save
-                </div>
-              </div>
-
-
-              <div class="class_RotateLeft" id="id_EditPage_guideLinePartButton" style="height:250px;" onclick="showGuideLine()">
-                Guide Line
-              </div>
-
-            </div>
-          </div>
-
-
-        </div>
-
-        <!--
+      <!--
                  ---------- RIGHT Option Bar ------------
                -->
-        <div style="position: absolute; z-index: 100; width:auto; height:100%; right: 0; top: 0; ">
+        <div id="id_EditPage_RightOptionDiv" style="position: fixed; z-index: 80; width:2.5vw; height:auto; right: 0px; top: 7.5vh; display:inline-block;">
           <!-- -------------- Back Button Edit Page ---------------->
 
 
           <div class="row" style="float:right;">
 
-            <div class="class_RotateRight" id="id_EditPage_interpolationPartButton" style="height:375px;" onclick="showInterpolationOptions()">
+            <div class="class_RotateRight" id="id_EditPage_interpolationPartButton" style="height:40vh;" onclick="showInterpolationOptions()">
               Interpolation Space
             </div>
             <div id="id_EditPage_interpolationPartDiv">
 
 
-              <div style="margin:15px; height:341px; background:white; border:2px solid rgb(204, 153, 255);  overflow:auto;">
+              <div id="id_EditPage_interpolationPartInnerDiv" style="margin:2vh; height:36vh; background:white; border:0.2vh solid rgb(204, 153, 255);  overflow:auto;">
 
 
-                <div class="row" style="margin-left:10px; margin-right:10px;  margin-bottom:10px; margin-top:40px;">
-                  <img id="id_EditPage_SmileyImg" src="img/smiley.png" style="margin-left:5px; height:40px;">
-                  <p class="standardText" style="margin-left:5px; height:40px; line-height:40px; font-weight:bold; margin-right:5px;"> Perceptuall Uniform Spaces:</p>
+                <div class="row" style="margin:1vw;">
+                  <img id="id_EditPage_SmileyImg" src="img/smiley.png" style="height:5vh;">
+                  <p class="standardText class_noSizeUpdate" style="margin-left:1vw; height:5vh; line-height:5vh; font-weight:bold; margin-right:1vw; font-size:2.5vh; text-decoration:underline;"> Perceptuall Uniform Spaces:</p>
                 </div>
 
-                <div class="row" style="margin:10px; widht:100%;">
+                <div class="row" style="margin:1vw; widht:100%;">
 
                   <div id="id_EditPage_SelectLab" class="class_EditPage_SelectInterpolationColorspace" style="margin-left: auto;" onclick="changeColorspace(2)">
 
                   </div>
-                  <p class="standardText" style="margin-left:5px; height:30px; line-height:30px; margin-left:5px; margin-right:50px; width:120px;"> : LAB</p>
+                  <p class="standardText class_noSizeUpdate" style="margin-left:1vw; height:3vh; line-height:3vh; font-size:2vh; width:10vw; margin-right:auto;"> : LAB</p>
 
                   <div id="id_EditPage_SelectDIN99" class="class_EditPage_SelectInterpolationColorspace" onclick="changeColorspace(3)">
                     &#10004;
                   </div>
-                  <p class="standardText" style="margin-left:5px; height:30px; line-height:30px; width:120px; margin-right:auto;"> : DIN99</p>
+                  <p class="standardText class_noSizeUpdate" style="margin-left:1vw; height:3vh; line-height:3vh; font-size:2vh; width:10vw; margin-right:auto;"> : DIN99</p>
                 </div>
 
-                <div class="row" style="margin:10px; widht:100%;">
+                <div class="row" style="margin:1vw;  widht:100%;">
 
                   <div id="id_EditPage_SelectDE94" class="class_EditPage_SelectInterpolationColorspace" style="margin-left: auto; border-color:grey; background:rgb(180,180,180); cursor:not-allowed;">
 
                   </div>
-                  <p class="standardText" style="margin-left:5px; height:30px; line-height:30px; margin-left:5px; margin-right:50px; width:120px; color:grey;"> : DE94</p>
+                  <p class="standardText class_noSizeUpdate" style="margin-left:1vw; height:3vh; line-height:3vh; font-size:2vh; width:10vw; margin-right:auto; color:grey;"> : DE94</p>
 
                   <div id="id_EditPage_SelectCIEDE2000" class="class_EditPage_SelectInterpolationColorspace" style="border-color:grey; background:rgb(180,180,180); cursor:not-allowed;">
 
                   </div>
-                  <p class="standardText" style="margin-left:5px; height:30px; line-height:30px; width:120px; margin-right:auto; color:grey;"> : CIEDE2000</p>
+                  <p class="standardText class_noSizeUpdate" style="margin-left:1vw; height:3vh; line-height:3vh; font-size:2vh; width:10vw; margin-right:auto; color:grey;"> : CIEDE2000</p>
                 </div>
 
-                <div class="row" style="margin:10px; margin-top:40px;">
-                  <img id="id_EditPage_SadleyImg" src="img/sadley.png" style="margin-left:5px; height:40px;">
-                  <p class="standardText" style="margin-left:5px; height:40px; line-height:40px; font-weight:bold; margin-right:5px;"> Non Perceptuall Uniform Spaces:</p>
+                <div class="row" style="margin:1vw;">
+                  <img id="id_EditPage_SadleyImg" src="img/sadley.png" style="height:5vh;">
+                  <p class="standardText class_noSizeUpdate" style="margin-left:1vw; height:5vh; line-height:5vh; font-weight:bold; margin-right:1vw; font-size:2.5vh; text-decoration:underline;"> Non Perceptuall Uniform Spaces: </p>
                 </div>
 
-                <div class="row" style="widht:100%; margin-left:10px; margin-right:10px; margin-top:10px;">
+                <div class="row" style="margin:1vw;  widht:100%;">
 
                   <div id="id_EditPage_SelectRGB" class="class_EditPage_SelectInterpolationColorspace" style="margin-left: auto;" onclick="changeColorspace(0)">
 
                   </div>
-                  <p class="standardText" style="margin-left:5px; height:30px; line-height:30px; width:120px; margin-left:5px; margin-right:50px;"> : RGB</p>
+                  <p class="standardText class_noSizeUpdate" style="margin-left:1vw; height:3vh; line-height:3vh; font-size:2vh; width:10vw; margin-right:auto;"> : RGB</p>
 
                   <div id="id_EditPage_SelectHSV" class="class_EditPage_SelectInterpolationColorspace" onclick="changeColorspace(1)">
 
                   </div>
-                  <p class="standardText" style="margin-left:5px; height:30px; line-height:30px; width:120px;  margin-right:auto;"> : HSV</p>
+                  <p class="standardText class_noSizeUpdate" style="margin-left:1vw; height:3vh; line-height:3vh; font-size:2vh; width:10vw;  margin-right:auto;"> : HSV</p>
                 </div>
 
 
@@ -929,28 +938,27 @@
             </div>
           </div>
 
-          <br>
 
           <div class="row" style="float:right;">
 
-            <div class="class_RotateRight" id="id_EditPage_cmsTablePartButton" style="height:375px;" onclick="showCMSTable()">
+            <div class="class_RotateRight" id="id_EditPage_cmsTablePartButton" style="height:40vh;" onclick="showCMSTable()">
               CMS Table
             </div>
             <div id="id_EditPage_cmsTablePartDiv">
 
-              <div style="margin:15px; height:341px; background:white; border:2px solid rgb(128, 191, 255); ">
+              <div id="id_EditPage_cmsTablePartInnerDiv" style="margin:2vh; height:36vh; width:75vw; background:white; border:0.2vh solid rgb(128, 191, 255); ">
 
                 <table cellspacing="0" cellpadding="0" style="width:100%;">
                   <tr>
                     <td>
                       <table cellspacing="0" cellpadding="1" style="width:100%;">
                         <tr style="color:white;background-color:grey">
-                          <th class="class_tablelabel" id="id_table_Number" style="width:50px;">#</th>
-                          <th class="class_tablelabel" id="id_table_Reference1" style="width:250px;">Start</th>
-                          <th class="class_tablelabel" id="id_table_Reference2" style="width:250px;">End</th>
-                          <th class="class_tablelabel" id="id_table_Bandtype" style="width:150px;">Band Type</th>
-                          <th class="class_tablelabel" id="id_table_Color1" style="width:250px;">C1 (RGB)</th>
-                          <th class="class_tablelabel" id="id_table_Color2" style="width:250px; border-right: none;">C2 (RGB)</th>
+                          <th class="class_tablelabel" id="id_table_Number" style="width:5%;">#</th>
+                          <th class="class_tablelabel" id="id_table_Reference1" style="width:15%;">Start</th>
+                          <th class="class_tablelabel" id="id_table_Reference2" style="width:15%;">End</th>
+                          <th class="class_tablelabel" id="id_table_Bandtype" style="width:15%;">Band Type</th>
+                          <th class="class_tablelabel" id="id_table_Color1" style="width:20%;">C1 (RGB)</th>
+                          <th class="class_tablelabel" id="id_table_Color2" style="width:20%; border-right: none;">C2 (RGB)</th>
                         </tr>
                       </table>
                     </td>
@@ -958,7 +966,7 @@
                   <tr>
                     <td>
                       <div style="width:100%; height:320px; overflow:auto;">
-                        <table cellspacing="0" cellpadding="1" border="1" id="id_table" style="width:100%;">
+                        <table cellspacing="0" cellpadding="1" id="id_table" style="width:100%; border: 0.1vh solid black;">
                           <tbody id="id_tableBody">
 
                           </tbody>
@@ -977,9 +985,15 @@
         </div>
 
 
-      </div>
 
     </div>
+
+
+
+    </div>
+
+
+
 
 
 
@@ -1337,14 +1351,14 @@
     </div>
   </div>
 
-</div>class="class_popupWindow_Label"
+</div>
   <!--
               -----------------------------------------------
               ----------------	Footer	  -----------------
               -----------------------------------------------
               -->
 
-  <div id="footerDiv" style="width: 100%; height: 60px;  margin:0px; z-index:100; padding-top: 10px; padding-bottom: 10px;">
+  <div id="footerDiv" style="width: 100vw; height: 10vh; margin:0px; z-index:100; padding-top: 10px; padding-bottom: 10px; background:url(img/background3.png); position:fixed; left:0px;">
 
     <div class="row" style="width: 100%; height: 100%;">
       <img title="University Leipzig" src="img/Logos/university_leipzig.png" style="margin-left:auto; height: 80%; cursor: pointer; margin-top:auto; margin-bottom:auto;">
@@ -1354,9 +1368,9 @@
       <img title="University of Texas at Austin" src="img/Logos/UT.png" style="margin-left:auto; height: 80%; cursor: pointer; margin-top:auto; margin-bottom:auto;">
 
       <div style="margin-left:auto; margin-right:auto; height: 100%;">
-        <p id="id_footer_impressum" onclick="openImpressum()" style="color:white; margin-bottom:auto; margin-top:auto; font-size:20px; vertical-align: middle; text-decoration:underline; cursor:pointer; margin:0px; font-family:courier;">Impressum / Contact</p>
-        <p id="id_footer_copyRight" style="color:white; vertical-align: middle; font-size:15px; margin:0px; margin-bottom:auto; font-family:courier;"> Copyright © 2018 </p>
-        <p id="id_footer_version" style=" margin:0px; height:15px; vertical-align: middle; color:white; font-size:15px; margin-bottom:auto; font-family:courier;"> Version: 0.6.0 </p>
+        <p id="id_footer_impressum" onclick="openImpressum()" style="color:white; margin-bottom:auto; margin-top:auto; font-size:2.5vh; vertical-align: middle; text-decoration:underline; cursor:pointer; margin:0px; font-family:courier;">Impressum / Contact</p>
+        <p id="id_footer_copyRight" style="color:white; vertical-align: middle; font-size:2vh; margin:0px; margin-bottom:auto; font-family:courier;"> Copyright © 2018 </p>
+        <p id="id_footer_version" style=" margin:0px; height:15px; vertical-align: middle; color:white; font-size:1.5vh; margin-bottom:auto; font-family:courier;"> Version: 0.6.0 </p>
       </div>
 
     </div>

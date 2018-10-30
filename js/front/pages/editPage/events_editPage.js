@@ -46,6 +46,7 @@ function updateEditPage(){
         if (!clearButton.classList.contains('settingMenuButton'))
         clearButton.classList.toggle("settingMenuButton");
 
+
         document.getElementById("id_editPage_HelpImage1").style.display="none";
 
 
@@ -97,8 +98,8 @@ function updateEditPage(){
 
 
 
-
-    document.getElementById("id_editPage_HelpImage1").style.display="block";
+        if(document.getElementById("id_editPage_EditDiv").style.display!="none")
+          document.getElementById("id_editPage_HelpImage1").style.display="block";
   }
 
 
@@ -275,12 +276,12 @@ function switchAnalyzeMapping(type){
 
 function updateDescription(){
   globalCMS1.setDescription(document.getElementById("id_editPage_CMSDescription").value);
-  somethingChanged=true;
+  saveCreateProcess();
 }
 
 function updateColormapName(){
   globalCMS1.setColormapName(document.getElementById("id_EditPage_CMSName").value);
-  somethingChanged=true;
+  saveCreateProcess();
 }
 
 
@@ -327,15 +328,74 @@ function clearColormap(){
 
 function showHideEditContainer(){
 
+  if(document.getElementById("id_editPage_EditDiv").style.display=="none"){
+      document.getElementById("id_editPage_EditDiv").style.display="inline-block";
+      document.getElementById("id_dropDownMenue_HideEdit_Label").innerHTML="Hide Edit";
+
+      if(globalCMS1.getKeyLength()==0){
+        document.getElementById("id_editPage_HelpImage1").style.display="block";
+      }
+  }
+  else{
+      document.getElementById("id_editPage_EditDiv").style.display="none";
+      document.getElementById("id_dropDownMenue_HideEdit_Label").innerHTML="Show Edit";
+
+      if(document.getElementById("id_editPage_HelpImage1").style.display!="none"){
+        document.getElementById("id_editPage_HelpImage1").style.display="none";
+      }
+  }
+
   document.getElementById("id_dropDownContainer").style.display="none";
+
+
 }
 
+
+
 function showHideAnalyzeContainer(){
+
+  if(document.getElementById("id_editPage_AnalyzeDiv").style.display=="none"){
+      document.getElementById("id_editPage_AnalyzeDiv").style.display="inline-block";
+      document.getElementById("id_dropDownMenue_HideAnalyze_Label").innerHTML="Hide Analyze/Mapping";
+
+      if(document.getElementById("id_editPage_DescriptionDiv").style.display=="none")
+        document.getElementById("id_editPage_AnalyzeDiv").style.width="100%";
+      else{
+        document.getElementById("id_editPage_DescriptionDiv").style.width="38%";
+        document.getElementById("id_editPage_AnalyzeDiv").style.width="60%";
+      }
+
+  }
+  else{
+      document.getElementById("id_dropDownMenue_HideAnalyze_Label").innerHTML="Show Analyze/Mapping";
+      document.getElementById("id_editPage_AnalyzeDiv").style.display="none";
+      document.getElementById("id_editPage_DescriptionDiv").style.width="100%";
+  }
+
 
   document.getElementById("id_dropDownContainer").style.display="none";
 }
 
 function showHideCMSInfoContainer(){
+
+  if(document.getElementById("id_editPage_DescriptionDiv").style.display=="none"){
+      document.getElementById("id_editPage_DescriptionDiv").style.display="inline-block";
+      document.getElementById("id_dropDownMenue_HideDescription_Label").innerHTML="Hide CMS-Info";
+
+      if(document.getElementById("id_editPage_AnalyzeDiv").style.display=="none")
+        document.getElementById("id_editPage_DescriptionDiv").style.width="100%";
+      else{
+        document.getElementById("id_editPage_DescriptionDiv").style.width="38%";
+        document.getElementById("id_editPage_AnalyzeDiv").style.width="60%";
+      }
+
+
+  }
+  else{
+      document.getElementById("id_dropDownMenue_HideDescription_Label").innerHTML="Show CMS-Info";
+      document.getElementById("id_editPage_DescriptionDiv").style.display="none";
+      document.getElementById("id_editPage_AnalyzeDiv").style.width="100%";
+  }
 
   document.getElementById("id_dropDownContainer").style.display="none";
 }
@@ -348,7 +408,7 @@ function showHideCMSInfoContainer(){
 globalCMS1.deleteKey(selectedKey);
 orderColorSketch();
 addKeyButtons();
-somethingChanged = true;
+saveCreateProcess();
 }
 
 
@@ -392,7 +452,7 @@ function motChange(){
     globalCMS1.setMoT(selectedKey,true);
   }
   orderColorSketch();
-  somethingChanged = true;
+  saveCreateProcess();
 }
 
 function addKeyButtons(){
@@ -1105,7 +1165,7 @@ function changeKeyType(event){
 
   orderColorSketch();
   selectKey();
-  somethingChanged = true;
+  saveCreateProcess();
 }
 
 function changeColorpickerType(event){
@@ -1310,7 +1370,7 @@ function editPageConfirmColor(){
       }
   }
 
-  somethingChanged = true;
+  saveCreateProcess();
 
 }
 

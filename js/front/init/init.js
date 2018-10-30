@@ -41,41 +41,12 @@ function init_CCCPageStyle(){
       tmpElementList[i].style.fontSize = tmpHeight2 + "px";
   }
 
-  ///////////////
-  // HEADER
-  document.getElementById("headerDiv").style.width = windowWidth + "px";
-  document.getElementById("headerDiv").style.height = Math.floor(windowHeight*0.05) + "px";
-  document.getElementById("id_header_ccctoolLabel").style.fontSize = Math.floor(windowHeight*0.03) + "px";
-
-  tmpElementList = document.getElementsByClassName('menu_buttonNotActive');
-  tmpHeight1 = Math.floor(windowHeight*0.02);
-  tmpHeight2 = Math.floor(windowHeight*0.05);
-  for (var i = 0; i < tmpElementList.length; ++i) {
-      tmpElementList[i].style.fontSize =  tmpHeight1 + "px";
-      tmpElementList[i].style.lineHeight = tmpHeight2 + "px";
-  }
-
-  tmpElementList = document.getElementsByClassName('menu_button');
-  for (var i = 0; i < tmpElementList.length; ++i) {
-      tmpElementList[i].style.fontSize = tmpHeight1 + "px";
-      tmpElementList[i].style.lineHeight = tmpHeight2 + "px";
-  }
-
-
-
-  ///////////////
-  // FOOTER
-  document.getElementById("footerDiv").style.width = windowWidth + "px";
-  document.getElementById("footerDiv").style.height = Math.floor(windowHeight*0.10) + "px";
-  document.getElementById("id_footer_impressum").style.fontSize = Math.floor(windowHeight*0.025) + "px";
-  document.getElementById("id_footer_copyRight").style.fontSize = Math.floor(windowHeight*0.02) + "px";
-  document.getElementById("id_footer_version").style.fontSize = Math.floor(windowHeight*0.015) + "px";
-
 
   document.getElementById("id_ccctoolPage").style.width = windowWidth + "px";
 
   ///////////////
   // WELCOME PAGE
+  document.getElementById("id_welcomePage").style.width = windowWidth + "px";
   document.getElementById("id_welcomePage").style.height = Math.floor(windowHeight*0.78) + "px";
   document.getElementById("id_welcomePage_Img").style.height = Math.floor(windowHeight*0.5) + "px";
   var tmpBox = document.getElementById("id_welcomePage_Img").getBoundingClientRect();
@@ -86,6 +57,7 @@ function init_CCCPageStyle(){
 
   ///////////////
   // MyDesigns PAGE
+  document.getElementById("id_myDesignsPage").style.width = windowWidth + "px";
   document.getElementById("id_myDesignsPage").style.height = Math.floor(windowHeight*0.78) + "px";
   document.getElementById("id_MyDesings_Label").style.marginTop = Math.floor(windowHeight*0.035) + "px";
   document.getElementById("id_MyDesings_IMG").style.height = Math.floor(windowHeight*0.15) + "px";
@@ -134,6 +106,7 @@ function init_CCCPageStyle(){
   ///////////////
   // New Page
   document.getElementById("id_newCMSPage").style.height = Math.floor(windowHeight*0.78) + "px";
+  document.getElementById("id_newCMSPage").style.width = windowWidth + "px";
 
   document.getElementById("id_newCMSPage_Label").style.marginTop = Math.floor(windowHeight*0.035) + "px";
   document.getElementById("id_newCMSPage_Label").style.marginBottom = Math.floor(windowHeight*0.035) + "px";
@@ -146,6 +119,16 @@ function init_CCCPageStyle(){
   document.getElementById("id_newCMSPage_MapDescription").style.maxHeight =  Math.floor(windowHeight*0.4) + "px";
 
   document.getElementById("id_newCMSPage").style.display = "none";
+
+
+  ///////////////
+  // Edit Page
+
+  document.getElementById("id_EditPage_MainPartDiv").style.minHeight = Math.floor(windowHeight*0.78) + "px";
+  document.getElementById("id_EditPage_MainPartDiv").style.width = windowWidth*0.95 + "px";
+  document.getElementById("id_EditPage_MainPartDiv").style.marginLeft = windowWidth*0.025 + "px";
+
+
 
 }
 

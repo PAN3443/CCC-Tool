@@ -58,7 +58,6 @@ function mouseMoveKeyRef(event){
    newRef = parseFloat(newRef);
    if(newRef >= globalCMS1.getRefPosition(overKeyID-1) && newRef <= globalCMS1.getRefPosition(overKeyID+1)){
      globalCMS1.setRefPosition(overKeyID,newRef);
-     somethingChanged = true;
    }
 
  }
