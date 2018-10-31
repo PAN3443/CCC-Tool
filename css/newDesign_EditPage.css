@@ -212,6 +212,7 @@
     vertical-align: middle;
     text-align:  center;
     font-size: 12px;
+    cursor: grabbing;
 }
 
 .class_predefinedScaledBands{
@@ -226,7 +227,7 @@
     vertical-align: middle;
     text-align:  center;
     font-size: 12px;
-
+    cursor: grabbing;
 }
 
 .class_reversebuttonEditPage{

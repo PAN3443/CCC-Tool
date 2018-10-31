@@ -15,7 +15,7 @@ function drawConstantBands(){
       document.getElementById('id_EditPage_ConstBandDiv').appendChild(iDiv);
       iDiv.addEventListener("dragstart", bandOnDragStart);
       iDiv.addEventListener("dragend", bandOnDragEnd);
-      iDiv.style.cursor = "move";
+      //iDiv.style.cursor = "move";
   }
 }
 
@@ -40,7 +40,7 @@ function drawScaledBands(){
       iCan.setAttribute('draggable', true);
       iCan.addEventListener("dragstart", bandOnDragStart);
       iCan.addEventListener("dragend", bandOnDragEnd);
-      iCan.style.cursor = "move";
+      //iCan.style.cursor = "move";
 
       var tmpC1RGB = scaleBands[i][0];
       var tmpC2RGB = scaleBands[i][1];
