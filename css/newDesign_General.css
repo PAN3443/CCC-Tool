@@ -78,10 +78,15 @@ div.sticky {
   width:2.5vw;
   border-radius : 0px 1vw 1vw 0px;
   cursor: pointer;
-  font-size: 1.5vw;
+  font-size: 1vw;
   line-height: 2.5vw;
   vertical-align: middle;
   text-align: center;
+
+  writing-mode: vertical-lr;/*sideways-lr;*/
+  -webkit-writing-mode: vertical-lr;/*sideways-lr;*/
+  -ms-writing-mode: vertical-lr;/*sideways-lr;*/
+
 
   writing-mode: sideways-lr;
   -webkit-writing-mode: sideways-lr;
@@ -94,10 +99,14 @@ div.sticky {
   width:2.5vw;
   border-radius : 1vw 0px 0px 1vw;
   cursor: pointer;
-  font-size: 1.5vw;
+  font-size: 1vw;
   line-height: 2.5vw;
   vertical-align: middle;
   text-align: center;
+
+  writing-mode: vertical-rl;/*sideways-rl;*/
+  -webkit-writing-mode: vertical-rl;/*sideways-rl;*/
+  -ms-writing-mode: vertical-rl;/*sideways-rl;*/
 
   writing-mode: sideways-rl;
   -webkit-writing-mode: sideways-rl;

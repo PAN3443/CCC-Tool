@@ -234,6 +234,14 @@ class class_CMS {
     return this.keyArray[index];
   }
 
+  getKeyClone(index){
+    var newKey = new class_Key(this.keyArray[index].getLeftKeyColor("lab"),this.keyArray[index].getRightKeyColor("lab"),this.keyArray[index].getRefPosition());
+    newKey.setMoT(this.keyArray[index].getMoT());
+    return newKey;
+  }
+
+
+
   setRefPosition(index, ref){
     this.keyArray[index].setRefPosition(ref);
   }

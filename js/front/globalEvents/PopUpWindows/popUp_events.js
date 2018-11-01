@@ -1,4 +1,22 @@
 
+
+//////////////////////////////////////
+/// Shortcuts  Window /////
+///////////////////////////////////
+
+
+function closeShortcutsWindow(){
+  document.getElementById("id_PopUp_ShortcutsWindow").style.display="none";
+}
+
+function openShortcutsWindow(){
+  document.getElementById("id_PopUp_ShortcutsWindow").style.display="block";
+}
+
+//////////////////////////////////////
+/// Filter Window /////
+///////////////////////////////////
+
 function closeFilterWindow(){
   document.getElementById("id_PopUp_FilterWindow").style.display="none";
 }

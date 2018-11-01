@@ -26,6 +26,7 @@ function saveCMS(){
   somethingChanged=false;
   document.getElementById("id_EditPage_savePartDiv").style.display="none";
   //document.getElementById("id_EditPage_StopInteractionDiv").style.width="0%";
+  drawPredefined_MyDesignsCMS();
 
 }
 
@@ -38,6 +39,7 @@ function saveCMSasNew(){
     document.getElementById("id_header_editWarning").style.display="none";
     document.getElementById("id_EditPage_savePartDiv").style.display="none";
     //document.getElementById("id_EditPage_StopInteractionDiv").style.width="0%";
+    drawPredefined_MyDesignsCMS();
   }
   else{
     openAlert("You already used the full CMS-storage and the CMS can not saved as new one!");

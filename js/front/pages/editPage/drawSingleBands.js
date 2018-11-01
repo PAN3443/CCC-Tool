@@ -31,7 +31,7 @@ function drawScaledBands(){
       var div = document.createElement("div");
       div.className = "row";
       div.style.width = "100%";
-      div.style.marginTop = "1vh";
+      div.style.marginTop = "5px";
 
       var iCan = document.createElement('canvas');
       var id = 'scale'+i

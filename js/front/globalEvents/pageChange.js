@@ -152,6 +152,7 @@ document.getElementById("id_actionMenu_myDesignPart").style.display="none";
 document.getElementById("id_dropDownMenu_DisplayOptions").style.display="block";
 
 updatePageWidth();
+drawPredefined_MyDesignsCMS();
 updateEditPage();
 
 

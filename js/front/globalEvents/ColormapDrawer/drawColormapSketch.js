@@ -191,16 +191,15 @@ function drawInsertBandPreview(canvasData, currentPos, bandLength, canvasHeight,
               canvasData=createScaledBand(canvasData, currentPos, bandLength, canvasHeight, scaleBands[dragPredefinedBandIndex][0].getInColorFormat(globalCMS1.getInterpolationSpace()),scaleBands[dragPredefinedBandIndex][1].getInColorFormat(globalCMS1.getInterpolationSpace()), canvasWidth);
       break;
       case 2:
-              // ->predefined CMS
+              // ->MyDesigns CMS
+              canvasData = drawInsertCMSPreview(myDesignsList[dragPredefinedBandIndex],canvasData, currentPos, bandLength, canvasHeight, canvasWidth);
             break;
       case 3:
-              // -> custom const
-              canvasData=createConstantBand(canvasData, currentPos, bandLength, canvasHeight, customConstBandColor.getInColorFormat(globalCMS1.getInterpolationSpace()), canvasWidth);
+              // -> predefined CMS
       break;
       case 4:
-              // -> custom scale
-              canvasData=createScaledBand(canvasData, currentPos, bandLength, canvasHeight, customScaleBandColor1.getInColorFormat(globalCMS1.getInterpolationSpace()),customScaleBandColor2.getInColorFormat(globalCMS1.getInterpolationSpace()), canvasWidth);
-      break;
+              // -> online CMS
+              break;
 
       default:
       console.log("Error in drawInsertBandPreview function.");
@@ -211,7 +210,26 @@ function drawInsertBandPreview(canvasData, currentPos, bandLength, canvasHeight,
 }
 
 
+function drawInsertCMSPreview(cms,canvasData, currentPos, bandLength, canvasHeight, canvasWidth){
 
+  var subBandLength = bandLength/(cms.getKeyLength()-1);
+  var subCurrentPos = currentPos;
+  for(var x=0; x<cms.getKeyLength()-1; x++){
+
+    color1 = cms.getRightKeyColor(x,globalCMS1.getInterpolationSpace());
+    color2 = cms.getLeftKeyColor(x+1,globalCMS1.getInterpolationSpace());
+
+    if(color1==undefined)
+      canvasData=createConstantBand(canvasData, subCurrentPos, subBandLength, canvasHeight, color2, canvasWidth);
+    else
+      canvasData=createScaledBand(canvasData, subCurrentPos, subBandLength, canvasHeight, color1, color2, canvasWidth);
+
+    subCurrentPos += subBandLength;
+  }
+
+  return canvasData;
+
+}
 
 
 

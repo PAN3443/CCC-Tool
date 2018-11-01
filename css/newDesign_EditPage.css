@@ -206,12 +206,36 @@
     margin-right: 10%;
     border-radius: 3px;
     border: 1px solid black;
-    margin-top: 10px;
-    float:left;
-    line-height: 30px;
-    vertical-align: middle;
-    text-align:  center;
-    font-size: 12px;
+    margin-top: 5px;
+    cursor: grabbing;
+}
+
+
+.class_predefinedSketchCMSBands{
+
+
+    border: 1px solid black;
+    height: 20px;
+    min-height: 20px;
+    width: 80%;
+    margin: 0px;
+    margin-left: 10%;
+    margin-right: 10%;
+    border-radius: 0px 0px 3px 3px;
+
+    cursor: grabbing;
+}
+
+.class_predefinedLinearCMSBands{
+    height: 20px;
+    min-height: 20px;
+    width: 80%;
+    margin: 0px;
+    margin-left: 10%;
+    margin-right: 10%;
+    border-radius: 3px 3px 0px 0px;
+    border: 1px solid black;
+    border-bottom: none;
     cursor: grabbing;
 }
 

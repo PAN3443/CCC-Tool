@@ -64,6 +64,23 @@ function bandOnDragStart(event){
               tmpString = tmpString.substr(5);
               dragPredefinedBandIndex = parseInt(tmpString);
           break;
+
+          case "m": // myDesign
+              dragPredefinedBandType = 2;
+              tmpString = tmpString.substr(12);
+              dragPredefinedBandIndex = parseInt(tmpString);
+          break;
+
+          case "o": // online
+
+          break;
+
+          case "p": // predefined
+
+          break;
+
+
+
           /*case "d":
               dragPredefinedBandType = 2;
               tmpString = tmpString.substr(6);
@@ -211,7 +228,7 @@ function bandOnDrop(event){
                           ///// split key
                           globalCMS1.setRefPosition(indexOfDroppedPlace,endPos);
 
-                          // case constant add Keys
+                          // case scale add Keys
                           var oldColor = globalCMS1.getLeftKeyColor(indexOfDroppedPlace,"lab");
                           globalCMS1.setLeftKeyColor(indexOfDroppedPlace,scaleBands[dragPredefinedBandIndex][1]);
                           globalCMS1.insertKey(indexOfDroppedPlace, new class_Key(oldColor,scaleBands[dragPredefinedBandIndex][0],startPos));
@@ -222,7 +239,27 @@ function bandOnDrop(event){
                     }
             break;
             case 2:
-                    // -> predefined CMS
+                    // -> myDesign CMS
+
+                    /*case "m": // myDesign
+                        dragPredefinedBandType = 2;
+                        tmpString = tmpString.substr(12);
+                        dragPredefinedBandIndex = parseInt(tmpString);
+                    break;*/
+
+
+
+                    if(globalCMS1.getKeyLength()==0){
+
+                            for (var i = 0; i < myDesignsList[dragPredefinedBandIndex].getKeyLength(); i++) {
+                              globalCMS1.pushKey(myDesignsList[dragPredefinedBandIndex].getKeyClone(i));
+                            }
+
+                    }
+                    else{
+                        insertCMSinGlobalCMS(myDesignsList[dragPredefinedBandIndex], indexOfDroppedPlace);
+                    }
+
 
             break;
             case 3:
@@ -326,3 +363,81 @@ function checkConstantBand(c1,c2){
 
 
 ////////////////////////////////////////////////
+
+
+function insertCMSinGlobalCMS(cms, startKey){
+
+  var cmsDis = cms.getRefRange();
+
+  switch (startKey) {
+    case globalCMS1.getKeyLength()-1:
+      // case scaled band
+      var tmpVal = globalCMS1.getRefPosition(startKey);
+      var dist = Math.abs(tmpVal-globalCMS1.getRefPosition(startKey-1))*0.5;
+      var startPos = tmpVal-dist;
+
+      globalCMS1.setRefPosition(startKey,startPos);
+      globalCMS1.setRightKeyColor(startKey,cms.getRightKeyColor(0,"lab"));
+
+      for (var i = 1; i < cms.getKeyLength()-1; i++) {
+
+        var ratio = (cms.getRefPosition(i)-cms.getRefPosition(i-1))/cmsDis;
+        startPos = startPos+dist*ratio;
+
+        var tmpKey = cms.getKeyClone(i);
+        tmpKey.setRefPosition(startPos);
+        globalCMS1.pushKey(tmpKey); // push new left key
+      }
+
+      var tmpKey2 = cms.getKeyClone(i);
+      tmpKey2.setRefPosition(tmpVal);
+      globalCMS1.pushKey(tmpKey2);
+
+
+      break;
+
+    default:
+
+    var startPos = globalCMS1.getRefPosition(startKey);
+    var dist = Math.abs(globalCMS1.getRefPosition(startKey+1)-startPos)*0.5;
+    var endPos = (startPos+dist);
+
+
+
+    globalCMS1.setRefPosition(startKey,endPos);
+    var oldColor = globalCMS1.getLeftKeyColor(startKey,"lab");
+
+
+    globalCMS1.setLeftKeyColor(startKey,cms.getLeftKeyColor(cms.getKeyLength()-1,"lab"));
+
+    for (var i = cms.getKeyLength()-2; i >= 0 ; i--) {
+
+      var ratio = (cms.getRefPosition(i+1)-cms.getRefPosition(i))/cmsDis;
+      endPos = endPos-dist*ratio;
+
+      var tmpKey = cms.getKeyClone(i);
+      tmpKey.setRefPosition(endPos);
+      globalCMS1.insertKey(startKey, tmpKey);
+    }
+
+    globalCMS1.setLeftKeyColor(startKey,oldColor);
+
+
+      /*
+
+      ///////////
+      ///// split key
+
+
+      // case scale add Keys
+
+
+
+      ;*/
+
+  }
+
+
+
+
+}
