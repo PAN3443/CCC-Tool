@@ -33,6 +33,9 @@ function drawKeyBursLine(canvasID,tmpCMS){
     var pos1 = xPos + (tmpCMS.getRefPosition(i) - tmpCMS.getRefPosition(0)) / (tmpCMS.getRefPosition(tmpCMS.getKeyLength()-1) - tmpCMS.getRefPosition(0)) * colormapWidth;
     var pos2 = xPos + (i*bandSketchWidth);
 
+    if(tmpCMS.getBur(i)==false && limitKeyBurLine)
+    continue;
+
     canvasContex.beginPath();
     canvasContex.lineWidth = 1;
     canvasContex.moveTo(pos1, 0);
@@ -82,6 +85,10 @@ function drawKeyBursLine(canvasID,tmpCMS){
 
     }
     else{
+
+      if(limitKeyBurLine)
+      continue;
+
       canvasContex.beginPath();
       canvasContex.arc(pos1, middlePos, smallRad, 0, 2 * Math.PI, false);
       canvasContex.fillStyle = 'black';

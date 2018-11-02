@@ -72,5 +72,6 @@ function init_events_EditPage(){
   document.getElementById('id_editPage_CMSDescription').addEventListener("change", updateDescription);
   document.getElementById('id_EditPage_CMSName').addEventListener("change", updateColormapName);
 
+  limitKeyBurLine=true;
 
 }

@@ -1,5 +1,22 @@
 
 
+
+function changeLimitKeyBurLine(){
+
+  if(limitKeyBurLine){
+    limitKeyBurLine=false,
+    document.getElementById('id_dropDownMenue_LimitKeyBurLine_Label').innerHTML="Show Limited Key Bur Line";
+  }
+  else {
+    limitKeyBurLine=true,
+    document.getElementById('id_dropDownMenue_LimitKeyBurLine_Label').innerHTML="Show Full Key Bur Line";
+  }
+
+  document.getElementById("id_dropDownContainer").style.display="none";
+  drawKeyBursLine("id_EditPage_CMS_VIS_KeyBurs",globalCMS1);
+}
+
+
 function updateEditPage(){
 
 

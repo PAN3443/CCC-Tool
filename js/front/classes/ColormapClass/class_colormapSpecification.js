@@ -304,8 +304,9 @@ class class_CMS {
   pushKey(key,bursType){
       this.keyArray.push(key);
 
-      if(bursType!=undefined)
-      this.burs.push(bursType);
+      if(bursType!=undefined){
+          this.burs.push(bursType);
+      }
       else{
           this.burs.push(true);
       }

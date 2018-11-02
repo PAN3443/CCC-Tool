@@ -11,6 +11,7 @@ function closeShortcutsWindow(){
 
 function openShortcutsWindow(){
   document.getElementById("id_PopUp_ShortcutsWindow").style.display="block";
+  document.getElementById("id_dropDownContainer").style.display="none";
 }
 
 //////////////////////////////////////

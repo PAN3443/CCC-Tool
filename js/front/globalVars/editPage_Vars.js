@@ -11,6 +11,7 @@ var keyBurPoint = [];
 var keyBurKeyIndex = [];
 var colorrectWitdh = 0;
 var colorBurRadius = 0;
+var limitKeyBurLine = true;
 
 // mouseposition
 var mousePosX;
