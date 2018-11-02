@@ -51,13 +51,14 @@ function updateEditPage(){
 
 
         drawCanvasColormap("id_EditPage_CMS_VIS_ColormapLinear", linearMap_resolution_X, linearMap_resolution_Y, globalCMS1);
-        drawKeys("id_EditPage_CMS_VIS_LinearKeys", key_resolution_X, key_resolution_Y, globalCMS1, "id_keyColormapLinesBottom");
+        drawKeys("id_EditPage_CMS_VIS_LinearKeys",  globalCMS1);
         drawSketchKeys("id_EditPage_CMS_VIS_SketchKeys", globalCMS1);
-        drawLines("id_EditPage_CMS_VIS_Lines1",true, true, key_resolution_X, key_resolution_Y, globalCMS1);
-        drawLines("id_EditPage_CMS_VIS_Lines2",false, false, key_resolution_X, key_resolution_Y, globalCMS1);
-        drawLines("id_EditPage_CMS_VIS_Lines3",false, false, key_resolution_X, key_resolution_Y, globalCMS1);
+        drawLines("id_EditPage_CMS_VIS_Lines1",true, true,  globalCMS1);
+        drawLines("id_EditPage_CMS_VIS_Lines2",false, false,  globalCMS1);
+        drawLines("id_EditPage_CMS_VIS_Lines3",false, false,  globalCMS1);
         drawKeyNumber("id_EditPage_CMS_VIS_SketchKeyNumbers", globalCMS1);
         drawSketchInputFields(globalCMS1,"id_EditPage_CMS_VIS_Lines3", true);
+        drawKeyBursLine("id_EditPage_CMS_VIS_KeyBurs",globalCMS1);
 
 
 

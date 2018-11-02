@@ -243,8 +243,17 @@ function init_CCCPageStyle(){
     document.getElementById("id_editPage_CMSDescription").style.minHeight = Math.floor(windowHeight*0.25) + "px";
     document.getElementById("id_editPage_CMSDescription").style.maxHeight = Math.floor(windowHeight*0.25) + "px";
 
-    document.getElementById("id_EditPage").style.display = "none";
 
+
+    /*document.getElementById("id_EditPage_Add_Structures").style.display="block";
+    tmpBox = document.getElementById("id_EditPage_OnlineCMS_Div").getBoundingClientRect();
+    tmpMargin = tmpBox.widht;
+    tmpBox = document.getElementById("id_EditPage_OnlineCMS_NotAvailableImg").getBoundingClientRect();
+    tmpMargin = Math.floor((tmpMargin-tmpBox.widht)/2)
+    document.getElementById("id_EditPage_OnlineCMS_NotAvailableImg").style.marginLeft =tmpMargin+"px";
+    document.getElementById("id_EditPage_Add_Structures").style.display = "none";*/
+
+    document.getElementById("id_EditPage").style.display = "none";
 
 
 }

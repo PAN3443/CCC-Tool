@@ -2,17 +2,17 @@
 //// Lines
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-function drawLines(cmsID,fromIsLinear, toIsLinear, resolutionX, resolutionY, tmpCMS){
+function drawLines(cmsID,fromIsLinear, toIsLinear, tmpCMS){
 
   var canvasObject = document.getElementById(cmsID);
-  var tmpRect = canvasObject.getBoundingClientRect();
-  canvasObject.width = resolutionX;
-  canvasObject.height = tmpRect.height;
+  var rect = canvasObject.getBoundingClientRect();
+  canvasObject.width = rect.width;
+  canvasObject.height = rect.height;
 
   var canvasContex = canvasObject.getContext("2d");
 
-  var colormapWidth = resolutionX * 0.9;
-  var xPos = resolutionX * 0.05;
+  var colormapWidth = canvasObject.width * 0.9;
+  var xPos = canvasObject.width * 0.05;
 
   var bandSketchWidth = Math.round(colormapWidth/(tmpCMS.getKeyLength()-1));
   // draw keys
@@ -34,7 +34,7 @@ function drawLines(cmsID,fromIsLinear, toIsLinear, resolutionX, resolutionY, tmp
     canvasContex.lineWidth = 1;
     canvasContex.moveTo(xPos + pos1, 0);
 
-    canvasContex.lineTo(xPos + pos2, tmpRect.height);
+    canvasContex.lineTo(xPos + pos2, canvasObject.height);
     canvasContex.strokeStyle = 'rgb(0,0,0)';
     canvasContex.stroke();
 

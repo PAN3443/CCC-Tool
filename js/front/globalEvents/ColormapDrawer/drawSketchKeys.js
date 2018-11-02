@@ -1,24 +1,25 @@
 function drawSketchKeys(canvasID, tmpCMS){
 
     var canvasObject = document.getElementById(canvasID);
-    canvasObject.width = key_resolution_X;
-    canvasObject.height = key_resolution_Y;
+    var rect = canvasObject.getBoundingClientRect();
+    canvasObject.width = rect.width;
+    canvasObject.height = rect.height;
 
-    var relation = window.innerHeight/window.innerWidth; //key_resolution_Y/key_resolution_X;
+    //var relation = window.innerHeight/window.innerWidth; //canvasObject.height/canvasObject.width;
 
     var canvasContex = canvasObject.getContext("2d");
     var canvasData = canvasContex.getImageData(0, 0, canvasObject.width, canvasObject.height);
 
     //////////////////////////////////////////////////////////////
 
-    var colormapWidth = key_resolution_X * 0.9;
-    var xPos = key_resolution_X * 0.05;
-    var yPos = key_resolution_Y;
+    var colormapWidth = canvasObject.width * 0.9;
+    var xPos = canvasObject.width * 0.05;
+    var yPos = canvasObject.height;
 
     var bandWidth = colormapWidth/(tmpCMS.getKeyLength()-1);
 
-    colorrectHeigth = key_resolution_Y;
-    colorrectWitdh = (colorrectHeigth*relation)/2;
+    var colorrectHeigth = canvasObject.height;
+    var colorrectWitdh = canvasObject.height; //(colorrectHeigth*relation)/2;
 
     // draw keys
     for (var i = 0; i < tmpCMS.getKeyLength(); i++) {
@@ -98,8 +99,8 @@ function drawKeyNumber(canvasID, tmpCMS){
 
     var canvasObject = document.getElementById(canvasID);
     var rect = canvasObject.getBoundingClientRect();
-    canvasObject.width = rect.width; //key_resolution_X;
-    canvasObject.height = rect.height; //key_resolution_Y;
+    canvasObject.width = rect.width; //canvasObject.width;
+    canvasObject.height = rect.height; //canvasObject.height;
 
 
     var canvasContex = canvasObject.getContext("2d");

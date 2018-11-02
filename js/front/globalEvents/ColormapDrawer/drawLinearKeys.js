@@ -1,4 +1,4 @@
-function drawKeys(canvasID, resolutionX, resolutionY, tmpCMS) {
+function drawKeys(canvasID, tmpCMS) {
 
   /*for (var i = refElementContainer.length - 1; i >= 0; i--) {
     refElementContainer[i].remove();
@@ -8,30 +8,31 @@ function drawKeys(canvasID, resolutionX, resolutionY, tmpCMS) {
   keyRectPoint = [];
 
   var canvasObject = document.getElementById(canvasID);
-  canvasObject.width = key_resolution_X;
-  canvasObject.height = key_resolution_Y;
+  var rect = canvasObject.getBoundingClientRect();
+  canvasObject.width = rect.width;
+  canvasObject.height = rect.height;
 
-  var relation = window.innerHeight/window.innerWidth; //key_resolution_Y/key_resolution_X;
+  //var relation = canvasObject.width/canvasObject.height; //rect.height/rect.width;
 
   var canvasContex = canvasObject.getContext("2d");
-  //canvasContex.clearRect(0, 0, resolutionX, resolutionY);
+  //canvasContex.clearRect(0, 0, canvasObject.width, canvasObject.height);
   var canvasData = canvasContex.getImageData(0, 0, canvasObject.width, canvasObject.height);
 
 
   //////////////////////////////////////////////////////////////
 
-  var colormapWidth = resolutionX * 0.9;
-  var xPos = resolutionX * 0.05;
-  var yPos = resolutionY;
+  var colormapWidth = canvasObject.width * 0.9;
+  var xPos = canvasObject.width * 0.05;
+  var yPos = canvasObject.height;
 
   var twinStarted = false;
   var leftStarted = false;
 
-  var distanceColorrects = resolutionY / 3;
+  var distanceColorrects = canvasObject.height / 3;
 
 
-  colorrectHeigth = resolutionY;
-  colorrectWitdh = (colorrectHeigth*relation)/2;
+  var colorrectHeigth = canvasObject.height;
+  colorrectWitdh = colorrectHeigth; //(colorrectHeigth*relation)/2;
 
   var box = document.getElementById(canvasID).getBoundingClientRect();
 
@@ -44,8 +45,6 @@ function drawKeys(canvasID, resolutionX, resolutionY, tmpCMS) {
 
     var colorrectYPos = 1; //yPos - distanceColorrects - colorrectHeigth;
     var colorrectXPos = xPos + pos1 - (colorrectWitdh / 2);
-    var tmpArray = [colorrectXPos, colorrectYPos];
-
 
     switch (tmpCMS.getKeyType(i)) {
       case "nil key":
@@ -56,7 +55,7 @@ function drawKeys(canvasID, resolutionX, resolutionY, tmpCMS) {
         break;
       case "twin key":
 
-          keyRectPoint.push(tmpArray);
+          keyRectPoint.push(colorrectXPos);
 
           if(tmpCMS.getMoT(i))
             drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth/2, tmpCMS.getRightKeyColor(i,"rgb").getRGBString(), false);
@@ -88,7 +87,7 @@ function drawKeys(canvasID, resolutionX, resolutionY, tmpCMS) {
           drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh / 2, colorrectHeigth/2, "rgb(125,125,125)", true);
 
           if (i != tmpCMS.getKeyLength() - 1)
-              keyRectPoint.push(tmpArray);
+              keyRectPoint.push(colorrectXPos);
 
 
         break;
@@ -103,7 +102,7 @@ function drawKeys(canvasID, resolutionX, resolutionY, tmpCMS) {
         break;
       default:
 
-        keyRectPoint.push(tmpArray);
+        keyRectPoint.push(colorrectXPos);
 
         drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth, tmpCMS.getRightKeyColor(i,"rgb").getRGBString(), false);
 

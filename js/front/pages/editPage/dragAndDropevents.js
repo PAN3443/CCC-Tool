@@ -67,8 +67,8 @@ function bandOnDragStart(event){
 
           case "m": // myDesign
               dragPredefinedBandType = 2;
-              tmpString = tmpString.substr(12);
-              dragPredefinedBandIndex = parseInt(tmpString);
+              //tmpString = tmpString.substr(12);
+              dragPredefinedBandIndex = currentPredefinedId;
           break;
 
           case "o": // online
@@ -76,7 +76,9 @@ function bandOnDragStart(event){
           break;
 
           case "p": // predefined
-
+            dragPredefinedBandType = 3;
+            //tmpString = tmpString.substr(12);
+            dragPredefinedBandIndex = currentPredefinedId;
           break;
 
 
@@ -167,8 +169,8 @@ function bandOnDrop(event){
             case 0:
                     // ->const
                     if(globalCMS1.getKeyLength()==0){
-                            globalCMS1.pushKey(new class_Key(undefined, undefined,0.0)); // nil key
-                            globalCMS1.pushKey(new class_Key(constBands[dragPredefinedBandIndex], undefined,1.0)); // left key
+                            globalCMS1.pushKey(new class_Key(undefined, undefined,0.0),true); // nil key
+                            globalCMS1.pushKey(new class_Key(constBands[dragPredefinedBandIndex], undefined,1.0),true); // left key
                     }
                     else{
 
@@ -180,7 +182,7 @@ function bandOnDrop(event){
                             var tmpVal = globalCMS1.getRefPosition(indexOfDroppedPlace);
                             var dist = Math.abs(tmpVal-globalCMS1.getRefPosition(indexOfDroppedPlace-1));
                             globalCMS1.setRefPosition(indexOfDroppedPlace,tmpVal-dist*0.5);
-                            globalCMS1.pushKey(new class_Key(constBands[dragPredefinedBandIndex],undefined,tmpVal)); // push left key
+                            globalCMS1.pushKey(new class_Key(constBands[dragPredefinedBandIndex],undefined,tmpVal),true); // push left key
                             break;
 
                           default:
@@ -194,9 +196,11 @@ function bandOnDrop(event){
                             // case constant add Keys
                             var oldColor = globalCMS1.getLeftKeyColor(indexOfDroppedPlace,"lab");
                             globalCMS1.setLeftKeyColor(indexOfDroppedPlace,constBands[dragPredefinedBandIndex]); // create left key
-                            globalCMS1.insertKey(indexOfDroppedPlace, new class_Key(oldColor,undefined,startPos));
+                            globalCMS1.insertKey(indexOfDroppedPlace, new class_Key(oldColor,undefined,startPos),true);
 
                         }
+
+                        globalCMS1.setBur(indexOfDroppedPlace,true);
 
 
                     }
@@ -204,8 +208,8 @@ function bandOnDrop(event){
             case 1:
                     // ->scale
                     if(globalCMS1.getKeyLength()==0){
-                            globalCMS1.pushKey(new class_Key(undefined, scaleBands[dragPredefinedBandIndex][0],0.0)); // right key
-                            globalCMS1.pushKey(new class_Key(scaleBands[dragPredefinedBandIndex][1], undefined,1.0)); // left key
+                            globalCMS1.pushKey(new class_Key(undefined, scaleBands[dragPredefinedBandIndex][0],0.0),true); // right key
+                            globalCMS1.pushKey(new class_Key(scaleBands[dragPredefinedBandIndex][1], undefined,1.0),true); // left key
                     }
                     else{
 
@@ -217,7 +221,7 @@ function bandOnDrop(event){
                           var dist = Math.abs(tmpVal-globalCMS1.getRefPosition(indexOfDroppedPlace-1));
                           globalCMS1.setRefPosition(indexOfDroppedPlace,tmpVal-dist*0.5);
                           globalCMS1.setRightKeyColor(indexOfDroppedPlace,scaleBands[dragPredefinedBandIndex][0]); // update old left key
-                          globalCMS1.pushKey(new class_Key(scaleBands[dragPredefinedBandIndex][1],undefined,tmpVal)); // push new left key
+                          globalCMS1.pushKey(new class_Key(scaleBands[dragPredefinedBandIndex][1],undefined,tmpVal),true); // push new left key
                           break;
 
                         default:
@@ -231,9 +235,11 @@ function bandOnDrop(event){
                           // case scale add Keys
                           var oldColor = globalCMS1.getLeftKeyColor(indexOfDroppedPlace,"lab");
                           globalCMS1.setLeftKeyColor(indexOfDroppedPlace,scaleBands[dragPredefinedBandIndex][1]);
-                          globalCMS1.insertKey(indexOfDroppedPlace, new class_Key(oldColor,scaleBands[dragPredefinedBandIndex][0],startPos));
+                          globalCMS1.insertKey(indexOfDroppedPlace, new class_Key(oldColor,scaleBands[dragPredefinedBandIndex][0],startPos),true);
 
                       }
+
+                      globalCMS1.setBur(indexOfDroppedPlace,true);
 
 
                     }
@@ -241,102 +247,80 @@ function bandOnDrop(event){
             case 2:
                     // -> myDesign CMS
 
-                    /*case "m": // myDesign
-                        dragPredefinedBandType = 2;
-                        tmpString = tmpString.substr(12);
-                        dragPredefinedBandIndex = parseInt(tmpString);
-                    break;*/
-
-
-
                     if(globalCMS1.getKeyLength()==0){
 
-                            for (var i = 0; i < myDesignsList[dragPredefinedBandIndex].getKeyLength(); i++) {
-                              globalCMS1.pushKey(myDesignsList[dragPredefinedBandIndex].getKeyClone(i));
+                            for (var i = 0; i < myDesignsList[currentPredefinedId].getKeyLength(); i++) {
+
+                              if(i==0 || i==myDesignsList[currentPredefinedId].getKeyLength()-1){
+                                globalCMS1.pushKey(myDesignsList[currentPredefinedId].getKeyClone(i),true);
+                              }
+                              else{
+                                globalCMS1.pushKey(myDesignsList[currentPredefinedId].getKeyClone(i),false);
+                              }
+
                             }
 
                     }
                     else{
-                        insertCMSinGlobalCMS(myDesignsList[dragPredefinedBandIndex], indexOfDroppedPlace);
+                        insertCMSinGlobalCMS(myDesignsList[currentPredefinedId], indexOfDroppedPlace);
                     }
 
 
             break;
             case 3:
-                    // -> custom const band
 
-                    if(globalCMS1.getKeyLength()==0){
-                            globalCMS1.pushKey(new class_Key(undefined, undefined,0.0)); // nil key
-                            globalCMS1.pushKey(new class_Key(customConstBandColor, undefined,1.0)); // left key
+            var tmpCMS;
+            switch (currentPredefinedType) {
+              case 0:
+                  tmpCMS = cmsYellowColormaps[currentPredefinedId];
+                break
+                case 1:
+                  tmpCMS = cmsBlueColormaps[currentPredefinedId];
+                  break
+                  case 2:
+                    tmpCMS = cmsRedPurpleColormaps[currentPredefinedId];
+                    break
+                    case 3:
+                      tmpCMS = cmsGreenColormaps[currentPredefinedId];
+                      break
+                      case 4:
+                      tmpCMS = cmsBrownColormaps[currentPredefinedId];
+                        break
+                        case 5:
+                        tmpCMS = cmsDivergentColormaps[currentPredefinedId];
+                          break
+                          case 6:
+                          tmpCMS = cmsThreeBandColormaps[currentPredefinedId];
+                            break
+                            case 7:
+                              tmpCMS = cmsFourBandColormaps[currentPredefinedId];
+                              break
+
+              default:
+                return;
+            }
+
+            if(globalCMS1.getKeyLength()==0){
+
+                for (var i = 0; i < tmpCMS.getKeyLength(); i++) {
+                    if(i==0 || i==tmpCMS.getKeyLength()-1){
+                      globalCMS1.pushKey(tmpCMS.getKeyClone(i),true);
                     }
                     else{
-
-                        // band at the end
-
-                        switch (indexOfDroppedPlace) {
-                          case globalCMS1.getKeyLength()-1:
-                            // case constant
-                            var tmpVal = globalCMS1.getRefPosition(indexOfDroppedPlace);
-                            var dist = Math.abs(tmpVal-globalCMS1.getRefPosition(indexOfDroppedPlace-1));
-                            globalCMS1.setRefPosition(indexOfDroppedPlace,tmpVal-dist*0.5);
-                            globalCMS1.pushKey(new class_Key(customConstBandColor,undefined,tmpVal)); // push left key
-                            break;
-
-                          default:
-                            var startPos = globalCMS1.getRefPosition(indexOfDroppedPlace);
-                            var endPos = (startPos+Math.abs(globalCMS1.getRefPosition(indexOfDroppedPlace+1)-startPos)*0.5);
-
-                            ///////////
-                            ///// split key
-                            globalCMS1.setRefPosition(indexOfDroppedPlace,endPos);
-
-                            // case constant add Keys
-                            var oldColor = globalCMS1.getLeftKeyColor(indexOfDroppedPlace,"lab");
-                            globalCMS1.setLeftKeyColor(indexOfDroppedPlace,customConstBandColor); // create left key
-                            globalCMS1.insertKey(indexOfDroppedPlace, new class_Key(oldColor,undefined,startPos));
-
-                        }
-
-
+                      globalCMS1.pushKey(tmpCMS.getKeyClone(i),false);
                     }
+                }
+            }
+            else{
+                insertCMSinGlobalCMS(tmpCMS, indexOfDroppedPlace);
+            }
+
+
+
 
             break;
             case 4:
-                    // -> custom scale band
-                    if(globalCMS1.getKeyLength()==0){
-                            globalCMS1.pushKey(new class_Key(undefined, customScaleBandColor1,0.0)); // right key
-                            globalCMS1.pushKey(new class_Key(customScaleBandColor2, undefined,1.0)); // left key
-                    }
-                    else{
 
-
-                      switch (indexOfDroppedPlace) {
-                        case globalCMS1.getKeyLength()-1:
-                          // case scaled band
-                          var tmpVal = globalCMS1.getRefPosition(indexOfDroppedPlace);
-                          var dist = Math.abs(tmpVal-globalCMS1.getRefPosition(indexOfDroppedPlace-1));
-                          globalCMS1.setRefPosition(indexOfDroppedPlace,tmpVal-dist*0.5);
-                          globalCMS1.setRightKeyColor(indexOfDroppedPlace,customScaleBandColor1); // update old left key
-                          globalCMS1.pushKey(new class_Key(customScaleBandColor2,undefined,tmpVal)); // push new left key
-                          break;
-
-                        default:
-                          var startPos = globalCMS1.getRefPosition(indexOfDroppedPlace);
-                          var endPos = (startPos+Math.abs(globalCMS1.getRefPosition(indexOfDroppedPlace+1)-startPos)*0.5);
-
-                          ///////////
-                          ///// split key
-                          globalCMS1.setRefPosition(indexOfDroppedPlace,endPos);
-
-                          // case constant add Keys
-                          var oldColor = globalCMS1.getLeftKeyColor(indexOfDroppedPlace,"lab");
-                          globalCMS1.setLeftKeyColor(indexOfDroppedPlace,customScaleBandColor2);
-                          globalCMS1.insertKey(indexOfDroppedPlace, new class_Key(oldColor,customScaleBandColor1,startPos));
-
-                      }
-
-
-                    }
             break;
 
             default:
@@ -386,12 +370,14 @@ function insertCMSinGlobalCMS(cms, startKey){
 
         var tmpKey = cms.getKeyClone(i);
         tmpKey.setRefPosition(startPos);
-        globalCMS1.pushKey(tmpKey); // push new left key
+        globalCMS1.pushKey(tmpKey,false); // push new left key
       }
 
       var tmpKey2 = cms.getKeyClone(i);
       tmpKey2.setRefPosition(tmpVal);
-      globalCMS1.pushKey(tmpKey2);
+      globalCMS1.pushKey(tmpKey2,true);
+
+      //globalCMS1.setBur(startKey,true);
 
 
       break;
@@ -409,6 +395,7 @@ function insertCMSinGlobalCMS(cms, startKey){
 
 
     globalCMS1.setLeftKeyColor(startKey,cms.getLeftKeyColor(cms.getKeyLength()-1,"lab"));
+    globalCMS1.setBur(startKey,true);
 
     for (var i = cms.getKeyLength()-2; i >= 0 ; i--) {
 
@@ -417,10 +404,11 @@ function insertCMSinGlobalCMS(cms, startKey){
 
       var tmpKey = cms.getKeyClone(i);
       tmpKey.setRefPosition(endPos);
-      globalCMS1.insertKey(startKey, tmpKey);
+      globalCMS1.insertKey(startKey, tmpKey, false);
     }
 
     globalCMS1.setLeftKeyColor(startKey,oldColor);
+    globalCMS1.setBur(startKey,true);
 
 
       /*

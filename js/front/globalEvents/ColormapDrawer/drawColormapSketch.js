@@ -11,21 +11,31 @@ function drawBandSketch(cms,sketchObjectID, withInputFields, aboveInputField){
   canvasContex.imageSmoothingEnabled = false; // did not work !?!?!
   canvasContex.oImageSmoothingEnabled = false;
 
-  canvasObject.height = 80;//40;
+
   var fontSize = 40;//20;
   var smallFontSize = 30;//15;
   var bandLength; //= bandSketchObjLength;
 
   if(withInputFields){
-    bandLength= Math.round(rect.width/(cms.getKeyLength()-1));
+    canvasObject.height = 80;//40;
+
+    if(rect.width!=0)
+      bandLength= Math.round(rect.width/(cms.getKeyLength()-1));
+    else
+      bandLength= Math.round(500/(cms.getKeyLength()-1));
 
   }else{
-    bandLength= Math.round(rect.width/(cms.getKeyLength()-1 + cms.getKeyLength()));
+    canvasObject.height = 1;//40;
+    if(rect.width!=0)
+      bandLength= Math.round(rect.width/(cms.getKeyLength()-1 + cms.getKeyLength()));
+    else
+      bandLength= Math.round(500/(cms.getKeyLength()-1 + cms.getKeyLength()));
   }
 
   bandSketchObjLength=bandLength;
 
   if(cms.getKeyLength()==0){
+    canvasObject.height = 80;//40;
     canvasObject.width = 2500;//1500;
 
     canvasObject.style.border = "2px dashed black";
@@ -79,7 +89,6 @@ function drawBandSketch(cms,sketchObjectID, withInputFields, aboveInputField){
     else{
       canvasObject.width = (cms.getKeyLength()-1)*bandLength;
     }
-
 
     var canvasData = canvasContex.getImageData(0, 0, canvasObject.width, canvasObject.height);
     var currentPos=0;
@@ -196,9 +205,42 @@ function drawInsertBandPreview(canvasData, currentPos, bandLength, canvasHeight,
             break;
       case 3:
               // -> predefined CMS
+              var tmpCMS;
+              switch (currentPredefinedType) {
+                case 0:
+                    tmpCMS = cmsYellowColormaps[currentPredefinedId];
+                  break
+                  case 1:
+                    tmpCMS = cmsBlueColormaps[currentPredefinedId];
+                    break
+                    case 2:
+                      tmpCMS = cmsRedPurpleColormaps[currentPredefinedId];
+                      break
+                      case 3:
+                        tmpCMS = cmsGreenColormaps[currentPredefinedId];
+                        break
+                        case 4:
+                        tmpCMS = cmsBrownColormaps[currentPredefinedId];
+                          break
+                          case 5:
+                          tmpCMS = cmsDivergentColormaps[currentPredefinedId];
+                            break
+                            case 6:
+                            tmpCMS = cmsThreeBandColormaps[currentPredefinedId];
+                              break
+                              case 7:
+                                tmpCMS = cmsFourBandColormaps[currentPredefinedId];
+                                break
+
+                default:
+                  return;
+              }
+              canvasData = drawInsertCMSPreview(tmpCMS,canvasData, currentPos, bandLength, canvasHeight, canvasWidth);
       break;
       case 4:
               // -> online CMS
+
+
               break;
 
       default:

@@ -30,6 +30,10 @@ class class_CMS {
     this.intervalArray=[];
     this.intervalPosition=[];
 
+
+    ///
+    this.burs=[];
+
     /// Probes
     this.probeArray=[];
 
@@ -292,12 +296,28 @@ class class_CMS {
   }
 
 
-  insertKey(index,key){
+  insertKey(index,key,bursType){
       this.keyArray.splice(index, 0,key);
+      this.burs.splice(index, 0,bursType);
   }
 
-  pushKey(key){
+  pushKey(key,bursType){
       this.keyArray.push(key);
+
+      if(bursType!=undefined)
+      this.burs.push(bursType);
+      else{
+          this.burs.push(true);
+      }
+
+  }
+
+  getBur(index){
+    return this.burs[index];
+  }
+
+  setBur(index,newBurs){
+    this.burs[index]=newBurs;
   }
 
 
@@ -850,7 +870,7 @@ function cloneCMS(cmsObj){
     var keyObj = cmsObj.getKey(i);
     var newKey = new class_Key(keyObj.getLeftKeyColor("lab"),keyObj.getRightKeyColor("lab"),keyObj.getRefPosition());
     newKey.setMoT(keyObj.getMoT());
-    newCMS.pushKey(newKey);
+    newCMS.pushKey(newKey,cmsObj.getBur(i));
   }
 
   return newCMS;
