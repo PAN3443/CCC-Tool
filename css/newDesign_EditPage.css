@@ -294,24 +294,7 @@
 }
 
 
-.dropdownOrderDropdownButton{
-  display: block;
-  width:150px;
-  margin-left: 25px;
-  font-size: 16px;
-  line-height: 25px;
-  cursor:pointer;
-  color:white;
-  vertical-align: middle;
-  text-align: left;
-}
-
-.dropdownOrderDropdownButton:hover {
-  background: rgba(255,255,255,0.2);
-}
-
-
-.dropdownOrderPredefinedDropdownButton{
+.dropdownButtonEditPage{
   display: block;
   /*width:250px;*/
   font-size: 16px;
@@ -324,6 +307,6 @@
   border-top:1px solid white;
 }
 
-.dropdownOrderPredefinedDropdownButton:hover {
+.dropdownButtonEditPage:hover {
   background: rgba(255,255,255,0.2);
 }

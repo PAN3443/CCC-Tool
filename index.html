@@ -111,16 +111,25 @@
   <!-- Edit PAGE -->
 
   <script src="js/front/pages/editPage/events_editPage.js"></script>
-  <script src="js/front/pages/editPage/drawSingleBands.js"></script>
-  <script src="js/front/pages/editPage/dragAndDropevents.js"></script>
   <script src="js/front/pages/editPage/saveCreateProcess.js"></script>
   <script src="js/front/pages/editPage/events_keyRef_editPage.js"></script>
-  <script src="js/front/pages/editPage/drawPredefinedCMS.js"></script>
+  <script src="js/front/pages/editPage/dropdown_events.js"></script>
 
-  <!-- Edit PAGE: Side Options-->
-  <script src="js/front/pages/editPage/sideOptions/events_EditPage_showSideOptions.js"></script>
-  <script src="js/front/pages/editPage/sideOptions/fillTable.js"></script>
-  <script src="js/front/pages/editPage/sideOptions/changeInterpolationSpace.js"></script>
+    <!-- Edit PAGE: Add CMS -->
+    <script src="js/front/pages/editPage/editAddCMS/drawSingleBands.js"></script>
+    <script src="js/front/pages/editPage/editAddCMS/dragAndDropevents.js"></script>
+    <script src="js/front/pages/editPage/editAddCMS/drawPredefinedCMS.js"></script>
+
+    <!-- Edit PAGE: Path Plot -->
+    <script src="js/front/pages/editPage/editPathPlot/arrangePlots.js"></script>
+    <script src="js/front/pages/editPage/editPathPlot/drawPathPlot/drawColorspaceHSV_LAB_DIN99.js"></script>
+    <script src="js/front/pages/editPage/editPathPlot/drawPathPlot/drawColorspaceRGB.js"></script>
+    <script src="js/front/pages/editPage/editPathPlot/events_PathPlot.js"></script>
+
+    <!-- Edit PAGE: Side Options-->
+    <script src="js/front/pages/editPage/sideOptions/events_EditPage_showSideOptions.js"></script>
+    <script src="js/front/pages/editPage/sideOptions/fillTable.js"></script>
+    <script src="js/front/pages/editPage/sideOptions/changeInterpolationSpace.js"></script>
 
 
 
@@ -244,7 +253,7 @@
         </div-->
 
       <div style="height:100%; width:auto; position: relative; display: inline-block; margin-right:2vw;">
-        <div onclick="activateDropdown()" class="menu_button" > Menu </div>
+        <div onclick="activateMenuDropdown()" class="menu_button" > Menu </div>
 
         <div id="id_dropDownContainer" style="background: url(img/background3.png); display: none; position: absolute; right: 0; z-index: 101;">
 
@@ -599,7 +608,7 @@
 
 
 
-                      <h1 class="subsectionLabel class_EditDivLabel" style="text-decoration:underline;"> Single Bands </h1>
+                      <h1 class="subsectionLabel class_EditDivLabel" style="text-decoration:underline; background: rgb(220,220,220);"> Single Bands </h1>
 
 
                       <div class="row" style="width:100%; height:92%;">
@@ -694,7 +703,7 @@
 
 
                       <div style="height:100%; max-height:100%; width:33%; ">
-                        <div class="row class_EditDivLabel" style="width:100%;">
+                        <div class="row class_EditDivLabel" style="width:100%; background: rgb(220,220,220);">
 
                           <div oonclick="openFilterWindow()" class="class_generalbutton class_noSizeUpdate class_EditDivLabel" style="width:15%; display:none; line-height: inherit; font-size:inherit; margin-top:auto; margin-bottom:auto; margin-left:2.5%; background:rgb(220,220,220); color:rgb(130,130,130); border: 2px solid rgb(130,130,130); cursor:not-allowed;">
                             Set Filter
@@ -702,16 +711,14 @@
 
                           <h1 class="subsectionLabel class_EditDivLabel" style="margin-left:2.5%; margin-right:auto; text-decoration:underline;"> Online CMS </h1>
 
-                          <div id="id_editPage_OrderLabel" class="class_EditDivLabel" onclick="()" style="background: url(img/background3.png); width:10%; margin-right:auto; margin-top:auto; margin-bottom:auto; color:rgb(130,130,130); background:rgb(180,180,180); cursor:not-allowed;"> &#9660; Rating </div>
+                          <div id="id_editPage_OrderLabel" class="class_EditDivLabel" style="border-left:1px solid black; width:10%; margin-right:auto; margin-top:auto; margin-bottom:auto; color:rgb(130,130,130); cursor:not-allowed;"> &#9660; Rating </div>
                           <div id="id_editPage_OrderDropdown" style="background: url(img/background3.png); display: none; position: absolute; right: 0; z-index: 101;">
-                            <div class="row dropdownMenuLabelBox" style="background:rgba(255,255,255,0.3); border-bottom: 1px solid white;">
-                              <div class="dropdownOrderDropdownButton">
+                              <div class="dropdownButtonEditPage">
                                 Rating
                               </div>
-                              <div class="dropdownOrderDropdownButton">
+                              <div class="dropdownButtonEditPage">
                                 Newest
                               </div>
-                            </div>
                           </div>
 
 
@@ -731,43 +738,39 @@
                       <div style="height:100%; width:34%; border-left:1px solid grey;">
 
 
-                        <div class="row class_EditDivLabel" style="width:100%;">
+                        <div class="row class_EditDivLabel" style="width:100%; background: rgb(220,220,220);">
                           <h1 class="subsectionLabel class_EditDivLabel" style="text-decoration:underline;"> Predefined CMS </h1>
 
 
-                            <div id="id_editPage_OrderPredefinedLabel" class="class_EditDivLabel" onclick="activatePredefinedDropdown()" style="background: rgb(120,120,120); width:10%; margin-right:auto; margin-top:auto; margin-bottom:auto; " title="All"> &#9660; </div>
-                              <div id="id_editPage_OrderPredefinedDropdown" style="background: url(img/background3.png); display: none; position: absolute; left: 0px; z-index: 101;">
-                                <div  style="background:rgba(255,255,255,0.3); border-bottom: 1px solid white;">
-                                    <div id="id_editPage_Order_All"  onclick="changeFilterPredefined(0)" class="dropdownOrderPredefinedDropdownButton">
+                            <div id="id_editPage_OrderPredefinedLabel" class="class_EditDivLabel" style=" width:10%; margin-right:auto; margin-top:auto; margin-bottom:auto; cursor: pointer; text-align:center; border-left:1px solid black;" title="All"> &#9660; </div>
+                              <div id="id_editPage_OrderPredefinedDropdown" style="background: url(img/background3.png); display: none; position: absolute; left: 0px; z-index: 101;  width:10%;">
+                                    <div id="id_editPage_Order_All"  onclick="changeFilterPredefined(0)" class="dropdownButtonEditPage">
                                       All
                                     </div>
-                                    <div id="id_editPage_Order_Multiband" onclick="changeFilterPredefined(1)" class="dropdownOrderPredefinedDropdownButton">
+                                    <div id="id_editPage_Order_Multiband" onclick="changeFilterPredefined(1)" class="dropdownButtonEditPage">
                                       Multiband
                                     </div>
-                                    <div id="id_editPage_Order_Divergent" onclick="changeFilterPredefined(2)" class="dropdownOrderPredefinedDropdownButton">
+                                    <div id="id_editPage_Order_Divergent" onclick="changeFilterPredefined(2)" class="dropdownButtonEditPage">
                                       Divergent
                                     </div>
-                                    <div id="id_editPage_Order_Scaled_All" onclick="changeFilterPredefined(3)" class="dropdownOrderPredefinedDropdownButton">
+                                    <div id="id_editPage_Order_Scaled_All" onclick="changeFilterPredefined(3)" class="dropdownButtonEditPage">
                                       Scaled All
                                     </div>
-                                    <div id="id_editPage_Order_Scaled_Blue" onclick="changeFilterPredefined(4)" class="dropdownOrderPredefinedDropdownButton">
+                                    <div id="id_editPage_Order_Scaled_Blue" onclick="changeFilterPredefined(4)" class="dropdownButtonEditPage">
                                       Scaled Blue
                                     </div>
-                                    <div id="id_editPage_Order_Scaled_Brown" onclick="changeFilterPredefined(5)" class="dropdownOrderPredefinedDropdownButton">
+                                    <div id="id_editPage_Order_Scaled_Brown" onclick="changeFilterPredefined(5)" class="dropdownButtonEditPage">
                                       Scaled Brown
                                     </div>
-                                    <div id="id_editPage_Order_Scaled_Green" onclick="changeFilterPredefined(6)" class="dropdownOrderPredefinedDropdownButton">
+                                    <div id="id_editPage_Order_Scaled_Green" onclick="changeFilterPredefined(6)" class="dropdownButtonEditPage">
                                       Scaled Green
                                     </div>
-                                    <div id="id_editPage_Order_Scaled_RedPurple" onclick="changeFilterPredefined(7)" class="dropdownOrderPredefinedDropdownButton">
+                                    <div id="id_editPage_Order_Scaled_RedPurple" onclick="changeFilterPredefined(7)" class="dropdownButtonEditPage">
                                       Scaled Red Purple
                                     </div>
-                                    <div id="id_editPage_Order_Scaled_YellowOrange" onclick="changeFilterPredefined(8)" class="dropdownOrderPredefinedDropdownButton">
+                                    <div id="id_editPage_Order_Scaled_YellowOrange" onclick="changeFilterPredefined(8)" class="dropdownButtonEditPage">
                                       Scaled Yellow Orange
                                     </div>
-                                  </div>
-
-
                           </div>
                         </div>
 
@@ -782,7 +785,7 @@
                       <div style="height:100%; width:33%; border-left:1px solid grey;">
 
 
-                          <h1 class="subsectionLabel class_EditDivLabel" style="margin-top:auto; margin-bottom:auto; text-decoration:underline;"> MyDesigns </h1>
+                          <h1 class="subsectionLabel class_EditDivLabel" style="margin-top:auto; margin-bottom:auto; text-decoration:underline; background: rgb(220,220,220);"> MyDesigns </h1>
 
 
                           <div id="id_EditPage_MyDesigns_Div" class="class_EditDiv_SubDiv" style="width:100%; height:80%; overflow-y: auto; overflow-x: hidden; border-top:1px solid grey;">
@@ -804,10 +807,33 @@
                 </div>
 
 
-                <div id="id_EditPage_Add_Keys" style="width:100%; display:none;">
+                <div id="id_EditPage_Add_Keys" style="width:100%;  display:none;">
 
 
+                  <div class="row" style="height:80%; width:80%; margin:auto; ">
 
+                      <div style="margin:auto; height:60%; width:15%;">
+                        <h1 class="subsectionLabel class_EditDivLabel"> Dual Key </h1>
+                        <div draggable="true" style="width:100%; height:90%; border: 1px solid black; border-radius:5%;">
+
+                        </div>
+                      </div>
+
+                      <div style="margin:auto; height:60%; width:15%;">
+                        <h1 class="subsectionLabel class_EditDivLabel"> Twin Key </h1>
+                        <div draggable="true" style="width:100%; height:90%; border: 1px solid black; border-radius:5%;">
+
+                        </div>
+                      </div>
+
+                      <div style="margin:auto; height:60%; width:15%;">
+                        <h1 class="subsectionLabel class_EditDivLabel"> Left Key </h1>
+                        <div draggable="true" style="width:100%; height:90%; border: 1px solid black; border-radius:5%;">
+
+                        </div>
+                      </div>
+
+                  </div>
 
 
                 </div>
@@ -820,6 +846,70 @@
                 </div>
 
                 <div id="id_EditPage_Edit_Path" style="width:100%; display:none;">
+
+                  <div id="id_EditPage_PathPlotSpaces_Label" class="class_EditDivLabel" style="float:right; background: rgb(220,220,220); width:auto; margin-right:auto; margin-top:auto; margin-bottom:auto; padding-left: 5px; padding-right: 5px; cursor: pointer; text-align:center;" title="All"> Color Space &#9660; </div>
+                    <div id="id_EditPage_PathPlotSpaces_Dropdown" style="background: url(img/background3.png); display: none; position: absolute; left: 0px; z-index: 5;">
+                            <div id="id_editPage_PathPlotSpaces_RGB"  onclick="choosePathPlotSpace(0)" class="dropdownButtonEditPage">
+                              RGB
+                            </div>
+                            <div id="id_editPage_PathPlotSpaces_HSV" onclick="choosePathPlotSpace(1)" class="dropdownButtonEditPage">
+                              HSV
+                            </div>
+                            <div id="id_editPage_PathPlotSpaces_LAB" onclick="choosePathPlotSpace(2)" class="dropdownButtonEditPage">
+                              LAB
+                            </div>
+                            <div id="id_editPage_PathPlotSpaces_DIN99" onclick="choosePathPlotSpace(3)" class="dropdownButtonEditPage">
+                              DIN99
+                            </div>
+                      </div>
+
+
+                          <div id="id_EditPage_PathPlot_Container" class="row" style="height:100%; width:100%; overflow:auto;">
+
+                                    <div id="id_EditPage_PathPlot_SingleCanvasDiv" style="position: relative; margin-left:auto; margin-right:auto; background:grey;" >
+                                      <canvas id="id_EditPage_PathPlot_SingleCanvas_0"
+                                        style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:100%;"></canvas>
+                                      <canvas id="id_EditPage_PathPlot_SingleCanvas_1"
+                                        style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:100%;"></canvas>
+                                      <canvas id="id_EditPage_PathPlot_SingleCanvas_2"
+                                        style="position: absolute; left: 0; top: 0; z-index: 2; width:100%; height:100%;"></canvas>
+                                    </div>
+
+                                    <div id="id_EditPage_PathPlot_ThreeCanvas" class="row" style="margin-left:auto; margin-right:auto; background:grey;">
+                                      <div style="position: relative; width:66%; height:100%; border-left: 1px solid rgb(220,220,220);" >
+                                        <canvas id="id_EditPage_PathPlot_BigCanvas_0"
+                                          style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:100%;"></canvas>
+                                        <canvas id="id_EditPage_PathPlot_BigCanvas_1"
+                                          style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:100%;"></canvas>
+                                        <canvas id="id_EditPage_PathPlot_BigCanvas_2"
+                                          style="position: absolute; left: 0; top: 0; z-index: 2; width:100%; height:100%;"></canvas>
+                                      </div>
+                                      <div style="width:33%; height:100%; cursor:pointer;" >
+                                        <div style="position: relative; width:100%; height:50%; border-bottom: 1px solid rgb(220,220,220);" >
+                                          <canvas id="id_EditPage_PathPlot_SmallTopCanvas_0"
+                                            style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:100%;"></canvas>
+                                          <canvas id="id_EditPage_PathPlot_SmallTopCanvas_1"
+                                            style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:100%;"></canvas>
+                                          <canvas id="id_EditPage_PathPlot_SmallTopCanvas_2"
+                                            style="position: absolute; left: 0; top: 0; z-index: 2; width:100%; height:100%;"></canvas>
+                                        </div>
+                                        <div style="position: relative; width:100%; height:50%; " >
+                                          <canvas id="id_EditPage_PathPlot_SmallBottomCanvas_0"
+                                            style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:100%;"></canvas>
+                                          <canvas id="id_EditPage_PathPlot_SmallBottomCanvas_1"
+                                            style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:100%;"></canvas>
+                                          <canvas id="id_EditPage_PathPlot_SmallBottomCanvas_2"
+                                            style="position: absolute; left: 0; top: 0; z-index: 2; width:100%; height:100%;"></canvas>
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    <div id="id_EditPage_PathPlot_3D_Div" style=" margin-right:auto; margin-left:auto; background:red;">
+
+
+                                    </div>
+
+                          </div>
 
 
 

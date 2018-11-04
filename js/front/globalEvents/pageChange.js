@@ -7,7 +7,7 @@ function updatePageWidth(){
   document.getElementById("id_ccctoolPage").style.width = actualInnerWidth + "px";
 }
 
-function activateDropdown() {
+function activateMenuDropdown() {
 
     if(document.getElementById("id_dropDownContainer").style.display=="none")
     document.getElementById("id_dropDownContainer").style.display="block";

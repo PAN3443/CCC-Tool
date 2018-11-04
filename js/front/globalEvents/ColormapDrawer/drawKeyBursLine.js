@@ -13,7 +13,6 @@ function drawKeyBursLine(canvasID,tmpCMS){
   var colormapWidth = tmpRect.width * 0.9;
   var xPos = tmpRect.width * 0.05;
 
-
   canvasContex.beginPath();
   canvasContex.lineWidth = 2;
   canvasContex.moveTo(xPos, tmpRect.height/2);
@@ -26,7 +25,7 @@ function drawKeyBursLine(canvasID,tmpCMS){
   var middlePos = tmpRect.height/2;
   colorBurRadius = smallRad;
 
-  var bandSketchWidth = Math.round(colormapWidth/(tmpCMS.getKeyLength()-1));
+  var bandSketchWidth = colormapWidth/(tmpCMS.getKeyLength()-1);
   // draw keys
   for (var i = 0; i < tmpCMS.getKeyLength(); i++) {
 

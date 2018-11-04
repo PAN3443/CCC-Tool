@@ -242,9 +242,10 @@ function switchModifyModus(type){
     if(globalCMS1.getKeyLength() != 0){
       document.getElementById("id_editPage_SelectEditPath").style.background=styleActiveColor;
       document.getElementById("id_EditPage_Edit_Path").style.display="block";
+      choosePathPlotSpace(2);
     }
     else{
-      openAlert("There is no CMS for adding probes. Please use Add Bands to create a CMS.");
+      openAlert("There are no keys for modyfing. Please use Add Bands to create a CMS.");
       switchModifyModus(0);
     }
     break;

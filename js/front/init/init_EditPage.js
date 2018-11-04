@@ -74,4 +74,7 @@ function init_events_EditPage(){
 
   limitKeyBurLine=true;
 
+  document.getElementById('id_editPage_OrderPredefinedLabel').addEventListener("click", activateDropdown);
+  document.getElementById('id_EditPage_PathPlotSpaces_Label').addEventListener("click", activateDropdown);
+
 }

@@ -56,35 +56,7 @@ function drawPredefined_MyDesignsCMS(){
 
 /////////////////////////////////////////////////////////////////////////////////////
 
-function activatePredefinedDropdown() {
-    if(document.getElementById("id_editPage_OrderPredefinedDropdown").style.display=="none"){
 
-      document.getElementById("id_editPage_OrderPredefinedDropdown").style.display="block";
-
-      var refObj = document.getElementById("id_editPage_OrderPredefinedLabel");
-
-      var box = refObj.getBoundingClientRect();
-
-      var dropdownBox = document.getElementById("id_editPage_OrderPredefinedDropdown").getBoundingClientRect();
-
-      var body = document.body;
-      var docEl = document.documentElement;
-
-      var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
-      var scrollLeft = window.pageXOffset || docEl.scrollLeft || body.scrollLeft;
-
-      var clientTop = docEl.clientTop || body.clientTop || 0;
-      var clientLeft = docEl.clientLeft || body.clientLeft || 0;
-
-      var top = box.top + scrollTop - clientTop;
-      var left = box.left+ scrollLeft - clientLeft;
-
-      document.getElementById("id_editPage_OrderPredefinedDropdown").style.top=(top+box.height)+"px";
-      document.getElementById("id_editPage_OrderPredefinedDropdown").style.left=left+"px";
-    }
-    else
-    document.getElementById("id_editPage_OrderPredefinedDropdown").style.display="none";
-}
 
 
 function changeFilterPredefined(type){

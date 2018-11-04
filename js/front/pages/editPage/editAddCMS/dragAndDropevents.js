@@ -192,7 +192,7 @@ function bandOnDrop(event){
                             ///////////
                             ///// split key
                             globalCMS1.setRefPosition(indexOfDroppedPlace,endPos);
-
+                            globalCMS1.setBur(indexOfDroppedPlace,true);
                             // case constant add Keys
                             var oldColor = globalCMS1.getLeftKeyColor(indexOfDroppedPlace,"lab");
                             globalCMS1.setLeftKeyColor(indexOfDroppedPlace,constBands[dragPredefinedBandIndex]); // create left key
@@ -200,7 +200,7 @@ function bandOnDrop(event){
 
                         }
 
-                        globalCMS1.setBur(indexOfDroppedPlace,true);
+
 
 
                     }
@@ -231,7 +231,7 @@ function bandOnDrop(event){
                           ///////////
                           ///// split key
                           globalCMS1.setRefPosition(indexOfDroppedPlace,endPos);
-
+                          globalCMS1.setBur(indexOfDroppedPlace,true);
                           // case scale add Keys
                           var oldColor = globalCMS1.getLeftKeyColor(indexOfDroppedPlace,"lab");
                           globalCMS1.setLeftKeyColor(indexOfDroppedPlace,scaleBands[dragPredefinedBandIndex][1]);
@@ -239,7 +239,7 @@ function bandOnDrop(event){
 
                       }
 
-                      globalCMS1.setBur(indexOfDroppedPlace,true);
+
 
 
                     }
