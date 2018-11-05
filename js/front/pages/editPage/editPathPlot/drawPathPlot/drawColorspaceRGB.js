@@ -1,21 +1,47 @@
 function rgbInit() {
 
   var canvasIDRG, canvasIDRB, canvasIDBG;
-  switch (showSideID) {
+  switch (pathCanvasAssignmentBig) {
+    case 0:
+      canvasIDRG="id_EditPage_PathPlot_BigCanvas_0";
+
+      if (pathCanvasAssignmentSmallTop==1) {
+        canvasIDRB="id_EditPage_PathPlot_SmallTopCanvas_0";
+        canvasIDBG="id_EditPage_PathPlot_SmallBottomCanvas_0";
+      }
+      else{
+        canvasIDRB="id_EditPage_PathPlot_SmallBottomCanvas_0";
+        canvasIDBG="id_EditPage_PathPlot_SmallTopCanvas_0";
+      }
+
+
+      break;
     case 1:
-      canvasIDRG="id_canvasRGModiyBackground";
-      canvasIDRB="id_canvasRBModiyBackground";
-      canvasIDBG="id_canvasBGModiyBackground";
+
+    canvasIDRB="id_EditPage_PathPlot_BigCanvas_0";
+
+    if (pathCanvasAssignmentSmallTop==0) {
+      canvasIDRG="id_EditPage_PathPlot_SmallTopCanvas_0";
+      canvasIDBG="id_EditPage_PathPlot_SmallBottomCanvas_0";
+    }
+    else{
+      canvasIDRG="id_EditPage_PathPlot_SmallBottomCanvas_0";
+      canvasIDBG="id_EditPage_PathPlot_SmallTopCanvas_0";
+    }
+
       break;
     case 2:
-    canvasIDRG="id_canvasRGAnalyzeBackground";
-    canvasIDRB="id_canvasRBAnalyzeBackground";
-    canvasIDBG="id_canvasBGAnalyzeBackground";
-      break;
-    case 3:
-    canvasIDRG="id_canvasRGCompareBackground";
-    canvasIDRB="id_canvasRBCompareBackground";
-    canvasIDBG="id_canvasBGCompareBackground";
+    canvasIDBG="id_EditPage_PathPlot_BigCanvas_0";
+
+    if (pathCanvasAssignmentSmallTop==1) {
+      canvasIDRB="id_EditPage_PathPlot_SmallTopCanvas_0";
+      canvasIDRG="id_EditPage_PathPlot_SmallBottomCanvas_0";
+    }
+    else{
+      canvasIDRB="id_EditPage_PathPlot_SmallBottomCanvas_0";
+      canvasIDRG="id_EditPage_PathPlot_SmallTopCanvas_0";
+    }
+
       break;
     default:
 
@@ -261,9 +287,9 @@ function rgbPlot(context, canvasWidth, canvasHidth, xlabel, ylabel) {
 
   // the triangle
   context.beginPath();
-  context.moveTo(xEndLine, yStart - arrowWidth/2);
+  context.moveTo(xEndLine, yStart - arrowHeight/2);
   context.lineTo(xEndArrow, yStart);
-  context.lineTo(xEndLine, yStart + arrowWidth/2);
+  context.lineTo(xEndLine, yStart + arrowHeight/2);
   context.closePath();
 
   // the fill color
@@ -278,9 +304,9 @@ function rgbPlot(context, canvasWidth, canvasHidth, xlabel, ylabel) {
 
   // the triangle
   context.beginPath();
-  context.moveTo(xStart - arrowWidth/2, yEndLine);
+  context.moveTo(xStart - arrowHeight/2, yEndLine);
   context.lineTo(xStart, yEndArrow);
-  context.lineTo(xStart + arrowWidth/2, yEndLine);
+  context.lineTo(xStart + arrowHeight/2, yEndLine);
   context.closePath();
 
   // the fill color
@@ -309,40 +335,67 @@ function drawcolormap_RGBSpace(calcBackground, drawInterpolationLine) {
   rgbInit();
 
 
-  if(showSideID==3) // is Compare PAGE
+  /*if(showSideID==3) // is Compare PAGE
   {
     drawElements(true);
 
     //if(drawInterpolationLine)// have to think about that later
     drawInterpolationLineInRGB(true);
   }
-  else {
+  else {*/
     drawElements(false);
 
     //if(drawInterpolationLine)// have to think about that later
     drawInterpolationLineInRGB(false);
-  }
+//  }
 
 }
 
 function drawElements(isCompareMap){
 
   var canvasIDRG, canvasIDRB, canvasIDBG;
-  switch (showSideID) {
+
+  switch (pathCanvasAssignmentBig) {
+    case 0:
+      canvasIDRG="id_EditPage_PathPlot_BigCanvas_2";
+
+      if (pathCanvasAssignmentSmallTop==1) {
+        canvasIDRB="id_EditPage_PathPlot_SmallTopCanvas_2";
+        canvasIDBG="id_EditPage_PathPlot_SmallBottomCanvas_2";
+      }
+      else{
+        canvasIDRB="id_EditPage_PathPlot_SmallBottomCanvas_2";
+        canvasIDBG="id_EditPage_PathPlot_SmallTopCanvas_2";
+      }
+
+
+      break;
     case 1:
-      canvasIDRG="id_canvasRGModiyTop";
-      canvasIDRB="id_canvasRBModiyTop";
-      canvasIDBG="id_canvasBGModiyTop";
+
+    canvasIDRB="id_EditPage_PathPlot_BigCanvas_2";
+
+    if (pathCanvasAssignmentSmallTop==0) {
+      canvasIDRG="id_EditPage_PathPlot_SmallTopCanvas_2";
+      canvasIDBG="id_EditPage_PathPlot_SmallBottomCanvas_2";
+    }
+    else{
+      canvasIDRG="id_EditPage_PathPlot_SmallBottomCanvas_2";
+      canvasIDBG="id_EditPage_PathPlot_SmallTopCanvas_2";
+    }
+
       break;
     case 2:
-    canvasIDRG="id_canvasRGAnalyzeTop";
-    canvasIDRB="id_canvasRBAnalyzeTop";
-    canvasIDBG="id_canvasBGAnalyzeTop";
-      break;
-    case 3:
-    canvasIDRG="id_canvasRGCompareTop";
-    canvasIDRB="id_canvasRBCompareTop";
-    canvasIDBG="id_canvasBGCompareTop";
+    canvasIDBG="id_EditPage_PathPlot_BigCanvas_2";
+
+    if (pathCanvasAssignmentSmallTop==1) {
+      canvasIDRB="id_EditPage_PathPlot_SmallTopCanvas_2";
+      canvasIDRG="id_EditPage_PathPlot_SmallBottomCanvas_2";
+    }
+    else{
+      canvasIDRB="id_EditPage_PathPlot_SmallBottomCanvas_2";
+      canvasIDRG="id_EditPage_PathPlot_SmallTopCanvas_2";
+    }
+
       break;
     default:
 
@@ -472,21 +525,47 @@ function drawInterpolationLineInRGB(isCompareMap) {
 
 
   var canvasIDRG, canvasIDRB, canvasIDBG;
-  switch (showSideID) {
+  switch (pathCanvasAssignmentBig) {
+    case 0:
+      canvasIDRG="id_EditPage_PathPlot_BigCanvas_1";
+
+      if (pathCanvasAssignmentSmallTop==1) {
+        canvasIDRB="id_EditPage_PathPlot_SmallTopCanvas_1";
+        canvasIDBG="id_EditPage_PathPlot_SmallBottomCanvas_1";
+      }
+      else{
+        canvasIDRB="id_EditPage_PathPlot_SmallBottomCanvas_1";
+        canvasIDBG="id_EditPage_PathPlot_SmallTopCanvas_1";
+      }
+
+
+      break;
     case 1:
-      canvasIDRG="id_canvasRGModiyMiddle";
-      canvasIDRB="id_canvasRBModiyMiddle";
-      canvasIDBG="id_canvasBGModiyMiddle";
+
+    canvasIDRB="id_EditPage_PathPlot_BigCanvas_1";
+
+    if (pathCanvasAssignmentSmallTop==0) {
+      canvasIDRG="id_EditPage_PathPlot_SmallTopCanvas_1";
+      canvasIDBG="id_EditPage_PathPlot_SmallBottomCanvas_1";
+    }
+    else{
+      canvasIDRG="id_EditPage_PathPlot_SmallBottomCanvas_1";
+      canvasIDBG="id_EditPage_PathPlot_SmallTopCanvas_1";
+    }
+
       break;
     case 2:
-    canvasIDRG="id_canvasRGAnalyzeMiddle";
-    canvasIDRB="id_canvasRBAnalyzeMiddle";
-    canvasIDBG="id_canvasBGAnalyzeMiddle";
-      break;
-    case 3:
-    canvasIDRG="id_canvasRGCompareMiddle";
-    canvasIDRB="id_canvasRBCompareMiddle";
-    canvasIDBG="id_canvasBGCompareMiddle";
+    canvasIDBG="id_EditPage_PathPlot_BigCanvas_1";
+
+    if (pathCanvasAssignmentSmallTop==1) {
+      canvasIDRB="id_EditPage_PathPlot_SmallTopCanvas_1";
+      canvasIDRG="id_EditPage_PathPlot_SmallBottomCanvas_1";
+    }
+    else{
+      canvasIDRB="id_EditPage_PathPlot_SmallBottomCanvas_1";
+      canvasIDRG="id_EditPage_PathPlot_SmallTopCanvas_1";
+    }
+
       break;
     default:
 
@@ -514,7 +593,7 @@ function drawInterpolationLineInRGB(isCompareMap) {
   canvasColorspaceBG.height = hue_resolution_Y;
   var colorspaceContexBG = canvasColorspaceBG.getContext("2d");
 
-  globalCMS1.calcDeltaIntervalColors(intervalDelta, colorspaceModus,0,globalCMS1.getKeyLength()-1);
+  globalCMS1.calcDeltaIntervalColors(intervalDelta, 0,globalCMS1.getKeyLength()-1);
 
   var tmpColor, tmpColor2, xPos, xPos2, yPos, yPos2;
 
@@ -523,7 +602,7 @@ function drawInterpolationLineInRGB(isCompareMap) {
 
   if(isCompareMap){
     border=2;
-    globalCMS2.calcDeltaIntervalColors(intervalDelta, colorspaceModus,0,globalCMS2.getKeyLength()-1);
+    globalCMS2.calcDeltaIntervalColors(intervalDelta, 0,globalCMS2.getKeyLength()-1);
   }
 
   for(var x=0; x<border; x++){
@@ -591,7 +670,7 @@ function drawRGBElement(tmpColor,xWidth,yHeight,xStart,yStart, drawCircle,colors
   xPos = tmpColor.getRValue() * xWidth + xStart;
   yPos = yStart - tmpColor.getGValue() * yHeight;
 
-  drawElement(tmpColor.getRGBStringAplha(alphaVal), colorspaceContexRG, xPos, yPos, keyIndex,colorSide, drawCircle);
+  drawElement(tmpColor.getRGBString(), colorspaceContexRG, xPos, yPos, keyIndex,colorSide, drawCircle);
 
   tmpArray[0] = xPos;
   tmpArray2[0] = yPos;
@@ -601,7 +680,7 @@ function drawRGBElement(tmpColor,xWidth,yHeight,xStart,yStart, drawCircle,colors
   xPos = tmpColor.getRValue() * xWidth + xStart;
   yPos = yStart - tmpColor.getBValue() * yHeight;
 
-  drawElement(tmpColor.getRGBStringAplha(alphaVal), colorspaceContexRB, xPos, yPos, keyIndex,colorSide, drawCircle);
+  drawElement(tmpColor.getRGBString(), colorspaceContexRB, xPos, yPos, keyIndex,colorSide, drawCircle);
 
   tmpArray[1] = xPos;
   tmpArray2[1] = yPos;
@@ -611,7 +690,7 @@ function drawRGBElement(tmpColor,xWidth,yHeight,xStart,yStart, drawCircle,colors
   xPos = tmpColor.getBValue() * xWidth + xStart;
   yPos = yStart - tmpColor.getGValue() * yHeight;
 
-  drawElement(tmpColor.getRGBStringAplha(alphaVal), colorspaceContexBG, xPos, yPos, keyIndex,colorSide, drawCircle);
+  drawElement(tmpColor.getRGBString(), colorspaceContexBG, xPos, yPos, keyIndex,colorSide, drawCircle);
 
   tmpArray[2] = xPos;
   tmpArray2[2] = yPos;

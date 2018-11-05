@@ -6,6 +6,8 @@ function mouseLeaveColorspaceRGB(event) {
 
   document.getElementById(event.target.id).style.cursor = "default";
   clearInterval(timer2DAnimation);
+
+  document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "";
    //document.getElementById("id_huePositionLabel").innerHTML = "";
   mouseAboveKeyID = -1;
   mouseGrappedColorSide = -1;
@@ -22,7 +24,7 @@ function mouseLeaveColorspaceRGB(event) {
 
 function rgb2DAnimation(){
 
-  orderColorSketch(colorspaceModus);
+  updateEditPage();
 
   drawcolormap_RGBSpace(false,true);
 
@@ -31,14 +33,14 @@ function rgb2DAnimation(){
 function mouseMoveColorspaceRGB(event) {
   var index;
   switch (event.target.id) {
-    case "id_canvasRGModiyTop":
-      index=0;
+    case "id_EditPage_PathPlot_BigCanvas_2":
+      index=pathCanvasAssignmentBig;
       break;
-    case "id_canvasRBModiyTop":
-      index=1;
+    case "id_EditPage_PathPlot_SmallTopCanvas_2":
+      index=pathCanvasAssignmentSmallTop;
       break;
-    case "id_canvasBGModiyTop":
-      index=2;
+    case "id_EditPage_PathPlot_SmallBottomCanvas_2":
+      index=pathCanvasAssignmentSmallBottom;
       break;
     default:
       return;
@@ -151,15 +153,44 @@ function mouseMoveColorspaceRGB(event) {
 
     if (val1>=0 && val1<=1 && val2>=0 && val2<=1){
 
+      var tmpIndex;
       switch (event.target.id) {
-        case "id_canvasRGModiyTop":
+        case "id_EditPage_PathPlot_BigCanvas_2":
+          tmpIndex=pathCanvasAssignmentBig;
+          break;
+        case "id_EditPage_PathPlot_SmallTopCanvas_2":
+          tmpIndex=pathCanvasAssignmentSmallTop;
+          break;
+        case "id_EditPage_PathPlot_SmallBottomCanvas_2":
+          tmpIndex=pathCanvasAssignmentSmallBottom;
+          break;
+        default:
+          return;
+
+      }
+
+
+      switch (tmpIndex) {
+        case 0:
           tmpColor = new classColor_RGB(val1,val2,updateCurrentValue);
+          var diplay1Val = Math.round(val1*255);
+          var diplay2Val = Math.round(val2*255);
+          var diplay3Val = Math.round(updateCurrentValue*255);
+          document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "R : " + diplay1Val + ", G : " + diplay2Val + ", B : " + diplay3Val;
           break;
-        case "id_canvasRBModiyTop":
+        case 1:
           tmpColor = new classColor_RGB(val1,updateCurrentValue,val2);
+          var diplay1Val = Math.round(val1*255);
+          var diplay2Val = Math.round(updateCurrentValue*255);
+          var diplay3Val = Math.round(val2*255);
+          document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "R : " + diplay1Val + ", G : " + diplay2Val + ", B : " + diplay3Val;
           break;
-        case "id_canvasBGModiyTop":
+        case 2:
           tmpColor = new classColor_RGB(updateCurrentValue,val2,val1);
+          var diplay1Val = Math.round(updateCurrentValue*255);
+          var diplay2Val = Math.round(val2*255);
+          var diplay3Val = Math.round(val1*255);
+          document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "R : " + diplay1Val + ", G : " + diplay2Val + ", B : " + diplay3Val;
           break;
         default:
           return;
@@ -199,14 +230,31 @@ function mouseMoveColorspaceRGB(event) {
           //plane_material.opacity =  1;
           var plane = new THREE.Mesh( plane_geometry, plane_material );
 
+          var tmpIndex;
           switch (event.target.id) {
-            case "id_canvasRGModiyTop":
+            case "id_EditPage_PathPlot_BigCanvas_2":
+              tmpIndex=pathCanvasAssignmentBig;
+              break;
+            case "id_EditPage_PathPlot_SmallTopCanvas_2":
+              tmpIndex=pathCanvasAssignmentSmallTop;
+              break;
+            case "id_EditPage_PathPlot_SmallBottomCanvas_2":
+              tmpIndex=pathCanvasAssignmentSmallBottom;
+              break;
+            default:
+              return;
+
+          }
+
+
+          switch (tmpIndex) {
+            case 0:
               //tmpColor = new classColor_RGB(val1,val2,updateCurrentValue);
               plane.position.x = 0;
               plane.position.y = 0;
               plane.position.z = newPos;
               break;
-            case "id_canvasRBModiyTop":
+            case 1:
               //tmpColor = new classColor_RGB(val1,updateCurrentValue,val2);
               plane.rotation.x = Math.PI/2;
               plane.position.x = 0;
@@ -214,7 +262,7 @@ function mouseMoveColorspaceRGB(event) {
               plane.position.z = 0;
 
               break;
-            case "id_canvasBGModiyTop":
+            case 2:
               //tmpColor = new classColor_RGB(updateCurrentValue,val2,val1);
               plane.rotation.y = Math.PI+Math.PI/2;
               plane.position.x = newPos;
@@ -257,14 +305,35 @@ function mouseDownColorspaceRGB(event) {
           tmpColor = globalCMS1.getLeftKeyColor(mouseGrappedKeyID, "rgb");
       }
 
+      var tmpIndex;
       switch (event.target.id) {
-        case "id_canvasRGModiyTop":
+        case "id_EditPage_PathPlot_BigCanvas_2":
+          tmpIndex=pathCanvasAssignmentBig;
+          break;
+        case "id_EditPage_PathPlot_SmallTopCanvas_2":
+          tmpIndex=pathCanvasAssignmentSmallTop;
+          break;
+        case "id_EditPage_PathPlot_SmallBottomCanvas_2":
+          tmpIndex=pathCanvasAssignmentSmallBottom;
+          break;
+        default:
+          return;
+
+      }
+
+      var diplay1Val = Math.round(tmpColor.get1Value()*255);
+      var diplay2Val = Math.round(tmpColor.get2Value()*255);
+      var diplay3Val = Math.round(tmpColor.get3Value()*255);
+      document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "R : " + diplay1Val + ", G : " + diplay2Val + ", B : " + diplay3Val;
+
+      switch (tmpIndex) {
+        case 0:
           updateCurrentValue=tmpColor.getBValue();
           break;
-        case "id_canvasRBModiyTop":
+        case 1:
           updateCurrentValue=tmpColor.getGValue();
           break;
-        case "id_canvasBGModiyTop":
+        case 2:
           updateCurrentValue=tmpColor.getRValue();
           break;
         default:
@@ -283,14 +352,30 @@ function mouseDownColorspaceRGB(event) {
             //plane_material.opacity = 1;
             var plane = new THREE.Mesh( plane_geometry, plane_material );
 
+            var tmpIndex;
             switch (event.target.id) {
-              case "id_canvasRGModiyTop":
+              case "id_EditPage_PathPlot_BigCanvas_2":
+                tmpIndex=pathCanvasAssignmentBig;
+                break;
+              case "id_EditPage_PathPlot_SmallTopCanvas_2":
+                tmpIndex=pathCanvasAssignmentSmallTop;
+                break;
+              case "id_EditPage_PathPlot_SmallBottomCanvas_2":
+                tmpIndex=pathCanvasAssignmentSmallBottom;
+                break;
+              default:
+                return;
+
+            }
+
+            switch (tmpIndex) {
+              case 0:
                 //tmpColor = new classColor_RGB(val1,val2,updateCurrentValue);
                 plane.position.x = 0;
                 plane.position.y = 0;
                 plane.position.z = newPos;
                 break;
-              case "id_canvasRBModiyTop":
+              case 1:
                 //tmpColor = new classColor_RGB(val1,updateCurrentValue,val2);
                 plane.rotation.x = Math.PI/2;
                 plane.position.x = 0;
@@ -298,7 +383,7 @@ function mouseDownColorspaceRGB(event) {
                 plane.position.z = 0;
 
                 break;
-              case "id_canvasBGModiyTop":
+              case 2:
                 //tmpColor = new classColor_RGB(updateCurrentValue,val2,val1);
                 plane.rotation.y = Math.PI+Math.PI/2;
                 plane.position.x = newPos;
@@ -318,6 +403,7 @@ function mouseDownColorspaceRGB(event) {
 function mouseUpColorspaceRGB() {
   mouseGrappedKeyID=-1;
   mouseGrappedColorSide=-1;
+  document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "";
   clearInterval(timer2DAnimation);
   drawcolormap_RGBSpace(true,true);
 }

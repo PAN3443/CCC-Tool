@@ -4,8 +4,8 @@ function init_CCCPageStyle(){
   var windowHeight = window.innerHeight;
 
   var tmpElementList = document.getElementsByClassName('class_generalbutton');
-  var tmpHeight1 = Math.floor(windowHeight*0.05);
-  var tmpHeight2 = Math.floor(windowHeight*0.03);
+  var tmpHeight1 = Math.floor(windowHeight*0.03);
+  var tmpHeight2 = Math.floor(windowHeight*0.025);
   for (var i = 0; i < tmpElementList.length; ++i) {
 
     if (tmpElementList[i].classList.contains("class_noSizeUpdate"))
@@ -32,6 +32,20 @@ function init_CCCPageStyle(){
 
 
 
+
+  tmpElementList = document.getElementsByClassName('helpButton');
+  tmpHeight1 = Math.floor(windowHeight*0.025);
+  tmpHeight2 = Math.floor(windowHeight*0.015);
+  for (var i = 0; i < tmpElementList.length; ++i) {
+
+    if (tmpElementList[i].classList.contains("class_noSizeUpdate"))
+      continue;
+
+      tmpElementList[i].style.height = tmpHeight1 + "px";
+      tmpElementList[i].style.width = tmpHeight1 + "px";
+      tmpElementList[i].style.lineHeight = tmpHeight1 + "px";
+      tmpElementList[i].style.fontSize = tmpHeight2 + "px";
+  }
 
   tmpElementList = document.getElementsByClassName('standardText');
   tmpHeight1 = Math.floor(windowHeight*0.02);
@@ -89,6 +103,7 @@ function init_CCCPageStyle(){
   document.getElementById("id_myDesignsPage").style.width = windowWidth + "px";
   document.getElementById("id_myDesignsPage").style.height = Math.floor(windowHeight*0.78) + "px";
   document.getElementById("id_MyDesings_Label").style.marginTop = Math.floor(windowHeight*0.035) + "px";
+  document.getElementById("id_MyDesings_Example_Div").style.width = Math.floor(windowWidth*0.5) + "px";
   document.getElementById("id_MyDesings_IMG").style.height = Math.floor(windowHeight*0.15) + "px";
   document.getElementById("id_myDesignsPage_colormap_container").style.height = Math.floor(windowHeight*0.58) + "px";
   tmpBox = document.getElementById("id_MyDesings_IMG").getBoundingClientRect();
@@ -96,6 +111,8 @@ function init_CCCPageStyle(){
   var tmpBox2 = document.getElementById("id_MyDesings_Label").getBoundingClientRect();
   var tmpMargin2 = Math.floor((windowWidth-tmpBox2.width)/2);
   var tmpMargin3 = tmpMargin2-tmpBox.width;
+  tmpBox = document.getElementById("id_MyDesings_Example_Div").getBoundingClientRect();
+  tmpMargin2 = tmpMargin2-tmpBox.width;
   document.getElementById("id_MyDesings_Label").style.marginLeft = tmpMargin2 + "px";
   document.getElementById("id_MyDesings_Label").style.marginRight = tmpMargin3 + "px";
 
@@ -253,7 +270,14 @@ function init_CCCPageStyle(){
     document.getElementById("id_EditPage_OnlineCMS_NotAvailableImg").style.marginLeft =tmpMargin+"px";
     document.getElementById("id_EditPage_Add_Structures").style.display = "none";*/
 
+    document.getElementById('id_EditPage_PathPlot_SingleCanvas_2').addEventListener("mouseleave", mouseLeaveColorspace);
+    document.getElementById('id_EditPage_PathPlot_SingleCanvas_2').addEventListener("mousemove", mouseMoveColorspace);
+    document.getElementById('id_EditPage_PathPlot_SingleCanvas_2').addEventListener("mousedown", mouseDownColorspace);
+    document.getElementById('id_EditPage_PathPlot_SingleCanvas_2').addEventListener("mouseup", mouseUpColorspace);
+
     document.getElementById("id_EditPage").style.display = "none";
+
+
 
 
 }

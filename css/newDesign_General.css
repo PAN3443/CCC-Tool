@@ -147,3 +147,49 @@ div.sticky {
   background:white;
   /*transition: 0.5s;*/
 }
+
+
+.helpButtonDiv {
+    position: relative;
+    display: inline-block;
+}
+
+.helpButton {
+    font-size: 16px;
+    line-height: 20px;
+    color:black;
+    height:20px;
+    width:20px;
+    border: 1px solid black;
+    border-radius: 5px;
+    vertical-align:middle;
+    text-align: center;
+    margin:0px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family:courier;
+}
+
+.helpButtonDiv-content {
+    display:none;
+    position: absolute;
+    padding:5px;
+    font-size: 16px;
+    line-height: 20px;
+    color:black;
+    height:auto;
+    width:250px;
+    border: 1px solid black;
+    vertical-align:middle;
+    margin:0px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family:courier;
+    background: rgb(220,220,220);
+    z-index:5
+
+}
+
+.helpButtonDiv:hover .helpButtonDiv-content {
+    display: block;
+}

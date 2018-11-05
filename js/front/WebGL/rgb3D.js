@@ -7,22 +7,7 @@
 function resize()
 {
 
-  var canvasObj;
-
-  switch (showSideID) {
-    case 1:
-        canvasObj = document.getElementById("id_rgb3DModiy");
-      break;
-
-    case 2:
-        canvasObj = document.getElementById("id_rgb3D");
-      break;
-      case 3:
-        canvasObj = document.getElementById("id_rgb3DCompare");
-        break;
-    default:
-      return;
-  }
+  var canvasObj = document.getElementById("id_EditPage_PathPlot_3D_Div");
 
   var box = canvasObj.getBoundingClientRect();
   var drawWidth = box.width; //window.innerWidth;
@@ -88,22 +73,8 @@ function initRGB3D()
       return;
   }
 
-  var canvasObj;
+  var canvasObj = document.getElementById("id_EditPage_PathPlot_3D_Div");
 
-  switch (showSideID) {
-    case 1:
-        canvasObj = document.getElementById("id_rgb3DModiy");
-      break;
-
-    case 2:
-        canvasObj = document.getElementById("id_rgb3D");
-      break;
-      case 3:
-        canvasObj = document.getElementById("id_rgb3DCompare");
-        break;
-    default:
-      return;
-  }
 
   canvasObj.innerHTML = "";
   var box = canvasObj.getBoundingClientRect();
@@ -331,20 +302,8 @@ function changeOpacityRange(event){
 
 function eventRGB3D_mousemove(event){
   // calc mouse pos
-  var rect;
-  switch (showSideID) {
-    case 1:
-      rect = document.getElementById('id_rgb3DModiy').getBoundingClientRect();//event.target.id
-      break;
-    case 2:
-      rect = document.getElementById('id_rgb3D').getBoundingClientRect();//event.target.id
-      break;
-    case 3:
-        rect = document.getElementById('id_rgb3DCompare').getBoundingClientRect();//event.target.id
-    break;
-    default:
-      return;
-  }
+  var rect = document.getElementById('id_EditPage_PathPlot_3D_Div').getBoundingClientRect();//event.target.id
+
 
   var canvasPosX = event.clientX - rect.left;
   var canvasPosY = event.clientY - rect.top;

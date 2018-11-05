@@ -1,5 +1,25 @@
 
+function changeColorPossiblity(){
 
+  if(onlyRGBPossibleColor){
+      onlyRGBPossibleColor=false;
+      document.getElementById('id_settingMenu_Label_RGBPossible_Button').innerHTML="Allow Colors Outside RGB : true";
+  }
+  else{
+      onlyRGBPossibleColor=true;
+      document.getElementById('id_settingMenu_Label_RGBPossible_Button').innerHTML="Allow Colors Outside RGB : false";
+  }
+
+  if(document.getElementById("id_EditPage_Edit_Path").style.display!="none"){
+    if(pathColorspace==="rgb"){
+      drawcolormap_RGBSpace(true,true);
+    }
+    else{
+      drawcolormap_hueSpace(true, true, true);
+    }
+  }
+
+}
 
 function changeLimitKeyBurLine(){
 
@@ -229,7 +249,7 @@ function switchModifyModus(type){
     if(globalCMS1.getKeyLength() != 0){
       document.getElementById("id_editPage_SelectEditKeys").style.background=styleActiveColor;
       document.getElementById("id_EditPage_Edit_Keys").style.display="block";
-      //drawPathEditPath();
+      openEditKeyDiv();
     }
     else{
       openAlert("There are no keys for modyfing. Please use Add Bands to create a CMS.");
@@ -302,10 +322,6 @@ function updateColormapName(){
   globalCMS1.setColormapName(document.getElementById("id_EditPage_CMSName").value);
   saveCreateProcess();
 }
-
-
-
-
 
 
 function updateAutoRangeInput(){

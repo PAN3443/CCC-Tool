@@ -124,13 +124,19 @@
     <script src="js/front/pages/editPage/editPathPlot/arrangePlots.js"></script>
     <script src="js/front/pages/editPage/editPathPlot/drawPathPlot/drawColorspaceHSV_LAB_DIN99.js"></script>
     <script src="js/front/pages/editPage/editPathPlot/drawPathPlot/drawColorspaceRGB.js"></script>
-    <script src="js/front/pages/editPage/editPathPlot/events_PathPlot.js"></script>
+    <script src="js/front/pages/editPage/editPathPlot/drawPathPlot/drawColorspaceHelpers.js"></script>
+    <script src="js/front/pages/editPage/editPathPlot/events_ColorspaceCanvas.js"></script>
+    <script src="js/front/pages/editPage/editPathPlot/events_ColorspaceCanvasRGB.js"></script>
+
+
+    <!-- Edit PAGE: Edit Key -->
+    <script src="js/front/pages/editPage/editEditKey/openEditKeyDiv.js"></script>
+
 
     <!-- Edit PAGE: Side Options-->
     <script src="js/front/pages/editPage/sideOptions/events_EditPage_showSideOptions.js"></script>
     <script src="js/front/pages/editPage/sideOptions/fillTable.js"></script>
     <script src="js/front/pages/editPage/sideOptions/changeInterpolationSpace.js"></script>
-
 
 
   <!------------------------------------------->
@@ -146,15 +152,16 @@
   <script src="js/front/globalVars/pageIndepenend/colorTransformationVariables.js"></script>
   <script src="js/front/globalVars/pageIndepenend/plotResolutions.js"></script>
 
-
-
-
-
   <!------------------------------------------->
   <!-- global Events-->
   <script src="js/front/globalEvents/pageChange.js"></script>
   <script src="js/front/globalEvents/autocompleteSearch.js"></script>
   <script src="js/front/globalEvents/checkInput.js"></script>
+
+  <!------------------------------------------->
+  <!-- global Helpers-->
+  <script src="js/front/helpers/calcColordifference.js"></script>
+  <script src="js/front/helpers/others.js"></script>
 
   <!-- Colormap Drawer -->
   <script src="js/front/globalEvents/ColormapDrawer/drawBandSegments.js"></script>
@@ -165,11 +172,16 @@
   <script src="js/front/globalEvents/ColormapDrawer/drawSketchKeys.js"></script>
   <script src="js/front/globalEvents/ColormapDrawer/drawKeyBursLine.js"></script>
 
-
-
   <!-- Pop Up Windows -->
   <script src="js/front/globalEvents/PopUpWindows/colorPicker.js"></script>
   <script src="js/front/globalEvents/PopUpWindows/popUp_events.js"></script>
+
+  <!-- WebGL -->
+  <script src="js/front/WebGL/three/three.min.js"></script>
+  <script src="js/front/WebGL/three/Detector.js"></script>
+  <script src="js/front/WebGL/three/stats.min.js"></script>
+  <script src="js/front/WebGL/three_global.js"></script>
+  <script src="js/front/WebGL/rgb3D.js"></script>
 
 
   <!-- Worker ->
@@ -280,6 +292,9 @@
           <div class="dropdownNotActiveMenuButton">
             Color Difference Metrics
           </div>
+          <div id="id_settingMenu_Label_RGBPossible_Button" oonclick="changeColorPossiblity()" class="dropdownNotActiveMenuButton" style="display:none;">
+            Allow Colors Outside RGB : false
+          </div>
 
 
           <div id="id_actionMenu_Label" class="row dropdownMenuLabelBox" style="background:rgba(255,255,255,0.3); border-bottom: 1px solid white; display:none;">
@@ -347,7 +362,11 @@
             </div>
 
             <div id="id_dropDownMenue_LimitKeyBurLine_Label" onclick="changeLimitKeyBurLine()" class="dropdownMenuButton">
-              Show Full Key Bur Line
+              Show Full Key Burdock Line
+            </div>
+
+            <div id="id_dropDownMenue_ShowHistogram" class="dropdownNotActiveMenuButton">
+              Show Histogram
             </div>
 
 
@@ -420,6 +439,11 @@
     <div id="id_myDesignsPage" style="margin-left:auto; margin-right:auto;">
 
       <div class="row">
+        <div id="id_MyDesings_Example_Div" style="margin-top:auto; margin-bottom:auto;">
+          <img  id="id_MyDesings_Example_Img" src="img/myDesignsExampleImg.png" >
+        </div>
+
+
         <h1 id="id_MyDesings_Label" class="sectionLabel">My Designs</h1>
 
         <img  id="id_MyDesings_IMG" src="img/MyDesignsPage.png">
@@ -532,7 +556,7 @@
               </div>
 
 
-              <div class="class_RotateLeft" id="id_EditPage_guideLinePartButton" style="height: 26vh;" onclick="showGuideLine()">
+              <div class="class_RotateLeft" id="id_EditPage_guideLinePartButton" style="height: 26vh; cursor: not-allowed;" oonclick="showGuideLine()">
                 Guide Line
               </div>
 
@@ -583,7 +607,7 @@
                     </div>
                   </div>
                   <div class="class_subsectionButtonUnderground" style="width:25%; background: url(img/background3.png);">
-                    <div onclick="switchModifyModus(1)" id="id_editPage_SelectAddKeys" class="class_subsectionButton">
+                    <div oonclick="switchModifyModus(1)" id="id_editPage_SelectAddKeys" class="class_subsectionButton" style="cursor:not-allowed;">
                       ADD Key
                     </div>
                   </div>
@@ -840,6 +864,121 @@
 
                 <div id="id_EditPage_Edit_Keys" style="width:100%; display:none;">
 
+                  <div class="row" style="height:100%; width:100%; ">
+
+
+                    <div style="height:100%; width:30%; border-right:2px solid grey; background:rgb(220,220,220);">
+
+                      <h1 class="subsectionLabel class_EditDivLabel" style="text-decoration:underline; background: rgb(220,220,220);"> Select Key: </h1>
+
+                      <select id="id_EditPage_EditKey_List" class="standardText" name="Key List" size="20" style="margin-left:5%; width:80%; height:70%; margin-top:2.5%; margin-bottom:2.5%; overflow:auto;">
+
+                      </select>
+
+
+                      <button class="class_generalbutton" onclick="()" style=" margin-left:5%; height:15%; width:80%; margin-top:auto; margin-bottom:auto;">Delete Key</button>
+                    </div>
+
+                    <div style="height:100%; width:40%; border-right:2px solid grey; ">
+
+
+                    </div>
+
+                    <div style="height:100%; width:30%; background:rgb(220,220,220);">
+
+
+
+                        <h1 class="subsectionLabel class_EditDivLabel" style="text-decoration:underline; margin-top:10%;"> Change Key Type: </h1>
+
+                        <div class="row" style="margin-left:35%; width:65%; margin-top:5px;">
+                        <input class="standardText" style="margin-right: 5px; margin-top:auto; margin-bottom:auto;" type="radio" id="id_editPage_KeyTypeNil" name="editPage_keyType" value="1" checked="checked">
+                        <label class="standardText" for="id_editPage_KeyTypeNil" style="margin-top:auto; margin-bottom:auto;"  id="id_editPage_KeyTypeNilLabel"> nil key </label>
+
+
+                        <div class="helpButtonDiv" style="margin-left:15px; margin-right:auto; margin-top:auto; margin-bottom:auto;">
+                          <button class="helpButton">?</button>
+                          <div class="helpButtonDiv-content" >
+                            <strong>Info:</strong> The Nil Key creates a constant band at the beginning!
+                          </div>
+                        </div>
+
+                        </div>
+
+                        <div class="row" style="margin-left:35%; width:65%; margin-top:5px;">
+                        <input class="standardText" style="margin-right: 5px; margin-top:auto; margin-bottom:auto;" type="radio" id="id_editPage_KeyTypeRight" name="editPage_keyType" value="2">
+                        <label class="standardText" for="id_editPage_KeyTypeRight" style="margin-top:auto; margin-bottom:auto;"  id="id_editPage_KeyTypeRightLabel"> right key </label>
+                        <div class="helpButtonDiv" style="margin-left:15px; margin-right:auto; margin-top:auto; margin-bottom:auto;">
+                          <button class="helpButton">?</button>
+                          <div class="helpButtonDiv-content" >
+                            <strong>Info:</strong> The Right Key creates a scaled band at the beginning.
+                          </div>
+                        </div>
+                        </div>
+
+                        <div class="row" style="margin-left:35%; width:65%; margin-top:5px;">
+                        <input class="standardText" style="margin-right: 5px; margin-top:auto; margin-bottom:auto;" type="radio" id="id_editPage_KeyTypeLeft" name="editPage_keyType" value="3" >
+                        <label class="standardText" for="id_editPage_KeyTypeLeft" style="margin-top:auto; margin-bottom:auto;"  id="id_editPage_KeyTypeLeftLabel"> left key </label>
+                        <div class="helpButtonDiv" style="margin-left:15px; margin-right:auto; margin-top:auto; margin-bottom:auto;">
+                          <button class="helpButton">?</button>
+                          <div class="helpButtonDiv-content" >
+                            <strong>Info:</strong> The Left Key creates a constant band after the key.
+                          </div>
+                        </div>
+                        </div>
+
+                        <div class="row" style="margin-left:35%; width:65%; margin-top:5px;">
+                        <input class="standardText" style="margin-right: 5px; margin-top:auto; margin-bottom:auto;" type="radio" id="id_editPage_KeyTypeDual" name="editPage_keyType" value="4">
+                        <label class="standardText" for="id_editPage_KeyTypeDual" style="margin-top:auto; margin-bottom:auto;"  id="id_editPage_KeyTypeDualLabel"> dual key </label>
+                        <div class="helpButtonDiv" style="margin-left:15px; margin-right:auto; margin-top:auto; margin-bottom:auto; ">
+                          <button class="helpButton">?</button>
+                          <div class="helpButtonDiv-content" >
+                            <strong>Info:</strong> The Dual Key creates a continuous transition.
+                          </div>
+                        </div>
+                        </div>
+
+                        <div class="row" style="margin-left:35%; width:65%; margin-top:5px;">
+                        <input class="standardText" style="margin-right: 5px; margin-top:auto; margin-bottom:auto;" type="radio" id="id_editPage_KeyTypeTwin" name="editPage_keyType" value="5">
+                        <label class="standardText" for="id_editPage_KeyTypeTwin" id="id_editPage_KeyTypeTwinLabel"> twin key </label>
+                        <div class="helpButtonDiv" style="margin-left:15px; margin-right:auto;">
+                          <button class="helpButton">?</button>
+                          <div class="helpButtonDiv-content" >
+                            <strong>Info:</strong> The Twin Key creates a discontinuous transition.
+                          </div>
+                        </div>
+                        </div>
+
+
+                        <h1 class="subsectionLabel class_EditDivLabel" style="text-decoration:underline; margin-top:5%;"> Change Reference Value: </h1>
+
+                        <input id="id_editPage_SetReference" type="number" name="Reference" value="1" step="any" class="standardText" style="width:40%; margin-left:30%;">
+
+
+                        <h1 class="subsectionLabel class_EditDivLabel" style="text-decoration:underline; margin-top:5%;"> Set As Burdock-Key: </h1>
+
+                        <div class="row" style="margin-left:20%; width:60%; padding-top:5px; padding-bottom:5px;">
+                        <input class="standardText" style="margin-left: auto; margin-right: 2px; margin-top:auto; margin-bottom:auto;" type="radio" id="id_editPage_BurKeyTrue" name="editPage_keyType" value="1" checked="checked">
+                        <label class="standardText" for="id_editPage_KeyTypeNil" style="margin-top:auto; margin-bottom:auto;" > true </label>
+                        <input class="standardText" style="margin-left: auto; margin-right: 2px; margin-top:auto; margin-bottom:auto;" type="radio" id="id_editPage_BurKeyFalse" name="editPage_keyType" value="2">
+                        <label class="standardText"  for="id_editPage_BurKeyFalse" style="margin-top:auto; margin-bottom:auto;" > false </label>
+
+                        <div class="helpButtonDiv" style="margin-left:15px; margin-right:auto; margin-top:auto; margin-bottom:auto; ">
+                          <button class="helpButton">?</button>
+                          <div class="helpButtonDiv-content" >
+                            <strong>Info:</strong> The Key Burdock feature allows you to scale a connected sequence of key at the Key-Burdock-Line. You can activate a key as burdock here.
+                          </div>
+                        </div>
+
+                        </div>
+
+
+
+
+
+                    </div>
+
+                  </div>
+
 
 
 
@@ -847,26 +986,33 @@
 
                 <div id="id_EditPage_Edit_Path" style="width:100%; display:none;">
 
-                  <div id="id_EditPage_PathPlotSpaces_Label" class="class_EditDivLabel" style="float:right; background: rgb(220,220,220); width:auto; margin-right:auto; margin-top:auto; margin-bottom:auto; padding-left: 5px; padding-right: 5px; cursor: pointer; text-align:center;" title="All"> Color Space &#9660; </div>
-                    <div id="id_EditPage_PathPlotSpaces_Dropdown" style="background: url(img/background3.png); display: none; position: absolute; left: 0px; z-index: 5;">
-                            <div id="id_editPage_PathPlotSpaces_RGB"  onclick="choosePathPlotSpace(0)" class="dropdownButtonEditPage">
-                              RGB
-                            </div>
-                            <div id="id_editPage_PathPlotSpaces_HSV" onclick="choosePathPlotSpace(1)" class="dropdownButtonEditPage">
-                              HSV
-                            </div>
-                            <div id="id_editPage_PathPlotSpaces_LAB" onclick="choosePathPlotSpace(2)" class="dropdownButtonEditPage">
-                              LAB
-                            </div>
-                            <div id="id_editPage_PathPlotSpaces_DIN99" onclick="choosePathPlotSpace(3)" class="dropdownButtonEditPage">
-                              DIN99
-                            </div>
-                      </div>
+                  <div class="row" style="width:100%; background: rgb(220,220,220); height:auto; border-bottom:1px solid grey;">
+
+                    <p id="id_EditPage_Path_Label" class="standardText" style="margin-top:auto; margin-bottom:auto; padding-left: 5px; padding-right: 5px; margin-right: 2.5%; font-weight:bold;"> Path Plot : RGB </p>
+                    <p id="id_EditPage_PathPlot_PositionLabel" class="standardText" style="border-left:1px solid black; margin-top:auto; margin-bottom:auto; padding-left: 5px; padding-right: 5px; margin-right: 2.5%; font-weight:bold;"> </p>
+
+                    <div id="id_EditPage_PathPlotSpaces_Label" class="standardText" style="border-left:1px solid black; width:auto; margin-left:auto; margin-top:auto; margin-bottom:auto; padding-left: 5px; padding-right: 5px; cursor: pointer; text-align:center;" title="All"> Color Space &#9660; </div>
+                      <div id="id_EditPage_PathPlotSpaces_Dropdown" style="background: url(img/background3.png); display: none; position: absolute; left: 0px; z-index: 5;">
+                              <div id="id_editPage_PathPlotSpaces_RGB"  onclick="choosePathPlotSpace(0)" class="dropdownButtonEditPage">
+                                RGB
+                              </div>
+                              <div id="id_editPage_PathPlotSpaces_HSV" onclick="choosePathPlotSpace(1)" class="dropdownButtonEditPage">
+                                HSV
+                              </div>
+                              <div id="id_editPage_PathPlotSpaces_LAB" onclick="choosePathPlotSpace(2)" class="dropdownButtonEditPage">
+                                LAB
+                              </div>
+                              <div id="id_editPage_PathPlotSpaces_DIN99" onclick="choosePathPlotSpace(3)" class="dropdownButtonEditPage">
+                                DIN99
+                              </div>
+                        </div>
+                  </div>
+
 
 
                           <div id="id_EditPage_PathPlot_Container" class="row" style="height:100%; width:100%; overflow:auto;">
 
-                                    <div id="id_EditPage_PathPlot_SingleCanvasDiv" style="position: relative; margin-left:auto; margin-right:auto; background:grey;" >
+                                    <div id="id_EditPage_PathPlot_SingleCanvasDiv" style="position: relative; margin-left:auto; margin-right:auto;" >
                                       <canvas id="id_EditPage_PathPlot_SingleCanvas_0"
                                         style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:100%;"></canvas>
                                       <canvas id="id_EditPage_PathPlot_SingleCanvas_1"
@@ -875,17 +1021,22 @@
                                         style="position: absolute; left: 0; top: 0; z-index: 2; width:100%; height:100%;"></canvas>
                                     </div>
 
-                                    <div id="id_EditPage_PathPlot_ThreeCanvas" class="row" style="margin-left:auto; margin-right:auto; background:grey;">
-                                      <div style="position: relative; width:66%; height:100%; border-left: 1px solid rgb(220,220,220);" >
-                                        <canvas id="id_EditPage_PathPlot_BigCanvas_0"
-                                          style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:100%;"></canvas>
-                                        <canvas id="id_EditPage_PathPlot_BigCanvas_1"
-                                          style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:100%;"></canvas>
-                                        <canvas id="id_EditPage_PathPlot_BigCanvas_2"
-                                          style="position: absolute; left: 0; top: 0; z-index: 2; width:100%; height:100%;"></canvas>
+                                    <div id="id_EditPage_PathPlot_ThreeCanvas" class="row" style="margin-left:auto; margin-right:auto;">
+                                      <div id="id_EditPage_PathPlot_BigCanvas_Div" style="position: relative; width:66%; height:100%; border-right: 1px solid rgb(220,220,220);" >
+                                        <p id="id_EditPage_PathPlot_BigCanvas_Label" class="standardText" style="height:5%; width:100%; text-align:center; margin-top:auto; vertical-align:middle;"></p>
+                                        <div id="id_EditPage_PathPlot_BigCanvas_SubDiv" style="position: relative; width:100%; height:97.5%;">
+                                          <canvas id="id_EditPage_PathPlot_BigCanvas_0"
+                                            style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:100%;"></canvas>
+                                          <canvas id="id_EditPage_PathPlot_BigCanvas_1"
+                                            style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:100%;"></canvas>
+                                          <canvas id="id_EditPage_PathPlot_BigCanvas_2"
+                                            style="position: absolute; left: 0; top: 0; z-index: 2; width:100%; height:100%;"></canvas>
+                                        </div>
+
                                       </div>
-                                      <div style="width:33%; height:100%; cursor:pointer;" >
-                                        <div style="position: relative; width:100%; height:50%; border-bottom: 1px solid rgb(220,220,220);" >
+                                      <div id="id_EditPage_PathPlot_SmallCanvas_Div" style="width:33%; height:100%; " >
+                                        <p id="id_EditPage_PathPlot_SmallCanvasTop_Label" class="standardText" style="height:5%; width:100%; text-align:center; vertical-align:middle;"></p>
+                                        <div id="id_EditPage_PathPlot_SmallTopCanvas_Div" style="position: relative; width:100%; height:40%; border-bottom: 1px solid rgb(220,220,220); cursor:pointer;" >
                                           <canvas id="id_EditPage_PathPlot_SmallTopCanvas_0"
                                             style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:100%;"></canvas>
                                           <canvas id="id_EditPage_PathPlot_SmallTopCanvas_1"
@@ -893,7 +1044,8 @@
                                           <canvas id="id_EditPage_PathPlot_SmallTopCanvas_2"
                                             style="position: absolute; left: 0; top: 0; z-index: 2; width:100%; height:100%;"></canvas>
                                         </div>
-                                        <div style="position: relative; width:100%; height:50%; " >
+                                        <p id="id_EditPage_PathPlot_SmallCanvasBottom_Label" class="standardText" style="height:5%; width:100%; text-align:center; vertical-align:middle;"></p>
+                                        <div id="id_EditPage_PathPlot_SmallBottomCanvas_Div" style="position: relative; width:100%; height:40%; cursor:pointer;" >
                                           <canvas id="id_EditPage_PathPlot_SmallBottomCanvas_0"
                                             style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:100%;"></canvas>
                                           <canvas id="id_EditPage_PathPlot_SmallBottomCanvas_1"
@@ -904,7 +1056,7 @@
                                       </div>
                                     </div>
 
-                                    <div id="id_EditPage_PathPlot_3D_Div" style=" margin-right:auto; margin-left:auto; background:red;">
+                                    <div id="id_EditPage_PathPlot_3D_Div" style=" margin-right:auto; cursor:grapping;">
 
 
                                     </div>
@@ -940,7 +1092,7 @@
                     </div>
                   </div>
                   <div class="class_subsectionButtonUnderground" style="width:50%; background: url(img/background3.png);">
-                    <div onclick="switchCMSInformation(1)" id="id_editPage_SelectKeyDescription" class="class_subsectionButton">
+                    <div oonclick="switchCMSInformation(1)" id="id_editPage_SelectKeyDescription" class="class_subsectionButton" style="cursor:not-allowed;">
                       Key Description
                     </div>
                   </div>

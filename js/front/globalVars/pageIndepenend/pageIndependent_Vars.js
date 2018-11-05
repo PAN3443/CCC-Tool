@@ -15,11 +15,8 @@ var styleActiveColor = "rgba(76, 175, 80,0.7)";
 var currentPageID = 0;
 var pageIsLoaded=false;
 
-// Interpolation colorspace
-//var colorspaceModus="lab";
-
-
-
+// Calculation of Interval colors depenting on colordifference delta
+var intervalDelta = 1;
 
 // Draw Reference Information
 var refElementContainer = [];

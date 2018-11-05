@@ -328,7 +328,7 @@ function bandOnDrop(event){
 
       indexOfDroppedPlace==-1;
 
-      updateEditPage()
+      //updateEditPage()
 
   /////////////
   ////  Save Band Process

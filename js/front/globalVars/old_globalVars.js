@@ -53,7 +53,7 @@ var tmpZIndex = 5;
 
 ////////// Canvas colorspaceCenter
 
-var radiusratio = 0.95;
+
 var labSpaceRectRange = 0.8;
 var bigLineWidth = 4;//8;
 var smallLineWidth = 2;//4;
@@ -63,7 +63,7 @@ var circleRad = 6;//8;
 var bigcircleRad = 8;// 12;
 var vBarWidth = 8;
 
-var alphaVal = 1.0;
+
 var lineWidthVPlot = 2;
 var arrowWidth = 15;
 

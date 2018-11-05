@@ -2,20 +2,7 @@
 // -------------HSV LAB DIN99---------------//
 //////////////////////////////////////////
 function hueInit() {
-  var canvasID;
-  switch (showSideID) {
-    case 1:
-      canvasID = "id_ModiyCourseHueBackground";
-      break;
-    case 2:
-      canvasID = "id_analyzeCourseHueBackground";
-      break;
-    case 3:
-      canvasID = "id_compareCourseHueBackground";
-      break;
-    default:
-
-  }
+  var canvasID = "id_EditPage_PathPlot_SingleCanvas_0";
 
   var canvasColorspace = document.getElementById(canvasID);
 
@@ -33,7 +20,7 @@ function hueInit() {
 
   var errorRGBColor = new classColor_RGB(0.5, 0.5, 0.5);
 
-  switch (analyzeColorspaceModus) {
+  switch (pathColorspace) {
     case "hsv":
       for (var x = 0; x < canvasColorspaceWidth; x++) {
 
@@ -52,10 +39,7 @@ function hueInit() {
             var vVal;
 
             if (mouseGrappedKeyID == -1) {
-              if (showSideID == 1)
-                vVal = parseFloat(document.getElementById('id_setValueRange').value) / 100;
-              else
-                vVal = 1.0;
+                vVal = backgroundValue / 100;
             } else {
               switch (mouseGrappedColorSide) {
                 case 0:
@@ -107,10 +91,9 @@ function hueInit() {
             if (mouseGrappedKeyID == -1) {
               var lVal;
 
-              if (showSideID == 1)
-                lVal = parseFloat(document.getElementById('id_setValueRange').value);
-              else
-                lVal = 65;
+
+              lVal = backgroundValue;
+
 
               var aVal = ((x - colorspaceCenterX) / (xWidth / 2)) * labSpaceRange;
               var bVal = ((y - colorspaceCenterY) / (yHeight / 2)) * labSpaceRange;
@@ -136,7 +119,7 @@ function hueInit() {
 
               var colorLAB = new classColor_LAB(lVal, aVal, bVal);
 
-              if (document.getElementById("id_checkboxRGB").checked == true) {
+              if (onlyRGBPossibleColor) {
                 colorRGB = colorLAB.calcRGBColorCorrect(errorRGBColor);
               } else {
                 colorRGB = colorLAB.calcRGBColor();
@@ -191,10 +174,9 @@ function hueInit() {
             if (mouseGrappedKeyID == -1) {
               var l99Val;
 
-              if (showSideID == 1)
-                l99Val = parseFloat(document.getElementById('id_setValueRange').value);
-              else
-                l99Val = 65;
+
+                l99Val = backgroundValue;
+
 
               colorDIN99 = new classColorDIN99(l99Val, a99Val, b99Val);
               colorRGB = colorDIN99.calcRGBColor();
@@ -214,7 +196,7 @@ function hueInit() {
 
               colorDIN99 = new classColorDIN99(l99Val, a99Val, b99Val);
 
-              if (document.getElementById("id_checkboxRGB").checked == true) {
+              if (onlyRGBPossibleColor) {
                 colorRGB = colorDIN99.calcRGBColorCorrect(errorRGBColor);
               } else {
                 colorRGB = colorDIN99.calcRGBColor();
@@ -254,27 +236,54 @@ function hueInit() {
 
 function init_VPlot() {
 
-  var canvasID1 = '';
-  var canvasID2 = '';
-  var canvasID3 = '';
+  var canvasID1 = '';  // value
+  var canvasID2 = ''; // hue
+  var canvasID3 = ''; // saturation
 
-  switch (showSideID) {
-    case 1:
-     canvasID1 = 'id_ModifyValue3Background';
-     canvasID2 = 'id_ModifyValue1Background';
-     canvasID3 = 'id_ModifyValue2Background';
-    break;
-    case 2:
-      canvasID1 = 'id_analyzeValue3Background';
-      canvasID2 = 'id_analyzeValue1Background';
-      canvasID3 = 'id_analyzeValue2Background';
+  switch (pathCanvasAssignmentBig) {
+    case 0:
+      canvasID1="id_EditPage_PathPlot_BigCanvas_0";
+
+      if (pathCanvasAssignmentSmallTop==1) {
+        canvasID2="id_EditPage_PathPlot_SmallTopCanvas_0";
+        canvasID3="id_EditPage_PathPlot_SmallBottomCanvas_0";
+      }
+      else{
+        canvasID2="id_EditPage_PathPlot_SmallBottomCanvas_0";
+        canvasID3="id_EditPage_PathPlot_SmallTopCanvas_0";
+      }
+
+
       break;
-    case 3:
-      canvasID1 = 'id_compareValue3Background';
-      canvasID2 = 'id_compareValue1Background';
-      canvasID3 = 'id_compareValue2Background';
+    case 1:
+
+    canvasID2="id_EditPage_PathPlot_BigCanvas_0";
+
+    if (pathCanvasAssignmentSmallTop==0) {
+      canvasID1="id_EditPage_PathPlot_SmallTopCanvas_0";
+      canvasID3="id_EditPage_PathPlot_SmallBottomCanvas_0";
+    }
+    else{
+      canvasID1="id_EditPage_PathPlot_SmallBottomCanvas_0";
+      canvasID3="id_EditPage_PathPlot_SmallTopCanvas_0";
+    }
+
+      break;
+    case 2:
+    canvasID3="id_EditPage_PathPlot_BigCanvas_0";
+
+    if (pathCanvasAssignmentSmallTop==0) {
+      canvasID1="id_EditPage_PathPlot_SmallTopCanvas_0";
+      canvasID2="id_EditPage_PathPlot_SmallBottomCanvas_0";
+    }
+    else{
+      canvasID1="id_EditPage_PathPlot_SmallBottomCanvas_0";
+      canvasID2="id_EditPage_PathPlot_SmallTopCanvas_0";
+    }
+
       break;
     default:
+    return;
 
   }
 
@@ -297,10 +306,10 @@ function init_VPlot() {
   var vPlotContex3 = canvasVPlot3.getContext("2d");
 
   var yStart = Math.round(vPlot_bg_resolution_Y * 0.9);
-  var yEnd = Math.round(vPlot_bg_resolution_Y * 0.2);
-  var yEndLine = Math.round(vPlot_bg_resolution_Y * 0.15);
-  var yEndArrow = Math.round(vPlot_bg_resolution_Y * 0.1);
-  var arrowHeight = Math.round((yEndLine - yEndArrow) * 0.75);
+  var yEnd = Math.round(vPlot_bg_resolution_Y * 0.1);
+  var yEndLine = Math.round(vPlot_bg_resolution_Y * 0.05);
+  var yEndArrow = 0;
+  var arrowHeight = Math.round(yEndLine - yEndArrow);
   var labelFontSize = arrowHeight * 0.75;
   var labelFontSizeSmall = arrowHeight * 0.5;
   var xStart = Math.round(vPlot_bg_resolution_X * 0.1);
@@ -327,7 +336,7 @@ function init_VPlot() {
 
   widthVArea = globalCMS1.getRefRange();
 
-  if (showSideID == 3) {
+  /*if (showSideID == 3) {
     widthVArea2 = globalCMS2.getRefRange();
 
     for (var i = 0; i < globalCMS2.getKeyLength(); i++) {
@@ -366,7 +375,7 @@ function init_VPlot() {
       vPlotContex3.fillText(text, xPosPos, vPlot_bg_resolution_Y * 0.96 + labelFontSizeSmall);
 
     }
-  }
+  }*/
 
 
   for (var i = 0; i < globalCMS1.getKeyLength(); i++) {
@@ -423,7 +432,7 @@ function init_VPlot() {
   var startValue3=0;
   var endValue3=1.0;
 
-  switch (analyzeColorspaceModus) {
+  switch (pathColorspace) {
     case "hsv":
       break;
     case "lab":
@@ -521,9 +530,9 @@ function init_VPlot() {
 
   // the triangle
   vPlotContex1.beginPath();
-  vPlotContex1.moveTo(xEndLine, yStart - arrowWidth);
+  vPlotContex1.moveTo(xEndLine, yStart - (arrowHeight/2));
   vPlotContex1.lineTo(xEndArrow, yStart);
-  vPlotContex1.lineTo(xEndLine, yStart + arrowWidth);
+  vPlotContex1.lineTo(xEndLine, yStart + (arrowHeight/2));
   vPlotContex1.closePath();
 
   // the fill color
@@ -538,9 +547,9 @@ function init_VPlot() {
 
   // the triangle
   vPlotContex1.beginPath();
-  vPlotContex1.moveTo(xStart - arrowWidth, yEndLine);
+  vPlotContex1.moveTo(xStart - (arrowHeight/2), yEndLine);
   vPlotContex1.lineTo(xStart, yEndArrow);
-  vPlotContex1.lineTo(xStart + arrowWidth, yEndLine);
+  vPlotContex1.lineTo(xStart + (arrowHeight/2), yEndLine);
   vPlotContex1.closePath();
 
   // the fill color
@@ -555,9 +564,9 @@ function init_VPlot() {
 
   // the triangle
   vPlotContex2.beginPath();
-  vPlotContex2.moveTo(xEndLine, yStart - arrowWidth);
+  vPlotContex2.moveTo(xEndLine, yStart - (arrowHeight/2));
   vPlotContex2.lineTo(xEndArrow, yStart);
-  vPlotContex2.lineTo(xEndLine, yStart + arrowWidth);
+  vPlotContex2.lineTo(xEndLine, yStart + (arrowHeight/2));
   vPlotContex2.closePath();
 
   // the fill color
@@ -572,9 +581,9 @@ function init_VPlot() {
 
   // the triangle
   vPlotContex2.beginPath();
-  vPlotContex2.moveTo(xStart - arrowWidth, yEndLine);
+  vPlotContex2.moveTo(xStart - (arrowHeight/2), yEndLine);
   vPlotContex2.lineTo(xStart, yEndArrow);
-  vPlotContex2.lineTo(xStart + arrowWidth, yEndLine);
+  vPlotContex2.lineTo(xStart + (arrowHeight/2), yEndLine);
   vPlotContex2.closePath();
 
   // the fill color
@@ -589,9 +598,9 @@ function init_VPlot() {
 
   // the triangle
   vPlotContex3.beginPath();
-  vPlotContex3.moveTo(xEndLine, yStart - arrowWidth);
+  vPlotContex3.moveTo(xEndLine, yStart - (arrowHeight/2));
   vPlotContex3.lineTo(xEndArrow, yStart);
-  vPlotContex3.lineTo(xEndLine, yStart + arrowWidth);
+  vPlotContex3.lineTo(xEndLine, yStart + (arrowHeight/2));
   vPlotContex3.closePath();
 
   // the fill color
@@ -606,9 +615,9 @@ function init_VPlot() {
 
   // the triangle
   vPlotContex3.beginPath();
-  vPlotContex3.moveTo(xStart - arrowWidth, yEndLine);
+  vPlotContex3.moveTo(xStart - (arrowHeight/2), yEndLine);
   vPlotContex3.lineTo(xStart, yEndArrow);
-  vPlotContex3.lineTo(xStart + arrowWidth, yEndLine);
+  vPlotContex3.lineTo(xStart + (arrowHeight/2), yEndLine);
   vPlotContex3.closePath();
 
   // the fill color
@@ -625,7 +634,7 @@ function init_VPlot() {
   vPlotContex3.fillText("Key Position", xEndArrow, yStart + labelFontSize);
 
 
-  switch (analyzeColorspaceModus) {
+  /*switch (pathColorspace) {
     case "hsv":
       vPlotContex1.fillText("Value", xStart - labelFontSize, yEndArrow);
       vPlotContex2.fillText("Hue", xStart - labelFontSize, yEndArrow);
@@ -644,7 +653,7 @@ function init_VPlot() {
     default:
       console.log("Error at the changeColorspace function");
       return;
-  }
+  }*/
 
 }
 
@@ -656,50 +665,75 @@ function drawcolormap_hueSpace(calcBackground, drawInterpolationLine, doInitVplo
   if (calcBackground)
     hueInit();
 
-    if(showSideID==3) // is Compare PAGE
+    /*if(showSideID==3) // is Compare PAGE
     {
       drawElements_HSV_LAB_DIN99(true);
 
       if (drawInterpolationLine)
         drawInterpolationLineHSV_LAB_DIN99(true);
     }
-    else {
+    else {*/
       drawElements_HSV_LAB_DIN99(false);
 
       if (drawInterpolationLine)
         drawInterpolationLineHSV_LAB_DIN99(false);
-    }
+    //}
 
 }
 
 
 function drawElements_HSV_LAB_DIN99(isCompareMap) {
 
-  var canvasID, pCanvasID1,pCanvasID2,pCanvasID3;
-  switch (showSideID) {
+  var canvasID1,canvasID2,canvasID3;
+
+  var canvasID = "id_EditPage_PathPlot_SingleCanvas_2";
+
+  switch (pathCanvasAssignmentBig) {
+    case 0:
+      canvasID1="id_EditPage_PathPlot_BigCanvas_2";
+
+      if (pathCanvasAssignmentSmallTop==1) {
+        canvasID2="id_EditPage_PathPlot_SmallTopCanvas_2";
+        canvasID3="id_EditPage_PathPlot_SmallBottomCanvas_2";
+      }
+      else{
+        canvasID2="id_EditPage_PathPlot_SmallBottomCanvas_2";
+        canvasID3="id_EditPage_PathPlot_SmallTopCanvas_2";
+      }
+
+
+      break;
     case 1:
-      canvasID = "id_ModiyCourseHueTop";
-      pCanvasID1 = 'id_ModifyValue3Top';
-      pCanvasID2 = 'id_ModifyValue1Top';
-      pCanvasID3 = 'id_ModifyValue2Top';
+
+    canvasID2="id_EditPage_PathPlot_BigCanvas_2";
+
+    if (pathCanvasAssignmentSmallTop==0) {
+      canvasID1="id_EditPage_PathPlot_SmallTopCanvas_2";
+      canvasID3="id_EditPage_PathPlot_SmallBottomCanvas_2";
+    }
+    else{
+      canvasID1="id_EditPage_PathPlot_SmallBottomCanvas_2";
+      canvasID3="id_EditPage_PathPlot_SmallTopCanvas_2";
+    }
+
       break;
     case 2:
-      canvasID = "id_analyzeCourseHueTop";
-      pCanvasID1 = 'id_analyzeValue3Top';
-      pCanvasID2 = 'id_analyzeValue1Top';
-      pCanvasID3 = 'id_analyzeValue2Top';
-      break;
-    case 3:
-      canvasID = "id_compareCourseHueTop";
-      pCanvasID1 = 'id_compareValue3Top';
-      pCanvasID2 = 'id_compareValue1Top';
-      pCanvasID3 = 'id_compareValue2Top';
+    canvasID3="id_EditPage_PathPlot_BigCanvas_2";
+
+    if (pathCanvasAssignmentSmallTop==0) {
+      canvasID1="id_EditPage_PathPlot_SmallTopCanvas_2";
+      canvasID2="id_EditPage_PathPlot_SmallBottomCanvas_2";
+    }
+    else{
+      canvasID1="id_EditPage_PathPlot_SmallBottomCanvas_2";
+      canvasID2="id_EditPage_PathPlot_SmallTopCanvas_2";
+    }
+
       break;
     default:
+    return;
 
   }
-
-
 
   var canvasColorspace = document.getElementById(canvasID);
 
@@ -723,9 +757,9 @@ function drawElements_HSV_LAB_DIN99(isCompareMap) {
   var colorspaceContex = canvasColorspace.getContext("2d");
   var canvasColorspaceData = colorspaceContex.getImageData(0, 0, canvasColorspaceWidth, canvasColorspaceHeight);
 
-  var canvasVPlot1 = document.getElementById(pCanvasID1);
-  var canvasVPlot2 = document.getElementById(pCanvasID2);
-  var canvasVPlot3 = document.getElementById(pCanvasID3);
+  var canvasVPlot1 = document.getElementById(canvasID1);
+  var canvasVPlot2 = document.getElementById(canvasID2);
+  var canvasVPlot3 = document.getElementById(canvasID3);
 
   canvasVPlot1.width = vPlot_resolution_X;
   canvasVPlot1.height = vPlot_resolution_Y;
@@ -741,7 +775,7 @@ function drawElements_HSV_LAB_DIN99(isCompareMap) {
   var vPlotContex3 = canvasVPlot3.getContext("2d");
 
   var vPlotyStart = Math.round(vPlot_resolution_Y * 0.9);
-  var vPlotyEnd = Math.round(vPlot_resolution_Y * 0.2);
+  var vPlotyEnd = Math.round(vPlot_resolution_Y * 0.1);
   var vPlotxStart = Math.round(vPlot_resolution_X * 0.1);
   var vPlotxEnd = Math.round(vPlot_resolution_X * 0.85);
   var heigthVArea = vPlotyStart - vPlotyEnd;
@@ -766,15 +800,14 @@ function drawElements_HSV_LAB_DIN99(isCompareMap) {
   var border=1;
   if (isCompareMap) {
     border = 2;
-    //globalCMS2.calcIntervalColors(intervalSize, colorspaceModus);
-    globalCMS2.calcDeltaIntervalColors(intervalDelta, colorspaceModus,0,globalCMS2.getKeyLength()-1);
+    globalCMS2.calcDeltaIntervalColors(intervalDelta, 0,globalCMS2.getKeyLength()-1);
   }
 
-  var csModus=analyzeColorspaceModus;
-  if((analyzeColorspaceModus=="lab" || analyzeColorspaceModus=="din99") && showSideID==1 && document.getElementById("id_checkboxRGB").checked==true){
-    if(analyzeColorspaceModus=="lab")
+  var csModus=pathColorspace;
+  if((pathColorspace=="lab" || pathColorspace=="din99") && onlyRGBPossibleColor){
+    if(pathColorspace=="lab")
     csModus = "lab_rgb_possible";
-    if(analyzeColorspaceModus=="din99")
+    if(pathColorspace=="din99")
     csModus = "din99_rgb_possible";
   }
 
@@ -788,6 +821,7 @@ function drawElements_HSV_LAB_DIN99(isCompareMap) {
         workCMS = globalCMS2;
         break;
       default:
+      return;
     }
 
     for (var i = 0; i < workCMS.getKeyLength(); i++) {
@@ -904,27 +938,54 @@ function drawElements_HSV_LAB_DIN99(isCompareMap) {
 
 function drawInterpolationLineHSV_LAB_DIN99(isCompareMap) {
 
-  var canvasID, pCanvasID1,pCanvasID2,pCanvasID3;
-  switch (showSideID) {
+  var canvasID1,canvasID2,canvasID3;
+
+  var canvasID = "id_EditPage_PathPlot_SingleCanvas_1";
+
+  switch (pathCanvasAssignmentBig) {
+    case 0:
+      canvasID1="id_EditPage_PathPlot_BigCanvas_1";
+
+      if (pathCanvasAssignmentSmallTop==1) {
+        canvasID2="id_EditPage_PathPlot_SmallTopCanvas_1";
+        canvasID3="id_EditPage_PathPlot_SmallBottomCanvas_1";
+      }
+      else{
+        canvasID2="id_EditPage_PathPlot_SmallBottomCanvas_1";
+        canvasID3="id_EditPage_PathPlot_SmallTopCanvas_1";
+      }
+
+
+      break;
     case 1:
-      canvasID = "id_ModiyCourseHueMiddle";
-      pCanvasID1 = 'id_ModifyValue3Middle';
-      pCanvasID2 = 'id_ModifyValue1Middle';
-      pCanvasID3 = 'id_ModifyValue2Middle';
+
+    canvasID2="id_EditPage_PathPlot_BigCanvas_1";
+
+    if (pathCanvasAssignmentSmallTop==0) {
+      canvasID1="id_EditPage_PathPlot_SmallTopCanvas_1";
+      canvasID3="id_EditPage_PathPlot_SmallBottomCanvas_1";
+    }
+    else{
+      canvasID1="id_EditPage_PathPlot_SmallBottomCanvas_1";
+      canvasID3="id_EditPage_PathPlot_SmallTopCanvas_1";
+    }
+
       break;
     case 2:
-      canvasID = "id_analyzeCourseHueMiddle";
-      pCanvasID1 = 'id_analyzeValue3Middle';
-      pCanvasID2 = 'id_analyzeValue1Middle';
-      pCanvasID3 = 'id_analyzeValue2Middle';
-      break;
-    case 3:
-      canvasID = "id_compareCourseHueMiddle";
-      pCanvasID1 = 'id_compareValue3Middle';
-      pCanvasID2 = 'id_compareValue1Middle';
-      pCanvasID3 = 'id_compareValue2Middle';
+    canvasID3="id_EditPage_PathPlot_BigCanvas_1";
+
+    if (pathCanvasAssignmentSmallTop==0) {
+      canvasID1="id_EditPage_PathPlot_SmallTopCanvas_1";
+      canvasID2="id_EditPage_PathPlot_SmallBottomCanvas_1";
+    }
+    else{
+      canvasID1="id_EditPage_PathPlot_SmallBottomCanvas_1";
+      canvasID2="id_EditPage_PathPlot_SmallTopCanvas_1";
+    }
+
       break;
     default:
+    return;
 
   }
 
@@ -951,9 +1012,9 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap) {
   var canvasColorspaceData = colorspaceContex.getImageData(0, 0, canvasColorspaceWidth, canvasColorspaceHeight);
 
 
-  var canvasVPlot1 = document.getElementById(pCanvasID1);
-  var canvasVPlot2 = document.getElementById(pCanvasID2);
-  var canvasVPlot3 = document.getElementById(pCanvasID3);
+  var canvasVPlot1 = document.getElementById(canvasID1);
+  var canvasVPlot2 = document.getElementById(canvasID2);
+  var canvasVPlot3 = document.getElementById(canvasID3);
 
   canvasVPlot1.width = vPlot_resolution_X;
   canvasVPlot1.height = vPlot_resolution_Y;
@@ -969,13 +1030,13 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap) {
   var vPlotContex3 = canvasVPlot3.getContext("2d");
 
   var vPlotyStart = Math.round(vPlot_resolution_Y * 0.9);
-  var vPlotyEnd = Math.round(vPlot_resolution_Y * 0.2);
+  var vPlotyEnd = Math.round(vPlot_resolution_Y * 0.1);
   var vPlotxStart = Math.round(vPlot_resolution_X * 0.1);
   var vPlotxEnd = Math.round(vPlot_resolution_X * 0.85);
   var heigthVArea = vPlotyStart - vPlotyEnd;
   var plotwidth = vPlotxEnd - vPlotxStart;
 
-  globalCMS1.calcDeltaIntervalColors(intervalDelta, colorspaceModus,0,globalCMS1.getKeyLength()-1);
+  globalCMS1.calcDeltaIntervalColors(intervalDelta, 0,globalCMS1.getKeyLength()-1);
 
 
   var tmpColor, tmpColor2, xPos, xPos2, yPos, yPos2;
@@ -985,7 +1046,7 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap) {
   if (isCompareMap) {
     border = 2;
 
-    globalCMS1.calcDeltaIntervalColors(intervalDelta, colorspaceModus,0,globalCMS1.getKeyLength()-1);
+    globalCMS1.calcDeltaIntervalColors(intervalDelta, 0,globalCMS1.getKeyLength()-1);
   }
 
   for (var x = 0; x < border; x++) {
@@ -1000,13 +1061,14 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap) {
         compareColor = true;
         break;
       default:
+      return;
     }
 
-    var csModus=analyzeColorspaceModus;
-    if((analyzeColorspaceModus=="lab" || analyzeColorspaceModus=="din99") && showSideID==1 && document.getElementById("id_checkboxRGB").checked==true){
-      if(analyzeColorspaceModus=="lab")
+    var csModus=pathColorspace;
+    if((pathColorspace=="lab" || pathColorspace=="din99") && onlyRGBPossibleColor){
+      if(pathColorspace=="lab")
       csModus = "lab_rgb_possible";
-      if(analyzeColorspaceModus=="din99")
+      if(pathColorspace=="din99")
       csModus = "din99_rgb_possible";
     }
 
@@ -1015,7 +1077,7 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap) {
 
       switch (workCMS.getKeyType(i)) {
         case "nil key":
-          //drawHueLine(workCMS.getLeftKeyColor(i,analyzeColorspaceModus),workCMS.getLeftKeyColor(i+1,analyzeColorspaceModus),xWidth,yHeight,xStart,yStart,xEnd,yEnd,colorspaceRadius, colorspaceCenterY, colorspaceCenterX, isDashed,compareColor,colorspaceContex);
+          //drawHueLine(workCMS.getLeftKeyColor(i,pathColorspace),workCMS.getLeftKeyColor(i+1,pathColorspace),xWidth,yHeight,xStart,yStart,xEnd,yEnd,colorspaceRadius, colorspaceCenterY, colorspaceCenterX, isDashed,compareColor,colorspaceContex);
           drawVLine(workCMS.getLeftKeyColor(i + 1, csModus),
             workCMS.getLeftKeyColor(i + 1, csModus),
             workCMS.getRefPosition(i),
@@ -1026,7 +1088,7 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap) {
           break;
         case "twin key":
           var intervalIndexA = workCMS.getIntervalPositions(i);
-          drawHueLine(workCMS.getLeftKeyColor(i, analyzeColorspaceModus), workCMS.getRightKeyColor(i, csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, true, compareColor, colorspaceContex);
+          drawHueLine(workCMS.getLeftKeyColor(i, pathColorspace), workCMS.getRightKeyColor(i, csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, true, compareColor, colorspaceContex);
 
             for (var j = intervalIndexA[0]; j < intervalIndexA[1]; j++) {
               drawHueLine(workCMS.getIntervalColor(j, csModus), workCMS.getIntervalColor(j + 1, csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false, compareColor, colorspaceContex);
@@ -1086,7 +1148,7 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap) {
 
 function drawHueElement(tmpColor, xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, drawCircle, colorspaceContex, keyIndex, colorSide) {
 
-  switch (analyzeColorspaceModus) {
+  switch (pathColorspace) {
     case "hsv":
       var tmpDis = tmpColor.getSValue() * colorspaceRadius;
       var tmpRad = (tmpColor.getHValue() * Math.PI * 2) - Math.PI;
@@ -1106,7 +1168,7 @@ function drawHueElement(tmpColor, xWidth, yHeight, xStart, yStart, xEnd, yEnd, c
       return;
   }
 
-  drawElement(tmpColor.calcRGBColor().getRGBStringAplha(alphaVal), colorspaceContex, xPos, yPos, keyIndex, colorSide, drawCircle);
+  drawElement(tmpColor.calcRGBColor().getRGBString(), colorspaceContex, xPos, yPos, keyIndex, colorSide, drawCircle);
 
   spaceElementsXPos.push(xPos);
   spaceElementsYPos.push(yPos);
@@ -1127,9 +1189,9 @@ function drawVElement(tmpColor, currentRef, startRef, rangeSize, vPlotxStart, vP
   var xVPos = vPlotxStart + ((currentRef - startRef) / rangeSize) * plotwidth;
 
   var yPos;
-  switch (analyzeColorspaceModus) {
+  switch (pathColorspace) {
     case "hsv":
-      yPos = Math.round(vPlotyStart - (heigthVArea * tmpColor.getVValue()));
+      yPos = Math.round(vPlotyStart - (heigthVArea * tmpColor.getHValue()));
       break;
     case "lab":
       yPos = Math.round(vPlotyStart - (heigthVArea * tmpColor.getLValue() / 100));
@@ -1142,11 +1204,11 @@ function drawVElement(tmpColor, currentRef, startRef, rangeSize, vPlotxStart, vP
       return;
   }
 
-  drawElement(tmpColor.calcRGBColor().getRGBStringAplha(alphaVal), vPlotContex1, xVPos, yPos, keyIndex, colorSide, drawCircle);
+  drawElement(tmpColor.calcRGBColor().getRGBString(), vPlotContex1, xVPos, yPos, keyIndex, colorSide, drawCircle);
 
-  switch (analyzeColorspaceModus) {
+  switch (pathColorspace) {
     case "hsv":
-      yPos = Math.round(vPlotyStart - (heigthVArea * tmpColor.getHValue()));
+      yPos = Math.round(vPlotyStart - (heigthVArea * tmpColor.getSValue()));
       break;
     case "lab":
       yPos = Math.round(vPlotyStart - (heigthVArea * (tmpColor.getAValue()+labSpaceRange) / (labSpaceRange*2)));
@@ -1159,11 +1221,11 @@ function drawVElement(tmpColor, currentRef, startRef, rangeSize, vPlotxStart, vP
       return;
   }
 
-  drawElement(tmpColor.calcRGBColor().getRGBStringAplha(alphaVal), vPlotContex2, xVPos, yPos, keyIndex, colorSide, drawCircle);
+  drawElement(tmpColor.calcRGBColor().getRGBString(), vPlotContex2, xVPos, yPos, keyIndex, colorSide, drawCircle);
 
-  switch (analyzeColorspaceModus) {
+  switch (pathColorspace) {
     case "hsv":
-      yPos = Math.round(vPlotyStart - (heigthVArea * tmpColor.getSValue()));
+      yPos = Math.round(vPlotyStart - (heigthVArea * tmpColor.getVValue()));
       break;
     case "lab":
       yPos = Math.round(vPlotyStart - (heigthVArea * (tmpColor.getBValue()+labSpaceRange) / (labSpaceRange*2)));
@@ -1176,7 +1238,7 @@ function drawVElement(tmpColor, currentRef, startRef, rangeSize, vPlotxStart, vP
       return;
   }
 
-  drawElement(tmpColor.calcRGBColor().getRGBStringAplha(alphaVal), vPlotContex3, xVPos, yPos, keyIndex, colorSide, drawCircle);
+  drawElement(tmpColor.calcRGBColor().getRGBString(), vPlotContex3, xVPos, yPos, keyIndex, colorSide, drawCircle);
 
 
 }
@@ -1184,7 +1246,7 @@ function drawVElement(tmpColor, currentRef, startRef, rangeSize, vPlotxStart, vP
 function drawHueLine(tmpColor, tmpColor2, xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, isDashed, isCompareMap, colorspaceContex) {
   // RG
 
-  switch (analyzeColorspaceModus) {
+  switch (pathColorspace) {
     case "hsv":
       var tmpDis = tmpColor.getSValue() * colorspaceRadius;
       var tmpRad = (tmpColor.getHValue() * Math.PI * 2) - Math.PI;
@@ -1219,20 +1281,7 @@ function drawHueLine(tmpColor, tmpColor2, xWidth, yHeight, xStart, yStart, xEnd,
   drawLine(colorspaceContex, xPos, yPos, xPos2, yPos2, isDashed, isCompareMap);
 
 
-  /*if (showSpace == 1) {
 
-    var x1 = tmpColor.getRValue() * 255 - 128;
-    var y1 = tmpColor.getGValue() * 255 - 128;
-    var z1 = tmpColor.getBValue() * 255 - 128;
-
-    var x2 = tmpColor2.getRValue() * 255 - 128;
-    var y2 = tmpColor2.getGValue() * 255 - 128;
-    var z2 = tmpColor2.getBValue() * 255 - 128;
-
-
-    draw3DLine(x1, y1, z1, x2, y2, z2, isDashed, isCompareMap);
-
-  }*/
 }
 
 function drawVLine(tmpColor, tmpColor2, ref, ref2, startRef, rangeSize, vPlotxStart, vPlotyStart, heigthVArea, plotwidth, isDashed, isCompareMap, vPlotContex1,vPlotContex2,vPlotContex3) {
@@ -1240,10 +1289,10 @@ function drawVLine(tmpColor, tmpColor2, ref, ref2, startRef, rangeSize, vPlotxSt
   var xPos2 = vPlotxStart + ((ref2 - startRef) / rangeSize) * plotwidth;
 
   var yPos, yPos2;
-  switch (analyzeColorspaceModus) {
+  switch (pathColorspace) {
     case "hsv":
-      yPos = Math.round(vPlotyStart - (heigthVArea * tmpColor.getVValue()));
-      yPos2 = Math.round(vPlotyStart - (heigthVArea * tmpColor2.getVValue()));
+      yPos = Math.round(vPlotyStart - (heigthVArea * tmpColor.getHValue()));
+      yPos2 = Math.round(vPlotyStart - (heigthVArea * tmpColor2.getHValue()));
       break;
     case "lab":
       yPos = Math.round(vPlotyStart - (heigthVArea * tmpColor.getLValue() / 100));
@@ -1260,10 +1309,10 @@ function drawVLine(tmpColor, tmpColor2, ref, ref2, startRef, rangeSize, vPlotxSt
 
   drawLine(vPlotContex1, xPos, yPos, xPos2, yPos2, isDashed, isCompareMap);
 
-  switch (analyzeColorspaceModus) {
+  switch (pathColorspace) {
     case "hsv":
-      yPos = Math.round(vPlotyStart - (heigthVArea * tmpColor.getHValue()));
-      yPos2 = Math.round(vPlotyStart - (heigthVArea * tmpColor2.getHValue()));
+      yPos = Math.round(vPlotyStart - (heigthVArea * tmpColor.getSValue()));
+      yPos2 = Math.round(vPlotyStart - (heigthVArea * tmpColor2.getSValue()));
       break;
     case "lab":
       yPos = Math.round(vPlotyStart - (heigthVArea * (tmpColor.getAValue()+labSpaceRange) / (labSpaceRange*2)));
@@ -1280,10 +1329,10 @@ function drawVLine(tmpColor, tmpColor2, ref, ref2, startRef, rangeSize, vPlotxSt
 
   drawLine(vPlotContex2, xPos, yPos, xPos2, yPos2, isDashed, isCompareMap);
 
-  switch (analyzeColorspaceModus) {
+  switch (pathColorspace) {
     case "hsv":
-      yPos = Math.round(vPlotyStart - (heigthVArea * tmpColor.getSValue()));
-      yPos2 = Math.round(vPlotyStart - (heigthVArea * tmpColor2.getSValue()));
+      yPos = Math.round(vPlotyStart - (heigthVArea * tmpColor.getVValue()));
+      yPos2 = Math.round(vPlotyStart - (heigthVArea * tmpColor2.getVValue()));
       break;
     case "lab":
       yPos = Math.round(vPlotyStart - (heigthVArea * (tmpColor.getBValue()+labSpaceRange) / (labSpaceRange*2)));

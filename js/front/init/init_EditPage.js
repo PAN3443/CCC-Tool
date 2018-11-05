@@ -77,4 +77,13 @@ function init_events_EditPage(){
   document.getElementById('id_editPage_OrderPredefinedLabel').addEventListener("click", activateDropdown);
   document.getElementById('id_EditPage_PathPlotSpaces_Label').addEventListener("click", activateDropdown);
 
+  initRGB3D();
+
+  document.getElementById('id_EditPage_PathPlot_3D_Div').addEventListener("mousemove", eventRGB3D_mousemove);
+  document.getElementById('id_EditPage_PathPlot_3D_Div').addEventListener("mouseleave", eventRGB3D_mouseleave);
+  document.getElementById('id_EditPage_PathPlot_3D_Div').addEventListener("mousedown", eventRGB3D_mousedown);
+  document.getElementById('id_EditPage_PathPlot_3D_Div').addEventListener("mouseup", eventRGB3D_mouseup);
+
+  
+
 }

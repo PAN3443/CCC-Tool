@@ -113,7 +113,6 @@ function createMyDesignObject(id){
   editButton.id="myDesignObj_editButton_"+id;
   editButton.className = "class_MyDesignButton";
   editButton.style.backgroundImage = "url(img/editButton_grey.png)";
-  editButton.addEventListener("click", bandOnDragStart);
   editButton.style.cursor="not-allowed";
 
 

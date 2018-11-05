@@ -259,7 +259,13 @@ class class_CMS {
   }
 
   getRefRange(){
-    return (this.keyArray[this.keyArray.length-1].getRefPosition()-this.keyArray[0].getRefPosition());
+    if(this.keyArray.length>1){
+      return (this.keyArray[this.keyArray.length-1].getRefPosition()-this.keyArray[0].getRefPosition());
+    }
+    else {
+      return 0;
+    }
+
   }
 
   getRefPosition(index){

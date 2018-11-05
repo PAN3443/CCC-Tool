@@ -135,6 +135,7 @@ function checkAsk(){
     case 0:
       //delete CMS
       globalCMS1.clear();
+      switchModifyModus(0);
       updateEditPage();
       break;
     /*case 1:

@@ -305,6 +305,8 @@
   text-align: left;
   padding: 5px;
   border-top:1px solid white;
+  font-family:courier;
+  font-weight: bold;
 }
 
 .dropdownButtonEditPage:hover {

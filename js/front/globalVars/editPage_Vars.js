@@ -1,4 +1,6 @@
 
+
+
 var somethingChanged = false;
 
 var colormapProcess = [];
@@ -33,7 +35,27 @@ var customScaleBandColor1 = new classColor_RGB(1.0,1.0,1.0);
 var customScaleBandColor2 = new classColor_RGB(0.0,0.0,0.0);
 
 
-///
+// Colormap Path
+var pathColorspace = "lab";
+var onlyRGBPossibleColor = true;
+var backgroundValue = 0;
+var mouseAboveKeyID = -1;
+var mouseGrappedKeyID = -1;
+var mouseGrappedColorSide = -1;
+var lineWidthVPlot = 2;
+var mouseGrappedColor = "rgb(120,120,120)";
+var pathCanvasAssignmentBig = 0; // 0 = (RG,H,L,L99), 1 = (GB,S,a,a99) 0 = (BG,V,b,b99)
+var pathCanvasAssignmentSmallTop = 1;
+var pathCanvasAssignmentSmallBottom = 2;
+//var alphaVal = 1.0;
+var circleRad = 6;//8;
+var bigcircleRad = 8;// 12;
+var bigLineWidth = 4;//8;
+var smallLineWidth = 2;//4;
+var radiusratio = 0.95;
+var labSpaceRectRange = 0.8;
+
+/// Predefined CMS
 
 var filterPredefined = 0; // 0=all, 1=Multiband, 2=Divergent, 3=Scaled All, 4=Scaled Blue, 5=Scaled Brown, 6=Scaled Green, 7=Scaled Red Purple, 8=Scaled Yellow Orange
 var currentPredefinedType = -1;

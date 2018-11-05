@@ -37,3 +37,11 @@
 
 
 }
+
+#id_MyDesings_Example_Img{
+  width:50%;
+}
+
+#id_MyDesings_Example_Img:hover{
+  width:100%;
+}

@@ -25,9 +25,10 @@ function changeColorspace(space){
   }
 
 
-  if(document.getElementById("id_EditPage").style.display!="none"){
+  //if(document.getElementById("id_EditPage").style.display!="none"){
     updateInterpolationSpaceEditPage();
-  }
+
+  //}
 
 }
 
@@ -85,5 +86,17 @@ function updateInterpolationSpaceEditPage(){
   drawScaledBands();
   drawConstCustomBand();
   drawScaleCustomBand();
+
+  // UPDATE Path Plot
+  if(document.getElementById("id_EditPage_Edit_Path").style.display!="none"){
+    if(pathColorspace==="rgb"){
+      drawcolormap_RGBSpace(true,true);
+    }
+    else{
+      drawcolormap_hueSpace(true, true, true);
+    }
+  }
+
+
   updateEditPage();
 }
