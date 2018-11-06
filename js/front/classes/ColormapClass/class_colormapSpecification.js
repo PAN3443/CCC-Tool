@@ -69,15 +69,19 @@ class class_CMS {
 
   calculateColor(val){
 
-    if(val<this.keyArray[0].getRefPosition()){
-      //console.log(val);
+
+
+    if(isNaN(val)){
       return this.NaN_RGB;
+    }
+
+    if(val<this.keyArray[0].getRefPosition()){
+      return this.Below_RGB;
     }
 
 
     if(val>this.keyArray[this.keyArray.length-1].getRefPosition()){
-      //console.log(val);
-      return this.NaN_RGB;
+      return this.Above_RGB;
     }
 
     for (var i = 0; i < this.keyArray.length-1; i++) {

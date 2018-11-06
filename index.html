@@ -293,7 +293,7 @@
             Color Difference Metrics
           </div>
           <div id="id_settingMenu_Label_RGBPossible_Button" oonclick="changeColorPossiblity()" class="dropdownNotActiveMenuButton" style="display:none;">
-            Allow Colors Outside RGB : false
+            Allow RGB Incompalible Colors : false
           </div>
 
 
@@ -750,10 +750,13 @@
 
 
 
-                        <div id="id_EditPage_OnlineCMS_Div" class="row class_EditDiv_SubDiv" style="width:100%; height:92%; border-top:1px solid grey;  cursor:not-allowed; overflow-y:auto; overflow-x: hidden;">
+                        <div id="id_EditPage_OnlineCMS_Div" class="row class_EditDiv_SubDiv" style="width:100%; height:92%; border-top:1px solid grey;  cursor:not-allowed; overflow-y:auto; overflow-x: hidden; background:rgb(220,220,220);">
 
 
-                            <img id="id_EditPage_OnlineCMS_NotAvailableImg" src="img/notAvailableImg.png" style="height:100%; margin-left:auto; margin-right:auto;">
+                            <!--img id="id_EditPage_OnlineCMS_NotAvailableImg" src="img/notAvailableImg.png" style="height:100%; margin-left:auto; margin-right:auto;"-->
+
+                            <p class="standardText" style="margin:auto; color:grey; font-weight:bold;">Not Available.</p>
+
 
                         </div>
                       </div>
@@ -810,6 +813,16 @@
 
 
                           <h1 class="subsectionLabel class_EditDivLabel" style="margin-top:auto; margin-bottom:auto; text-decoration:underline; background: rgb(220,220,220);"> MyDesigns </h1>
+
+                          <div id="id_EditPage_MyDesigns_EmptyDiv" class="row class_EditDiv_SubDiv" style="display:none; width:100%; height:92%; border-top:1px solid grey; cursor:not-allowed; background:rgb(220,220,220);">
+
+
+                              <!--img id="id_EditPage_OnlineCMS_NotAvailableImg" src="img/notAvailableImg.png" style="height:100%; margin-left:auto; margin-right:auto;"-->
+
+                              <p class="standardText" style="margin:auto; color:grey; font-weight:bold;">Empty.</p>
+
+
+                          </div>
 
 
                           <div id="id_EditPage_MyDesigns_Div" class="class_EditDiv_SubDiv" style="width:100%; height:80%; overflow-y: auto; overflow-x: hidden; border-top:1px solid grey;">
@@ -871,15 +884,48 @@
 
                       <h1 class="subsectionLabel class_EditDivLabel" style="text-decoration:underline; background: rgb(220,220,220);"> Select Key: </h1>
 
-                      <select id="id_EditPage_EditKey_List" class="standardText" name="Key List" size="20" style="margin-left:5%; width:80%; height:70%; margin-top:2.5%; margin-bottom:2.5%; overflow:auto;">
+                      <select id="id_EditPage_EditKey_List" name="Key List" size="20" style="margin-left:5%; width:80%; height:70%; margin-top:2.5%; margin-bottom:2.5%; overflow:auto;">
 
                       </select>
 
 
-                      <button class="class_generalbutton" onclick="()" style=" margin-left:5%; height:15%; width:80%; margin-top:auto; margin-bottom:auto;">Delete Key</button>
+                      <button id="id_EditPage_EditKey_DeleteButton" class="class_generalbutton" onclick="delteKey()" style=" margin-left:5%; height:15%; width:80%; margin-top:auto; margin-bottom:auto;">Delete Key</button>
                     </div>
 
                     <div style="height:100%; width:40%; border-right:2px solid grey; ">
+
+                          <div style="display:flex; height:25%; width:100%;">
+
+                            <div id="id_EditPage_DrawnKey_NilKeyHelp" style="width:100%; margin-top:auto; margin-bottom:5px; display:none;">
+                              <p class="subsectionLabel" style="margin:auto; color:grey; font-weight:bold; width:auto; height:auto;"> The Nil Key can not be edited here!</p>
+                            </div>
+
+                            <div id="id_EditPage_DrawnKey_MoTHelp" style="width:100%; margin-top:auto; margin-bottom:5px; display:none;">
+                              <p class="subsectionLabel" style="margin:auto; color:grey; font-weight:bold; width:auto; height:auto;">Click to switch the middle of triple Color.</p>
+                              <p class="subsectionLabel" style="margin:auto; color:grey; font-weight:bold; width:auto;">&#8595;</p>
+                            </div>
+
+
+                          </div>
+                          <div  style="display:flex; height:50%; width:100%;">
+
+                            <div id="id_EditPage_DrawnKey_LeftKeyHelp" style="display:flex; height:100%; width:30%; visibility:hidden;">
+                                <p id="id_EditPage_DrawnKey_LeftKeyHelpLabel" class="subsectionLabel" style="margin-top:auto; margin-bottom:auto; margin-right:auto; margin-left:5px; color:grey; font-weight:bold; height:auto;">Click to change the left key color.</p>
+                                <p class="subsectionLabel" style="margin-top:auto; margin-bottom:auto; margin-right:5px; color:grey; font-weight:bold;">&#8594;</p>
+                            </div>
+                            <div id="id_EditPage_EditKey_DrawKeyDiv" style="height:100%; width:40%; border: 2px solid black; border-radius: 10px; overflow:hidden;">
+                            </div>
+                            <div id="id_EditPage_DrawnKey_RightKeyHelp" style="display:flex; height:100%; width:30%; visibility:hidden;">
+                                <p class="subsectionLabel" style="margin-right:auto; margin-top:auto; margin-bottom:auto; margin-left:5px; color:grey; font-weight:bold; ">&#8592;</p>
+                                <p class="subsectionLabel" style="margin-top:auto; margin-bottom:auto; margin-left:auto; margin-right:5px; color:grey; font-weight:bold; height:auto;">Click to change the right key color.</p>
+
+                            </div>
+                          </div>
+                          <div style="display:flex; height:25%; width:100%;">
+
+                            <button id="id_EditPage_HelpButton_DrawnKey" class="helpButton" style="margin:auto;" >?</button>
+
+                          </div>
 
 
                     </div>
@@ -951,15 +997,15 @@
 
                         <h1 class="subsectionLabel class_EditDivLabel" style="text-decoration:underline; margin-top:5%;"> Change Reference Value: </h1>
 
-                        <input id="id_editPage_SetReference" type="number" name="Reference" value="1" step="any" class="standardText" style="width:40%; margin-left:30%;">
+                        <input id="id_EditPage_EditKey_SetReference" type="number" name="Reference" value="1" step="any" class="standardText" style="width:40%; margin-left:30%;">
 
 
                         <h1 class="subsectionLabel class_EditDivLabel" style="text-decoration:underline; margin-top:5%;"> Set As Burdock-Key: </h1>
 
                         <div class="row" style="margin-left:20%; width:60%; padding-top:5px; padding-bottom:5px;">
-                        <input class="standardText" style="margin-left: auto; margin-right: 2px; margin-top:auto; margin-bottom:auto;" type="radio" id="id_editPage_BurKeyTrue" name="editPage_keyType" value="1" checked="checked">
+                        <input class="standardText" style="margin-left: auto; margin-right: 2px; margin-top:auto; margin-bottom:auto;" type="radio" id="id_editPage_BurKeyTrue" name="editPage_BurType" value="1" checked="checked">
                         <label class="standardText" for="id_editPage_KeyTypeNil" style="margin-top:auto; margin-bottom:auto;" > true </label>
-                        <input class="standardText" style="margin-left: auto; margin-right: 2px; margin-top:auto; margin-bottom:auto;" type="radio" id="id_editPage_BurKeyFalse" name="editPage_keyType" value="2">
+                        <input class="standardText" style="margin-left: auto; margin-right: 2px; margin-top:auto; margin-bottom:auto;" type="radio" id="id_editPage_BurKeyFalse" name="editPage_BurType" value="2">
                         <label class="standardText"  for="id_editPage_BurKeyFalse" style="margin-top:auto; margin-bottom:auto;" > false </label>
 
                         <div class="helpButtonDiv" style="margin-left:15px; margin-right:auto; margin-top:auto; margin-bottom:auto; ">

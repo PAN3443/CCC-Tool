@@ -84,6 +84,22 @@ function init_events_EditPage(){
   document.getElementById('id_EditPage_PathPlot_3D_Div').addEventListener("mousedown", eventRGB3D_mousedown);
   document.getElementById('id_EditPage_PathPlot_3D_Div').addEventListener("mouseup", eventRGB3D_mouseup);
 
-  
+
+  // Edit Keys
+    document.getElementById('id_EditPage_EditKey_List').addEventListener("click", selectKey);
+    document.getElementById('id_editPage_BurKeyTrue').addEventListener("change", changeKeyBurStatus);
+    document.getElementById('id_editPage_BurKeyFalse').addEventListener("change", changeKeyBurStatus);
+    document.getElementById('id_EditPage_EditKey_SetReference').addEventListener("change", editPage_ChangeReference);
+
+    document.getElementById('id_editPage_KeyTypeNil').addEventListener("change", changeKeyType);
+    document.getElementById('id_editPage_KeyTypeTwin').addEventListener("change", changeKeyType);
+    document.getElementById('id_editPage_KeyTypeLeft').addEventListener("change", changeKeyType);
+    document.getElementById('id_editPage_KeyTypeRight').addEventListener("change", changeKeyType);
+    document.getElementById('id_editPage_KeyTypeDual').addEventListener("change", changeKeyType);
+
+    document.getElementById('id_EditPage_HelpButton_DrawnKey').addEventListener("mouseenter", showDrawnKeyHelp);
+    document.getElementById('id_EditPage_HelpButton_DrawnKey').addEventListener("mouseleave", hideDrawnKeyHelp);
+
+
 
 }

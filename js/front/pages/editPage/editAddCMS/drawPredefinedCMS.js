@@ -7,13 +7,14 @@ function drawPredefined_MyDesignsCMS(){
     children[i].parentNode.removeChild(children[i]);
   }
 
-
-//  tmpDiv.id = 'const'+i;
+  var drawnNothing = true;
 
   for(var i=0; i<myDesignsList.length; i++){
 
     if(myDesignsList[i].getKeyLength()==0)
       continue;
+
+    drawnNothing=false;
 
     var tmpDiv = document.createElement('div');
     tmpDiv.id= "myDesignDiv_"+i;
@@ -47,6 +48,18 @@ function drawPredefined_MyDesignsCMS(){
     drawBandSketch(myDesignsList[i],"myDesignDiv_sketch"+i, false, -1);
 
 
+  }
+
+  if(drawnNothing){
+
+    document.getElementById("id_EditPage_MyDesigns_Div").style.display = "none";
+    document.getElementById("id_EditPage_MyDesigns_EmptyDiv").style.display = "flex";
+
+  }
+  else{
+
+    document.getElementById("id_EditPage_MyDesigns_Div").style.display = "block";
+    document.getElementById("id_EditPage_MyDesigns_EmptyDiv").style.display = "none";
   }
 
 
