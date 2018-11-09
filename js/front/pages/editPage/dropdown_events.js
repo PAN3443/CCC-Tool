@@ -43,7 +43,7 @@ function activateDropdown(event) {
       var left = box.left+ scrollLeft - clientLeft;
 
       document.getElementById(dropdownID).style.top=(top+box.height)+"px";
-      document.getElementById(dropdownID).style.left=left+"px";
+      document.getElementById(dropdownID).style.left=(left+box.width-dropdownBox.width)+"px";
     }
     else{
       document.getElementById(dropdownID).style.display="none";

@@ -3,8 +3,12 @@ function init_CCCPageStyle(){
   var windowWidth = document.body.offsetWidth; //window.screen.availWidth; //document.body.offsetWidth;
   var windowHeight = window.innerHeight;
 
+  if(windowWidth<windowHeight){
+    windowHeight=windowWidth*9/16;
+  };
+
   var tmpElementList = document.getElementsByClassName('class_generalbutton');
-  var tmpHeight1 = Math.floor(windowHeight*0.03);
+  var tmpHeight1 = Math.floor(windowHeight*0.04);
   var tmpHeight2 = Math.floor(windowHeight*0.025);
   for (var i = 0; i < tmpElementList.length; ++i) {
 
@@ -60,8 +64,8 @@ function init_CCCPageStyle(){
   }
 
   tmpElementList = document.getElementsByClassName('sectionLabel');
-  tmpHeight1 = Math.floor(windowHeight*0.08);
-  tmpHeight2 = Math.floor(windowHeight*0.075);
+  tmpHeight1 = Math.floor(windowHeight*0.06);
+  tmpHeight2 = Math.floor(windowHeight*0.05);
   for (var i = 0; i < tmpElementList.length; ++i) {
 
     if (tmpElementList[i].classList.contains("class_noSizeUpdate"))

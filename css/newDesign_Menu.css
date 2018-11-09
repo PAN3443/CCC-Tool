@@ -42,10 +42,11 @@
 
 
 .dropdownMenuLabel{
-  width:15vw;
+  /*width:15vw;*/
+  width:auto;
   font-size: 2.2vh;
   line-height: 3vh;
-  height: 3vh;
+  /*height: 3vh;*/
   font-weight: bold;
   color:white;
   vertical-align: middle;
@@ -57,18 +58,18 @@
 .dropdownMenuLabelImg{
   width: 3vh;
   height: 3vh;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 1vw;
+  margin-right: 1vw;
 
 }
 
 .dropdownMenuButton{
   display: block;
-  /*width:17vw;*/
-  margin-left: 1vw;
+  width:95%;
+  margin-left: 5%;
   font-size: 2.2vh;
   line-height: 3vh;
-  height: 3vh;
+  /*height: 3vh;*/
   cursor:pointer;
   color:white;
   vertical-align: middle;
@@ -83,11 +84,11 @@
 
 .dropdownNotActiveMenuButton{
   display: block;
-  /*width:17vw;*/
-  margin-left: 1vw;
+  width:95%;
+  margin-left: 5%;
   font-size: 2.2vh;
   line-height: 3vh;
-  height: 3vh;
+  /*height: 3vh;*/
   cursor:not-allowed;
   color:rgb(180,180,180);
   vertical-align: middle;
