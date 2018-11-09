@@ -43,9 +43,10 @@ function createMyDesignObject(id){
 
   var tmpLabelDiv = document.createElement('div');
   tmpLabelDiv.id="myDesignObj_Label_Div"+id;
-  tmpLabelDiv.className = 'class_MyDesignObjCMSCanvas row';
-  tmpLabelDiv.style.background="rgb(128, 128, 128)";
-  tmpLabelDiv.style.border = "2px solid rgb(64, 64, 64)";
+  tmpLabelDiv.className = 'class_MyDesignObjCMSCanvas';
+  tmpLabelDiv.style.display="flex";
+  tmpLabelDiv.style.background="rgb(200, 200, 200)";
+  tmpLabelDiv.style.border = "2px solid rgb(180,180,180)";
   tmpLabelDiv.style.borderBottom = "none";
   tmpLabelDiv.style.borderRadius = "5px 5px 0px 0px";
 
@@ -65,19 +66,20 @@ function createMyDesignObject(id){
   tmpCMSInfo.className = 'class_MyDesignObjCMSCanvas';
   tmpCMSInfo.style.width="5%";
   tmpCMSInfo.style.color="white";
-  tmpCMSInfo.style.background="rgb(80, 80, 80)";
-  tmpCMSInfo.style.borderLeft = "2px solid rgb(64, 64, 64)";
+  tmpCMSInfo.style.background="none";
+  tmpCMSInfo.style.borderLeft = "2px solid rgb(180,180,180)";
   tmpCMSInfo.style.textAlign="center";
   tmpCMSInfo.style.cursor="not-allowed";
   tmpCMSInfo.style.float="right";
   tmpCMSInfo.innerHTML="i"
+  tmpCMSInfo.style.color="rgb(180,180,180)";
 
   tmpCMSInfo.onmouseover = function() {
-    this.style.backgroundColor = "rgb(150, 150, 150)";
+    this.style.background = "rgb(150, 150, 150)";
   }
 
   tmpCMSInfo.onmouseleave = function() {
-    this.style.backgroundColor = "rgb(80, 80, 80)";
+    this.style.background = "none";
   }
 
   tmpLabelDiv.appendChild(tmpLabel);
@@ -87,16 +89,16 @@ function createMyDesignObject(id){
   var tmpCMSlinear = document.createElement('canvas');
   tmpCMSlinear.id="myDesignObj_CMSlinear_"+id;
   tmpCMSlinear.className = 'class_MyDesignObjCMSCanvas classColormapCanvas';
-  tmpCMSlinear.style.background="rgb(191, 191, 191)";
-  tmpCMSlinear.style.border = "2px solid rgb(64, 64, 64)";
+  tmpCMSlinear.style.background="rgb(220,220,220)";
+  tmpCMSlinear.style.border = "2px solid rgb(180,180,180)";
   tmpCMSlinear.style.borderBottom = "none";
   tmpDiv.appendChild(tmpCMSlinear);
 
   var tmpCMSsketch = document.createElement('canvas');
   tmpCMSsketch.id="myDesignObj_CMSsketch_"+id;
   tmpCMSsketch.className = 'class_MyDesignObjCMSCanvas classColormapCanvas';
-  tmpCMSsketch.style.background="rgb(191, 191, 191)";
-  tmpCMSsketch.style.border = "2px solid rgb(64, 64, 64)";
+  tmpCMSsketch.style.background="rgb(220,220,220)";
+  tmpCMSsketch.style.border = "2px solid rgb(180,180,180)";
   tmpCMSsketch.style.borderRadius = "0px 0px 5px 5px";
   tmpDiv.appendChild(tmpCMSsketch);
 

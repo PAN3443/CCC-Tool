@@ -76,6 +76,8 @@ function init_events_EditPage(){
 
   document.getElementById('id_editPage_OrderPredefinedLabel').addEventListener("click", activateDropdown);
   document.getElementById('id_EditPage_PathPlotSpaces_Label').addEventListener("click", activateDropdown);
+  document.getElementById('id_EditPage_AnalyzePlot_Label').addEventListener("click", activateDropdown);
+  document.getElementById('id_EditPage_AnalyzeOptions_Label').addEventListener("click", activateDropdown);
 
   initRGB3D();
 
@@ -100,6 +102,10 @@ function init_events_EditPage(){
     document.getElementById('id_EditPage_HelpButton_DrawnKey').addEventListener("mouseenter", showDrawnKeyHelp);
     document.getElementById('id_EditPage_HelpButton_DrawnKey').addEventListener("mouseleave", hideDrawnKeyHelp);
 
+
+
+    // Analyze
+    changeAnalyzeType(0);
 
 
 }

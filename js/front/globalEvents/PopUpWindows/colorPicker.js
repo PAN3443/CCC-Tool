@@ -828,11 +828,16 @@ function affectColorpickerChange(){
               break;
               case "id_EditPage_DrawnLeftKey":
               globalCMS1.setLeftKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex,colorpickerColor);
+
+
+              drawSelectedKey();
               updateEditPage();
               saveCreateProcess();
 break;
               case "id_EditPage_DrawnRightKey":
               globalCMS1.setRightKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex,colorpickerColor);
+
+              drawSelectedKey();
               updateEditPage();
               saveCreateProcess();
               break;

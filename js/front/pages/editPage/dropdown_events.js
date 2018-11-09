@@ -10,6 +10,12 @@ function activateDropdown(event) {
         case "id_EditPage_PathPlotSpaces_Label":
           dropdownID = "id_EditPage_PathPlotSpaces_Dropdown";
           break;
+          case "id_EditPage_AnalyzePlot_Label":
+            dropdownID = "id_EditPage_AnalyzePlots_Dropdown";
+            break;
+            case "id_EditPage_AnalyzeOptions_Label":
+              dropdownID = "id_EditPage_AnalyzeOptions_Dropdown";
+              break;
       default:
         return;
     }
@@ -42,6 +48,5 @@ function activateDropdown(event) {
     else{
       document.getElementById(dropdownID).style.display="none";
     }
-
 
 }

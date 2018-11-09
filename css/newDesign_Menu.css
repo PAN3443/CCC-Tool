@@ -10,7 +10,7 @@
   vertical-align: middle;
   text-align: center;
   background:none;
-  font-family:verdana;
+  /*font-family:verdana;*/
 }
 
 
@@ -29,12 +29,12 @@
   vertical-align: middle;
   text-align: left;
   background:none;
-  font-family:verdana;
+  /*font-family:verdana;*/
 }
 
 
 .dropdownMenuLabelBox{
-  width:20vw;
+  width:auto;
   height: auto;
   background:rgba(255,255,255,0.3);
   border-bottom: 1px solid white;
@@ -51,7 +51,7 @@
   vertical-align: middle;
   text-align: left;
   margin: 0px;
-  font-family:verdana;
+  /*font-family:verdana;*/
 }
 
 .dropdownMenuLabelImg{
@@ -73,7 +73,7 @@
   color:white;
   vertical-align: middle;
   text-align: left;
-  font-family:verdana;
+  /*font-family:verdana;*/
 }
 
 .dropdownMenuButton:hover {
@@ -92,5 +92,5 @@
   color:rgb(180,180,180);
   vertical-align: middle;
   text-align: left;
-  font-family:verdana;
+  /*font-family:verdana;*/
 }

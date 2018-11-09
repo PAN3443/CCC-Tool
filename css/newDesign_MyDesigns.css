@@ -10,7 +10,7 @@
 .class_MyDesignObjCMSCanvas{
   width: 100%;
   overflow: auto;
-  font-family:courier;
+  /*font-family:courier;*/
 }
 
 .class_MyDesignObjButtonsDiv{

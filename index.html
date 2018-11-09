@@ -115,6 +115,7 @@
   <script src="js/front/pages/editPage/events_keyRef_editPage.js"></script>
   <script src="js/front/pages/editPage/dropdown_events.js"></script>
 
+
     <!-- Edit PAGE: Add CMS -->
     <script src="js/front/pages/editPage/editAddCMS/drawSingleBands.js"></script>
     <script src="js/front/pages/editPage/editAddCMS/dragAndDropevents.js"></script>
@@ -133,6 +134,16 @@
     <script src="js/front/pages/editPage/editEditKey/openEditKeyDiv.js"></script>
 
 
+    <!-- Edit PAGE: Analyze Key -->
+    <script src="js/front/pages/editPage/analyze/analyze_events.js"></script>
+    <script src="js/front/pages/editPage/analyze/analyze_globalSpeed.js"></script>
+    <script src="js/front/pages/editPage/analyze/analyze_localSpeed.js"></script>
+    <script src="js/front/pages/editPage/analyze/analyze_interpolationSpace.js"></script>
+    <script src="js/front/pages/editPage/analyze/analyze_bandKeySpeed.js"></script>
+    <script src="js/front/pages/editPage/analyze/analyze_order.js"></script>
+
+
+
     <!-- Edit PAGE: Side Options-->
     <script src="js/front/pages/editPage/sideOptions/events_EditPage_showSideOptions.js"></script>
     <script src="js/front/pages/editPage/sideOptions/fillTable.js"></script>
@@ -144,6 +155,8 @@
 
   <script src="js/front/globalVars/myDesigns_Vars.js"></script>
   <script src="js/front/globalVars/editPage_Vars.js"></script>
+  <script src="js/front/globalVars/editPage_Analyze_Vars.js"></script>
+
 
   <!-- global Vars : pageIndepenend -->
   <script src="js/front/globalVars/pageIndepenend/pageIndependent_Vars.js"></script>
@@ -267,7 +280,7 @@
       <div style="height:100%; width:auto; position: relative; display: inline-block; margin-right:2vw;">
         <div onclick="activateMenuDropdown()" class="menu_button" > Menu </div>
 
-        <div id="id_dropDownContainer" style="background: url(img/background3.png); display: none; position: absolute; right: 0; z-index: 101;">
+        <div id="id_dropDownContainer" style="background: url(img/background3.png); width:auto; display: none; position: absolute; right: 0; z-index: 101;">
 
 
           <div class="row dropdownMenuLabelBox" style="background:rgba(255,255,255,0.3); border-bottom: 1px solid white;">
@@ -1203,9 +1216,9 @@
             </div>
 
             <!-- -------------- Main Part: Analyze Mapping ---------------->
-            <div id="id_editPage_AnalyzeDiv" style="width:60%; background:url(img/background3.png); border-radius:10px; margin-left:2%;">
+            <div id="id_editPage_AnalyzeMappingDiv" style="width:60%; background:url(img/background3.png); border-radius:10px; margin-left:2%;">
 
-              <div style="margin:5px; background:white; border-radius:10px;">
+              <div id="id_editPage_AnalyzeMappingInnerDiv" style="margin:5px; background:white; border-radius:10px;">
                 <div class="row">
                   <div class="class_subsectionButtonUnderground" style="width:50%; background: url(img/background3.png);">
                     <div onclick="switchAnalyzeMapping(0)" id="id_editPage_SelectAnalyze" class="class_subsectionButton">
@@ -1219,11 +1232,67 @@
                   </div>
                 </div>
 
-                <div id="id_EditPage_DivAnalyze" style="width:100%;  height:450px; ">
+                <div id="id_EditPage_DivAnalyze" style="width:100%;">
+                  <div class="row" style="width:100%; background: rgb(220,220,220); height:5%; border-bottom:1px solid grey;">
+
+                    <div id="id_EditPage_AnalyzeOptions_Label" class="standardText" style="border-right:1px solid black; width:auto; margin-right:auto; margin-top:auto; margin-bottom:auto; padding-left: 5px; padding-right: 5px; cursor: pointer; text-align:center;" title="All"> Plot Options &#9660; </div>
+                      <div id="id_EditPage_AnalyzeOptions_Dropdown" style="background: white; border:1px solid black; display: none; position: absolute; left: 0px; z-index: 5; padding:5px;">
+
+                            <div class="row" style="width:100%;">
+                                <input class="standardText" style=" margin-left:10px;" type="checkbox" name="doComparison" value="no"> <p class="standardText" style=" margin-right:auto;"> Do Comparison</p>
+                            </div>
+
+                            <div class="row" style="width:100%; margin-top:5px;">
+
+                                <div class="width:120px; margin-left:10px;">
+
+                                </div>
+                            </div>
+
+                            <hr>
+
+                        </div>
+
+                    <p id="id_EditPage_Analyze_Label" class="standardText" style="margin-top:auto; margin-bottom:auto; padding-left: 5px; padding-right: 5px; margin-right: auto; margin-left: auto; font-weight:bold;"> Plot : Local Speed </p>
+
+                    <div id="id_EditPage_AnalyzePlot_Label" class="standardText" style="border-left:1px solid black; width:auto; margin-left:auto; margin-top:auto; margin-bottom:auto; padding-left: 5px; padding-right: 5px; cursor: pointer; text-align:center;" title="All"> Analyze Plots &#9660; </div>
+                      <div id="id_EditPage_AnalyzePlots_Dropdown" style="background: url(img/background3.png); display: none; position: absolute; left: 0px; z-index: 5;">
+                              <div id="id_EditPage_AnalyzePlot_Space"  onclick="changeAnalyzeType(0)" class="dropdownButtonEditPage">
+                                  Color Spaces
+                              </div>
+                              <div id="id_EditPage_AnalyzePlot_BandSpeed" onclick="changeAnalyzeType(1)" class="dropdownButtonEditPage">
+                                  Band Speed
+                              </div>
+                              <div id="id_EditPage_AnalyzePlot_LocalSpeed" onclick="changeAnalyzeType(2)" class="dropdownButtonEditPage">
+                                  Local Speed
+                              </div>
+                              <div id="id_EditPage_AnalyzePlot_GlobalSpeed" onclick="changeAnalyzeType(3)" class="dropdownButtonEditPage">
+                                  Global Speed
+                              </div>
+                              <div id="id_EditPage_AnalyzePlot_Order" onclick="changeAnalyzeType(4)" class="dropdownButtonEditPage">
+                                  Order
+                              </div>
+                        </div>
+                  </div>
+
+
+                  <div id="id_EditPage_Analyze_EmptyDiv" class=" class_EditDiv_SubDiv" style="display:none; width:100%; height:95%; background:rgb(220,220,220);">
+
+
+                      <!--img id="id_EditPage_OnlineCMS_NotAvailableImg" src="img/notAvailableImg.png" style="height:100%; margin-left:auto; margin-right:auto;"-->
+
+                      <p class="standardText" style="margin:auto; color:grey; font-weight:bold;">The CMS is Empty. <br> No analysis is possible.</p>
+
+
+                  </div>
+                  <div id="id_EditPage_AnalyzePlot_Container" class="row" style="height:95%; width:100%; overflow:auto;">
+
+
+                  </div>
 
                 </div>
 
-                <div id="id_EditPage_DivMapping" style="width:100%;  height:450px; display:none;">
+                <div id="id_EditPage_DivMapping" style="width:100%;  display:none;">
 
                 </div>
 
@@ -1818,6 +1887,7 @@
     <div class="row" style="width: 100%; height: 100%;">
       <img title="University Leipzig" src="img/Logos/university_leipzig.png" style="margin-left:auto; height: 80%; cursor: pointer; margin-top:auto; margin-bottom:auto;">
       <img title="BSV Workgroup, University Leipzig" src="img/Logos/bsv_logo_small.png" style="margin-left:auto; height: 80%; cursor: pointer; margin-top:auto; margin-bottom:auto;">
+      <img title="University Oxford" src="img/Logos/oxford.png" style="margin-left:auto; height: 80%; cursor: pointer; margin-top:auto; margin-bottom:auto;">
       <img title="U.S. Department of Energy" src="img/Logos/CMYK_Color-Seal_Green-Mark_SC_Vertical.png" style="margin-left:auto; height: 80%; cursor: pointer; margin-top:auto; margin-bottom:auto;">
       <img title="Los Alamos National Laboratory" src="img/Logos/logo_LANLsm.png" style="margin-left:auto; height: 80%; cursor: pointer; margin-top:auto; margin-bottom:auto;">
       <img title="University of Texas at Austin" src="img/Logos/UT.png" style="margin-left:auto; height: 80%; cursor: pointer; margin-top:auto; margin-bottom:auto;">

@@ -197,7 +197,7 @@ function switchModifyModus(type){
     if(globalCMS1.getKeyLength() != 0){
       document.getElementById("id_editPage_SelectEditKeys").style.background=styleActiveColor;
       document.getElementById("id_EditPage_Edit_Keys").style.display="block";
-      openEditKeyDiv(0);
+      openEditKeyDiv();
     }
     else{
       openAlert("There are no keys for modyfing. Please use Add Bands to create a CMS.");

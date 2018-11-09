@@ -356,6 +356,21 @@ class class_CMS {
     return this.probeArray[index];
   }
 
+  getProbeClone(index){
+      var newProbe = new classProbe(this.probeArray[index].getType(),this.probeArray[index].getRangeType());
+
+      for (var i = 0; i < this.probeArray[index].getProbeArrayLength(); i++) {
+        newProbe.addIntervalColorPos(this.probeArray[index].getProbeRangeStart(i), this.probeArray[index].getProbeRangeEnd(i));
+      }
+
+      newProbe.setProbeColor(this.probeArray[index].getProbeColor());
+      newProbe.setNumberProbes(this.probeArray[index].getNumberProbes());
+      newProbe.setValueStart(this.probeArray[index].getValueStart());
+      newProbe.setValueEnd(this.probeArray[index].getValueEnd());
+
+      return newProbe;
+  }
+
   setProbe(index,probe){
     this.probeArray[index]=probe;
   }
@@ -878,10 +893,15 @@ function cloneCMS(cmsObj){
 
   //clone Keys
   for(var i=0; i<cmsObj.getKeyLength(); i++){
-    var keyObj = cmsObj.getKey(i);
-    var newKey = new class_Key(keyObj.getLeftKeyColor("lab"),keyObj.getRightKeyColor("lab"),keyObj.getRefPosition());
-    newKey.setMoT(keyObj.getMoT());
-    newCMS.pushKey(newKey,cmsObj.getBur(i));
+    var keyObj = cmsObj.getKeyClone(i);
+    /*var newKey = new class_Key(keyObj.getLeftKeyColor("lab"),keyObj.getRightKeyColor("lab"),keyObj.getRefPosition());
+    newKey.setMoT(keyObj.getMoT());*/
+    newCMS.pushKey(keyObj);
+  }
+
+  for (var i = 0; i < cmsObj.getProbeLength(); i++) {
+    var probeObj = cmsObj.getProbeClone(i);
+    newCMS.addProbe(probeObj);
   }
 
   return newCMS;

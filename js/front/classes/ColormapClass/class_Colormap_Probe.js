@@ -1,19 +1,22 @@
 ////////////////////////////////////////////////
-// ------------ Class DIN99 ---------------//
+// ------------ Class Probe ---------------//
 ////////////////////////////////////////////////
 
-// DIN99 Version o
 
 class classProbe{
 
-      constructor(type, fct, rangeType) {
-        this.type = type; // 0=gradient, 1=contour
-        this.fct = fct; // 0=linear
+      constructor(type, rangeType) {
+        this.type = type; // 0=gradient, 1=contour, 2=constant
+        //this.fct = fct; // 0=linear
         this.rangeType = rangeType; // 0=singe, 1=interval, 2=interval auto, 3=custom
         this.backgroundColor = undefined;
         this.intervalStartPos = [];
         this.intervalEndPos = [];
         this.workColorspace = "hsv";
+        this.probeColor = new classColor_HSV(0,0,0);
+        this.numberOfProbes = 0;
+        this.valueStart = 0;
+        this.valueEnd = 1.0;
 
       }
 
@@ -81,120 +84,351 @@ class classProbe{
             break;
           }
 
+          switch (this.type) {
 
-          for (var i = 0; i < tmpCMS.getKeyLength(); i++) {
+            case 0:
+            //////////////////////////////////////
+            // gradient probe
+            /////////////////////////////////////
+            for (var i = 0; i < tmpCMS.getKeyLength(); i++) {
 
-            var rightKeyColor = tmpCMS.getRightKeyColor(i,this.workColorspace);
-            if(rightKeyColor==undefined && i !=tmpCMS.getKeyLength()-1){
-              rightKeyColor = tmpCMS.getLeftKeyColor(i+1,this.workColorspace); // left key inside of a range will convert into a twin key
-            }
-            var leftKeyColor = tmpCMS.getLeftKeyColor(i,this.workColorspace);
-
-            if(posArray[currentArrayPos]==tmpCMS.getRefPosition(i)){
-
-              switch (typeArray[currentArrayPos]) {
-                case "S":
-                if(rightKeyColor!=undefined){
-                  rightKeyColor.setVValue(0);
-                }
-                  break;
-                  case "E":
-                  if(leftKeyColor!=undefined){
-                    leftKeyColor.setVValue(1);
-                  }
-                    break;
-                    case "SE":
-                      if(rightKeyColor!=undefined){
-                        rightKeyColor.setVValue(0);
-                      }
-                      if(leftKeyColor!=undefined){
-                        leftKeyColor.setVValue(1);
-                      }
-                      break;
-                default:
-                  console.log("Error at function generateProbeCMS");
-                  return;
+              var rightKeyColor = tmpCMS.getRightKeyColor(i,this.workColorspace);
+              if(rightKeyColor==undefined && i !=tmpCMS.getKeyLength()-1){
+                rightKeyColor = tmpCMS.getLeftKeyColor(i+1,this.workColorspace); // left key inside of a range will convert into a twin key
               }
+              var leftKeyColor = tmpCMS.getLeftKeyColor(i,this.workColorspace);
 
-              newCMS.setRightKeyColor(i+numberOfInsertIntervals,rightKeyColor);
-              newCMS.setLeftKeyColor(i+numberOfInsertIntervals,leftKeyColor);
-
-              currentArrayPos++;
-              if(currentArrayPos>=posArray.length)
-              break;
-            }
-            else{
-
-              if(currentArrayPos>0){ // if no interval is before the key we do not have to update the key
-
-                if(typeArray[currentArrayPos-1]!="E"){ // if key is not between the start and the end of a range -> no update
-                  var rangeSize = posArray[currentArrayPos]-posArray[currentArrayPos-1];
-                  var disToKey = tmpCMS.getRefPosition(i)-posArray[currentArrayPos-1];
-                  var keyRatio = disToKey/rangeSize;
-
-                  if(rightKeyColor!=undefined){
-                    rightKeyColor.setVValue(keyRatio);
-                  }
-                  if(leftKeyColor!=undefined){
-                    leftKeyColor.setVValue(keyRatio);
-                  }
-
-                  newCMS.setRightKeyColor(i+numberOfInsertIntervals,rightKeyColor);
-                  newCMS.setLeftKeyColor(i+numberOfInsertIntervals,leftKeyColor);
-                }
-              }
-
-            }
-
-
-            if(i!=tmpCMS.getKeyLength()-1){
-
-              while (posArray[currentArrayPos]<tmpCMS.getRefPosition(i+1)) {
-
-                var colorL = tmpCMS.calculateColor(posArray[currentArrayPos], interpolationSpace);
-                colorL=colorL.calcHSVColor();
-                var colorR;
-
-
-
+              if(posArray[currentArrayPos]==tmpCMS.getRefPosition(i)){
 
                 switch (typeArray[currentArrayPos]) {
                   case "S":
-                    colorR = new classColor_HSV(colorL.get1Value(),colorL.get2Value(),0);
+                  if(rightKeyColor!=undefined){
+                    rightKeyColor.setVValue(this.valueStart);
+                  }
                     break;
                     case "E":
-                      colorR = new classColor_HSV(colorL.get1Value(),colorL.get2Value(),colorL.get3Value());
-                      colorL.set3Value(1);
+                    if(leftKeyColor!=undefined){
+                      leftKeyColor.setVValue(this.valueEnd);
+                    }
                       break;
                       case "SE":
-                        colorL.set3Value(1);
-                        colorR = new classColor_HSV(colorL.get1Value(),colorL.get2Value(),0);
+                        if(rightKeyColor!=undefined){
+                          rightKeyColor.setVValue(this.valueStart);
+                        }
+                        if(leftKeyColor!=undefined){
+                          leftKeyColor.setVValue(this.valueEnd);
+                        }
                         break;
                   default:
                     console.log("Error at function generateProbeCMS");
                     return;
                 }
 
-
-                numberOfInsertIntervals++;
-                newCMS.insertKey(i+numberOfInsertIntervals,new class_Key(colorL, colorR, posArray[currentArrayPos]));
-
-                //globalCMS1.insertKey(indexOfDroppedPlace, new class_Key(oldColor,undefined,startPos));
-                //console.log(numberOfInsertIntervals,newCMS.getKeyLength() );
+                newCMS.setRightKeyColor(i+numberOfInsertIntervals,rightKeyColor);
+                newCMS.setLeftKeyColor(i+numberOfInsertIntervals,leftKeyColor);
 
                 currentArrayPos++;
                 if(currentArrayPos>=posArray.length)
                 break;
               }
+              else{
 
+                if(currentArrayPos>0){ // if no interval is before the key we do not have to update the key
+
+                  if(typeArray[currentArrayPos-1]!="E"){ // if key is not between the start and the end of a range -> no update
+                    var rangeSize = posArray[currentArrayPos]-posArray[currentArrayPos-1];
+                    var disToKey = tmpCMS.getRefPosition(i)-posArray[currentArrayPos-1];
+                    var keyRatio = disToKey/rangeSize;
+
+                    var newVal = this.valueStart+(this.valueEnd-this.valueStart)*keyRatio;
+
+                    if(rightKeyColor!=undefined){
+                      rightKeyColor.setVValue(newVal);
+                    }
+                    if(leftKeyColor!=undefined){
+                      leftKeyColor.setVValue(newVal);
+                    }
+
+                    newCMS.setRightKeyColor(i+numberOfInsertIntervals,rightKeyColor);
+                    newCMS.setLeftKeyColor(i+numberOfInsertIntervals,leftKeyColor);
+                  }
+                }
+
+              }
+
+
+              if(i!=tmpCMS.getKeyLength()-1){
+
+                while (posArray[currentArrayPos]<tmpCMS.getRefPosition(i+1)) {
+
+                  var colorL = tmpCMS.calculateColor(posArray[currentArrayPos], interpolationSpace);
+                  colorL=colorL.calcHSVColor();
+                  var colorR;
+
+
+
+
+                  switch (typeArray[currentArrayPos]) {
+                    case "S":
+                      colorR = new classColor_HSV(colorL.get1Value(),colorL.get2Value(),this.valueStart);
+                      break;
+                      case "E":
+                        colorR = new classColor_HSV(colorL.get1Value(),colorL.get2Value(),colorL.get3Value());
+                        colorL.set3Value(this.valueEnd);
+                        break;
+                        case "SE":
+                          colorL.set3Value(this.valueEnd);
+                          colorR = new classColor_HSV(colorL.get1Value(),colorL.get2Value(),this.valueStart);
+                          break;
+                    default:
+                      console.log("Error at function generateProbeCMS");
+                      return;
+                  }
+
+
+                  numberOfInsertIntervals++;
+                  newCMS.insertKey(i+numberOfInsertIntervals,new class_Key(colorL, colorR, posArray[currentArrayPos]));
+
+                  //globalCMS1.insertKey(indexOfDroppedPlace, new class_Key(oldColor,undefined,startPos));
+                  //console.log(numberOfInsertIntervals,newCMS.getKeyLength() );
+
+                  currentArrayPos++;
+                  if(currentArrayPos>=posArray.length)
+                  break;
+                }
+
+              }
+
+                if(currentArrayPos>=posArray.length)
+                break;
             }
 
-              if(currentArrayPos>=posArray.length)
+
+
               break;
+
+            case 1:
+            //////////////////////////////////////
+            // contour probe
+            /////////////////////////////////////
+
+            for (var i = 0; i < tmpCMS.getKeyLength(); i++) {
+
+              var rightKeyColor = tmpCMS.getRightKeyColor(i,this.workColorspace);
+              if(rightKeyColor==undefined && i !=tmpCMS.getKeyLength()-1){
+                rightKeyColor = tmpCMS.getLeftKeyColor(i+1,this.workColorspace); // left key inside of a range will convert into a twin key
+              }
+              var leftKeyColor = tmpCMS.getLeftKeyColor(i,this.workColorspace);
+
+              if(posArray[currentArrayPos]==tmpCMS.getRefPosition(i)){
+
+                switch (typeArray[currentArrayPos]) {
+                  case "S":
+                  break;
+                  case "E": case "SE":
+                  if(leftKeyColor!=undefined){
+                    leftKeyColor = this.probeColor; //new classColor_HSV(this.probeColor.get1Value(),this.probeColor.get2Value(),this.probeColor.get3Value())
+                  }
+                    break;
+                  default:
+                    console.log("Error at function generateProbeCMS");
+                    return;
+                }
+
+                newCMS.setRightKeyColor(i+numberOfInsertIntervals,rightKeyColor);
+                newCMS.setLeftKeyColor(i+numberOfInsertIntervals,leftKeyColor);
+
+
+                currentArrayPos++;
+                if(currentArrayPos>=posArray.length)
+                break;
+              }
+              else{
+
+                if(currentArrayPos>0){ // if no interval is before the key we do not have to update the key
+
+                  if(typeArray[currentArrayPos-1]!="E"){ // if key is not between the start and the end of a range -> no update
+                    var rangeSize = posArray[currentArrayPos]-posArray[currentArrayPos-1];
+                    var disToKey = tmpCMS.getRefPosition(i)-posArray[currentArrayPos-1];
+                    var keyRatio = disToKey/rangeSize;
+
+
+
+                    if(rightKeyColor!=undefined){
+                      var newH = (1-keyRatio) * rightKeyColor.getHValue() + keyRatio*this.probeColor.getHValue();
+                      var newS = (1-keyRatio) * rightKeyColor.getSValue() + keyRatio*this.probeColor.getSValue();
+                      var newV = (1-keyRatio) * rightKeyColor.getVValue() + keyRatio*this.probeColor.getVValue();
+
+                      rightKeyColor.setHValue(newH);
+                      rightKeyColor.setSValue(newS);
+                      rightKeyColor.setVValue(newV);
+                    }
+                    if(leftKeyColor!=undefined){
+                      var newH = (1-keyRatio) * leftKeyColor.getHValue() + keyRatio*this.probeColor.getHValue();
+                      var newS = (1-keyRatio) * leftKeyColor.getSValue() + keyRatio*this.probeColor.getSValue();
+                      var newV = (1-keyRatio) * leftKeyColor.getVValue() + keyRatio*this.probeColor.getVValue();
+
+                      leftKeyColor.setHValue(newH);
+                      leftKeyColor.setSValue(newS);
+                      leftKeyColor.setVValue(newV);
+                    }
+
+
+                    newCMS.setRightKeyColor(i+numberOfInsertIntervals,rightKeyColor);
+                    newCMS.setLeftKeyColor(i+numberOfInsertIntervals,leftKeyColor);
+                  }
+                }
+
+              }
+
+
+              if(i!=tmpCMS.getKeyLength()-1){
+
+                while (posArray[currentArrayPos]<tmpCMS.getRefPosition(i+1)) {
+
+                  var colorR = tmpCMS.calculateColor(posArray[currentArrayPos], interpolationSpace);
+                  colorR=colorR.calcHSVColor();
+                  var colorL;
+
+
+
+
+                  switch (typeArray[currentArrayPos]) {
+                    case "S":
+                      colorL = colorR;
+                      break;
+                      case "E": case "SE":
+                          colorL = this.probeColor;
+                          break;
+                    default:
+                      console.log("Error at function generateProbeCMS");
+                      return;
+                  }
+
+
+                  numberOfInsertIntervals++;
+                  newCMS.insertKey(i+numberOfInsertIntervals,new class_Key(colorL, colorR, posArray[currentArrayPos]));
+
+                  //globalCMS1.insertKey(indexOfDroppedPlace, new class_Key(oldColor,undefined,startPos));
+                  //console.log(numberOfInsertIntervals,newCMS.getKeyLength() );
+
+                  currentArrayPos++;
+                  if(currentArrayPos>=posArray.length)
+                  break;
+                }
+
+              }
+
+                if(currentArrayPos>=posArray.length)
+                break;
+            }
+
+
+            break;
+
+            case 2:
+            //////////////////////////////////////
+            // constant probe
+            /////////////////////////////////////
+            for (var i = 0; i < tmpCMS.getKeyLength(); i++) {
+
+
+
+              /*var rightKeyColor = tmpCMS.getRightKeyColor(i,this.workColorspace);
+              if(rightKeyColor==undefined && i !=tmpCMS.getKeyLength()-1){
+                rightKeyColor = tmpCMS.getLeftKeyColor(i+1,this.workColorspace); // left key inside of a range will convert into a twin key
+              }
+              var leftKeyColor = tmpCMS.getLeftKeyColor(i,this.workColorspace);*/
+
+              if(posArray[currentArrayPos]==tmpCMS.getRefPosition(i)){
+
+                switch (typeArray[currentArrayPos]) {
+                  case "S":
+                    newCMS.setRightKeyColor(i+numberOfInsertIntervals,undefined);
+
+                    break;
+                    case "E":
+                      newCMS.setLeftKeyColor(i+numberOfInsertIntervals,this.probeColor);
+                      break;
+                      case "SE":
+                        newCMS.setRightKeyColor(i+numberOfInsertIntervals,this.probeColor);
+                        newCMS.setLeftKeyColor(i+numberOfInsertIntervals,this.probeColor);
+                        break;
+                  default:
+                    console.log("Error at function generateProbeCMS");
+                    return;
+                }
+
+                currentArrayPos++;
+                if(currentArrayPos>=posArray.length)
+                break;
+              }
+              else{
+
+                if(currentArrayPos>0){ // if no interval is before the key we do not have to update the key
+
+                  if(typeArray[currentArrayPos-1]!="E"){ // if key is not between the start and the end of a range -> no update
+                    newCMS.setRightKeyColor(i+numberOfInsertIntervals,this.probeColor);
+                    newCMS.setLeftKeyColor(i+numberOfInsertIntervals,this.probeColor);
+                  }
+                }
+
+              }
+
+
+              if(i!=tmpCMS.getKeyLength()-1){
+
+                while (posArray[currentArrayPos]<tmpCMS.getRefPosition(i+1)) {
+
+
+
+
+                  var color = tmpCMS.calculateColor(posArray[currentArrayPos], interpolationSpace);
+                  color=color.calcHSVColor();
+
+                  numberOfInsertIntervals++;
+                  switch (typeArray[currentArrayPos]) {
+                    case "S":
+                      newCMS.insertKey(i+numberOfInsertIntervals,new class_Key(color, undefined, posArray[currentArrayPos]));
+                      break;
+                      case "E":
+                        newCMS.insertKey(i+numberOfInsertIntervals,new class_Key(this.probeColor, color, posArray[currentArrayPos]));
+                        break;
+                        case "SE":
+                          newCMS.insertKey(i+numberOfInsertIntervals,new class_Key(this.probeColor, this.probeColor, posArray[currentArrayPos]));
+                          break;
+                    default:
+                      console.log("Error at function generateProbeCMS");
+                      return;
+                  }
+
+
+
+                  //globalCMS1.insertKey(indexOfDroppedPlace, new class_Key(oldColor,undefined,startPos));
+                  //console.log(numberOfInsertIntervals,newCMS.getKeyLength() );
+
+                  currentArrayPos++;
+                  if(currentArrayPos>=posArray.length)
+                  break;
+                }
+
+              }
+
+                if(currentArrayPos>=posArray.length)
+                break;
+            }
+
+
+
+
+            break;
+            default:
+
+
           }
 
 
-        return newCMS;
+            return newCMS;
 
 
       }
@@ -209,12 +443,41 @@ class classProbe{
       }
 
 
-      changeFunction(fct){
-        this.fct = fct;
+      getType(){
+        return this.type;
       }
 
-      getFunction(){
-        return this.fct;
+
+      setProbeColor(newColor){
+        this.probeColor = newColor.calcHSVColor();
+      }
+
+      getProbeColor(){
+        return this.probeColor;
+      }
+
+      setNumberProbes(newNumber){
+        this.numberOfProbes = newNumber;
+      }
+
+      getNumberProbes(){
+        return this.numberOfProbes;
+      }
+
+      setValueStart(newVal){
+        this.valueStart = newVal;
+      }
+
+      getValueStart(){
+        return this.valueStart;
+      }
+
+      setValueEnd(newVal){
+        this.valueEnd = newVal;
+      }
+
+      getValueEnd(){
+        return this.valueEnd;
       }
 
       changeRangeType(rangeType){

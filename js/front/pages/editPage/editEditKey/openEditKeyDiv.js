@@ -1,4 +1,4 @@
-function openEditKeyDiv(){
+function openEditKeyDiv(key){
 
   var selectbox = document.getElementById("id_EditPage_EditKey_List");
 
@@ -14,7 +14,13 @@ function openEditKeyDiv(){
 
   }
 
-  selectbox.selectedIndex = 0;
+  if(key==undefined){
+    selectbox.selectedIndex = 0;
+  }
+  else{
+    selectbox.selectedIndex = key;
+  }
+
   selectKey();
 }
 
@@ -95,9 +101,7 @@ function changeKeyBurStatus(){
 function delteKey(){
   var oldIndex = document.getElementById("id_EditPage_EditKey_List").selectedIndex;
   globalCMS1.deleteKey(oldIndex);
-  openEditKeyDiv();
-  document.getElementById("id_EditPage_EditKey_List").selectedIndex = oldIndex;
-  selectKey();
+  openEditKeyDiv(oldIndex);
   updateEditPage();
   saveCreateProcess();
 }
@@ -480,14 +484,17 @@ function showDrawnKeyHelp(){
     case "right key":
     document.getElementById("id_EditPage_DrawnKey_RightKeyHelp").style.visibility = "visible";
     break;
-    case "twin key": case "left key":
+    case "twin key":
+      document.getElementById("id_EditPage_DrawnKey_RightKeyHelp").style.visibility = "visible";
+      // no break!
+    case "left key":
 
-    document.getElementById("id_EditPage_DrawnKey_MoTHelp").style.display = "block";
-    document.getElementById("id_EditPage_DrawnKey_LeftKeyHelp").style.visibility = "visible";
-    document.getElementById("id_EditPage_DrawnKey_RightKeyHelp").style.visibility = "visible";
-    if(selectedKey==globalCMS1.getKeyLength()-1){
-      document.getElementById("id_EditPage_DrawnKey_MoTHelp").style.display = "none";
-    }
+      document.getElementById("id_EditPage_DrawnKey_MoTHelp").style.display = "block";
+      document.getElementById("id_EditPage_DrawnKey_LeftKeyHelp").style.visibility = "visible";
+
+      if(selectedKey==globalCMS1.getKeyLength()-1){
+        document.getElementById("id_EditPage_DrawnKey_MoTHelp").style.display = "none";
+      }
 
     break;
     default:

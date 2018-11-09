@@ -238,6 +238,9 @@ function init_CCCPageStyle(){
     document.getElementById("id_editPage_DescriptionDiv").style.height = tmpHeight1 + "px";
     document.getElementById("id_editPage_DescriptionInnerDiv").style.height = tmpHeight2 + "px";
 
+    document.getElementById("id_editPage_AnalyzeMappingDiv").style.height = tmpHeight1 + "px";
+    document.getElementById("id_editPage_AnalyzeMappingInnerDiv").style.height = tmpHeight2 + "px";
+
     document.getElementById("id_EditPage_DivCMSDescription").style.height = tmpHeight3 + "px";
     document.getElementById("id_EditPage_DivKeyDescription").style.height = tmpHeight3 + "px";
     document.getElementById("id_EditPage_DivAnalyze").style.height = tmpHeight3 + "px";

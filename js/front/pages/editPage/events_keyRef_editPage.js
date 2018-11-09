@@ -15,6 +15,10 @@ function mouseLeaveKeyRef(){
 
 function keyChange2DAnimation(){
   updateEditPage();
+
+  if(document.getElementById("id_EditPage_Edit_Keys").style.display!="none"){
+     openEditKeyDiv(document.getElementById("id_EditPage_EditKey_List").selectedIndex);
+  }
 }
 
 function mouseMoveKeyRef(event){
@@ -126,7 +130,6 @@ function mouseMoveKeyRef(event){
      default:
 
    }
-
 
  }
 }
