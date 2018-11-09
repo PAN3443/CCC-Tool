@@ -260,6 +260,13 @@ function changeKeyValueInput(keyIndex, fielID) {
       else {
         globalCMS1.setRefPosition(keyIndex,newRef);
         updateEditPage();
+        if(document.getElementById("id_EditPage_Edit_Keys").style.display!="none"){
+           openEditKeyDiv(document.getElementById("id_EditPage_EditKey_List").selectedIndex);
+        }
+
+        if(document.getElementById("id_editPage_SelectEditPath").style.display!="none" && pathColorspace!="rgb"){
+          drawcolormap_hueSpace(true, true, true);
+        }
         saveCreateProcess();
       }
       break;
@@ -272,6 +279,13 @@ function changeKeyValueInput(keyIndex, fielID) {
       else {
         globalCMS1.setRefPosition(keyIndex,newRef);
         updateEditPage();
+        if(document.getElementById("id_EditPage_Edit_Keys").style.display!="none"){
+           openEditKeyDiv(document.getElementById("id_EditPage_EditKey_List").selectedIndex);
+        }
+
+        if(document.getElementById("id_editPage_SelectEditPath").style.display!="none" && pathColorspace!="rgb"){
+          drawcolormap_hueSpace(true, true, true);
+        }
         saveCreateProcess();
       }
 
@@ -291,57 +305,16 @@ function changeKeyValueInput(keyIndex, fielID) {
       else{
         globalCMS1.setRefPosition(keyIndex,newRef);
         updateEditPage();
+        if(document.getElementById("id_EditPage_Edit_Keys").style.display!="none"){
+           openEditKeyDiv(document.getElementById("id_EditPage_EditKey_List").selectedIndex);
+        }
+
+        if(document.getElementById("id_editPage_SelectEditPath").style.display!="none" && pathColorspace!="rgb"){
+          drawcolormap_hueSpace(true, true, true);
+        }
         saveCreateProcess();
       }
     }
   }
 
 }
-
-
-/*function createKeyInputBox(leftVal, topVal, tmpText, index) {
-
-  var inputField = document.createElement("input");
-  inputField.setAttribute('type', 'text');
-  inputField.setAttribute('value', tmpText);
-  var inputID = "id_KeyValInput" + index;
-  inputField.id = inputID;
-  document.body.appendChild(inputField);
-
-  //inputField.style.width = "min-content";
-  inputField.style.width = "3vw";
-  inputField.style.height = "2vh";
-  inputField.style.fontSize = "1.8vh";
-  //inputField.style.background = "rgb(255,255,255)";
-  inputField.style.paddingLeft = 5 + "px";
-  inputField.style.paddingRight = 5 + "px";
-  //inputField.style.border = "2px solid rgb(0,0,0)";
-  inputField.style.margin = "0px";
-  inputField.style.zIndex = tmpZIndex;
-
-  inputField.style.position = "absolute";
-  inputField.style.top = Math.round(topVal) + "px";
-  inputField.style.left = Math.round(leftVal) + "px";
-  refElementContainer.push(inputField);
-  leftVal = leftVal - (inputField.getBoundingClientRect().width / 2);
-  inputField.style.left = Math.round(leftVal) + "px";
-
-  inputField.onchange = (function(keyIndex, id) {
-    return function() {
-
-      changeKeyValueInput(keyIndex, id);
-
-    };
-  })(index, inputID);
-
-  inputField.onkeyup = (function (id) {
-    return function() {
-
-      var inputObj = document.getElementById(id);
-
-      checkInputVal(inputObj, true, true);
-
-    };
-  })(inputID);
-
-}*/
