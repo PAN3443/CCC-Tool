@@ -63,25 +63,25 @@ function updateEditPage(){
         document.getElementById("id_EditPage_CMS_VIS_Lines3").style.visibility="visible";
 
         var scaleButton = document.getElementById("id_actionMenu_scaleButton");
-        if (scaleButton.classList.contains('settingNotActiveMenuButton'))
-        scaleButton.classList.remove('settingNotActiveMenuButton');
+        if (scaleButton.classList.contains('dropdownNotActiveMenuButton'))
+        scaleButton.classList.remove('dropdownNotActiveMenuButton');
 
-        if (!scaleButton.classList.contains('settingMenuButton'))
-        scaleButton.classList.toggle("settingMenuButton");
+        if (!scaleButton.classList.contains('dropdownMenuButton'))
+        scaleButton.classList.toggle("dropdownMenuButton");
 
         var exportButton = document.getElementById("id_actionMenu_exportButton");
-        if (exportButton.classList.contains('settingNotActiveMenuButton'))
-        exportButton.classList.remove('settingNotActiveMenuButton');
+        if (exportButton.classList.contains('dropdownNotActiveMenuButton'))
+        exportButton.classList.remove('dropdownNotActiveMenuButton');
 
-        if (!exportButton.classList.contains('settingMenuButton'))
-        exportButton.classList.toggle("settingMenuButton");
+        if (!exportButton.classList.contains('dropdownMenuButton'))
+        exportButton.classList.toggle("dropdownMenuButton");
 
         var clearButton = document.getElementById("id_actionMenu_clearButton");
-        if (clearButton.classList.contains('settingNotActiveMenuButton'))
-        clearButton.classList.remove('settingNotActiveMenuButton');
+        if (clearButton.classList.contains('dropdownNotActiveMenuButton'))
+        clearButton.classList.remove('dropdownNotActiveMenuButton');
 
-        if (!clearButton.classList.contains('settingMenuButton'))
-        clearButton.classList.toggle("settingMenuButton");
+        if (!clearButton.classList.contains('dropdownMenuButton'))
+        clearButton.classList.toggle("dropdownMenuButton");
 
 
         document.getElementById("id_editPage_HelpImage1").style.display="none";
@@ -114,25 +114,25 @@ function updateEditPage(){
         document.getElementById("id_EditPage_CMS_VIS_Lines3").style.visibility="hidden";
 
         var scaleButton = document.getElementById("id_actionMenu_scaleButton");
-        if (scaleButton.classList.contains('settingMenuButton'))
-        scaleButton.classList.remove('settingMenuButton');
+        if (scaleButton.classList.contains('dropdownMenuButton'))
+        scaleButton.classList.remove('dropdownMenuButton');
 
-        if (!scaleButton.classList.contains('settingNotActiveMenuButton'))
-        scaleButton.classList.toggle("settingNotActiveMenuButton");
+        if (!scaleButton.classList.contains('dropdownNotActiveMenuButton'))
+        scaleButton.classList.toggle("dropdownNotActiveMenuButton");
 
         var exportButton = document.getElementById("id_actionMenu_exportButton");
-        if (exportButton.classList.contains('settingMenuButton'))
-        exportButton.classList.remove('settingMenuButton');
+        if (exportButton.classList.contains('dropdownMenuButton'))
+        exportButton.classList.remove('dropdownMenuButton');
 
-        if (!exportButton.classList.contains('settingNotActiveMenuButton'))
-        exportButton.classList.toggle("settingNotActiveMenuButton");
+        if (!exportButton.classList.contains('dropdownNotActiveMenuButton'))
+        exportButton.classList.toggle("dropdownNotActiveMenuButton");
 
         var clearButton = document.getElementById("id_actionMenu_clearButton");
-        if (clearButton.classList.contains('settingMenuButton'))
-        clearButton.classList.remove('settingMenuButton');
+        if (clearButton.classList.contains('dropdownMenuButton'))
+        clearButton.classList.remove('dropdownMenuButton');
 
-        if (!clearButton.classList.contains('settingNotActiveMenuButton'))
-        clearButton.classList.toggle("settingNotActiveMenuButton");
+        if (!clearButton.classList.contains('dropdownNotActiveMenuButton'))
+        clearButton.classList.toggle("dropdownNotActiveMenuButton");
 
 
 
@@ -299,7 +299,7 @@ function switchCustomScaleColors(){
 
 function clearColormap(){
 
-  if(document.getElementById("id_actionMenu_clearButton").classList.contains('settingMenuButton')){
+  if(document.getElementById("id_actionMenu_clearButton").classList.contains('dropdownMenuButton')){
     askType=0;
     openAskWindow()
   }

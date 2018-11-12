@@ -38,6 +38,7 @@ function closeImpressum(){
 
 function openImpressum(){
   document.getElementById("id_PopUp_ImpessumWindow").style.display="block";
+  document.getElementById("id_dropDownContainer").style.display="none";
 }
 
 //////////////////////////////////////
@@ -61,7 +62,7 @@ function openAlert(txt){
 
 function openScale(){
 
-  if(document.getElementById("id_actionMenu_scaleButton").classList.contains('settingMenuButton')){
+  if(globalCMS1.getKeyLength()>0){
     document.getElementById("id_PopUp_ScaleWindow").style.display="block";
     document.getElementById("id_popupWindow_ScaleInfoText").style.display="none";
     updateAutoRangeInput();

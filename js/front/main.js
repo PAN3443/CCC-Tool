@@ -14,8 +14,7 @@ window.onload = function() {
   // init events
   init_events_EditPage();
   init_events_PopUp_ColorPicker();
-
-
+  init_ExportWindow();
 
   // if possible zoom to 100%
   /*document.body.style.zoom="100%";

@@ -26,3 +26,9 @@ function init_events_PopUp_ColorPicker(){
 
 
 }
+
+function init_ExportWindow(){
+
+  document.getElementById('id_ExportIntervalNum').addEventListener("change", checkIntervalInputFieldsChange);
+  document.getElementById('id_ExportIntervalNum').addEventListener("keyup", checkIntervalInputFieldsKey);
+}

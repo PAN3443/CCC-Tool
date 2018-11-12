@@ -105,11 +105,12 @@ function init_CCCPageStyle(){
   ///////////////
   // MyDesigns PAGE
   document.getElementById("id_myDesignsPage").style.width = windowWidth + "px";
-  document.getElementById("id_myDesignsPage").style.height = Math.floor(windowHeight*0.78) + "px";
+  //document.getElementById("id_myDesignsPage").style.height = Math.floor(windowHeight*0.85) + "px";//Math.floor(windowHeight*0.78) + "px";
   document.getElementById("id_MyDesings_Label").style.marginTop = Math.floor(windowHeight*0.035) + "px";
   document.getElementById("id_MyDesings_Example_Div").style.width = Math.floor(windowWidth*0.5) + "px";
+  document.getElementById("id_MyDesings_Example_Div").style.height = Math.floor(windowHeight*0.15) + "px";
   document.getElementById("id_MyDesings_IMG").style.height = Math.floor(windowHeight*0.15) + "px";
-  document.getElementById("id_myDesignsPage_colormap_container").style.height = Math.floor(windowHeight*0.58) + "px";
+  //document.getElementById("id_myDesignsPage_colormap_container").style.height = Math.floor(windowHeight*0.58) + "px";
   tmpBox = document.getElementById("id_MyDesings_IMG").getBoundingClientRect();
   tmpMargin = Math.floor((windowWidth-tmpBox.width)/2);
   var tmpBox2 = document.getElementById("id_MyDesings_Label").getBoundingClientRect();
@@ -122,7 +123,7 @@ function init_CCCPageStyle(){
 
   tmpElementList = document.getElementsByClassName('class_MyDesignObjContainer');
   tmpHeight1 = Math.floor(windowHeight*0.1);
-  tmpHeight2 = Math.floor(windowHeight*0.008);
+  tmpHeight2 = Math.floor(windowHeight*0.01);
   for (var i = 0; i < tmpElementList.length; ++i) {
       tmpElementList[i].style.height =  tmpHeight1 + "px";
       tmpElementList[i].style.marginTop =  tmpHeight2 + "px";

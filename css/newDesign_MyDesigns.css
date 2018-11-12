@@ -26,7 +26,7 @@
   margin-bottom: auto;
   margin-left: auto;
   margin-right: auto;
-  border: 2px solid rgb(180, 180, 180);
+  border: 1px solid rgb(180, 180, 180);
   border-radius: 5px;
   background-size:cover;
   background-repeat:no-repeat;
@@ -39,9 +39,11 @@
 }
 
 #id_MyDesings_Example_Img{
-  width:50%;
+  
+  max-width: 100%;
+  max-height:100%;
 }
 
-#id_MyDesings_Example_Img:hover{
+/*#id_MyDesings_Example_Img:hover{
   width:100%;
-}
+}*/

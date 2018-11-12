@@ -3,13 +3,16 @@
 .menu_button {
   padding-right:1vw;
   padding-left:1vw;
-  font-size: 2.5vh;
+  font-size: 2vh;
   line-height: 5vh;
+  height:5vh;
   cursor:pointer;
   color:white;
   vertical-align: middle;
   text-align: center;
   background:none;
+  overflow: hidden;
+  text-overflow: ellipsis;
   /*font-family:verdana;*/
 }
 
@@ -22,13 +25,16 @@
 .menu_buttonNotActive {
   padding-right:1vw;
   padding-left:1vw;
-  font-size: 2.5vh;
+  font-size: 2vh;
   line-height: 5vh;
+  height:5vh;
   cursor:not-allowed;
   color:rgb(180,180,180);
   vertical-align: middle;
   text-align: left;
   background:none;
+  overflow: hidden;
+  text-overflow: ellipsis;
   /*font-family:verdana;*/
 }
 
@@ -75,6 +81,7 @@
   vertical-align: middle;
   text-align: left;
   /*font-family:verdana;*/
+  
 }
 
 .dropdownMenuButton:hover {

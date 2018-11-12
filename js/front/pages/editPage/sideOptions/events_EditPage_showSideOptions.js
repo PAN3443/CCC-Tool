@@ -5,15 +5,19 @@ function showSaveOptions(){
   document.getElementById("id_EditPage_GuideLineDiv").style.display="none";
   document.getElementById("id_EditPage_interpolationPartDiv").style.display="none";
   document.getElementById("id_EditPage_cmsTablePartDiv").style.display="none";
+  document.getElementById("id_EditPage_cmsProbePartDiv").style.display="none";
+  document.getElementById("id_EditPage_guideLinePartButton").style.visibility="visible";
+  document.getElementById("id_EditPage_cmsProbePartButton").style.visibility="visible";
+  document.getElementById("id_EditPage_cmsTablePartButton").style.visibility="visible";
 
   if(document.getElementById("id_EditPage_savePartDiv").style.display=="none"){
     document.getElementById("id_EditPage_savePartDiv").style.display="block";
-    //document.getElementById("id_EditPage_StopInteractionDiv").style.width="100%";
+    document.getElementById("id_PopUp_StopWorkingWindow").style.display="block";
 
   }
   else {
     document.getElementById("id_EditPage_savePartDiv").style.display="none";
-    //document.getElementById("id_EditPage_StopInteractionDiv").style.width="0%";
+      document.getElementById("id_PopUp_StopWorkingWindow").style.display="none";
   }
 
 }
@@ -92,14 +96,18 @@ function showGuideLine(){
   document.getElementById("id_EditPage_savePartDiv").style.display="none";
   document.getElementById("id_EditPage_interpolationPartDiv").style.display="none";
   document.getElementById("id_EditPage_cmsTablePartDiv").style.display="none";
+  document.getElementById("id_EditPage_cmsProbePartDiv").style.display="none";
+  document.getElementById("id_EditPage_guideLinePartButton").style.visibility="visible";
+  document.getElementById("id_EditPage_cmsProbePartButton").style.visibility="visible";
+  document.getElementById("id_EditPage_cmsTablePartButton").style.visibility="visible";
 
   if(document.getElementById("id_EditPage_GuideLineDiv").style.display=="none"){
-    document.getElementById("id_EditPage_GuideLineDiv").style.display="block"
-    //document.getElementById("id_EditPage_StopInteractionDiv").style.width="100%"
+    document.getElementById("id_EditPage_GuideLineDiv").style.display="block";
+      document.getElementById("id_PopUp_StopWorkingWindow").style.display="block";
   }
   else {
-    document.getElementById("id_EditPage_GuideLineDiv").style.display="none"
-    //document.getElementById("id_EditPage_StopInteractionDiv").style.width="0%"
+    document.getElementById("id_EditPage_GuideLineDiv").style.display="none";
+      document.getElementById("id_PopUp_StopWorkingWindow").style.display="none";
   }
 
 }
@@ -108,14 +116,17 @@ function showInterpolationOptions () {
   document.getElementById("id_EditPage_savePartDiv").style.display="none";
   document.getElementById("id_EditPage_GuideLineDiv").style.display="none";
   document.getElementById("id_EditPage_cmsTablePartDiv").style.display="none";
+  document.getElementById("id_EditPage_cmsProbePartDiv").style.display="none";
+  document.getElementById("id_EditPage_guideLinePartButton").style.visibility="visible";
+  document.getElementById("id_EditPage_cmsProbePartButton").style.visibility="visible";
 
   if(document.getElementById("id_EditPage_interpolationPartDiv").style.display=="none"){
-    document.getElementById("id_EditPage_interpolationPartDiv").style.display="block"
-    //document.getElementById("id_EditPage_StopInteractionDiv").style.width="100%"
+    document.getElementById("id_EditPage_interpolationPartDiv").style.display="block";
+      document.getElementById("id_PopUp_StopWorkingWindow").style.display="block";
   }
   else {
-    document.getElementById("id_EditPage_interpolationPartDiv").style.display="none"
-    //document.getElementById("id_EditPage_StopInteractionDiv").style.width="0%"
+    document.getElementById("id_EditPage_interpolationPartDiv").style.display="none";
+      document.getElementById("id_PopUp_StopWorkingWindow").style.display="none";
   }
 }
 
@@ -123,13 +134,55 @@ function showCMSTable () {
   document.getElementById("id_EditPage_savePartDiv").style.display="none";
   document.getElementById("id_EditPage_GuideLineDiv").style.display="none";
   document.getElementById("id_EditPage_interpolationPartDiv").style.display="none";
+  document.getElementById("id_EditPage_cmsProbePartDiv").style.display="none";
+  document.getElementById("id_EditPage_guideLinePartButton").style.visibility="visible";
+  document.getElementById("id_EditPage_cmsProbePartButton").style.visibility="visible";
+  document.getElementById("id_EditPage_cmsTablePartButton").style.visibility="visible";
 
   if(document.getElementById("id_EditPage_cmsTablePartDiv").style.display=="none"){
-    document.getElementById("id_EditPage_cmsTablePartDiv").style.display="block"
-    //document.getElementById("id_EditPage_StopInteractionDiv").style.width="100%"
+    document.getElementById("id_EditPage_cmsTablePartDiv").style.display="flex";
+
+    document.getElementById("id_EditPage_guideLinePartButton").style.visibility="hidden";
+    document.getElementById("id_EditPage_cmsProbePartButton").style.visibility="hidden";
+    document.getElementById("id_PopUp_StopWorkingWindow").style.display="block";
+
   }
   else {
-    document.getElementById("id_EditPage_cmsTablePartDiv").style.display="none"
-    //document.getElementById("id_EditPage_StopInteractionDiv").style.width="0%"
+    document.getElementById("id_EditPage_cmsTablePartDiv").style.display="none";
+    document.getElementById("id_PopUp_StopWorkingWindow").style.display="none";
+  }
+}
+
+
+function showProbeDiv() {
+  document.getElementById("id_EditPage_savePartDiv").style.display="none";
+  document.getElementById("id_EditPage_GuideLineDiv").style.display="none";
+  document.getElementById("id_EditPage_interpolationPartDiv").style.display="none";
+  document.getElementById("id_EditPage_cmsTablePartDiv").style.display="none";
+  document.getElementById("id_EditPage_guideLinePartButton").style.visibility="visible";
+  document.getElementById("id_EditPage_cmsProbePartButton").style.visibility="visible";
+  document.getElementById("id_EditPage_cmsTablePartButton").style.visibility="visible";
+
+  if(document.getElementById("id_EditPage_cmsProbePartDiv").style.display=="none"){
+    document.getElementById("id_EditPage_cmsProbePartDiv").style.display="flex";
+
+    document.getElementById("id_EditPage_guideLinePartButton").style.visibility="hidden";
+    document.getElementById("id_EditPage_cmsTablePartButton").style.visibility="hidden";
+      document.getElementById("id_PopUp_StopWorkingWindow").style.display="block";
+
+      if(globalCMS1.getProbeLength()==0){
+
+        document.getElementById("id_EditPage_generateProbeSet").style.display="block";
+        document.getElementById("id_EditPage_editProbe").style.display="none";
+      }
+      else{
+        document.getElementById("id_EditPage_editProbe").style.display="block";
+        document.getElementById("id_EditPage_generateProbeSet").style.display="none";
+      }
+
+  }
+  else {
+    document.getElementById("id_EditPage_cmsProbePartDiv").style.display="none";
+      document.getElementById("id_PopUp_StopWorkingWindow").style.display="none";
   }
 }

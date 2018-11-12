@@ -25,7 +25,7 @@ var animationInterval = 1000/30;
 // key moving vars
 var grappedKey = false;
 var overKeyID = -1;
-var mouseKeyChangeUp = false;
+var mouseKeyChangeUp = true;
 
 var colorpickerAffectID="";
 var colorpickerType = "RG_B";
@@ -36,7 +36,7 @@ var customScaleBandColor2 = new classColor_RGB(0.0,0.0,0.0);
 
 
 // Colormap Path
- 
+
 var spaceElementsXPos = [];
 var spaceElementsYPos = [];
 var spaceElementsType = [];

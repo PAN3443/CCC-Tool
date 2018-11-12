@@ -164,12 +164,15 @@
   <script src="js/front/globalVars/pageIndepenend/predefinedSingleBands.js"></script>
   <script src="js/front/globalVars/pageIndepenend/colorTransformationVariables.js"></script>
   <script src="js/front/globalVars/pageIndepenend/plotResolutions.js"></script>
+  <script src="js/front/globalVars/pageIndepenend/export_Vars.js"></script>
+
 
   <!------------------------------------------->
   <!-- global Events-->
   <script src="js/front/globalEvents/pageChange.js"></script>
   <script src="js/front/globalEvents/autocompleteSearch.js"></script>
   <script src="js/front/globalEvents/checkInput.js"></script>
+  <script src="js/front/globalEvents/cmsIntervals.js"></script>
 
   <!------------------------------------------->
   <!-- global Helpers-->
@@ -188,6 +191,7 @@
   <!-- Pop Up Windows -->
   <script src="js/front/globalEvents/PopUpWindows/colorPicker.js"></script>
   <script src="js/front/globalEvents/PopUpWindows/popUp_events.js"></script>
+  <script src="js/front/globalEvents/PopUpWindows/export_events.js"></script>
 
   <!-- WebGL -->
   <script src="js/front/WebGL/three/three.min.js"></script>
@@ -221,7 +225,7 @@
 </head>
 <!--style="background: rgb(30,30,30);"-->
 
-<body style="background:white;">
+<body style="background:white; overflow-x:hidden;">
   <!--style="background:url(img/background2.png);"-->
   <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -329,7 +333,7 @@
             <div id="id_actionMenu_scaleButton" onclick="openScale()" class="dropdownMenuButton">
               Scale CMS
             </div>
-            <div id="id_actionMenu_exportButton" class="dropdownMenuButton">
+            <div id="id_actionMenu_exportButton" onclick="openExportWindow()" class="dropdownMenuButton">
               Export CMS
             </div>
           </div>
@@ -386,14 +390,20 @@
           </div>
 
 
-          <div style="width:100%; border-top:2px double white;">
+          <div style="width:100%; border-top:1px solid white;">
+
+            <div  onclick="openImpressum()" class="dropdownMenuButton">
+              Show Impressum / Contact
+            </div>
+
             <div class="dropdownNotActiveMenuButton">
               Log Out
             </div>
+
+
+
+
           </div>
-
-
-
 
 
         </div> <!--End Dropdown Container -->
@@ -420,7 +430,7 @@
           -->
 
 
-  <div id="id_ccctoolPage" style="width:100%; height:auto; margin:0px; padding-top:20px; padding-bottom:20px; background:white; margin-top:5vh;">
+  <div id="id_ccctoolPage" style="width:100%; height:auto; margin:0px; padding-top:20px; padding-bottom:20px; background:white; margin-top:5vh; overflow-x:auto;">
 
 
     <!--  -----------------------------------------------
@@ -452,7 +462,7 @@
     <div id="id_myDesignsPage" style="margin-left:auto; margin-right:auto;">
 
       <div class="row">
-        <div id="id_MyDesings_Example_Div" style="margin-top:auto; margin-bottom:auto;">
+        <div id="id_MyDesings_Example_Div" style="margin-top:auto; margin-bottom:auto; overflow:hidden;">
           <img  id="id_MyDesings_Example_Img" src="img/myDesignsExampleImg.png" >
         </div>
 
@@ -463,11 +473,11 @@
       </div>
 
 
-      <div id="id_myDesignsPage_colormap_container" style="width:80%; height:50%; margin-left:10%; overflow:auto;">
+      <div id="id_myDesignsPage_colormap_container" style="width:80%; height:auto; maxHeight:100%; margin-left:10%; overflow:auto;">
 
       </div>
 
-      <div class="row" style="margin-top:auto; margin-bottom:auto;">
+      <div class="row" style="margin-top:2.5%; margin-bottom:2.5%;">
         <button class="class_generalbutton" style="margin-left:25%; margin-right:10%;  width:20%;">Visit Gallery</button>
         <button class="class_generalbutton" onclick="showNewCMSPage()" style="margin-right:25%;  width:20%;">New CMS</button>
       </div>
@@ -500,7 +510,7 @@
       </div>
 
 
-      <div class="row" style="margin-top:20px;">
+      <div class="row" style="margin-top:2.5%;">
         <button class="class_generalbutton" onclick="showMyDesignsPage()" style="margin-left:25%; margin-right:10%;  width:20%;">Cancel</button>
         <button class="class_generalbutton" onclick="showEditPage()" style="margin-right:25%;  width:20%;">Create</button>
       </div>
@@ -537,13 +547,7 @@
         <div id="id_EditPage_LeftOptionDiv" style="position: fixed; z-index: 80; width:2.5vw; height:auto; left: 0px; top: 7.5vh; display:inline-block;">
           <!-- -------------- Back Button Edit Page ---------------->
 
-          <div class="row">
 
-
-            <div id="id_EditPage_GuideLineDiv" style="margin-left:auto; margin-right:auto;">
-
-              <p id="id_EditPage_GuideLineLabel class_noSizeUpdate" class="sectionLabel" style="width:100%; font-size:3vh;">Guide Line</p>
-            </div>
 
             <div>
               <div class="class_RotateLeft" id="id_EditPage_backButton" onclick="startLeaveEditPage()" style="height:26vh;">
@@ -555,10 +559,10 @@
 
                   <div id="id_EditPage_savePartInnerDiv" style="margin:2vh; height: 22vh; background:white; border:0.2vh solid rgb(255, 204, 102); ">
 
-                    <button id="id_EditPage_saveButton" onclick="saveCMS()" class="class_savebutton" style="margin-left:auto; margin-right:auto; margin-top:2.5vh; "> Save </button>
+                    <button id="id_EditPage_saveButton" onclick="saveCMS()" class="class_savebutton" style="margin-left:1vw; margin-right:1vw; margin-top:2.5vh; "> Save </button>
 
-                    <button id="id_EditPage_saveAsNewButton" onclick="saveCMSasNew()" class="class_savebutton" style="margin-left:auto; margin-right:auto; margin-top:2.5vh; "> Save As New</button>
-                    <p class="standardText class_noSizeUpdate" id="edit_Page_FreeSpaceInfo" style="margin-left:auto; margin-right:auto; width:20vw; height:2.5vh; line-height:2.5vh; font-size:2vh; font-weight:bold;"> Free Places: 0</p>
+                    <button id="id_EditPage_saveAsNewButton" onclick="saveCMSasNew()" class="class_savebutton" style="margin-left:1vw; margin-right:1vw; margin-top:2.5vh; "> Save As New</button>
+                    <p class="standardText class_noSizeUpdate" id="edit_Page_FreeSpaceInfo" style="margin-left:1vw; margin-right:1vw; width:20vw; height:2.5vh; line-height:2.5vh; font-size:1.8vh; "> Free Places: 0</p>
 
                   </div>
 
@@ -569,12 +573,79 @@
               </div>
 
 
-              <div class="class_RotateLeft" id="id_EditPage_guideLinePartButton" style="height: 26vh; cursor: not-allowed;" oonclick="showGuideLine()">
-                Guide Line
+
+
+              <div class="row" style="margin:0px; height:33%;">
+
+                <div id="id_EditPage_interpolationPartDiv">
+
+
+                  <div id="id_EditPage_interpolationPartInnerDiv" style="margin:2vh; height: 31vh; background:white; border:0.2vh solid rgb(204, 153, 255);  overflow:auto;">
+
+
+                    <div class="row" style="margin:0.5vw;">
+                      <img src="img/smiley.png" style="height:5vh;">
+                      <p class="standardText class_noSizeUpdate" style="margin-left:1vw; height:5vh; line-height:5vh; font-weight:bold; margin-right:1vw; font-size:2.5vh; text-decoration:underline;"> Perceptuall Uniform Spaces:</p>
+                    </div>
+
+                    <div class="row" style="margin:0.5vw; widht:100%;">
+
+                      <div id="id_EditPage_SelectLab" class="class_EditPage_SelectInterpolationColorspace" style="margin-left: auto;" onclick="changeColorspace(2)">
+
+                      </div>
+                      <p class="standardText class_noSizeUpdate" style="margin-left:1vw; height:3vh; line-height:3vh; font-size:2vh; width:10vw; margin-right:auto;"> : LAB</p>
+
+                      <div id="id_EditPage_SelectDIN99" class="class_EditPage_SelectInterpolationColorspace" onclick="changeColorspace(3)">
+                        &#10004;
+                      </div>
+                      <p class="standardText class_noSizeUpdate" style="margin-left:1vw; height:3vh; line-height:3vh; font-size:2vh; width:10vw; margin-right:auto;"> : DIN99</p>
+                    </div>
+
+                    <div class="row" style="margin:0.5vw;  widht:100%;">
+
+                      <div id="id_EditPage_SelectDE94" class="class_EditPage_SelectInterpolationColorspace" style="margin-left: auto; border-color:grey; background:rgb(180,180,180); cursor:not-allowed;">
+
+                      </div>
+                      <p class="standardText class_noSizeUpdate" style="margin-left:1vw; height:3vh; line-height:3vh; font-size:2vh; width:10vw; margin-right:auto; color:grey;"> : DE94</p>
+
+                      <div id="id_EditPage_SelectCIEDE2000" class="class_EditPage_SelectInterpolationColorspace" style="border-color:grey; background:rgb(180,180,180); cursor:not-allowed;">
+
+                      </div>
+                      <p class="standardText class_noSizeUpdate" style="margin-left:1vw; height:3vh; line-height:3vh; font-size:2vh; width:10vw; margin-right:auto; color:grey;"> : CIEDE2000</p>
+                    </div>
+
+                    <div class="row" style="margin:0.5vw; margin-top:1.5vw;">
+                      <img src="img/sadley.png" style="height:5vh;">
+                      <p class="standardText class_noSizeUpdate" style="margin-left:1vw; height:5vh; line-height:5vh; font-weight:bold; margin-right:1vw; font-size:2.5vh; text-decoration:underline;"> Non Perceptuall Uniform Spaces: </p>
+                    </div>
+
+                    <div class="row" style="margin:0.5vw;  widht:100%;">
+
+                      <div id="id_EditPage_SelectRGB" class="class_EditPage_SelectInterpolationColorspace" style="margin-left: auto;" onclick="changeColorspace(0)">
+
+                      </div>
+                      <p class="standardText class_noSizeUpdate" style="margin-left:1vw; height:3vh; line-height:3vh; font-size:2vh; width:10vw; margin-right:auto;"> : RGB</p>
+
+                      <div id="id_EditPage_SelectHSV" class="class_EditPage_SelectInterpolationColorspace" onclick="changeColorspace(1)">
+
+                      </div>
+                      <p class="standardText class_noSizeUpdate" style="margin-left:1vw; height:3vh; line-height:3vh; font-size:2vh; width:10vw;  margin-right:auto;"> : HSV</p>
+                    </div>
+
+
+                  </div>
+
+
+
+                </div>
+
+                <div class="class_RotateLeft" id="id_EditPage_interpolationPartButton" style="height: 26vh;" onclick="showInterpolationOptions()">
+                  Interpolation Space
+                </div>
               </div>
 
             </div>
-          </div>
+
 
 
         </div>
@@ -1232,21 +1303,27 @@
                   </div>
                 </div>
 
-                <div id="id_EditPage_DivAnalyze" style="width:100%;">
+                <div id="id_EditPage_DivAnalyze" style="width:100%; overflow:auto;">
                   <div class="row" style="width:100%; background: rgb(220,220,220); height:5%; border-bottom:1px solid grey;">
 
                     <div id="id_EditPage_AnalyzeOptions_Label" class="standardText" style="border-right:1px solid black; width:auto; margin-right:auto; margin-top:auto; margin-bottom:auto; padding-left: 5px; padding-right: 5px; cursor: pointer; text-align:center;" title="All"> Plot Options &#9660; </div>
                       <div id="id_EditPage_AnalyzeOptions_Dropdown" style="background: white; border:1px solid black; display: none; position: absolute; left: 0px; z-index: 5; padding:5px;">
 
                             <div class="row" style="width:100%;">
-                                <input class="standardText" style=" margin-left:10px;" type="checkbox" name="doComparison" value="no"> <p class="standardText" style=" margin-right:auto;"> Do Comparison</p>
+                                <input class="standardText" style="margin-left:10px; margin-right:10px;" type="checkbox" name="doComparison" value="no"> <p class="standardText" style=" margin-right:auto;"> Do Comparison</p>
+
+
                             </div>
 
-                            <div class="row" style="width:100%; margin-top:5px;">
 
-                                <div class="width:120px; margin-left:10px;">
+                            <div class="row">
 
+                                <div style="width:250px; border:1px solid black; margin:10px;">
+                                  <canvas id="id_EditPage_ChooseCompareLinear" style="height:30px; width:100%; border-bottom:1px solid black;"></canvas>
+                                  <canvas id="id_EditPage_ChooseCompareSketch" style="height:30px; width:100%;"></canvas>
                                 </div>
+                                <button type="button" class="class_generalbutton" name="button" style="margin-top:auto; margin-bottom:auto; margin-right:10px;"> Choose</button>
+
                             </div>
 
                             <hr>
@@ -1276,7 +1353,7 @@
                   </div>
 
 
-                  <div id="id_EditPage_Analyze_EmptyDiv" class=" class_EditDiv_SubDiv" style="display:none; width:100%; height:95%; background:rgb(220,220,220);">
+                  <div id="id_EditPage_Analyze_EmptyDiv" class=" class_EditDiv_SubDiv" style="display:none; width:100%; height:100%; background:rgb(220,220,220);">
 
 
                       <!--img id="id_EditPage_OnlineCMS_NotAvailableImg" src="img/notAvailableImg.png" style="height:100%; margin-left:auto; margin-right:auto;"-->
@@ -1308,99 +1385,243 @@
       <!--
                  ---------- RIGHT Option Bar ------------
                -->
-        <div id="id_EditPage_RightOptionDiv" style="position: fixed; z-index: 80; width:2.5vw; height:auto; right: 0px; top: 7.5vh; display:inline-block;">
+        <div id="id_EditPage_RightOptionDiv" style="position: fixed; z-index: 80; width:auto; height:auto; right: 0px; top: 7.5vh; display:inline-block;">
           <!-- -------------- Back Button Edit Page ---------------->
 
+          <div class="row" style="height:78vh;">
+            <div>
+              <div class="class_RotateRight" id="id_EditPage_guideLinePartButton" style="height: 26vh; cursor: not-allowed;" oonclick="showGuideLine()">
+                Guide Line
+              </div>
 
-          <div class="row" style="float:right;">
+              <div class="class_RotateRight" id="id_EditPage_cmsTablePartButton" style="height:26vh;" onclick="showCMSTable()">
+                CMS Table
+              </div>
 
-            <div class="class_RotateRight" id="id_EditPage_interpolationPartButton" style="height:40vh;" onclick="showInterpolationOptions()">
-              Interpolation Space
-            </div>
-            <div id="id_EditPage_interpolationPartDiv">
-
-
-              <div id="id_EditPage_interpolationPartInnerDiv" style="margin:2vh; height:36vh; background:white; border:0.2vh solid rgb(204, 153, 255);  overflow:auto;">
-
-
-                <div class="row" style="margin:1vw;">
-                  <img id="id_EditPage_SmileyImg" src="img/smiley.png" style="height:5vh;">
-                  <p class="standardText class_noSizeUpdate" style="margin-left:1vw; height:5vh; line-height:5vh; font-weight:bold; margin-right:1vw; font-size:2.5vh; text-decoration:underline;"> Perceptuall Uniform Spaces:</p>
-                </div>
-
-                <div class="row" style="margin:1vw; widht:100%;">
-
-                  <div id="id_EditPage_SelectLab" class="class_EditPage_SelectInterpolationColorspace" style="margin-left: auto;" onclick="changeColorspace(2)">
-
-                  </div>
-                  <p class="standardText class_noSizeUpdate" style="margin-left:1vw; height:3vh; line-height:3vh; font-size:2vh; width:10vw; margin-right:auto;"> : LAB</p>
-
-                  <div id="id_EditPage_SelectDIN99" class="class_EditPage_SelectInterpolationColorspace" onclick="changeColorspace(3)">
-                    &#10004;
-                  </div>
-                  <p class="standardText class_noSizeUpdate" style="margin-left:1vw; height:3vh; line-height:3vh; font-size:2vh; width:10vw; margin-right:auto;"> : DIN99</p>
-                </div>
-
-                <div class="row" style="margin:1vw;  widht:100%;">
-
-                  <div id="id_EditPage_SelectDE94" class="class_EditPage_SelectInterpolationColorspace" style="margin-left: auto; border-color:grey; background:rgb(180,180,180); cursor:not-allowed;">
-
-                  </div>
-                  <p class="standardText class_noSizeUpdate" style="margin-left:1vw; height:3vh; line-height:3vh; font-size:2vh; width:10vw; margin-right:auto; color:grey;"> : DE94</p>
-
-                  <div id="id_EditPage_SelectCIEDE2000" class="class_EditPage_SelectInterpolationColorspace" style="border-color:grey; background:rgb(180,180,180); cursor:not-allowed;">
-
-                  </div>
-                  <p class="standardText class_noSizeUpdate" style="margin-left:1vw; height:3vh; line-height:3vh; font-size:2vh; width:10vw; margin-right:auto; color:grey;"> : CIEDE2000</p>
-                </div>
-
-                <div class="row" style="margin:1vw;">
-                  <img id="id_EditPage_SadleyImg" src="img/sadley.png" style="height:5vh;">
-                  <p class="standardText class_noSizeUpdate" style="margin-left:1vw; height:5vh; line-height:5vh; font-weight:bold; margin-right:1vw; font-size:2.5vh; text-decoration:underline;"> Non Perceptuall Uniform Spaces: </p>
-                </div>
-
-                <div class="row" style="margin:1vw;  widht:100%;">
-
-                  <div id="id_EditPage_SelectRGB" class="class_EditPage_SelectInterpolationColorspace" style="margin-left: auto;" onclick="changeColorspace(0)">
-
-                  </div>
-                  <p class="standardText class_noSizeUpdate" style="margin-left:1vw; height:3vh; line-height:3vh; font-size:2vh; width:10vw; margin-right:auto;"> : RGB</p>
-
-                  <div id="id_EditPage_SelectHSV" class="class_EditPage_SelectInterpolationColorspace" onclick="changeColorspace(1)">
-
-                  </div>
-                  <p class="standardText class_noSizeUpdate" style="margin-left:1vw; height:3vh; line-height:3vh; font-size:2vh; width:10vw;  margin-right:auto;"> : HSV</p>
-                </div>
-
-
+              <div class="class_RotateRight" id="id_EditPage_cmsProbePartButton" style="height:26vh;" onclick="showProbeDiv()">
+                  Probe Sets
               </div>
 
 
-
             </div>
-          </div>
+
+            <!--
+                       ---------- Probes ------------
+                     -->
+            <div id="id_EditPage_cmsProbePartDiv" style="display:none; height:78vh; width:75vw;">
+                <div id="id_EditPage_cmsProbePartInnerDiv" style="margin:2vh; height:74vh; width:75vw; background:white; border:0.2vh solid rgb(0, 79, 153); ">
 
 
-          <div class="row" style="float:right;">
+                  <div id="id_EditPage_generateProbeSet" style="height:100%; width:100%;">
+                        <h2 class="subsectionLabel class_noSizeUpdate" style="height:4vh; line-height:4vh; font-size:3vh; margin-top:2vh; margin-bottom:2vh; "> Generate Probe-Set </h2>
 
-            <div class="class_RotateRight" id="id_EditPage_cmsTablePartButton" style="height:40vh;" onclick="showCMSTable()">
-              CMS Table
+                        <div class="row" style="margin:auto; margin-left: 10%; width:80%; border: 0.2vh solid grey; background:rgb(245,245,245); padding:1vh;">
+
+                          <p class="standardText class_noSizeUpdate" style="font-size: 1.8vh; height:3vh; line-height: 3vh; font-weight:bold; width:15vw; vertical-align:middle; margin-top:auto; margin-bottom:auto; margin-left:3vw;"> Select Probe-Type: </p>
+
+                          <div id="id_EditPage_selectProbeTypeLabel" class="class_EditDivLabel class_noSizeUpdate" style="padding-left:1vw; width:10vw; padding-right:1vw; font-size: 1.8vh; height:3vh; line-height: 3vh; margin-top:auto; margin-bottom:auto; cursor: pointer; text-align:center; border:1px solid black;" title="All"> &#9660; One Sided </div>
+                            <div id="id_EditPage_selectProbeTypeDropDown" style="background: rgb(220,220,220); display: none; position: absolute; left: 0px; z-index: 101;  width:10%;">
+                                  <div id=""  oonclick="changeFilterPredefined(0)" class="dropdownButtonEditPage">
+                                    Constant
+                                  </div>
+                                  <div id="" oonclick="changeFilterPredefined(1)" class="dropdownButtonEditPage">
+                                    One Sided
+                                  </div>
+                                  <div id="" oonclick="changeFilterPredefined(2)" class="dropdownButtonEditPage">
+                                    Two Sided
+                                  </div>
+                            </div>
+
+
+                            <div id="id_EditPage_PreviewProbeType" style=" margin-top:auto; margin-bottom:auto; width:5vw; height:3vh; border: 0.2vh solid black; margin-left:2vw;  ">
+
+                            </div>
+
+                            <div class="helpButtonDiv" style="margin-left:2vw; margin-top:auto; margin-bottom:auto; margin-right:auto;">
+                              <button class="helpButton class_noSizeUpdate" style="border-radius: 0.5vh; height:3vh; line-height:3vh; font-weight:bold; text-align:center; width: 3vh;  border: 0.2vh solid black;">?</button>
+                              <div class="helpButtonDiv-content" style="border: 1px solid black; background: rgb(220,220,220); z-index:103;">
+                                <p class="standardText class_noSizeUpdate" style="padding:1vh; height:auto; font-size: 1.8vh; line-height: 2vh; max-width:20vw; z-index:103; "> <strong>Info:</strong> Select a Probe-Type for the autmaticaly generation of the probes in the new Probe-Set. After the generation of the probe-set you can edit the probes.
+                                </p>
+                              </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row" style="margin:auto; margin-left: 10%; width:80%; border: 0.2vh solid grey; background:rgb(245,245,245); padding:1vh; margin-top:2vh; margin-bottom:2vh;">
+                          <p class="standardText class_noSizeUpdate" style="font-size: 1.8vh; height:3vh; line-height: 3vh; font-weight:bold; width:15vw; vertical-align:middle; margin-left:3vw;"> Probe-Type-Options: </p>
+                        </div>
+                  </div>
+
+
+                  <div id="id_EditPage_editProbe" style="height:100%; width:100%;">
+
+
+                  </div>
+
+
+
+
+                  <!--div class="row" style="padding-top:5px; padding-bottom:5px;">
+                    <div style="width:50%; border-right:1px solid black;">
+                      <h2 class="subsectionLabel" style="width:100%; margin-top:10px; margin-bottom:10px;">Probe List</h2>
+
+                      <select id="id_selectProbeList" class="constText" name="ProbeList" size="20" style="width:50%; margin-left:25%;">
+                        <option value="0" style="font-weight:bold;">Create New Probe</option>
+                        <option value="1" >Probe 1; Type: Gradient; Function: linear;</option>
+                      </select>
+
+                      <button id="id_buttonRemoveProbe" type="button" name="ProbeRemoveButton" class="classButtonWhite standardText" style="border-radius: 10px;  width:50%; line-height:30px; border: 1px solid rgb(180,180,180); margin-left:25%; margin-top: 10px;">Remove</button>
+
+                    </div>
+
+                    <div style="width:50%;">
+                      <h2 id="probeActionLabel" class="subsectionLabel" style="width:100%; margin-top:15px; margin-bottom:15px;">Generate Probe</h2>
+
+                      <div class="row" style="margin-left:15%; width:70%; margin-top:5px; margin-bottom:15px;">
+                        <p class="standardText" style="width:40%; font-weight:bold;">Type:</p>
+
+                        <select id="id_selectProbeType" name="ProbeTypeList" style="width:60%;">
+                          <option value="0">Gradient Probe</option>
+                          <option value="1">Contour Probe</option>
+                          <option value="2">Constant Probe</option>
+                        </select>
+                      </div>
+
+
+
+                      <div id="id_EditPage_ProbeFunctionDiv" class="row" style="margin-left:15%; width:70%; margin-top:5px; margin-bottom:15px; display:none;">
+
+                        <p class="standardText" style="width:40%; font-weight:bold;">Function:</p>
+
+                        <select id="id_selectProbeFunctionType" name="ProbeTypeList" style="width:60%;">
+                          <option value="0">Linear</option>
+
+                        </select>
+                      </div>
+
+                      <div id="id_EditPage_ProbeColorDiv" style="margin-left:15%; width:70%; margin-top:5px; margin-bottom:15px; display:none;">
+
+                        <p class="standardText" style="width:40%; font-weight:bold;">Color:</p>
+
+
+                          <div id="id_EditPage_Probe_Color" style="display:inline-block; background:black; border: 2px solid black; border-radius: 5px; height:20px; width:20px; cursor:pointer;">
+
+                          </div>
+
+
+                      </div>
+
+                      <div id="id_divProbeGradientValueStart" style="margin-left:15%; width:70%; margin-top:5px; margin-bottom:5px;">
+                        <div class="row" style="width:100%; margin-top:10px; margin-bottom:10px;" >
+                          <p class="standardText" style="width:40%;">Value Start:</p>
+                          <input id="id_inputGradientValueStart" type="number" name="Gradient Value Start" value="0" min="0" max="100" step="any" class="standardText" style="width:60%;">
+                        </div>
+                      </div>
+
+                      <div id="id_divProbeGradientValueEnd" style="margin-left:15%; width:70%; margin-top:5px; margin-bottom:5px;">
+                        <div class="row" style="width:100%; margin-top:10px; margin-bottom:10px;" >
+                          <p class="standardText" style="width:40%;">Value End:</p>
+                          <input id="id_inputGradientValueEnd" type="number" name="Gradient Value Start" value="100" min="0" max="100" step="any" class="standardText" style="width:60%;">
+                        </div>
+                      </div>
+
+                      <hr>
+
+                      <div class="row" style="margin-left:15%; width:70%; margin-top:5px; margin-bottom:5px;">
+
+                        <p class="standardText" style="width:40%; font-weight:bold;">Probe Ranges:</p>
+
+                        <select id="id_selectProbeRangeType" name="ProbeRangeTypeList" style="width:60%; height:auto;">
+                          <option value="0" checked>Single Probe</option>
+                          <option value="1">Probe Set</option>
+                          <option value="2" style="display: none;">Interval Auto Subdivision</option>
+                          <option value="3">Custom Probe Set</option>
+                        </select>
+                      </div>
+
+                      <div id="id_divProbeRangesSingleStart" style="margin-left:15%; width:70%; margin-top:5px; margin-bottom:5px;">
+                        <div class="row" style="width:100%; margin-top:10px; margin-bottom:10px;" >
+                          <p class="standardText" style="width:40%;">Probe-Set Start:</p>
+                          <input id="id_inputSingleProbeRangeStart" type="number" name="ProbeRangeStart" value="0" step="any" class="standardText" style="width:60%;">
+                        </div>
+                      </div>
+
+                      <div id="id_divProbeRangesSingleEnd" style="margin-left:15%; width:70%; margin-top:5px; margin-bottom:5px;">
+                      <div class="row" style="width:100%; margin-top:5px; ">
+                        <p class="standardText" style="width:40%;">Probe-Set End:</p>
+                        <input id="id_inputSingleProbeRangeEnd" type="number" name="ProbeRangeEnd" value="1" step="any" class="standardText" style="width:60%;">
+                      </div>
+                      </div>
+
+                      <div id="id_divProbeRangesInterval" style="margin-left:15%; width:70%; margin-top:5px; margin-bottom:5px; display:none;">
+                        <div class="row" style="width:100%; margin-top:15px; ">
+                          <p class="standardText" style="width:40%;">Probe-Set Width:</p>
+                          <input id="id_inputProbeIntervalLength" type="number" name="ProbeIntervalLength" value="1" step="any" min="0" class="standardText" style="width:60%;">
+                        </div>
+                      </div>
+
+                      <div id="id_divProbeDistance" style="margin-left:15%; width:70%; margin-top:10px; margin-bottom:5px; display:none;">
+                        <div class="row" style="width:100%; margin-top:15px; ">
+                          <p class="standardText" style="width:40%;">Probe Distance:</p>
+                          <input id="id_inputProbeDistance" type="number"  value="0" step="any" min="0" class="standardText" style="width:60%;">
+                        </div>
+                      </div>
+
+                      <div id="id_divProbeRangesIntervalAuto" style="margin-left:15%; width:70%; margin-top:10px; margin-bottom:5px; display:none;">
+                        <div class="row" style="width:100%; margin-top:15px; ">
+                          <p class="standardText" style="width:40%;">Number of Probes:</p>
+                          <input id="id_inputNumberIntervalAuto" type="number"  value="1" step="1" min="1" class="standardText" style="width:60%;">
+                        </div>
+                      </div>
+
+                      <div id="id_divProbeRangesCustom" style="margin-left:15%; width:70%; margin-top:10px; margin-bottom:5px; display:none;">
+                        <div class="row" style="width:100%; margin-top:15px; ">
+                        <p class="standardText" style="width:40%;">Custom Range:</p>
+                        <input id="id_inputCustomProbeRanges" type="text" name="ProbeCustomRanges" value="" class="standardText" style="width:60%;">
+                        </div>
+                        <p id="CustomProbeInfoText" class="standardText" style="margin-top:5px; margin-left:40%; width:60%; color:red; font-weight:bold;"></p>
+                        <p class="standardText" style="margin-top:5px; margin-left:40%; width:60%;">Semantic: A custom range is defined by two values separated by comma. The range concludes with a semicolon at the end. (Example: "0.1,0.4;0.75,0.8;" results in two custom ranges) Please check that the second value of a range is alwasy bigger than the first one. Overlapping range are not allowed!</p>
+
+                      </div>
+
+                      <p class="standardText" style="margin-left:15%; width:70%; margin-top:15px; margin-bottom:5px;"> Info: The probe range is allowed to be over the borders of the CMS range. Probe value out of the CMS range will be excluded during the calculation of the probe colormap.</p>
+
+
+                      <hr style="margin-left:15%; width:70%;">
+
+                      <button id="id_buttonAddUpdateProbe" type="button" name="ProbeRemoveButton" class="classButtonWhite standardText" style="border-radius: 10px;  width:50%; line-height:30px; border: 1px solid rgb(180,180,180); margin-left:25%; margin-top: 10px;">Add</button>
+                    </div>
+                  </div>
+
+                  <div id="divProbePreview" style="width:100%; display:none; padding-top:15px; padding-bottom:15px;">
+                    <h2 class="subsectionLabel" style="width:100%; margin-top:15px; margin-bottom:15px;">Preview</h2>
+                    <canvas style="margin-top: 0px; width:95%; height: 50px; margin-left:2.5%; margin-bottom:0px; border: thin solid black;" id="id_linearProbePreview">
+                    </canvas>
+                  </div!-->
+
+
+                </div>
             </div>
-            <div id="id_EditPage_cmsTablePartDiv">
 
-              <div id="id_EditPage_cmsTablePartInnerDiv" style="margin:2vh; height:36vh; width:75vw; background:white; border:0.2vh solid rgb(128, 191, 255); ">
+
+            <!--
+                       ---------- CMS Table ------------
+                     -->
+            <div id="id_EditPage_cmsTablePartDiv" style="display:none; height:78vh; width:75vw;">
+
+              <div id="id_EditPage_cmsTablePartInnerDiv" style="margin:2vh; height:74vh; width:75vw; background:white; border:0.2vh solid rgb(140, 26, 255); ">
 
                 <table cellspacing="0" cellpadding="0" style="width:100%;">
                   <tr>
                     <td>
                       <table cellspacing="0" cellpadding="1" style="width:100%;">
-                        <tr style="color:white;background-color:grey">
-                          <th class="class_tablelabel" id="id_table_Number" style="width:5%;">#</th>
-                          <th class="class_tablelabel" id="id_table_Reference1" style="width:15%;">Start</th>
-                          <th class="class_tablelabel" id="id_table_Reference2" style="width:15%;">End</th>
-                          <th class="class_tablelabel" id="id_table_Bandtype" style="width:15%;">Band Type</th>
-                          <th class="class_tablelabel" id="id_table_Color1" style="width:20%;">C1 (RGB)</th>
-                          <th class="class_tablelabel" id="id_table_Color2" style="width:20%; border-right: none;">C2 (RGB)</th>
+                        <tr style="color:white; background-color:grey">
+                          <th class="class_tablelabel" id="id_table_Number" style="width:5%; ">#</th>
+                          <th class="class_tablelabel" id="id_table_Reference1" style="width:15%; ">Start</th>
+                          <th class="class_tablelabel" id="id_table_Reference2" style="width:15%; ">End</th>
+                          <th class="class_tablelabel" id="id_table_Bandtype" style="width:15%; ">Band Type</th>
+                          <th class="class_tablelabel" id="id_table_Color1" style="width:20%; ">C1 (RGB)</th>
+                          <th class="class_tablelabel" id="id_table_Color2" style="width:20%; ">C2 (RGB)</th>
                         </tr>
                       </table>
                     </td>
@@ -1421,7 +1642,15 @@
               </div>
 
             </div>
+
+
+            <div id="id_EditPage_GuideLineDiv" style="display:none; height:78vh; width:75vw;">
+
+              <p id="id_EditPage_GuideLineLabel class_noSizeUpdate" class="sectionLabel" style="width:100%; font-size:3vh;">Guide Line</p>
+            </div>
+
           </div>
+
 
 
         </div>
@@ -1443,6 +1672,119 @@
                     -------------- Pop Up Pages ---------------
                     -----------------------------------------------
                     -->
+
+                    <!--  -------------- Stop Working ---------------  -->
+
+                    <div id="id_PopUp_StopWorkingWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:40; top:0px; left:0px; bottom:0px; display:none;">
+
+
+                    </div>
+
+                      <!--  -------------- Export Window ---------------  -->
+                    <div id="id_PopUp_ExportWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
+
+                      <div style="margin-top:2vh; height:auto; background:white; width:80%; border: 1px solid black; margin-left:auto; margin-right:auto; overflow:auto;">
+
+                        <h3 class="class_popupWindow_Label"> Export CMS </h3>
+
+                        <div id="exportprobeDiv" style="display:flex; border:0.2vh solid grey; background:rgb(250,250,250); width:80%; margin-left:10%; margin-top:2vh; padding:1vh;">
+                            <p class="standardText class_noSizeUpdate" style="margin:0px; width:30%; height:3vh; line-height:3vh; font-size:2vh;">Select:</p>
+                            <select id="id_selectProbeListExport" class="standardText class_noSizeUpdate" name="ProbeListExport" size="8" style="width:40%; height:15vh; margin-right:auto;">
+                              <option value="0" style="font-weight:bold;">Original CMS</option>
+                            </select>
+                        </div>
+
+
+                        <div class="row"  style="display:flex; border:0.2vh solid grey; background:rgb(250,250,250); width:80%; margin-left:10%; margin-top:2vh; padding:1vh;">
+                                <p style="margin:0px; width:30%; height:3vh; line-height:3vh; font-size:2vh;">Space Notation:</p>
+                                <div class="row">
+                                  <button class="class_generalbutton class_noSizeUpdate" id="button_ExportSpaceRGB" onclick="changeExportColorspace(0)" title="RGB"  style="border-radius: 0.5vh; width: 5vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;">RGB</button>
+                                  <button class="class_generalbutton class_noSizeUpdate" id="button_ExportSpaceHSV" onclick="changeExportColorspace(1)" title="HSV"  style="border-radius: 0.5vh; width: 5vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;">HSV</button>
+                                  <button class="class_generalbutton class_noSizeUpdate" id="button_ExportSpaceLAB" onclick="changeExportColorspace(2)" title="LAB"  style="border-radius: 0.5vh; width: 5vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;">LAB</button>
+                                  <button class="class_generalbutton class_noSizeUpdate" id="button_ExportSpaceDIN99" onclick="changeExportColorspace(3)" title="DIN99" style="border-radius: 0.5vh; width: 5vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;">DIN99</button>
+                                </div>
+                        </div>
+
+
+                        <div style="display:flex; border:0.2vh solid grey; background:rgb(250,250,250); width:80%; margin-left:10%; margin-top:2vh; padding:1vh;">
+
+                            <p class="standardText class_noSizeUpdate" style="margin:0px; width:30%; height:3vh; line-height:3vh; font-size:2vh;">Interval Options:</p>
+
+                            <p class="standardText class_noSizeUpdate"  style="margin:0px; width:30%; height:3vh; line-height:3vh; font-size:2vh;"> Number of Intervals: </p>
+                            <input id="id_ExportIntervalNum" type="number"  value="200" step="1" min="1" style=" height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; margin:auto; margin-left:1vw; margin-right:auto;">
+
+                        </div>
+
+
+                        <div style="display:flex; border:0.2vh solid grey; background:rgb(250,250,250); width:80%; margin-left:10%; margin-top:2vh; padding:1vh;">
+
+                            <p class="standardText class_noSizeUpdate" style="margin:0px; width:30%; height:3vh; line-height:3vh; font-size:2vh;">Handle Twin Issue :</p>
+                            <button class="class_generalbutton class_noSizeUpdate" id="id_ExportPage_Button_TwinKeyIssue" onclick="changeTwinKeyIssue()" title="TwinIssue"  style="border-radius: 0.5vh; width: 10vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;">active</button>
+
+                            <div class="helpButtonDiv" style="width:auto; margin-right:auto;">
+                              <button class="helpButton class_noSizeUpdate" style="margin-right:auto; border-radius: 0.5vh; height:3vh; line-height:3vh; font-weight:bold; text-align:center; width: 3vh; height:3vh; margin-left:1vw; border: 0.2vh solid black;">?</button>
+                              <div class="helpButtonDiv-content" style="border: 1px solid black; background: rgb(220,220,220); z-index:103;">
+                                <p class="standardText class_noSizeUpdate" style="padding:1vh; height:auto; font-size: 1.8vh; line-height: 2vh; max-width:40vw; z-index:103; "> <strong>Info:</strong> There are visualization tools, which cannot handle the two colors of the twin keys with the same reference value. By activating this solution, the algorithm is adding a 0.00001-factor of the CMS-range to the reference value of the right key-color of all twin keys.
+                                </p>
+                              </div>
+                            </div>
+                        </div>
+
+
+                        <div style="display:flex; border:0.2vh solid grey; background:rgb(250,250,250); width:80%; margin-left:10%; margin-top:2vh; padding:1vh;">
+                            <p class="standardText class_noSizeUpdate" style="margin:0px; width:30%; height:3vh; line-height:3vh; font-size:2vh;">Format:</p>
+                            <button class="class_generalbutton class_noSizeUpdate" id="button_ExportFormatXML" onclick="changeOutputformat(1)" title="XML"  style="border-radius: 0.5vh; width: 5vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;">XML</button>
+                            <button class="class_generalbutton class_noSizeUpdate" id="button_ExportFormatJSON" onclick="changeOutputformat(2)" title="JSON"  style="border-radius: 0.5vh; width: 5vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;">JSON</button>
+                            <button class="class_generalbutton class_noSizeUpdate" id="button_ExportFormatCSV" onclick="changeOutputformat(0)" title="CSV"  style="border-radius: 0.5vh; width: 5vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;">CSV</button>
+                        </div>
+
+
+                        <div style="border:0.2vh solid grey; background:rgb(250,250,250); width:80%; margin-left:10%; margin-top:2vh; padding:1vh; padding-bottom:1vh;">
+
+                          <h2 class="subsectionLabel class_noSizeUpdate" style="margin:0px; width:30%; height:3vh; line-height:3vh; font-size:2vh;">Table:</h2>
+
+                              <table cellspacing="0" cellpadding="0" style="width:100%;">
+                                <tr>
+                                  <td>
+                                    <table cellspacing="0" cellpadding="1" style="width:100%;">
+                                      <tr style="color:white;background-color:grey; ">
+                                        <th class="class_tablelabel" style="width:5%;  background:grey; border:none;">#</th>
+                                        <th class="class_tablelabel" style="width:20%; border-color:black; background:grey;border:none;">Scalar</th>
+                                        <th class="class_tablelabel" style="width:10%; border-color:black; background:grey;border:none;">Type</th>
+                                        <th class="class_tablelabel" id="id_table_exportColor1" style=" width:60%; border-color:black; background:grey;border:none;">Color (RGB)</th>
+                                        <th class="class_tablelabel" style="width:5%;  border-color:black; background:grey;border:none;"></th>
+                                      </tr>
+                                    </table>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <div style="width:100%; height:25vh; overflow:auto;">
+                                      <table cellspacing="0" cellpadding="1" id="id_table_export" style="width:100%; border: 0.1vh solid black;">
+                                        <tbody id="id_exportTableBody">
+
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                  </td>
+                                </tr>
+                              </table>
+
+
+                        </div>
+
+                        <div class="row" style="margin-top:1vh; margin-bottom:1vh; width:100%;">
+                          <button class="class_generalbutton class_noSizeUpdate" onclick="closeExportWindow()" title="cancel" style=" width: 30%; height:4vh; line-height:4vh; font-size:2.6vh; border-width: 0.2vh; margin-left:15%;"> Cancel </button>
+                          <button class="class_generalbutton class_noSizeUpdate" onclick="downloadCMSFile()" title="export" style=" width: 30%; height:4vh; line-height:4vh; font-size:2.6vh; border-width: 0.2vh; margin-left:10%;"> Export </button>
+                        </div>
+                      </div>
+                    </div>
+
+
+
+
+  <!--  ----------------	Filter Window	  -------------   -->
+
 
     <div id="id_PopUp_FilterWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
 
@@ -1630,8 +1972,8 @@
         <p id="id_popupWindow_ScaleInfoText" class="standardText class_noSizeUpdate" style="margin-left:auto; margin-right:auto; line-height:2.5vh; font-size:2.2vh; color:red; display:none;">The range start has to be smaller than the range end!</p>
 
         <div class="row" style="margin-top:2vh; margin-bottom:2vh; width:100%;">
-          <button class="class_generalbutton class_noSizeUpdate" onclick="closeScale()" title="close" style=" width: 30%; height:6vh; line-height:6vh; font-size:3vh; margin-left:15%;"> Cancel </button>
-          <button class="class_generalbutton class_noSizeUpdate" onclick="checkScale()" title="check" style=" width: 30%; height:6vh; line-height:6vh; font-size:3vh; margin-left:10%;"> Scale! </button>
+          <button class="class_generalbutton class_noSizeUpdate" onclick="closeScale()" title="close" style=" width: 30%; height:6vh; line-height:6vh; font-size:3vh; border-width: 0.2vh; margin-left:15%;"> Cancel </button>
+          <button class="class_generalbutton class_noSizeUpdate" onclick="checkScale()" title="check" style=" width: 30%; height:6vh; line-height:6vh; font-size:3vh; border-width: 0.2vh; margin-left:10%;"> Scale! </button>
         </div>
       </div>
 
@@ -1655,11 +1997,11 @@
       <div class="row" style="width:100%;">
 
 
-        <img src="img/alertPage.png" style="width:10%; margin-left:10%; margin-top:auto; margin-bottom:auto;">
+        <img src="img/alertPage.png" style="max-width:20%; max-height:20vh; margin-left:5%; margin-top:auto; margin-bottom:auto;">
 
 
 
-        <div style="width:60%; margin-left:10%; margin-right:10%; margin-top:auto; margin-bottom:auto;">
+        <div style="width:60%; margin-left:10%; margin-right:5%; margin-top:auto; margin-bottom:auto;">
           <p id="id_alertText" class="standardText class_noSizeUpdate" style="width:100%; text-align:left; height:20vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; margin-top:2vh; margin-bottom:2vh; padding:1vh; border: 0.1vh solid rgb(240,240,240);">
           </p>
 
@@ -1838,11 +2180,7 @@
 
   </div>
 
-  <!--
-                          ----------------------------------------------------
-                          ----------------	Ask Window	  -------------
-                          ---------------------------------------------------
-                          -->
+  <!------------------	Ask Window	  --------------->
 
   <div id="popupAskWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
 
@@ -1851,20 +2189,20 @@
       <h3 name="constStyle" class="class_popupWindow_Label"> Confirm </h3>
 
 
-      <div class="row" style="width:100%;">
+      <div class="row" style="width:100%; height:auto;">
 
 
-        <img src="img/askPage.png" style="width:15%; margin-left:7.5%; margin-top:auto; margin-bottom:auto;">
+        <img src="img/askPage.png" style=" max-width:20%; max-height:20vh; margin-left:5%; margin-top:auto; margin-bottom:auto;">
 
 
 
-        <div style="width:60%; margin-left:10%; margin-right:10%; margin-top:auto; margin-bottom:auto;">
+        <div style="width:60%; margin-left:10%; margin-right:5%;">
           <p id="id_askText" style="width:100%; text-align:left; height:20vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; margin-top:2vh; margin-bottom:2vh; padding:1vh; border: 0.1vh solid rgb(240,240,240);">
           </p>
 
           <div class="row" style="margin-top:2vh; margin-bottom:2vh; width:100%;">
-            <button class="class_generalbutton class_noSizeUpdate" onclick="closeAsk()" title="close" style=" width: 30%; height:6vh; line-height:6vh; font-size:3vh; margin-left:15%;"> Cancel </button>
-            <button class="class_generalbutton class_noSizeUpdate" onclick="checkAsk()" title="check" style=" width: 30%; height:6vh; line-height:6vh; font-size:3vh; margin-left:10%;"> Do it! </button>
+            <button class="class_generalbutton class_noSizeUpdate" onclick="closeAsk()" title="close" style=" width: 30%; height:6vh; line-height:6vh; font-size:3vh; border-width: 0.2vh; margin-left:15%;"> Cancel </button>
+            <button class="class_generalbutton class_noSizeUpdate" onclick="checkAsk()" title="check" style=" width: 30%; height:6vh; line-height:6vh; font-size:3vh; border-width: 0.2vh; margin-left:10%;"> Do it! </button>
           </div>
         </div>
 
@@ -1882,26 +2220,32 @@
               -----------------------------------------------
               -->
 
-  <div id="footerDiv" style="width: 100vw; height: 10vh; margin:0px; z-index:100; padding-top: 10px; padding-bottom: 10px; background:url(img/background3.png); position:fixed; left:0px;">
 
-    <div class="row" style="width: 100%; height: 100%;">
-      <img title="University Leipzig" src="img/Logos/university_leipzig.png" style="margin-left:auto; height: 80%; cursor: pointer; margin-top:auto; margin-bottom:auto;">
-      <img title="BSV Workgroup, University Leipzig" src="img/Logos/bsv_logo_small.png" style="margin-left:auto; height: 80%; cursor: pointer; margin-top:auto; margin-bottom:auto;">
-      <img title="University Oxford" src="img/Logos/oxford.png" style="margin-left:auto; height: 80%; cursor: pointer; margin-top:auto; margin-bottom:auto;">
-      <img title="U.S. Department of Energy" src="img/Logos/CMYK_Color-Seal_Green-Mark_SC_Vertical.png" style="margin-left:auto; height: 80%; cursor: pointer; margin-top:auto; margin-bottom:auto;">
-      <img title="Los Alamos National Laboratory" src="img/Logos/logo_LANLsm.png" style="margin-left:auto; height: 80%; cursor: pointer; margin-top:auto; margin-bottom:auto;">
-      <img title="University of Texas at Austin" src="img/Logos/UT.png" style="margin-left:auto; height: 80%; cursor: pointer; margin-top:auto; margin-bottom:auto;">
 
-      <div style="margin-left:auto; margin-right:auto; height: 100%;">
-        <p id="id_footer_impressum" onclick="openImpressum()" style="color:white; margin-bottom:auto; margin-top:auto; font-size:2.5vh; vertical-align: middle; text-decoration:underline; cursor:pointer; margin:0px; font-family:courier;">Impressum / Contact</p>
-        <p id="id_footer_copyRight" style="color:white; vertical-align: middle; font-size:2vh; margin:0px; margin-bottom:auto; font-family:courier;"> Copyright © 2018 </p>
-        <p id="id_footer_version" style=" margin:0px; height:15px; vertical-align: middle; color:white; font-size:1.5vh; margin-bottom:auto; font-family:courier;"> Version: 0.6.0 </p>
+
+
+  <div id="footerDiv" style="width: 100vw; height:13vh; margin:0px; z-index:100; background:url(img/background3.png);">
+
+      <div style=" width:100%; height:auto; margin-top:1vh; display:flex; ">
+        <img title="University Leipzig" src="img/Logos/university_leipzig.png" style="margin-left:2.5vw; max-width: 12.5%; max-height:10vh; cursor: pointer; margin-top:auto; margin-bottom:auto;">
+        <img title="BSV Workgroup, University Leipzig" src="img/Logos/bsv_logo_small.png" style="margin-left:auto; max-width: 12.5%; max-height:10vh; cursor: pointer; margin-top:auto; margin-bottom:auto;">
+        <img title="University Oxford" src="img/Logos/oxford.png" style="margin-left:auto; max-width: 12.5%; max-height:10vh; cursor: pointer; margin-top:auto; margin-bottom:auto;">
+        <img title="U.S. Department of Energy" src="img/Logos/CMYK_Color-Seal_Green-Mark_SC_Vertical.png" style="margin-left:auto; max-width: 12.5%; max-height:10vh; cursor: pointer; margin-top:auto; margin-bottom:auto;">
+        <img title="Los Alamos National Laboratory" src="img/Logos/logo_LANLsm.png" style="margin-left:auto; max-width: 12.5%; max-height:10vh; cursor: pointer; margin-top:auto; margin-bottom:auto;">
+        <img title="University of Texas at Austin" src="img/Logos/UT.png" style="margin-left:auto; margin-right:2.5vw; max-width: 12.5%; max-height:10vh; cursor: pointer; margin-top:auto; margin-bottom:auto;">
       </div>
 
-    </div>
+      <div style=" width:100%; display:flex; margin-top:1vh; border-top:1px solid grey;">
+          <p id="id_footer_version" style="margin:0px; margin-left:2.5vw; margin-right:auto; vertical-align: middle; color:white; height:2.5vh; font-size:1.5vh;"> Version: 0.6.0 </p>
+          <p id="id_footer_copyRight" style="margin:0px; margin-right:2.5vw; color:white; vertical-align: middle; height:2.5vh; font-size:1.5vh;"> Copyright © 2018 </p>
+      </div>
+
+
 
     <!--hr style="color:white;"-->
   </div>
+
+
 
 
 

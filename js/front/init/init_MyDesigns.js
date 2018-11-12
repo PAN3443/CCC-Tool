@@ -133,6 +133,15 @@ function createMyDesignObject(id){
   exportButton.className = "class_MyDesignButton";
   exportButton.style.backgroundImage = "url(img/exportButton_grey.png)";
   exportButton.style.cursor="not-allowed";
+
+  exportButton.onclick = (function(cmsID) {
+  return function() {
+     if(cmsID<=myDesignsList.length-1){
+       globalCMS1=myDesignsList[cmsID];
+       openExportWindow();
+     }
+  };
+  })(id);
   tmpSubDiv1_Buttons.appendChild(exportButton);
 
   var tmpSubDiv2_Buttons = document.createElement('div');
