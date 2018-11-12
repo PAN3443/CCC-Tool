@@ -30,116 +30,168 @@ function rgb2DAnimation(){
 
 }
 
+
+
+
 function mouseMoveColorspaceRGB(event) {
-  var index;
+  var tmpIndex;
+  var mode = "";
   switch (event.target.id) {
     case "id_EditPage_PathPlot_BigCanvas_2":
-      index=pathCanvasAssignmentBig;
+      tmpIndex=pathCanvasAssignmentBig;
       break;
     case "id_EditPage_PathPlot_SmallTopCanvas_2":
-      index=pathCanvasAssignmentSmallTop;
+      tmpIndex=pathCanvasAssignmentSmallTop;
       break;
     case "id_EditPage_PathPlot_SmallBottomCanvas_2":
-      index=pathCanvasAssignmentSmallBottom;
+      tmpIndex=pathCanvasAssignmentSmallBottom;
       break;
     default:
       return;
   }
+
+  switch (tmpIndex) {
+    case 0:
+      mode = "rg";
+      break;
+    case 1:
+      mode = "rb";
+      break;
+    case 2:
+      mode = "bg";
+      break;
+    default:
+      return;
+  }
+
   // calc mouse pos
   var rect = document.getElementById(event.target.id).getBoundingClientRect();
   var canvasPosX = event.clientX - rect.left;
   var canvasPosY = event.clientY - rect.top;
-  var ratioToColorspaceResolutionX = hue_resolution_X / rect.width;
-  var ratioToColorspaceResolutionY = hue_resolution_Y / rect.height;
-  mousePosX = canvasPosX * ratioToColorspaceResolutionX;
-  mousePosY = canvasPosY * ratioToColorspaceResolutionY;
-  var xStart = hue_resolution_X*0.1;
-  var yStart = hue_resolution_Y*0.9;
-  var xEnd = hue_resolution_X*0.8;
-  var yEnd = hue_resolution_Y*0.2;
+  //var ratioToColorspaceResolutionX = hue_resolution_X / rect.width;
+  //var ratioToColorspaceResolutionY = hue_resolution_Y / rect.height;
+  mousePosX = canvasPosX;// * ratioToColorspaceResolutionX;
+  mousePosY = canvasPosY;// * ratioToColorspaceResolutionY;
+  var xStart = document.getElementById(event.target.id).width*0.1;
+  var yStart = document.getElementById(event.target.id).height*0.9;
+  var xEnd = document.getElementById(event.target.id).width*0.8;
+  var yEnd = document.getElementById(event.target.id).height*0.2;
   var xWidth = xEnd-xStart;
   var yHeight =yStart-yEnd;
 
   // check if mouse is above a element
 
   if(mouseGrappedKeyID==-1){
-      for (var i = 0; i < spaceElementsType.length; i++) {
 
-        if (mouseAboveKeyID == spaceElementsKey[i]) {
-          if (spaceElementsType[i] == true) {
-            // Circle -> Part of Scaled Band
-            var dis = Math.sqrt(Math.pow(spaceElementsXPos[i][index] - mousePosX, 2) + Math.pow(spaceElementsYPos[i][index] - mousePosY, 2));
-            if (dis > bigcircleRad) {
-              mouseAboveKeyID = -1;
-              mouseGrappedColorSide = -1;
+    var found = false;
+    document.getElementById(event.target.id).style.cursor = "default";
+    var oldmouseAboveKeyID = mouseAboveKeyID;
 
-                  drawcolormap_RGBSpace(false,false);
 
-              document.getElementById(event.target.id).style.cursor = "default";
-              break;
-            } else {
-              break;
-            }
-          } else {
-            if (spaceElementsXPos[i][index] != -1) {
-              // QUAD -> Constant Band
+    for (var i = 0; i < globalCMS1.getKeyLength(); i++) {
 
-              //var dis = Math.sqrt(Math.pow(spaceElementsXPos[i]-mousePosX,2)+Math.pow(spaceElementsYPos[i]-mousePosY,2));
+      var position = [-1,-1];
 
-              if (mousePosX < spaceElementsXPos[i][index] - bigcircleRad ||
-                mousePosX > spaceElementsXPos[i][index] + bigcircleRad ||
-                mousePosY < spaceElementsYPos[i][index] - bigcircleRad ||
-                mousePosY > spaceElementsYPos[i][index] + bigcircleRad) {
-                mouseAboveKeyID = -1;
-                mouseGrappedColorSide = -1;
+      switch (globalCMS1.getKeyType(i)) {
+        case "nil key":
+          // do nothing
 
-                drawcolormap_RGBSpace(false,false);
+          break;
+        case "twin key":
 
-                document.getElementById(event.target.id).style.cursor = "default";
-                break;
-              } else {
-                break;
-              }
+        ////////////////////////////////////////////////////////////////
+        /////// left Color
 
-            }
+          tmpColor = globalCMS1.getLeftKeyColor(i, "rgb");
+
+          var drawCircle = true;
+          if (globalCMS1.getKeyType(i - 1) === "nil key" || globalCMS1.getKeyType(i - 1) === "left key")
+            drawCircle = false;
+
+          position =  getRGBXYPos(tmpColor,xWidth,yHeight,xStart,yStart,mode);
+
+
+          if(checkPlotPosition(position[0], position[1], i, 0, drawCircle)){
+              displayColor=tmpColor;
+              found = true;
           }
-        }
 
-        if (spaceElementsType[i] == true) {
-          // Circle -> Part of Scaled Band
-          var dis = Math.sqrt(Math.pow(spaceElementsXPos[i][index] - mousePosX, 2) + Math.pow(spaceElementsYPos[i][index] - mousePosY, 2));
 
-          if (dis <= circleRad) {
-            mouseAboveKeyID = spaceElementsKey[i];
-            mouseGrappedColorSide = spaceElementsColor[i];
-            document.getElementById(event.target.id).style.cursor = "pointer";
-            drawcolormap_RGBSpace(false,false);
+          ////////////////////////////////////////////////////////////////
+          /////// Right Color
+
+          tmpColor = globalCMS1.getRightKeyColor(i, "rgb");
+
+          position =  getRGBXYPos(tmpColor,xWidth,yHeight,xStart,yStart,mode);
+
+          if(checkPlotPosition(position[0], position[1], i, 1, drawCircle)){
+              displayColor=tmpColor;
+              found = true;
+          }
+
+          break;
+        case "left key":
+
+          var drawCircle = true;
+          if (globalCMS1.getKeyType(i - 1) === "nil key" || globalCMS1.getKeyType(i - 1) === "left key")
+            drawCircle = false;
+
+          ////////////////////////////////////////////////////////////////
+          /////// left Color
+
+          tmpColor = globalCMS1.getLeftKeyColor(i, "rgb");
+
+          position =  getRGBXYPos(tmpColor,xWidth,yHeight,xStart,yStart,mode);
+
+          if(checkPlotPosition(position[0], position[1], i, 0, drawCircle)){
+              displayColor=tmpColor;
+              found = true;
+          }
+
+
+          ////////////////////////////////////////////////////////
+          ///// Right Color
+
+            // do nothing
             break;
+
+          case "right key":
+
+          tmpColor = globalCMS1.getRightKeyColor(i, "rgb"); // right color because of right key
+
+          position = getRGBXYPos(tmpColor,xWidth,yHeight,xStart,yStart,mode);
+
+          if(checkPlotPosition(position[0], position[1], i, 1, drawCircle)){
+              displayColor=tmpColor;
+              found = true;
+          }
+
+          break;
+        default:
+          // dual Key
+
+          tmpColor = globalCMS1.getRightKeyColor(i, "rgb"); // right color because of right key
+
+          position =  getRGBXYPos(tmpColor,xWidth,yHeight,xStart,yStart,mode);
+
+          if(checkPlotPosition(position[0], position[1], i, 2, drawCircle)){
+              displayColor=tmpColor;
+              found = true;
           }
 
 
-        } else {
-          if (spaceElementsXPos[i][index] != -1) {
-            // QUAD -> Constant Band
-
-            var dis = Math.sqrt(Math.pow(spaceElementsXPos[i][index] - mousePosX, 2) + Math.pow(spaceElementsYPos[i][index] - mousePosY, 2));
-
-            if (mousePosX >= spaceElementsXPos[i][index] - circleRad &&
-              mousePosX <= spaceElementsXPos[i][index] + circleRad &&
-              mousePosY >= spaceElementsYPos[i][index] - circleRad &&
-              mousePosY <= spaceElementsYPos[i][index] + circleRad) {
-              mouseAboveKeyID = spaceElementsKey[i];
-              mouseGrappedColorSide = spaceElementsColor[i];
-              document.getElementById(event.target.id).style.cursor = "pointer";
-
-                drawcolormap_RGBSpace(false,false);
-
-              break;
-            }
-
-          }
-        }
       }
+
+      if(found){
+        document.getElementById(event.target.id).style.cursor = "pointer";
+        break;
+      }
+
+    }
+
+
+    if(oldmouseAboveKeyID!=mouseAboveKeyID)
+      drawcolormap_RGBSpace(false,false);
   }
   else{
 
@@ -152,23 +204,6 @@ function mouseMoveColorspaceRGB(event) {
     var val2 = (yStart-mousePosY)/yHeight;
 
     if (val1>=0 && val1<=1 && val2>=0 && val2<=1){
-
-      var tmpIndex;
-      switch (event.target.id) {
-        case "id_EditPage_PathPlot_BigCanvas_2":
-          tmpIndex=pathCanvasAssignmentBig;
-          break;
-        case "id_EditPage_PathPlot_SmallTopCanvas_2":
-          tmpIndex=pathCanvasAssignmentSmallTop;
-          break;
-        case "id_EditPage_PathPlot_SmallBottomCanvas_2":
-          tmpIndex=pathCanvasAssignmentSmallBottom;
-          break;
-        default:
-          return;
-
-      }
-
 
       switch (tmpIndex) {
         case 0:

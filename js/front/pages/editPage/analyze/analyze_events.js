@@ -4,9 +4,9 @@ function updateAnalyze(){
       return;
 
 
-    id_EditPage_AnalyzePlot_Container
 
-    switch (analyzePlotType) {
+
+    /*switch (analyzePlotType) {
       case 0:
 
         break;
@@ -24,7 +24,7 @@ function updateAnalyze(){
                 break;
       default:
 
-    }
+    }*/
 
 }
 
@@ -43,7 +43,7 @@ function changeAnalyzeType(type){
     case 0:
       document.getElementById("id_EditPage_AnalyzePlot_Space").style.background="rgb(76, 175, 80)";
       document.getElementById("id_EditPage_Analyze_Label").innerHTML = "Plot : Interpolation Spaces";
-styleStructure_InterpolationSpaces();
+      styleStructure_InterpolationSpaces();
       break;
       case 1:
         document.getElementById("id_EditPage_AnalyzePlot_BandSpeed").style.background="rgb(76, 175, 80)";
@@ -63,7 +63,7 @@ styleStructure_InterpolationSpaces();
             case 4:
               document.getElementById("id_EditPage_AnalyzePlot_Order").style.background="rgb(76, 175, 80)";
               document.getElementById("id_EditPage_Analyze_Label").innerHTML = "Plot : Order";
-styleStructure_Order();
+              styleStructure_Order();
               break;
     default:
 

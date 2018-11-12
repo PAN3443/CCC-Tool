@@ -8,5 +8,5 @@ function styleStructure_InterpolationSpaces(){
     document.getElementById("id_EditPage_AnalyzePlot_Container").style.display = "flex";
     document.getElementById("id_EditPage_Analyze_EmptyDiv").style.display = "none";
   }
-  
+
 }

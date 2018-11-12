@@ -321,6 +321,16 @@ function mouseLeaveValuePlot(event) {
   }
 }
 ////////////////////////////////////////////////////////////////////////////////
+
+
+function checkPlotPosition(centerPosX, centerPosY, i, colorside, isCircle){
+
+  if(isCircle)
+    return checkInsideCirce(centerPosX, centerPosY, i, colorside);
+  else
+    return checkInsideRect(centerPosX, centerPosY, i, colorside);
+}
+
 function checkInsideRect(centerPosX, centerPosY, i, colorside) {
   if (mouseAboveKeyID == i) {
 
@@ -364,7 +374,7 @@ function checkInsideCirce(centerPosX, centerPosY, i, colorside) {
     if (dis > bigcircleRad) {
       mouseAboveKeyID = -1;
 
-        drawcolormap_hueSpace(false,false,false);
+        //drawcolormap_hueSpace(false,false,false);
 
       return false;
     } else {
@@ -378,7 +388,7 @@ function checkInsideCirce(centerPosX, centerPosY, i, colorside) {
     if (dis <= circleRad) {
       mouseAboveKeyID = i;
       mouseGrappedColorSide=colorside;
-        drawcolormap_hueSpace(false,false,false);
+        //drawcolormap_hueSpace(false,false,false);
       return true;
     } else {
       return false;

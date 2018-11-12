@@ -36,6 +36,13 @@ var customScaleBandColor2 = new classColor_RGB(0.0,0.0,0.0);
 
 
 // Colormap Path
+ 
+var spaceElementsXPos = [];
+var spaceElementsYPos = [];
+var spaceElementsType = [];
+var spaceElementsKey = [];
+var spaceElementsColor = [];
+
 var pathColorspace = "lab";
 var onlyRGBPossibleColor = true;
 var backgroundValue = 0;

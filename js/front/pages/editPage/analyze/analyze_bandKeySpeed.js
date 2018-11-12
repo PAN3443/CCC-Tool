@@ -1,4 +1,4 @@
-function styleStructure_KeySpeed(){
+function styleStructure_BandSpeed(){
 
   if(globalCMS1.getKeyLength()==0){
     document.getElementById("id_EditPage_Analyze_EmptyDiv").style.display = "flex";
