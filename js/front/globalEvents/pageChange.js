@@ -35,7 +35,7 @@ function startLeaveEditPage(){
   document.getElementById("id_EditPage_interpolationPartDiv").style.display="none";
   document.getElementById("id_EditPage_cmsTablePartDiv").style.display="none";
   document.getElementById("id_EditPage_GuideLineDiv").style.display="none";
-  //document.getElementById("id_EditPage_StopInteractionDiv").style.width="0%"
+  document.getElementById("id_PopUp_StopWorkingWindow").style.display="none";
 
 
   if(somethingChanged){
