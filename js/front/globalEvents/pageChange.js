@@ -36,6 +36,9 @@ function startLeaveEditPage(){
   document.getElementById("id_EditPage_cmsTablePartDiv").style.display="none";
   document.getElementById("id_EditPage_GuideLineDiv").style.display="none";
   document.getElementById("id_PopUp_StopWorkingWindow").style.display="none";
+  document.getElementById("id_EditPage_guideLinePartButton").style.visibility="visible";
+  document.getElementById("id_EditPage_cmsProbePartButton").style.visibility="visible";
+  document.getElementById("id_EditPage_cmsTablePartButton").style.visibility="visible";
 
 
   if(somethingChanged){
