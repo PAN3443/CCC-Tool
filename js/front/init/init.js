@@ -227,6 +227,10 @@ function init_CCCPageStyle(){
     tmpElementList = document.getElementsByClassName('class_EditDivLabel');
     var tmpHeight4 = Math.floor(tmpHeight3*0.08);
     for (var i = 0; i < tmpElementList.length; ++i) {
+
+      if (tmpElementList[i].classList.contains("class_noSizeUpdate"))
+        continue;
+
         tmpElementList[i].style.height =  tmpHeight4 + "px";
         tmpElementList[i].style.lineHeight =  tmpHeight4 + "px";
     }
@@ -234,6 +238,10 @@ function init_CCCPageStyle(){
     tmpElementList = document.getElementsByClassName('class_EditDiv_SubDiv');
     tmpHeight4 = Math.floor(tmpHeight3*0.92);
     for (var i = 0; i < tmpElementList.length; ++i) {
+
+      if (tmpElementList[i].classList.contains("class_noSizeUpdate"))
+        continue;
+        
         tmpElementList[i].style.height =  tmpHeight4 + "px";
         tmpElementList[i].style.maxHeight =  tmpHeight4 + "px";
         tmpElementList[i].style.minHeight =  tmpHeight4 + "px";

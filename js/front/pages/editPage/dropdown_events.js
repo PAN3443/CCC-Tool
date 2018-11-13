@@ -3,6 +3,8 @@ function activateDropdown(event) {
     var dropdownID, labelID;
     labelID = event.target.id;
 
+    var doAbsolute = false;
+
     switch (labelID) {
       case "id_editPage_OrderPredefinedLabel":
         dropdownID = "id_editPage_OrderPredefinedDropdown";
@@ -16,6 +18,16 @@ function activateDropdown(event) {
             case "id_EditPage_AnalyzeOptions_Label":
               dropdownID = "id_EditPage_AnalyzeOptions_Dropdown";
               break;
+              case "id_EditPage_selectProbeTypeLabel":
+                doAbsolute = true;
+                dropdownID = "id_EditPage_selectProbeTypeDropDown";
+                document.getElementById("id_EditPage_selectProbeSubTypeDropDown").style.display="none";
+                break;
+                case "id_EditPage_selectProbeSubTypeLabel":
+                  doAbsolute = true;
+                  dropdownID = "id_EditPage_selectProbeSubTypeDropDown";
+                  document.getElementById("id_EditPage_selectProbeTypeDropDown").style.display="none";
+                  break;
       default:
         return;
     }
@@ -39,8 +51,16 @@ function activateDropdown(event) {
       var clientTop = docEl.clientTop || body.clientTop || 0;
       var clientLeft = docEl.clientLeft || body.clientLeft || 0;
 
-      var top = box.top + scrollTop - clientTop;
-      var left = box.left+ scrollLeft - clientLeft;
+      var top,left;
+      if(doAbsolute){
+        top =  refObj.offsetTop;
+        left = refObj.offsetLeft;
+      }
+      else{
+        top = box.top + scrollTop - clientTop;
+        left = box.left+ scrollLeft - clientLeft;
+      }
+
 
       document.getElementById(dropdownID).style.top=(top+box.height)+"px";
       document.getElementById(dropdownID).style.left=(left+box.width-dropdownBox.width)+"px";

@@ -170,15 +170,7 @@ function showProbeDiv() {
     document.getElementById("id_EditPage_cmsTablePartButton").style.visibility="hidden";
       document.getElementById("id_PopUp_StopWorkingWindow").style.display="block";
 
-      if(globalCMS1.getProbeLength()==0){
-
-        document.getElementById("id_EditPage_generateProbeSet").style.display="block";
-        document.getElementById("id_EditPage_editProbe").style.display="none";
-      }
-      else{
-        document.getElementById("id_EditPage_editProbe").style.display="block";
-        document.getElementById("id_EditPage_generateProbeSet").style.display="none";
-      }
+      initProbePage();
 
   }
   else {
