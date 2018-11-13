@@ -114,7 +114,7 @@ function createMyDesignObject(id){
   var editButton = document.createElement("div");
   editButton.id="myDesignObj_editButton_"+id;
   editButton.className = "class_MyDesignButton";
-  editButton.style.backgroundImage = "url(img/editButton_grey.png)";
+  editButton.style.backgroundImage = "url(img/Buttons/editButton_grey.png)";
   editButton.style.cursor="not-allowed";
 
 
@@ -131,7 +131,7 @@ function createMyDesignObject(id){
   var exportButton = document.createElement("div");
   exportButton.id="myDesignObj_exportButton_"+id;
   exportButton.className = "class_MyDesignButton";
-  exportButton.style.backgroundImage = "url(img/exportButton_grey.png)";
+  exportButton.style.backgroundImage = "url(img/Buttons/exportButton_grey.png)";
   exportButton.style.cursor="not-allowed";
 
   exportButton.onclick = (function(cmsID) {
@@ -150,14 +150,14 @@ function createMyDesignObject(id){
   var shareButton = document.createElement("div");
   shareButton.id="myDesignObj_shareButton_"+id;
   shareButton.className = "class_MyDesignButton";
-  shareButton.style.backgroundImage = "url(img/shareButton_grey.png)";
+  shareButton.style.backgroundImage = "url(img/Buttons/shareButton_grey.png)";
   shareButton.style.cursor="not-allowed";
   tmpSubDiv2_Buttons.appendChild(shareButton);
 
   var deleteButton = document.createElement("div");
   deleteButton.id="myDesignObj_deleteButton_"+id;
   deleteButton.className = "class_MyDesignButton";
-  deleteButton.style.backgroundImage = "url(img/trashButton_grey.png)";
+  deleteButton.style.backgroundImage = "url(img/Buttons/trashButton_grey.png)";
   deleteButton.style.cursor="not-allowed";
 
   deleteButton.onclick = (function(cmsID) {

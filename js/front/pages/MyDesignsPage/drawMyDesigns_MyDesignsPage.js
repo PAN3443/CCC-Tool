@@ -11,10 +11,10 @@ function drawMyDesigns(){
         drawBandSketch(myDesignsList[i],"myDesignObj_CMSsketch_"+i, false, -1);
         document.getElementById("myDesignObj_CMSsketch_"+i).style.border = "2px solid black";
 
-        document.getElementById("myDesignObj_editButton_"+i).style.backgroundImage = "url(img/editButton_black.png)";
-        document.getElementById("myDesignObj_exportButton_"+i).style.backgroundImage = "url(img/exportButton_black.png)";
-        //document.getElementById("myDesignObj_shareButton_"+i).style.backgroundImage = "url(img/shareButton_black.png)";
-        document.getElementById("myDesignObj_deleteButton_"+i).style.backgroundImage = "url(img/trashButton_black.png)";
+        document.getElementById("myDesignObj_editButton_"+i).style.backgroundImage = "url(img/Buttons/editButton_black.png)";
+        document.getElementById("myDesignObj_exportButton_"+i).style.backgroundImage = "url(img/Buttons/exportButton_black.png)";
+        //document.getElementById("myDesignObj_shareButton_"+i).style.backgroundImage = "url(img/Buttons/shareButton_black.png)";
+        document.getElementById("myDesignObj_deleteButton_"+i).style.backgroundImage = "url(img/Buttons/trashButton_black.png)";
         document.getElementById("myDesignObj_editButton_"+i).style.borderColor = "black";
         document.getElementById("myDesignObj_exportButton_"+i).style.borderColor = "black";
         //document.getElementById("myDesignObj_shareButton_"+i).style.borderColor = "black";
@@ -46,10 +46,10 @@ function drawMyDesigns(){
       canvasObject.style.borderColor = "rgb(180,180,180)";
 
 
-      document.getElementById("myDesignObj_editButton_"+i).style.backgroundImage = "url(img/editButton_grey.png)";
-      document.getElementById("myDesignObj_exportButton_"+i).style.backgroundImage = "url(img/exportButton_grey.png)";
-      document.getElementById("myDesignObj_shareButton_"+i).style.backgroundImage = "url(img/shareButton_grey.png)";
-      document.getElementById("myDesignObj_deleteButton_"+i).style.backgroundImage = "url(img/trashButton_grey.png)";
+      document.getElementById("myDesignObj_editButton_"+i).style.backgroundImage = "url(img/Buttons/editButton_grey.png)";
+      document.getElementById("myDesignObj_exportButton_"+i).style.backgroundImage = "url(img/Buttons/exportButton_grey.png)";
+      document.getElementById("myDesignObj_shareButton_"+i).style.backgroundImage = "url(img/Buttons/shareButton_grey.png)";
+      document.getElementById("myDesignObj_deleteButton_"+i).style.backgroundImage = "url(img/Buttons/trashButton_grey.png)";
       document.getElementById("myDesignObj_editButton_"+i).style.borderColor = "rgb(180,180,180)";
       document.getElementById("myDesignObj_exportButton_"+i).style.borderColor = "rgb(180,180,180)";
       document.getElementById("myDesignObj_shareButton_"+i).style.borderColor = "rgb(180,180,180)";
