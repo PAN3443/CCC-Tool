@@ -557,7 +557,7 @@
               <div class="row">
                 <div id="id_EditPage_savePartDiv">
 
-                  <div id="id_EditPage_savePartInnerDiv" style="margin:2vh; height: 22vh; background:white; border:0.2vh solid rgb(255, 204, 102); ">
+                  <div id="id_EditPage_savePartInnerDiv" style="margin:2vh; height: 22vh; background:white; border:0.2vh solid rgb(51, 77, 77); ">
 
                     <button id="id_EditPage_saveButton" onclick="saveCMS()" class="class_savebutton" style="margin-left:1vw; margin-right:1vw; margin-top:2.5vh; "> Save </button>
 
@@ -580,7 +580,7 @@
                 <div id="id_EditPage_interpolationPartDiv">
 
 
-                  <div id="id_EditPage_interpolationPartInnerDiv" style="margin:2vh; height: 31vh; background:white; border:0.2vh solid rgb(204, 153, 255);  overflow:auto;">
+                  <div id="id_EditPage_interpolationPartInnerDiv" style="margin:2vh; height: 31vh; background:white; border:0.2vh solid rgb(51, 77, 77);  overflow:auto;">
 
 
                     <div class="row" style="margin:0.5vw;">
@@ -810,7 +810,77 @@
                     <div class="row" style="height:100%; ">
 
 
-                      <div style="height:100%; max-height:100%; width:33%; ">
+
+
+
+                      <div style="height:100%; width:50%; border-left:1px solid grey;">
+
+
+                        <div class="row class_EditDivLabel" style="width:100%; background: rgb(220,220,220);">
+                          <h1 class="subsectionLabel class_EditDivLabel" style="text-decoration:underline;"> Predefined CMS </h1>
+
+
+                            <div id="id_editPage_OrderPredefinedLabel" class="class_EditDivLabel" style=" width:10%; margin-right:auto; margin-top:auto; margin-bottom:auto; cursor: pointer; text-align:center; border-left:1px solid black;" title="All"> &#9660; </div>
+                              <div id="id_editPage_OrderPredefinedDropdown" style="background: url(img/background3.png); display: none; position: absolute; left: 0px; z-index: 101;">
+                                    <div id="id_editPage_Order_All"  onclick="changeFilterPredefined(0)" class="dropdownButtonEditPage">
+                                      <p class="standardText" style="margin-top:auto; margin-bottom:auto; color:white; width:180px;">All</p> <div style=" margin:5px; width: 180px; height:30px;"></div>
+                                    </div>
+                                    <div id="id_editPage_Order_Multiband" onclick="changeFilterPredefined(1)" class="dropdownButtonEditPage">
+                                      <p class="standardText" style="margin-top:auto; margin-bottom:auto; color:white; width:180px;">Multiband</p>  <canvas id="id_EditPage_Preview_Multiband" style=" margin:5px; width: 180px; height:30px; border:1px solid black;"></canvas>
+                                    </div>
+                                    <div id="id_editPage_Order_Divergent" onclick="changeFilterPredefined(2)" class="dropdownButtonEditPage">
+                                      <p class="standardText" style="margin-top:auto; margin-bottom:auto; color:white; width:180px;">Divergent</p> <canvas id="id_EditPage_Preview_Divergent" style=" margin:5px; width: 180px; height:30px; border:1px solid black;"></canvas>
+                                    </div>
+                                    <div id="id_editPage_Order_Scaled_All" onclick="changeFilterPredefined(3)" class="dropdownButtonEditPage">
+                                      <p class="standardText" style="margin-top:auto; margin-bottom:auto; color:white; width:180px;">Scaled All</p> <div style=" margin:5px; width: 180px; height:30px; border:1px solid black; background-color: black; background-image: linear-gradient(to right, white , black);"></div>
+                                    </div>
+                                    <div id="id_editPage_Order_Scaled_Blue" onclick="changeFilterPredefined(4)" class="dropdownButtonEditPage">
+                                      <p class="standardText" style="margin-top:auto; margin-bottom:auto; color:white; width:180px;">Scaled Blue</p> <canvas id="id_EditPage_Preview_ScaledBlue" style=" margin:5px; width: 180px; height:30px; border:1px solid black;"></canvas>
+                                    </div>
+                                    <div id="id_editPage_Order_Scaled_Brown" onclick="changeFilterPredefined(5)" class="dropdownButtonEditPage">
+
+                                      <p class="standardText" style="margin-top:auto; margin-bottom:auto; color:white; width:180px;">Scaled Brown</p> <canvas id="id_EditPage_Preview_ScaledBrown" style=" margin:5px; width: 180px; height:30px; border:1px solid black;"></canvas>
+                                    </div>
+                                    <div id="id_editPage_Order_Scaled_Green" onclick="changeFilterPredefined(6)" class="dropdownButtonEditPage">
+                                      <p class="standardText" style="margin-top:auto; margin-bottom:auto; color:white; width:180px;">Scaled Green</p> <canvas id="id_EditPage_Preview_ScaledGreen" style=" margin:5px; width: 180px; height:30px; border:1px solid black;"></canvas>
+                                    </div>
+                                    <div id="id_editPage_Order_Scaled_RedPurple" onclick="changeFilterPredefined(7)" class="dropdownButtonEditPage">
+                                      <p class="standardText" style="margin-top:auto; margin-bottom:auto; color:white; width:180px;">Scaled Red Purple</p> <canvas id="id_EditPage_Preview_ScaledRedPurple" style=" margin:5px; width: 180px; height:30px; border:1px solid black;"></canvas>
+                                    </div>
+                                    <div id="id_editPage_Order_Scaled_YellowOrange" onclick="changeFilterPredefined(8)" class="dropdownButtonEditPage">
+                                      <p class="standardText" style="margin-top:auto; margin-bottom:auto; color:white; width:180px;">Scaled Yellow Orange</p> <canvas id="id_EditPage_Preview_ScaledYellowOrange" style=" margin:5px; width: 180px; height:30px; border:1px solid black;"></canvas>
+                                    </div>
+                          </div>
+                        </div>
+
+                        <div id="id_EditPage_PredefinedCMS_Div" class="class_EditDiv_SubDiv" style="width:100%; height:92%; overflow-y: auto; overflow-x: hidden; border-top:1px solid grey;">
+
+                        </div>
+                      </div>
+
+
+                      <div style="height:100%; width:50%; border-left:1px solid grey;">
+
+
+                          <h1 class="subsectionLabel class_EditDivLabel" style="margin-top:auto; margin-bottom:auto; text-decoration:underline; background: rgb(220,220,220);"> MyDesigns </h1>
+
+                          <div id="id_EditPage_MyDesigns_EmptyDiv" class="row class_EditDiv_SubDiv" style="display:none; width:100%; height:92%; border-top:1px solid grey; cursor:not-allowed; background:rgb(220,220,220);">
+
+
+                              <!--img id="id_EditPage_OnlineCMS_NotAvailableImg" src="img/notAvailableImg.png" style="height:100%; margin-left:auto; margin-right:auto;"-->
+
+                              <p class="standardText" style="margin:auto; color:grey; font-weight:bold;">Empty.</p>
+
+
+                          </div>
+
+
+                          <div id="id_EditPage_MyDesigns_Div" class="class_EditDiv_SubDiv" style="width:100%; height:80%; overflow-y: auto; overflow-x: hidden; border-top:1px solid grey;">
+
+                          </div>
+                      </div>
+
+                      <div style="height:100%; max-height:100%; width:33%; display:none; ">
                         <div class="row class_EditDivLabel" style="width:100%; background: rgb(220,220,220);">
 
                           <div oonclick="openFilterWindow()" class="class_generalbutton class_noSizeUpdate class_EditDivLabel" style="width:15%; display:none; line-height: inherit; font-size:inherit; margin-top:auto; margin-bottom:auto; margin-left:2.5%; background:rgb(220,220,220); color:rgb(130,130,130); border: 2px solid rgb(130,130,130); cursor:not-allowed;">
@@ -844,77 +914,6 @@
 
                         </div>
                       </div>
-
-
-                      <div style="height:100%; width:34%; border-left:1px solid grey;">
-
-
-                        <div class="row class_EditDivLabel" style="width:100%; background: rgb(220,220,220);">
-                          <h1 class="subsectionLabel class_EditDivLabel" style="text-decoration:underline;"> Predefined CMS </h1>
-
-
-                            <div id="id_editPage_OrderPredefinedLabel" class="class_EditDivLabel" style=" width:10%; margin-right:auto; margin-top:auto; margin-bottom:auto; cursor: pointer; text-align:center; border-left:1px solid black;" title="All"> &#9660; </div>
-                              <div id="id_editPage_OrderPredefinedDropdown" style="background: url(img/background3.png); display: none; position: absolute; left: 0px; z-index: 101;  width:10%;">
-                                    <div id="id_editPage_Order_All"  onclick="changeFilterPredefined(0)" class="dropdownButtonEditPage">
-                                      All
-                                    </div>
-                                    <div id="id_editPage_Order_Multiband" onclick="changeFilterPredefined(1)" class="dropdownButtonEditPage">
-                                      Multiband
-                                    </div>
-                                    <div id="id_editPage_Order_Divergent" onclick="changeFilterPredefined(2)" class="dropdownButtonEditPage">
-                                      Divergent
-                                    </div>
-                                    <div id="id_editPage_Order_Scaled_All" onclick="changeFilterPredefined(3)" class="dropdownButtonEditPage">
-                                      Scaled All
-                                    </div>
-                                    <div id="id_editPage_Order_Scaled_Blue" onclick="changeFilterPredefined(4)" class="dropdownButtonEditPage">
-                                      Scaled Blue
-                                    </div>
-                                    <div id="id_editPage_Order_Scaled_Brown" onclick="changeFilterPredefined(5)" class="dropdownButtonEditPage">
-                                      Scaled Brown
-                                    </div>
-                                    <div id="id_editPage_Order_Scaled_Green" onclick="changeFilterPredefined(6)" class="dropdownButtonEditPage">
-                                      Scaled Green
-                                    </div>
-                                    <div id="id_editPage_Order_Scaled_RedPurple" onclick="changeFilterPredefined(7)" class="dropdownButtonEditPage">
-                                      Scaled Red Purple
-                                    </div>
-                                    <div id="id_editPage_Order_Scaled_YellowOrange" onclick="changeFilterPredefined(8)" class="dropdownButtonEditPage">
-                                      Scaled Yellow Orange
-                                    </div>
-                          </div>
-                        </div>
-
-
-
-                        <div id="id_EditPage_PredefinedCMS_Div" class="class_EditDiv_SubDiv" style="width:100%; height:92%; overflow-y: auto; overflow-x: hidden; border-top:1px solid grey;">
-
-                        </div>
-                      </div>
-
-
-                      <div style="height:100%; width:33%; border-left:1px solid grey;">
-
-
-                          <h1 class="subsectionLabel class_EditDivLabel" style="margin-top:auto; margin-bottom:auto; text-decoration:underline; background: rgb(220,220,220);"> MyDesigns </h1>
-
-                          <div id="id_EditPage_MyDesigns_EmptyDiv" class="row class_EditDiv_SubDiv" style="display:none; width:100%; height:92%; border-top:1px solid grey; cursor:not-allowed; background:rgb(220,220,220);">
-
-
-                              <!--img id="id_EditPage_OnlineCMS_NotAvailableImg" src="img/notAvailableImg.png" style="height:100%; margin-left:auto; margin-right:auto;"-->
-
-                              <p class="standardText" style="margin:auto; color:grey; font-weight:bold;">Empty.</p>
-
-
-                          </div>
-
-
-                          <div id="id_EditPage_MyDesigns_Div" class="class_EditDiv_SubDiv" style="width:100%; height:80%; overflow-y: auto; overflow-x: hidden; border-top:1px solid grey;">
-
-                          </div>
-                      </div>
-
-
 
                     </div>
 
@@ -1399,7 +1398,7 @@
               </div>
 
               <div class="class_RotateRight" id="id_EditPage_cmsProbePartButton" style="height:26vh;" onclick="showProbeDiv()">
-                  Probe Sets
+                Probe Sets
               </div>
 
 
@@ -1409,7 +1408,7 @@
                        ---------- Probes ------------
                      -->
             <div id="id_EditPage_cmsProbePartDiv" style="display:none; height:78vh; width:75vw;">
-                <div id="id_EditPage_cmsProbePartInnerDiv" style="margin:2vh; height:74vh; width:75vw; background:white; border:0.2vh solid rgb(0, 79, 153); ">
+                <div id="id_EditPage_cmsProbePartInnerDiv" style="margin:2vh; height:74vh; width:75vw; background:white; border:0.2vh solid rgb(77, 77, 51); ">
 
 
                   <div id="id_EditPage_generateProbeSet" style="height:100%; width:100%;">
@@ -1609,7 +1608,7 @@
                      -->
             <div id="id_EditPage_cmsTablePartDiv" style="display:none; height:78vh; width:75vw;">
 
-              <div id="id_EditPage_cmsTablePartInnerDiv" style="margin:2vh; height:74vh; width:75vw; background:white; border:0.2vh solid rgb(140, 26, 255); ">
+              <div id="id_EditPage_cmsTablePartInnerDiv" style="margin:2vh; height:74vh; width:75vw; background:white; border:0.2vh solid rgb(77, 77, 51); ">
 
                 <table cellspacing="0" cellpadding="0" style="width:100%;">
                   <tr>
@@ -1628,7 +1627,7 @@
                   </tr>
                   <tr>
                     <td>
-                      <div style="width:100%; height:320px; overflow:auto;">
+                      <div style="width:100%; height:71.5vh; overflow:auto;">
                         <table cellspacing="0" cellpadding="1" id="id_table" style="width:100%; border: 0.1vh solid black;">
                           <tbody id="id_tableBody">
 

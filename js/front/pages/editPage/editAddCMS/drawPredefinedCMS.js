@@ -9,6 +9,9 @@ function drawPredefined_MyDesignsCMS(){
 
   var drawnNothing = true;
 
+  document.getElementById("id_EditPage_MyDesigns_Div").style.display = "block";
+  document.getElementById("id_EditPage_MyDesigns_EmptyDiv").style.display = "none";
+
   for(var i=0; i<myDesignsList.length; i++){
 
     if(myDesignsList[i].getKeyLength()==0)
@@ -44,7 +47,7 @@ function drawPredefined_MyDesignsCMS(){
 
     document.getElementById('id_EditPage_MyDesigns_Div').appendChild(tmpDiv);
 
-    drawCanvasColormap("myDesignDiv_linear"+i, myList_resolution_X,  myList_resolution_Y, myDesignsList[i]);
+    drawCanvasColormap("myDesignDiv_linear"+i, myDesignsList[i]);
     drawBandSketch(myDesignsList[i],"myDesignDiv_sketch"+i, false, -1);
 
 
@@ -55,11 +58,6 @@ function drawPredefined_MyDesignsCMS(){
     document.getElementById("id_EditPage_MyDesigns_Div").style.display = "none";
     document.getElementById("id_EditPage_MyDesigns_EmptyDiv").style.display = "flex";
 
-  }
-  else{
-
-    document.getElementById("id_EditPage_MyDesigns_Div").style.display = "block";
-    document.getElementById("id_EditPage_MyDesigns_EmptyDiv").style.display = "none";
   }
 
 
@@ -194,7 +192,7 @@ function drawPredefinedCMS(cmsArray, cmsType){
 
     document.getElementById('id_EditPage_PredefinedCMS_Div').appendChild(tmpDiv);
 
-    drawCanvasColormap(tmpCMSlinear.id, myList_resolution_X,  myList_resolution_Y, cmsArray[i]);
+    drawCanvasColormap(tmpCMSlinear.id, cmsArray[i]);
     drawBandSketch(cmsArray[i],tmpCMSsketch.id, false, -1);
 
 
@@ -203,6 +201,7 @@ function drawPredefinedCMS(cmsArray, cmsType){
 
 
 }
+
 
 
 function loadPredefinedCMS(subPath,fileNames){

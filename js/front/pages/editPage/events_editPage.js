@@ -87,7 +87,7 @@ function updateEditPage(){
         document.getElementById("id_editPage_HelpImage1").style.display="none";
 
 
-        drawCanvasColormap("id_EditPage_CMS_VIS_ColormapLinear", linearMap_resolution_X, linearMap_resolution_Y, globalCMS1);
+        drawCanvasColormap("id_EditPage_CMS_VIS_ColormapLinear", globalCMS1);
         drawKeys("id_EditPage_CMS_VIS_LinearKeys",  globalCMS1);
         drawSketchKeys("id_EditPage_CMS_VIS_SketchKeys", globalCMS1);
         drawLines("id_EditPage_CMS_VIS_Lines1",true, true,  globalCMS1);

@@ -29,7 +29,6 @@ function keyDownDocumentHandler(event){
         case 88:
           // strg + x => set x range (scale)
           event.preventDefault();
-          console.log(123);
           openScale();
           break;
 

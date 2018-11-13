@@ -283,6 +283,20 @@ function init_CCCPageStyle(){
     document.getElementById('id_EditPage_PathPlot_SingleCanvas_2').addEventListener("mousedown", mouseDownColorspace);
     document.getElementById('id_EditPage_PathPlot_SingleCanvas_2').addEventListener("mouseup", mouseUpColorspace);
 
+
+    document.getElementById("id_EditPage_Add_Structures").style.display = "block";
+
+    changeFilterPredefined(0);
+    document.getElementById("id_editPage_OrderPredefinedDropdown").style.display = "block";
+    drawCanvasColormap("id_EditPage_Preview_Multiband", cmsFourBandColormaps[0]);
+    drawCanvasColormap("id_EditPage_Preview_Divergent", cmsDivergentColormaps[0]);
+    drawCanvasColormap("id_EditPage_Preview_ScaledBlue", cmsBlueColormaps[0]);
+    drawCanvasColormap("id_EditPage_Preview_ScaledBrown", cmsBrownColormaps[0]);
+    drawCanvasColormap("id_EditPage_Preview_ScaledGreen", cmsGreenColormaps[0]);
+    drawCanvasColormap("id_EditPage_Preview_ScaledRedPurple", cmsRedPurpleColormaps[0]);
+    drawCanvasColormap("id_EditPage_Preview_ScaledYellowOrange", cmsYellowColormaps[0]);
+    document.getElementById("id_editPage_OrderPredefinedDropdown").style.display = "none";
+    document.getElementById("id_EditPage_Add_Structures").style.display = "none";
     document.getElementById("id_EditPage").style.display = "none";
 
 
