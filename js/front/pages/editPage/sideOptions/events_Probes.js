@@ -2,7 +2,7 @@ function initProbePage(){
 
   if(globalCMS1.getProbeSetLength()==0){
 
-    document.getElementById("id_EditPage_generateProbeSetSet").style.display="block";
+    document.getElementById("id_EditPage_generateProbeSet").style.display="block";
     document.getElementById("id_EditPage_editProbe").style.display="none";
 
     changeRangeGeneration(0);
@@ -44,18 +44,23 @@ function initProbePage(){
     globalProbeColor.set2Value(0);
     globalProbeColor.set3Value(1.0);
 
-    globalProbeColor.setProbeSetName("new Probe");
+    globalProbeSet.setProbeSetName("new Probe");
 
   }
   else{
     document.getElementById("id_EditPage_editProbe").style.display="block";
-    document.getElementById("id_EditPage_generateProbeSetSet").style.display="none";
+    document.getElementById("id_EditPage_generateProbeSet").style.display="none";
   }
 
 }
 
 
 function drawProbePreview(){
+
+    if(globalCMS1.getKeyLength()!=0){
+      var tmpCMS = globalProbeSet.generateProbeCMS(globalCMS1);
+      drawCanvasColormap("id_EditPage_ProbePreview", tmpCMS);
+    }
 
 }
 
@@ -64,7 +69,7 @@ function drawProbePreview(){
 ////////////// Generate Probe Set
 ///////////////////////////////////////////////////////
 
-function addProbe(){
+function addProbeToCMS(){
 
 }
 
@@ -85,6 +90,7 @@ function createProbe(start,end){
 
   newProbe.setProbeColor(new classColor_HSV(globalProbeColor.get1Value(),globalProbeColor.get2Value(),globalProbeColor.get3Value()));
 
+  return newProbe;
 }
 
 function generateProbeSet(){
@@ -97,7 +103,7 @@ function generateProbeSet(){
           var start = parseFloat(document.getElementById("id_inputSingleProbeRangeStart").value);
           var end = parseFloat(document.getElementById("id_inputSingleProbeRangeEnd").value);
 
-          if(isNaN(start) || isNaN(end) || start=undefined || end=undefined){
+          if(isNaN(start) || isNaN(end) || start==undefined || end==undefined){
             openAlert("The input value for the probe start and end position is not correct!");
             return;
           }
@@ -113,13 +119,13 @@ function generateProbeSet(){
          case 1: // interval
 
            var startVal = parseFloat(document.getElementById("id_inputProbeIntervalStart").value);
-           if(isNaN(startVal) || start=undefined){
+           if(isNaN(startVal) || start==undefined){
              openAlert("The input value for the probe start is not correct!");
              return;
            }
 
            var intervalLength = parseFloat(document.getElementById("id_inputProbeIntervalLength").value);
-           if(isNaN(intervalLength) || intervalLength=undefined){
+           if(isNaN(intervalLength) || intervalLength==undefined){
              openAlert("The input value for the probe width is not correct!");
              return;
            }
@@ -130,7 +136,7 @@ function generateProbeSet(){
            }
 
            var distanceLength = parseFloat(document.getElementById("id_inputProbeDistance").value);
-           if(isNaN(distanceLength) || distanceLength=undefined){
+           if(isNaN(distanceLength) || distanceLength==undefined){
              openAlert("The input value for the distance is not correct!");
              return;
            }
@@ -140,7 +146,7 @@ function generateProbeSet(){
            }
 
            var numberOfSteps =  numberOfSteps=parseInt(document.getElementById("id_inputNumberIntervalAuto").value);
-           if(isNaN(numberOfSteps) || numberOfSteps=undefined){
+           if(isNaN(numberOfSteps) || numberOfSteps==undefined){
              openAlert("The input value for the number of probes is not correct!");
              return;
            }
@@ -178,8 +184,11 @@ function generateProbeSet(){
                }
                break;
        default:
+       return;
 
      }
+
+     drawProbePreview();
 
 }
 

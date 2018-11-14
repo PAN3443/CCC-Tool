@@ -6,7 +6,7 @@ class class_Probe{
 
       constructor(type, start, end , space) {
         this.ProbeType = type; // 0=gradient, 1=contour, 2=constant
-        this.probeColor = new classColor_RGB(1.0,1.0,1.0);
+        this.probeColor = new classColor_HSV(0.0,0.0,1.0);
         this.isTwoSided = false;
         this.oneSidedType=0;
         this.twoSidedType=0;
@@ -80,7 +80,7 @@ class class_Probe{
       }
 
       getProbeColor(){
-        var tmpColor = new classColor_RGB(this.probeColor.get1Value(),this.probeColor.get2Value(),this.probeColor.get3Value());
+        var tmpColor = new classColor_HSV(this.probeColor.get1Value(),this.probeColor.get2Value(),this.probeColor.get3Value());
         return tmpColor;
       }
 
