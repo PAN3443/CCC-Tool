@@ -1,6 +1,8 @@
 function activateDropdown(event) {
 
     var dropdownID, labelID;
+
+    var additionalScrollID="";
     labelID = event.target.id;
 
     var doAbsolute = false;
@@ -20,14 +22,25 @@ function activateDropdown(event) {
               break;
               case "id_EditPage_selectProbeTypeLabel":
                 doAbsolute = true;
+                additionalScrollID="id_EditPage_generateProbeSet";
                 dropdownID = "id_EditPage_selectProbeTypeDropDown";
                 document.getElementById("id_EditPage_selectProbeSubTypeDropDown").style.display="none";
+                document.getElementById("id_EditPage_selectProbeSetRangeTypeDropDown").style.display="none";
                 break;
                 case "id_EditPage_selectProbeSubTypeLabel":
                   doAbsolute = true;
+                  additionalScrollID="id_EditPage_generateProbeSet";
                   dropdownID = "id_EditPage_selectProbeSubTypeDropDown";
                   document.getElementById("id_EditPage_selectProbeTypeDropDown").style.display="none";
+                  document.getElementById("id_EditPage_selectProbeSetRangeTypeDropDown").style.display="none";
                   break;
+                  case "id_EditPage_selectProbeSetRangeType":
+                    doAbsolute = true;
+                    additionalScrollID="id_EditPage_generateProbeSet";
+                    dropdownID = "id_EditPage_selectProbeSetRangeTypeDropDown";
+                    document.getElementById("id_EditPage_selectProbeTypeDropDown").style.display="none";
+                    document.getElementById("id_EditPage_selectProbeSubTypeDropDown").style.display="none";
+                    break;
       default:
         return;
     }
@@ -53,8 +66,16 @@ function activateDropdown(event) {
 
       var top,left;
       if(doAbsolute){
-        top =  refObj.offsetTop;
-        left = refObj.offsetLeft;
+        scrollTop=0;
+        scrollLeft=0;
+
+        if(additionalScrollID!=""){
+          scrollTop=document.getElementById(additionalScrollID).scrollTop;
+          scrollLeft=document.getElementById(additionalScrollID).scrollLeft;
+        }
+
+        top =  refObj.offsetTop-scrollTop;
+        left = refObj.offsetLeft-scrollLeft;
       }
       else{
         top = box.top + scrollTop - clientTop;

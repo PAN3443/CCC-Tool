@@ -1,6 +1,7 @@
 window.onload = function() {
 
   // init global vars
+  globalProbeSet = new class_ProbeSet("");
   globalCMS1 = new class_CMS();
   // init events
 

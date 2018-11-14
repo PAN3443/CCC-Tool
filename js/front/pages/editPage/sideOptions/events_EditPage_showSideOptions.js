@@ -1,7 +1,7 @@
 
 
 function showSaveOptions(){
-
+  closeColorPicker();
   document.getElementById("id_EditPage_GuideLineDiv").style.display="none";
   document.getElementById("id_EditPage_interpolationPartDiv").style.display="none";
   document.getElementById("id_EditPage_cmsTablePartDiv").style.display="none";
@@ -93,6 +93,7 @@ function saveColormapToList(){
 
 function showGuideLine(){
 
+  closeColorPicker();
   document.getElementById("id_EditPage_savePartDiv").style.display="none";
   document.getElementById("id_EditPage_interpolationPartDiv").style.display="none";
   document.getElementById("id_EditPage_cmsTablePartDiv").style.display="none";
@@ -113,6 +114,7 @@ function showGuideLine(){
 }
 
 function showInterpolationOptions () {
+  closeColorPicker();
   document.getElementById("id_EditPage_savePartDiv").style.display="none";
   document.getElementById("id_EditPage_GuideLineDiv").style.display="none";
   document.getElementById("id_EditPage_cmsTablePartDiv").style.display="none";
@@ -131,6 +133,7 @@ function showInterpolationOptions () {
 }
 
 function showCMSTable () {
+  closeColorPicker();
   document.getElementById("id_EditPage_savePartDiv").style.display="none";
   document.getElementById("id_EditPage_GuideLineDiv").style.display="none";
   document.getElementById("id_EditPage_interpolationPartDiv").style.display="none";
@@ -155,6 +158,7 @@ function showCMSTable () {
 
 
 function showProbeDiv() {
+  closeColorPicker();
   document.getElementById("id_EditPage_savePartDiv").style.display="none";
   document.getElementById("id_EditPage_GuideLineDiv").style.display="none";
   document.getElementById("id_EditPage_interpolationPartDiv").style.display="none";

@@ -14,6 +14,7 @@ function openColorPickerSettings(){
 function openColorPicker(event){
 
   document.getElementById("id_popupColorPicker").style.display="block";
+  document.getElementById("id_popupColorPicker").style.position="absolute";
 
   var refObj = document.getElementById(event.target.id);
 
@@ -88,8 +89,15 @@ function openColorPicker(event){
                   document.getElementById("id_popupColorPicker").style.left=(left+box.width)+"px";
                   break;
 
-
-
+                  case "id_inputProbeColor":
+                    document.getElementById("id_popupColorPicker").style.position="fixed";
+                    colorpickerColor=globalProbeColor;
+                    // above the object
+                    top =  refObj.offsetTop;
+                    left = refObj.offsetLeft;
+                    document.getElementById("id_popupColorPicker").style.top=(top+box.height)+"px";
+                    document.getElementById("id_popupColorPicker").style.left=(left+box.width)+"px";
+                    break;
 
     default:
     return;
@@ -115,6 +123,7 @@ function openColorPicker(event){
       document.getElementById("id_popupColorPicker_InputLabel3").innerHTML = "V : ";
 }
 else{
+  colorpickerColor=colorpickerColor.calcRGBColor();
   document.getElementById("id_popupWindow_Colorpicker_Input1").max = 255;
   document.getElementById("id_popupWindow_Colorpicker_Input2").max = 255;
   document.getElementById("id_popupWindow_Colorpicker_Input3").max = 255;
@@ -841,6 +850,14 @@ break;
               updateEditPage();
               saveCreateProcess();
               break;
+
+              case "id_inputProbeColor":
+                globalProbeColor=colorpickerColor.calcHSVColor();
+                changeProbeColor();
+                generateProbeSet();
+                break;
+
+
     default:
     return;
 

@@ -35,7 +35,7 @@ class class_CMS {
     this.burs=[];
 
     /// Probes
-    this.probeArray=[];
+    this.probeSetArray=[];
 
   }
 
@@ -344,43 +344,45 @@ class class_CMS {
   /// Probe
   ///////////////////////////////////
 
-  getProbeLength(){
-    return this.probeArray.length;
+  addProbeSet(probeSet){
+      this.probeSetArray.push(probeSet);
   }
 
-  deleteProbe(index){
-    this.probeArray.splice(index, 1);
+  getProbeSetLength(){
+    return this.probeSetArray.length;
   }
 
-  getProbe(index){
-    return this.probeArray[index];
+  deleteProbeSet(index){
+    this.probeSetArray[index].deconstructor();
+    this.probeSetArray.splice(index, 1);
   }
 
-  getProbeClone(index){
-      var newProbe = new classProbe(this.probeArray[index].getType(),this.probeArray[index].getRangeType());
+  getProbeSet(index){
+    return this.probeSetArray[index];
+  }
 
-      for (var i = 0; i < this.probeArray[index].getProbeArrayLength(); i++) {
-        newProbe.addIntervalColorPos(this.probeArray[index].getProbeRangeStart(i), this.probeArray[index].getProbeRangeEnd(i));
+  getProbeSetClone(index){
+      var newProbeSet = new class_ProbeSet();
+
+      for (var i = 0; i < this.probeSetArray[index].getProbeLength(); i++) {
+        newProbeSet.addProbe(this.probeSetArray[index].getProbeClone(i));
       }
 
-      newProbe.setProbeColor(this.probeArray[index].getProbeColor());
-      newProbe.setNumberProbes(this.probeArray[index].getNumberProbes());
-      newProbe.setValueStart(this.probeArray[index].getValueStart());
-      newProbe.setValueEnd(this.probeArray[index].getValueEnd());
+      newProbeSet.setProbeSetName(this.probeSetArray[index].getProbeSetName());
 
       return newProbe;
   }
 
-  setProbe(index,probe){
-    this.probeArray[index]=probe;
+  setProbe(index,probeIndex, probe){
+    this.probeSetArray[index].setProbe(probeIndex, probe);
   }
 
-  addProbe(probe){
-    this.probeArray.push(probe);
+  addProbe(index,probe){
+    this.probeSetArray[index].addProbe(probe);
   }
 
-  insertProbe(index,probe){
-      this.probeArray.splice(index, 0,probe);
+  insertProbe(index,probeIndex,probe){
+      this.probeSetArray[index].insertProbe(probeIndex,probe);
   }
 
   ///////////////////////////////////
@@ -899,9 +901,9 @@ function cloneCMS(cmsObj){
     newCMS.pushKey(keyObj);
   }
 
-  for (var i = 0; i < cmsObj.getProbeLength(); i++) {
-    var probeObj = cmsObj.getProbeClone(i);
-    newCMS.addProbe(probeObj);
+  for (var i = 0; i < cmsObj.getProbeSetLength(); i++) {
+    var probeObj = cmsObj.getProbeSetClone(i);
+    newCMS.addProbeSet(probeObj);
   }
 
   return newCMS;

@@ -79,6 +79,7 @@ function init_events_EditPage(){
   document.getElementById('id_EditPage_AnalyzeOptions_Label').addEventListener("click", activateDropdown);
   document.getElementById('id_EditPage_selectProbeTypeLabel').addEventListener("click", activateDropdown);
   document.getElementById('id_EditPage_selectProbeSubTypeLabel').addEventListener("click", activateDropdown);
+  document.getElementById('id_EditPage_selectProbeSetRangeType').addEventListener("click", activateDropdown);
 
   initRGB3D();
 
@@ -109,5 +110,5 @@ function init_events_EditPage(){
     /////////////// side options
     document.getElementById('id_editPage_ProbeSpace_Value').addEventListener("change", changeProbeSpace);
     document.getElementById('id_editPage_ProbeSpace_Lightness').addEventListener("change", changeProbeSpace);
-    
+
 }

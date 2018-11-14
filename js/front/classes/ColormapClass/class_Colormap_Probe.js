@@ -2,8 +2,95 @@
 // ------------ Class Probe ---------------//
 ////////////////////////////////////////////////
 
+class class_Probe{
 
-class classProbe{
+      constructor(type, start, end , space) {
+        this.ProbeType = type; // 0=gradient, 1=contour, 2=constant
+        this.probeColor = new classColor_RGB(1.0,1.0,1.0);
+        this.isTwoSided = false;
+        this.oneSidedType=0;
+        this.twoSidedType=0;
+        this.colorspace = space;
+        this.startPos = start;
+        this.endPos = end;
+      }
+
+      deconstructor(){
+
+      }
+
+      setType(type){
+        this.ProbeType = type;
+      }
+
+      getType(){
+        return this.ProbeType;
+      }
+
+      setStartPos(val){
+        this.startPos = val;
+      }
+
+      getStartPos(){
+        return this.startPos;
+      }
+
+      setEndPos(val){
+        this.endPos = val;
+      }
+
+      getEndPos(){
+        return this.endPos;
+      }
+
+      setProbeColorspace(colorspace){
+        this.colorspace = colorspace;
+      }
+
+      getProbeColorspace(){
+        return this.colorspace;
+      }
+
+      setTwoSidedType(val){
+        this.twoSidedType = val;
+      }
+
+      getTwoSidedType(){
+        return this.twoSidedType;
+      }
+
+      setOneSidedType(val){
+        this.oneSidedType = val;
+      }
+
+      getOneSidedType(){
+        return this.oneSidedType;
+      }
+
+      setIsTwoSided(val){
+        this.isTwoSided = val;
+      }
+
+      getIsTwoSided(){
+        return this.isTwoSided;
+      }
+
+      setProbeColor(val){
+        this.probeColor = val;
+      }
+
+      getProbeColor(){
+        var tmpColor = new classColor_RGB(this.probeColor.get1Value(),this.probeColor.get2Value(),this.probeColor.get3Value());
+        return tmpColor;
+      }
+
+
+
+}
+
+
+
+/*class classProbe{
 
       constructor(type, rangeType) {
         this.type = type; // 0=gradient, 1=contour, 2=constant
@@ -30,7 +117,7 @@ class classProbe{
         this.intervalEndPos=[];
       }
 
-      getProbeArrayLength(){
+      getsetTwoSidedType(getTwoSidedType)Length(){
         return this.intervalStartPos.length;
       }
 
@@ -338,7 +425,7 @@ class classProbe{
               if(rightKeyColor==undefined && i !=tmpCMS.getKeyLength()-1){
                 rightKeyColor = tmpCMS.getLeftKeyColor(i+1,this.workColorspace); // left key inside of a range will convert into a twin key
               }
-              var leftKeyColor = tmpCMS.getLeftKeyColor(i,this.workColorspace);*/
+              var leftKeyColor = tmpCMS.getLeftKeyColor(i,this.workColorspace);* /
 
               if(posArray[currentArrayPos]==tmpCMS.getRefPosition(i)){
 
@@ -489,3 +576,4 @@ class classProbe{
       }
 
 };
+*/

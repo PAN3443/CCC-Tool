@@ -73,7 +73,6 @@
   <!--script src="js/plugins.js"></script-->
 
   <!-- Classes -->
-  <script src="js/front/classes/ColormapClass/class_colormapSpecification.js"></script>
   <script src="js/front/classes/ColormapClass/class_Colormap_Key.js"></script>
   <script src="js/front/classes/ColormapClass/class_Colormap_Interval.js"></script>
   <script src="js/front/classes/ColormapClass/class_Colorspace_HSV.js"></script>
@@ -82,6 +81,11 @@
   <script src="js/front/classes/ColormapClass/class_Colorspace_DIN99.js"></script>
   <script src="js/front/classes/ColormapClass/class_Colorspace_XYZ.js"></script>
   <script src="js/front/classes/ColormapClass/class_Colorspace_LMS.js"></script>
+  <script src="js/front/classes/ColormapClass/class_Colormap_Probe.js"></script>
+  <script src="js/front/classes/ColormapClass/class_Colormap_ProbeSet.js"></script>
+  <script src="js/front/classes/ColormapClass/class_colormapSpecification.js"></script>
+
+
   <!--script src="js/ColormapClass/class_Colormap_Probe.js"></script>
 
   <!-- ADD PAGE ->
@@ -1394,12 +1398,12 @@
                   <div id="id_EditPage_generateProbeSet" style="height:73vh; width:100%; overflow:auto;">
                         <h2 class="subsectionLabel class_noSizeUpdate" style="height:4vh; line-height:4vh; font-size:3vh; margin-top:2vh; margin-bottom:2vh; "> Generate Probe-Set </h2>
 
-                        <div class="row" style="margin:auto; margin-left: 5%; width:90%; border: 0.2vh solid grey; background:rgb(245,245,245); padding:1vh;">
+                        <div class="row" style="margin:auto; margin-left: 5%; width:90%; border: 0.2vh solid grey; background:rgb(245,245,245);  padding-top:1vh; padding-bottom:1vh; ">
 
-                          <p class="standardText class_noSizeUpdate" style="font-size: 1.6vh; height:3vh; line-height: 3vh; font-weight:bold; width:20%; vertical-align:middle; margin-top:auto; margin-bottom:auto; margin-left:3vw;"> Select Probe-Type: </p>
+                          <p class="standardText class_noSizeUpdate" style="font-size: 1.6vh; height:3vh; line-height: 3vh; font-weight:bold; margin-left:2.5%; width:17.5%; vertical-align:middle; margin-top:auto; margin-bottom:auto;"> Select Probe-Type: </p>
 
                           <div id="id_EditPage_selectProbeTypeLabel" class="class_EditDivLabel class_noSizeUpdate" style="padding-left:1vw; width:10vw; padding-right:1vw; font-size: 1.8vh; height:3vh; line-height: 3vh; margin-top:auto; margin-bottom:auto; cursor: pointer; text-align:center; border:1px solid black;" title="All"> &#9660; Contour </div>
-                            <div id="id_EditPage_selectProbeTypeDropDown" style="background: url(img/background3.jpg); display: none; position: absolute; left: 0px; z-index: 101;  width:10%;">
+                            <div id="id_EditPage_selectProbeTypeDropDown" style="background: url(img/background3.jpg); display: none; position: absolute; left: 0px; z-index: 101;  width:10%; border: 0.2vh solid black;">
                                   <div id="id_EditPage_ProbeType_Constant"  onclick="changeProbeType(0)" class="dropdownButtonEditPage">
                                     Constant
                                   </div>
@@ -1412,7 +1416,7 @@
                             </div>
 
                             <div id="id_EditPage_selectProbeSubTypeLabel" class="class_EditDivLabel class_noSizeUpdate" style="padding-left:1vw; width:10vw; padding-right:1vw; font-size: 1.8vh; height:3vh; line-height: 3vh; margin-top:auto; margin-bottom:auto; margin-left:2vw; cursor: pointer; text-align:center; border:1px solid black;" title="All"> &#9660; One Sided </div>
-                            <div id="id_EditPage_selectProbeSubTypeDropDown" style="background: url(img/background3.jpg); display: none; position: absolute; left: 0px; z-index: 101;">
+                            <div id="id_EditPage_selectProbeSubTypeDropDown" style="background: url(img/background3.jpg); display: none; position: absolute; left: 0px; z-index: 101; border: 0.2vh solid black;">
                                   <div id="id_EditPage_ProbeSubType_OneSide" onclick="changeProbeSubType(0)" class="dropdownButtonEditPage">
                                     <p class="standardText class_noSizeUpdate" style="font-size: 1.8vh; height:3vh; line-height: 3vh; margin-top:auto; margin-bottom:auto; color:white;"> One Sided </p>
                                     <div style="height:4vh; width:5vw; margin:1vh; border: 0.4vh solid white; background-color: black; background-image: linear-gradient(to right, black, white);">
@@ -1443,30 +1447,27 @@
 
                         </div>
 
-                        <div class="row" style="margin:auto; margin-left: 5%; width:90%; border: 0.2vh solid grey; background:rgb(245,245,245); padding:1vh; margin-top:2vh; margin-bottom:2vh;">
-                            <p class="standardText class_noSizeUpdate" style="font-size: 1.6vh; height:3vh; line-height: 3vh; font-weight:bold; width:20%; vertical-align:middle; margin-left:3vw;"> Probe-Type-Options: </p>
+                        <div class="row" style="margin:auto; margin-left: 5%; width:90%; border: 0.2vh solid grey; background:rgb(245,245,245); padding-top:1vh; padding-bottom:1vh; margin-top:2vh; margin-bottom:2vh;">
+                            <p class="standardText class_noSizeUpdate" style="font-size: 1.6vh; height:3vh; line-height: 3vh; font-weight:bold; margin-left:2.5%; width:17.5%; vertical-align:middle;"> Probe-Type-Options: </p>
 
                             <div style="width:80%; overflow:auto;">
 
 
-                                <div id="id_EditPage_ProbeParameter_Div" style="display:flex; margin-left:2vw; margin-top:2vh; margin-bottom:2vh;">
-                                    <p class="standardText class_noSizeUpdate" style="height:2vh; width:10vw; line-height:2vh; font-size:1.6vh;">Parameter:</p>
+                                <div id="id_EditPage_ProbeParameter_Div" style="display:none; margin-top:2vh; margin-bottom:2vh; width:100%;">
+                                    <p class="standardText class_noSizeUpdate" style="height:2vh; width:15%; line-height:2vh; font-size:1.6vh;">Parameter:</p>
                                     <input class="standardText class_noSizeUpdate" style="margin-left:1vw;" type="radio" id="id_editPage_ProbeSpace_Value" name="editPage_keyType" value="1" checked="checked">
                                     <label class="standardText class_noSizeUpdate" for="id_editPage_ProbeSpace_Value" style="height:2vh; line-height:2vh; font-size:1.6vh; margin-left:1vw;"  id="id_editPage_ProbeSpace_Value_Label"> Value (HSV) </label>
                                     <input class="standardText class_noSizeUpdate" style="margin-left:2vw;" type="radio" id="id_editPage_ProbeSpace_Lightness" name="editPage_keyType" value="1" checked="checked">
                                     <label class="standardText class_noSizeUpdate" for="id_editPage_ProbeSpace_Lightness" style="height:2vh; line-height:2vh; font-size:1.6vh; margin-left:1vw;"  id="id_editPage_ProbeSpace_Lightness_Label"> Lightness (Lab) </label>
                                 </div>
 
-                                <div id="id_EditPage_ProbeValue_Div" style="display:none; margin-left:2vw; margin-top:1vh; margin-bottom:1vh;">
-                                    <p class="standardText class_noSizeUpdate" style="height:2vh; width:10vw; line-height:2vh; font-size:1.6vh; margin-top:auto; margin-bottom:auto;">Value:</p>
-                                    <input id="id_inputConstantProbeValue"  class="class_noSizeUpdate" type="number" name="Constant_Probe_Value" value="0" min="0" max="100" step="any" class="standardText" style="width: 5vw; height:2vh; line-height:2vh; font-size:1.6vh; margin-left:1vw;">
-                                </div>
 
-                                <div id="id_EditPage_ProbeFunction_Div" style="margin-left:2vw; margin-top:2vh; margin-bottom:2vh;">
 
-                                  <p class="standardText class_noSizeUpdate" style="height:2vh; width:10vw; line-height:2vh; font-size:1.6vh;">Function:</p>
+                                <div id="id_EditPage_ProbeFunction_Div" style="margin-top:2vh; margin-bottom:2vh; width:100%;">
 
-                                  <div id="id_EditPage_ProbeFunctionOneSided_Div" style="display:none; width:70%;">
+                                  <p class="standardText class_noSizeUpdate" style="height:2vh; width:15%; line-height:2vh; font-size:1.6vh;">Function:</p>
+
+                                  <div id="id_EditPage_ProbeFunctionOneSided_Div" style="display:none; width:80%;">
                                                 <div  id="id_EditPage_FunctionOneSided_Selection1" onclick="changeOneSideFunction(0)" style="background:rgb(220,220,220); padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer; width:45%; margin-left:2.5%;">
                                                     <p id="id_EditPage_FunctionOneSided_Label1" class="standardText class_noSizeUpdate" style="height:2vh; line-height:2vh; font-size:1.6vh; margin-top:auto; margin-bottom:auto; width:90%; margin-left:5%; text-align:center;">Lightness 0% to 100%</p>
                                                     <svg style="border: 0.2vh solid black; height:3vw; width:90%; background:white; margin-left:5%; margin-top:1vh;">
@@ -1486,10 +1487,10 @@
                                                 </div>
                                    </div>
 
-                                   <div id="id_EditPage_ProbeFunctionTwoSided_Div" style="width:100%;" >
+                                   <div id="id_EditPage_ProbeFunctionTwoSided_Div" style="width:80%;" >
 
                                      <div class="row" style="width:100%;">
-                                       <div  id="id_EditPage_FunctionTwoSided_Selection0" onclick="changeTwoSideFunction(0);" style="background:rgb(220,220,220); padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer; width:45%; margin:left:2.5%;">
+                                       <div  id="id_EditPage_FunctionTwoSided_Selection0" onclick="changeTwoSideFunction(0);" style="width:45%; margin-left:2.5%; background:rgb(220,220,220); padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer;">
 
                                            <div class="row">
                                              <p class="standardText class_noSizeUpdate" style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Value <br> (0%, 100%)</p>
@@ -1515,7 +1516,7 @@
 
                                        </div>
 
-                                       <div  id="id_EditPage_FunctionTwoSided_Selection1" onclick="changeTwoSideFunction(1);" style="background:rgb(220,220,220); padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer; width:45%; margin:left:5%;">
+                                       <div  id="id_EditPage_FunctionTwoSided_Selection1" onclick="changeTwoSideFunction(1);" style="width:45%; margin-left:5%; background:rgb(220,220,220); padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer;">
 
                                            <div class="row">
                                              <p class="standardText class_noSizeUpdate" style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Value <br> (100%, 0%)</p>
@@ -1542,8 +1543,8 @@
                                        </div>
                                      </div>
 
-                                     <div class="row" style="width:100%">
-                                       <div  id="id_EditPage_FunctionTwoSided_Selection2" onclick="changeTwoSideFunction(2);" style="background:rgb(220,220,220); padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer; width:45%; margin:left:2.5%;">
+                                     <div class="row" style="width:100%; margin-top:1vh;">
+                                       <div  id="id_EditPage_FunctionTwoSided_Selection2" onclick="changeTwoSideFunction(2);" style="width:45%; margin-left:2.5%; background:rgb(220,220,220); padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer;">
 
                                            <div class="row">
                                              <p class="standardText class_noSizeUpdate" style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Value <br> (100%, 0%, 100%)</p>
@@ -1570,7 +1571,7 @@
 
                                        </div>
 
-                                       <div  id="id_EditPage_FunctionTwoSided_Selection3" onclick="changeTwoSideFunction(3);" style="background:rgb(220,220,220); padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer; width:45%; margin:left:5%;">
+                                       <div  id="id_EditPage_FunctionTwoSided_Selection3" onclick="changeTwoSideFunction(3);" style="width:45%; margin-left:5%; background:rgb(220,220,220); padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer;">
 
                                            <div class="row">
                                              <p class="standardText class_noSizeUpdate" style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Value <br> (100%, 0%, 100%)</p>
@@ -1600,10 +1601,102 @@
                                    </div>
 
 
-                            </div>
+                                 </div>
+
+                                 <div id="id_EditPage_ProbeColor_Div" style="display:none; margin-top:1vh; margin-bottom:1vh; width:100%;">
+                                     <p class="standardText class_noSizeUpdate" style="height:2vh; width:15%; line-height:2vh; font-size:1.6vh; margin-top:auto; margin-bottom:auto;">Color:</p>
+                                     <div id="id_inputProbeColor" style="width: 5vh; height:5vh; border: 0.2vh solid black; margin-left:1vw; margin-top:auto; margin-bottom:auto; cursor:pointer;"></div>
+                                     <canvas id="id_inputProbeColorPreview" style="width: 15vw; height:5vh; border: 0.2vh solid black; margin-left:1vw; margin-top:auto; margin-bottom:auto; background:white;"></canvas>
+                                 </div>
 
                             </div>
 
+
+                        </div>
+
+                        <div class="row" style="margin:auto; margin-left: 5%; width:90%; border: 0.2vh solid grey; background:rgb(245,245,245);  padding-top:1vh; padding-bottom:1vh; ">
+
+                          <p class="standardText class_noSizeUpdate" style="font-size: 1.6vh; height:3vh; line-height: 3vh; font-weight:bold; margin-left:2.5%; width:17.5%; vertical-align:middle;"> Probe-Set: </p>
+
+                          <div style="width:80%; overflow:auto;">
+
+                            <div style="display:flex; margin-top:2vh; margin-bottom:2vh; width:100%;">
+
+                              <p class="standardTextclass_noSizeUpdate" style="height:2vh; width:15%; line-height:2vh; font-size:1.6vh; margin-top:auto; margin-bottom:auto;">Generation:</p>
+
+                              <div id="id_EditPage_selectProbeSetRangeType" class="class_EditDivLabel class_noSizeUpdate" style="padding-left:1vw; width:10vw; margin-left:1vw; padding-right:1vw; font-size: 1.8vh; height:3vh; line-height: 3vh; margin-top:auto; margin-bottom:auto; cursor: pointer; text-align:center; border:1px solid black;" title="All"> &#9660; Contour </div>
+                              <div id="id_EditPage_selectProbeSetRangeTypeDropDown" style="background: url(img/background3.jpg); display: none; position: absolute; left: 0px; z-index: 101;  width:10%; border: 0.2vh solid black;">
+                                    <div id="id_EditPage_ProbeSetRangeType_Single"  onclick="changeRangeGeneration(0)" class="dropdownButtonEditPage">
+                                      Single
+                                    </div>
+                                    <div id="id_EditPage_ProbeSetRangeType_Interval" onclick="changeRangeGeneration(1)" class="dropdownButtonEditPage">
+                                      Interval
+                                    </div>
+                                    <div id="id_EditPage_ProbeSetRangeType_Custom" onclick="changeRangeGeneration(2)" class="dropdownButtonEditPage">
+                                      Custom
+                                    </div>
+                              </div>
+                            </div>
+
+                            <div id="id_EditPage_SingleProbeOptions" style="display:none; margin-top:2vh; margin-bottom:2vh; width:100%;">
+
+                                <div style="display:flex; margin-top:1vh; margin-bottom:1vh; width:100%;">
+                                    <p class="standardText class_noSizeUpdate" style="height:2vh; width:15%; line-height:2vh; font-size:1.6vh; margin-top:auto; margin-bottom:auto;">Probe Start:</p>
+                                    <input id="id_inputSingleProbeRangeStart"  class="class_noSizeUpdate" type="number"  value="0" step="any" class="standardText" style="width: 5vw; height:2vh; line-height:2vh; font-size:1.6vh; margin-left:1vw;">
+                                </div>
+
+                                <div style="display:flex; margin-top:1vh; margin-bottom:1vh; width:100%;">
+                                    <p class="standardText class_noSizeUpdate" style="height:2vh; width:15%; line-height:2vh; font-size:1.6vh; margin-top:auto; margin-bottom:auto;">Probe End:</p>
+                                    <input id="id_inputSingleProbeRangeEnd"  class="class_noSizeUpdate" type="number"  value="0" step="any" class="standardText" style="width: 5vw; height:2vh; line-height:2vh; font-size:1.6vh; margin-left:1vw;">
+                                </div>
+
+                            </div>
+
+                            <div id="id_EditPage_IntervalProbeOptions" style="display:none; margin-top:2vh; margin-bottom:2vh; width:100%;">
+
+                              <div style="display:flex; margin-top:1vh; margin-bottom:1vh; width:100%;">
+                                  <p class="standardText class_noSizeUpdate" style="height:2vh; width:15%; line-height:2vh; font-size:1.6vh; margin-top:auto; margin-bottom:auto;">Interval Start:</p>
+                                  <input id="id_inputProbeIntervalStart"  class="class_noSizeUpdate" type="number"  value="0" step="any" class="standardText" style="width: 5vw; height:2vh; line-height:2vh; font-size:1.6vh; margin-left:1vw;">
+                              </div>
+
+                              <div style="display:flex; margin-top:1vh; margin-bottom:1vh; width:100%;">
+                                  <p class="standardText class_noSizeUpdate" style="height:2vh; width:15%; line-height:2vh; font-size:1.6vh; margin-top:auto; margin-bottom:auto;">Probe Width:</p>
+                                  <input id="id_inputProbeIntervalLength"  class="class_noSizeUpdate" type="number"  value="0" step="any" class="standardText" style="width: 5vw; height:2vh; line-height:2vh; font-size:1.6vh; margin-left:1vw;">
+                              </div>
+
+                              <div style="display:flex; margin-top:1vh; margin-bottom:1vh; width:100%;">
+                                  <p class="standardText class_noSizeUpdate" style="height:2vh; width:15%; line-height:2vh; font-size:1.6vh; margin-top:auto; margin-bottom:auto;">Distance:</p>
+                                  <input id="id_inputProbeDistance"  class="class_noSizeUpdate" type="number"  value="0" step="any" class="standardText" style="width: 5vw; height:2vh; line-height:2vh; font-size:1.6vh; margin-left:1vw;">
+                              </div>
+
+                              <div style="display:flex; margin-top:1vh; margin-bottom:1vh; width:100%;">
+                                  <p class="standardText class_noSizeUpdate" style="height:2vh; width:15%; line-height:2vh; font-size:1.6vh; margin-top:auto; margin-bottom:auto;">Number of Probes:</p>
+                                  <input id="id_inputNumberIntervalAuto"  class="class_noSizeUpdate" type="number" value="1" min="1" step="1" class="standardText" style="width: 5vw; height:2vh; line-height:2vh; font-size:1.6vh; margin-left:1vw;">
+                              </div>
+                            </div>
+
+                            <div id="id_EditPage_CustomProbeOptions" style="display:none; margin-top:2vh; margin-bottom:2vh; width:100%;">
+
+
+                              <div style="display:flex; margin-top:1vh; margin-bottom:1vh; width:100%;">
+                                  <p class="standardText class_noSizeUpdate" style="height:2vh; width:15%; line-height:2vh; font-size:1.6vh;">Custom Range:</p>
+
+                                  <div style="width: 25vw; margin-left:1vw;">
+                                    <!--input id="id_inputCustomProbeRanges"  class="class_noSizeUpdate" type="text"  value="1" min="1" step="1" class="standardText" style="width: 100%; height:2vh; line-height:2vh; font-size:1.6vh;"-->
+
+                                    <textarea id="id_inputCustomProbeRanges" class="class_noSizeUpdate" type="text"  value="1" min="1" step="1" class="standardText" style="width: 100%; height:30vh; line-height:2vh; font-size:1.6vh; resize: none; overflow:auto;"></textarea>
+                                    <p id="CustomProbeInfoText" class="standardText class_noSizeUpdate" style="width:100%; line-height:1.6vh; font-size:1.3vh; color:red; font-weight:bold;"></p>
+                                    <p class="standardText class_noSizeUpdate" style="font-size:1.3vh; width:100%; line-height:1.6vh;">Semantic: A custom range is defined by two values separated by comma. The range concludes with a semicolon at the end. (Example: "0.1,0.4;0.75,0.8;" results in two custom ranges) Please check that the second value of a range is alwasy bigger than the first one. Overlapping range are not allowed!</p>
+                                  </div>
+
+                              </div>
+
+
+                            </div>
+
+                            <p class="standardText class_noSizeUpdate" style="margin-left:15%; width:70%; line-height:2vh; font-size:1.3vh; margin-top:2vh; margin-bottom:2vh;"> Info: The probe range is allowed to be over the borders of the CMS range. Probe value out of the CMS range will be excluded during the calculation of the probe colormap.</p>
+
+                          </div>
 
                         </div>
 
@@ -1636,117 +1729,8 @@
 
                     </div>
 
-                    <div style="width:50%;">
-                      <h2 id="probeActionLabel" class="subsectionLabel" style="width:100%; margin-top:15px; margin-bottom:15px;">Generate Probe</h2>
-
-                      <div class="row" style="margin-left:15%; width:70%; margin-top:5px; margin-bottom:15px;">
-                        <p class="standardText" style="width:40%; font-weight:bold;">Type:</p>
-
-                        <select id="id_selectProbeType" name="ProbeTypeList" style="width:60%;">
-                          <option value="0">Gradient Probe</option>
-                          <option value="1">Contour Probe</option>
-                          <option value="2">Constant Probe</option>
-                        </select>
-                      </div>
 
 
-
-                      <div id="id_EditPage_ProbeFunctionDiv" class="row" style="margin-left:15%; width:70%; margin-top:5px; margin-bottom:15px; display:none;">
-
-                        <p class="standardText" style="width:40%; font-weight:bold;">Function:</p>
-
-                        <select id="id_selectProbeFunctionType" name="ProbeTypeList" style="width:60%;">
-                          <option value="0">Linear</option>
-
-                        </select>
-                      </div>
-
-                      <div id="id_EditPage_ProbeColorDiv" style="margin-left:15%; width:70%; margin-top:5px; margin-bottom:15px; display:none;">
-
-                        <p class="standardText" style="width:40%; font-weight:bold;">Color:</p>
-
-
-                          <div id="id_EditPage_Probe_Color" style="display:inline-block; background:black; border: 2px solid black; border-radius: 5px; height:20px; width:20px; cursor:pointer;">
-
-                          </div>
-
-
-                      </div>
-
-                      <div id="id_divProbeGradientValueStart" style="margin-left:15%; width:70%; margin-top:5px; margin-bottom:5px;">
-                        <div class="row" style="width:100%; margin-top:10px; margin-bottom:10px;" >
-                          <p class="standardText" style="width:40%;">Value Start:</p>
-                          <input id="id_inputGradientValueStart" type="number" name="Gradient Value Start" value="0" min="0" max="100" step="any" class="standardText" style="width:60%;">
-                        </div>
-                      </div>
-
-                      <div id="id_divProbeGradientValueEnd" style="margin-left:15%; width:70%; margin-top:5px; margin-bottom:5px;">
-                        <div class="row" style="width:100%; margin-top:10px; margin-bottom:10px;" >
-                          <p class="standardText" style="width:40%;">Value End:</p>
-                          <input id="id_inputGradientValueEnd" type="number" name="Gradient Value Start" value="100" min="0" max="100" step="any" class="standardText" style="width:60%;">
-                        </div>
-                      </div>
-
-                      <hr>
-
-                      <div class="row" style="margin-left:15%; width:70%; margin-top:5px; margin-bottom:5px;">
-
-                        <p class="standardText" style="width:40%; font-weight:bold;">Probe Ranges:</p>
-
-                        <select id="id_selectProbeRangeType" name="ProbeRangeTypeList" style="width:60%; height:auto;">
-                          <option value="0" checked>Single Probe</option>
-                          <option value="1">Probe Set</option>
-                          <option value="2" style="display: none;">Interval Auto Subdivision</option>
-                          <option value="3">Custom Probe Set</option>
-                        </select>
-                      </div>
-
-                      <div id="id_divProbeRangesSingleStart" style="margin-left:15%; width:70%; margin-top:5px; margin-bottom:5px;">
-                        <div class="row" style="width:100%; margin-top:10px; margin-bottom:10px;" >
-                          <p class="standardText" style="width:40%;">Probe-Set Start:</p>
-                          <input id="id_inputSingleProbeRangeStart" type="number" name="ProbeRangeStart" value="0" step="any" class="standardText" style="width:60%;">
-                        </div>
-                      </div>
-
-                      <div id="id_divProbeRangesSingleEnd" style="margin-left:15%; width:70%; margin-top:5px; margin-bottom:5px;">
-                      <div class="row" style="width:100%; margin-top:5px; ">
-                        <p class="standardText" style="width:40%;">Probe-Set End:</p>
-                        <input id="id_inputSingleProbeRangeEnd" type="number" name="ProbeRangeEnd" value="1" step="any" class="standardText" style="width:60%;">
-                      </div>
-                      </div>
-
-                      <div id="id_divProbeRangesInterval" style="margin-left:15%; width:70%; margin-top:5px; margin-bottom:5px; display:none;">
-                        <div class="row" style="width:100%; margin-top:15px; ">
-                          <p class="standardText" style="width:40%;">Probe-Set Width:</p>
-                          <input id="id_inputProbeIntervalLength" type="number" name="ProbeIntervalLength" value="1" step="any" min="0" class="standardText" style="width:60%;">
-                        </div>
-                      </div>
-
-                      <div id="id_divProbeDistance" style="margin-left:15%; width:70%; margin-top:10px; margin-bottom:5px; display:none;">
-                        <div class="row" style="width:100%; margin-top:15px; ">
-                          <p class="standardText" style="width:40%;">Probe Distance:</p>
-                          <input id="id_inputProbeDistance" type="number"  value="0" step="any" min="0" class="standardText" style="width:60%;">
-                        </div>
-                      </div>
-
-                      <div id="id_divProbeRangesIntervalAuto" style="margin-left:15%; width:70%; margin-top:10px; margin-bottom:5px; display:none;">
-                        <div class="row" style="width:100%; margin-top:15px; ">
-                          <p class="standardText" style="width:40%;">Number of Probes:</p>
-                          <input id="id_inputNumberIntervalAuto" type="number"  value="1" step="1" min="1" class="standardText" style="width:60%;">
-                        </div>
-                      </div>
-
-                      <div id="id_divProbeRangesCustom" style="margin-left:15%; width:70%; margin-top:10px; margin-bottom:5px; display:none;">
-                        <div class="row" style="width:100%; margin-top:15px; ">
-                        <p class="standardText" style="width:40%;">Custom Range:</p>
-                        <input id="id_inputCustomProbeRanges" type="text" name="ProbeCustomRanges" value="" class="standardText" style="width:60%;">
-                        </div>
-                        <p id="CustomProbeInfoText" class="standardText" style="margin-top:5px; margin-left:40%; width:60%; color:red; font-weight:bold;"></p>
-                        <p class="standardText" style="margin-top:5px; margin-left:40%; width:60%;">Semantic: A custom range is defined by two values separated by comma. The range concludes with a semicolon at the end. (Example: "0.1,0.4;0.75,0.8;" results in two custom ranges) Please check that the second value of a range is alwasy bigger than the first one. Overlapping range are not allowed!</p>
-
-                      </div>
-
-                      <p class="standardText" style="margin-left:15%; width:70%; margin-top:15px; margin-bottom:5px;"> Info: The probe range is allowed to be over the borders of the CMS range. Probe value out of the CMS range will be excluded during the calculation of the probe colormap.</p>
 
 
                       <hr style="margin-left:15%; width:70%;">
@@ -2023,7 +2007,7 @@
                       ----------------	ColorSelector	  -------------
                      -->
 
-    <div id="id_popupColorPicker" style=" height: 36vh; position:absolute; z-index:50; top:50px; left:50px; bottom:0px; border: 0.4vh solid black; background:white; display:none;">
+    <div id="id_popupColorPicker" style=" height: 36vh; position:absolute; z-index:85; top:50px; left:50px; bottom:0px; border: 0.4vh solid black; background:white; display:none;">
 
       <div class="row">
 
