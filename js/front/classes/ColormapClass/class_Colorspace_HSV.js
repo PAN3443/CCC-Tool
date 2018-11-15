@@ -125,7 +125,8 @@ class classColor_HSV{
     }
 
     calcHSVColor() {
-      return new classColor_HSV(this.hValue,this.sValue,this.vValue);
+      var newColor = new classColor_HSV(this.hValue,this.sValue,this.vValue);
+      return newColor;
     }
 
     calcRGBColor(){

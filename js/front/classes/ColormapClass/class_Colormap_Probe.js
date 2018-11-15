@@ -13,10 +13,15 @@ class class_Probe{
         this.colorspace = space;
         this.startPos = start;
         this.endPos = end;
+        this.numberOfStrutKeys = 5;
       }
 
       deconstructor(){
 
+      }
+
+      getNumberOfStrutKeys(){
+        return this.numberOfStrutKeys;
       }
 
       setType(type){

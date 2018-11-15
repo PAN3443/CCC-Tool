@@ -16,8 +16,9 @@
 
 .class_RadioButtonPopUpWindow{
 
-  font-size: 2vh;
-  line-height: 2.5vh;
+  font-size: 1.6vh;
+  line-height: 2vh;
+  height: 2vh;
   height:auto;
   color:black;
   vertical-align:middle;
@@ -30,9 +31,9 @@
 }
 
 .class_InputPopUpWindow{
-  font-size: 2vh;
-  line-height: 2.5vh;
-  height:2.5;
+  font-size: 1.6vh;
+  line-height: 2vh;
+  height:2vh;
   color:black;
   vertical-align:middle;
   margin:0px;

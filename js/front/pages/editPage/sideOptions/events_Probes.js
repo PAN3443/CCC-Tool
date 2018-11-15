@@ -59,6 +59,10 @@ function drawProbePreview(){
 
     if(globalCMS1.getKeyLength()!=0){
       var tmpCMS = globalProbeSet.generateProbeCMS(globalCMS1);
+
+      if(myDesignsList.length<8){
+        myDesignsList.push(tmpCMS);
+      }
       drawCanvasColormap("id_EditPage_ProbePreview", tmpCMS);
     }
 
@@ -119,14 +123,16 @@ function generateProbeSet(){
          case 1: // interval
 
            var startVal = parseFloat(document.getElementById("id_inputProbeIntervalStart").value);
-           if(isNaN(startVal) || start==undefined){
-             openAlert("The input value for the probe start is not correct!");
+
+
+           if( isNaN(startVal) || startVal==undefined){
+             openAlert("The input value for the probe start is not correct!"); console.log(document.getElementById("id_inputProbeIntervalStart").value);
              return;
            }
 
            var intervalLength = parseFloat(document.getElementById("id_inputProbeIntervalLength").value);
            if(isNaN(intervalLength) || intervalLength==undefined){
-             openAlert("The input value for the probe width is not correct!");
+             openAlert("The input value for the probe width is not correct!"); console.log(document.getElementById("id_inputProbeIntervalLength").value);
              return;
            }
 
@@ -137,7 +143,7 @@ function generateProbeSet(){
 
            var distanceLength = parseFloat(document.getElementById("id_inputProbeDistance").value);
            if(isNaN(distanceLength) || distanceLength==undefined){
-             openAlert("The input value for the distance is not correct!");
+             openAlert("The input value for the distance is not correct!"); console.log(document.getElementById("id_inputProbeDistance").value);
              return;
            }
            if(distanceLength<0){
@@ -145,7 +151,7 @@ function generateProbeSet(){
              return;
            }
 
-           var numberOfSteps =  numberOfSteps=parseInt(document.getElementById("id_inputNumberIntervalAuto").value);
+           var numberOfSteps =parseInt(document.getElementById("id_inputNumberIntervalAuto").value);
            if(isNaN(numberOfSteps) || numberOfSteps==undefined){
              openAlert("The input value for the number of probes is not correct!");
              return;
@@ -179,7 +185,7 @@ function generateProbeSet(){
                    var end = parseFloat(range[1]);
 
                    if(end>start)
-                   globalProbeSet.addProbe(createProbe(currentPos,nextPos));
+                   globalProbeSet.addProbe(createProbe(start,end));
                  }
                }
                break;
@@ -222,6 +228,7 @@ function changeProbeType(type){
         document.getElementById("id_EditPage_selectProbeTypeLabel").innerHTML="&#9660; Gradient";
         document.getElementById("id_EditPage_ProbeFunction_Div").style.display = 'flex';
         document.getElementById("id_EditPage_ProbeColor_Div").style.display = 'flex';
+        //document.getElementById("id_EditPage_ProbeSubType_TwoSide").style.display = 'flex';
         changeProbeSubType(0);
       break;
     case 2:
@@ -319,6 +326,8 @@ function changeTwoSideFunction(type){
   document.getElementById("id_EditPage_FunctionTwoSided_Selection1").style.background = 'rgb(220,220,220)';
   document.getElementById("id_EditPage_FunctionTwoSided_Selection2").style.background = 'rgb(220,220,220)';
   document.getElementById("id_EditPage_FunctionTwoSided_Selection3").style.background = 'rgb(220,220,220)';
+  document.getElementById("id_EditPage_FunctionTwoSided_Selection4").style.background = 'rgb(220,220,220)';
+  document.getElementById("id_EditPage_FunctionTwoSided_Selection5").style.background = 'rgb(220,220,220)';
 
   switch (type){
     case 0:
@@ -332,6 +341,12 @@ function changeTwoSideFunction(type){
     break;
     case 3:
         document.getElementById("id_EditPage_FunctionTwoSided_Selection3").style.background="rgb(76, 175, 80)";
+    break;
+    case 4:
+        document.getElementById("id_EditPage_FunctionTwoSided_Selection4").style.background="rgb(76, 175, 80)";
+    break;
+    case 5:
+        document.getElementById("id_EditPage_FunctionTwoSided_Selection5").style.background="rgb(76, 175, 80)";
     break;
     default:
 

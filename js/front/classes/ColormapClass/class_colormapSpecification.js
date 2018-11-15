@@ -307,6 +307,7 @@ class class_CMS {
 
 
   insertKey(index,key,bursType){
+
       this.keyArray.splice(index, 0,key);
       this.burs.splice(index, 0,bursType);
   }

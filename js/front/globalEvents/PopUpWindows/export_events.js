@@ -15,7 +15,7 @@ function openExportWindow(){
   document.getElementById("id_dropDownContainer").style.display="none";
   document.getElementById("id_selectProbeListExport").selectedIndex=0;
 
-  if(globalCMS1.getProbeLength()==0){
+  if(globalCMS1.getProbeSetLength()==0){
     document.getElementById("exportprobeDiv").style.display="none";
   }
   else{
