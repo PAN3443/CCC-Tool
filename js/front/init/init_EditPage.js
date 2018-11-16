@@ -81,6 +81,10 @@ function init_events_EditPage(){
   document.getElementById('id_EditPage_selectProbeSubTypeLabel').addEventListener("click", activateDropdown);
   document.getElementById('id_EditPage_selectProbeSetRangeType').addEventListener("click", activateDropdown);
 
+  document.getElementById('id_EditPage_editProbeTypeLabel').addEventListener("click", activateDropdown);
+  document.getElementById('id_EditPage_editProbeSubTypeLabel').addEventListener("click", activateDropdown);
+  document.getElementById('id_EditPage_editProbeFunctionLabel').addEventListener("click", activateDropdown);
+
   initRGB3D();
 
   document.getElementById('id_EditPage_PathPlot_3D_Div').addEventListener("mousemove", eventRGB3D_mousemove);
@@ -110,5 +114,21 @@ function init_events_EditPage(){
     /////////////// side options
     document.getElementById('id_editPage_ProbeSpace_Value').addEventListener("change", changeProbeSpace);
     document.getElementById('id_editPage_ProbeSpace_Lightness').addEventListener("change", changeProbeSpace);
+
+    document.getElementById("id_inputCustomProbeRanges").addEventListener("change", checkKeyCustomRangeInput);
+    document.getElementById("id_inputCustomProbeRanges").addEventListener("keyup", checkKeyCustomRangeInput);
+
+    document.getElementById("id_probe_GenerationName").addEventListener("change", changeGenerationProbeName);
+
+    document.getElementById("id_inputSingleProbeRangeStart").addEventListener("change", generateProbeSet);
+    document.getElementById("id_inputSingleProbeRangeEnd").addEventListener("change", generateProbeSet);
+    document.getElementById("id_inputProbeIntervalStart").addEventListener("change", generateProbeSet);
+    document.getElementById("id_inputProbeIntervalLength").addEventListener("change", generateProbeSet);
+    document.getElementById("id_inputProbeDistance").addEventListener("change", generateProbeSet);
+    document.getElementById("id_inputNumberIntervalAuto").addEventListener("change", generateProbeSet);
+
+    document.getElementById("id_selectProbeSetList").addEventListener("change", updateProbeSelectBox);
+    document.getElementById("id_selectProbeList").addEventListener("change", selectProbe);
+    selectProbe()
 
 }

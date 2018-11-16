@@ -6,7 +6,7 @@ function activateDropdown(event) {
     labelID = event.target.id;
 
     var doAbsolute = false;
-
+    var onTop = false;
     switch (labelID) {
       case "id_editPage_OrderPredefinedLabel":
         dropdownID = "id_editPage_OrderPredefinedDropdown";
@@ -41,6 +41,27 @@ function activateDropdown(event) {
                     document.getElementById("id_EditPage_selectProbeTypeDropDown").style.display="none";
                     document.getElementById("id_EditPage_selectProbeSubTypeDropDown").style.display="none";
                     break;
+
+                    case "id_EditPage_editProbeTypeLabel":
+                      doAbsolute = true;
+                      additionalScrollID="id_EditPage_editProbe";
+                      dropdownID = "id_EditPage_editProbeTypeDropDown";
+                      document.getElementById("id_EditPage_editProbeSubTypeDropDown").style.display="none";
+                      break;
+                      case "id_EditPage_editProbeSubTypeLabel":
+                        doAbsolute = true;
+                        additionalScrollID="id_EditPage_editProbe";
+                        dropdownID = "id_EditPage_editProbeSubTypeDropDown";
+                        document.getElementById("id_EditPage_editProbeTypeDropDown").style.display="none";
+                        break;
+
+                        case "id_EditPage_editProbeFunctionLabel":
+                          doAbsolute = true;
+                          additionalScrollID="id_EditPage_editProbe";
+                          onTop=true;
+                          dropdownID = "id_EditPage_editProbeFunctionDropDown";
+                          document.getElementById("id_EditPage_editProbeTypeDropDown").style.display="none";
+                          break;
       default:
         return;
     }
@@ -83,7 +104,12 @@ function activateDropdown(event) {
       }
 
 
-      document.getElementById(dropdownID).style.top=(top+box.height)+"px";
+      if(onTop){
+        document.getElementById(dropdownID).style.top=(top-dropdownBox.height)+"px";
+      }
+      else {
+        document.getElementById(dropdownID).style.top=(top+box.height)+"px";
+      }
       document.getElementById(dropdownID).style.left=(left+box.width-dropdownBox.width)+"px";
     }
     else{

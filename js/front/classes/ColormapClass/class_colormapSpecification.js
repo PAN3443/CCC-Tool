@@ -363,15 +363,7 @@ class class_CMS {
   }
 
   getProbeSetClone(index){
-      var newProbeSet = new class_ProbeSet();
-
-      for (var i = 0; i < this.probeSetArray[index].getProbeLength(); i++) {
-        newProbeSet.addProbe(this.probeSetArray[index].getProbeClone(i));
-      }
-
-      newProbeSet.setProbeSetName(this.probeSetArray[index].getProbeSetName());
-
-      return newProbe;
+      return cloneProbeSet(this.probeSetArray[index]);
   }
 
   setProbe(index,probeIndex, probe){
@@ -380,6 +372,10 @@ class class_CMS {
 
   addProbe(index,probe){
     this.probeSetArray[index].addProbe(probe);
+  }
+
+  changeProbeSetName(index,name){
+    this.probeSetArray[index].setProbeSetName(name);
   }
 
   insertProbe(index,probeIndex,probe){

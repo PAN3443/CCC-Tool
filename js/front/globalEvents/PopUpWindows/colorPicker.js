@@ -99,6 +99,16 @@ function openColorPicker(event){
                     document.getElementById("id_popupColorPicker").style.left=(left+box.width)+"px";
                     break;
 
+                    case "id_inputEditProbeColor":
+                      document.getElementById("id_popupColorPicker").style.position="fixed";
+                      colorpickerColor=globalProbeColor;
+                      // above the object
+                      top =  refObj.offsetTop;
+                      left = refObj.offsetLeft;
+                      document.getElementById("id_popupColorPicker").style.top=(top+box.height)+"px";
+                      document.getElementById("id_popupColorPicker").style.left=(left+box.width)+"px";
+                      break;
+
     default:
     return;
 
@@ -837,12 +847,11 @@ function affectColorpickerChange(){
               break;
               case "id_EditPage_DrawnLeftKey":
               globalCMS1.setLeftKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex,colorpickerColor);
-
-
               drawSelectedKey();
               updateEditPage();
               saveCreateProcess();
-break;
+              break;
+
               case "id_EditPage_DrawnRightKey":
               globalCMS1.setRightKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex,colorpickerColor);
 
@@ -855,7 +864,12 @@ break;
                 globalProbeColor=colorpickerColor.calcHSVColor();
                 changeProbeColor();
                 generateProbeSet();
-                break;
+              break;
+
+              case "id_inputEditProbeColor":
+                globalProbeColor=colorpickerColor.calcHSVColor();
+                changeProbeColor();
+              break;
 
 
     default:

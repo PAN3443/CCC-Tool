@@ -28,12 +28,16 @@ class class_ProbeSet{
       }
 
       getProbeLength(){
-        return this.numberOfProbes;
+        return this.probeArray.length;
       }
 
 
       setProbe(index,probe){
         this.probeArray[index]=probe;
+      }
+
+      getProbe(index){
+        return this.probeArray[index];
       }
 
       addProbe(probe){
@@ -46,9 +50,9 @@ class class_ProbeSet{
 
       getProbeClone(index){
 
-        if(index<this.probeArray.lenght){
+        if(index<this.probeArray.length){
 
-          var newProbe = class_Probe(this.probeArray[index].getType(),this.probeArray[index].getStartPos(),this.probeArray[index].getEndPos(),this.probeArray[index].getProbeColorspace());
+          var newProbe = new class_Probe(this.probeArray[index].getType(),this.probeArray[index].getStartPos(),this.probeArray[index].getEndPos(),this.probeArray[index].getProbeColorspace());
           newProbe.setTwoSidedType(this.probeArray[index].getTwoSidedType());
           newProbe.setOneSidedType(this.probeArray[index].getOneSidedType());
           newProbe.setIsTwoSided(this.probeArray[index].getIsTwoSided());
@@ -56,6 +60,7 @@ class class_ProbeSet{
 
           return newProbe;
         }
+
 
         return undefined;
 
@@ -593,7 +598,6 @@ class class_ProbeSet{
                           reachedEndOfCMS=true; // this case is not the end of the CMS but the end of the strut
                           break;
                         }
-                        console.log(123);
                         currentPos = nextPos;
                         nextPos = currentPos+strucDis;
                       }
@@ -710,3 +714,17 @@ class class_ProbeSet{
 
       }
 };
+
+
+function cloneProbeSet(probesetObj){
+
+  var newProbeSet = new class_ProbeSet();
+
+  for (var i = 0; i < probesetObj.getProbeLength(); i++) {
+    newProbeSet.addProbe(probesetObj.getProbeClone(i));
+  }
+
+  newProbeSet.setProbeSetName(probesetObj.getProbeSetName());
+
+  return newProbeSet;
+}
