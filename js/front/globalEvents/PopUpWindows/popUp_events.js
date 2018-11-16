@@ -124,6 +124,26 @@ function openAskWindow(){
               // leave edit page
               document.getElementById("id_askText").innerHTML="Do you really want to leave the edit page and reject unsaved content?";
               break;
+
+              case 5:
+              // delete Probe-Set
+                document.getElementById("id_askText").innerHTML="Do you really want to delete the selected probe-set?";
+              break;
+              case 6:
+              // delete Probe-Set
+
+                var tmpProbeSet = globalCMS1.getProbeSet(document.getElementById("id_selectProbeSetList").selectedIndex);
+                if(tmpProbeSet.getProbeLength()==1){
+                    document.getElementById("id_askText").innerHTML="Do you really want to delete the last probe? (The full probe set will be deleted!)";
+                }
+                else {
+                    document.getElementById("id_askText").innerHTML="Do you really want to delete the selected probe?";
+                }
+
+
+
+
+              break;
       default:
 
     }
@@ -163,6 +183,26 @@ function checkAsk(){
           //leave edit page
           showMyDesignsPage();
           break;
+
+          case 5:
+            //delete probe set
+            globalCMS1.deleteProbeSet(document.getElementById("id_selectProbeSetList").selectedIndex);
+            initProbePage();
+            break;
+
+            case 6:
+              // delete probe
+              var tmpProbeSet = globalCMS1.getProbeSet(document.getElementById("id_selectProbeSetList").selectedIndex);
+              if(tmpProbeSet.getProbeLength()==1){
+                globalCMS1.deleteProbeSet(document.getElementById("id_selectProbeSetList").selectedIndex);
+                initProbePage();
+              }
+              else {
+                globalCMS1.deleteProbe(document.getElementById("id_selectProbeSetList").selectedIndex,document.getElementById("id_selectProbeList").selectedIndex-1);
+                drawProbePreview(tmpProbeSet);
+              }
+
+              break;
 
     default:
 

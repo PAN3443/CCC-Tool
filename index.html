@@ -1780,7 +1780,6 @@
                             <div class="row" style="width:100%; margin-top:4vh;">
                               <button class="class_generalbutton" onclick="initProbeGeneration()" type="button" name="button" style=" margin-left:auto; font-size: 1.8vh; height:3vh; line-height: 3vh; width:20%; font-weight:bold; vertical-align:middle; margin-top:auto; margin-bottom:auto;"> New Probe Set </button>
                               <button class="class_generalbutton" onclick="deleteProbeSet()" type="button" name="button" style=" margin-left:auto; font-size: 1.8vh; height:3vh; line-height: 3vh; width:20%; font-weight:bold; vertical-align:middle; margin-top:auto; margin-bottom:auto;"> Delete </button>
-
                               <button class="class_generalbutton" onclick="duplicateProbeSet()" type="button" name="button" style="margin-right:auto; margin-left:auto; font-size: 1.8vh; height:3vh; line-height: 3vh; width:20%; font-weight:bold; vertical-align:middle; margin-top:auto; margin-bottom:auto;"> Duplicate </button>
                             </div>
 
@@ -1796,7 +1795,7 @@
                                 <option value="1" >Probe 1; Type: Gradient; Function: linear;</option>
                               </select>
 
-                              <button  id="id_EditPage_RemoveProbeButton" class="class_generalbutton" onclick="removeProbe()" type="button" name="button" style=" margin-left:25%; font-size: 1.8vh; height:3vh; line-height: 3vh; width:50%; font-weight:bold; vertical-align:middle; margin-top:2vh;"> Remove Probe </button>
+                              <button  id="id_EditPage_RemoveProbeButton" class="class_generalbutton" onclick="deleteProbe()" type="button" name="button" style=" margin-left:25%; font-size: 1.8vh; height:3vh; line-height: 3vh; width:50%; font-weight:bold; vertical-align:middle; margin-top:2vh;"> Remove Probe </button>
                             </div>
 
                             <div style=" width:50%;">
@@ -1805,13 +1804,13 @@
                               <div class="row" style="width:100%; margin-top:1vh; margin-bottom:1vh;">
                                 <p class="standardText class_noSizeUpdate" style="font-size: 1.8vh; height:3vh; line-height: 3vh; font-weight:bold; margin-left:auto; width:25%; vertical-align:middle; margin-top:auto; margin-bottom:auto; margin-left:1vw;"> Start:  </p>
 
-                                <input class="standardText class_noSizeUpdate" type="text" id="id_probe_EditProbeStart" style="font-size: 1.8vh; height:3vh; line-height: 3vh; font-weight:bold; width:40%; vertical-align:middle; margin:auto;" />
+                                <input class="standardText class_noSizeUpdate" type="number" step="any" id="id_probe_EditProbeStart" style="font-size: 1.8vh; height:3vh; line-height: 3vh; font-weight:bold; width:40%; vertical-align:middle; margin:auto;" />
                               </div>
 
                               <div class="row" style="width:100%; margin-top:1vh; margin-bottom:1vh;">
                                 <p class="standardText class_noSizeUpdate" style="font-size: 1.8vh; height:3vh; line-height: 3vh; font-weight:bold; margin-left:auto; width:25%; vertical-align:middle; margin-top:auto; margin-bottom:auto; margin-left:1vw;"> End:  </p>
 
-                                <input class="standardText class_noSizeUpdate" type="text" id="id_probe_EditProbeEnd" style="font-size: 1.8vh; height:3vh; line-height: 3vh; font-weight:bold; width:40%; vertical-align:middle; margin:auto;" />
+                                <input class="standardText class_noSizeUpdate" type="number" step="any" id="id_probe_EditProbeEnd" style="font-size: 1.8vh; height:3vh; line-height: 3vh; font-weight:bold; width:40%; vertical-align:middle; margin:auto;" />
                               </div>
 
                               <div class="row" style="width:100%; margin-top:1vh; margin-bottom:1vh;">
@@ -2083,32 +2082,6 @@
                         <p id="id_EditPage_ProbePreviewLabel" class="standardText class_noSizeUpdate" style="font-size: 2vh; height:2.5vh; width:10%; line-height: 2.5vh; font-weight:bold; text-align:center; vertical-align:middle; margin-top:auto; margin-bottom:auto;"> Preview: </p>
                         <canvas id="id_EditPage_ProbePreview" style="width:85%; height:6vh; border: 0.2vh solid black; margin-top:1vh;"></canvas>
                   </div>
-
-                  <!--div class="row" style="padding-top:5px; padding-bottom:5px;">
-                    <div style="width:50%; border-right:1px solid black;">
-                      <h2 class="subsectionLabel" style="width:100%; margin-top:10px; margin-bottom:10px;">Probe List</h2>
-
-
-
-                      <button id="id_buttonRemoveProbe" type="button" name="ProbeRemoveButton" class="classButtonWhite standardText" style="border-radius: 10px;  width:50%; line-height:30px; border: 1px solid rgb(180,180,180); margin-left:25%; margin-top: 10px;">Remove</button>
-
-                    </div>
-
-
-
-
-
-                      <hr style="margin-left:15%; width:70%;">
-
-                      <button id="id_buttonAddUpdateProbe" type="button" name="ProbeRemoveButton" class="classButtonWhite standardText" style="border-radius: 10px;  width:50%; line-height:30px; border: 1px solid rgb(180,180,180); margin-left:25%; margin-top: 10px;">Add</button>
-                    </div>
-                  </div>
-
-                  <div id="divProbePreview" style="width:100%; display:none; padding-top:15px; padding-bottom:15px;">
-                    <h2 class="subsectionLabel" style="width:100%; margin-top:15px; margin-bottom:15px;">Preview</h2>
-                    <canvas style="margin-top: 0px; width:95%; height: 50px; margin-left:2.5%; margin-bottom:0px; border: thin solid black;" id="id_linearProbePreview">
-                    </canvas>
-                  </div!-->
 
 
 

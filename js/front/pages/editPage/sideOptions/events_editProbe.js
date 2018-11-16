@@ -89,7 +89,22 @@ function updateProbeSelectBox(){
 
 }
 
-function removeProbe(){
+function deleteProbeSet(){
+
+  if(document.getElementById("id_selectProbeSetList").selectedIndex<globalCMS1.getProbeSetLength()){
+    askType=5;
+    openAskWindow();
+  }
+
+}
+
+function deleteProbe(){
+
+  var tmpProbeSet = globalCMS1.getProbeSet(document.getElementById("id_selectProbeSetList").selectedIndex);
+  if((document.getElementById("id_selectProbeList").selectedIndex-1)<tmpProbeSet.getProbeLength()){
+    askType=6;
+    openAskWindow();
+  }
 
 }
 
@@ -108,7 +123,14 @@ function selectProbe(){
       document.getElementById("id_EditPage_RemoveProbeButton").style.visibility="visible";
       document.getElementById("id_EditPage_AddUpdateProbeButton").innerHTML="Update Probe";
 
+      var tmpProbe = globalCMS1.getProbe(document.getElementById("id_selectProbeSetList").selectedIndex,document.getElementById("id_selectProbeList").selectedIndex-1);
       // fill probe inputs
+      document.getElementById("id_probe_EditProbeStart").value=tmpProbe.getStartPos();
+      document.getElementById("id_probe_EditProbeEnd").value=tmpProbe.getEndPos();
+
+      globalProbeColor=tmpProbe.getProbeColor();
+
+      changeProbeType(tmpProbe.getType());
   }
 }
 

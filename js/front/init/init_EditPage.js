@@ -129,6 +129,5 @@ function init_events_EditPage(){
 
     document.getElementById("id_selectProbeSetList").addEventListener("change", updateProbeSelectBox);
     document.getElementById("id_selectProbeList").addEventListener("change", selectProbe);
-    selectProbe()
 
 }

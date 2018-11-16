@@ -301,7 +301,9 @@ function clearColormap(){
 
   if(document.getElementById("id_actionMenu_clearButton").classList.contains('dropdownMenuButton')){
     askType=0;
-    openAskWindow()
+    openAskWindow();
+
+    
   }
   document.getElementById("id_dropDownContainer").style.display="none";
 

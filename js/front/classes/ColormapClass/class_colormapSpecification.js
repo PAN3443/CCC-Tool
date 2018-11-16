@@ -358,8 +358,18 @@ class class_CMS {
     this.probeSetArray.splice(index, 1);
   }
 
+  deleteProbe(setindex,probeindex){
+    this.probeSetArray[setindex].deleteProbe(probeindex);
+  }
+
   getProbeSet(index){
     return this.probeSetArray[index];
+  }
+
+  getProbe(setindex,probeindex){
+    console.log(13);
+    if(setindex<this.probeSetArray.length)
+      return this.probeSetArray[setindex].getProbe(probeindex);
   }
 
   getProbeSetClone(index){

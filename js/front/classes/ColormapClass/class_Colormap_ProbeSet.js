@@ -15,6 +15,12 @@ class class_ProbeSet{
 
       }
 
+
+      deleteProbe(index){
+        this.probeArray[index].deconstructor();
+        this.probeArray.splice(index, 1);
+      }
+
       clear(){
         this.probeArray = [];
       }
