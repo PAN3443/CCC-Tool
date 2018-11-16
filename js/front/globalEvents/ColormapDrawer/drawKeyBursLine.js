@@ -10,6 +10,12 @@ function drawKeyBursLine(canvasID,tmpCMS){
 
   var canvasContex = canvasObject.getContext("2d");
 
+  canvasContex.mozImageSmoothingEnabled = false;
+  canvasContex.webkitImageSmoothingEnabled = false;
+  canvasContex.msImageSmoothingEnabled = false;
+  canvasContex.imageSmoothingEnabled = false; // did not work !?!?!
+  canvasContex.oImageSmoothingEnabled = false;
+
   var colormapWidth = tmpRect.width * 0.9;
   var xPos = tmpRect.width * 0.05;
 
@@ -19,6 +25,8 @@ function drawKeyBursLine(canvasID,tmpCMS){
   canvasContex.lineTo(xPos + colormapWidth, tmpRect.height/2);
   canvasContex.strokeStyle = 'rgb(120,120,120)';
   canvasContex.stroke();
+
+
 
   var bigRad=tmpRect.height/15;
   var smallRad=tmpRect.height/25;

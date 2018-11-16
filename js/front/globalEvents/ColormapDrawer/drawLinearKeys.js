@@ -15,8 +15,15 @@ function drawKeys(canvasID, tmpCMS) {
   //var relation = canvasObject.width/canvasObject.height; //rect.height/rect.width;
 
   var canvasContex = canvasObject.getContext("2d");
-  //canvasContex.clearRect(0, 0, canvasObject.width, canvasObject.height);
-  var canvasData = canvasContex.getImageData(0, 0, canvasObject.width, canvasObject.height);
+
+  canvasContex.mozImageSmoothingEnabled = false;
+  canvasContex.webkitImageSmoothingEnabled = false;
+  canvasContex.msImageSmoothingEnabled = false;
+  canvasContex.imageSmoothingEnabled = false; // did not work !?!?!
+  canvasContex.oImageSmoothingEnabled = false;
+
+
+  var strokeWidth = 1;
 
 
   //////////////////////////////////////////////////////////////
@@ -32,7 +39,9 @@ function drawKeys(canvasID, tmpCMS) {
 
 
   var colorrectHeigth = canvasObject.height;
-  colorrectWitdh = colorrectHeigth; //(colorrectHeigth*relation)/2;
+  colorrectWitdh = colorrectHeigth;
+
+  colorrectHeigth -=2;
 
   var box = document.getElementById(canvasID).getBoundingClientRect();
 
@@ -116,6 +125,8 @@ function drawKeys(canvasID, tmpCMS) {
 
 function drawColorRect(contex, colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth, rgbColor, isGrey) {
 
+  var strokeWidth =1;
+
   contex.fillStyle = rgbColor;
   contex.fillRect(colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth);
 
@@ -124,11 +135,11 @@ function drawColorRect(contex, colorrectXPos, colorrectYPos, colorrectWitdh, col
     contex.moveTo(colorrectXPos, colorrectYPos + colorrectHeigth);
     contex.lineTo(colorrectXPos + colorrectWitdh, colorrectYPos);
     contex.strokeStyle = 'rgb(0,0,0)';
-    contex.lineWidth = 1;
+    contex.lineWidth = strokeWidth;
     contex.stroke();
   }
 
-  contex.lineWidth = 1;
+  contex.lineWidth = strokeWidth;
   contex.strokeStyle = 'rgb(0,0,0)';
   contex.strokeRect(colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth);
 

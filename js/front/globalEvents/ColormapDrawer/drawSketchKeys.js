@@ -8,7 +8,12 @@ function drawSketchKeys(canvasID, tmpCMS){
     //var relation = window.innerHeight/window.innerWidth; //canvasObject.height/canvasObject.width;
 
     var canvasContex = canvasObject.getContext("2d");
-    var canvasData = canvasContex.getImageData(0, 0, canvasObject.width, canvasObject.height);
+
+    canvasContex.mozImageSmoothingEnabled = false;
+    canvasContex.webkitImageSmoothingEnabled = false;
+    canvasContex.msImageSmoothingEnabled = false;
+    canvasContex.imageSmoothingEnabled = false; // did not work !?!?!
+    canvasContex.oImageSmoothingEnabled = false;
 
     //////////////////////////////////////////////////////////////
 

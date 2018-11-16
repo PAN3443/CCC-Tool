@@ -139,7 +139,7 @@ class class_ProbeSet{
                       var newColor = this.getNewKeyColor(currentColor,middle,probeIndex);
                       var middleKey = new class_Key(newColor, newColor, middle); // left key because of constant band
                       this.currentKey++;
-                      newCMS.insertKey(this.currentKey,middleKey,true);
+                      newCMS.insertKey(this.currentKey,middleKey,false);
                     }
 
 
@@ -160,7 +160,7 @@ class class_ProbeSet{
                             var newColor = this.getNewKeyColor(currentColor,middle,probeIndex);
                             var middleKey = new class_Key(newColor, newColor, middle); // left key because of constant band
                             this.currentKey++;
-                            newCMS.insertKey(this.currentKey,middleKey,true);
+                            newCMS.insertKey(this.currentKey,middleKey,false);
                           }
                         }
 
@@ -168,7 +168,7 @@ class class_ProbeSet{
                         var newColor = this.getNewKeyColor(currentColor,nextPos,probeIndex);
                         var strutKey = new class_Key(newColor, newColor, nextPos); // left key because of constant band
                         this.currentKey++;
-                        newCMS.insertKey(this.currentKey,strutKey,true);
+                        newCMS.insertKey(this.currentKey,strutKey,false);
 
 
                         currentPos=nextPos;
@@ -533,35 +533,117 @@ class class_ProbeSet{
                 var newColor = this.getNewKeyColor(currentColor,middle,probeIndex);
                 var middleKey = new class_Key(newColor, newColor, middle); // left key because of constant band
                 this.currentKey++;
-                newCMS.insertKey(this.currentKey,middleKey,true);
+                newCMS.insertKey(this.currentKey,middleKey,false);
                 //this.currentKey++;
               }
 
               break;
               case 2:
-                if(this.probeArray[probeIndex].getIsTwoSided()){
 
-                  //
-                  while(this.checkWhileArgument(newCMS,probeIndex,reachedLast)){
-                    this.currentKey++;
-                    var currentRightColor = newCMS.getRightKeyColor(this.currentKey,"hsv");
-                    var currentLeftColor = newCMS.getLeftKeyColor(this.currentKey,"hsv");
-                    newCMS.setRightKeyColor(this.currentKey,this.getNewKeyColor(currentRightColor,newCMS.getRefPosition(this.currentKey),probeIndex));
-                    newCMS.setLeftKeyColor(this.currentKey,this.getNewKeyColor(currentLeftColor,newCMS.getRefPosition(this.currentKey),probeIndex));
+                  var middle = this.probeArray[probeIndex].getStartPos()+(Math.abs(this.probeArray[probeIndex].getStartPos()-this.probeArray[probeIndex].getEndPos())/2);
+                  var addExtraMiddle = false;
+                  if(this.probeArray[probeIndex].getIsTwoSided() && this.probeArray[probeIndex].getNumberOfStrutKeys()%2==0){
+                    addExtraMiddle=true;
                   }
+                  var currentPos = this.probeArray[probeIndex].getStartPos();
+                  var strucDis = Math.abs(this.probeArray[probeIndex].getEndPos()-this.probeArray[probeIndex].getStartPos())/(this.probeArray[probeIndex].getNumberOfStrutKeys()+1);
+                  var reachedEndOfCMS = false;
+                  var notAddNextStrut = false; // in case a key has the same reference of a strut the key will be modified and the strut hasn't to be added
+                  var doneExtraMiddle = false;
+                  for (var i = 0; i < this.probeArray[probeIndex].getNumberOfStrutKeys(); i++) {
+                    var nextPos = currentPos+strucDis;
 
-                }
-                else{
 
-                  while(this.checkWhileArgument(newCMS,probeIndex,reachedLast)){
+                    while(nextPos>=newCMS.getRefPosition(this.currentKey+1)){
+
+
+
+                      if(addExtraMiddle && doneExtraMiddle == false){
+                        // check if currentKey is on the middel
+                        if(middle == newCMS.getRefPosition(this.currentKey+1)){
+                          // will be done with the update of the key
+                          doneExtraMiddle=true;
+                        }
+                        else if ( middle < newCMS.getRefPosition(this.currentKey+1) &&  // if middle is between two keys
+                                  middle > newCMS.getRefPosition(this.currentKey) &&
+                                  middle > currentPos) {
+                          var currentColor = tmpCMS.calculateColor(middle);
+                          var newColor = this.getNewKeyColor(currentColor,middle,probeIndex);
+                          var middleKey = new class_Key(newColor, newColor, middle); // left key because of constant band
+                          this.currentKey++;
+                          newCMS.insertKey(this.currentKey,middleKey,false);
+                          doneExtraMiddle=true;
+                        }
+                      }
+
+                      // update of the key
+                      this.currentKey++;
+                      if(this.currentKey==newCMS.getKeyLength()-1){
+                        var currentLeftColor = newCMS.getLeftKeyColor(this.currentKey,"hsv");
+                        newCMS.setLeftKeyColor(this.currentKey,this.getNewKeyColor(currentLeftColor,newCMS.getRefPosition(this.currentKey),probeIndex));
+                        reachedEndOfCMS=true;
+                        break;
+                      }
+
+                      // special case: key and strut have the same reference point -> extend the while loop
+                      if(nextPos==newCMS.getRefPosition(this.currentKey+1)){
+                        if(i == this.probeArray[probeIndex].getNumberOfStrutKeys()-1){
+                          var currentLeftColor = newCMS.getLeftKeyColor(this.currentKey,"hsv");
+                          newCMS.setLeftKeyColor(this.currentKey,this.getNewKeyColor(currentLeftColor,newCMS.getRefPosition(this.currentKey),probeIndex));
+                          reachedEndOfCMS=true; // this case is not the end of the CMS but the end of the strut
+                          break;
+                        }
+                        console.log(123);
+                        currentPos = nextPos;
+                        nextPos = currentPos+strucDis;
+                      }
+
+                      var currentRightColor = newCMS.getRightKeyColor(this.currentKey,"hsv");
+                      var currentLeftColor = newCMS.getLeftKeyColor(this.currentKey,"hsv");
+                      if(currentRightColor==undefined){
+                        var currentRightColor = newCMS.getLeftKeyColor(this.currentKey+1,"hsv");
+                        newCMS.setRightKeyColor(this.currentKey,this.getNewKeyColor(currentRightColor,newCMS.getRefPosition(this.currentKey),probeIndex));
+                      }
+                      else{
+                        newCMS.setRightKeyColor(this.currentKey,this.getNewKeyColor(currentRightColor,newCMS.getRefPosition(this.currentKey),probeIndex));
+                      }
+                      newCMS.setLeftKeyColor(this.currentKey,this.getNewKeyColor(currentLeftColor,newCMS.getRefPosition(this.currentKey),probeIndex));
+
+                      newCMS.setBur(this.currentKey,false);
+
+
+                    }
+
+                    if(reachedEndOfCMS){
+                      break;
+                    }
+
+                    if(notAddNextStrut){
+                      notAddNextStrut=false;
+                      continue;
+                    }
+
+
+                    if(addExtraMiddle && doneExtraMiddle == false ){ // if middle is between two struts or between a key and a strut
+                      if( middle>currentPos && middle<nextPos){
+                        var currentColor = tmpCMS.calculateColor(middle);
+                        var newColor = this.getNewKeyColor(currentColor,middle,probeIndex);
+                        var middleKey = new class_Key(newColor, newColor, middle); // left key because of constant band
+                        this.currentKey++;
+                        newCMS.insertKey(this.currentKey,middleKey,false);
+                        doneExtraMiddle=true;
+                      }
+                    }
+
+                    var currentColor = tmpCMS.calculateColor(nextPos);
+                    var newColor = this.getNewKeyColor(currentColor,nextPos,probeIndex);
+                    var strutKey = new class_Key(newColor, newColor, nextPos); // left key because of constant band
                     this.currentKey++;
-                    var currentRightColor = newCMS.getRightKeyColor(this.currentKey,"hsv");
-                    var currentLeftColor = newCMS.getLeftKeyColor(this.currentKey,"hsv");
-                    newCMS.setRightKeyColor(this.currentKey,this.getNewKeyColor(currentRightColor,newCMS.getRefPosition(this.currentKey),probeIndex));
-                    newCMS.setLeftKeyColor(this.currentKey,this.getNewKeyColor(currentLeftColor,newCMS.getRefPosition(this.currentKey),probeIndex));
-                  }
+                    newCMS.insertKey(this.currentKey,strutKey,false);
 
-                }
+
+                    currentPos=nextPos;
+                  }
 
                 break;
           default:
@@ -589,7 +671,7 @@ class class_ProbeSet{
             newColor = this.getNewKeyColor(currentColor,middle,probeIndex);
             var middleKey = new class_Key(newColor, newColor, this.probeArray[probeIndex].getStartPos()); // left key because of constant band
             this.currentKey++;
-            newCMS.insertKey(this.currentKey,middleKey,true);
+            newCMS.insertKey(this.currentKey,middleKey,false);
             this.currentKey++;
           }
 

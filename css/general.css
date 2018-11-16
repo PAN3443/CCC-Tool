@@ -132,6 +132,10 @@ textarea {
         display: flex;
      }
 
+    canvas{
+      margin: 0;
+    padding: 0;
+    }
 
 /* ==========================================================================
    Helper classes
@@ -291,7 +295,7 @@ textarea {
         widows: 3;
     }
 
-    p,
+    /*p,
     h2,
     h3,
     button,
@@ -300,7 +304,7 @@ textarea {
       box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    }
+    }*/
 
     h2,
     h3 {

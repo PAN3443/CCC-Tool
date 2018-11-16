@@ -10,9 +10,14 @@ function drawLines(cmsID,fromIsLinear, toIsLinear, tmpCMS){
   canvasObject.height = rect.height;
 
   var canvasContex = canvasObject.getContext("2d");
+  canvasContex.mozImageSmoothingEnabled = false;
+  canvasContex.webkitImageSmoothingEnabled = false;
+  canvasContex.msImageSmoothingEnabled = false;
+  canvasContex.imageSmoothingEnabled = false; // did not work !?!?!
+  canvasContex.oImageSmoothingEnabled = false;
 
-  var colormapWidth = rect.width * 0.9;
-  var xPos = rect.width * 0.05;
+  var colormapWidth = canvasObject.width * 0.9;
+  var xPos = canvasObject.width * 0.05;
 
   var bandSketchWidth = colormapWidth/(tmpCMS.getKeyLength()-1);
   // draw keys
@@ -34,7 +39,7 @@ function drawLines(cmsID,fromIsLinear, toIsLinear, tmpCMS){
     canvasContex.lineWidth = 1;
     canvasContex.moveTo(xPos + pos1, 0);
 
-    canvasContex.lineTo(xPos + pos2, rect.height);
+    canvasContex.lineTo(xPos + pos2, canvasObject.height);
     canvasContex.strokeStyle = 'rgb(0,0,0)';
     canvasContex.stroke();
 
