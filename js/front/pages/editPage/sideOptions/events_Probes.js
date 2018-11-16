@@ -129,7 +129,7 @@ function changeProbeType(type){
         document.getElementById("id_EditPage_ProbeColor_Div").style.display = 'flex';
         //document.getElementById("id_EditPage_ProbeSubType_TwoSide").style.display = 'flex';
 
-        /*if(document.getElementById("id_EditPage_generateProbeSet").style.display=="none")
+        /*if(document.getElementById("id_EditPage_generateProbeSet").style.display=="none" && document.getElementById("id_selectProbeList").selectedIndex!=)
           if(globalCMS1.getProbe(document.getElementById("id_selectProbeSetList").selectedIndex,document.getElementById("id_selectProbeList").selectedIndex-1).getIsTwoSided())
             changeProbeSubType(1);
           else
@@ -147,7 +147,7 @@ function changeProbeType(type){
         document.getElementById("id_EditPage_selectProbeTypeLabel").innerHTML="&#9660; Contour";
         document.getElementById("id_EditPage_ProbeFunction_Div").style.display = 'flex';
         document.getElementById("id_EditPage_ProbeSubType_TwoSide").style.display = 'flex';
-          if(document.getElementById("id_EditPage_generateProbeSet").style.display=="none")
+          if(document.getElementById("id_EditPage_generateProbeSet").style.display=="none" && document.getElementById("id_selectProbeList").selectedIndex!=)
             if(globalCMS1.getProbe(document.getElementById("id_selectProbeSetList").selectedIndex,document.getElementById("id_selectProbeList").selectedIndex-1).getIsTwoSided())
               changeProbeSubType(1);
             else
@@ -192,7 +192,7 @@ function changeProbeSubType(type){
         document.getElementById("id_EditPage_selectProbeSubTypeLabel").innerHTML="&#9660; One Sided";
         document.getElementById("id_EditPage_ProbeFunctionOneSided_Div").style.display = 'flex';
 
-        if(document.getElementById("id_EditPage_generateProbeSet").style.display=="none")
+        if(document.getElementById("id_EditPage_generateProbeSet").style.display=="none" && document.getElementById("id_selectProbeList").selectedIndex!=0)
             changeOneSideFunction(globalCMS1.getProbe(document.getElementById("id_selectProbeSetList").selectedIndex,document.getElementById("id_selectProbeList").selectedIndex-1).getTwoSidedType());
         else
             changeOneSideFunction(1);
@@ -205,7 +205,7 @@ function changeProbeSubType(type){
         document.getElementById("id_EditPage_ProbeSubType_TwoSide").style.background="rgb(76, 175, 80)";
         document.getElementById("id_EditPage_selectProbeSubTypeLabel").innerHTML="&#9660; Two Sided";
         document.getElementById("id_EditPage_ProbeFunctionTwoSided_Div").style.display = 'block';
-        if(document.getElementById("id_EditPage_generateProbeSet").style.display=="none")
+        if(document.getElementById("id_EditPage_generateProbeSet").style.display=="none" && document.getElementById("id_selectProbeList").selectedIndex!=0)
             changeTwoSideFunction(globalCMS1.getProbe(document.getElementById("id_selectProbeSetList").selectedIndex,document.getElementById("id_selectProbeList").selectedIndex-1).getTwoSidedType());
         else
             changeTwoSideFunction(0);
