@@ -54,6 +54,10 @@ class class_ProbeSet{
           this.probeArray.splice(index, 0,probe);
       }
 
+      updateProbe(probeIndex,type,start,end,isTwoSided,oneSidedType,twoSidedType,probeColor){
+        this.probeArray[probeIndex].updateProbe(type,start,end,isTwoSided,oneSidedType,twoSidedType,probeColor);
+      }
+
       getProbeClone(index){
 
         if(index<this.probeArray.length){
@@ -531,7 +535,7 @@ class class_ProbeSet{
             break;
             case 1:
 
-              while(this.checkWhileArgument(newCMS,probeIndex,reachedLast)){
+              /*while(this.checkWhileArgument(newCMS,probeIndex,reachedLast)){
                   this.currentKey++;
                   newCMS.deleteKey(this.currentKey);
                   this.currentKey--;
@@ -548,7 +552,7 @@ class class_ProbeSet{
                 //this.currentKey++;
               }
 
-              break;
+              break;*/
               case 2:
 
                   var middle = this.probeArray[probeIndex].getStartPos()+(Math.abs(this.probeArray[probeIndex].getStartPos()-this.probeArray[probeIndex].getEndPos())/2);

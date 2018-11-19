@@ -125,12 +125,13 @@ function changeProbeType(type){
         document.getElementById("id_EditPage_editProbeTypeLabel").innerHTML="&#9660; Gradient";
         document.getElementById("id_EditPage_editProbeFunction_Div").style.display = 'flex';
         document.getElementById("id_EditPage_editProbeColor_Div").style.display = 'flex';
+        document.getElementById("id_EditPage_editProbeSubType_TwoSide").style.display = 'flex';
 
         document.getElementById("id_EditPage_ProbeType_Gradient").style.background="rgb(76, 175, 80)";
         document.getElementById("id_EditPage_selectProbeTypeLabel").innerHTML="&#9660; Gradient";
         document.getElementById("id_EditPage_ProbeFunction_Div").style.display = 'flex';
         document.getElementById("id_EditPage_ProbeColor_Div").style.display = 'flex';
-        //document.getElementById("id_EditPage_ProbeSubType_TwoSide").style.display = 'flex';
+        document.getElementById("id_EditPage_ProbeSubType_TwoSide").style.display = 'flex';
 
         //if(document.getElementById("id_EditPage_generateProbeSet").style.display!="none")
           changeProbeSubType(0);

@@ -20,6 +20,17 @@ class class_Probe{
 
       }
 
+
+      updateProbe(type,start,end,isTwoSided,oneSidedType,twoSidedType,probeColor){
+        this.ProbeType = type;
+        this.startPos = start;
+        this.endPos = end;
+        this.isTwoSided = isTwoSided;
+        this.oneSidedType=oneSidedType;
+        this.twoSidedType=twoSidedType;
+        this.probeColor = probeColor;
+      }
+
       getNumberOfStrutKeys(){
         return this.numberOfStrutKeys;
       }

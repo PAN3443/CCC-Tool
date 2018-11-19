@@ -33,4 +33,7 @@ function init_ExportWindow(){
 
   document.getElementById('id_ExportIntervalNum').addEventListener("change", checkIntervalInputFieldsChange);
   document.getElementById('id_ExportIntervalNum').addEventListener("keyup", checkIntervalInputFieldsKey);
+
+  document.getElementById("id_selectProbeListExport").addEventListener("change", fillExportTable);
+
 }

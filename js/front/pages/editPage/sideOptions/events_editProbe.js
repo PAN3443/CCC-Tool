@@ -36,7 +36,12 @@ function updateProbeSetSelectBox(){
 
 
 function editPageChangeProbeSetName(){
-  globalCMS1.changeProbeSetName(document.getElementById("id_selectProbeSetList").selectedIndex,document.getElementById("id_probe_EditProbeName").value);
+  var index = document.getElementById("id_selectProbeSetList").selectedIndex;
+  globalCMS1.changeProbeSetName(index,document.getElementById("id_probe_EditProbeName").value);
+  updateProbeSetSelectBox();
+  document.getElementById("id_selectProbeSetList").selectedIndex=index;
+  updateProbeSelectBox();
+
 }
 
 function updateProbeSelectBox(){
@@ -152,6 +157,99 @@ function selectProbe(){
 
 function addOrUpdateProbe(){
 
+  var tmpProbeSet = globalCMS1.getProbeSet(document.getElementById("id_selectProbeSetList").selectedIndex);
+
+  // check input
+  var start = parseFloat(document.getElementById("id_probe_EditProbeStart").value);
+  var end = parseFloat(document.getElementById("id_probe_EditProbeEnd").value);
+
+  if(isNaN(start) || isNaN(end) || start==undefined || end==undefined){
+    openAlert("The input value for the probe start or end position is not correct!");
+    return;
+  }
+
+  if(start>end){
+    openAlert("The the probe start position has to be smaller than the end position!");
+    return;
+  }
+
+  // check if new probe range is overlapping
+
+  var isOverlapping = false;
+  var errorMess = "\tThe new range \""+start+","+end+"; is overlapping with the probes:  ";
+
+  var insertIndex = 0;  // init is the assumption of the probe insertion before the existing probes
+  var foundInsertionProint = false;
+  var probeIndex = document.getElementById("id_selectProbeList").selectedIndex-1;
+  for (var i = 0; i < tmpProbeSet.getProbeLength(); i++) {
+
+      var checkStart = tmpProbeSet.getProbe(i).getStartPos();
+      var checkEnd = tmpProbeSet.getProbe(i).getEndPos();
 
 
+      if(document.getElementById("id_selectProbeList").selectedIndex!=0 && i == probeIndex) // we don't check the probe range if this is the probe range the user want to update
+        continue;
+        else if (foundInsertionProint==false) {
+        // we have to find the insertion point in the case of additing a new probe
+        if(i!=tmpProbeSet.getProbeLength()-1){
+            var checkStart2 = tmpProbeSet.getProbe(i+1).getStartPos();
+            if(start>=checkEnd && end<=checkStart2){
+              foundInsertionProint=true;
+              insertIndex=i+1;
+            }
+        }
+        else{
+          if(checkEnd<=start){
+            insertIndex=i+1;
+          }
+
+        }
+
+      }
+
+      if(checkEnd<=start)
+        continue;
+
+      if(checkStart>=end)
+        continue;
+
+
+
+      isOverlapping=true;
+      errorMess=errorMess+" Probe "+(i+1)+": "+checkStart+","+checkEnd+";";
+
+  }
+
+  if(isOverlapping){
+    openAlert(errorMess);
+    return;
+  }
+
+
+  if(document.getElementById("id_selectProbeList").selectedIndex==0){
+
+    // add newProbe
+    var newProbe = createProbe(start,end);
+    globalCMS1.insertProbe(document.getElementById("id_selectProbeSetList").selectedIndex,insertIndex,newProbe);
+
+  }
+  else{
+
+    if(globalProbeSubtype==0){
+      // one-side
+      globalCMS1.updateProbe(document.getElementById("id_selectProbeSetList").selectedIndex,document.getElementById("id_selectProbeList").selectedIndex-1,globalProbeType,start,end,false,globalProbeSubtypeIndex,0,globalProbeColor);
+    }
+    else{
+      // two sided
+      globalCMS1.updateProbe(document.getElementById("id_selectProbeSetList").selectedIndex,document.getElementById("id_selectProbeList").selectedIndex-1,globalProbeType,start,end,true,0,globalProbeSubtypeIndex,globalProbeColor);
+    }
+
+    insertIndex = document.getElementById("id_selectProbeList").selectedIndex-1;
+  }
+
+  updateProbeSelectBox();
+  document.getElementById("id_selectProbeList").selectedIndex = insertIndex+1;
+  selectProbe();
+  tmpProbeSet = globalCMS1.getProbeSet(document.getElementById("id_selectProbeSetList").selectedIndex);
+  drawProbePreview(tmpProbeSet);
 }
