@@ -37,10 +37,13 @@ function updateProbeSetSelectBox(){
 
 function editPageChangeProbeSetName(){
   var index = document.getElementById("id_selectProbeSetList").selectedIndex;
+  var index2= document.getElementById("id_selectProbeList").selectedIndex;
   globalCMS1.changeProbeSetName(index,document.getElementById("id_probe_EditProbeName").value);
   updateProbeSetSelectBox();
   document.getElementById("id_selectProbeSetList").selectedIndex=index;
   updateProbeSelectBox();
+  document.getElementById("id_selectProbeList").selectedIndex=index2;
+  selectProbe();
 
 }
 
