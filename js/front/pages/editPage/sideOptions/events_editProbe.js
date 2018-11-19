@@ -16,18 +16,27 @@ function updateProbeSetSelectBox(){
 
 
   var selectbox = document.getElementById("id_selectProbeSetList");
+  var selectbox2 = document.getElementById("id_selectMainProbeSetList");
 
   for(var i = selectbox.options.length - 1 ; i >= 0 ; i--)
   {
       selectbox.remove(i);
   }
 
+  for(var i = selectbox2.options.length - 1 ; i >= 0 ; i--)
+  {
+      selectbox2.remove(i);
+  }
+
   for (var i = 0; i < globalCMS1.getProbeSetLength(); i++) {
     var opt = document.createElement('option');
+    var opt2 = document.createElement('option');
 
     opt.innerHTML = "Probe-Set: "+globalCMS1.getProbeSet(i).getProbeSetName();
+    opt2.innerHTML = "Probe-Set: "+globalCMS1.getProbeSet(i).getProbeSetName();
 
     selectbox.appendChild(opt);
+    selectbox2.appendChild(opt2);
   }
 
   document.getElementById("id_selectProbeSetList").selectedIndex=0;
@@ -76,14 +85,20 @@ function updateProbeSelectBox(){
 
     switch (tmpProbe.getType()) {
       case 0: // constant
-          type="constant"
+          type="Constant"
         break;
         case 1: // gradient
-            type="gradient"
+            type="One Sided"
           break;
           case 2: // contour
-              type="contour"
+              type="One Sided Transparent"
             break;
+            case 3: // gradient
+                type="Two Sided"
+              break;
+              case 4: // contour
+                  type="Two Sided Transparent"
+                break;
       default:
 
     }
@@ -145,13 +160,11 @@ function selectProbe(){
 
       changeProbeType(tmpProbe.getType());
 
-      if(tmpProbe.getIsTwoSided()){
-        changeProbeSubType(1);
-        changeOneSideFunction(tmpProbe.getTwoSidedType());
+      if(tmpProbe.getType()==3 || tmpProbe.getType()==4){
+        changeOneSideFunction(tmpProbe.getFunctionType());
       }
       else{
-        changeProbeSubType(0);
-        changeOneSideFunction(tmpProbe.getOneSidedType());
+        changeOneSideFunction(tmpProbe.getFunctionType());
       }
 
   }
@@ -238,15 +251,7 @@ function addOrUpdateProbe(){
   }
   else{
 
-    if(globalProbeSubtype==0){
-      // one-side
-      globalCMS1.updateProbe(document.getElementById("id_selectProbeSetList").selectedIndex,document.getElementById("id_selectProbeList").selectedIndex-1,globalProbeType,start,end,false,globalProbeSubtypeIndex,0,globalProbeColor);
-    }
-    else{
-      // two sided
-      globalCMS1.updateProbe(document.getElementById("id_selectProbeSetList").selectedIndex,document.getElementById("id_selectProbeList").selectedIndex-1,globalProbeType,start,end,true,0,globalProbeSubtypeIndex,globalProbeColor);
-    }
-
+    globalCMS1.updateProbe(document.getElementById("id_selectProbeSetList").selectedIndex,document.getElementById("id_selectProbeList").selectedIndex-1,globalProbeType,globalProbeSubtypeIndex,start,end,globalProbeColor);
     insertIndex = document.getElementById("id_selectProbeList").selectedIndex-1;
   }
 

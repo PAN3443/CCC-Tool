@@ -54,8 +54,8 @@ class class_ProbeSet{
           this.probeArray.splice(index, 0,probe);
       }
 
-      updateProbe(probeIndex,type,start,end,isTwoSided,oneSidedType,twoSidedType,probeColor){
-        this.probeArray[probeIndex].updateProbe(type,start,end,isTwoSided,oneSidedType,twoSidedType,probeColor);
+      updateProbe(probeIndex,type,functionType,start,end,probeColor){
+        this.probeArray[probeIndex].updateProbe(type,functionType,start,end,probeColor);
       }
 
       getProbeClone(index){
@@ -63,11 +63,8 @@ class class_ProbeSet{
         if(index<this.probeArray.length){
 
           var newProbe = new class_Probe(this.probeArray[index].getType(),this.probeArray[index].getStartPos(),this.probeArray[index].getEndPos(),this.probeArray[index].getProbeColorspace());
-          newProbe.setTwoSidedType(this.probeArray[index].getTwoSidedType());
-          newProbe.setOneSidedType(this.probeArray[index].getOneSidedType());
-          newProbe.setIsTwoSided(this.probeArray[index].getIsTwoSided());
           newProbe.setProbeColor(this.probeArray[index].getProbeColor());
-
+          newProbe.setFunctionType(this.probeArray[index].getFunctionType())
           return newProbe;
         }
 
@@ -144,12 +141,12 @@ class class_ProbeSet{
 
 
                  // need to add a dual key in the middle of the probes and in the case of struts
-                 if(this.probeArray[probeIndex].getIsTwoSided()){
+                 if(this.probeArray[probeIndex].getType()==3 || this.probeArray[probeIndex].getType()==4){
 
                   var middle = this.probeArray[probeIndex].getStartPos()+(Math.abs(this.probeArray[probeIndex].getStartPos()-this.probeArray[probeIndex].getEndPos())/2);
 
 
-                    if(this.probeArray[probeIndex].getType()==1){
+                    /*if(this.probeArray[probeIndex].getType()==3){ // two sided
                       currentColor = tmpCMS.calculateColor(middle);
                       var newColor = this.getNewKeyColor(currentColor,middle,probeIndex);
                       var middleKey = new class_Key(newColor, newColor, middle); // left key because of constant band
@@ -158,7 +155,7 @@ class class_ProbeSet{
                     }
 
 
-                    if(this.probeArray[probeIndex].getType()==2){
+                    if(this.probeArray[probeIndex].getType()==4){ // two sided transparent*/
                       var addExtraMiddle = false;
                       if(this.probeArray[probeIndex].getNumberOfStrutKeys()%2==0){
                         addExtraMiddle=true;
@@ -188,7 +185,7 @@ class class_ProbeSet{
 
                         currentPos=nextPos;
                       }
-                    }
+                    //}
 
 
 
@@ -414,7 +411,9 @@ class class_ProbeSet{
 
           var positionRatio =  Math.abs((keyPosition-this.probeArray[probeIndex].getStartPos())/(this.probeArray[probeIndex].getEndPos()-this.probeArray[probeIndex].getStartPos()));
 
-          if(this.probeArray[probeIndex].getType()==1){
+
+
+          if(this.probeArray[probeIndex].getType()==1 || this.probeArray[probeIndex].getType()==3 ){
             /////////////////////////////////////////////////
             // gradient probe
 
@@ -429,11 +428,12 @@ class class_ProbeSet{
             tmpHSVColor = keyColor.calcHSVColor();
           }
 
-          if(this.probeArray[probeIndex].getIsTwoSided()){
-            switch (this.probeArray[probeIndex].getTwoSidedType()) {
+          if(this.probeArray[probeIndex].getType()==3 || this.probeArray[probeIndex].getType()==4){ // => two sided
+
+            switch (this.probeArray[probeIndex].getFunctionType()) {
               case 0: // value 0 -> 100 AND saturation 0 -> 100 -> 0
               case 1: // value 100 -> 0 AND saturation 0 -> 100 -> 0
-                      if(this.probeArray[probeIndex].getTwoSidedType()==1)
+                      if(this.probeArray[probeIndex].getFunctionType()==1)
                         tmpHSVColor.set3Value(1.0-positionRatio);
                       else
                         tmpHSVColor.set3Value(positionRatio);
@@ -454,7 +454,7 @@ class class_ProbeSet{
                 break;
               case 2: // value 100 -> 0 -> 100  AND saturation 0 -> 100
               case 3: // value 100 -> 0 -> 100 AND saturation 100 -> 0
-                  if(this.probeArray[probeIndex].getTwoSidedType()==3)
+                  if(this.probeArray[probeIndex].getFunctionType()==3)
                     tmpHSVColor.set2Value(1.0-positionRatio);
                   else
                     tmpHSVColor.set2Value(positionRatio);
@@ -475,7 +475,7 @@ class class_ProbeSet{
                   break;
                 case 4: // value 0 -> 100 -> 0  AND saturation 0 -> 100
                 case 5: // value 0 -> 100 -> 0 AND saturation 100 -> 0
-                      if(this.probeArray[probeIndex].getTwoSidedType()==4)
+                      if(this.probeArray[probeIndex].getFunctionType()==4)
                         tmpHSVColor.set2Value(1.0-positionRatio);
                       else
                         tmpHSVColor.set2Value(positionRatio);
@@ -500,7 +500,7 @@ class class_ProbeSet{
             }
           }
           else{
-            switch (this.probeArray[probeIndex].getOneSidedType()) {
+            switch (this.probeArray[probeIndex].getFunctionType()) {
               case 0: // value 100 -> 0
                     tmpHSVColor.set3Value(1.0-positionRatio);
                 break;
@@ -541,7 +541,7 @@ class class_ProbeSet{
                   this.currentKey--;
               }
 
-              if(this.probeArray[probeIndex].getIsTwoSided()){
+              if(this.probeArray[probeIndex].getType()==3 || this.probeArray[probeIndex].getType()==4){
                 var middle = this.probeArray[probeIndex].getStartPos()+(Math.abs(this.probeArray[probeIndex].getStartPos()-this.probeArray[probeIndex].getEndPos())/2);
                 // need to add a dual key in the middle of the probes
                 var currentColor = tmpCMS.calculateColor(middle);
@@ -554,10 +554,12 @@ class class_ProbeSet{
 
               break;*/
               case 2:
+              case 3:
+              case 4:
 
                   var middle = this.probeArray[probeIndex].getStartPos()+(Math.abs(this.probeArray[probeIndex].getStartPos()-this.probeArray[probeIndex].getEndPos())/2);
                   var addExtraMiddle = false;
-                  if(this.probeArray[probeIndex].getIsTwoSided() && this.probeArray[probeIndex].getNumberOfStrutKeys()%2==0){
+                  if((this.probeArray[probeIndex].getType()==3 || this.probeArray[probeIndex].getType()==4) && this.probeArray[probeIndex].getNumberOfStrutKeys()%2==0){
                     addExtraMiddle=true;
                   }
                   var currentPos = this.probeArray[probeIndex].getStartPos();
@@ -679,7 +681,7 @@ class class_ProbeSet{
             this.currentKey++;
           }
 
-          if(this.probeArray[probeIndex].getIsTwoSided() && newCMS.getRefPosition(this.currentKey)>middle && newCMS.getRefPosition(this.currentKey+1)<middle){
+          if((this.probeArray[probeIndex].getType()==3 || this.probeArray[probeIndex].getType()==4) && newCMS.getRefPosition(this.currentKey)>middle && newCMS.getRefPosition(this.currentKey+1)<middle){
             // need to add a dual key in the middle of the probes
             currentColor = tmpCMS.calculateColor(middle);
             newColor = this.getNewKeyColor(currentColor,middle,probeIndex);

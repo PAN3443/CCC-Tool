@@ -24,37 +24,23 @@ function activateDropdown(event) {
                 doAbsolute = true;
                 additionalScrollID="id_EditPage_generateProbeSet";
                 dropdownID = "id_EditPage_selectProbeTypeDropDown";
-                document.getElementById("id_EditPage_selectProbeSubTypeDropDown").style.display="none";
+
                 document.getElementById("id_EditPage_selectProbeSetRangeTypeDropDown").style.display="none";
                 break;
-                case "id_EditPage_selectProbeSubTypeLabel":
-                  doAbsolute = true;
-                  additionalScrollID="id_EditPage_generateProbeSet";
-                  dropdownID = "id_EditPage_selectProbeSubTypeDropDown";
-                  document.getElementById("id_EditPage_selectProbeTypeDropDown").style.display="none";
-                  document.getElementById("id_EditPage_selectProbeSetRangeTypeDropDown").style.display="none";
-                  break;
+
                   case "id_EditPage_selectProbeSetRangeType":
                     doAbsolute = true;
                     additionalScrollID="id_EditPage_generateProbeSet";
                     dropdownID = "id_EditPage_selectProbeSetRangeTypeDropDown";
                     document.getElementById("id_EditPage_selectProbeTypeDropDown").style.display="none";
-                    document.getElementById("id_EditPage_selectProbeSubTypeDropDown").style.display="none";
                     break;
 
                     case "id_EditPage_editProbeTypeLabel":
                       doAbsolute = true;
                       additionalScrollID="id_EditPage_editProbe";
                       dropdownID = "id_EditPage_editProbeTypeDropDown";
-                      document.getElementById("id_EditPage_editProbeSubTypeDropDown").style.display="none";
+                      document.getElementById("id_EditPage_editProbeFunctionDropDown").style.display="none";
                       break;
-                      case "id_EditPage_editProbeSubTypeLabel":
-                        doAbsolute = true;
-                        additionalScrollID="id_EditPage_editProbe";
-                        dropdownID = "id_EditPage_editProbeSubTypeDropDown";
-                        document.getElementById("id_EditPage_editProbeTypeDropDown").style.display="none";
-                        break;
-
                         case "id_EditPage_editProbeFunctionLabel":
                           doAbsolute = true;
                           additionalScrollID="id_EditPage_editProbe";

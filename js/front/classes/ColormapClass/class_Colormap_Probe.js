@@ -7,9 +7,7 @@ class class_Probe{
       constructor(type, start, end , space) {
         this.ProbeType = type; // 0=gradient, 1=contour, 2=constant
         this.probeColor = new classColor_HSV(0.0,0.0,1.0);
-        this.isTwoSided = false;
-        this.oneSidedType=0;
-        this.twoSidedType=0;
+        this.functionType =0;
         this.colorspace = space;
         this.startPos = start;
         this.endPos = end;
@@ -21,14 +19,20 @@ class class_Probe{
       }
 
 
-      updateProbe(type,start,end,isTwoSided,oneSidedType,twoSidedType,probeColor){
+      updateProbe(type,functionType,start,end,probeColor){
         this.ProbeType = type;
+        this.functionType = functionType;
         this.startPos = start;
         this.endPos = end;
-        this.isTwoSided = isTwoSided;
-        this.oneSidedType=oneSidedType;
-        this.twoSidedType=twoSidedType;
         this.probeColor = probeColor;
+      }
+
+      setFunctionType(type){
+        this.functionType = type;
+      }
+
+      getFunctionType(){
+        return this.functionType;
       }
 
       getNumberOfStrutKeys(){
@@ -67,29 +71,6 @@ class class_Probe{
         return this.colorspace;
       }
 
-      setTwoSidedType(val){
-        this.twoSidedType = val;
-      }
-
-      getTwoSidedType(){
-        return this.twoSidedType;
-      }
-
-      setOneSidedType(val){
-        this.oneSidedType = val;
-      }
-
-      getOneSidedType(){
-        return this.oneSidedType;
-      }
-
-      setIsTwoSided(val){
-        this.isTwoSided = val;
-      }
-
-      getIsTwoSided(){
-        return this.isTwoSided;
-      }
 
       setProbeColor(val){
         this.probeColor = val;

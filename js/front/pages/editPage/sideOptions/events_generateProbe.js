@@ -50,17 +50,7 @@ function checkKeyCustomRangeInput(){
 function createProbe(start,end){
   var newProbe = new class_Probe(globalProbeType, start, end , globalProbeSpace);
 
-  if(globalProbeSubtype==0){
-    // one-side
-    newProbe.setIsTwoSided(false);
-    newProbe.setOneSidedType(globalProbeSubtypeIndex);
-  }
-  else{
-    // two sided
-    newProbe.setIsTwoSided(true);
-    newProbe.setTwoSidedType(globalProbeSubtypeIndex);
-  }
-
+  newProbe.setFunctionType(globalProbeSubtypeIndex);
   newProbe.setProbeColor(new classColor_HSV(globalProbeColor.get1Value(),globalProbeColor.get2Value(),globalProbeColor.get3Value()));
 
   return newProbe;

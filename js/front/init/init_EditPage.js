@@ -78,11 +78,11 @@ function init_events_EditPage(){
   document.getElementById('id_EditPage_AnalyzePlot_Label').addEventListener("click", activateDropdown);
   document.getElementById('id_EditPage_AnalyzeOptions_Label').addEventListener("click", activateDropdown);
   document.getElementById('id_EditPage_selectProbeTypeLabel').addEventListener("click", activateDropdown);
-  document.getElementById('id_EditPage_selectProbeSubTypeLabel').addEventListener("click", activateDropdown);
+  //document.getElementById('id_EditPage_selectProbeSubTypeLabel').addEventListener("click", activateDropdown);
   document.getElementById('id_EditPage_selectProbeSetRangeType').addEventListener("click", activateDropdown);
 
   document.getElementById('id_EditPage_editProbeTypeLabel').addEventListener("click", activateDropdown);
-  document.getElementById('id_EditPage_editProbeSubTypeLabel').addEventListener("click", activateDropdown);
+  //document.getElementById('id_EditPage_editProbeSubTypeLabel').addEventListener("click", activateDropdown);
   document.getElementById('id_EditPage_editProbeFunctionLabel').addEventListener("click", activateDropdown);
 
   initRGB3D();
@@ -130,5 +130,14 @@ function init_events_EditPage(){
     document.getElementById("id_selectProbeSetList").addEventListener("change", updateProbeSelectBox);
     document.getElementById("id_selectProbeList").addEventListener("change", selectProbe);
     document.getElementById("id_probe_EditProbeName").addEventListener("change", editPageChangeProbeSetName);
+
+    document.getElementById("id_selectMainProbeSetList").onchange = function (){
+      var tmpCMS = globalCMS1.getProbeSet(document.getElementById("id_selectMainProbeSetList").selectedIndex).generateProbeCMS(globalCMS1);
+
+      drawCanvasColormap("id_EditPage_CMS_VIS_PreviewProbe", tmpCMS);
+    };
+
+
+
 
 }

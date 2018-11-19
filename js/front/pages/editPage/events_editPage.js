@@ -48,6 +48,13 @@ function updateEditPage(){
     refElementContainer.pop();
   }
 
+  document.getElementById("id_selectMainProbeSetList").style.visibility="hidden";
+
+  var context = document.getElementById("id_EditPage_CMS_VIS_ColormapLinear").getContext('2d');
+  context.clearRect(0, 0, document.getElementById("id_EditPage_CMS_VIS_ColormapLinear").width, document.getElementById("id_EditPage_CMS_VIS_ColormapLinear").height);
+  context = document.getElementById("id_EditPage_CMS_VIS_PreviewProbe").getContext('2d');
+  context.clearRect(0, 0, document.getElementById("id_EditPage_CMS_VIS_PreviewProbe").width, document.getElementById("id_EditPage_CMS_VIS_PreviewProbe").height);
+
 
   if(globalCMS1.getKeyLength() != 0){
 
@@ -55,7 +62,7 @@ function updateEditPage(){
         document.getElementById("id_EditPage_CMS_VIS_SketchKeyNumbers").style.visibility="visible";
         document.getElementById("id_EditPage_CMS_VIS_LinearKeys").style.visibility="visible";
         document.getElementById("id_EditPage_CMS_VIS_KeyBurs").style.visibility="visible";
-        document.getElementById("id_EditPage_CMS_VIS_ColormapLinear").style.visibility="visible";
+        //document.getElementById("id_EditPage_CMS_VIS_ColormapLinear").style.visibility="visible";
         document.getElementById("id_EditPage_RefPlaceholder").style.visibility="visible";
         document.getElementById("id_EditPage_CMS_VIS_SketchKeys").style.visibility="visible";
         document.getElementById("id_EditPage_CMS_VIS_Lines1").style.visibility="visible";
@@ -83,9 +90,7 @@ function updateEditPage(){
         if (!clearButton.classList.contains('dropdownMenuButton'))
         clearButton.classList.toggle("dropdownMenuButton");
 
-
         document.getElementById("id_editPage_HelpImage1").style.display="none";
-
 
         drawCanvasColormap("id_EditPage_CMS_VIS_ColormapLinear", globalCMS1);
         drawKeys("id_EditPage_CMS_VIS_LinearKeys",  globalCMS1);
@@ -97,7 +102,13 @@ function updateEditPage(){
         drawSketchInputFields(globalCMS1,"id_EditPage_CMS_VIS_Lines3", true);
         drawKeyBursLine("id_EditPage_CMS_VIS_KeyBurs",globalCMS1);
 
+        if(globalCMS1.getProbeSetLength()!=0){
+          document.getElementById("id_selectMainProbeSetList").style.visibility="visible";
+          var tmpCMS = globalCMS1.getProbeSet(document.getElementById("id_selectMainProbeSetList").selectedIndex).generateProbeCMS(globalCMS1);
 
+          drawCanvasColormap("id_EditPage_CMS_VIS_PreviewProbe", tmpCMS);
+
+        }
 
   }
   else{
@@ -106,7 +117,7 @@ function updateEditPage(){
     document.getElementById("id_EditPage_CMS_VIS_SketchKeyNumbers").style.visibility="hidden";
     document.getElementById("id_EditPage_CMS_VIS_LinearKeys").style.visibility="hidden";
     document.getElementById("id_EditPage_CMS_VIS_KeyBurs").style.visibility="hidden";
-    document.getElementById("id_EditPage_CMS_VIS_ColormapLinear").style.visibility="hidden";
+    //document.getElementById("id_EditPage_CMS_VIS_ColormapLinear").style.visibility="hidden";
     document.getElementById("id_EditPage_RefPlaceholder").style.visibility="hidden";
     document.getElementById("id_EditPage_CMS_VIS_SketchKeys").style.visibility="hidden";
     document.getElementById("id_EditPage_CMS_VIS_Lines1").style.visibility="hidden";
@@ -303,7 +314,7 @@ function clearColormap(){
     askType=0;
     openAskWindow();
 
-    
+
   }
   document.getElementById("id_dropDownContainer").style.display="none";
 

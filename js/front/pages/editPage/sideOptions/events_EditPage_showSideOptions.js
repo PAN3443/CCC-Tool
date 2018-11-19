@@ -180,5 +180,6 @@ function showProbeDiv() {
   else {
     document.getElementById("id_EditPage_cmsProbePartDiv").style.display="none";
       document.getElementById("id_PopUp_StopWorkingWindow").style.display="none";
+      updateEditPage();
   }
 }

@@ -638,11 +638,26 @@
 
           <!-- -------------- Main Part: CMS Visualization ---------------->
 
+          <!-- -------------- Main Part: Analyze Mapping ---------------->
+          <div id="id_EditPage_PreviewProbe_Div" style="width:100%;">
+            <div class="row" style="width:100%;">
+              <h3 style="margin-left:5%; width:auto; text-align:left; margin-top:auto; margin-bottom:auto;"> Probe Preview:</h3>
 
+              <select id="id_selectMainProbeSetList" class="subsectionLabel" style="margin-left:10px; width:15%; vertical-align:middle; margin-top:auto; margin-bottom:auto; ">
+
+              </select>
+
+            </div>
+
+            <canvas id="id_EditPage_CMS_VIS_PreviewProbe" class="classColormapCanvas" style="width:90%; margin-left:5%; margin-right:5%; height:60px; border: 1px solid black; margin-top:20px; margin-bottom:40px; background:grey;"></canvas>
+          </div>
+
+
+          <h3 style="margin-left:5%; width:auto; text-align:left; margin-top:auto; margin-bottom:auto;"> Your CMS:</h3>
           <canvas id="id_EditPage_CMS_VIS_LinearKeys" style="width:100%; height:20px; margin:0px; overflow:hidden;"></canvas>
           <canvas id="id_EditPage_CMS_VIS_Lines1" style="width:100%; height:10px; margin:0px; overflow:hidden;"></canvas>
           <canvas id="id_EditPage_CMS_VIS_Histogramm" style="width:90%; margin:0px; margin-left:5%; margin-right:5%; height:200px;overflow:hidden; display:none; "></canvas>
-          <canvas id="id_EditPage_CMS_VIS_ColormapLinear" class="classColormapCanvas" style="width:90%; margin:0px; margin-left:5%; margin-right:5%; height:60px; border: 1px solid black;"></canvas>
+          <canvas id="id_EditPage_CMS_VIS_ColormapLinear" class="classColormapCanvas" style="width:90%; margin:0px; margin-left:5%; margin-right:5%; height:60px; border: 1px solid black; background:grey;"></canvas>
 
           <img id="id_editPage_DragImage" src="img/CCCToolComic/dragImg.jpg" style="height:120px; margin-left:auto; margin-right:auto; display:none;">
 
@@ -1401,35 +1416,26 @@
 
                           <p class="standardText class_noSizeUpdate" style="font-size: 1.6vh; height:3vh; line-height: 3vh; font-weight:bold; margin-left:2.5%; width:17.5%; vertical-align:middle; margin-top:auto; margin-bottom:auto;"> Select Probe-Type: </p>
 
-                          <div id="id_EditPage_selectProbeTypeLabel" class="class_EditDivLabel class_noSizeUpdate" style="padding-left:1vw; width:10vw; padding-right:1vw; font-size: 1.8vh; height:3vh; line-height: 3vh; margin-top:auto; margin-bottom:auto; cursor: pointer; text-align:center; border:1px solid black;" title="All"> &#9660; Contour </div>
-                            <div id="id_EditPage_selectProbeTypeDropDown" style="background: url(img/background3.jpg); display: none; position: absolute; left: 0px; z-index: 101;  width:10%; border: 0.2vh solid black;">
+                          <div id="id_EditPage_selectProbeTypeLabel" class="class_EditDivLabel class_noSizeUpdate" style="padding-left:1vw; width:15vw; padding-right:1vw; font-size: 1.8vh; height:3vh; line-height: 3vh; margin-top:auto; margin-bottom:auto; cursor: pointer; text-align:center; border:1px solid black;" title="All"> &#9660; Contour </div>
+                            <div id="id_EditPage_selectProbeTypeDropDown" style="background: url(img/background3.jpg); display: none; position: absolute; left: 0px; z-index: 101;  border: 0.2vh solid black;">
                                   <div id="id_EditPage_ProbeType_Constant"  onclick="changeProbeType(0)" class="dropdownButtonEditPage">
                                     Constant
                                   </div>
-                                  <div id="id_EditPage_ProbeType_Gradient" onclick="changeProbeType(1)" class="dropdownButtonEditPage">
-                                    Gradient
+                                  <div id="id_EditPage_ProbeType_OneSided" onclick="changeProbeType(1)" class="dropdownButtonEditPage">
+                                    One Sided
                                   </div>
-                                  <div id="id_EditPage_ProbeType_Contour" onclick="changeProbeType(2)" class="dropdownButtonEditPage">
-                                    Contour
+                                  <div id="id_EditPage_ProbeType_OneSidedTrans" onclick="changeProbeType(2)" class="dropdownButtonEditPage">
+                                    One Sided Transparent
                                   </div>
-                            </div>
-
-                            <div id="id_EditPage_selectProbeSubTypeLabel" class="class_EditDivLabel class_noSizeUpdate" style="padding-left:1vw; width:10vw; padding-right:1vw; font-size: 1.8vh; height:3vh; line-height: 3vh; margin-top:auto; margin-bottom:auto; margin-left:2vw; cursor: pointer; text-align:center; border:1px solid black;" title="All"> &#9660; One Sided </div>
-                            <div id="id_EditPage_selectProbeSubTypeDropDown" style="background: url(img/background3.jpg); display: none; position: absolute; left: 0px; z-index: 101; border: 0.2vh solid black;">
-                                  <div id="id_EditPage_ProbeSubType_OneSide" onclick="changeProbeSubType(0)" class="dropdownButtonEditPage">
-                                    <p class="standardText class_noSizeUpdate" style="font-size: 1.8vh; height:3vh; line-height: 3vh; margin-top:auto; margin-bottom:auto; color:white;"> One Sided </p>
-                                    <div style="height:4vh; width:5vw; margin:1vh; border: 0.4vh solid white; background-color: black; background-image: linear-gradient(to right, black, white);">
-
-                                    </div>
+                                  <div id="id_EditPage_ProbeType_TwoSided" onclick="changeProbeType(3)" class="dropdownButtonEditPage">
+                                    Two Sided
                                   </div>
-                                  <div id="id_EditPage_ProbeSubType_TwoSide" onclick="changeProbeSubType(1)" class="dropdownButtonEditPage">
-
-                                    <p class="standardText class_noSizeUpdate" style="font-size: 1.8vh; height:3vh; line-height: 3vh; margin-top:auto; margin-bottom:auto; color:white;"> Two Sided </p>
-                                    <div style="height:4vh; width:5vw; margin:1vh; border: 0.4vh solid white; background-color: black; background-image: linear-gradient(to right, black, white, black);">
-
-                                    </div>
+                                  <div id="id_EditPage_ProbeType_TwoSidedTrans" onclick="changeProbeType(4)" class="dropdownButtonEditPage">
+                                    Two Sided Transparent
                                   </div>
                             </div>
+
+
 
 
                             <!--div id="id_EditPage_PreviewProbeType" style=" margin-top:auto; margin-bottom:auto; width:5vw; height:3vh; border: 0.2vh solid black; margin-left:2vw;  ">
@@ -1766,10 +1772,7 @@
                             <p class="standardText class_noSizeUpdate" style="font-size: 1.8vh; height:3vh; line-height: 3vh; font-weight:bold; margin-left:auto; vertical-align:middle; margin-top:auto; margin-bottom:auto;"> Select:  </p>
 
                             <select id="id_selectProbeSetList" class="standardText class_noSizeUpdate" style="font-size: 1.8vh; height:3vh; line-height: 3vh; margin-left:2vw; width:17.5%; vertical-align:middle; margin-top:auto; margin-bottom:auto;">
-                               <option value="volvo">Volvo</option>
-                               <option value="saab">Saab</option>
-                               <option value="mercedes">Mercedes</option>
-                               <option value="audi">Audi</option>
+
                             </select>
 
                             <p class="standardText class_noSizeUpdate" style="font-size: 1.8vh; height:3vh; line-height: 3vh; font-weight:bold; margin-left:auto;  vertical-align:middle; margin-top:auto; margin-bottom:auto;"> Name:  </p>
@@ -1818,35 +1821,25 @@
                                 <p class="standardText class_noSizeUpdate" style="font-size: 1.8vh; height:3vh; line-height: 3vh; font-weight:bold; margin-left:auto; width:25%; vertical-align:middle; margin-left:1vw;">  Probe-Type: </p>
 
                                 <div style="width:40%; margin:auto;">
-                                  <div id="id_EditPage_editProbeTypeLabel" class="class_EditDivLabel class_noSizeUpdate" style="width:100; font-size: 1.8vh; height:3vh; line-height: 3vh; cursor: pointer; text-align:center; border:1px solid black;"> &#9660; Contour </div>
-                                    <div id="id_EditPage_editProbeTypeDropDown" style="background: url(img/background3.jpg); display: none; position: absolute; left: 0px; z-index: 101;  width:10%; border: 0.2vh solid black;">
-                                        <div id="id_EditPage_editProbeType_Constant"  onclick="changeProbeType(0)" class="dropdownButtonEditPage">
-                                          Constant
-                                        </div>
-                                        <div id="id_EditPage_editProbeType_Gradient" onclick="changeProbeType(1)" class="dropdownButtonEditPage">
-                                          Gradient
-                                        </div>
-                                        <div id="id_EditPage_editProbeType_Contour" onclick="changeProbeType(2)" class="dropdownButtonEditPage">
-                                          Contour
-                                        </div>
+                                  <div id="id_EditPage_editProbeTypeLabel" class="class_EditDivLabel class_noSizeUpdate" style="width:100%; font-size: 1.8vh; height:3vh; line-height: 3vh; cursor: pointer; text-align:center; border:1px solid black;"> &#9660; Contour </div>
+                                    <div id="id_EditPage_editProbeTypeDropDown" style="background: url(img/background3.jpg); display: none; position: absolute; left: 0px; z-index: 101;  border: 0.2vh solid black;">
+                                      <div id="id_EditPage_editProbeType_Constant"  onclick="changeProbeType(0)" class="dropdownButtonEditPage">
+                                        Constant
+                                      </div>
+                                      <div id="id_EditPage_editProbeType_OneSided" onclick="changeProbeType(1)" class="dropdownButtonEditPage">
+                                        One Sided
+                                      </div>
+                                      <div id="id_EditPage_editProbeType_OneSidedTrans" onclick="changeProbeType(2)" class="dropdownButtonEditPage">
+                                        One Sided Transparent
+                                      </div>
+                                      <div id="id_EditPage_editProbeType_TwoSided" onclick="changeProbeType(3)" class="dropdownButtonEditPage">
+                                        Two Sided
+                                      </div>
+                                      <div id="id_EditPage_editProbeType_TwoSidedTrans" onclick="changeProbeType(4)" class="dropdownButtonEditPage">
+                                        Two Sided Transparent
+                                      </div>
                                     </div>
 
-                                    <div id="id_EditPage_editProbeSubTypeLabel" class="class_EditDivLabel class_noSizeUpdate" style="width:100%; font-size: 1.8vh; height:3vh; line-height: 3vh; margin-top:2vh; cursor: pointer; text-align:center; border:1px solid black;"> &#9660; One Sided </div>
-                                    <div id="id_EditPage_editProbeSubTypeDropDown" style="background: url(img/background3.jpg); display: none; position: absolute; left: 0px; z-index: 101; border: 0.2vh solid black;">
-                                          <div id="id_EditPage_editProbeSubType_OneSide" onclick="changeProbeSubType(0)" class="dropdownButtonEditPage">
-                                            <p class="standardText class_noSizeUpdate" style="font-size: 1.8vh; height:3vh; line-height: 3vh; margin-top:auto; margin-bottom:auto; color:white;"> One Sided </p>
-                                            <div style="height:4vh; width:5vw; margin:1vh; border: 0.4vh solid white; background-color: black; background-image: linear-gradient(to right, black, white);">
-
-                                            </div>
-                                          </div>
-                                          <div id="id_EditPage_editProbeSubType_TwoSide" onclick="changeProbeSubType(1)" class="dropdownButtonEditPage">
-
-                                            <p class="standardText class_noSizeUpdate" style="font-size: 1.8vh; height:3vh; line-height: 3vh; margin-top:auto; margin-bottom:auto; color:white;"> Two Sided </p>
-                                            <div style="height:4vh; width:5vw; margin:1vh; border: 0.4vh solid white; background-color: black; background-image: linear-gradient(to right, black, white, black);">
-
-                                            </div>
-                                          </div>
-                                    </div>
                                 </div>
 
                               </div>

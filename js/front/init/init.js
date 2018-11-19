@@ -179,6 +179,9 @@ function init_CCCPageStyle(){
   document.getElementById("id_EditPage_MainPartDiv").style.width = windowWidth*0.95 + "px";
   document.getElementById("id_EditPage_MainPartDiv").style.marginLeft = windowWidth*0.025 + "px";
 
+
+  document.getElementById("id_EditPage_CMS_VIS_PreviewProbe").style.height = Math.floor(windowHeight*0.06) + "px";
+
   document.getElementById("id_EditPage_CMS_VIS_LinearKeys").style.height = Math.floor(windowHeight*0.03) + "px";
   document.getElementById("id_EditPage_CMS_VIS_Lines1").style.height = Math.floor(windowHeight*0.01) + "px";
   document.getElementById("id_EditPage_CMS_VIS_Histogramm").style.height = Math.floor(windowHeight*0.3) + "px";
@@ -241,7 +244,7 @@ function init_CCCPageStyle(){
 
       if (tmpElementList[i].classList.contains("class_noSizeUpdate"))
         continue;
-        
+
         tmpElementList[i].style.height =  tmpHeight4 + "px";
         tmpElementList[i].style.maxHeight =  tmpHeight4 + "px";
         tmpElementList[i].style.minHeight =  tmpHeight4 + "px";

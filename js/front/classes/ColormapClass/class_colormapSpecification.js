@@ -391,8 +391,8 @@ class class_CMS {
       this.probeSetArray[index].insertProbe(probeIndex,probe);
   }
 
-  updateProbe(index,probeIndex,type,start,end,isTwoSided,oneSidedType,twoSidedType,probeColor){
-      this.probeSetArray[index].updateProbe(probeIndex,type,start,end,isTwoSided,oneSidedType,twoSidedType,probeColor);
+  updateProbe(index,probeIndex,type,functionType,start,end,probeColor){
+      this.probeSetArray[index].updateProbe(probeIndex,type,functionType,start,end,probeColor);
   }
 
   ///////////////////////////////////
