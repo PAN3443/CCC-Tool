@@ -25,7 +25,7 @@ function drawSketchKeys(canvasID, tmpCMS){
 
     var colorrectHeigth = canvasObject.height;
     var colorrectWitdh = canvasObject.height; //(colorrectHeigth*relation)/2;
-
+    colorrectHeigth -=2;
     // draw keys
     for (var i = 0; i < tmpCMS.getKeyLength(); i++) {
 

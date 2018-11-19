@@ -8,6 +8,7 @@ function init_editProbe(){
   document.getElementById("id_EditPage_editProbe").style.display="block";
   document.getElementById("id_EditPage_generateProbeSet").style.display="none";
   updateProbeSetSelectBox();
+  selectProbe();
 
 }
 
@@ -117,7 +118,11 @@ function selectProbe(){
 
       document.getElementById("id_EditPage_RemoveProbeButton").style.visibility="hidden";
       document.getElementById("id_EditPage_AddUpdateProbeButton").innerHTML="Add New Probe";
+      document.getElementById("id_probe_EditProbeStart").value='';
+      document.getElementById("id_probe_EditProbeEnd").value='';
 
+      globalProbeColor = new  classColor_HSV(0,0,1.0);
+      changeProbeType(0);
   }
   else{
       document.getElementById("id_EditPage_RemoveProbeButton").style.visibility="visible";
@@ -131,6 +136,16 @@ function selectProbe(){
       globalProbeColor=tmpProbe.getProbeColor();
 
       changeProbeType(tmpProbe.getType());
+
+      if(tmpProbe.getIsTwoSided()){
+        changeProbeSubType(1);
+        changeOneSideFunction(tmpProbe.getTwoSidedType());
+      }
+      else{
+        changeProbeSubType(0);
+        changeOneSideFunction(tmpProbe.getOneSidedType());
+      }
+
   }
 }
 

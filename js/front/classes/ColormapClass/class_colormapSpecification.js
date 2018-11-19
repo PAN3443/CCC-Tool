@@ -367,7 +367,6 @@ class class_CMS {
   }
 
   getProbe(setindex,probeindex){
-    console.log(13);
     if(setindex<this.probeSetArray.length)
       return this.probeSetArray[setindex].getProbe(probeindex);
   }
