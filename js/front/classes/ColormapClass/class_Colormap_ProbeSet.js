@@ -507,6 +507,12 @@ class class_ProbeSet{
                 case 1: // value 0 -> 100
                     tmpHSVColor.set3Value(positionRatio);
                   break;
+                  case 2: // saturation 100 -> 0
+                        tmpHSVColor.set2Value(1.0-positionRatio);
+                    break;
+                    case 3: // saturation 0 -> 100
+                        tmpHSVColor.set2Value(positionRatio);
+                      break;
               default:
                 console.log("Error at getNewKeyColor function");
                 return tmpHSVColor;
