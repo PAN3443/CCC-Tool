@@ -75,7 +75,7 @@ function fillExportTable(){
     }
 
 
-    workCMS = calcCMSIntervals(workCMS,0,workCMS.getKeyLength()-1);
+    workCMS = calcCMSIntervals(workCMS,0,workCMS.getKeyLength()-1,globalIntervalMode);
 
 
     var old_tbody = document.getElementById("id_exportTableBody");
@@ -367,7 +367,7 @@ function downloadCMSFile(){
 
 function exportSide_createXML(workCMS){
 
-    workCMS = calcCMSIntervals(workCMS,0,workCMS.getKeyLength()-1);
+    workCMS = calcCMSIntervals(workCMS,0,workCMS.getKeyLength()-1,globalIntervalMode);
 
     var xmltext = "<ColorMaps>\n<ColorMap name=\""+workCMS.getColormapName()+"\" space=\"";
 
@@ -400,7 +400,7 @@ function exportSide_createCSV_Lookup(workCMS){
 
     var text = "";
 
-    workCMS = calcCMSIntervals(workCMS,0,workCMS.getKeyLength()-1);
+    workCMS = calcCMSIntervals(workCMS,0,workCMS.getKeyLength()-1,globalIntervalMode);
 
     var opacityVal =1;
     var tmpColor2 = workCMS.getNaNColor(exportColorspace);
@@ -591,7 +591,7 @@ function createLine(format,tmpColor,refVal,opacityVal,isCMS,isMoT){
 
 function exportSide_createJSON(workCMS){
 
-    workCMS = calcCMSIntervals(workCMS,0,workCMS.getKeyLength()-1);
+    workCMS = calcCMSIntervals(workCMS,0,workCMS.getKeyLength()-1,globalIntervalMode);
 
     var jsontext = "[\n\t{\n\t\t\"ColorSpace\" : ";
 

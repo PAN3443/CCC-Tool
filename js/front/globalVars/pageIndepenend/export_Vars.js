@@ -1,6 +1,6 @@
 
 
-var intervalMode = 0; // 0 = global, 1=sectional, 2=sectional color difference depenting
+var globalIntervalMode = 0; // 0 = global, 1=sectional, 2=sectional color difference depenting
 var intervalSize = 200;
 var doNoMerge = false;
 

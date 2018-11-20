@@ -57,7 +57,7 @@ function initProbeGeneration(){
   globalProbeSet.setProbeSetName(document.getElementById("id_probe_GenerationName").value);
 
   changeRangeGeneration(0);
-  changeProbeType(2);
+  changeProbeType(1);
 }
 
 

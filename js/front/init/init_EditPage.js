@@ -110,6 +110,13 @@ function init_events_EditPage(){
     // Analyze
     changeAnalyzeType(0);
 
+
+    ////////////////////////////////////////
+    // analyze
+    document.getElementById('id_EditPage_AnalyzeSelect_LinearVisType').addEventListener("change", styleStructure_InterpolationSpaces);
+    document.getElementById('id_EditPage_AnalyzeSelect_SketchVisType').addEventListener("change", styleStructure_InterpolationSpaces);
+
+
     /////////////////////////////////////////////////////
     /////////////// side options
     document.getElementById('id_editPage_ProbeSpace_Value').addEventListener("change", changeProbeSpace);
@@ -136,6 +143,22 @@ function init_events_EditPage(){
 
       drawCanvasColormap("id_EditPage_CMS_VIS_PreviewProbe", tmpCMS);
     };
+
+
+    document.getElementById("id_EditPage_SelectFrom_GlobalLocalOrder").onchange = function (){
+      updateAnalyzeCompareKeyIndex("id_EditPage_SelectFrom_GlobalLocalOrder","id_EditPage_SelectTill_GlobalLocalOrder");
+    };
+
+    document.getElementById("id_EditPage_SelectTill_GlobalLocalOrder").onchange = function (){
+      updateAnalyzeCompareKeyIndex("id_EditPage_SelectFrom_GlobalLocalOrder","id_EditPage_SelectTill_GlobalLocalOrder");
+    };
+
+
+    document.getElementById("id_EditPage_InputFixedAxis_GlobalLocalOrder").addEventListener("change", updateAnalyze);
+    document.getElementById("id_EditPage_DoFixedAxis_GlobalLocalOrder").addEventListener("change", updateAnalyze);
+    document.getElementById("id_AnalyzeSubContainer_Select").addEventListener("change", updateAnalyze);
+    document.getElementById("id_EditPage_DoLogSelect_GlobalLocalOrder").addEventListener("change", updateAnalyze);
+
 
 
 

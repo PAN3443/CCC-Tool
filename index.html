@@ -245,6 +245,8 @@
 
       <p id="id_header_ccctoolLabel" style="margin:0px; text-align:left; vertical-align: middle; color:white; font-size: 3vh; margin-top:auto; line-height:5vh; margin-bottom:auto; margin-right:auto; font-family:verdana;"> <strong>C</strong>harting <strong>C</strong>ontinuous <strong>C</strong>olormap </p>
 
+
+      <p id="id_header_colorBlindWarning" class="standardText class_noSizeUpdate" style="margin:0px; vertical-align: middle; color:white; font-size: 3vh; line-height:5vh; margin-top:auto; margin-bottom:auto; color:red; display:none; cursor:help;" title="Colorblind Modus"> &#128065; </p>
       <p id="id_header_editWarning" class="standardText class_noSizeUpdate" style="margin:0px; vertical-align: middle; color:white; font-size: 3vh; line-height:5vh; margin-top:auto; margin-bottom:auto; color:red; display:none; cursor:help;" title="Unsaved Content"> &#9888; </p>
 
 
@@ -1294,27 +1296,10 @@
                 <div id="id_EditPage_DivAnalyze" style="width:100%; overflow:auto;">
                   <div class="row" style="width:100%; background: rgb(220,220,220); height:5%; border-bottom:1px solid grey;">
 
-                    <div id="id_EditPage_AnalyzeOptions_Label" class="standardText" style="border-right:1px solid black; width:auto; margin-right:auto; margin-top:auto; margin-bottom:auto; padding-left: 5px; padding-right: 5px; cursor: pointer; text-align:center;" title="All"> Plot Options &#9660; </div>
+                    <div id="id_EditPage_AnalyzeOptions_Label" class="standardText" style="visibility:hidden; border-right:1px solid black; width:auto; margin-right:auto; margin-top:auto; margin-bottom:auto; padding-left: 5px; padding-right: 5px; cursor: pointer; text-align:center;" title="All"> Plot Options &#9660; </div>
                       <div id="id_EditPage_AnalyzeOptions_Dropdown" style="background: white; border:1px solid black; display: none; position: absolute; left: 0px; z-index: 5; padding:5px;">
 
-                            <div class="row" style="width:100%;">
-                                <input class="standardText" style="margin-left:10px; margin-right:10px;" type="checkbox" name="doComparison" value="no"> <p class="standardText" style=" margin-right:auto;"> Do Comparison</p>
 
-
-                            </div>
-
-
-                            <div class="row">
-
-                                <div style="width:250px; border:1px solid black; margin:10px;">
-                                  <canvas id="id_EditPage_ChooseCompareLinear" style="height:30px; width:100%; border-bottom:1px solid black;"></canvas>
-                                  <canvas id="id_EditPage_ChooseCompareSketch" style="height:30px; width:100%;"></canvas>
-                                </div>
-                                <button type="button" class="class_generalbutton" name="button" style="margin-top:auto; margin-bottom:auto; margin-right:10px;"> Choose</button>
-
-                            </div>
-
-                            <hr>
 
                         </div>
 
@@ -1349,6 +1334,106 @@
                   </div>
                   <div id="id_EditPage_AnalyzePlot_Container" class="row" style="height:95%; width:100%; overflow:auto;">
 
+                      <div id="id_EditPage_AnalyzeContainer_GlobalLocalOrder" style="height:100%; width:100%; background:rgb(220,220,220); overflow-x:auto;">
+
+
+                          <canvas id="id_EditPage_Canvas_GlobalLocalOrder" style="height:80%; width:45%; margin-left:5%; border: 1px solid black; margin-top:10%; background: url(img/EditPage/plotBackground.png);"></canvas>
+
+
+                           <div id="id_EditPage_LabelDiv_GlobalLocalOrder" style="width:40%; broder-left: 1px solid grey;">
+                             <select class="standardText" id="id_AnalyzeSubContainer_Select" style="width:100%; margin-top:10%;">
+                                <option >Lab (Euclidean Distance)</option>
+                                <option >Lab (de94)</option>
+                                <option >Lab (CIEDE2000)</option>
+                                <option >DIN99 (Euclidean Distance)</option>
+                              </select>
+
+                              <div class="row" style="width:100%;  margin-top:5%;">
+                                <p class="standardText" style="margin:auto;">From Key:</h2>
+                                <select class="standardText" id="id_EditPage_SelectFrom_GlobalLocalOrder" style="margin:auto;">
+
+                                </select>
+
+                                <p class="standardText" style="margin:auto;">Till Key:</h2>
+                                <select class="standardText" id="id_EditPage_SelectTill_GlobalLocalOrder" style="margin:auto;">
+
+                                </select>
+                              </div>
+
+                              <hr>
+
+                                <div id="id_EditPage_FixedAxisDiv_GlobalLocalOrder" style="width:100%;">
+
+                                  <div class="row" style="width:100%;">
+                                    <p id="id_EditPage_FixedAxisLabel_GlobalLocalOrder" class="standardText" style="margin-right:5%; margin-top:auto; margin-bottom:auto;">Fixed Maximum</p> <input id="id_EditPage_DoFixedAxis_GlobalLocalOrder" type="checkbox" class="standardText" >
+                                  </div>
+
+                                  <div class="row" style="width:100%;">
+                                    <p class="standardText" style="margin-right:5%; margin-top:auto; margin-bottom:auto;">Maximum:</p> <input id="id_EditPage_InputFixedAxis_GlobalLocalOrder" type="number" class="standardText" min="0" step="any">
+                                  </div>
+
+                                  <hr>
+                                </div>
+
+                                <div id="id_EditPage_DoLogDiv_GlobalLocalOrder" style="width:100%;margin-top:2.5%;">
+                                  <div class="row" style="width:100%; ">
+                                    <p class="standardText" style="margin-right:5%; margin-top:auto; margin-bottom:auto;">Logatrithm Mapping:</p> <input id="id_EditPage_DoLogSelect_GlobalLocalOrder" type="checkbox" class="standardText" >
+                                  </div>
+                                  <hr>
+                                </div>
+
+
+
+                               <p id="id_EditPage_Max_GlobalLocalOrder" class="standardText" style="margin-top:2%; width:100%;">Max:</p>
+                               <p id="id_EditPage_Min_GlobalLocalOrder" class="standardText" style="margin-top:2%; width:100%;">Min:</p>
+                               <p id="id_EditPage_Average_GlobalLocalOrder" class="standardText" style="margin-top:2%; width:100%;">Average:</p>
+                               <p id="id_EditPage_Deviation_GlobalLocalOrder" class="standardText" style="margin-top:2%; width:100%;">Deviation:</p>
+                           </div>
+
+                      </div>
+
+
+                      <div id="id_EditPage_AnalyzeContainer_SpacesKeyspeed" style="height:100%; width:100%; overflow-y:auto;">
+
+                        <div id="id_EditPage_AnalyzeContainer_SpacesSelectVisType" style="width:100%;margin-top:2.5%;">
+                          <div class="row" style="width:100%; ">
+                            <p class="standardText" style="margin-left:auto; margin-right:5%; margin-top:auto; margin-bottom:auto; width:25%; text-align:right; font-weight:bold;"> Visualization Type: </p>
+                            <input type="radio" class="standardText" id="id_EditPage_AnalyzeSelect_LinearVisType" name="editPage_SpaceVisType"> <p class="standardText" style="margin-left:2.5%; margin-right:5%; margin-top:auto; margin-bottom:auto; text-align:right;">: Linear </p>
+                            <input type="radio" class="standardText" id="id_EditPage_AnalyzeSelect_SketchVisType" name="editPage_SpaceVisType"> <p class="standardText" style="margin-left:2.5%; margin-right:auto; margin-top:auto; margin-bottom:auto; text-align:right;">: Sketch </p>
+                          </div>
+                          <hr>
+                        </div>
+
+
+                          <p id="id_EditPage_MatricLabel_IntSpaceKeySpeed" class="subsectionLabel" style="margin-left:5%; margin-top:2.5%; text-decoration:underline;">Metrics: </p>
+                          <div id="id_EditPage_MatricDiv1_IntSpaceKeySpeed"class="row" style="width:100%; height:10%; margin-top:2.5%;">
+                            <p class="standardText" style="margin-left:5%; margin-top:auto; margin-bottom:auto; width:15%; text-align:right; ">de94: </p>
+                            <canvas id="id_EditPage_CanvasDE94_IntSpaceKeySpeed" style="height:100%; border: 1px solid black; margin-left:5%; width:70%; background:grey;"></canvas>
+                          </div>
+                          <div id="id_EditPage_MatricDiv2_IntSpaceKeySpeed" class="row" style="width:100%; height:10%; margin-top:2.5%;">
+                            <p class="standardText" style="margin-left:5%; margin-top:auto; margin-bottom:auto; width:15%; text-align:right;">CIEDE2000: </p>
+                            <canvas id="id_EditPage_CanvasCIEDE2000_IntSpaceKeySpeed" style="height:100%; border: 1px solid black; margin-left:5%; width:70%; background:grey;"></canvas>
+                          </div>
+
+
+                        <p id="id_EditPage_EuDisLabel_IntSpaceKeySpeed" class="subsectionLabel" style="margin-left:2.5%; margin-top:5%; text-decoration:underline;">Euclidean Disance: </p>
+                        <div class="row" style="width:100%; height:10%; margin-top:2.5%;">
+                          <p class="standardText" style="margin-left:5%; margin-top:auto; margin-bottom:auto; width:15%; text-align:right;">Lab: </p>
+                          <canvas id="id_EditPage_CanvasLAB_IntSpaceKeySpeed" style="height:100%; border: 1px solid black; margin-left:5%; width:70%;"></canvas>
+                        </div>
+                        <div class="row" style="width:100%; height:10%; margin-top:2.5%;">
+                          <p class="standardText" style="margin-left:5%; margin-top:auto; margin-bottom:auto; width:15%; text-align:right;">DIN99: </p>
+                          <canvas id="id_EditPage_CanvasDIN99_IntSpaceKeySpeed" style="height:100%; border: 1px solid black; margin-left:5%; width:70%;"></canvas>
+                        </div>
+                        <div class="row" style="width:100%; height:10%; margin-top:2.5%;">
+                          <p class="standardText" style="margin-left:5%; margin-top:auto; margin-bottom:auto; width:15%; text-align:right;">RGB: </p>
+                          <canvas id="id_EditPage_CanvasRGB_IntSpaceKeySpeed" style="height:100%; border: 1px solid black; margin-left:5%; width:70%;"></canvas>
+                        </div>
+                        <div class="row" style="width:100%; height:10%; margin-top:2.5%; margin-bottom:2.5%;">
+                          <p class="standardText" style="margin-left:5%; margin-top:auto; margin-bottom:auto; width:15%; text-align:right;">HSV: </p>
+                          <canvas id="id_EditPage_CanvasHSV_IntSpaceKeySpeed" style="height:100%; border: 1px solid black; margin-left:5%; width:70%;"></canvas>
+                        </div>
+                      </div>
 
                   </div>
 

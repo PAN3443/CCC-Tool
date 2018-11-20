@@ -1,4 +1,4 @@
-function calcCMSIntervals(workCMS, startKeyIndex, endKeyIndex){
+function calcCMSIntervals(workCMS, startKeyIndex, endKeyIndex,intervalMode){
 
   switch (intervalMode) {
     case 0:
@@ -8,11 +8,6 @@ function calcCMSIntervals(workCMS, startKeyIndex, endKeyIndex){
 
       break;
 
-    /*case 1:
-
-
-
-      break;*/
 
     case 2:
 
