@@ -1,9 +1,24 @@
+
+function changeAutoAnalyze(){
+
+  if(autoAnalyze){
+      autoAnalyze=false;
+      document.getElementById('id_settingMenu_Label_AnalyzeUpdate_Button').innerHTML="Activate Automatical Analyze Update";
+  }
+  else{
+      autoAnalyze=true;
+      document.getElementById('id_settingMenu_Label_AnalyzeUpdate_Button').innerHTML="Deactivate Automatical Analyze Update";
+      updateAnalyze();
+  }
+
+}
+
 function updateAnalyze(){
 
     if(document.getElementById("id_EditPage_DivAnalyze").style.display=="none")
       return;
 
-      switch (analyzePlotType) {
+      switch (document.getElementById("id_EditPage_SelectAnalyzePlot").selectedIndex) {
         case 0:
           styleStructure_InterpolationSpaces();
           break;
@@ -23,53 +38,9 @@ function updateAnalyze(){
 
       }
 
+
 }
 
-
-function changeAnalyzeType(type){
-
-  analyzePlotType=type;
-
-  document.getElementById("id_EditPage_AnalyzePlot_Space").style.background = 'none';
-  document.getElementById("id_EditPage_AnalyzePlot_BandSpeed").style.background = 'none';
-  document.getElementById("id_EditPage_AnalyzePlot_LocalSpeed").style.background = 'none';
-  document.getElementById("id_EditPage_AnalyzePlot_GlobalSpeed").style.background = 'none';
-  document.getElementById("id_EditPage_AnalyzePlot_Order").style.background = 'none';
-
-  switch (analyzePlotType) {
-    case 0:
-      document.getElementById("id_EditPage_AnalyzePlot_Space").style.background="rgb(76, 175, 80)";
-      document.getElementById("id_EditPage_Analyze_Label").innerHTML = "Plot : Interpolation Spaces";
-      styleStructure_InterpolationSpaces();
-      break;
-      case 1:
-        document.getElementById("id_EditPage_AnalyzePlot_BandSpeed").style.background="rgb(76, 175, 80)";
-        document.getElementById("id_EditPage_Analyze_Label").innerHTML = "Plot : Band Speed";
-        styleStructure_BandSpeed();
-        break;
-        case 2:
-          document.getElementById("id_EditPage_AnalyzePlot_LocalSpeed").style.background="rgb(76, 175, 80)";
-          document.getElementById("id_EditPage_Analyze_Label").innerHTML = "Plot : Local Speed";
-          styleStructure_LocalSpeed();
-          break;
-          case 3:
-            document.getElementById("id_EditPage_AnalyzePlot_GlobalSpeed").style.background="rgb(76, 175, 80)";
-            document.getElementById("id_EditPage_Analyze_Label").innerHTML = "Plot : Global Speed Difference";
-            styleStructure_GlobalSpeed();
-            break;
-            case 4:
-              document.getElementById("id_EditPage_AnalyzePlot_Order").style.background="rgb(76, 175, 80)";
-              document.getElementById("id_EditPage_Analyze_Label").innerHTML = "Plot : Order";
-              styleStructure_Order();
-              break;
-    default:
-
-  }
-
-
-
-  updateAnalyze();
-}
 
 
 function styleGlobalLocalOrderPlot(){
@@ -97,6 +68,7 @@ function styleGlobalLocalOrderPlot(){
     document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.marginRight = margin+"px";
     document.getElementById("id_EditPage_LabelDiv_GlobalLocalOrder").style.marginRight = margin+"px";
   }*/
+
 
   document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.marginLeft = "auto";
   document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.marginRight = "auto";
@@ -136,6 +108,78 @@ function updateKeySelection(){
   }
 }
 
+function changeAnalyzeIntervalCalculation(){
+
+
+  switch (document.getElementById("id_EditPage_SelectAnalyzePlot").selectedIndex) {
+        case 2:
+          if(document.getElementById("id_editPage_Anaylze_IntervalNumber").checked)
+            document.getElementById("id_editPage_Anaylze_IntervalCalcInput").value=numberOfIntervalsLocal;
+          else
+            document.getElementById("id_editPage_Anaylze_IntervalCalcInput").value=colorDifferenceLocal;
+
+          styleStructure_LocalSpeed();
+          break;
+          case 3:
+
+            if(document.getElementById("id_editPage_Anaylze_IntervalNumber").checked)
+              document.getElementById("id_editPage_Anaylze_IntervalCalcInput").value=numberOfIntervalsGlobal;
+            else
+              document.getElementById("id_editPage_Anaylze_IntervalCalcInput").value=colorDifferenceGlobal;
+            styleStructure_GlobalSpeed();
+            break;
+            case 4:
+
+              if(document.getElementById("id_editPage_Anaylze_IntervalNumber").checked)
+                document.getElementById("id_editPage_Anaylze_IntervalCalcInput").value=numberOfIntervalsOrder;
+              else
+                document.getElementById("id_editPage_Anaylze_IntervalCalcInput").value=colorDifferenceOrder;
+              styleStructure_Order();
+              break;
+    default:
+
+  }
+}
+
+function changeAnalyzeIntervalInput(){
+
+
+  var tmpVal = parseFloat(document.getElementById("id_editPage_Anaylze_IntervalCalcInput").value);
+
+  if(isNaN(tmpVal)|| tmpVal==undefined){
+    openAlert("Input for the caluclation of the interval colors is not correct!");
+    return;
+  }
+
+  switch (document.getElementById("id_EditPage_SelectAnalyzePlot").selectedIndex) {
+        case 2:
+          if(document.getElementById("id_editPage_Anaylze_IntervalNumber").checked)
+            numberOfIntervalsLocal=tmpVal;
+          else
+            colorDifferenceLocal=tmpVal;
+
+          styleStructure_LocalSpeed();
+          break;
+          case 3:
+
+            if(document.getElementById("id_editPage_Anaylze_IntervalNumber").checked)
+              numberOfIntervalsGlobal=tmpVal;
+            else
+              colorDifferenceGlobal=tmpVal;
+            styleStructure_GlobalSpeed();
+            break;
+            case 4:
+
+              if(document.getElementById("id_editPage_Anaylze_IntervalNumber").checked)
+                numberOfIntervalsOrder=tmpVal;
+              else
+                colorDifferenceOrder=tmpVal;
+              styleStructure_Order();
+              break;
+    default:
+
+  }
+}
 
 
 
@@ -160,7 +204,7 @@ function updateAnalyzeCompareKeyIndex(startComboID,endComboID){
       options[i].disabled = true;
   }
 
-  switch (analyzePlotType) {
+  switch (document.getElementById("id_EditPage_SelectAnalyzePlot").selectedIndex) {
     case 0:
       styleStructure_InterpolationSpaces();
       break;

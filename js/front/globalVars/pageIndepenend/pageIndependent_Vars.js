@@ -10,6 +10,7 @@ var refLineSketchContainer = [];
 var numDecimalPlaces=2;
 
 var styleActiveColor = "rgba(76, 175, 80,0.7)";
+var styleNotActiveColor = "none"; //"rgba(125,125,125,0.7)";
 
 /// Switch Pages
 var currentPageID = 0;
@@ -17,6 +18,7 @@ var pageIsLoaded=false;
 
 // Calculation of Interval colors depenting on colordifference delta
 var intervalDelta = 1;
+var intervalSize = 1;
 
 // Draw Reference Information
 var refElementContainer = [];

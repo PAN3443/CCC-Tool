@@ -13,13 +13,26 @@ function styleStructure_LocalSpeed(){
     document.getElementById("id_EditPage_DoLogDiv_GlobalLocalOrder").style.display = "none";
     document.getElementById("id_EditPage_FixedAxisLabel_GlobalLocalOrder").innerHTML="Fixed Local Speed Axis:";
 
-
-
-
     styleGlobalLocalOrderPlot();
 
     updateKeySelection();
-    globalCMS1 = calcCMSIntervals(globalCMS1,document.getElementById("id_EditPage_SelectFrom_GlobalLocalOrder").selectedIndex,document.getElementById("id_EditPage_SelectTill_GlobalLocalOrder").selectedIndex);
+
+    var oldInterval = intervalDelta;
+    var oldIntervalSize = intervalSize;
+    if(document.getElementById("id_editPage_Anaylze_IntervalNumber").checked){
+      document.getElementById("id_editPage_Anaylze_IntervalCalcInputLabel").innerHTML = "Number of Intervals:";
+      document.getElementById("id_editPage_Anaylze_IntervalCalcInput").value = numberOfIntervalsLocal;
+      intervalSize = numberOfIntervalsLocal;
+      globalCMS1 = calcCMSIntervals(globalCMS1,document.getElementById("id_EditPage_SelectFrom_GlobalLocalOrder").selectedIndex,document.getElementById("id_EditPage_SelectTill_GlobalLocalOrder").selectedIndex,0);
+    }
+    else{
+      document.getElementById("id_editPage_Anaylze_IntervalCalcInputLabel").innerHTML = "Value of Color-Difference:";
+      document.getElementById("id_editPage_Anaylze_IntervalCalcInput").value = colorDifferenceLocal;
+      intervalDelta=colorDifferenceLocal;
+      globalCMS1 = calcCMSIntervals(globalCMS1,document.getElementById("id_EditPage_SelectFrom_GlobalLocalOrder").selectedIndex,document.getElementById("id_EditPage_SelectTill_GlobalLocalOrder").selectedIndex,2);
+    }
+    intervalDelta=oldInterval;
+    intervalSize=oldIntervalSize;
 
     if(document.getElementById("id_EditPage_SelectFrom_GlobalLocalOrder").selectedIndex!=document.getElementById("id_EditPage_SelectTill_GlobalLocalOrder").selectedIndex)
     drawLocalSpeedPlot(globalCMS1, "id_EditPage_Canvas_GlobalLocalOrder", document.getElementById("id_AnalyzeSubContainer_Select").selectedIndex, "id_EditPage_Min_GlobalLocalOrder", "id_EditPage_Max_GlobalLocalOrder", "id_EditPage_Average_GlobalLocalOrder", "id_EditPage_Deviation_GlobalLocalOrder");

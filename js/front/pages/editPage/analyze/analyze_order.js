@@ -15,14 +15,31 @@ function styleStructure_Order(){
     styleGlobalLocalOrderPlot();
 
     updateKeySelection();
-    globalCMS1 = calcCMSIntervals(globalCMS1,document.getElementById("id_EditPage_SelectFrom_GlobalLocalOrder").selectedIndex,document.getElementById("id_EditPage_SelectTill_GlobalLocalOrder").selectedIndex);
 
-    /*if(document.getElementById("id_EditPage_SelectFrom_GlobalLocalOrder").selectedIndex!=document.getElementById("id_EditPage_SelectTill_GlobalLocalOrder").selectedIndex)
+    var oldInterval = intervalDelta;
+    var oldIntervalSize = intervalSize;
+    if(document.getElementById("id_editPage_Anaylze_IntervalNumber").checked){
+      document.getElementById("id_editPage_Anaylze_IntervalCalcInputLabel").innerHTML = "Number of Intervals:";
+      document.getElementById("id_editPage_Anaylze_IntervalCalcInput").value = numberOfIntervalsOrder;
+      intervalSize = numberOfIntervalsOrder;
+      globalCMS1 = calcCMSIntervals(globalCMS1,document.getElementById("id_EditPage_SelectFrom_GlobalLocalOrder").selectedIndex,document.getElementById("id_EditPage_SelectTill_GlobalLocalOrder").selectedIndex,0);
+    }
+    else{
+      document.getElementById("id_editPage_Anaylze_IntervalCalcInputLabel").innerHTML = "Value of Color-Difference:";
+      document.getElementById("id_editPage_Anaylze_IntervalCalcInput").value = colorDifferenceOrder;
+      intervalDelta=colorDifferenceOrder;
+      globalCMS1 = calcCMSIntervals(globalCMS1,document.getElementById("id_EditPage_SelectFrom_GlobalLocalOrder").selectedIndex,document.getElementById("id_EditPage_SelectTill_GlobalLocalOrder").selectedIndex,2);
+    }
+    intervalDelta=oldInterval;
+    intervalSize=oldIntervalSize;
+
+
+    if(document.getElementById("id_EditPage_SelectFrom_GlobalLocalOrder").selectedIndex!=document.getElementById("id_EditPage_SelectTill_GlobalLocalOrder").selectedIndex)
     drawOrderPlot(globalCMS1, "id_EditPage_Canvas_GlobalLocalOrder", document.getElementById("id_AnalyzeSubContainer_Select").selectedIndex, "id_EditPage_Min_GlobalLocalOrder", "id_EditPage_Max_GlobalLocalOrder");
-    else{*/
+    else{
       var context = document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").getContext('2d');
       context.clearRect(0, 0, document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").width, document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").height);
-    //}
+    }
   }
 
 

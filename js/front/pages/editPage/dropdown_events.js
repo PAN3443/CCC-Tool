@@ -8,18 +8,9 @@ function activateDropdown(event) {
     var doAbsolute = false;
     var onTop = false;
     switch (labelID) {
-      case "id_editPage_OrderPredefinedLabel":
-        dropdownID = "id_editPage_OrderPredefinedDropdown";
-        break;
         case "id_EditPage_PathPlotSpaces_Label":
           dropdownID = "id_EditPage_PathPlotSpaces_Dropdown";
           break;
-          case "id_EditPage_AnalyzePlot_Label":
-            dropdownID = "id_EditPage_AnalyzePlots_Dropdown";
-            break;
-            case "id_EditPage_AnalyzeOptions_Label":
-              dropdownID = "id_EditPage_AnalyzeOptions_Dropdown";
-              break;
               case "id_EditPage_selectProbeTypeLabel":
                 doAbsolute = true;
                 additionalScrollID="id_EditPage_generateProbeSet";

@@ -13,9 +13,25 @@ function styleStructure_GlobalSpeed(){
     document.getElementById("id_EditPage_DoLogDiv_GlobalLocalOrder").style.display = "block";
     document.getElementById("id_EditPage_FixedAxisLabel_GlobalLocalOrder").innerHTML="Fixed Global Speed Difference:";
     styleGlobalLocalOrderPlot();
-
     updateKeySelection();
-    globalCMS1 = calcCMSIntervals(globalCMS1,document.getElementById("id_EditPage_SelectFrom_GlobalLocalOrder").selectedIndex,document.getElementById("id_EditPage_SelectTill_GlobalLocalOrder").selectedIndex);
+
+
+    var oldInterval = intervalDelta;
+    var oldIntervalSize = intervalSize;
+    if(document.getElementById("id_editPage_Anaylze_IntervalNumber").checked){
+      document.getElementById("id_editPage_Anaylze_IntervalCalcInputLabel").innerHTML = "Number of Intervals:";
+      document.getElementById("id_editPage_Anaylze_IntervalCalcInput").value = numberOfIntervalsGlobal;
+      intervalSize = numberOfIntervalsGlobal;
+      globalCMS1 = calcCMSIntervals(globalCMS1,document.getElementById("id_EditPage_SelectFrom_GlobalLocalOrder").selectedIndex,document.getElementById("id_EditPage_SelectTill_GlobalLocalOrder").selectedIndex,0);
+    }
+    else{
+      document.getElementById("id_editPage_Anaylze_IntervalCalcInputLabel").innerHTML = "Value of Color-Difference:";
+      document.getElementById("id_editPage_Anaylze_IntervalCalcInput").value = colorDifferenceGlobal;
+      intervalDelta=colorDifferenceGlobal;
+      globalCMS1 = calcCMSIntervals(globalCMS1,document.getElementById("id_EditPage_SelectFrom_GlobalLocalOrder").selectedIndex,document.getElementById("id_EditPage_SelectTill_GlobalLocalOrder").selectedIndex,2);
+    }
+    intervalDelta=oldInterval;
+    intervalSize=oldIntervalSize;
 
     if(document.getElementById("id_EditPage_SelectFrom_GlobalLocalOrder").selectedIndex!=document.getElementById("id_EditPage_SelectTill_GlobalLocalOrder").selectedIndex)
     drawGlobalSpeedPlot(globalCMS1, "id_EditPage_Canvas_GlobalLocalOrder", document.getElementById("id_AnalyzeSubContainer_Select").selectedIndex, "id_EditPage_Min_GlobalLocalOrder", "id_EditPage_Max_GlobalLocalOrder", "id_EditPage_Average_GlobalLocalOrder", "id_EditPage_Deviation_GlobalLocalOrder");
@@ -96,11 +112,12 @@ function drawGlobalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId,
                     speed = deltaE/distance;
                     realMin = Math.min(realMin,speed);
                     realMax = Math.max(realMax,speed);
+                    sumForAverage += speed;
                     if(document.getElementById("id_EditPage_DoLogSelect_GlobalLocalOrder").checked)
                     speed = Math.log(speed+1);
                     min = Math.min(min,speed);
                     max = Math.max(max,speed);
-                    sumForAverage += speed;
+                    //sumForAverage += speed;
                   }
                 /*  break;
                 case 1:

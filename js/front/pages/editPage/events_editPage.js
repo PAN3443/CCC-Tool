@@ -152,16 +152,11 @@ function updateEditPage(){
   }
 
 
-
-
   fillTable();
-  var rect = document.getElementById("id_EditPage_MainPartDiv").getBoundingClientRect();
-  document.getElementById("id_EditPage").style.height =  rect.height +"px";
-
 
     if(document.getElementById("id_editPage_AnalyzeMappingDiv").style.display!="none"){
 
-      if(document.getElementById("id_EditPage_DivAnalyze").style.display!="none"){
+      if(document.getElementById("id_EditPage_DivAnalyze").style.display!="none" && autoAnalyze){
         updateAnalyze();
       }
       else{
@@ -176,10 +171,10 @@ function updateEditPage(){
 function switchModifyModus(type){
 
 
-  document.getElementById("id_editPage_SelectAddStructures").style.background="none";
-  document.getElementById("id_editPage_SelectAddKeys").style.background="none";
-  document.getElementById("id_editPage_SelectEditKeys").style.background="none";
-  document.getElementById("id_editPage_SelectEditPath").style.background="none";
+  document.getElementById("id_editPage_SelectAddStructures").style.background=styleNotActiveColor;
+  document.getElementById("id_editPage_SelectAddKeys").style.background=styleNotActiveColor;
+  document.getElementById("id_editPage_SelectEditKeys").style.background=styleNotActiveColor;
+  document.getElementById("id_editPage_SelectEditPath").style.background=styleNotActiveColor;
 
   document.getElementById("id_EditPage_Add_Structures").style.display="none";
   document.getElementById("id_EditPage_Add_Keys").style.display="none";
@@ -242,13 +237,13 @@ function switchCMSInformation(type){
     document.getElementById("id_EditPage_DivCMSDescription").style.display="block";
     document.getElementById("id_EditPage_DivKeyDescription").style.display="none";
     document.getElementById("id_editPage_SelectCMSDescription").style.background=styleActiveColor;
-    document.getElementById("id_editPage_SelectKeyDescription").style.background="none";
+    document.getElementById("id_editPage_SelectKeyDescription").style.background=styleNotActiveColor;
   }
   else{
     document.getElementById("id_EditPage_DivKeyDescription").style.display="block";
     document.getElementById("id_EditPage_DivCMSDescription").style.display="none";
     document.getElementById("id_editPage_SelectKeyDescription").style.background=styleActiveColor;
-    document.getElementById("id_editPage_SelectCMSDescription").style.background="none";
+    document.getElementById("id_editPage_SelectCMSDescription").style.background=styleNotActiveColor;
   }
 
 }
@@ -260,7 +255,7 @@ function switchAnalyzeMapping(type){
     document.getElementById("id_EditPage_DivAnalyze").style.display="block";
     document.getElementById("id_EditPage_DivMapping").style.display="none";
     document.getElementById("id_editPage_SelectAnalyze").style.background=styleActiveColor;
-    document.getElementById("id_editPage_SelectMapping").style.background="none";
+    document.getElementById("id_editPage_SelectMapping").style.background=styleNotActiveColor;
 
     updateAnalyze();
   }
@@ -268,7 +263,7 @@ function switchAnalyzeMapping(type){
     document.getElementById("id_EditPage_DivMapping").style.display="block";
     document.getElementById("id_EditPage_DivAnalyze").style.display="none";
     document.getElementById("id_editPage_SelectMapping").style.background=styleActiveColor;
-    document.getElementById("id_editPage_SelectAnalyze").style.background="none";
+    document.getElementById("id_editPage_SelectAnalyze").style.background=styleNotActiveColor;
   }
 
 }
@@ -353,23 +348,13 @@ function showHideEditContainer(){
 function showHideAnalyzeContainer(){
 
   if(document.getElementById("id_editPage_AnalyzeMappingDiv").style.display=="none"){
-      document.getElementById("id_editPage_AnalyzeMappingDiv").style.display="inline-block";
+      document.getElementById("id_editPage_AnalyzeMappingDiv").style.display="block";
       document.getElementById("id_dropDownMenue_HideAnalyze_Label").innerHTML="Hide Analyze/Mapping";
-
-      if(document.getElementById("id_editPage_DescriptionDiv").style.display=="none")
-        document.getElementById("id_editPage_AnalyzeMappingDiv").style.width="100%";
-      else{
-        document.getElementById("id_editPage_DescriptionDiv").style.width="38%";
-        document.getElementById("id_editPage_AnalyzeMappingDiv").style.width="60%";
-      }
-
   }
   else{
       document.getElementById("id_dropDownMenue_HideAnalyze_Label").innerHTML="Show Analyze/Mapping";
       document.getElementById("id_editPage_AnalyzeMappingDiv").style.display="none";
-      document.getElementById("id_editPage_DescriptionDiv").style.width="100%";
   }
-
 
   document.getElementById("id_dropDownContainer").style.display="none";
 }
@@ -377,22 +362,12 @@ function showHideAnalyzeContainer(){
 function showHideCMSInfoContainer(){
 
   if(document.getElementById("id_editPage_DescriptionDiv").style.display=="none"){
-      document.getElementById("id_editPage_DescriptionDiv").style.display="inline-block";
+      document.getElementById("id_editPage_DescriptionDiv").style.display="block";
       document.getElementById("id_dropDownMenue_HideDescription_Label").innerHTML="Hide CMS-Info";
-
-      if(document.getElementById("id_editPage_AnalyzeMappingDiv").style.display=="none")
-        document.getElementById("id_editPage_DescriptionDiv").style.width="100%";
-      else{
-        document.getElementById("id_editPage_DescriptionDiv").style.width="38%";
-        document.getElementById("id_editPage_AnalyzeMappingDiv").style.width="60%";
-      }
-
-
   }
   else{
       document.getElementById("id_dropDownMenue_HideDescription_Label").innerHTML="Show CMS-Info";
       document.getElementById("id_editPage_DescriptionDiv").style.display="none";
-      document.getElementById("id_editPage_AnalyzeMappingDiv").style.width="100%";
   }
 
   document.getElementById("id_dropDownContainer").style.display="none";

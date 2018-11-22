@@ -238,6 +238,14 @@ function drawInsertBandPreview(canvasData, currentPos, bandLength, canvasHeight,
               canvasData = drawInsertCMSPreview(tmpCMS,canvasData, currentPos, bandLength, canvasHeight, canvasWidth);
       break;
       case 4:
+              // ->const
+              canvasData=createConstantBand(canvasData, currentPos, bandLength, canvasHeight, customConstBandColor.getInColorFormat(globalCMS1.getInterpolationSpace()), canvasWidth);
+      break;
+      case 5:
+              // ->scale
+              canvasData=createScaledBand(canvasData, currentPos, bandLength, canvasHeight, customScaleBandColor1.getInColorFormat(globalCMS1.getInterpolationSpace()),customScaleBandColor2.getInColorFormat(globalCMS1.getInterpolationSpace()), canvasWidth);
+      break;
+      case 6:
               // -> online CMS
 
 

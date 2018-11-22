@@ -40,19 +40,19 @@ function openColorPicker(event){
     case "id_EditPage_CMS_NaN_Color":
     colorpickerColor=globalCMS1.getNaNColor("rgb");
     // below the object
-    document.getElementById("id_popupColorPicker").style.top=(top+box.height)+"px";
+    document.getElementById("id_popupColorPicker").style.top=(top-pickerBox.height)+"px";
     document.getElementById("id_popupColorPicker").style.left=(left+box.width)+"px";
     break;
     case "id_EditPage_CMS_Below_Color":
     colorpickerColor=globalCMS1.getBelowColor("rgb");
     // below the object
-    document.getElementById("id_popupColorPicker").style.top=(top+box.height)+"px";
+    document.getElementById("id_popupColorPicker").style.top=(top-pickerBox.height)+"px";
     document.getElementById("id_popupColorPicker").style.left=(left+box.width)+"px";
     break;
     case "id_EditPage_CMS_Above_Color":
       colorpickerColor=globalCMS1.getAboveColor("rgb");
       // below the object
-      document.getElementById("id_popupColorPicker").style.top=(top+box.height)+"px";
+      document.getElementById("id_popupColorPicker").style.top=(top-pickerBox.height)+"px";
       document.getElementById("id_popupColorPicker").style.left=(left+box.width)+"px";
       break;
 

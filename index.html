@@ -209,7 +209,7 @@
 </head>
 <!--style="background: rgb(30,30,30);"-->
 
-<body style="background:white; overflow-x:hidden;">
+<body style="height:auto; background:white; overflow-x:hidden;">
   <!--style="background:url(img/background2.png);"-->
   <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -243,7 +243,7 @@
 
       <img src="img/Logos/CCC-LOGO_new.png" alt="CCC-Tool Logo" style="height:80%; margin-left:20px; margin-right:20px; margin-top:auto; margin-bottom:auto;">
 
-      <p id="id_header_ccctoolLabel" style="margin:0px; text-align:left; vertical-align: middle; color:white; font-size: 3vh; margin-top:auto; line-height:5vh; margin-bottom:auto; margin-right:auto; font-family:verdana;"> <strong>C</strong>harting <strong>C</strong>ontinuous <strong>C</strong>olormap </p>
+      <p id="id_header_ccctoolLabel" class="class_WhiteInsetLabelText" style="margin:0px; text-align:left; vertical-align: middle; color:transparent; font-size: 3vh; margin-top:auto; line-height:5vh; margin-bottom:auto; margin-right:auto; font-family:verdana;"> <strong>C</strong>harting <strong>C</strong>ontinuous <strong>C</strong>olormap </p>
 
 
       <p id="id_header_colorBlindWarning" class="standardText class_noSizeUpdate" style="margin:0px; vertical-align: middle; color:white; font-size: 3vh; line-height:5vh; margin-top:auto; margin-bottom:auto; color:red; display:none; cursor:help;" title="Colorblind Modus"> &#128065; </p>
@@ -291,6 +291,10 @@
           </div>
           <div id="id_settingMenu_Label_RGBPossible_Button" oonclick="changeColorPossiblity()" class="dropdownNotActiveMenuButton" style="display:none;">
             Allow RGB Incompalible Colors : false
+          </div>
+
+          <div id="id_settingMenu_Label_AnalyzeUpdate_Button" onclick="changeAutoAnalyze()" class="dropdownMenuButton">
+            Deactivate Automatical Analyze Update
           </div>
 
 
@@ -410,7 +414,7 @@
           -->
 
 
-  <div id="id_ccctoolPage" style="width:100%; height:auto; margin:0px; padding-top:20px; padding-bottom:20px; background:white; margin-top:5vh; overflow-x:auto;">
+  <div id="id_ccctoolPage" style="width:100%; height:auto; margin:0px; background:white; margin-top:5vh; overflow-x:auto;">
 
 
     <!--  -----------------------------------------------
@@ -514,7 +518,7 @@
                     -----------------------------------------------
                     -->
 
-    <div id="id_EditPage"  style="min-height:80vh; ">
+    <div id="id_EditPage" style="min-height:80vh; height:auto; overflow:hidden;">
 
       <div class="row">
 
@@ -530,9 +534,13 @@
 
 
             <div>
-              <div class="class_RotateLeft" id="id_EditPage_backButton" onclick="startLeaveEditPage()" style="height:26vh;">
-                Return
+
+              <div class="class_RotateLeft" id="id_EditPage_backButton" style="background: url(img/background3.jpg);">
+                <div class="class_RotateLeft" onclick="startLeaveEditPage()" style="height:26vh;">
+                  To MyDesigns
+                </div>
               </div>
+
 
               <div class="row">
                 <div id="id_EditPage_savePartDiv">
@@ -547,8 +555,10 @@
                   </div>
 
                 </div>
-                <div class="class_RotateLeft" id="id_EditPage_savePartButton" style="height: 26vh;" onclick="showSaveOptions()">
+                <div class="class_RotateLeft" id="id_EditPage_savePartButton" style="background: url(img/background3.jpg);">
+                <div class="class_RotateLeft"  style="height: 26vh;" onclick="showSaveOptions()">
                   Save
+                </div>
                 </div>
               </div>
 
@@ -619,8 +629,10 @@
 
                 </div>
 
-                <div class="class_RotateLeft" id="id_EditPage_interpolationPartButton" style="height: 26vh;" onclick="showInterpolationOptions()">
+                <div class="class_RotateLeft" id="id_EditPage_interpolationPartButton" style="background: url(img/background3.jpg); height: 26vh;">
+                <div class="class_RotateLeft"   onclick="showInterpolationOptions()">
                   Interpolation Space
+                </div>
                 </div>
               </div>
 
@@ -634,7 +646,7 @@
 
 
         <!-- -------------- Main Part Edit Page ---------------->
-        <div id="id_EditPage_MainPartDiv" style=" z-index: 0; margin-left:auto; margin-right:auto; left: 0px; top: 0px; display:inline-block;">
+        <div id="id_EditPage_MainPartDiv" style=" z-index: 0; height:auto; margin-left:auto; margin-right:auto; left: 0px; top: 0px; display:inline-block; overflow:hidden;">
           <!--position: absolute;-->
 
 
@@ -642,7 +654,7 @@
 
           <!-- -------------- Main Part: Analyze Mapping ---------------->
           <div id="id_EditPage_PreviewProbe_Div" style="width:100%;">
-            <div class="row" style="width:100%;">
+            <div class="row" style="width:100%; margin-top:20px;">
               <h3 style="margin-left:5%; width:auto; text-align:left; margin-top:auto; margin-bottom:auto;"> Probe Preview:</h3>
 
               <select id="id_selectMainProbeSetList" class="subsectionLabel" style="margin-left:10px; width:15%; vertical-align:middle; margin-top:auto; margin-bottom:auto; ">
@@ -675,11 +687,9 @@
 
           <img id="id_editPage_HelpImage1" src="img/CCCToolComic/editPage.jpg" style="height:120px; margin-left:auto; margin-right:auto;">
           <!-- -------------- Main Part: CMS Editor  ---------------->
-          <div id="id_editPage_EditDiv" style="width:90%; margin-left:5%; background:url(img/background3.jpg); border-radius:10px; padding:5px;">
+          <div id="id_editPage_EditDiv" style="width:90%; margin-left:5%; border: 5px solid black; border-radius:10px; background: rgb(220,220,220);">
 
-
-              <div id="id_editPage_EditInnerDiv" style="background:white; border-radius:10px; margin:auto; ">
-                <div class="row">
+                <div class="row" >
                   <div class="class_subsectionButtonUnderground" style="width:25%; background: url(img/background3.jpg);">
                     <div onclick="switchModifyModus(0)" id="id_editPage_SelectAddStructures" class="class_subsectionButton">
                       ADD CMS
@@ -707,14 +717,14 @@
                   <div class="row" style="width:100%; height:100%;">
 
 
-                    <div style="width:30%; height:100%; border-right:3px solid black; ">
+                    <div style="width:30%; height:100%; border-right:3px solid black;">
 
 
 
-                      <h1 class="subsectionLabel class_EditDivLabel" style="text-decoration:underline; background: rgb(220,220,220);"> Single Bands </h1>
+                      <h1 class="subsectionLabel class_InsetLabelText class_EditDivLabel" style="color:transparent;"> Single Bands </h1>
 
 
-                      <div class="row" style="width:100%; height:92%;">
+                      <div class="row" style="width:100%; height:92%; background:white;">
 
                         <div style="width:50%; height:100%; border-right:1px solid grey; ">
                           <div id="id_EditPage_ConstBandDiv" style="width:100%; height:80%; overflow-y: auto; border-top: 1px solid grey;">
@@ -808,67 +818,74 @@
 
 
 
-                      <div style="height:100%; width:50%; border-left:1px solid grey;">
+                      <div style="height:100%; width:60%; border-left:1px solid grey;">
 
 
-                        <div class="row class_EditDivLabel" style="width:100%; background: rgb(220,220,220);">
-                          <h1 class="subsectionLabel class_EditDivLabel" style="text-decoration:underline;"> Predefined CMS </h1>
+                        <div class="row class_EditDivLabel" style="width:100%;">
+                          <h1 class="subsectionLabel class_InsetLabelText class_EditDivLabel" style="color:transparent;"> Predefined CMS </h1>
+                        </div>
 
+                        <div class="row" style="width:100%; height:92%; ">
+                          <div  style="width:33%; height:100%; border-top:1px solid grey; border-right:2px solid grey;">
+                            <!--div id="id_editPage_Order_All"  onclick="changeFilterPredefined(0)">
+                              <p class="standardText" style="margin-top:auto; margin-bottom:0px; width:100%; text-align:center; color:transparent;">All</p> <div style=" margin-left:10%; width: 80%; height:20%;"></div>
+                            </div-->
+                            <button id="id_editPage_Order_Multiband" onclick="changeFilterPredefined(1)" style="height:14.28%; width:100%; cursor:pointer;">
+                              <p class="standardText class_InsetLabelText" style="margin-top:auto; margin-bottom:0px; width:100%; text-align:center; color:transparent;">Multiband</p>
+                              <canvas id="id_EditPage_Preview_Multiband" style="width: 90%; height:25%; margin-left:5%;"></canvas>
+                            </button>
+                            <button  id="id_editPage_Order_Divergent" onclick="changeFilterPredefined(2)" style="height:14.28%; width:100%; cursor:pointer;">
+                              <p class="standardText class_InsetLabelText" style="margin-top:auto; margin-bottom:0px; width:100%; text-align:center; color:transparent;">Divergent</p>
+                              <canvas id="id_EditPage_Preview_Divergent" style="width: 90%; height:25%; margin-left:5%;"></canvas>
+                            </button>
+                            <!--div id="id_editPage_Order_Scaled_All" onclick="changeFilterPredefined(3)">
+                              <p class="standardText" style="margin-top:auto; margin-bottom:0px; width:100%; text-align:center; color:transparent;">Scaled All</p> <div style="width: 100%; height:20%; margin-top:auto; border:1px solid black; background-color: black; background-image: linear-gradient(to right, white , black);"></div>
+                            </div-->
+                            <button  id="id_editPage_Order_Scaled_Blue" onclick="changeFilterPredefined(4)" style="height:14.28%; width:100%; cursor:pointer;">
+                              <p class="standardText class_InsetLabelText" style="margin-top:auto; margin-bottom:0px; width:100%; text-align:center; color:transparent;">Scaled: Blue</p>
+                              <canvas id="id_EditPage_Preview_ScaledBlue" style="width: 90%; height:25%; margin-left:5%;"></canvas>
+                            </button>
+                            <button  id="id_editPage_Order_Scaled_Brown" onclick="changeFilterPredefined(5)" style="height:14.28%; width:100%; cursor:pointer;">
+                              <p class="standardText class_InsetLabelText" style="margin-top:auto; margin-bottom:0px; width:100%; text-align:center; color:transparent;">Scaled: Brown</p>
+                              <canvas id="id_EditPage_Preview_ScaledBrown" style="width: 90%; height:25%; margin-left:5%;"></canvas>
+                            </button>
+                            <button  id="id_editPage_Order_Scaled_Green" onclick="changeFilterPredefined(6)" style="height:14.28%; width:100%; cursor:pointer;">
+                              <p class="standardText class_InsetLabelText" style="margin-top:auto; margin-bottom:0px; width:100%; text-align:center; color:transparent;">Scaled: Green</p>
+                              <canvas id="id_EditPage_Preview_ScaledGreen" style="width: 90%; height:25%; margin-left:5%;"></canvas>
+                            </button>
+                            <button  id="id_editPage_Order_Scaled_RedPurple" onclick="changeFilterPredefined(7)" style="height:14.28%; width:100%; cursor:pointer;">
+                              <p class="standardText class_InsetLabelText" style="margin-top:auto; margin-bottom:0px; width:100%; text-align:center; color:transparent;">Scaled: Red Purple</p>
+                              <canvas id="id_EditPage_Preview_ScaledRedPurple" style="width: 90%; height:25%; margin-left:5%;"></canvas>
+                            </button>
+                            <button  id="id_editPage_Order_Scaled_YellowOrange" onclick="changeFilterPredefined(8)" style="height:14.28%; width:100%; cursor:pointer;">
+                              <p class="standardText class_InsetLabelText" style="margin-top:auto; margin-bottom:0px; width:100%; text-align:center; color:transparent;">Scaled: Yellow Orange</p>
+                              <canvas id="id_EditPage_Preview_ScaledYellowOrange" style="width: 90%; height:25%; margin-left:5%;"></canvas>
+                            </button>
+                          </div>
+                          <div id="id_EditPage_PredefinedCMS_Div" class="class_EditDiv_SubDiv" style="width:67%; height:100%; overflow-y: auto; overflow-x: hidden; border-top:1px solid grey; background:white;">
 
-                            <div id="id_editPage_OrderPredefinedLabel" class="class_EditDivLabel" style=" width:10%; margin-right:auto; margin-top:auto; margin-bottom:auto; cursor: pointer; text-align:center; border-left:1px solid black;" title="All"> &#9660; </div>
-                              <div id="id_editPage_OrderPredefinedDropdown" style="background: url(img/background3.jpg); display: none; position: absolute; left: 0px; z-index: 101;">
-                                    <div id="id_editPage_Order_All"  onclick="changeFilterPredefined(0)" class="dropdownButtonEditPage">
-                                      <p class="standardText" style="margin-top:auto; margin-bottom:auto; color:white; width:180px;">All</p> <div style=" margin:5px; width: 180px; height:30px;"></div>
-                                    </div>
-                                    <div id="id_editPage_Order_Multiband" onclick="changeFilterPredefined(1)" class="dropdownButtonEditPage">
-                                      <p class="standardText" style="margin-top:auto; margin-bottom:auto; color:white; width:180px;">Multiband</p>  <canvas id="id_EditPage_Preview_Multiband" style=" margin:5px; width: 180px; height:30px; border:1px solid black;"></canvas>
-                                    </div>
-                                    <div id="id_editPage_Order_Divergent" onclick="changeFilterPredefined(2)" class="dropdownButtonEditPage">
-                                      <p class="standardText" style="margin-top:auto; margin-bottom:auto; color:white; width:180px;">Divergent</p> <canvas id="id_EditPage_Preview_Divergent" style=" margin:5px; width: 180px; height:30px; border:1px solid black;"></canvas>
-                                    </div>
-                                    <div id="id_editPage_Order_Scaled_All" onclick="changeFilterPredefined(3)" class="dropdownButtonEditPage">
-                                      <p class="standardText" style="margin-top:auto; margin-bottom:auto; color:white; width:180px;">Scaled All</p> <div style=" margin:5px; width: 180px; height:30px; border:1px solid black; background-color: black; background-image: linear-gradient(to right, white , black);"></div>
-                                    </div>
-                                    <div id="id_editPage_Order_Scaled_Blue" onclick="changeFilterPredefined(4)" class="dropdownButtonEditPage">
-                                      <p class="standardText" style="margin-top:auto; margin-bottom:auto; color:white; width:180px;">Scaled Blue</p> <canvas id="id_EditPage_Preview_ScaledBlue" style=" margin:5px; width: 180px; height:30px; border:1px solid black;"></canvas>
-                                    </div>
-                                    <div id="id_editPage_Order_Scaled_Brown" onclick="changeFilterPredefined(5)" class="dropdownButtonEditPage">
-
-                                      <p class="standardText" style="margin-top:auto; margin-bottom:auto; color:white; width:180px;">Scaled Brown</p> <canvas id="id_EditPage_Preview_ScaledBrown" style=" margin:5px; width: 180px; height:30px; border:1px solid black;"></canvas>
-                                    </div>
-                                    <div id="id_editPage_Order_Scaled_Green" onclick="changeFilterPredefined(6)" class="dropdownButtonEditPage">
-                                      <p class="standardText" style="margin-top:auto; margin-bottom:auto; color:white; width:180px;">Scaled Green</p> <canvas id="id_EditPage_Preview_ScaledGreen" style=" margin:5px; width: 180px; height:30px; border:1px solid black;"></canvas>
-                                    </div>
-                                    <div id="id_editPage_Order_Scaled_RedPurple" onclick="changeFilterPredefined(7)" class="dropdownButtonEditPage">
-                                      <p class="standardText" style="margin-top:auto; margin-bottom:auto; color:white; width:180px;">Scaled Red Purple</p> <canvas id="id_EditPage_Preview_ScaledRedPurple" style=" margin:5px; width: 180px; height:30px; border:1px solid black;"></canvas>
-                                    </div>
-                                    <div id="id_editPage_Order_Scaled_YellowOrange" onclick="changeFilterPredefined(8)" class="dropdownButtonEditPage">
-                                      <p class="standardText" style="margin-top:auto; margin-bottom:auto; color:white; width:180px;">Scaled Yellow Orange</p> <canvas id="id_EditPage_Preview_ScaledYellowOrange" style=" margin:5px; width: 180px; height:30px; border:1px solid black;"></canvas>
-                                    </div>
                           </div>
                         </div>
 
-                        <div id="id_EditPage_PredefinedCMS_Div" class="class_EditDiv_SubDiv" style="width:100%; height:92%; overflow-y: auto; overflow-x: hidden; border-top:1px solid grey;">
 
-                        </div>
                       </div>
 
 
-                      <div style="height:100%; width:50%; border-left:1px solid grey;">
+                      <div style="height:100%; width:40%; border-left:1px solid grey;">
 
 
-                          <h1 class="subsectionLabel class_EditDivLabel" style="margin-top:auto; margin-bottom:auto; text-decoration:underline; background: rgb(220,220,220);"> MyDesigns </h1>
+                          <h1 class="subsectionLabel class_InsetLabelText class_EditDivLabel" style="margin-top:auto; margin-bottom:auto; color:transparent;"> MyDesigns </h1>
 
-                          <div id="id_EditPage_MyDesigns_EmptyDiv" class="row class_EditDiv_SubDiv" style="display:none; width:100%; height:92%; border-top:1px solid grey; cursor:not-allowed; background:rgb(220,220,220);">
+                          <div id="id_EditPage_MyDesigns_EmptyDiv" class="row class_EditDiv_SubDiv" style="display:none; width:100%; height:92%; border-top:1px solid grey; cursor:not-allowed;">
 
 
-                              <p class="standardText" style="margin:auto; color:grey; font-weight:bold;">Empty.</p>
+                              <p class="class_InsetLabelText" style="margin:auto;">Empty.</p>
 
 
                           </div>
 
 
-                          <div id="id_EditPage_MyDesigns_Div" class="class_EditDiv_SubDiv" style="width:100%; height:80%; overflow-y: auto; overflow-x: hidden; border-top:1px solid grey;">
+                          <div id="id_EditPage_MyDesigns_Div" class="class_EditDiv_SubDiv" style="width:100%; height:80%; overflow-y: auto; overflow-x: hidden; border-top:1px solid grey; background:white;">
 
                           </div>
                       </div>
@@ -956,7 +973,7 @@
 
                     <div style="height:100%; width:30%; border-right:2px solid grey; background:rgb(220,220,220);">
 
-                      <h1 class="subsectionLabel class_EditDivLabel" style="text-decoration:underline; background: rgb(220,220,220);"> Select Key: </h1>
+                      <h1 class="subsectionLabel class_InsetLabelText class_EditDivLabel" style="color:transparent;"> Select Key: </h1>
 
                       <select id="id_EditPage_EditKey_List" name="Key List" size="20" style="margin-left:5%; width:80%; height:70%; margin-top:2.5%; margin-bottom:2.5%; overflow:auto;">
 
@@ -971,12 +988,12 @@
                           <div style="display:flex; height:25%; width:100%;">
 
                             <div id="id_EditPage_DrawnKey_NilKeyHelp" style="width:100%; margin-top:auto; margin-bottom:5px; display:none;">
-                              <p class="subsectionLabel" style="margin:auto; color:grey; font-weight:bold; width:auto; height:auto;"> The Nil Key can not be edited here!</p>
+                              <p class="subsectionLabel class_InsetLabelText" style="margin:auto; color:transparent; font-weight:bold; width:auto; height:auto;"> The Nil Key can not be edited here!</p>
                             </div>
 
                             <div id="id_EditPage_DrawnKey_MoTHelp" style="width:100%; margin-top:auto; margin-bottom:5px; display:none;">
-                              <p class="subsectionLabel" style="margin:auto; color:grey; font-weight:bold; width:auto; height:auto;">Click to switch the middle of triple Color.</p>
-                              <p class="subsectionLabel" style="margin:auto; color:grey; font-weight:bold; width:auto;">&#8595;</p>
+                              <p class="subsectionLabel class_InsetLabelText" style="margin:auto; color:transparent; font-weight:bold; width:auto; height:auto;">Click to switch the middle of triple Color.</p>
+                              <p class="subsectionLabel class_InsetLabelText" style="margin:auto; color:transparent; font-weight:bold; width:auto;">&#8595;</p>
                             </div>
 
 
@@ -984,14 +1001,14 @@
                           <div  style="display:flex; height:50%; width:100%;">
 
                             <div id="id_EditPage_DrawnKey_LeftKeyHelp" style="display:flex; height:100%; width:30%; visibility:hidden;">
-                                <p id="id_EditPage_DrawnKey_LeftKeyHelpLabel" class="subsectionLabel" style="margin-top:auto; margin-bottom:auto; margin-right:auto; margin-left:5px; color:grey; font-weight:bold; height:auto;">Click to change the left key color.</p>
-                                <p class="subsectionLabel" style="margin-top:auto; margin-bottom:auto; margin-right:5px; color:grey; font-weight:bold;">&#8594;</p>
+                                <p id="id_EditPage_DrawnKey_LeftKeyHelpLabel" class="subsectionLabel class_InsetLabelText" style="margin-top:auto; margin-bottom:auto; margin-right:auto; margin-left:5px; color:transparent; font-weight:bold; height:auto;">Click to change the left key color.</p>
+                                <p class="subsectionLabel class_InsetLabelText" style="margin-top:auto; margin-bottom:auto; margin-right:5px; color:transparent; font-weight:bold;">&#8594;</p>
                             </div>
                             <div id="id_EditPage_EditKey_DrawKeyDiv" style="height:100%; width:40%; border: 2px solid black; border-radius: 10px; overflow:hidden;">
                             </div>
                             <div id="id_EditPage_DrawnKey_RightKeyHelp" style="display:flex; height:100%; width:30%; visibility:hidden;">
-                                <p class="subsectionLabel" style="margin-right:auto; margin-top:auto; margin-bottom:auto; margin-left:5px; color:grey; font-weight:bold; ">&#8592;</p>
-                                <p class="subsectionLabel" style="margin-top:auto; margin-bottom:auto; margin-left:auto; margin-right:5px; color:grey; font-weight:bold; height:auto;">Click to change the right key color.</p>
+                                <p class="subsectionLabel class_InsetLabelText" style="margin-right:auto; margin-top:auto; margin-bottom:auto; margin-left:5px; color:transparent; font-weight:bold; ">&#8592;</p>
+                                <p class="subsectionLabel class_InsetLabelText" style="margin-top:auto; margin-bottom:auto; margin-left:auto; margin-right:5px; color:transparent; font-weight:bold; height:auto;">Click to change the right key color.</p>
 
                             </div>
                           </div>
@@ -1008,7 +1025,7 @@
 
 
 
-                        <h1 class="subsectionLabel class_EditDivLabel" style="text-decoration:underline;"> Change Key Type: </h1>
+                        <h1 class="subsectionLabel class_InsetLabelText class_EditDivLabel" style="color:transparent;"> Change Key Type: </h1>
 
                         <div class="row" style="margin-left:35%; width:65%; margin-top:5px;">
                         <input class="standardText" style="margin-right: 5px; margin-top:auto; margin-bottom:auto;" type="radio" id="id_editPage_KeyTypeNil" name="editPage_keyType" value="1" checked="checked">
@@ -1069,12 +1086,12 @@
                         </div>
 
 
-                        <h1 class="subsectionLabel class_EditDivLabel" style="text-decoration:underline; margin-top:5%;"> Change Reference Value: </h1>
+                        <h1 class="subsectionLabel class_InsetLabelText class_EditDivLabel" style="color:transparent; margin-top:5%;"> Change Reference Value: </h1>
 
                         <input id="id_EditPage_EditKey_SetReference" type="number" name="Reference" value="1" step="any" class="standardText" style="width:40%; margin-left:30%;">
 
 
-                        <h1 class="subsectionLabel class_EditDivLabel" style="text-decoration:underline; margin-top:5%;"> Set As Burdock-Key: </h1>
+                        <h1 class="subsectionLabel class_InsetLabelText class_EditDivLabel" style="color:transparent; margin-top:5%;"> Set As Burdock-Key: </h1>
 
                         <div class="row" style="margin-left:20%; width:60%; padding-top:5px; padding-bottom:5px;">
                         <input class="standardText" style="margin-left: auto; margin-right: 2px; margin-top:auto; margin-bottom:auto;" type="radio" id="id_editPage_BurKeyTrue" name="editPage_BurType" value="1" checked="checked">
@@ -1104,11 +1121,11 @@
 
                 </div>
 
-                <div id="id_EditPage_Edit_Path" style="width:100%; display:none;">
+                <div id="id_EditPage_Edit_Path" style="width:100%; display:none; background:white;">
 
                   <div class="row" style="width:100%; background: rgb(220,220,220); height:auto; border-bottom:1px solid grey;">
 
-                    <p id="id_EditPage_Path_Label" class="standardText" style="margin-top:auto; margin-bottom:auto; padding-left: 5px; padding-right: 5px; margin-right: 2.5%; font-weight:bold;"> Path Plot : RGB </p>
+                    <p id="id_EditPage_Path_Label" class="standardText class_InsetLabelText" style="margin-top:auto; margin-bottom:auto; color:transparent; padding-left: 5px; padding-right: 5px; margin-right: 2.5%; font-weight:bold;"> Path Plot : RGB </p>
                     <p id="id_EditPage_PathPlot_PositionLabel" class="standardText" style="border-left:1px solid black; margin-top:auto; margin-bottom:auto; padding-left: 5px; padding-right: 5px; margin-right: 2.5%; font-weight:bold;"> </p>
 
                     <div id="id_EditPage_PathPlotSpaces_Label" class="standardText" style="border-left:1px solid black; width:auto; margin-left:auto; margin-top:auto; margin-bottom:auto; padding-left: 5px; padding-right: 5px; cursor: pointer; text-align:center;" title="All"> Color Space &#9660; </div>
@@ -1187,24 +1204,210 @@
 
                 </div>
 
-
-
-
-              </div>
-
-
-
           </div>
 
 
 
-          <!-- -------------- Main Part: CMS Description ---------------->
-          <div class="row" style="width:90%; margin-left:5%; margin-top:10px; ">
+            <!-- -------------- Main Part: Analyze Mapping ---------------->
+            <div id="id_editPage_AnalyzeMappingDiv" style="width:90%; margin-left:5%; border: 5px solid black; border-radius:10px; margin-top:20px; background: rgb(220,220,220);">
+
+
+                <div class="row">
+                  <div class="class_subsectionButtonUnderground" style="width:50%; background: url(img/background3.jpg);">
+                    <div onclick="switchAnalyzeMapping(0)" id="id_editPage_SelectAnalyze" class="class_subsectionButton">
+                      Analyze
+                    </div>
+                  </div>
+                  <div class="class_subsectionButtonUnderground" style="width:50%; background: url(img/background3.jpg);">
+                    <div onclick="switchAnalyzeMapping(1)" id="id_editPage_SelectMapping" class="class_subsectionButton">
+                      Mapping
+                    </div>
+                  </div>
+                </div>
+
+                <div id="id_EditPage_DivAnalyze" style="width:100%;">
+                  <div class="row" style="width:100%; height:5%; border-bottom:1px solid grey;">
+
+                    <p id="id_EditPage_Analyze_Label" class="standardText class_InsetLabelText" style="margin-top:auto; margin-bottom:auto; padding-left: 5px; color:transparent; padding-right: 5px; margin-right: auto; margin-left: auto; font-weight:bold;"> Plot : Local Speed </p>
+
+                  </div>
+
+                  <div class="row" style="width:100%;">
+
+                    <div style="width:20%; border-right: 1px solid grey;">
+
+                      <p class="subsectionLabel class_InsetLabelText" style="margin-top:auto; margin-bottom:10px; color:transparent;"> Select Analyze Plot:</p>
+                      <select id="id_EditPage_SelectAnalyzePlot" style="margin-bottom: auto; width:80%; margin-left:10%; margin-top:10px;">
+                       <option value=" Interpolation Colorspace" >Interpolation Colorspace</option>
+                       <option value="Band Speed" >Band Speed</option>
+                       <option value="LocalSpeed" >Local Speed</option>
+                       <option value="GlobalSpeed" >Global Speed</option>
+                       <option value="Order" >Order</option>
+                      </select>
+
+
+                      <button class="class_generalbutton" onclick="updateAnalyze()" type="button" name="button" style="width:80%; margin-left:10%; margin-top:20px;">Update</button>
+                      <p class="standardText" style="width:80%; margin-left:10%;">(Info: If you have deactivated the automatical calculation of the analyze plots, you can update the plots manually with this button.)</p>
+                    </div>
+
+                    <div style="width:80%; background:rgb(220,220,220);">
+                      <div id="id_EditPage_Analyze_EmptyDiv" class=" class_EditDiv_SubDiv" style="display:none; width:100%; height:100%; ">
+
+                          <p class="standardText" style="margin:auto; color:grey; font-weight:bold;">The CMS is Empty. <br> No analysis is possible.</p>
+
+
+                      </div>
+                      <div id="id_EditPage_AnalyzePlot_Container" class="row" style="height:auto; width:100%;">
+
+                          <div id="id_EditPage_AnalyzeContainer_GlobalLocalOrder" style="width:100%; overflow-x:auto;">
+
+
+                              <canvas id="id_EditPage_Canvas_GlobalLocalOrder" style="height:80%; width:45%; margin-left:2.5%; border: 1px solid black; margin-top:10%; background: url(img/EditPage/plotBackground.png);"></canvas>
+
+
+                               <div id="id_EditPage_LabelDiv_GlobalLocalOrder" style="margin-left:2.5%; width:50%; broder-left: 1px solid grey;">
+
+                                 <p class="subsectionLabel class_InsetLabelText" style="margin-top:10px; margin-bottom:10px; color:transparent;"> Values:</p>
+
+                                 <p id="id_EditPage_Max_GlobalLocalOrder" class="standardText" style="margin-top:2%; width:100%;">Max:</p>
+                                 <p id="id_EditPage_Min_GlobalLocalOrder" class="standardText" style="margin-top:2%; width:100%;">Min:</p>
+                                 <p id="id_EditPage_Average_GlobalLocalOrder" class="standardText" style="margin-top:2%; width:100%;">Average:</p>
+                                 <p id="id_EditPage_Deviation_GlobalLocalOrder" class="standardText" style="margin-top:2%; width:100%;">Deviation:</p>
+
+                                 <hr>
+                                 <p class="subsectionLabel class_InsetLabelText" style="margin-top:10px; margin-bottom:10px; color:transparent;"> Settings:</p>
+
+                                 <div class="row" style="width:100%;">
+                                   <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-left:0px; font-weight:bold; width:40%;" >Color Difference:</p>
+
+                                   <select class="standardText" id="id_AnalyzeSubContainer_Select" style="margin-right:auto;">
+                                      <option >Lab (Euclidean Distance)</option>
+                                      <option >Lab (de94)</option>
+                                      <option >Lab (CIEDE2000)</option>
+                                      <option >DIN99 (Euclidean Distance)</option>
+                                    </select>
+                                  </div>
+
+                                  <div class="row" style="width:100%;  margin-top:5px;">
+                                    <p class="standardText" style="margin-top:auto; margin-bottom:auto; font-weight:bold; width:40%;">CMS Section:</p>
+                                    <p class="standardText" style="margin-top:auto; margin-bottom:auto;">From Key:</p>
+                                    <select class="standardText" id="id_EditPage_SelectFrom_GlobalLocalOrder" style="margin:auto; margin-left:10px;">
+
+                                    </select>
+
+                                    <p class="standardText" style="margin:auto;">Till Key:</p>
+                                    <select class="standardText" id="id_EditPage_SelectTill_GlobalLocalOrder" style="margin:auto; margin-left:10px;">
+
+                                    </select>
+                                  </div>
+
+                                  <hr>
+
+                                    <div id="id_EditPage_FixedAxisDiv_GlobalLocalOrder" style="width:100%;">
+
+                                      <div class="row" style="width:100%;">
+                                        <p id="id_EditPage_FixedAxisLabel_GlobalLocalOrder" class="standardText" style="margin-top:auto; margin-bottom:auto; font-weight:bold; width:40%;">Fixed Maximum</p> <input id="id_EditPage_DoFixedAxis_GlobalLocalOrder" type="checkbox" class="standardText" >
+                                      </div>
+
+                                      <div class="row" style="width:100%;">
+                                        <p class="standardText" style="margin-left:40%; margin-top:5px; margin-bottom:auto;">Border:</p> <input id="id_EditPage_InputFixedAxis_GlobalLocalOrder" type="number" class="standardText" min="0" step="any" style="margin-left:10px;">
+                                      </div>
+
+                                      <hr>
+                                    </div>
+
+                                    <div id="id_EditPage_DoLogDiv_GlobalLocalOrder" style="width:100%;margin-top:2.5%;">
+                                      <div class="row" style="width:100%; ">
+                                        <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-left:0px; font-weight:bold; width:40%;">Logatrithm Mapping:</p> <input id="id_EditPage_DoLogSelect_GlobalLocalOrder" type="checkbox" class="standardText" >
+                                      </div>
+                                      <hr>
+                                    </div>
+
+                                      <div class="row" style="width:100%; ">
+                                        <p class="standardText" style="margin-left:0px; font-weight:bold; width:40%;">Interval Calculation:</p>
+                                        <div >
+                                          <div class="row">
+                                          <input class="standardText" style="margin-right: 10px; margin-top:auto; margin-bottom:auto;" type="radio" id="id_editPage_Anaylze_IntervalNumber" name="editPage_keyType" value="1" checked="checked">
+                                          <label class="standardText" for="id_editPage_Anaylze_IntervalNumber" style="margin-top:auto; margin-bottom:auto;" checked> Fixed Number of Interval Colors </label>
+                                          </div>
+                                          <div class="row">
+                                          <input class="standardText" style="margin-right: 10px; margin-top:auto; margin-bottom:auto;" type="radio" id="id_editPage_Anaylze_IntervalColorDifference" name="editPage_keyType" value="1" checked="checked">
+                                          <label class="standardText" for="id_editPage_Anaylze_IntervalNumber" style="margin-top:auto; margin-bottom:auto;"> Color Difference Depentend Intervals  </label>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                      <div class="row" style="width:100%; margin-bottom:20px;">
+                                        <p class="standardText" id="id_editPage_Anaylze_IntervalCalcInputLabel" style="margin-left:40%; margin-top:5px; margin-bottom:auto;">Number of Intervals:</p> <input id="id_editPage_Anaylze_IntervalCalcInput" type="number" class="standardText" min="0" step="any" style="margin-left:10px;">
+                                      </div>
+
+                               </div>
+
+                          </div>
+
+
+                          <div id="id_EditPage_AnalyzeContainer_SpacesKeyspeed" style="width:100%;">
+
+                            <div id="id_EditPage_AnalyzeContainer_SpacesSelectVisType" style="width:100%;margin-top:10px;">
+                              <div class="row" style="width:100%; ">
+                                <p class="standardText" style="margin-left:auto; margin-right:5%; margin-top:auto; margin-bottom:auto; width:25%; text-align:right; font-weight:bold;"> Visualization Type: </p>
+                                <input type="radio" class="standardText" id="id_EditPage_AnalyzeSelect_LinearVisType" name="editPage_SpaceVisType" checked> <p class="standardText" style="margin-left:2.5%; margin-right:5%; margin-top:auto; margin-bottom:auto; text-align:right;">: Linear </p>
+                                <input type="radio" class="standardText" id="id_EditPage_AnalyzeSelect_SketchVisType" name="editPage_SpaceVisType"> <p class="standardText" style="margin-left:2.5%; margin-right:auto; margin-top:auto; margin-bottom:auto; text-align:right;">: Sketch </p>
+                              </div>
+                              <hr>
+                            </div>
+
+
+                              <p id="id_EditPage_MatricLabel_IntSpaceKeySpeed" class="subsectionLabel class_InsetLabelText" style="margin-left:5%; margin-top:10px; text-decoration:underline; color:transparent;">Metrics: </p>
+                              <div id="id_EditPage_MatricDiv1_IntSpaceKeySpeed"class="row" style="width:100%; height:10%; margin-top:10px;">
+                                <p class="standardText" style="margin-left:5%; margin-top:auto; margin-bottom:auto; width:15%; text-align:right; ">de94: </p>
+                                <canvas id="id_EditPage_CanvasDE94_IntSpaceKeySpeed" class="class_Analysis_Colormaps" style="margin-left:5%; width:70%;"></canvas>
+                              </div>
+                              <div id="id_EditPage_MatricDiv2_IntSpaceKeySpeed" class="row" style="width:100%; height:10%; margin-top:10px;">
+                                <p class="standardText" style="margin-left:5%; margin-top:auto; margin-bottom:auto; width:15%; text-align:right;">CIEDE2000: </p>
+                                <canvas id="id_EditPage_CanvasCIEDE2000_IntSpaceKeySpeed" class="class_Analysis_Colormaps" style="margin-left:5%; width:70%;"></canvas>
+                              </div>
+
+
+                            <p id="id_EditPage_EuDisLabel_IntSpaceKeySpeed" class="subsectionLabel class_InsetLabelText" style="margin-left:2.5%; margin-top:5%; text-decoration:underline; color:transparent;">Euclidean Disance: </p>
+                            <div class="row" style="width:100%; height:10%; margin-top:10px;">
+                              <p class="standardText" style="margin-left:5%; margin-top:auto; margin-bottom:auto; width:15%; text-align:right;">Lab: </p>
+                              <canvas id="id_EditPage_CanvasLAB_IntSpaceKeySpeed" class="class_Analysis_Colormaps" style="margin-left:5%; width:70%;"></canvas>
+                            </div>
+                            <div class="row" style="width:100%; height:10%; margin-top:10px;">
+                              <p class="standardText" style="margin-left:5%; margin-top:auto; margin-bottom:auto; width:15%; text-align:right;">DIN99: </p>
+                              <canvas id="id_EditPage_CanvasDIN99_IntSpaceKeySpeed" class="class_Analysis_Colormaps" style="margin-left:5%; width:70%;"></canvas>
+                            </div>
+                            <div class="row" style="width:100%; height:10%; margin-top:10px;">
+                              <p class="standardText" style="margin-left:5%; margin-top:auto; margin-bottom:auto; width:15%; text-align:right;">RGB: </p>
+                              <canvas id="id_EditPage_CanvasRGB_IntSpaceKeySpeed" class="class_Analysis_Colormaps" style="margin-left:5%; width:70%;"></canvas>
+                            </div>
+                            <div class="row" style="width:100%; height:10%; margin-top:10px; margin-bottom:10px;">
+                              <p class="standardText" style="margin-left:5%; margin-top:auto; margin-bottom:auto; width:15%; text-align:right;">HSV: </p>
+                              <canvas id="id_EditPage_CanvasHSV_IntSpaceKeySpeed" class="class_Analysis_Colormaps" style="margin-left:5%; width:70%;"></canvas>
+                            </div>
+                          </div>
+
+                      </div>
+                    </div>
+
+                  </div>
+
+
+                </div>
+
+                <div id="id_EditPage_DivMapping" style="width:100%;  display:none;">
+
+                </div>
+
+
+
+            </div>
 
             <!-- -------------- Main Part: CMS Description ---------------->
-            <div id="id_editPage_DescriptionDiv" style="width:38%; background:url(img/background3.jpg); border-radius:10px;">
+            <div id="id_editPage_DescriptionDiv" style="width:90%; margin-left:5%; border: 5px solid black; border-radius:10px; margin-top:20px; background:rgb(220,220,220);">
 
-              <div id="id_editPage_DescriptionInnerDiv" style="margin:5px; background:rgb(220,220,220); border-radius:10px;">
+
                 <div class="row">
                   <div onclick="switchCMSInformation(0)" class="class_subsectionButtonUnderground" style="width:50%; background: url(img/background3.jpg);">
                     <div id="id_editPage_SelectCMSDescription" class="class_subsectionButton">
@@ -1220,48 +1423,67 @@
 
                 <div id="id_EditPage_DivCMSDescription" style="width:100%;">
 
-                  <div class="row" style="width:100%; border-bottom:1px solid black; padding-top:2%; padding-bottom:2%;">
+                  <div class="row" style="width:100%; height:15%; border-bottom:1px solid black;">
 
                     <div class="row" style="width:65%;">
-                      <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-left:auto; font-weight:bold;">Name:</p>
+                      <p class="standardText class_InsetLabelText" style="margin-top:auto; margin-bottom:auto; margin-left:auto; color:transparent;">Name:</p>
 
                       <input type="text" class="standardText" id="id_EditPage_CMSName" style="width:40%; margin-left:10px; margin-right:auto; margin-top:auto; margin-bottom:auto;" name="mapname" required placeholder="Please enter a name for your colormap" />
 
                     </div>
 
-                    <div class="row" style="width:34%; border-left: 1px solid black; height:100%;">
-                      <p class="standardText" id="id_EditPage_CMSSpaceLabel" style="margin-top:auto; margin-bottom:auto; margin-left:auto; font-weight:bold; cursor:pointer;" onclick="showInterpolationOptions()">Space: DIN99</p>
+                    <div class="row" style="width:34%; border-left: 1px solid black; height:100%; cursor:pointer;" onclick="showInterpolationOptions()">
+                      <p class="standardText class_InsetLabelText" id="id_EditPage_CMSSpaceLabel" style="margin-top:auto; margin-bottom:auto; margin-left:auto; color:transparent; " >Space: DIN99</p>
 
-                      <img id="id_EditPage_SmileyImg" src="img/EditPage/smiley.png" style=" margin-left:auto; margin-right:auto;">
-                      <img id="id_EditPage_SadleyImg" src="img/EditPage/sadley.png" style=" margin-left:auto; margin-right:auto; display:none;">
+                      <img id="id_EditPage_SmileyImg" src="img/EditPage/smiley.png" style="margin-top:auto; margin-bottom:auto; margin-left:auto; margin-right:auto;">
+                      <img id="id_EditPage_SadleyImg" src="img/EditPage/sadley.png" style="margin-top:auto; margin-bottom:auto; margin-left:auto; margin-right:auto; display:none;">
                     </div>
 
                   </div>
 
-                  <div class="row" style="width:100%; border-bottom:1px solid black; padding-top:2%; padding-bottom:2%;">
+                  <!---------------------------------------------------------------------------------------------------------------------------------------->
+                  <!---------------------------------------------------------------------------------------------------------------------------------------->
+
+                  <div class="row" style="width:100%; height:85%; border-top:1px solid black;">
 
 
-                    <!--p class="standardText" style="margin-left:auto; font-weight:bold; margin-top:auto; margin-bottom:auto;"> Extra Colors:</p-->
-                    <p class="standardText" style="margin-left:auto; margin-top:auto; margin-bottom:auto;"> NaN:</p>
-                    <div id="id_EditPage_CMS_NaN_Color" style="background:white; border: 2px solid black; border-radius: 5px; margin-top:auto; margin-bottom:auto; margin-left:2%; cursor:pointer;">
+
+                    <div style="height:100%; width: 30%; border-right:1px solid black;">
+                      <p class="standardText class_InsetLabelText" style="font-weight:bold; height:10%; margin-top:5%; margin-bottom:auto; width:100%; text-align:center; color:transparent;"> Extra Colors:</p>
+
+                      <div class="row" style="width:100%; height:25%;">
+                        <p class="standardText" style="margin-left:auto; margin-top:auto; margin-bottom:auto; width:auto; min-width:30%;"> NaN:</p>
+                        <div id="id_EditPage_CMS_NaN_Color" style="background:white; border: 2px solid black; border-radius: 5px; margin-top:auto; margin-bottom:auto; margin-left:2%;margin-right:auto; cursor:pointer;">
+
+                        </div>
+                      </div>
+
+                      <div class="row" style="width:100%; height:25%;">
+                        <p class="standardText" style="margin-left:auto; margin-top:auto; margin-bottom:auto; width:auto; min-width:30%;">Below Range:</p>
+                        <div id="id_EditPage_CMS_Below_Color" style=" background:white; border: 2px solid black; border-radius: 5px; margin-top:auto; margin-bottom:auto; margin-left:2%;margin-right:auto; cursor:pointer;">
+
+                        </div>
+                      </div>
+
+                      <div class="row" style="width:100%; height:25%;">
+                        <p class="standardText" style="margin-left:auto;  margin-top:auto; margin-bottom:auto; width:auto; min-width:30%;">Above Range:</p>
+                        <div id="id_EditPage_CMS_Above_Color" style=" background:white; border: 2px solid black; border-radius: 5px; margin-top:auto; margin-bottom:auto; margin-left:2%; margin-right:auto; cursor:pointer;">
+
+                        </div>
+                      </div>
+                    </div>
+
+                    <div  style="width:70%; height:100%;">
+                      <p class="standardText class_InsetLabelText" style="font-weight:bold; margin-top:2.5%; width:100%; text-align:center; color:transparent;"> Description:</p>
+
+                      <textarea class="standardText" id="id_editPage_CMSDescription" name="edit colormap description" style=" width:90%; height:70%; min-width:90%; min-height:70%; margin-top:2.5%; background:white; overflow:auto; padding:1vh; margin-left:5%; resize:none;" placeholder="Enter a rough description of the colormap here. This is primarily used as note or reminder for you and in the case of sharing to inform other users what you want to show with this colormap. For more detailed information like semantics or special meaning of colormap components, the tool offers an additional description for keys or key strings."></textarea>
 
                     </div>
-                    <p class="standardText" style="margin-left:auto; margin-top:auto; margin-bottom:auto;">Below Range:</p>
-                    <div id="id_EditPage_CMS_Below_Color" style=" background:white; border: 2px solid black; border-radius: 5px; margin-top:auto; margin-bottom:auto; margin-left:2%; cursor:pointer;">
 
-                    </div>
-                    <p class="standardText" style="margin-left:auto;  margin-top:auto; margin-bottom:auto;">Above Range:</p>
-                    <div id="id_EditPage_CMS_Above_Color" style=" background:white; border: 2px solid black; border-radius: 5px; margin-top:auto; margin-bottom:auto; margin-left:2%; margin-right:auto; cursor:pointer;">
 
-                    </div>
                   </div>
 
-                  <div  style="width:100%; padding-top:2%; padding-bottom:2%;">
-                    <p class="standardText" style="width:100%; text-align:center; font-weight:bold; margin-bottom:auto; ">Description: </p>
 
-                    <textarea class="standardText" id="id_editPage_CMSDescription" name="colormap description" style=" max-width:90%; min-width:90%; margin-left:2.5%; background:white; overflow-y:auto; padding:1vh; margin-bottom:auto; resize:none;" placeholder="Enter a rough description of the colormap here. This is primarily used as note or reminder for you and in the case of sharing to inform other users what you want to show with this colormap. For more detailed information like semantics or special meaning of colormap components, the tool offers an additional description for keys or key strings."></textarea>
-
-                  </div>
 
 
 
@@ -1272,181 +1494,11 @@
 
                 </div>
 
-              </div>
+
 
             </div>
 
-            <!-- -------------- Main Part: Analyze Mapping ---------------->
-            <div id="id_editPage_AnalyzeMappingDiv" style="width:60%; background:url(img/background3.jpg); border-radius:10px; margin-left:2%;">
 
-              <div id="id_editPage_AnalyzeMappingInnerDiv" style="margin:5px; background:white; border-radius:10px;">
-                <div class="row">
-                  <div class="class_subsectionButtonUnderground" style="width:50%; background: url(img/background3.jpg);">
-                    <div onclick="switchAnalyzeMapping(0)" id="id_editPage_SelectAnalyze" class="class_subsectionButton">
-                      Analyze
-                    </div>
-                  </div>
-                  <div class="class_subsectionButtonUnderground" style="width:50%; background: url(img/background3.jpg);">
-                    <div onclick="switchAnalyzeMapping(1)" id="id_editPage_SelectMapping" class="class_subsectionButton">
-                      Mapping
-                    </div>
-                  </div>
-                </div>
-
-                <div id="id_EditPage_DivAnalyze" style="width:100%; overflow:auto;">
-                  <div class="row" style="width:100%; background: rgb(220,220,220); height:5%; border-bottom:1px solid grey;">
-
-                    <div id="id_EditPage_AnalyzeOptions_Label" class="standardText" style="visibility:hidden; border-right:1px solid black; width:auto; margin-right:auto; margin-top:auto; margin-bottom:auto; padding-left: 5px; padding-right: 5px; cursor: pointer; text-align:center;" title="All"> Plot Options &#9660; </div>
-                      <div id="id_EditPage_AnalyzeOptions_Dropdown" style="background: white; border:1px solid black; display: none; position: absolute; left: 0px; z-index: 5; padding:5px;">
-
-
-
-                        </div>
-
-                    <p id="id_EditPage_Analyze_Label" class="standardText" style="margin-top:auto; margin-bottom:auto; padding-left: 5px; padding-right: 5px; margin-right: auto; margin-left: auto; font-weight:bold;"> Plot : Local Speed </p>
-
-                    <div id="id_EditPage_AnalyzePlot_Label" class="standardText" style="border-left:1px solid black; width:auto; margin-left:auto; margin-top:auto; margin-bottom:auto; padding-left: 5px; padding-right: 5px; cursor: pointer; text-align:center;" title="All"> Analyze Plots &#9660; </div>
-                      <div id="id_EditPage_AnalyzePlots_Dropdown" style="background: url(img/background3.jpg); display: none; position: absolute; left: 0px; z-index: 5;">
-                              <div id="id_EditPage_AnalyzePlot_Space"  onclick="changeAnalyzeType(0)" class="dropdownButtonEditPage">
-                                  Color Spaces
-                              </div>
-                              <div id="id_EditPage_AnalyzePlot_BandSpeed" onclick="changeAnalyzeType(1)" class="dropdownButtonEditPage">
-                                  Band Speed
-                              </div>
-                              <div id="id_EditPage_AnalyzePlot_LocalSpeed" onclick="changeAnalyzeType(2)" class="dropdownButtonEditPage">
-                                  Local Speed
-                              </div>
-                              <div id="id_EditPage_AnalyzePlot_GlobalSpeed" onclick="changeAnalyzeType(3)" class="dropdownButtonEditPage">
-                                  Global Speed
-                              </div>
-                              <div id="id_EditPage_AnalyzePlot_Order" onclick="changeAnalyzeType(4)" class="dropdownButtonEditPage">
-                                  Order
-                              </div>
-                        </div>
-                  </div>
-
-
-                  <div id="id_EditPage_Analyze_EmptyDiv" class=" class_EditDiv_SubDiv" style="display:none; width:100%; height:100%; background:rgb(220,220,220);">
-
-                      <p class="standardText" style="margin:auto; color:grey; font-weight:bold;">The CMS is Empty. <br> No analysis is possible.</p>
-
-
-                  </div>
-                  <div id="id_EditPage_AnalyzePlot_Container" class="row" style="height:95%; width:100%; overflow:auto;">
-
-                      <div id="id_EditPage_AnalyzeContainer_GlobalLocalOrder" style="height:100%; width:100%; background:rgb(220,220,220); overflow-x:auto;">
-
-
-                          <canvas id="id_EditPage_Canvas_GlobalLocalOrder" style="height:80%; width:45%; margin-left:5%; border: 1px solid black; margin-top:10%; background: url(img/EditPage/plotBackground.png);"></canvas>
-
-
-                           <div id="id_EditPage_LabelDiv_GlobalLocalOrder" style="width:40%; broder-left: 1px solid grey;">
-                             <select class="standardText" id="id_AnalyzeSubContainer_Select" style="width:100%; margin-top:10%;">
-                                <option >Lab (Euclidean Distance)</option>
-                                <option >Lab (de94)</option>
-                                <option >Lab (CIEDE2000)</option>
-                                <option >DIN99 (Euclidean Distance)</option>
-                              </select>
-
-                              <div class="row" style="width:100%;  margin-top:5%;">
-                                <p class="standardText" style="margin:auto;">From Key:</h2>
-                                <select class="standardText" id="id_EditPage_SelectFrom_GlobalLocalOrder" style="margin:auto;">
-
-                                </select>
-
-                                <p class="standardText" style="margin:auto;">Till Key:</h2>
-                                <select class="standardText" id="id_EditPage_SelectTill_GlobalLocalOrder" style="margin:auto;">
-
-                                </select>
-                              </div>
-
-                              <hr>
-
-                                <div id="id_EditPage_FixedAxisDiv_GlobalLocalOrder" style="width:100%;">
-
-                                  <div class="row" style="width:100%;">
-                                    <p id="id_EditPage_FixedAxisLabel_GlobalLocalOrder" class="standardText" style="margin-right:5%; margin-top:auto; margin-bottom:auto;">Fixed Maximum</p> <input id="id_EditPage_DoFixedAxis_GlobalLocalOrder" type="checkbox" class="standardText" >
-                                  </div>
-
-                                  <div class="row" style="width:100%;">
-                                    <p class="standardText" style="margin-right:5%; margin-top:auto; margin-bottom:auto;">Maximum:</p> <input id="id_EditPage_InputFixedAxis_GlobalLocalOrder" type="number" class="standardText" min="0" step="any">
-                                  </div>
-
-                                  <hr>
-                                </div>
-
-                                <div id="id_EditPage_DoLogDiv_GlobalLocalOrder" style="width:100%;margin-top:2.5%;">
-                                  <div class="row" style="width:100%; ">
-                                    <p class="standardText" style="margin-right:5%; margin-top:auto; margin-bottom:auto;">Logatrithm Mapping:</p> <input id="id_EditPage_DoLogSelect_GlobalLocalOrder" type="checkbox" class="standardText" >
-                                  </div>
-                                  <hr>
-                                </div>
-
-
-
-                               <p id="id_EditPage_Max_GlobalLocalOrder" class="standardText" style="margin-top:2%; width:100%;">Max:</p>
-                               <p id="id_EditPage_Min_GlobalLocalOrder" class="standardText" style="margin-top:2%; width:100%;">Min:</p>
-                               <p id="id_EditPage_Average_GlobalLocalOrder" class="standardText" style="margin-top:2%; width:100%;">Average:</p>
-                               <p id="id_EditPage_Deviation_GlobalLocalOrder" class="standardText" style="margin-top:2%; width:100%;">Deviation:</p>
-                           </div>
-
-                      </div>
-
-
-                      <div id="id_EditPage_AnalyzeContainer_SpacesKeyspeed" style="height:100%; width:100%; overflow-y:auto;">
-
-                        <div id="id_EditPage_AnalyzeContainer_SpacesSelectVisType" style="width:100%;margin-top:2.5%;">
-                          <div class="row" style="width:100%; ">
-                            <p class="standardText" style="margin-left:auto; margin-right:5%; margin-top:auto; margin-bottom:auto; width:25%; text-align:right; font-weight:bold;"> Visualization Type: </p>
-                            <input type="radio" class="standardText" id="id_EditPage_AnalyzeSelect_LinearVisType" name="editPage_SpaceVisType"> <p class="standardText" style="margin-left:2.5%; margin-right:5%; margin-top:auto; margin-bottom:auto; text-align:right;">: Linear </p>
-                            <input type="radio" class="standardText" id="id_EditPage_AnalyzeSelect_SketchVisType" name="editPage_SpaceVisType"> <p class="standardText" style="margin-left:2.5%; margin-right:auto; margin-top:auto; margin-bottom:auto; text-align:right;">: Sketch </p>
-                          </div>
-                          <hr>
-                        </div>
-
-
-                          <p id="id_EditPage_MatricLabel_IntSpaceKeySpeed" class="subsectionLabel" style="margin-left:5%; margin-top:2.5%; text-decoration:underline;">Metrics: </p>
-                          <div id="id_EditPage_MatricDiv1_IntSpaceKeySpeed"class="row" style="width:100%; height:10%; margin-top:2.5%;">
-                            <p class="standardText" style="margin-left:5%; margin-top:auto; margin-bottom:auto; width:15%; text-align:right; ">de94: </p>
-                            <canvas id="id_EditPage_CanvasDE94_IntSpaceKeySpeed" style="height:100%; border: 1px solid black; margin-left:5%; width:70%; background:grey;"></canvas>
-                          </div>
-                          <div id="id_EditPage_MatricDiv2_IntSpaceKeySpeed" class="row" style="width:100%; height:10%; margin-top:2.5%;">
-                            <p class="standardText" style="margin-left:5%; margin-top:auto; margin-bottom:auto; width:15%; text-align:right;">CIEDE2000: </p>
-                            <canvas id="id_EditPage_CanvasCIEDE2000_IntSpaceKeySpeed" style="height:100%; border: 1px solid black; margin-left:5%; width:70%; background:grey;"></canvas>
-                          </div>
-
-
-                        <p id="id_EditPage_EuDisLabel_IntSpaceKeySpeed" class="subsectionLabel" style="margin-left:2.5%; margin-top:5%; text-decoration:underline;">Euclidean Disance: </p>
-                        <div class="row" style="width:100%; height:10%; margin-top:2.5%;">
-                          <p class="standardText" style="margin-left:5%; margin-top:auto; margin-bottom:auto; width:15%; text-align:right;">Lab: </p>
-                          <canvas id="id_EditPage_CanvasLAB_IntSpaceKeySpeed" style="height:100%; border: 1px solid black; margin-left:5%; width:70%;"></canvas>
-                        </div>
-                        <div class="row" style="width:100%; height:10%; margin-top:2.5%;">
-                          <p class="standardText" style="margin-left:5%; margin-top:auto; margin-bottom:auto; width:15%; text-align:right;">DIN99: </p>
-                          <canvas id="id_EditPage_CanvasDIN99_IntSpaceKeySpeed" style="height:100%; border: 1px solid black; margin-left:5%; width:70%;"></canvas>
-                        </div>
-                        <div class="row" style="width:100%; height:10%; margin-top:2.5%;">
-                          <p class="standardText" style="margin-left:5%; margin-top:auto; margin-bottom:auto; width:15%; text-align:right;">RGB: </p>
-                          <canvas id="id_EditPage_CanvasRGB_IntSpaceKeySpeed" style="height:100%; border: 1px solid black; margin-left:5%; width:70%;"></canvas>
-                        </div>
-                        <div class="row" style="width:100%; height:10%; margin-top:2.5%; margin-bottom:2.5%;">
-                          <p class="standardText" style="margin-left:5%; margin-top:auto; margin-bottom:auto; width:15%; text-align:right;">HSV: </p>
-                          <canvas id="id_EditPage_CanvasHSV_IntSpaceKeySpeed" style="height:100%; border: 1px solid black; margin-left:5%; width:70%;"></canvas>
-                        </div>
-                      </div>
-
-                  </div>
-
-                </div>
-
-                <div id="id_EditPage_DivMapping" style="width:100%;  display:none;">
-
-                </div>
-
-              </div>
-
-            </div>
-          </div>
 
         </div>
 
@@ -1460,16 +1512,21 @@
 
           <div class="row" style="height:78vh;">
             <div>
-              <div class="class_RotateRight" id="id_EditPage_guideLinePartButton" style="height: 26vh; cursor: not-allowed;" oonclick="showGuideLine()">
-                Guide Line
+              <div class="class_RotateRight" id="id_EditPage_guideLinePartButton" style=" height:26vh; background: url(img/background3.jpg);">
+                <div class="class_RotateRight" style="cursor: not-allowed;" oonclick="showGuideLine()">
+                  Guide Line
+                </div>
               </div>
 
-              <div class="class_RotateRight" id="id_EditPage_cmsTablePartButton" style="height:26vh;" onclick="showCMSTable()">
-                CMS Table
+              <div class="class_RotateRight" id="id_EditPage_cmsTablePartButton" style=" height:26vh; background: url(img/background3.jpg);">
+                <div class="class_RotateRight" onclick="showCMSTable()">
+                  CMS Table
+                </div>
               </div>
-
-              <div class="class_RotateRight" id="id_EditPage_cmsProbePartButton" style="height:26vh;" onclick="showProbeDiv()">
-                Probe Sets
+              <div class="class_RotateRight" id="id_EditPage_cmsProbePartButton" style=" height:26vh; background: url(img/background3.jpg);">
+                <div class="class_RotateRight" onclick="showProbeDiv()">
+                  Probe Sets
+                </div>
               </div>
 
 

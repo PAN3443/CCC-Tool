@@ -1,27 +1,27 @@
 
-#id_EditPage_backButton{
-  background-color: rgb(224, 235, 235);
+#id_EditPage_backButton div{
+  background-color: rgba(224, 235, 235,0.75);
   border: 0.2vh solid rgb(51, 77, 77);
 }
 
-#id_EditPage_backButton:hover{
-  background-color:   rgb(82, 122, 122);
+#id_EditPage_backButton div:hover{
+  background-color:   rgba(82, 122, 122,0.5);
   color: white;
 }
 
 
-#id_EditPage_savePartButton{
-  background-color: rgb(194, 214, 214);;
+#id_EditPage_savePartButton div{
+  background-color: rgba(194, 214, 214,0.75);
   border: 0.2vh solid rgb(51, 77, 77);
 }
 
-#id_EditPage_savePartButton:hover{
-  background-color:   rgb(82, 122, 122);
+#id_EditPage_savePartButton div:hover{
+  background-color:   rgba(82, 122, 122,0.5);
   color: white;
 }
 
 .class_savebutton{
-    background-color: rgb(194, 214, 214);;
+    background-color: rgba(194, 214, 214,0.5);
     border: 0.2vh solid rgb(51, 77, 77);
     color: black;
     /*padding: 20px;*/
@@ -40,7 +40,7 @@
 }
 
 .class_savebutton:hover{
-  background-color:   rgb(82, 122, 122);
+  background-color:   rgba(82, 122, 122,0.5);
   color: white;
 }
 
@@ -48,7 +48,7 @@
 #id_EditPage_savePartDiv{
   height: 26vh;
   width: 30vw;
-  background-color: rgb(194, 214, 214);;
+  background-color: rgba(194, 214, 214,0.5);
   border: 0.2vh solid rgb(51, 77, 77);
   display: none;
 }
@@ -57,21 +57,21 @@
 
 
 
-#id_EditPage_interpolationPartButton{
+#id_EditPage_interpolationPartButton div{
 
-  background-color: rgb(163, 194, 194);
+  background-color: rgba(163, 194, 194,0.75);
   border: 0.2vh solid rgb(51, 77, 77);
 }
 
-#id_EditPage_interpolationPartButton:hover{
-  background-color:   rgb(82, 122, 122);
+#id_EditPage_interpolationPartButton div:hover{
+  background-color:   rgba(82, 122, 122,0.5);
   color: white;
 }
 
 #id_EditPage_interpolationPartDiv{
 
   height: 35vh;
-  background-color:  rgb(163, 194, 194);
+  background-color:  rgba(163, 194, 194,0.5);
   border: 0.2vh solid  rgb(51, 77, 77);
   display: none;
 }
@@ -109,7 +109,7 @@
   opacity: 0;
   transform: rotate(30deg);
 
-  background: rgba(255, 255, 255, 0.13);
+  background: rgba(255, 255, 255, 0.13,0.5);
   background: linear-gradient(
     to right,
     rgba(255, 255, 255, 0.13) 0%,
@@ -137,35 +137,35 @@
 }
 
 
-#id_EditPage_guideLinePartButton{
-  background-color: rgb(235, 235, 224);
+#id_EditPage_guideLinePartButton div{
+  background-color: rgba(235, 235, 224,0.75);
   border: 0.2vh solid rgb(77, 77, 51);
 }
 
-#id_EditPage_guideLinePartButton:hover{
-  background-color: rgb(92, 92, 61);
+#id_EditPage_guideLinePartButton div:hover{
+  background-color: rgba(92, 92, 61,0.5);
   color:white;
 }
 
 #id_EditPage_GuideLineDiv{
   float:right;
-  background-color: rgb(235, 235, 224);
+  background-color: rgba(235, 235, 224,0.5);
   border: 0.2vh solid rgb(77, 77, 51);
   display: none;
 }
 
-#id_EditPage_cmsTablePartButton{
-  background-color: rgb(214, 214, 194);
+#id_EditPage_cmsTablePartButton div{
+  background-color: rgba(214, 214, 194,0.75);
   border: 0.2vh solid rgb(77, 77, 51);
 }
 
-#id_EditPage_cmsTablePartButton:hover{
-  background-color: rgb(92, 92, 61);
+#id_EditPage_cmsTablePartButton div:hover{
+  background-color: rgba(92, 92, 61,0.5);
   color:white;
 }
 
 #id_EditPage_cmsTablePartDiv{
-  background-color: rgb(214, 214, 194);
+  background-color: rgba(214, 214, 194,0.5);
   border: 0.2vh solid rgb(77, 77, 51);
   display: none;
 }
@@ -196,20 +196,20 @@
 }
 
 
-#id_EditPage_cmsProbePartButton{
-  background-color: rgb(194, 194, 163);
+#id_EditPage_cmsProbePartButton div{
+  background-color: rgba(194, 194, 163,0.75);
   border: 0.2vh solid rgb(77, 77, 51);
 }
 
-#id_EditPage_cmsProbePartButton:hover{
-  background-color: rgb(92, 92, 61);
+#id_EditPage_cmsProbePartButton div:hover{
+  background-color: rgba(92, 92, 61,0.5);
   color:white;
 }
 
 #id_EditPage_cmsProbePartDiv{
   float:right;
   /*width: 750px;*/
-  background-color: rgb(194, 194, 163);
+  background-color: rgba(194, 194, 163,0.5);
   border: 0.2vh solid rgb(77, 77, 51);
   display: none;
 }
@@ -330,4 +330,20 @@
 
 .dropdownButtonEditPage:hover {
   background: rgba(255,255,255,0.2);
+}
+
+
+.class_Analysis_Colormaps{
+  height:20px;
+  border: 1px solid black;
+  background:grey;
+}
+
+#id_EditPage_Canvas_GlobalLocalOrder{
+  image-rendering: optimizeSpeed;             /* Older versions of FF*/
+  image-rendering: -moz-crisp-edges;          /* FF 6.0+*/
+  image-rendering: -webkit-optimize-contrast; /* Webkit (non standard naming)*/
+  image-rendering: -o-crisp-edges;            /* OS X & Windows Opera (12.02+)*/
+  image-rendering: pixelated;               /* Possible future browsers.*/
+  -ms-interpolation-mode: nearest-neighbor;   /* IE (non standard naming)*/
 }

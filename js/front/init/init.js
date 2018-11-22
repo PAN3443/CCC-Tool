@@ -89,6 +89,7 @@ function init_CCCPageStyle(){
       tmpElementList[i].style.fontSize = tmpHeight2 + "px";
   }
 
+
   document.getElementById("id_ccctoolPage").style.width = windowWidth + "px";
 
   ///////////////
@@ -175,7 +176,7 @@ function init_CCCPageStyle(){
   ///////////////
   // Edit Page
 
-  document.getElementById("id_EditPage_MainPartDiv").style.minHeight = Math.floor(windowHeight*0.95) + "px";
+  /*document.getElementById("id_EditPage_MainPartDiv").style.minHeight = Math.floor(windowHeight*0.95) + "px";*/
   document.getElementById("id_EditPage_MainPartDiv").style.width = windowWidth*0.95 + "px";
   document.getElementById("id_EditPage_MainPartDiv").style.marginLeft = windowWidth*0.025 + "px";
 
@@ -208,13 +209,8 @@ function init_CCCPageStyle(){
     document.getElementById("id_editPage_EditDiv").style.height = tmpHeight1 + "px";
 
     tmpBox = document.getElementById("id_editPage_EditDiv").getBoundingClientRect();
-    tmpHeight2 = tmpHeight1-10; // 5px margin
-    tmpWidth1 = tmpBox.width-10;
 
-    document.getElementById("id_editPage_EditInnerDiv").style.height = tmpHeight2 + "px";
-    document.getElementById("id_editPage_EditInnerDiv").style.width = tmpWidth1 + "px";
-
-    var tmpHeight3= tmpHeight2-Math.floor(windowHeight*0.025);
+    var tmpHeight3= tmpHeight1-Math.floor(windowHeight*0.025);
 
     document.getElementById("id_EditPage_Add_Structures").style.height = tmpHeight3 + "px";
     //document.getElementById("id_EditPage_Add_Structures").style.display = "none";
@@ -251,15 +247,20 @@ function init_CCCPageStyle(){
     }
 
 
-    document.getElementById("id_editPage_DescriptionDiv").style.height = tmpHeight1 + "px";
-    document.getElementById("id_editPage_DescriptionInnerDiv").style.height = tmpHeight2 + "px";
+    tmpElementList = document.getElementsByClassName('class_Analysis_Colormaps');
+    tmpHeight4 = Math.floor(tmpHeight1*0.1);
+    for (var i = 0; i < tmpElementList.length; ++i) {
+        tmpElementList[i].style.height =  tmpHeight4 + "px";
+        tmpElementList[i].style.maxHeight =  tmpHeight4 + "px";
+        tmpElementList[i].style.minHeight =  tmpHeight4 + "px";
+    }
 
-    document.getElementById("id_editPage_AnalyzeMappingDiv").style.height = tmpHeight1 + "px";
-    document.getElementById("id_editPage_AnalyzeMappingInnerDiv").style.height = tmpHeight2 + "px";
+    document.getElementById("id_editPage_DescriptionDiv").style.height = tmpHeight1 + "px";
+    //document.getElementById("id_editPage_AnalyzeMappingDiv").style.height = tmpHeight1 + "px";
 
     document.getElementById("id_EditPage_DivCMSDescription").style.height = tmpHeight3 + "px";
     document.getElementById("id_EditPage_DivKeyDescription").style.height = tmpHeight3 + "px";
-    document.getElementById("id_EditPage_DivAnalyze").style.height = tmpHeight3 + "px";
+    //document.getElementById("id_EditPage_DivAnalyze").style.height = tmpHeight3 + "px";
     document.getElementById("id_EditPage_DivMapping").style.height = tmpHeight3 + "px";
 
 
@@ -274,11 +275,6 @@ function init_CCCPageStyle(){
 
     document.getElementById("id_EditPage_SmileyImg").style.height = tmpHeight3 + "px";
     document.getElementById("id_EditPage_SadleyImg").style.height = tmpHeight3 + "px";
-
-
-    document.getElementById("id_editPage_CMSDescription").style.minHeight = Math.floor(windowHeight*0.25) + "px";
-    document.getElementById("id_editPage_CMSDescription").style.maxHeight = Math.floor(windowHeight*0.25) + "px";
-
 
 
     /*document.getElementById("id_EditPage_Add_Structures").style.display="block";
@@ -297,8 +293,7 @@ function init_CCCPageStyle(){
 
     document.getElementById("id_EditPage_Add_Structures").style.display = "block";
 
-    changeFilterPredefined(0);
-    document.getElementById("id_editPage_OrderPredefinedDropdown").style.display = "block";
+    changeFilterPredefined(1);
     drawCanvasColormap("id_EditPage_Preview_Multiband", cmsFourBandColormaps[0]);
     drawCanvasColormap("id_EditPage_Preview_Divergent", cmsDivergentColormaps[0]);
     drawCanvasColormap("id_EditPage_Preview_ScaledBlue", cmsBlueColormaps[0]);
@@ -306,7 +301,6 @@ function init_CCCPageStyle(){
     drawCanvasColormap("id_EditPage_Preview_ScaledGreen", cmsGreenColormaps[0]);
     drawCanvasColormap("id_EditPage_Preview_ScaledRedPurple", cmsRedPurpleColormaps[0]);
     drawCanvasColormap("id_EditPage_Preview_ScaledYellowOrange", cmsYellowColormaps[0]);
-    document.getElementById("id_editPage_OrderPredefinedDropdown").style.display = "none";
     document.getElementById("id_EditPage_Add_Structures").style.display = "none";
     document.getElementById("id_EditPage").style.display = "none";
 
