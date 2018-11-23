@@ -7,6 +7,9 @@ function styleStructure_LocalSpeed(){
   else{
     document.getElementById("id_EditPage_AnalyzePlot_Container").style.display = "flex";
     document.getElementById("id_EditPage_Analyze_EmptyDiv").style.display = "none";
+    document.getElementById("id_editPage_OrderAxisLabel1").style.display = "none";
+    document.getElementById("id_editPage_OrderAxisLabel2").style.display = "none";
+    document.getElementById("id_EditPage_ColorAboveDiv_GlobalLocalOrder").style.display = "none";
     document.getElementById("id_EditPage_Average_GlobalLocalOrder").style.display = "block";
     document.getElementById("id_EditPage_Deviation_GlobalLocalOrder").style.display = "block";
     document.getElementById("id_EditPage_FixedAxisDiv_GlobalLocalOrder").style.display = "block";

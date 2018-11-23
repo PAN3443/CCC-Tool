@@ -311,6 +311,12 @@
 
 
           <div id="id_actionMenu_editPart" style="display:none;">
+            <div id="id_actionMenu_undo" onclick="undo()" class="dropdownMenuButton">
+              Undo
+            </div>
+            <div id="id_actionMenu_redo" onclick="redo()" class="dropdownMenuButton">
+              Redo
+            </div>
             <div id="id_actionMenu_clearButton" onclick="clearColormap()" class="dropdownMenuButton">
               Clear CMS
             </div>
@@ -1261,8 +1267,11 @@
 
                           <div id="id_EditPage_AnalyzeContainer_GlobalLocalOrder" style="width:100%; overflow-x:auto;">
 
-
-                              <canvas id="id_EditPage_Canvas_GlobalLocalOrder" style="height:80%; width:45%; margin-left:2.5%; border: 1px solid black; margin-top:10%; background: url(img/EditPage/plotBackground.png);"></canvas>
+                              <div style="height:100%; width:45%; margin-left:2.5%; margin:auto;">
+                                <p id="id_editPage_OrderAxisLabel1" class="standardText" style="margin:top:20px; font-weight:bold;">Local Order</p>
+                                <canvas id="id_EditPage_Canvas_GlobalLocalOrder" style="height:80%; width:100%; border: 1px solid black; background: url(img/EditPage/plotBackground.png);"></canvas>
+                                <p id="id_editPage_OrderAxisLabel2" class="standardText" style="margin:bottom:20px; font-weight:bold;">Global Order</p>
+                              </div>
 
 
                                <div id="id_EditPage_LabelDiv_GlobalLocalOrder" style="margin-left:2.5%; width:50%; broder-left: 1px solid grey;">
@@ -1313,6 +1322,11 @@
                                         <p class="standardText" style="margin-left:40%; margin-top:5px; margin-bottom:auto;">Border:</p> <input id="id_EditPage_InputFixedAxis_GlobalLocalOrder" type="number" class="standardText" min="0" step="any" style="margin-left:10px;">
                                       </div>
 
+
+                                      <div id="id_EditPage_ColorAboveDiv_GlobalLocalOrder" class="row" style="width:100%; margin-top:5px;">
+                                        <p class="standardText" style="margin-left:40%; margin-bottom:auto;">Color Above:</p> <div id="id_EditPage_ColorAboveFixedAxis_GlobalLocalOrder" style="margin-left:10px; width:20px; height:20px; border:1px solid black; border-radius:5px;"></div>
+                                      </div>
+
                                       <hr>
                                     </div>
 
@@ -1332,7 +1346,7 @@
                                           </div>
                                           <div class="row">
                                           <input class="standardText" style="margin-right: 10px; margin-top:auto; margin-bottom:auto;" type="radio" id="id_editPage_Anaylze_IntervalColorDifference" name="editPage_keyType" value="1" checked="checked">
-                                          <label class="standardText" for="id_editPage_Anaylze_IntervalNumber" style="margin-top:auto; margin-bottom:auto;"> Color Difference Depentend Intervals  </label>
+                                          <label class="standardText" for="id_editPage_Anaylze_IntervalNumber" style="margin-top:auto; margin-bottom:auto;"> Color Difference Dependenting Intervals  </label>
                                           </div>
                                         </div>
                                       </div>
@@ -2695,6 +2709,24 @@
         <img src="img/CCCToolComic/shortcutsImg.jpg" style="width:35%; margin-left:5%; margin-right:5%; margin-top:auto; margin-bottom:auto; ">
 
         <div style="width:50%; padding:1vh; border: 0.2vh solid rgb(120,120,120); background: rgb(220,220,220); margin-top:auto; margin-bottom:auto;">
+
+          <div class="row" style="margin-top:0.5vh; margin-bottom:0.5vh;" >
+
+            <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> Ctrl </p>
+            <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; "> + </p>
+            <p style="text-align:center; height:3.2vh; width:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> z </p>
+            <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; ">  &#8594; Undo</p>
+
+          </div>
+
+          <div class="row" style="margin-top:0.5vh; margin-bottom:0.5vh;" >
+
+            <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> Ctrl </p>
+            <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; "> + </p>
+            <p style="text-align:center; height:3.2vh; width:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> y </p>
+            <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; ">  &#8594; Redo</p>
+
+          </div>
 
           <div class="row" style="margin-top:0.5vh; margin-bottom:0.5vh;" >
 

@@ -1,4 +1,8 @@
 
+
+
+// PathPlot ???
+/*
 var browserCanWorker = false;
 
 var worker_drawPath; //new Worker('js/worker/worker_drawPath.js');
@@ -19,4 +23,4 @@ var workerDrawPathIsBusy = false;
 
 var workerDrawHueBackgroundIsBusy = false;
 var workerDrawVBackgroundIsBusy = false;
-var workerDrawElementsIsBusy = false;
+var workerDrawElementsIsBusy = false;*/

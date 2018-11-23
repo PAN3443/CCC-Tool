@@ -468,6 +468,7 @@ function changeKeyType(event){
   updateEditPage();
   drawSelectedKey();
   saveCreateProcess();
+
 }
 
 

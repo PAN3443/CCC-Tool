@@ -37,6 +37,12 @@ function openColorPicker(event){
   colorpickerAffectID=event.target.id;
 
   switch (event.target.id) {
+    case "id_EditPage_ColorAboveFixedAxis_GlobalLocalOrder":
+    colorpickerColor=globalPlotAboveColor;
+    // below the object
+    document.getElementById("id_popupColorPicker").style.top=(top-pickerBox.height)+"px";
+    document.getElementById("id_popupColorPicker").style.left=(left-pickerBox.width)+"px";
+    break;
     case "id_EditPage_CMS_NaN_Color":
     colorpickerColor=globalCMS1.getNaNColor("rgb");
     // below the object
@@ -815,6 +821,10 @@ function event_colorpicker_MouseClick(event){
 
 function affectColorpickerChange(){
   switch (colorpickerAffectID) {
+    case "id_EditPage_ColorAboveFixedAxis_GlobalLocalOrder":
+    globalPlotAboveColor=colorpickerColor.calcRGBColor();
+    updateAnalyze();
+    break;
     case "id_EditPage_CMS_NaN_Color":
     globalCMS1.setNaNColor(colorpickerColor);
     saveCreateProcess();

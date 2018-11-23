@@ -48,13 +48,15 @@ function styleGlobalLocalOrderPlot(){
   document.getElementById("id_EditPage_AnalyzeContainer_SpacesKeyspeed").style.display = "none";
   document.getElementById("id_EditPage_AnalyzeContainer_GlobalLocalOrder").style.display = "flex";
 
-  var rect = document.getElementById("id_EditPage_AnalyzeContainer_GlobalLocalOrder").getBoundingClientRect();
+  /*var rect = document.getElementById("id_EditPage_AnalyzeContainer_GlobalLocalOrder").getBoundingClientRect();
 
   var canvasDim =  Math.round(rect.height*0.8);
   var margin =  Math.round(rect.height*0.1);
   document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.height = canvasDim+"px";
   document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.width = canvasDim+"px";
-  document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.marginTop = margin+"px";
+  document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.marginTop = margin+"px";*/
+
+  document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.height = document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.width;
 
   /*var rest = rect.width-canvasDim;
 
@@ -144,11 +146,39 @@ function changeAnalyzeIntervalCalculation(){
 function changeAnalyzeIntervalInput(){
 
 
-  var tmpVal = parseFloat(document.getElementById("id_editPage_Anaylze_IntervalCalcInput").value);
+  var tmpVal;
 
-  if(isNaN(tmpVal)|| tmpVal==undefined){
-    openAlert("Input for the caluclation of the interval colors is not correct!");
-    return;
+
+  if(document.getElementById("id_editPage_Anaylze_IntervalNumber").checked){
+
+    tmpVal = parseInt(document.getElementById("id_editPage_Anaylze_IntervalCalcInput").value);
+    if(isNaN(tmpVal)|| tmpVal==undefined){
+      openAlert("Input for the caluclation of the interval colors is not correct!");
+      updateAnalyze();
+      return;
+    }
+
+    if(tmpVal<1){
+      openAlert("Input for the caluclation of the interval colors with a fixed number of intervals has to be at least one!");
+      updateAnalyze();
+      return;
+    }
+  }
+  else{
+
+    tmpVal = parseFloat(document.getElementById("id_editPage_Anaylze_IntervalCalcInput").value);
+    if(isNaN(tmpVal)|| tmpVal==undefined){
+      openAlert("Input for the caluclation of the interval colors is not correct!");
+      updateAnalyze();
+      return;
+    }
+
+    if(tmpVal<=0){
+      openAlert("Input for the caluclation of the interval colors with using the color difference has to be larger than null!");
+      updateAnalyze();
+      return;
+    }
+
   }
 
   switch (document.getElementById("id_EditPage_SelectAnalyzePlot").selectedIndex) {

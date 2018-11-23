@@ -11,6 +11,9 @@ function styleStructure_Order(){
     document.getElementById("id_EditPage_Average_GlobalLocalOrder").style.display = "none";
     document.getElementById("id_EditPage_Deviation_GlobalLocalOrder").style.display = "none";
     document.getElementById("id_EditPage_DoLogDiv_GlobalLocalOrder").style.display = "none";
+    document.getElementById("id_EditPage_ColorAboveDiv_GlobalLocalOrder").style.display = "none";
+    document.getElementById("id_editPage_OrderAxisLabel1").style.display = "block";
+    document.getElementById("id_editPage_OrderAxisLabel2").style.display = "block";
 
     styleGlobalLocalOrderPlot();
 
@@ -87,7 +90,7 @@ function drawOrderPlot(intervalColormap,plotid, type, minId, minGlobalId){
 
           //////////////////////////////////////////////////////////////////////
           //// Arrow 1
-          canvasCtx.strokeStyle = "rgb(255,127,80)";
+          canvasCtx.strokeStyle = "rgb(0,0,0)";//"rgb(255,127,80)";
           canvasCtx.beginPath();
           canvasCtx.lineWidth=10;
           canvasCtx.moveTo(colormapXStart, colormapYStart);
@@ -102,7 +105,7 @@ function drawOrderPlot(intervalColormap,plotid, type, minId, minGlobalId){
           canvasCtx.closePath();
 
           // the fill color
-          canvasCtx.fillStyle = "rgb(255,127,80)";
+          canvasCtx.fillStyle = "rgb(0,0,0)";//"rgb(255,127,80)";
           canvasCtx.fill();
 
           /*canvasCtx.font = labelFontSize+"px Arial";
@@ -113,7 +116,7 @@ function drawOrderPlot(intervalColormap,plotid, type, minId, minGlobalId){
           canvasCtx.fillRect(colormapXStart+arrowWidth,labelYStart, width, height);*/
           //////////////////////////////////////////////////////////////////////
           //// Arrow 2
-          canvasCtx.strokeStyle = "rgb(30,144,255)";
+          canvasCtx.strokeStyle = "rgb(0,0,0)";//"rgb(30,144,255)";
           canvasCtx.beginPath();
           canvasCtx.lineWidth=10;
           canvasCtx.moveTo(colormapXStart, colormapYEnd);
@@ -128,7 +131,7 @@ function drawOrderPlot(intervalColormap,plotid, type, minId, minGlobalId){
           canvasCtx.closePath();
 
           // the fill color
-          canvasCtx.fillStyle = "rgb(30,144,255)";
+          canvasCtx.fillStyle = "rgb(0,0,0)";//"rgb(30,144,255)";
           canvasCtx.fill();
 
           /*canvasCtx.font = labelFontSize+"px Arial";

@@ -19,6 +19,27 @@ function keyDownDocumentHandler(event){
 //console.log(keynum);
 
     switch (keynum) {
+
+      case 89:
+        // strg + y => redo
+        event.preventDefault();
+        redo();
+
+        break;
+      case 90:
+        // strg + z => undo
+        event.preventDefault();
+        undo();
+
+        break;
+
+        case 83:
+          // strg + s => save
+          event.preventDefault();
+          saveCMS();
+
+          break;
+
       case 83:
         // strg + s => save
         event.preventDefault();

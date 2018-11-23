@@ -1,5 +1,7 @@
 /// Global Vars Edit Page (Section Analyze)
 
+var globalPlotAboveColor = new classColor_RGB(1.0,0,0.0);
+
 var autoAnalyze = true;
 
 var numberOfIntervalsLocal = 100;

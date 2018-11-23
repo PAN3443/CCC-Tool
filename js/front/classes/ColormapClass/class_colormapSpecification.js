@@ -31,9 +31,6 @@ class class_CMS {
     this.intervalPosition=[];
 
 
-    ///
-    this.burs=[];
-
     /// Probes
     this.probeSetArray=[];
 
@@ -245,6 +242,7 @@ class class_CMS {
   getKeyClone(index){
     var newKey = new class_Key(this.keyArray[index].getLeftKeyColor("lab"),this.keyArray[index].getRightKeyColor("lab"),this.keyArray[index].getRefPosition());
     newKey.setMoT(this.keyArray[index].getMoT());
+    newKey.setBur(this.keyArray[index].getBur());
     return newKey;
   }
 
@@ -306,30 +304,26 @@ class class_CMS {
   }
 
 
-  insertKey(index,key,bursType){
+  insertKey(index,key){
 
       this.keyArray.splice(index, 0,key);
-      this.burs.splice(index, 0,bursType);
+
   }
 
-  pushKey(key,bursType){
+  pushKey(key){
       this.keyArray.push(key);
 
-      if(bursType!=undefined){
-          this.burs.push(bursType);
-      }
-      else{
-          this.burs.push(true);
-      }
-
+      /*if(this.keyArray[this.keyArray.length-1].getBur()==false){
+        this.keyArray[this.keyArray.length-1].setBur(true);
+      }*/
   }
 
   getBur(index){
-    return this.burs[index];
+    return this.keyArray[index].getBur();
   }
 
   setBur(index,newBurs){
-    this.burs[index]=newBurs;
+    this.keyArray[index].setBur(newBurs);
   }
 
 

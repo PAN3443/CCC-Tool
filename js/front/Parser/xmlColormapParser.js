@@ -127,17 +127,17 @@ function xmlColormapParserFile(xmlString){
 
                               if(tmpColor2.equalTo(tmpColor)){
                                 // nil key
-                                var newKey = new class_Key(undefined,undefined,x);
+                                var newKey = new class_Key(undefined,undefined,x,true);
                                 tmpCMS.pushKey(newKey);
                               }else{
                                 // right key
-                                var newKey = new class_Key(undefined,tmpColor,x);
+                                var newKey = new class_Key(undefined,tmpColor,x,true);
                                 tmpCMS.pushKey(newKey);
                               }
                              break;
                             case pointObject.length-1:
                                 // right key
-                                var newKey = new class_Key(tmpColor,undefined,x);
+                                var newKey = new class_Key(tmpColor,undefined,x,true);
                                 tmpCMS.pushKey(newKey);
                              break;
                            default:
@@ -183,7 +183,7 @@ function xmlColormapParserFile(xmlString){
 
                                 if(tmpColor2.equalTo(tmpColor)){
                                   // left key
-                                  var newKey = new class_Key(tmpColor_Prev,undefined,x);
+                                  var newKey = new class_Key(tmpColor_Prev,undefined,x,true);
 
                                   if(pointObject[i].hasAttribute("isMoT")){
                                     if(pointObject[i].getAttribute("isMoT")=="true")
@@ -192,7 +192,7 @@ function xmlColormapParserFile(xmlString){
                                   tmpCMS.pushKey(newKey);
                                 }else{
                                   // twin key
-                                  var newKey = new class_Key(tmpColor_Prev,tmpColor,x);
+                                  var newKey = new class_Key(tmpColor_Prev,tmpColor,x,true);
                                   if(pointObject[i].hasAttribute("isMoT")){
                                     if(pointObject[i].getAttribute("isMoT")=="true")
                                       newKey.setMoT(true); // if right key color isMoT (left is default)
@@ -204,7 +204,7 @@ function xmlColormapParserFile(xmlString){
                               else{
                                 if(x!=x_Next){
                                   // dual key
-                                  var newKey = new class_Key(tmpColor,tmpColor,x);
+                                  var newKey = new class_Key(tmpColor,tmpColor,x,false);
                                   tmpCMS.pushKey(newKey);
                                 }
                               }

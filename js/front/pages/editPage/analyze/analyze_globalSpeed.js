@@ -7,14 +7,17 @@ function styleStructure_GlobalSpeed(){
   else{
     document.getElementById("id_EditPage_AnalyzePlot_Container").style.display = "flex";
     document.getElementById("id_EditPage_Analyze_EmptyDiv").style.display = "none";
+    document.getElementById("id_editPage_OrderAxisLabel1").style.display = "none";
+    document.getElementById("id_editPage_OrderAxisLabel2").style.display = "none";
     document.getElementById("id_EditPage_Average_GlobalLocalOrder").style.display = "block";
     document.getElementById("id_EditPage_Deviation_GlobalLocalOrder").style.display = "block";
     document.getElementById("id_EditPage_FixedAxisDiv_GlobalLocalOrder").style.display = "block";
+    document.getElementById("id_EditPage_ColorAboveDiv_GlobalLocalOrder").style.display = "flex";
+    document.getElementById("id_EditPage_ColorAboveFixedAxis_GlobalLocalOrder").style.background = globalPlotAboveColor.getRGBString();
     document.getElementById("id_EditPage_DoLogDiv_GlobalLocalOrder").style.display = "block";
     document.getElementById("id_EditPage_FixedAxisLabel_GlobalLocalOrder").innerHTML="Fixed Global Speed Difference:";
     styleGlobalLocalOrderPlot();
     updateKeySelection();
-
 
     var oldInterval = intervalDelta;
     var oldIntervalSize = intervalSize;
@@ -62,9 +65,10 @@ function drawGlobalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId,
 
       var canvasData = canvasCtx.createImageData(canvasPlot.width, canvasPlot.height); //getImageData(0, 0, canvasPlot.width, canvasPlot.height);
       var sumForAverage = 0;
+
+
+
       var min = 1000000;
-      var realMax = 0;
-      var realMin = 1000000;
       var max = 0;
         var numTwinOrLeft=0;
 
@@ -110,21 +114,16 @@ function drawGlobalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId,
                   else{
                     var distance = Math.sqrt(Math.pow(intervalColormap.getIntervalRef(x)-intervalColormap.getIntervalRef(y),2))
                     speed = deltaE/distance;
-                    realMin = Math.min(realMin,speed);
-                    realMax = Math.max(realMax,speed);
                     sumForAverage += speed;
-                    if(document.getElementById("id_EditPage_DoLogSelect_GlobalLocalOrder").checked)
-                    speed = Math.log(speed+1);
+                    //if(document.getElementById("id_EditPage_DoLogSelect_GlobalLocalOrder").checked)
+                    //speed = Math.log(speed+1);
                     min = Math.min(min,speed);
                     max = Math.max(max,speed);
                     //sumForAverage += speed;
                   }
                 /*  break;
                 case 1:
-                    realMin = Math.min(realMin,deltaE);
-                    realMax = Math.max(realMax,deltaE);
-                    if(doLogMartixPlot)
-                    deltaE = Math.log(deltaE+1);
+
                     min = Math.min(min,deltaE);
                     max = Math.max(max,deltaE);
                     sumForAverage += deltaE;
@@ -162,7 +161,7 @@ function drawGlobalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId,
       // calc variance
       ////////////////////////////////////////////////////////////////////////////////////
 
-      var fixedMax =(max-min);
+      var fixedMax = max;
 
       if(document.getElementById("id_EditPage_DoFixedAxis_GlobalLocalOrder").checked){
         fixedMax = parseFloat(document.getElementById("id_EditPage_InputFixedAxis_GlobalLocalOrder").value);
@@ -196,28 +195,38 @@ function drawGlobalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId,
                   }
                   else{
 
-                    if(document.getElementById("id_EditPage_DoFixedAxis_GlobalLocalOrder").checked){
-                      val = (speed-min)/fixedMax;
+                    //if(document.getElementById("id_EditPage_DoFixedAxis_GlobalLocalOrder").checked){
 
-                      if(val<0.0)
-                        val=0.0;
+                      if(document.getElementById("id_EditPage_DoLogSelect_GlobalLocalOrder").checked){
+                        val = (Math.log(speed+1)-Math.log(min+1))/Math.log(fixedMax+1);
+                      }
+                      else{
+                        val = (speed-min)/fixedMax;
+                      }
 
-                      if(val>1.0)
-                        val=1.0;
-                    }
+
+                    /*}
                     else{
-                      val = (speed-min)/(max-min);
 
-                    }
+                      if(document.getElementById("id_EditPage_DoLogSelect_GlobalLocalOrder").checked){
+                        val = (Math.log(speed+1)-Math.log(min+1))/(Math.log(max+1)-Math.log(min+1));
+                      }
+                      else{
+                        val = (speed-min)/(max-min);
+                      }
 
+                    }*/
 
                     sumForVariance += Math.pow(matrix[x][y]-average,2);
                   }
 
-
-
+                  if(val<0.0)
+                    val=0.0;
 
                   colorRef = new classColor_RGB(val,val,val);
+
+                  if(val>1.0)
+                    colorRef = globalPlotAboveColor
 
 
 
@@ -256,14 +265,14 @@ function drawGlobalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId,
       var deviation = Math.sqrt(variance);
 
 
-      document.getElementById(minId).innerHTML = "Global Speed Minimum = "+ realMin.toFixed(numDecimalPlaces);
+      document.getElementById(minId).innerHTML = "Global Speed Minimum = "+ min.toFixed(numDecimalPlaces);
 
       if(min==0)
       document.getElementById(minId).style.color = "red";
       else
       document.getElementById(minId).style.color = "black";
 
-      document.getElementById(maxId).innerHTML = "Global Speed Maximum = "+ realMax.toFixed(numDecimalPlaces);
+      document.getElementById(maxId).innerHTML = "Global Speed Maximum = "+ max.toFixed(numDecimalPlaces);
       document.getElementById(avId).innerHTML = "Global Speed Average = "+ average.toFixed(numDecimalPlaces);
       document.getElementById(devId).innerHTML = "Global Speed Deviation = "+ deviation.toFixed(numDecimalPlaces);
 

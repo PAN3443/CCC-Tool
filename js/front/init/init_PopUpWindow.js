@@ -8,6 +8,7 @@ function init_events_PopUp_ColorPicker(){
   document.getElementById('id_editPage_customScaleColor2').addEventListener("click", openColorPicker);
   document.getElementById('id_inputEditProbeColor').addEventListener("click", openColorPicker);
   document.getElementById('id_inputProbeColor').addEventListener("click", openColorPicker);
+  document.getElementById('id_EditPage_ColorAboveFixedAxis_GlobalLocalOrder').addEventListener("click", openColorPicker);
 
   document.getElementById('id_popupWindow_Colorpicker_RG_B').addEventListener("click", changeColorpickerType);
   document.getElementById('id_popupWindow_Colorpicker_RB_G').addEventListener("click", changeColorpickerType);

@@ -125,6 +125,10 @@ function showEditPage(){
   switchCMSInformation(0);
   switchAnalyzeMapping(0);
 
+
+  colormapProcess=[];
+  processPosition=-1;
+
   // fill Edit pages
   document.getElementById("id_EditPage_CMSName").value=globalCMS1.getColormapName();
   document.getElementById("id_editPage_CMSDescription").value=globalCMS1.getDescription();

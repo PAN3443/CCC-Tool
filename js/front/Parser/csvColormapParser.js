@@ -84,14 +84,14 @@ function csvColormapParserFile(csvString) {
 
              if(tmpColor2.equalTo(tmpColor)){
                // nil key
-               var newKey = new class_Key(undefined,undefined,x);
+               var newKey = new class_Key(undefined,undefined,x,true);
                newKey.setOpacityVal(o,"left");
                newKey.setOpacityVal(o,"right");
                tmpCMS.pushKey(newKey);
 
              }else{
                // right key
-               var newKey = new class_Key(undefined,tmpColor,x);
+               var newKey = new class_Key(undefined,tmpColor,x,true);
                newKey.setOpacityVal(o,"left");
                newKey.setOpacityVal(o,"right");
                tmpCMS.pushKey(newKey);
@@ -99,7 +99,7 @@ function csvColormapParserFile(csvString) {
             break;
            case csvlines.length-1:
                // right key
-               var newKey = new class_Key(tmpColor,undefined,x);
+               var newKey = new class_Key(tmpColor,undefined,x,true);
                newKey.setOpacityVal(o,"left");
                newKey.setOpacityVal(o,"right");
                tmpCMS.pushKey(newKey);
@@ -150,7 +150,7 @@ function csvColormapParserFile(csvString) {
                if(tmpColor2.equalTo(tmpColor)){
                  // left key
                  var o_Prev = parseFloat(keyData_Previous[4]);
-                 var newKey = new class_Key(tmpColor_Prev,undefined,x);
+                 var newKey = new class_Key(tmpColor_Prev,undefined,x,true);
 
                  newKey.setOpacityVal(o_Prev,"left");
                  newKey.setOpacityVal(o,"right");
@@ -163,7 +163,7 @@ function csvColormapParserFile(csvString) {
                }else{
                  // twin key
                  var o_Prev = parseFloat(keyData_Previous[4]);
-                 var newKey = new class_Key(tmpColor_Prev,tmpColor,x);
+                 var newKey = new class_Key(tmpColor_Prev,tmpColor,x,true);
 
                  newKey.setOpacityVal(o_Prev,"left");
                  newKey.setOpacityVal(o,"right");
@@ -181,7 +181,7 @@ function csvColormapParserFile(csvString) {
              else{
                if(x!=x_Next){
                  // dual key
-                 var newKey = new class_Key(tmpColor,tmpColor,x);
+                 var newKey = new class_Key(tmpColor,tmpColor,x,false);
                  newKey.setOpacityVal(o,"left");
                  newKey.setOpacityVal(o,"right");
 

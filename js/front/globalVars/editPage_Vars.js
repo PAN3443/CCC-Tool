@@ -3,6 +3,9 @@
 
 var somethingChanged = false;
 
+
+////////////////////////////
+/// Colormap Process
 var colormapProcess = [];
 var processPosition = -1;
 var processLimitation = 20;

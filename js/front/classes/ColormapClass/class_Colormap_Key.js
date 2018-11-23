@@ -3,7 +3,7 @@
 ////////////////////////////////////////////////
 
 class class_Key{
-    constructor(colorL, colorR, refPos) {
+    constructor(colorL, colorR, refPos, isBur) {
 
         this.type = "";
         this.cL=[undefined,undefined,undefined,undefined];
@@ -14,9 +14,24 @@ class class_Key{
         this.ref = refPos;
         this.middleOfTriple = false; // if left or twin key -> false = cL, true = cR;
 
+        this.isBur = isBur;
+
+        if(this.isBur==undefined){
+            this.isBur=false;
+        }
+
         this.opacityValLeft=1.0;
         this.opacityValRight=1.0;
 
+    }
+
+
+    setBur(type){
+      this.isBur = type;
+    }
+
+    getBur(){
+      return this.isBur;
     }
 
     setLeftKeyColor(color){

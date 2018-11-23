@@ -13,6 +13,7 @@ function mouseLeaveColorspace(event) {
   if (mouseGrappedKeyID != -1) {
     mouseGrappedKeyID = -1;
       drawcolormap_hueSpace(true,true,false);
+      saveCreateProcess();
   }
 }
 
@@ -299,6 +300,7 @@ function mouseUpColorspace() {
   document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "";
 
   drawcolormap_hueSpace(true,true,false);
+  saveCreateProcess();
 
 }
 
@@ -318,6 +320,7 @@ function mouseLeaveValuePlot(event) {
   if (mouseGrappedKeyID != -1) {
     mouseGrappedKeyID = -1;
       drawcolormap_hueSpace(true,true,false);
+      saveCreateProcess();
   }
 }
 ////////////////////////////////////////////////////////////////////////////////
