@@ -404,13 +404,15 @@ function exportSide_createXML(workCMS){
                 return;
     }
 
-    xmltext = xmltext+"\" creator=\"CCC-Tool\">\n";
+    xmltext = xmltext+"\" interpolationspace=\""+workCMS.getInterpolationSpace()+"\" creator=\"CCC-Tool\">\n";
 
       xmltext = xmltext+createCMSText(workCMS,"xml");
 
       xmltext = xmltext + txtNaN;
       xmltext = xmltext + txtAbove;
       xmltext = xmltext + txtBelow;
+
+      xmltext = xmltext + createProbeSetText(workCMS,"xml");
 
       xmltext=xmltext+"</ColorMap>\n</ColorMaps>";
       return xmltext;
@@ -536,20 +538,118 @@ function createProbeSetText(workCMS,format){
 
   var text = "";
 
-    /*switch (format) {
+    switch (format) {
       case "xml":
 
         for (var i = 0; i < workCMS.getProbeSetLength(); i++) {
           var tmpProbeSet = workCMS.getProbeSet(i);
-          text=text+"<ProbeSet name=\""+tmpProbeSet.getProbeSetName()+"\"/>\n";
+          text=text+"<ProbeSet name=\""+tmpProbeSet.getProbeSetName()+"\">\n";
 
-            for (var j = 0; j < array.length; j++) {
+            for (var j = 0; j < tmpProbeSet.getProbeLength(); j++) {
 
-                var tmpProbe = tmpProbeSet.getProbe(i);
-                switch (tmpProbe.getProbeType()) {
-                  case 0:
-                      text=text+"<Probe type=\""+tmpProbeSet.getProbeSetName()+"\" start=\""+tmpProbeSet.getProbeSetName()+"\"/>\n";
+                var tmpProbe = tmpProbeSet.getProbe(j);
+                switch (tmpProbe.getType()) {
+                  case 0: // const
+                      text=text+"<Probe type=\""+tmpProbe.getType()+"\" start=\""+tmpProbe.getStartPos()+"\" end=\""+tmpProbe.getEndPos()+"\">\n";
+                      var tmpColor = tmpProbe.getProbeColor();
+                      text=text+"<ProbeColor h=\""+tmpColor.get1Value()+"\" s=\""+tmpColor.get2Value()+"\" v=\""+tmpColor.get3Value()+"\"/>\n";
+                      text=text+"</Probe>\n";
                     break;
+                  case 1: // one sided
+                  case 2: // one sided trans
+
+                    text=text+"<Probe type=\""+tmpProbe.getType()+"\" start=\""+tmpProbe.getStartPos()+"\" end=\""+tmpProbe.getEndPos()+"\"/>\n";
+
+                    if(tmpProbe.getType()==1)
+                    {
+                      var tmpColor = tmpProbe.getProbeColor();
+                      text=text+"<ProbeColor h=\""+tmpColor.get1Value()+"\" s=\""+tmpColor.get2Value()+"\" v=\""+tmpColor.get3Value()+"\"/>\n";
+                    }
+
+                    switch (tmpProbe.getFunctionType()) {
+                      case 0: // val 100->0
+                        text=text+"<ValueFunction r=\"0.0\" v=\"100.0\"/>\n";
+                        text=text+"<ValueFunction r=\"1.0\" v=\"0.0\"/>\n";
+                        break;
+                        case 1: // val 0->100
+                          text=text+"<ValueFunction r=\"0.0\" v=\"0.0\"/>\n";
+                          text=text+"<ValueFunction r=\"1.0\" v=\"100.0\"/>\n";
+                          break;
+                          case 2: // sat 100->0
+                          text=text+"<SaturationFunction r=\"0.0\" s=\"100.0\"/>\n";
+                          text=text+"<SaturationFunction r=\"1.0\" s=\"0.0\"/>\n";
+                            break;
+                            case 3: // sat 0->100
+                            text=text+"<SaturationFunction r=\"0.0\" s=\"0.0\"/>\n";
+                            text=text+"<SaturationFunction r=\"1.0\" s=\"100.0\"/>\n";
+                              break;
+                      default:
+
+                    }
+                    text=text+"</Probe>\n";
+                  break;
+
+                  case 3: // two sided
+                  case 4: // two sided trans
+
+                    text=text+"<Probe type=\""+tmpProbe.getType()+"\" start=\""+tmpProbe.getStartPos()+"\" end=\""+tmpProbe.getEndPos()+"\"/>\n";
+
+                    if(tmpProbe.getType()==3)
+                    {
+                      var tmpColor = tmpProbe.getProbeColor();
+                      text=text+"<ProbeColor h=\""+tmpColor.get1Value()+"\" s=\""+tmpColor.get2Value()+"\" v=\""+tmpColor.get3Value()+"\"/>\n";
+                    }
+
+                    switch (tmpProbe.getFunctionType()) {
+                      case 0: // val 0->100
+                        text=text+"<ValueFunction r=\"0.0\" v=\"0.0\"/>\n";
+                        text=text+"<ValueFunction r=\"1.0\" v=\"100.0\"/>\n";
+                        text=text+"<SaturationFunction r=\"0.0\" s=\"0.0\"/>\n";
+                        text=text+"<SaturationFunction r=\"0.5\" s=\"100.0\"/>\n";
+                        text=text+"<SaturationFunction r=\"1.0\" s=\"0.0\"/>\n";
+                        break;
+                        case 1: // val 100->0
+                        text=text+"<ValueFunction r=\"0.0\" v=\"100.0\"/>\n";
+                        text=text+"<ValueFunction r=\"1.0\" v=\"0.0\"/>\n";
+                        text=text+"<SaturationFunction r=\"0.0\" s=\"0.0\"/>\n";
+                        text=text+"<SaturationFunction r=\"0.5\" s=\"100.0\"/>\n";
+                        text=text+"<SaturationFunction r=\"1.0\" s=\"0.0\"/>\n";
+                          break;
+                          case 2: // sat 0->100
+                          text=text+"<SaturationFunction r=\"0.0\" s=\"0.0\"/>\n";
+                          text=text+"<SaturationFunction r=\"1.0\" s=\"100.0\"/>\n";
+                          text=text+"<ValueFunction r=\"0.0\" v=\"100.0\"/>\n";
+                          text=text+"<ValueFunction r=\"0.5\" v=\"0.0\"/>\n";
+                          text=text+"<ValueFunction r=\"1.0\" v=\"100.0\"/>\n";
+                            break;
+                          case 3: // sat 100->0
+                          text=text+"<SaturationFunction r=\"0.0\" s=\"100.0\"/>\n";
+                          text=text+"<SaturationFunction r=\"1.0\" s=\"0.0\"/>\n";
+                          text=text+"<ValueFunction r=\"0.0\" v=\"100.0\"/>\n";
+                          text=text+"<ValueFunction r=\"0.5\" v=\"0.0\"/>\n";
+                          text=text+"<ValueFunction r=\"1.0\" v=\"100.0\"/>\n";
+                            break;
+                            case 4: // sat 0->100
+                            text=text+"<SaturationFunction r=\"0.0\" s=\"0.0\"/>\n";
+                            text=text+"<SaturationFunction r=\"1.0\" s=\"100.0\"/>\n";
+                            text=text+"<ValueFunction r=\"0.0\" v=\"0.0\"/>\n";
+                            text=text+"<ValueFunction r=\"0.5\" v=\"100.0\"/>\n";
+                            text=text+"<ValueFunction r=\"1.0\" v=\"0.0\"/>\n";
+                              break;
+                            case 5: // sat 100->0
+                            text=text+"<SaturationFunction r=\"0.0\" s=\"100.0\"/>\n";
+                            text=text+"<SaturationFunction r=\"1.0\" s=\"0.0\"/>\n";
+                            text=text+"<ValueFunction r=\"0.0\" v=\"0.0\"/>\n";
+                            text=text+"<ValueFunction r=\"0.5\" v=\"100.0\"/>\n";
+                            text=text+"<ValueFunction r=\"1.0\" v=\"0.0\"/>\n";
+                              break;
+                      default:
+
+                    }
+                    text=text+"</Probe>\n";
+                  break;
+
+
                   default:
 
                 }
@@ -562,7 +662,7 @@ function createProbeSetText(workCMS,format){
         break;
 
       default:
-    }*/
+    }
 
 
   return text;

@@ -77,6 +77,7 @@ class class_ProbeSet{
       generateProbeCMS(tmpCMS){
 
           var newCMS = cloneCMS(tmpCMS);
+          newCMS.clearProbeSetList(); // probe CMS should not include the probes of the cms
 
           this.currentKey=0;
           newCMS.setColormapName(tmpCMS.getColormapName() + this.name);

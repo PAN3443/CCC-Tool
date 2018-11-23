@@ -2,7 +2,7 @@
 
 function saveSession() {
 
-  if (myList.length == 0) {
+  if (myDesignsList.length == 0) {
     openAlert("The MyDesigns list is empty")
     return;
   }
@@ -48,36 +48,19 @@ function saveSession() {
 
   text = text + "<ColorMaps>\n";
 
-
-
-  switch (colorspaceModus) {
-    case "rgb":
-      changeExportColorspace(0);
-      break;
-    case "hsv":
-      changeExportColorspace(1);
-      break;
-    case "lab":
-      changeExportColorspace(2);
-      break;
-    case "din99":
-      changeExportColorspace(3);
-      break;
-    default:
-      changeExportColorspace(2);
-  }
+  changeExportColorspace(2); // session save in LAB Colorspace
 
   var tmpGlobalCMS = cloneCMS(globalCMS1);
 
-  for (var i = 0; i < myList.length; i++) {
-    globalCMS1 = cloneCMS(myList[i]);
+  for (var i = 0; i < myDesignsList.length; i++) {
+    globalCMS1 = cloneCMS(myDesignsList[i]);
 
-
-    /*globalCMS1 = calcCMSIntervals(globalCMS1,0,globalCMS1.getKeyLength()-1);*/
-    text = text + "<ColorMap name=\"" + globalCMS1.getColormapName() + "\" space=\"";
     var txtNaN = "";
     var txtAbove = "";
     var txtBelow = "";
+
+    /*globalCMS1 = calcCMSIntervals(globalCMS1,0,globalCMS1.getKeyLength()-1);*/
+    text = text + "<ColorMap name=\"" + globalCMS1.getColormapName() + "\" space=\"";
 
     switch (exportColorspace) {
       case "rgb":
@@ -108,7 +91,7 @@ function saveSession() {
         return;
     }
 
-    text = text + "\" creator=\"CCC-Tool\">\n";
+    text = text + "\" interpolationspace=\""+globalCMS1.getInterpolationSpace()+"\" creator=\"CCC-Tool\">\n";
 
     text = text + createCMSText(globalCMS1,"xml");
 
@@ -117,7 +100,7 @@ function saveSession() {
     text = text + txtBelow;
 
     /// Addd Probes
-    text = text + createProbeText(globalCMS1,"xml");
+    text = text + createProbeSetText(globalCMS1,"xml");
 
 
 
@@ -145,7 +128,7 @@ function saveSession() {
 
 
 function loadSession() {
-  if (myList.length != 0) {
+  if (myDesignsList.length != 0) {
     askType=2;
     openAskWindow();
   } else
@@ -155,12 +138,13 @@ function loadSession() {
 
 function readSessionFile(e){
 
+
   var file = e.target.files[0];
   if (!file) {
     return;
   }
 
-  myList=[];
+  myDesignsList=[];
 
   var fileName = file.name;
 
@@ -431,9 +415,160 @@ function readSessionFile(e){
 
                 } // for
 
+
+      /////////////////// from here start loading the new probe set information
+
+        var probesetObjects= xmlObject.getElementsByTagName("ProbeSet");
+
+
+        for (var i = 0; i < probesetObjects.length; i++){
+
+            var tmpProbeSet = new class_ProbeSet("New ProbeSet");
+
+            if(probesetObjects[i].hasAttribute("name")){
+                var name = probesetObjects[i].getAttribute("name");
+                tmpProbeSet.setProbeSetName(name);
+            }
+
+            var probeObjects= probesetObjects[i].getElementsByTagName("Probe");
+
+            for (var k = 0; k < probeObjects.length; k++) {
+
+              var type = parseInt(probeObjects[k].getAttribute("type"));
+              var start = parseFloat(probeObjects[k].getAttribute("start"));
+              var end = parseFloat(probeObjects[k].getAttribute("end"));
+
+              if(type==undefined || start==undefined || end==undefined )
+              continue;
+
+              var tmpProbe = new class_Probe(type, start, end ,'hsv'); //(type, start, end , space)
+
+              if(probeObjects[k].getElementsByTagName("ProbeColor").length !=0){
+
+                var probeColorObj = probeObjects[k].getElementsByTagName("ProbeColor");
+
+                var val1 = parseFloat(probeColorObj[0].getAttribute("h"));
+                var val2 = parseFloat(probeColorObj[0].getAttribute("s"));
+                var val3 = parseFloat(probeColorObj[0].getAttribute("v"));
+
+                tmpProbe.setProbeColor(new classColor_HSV(val1,val2,val3));
+              }
+
+              if(type == 0) // const _> no functions
+              {
+                tmpProbeSet.addProbe(tmpProbe);
+                continue;
+              }
+
+              //// Determine Function
+              var valueFunctionObj = probeObjects[k].getElementsByTagName("ValueFunction");
+              var saturationFunctionObj = probeObjects[k].getElementsByTagName("SaturationFunction");
+
+              /// One Sided
+              if(valueFunctionObj.length==0){
+                if(saturationFunctionObj.length==2){
+
+                  var sat1 = parseFloat(saturationFunctionObj[0].getAttribute("s"));
+                  var sat2 = parseFloat(saturationFunctionObj[1].getAttribute("s"));
+
+                  if(sat1==100 && sat2==0){
+                    tmpProbe.setFunctionType(2);
+                  }
+                  else{
+                    tmpProbe.setFunctionType(3);
+                  }
+
+                  tmpProbeSet.addProbe(tmpProbe);
+                }
+                continue;
+              }
+
+              if(saturationFunctionObj.length==0){
+                if(valueFunctionObj.length==2){
+
+                  var val1 = parseFloat(valueFunctionObj[0].getAttribute("v"));
+                  var val2 = parseFloat(valueFunctionObj[1].getAttribute("v"));
+
+                  if(val1==100 && val2==0){
+                    tmpProbe.setFunctionType(0);
+                  }
+                  else{
+                    tmpProbe.setFunctionType(1);
+                  }
+
+                  tmpProbeSet.addProbe(tmpProbe);
+                }
+                continue;
+              }
+
+              /// Two Sided
+              if(valueFunctionObj.length==2){
+                if(saturationFunctionObj.length==3){
+                  var val1 = parseFloat(valueFunctionObj[0].getAttribute("v"));
+                  var val2 = parseFloat(valueFunctionObj[1].getAttribute("v"));
+
+                  if(val1==0 && val2==100){
+                    tmpProbe.setFunctionType(0);
+                  }
+                  else{
+                    tmpProbe.setFunctionType(1);
+                  }
+
+                  tmpProbeSet.addProbe(tmpProbe);
+                }
+                continue;
+              }
+
+              if(saturationFunctionObj.length==2 && valueFunctionObj.length==3){
+
+                var valMiddle = parseFloat(valueFunctionObj[1].getAttribute("v"));
+                var sat1 = parseFloat(saturationFunctionObj[0].getAttribute("s"));
+                var sat2 = parseFloat(saturationFunctionObj[1].getAttribute("s"));
+
+                if(valMiddle==0){
+                  if(sat1==0 && sat2==100){
+                    tmpProbe.setFunctionType(2);
+                  }
+                  else{
+                    tmpProbe.setFunctionType(3);
+                  }
+                  tmpProbeSet.addProbe(tmpProbe);
+                  continue;
+                }
+
+                if(valMiddle==100){
+                  if(sat1==0 && sat2==100){
+                    tmpProbe.setFunctionType(4);
+                  }
+                  else{
+                    tmpProbe.setFunctionType(5);
+                  }
+                }
+                tmpProbeSet.addProbe(tmpProbe);
+
+              }
+
+
+            }
+
+            if(tmpProbeSet.getProbeLength()!=0)
+            tmpCMS.addProbeSet(tmpProbeSet);
+
+        }
+
+        //console.log(tmpCMS.getProbeLength());
+
+        /////////////////// till here new probe set information
+
+
                 if(cmsObjects[j].hasAttribute("name")){
                     var name = cmsObjects[j].getAttribute("name");
                     tmpCMS.setColormapName(name);
+                }
+
+                if(cmsObjects[j].hasAttribute("interpolationspace")){
+                  var interpolationSpace = cmsObjects[j].getAttribute("interpolationspace");
+                  tmpCMS.setInterpolationSpace(interpolationSpace);
                 }
 
                  if(cmsObjects[j].getElementsByTagName("NaN").length !=0){
@@ -453,20 +588,46 @@ function readSessionFile(e){
                    tmpCMS.setNaNColor(tmpColor);
                  }
 
-            myList.push(tmpCMS);
+
+                 if(cmsObjects[j].getElementsByTagName("Above").length !=0){
+                   var aboveObj = cmsObjects[j].getElementsByTagName("Above");
+
+                   var val1 = parseFloat(aboveObj[0].getAttribute(val1Name));
+                   var val2 = parseFloat(aboveObj[0].getAttribute(val2Name));
+                   var val3 = parseFloat(aboveObj[0].getAttribute(val3Name));
+
+                   if(isrgb255){
+                       val1=val1/255.0;
+                       val2=val2/255.0;
+                       val3=val2/255.0;
+                   }
+
+                   var tmpColor = getLoadedColor(val1,val2,val3,space);
+                   tmpCMS.setAboveColor(tmpColor);
+                 }
+
+                 if(cmsObjects[j].getElementsByTagName("Below").length !=0){
+                   var belowObj = cmsObjects[j].getElementsByTagName("Below");
+
+                   var val1 = parseFloat(belowObj[0].getAttribute(val1Name));
+                   var val2 = parseFloat(belowObj[0].getAttribute(val2Name));
+                   var val3 = parseFloat(belowObj[0].getAttribute(val3Name));
+
+                   if(isrgb255){
+                       val1=val1/255.0;
+                       val2=val2/255.0;
+                       val3=val2/255.0;
+                   }
+
+                   var tmpColor = getLoadedColor(val1,val2,val3,space);
+                   tmpCMS.setBelowColor(tmpColor);
+                 }
+
+            myDesignsList.push(tmpCMS);
      }
    }
 
-   colormap1SelectIndex=myList.length-1;
-   globalCMS1 = cloneCMS(myList[colormap1SelectIndex]);
-
-    if (showSideID == -1)
-      changePage(0);
-    else{
-      orderColorSketch();
-      drawMyList();
-    }
-
+   drawMyDesigns();
 
 
   };

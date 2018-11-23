@@ -104,6 +104,9 @@ function updateEditPage(){
 
         if(globalCMS1.getProbeSetLength()!=0){
           document.getElementById("id_selectMainProbeSetList").style.visibility="visible";
+
+          updateProbeSetSelectBox();
+          document.getElementById("id_selectMainProbeSetList").selectedIndex=0;
           var tmpCMS = globalCMS1.getProbeSet(document.getElementById("id_selectMainProbeSetList").selectedIndex).generateProbeCMS(globalCMS1);
 
           drawCanvasColormap("id_EditPage_CMS_VIS_PreviewProbe", tmpCMS);

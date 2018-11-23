@@ -102,6 +102,7 @@
   <!-- MyDesigns PAGE -->
 
   <script src="js/front/pages/MyDesignsPage/drawMyDesigns_MyDesignsPage.js"></script>
+  <script src="js/front/pages/MyDesignsPage/events_MyDesignsPage.js"></script>
 
   <!------------------------------------------->
   <!-- Edit PAGE -->
@@ -174,6 +175,7 @@
   <script src="js/front/globalEvents/autocompleteSearch.js"></script>
   <script src="js/front/globalEvents/checkInput.js"></script>
   <script src="js/front/globalEvents/cmsIntervals.js"></script>
+  <script src="js/front/globalEvents/events_settings.js"></script>
 
   <!------------------------------------------->
   <!-- global Helpers-->
@@ -348,10 +350,10 @@
             <div class="dropdownMenuButton">
               Import CMS
             </div>
-            <div class="dropdownMenuButton">
+            <div class="dropdownMenuButton" onclick="loadSession()">
               Import Session
             </div>
-            <div class="dropdownMenuButton">
+            <div class="dropdownMenuButton" onclick="saveSession()">
               Export Session
             </div>
           </div>

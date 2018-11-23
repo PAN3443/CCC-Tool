@@ -26,6 +26,10 @@ window.onload = function() {
   init_CCCPageStyle();
 
 
+  //document.getElementById('id_inputCMSData').addEventListener("change", readCMSFile);
+  document.getElementById('id_inputSessionData').addEventListener("change", readSessionFile);
+  document.getElementById('id_inputData').addEventListener("change", readDataFile);
+
   pageIsLoaded=true;
 
 

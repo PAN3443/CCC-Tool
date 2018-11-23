@@ -159,11 +159,10 @@ function checkAsk(){
       switchModifyModus(0);
       updateEditPage();
       break;
-    /*case 1:
+    case 1:
       //delete Band
       globalCMS1.deleteBand(askIndex);
-      orderColorSketch();
-      somethingChanged = true;
+      updateEditPage();
       saveCreateProcess();
       break;
 
@@ -171,7 +170,7 @@ function checkAsk(){
         //load Session
         document.getElementById("id_inputSessionData").click();
         break;
-        */
+
         case 3:
 
           myDesignsList.splice(askIndex, 1);

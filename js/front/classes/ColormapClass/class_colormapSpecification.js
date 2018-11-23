@@ -339,6 +339,10 @@ class class_CMS {
   /// Probe
   ///////////////////////////////////
 
+  clearProbeSetList(){
+    this.probeSetArray=[];
+  }
+
   addProbeSet(probeSet){
       this.probeSetArray.push(probeSet);
   }
@@ -896,6 +900,10 @@ function cloneCMS(cmsObj){
   var newCMS = new class_CMS();
   newCMS.setColormapName(cmsObj.getColormapName());
   newCMS.setNaNColor(cmsObj.getNaNColor("lab"));
+  newCMS.setAboveColor(cmsObj.getAboveColor("lab"));
+  newCMS.setBelowColor(cmsObj.getBelowColor("lab"));
+  newCMS.setDescription(cmsObj.getDescription());
+  newCMS.setInterpolationSpace(cmsObj.getInterpolationSpace());
 
   //clone Keys
   for(var i=0; i<cmsObj.getKeyLength(); i++){
