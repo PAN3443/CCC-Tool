@@ -17,26 +17,27 @@ function updateProbeSetSelectBox(){
 
   var selectbox = document.getElementById("id_selectProbeSetList");
   var selectbox2 = document.getElementById("id_selectMainProbeSetList");
+  var selectbox3 = document.getElementById("id_EditPage_MappingCMS_Select");
 
-  for(var i = selectbox.options.length - 1 ; i >= 0 ; i--)
+  for(var i = selectbox.options.length; i > 0 ; i--)
   {
-      selectbox.remove(i);
-  }
-
-  for(var i = selectbox2.options.length - 1 ; i >= 0 ; i--)
-  {
-      selectbox2.remove(i);
+      selectbox.remove(i-1);
+      selectbox2.remove(i-1);
+      selectbox3.remove(i);
   }
 
   for (var i = 0; i < globalCMS1.getProbeSetLength(); i++) {
     var opt = document.createElement('option');
     var opt2 = document.createElement('option');
+    var opt3 = document.createElement('option');
 
     opt.innerHTML = "Probe-Set: "+globalCMS1.getProbeSet(i).getProbeSetName();
     opt2.innerHTML = "Probe-Set: "+globalCMS1.getProbeSet(i).getProbeSetName();
+    opt3.innerHTML = "Probe-Set: "+globalCMS1.getProbeSet(i).getProbeSetName();
 
     selectbox.appendChild(opt);
     selectbox2.appendChild(opt2);
+    selectbox3.appendChild(opt3);
   }
 
   document.getElementById("id_selectProbeSetList").selectedIndex=0;

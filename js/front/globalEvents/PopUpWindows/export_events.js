@@ -371,18 +371,34 @@ function exportSide_createXML(workCMS){
 
     var xmltext = "<ColorMaps>\n<ColorMap name=\""+workCMS.getColormapName()+"\" space=\"";
 
+    var txtNaN = "";
+    var txtAbove = "";
+    var txtBelow = "";
+
     switch(exportColorspace) {
             case "rgb":
                 xmltext = xmltext+"RGB";
+                txtNaN="<NaN r=\""+workCMS.getNaNColor("rgb").get1Value()+"\" g=\""+workCMS.getNaNColor("rgb").get2Value()+"\" b=\""+workCMS.getNaNColor("rgb").get3Value()+"\"/>\n";
+                txtAbove="<Above r=\""+workCMS.getAboveColor("rgb").get1Value()+"\" g=\""+workCMS.getAboveColor("rgb").get2Value()+"\" b=\""+workCMS.getAboveColor("rgb").get3Value()+"\"/>\n";
+                txtBelow="<Below r=\""+workCMS.getBelowColor("rgb").get1Value()+"\" g=\""+workCMS.getBelowColor("rgb").get2Value()+"\" b=\""+workCMS.getBelowColor("rgb").get3Value()+"\"/>\n";
                 break;
             case "hsv":
                 xmltext = xmltext+"HSV";
+                txtNaN="<NaN h=\""+workCMS.getNaNColor("hsv").get1Value()+"\" s=\""+workCMS.getNaNColor("hsv").get2Value()+"\" v=\""+workCMS.getNaNColor("hsv").get3Value()+"\"/>\n";
+                txtAbove="<Above h=\""+workCMS.getAboveColor("hsv").get1Value()+"\" s=\""+workCMS.getAboveColor("hsv").get2Value()+"\" v=\""+workCMS.getAboveColor("hsv").get3Value()+"\"/>\n";
+                txtBelow="<Below h=\""+workCMS.getBelowColor("hsv").get1Value()+"\" s=\""+workCMS.getBelowColor("hsv").get2Value()+"\" v=\""+workCMS.getBelowColor("hsv").get3Value()+"\"/>\n";
                 break;
             case "lab":
                 xmltext = xmltext+"LAB";
+                txtNaN="<NaN l=\""+workCMS.getNaNColor("lab").get1Value()+"\" a=\""+workCMS.getNaNColor("lab").get2Value()+"\" b=\""+workCMS.getNaNColor("lab").get3Value()+"\"/>\n";
+                txtAbove="<Above l=\""+workCMS.getAboveColor("lab").get1Value()+"\" a=\""+workCMS.getAboveColor("lab").get2Value()+"\" b=\""+workCMS.getAboveColor("lab").get3Value()+"\"/>\n";
+                txtBelow="<Below l=\""+workCMS.getBelowColor("lab").get1Value()+"\" a=\""+workCMS.getBelowColor("lab").get2Value()+"\" b=\""+workCMS.getBelowColor("lab").get3Value()+"\"/>\n";
                 break;
             case "din99":
                 xmltext = xmltext+"DIN99";
+                txtNaN="<NaN l99=\""+workCMS.getNaNColor("din99").get1Value()+"\" a99=\""+workCMS.getNaNColor("din99").get2Value()+"\" b99=\""+workCMS.getNaNColor("din99").get3Value()+"\"/>\n";
+                txtAbove="<Above l99=\""+workCMS.getAboveColor("din99").get1Value()+"\" a99=\""+workCMS.getAboveColor("din99").get2Value()+"\" b99=\""+workCMS.getAboveColor("din99").get3Value()+"\"/>\n";
+                txtBelow="<Below l99=\""+workCMS.getBelowColor("din99").get1Value()+"\" a99=\""+workCMS.getBelowColor("din99").get2Value()+"\" b99=\""+workCMS.getBelowColor("din99").get3Value()+"\"/>\n";
                 break;
             default:
                 return;
@@ -391,6 +407,10 @@ function exportSide_createXML(workCMS){
     xmltext = xmltext+"\" creator=\"CCC-Tool\">\n";
 
       xmltext = xmltext+createCMSText(workCMS,"xml");
+
+      xmltext = xmltext + txtNaN;
+      xmltext = xmltext + txtAbove;
+      xmltext = xmltext + txtBelow;
 
       xmltext=xmltext+"</ColorMap>\n</ColorMaps>";
       return xmltext;
@@ -510,6 +530,45 @@ function createCMSText(workCMS,format){
     return text;
 
 }
+
+function createProbeSetText(workCMS,format){
+
+
+  var text = "";
+
+    /*switch (format) {
+      case "xml":
+
+        for (var i = 0; i < workCMS.getProbeSetLength(); i++) {
+          var tmpProbeSet = workCMS.getProbeSet(i);
+          text=text+"<ProbeSet name=\""+tmpProbeSet.getProbeSetName()+"\"/>\n";
+
+            for (var j = 0; j < array.length; j++) {
+
+                var tmpProbe = tmpProbeSet.getProbe(i);
+                switch (tmpProbe.getProbeType()) {
+                  case 0:
+                      text=text+"<Probe type=\""+tmpProbeSet.getProbeSetName()+"\" start=\""+tmpProbeSet.getProbeSetName()+"\"/>\n";
+                    break;
+                  default:
+
+                }
+
+
+            }
+          text=text+"</ProbeSet>\n";
+        }
+
+        break;
+
+      default:
+    }*/
+
+
+  return text;
+
+}
+
 
 function createLine(format,tmpColor,refVal,opacityVal,isCMS,isMoT){
   var text = "";

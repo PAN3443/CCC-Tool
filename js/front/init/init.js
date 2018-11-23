@@ -261,7 +261,7 @@ function init_CCCPageStyle(){
     document.getElementById("id_EditPage_DivCMSDescription").style.height = tmpHeight3 + "px";
     document.getElementById("id_EditPage_DivKeyDescription").style.height = tmpHeight3 + "px";
     //document.getElementById("id_EditPage_DivAnalyze").style.height = tmpHeight3 + "px";
-    document.getElementById("id_EditPage_DivMapping").style.height = tmpHeight3 + "px";
+    //document.getElementById("id_EditPage_DivMapping").style.height = tmpHeight3 + "px";
 
 
     tmpHeight3= Math.floor(windowHeight*0.035);

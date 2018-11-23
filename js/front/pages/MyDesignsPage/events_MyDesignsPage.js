@@ -75,19 +75,34 @@ function saveSession() {
 
     /*globalCMS1 = calcCMSIntervals(globalCMS1,0,globalCMS1.getKeyLength()-1);*/
     text = text + "<ColorMap name=\"" + globalCMS1.getColormapName() + "\" space=\"";
+    var txtNaN = "";
+    var txtAbove = "";
+    var txtBelow = "";
 
     switch (exportColorspace) {
       case "rgb":
         text = text + "RGB";
+        txtNaN="<NaN r=\""+globalCMS1.getNaNColor("rgb").get1Value()+"\" g=\""+globalCMS1.getNaNColor("rgb").get2Value()+"\" b=\""+globalCMS1.getNaNColor("rgb").get3Value()+"\"/>\n";
+        txtAbove="<Above r=\""+globalCMS1.getAboveColor("rgb").get1Value()+"\" g=\""+globalCMS1.getAboveColor("rgb").get2Value()+"\" b=\""+globalCMS1.getAboveColor("rgb").get3Value()+"\"/>\n";
+        txtBelow="<Below r=\""+globalCMS1.getBelowColor("rgb").get1Value()+"\" g=\""+globalCMS1.getBelowColor("rgb").get2Value()+"\" b=\""+globalCMS1.getBelowColor("rgb").get3Value()+"\"/>\n";
         break;
       case "hsv":
         text = text + "HSV";
+        txtNaN="<NaN h=\""+globalCMS1.getNaNColor("hsv").get1Value()+"\" s=\""+globalCMS1.getNaNColor("hsv").get2Value()+"\" v=\""+globalCMS1.getNaNColor("hsv").get3Value()+"\"/>\n";
+        txtAbove="<Above h=\""+globalCMS1.getAboveColor("hsv").get1Value()+"\" s=\""+globalCMS1.getAboveColor("hsv").get2Value()+"\" v=\""+globalCMS1.getAboveColor("hsv").get3Value()+"\"/>\n";
+        txtBelow="<Below h=\""+globalCMS1.getBelowColor("hsv").get1Value()+"\" s=\""+globalCMS1.getBelowColor("hsv").get2Value()+"\" v=\""+globalCMS1.getBelowColor("hsv").get3Value()+"\"/>\n";
         break;
       case "lab":
         text = text + "LAB";
+        txtNaN="<NaN l=\""+globalCMS1.getNaNColor("lab").get1Value()+"\" a=\""+globalCMS1.getNaNColor("lab").get2Value()+"\" b=\""+globalCMS1.getNaNColor("lab").get3Value()+"\"/>\n";
+        txtAbove="<Above l=\""+globalCMS1.getAboveColor("lab").get1Value()+"\" a=\""+globalCMS1.getAboveColor("lab").get2Value()+"\" b=\""+globalCMS1.getAboveColor("lab").get3Value()+"\"/>\n";
+        txtBelow="<Below l=\""+globalCMS1.getBelowColor("lab").get1Value()+"\" a=\""+globalCMS1.getBelowColor("lab").get2Value()+"\" b=\""+globalCMS1.getBelowColor("lab").get3Value()+"\"/>\n";
         break;
       case "din99":
         text = text + "DIN99";
+        txtNaN="<NaN l99=\""+globalCMS1.getNaNColor("din99").get1Value()+"\" a99=\""+globalCMS1.getNaNColor("din99").get2Value()+"\" b99=\""+globalCMS1.getNaNColor("din99").get3Value()+"\"/>\n";
+        txtAbove="<Above l99=\""+globalCMS1.getAboveColor("din99").get1Value()+"\" a99=\""+globalCMS1.getAboveColor("din99").get2Value()+"\" b99=\""+globalCMS1.getAboveColor("din99").get3Value()+"\"/>\n";
+        txtBelow="<Below l99=\""+globalCMS1.getBelowColor("din99").get1Value()+"\" a99=\""+globalCMS1.getBelowColor("din99").get2Value()+"\" b99=\""+globalCMS1.getBelowColor("din99").get3Value()+"\"/>\n";
         break;
       default:
         return;
@@ -96,6 +111,15 @@ function saveSession() {
     text = text + "\" creator=\"CCC-Tool\">\n";
 
     text = text + createCMSText(globalCMS1,"xml");
+
+    text = text + txtNaN;
+    text = text + txtAbove;
+    text = text + txtBelow;
+
+    /// Addd Probes
+    text = text + createProbeText(globalCMS1,"xml");
+
+
 
     text = text + "</ColorMap>\n";
 

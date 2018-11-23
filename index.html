@@ -73,26 +73,35 @@
   <!--script src="js/plugins.js"></script-->
 
   <!-- Classes -->
-  <script src="js/front/classes/ColormapClass/class_Colormap_Key.js"></script>
-  <script src="js/front/classes/ColormapClass/class_Colormap_Interval.js"></script>
-  <script src="js/front/classes/ColormapClass/class_Colorspace_HSV.js"></script>
-  <script src="js/front/classes/ColormapClass/class_Colorspace_LAB.js"></script>
-  <script src="js/front/classes/ColormapClass/class_Colorspace_RGB.js"></script>
-  <script src="js/front/classes/ColormapClass/class_Colorspace_DIN99.js"></script>
-  <script src="js/front/classes/ColormapClass/class_Colorspace_XYZ.js"></script>
-  <script src="js/front/classes/ColormapClass/class_Colorspace_LMS.js"></script>
-  <script src="js/front/classes/ColormapClass/class_Colormap_Probe.js"></script>
-  <script src="js/front/classes/ColormapClass/class_Colormap_ProbeSet.js"></script>
-  <script src="js/front/classes/ColormapClass/class_colormapSpecification.js"></script>
+
+      <!-- Classes : Colors-->
+      <script src="js/front/classes/ColormapClass/class_Colorspace_HSV.js"></script>
+      <script src="js/front/classes/ColormapClass/class_Colorspace_LAB.js"></script>
+      <script src="js/front/classes/ColormapClass/class_Colorspace_RGB.js"></script>
+      <script src="js/front/classes/ColormapClass/class_Colorspace_DIN99.js"></script>
+      <script src="js/front/classes/ColormapClass/class_Colorspace_XYZ.js"></script>
+      <script src="js/front/classes/ColormapClass/class_Colorspace_LMS.js"></script>
+
+      <!-- Classes : Probes-->
+      <script src="js/front/classes/ColormapClass/class_Colormap_Probe.js"></script>
+      <script src="js/front/classes/ColormapClass/class_Colormap_ProbeSet.js"></script>
+
+      <!-- Classes : CMS-->
+      <script src="js/front/classes/ColormapClass/class_Colormap_Key.js"></script>
+      <script src="js/front/classes/ColormapClass/class_Colormap_Interval.js"></script>
+      <script src="js/front/classes/ColormapClass/class_colormapSpecification.js"></script>
+
+
+      <!-- Classes : Mapping Data-->
+      <script src="js/front/classes/Domain/class_cell.js"></script>
+      <script src="js/front/classes/Domain/class_domain.js"></script>
+      <script src="js/front/classes/Domain/class_point.js"></script>
 
 
   <!------------------------------------------->
   <!-- MyDesigns PAGE -->
 
   <script src="js/front/pages/MyDesignsPage/drawMyDesigns_MyDesignsPage.js"></script>
-
-
-
 
   <!------------------------------------------->
   <!-- Edit PAGE -->
@@ -127,6 +136,13 @@
     <script src="js/front/pages/editPage/analyze/analyze_bandKeySpeed.js"></script>
     <script src="js/front/pages/editPage/analyze/analyze_order.js"></script>
 
+    <!-- Edit PAGE: Mapping -->
+    <script src="js/front/pages/editPage/mapping.js/mapping_events.js"></script>
+    <script src="js/front/pages/editPage/mapping.js/DataParser/events_loadData.js"></script>
+    <script src="js/front/pages/editPage/mapping.js/DataParser/vtkParser.js"></script>
+    <script src="js/front/pages/editPage/mapping.js/Rendering/drawMapping.js"></script>
+    <script src="js/front/pages/editPage/mapping.js/Rendering/rendering.js"></script>
+
     <!-- Edit PAGE: Side Options-->
     <script src="js/front/pages/editPage/sideOptions/events_EditPage_showSideOptions.js"></script>
     <script src="js/front/pages/editPage/sideOptions/fillTable.js"></script>
@@ -136,13 +152,13 @@
     <script src="js/front/pages/editPage/sideOptions/events_generateProbe.js"></script>
     <script src="js/front/pages/editPage/sideOptions/checkCustomProbeInput.js"></script>
 
-
   <!------------------------------------------->
   <!-- global Vars-->
 
   <script src="js/front/globalVars/myDesigns_Vars.js"></script>
   <script src="js/front/globalVars/editPage_Vars.js"></script>
   <script src="js/front/globalVars/editPage_Analyze_Vars.js"></script>
+  <script src="js/front/globalVars/editPage_Mapping_globalVars.js"></script>
 
   <!-- global Vars : pageIndepenend -->
   <script src="js/front/globalVars/pageIndepenend/pageIndependent_Vars.js"></script>
@@ -1253,7 +1269,7 @@
 
 
                       <button class="class_generalbutton" onclick="updateAnalyze()" type="button" name="button" style="width:80%; margin-left:10%; margin-top:20px;">Update</button>
-                      <p class="standardText" style="width:80%; margin-left:10%;">(Info: If you have deactivated the automatical calculation of the analyze plots, you can update the plots manually with this button.)</p>
+                      <p class="standardText" style="width:80%; margin-left:10%;">(Info: If you have deactivated the automatical calculation of the analyze plots, you can update the plots manually by this button.)</p>
                     </div>
 
                     <div style="width:80%; background:rgb(220,220,220);">
@@ -1411,6 +1427,82 @@
                 </div>
 
                 <div id="id_EditPage_DivMapping" style="width:100%;  display:none;">
+
+                  <div class="row" style="width:100%;">
+
+                    <div style="width:30%; border-right: 1px solid grey;">
+
+                      <button class="class_generalbutton" oonclick="updateAnalyze()" type="button" name="button" style="width:80%; margin-left:10%; margin-top:20px;">ImportData</button>
+
+                      <hr>
+
+                      <div id="id_EditPage_IncludingDataDiv" style="width:100%;">
+                        <div class="row" style="width:100%;">
+                          <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-left:10%; font-weight:bold; width:40%;" >Field:</p>
+
+                          <select class="standardText" id="id_EditPage_SelectMappingField" style="margin-right:auto;">
+
+                           </select>
+                         </div>
+
+
+                         <div class="row" style="width:100%; margin-top:10px;">
+                           <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-left:10%; font-weight:bold; width:40%;" >Time-Step:</p>
+
+                           <select class="standardText" id="id_EditPage_SelectMappingField" style="margin-right:auto;">
+
+                            </select>
+                          </div>
+
+
+                         <hr>
+
+                         <p class="subsectionLabel class_InsetLabelText" style="width:80%; margin-left:10%; color:transparent;">Settings:</p>
+
+                         <div class="row" style="width:100%; margin-top:10px; margin-bottom:10px;">
+                           <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-left:0px; font-weight:bold; width:40%; margin-left:10%;">CMS:</p>
+                           <select class="standardText" id="id_EditPage_MappingCMS_Select" style="margin-right:auto;">
+                              <option >CMS without Probe</option>
+                            </select>
+
+                         </div>
+
+                         <div class="row" style="width:100%; margin-top:10px; ">
+                           <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-left:0px; font-weight:bold; width:40%; margin-left:10%;">Parallel Processing:</p> <input id="id_EditPage_Mapping_DoParallel" type="checkbox" class="standardText" >
+                         </div>
+
+                         <div class="row" style="width:100%; margin-top:10px; ">
+                           <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-left:0px; font-weight:bold; width:40%; margin-left:10%;">Auto Update:</p> <input id="id_EditPage_Mapping_DoAutoUpdate" type="checkbox" class="standardText" >
+                         </div>
+
+                        <button class="class_generalbutton" oonclick="updateAnalyze()" type="button" name="button" style="width:80%; margin-left:10%; margin-top:10px;">Update</button>
+                        <p class="standardText" style="width:80%; margin-left:10%;">(Info: If you have deactivated the automatical calculation of the mapping, you can update the plots manually by this button.)</p>
+
+                        <div class="row" style="width:100%; margin-top:10px; ">
+                          <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-left:0px; font-weight:bold; width:40%; margin-left:10%;">Show Axis:</p> <input id="id_EditPage_Mapping_ShowAxis" type="checkbox" class="standardText" >
+                        </div>
+
+                        <div class="row" style="width:100%; margin-top:10px; margin-bottom:10px;">
+                          <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-left:0px; font-weight:bold; width:40%; margin-left:10%;">Background:</p>
+                          <select class="standardText" id="id_EditPage_MappingBackground_Select" style="margin-right:auto;">
+                             <option >None</option>
+                             <option >White</option>
+                             <option >Black</option>
+                             <option >Custom</option>
+                           </select>
+
+                        </div>
+
+                      </div>
+
+
+                    </div>
+
+                    <div id="id_EditPage_DrawMappingDiv" style="width:70%; height:100%; background: url(img/EditPage/plotBackground.png);">
+
+
+                    </div>
+                  </div>
 
                 </div>
 
