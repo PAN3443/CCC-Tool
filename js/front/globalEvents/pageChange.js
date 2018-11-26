@@ -156,6 +156,11 @@ function showEditPage(){
   if(document.getElementById("id_dropDownContainer").style.display=="block")
   document.getElementById("id_dropDownContainer").style.display="none";
 
+
+
+  if(document.getElementById("id_EditPage_PreviewProbe_Div").style.display!="none")
+  showHideProbePreview();
+
   document.getElementById("id_actionMenu_Label").style.display="flex";
   document.getElementById("id_actionMenu_editPart").style.display="block";
   document.getElementById("id_settingMenu_Label_RGBPossible_Button").style.display="block";
@@ -164,8 +169,8 @@ function showEditPage(){
   document.getElementById("id_dropDownMenu_DisplayOptions").style.display="block";
 
   updatePageWidth();
-  drawPredefined_MyDesignsCMS();
   updateEditPage();
+  drawPredefined_MyDesignsCMS();
 
 
 

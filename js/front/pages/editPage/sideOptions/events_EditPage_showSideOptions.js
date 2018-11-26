@@ -29,6 +29,7 @@ function saveCMS(){
   document.getElementById("id_header_editWarning").style.display="none";
   somethingChanged=false;
   document.getElementById("id_EditPage_savePartDiv").style.display="none";
+  document.getElementById("id_PopUp_StopWorkingWindow").style.display="none";
   //document.getElementById("id_EditPage_StopInteractionDiv").style.width="0%";
   drawPredefined_MyDesignsCMS();
 
@@ -42,6 +43,7 @@ function saveCMSasNew(){
     somethingChanged=false;
     document.getElementById("id_header_editWarning").style.display="none";
     document.getElementById("id_EditPage_savePartDiv").style.display="none";
+    document.getElementById("id_PopUp_StopWorkingWindow").style.display="none";
     //document.getElementById("id_EditPage_StopInteractionDiv").style.width="0%";
     drawPredefined_MyDesignsCMS();
   }
