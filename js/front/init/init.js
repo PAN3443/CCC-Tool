@@ -71,7 +71,7 @@ function init_CCCPageStyle(){
     if (tmpElementList[i].classList.contains("class_noSizeUpdate"))
       continue;
 
-      tmpElementList[i].style.lineHeight = tmpHeight1 + "px";
+      tmpElementList[i].style.height = tmpHeight1 + "px";
       tmpElementList[i].style.lineHeight = tmpHeight1 + "px";
       tmpElementList[i].style.fontSize = tmpHeight2 + "px";
   }
@@ -84,13 +84,14 @@ function init_CCCPageStyle(){
     if (tmpElementList[i].classList.contains("class_noSizeUpdate"))
       continue;
 
-      tmpElementList[i].style.lineHeight = tmpHeight1 + "px";
+      tmpElementList[i].style.height = tmpHeight1 + "px";
       tmpElementList[i].style.lineHeight = tmpHeight1 + "px";
       tmpElementList[i].style.fontSize = tmpHeight2 + "px";
   }
 
 
   document.getElementById("id_ccctoolPage").style.width = windowWidth + "px";
+
 
   ///////////////
   // WELCOME PAGE
@@ -183,11 +184,14 @@ function init_CCCPageStyle(){
 
   document.getElementById("id_EditPage_CMS_VIS_PreviewProbe").style.height = Math.floor(windowHeight*0.06) + "px";
 
+
+  document.getElementById("id_EditPage_CMS_VIS_Histogramm").style.height = Math.floor(windowHeight*0.3) + "px";
+  document.getElementById("id_EditPage_CMS_VIS_HistogrammCMS").style.height = Math.floor(windowHeight*0.06) + "px";
+
+
   document.getElementById("id_EditPage_CMS_VIS_LinearKeys").style.height = Math.floor(windowHeight*0.03) + "px";
   document.getElementById("id_EditPage_CMS_VIS_Lines1").style.height = Math.floor(windowHeight*0.01) + "px";
-  document.getElementById("id_EditPage_CMS_VIS_Histogramm").style.height = Math.floor(windowHeight*0.3) + "px";
   document.getElementById("id_EditPage_CMS_VIS_ColormapLinear").style.height = Math.floor(windowHeight*0.06) + "px";
-
 
   document.getElementById("id_EditPage_CMS_VIS_KeyBurs").style.height = Math.floor(windowHeight*0.1) + "px";
 

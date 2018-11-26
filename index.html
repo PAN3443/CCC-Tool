@@ -144,6 +144,10 @@
     <script src="js/front/pages/editPage/mapping.js/Rendering/drawMapping.js"></script>
     <script src="js/front/pages/editPage/mapping.js/Rendering/rendering.js"></script>
 
+    <!-- Edit PAGE: Histogram -->
+    <script src="js/front/pages/editPage/Histogram/events_histogram.js"></script>
+
+
     <!-- Edit PAGE: Side Options-->
     <script src="js/front/pages/editPage/sideOptions/events_EditPage_showSideOptions.js"></script>
     <script src="js/front/pages/editPage/sideOptions/fillTable.js"></script>
@@ -160,6 +164,7 @@
   <script src="js/front/globalVars/editPage_Vars.js"></script>
   <script src="js/front/globalVars/editPage_Analyze_Vars.js"></script>
   <script src="js/front/globalVars/editPage_Mapping_globalVars.js"></script>
+  <script src="js/front/globalVars/worker_globlaVars.js"></script>
 
   <!-- global Vars : pageIndepenend -->
   <script src="js/front/globalVars/pageIndepenend/pageIndependent_Vars.js"></script>
@@ -168,6 +173,7 @@
   <script src="js/front/globalVars/pageIndepenend/colorTransformationVariables.js"></script>
   <script src="js/front/globalVars/pageIndepenend/plotResolutions.js"></script>
   <script src="js/front/globalVars/pageIndepenend/export_Vars.js"></script>
+
 
   <!------------------------------------------->
   <!-- global Events-->
@@ -203,10 +209,12 @@
   <script src="js/front/WebGL/three_global.js"></script>
   <script src="js/front/WebGL/rgb3D.js"></script>
 
-  <!-- Worker ->
-  <script src="js/worker/worker_vars.js"></script>
+  <!-- Worker -->
+  <script src="js/front/worker/VisWorker/mappingWorkerEvents.js"></script>
+
+  <!--script src="js/worker/worker_vars.js"></script>
   <script src="js/worker/worker_drawHSVIntervalPath.js"></script>
-  <script src="js/worker/worker_events_drawPath.js"></script>
+  <script src="js/worker/worker_events_drawPath.js"></script-->
 
   <!-- Parser -->
   <script src="js/front/Parser/xmlColormapParser.js"></script>
@@ -282,7 +290,7 @@
       <div style="height:100%; width:auto; position: relative; display: inline-block; margin-right:2vw;">
         <div onclick="activateMenuDropdown()" class="menu_button" > Menu </div>
 
-        <div id="id_dropDownContainer" style="background: url(img/background3.jpg); width:20vw;  display: none; position: absolute; right: 0; z-index: 101;">
+        <div id="id_dropDownContainer" style="background: url(img/background3.jpg); min-width:20vw;  display: none; position: absolute; right: 0; z-index: 101;">
 
 
           <div class="row dropdownMenuLabelBox" style="background:rgba(255,255,255,0.3); border-bottom: 1px solid white;">
@@ -347,7 +355,7 @@
           </div>
 
           <div id="id_actionMenu_myDesignPart" style="display:none;">
-            <div class="dropdownMenuButton">
+            <div class="dropdownMenuButton" onclick="loadCMS()">
               Import CMS
             </div>
             <div class="dropdownMenuButton" onclick="loadSession()">
@@ -372,15 +380,22 @@
 
             </div>
 
+            <div id="id_dropDownMenue_ShowProbePreview" onclick="showHideProbePreview()" class="dropdownMenuButton">
+              &#9675; Probe Preview
+            </div>
+            <div id="id_dropDownMenue_ShowHistogram" onclick="showHideHistogram()" class="dropdownNotActiveMenuButton">
+              &#9675; Histogram
+            </div>
             <div id="id_dropDownMenue_HideEdit_Label" onclick="showHideEditContainer()" class="dropdownMenuButton">
-              Hide Edit
+              &#9673; Edit
             </div>
             <div id="id_dropDownMenue_HideDescription_Label" onclick="showHideCMSInfoContainer()" class="dropdownMenuButton">
-              Hide CMS-Info
+              &#9673; CMS-Info
             </div>
             <div id="id_dropDownMenue_HideAnalyze_Label" onclick="showHideAnalyzeContainer()" class="dropdownMenuButton">
-              Hide Analyze/Mapping
+              &#9673; Analyze/Mapping
             </div>
+
 
             <div  onclick="openShortcutsWindow()" class="dropdownMenuButton">
               Show Shortcuts
@@ -390,9 +405,7 @@
               Show Full Key Burdock Line
             </div>
 
-            <div id="id_dropDownMenue_ShowHistogram" class="dropdownNotActiveMenuButton">
-              Show Histogram
-            </div>
+
 
 
           </div>
@@ -681,20 +694,50 @@
             <div class="row" style="width:100%; margin-top:20px;">
               <h3 style="margin-left:5%; width:auto; text-align:left; margin-top:auto; margin-bottom:auto;"> Probe Preview:</h3>
 
-              <select id="id_selectMainProbeSetList" class="subsectionLabel" style="margin-left:10px; width:15%; vertical-align:middle; margin-top:auto; margin-bottom:auto; ">
+              <select id="id_selectMainProbeSetList" style="margin-left:10px; width:15%; vertical-align:middle; margin-top:auto; margin-bottom:auto; ">
 
               </select>
 
             </div>
 
             <canvas id="id_EditPage_CMS_VIS_PreviewProbe" class="classColormapCanvas" style="width:90%; margin-left:5%; margin-right:5%; height:60px; border: 1px solid black; margin-top:20px; margin-bottom:40px; background:grey;"></canvas>
+
+            <hr>
+          </div>
+
+
+          <div id="id_EditPage_Histogram_Div" style="width:100%; margin-bottom:20px; display:none;">
+            <h3 style="margin-left:5%; width:auto; text-align:left; margin-top:auto; margin-bottom:auto;"> Histogram:</h3>
+
+            <div class="row">
+                <p class="standardText" style="text-align:left; margin-left:auto; margin-top:auto; margin-bottom:auto;"> # Historam-Ranges:</p>
+                <input class="standardText" type="number" id="id_EditPage_NumberHistoRanges" value="100" style="margin-left:2.5%; vertical-align:middle;">
+                <p class="standardText" style="text-align:left; margin-left:10%; margin-top:auto; margin-bottom:auto;"> Data-Set: </p>
+                <input class="standardText" id="id_EditPage_SelectTimeStepHistogram" type="radio" name="selectHistoData" value="1" style="margin-left:2.5%;"> <p class="standardText" style="vertical-align:middle; margin-left:1.5%; margin-top:auto; margin-bottom:auto;"> Selected Time Step </p>
+                <input class="standardText" id="id_EditPage_SelectFullDataHistogram" type="radio" name="selectHistoData" value="2" style="margin-left:2.5%;" checked> <p class="standardText" style="margin-left:1.5%; margin-right:auto; margin-top:auto; margin-bottom:auto;"> Full Field </p>
+            </div>
+
+
+            <canvas id="id_EditPage_CMS_VIS_Histogramm" style="width:90%; margin:0px; margin-left:5%; margin-right:5%; height:200px;overflow:hidden;"></canvas>
+            <canvas id="id_EditPage_CMS_VIS_HistogrammCMS" style="width:90%; margin:0px; margin-left:5%; margin-right:5%; height:200px;overflow:hidden; border:1px solid black;"></canvas>
+            <div style="height:10px; border-left: 1px solid black; border-right: 1px solid black; width:90%; margin:0px; margin-left:5%;">
+
+            </div>
+            <div class="row">
+              <p id="id_EditPage_HistoMinVal" class="standardText" style="text-align:left; margin-left:5%;"></p>
+              <p id="id_EditPage_HistoMaxVal" class="standardText" style="text-align:right; margin-left:auto; margin-right:5%;"></p>
+            </div>
+
+            <p id="id_EditPage_HistogramCMSFitLabel" class="standardText" style="text-align:center; width:90%; margin-left:5%;"></p>
+
+
+            <hr>
           </div>
 
 
           <h3 style="margin-left:5%; width:auto; text-align:left; margin-top:auto; margin-bottom:auto;"> Your CMS:</h3>
           <canvas id="id_EditPage_CMS_VIS_LinearKeys" style="width:100%; height:20px; margin:0px; overflow:hidden;"></canvas>
           <canvas id="id_EditPage_CMS_VIS_Lines1" style="width:100%; height:10px; margin:0px; overflow:hidden;"></canvas>
-          <canvas id="id_EditPage_CMS_VIS_Histogramm" style="width:90%; margin:0px; margin-left:5%; margin-right:5%; height:200px;overflow:hidden; display:none; "></canvas>
           <canvas id="id_EditPage_CMS_VIS_ColormapLinear" class="classColormapCanvas" style="width:90%; margin:0px; margin-left:5%; margin-right:5%; height:60px; border: 1px solid black; background:grey;"></canvas>
 
           <img id="id_editPage_DragImage" src="img/CCCToolComic/dragImg.jpg" style="height:120px; margin-left:auto; margin-right:auto; display:none;">
@@ -1288,7 +1331,7 @@
                               <div style="height:100%; width:45%; margin-left:2.5%; margin:auto;">
                                 <p id="id_editPage_OrderAxisLabel1" class="standardText" style="margin:top:20px; font-weight:bold;">Local Order</p>
                                 <canvas id="id_EditPage_Canvas_GlobalLocalOrder" style="height:80%; width:100%; border: 1px solid black; background: url(img/EditPage/plotBackground.png);"></canvas>
-                                <p id="id_editPage_OrderAxisLabel2" class="standardText" style="margin:bottom:20px; font-weight:bold;">Global Order</p>
+                                <p id="id_editPage_OrderAxisLabel2" class="standardText" style="margin:bottom:20px; font-weight:bold;">Negative Global Order</p>
                               </div>
 
 
@@ -1345,7 +1388,6 @@
                                         <p class="standardText" style="margin-left:40%; margin-bottom:auto;">Color Above:</p> <div id="id_EditPage_ColorAboveFixedAxis_GlobalLocalOrder" style="margin-left:10px; width:20px; height:20px; border:1px solid black; border-radius:5px;"></div>
                                       </div>
 
-                                      <hr>
                                     </div>
 
                                     <div id="id_EditPage_DoLogDiv_GlobalLocalOrder" style="width:100%;margin-top:2.5%;">
@@ -1359,11 +1401,11 @@
                                         <p class="standardText" style="margin-left:0px; font-weight:bold; width:40%;">Interval Calculation:</p>
                                         <div >
                                           <div class="row">
-                                          <input class="standardText" style="margin-right: 10px; margin-top:auto; margin-bottom:auto;" type="radio" id="id_editPage_Anaylze_IntervalNumber" name="editPage_keyType" value="1" checked="checked">
-                                          <label class="standardText" for="id_editPage_Anaylze_IntervalNumber" style="margin-top:auto; margin-bottom:auto;" checked> Fixed Number of Interval Colors </label>
+                                          <input class="standardText" style="margin-right: 10px; margin-top:auto; margin-bottom:auto;" type="radio" id="id_editPage_Anaylze_IntervalNumber" name="editPage_intervalCalcType" value="0" checked="checked">
+                                          <label class="standardText" for="id_editPage_Anaylze_IntervalNumber" style="margin-top:auto; margin-bottom:auto;" > Fixed Number of Interval Colors </label>
                                           </div>
                                           <div class="row">
-                                          <input class="standardText" style="margin-right: 10px; margin-top:auto; margin-bottom:auto;" type="radio" id="id_editPage_Anaylze_IntervalColorDifference" name="editPage_keyType" value="1" checked="checked">
+                                          <input class="standardText" style="margin-right: 10px; margin-top:auto; margin-bottom:auto;" type="radio" id="id_editPage_Anaylze_IntervalColorDifference" name="editPage_intervalCalcType" value="1">
                                           <label class="standardText" for="id_editPage_Anaylze_IntervalNumber" style="margin-top:auto; margin-bottom:auto;"> Color Difference Dependenting Intervals  </label>
                                           </div>
                                         </div>
@@ -1434,11 +1476,58 @@
 
                     <div style="width:30%; border-right: 1px solid grey;">
 
-                      <button class="class_generalbutton" oonclick="updateAnalyze()" type="button" name="button" style="width:80%; margin-left:10%; margin-top:20px;">ImportData</button>
+                      <p class="subsectionLabel class_InsetLabelText" style="width:80%; margin-left:10%; color:transparent; margin-top:20px;">Settings:</p>
 
-                      <hr>
+                      <div class="row" style="width:100%; margin-top:10px; margin-bottom:10px;">
+                        <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-left:0px; font-weight:bold; width:40%; margin-left:10%;">CMS:</p>
+                        <select class="standardText" id="id_EditPage_MappingCMS_Select" style="margin-right:auto;">
+                           <option >CMS without Probe</option>
+                         </select>
 
-                      <div id="id_EditPage_IncludingDataDiv" style="width:100%;">
+                      </div>
+
+                      <div class="row" style="width:100%; margin-top:10px; ">
+                        <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-left:0px; font-weight:bold; width:40%; margin-left:10%;">Parallel Processing:</p> <input id="id_EditPage_Mapping_DoParallel" type="checkbox" class="standardText" checked>
+                      </div>
+
+                      <div class="row" style="width:100%; margin-top:10px; ">
+                        <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-left:0px; font-weight:bold; width:40%; margin-left:10%;">Auto Update:</p> <input id="id_EditPage_Mapping_DoAutoUpdate" type="checkbox" class="standardText" checked>
+                      </div>
+
+                     <button class="class_generalbutton" onclick="updateMesh()" type="button" name="button" style="width:80%; margin-left:10%; margin-top:10px;">Update</button>
+                     <p class="standardText" style="width:80%; margin-left:10%;">(Info: If you have deactivated the automatical calculation of the mapping, you can update the plots manually by this button.)</p>
+
+                     <div class="row" style="width:100%; margin-top:10px; ">
+                       <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-left:0px; font-weight:bold; width:40%; margin-left:10%;">Show Axis:</p> <input id="id_EditPage_Mapping_ShowAxis" type="checkbox" class="standardText" checked>
+                     </div>
+
+                     <div class="row" style="width:100%; margin-top:10px; margin-bottom:10px;">
+                       <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-left:0px; font-weight:bold; width:40%; margin-left:10%;">Background:</p>
+                       <select class="standardText" id="id_EditPage_MappingBackground_Select" style="margin-right:auto;">
+                          <option >None</option>
+                          <option >White</option>
+                          <option >Black</option>
+                          <option >Custom</option>
+                        </select>
+
+                     </div>
+
+
+                     <div class="row" style="width:100%; margin-top:10px; margin-bottom:10px;">
+                       <p class="standardText" style="margin-left:0px; font-weight:bold; width:40%; margin-left:10%;">Custom Background:</p>
+                       <div class="standardText" id="id_EditPage_MappingBackground_Custom" style="margin-right:auto; height:30px; width:30px; border: 1px solid black; ">
+
+                        </div>
+
+                     </div>
+
+                     <hr>
+
+                      <button class="class_generalbutton" onclick="startReadFile()" title="Load Data" type="button" name="button" style="width:80%; margin-left:10%; ">ImportData</button>
+
+
+
+                      <div id="id_EditPage_IncludingDataDiv" style="width:100%; visibility:hidden; margin-top:20px;">
                         <div class="row" style="width:100%;">
                           <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-left:10%; font-weight:bold; width:40%;" >Field:</p>
 
@@ -1451,51 +1540,28 @@
                          <div class="row" style="width:100%; margin-top:10px;">
                            <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-left:10%; font-weight:bold; width:40%;" >Time-Step:</p>
 
-                           <select class="standardText" id="id_EditPage_SelectMappingField" style="margin-right:auto;">
+                           <select class="standardText" id="id_EditPage_SelectMappingTimeStep" style="margin-right:auto;">
 
                             </select>
                           </div>
 
+                          <div class="row" style="width:100%; margin-top:20px;">
+                          <p class="standardText" style="font-weight:bold; width:40%; margin-left:10%;">Min Value:</p>
+                          <p class="standardText" id="id_EditPage_FieldMinValue" style="font-weight:bold; width:47.5%; margin-left:2.5%;">Max Value:</p>
+                          </div>
 
-                         <hr>
+                          <div class="row" style="width:100%; margin-top:20px;">
+                          <p class="standardText" style="font-weight:bold; width:40%; margin-left:10%;">Max Value:</p>
+                          <p class="standardText" id="id_EditPage_FieldMaxValue" style="font-weight:bold; width:47.5%; margin-left:2.5%;">Max Value:</p>
+                          </div>
 
-                         <p class="subsectionLabel class_InsetLabelText" style="width:80%; margin-left:10%; color:transparent;">Settings:</p>
-
-                         <div class="row" style="width:100%; margin-top:10px; margin-bottom:10px;">
-                           <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-left:0px; font-weight:bold; width:40%; margin-left:10%;">CMS:</p>
-                           <select class="standardText" id="id_EditPage_MappingCMS_Select" style="margin-right:auto;">
-                              <option >CMS without Probe</option>
-                            </select>
-
-                         </div>
-
-                         <div class="row" style="width:100%; margin-top:10px; ">
-                           <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-left:0px; font-weight:bold; width:40%; margin-left:10%;">Parallel Processing:</p> <input id="id_EditPage_Mapping_DoParallel" type="checkbox" class="standardText" >
-                         </div>
-
-                         <div class="row" style="width:100%; margin-top:10px; ">
-                           <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-left:0px; font-weight:bold; width:40%; margin-left:10%;">Auto Update:</p> <input id="id_EditPage_Mapping_DoAutoUpdate" type="checkbox" class="standardText" >
-                         </div>
-
-                        <button class="class_generalbutton" oonclick="updateAnalyze()" type="button" name="button" style="width:80%; margin-left:10%; margin-top:10px;">Update</button>
-                        <p class="standardText" style="width:80%; margin-left:10%;">(Info: If you have deactivated the automatical calculation of the mapping, you can update the plots manually by this button.)</p>
-
-                        <div class="row" style="width:100%; margin-top:10px; ">
-                          <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-left:0px; font-weight:bold; width:40%; margin-left:10%;">Show Axis:</p> <input id="id_EditPage_Mapping_ShowAxis" type="checkbox" class="standardText" >
-                        </div>
-
-                        <div class="row" style="width:100%; margin-top:10px; margin-bottom:10px;">
-                          <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-left:0px; font-weight:bold; width:40%; margin-left:10%;">Background:</p>
-                          <select class="standardText" id="id_EditPage_MappingBackground_Select" style="margin-right:auto;">
-                             <option >None</option>
-                             <option >White</option>
-                             <option >Black</option>
-                             <option >Custom</option>
-                           </select>
-
-                        </div>
+                          <button class="class_generalbutton" onclick="updateDomainCMSRange()" type="button" name="button" style="width:80%; margin-left:10%; margin-top:20px; margin-bottom:20px;">Scale CMS to Field Data </button>
 
                       </div>
+
+
+
+
 
 
                     </div>

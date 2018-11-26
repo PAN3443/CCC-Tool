@@ -1,5 +1,10 @@
 window.onload = function() {
 
+  if (typeof (Worker) === undefined)
+  browserCanWorker=false;
+  else
+  browserCanWorker=true;
+
   // init global vars
   globalProbeSet = new class_ProbeSet("");
   globalCMS1 = new class_CMS();
@@ -25,13 +30,14 @@ window.onload = function() {
   initMyDesignObj();
   init_CCCPageStyle();
 
+  initMapping();
 
-  //document.getElementById('id_inputCMSData').addEventListener("change", readCMSFile);
+
+  document.getElementById('id_inputCMSData').addEventListener("change", readCMSFile);
   document.getElementById('id_inputSessionData').addEventListener("change", readSessionFile);
   document.getElementById('id_inputData').addEventListener("change", readDataFile);
 
   pageIsLoaded=true;
-
 
 }
 

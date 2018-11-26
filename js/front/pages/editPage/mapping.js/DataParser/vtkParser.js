@@ -109,8 +109,8 @@ function vtk_reader(content) {
   // 30% ==
   var phase3 = 25;
 
-  var steps = Math.round(content.length/50);
-  var stepcounter=0;
+  /*var steps = Math.round(content.length/50);
+  var stepcounter=0;*/
 
 /*  //document.getElementById("id_currentProcessText").innerHTML = "Load Text Content";
   document.getElementById("id_processBar").style.width = "0px";*/
@@ -119,14 +119,14 @@ function vtk_reader(content) {
 
   for (var i = 0; i < content.length; i++) {
 
-    if(stepcounter==steps){
+    /*if(stepcounter==steps){
       var status = Math.round(i/content.length*phase1)+10;
       updateProgressBar(status);
       stepcounter=0;
     }
     else {
       stepcounter++;
-    }
+    }*/
 
     switch (content[i]) {
       case " ":
@@ -1159,17 +1159,17 @@ function vtk_reader(content) {
   for (var i = fieldNames.length-1; i >=0; i--) {
     var option = document.createElement("option");
     option.text = fieldNames[i];
-    document.getElementById("combobox_selectField").add(option);
+    document.getElementById("id_EditPage_SelectMappingField").add(option);
   }
 
   for (var i = 1; i <= globalDomain.getNumberOfTimeSteps(currentFieldIndex); i++) {
     var option = document.createElement("option");
     option.text = i+"";
-    document.getElementById("combobox_selectTimeStep").add(option);
+    document.getElementById("id_EditPage_SelectMappingTimeStep").add(option);
   }
 
-  document.getElementById("id_fieldMinValue").innerHTML = globalDomain.getMinField(currentFieldIndex);
-  document.getElementById("id_fieldMaxValue").innerHTML = globalDomain.getMaxField(currentFieldIndex);
+  document.getElementById("id_EditPage_FieldMinValue").innerHTML = globalDomain.getMinField(currentFieldIndex);
+  document.getElementById("id_EditPage_FieldMaxValue").innerHTML = globalDomain.getMaxField(currentFieldIndex);
   return true;
 }
 

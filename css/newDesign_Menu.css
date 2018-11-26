@@ -71,8 +71,9 @@
 
 .dropdownMenuButton{
   display: block;
-  width:95%;
-  margin-left: 5%;
+
+  padding-left:1vw;
+  padding-right:1vw;
   font-size: 2.2vh;
   line-height: 3vh;
   /*height: 3vh;*/
@@ -81,7 +82,7 @@
   vertical-align: middle;
   text-align: left;
   /*font-family:verdana;*/
-  
+
 }
 
 .dropdownMenuButton:hover {
@@ -91,8 +92,9 @@
 
 .dropdownNotActiveMenuButton{
   display: block;
-  width:95%;
-  margin-left: 5%;
+
+  padding-left:1vw;
+  padding-right:1vw;
   font-size: 2.2vh;
   line-height: 3vh;
   /*height: 3vh;*/

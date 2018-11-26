@@ -113,6 +113,41 @@ function init_events_EditPage(){
     document.getElementById('id_EditPage_AnalyzeSelect_SketchVisType').addEventListener("change", styleStructure_InterpolationSpaces);
 
 
+    //////////////////////////////////////////
+    /// mapping
+
+    document.getElementById('id_EditPage_DrawMappingDiv').addEventListener('contextmenu', event => event.preventDefault());
+    document.getElementById('id_EditPage_DrawMappingDiv').addEventListener("mousemove", eventMapping_mousemove);
+    document.getElementById('id_EditPage_DrawMappingDiv').addEventListener("mouseleave", eventMapping_mouseleave);
+    document.getElementById('id_EditPage_DrawMappingDiv').addEventListener("mouseenter", eventMapping_mouseenter);
+    document.getElementById('id_EditPage_DrawMappingDiv').addEventListener("mousedown", eventMapping_mousedown);
+    document.getElementById('id_EditPage_DrawMappingDiv').addEventListener("mouseup", eventMapping_mouseup);
+    document.getElementById("id_EditPage_DrawMappingDiv").addEventListener("wheel", eventMapping_mousewheel);
+
+
+    if (browserCanWorker) {
+      document.getElementById('id_EditPage_Mapping_DoParallel').checked = true;
+    } else {
+      document.getElementById('id_EditPage_Mapping_DoParallel').checked = false;
+      document.getElementById('id_EditPage_Mapping_DoParallel').disabled = true;
+    }
+
+    document.getElementById('id_EditPage_Mapping_DoAutoUpdate').addEventListener("change", changeAutoUpdate);
+    document.getElementById('id_EditPage_Mapping_ShowAxis').addEventListener("change", changeAxisVisibility);
+
+    document.getElementById('id_EditPage_SelectMappingField').addEventListener("change", changeField);
+    document.getElementById('id_EditPage_SelectMappingTimeStep').addEventListener("change", changeTimeStep);
+
+    document.getElementById('id_EditPage_MappingBackground_Select').addEventListener("change", changeBackground);
+
+    document.getElementById('id_EditPage_SelectTimeStepHistogram').addEventListener("click", updateHistogramChange);
+    document.getElementById('id_EditPage_SelectFullDataHistogram').addEventListener("click", updateHistogramChange);
+
+    document.getElementById('id_EditPage_NumberHistoRanges').addEventListener("keyup", updateHistogramKey);
+    document.getElementById('id_EditPage_NumberHistoRanges').addEventListener("change", updateHistogramChange);
+
+    document.getElementById('id_EditPage_MappingCMS_Select').addEventListener("change", updateMesh);
+
     /////////////////////////////////////////////////////
     /////////////// side options
     document.getElementById('id_editPage_ProbeSpace_Value').addEventListener("change", changeProbeSpace);
@@ -160,8 +195,6 @@ function init_events_EditPage(){
     document.getElementById("id_editPage_Anaylze_IntervalCalcInput").addEventListener("change", changeAnalyzeIntervalInput);
     document.getElementById("id_editPage_Anaylze_IntervalNumber").addEventListener("change", changeAnalyzeIntervalCalculation);
     document.getElementById("id_editPage_Anaylze_IntervalColorDifference").addEventListener("change", changeAnalyzeIntervalCalculation);
-
-
-
+    document.getElementById("id_editPage_Anaylze_IntervalNumber").checked=true;
 
 }

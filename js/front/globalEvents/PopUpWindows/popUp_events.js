@@ -169,6 +169,7 @@ function checkAsk(){
       case 2:
         //load Session
         document.getElementById("id_inputSessionData").click();
+        document.getElementById("id_dropDownContainer").style.display="none";
         break;
 
         case 3:

@@ -1,3 +1,6 @@
+
+var mappingBackgroundColor = new classColor_RGB(1.0,0,0);
+
 var domainContent;
 var fileType=0; // 0=vtk;
 var currentFieldIndex = 0;
@@ -52,15 +55,3 @@ var mappingMesh;
 var mapping_MaterialPositions;
 var mapping_MaterialColors;
 var mapping_MaterialNormals;
-
-////
-var numWorkers = 12;
-var workerArray=[];
-var workerFinished=[];
-var allWorkerFinished=true;
-var doneWorkerPreparation=false;
-var workerJSON=[];
-
-// simulate ColorBlindness
-var doColorblindnessSim = false;
-var colorblindnessType = 0;

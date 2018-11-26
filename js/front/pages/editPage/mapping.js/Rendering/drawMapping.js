@@ -22,24 +22,19 @@ function drawMapping() {
       var facesArray = new Array(globalDomain.getNumberOfCells()*2);
 
       var workCMS;
-      if(document.getElementById("mapping_checkProbeVis").checked){
-        if(document.getElementById("id_selectProbeListVIS").selectedIndex!=-1){
-          var probe = globalCMS1.getProbe(document.getElementById("id_selectProbeListVIS").selectedIndex);
-          workCMS = probe.generateProbeCMS(globalCMS1,colorspaceModus,"");
-        }
-        else{
-          workCMS = cloneCMS(globalCMS1);
-        }
+
+      if(document.getElementById("id_EditPage_MappingCMS_Select").selectedIndex==0){
+        workCMS = cloneCMS(globalCMS1);
       }
       else{
-        workCMS = cloneCMS(globalCMS1);
+        workCMS = globalCMS1.getProbeSet(document.getElementById("id_EditPage_MappingCMS_Select").selectedIndex-1).generateProbeCMS(globalCMS1);
       }
 
       for (var index = 0; index < globalDomain.getNumberOfCells(); index++) {
 
         var value= globalDomain.getCell(index).getCellValue();
 
-        var toolColor = workCMS.calculateColor(globalDomain.getCell(index).getCellValue(), colorspaceModus);
+        var toolColor = workCMS.calculateColor(globalDomain.getCell(index).getCellValue());
 
         if(doColorblindnessSim){
           var tmpLMS = toolColor.calcLMSColor();
@@ -104,7 +99,7 @@ function drawMapping() {
       var direction = to.clone().sub(from);
       var length = direction.length();
       var arrowXAxis = new THREE.ArrowHelper(direction.normalize(), from, length, 0x0000ff );
-      if(document.getElementById('mapping_showAxes').checked==false)
+      if(document.getElementById('id_EditPage_Mapping_ShowAxis').checked==false)
         arrowXAxis.visible=false;
       coordinateArrowsGroup.add( arrowXAxis );
 
@@ -112,7 +107,7 @@ function drawMapping() {
       direction = to.clone().sub(from);
       length = direction.length();
       var arrowYAxis = new THREE.ArrowHelper(direction.normalize(), from, length, 0xff0000 );
-      if(document.getElementById('mapping_showAxes').checked==false)
+      if(document.getElementById('id_EditPage_Mapping_ShowAxis').checked==false)
         arrowYAxis.visible=false;
       coordinateArrowsGroup.add( arrowYAxis );
 
@@ -120,7 +115,7 @@ function drawMapping() {
       direction = to.clone().sub(from);
       length = direction.length();
       var arrowZAxis = new THREE.ArrowHelper(direction.normalize(), from, length, 0x00ff00 );
-      if(document.getElementById('mapping_showAxes').checked==false)
+      if(document.getElementById('id_EditPage_Mapping_ShowAxis').checked==false)
         arrowZAxis.visible=false;
       coordinateArrowsGroup.add( arrowZAxis );
 
@@ -152,10 +147,11 @@ function updateMesh() {
   if(globalDomain==undefined || mappingMesh==undefined)
   return;
 
+
   ///////////////
   // Lets start with coloring
 
-  if(browserCanWorker && document.getElementById("mapping_checkMultiThread").checked==true){
+  if(browserCanWorker && document.getElementById("id_EditPage_Mapping_DoParallel").checked==true){
 
     if(allWorkerFinished){
 
@@ -175,24 +171,19 @@ function updateMesh() {
       var tmpMoT = [];
 
       var workCMS;
-      if(document.getElementById("mapping_checkProbeVis").checked){
-        if(document.getElementById("id_selectProbeListVIS").selectedIndex!=-1){
-          var probe = globalCMS1.getProbe(document.getElementById("id_selectProbeListVIS").selectedIndex);
-          workCMS = probe.generateProbeCMS(globalCMS1,colorspaceModus,"");
-        }
-        else{
-          workCMS = cloneCMS(globalCMS1);
-        }
+
+      if(document.getElementById("id_EditPage_MappingCMS_Select").selectedIndex==0){
+        workCMS = cloneCMS(globalCMS1);
       }
       else{
-        workCMS = cloneCMS(globalCMS1);
+        workCMS = globalCMS1.getProbeSet(document.getElementById("id_EditPage_MappingCMS_Select").selectedIndex-1).generateProbeCMS(globalCMS1);
       }
 
       for (var i = 0; i < workCMS.getKeyLength()-1; i++) {
 
         tmpRefVal.push(workCMS.getKey(i).getRefPosition());
-        var color1=workCMS.getKey(i).getRightKeyColor(colorspaceModus);
-        var color2=workCMS.getKey(i+1).getLeftKeyColor(colorspaceModus);
+        var color1=workCMS.getKey(i).getRightKeyColor(workCMS.getInterpolationSpace());
+        var color2=workCMS.getKey(i+1).getLeftKeyColor(workCMS.getInterpolationSpace());
 
         if(color1!=undefined){
           tmpkey1CVal1.push(color1.get1Value());
@@ -224,7 +215,7 @@ function updateMesh() {
       workerArray=[];
       workerFinished=[];
       for (var i = 0; i < workerJSON.length; i++) {
-        workerJSON[i].colorspace = colorspaceModus;
+        workerJSON[i].colorspace = globalCMS1.getInterpolationSpace();
         workerJSON[i].refVal=tmpRefVal;
         workerJSON[i].key1cVal1=tmpkey1CVal1;
         workerJSON[i].key1cVal2=tmpkey1CVal2;
@@ -239,7 +230,7 @@ function updateMesh() {
         workerJSON[i].cielab_ref_Y = cielab_ref_Y;
         workerJSON[i].cielab_ref_Z = cielab_ref_Z;
 
-        var tmpWorker = new Worker('js/Visualization/VisWorker/colorMappingWorker.js');
+        var tmpWorker = new Worker('js/front/worker/VisWorker/colorMappingWorker.js');
         tmpWorker.addEventListener('message', eventFunctionColorMapping, false);
 
         workerArray.push(tmpWorker);
@@ -269,24 +260,19 @@ function updateMesh() {
   else{
 
     var workCMS;
-    if(document.getElementById("mapping_checkProbeVis").checked){
-      if(document.getElementById("id_selectProbeListVIS").selectedIndex!=-1){
-        var probe = globalCMS1.getProbe(document.getElementById("id_selectProbeListVIS").selectedIndex);
-        workCMS = probe.generateProbeCMS(globalCMS1,colorspaceModus,"");
-      }
-      else{
-        workCMS = cloneCMS(globalCMS1);
-      }
+
+    if(document.getElementById("id_EditPage_MappingCMS_Select").selectedIndex==0){
+      workCMS = cloneCMS(globalCMS1);
     }
     else{
-      workCMS = cloneCMS(globalCMS1);
+      workCMS = globalCMS1.getProbeSet(document.getElementById("id_EditPage_MappingCMS_Select").selectedIndex-1).generateProbeCMS(globalCMS1);
     }
 
     for (var index = 0; index < globalDomain.getNumberOfCells(); index++) {
 
       var value= globalDomain.getCell(index).getCellValue();
 
-      var toolColor = workCMS.calculateColor(globalDomain.getCell(index).getCellValue(), colorspaceModus);
+      var toolColor = workCMS.calculateColor(globalDomain.getCell(index).getCellValue());
 
       if(doColorblindnessSim){
         var tmpLMS = toolColor.calcLMSColor();
@@ -304,7 +290,7 @@ function updateMesh() {
   }
 
 
-  if(document.getElementById("showHideMappingHistogram").style.display!="none"){
+  if(document.getElementById("id_EditPage_Histogram_Div").style.display!="none"){
       drawHistogram(true);
   }
 }
@@ -323,7 +309,7 @@ function workerPreparation(){
      jsonObj['workerIndex'] = i;
      jsonObj['cellStartIndex'] = currentIndex;
      jsonObj['cellValues'] = [];
-     jsonObj['colorspace'] = colorspaceModus;
+     jsonObj['colorspace'] = globalCMS1.getInterpolationSpace();
      jsonObj['refVal'] = [];
      jsonObj['key1cVal1'] = [];
      jsonObj['key1cVal2'] = [];

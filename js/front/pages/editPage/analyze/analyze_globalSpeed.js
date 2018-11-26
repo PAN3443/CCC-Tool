@@ -198,7 +198,13 @@ function drawGlobalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId,
                     //if(document.getElementById("id_EditPage_DoFixedAxis_GlobalLocalOrder").checked){
 
                       if(document.getElementById("id_EditPage_DoLogSelect_GlobalLocalOrder").checked){
-                        val = (Math.log(speed+1)-Math.log(min+1))/Math.log(fixedMax+1);
+
+                        if(document.getElementById("id_EditPage_DoFixedAxis_GlobalLocalOrder").checked && speed>fixedMax ){
+                          val = 1.1; // bigger than 1 -> coloring in above border color
+                        }
+                        else{
+                          val = (Math.log(speed+1)-Math.log(min+1))/Math.log(fixedMax+1);
+                        }
                       }
                       else{
                         val = (speed-min)/fixedMax;

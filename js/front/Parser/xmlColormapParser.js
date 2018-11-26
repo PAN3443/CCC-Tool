@@ -212,28 +212,211 @@ function xmlColormapParserFile(xmlString){
 
                         } // for
 
+                        /////////////////// from here start loading the new probe set information
+
+                          var probesetObjects= colormapObject[0].getElementsByTagName("ProbeSet");
+
+
+                          for (var i = 0; i < probesetObjects.length; i++){
+
+                              var tmpProbeSet = new class_ProbeSet("New ProbeSet");
+
+                              if(probesetObjects[i].hasAttribute("name")){
+                                  var name = probesetObjects[i].getAttribute("name");
+                                  tmpProbeSet.setProbeSetName(name);
+                              }
+
+                              var probeObjects= probesetObjects[i].getElementsByTagName("Probe");
+
+                              for (var k = 0; k < probeObjects.length; k++) {
+
+                                var type = parseInt(probeObjects[k].getAttribute("type"));
+                                var start = parseFloat(probeObjects[k].getAttribute("start"));
+                                var end = parseFloat(probeObjects[k].getAttribute("end"));
+
+                                if(type==undefined || start==undefined || end==undefined )
+                                continue;
+
+                                var tmpProbe = new class_Probe(type, start, end ,'hsv'); //(type, start, end , space)
+
+                                if(probeObjects[k].getElementsByTagName("ProbeColor").length !=0){
+
+                                  var probeColorObj = probeObjects[k].getElementsByTagName("ProbeColor");
+
+                                  var val1 = parseFloat(probeColorObj[0].getAttribute("h"));
+                                  var val2 = parseFloat(probeColorObj[0].getAttribute("s"));
+                                  var val3 = parseFloat(probeColorObj[0].getAttribute("v"));
+
+                                  tmpProbe.setProbeColor(new classColor_HSV(val1,val2,val3));
+                                }
+
+                                if(type == 0) // const _> no functions
+                                {
+                                  tmpProbeSet.addProbe(tmpProbe);
+                                  continue;
+                                }
+
+                                //// Determine Function
+                                var valueFunctionObj = probeObjects[k].getElementsByTagName("ValueFunction");
+                                var saturationFunctionObj = probeObjects[k].getElementsByTagName("SaturationFunction");
+
+                                /// One Sided
+                                if(valueFunctionObj.length==0){
+                                  if(saturationFunctionObj.length==2){
+
+                                    var sat1 = parseFloat(saturationFunctionObj[0].getAttribute("s"));
+                                    var sat2 = parseFloat(saturationFunctionObj[1].getAttribute("s"));
+
+                                    if(sat1==100 && sat2==0){
+                                      tmpProbe.setFunctionType(2);
+                                    }
+                                    else{
+                                      tmpProbe.setFunctionType(3);
+                                    }
+
+                                    tmpProbeSet.addProbe(tmpProbe);
+                                  }
+                                  continue;
+                                }
+
+                                if(saturationFunctionObj.length==0){
+                                  if(valueFunctionObj.length==2){
+
+                                    var val1 = parseFloat(valueFunctionObj[0].getAttribute("v"));
+                                    var val2 = parseFloat(valueFunctionObj[1].getAttribute("v"));
+
+                                    if(val1==100 && val2==0){
+                                      tmpProbe.setFunctionType(0);
+                                    }
+                                    else{
+                                      tmpProbe.setFunctionType(1);
+                                    }
+
+                                    tmpProbeSet.addProbe(tmpProbe);
+                                  }
+                                  continue;
+                                }
+
+                                /// Two Sided
+                                if(valueFunctionObj.length==2){
+                                  if(saturationFunctionObj.length==3){
+                                    var val1 = parseFloat(valueFunctionObj[0].getAttribute("v"));
+                                    var val2 = parseFloat(valueFunctionObj[1].getAttribute("v"));
+
+                                    if(val1==0 && val2==100){
+                                      tmpProbe.setFunctionType(0);
+                                    }
+                                    else{
+                                      tmpProbe.setFunctionType(1);
+                                    }
+
+                                    tmpProbeSet.addProbe(tmpProbe);
+                                  }
+                                  continue;
+                                }
+
+                                if(saturationFunctionObj.length==2 && valueFunctionObj.length==3){
+
+                                  var valMiddle = parseFloat(valueFunctionObj[1].getAttribute("v"));
+                                  var sat1 = parseFloat(saturationFunctionObj[0].getAttribute("s"));
+                                  var sat2 = parseFloat(saturationFunctionObj[1].getAttribute("s"));
+
+                                  if(valMiddle==0){
+                                    if(sat1==0 && sat2==100){
+                                      tmpProbe.setFunctionType(2);
+                                    }
+                                    else{
+                                      tmpProbe.setFunctionType(3);
+                                    }
+                                    tmpProbeSet.addProbe(tmpProbe);
+                                    continue;
+                                  }
+
+                                  if(valMiddle==100){
+                                    if(sat1==0 && sat2==100){
+                                      tmpProbe.setFunctionType(4);
+                                    }
+                                    else{
+                                      tmpProbe.setFunctionType(5);
+                                    }
+                                  }
+                                  tmpProbeSet.addProbe(tmpProbe);
+
+                                }
+
+
+                              }
+
+                              if(tmpProbeSet.getProbeLength()!=0)
+                              tmpCMS.addProbeSet(tmpProbeSet);
+
+                          }
+
+                          //console.log(tmpCMS.getProbeLength());
+
+                          /////////////////// till here new probe set information
+
                         if(colormapObject[0].hasAttribute("name")){
                             var name = colormapObject[0].getAttribute("name");
                             tmpCMS.setColormapName(name);
                         }
 
-                       if(colormapObject[0].getElementsByTagName("NaN").length!=0){
+                        if(colormapObject[0].hasAttribute("interpolationspace")){
+                          var interpolationSpace = colormapObject[0].getAttribute("interpolationspace");
+                          tmpCMS.setInterpolationSpace(interpolationSpace);
+                        }
 
-                         var nanObj = colormapObject[0].getElementsByTagName("NaN");
+                         if(colormapObject[0].getElementsByTagName("NaN").length !=0){
+                           var nanObj = colormapObject[0].getElementsByTagName("NaN");
 
-                         var val1 = parseFloat(nanObj[0].getAttribute(val1Name));
-                         var val2 = parseFloat(nanObj[0].getAttribute(val2Name));
-                         var val3 = parseFloat(nanObj[0].getAttribute(val3Name));
+                           var val1 = parseFloat(nanObj[0].getAttribute(val1Name));
+                           var val2 = parseFloat(nanObj[0].getAttribute(val2Name));
+                           var val3 = parseFloat(nanObj[0].getAttribute(val3Name));
 
-                         if(isrgb255){
-                             val1=val1/255.0;
-                             val2=val2/255.0;
-                             val3=val2/255.0;
+                           if(isrgb255){
+                               val1=val1/255.0;
+                               val2=val2/255.0;
+                               val3=val2/255.0;
+                           }
+
+                           var tmpColor = getLoadedColor(val1,val2,val3,space);
+                           tmpCMS.setNaNColor(tmpColor);
                          }
 
-                         var tmpColor = getLoadedColor(val1,val2,val3,space);
-                         tmpCMS.setNaNColor(tmpColor);
-                       }
+
+                         if(colormapObject[0].getElementsByTagName("Above").length !=0){
+                           var aboveObj = colormapObject[0].getElementsByTagName("Above");
+
+                           var val1 = parseFloat(aboveObj[0].getAttribute(val1Name));
+                           var val2 = parseFloat(aboveObj[0].getAttribute(val2Name));
+                           var val3 = parseFloat(aboveObj[0].getAttribute(val3Name));
+
+                           if(isrgb255){
+                               val1=val1/255.0;
+                               val2=val2/255.0;
+                               val3=val2/255.0;
+                           }
+
+                           var tmpColor = getLoadedColor(val1,val2,val3,space);
+                           tmpCMS.setAboveColor(tmpColor);
+                         }
+
+                         if(colormapObject[0].getElementsByTagName("Below").length !=0){
+                           var belowObj = colormapObject[0].getElementsByTagName("Below");
+
+                           var val1 = parseFloat(belowObj[0].getAttribute(val1Name));
+                           var val2 = parseFloat(belowObj[0].getAttribute(val2Name));
+                           var val3 = parseFloat(belowObj[0].getAttribute(val3Name));
+
+                           if(isrgb255){
+                               val1=val1/255.0;
+                               val2=val2/255.0;
+                               val3=val2/255.0;
+                           }
+
+                           var tmpColor = getLoadedColor(val1,val2,val3,space);
+                           tmpCMS.setBelowColor(tmpColor);
+                         }
 
                  return tmpCMS;
 

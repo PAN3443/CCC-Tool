@@ -124,6 +124,8 @@ function saveSession() {
 
   document.body.removeChild(element);
 
+  document.getElementById("id_dropDownContainer").style.display="none";
+
 }
 
 
@@ -131,8 +133,11 @@ function loadSession() {
   if (myDesignsList.length != 0) {
     askType=2;
     openAskWindow();
-  } else
+  } else{
     document.getElementById("id_inputSessionData").click();
+    document.getElementById("id_dropDownContainer").style.display="none";
+  }
+
 
 }
 
@@ -418,7 +423,7 @@ function readSessionFile(e){
 
       /////////////////// from here start loading the new probe set information
 
-        var probesetObjects= xmlObject.getElementsByTagName("ProbeSet");
+        var probesetObjects= cmsObjects[j].getElementsByTagName("ProbeSet");
 
 
         for (var i = 0; i < probesetObjects.length; i++){
@@ -556,7 +561,6 @@ function readSessionFile(e){
 
         }
 
-        //console.log(tmpCMS.getProbeLength());
 
         /////////////////// till here new probe set information
 
@@ -634,5 +638,64 @@ function readSessionFile(e){
 
 
   reader.readAsText(file);
+
+}
+
+
+function loadCMS(){
+
+  if (myDesignsList.length >= numberOfMyDesignsObj) {
+    openAlert("The MyDesigns list is full. You can not import a new CMS!");
+  }
+  else
+  document.getElementById("id_inputCMSData").click();
+}
+
+
+function readCMSFile(e) {
+
+  var file = e.target.files[0];
+  if (!file) {
+    return;
+  }
+
+  var fileName = file.name;
+
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var contents = e.target.result;
+
+
+    var fileExtension = fileName.replace(/^.*\./, '');
+    var cms;
+
+    switch (fileExtension) {
+            case 'xml': case 'XML':
+                cms = xmlColormapParserFile(contents);
+                break;
+            case 'json': case 'JSON':
+                cms = jsonColormapParserFile(contents);
+                break;
+            case 'csv': case 'CSV':
+                cms = csvColormapParserFile(contents);
+                break;
+            default:
+                console.log("Error at readCMSFile function -> file extension is unknown!");
+                return;
+    }
+
+
+    if(cms.getKeyLength()!=0){
+
+      myDesignsList.push(cloneCMS(cms));
+      drawMyDesigns();
+    }
+
+
+  };
+
+
+  reader.readAsText(file);
+
 
 }

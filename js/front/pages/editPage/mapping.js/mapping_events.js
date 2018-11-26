@@ -3,73 +3,47 @@
 function updateDomainCMSRange(){
 
   globalCMS1.setAutoRange(globalDomain.getMinField(currentFieldIndex),globalDomain.getMaxField(currentFieldIndex));
-  orderColorSketch();
+  saveCreateProcess();
+  updateEditPage();
 
 }
 
 
-function updateProgressBar(status){
+function changeBackground(){
+
+  document.getElementById("id_EditPage_MappingBackground_Custom").style.background = mappingBackgroundColor.getRGBString();
+
+  switch (document.getElementById("id_EditPage_MappingBackground_Select").selectedIndex) {
+    case 0:
+          document.getElementById("id_EditPage_DrawMappingDiv").style.background = "url(img/EditPage/plotBackground.png)";
+      break;
+      case 1:
+          document.getElementById("id_EditPage_DrawMappingDiv").style.background = "white";
+        break;
+        case 2:
+          document.getElementById("id_EditPage_DrawMappingDiv").style.background = "black";
+          break;
+    default:
+    document.getElementById("id_EditPage_DrawMappingDiv").style.background = mappingBackgroundColor.getRGBString();
+  }
+}
+
+
+/*function updateProgressBar(status){
 
   //document.getElementById("id_processBar").style.width = status+"%";
   document.getElementById("mappingProcessBar").value = status;
 
   //console.log(status, document.getElementById("id_processBar").style.width );
-}
-
-function showHideMappingContainer(type){
-
-  switch (type) {
-    case 0:
-      if(document.getElementById("showHideMappingOptions").style.display==="none"){
-        document.getElementById("showHideMappingOptions").style.display="inline-block";
-        document.getElementById("showHideMappingOptionsText").innerHTML="Hide Mapping Options &#8661;";
-      }else{
-        document.getElementById("showHideMappingOptions").style.display="none";
-        document.getElementById("showHideMappingOptionsText").innerHTML="Show Mapping Options &#8661;";
-      }
-      break;
-      case 1:
-      if(document.getElementById("showHideMappingHistogram").style.display==="none"){
-        document.getElementById("showHideMappingHistogram").style.display="inline-block";
-        document.getElementById("showHideMappingHistogramText").innerHTML="Hide Histogram &#8661;";
-        drawHistogram(false);
-      }else{
-        document.getElementById("showHideMappingHistogram").style.display="none";
-        document.getElementById("showHideMappingHistogramText").innerHTML="Show Histogram &#8661;";
-      }
-      break;
-      case 2:
-      if(document.getElementById("showHideMappingVisualization").style.display==="none"){
-        document.getElementById("showHideMappingVisualization").style.display="inline-block";
-        document.getElementById("showHideMappingVisualizationText").innerHTML="Hide Visualization &#8661;";
-      }else{
-        document.getElementById("showHideMappingVisualization").style.display="none";
-        document.getElementById("showHideMappingVisualizationText").innerHTML="Show Visualization &#8661;";
-      }
-      break;
-      case 3:
-      if(document.getElementById("showHideColorBlindnessSim").style.display==="none"){
-        document.getElementById("showHideColorBlindnessSim").style.display="inline-block";
-        document.getElementById("showHideColorBlindnessSimText").innerHTML="Hide Colorblindness Simulation &#8661;";
-      }else{
-        document.getElementById("showHideColorBlindnessSim").style.display="none";
-        document.getElementById("showHideColorBlindnessSimText").innerHTML="Show Colorblindness Simulation &#8661;";
-      }
-      break;
-    default:
-
-  }
-
-  orderColorSketch(colorspaceModus);
-}
+}*/
 
 
 function changeField(){
 
-  currentFieldIndex=document.getElementById("combobox_selectField").selectedIndex;
+  currentFieldIndex=document.getElementById("id_EditPage_SelectMappingField").selectedIndex;
   currentTimeIndex=0;
 
-  var selectobject=document.getElementById("combobox_selectTimeStep")
+  var selectobject=document.getElementById("id_EditPage_SelectMappingTimeStep")
   for (var i=selectobject.length-1; i>=0; i--){
      selectobject.remove(i);
   }
@@ -80,26 +54,26 @@ function changeField(){
     selectobject.add(option);
   }
 
-  document.getElementById("id_fieldMinValue").innerHTML = globalDomain.getMinField(currentFieldIndex);
-  document.getElementById("id_fieldMaxValue").innerHTML = globalDomain.getMaxField(currentFieldIndex);
+  document.getElementById("id_EditPage_FieldMinValue").innerHTML = globalDomain.getMinField(currentFieldIndex);
+  document.getElementById("id_EditPage_FieldMaxValue").innerHTML = globalDomain.getMaxField(currentFieldIndex);
 
   globalDomain.generateCells(currentFieldIndex,currentTimeIndex);
 
   doneWorkerPreparation=false;
   drawMapping();
 
-  if(document.getElementById("showHideMappingHistogram").style.display!="none")
-  drawHistogram(false);
+  /*if(document.getElementById("showHideMappingHistogram").style.display!="none")
+  drawHistogram(false);*/
 }
 
 function changeTimeStep(){
-  currentTimeIndex=document.getElementById("combobox_selectTimeStep").selectedIndex;
+  currentTimeIndex=document.getElementById("id_EditPage_SelectMappingTimeStep").selectedIndex;
   globalDomain.generateCells(currentFieldIndex,currentTimeIndex);
   doneWorkerPreparation=false;
   drawMapping();
 
-  if(document.getElementById("showHideMappingHistogram").style.display!="none")
-  drawHistogram(false);
+  /*if(document.getElementById("showHideMappingHistogram").style.display!="none")
+  drawHistogram(false);*/
 }
 
 
@@ -108,7 +82,7 @@ function drawHistogram(onlyMapUpdate){
 
   var rangeStart;
   var rangeEnd;
-  if(document.getElementById("histogram_SelectFullData").checked){
+  if(document.getElementById("id_EditPage_SelectFullDataHistogram").checked){
     rangeStart = globalDomain.getMinField(currentFieldIndex);
     rangeEnd = globalDomain.getMaxField(currentFieldIndex);
   }
@@ -119,10 +93,10 @@ function drawHistogram(onlyMapUpdate){
 
   if(onlyMapUpdate==false){
 
-    var canvasPlot = document.getElementById("id_HistogramCanvas");
+    var canvasPlot = document.getElementById("id_EditPage_CMS_VIS_Histogramm");
     var rect = canvasPlot.getBoundingClientRect();
     var rangeWidth = 25;//Math.round(canvasPlot.width/(numberRanges));
-    var numberRanges = parseInt(document.getElementById("idNumberHistoRanges").value);
+    var numberRanges = parseInt(document.getElementById("id_EditPage_NumberHistoRanges").value);
     if(numberRanges==0 || numberRanges==NaN){
       return;
     }
@@ -161,7 +135,7 @@ function drawHistogram(onlyMapUpdate){
 
  var counter = 0;
     //// get Histogram values
-    if(document.getElementById("histogram_SelectFullData").checked){
+    if(document.getElementById("id_EditPage_SelectFullDataHistogram").checked){
       for (var i = 0; i < globalDomain.getNumberOfFieldValues(currentFieldIndex); i++) {
         var tmpVal = globalDomain.getFieldValue(currentFieldIndex, i);
 
@@ -235,103 +209,11 @@ function drawHistogram(onlyMapUpdate){
   drawHistogramMap(rangeStart,rangeEnd);
 
   /// draw Inter
-  document.getElementById("histoMinVal").innerHTML = rangeStart;
-  document.getElementById("histoMaxVal").innerHTML = rangeEnd;
+  document.getElementById("id_EditPage_HistoMinVal").innerHTML = rangeStart;
+  document.getElementById("id_EditPage_HistoMaxVal").innerHTML = rangeEnd;
 }
 
 
-function drawHistogramMap(rangeStart,rangeEnd){
-
-  var canvasPlot = document.getElementById("id_HistogramMappingCanvas");
-  var rect = canvasPlot.getBoundingClientRect();
-
-  canvasPlot.width = rect.width;
-  canvasPlot.height = 1;
-
-  var canvasCtx = canvasPlot.getContext("2d");
-
-  canvasCtx.clearRect(0, 0, canvasPlot.width, canvasPlot.height);
-
-  var canvasData = canvasCtx.getImageData(0, 0, canvasPlot.width, canvasPlot.height);
-
-  var range = rangeEnd-rangeStart;
-
-  var workCMS;
-  if(document.getElementById("mapping_checkProbeVis").checked){
-    if(document.getElementById("id_selectProbeListVIS").selectedIndex!=-1){
-      var probe = globalCMS1.getProbe(document.getElementById("id_selectProbeListVIS").selectedIndex);
-      workCMS = probe.generateProbeCMS(globalCMS1,colorspaceModus);
-    }
-    else{
-      workCMS = cloneCMS(globalCMS1);
-    }
-  }
-  else{
-    workCMS = cloneCMS(globalCMS1);
-  }
-
-  for (var x = 0; x < canvasPlot.width; x++) {
-    var value = x / canvasPlot.width * range + rangeStart;
-
-    var tmpCurrentColor = workCMS.calculateColor(value, colorspaceModus);
-
-
-    if(document.getElementById("id_affectHistogram").checked && doColorblindnessSim){
-      var tmpLMS = tmpCurrentColor.calcLMSColor();
-      tmpCurrentColor = tmpLMS.calcColorBlindRGBColor();
-    }
-
-      var index = x * 4;
-      //var index = ((xStart+x) + y * canvasWidth) * 4;
-      canvasData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
-      canvasData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
-      canvasData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
-      canvasData.data[index + 3] = 255; //a
-
-  }
-
-  canvasCtx.putImageData(canvasData, 0, 0);
-
-  var start = workCMS.getKey(0).getRefPosition();
-  var end = workCMS.getKey(workCMS.getKeyLength()-1).getRefPosition();
-
-  if(start >= rangeEnd || end <= rangeStart){
-    document.getElementById("id_histogramCoveringLabel").innerHTML = "Colormap is covering 0% of the Data-Range.";
-  }
-  else{
-
-      if( start <= rangeStart){
-        start=rangeStart;
-      }
-
-      if( end >= rangeEnd){
-        end=rangeEnd;
-      }
-
-      var ratio = ((end-start)/range)*100;
-
-
-      document.getElementById("id_histogramCoveringLabel").innerHTML = "Colormap is covering "+ratio+"% of the Data-Range.";
-  }
-
-}
-
-function updateHistogramChange(){
-  checkInputVal(document.getElementById("idNumberHistoRanges"), false, false);
-
-  if(document.getElementById("idNumberHistoRanges")!="")
-  drawHistogram(false);
-}
-
-function updateHistogramKey(event){
-  checkInputVal(document.getElementById("idNumberHistoRanges"), false, false);
-
-  if (event.keyCode == 13) {
-    if(document.getElementById("idNumberHistoRanges")!="")
-    drawHistogram(false);
-  }
-
-}
 
 function changeColorblindness(){
   if(document.getElementById('id_doColorBlindSim').checked){

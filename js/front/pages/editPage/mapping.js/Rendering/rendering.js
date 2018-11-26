@@ -2,7 +2,7 @@
 function changeAxisVisibility(){
 
   var tmpVisibility = false;
-  if(document.getElementById('mapping_showAxes').checked){
+  if(document.getElementById('id_EditPage_Mapping_ShowAxis').checked){
     tmpVisibility=true;
   }
 
@@ -13,9 +13,9 @@ function changeAxisVisibility(){
   }
 }
 
-function backgroundMapping(type){
+/*function backgroundMapping(){
 
-  var canvasObj = document.getElementById("mappingDiv");
+  var canvasObj = document.getElementById("id_EditPage_DrawMappingDiv");
 
   document.getElementById("mappingBG1").style.borderColor="black";
   document.getElementById("mappingBG2").style.borderColor="black";
@@ -56,12 +56,12 @@ function backgroundMapping(type){
     document.getElementById("mappingBG3").style.borderColor=styleActiveColor;
 
   }
-}
+}*/
 
-function updateMappingSize(type)
+/*function updateMappingSize(type)
 {
 
-  var canvasObj = document.getElementById("mappingDiv");
+  var canvasObj = document.getElementById("id_EditPage_DrawMappingDiv");
 
 
   switch (type) {
@@ -92,7 +92,7 @@ function updateMappingSize(type)
 	mapping_camera.aspect = drawWidth/drawHeight;
 	mapping_camera.updateProjectionMatrix();
 
-	mapping_renderer.setSize(drawWidth, drawHeight);//*/
+	mapping_renderer.setSize(drawWidth, drawHeight);//*
 
 
   ////////////// updating the input elements
@@ -107,7 +107,7 @@ function updateMappingSize(type)
 
   // update the positions of the input fields
   orderColorSketch(colorspaceModus);
-}
+}*/
 
 function renderMapping() {
 
@@ -163,23 +163,21 @@ function initMapping()
       return;
   }
 
-
   currentOriginX=0;
   currentOriginY=0;
 
-  var canvasObj = document.getElementById("mappingDiv");
+  var canvasObj = document.getElementById("id_EditPage_DrawMappingDiv");
 
   canvasObj.innerHTML = "";
   var box = canvasObj.getBoundingClientRect();
   var drawWidth = box.width; //window.innerWidth;
   var drawHeight =box.height; // window.innerHeight;
 	mapping_scene = new THREE.Scene();
-  mapping_scene.background = new THREE.Color( 0x000000 );
+  //mapping_scene.background = new THREE.Color( 0x000000 );
 	mapping_camera = new THREE.PerspectiveCamera(50,drawWidth /drawHeight, 1, 10000);//new THREE.PerspectiveCamera(75,drawWidth /drawHeight, 0.1, 1000);//new THREE.Orthographicmapping_camera( 0.5 * drawWidth * 2 / - 2, 0.5 * drawWidth * 2 / 2, drawWidth / 2, drawWidth / - 2, 150, 1000 ); //new THREE.Perspectivemapping_camera(75,drawWidth /drawHeight, 0.1, 1000);
-	mapping_renderer = new THREE.WebGLRenderer();
-
+	mapping_renderer = new THREE.WebGLRenderer( { alpha: true } ); //new THREE.WebGLRenderer();
   //mapping_renderer = new THREE.WebGLRenderer({ alpha: true });
-  //mapping_renderer.setClearColor( 0xffffff, 0);
+  mapping_renderer.setClearColor( 0xffffff, 0);
 
   coordinateArrowsGroup = new THREE.Group();
 
@@ -190,7 +188,7 @@ function initMapping()
   var direction = to.clone().sub(from);
   var length = direction.length();
   var arrowXAxis= new THREE.ArrowHelper(direction.normalize(), from, length, 0x0000ff );
-  if(document.getElementById('mapping_showAxes').checked==false)
+  if(document.getElementById('id_EditPage_Mapping_ShowAxis').checked==false)
     arrowXAxis.visible=false;
   coordinateArrowsGroup.add( arrowXAxis);
 
@@ -198,7 +196,7 @@ function initMapping()
   direction = to.clone().sub(from);
   length = direction.length();
   var arrowYAxis= new THREE.ArrowHelper(direction.normalize(), from, length, 0xff0000 );
-  if(document.getElementById('mapping_showAxes').checked==false)
+  if(document.getElementById('id_EditPage_Mapping_ShowAxis').checked==false)
     arrowYAxis.visible=false;
   coordinateArrowsGroup.add( arrowYAxis);
 
@@ -206,7 +204,7 @@ function initMapping()
   direction = to.clone().sub(from);
   length = direction.length();
   var arrowZAxis= new THREE.ArrowHelper(direction.normalize(), from, length, 0x00ff00 );
-  if(document.getElementById('mapping_showAxes').checked==false)
+  if(document.getElementById('id_EditPage_Mapping_ShowAxis').checked==false)
     arrowZAxis.visible=false;
   coordinateArrowsGroup.add( arrowZAxis);
   ////////////////////////////////////////////////////////////////////////////////
@@ -243,7 +241,7 @@ function initMapping()
 
 function eventMapping_mousemove(event){
   // calc mouse pos
-  var rect = document.getElementById('mappingDiv').getBoundingClientRect();//event.target.id
+  var rect = document.getElementById('id_EditPage_DrawMappingDiv').getBoundingClientRect();//event.target.id
 
   var canvasPosX = event.clientX - rect.left;
   var canvasPosY = event.clientY - rect.top;

@@ -4,12 +4,12 @@
 function startReadFile(){
 
 
-  var selectobject=document.getElementById("combobox_selectField")
+  var selectobject=document.getElementById("id_EditPage_SelectMappingField")
   for (var i=selectobject.length-1; i>=0; i--){
      selectobject.remove(i);
   }
 
-  selectobject=document.getElementById("combobox_selectTimeStep")
+  selectobject=document.getElementById("id_EditPage_SelectMappingTimeStep")
   for (var i=selectobject.length-1; i>=0; i--){
      selectobject.remove(i);
   }
@@ -52,7 +52,7 @@ function readDataFile(e) {
 
   reader.onloadend = function(e){
 
-      updateProgressBar(10);
+      //updateProgressBar(10);
       var readerResult = false;
       switch (fileType) {
               case 0:
@@ -68,13 +68,13 @@ function readDataFile(e) {
 
         console.log("Generate Cells");
         console.log("Number of generated Cells = "+ globalDomain.generateCells(currentFieldIndex,currentTimeIndex));
-        updateProgressBar(75);
+        //updateProgressBar(75);
 
         console.log("Start Color Mapping");
         drawMapping();
-        updateProgressBar(100);
+        //updateProgressBar(100);
 
-        if(document.getElementById("colormappingOptions_Container").style.display==="none")
+        /*if(document.getElementById("colormappingOptions_Container").style.display==="none")
         document.getElementById("colormappingOptions_Container").style.display="initial";
 
 
@@ -87,14 +87,24 @@ function readDataFile(e) {
         if(document.getElementById("colormappingVis_Container").style.display==="none")
         document.getElementById("colormappingVis_Container").style.display="inline-block";
 
-        document.getElementById("id_ProcessbarContainer").style.display="none";
+        document.getElementById("id_ProcessbarContainer").style.display="none";*/
 
-        if(document.getElementById("showHideMappingHistogram").style.display!="none"){
+        document.getElementById("id_EditPage_IncludingDataDiv").style.visibility="visible";
+
+        if (document.getElementById("id_dropDownMenue_ShowHistogram").classList.contains('dropdownNotActiveMenuButton'))
+          document.getElementById("id_dropDownMenue_ShowHistogram").classList.remove('dropdownNotActiveMenuButton');
+
+        if (!document.getElementById("id_dropDownMenue_ShowHistogram").classList.contains('dropdownMenuButton'))
+          document.getElementById("id_dropDownMenue_ShowHistogram").classList.toggle("dropdownMenuButton");
+
+
+
+        if(document.getElementById("id_EditPage_Histogram_Div").style.display!="none"){
             drawHistogram(false);
         }
 
         // update the positions of the input fields
-        orderColorSketch(colorspaceModus);
+        updateEditPage();
       }
 
 
@@ -105,9 +115,9 @@ function readDataFile(e) {
 
   }
 
-  reader.onloadstart = function(e){
+  //reader.onloadstart = function(e){
 
-    if(document.getElementById("colormappingVis_Container").style.display=="none"){
+    /*if(document.getElementById("colormappingVis_Container").style.display=="none"){
       document.getElementById("colormappingVis_Container").style.display="inline-block";
 
       var canvasObj = document.getElementById("mappingDiv");
@@ -118,21 +128,21 @@ function readDataFile(e) {
     	mapping_camera.aspect = drawWidth/drawHeight;
     	mapping_camera.updateProjectionMatrix();
 
-    	mapping_renderer.setSize(drawWidth, drawHeight);//*/
+    	mapping_renderer.setSize(drawWidth, drawHeight);//* /
 
-    }
+    }*/
 
-    document.getElementById("mappingProcessText").innerHTML="Load Data:"
-    document.getElementById("id_ProcessbarContainer").style.display="inline-block";
-    updateProgressBar(0);
+    //document.getElementById("mappingProcessText").innerHTML="Load Data:"
+    //document.getElementById("id_ProcessbarContainer").style.display="inline-block";
+    //updateProgressBar(0);
 
     // update the positions of the input fields
-    orderColorSketch(colorspaceModus);
+    //orderColorSketch(colorspaceModus);
 
-  }
+  //}
 
 
-    reader.onprogress = function(event) {
+    /*reader.onprogress = function(event) {
 
         var status = Math.round(event.loaded/event.total * 10);
 
@@ -140,7 +150,7 @@ function readDataFile(e) {
             updateProgressBar(status);
         //}, 50);
 
-    };
+    };*/
 
 
 

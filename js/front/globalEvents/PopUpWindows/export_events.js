@@ -32,7 +32,7 @@ function openExportWindow(){
   }
 
   changeExportColorspace(0);
-  changeOutputformat(0);
+  changeOutputformat(1);
 
 
   /// updateProbeList
@@ -558,7 +558,7 @@ function createProbeSetText(workCMS,format){
                   case 1: // one sided
                   case 2: // one sided trans
 
-                    text=text+"<Probe type=\""+tmpProbe.getType()+"\" start=\""+tmpProbe.getStartPos()+"\" end=\""+tmpProbe.getEndPos()+"\"/>\n";
+                    text=text+"<Probe type=\""+tmpProbe.getType()+"\" start=\""+tmpProbe.getStartPos()+"\" end=\""+tmpProbe.getEndPos()+"\">\n";
 
                     if(tmpProbe.getType()==1)
                     {
@@ -592,7 +592,7 @@ function createProbeSetText(workCMS,format){
                   case 3: // two sided
                   case 4: // two sided trans
 
-                    text=text+"<Probe type=\""+tmpProbe.getType()+"\" start=\""+tmpProbe.getStartPos()+"\" end=\""+tmpProbe.getEndPos()+"\"/>\n";
+                    text=text+"<Probe type=\""+tmpProbe.getType()+"\" start=\""+tmpProbe.getStartPos()+"\" end=\""+tmpProbe.getEndPos()+"\">\n";
 
                     if(tmpProbe.getType()==3)
                     {

@@ -23,7 +23,9 @@ var intervalSize = 1;
 // Draw Reference Information
 var refElementContainer = [];
 
-
+// simulate ColorBlindness
+var doColorblindnessSim = false;
+var colorblindnessType = 0;
 
 
 //////////////////////////
