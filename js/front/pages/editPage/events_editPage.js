@@ -380,10 +380,20 @@ function showHideAnalyzeContainer(){
   if(document.getElementById("id_editPage_AnalyzeMappingDiv").style.display=="none"){
       document.getElementById("id_editPage_AnalyzeMappingDiv").style.display="block";
       document.getElementById("id_dropDownMenue_HideAnalyze_Label").innerHTML="&#9673; Analyze/Mapping";
+
+      if(document.getElementById("id_EditPage_DivMapping").style.display!="none"){
+        animateMapping();
+
+        if(document.getElementById("id_EditPage_Mapping_DoAutoUpdate").checked==true && mapping_doingAnimation){
+          updateMesh();
+        }
+      }
   }
   else{
       document.getElementById("id_dropDownMenue_HideAnalyze_Label").innerHTML="&#9675; Analyze/Mapping";
       document.getElementById("id_editPage_AnalyzeMappingDiv").style.display="none";
+      stopAnimationMapping();
+
   }
 
   document.getElementById("id_dropDownContainer").style.display="none";
@@ -435,4 +445,62 @@ function showHideProbePreview(){
     }
 
 
+}
+
+
+function showEditMode(){
+  if(document.getElementById("id_EditPage_PreviewProbe_Div").style.display!="none")
+    showHideProbePreview();
+
+  if(document.getElementById("id_EditPage_Histogram_Div").style.display!="none")
+    showHideHistogram();
+
+  if(document.getElementById("id_editPage_DescriptionDiv").style.display=="none")
+    showHideCMSInfoContainer();
+
+  if(document.getElementById("id_editPage_AnalyzeMappingDiv").style.display!="none")
+    showHideAnalyzeContainer();
+
+  if(document.getElementById("id_editPage_EditDiv").style.display=="none")
+    showHideEditContainer();
+}
+
+function showAnalyzeMode(){
+  if(document.getElementById("id_EditPage_PreviewProbe_Div").style.display!="none")
+    showHideProbePreview();
+
+  if(document.getElementById("id_EditPage_Histogram_Div").style.display!="none")
+    showHideHistogram();
+
+  if(document.getElementById("id_editPage_DescriptionDiv").style.display!="none")
+    showHideCMSInfoContainer();
+
+  if(document.getElementById("id_editPage_AnalyzeMappingDiv").style.display=="none")
+    showHideAnalyzeContainer();
+
+    if(document.getElementById("id_EditPage_DivAnalyze").style.display=="none")
+      switchAnalyzeMapping(0);
+
+  if(document.getElementById("id_editPage_EditDiv").style.display!="none")
+    showHideEditContainer();
+}
+
+function showMappingMode(){
+  if(document.getElementById("id_EditPage_PreviewProbe_Div").style.display!="none")
+    showHideProbePreview();
+
+    if(document.getElementById("id_EditPage_Histogram_Div").style.display=="none")
+      showHideHistogram();
+
+  if(document.getElementById("id_editPage_DescriptionDiv").style.display!="none")
+    showHideCMSInfoContainer();
+
+  if(document.getElementById("id_EditPage_DivMapping").style.display=="none")
+    switchAnalyzeMapping(1);
+
+  if(document.getElementById("id_editPage_AnalyzeMappingDiv").style.display=="none")
+    showHideAnalyzeContainer();
+
+  if(document.getElementById("id_editPage_EditDiv").style.display!="none")
+    showHideEditContainer();
 }

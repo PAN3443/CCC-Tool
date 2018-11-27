@@ -165,6 +165,8 @@
   <script src="js/front/globalVars/editPage_Analyze_Vars.js"></script>
   <script src="js/front/globalVars/editPage_Mapping_globalVars.js"></script>
   <script src="js/front/globalVars/worker_globlaVars.js"></script>
+  <script src="js/front/globalVars/shortcutsVars.js"></script>
+
 
   <!-- global Vars : pageIndepenend -->
   <script src="js/front/globalVars/pageIndepenend/pageIndependent_Vars.js"></script>
@@ -389,11 +391,11 @@
             <div id="id_dropDownMenue_HideEdit_Label" onclick="showHideEditContainer()" class="dropdownMenuButton">
               &#9673; Edit
             </div>
-            <div id="id_dropDownMenue_HideDescription_Label" onclick="showHideCMSInfoContainer()" class="dropdownMenuButton">
-              &#9673; CMS-Info
-            </div>
             <div id="id_dropDownMenue_HideAnalyze_Label" onclick="showHideAnalyzeContainer()" class="dropdownMenuButton">
               &#9673; Analyze/Mapping
+            </div>
+            <div id="id_dropDownMenue_HideDescription_Label" onclick="showHideCMSInfoContainer()" class="dropdownMenuButton">
+              &#9673; CMS-Info
             </div>
 
 
@@ -538,12 +540,17 @@
 
     </div>
 
+
     <!--  -----------------------------------------------
                     -------------- The Gallery Page ---------------
                     -----------------------------------------------
                     -->
 
     <div id="id_GalleryPage" style="width:100%; height:100%; display:none; ">
+
+
+
+
 
 
 
@@ -2874,7 +2881,7 @@
 
             <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> Ctrl </p>
             <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; "> + </p>
-            <p style="text-align:center; height:3.2vh; width:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> z </p>
+            <p id="id_PopUp_Shortcuts_Undo_Label" style="text-align:center; height:3.2vh; width:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> z </p>
             <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; ">  &#8594; Undo</p>
 
           </div>
@@ -2883,7 +2890,7 @@
 
             <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> Ctrl </p>
             <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; "> + </p>
-            <p style="text-align:center; height:3.2vh; width:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> y </p>
+            <p id="id_PopUp_Shortcuts_Redo_Label" style="text-align:center; height:3.2vh; width:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> y </p>
             <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; ">  &#8594; Redo</p>
 
           </div>
@@ -2892,7 +2899,7 @@
 
             <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> Ctrl </p>
             <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; "> + </p>
-            <p style="text-align:center; height:3.2vh; width:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> i </p>
+            <p id="id_PopUp_Shortcuts_Interpolation_Label" style="text-align:center; height:3.2vh; width:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> i </p>
             <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; ">  &#8594; Change Interpolation Space</p>
 
           </div>
@@ -2901,7 +2908,7 @@
 
             <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> Ctrl </p>
             <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; "> + </p>
-            <p style="text-align:center; height:3.2vh; width:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> s </p>
+            <p id="id_PopUp_Shortcuts_Save_Label" style="text-align:center; height:3.2vh; width:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> s </p>
             <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; ">  &#8594; Save CMS</p>
 
           </div>
@@ -2911,7 +2918,7 @@
 
             <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> Ctrl </p>
             <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; "> + </p>
-            <p style="text-align:center; height:3.2vh; width:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> d </p>
+            <p id="id_PopUp_Shortcuts_SaveAsNew_Label" style="text-align:center; height:3.2vh; width:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> d </p>
             <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; ">  &#8594; Save CMS As New</p>
 
           </div>
@@ -2921,7 +2928,7 @@
 
             <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> Ctrl </p>
             <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; "> +  </p>
-            <p style="text-align:center; height:3.2vh; width:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> e </p>
+            <p id="id_PopUp_Shortcuts_Export_Label" style="text-align:center; height:3.2vh; width:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> e </p>
             <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; ">  &#8594; Export CMS</p>
 
           </div>
@@ -2931,7 +2938,7 @@
 
             <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> Ctrl </p>
             <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; "> +  </p>
-            <p style="text-align:center; height:3.2vh; width:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> x </p>
+            <p id="id_PopUp_Shortcuts_Scale_Label" style="text-align:center; height:3.2vh; width:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> x </p>
             <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; ">  &#8594; Scale CMS</p>
 
           </div>
@@ -2940,8 +2947,35 @@
 
             <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> Ctrl </p>
             <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; "> + </p>
-            <p style="text-align:center; height:3.2vh; width:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> c </p>
+            <p id="id_PopUp_Shortcuts_Clear_Label" style="text-align:center; height:3.2vh; width:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> c </p>
             <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; ">  &#8594; Clear CMS</p>
+
+          </div>
+
+          <div class="row" style="margin-top:0.5vh; margin-bottom:0.5vh;" >
+
+            <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> Ctrl </p>
+            <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; "> + </p>
+            <p id="id_PopUp_Shortcuts_EditMode_Label" style="text-align:center; height:3.2vh; width:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> c </p>
+            <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; ">  &#8594; Edit Mode</p>
+
+          </div>
+
+          <div class="row" style="margin-top:0.5vh; margin-bottom:0.5vh;" >
+
+            <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> Ctrl </p>
+            <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; "> + </p>
+            <p id="id_PopUp_Shortcuts_AnalyzeMode_Label" style="text-align:center; height:3.2vh; width:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> c </p>
+            <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; ">  &#8594; Analyze Mode</p>
+
+          </div>
+
+          <div class="row" style="margin-top:0.5vh; margin-bottom:0.5vh;" >
+
+            <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> Ctrl </p>
+            <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; "> + </p>
+            <p id="id_PopUp_Shortcuts_MappingMode_Label" style="text-align:center; height:3.2vh; width:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> c </p>
+            <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; ">  &#8594; Mapping Mode</p>
 
           </div>
         </div>
@@ -2949,7 +2983,7 @@
       </div>
 
 
-        <button class="class_generalbutton class_noSizeUpdate" onclick="closeShortcutsWindow()" title="close" style=" width:60%; height:6vh; line-height:6vh; font-size:3vh; margin-bottom:2vh; margin-left:20%;"> Close </button>
+        <button class="class_generalbutton class_noSizeUpdate" onclick="closeShortcutsWindow()" title="close" style=" width:60%; height:6vh; line-height:6vh; font-size:3vh; margin-top:2vh; margin-bottom:2vh; margin-left:20%;"> Close </button>
 
     </div>
   </div>

@@ -13,50 +13,7 @@ function changeAxisVisibility(){
   }
 }
 
-/*function backgroundMapping(){
 
-  var canvasObj = document.getElementById("id_EditPage_DrawMappingDiv");
-
-  document.getElementById("mappingBG1").style.borderColor="black";
-  document.getElementById("mappingBG2").style.borderColor="black";
-  document.getElementById("mappingBG3").style.borderColor="black";
-
-  switch (type) {
-    case 0:
-      mapping_scene.background = new THREE.Color( 0xffffff );
-      document.getElementById("mappingBG1").style.borderColor=styleActiveColor;
-
-
-      //document.getElementById("mappingProcessBackground").style.borderTop="1px solid rgb(85,85,85)";
-      document.getElementById("mappingProcessBackground").style.background="rgb(255,255,255)";
-      document.getElementById("mappingProcessText").style.color="rgb(85,85,85)";
-      document.getElementById("mappingProcessBar").style.background="rgb(85,85,85)";
-
-      break;
-      case 1:
-        mapping_scene.background = new THREE.Color( 0x7d7d7d );
-        document.getElementById("mappingBG2").style.borderColor=styleActiveColor;
-
-        //document.getElementById("mappingProcessBackground").style.borderTop="1px solid rgb(255,255,255)";
-        document.getElementById("mappingProcessBackground").style.background="rgb(125,125,125)";
-        document.getElementById("mappingProcessText").style.color="rgb(255,255,255)";
-        document.getElementById("mappingProcessBar").style.background="rgb(255,255,255)";
-        break;
-        case 2:
-          mapping_scene.background = new THREE.Color( 0x000000 );
-          document.getElementById("mappingBG3").style.borderColor=styleActiveColor;
-
-          //document.getElementById("mappingProcessBackground").style.borderTop="1px solid rgb(170,170,170)";
-          document.getElementById("mappingProcessBackground").style.background="rgb(0,0,0)";
-          document.getElementById("mappingProcessText").style.color="rgb(170,170,170)";
-          document.getElementById("mappingProcessBar").style.background="rgb(170,170,170)";
-          break;
-    default:
-    mapping_scene.background = new THREE.Color( 0x000000 );
-    document.getElementById("mappingBG3").style.borderColor=styleActiveColor;
-
-  }
-}*/
 
 /*function updateMappingSize(type)
 {
@@ -362,5 +319,5 @@ function enableScroll() {
     window.onmousewheel = document.onmousewheel = null;
     window.onwheel = null;
     window.ontouchmove = null;
-    document.onkeydown = null;
+  //  document.onkeydown = null;
 }
