@@ -28,10 +28,10 @@ function drawKeyBursLine(canvasID,tmpCMS){
 
 
 
-  var bigRad=tmpRect.height/15;
-  var smallRad=tmpRect.height/25;
+  var bigRad=tmpRect.height/10;
+  var smallRad=tmpRect.height/20;
   var middlePos = tmpRect.height/2;
-  colorBurRadius = smallRad;
+  colorBurRadius = bigRad; //smallRad;
 
   var bandSketchWidth = colormapWidth/(tmpCMS.getKeyLength()-1);
   // draw keys

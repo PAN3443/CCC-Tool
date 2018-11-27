@@ -200,10 +200,70 @@ function drawInsertBandPreview(canvasData, currentPos, bandLength, canvasHeight,
               canvasData=createScaledBand(canvasData, currentPos, bandLength, canvasHeight, scaleBands[dragPredefinedBandIndex][0].getInColorFormat(globalCMS1.getInterpolationSpace()),scaleBands[dragPredefinedBandIndex][1].getInColorFormat(globalCMS1.getInterpolationSpace()), canvasWidth);
       break;
       case 2:
+              // ->double
+              var numberOfBands=2;
+              var tmpbandLength=bandLength/numberOfBands;
+              if(tmpbandLength%1!=0){
+                var rest=tmpbandLength%1;
+                tmpbandLength=Math.floor(tmpbandLength);
+                var lesspixels=Math.round(rest*numberOfBands); // should be an integer
+                canvasData=createUnknownTypeBand(canvasData, currentPos, tmpbandLength+lesspixels, canvasHeight, doubleBands[dragPredefinedBandIndex][0].getInColorFormat(globalCMS1.getInterpolationSpace()),doubleBands[dragPredefinedBandIndex][1].getInColorFormat(globalCMS1.getInterpolationSpace()), canvasWidth);
+                currentPos+=(tmpbandLength+lesspixels);
+              }
+              else{
+                canvasData=createUnknownTypeBand(canvasData, currentPos, tmpbandLength, canvasHeight, doubleBands[dragPredefinedBandIndex][0].getInColorFormat(globalCMS1.getInterpolationSpace()),doubleBands[dragPredefinedBandIndex][1].getInColorFormat(globalCMS1.getInterpolationSpace()), canvasWidth);
+                currentPos+=tmpbandLength;
+              }
+              canvasData=createUnknownTypeBand(canvasData, currentPos, tmpbandLength, canvasHeight, doubleBands[dragPredefinedBandIndex][2].getInColorFormat(globalCMS1.getInterpolationSpace()),doubleBands[dragPredefinedBandIndex][3].getInColorFormat(globalCMS1.getInterpolationSpace()), canvasWidth);
+      break;
+      case 3:
+              // ->triple
+              var numberOfBands=3;
+              var tmpbandLength=bandLength/numberOfBands; //Math.round(bandLength/numberOfBands);
+
+              if(tmpbandLength%1!=0){
+                var rest=tmpbandLength%1;
+                tmpbandLength=Math.floor(tmpbandLength);
+                var lesspixels=Math.round(rest*numberOfBands);
+                canvasData=createUnknownTypeBand(canvasData, currentPos, tmpbandLength+lesspixels, canvasHeight, tribleBands[dragPredefinedBandIndex][0].getInColorFormat( globalCMS1.getInterpolationSpace()),tribleBands[dragPredefinedBandIndex][1].getInColorFormat( globalCMS1.getInterpolationSpace()), canvasWidth);
+                currentPos+=(tmpbandLength+lesspixels);
+              }
+              else{
+                canvasData=createUnknownTypeBand(canvasData, currentPos, tmpbandLength, canvasHeight, tribleBands[dragPredefinedBandIndex][0].getInColorFormat( globalCMS1.getInterpolationSpace()),tribleBands[dragPredefinedBandIndex][1].getInColorFormat( globalCMS1.getInterpolationSpace()), canvasWidth);
+                currentPos+=tmpbandLength;
+              }
+              canvasData=createUnknownTypeBand(canvasData, currentPos, tmpbandLength, canvasHeight, tribleBands[dragPredefinedBandIndex][2].getInColorFormat( globalCMS1.getInterpolationSpace()),tribleBands[dragPredefinedBandIndex][3].getInColorFormat( globalCMS1.getInterpolationSpace()), canvasWidth);
+              currentPos+=tmpbandLength;
+              canvasData=createUnknownTypeBand(canvasData, currentPos, tmpbandLength, canvasHeight, tribleBands[dragPredefinedBandIndex][4].getInColorFormat( globalCMS1.getInterpolationSpace()),tribleBands[dragPredefinedBandIndex][5].getInColorFormat( globalCMS1.getInterpolationSpace()), canvasWidth);
+
+
+      break;
+      case 4:
+              // ->quad
+              var numberOfBands=4;
+                            var tmpbandLength=bandLength/numberOfBands;
+                            if(tmpbandLength%1!=0){
+                              var rest=tmpbandLength%1;
+                              tmpbandLength=Math.floor(tmpbandLength);
+                              var lesspixels=Math.round(rest*numberOfBands);
+                              canvasData=createUnknownTypeBand(canvasData, currentPos, tmpbandLength+lesspixels, canvasHeight, quadBands[dragPredefinedBandIndex][0].getInColorFormat( globalCMS1.getInterpolationSpace()),quadBands[dragPredefinedBandIndex][1].getInColorFormat( globalCMS1.getInterpolationSpace()), canvasWidth);
+                              currentPos+=(tmpbandLength+lesspixels);
+                            }
+                            else{
+                              canvasData=createUnknownTypeBand(canvasData, currentPos, tmpbandLength, canvasHeight, quadBands[dragPredefinedBandIndex][0].getInColorFormat( globalCMS1.getInterpolationSpace()),quadBands[dragPredefinedBandIndex][1].getInColorFormat( globalCMS1.getInterpolationSpace()), canvasWidth);
+                              currentPos+=tmpbandLength;
+                            }
+                            canvasData=createUnknownTypeBand(canvasData, currentPos, tmpbandLength, canvasHeight, quadBands[dragPredefinedBandIndex][2].getInColorFormat( globalCMS1.getInterpolationSpace()),quadBands[dragPredefinedBandIndex][3].getInColorFormat( globalCMS1.getInterpolationSpace()), canvasWidth);
+                            currentPos+=tmpbandLength;
+                            canvasData=createUnknownTypeBand(canvasData, currentPos, tmpbandLength, canvasHeight, quadBands[dragPredefinedBandIndex][4].getInColorFormat( globalCMS1.getInterpolationSpace()),quadBands[dragPredefinedBandIndex][5].getInColorFormat( globalCMS1.getInterpolationSpace()), canvasWidth);
+                            currentPos+=tmpbandLength;
+                            canvasData=createUnknownTypeBand(canvasData, currentPos, tmpbandLength, canvasHeight, quadBands[dragPredefinedBandIndex][6].getInColorFormat( globalCMS1.getInterpolationSpace()),quadBands[dragPredefinedBandIndex][7].getInColorFormat( globalCMS1.getInterpolationSpace()), canvasWidth);
+      break;
+      case 5:
               // ->MyDesigns CMS
               canvasData = drawInsertCMSPreview(myDesignsList[dragPredefinedBandIndex],canvasData, currentPos, bandLength, canvasHeight, canvasWidth);
             break;
-      case 3:
+      case 6:
               // -> predefined CMS
               var tmpCMS;
               switch (currentPredefinedType) {
@@ -237,19 +297,20 @@ function drawInsertBandPreview(canvasData, currentPos, bandLength, canvasHeight,
               }
               canvasData = drawInsertCMSPreview(tmpCMS,canvasData, currentPos, bandLength, canvasHeight, canvasWidth);
       break;
-      case 4:
-              // ->const
-              canvasData=createConstantBand(canvasData, currentPos, bandLength, canvasHeight, customConstBandColor.getInColorFormat(globalCMS1.getInterpolationSpace()), canvasWidth);
-      break;
-      case 5:
-              // ->scale
-              canvasData=createScaledBand(canvasData, currentPos, bandLength, canvasHeight, customScaleBandColor1.getInColorFormat(globalCMS1.getInterpolationSpace()),customScaleBandColor2.getInColorFormat(globalCMS1.getInterpolationSpace()), canvasWidth);
-      break;
-      case 6:
+      case 7:
               // -> online CMS
 
 
               break;
+
+      case 8:
+              // ->const
+              canvasData=createConstantBand(canvasData, currentPos, bandLength, canvasHeight, customConstBandColor.getInColorFormat(globalCMS1.getInterpolationSpace()), canvasWidth);
+      break;
+      case 9:
+              // ->scale
+              canvasData=createScaledBand(canvasData, currentPos, bandLength, canvasHeight, customScaleBandColor1.getInColorFormat(globalCMS1.getInterpolationSpace()),customScaleBandColor2.getInColorFormat(globalCMS1.getInterpolationSpace()), canvasWidth);
+      break;
 
       default:
       console.log("Error in drawInsertBandPreview function.");

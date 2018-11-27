@@ -109,6 +109,8 @@ function showEditPage(){
     indexActiveCMS=myDesignsList.length-1;
 
     switchModifyModus(0);
+    changePredefinedStructure(0);
+
   }
   else{
     // CMS from MyDesigns
@@ -118,8 +120,11 @@ function showEditPage(){
 
     if(globalCMS1.getKeyLength() != 0)
     switchModifyModus(2);
-    else
-    switchModifyModus(0);
+    else{
+      switchModifyModus(0);
+      changePredefinedStructure(0);
+    }
+
   }
 
   switchCMSInformation(0);

@@ -63,7 +63,7 @@ function updateEditPage(){
         document.getElementById("id_EditPage_CMS_VIS_LinearKeys").style.visibility="visible";
         document.getElementById("id_EditPage_CMS_VIS_KeyBurs").style.visibility="visible";
         //document.getElementById("id_EditPage_CMS_VIS_ColormapLinear").style.visibility="visible";
-        document.getElementById("id_EditPage_RefPlaceholder").style.visibility="visible";
+        //document.getElementById("id_EditPage_RefPlaceholder").style.visibility="visible";
         document.getElementById("id_EditPage_CMS_VIS_SketchKeys").style.visibility="visible";
         document.getElementById("id_EditPage_CMS_VIS_Lines1").style.visibility="visible";
         document.getElementById("id_EditPage_CMS_VIS_Lines2").style.visibility="visible";
@@ -90,7 +90,7 @@ function updateEditPage(){
         if (!clearButton.classList.contains('dropdownMenuButton'))
         clearButton.classList.toggle("dropdownMenuButton");
 
-        document.getElementById("id_editPage_HelpImage1").style.display="none";
+        //document.getElementById("id_editPage_HelpImage1").style.display="none";
 
 
         if(globalCMS1.getProbeSetLength()!=0 && document.getElementById("id_EditPage_PreviewProbe_Div").style.display!="none"){
@@ -124,7 +124,7 @@ function updateEditPage(){
     document.getElementById("id_EditPage_CMS_VIS_LinearKeys").style.visibility="hidden";
     document.getElementById("id_EditPage_CMS_VIS_KeyBurs").style.visibility="hidden";
     //document.getElementById("id_EditPage_CMS_VIS_ColormapLinear").style.visibility="hidden";
-    document.getElementById("id_EditPage_RefPlaceholder").style.visibility="hidden";
+    //document.getElementById("id_EditPage_RefPlaceholder").style.visibility="hidden";
     document.getElementById("id_EditPage_CMS_VIS_SketchKeys").style.visibility="hidden";
     document.getElementById("id_EditPage_CMS_VIS_Lines1").style.visibility="hidden";
       document.getElementById("id_EditPage_CMS_VIS_Lines2").style.visibility="hidden";
@@ -153,8 +153,8 @@ function updateEditPage(){
 
 
 
-        if(document.getElementById("id_editPage_EditDiv").style.display!="none")
-          document.getElementById("id_editPage_HelpImage1").style.display="block";
+        /*if(document.getElementById("id_editPage_EditDiv").style.display!="none")
+          document.getElementById("id_editPage_HelpImage1").style.display="block";*/
   }
 
 
@@ -179,16 +179,47 @@ function updateEditPage(){
 }
 
 
+function changePredefinedStructure(type){
+  document.getElementById("id_editPage_Add_Predefined_Button").style.background=styleNotActiveColor;
+  document.getElementById("id_editPage_Add_Gallery_Button").style.background=styleNotActiveColor;
+  document.getElementById("id_editPage_Add_Mydesigns_Button").style.background=styleNotActiveColor;
+
+  document.getElementById("id_editPage_Add_Predefined_Div").style.display="none";
+  document.getElementById("id_editPage_Add_Gallery_Div").style.display="none";
+  document.getElementById("id_editPage_Add_MyDesigns_Div").style.display="none";
+
+  switch (type) {
+    case 0:
+      document.getElementById("id_editPage_Add_Predefined_Button").style.background=styleActiveColor;
+      document.getElementById("id_editPage_Add_Predefined_Div").style.display="flex";
+    break;
+
+    case 1:
+      document.getElementById("id_editPage_Add_Gallery_Button").style.background=styleActiveColor;
+      document.getElementById("id_editPage_Add_Gallery_Div").style.display="block";
+    break;
+
+    case 2:
+      document.getElementById("id_editPage_Add_Mydesigns_Button").style.background=styleActiveColor;
+      document.getElementById("id_editPage_Add_MyDesigns_Div").style.display="flex";
+    break;
+    default:
+    changePredefinedStructure(0);
+  }
+
+  updatePredefined();
+}
+
+
 function switchModifyModus(type){
 
 
   document.getElementById("id_editPage_SelectAddStructures").style.background=styleNotActiveColor;
-  document.getElementById("id_editPage_SelectAddKeys").style.background=styleNotActiveColor;
   document.getElementById("id_editPage_SelectEditKeys").style.background=styleNotActiveColor;
   document.getElementById("id_editPage_SelectEditPath").style.background=styleNotActiveColor;
 
   document.getElementById("id_EditPage_Add_Structures").style.display="none";
-  document.getElementById("id_EditPage_Add_Keys").style.display="none";
+
   document.getElementById("id_EditPage_Edit_Keys").style.display="none";
   document.getElementById("id_EditPage_Edit_Path").style.display="none";
 
@@ -197,19 +228,10 @@ function switchModifyModus(type){
     case 0:
       document.getElementById("id_editPage_SelectAddStructures").style.background=styleActiveColor;
       document.getElementById("id_EditPage_Add_Structures").style.display="block";
+      updatePredefined();
     break;
+
     case 1:
-      if(globalCMS1.getKeyLength() != 0){
-        document.getElementById("id_editPage_SelectAddKeys").style.background=styleActiveColor;
-        document.getElementById("id_EditPage_Add_Keys").style.display="block";
-        //addKeyButtons();
-      }
-      else{
-        openAlert("Adding Keys needs a CMS structure. Please use Add Bands to create a CMS.");
-        switchModifyModus(0);
-      }
-    break;
-    case 2:
 
     if(globalCMS1.getKeyLength() != 0){
       document.getElementById("id_editPage_SelectEditKeys").style.background=styleActiveColor;
@@ -222,7 +244,7 @@ function switchModifyModus(type){
     }
     break;
 
-    case 3:
+    case 2:
 
     if(globalCMS1.getKeyLength() != 0){
       document.getElementById("id_editPage_SelectEditPath").style.background=styleActiveColor;
@@ -244,7 +266,7 @@ function switchModifyModus(type){
 
 function switchCMSInformation(type){
 
-  if(type==0){
+  /*if(type==0){
     document.getElementById("id_EditPage_DivCMSDescription").style.display="block";
     document.getElementById("id_EditPage_DivKeyDescription").style.display="none";
     document.getElementById("id_editPage_SelectCMSDescription").style.background=styleActiveColor;
@@ -255,7 +277,7 @@ function switchCMSInformation(type){
     document.getElementById("id_EditPage_DivCMSDescription").style.display="none";
     document.getElementById("id_editPage_SelectKeyDescription").style.background=styleActiveColor;
     document.getElementById("id_editPage_SelectCMSDescription").style.background=styleNotActiveColor;
-  }
+  }*/
 
 }
 
@@ -355,17 +377,17 @@ function showHideEditContainer(){
       document.getElementById("id_editPage_EditDiv").style.display="inline-block";
       document.getElementById("id_dropDownMenue_HideEdit_Label").innerHTML="&#9673; Edit";
 
-      if(globalCMS1.getKeyLength()==0){
+      /*if(globalCMS1.getKeyLength()==0){
         document.getElementById("id_editPage_HelpImage1").style.display="block";
-      }
+      }*/
   }
   else{
       document.getElementById("id_editPage_EditDiv").style.display="none";
       document.getElementById("id_dropDownMenue_HideEdit_Label").innerHTML="&#9675; Edit";
 
-      if(document.getElementById("id_editPage_HelpImage1").style.display!="none"){
+      /*if(document.getElementById("id_editPage_HelpImage1").style.display!="none"){
         document.getElementById("id_editPage_HelpImage1").style.display="none";
-      }
+      }*/
   }
 
   document.getElementById("id_dropDownContainer").style.display="none";

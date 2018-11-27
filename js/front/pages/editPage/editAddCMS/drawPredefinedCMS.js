@@ -1,4 +1,33 @@
 
+function updatePredefined(){
+
+  if(document.getElementById("id_editPage_Add_Predefined_Div").style.display!="none"){
+    drawConstantBands();
+    drawScaledBands();
+    drawConstCustomBand();
+    drawScaleCustomBand();
+    drawDoubleBands();
+    drawTripleBands();
+    drawQuadrupleBands();
+    return;
+  }
+
+  if(document.getElementById("id_editPage_Add_Gallery_Div").style.display!="none"){
+    return;
+  }
+
+  if(document.getElementById("id_editPage_Add_MyDesigns_Div").style.display!="none"){
+    return;
+  }
+
+  // Error non of the three possible divs is displeyed
+  changePredefinedStructure(0);
+
+
+
+}
+
+
 
 function drawPredefined_MyDesignsCMS(){
 

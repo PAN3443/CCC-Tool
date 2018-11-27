@@ -27,7 +27,6 @@ function changeColorspace(space){
 
   //if(document.getElementById("id_EditPage").style.display!="none"){
     updateInterpolationSpaceEditPage();
-
   //}
 
 }
@@ -82,10 +81,10 @@ function updateInterpolationSpaceEditPage(){
   }
 
 
-  drawConstantBands();
-  drawScaledBands();
-  drawConstCustomBand();
-  drawScaleCustomBand();
+  if(document.getElementById("id_EditPage_Add_Structures").style.display!="none"){
+    updatePredefined();
+  }
+
 
   // UPDATE Path Plot
   if(document.getElementById("id_EditPage_Edit_Path").style.display!="none"){
@@ -98,5 +97,5 @@ function updateInterpolationSpaceEditPage(){
   }
 
 
-  updateEditPage();
+  updateEditPage(); // = update CMS, Mapping and Analyze Plots
 }

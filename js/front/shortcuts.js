@@ -17,7 +17,7 @@ function keyDownDocumentHandler(event){
       keynum = event.which;
     }
 
-console.log(keynum);
+//console.log(keynum);
 
     switch (keynum) {
 

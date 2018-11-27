@@ -45,11 +45,11 @@ function bandOnDragStart(event){
         break;*/
         case "id_editPage_customConstBand":
         dragPredefinedBandIndex = undefined;
-        dragPredefinedBandType = 4;
+        dragPredefinedBandType = 8;
           break;
           case "id_editPage_customScaleBand":
           dragPredefinedBandIndex = undefined;
-          dragPredefinedBandType = 5;
+          dragPredefinedBandType = 9;
             break;
       default:
 
@@ -64,22 +64,39 @@ function bandOnDragStart(event){
               tmpString = tmpString.substr(5);
               dragPredefinedBandIndex = parseInt(tmpString);
           break;
+          case "d":
+              dragPredefinedBandType = 2;
+              tmpString = tmpString.substr(6);
+              dragPredefinedBandIndex = parseInt(tmpString);
+          break;
+          case "t":
+              dragPredefinedBandType = 3;
+              tmpString = tmpString.substr(6);
+              dragPredefinedBandIndex = parseInt(tmpString);
+          break;
+          case "q":
+              dragPredefinedBandType = 4;
+              tmpString = tmpString.substr(5);
+              dragPredefinedBandIndex = parseInt(tmpString);
+          break;
+
+
 
           case "m": // myDesign
-              dragPredefinedBandType = 2;
+              dragPredefinedBandType = 5;
               //tmpString = tmpString.substr(12);
               dragPredefinedBandIndex = currentPredefinedId;
           break;
-
-          case "o": // online
-            dragPredefinedBandType = 6;
-          break;
-
           case "p": // predefined
-            dragPredefinedBandType = 3;
+            dragPredefinedBandType = 6;
             //tmpString = tmpString.substr(12);
             dragPredefinedBandIndex = currentPredefinedId;
           break;
+
+          case "o": // online
+            dragPredefinedBandType = 7;
+          break;
+
 
           default:
               console.log("Error at the openpredefinedbands function");
@@ -227,7 +244,146 @@ function bandOnDrop(event){
 
                     }
             break;
+
             case 2:
+                    // ->double
+
+
+                    if(globalCMS1.getKeyLength()==0){
+
+                            globalCMS1.pushKey(new class_Key(undefined, checkConstantBand(doubleBands[dragPredefinedBandIndex][0], doubleBands[dragPredefinedBandIndex][1]),0.0,true)); // nil or right key
+                            globalCMS1.pushKey(new class_Key(doubleBands[dragPredefinedBandIndex][1], checkConstantBand(doubleBands[dragPredefinedBandIndex][2], doubleBands[dragPredefinedBandIndex][3]),0.5,false)); // left key
+                            globalCMS1.pushKey(new class_Key(doubleBands[dragPredefinedBandIndex][3], undefined,1.0,true)); // left key
+
+                    }
+                    else{
+
+                      switch (indexOfDroppedPlace) {
+                        case globalCMS1.getKeyLength()-1:
+                          var tmpVal = globalCMS1.getRefPosition(indexOfDroppedPlace);
+                          var dist = Math.abs(tmpVal-globalCMS1.getRefPosition(indexOfDroppedPlace-1))*0.5;
+                          globalCMS1.setRefPosition(indexOfDroppedPlace,tmpVal-dist);
+                          globalCMS1.setRightKeyColor(indexOfDroppedPlace,checkConstantBand(doubleBands[dragPredefinedBandIndex][0], doubleBands[dragPredefinedBandIndex][1])); // update old left key
+                          globalCMS1.setBur(indexOfDroppedPlace,true);
+                          globalCMS1.pushKey(new class_Key(doubleBands[dragPredefinedBandIndex][1], checkConstantBand(doubleBands[dragPredefinedBandIndex][2], doubleBands[dragPredefinedBandIndex][3]),tmpVal-dist*0.5,false)); // push new left key
+                          globalCMS1.pushKey(new class_Key(doubleBands[dragPredefinedBandIndex][3], undefined,tmpVal,true)); // push new left key
+                          break;
+
+                        default:
+                          var startPos = globalCMS1.getRefPosition(indexOfDroppedPlace);
+                          var endPos = (startPos+Math.abs(globalCMS1.getRefPosition(indexOfDroppedPlace+1)-startPos)*0.5);
+                          var dist = endPos-startPos;
+                          ///////////
+                          ///// split key
+                          globalCMS1.setRefPosition(indexOfDroppedPlace,endPos);
+
+                          // case constant add Keys
+                          var oldColor = globalCMS1.getLeftKeyColor(indexOfDroppedPlace,"lab");
+                          globalCMS1.setLeftKeyColor(indexOfDroppedPlace,doubleBands[dragPredefinedBandIndex][3]);
+                          globalCMS1.setBur(indexOfDroppedPlace,true);
+                          globalCMS1.insertKey(indexOfDroppedPlace, new class_Key(doubleBands[dragPredefinedBandIndex][1], checkConstantBand(doubleBands[dragPredefinedBandIndex][2], doubleBands[dragPredefinedBandIndex][3]),startPos+dist*0.5,false));
+                          globalCMS1.insertKey(indexOfDroppedPlace, new class_Key(oldColor,checkConstantBand(doubleBands[dragPredefinedBandIndex][0], doubleBands[dragPredefinedBandIndex][1]),startPos,true));
+
+                      }
+
+                    }
+            break;
+            case 3:
+                    // ->triple
+
+                    if(globalCMS1.getKeyLength()==0){
+
+                      globalCMS1.pushKey(new class_Key(undefined, checkConstantBand(tribleBands[dragPredefinedBandIndex][0], tribleBands[dragPredefinedBandIndex][1]),0.0,true)); // nil or right key
+                      globalCMS1.pushKey(new class_Key(tribleBands[dragPredefinedBandIndex][1], checkConstantBand(tribleBands[dragPredefinedBandIndex][2], tribleBands[dragPredefinedBandIndex][3]),0.33,false)); // left key
+                      globalCMS1.pushKey(new class_Key(tribleBands[dragPredefinedBandIndex][3], checkConstantBand(tribleBands[dragPredefinedBandIndex][4], tribleBands[dragPredefinedBandIndex][5]),0.66,false)); // left key
+                      globalCMS1.pushKey(new class_Key(tribleBands[dragPredefinedBandIndex][5], undefined,1.0,true)); // left key
+
+                    }
+                    else{
+
+
+                      switch (indexOfDroppedPlace) {
+                        case globalCMS1.getKeyLength()-1:
+                          var tmpVal = globalCMS1.getRefPosition(indexOfDroppedPlace);
+                          var dist = Math.abs(tmpVal-globalCMS1.getRefPosition(indexOfDroppedPlace-1))*0.5;
+                          globalCMS1.setRefPosition(indexOfDroppedPlace,tmpVal-dist);
+                          globalCMS1.setRightKeyColor(indexOfDroppedPlace,checkConstantBand(tribleBands[dragPredefinedBandIndex][0], tribleBands[dragPredefinedBandIndex][1])); // update old left key
+                          globalCMS1.setBur(indexOfDroppedPlace,true);
+                          globalCMS1.pushKey(new class_Key(tribleBands[dragPredefinedBandIndex][1], checkConstantBand(tribleBands[dragPredefinedBandIndex][2], tribleBands[dragPredefinedBandIndex][3]),tmpVal-dist*0.66,false)); // push new left key
+                          globalCMS1.pushKey(new class_Key(tribleBands[dragPredefinedBandIndex][3], checkConstantBand(tribleBands[dragPredefinedBandIndex][4], tribleBands[dragPredefinedBandIndex][5]),tmpVal-dist*0.33,false)); // push new left key
+                          globalCMS1.pushKey(new class_Key(tribleBands[dragPredefinedBandIndex][5], undefined,tmpVal,true)); // push new left key
+                          break;
+
+                        default:
+                          var startPos = globalCMS1.getRefPosition(indexOfDroppedPlace);
+                          var endPos = (startPos+Math.abs(globalCMS1.getRefPosition(indexOfDroppedPlace+1)-startPos)*0.5);
+                          var dist = endPos-startPos;
+                          ///////////
+                          ///// split key
+                          globalCMS1.setRefPosition(indexOfDroppedPlace,endPos);
+
+                          // case constant add Keys
+                          var oldColor = globalCMS1.getLeftKeyColor(indexOfDroppedPlace,"lab");
+                          globalCMS1.setLeftKeyColor(indexOfDroppedPlace,tribleBands[dragPredefinedBandIndex][5]);
+                          globalCMS1.setBur(indexOfDroppedPlace,true);
+                          globalCMS1.insertKey(indexOfDroppedPlace, new class_Key(tribleBands[dragPredefinedBandIndex][3], checkConstantBand(tribleBands[dragPredefinedBandIndex][4], tribleBands[dragPredefinedBandIndex][5]),startPos+dist*0.66,false));
+                          globalCMS1.insertKey(indexOfDroppedPlace, new class_Key(tribleBands[dragPredefinedBandIndex][1], checkConstantBand(tribleBands[dragPredefinedBandIndex][2], tribleBands[dragPredefinedBandIndex][3]),startPos+dist*0.33,false));
+                          globalCMS1.insertKey(indexOfDroppedPlace, new class_Key(oldColor,checkConstantBand(tribleBands[dragPredefinedBandIndex][0], tribleBands[dragPredefinedBandIndex][1]),startPos,true));
+
+                      }
+
+                    }
+            break;
+            case 4:
+                    // ->quad
+
+                    if(globalCMS1.getKeyLength()==0){
+
+                      globalCMS1.pushKey(new class_Key(undefined, checkConstantBand(quadBands[dragPredefinedBandIndex][0], quadBands[dragPredefinedBandIndex][1]),0.0,true)); // nil or right key
+                      globalCMS1.pushKey(new class_Key(quadBands[dragPredefinedBandIndex][1], checkConstantBand(quadBands[dragPredefinedBandIndex][2], quadBands[dragPredefinedBandIndex][3]),0.25,false)); // left key
+                      globalCMS1.pushKey(new class_Key(quadBands[dragPredefinedBandIndex][3], checkConstantBand(quadBands[dragPredefinedBandIndex][4], quadBands[dragPredefinedBandIndex][5]),0.5,false)); // left key
+                      globalCMS1.pushKey(new class_Key(quadBands[dragPredefinedBandIndex][5], checkConstantBand(quadBands[dragPredefinedBandIndex][6], quadBands[dragPredefinedBandIndex][7]),0.75,false)); // left key
+                      globalCMS1.pushKey(new class_Key(quadBands[dragPredefinedBandIndex][7], undefined,1.0,true)); // left key
+
+                    }
+                    else{
+
+                      switch (indexOfDroppedPlace) {
+                        case globalCMS1.getKeyLength()-1:
+                          var tmpVal = globalCMS1.getRefPosition(indexOfDroppedPlace);
+                          var dist = Math.abs(tmpVal-globalCMS1.getRefPosition(indexOfDroppedPlace-1))*0.5;
+                          globalCMS1.setRefPosition(indexOfDroppedPlace,tmpVal-dist);
+                          globalCMS1.setRightKeyColor(indexOfDroppedPlace,checkConstantBand(quadBands[dragPredefinedBandIndex][0], quadBands[dragPredefinedBandIndex][1])); // update old left key
+                          globalCMS1.setBur(indexOfDroppedPlace,true);
+                          globalCMS1.pushKey(new class_Key(quadBands[dragPredefinedBandIndex][1], checkConstantBand(quadBands[dragPredefinedBandIndex][2], quadBands[dragPredefinedBandIndex][3]),tmpVal-dist*0.75,false)); // push new left key
+                          globalCMS1.pushKey(new class_Key(quadBands[dragPredefinedBandIndex][3], checkConstantBand(quadBands[dragPredefinedBandIndex][4], quadBands[dragPredefinedBandIndex][5]),tmpVal-dist*0.5,false)); // push new left key
+                          globalCMS1.pushKey(new class_Key(quadBands[dragPredefinedBandIndex][5], checkConstantBand(quadBands[dragPredefinedBandIndex][6], quadBands[dragPredefinedBandIndex][7]),tmpVal-dist*0.25,false)); // push new left key
+                          globalCMS1.pushKey(new class_Key(quadBands[dragPredefinedBandIndex][7], undefined,tmpVal,true)); // push new left key
+                          break;
+
+                        default:
+                          var startPos = globalCMS1.getRefPosition(indexOfDroppedPlace);
+                          var endPos = (startPos+Math.abs(globalCMS1.getRefPosition(indexOfDroppedPlace+1)-startPos)*0.5);
+                          var dist = endPos-startPos;
+                          ///////////
+                          ///// split key
+                          globalCMS1.setRefPosition(indexOfDroppedPlace,endPos);
+
+                          // case constant add Keys
+                          var oldColor = globalCMS1.getLeftKeyColor(indexOfDroppedPlace,"lab");
+                          globalCMS1.setLeftKeyColor(indexOfDroppedPlace,quadBands[dragPredefinedBandIndex][7]);
+                          globalCMS1.setBur(indexOfDroppedPlace,true);
+                          globalCMS1.insertKey(indexOfDroppedPlace, new class_Key(quadBands[dragPredefinedBandIndex][5], checkConstantBand(quadBands[dragPredefinedBandIndex][6], quadBands[dragPredefinedBandIndex][7]),startPos+dist*0.75,false));
+                          globalCMS1.insertKey(indexOfDroppedPlace, new class_Key(quadBands[dragPredefinedBandIndex][3], checkConstantBand(quadBands[dragPredefinedBandIndex][4], quadBands[dragPredefinedBandIndex][5]),startPos+dist*0.5,false));
+                          globalCMS1.insertKey(indexOfDroppedPlace, new class_Key(quadBands[dragPredefinedBandIndex][1], checkConstantBand(quadBands[dragPredefinedBandIndex][2], quadBands[dragPredefinedBandIndex][3]),startPos+dist*0.25,false));
+                          globalCMS1.insertKey(indexOfDroppedPlace, new class_Key(oldColor,checkConstantBand(quadBands[dragPredefinedBandIndex][0], quadBands[dragPredefinedBandIndex][1]),startPos,true));
+
+                      }
+                    }
+
+            break;
+
+            case 5:
                     // -> myDesign CMS
 
                     if(globalCMS1.getKeyLength()==0){
@@ -250,54 +406,55 @@ function bandOnDrop(event){
 
 
             break;
-            case 3:
+            case 6:
 
-            var tmpCMS;
-            switch (currentPredefinedType) {
-              case 0:
-                  tmpCMS = cmsYellowColormaps[currentPredefinedId];
-                break
-                case 1:
-                  tmpCMS = cmsBlueColormaps[currentPredefinedId];
+              var tmpCMS;
+              switch (currentPredefinedType) {
+                case 0:
+                    tmpCMS = cmsYellowColormaps[currentPredefinedId];
                   break
-                  case 2:
-                    tmpCMS = cmsRedPurpleColormaps[currentPredefinedId];
+                  case 1:
+                    tmpCMS = cmsBlueColormaps[currentPredefinedId];
                     break
-                    case 3:
-                      tmpCMS = cmsGreenColormaps[currentPredefinedId];
+                    case 2:
+                      tmpCMS = cmsRedPurpleColormaps[currentPredefinedId];
                       break
-                      case 4:
-                      tmpCMS = cmsBrownColormaps[currentPredefinedId];
+                      case 3:
+                        tmpCMS = cmsGreenColormaps[currentPredefinedId];
                         break
-                        case 5:
-                        tmpCMS = cmsDivergentColormaps[currentPredefinedId];
+                        case 4:
+                        tmpCMS = cmsBrownColormaps[currentPredefinedId];
                           break
-                          case 6:
-                          tmpCMS = cmsThreeBandColormaps[currentPredefinedId];
+                          case 5:
+                          tmpCMS = cmsDivergentColormaps[currentPredefinedId];
                             break
-                            case 7:
-                              tmpCMS = cmsFourBandColormaps[currentPredefinedId];
+                            case 6:
+                            tmpCMS = cmsThreeBandColormaps[currentPredefinedId];
                               break
+                              case 7:
+                                tmpCMS = cmsFourBandColormaps[currentPredefinedId];
+                                break
 
               default:
                 return;
             }
 
-            if(globalCMS1.getKeyLength()==0){
+              if(globalCMS1.getKeyLength()==0){
 
-                for (var i = 0; i < tmpCMS.getKeyLength(); i++) {
-                      globalCMS1.pushKey(tmpCMS.getKeyClone(i));
-                }
-            }
-            else{
-                insertCMSinGlobalCMS(tmpCMS, indexOfDroppedPlace);
-            }
-
+                  for (var i = 0; i < tmpCMS.getKeyLength(); i++) {
+                        globalCMS1.pushKey(tmpCMS.getKeyClone(i));
+                  }
+              }
+              else{
+                  insertCMSinGlobalCMS(tmpCMS, indexOfDroppedPlace);
+              }
 
 
 
             break;
-            case 4:
+            case 7: // online
+            break;
+            case 8:
             // ->const
             if(globalCMS1.getKeyLength()==0){
                     globalCMS1.pushKey(new class_Key(undefined, undefined,0.0,true)); // nil key
@@ -336,7 +493,7 @@ function bandOnDrop(event){
 
             }
             break;
-            case 5:
+            case 9:
             // ->scale
             if(globalCMS1.getKeyLength()==0){
                     globalCMS1.pushKey(new class_Key(undefined, customScaleBandColor1,0.0,true)); // right key

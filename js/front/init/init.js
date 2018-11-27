@@ -8,8 +8,8 @@ function init_CCCPageStyle(){
   };
 
   var tmpElementList = document.getElementsByClassName('class_generalbutton');
-  var tmpHeight1 = Math.floor(windowHeight*0.04);
-  var tmpHeight2 = Math.floor(windowHeight*0.025);
+  var tmpHeight1 = Math.floor(windowHeight*0.03);
+  var tmpHeight2 = Math.floor(windowHeight*0.02);
   for (var i = 0; i < tmpElementList.length; ++i) {
 
     if (tmpElementList[i].classList.contains("class_noSizeUpdate"))
@@ -22,8 +22,8 @@ function init_CCCPageStyle(){
 
 
   tmpElementList = document.getElementsByClassName('class_subsectionButton');
-  var tmpHeight1 = Math.floor(windowHeight*0.025);
-  var tmpHeight2 = Math.floor(windowHeight*0.02);
+  var tmpHeight1 = Math.floor(windowHeight*0.02);
+  var tmpHeight2 = Math.floor(windowHeight*0.015);
   for (var i = 0; i < tmpElementList.length; ++i) {
 
     if (tmpElementList[i].classList.contains("class_noSizeUpdate"))
@@ -38,8 +38,8 @@ function init_CCCPageStyle(){
 
 
   tmpElementList = document.getElementsByClassName('helpButton');
-  tmpHeight1 = Math.floor(windowHeight*0.025);
-  tmpHeight2 = Math.floor(windowHeight*0.015);
+  tmpHeight1 = Math.floor(windowHeight*0.02);
+  tmpHeight2 = Math.floor(windowHeight*0.01);
   for (var i = 0; i < tmpElementList.length; ++i) {
 
     if (tmpElementList[i].classList.contains("class_noSizeUpdate"))
@@ -177,7 +177,13 @@ function init_CCCPageStyle(){
   ///////////////
   // Edit Page
 
-  /*document.getElementById("id_EditPage_MainPartDiv").style.minHeight = Math.floor(windowHeight*0.95) + "px";*/
+  document.getElementById("id_EditPage_MainPartDiv").style.height = Math.floor(windowHeight*0.95) + "px";
+
+
+
+/*
+
+
   document.getElementById("id_EditPage_MainPartDiv").style.width = windowWidth*0.95 + "px";
   document.getElementById("id_EditPage_MainPartDiv").style.marginLeft = windowWidth*0.025 + "px";
 
@@ -281,21 +287,21 @@ function init_CCCPageStyle(){
     document.getElementById("id_EditPage_SadleyImg").style.height = tmpHeight3 + "px";
 
 
-    /*document.getElementById("id_EditPage_Add_Structures").style.display="block";
+    //*document.getElementById("id_EditPage_Add_Structures").style.display="block";
     tmpBox = document.getElementById("id_EditPage_OnlineCMS_Div").getBoundingClientRect();
     tmpMargin = tmpBox.widht;
     tmpBox = document.getElementById("id_EditPage_OnlineCMS_NotAvailableImg").getBoundingClientRect();
     tmpMargin = Math.floor((tmpMargin-tmpBox.widht)/2)
     document.getElementById("id_EditPage_OnlineCMS_NotAvailableImg").style.marginLeft =tmpMargin+"px";
-    document.getElementById("id_EditPage_Add_Structures").style.display = "none";*/
+    document.getElementById("id_EditPage_Add_Structures").style.display = "none";*/ //
 
-    document.getElementById('id_EditPage_PathPlot_SingleCanvas_2').addEventListener("mouseleave", mouseLeaveColorspace);
+    /*document.getElementById('id_EditPage_PathPlot_SingleCanvas_2').addEventListener("mouseleave", mouseLeaveColorspace);
     document.getElementById('id_EditPage_PathPlot_SingleCanvas_2').addEventListener("mousemove", mouseMoveColorspace);
     document.getElementById('id_EditPage_PathPlot_SingleCanvas_2').addEventListener("mousedown", mouseDownColorspace);
     document.getElementById('id_EditPage_PathPlot_SingleCanvas_2').addEventListener("mouseup", mouseUpColorspace);
-
-
+*/
     document.getElementById("id_EditPage_Add_Structures").style.display = "block";
+    document.getElementById("id_editPage_Add_Gallery_Div").style.display = "block";
 
     changeFilterPredefined(1);
     drawCanvasColormap("id_EditPage_Preview_Multiband", cmsFourBandColormaps[0]);
@@ -305,10 +311,11 @@ function init_CCCPageStyle(){
     drawCanvasColormap("id_EditPage_Preview_ScaledGreen", cmsGreenColormaps[0]);
     drawCanvasColormap("id_EditPage_Preview_ScaledRedPurple", cmsRedPurpleColormaps[0]);
     drawCanvasColormap("id_EditPage_Preview_ScaledYellowOrange", cmsYellowColormaps[0]);
+
+
+    document.getElementById("id_editPage_Add_Gallery_Div").style.display = "none";
     document.getElementById("id_EditPage_Add_Structures").style.display = "none";
-    document.getElementById("id_EditPage").style.display = "none";
-
-
+   document.getElementById("id_EditPage").style.display = "none";
 
 
 }
