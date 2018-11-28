@@ -73,13 +73,13 @@ function init_events_EditPage(){
 
   limitKeyBurLine=true;
 
-  document.getElementById('id_EditPage_PathPlotSpaces_Label').addEventListener("click", activateDropdown);
+
+  document.getElementById('id_EditPage_extraOptionsAnalyze').addEventListener("click", activateDropdown);
+  document.getElementById('id_EditPage_extraOptionsMapping').addEventListener("click", activateDropdown);
   document.getElementById('id_EditPage_selectProbeTypeLabel').addEventListener("click", activateDropdown);
-  //document.getElementById('id_EditPage_selectProbeSubTypeLabel').addEventListener("click", activateDropdown);
   document.getElementById('id_EditPage_selectProbeSetRangeType').addEventListener("click", activateDropdown);
 
   document.getElementById('id_EditPage_editProbeTypeLabel').addEventListener("click", activateDropdown);
-  //document.getElementById('id_EditPage_editProbeSubTypeLabel').addEventListener("click", activateDropdown);
   document.getElementById('id_EditPage_editProbeFunctionLabel').addEventListener("click", activateDropdown);
 
   initRGB3D();
@@ -103,6 +103,12 @@ function init_events_EditPage(){
 
     document.getElementById('id_EditPage_HelpButton_DrawnKey').addEventListener("mouseenter", showDrawnKeyHelp);
     document.getElementById('id_EditPage_HelpButton_DrawnKey').addEventListener("mouseleave", hideDrawnKeyHelp);
+
+    // Path plots
+    document.getElementById('id_EditPage_PathPlot_SingleCanvas_2').addEventListener("mouseleave", mouseLeaveColorspace);
+    document.getElementById('id_EditPage_PathPlot_SingleCanvas_2').addEventListener("mousemove", mouseMoveColorspace);
+    document.getElementById('id_EditPage_PathPlot_SingleCanvas_2').addEventListener("mousedown", mouseDownColorspace);
+    document.getElementById('id_EditPage_PathPlot_SingleCanvas_2').addEventListener("mouseup", mouseUpColorspace);
 
     // Analyze
     document.getElementById("id_EditPage_SelectAnalyzePlot").selectedIndex=1;

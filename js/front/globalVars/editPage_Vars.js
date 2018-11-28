@@ -50,6 +50,7 @@ var colorpickerColor = new classColor_RGB(1,1,1);
 var customConstBandColor = new classColor_RGB(0.5,0.5,0.5);
 var customScaleBandColor1 = new classColor_RGB(1.0,1.0,1.0);
 var customScaleBandColor2 = new classColor_RGB(0.0,0.0,0.0);
+var selectedPredefinedType = 0;
 
 ///////////////////////////////////////////////////////////////////////
 // Colormap Path
@@ -68,9 +69,7 @@ var mouseGrappedKeyID = -1;
 var mouseGrappedColorSide = -1;
 var lineWidthVPlot = 2;
 var mouseGrappedColor = "rgb(120,120,120)";
-var pathCanvasAssignmentBig = 0; // 0 = (RG,H,L,L99), 1 = (GB,S,a,a99) 0 = (BG,V,b,b99)
-var pathCanvasAssignmentSmallTop = 1;
-var pathCanvasAssignmentSmallBottom = 2;
+
 //var alphaVal = 1.0;
 var circleRad = 6;//8;
 var bigcircleRad = 8;// 12;

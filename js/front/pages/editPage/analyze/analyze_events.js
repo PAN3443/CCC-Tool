@@ -48,34 +48,11 @@ function styleGlobalLocalOrderPlot(){
   document.getElementById("id_EditPage_AnalyzeContainer_SpacesKeyspeed").style.display = "none";
   document.getElementById("id_EditPage_AnalyzeContainer_GlobalLocalOrder").style.display = "flex";
 
-  /*var rect = document.getElementById("id_EditPage_AnalyzeContainer_GlobalLocalOrder").getBoundingClientRect();
-
-  var canvasDim =  Math.round(rect.height*0.8);
-  var margin =  Math.round(rect.height*0.1);
-  document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.height = canvasDim+"px";
-  document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.width = canvasDim+"px";
-  document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.marginTop = margin+"px";*/
-
-  document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.height = document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.width;
-
-  /*var rest = rect.width-canvasDim;
-
-  rect = document.getElementById("id_EditPage_LabelDiv_GlobalLocalOrder").getBoundingClientRect();
-
-  rest -= rect.width;
-  margin=Math.round(rest/3);
-
-  if(margin>0){
-    document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.marginLeft = margin+"px";
-    document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.marginRight = margin+"px";
-    document.getElementById("id_EditPage_LabelDiv_GlobalLocalOrder").style.marginRight = margin+"px";
-  }*/
-
+  var tmpBox = document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").getBoundingClientRect();
+  document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.width = tmpBox.height+"px";
 
   document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.marginLeft = "auto";
   document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.marginRight = "auto";
-  document.getElementById("id_EditPage_LabelDiv_GlobalLocalOrder").style.marginRight = "auto";
-
 
 }
 

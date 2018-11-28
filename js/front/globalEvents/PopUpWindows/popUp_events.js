@@ -1,5 +1,19 @@
 
 
+
+
+
+
+function openFullAnalyzeScreen(){
+  document.getElementById("id_PopUp_fullAnalzeWindow").style.display="block";
+  updateAnalyze();
+}
+
+function closeFullAnalyzeScreen(){
+  document.getElementById("id_PopUp_fullAnalzeWindow").style.display="none";
+  updateAnalyze();
+}
+
 //////////////////////////////////////
 /// Shortcuts  Window /////
 ///////////////////////////////////

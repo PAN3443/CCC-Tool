@@ -179,36 +179,7 @@ function updateEditPage(){
 }
 
 
-function changePredefinedStructure(type){
-  document.getElementById("id_editPage_Add_Predefined_Button").style.background=styleNotActiveColor;
-  document.getElementById("id_editPage_Add_Gallery_Button").style.background=styleNotActiveColor;
-  document.getElementById("id_editPage_Add_Mydesigns_Button").style.background=styleNotActiveColor;
 
-  document.getElementById("id_editPage_Add_Predefined_Div").style.display="none";
-  document.getElementById("id_editPage_Add_Gallery_Div").style.display="none";
-  document.getElementById("id_editPage_Add_MyDesigns_Div").style.display="none";
-
-  switch (type) {
-    case 0:
-      document.getElementById("id_editPage_Add_Predefined_Button").style.background=styleActiveColor;
-      document.getElementById("id_editPage_Add_Predefined_Div").style.display="flex";
-    break;
-
-    case 1:
-      document.getElementById("id_editPage_Add_Gallery_Button").style.background=styleActiveColor;
-      document.getElementById("id_editPage_Add_Gallery_Div").style.display="block";
-    break;
-
-    case 2:
-      document.getElementById("id_editPage_Add_Mydesigns_Button").style.background=styleActiveColor;
-      document.getElementById("id_editPage_Add_MyDesigns_Div").style.display="flex";
-    break;
-    default:
-    changePredefinedStructure(0);
-  }
-
-  updatePredefined();
-}
 
 
 function switchModifyModus(type){

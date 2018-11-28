@@ -47,7 +47,7 @@ function openExportWindow(){
 
   for (var i = 0; i < globalCMS1.getProbeSetLength(); i++) {
     var opt = document.createElement('option');
-
+    opt.style.fontSize = '1.8vh';
     opt.innerHTML = "Probe-Set: "+globalCMS1.getProbeSet(i).getProbeSetName();
 
     selectbox.appendChild(opt);

@@ -217,12 +217,10 @@
 .class_predefinedConstBands{
 
     box-sizing: border-box;
-    display: inline-block;
-    height: 30px;
-    min-height: 30px;
-    width: 40%;
-    margin-left: 2%;
-    margin-right: 2%;
+    height: 100%;
+    width: 42.5%;
+    margin-left: 5%;
+    /*margin-right: 2.5%;*/
     border-radius: 3px;
     border: 1px solid black;
     /*margin-top: 5px;*/
@@ -240,8 +238,7 @@ break{
 .class_predefinedSketchCMSBands{
   box-sizing: border-box;
     border: 1px solid black;
-    height: 20px;
-    min-height: 20px;
+    height: 50%;
     width: 80%;
     margin: 0px;
     margin-left: 10%;
@@ -253,8 +250,7 @@ break{
 .class_predefinedLinearCMSBands{
   box-sizing: border-box;
     border: 1px solid black;
-    height: 20px;
-    min-height: 20px;
+    height: 50%;
     width: 80%;
     margin: 0px;
     margin-left: 10%;
@@ -265,18 +261,24 @@ break{
     cursor: grabbing;
 }
 
+.class_predefinedRow{
+  display:flex;
+  height:5%;
+  width:100%;
+  margin-top:5px;
+  font-size: inherit;
+}
+
 .class_predefinedScaledBands{
   box-sizing: border-box;
     border: 1px solid black;
-    height: 30px;
-    min-height: 30px;
+    height: 100%;
     width: 65%;
     margin-left: 5%;
     margin-right: 5%;
     border-radius: 3px;
     border: 1px solid black;
     float:left;
-    line-height: 30px;
     vertical-align: middle;
     text-align:  center;
     font-size: 12px;
@@ -286,12 +288,12 @@ break{
 .class_reversebuttonEditPage{
   box-sizing: border-box;
   width:20%;
-  height:30px;
+  height:100%;
   margin-right: 5%;
   border-radius: 3px;
   border: 1px solid black;
-  line-height: 30px;
-  font-size: 12px;
+  /*line-height: 30px;
+  font-size: 12px;*/
   color:black;
   vertical-align: middle;
   text-align:  center;
@@ -345,13 +347,14 @@ break{
 
 
 .class_Analysis_Colormaps{
-  height:20px;
+  height:100%;
   border: 1px solid black;
   background:grey;
 }
 
 #id_EditPage_CMS_VIS_Histogramm,
-#id_EditPage_Canvas_GlobalLocalOrder{
+#id_EditPage_Canvas_GlobalLocalOrder,
+#id_PopUp_FullAnalayzeCanvas{
   image-rendering: optimizeSpeed;             /* Older versions of FF*/
   image-rendering: -moz-crisp-edges;          /* FF 6.0+*/
   image-rendering: -webkit-optimize-contrast; /* Webkit (non standard naming)*/

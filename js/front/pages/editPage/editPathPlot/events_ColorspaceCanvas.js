@@ -6,7 +6,21 @@ function mouseLeaveColorspace(event) {
   clearInterval(timer2DAnimation);
   document.getElementById(event.target.id).style.cursor = "default";
 
-  document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "";
+  switch (pathColorspace) {
+    case "hsv":
+      document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "H : -, S: -, V: -";
+      break;
+      case "lab":
+        document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L : -, a: -, b: -";
+        break;
+        case "din99":
+          document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L99 : -, a99: -, b99: -";
+          break;
+    default:
+
+  }
+
+
 
   mouseAboveKeyID = -1;
   mouseGrappedColorSide = -1;
@@ -124,7 +138,6 @@ function mouseMoveColorspace(event) {
     // check if mouse is inside of Colorspace
     var tmpColor;
     var errorRGBColor = new classColor_RGB(-1, -1, -1);
-    document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "";
     switch(pathColorspace) {
       case "hsv":
         var dis = Math.sqrt(Math.pow(colorspaceCenterX - mousePosX, 2) + Math.pow(colorspaceCenterY - mousePosY, 2));
@@ -297,7 +310,19 @@ function mouseUpColorspace() {
 
   clearInterval(timer2DAnimation);
 
-  document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "";
+  switch (pathColorspace) {
+    case "hsv":
+      document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "H : -, S: -, V: -";
+      break;
+      case "lab":
+        document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L : -, a: -, b: -";
+        break;
+        case "din99":
+          document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L99 : -, a99: -, b99: -";
+          break;
+    default:
+
+  }
 
   drawcolormap_hueSpace(true,true,false);
   saveCreateProcess();
@@ -313,7 +338,19 @@ function mouseLeaveValuePlot(event) {
   clearInterval(timer2DAnimation);
   document.getElementById(event.target.id).style.cursor = "default";
 
-  document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "";
+  switch (pathColorspace) {
+    case "hsv":
+      document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "H : -, S: -, V: -";
+      break;
+      case "lab":
+        document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L : -, a: -, b: -";
+        break;
+        case "din99":
+          document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L99 : -, a99: -, b99: -";
+          break;
+    default:
+
+  }
 
   mouseAboveKeyID = -1;
   mouseGrappedColorSide = -1;
@@ -472,7 +509,21 @@ function calcVYPos(tmpColor,plotYStart,heigthVArea, type){
 
 function mouseMoveValuePlot(event) {
 
-  var type=pathCanvasAssignmentBig;
+  var type;
+
+  switch (event.target.id) {
+    case "id_EditPage_PathPlot_Canvas1_2":
+      type=0;
+      break;
+      case "id_EditPage_PathPlot_Canvas2_2":
+        type=1;
+        break;
+        case "id_EditPage_PathPlot_Canvas3_2":
+          type=2;
+          break;
+    default:
+    return;
+  }
 
   // calc mouse pos
   var rect = document.getElementById(event.target.id).getBoundingClientRect();

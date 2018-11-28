@@ -45,35 +45,45 @@ function updateInterpolationSpaceEditPage(){
  document.getElementById("id_EditPage_SadleyImg").style.display="none";
 
 
+
+
   switch (globalCMS1.getInterpolationSpace()) {
     case "rgb":
         document.getElementById("id_EditPage_SelectRGB").innerHTML="&#10004;";
-        document.getElementById("id_EditPage_SadleyImg").style.display="inline-block";
+        //document.getElementById("id_EditPage_SadleyImg").style.display="inline-block";
         document.getElementById("id_EditPage_CMSSpaceLabel").innerHTML="Space : RGB";
+        document.getElementById("id_header_interpolationSpaceWarning").style.color = "rgb(255, 0, 0)";
+        document.getElementById("id_header_interpolationSpaceWarning").innerHTML = "RGB &#9785;";
       break;
       case "hsv":
           document.getElementById("id_EditPage_SelectHSV").innerHTML="&#10004;";
-          document.getElementById("id_EditPage_SadleyImg").style.display="inline-block";
+          //document.getElementById("id_EditPage_SadleyImg").style.display="inline-block";
           document.getElementById("id_EditPage_CMSSpaceLabel").innerHTML="Space : HSV";
+          document.getElementById("id_header_interpolationSpaceWarning").style.color = "rgb(255, 0, 0)";
+          document.getElementById("id_header_interpolationSpaceWarning").innerHTML = "HSB &#9785;";
         break;
         case "lab":
             document.getElementById("id_EditPage_SelectLab").innerHTML="&#10004;";
-            document.getElementById("id_EditPage_SmileyImg").style.display="inline-block";
+            //document.getElementById("id_EditPage_SmileyImg").style.display="inline-block";
             document.getElementById("id_EditPage_CMSSpaceLabel").innerHTML="Space : LAB";
+            document.getElementById("id_header_interpolationSpaceWarning").style.color = "rgb(0, 255, 0)";
+            document.getElementById("id_header_interpolationSpaceWarning").innerHTML = "Lab &#9786;";
           break;
           case "din99":
               document.getElementById("id_EditPage_SelectDIN99").innerHTML="&#10004;";
-              document.getElementById("id_EditPage_SmileyImg").style.display="inline-block";
+              //document.getElementById("id_EditPage_SmileyImg").style.display="inline-block";
               document.getElementById("id_EditPage_CMSSpaceLabel").innerHTML="Space : DIN99";
+              document.getElementById("id_header_interpolationSpaceWarning").style.color = "rgb(0, 255, 0)";
+              document.getElementById("id_header_interpolationSpaceWarning").innerHTML = "DIN99 &#9786;";
             break;
             case "de94":
                 document.getElementById("id_EditPage_SelectDE94").innerHTML="&#10004;";
-                document.getElementById("id_EditPage_SmileyImg").style.display="inline-block";
+                //document.getElementById("id_EditPage_SmileyImg").style.display="inline-block";
                 document.getElementById("id_EditPage_CMSSpaceLabel").innerHTML="Space : DE94";
               break;
               case "de2000":
                   document.getElementById("id_EditPage_SelectCIEDE2000").innerHTML="&#10004;";
-                  document.getElementById("id_EditPage_SmileyImg").style.display="inline-block";
+                  //document.getElementById("id_EditPage_SmileyImg").style.display="inline-block";
                   document.getElementById("id_EditPage_CMSSpaceLabel").innerHTML="Space : DE2000";
                 break;
     default:

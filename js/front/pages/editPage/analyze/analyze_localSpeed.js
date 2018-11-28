@@ -15,10 +15,17 @@ function styleStructure_LocalSpeed(){
     document.getElementById("id_EditPage_FixedAxisDiv_GlobalLocalOrder").style.display = "block";
     document.getElementById("id_EditPage_DoLogDiv_GlobalLocalOrder").style.display = "none";
     document.getElementById("id_EditPage_FixedAxisLabel_GlobalLocalOrder").innerHTML="Fixed Local Speed Axis:";
-
+    document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.height = "100%";
     styleGlobalLocalOrderPlot();
 
     updateKeySelection();
+
+    var plotid ="id_EditPage_Canvas_GlobalLocalOrder";
+
+
+    if(document.getElementById("id_PopUp_fullAnalzeWindow").style.display!="none")
+      plotid="id_PopUp_FullAnalayzeCanvas";
+
 
     var oldInterval = intervalDelta;
     var oldIntervalSize = intervalSize;
@@ -38,7 +45,7 @@ function styleStructure_LocalSpeed(){
     intervalSize=oldIntervalSize;
 
     if(document.getElementById("id_EditPage_SelectFrom_GlobalLocalOrder").selectedIndex!=document.getElementById("id_EditPage_SelectTill_GlobalLocalOrder").selectedIndex)
-    drawLocalSpeedPlot(globalCMS1, "id_EditPage_Canvas_GlobalLocalOrder", document.getElementById("id_AnalyzeSubContainer_Select").selectedIndex, "id_EditPage_Min_GlobalLocalOrder", "id_EditPage_Max_GlobalLocalOrder", "id_EditPage_Average_GlobalLocalOrder", "id_EditPage_Deviation_GlobalLocalOrder");
+    drawLocalSpeedPlot(globalCMS1, plotid, document.getElementById("id_AnalyzeSubContainer_Select").selectedIndex, "id_EditPage_Min_GlobalLocalOrder", "id_EditPage_Max_GlobalLocalOrder", "id_EditPage_Average_GlobalLocalOrder", "id_EditPage_Deviation_GlobalLocalOrder");
     else{
       var context = document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").getContext('2d');
       context.clearRect(0, 0, document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").width, document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").height);

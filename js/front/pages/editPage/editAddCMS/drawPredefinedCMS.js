@@ -1,4 +1,38 @@
 
+
+function changePredefinedStructure(type){
+  document.getElementById("id_editPage_Add_Predefined_Button").style.background=styleNotActiveColor;
+  document.getElementById("id_editPage_Add_Gallery_Button").style.background=styleNotActiveColor;
+  document.getElementById("id_editPage_Add_Mydesigns_Button").style.background=styleNotActiveColor;
+
+  document.getElementById("id_editPage_Add_Predefined_Div").style.display="none";
+  document.getElementById("id_editPage_Add_Gallery_Div").style.display="none";
+  document.getElementById("id_editPage_Add_MyDesigns_Div").style.display="none";
+
+  switch (type) {
+    case 0:
+      document.getElementById("id_editPage_Add_Predefined_Button").style.background=styleActiveColor;
+      document.getElementById("id_editPage_Add_Predefined_Div").style.display="flex";
+    break;
+
+    case 1:
+      document.getElementById("id_editPage_Add_Gallery_Button").style.background=styleActiveColor;
+      document.getElementById("id_editPage_Add_Gallery_Div").style.display="block";
+    break;
+
+    case 2:
+      document.getElementById("id_editPage_Add_Mydesigns_Button").style.background=styleActiveColor;
+      document.getElementById("id_editPage_Add_MyDesigns_Div").style.display="flex";
+
+    break;
+    default:
+    changePredefinedStructure(0);
+  }
+
+  updatePredefined();
+}
+
+
 function updatePredefined(){
 
   if(document.getElementById("id_editPage_Add_Predefined_Div").style.display!="none"){
@@ -13,10 +47,12 @@ function updatePredefined(){
   }
 
   if(document.getElementById("id_editPage_Add_Gallery_Div").style.display!="none"){
+    changePredefined();
     return;
   }
 
   if(document.getElementById("id_editPage_Add_MyDesigns_Div").style.display!="none"){
+    drawPredefined_MyDesignsCMS();
     return;
   }
 
@@ -49,6 +85,8 @@ function drawPredefined_MyDesignsCMS(){
     drawnNothing=false;
 
     var tmpDiv = document.createElement('div');
+    tmpDiv.className = "class_predefinedRow";
+    tmpDiv.style.display = "block";
     tmpDiv.id= "myDesignDiv_"+i;
     tmpDiv.style.marginTop = "5px";
 
@@ -97,9 +135,12 @@ function drawPredefined_MyDesignsCMS(){
 /////////////////////////////////////////////////////////////////////////////////////
 
 
-
-
 function changeFilterPredefined(type){
+  selectedPredefinedType=type;
+  changePredefined();
+}
+
+function changePredefined(){
 // 0=all, 1=Multiband, 2=Divergent, 3=Scaled All, 4=Scaled Blue, 5=Scaled Brown, 6=Scaled Green, 7=Scaled Red Purple, 8=Scaled Yellow Orange
 
   //document.getElementById("id_EditPage_MyDesigns_Div").classList.remove("mystyle");
@@ -118,7 +159,7 @@ function changeFilterPredefined(type){
     children[i].parentNode.removeChild(children[i]);
   }
 
-  switch (type) {
+  switch (selectedPredefinedType) {
     /*case 0:
       document.getElementById("id_editPage_Order_All").style.background="rgb(76, 175, 80)";
         drawPredefinedCMS(cmsFourBandColormaps, 7);
@@ -183,6 +224,8 @@ function drawPredefinedCMS(cmsArray, cmsType){
       continue;
 
     var tmpDiv = document.createElement('div');
+    tmpDiv.className = "class_predefinedRow";
+    tmpDiv.style.display = "block";
     tmpDiv.id= "predefinedDiv_"+i+"_"+cmsType;
     tmpDiv.style.marginTop = "5px";
 

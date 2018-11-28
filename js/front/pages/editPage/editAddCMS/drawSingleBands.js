@@ -6,6 +6,8 @@ function drawConstantBands(){
   //---------------------------
   // --------- Const
   var doBreak = false;
+  var row;
+
 
   for(var i=0; i<constBands.length; i++){
 
@@ -14,19 +16,20 @@ function drawConstantBands(){
       iDiv.className = 'class_predefinedConstBands';
       iDiv.setAttribute('draggable', true);
       iDiv.style.background = constBands[i].getRGBString();
-      document.getElementById('id_EditPage_ConstBandDiv').appendChild(iDiv);
       iDiv.addEventListener("dragstart", bandOnDragStart);
       iDiv.addEventListener("dragend", bandOnDragEnd);
       //iDiv.style.cursor = "move";
 
-      if(doBreak){
-        var ibreak = document.createElement('break');
-        document.getElementById('id_EditPage_ConstBandDiv').appendChild(ibreak);
-        doBreak=false;
+      if(i%2==0){
+        row = document.createElement("div");
+        row.className = "class_predefinedRow";
+        row.appendChild(iDiv);
       }
-      else {
-        doBreak=true;
+      else{
+        row.appendChild(iDiv);
+        document.getElementById('id_EditPage_ConstBandDiv').appendChild(row);
       }
+
   }
 }
 
@@ -40,9 +43,7 @@ function drawScaledBands(){
   for(var i=0; i<scaleBands.length; i++){
 
       var div = document.createElement("div");
-      div.className = "row";
-      div.style.width = "100%";
-      div.style.marginTop = "5px";
+      div.className = "class_predefinedRow";
 
       var iCan = document.createElement('canvas');
       var id = 'scale'+i
@@ -56,10 +57,10 @@ function drawScaledBands(){
       var tmpC1RGB = scaleBands[i][0];
       var tmpC2RGB = scaleBands[i][1];
 
-      var reverseButton = document.createElement("div");
+      var reverseButton = document.createElement("button");
       reverseButton.className = "class_reversebuttonEditPage classButtonWhite";
       reverseButton.innerHTML = "&#8646;";
-      reverseButton.style.cursor = "pointer";
+      //reverseButton.style.cursor = "pointer";
 
       reverseButton.onclick = (function(tmpIndex) {
       return function() {
@@ -87,7 +88,7 @@ function drawScaledBands(){
 
 function drawConstCustomBand(){
   document.getElementById("id_editPage_customConstBand").style.background=customConstBandColor.calcRGBColor().getRGBString();
-  //document.getElementById("id_editPage_customConstColor").style.background=customConstBandColor.calcRGBColor().getRGBString();
+  document.getElementById("id_editPage_customConstColor").style.background=customConstBandColor.calcRGBColor().getRGBString();
   document.getElementById("id_editPage_customConstBand").style.background=customConstBandColor.calcRGBColor().getRGBString();
 }
 
@@ -112,9 +113,7 @@ function drawDoubleBands(){
   for(var i=0; i<doubleBands.length; i++){
 
     var div = document.createElement("div");
-    div.className = "row";
-    div.style.width = "100%";
-    div.style.marginTop = "5px";
+    div.className = "class_predefinedRow";
 
       var iCan = document.createElement('canvas');
       iCan.id = 'double'+i;
@@ -128,10 +127,10 @@ function drawDoubleBands(){
       iCan.width = resolutionX;
       iCan.height = 1;
 
-      var reverseButton = document.createElement("div");
+      var reverseButton = document.createElement("button");
       reverseButton.className = "class_reversebuttonEditPage classButtonWhite";
       reverseButton.innerHTML = "&#8646;";
-      reverseButton.style.cursor = "pointer";
+      //reverseButton.style.cursor = "pointer";
 
       reverseButton.onclick = (function(tmpIndex) {
       return function() {
@@ -237,9 +236,8 @@ function drawTripleBands(){
   for(var i=0; i<tribleBands.length; i++){
 
       var div = document.createElement("div");
-      div.className = "row";
-      div.style.width = "100%";
-      div.style.marginTop = "5px";
+      div.className = "class_predefinedRow";
+
 
       var iCan = document.createElement('canvas');
       var id= 'triple'+i;
@@ -252,10 +250,10 @@ function drawTripleBands(){
       iCan.addEventListener("dragend", bandOnDragEnd);
 
 
-      var reverseButton = document.createElement("div");
+      var reverseButton = document.createElement("button");
       reverseButton.className = "class_reversebuttonEditPage classButtonWhite";
       reverseButton.innerHTML = "&#8646;";
-      reverseButton.style.cursor = "pointer";
+      //reverseButton.style.cursor = "pointer";
 
       reverseButton.onclick = (function(tmpIndex) {
       return function() {
@@ -387,9 +385,7 @@ function drawQuadrupleBands(){
  for(var i=0; i<quadBands.length; i++){
 
      var div = document.createElement("div");
-     div.className = "row";
-     div.style.width = "100%";
-     div.style.marginTop = "5px";
+     div.className = "class_predefinedRow";
 
      var iCan = document.createElement('canvas');
      var id= 'quads'+i;
@@ -401,10 +397,10 @@ function drawQuadrupleBands(){
      iCan.addEventListener("dragstart", bandOnDragStart);
      iCan.addEventListener("dragend", bandOnDragEnd);
 
-     var reverseButton = document.createElement("div");
+     var reverseButton = document.createElement("button");
      reverseButton.className = "class_reversebuttonEditPage classButtonWhite";
      reverseButton.innerHTML = "&#8646;";
-     reverseButton.style.cursor = "pointer";
+     //reverseButton.style.cursor = "pointer";
 
      reverseButton.onclick = (function(tmpIndex) {
      return function() {

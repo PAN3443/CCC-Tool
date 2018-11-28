@@ -14,10 +14,17 @@ function styleStructure_Order(){
     document.getElementById("id_EditPage_ColorAboveDiv_GlobalLocalOrder").style.display = "none";
     document.getElementById("id_editPage_OrderAxisLabel1").style.display = "block";
     document.getElementById("id_editPage_OrderAxisLabel2").style.display = "block";
+    document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.height = "80%";
 
     styleGlobalLocalOrderPlot();
 
     updateKeySelection();
+
+    var plotid ="id_EditPage_Canvas_GlobalLocalOrder";
+
+
+    if(document.getElementById("id_PopUp_fullAnalzeWindow").style.display!="none")
+      plotid="id_PopUp_FullAnalayzeCanvas";
 
     var oldInterval = intervalDelta;
     var oldIntervalSize = intervalSize;
@@ -38,7 +45,7 @@ function styleStructure_Order(){
 
 
     if(document.getElementById("id_EditPage_SelectFrom_GlobalLocalOrder").selectedIndex!=document.getElementById("id_EditPage_SelectTill_GlobalLocalOrder").selectedIndex)
-    drawOrderPlot(globalCMS1, "id_EditPage_Canvas_GlobalLocalOrder", document.getElementById("id_AnalyzeSubContainer_Select").selectedIndex, "id_EditPage_Min_GlobalLocalOrder", "id_EditPage_Max_GlobalLocalOrder");
+    drawOrderPlot(globalCMS1, plotid, document.getElementById("id_AnalyzeSubContainer_Select").selectedIndex, "id_EditPage_Min_GlobalLocalOrder", "id_EditPage_Max_GlobalLocalOrder");
     else{
       var context = document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").getContext('2d');
       context.clearRect(0, 0, document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").width, document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").height);

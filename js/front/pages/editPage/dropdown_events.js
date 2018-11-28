@@ -7,10 +7,17 @@ function activateDropdown(event) {
 
     var doAbsolute = false;
     var onTop = false;
+    var toRight=false;
     switch (labelID) {
-        case "id_EditPage_PathPlotSpaces_Label":
-          dropdownID = "id_EditPage_PathPlotSpaces_Dropdown";
-          break;
+        case "id_EditPage_extraOptionsAnalyze":
+          dropdownID = "id_EditPage_extraOptionsAnalyzeDropDown";
+          onTop=true;
+        break;
+        case "id_EditPage_extraOptionsMapping":
+          dropdownID = "id_EditPage_extraOptionsMappingDropDown";
+          onTop=true;
+          toRight=true;
+        break;
               case "id_EditPage_selectProbeTypeLabel":
                 doAbsolute = true;
                 additionalScrollID="id_EditPage_generateProbeSet";
@@ -87,7 +94,14 @@ function activateDropdown(event) {
       else {
         document.getElementById(dropdownID).style.top=(top+box.height)+"px";
       }
-      document.getElementById(dropdownID).style.left=(left+box.width-dropdownBox.width)+"px";
+      if(toRight){
+          document.getElementById(dropdownID).style.left=(left+box.width)+"px";
+      }
+      else {
+          document.getElementById(dropdownID).style.left=(left+box.width-dropdownBox.width)+"px";
+      }
+
+
     }
     else{
       document.getElementById(dropdownID).style.display="none";

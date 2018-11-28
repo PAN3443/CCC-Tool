@@ -9,6 +9,7 @@ function openEditKeyDiv(key){
 
   for (var i = 0; i < globalCMS1.getKeyLength(); i++) {
       var opt = document.createElement('option');
+      opt.className = 'standardText';
       opt.innerHTML = "Key : \t"+ (i+1) +";\t  "+globalCMS1.getKeyType(i)+";\t   Reference : " + globalCMS1.getRefPosition(i);
       selectbox.appendChild(opt);
 

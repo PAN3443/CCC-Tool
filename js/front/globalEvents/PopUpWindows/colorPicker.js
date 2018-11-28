@@ -69,7 +69,7 @@ function openColorPicker(event){
       document.getElementById("id_popupColorPicker").style.left=(left+box.width)+"px";
       break;
 
-      case "id_editPage_customConstBand": //"id_editPage_customConstColor":
+      case "id_editPage_customConstColor":
         colorpickerColor=customConstBandColor;
         // above the object
         document.getElementById("id_popupColorPicker").style.top=(top+box.height)+"px";
@@ -850,7 +850,7 @@ function affectColorpickerChange(){
       globalCMS1.setAboveColor(colorpickerColor);
       saveCreateProcess();
       break;
-      case "id_editPage_customConstBand": //"id_editPage_customConstColor":
+      case "id_editPage_customConstColor":
         customConstBandColor=colorpickerColor;
         drawConstCustomBand();
         break;

@@ -8,8 +8,8 @@ function init_CCCPageStyle(){
   };
 
   var tmpElementList = document.getElementsByClassName('class_generalbutton');
-  var tmpHeight1 = Math.floor(windowHeight*0.03);
-  var tmpHeight2 = Math.floor(windowHeight*0.02);
+  var tmpHeight1 = Math.floor(windowHeight*0.025);
+  var tmpHeight2 = Math.floor(windowHeight*0.018);
   for (var i = 0; i < tmpElementList.length; ++i) {
 
     if (tmpElementList[i].classList.contains("class_noSizeUpdate"))
@@ -22,15 +22,15 @@ function init_CCCPageStyle(){
 
 
   tmpElementList = document.getElementsByClassName('class_subsectionButton');
-  var tmpHeight1 = Math.floor(windowHeight*0.02);
+  var tmpHeightSubsectionButton = Math.floor(windowHeight*0.02);
   var tmpHeight2 = Math.floor(windowHeight*0.015);
   for (var i = 0; i < tmpElementList.length; ++i) {
 
     if (tmpElementList[i].classList.contains("class_noSizeUpdate"))
       continue;
 
-      tmpElementList[i].style.height = tmpHeight1 + "px";
-      tmpElementList[i].style.lineHeight = tmpHeight1 + "px";
+      tmpElementList[i].style.height = tmpHeightSubsectionButton + "px";
+      tmpElementList[i].style.lineHeight = tmpHeightSubsectionButton + "px";
       tmpElementList[i].style.fontSize = tmpHeight2 + "px";
   }
 
@@ -52,8 +52,8 @@ function init_CCCPageStyle(){
   }
 
   tmpElementList = document.getElementsByClassName('standardText');
-  tmpHeight1 = Math.floor(windowHeight*0.02);
-  tmpHeight2 = Math.floor(windowHeight*0.018);
+  tmpHeight1 = Math.floor(windowHeight*0.018);
+  tmpHeight2 = Math.floor(windowHeight*0.016);
   for (var i = 0; i < tmpElementList.length; ++i) {
 
     if (tmpElementList[i].classList.contains("class_noSizeUpdate"))
@@ -77,8 +77,8 @@ function init_CCCPageStyle(){
   }
 
   tmpElementList = document.getElementsByClassName('subsectionLabel');
-  tmpHeight1 = Math.floor(windowHeight*0.025);
-  tmpHeight2 = Math.floor(windowHeight*0.02);
+  tmpHeight1 = Math.floor(windowHeight*0.02);
+  tmpHeight2 = Math.floor(windowHeight*0.018);
   for (var i = 0; i < tmpElementList.length; ++i) {
 
     if (tmpElementList[i].classList.contains("class_noSizeUpdate"))
@@ -177,10 +177,22 @@ function init_CCCPageStyle(){
   ///////////////
   // Edit Page
 
-  document.getElementById("id_EditPage_MainPartDiv").style.height = Math.floor(windowHeight*0.95) + "px";
+
+  document.getElementById("id_EditPage").style.width = windowWidth + "px";
+
+  var tmpHeight1 = Math.floor(windowHeight*0.95);
+  document.getElementById("id_EditPage_MainPartDiv").style.height = tmpHeight1 + "px";
+
+  var tmpHeight3= tmpHeight1-tmpHeightSubsectionButton;
+  document.getElementById("id_EditPage_Add_Structures").style.height = tmpHeight3 + "px";
+  document.getElementById("id_EditPage_Edit_Keys").style.height = tmpHeight3 + "px";
+  document.getElementById("id_EditPage_Edit_Path").style.height = tmpHeight3 + "px";
 
 
-
+  tmpBox = document.getElementById("id_editPage_AnalyzeMappingDiv");
+  var tmpHeight2= tmpBox.height-Math.floor(windowHeight*0.025);
+  document.getElementById("id_EditPage_DivAnalyze").style.height = tmpHeight2 + "px";
+  document.getElementById("id_EditPage_DivMapping").style.height = tmpHeight2 + "px";
 /*
 
 
@@ -222,11 +234,10 @@ function init_CCCPageStyle(){
 
     var tmpHeight3= tmpHeight1-Math.floor(windowHeight*0.025);
 
-    document.getElementById("id_EditPage_Add_Structures").style.height = tmpHeight3 + "px";
-    //document.getElementById("id_EditPage_Add_Structures").style.display = "none";
-    document.getElementById("id_EditPage_Add_Keys").style.height = tmpHeight3 + "px";
+
+
     //document.getElementById("id_EditPage_Add_Keys").style.display = "none";
-    document.getElementById("id_EditPage_Edit_Keys").style.height = tmpHeight3 + "px";
+    d
     //document.getElementById("id_EditPage_Edit_Keys").style.display = "none";
     document.getElementById("id_EditPage_Edit_Path").style.height = tmpHeight3 + "px";
     //document.getElementById("id_EditPage_Edit_Path").style.display = "none";
@@ -295,10 +306,7 @@ function init_CCCPageStyle(){
     document.getElementById("id_EditPage_OnlineCMS_NotAvailableImg").style.marginLeft =tmpMargin+"px";
     document.getElementById("id_EditPage_Add_Structures").style.display = "none";*/ //
 
-    /*document.getElementById('id_EditPage_PathPlot_SingleCanvas_2').addEventListener("mouseleave", mouseLeaveColorspace);
-    document.getElementById('id_EditPage_PathPlot_SingleCanvas_2').addEventListener("mousemove", mouseMoveColorspace);
-    document.getElementById('id_EditPage_PathPlot_SingleCanvas_2').addEventListener("mousedown", mouseDownColorspace);
-    document.getElementById('id_EditPage_PathPlot_SingleCanvas_2').addEventListener("mouseup", mouseUpColorspace);
+    /*
 */
     document.getElementById("id_EditPage_Add_Structures").style.display = "block";
     document.getElementById("id_editPage_Add_Gallery_Div").style.display = "block";

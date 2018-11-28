@@ -31,6 +31,10 @@ function updateProbeSetSelectBox(){
     var opt2 = document.createElement('option');
     var opt3 = document.createElement('option');
 
+    opt.style.fontSize = '1.8vh';
+    opt2.className = 'standardText';
+    opt3.className = 'standardText';
+
     opt.innerHTML = "Probe-Set: "+globalCMS1.getProbeSet(i).getProbeSetName();
     opt2.innerHTML = "Probe-Set: "+globalCMS1.getProbeSet(i).getProbeSetName();
     opt3.innerHTML = "Probe-Set: "+globalCMS1.getProbeSet(i).getProbeSetName();

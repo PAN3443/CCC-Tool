@@ -1,122 +1,101 @@
-function rgbInit(canvasID, mode) {
+function rgbInit() {
 
-  var canvasObj = document.getElementById(canvasID);
-  var canvasObjBox = canvasObj.getBoundingClientRect();
-  canvasObj.width = 500;//canvasObjBox.width;
-  canvasObj.height = 500;//canvasObjBox.height;
-  var canvasContex = canvasObj.getContext("2d");
-  canvasContex.clearRect(0, 0, canvasObj.width, canvasObj.height);
-
-  var canvasData = canvasContex.getImageData(0, 0, canvasObj.width, canvasObj.height);
-
+  var canvasObj0 = document.getElementById("id_EditPage_PathPlot_Canvas1_0");
+  var canvasObjBox = canvasObj0.getBoundingClientRect();
+  canvasObj0.width = canvasObjBox.width;
+  canvasObj0.height = canvasObjBox.height;
+  var canvasContex0 = canvasObj0.getContext("2d");
+  canvasContex0.clearRect(0, 0, canvasObj0.width, canvasObj0.height);
+  var canvasData0 = canvasContex0.getImageData(0, 0, canvasObj0.width, canvasObj0.height);
 
 
-    var xStart = canvasObj.width * 0.1;
-    var yStart = canvasObj.height * 0.9;
-    var xEnd = canvasObj.width * 0.8;
-    var yEnd = canvasObj.height * 0.2;
+  var canvasObj1 = document.getElementById("id_EditPage_PathPlot_Canvas2_0");
+  canvasObj1.width = canvasObjBox.width;
+  canvasObj1.height = canvasObjBox.height;
+  var canvasContex1 = canvasObj1.getContext("2d");
+  canvasContex1.clearRect(0, 0, canvasObj1.width, canvasObj1.height);
+  var canvasData1 = canvasContex1.getImageData(0, 0, canvasObj1.width, canvasObj1.height);
+
+  var canvasObj2 = document.getElementById("id_EditPage_PathPlot_Canvas3_0");
+  canvasObj2.width = canvasObjBox.width;
+  canvasObj2.height = canvasObjBox.height;
+  var canvasContex2 = canvasObj2.getContext("2d");
+  canvasContex2.clearRect(0, 0, canvasObj2.width, canvasObj2.height);
+  var canvasData2 = canvasContex2.getImageData(0, 0, canvasObj2.width, canvasObj2.height);
+
+
+    var xStart = canvasObj0.width * 0.1;
+    var yStart = canvasObj0.height * 0.9;
+    var xEnd = canvasObj0.width * 0.8;
+    var yEnd = canvasObj0.height * 0.2;
     var xWidth = xEnd - xStart;
     var yHeight = yStart - yEnd;
 
     //RG
-    for (var x = 0; x < canvasObj.width; x++) {
+    for (var x = 0; x < canvasObj0.width; x++) {
 
-      for (var y = 0; y < canvasObj.height; y++) {
+      for (var y = 0; y < canvasObj0.height; y++) {
 
-        var r,g,b =0;
+
         if (x >= xStart && x <= xEnd && y <= yStart && y >= yEnd) {
           // calc hsv color
-          var colorRGB;
-          switch (mode) {
-            case "rg":
-                r = (x - xStart) / xWidth;
-                g = (yStart - y) / yHeight;
 
-                if (mouseGrappedKeyID != -1) {
-                  switch (mouseGrappedColorSide) {
-                    case 0:
-                    // left color
-                      b = globalCMS1.getLeftKeyColor(mouseGrappedKeyID, "rgb").getBValue();
-                      break;
-                    default:
-                      // both colors
-                      b = globalCMS1.getRightKeyColor(mouseGrappedKeyID, "rgb").getBValue();
-                  }
-                }
-              break;
+          var xVal = (x - xStart) / xWidth;
+          var yVal = (yStart - y) / yHeight;
 
-              case "rb":
-                  r = (x - xStart) / xWidth;
-                  b = (yStart - y) / yHeight;
 
-                  if (mouseGrappedKeyID != -1) {
-                    switch (mouseGrappedColorSide) {
-                      case 0:
-                      // left color
-                        g = globalCMS1.getLeftKeyColor(mouseGrappedKeyID, "rgb").getGValue();
-                        break;
-                      default:
-                        // both colors
-                        g = globalCMS1.getRightKeyColor(mouseGrappedKeyID, "rgb").getGValue();
-                    }
+          var index = (x + y * canvasObj0.width) * 4;
 
-                  }
-                  break;
-              case "bg":
-                  b = (x - xStart) / xWidth;
-                  g = (yStart - y) / yHeight;
+          var r,g,b =0;
+          if (mouseGrappedKeyID != -1) {
 
-                  if (mouseGrappedKeyID != -1) {
-                    switch (mouseGrappedColorSide) {
-                      case 0:
-                      // left color
-                        r = globalCMS1.getLeftKeyColor(mouseGrappedKeyID, "rgb").getRValue();
-                        break;
-                      default:
-                        // both colors
-                        r = globalCMS1.getRightKeyColor(mouseGrappedKeyID, "rgb").getRValue();
-                    }
-                  }
-              break;
-            default:
-              return;
+            var tmpColor;
+            switch (mouseGrappedColorSide) {
+              case 0:
+              // left color
+                tmpColor = globalCMS1.getLeftKeyColor(mouseGrappedKeyID, "rgb");
+                break;
+              default:
+                // both colors
+                tmpColor = globalCMS1.getRightKeyColor(mouseGrappedKeyID, "rgb");
+            }
 
+            r=tmpColor.get1Value();
+            g=tmpColor.get1Value();
+            b=tmpColor.get1Value();
           }
 
+            canvasData0.data[index + 0] = Math.round(yVal * 255); // r
+            canvasData0.data[index + 1] = Math.round(xVal * 255); // g
+            canvasData0.data[index + 2] = Math.round(0); // b
+            canvasData0.data[index + 3] = 255; //a
 
-          var index = (x + y * canvasObj.width) * 4;
+            canvasData1.data[index + 0] = Math.round(yVal * 255); // r
+            canvasData1.data[index + 1] = Math.round(0); // g
+            canvasData1.data[index + 2] = Math.round(xVal * 255); // b
+            canvasData1.data[index + 3] = 255; //a
 
-          canvasData.data[index + 0] = Math.round(r * 255); // r
-          canvasData.data[index + 1] = Math.round(g * 255); // g
-          canvasData.data[index + 2] = Math.round(b * 255); // b
-          canvasData.data[index + 3] = 255; //a
+            canvasData2.data[index + 0] = Math.round(0); // r
+            canvasData2.data[index + 1] = Math.round(xVal * 255); // g
+            canvasData2.data[index + 2] = Math.round(yVal * 255); // b
+            canvasData2.data[index + 3] = 255; //a
+
         }
       }
 
     }
 
 
-  canvasContex.putImageData(canvasData, 0, 0); // update ColorspaceCanvas;
-  canvasContex.putImageData(canvasData, 0, 0); // update ColorspaceCanvas;
-  canvasContex.putImageData(canvasData, 0, 0); // update ColorspaceCanvas;
+  canvasContex0.putImageData(canvasData0, 0, 0); // update ColorspaceCanvas;
+  canvasContex1.putImageData(canvasData1, 0, 0); // update ColorspaceCanvas;
+  canvasContex2.putImageData(canvasData2, 0, 0); // update ColorspaceCanvas;
 
 
-  switch (mode) {
-    case "rg":
-          rgbPlot(canvasContex, canvasObj.width, canvasObj.height, "R", "G");
-          break;
-    case "rb":
-          rgbPlot(canvasContex, canvasObj.width, canvasObj.height, "R", "B");
-          break;
-    case "bg":
-          rgbPlot(canvasContex, canvasObj.width, canvasObj.height, "B", "G");
-          break;
-    default:
-        return;
+    rgbPlot(canvasContex0, canvasObj0.width, canvasObj0.height, "G", "R");
 
-  }
+    rgbPlot(canvasContex1, canvasObj1.width, canvasObj1.height, "B", "R");
 
-
+    rgbPlot(canvasContex2, canvasObj2.width, canvasObj2.height, "G", "B");
 
 
 
@@ -235,61 +214,9 @@ function rgbPlot(context, canvasWidth, canvasHidth, xlabel, ylabel) {
 function drawcolormap_RGBSpace(calcBackground, drawInterpolationLine) {
 
 
-
-  var canvasIDRG,canvasIDRB,canvasIDBG;
-
-  switch (pathCanvasAssignmentBig) {
-  case 0:
-    canvasIDRG="id_EditPage_PathPlot_BigCanvas_";
-
-    if (pathCanvasAssignmentSmallTop==1) {
-      canvasIDRB="id_EditPage_PathPlot_SmallTopCanvas_";
-      canvasIDBG="id_EditPage_PathPlot_SmallBottomCanvas_";
-    }
-    else{
-      canvasIDRB="id_EditPage_PathPlot_SmallBottomCanvas_";
-      canvasIDBG="id_EditPage_PathPlot_SmallTopCanvas_";
-    }
-    break;
-  case 1:
-
-  canvasIDRB="id_EditPage_PathPlot_BigCanvas_";
-
-  if (pathCanvasAssignmentSmallTop==0) {
-    canvasIDRG="id_EditPage_PathPlot_SmallTopCanvas_";
-    canvasIDBG="id_EditPage_PathPlot_SmallBottomCanvas_";
-  }
-  else{
-    canvasIDRG="id_EditPage_PathPlot_SmallBottomCanvas_";
-    canvasIDBG="id_EditPage_PathPlot_SmallTopCanvas_";
-  }
-
-    break;
-  case 2:
-  canvasIDBG="id_EditPage_PathPlot_BigCanvas_";
-
-  if (pathCanvasAssignmentSmallTop==1) {
-    canvasIDRB="id_EditPage_PathPlot_SmallTopCanvas_";
-    canvasIDRG="id_EditPage_PathPlot_SmallBottomCanvas_";
-  }
-  else{
-    canvasIDRB="id_EditPage_PathPlot_SmallBottomCanvas_";
-    canvasIDRG="id_EditPage_PathPlot_SmallTopCanvas_";
-  }
-
-    break;
-  default:
-    return;
-}
-
   if(calcBackground){
-    rgbInit(canvasIDRG+"0","rg");
-    rgbInit(canvasIDRB+"0","rb");
-    rgbInit(canvasIDBG+"0","bg");
+    rgbInit();
   }
-
-
-
 
   if(drawInterpolationLine){
     // 3D init
@@ -298,36 +225,48 @@ function drawcolormap_RGBSpace(calcBackground, drawInterpolationLine) {
         colormapRGB3D.remove(colormapRGB3D.children[i]);
       }
     }
-    drawInterpolationLineInRGB(canvasIDRG+"1","rg");
-    drawInterpolationLineInRGB(canvasIDRB+"1","rb");
-    drawInterpolationLineInRGB(canvasIDBG+"1","bg");
-    drawElements(canvasIDRG+"2","rg",true);
-    drawElements(canvasIDRB+"2","rb",true);
-    drawElements(canvasIDBG+"2","bg",true);
+    drawInterpolationLineInRGB();
+
+    drawElements(); // do3D true
   }
   else{
-    drawElements(canvasIDRG+"2","rg",false);
-    drawElements(canvasIDRB+"2","rb",false);
-    drawElements(canvasIDBG+"2","bg",false);
+    drawElements(); // do3D false
   }
 
 
 
 }
 
-function drawElements(canvasID, mode, do3D){
+function drawElements(){
 
-  var canvasObj = document.getElementById(canvasID);
-  var canvasObjBox = canvasObj.getBoundingClientRect();
-  canvasObj.width = canvasObjBox.width;
-  canvasObj.height = canvasObjBox.height;
-  var canvasContex = canvasObj.getContext("2d");
-  canvasContex.clearRect(0, 0, canvasObj.width, canvasObj.height);
+  var canvasObj0 = document.getElementById("id_EditPage_PathPlot_Canvas1_2");
+  var canvasObjBox = canvasObj0.getBoundingClientRect();
+  canvasObj0.width = canvasObjBox.width;
+  canvasObj0.height = canvasObjBox.height;
+  var canvasContex0 = canvasObj0.getContext("2d");
+  canvasContex0.clearRect(0, 0, canvasObj0.width, canvasObj0.height);
+  var canvasData0 = canvasContex0.getImageData(0, 0, canvasObj0.width, canvasObj0.height);
 
-  var xStart = canvasObj.width * 0.1;
-  var yStart = canvasObj.height * 0.9;
-  var xEnd = canvasObj.width * 0.8;
-  var yEnd = canvasObj.height * 0.2;
+
+  var canvasObj1 = document.getElementById("id_EditPage_PathPlot_Canvas2_2");
+  canvasObj1.width = canvasObjBox.width;
+  canvasObj1.height = canvasObjBox.height;
+  var canvasContex1 = canvasObj1.getContext("2d");
+  canvasContex1.clearRect(0, 0, canvasObj1.width, canvasObj1.height);
+  var canvasData1 = canvasContex1.getImageData(0, 0, canvasObj1.width, canvasObj1.height);
+
+  var canvasObj2 = document.getElementById("id_EditPage_PathPlot_Canvas3_2");
+  canvasObj2.width = canvasObjBox.width;
+  canvasObj2.height = canvasObjBox.height;
+  var canvasContex2 = canvasObj2.getContext("2d");
+  canvasContex2.clearRect(0, 0, canvasObj2.width, canvasObj2.height);
+  var canvasData2 = canvasContex2.getImageData(0, 0, canvasObj2.width, canvasObj2.height);
+
+
+  var xStart = canvasObj0.width * 0.1;
+  var yStart = canvasObj0.height * 0.9;
+  var xEnd = canvasObj0.width * 0.8;
+  var yEnd = canvasObj0.height * 0.2;
   var xWidth = xEnd - xStart;
   var yHeight = yStart - yEnd;
 
@@ -351,14 +290,16 @@ function drawElements(canvasID, mode, do3D){
           ////////////////////////////////////////////////////////////////
           /////// left Color
 
-          drawRGBElement(tmpColor,xWidth,yHeight,xStart,yStart, drawCircle,mode,canvasContex, i, 0, do3D);
+          //drawRGBElement(tmpColor,xWidth,yHeight,xStart,yStart, drawCircle,mode,canvasContex, i, 0, do3D);
+          drawRGBElement(tmpColor,xWidth,yHeight,xStart,yStart, drawCircle,canvasContex0,canvasContex1,canvasContex2, i, 0);
 
           ////////////////////////////////////////////////////////////////
           /////// Right Color
 
           tmpColor = globalCMS1.getRightKeyColor(i, "rgb");
 
-          drawRGBElement(tmpColor,xWidth,yHeight,xStart,yStart, true,mode,canvasContex, i,1, do3D);
+          //drawRGBElement(tmpColor,xWidth,yHeight,xStart,yStart, true,mode,canvasContex, i,1, do3D);
+          drawRGBElement(tmpColor,xWidth,yHeight,xStart,yStart, true,canvasContex0,canvasContex1,canvasContex2, i, 1);
 
           break;
         case "left key":
@@ -372,7 +313,8 @@ function drawElements(canvasID, mode, do3D){
 
           tmpColor = globalCMS1.getLeftKeyColor(i, "rgb");
 
-          drawRGBElement(tmpColor,xWidth,yHeight,xStart,yStart, drawCircle,mode,canvasContex, i, 0, do3D);
+          //drawRGBElement(tmpColor,xWidth,yHeight,xStart,yStart, drawCircle,mode,canvasContex, i, 0, do3D);
+          drawRGBElement(tmpColor,xWidth,yHeight,xStart,yStart, drawCircle,canvasContex0,canvasContex1,canvasContex2, i, 0);
 
           ////////////////////////////////////////////////////////
           ///// Right Color
@@ -384,7 +326,8 @@ function drawElements(canvasID, mode, do3D){
 
           tmpColor = globalCMS1.getRightKeyColor(i, "rgb"); // right color because of right key
 
-          drawRGBElement(tmpColor,xWidth,yHeight,xStart,yStart, true,mode,canvasContex, i, 1, do3D);
+          //drawRGBElement(tmpColor,xWidth,yHeight,xStart,yStart, true,mode,canvasContex, i, 1, do3D);
+          drawRGBElement(tmpColor,xWidth,yHeight,xStart,yStart, true,canvasContex0,canvasContex1,canvasContex2, i, 1);
 
           break;
         default:
@@ -392,7 +335,8 @@ function drawElements(canvasID, mode, do3D){
 
           tmpColor = globalCMS1.getRightKeyColor(i, "rgb"); // right color because of right key
 
-          drawRGBElement(tmpColor,xWidth,yHeight,xStart,yStart, true,mode,canvasContex, i, 2, do3D);
+          //drawRGBElement(tmpColor,xWidth,yHeight,xStart,yStart, true,mode,canvasContex, i, 2, do3D);
+          drawRGBElement(tmpColor,xWidth,yHeight,xStart,yStart, true,canvasContex0,canvasContex1,canvasContex2, i, 2);
 
       }
 
@@ -402,19 +346,36 @@ function drawElements(canvasID, mode, do3D){
 
 }
 
-function drawInterpolationLineInRGB(canvasID, mode) {
+function drawInterpolationLineInRGB() {
 
-  var canvasObj = document.getElementById(canvasID);
-  var canvasObjBox = canvasObj.getBoundingClientRect();
-  canvasObj.width = canvasObjBox.width;
-  canvasObj.height = canvasObjBox.height;
-  var canvasContex = canvasObj.getContext("2d");
-  canvasContex.clearRect(0, 0, canvasObj.width, canvasObj.height);
+  var canvasObj0 = document.getElementById("id_EditPage_PathPlot_Canvas1_1");
+  var canvasObjBox = canvasObj0.getBoundingClientRect();
+  canvasObj0.width = canvasObjBox.width;
+  canvasObj0.height = canvasObjBox.height;
+  var canvasContex0 = canvasObj0.getContext("2d");
+  canvasContex0.clearRect(0, 0, canvasObj0.width, canvasObj0.height);
+  var canvasData0 = canvasContex0.getImageData(0, 0, canvasObj0.width, canvasObj0.height);
 
-  var xStart = canvasObj.width * 0.1;
-  var yStart = canvasObj.height * 0.9;
-  var xEnd = canvasObj.width * 0.8;
-  var yEnd = canvasObj.height * 0.2;
+
+  var canvasObj1 = document.getElementById("id_EditPage_PathPlot_Canvas2_1");
+  canvasObj1.width = canvasObjBox.width;
+  canvasObj1.height = canvasObjBox.height;
+  var canvasContex1 = canvasObj1.getContext("2d");
+  canvasContex1.clearRect(0, 0, canvasObj1.width, canvasObj1.height);
+  var canvasData1 = canvasContex1.getImageData(0, 0, canvasObj1.width, canvasObj1.height);
+
+  var canvasObj2 = document.getElementById("id_EditPage_PathPlot_Canvas3_1");
+  canvasObj2.width = canvasObjBox.width;
+  canvasObj2.height = canvasObjBox.height;
+  var canvasContex2 = canvasObj2.getContext("2d");
+  canvasContex2.clearRect(0, 0, canvasObj2.width, canvasObj2.height);
+  var canvasData2 = canvasContex2.getImageData(0, 0, canvasObj2.width, canvasObj2.height);
+
+
+  var xStart = canvasObj0.width * 0.1;
+  var yStart = canvasObj0.height * 0.9;
+  var xEnd = canvasObj0.width * 0.8;
+  var yEnd = canvasObj0.height * 0.2;
   var xWidth = xEnd - xStart;
   var yHeight = yStart - yEnd;
 
@@ -433,16 +394,18 @@ function drawInterpolationLineInRGB(canvasID, mode) {
       break;
       case "twin key":
         var intervalIndexA = globalCMS1.getIntervalPositions(i);
-        drawRGBline(globalCMS1.getLeftKeyColor(i,"rgb"),globalCMS1.getRightKeyColor(i,"rgb"),xWidth,yHeight,xStart,yStart, true,compareColor,mode,canvasContex);
-
+        //drawRGBline(globalCMS1.getLeftKeyColor(i,"rgb"),globalCMS1.getRightKeyColor(i,"rgb"),xWidth,yHeight,xStart,yStart, true,compareColor,mode,canvasContex);
+        drawRGBline(globalCMS1.getLeftKeyColor(i,"rgb"),globalCMS1.getRightKeyColor(i,"rgb"),xWidth,yHeight,xStart,yStart, true,compareColor,canvasContex0,canvasContex1,canvasContex2);
           for(var j=intervalIndexA[0]; j<intervalIndexA[1]; j++){
-            drawRGBline(globalCMS1.getIntervalColor(j,"rgb"),globalCMS1.getIntervalColor(j+1,"rgb"),xWidth,yHeight,xStart,yStart, false,compareColor,mode,canvasContex);
+            //drawRGBline(globalCMS1.getIntervalColor(j,"rgb"),globalCMS1.getIntervalColor(j+1,"rgb"),xWidth,yHeight,xStart,yStart, false,compareColor,mode,canvasContex);
+            drawRGBline(globalCMS1.getIntervalColor(j,"rgb"),globalCMS1.getIntervalColor(j+1,"rgb"),xWidth,yHeight,xStart,yStart, false,compareColor,canvasContex0,canvasContex1,canvasContex2);
           }
 
           break;
       case "left key":
 
-        drawRGBline(globalCMS1.getLeftKeyColor(i,"rgb"),globalCMS1.getLeftKeyColor(i+1,"rgb"),xWidth,yHeight,xStart,yStart,true, compareColor,mode,canvasContex);
+        //drawRGBline(globalCMS1.getLeftKeyColor(i,"rgb"),globalCMS1.getLeftKeyColor(i+1,"rgb"),xWidth,yHeight,xStart,yStart,true, compareColor,mode,canvasContex);
+        drawRGBline(globalCMS1.getLeftKeyColor(i,"rgb"),globalCMS1.getLeftKeyColor(i+1,"rgb"),xWidth,yHeight,xStart,yStart, true,compareColor,canvasContex0,canvasContex1,canvasContex2);
         break;
 
       default:
@@ -451,11 +414,13 @@ function drawInterpolationLineInRGB(canvasID, mode) {
 
           if(globalCMS1.getKeyType(i)=="dual key"){
             // we do not save the interval colors for dual key double -> it is easier for the analyze algorithm
-            drawRGBline(globalCMS1.getLeftKeyColor(i,"rgb"),globalCMS1.getIntervalColor(intervalIndexA[0],"rgb"),xWidth,yHeight,xStart,yStart, false,compareColor,mode,canvasContex);
+            //drawRGBline(globalCMS1.getLeftKeyColor(i,"rgb"),globalCMS1.getIntervalColor(intervalIndexA[0],"rgb"),xWidth,yHeight,xStart,yStart, false,compareColor,mode,canvasContex);
+            drawRGBline(globalCMS1.getLeftKeyColor(i,"rgb"),globalCMS1.getIntervalColor(intervalIndexA[0],"rgb"),xWidth,yHeight,xStart,yStart, false,compareColor,canvasContex0,canvasContex1,canvasContex2);
           }
 
           for(var j=intervalIndexA[0]; j<intervalIndexA[1]; j++){
-            drawRGBline(globalCMS1.getIntervalColor(j,"rgb"),globalCMS1.getIntervalColor(j+1,"rgb"),xWidth,yHeight,xStart,yStart, false,compareColor,mode,canvasContex);
+            //drawRGBline(globalCMS1.getIntervalColor(j,"rgb"),globalCMS1.getIntervalColor(j+1,"rgb"),xWidth,yHeight,xStart,yStart, false,compareColor,mode,canvasContex);
+            drawRGBline(globalCMS1.getIntervalColor(j,"rgb"),globalCMS1.getIntervalColor(j+1,"rgb"),xWidth,yHeight,xStart,yStart, false,compareColor,canvasContex0,canvasContex1,canvasContex2);
           }
 
       }
@@ -465,38 +430,55 @@ function drawInterpolationLineInRGB(canvasID, mode) {
 
 }
 
-function drawRGBElement(tmpColor,xWidth,yHeight,xStart,yStart, drawCircle,mode,canvasContex, keyIndex,colorSide,do3D){
-
-  var xpos,yPos;
-  switch (mode) {
-    case "rg":
-          xPos = tmpColor.getRValue() * xWidth + xStart;
-          yPos = yStart - tmpColor.getGValue() * yHeight;
-
-          var tmpArray = [xPos, -1, -1];
-          var tmpArray2 = [yPos, -1, -1];
 
 
-          break;
-    case "rb":
-          xPos = tmpColor.getRValue() * xWidth + xStart;
-          yPos = yStart - tmpColor.getBValue() * yHeight;
+function drawRGBElement(tmpColor,xWidth,yHeight,xStart,yStart, drawCircle,canvasContexRG,canvasContexRB,canvasContexBG, keyIndex,colorSide){
 
+  var tmpArray = [-1, -1, -1];
+  var tmpArray2 = [-1, -1, -1];
 
-          break;
-    case "bg":
-          xPos = tmpColor.getBValue() * xWidth + xStart;
-          yPos = yStart - tmpColor.getGValue() * yHeight;
+  // RG
 
-          break;
-    default:
-        return;
+  xPos = tmpColor.getRValue() * xWidth + xStart;
+  yPos = yStart - tmpColor.getGValue() * yHeight;
 
-  }
+  drawElement(tmpColor.getRGBString(), canvasContexRG, xPos, yPos, keyIndex,colorSide, drawCircle);
 
-  drawElement(tmpColor.getRGBString(), canvasContex, xPos, yPos, keyIndex,colorSide, drawCircle);
+  tmpArray[0] = xPos;
+  tmpArray2[0] = yPos;
 
-  if (do3D && showSpace == 1) {
+  // RB
+
+  xPos = tmpColor.getRValue() * xWidth + xStart;
+  yPos = yStart - tmpColor.getBValue() * yHeight;
+
+  drawElement(tmpColor.getRGBString(), canvasContexRB, xPos, yPos, keyIndex,colorSide, drawCircle);
+
+  tmpArray[1] = xPos;
+  tmpArray2[1] = yPos;
+
+  // BG
+
+  xPos = tmpColor.getGValue() * xWidth + xStart;
+  yPos = yStart - tmpColor.getBValue() * yHeight;
+
+  drawElement(tmpColor.getRGBString(), canvasContexBG, xPos, yPos, keyIndex,colorSide, drawCircle);
+
+  tmpArray[2] = xPos;
+  tmpArray2[2] = yPos;
+
+  //// for mouse events: twin key second = circle
+  spaceElementsXPos.push(tmpArray);
+  spaceElementsYPos.push(tmpArray2);
+  if (drawCircle)
+    spaceElementsType.push(true);
+  else
+    spaceElementsType.push(false);
+
+  spaceElementsKey.push(keyIndex);
+  spaceElementsColor.push(colorSide); // colorSide 0=left color, 1= right color, 2=both colors
+
+  if (showSpace == 1) {
 
     var x1 = tmpColor.getRValue() * 255 - 128;
     var y1 = tmpColor.getGValue() * 255 - 128;
@@ -507,42 +489,40 @@ function drawRGBElement(tmpColor,xWidth,yHeight,xStart,yStart, drawCircle,mode,c
 }
 
 
-function getRGBXYPos(tmpColor,xWidth,yHeight,xStart,yStart,mode){
-
-  var position = [0,0];
-  switch (mode) {
-    case "rg":
-          position[0] = tmpColor.getRValue() * xWidth + xStart;
-          position[1] = yStart - tmpColor.getGValue() * yHeight;
-          break;
-    case "rb":
-          position[0] = tmpColor.getRValue() * xWidth + xStart;
-          position[1] = yStart - tmpColor.getBValue() * yHeight;
-          break;
-    case "bg":
-          position[0] = tmpColor.getBValue() * xWidth + xStart;
-          position[1] = yStart - tmpColor.getGValue() * yHeight;
-          break;
-    default:
-        return;
-
-  }
-
-  return position;
-
-}
 
 
-function drawRGBline(tmpColor,tmpColor2,xWidth,yHeight,xStart,yStart, isDashed,isCompareMap,mode,canvasContex){
+
+function drawRGBline(tmpColor,tmpColor2,xWidth,yHeight,xStart,yStart, isDashed,isCompareMap,canvasContexRG,canvasContexRB,canvasContexBG){
   // RG
 
-  var position = getRGBXYPos(tmpColor,xWidth,yHeight,xStart,yStart,mode);
-  var position2 = getRGBXYPos(tmpColor2,xWidth,yHeight,xStart,yStart,mode);
-  var xpos,yPos,xpos2,yPos2;
+  xPos = tmpColor.getRValue() * xWidth + xStart;
+  yPos = yStart - tmpColor.getGValue() * yHeight;
+
+  xPos2 = tmpColor2.getRValue() * xWidth + xStart;
+  yPos2 = yStart - tmpColor2.getGValue() * yHeight;
+
+  drawLine(canvasContexRG, xPos, yPos, xPos2, yPos2, isDashed, isCompareMap);
 
 
-  drawLine(canvasContex, position[0], position[1], position2[0], position2[1], isDashed, isCompareMap);
+  // RB
 
+  xPos = tmpColor.getRValue() * xWidth + xStart;
+  yPos = yStart - tmpColor.getBValue() * yHeight;
+
+  xPos2 = tmpColor2.getRValue() * xWidth + xStart;
+  yPos2 = yStart - tmpColor2.getBValue() * yHeight;
+
+  drawLine(canvasContexRB, xPos, yPos, xPos2, yPos2, isDashed, isCompareMap);
+
+  // BG
+
+  xPos = tmpColor.getGValue() * xWidth + xStart;
+  yPos = yStart - tmpColor.getBValue() * yHeight;
+
+  xPos2 = tmpColor2.getGValue() * xWidth + xStart;
+  yPos2 = yStart - tmpColor2.getBValue() * yHeight;
+
+  drawLine(canvasContexBG, xPos, yPos, xPos2, yPos2, isDashed, isCompareMap);
 
   if (showSpace == 1) {
 

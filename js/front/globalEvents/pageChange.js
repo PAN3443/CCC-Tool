@@ -78,7 +78,8 @@ function showMyDesignsPage(){
   document.getElementById("id_actionMenu_editPart").style.display="none";
   document.getElementById("id_actionMenu_myDesignPart").style.display="block";
   document.getElementById("id_dropDownMenu_DisplayOptions").style.display="none";
-  document.getElementById("id_header_editWarning").style.display="none";
+  document.getElementById("id_header_editWarning").style.visibility="hidden";
+  document.getElementById("id_header_interpolationSpaceWarning").style.visibility="hidden";
 
   updatePageWidth();
 }
@@ -142,7 +143,7 @@ function showEditPage(){
   document.getElementById("id_EditPage_CMS_Below_Color").style.background=globalCMS1.getBelowColor("rgb").getRGBString();
   document.getElementById("id_EditPage_CMS_Above_Color").style.background=globalCMS1.getAboveColor("rgb").getRGBString();
 
-  document.getElementById("id_EditPage").style.display="inline-block";
+  document.getElementById("id_EditPage").style.display="block";
 
 
   document.getElementById("edit_Page_FreeSpaceInfo").innerHTML="Free Places: "+(numberOfMyDesignsObj-myDesignsList.length);
@@ -172,10 +173,10 @@ function showEditPage(){
   document.getElementById("id_settingMenu_Label_AnalyzeUpdate_Button").style.display="block";
   document.getElementById("id_actionMenu_myDesignPart").style.display="none";
   document.getElementById("id_dropDownMenu_DisplayOptions").style.display="block";
+  document.getElementById("id_header_interpolationSpaceWarning").style.visibility="visible";
 
   updatePageWidth();
   updateEditPage();
-  drawPredefined_MyDesignsCMS();
 
 
 

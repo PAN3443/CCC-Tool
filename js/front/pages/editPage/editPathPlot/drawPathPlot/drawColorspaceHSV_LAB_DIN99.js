@@ -5,26 +5,24 @@ function hueInit() {
   var canvasID = "id_EditPage_PathPlot_SingleCanvas_0";
 
   var canvasColorspace = document.getElementById(canvasID);
-
-  canvasColorspace.width = hue_bg_resolution_X;
-  canvasColorspace.height = hue_bg_resolution_Y;
-  var canvasColorspaceWidth = canvasColorspace.width;
-  var canvasColorspaceHeight = canvasColorspace.height;
+  var canvasObjBox = canvasColorspace.getBoundingClientRect();
+  canvasColorspace.width = canvasObjBox.width;
+  canvasColorspace.height = canvasObjBox.height;
 
   var colorspaceContex = canvasColorspace.getContext("2d");
-  var colorspaceBackgroundData = colorspaceContex.getImageData(0, 0, canvasColorspaceWidth, canvasColorspaceHeight);
+  var colorspaceBackgroundData = colorspaceContex.getImageData(0, 0, canvasColorspace.width, canvasColorspace.height);
 
-  var colorspaceCenterX = Math.round(canvasColorspaceWidth / 2);
-  var colorspaceCenterY = Math.round(canvasColorspaceHeight / 2);
-  var colorspaceRadius = Math.round((canvasColorspaceWidth / 2) * radiusratio);
+  var colorspaceCenterX = Math.round(canvasColorspace.width / 2);
+  var colorspaceCenterY = Math.round(canvasColorspace.height / 2);
+  var colorspaceRadius = Math.round((canvasColorspace.width / 2) * radiusratio);
 
   var errorRGBColor = new classColor_RGB(0.5, 0.5, 0.5);
 
   switch (pathColorspace) {
     case "hsv":
-      for (var x = 0; x < canvasColorspaceWidth; x++) {
+      for (var x = 0; x < canvasColorspace.width; x++) {
 
-        for (var y = 0; y < canvasColorspaceHeight; y++) {
+        for (var y = 0; y < canvasColorspace.height; y++) {
 
           var dis = Math.sqrt(Math.pow(colorspaceCenterX - x, 2) + Math.pow(colorspaceCenterY - y, 2));
 
@@ -54,7 +52,7 @@ function hueInit() {
 
             var colorHSV = new classColor_HSV(hVal, sVal, vVal);
             var colorRGB = colorHSV.calcRGBColor();
-            var index = (x + y * canvasColorspaceWidth) * 4;
+            var index = (x + y * canvasColorspace.width) * 4;
 
             colorspaceBackgroundData.data[index + 0] = Math.round(colorRGB.getRValue() * 255); // r
             colorspaceBackgroundData.data[index + 1] = Math.round(colorRGB.getGValue() * 255); // g
@@ -69,20 +67,20 @@ function hueInit() {
       }
       break;
     case "lab":
-      var xStart = canvasColorspaceWidth * 0.1;
-      var yStart = canvasColorspaceHeight * 0.1;
-      var xEnd = canvasColorspaceWidth * 0.9;
-      var yEnd = canvasColorspaceHeight * 0.9;
-      var xWidth = canvasColorspaceWidth * labSpaceRectRange;
-      var yHeight = canvasColorspaceHeight * labSpaceRectRange;
+      var xStart = canvasColorspace.width * 0.1;
+      var yStart = canvasColorspace.height * 0.1;
+      var xEnd = canvasColorspace.width * 0.9;
+      var yEnd = canvasColorspace.height * 0.9;
+      var xWidth = canvasColorspace.width * labSpaceRectRange;
+      var yHeight = canvasColorspace.height * labSpaceRectRange;
 
-      colorspaceCenterX = Math.round(canvasColorspaceWidth / 2);
-      colorspaceCenterY = Math.round(canvasColorspaceHeight / 2);
+      colorspaceCenterX = Math.round(canvasColorspace.width / 2);
+      colorspaceCenterY = Math.round(canvasColorspace.height / 2);
 
       // draw colorspace
-      for (var x = 0; x < canvasColorspaceWidth; x++) {
+      for (var x = 0; x < canvasColorspace.width; x++) {
 
-        for (var y = 0; y < canvasColorspaceHeight; y++) {
+        for (var y = 0; y < canvasColorspace.height; y++) {
 
           if (x >= xStart && x <= xEnd && y >= yStart && y <= yEnd) {
             // calc hsv color
@@ -129,7 +127,7 @@ function hueInit() {
             } // else
 
 
-            var index = (x + y * canvasColorspaceWidth) * 4;
+            var index = (x + y * canvasColorspace.width) * 4;
 
             colorspaceBackgroundData.data[index + 0] = Math.round(colorRGB.getRValue() * 255); // r
             colorspaceBackgroundData.data[index + 1] = Math.round(colorRGB.getGValue() * 255); // g
@@ -141,25 +139,25 @@ function hueInit() {
       }
       break;
     case "din99":
-      var xStart = canvasColorspaceWidth * 0.1;
-      var yStart = canvasColorspaceHeight * 0.1;
-      var xEnd = canvasColorspaceWidth * 0.9;
-      var yEnd = canvasColorspaceHeight * 0.9;
-      var xWidth = canvasColorspaceWidth * labSpaceRectRange;
-      var yHeight = canvasColorspaceHeight * labSpaceRectRange;
+      var xStart = canvasColorspace.width * 0.1;
+      var yStart = canvasColorspace.height * 0.1;
+      var xEnd = canvasColorspace.width * 0.9;
+      var yEnd = canvasColorspace.height * 0.9;
+      var xWidth = canvasColorspace.width * labSpaceRectRange;
+      var yHeight = canvasColorspace.height * labSpaceRectRange;
 
 
       rangeA99 = rangeA99Pos - rangeA99Neg;
       rangeB99 = rangeB99Pos - rangeB99Neg;
 
-      colorspaceCenterX = Math.round(canvasColorspaceWidth / 2);
-      colorspaceCenterY = Math.round(canvasColorspaceHeight / 2);
+      colorspaceCenterX = Math.round(canvasColorspace.width / 2);
+      colorspaceCenterY = Math.round(canvasColorspace.height / 2);
 
 
       // draw colorspace
-      for (var x = 0; x < canvasColorspaceWidth; x++) {
+      for (var x = 0; x < canvasColorspace.width; x++) {
 
-        for (var y = 0; y < canvasColorspaceHeight; y++) {
+        for (var y = 0; y < canvasColorspace.height; y++) {
 
           if (x >= xStart && x <= xEnd && y >= yStart && y <= yEnd) {
             // calc hsv color
@@ -214,7 +212,7 @@ function hueInit() {
             //console.log(colorRGB.getRValue()*255+' '+colorRGB.getGValue()*255+' '+colorRGB.getBValue()*255);
             //break;
 
-            var index = (x + y * canvasColorspaceWidth) * 4;
+            var index = (x + y * canvasColorspace.width) * 4;
 
             colorspaceBackgroundData.data[index + 0] = Math.round(colorRGB.getRValue() * 255); // r
             colorspaceBackgroundData.data[index + 1] = Math.round(colorRGB.getGValue() * 255); // g
@@ -236,60 +234,9 @@ function hueInit() {
 
 function init_VPlot() {
 
-  var canvasID1 = '';  // value
-  var canvasID2 = ''; // hue
-  var canvasID3 = ''; // saturation
-
-  switch (pathCanvasAssignmentBig) {
-    case 0:
-      canvasID1="id_EditPage_PathPlot_BigCanvas_0";
-
-      if (pathCanvasAssignmentSmallTop==1) {
-        canvasID2="id_EditPage_PathPlot_SmallTopCanvas_0";
-        canvasID3="id_EditPage_PathPlot_SmallBottomCanvas_0";
-      }
-      else{
-        canvasID2="id_EditPage_PathPlot_SmallBottomCanvas_0";
-        canvasID3="id_EditPage_PathPlot_SmallTopCanvas_0";
-      }
-
-
-      break;
-    case 1:
-
-    canvasID2="id_EditPage_PathPlot_BigCanvas_0";
-
-    if (pathCanvasAssignmentSmallTop==0) {
-      canvasID1="id_EditPage_PathPlot_SmallTopCanvas_0";
-      canvasID3="id_EditPage_PathPlot_SmallBottomCanvas_0";
-    }
-    else{
-      canvasID1="id_EditPage_PathPlot_SmallBottomCanvas_0";
-      canvasID3="id_EditPage_PathPlot_SmallTopCanvas_0";
-    }
-
-      break;
-    case 2:
-    canvasID3="id_EditPage_PathPlot_BigCanvas_0";
-
-    if (pathCanvasAssignmentSmallTop==0) {
-      canvasID1="id_EditPage_PathPlot_SmallTopCanvas_0";
-      canvasID2="id_EditPage_PathPlot_SmallBottomCanvas_0";
-    }
-    else{
-      canvasID1="id_EditPage_PathPlot_SmallBottomCanvas_0";
-      canvasID2="id_EditPage_PathPlot_SmallTopCanvas_0";
-    }
-
-      break;
-    default:
-    return;
-
-  }
-
-  var canvasVPlot1 = document.getElementById(canvasID1);
-  var canvasVPlot2 = document.getElementById(canvasID2);
-  var canvasVPlot3 = document.getElementById(canvasID3);
+  var canvasVPlot1 = document.getElementById("id_EditPage_PathPlot_Canvas1_0");
+  var canvasVPlot2 = document.getElementById("id_EditPage_PathPlot_Canvas2_0");
+  var canvasVPlot3 = document.getElementById("id_EditPage_PathPlot_Canvas3_0");
 
   canvasVPlot1.width = vPlot_bg_resolution_X;
   canvasVPlot1.height = vPlot_bg_resolution_Y;
@@ -665,77 +612,17 @@ function drawcolormap_hueSpace(calcBackground, drawInterpolationLine, doInitVplo
   if (calcBackground)
     hueInit();
 
-    /*if(showSideID==3) // is Compare PAGE
-    {
-      drawElements_HSV_LAB_DIN99(true);
+  drawElements_HSV_LAB_DIN99(false);
 
-      if (drawInterpolationLine)
-        drawInterpolationLineHSV_LAB_DIN99(true);
-    }
-    else {*/
-      drawElements_HSV_LAB_DIN99(false);
-
-      if (drawInterpolationLine)
-        drawInterpolationLineHSV_LAB_DIN99(false);
-    //}
+  if (drawInterpolationLine)
+    drawInterpolationLineHSV_LAB_DIN99(false);
 
 }
 
 
 function drawElements_HSV_LAB_DIN99(isCompareMap) {
 
-  var canvasID1,canvasID2,canvasID3;
-
-  var canvasID = "id_EditPage_PathPlot_SingleCanvas_2";
-
-  switch (pathCanvasAssignmentBig) {
-    case 0:
-      canvasID1="id_EditPage_PathPlot_BigCanvas_2";
-
-      if (pathCanvasAssignmentSmallTop==1) {
-        canvasID2="id_EditPage_PathPlot_SmallTopCanvas_2";
-        canvasID3="id_EditPage_PathPlot_SmallBottomCanvas_2";
-      }
-      else{
-        canvasID2="id_EditPage_PathPlot_SmallBottomCanvas_2";
-        canvasID3="id_EditPage_PathPlot_SmallTopCanvas_2";
-      }
-
-
-      break;
-    case 1:
-
-    canvasID2="id_EditPage_PathPlot_BigCanvas_2";
-
-    if (pathCanvasAssignmentSmallTop==0) {
-      canvasID1="id_EditPage_PathPlot_SmallTopCanvas_2";
-      canvasID3="id_EditPage_PathPlot_SmallBottomCanvas_2";
-    }
-    else{
-      canvasID1="id_EditPage_PathPlot_SmallBottomCanvas_2";
-      canvasID3="id_EditPage_PathPlot_SmallTopCanvas_2";
-    }
-
-      break;
-    case 2:
-    canvasID3="id_EditPage_PathPlot_BigCanvas_2";
-
-    if (pathCanvasAssignmentSmallTop==0) {
-      canvasID1="id_EditPage_PathPlot_SmallTopCanvas_2";
-      canvasID2="id_EditPage_PathPlot_SmallBottomCanvas_2";
-    }
-    else{
-      canvasID1="id_EditPage_PathPlot_SmallBottomCanvas_2";
-      canvasID2="id_EditPage_PathPlot_SmallTopCanvas_2";
-    }
-
-      break;
-    default:
-    return;
-
-  }
-
-  var canvasColorspace = document.getElementById(canvasID);
+  var canvasColorspace = document.getElementById("id_EditPage_PathPlot_SingleCanvas_2");
 
   canvasColorspace.width = hue_resolution_X;
   canvasColorspace.height = hue_resolution_Y;
@@ -757,9 +644,9 @@ function drawElements_HSV_LAB_DIN99(isCompareMap) {
   var colorspaceContex = canvasColorspace.getContext("2d");
   var canvasColorspaceData = colorspaceContex.getImageData(0, 0, canvasColorspaceWidth, canvasColorspaceHeight);
 
-  var canvasVPlot1 = document.getElementById(canvasID1);
-  var canvasVPlot2 = document.getElementById(canvasID2);
-  var canvasVPlot3 = document.getElementById(canvasID3);
+  var canvasVPlot1 = document.getElementById("id_EditPage_PathPlot_Canvas1_2");
+  var canvasVPlot2 = document.getElementById("id_EditPage_PathPlot_Canvas2_2");
+  var canvasVPlot3 = document.getElementById("id_EditPage_PathPlot_Canvas3_2");
 
   canvasVPlot1.width = vPlot_resolution_X;
   canvasVPlot1.height = vPlot_resolution_Y;
@@ -938,58 +825,8 @@ function drawElements_HSV_LAB_DIN99(isCompareMap) {
 
 function drawInterpolationLineHSV_LAB_DIN99(isCompareMap) {
 
-  var canvasID1,canvasID2,canvasID3;
 
-  var canvasID = "id_EditPage_PathPlot_SingleCanvas_1";
-
-  switch (pathCanvasAssignmentBig) {
-    case 0:
-      canvasID1="id_EditPage_PathPlot_BigCanvas_1";
-
-      if (pathCanvasAssignmentSmallTop==1) {
-        canvasID2="id_EditPage_PathPlot_SmallTopCanvas_1";
-        canvasID3="id_EditPage_PathPlot_SmallBottomCanvas_1";
-      }
-      else{
-        canvasID2="id_EditPage_PathPlot_SmallBottomCanvas_1";
-        canvasID3="id_EditPage_PathPlot_SmallTopCanvas_1";
-      }
-
-
-      break;
-    case 1:
-
-    canvasID2="id_EditPage_PathPlot_BigCanvas_1";
-
-    if (pathCanvasAssignmentSmallTop==0) {
-      canvasID1="id_EditPage_PathPlot_SmallTopCanvas_1";
-      canvasID3="id_EditPage_PathPlot_SmallBottomCanvas_1";
-    }
-    else{
-      canvasID1="id_EditPage_PathPlot_SmallBottomCanvas_1";
-      canvasID3="id_EditPage_PathPlot_SmallTopCanvas_1";
-    }
-
-      break;
-    case 2:
-    canvasID3="id_EditPage_PathPlot_BigCanvas_1";
-
-    if (pathCanvasAssignmentSmallTop==0) {
-      canvasID1="id_EditPage_PathPlot_SmallTopCanvas_1";
-      canvasID2="id_EditPage_PathPlot_SmallBottomCanvas_1";
-    }
-    else{
-      canvasID1="id_EditPage_PathPlot_SmallBottomCanvas_1";
-      canvasID2="id_EditPage_PathPlot_SmallTopCanvas_1";
-    }
-
-      break;
-    default:
-    return;
-
-  }
-
-  var canvasColorspace = document.getElementById(canvasID);
+  var canvasColorspace = document.getElementById("id_EditPage_PathPlot_SingleCanvas_1");
 
   canvasColorspace.width = hue_resolution_X;
   canvasColorspace.height = hue_resolution_Y;
@@ -1012,9 +849,9 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap) {
   var canvasColorspaceData = colorspaceContex.getImageData(0, 0, canvasColorspaceWidth, canvasColorspaceHeight);
 
 
-  var canvasVPlot1 = document.getElementById(canvasID1);
-  var canvasVPlot2 = document.getElementById(canvasID2);
-  var canvasVPlot3 = document.getElementById(canvasID3);
+  var canvasVPlot1 = document.getElementById("id_EditPage_PathPlot_Canvas1_1");
+  var canvasVPlot2 = document.getElementById("id_EditPage_PathPlot_Canvas2_1");
+  var canvasVPlot3 = document.getElementById("id_EditPage_PathPlot_Canvas3_1");
 
   canvasVPlot1.width = vPlot_resolution_X;
   canvasVPlot1.height = vPlot_resolution_Y;
