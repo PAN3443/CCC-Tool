@@ -34,8 +34,8 @@ div.sticky {
 }
 
 .standardText{
-  font-size: 16px;
-  line-height: 20px;
+  font-size: 1.6vh;;
+  line-height: 2vh;
   color:rgb(80,80,80);
   height:auto;
   vertical-align:middle;
@@ -46,8 +46,8 @@ div.sticky {
 }
 
 .sectionLabel{
-  font-size: 35px;
-  line-height: 40px;
+  font-size: 3.5vh;
+  line-height: 4vh;
   color:black;
   height:auto;
   vertical-align:middle;
@@ -59,10 +59,10 @@ div.sticky {
 }
 
 .subsectionLabel{
-  font-size: 18px;
-  line-height: 16px;
+  font-size: 1.8vh;
+  line-height: 2vh;;
   color:black;
-  height: 18px; /*auto;*/
+  height: 2vh; /*auto;*/
   vertical-align:middle;
   text-align:center;
   width:100%;
@@ -75,13 +75,13 @@ div.sticky {
     border: 2px solid rgb(0, 143, 0);
     color: white;
     /*padding: 20px;*/
-    height: 60px;
-    line-height: 60px;
+    height: 4vh;
+    line-height: 4vh;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
-    border-radius: 8px;
+    font-size: 1.6vh;
+    border-radius: 0.5vh;
     /*margin-left: auto;*/
     overflow: auto;
     font-weight: bold;

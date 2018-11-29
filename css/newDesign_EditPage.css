@@ -1,4 +1,71 @@
 
+.class_EditPage_closeDiv {
+  height:2vh;
+  width: 100%;
+  background: rgb(80,80,80);
+}
+
+.class_EditPage_closeDiv button{
+  height:2vh;
+  line-height: 2vh;
+  width: 2vh;
+  font-size: 1.2vh;
+  float:right;
+  background: rgb(80,80,80);
+  color:white;
+  text-align: center;
+}
+
+.class_EditPage_EditButton{
+  line-height: 3vh;
+  color: black;
+  height: 3vh;
+  width: 3vh;
+  font-size: 1.5vh;
+  vertical-align: middle;
+  text-align: center;
+  background:rgb(180,180,180);
+  border: 0.2vh solid black;
+  border-radius: 0.5vh;
+  overflow: hidden;
+  margin:auto;
+  -moz-box-shadow:    inset 0 0 0.5vh rgb(0,0,0);
+   -webkit-box-shadow: inset 0 0 0.5vh rgb(0,0,0);
+   box-shadow:         inset 0 0 0.5vh rgb(0,0,0);
+
+}
+
+
+.class_EditPage_EditButtonLabel{
+  line-height: 3vh;
+  color: white;
+  height: 3vh;
+  font-size: 1.8vh;
+  overflow: hidden;
+  margin:auto;
+}
+
+
+
+
+
+.class_EditPage_TabRow {
+  height:4vh;
+  width: 100%;
+  background: rgb(80,80,80);
+}
+
+.class_EditPage_TabRow button{
+  height:4vh;
+  line-height: 4vh;
+  width: 100%;
+  font-size: 2.0vh;
+  float:right;
+  background: rgb(80,80,80);
+  color:white;
+  text-align: center;
+}
+
 #id_EditPage_backButton div{
   background-color: rgba(224, 235, 235,0.75);
   border: 0.2vh solid rgb(51, 77, 77);
@@ -171,9 +238,9 @@
 }
 
 .class_tablelabel{
-    height:2.5vh;
-    line-height:2.5vh;
-    font-size:1.8vh;
+    height:1.5vh;
+    line-height:1.5vh;
+    font-size:1.0vh;
     font-weight: bold;
     padding-right:1vw;
     padding-left:1vw;
@@ -184,9 +251,9 @@
 }
 
 .class_tableInput{
-    height:2.5vh;
-    line-height:2.5vh;
-    font-size:1.8vh;
+    height:1.5vh;
+    line-height:1.5vh;
+    font-size:1.0vh;
     color: black;
     border: 0.1vh solid black;
     vertical-align: middle;

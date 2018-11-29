@@ -48,7 +48,7 @@ function createMyDesignObject(id){
   tmpLabelDiv.style.background="rgb(200, 200, 200)";
   tmpLabelDiv.style.border = "2px solid rgb(180,180,180)";
   tmpLabelDiv.style.borderBottom = "none";
-  tmpLabelDiv.style.borderRadius = "5px 5px 0px 0px";
+  tmpLabelDiv.style.borderRadius = "0.5vh 0.5vh 0px 0px";
 
   var tmpLabel = document.createElement('div');
   tmpLabel.id="myDesignObj_Label_"+id;
@@ -99,7 +99,7 @@ function createMyDesignObject(id){
   tmpCMSsketch.className = 'class_MyDesignObjCMSCanvas classColormapCanvas';
   tmpCMSsketch.style.background="rgb(220,220,220)";
   tmpCMSsketch.style.border = "2px solid rgb(180,180,180)";
-  tmpCMSsketch.style.borderRadius = "0px 0px 5px 5px";
+  tmpCMSsketch.style.borderRadius = "0px 0px 0.5vh 0.5vh";
   tmpDiv.appendChild(tmpCMSsketch);
 
   divRow.appendChild(tmpDiv);

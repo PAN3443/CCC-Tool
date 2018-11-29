@@ -5,11 +5,16 @@
 .class_MyDesignObjCMSDiv{
   width: 75%;
   height: 100%;
+  margin-top:1vh;
+  margin-bottom:1vh;
 }
 
 .class_MyDesignObjCMSCanvas{
   width: 100%;
+  height: 3vh;
+  margin:0;
   overflow: auto;
+  display: block;
   /*font-family:courier;*/
 }
 
@@ -20,14 +25,14 @@
 }
 
 .class_MyDesignButton{
-  height: 40%;
-  width: 100%;
-  margin-top: auto;
-  margin-bottom: auto;
+  height: 3vh;
+  width: 3vh;
+  margin-top: 1.33vh;
+  margin-bottom: 1.33vh;
   margin-left: auto;
   margin-right: auto;
   border: 1px solid rgb(180, 180, 180);
-  border-radius: 5px;
+  border-radius: 0.5vh;
   background-size:cover;
   background-repeat:no-repeat;
   background-position: center center;
@@ -39,7 +44,7 @@
 }
 
 #id_MyDesings_Example_Img{
-  
+
   max-width: 100%;
   max-height:100%;
 }

@@ -1,100 +1,36 @@
 
-function changeColorspace(space){
+function changeColorspace(){
 
-  switch (space) {
-    case 0:
+  document.getElementById("id_header_interpolationSpaceWarning").innerHTML = "&#9785;";
+
+  switch (document.getElementById("id_editPage_InterpolationSelect").selectedIndex) {
+    case 4:
         globalCMS1.setInterpolationSpace("rgb");
+        document.getElementById("id_header_interpolationSpaceWarning").innerHTML = "&#9785;";
       break;
-      case 1:
+      case 5:
           globalCMS1.setInterpolationSpace("hsv");
+          document.getElementById("id_header_interpolationSpaceWarning").innerHTML = "&#9785;";
         break;
-        case 2:
+        case 0:
             globalCMS1.setInterpolationSpace("lab");
           break;
-          case 3:
+          case 1:
               globalCMS1.setInterpolationSpace("din99");
             break;
-            case 4:
+            case 2:
                 globalCMS1.setInterpolationSpace("de94");
               break;
-              case 5:
+              case 3:
                   globalCMS1.setInterpolationSpace("de2000");
                 break;
     default:
 
   }
 
-
-  //if(document.getElementById("id_EditPage").style.display!="none"){
-    updateInterpolationSpaceEditPage();
-  //}
-
-}
-
-
-function updateInterpolationSpaceEditPage(){
-
- document.getElementById("id_EditPage_SelectLab").innerHTML="";
- document.getElementById("id_EditPage_SelectDIN99").innerHTML="";
- document.getElementById("id_EditPage_SelectDE94").innerHTML="";
- document.getElementById("id_EditPage_SelectCIEDE2000").innerHTML="";
- document.getElementById("id_EditPage_SelectRGB").innerHTML="";
- document.getElementById("id_EditPage_SelectHSV").innerHTML="";
-
- document.getElementById("id_EditPage_SmileyImg").style.display="none";
- document.getElementById("id_EditPage_SadleyImg").style.display="none";
-
-
-
-
-  switch (globalCMS1.getInterpolationSpace()) {
-    case "rgb":
-        document.getElementById("id_EditPage_SelectRGB").innerHTML="&#10004;";
-        //document.getElementById("id_EditPage_SadleyImg").style.display="inline-block";
-        document.getElementById("id_EditPage_CMSSpaceLabel").innerHTML="Space : RGB";
-        document.getElementById("id_header_interpolationSpaceWarning").style.color = "rgb(255, 0, 0)";
-        document.getElementById("id_header_interpolationSpaceWarning").innerHTML = "RGB &#9785;";
-      break;
-      case "hsv":
-          document.getElementById("id_EditPage_SelectHSV").innerHTML="&#10004;";
-          //document.getElementById("id_EditPage_SadleyImg").style.display="inline-block";
-          document.getElementById("id_EditPage_CMSSpaceLabel").innerHTML="Space : HSV";
-          document.getElementById("id_header_interpolationSpaceWarning").style.color = "rgb(255, 0, 0)";
-          document.getElementById("id_header_interpolationSpaceWarning").innerHTML = "HSB &#9785;";
-        break;
-        case "lab":
-            document.getElementById("id_EditPage_SelectLab").innerHTML="&#10004;";
-            //document.getElementById("id_EditPage_SmileyImg").style.display="inline-block";
-            document.getElementById("id_EditPage_CMSSpaceLabel").innerHTML="Space : LAB";
-            document.getElementById("id_header_interpolationSpaceWarning").style.color = "rgb(0, 255, 0)";
-            document.getElementById("id_header_interpolationSpaceWarning").innerHTML = "Lab &#9786;";
-          break;
-          case "din99":
-              document.getElementById("id_EditPage_SelectDIN99").innerHTML="&#10004;";
-              //document.getElementById("id_EditPage_SmileyImg").style.display="inline-block";
-              document.getElementById("id_EditPage_CMSSpaceLabel").innerHTML="Space : DIN99";
-              document.getElementById("id_header_interpolationSpaceWarning").style.color = "rgb(0, 255, 0)";
-              document.getElementById("id_header_interpolationSpaceWarning").innerHTML = "DIN99 &#9786;";
-            break;
-            case "de94":
-                document.getElementById("id_EditPage_SelectDE94").innerHTML="&#10004;";
-                //document.getElementById("id_EditPage_SmileyImg").style.display="inline-block";
-                document.getElementById("id_EditPage_CMSSpaceLabel").innerHTML="Space : DE94";
-              break;
-              case "de2000":
-                  document.getElementById("id_EditPage_SelectCIEDE2000").innerHTML="&#10004;";
-                  //document.getElementById("id_EditPage_SmileyImg").style.display="inline-block";
-                  document.getElementById("id_EditPage_CMSSpaceLabel").innerHTML="Space : DE2000";
-                break;
-    default:
-
-  }
-
-
   if(document.getElementById("id_EditPage_Add_Structures").style.display!="none"){
     updatePredefined();
   }
-
 
   // UPDATE Path Plot
   if(document.getElementById("id_EditPage_Edit_Path").style.display!="none"){
@@ -108,4 +44,38 @@ function updateInterpolationSpaceEditPage(){
 
 
   updateEditPage(); // = update CMS, Mapping and Analyze Plots
+
+
+}
+
+
+function updateInterpolationSpaceEditPage(){
+
+  switch (globalCMS1.getInterpolationSpace()) {
+    case "rgb":
+    document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 4;
+
+      break;
+      case "hsv":
+      document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 5;
+
+        break;
+        case "lab":
+        document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 0;
+          break;
+          case "din99":
+          document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 1;
+            break;
+            case "de94":
+            document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 2;
+              break;
+              case "de2000":
+              document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 3;
+                break;
+    default:
+
+  }
+
+  changeColorspace();
+
 }

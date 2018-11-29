@@ -49,12 +49,6 @@ function init_events_EditPage(){
   }; // allow Drop
 
 
-  document.getElementById('id_editPage_customConstBand').addEventListener("dragstart", bandOnDragStart);
-  document.getElementById('id_editPage_customConstBand').addEventListener("dragend", bandOnDragEnd);
-  document.getElementById('id_editPage_customScaleBand').addEventListener("dragstart", bandOnDragStart);
-  document.getElementById('id_editPage_customScaleBand').addEventListener("dragend", bandOnDragEnd);
-
-
   // Ref Change Key Rects
   document.getElementById('id_EditPage_CMS_VIS_LinearKeys').addEventListener("mouseenter", mouseEnterKeyRef);
   document.getElementById('id_EditPage_CMS_VIS_LinearKeys').addEventListener("mouseleave", mouseLeaveKeyRef);
@@ -68,11 +62,10 @@ function init_events_EditPage(){
   document.getElementById('id_EditPage_CMS_VIS_KeyBurs').addEventListener("mousedown", mouseDownKeyRef);
   document.getElementById('id_EditPage_CMS_VIS_KeyBurs').addEventListener("mouseup", mouseUpKeyRef);
 
-  document.getElementById('id_editPage_CMSDescription').addEventListener("change", updateDescription);
+  //check document.getElementById('id_editPage_CMSDescription').addEventListener("change", updateDescription);
   document.getElementById('id_EditPage_CMSName').addEventListener("change", updateColormapName);
 
   limitKeyBurLine=true;
-
 
   document.getElementById('id_EditPage_extraOptionsAnalyze').addEventListener("click", activateDropdown);
   document.getElementById('id_EditPage_extraOptionsMapping').addEventListener("click", activateDropdown);
@@ -175,11 +168,11 @@ function init_events_EditPage(){
     document.getElementById("id_selectProbeList").addEventListener("change", selectProbe);
     document.getElementById("id_probe_EditProbeName").addEventListener("change", editPageChangeProbeSetName);
 
-    document.getElementById("id_selectMainProbeSetList").onchange = function (){
+    /*document.getElementById("id_selectMainProbeSetList").onchange = function (){
       var tmpCMS = globalCMS1.getProbeSet(document.getElementById("id_selectMainProbeSetList").selectedIndex).generateProbeCMS(globalCMS1);
 
       drawCanvasColormap("id_EditPage_CMS_VIS_PreviewProbe", tmpCMS);
-    };
+    };*/
 
 
     document.getElementById("id_EditPage_SelectFrom_GlobalLocalOrder").onchange = function (){

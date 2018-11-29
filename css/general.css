@@ -54,14 +54,14 @@ hr {
  * https://github.com/h5bp/html5-boilerplate/issues/440
  */
 
-audio,
+/*audio,
 canvas,
 iframe,
 img,
 svg,
 video {
     vertical-align: middle;
-}
+}*/
 
 /*
  * Remove default fieldset styles.
@@ -132,10 +132,6 @@ textarea {
         display: flex;
      }
 
-    canvas{
-      margin: 0;
-    padding: 0;
-    }
 
 /* ==========================================================================
    Helper classes
@@ -295,16 +291,18 @@ textarea {
         widows: 3;
     }
 
-    /*p,
+    p,
     h2,
     h3,
     button,
     canvas,
     div{
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    }*/
+    }
 
     h2,
     h3 {

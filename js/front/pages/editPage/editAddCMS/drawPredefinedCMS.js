@@ -1,7 +1,7 @@
 
 
 function changePredefinedStructure(type){
-  document.getElementById("id_editPage_Add_Predefined_Button").style.background=styleNotActiveColor;
+  /*document.getElementById("id_editPage_Add_Predefined_Button").style.background=styleNotActiveColor;
   document.getElementById("id_editPage_Add_Gallery_Button").style.background=styleNotActiveColor;
   document.getElementById("id_editPage_Add_Mydesigns_Button").style.background=styleNotActiveColor;
 
@@ -29,13 +29,13 @@ function changePredefinedStructure(type){
     changePredefinedStructure(0);
   }
 
-  updatePredefined();
+  updatePredefined();*/
 }
 
 
 function updatePredefined(){
 
-  if(document.getElementById("id_editPage_Add_Predefined_Div").style.display!="none"){
+/*  if(document.getElementById("id_editPage_Add_Predefined_Div").style.display!="none"){
     drawConstantBands();
     drawScaledBands();
     drawConstCustomBand();
@@ -57,7 +57,7 @@ function updatePredefined(){
   }
 
   // Error non of the three possible divs is displeyed
-  changePredefinedStructure(0);
+  changePredefinedStructure(0);*/
 
 
 

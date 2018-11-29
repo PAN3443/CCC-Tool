@@ -21,7 +21,7 @@ function saveCreateProcess(){
       }
 
       somethingChanged=true;
-      document.getElementById("id_header_editWarning").style.display="inline-block";
+      document.getElementById("id_header_editWarning").style.visibility="visible";
 }
 
 

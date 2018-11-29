@@ -28,7 +28,7 @@ window.onload = function() {
   init_ExportWindow();
 
   initMyDesignObj();
-  init_CCCPageStyle();
+  //init_CCCPageStyle();
 
   initMapping();
 

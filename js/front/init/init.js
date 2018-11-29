@@ -178,10 +178,10 @@ function init_CCCPageStyle(){
   // Edit Page
 
 
-  document.getElementById("id_EditPage").style.width = windowWidth + "px";
+/*  document.getElementById("id_EditPage").style.width = windowWidth + "px";
 
   var tmpHeight1 = Math.floor(windowHeight*0.95);
-  document.getElementById("id_EditPage_MainPartDiv").style.height = tmpHeight1 + "px";
+  document.getElementById("id_EditPage").style.height = tmpHeight1 + "px";
 
   var tmpHeight3= tmpHeight1-tmpHeightSubsectionButton;
   document.getElementById("id_EditPage_Add_Structures").style.height = tmpHeight3 + "px";
