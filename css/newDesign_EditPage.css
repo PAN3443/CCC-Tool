@@ -2,7 +2,11 @@
 .class_EditPage_closeDiv {
   height:2vh;
   width: 100%;
-  background: rgb(80,80,80);
+  background: rgb(30,30,30);
+  border: 0.2vh solid black;
+  -moz-box-shadow:    inset 0 0 0.2vh rgb(0,0,0);
+   -webkit-box-shadow: inset 0 0 0.2vh rgb(0,0,0);
+   box-shadow:         inset 0 0 0.2vh rgb(0,0,0);
 }
 
 .class_EditPage_closeDiv button{
@@ -14,6 +18,10 @@
   background: rgb(80,80,80);
   color:white;
   text-align: center;
+  border: 0.2vh solid black;
+  -moz-box-shadow:    inset 0 0 0.2vh rgb(0,0,0);
+   -webkit-box-shadow: inset 0 0 0.2vh rgb(0,0,0);
+   box-shadow:         inset 0 0 0.2vh rgb(0,0,0);
 }
 
 .class_EditPage_EditButton{
@@ -32,6 +40,10 @@
   -moz-box-shadow:    inset 0 0 0.5vh rgb(0,0,0);
    -webkit-box-shadow: inset 0 0 0.5vh rgb(0,0,0);
    box-shadow:         inset 0 0 0.5vh rgb(0,0,0);
+
+   /*background-size:cover;
+   //background-repeat:no-repeat;
+   //background-position: center center;*/
 
 }
 
@@ -64,6 +76,10 @@
   background: rgb(80,80,80);
   color:white;
   text-align: center;
+  border: 0.2vh solid black;
+  -moz-box-shadow:    inset 0 0 0.5vh rgb(0,0,0);
+   -webkit-box-shadow: inset 0 0 0.5vh rgb(0,0,0);
+   box-shadow:         inset 0 0 0.5vh rgb(0,0,0);
 }
 
 #id_EditPage_backButton div{
