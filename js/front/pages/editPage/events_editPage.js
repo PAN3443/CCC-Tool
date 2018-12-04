@@ -63,6 +63,7 @@ function updateEditPage(){
         document.getElementById("id_EditPage_CMS_VIS_SketchKeys").style.visibility="visible";
         document.getElementById("id_EditPage_CMS_VIS_Lines1").style.visibility="visible";
         document.getElementById("id_EditPage_CMS_VIS_Lines2").style.visibility="visible";
+        document.getElementById("id_EditPage_CMS_VIS_Lines3").style.visibility="visible";
 
 
         var scaleButton = document.getElementById("id_actionMenu_scaleButton");
@@ -108,6 +109,10 @@ function updateEditPage(){
         drawKeyNumber("id_EditPage_CMS_VIS_SketchKeyNumbers", globalCMS1);
         drawKeyBursLine("id_EditPage_CMS_VIS_KeyBurs",globalCMS1);
 
+        document.getElementById("id_EditPage_CMS_VIS_Label1").innerHTML = globalCMS1.getRefPosition(0);
+        document.getElementById("id_EditPage_CMS_VIS_Label2").innerHTML = globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1);
+        
+
 
 
   }
@@ -122,6 +127,7 @@ function updateEditPage(){
     document.getElementById("id_EditPage_CMS_VIS_SketchKeys").style.visibility="hidden";
     document.getElementById("id_EditPage_CMS_VIS_Lines1").style.visibility="hidden";
       document.getElementById("id_EditPage_CMS_VIS_Lines2").style.visibility="hidden";
+      document.getElementById("id_EditPage_CMS_VIS_Lines3").style.visibility="hidden";
 
 
         var scaleButton = document.getElementById("id_actionMenu_scaleButton");
@@ -146,7 +152,8 @@ function updateEditPage(){
         clearButton.classList.toggle("dropdownNotActiveMenuButton");
 
 
-
+        document.getElementById("id_EditPage_CMS_VIS_Label1").innerHTML = "";
+        document.getElementById("id_EditPage_CMS_VIS_Label2").innerHTML = "";
         /*if(document.getElementById("id_editPage_EditDiv").style.display!="none")
           document.getElementById("id_editPage_HelpImage1").style.display="block";*/
   }
@@ -215,11 +222,7 @@ function switchModifyModus(type){
 }
 
 
-
-
 function switchAnalyzeMappingProbeSet(type){
-
-
 
   if(document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.display=="none")
   return;
@@ -273,6 +276,32 @@ function switchAnalyzeMappingProbeSet(type){
 }
 
 
+function switchPredefinedCMS(type){
+  
+  document.getElementById("id_EditPage_Select_Predefined").style.background=styleNotActiveColor;
+  document.getElementById("id_EditPage_Select_MyDesigns").style.background=styleNotActiveColor;
+
+  document.getElementById("id_EditPage_Predefined_Div").style.display="none";
+  document.getElementById("id_EditPage_MyDesigns_CMS_Div").style.display="none";
+
+  switch (type) {
+    case 0:
+      document.getElementById("id_EditPage_Select_Predefined").style.background=styleActiveColor;
+      document.getElementById("id_EditPage_Predefined_Div").style.display="block";
+      changePredefined();
+      break;
+    case 1:
+      document.getElementById("id_EditPage_Select_MyDesigns").style.background=styleActiveColor;
+      document.getElementById("id_EditPage_MyDesigns_CMS_Div").style.display="block";
+      drawPredefined_MyDesignsCMS();
+      break;
+    default:
+    switchPredefinedCMS(0);
+  }
+
+
+}
+
 function updateDescription(){
   globalCMS1.setDescription(document.getElementById("id_editPage_CMSDescription").value);
   saveCreateProcess();
@@ -283,14 +312,12 @@ function updateColormapName(){
   saveCreateProcess();
 }
 
-
 function updateAutoRangeInput(){
   document.getElementById("id_inputAutoRangeStart").value=globalCMS1.getRefPosition(0);
   document.getElementById("id_inputAutoRangeEnd").value=globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1);
   document.getElementById("id_inputAutoRangeEnd").min = document.getElementById("id_inputAutoRangeStart").value;
   document.getElementById("id_inputAutoRangeStart").max = document.getElementById("id_inputAutoRangeEnd").value;
 }
-
 
 
 function switchCustomScaleColors(){
@@ -320,157 +347,4 @@ function clearColormap(){
 }
 
 
-//////////////////////////
-//// Display Options
 
-/*function showHideEditContainer(){
-
-  if(document.getElementById("id_editPage_EditDiv").style.display=="none"){
-      document.getElementById("id_editPage_EditDiv").style.display="inline-block";
-      document.getElementById("id_dropDownMenue_HideEdit_Label").innerHTML="&#9673; Edit";
-  }
-  else{
-      document.getElementById("id_editPage_EditDiv").style.display="none";
-      document.getElementById("id_dropDownMenue_HideEdit_Label").innerHTML="&#9675; Edit";
-
-      /*if(document.getElementById("id_editPage_HelpImage1").style.display!="none"){
-        document.getElementById("id_editPage_HelpImage1").style.display="none";
-
-  }
-
-  document.getElementById("id_dropDownContainer").style.display="none";
-
-
-}
-
-
-
-function showHideAnalyzeContainer(){
-
-  if(document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.display=="none"){
-      document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.display="block";
-      document.getElementById("id_dropDownMenue_HideAnalyze_Label").innerHTML="&#9673; Analyze/Mapping";
-
-      if(document.getElementById("id_EditPage_DivMapping").style.display!="none"){
-        animateMapping();
-
-        if(document.getElementById("id_EditPage_Mapping_DoAutoUpdate").checked==true && mapping_doingAnimation){
-          updateMesh();
-        }
-      }
-  }
-  else{
-      document.getElementById("id_dropDownMenue_HideAnalyze_Label").innerHTML="&#9675; Analyze/Mapping";
-      document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.display="none";
-      stopAnimationMapping();
-
-  }
-
-  document.getElementById("id_dropDownContainer").style.display="none";
-}
-
-function showHideCMSInfoContainer(){
-
-  if(document.getElementById("id_editPage_DescriptionDiv").style.display=="none"){
-      document.getElementById("id_editPage_DescriptionDiv").style.display="block";
-      document.getElementById("id_dropDownMenue_HideDescription_Label").innerHTML="&#9673; CMS-Info";
-  }
-  else{
-      document.getElementById("id_dropDownMenue_HideDescription_Label").innerHTML="&#9675; CMS-Info";
-      document.getElementById("id_editPage_DescriptionDiv").style.display="none";
-  }
-
-  document.getElementById("id_dropDownContainer").style.display="none";
-}
-
-
-function showHideHistogram(){
-
-  if (document.getElementById("id_dropDownMenue_ShowHistogram").classList.contains('dropdownMenuButton')){
-    if(document.getElementById("id_EditPage_Histogram_Div").style.display=="none"){
-        document.getElementById("id_EditPage_Histogram_Div").style.display="block";
-        document.getElementById("id_dropDownMenue_ShowHistogram").innerHTML= "&#9673; Histogram";
-        drawHistogram(false);
-        updateEditPage();
-    }
-    else{
-        document.getElementById("id_dropDownMenue_ShowHistogram").innerHTML="&#9675; Histogram";
-        document.getElementById("id_EditPage_Histogram_Div").style.display="none";
-    }
-  }
-
-}
-
-
-function showHideProbePreview(){
-
-    if(document.getElementById("id_EditPage_PreviewProbe_Div").style.display=="none"){
-        document.getElementById("id_EditPage_PreviewProbe_Div").style.display="block";
-        document.getElementById("id_dropDownMenue_ShowProbePreview").innerHTML= "&#9673; Probe Preview";
-        updateEditPage();
-    }
-    else{
-        document.getElementById("id_dropDownMenue_ShowProbePreview").innerHTML="&#9675; Probe Preview";
-        document.getElementById("id_EditPage_PreviewProbe_Div").style.display="none";
-    }
-
-
-}
-
-
-function showEditMode(){
-  if(document.getElementById("id_EditPage_PreviewProbe_Div").style.display!="none")
-    showHideProbePreview();
-
-  if(document.getElementById("id_EditPage_Histogram_Div").style.display!="none")
-    showHideHistogram();
-
-  if(document.getElementById("id_editPage_DescriptionDiv").style.display=="none")
-    showHideCMSInfoContainer();
-
-  if(document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.display!="none")
-    showHideAnalyzeContainer();
-
-  if(document.getElementById("id_editPage_EditDiv").style.display=="none")
-    showHideEditContainer();
-}
-
-function showAnalyzeMode(){
-  if(document.getElementById("id_EditPage_PreviewProbe_Div").style.display!="none")
-    showHideProbePreview();
-
-  if(document.getElementById("id_EditPage_Histogram_Div").style.display!="none")
-    showHideHistogram();
-
-  if(document.getElementById("id_editPage_DescriptionDiv").style.display!="none")
-    showHideCMSInfoContainer();
-
-  if(document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.display=="none")
-    showHideAnalyzeContainer();
-
-    if(document.getElementById("id_EditPage_DivAnalyze").style.display=="none")
-      switchAnalyzeMappingProbeSet(0);
-
-  if(document.getElementById("id_editPage_EditDiv").style.display!="none")
-    showHideEditContainer();
-}
-
-function showMappingMode(){
-  if(document.getElementById("id_EditPage_PreviewProbe_Div").style.display!="none")
-    showHideProbePreview();
-
-    if(document.getElementById("id_EditPage_Histogram_Div").style.display=="none")
-      showHideHistogram();
-
-  if(document.getElementById("id_editPage_DescriptionDiv").style.display!="none")
-    showHideCMSInfoContainer();
-
-  if(document.getElementById("id_EditPage_DivMapping").style.display=="none")
-    switchAnalyzeMappingProbeSet(1);
-
-  if(document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.display=="none")
-    showHideAnalyzeContainer();
-
-  if(document.getElementById("id_editPage_EditDiv").style.display!="none")
-    showHideEditContainer();
-}*/

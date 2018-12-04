@@ -47,6 +47,18 @@
 
 }
 
+.class_EditPage_SelectPredefinedCMS{
+  -moz-box-shadow:    inset 0 0 0.5vh rgb(0,0,0);
+   -webkit-box-shadow: inset 0 0 0.5vh rgb(0,0,0);
+   box-shadow:         inset 0 0 0.5vh rgb(0,0,0);
+}
+
+.class_EditPage_SelectPredefinedCMS:hover{
+  -moz-box-shadow:    inset 0 0 0.5vh rgb(255,255,255);
+   -webkit-box-shadow: inset 0 0 0.5vh rgb(255,255,255);
+   box-shadow:         inset 0 0 0.5vh rgb(255,255,255);
+}
+
 
 .class_EditPage_EditButtonLabel{
   line-height: 3vh;
@@ -82,184 +94,12 @@
    box-shadow:         inset 0 0 0.5vh rgb(0,0,0);
 }
 
-#id_EditPage_backButton div{
-  background-color: rgba(224, 235, 235,0.75);
-  border: 0.2vh solid rgb(51, 77, 77);
-}
-
-#id_EditPage_backButton div:hover{
-  background-color:   rgba(82, 122, 122,0.5);
-  color: white;
-}
-
-
-#id_EditPage_savePartButton div{
-  background-color: rgba(194, 214, 214,0.75);
-  border: 0.2vh solid rgb(51, 77, 77);
-}
-
-#id_EditPage_savePartButton div:hover{
-  background-color:   rgba(82, 122, 122,0.5);
-  color: white;
-}
-
-.class_savebutton{
-    background-color: rgba(194, 214, 214,0.5);
-    border: 0.2vh solid rgb(51, 77, 77);
-    color: black;
-    /*padding: 20px;*/
-    width:20vw;
-    height: 5vh;
-    line-height: 5vh;
-    display: block;
-    text-align: center;
-    text-decoration: none;
-    font-size: 2vh;
-    border-radius: 1vh;
-    /*margin-left: auto;*/
-    overflow: auto;
-    vertical-align: middle;
-    overflow: hidden;
-}
-
-.class_savebutton:hover{
-  background-color:   rgba(82, 122, 122,0.5);
-  color: white;
-}
-
-
-#id_EditPage_savePartDiv{
-  height: 26vh;
-  width: 30vw;
-  background-color: rgba(194, 214, 214,0.5);
-  border: 0.2vh solid rgb(51, 77, 77);
-  display: none;
-}
-
-
-
-
-
-#id_EditPage_interpolationPartButton div{
-
-  background-color: rgba(163, 194, 194,0.75);
-  border: 0.2vh solid rgb(51, 77, 77);
-}
-
-#id_EditPage_interpolationPartButton div:hover{
-  background-color:   rgba(82, 122, 122,0.5);
-  color: white;
-}
-
-#id_EditPage_interpolationPartDiv{
-
-  height: 35vh;
-  background-color:  rgba(163, 194, 194,0.5);
-  border: 0.2vh solid  rgb(51, 77, 77);
-  display: none;
-}
-
-
-
-
-.class_EditPage_SelectInterpolationColorspace{
-  height:3vh;
-  width:3vh;
-  border: 0.2vh solid black;
-  line-height: 3vh;
-  vertical-align: middle;
-  text-align: center;
-  font-size: 2vh;
-  color: black;
-  position: relative;
-  overflow: hidden;
-  background: rgb(163, 194, 194);
-  border-radius: 0.5vh;
-  cursor: pointer;
-}
-
-/**
- * The "shine" element
- */
-
-.class_EditPage_SelectInterpolationColorspace:after {
-  content: "";
-  position: absolute;
-  top: -110%;
-  left: -210%;
-  width: 200%;
-  height: 200%;
-  opacity: 0;
-  transform: rotate(30deg);
-
-  background: rgba(255, 255, 255, 0.13,0.5);
-  background: linear-gradient(
-    to right,
-    rgba(255, 255, 255, 0.13) 0%,
-    rgba(255, 255, 255, 0.13) 77%,
-    rgba(255, 255, 255, 0.5) 92%,
-    rgba(255, 255, 255, 0.0) 100%
-  );
-}
-
-/* Hover state - trigger effect */
-
-.class_EditPage_SelectInterpolationColorspace:hover:after {
-  opacity: 1;
-  top: -30%;
-  left: -30%;
-  transition-property: left, top, opacity;
-  transition-duration: 0.7s, 0.7s, 0.15s;
-  transition-timing-function: ease;
-}
-
-/* Active state */
-
-.class_EditPage_SelectInterpolationColorspace:active:after {
-  opacity: 0;
-}
-
-
-#id_EditPage_guideLinePartButton div{
-  background-color: rgba(235, 235, 224,0.75);
-  border: 0.2vh solid rgb(77, 77, 51);
-}
-
-#id_EditPage_guideLinePartButton div:hover{
-  background-color: rgba(92, 92, 61,0.5);
-  color:white;
-}
-
-#id_EditPage_GuideLineDiv{
-  float:right;
-  background-color: rgba(235, 235, 224,0.5);
-  border: 0.2vh solid rgb(77, 77, 51);
-  display: none;
-}
-
-#id_EditPage_cmsTablePartButton div{
-  background-color: rgba(214, 214, 194,0.75);
-  border: 0.2vh solid rgb(77, 77, 51);
-}
-
-#id_EditPage_cmsTablePartButton div:hover{
-  background-color: rgba(92, 92, 61,0.5);
-  color:white;
-}
-
-#id_EditPage_cmsTablePartDiv{
-  background-color: rgba(214, 214, 194,0.5);
-  border: 0.2vh solid rgb(77, 77, 51);
-  display: none;
-}
 
 .class_tablelabel{
     height:1.5vh;
     line-height:1.5vh;
     font-size:1.0vh;
     font-weight: bold;
-    padding-right:1vw;
-    padding-left:1vw;
     background: grey;
     color: white;
     vertical-align: middle;
@@ -267,10 +107,14 @@
 }
 
 .class_tableInput{
-    height:1.5vh;
-    line-height:1.5vh;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height:2vh;
+    max-height: 2vh;
+    line-height:2vh;
     font-size:1.0vh;
     color: black;
+    background:white;
     border: 0.1vh solid black;
     vertical-align: middle;
     text-align: center;
@@ -279,43 +123,29 @@
 }
 
 
-#id_EditPage_cmsProbePartButton div{
-  background-color: rgba(194, 194, 163,0.75);
-  border: 0.2vh solid rgb(77, 77, 51);
-}
-
-#id_EditPage_cmsProbePartButton div:hover{
-  background-color: rgba(92, 92, 61,0.5);
-  color:white;
-}
-
-#id_EditPage_cmsProbePartDiv{
-  float:right;
-  /*width: 750px;*/
-  background-color: rgba(194, 194, 163,0.5);
-  border: 0.2vh solid rgb(77, 77, 51);
-  display: none;
-}
-
 .class_predefinedConstBands{
 
     box-sizing: border-box;
-    height: 100%;
-    width: 42.5%;
-    margin-left: 5%;
-    /*margin-right: 2.5%;*/
-    border-radius: 3px;
-    border: 1px solid black;
-    /*margin-top: 5px;*/
     cursor: grabbing;
-}
+    width:3vh;
+    height:3vh;
+    min-width:3vh;
+    min-height:3vh;
+    line-height:3vh;
+    margin-right: 0.25vh;
+    margin-left: 0.25vh;
+    margin-top: 0.25vh;
+    margin-bottom: 0.25vh;
+    border-radius: 0.5vh;
+    color: black;
+    border: 0.2vh solid black;
+    float:left;
+    display: inline-block;
+    white-space: nowrap;
 
-break{
-  /*display: inline-block;
-  flex-basis: 100%;*/
-  width: 0px;
-  height: 0px;
-  overflow: hidden;
+    -moz-box-shadow:    inset 0 0 0.2vh rgb(0,0,0);
+    -webkit-box-shadow: inset 0 0 0.2vh rgb(0,0,0);
+    box-shadow:         inset 0 0 0.2vh rgb(0,0,0);
 }
 
 .class_predefinedSketchCMSBands{
@@ -331,15 +161,15 @@ break{
 }
 
 .class_predefinedLinearCMSBands{
-  box-sizing: border-box;
+    box-sizing: content-box;
     border: 1px solid black;
     height: 50%;
-    width: 80%;
-    margin: 0px;
-    margin-left: 10%;
-    margin-right: 10%;
-    border-radius: 3px 3px 0px 0px;
-    border: 1px solid black;
+    width: 90%;
+    height:3vh;
+    margin-top: 0.25vh;
+    margin-left: 5%;
+    border-radius: 0.5vh;
+    border: 0.2vh solid black;
     border-bottom: none;
     cursor: grabbing;
 }

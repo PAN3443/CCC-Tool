@@ -13,12 +13,12 @@ function bandOnDragStart(event){
     event.dataTransfer.setData("text", event.target.getAttribute('id') );
 
 
-    document.getElementById("id_editPage_DragImage").style.display="block";
+    document.getElementById("id_EditPage_DragImage").style.display="block";
 
     if(globalCMS1.getKeyLength()==0)
-      document.getElementById("id_editPage_DragImage").style.visibility="hidden";
+      document.getElementById("id_EditPage_DragImage").style.visibility="hidden";
     else
-      document.getElementById("id_editPage_DragImage").style.visibility="visible";
+      document.getElementById("id_EditPage_DragImage").style.visibility="visible";
 
     document.getElementById("id_EditPage_CMS_VIS_KeyBurs").style.display="none";
     document.getElementById("id_EditPage_CMS_VIS_SketchKeyNumbers").style.display="none";
@@ -118,7 +118,7 @@ function bandOnDragEnd(event) {
 
 
 
-    document.getElementById("id_editPage_DragImage").style.display="none";
+    document.getElementById("id_EditPage_DragImage").style.display="none";
     document.getElementById("id_EditPage_CMS_VIS_KeyBurs").style.display="block";
     document.getElementById("id_EditPage_CMS_VIS_SketchKeyNumbers").style.display="block";
     document.getElementById("id_EditPage_CMS_VIS_SketchKeys").style.display="block";

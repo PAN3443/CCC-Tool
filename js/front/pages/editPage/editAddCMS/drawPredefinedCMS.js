@@ -1,65 +1,15 @@
 
 
-function changePredefinedStructure(type){
-  /*document.getElementById("id_editPage_Add_Predefined_Button").style.background=styleNotActiveColor;
-  document.getElementById("id_editPage_Add_Gallery_Button").style.background=styleNotActiveColor;
-  document.getElementById("id_editPage_Add_Mydesigns_Button").style.background=styleNotActiveColor;
-
-  document.getElementById("id_editPage_Add_Predefined_Div").style.display="none";
-  document.getElementById("id_editPage_Add_Gallery_Div").style.display="none";
-  document.getElementById("id_editPage_Add_MyDesigns_Div").style.display="none";
-
-  switch (type) {
-    case 0:
-      document.getElementById("id_editPage_Add_Predefined_Button").style.background=styleActiveColor;
-      document.getElementById("id_editPage_Add_Predefined_Div").style.display="flex";
-    break;
-
-    case 1:
-      document.getElementById("id_editPage_Add_Gallery_Button").style.background=styleActiveColor;
-      document.getElementById("id_editPage_Add_Gallery_Div").style.display="block";
-    break;
-
-    case 2:
-      document.getElementById("id_editPage_Add_Mydesigns_Button").style.background=styleActiveColor;
-      document.getElementById("id_editPage_Add_MyDesigns_Div").style.display="flex";
-
-    break;
-    default:
-    changePredefinedStructure(0);
-  }
-
-  updatePredefined();*/
-}
-
-
 function updatePredefined(){
 
-/*  if(document.getElementById("id_editPage_Add_Predefined_Div").style.display!="none"){
-    drawConstantBands();
-    drawScaledBands();
-    drawConstCustomBand();
-    drawScaleCustomBand();
-    drawDoubleBands();
-    drawTripleBands();
-    drawQuadrupleBands();
-    return;
-  }
+  drawConstantBands();
 
-  if(document.getElementById("id_editPage_Add_Gallery_Div").style.display!="none"){
+  if ( document.getElementById("id_EditPage_Predefined_Div").style.display!="none") {
     changePredefined();
-    return;
-  }
-
-  if(document.getElementById("id_editPage_Add_MyDesigns_Div").style.display!="none"){
+  } else {
     drawPredefined_MyDesignsCMS();
-    return;
   }
-
-  // Error non of the three possible divs is displeyed
-  changePredefinedStructure(0);*/
-
-
+ 
 
 }
 
@@ -67,14 +17,16 @@ function updatePredefined(){
 
 function drawPredefined_MyDesignsCMS(){
 
-  var children = document.getElementById("id_EditPage_MyDesigns_Div").children;
+  var children = document.getElementById("id_EditPage_MyDesigns_CMS_Div").children;
   for (var i = children.length-1; i >=0; i--) {
     children[i].parentNode.removeChild(children[i]);
   }
 
   var drawnNothing = true;
 
-  document.getElementById("id_EditPage_MyDesigns_Div").style.display = "block";
+  
+
+  document.getElementById("id_EditPage_MyDesigns_CMS_Div").style.display = "block";
   document.getElementById("id_EditPage_MyDesigns_EmptyDiv").style.display = "none";
 
   for(var i=0; i<myDesignsList.length; i++){
@@ -84,45 +36,44 @@ function drawPredefined_MyDesignsCMS(){
 
     drawnNothing=false;
 
-    var tmpDiv = document.createElement('div');
+    /*var tmpDiv = document.createElement('div');
     tmpDiv.className = "class_predefinedRow";
     tmpDiv.style.display = "block";
     tmpDiv.id= "myDesignDiv_"+i;
-    tmpDiv.style.marginTop = "5px";
+    tmpDiv.style.marginTop = "5px";*/
 
     var tmpCMSlinear = document.createElement('canvas');
     tmpCMSlinear.id="myDesignDiv_linear"+i;
     tmpCMSlinear.className = 'class_predefinedLinearCMSBands'
-    tmpDiv.appendChild(tmpCMSlinear);
+    //tmpDiv.appendChild(tmpCMSlinear);
 
-    var tmpCMSsketch = document.createElement('canvas');
+    /*var tmpCMSsketch = document.createElement('canvas');
     tmpCMSsketch.id= "myDesignDiv_sketch"+i;
     tmpCMSsketch.className = 'class_predefinedSketchCMSBands';
+    tmpDiv.appendChild(tmpCMSsketch);*/
 
-    tmpDiv.appendChild(tmpCMSsketch);
+    tmpCMSlinear.setAttribute('draggable', true);
 
-    tmpDiv.setAttribute('draggable', true);
+    tmpCMSlinear.addEventListener("dragstart", bandOnDragStart);
+    tmpCMSlinear.addEventListener("dragend", bandOnDragEnd);
 
-    tmpDiv.addEventListener("dragstart", bandOnDragStart);
-    tmpDiv.addEventListener("dragend", bandOnDragEnd);
-
-    tmpDiv.onmousedown = (function(id) {
+    tmpCMSlinear.onmousedown = (function(id) {
     return function() {
       currentPredefinedId=id;
     };
   })(i);
 
-    document.getElementById('id_EditPage_MyDesigns_Div').appendChild(tmpDiv);
+    document.getElementById('id_EditPage_MyDesigns_CMS_Div').appendChild(tmpCMSlinear);
 
     drawCanvasColormap("myDesignDiv_linear"+i, myDesignsList[i]);
-    drawBandSketch(myDesignsList[i],"myDesignDiv_sketch"+i, false, -1);
+   // drawBandSketch(myDesignsList[i],"myDesignDiv_sketch"+i, false, -1);
 
 
   }
 
   if(drawnNothing){
 
-    document.getElementById("id_EditPage_MyDesigns_Div").style.display = "none";
+    document.getElementById("id_EditPage_MyDesigns_CMS_Div").style.display = "none";
     document.getElementById("id_EditPage_MyDesigns_EmptyDiv").style.display = "flex";
 
   }
@@ -137,13 +88,14 @@ function drawPredefined_MyDesignsCMS(){
 
 function changeFilterPredefined(type){
   selectedPredefinedType=type;
+
   changePredefined();
 }
 
 function changePredefined(){
 // 0=all, 1=Multiband, 2=Divergent, 3=Scaled All, 4=Scaled Blue, 5=Scaled Brown, 6=Scaled Green, 7=Scaled Red Purple, 8=Scaled Yellow Orange
 
-  //document.getElementById("id_EditPage_MyDesigns_Div").classList.remove("mystyle");
+  //document.getElementById("id_EditPage_MyDesigns_CMS_Div").classList.remove("mystyle");
   //document.getElementById("id_editPage_Order_All").style.background = 'none';
   document.getElementById("id_editPage_Order_Multiband").style.background = 'none';
   document.getElementById("id_editPage_Order_Divergent").style.background = 'none';
@@ -154,10 +106,11 @@ function changePredefined(){
   document.getElementById("id_editPage_Order_Scaled_RedPurple").style.background = 'none';
   document.getElementById("id_editPage_Order_Scaled_YellowOrange").style.background = 'none';
 
-  var children = document.getElementById("id_EditPage_PredefinedCMS_Div").children;
+  var children = document.getElementById("id_EditPage_Predefined_CMS_Div").children;
   for (var i = children.length-1; i >=0; i--) {
     children[i].parentNode.removeChild(children[i]);
   }
+
 
   switch (selectedPredefinedType) {
     /*case 0:
@@ -223,39 +176,38 @@ function drawPredefinedCMS(cmsArray, cmsType){
     if(cmsArray[i].getKeyLength()==0)
       continue;
 
-    var tmpDiv = document.createElement('div');
+    /*var tmpDiv = document.createElement('div');
     tmpDiv.className = "class_predefinedRow";
     tmpDiv.style.display = "block";
     tmpDiv.id= "predefinedDiv_"+i+"_"+cmsType;
-    tmpDiv.style.marginTop = "5px";
+    tmpDiv.style.marginTop = "5px";*/
 
     var tmpCMSlinear = document.createElement('canvas');
     tmpCMSlinear.id="predefined_linear"+i+"_"+cmsType;
     tmpCMSlinear.className = 'class_predefinedLinearCMSBands'
-    tmpDiv.appendChild(tmpCMSlinear);
+    //tmpDiv.appendChild(tmpCMSlinear);
 
-    var tmpCMSsketch = document.createElement('canvas');
+    /*var tmpCMSsketch = document.createElement('canvas');
     tmpCMSsketch.id= "predefined_sketch"+i+"_"+cmsType;
-    tmpCMSsketch.className = 'class_predefinedSketchCMSBands';
+    tmpCMSsketch.className = 'class_predefinedSketchCMSBands';*/
+    //tmpDiv.appendChild(tmpCMSsketch);
 
-    tmpDiv.appendChild(tmpCMSsketch);
+    tmpCMSlinear.setAttribute('draggable', true);
 
-    tmpDiv.setAttribute('draggable', true);
+    tmpCMSlinear.addEventListener("dragstart", bandOnDragStart);
+    tmpCMSlinear.addEventListener("dragend", bandOnDragEnd);
 
-    tmpDiv.addEventListener("dragstart", bandOnDragStart);
-    tmpDiv.addEventListener("dragend", bandOnDragEnd);
-
-    tmpDiv.onmousedown = (function(id,type) {
+    tmpCMSlinear.onmousedown = (function(id,type) {
     return function() {
       currentPredefinedId=id;
       currentPredefinedType=type;
     };
   })(i,cmsType);
 
-    document.getElementById('id_EditPage_PredefinedCMS_Div').appendChild(tmpDiv);
+    document.getElementById('id_EditPage_Predefined_CMS_Div').appendChild(tmpCMSlinear);
 
     drawCanvasColormap(tmpCMSlinear.id, cmsArray[i]);
-    drawBandSketch(cmsArray[i],tmpCMSsketch.id, false, -1);
+    //drawBandSketch(cmsArray[i],tmpCMSsketch.id, false, -1);
 
 
   }

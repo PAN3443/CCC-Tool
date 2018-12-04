@@ -21,6 +21,19 @@ window.onload = function() {
   cmsThreeBandColormaps = loadPredefinedCMS(pathColormaps+folderThreeBand,fileThreeBandColormaps);
   cmsFourBandColormaps = loadPredefinedCMS(pathColormaps+folderFourBand,fileFourBandColormaps);
 
+  document.getElementById("id_EditPage").style.display = "flex";
+
+    changeFilterPredefined(1);
+    drawCanvasColormap("id_EditPage_Preview_Multiband", cmsFourBandColormaps[0]);
+    drawCanvasColormap("id_EditPage_Preview_Divergent", cmsDivergentColormaps[0]);
+    drawCanvasColormap("id_EditPage_Preview_ScaledBlue", cmsBlueColormaps[0]);
+    drawCanvasColormap("id_EditPage_Preview_ScaledBrown", cmsBrownColormaps[0]);
+    drawCanvasColormap("id_EditPage_Preview_ScaledGreen", cmsGreenColormaps[0]);
+    drawCanvasColormap("id_EditPage_Preview_ScaledRedPurple", cmsRedPurpleColormaps[0]);
+    drawCanvasColormap("id_EditPage_Preview_ScaledYellowOrange", cmsYellowColormaps[0]);
+
+   document.getElementById("id_EditPage").style.display = "none";
+
   initAutoCompleteInputs();
 
   init_events_EditPage();
@@ -28,7 +41,7 @@ window.onload = function() {
   init_ExportWindow();
 
   initMyDesignObj();
-  //init_CCCPageStyle();
+  
 
   initMapping();
 

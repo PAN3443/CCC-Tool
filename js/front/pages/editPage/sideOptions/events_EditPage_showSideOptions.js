@@ -28,8 +28,8 @@ function saveCMS(){
   myDesignsList[indexActiveCMS] = cloneCMS(globalCMS1);
   document.getElementById("id_header_editWarning").style.visibility="hidden";
   somethingChanged=false;
-  document.getElementById("id_EditPage_savePartDiv").style.display="none";
-  document.getElementById("id_PopUp_StopWorkingWindow").style.display="none";
+  /*document.getElementById("id_EditPage_savePartDiv").style.display="none";
+  document.getElementById("id_PopUp_StopWorkingWindow").style.display="none";*/
   //document.getElementById("id_EditPage_StopInteractionDiv").style.width="0%";
   drawPredefined_MyDesignsCMS();
 
@@ -42,8 +42,8 @@ function saveCMSasNew(){
     myDesignsList.push(cloneCMS(globalCMS1));
     somethingChanged=false;
     document.getElementById("id_header_editWarning").style.visibility="hidden";
-    document.getElementById("id_EditPage_savePartDiv").style.display="none";
-    document.getElementById("id_PopUp_StopWorkingWindow").style.display="none";
+    /*document.getElementById("id_EditPage_savePartDiv").style.display="none";
+    document.getElementById("id_PopUp_StopWorkingWindow").style.display="none";*/
     //document.getElementById("id_EditPage_StopInteractionDiv").style.width="0%";
     drawPredefined_MyDesignsCMS();
   }

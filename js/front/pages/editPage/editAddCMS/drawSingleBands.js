@@ -1,12 +1,14 @@
 function drawConstantBands(){
+
+    console.log(123);
   //---------------------------
   // --------- Empty Divs
   document.getElementById('id_EditPage_ConstBandDiv').innerHTML = "";
 
   //---------------------------
   // --------- Const
-  var doBreak = false;
-  var row;
+  /*var doBreak = false;
+  var row;*/
 
 
   for(var i=0; i<constBands.length; i++){
@@ -20,7 +22,9 @@ function drawConstantBands(){
       iDiv.addEventListener("dragend", bandOnDragEnd);
       //iDiv.style.cursor = "move";
 
-      if(i%2==0){
+      document.getElementById('id_EditPage_ConstBandDiv').appendChild(iDiv);
+
+      /*if(i%2==0){
         row = document.createElement("div");
         row.className = "class_predefinedRow";
         row.appendChild(iDiv);
@@ -28,7 +32,7 @@ function drawConstantBands(){
       else{
         row.appendChild(iDiv);
         document.getElementById('id_EditPage_ConstBandDiv').appendChild(row);
-      }
+      }*/
 
   }
 }

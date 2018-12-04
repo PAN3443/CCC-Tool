@@ -1,11 +1,5 @@
 
 
-function updatePageWidth(){
-  var actualInnerWidth = document.body.clientWidth;
-  //var actualInnerWidth = document.body.scrollWidth;
-
-  document.getElementById("id_ccctoolPage").style.width = actualInnerWidth + "px";
-}
 
 function activateMenuDropdown() {
 
@@ -30,16 +24,6 @@ function activateMenuDropdown() {
 }*/
 
 function startLeaveEditPage(){
-
-  document.getElementById("id_EditPage_savePartDiv").style.display="none";
-  document.getElementById("id_EditPage_interpolationPartDiv").style.display="none";
-  document.getElementById("id_EditPage_cmsTablePartDiv").style.display="none";
-  document.getElementById("id_EditPage_GuideLineDiv").style.display="none";
-  document.getElementById("id_PopUp_StopWorkingWindow").style.display="none";
-  document.getElementById("id_EditPage_guideLinePartButton").style.visibility="visible";
-  document.getElementById("id_EditPage_cmsProbePartButton").style.visibility="visible";
-  document.getElementById("id_EditPage_cmsTablePartButton").style.visibility="visible";
-
 
   if(somethingChanged){
     askType=4;
@@ -81,7 +65,6 @@ function showMyDesignsPage(){
   document.getElementById("id_header_editWarning").style.visibility="hidden";
   document.getElementById("id_header_interpolationSpaceWarning").style.visibility="hidden";
 
-  updatePageWidth();
 }
 
 //////////////////////
@@ -109,9 +92,6 @@ function showEditPage(){
     myDesignsList.push(cloneCMS(globalCMS1));
     indexActiveCMS=myDesignsList.length-1;
 
-    switchModifyModus(0);
-    changePredefinedStructure(0);
-
   }
   else{
     // CMS from MyDesigns
@@ -119,12 +99,6 @@ function showEditPage(){
 
     globalCMS1 = cloneCMS(myDesignsList[indexActiveCMS]);
 
-    if(globalCMS1.getKeyLength() != 0)
-    switchModifyModus(2);
-    else{
-      switchModifyModus(0);
-      changePredefinedStructure(0);
-    }
 
   }
 
@@ -157,10 +131,10 @@ function showEditPage(){
   document.getElementById("id_actionMenu_myDesignPart").style.display="none";
   document.getElementById("id_dropDownMenu_DisplayOptions").style.display="block";
 
-  updatePageWidth();
-  updateEditPage();
 
-
+  switchPredefinedCMS(0);
+  switchModifyModus(0);
+  update_EditPageStyle();
 
 }
 
@@ -171,7 +145,6 @@ function showEditPage(){
 function showGallery(){
   document.getElementById("id_myDesignsPage").style.display="none";
 
-  updatePageWidth();
 }
 
 //////////////////////
@@ -201,6 +174,5 @@ document.getElementById("id_settingMenu_Label_AnalyzeUpdate_Button").style.displ
 document.getElementById("id_actionMenu_myDesignPart").style.display="none";
 document.getElementById("id_dropDownMenu_DisplayOptions").style.display="none";
 
-updatePageWidth();
 
 }

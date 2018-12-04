@@ -11,22 +11,25 @@ function fillTable() {
     var tr = document.createElement('tr');
     tr.style.background = "white";
 
-    var td = document.createElement('td')
+    var td = document.createElement('td');
     td.className = "class_tableInput";
     td.appendChild(document.createTextNode(i + 1));
-    td.style.width="5%";
+    td.style.maxWidth="2vw";
+    td.style.width="2vw";
     tr.appendChild(td);
 
     td = document.createElement('td')
     td.className = "class_tableInput";
     td.appendChild(document.createTextNode(globalCMS1.getRefPosition(i)));
-    td.style.width="15%";
+    td.style.maxWidth="3.5vw";
+    td.style.width="3.5vw";
     tr.appendChild(td);
 
     td = document.createElement('td')
     td.className = "class_tableInput";
     td.appendChild(document.createTextNode(globalCMS1.getRefPosition(i+1)));
-    td.style.width="15%";
+    td.style.maxWidth="3.5vw";
+    td.style.width="3.5vw";
     tr.appendChild(td);
 
     td = document.createElement('td')
@@ -43,7 +46,8 @@ function fillTable() {
     else{
       td.appendChild(document.createTextNode("scaled"));
     }
-    td.style.width="15%";
+    td.style.maxWidth="3vw";
+    td.style.width="3vw";
 
     tr.appendChild(td);
 
@@ -51,8 +55,6 @@ function fillTable() {
     td.className = "class_tableInput";
     var td2 = document.createElement('td')
     td2.className = "class_tableInput";
-
-
 
     switch (globalCMS1.getInterpolationSpace()) {
       case "rgb":
@@ -75,8 +77,10 @@ function fillTable() {
         console.log("Error at the changeColorspace function");
     }
 
-    td.style.width="20%";
-    td2.style.width="20%";
+    td.style.width="4vw";
+    td.style.maxWidth="4vw";
+    td2.style.width="4vw";
+    td2.style.maxWidth="4vw";
 
     tr.appendChild(td);
     tr.appendChild(td2);
