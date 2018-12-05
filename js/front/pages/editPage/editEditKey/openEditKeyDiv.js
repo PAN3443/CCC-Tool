@@ -1,5 +1,23 @@
 function openEditKeyDiv(key){
 
+  document.getElementById("id_EditPage_EmptyDiv").style.display="none";
+  document.getElementById("id_EditPage_WorkDiv").style.display="none";
+
+  if(globalCMS1.getKeyLength() == 0){
+    document.getElementById("id_EditPage_EmptyDiv").style.display="flex";
+    return;
+  }
+
+  if(document.getElementById("id_EditPage_AnalzyeMappingProbeSetEditKey_Div").style.display==="none" ||
+  document.getElementById("id_editPage_EditKeyPathPlotDiv").style.display==="none")
+    return;
+
+  if (document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.display == "none")
+    document.getElementById("id_EditPage_WorkDiv").style.display="flex";
+  else
+    document.getElementById("id_EditPage_WorkDiv").style.display="block";
+
+
   var selectbox = document.getElementById("id_EditPage_EditKey_List");
 
   for(var i = selectbox.options.length - 1 ; i >= 0 ; i--)
@@ -15,7 +33,7 @@ function openEditKeyDiv(key){
 
   }
 
-  if(key==undefined){
+  if(key==undefined || key<0  || key>selectbox.options.length-1){
     selectbox.selectedIndex = 0;
   }
   else{
@@ -241,7 +259,7 @@ function drawSelectedKey(){
         divTop.style.width = '100%';
         divTop.style.height = "25%";
         divTop.style.cursor = "pointer";
-        divTop.style.borderBottom = "1px solid black";
+        divTop.style.borderBottom = "0.2vh solid black";
         divTop.onclick = function() {
           var index = document.getElementById("id_EditPage_EditKey_List").selectedIndex;
           if(globalCMS1.getMoT(index)){
@@ -262,7 +280,7 @@ function drawSelectedKey(){
         var divLeft = document.createElement('div');
         divLeft.style.width = '50%';
         divLeft.style.height = "100%";
-        divLeft.style.borderRight = "1px solid black";
+        divLeft.style.borderRight = "0.2vh solid black";
         divLeft.id="id_EditPage_DrawnLeftKey";
         divLeft.addEventListener("click", openColorPicker);
 

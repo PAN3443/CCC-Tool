@@ -12,9 +12,9 @@ function styleStructure_Order(){
     document.getElementById("id_EditPage_Deviation_GlobalLocalOrder").style.display = "none";
     document.getElementById("id_EditPage_DoLogDiv_GlobalLocalOrder").style.display = "none";
     document.getElementById("id_EditPage_ColorAboveDiv_GlobalLocalOrder").style.display = "none";
-    document.getElementById("id_editPage_OrderAxisLabel1").style.display = "block";
-    document.getElementById("id_editPage_OrderAxisLabel2").style.display = "block";
-    document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.height = "80%";
+    document.getElementById("id_editPage_OrderAxisLabel1").style.visibility = "visible";
+    document.getElementById("id_editPage_OrderAxisLabel2").style.visibility = "visible";
+
 
     styleGlobalLocalOrderPlot();
 

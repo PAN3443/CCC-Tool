@@ -534,6 +534,8 @@ function bandOnDrop(event){
             break;
 
             default:
+              indexOfDroppedPlace==-1;
+              return;
         }
 
       indexOfDroppedPlace==-1;
@@ -543,6 +545,10 @@ function bandOnDrop(event){
   /////////////
   ////  Save Band Process
       saveCreateProcess();
+
+      if(document.getElementById("id_EditPage_Edit_Keys").style.display!="none"){
+         openEditKeyDiv(document.getElementById("id_EditPage_EditKey_List").selectedIndex);
+      }
 }
 
 

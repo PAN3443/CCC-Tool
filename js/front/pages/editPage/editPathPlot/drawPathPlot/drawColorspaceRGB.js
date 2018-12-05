@@ -47,6 +47,9 @@ function rgbInit() {
           var index = (x + y * canvasObj0.width) * 4;
 
           var r,g,b =0;
+
+          console.log(mouseGrappedKeyID);
+
           if (mouseGrappedKeyID != -1) {
 
             var tmpColor;
@@ -67,15 +70,15 @@ function rgbInit() {
 
             canvasData0.data[index + 0] = Math.round(yVal * 255); // r
             canvasData0.data[index + 1] = Math.round(xVal * 255); // g
-            canvasData0.data[index + 2] = Math.round(0); // b
+            canvasData0.data[index + 2] = Math.round(b); // b
             canvasData0.data[index + 3] = 255; //a
 
             canvasData1.data[index + 0] = Math.round(yVal * 255); // r
-            canvasData1.data[index + 1] = Math.round(0); // g
+            canvasData1.data[index + 1] = Math.round(g); // g
             canvasData1.data[index + 2] = Math.round(xVal * 255); // b
             canvasData1.data[index + 3] = 255; //a
 
-            canvasData2.data[index + 0] = Math.round(0); // r
+            canvasData2.data[index + 0] = Math.round(r); // r
             canvasData2.data[index + 1] = Math.round(xVal * 255); // g
             canvasData2.data[index + 2] = Math.round(yVal * 255); // b
             canvasData2.data[index + 3] = 255; //a
@@ -439,8 +442,8 @@ function drawRGBElement(tmpColor,xWidth,yHeight,xStart,yStart, drawCircle,canvas
 
   // RG
 
-  xPos = tmpColor.getRValue() * xWidth + xStart;
-  yPos = yStart - tmpColor.getGValue() * yHeight;
+  xPos = tmpColor.getGValue() * xWidth + xStart;
+  yPos = yStart - tmpColor.getRValue() * yHeight;
 
   drawElement(tmpColor.getRGBString(), canvasContexRG, xPos, yPos, keyIndex,colorSide, drawCircle);
 
@@ -449,8 +452,8 @@ function drawRGBElement(tmpColor,xWidth,yHeight,xStart,yStart, drawCircle,canvas
 
   // RB
 
-  xPos = tmpColor.getRValue() * xWidth + xStart;
-  yPos = yStart - tmpColor.getBValue() * yHeight;
+  xPos = tmpColor.getBValue() * xWidth + xStart;
+  yPos = yStart - tmpColor.getRValue() * yHeight;
 
   drawElement(tmpColor.getRGBString(), canvasContexRB, xPos, yPos, keyIndex,colorSide, drawCircle);
 
@@ -495,22 +498,22 @@ function drawRGBElement(tmpColor,xWidth,yHeight,xStart,yStart, drawCircle,canvas
 function drawRGBline(tmpColor,tmpColor2,xWidth,yHeight,xStart,yStart, isDashed,isCompareMap,canvasContexRG,canvasContexRB,canvasContexBG){
   // RG
 
-  xPos = tmpColor.getRValue() * xWidth + xStart;
-  yPos = yStart - tmpColor.getGValue() * yHeight;
+  xPos = tmpColor.getGValue() * xWidth + xStart;
+  yPos = yStart - tmpColor.getRValue() * yHeight;
 
-  xPos2 = tmpColor2.getRValue() * xWidth + xStart;
-  yPos2 = yStart - tmpColor2.getGValue() * yHeight;
+  xPos2 = tmpColor2.getGValue() * xWidth + xStart;
+  yPos2 = yStart - tmpColor2.getRValue() * yHeight;
 
   drawLine(canvasContexRG, xPos, yPos, xPos2, yPos2, isDashed, isCompareMap);
 
 
   // RB
 
-  xPos = tmpColor.getRValue() * xWidth + xStart;
-  yPos = yStart - tmpColor.getBValue() * yHeight;
+  xPos = tmpColor.getBValue() * xWidth + xStart;
+  yPos = yStart - tmpColor.getRValue() * yHeight;
 
-  xPos2 = tmpColor2.getRValue() * xWidth + xStart;
-  yPos2 = yStart - tmpColor2.getBValue() * yHeight;
+  xPos2 = tmpColor2.getBValue() * xWidth + xStart;
+  yPos2 = yStart - tmpColor2.getRValue() * yHeight;
 
   drawLine(canvasContexRB, xPos, yPos, xPos2, yPos2, isDashed, isCompareMap);
 

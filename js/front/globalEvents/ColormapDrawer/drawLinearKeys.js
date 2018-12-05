@@ -22,7 +22,6 @@ function drawKeys(canvasID, tmpCMS) {
   canvasContex.imageSmoothingEnabled = false; // did not work !?!?!
   canvasContex.oImageSmoothingEnabled = false;
 
-
   var strokeWidth = 1;
 
 

@@ -114,6 +114,10 @@ function checkScale(){
     updateEditPage();
     document.getElementById("id_PopUp_ScaleWindow").style.display="none";
     document.getElementById("id_popupWindow_ScaleInfoText").style.display="none";
+
+    if(document.getElementById("id_EditPage_Edit_Keys").style.display!="none"){
+       openEditKeyDiv(document.getElementById("id_EditPage_EditKey_List").selectedIndex);
+    }
   }
 
 }
@@ -136,6 +140,10 @@ function openAskWindow(){
       case 0:
       //delete CMS
         document.getElementById("id_askText").innerHTML="Do you really want to clear the CMS?";
+
+        if(document.getElementById("id_EditPage_Edit_Keys").style.display!="none"){
+           openEditKeyDiv(document.getElementById("id_EditPage_EditKey_List").selectedIndex);
+        }
         break;
       case 1:
         //delete Band

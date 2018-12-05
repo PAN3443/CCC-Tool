@@ -36,12 +36,12 @@ function getRGBXYPos(tmpColor,xWidth,yHeight,xStart,yStart,mode){
   var position = [0,0];
   switch (mode) {
     case "rg":
-          position[0] = tmpColor.getRValue() * xWidth + xStart;
-          position[1] = yStart - tmpColor.getGValue() * yHeight;
+          position[0] = tmpColor.getGValue() * xWidth + xStart;
+          position[1] = yStart - tmpColor.getRValue() * yHeight;
           break;
     case "rb":
-          position[0] = tmpColor.getRValue() * xWidth + xStart;
-          position[1] = yStart - tmpColor.getBValue() * yHeight;
+          position[0] = tmpColor.getBValue() * xWidth + xStart;
+          position[1] = yStart - tmpColor.getRValue() * yHeight;
           break;
     case "bg":
           position[0] = tmpColor.getGValue() * xWidth + xStart;
@@ -216,17 +216,17 @@ function mouseMoveColorspaceRGB(event) {
 
       switch (event.target.id) {
         case "id_EditPage_PathPlot_Canvas1_2":
-          tmpColor = new classColor_RGB(val1,val2,updateCurrentValue);
-          var diplay1Val = Math.round(val1*255);
-          var diplay2Val = Math.round(val2*255);
+          tmpColor = new classColor_RGB(val2,val1,updateCurrentValue);
+          var diplay1Val = Math.round(val2*255);
+          var diplay2Val = Math.round(val1*255);
           var diplay3Val = Math.round(updateCurrentValue*255);
           document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "R : " + diplay1Val + ", G : " + diplay2Val + ", B : " + diplay3Val;
           break;
         case "id_EditPage_PathPlot_Canvas2_2":
-          tmpColor = new classColor_RGB(val1,updateCurrentValue,val2);
-          var diplay1Val = Math.round(val1*255);
+          tmpColor = new classColor_RGB(val2,updateCurrentValue,val1);
+          var diplay1Val = Math.round(val2*255);
           var diplay2Val = Math.round(updateCurrentValue*255);
-          var diplay3Val = Math.round(val2*255);
+          var diplay3Val = Math.round(val1*255);
           document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "R : " + diplay1Val + ", G : " + diplay2Val + ", B : " + diplay3Val;
           break;
         case "id_EditPage_PathPlot_Canvas3_2":

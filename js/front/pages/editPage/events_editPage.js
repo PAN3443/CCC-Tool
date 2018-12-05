@@ -111,7 +111,7 @@ function updateEditPage(){
 
         document.getElementById("id_EditPage_CMS_VIS_Label1").innerHTML = globalCMS1.getRefPosition(0);
         document.getElementById("id_EditPage_CMS_VIS_Label2").innerHTML = globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1);
-        
+
 
 
 
@@ -160,7 +160,7 @@ function updateEditPage(){
 
   fillTable();
 
-    if(document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.display!="none"){
+  if(document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.display!="none"){
 
       if(document.getElementById("id_EditPage_DivAnalyze").style.display!="none" && autoAnalyze){
         updateAnalyze();
@@ -191,30 +191,19 @@ function switchModifyModus(type){
   document.getElementById("id_EditPage_Edit_Keys").style.display="none";
   document.getElementById("id_EditPage_Edit_Path").style.display="none";
 
-
   switch (type) {
     case 0:
 
       document.getElementById("id_editPage_SelectEditKeys").style.background=styleActiveColor;
-
-    if(globalCMS1.getKeyLength() != 0){
       document.getElementById("id_EditPage_Edit_Keys").style.display="block";
-    }
-    else{
-      console.log(123);
-    }
+      openEditKeyDiv(0);
+
     break;
 
     case 1:
       document.getElementById("id_editPage_SelectEditPath").style.background=styleActiveColor;
-      if(globalCMS1.getKeyLength() != 0){
-
         document.getElementById("id_EditPage_Edit_Path").style.display="block";
         choosePathPlotSpace(2);
-      }
-      else{
-
-      }
     break;
     default:
     switchModifyModus(0);
@@ -242,14 +231,13 @@ function switchAnalyzeMappingProbeSet(type){
     case 0:
 
       document.getElementById("id_editPage_SelectAnalyze").style.background=styleActiveColor;
-
-      document.getElementById("id_EditPage_Edit_Keys").style.display="block";
+      document.getElementById("id_EditPage_DivAnalyze").style.display="flex";
       updateAnalyze();
-
     break;
 
     case 1:
       document.getElementById("id_editPage_SelectMapping").style.background=styleActiveColor;
+      document.getElementById("id_EditPage_DivMapping").style.display="flex";
 
         var rect = document.getElementById("id_EditPage_DivMapping").getBoundingClientRect();
         document.getElementById("id_EditPage_DrawMappingDiv").style.height=rect.height+"px";
@@ -269,6 +257,10 @@ function switchAnalyzeMappingProbeSet(type){
           updateMesh();
         }
     break;
+
+    case 2:
+      document.getElementById("id_editPage_SelectProbeSet").style.background=styleActiveColor;
+    break;
     default:
     switchAnalyzeMappingProbeSet(0);
   }
@@ -277,12 +269,13 @@ function switchAnalyzeMappingProbeSet(type){
 
 
 function switchPredefinedCMS(type){
-  
+
   document.getElementById("id_EditPage_Select_Predefined").style.background=styleNotActiveColor;
   document.getElementById("id_EditPage_Select_MyDesigns").style.background=styleNotActiveColor;
 
   document.getElementById("id_EditPage_Predefined_Div").style.display="none";
   document.getElementById("id_EditPage_MyDesigns_CMS_Div").style.display="none";
+
 
   switch (type) {
     case 0:
@@ -344,7 +337,6 @@ function clearColormap(){
   }
   document.getElementById("id_dropDownContainer").style.display="none";
 
+
+
 }
-
-
-

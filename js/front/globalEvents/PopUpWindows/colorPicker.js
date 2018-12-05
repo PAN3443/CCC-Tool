@@ -69,7 +69,7 @@ function openColorPicker(event){
       document.getElementById("id_popupColorPicker").style.left=(left-pickerBox.width)+"px";
       break;
 
-      case "id_editPage_customConstColor":
+      /*case "id_editPage_customConstColor":
         colorpickerColor=customConstBandColor;
         // above the object
         document.getElementById("id_popupColorPicker").style.top=(top+box.height)+"px";
@@ -86,20 +86,20 @@ function openColorPicker(event){
             // above the object
             document.getElementById("id_popupColorPicker").style.top=(top+box.height)+"px";
             document.getElementById("id_popupColorPicker").style.left=(left+box.width)+"px";
-            break;
+            break;*/
 
             case "id_EditPage_DrawnDualKey": case "id_EditPage_DrawnRightKey":
               colorpickerColor=globalCMS1.getRightKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex,"rgb");
               // above the object
-              document.getElementById("id_popupColorPicker").style.top=(top)+"px";
-              document.getElementById("id_popupColorPicker").style.left=(left+box.width)+"px";
+              document.getElementById("id_popupColorPicker").style.top=(top-pickerBox.height)+"px";
+              document.getElementById("id_popupColorPicker").style.left=(left-pickerBox.width)+"px";
               break;
 
                 case "id_EditPage_DrawnLeftKey":
                   colorpickerColor=globalCMS1.getLeftKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex,"rgb");
                   // above the object
-                  document.getElementById("id_popupColorPicker").style.top=(top)+"px";
-                  document.getElementById("id_popupColorPicker").style.left=(left+box.width)+"px";
+                  document.getElementById("id_popupColorPicker").style.top=(top-pickerBox.height)+"px";
+                  document.getElementById("id_popupColorPicker").style.left=(left-pickerBox.width)+"px";
                   break;
 
                   case "id_inputProbeColor":
@@ -108,8 +108,8 @@ function openColorPicker(event){
                     // above the object
                     top =  refObj.offsetTop;
                     left = refObj.offsetLeft;
-                    document.getElementById("id_popupColorPicker").style.top=(top+box.height)+"px";
-                    document.getElementById("id_popupColorPicker").style.left=(left+box.width)+"px";
+                    document.getElementById("id_popupColorPicker").style.top=(top-pickerBox.height)+"px";
+                    document.getElementById("id_popupColorPicker").style.left=(left-pickerBox.width)+"px";
                     break;
 
                     case "id_inputEditProbeColor":
@@ -118,8 +118,8 @@ function openColorPicker(event){
                       // above the object
                       top =  refObj.offsetTop;
                       left = refObj.offsetLeft;
-                      document.getElementById("id_popupColorPicker").style.top=(top+box.height)+"px";
-                      document.getElementById("id_popupColorPicker").style.left=(left+box.width)+"px";
+                      document.getElementById("id_popupColorPicker").style.top=(top-pickerBox.height)+"px";
+                      document.getElementById("id_popupColorPicker").style.left=(left-pickerBox.width)+"px";
                       break;
 
     default:

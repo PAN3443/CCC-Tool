@@ -49,7 +49,11 @@ function styleGlobalLocalOrderPlot(){
   document.getElementById("id_EditPage_AnalyzeContainer_GlobalLocalOrder").style.display = "flex";
 
   var tmpBox = document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").getBoundingClientRect();
-  document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.width = tmpBox.height+"px";
+
+  if(tmpBox.height<tmpBox.width)
+  document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.width = document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.height;
+  else
+  document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.height = document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.width;
 
   document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.marginLeft = "auto";
   document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.marginRight = "auto";

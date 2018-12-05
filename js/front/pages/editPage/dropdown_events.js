@@ -9,10 +9,6 @@ function activateDropdown(event) {
     var onTop = false;
     var toRight=false;
     switch (labelID) {
-        case "id_EditPage_extraOptionsAnalyze":
-          dropdownID = "id_EditPage_extraOptionsAnalyzeDropDown";
-          onTop=true;
-        break;
         case "id_EditPage_extraOptionsMapping":
           dropdownID = "id_EditPage_extraOptionsMappingDropDown";
           onTop=true;

@@ -67,8 +67,6 @@ function init_events_EditPage(){
 
   limitKeyBurLine=true;
 
-  document.getElementById('id_EditPage_extraOptionsAnalyze').addEventListener("click", activateDropdown);
-  document.getElementById('id_EditPage_extraOptionsMapping').addEventListener("click", activateDropdown);
   document.getElementById('id_EditPage_selectProbeTypeLabel').addEventListener("click", activateDropdown);
   document.getElementById('id_EditPage_selectProbeSetRangeType').addEventListener("click", activateDropdown);
 
