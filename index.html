@@ -601,32 +601,18 @@
           </div>
 
           <div id="id_EditPage_Predefined_Div" style="width:100%; height:76vh;">
+            <p class="standardText" style="width:100%; text-align:center; background:grey; color:rgb(200,200,200);">Click to show the predefined:</p>
             <div class="class_EditPage_TabRow" style="width:100%;">
-                <p class="standardText" style="width:100%; text-align:center; background:grey; color:white;">Click to show the predefined:</p>
-                <button id="id_editPage_Order_Scaled_Other" onclick="changeFilterPredefined(8)" style="width:2.5vw; height:100%; cursor:pointer; padding:0px;">
-                  <canvas id="id_EditPage_Preview_Other" class="class_EditPage_SelectPredefinedCMS" style="width:100%; height:100%;"></canvas>
-                </button>
-                <button id="id_editPage_Order_Multiband" onclick="changeFilterPredefined(1)" style="width:2.4vw; height:100%; cursor:pointer;padding:0px;">
-                  <canvas id="id_EditPage_Preview_Multiband" class="class_EditPage_SelectPredefinedCMS" style="width:100%; height:100%;"></canvas>
-                </button>
-                <button id="id_editPage_Order_Divergent" onclick="changeFilterPredefined(2)" style="width:2.5vw; height:100%; cursor:pointer; padding:0px; ">
-                  <canvas id="id_EditPage_Preview_Divergent" class="class_EditPage_SelectPredefinedCMS" style="width:100%; height:100%;"></canvas>
-                </button>
-                <button id="id_editPage_Order_Scaled_Blue" class="class_EditPage_SelectPredefinedCMS" onclick="changeFilterPredefined(4)" style="width:2.5vw; height:100%; cursor:pointer; padding:0px;">
-                  <canvas id="id_EditPage_Preview_ScaledBlue" class="class_EditPage_SelectPredefinedCMS" style="width:100%; height:100%;"></canvas>
-                </button>
-                <button id="id_editPage_Order_Scaled_Brown" onclick="changeFilterPredefined(5)" style="width:2.5vw; height:100%; cursor:pointer; padding:0px;">
-                  <canvas id="id_EditPage_Preview_ScaledBrown" class="class_EditPage_SelectPredefinedCMS" style="width:100%; height:100%;"></canvas>
-                </button>
-                <button id="id_editPage_Order_Scaled_Green" onclick="changeFilterPredefined(6)" style="width:2.5vw; height:100%; cursor:pointer; padding:0px;">
-                  <canvas id="id_EditPage_Preview_ScaledGreen" class="class_EditPage_SelectPredefinedCMS" style="width:100%; height:100%;"></canvas>
-                </button>
-                <button id="id_editPage_Order_Scaled_RedPurple" onclick="changeFilterPredefined(7)" style="width:2.5vw; height:100%; cursor:pointer; padding:0px;">
-                  <canvas id="id_EditPage_Preview_ScaledRedPurple" class="class_EditPage_SelectPredefinedCMS" style="width:100%; height:100%;"></canvas>
-                </button>
-                <button id="id_editPage_Order_Scaled_YellowOrange" onclick="changeFilterPredefined(8)" style="width:2.5vw; height:100%; cursor:pointer; padding:0px;">
-                  <canvas id="id_EditPage_Preview_ScaledYellowOrange" class="class_EditPage_SelectPredefinedCMS" style="width:100%; height:100%;"></canvas>
-                </button>
+
+                  <canvas id="id_EditPage_Preview_Multiband" onclick="changeFilterPredefined(1)" style="width:12.5%;"></canvas>
+                  <canvas id="id_EditPage_Preview_Divergent" onclick="changeFilterPredefined(2)" style="width:12.5%;"></canvas>
+                  <canvas id="id_EditPage_Preview_ScaledBlue" onclick="changeFilterPredefined(4)" style="width:12.5%;"></canvas>
+                  <canvas id="id_EditPage_Preview_ScaledBrown" onclick="changeFilterPredefined(5)" style="width:12.5%;"></canvas>
+                  <canvas id="id_EditPage_Preview_ScaledGreen" onclick="changeFilterPredefined(6)" style="width:12.5%;"></canvas>
+                  <canvas id="id_EditPage_Preview_ScaledRedPurple" onclick="changeFilterPredefined(7)" style="width:12.5%;"></canvas>
+                  <canvas id="id_EditPage_Preview_ScaledYellowOrange" onclick="changeFilterPredefined(8)" style="width:12.5%;"></canvas>
+                  <canvas id="id_EditPage_Preview_Other" onclick="changeFilterPredefined(8)" style="width:12.5%;"></canvas>
+
             </div>
             <div id="id_EditPage_Predefined_CMS_Div" style="width:100%; height:71vh; overflow-y: auto; padding-top:1vh;">
 
@@ -780,7 +766,7 @@
             <div id="id_EditPage_DivAnalyze" style="width:100%; height:59vh; display:none; ">
               <div class="row" style="width:100%;">
 
-                <div style="width:15vw; border-right: 1px solid grey; height:100%;">
+                <div style="width:15vw; border-right: 1px solid grey; height:100%; background:rgb(220,220,220);">
 
                   <p class="subsectionLabel class_InsetLabelText" style="margin-top:2vh; margin-bottom:1vh; color:transparent;"> Select Plot:</p>
                   <select id="id_EditPage_SelectAnalyzePlot" class="standardText" style="margin-bottom: auto; width:80%; margin-left:10%; margin-top:10px;">
@@ -1831,7 +1817,7 @@
               <div style="display:flex; height: 8vh; border-top:0.2vh solid black; background:rgb(220,220,220);">
                 <p id="id_EditPage_ProbePreviewLabel" class="standardText " style="font-size: 2vh; height:2.5vh; width:10%; line-height: 2.5vh; font-weight:bold; text-align:center; vertical-align:middle; margin-top:auto; margin-bottom:auto;"> Preview: </p>
                 <canvas id="id_EditPage_ProbePreview" style="width:85%; height:6vh; border: 0.2vh solid black; margin-top:1vh;"></canvas>
-              </div>zzzzzzzzzzzzzzzzzz
+              </div>
             </div>
           </div>
 
@@ -1982,22 +1968,22 @@
             <div id="id_EditPage_Edit_Path" style="width:100%; height:59vh; display:none;">
 
 
-              <div class="row" style="width:100%; background:rgb(220,220,220);">
+              <div class="class_EditPage_TabRow" style="width:100%; height:3vh; background:rgb(220,220,220);">
 
-                <button id="id_editPage_PathPlotSpaces_RGB" onclick="choosePathPlotSpace(0)" style="margin:auto; width: 25%; height:3vh; cursor:pointer;">
-                  <p class="standardText class_InsetLabelText" style="margin-top:auto; margin-bottom:0px; width:100%; text-align:center; color:transparent;">RGB</p>
+                <button id="id_editPage_PathPlotSpaces_RGB" onclick="choosePathPlotSpace(0)" style="margin:auto; width: 25%; height:3vh; line-height:3vh; font-size:2.2vh; cursor:pointer;">
+                  RGB
                 </button>
 
-                <button id="id_editPage_PathPlotSpaces_HSV" onclick="choosePathPlotSpace(1)" style="margin:auto; width: 25%; height:3vh; cursor:pointer; ">
-                  <p class="standardText class_InsetLabelText" style="margin-top:auto; margin-bottom:0px; width:100%; text-align:center; color:transparent;">HSV</p>
+                <button id="id_editPage_PathPlotSpaces_HSV" onclick="choosePathPlotSpace(1)" style="margin:auto; width: 25%; height:3vh; line-height:3vh; font-size:2.2vh; cursor:pointer; ">
+                  HSV
                 </button>
 
-                <button id="id_editPage_PathPlotSpaces_LAB" onclick="choosePathPlotSpace(2)" style="margin:auto; width: 25%; height:3vh; cursor:pointer;">
-                  <p class="standardText class_InsetLabelText" style="margin-top:auto; margin-bottom:0px; width:100%; text-align:center; color:transparent;">Lab</p>
+                <button id="id_editPage_PathPlotSpaces_LAB" onclick="choosePathPlotSpace(2)" style="margin:auto; width: 25%; height:3vh; line-height:3vh; font-size:2.2vh; cursor:pointer;">
+                  Lab
                 </button>
 
-                <button id="id_editPage_PathPlotSpaces_DIN99" onclick="choosePathPlotSpace(3)" style="margin:auto; width: 25%; height:3vh; cursor:pointer;">
-                  <p class="standardText class_InsetLabelText" style="margin-top:auto; margin-bottom:0px; width:100%; text-align:center; color:transparent;">DIN99</p>
+                <button id="id_editPage_PathPlotSpaces_DIN99" onclick="choosePathPlotSpace(3)" style="margin:auto; width: 25%; height:3vh; line-height:3vh; font-size:2.2vh; cursor:pointer;">
+                  DIN99
                 </button>
               </div>
 
@@ -2007,7 +1993,9 @@
 
               <div id="id_EditPage_PathPlot_Container" style="height:90%; width:100%;">
 
-                <div style="width:100%; background:white;">
+
+                <div id="id_EditPage_PathPlot_Div">
+                <div style=" background:white;">
                   <div id="id_EditPage_PathPlot_SingleCanvasDiv" style="position: relative; margin:auto; height:40%;">
                     <canvas id="id_EditPage_PathPlot_SingleCanvas_0" style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:100%;"></canvas>
                     <canvas id="id_EditPage_PathPlot_SingleCanvas_1" style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:100%;"></canvas>
@@ -2015,9 +2003,11 @@
                   </div>
                 </div>
 
-                <div id="id_EditPage_OuterDiv" style="width:100%; height:100%;">
-                  <div id="id_EditPage_TopDiv" style="width:100%; margin:auto; background:white;">
-                    <div>
+
+                <div id="id_EditPage_OuterDiv">
+
+                  <div id="id_EditPage_TopDiv" style=" margin:auto; background:white;">
+                    <div style="margin:auto;">
                       <p id="id_EditPage_PathPlot_Canvas1_Label" class="standardText" style="width:100%; text-align:center; margin-top:auto; vertical-align:middle;"></p>
                       <div id="id_EditPage_PathPlot_Canvas1_Div" style="position: relative; width:100%;">
                         <canvas id="id_EditPage_PathPlot_Canvas1_0" style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:100%;"></canvas>
@@ -2026,7 +2016,7 @@
                       </div>
                     </div>
 
-                    <div>
+                    <div  style="margin:auto;">
                       <p id="id_EditPage_PathPlot_Canvas2_Label" class="standardText" style="width:100%; text-align:center; vertical-align:middle;"></p>
                       <div id="id_EditPage_PathPlot_Canvas2_Div" style="position: relative; width:100%;">
                         <canvas id="id_EditPage_PathPlot_Canvas2_0" style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:100%;"></canvas>
@@ -2036,8 +2026,8 @@
                     </div>
                   </div>
 
-                  <div id="id_EditPage_BottomDiv" style="width:100%; margin:auto; background:white;">
-                    <div>
+                  <div id="id_EditPage_BottomDiv" style=" margin:auto; background:white;">
+                    <div  style="margin:auto;">
                       <p id="id_EditPage_PathPlot_Canvas3_Label" class="standardText" style="width:100%; text-align:center; vertical-align:middle;"></p>
                       <div id="id_EditPage_PathPlot_Canvas3_Div" style="position: relative; width:100%;">
                         <canvas id="id_EditPage_PathPlot_Canvas3_0" style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:100%;"></canvas>
@@ -2046,7 +2036,7 @@
                       </div>
                     </div>
 
-                    <div id="id_EditPage_PathPlot_3D_Container">
+                    <div id="id_EditPage_PathPlot_3D_Container"  style="margin:auto;">
                       <p class="standardText" style="width:100%; text-align:center; vertical-align:middle;">3D</p>
                       <div id="id_EditPage_PathPlot_3D_Div" style="margin-right:auto; cursor:grapping; overflow:hidden;">
 
@@ -2058,7 +2048,7 @@
 
                 </div>
 
-
+                </div>
               </div>
 
 
@@ -2096,12 +2086,12 @@
     <!---------------- Full Analzye ---------------  -->
     <div id="id_PopUp_fullAnalzeWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
 
-      <div style="margin-top:10vh; height:auto; background:white; width:75vh; border: 0.2vh solid black; margin-left:auto; margin-right:auto;">
+      <div style="margin-top:10vh; height:auto; width:80vh; border: 0.2vh solid black; margin-left:auto; margin-right:auto;">
 
         <div class="row" style="background:black; height:5vh;">
 
-          <h1 class="class_popupWindow_Label" style="height:5vh; line-height:5vh; font-size:3.5vh; "> Full Analyze Screen </h1>
-          <div style="height:5vh; line-height:5vh; font-size:3.5vh;" onclick="closeFullAnalyzeScreen()">
+          <h1 class="class_popupWindow_Label" style="height:5vh; line-height:5vh; font-size:3.5vh; ">Analyze Plot</h1>
+          <div style="height:5vh; line-height:5vh; font-size:3.5vh; color:white;" onclick="closeFullAnalyzeScreen()">
             X
           </div>
 
@@ -2109,7 +2099,7 @@
 
 
 
-        <canvas id="id_PopUp_FullAnalayzeCanvas" style="height:75vh; width:75vh; background: url(img/EditPage/plotBackground.png); background-size:cover;
+        <canvas id="id_PopUp_FullAnalayzeCanvas" style="height:80vh; width:80vh; background: url(img/EditPage/plotBackground.png); background-size:cover;
                           background-repeat:no-repeat;
                           background-position: center center;"> </canvas>
 

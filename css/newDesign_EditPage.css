@@ -74,7 +74,8 @@
 
 
 .class_EditPage_TabRow {
-  height:4vh;
+  display: flex;
+  height: auto;
   width: 100%;
   background: rgb(80,80,80);
 }
@@ -84,15 +85,35 @@
   line-height: 4vh;
   width: 100%;
   font-size: 2.0vh;
-  float:right;
-  background: rgb(80,80,80);
-  color:white;
+  background: rgb(50,50,50);
+  /*color:white;*/
   text-align: center;
   border: 0.2vh solid black;
   -moz-box-shadow:    inset 0 0 0.5vh rgb(0,0,0);
    -webkit-box-shadow: inset 0 0 0.5vh rgb(0,0,0);
    box-shadow:         inset 0 0 0.5vh rgb(0,0,0);
 }
+
+.class_EditPage_TabRow canvas{
+  height:4vh;
+  line-height: 4vh;
+  background: rgb(50,50,50);
+  border: 0.2vh solid black;
+  box-sizing: border-box;
+  /*-moz-box-shadow:    inset 0 0 0.5vh rgb(0,0,0);
+   -webkit-box-shadow: inset 0 0 0.5vh rgb(0,0,0);
+   box-shadow:         inset 0 0 0.5vh rgb(0,0,0);*/
+}
+
+
+.class_EditPage_TabRow canvas:hover{
+  border: 0.2vh solid grey;
+  /*-moz-box-shadow:    inset 0 0 0.5vh rgb(255,255,255);
+   -webkit-box-shadow: inset 0 0 0.5vh rgb(255,255,255);
+   box-shadow:         inset 0 0 0.5vh rgb(255,255,255);*/
+}
+
+
 
 
 .class_tablelabel{

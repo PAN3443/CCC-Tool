@@ -238,30 +238,32 @@ function init_VPlot() {
   var canvasVPlot2 = document.getElementById("id_EditPage_PathPlot_Canvas2_0");
   var canvasVPlot3 = document.getElementById("id_EditPage_PathPlot_Canvas3_0");
 
-  canvasVPlot1.width = vPlot_bg_resolution_X;
-  canvasVPlot1.height = vPlot_bg_resolution_Y;
+  var canvasObjBox = canvasVPlot1.getBoundingClientRect();
 
-  canvasVPlot2.width = vPlot_bg_resolution_X;
-  canvasVPlot2.height = vPlot_bg_resolution_Y;
+  canvasVPlot1.width = canvasObjBox.width;
+  canvasVPlot1.height = canvasObjBox.height;
 
-  canvasVPlot3.width = vPlot_bg_resolution_X;
-  canvasVPlot3.height = vPlot_bg_resolution_Y;
+  canvasVPlot2.width = canvasObjBox.width;
+  canvasVPlot2.height = canvasObjBox.height;
+
+  canvasVPlot3.width = canvasObjBox.width;
+  canvasVPlot3.height = canvasObjBox.height;
 
   //var ratioWidthHeight = canvasColorspaceWidth/canvasColorspaceHeight;
   var vPlotContex1 = canvasVPlot1.getContext("2d");
   var vPlotContex2 = canvasVPlot2.getContext("2d");
   var vPlotContex3 = canvasVPlot3.getContext("2d");
 
-  var yStart = Math.round(vPlot_bg_resolution_Y * 0.9);
-  var yEnd = Math.round(vPlot_bg_resolution_Y * 0.1);
-  var yEndLine = Math.round(vPlot_bg_resolution_Y * 0.05);
+  var yStart = Math.round(canvasVPlot1.height * 0.9);
+  var yEnd = Math.round(canvasVPlot1.height * 0.1);
+  var yEndLine = Math.round(canvasVPlot1.height * 0.05);
   var yEndArrow = 0;
   var arrowHeight = Math.round(yEndLine - yEndArrow);
-  var labelFontSize = arrowHeight * 0.75;
-  var labelFontSizeSmall = arrowHeight * 0.5;
-  var xStart = Math.round(vPlot_bg_resolution_X * 0.1);
-  var xEnd = Math.round(vPlot_bg_resolution_X * 0.85);
-  var xEndArrow = Math.round(vPlot_bg_resolution_X * 0.9);
+  var labelFontSize = arrowHeight * 1.5;
+  var labelFontSizeSmall = arrowHeight * 1;
+  var xStart = Math.round(canvasVPlot1.width * 0.1);
+  var xEnd = Math.round(canvasVPlot1.width * 0.85);
+  var xEndArrow = Math.round(canvasVPlot1.width * 0.9);
   var xEndLine = xEndArrow - arrowHeight;
 
   var lineColor = 'rgb(200,200,200)';
@@ -283,47 +285,6 @@ function init_VPlot() {
 
   widthVArea = globalCMS1.getRefRange();
 
-  /*if (showSideID == 3) {
-    widthVArea2 = globalCMS2.getRefRange();
-
-    for (var i = 0; i < globalCMS2.getKeyLength(); i++) {
-
-      xPosPos = xStart + ((globalCMS2.getRefPosition(i) - globalCMS2.getRefPosition(0)) / widthVArea2) * plotwidth;
-
-      vPlotContex1.beginPath();
-      vPlotContex1.lineWidth = Math.round(lineWidthVPlot / 2);
-      vPlotContex1.moveTo(xPosPos, yStart);
-      vPlotContex1.lineTo(xPosPos, vPlot_bg_resolution_Y * 0.93);
-      vPlotContex1.strokeStyle = "rgb(200,200,200)";
-      vPlotContex1.stroke();
-      vPlotContex1.strokeStyle = "rgb(200,200,200)";
-      var text = "" + (i + 1);
-      vPlotContex1.font = labelFontSizeSmall + "px Arial";
-      vPlotContex1.fillText(text, xPosPos, vPlot_bg_resolution_Y * 0.96 + labelFontSizeSmall);
-
-      vPlotContex2.beginPath();
-      vPlotContex2.lineWidth = Math.round(lineWidthVPlot / 2);
-      vPlotContex2.moveTo(xPosPos, yStart);
-      vPlotContex2.lineTo(xPosPos, vPlot_bg_resolution_Y * 0.93);
-      vPlotContex2.strokeStyle = "rgb(200,200,200)";
-      vPlotContex2.stroke();
-      vPlotContex2.strokeStyle = "rgb(200,200,200)";
-      vPlotContex2.font = labelFontSizeSmall + "px Arial";
-      vPlotContex2.fillText(text, xPosPos, vPlot_bg_resolution_Y * 0.96 + labelFontSizeSmall);
-
-      vPlotContex3.beginPath();
-      vPlotContex3.lineWidth = Math.round(lineWidthVPlot / 2);
-      vPlotContex3.moveTo(xPosPos, yStart);
-      vPlotContex3.lineTo(xPosPos, vPlot_bg_resolution_Y * 0.93);
-      vPlotContex3.strokeStyle = "rgb(200,200,200)";
-      vPlotContex3.stroke();
-      vPlotContex3.strokeStyle = "rgb(200,200,200)";
-      vPlotContex3.font = labelFontSizeSmall + "px Arial";
-      vPlotContex3.fillText(text, xPosPos, vPlot_bg_resolution_Y * 0.96 + labelFontSizeSmall);
-
-    }
-  }*/
-
 
   for (var i = 0; i < globalCMS1.getKeyLength(); i++) {
 
@@ -332,37 +293,37 @@ function init_VPlot() {
     vPlotContex1.beginPath();
     vPlotContex1.lineWidth = Math.round(lineWidthVPlot / 2);
     vPlotContex1.moveTo(xPosPos, yStart);
-    vPlotContex1.lineTo(xPosPos, vPlot_bg_resolution_Y * 0.93);
+    vPlotContex1.lineTo(xPosPos, canvasVPlot1.height * 0.93);
     vPlotContex1.strokeStyle = lineColor;
     vPlotContex1.stroke();
     vPlotContex1.strokeStyle = arrowFontColor;
     var text = "" + (i + 1);
     vPlotContex1.font = labelFontSizeSmall + "px Arial";
-    vPlotContex1.fillText(text, xPosPos, vPlot_bg_resolution_Y * 0.93 + labelFontSizeSmall);
+    vPlotContex1.fillText(text, xPosPos, canvasVPlot1.height * 0.93 + labelFontSizeSmall);
 
     vPlotContex2.beginPath();
     vPlotContex2.lineWidth = Math.round(lineWidthVPlot / 2);
     vPlotContex2.moveTo(xPosPos, yStart);
-    vPlotContex2.lineTo(xPosPos, vPlot_bg_resolution_Y * 0.93);
+    vPlotContex2.lineTo(xPosPos, canvasVPlot1.height * 0.93);
     vPlotContex2.strokeStyle = lineColor;
     vPlotContex2.stroke();
     vPlotContex2.strokeStyle = arrowFontColor;
     vPlotContex2.font = labelFontSizeSmall + "px Arial";
-    vPlotContex2.fillText(text, xPosPos, vPlot_bg_resolution_Y * 0.93 + labelFontSizeSmall);
+    vPlotContex2.fillText(text, xPosPos, canvasVPlot1.height * 0.93 + labelFontSizeSmall);
 
     vPlotContex3.beginPath();
     vPlotContex3.lineWidth = Math.round(lineWidthVPlot / 2);
     vPlotContex3.moveTo(xPosPos, yStart);
-    vPlotContex3.lineTo(xPosPos, vPlot_bg_resolution_Y * 0.93);
+    vPlotContex3.lineTo(xPosPos, canvasVPlot1.height * 0.93);
     vPlotContex3.strokeStyle = lineColor;
     vPlotContex3.stroke();
     vPlotContex3.strokeStyle = arrowFontColor;
     vPlotContex3.font = labelFontSizeSmall + "px Arial";
-    vPlotContex3.fillText(text, xPosPos, vPlot_bg_resolution_Y * 0.93 + labelFontSizeSmall);
+    vPlotContex3.fillText(text, xPosPos, canvasVPlot1.height * 0.93 + labelFontSizeSmall);
 
   }
 
-  xPosPos = Math.round(vPlot_bg_resolution_X * 0.09);
+  xPosPos = Math.round(canvasVPlot1.width * 0.075);
   var yPos = yStart;
   vPlotContex1.font = labelFontSizeSmall + "px Arial";
   vPlotContex2.font = labelFontSizeSmall + "px Arial";
@@ -428,7 +389,7 @@ function init_VPlot() {
     var text = ""+tmpVal.toFixed(2);
     vPlotContex1.beginPath();
     vPlotContex1.lineWidth = 1;
-    vPlotContex1.moveTo(xPosPos, yPos);
+    vPlotContex1.moveTo(xStart, yPos);
     vPlotContex1.lineTo(xEnd, yPos);
     vPlotContex1.strokeStyle = lineColor;
     vPlotContex1.stroke();
@@ -440,7 +401,7 @@ function init_VPlot() {
     var text = ""+tmpVal.toFixed(2);
     vPlotContex2.beginPath();
     vPlotContex2.lineWidth = 1;
-    vPlotContex2.moveTo(xPosPos, yPos);
+    vPlotContex2.moveTo(xStart, yPos);
     vPlotContex2.lineTo(xEnd, yPos);
     vPlotContex2.strokeStyle = lineColor;
     vPlotContex2.stroke();
@@ -452,7 +413,7 @@ function init_VPlot() {
     var text = ""+tmpVal.toFixed(2);
     vPlotContex3.beginPath();
     vPlotContex3.lineWidth = 1;
-    vPlotContex3.moveTo(xPosPos, yPos);
+    vPlotContex3.moveTo(xStart, yPos);
     vPlotContex3.lineTo(xEnd, yPos);
     vPlotContex3.strokeStyle = lineColor;
     vPlotContex3.stroke();
@@ -572,13 +533,13 @@ function init_VPlot() {
 
   ////////////////// TEXT /////////////////////
   vPlotContex1.font = labelFontSize + "px Arial";
-  vPlotContex1.fillText("Key Position", xEndArrow, yStart + labelFontSize);
+  vPlotContex1.fillText("Position", xEndArrow, yStart + labelFontSize);
 
   vPlotContex2.font = labelFontSize + "px Arial";
-  vPlotContex2.fillText("Key Position", xEndArrow, yStart + labelFontSize);
+  vPlotContex2.fillText("Position", xEndArrow, yStart + labelFontSize);
 
   vPlotContex3.font = labelFontSize + "px Arial";
-  vPlotContex3.fillText("Key Position", xEndArrow, yStart + labelFontSize);
+  vPlotContex3.fillText("Position", xEndArrow, yStart + labelFontSize);
 
 
   /*switch (pathColorspace) {
@@ -623,9 +584,11 @@ function drawcolormap_hueSpace(calcBackground, drawInterpolationLine, doInitVplo
 function drawElements_HSV_LAB_DIN99(isCompareMap) {
 
   var canvasColorspace = document.getElementById("id_EditPage_PathPlot_SingleCanvas_2");
+  var canvasObjBox = canvasColorspace.getBoundingClientRect();
 
-  canvasColorspace.width = hue_resolution_X;
-  canvasColorspace.height = hue_resolution_Y;
+
+  canvasColorspace.width = canvasObjBox.width;
+  canvasColorspace.height = canvasObjBox.height;
   var canvasColorspaceWidth = canvasColorspace.width;
   var canvasColorspaceHeight = canvasColorspace.height;
 
@@ -648,23 +611,26 @@ function drawElements_HSV_LAB_DIN99(isCompareMap) {
   var canvasVPlot2 = document.getElementById("id_EditPage_PathPlot_Canvas2_2");
   var canvasVPlot3 = document.getElementById("id_EditPage_PathPlot_Canvas3_2");
 
-  canvasVPlot1.width = vPlot_resolution_X;
-  canvasVPlot1.height = vPlot_resolution_Y;
 
-  canvasVPlot2.width = vPlot_resolution_X;
-  canvasVPlot2.height = vPlot_resolution_Y;
+  var canvasObjBox = canvasVPlot1.getBoundingClientRect();
 
-  canvasVPlot3.width = vPlot_resolution_X;
-  canvasVPlot3.height = vPlot_resolution_Y;
+  canvasVPlot1.width = canvasObjBox.width;
+  canvasVPlot1.height = canvasObjBox.height;
+
+  canvasVPlot2.width = canvasObjBox.width;
+  canvasVPlot2.height = canvasObjBox.height;
+
+  canvasVPlot3.width = canvasObjBox.width;
+  canvasVPlot3.height = canvasObjBox.height;
 
   var vPlotContex1 = canvasVPlot1.getContext("2d");
   var vPlotContex2 = canvasVPlot2.getContext("2d");
   var vPlotContex3 = canvasVPlot3.getContext("2d");
 
-  var vPlotyStart = Math.round(vPlot_resolution_Y * 0.9);
-  var vPlotyEnd = Math.round(vPlot_resolution_Y * 0.1);
-  var vPlotxStart = Math.round(vPlot_resolution_X * 0.1);
-  var vPlotxEnd = Math.round(vPlot_resolution_X * 0.85);
+  var vPlotyStart = Math.round(canvasVPlot1.height * 0.9);
+  var vPlotyEnd = Math.round(canvasVPlot1.height * 0.1);
+  var vPlotxStart = Math.round(canvasVPlot1.width * 0.1);
+  var vPlotxEnd = Math.round(canvasVPlot1.width * 0.85);
   var heigthVArea = vPlotyStart - vPlotyEnd;
   var plotwidth = vPlotxEnd - vPlotxStart;
 
@@ -678,18 +644,6 @@ function drawElements_HSV_LAB_DIN99(isCompareMap) {
   xVPos = xStart;
   xVPos2 = xStart;
 
-  spaceElementsXPos = [];
-  spaceElementsYPos = [];
-  spaceElementsType = [];
-  spaceElementsKey = [];
-  spaceElementsColor = [];
-
-  var border=1;
-  if (isCompareMap) {
-    border = 2;
-    globalCMS2.calcDeltaIntervalColors(intervalDelta, 0,globalCMS2.getKeyLength()-1);
-  }
-
   var csModus=pathColorspace;
   if((pathColorspace=="lab" || pathColorspace=="din99") && onlyRGBPossibleColor){
     if(pathColorspace=="lab")
@@ -698,18 +652,7 @@ function drawElements_HSV_LAB_DIN99(isCompareMap) {
     csModus = "din99_rgb_possible";
   }
 
-  for (var j = 0; j < border; j++) {
-    var workCMS;
-    switch (j) {
-      case 0:
-        workCMS = globalCMS1;
-        break;
-      case 1:
-        workCMS = globalCMS2;
-        break;
-      default:
-      return;
-    }
+    workCMS = globalCMS1;
 
     for (var i = 0; i < workCMS.getKeyLength(); i++) {
 
@@ -817,7 +760,7 @@ function drawElements_HSV_LAB_DIN99(isCompareMap) {
 
     }
 
-  }
+
 
 
 }
@@ -827,9 +770,11 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap) {
 
 
   var canvasColorspace = document.getElementById("id_EditPage_PathPlot_SingleCanvas_1");
+  var canvasObjBox = canvasColorspace.getBoundingClientRect();
 
-  canvasColorspace.width = hue_resolution_X;
-  canvasColorspace.height = hue_resolution_Y;
+
+  canvasColorspace.width = canvasObjBox.width;
+  canvasColorspace.height = canvasObjBox.height;
   var canvasColorspaceWidth = canvasColorspace.width;
   var canvasColorspaceHeight = canvasColorspace.height;
 
@@ -852,24 +797,25 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap) {
   var canvasVPlot1 = document.getElementById("id_EditPage_PathPlot_Canvas1_1");
   var canvasVPlot2 = document.getElementById("id_EditPage_PathPlot_Canvas2_1");
   var canvasVPlot3 = document.getElementById("id_EditPage_PathPlot_Canvas3_1");
+  canvasObjBox = canvasVPlot1.getBoundingClientRect();
 
-  canvasVPlot1.width = vPlot_resolution_X;
-  canvasVPlot1.height = vPlot_resolution_Y;
+  canvasVPlot1.width = canvasObjBox.width;
+  canvasVPlot1.height = canvasObjBox.height;
 
-  canvasVPlot2.width = vPlot_resolution_X;
-  canvasVPlot2.height = vPlot_resolution_Y;
+  canvasVPlot2.width = canvasObjBox.width;
+  canvasVPlot2.height = canvasObjBox.height;
 
-  canvasVPlot3.width = vPlot_resolution_X;
-  canvasVPlot3.height = vPlot_resolution_Y;
+  canvasVPlot3.width = canvasObjBox.width;
+  canvasVPlot3.height = canvasObjBox.height;
 
   var vPlotContex1 = canvasVPlot1.getContext("2d");
   var vPlotContex2 = canvasVPlot2.getContext("2d");
   var vPlotContex3 = canvasVPlot3.getContext("2d");
 
-  var vPlotyStart = Math.round(vPlot_resolution_Y * 0.9);
-  var vPlotyEnd = Math.round(vPlot_resolution_Y * 0.1);
-  var vPlotxStart = Math.round(vPlot_resolution_X * 0.1);
-  var vPlotxEnd = Math.round(vPlot_resolution_X * 0.85);
+  var vPlotyStart = Math.round(canvasVPlot1.height * 0.9);
+  var vPlotyEnd = Math.round(canvasVPlot1.height * 0.1);
+  var vPlotxStart = Math.round(canvasVPlot1.width * 0.1);
+  var vPlotxEnd = Math.round(canvasVPlot1.width * 0.85);
   var heigthVArea = vPlotyStart - vPlotyEnd;
   var plotwidth = vPlotxEnd - vPlotxStart;
 
@@ -1007,16 +953,6 @@ function drawHueElement(tmpColor, xWidth, yHeight, xStart, yStart, xEnd, yEnd, c
 
   drawElement(tmpColor.calcRGBColor().getRGBString(), colorspaceContex, xPos, yPos, keyIndex, colorSide, drawCircle);
 
-  spaceElementsXPos.push(xPos);
-  spaceElementsYPos.push(yPos);
-
-  if (drawCircle)
-    spaceElementsType.push(true);
-  else
-    spaceElementsType.push(false);
-
-  spaceElementsKey.push(keyIndex);
-  spaceElementsColor.push(colorSide); // colorSide 0=left color, 1= right color, 2=both colors
 
 }
 

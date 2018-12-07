@@ -187,9 +187,9 @@ function drawOrderPlot(intervalColormap,plotid, type, minId, minGlobalId){
         ///// Calculation of Order
         //////////////////////////////////////////////////////////////
 
-          var minLocal = 100000;
-          var maxLocal = -100000;
-          var minGlobal = 100000;
+          var minLocal = Infinity;
+          var maxLocal = -Infinity;
+          var minGlobal = Infinity;
           ///////////////////////////////////////////////////////////////
           ///// Local Order
           //////////////////////////////////////////////////////////////
@@ -406,7 +406,7 @@ function drawOrderPlot(intervalColormap,plotid, type, minId, minGlobalId){
         else
         document.getElementById(minGlobalId).style.color = "black";
 
-        document.getElementById(minId).innerHTML = "Local Minimum = "+ minLocal.toFixed(numDecimalPlaces);
-        document.getElementById(minGlobalId).innerHTML = "Global Minimum = "+ minGlobal.toFixed(numDecimalPlaces);
+        document.getElementById(minId).innerHTML = "Local Minimum = "+ minLocal;//.toFixed(numDecimalPlaces);
+        document.getElementById(minGlobalId).innerHTML = "Global Minimum = "+ minGlobal;//.toFixed(numDecimalPlaces);
 
 }

@@ -74,8 +74,8 @@ function drawLocalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId, 
       canvasCtx.clearRect(0, 0, canvasPlot.width, canvasPlot.height);
       var canvasData = canvasCtx.createImageData(canvasPlot.width, canvasPlot.height); //getImageData(0, 0, canvasPlot.width, canvasPlot.height);
       var sumForAverage = 0;
-      var min = 100000000000;
-      var max = 0;
+      var min = Infinity;
+      var max = -Infinity;
 
       var bandWidth = canvasPlot.width/(intervalColormap.getIntervalLength()-1);
 
@@ -114,7 +114,7 @@ function drawLocalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId, 
 
               /*switch (plotType) {
                 case 0:*/
-                  var distance = intervalColormap.getIntervalRef(x+1)-intervalColormap.getIntervalRef(x);
+                  var distance = Math.abs(intervalColormap.getIntervalRef(x+1)-intervalColormap.getIntervalRef(x));
 
                   if(distance==0){
                     speed=-1;
@@ -211,16 +211,16 @@ function drawLocalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId, 
       var deviation = Math.sqrt(variance);
 
 
-      document.getElementById(minId).innerHTML = "Local Speed Minimum = "+ min.toFixed(numDecimalPlaces);
+      document.getElementById(minId).innerHTML = "Local Speed Minimum = "+ min;//.toFixed(numDecimalPlaces);
 
       if(min==0)
       document.getElementById(minId).style.color = "red";
       else
       document.getElementById(minId).style.color = "black";
 
-      document.getElementById(maxId).innerHTML = "Local Speed Maximum = "+ max.toFixed(numDecimalPlaces);
-      document.getElementById(avId).innerHTML = "Local Speed Average = "+ average.toFixed(numDecimalPlaces);
-      document.getElementById(devId).innerHTML = "Local Speed Deviation = "+ deviation.toFixed(numDecimalPlaces);
+      document.getElementById(maxId).innerHTML = "Local Speed Maximum = "+ max;//.toFixed(numDecimalPlaces);
+      document.getElementById(avId).innerHTML = "Local Speed Average = "+ average;//.toFixed(numDecimalPlaces);
+      document.getElementById(devId).innerHTML = "Local Speed Deviation = "+ deviation;//.toFixed(numDecimalPlaces);
 
 
 }

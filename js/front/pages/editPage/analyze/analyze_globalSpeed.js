@@ -76,8 +76,8 @@ function drawGlobalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId,
 
 
 
-      var min = 1000000;
-      var max = 0;
+      var min = Infinity;
+      var max = -Infinity;
         var numTwinOrLeft=0;
 
       var matrix = [];
@@ -120,7 +120,7 @@ function drawGlobalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId,
                     numTwinOrLeft++;
                   }
                   else{
-                    var distance = Math.sqrt(Math.pow(intervalColormap.getIntervalRef(x)-intervalColormap.getIntervalRef(y),2))
+                    var distance = Math.abs(intervalColormap.getIntervalRef(x)-intervalColormap.getIntervalRef(y));//Math.sqrt(Math.pow(intervalColormap.getIntervalRef(x)-intervalColormap.getIntervalRef(y),2))
                     speed = deltaE/distance;
                     sumForAverage += speed;
                     //if(document.getElementById("id_EditPage_DoLogSelect_GlobalLocalOrder").checked)
@@ -279,16 +279,16 @@ function drawGlobalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId,
       var deviation = Math.sqrt(variance);
 
 
-      document.getElementById(minId).innerHTML = "Global Speed Minimum = "+ min.toFixed(numDecimalPlaces);
+      document.getElementById(minId).innerHTML = "Global Speed Minimum = "+ min;//.toFixed(numDecimalPlaces);
 
       if(min==0)
       document.getElementById(minId).style.color = "red";
       else
       document.getElementById(minId).style.color = "black";
 
-      document.getElementById(maxId).innerHTML = "Global Speed Maximum = "+ max.toFixed(numDecimalPlaces);
-      document.getElementById(avId).innerHTML = "Global Speed Average = "+ average.toFixed(numDecimalPlaces);
-      document.getElementById(devId).innerHTML = "Global Speed Deviation = "+ deviation.toFixed(numDecimalPlaces);
+      document.getElementById(maxId).innerHTML = "Global Speed Maximum = "+ max;//.toFixed(numDecimalPlaces);
+      document.getElementById(avId).innerHTML = "Global Speed Average = "+ average;//.toFixed(numDecimalPlaces);
+      document.getElementById(devId).innerHTML = "Global Speed Deviation = "+ deviation;//.toFixed(numDecimalPlaces);
 
 
 }

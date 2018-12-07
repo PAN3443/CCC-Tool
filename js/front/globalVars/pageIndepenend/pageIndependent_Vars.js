@@ -9,8 +9,8 @@ var globalCMS1;
 var refLineSketchContainer = [];
 var numDecimalPlaces=2;
 
-var styleActiveColor = "rgb(180,180,180)";//"rgba(76, 175, 80,0.7)";
-var styleNotActiveColor = "none"; //"rgba(125,125,125,0.7)";
+var styleActiveColor = "rgb(220,220,220)";//"rgba(76, 175, 80,0.7)";
+var styleNotActiveColor = "rgb(120,120,120)"; //"rgba(125,125,125,0.7)";
 
 /// Switch Pages
 var currentPageID = 0;

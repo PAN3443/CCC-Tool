@@ -39,25 +39,205 @@ function hsvLabDinAnimation(){
 
 function mouseMoveColorspace(event) {
   // calc mouse pos
-  var rect = document.getElementById(event.target.id).getBoundingClientRect();
-  var canvasPosX = event.clientX - rect.left;
+  var canvasObj = document.getElementById(event.target.id);
+  var colorspaceCenterX = Math.round(canvasObj.width / 2);
+  var colorspaceCenterY = Math.round(canvasObj.height / 2);
+  var colorspaceRadius = Math.round((canvasObj.width / 2) * radiusratio);
+  var xStart = canvasObj.width * 0.1;
+  var yStart = canvasObj.height * 0.1;
+  var xEnd = canvasObj.width * 0.9;
+  var yEnd = canvasObj.height * 0.9;
+
+
+
+  var rect = canvasObj.getBoundingClientRect();
+  /*var canvasPosX = event.clientX - rect.left;
   var canvasPosY = event.clientY - rect.top;
   var ratioToColorspaceResolutionX = hue_resolution_X / rect.width;
   var ratioToColorspaceResolutionY = hue_resolution_Y / rect.height;
   mousePosX = canvasPosX * ratioToColorspaceResolutionX;
-  mousePosY = canvasPosY * ratioToColorspaceResolutionY;
-  var xWidth = hue_resolution_X * labSpaceRectRange;
-  var yHeight = hue_resolution_Y * labSpaceRectRange;
-  var colorspaceCenterX = Math.round(hue_resolution_X/2);
-  var colorspaceCenterY = Math.round(hue_resolution_Y/2);
-  var colorspaceRadius = Math.round((hue_resolution_X/2)*radiusratio);
+  mousePosY = canvasPosY * ratioToColorspaceResolutionY;*/
+  mousePosX =  event.clientX - rect.left;
+  mousePosY = event.clientY - rect.top;
 
-
+  var xWidth = canvasObj.width * labSpaceRectRange;
+  var yHeight = canvasObj.height * labSpaceRectRange;
 
   if(mouseGrappedKeyID==-1){
 
     // check if mouse is above a element
-    for (var i = 0; i < spaceElementsType.length; i++) {
+
+    var displayColor;
+    for (var i = 0; i < globalCMS1.getKeyLength(); i++) {
+
+      var found = false;
+
+      var tmpColor, tmpColor2, tmpPos;
+
+      switch (globalCMS1.getKeyType(i)) {
+        case "nil key":
+          // do nothing
+
+          break;
+        case "twin key":
+
+          tmpColor = globalCMS1.getLeftKeyColor(i, pathColorspace);
+          tmpColor2 = globalCMS1.getRightKeyColor(i, pathColorspace);
+
+          var drawCircle = true;
+
+          if (globalCMS1.getKeyType(i - 1) === "nil key" || globalCMS1.getKeyType(i - 1) === "left key")
+            drawCircle = false;
+
+
+          ////////////////////////////////////////////////////////////////
+          /////// V Plot
+
+          if(drawCircle){
+
+            tmpPos = calcHuePos(tmpColor,xStart,xEnd, yStart, yEnd, colorspaceCenterX,colorspaceCenterY,colorspaceRadius,xWidth,yHeight);
+
+            if (checkInsideCirce(tmpPos[0], tmpPos[1], i,0)) {
+              found = true;
+              displayColor=tmpColor;
+              break;
+            }
+
+            tmpPos = calcHuePos(tmpColor2,xStart,xEnd, yStart, yEnd, colorspaceCenterX,colorspaceCenterY,colorspaceRadius);
+            if (checkInsideCirce(tmpPos[0], tmpPos[1], i,1)) {
+              found = true;
+              displayColor=tmpColor2;
+              break;
+            }
+
+          }
+          else{
+
+            tmpPos = calcHuePos(tmpColor2,xStart,xEnd, yStart, yEnd, colorspaceCenterX,colorspaceCenterY,colorspaceRadius);
+            if (checkInsideCirce(tmpPos[0], tmpPos[1], i,1)) {
+              displayColor=tmpColor2;
+              found = true;
+              break;
+            }
+
+
+            tmpPos = calcHuePos(tmpColor,xStart,xEnd, yStart, yEnd, colorspaceCenterX,colorspaceCenterY,colorspaceRadius,xWidth,yHeight);
+            if (checkInsideRect(tmpPos[0], tmpPos[1], i,0)) {
+              displayColor=tmpColor;
+              found = true;
+              break;
+            }
+
+          }
+
+          break;
+        case "left key":
+
+          tmpColor = globalCMS1.getLeftKeyColor(i, pathColorspace);
+
+          var drawCircle = true;
+          if (globalCMS1.getKeyType(i - 1) === "nil key" || globalCMS1.getKeyType(i - 1) === "left key")
+            drawCircle = false;
+
+
+          tmpPos = calcHuePos(tmpColor,xStart,xEnd, yStart, yEnd, colorspaceCenterX,colorspaceCenterY,colorspaceRadius,xWidth,yHeight);
+          if(drawCircle){
+              if (checkInsideCirce(tmpPos[0], tmpPos[1], i,0)) {
+                displayColor=tmpColor;
+                found = true;
+                break;
+              }
+          }
+          else{
+              if (checkInsideRect(tmpPos[0], tmpPos[1], i,0)) {
+                displayColor=tmpColor;
+                found = true;
+                break;
+              }
+          }
+          break;
+
+          case "right key":
+
+          tmpColor = globalCMS1.getRightKeyColor(i, pathColorspace); // right color because of right key
+
+          tmpPos = calcHuePos(tmpColor,xStart,xEnd, yStart, yEnd, colorspaceCenterX,colorspaceCenterY,colorspaceRadius,xWidth,yHeight);
+
+          if (checkInsideCirce(tmpPos[0], tmpPos[1], i,1)) {
+            displayColor=tmpColor;
+            found = true;
+          }
+
+          break;
+        default:
+          // dual Key
+
+          tmpColor = globalCMS1.getRightKeyColor(i, pathColorspace); // right color because of right key
+
+          tmpPos = calcHuePos(tmpColor,xStart,xEnd, yStart, yEnd, colorspaceCenterX,colorspaceCenterY,colorspaceRadius,xWidth,yHeight);
+          if (checkInsideCirce(tmpPos[0], tmpPos[1], i,2)) {
+            displayColor=tmpColor;
+            found = true;
+            break;
+          }
+
+          if(globalCMS1.getKeyType(i-1)==="left key"){
+            tmpX = vPlotxStart+((globalCMS1.getRefPosition(i-1)-globalCMS1.getRefPosition(0))/globalCMS1.getRefRange())*plotwidth;
+            if (checkInsideRect(tmpX, tmpY, i,2)) {
+              displayColor=tmpColor;
+              found = true;
+              break;
+            }
+          }
+
+      }
+
+      if (found) {
+        document.getElementById(event.target.id).style.cursor = "pointer";
+        switch(pathColorspace) {
+          case "hsv":
+              var diplay1Val = Math.round(displayColor.get1Value()*360);
+              var diplay2Val = Math.round(displayColor.get2Value()*100);
+              var diplay3Val = Math.round(displayColor.get3Value()*100);
+              document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "H : " + diplay1Val + ", S : " + diplay2Val + ", V : " + diplay3Val;
+            break
+          case "lab":
+              var diplay1Val = Math.round(displayColor.get1Value());
+              var diplay2Val = Math.round(displayColor.get2Value());
+              var diplay3Val = Math.round(displayColor.get3Value());
+              document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L : " + diplay1Val + ", a : " + diplay2Val + ", b : " + diplay3Val;
+            break;
+          case "din99":
+              var diplay1Val = Math.round(displayColor.get1Value());
+              var diplay2Val = Math.round(displayColor.get2Value());
+              var diplay3Val = Math.round(displayColor.get3Value());
+              document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L99 : " + diplay1Val + ", a99 : " + diplay2Val + ", b99 : " + diplay3Val;
+            break;
+          default:
+            console.log("Error at the getC1CurrentValue function");
+            return;
+        }
+        break;
+      }
+      else{
+        mouseAboveKeyID = -1;
+        mouseGrappedColorSide = -1;
+      }
+
+
+    }
+
+
+
+    drawcolormap_hueSpace(false,false,false);
+
+
+
+
+
+
+
+    /*for (var i = 0; i < spaceElementsType.length; i++) {
       if (mouseAboveKeyID == spaceElementsKey[i]) {
 
         if (spaceElementsType[i] == true) {
@@ -131,7 +311,7 @@ function mouseMoveColorspace(event) {
 
         }
       }
-    }
+    }*/
 
   }//if grapped key == -1
   else{
@@ -184,10 +364,6 @@ function mouseMoveColorspace(event) {
         }
         break;
       case "din99":
-        var xStart = hue_resolution_X * 0.1;
-        var yStart = hue_resolution_Y * 0.1;
-        var xEnd = hue_resolution_X * 0.9;
-        var yEnd = hue_resolution_Y * 0.9;
         var a99Val = ((mousePosX - xStart) / (xEnd - xStart)) * rangeA99 + rangeA99Neg;
         var b99Val = ((mousePosY - yStart) / (yEnd - yStart)) * rangeB99 + rangeB99Neg;
 
@@ -215,6 +391,7 @@ function mouseMoveColorspace(event) {
             }
           }
         } else {
+          console.log(123);
           return;
         }
         break;
@@ -329,6 +506,37 @@ function mouseUpColorspace() {
 
 }
 
+function calcHuePos(tmpColor,xStart,xEnd, yStart, yEnd, colorspaceCenterX,colorspaceCenterY,colorspaceRadius,xWidth,yHeight){
+
+  var tmpPos=[];
+  var xPos = undefined;
+  var yPos = undefined;
+
+  switch (pathColorspace) {
+      case "hsv":
+        var tmpDis = tmpColor.getSValue() * colorspaceRadius;
+        var tmpRad = (tmpColor.getHValue() * Math.PI * 2) - Math.PI;
+        xPos = tmpDis * Math.cos(tmpRad) + colorspaceCenterX;
+        yPos = tmpDis * Math.sin(tmpRad) + colorspaceCenterY;
+        break;
+      break;
+      case "lab":
+        xPos = ((tmpColor.getAValue() / labSpaceRange) * xWidth / 2) + colorspaceCenterX;
+        yPos = ((tmpColor.getBValue() / labSpaceRange) * yHeight / 2) + colorspaceCenterY;
+        break;
+      case "din99":
+        xPos = ((tmpColor.getA99Value() - rangeA99Neg) / rangeA99 * (xEnd - xStart)) + xStart;
+        yPos = ((tmpColor.getB99Value() - rangeB99Neg) / rangeB99 * (yEnd - yStart)) + yStart;
+        break;
+      break;
+        default:
+          console.log("Error at the changeColorspace function");
+          return;
+      }
+  tmpPos=[xPos,yPos];
+  return tmpPos;
+}
+
 
 /////////////////////////////////////
 // -------------Event COLORSPACE VALUE---------------//
@@ -408,9 +616,11 @@ function checkInsideRect(centerPosX, centerPosY, i, colorside) {
 
 function checkInsideCirce(centerPosX, centerPosY, i, colorside) {
 
+
   if (mouseAboveKeyID == i) {
     // Circle -> Part of Scaled Band
     var dis = Math.sqrt(Math.pow(centerPosX - mousePosX, 2) + Math.pow(centerPosY - mousePosY, 2));
+
     if (dis > bigcircleRad) {
       mouseAboveKeyID = -1;
 
@@ -423,7 +633,6 @@ function checkInsideCirce(centerPosX, centerPosY, i, colorside) {
   } else {
 
     var dis = Math.sqrt(Math.pow(centerPosX - mousePosX, 2) + Math.pow(centerPosY - mousePosY, 2));
-    //console.log(dis +" <= "+ circleRad);
 
     if (dis <= circleRad) {
       mouseAboveKeyID = i;

@@ -31,6 +31,28 @@ function rgbInit() {
     var xWidth = xEnd - xStart;
     var yHeight = yStart - yEnd;
 
+    var r = 0;
+    var g = 0;
+    var b = 0;
+
+    if (mouseGrappedKeyID != -1) {
+
+      var tmpColor;
+      switch (mouseGrappedColorSide) {
+        case 0:
+        // left color
+          tmpColor = globalCMS1.getLeftKeyColor(mouseGrappedKeyID, "rgb");
+          break;
+        default:
+          // both colors
+          tmpColor = globalCMS1.getRightKeyColor(mouseGrappedKeyID, "rgb");
+      }
+
+      r=tmpColor.get1Value();
+      g=tmpColor.get2Value();
+      b=tmpColor.get3Value();
+    }
+
     //RG
     for (var x = 0; x < canvasObj0.width; x++) {
 
@@ -43,42 +65,20 @@ function rgbInit() {
           var xVal = (x - xStart) / xWidth;
           var yVal = (yStart - y) / yHeight;
 
-
           var index = (x + y * canvasObj0.width) * 4;
 
-          var r,g,b =0;
-
-          console.log(mouseGrappedKeyID);
-
-          if (mouseGrappedKeyID != -1) {
-
-            var tmpColor;
-            switch (mouseGrappedColorSide) {
-              case 0:
-              // left color
-                tmpColor = globalCMS1.getLeftKeyColor(mouseGrappedKeyID, "rgb");
-                break;
-              default:
-                // both colors
-                tmpColor = globalCMS1.getRightKeyColor(mouseGrappedKeyID, "rgb");
-            }
-
-            r=tmpColor.get1Value();
-            g=tmpColor.get1Value();
-            b=tmpColor.get1Value();
-          }
 
             canvasData0.data[index + 0] = Math.round(yVal * 255); // r
             canvasData0.data[index + 1] = Math.round(xVal * 255); // g
-            canvasData0.data[index + 2] = Math.round(b); // b
+            canvasData0.data[index + 2] = Math.round(b * 255); // b
             canvasData0.data[index + 3] = 255; //a
 
             canvasData1.data[index + 0] = Math.round(yVal * 255); // r
-            canvasData1.data[index + 1] = Math.round(g); // g
+            canvasData1.data[index + 1] = Math.round(g * 255); // g
             canvasData1.data[index + 2] = Math.round(xVal * 255); // b
             canvasData1.data[index + 3] = 255; //a
 
-            canvasData2.data[index + 0] = Math.round(r); // r
+            canvasData2.data[index + 0] = Math.round(r * 255); // r
             canvasData2.data[index + 1] = Math.round(xVal * 255); // g
             canvasData2.data[index + 2] = Math.round(yVal * 255); // b
             canvasData2.data[index + 3] = 255; //a
@@ -433,8 +433,6 @@ function drawInterpolationLineInRGB() {
 
 }
 
-
-
 function drawRGBElement(tmpColor,xWidth,yHeight,xStart,yStart, drawCircle,canvasContexRG,canvasContexRB,canvasContexBG, keyIndex,colorSide){
 
   var tmpArray = [-1, -1, -1];
@@ -490,10 +488,6 @@ function drawRGBElement(tmpColor,xWidth,yHeight,xStart,yStart, drawCircle,canvas
     draw3DElement(tmpColor.getHexString(), x1, y1, z1, keyIndex,colorSide, drawCircle);
   }
 }
-
-
-
-
 
 function drawRGBline(tmpColor,tmpColor2,xWidth,yHeight,xStart,yStart, isDashed,isCompareMap,canvasContexRG,canvasContexRB,canvasContexBG){
   // RG
