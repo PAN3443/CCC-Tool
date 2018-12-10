@@ -237,7 +237,7 @@ function switchAnalyzeMappingProbeSet(type){
 
     case 1:
       document.getElementById("id_editPage_SelectMapping").style.background=styleActiveColor;
-      document.getElementById("id_EditPage_DivMapping").style.display="flex";
+      document.getElementById("id_EditPage_DivMapping").style.display="block";
 
         var rect = document.getElementById("id_EditPage_DivMapping").getBoundingClientRect();
         document.getElementById("id_EditPage_DrawMappingDiv").style.height=rect.height+"px";

@@ -1,3 +1,25 @@
+function showHideHistogram(){
+
+  if (!document.getElementById("id_dropDownMenue_ShowHistogram").classList.contains('dropdownNotActiveMenuButton')){
+
+    if(document.getElementById("id_EditPage_Histogram_Div").style.display=="none"){
+      document.getElementById("id_EditPage_Histogram_Div").style.display="block";
+      document.getElementById("id_EditPage_Mapping_Div").style.height="50%";
+      drawHistogram(false);
+    }
+    else {
+      document.getElementById("id_EditPage_Histogram_Div").style.display="none";
+      document.getElementById("id_EditPage_Mapping_Div").style.height="100%";
+    }
+
+  }
+  else{
+    document.getElementById("id_EditPage_Histogram_Div").style.display="none";
+    document.getElementById("id_EditPage_Mapping_Div").style.height="100%";
+  }
+
+}
+
 function drawHistogramMap(rangeStart,rangeEnd){
 
   var canvasPlot = document.getElementById("id_EditPage_CMS_VIS_HistogrammCMS");

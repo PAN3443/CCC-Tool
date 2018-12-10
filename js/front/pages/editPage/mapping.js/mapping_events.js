@@ -8,10 +8,20 @@ function updateDomainCMSRange(){
 
 }
 
+function changeAutoMapping(){
+  if(document.getElementById("id_EditPage_Mapping_DoAutoUpdate").checked)
+    document.getElementById("id_EditPage_MappingManual_Button").style.display="none";
+  else
+    document.getElementById("id_EditPage_MappingManual_Button").style.display="flex";
+
+}
+
 
 function changeBackground(){
 
   document.getElementById("id_EditPage_MappingBackground_Custom").style.background = mappingBackgroundColor.getRGBString();
+  document.getElementById("id_EditPageCustomColorDiv").style.display = "none";
+
 
   switch (document.getElementById("id_EditPage_MappingBackground_Select").selectedIndex) {
     case 0:
@@ -24,6 +34,7 @@ function changeBackground(){
           document.getElementById("id_EditPage_DrawMappingDiv").style.background = "black";
           break;
     default:
+    document.getElementById("id_EditPageCustomColorDiv").style.display = "block";
     document.getElementById("id_EditPage_DrawMappingDiv").style.background = mappingBackgroundColor.getRGBString();
   }
 }
