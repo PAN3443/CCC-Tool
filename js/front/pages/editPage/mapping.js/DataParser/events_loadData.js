@@ -68,28 +68,13 @@ function readDataFile(e) {
 
         console.log("Generate Cells");
         console.log("Number of generated Cells = "+ globalDomain.generateCells(currentFieldIndex,currentTimeIndex));
-        //updateProgressBar(75);
 
         console.log("Start Color Mapping");
         drawMapping();
-        //updateProgressBar(100);
-
-        /*if(document.getElementById("colormappingOptions_Container").style.display==="none")
-        document.getElementById("colormappingOptions_Container").style.display="initial";
 
 
-        if(document.getElementById("colormappingHistogram_Container").style.display==="none")
-        document.getElementById("colormappingHistogram_Container").style.display="inline-block";
-
-        if(document.getElementById("colormappingColorBlindnessSim_Container").style.display==="none")
-        document.getElementById("colormappingColorBlindnessSim_Container").style.display="inline-block";
-
-        if(document.getElementById("colormappingVis_Container").style.display==="none")
-        document.getElementById("colormappingVis_Container").style.display="inline-block";
-
-        document.getElementById("id_ProcessbarContainer").style.display="none";*/
-
-        document.getElementById("id_EditPage_IncludingDataDiv").style.visibility="visible";
+        document.getElementById("id_EditPage_DataAutoScaleButton").style.visibility="visible";
+        document.getElementById("id_EditPage_DataInfoButton").style.visibility="visible";
 
         if (document.getElementById("id_dropDownMenue_ShowHistogram").classList.contains('dropdownNotActiveMenuButton'))
           document.getElementById("id_dropDownMenue_ShowHistogram").classList.remove('dropdownNotActiveMenuButton');

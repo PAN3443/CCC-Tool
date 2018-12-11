@@ -168,7 +168,7 @@ function updateEditPage(){
       else{
         // updateMapping
 
-        if(document.getElementById("id_EditPage_Mapping_DoAutoUpdate").checked==true && mapping_doingAnimation){
+        if(doAutoUpdate && mapping_doingAnimation){
           updateMesh();
         }
 
@@ -253,7 +253,7 @@ function switchAnalyzeMappingProbeSet(type){
 
         animateMapping();
 
-        if(document.getElementById("id_EditPage_Mapping_DoAutoUpdate").checked==true && mapping_doingAnimation){
+        if(doAutoUpdate && mapping_doingAnimation){
           updateMesh();
         }
     break;

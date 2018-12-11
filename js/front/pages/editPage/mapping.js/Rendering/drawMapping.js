@@ -2,14 +2,13 @@ function drawMapping() {
   if(globalCMS1.getKeyLength()==0)
   return;
 
-  // if worker
-
-  // else
-
   if (globalDomain.getNumberOfCells() == 0) {
     console.log("Error there are no generated cells.");
     return;
   }
+
+  coordinateArrowsGroup.position.x = 0;
+  coordinateArrowsGroup.position.y = 0;
 
   var type = globalDomain.getCell(0).getCellType();
 
@@ -81,10 +80,13 @@ function drawMapping() {
 
       mappingMesh = new THREE.Mesh(geometry, material);
 
-      mappingMesh.position.x += currentOriginX-center.x;
+      /*mappingMesh.position.x += currentOriginX-center.x;
       mappingMesh.position.y += currentOriginY-center.y;
-      mappingMesh.position.z += -1*center.z;
+      mappingMesh.position.z += -1*center.z;*/
 
+      mappingMesh.position.x = -1*center.x;
+      mappingMesh.position.y = -1*center.y;
+      mappingMesh.position.z = -1*center.z;
 
       //// update arrow
 
@@ -151,7 +153,7 @@ function updateMesh() {
   ///////////////
   // Lets start with coloring
 
-  if(browserCanWorker && document.getElementById("id_EditPage_Mapping_DoParallel").checked==true){
+  if(browserCanWorker && doParallelProcessing){
 
     if(allWorkerFinished){
 
@@ -212,6 +214,9 @@ function updateMesh() {
       tmpRefVal.push(workCMS.getKey(workCMS.getKeyLength()-1).getRefPosition());
       tmpMoT.push(workCMS.getKey(workCMS.getKeyLength()-1).getMoT());
 
+      var tmpAbove = workCMS.getAboveColor("rgb");
+      var tmpBelow = workCMS.getBelowColor("rgb");
+
       workerArray=[];
       workerFinished=[];
       for (var i = 0; i < workerJSON.length; i++) {
@@ -229,6 +234,14 @@ function updateMesh() {
         workerJSON[i].cielab_ref_X = cielab_ref_X;
         workerJSON[i].cielab_ref_Y = cielab_ref_Y;
         workerJSON[i].cielab_ref_Z = cielab_ref_Z;
+
+        workerJSON[i].aboveC1 = tmpAbove.get1Value();
+        workerJSON[i].aboveC2 = tmpAbove.get2Value();
+        workerJSON[i].aboveC3 = tmpAbove.get3Value();
+
+        workerJSON[i].belowC1 = tmpBelow.get1Value();
+        workerJSON[i].belowC2 = tmpBelow.get2Value();
+        workerJSON[i].belowC3 = tmpBelow.get3Value();
 
         var tmpWorker = new Worker('js/front/worker/VisWorker/colorMappingWorker.js');
         tmpWorker.addEventListener('message', eventFunctionColorMapping, false);
@@ -332,6 +345,14 @@ function workerPreparation(){
      jsonObj['cielab_ref_X'] = cielab_ref_X;
      jsonObj['cielab_ref_Y'] = cielab_ref_Y;
      jsonObj['cielab_ref_Z'] = cielab_ref_Z;
+
+     jsonObj['aboveC1'] = undefined;
+     jsonObj['aboveC2'] = undefined;
+     jsonObj['aboveC3'] = undefined;
+
+     jsonObj['belowC1'] = undefined;
+     jsonObj['belowC2'] = undefined;
+     jsonObj['belowC3'] = undefined;
 
 
      // fill cellIndices and cellValues

@@ -1,6 +1,5 @@
 function drawConstantBands(){
 
-    console.log(123);
   //---------------------------
   // --------- Empty Divs
   document.getElementById('id_EditPage_ConstBandDiv').innerHTML = "";

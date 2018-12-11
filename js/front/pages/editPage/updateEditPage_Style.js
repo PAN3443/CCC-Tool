@@ -186,7 +186,14 @@ function update_EditPageStyle(){
 
     }
 
-    updateEditPage();
+
+    if(document.getElementById("id_EditPage_DivMapping").style.display!="none"){
+      updateMappingSize();
+    }
+    else {
+      updateEditPage();
+    }
+
 
     if(document.getElementById("id_EditPage_Edit_Keys").style.display!="none"){
        openEditKeyDiv(document.getElementById("id_EditPage_EditKey_List").selectedIndex);

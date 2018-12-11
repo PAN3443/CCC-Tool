@@ -16,6 +16,7 @@ function styleStructure_GlobalSpeed(){
     document.getElementById("id_EditPage_ColorAboveFixedAxis_GlobalLocalOrder").style.background = globalPlotAboveColor.getRGBString();
     document.getElementById("id_EditPage_DoLogDiv_GlobalLocalOrder").style.display = "block";
     document.getElementById("id_EditPage_FixedAxisLabel_GlobalLocalOrder").innerHTML="Fixed Global Speed Difference:";
+
     styleGlobalLocalOrderPlot();
     updateKeySelection();
 

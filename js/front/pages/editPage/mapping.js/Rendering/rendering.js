@@ -1,48 +1,33 @@
 
 function changeAxisVisibility(){
 
-  var tmpVisibility = false;
-  if(document.getElementById('id_EditPage_Mapping_ShowAxis').checked){
-    tmpVisibility=true;
+  if(showMappingAxis){
+    showMappingAxis=false;
+    document.getElementById('id_EditPage_Mapping_ShowAxis').style.background=styleNotActiveColor;
+  }
+  else{
+    showMappingAxis=true;
+    document.getElementById('id_EditPage_Mapping_ShowAxis').style.background=styleActiveColor;
   }
 
   for (var i = 0; i < coordinateArrowsGroup.children.length; i++) {
     if (coordinateArrowsGroup.children[i] instanceof THREE.ArrowHelper) {
-        coordinateArrowsGroup.children[i].visible = tmpVisibility;
+        coordinateArrowsGroup.children[i].visible = showMappingAxis;
     }
   }
 }
 
 
 
-/*function updateMappingSize(type)
+
+function updateMappingSize()
 {
+  var box = document.getElementById("id_EditPage_DrawMappingDiv").getBoundingClientRect();
 
-  var canvasObj = document.getElementById("id_EditPage_DrawMappingDiv");
-
-
-  switch (type) {
-    case 0:
-        if(mappingContainerHeight<100)
-          mappingContainerHeight+=5;
-        else
-          return;
-
-
-      break;
-      case 1:
-          if(mappingContainerHeight>30)
-            mappingContainerHeight-=5;
-          else
-            return;
-        break;
-    default:
-
+  if(document.getElementById("id_PopUp_fullMappingWindow").style.display!="none"){
+    box = document.getElementById("id_PopUp_FullMappingDiv").getBoundingClientRect();
   }
 
-  canvasObj.style.height=mappingContainerHeight+"vh";
-
-  var box = canvasObj.getBoundingClientRect();
   var drawWidth = box.width; //window.innerWidth;
   var drawHeight =box.height; // window.innerHeight;
 
@@ -51,20 +36,12 @@ function changeAxisVisibility(){
 
 	mapping_renderer.setSize(drawWidth, drawHeight);//*
 
-
   ////////////// updating the input elements
 
-  for (var i = refLineSketchContainer.length - 1; i >= 0; i--) {
-    refLineSketchContainer[i].remove();
-    refLineSketchContainer.pop();
-  }
-
-  drawKeys("id_keyColormap", key_resolution_X, key_resolution_Y, globalCMS1, "id_keyColormapLinesBottom");
-  drawBandSketch(globalCMS1,"id_colormapSketch","id_createColormapKeys","id_colormapSketch_Ref", false, -1);
-
   // update the positions of the input fields
-  orderColorSketch(colorspaceModus);
-}*/
+  updateEditPage();
+}
+
 
 function renderMapping() {
 
@@ -109,7 +86,6 @@ function animateMapping() {
         mapping_doingAnimation = true;
 				//stats.update();
 }
-
 
 
 function initMapping()
@@ -198,7 +174,11 @@ function initMapping()
 
 function eventMapping_mousemove(event){
   // calc mouse pos
-  var rect = document.getElementById('id_EditPage_DrawMappingDiv').getBoundingClientRect();//event.target.id
+  var rect = document.getElementById("id_EditPage_DrawMappingDiv").getBoundingClientRect();//event.target.id
+
+  if(document.getElementById("id_PopUp_fullMappingWindow").style.display!="none"){
+    rect = document.getElementById("id_PopUp_FullMappingDiv").getBoundingClientRect();
+  }
 
   var canvasPosX = event.clientX - rect.left;
   var canvasPosY = event.clientY - rect.top;

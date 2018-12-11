@@ -11,6 +11,10 @@ var globalDomain;
 
 var mappingContainerHeight=50;
 
+var doAutoUpdate = true;
+var showMappingAxis = true;
+var doParallelProcessing = true;
+
 ////////// rendering
 
 var mapping_doingAnimation = false;

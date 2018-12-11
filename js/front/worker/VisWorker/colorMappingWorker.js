@@ -18,10 +18,24 @@ self.addEventListener('message', function(e) {
 
       for (var valIndex = 0; valIndex < data.cellValues.length; valIndex++) {
 
-        if (data.cellValues[valIndex] < data.refVal[0] || data.cellValues[valIndex] > data.refVal[data.refVal.length - 1]) {
+        if (isNaN(data.cellValues[valIndex])) {
           jsonObj.cVal1.push(undefined);
           jsonObj.cVal2.push(undefined);
           jsonObj.cVal3.push(undefined);
+          continue;
+        }
+
+        if (data.cellValues[valIndex] < data.refVal[0] ) {
+          jsonObj.cVal1.push(data.belowC1);
+          jsonObj.cVal2.push(data.belowC2);
+          jsonObj.cVal3.push(data.belowC3);
+          continue;
+        }
+
+        if (data.cellValues[valIndex] > data.refVal[data.refVal.length - 1]) {
+          jsonObj.cVal1.push(data.aboveC1);
+          jsonObj.cVal2.push(data.aboveC2);
+          jsonObj.cVal3.push(data.aboveC3);
           continue;
         }
 
@@ -106,10 +120,24 @@ self.addEventListener('message', function(e) {
 
       for (var valIndex = 0; valIndex < data.cellValues.length; valIndex++) {
 
-        if (data.cellValues[valIndex] < data.refVal[0] || data.cellValues[valIndex] > data.refVal[data.refVal.length - 1]) {
+        if (isNaN(data.cellValues[valIndex])) {
           jsonObj.cVal1.push(undefined);
           jsonObj.cVal2.push(undefined);
           jsonObj.cVal3.push(undefined);
+          continue;
+        }
+
+        if (data.cellValues[valIndex] < data.refVal[0] ) {
+          jsonObj.cVal1.push(data.belowC1);
+          jsonObj.cVal2.push(data.belowC2);
+          jsonObj.cVal3.push(data.belowC3);
+          continue;
+        }
+
+        if (data.cellValues[valIndex] > data.refVal[data.refVal.length - 1]) {
+          jsonObj.cVal1.push(data.aboveC1);
+          jsonObj.cVal2.push(data.aboveC2);
+          jsonObj.cVal3.push(data.aboveC3);
           continue;
         }
 
@@ -301,12 +329,27 @@ self.addEventListener('message', function(e) {
 
       for (var valIndex = 0; valIndex < data.cellValues.length; valIndex++) {
 
-        if (data.cellValues[valIndex] < data.refVal[0] || data.cellValues[valIndex] > data.refVal[data.refVal.length - 1]) {
+        if (isNaN(data.cellValues[valIndex])) {
           jsonObj.cVal1.push(undefined);
           jsonObj.cVal2.push(undefined);
           jsonObj.cVal3.push(undefined);
           continue;
         }
+
+        if (data.cellValues[valIndex] < data.refVal[0] ) {
+          jsonObj.cVal1.push(data.belowC1);
+          jsonObj.cVal2.push(data.belowC2);
+          jsonObj.cVal3.push(data.belowC3);
+          continue;
+        }
+
+        if (data.cellValues[valIndex] > data.refVal[data.refVal.length - 1]) {
+          jsonObj.cVal1.push(data.aboveC1);
+          jsonObj.cVal2.push(data.aboveC2);
+          jsonObj.cVal3.push(data.aboveC3);
+          continue;
+        }
+
 
 
           var foundSomething = false;

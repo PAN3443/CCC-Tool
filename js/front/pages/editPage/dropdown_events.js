@@ -42,6 +42,11 @@ function activateDropdown(event) {
                           dropdownID = "id_EditPage_editProbeFunctionDropDown";
                           document.getElementById("id_EditPage_editProbeTypeDropDown").style.display="none";
                           break;
+
+                          case "id_EditPage_DataInfoButton":
+                            onTop=true;
+                            dropdownID = "id_EditPage_DataInfoDiv";
+                            break;
       default:
         return;
     }

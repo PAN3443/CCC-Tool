@@ -67,6 +67,8 @@ function init_events_EditPage(){
 
   limitKeyBurLine=true;
 
+  document.getElementById('id_EditPage_DataInfoButton').addEventListener("click", activateDropdown);
+
   document.getElementById('id_EditPage_selectProbeTypeLabel').addEventListener("click", activateDropdown);
   document.getElementById('id_EditPage_selectProbeSetRangeType').addEventListener("click", activateDropdown);
 
@@ -121,6 +123,15 @@ function init_events_EditPage(){
     document.getElementById('id_EditPage_DrawMappingDiv').addEventListener("mouseup", eventMapping_mouseup);
     document.getElementById("id_EditPage_DrawMappingDiv").addEventListener("wheel", eventMapping_mousewheel);
 
+    document.getElementById('id_PopUp_FullMappingDiv').addEventListener('contextmenu', event => event.preventDefault());
+    document.getElementById('id_PopUp_FullMappingDiv').addEventListener("mousemove", eventMapping_mousemove);
+    document.getElementById('id_PopUp_FullMappingDiv').addEventListener("mouseleave", eventMapping_mouseleave);
+    document.getElementById('id_PopUp_FullMappingDiv').addEventListener("mouseenter", eventMapping_mouseenter);
+    document.getElementById('id_PopUp_FullMappingDiv').addEventListener("mousedown", eventMapping_mousedown);
+    document.getElementById('id_PopUp_FullMappingDiv').addEventListener("mouseup", eventMapping_mouseup);
+    document.getElementById("id_PopUp_FullMappingDiv").addEventListener("wheel", eventMapping_mousewheel);
+
+
 
     if (browserCanWorker) {
       document.getElementById('id_EditPage_Mapping_DoParallel').checked = true;
@@ -129,8 +140,8 @@ function init_events_EditPage(){
       document.getElementById('id_EditPage_Mapping_DoParallel').disabled = true;
     }
 
-    document.getElementById('id_EditPage_Mapping_DoAutoUpdate').addEventListener("change", changeAutoUpdate);
-    document.getElementById('id_EditPage_Mapping_ShowAxis').addEventListener("change", changeAxisVisibility);
+    //document.getElementById('id_EditPage_Mapping_DoAutoUpdate').addEventListener("change", changeAutoUpdate);
+    document.getElementById('id_EditPage_Mapping_ShowAxis').addEventListener("click", changeAxisVisibility);
 
     document.getElementById('id_EditPage_SelectMappingField').addEventListener("change", changeField);
     document.getElementById('id_EditPage_SelectMappingTimeStep').addEventListener("change", changeTimeStep);

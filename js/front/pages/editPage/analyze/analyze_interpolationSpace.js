@@ -22,6 +22,11 @@ function styleStructure_InterpolationSpaces(){
 
     document.getElementById("id_EditPage_EuDisLabel_IntSpaceKeySpeed").style.display = "none";
 
+    document.getElementById("id_EditPage_CanvasLAB_IntSpaceKeySpeed").style.height = "12vh";
+    document.getElementById("id_EditPage_CanvasDIN99_IntSpaceKeySpeed").style.height = "12vh";
+    document.getElementById("id_EditPage_CanvasRGB_IntSpaceKeySpeed").style.height = "12vh";
+    document.getElementById("id_EditPage_CanvasHSV_IntSpaceKeySpeed").style.height = "12vh";
+
 
     var oldInterpolation = globalCMS1.getInterpolationSpace();
     if(document.getElementById("id_EditPage_AnalyzeSelect_LinearVisType").checked){

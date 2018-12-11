@@ -89,18 +89,18 @@ function fillExportTable(){
         case "nil key": case "left key":
 
           if(i==workCMS.getKeyLength()-1){
-            new_tbody.appendChild(createExportTableRow(counter,workCMS.getRefPosition(i), workCMS.getKeyType(i), workCMS.getLeftKeyColor(i,"rgb")));
+            new_tbody.appendChild(createExportTableRow(counter,workCMS.getRefPosition(i), workCMS.getKeyType(i), workCMS.getLeftKeyColor(i,exportColorspace)));
             counter++;
           }
           else{
 
 
             if(workCMS.getKeyType(i)=="left key"){
-            new_tbody.appendChild(createExportTableRow(counter,workCMS.getRefPosition(i), workCMS.getKeyType(i), workCMS.getLeftKeyColor(i,"rgb")));
+            new_tbody.appendChild(createExportTableRow(counter,workCMS.getRefPosition(i), workCMS.getKeyType(i), workCMS.getLeftKeyColor(i,exportColorspace)));
             counter++;
             }
 
-            new_tbody.appendChild(createExportTableRow(counter,workCMS.getRefPosition(i), workCMS.getKeyType(i), workCMS.getLeftKeyColor(i+1,"rgb")));
+            new_tbody.appendChild(createExportTableRow(counter,workCMS.getRefPosition(i), workCMS.getKeyType(i), workCMS.getLeftKeyColor(i+1,exportColorspace)));
             counter++;
 
         }
@@ -109,9 +109,9 @@ function fillExportTable(){
         case "twin key":
 
           var intervalIndexA = workCMS.getIntervalPositions(i);
-          new_tbody.appendChild(createExportTableRow(counter,workCMS.getRefPosition(i), workCMS.getKeyType(i), workCMS.getLeftKeyColor(i,"rgb")));
+          new_tbody.appendChild(createExportTableRow(counter,workCMS.getRefPosition(i), workCMS.getKeyType(i), workCMS.getLeftKeyColor(i,exportColorspace)));
           counter++;
-          new_tbody.appendChild(createExportTableRow(counter,workCMS.getRefPosition(i)+twinErrorValue, workCMS.getKeyType(i), workCMS.getRightKeyColor(i,"rgb")));
+          new_tbody.appendChild(createExportTableRow(counter,workCMS.getRefPosition(i)+twinErrorValue, workCMS.getKeyType(i), workCMS.getRightKeyColor(i,exportColorspace)));
           counter++;
 
           for(var j=intervalIndexA[0]; j<=intervalIndexA[1]; j++){
@@ -119,14 +119,14 @@ function fillExportTable(){
             if(workCMS.getIntervalisKey(j))
             continue;
 
-            new_tbody.appendChild(createExportTableRow(counter,workCMS.getIntervalRef(j), "interval", workCMS.getIntervalColor(j,"rgb")));
+            new_tbody.appendChild(createExportTableRow(counter,workCMS.getIntervalRef(j), "interval", workCMS.getIntervalColor(j,exportColorspace)));
             counter++;
           }
 
           break;
         default:
           var intervalIndexA = workCMS.getIntervalPositions(i);
-          new_tbody.appendChild(createExportTableRow(counter,workCMS.getRefPosition(i), workCMS.getKeyType(i), workCMS.getRightKeyColor(i,"rgb")));
+          new_tbody.appendChild(createExportTableRow(counter,workCMS.getRefPosition(i), workCMS.getKeyType(i), workCMS.getRightKeyColor(i,exportColorspace)));
           counter++;
 
           for(var j=intervalIndexA[0]; j<=intervalIndexA[1]; j++){
@@ -134,7 +134,7 @@ function fillExportTable(){
             if(workCMS.getIntervalisKey(j))
             continue;
 
-            new_tbody.appendChild(createExportTableRow(counter,workCMS.getIntervalRef(j), "interval", workCMS.getIntervalColor(j,"rgb")));
+            new_tbody.appendChild(createExportTableRow(counter,workCMS.getIntervalRef(j), "interval", workCMS.getIntervalColor(j,exportColorspace)));
             counter++;
           }
 
@@ -177,7 +177,7 @@ function createExportTableRow(counter,ref, type, tmpColor){
   td = document.createElement('td')
   td.className = "class_tableInput";
   td.style.width = "5%";
-  td.style.background = tmpColor.getRGBString();
+  td.style.background = tmpColor.calcRGBColor().getRGBString();
   tr.appendChild(td);
 
   return tr;

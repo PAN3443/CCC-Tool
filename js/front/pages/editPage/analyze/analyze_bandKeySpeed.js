@@ -18,6 +18,13 @@ function styleStructure_BandSpeed(){
 
     document.getElementById("id_EditPage_EuDisLabel_IntSpaceKeySpeed").style.display = "block";
 
+    document.getElementById("id_EditPage_CanvasDE94_IntSpaceKeySpeed").style.height = "7.25vh";
+    document.getElementById("id_EditPage_CanvasCIEDE2000_IntSpaceKeySpeed").style.height = "7.25vh";
+    document.getElementById("id_EditPage_CanvasLAB_IntSpaceKeySpeed").style.height = "7.25vh";
+    document.getElementById("id_EditPage_CanvasDIN99_IntSpaceKeySpeed").style.height = "7.25vh";
+    document.getElementById("id_EditPage_CanvasRGB_IntSpaceKeySpeed").style.height = "7.25vh";
+    document.getElementById("id_EditPage_CanvasHSV_IntSpaceKeySpeed").style.height = "7.25vh";
+
     draw_BandSpeed(globalCMS1,"id_EditPage_CanvasDE94_IntSpaceKeySpeed", 3);
     draw_BandSpeed(globalCMS1, "id_EditPage_CanvasCIEDE2000_IntSpaceKeySpeed", 4);
     draw_BandSpeed(globalCMS1, "id_EditPage_CanvasLAB_IntSpaceKeySpeed", 2);

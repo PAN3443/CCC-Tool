@@ -1,8 +1,23 @@
 
+//////////////////////////////////////
+/// Big Screen Mapping /////
+///////////////////////////////////
 
+function openFullMappingScreen(){
+  document.getElementById("id_PopUp_fullMappingWindow").style.display="block";
+  document.getElementById("id_PopUp_FullMappingDiv").appendChild( mapping_renderer.domElement);
+  updateMappingSize();
+}
 
+function closeFullMappingScreen(){
+  document.getElementById("id_PopUp_fullMappingWindow").style.display="none";
+  document.getElementById("id_EditPage_DrawMappingDiv").appendChild( mapping_renderer.domElement );
+  updateMappingSize();
+}
 
-
+//////////////////////////////////////
+/// Big Screen Analyze /////
+///////////////////////////////////
 
 function openFullAnalyzeScreen(){
   document.getElementById("id_PopUp_fullAnalzeWindow").style.display="block";
