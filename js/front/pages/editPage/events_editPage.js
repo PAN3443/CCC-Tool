@@ -90,14 +90,11 @@ function updateEditPage(){
         //document.getElementById("id_editPage_HelpImage1").style.display="none";
 
 
-        if(globalCMS1.getProbeSetLength()!=0 && document.getElementById("id_EditPage_PreviewProbe_Div").style.display!="none"){
-          document.getElementById("id_selectMainProbeSetList").style.visibility="visible";
+        if(globalCMS1.getProbeSetLength()!=0 && document.getElementById("id_EditPage_DivProbeSets").style.display!="none"){
 
-          /*updateProbeSetSelectBox();
-          document.getElementById("id_selectMainProbeSetList").selectedIndex=0;*/
-          var tmpCMS = globalCMS1.getProbeSet(document.getElementById("id_selectMainProbeSetList").selectedIndex).generateProbeCMS(globalCMS1);
+          var tmpCMS = globalCMS1.getProbeSet(document.getElementById("id_selectProbeSetList").selectedIndex).generateProbeCMS(globalCMS1);
 
-          drawCanvasColormap("id_EditPage_CMS_VIS_PreviewProbe", tmpCMS);
+          drawCanvasColormap("id_EditPage_ProbePreview", tmpCMS);
 
         }
 
@@ -260,6 +257,8 @@ function switchAnalyzeMappingProbeSet(type){
 
     case 2:
       document.getElementById("id_editPage_SelectProbeSet").style.background=styleActiveColor;
+      document.getElementById("id_EditPage_DivProbeSets").style.display="block";
+      init_editProbe();
     break;
     default:
     switchAnalyzeMappingProbeSet(0);

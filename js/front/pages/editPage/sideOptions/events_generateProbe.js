@@ -8,8 +8,18 @@ function changeGenerationProbeName(){
 
 function addProbeToCMS(){
   globalCMS1.addProbeSet(cloneProbeSet(globalProbeSet));
-  initProbePage();
+  document.getElementById("id_PopUp_GenerateProbeSetWindow").style.display = "none";
+  init_editProbe();
+  closeColorPicker();
 }
+
+function closeProbeGeneration(){
+  document.getElementById("id_PopUp_GenerateProbeSetWindow").style.display = "none";
+  init_editProbe();
+  closeColorPicker();
+}
+
+
 
 
 function checkKeyCustomRangeInput(){
@@ -57,10 +67,6 @@ function createProbe(start,end){
 }
 
 function generateProbeSet(){
-
-  if(document.getElementById("id_EditPage_generateProbeSet").style.display=="none")
-  return;
-
 
   globalProbeSet.clear();
 
@@ -186,6 +192,9 @@ function generateProbeSet(){
      }
 
      drawProbePreview(globalProbeSet);
+
+
+
 
 }
 

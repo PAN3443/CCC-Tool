@@ -40,17 +40,17 @@ function closeShortcutsWindow(){
 
 
 function updateShortCuts(){
-  document.getElementById("id_PopUp_Shortcuts_Undo_Label").style.innerHTML= short_undoKey;
-  document.getElementById("id_PopUp_Shortcuts_Redo_Label").style.innerHTML= short_redoKey;
-  document.getElementById("id_PopUp_Shortcuts_Save_Label").style.innerHTML= short_saveKey;
-  document.getElementById("id_PopUp_Shortcuts_Scale_Label").style.innerHTML= short_scaleKey;
-  document.getElementById("id_PopUp_Shortcuts_Clear_Label").style.innerHTML= short_clearKey;
-  document.getElementById("id_PopUp_Shortcuts_SaveAsNew_Label").style.innerHTML= short_dublicateKey;
-  document.getElementById("id_PopUp_Shortcuts_Export_Label").style.innerHTML= short_exportKey;
-  document.getElementById("id_PopUp_Shortcuts_Interpolation_Label").style.innerHTML= short_interpolationChangeKey;
-  document.getElementById("id_PopUp_Shortcuts_EditMode_Label").style.innerHTML= short_editWinKey;
-  document.getElementById("id_PopUp_Shortcuts_AnalyzeMode_Label").style.innerHTML= short_analyzeWinKey;
-  document.getElementById("id_PopUp_Shortcuts_MappingMode_Label").style.innerHTML= short_mappingWinKey;
+  document.getElementById("id_PopUp_Shortcuts_Undo_Label").innerHTML= short_undoKey;
+  document.getElementById("id_PopUp_Shortcuts_Redo_Label").innerHTML= short_redoKey;
+  document.getElementById("id_PopUp_Shortcuts_Save_Label").innerHTML= short_saveKey;
+  document.getElementById("id_PopUp_Shortcuts_Scale_Label").innerHTML= short_scaleKey;
+  document.getElementById("id_PopUp_Shortcuts_Clear_Label").innerHTML= short_clearKey;
+  document.getElementById("id_PopUp_Shortcuts_SaveAsNew_Label").innerHTML= short_dublicateKey;
+  document.getElementById("id_PopUp_Shortcuts_Export_Label").innerHTML= short_exportKey;
+  document.getElementById("id_PopUp_Shortcuts_Interpolation_Label").innerHTML= short_interpolationChangeKey;
+  document.getElementById("id_PopUp_Shortcuts_EditMode_Label").innerHTML= short_editWinKey;
+  document.getElementById("id_PopUp_Shortcuts_AnalyzeMode_Label").innerHTML= short_analyzeWinKey;
+  document.getElementById("id_PopUp_Shortcuts_MappingMode_Label").innerHTML= short_mappingWinKey;
 }
 
 function openShortcutsWindow(){

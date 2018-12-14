@@ -15,6 +15,7 @@ function openColorPicker(event){
 
   document.getElementById("id_popupColorPicker").style.display="block";
   document.getElementById("id_popupColorPicker").style.position="absolute";
+  document.getElementById("id_popupColorPicker").style.zIndex=85;
 
   var refObj = document.getElementById(event.target.id);
 
@@ -103,17 +104,16 @@ function openColorPicker(event){
                   break;
 
                   case "id_inputProbeColor":
-                    document.getElementById("id_popupColorPicker").style.position="fixed";
+                    document.getElementById("id_popupColorPicker").style.zIndex=105;
                     colorpickerColor=globalProbeColor;
                     // above the object
                     top =  refObj.offsetTop;
                     left = refObj.offsetLeft;
                     document.getElementById("id_popupColorPicker").style.top=(top-pickerBox.height)+"px";
-                    document.getElementById("id_popupColorPicker").style.left=(left-pickerBox.width)+"px";
+                    document.getElementById("id_popupColorPicker").style.left=(left+box.width)+"px";
                     break;
 
                     case "id_inputEditProbeColor":
-                      document.getElementById("id_popupColorPicker").style.position="fixed";
                       colorpickerColor=globalProbeColor;
                       // above the object
                       top =  refObj.offsetTop;

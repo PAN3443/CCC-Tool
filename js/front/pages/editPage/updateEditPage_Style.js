@@ -28,9 +28,9 @@ function updateAnalzyeMappingProbeSetStatus(){
     }
 
     update_EditPageStyle();
-  }
+}
 
-  function updateEditKeyPathPlotStatus(){
+function updateEditKeyPathPlotStatus(){
 
     if (document.getElementById("id_editPage_EditKeyPathPlotDiv").style.display == "none") {
       document.getElementById("id_editPage_EditKeyPathPlotDiv").style.display = "block";
@@ -42,10 +42,9 @@ function updateAnalzyeMappingProbeSetStatus(){
     }
 
     update_EditPageStyle();
-  }
+}
 
-
-  function updateTableStatus(){
+function updateTableStatus(){
 
     if (document.getElementById("id_EditPage_Table_Div").style.display == "none") {
       document.getElementById("id_EditPage_Table_Div").style.display = "block";
@@ -57,9 +56,51 @@ function updateAnalzyeMappingProbeSetStatus(){
     }
 
     update_EditPageStyle();
-  }
+}
 
+function showEditMode(){
+  document.getElementById("id_EditPage_Table_Div").style.display = "none";
+  document.getElementById("id_dropDownMenue_TableWindow_Label").innerHTML="&#9675; Table Window";
+  document.getElementById("id_EditPage_Add_Structures").style.display = "block";
+  document.getElementById("id_dropDownMenue_StructureWindow_Label").innerHTML="&#9673; Structure Window";
+  document.getElementById("id_editPage_EditKeyPathPlotDiv").style.display = "block";
+  document.getElementById("id_dropDownMenue_EditWindow_Label").innerHTML="&#9673; Edit Window";
+  document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.display = "none";
+  document.getElementById("id_dropDownMenue_AnalyzeWindow_Label").innerHTML="&#9675; Analyze Window";
+  update_EditPageStyle();
+}
 
+function showAnalyzeMode(){
+  document.getElementById("id_EditPage_Table_Div").style.display = "none";
+  document.getElementById("id_dropDownMenue_TableWindow_Label").innerHTML="&#9675; Table Window";
+  document.getElementById("id_EditPage_Add_Structures").style.display = "none";
+  document.getElementById("id_dropDownMenue_StructureWindow_Label").innerHTML="&#9675; Structure Window";
+  document.getElementById("id_editPage_EditKeyPathPlotDiv").style.display = "none";
+  document.getElementById("id_dropDownMenue_EditWindow_Label").innerHTML="&#9675; Edit Window";
+  document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.display = "block";
+  document.getElementById("id_dropDownMenue_AnalyzeWindow_Label").innerHTML="&#9673; Analyze Window";
+
+  if(document.getElementById("id_EditPage_DivAnalyze").style.display=="none")
+    switchAnalyzeMappingProbeSet(0)
+
+  update_EditPageStyle();
+}
+
+function showMappingMode(){
+  document.getElementById("id_EditPage_Table_Div").style.display = "none";
+  document.getElementById("id_dropDownMenue_TableWindow_Label").innerHTML="&#9675; Table Window";
+  document.getElementById("id_EditPage_Add_Structures").style.display = "none";
+  document.getElementById("id_dropDownMenue_StructureWindow_Label").innerHTML="&#9675; Structure Window";
+  document.getElementById("id_editPage_EditKeyPathPlotDiv").style.display = "none";
+  document.getElementById("id_dropDownMenue_EditWindow_Label").innerHTML="&#9675; Edit Window";
+  document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.display = "block";
+  document.getElementById("id_dropDownMenue_AnalyzeWindow_Label").innerHTML="&#9673; Analyze Window";
+
+  if(document.getElementById("id_EditPage_DivMapping").style.display=="none")
+    switchAnalyzeMappingProbeSet(1)
+
+  update_EditPageStyle();
+}
 //////////////////////////
 //// Update Edit Display
 
@@ -171,16 +212,32 @@ function update_EditPageStyle(){
 
             // style analyze mapping probe div without edit key div
             document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.width="35vw";
-            document.getElementById("id_EditPage_Analyze_EmptyDiv").style.width="65vw";
-            document.getElementById("id_EditPage_AnalyzePlot_Container").style.width="65vw";
+
+            if(document.getElementById("id_EditPage_Add_Structures").style.display == "none"){
+              document.getElementById("id_EditPage_Analyze_EmptyDiv").style.width="85vw";
+              document.getElementById("id_EditPage_AnalyzePlot_Container").style.width="85vw";
+            }
+            else {
+              document.getElementById("id_EditPage_Analyze_EmptyDiv").style.width="65vw";
+              document.getElementById("id_EditPage_AnalyzePlot_Container").style.width="65vw";
+            }
+
         }
         else{
             document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.width="70%";
 
             // style analyze mapping probe div with edit key div
-            document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.width="20vw";
-            document.getElementById("id_EditPage_Analyze_EmptyDiv").style.width="41vw";
-            document.getElementById("id_EditPage_AnalyzePlot_Container").style.width="41vw";
+            if(document.getElementById("id_EditPage_Add_Structures").style.display == "none"){
+              document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.width="35vw";
+              document.getElementById("id_EditPage_Analyze_EmptyDiv").style.width="56vw";
+              document.getElementById("id_EditPage_AnalyzePlot_Container").style.width="56vw";
+            }
+            else {
+              document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.width="20vw";
+              document.getElementById("id_EditPage_Analyze_EmptyDiv").style.width="41vw";
+              document.getElementById("id_EditPage_AnalyzePlot_Container").style.width="41vw";
+            }
+
 
         }
 

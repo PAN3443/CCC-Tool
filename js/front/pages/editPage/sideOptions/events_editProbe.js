@@ -5,47 +5,59 @@
 
 function init_editProbe(){
 
-  document.getElementById("id_EditPage_editProbe").style.display="block";
-  document.getElementById("id_EditPage_generateProbeSet").style.display="none";
   updateProbeSetSelectBox();
-  selectProbe();
 
+  if(globalCMS1.getProbeSetLength()!=0){
+    selectProbe();
+  }
 }
 
 function updateProbeSetSelectBox(){
 
-
   var selectbox = document.getElementById("id_selectProbeSetList");
-  var selectbox2 = document.getElementById("id_selectMainProbeSetList");
   var selectbox3 = document.getElementById("id_EditPage_MappingCMS_Select");
 
   for(var i = selectbox.options.length; i > 0 ; i--)
   {
       selectbox.remove(i-1);
-      selectbox2.remove(i-1);
       selectbox3.remove(i);
   }
 
   for (var i = 0; i < globalCMS1.getProbeSetLength(); i++) {
     var opt = document.createElement('option');
-    var opt2 = document.createElement('option');
     var opt3 = document.createElement('option');
 
-    opt.style.fontSize = '1.8vh';
-    opt2.className = 'standardText';
+    opt.className = 'standardText';
     opt3.className = 'standardText';
 
     opt.innerHTML = "Probe-Set: "+globalCMS1.getProbeSet(i).getProbeSetName();
-    opt2.innerHTML = "Probe-Set: "+globalCMS1.getProbeSet(i).getProbeSetName();
     opt3.innerHTML = "Probe-Set: "+globalCMS1.getProbeSet(i).getProbeSetName();
 
     selectbox.appendChild(opt);
-    selectbox2.appendChild(opt2);
     selectbox3.appendChild(opt3);
   }
 
-  document.getElementById("id_selectProbeSetList").selectedIndex=0;
-  updateProbeSelectBox();
+  if(globalCMS1.getProbeSetLength()==0){
+
+  document.getElementById("id_EditPage_ProbeEdit_EmptyDiv").style.display="flex";
+  document.getElementById("id_EditPage_ProbeEditDiv").style.display="none";
+  document.getElementById("id_EditPage_ProbeSetNameDiv").style.visibility="hidden";
+  document.getElementById("id_EditPage_ProbeSetDeleteButton").style.visibility="hidden";
+
+  }
+  else{
+    document.getElementById("id_EditPage_ProbeEdit_EmptyDiv").style.display="none";
+    document.getElementById("id_EditPage_ProbeEditDiv").style.display="block";
+    document.getElementById("id_EditPage_ProbeSetNameDiv").style.visibility="visible";
+    document.getElementById("id_EditPage_ProbeSetDeleteButton").style.visibility="visible";
+
+    document.getElementById("id_selectProbeSetList").selectedIndex=0;
+
+    updateProbeSelectBox();
+
+  }
+
+
 }
 
 

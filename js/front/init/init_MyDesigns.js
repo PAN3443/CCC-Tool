@@ -73,6 +73,7 @@ function createMyDesignObject(id){
   tmpCMSInfo.style.float="right";
   tmpCMSInfo.innerHTML="i"
   tmpCMSInfo.style.color="rgb(180,180,180)";
+  tmpCMSInfo.style.visibility="hidden";
 
   tmpCMSInfo.onmouseover = function() {
     this.style.background = "rgb(150, 150, 150)";

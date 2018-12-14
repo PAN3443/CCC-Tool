@@ -1,21 +1,8 @@
-function initProbePage(){
-
-  if(globalCMS1.getProbeSetLength()==0){
-
-    initProbeGeneration();
-
-  }
-  else{
-    init_editProbe();
 
 
-  }
+function openProbeGeneration(){
 
-}
-
-function initProbeGeneration(){
-  document.getElementById("id_EditPage_generateProbeSet").style.display="block";
-  document.getElementById("id_EditPage_editProbe").style.display="none";
+  document.getElementById("id_PopUp_GenerateProbeSetWindow").style.display = "flex";
 
   if(globalCMS1.getKeyLength()>0){
     document.getElementById("id_inputSingleProbeRangeStart").value = globalCMS1.getRefPosition(0) + (globalCMS1.getRefRange()/6*2);
@@ -67,13 +54,20 @@ function drawProbePreview(probeSet){
       document.getElementById("id_EditPage_ProbePreviewLabel").style.visibility = "visible";
       document.getElementById("id_EditPage_ProbePreview").style.visibility = "visible";
 
+      document.getElementById("id_EditPage_ProbePreviewDiv2").style.display = "flex";
+
       var tmpCMS = probeSet.generateProbeCMS(globalCMS1);
 
-      drawCanvasColormap("id_EditPage_ProbePreview", tmpCMS);
+      if(document.getElementById("id_PopUp_GenerateProbeSetWindow").style.display != "none")
+        drawCanvasColormap("id_EditPage_ProbePreview2", tmpCMS);
+      else
+        drawCanvasColormap("id_EditPage_ProbePreview", tmpCMS);
     }
     else{
       document.getElementById("id_EditPage_ProbePreviewLabel").style.visibility = "hidden";
       document.getElementById("id_EditPage_ProbePreview").style.visibility = "hidden";
+
+      document.getElementById("id_EditPage_ProbePreviewDiv2").style.display = "none";
     }
 
 }
@@ -119,7 +113,8 @@ function changeProbeType(type){
         document.getElementById("id_EditPage_selectProbeTypeLabel").innerHTML="&#9660; Constant";
         document.getElementById("id_EditPage_ProbeColor_Div").style.display = 'flex';
 
-        generateProbeSet();
+        if(document.getElementById("id_PopUp_GenerateProbeSetWindow").style.display != "none")
+          generateProbeSet();
         changeProbeColor();
       break;
     case 1:
@@ -131,7 +126,7 @@ function changeProbeType(type){
 
         document.getElementById("id_EditPage_ProbeType_OneSided").style.background="rgb(76, 175, 80)";
         document.getElementById("id_EditPage_selectProbeTypeLabel").innerHTML="&#9660; One Sided";
-        document.getElementById("id_EditPage_ProbeFunction_Div").style.display = 'flex';
+        document.getElementById("id_EditPage_ProbeFunction_Div").style.display = 'block';
         document.getElementById("id_EditPage_ProbeColor_Div").style.display = 'flex';
         document.getElementById("id_EditPage_ProbeFunctionOneSided_Div").style.display = 'block';
         globalProbeSubtype=0;
@@ -146,7 +141,7 @@ function changeProbeType(type){
 
         document.getElementById("id_EditPage_ProbeType_OneSidedTrans").style.background="rgb(76, 175, 80)";
         document.getElementById("id_EditPage_selectProbeTypeLabel").innerHTML="&#9660; One Sided Transparent";
-        document.getElementById("id_EditPage_ProbeFunction_Div").style.display = 'flex';
+        document.getElementById("id_EditPage_ProbeFunction_Div").style.display = 'block';
         document.getElementById("id_EditPage_ProbeFunctionOneSided_Div").style.display = 'block';
         changeOneSideFunction(1);
         globalProbeSubtype=1;
@@ -160,7 +155,7 @@ function changeProbeType(type){
 
           document.getElementById("id_EditPage_ProbeType_TwoSided").style.background="rgb(76, 175, 80)";
           document.getElementById("id_EditPage_selectProbeTypeLabel").innerHTML="&#9660; Two Sided";
-          document.getElementById("id_EditPage_ProbeFunction_Div").style.display = 'flex';
+          document.getElementById("id_EditPage_ProbeFunction_Div").style.display = 'block';
           document.getElementById("id_EditPage_ProbeColor_Div").style.display = 'flex';
           document.getElementById("id_EditPage_ProbeFunctionTwoSided_Div").style.display = 'block';
 
@@ -176,7 +171,7 @@ function changeProbeType(type){
 
           document.getElementById("id_EditPage_ProbeType_TwoSidedTrans").style.background="rgb(76, 175, 80)";
           document.getElementById("id_EditPage_selectProbeTypeLabel").innerHTML="&#9660; Two Sided Transparent";
-          document.getElementById("id_EditPage_ProbeFunction_Div").style.display = 'flex';
+          document.getElementById("id_EditPage_ProbeFunction_Div").style.display = 'block';
           document.getElementById("id_EditPage_ProbeFunctionTwoSided_Div").style.display = 'block';
           globalProbeSubtype=1;
           changeTwoSideFunction(0);
@@ -201,7 +196,10 @@ function changeProbeSpace(){
     document.getElementById("id_EditPage_FunctionOneSided_Label1").innerHTML = "Lightness 100% to 0%";
     document.getElementById("id_EditPage_FunctionOneSided_Label2").innerHTML = "Lightness 0% to 100%";
   }
-  generateProbeSet();
+
+  if(document.getElementById("id_PopUp_GenerateProbeSetWindow").style.display != "none")
+    generateProbeSet();
+
 }
 
 function changeOneSideFunction(type){
@@ -251,7 +249,8 @@ function changeOneSideFunction(type){
     changeProbeColor();
   }
 
-  generateProbeSet();
+  if(document.getElementById("id_PopUp_GenerateProbeSetWindow").style.display != "none")
+    generateProbeSet();
 }
 
 function changeTwoSideFunction(type){
@@ -313,14 +312,15 @@ function changeTwoSideFunction(type){
 
   document.getElementById("id_EditPage_editProbeFunctionDropDown").style.display="none";
 
-  generateProbeSet();
+  if(document.getElementById("id_PopUp_GenerateProbeSetWindow").style.display != "none")
+    generateProbeSet();
 }
 
 
 function changeProbeColor(){
 
 
-    if(document.getElementById("id_EditPage_generateProbeSet").style.display!="none"){
+    if(document.getElementById("id_PopUp_GenerateProbeSetWindow").style.display!="none"){
       changeColorPreview("id_inputProbeColorPreview");
       document.getElementById("id_inputProbeColor").style.background = globalProbeColor.calcRGBColor().getRGBString();
     }

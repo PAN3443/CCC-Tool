@@ -80,22 +80,26 @@ function keyDownDocumentHandler(event){
               case short_interpolationChangeKeyNum:
                 // strg + i => change interpolation space
                 event.preventDefault();
+
+
                 switch (globalCMS1.getInterpolationSpace()) {
                   case "rgb":
-                    changeColorspace(1);
+                      document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 5;
                     break;
                     case "hsv":
-                      changeColorspace(2);
+                      document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 0;
                       break;
                       case "lab":
-                        changeColorspace(3);
+                        document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 1;
                         break;
                         case "din99":
-                          changeColorspace(0);
+                          document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 4;
                           break;
                   default:
 
                 }
+
+                changeColorspace();
 
                 break;
       default:
