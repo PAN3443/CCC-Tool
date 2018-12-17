@@ -684,11 +684,18 @@ function readCMSFile(e) {
                 return;
     }
 
+    if(cms!=undefined){
+      if(cms.getKeyLength()!=0){
 
-    if(cms.getKeyLength()!=0){
-
-      myDesignsList.push(cloneCMS(cms));
-      drawMyDesigns();
+        myDesignsList.push(cloneCMS(cms));
+        drawMyDesigns();
+      }
+      else {
+        openAlert("Sorry, the tool was not able to import the file.");
+      }
+    }
+    else {
+      openAlert("Sorry, the tool was not able to import the file.");
     }
 
 

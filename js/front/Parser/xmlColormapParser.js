@@ -422,6 +422,7 @@ function xmlColormapParserFile(xmlString){
 
             }
 
+            return undefined;
         /*} catch (error) {
          console.log("Error with XML File ");
        }*/
