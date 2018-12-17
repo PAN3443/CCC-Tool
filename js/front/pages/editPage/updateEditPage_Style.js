@@ -109,17 +109,24 @@ function update_EditPageStyle(){
     if (document.getElementById("id_EditPage_Add_Structures").style.display == "none"){
         document.getElementById("id_EditPage_CMSEditAnalzyeMapping_Div").style.width="100%";
 
+        if (document.getElementById("id_EditPage_Table_Div").style.display == "none"){
+          document.getElementById("id_EditPage_CMS_Div").style.width="100vw";
+        }
+        else {
+          document.getElementById("id_EditPage_CMS_Div").style.width="80vw";
+        }
     }
     else {
         document.getElementById("id_EditPage_CMSEditAnalzyeMapping_Div").style.width="80%";
+
+        if (document.getElementById("id_EditPage_Table_Div").style.display == "none"){
+          document.getElementById("id_EditPage_CMS_Div").style.width="80vw";
+        }
+        else {
+          document.getElementById("id_EditPage_CMS_Div").style.width="60vw";
+        }
         updatePredefined();
     }
-
-
-    if (document.getElementById("id_EditPage_Table_Div").style.display == "none")
-        document.getElementById("id_EditPage_CMS_Div").style.width="100%";
-    else
-        document.getElementById("id_EditPage_CMS_Div").style.width="75%";
 
 
     ///

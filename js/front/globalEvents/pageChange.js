@@ -47,6 +47,7 @@ function showMyDesignsPage(){
   document.getElementById("id_welcomePage").style.display="none";
   document.getElementById("id_newCMSPage").style.display="none";
   document.getElementById("id_EditPage").style.display="none";
+  document.getElementById("id_GalleryPage").style.display="none";
   document.getElementById("id_myDesignsPage").style.display="block";
   drawMyDesigns();
 
@@ -104,6 +105,8 @@ function showEditPage(){
 
   }
 
+  document.getElementById("id_GalleryPage").style.display="none";
+
   switchAnalyzeMappingProbeSet(0);
 
   colormapProcess=[];
@@ -149,6 +152,7 @@ function showEditPage(){
 function showGallery(){
   document.getElementById("id_myDesignsPage").style.display="none";
 
+  document.getElementById("id_GalleryPage").style.display="block";
 }
 
 //////////////////////

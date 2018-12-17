@@ -1,0 +1,9 @@
+<ColorMaps>
+<ColorMap name="Div Quadruple 2" space="RGB" creator="CCC-Tool">
+<Point x="0" o="1" r="0.874509771962622" g="0.9019608407053862" b="0.941176463269047" cms="true" isMoT="false"/>
+<Point x="0.25" o="1" r="0.49803919661934365" g="0.5137255237853237" b="0.5372548976099591" cms="true" isMoT="false"/>
+<Point x="0.5" o="1" r="0" g="0" b="0" cms="true" isMoT="false"/>
+<Point x="0.75" o="1" r="0.7176470082625966" g="0.5176471309136285" b="0.3098038944149171" cms="true" isMoT="false"/>
+<Point x="1" o="1" r="0.8980391705101888" g="0.8352941835797136" b="0.7843137132716236" cms="true" isMoT="true"/>
+</ColorMap>
+</ColorMaps>

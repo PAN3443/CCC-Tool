@@ -30,6 +30,7 @@
   <link rel="stylesheet" href="css/newDesign_General.css">
   <link rel="stylesheet" href="css/newDesign_MyDesigns.css">
   <link rel="stylesheet" href="css/newDesign_EditPage.css">
+  <link rel="stylesheet" href="css/newDesgin_GalleryPage.css">
 
   <link rel="stylesheet" href="css/newDesign_SearchAutoComplete.css">
 
@@ -157,6 +158,9 @@
   <script src="js/front/pages/editPage/sideOptions/events_generateProbe.js"></script>
   <script src="js/front/pages/editPage/sideOptions/checkCustomProbeInput.js"></script>
 
+  <!-- Gallery PAGE-->
+  <script src="js/front/pages/GalleryPage/events_GalleryPage.js"></script>
+
   <!------------------------------------------->
   <!-- global Vars-->
 
@@ -170,7 +174,7 @@
 
   <!-- global Vars : pageIndepenend -->
   <script src="js/front/globalVars/pageIndepenend/pageIndependent_Vars.js"></script>
-  <script src="js/front/globalVars/pageIndepenend/autoCompleteArrays.js"></script>
+  <!--script src="js/front/globalVars/pageIndepenend/autoCompleteArrays.js"></script-->
   <script src="js/front/globalVars/pageIndepenend/predefinedSingleBands.js"></script>
   <script src="js/front/globalVars/pageIndepenend/colorTransformationVariables.js"></script>
   <script src="js/front/globalVars/pageIndepenend/plotResolutions.js"></script>
@@ -180,7 +184,7 @@
   <!------------------------------------------->
   <!-- global Events-->
   <script src="js/front/globalEvents/pageChange.js"></script>
-  <script src="js/front/globalEvents/autocompleteSearch.js"></script>
+  <!--script src="js/front/globalEvents/autocompleteSearch.js"></script-->
   <script src="js/front/globalEvents/checkInput.js"></script>
   <script src="js/front/globalEvents/cmsIntervals.js"></script>
   <script src="js/front/globalEvents/events_settings.js"></script>
@@ -226,7 +230,7 @@
   <script src="js/front/init/init_MyDesigns.js"></script>
   <script src="js/front/init/init_EditPage.js"></script>
   <script src="js/front/init/init_PopUpWindow.js"></script>
-  <script src="js/front/init/init.js"></script>
+
 
   <script src="js/front/shortcuts.js"></script>
 
@@ -519,7 +523,7 @@
       </div>
 
       <div class="row" style="margin-top:3vh; margin-bottom:3vh;">
-        <button class="class_generalbutton" style="margin-left:25%; margin-right:10%;  width:20%;">Visit Gallery</button>
+        <button class="class_generalbutton" onclick="showGallery()" style="margin-left:25%; margin-right:10%;  width:20%;">Visit Gallery</button>
         <button class="class_generalbutton" onclick="showNewCMSPage()" style="margin-right:25%;  width:20%;">New CMS</button>
       </div>
 
@@ -567,8 +571,56 @@
     <div id="id_GalleryPage" style="width:100%; height:80vh; display:none; ">
 
 
+      <h1 id="id_MyDesings_Label" class="sectionLabel" style="width:60vw; height:10vh; line-height:10vh; margin:auto;">Gallery</h1>
+
+      <div class="row" style="width:100%;">
+
+        <div id="id_GalleryPage_Div_ScaledBrown" onclick="changeGalleryPredefined(3)" class="class_GallerySectionButton">
+          <p class="standardText"> Scaled Black Brown </p>
+          <canvas id="id_GalleryPage_Preview_ScaledBrown"  ></canvas>
+        </div>
+
+        <div id="id_GalleryPage_Div_ScaledBlue" onclick="changeGalleryPredefined(2)" class="class_GallerySectionButton">
+          <p class="standardText"> Scaled Blue </p>
+          <canvas id="id_GalleryPage_Preview_ScaledBlue"  ></canvas>
+        </div>
+
+        <div id="id_GalleryPage_Div_ScaledGreen" onclick="changeGalleryPredefined(4)" class="class_GallerySectionButton">
+          <p class="standardText"> Scaled Green </p>
+          <canvas id="id_GalleryPage_Preview_ScaledGreen"  ></canvas>
+        </div>
+
+        <div id="id_GalleryPage_Div_ScaledRedPurple" onclick="changeGalleryPredefined(5)" class="class_GallerySectionButton">
+          <p class="standardText"> Scaled Red Purple </p>
+          <canvas id="id_GalleryPage_Preview_ScaledRedPurple"  ></canvas>
+        </div>
+
+        <div id="id_GalleryPage_Div_ScaledYellowOrange" onclick="changeGalleryPredefined(6)" class="class_GallerySectionButton">
+          <p class="standardText"> Scaled Yellow Orange </p>
+          <canvas id="id_GalleryPage_Preview_ScaledYellowOrange" ></canvas>
+        </div>
+
+        <div id="id_GalleryPage_Div_Divergent" onclick="changeGalleryPredefined(1)" class="class_GallerySectionButton">
+          <p class="standardText"> Divergent </p>
+          <canvas id="id_GalleryPage_Preview_Divergent"  ></canvas>
+        </div>
+
+        <div id="id_GalleryPage_Div_Multiband" onclick="changeGalleryPredefined(0)" class="class_GallerySectionButton">
+          <p class="standardText"> Multiband </p>
+          <canvas id="id_GalleryPage_Preview_Multiband"  ></canvas>
+        </div>
 
 
+      </div>
+
+
+      <div id="id_GalleryPage_CMS_Div" style="height:55vh; max-height:55vh; margin-top:2vh;  width:90%; margin-left:5%; overflow:auto;">
+
+      </div>
+
+
+
+      <button class="class_generalbutton" onclick="showMyDesignsPage()" style="margin-left:40%; margin-top:2vh;  width:20%;">MyDesigns</button>
 
 
 
@@ -612,17 +664,17 @@
           </div>
 
           <div id="id_EditPage_Predefined_Div" style="width:100%; height:76vh;">
-            <p class="standardText" style="width:100%; text-align:center; background:grey; color:rgb(200,200,200);">Click to show the predefined:</p>
+            <p class="standardText" style="width:100%; text-align:center; background:rgb(80,80,80); color:rgb(200,200,200);">Click to show the predefined:</p>
             <div class="class_EditPage_TabRow" style="width:100%;">
 
-                  <canvas id="id_EditPage_Preview_Multiband" onclick="changeFilterPredefined(1)" style="width:12.5%;"></canvas>
-                  <canvas id="id_EditPage_Preview_Divergent" onclick="changeFilterPredefined(2)" style="width:12.5%;"></canvas>
-                  <canvas id="id_EditPage_Preview_ScaledBlue" onclick="changeFilterPredefined(4)" style="width:12.5%;"></canvas>
-                  <canvas id="id_EditPage_Preview_ScaledBrown" onclick="changeFilterPredefined(5)" style="width:12.5%;"></canvas>
-                  <canvas id="id_EditPage_Preview_ScaledGreen" onclick="changeFilterPredefined(6)" style="width:12.5%;"></canvas>
-                  <canvas id="id_EditPage_Preview_ScaledRedPurple" onclick="changeFilterPredefined(7)" style="width:12.5%;"></canvas>
-                  <canvas id="id_EditPage_Preview_ScaledYellowOrange" onclick="changeFilterPredefined(8)" style="width:12.5%;"></canvas>
-                  <canvas id="id_EditPage_Preview_Other" onclick="changeFilterPredefined(8)" style="width:12.5%;"></canvas>
+
+                  <canvas id="id_EditPage_Preview_ScaledBrown" onclick="changeFilterPredefined(5)" style="width:14.28%;"></canvas>
+                  <canvas id="id_EditPage_Preview_ScaledBlue" onclick="changeFilterPredefined(4)" style="width:14.28%;"></canvas>
+                  <canvas id="id_EditPage_Preview_ScaledGreen" onclick="changeFilterPredefined(6)" style="width:14.28%;"></canvas>
+                  <canvas id="id_EditPage_Preview_ScaledRedPurple" onclick="changeFilterPredefined(7)" style="width:14.28%;"></canvas>
+                  <canvas id="id_EditPage_Preview_ScaledYellowOrange" onclick="changeFilterPredefined(8)" style="width:14.28%;"></canvas>
+                  <canvas id="id_EditPage_Preview_Divergent" onclick="changeFilterPredefined(2)" style="width:14.28%;"></canvas>
+                  <canvas id="id_EditPage_Preview_Multiband" onclick="changeFilterPredefined(1)" style="width:14.28%;"></canvas>
 
             </div>
             <div id="id_EditPage_Predefined_CMS_Div" style="width:100%; height:71vh; overflow-y: auto; padding-top:1vh;">
@@ -650,11 +702,11 @@
         <div id="id_EditPage_CMSTable_Div" style="height:30vh; width:100%; display:flex; border-bottom:0.2vh solid black;">
 
           <!----------- CMS VIS Container ------------------->
-          <div id="id_EditPage_CMS_Div" style="width:75%; height:100%;">
+          <div id="id_EditPage_CMS_Div" style="width:60vw; height:100%;">
 
-            <div style="width:100%; height:10vh; background:rgb(80,80,80); border-bottom:0.2vh solid black;">
+            <div style="width:100%; height:8.5vh; background:rgb(80,80,80); border-bottom:0.2vh solid black;">
 
-              <div style="display:flex; width:100%; height:5.5vh; border-bottom:0.2vh solid grey;">
+              <div style="display:flex; width:100%; height:4.5vh; border-bottom:0.2vh solid grey;">
                 <div style=" display:flex; width:50%; border-right: 0.2vh solid grey; ">
                   <p class="class_EditPage_EditButtonLabel" style="margin-right:0.5vw;">Name:</p>
                   <input id="id_EditPage_CMSName" type="text" class="class_EditPage_EditButtonLabel" id="id_EditPage_CMSName" style="background:none; margin-left:0.5vw;" name="cmsname" required placeholder="Please enter a name for your colormap" />
@@ -677,7 +729,7 @@
                 </div>
               </div>
 
-              <div style="display:flex; width:100%; height:4.5vh;">
+              <div style="display:flex; width:100%; height:4vh;">
 
                 <div style=" display:flex; width:50%; border-right: 0.2vh solid rgb(180,180,180); ">
                   <button class="class_EditPage_EditButton" type="button" name="button" title="undo" onclick="undo()">&#8634;</button>
@@ -2125,7 +2177,7 @@
     <!---------------- Full Analzye ---------------  -->
     <div id="id_PopUp_fullAnalzeWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
 
-      <div style="margin-top:10vh; height:auto; width:80vh; border: 0.2vh solid black; margin-left:auto; margin-right:auto;">
+      <div style="height:auto; width:80vh; border: 0.2vh solid black; margin:auto;">
 
         <div class="row" style="background:black; height:5vh;">
 
@@ -2147,17 +2199,12 @@
       </div>
     </div>
 
-    <!--  -------------- Stop Working ---------------  -->
 
-    <div id="id_PopUp_StopWorkingWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:40; top:0px; left:0px; bottom:0px; display:none;">
-
-
-    </div>
 
     <!--  -------------- Export Window ---------------  -->
     <div id="id_PopUp_ExportWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
 
-      <div style="margin-top:2vh; height:auto; background:white; width:80%; border: 0.2vh solid black; margin-left:auto; margin-right:auto; overflow:auto;">
+      <div style="height:auto; background:white; width:80%; border: 0.2vh solid black; margin:auto; overflow:auto;">
 
         <h3 class="class_popupWindow_Label"> Export CMS </h3>
 
@@ -2234,7 +2281,7 @@
             </tr>
             <tr>
               <td>
-                <div style="width:100%; height:25vh; overflow:auto;">
+                <div style="width:100%; height:40vh; overflow:auto;">
                   <table cellspacing="0" cellpadding="1" id="id_table_export" style="width:100%; border: 0.1vh solid black;">
                     <tbody id="id_exportTableBody">
 
@@ -2255,79 +2302,6 @@
       </div>
     </div>
 
-
-
-
-    <!--  ----------------	Filter Window	  -------------   -->
-
-
-    <div id="id_PopUp_FilterWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
-
-      <div style="margin-top:5vh; height:auto; background:white; width:60%; border: 0.2vh solid black; margin-left:auto; margin-right:auto;">
-
-        <h3 class="class_popupWindow_Label"> Filter Settings </h3>
-
-
-        <div class="row" style="width: 100%; margin-top:2vh;">
-
-
-
-          <div style="margin-left:10%;">
-            <div class="row" style="margin-left:10%; height:4vh; background: url(img/background3.jpg); padding-left:2vw; padding-right:2vw;  border: 0.2vh solid black; margin-right:auto;">
-              <p class="standardText " style=" color: yellow; cursor:pointer; font-size: 3vh; line-height: 4vh;"> &#9733; </p>
-              <p class="standardText " style="margin-left:0.5vw; color: yellow; cursor:pointer; font-size: 3vh; line-height: 4vh;"> &#9733; </p>
-              <p class="standardText " style="margin-left:0.5vw; color: yellow; cursor:pointer; font-size: 3vh; line-height: 4vh;"> &#9733; </p>
-              <p class="standardText " style="margin-left:0.5vw; color: yellow; cursor:pointer; font-size: 3vh; line-height: 4vh;"> &#9733; </p>
-              <p class="standardText " style="margin-left:0.5vw; color: yellow; cursor:pointer; font-size: 3vh; line-height: 4vh;"> &#9733; </p>
-            </div>
-
-            <!--input class="standardText " style="display:block; width:auto; margin-left:auto;  margin-top:2vh; height:4vh;" id="id_popupWindow_checkMyDesignCMS" type="checkbox" name="do it" value="0" checked-->
-            <input class="standardText " style="display:block; width:auto; margin-left:auto;  margin-top:2vh; height:4vh;" id="id_popupWindow_checkDiscontinious" type="checkbox" name="do it" value="0" checked>
-            <input class="standardText " style="display:block; width:auto; margin-left:auto;  margin-top:2vh; height:4vh;" id="id_popupWindow_checkConst" type="checkbox" name="do it" value="0" checked>
-          </div>
-
-
-          <div style="margin-left:10%;">
-            <p class="standardText " style="line-height:4vh; font-size:3vh;">: Min-Rating </p>
-            <!--p class="standardText " style="line-height:4vh; font-size:3vh; margin-top:2vh;">: Allow CMS from MyDesigns </p-->
-            <p class="standardText " style="line-height:4vh; font-size:3vh; margin-top:2vh;">: Allow Discontinuous Transition-Points </p>
-            <p class="standardText " style="line-height:4vh; font-size:3vh; margin-top:2vh;">: Allow Constant Bands </p>
-          </div>
-
-
-        </div>
-
-
-
-
-
-        <div style="width:100%; height:0.01vh; border-bottom:0.2vh solid grey; margin-top:1vh; margin-bottom:1vh;"></div>
-
-        <p class="standardText " style="margin-left:10%; line-height:3.2vh; font-size:3vh; margin-right:2vw; margin-top:2vh; font-weight:bold;">Semantics:</p>
-
-        <div class="row" style="width: 100%; height:auto; margin-top:2vh;">
-
-
-
-          <div class="autocomplete" style="width:auto; margin-left:10%; margin-right:5%">
-            <input id="id_popupWindow_Input_FilterSemantics" type="text" name="filterSemantics" placeholder="Semantics" style="height:4vh; line-height:4vh; font-size:3vh; margin:auto;">
-          </div>
-
-          <button class="class_generalbutton " onclick="closeFilterWindow()" title="close" style=" width: 40%; height:4vh; line-height:4vh; font-size:3vh;"> Add </button>
-
-        </div>
-
-        <div id="id_popUpWindow_FilterSemanticDiv" style="margin-top:2vh; margin-left:10%; width:80%; border: 0.2vh solid black; overflow:auto; height: 40vh;">
-
-        </div>
-
-
-
-
-        <button class="class_generalbutton " onclick="closeFilterWindow()" title="close" style=" width: 30%; height:4vh; line-height:4vh; font-size:3vh; margin-left:40%; margin-top:2vh; margin-bottom:2vh;"> Close </button>
-
-      </div>
-    </div>
 
 
     <!------------------	ColorSelector	  ------------- -->
@@ -2420,7 +2394,7 @@
     <!---------------- Scale ---------------  -->
     <div id="id_PopUp_ScaleWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
 
-      <div style="margin-top:20vh; height:auto; background:white; width:60%; border: 0.2vh solid black; margin-left:auto; margin-right:auto;">
+      <div style="height:auto; background:white; width:60%; border: 0.2vh solid black; margin:auto;">
 
         <h3 class="class_popupWindow_Label"> Scale CMS </h3>
 
@@ -2461,7 +2435,7 @@
     <!---------------- Alert ---------------  -->
     <div id="id_PopUp_AlertWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
 
-      <div style="margin-top:20vh; height:auto; background:white; width:60%; border: 0.2vh solid black; margin-left:auto; margin-right:auto;">
+      <div style=" height:auto; background:white; width:60%; border: 0.2vh solid black; margin:auto;">
 
         <h3 class="class_popupWindow_Label"> Warning </h3>
 
@@ -2490,12 +2464,12 @@
     <!---------------- Shortcuts ---------------  -->
     <div id="id_PopUp_ShortcutsWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
 
-      <div style="margin-top:10vh; height:auto; background:white; width:75%; border: 0.2vh solid black; margin-left:auto; margin-right:auto;">
+      <div style="height:auto; background:white; width:75%; border: 0.2vh solid black; margin:auto;">
 
         <h3 class="class_popupWindow_Label"> Shortcuts </h3>
 
 
-        <div class="row">
+        <div class="row" style="margin-top:2vh;">
 
           <img src="img/CCCToolComic/shortcutsImg.jpg" style="width:35%; margin-left:5%; margin-right:5%; margin-top:auto; margin-bottom:auto; ">
 
@@ -2628,7 +2602,7 @@
     <!---------------- Impressum ---------------  -->
     <div id="id_PopUp_ImpessumWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
 
-      <div style="margin-top:10vh; height:auto; background:white; width:70%; border: 0.2vh solid black; margin-left:auto; margin-right:auto;">
+      <div style="height:auto; background:white; width:70%; border: 0.2vh solid black; margin:auto;">
 
         <h3 class="class_popupWindow_Label"> Impressum / Contact </h3>
 
@@ -2701,7 +2675,7 @@
 
     <div id="popupAskWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
 
-      <div style="margin-top:20vh; height:auto; background:white; width:60%; border: 0.2vh solid black; margin-left:auto; margin-right:auto;">
+      <div style="height:auto; background:white; width:60%; border: 0.2vh solid black; margin:auto;">
 
         <h3 name="constStyle" class="class_popupWindow_Label"> Confirm </h3>
 
@@ -2770,7 +2744,7 @@
     </div>
 
     <div style=" width:100%; display:flex; margin-top:1vh; border-top:1px solid grey;">
-      <p id="id_footer_version" style="margin:0px; margin-left:2.5vw; margin-right:auto; vertical-align: middle; color:white; height:2.5vh; font-size:1.5vh;"> Version: 0.6.0 </p>
+      <p id="id_footer_version" style="margin:0px; margin-left:2.5vw; margin-right:auto; vertical-align: middle; color:white; height:2.5vh; font-size:1.5vh;"> Version: 0.7.0 </p>
       <p id="id_footer_copyRight" style="margin:0px; margin-right:2.5vw; color:white; vertical-align: middle; height:2.5vh; font-size:1.5vh;"> Copyright © 2018 </p>
     </div>
 

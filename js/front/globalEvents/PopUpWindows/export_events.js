@@ -11,7 +11,7 @@ function openExportWindow(){
   if(globalCMS1.getKeyLength()==0)
   return;
 
-  document.getElementById("id_PopUp_ExportWindow").style.display="block";
+  document.getElementById("id_PopUp_ExportWindow").style.display="flex";
   document.getElementById("id_dropDownContainer").style.display="none";
   document.getElementById("id_selectProbeListExport").selectedIndex=0;
 

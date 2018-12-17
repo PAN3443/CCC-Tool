@@ -42,7 +42,7 @@ function openColorPicker(event){
     colorpickerColor=mappingBackgroundColor;
     // below the object
     document.getElementById("id_popupColorPicker").style.top=(top-pickerBox.height)+"px";
-    document.getElementById("id_popupColorPicker").style.left=(left+box.width)+"px";
+    document.getElementById("id_popupColorPicker").style.left=(left-pickerBox.width)+"px";
     break;
 
     case "id_EditPage_ColorAboveFixedAxis_GlobalLocalOrder":
@@ -70,24 +70,6 @@ function openColorPicker(event){
       document.getElementById("id_popupColorPicker").style.left=(left-pickerBox.width)+"px";
       break;
 
-      /*case "id_editPage_customConstColor":
-        colorpickerColor=customConstBandColor;
-        // above the object
-        document.getElementById("id_popupColorPicker").style.top=(top+box.height)+"px";
-        document.getElementById("id_popupColorPicker").style.left=(left+box.width)+"px";
-        break;
-        case "id_editPage_customScaleColor1":
-          colorpickerColor=customScaleBandColor1;
-          // above the object
-          document.getElementById("id_popupColorPicker").style.top=(top+box.height)+"px";
-          document.getElementById("id_popupColorPicker").style.left=(left-pickerBox.width)+"px";
-          break;
-          case "id_editPage_customScaleColor2":
-            colorpickerColor=customScaleBandColor2;
-            // above the object
-            document.getElementById("id_popupColorPicker").style.top=(top+box.height)+"px";
-            document.getElementById("id_popupColorPicker").style.left=(left+box.width)+"px";
-            break;*/
 
             case "id_EditPage_DrawnDualKey": case "id_EditPage_DrawnRightKey":
               colorpickerColor=globalCMS1.getRightKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex,"rgb");

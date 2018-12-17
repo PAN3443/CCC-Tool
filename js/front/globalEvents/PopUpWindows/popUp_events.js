@@ -20,7 +20,7 @@ function closeFullMappingScreen(){
 ///////////////////////////////////
 
 function openFullAnalyzeScreen(){
-  document.getElementById("id_PopUp_fullAnalzeWindow").style.display="block";
+  document.getElementById("id_PopUp_fullAnalzeWindow").style.display="flex";
   updateAnalyze();
 }
 
@@ -54,22 +54,11 @@ function updateShortCuts(){
 }
 
 function openShortcutsWindow(){
-  document.getElementById("id_PopUp_ShortcutsWindow").style.display="block";
+  document.getElementById("id_PopUp_ShortcutsWindow").style.display="flex";
   document.getElementById("id_dropDownContainer").style.display="none";
   updateShortCuts();
 }
 
-//////////////////////////////////////
-/// Filter Window /////
-///////////////////////////////////
-
-function closeFilterWindow(){
-  document.getElementById("id_PopUp_FilterWindow").style.display="none";
-}
-
-function openFilterWindow(){
-  document.getElementById("id_PopUp_FilterWindow").style.display="block";
-}
 
 
 //////////////////////////////////////
@@ -82,7 +71,7 @@ function closeImpressum(){
 }
 
 function openImpressum(){
-  document.getElementById("id_PopUp_ImpessumWindow").style.display="block";
+  document.getElementById("id_PopUp_ImpessumWindow").style.display="flex";
   document.getElementById("id_dropDownContainer").style.display="none";
 }
 
@@ -96,7 +85,7 @@ function closeAlert(){
 }
 
 function openAlert(txt){
-  document.getElementById("id_PopUp_AlertWindow").style.display="block";
+  document.getElementById("id_PopUp_AlertWindow").style.display="flex";
   document.getElementById("id_alertText").innerHTML=txt;
 }
 
@@ -108,7 +97,7 @@ function openAlert(txt){
 function openScale(){
 
   if(globalCMS1.getKeyLength()>0){
-    document.getElementById("id_PopUp_ScaleWindow").style.display="block";
+    document.getElementById("id_PopUp_ScaleWindow").style.display="flex";
     document.getElementById("id_popupWindow_ScaleInfoText").style.display="none";
     updateAutoRangeInput();
   }
@@ -150,7 +139,7 @@ function closeScale(){
 ///////////////////////////////////
 
 function openAskWindow(){
-    document.getElementById("popupAskWindow").style.display="inline";
+    document.getElementById("popupAskWindow").style.display="flex";
     switch (askType) {
       case 0:
       //delete CMS

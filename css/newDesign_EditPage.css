@@ -98,7 +98,7 @@
   height:4vh;
   line-height: 4vh;
   background: rgb(50,50,50);
-  border: 0.2vh solid black;
+  border: 0.2vh solid grey;
   box-sizing: border-box;
   /*-moz-box-shadow:    inset 0 0 0.5vh rgb(0,0,0);
    -webkit-box-shadow: inset 0 0 0.5vh rgb(0,0,0);
@@ -107,7 +107,7 @@
 
 
 .class_EditPage_TabRow canvas:hover{
-  border: 0.2vh solid grey;
+  border: 0.2vh solid white;
   /*-moz-box-shadow:    inset 0 0 0.5vh rgb(255,255,255);
    -webkit-box-shadow: inset 0 0 0.5vh rgb(255,255,255);
    box-shadow:         inset 0 0 0.5vh rgb(255,255,255);*/

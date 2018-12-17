@@ -32,17 +32,28 @@ window.onload = function() {
     drawCanvasColormap("id_EditPage_Preview_ScaledRedPurple", cmsRedPurpleColormaps[0]);
     drawCanvasColormap("id_EditPage_Preview_ScaledYellowOrange", cmsYellowColormaps[0]);
 
+    updateTableStatus();
+
    document.getElementById("id_EditPage").style.display = "none";
 
-  initAutoCompleteInputs();
+
+   document.getElementById("id_GalleryPage").style.display = "block";
+
+   drawCanvasColormap("id_GalleryPage_Preview_Multiband", cmsFourBandColormaps[0]);
+   drawCanvasColormap("id_GalleryPage_Preview_Divergent", cmsDivergentColormaps[0]);
+   drawCanvasColormap("id_GalleryPage_Preview_ScaledBlue", cmsBlueColormaps[0]);
+   drawCanvasColormap("id_GalleryPage_Preview_ScaledBrown", cmsBrownColormaps[0]);
+   drawCanvasColormap("id_GalleryPage_Preview_ScaledGreen", cmsGreenColormaps[0]);
+   drawCanvasColormap("id_GalleryPage_Preview_ScaledRedPurple", cmsRedPurpleColormaps[0]);
+   drawCanvasColormap("id_GalleryPage_Preview_ScaledYellowOrange", cmsYellowColormaps[0]);
+   changeGalleryPredefined(0);
+
+   document.getElementById("id_GalleryPage").style.display = "none";
 
   init_events_EditPage();
   init_events_PopUp_ColorPicker();
   init_ExportWindow();
-
   initMyDesignObj();
-  
-
   initMapping();
 
 
@@ -52,41 +63,19 @@ window.onload = function() {
 
   pageIsLoaded=true;
 
+
+
+  document.getElementById("id_dropDownContainer").onmouseleave  = function(){document.getElementById("id_dropDownContainer").style.display="none";};
+  document.getElementById("id_popupColorPicker").onmouseleave  = function(){document.getElementById("id_popupColorPicker").style.display="none";};
+
 }
 
 
-/*window.onscroll = function() {
-  document.getElementById("headerDiv").style.marginLeft = document.documentElement.scrollLeft+"px";
-  document.getElementById("footerDiv").style.marginLeft = document.documentElement.scrollLeft+"px";
-};*/
-
-
-
-
-
-
-window.onresize = function(event) {
+/*window.onresize = function(event) {
 
 
   var windowWidth = document.body.offsetWidth;
   document.getElementById("id_ccctoolPage").style.width = windowWidth+"px";
   //document.getElementById("id_EditPage").style.width = windowWidth+"px";
 
-};
-
-
-/*
-
-window.onscroll = function() {
-  //console.log(document.documentElement.scrollLeft);
-  document.getElementById("id_menu").style.marginLeft = document.documentElement.scrollLeft+"px";
-  document.getElementById("id_MainMenue").style.marginLeft = document.documentElement.scrollLeft+"px";
-  document.getElementById("id_Mod_Menue").style.marginLeft = document.documentElement.scrollLeft+"px";
-  document.getElementById("footerDiv").style.marginLeft = document.documentElement.scrollLeft+"px";
-
-
-};
-
-
-
-*/
+};*/
