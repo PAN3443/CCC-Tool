@@ -1,0 +1,291 @@
+
+.class_EditPage_closeDiv {
+  height:2vh;
+  width: 100%;
+  background: rgb(30,30,30);
+  border: 0.2vh solid black;
+  -moz-box-shadow:    inset 0 0 0.2vh rgb(0,0,0);
+   -webkit-box-shadow: inset 0 0 0.2vh rgb(0,0,0);
+   box-shadow:         inset 0 0 0.2vh rgb(0,0,0);
+}
+
+.class_EditPage_closeDiv button{
+  height:2vh;
+  line-height: 2vh;
+  width: 2vh;
+  font-size: 1.2vh;
+  float:right;
+  background: rgb(80,80,80);
+  color:white;
+  text-align: center;
+  border: 0.2vh solid black;
+  -moz-box-shadow:    inset 0 0 0.2vh rgb(0,0,0);
+   -webkit-box-shadow: inset 0 0 0.2vh rgb(0,0,0);
+   box-shadow:         inset 0 0 0.2vh rgb(0,0,0);
+}
+
+.class_EditPage_EditButton{
+  line-height: 3vh;
+  color: black;
+  height: 3vh;
+  width: 3vh;
+  font-size: 1.5vh;
+  vertical-align: middle;
+  text-align: center;
+  background:rgb(220,220,220);
+  border: 0.2vh solid black;
+  border-radius: 0.5vh;
+  overflow: hidden;
+  margin:auto;
+  -moz-box-shadow:    inset 0 0 0.5vh rgb(0,0,0);
+   -webkit-box-shadow: inset 0 0 0.5vh rgb(0,0,0);
+   box-shadow:         inset 0 0 0.5vh rgb(0,0,0);
+
+   /*background-size:cover;
+   //background-repeat:no-repeat;
+   //background-position: center center;*/
+
+}
+
+.class_EditPage_SelectPredefinedCMS{
+  -moz-box-shadow:    inset 0 0 0.5vh rgb(0,0,0);
+   -webkit-box-shadow: inset 0 0 0.5vh rgb(0,0,0);
+   box-shadow:         inset 0 0 0.5vh rgb(0,0,0);
+}
+
+.class_EditPage_SelectPredefinedCMS:hover{
+  -moz-box-shadow:    inset 0 0 0.5vh rgb(255,255,255);
+   -webkit-box-shadow: inset 0 0 0.5vh rgb(255,255,255);
+   box-shadow:         inset 0 0 0.5vh rgb(255,255,255);
+}
+
+
+.class_EditPage_EditButtonLabel{
+  line-height: 3vh;
+  color: rgb(220,220,220);
+  height: 3vh;
+  font-size: 1.8vh;
+  overflow: hidden;
+  margin:auto;
+}
+
+
+
+
+
+.class_EditPage_TabRow {
+  display: flex;
+  height: auto;
+  width: 100%;
+  background: rgb(80,80,80);
+}
+
+.class_EditPage_TabRow button{
+  height:4vh;
+  line-height: 4vh;
+  width: 100%;
+  font-size: 2.0vh;
+  background: rgb(50,50,50);
+  /*color:white;*/
+  text-align: center;
+  border: 0.2vh solid black;
+  -moz-box-shadow:    inset 0 0 0.5vh rgb(0,0,0);
+   -webkit-box-shadow: inset 0 0 0.5vh rgb(0,0,0);
+   box-shadow:         inset 0 0 0.5vh rgb(0,0,0);
+}
+
+.class_EditPage_TabRow canvas{
+  height:4vh;
+  line-height: 4vh;
+  background: rgb(50,50,50);
+  border: 0.2vh solid grey;
+  box-sizing: border-box;
+  /*-moz-box-shadow:    inset 0 0 0.5vh rgb(0,0,0);
+   -webkit-box-shadow: inset 0 0 0.5vh rgb(0,0,0);
+   box-shadow:         inset 0 0 0.5vh rgb(0,0,0);*/
+}
+
+
+.class_EditPage_TabRow canvas:hover{
+  border: 0.2vh solid white;
+  /*-moz-box-shadow:    inset 0 0 0.5vh rgb(255,255,255);
+   -webkit-box-shadow: inset 0 0 0.5vh rgb(255,255,255);
+   box-shadow:         inset 0 0 0.5vh rgb(255,255,255);*/
+}
+
+
+
+
+.class_tablelabel{
+    height:1.5vh;
+    line-height:1.5vh;
+    font-size:1.0vh;
+    font-weight: bold;
+    background: grey;
+    color: white;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.class_tableInput{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height:2vh;
+    max-height: 2vh;
+    line-height:2vh;
+    font-size:1.0vh;
+    color: black;
+    background:white;
+    border: 0.1vh solid black;
+    vertical-align: middle;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.class_predefinedConstBands{
+
+    box-sizing: border-box;
+    cursor: grabbing;
+    width:3vh;
+    height:3vh;
+    min-width:3vh;
+    min-height:3vh;
+    line-height:3vh;
+    margin-right: 0.25vh;
+    margin-left: 0.25vh;
+    margin-top: 0.25vh;
+    margin-bottom: 0.25vh;
+    border-radius: 0.5vh;
+    color: black;
+    border: 0.2vh solid black;
+    float:left;
+    display: inline-block;
+    white-space: nowrap;
+
+    -moz-box-shadow:    inset 0 0 0.2vh rgb(0,0,0);
+    -webkit-box-shadow: inset 0 0 0.2vh rgb(0,0,0);
+    box-shadow:         inset 0 0 0.2vh rgb(0,0,0);
+}
+
+
+.class_predefinedLinearCMSBands{
+    box-sizing: content-box;
+    border: 0.2vh solid black;
+    width: 90%;
+    height:3vh;
+    margin-top: 0.25vh;
+    margin-left: 5%;
+    border-radius: 0.5vh;
+    border: 0.2vh solid black;
+    -moz-box-shadow:    inset 0 0 0.5vh rgb(0,0,0);
+     -webkit-box-shadow: inset 0 0 0.5vh rgb(0,0,0);
+     box-shadow:         inset 0 0 0.5vh rgb(0,0,0);
+    cursor: grabbing;
+
+}
+
+.class_predefinedLinearCMSBandsWidthReverse{
+    box-sizing: content-box;
+    border: 0.2vh solid black;
+    width: 75%;
+    height:3vh;
+    margin-top: 0.25vh;
+    margin-left: auto;
+    border-radius: 0.5vh;
+    border: 0.2vh solid black;
+    -moz-box-shadow:    inset 0 0 0.5vh rgb(0,0,0);
+     -webkit-box-shadow: inset 0 0 0.5vh rgb(0,0,0);
+     box-shadow:         inset 0 0 0.5vh rgb(0,0,0);
+    cursor: grabbing;
+
+}
+
+
+.class_predefinedLinearCMSBandsReverseButton{
+    box-sizing: content-box;
+    border: 0.2vh solid black;
+    /*width: 7.5%;
+    max-width: 7.5%;*/
+    height:3vh;
+    color: black;
+    line-height:3vh;
+    font-size: 1.8vh;
+    margin-top: 0.25vh;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 0.5vh;
+    border: 0.2vh solid black;
+    -moz-box-shadow:    inset 0 0 0.5vh rgb(0,0,0);
+     -webkit-box-shadow: inset 0 0 0.5vh rgb(0,0,0);
+     box-shadow:         inset 0 0 0.5vh rgb(0,0,0);
+    cursor: grabbing;
+
+}
+
+
+
+
+.classColormapCanvas{
+  image-rendering: optimizeSpeed;             /* Older versions of FF*/
+  image-rendering: -moz-crisp-edges;          /* FF 6.0+*/
+  image-rendering: -webkit-optimize-contrast; /* Webkit (non standard naming)*/
+  image-rendering: -o-crisp-edges;            /* OS X & Windows Opera (12.02+)*/
+  image-rendering: pixelated;               /* Possible future browsers.*/
+  -ms-interpolation-mode: nearest-neighbor;   /* IE (non standard naming)*/
+}
+
+
+
+
+#id_editPage_OrderLabel{
+  overflow: hidden;
+  color:white;
+  font-size: 16px;
+  cursor:pointer;
+  /*vertical-align: middle;*/
+  text-align: center;
+}
+
+#id_editPage_OrderLabel:hover {
+  background: rgba(255,255,255,0.5);
+}
+
+
+.dropdownButtonEditPage{
+  display: flex;
+  /*width:250px;*/
+  font-size: 16px;
+  line-height: 25px;
+  cursor:pointer;
+  color:white;
+  vertical-align: middle;
+  text-align: left;
+  padding: 5px;
+  border-top:1px solid white;
+  /*font-family:courier;*/
+  font-weight: bold;
+}
+
+.dropdownButtonEditPage:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+
+.class_Analysis_Colormaps{
+  height:100%;
+  border: 1px solid black;
+  background:grey;
+}
+
+#id_EditPage_CMS_VIS_Histogramm,
+#id_EditPage_Canvas_GlobalLocalOrder,
+#id_PopUp_FullAnalayzeCanvas{
+  image-rendering: optimizeSpeed;             /* Older versions of FF*/
+  image-rendering: -moz-crisp-edges;          /* FF 6.0+*/
+  image-rendering: -webkit-optimize-contrast; /* Webkit (non standard naming)*/
+  image-rendering: -o-crisp-edges;            /* OS X & Windows Opera (12.02+)*/
+  image-rendering: pixelated;               /* Possible future browsers.*/
+  -ms-interpolation-mode: nearest-neighbor;   /* IE (non standard naming)*/
+}

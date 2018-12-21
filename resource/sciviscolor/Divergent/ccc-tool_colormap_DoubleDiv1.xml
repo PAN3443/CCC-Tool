@@ -1,0 +1,7 @@
+<ColorMaps>
+<ColorMap name="Double Div1" space="RGB" creator="CCC-Tool">
+<Point x="0" o="1" r="0.15294121315266615" g="0.2509803948077968" b="0.4901960825970825" cms="true" isMoT="false"/>
+<Point x="0.5" o="1" r="0.9999999584585605" g="1" b="0.9999999896748072" cms="true" isMoT="false"/>
+<Point x="1" o="1" r="0.4509803541008767" g="0.09019623921915743" b="0.09019605736096103" cms="true" isMoT="true"/>
+</ColorMap>
+</ColorMaps>

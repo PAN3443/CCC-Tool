@@ -1,0 +1,66 @@
+
+.class_popupWindow_Label{
+  width:100%;
+  height:5vh;
+  height:5vh;
+  line-height:5vh;
+  vertical-align:middle;
+  text-align:center;
+  vertical-align: middle;
+  margin:0px;
+  color:white;
+  font-size:4vh;
+  background: url(../img/background3.png);
+  /*font-family:verdana;*/
+}
+
+.class_RadioButtonPopUpWindow{
+
+  font-size: 1.6vh;
+  line-height: 2vh;
+  height: 2vh;
+  height:auto;
+  color:black;
+  vertical-align:middle;
+  margin:0px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom:0.5vh;
+  /*font-family:courier;*/
+
+}
+
+.class_InputPopUpWindow{
+  font-size: 1.6vh;
+  line-height: 2vh;
+  height:2vh;
+  color:black;
+  vertical-align:middle;
+  margin:0px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top:auto;
+  margin-bottom:auto;
+  /*font-family:courier;*/
+}
+
+#id_popupWindow_CloseColorpicker{
+  height:3vh;
+  width:3vh;
+  border-left:2px solid grey;
+  line-height:3vh;
+  vertical-align:middle;
+  text-align:center;
+  vertical-align: middle;
+  margin:0px;
+  color:white;
+  font-size:2.5vh;
+  background:black;
+  cursor: pointer;
+  /*font-family:verdana;*/
+}
+
+
+#id_popupWindow_CloseColorpicker:hover{
+  background:grey;
+}

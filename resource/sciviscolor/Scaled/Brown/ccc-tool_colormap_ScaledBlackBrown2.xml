@@ -1,0 +1,9 @@
+<ColorMaps>
+<ColorMap name="ScaledBlackBrown2" space="RGB" creator="CCC-Tool">
+<Point x="0" o="1" r="0.9999999584585605" g="1" b="0.9999999896748072" cms="true" isMoT="false"/>
+<Point x="0.33" o="1" r="0.9960783702107018" g="0.8666667475659866" b="0.5960784025497119" cms="true" isMoT="false"/>
+<Point x="0.5" o="1" r="0.6641670478668403" g="0.5428727076139896" b="0.3807740233090724" cms="false" isMoT="false"/>
+<Point x="0.66" o="1" r="0.3764705610191479" g="0.266666706162896" b="0.19607842115284185" cms="true" isMoT="false"/>
+<Point x="1" o="1" r="0" g="0" b="0" cms="true" isMoT="true"/>
+</ColorMap>
+</ColorMaps>

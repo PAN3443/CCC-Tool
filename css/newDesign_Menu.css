@@ -1,0 +1,106 @@
+
+
+.menu_button {
+  padding-right:1vw;
+  padding-left:1vw;
+  font-size: 2vh;
+  line-height: 5vh;
+  height:5vh;
+  cursor:pointer;
+  color:white;
+  vertical-align: middle;
+  text-align: center;
+  background:none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /*font-family:verdana;*/
+}
+
+
+.menu_button:hover {
+  background: rgba(255,255,255,0.5);
+}
+
+
+.menu_buttonNotActive {
+  padding-right:1vw;
+  padding-left:1vw;
+  font-size: 2vh;
+  line-height: 5vh;
+  height:5vh;
+  cursor:not-allowed;
+  color:rgb(180,180,180);
+  vertical-align: middle;
+  text-align: left;
+  background:none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /*font-family:verdana;*/
+}
+
+
+.dropdownMenuLabelBox{
+  width:auto;
+  height: auto;
+  background:rgba(255,255,255,0.3);
+  border-bottom: 1px solid white;
+}
+
+
+.dropdownMenuLabel{
+  /*width:15vw;*/
+  width:auto;
+  font-size: 2.2vh;
+  line-height: 3vh;
+  /*height: 3vh;*/
+  font-weight: bold;
+  color:white;
+  vertical-align: middle;
+  text-align: left;
+  margin: 0px;
+  /*font-family:verdana;*/
+}
+
+.dropdownMenuLabelImg{
+  width: 3vh;
+  height: 3vh;
+  margin-left: 1vw;
+  margin-right: 1vw;
+
+}
+
+.dropdownMenuButton{
+  display: block;
+
+  padding-left:1vw;
+  padding-right:1vw;
+  font-size: 2.2vh;
+  line-height: 3vh;
+  /*height: 3vh;*/
+  cursor:pointer;
+  color:white;
+  vertical-align: middle;
+  text-align: left;
+  /*font-family:verdana;*/
+
+}
+
+.dropdownMenuButton:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+
+.dropdownNotActiveMenuButton{
+  display: block;
+
+  padding-left:1vw;
+  padding-right:1vw;
+  font-size: 2.2vh;
+  line-height: 3vh;
+  /*height: 3vh;*/
+  cursor:not-allowed;
+  color:rgb(180,180,180);
+  vertical-align: middle;
+  text-align: left;
+  /*font-family:verdana;*/
+}
