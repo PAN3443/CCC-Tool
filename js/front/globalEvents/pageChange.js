@@ -107,7 +107,7 @@ function showEditPage(){
 
   document.getElementById("id_GalleryPage").style.display="none";
 
-  switchAnalyzeMappingProbeSet(0);
+
 
   colormapProcess=[];
   processPosition=-1;
@@ -138,9 +138,9 @@ function showEditPage(){
   document.getElementById("id_actionMenu_myDesignPart").style.display="none";
   document.getElementById("id_dropDownMenu_DisplayOptions").style.display="block";
 
-
-  switchPredefinedCMS(0);
-  switchModifyModus(0);
+  //switchAnalyzeMappingProbeSet(0);
+  //switchPredefinedCMS(0);
+  //switchModifyModus(0);
   update_EditPageStyle();
 
 }

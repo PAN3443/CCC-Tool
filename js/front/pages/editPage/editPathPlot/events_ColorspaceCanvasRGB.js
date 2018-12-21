@@ -123,6 +123,7 @@ function mouseMoveColorspaceRGB(event) {
           if(checkPlotPosition(position[0], position[1], i, 0, drawCircle)){
               displayColor=tmpColor;
               found = true;
+              break;
           }
 
 
@@ -197,7 +198,6 @@ function mouseMoveColorspaceRGB(event) {
       }
 
     }
-
 
     if(oldmouseAboveKeyID!=mouseAboveKeyID)
       drawcolormap_RGBSpace(false,false);
@@ -309,6 +309,7 @@ function mouseMoveColorspaceRGB(event) {
 }
 
 function mouseDownColorspaceRGB(event) {
+
     if(mouseAboveKeyID!=-1){
 
 

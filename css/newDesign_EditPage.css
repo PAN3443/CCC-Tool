@@ -172,8 +172,7 @@
 
 .class_predefinedLinearCMSBands{
     box-sizing: content-box;
-    border: 1px solid black;
-    height: 50%;
+    border: 0.2vh solid black;
     width: 90%;
     height:3vh;
     margin-top: 0.25vh;
@@ -186,6 +185,46 @@
     cursor: grabbing;
 
 }
+
+.class_predefinedLinearCMSBandsWidthReverse{
+    box-sizing: content-box;
+    border: 0.2vh solid black;
+    width: 75%;
+    height:3vh;
+    margin-top: 0.25vh;
+    margin-left: auto;
+    border-radius: 0.5vh;
+    border: 0.2vh solid black;
+    -moz-box-shadow:    inset 0 0 0.5vh rgb(0,0,0);
+     -webkit-box-shadow: inset 0 0 0.5vh rgb(0,0,0);
+     box-shadow:         inset 0 0 0.5vh rgb(0,0,0);
+    cursor: grabbing;
+
+}
+
+
+.class_predefinedLinearCMSBandsReverseButton{
+    box-sizing: content-box;
+    border: 0.2vh solid black;
+    /*width: 7.5%;
+    max-width: 7.5%;*/
+    height:3vh;
+    color: black;
+    line-height:3vh;
+    font-size: 1.8vh;
+    margin-top: 0.25vh;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 0.5vh;
+    border: 0.2vh solid black;
+    -moz-box-shadow:    inset 0 0 0.5vh rgb(0,0,0);
+     -webkit-box-shadow: inset 0 0 0.5vh rgb(0,0,0);
+     box-shadow:         inset 0 0 0.5vh rgb(0,0,0);
+    cursor: grabbing;
+
+}
+
+
 
 
 .classColormapCanvas{

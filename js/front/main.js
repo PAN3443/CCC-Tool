@@ -10,6 +10,12 @@ window.onload = function() {
   globalCMS1 = new class_CMS();
   // init events
 
+  init_events_EditPage();
+  init_events_PopUp_ColorPicker();
+  init_ExportWindow();
+  initMyDesignObj();
+  initMapping();
+
 
   // load predefiend;
   cmsYellowColormaps = loadPredefinedCMS(pathColormaps+folderYellow,fileYellowColormaps);
@@ -23,7 +29,6 @@ window.onload = function() {
 
   document.getElementById("id_EditPage").style.display = "flex";
 
-    changeFilterPredefined(1);
     drawCanvasColormap("id_EditPage_Preview_Multiband", cmsFourBandColormaps[0]);
     drawCanvasColormap("id_EditPage_Preview_Divergent", cmsDivergentColormaps[0]);
     drawCanvasColormap("id_EditPage_Preview_ScaledBlue", cmsBlueColormaps[0]);
@@ -32,7 +37,13 @@ window.onload = function() {
     drawCanvasColormap("id_EditPage_Preview_ScaledRedPurple", cmsRedPurpleColormaps[0]);
     drawCanvasColormap("id_EditPage_Preview_ScaledYellowOrange", cmsYellowColormaps[0]);
 
+    switchAnalyzeMappingProbeSet(0);
+    switchModifyModus(1);
+    switchPredefinedCMS(0);
+    changeFilterPredefined(5);
+    choosePathPlotSpace(0);
     updateTableStatus();
+    updateAnalzyeMappingProbeSetStatus();
 
    document.getElementById("id_EditPage").style.display = "none";
 
@@ -46,15 +57,11 @@ window.onload = function() {
    drawCanvasColormap("id_GalleryPage_Preview_ScaledGreen", cmsGreenColormaps[0]);
    drawCanvasColormap("id_GalleryPage_Preview_ScaledRedPurple", cmsRedPurpleColormaps[0]);
    drawCanvasColormap("id_GalleryPage_Preview_ScaledYellowOrange", cmsYellowColormaps[0]);
-   changeGalleryPredefined(0);
+   changeGalleryPredefined(3);
 
    document.getElementById("id_GalleryPage").style.display = "none";
 
-  init_events_EditPage();
-  init_events_PopUp_ColorPicker();
-  init_ExportWindow();
-  initMyDesignObj();
-  initMapping();
+
 
 
   document.getElementById('id_inputCMSData').addEventListener("change", readCMSFile);

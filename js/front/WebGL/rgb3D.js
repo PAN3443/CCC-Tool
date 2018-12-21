@@ -176,29 +176,6 @@ function initRGB3D()
   planeBR255.position.y = 128;
   planeBR255.position.z = 0;
 
-  /////////////////////////////////////////////////////////////
-
-
-  var from = new THREE.Vector3( -128, -128, -128 );
-  var to = new THREE.Vector3( 200, -128, -128 );
-  var direction = to.clone().sub(from);
-  var length = direction.length();
-  var arrowXCoord = new THREE.ArrowHelper(direction.normalize(), from, length, 0x000000 );
-  rgbGroup.add( arrowXCoord );
-
-  to = new THREE.Vector3( -128, 200,  -128 );
-  direction = to.clone().sub(from);
-  length = direction.length();
-  var arrowYCoord = new THREE.ArrowHelper(direction.normalize(), from, length, 0x000000 );
-  rgbGroup.add( arrowYCoord );
-
-  to = new THREE.Vector3( -128, -128, 200 );
-  direction = to.clone().sub(from);
-  length = direction.length();
-  var arrowZCoord = new THREE.ArrowHelper(direction.normalize(), from, length, 0x000000 );
-  rgbGroup.add( arrowZCoord );
-  ////////////////////////////////////////////////////////////////////////////////
-
 
   //////////////////////////////////////////////////////////////////
 
@@ -252,6 +229,30 @@ function initRGB3D()
       rgbGroup.add( textB );
 
   } );
+
+  /////////////////////////////////////////////////////////////
+
+
+  var from = new THREE.Vector3( -128, -128, -128 );
+  var to = new THREE.Vector3( 200, -128, -128 );
+  var direction = to.clone().sub(from);
+  var length = direction.length();
+  var arrowXCoord = new THREE.ArrowHelper(direction.normalize(), from, length, 0x000000 );
+  rgbGroup.add( arrowXCoord );
+
+  to = new THREE.Vector3( -128, 200,  -128 );
+  direction = to.clone().sub(from);
+  length = direction.length();
+  var arrowYCoord = new THREE.ArrowHelper(direction.normalize(), from, length, 0x000000 );
+  rgbGroup.add( arrowYCoord );
+
+  to = new THREE.Vector3( -128, -128, 200 );
+  direction = to.clone().sub(from);
+  length = direction.length();
+  var arrowZCoord = new THREE.ArrowHelper(direction.normalize(), from, length, 0x000000 );
+  rgbGroup.add( arrowZCoord );
+  ////////////////////////////////////////////////////////////////////////////////
+
 
   cameraLight = new THREE.PointLight( 0xffffff,1 );
   cameraLight.position.set( 0, 0, radius );

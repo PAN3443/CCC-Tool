@@ -402,7 +402,7 @@
               &#9673; Edit Window
             </div>
             <div id="id_dropDownMenue_AnalyzeWindow_Label" onclick="updateAnalzyeMappingProbeSetStatus()" class="dropdownMenuButton">
-              &#9673; Analyze Window
+              &#9673; Analysis Window
             </div>
             <div id="id_dropDownMenue_TableWindow_Label" onclick="updateTableStatus()" class="dropdownMenuButton">
               &#9673; Table Window
@@ -733,17 +733,25 @@
 
               <div style="display:flex; width:100%; height:4vh;">
 
-                <div style=" display:flex; width:50%; border-right: 0.2vh solid rgb(180,180,180); ">
+                <div style=" display:flex; width:60%; border-right: 0.2vh solid rgb(180,180,180); ">
                   <button class="class_EditPage_EditButton" type="button" name="button" title="undo" onclick="undo()">&#8634;</button>
                   <button class="class_EditPage_EditButton" type="button" name="button" title="redo" onclick="redo()">&#8635;</button>
                   <button class="class_EditPage_EditButton" type="button" name="button" title="save" onclick="saveCMS()">&#9715;</button>
-                  <button class="class_EditPage_EditButton" type="button" name="button" title="export" onclick="openExportWindow()">&#8615;</button>
+
+                  <div style="width:0.01vw; height:100%; border-right:0.2vh solid grey;"></div>
+
+
                   <button class="class_EditPage_EditButton" type="button" name="button" title="clear" onclick="clearColormap()">&#9746;</button>
                   <button class="class_EditPage_EditButton" type="button" name="button" title="scale" onclick="openScale()">&#8596;</button>
-                  <button class="class_EditPage_EditButton" type="button" name="button" title="MyDesigns" onclick="startLeaveEditPage()">&#9750;</button>
+                  <button class="class_EditPage_EditButton" type="button" name="button" title="reverse" onclick="reverseCMS()">&#8644;</button>
                   <button class="class_EditPage_EditButton" type="button" name="button" title="Burdock" onclick="changeLimitKeyBurLine()">&#9728;</button>
+
+                  <div style="width:0.01vw; height:100%; border-right:0.2vh solid grey;"></div>
+
+                  <button class="class_EditPage_EditButton" type="button" name="button" title="export" onclick="openExportWindow()">&#8615;</button>
+                  <button class="class_EditPage_EditButton" type="button" name="button" title="MyDesigns" onclick="startLeaveEditPage()">&#9750;</button>
                 </div>
-                <div style="display:flex; width:50%; border-right: 0.2vh solid rgb(180,180,180); ">
+                <div style="display:flex; width:40%; border-right: 0.2vh solid rgb(180,180,180); ">
                   <p class="class_EditPage_EditButtonLabel">NaN:</p>
                   <button id="id_EditPage_CMS_NaN_Color" class="class_EditPage_EditButton" type="button" name="button" title="NaN"></button>
                   <p class="class_EditPage_EditButtonLabel">Above:</p>
@@ -822,8 +830,8 @@
               <button type="button" name="button" onclick="updateAnalzyeMappingProbeSetStatus()">X</button>
             </div>
             <div class="class_EditPage_TabRow">
-              <button id="id_editPage_SelectAnalyze" type="button" name="button" style="width:33%;" onclick="switchAnalyzeMappingProbeSet(0)">Analyze</button>
-              <button id="id_editPage_SelectMapping" type="button" name="button" style="width:34%;" onclick="switchAnalyzeMappingProbeSet(1)">Mapping</button>
+              <button id="id_editPage_SelectAnalyze" type="button" name="button" style="width:33%;" onclick="switchAnalyzeMappingProbeSet(0)">Analysis</button>
+              <button id="id_editPage_SelectMapping" type="button" name="button" style="width:34%;" onclick="switchAnalyzeMappingProbeSet(1)">Color-Mapping</button>
               <button id="id_editPage_SelectProbeSet" type="button" name="button" style="width:33%;" onclick="switchAnalyzeMappingProbeSet(2)">Probe-Set</button>
             </div>
 
@@ -1528,7 +1536,7 @@
                       <p id="id_EditPage_DrawnKey_LeftKeyHelpLabel" class="standardText class_InsetLabelText" style="margin-top:auto; margin-bottom:auto; width:60%; margin-left:10%; color:transparent; font-weight:bold; height:auto;">Click to change the left key color.</p>
                       <p class="standardText class_InsetLabelText" style="margin-top:auto; margin-bottom:auto; margin-left:5%; margin-right:5%; width:20%; color:transparent; font-weight:bold;">&#8594;</p>
                     </div>
-                    <div id="id_EditPage_EditKey_DrawKeyDiv" style="height:100%; width:40%; border: 0.2vh solid black; border-radius: 0.5vh; overflow:hidden;">
+                    <div id="id_EditPage_EditKey_DrawKeyDiv" style="height:100%; width:40%; border: 0.2vh solid black; border-radius: 0.5vh; overflow:hidden; margin:auto;">
                     </div>
                     <div id="id_EditPage_DrawnKey_RightKeyHelp" style="display:flex; height:100%; width:30%; visibility:hidden;">
                       <p class="standardText class_InsetLabelText" style="margin-top:auto; margin-bottom:auto; margin-left:5%; margin-right:5%; width:20%; color:transparent; font-weight:bold; ">&#8592;</p>
@@ -1544,75 +1552,75 @@
 
                 </div>
 
-                <div id="id_EditPage_Edit_Keys_Div3" style="width:100%; height:24vh; overflow-y:auto;">
+                <div id="id_EditPage_Edit_Keys_Div3" style="width:100%; height:24vh; overflow-y:auto; display:flex;">
 
+                  <div style="margin-top:auto; margin-bottom:auto; width:100%;">
+                    <div style="width:100%; margin-top:auto;">
+                      <p class="subsectionLabel class_InsetLabelText class_EditDivLabel" style="color:transparent; margin-top:0.5h; margin-bottom:1vh;"> Change Key Type: </p>
 
-                  <div style="width:100%; margin-top:auto;">
-                    <p class="subsectionLabel class_InsetLabelText class_EditDivLabel" style="color:transparent; margin-top:1vh; margin-bottom:1vh;"> Change Key Type: </p>
+                      <div style="display:flex; width:100%; margin-top:1vh;">
 
-                    <div style="display:flex; width:100%; margin-top:1vh;">
-
-                      <div id="id_EditPage_Edit_Keys_Div3" style="margin:auto;">
-                        <div class="row" style=" margin-top:0.5vh;">
-                          <input class="standardText" style="margin-right: 0.5vw; margin-top:auto; margin-bottom:auto;" type="radio" id="id_editPage_KeyTypeNil" name="editPage_keyType" value="1" checked="checked">
-                          <label class="standardText" for="id_editPage_KeyTypeNil" style="margin-top:auto; margin-bottom:auto;" id="id_editPage_KeyTypeNilLabel"> nil key </label>
-                        </div>
-
-                        <div class="row" style=" margin-top:0.5vh;">
-                          <input class="standardText" style="margin-right: 0.5vw; margin-top:auto; margin-bottom:auto;" type="radio" id="id_editPage_KeyTypeRight" name="editPage_keyType" value="2">
-                          <label class="standardText" for="id_editPage_KeyTypeRight" style="margin-top:auto; margin-bottom:auto;" id="id_editPage_KeyTypeRightLabel"> right key </label>
-                        </div>
-                      </div>
-
-                      <div style="margin:auto;">
-                        <div class="row" style=" margin-top:0.5vh;">
-                          <input class="standardText" style="margin-right: 0.5vw; margin-top:auto; margin-bottom:auto;" type="radio" id="id_editPage_KeyTypeLeft" name="editPage_keyType" value="3">
-                          <label class="standardText" for="id_editPage_KeyTypeLeft" style="margin-top:auto; margin-bottom:auto;" id="id_editPage_KeyTypeLeftLabel"> left key </label>
-                        </div>
-
-                        <div class="row" style=" margin-top:0.5vh;">
-                          <input class="standardText" style="margin-right: 0.5vw; margin-top:auto; margin-bottom:auto;" type="radio" id="id_editPage_KeyTypeTwin" name="editPage_keyType" value="5">
-                          <label class="standardText" for="id_editPage_KeyTypeTwin" id="id_editPage_KeyTypeTwinLabel"> twin key </label>
-                        </div>
-                      </div>
-
-                      <div style="margin:auto;">
-                        <div class="row" style=" margin-top:0.5vh;">
-                          <input class="standardText" style="margin-right: 0.5vw; margin-top:auto; margin-bottom:auto;" type="radio" id="id_editPage_KeyTypeDual" name="editPage_keyType" value="4">
-                          <label class="standardText" for="id_editPage_KeyTypeDual" style="margin-top:auto; margin-bottom:auto;" id="id_editPage_KeyTypeDualLabel"> dual key </label>
-                        </div>
-                      </div>
-
-                    </div>
-
-
-
-                  </div>
-                  <div style="width:100%; margin-top:auto;">
-                    <p class="subsectionLabel class_InsetLabelText class_EditDivLabel" style="color:transparent; margin-top:1vh; margin-bottom:1vh;"> Change Reference Value: </p>
-
-                    <input id="id_EditPage_EditKey_SetReference" type="number" name="Reference" value="1" step="any" class="standardText" style="width:40%; margin-left:30%;">
-
-                  </div>
-                  <div style="width:100%; margin-top:auto; margin-bottom:auto;">
-                    <p class="subsectionLabel class_InsetLabelText class_EditDivLabel" style="color:transparent; margin-top:1vh; margin-bottom:1vh;"> Set As Burdock-Key: </p>
-
-                    <div class="row" style="margin-left:20%; width:60%; margin-top:auto;">
-                      <input class="standardText" style="margin-left: auto; margin-right: 2px; margin-top:auto; margin-bottom:auto;" type="radio" id="id_editPage_BurKeyTrue" name="editPage_BurType" value="1" checked="checked">
-                      <label class="standardText" for="id_editPage_KeyTypeNil" style="margin-top:auto; margin-bottom:auto;"> true </label>
-                      <input class="standardText" style="margin-left: auto; margin-right: 2px; margin-top:auto; margin-bottom:auto;" type="radio" id="id_editPage_BurKeyFalse" name="editPage_BurType" value="2">
-                      <label class="standardText" for="id_editPage_BurKeyFalse" style="margin-top:auto; margin-bottom:auto;"> false </label>
-
-                      <!--div class="helpButtonDiv" style="margin-left:15px; margin-right:auto; margin-top:auto; margin-bottom:auto; ">
-                          <button class="helpButton">?</button>
-                          <div class="helpButtonDiv-content" >
-                            <strong>Info:</strong> The Key Burdock feature allows you to scale a connected sequence of key at the Key-Burdock-Line. You can activate a key as burdock here.
+                        <div id="id_EditPage_Edit_Keys_Div3" style="margin:auto;">
+                          <div class="row" style=" margin-top:0.5vh;">
+                            <input class="standardText" style="margin-right: 0.5vw; margin-top:auto; margin-bottom:auto;" type="radio" id="id_editPage_KeyTypeNil" name="editPage_keyType" value="1" checked="checked">
+                            <label class="standardText" for="id_editPage_KeyTypeNil" style="margin-top:auto; margin-bottom:auto;" id="id_editPage_KeyTypeNilLabel"> nil key </label>
                           </div>
-                        </div-->
+
+                          <div class="row" style=" margin-top:0.5vh;">
+                            <input class="standardText" style="margin-right: 0.5vw; margin-top:auto; margin-bottom:auto;" type="radio" id="id_editPage_KeyTypeRight" name="editPage_keyType" value="2">
+                            <label class="standardText" for="id_editPage_KeyTypeRight" style="margin-top:auto; margin-bottom:auto;" id="id_editPage_KeyTypeRightLabel"> right key </label>
+                          </div>
+                        </div>
+
+                        <div style="margin:auto;">
+                          <div class="row" style=" margin-top:0.5vh;">
+                            <input class="standardText" style="margin-right: 0.5vw; margin-top:auto; margin-bottom:auto;" type="radio" id="id_editPage_KeyTypeLeft" name="editPage_keyType" value="3">
+                            <label class="standardText" for="id_editPage_KeyTypeLeft" style="margin-top:auto; margin-bottom:auto;" id="id_editPage_KeyTypeLeftLabel"> left key </label>
+                          </div>
+
+                          <div class="row" style=" margin-top:0.5vh;">
+                            <input class="standardText" style="margin-right: 0.5vw; margin-top:auto; margin-bottom:auto;" type="radio" id="id_editPage_KeyTypeTwin" name="editPage_keyType" value="5">
+                            <label class="standardText" for="id_editPage_KeyTypeTwin" id="id_editPage_KeyTypeTwinLabel"> twin key </label>
+                          </div>
+                        </div>
+
+                        <div style="margin:auto;">
+                          <div class="row" style=" margin-top:0.5vh;">
+                            <input class="standardText" style="margin-right: 0.5vw; margin-top:auto; margin-bottom:auto;" type="radio" id="id_editPage_KeyTypeDual" name="editPage_keyType" value="4">
+                            <label class="standardText" for="id_editPage_KeyTypeDual" style="margin-top:auto; margin-bottom:auto;" id="id_editPage_KeyTypeDualLabel"> dual key </label>
+                          </div>
+                        </div>
+
+                      </div>
+
+
 
                     </div>
-                  </div>
+                    <div style="width:100%; margin-top:auto;">
+                      <p class="subsectionLabel class_InsetLabelText class_EditDivLabel" style="color:transparent; margin-top:1vh; margin-bottom:1vh;"> Change Reference Value: </p>
 
+                      <input id="id_EditPage_EditKey_SetReference" type="number" name="Reference" value="1" step="any" class="standardText" style="width:40%; margin-left:30%;">
+
+                    </div>
+                    <div style="width:100%; margin-top:auto; margin-bottom:auto;">
+                      <p class="subsectionLabel class_InsetLabelText class_EditDivLabel" style="color:transparent; margin-top:1vh; margin-bottom:1vh;"> Set As Burdock-Key: </p>
+
+                      <div class="row" style="margin-left:20%; width:60%; margin-top:auto;">
+                        <input class="standardText" style="margin-left: auto; margin-right: 0.2vw; margin-top:auto; margin-bottom:auto;" type="radio" id="id_editPage_BurKeyTrue" name="editPage_BurType" value="1" checked="checked">
+                        <label class="standardText" for="id_editPage_KeyTypeNil" style="margin-top:auto; margin-bottom:auto;"> true </label>
+                        <input class="standardText" style="margin-left: auto; margin-right: 0.2vw; margin-top:auto; margin-bottom:auto;" type="radio" id="id_editPage_BurKeyFalse" name="editPage_BurType" value="2">
+                        <label class="standardText" for="id_editPage_BurKeyFalse" style="margin-top:auto; margin-bottom:auto;"> false </label>
+
+                        <!--div class="helpButtonDiv" style="margin-left:15px; margin-right:auto; margin-top:auto; margin-bottom:auto; ">
+                            <button class="helpButton">?</button>
+                            <div class="helpButtonDiv-content" >
+                              <strong>Info:</strong> The Key Burdock feature allows you to scale a connected sequence of key at the Key-Burdock-Line. You can activate a key as burdock here.
+                            </div>
+                          </div-->
+
+                      </div>
+                    </div>
+                  </div>
 
                 </div>
               </div>

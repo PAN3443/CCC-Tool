@@ -67,6 +67,7 @@ function editPage_ChangeReference(event){
         globalCMS1.setRefPosition(keyIndex,newRef);
         updateEditPage();
         saveCreateProcess();
+        openEditKeyDiv(document.getElementById("id_EditPage_EditKey_List").selectedIndex);
       }
       break;
     case globalCMS1.getKeyLength()-1:
@@ -79,6 +80,7 @@ function editPage_ChangeReference(event){
         globalCMS1.setRefPosition(keyIndex,newRef);
         updateEditPage();
         saveCreateProcess();
+        openEditKeyDiv(document.getElementById("id_EditPage_EditKey_List").selectedIndex);
       }
 
       break;
@@ -98,6 +100,7 @@ function editPage_ChangeReference(event){
         globalCMS1.setRefPosition(keyIndex,newRef);
         updateEditPage();
         saveCreateProcess();
+        openEditKeyDiv(document.getElementById("id_EditPage_EditKey_List").selectedIndex);
       }
     }
   }
@@ -225,10 +228,33 @@ function selectKey(){
   drawSelectedKey();
 }
 
+
+
+
+function updateKeyDrawSize(){
+
+document.getElementById("id_EditPage_EditKey_DrawKeyDiv").style.width = "40%";
+document.getElementById("id_EditPage_EditKey_DrawKeyDiv").style.height = "100%";
+  var box = document.getElementById("id_EditPage_EditKey_DrawKeyDiv").getBoundingClientRect();
+
+
+  if(box.width<box.height){
+    document.getElementById("id_EditPage_EditKey_DrawKeyDiv").style.width = box.width+"px";
+    document.getElementById("id_EditPage_EditKey_DrawKeyDiv").style.height = box.width+"px";
+  }
+  else {
+    document.getElementById("id_EditPage_EditKey_DrawKeyDiv").style.width = box.height+"px";
+    document.getElementById("id_EditPage_EditKey_DrawKeyDiv").style.height = box.height+"px";
+  }
+
+}
+
+
 function drawSelectedKey(){
 
   var selectedKey = document.getElementById("id_EditPage_EditKey_List").selectedIndex;
   document.getElementById("id_EditPage_EditKey_DrawKeyDiv").innerHTML="";
+  updateKeyDrawSize();
 
   var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   svg.style.width = "100%";
@@ -243,7 +269,6 @@ function drawSelectedKey(){
   newLine.setAttribute('y2','0');
   newLine.setAttribute("stroke", "black");
   svg.append(newLine);
-
 
 
   switch (globalCMS1.getKeyType(selectedKey)) {

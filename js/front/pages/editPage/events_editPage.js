@@ -176,7 +176,21 @@ function updateEditPage(){
 }
 
 
+function reverseCMS(){
+  globalCMS1.calcReverse();
+  updateEditPage();
 
+  if(document.getElementById("id_EditPage_Edit_Keys").style.display!="none"){
+     openEditKeyDiv(document.getElementById("id_EditPage_EditKey_List").selectedIndex);
+  }
+
+  if(document.getElementById("id_EditPage_Edit_Path").style.display!="none"){
+    if(pathColorspace==="rgb")
+      drawcolormap_RGBSpace(true,true);
+    else
+      drawcolormap_hueSpace(true, true, true);
+  }
+}
 
 
 function switchModifyModus(type){

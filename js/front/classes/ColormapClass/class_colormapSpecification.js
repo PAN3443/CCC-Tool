@@ -50,6 +50,36 @@ class class_CMS {
   //// Key Structure
   /////////////////////////////////
 
+  calcReverse(){
+
+    if(this.keyArray.length<2)
+      return;
+
+    var tmpKeyArray = [];
+    var startPos = this.keyArray[0].getRefPosition();
+    var endPos = this.keyArray[this.keyArray.length-1].getRefPosition();
+    var dis = endPos-startPos;
+
+    for (var i = 0; i < this.keyArray.length; i++) {
+
+      if((this.keyArray[i].getKeyType()==="nil key" || this.keyArray[i].getKeyType()==="left key") && i!=this.keyArray.length-1){
+         this.keyArray[i].setRightKeyColor(this.keyArray[i+1].getLeftKeyColor("lab"));
+         this.keyArray[i+1].setLeftKeyColor(undefined);
+      }
+
+      var newPos = startPos+(endPos-this.keyArray[i].getRefPosition());
+
+      var tmpKeyColor = this.keyArray[i].getLeftKeyColor("lab");
+      this.keyArray[i].setLeftKeyColor(this.keyArray[i].getRightKeyColor("lab"));
+      this.keyArray[i].setRightKeyColor(tmpKeyColor);
+
+      tmpKeyArray.splice(0, 0,this.getKeyClone(i));
+      tmpKeyArray[0].setRefPosition(newPos);
+    }
+
+    this.keyArray = tmpKeyArray;
+  }
+
   setAutoRange(newStart,newEnd){
 
     var currentStart = this.keyArray[0].getRefPosition();

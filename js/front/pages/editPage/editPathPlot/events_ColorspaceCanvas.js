@@ -103,7 +103,7 @@ function mouseMoveColorspace(event) {
               break;
             }
 
-            tmpPos = calcHuePos(tmpColor2,xStart,xEnd, yStart, yEnd, colorspaceCenterX,colorspaceCenterY,colorspaceRadius);
+            tmpPos = calcHuePos(tmpColor2,xStart,xEnd, yStart, yEnd, colorspaceCenterX,colorspaceCenterY,colorspaceRadius,xWidth,yHeight);
             if (checkInsideCirce(tmpPos[0], tmpPos[1], i,1)) {
               found = true;
               displayColor=tmpColor2;
@@ -113,7 +113,7 @@ function mouseMoveColorspace(event) {
           }
           else{
 
-            tmpPos = calcHuePos(tmpColor2,xStart,xEnd, yStart, yEnd, colorspaceCenterX,colorspaceCenterY,colorspaceRadius);
+            tmpPos = calcHuePos(tmpColor2,xStart,xEnd, yStart, yEnd, colorspaceCenterX,colorspaceCenterY,colorspaceRadius,xWidth,yHeight);
             if (checkInsideCirce(tmpPos[0], tmpPos[1], i,1)) {
               displayColor=tmpColor2;
               found = true;
@@ -227,91 +227,7 @@ function mouseMoveColorspace(event) {
 
     }
 
-
-
     drawcolormap_hueSpace(false,false,false);
-
-
-
-
-
-
-
-    /*for (var i = 0; i < spaceElementsType.length; i++) {
-      if (mouseAboveKeyID == spaceElementsKey[i]) {
-
-        if (spaceElementsType[i] == true) {
-          // Circle -> Part of Scaled Band
-          var dis = Math.sqrt(Math.pow(spaceElementsXPos[i] - mousePosX, 2) + Math.pow(spaceElementsYPos[i] - mousePosY, 2));
-
-          if (dis > bigcircleRad) {
-            mouseAboveKeyID = -1;
-            mouseGrappedColorSide = -1;
-            drawcolormap_hueSpace(false,false,false);
-
-            document.getElementById(event.target.id).style.cursor = "default";
-            break;
-          } else {
-            break;
-          }
-        } else {
-          if (spaceElementsXPos[i] != -1) {
-            // QUAD -> Constant Band
-
-            //var dis = Math.sqrt(Math.pow(spaceElementsXPos[i]-mousePosX,2)+Math.pow(spaceElementsYPos[i]-mousePosY,2));
-
-            if (mousePosX < spaceElementsXPos[i] - bigcircleRad ||
-              mousePosX > spaceElementsXPos[i] + bigcircleRad ||
-              mousePosY < spaceElementsYPos[i] - bigcircleRad ||
-              mousePosY > spaceElementsYPos[i] + bigcircleRad) {
-              mouseAboveKeyID = -1;
-              mouseGrappedColorSide = -1;
-                drawcolormap_hueSpace(false,false,false);
-
-              document.getElementById(event.target.id).style.cursor = "default";
-              break;
-            } else {
-              break;
-            }
-
-          }
-        }
-      }
-
-      if (spaceElementsType[i] == true) {
-        // Circle -> Part of Scaled Band
-        var dis = Math.sqrt(Math.pow(spaceElementsXPos[i] - mousePosX, 2) + Math.pow(spaceElementsYPos[i] - mousePosY, 2));
-
-        if (dis <= circleRad) {
-          mouseAboveKeyID = spaceElementsKey[i];
-          mouseGrappedColorSide = spaceElementsColor[i];
-          document.getElementById(event.target.id).style.cursor = "pointer";
-          drawcolormap_hueSpace(false,false,false);
-          break;
-        }
-
-
-      } else {
-        if (spaceElementsXPos[i] != -1) {
-          // QUAD -> Constant Band
-
-          var dis = Math.sqrt(Math.pow(spaceElementsXPos[i] - mousePosX, 2) + Math.pow(spaceElementsYPos[i] - mousePosY, 2));
-
-          if (mousePosX >= spaceElementsXPos[i] - circleRad &&
-            mousePosX <= spaceElementsXPos[i] + circleRad &&
-            mousePosY >= spaceElementsYPos[i] - circleRad &&
-            mousePosY <= spaceElementsYPos[i] + circleRad) {
-            mouseAboveKeyID = spaceElementsKey[i];
-            mouseGrappedColorSide = spaceElementsColor[i];
-            document.getElementById(event.target.id).style.cursor = "pointer";
-
-            drawcolormap_hueSpace(false,false,false);
-            break;
-          }
-
-        }
-      }
-    }*/
 
   }//if grapped key == -1
   else{

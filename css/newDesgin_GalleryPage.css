@@ -41,8 +41,11 @@
 
 .class_GalleryCanvas{
   height:3vw;
-  width:34vw;
+  width:30vw;
   margin-left: 3vw;
+  color: black;
+  line-height:3vw;
+
   box-sizing: border-box;
   border: 0.2vh solid black;
   border-radius: 0.5vh;
@@ -61,6 +64,9 @@
   box-sizing: border-box;
 
   cursor: pointer;
+  font-size: 2.3vw;
+  vertical-align: middle;
+  text-align: center;
 
   background-size:cover;
   background-repeat:no-repeat;

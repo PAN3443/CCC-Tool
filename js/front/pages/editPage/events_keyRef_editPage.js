@@ -20,7 +20,7 @@ function keyChange2DAnimation(){
      openEditKeyDiv(document.getElementById("id_EditPage_EditKey_List").selectedIndex);
   }
 
-  if(document.getElementById("id_editPage_SelectEditPath").style.display!="none" && pathColorspace!="rgb"){
+  if(document.getElementById("id_EditPage_Edit_Path").style.display!="none" && pathColorspace!="rgb"){
     drawcolormap_hueSpace(true, true, true);
   }
 }

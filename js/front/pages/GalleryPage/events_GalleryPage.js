@@ -69,6 +69,55 @@ function drawGalleryPredefinedCMS(cmsArray, cmsType){
     tmpCanvas.id = "id_Gallery_"+cmsType+"_"+i;
     tmpCanvas.className= "class_GalleryCanvas";
 
+    var tmpReverseButton = document.createElement('button');
+    tmpReverseButton.className= "class_GalleryButton";
+    tmpReverseButton.innerHTML = "&#8644;";
+    tmpReverseButton.onclick = (function(id,type) {
+    return function() {
+
+
+        switch (type) {
+          case 0:
+          cmsThreeBandColormaps[id].calcReverse();
+          drawCanvasColormap("id_Gallery_"+type+"_"+id, cmsThreeBandColormaps[id]);
+            break;
+            case 1:
+            cmsFourBandColormaps[id].calcReverse();
+            drawCanvasColormap("id_Gallery_"+type+"_"+id, cmsFourBandColormaps[id]);
+              break
+              case 2:
+              cmsDivergentColormaps[id].calcReverse();
+              drawCanvasColormap("id_Gallery_"+type+"_"+id, cmsDivergentColormaps[id]);
+                break
+                  case 3:
+                  cmsBlueColormaps[id].calcReverse();
+                  drawCanvasColormap("id_Gallery_"+type+"_"+id, cmsBlueColormaps[id]);
+                    break
+                    case 4:
+                    cmsBrownColormaps[id].calcReverse();
+                    drawCanvasColormap("id_Gallery_"+type+"_"+id, cmsBrownColormaps[id]);
+                      break
+                      case 5:
+                      cmsGreenColormaps[id].calcReverse();
+                      drawCanvasColormap("id_Gallery_"+type+"_"+id, cmsGreenColormaps[id]);
+                        break
+                        case 6:
+                        cmsRedPurpleColormaps[id].calcReverse();
+                        drawCanvasColormap("id_Gallery_"+type+"_"+id, cmsRedPurpleColormaps[id]);
+                          break
+                          case 7:
+                           cmsYellowColormaps[id].calcReverse();
+                           drawCanvasColormap("id_Gallery_"+type+"_"+id, cmsYellowColormaps[id]);
+                            break
+          default:
+
+        }
+
+      };
+    })(i,cmsType);
+
+
+
     var tmpEditButton = document.createElement('canvas');
     tmpEditButton.className= "class_GalleryButton";
     tmpEditButton.style.backgroundImage = "url(img/Buttons/editButton_black.png)";
@@ -156,6 +205,7 @@ function drawGalleryPredefinedCMS(cmsArray, cmsType){
     })(i,cmsType);
 
     tmpCMSDiv.appendChild(tmpCanvas);
+    tmpCMSDiv.appendChild(tmpReverseButton);
     tmpCMSDiv.appendChild(tmpEditButton);
     tmpCMSDiv.appendChild(tmpExportButton);
 

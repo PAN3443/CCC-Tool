@@ -20,11 +20,11 @@ function updateAnalzyeMappingProbeSetStatus(){
 
     if (document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.display == "none") {
       document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.display = "block";
-      document.getElementById("id_dropDownMenue_AnalyzeWindow_Label").innerHTML="&#9673; Analyze Window";
+      document.getElementById("id_dropDownMenue_AnalyzeWindow_Label").innerHTML="&#9673; Analysis Window";
     }
     else{
       document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.display = "none";
-      document.getElementById("id_dropDownMenue_AnalyzeWindow_Label").innerHTML="&#9675; Analyze Window";
+      document.getElementById("id_dropDownMenue_AnalyzeWindow_Label").innerHTML="&#9675; Analysis Window";
     }
 
     update_EditPageStyle();
@@ -66,7 +66,7 @@ function showEditMode(){
   document.getElementById("id_editPage_EditKeyPathPlotDiv").style.display = "block";
   document.getElementById("id_dropDownMenue_EditWindow_Label").innerHTML="&#9673; Edit Window";
   document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.display = "none";
-  document.getElementById("id_dropDownMenue_AnalyzeWindow_Label").innerHTML="&#9675; Analyze Window";
+  document.getElementById("id_dropDownMenue_AnalyzeWindow_Label").innerHTML="&#9675; Analysis Window";
   update_EditPageStyle();
 }
 
@@ -78,7 +78,7 @@ function showAnalyzeMode(){
   document.getElementById("id_editPage_EditKeyPathPlotDiv").style.display = "none";
   document.getElementById("id_dropDownMenue_EditWindow_Label").innerHTML="&#9675; Edit Window";
   document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.display = "block";
-  document.getElementById("id_dropDownMenue_AnalyzeWindow_Label").innerHTML="&#9673; Analyze Window";
+  document.getElementById("id_dropDownMenue_AnalyzeWindow_Label").innerHTML="&#9673; Analysis Window";
 
   if(document.getElementById("id_EditPage_DivAnalyze").style.display=="none")
     switchAnalyzeMappingProbeSet(0)
@@ -94,7 +94,7 @@ function showMappingMode(){
   document.getElementById("id_editPage_EditKeyPathPlotDiv").style.display = "none";
   document.getElementById("id_dropDownMenue_EditWindow_Label").innerHTML="&#9675; Edit Window";
   document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.display = "block";
-  document.getElementById("id_dropDownMenue_AnalyzeWindow_Label").innerHTML="&#9673; Analyze Window";
+  document.getElementById("id_dropDownMenue_AnalyzeWindow_Label").innerHTML="&#9673; Analysis Window";
 
   if(document.getElementById("id_EditPage_DivMapping").style.display=="none")
     switchAnalyzeMappingProbeSet(1)
@@ -261,6 +261,7 @@ function update_EditPageStyle(){
 
     if(document.getElementById("id_EditPage_Edit_Keys").style.display!="none"){
        openEditKeyDiv(document.getElementById("id_EditPage_EditKey_List").selectedIndex);
+       updateKeyDrawSize();
     }
 
     if(document.getElementById("id_EditPage_Edit_Path").style.display!="none"){

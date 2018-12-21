@@ -24,8 +24,6 @@ function drawPredefined_MyDesignsCMS(){
 
   var drawnNothing = true;
 
-
-
   document.getElementById("id_EditPage_MyDesigns_CMS_Div").style.display = "block";
   document.getElementById("id_EditPage_MyDesigns_EmptyDiv").style.display = "none";
 
@@ -176,21 +174,62 @@ function drawPredefinedCMS(cmsArray, cmsType){
     if(cmsArray[i].getKeyLength()==0)
       continue;
 
-    /*var tmpDiv = document.createElement('div');
-    tmpDiv.className = "class_predefinedRow";
-    tmpDiv.style.display = "block";
-    tmpDiv.id= "predefinedDiv_"+i+"_"+cmsType;
-    tmpDiv.style.marginTop = "5px";*/
+    var tmpDiv = document.createElement('div');
+    tmpDiv.style.display = "flex";
+    tmpDiv.style.width = "100%";
 
     var tmpCMSlinear = document.createElement('canvas');
     tmpCMSlinear.id="predefined_linear"+i+"_"+cmsType;
-    tmpCMSlinear.className = 'class_predefinedLinearCMSBands'
-    //tmpDiv.appendChild(tmpCMSlinear);
+    tmpCMSlinear.className = 'class_predefinedLinearCMSBandsWidthReverse'
+    tmpDiv.appendChild(tmpCMSlinear);
 
-    /*var tmpCMSsketch = document.createElement('canvas');
-    tmpCMSsketch.id= "predefined_sketch"+i+"_"+cmsType;
-    tmpCMSsketch.className = 'class_predefinedSketchCMSBands';*/
-    //tmpDiv.appendChild(tmpCMSsketch);
+    var tmpReverseButton = document.createElement('button');
+    tmpReverseButton.className= "class_predefinedLinearCMSBandsReverseButton";
+    tmpReverseButton.innerHTML = "&#8646;"
+    tmpReverseButton.onclick = (function(id,type) {
+    return function() {
+
+
+        switch (type) {
+          case 7:
+          cmsThreeBandColormaps[id].calcReverse();
+          drawCanvasColormap("predefined_linear"+id+"_"+type, cmsThreeBandColormaps[id]);
+            break;
+            case 6:
+            cmsFourBandColormaps[id].calcReverse();
+            drawCanvasColormap("predefined_linear"+id+"_"+type, cmsFourBandColormaps[id]);
+              break
+              case 5:
+              cmsDivergentColormaps[id].calcReverse();
+              drawCanvasColormap("predefined_linear"+id+"_"+type, cmsDivergentColormaps[id]);
+                break
+                  case 1:
+                  cmsBlueColormaps[id].calcReverse();
+                  drawCanvasColormap("predefined_linear"+id+"_"+type, cmsBlueColormaps[id]);
+                    break
+                    case 4:
+                    cmsBrownColormaps[id].calcReverse();
+                    drawCanvasColormap("predefined_linear"+id+"_"+type, cmsBrownColormaps[id]);
+                      break
+                      case 3:
+                      cmsGreenColormaps[id].calcReverse();
+                      drawCanvasColormap("predefined_linear"+id+"_"+type, cmsGreenColormaps[id]);
+                        break
+                        case 2:
+                        cmsRedPurpleColormaps[id].calcReverse();
+                        drawCanvasColormap("predefined_linear"+id+"_"+type, cmsRedPurpleColormaps[id]);
+                          break
+                          case 0:
+                           cmsYellowColormaps[id].calcReverse();
+                           drawCanvasColormap("predefined_linear"+id+"_"+type, cmsYellowColormaps[id]);
+                            break
+          default:
+
+        }
+
+      };
+    })(i,cmsType);
+    tmpDiv.appendChild(tmpReverseButton);
 
     tmpCMSlinear.setAttribute('draggable', true);
 
@@ -204,7 +243,7 @@ function drawPredefinedCMS(cmsArray, cmsType){
     };
   })(i,cmsType);
 
-    document.getElementById('id_EditPage_Predefined_CMS_Div').appendChild(tmpCMSlinear);
+    document.getElementById('id_EditPage_Predefined_CMS_Div').appendChild(tmpDiv);
 
     drawCanvasColormap(tmpCMSlinear.id, cmsArray[i]);
     //drawBandSketch(cmsArray[i],tmpCMSsketch.id, false, -1);
