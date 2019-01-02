@@ -10,6 +10,13 @@ function hueInit() {
   canvasColorspace.height = canvasObjBox.height;
 
   var colorspaceContex = canvasColorspace.getContext("2d");
+
+  colorspaceContex.mozImageSmoothingEnabled = false;
+  colorspaceContex.webkitImageSmoothingEnabled = false;
+  colorspaceContex.msImageSmoothingEnabled = false;
+  colorspaceContex.imageSmoothingEnabled = false; // did not work !?!?!
+  colorspaceContex.oImageSmoothingEnabled = false;
+
   var colorspaceBackgroundData = colorspaceContex.getImageData(0, 0, canvasColorspace.width, canvasColorspace.height);
 
   var colorspaceCenterX = Math.round(canvasColorspace.width / 2);
@@ -254,6 +261,24 @@ function init_VPlot() {
   var vPlotContex2 = canvasVPlot2.getContext("2d");
   var vPlotContex3 = canvasVPlot3.getContext("2d");
 
+  vPlotContex1.mozImageSmoothingEnabled = false;
+  vPlotContex1.webkitImageSmoothingEnabled = false;
+  vPlotContex1.msImageSmoothingEnabled = false;
+  vPlotContex1.imageSmoothingEnabled = false; // did not work !?!?!
+  vPlotContex1.oImageSmoothingEnabled = false;
+
+  vPlotContex2.mozImageSmoothingEnabled = false;
+  vPlotContex2.webkitImageSmoothingEnabled = false;
+  vPlotContex2.msImageSmoothingEnabled = false;
+  vPlotContex2.imageSmoothingEnabled = false; // did not work !?!?!
+  vPlotContex2.oImageSmoothingEnabled = false;
+
+  vPlotContex3.mozImageSmoothingEnabled = false;
+  vPlotContex3.webkitImageSmoothingEnabled = false;
+  vPlotContex3.msImageSmoothingEnabled = false;
+  vPlotContex3.imageSmoothingEnabled = false; // did not work !?!?!
+  vPlotContex3.oImageSmoothingEnabled = false;
+  
   var yStart = Math.round(canvasVPlot1.height * 0.9);
   var yEnd = Math.round(canvasVPlot1.height * 0.1);
   var yEndLine = Math.round(canvasVPlot1.height * 0.05);
@@ -267,7 +292,7 @@ function init_VPlot() {
   var xEndLine = xEndArrow - arrowHeight;
 
   var lineColor = 'rgb(200,200,200)';
-  var arrowFontColor = 'rgb(90,90,90)';
+  var arrowFontColor = 'rgb(0,0,00)';//'rgb(90,90,90)';
 
   vPlotContex1.fillStyle = arrowFontColor;
   vPlotContex2.fillStyle = arrowFontColor;
@@ -607,6 +632,12 @@ function drawElements_HSV_LAB_DIN99(isCompareMap) {
   var colorspaceContex = canvasColorspace.getContext("2d");
   var canvasColorspaceData = colorspaceContex.getImageData(0, 0, canvasColorspaceWidth, canvasColorspaceHeight);
 
+  colorspaceContex.mozImageSmoothingEnabled = false;
+  colorspaceContex.webkitImageSmoothingEnabled = false;
+  colorspaceContex.msImageSmoothingEnabled = false;
+  colorspaceContex.imageSmoothingEnabled = false; // did not work !?!?!
+  colorspaceContex.oImageSmoothingEnabled = false;
+
   var canvasVPlot1 = document.getElementById("id_EditPage_PathPlot_Canvas1_2");
   var canvasVPlot2 = document.getElementById("id_EditPage_PathPlot_Canvas2_2");
   var canvasVPlot3 = document.getElementById("id_EditPage_PathPlot_Canvas3_2");
@@ -626,6 +657,24 @@ function drawElements_HSV_LAB_DIN99(isCompareMap) {
   var vPlotContex1 = canvasVPlot1.getContext("2d");
   var vPlotContex2 = canvasVPlot2.getContext("2d");
   var vPlotContex3 = canvasVPlot3.getContext("2d");
+
+  vPlotContex1.mozImageSmoothingEnabled = false;
+  vPlotContex1.webkitImageSmoothingEnabled = false;
+  vPlotContex1.msImageSmoothingEnabled = false;
+  vPlotContex1.imageSmoothingEnabled = false; // did not work !?!?!
+  vPlotContex1.oImageSmoothingEnabled = false;
+
+  vPlotContex2.mozImageSmoothingEnabled = false;
+  vPlotContex2.webkitImageSmoothingEnabled = false;
+  vPlotContex2.msImageSmoothingEnabled = false;
+  vPlotContex2.imageSmoothingEnabled = false; // did not work !?!?!
+  vPlotContex2.oImageSmoothingEnabled = false;
+
+  vPlotContex3.mozImageSmoothingEnabled = false;
+  vPlotContex3.webkitImageSmoothingEnabled = false;
+  vPlotContex3.msImageSmoothingEnabled = false;
+  vPlotContex3.imageSmoothingEnabled = false; // did not work !?!?!
+  vPlotContex3.oImageSmoothingEnabled = false;
 
   var vPlotyStart = Math.round(canvasVPlot1.height * 0.9);
   var vPlotyEnd = Math.round(canvasVPlot1.height * 0.1);
@@ -793,6 +842,11 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap) {
   var colorspaceContex = canvasColorspace.getContext("2d");
   var canvasColorspaceData = colorspaceContex.getImageData(0, 0, canvasColorspaceWidth, canvasColorspaceHeight);
 
+  colorspaceContex.mozImageSmoothingEnabled = false;
+  colorspaceContex.webkitImageSmoothingEnabled = false;
+  colorspaceContex.msImageSmoothingEnabled = false;
+  colorspaceContex.imageSmoothingEnabled = false; // did not work !?!?!
+  colorspaceContex.oImageSmoothingEnabled = false;
 
   var canvasVPlot1 = document.getElementById("id_EditPage_PathPlot_Canvas1_1");
   var canvasVPlot2 = document.getElementById("id_EditPage_PathPlot_Canvas2_1");
@@ -811,6 +865,24 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap) {
   var vPlotContex1 = canvasVPlot1.getContext("2d");
   var vPlotContex2 = canvasVPlot2.getContext("2d");
   var vPlotContex3 = canvasVPlot3.getContext("2d");
+
+  vPlotContex1.mozImageSmoothingEnabled = false;
+  vPlotContex1.webkitImageSmoothingEnabled = false;
+  vPlotContex1.msImageSmoothingEnabled = false;
+  vPlotContex1.imageSmoothingEnabled = false; // did not work !?!?!
+  vPlotContex1.oImageSmoothingEnabled = false;
+
+  vPlotContex2.mozImageSmoothingEnabled = false;
+  vPlotContex2.webkitImageSmoothingEnabled = false;
+  vPlotContex2.msImageSmoothingEnabled = false;
+  vPlotContex2.imageSmoothingEnabled = false; // did not work !?!?!
+  vPlotContex2.oImageSmoothingEnabled = false;
+
+  vPlotContex3.mozImageSmoothingEnabled = false;
+  vPlotContex3.webkitImageSmoothingEnabled = false;
+  vPlotContex3.msImageSmoothingEnabled = false;
+  vPlotContex3.imageSmoothingEnabled = false; // did not work !?!?!
+  vPlotContex3.oImageSmoothingEnabled = false;
 
   var vPlotyStart = Math.round(canvasVPlot1.height * 0.9);
   var vPlotyEnd = Math.round(canvasVPlot1.height * 0.1);
