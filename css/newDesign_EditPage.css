@@ -2,44 +2,47 @@
 .class_EditPage_closeDiv {
   height:2vh;
   width: 100%;
-  background: rgb(30,30,30);
+  background: rgb(25, 38, 51);
+  margin:0;
   border: 0.2vh solid black;
-  -moz-box-shadow:    inset 0 0 0.2vh rgb(0,0,0);
-   -webkit-box-shadow: inset 0 0 0.2vh rgb(0,0,0);
-   box-shadow:         inset 0 0 0.2vh rgb(0,0,0);
+  /*-moz-box-shadow:    inset 0 0 0.2vh white;
+   -webkit-box-shadow: inset 0 0 0.2vh white;
+   box-shadow:         inset 0 0 0.2vh white;*/
 }
 
-.class_EditPage_closeDiv button{
+.class_EditPage_closeDiv div{
   height:2vh;
   line-height: 2vh;
   width: 2vh;
   font-size: 1.2vh;
   float:right;
-  background: rgb(80,80,80);
+  background: none;
   color:white;
   text-align: center;
-  border: 0.2vh solid black;
-  -moz-box-shadow:    inset 0 0 0.2vh rgb(0,0,0);
+  border-left: 0.2vh solid white;
+  cursor: pointer;
+  /*-moz-box-shadow:    inset 0 0 0.2vh rgb(0,0,0);
    -webkit-box-shadow: inset 0 0 0.2vh rgb(0,0,0);
-   box-shadow:         inset 0 0 0.2vh rgb(0,0,0);
+   box-shadow:         inset 0 0 0.2vh rgb(0,0,0);*/
 }
 
 .class_EditPage_EditButton{
   line-height: 3vh;
-  color: black;
+  color: white;
   height: 3vh;
   width: 3vh;
   font-size: 1.5vh;
   vertical-align: middle;
   text-align: center;
-  background:rgb(220,220,220);
-  border: 0.2vh solid black;
+  background:none;
+  border: 0.2vh solid white;
   border-radius: 0.5vh;
   overflow: hidden;
   margin:auto;
-  -moz-box-shadow:    inset 0 0 0.5vh rgb(0,0,0);
-   -webkit-box-shadow: inset 0 0 0.5vh rgb(0,0,0);
-   box-shadow:         inset 0 0 0.5vh rgb(0,0,0);
+  cursor: pointer;
+  /*-moz-box-shadow:    inset 0 0 0.3vh rgb(180,180,180);
+   -webkit-box-shadow: inset 0 0 0.3vh rgb(180,180,180);
+   box-shadow:         inset 0 0 0.3vh rgb(180,180,180);*/
 
    /*background-size:cover;
    //background-repeat:no-repeat;
@@ -74,10 +77,10 @@
 
 
 .class_EditPage_TabRow {
+  margin:0;
   display: flex;
   height: auto;
   width: 100%;
-  background: rgb(80,80,80);
 }
 
 .class_EditPage_TabRow button{
@@ -85,20 +88,16 @@
   line-height: 4vh;
   width: 100%;
   font-size: 2.0vh;
-  background: rgb(50,50,50);
-  /*color:white;*/
   text-align: center;
-  border: 0.2vh solid black;
-  -moz-box-shadow:    inset 0 0 0.5vh rgb(0,0,0);
-   -webkit-box-shadow: inset 0 0 0.5vh rgb(0,0,0);
-   box-shadow:         inset 0 0 0.5vh rgb(0,0,0);
+  border: 0.1vh solid black;
+
 }
 
 .class_EditPage_TabRow canvas{
   height:4vh;
   line-height: 4vh;
   background: rgb(50,50,50);
-  border: 0.2vh solid grey;
+  border: 0.1vh solid rgb(25, 37, 51);
   box-sizing: border-box;
   /*-moz-box-shadow:    inset 0 0 0.5vh rgb(0,0,0);
    -webkit-box-shadow: inset 0 0 0.5vh rgb(0,0,0);
@@ -107,7 +106,7 @@
 
 
 .class_EditPage_TabRow canvas:hover{
-  border: 0.2vh solid white;
+  border: 0.1vh solid white;
   /*-moz-box-shadow:    inset 0 0 0.5vh rgb(255,255,255);
    -webkit-box-shadow: inset 0 0 0.5vh rgb(255,255,255);
    box-shadow:         inset 0 0 0.5vh rgb(255,255,255);*/
@@ -164,9 +163,9 @@
     display: inline-block;
     white-space: nowrap;
 
-    -moz-box-shadow:    inset 0 0 0.2vh rgb(0,0,0);
-    -webkit-box-shadow: inset 0 0 0.2vh rgb(0,0,0);
-    box-shadow:         inset 0 0 0.2vh rgb(0,0,0);
+    /*-moz-box-shadow:    inset 0 0 0.3vh rgb(180,180,180);
+     -webkit-box-shadow: inset 0 0 0.3vh rgb(180,180,180);
+     box-shadow:         inset 0 0 0.3vh rgb(180,180,180);*/
 }
 
 
@@ -178,10 +177,9 @@
     margin-top: 0.25vh;
     margin-left: 5%;
     border-radius: 0.5vh;
-    border: 0.2vh solid black;
-    -moz-box-shadow:    inset 0 0 0.5vh rgb(0,0,0);
-     -webkit-box-shadow: inset 0 0 0.5vh rgb(0,0,0);
-     box-shadow:         inset 0 0 0.5vh rgb(0,0,0);
+    /*-moz-box-shadow:    inset 0 0 0.5vh rgb(180,180,180);
+     -webkit-box-shadow: inset 0 0 0.5vh rgb(180,180,180);
+     box-shadow:         inset 0 0 0.5vh rgb(180,180,180);*/
     cursor: grabbing;
 
 }
@@ -194,10 +192,9 @@
     margin-top: 0.25vh;
     margin-left: auto;
     border-radius: 0.5vh;
-    border: 0.2vh solid black;
-    -moz-box-shadow:    inset 0 0 0.5vh rgb(0,0,0);
-     -webkit-box-shadow: inset 0 0 0.5vh rgb(0,0,0);
-     box-shadow:         inset 0 0 0.5vh rgb(0,0,0);
+    /*-moz-box-shadow:    inset 0 0 0.5vh rgb(180,180,180);
+     -webkit-box-shadow: inset 0 0 0.5vh rgb(180,180,180);
+     box-shadow:         inset 0 0 0.5vh rgb(180,180,180);*/
     cursor: grabbing;
 
 }
@@ -206,9 +203,10 @@
 .class_predefinedLinearCMSBandsReverseButton{
     box-sizing: content-box;
     border: 0.2vh solid black;
-    /*width: 7.5%;
-    max-width: 7.5%;*/
+    width: 7.5%;
+    max-width: 7.5%;
     height:3vh;
+    background: white;
     color: black;
     line-height:3vh;
     font-size: 1.8vh;
@@ -216,11 +214,10 @@
     margin-left: auto;
     margin-right: auto;
     border-radius: 0.5vh;
-    border: 0.2vh solid black;
-    -moz-box-shadow:    inset 0 0 0.5vh rgb(0,0,0);
-     -webkit-box-shadow: inset 0 0 0.5vh rgb(0,0,0);
-     box-shadow:         inset 0 0 0.5vh rgb(0,0,0);
-    cursor: grabbing;
+    /*-moz-box-shadow:    inset 0 0 0.3vh rgb(180,180,180);
+     -webkit-box-shadow: inset 0 0 0.3vh rgb(180,180,180);
+     box-shadow:         inset 0 0 0.3vh rgb(180,180,180);*/
+    cursor: pointer;
 
 }
 

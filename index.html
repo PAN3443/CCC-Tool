@@ -22,9 +22,6 @@
         -------------------------------------------------
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         -->
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/general.css">
-
 
   <link rel="stylesheet" href="css/newDesign_Menu.css">
   <link rel="stylesheet" href="css/newDesign_General.css">
@@ -243,7 +240,7 @@
 </head>
 <!--style="background: rgb(30,30,30);"-->
 
-<body style="height:auto; background:white; overflow:hidden;">
+<body style="height:auto; width:100vw; background:white; overflow:hidden;">
   <!--style="background:url(img/background2.png);"-->
   <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -269,7 +266,7 @@
           -----------------------------------------------
           -->
 
-  <div id="headerDiv" style="width:100vw; height:5vh; margin:0px;  position:fixed; top:0px; left:0px; z-index:90; background:url(img/background3.jpg);">
+  <div id="headerDiv" style="width:100vw; height:5vh; margin:0px;  position:fixed; top:0px; left:0px; z-index:90; background: rgb(0, 11, 25);">
     <!-- background:url(img/background.png);;position: -webkit-sticky; position: sticky; margin:0px; padding-top:20px;  padding-bottom:20px;"-->
 
 
@@ -277,7 +274,7 @@
 
       <img src="img/Logos/CCC-LOGO_new.png" alt="CCC-Tool Logo" style="height:80%; margin-left:20px; margin-right:20px; margin-top:auto; margin-bottom:auto;">
 
-      <p id="id_header_ccctoolLabel" class="class_WhiteInsetLabelText" style="margin:0px; text-align:left; vertical-align: middle; color:transparent; font-size: 3vh; margin-top:auto; line-height:5vh; margin-bottom:auto; margin-right:auto; font-family:verdana;">
+      <p id="id_header_ccctoolLabel" style="margin:0px; text-align:left; vertical-align: middle; color:white; font-size: 3vh; margin-top:auto; line-height:5vh; margin-bottom:auto; margin-right:auto;">
       <strong>C</strong>harting <strong>C</strong>ontinuous <strong>C</strong>olormap </p>
 
 
@@ -297,10 +294,10 @@
 
 
 
-      <div style="height:100%; width:auto; position: relative; display: inline-block; margin-right:2vw;">
+      <div style="height:100%; width:auto; position: relative; display: inline-block;">
         <div onclick="activateMenuDropdown()" class="menu_button"> Menu </div>
 
-        <div id="id_dropDownContainer" style="background: url(img/background3.jpg); min-width:20vw;  display: none; position: absolute; right: 0; z-index: 101;">
+        <div id="id_dropDownContainer" style="background: rgb(0, 11, 25); min-width:20vw;  display: none; position: absolute; right: 0; z-index: 101;">
 
 
           <div class="row dropdownMenuLabelBox" style="background:rgba(255,255,255,0.3); border-bottom: 1px solid white;">
@@ -498,7 +495,7 @@
         your CCC-Tool team.
       </p>
 
-      <button onclick="showMyDesignsPage()" class="class_generalbutton" style="margin-left:40%; width:20%;">Anonymous User</button>
+      <button onclick="showMyDesignsPage()" class="class_generalbutton" style="margin-left:40%; width:20%;"><p>Anonymous User</p></button>
 
     </div>
 
@@ -525,8 +522,8 @@
       </div>
 
       <div class="row" style="margin-top:3vh; margin-bottom:3vh;">
-        <button class="class_generalbutton" onclick="showGallery()" style="margin-left:25%; margin-right:10%;  width:20%;">Visit Gallery</button>
-        <button class="class_generalbutton" onclick="showNewCMSPage()" style="margin-right:25%;  width:20%;">New CMS</button>
+        <button class="class_generalbutton" onclick="showGallery()" style="margin-left:25%; margin-right:10%;  width:20%;"><p>Visit Gallery</p></button>
+        <button class="class_generalbutton" onclick="showNewCMSPage()" style="margin-right:25%;  width:20%;"><p>New CMS</p></button>
       </div>
 
     </div>
@@ -558,8 +555,8 @@
 
 
       <div class="row" style="margin-top:2.5%;">
-        <button class="class_generalbutton" onclick="showMyDesignsPage()" style="margin-left:25%; margin-right:10%;  width:20%;">Cancel</button>
-        <button class="class_generalbutton" onclick="showEditPage()" style="margin-right:25%;  width:20%;">Create</button>
+        <button class="class_generalbutton" onclick="showMyDesignsPage()" style="margin-left:25%; margin-right:10%;  width:20%;"><p>Cancel</p></button>
+        <button class="class_generalbutton" onclick="showEditPage()" style="margin-right:25%;  width:20%;"><p>Create</p></button>
       </div>
 
     </div>
@@ -622,7 +619,7 @@
 
 
 
-      <button class="class_generalbutton" onclick="showMyDesignsPage()" style="margin-left:40%; margin-top:2vh;  width:20%;">MyDesigns</button>
+      <button class="class_generalbutton" onclick="showMyDesignsPage()" style="margin-left:40%; margin-top:2vh;  width:20%;"><p>MyDesigns</p></button>
 
 
 
@@ -641,10 +638,10 @@
       <!----------- ADD Map Container ------------------->
       <div id="id_EditPage_Add_Structures" style="width:20%; height:100%; background:rgb(220,220,220); border:0.2vh solid black; border-right:none">
         <!----------- Constant ------------------->
-        <div style="width:100%; height:15vh; border-bottom:0.2vh solid grey;">
+        <div style="width:100%; height:15vh;">
 
           <div class="class_EditPage_closeDiv">
-            <button type="button" name="button" onclick="updateAddStructureStatus()">X</button>
+            <div onclick="updateAddStructureStatus()">X</div>
           </div>
 
           <div id="id_EditPage_ConstBandDiv" style="width:100%; height:13vh; overflow-y:auto; display: inline-block; padding-top:1vh;">
@@ -666,7 +663,7 @@
           </div>
 
           <div id="id_EditPage_Predefined_Div" style="width:100%; height:76vh;">
-            <p class="standardText" style="width:100%; text-align:center; background:rgb(80,80,80); color:rgb(200,200,200);">Click to show the predefined:</p>
+            <p class="standardText" style="width:100%; text-align:center; color:white; background:rgb(50,50,50);">Click to show the predefined:</p>
             <div class="class_EditPage_TabRow" style="width:100%;">
 
 
@@ -706,7 +703,7 @@
           <!----------- CMS VIS Container ------------------->
           <div id="id_EditPage_CMS_Div" style="width:60vw; height:100%;">
 
-            <div style="width:100%; height:8.5vh; background:rgb(80,80,80); border-bottom:0.2vh solid black;">
+            <div style="width:100%; height:8.5vh; background: rgb(25, 38, 51); border-bottom:0.2vh solid black;">
 
               <div style="display:flex; width:100%; height:4.5vh; border-bottom:0.2vh solid grey;">
                 <div style=" display:flex; width:50%; border-right: 0.2vh solid grey; ">
@@ -718,14 +715,14 @@
                   <p id="id_header_interpolationSpaceWarning" class="class_EditPage_EditButtonLabel"> &#9786; </p>
                   <select id="id_editPage_InterpolationSelect" class="class_EditPage_EditButtonLabel" name="InterpolationSpaceList" style="background:none;" onchange="changeColorspace()">
                     <optgroup label="&#9786; Perceptually Uniform:">
-                      <option value="lab">Lab</option>
-                      <option value="din99">DIN99</option>
+                      <option value="lab" style="color:black; background:white;">Lab</option>
+                      <option value="din99" style="color:black; background:white;">DIN99</option>
                       <option value="de94" disabled>Lab using de94</option>
                       <option value="de2000" disabled>Lab using CIEDE2000</option>
                     </optgroup>
                     <optgroup label="&#9785; Not Perceptually Uniform:">
-                      <option value="rgb">RGB</option>
-                      <option value="hsv">HSV</option>
+                      <option value="rgb" style="color:black; background:white;">RGB</option>
+                      <option value="hsv" style="color:black; background:white;">HSV</option>
                     </optgroup>
                   </select>
                 </div>
@@ -788,7 +785,7 @@
           <!----------- Section Generation, Table ------------------->
           <div id="id_EditPage_Table_Div" style="width:20vw; height:100%; border-left:0.2vh solid black;  background:rgb(220,220,220);">
             <div class="class_EditPage_closeDiv">
-              <button type="button" name="button" onclick="updateTableStatus()">X</button>
+              <div onclick="updateTableStatus()">X</div>
             </div>
             <div id="id_EditPage_TableDiv" style="height:30vh; width:20vw;">
               <table cellspacing="0" cellpadding="0" style="width:20vw;">
@@ -827,7 +824,7 @@
 
           <div id="id_editPage_AnalyzeMappingProbeSetDiv" style="width:70%; height:100%;">
             <div class="class_EditPage_closeDiv">
-              <button type="button" name="button" onclick="updateAnalzyeMappingProbeSetStatus()">X</button>
+              <div onclick="updateAnalzyeMappingProbeSetStatus()">X</div>
             </div>
             <div class="class_EditPage_TabRow">
               <button id="id_editPage_SelectAnalyze" type="button" name="button" style="width:33%;" onclick="switchAnalyzeMappingProbeSet(0)">Analysis</button>
@@ -850,7 +847,7 @@
                    <option class="standardText" value="Order" >Order</option>
                   </select>
 
-                  <button class="class_generalbutton" onclick="updateAnalyze()" type="button" name="button" style="width:80%; margin-left:10%; margin-top:20px;">Update</button>
+                  <button class="class_generalbutton" onclick="updateAnalyze()" type="button" name="button" style="width:80%; margin-left:10%; margin-top:20px;"><p>Update</p></button>
                   <p class="standardText" style="width:80%; margin-left:10%;">(Info: If you have deactivated the automatical calculation of the analyze plots, you can update the plots manually by this button.)</p>
                 </div>
 
@@ -1043,7 +1040,7 @@
                 </div>
 
 
-                <canvas id="id_EditPage_CMS_VIS_Histogramm" style="display:block; width:90%; margin:0px; margin-left:5%; margin-right:5%; height:20vh;overflow:hidden; background:white; border:0.2vh solid grey; box-sizing: border-box;"></canvas>
+                <canvas id="id_EditPage_CMS_VIS_Histogramm" style="display:block; width:90%; margin:0px; margin-left:5%; margin-right:5%; height:18vh;overflow:hidden; "></canvas>
                 <canvas id="id_EditPage_CMS_VIS_HistogrammCMS" style="display:block; width:90%; margin:0px; margin-left:5%; margin-right:5%; height:2vh;overflow:hidden; border: 0.2vh solid black; border-bottom: none; box-sizing: border-box;"></canvas>
                 <!--div style="height:10px; border-left: 1px solid black; border-right: 1px solid black; width:90%; margin:0px; margin-left:5%;"></div-->
                 <div class="row">
@@ -1065,7 +1062,7 @@
 
 
 
-                      <button id="id_EditPage_DataInfoButton" class="class_EditPage_EditButton" style="border-radius: 0.5vh; height:3vh; line-height:3vh; width:auto; font-weight:bold; text-align:center;  border: 0.2vh solid black; visibility:hidden;">Data &#8711;</button>
+                      <button id="id_EditPage_DataInfoButton" class="class_EditPage_EditButton" style="padding-right:0.5vw; padding-left:0.5vw; border-radius: 0.5vh; height:3vh; line-height:3vh; width:auto; font-weight:bold; text-align:center; visibility:hidden;">Data &#8711;</button>
                       <div id="id_EditPage_DataInfoDiv" style="position: absolute; left: 0px; border: 0.2vh solid black; background:rgb(80,80,80); z-index:103; min-width:25vw; padding-top:2vh; padding-bottom:2vh; display:none;">
                           <div class="row" style="width:100%;">
                             <p class="class_EditPage_EditButtonLabel" style="margin-top:auto; margin-bottom:auto; margin-left:10%; font-weight:bold; width:40%;">Field:</p>
@@ -1176,7 +1173,7 @@
                               <option value="1" >Probe 1; Type: Gradient; Function: linear;</option>
                             </select>
 
-                      <button id="id_EditPage_RemoveProbeButton" class="class_generalbutton" onclick="deleteProbe()" type="button" name="button" style=" margin-left:25%; font-size: 1.8vh; height:3vh; line-height: 3vh; width:50%; font-weight:bold; vertical-align:middle; margin-top:2vh;"> Remove Probe </button>
+                      <button id="id_EditPage_RemoveProbeButton" class="class_generalbutton" onclick="deleteProbe()" type="button" name="button" style=" margin-left:25%; width:50%; font-weight:bold; vertical-align:middle; margin-top:1.5vh;"> <p >Remove Probe</p> </button>
                     </div>
 
                     <div style=" width:50%;">
@@ -1200,7 +1197,7 @@
 
                         <div style="width:40%; margin:auto;  margin-left:5%;">
                           <div id="id_EditPage_editProbeTypeLabel" class="standardText " style="width:100%; cursor: pointer; text-align:center; border: 0.2vh solid black;"> &#9660; Contour </div>
-                          <div id="id_EditPage_editProbeTypeDropDown" style="background: url(img/background3.jpg); display: none; position: absolute; left: 0px; z-index: 101;  border: 0.2vh solid black;">
+                          <div id="id_EditPage_editProbeTypeDropDown" style="background: black; display: none; position: absolute; left: 0px; z-index: 101;  border: 0.2vh solid black;">
                             <div id="id_EditPage_editProbeType_Constant" onclick="changeProbeType(0)" class="standardText">
                               Constant
                             </div>
@@ -1233,7 +1230,7 @@
                           </div>
 
                           <div id="id_EditPage_editProbeFunctionLabel" class="standardText " style="width:3vh; margin:auto; margin-top:0px; cursor: pointer; text-align:center; border: 0.2vh solid black;"> &#9660; </div>
-                          <div id="id_EditPage_editProbeFunctionDropDown" style="background: url(img/background3.jpg); display: none; position: absolute; left: 0px; z-index: 101; border: 0.2vh solid black; padding:1vh;">
+                          <div id="id_EditPage_editProbeFunctionDropDown" style="background: black; display: none; position: absolute; left: 0px; z-index: 101; border: 0.2vh solid black; padding:1vh;">
 
                             <div id="id_EditPage_editProbeFunctionOneSided_Div" style="display:none;">
 
@@ -1461,7 +1458,7 @@
                         </div>
                       </div>
 
-                      <button id="id_EditPage_AddUpdateProbeButton" class="class_generalbutton" onclick="addOrUpdateProbe()" type="button" name="button" style=" margin-left:25%; width:50%; margin-top:2vh;"> Update Probe </button>
+                      <button  class="class_generalbutton" onclick="addOrUpdateProbe()" type="button" name="button" style=" margin-left:25%; width:50%; margin-top:2vh;"> <p id="id_EditPage_AddUpdateProbeButton">Update Probe</p> </button>
 
 
                     </div>
@@ -1486,7 +1483,7 @@
           <!----------- Edit Key, Edit Path Plot  ------------------->
           <div id="id_editPage_EditKeyPathPlotDiv" style="width:30%; height:100%; overflow:hidden; border-left:0.2vh solid black;">
             <div class="class_EditPage_closeDiv">
-              <button type="button" name="button" onclick="updateEditKeyPathPlotStatus()">X</button>
+              <div onclick="updateEditKeyPathPlotStatus()">X</div>
             </div>
             <div class="class_EditPage_TabRow">
               <button id="id_editPage_SelectEditKeys" type="button" name="button" style="width:50%;" onclick="switchModifyModus(0)">Key Edit</button>
@@ -1512,7 +1509,7 @@
                     </select>
 
 
-                  <button id="id_EditPage_EditKey_DeleteButton" class="class_generalbutton" onclick="delteKey()" style=" margin-left:5%; width:80%; margin-top:auto; margin-bottom:auto;">Delete Key</button>
+                  <button id="id_EditPage_EditKey_DeleteButton" class="class_generalbutton" onclick="delteKey()" style=" margin-left:5%; width:80%; margin-top:auto; margin-bottom:auto;"><p>Delete Key</p></button>
                 </div>
 
                 <div id="id_EditPage_Edit_Keys_Div2" style="width:100%; height:15vh; border-right: 0.2vh solid grey; border-bottom: 0.2vh solid grey;">
@@ -1552,11 +1549,11 @@
 
                 </div>
 
-                <div id="id_EditPage_Edit_Keys_Div3" style="width:100%; height:24vh; overflow-y:auto; display:flex;">
+                <div id="id_EditPage_Edit_Keys_Div3" style="width:100%; height:24vh; display:flex; flex-flow: wrap;">
 
-                  <div style="margin-top:auto; margin-bottom:auto; width:100%;">
-                    <div style="width:100%; margin-top:auto;">
-                      <p class="subsectionLabel class_InsetLabelText class_EditDivLabel" style="color:transparent; margin-top:0.5h; margin-bottom:1vh;"> Change Key Type: </p>
+
+                    <div id="id_EditPage_Edit_Keys_Div3_1" style=" margin:0vh; margin-top:auto; ">
+                      <p class="subsectionLabel class_InsetLabelText class_EditDivLabel" style="color:transparent; margin-bottom:1vh;"> Change Key Type: </p>
 
                       <div style="display:flex; width:100%; margin-top:1vh;">
 
@@ -1596,20 +1593,22 @@
 
 
                     </div>
-                    <div style="width:100%; margin-top:auto;">
-                      <p class="subsectionLabel class_InsetLabelText class_EditDivLabel" style="color:transparent; margin-top:1vh; margin-bottom:1vh;"> Change Reference Value: </p>
+
+                    <div id="id_EditPage_Edit_Keys_Div3_2" style=" margin:0vh; margin-top:auto;">
+                      <p class="subsectionLabel class_InsetLabelText class_EditDivLabel" style="color:transparent; margin-bottom:1vh;"> Change Reference Value: </p>
 
                       <input id="id_EditPage_EditKey_SetReference" type="number" name="Reference" value="1" step="any" class="standardText" style="width:40%; margin-left:30%;">
 
                     </div>
-                    <div style="width:100%; margin-top:auto; margin-bottom:auto;">
-                      <p class="subsectionLabel class_InsetLabelText class_EditDivLabel" style="color:transparent; margin-top:1vh; margin-bottom:1vh;"> Set As Burdock-Key: </p>
+
+                    <div id="id_EditPage_Edit_Keys_Div3_3" style=" margin:0vh; margin-top:auto; margin-bottom:auto;">
+                      <p class="subsectionLabel class_InsetLabelText class_EditDivLabel" style="color:transparent; margin-bottom:1vh;"> Set As Burdock-Key: </p>
 
                       <div class="row" style="margin-left:20%; width:60%; margin-top:auto;">
                         <input class="standardText" style="margin-left: auto; margin-right: 0.2vw; margin-top:auto; margin-bottom:auto;" type="radio" id="id_editPage_BurKeyTrue" name="editPage_BurType" value="1" checked="checked">
-                        <label class="standardText" for="id_editPage_KeyTypeNil" style="margin-top:auto; margin-bottom:auto;"> true </label>
+                        <p class="standardText" for="id_editPage_KeyTypeNil" style="margin-top:auto; margin-bottom:auto; margin-right: auto;"> true </p>
                         <input class="standardText" style="margin-left: auto; margin-right: 0.2vw; margin-top:auto; margin-bottom:auto;" type="radio" id="id_editPage_BurKeyFalse" name="editPage_BurType" value="2">
-                        <label class="standardText" for="id_editPage_BurKeyFalse" style="margin-top:auto; margin-bottom:auto;"> false </label>
+                        <p class="standardText" for="id_editPage_BurKeyFalse" style="margin-top:auto; margin-bottom:auto; margin-right: auto;"> false </p>
 
                         <!--div class="helpButtonDiv" style="margin-left:15px; margin-right:auto; margin-top:auto; margin-bottom:auto; ">
                             <button class="helpButton">?</button>
@@ -1620,7 +1619,7 @@
 
                       </div>
                     </div>
-                  </div>
+
 
                 </div>
               </div>
@@ -1755,8 +1754,8 @@
 
                             <input class="standardText " type="text" id="id_probe_GenerationName" style="font-weight:bold; margin:auto; margin-left:0.5vw;" name="mapname" required placeholder="Please enter a probe-set name"/>
 
-                            <button class="class_generalbutton" onclick="addProbeToCMS()" type="button" name="button" style="font-weight:bold; margin:auto; width:20vw;"> Add Probe-Set </button>
-                            <button class="class_generalbutton" onclick="closeProbeGeneration()" type="button" name="button" style="font-weight:bold; margin:auto;  width:20vw;"> Cancel </button>
+                            <button class="class_generalbutton" onclick="addProbeToCMS()" type="button" name="button" style="font-weight:bold; margin:auto; width:20vw;"> <p>Add Probe-Set</p> </button>
+                            <button class="class_generalbutton" onclick="closeProbeGeneration()" type="button" name="button" style="font-weight:bold; margin:auto;  width:20vw;"> <p>Cancel</p> </button>
                           </div>
 
 
@@ -1772,7 +1771,7 @@
 
                                 <div id="id_EditPage_selectProbeTypeLabel" class="standardText " style="padding-left:1vw; padding-right:1vw;  margin:auto; margin-left: 5%;  cursor: pointer; border: 0.2vh solid black;"
                                   title="All"> &#9660; Contour </div>
-                                <div id="id_EditPage_selectProbeTypeDropDown" style="background: url(img/background3.jpg); display: none; position: absolute; left: 0px; z-index: 101;  border: 0.2vh solid black;">
+                                <div id="id_EditPage_selectProbeTypeDropDown" style="background: black; display: none; position: absolute; left: 0px; z-index: 101;  border: 0.2vh solid black;">
                                   <div id="id_EditPage_ProbeType_Constant" onclick="changeProbeType(0)" class="dropdownButtonEditPage">
                                     Constant
                                   </div>
@@ -2066,7 +2065,7 @@
 
                                   <div id="id_EditPage_selectProbeSetRangeType" class="standardText " style="padding-left:1vw; width:10vw; margin-left:1vw; padding-right:1vw; margin-top:auto; margin-bottom:auto; cursor: pointer; border: 0.2vh solid black;"
                                     title="All"> &#9660; Contour </div>
-                                  <div id="id_EditPage_selectProbeSetRangeTypeDropDown" style="background: url(img/background3.jpg); display: none; position: absolute; left: 0px; z-index: 101;  width:10%; border: 0.2vh solid black;">
+                                  <div id="id_EditPage_selectProbeSetRangeTypeDropDown" style="background: black; display: none; position: absolute; left: 0px; z-index: 101;  width:10%; border: 0.2vh solid black;">
                                     <div id="id_EditPage_ProbeSetRangeType_Single" onclick="changeRangeGeneration(0)" class="dropdownButtonEditPage">
                                       Single
                                     </div>
@@ -2306,8 +2305,8 @@
         </div>
 
         <div class="row" style="margin-top:1vh; margin-bottom:1vh; width:100%;">
-          <button class="class_generalbutton " onclick="closeExportWindow()" title="cancel" style=" width: 30%; height:4vh; line-height:4vh; font-size:2.6vh; border-width: 0.2vh; margin-left:15%;"> Cancel </button>
-          <button class="class_generalbutton " onclick="downloadCMSFile()" title="export" style=" width: 30%; height:4vh; line-height:4vh; font-size:2.6vh; border-width: 0.2vh; margin-left:10%;"> Export </button>
+          <button class="class_generalbutton " onclick="closeExportWindow()" title="cancel" style=" width: 30%; height:4vh; line-height:4vh; font-size:2.6vh; border-width: 0.2vh; margin-left:15%;"> <p>Cancel</p> </button>
+          <button class="class_generalbutton " onclick="downloadCMSFile()" title="export" style=" width: 30%; height:4vh; line-height:4vh; font-size:2.6vh; border-width: 0.2vh; margin-left:10%;"> <p>Export</p> </button>
         </div>
       </div>
     </div>
@@ -2427,8 +2426,8 @@
         <p id="id_popupWindow_ScaleInfoText" class="standardText " style="margin-left:auto; margin-right:auto; line-height:2.5vh; font-size:2.2vh; color:red; display:none;">The range start has to be smaller than the range end!</p>
 
         <div class="row" style="margin-top:2vh; margin-bottom:2vh; width:100%;">
-          <button class="class_generalbutton " onclick="closeScale()" title="close" style=" width: 30%; height:6vh; line-height:6vh; font-size:3vh; border-width: 0.2vh; margin-left:15%;"> Cancel </button>
-          <button class="class_generalbutton " onclick="checkScale()" title="check" style=" width: 30%; height:6vh; line-height:6vh; font-size:3vh; border-width: 0.2vh; margin-left:10%;"> Scale! </button>
+          <button class="class_generalbutton " onclick="closeScale()" title="close" style=" width: 30%; height:6vh; line-height:6vh; font-size:3vh; border-width: 0.2vh; margin-left:15%;"> <p>Cancel</p> </button>
+          <button class="class_generalbutton " onclick="checkScale()" title="check" style=" width: 30%; height:6vh; line-height:6vh; font-size:3vh; border-width: 0.2vh; margin-left:10%;"> <p>Scale!</p> </button>
         </div>
       </div>
 
@@ -2460,7 +2459,7 @@
             <p id="id_alertText" class="standardText " style="width:100%; text-align:left; height:20vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; margin-top:2vh; margin-bottom:2vh; padding:1vh; border: 0.1vh solid rgb(240,240,240);">
             </p>
 
-            <button class="class_generalbutton " onclick="closeAlert()" title="close" style=" width:100%; height:6vh; line-height:6vh; font-size:3vh; margin-bottom:2vh;"> Close </button>
+            <button class="class_generalbutton " onclick="closeAlert()" title="close" style=" width:100%; height:6vh; line-height:6vh; font-size:3vh; margin-bottom:2vh;"> <p>Close</p> </button>
           </div>
 
         </div>
@@ -2485,116 +2484,116 @@
 
           <div style="width:50%; padding:1vh; border: 0.2vh solid rgb(120,120,120); background: rgb(220,220,220); margin-top:auto; margin-bottom:auto;">
 
-            <div class="row" style="margin-top:0.5vh; margin-bottom:0.5vh;">
+            <div class="row" style="margin-top:0.5vh; width:100%; margin-bottom:0.5vh;">
 
-              <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> Ctrl </p>
-              <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; "> + </p>
-              <p id="id_PopUp_Shortcuts_Undo_Label" style="text-align:center; height:3.2vh; width:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; ">
+              <p class="class_ShortcutKeyDiv"> Ctrl </p>
+              <p class="class_ShortcutText"> + </p>
+              <p id="id_PopUp_Shortcuts_Undo_Label" class="class_ShortcutKeyDiv">
               z </p>
-              <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; "> &#8594; Undo</p>
+              <p class="class_ShortcutText"> &#8594; Undo</p>
 
             </div>
 
             <div class="row" style="margin-top:0.5vh; margin-bottom:0.5vh;">
 
-              <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> Ctrl </p>
-              <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; "> + </p>
-              <p id="id_PopUp_Shortcuts_Redo_Label" style="text-align:center; height:3.2vh; width:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; ">
+              <p class="class_ShortcutKeyDiv"> Ctrl </p>
+              <p class="class_ShortcutText"> + </p>
+              <p id="id_PopUp_Shortcuts_Redo_Label" class="class_ShortcutKeyDiv">
               y </p>
-              <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; "> &#8594; Redo</p>
+              <p class="class_ShortcutText"> &#8594; Redo</p>
 
             </div>
 
             <div class="row" style="margin-top:0.5vh; margin-bottom:0.5vh;">
 
-              <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> Ctrl </p>
-              <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; "> + </p>
-              <p id="id_PopUp_Shortcuts_Interpolation_Label" style="text-align:center; height:3.2vh; width:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; ">
+              <p class="class_ShortcutKeyDiv"> Ctrl </p>
+              <p class="class_ShortcutText"> + </p>
+              <p id="id_PopUp_Shortcuts_Interpolation_Label" class="class_ShortcutKeyDiv">
               i </p>
-              <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; "> &#8594; Change Interpolation Space</p>
+              <p class="class_ShortcutText"> &#8594; Change Interpolation Space</p>
 
             </div>
 
             <div class="row" style="margin-top:0.5vh; margin-bottom:0.5vh;">
 
-              <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> Ctrl </p>
-              <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; "> + </p>
-              <p id="id_PopUp_Shortcuts_Save_Label" style="text-align:center; height:3.2vh; width:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; ">
+              <p class="class_ShortcutKeyDiv"> Ctrl </p>
+              <p class="class_ShortcutText"> + </p>
+              <p id="id_PopUp_Shortcuts_Save_Label" class="class_ShortcutKeyDiv">
               s </p>
-              <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; "> &#8594; Save CMS</p>
+              <p class="class_ShortcutText"> &#8594; Save CMS</p>
 
             </div>
 
 
             <div class="row" style="margin-top:0.5vh; margin-bottom:0.5vh;">
 
-              <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> Ctrl </p>
-              <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; "> + </p>
-              <p id="id_PopUp_Shortcuts_SaveAsNew_Label" style="text-align:center; height:3.2vh; width:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; ">
+              <p class="class_ShortcutKeyDiv"> Ctrl </p>
+              <p class="class_ShortcutText"> + </p>
+              <p id="id_PopUp_Shortcuts_SaveAsNew_Label" class="class_ShortcutKeyDiv">
               d </p>
-              <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; "> &#8594; Save CMS As New</p>
+              <p class="class_ShortcutText"> &#8594; Save CMS As New</p>
 
             </div>
 
 
             <div class="row" style="margin-top:0.5vh; margin-bottom:0.5vh;">
 
-              <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> Ctrl </p>
-              <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; "> + </p>
-              <p id="id_PopUp_Shortcuts_Export_Label" style="text-align:center; height:3.2vh; width:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; ">
+              <p class="class_ShortcutKeyDiv"> Ctrl </p>
+              <p class="class_ShortcutText"> + </p>
+              <p id="id_PopUp_Shortcuts_Export_Label" class="class_ShortcutKeyDiv">
               e </p>
-              <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; "> &#8594; Export CMS</p>
+              <p class="class_ShortcutText"> &#8594; Export CMS</p>
 
             </div>
 
 
             <div class="row" style="margin-top:0.5vh; margin-bottom:0.5vh;">
 
-              <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> Ctrl </p>
-              <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; "> + </p>
-              <p id="id_PopUp_Shortcuts_Scale_Label" style="text-align:center; height:3.2vh; width:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; ">
+              <p class="class_ShortcutKeyDiv"> Ctrl </p>
+              <p class="class_ShortcutText"> + </p>
+              <p id="id_PopUp_Shortcuts_Scale_Label" class="class_ShortcutKeyDiv">
               x </p>
-              <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; "> &#8594; Scale CMS</p>
+              <p class="class_ShortcutText"> &#8594; Scale CMS</p>
 
             </div>
 
             <div class="row" style="margin-top:0.5vh; margin-bottom:0.5vh;">
 
-              <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> Ctrl </p>
-              <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; "> + </p>
-              <p id="id_PopUp_Shortcuts_Clear_Label" style="text-align:center; height:3.2vh; width:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; ">
+              <p class="class_ShortcutKeyDiv"> Ctrl </p>
+              <p class="class_ShortcutText"> + </p>
+              <p id="id_PopUp_Shortcuts_Clear_Label" class="class_ShortcutKeyDiv">
               </p>
-              <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; "> &#8594; Clear CMS</p>
+              <p class="class_ShortcutText"> &#8594; Clear CMS</p>
 
             </div>
 
             <div class="row" style="margin-top:0.5vh; margin-bottom:0.5vh;">
 
-              <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> Ctrl </p>
-              <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; "> + </p>
-              <p id="id_PopUp_Shortcuts_EditMode_Label" style="text-align:center; height:3.2vh; width:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; ">
+              <p class="class_ShortcutKeyDiv"> Ctrl </p>
+              <p class="class_ShortcutText"> + </p>
+              <p id="id_PopUp_Shortcuts_EditMode_Label" class="class_ShortcutKeyDiv">
               </p>
-              <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; "> &#8594; Edit Mode</p>
+              <p class="class_ShortcutText"> &#8594; Edit Mode</p>
 
             </div>
 
             <div class="row" style="margin-top:0.5vh; margin-bottom:0.5vh;">
 
-              <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> Ctrl </p>
-              <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; "> + </p>
-              <p id="id_PopUp_Shortcuts_AnalyzeMode_Label" style="text-align:center; height:3.2vh; width:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; ">
+              <p class="class_ShortcutKeyDiv"> Ctrl </p>
+              <p class="class_ShortcutText"> + </p>
+              <p id="id_PopUp_Shortcuts_AnalyzeMode_Label" class="class_ShortcutKeyDiv">
               </p>
-              <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; "> &#8594; Analyze Mode</p>
+              <p class="class_ShortcutText"> &#8594; Analyze Mode</p>
 
             </div>
 
             <div class="row" style="margin-top:0.5vh; margin-bottom:0.5vh;">
 
-              <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; "> Ctrl </p>
-              <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; "> + </p>
-              <p id="id_PopUp_Shortcuts_MappingMode_Label" style="text-align:center; height:3.2vh; width:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; border: 0.2vh solid black; border-radius: 1vh; background:white; ">
+              <p class="class_ShortcutKeyDiv"> Ctrl </p>
+              <p class="class_ShortcutText"> + </p>
+              <p id="id_PopUp_Shortcuts_MappingMode_Label" class="class_ShortcutKeyDiv">
               </p>
-              <p style="text-align:center; height:3.2vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; padding:1vh; margin:0px; "> &#8594; Mapping Mode</p>
+              <p class="class_ShortcutText"> &#8594; Mapping Mode</p>
 
             </div>
           </div>
@@ -2602,7 +2601,7 @@
         </div>
 
 
-        <button class="class_generalbutton " onclick="closeShortcutsWindow()" title="close" style=" width:60%; height:6vh; line-height:6vh; font-size:3vh; margin-top:2vh; margin-bottom:2vh; margin-left:20%;"> Close </button>
+        <button class="class_generalbutton " onclick="closeShortcutsWindow()" title="close" style=" width:60%; height:6vh; line-height:6vh; font-size:3vh; margin-top:2vh; margin-bottom:2vh; margin-left:20%;"><p>Close</p></button>
 
       </div>
     </div>
@@ -2671,7 +2670,7 @@
 
         </div>
 
-        <button class="class_generalbutton " onclick="closeImpressum()" title="close" style=" margin-left:25%; margin-right:25%; width:50%; height:6vh; line-height:6vh; font-size:3vh;  margin-top:2vh; margin-bottom:2vh;"> Close </button>
+        <button class="class_generalbutton " onclick="closeImpressum()" title="close" style=" margin-left:25%; margin-right:25%; width:50%; height:6vh; line-height:6vh; font-size:3vh;  margin-top:2vh; margin-bottom:2vh;"> <p>Close</p> </button>
 
 
       </div>
@@ -2702,8 +2701,8 @@
             </p>
 
             <div class="row" style="margin-top:2vh; margin-bottom:2vh; width:100%;">
-              <button class="class_generalbutton " onclick="closeAsk()" title="close" style=" width: 30%; height:6vh; line-height:6vh; font-size:3vh; border-width: 0.2vh; margin-left:15%;"> Cancel </button>
-              <button class="class_generalbutton " onclick="checkAsk()" title="check" style=" width: 30%; height:6vh; line-height:6vh; font-size:3vh; border-width: 0.2vh; margin-left:10%;"> Do it! </button>
+              <button class="class_generalbutton " onclick="closeAsk()" title="close" style=" width: 30%; height:6vh; line-height:6vh; font-size:3vh; border-width: 0.2vh; margin-left:15%;"> <p>Cancel</p> </button>
+              <button class="class_generalbutton " onclick="checkAsk()" title="check" style=" width: 30%; height:6vh; line-height:6vh; font-size:3vh; border-width: 0.2vh; margin-left:10%;"> <p>Do it!</p> </button>
             </div>
           </div>
 
@@ -2726,7 +2725,7 @@
 
 
 
-  <div id="footerDiv" style="width: 100vw; height:15vh; margin:0px; z-index:100; background:url(img/background3.jpg);">
+  <div id="footerDiv" style="width: 100vw; height:15vh; margin:0px; z-index:100; background: rgb(0,11,25);">
 
     <div style=" width:100%; height:auto; margin-top:1vh; display:flex; ">
 

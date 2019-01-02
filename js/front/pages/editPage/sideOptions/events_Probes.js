@@ -104,12 +104,12 @@ function changeProbeType(type){
   switch (type) {
     case 0:
         //document.getElementById("id_EditPage_editProbeSubTypeLabel").style.visibility="hidden";
-        document.getElementById("id_EditPage_editProbeType_Constant").style.background="rgb(76, 175, 80)";
+        document.getElementById("id_EditPage_editProbeType_Constant").style.background="rgb(76, 94, 127)";
         document.getElementById("id_EditPage_editProbeTypeLabel").innerHTML="&#9660; Constant";
         document.getElementById("id_EditPage_editProbeColor_Div").style.display = 'flex';
 
         //document.getElementById("id_EditPage_selectProbeSubTypeLabel").style.visibility="hidden";
-        document.getElementById("id_EditPage_ProbeType_Constant").style.background="rgb(76, 175, 80)";
+        document.getElementById("id_EditPage_ProbeType_Constant").style.background="rgb(76, 94, 127)";
         document.getElementById("id_EditPage_selectProbeTypeLabel").innerHTML="&#9660; Constant";
         document.getElementById("id_EditPage_ProbeColor_Div").style.display = 'flex';
 
@@ -118,13 +118,13 @@ function changeProbeType(type){
         changeProbeColor();
       break;
     case 1:
-        document.getElementById("id_EditPage_editProbeType_OneSided").style.background="rgb(76, 175, 80)";
+        document.getElementById("id_EditPage_editProbeType_OneSided").style.background="rgb(76, 94, 127)";
         document.getElementById("id_EditPage_editProbeTypeLabel").innerHTML="&#9660; One Sided";
         document.getElementById("id_EditPage_editProbeFunction_Div").style.display = 'flex';
         document.getElementById("id_EditPage_editProbeColor_Div").style.display = 'flex';
         document.getElementById("id_EditPage_editProbeFunctionOneSided_Div").style.display = 'block';
 
-        document.getElementById("id_EditPage_ProbeType_OneSided").style.background="rgb(76, 175, 80)";
+        document.getElementById("id_EditPage_ProbeType_OneSided").style.background="rgb(76, 94, 127)";
         document.getElementById("id_EditPage_selectProbeTypeLabel").innerHTML="&#9660; One Sided";
         document.getElementById("id_EditPage_ProbeFunction_Div").style.display = 'block';
         document.getElementById("id_EditPage_ProbeColor_Div").style.display = 'flex';
@@ -134,12 +134,12 @@ function changeProbeType(type){
         changeProbeColor();
       break;
     case 2:
-        document.getElementById("id_EditPage_editProbeType_OneSidedTrans").style.background="rgb(76, 175, 80)";
+        document.getElementById("id_EditPage_editProbeType_OneSidedTrans").style.background="rgb(76, 94, 127)";
         document.getElementById("id_EditPage_editProbeTypeLabel").innerHTML="&#9660; One Sided Transparent";
         document.getElementById("id_EditPage_editProbeFunction_Div").style.display = 'flex';
         document.getElementById("id_EditPage_editProbeFunctionOneSided_Div").style.display = 'block';
 
-        document.getElementById("id_EditPage_ProbeType_OneSidedTrans").style.background="rgb(76, 175, 80)";
+        document.getElementById("id_EditPage_ProbeType_OneSidedTrans").style.background="rgb(76, 94, 127)";
         document.getElementById("id_EditPage_selectProbeTypeLabel").innerHTML="&#9660; One Sided Transparent";
         document.getElementById("id_EditPage_ProbeFunction_Div").style.display = 'block';
         document.getElementById("id_EditPage_ProbeFunctionOneSided_Div").style.display = 'block';
@@ -147,13 +147,13 @@ function changeProbeType(type){
         globalProbeSubtype=1;
       break;
       case 3:
-          document.getElementById("id_EditPage_editProbeType_TwoSided").style.background="rgb(76, 175, 80)";
+          document.getElementById("id_EditPage_editProbeType_TwoSided").style.background="rgb(76, 94, 127)";
           document.getElementById("id_EditPage_editProbeTypeLabel").innerHTML="&#9660; Two Sided";
           document.getElementById("id_EditPage_editProbeFunction_Div").style.display = 'flex';
           document.getElementById("id_EditPage_editProbeColor_Div").style.display = 'flex';
           document.getElementById("id_EditPage_editProbeFunctionTwoSided_Div").style.display = 'block';
 
-          document.getElementById("id_EditPage_ProbeType_TwoSided").style.background="rgb(76, 175, 80)";
+          document.getElementById("id_EditPage_ProbeType_TwoSided").style.background="rgb(76, 94, 127)";
           document.getElementById("id_EditPage_selectProbeTypeLabel").innerHTML="&#9660; Two Sided";
           document.getElementById("id_EditPage_ProbeFunction_Div").style.display = 'block';
           document.getElementById("id_EditPage_ProbeColor_Div").style.display = 'flex';
@@ -164,12 +164,12 @@ function changeProbeType(type){
           changeProbeColor();
         break;
       case 4:
-          document.getElementById("id_EditPage_editProbeType_TwoSidedTrans").style.background="rgb(76, 175, 80)";
+          document.getElementById("id_EditPage_editProbeType_TwoSidedTrans").style.background="rgb(76, 94, 127)";
           document.getElementById("id_EditPage_editProbeTypeLabel").innerHTML="&#9660; Two Sided Transparent";
           document.getElementById("id_EditPage_editProbeFunction_Div").style.display = 'flex';
           document.getElementById("id_EditPage_editProbeFunctionTwoSided_Div").style.display = 'block';
 
-          document.getElementById("id_EditPage_ProbeType_TwoSidedTrans").style.background="rgb(76, 175, 80)";
+          document.getElementById("id_EditPage_ProbeType_TwoSidedTrans").style.background="rgb(76, 94, 127)";
           document.getElementById("id_EditPage_selectProbeTypeLabel").innerHTML="&#9660; Two Sided Transparent";
           document.getElementById("id_EditPage_ProbeFunction_Div").style.display = 'block';
           document.getElementById("id_EditPage_ProbeFunctionTwoSided_Div").style.display = 'block';
@@ -216,26 +216,26 @@ function changeOneSideFunction(type){
   globalProbeSubtypeIndex = type;
   switch (type){
     case 0:
-        document.getElementById("id_EditPage_FunctionOneSided_Selection1").style.background="rgb(76, 175, 80)";
-        document.getElementById("id_EditPage_editFunctionOneSided_Selection1").style.background="rgb(76, 175, 80)";
+        document.getElementById("id_EditPage_FunctionOneSided_Selection1").style.background="rgb(76, 94, 127)";
+        document.getElementById("id_EditPage_editFunctionOneSided_Selection1").style.background="rgb(76, 94, 127)";
         document.getElementById("id_EditPage_editProbeFunction_ValLabel").innerHTML="Value (100%,0%)";
         document.getElementById("id_EditPage_editProbeFunction_SatLabel").innerHTML="Saturation /";
       break;
     case 1:
-        document.getElementById("id_EditPage_FunctionOneSided_Selection2").style.background="rgb(76, 175, 80)";
-        document.getElementById("id_EditPage_editFunctionOneSided_Selection2").style.background="rgb(76, 175, 80)";
+        document.getElementById("id_EditPage_FunctionOneSided_Selection2").style.background="rgb(76, 94, 127)";
+        document.getElementById("id_EditPage_editFunctionOneSided_Selection2").style.background="rgb(76, 94, 127)";
         document.getElementById("id_EditPage_editProbeFunction_ValLabel").innerHTML="Value (0%,100%)";
         document.getElementById("id_EditPage_editProbeFunction_SatLabel").innerHTML="Saturation /";
       break;
       case 2:
-          document.getElementById("id_EditPage_FunctionOneSided_Selection3").style.background="rgb(76, 175, 80)";
-          document.getElementById("id_EditPage_editFunctionOneSided_Selection3").style.background="rgb(76, 175, 80)";
+          document.getElementById("id_EditPage_FunctionOneSided_Selection3").style.background="rgb(76, 94, 127)";
+          document.getElementById("id_EditPage_editFunctionOneSided_Selection3").style.background="rgb(76, 94, 127)";
           document.getElementById("id_EditPage_editProbeFunction_ValLabel").innerHTML="Value /";
           document.getElementById("id_EditPage_editProbeFunction_SatLabel").innerHTML="Saturation (0%,100%)";
         break;
         case 3:
-            document.getElementById("id_EditPage_FunctionOneSided_Selection4").style.background="rgb(76, 175, 80)";
-            document.getElementById("id_EditPage_editFunctionOneSided_Selection4").style.background="rgb(76, 175, 80)";
+            document.getElementById("id_EditPage_FunctionOneSided_Selection4").style.background="rgb(76, 94, 127)";
+            document.getElementById("id_EditPage_editFunctionOneSided_Selection4").style.background="rgb(76, 94, 127)";
             document.getElementById("id_EditPage_editProbeFunction_ValLabel").innerHTML="Value /";
             document.getElementById("id_EditPage_editProbeFunction_SatLabel").innerHTML="Saturation (0%,100%)";
           break;
@@ -271,38 +271,38 @@ function changeTwoSideFunction(type){
 
   switch (type){
     case 0:
-        document.getElementById("id_EditPage_FunctionTwoSided_Selection0").style.background="rgb(76, 175, 80)";
-        document.getElementById("id_EditPage_editFunctionTwoSided_Selection0").style.background="rgb(76, 175, 80)";
+        document.getElementById("id_EditPage_FunctionTwoSided_Selection0").style.background="rgb(76, 94, 127)";
+        document.getElementById("id_EditPage_editFunctionTwoSided_Selection0").style.background="rgb(76, 94, 127)";
         document.getElementById("id_EditPage_editProbeFunction_ValLabel").innerHTML="Value (0%,100%)";
         document.getElementById("id_EditPage_editProbeFunction_SatLabel").innerHTML="Saturation (0%,100%,0%)";
       break;
     case 1:
-        document.getElementById("id_EditPage_FunctionTwoSided_Selection1").style.background="rgb(76, 175, 80)";
-        document.getElementById("id_EditPage_editFunctionTwoSided_Selection1").style.background="rgb(76, 175, 80)";
+        document.getElementById("id_EditPage_FunctionTwoSided_Selection1").style.background="rgb(76, 94, 127)";
+        document.getElementById("id_EditPage_editFunctionTwoSided_Selection1").style.background="rgb(76, 94, 127)";
         document.getElementById("id_EditPage_editProbeFunction_ValLabel").innerHTML="Value (100%,0%)";
         document.getElementById("id_EditPage_editProbeFunction_SatLabel").innerHTML="Saturation (0%,100%,0%)";
       break;
     case 2:
-        document.getElementById("id_EditPage_FunctionTwoSided_Selection2").style.background="rgb(76, 175, 80)";
-        document.getElementById("id_EditPage_editFunctionTwoSided_Selection2").style.background="rgb(76, 175, 80)";
+        document.getElementById("id_EditPage_FunctionTwoSided_Selection2").style.background="rgb(76, 94, 127)";
+        document.getElementById("id_EditPage_editFunctionTwoSided_Selection2").style.background="rgb(76, 94, 127)";
         document.getElementById("id_EditPage_editProbeFunction_ValLabel").innerHTML="Value (100%,0%,100%)";
         document.getElementById("id_EditPage_editProbeFunction_SatLabel").innerHTML="Saturation (0%,100%)";
     break;
     case 3:
-        document.getElementById("id_EditPage_FunctionTwoSided_Selection3").style.background="rgb(76, 175, 80)";
-        document.getElementById("id_EditPage_editFunctionTwoSided_Selection3").style.background="rgb(76, 175, 80)";
+        document.getElementById("id_EditPage_FunctionTwoSided_Selection3").style.background="rgb(76, 94, 127)";
+        document.getElementById("id_EditPage_editFunctionTwoSided_Selection3").style.background="rgb(76, 94, 127)";
         document.getElementById("id_EditPage_editProbeFunction_ValLabel").innerHTML="Value (100%,0%,100%)";
         document.getElementById("id_EditPage_editProbeFunction_SatLabel").innerHTML="Saturation (100%,0%)";
     break;
     case 4:
-        document.getElementById("id_EditPage_FunctionTwoSided_Selection4").style.background="rgb(76, 175, 80)";
-        document.getElementById("id_EditPage_editFunctionTwoSided_Selection4").style.background="rgb(76, 175, 80)";
+        document.getElementById("id_EditPage_FunctionTwoSided_Selection4").style.background="rgb(76, 94, 127)";
+        document.getElementById("id_EditPage_editFunctionTwoSided_Selection4").style.background="rgb(76, 94, 127)";
         document.getElementById("id_EditPage_editProbeFunction_ValLabel").innerHTML="Value (0%,100%,0%)";
         document.getElementById("id_EditPage_editProbeFunction_SatLabel").innerHTML="Saturation (0%,100%)";
     break;
     case 5:
-        document.getElementById("id_EditPage_FunctionTwoSided_Selection5").style.background="rgb(76, 175, 80)";
-        document.getElementById("id_EditPage_editFunctionTwoSided_Selection5").style.background="rgb(76, 175, 80)";
+        document.getElementById("id_EditPage_FunctionTwoSided_Selection5").style.background="rgb(76, 94, 127)";
+        document.getElementById("id_EditPage_editFunctionTwoSided_Selection5").style.background="rgb(76, 94, 127)";
         document.getElementById("id_EditPage_editProbeFunction_ValLabel").innerHTML="Value (0%,100%,0%)";
         document.getElementById("id_EditPage_editProbeFunction_SatLabel").innerHTML="Saturation (100%,0%)";
     break;

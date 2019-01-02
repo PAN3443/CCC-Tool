@@ -4,7 +4,7 @@ function showHideHistogram(){
 
     if(document.getElementById("id_EditPage_Histogram_Div").style.display=="none"){
       document.getElementById("id_EditPage_Histogram_Div").style.display="block";
-      document.getElementById("id_EditPage_Mapping_HistoButton").style.background = styleActiveColor;
+      document.getElementById("id_EditPage_Mapping_HistoButton").style.background = "none"; //styleActiveColor
       document.getElementById("id_dropDownMenue_ShowHistogram").innerHTML="&#9673; Histogram";
       document.getElementById("id_EditPage_DrawMappingDiv").style.height="25.5vh";
       drawHistogram(false);
@@ -127,7 +127,7 @@ function drawHistogram(onlyMapUpdate){
     var lastYPos = canvasPlot.height;
     for (var j = 0; j < arrayRanges.length; j++) {
         var tmpHeight = Math.round((canvasPlot.height*(histoCounter[j]/maxValue)));
-        canvasCtx.fillStyle="rgb(80,80,80)";//styleActiveColor;
+        canvasCtx.fillStyle=histogramColor;
         canvasCtx.strokeStyle="black";
         canvasCtx.lineWidth=1;
         canvasCtx.fillRect(currentPos,canvasPlot.height-tmpHeight,rangeWidth,tmpHeight);

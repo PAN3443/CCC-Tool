@@ -191,13 +191,15 @@ function changeExportColorspace(type){
 
 
   document.getElementById("button_ExportSpaceRGB").style.background = styleNotActiveColor;
-  //document.getElementById("button_ExportSpaceRGB").style.color = "black";
   document.getElementById("button_ExportSpaceHSV").style.background = styleNotActiveColor;
-  //document.getElementById("button_ExportSpaceHSV").style.color = "black";
   document.getElementById("button_ExportSpaceLAB").style.background = styleNotActiveColor;
-  //document.getElementById("button_ExportSpaceLAB").style.color = "black";
   document.getElementById("button_ExportSpaceDIN99").style.background = styleNotActiveColor;
-  //document.getElementById("button_ExportSpaceDIN99").style.color = "black";
+
+  document.getElementById("button_ExportSpaceRGB").style.color=styleNotActiveColorFont;
+  document.getElementById("button_ExportSpaceHSV").style.color=styleNotActiveColorFont;
+  document.getElementById("button_ExportSpaceLAB").style.color=styleNotActiveColorFont;
+  document.getElementById("button_ExportSpaceDIN99").style.color=styleNotActiveColorFont;
+
 
 
   switch (type) {
@@ -205,25 +207,25 @@ function changeExportColorspace(type){
       exportColorspace = "rgb";
       document.getElementById("id_table_exportColor1").innerHTML = "Color (RGB)";
       document.getElementById("button_ExportSpaceRGB").style.background = styleActiveColor;
-      //document.getElementById("button_ExportSpaceRGB").style.color = "white";
+      document.getElementById("button_ExportSpaceRGB").style.color=styleActiveColorFont;
       break;
     case 1:
       exportColorspace = "hsv";
       document.getElementById("id_table_exportColor1").innerHTML = "Color (HSV)";
       document.getElementById("button_ExportSpaceHSV").style.background = styleActiveColor;
-      //document.getElementById("button_ExportSpaceHSV").style.color = "white";
+      document.getElementById("button_ExportSpaceHSV").style.color=styleActiveColorFont;
       break;
     case 2:
       exportColorspace = "lab";
       document.getElementById("id_table_exportColor1").innerHTML = "Color (LAB)";
       document.getElementById("button_ExportSpaceLAB").style.background = styleActiveColor;
-      //document.getElementById("button_ExportSpaceLAB").style.color = "white";
+      document.getElementById("button_ExportSpaceLAB").style.color=styleActiveColorFont;
       break;
     case 3:
       exportColorspace = "din99";
       document.getElementById("id_table_exportColor1").innerHTML = "Color (DIN99)";
       document.getElementById("button_ExportSpaceDIN99").style.background = styleActiveColor;
-      //document.getElementById("button_ExportSpaceDIN99").style.color = "white";
+      document.getElementById("button_ExportSpaceDIN99").style.color=styleActiveColorFont;
       break;
     default:
       return;
@@ -239,24 +241,25 @@ function changeOutputformat(type){
 
 
   document.getElementById("button_ExportFormatXML").style.background = styleNotActiveColor;
-  //document.getElementById("button_ExportFormatXML").style.color = "black";
   document.getElementById("button_ExportFormatCSV").style.background = styleNotActiveColor;
-  //document.getElementById("button_ExportFormatCSV").style.color = "black";
   document.getElementById("button_ExportFormatJSON").style.background = styleNotActiveColor;
-  //document.getElementById("button_ExportFormatJSON").style.color = "black";
+
+  document.getElementById("button_ExportFormatXML").style.color=styleNotActiveColorFont;
+  document.getElementById("button_ExportFormatCSV").style.color=styleNotActiveColorFont;
+  document.getElementById("button_ExportFormatJSON").style.color=styleNotActiveColorFont;
 
   switch (type) {
     case 0:
       document.getElementById("button_ExportFormatCSV").style.background = styleActiveColor;
-      //document.getElementById("button_ExportFormatCSV").style.color = "white";
+      document.getElementById("button_ExportFormatCSV").style.color=styleActiveColorFont;
       break;
     case 1:
       document.getElementById("button_ExportFormatXML").style.background = styleActiveColor;
-      //document.getElementById("button_ExportFormatXML").style.color = "white";
+      document.getElementById("button_ExportFormatXML").style.color=styleActiveColorFont;
       break;
     case 2:
       document.getElementById("button_ExportFormatJSON").style.background = styleActiveColor;
-      //document.getElementById("button_ExportFormatJSON").style.color = "white";
+      document.getElementById("button_ExportFormatJSON").style.color=styleActiveColorFont;
       break;
     default:
       return;
@@ -272,14 +275,14 @@ function changeTwinKeyIssue(){
     doTwinErrorSolution=false;
     document.getElementById("id_ExportPage_Button_TwinKeyIssue").innerHTML = "not active";
     document.getElementById("id_ExportPage_Button_TwinKeyIssue").style.background = styleNotActiveColor;
-    //document.getElementById("id_ExportPage_Button_TwinKeyIssue").style.color = "black";
+    document.getElementById("id_ExportPage_Button_TwinKeyIssue").style.color=styleNotActiveColorFont;
   }
   else{
     doTwinErrorSolution=true;
     document.getElementById("id_ExportPage_Button_TwinKeyIssue").innerHTML = "active";
 
     document.getElementById("id_ExportPage_Button_TwinKeyIssue").style.background = styleActiveColor;
-    //document.getElementById("id_ExportPage_Button_TwinKeyIssue").style.color = "white";
+    document.getElementById("id_ExportPage_Button_TwinKeyIssue").style.color=styleActiveColorFont;
 
   }
 

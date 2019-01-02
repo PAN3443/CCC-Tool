@@ -9,6 +9,11 @@ document.getElementById("id_editPage_PathPlotSpaces_HSV").style.background = sty
 document.getElementById("id_editPage_PathPlotSpaces_LAB").style.background = styleNotActiveColor;
 document.getElementById("id_editPage_PathPlotSpaces_DIN99").style.background = styleNotActiveColor;
 
+document.getElementById("id_editPage_PathPlotSpaces_RGB").style.color=styleNotActiveColorFont;
+document.getElementById("id_editPage_PathPlotSpaces_HSV").style.color=styleNotActiveColorFont;
+document.getElementById("id_editPage_PathPlotSpaces_LAB").style.color=styleNotActiveColorFont;
+document.getElementById("id_editPage_PathPlotSpaces_DIN99").style.color=styleNotActiveColorFont;
+
   stopAnimation();
 
 
@@ -18,6 +23,7 @@ document.getElementById("id_EditPage_OuterDiv").style.display = "block";
   if(type==0){
 
     document.getElementById("id_editPage_PathPlotSpaces_RGB").style.background=styleActiveColor;
+    document.getElementById("id_editPage_PathPlotSpaces_RGB").style.color=styleActiveColorFont;
     initPlotLabel("RG", "RB", "BG");
     pathColorspace="rgb";
     document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "R : -, G: -, B: -";
@@ -129,6 +135,7 @@ document.getElementById("id_EditPage_OuterDiv").style.display = "block";
     switch (type) {
         case 1: // HSV
           document.getElementById("id_editPage_PathPlotSpaces_HSV").style.background=styleActiveColor;
+          document.getElementById("id_editPage_PathPlotSpaces_HSV").style.color=styleActiveColorFont;
           pathColorspace="hsv";
           initPlotLabel("Hue", "Saturation", "Value");
           document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "H : -, S: -, V: -";
@@ -136,6 +143,7 @@ document.getElementById("id_EditPage_OuterDiv").style.display = "block";
           break;
           case 2: // LAB
             document.getElementById("id_editPage_PathPlotSpaces_LAB").style.background=styleActiveColor;
+            document.getElementById("id_editPage_PathPlotSpaces_LAB").style.color=styleActiveColorFont;
             pathColorspace="lab";
             initPlotLabel("Lightness", "Green-Red : A", "Blue-Yellow : B");
             document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L : -, a: -, b: -";
@@ -143,6 +151,7 @@ document.getElementById("id_EditPage_OuterDiv").style.display = "block";
             break;
             case 3: // DIN99
             document.getElementById("id_editPage_PathPlotSpaces_DIN99").style.background=styleActiveColor;
+            document.getElementById("id_editPage_PathPlotSpaces_DIN99").style.color=styleActiveColorFont;
             pathColorspace="din99";
             initPlotLabel("Lightness", "Green-Red : A99", "Blue-Yellow : B99");
             document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L99 : -, a99: -, b99: -";

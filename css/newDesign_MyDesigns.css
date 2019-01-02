@@ -13,7 +13,8 @@
   width: 100%;
   height: 3vh;
   margin:0;
-  overflow: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
   display: block;
   line-height: 3vh;
   font-size: 2vh;

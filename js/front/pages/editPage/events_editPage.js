@@ -199,6 +199,9 @@ function switchModifyModus(type){
   document.getElementById("id_editPage_SelectEditKeys").style.background=styleNotActiveColor;
   document.getElementById("id_editPage_SelectEditPath").style.background=styleNotActiveColor;
 
+  document.getElementById("id_editPage_SelectEditKeys").style.color=styleNotActiveColorFont;
+  document.getElementById("id_editPage_SelectEditPath").style.color=styleNotActiveColorFont;
+
   document.getElementById("id_EditPage_Edit_Keys").style.display="none";
   document.getElementById("id_EditPage_Edit_Path").style.display="none";
 
@@ -206,6 +209,7 @@ function switchModifyModus(type){
     case 0:
 
       document.getElementById("id_editPage_SelectEditKeys").style.background=styleActiveColor;
+      document.getElementById("id_editPage_SelectEditKeys").style.color=styleActiveColorFont;
       document.getElementById("id_EditPage_Edit_Keys").style.display="block";
       openEditKeyDiv(0);
 
@@ -213,6 +217,7 @@ function switchModifyModus(type){
 
     case 1:
       document.getElementById("id_editPage_SelectEditPath").style.background=styleActiveColor;
+      document.getElementById("id_editPage_SelectEditPath").style.color=styleActiveColorFont;
         document.getElementById("id_EditPage_Edit_Path").style.display="block";
         choosePathPlotSpace(2);
     break;
@@ -231,6 +236,10 @@ function switchAnalyzeMappingProbeSet(type){
   document.getElementById("id_editPage_SelectMapping").style.background=styleNotActiveColor;
   document.getElementById("id_editPage_SelectProbeSet").style.background=styleNotActiveColor;
 
+  document.getElementById("id_editPage_SelectAnalyze").style.color=styleNotActiveColorFont;
+  document.getElementById("id_editPage_SelectMapping").style.color=styleNotActiveColorFont;
+  document.getElementById("id_editPage_SelectProbeSet").style.color=styleNotActiveColorFont;
+
   document.getElementById("id_EditPage_DivAnalyze").style.display="none";
   document.getElementById("id_EditPage_DivMapping").style.display="none";
   document.getElementById("id_EditPage_DivProbeSets").style.display="none";
@@ -242,12 +251,14 @@ function switchAnalyzeMappingProbeSet(type){
     case 0:
 
       document.getElementById("id_editPage_SelectAnalyze").style.background=styleActiveColor;
+      document.getElementById("id_editPage_SelectAnalyze").style.color=styleActiveColorFont;
       document.getElementById("id_EditPage_DivAnalyze").style.display="flex";
       updateAnalyze();
     break;
 
     case 1:
       document.getElementById("id_editPage_SelectMapping").style.background=styleActiveColor;
+      document.getElementById("id_editPage_SelectMapping").style.color=styleActiveColorFont;
       document.getElementById("id_EditPage_DivMapping").style.display="block";
 
         var rect = document.getElementById("id_EditPage_DivMapping").getBoundingClientRect();
@@ -271,6 +282,7 @@ function switchAnalyzeMappingProbeSet(type){
 
     case 2:
       document.getElementById("id_editPage_SelectProbeSet").style.background=styleActiveColor;
+      document.getElementById("id_editPage_SelectProbeSet").style.color=styleActiveColorFont;
       document.getElementById("id_EditPage_DivProbeSets").style.display="block";
       init_editProbe();
     break;
@@ -286,6 +298,9 @@ function switchPredefinedCMS(type){
   document.getElementById("id_EditPage_Select_Predefined").style.background=styleNotActiveColor;
   document.getElementById("id_EditPage_Select_MyDesigns").style.background=styleNotActiveColor;
 
+  document.getElementById("id_EditPage_Select_Predefined").style.color=styleNotActiveColorFont;
+  document.getElementById("id_EditPage_Select_MyDesigns").style.color=styleNotActiveColorFont;
+
   document.getElementById("id_EditPage_Predefined_Div").style.display="none";
   document.getElementById("id_EditPage_MyDesigns_CMS_Div").style.display="none";
 
@@ -293,12 +308,14 @@ function switchPredefinedCMS(type){
   switch (type) {
     case 0:
       document.getElementById("id_EditPage_Select_Predefined").style.background=styleActiveColor;
+      document.getElementById("id_EditPage_Select_Predefined").style.color=styleActiveColorFont;
       document.getElementById("id_EditPage_Predefined_Div").style.display="block";
       changePredefined();
       break;
     case 1:
       document.getElementById("id_EditPage_Select_MyDesigns").style.background=styleActiveColor;
       document.getElementById("id_EditPage_MyDesigns_CMS_Div").style.display="block";
+      document.getElementById("id_EditPage_Select_MyDesigns").style.color=styleActiveColorFont;
       drawPredefined_MyDesignsCMS();
       break;
     default:

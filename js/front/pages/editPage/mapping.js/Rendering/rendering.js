@@ -7,7 +7,7 @@ function changeAxisVisibility(){
   }
   else{
     showMappingAxis=true;
-    document.getElementById('id_EditPage_Mapping_ShowAxis').style.background=styleActiveColor;
+    document.getElementById('id_EditPage_Mapping_ShowAxis').style.background="none";//styleActiveColor;
   }
 
   for (var i = 0; i < coordinateArrowsGroup.children.length; i++) {

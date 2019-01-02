@@ -34,6 +34,7 @@ function activateDropdown(event) {
 
                           case "id_EditPage_DataInfoButton":
                             onTop=true;
+                            toRight=true;
                             dropdownID = "id_EditPage_DataInfoDiv";
                             break;
       default:

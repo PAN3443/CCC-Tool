@@ -4,10 +4,12 @@ function changeParallelProcessing(){
   if(doParallelProcessing){
     doParallelProcessing=false;
     document.getElementById('id_EditPage_Mapping_DoParallel').style.background=styleNotActiveColor;
+    //document.getElementById("id_EditPage_Mapping_DoParallel").style.color=styleNotActiveColorFont;
   }
   else{
     doParallelProcessing=true;
-    document.getElementById('id_EditPage_Mapping_DoParallel').style.background=styleActiveColor;
+    document.getElementById('id_EditPage_Mapping_DoParallel').style.background="none";
+    //document.getElementById("id_EditPage_Mapping_DoParallel").style.color="none";
   }
 
 }

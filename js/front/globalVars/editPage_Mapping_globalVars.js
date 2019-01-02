@@ -1,3 +1,5 @@
+var histogramColor = "rgb(25, 38, 51)";
+
 
 var mappingBackgroundColor = new classColor_RGB(1.0,0,0);
 

@@ -10,7 +10,7 @@
   margin:0px;
   color:white;
   font-size:4vh;
-  background: url(../img/background3.png);
+  background: rgb(0,11,25);
   /*font-family:verdana;*/
 }
 
@@ -42,6 +42,27 @@
   margin-top:auto;
   margin-bottom:auto;
   /*font-family:courier;*/
+}
+
+.class_ShortcutKeyDiv{
+text-align:center;
+height:5vh;
+line-height:5vh;
+font-size:3vh;
+padding-left: 1vh;
+padding-right: 1vh;
+vertical-align:middle;
+border: 0.2vh solid black;
+border-radius: 1vh;
+background:white;
+}
+
+.class_ShortcutText{
+text-align:center;
+height:5vh;
+line-height:5vh;
+font-size:3vh;
+vertical-align:middle;
 }
 
 #id_popupWindow_CloseColorpicker{

@@ -183,11 +183,34 @@ function update_EditPageStyle(){
         document.getElementById("id_EditPage_CMS_VIS_Label2").style.fontSize="1.6vh";
 
         if (document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.display == "none"){
-            document.getElementById("id_editPage_EditKeyPathPlotDiv").style.width="100%";
 
-            document.getElementById("id_EditPage_Edit_Keys_Div1").style.width="33%";
-            document.getElementById("id_EditPage_Edit_Keys_Div2").style.width="34%";
-            document.getElementById("id_EditPage_Edit_Keys_Div3").style.width="33%";
+
+            if(document.getElementById("id_EditPage_Add_Structures").style.display == "none"){
+              document.getElementById("id_editPage_EditKeyPathPlotDiv").style.width="100vw";
+
+              document.getElementById("id_EditPage_Edit_Keys_Div1").style.width="33vw";
+              document.getElementById("id_EditPage_Edit_Keys_Div2").style.width="34vw";
+              document.getElementById("id_EditPage_Edit_Keys_Div3").style.width="33vw";
+
+              document.getElementById("id_EditPage_Edit_Keys_Div3_1").style.width="33vw";
+              document.getElementById("id_EditPage_Edit_Keys_Div3_2").style.width="33vw";
+              document.getElementById("id_EditPage_Edit_Keys_Div3_3").style.width="33vw";
+
+            }
+            else {
+              document.getElementById("id_editPage_EditKeyPathPlotDiv").style.width="80vw";
+
+              document.getElementById("id_EditPage_Edit_Keys_Div1").style.width="26.4vw";
+              document.getElementById("id_EditPage_Edit_Keys_Div2").style.width="27.2vw";
+              document.getElementById("id_EditPage_Edit_Keys_Div3").style.width="26.4vw";
+
+              document.getElementById("id_EditPage_Edit_Keys_Div3_1").style.width="26.4vw";
+              document.getElementById("id_EditPage_Edit_Keys_Div3_2").style.width="26.4vw";
+              document.getElementById("id_EditPage_Edit_Keys_Div3_3").style.width="26.4vw";
+
+            }
+
+
 
             document.getElementById("id_EditPage_Edit_Keys_Div1").style.height="59vh";
             document.getElementById("id_EditPage_Edit_Keys_Div2").style.height="59vh";
@@ -199,11 +222,30 @@ function update_EditPageStyle(){
 
         }
         else{
-            document.getElementById("id_editPage_EditKeyPathPlotDiv").style.width="30%";
 
-            document.getElementById("id_EditPage_Edit_Keys_Div1").style.width="100%";
-            document.getElementById("id_EditPage_Edit_Keys_Div2").style.width="100%";
-            document.getElementById("id_EditPage_Edit_Keys_Div3").style.width="100%";
+          if(document.getElementById("id_EditPage_Add_Structures").style.display == "none"){
+            document.getElementById("id_editPage_EditKeyPathPlotDiv").style.width="30vw";
+
+            document.getElementById("id_EditPage_Edit_Keys_Div1").style.width="30vw";
+            document.getElementById("id_EditPage_Edit_Keys_Div2").style.width="30vw";
+            document.getElementById("id_EditPage_Edit_Keys_Div3").style.width="30vw";
+
+            document.getElementById("id_EditPage_Edit_Keys_Div3_1").style.width="30vw";
+            document.getElementById("id_EditPage_Edit_Keys_Div3_2").style.width="30vw";
+            document.getElementById("id_EditPage_Edit_Keys_Div3_3").style.width="30vw";
+
+          }
+          else {
+            document.getElementById("id_editPage_EditKeyPathPlotDiv").style.width="24vw";
+
+            document.getElementById("id_EditPage_Edit_Keys_Div1").style.width="24vw";
+            document.getElementById("id_EditPage_Edit_Keys_Div2").style.width="24vw";
+            document.getElementById("id_EditPage_Edit_Keys_Div3").style.width="24vw";
+
+            document.getElementById("id_EditPage_Edit_Keys_Div3_1").style.width="24vw";
+            document.getElementById("id_EditPage_Edit_Keys_Div3_2").style.width="24vw";
+            document.getElementById("id_EditPage_Edit_Keys_Div3_3").style.width="24vw";
+          }
 
             document.getElementById("id_EditPage_EditKey_List").style.height="11vh";
 
