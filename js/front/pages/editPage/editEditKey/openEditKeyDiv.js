@@ -42,8 +42,6 @@ function openEditKeyDiv(key){
 
   selectKey();
 
-
-  console.log(document.getElementById("id_EditPage_Edit_Keys_Div3_1").style.width);
 }
 
 

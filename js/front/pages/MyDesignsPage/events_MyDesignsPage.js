@@ -647,8 +647,10 @@ function loadCMS(){
   if (myDesignsList.length >= numberOfMyDesignsObj) {
     openAlert("The MyDesigns list is full. You can not import a new CMS!");
   }
-  else
-  document.getElementById("id_inputCMSData").click();
+  else{
+    document.getElementById("id_inputCMSData").click();
+  }
+
 }
 
 

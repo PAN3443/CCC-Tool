@@ -34,6 +34,16 @@ function openExportWindow(){
   changeExportColorspace(0);
   changeOutputformat(1);
 
+  if(doTwinErrorSolution){
+    document.getElementById("id_ExportPage_Button_TwinKeyIssue").style.background = styleActiveColor;
+    document.getElementById("id_ExportPage_Button_TwinKeyIssue").style.color=styleActiveColorFont;
+  }
+  else{
+  document.getElementById("id_ExportPage_Button_TwinKeyIssue").style.background = styleNotActiveColor;
+  document.getElementById("id_ExportPage_Button_TwinKeyIssue").style.color=styleNotActiveColorFont;
+  }
+
+
 
   /// updateProbeList
 
