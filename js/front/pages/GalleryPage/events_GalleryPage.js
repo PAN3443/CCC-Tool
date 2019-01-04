@@ -8,6 +8,14 @@ function changeGalleryPredefined(type){
   document.getElementById("id_GalleryPage_Div_ScaledRedPurple").style.background = styleNotActiveColor;
   document.getElementById("id_GalleryPage_Div_ScaledYellowOrange").style.background = styleNotActiveColor;
 
+  document.getElementById("id_GalleryPage_Div_MultibandText").style.color = styleNotActiveColorFont;
+  document.getElementById("id_GalleryPage_Div_DivergentText").style.color = styleNotActiveColorFont;
+  document.getElementById("id_GalleryPage_Div_ScaledBlueText").style.color = styleNotActiveColorFont;
+  document.getElementById("id_GalleryPage_Div_ScaledBrownText").style.color = styleNotActiveColorFont;
+  document.getElementById("id_GalleryPage_Div_ScaledGreenText").style.color = styleNotActiveColorFont;
+  document.getElementById("id_GalleryPage_Div_ScaledRedPurpleText").style.color = styleNotActiveColorFont;
+  document.getElementById("id_GalleryPage_Div_ScaledYellowOrangeText").style.color = styleNotActiveColorFont;
+
   var children = document.getElementById("id_GalleryPage_CMS_Div").children;
   for (var i = children.length-1; i >=0; i--) {
     children[i].parentNode.removeChild(children[i]);
@@ -17,31 +25,38 @@ function changeGalleryPredefined(type){
   switch (type) {
     case 0:
     document.getElementById("id_GalleryPage_Div_Multiband").style.background = styleActiveColor;
+    document.getElementById("id_GalleryPage_Div_MultibandText").style.color = styleActiveColorFont;
       drawGalleryPredefinedCMS(cmsThreeBandColormaps, 0);
       drawGalleryPredefinedCMS(cmsFourBandColormaps, 1);
       break;
       case 1:
       document.getElementById("id_GalleryPage_Div_Divergent").style.background = styleActiveColor;
+      document.getElementById("id_GalleryPage_Div_DivergentText").style.color = styleActiveColorFont;
         drawGalleryPredefinedCMS(cmsDivergentColormaps, 2);
         break
         case 2:
         document.getElementById("id_GalleryPage_Div_ScaledBlue").style.background = styleActiveColor;
+        document.getElementById("id_GalleryPage_Div_ScaledBlueText").style.color = styleActiveColorFont;
           drawGalleryPredefinedCMS(cmsBlueColormaps, 3);
           break
             case 3:
             document.getElementById("id_GalleryPage_Div_ScaledBrown").style.background = styleActiveColor;
+            document.getElementById("id_GalleryPage_Div_ScaledBrownText").style.color = styleActiveColorFont;
               drawGalleryPredefinedCMS(cmsBrownColormaps, 4);
               break
               case 4:
               document.getElementById("id_GalleryPage_Div_ScaledGreen").style.background = styleActiveColor;
+              document.getElementById("id_GalleryPage_Div_ScaledGreenText").style.color = styleActiveColorFont;
                 drawGalleryPredefinedCMS(cmsGreenColormaps, 5);
                 break
                 case 5:
                 document.getElementById("id_GalleryPage_Div_ScaledRedPurple").style.background = styleActiveColor;
+                document.getElementById("id_GalleryPage_Div_ScaledRedPurpleText").style.color = styleActiveColorFont;
                   drawGalleryPredefinedCMS(cmsRedPurpleColormaps, 6);
                   break
                   case 6:
                     document.getElementById("id_GalleryPage_Div_ScaledYellowOrange").style.background = styleActiveColor;
+                    document.getElementById("id_GalleryPage_Div_ScaledYellowOrangeText").style.color = styleActiveColorFont;
                       drawGalleryPredefinedCMS(cmsYellowColormaps, 7);
                     break
 
