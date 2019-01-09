@@ -35,6 +35,10 @@ function drawMapping() {
 
         var toolColor = workCMS.calculateColor(globalDomain.getCell(index).getCellValue());
 
+        if(toolColor==undefined){
+          toolColor = workCMS.getNaNColor("rgb");
+        }
+
         if(doColorblindnessSim){
           var tmpLMS = toolColor.calcLMSColor();
           toolColor = tmpLMS.calcColorBlindRGBColor();
