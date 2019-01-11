@@ -1,4 +1,47 @@
 
+.class_popupWindow_RemoteButton{
+  height: 5vh;
+  margin-top:1vh;
+  margin-right:auto;
+  margin-left:auto;
+  width:11vw;
+  font-size: 1.8vh;
+  line-height: 5vh;
+  vertical-align: middle;
+  text-align: center;
+  color:black;
+  border-radius: 2vh;
+  background:rgb(200,200,200);
+  border: 0.1vh solid black;
+  -moz-box-shadow:  inset 0 0 1vh rgb(0,0,0);
+  -webkit-box-shadow: inset 0 0 1vh rgb(0,0,0);
+  box-shadow: inset 0 0 1vh rgb(0,0,0);
+  cursor: pointer;
+}
+
+.class_popupWindow_NotActiveRemoteButton{
+  height: 5vh;
+  margin-top:1vh;
+  margin-right:auto;
+  margin-left:auto;
+  width:11vw;
+  font-size: 1.8vh;
+  line-height: 5vh;
+  vertical-align: middle;
+  text-align: center;
+  color:grey;
+  border-radius: 2vh;
+  background:rgb(200,200,200);
+  border: 0.1vh solid black;
+  -moz-box-shadow:  inset 0 0 1vh rgb(0,0,0);
+  -webkit-box-shadow: inset 0 0 1vh rgb(0,0,0);
+  box-shadow: inset 0 0 1vh rgb(0,0,0);
+  cursor: not-allowed;
+}
+
+
+
+
 .class_popupWindow_Label{
   width:100%;
   height:5vh;

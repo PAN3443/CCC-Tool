@@ -1,4 +1,34 @@
 
+
+//////////////////////////////////////
+/// Tutorials /////
+///////////////////////////////////
+
+function openTutorialWindow(){
+  document.getElementById("id_PopUp_TutorialWindow").style.display="flex";
+  // stop video
+	var iframeSrc = document.getElementById("id_PopUp_TutorialWindow_Iframe").src;
+	document.getElementById("id_PopUp_TutorialWindow_Iframe").src = iframeSrc;
+
+}
+
+function closeTutorialWindow(){
+  document.getElementById("id_PopUp_TutorialWindow").style.display="none";
+}
+
+
+function switchChannel(channel) {
+
+  switch (channel) {
+    case 2:
+      document.getElementById("id_PopUp_TutorialWindow_Iframe").src = "https://www.youtube.com/embed/hmrIzNo5sjE";
+      break;
+    default:
+      document.getElementById("id_PopUp_TutorialWindow_Iframe").src = "https://www.youtube.com/embed/hmrIzNo5sjE";
+  }
+
+}
+
 //////////////////////////////////////
 /// Big Screen Mapping /////
 ///////////////////////////////////
