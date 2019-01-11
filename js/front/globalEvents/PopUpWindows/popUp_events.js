@@ -6,7 +6,7 @@
 
 function openTutorialWindow(){
   document.getElementById("id_PopUp_TutorialWindow").style.display="flex";
-
+  document.getElementById("id_dropDownContainer").style.display="none";
 }
 
 function closeTutorialWindow(){
