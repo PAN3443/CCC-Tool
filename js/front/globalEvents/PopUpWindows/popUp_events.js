@@ -6,14 +6,14 @@
 
 function openTutorialWindow(){
   document.getElementById("id_PopUp_TutorialWindow").style.display="flex";
-  // stop video
-	var iframeSrc = document.getElementById("id_PopUp_TutorialWindow_Iframe").src;
-	document.getElementById("id_PopUp_TutorialWindow_Iframe").src = iframeSrc;
 
 }
 
 function closeTutorialWindow(){
   document.getElementById("id_PopUp_TutorialWindow").style.display="none";
+  // stop video
+	var iframeSrc = document.getElementById("id_PopUp_TutorialWindow_Iframe").src;
+	document.getElementById("id_PopUp_TutorialWindow_Iframe").src = iframeSrc;
 }
 
 
