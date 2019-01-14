@@ -204,6 +204,8 @@
   <script src="js/front/globalEvents/PopUpWindows/colorPicker.js"></script>
   <script src="js/front/globalEvents/PopUpWindows/popUp_events.js"></script>
   <script src="js/front/globalEvents/PopUpWindows/export_events.js"></script>
+  <script src="js/front/globalEvents/PopUpWindows/colorSettings.js"></script>
+
 
   <!-- WebGL -->
   <script src="js/front/WebGL/three/three.min.js"></script>
@@ -316,15 +318,15 @@
           <div class="dropdownNotActiveMenuButton">
             Account
           </div>
-          <div class="dropdownNotActiveMenuButton">
+          <div onclick="openColorSettings()" class="dropdownMenuButton">
             Color Transformation
           </div>
           <div class="dropdownNotActiveMenuButton">
             Color Difference Metrics
           </div>
-          <div id="id_settingMenu_Label_RGBPossible_Button" oonclick="changeColorPossiblity()" class="dropdownNotActiveMenuButton" style="display:none;">
+          <!--div id="id_settingMenu_Label_RGBPossible_Button" oonclick="changeColorPossiblity()" class="dropdownNotActiveMenuButton" style="display:none;">
             Allow RGB Incompalible Colors : false
-          </div>
+          </div-->
 
           <div id="id_settingMenu_Label_AnalyzeUpdate_Button" onclick="changeAutoAnalyze()" class="dropdownMenuButton" style="display:none">
             Deactivate Automatical Analyze Update
@@ -519,7 +521,12 @@ and color difference metrics, currently including RGB, HSV,
 CIELAB, CIE94, CIEDE2000, and DIN99. For more help, you can always visit the tutorials page via the menu bar.
             </p>
 
-            <button onclick="openTutorialWindow()" class="class_generalbutton" style="width:15vw; margin-left:10vw; margin-bottom:2.5vh;"><p>Tutorials</p></button>
+            <button onclick="openTutorialWindow()" class="class_generalbutton" style="width:15vw; margin-left:10vw; margin-bottom:1vh;"><p>Tutorials</p></button>
+
+            <button onclick="openNewsPopUp()" class="class_generalbutton" style="width:15vw; margin-left:10vw; margin-bottom:2.5vh;"><p> News </p></button>
+
+
+
 
           </div>
 
@@ -1790,6 +1797,311 @@ CIELAB, CIE94, CIEDE2000, and DIN99. For more help, you can always visit the tut
                     -----------------------------------------------
                     -->
 
+
+                    <!---------------- Color Transformation Settings ---------------  -->
+                    <div id="id_PopUp_NewsWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
+
+                      <div style=" height:auto; background:white; width:50vw; border: 0.2vh solid black; margin:auto;">
+
+                        <h3 class="class_popupWindow_Label"> News </h3>
+
+
+                        <div style="width: 45vw; margin:2.5vw;  overflow-y:auto; overflow-x:hidden;">
+                          <p class="class_NewsSection">New Features (Version 0.7.5):</p>
+                          <p class="class_NewsParagraph"> - Pop-Up Window: News</p>
+                          <p class="class_NewsParagraph"> - Pop-Up Window: Tutorials</p>
+                          <p class="class_NewsParagraph"> - Tutorial-Video: Tool Overview</p>
+                          <p class="class_NewsParagraph"> - Color Transformation Settings</p>
+                          <p class="class_NewsParagraph"> - Color-Blindness Simulation for Edit-Section</p>
+                        </div>
+
+
+                        <button class="class_generalbutton " onclick="closeNewsPopUp()" title="close" style=" width:100%; width:10vw; height:6vh; line-height:6vh; font-size:3vh; margin-bottom:2vh;  margin-left:20vw;"> <p>Close</p> </button>
+
+
+
+
+                      </div>
+                    </div>
+
+
+                    <!---------------- Color Difference Metrics Settings ---------------  -->
+                    <div id="id_PopUp_ColorMetricsWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
+
+                      <div style=" height:auto; background:white; width:60%; border: 0.2vh solid black; margin:auto;">
+
+                        <h3 class="class_popupWindow_Label"> Settings: Metrics (Color Difference) </h3>
+
+                        <!--div style="width: 100%; height:auto; margin-top:20px; margin-bottom: 20px; background:white; padding-top:20px; padding-bottom:20px; box-shadow:  5px  5px grey;">
+
+                            <h1 style="margin-left:10%; width:80%; text-align:center; height:40px; line-height:40px; font-size:35px; vertical-align:middle; margin-top:20px; margin-bottom:20px; text-decoration: underline;">  Color Difference Metrics  </h1>
+                            <div class="row" style="margin-top:20px; margin-bottom:5px; width:100%; height: auto;">
+                              <div style="width:50%; height: auto;">
+                                  <p style="width:100%; text-align:center; height:30px; line-height:30px; font-size:12px; vertical-align:middle;">  DE94:  </p>
+                                  <div class="row class_settingRow" >
+                                  <p class="class_settingLabel">
+                                    k_L:
+                                  </p>
+                                  <input id="id_de94_k_L_Input" type="text" name="key space" value="1.0" class="class_settingInput">
+                                  </div>
+                                  <div class="row class_settingRow" >
+                                  <p class="class_settingLabel">
+                                    k_C:
+                                  </p>
+                                  <input id="id_de94_k_C_Input" type="text" name="key space" value="1.0" class="class_settingInput">
+                                  </div>
+                                  <div class="row class_settingRow">
+                                  <p class="class_settingLabel">
+                                    k_H:
+                                  </p>
+                                  <input id="id_de94_k_H_Input" type="text" name="key space" value="1.0" class="class_settingInput">
+                                  </div>
+                                  <div class="row class_settingRow">
+                                  <p class="class_settingLabel">
+                                    k_1:
+                                  </p>
+                                  <input id="id_de94_k_1_Input" type="text" name="key space" value="0.045" class="class_settingInput">
+                                  </div>
+                                  <div class="row class_settingRow">
+                                  <p class="class_settingLabel">
+                                    k_2:
+                                  </p>
+                                  <input id="id_de94_k_2_Input" type="text" name="key space" value="0.015" class="class_settingInput">
+                                  </div>
+                              </div>
+                              <div style="width:50%; height: auto;">
+                                  <p style="width:100%; text-align:center; height:30px; line-height:30px; font-size:12px; vertical-align:middle;">  DE2000:  </p>
+                                  <div class="row class_settingRow">
+                                  <p class="class_settingLabel">
+                                    k_L:
+                                  </p>
+                                  <input id="id_de2000_k_L_Input" type="text" name="key space" value="1.0" class="class_settingInput">
+                                  </div>
+                                  <div class="row class_settingRow">
+                                  <p class="class_settingLabel">
+                                    k_C:
+                                  </p>
+                                  <input id="id_de2000_k_C_Input" type="text" name="key space" value="1.0" class="class_settingInput">
+                                  </div>
+                                  <div class="row class_settingRow">
+                                  <p class="class_settingLabel">
+                                    k_H:
+                                  </p>
+                                  <input id="id_de2000_k_H_Input" type="text" name="key space" value="1.0" class="class_settingInput">
+                                  </div>
+                              </div>
+
+                            </div>
+
+                        </div-->
+
+
+                        <button class="class_generalbutton " onclick="closeColorMetrics()" title="close" style=" width:100%; height:6vh; line-height:6vh; font-size:3vh; margin-bottom:2vh;"> <p>Close</p> </button>
+
+
+
+
+                      </div>
+                    </div>
+
+
+                    <!---------------- Color Transformation Settings ---------------  -->
+                    <div id="id_PopUp_ColorSettingsWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
+
+                      <div style=" height:auto; background:white; width:70vw; border: 0.2vh solid black; margin:auto;">
+
+                        <h3 class="class_popupWindow_Label"> Settings: Color Transformation </h3>
+
+                        <div class="class_EditPage_TabRow">
+                          <button id="id_PopUp_Select_RGBtoXYZ" onclick="switchColorTransformationSettings(0)" style="height:100%; width:25%; cursor:pointer;">
+                            RGB to XYZ
+                          </button>
+                          <button id="id_PopUp_Select_XYZtoLMS" onclick="switchColorTransformationSettings(1)" style="height:100%; width:25%; cursor:pointer;">
+                            XYZ to LMS
+                          </button>
+                          <button id="id_PopUp_Select_XYZtoLab" onclick="switchColorTransformationSettings(2)" style="height:100%; width:25%; cursor:pointer;">
+                            XYZ to CIELab
+                          </button>
+                          <button id="id_PopUp_Select_LABtoDIN99" onclick="switchColorTransformationSettings(3)" style="height:100%; width:25%; cursor:pointer;">
+                            CIELab to DIN99
+                          </button>
+                        </div>
+
+
+                            <div id="id_PopUp_Matrix_Selecter" class="width:100%;">
+                              <div  class="row" style="width:100%; margin-top:2vh; margin-bottom:2vh;">
+
+                                <p class="standardText" style="margin-left:auto; margin-right:1vw;">Select Transformation Matrix:</p>
+
+                               <select id="select_XYZTransferMatrix" class="standardText" style="margin-right:auto;" onchange="changeRGBtoXYZ_TransferMatrices()">
+                                 <option value="sRGB_D65">sRGB D65</option>
+                                 <option value="sRGB_D50">sRGB D50</option>
+                                 <option value="tmXYZ_AdobeRGB_D65">Adobe RGB D65</option>
+                                 <option value="AdobeRGB_D50">Adobe RGB D50</option>
+                                 <option value="AppleRGB_D65">Apple RGB D65</option>
+                                 <option value="AppleRGB_D50">Apple RGB_D50</option>
+                                 <option value="BestRGB_D50">Best RGB D50</option>
+                                 <option value="BetaRGB_D50">Beta RGB D50</option>
+                                 <option value="BruceRGB_D65">Bruce RGB D65</option>
+                                 <option value="BruceRGB_D50">Bruce RGB D50</option>
+                                 <option value="CIERGB_E">CIE RGB E</option>
+                                 <option value="CIERGB_D50">CIE RGB D50</option>
+                                 <option value="ColorMatchRGB_D50">ColorMatch RGB D50</option>
+                                 <option value="DonRGB4_D50">Don RGB 4 D50</option>
+                                 <option value="ECIRGB_D50">ECI RGB D50</option>
+                                 <option value="EktaSpacePS5_D50">Ekta Space PS5 D50</option>
+                                 <option value="NTSC_RGB_C">NTSC RGB C</option>
+                                 <option value="NTSC_RGB_D50">NTSC RGB D50</option>
+                                 <option value="PAL_SECAM_RGB_D65">PAL/SECAM RGB D65</option>
+                                 <option value="PAL_SECAM_RGB_D50">PAL/SECAM RGB D50</option>
+                                 <option value="ProPhotoRGB_D50">ProPhoto RGB D50</option>
+                                 <option value="SMPTE_C_RGB_D65">SMPTE-C RGB D65</option>
+                                 <option value="SMPTE_C_RGB_D50">SMPTE-C RGB D50</option>
+                                 <option value="Wide_Gamut_RGB_D50">Wide Gamut RGB D50</option>
+                                 <option value="Custom" disabled>Custom</option>
+                               </select>
+
+                               <select id="select_LMSTransferMatrix" class="standardText" style="margin-right:auto;" onchange="changeXYZtoLMS_TransferMatrices()">
+                                 <option value="HPE">Hunt-Pointer-Estevez</option>
+                                 <option value="vK">von Kries</option>
+                                 <option value="BFD">Bradford</option>
+                                 <option value="CAT97s">CIECAM97s</option>
+                                 <option value="CAT02">CIECAM02</option>
+                                 <option value="Custom" disabled>Custom</option>
+                               </select>
+
+                               </div>
+
+                               <div class="row" style="width:100%; margin-top:2vh; margin-bottom:2vh; background:rgb(220,220,220); padding-top:2vh; padding-bottom:2vh;">
+
+                                   <svg class="class_svgBrackets" style="margin-left:auto;">
+                                     <line x1="10%" y1="0%" x2="10%" y2="100%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
+                                     <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
+                                     <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
+                                   </svg>
+
+                                   <div id="input_xyzTransferMatrixCol1">
+                                     <input type="number" id="inputTransferMatrix00" step="any"  class="class_transferInput" value="1" disabled><br>
+                                     <input type="number" id="inputTransferMatrix10" step="any"  class="class_transferInput" value="0" disabled><br>
+                                     <input type="number" id="inputTransferMatrix20" step="any"  class="class_transferInput" value="0" disabled><br>
+                                   </div>
+                                   <div id="input_xyzTransferMatrixCol2">
+                                     <input type="number" id="inputTransferMatrix01" step="any"  class="class_transferInput" value="0" disabled><br>
+                                     <input type="number" id="inputTransferMatrix11" step="any"  class="class_transferInput" value="1" disabled><br>
+                                     <input type="number" id="inputTransferMatrix21" step="any"  class="class_transferInput" value="0" disabled><br>
+                                   </div>
+                                   <div id="input_xyzTransferMatrixCol3">
+                                     <input type="number" id="inputTransferMatrix02" step="any" class="class_transferInput" value="0" disabled><br>
+                                     <input type="number" id="inputTransferMatrix12" step="any" class="class_transferInput" value="0" disabled><br>
+                                     <input type="number" id="inputTransferMatrix22" step="any" class="class_transferInput" value="1" disabled><br>
+                                   </div>
+
+
+                                   <svg class="class_svgBrackets">
+                                     <line x1="90%" y1="0%" x2="90%" y2="100%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
+                                     <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
+                                     <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
+                                   </svg>
+                                   <svg class="class_svgBrackets">
+                                     <line x1="10%" y1="0%" x2="10%" y2="100%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
+                                     <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
+                                     <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
+                                   </svg>
+
+                                   <div style="margin-top:auto; margin-bottom:auto;">
+                                     <p id="id_PopUp_ColorTrans_V1_1" class="class_transferInput">R</p>
+                                     <p id="id_PopUp_ColorTrans_V1_2" class="class_transferInput">G</p>
+                                     <p id="id_PopUp_ColorTrans_V1_3" class="class_transferInput">B</p>
+                                   </div>
+
+                                   <svg class="class_svgBrackets">
+                                     <line x1="90%" y1="0%" x2="90%" y2="100%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
+                                     <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
+                                     <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
+                                   </svg>
+                                   <p class="class_transferInput" style="margin-top:auto; margin-bottom:auto; margin-left:1vw; margin-right:1vw;"> = </p>
+                                   <svg class="class_svgBrackets">
+                                     <line x1="10%" y1="0%" x2="10%" y2="100%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
+                                     <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
+                                     <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
+                                   </svg>
+
+                                   <div style="margin-top:auto; margin-bottom:auto;">
+                                     <p id="id_PopUp_ColorTrans_V2_1" class="class_transferInput">X</p>
+                                     <p id="id_PopUp_ColorTrans_V2_2" class="class_transferInput">Y</p>
+                                     <p id="id_PopUp_ColorTrans_V2_3" class="class_transferInput">Z</p>
+                                   </div>
+                                   <svg class="class_svgBrackets" style="margin-right:auto;">
+                                     <line x1="90%" y1="0%" x2="90%" y2="100%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
+                                     <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
+                                     <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
+                                   </svg>
+
+                              </div>
+                            </div>
+
+
+
+
+
+                       <!--div style="margin-left:auto; margin-right:auto; height: auto; ">
+                           <p style="width:100%; text-align:center; height:30px; line-height:30px; font-size:12px; vertical-align:middle; margin-top:20px; margin-bottom: 20px;">  XYZ to CIELab Conversion:  </p>
+                           <div class="row class_settingRow">
+                           <p class="class_settingLabel">
+                             ref_X:
+                           </p>
+                           <input id="id_cielab_refX_Input" type="text" name="key space" value="94.811" class="class_settingInput">
+                           </div>
+                           <div class="row class_settingRow">
+                           <p class="class_settingLabel">
+                             ref_Y:
+                           </p>
+                           <input id="id_cielab_refY_Input" type="text" name="key space" value="100.000" class="class_settingInput">
+                           </div>
+                           <div class="row class_settingRow">
+                           <p class="class_settingLabel">
+                             ref_Z:
+                           </p>
+                           <input id="id_cielab_refZ_Input" type="text" name="key space" value="107.304" class="class_settingInput">
+                           </div>
+                       </div>
+
+                       <hr style="border-top: dotted 1px;" />
+
+                       <div style="margin-left:auto; margin-right:auto; height: auto;">
+                           <p style="width:100%; text-align:center; height:30px; line-height:30px; font-size:12px; vertical-align:middle;  margin-top:20px; margin-bottom: 20px;"> CIELab to DIN99 Conversion:  </p>
+                           <div class="row class_settingRow">
+                           <p class="class_settingLabel">
+                             k_E:
+                           </p>
+                           <input id="id_din99_k_E_Input" type="text" name="key space" value="1.0" class="class_settingInput">
+                           </div>
+                           <div class="row class_settingRow">
+                           <p class="class_settingLabel">
+                             k_CH:
+                           </p>
+                           <input id="id_din99_k_CH_Input" type="text" name="key space" value="1.0" class="class_settingInput">
+                           </div>
+                       </div-->
+
+
+                        <button class="class_generalbutton " onclick="closeColorSettings()" title="accept" style="width:10vw; height:6vh; line-height:6vh; font-size:3vh; margin-left:30vw; margin-bottom:2vh;"> <p>Accept</p> </button>
+
+
+
+
+
+
+                      </div>
+                    </div>
+
+
+
+
+
+
+
+
                     <!---------------- Tutorial ---------------  -->
                     <div id="id_PopUp_TutorialWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none; ">
 
@@ -2945,7 +3257,7 @@ CIELAB, CIE94, CIEDE2000, and DIN99. For more help, you can always visit the tut
     </div>
 
     <div style=" width:100%; display:flex; margin-top:1vh; border-top:1px solid grey;">
-      <p id="id_footer_version" style="margin:0px; margin-left:2.5vw; margin-right:auto; vertical-align: middle; color:white; height:2.5vh; font-size:1.5vh;"> Version: 0.7.5 </p>
+      <p id="id_footer_version" onclick="openNewsPopUp()" style="margin:0px; margin-left:2.5vw; margin-right:auto; vertical-align: middle; color:white; height:2.5vh; font-size:1.5vh; cursor:pointer;"> Version: 0.7.5 </p>
       <p id="id_footer_copyRight" style="margin:0px; margin-right:2.5vw; color:white; vertical-align: middle; height:2.5vh; font-size:1.5vh;"> Copyright © 2019 </p>
     </div>
 

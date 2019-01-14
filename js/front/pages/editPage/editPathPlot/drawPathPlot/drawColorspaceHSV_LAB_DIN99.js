@@ -278,7 +278,7 @@ function init_VPlot() {
   vPlotContex3.msImageSmoothingEnabled = false;
   vPlotContex3.imageSmoothingEnabled = false; // did not work !?!?!
   vPlotContex3.oImageSmoothingEnabled = false;
-  
+
   var yStart = Math.round(canvasVPlot1.height * 0.9);
   var yEnd = Math.round(canvasVPlot1.height * 0.1);
   var yEndLine = Math.round(canvasVPlot1.height * 0.05);
@@ -817,6 +817,11 @@ function drawElements_HSV_LAB_DIN99(isCompareMap) {
 
 function drawInterpolationLineHSV_LAB_DIN99(isCompareMap) {
 
+  pathplotLines1 = [];
+  pathplotLines2 = [];
+  pathplotLines3 = [];
+  pathplotLines4 = [];
+
 
   var canvasColorspace = document.getElementById("id_EditPage_PathPlot_SingleCanvas_1");
   var canvasObjBox = canvasColorspace.getBoundingClientRect();
@@ -896,28 +901,9 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap) {
 
   var tmpColor, tmpColor2, xPos, xPos2, yPos, yPos2;
 
-  var border = 1;
 
-  if (isCompareMap) {
-    border = 2;
-
-    globalCMS1.calcDeltaIntervalColors(intervalDelta, 0,globalCMS1.getKeyLength()-1);
-  }
-
-  for (var x = 0; x < border; x++) {
-    var workCMS;
-    var compareColor = false;
-    switch (x) {
-      case 0:
         workCMS = globalCMS1;
-        break;
-      case 1:
-        workCMS = globalCMS2;
-        compareColor = true;
-        break;
-      default:
-      return;
-    }
+
 
     var csModus=pathColorspace;
     if((pathColorspace=="lab" || pathColorspace=="din99") && onlyRGBPossibleColor){
@@ -939,32 +925,32 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap) {
             workCMS.getRefPosition(i + 1),
             workCMS.getRefPosition(0),
             workCMS.getRefRange(),
-            vPlotxStart, vPlotyStart, heigthVArea, plotwidth, false, compareColor, vPlotContex1,vPlotContex2,vPlotContex3);
+            vPlotxStart, vPlotyStart, heigthVArea, plotwidth);
           break;
         case "twin key":
           var intervalIndexA = workCMS.getIntervalPositions(i);
-          drawHueLine(workCMS.getLeftKeyColor(i, pathColorspace), workCMS.getRightKeyColor(i, csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, true, compareColor, colorspaceContex);
+          drawHueLine(workCMS.getLeftKeyColor(i, pathColorspace), workCMS.getRightKeyColor(i, csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, true, colorspaceContex);
 
             for (var j = intervalIndexA[0]; j < intervalIndexA[1]; j++) {
-              drawHueLine(workCMS.getIntervalColor(j, csModus), workCMS.getIntervalColor(j + 1, csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false, compareColor, colorspaceContex);
+              drawHueLine(workCMS.getIntervalColor(j, csModus), workCMS.getIntervalColor(j + 1, csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false, colorspaceContex);
               drawVLine(workCMS.getIntervalColor(j, csModus),
                 workCMS.getIntervalColor(j + 1, csModus),
                 workCMS.getIntervalRef(j),
                 workCMS.getIntervalRef(j + 1),
                 workCMS.getRefPosition(0),
                 workCMS.getRefRange(),
-                vPlotxStart, vPlotyStart, heigthVArea, plotwidth, false, compareColor, vPlotContex1,vPlotContex2,vPlotContex3);
+                vPlotxStart, vPlotyStart, heigthVArea, plotwidth);
             }
           break;
         case "left key":
-          drawHueLine(workCMS.getLeftKeyColor(i, csModus), workCMS.getLeftKeyColor(i + 1, csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, true, compareColor, colorspaceContex);
+          drawHueLine(workCMS.getLeftKeyColor(i, csModus), workCMS.getLeftKeyColor(i + 1, csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, true,  colorspaceContex);
           drawVLine(workCMS.getLeftKeyColor(i + 1, csModus),
             workCMS.getLeftKeyColor(i + 1, csModus),
             workCMS.getRefPosition(i),
             workCMS.getRefPosition(i + 1),
             workCMS.getRefPosition(0),
             workCMS.getRefRange(),
-            vPlotxStart, vPlotyStart, heigthVArea, plotwidth, false, compareColor, vPlotContex1,vPlotContex2,vPlotContex3);
+            vPlotxStart, vPlotyStart, heigthVArea, plotwidth);
           break;
         default:
 
@@ -972,32 +958,93 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap) {
 
           if(workCMS.getKeyType(i)=="dual key"){
             // we do not save the interval colors for dual key double -> it is easier for the analyze algorithm
-            drawHueLine(workCMS.getLeftKeyColor(i,csModus), workCMS.getIntervalColor(intervalIndexA[0],csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false, compareColor, colorspaceContex);
+            drawHueLine(workCMS.getLeftKeyColor(i,csModus), workCMS.getIntervalColor(intervalIndexA[0],csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false,  colorspaceContex);
             drawVLine(workCMS.getLeftKeyColor(i,csModus),
               workCMS.getIntervalColor(intervalIndexA[0],csModus),
               workCMS.getRefPosition(i),
               workCMS.getIntervalRef(intervalIndexA[0]),
               workCMS.getRefPosition(0),
               workCMS.getRefRange(),
-              vPlotxStart, vPlotyStart, heigthVArea, plotwidth, false, compareColor, vPlotContex1,vPlotContex2,vPlotContex3);
+              vPlotxStart, vPlotyStart, heigthVArea, plotwidth);
           }
 
             for (var j = intervalIndexA[0]; j < intervalIndexA[1]; j++) {
-              drawHueLine(workCMS.getIntervalColor(j, csModus), workCMS.getIntervalColor(j + 1, csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false, compareColor, colorspaceContex);
+              drawHueLine(workCMS.getIntervalColor(j, csModus), workCMS.getIntervalColor(j + 1, csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false,  colorspaceContex);
               drawVLine(workCMS.getIntervalColor(j, csModus),
                 workCMS.getIntervalColor(j + 1, csModus),
                 workCMS.getIntervalRef(j),
                 workCMS.getIntervalRef(j + 1),
                 workCMS.getRefPosition(0),
                 workCMS.getRefRange(),
-                vPlotxStart, vPlotyStart, heigthVArea, plotwidth, false, compareColor, vPlotContex1,vPlotContex2,vPlotContex3);
+                vPlotxStart, vPlotyStart, heigthVArea, plotwidth);
             }
 
       }
 
 
     }
+
+
+
+  colorspaceContex.beginPath();
+  vPlotContex1.beginPath();
+  vPlotContex2.beginPath();
+  vPlotContex3.beginPath();
+
+  colorspaceContex.setLineDash([]);
+  vPlotContex1.setLineDash([]);
+  vPlotContex2.setLineDash([]);
+  vPlotContex3.setLineDash([]);
+
+  for (var i = 0; i < pathplotLines1.length/4; i++) {
+
+      var index = i*4;
+      colorspaceContex.moveTo(pathplotLines1[index], pathplotLines1[index+1]);
+      colorspaceContex.lineTo(pathplotLines1[index+2], pathplotLines1[index+3]);
+
+      vPlotContex1.moveTo(pathplotLines2[index], pathplotLines2[index+1]);
+      vPlotContex1.lineTo(pathplotLines2[index+2], pathplotLines2[index+3]);
+
+      vPlotContex2.moveTo(pathplotLines3[index], pathplotLines3[index+1]);
+      vPlotContex2.lineTo(pathplotLines3[index+2], pathplotLines3[index+3]);
+
+      vPlotContex3.moveTo(pathplotLines4[index], pathplotLines4[index+1]);
+      vPlotContex3.lineTo(pathplotLines4[index+2], pathplotLines4[index+3]);
+
   }
+
+  colorspaceContex.lineWidth=bigLineWidth;
+  vPlotContex1.lineWidth=bigLineWidth;
+  vPlotContex2.lineWidth=bigLineWidth;
+  vPlotContex3.lineWidth=bigLineWidth;
+
+  colorspaceContex.strokeStyle = 'rgb(0,0,0)';
+  vPlotContex1.strokeStyle = 'rgb(0,0,0)';
+  vPlotContex2.strokeStyle = 'rgb(0,0,0)';
+  vPlotContex3.strokeStyle = 'rgb(0,0,0)';
+
+
+  colorspaceContex.stroke();
+  vPlotContex1.stroke();
+  vPlotContex2.stroke();
+  vPlotContex3.stroke();
+
+  colorspaceContex.lineWidth=smallLineWidth;
+  vPlotContex1.lineWidth=smallLineWidth;
+  vPlotContex2.lineWidth=smallLineWidth;
+  vPlotContex3.lineWidth=smallLineWidth;
+
+  colorspaceContex.strokeStyle = 'rgb(255,255,255)';
+  vPlotContex1.strokeStyle = 'rgb(255,255,255)';
+  vPlotContex2.strokeStyle = 'rgb(255,255,255)';
+  vPlotContex3.strokeStyle = 'rgb(255,255,255)';
+
+  colorspaceContex.stroke();
+  vPlotContex1.stroke();
+  vPlotContex2.stroke();
+  vPlotContex3.stroke();
+
+
 
 }
 
@@ -1088,7 +1135,7 @@ function drawVElement(tmpColor, currentRef, startRef, rangeSize, vPlotxStart, vP
 
 }
 
-function drawHueLine(tmpColor, tmpColor2, xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, isDashed, isCompareMap, colorspaceContex) {
+function drawHueLine(tmpColor, tmpColor2, xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, isDashed, colorspaceContex) {
   // RG
 
   switch (pathColorspace) {
@@ -1123,13 +1170,21 @@ function drawHueLine(tmpColor, tmpColor2, xWidth, yHeight, xStart, yStart, xEnd,
       return;
   }
 
-  drawLine(colorspaceContex, xPos, yPos, xPos2, yPos2, isDashed, isCompareMap);
+  if(isDashed)
+    drawLine(colorspaceContex, xPos, yPos, xPos2, yPos2);
+  else{
+    pathplotLines1.push(xPos);
+    pathplotLines1.push(yPos);
+    pathplotLines1.push(xPos2);
+    pathplotLines1.push(yPos2);
+
+  }
 
 
 
 }
 
-function drawVLine(tmpColor, tmpColor2, ref, ref2, startRef, rangeSize, vPlotxStart, vPlotyStart, heigthVArea, plotwidth, isDashed, isCompareMap, vPlotContex1,vPlotContex2,vPlotContex3) {
+function drawVLine(tmpColor, tmpColor2, ref, ref2, startRef, rangeSize, vPlotxStart, vPlotyStart, heigthVArea, plotwidth) {
   var xPos = vPlotxStart + ((ref - startRef) / rangeSize) * plotwidth;
   var xPos2 = vPlotxStart + ((ref2 - startRef) / rangeSize) * plotwidth;
 
@@ -1152,7 +1207,12 @@ function drawVLine(tmpColor, tmpColor2, ref, ref2, startRef, rangeSize, vPlotxSt
       return;
   }
 
-  drawLine(vPlotContex1, xPos, yPos, xPos2, yPos2, isDashed, isCompareMap);
+
+  pathplotLines2.push(xPos);
+  pathplotLines2.push(yPos);
+  pathplotLines2.push(xPos2);
+  pathplotLines2.push(yPos2);
+
 
   switch (pathColorspace) {
     case "hsv":
@@ -1172,7 +1232,10 @@ function drawVLine(tmpColor, tmpColor2, ref, ref2, startRef, rangeSize, vPlotxSt
       return;
   }
 
-  drawLine(vPlotContex2, xPos, yPos, xPos2, yPos2, isDashed, isCompareMap);
+  pathplotLines3.push(xPos);
+  pathplotLines3.push(yPos);
+  pathplotLines3.push(xPos2);
+  pathplotLines3.push(yPos2);
 
   switch (pathColorspace) {
     case "hsv":
@@ -1192,5 +1255,8 @@ function drawVLine(tmpColor, tmpColor2, ref, ref2, startRef, rangeSize, vPlotxSt
       return;
   }
 
-  drawLine(vPlotContex3, xPos, yPos, xPos2, yPos2, isDashed, isCompareMap);
+  pathplotLines4.push(xPos);
+  pathplotLines4.push(yPos);
+  pathplotLines4.push(xPos2);
+  pathplotLines4.push(yPos2);
 }

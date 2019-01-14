@@ -1,6 +1,8 @@
 ////////////////////////////////////
 //// possible User Settings
 
+var selectedColorTransformation =0;
+
 
 // 2000
 var de2000_k_L = 1.0,
@@ -267,160 +269,11 @@ var tmXYZ_ProPhotoRGB_Wide_Gamut_RGB_D50_Inv = [
   [0.0349342, -0.0968930, 1.2884099]
 ]; // Reference White D50
 
+var tmXYZ_Selected_Index = 0;
 var tmXYZ_Selected = tmXYZ_sRGB_D65;
 var tmXYZ_Selected_Inv = tmXYZ_sRGB_D65_Inv;
 
 
-function updateRGBtoXYZ_TransferMatrices() {
-
-  if (document.getElementById("select_XYZTransferMatrix").selectedIndex == 24) {
-    document.getElementById("label_xyzTransferMatrixCol1").style.display = "none";
-    document.getElementById("label_xyzTransferMatrixCol2").style.display = "none";
-    document.getElementById("label_xyzTransferMatrixCol3").style.display = "none";
-    document.getElementById("input_xyzTransferMatrixCol1").style.display = "inline-block";
-    document.getElementById("input_xyzTransferMatrixCol2").style.display = "inline-block";
-    document.getElementById("input_xyzTransferMatrixCol3").style.display = "inline-block";
-  } else {
-    document.getElementById("label_xyzTransferMatrixCol1").style.display = "inline-block";
-    document.getElementById("label_xyzTransferMatrixCol2").style.display = "inline-block";
-    document.getElementById("label_xyzTransferMatrixCol3").style.display = "inline-block";
-    document.getElementById("input_xyzTransferMatrixCol1").style.display = "none";
-    document.getElementById("input_xyzTransferMatrixCol2").style.display = "none";
-    document.getElementById("input_xyzTransferMatrixCol3").style.display = "none";
-  }
-
-  switch (document.getElementById("select_XYZTransferMatrix").selectedIndex) {
-    case 0:
-      tmXYZ_Selected = tmXYZ_sRGB_D65;
-      tmXYZ_Selected_Inv = tmXYZ_sRGB_D65_Inv;
-      break;
-    case 1:
-      tmXYZ_Selected = tmXYZ_sRGB_D50;
-      tmXYZ_Selected_Inv = tmXYZ_sRGB_D50_Inv;
-      break;
-    case 2:
-      tmXYZ_Selected = tmXYZ_AdobeRGB_D65;
-      tmXYZ_Selected_Inv = tmXYZ_AdobeRGB_D65_Inv;
-      break;
-    case 3:
-      tmXYZ_Selected = tmXYZ_AdobeRGB_D50;
-      tmXYZ_Selected_Inv = tmXYZ_AdobeRGB_D50_Inv;
-      break;
-    case 4:
-      tmXYZ_Selected = tmXYZ_AppleRGB_D65;
-      tmXYZ_Selected_Inv = tmXYZ_AppleRGB_D65_Inv;
-      break;
-    case 5:
-      tmXYZ_Selected = tmXYZ_AppleRGB_D50;
-      tmXYZ_Selected_Inv = tmXYZ_AppleRGB_D50_Inv;
-      break;
-    case 6:
-      tmXYZ_Selected = tmXYZ_BestRGB_D50;
-      tmXYZ_Selected_Inv = tmXYZ_BestRGB_D50_Inv;
-      break;
-    case 7:
-      tmXYZ_Selected = tmXYZ_BetaRGB_D50;
-      tmXYZ_Selected_Inv = tmXYZ_BetaRGB_D50_Inv;
-      break;
-    case 8:
-      tmXYZ_Selected = tmXYZ_BruceRGB_D65;
-      tmXYZ_Selected_Inv = tmXYZ_BruceRGB_D65_Inv;
-      break;
-    case 9:
-      tmXYZ_Selected = tmXYZ_BruceRGB_D50;
-      tmXYZ_Selected_Inv = tmXYZ_BruceRGB_D50_Inv;
-      break;
-    case 10:
-      tmXYZ_Selected = tmXYZ_CIERGB_E;
-      tmXYZ_Selected_Inv = tmXYZ_CIERGB_E_Inv;
-      break;
-    case 11:
-      tmXYZ_Selected = tmXYZ_CIERGB_D50;
-      tmXYZ_Selected_Inv = tmXYZ_CIERGB_D50_Inv;
-      break;
-    case 12:
-      tmXYZ_Selected = tmXYZ_ColorMatchRGB_D50;
-      tmXYZ_Selected_Inv = tmXYZ_ColorMatchRGB_D50_Inv;
-      break;
-    case 13:
-      tmXYZ_Selected = tmXYZ_DonRGB4_D50;
-      tmXYZ_Selected_Inv = tmXYZ_DonRGB4_D50_Inv;
-      break;
-    case 14:
-      tmXYZ_Selected = tmXYZ_ECIRGB_D50;
-      tmXYZ_Selected_Inv = tmXYZ_ECIRGB_Inv_D50;
-      break;
-    case 15:
-      tmXYZ_Selected = tmXYZ_EktaSpacePS5_D50;
-      tmXYZ_Selected_Inv = tmXYZ_EktaSpacePS5_D50_Inv;
-      break;
-    case 16:
-      tmXYZ_Selected = tmXYZ_NTSC_RGB_C;
-      tmXYZ_Selected_Inv = tmXYZ_NTSC_RGB_C_Inv;
-      break;
-    case 17:
-      tmXYZ_Selected = tmXYZ_NTSC_RGB_D50;
-      tmXYZ_Selected_Inv = tmXYZ_NTSC_RGB_D50_Inv;
-      break;
-    case 18:
-      tmXYZ_Selected = tmXYZ_PAL_SECAM_RGB_D65;
-      tmXYZ_Selected_Inv = tmXYZ_PAL_SECAM_RGB_D65_Inv;
-      break;
-    case 19:
-      tmXYZ_Selected = tmXYZ_PAL_SECAM_RGB_D50;
-      tmXYZ_Selected_Inv = tmXYZ_PAL_SECAM_RGB_D50_Inv;
-      break;
-    case 20:
-      tmXYZ_Selected = tmXYZ_ProPhotoRGB_D50;
-      tmXYZ_Selected_Inv = tmXYZ_ProPhotoRGB_D50_Inv;
-      break;
-    case 21:
-      tmXYZ_Selected = tmXYZ_SMPTE_C_RGB_D65;
-      tmXYZ_Selected_Inv = tmXYZ_SMPTE_C_RGB_D65_Inv;
-      break;
-    case 22:
-      tmXYZ_Selected = tmXYZ_SMPTE_C_RGB_D50;
-      tmXYZ_Selected_Inv = tmXYZ_SMPTE_C_RGB_D50_Inv;
-      break;
-    case 23:
-      tmXYZ_Selected = tmXYZ_ProPhotoRGB_Wide_Gamut_RGB_D50;
-      tmXYZ_Selected_Inv = tmXYZ_ProPhotoRGB_Wide_Gamut_RGB_D50_Inv;
-      break;
-    case 24: // Custom
-      tmXYZ_Selected = [
-        [parseFloat(document.getElementById("inputRgbToXYZTransferMatrix00").value), parseFloat(document.getElementById("inputRgbToXYZTransferMatrix01").value), parseFloat(document.getElementById("inputRgbToXYZTransferMatrix02").value)],
-        [parseFloat(document.getElementById("inputRgbToXYZTransferMatrix10").value), parseFloat(document.getElementById("inputRgbToXYZTransferMatrix11").value), parseFloat(document.getElementById("inputRgbToXYZTransferMatrix12").value)],
-        [parseFloat(document.getElementById("inputRgbToXYZTransferMatrix20").value), parseFloat(document.getElementById("inputRgbToXYZTransferMatrix21").value), parseFloat(document.getElementById("inputRgbToXYZTransferMatrix22").value)]
-      ];
-
-      tmXYZ_Selected_Inv = invert3x3Matrix(tmLMS_Selected);
-
-      if (tmXYZ_Selected_Inv == undefined) {
-        document.getElementById("select_XYZTransferMatrix").selectedIndex = 0;
-        tmXYZ_Selected = tmXYZ_sRGB_D65;
-        tmXYZ_Selected_Inv = tmXYZ_sRGB_D65_Inv;
-      }
-      break;
-    default:
-      document.getElementById("select_XYZTransferMatrix").selectedIndex = 0;
-      tmXYZ_Selected = tmXYZ_sRGB_D65;
-      tmXYZ_Selected_Inv = tmXYZ_sRGB_D65_Inv;
-
-  }
-
-  document.getElementById("labelrgbToXYZTransferMatrix00").innerHTML = tmXYZ_Selected[0][0];
-  document.getElementById("labelrgbToXYZTransferMatrix10").innerHTML = tmXYZ_Selected[1][0];
-  document.getElementById("labelrgbToXYZTransferMatrix20").innerHTML = tmXYZ_Selected[2][0];
-
-  document.getElementById("labelrgbToXYZTransferMatrix01").innerHTML = tmXYZ_Selected[0][1];
-  document.getElementById("labelrgbToXYZTransferMatrix11").innerHTML = tmXYZ_Selected[1][1];
-  document.getElementById("labelrgbToXYZTransferMatrix21").innerHTML = tmXYZ_Selected[2][1];
-
-  document.getElementById("labelrgbToXYZTransferMatrix02").innerHTML = tmXYZ_Selected[0][2];
-  document.getElementById("labelrgbToXYZTransferMatrix12").innerHTML = tmXYZ_Selected[1][2];
-  document.getElementById("labelrgbToXYZTransferMatrix22").innerHTML = tmXYZ_Selected[2][2];
-
-}
 ///////////////////////////////////////////////////////////////////////
 // LMS
 
@@ -476,87 +329,9 @@ var tmLMS_CAT02_Inv = [
   [-733073 / 76142791, -433864 / 76142791, 77309728 / 76142791]
 ]; //  (CIECAM02)
 
-var tmLMS_Selected;
-var tmLMS_Selected_Inv;
-
-function updateXYZtoLMS_TransferMatrices() {
-
-  if (document.getElementById("select_LMSTransferMatrix").selectedIndex == 5) {
-    document.getElementById("label_lmstransferMatrixCol1").style.display = "none";
-    document.getElementById("label_lmstransferMatrixCol2").style.display = "none";
-    document.getElementById("label_lmstransferMatrixCol3").style.display = "none";
-    document.getElementById("input_lmstransferMatrixCol1").style.display = "inline-block";
-    document.getElementById("input_lmstransferMatrixCol2").style.display = "inline-block";
-    document.getElementById("input_lmstransferMatrixCol3").style.display = "inline-block";
-  } else {
-    document.getElementById("label_lmstransferMatrixCol1").style.display = "inline-block";
-    document.getElementById("label_lmstransferMatrixCol2").style.display = "inline-block";
-    document.getElementById("label_lmstransferMatrixCol3").style.display = "inline-block";
-    document.getElementById("input_lmstransferMatrixCol1").style.display = "none";
-    document.getElementById("input_lmstransferMatrixCol2").style.display = "none";
-    document.getElementById("input_lmstransferMatrixCol3").style.display = "none";
-  }
-
-  switch (document.getElementById("select_LMSTransferMatrix").selectedIndex) {
-    case 0:
-      tmLMS_Selected = tmLMS_HPE;
-      tmLMS_Selected_Inv = tmLMS_HPE_Inv;
-      break;
-    case 1:
-      tmLMS_Selected = tmLMS_vK;
-      tmLMS_Selected_Inv = tmLMS_vK_Inv;
-      break;
-    case 2:
-      tmLMS_Selected = tmLMS_BFD;
-      tmLMS_Selected_Inv = tmLMS_BFD_Inv;
-      break;
-    case 3:
-      tmLMS_Selected = tmLMS_CAT97s;
-      tmLMS_Selected_Inv = tmLMS_CAT97s_Inv;
-      break;
-    case 4:
-      tmLMS_Selected = tmLMS_CAT02;
-      tmLMS_Selected_Inv = tmLMS_CAT02_Inv;
-      break;
-
-    case 5: // Custom
-
-      tmLMS_Selected = [
-        [parseFloat(document.getElementById("inputXyztoLSMTransferMatrix00").value), parseFloat(document.getElementById("inputXyztoLSMTransferMatrix01").value), parseFloat(document.getElementById("inputXyztoLSMTransferMatrix02").value)],
-        [parseFloat(document.getElementById("inputXyztoLSMTransferMatrix10").value), parseFloat(document.getElementById("inputXyztoLSMTransferMatrix11").value), parseFloat(document.getElementById("inputXyztoLSMTransferMatrix12").value)],
-        [parseFloat(document.getElementById("inputXyztoLSMTransferMatrix20").value), parseFloat(document.getElementById("inputXyztoLSMTransferMatrix21").value), parseFloat(document.getElementById("inputXyztoLSMTransferMatrix22").value)]
-      ];
-
-      tmLMS_Selected_Inv = invert3x3Matrix(tmLMS_Selected);
-
-      if (tmLMS_Selected_Inv == undefined) {
-        document.getElementById("select_LMSTransferMatrix").selectedIndex = 1;
-        tmLMS_Selected = tmLMS_vK;
-        tmLMS_Selected_Inv = tmLMS_vK_Inv;
-      }
-
-      break;
-
-    default:
-      document.getElementById("select_LMSTransferMatrix").selectedIndex = 1;
-      tmLMS_Selected = tmLMS_vK;
-      tmLMS_Selected_Inv = tmLMS_vK_Inv;
-
-  }
-
-  document.getElementById("labelxyztoLSMTransferMatrix00").innerHTML = tmLMS_Selected[0][0];
-  document.getElementById("labelxyztoLSMTransferMatrix10").innerHTML = tmLMS_Selected[1][0];
-  document.getElementById("labelxyztoLSMTransferMatrix20").innerHTML = tmLMS_Selected[2][0];
-
-  document.getElementById("labelxyztoLSMTransferMatrix01").innerHTML = tmLMS_Selected[0][1];
-  document.getElementById("labelxyztoLSMTransferMatrix11").innerHTML = tmLMS_Selected[1][1];
-  document.getElementById("labelxyztoLSMTransferMatrix21").innerHTML = tmLMS_Selected[2][1];
-
-  document.getElementById("labelxyztoLSMTransferMatrix02").innerHTML = tmLMS_Selected[0][2];
-  document.getElementById("labelxyztoLSMTransferMatrix12").innerHTML = tmLMS_Selected[1][2];
-  document.getElementById("labelxyztoLSMTransferMatrix22").innerHTML = tmLMS_Selected[2][2];
-
-}
+var tmLMS_Selected_Index = 0;
+var tmLMS_Selected = tmLMS_HPE;
+var tmLMS_Selected_Inv = tmLMS_HPE_Inv;
 
 ////////////////////////// http://ixora.io/projects/colorblindness/color-blindness-simulation-research/
 

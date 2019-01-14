@@ -34,6 +34,30 @@ class class_Key{
       return this.isBur;
     }
 
+    updateKeyColorsToSettings(){
+
+      if(this.cL[0]!=undefined){
+        this.cL[2]=this.cL[0].calcLABColor();
+        this.cL[3]=this.cL[0].calcDIN99Color();
+      }
+      else {
+        this.cL[2]=undefined;
+        this.cL[3]=undefined;
+      }
+
+      if(this.cR[0]!=undefined){
+        this.cR[2]=this.cR[0].calcLABColor();
+        this.cR[3]=this.cR[0].calcDIN99Color();
+      }
+      else {
+        this.cR[2]=undefined;
+        this.cR[3]=undefined;
+      }
+
+
+
+    }
+
     setLeftKeyColor(color){
 
 

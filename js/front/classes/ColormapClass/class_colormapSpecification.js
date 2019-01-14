@@ -45,6 +45,21 @@ class class_CMS {
   }
 
 
+  updateColorToNewSettings(){
+    this.NaN_LAB = this.NaN_RGB.calcLABColor();
+    this.NaN_DIN99 = this.NaN_RGB.calcDIN99Color();
+
+    this.Below_LAB = this.Below_RGB.calcLABColor();
+    this.Below_DIN99 = this.Below_RGB.calcDIN99Color();
+
+    this.Above_LAB = this.Above_RGB.calcLABColor();
+    this.Above_DIN99 = this.Above_RGB.calcDIN99Color();
+
+    for (var i = 0; i < this.keyArray.length; i++) {
+      this.keyArray[i].updateKeyColorsToSettings();
+    }
+
+  }
 
   /////////////////////////////////
   //// Key Structure

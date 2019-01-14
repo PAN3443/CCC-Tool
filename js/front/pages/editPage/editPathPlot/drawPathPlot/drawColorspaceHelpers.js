@@ -2,18 +2,19 @@
 // -------------Helpers--------------//
 //////////////////////////////////////////
 
-function draw3DLine(xPos,yPos, zPos, xPos2, yPos2, zPos2,dashed, secondStrokeStyle){
+function draw3DLine(xPos,yPos, zPos, xPos2, yPos2, zPos2,isDashed){
 
 
     var lineMaterial = new THREE.LineBasicMaterial( { color: 0x000000, linewidth: lineWidth3D } );
-    if(dashed)
+
+    if(isDashed)
       lineMaterial = new THREE.LineDashedMaterial( { color: 0x000000, dashSize: 10, gapSize: 10, linewidth: lineWidth3D } );
 
-    if(secondStrokeStyle){
+  /*  if(secondStrokeStyle){
       lineMaterial = new THREE.LineBasicMaterial( { color: 0x907D27, linewidth: lineWidth3D } );
-      if(dashed)
+      if(isDashed)
         lineMaterial = new THREE.LineDashedMaterial( { color: 0x907D27, dashSize: 10, gapSize: 10, linewidth: lineWidth3D } );
-    }
+    }*/
 
     var geometry = new THREE.Geometry();
 
@@ -108,26 +109,19 @@ function drawElement(colorString,colorspaceContex,xPos,yPos, index, colorside, c
   }
 }
 
-function drawLine(colorspaceContex,xPos,yPos,xPos2,yPos2, dashed, secondStrokeStyle){
+function drawLine(colorspaceContex,xPos,yPos,xPos2,yPos2){
 
-  if(dashed)
+  //if(dashed)
   colorspaceContex.setLineDash([15,10]);
-  else
-  colorspaceContex.setLineDash([]);
+  //else
+  //colorspaceContex.setLineDash([]);
   colorspaceContex.beginPath();
   colorspaceContex.lineWidth=bigLineWidth;
   colorspaceContex.moveTo(xPos, yPos);
   colorspaceContex.lineTo(xPos2, yPos2);
   colorspaceContex.strokeStyle = 'rgb(0,0,0)';
-  if(secondStrokeStyle)
-  colorspaceContex.strokeStyle = 'rgb(0,0,0)';
   colorspaceContex.stroke();
-  colorspaceContex.beginPath();
   colorspaceContex.lineWidth=smallLineWidth;
-  colorspaceContex.moveTo(xPos, yPos);
-  colorspaceContex.lineTo(xPos2, yPos2);
   colorspaceContex.strokeStyle = 'rgb(255,255,255)';
-  if(secondStrokeStyle)
-  colorspaceContex.strokeStyle = 'rgb(255,255,0)';
   colorspaceContex.stroke();
 }

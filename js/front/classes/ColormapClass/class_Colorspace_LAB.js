@@ -155,44 +155,20 @@ class classColor_LAB{
             var error = 100.0; //0.01;
 
 
-            //  Calc XYZ
-            var var_Y = (this.lValue + 16.0)/116.0;
-            var var_X = this.aValue/500.0 + var_Y;
-            var var_Z = var_Y - this.bValue/200.0;
-
-            if ( Math.pow (var_Y, 3.0) > 0.008856 ){
-                var_Y = Math.pow (var_Y, 3.0);
-            }
-            else {
-                var_Y = ( var_Y - 16.0 / 116.0 ) / 7.787;
-            }
-
-            if ( Math.pow (var_X, 3.0)  > 0.008856 ){
-                var_X = Math.pow (var_X, 3.0);
-            }
-            else {
-                var_X = ( var_X - 16.0 / 116.0 ) / 7.787;
-            }
-
-            if ( Math.pow (var_Z, 3.0)  > 0.008856 ){
-                var_Z = Math.pow (var_Z, 3.0);
-            }
-            else {
-                var_Z = ( var_Z - 16.0 / 116.0 ) / 7.787;
-            }
-
-            var_X = (var_X * cielab_ref_X);
-            var_Y = (var_Y * cielab_ref_Y);
-            var_Z = (var_Z * cielab_ref_Z);
+            var colorXYZ = this.calcXYZColor()
 
             //    Calc RGB
-                var var_X = var_X / 100.0;
-                var var_Y = var_Y / 100.0;
-                var var_Z = var_Z / 100.0;
+                var var_X = colorXYZ.getXValue() / 100.0;
+                var var_Y = colorXYZ.getYValue() / 100.0;
+                var var_Z = colorXYZ.getZValue() / 100.0;
 
-                var var_R = var_X *  3.2406 + var_Y * -1.5372 + var_Z * -0.4986;
+                /*var var_R = var_X *  3.2406 + var_Y * -1.5372 + var_Z * -0.4986;
                 var var_G = var_X * -0.9689 + var_Y *  1.8758 + var_Z *  0.0415;
-                var var_B = var_X *  0.0557 + var_Y * -0.2040 + var_Z *  1.0570;
+                var var_B = var_X *  0.0557 + var_Y * -0.2040 + var_Z *  1.0570;*/
+
+                var var_R = var_X * tmXYZ_Selected_Inv[0][0] + var_Y * tmXYZ_Selected_Inv[0][1] + var_Z * tmXYZ_Selected_Inv[0][2];
+                var var_G = var_X * tmXYZ_Selected_Inv[1][0] + var_Y * tmXYZ_Selected_Inv[1][1] + var_Z * tmXYZ_Selected_Inv[1][2];
+                var var_B = var_X * tmXYZ_Selected_Inv[2][0] + var_Y * tmXYZ_Selected_Inv[2][1] + var_Z * tmXYZ_Selected_Inv[2][2];
 
                 if ( var_R > 0.0031308 ) var_R = 1.055 * Math.pow( var_R , ( 1.0 / 2.4 ) ) - 0.055;
                 else                     var_R = 12.92 * var_R;

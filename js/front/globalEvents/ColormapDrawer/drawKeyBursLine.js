@@ -17,28 +17,28 @@ function drawKeyBursLine(canvasID,tmpCMS){
   canvasContex.oImageSmoothingEnabled = false;*/
 
   var colormapWidth = tmpRect.width * 0.9;
-  var xPos = tmpRect.width * 0.05;
+  var xPos = Math.round(tmpRect.width * 0.05);
 
   canvasContex.beginPath();
   canvasContex.lineWidth = 2;
-  canvasContex.moveTo(xPos, tmpRect.height/2);
-  canvasContex.lineTo(xPos + colormapWidth, tmpRect.height/2);
+  canvasContex.moveTo(xPos, Math.round(tmpRect.height/2));
+  canvasContex.lineTo(xPos + colormapWidth, Math.round(tmpRect.height/2));
   canvasContex.strokeStyle = 'rgb(120,120,120)';
   canvasContex.stroke();
 
 
 
-  var bigRad=tmpRect.height/10;
-  var smallRad=tmpRect.height/20;
-  var middlePos = tmpRect.height/2;
+  var bigRad=Math.round(tmpRect.height/10);
+  var smallRad=Math.round(tmpRect.height/20);
+  var middlePos = Math.round(tmpRect.height/2);
   colorBurRadius = bigRad; //smallRad;
 
   var bandSketchWidth = colormapWidth/(tmpCMS.getKeyLength()-1);
   // draw keys
   for (var i = 0; i < tmpCMS.getKeyLength(); i++) {
 
-    var pos1 = xPos + (tmpCMS.getRefPosition(i) - tmpCMS.getRefPosition(0)) / (tmpCMS.getRefPosition(tmpCMS.getKeyLength()-1) - tmpCMS.getRefPosition(0)) * colormapWidth;
-    var pos2 = xPos + (i*bandSketchWidth);
+    var pos1 = Math.round(xPos + (tmpCMS.getRefPosition(i) - tmpCMS.getRefPosition(0)) / (tmpCMS.getRefPosition(tmpCMS.getKeyLength()-1) - tmpCMS.getRefPosition(0)) * colormapWidth);
+    var pos2 = Math.round(xPos + (i*bandSketchWidth));
 
     if(tmpCMS.getBur(i)==false && limitKeyBurLine)
     continue;
@@ -60,8 +60,8 @@ function drawKeyBursLine(canvasID,tmpCMS){
 
   for (var i = 0; i < tmpCMS.getKeyLength(); i++) {
 
-      var pos1 = xPos + (tmpCMS.getRefPosition(i) - tmpCMS.getRefPosition(0)) / (tmpCMS.getRefPosition(tmpCMS.getKeyLength()-1) - tmpCMS.getRefPosition(0)) * colormapWidth;
-      var pos2 = xPos + (i*bandSketchWidth);
+      var pos1 = Math.round(xPos + (tmpCMS.getRefPosition(i) - tmpCMS.getRefPosition(0)) / (tmpCMS.getRefPosition(tmpCMS.getKeyLength()-1) - tmpCMS.getRefPosition(0)) * colormapWidth);
+      var pos2 = Math.round(xPos + (i*bandSketchWidth));
 
     if(tmpCMS.getBur(i)){
 
@@ -69,8 +69,6 @@ function drawKeyBursLine(canvasID,tmpCMS){
         keyBurKeyIndex.push(i);
 
       if(i!=0 && i!=tmpCMS.getKeyLength()-1){
-
-
 
         canvasContex.beginPath(pos1);
         canvasContex.arc(pos1, middlePos, bigRad, 0, 2 * Math.PI, false);

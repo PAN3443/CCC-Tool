@@ -58,7 +58,7 @@ function showMyDesignsPage(){
 
 
   document.getElementById("id_actionMenu_Label").style.display="flex";
-  document.getElementById("id_settingMenu_Label_RGBPossible_Button").style.display="none";
+  //document.getElementById("id_settingMenu_Label_RGBPossible_Button").style.display="none";
   document.getElementById("id_settingMenu_Label_AnalyzeUpdate_Button").style.display="none";
   document.getElementById("id_settingMenu_Label_MappingUpdate_Button").style.display="none";
   document.getElementById("id_settingMenu_Label_ReturnMyDesigns_Button").style.display="none";
@@ -131,7 +131,7 @@ function showEditPage(){
 
   document.getElementById("id_actionMenu_Label").style.display="flex";
   document.getElementById("id_actionMenu_editPart").style.display="block";
-  document.getElementById("id_settingMenu_Label_RGBPossible_Button").style.display="block";
+  //document.getElementById("id_settingMenu_Label_RGBPossible_Button").style.display="block";
   document.getElementById("id_settingMenu_Label_AnalyzeUpdate_Button").style.display="block";
   document.getElementById("id_settingMenu_Label_MappingUpdate_Button").style.display="block";
   document.getElementById("id_settingMenu_Label_ReturnMyDesigns_Button").style.display="block";
@@ -177,7 +177,7 @@ document.getElementById("id_dropDownContainer").style.display="none";
 
 document.getElementById("id_actionMenu_Label").style.display="none";
 document.getElementById("id_actionMenu_editPart").style.display="none";
-document.getElementById("id_settingMenu_Label_RGBPossible_Button").style.display="none";
+//document.getElementById("id_settingMenu_Label_RGBPossible_Button").style.display="none";
 document.getElementById("id_settingMenu_Label_AnalyzeUpdate_Button").style.display="none";
 document.getElementById("id_settingMenu_Label_MappingUpdate_Button").style.display="none";
 document.getElementById("id_settingMenu_Label_ReturnMyDesigns_Button").style.display="none";

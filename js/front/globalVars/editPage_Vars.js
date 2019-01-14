@@ -55,11 +55,10 @@ var selectedPredefinedType = 0;
 ///////////////////////////////////////////////////////////////////////
 // Colormap Path
 
-var spaceElementsXPos = [];
-var spaceElementsYPos = [];
-var spaceElementsType = [];
-var spaceElementsKey = [];
-var spaceElementsColor = [];
+var pathplotLines1 = [];
+var pathplotLines2 = [];
+var pathplotLines3 = [];
+var pathplotLines4 = [];
 
 var pathColorspace = "lab";
 var onlyRGBPossibleColor = true;

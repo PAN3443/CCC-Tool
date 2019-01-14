@@ -1,4 +1,16 @@
 
+//////////////////////////////////////
+/// News /////
+///////////////////////////////////
+
+function openNewsPopUp(){
+  document.getElementById("id_PopUp_NewsWindow").style.display="flex";
+}
+
+function closeNewsPopUp(){
+  document.getElementById("id_PopUp_NewsWindow").style.display="none";
+}
+
 
 //////////////////////////////////////
 /// Tutorials /////

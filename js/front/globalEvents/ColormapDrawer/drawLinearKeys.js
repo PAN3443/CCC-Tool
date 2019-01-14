@@ -27,17 +27,17 @@ function drawKeys(canvasID, tmpCMS) {
 
   //////////////////////////////////////////////////////////////
 
-  var colormapWidth = canvasObject.width * 0.9;
-  var xPos = canvasObject.width * 0.05;
-  var yPos = canvasObject.height;
+  var colormapWidth = Math.round(canvasObject.width * 0.9);
+  var xPos = Math.round(canvasObject.width * 0.05);
+  var yPos = Math.round(canvasObject.height);
 
   var twinStarted = false;
   var leftStarted = false;
 
-  var distanceColorrects = canvasObject.height / 3;
+  var distanceColorrects = Math.round(canvasObject.height / 3);
 
 
-  var colorrectHeigth = canvasObject.height;
+  var colorrectHeigth = Math.round(canvasObject.height);
   colorrectWitdh = colorrectHeigth;
 
   colorrectHeigth -=2;
@@ -49,10 +49,10 @@ function drawKeys(canvasID, tmpCMS) {
   for (var i = 0; i < tmpCMS.getKeyLength(); i++) {
 
 
-    var pos1 = (tmpCMS.getRefPosition(i) - tmpCMS.getRefPosition(0)) / (tmpCMS.getRefPosition(tmpCMS.getKeyLength()-1) - tmpCMS.getRefPosition(0)) * colormapWidth;
+    var pos1 = Math.round((tmpCMS.getRefPosition(i) - tmpCMS.getRefPosition(0)) / (tmpCMS.getRefPosition(tmpCMS.getKeyLength()-1) - tmpCMS.getRefPosition(0)) * colormapWidth);
 
     var colorrectYPos = 1; //yPos - distanceColorrects - colorrectHeigth;
-    var colorrectXPos = xPos + pos1 - (colorrectWitdh / 2);
+    var colorrectXPos = Math.round(xPos + pos1 - (colorrectWitdh / 2));
 
     switch (tmpCMS.getKeyType(i)) {
       case "nil key":
@@ -66,15 +66,15 @@ function drawKeys(canvasID, tmpCMS) {
           keyRectPoint.push(colorrectXPos);
 
           if(tmpCMS.getMoT(i))
-            drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth/2, tmpCMS.getRightKeyColor(i,"rgb").getRGBString(), false);
+            drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, Math.round(colorrectHeigth/2), tmpCMS.getRightKeyColor(i,"rgb").getRGBString(), false);
           else
-            drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth/2, tmpCMS.getLeftKeyColor(i,"rgb").getRGBString(), false);
+            drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, Math.round(colorrectHeigth/2), tmpCMS.getLeftKeyColor(i,"rgb").getRGBString(), false);
 
-          colorrectYPos=colorrectYPos+colorrectHeigth / 2;
+          colorrectYPos=Math.round(colorrectYPos+colorrectHeigth / 2);
 
-          drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh / 2, colorrectHeigth/2, tmpCMS.getLeftKeyColor(i,"rgb").getRGBString(), false);
+          drawColorRect(canvasContex, colorrectXPos, colorrectYPos, Math.round(colorrectWitdh / 2), Math.round(colorrectHeigth/2), tmpCMS.getLeftKeyColor(i,"rgb").getRGBString(), false);
           var colorrectXPos = xPos + pos1;
-          drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh / 2, colorrectHeigth/2, tmpCMS.getRightKeyColor(i,"rgb").getRGBString(), false);
+          drawColorRect(canvasContex, colorrectXPos, colorrectYPos, Math.round(colorrectWitdh / 2), Math.round(colorrectHeigth/2), tmpCMS.getRightKeyColor(i,"rgb").getRGBString(), false);
 
 
         break;
@@ -82,17 +82,17 @@ function drawKeys(canvasID, tmpCMS) {
 
           if(i!=tmpCMS.getKeyLength()-1)
             if(tmpCMS.getMoT(i))
-              drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth/2, tmpCMS.getLeftKeyColor(i+1,"rgb").getRGBString(), false);
+              drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, Math.round(colorrectHeigth/2), tmpCMS.getLeftKeyColor(i+1,"rgb").getRGBString(), false);
             else
-              drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth/2, tmpCMS.getLeftKeyColor(i,"rgb").getRGBString(), false);
+              drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, Math.round(colorrectHeigth/2), tmpCMS.getLeftKeyColor(i,"rgb").getRGBString(), false);
           else
-            drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth/2, tmpCMS.getLeftKeyColor(i,"rgb").getRGBString(), false);
+            drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, Math.round(colorrectHeigth/2), tmpCMS.getLeftKeyColor(i,"rgb").getRGBString(), false);
 
-          colorrectYPos=colorrectYPos+colorrectHeigth / 2;
+          colorrectYPos=Math.round(colorrectYPos+colorrectHeigth / 2);
 
-          drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh / 2, colorrectHeigth/2, tmpCMS.getLeftKeyColor(i,"rgb").getRGBString(), false);
+          drawColorRect(canvasContex, colorrectXPos, colorrectYPos, Math.round(colorrectWitdh / 2), Math.round(colorrectHeigth/2), tmpCMS.getLeftKeyColor(i,"rgb").getRGBString(), false);
           var colorrectXPos = xPos + pos1;
-          drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh / 2, colorrectHeigth/2, "rgb(125,125,125)", true);
+          drawColorRect(canvasContex, colorrectXPos, colorrectYPos, Math.round(colorrectWitdh / 2), Math.round(colorrectHeigth/2), "rgb(125,125,125)", true);
 
           if (i != tmpCMS.getKeyLength() - 1)
               keyRectPoint.push(colorrectXPos);
@@ -101,9 +101,9 @@ function drawKeys(canvasID, tmpCMS) {
         break;
       case "right key":
 
-        drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh / 2, colorrectHeigth, "rgb(125,125,125)", true);
-        var colorrectXPos = xPos + pos1;
-        drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh / 2, colorrectHeigth, tmpCMS.getRightKeyColor(i,"rgb").getRGBString(), false);
+        drawColorRect(canvasContex, colorrectXPos, colorrectYPos, Math.round(colorrectWitdh / 2), colorrectHeigth, "rgb(125,125,125)", true);
+        var colorrectXPos = Math.round(xPos + pos1);
+        drawColorRect(canvasContex, colorrectXPos, colorrectYPos, Math.round(colorrectWitdh / 2), colorrectHeigth, tmpCMS.getRightKeyColor(i,"rgb").getRGBString(), false);
 
 
 

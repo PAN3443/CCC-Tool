@@ -351,6 +351,11 @@ function drawElements(){
 
 function drawInterpolationLineInRGB() {
 
+
+  pathplotLines1=[];
+  pathplotLines2=[];
+  pathplotLines3=[];
+
   var canvasObj0 = document.getElementById("id_EditPage_PathPlot_Canvas1_1");
   var canvasObjBox = canvasObj0.getBoundingClientRect();
   canvasObj0.width = canvasObjBox.width;
@@ -430,6 +435,56 @@ function drawInterpolationLineInRGB() {
 
     }
 
+    canvasContex0.beginPath();
+    canvasContex1.beginPath();
+    canvasContex2.beginPath();
+
+    canvasContex0.setLineDash([]);
+    canvasContex1.setLineDash([]);
+    canvasContex2.setLineDash([]);
+
+    for (var i = 0; i < pathplotLines1.length/4; i++) {
+
+        var index = i*4;
+        canvasContex0.moveTo(pathplotLines1[index], pathplotLines1[index+1]);
+        canvasContex0.lineTo(pathplotLines1[index+2], pathplotLines1[index+3]);
+
+        canvasContex1.moveTo(pathplotLines2[index], pathplotLines2[index+1]);
+        canvasContex1.lineTo(pathplotLines2[index+2], pathplotLines2[index+3]);
+
+        canvasContex2.moveTo(pathplotLines3[index], pathplotLines3[index+1]);
+        canvasContex2.lineTo(pathplotLines3[index+2], pathplotLines3[index+3]);
+
+
+    }
+
+    canvasContex0.lineWidth=bigLineWidth;
+    canvasContex1.lineWidth=bigLineWidth;
+    canvasContex2.lineWidth=bigLineWidth;
+
+    canvasContex0.strokeStyle = 'rgb(0,0,0)';
+    canvasContex1.strokeStyle = 'rgb(0,0,0)';
+    canvasContex2.strokeStyle = 'rgb(0,0,0)';
+
+
+    canvasContex0.stroke();
+    canvasContex1.stroke();
+    canvasContex2.stroke();
+
+    canvasContex0.lineWidth=smallLineWidth;
+    canvasContex1.lineWidth=smallLineWidth;
+    canvasContex2.lineWidth=smallLineWidth;
+
+    canvasContex0.strokeStyle = 'rgb(255,255,255)';
+    canvasContex1.strokeStyle = 'rgb(255,255,255)';
+    canvasContex2.strokeStyle = 'rgb(255,255,255)';
+
+    canvasContex0.stroke();
+    canvasContex1.stroke();
+    canvasContex2.stroke();
+
+
+
 
 }
 
@@ -468,17 +523,6 @@ function drawRGBElement(tmpColor,xWidth,yHeight,xStart,yStart, drawCircle,canvas
   tmpArray[2] = xPos;
   tmpArray2[2] = yPos;
 
-  //// for mouse events: twin key second = circle
-  spaceElementsXPos.push(tmpArray);
-  spaceElementsYPos.push(tmpArray2);
-  if (drawCircle)
-    spaceElementsType.push(true);
-  else
-    spaceElementsType.push(false);
-
-  spaceElementsKey.push(keyIndex);
-  spaceElementsColor.push(colorSide); // colorSide 0=left color, 1= right color, 2=both colors
-
   if (showSpace == 1) {
 
     var x1 = tmpColor.getRValue() * 255 - 128;
@@ -498,8 +542,15 @@ function drawRGBline(tmpColor,tmpColor2,xWidth,yHeight,xStart,yStart, isDashed,i
   xPos2 = tmpColor2.getGValue() * xWidth + xStart;
   yPos2 = yStart - tmpColor2.getRValue() * yHeight;
 
-  drawLine(canvasContexRG, xPos, yPos, xPos2, yPos2, isDashed, isCompareMap);
 
+  if(isDashed)
+    drawLine(canvasContexRG, xPos, yPos, xPos2, yPos2);
+  else{
+    pathplotLines1.push(xPos);
+    pathplotLines1.push(yPos);
+    pathplotLines1.push(xPos2);
+    pathplotLines1.push(yPos2);
+  }
 
   // RB
 
@@ -509,8 +560,14 @@ function drawRGBline(tmpColor,tmpColor2,xWidth,yHeight,xStart,yStart, isDashed,i
   xPos2 = tmpColor2.getBValue() * xWidth + xStart;
   yPos2 = yStart - tmpColor2.getRValue() * yHeight;
 
-  drawLine(canvasContexRB, xPos, yPos, xPos2, yPos2, isDashed, isCompareMap);
-
+  if(isDashed)
+    drawLine(canvasContexRB, xPos, yPos, xPos2, yPos2);
+  else{
+      pathplotLines2.push(xPos);
+      pathplotLines2.push(yPos);
+      pathplotLines2.push(xPos2);
+      pathplotLines2.push(yPos2);
+  }
   // BG
 
   xPos = tmpColor.getGValue() * xWidth + xStart;
@@ -519,7 +576,14 @@ function drawRGBline(tmpColor,tmpColor2,xWidth,yHeight,xStart,yStart, isDashed,i
   xPos2 = tmpColor2.getGValue() * xWidth + xStart;
   yPos2 = yStart - tmpColor2.getBValue() * yHeight;
 
-  drawLine(canvasContexBG, xPos, yPos, xPos2, yPos2, isDashed, isCompareMap);
+  if(isDashed)
+    drawLine(canvasContexBG, xPos, yPos, xPos2, yPos2);
+  else{
+      pathplotLines3.push(xPos);
+      pathplotLines3.push(yPos);
+      pathplotLines3.push(xPos2);
+      pathplotLines3.push(yPos2);
+    }
 
   if (showSpace == 1) {
 
@@ -532,7 +596,7 @@ function drawRGBline(tmpColor,tmpColor2,xWidth,yHeight,xStart,yStart, isDashed,i
     var z2 = tmpColor2.getBValue() * 255 - 128;
 
 
-    draw3DLine(x1, y1, z1, x2, y2, z2, isDashed, isCompareMap);
+    draw3DLine(x1, y1, z1, x2, y2, z2, isDashed);
 
   }
 }

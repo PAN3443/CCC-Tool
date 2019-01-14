@@ -26,14 +26,14 @@ function drawLines(cmsID,fromIsLinear, toIsLinear, tmpCMS){
     var pos1, pos2;
 
     if(fromIsLinear)
-       pos1 = (tmpCMS.getRefPosition(i) - tmpCMS.getRefPosition(0)) / (tmpCMS.getRefPosition(tmpCMS.getKeyLength()-1) - tmpCMS.getRefPosition(0)) * colormapWidth;
+       pos1 = Math.round((tmpCMS.getRefPosition(i) - tmpCMS.getRefPosition(0)) / (tmpCMS.getRefPosition(tmpCMS.getKeyLength()-1) - tmpCMS.getRefPosition(0)) * colormapWidth);
     else
-      pos1 = i*bandSketchWidth;
+      pos1 = Math.round(i*bandSketchWidth);
 
       if(toIsLinear)
-         pos2 = (tmpCMS.getRefPosition(i) - tmpCMS.getRefPosition(0)) / (tmpCMS.getRefPosition(tmpCMS.getKeyLength()-1) - tmpCMS.getRefPosition(0)) * colormapWidth;
+         pos2 = Math.round((tmpCMS.getRefPosition(i) - tmpCMS.getRefPosition(0)) / (tmpCMS.getRefPosition(tmpCMS.getKeyLength()-1) - tmpCMS.getRefPosition(0)) * colormapWidth);
       else
-        pos2 = i*bandSketchWidth;
+        pos2 = Math.round(i*bandSketchWidth);
 
     canvasContex.beginPath();
     canvasContex.lineWidth = 1;
