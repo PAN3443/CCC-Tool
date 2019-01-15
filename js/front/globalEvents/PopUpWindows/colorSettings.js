@@ -100,6 +100,9 @@ function switchColorTransformationSettings(type){
   document.getElementById("select_LMSTransferMatrix").style.display="none";
   document.getElementById("select_XYZTransferMatrix").style.display="none";
 
+  document.getElementById("id_PopUp_TransformationValues").style.display="none";
+  document.getElementById("id_PopUp_TransformationValue_Div3").style.display="none";
+  document.getElementById("id_PopUp_TransformationValue_Warning").innerHTML = "";
 
 
   switch (type) {
@@ -136,14 +139,137 @@ function switchColorTransformationSettings(type){
         case 2:
         document.getElementById("id_PopUp_Select_XYZtoLab").style.background=styleActiveColor;
         document.getElementById("id_PopUp_Select_XYZtoLab").style.color=styleActiveColorFont;
+
+        document.getElementById("id_PopUp_TransformationValues").style.display="block";
+        document.getElementById("id_PopUp_TransformationValue_Div3").style.display="flex";
+
+        document.getElementById("id_PopUp_TransformationValue_Label1").innerHTML = "ref_X:";
+        document.getElementById("id_PopUp_TransformationValue_Label2").innerHTML = "ref_Y:";
+        document.getElementById("id_PopUp_TransformationValue_Label3").innerHTML = "ref_Z:";
+
+        document.getElementById("id_PopUp_TransformationValue_Input1").value = cielab_ref_X;
+        document.getElementById("id_PopUp_TransformationValue_Input2").value = cielab_ref_Y;
+        document.getElementById("id_PopUp_TransformationValue_Input3").value = cielab_ref_Z;
+
+
           break;
           case 3:
           document.getElementById("id_PopUp_Select_LABtoDIN99").style.background=styleActiveColor;
           document.getElementById("id_PopUp_Select_LABtoDIN99").style.color=styleActiveColorFont;
+
+          document.getElementById("id_PopUp_TransformationValues").style.display="block";
+
+          document.getElementById("id_PopUp_TransformationValue_Label1").innerHTML = "k_E:";
+          document.getElementById("id_PopUp_TransformationValue_Label2").innerHTML = "k_CH:";
+
+          document.getElementById("id_PopUp_TransformationValue_Input1").value = din99_kE;
+          document.getElementById("id_PopUp_TransformationValue_Input2").value = din99_kCH;
+
             break;
     default:
         switchColorTransformationSettings(0);
   }
+
+}
+
+
+function retrieveColorSettings(){
+
+  switch (selectedColorTransformation) {
+    case 2:
+    document.getElementById("id_PopUp_TransformationValue_Input1").value = 94.811;
+    document.getElementById("id_PopUp_TransformationValue_Input2").value = 100.000;
+    document.getElementById("id_PopUp_TransformationValue_Input3").value = 107.304;
+    cielab_ref_X = 94.811;
+    cielab_ref_Y = 100.000;
+    cielab_ref_Z = 107.304;
+      break;
+      case 3:
+      document.getElementById("id_PopUp_TransformationValue_Input1").value = 1;
+      document.getElementById("id_PopUp_TransformationValue_Input2").value = 1;
+      din99_kE = 1;
+      din99_kCH = 1;
+        break;
+    default:
+
+  }
+}
+
+
+function changeColorTransInput(event){
+
+  document.getElementById("id_PopUp_TransformationValue_Warning").innerHTML = "";
+
+  switch (event.target.id) {
+
+    /////////////////////////////////////////////////
+    case "id_PopUp_TransformationValue_Input1":
+      var x = document.getElementById("id_PopUp_TransformationValue_Input1").value;
+      switch (selectedColorTransformation) {
+        case 2:
+          if (isNaN(x)) {
+            document.getElementById("id_PopUp_TransformationValue_Warning").innerHTML = "Input for ref_X was not valid";
+            document.getElementById("id_PopUp_TransformationValue_Input1").value = cielab_ref_X;
+            break;
+          }
+          else {
+            cielab_ref_X=x;
+          }
+          break;
+          case 3:
+          if (isNaN(x)) {
+            document.getElementById("id_PopUp_TransformationValue_Warning").innerHTML = "Input for k_E was not valid";
+            document.getElementById("id_PopUp_TransformationValue_Input1").value = din99_kE;
+            break;
+          }
+          else {
+            din99_kE=x;
+          }
+          break;
+      }
+    break;
+    /////////////////////////////////////////
+    case "id_PopUp_TransformationValue_Input2":
+        var x = document.getElementById("id_PopUp_TransformationValue_Input2").value;
+
+        switch (selectedColorTransformation) {
+          case 2:
+            if (isNaN(x)) {
+              document.getElementById("id_PopUp_TransformationValue_Warning").innerHTML = "Input for ref_Y was not valid";
+              document.getElementById("id_PopUp_TransformationValue_Input2").value = cielab_ref_Y;
+              break;
+            }
+            else {
+              cielab_ref_Y=x;
+            }
+            break;
+            case 3:
+            if (isNaN(x)) {
+              document.getElementById("id_PopUp_TransformationValue_Warning").innerHTML = "Input for k_CH was not valid";
+              document.getElementById("id_PopUp_TransformationValue_Input2").value = din99_kCH;
+              break;
+            }
+            else {
+              din99_kCH=x;
+            }
+            break;
+        }
+      break;
+
+  /////////////////////////////////////////
+    case "id_PopUp_TransformationValue_Input3":
+        var x = document.getElementById("id_PopUp_TransformationValue_Input3").value;
+            if (isNaN(x)) {
+              document.getElementById("id_PopUp_TransformationValue_Warning").innerHTML = "Input for ref_Z was not valid";
+              document.getElementById("id_PopUp_TransformationValue_Input3").value = cielab_ref_Z;
+              break;
+            }
+            else {
+              cielab_ref_Z=x;
+            }
+      break;
+
+    }
 
 }
 

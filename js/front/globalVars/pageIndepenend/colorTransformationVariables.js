@@ -2,6 +2,7 @@
 //// possible User Settings
 
 var selectedColorTransformation =0;
+var selectedMetric =0;
 
 
 // 2000

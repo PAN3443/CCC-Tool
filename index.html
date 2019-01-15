@@ -160,7 +160,6 @@
 
   <!------------------------------------------->
   <!-- global Vars-->
-
   <script src="js/front/globalVars/myDesigns_Vars.js"></script>
   <script src="js/front/globalVars/editPage_Vars.js"></script>
   <script src="js/front/globalVars/editPage_Analyze_Vars.js"></script>
@@ -205,6 +204,7 @@
   <script src="js/front/globalEvents/PopUpWindows/popUp_events.js"></script>
   <script src="js/front/globalEvents/PopUpWindows/export_events.js"></script>
   <script src="js/front/globalEvents/PopUpWindows/colorSettings.js"></script>
+  <script src="js/front/globalEvents/PopUpWindows/metricSettings.js"></script>
 
 
   <!-- WebGL -->
@@ -321,7 +321,7 @@
           <div onclick="openColorSettings()" class="dropdownMenuButton">
             Color Transformation
           </div>
-          <div class="dropdownNotActiveMenuButton">
+          <div onclick="openColorMetrics()" class="dropdownMenuButton">
             Color Difference Metrics
           </div>
           <!--div id="id_settingMenu_Label_RGBPossible_Button" oonclick="changeColorPossiblity()" class="dropdownNotActiveMenuButton" style="display:none;">
@@ -1832,72 +1832,67 @@ CIELAB, CIE94, CIEDE2000, and DIN99. For more help, you can always visit the tut
 
                         <h3 class="class_popupWindow_Label"> Settings: Metrics (Color Difference) </h3>
 
-                        <!--div style="width: 100%; height:auto; margin-top:20px; margin-bottom: 20px; background:white; padding-top:20px; padding-bottom:20px; box-shadow:  5px  5px grey;">
+                        <div class="class_EditPage_TabRow">
+                          <button id="id_PopUp_Select_MetricDe94" onclick="switchMetricSettings(0)" style="height:100%; width:50%; cursor:pointer;">
+                            de94
+                          </button>
+                          <button id="id_PopUp_Select_MetricDe2000" onclick="switchMetricSettings(1)" style="height:100%; width:50%; cursor:pointer;">
+                            CIEDE2000
+                          </button>
 
-                            <h1 style="margin-left:10%; width:80%; text-align:center; height:40px; line-height:40px; font-size:35px; vertical-align:middle; margin-top:20px; margin-bottom:20px; text-decoration: underline;">  Color Difference Metrics  </h1>
-                            <div class="row" style="margin-top:20px; margin-bottom:5px; width:100%; height: auto;">
-                              <div style="width:50%; height: auto;">
-                                  <p style="width:100%; text-align:center; height:30px; line-height:30px; font-size:12px; vertical-align:middle;">  DE94:  </p>
-                                  <div class="row class_settingRow" >
-                                  <p class="class_settingLabel">
-                                    k_L:
-                                  </p>
-                                  <input id="id_de94_k_L_Input" type="text" name="key space" value="1.0" class="class_settingInput">
-                                  </div>
-                                  <div class="row class_settingRow" >
-                                  <p class="class_settingLabel">
-                                    k_C:
-                                  </p>
-                                  <input id="id_de94_k_C_Input" type="text" name="key space" value="1.0" class="class_settingInput">
-                                  </div>
-                                  <div class="row class_settingRow">
-                                  <p class="class_settingLabel">
-                                    k_H:
-                                  </p>
-                                  <input id="id_de94_k_H_Input" type="text" name="key space" value="1.0" class="class_settingInput">
-                                  </div>
-                                  <div class="row class_settingRow">
-                                  <p class="class_settingLabel">
-                                    k_1:
-                                  </p>
-                                  <input id="id_de94_k_1_Input" type="text" name="key space" value="0.045" class="class_settingInput">
-                                  </div>
-                                  <div class="row class_settingRow">
-                                  <p class="class_settingLabel">
-                                    k_2:
-                                  </p>
-                                  <input id="id_de94_k_2_Input" type="text" name="key space" value="0.015" class="class_settingInput">
-                                  </div>
-                              </div>
-                              <div style="width:50%; height: auto;">
-                                  <p style="width:100%; text-align:center; height:30px; line-height:30px; font-size:12px; vertical-align:middle;">  DE2000:  </p>
-                                  <div class="row class_settingRow">
-                                  <p class="class_settingLabel">
-                                    k_L:
-                                  </p>
-                                  <input id="id_de2000_k_L_Input" type="text" name="key space" value="1.0" class="class_settingInput">
-                                  </div>
-                                  <div class="row class_settingRow">
-                                  <p class="class_settingLabel">
-                                    k_C:
-                                  </p>
-                                  <input id="id_de2000_k_C_Input" type="text" name="key space" value="1.0" class="class_settingInput">
-                                  </div>
-                                  <div class="row class_settingRow">
-                                  <p class="class_settingLabel">
-                                    k_H:
-                                  </p>
-                                  <input id="id_de2000_k_H_Input" type="text" name="key space" value="1.0" class="class_settingInput">
-                                  </div>
-                              </div>
+                        </div>
 
+
+                          <div class="row" style="width:100%; margin-bottom:2vh; margin-top:2vh;">
+
+                            <div style="margin-left: auto;">
+                              <div class="row" style=" margin-top:0.5vh; margin-bottom:0.5vh;">
+                              <p id="id_PopUp_Metric_Label1" class="standardText">
+                                k_L:
+                              </p>
+                              <input id="id_PopUp_Metric_Input1" step="any" class="standardText" value="1" style="margin-left: 2vw;">
+                              </div>
+                              <div class="row" style="margin-top:0.5vh; margin-bottom:0.5vh;">
+                              <p id="id_PopUp_Metric_Label2" class="standardText">
+                                k_C:
+                              </p>
+                              <input id="id_PopUp_Metric_Input2" step="any" class="standardText" value="1" style="margin-left: 2vw;">
+                              </div>
+                              <div class="row" style="margin-top:0.5vh; margin-bottom:0.5vh;">
+                              <p id="id_PopUp_Metric_Label3" class="standardText" >
+                                k_H:
+                              </p>
+                              <input id="id_PopUp_Metric_Input3" step="any" class="standardText" value="1" style="margin-left: 2vw;">
+                              </div>
+                              <div id="id_PopUp_Metric_Div4" class="row" style="margin-top:0.5vh; margin-bottom:0.5vh;">
+                              <p id="id_PopUp_Metric_Label4" class="standardText" >
+                                k_1:
+                              </p>
+                              <input id="id_PopUp_Metric_Input4" step="any" class="standardText" value="1" style="margin-left: 2vw;">
+                              </div>
+                              <div id="id_PopUp_Metric_Div5" class="row" style="margin-top:0.5vh; margin-bottom:0.5vh;">
+                              <p id="id_PopUp_Metric_Label5" class="standardText" >
+                                k_2:
+                              </p>
+                              <input id="id_PopUp_Metric_Input5" step="any" class="standardText" value="1" style="margin-left: 2vw;">
+                              </div>
                             </div>
 
-                        </div-->
+
+                            <button class="class_generalbutton " onclick="retrieveMetricSettings()" title="accept" style="width:10vw; height:6vh; line-height:6vh; font-size:3vh; margin-left: 3vw; margin-right: auto; margin-top:auto; margin-bottom:auto;"> <p>Retrieve</p> </button>
 
 
-                        <button class="class_generalbutton " onclick="closeColorMetrics()" title="close" style=" width:100%; height:6vh; line-height:6vh; font-size:3vh; margin-bottom:2vh;"> <p>Close</p> </button>
 
+                          </div>
+
+                          <p id="id_PopUp_Metric_Warning" class="standardText" style="text-align:center; width:100%; color:red;"></p>
+
+
+
+
+                    <hr>
+
+                    <button class="class_generalbutton " onclick="closeColorMetrics()" title="accept" style="width:10vw; height:6vh; line-height:6vh; font-size:3vh; margin-left:30vw; margin-bottom:2vh;"> <p>Accept</p> </button>
 
 
 
@@ -2041,49 +2036,49 @@ CIELAB, CIE94, CIEDE2000, and DIN99. For more help, you can always visit the tut
                             </div>
 
 
+                            <div id="id_PopUp_TransformationValues" style="width:100%; margin-bottom:2vh; margin-top:2vh;">
+
+                              <div class="row" style="width:100%;">
+
+                                <div style="margin-left: auto;">
+                                  <div class="row" style=" margin-top:0.5vh; margin-bottom:0.5vh;">
+                                  <p id="id_PopUp_TransformationValue_Label1" class="standardText">
+                                    ref_X:
+                                  </p>
+                                  <input id="id_PopUp_TransformationValue_Input1" step="any" class="standardText" value="1" style="margin-left: 2vw;">
+                                  </div>
+                                  <div class="row" style="margin-top:0.5vh; margin-bottom:0.5vh;">
+                                  <p id="id_PopUp_TransformationValue_Label2" class="standardText">
+                                    ref_Y:
+                                  </p>
+                                  <input id="id_PopUp_TransformationValue_Input2" step="any" class="standardText" value="1" style="margin-left: 2vw;">
+                                  </div>
+                                  <div id="id_PopUp_TransformationValue_Div3" class="row" style="margin-top:0.5vh; margin-bottom:0.5vh;">
+
+                                  <p id="id_PopUp_TransformationValue_Label3" class="standardText" >
+                                    ref_Z:
+                                  </p>
+                                  <input id="id_PopUp_TransformationValue_Input3" step="any" class="standardText" value="1" style="margin-left: 2vw;">
+
+                                  </div>
+                                </div>
 
 
 
-                       <!--div style="margin-left:auto; margin-right:auto; height: auto; ">
-                           <p style="width:100%; text-align:center; height:30px; line-height:30px; font-size:12px; vertical-align:middle; margin-top:20px; margin-bottom: 20px;">  XYZ to CIELab Conversion:  </p>
-                           <div class="row class_settingRow">
-                           <p class="class_settingLabel">
-                             ref_X:
-                           </p>
-                           <input id="id_cielab_refX_Input" type="text" name="key space" value="94.811" class="class_settingInput">
-                           </div>
-                           <div class="row class_settingRow">
-                           <p class="class_settingLabel">
-                             ref_Y:
-                           </p>
-                           <input id="id_cielab_refY_Input" type="text" name="key space" value="100.000" class="class_settingInput">
-                           </div>
-                           <div class="row class_settingRow">
-                           <p class="class_settingLabel">
-                             ref_Z:
-                           </p>
-                           <input id="id_cielab_refZ_Input" type="text" name="key space" value="107.304" class="class_settingInput">
-                           </div>
-                       </div>
+                                  <button class="class_generalbutton " onclick="retrieveColorSettings()" title="accept" style="width:10vw; height:6vh; line-height:6vh; font-size:3vh; margin-left: 3vw; margin-right: auto; margin-top:auto; margin-bottom:auto;"> <p>Retrieve</p> </button>
 
-                       <hr style="border-top: dotted 1px;" />
 
-                       <div style="margin-left:auto; margin-right:auto; height: auto;">
-                           <p style="width:100%; text-align:center; height:30px; line-height:30px; font-size:12px; vertical-align:middle;  margin-top:20px; margin-bottom: 20px;"> CIELab to DIN99 Conversion:  </p>
-                           <div class="row class_settingRow">
-                           <p class="class_settingLabel">
-                             k_E:
-                           </p>
-                           <input id="id_din99_k_E_Input" type="text" name="key space" value="1.0" class="class_settingInput">
-                           </div>
-                           <div class="row class_settingRow">
-                           <p class="class_settingLabel">
-                             k_CH:
-                           </p>
-                           <input id="id_din99_k_CH_Input" type="text" name="key space" value="1.0" class="class_settingInput">
-                           </div>
-                       </div-->
 
+                              </div>
+
+                              <p id="id_PopUp_TransformationValue_Warning" class="standardText" style="text-align:center; width:100%; color:red;"></p>
+
+
+
+                          </div>
+
+
+                        <hr>
 
                         <button class="class_generalbutton " onclick="closeColorSettings()" title="accept" style="width:10vw; height:6vh; line-height:6vh; font-size:3vh; margin-left:30vw; margin-bottom:2vh;"> <p>Accept</p> </button>
 

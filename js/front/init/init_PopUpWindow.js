@@ -28,6 +28,18 @@ function init_events_PopUp_ColorPicker(){
   document.getElementById('id_popupWindow_Colorpicker_Input2').addEventListener("change", changeColorPickerInput);
   document.getElementById('id_popupWindow_Colorpicker_Input3').addEventListener("change", changeColorPickerInput);
 
+  // Color Trans Settings
+  document.getElementById('id_PopUp_TransformationValue_Input1').addEventListener("change", changeColorTransInput);
+  document.getElementById('id_PopUp_TransformationValue_Input2').addEventListener("change", changeColorTransInput);
+  document.getElementById('id_PopUp_TransformationValue_Input3').addEventListener("change", changeColorTransInput);
+
+  // Metric Trans Settings
+  document.getElementById('id_PopUp_Metric_Input1').addEventListener("change", changeMetricTransInput);
+  document.getElementById('id_PopUp_Metric_Input2').addEventListener("change", changeMetricTransInput);
+  document.getElementById('id_PopUp_Metric_Input3').addEventListener("change", changeMetricTransInput);
+  document.getElementById('id_PopUp_Metric_Input4').addEventListener("change", changeMetricTransInput);
+  document.getElementById('id_PopUp_Metric_Input5').addEventListener("change", changeMetricTransInput);
+
 
 }
 

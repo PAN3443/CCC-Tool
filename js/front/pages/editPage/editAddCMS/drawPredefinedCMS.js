@@ -192,12 +192,12 @@ function drawPredefinedCMS(cmsArray, cmsType){
 
         switch (type) {
           case 7:
-          cmsThreeBandColormaps[id].calcReverse();
-          drawCanvasColormap("predefined_linear"+id+"_"+type, cmsThreeBandColormaps[id]);
+          cmsFourBandColormaps[id].calcReverse();
+          drawCanvasColormap("predefined_linear"+id+"_"+type, cmsFourBandColormaps[id]);
             break;
             case 6:
-            cmsFourBandColormaps[id].calcReverse();
-            drawCanvasColormap("predefined_linear"+id+"_"+type, cmsFourBandColormaps[id]);
+            cmsThreeBandColormaps[id].calcReverse();
+            drawCanvasColormap("predefined_linear"+id+"_"+type, cmsThreeBandColormaps[id]);
               break
               case 5:
               cmsDivergentColormaps[id].calcReverse();
