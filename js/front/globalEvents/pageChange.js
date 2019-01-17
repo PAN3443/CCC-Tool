@@ -37,11 +37,8 @@ function startLeaveEditPage(){
 
 function showMyDesignsPage(){
 
-
-
-  for (var i = refElementContainer.length - 1; i >= 0; i--) {
-    refElementContainer[i].remove();
-    refElementContainer.pop();
+  if(doColorblindnessSim){
+    changeColorblindness();
   }
 
   document.getElementById("id_welcomePage").style.display="none";
@@ -68,7 +65,15 @@ function showMyDesignsPage(){
   document.getElementById("id_header_editWarning").style.visibility="hidden";
   document.getElementById("id_header_interpolationSpaceWarning").style.visibility="hidden";
 
+
+stopPathPlotAnimation();
+stopAnimationMapping();
+
 }
+
+
+
+
 
 //////////////////////
 //////////////////////
@@ -142,6 +147,14 @@ function showEditPage(){
   //switchPredefinedCMS(0);
   //switchModifyModus(0);
   update_EditPageStyle();
+
+  if(document.getElementById("id_EditPage_Edit_Path").style.display != "none"){
+    startPathPlotAnimation()
+  }
+
+  if(document.getElementById("id_EditPage_DivMapping").style.display != "none"){
+    startAnimationMapping();
+  }
 
 }
 

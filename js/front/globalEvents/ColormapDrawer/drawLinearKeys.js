@@ -45,6 +45,7 @@ function drawKeys(canvasID, tmpCMS) {
   var box = document.getElementById(canvasID).getBoundingClientRect();
 
   var bandSketchWidth = Math.round(colormapWidth/(tmpCMS.getKeyLength()-1));
+
   // draw keys
   for (var i = 0; i < tmpCMS.getKeyLength(); i++) {
 
@@ -57,7 +58,7 @@ function drawKeys(canvasID, tmpCMS) {
     switch (tmpCMS.getKeyType(i)) {
       case "nil key":
 
-        drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth, "rgb(125,125,125)", true);
+        drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth, new classColor_RGB(0.5,0.5,0.5), true);
 
 
         break;
@@ -66,15 +67,15 @@ function drawKeys(canvasID, tmpCMS) {
           keyRectPoint.push(colorrectXPos);
 
           if(tmpCMS.getMoT(i))
-            drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, Math.round(colorrectHeigth/2), tmpCMS.getRightKeyColor(i,"rgb").getRGBString(), false);
+            drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, Math.round(colorrectHeigth/2), tmpCMS.getRightKeyColor(i,"rgb"), false);
           else
-            drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, Math.round(colorrectHeigth/2), tmpCMS.getLeftKeyColor(i,"rgb").getRGBString(), false);
+            drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, Math.round(colorrectHeigth/2), tmpCMS.getLeftKeyColor(i,"rgb"), false);
 
           colorrectYPos=Math.round(colorrectYPos+colorrectHeigth / 2);
 
-          drawColorRect(canvasContex, colorrectXPos, colorrectYPos, Math.round(colorrectWitdh / 2), Math.round(colorrectHeigth/2), tmpCMS.getLeftKeyColor(i,"rgb").getRGBString(), false);
+          drawColorRect(canvasContex, colorrectXPos, colorrectYPos, Math.round(colorrectWitdh / 2), Math.round(colorrectHeigth/2), tmpCMS.getLeftKeyColor(i,"rgb"), false);
           var colorrectXPos = xPos + pos1;
-          drawColorRect(canvasContex, colorrectXPos, colorrectYPos, Math.round(colorrectWitdh / 2), Math.round(colorrectHeigth/2), tmpCMS.getRightKeyColor(i,"rgb").getRGBString(), false);
+          drawColorRect(canvasContex, colorrectXPos, colorrectYPos, Math.round(colorrectWitdh / 2), Math.round(colorrectHeigth/2), tmpCMS.getRightKeyColor(i,"rgb"), false);
 
 
         break;
@@ -82,17 +83,17 @@ function drawKeys(canvasID, tmpCMS) {
 
           if(i!=tmpCMS.getKeyLength()-1)
             if(tmpCMS.getMoT(i))
-              drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, Math.round(colorrectHeigth/2), tmpCMS.getLeftKeyColor(i+1,"rgb").getRGBString(), false);
+              drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, Math.round(colorrectHeigth/2), tmpCMS.getLeftKeyColor(i+1,"rgb"), false);
             else
-              drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, Math.round(colorrectHeigth/2), tmpCMS.getLeftKeyColor(i,"rgb").getRGBString(), false);
+              drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, Math.round(colorrectHeigth/2), tmpCMS.getLeftKeyColor(i,"rgb"), false);
           else
-            drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, Math.round(colorrectHeigth/2), tmpCMS.getLeftKeyColor(i,"rgb").getRGBString(), false);
+            drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, Math.round(colorrectHeigth/2), tmpCMS.getLeftKeyColor(i,"rgb"), false);
 
           colorrectYPos=Math.round(colorrectYPos+colorrectHeigth / 2);
 
-          drawColorRect(canvasContex, colorrectXPos, colorrectYPos, Math.round(colorrectWitdh / 2), Math.round(colorrectHeigth/2), tmpCMS.getLeftKeyColor(i,"rgb").getRGBString(), false);
+          drawColorRect(canvasContex, colorrectXPos, colorrectYPos, Math.round(colorrectWitdh / 2), Math.round(colorrectHeigth/2), tmpCMS.getLeftKeyColor(i,"rgb"), false);
           var colorrectXPos = xPos + pos1;
-          drawColorRect(canvasContex, colorrectXPos, colorrectYPos, Math.round(colorrectWitdh / 2), Math.round(colorrectHeigth/2), "rgb(125,125,125)", true);
+          drawColorRect(canvasContex, colorrectXPos, colorrectYPos, Math.round(colorrectWitdh / 2), Math.round(colorrectHeigth/2), new classColor_RGB(0.5,0.5,0.5), true);
 
           if (i != tmpCMS.getKeyLength() - 1)
               keyRectPoint.push(colorrectXPos);
@@ -101,9 +102,9 @@ function drawKeys(canvasID, tmpCMS) {
         break;
       case "right key":
 
-        drawColorRect(canvasContex, colorrectXPos, colorrectYPos, Math.round(colorrectWitdh / 2), colorrectHeigth, "rgb(125,125,125)", true);
+        drawColorRect(canvasContex, colorrectXPos, colorrectYPos, Math.round(colorrectWitdh / 2), colorrectHeigth, new classColor_RGB(0.5,0.5,0.5), true);
         var colorrectXPos = Math.round(xPos + pos1);
-        drawColorRect(canvasContex, colorrectXPos, colorrectYPos, Math.round(colorrectWitdh / 2), colorrectHeigth, tmpCMS.getRightKeyColor(i,"rgb").getRGBString(), false);
+        drawColorRect(canvasContex, colorrectXPos, colorrectYPos, Math.round(colorrectWitdh / 2), colorrectHeigth, tmpCMS.getRightKeyColor(i,"rgb"), false);
 
 
 
@@ -112,7 +113,7 @@ function drawKeys(canvasID, tmpCMS) {
 
         keyRectPoint.push(colorrectXPos);
 
-        drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth, tmpCMS.getRightKeyColor(i,"rgb").getRGBString(), false);
+        drawColorRect(canvasContex, colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth, tmpCMS.getRightKeyColor(i,"rgb"), false);
 
 
     }
@@ -126,7 +127,12 @@ function drawColorRect(contex, colorrectXPos, colorrectYPos, colorrectWitdh, col
 
   var strokeWidth =1;
 
-  contex.fillStyle = rgbColor;
+  if(doColorblindnessSim){
+    var tmpLMS = rgbColor.calcLMSColor();
+    rgbColor = tmpLMS.calcColorBlindRGBColor();
+  }
+
+  contex.fillStyle = rgbColor.getRGBString();
   contex.fillRect(colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth);
 
   if (isGrey == true) {

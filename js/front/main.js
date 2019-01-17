@@ -65,12 +65,24 @@ window.onload = function() {
   document.getElementById('id_inputSessionData').addEventListener("change", readSessionFile);
   document.getElementById('id_inputData').addEventListener("change", readDataFile);
 
-  pageIsLoaded=true;
+
 
 
 
   document.getElementById("id_dropDownContainer").onmouseleave  = function(){document.getElementById("id_dropDownContainer").style.display="none";};
   document.getElementById("id_popupColorPicker").onmouseleave  = function(){document.getElementById("id_popupColorPicker").style.display="none";};
+
+  // Init Color
+  updateXYZtoLMS_TransferMatrices();
+  updateRGBtoXYZ_TransferMatrices();
+  updateColorBlindness_TransferMatrices();
+  doColorblindnessSim = false;
+
+
+  pageIsLoaded=true;
+
+  stopPathPlotAnimation();
+  stopAnimationMapping();
 
 }
 

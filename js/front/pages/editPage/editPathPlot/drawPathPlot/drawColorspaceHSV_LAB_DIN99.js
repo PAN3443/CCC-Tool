@@ -59,6 +59,12 @@ function hueInit() {
 
             var colorHSV = new classColor_HSV(hVal, sVal, vVal);
             var colorRGB = colorHSV.calcRGBColor();
+
+            if(doColorblindnessSim){
+              var tmpLMS = colorRGB.calcLMSColor();
+              colorRGB = tmpLMS.calcColorBlindRGBColor();
+            }
+
             var index = (x + y * canvasColorspace.width) * 4;
 
             colorspaceBackgroundData.data[index + 0] = Math.round(colorRGB.getRValue() * 255); // r
@@ -133,6 +139,10 @@ function hueInit() {
 
             } // else
 
+            if(doColorblindnessSim){
+              var tmpLMS = colorRGB.calcLMSColor();
+              colorRGB = tmpLMS.calcColorBlindRGBColor();
+            }
 
             var index = (x + y * canvasColorspace.width) * 4;
 
@@ -215,9 +225,11 @@ function hueInit() {
               }
             }
 
-            //console.log(a99Val+' '+b99Val);
-            //console.log(colorRGB.getRValue()*255+' '+colorRGB.getGValue()*255+' '+colorRGB.getBValue()*255);
-            //break;
+
+            if(doColorblindnessSim){
+              var tmpLMS = colorRGB.calcLMSColor();
+              colorRGB = tmpLMS.calcColorBlindRGBColor();
+            }
 
             var index = (x + y * canvasColorspace.width) * 4;
 
@@ -600,8 +612,13 @@ function drawcolormap_hueSpace(calcBackground, drawInterpolationLine, doInitVplo
 
   drawElements_HSV_LAB_DIN99(false);
 
-  if (drawInterpolationLine)
+  if (drawInterpolationLine){
+    for (var i = pathPlotGroup.children.length - 1; i >= 0; i--) {
+      pathPlotGroup.remove(pathPlotGroup.children[i]);
+    }
     drawInterpolationLineHSV_LAB_DIN99(false);
+  }
+
 
 }
 
@@ -1050,6 +1067,12 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap) {
 
 function drawHueElement(tmpColor, xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, drawCircle, colorspaceContex, keyIndex, colorSide) {
 
+  var showColor = tmpColor.calcRGBColor();
+  if(doColorblindnessSim){
+    var tmpLMS = showColor.calcLMSColor();
+    showColor = tmpLMS.calcColorBlindRGBColor();
+  }
+
   switch (pathColorspace) {
     case "hsv":
       var tmpDis = tmpColor.getSValue() * colorspaceRadius;
@@ -1070,12 +1093,17 @@ function drawHueElement(tmpColor, xWidth, yHeight, xStart, yStart, xEnd, yEnd, c
       return;
   }
 
-  drawElement(tmpColor.calcRGBColor().getRGBString(), colorspaceContex, xPos, yPos, keyIndex, colorSide, drawCircle);
-
+  drawElement(showColor.getRGBString(), colorspaceContex, xPos, yPos, keyIndex, colorSide, drawCircle);
 
 }
 
 function drawVElement(tmpColor, currentRef, startRef, rangeSize, vPlotxStart, vPlotyStart, heigthVArea, plotwidth, drawCircle, vPlotContex1,vPlotContex2,vPlotContex3, keyIndex, colorSide) {
+
+  var showColor = tmpColor.calcRGBColor();
+  if(doColorblindnessSim){
+    var tmpLMS = showColor.calcLMSColor();
+    showColor = tmpLMS.calcColorBlindRGBColor();
+  }
 
 
   var xVPos = vPlotxStart + ((currentRef - startRef) / rangeSize) * plotwidth;
@@ -1096,7 +1124,7 @@ function drawVElement(tmpColor, currentRef, startRef, rangeSize, vPlotxStart, vP
       return;
   }
 
-  drawElement(tmpColor.calcRGBColor().getRGBString(), vPlotContex1, xVPos, yPos, keyIndex, colorSide, drawCircle);
+  drawElement(showColor.getRGBString(), vPlotContex1, xVPos, yPos, keyIndex, colorSide, drawCircle);
 
   switch (pathColorspace) {
     case "hsv":
@@ -1113,7 +1141,7 @@ function drawVElement(tmpColor, currentRef, startRef, rangeSize, vPlotxStart, vP
       return;
   }
 
-  drawElement(tmpColor.calcRGBColor().getRGBString(), vPlotContex2, xVPos, yPos, keyIndex, colorSide, drawCircle);
+  drawElement(showColor.getRGBString(), vPlotContex2, xVPos, yPos, keyIndex, colorSide, drawCircle);
 
   switch (pathColorspace) {
     case "hsv":
@@ -1130,7 +1158,7 @@ function drawVElement(tmpColor, currentRef, startRef, rangeSize, vPlotxStart, vP
       return;
   }
 
-  drawElement(tmpColor.calcRGBColor().getRGBString(), vPlotContex3, xVPos, yPos, keyIndex, colorSide, drawCircle);
+  drawElement(showColor.getRGBString(), vPlotContex3, xVPos, yPos, keyIndex, colorSide, drawCircle);
 
 
 }

@@ -56,15 +56,6 @@ function renderMapping() {
           currentOriginX+= mapping_Translation_X;
           currentOriginY+= mapping_Translation_Y;
 
-
-          /*if(mappingMesh != undefined){
-            mappingMesh.rotation.y += ( mapping_xRotationAngle - mappingMesh.rotation.y ) * 0.05;
-            mappingMesh.rotation.x += ( mapping_yRotationAngle - mappingMesh.rotation.x ) * 0.05;
-
-            mappingMesh.position.x += mapping_Translation_X;
-            mappingMesh.position.y += mapping_Translation_Y;
-          }*/
-
           mapping_Translation_X=0;
           mapping_Translation_Y=0;
 
@@ -81,10 +72,17 @@ function stopAnimationMapping(){
 }
 
 function animateMapping() {
-				mapping_animationID = requestAnimationFrame( animateMapping );
-				renderMapping();
-        mapping_doingAnimation = true;
-				//stats.update();
+
+    if(mapping_doingAnimation){
+      mapping_animationID = requestAnimationFrame( animateMapping );
+      renderMapping();
+    }
+
+}
+
+function startAnimationMapping(){
+  mapping_doingAnimation = true;
+  animateMapping();
 }
 
 

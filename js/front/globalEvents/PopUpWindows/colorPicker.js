@@ -253,6 +253,12 @@ function initColorpickerBackground(){
                   var gVal = 1-y/canvasColorspace.height;
 
                   var colorRGB = new classColor_RGB(rVal,gVal,bVal);
+
+                  if(doColorblindnessSim){
+                    var tmpLMS = colorRGB.calcLMSColor();
+                    colorRGB = tmpLMS.calcColorBlindRGBColor();
+                  }
+
                   var index = (x + y * canvasColorspace.width) * 4;
 
                   colorpickerData.data[index + 0] = Math.round(colorRGB.getRValue()*255); // r
@@ -279,6 +285,12 @@ function initColorpickerBackground(){
                   var bVal = 1-y/canvasColorspace.height;
 
                   var colorRGB = new classColor_RGB(rVal,gVal,bVal);
+
+                  if(doColorblindnessSim){
+                    var tmpLMS = colorRGB.calcLMSColor();
+                    colorRGB = tmpLMS.calcColorBlindRGBColor();
+                  }
+
                   var index = (x + y * canvasColorspace.width) * 4;
 
                   colorpickerData.data[index + 0] = Math.round(colorRGB.getRValue()*255); // r
@@ -304,6 +316,12 @@ function initColorpickerBackground(){
                   var bVal = 1-y/canvasColorspace.height;
 
                   var colorRGB = new classColor_RGB(rVal,gVal,bVal);
+
+                  if(doColorblindnessSim){
+                    var tmpLMS = colorRGB.calcLMSColor();
+                    colorRGB = tmpLMS.calcColorBlindRGBColor();
+                  }
+
                   var index = (x + y * canvasColorspace.width) * 4;
 
                   colorpickerData.data[index + 0] = Math.round(colorRGB.getRValue()*255); // r
@@ -330,6 +348,12 @@ function initColorpickerBackground(){
 
                   var colorHSV = new classColor_HSV(hVal,sVal,vVal);
                   var colorRGB = colorHSV.calcRGBColor();
+
+                  if(doColorblindnessSim){
+                    var tmpLMS = colorRGB.calcLMSColor();
+                    colorRGB = tmpLMS.calcColorBlindRGBColor();
+                  }
+
                   var index = (x + y * canvasColorspace.width) * 4;
 
                   colorpickerData.data[index + 0] = Math.round(colorRGB.getRValue()*255); // r
@@ -355,6 +379,12 @@ function initColorpickerBackground(){
 
                   var colorHSV = new classColor_HSV(hVal,sVal,vVal);
                   var colorRGB = colorHSV.calcRGBColor();
+
+                  if(doColorblindnessSim){
+                    var tmpLMS = colorRGB.calcLMSColor();
+                    colorRGB = tmpLMS.calcColorBlindRGBColor();
+                  }
+
                   var index = (x + y * canvasColorspace.width) * 4;
 
                   colorpickerData.data[index + 0] = Math.round(colorRGB.getRValue()*255); // r
@@ -380,6 +410,12 @@ function initColorpickerBackground(){
 
                   var colorHSV = new classColor_HSV(hVal,sVal,vVal);
                   var colorRGB = colorHSV.calcRGBColor();
+
+                  if(doColorblindnessSim){
+                    var tmpLMS = colorRGB.calcLMSColor();
+                    colorRGB = tmpLMS.calcColorBlindRGBColor();
+                  }
+
                   var index = (x + y * canvasColorspace.width) * 4;
 
                   colorpickerData.data[index + 0] = Math.round(colorRGB.getRValue()*255); // r
@@ -478,6 +514,17 @@ function initColorPickerVBarBackground(){
 
 
     if(colorpickerType!="SV_H"){
+
+      if(doColorblindnessSim){
+        var tmpLMS = colorRGB1.calcLMSColor();
+        colorRGB1 = tmpLMS.calcColorBlindRGBColor();
+
+        tmpLMS = colorRGB2.calcLMSColor();
+        colorRGB2 = tmpLMS.calcColorBlindRGBColor();
+      }
+
+
+
         var grd = canvasVInputContex.createLinearGradient(0, 0, 0, canvasVInput.height);
         grd.addColorStop(0, colorRGB1.getRGBString());
         grd.addColorStop(1, colorRGB2.getRGBString());
@@ -499,6 +546,12 @@ function initColorPickerVBarBackground(){
 
                     var cHSV = new classColor_HSV(hVal,sVal,vVal);
                     var cRGB = cHSV.calcRGBColor();
+
+                    if(doColorblindnessSim){
+                      var tmpLMS = cRGB.calcLMSColor();
+                      cRGB = tmpLMS.calcColorBlindRGBColor();
+                    }
+
                     var index = (x + y * canvasVInput.width) * 4;
 
                     tmpData.data[index + 0] = Math.round(cRGB.getRValue()*255); // r

@@ -21,24 +21,36 @@ function updateAnalzyeMappingProbeSetStatus(){
     if (document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.display == "none") {
       document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.display = "block";
       document.getElementById("id_dropDownMenue_AnalyzeWindow_Label").innerHTML="&#9673; Analysis Window";
+
+      if(document.getElementById("id_EditPage_DivMapping").style.display != "none"){
+        startAnimationMapping();
+      }
     }
     else{
       document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.display = "none";
       document.getElementById("id_dropDownMenue_AnalyzeWindow_Label").innerHTML="&#9675; Analysis Window";
+      stopAnimationMapping();
     }
 
     update_EditPageStyle();
 }
+
+
 
 function updateEditKeyPathPlotStatus(){
 
     if (document.getElementById("id_editPage_EditKeyPathPlotDiv").style.display == "none") {
       document.getElementById("id_editPage_EditKeyPathPlotDiv").style.display = "block";
       document.getElementById("id_dropDownMenue_EditWindow_Label").innerHTML="&#9673; Edit Window";
+
+      if(document.getElementById("id_EditPage_Edit_Path").style.display != "none"){
+        startPathPlotAnimation()
+      }
     }
     else{
       document.getElementById("id_editPage_EditKeyPathPlotDiv").style.display = "none";
       document.getElementById("id_dropDownMenue_EditWindow_Label").innerHTML="&#9675; Edit Window";
+      stopPathPlotAnimation();
     }
 
     update_EditPageStyle();

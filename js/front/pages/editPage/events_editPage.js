@@ -205,6 +205,7 @@ function switchModifyModus(type){
   document.getElementById("id_EditPage_Edit_Keys").style.display="none";
   document.getElementById("id_EditPage_Edit_Path").style.display="none";
 
+  stopPathPlotAnimation();
   switch (type) {
     case 0:
 
@@ -220,6 +221,7 @@ function switchModifyModus(type){
       document.getElementById("id_editPage_SelectEditPath").style.color=styleActiveColorFont;
         document.getElementById("id_EditPage_Edit_Path").style.display="block";
         choosePathPlotSpace(2);
+        startPathPlotAnimation();
     break;
     default:
     switchModifyModus(0);
@@ -273,7 +275,7 @@ function switchAnalyzeMappingProbeSet(type){
 
       	mapping_renderer.setSize(drawWidth, drawHeight);
 
-        animateMapping();
+        startAnimationMapping();
 
         if(doAutoUpdate && mapping_doingAnimation){
           updateMesh();

@@ -336,6 +336,14 @@ class class_CMS {
     return this.keyArray[index].getRightKeyColor(colorspace);
   }
 
+  getRightKeyColorCB(index){
+    return this.keyArray[index].getRightKeyColorCB();
+  }
+
+  getLeftKeyColorCB(index){
+    return this.keyArray[index].getLeftKeyColorCB();
+  }
+
   getKeyType(index){
     return this.keyArray[index].getKeyType();
   }

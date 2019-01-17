@@ -16,7 +16,16 @@ function drawConstantBands(){
       iDiv.id = 'const'+i;
       iDiv.className = 'class_predefinedConstBands';
       iDiv.setAttribute('draggable', true);
-      iDiv.style.background = constBands[i].getRGBString();
+
+      if(doColorblindnessSim){
+        var tmpLMS = constBands[i].calcLMSColor();
+        toolColor = tmpLMS.calcColorBlindRGBColor();
+        iDiv.style.background = toolColor.getRGBString();
+      }
+      else{
+        iDiv.style.background = constBands[i].getRGBString();
+      }
+
       iDiv.addEventListener("dragstart", bandOnDragStart);
       iDiv.addEventListener("dragend", bandOnDragEnd);
       //iDiv.style.cursor = "move";

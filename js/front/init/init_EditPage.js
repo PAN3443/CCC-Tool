@@ -75,12 +75,12 @@ function init_events_EditPage(){
   document.getElementById('id_EditPage_editProbeTypeLabel').addEventListener("click", activateDropdown);
   document.getElementById('id_EditPage_editProbeFunctionLabel').addEventListener("click", activateDropdown);
 
-  initRGB3D();
+  initPathPlot();
 
-  document.getElementById('id_EditPage_PathPlot_3D_Div').addEventListener("mousemove", eventRGB3D_mousemove);
-  document.getElementById('id_EditPage_PathPlot_3D_Div').addEventListener("mouseleave", eventRGB3D_mouseleave);
-  document.getElementById('id_EditPage_PathPlot_3D_Div').addEventListener("mousedown", eventRGB3D_mousedown);
-  document.getElementById('id_EditPage_PathPlot_3D_Div').addEventListener("mouseup", eventRGB3D_mouseup);
+  document.getElementById('id_EditPage_PathPlot_3D_Div').addEventListener("mousemove", eventPathPlot3D_mousemove);
+  document.getElementById('id_EditPage_PathPlot_3D_Div').addEventListener("mouseleave", eventPathPlot3D_mouseleave);
+  document.getElementById('id_EditPage_PathPlot_3D_Div').addEventListener("mousedown", eventPathPlot3D_mousedown);
+  document.getElementById('id_EditPage_PathPlot_3D_Div').addEventListener("mouseup", eventPathPlot3D_mouseup);
 
   // Edit Keys
     document.getElementById('id_EditPage_EditKey_List').addEventListener("click", selectKey);
@@ -204,5 +204,6 @@ function init_events_EditPage(){
     document.getElementById("id_editPage_Anaylze_IntervalNumber").addEventListener("change", changeAnalyzeIntervalCalculation);
     document.getElementById("id_editPage_Anaylze_IntervalColorDifference").addEventListener("change", changeAnalyzeIntervalCalculation);
     document.getElementById("id_editPage_Anaylze_IntervalNumber").checked=true;
+
 
 }

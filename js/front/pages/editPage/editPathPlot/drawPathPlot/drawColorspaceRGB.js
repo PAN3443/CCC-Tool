@@ -53,6 +53,10 @@ function rgbInit() {
       b=tmpColor.get3Value();
     }
 
+    var tmpRGB1= new classColor_RGB(1,1,1);
+    var tmpRGB2= new classColor_RGB(1,1,1);
+    var tmpRGB3= new classColor_RGB(1,1,1);
+
     //RG
     for (var x = 0; x < canvasObj0.width; x++) {
 
@@ -67,20 +71,42 @@ function rgbInit() {
 
           var index = (x + y * canvasObj0.width) * 4;
 
+          tmpRGB1.set1Value(yVal);
+          tmpRGB1.set2Value(xVal);
+          tmpRGB1.set3Value(b);
 
-            canvasData0.data[index + 0] = Math.round(yVal * 255); // r
-            canvasData0.data[index + 1] = Math.round(xVal * 255); // g
-            canvasData0.data[index + 2] = Math.round(b * 255); // b
+          tmpRGB2.set1Value(yVal);
+          tmpRGB2.set2Value(g);
+          tmpRGB2.set3Value(xVal);
+
+          tmpRGB3.set1Value(r);
+          tmpRGB3.set2Value(xVal);
+          tmpRGB3.set3Value(yVal);
+
+          if(doColorblindnessSim){
+            var tmpLMS = tmpRGB1.calcLMSColor();
+            tmpRGB1 = tmpLMS.calcColorBlindRGBColor();
+
+            tmpLMS = tmpRGB2.calcLMSColor();
+            tmpRGB2 = tmpLMS.calcColorBlindRGBColor();
+
+            tmpLMS = tmpRGB3.calcLMSColor();
+            tmpRGB3 = tmpLMS.calcColorBlindRGBColor();
+          }
+
+            canvasData0.data[index + 0] = Math.round(tmpRGB1.get1Value() * 255); // r
+            canvasData0.data[index + 1] = Math.round(tmpRGB1.get2Value() * 255); // g
+            canvasData0.data[index + 2] = Math.round(tmpRGB1.get3Value() * 255); // b
             canvasData0.data[index + 3] = 255; //a
 
-            canvasData1.data[index + 0] = Math.round(yVal * 255); // r
-            canvasData1.data[index + 1] = Math.round(g * 255); // g
-            canvasData1.data[index + 2] = Math.round(xVal * 255); // b
+            canvasData1.data[index + 0] = Math.round(tmpRGB2.get1Value() * 255); // r
+            canvasData1.data[index + 1] = Math.round(tmpRGB2.get2Value() * 255); // g
+            canvasData1.data[index + 2] = Math.round(tmpRGB2.get3Value() * 255); // b
             canvasData1.data[index + 3] = 255; //a
 
-            canvasData2.data[index + 0] = Math.round(r * 255); // r
-            canvasData2.data[index + 1] = Math.round(xVal * 255); // g
-            canvasData2.data[index + 2] = Math.round(yVal * 255); // b
+            canvasData2.data[index + 0] = Math.round(tmpRGB3.get1Value() * 255); // r
+            canvasData2.data[index + 1] = Math.round(tmpRGB3.get2Value() * 255); // g
+            canvasData2.data[index + 2] = Math.round(tmpRGB3.get3Value() * 255); // b
             canvasData2.data[index + 3] = 255; //a
 
         }
@@ -223,11 +249,11 @@ function drawcolormap_RGBSpace(calcBackground, drawInterpolationLine) {
 
   if(drawInterpolationLine){
     // 3D init
-    if (showSpace == 1) {
-      for (var i = colormapRGB3D.children.length - 1; i >= 0; i--) {
-        colormapRGB3D.remove(colormapRGB3D.children[i]);
-      }
+
+    for (var i = pathPlotGroup.children.length - 1; i >= 0; i--) {
+      pathPlotGroup.remove(pathPlotGroup.children[i]);
     }
+
     drawInterpolationLineInRGB();
 
     drawElements(); // do3D true
@@ -493,12 +519,18 @@ function drawRGBElement(tmpColor,xWidth,yHeight,xStart,yStart, drawCircle,canvas
   var tmpArray = [-1, -1, -1];
   var tmpArray2 = [-1, -1, -1];
 
+  var showColor = tmpColor;
+  if(doColorblindnessSim){
+    var tmpLMS = showColor.calcLMSColor();
+    showColor = tmpLMS.calcColorBlindRGBColor();
+  }
+
   // RG
 
   xPos = tmpColor.getGValue() * xWidth + xStart;
   yPos = yStart - tmpColor.getRValue() * yHeight;
 
-  drawElement(tmpColor.getRGBString(), canvasContexRG, xPos, yPos, keyIndex,colorSide, drawCircle);
+  drawElement(showColor.getRGBString(), canvasContexRG, xPos, yPos, keyIndex,colorSide, drawCircle);
 
   tmpArray[0] = xPos;
   tmpArray2[0] = yPos;
@@ -508,7 +540,7 @@ function drawRGBElement(tmpColor,xWidth,yHeight,xStart,yStart, drawCircle,canvas
   xPos = tmpColor.getBValue() * xWidth + xStart;
   yPos = yStart - tmpColor.getRValue() * yHeight;
 
-  drawElement(tmpColor.getRGBString(), canvasContexRB, xPos, yPos, keyIndex,colorSide, drawCircle);
+  drawElement(showColor.getRGBString(), canvasContexRB, xPos, yPos, keyIndex,colorSide, drawCircle);
 
   tmpArray[1] = xPos;
   tmpArray2[1] = yPos;
@@ -518,19 +550,18 @@ function drawRGBElement(tmpColor,xWidth,yHeight,xStart,yStart, drawCircle,canvas
   xPos = tmpColor.getGValue() * xWidth + xStart;
   yPos = yStart - tmpColor.getBValue() * yHeight;
 
-  drawElement(tmpColor.getRGBString(), canvasContexBG, xPos, yPos, keyIndex,colorSide, drawCircle);
+  drawElement(showColor.getRGBString(), canvasContexBG, xPos, yPos, keyIndex,colorSide, drawCircle);
 
   tmpArray[2] = xPos;
   tmpArray2[2] = yPos;
 
-  if (showSpace == 1) {
-
+  // 3D
     var x1 = tmpColor.getRValue() * 255 - 128;
     var y1 = tmpColor.getGValue() * 255 - 128;
     var z1 = tmpColor.getBValue() * 255 - 128;
 
-    draw3DElement(tmpColor.getHexString(), x1, y1, z1, keyIndex,colorSide, drawCircle);
-  }
+    draw3DElement(showColor.getHexString(), x1, y1, z1, keyIndex,colorSide, drawCircle);
+
 }
 
 function drawRGBline(tmpColor,tmpColor2,xWidth,yHeight,xStart,yStart, isDashed,isCompareMap,canvasContexRG,canvasContexRB,canvasContexBG){
@@ -585,7 +616,7 @@ function drawRGBline(tmpColor,tmpColor2,xWidth,yHeight,xStart,yStart, isDashed,i
       pathplotLines3.push(yPos2);
     }
 
-  if (showSpace == 1) {
+  //3D
 
     var x1 = tmpColor.getRValue() * 255 - 128;
     var y1 = tmpColor.getGValue() * 255 - 128;
@@ -598,5 +629,5 @@ function drawRGBline(tmpColor,tmpColor2,xWidth,yHeight,xStart,yStart, isDashed,i
 
     draw3DLine(x1, y1, z1, x2, y2, z2, isDashed);
 
-  }
+
 }

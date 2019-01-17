@@ -324,28 +324,28 @@ function drawSelectedKey(){
               divDouble.style.height = "100%";
               divLeft.appendChild(svg);
               divRight.style.cursor = "pointer";
-              divRight.style.background = globalCMS1.getRightKeyColor(selectedKey, "rgb").getRGBString();
+              divRight.style.background = globalCMS1.getRightKeyColorCB(selectedKey).getRGBString();
             break;
             case "twin key":
             divLeft.style.cursor = "pointer";
-            divLeft.style.background = globalCMS1.getLeftKeyColor(selectedKey, "rgb").getRGBString();
+            divLeft.style.background = globalCMS1.getLeftKeyColorCB(selectedKey).getRGBString();
             divRight.style.cursor = "pointer";
-            divRight.style.background = globalCMS1.getRightKeyColor(selectedKey, "rgb").getRGBString();
+            divRight.style.background = globalCMS1.getRightKeyColorCB(selectedKey).getRGBString();
 
 
             if(globalCMS1.getMoT(selectedKey)){
                 // right color is middle of triple
-                divTop.style.background = globalCMS1.getRightKeyColor(selectedKey, "rgb").getRGBString();
+                divTop.style.background = globalCMS1.getRightKeyColorCB(selectedKey).getRGBString();
             }
             else{
-                divTop.style.background = globalCMS1.getLeftKeyColor(selectedKey, "rgb").getRGBString();
+                divTop.style.background = globalCMS1.getLeftKeyColorCB(selectedKey).getRGBString();
             }
 
             document.getElementById("id_EditPage_EditKey_DrawKeyDiv").appendChild(divTop);
               break;
             case "left key":
               divLeft.style.cursor = "pointer";
-              divLeft.style.background = globalCMS1.getLeftKeyColor(selectedKey, "rgb").getRGBString();
+              divLeft.style.background = globalCMS1.getLeftKeyColorCB(selectedKey).getRGBString();
               divRight.appendChild(svg);
 
               if(selectedKey==globalCMS1.getKeyLength()-1){
@@ -354,10 +354,10 @@ function drawSelectedKey(){
               else{
                 if(globalCMS1.getMoT(selectedKey)){
                     // right color is middle of triple
-                    divTop.style.background = globalCMS1.getLeftKeyColor(selectedKey+1, "rgb").getRGBString();
+                    divTop.style.background = globalCMS1.getLeftKeyColorCB(selectedKey+1).getRGBString();
                 }
                 else{
-                    divTop.style.background = globalCMS1.getLeftKeyColor(selectedKey, "rgb").getRGBString();
+                    divTop.style.background = globalCMS1.getLeftKeyColorCB(selectedKey).getRGBString();
                 }
 
 
@@ -378,7 +378,7 @@ function drawSelectedKey(){
     divDual.style.width = '100%';
     divDual.style.height = "100%";
     divDual.style.cursor = "pointer";
-    divDual.style.background = globalCMS1.getLeftKeyColor(selectedKey, "rgb").getRGBString();
+    divDual.style.background = globalCMS1.getLeftKeyColorCB(selectedKey).getRGBString();
     document.getElementById("id_EditPage_EditKey_DrawKeyDiv").appendChild(divDual);
     divDual.addEventListener("click", openColorPicker);
 

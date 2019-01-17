@@ -43,6 +43,11 @@ function createScaledBand(canvasData, xStart, bandWidth, bandHeight, color1, col
 
         var tmpCurrentColor=tmpWorkColor.getInColorFormat("rgb");
 
+        if(doColorblindnessSim){
+          var tmpLMS = tmpCurrentColor.calcLMSColor();
+          tmpCurrentColor = tmpLMS.calcColorBlindRGBColor();
+        }
+
         for (var y = 0; y < bandHeight; y++) {
           var index = (x + y * canvasWidth) * 4;
           //var index = ((xStart+x) + y * canvasWidth) * 4;

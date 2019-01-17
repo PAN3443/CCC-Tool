@@ -40,6 +40,17 @@ function init_events_PopUp_ColorPicker(){
   document.getElementById('id_PopUp_Metric_Input4').addEventListener("change", changeMetricTransInput);
   document.getElementById('id_PopUp_Metric_Input5').addEventListener("change", changeMetricTransInput);
 
+  // ColorBlindness
+  document.getElementById('inputCBTransferMatrix00').addEventListener("change", changeCustomTransferMatrix);
+  document.getElementById('inputCBTransferMatrix10').addEventListener("change", changeCustomTransferMatrix);
+  document.getElementById('inputCBTransferMatrix20').addEventListener("change", changeCustomTransferMatrix);
+  document.getElementById('inputCBTransferMatrix01').addEventListener("change", changeCustomTransferMatrix);
+  document.getElementById('inputCBTransferMatrix11').addEventListener("change", changeCustomTransferMatrix);
+  document.getElementById('inputCBTransferMatrix21').addEventListener("change", changeCustomTransferMatrix);
+  document.getElementById('inputCBTransferMatrix02').addEventListener("change", changeCustomTransferMatrix);
+  document.getElementById('inputCBTransferMatrix12').addEventListener("change", changeCustomTransferMatrix);
+  document.getElementById('inputCBTransferMatrix22').addEventListener("change", changeCustomTransferMatrix);
+
 
 }
 

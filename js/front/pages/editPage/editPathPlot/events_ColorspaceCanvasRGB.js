@@ -15,7 +15,7 @@ function mouseLeaveColorspaceRGB(event) {
     mouseGrappedKeyID = -1;
 
       drawcolormap_RGBSpace(true,true);
-
+      saveCreateProcess();
 
   }
 }
@@ -263,15 +263,12 @@ function mouseMoveColorspaceRGB(event) {
       console.log("Error "+ mouseGrappedColorSide);
     }
 
-    somethingChanged = true;
 
-        if(showSpace==1){
-
-          var newPos = updateCurrentValue*255-128;
+          /*var newPos = updateCurrentValue*255-128;
           var plane_geometry = new THREE.PlaneGeometry( 256, 256, 1, 1 );
           plane_material = new THREE.MeshLambertMaterial({ color: 0xbdbdbd, side: THREE.DoubleSide });
-          //plane_material.transparent = true;
-          //plane_material.opacity =  1;
+          plane_material.transparent = true;
+          plane_material.opacity =  0.5;
           var plane = new THREE.Mesh( plane_geometry, plane_material );
 
           switch (event.target.id) {
@@ -299,8 +296,8 @@ function mouseMoveColorspaceRGB(event) {
             default:
               return;
           }
-          colormapRGB3D.add( plane );
-        }
+          colormapRGB3D.add( plane );*/
+
 
 
     }
@@ -403,4 +400,5 @@ function mouseUpColorspaceRGB() {
   document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "R : -, G: -, B: -";
   clearInterval(timer2DAnimation);
   drawcolormap_RGBSpace(true,true);
+  saveCreateProcess();
 }

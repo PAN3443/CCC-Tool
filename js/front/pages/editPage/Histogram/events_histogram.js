@@ -197,6 +197,11 @@ function drawHistogramMap(rangeStart,rangeEnd){
 
     var tmpCurrentColor = workCMS.calculateColor(value);
 
+    if(doColorblindnessSim){
+      var tmpLMS = tmpCurrentColor.calcLMSColor();
+      tmpCurrentColor = tmpLMS.calcColorBlindRGBColor();
+    }
+
       var index = x * 4;
       //var index = ((xStart+x) + y * canvasWidth) * 4;
       canvasData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r

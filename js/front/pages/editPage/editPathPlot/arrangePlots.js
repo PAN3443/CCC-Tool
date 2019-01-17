@@ -3,7 +3,6 @@
 function choosePathPlotSpace(type){
 //id_EditPage_PathPlot_ThreeCanvas
 
-
 document.getElementById("id_editPage_PathPlotSpaces_RGB").style.background = styleNotActiveColor;
 document.getElementById("id_editPage_PathPlotSpaces_HSV").style.background = styleNotActiveColor;
 document.getElementById("id_editPage_PathPlotSpaces_LAB").style.background = styleNotActiveColor;
@@ -14,11 +13,8 @@ document.getElementById("id_editPage_PathPlotSpaces_HSV").style.color=styleNotAc
 document.getElementById("id_editPage_PathPlotSpaces_LAB").style.color=styleNotActiveColorFont;
 document.getElementById("id_editPage_PathPlotSpaces_DIN99").style.color=styleNotActiveColorFont;
 
-  stopAnimation();
-
-
-document.getElementById('id_EditPage_PathPlot_Div').style.display = "block";
-document.getElementById("id_EditPage_OuterDiv").style.display = "block";
+//document.getElementById('id_EditPage_PathPlot_Div').style.display = "block";
+//document.getElementById("id_EditPage_OuterDiv").style.display = "block";
 
   if(type==0){
 
@@ -60,15 +56,21 @@ document.getElementById("id_EditPage_OuterDiv").style.display = "block";
 
     // style
 
-    document.getElementById("id_EditPage_TopDiv").style.display = "flex";
-    document.getElementById("id_EditPage_BottomDiv").style.display = "flex";
-    document.getElementById("id_EditPage_PathPlot_3D_Container").style.display = "block";
 
-
+    document.getElementById("id_EditPage_PathPlot_SubContainer1").style.display = "flex";
+    document.getElementById("id_EditPage_PathPlot_SubContainer2").style.display = "flex";
 
     //// height 54vh
     var canvasDim = "";
     if (document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.display != "none"){
+
+      document.getElementById("id_EditPage_PathPlot_Container").style.display = "block";
+      document.getElementById("id_EditPage_PathPlot_SubContainer1").appendChild(document.getElementById("id_EditPage_PathPlot_1_Container"));
+      document.getElementById("id_EditPage_PathPlot_SubContainer1").appendChild(document.getElementById("id_EditPage_PathPlot_2_Container"));
+      document.getElementById("id_EditPage_PathPlot_SubContainer2").appendChild(document.getElementById("id_EditPage_PathPlot_3_Container"));
+      document.getElementById("id_EditPage_PathPlot_SubContainer2").appendChild(document.getElementById("id_EditPage_PathPlot_3D_Container"));
+
+
       /// width : 24vw
       // height 54vh - 2* 2vh (because of standardText labels)
 
@@ -93,9 +95,15 @@ document.getElementById("id_EditPage_OuterDiv").style.display = "block";
     }
     else {
 
+      document.getElementById("id_EditPage_PathPlot_Container").style.display = "flex";
+      document.getElementById("id_EditPage_PathPlot_SubContainer1").appendChild(document.getElementById("id_EditPage_PathPlot_1_Container"));
+      document.getElementById("id_EditPage_PathPlot_SubContainer1").appendChild(document.getElementById("id_EditPage_PathPlot_2_Container"));
+      document.getElementById("id_EditPage_PathPlot_SubContainer2").appendChild(document.getElementById("id_EditPage_PathPlot_3_Container"));
+      document.getElementById("id_EditPage_PathPlot_SubContainer2").appendChild(document.getElementById("id_EditPage_PathPlot_3D_Container"));
+
       /// width : 80vw
       // height 54vh -  2vh (because of standardText labels)
-      document.getElementById("id_EditPage_OuterDiv").style.display = "flex";
+
 
       var tmpWidth = 20;
 
@@ -124,8 +132,7 @@ document.getElementById("id_EditPage_OuterDiv").style.display = "block";
     document.getElementById("id_EditPage_PathPlot_Canvas3_Div").style.width = canvasDim;
 
     drawcolormap_RGBSpace(true,true);
-    resize();
-    animate();
+    rgbMesh();
 
   }
   else {
@@ -140,6 +147,7 @@ document.getElementById("id_EditPage_OuterDiv").style.display = "block";
           initPlotLabel("Hue", "Saturation", "Value");
           document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "H : -, S: -, V: -";
           backgroundValue=100;
+          hsvMesh();
           break;
           case 2: // LAB
             document.getElementById("id_editPage_PathPlotSpaces_LAB").style.background=styleActiveColor;
@@ -148,6 +156,7 @@ document.getElementById("id_EditPage_OuterDiv").style.display = "block";
             initPlotLabel("Lightness", "Green-Red : A", "Blue-Yellow : B");
             document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L : -, a: -, b: -";
             backgroundValue=65;
+            labMesh();
             break;
             case 3: // DIN99
             document.getElementById("id_editPage_PathPlotSpaces_DIN99").style.background=styleActiveColor;
@@ -156,6 +165,7 @@ document.getElementById("id_EditPage_OuterDiv").style.display = "block";
             initPlotLabel("Lightness", "Green-Red : A99", "Blue-Yellow : B99");
             document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L99 : -, a99: -, b99: -";
             backgroundValue=65;
+            din99Mesh();
               break;
       default:
 
@@ -189,32 +199,54 @@ document.getElementById("id_EditPage_OuterDiv").style.display = "block";
     document.getElementById('id_EditPage_PathPlot_Canvas3_2').removeEventListener("mouseup", mouseUpColorspaceRGB);
 
     // style
-    document.getElementById("id_EditPage_TopDiv").style.display = "block";
-    document.getElementById("id_EditPage_BottomDiv").style.display = "block";
-    document.getElementById("id_EditPage_PathPlot_3D_Container").style.display = "none";
+    /*document.getElementById("id_EditPage_TopDiv").style.display = "block";
+    document.getElementById("id_EditPage_BottomDiv").style.display = "block";*/
 
       var canvasDim = "";
       var canvasDim2 = "";
+
+
+      document.getElementById("id_EditPage_PathPlot_SubContainer1").style.display = "block";
+      document.getElementById("id_EditPage_PathPlot_SubContainer2").style.display = "flex";
+      document.getElementById("id_EditPage_PathPlot_SubContainer1").appendChild(document.getElementById("id_EditPage_PathPlot_1_Container"));
+      document.getElementById("id_EditPage_PathPlot_SubContainer1").appendChild(document.getElementById("id_EditPage_PathPlot_2_Container"));
+      document.getElementById("id_EditPage_PathPlot_SubContainer1").appendChild(document.getElementById("id_EditPage_PathPlot_3_Container"));
+      //document.getElementById("id_EditPage_PathPlot_SubContainer2").appendChild(document.getElementById("id_EditPage_PathPlot_SingleCanvasDiv"));
+      document.getElementById("id_EditPage_PathPlot_SubContainer2").appendChild(document.getElementById("id_EditPage_PathPlot_3D_Container"));
+
+
       if (document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.display != "none"){
         /// width : 24vw
         // height 54vh - 3* 2vh (because of standardText labels)
 
-        canvasDim="24vw"
 
+        document.getElementById("id_EditPage_PathPlot_Container").style.display = "block";
+
+
+        canvasDim="24vw";
+        var canvasDimHalf="12vw";
         if(document.getElementById("id_EditPage_Add_Structures").style.display == "none"){
-          canvasDim="30vw"
+          canvasDim="30vw";
+          canvasDimHalf="15vw";
         }
 
-        canvasDim2="11vh"
+        canvasDim2="11vh";
         document.getElementById("id_EditPage_PathPlot_SingleCanvasDiv").style.height = canvasDim2;
-        document.getElementById("id_EditPage_PathPlot_SingleCanvasDiv").style.width = canvasDim;
+        document.getElementById("id_EditPage_PathPlot_SingleCanvasDiv").style.width = canvasDimHalf;
+
+
         var rect = document.getElementById("id_EditPage_PathPlot_SingleCanvasDiv").getBoundingClientRect();
 
-        if(rect.width<rect.height)
+        /*zzzzzzzzzzzzzzif(rect.width<rect.height){
           canvasDim2=canvasDim;
+        }*/
+
 
           document.getElementById("id_EditPage_PathPlot_SingleCanvasDiv").style.height = canvasDim2;
           document.getElementById("id_EditPage_PathPlot_SingleCanvasDiv").style.width = canvasDim2;
+
+          document.getElementById("id_EditPage_PathPlot_3D_Div").style.height = canvasDim2;
+          document.getElementById("id_EditPage_PathPlot_3D_Div").style.width = canvasDimHalf;
 
         document.getElementById("id_EditPage_PathPlot_Canvas1_Div").style.height = canvasDim2;
         document.getElementById("id_EditPage_PathPlot_Canvas1_Div").style.width = canvasDim;
@@ -226,17 +258,18 @@ document.getElementById("id_EditPage_OuterDiv").style.display = "block";
       }
       else {
 
-        document.getElementById('id_EditPage_PathPlot_Div').style.display = "flex";
-        document.getElementById("id_EditPage_OuterDiv").style.display = "block";
+        document.getElementById("id_EditPage_PathPlot_Container").style.display = "flex";
+
+
         /// width : 80vw
         // height 54vh -  2vh (because of standardText labels)
 
-        canvasDim="30vw"
-        var canvasDim3="50vw"
+        canvasDim="20vw"
+        var canvasDim3="40vw"
 
         if(document.getElementById("id_EditPage_Add_Structures").style.display == "none"){
-          canvasDim="40vw"
-          canvasDim3="60vw"
+          canvasDim="25vw"
+          canvasDim3="50vw"
         }
 
 
@@ -251,6 +284,9 @@ document.getElementById("id_EditPage_OuterDiv").style.display = "block";
           document.getElementById("id_EditPage_PathPlot_SingleCanvasDiv").style.height = canvasDim2;
           document.getElementById("id_EditPage_PathPlot_SingleCanvasDiv").style.width = canvasDim2;
 
+          document.getElementById("id_EditPage_PathPlot_3D_Div").style.height = canvasDim2;
+          document.getElementById("id_EditPage_PathPlot_3D_Div").style.width = canvasDim2;
+
         document.getElementById("id_EditPage_PathPlot_Canvas1_Div").style.height = "15vh";//canvasDim2;
         document.getElementById("id_EditPage_PathPlot_Canvas1_Div").style.width = canvasDim3;//canvasDim;
         document.getElementById("id_EditPage_PathPlot_Canvas2_Div").style.height = "15vh";//canvasDim2;
@@ -262,6 +298,8 @@ document.getElementById("id_EditPage_OuterDiv").style.display = "block";
 
     drawcolormap_hueSpace(true, true, true);
   }
+
+  pathPlot3D_Resize();
 
 }
 

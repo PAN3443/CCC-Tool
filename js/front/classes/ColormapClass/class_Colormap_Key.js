@@ -182,6 +182,33 @@ class class_Key{
       }
     }
 
+    getRightKeyColorCB(index){
+      if(this.cR[0]==undefined)
+      return undefined;
+
+      var ncolor = new classColor_RGB(this.cR[0].get1Value(),this.cR[0].get2Value(),this.cR[0].get3Value());
+      if(doColorblindnessSim){
+        var tmpLMS = ncolor.calcLMSColor();
+        ncolor = tmpLMS.calcColorBlindRGBColor();
+      }
+
+      return ncolor;
+    }
+
+    getLeftKeyColorCB(index){
+      if(this.cL[0]==undefined)
+      return undefined;
+
+      var ncolor = new classColor_RGB(this.cL[0].get1Value(),this.cL[0].get2Value(),this.cL[0].get3Value());
+      if(doColorblindnessSim){
+        var tmpLMS = ncolor.calcLMSColor();
+        ncolor = tmpLMS.calcColorBlindRGBColor();
+      }
+
+      return ncolor;
+    }
+
+
     getLeftKeyColor(colorspace) {
 
       if(this.cL[0]==undefined)

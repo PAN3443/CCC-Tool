@@ -1,5 +1,8 @@
 var doingAnimation = false;
-var animationID;
+var pathplotAnimationID;
+
+var testAnimationInterval = 1000/30;
+var testIntervalAnimation;
 
 
 var dorotation = false;
@@ -25,16 +28,17 @@ var bigcircleRad3D = 10;
 //// RGB Space
 
   var font;
-  var colormapRGB3D;
-  var scene, camera, renderer, stats, rgbGroup;
+  var pathPlotGroup;
+  var scene, camera, renderer, stats, colorspaceGroup;
   var radius = 400;
 
   var cameraLight;
 
-  var textR, textG, textB;
-  var doRGB3D = false;
+  //var textR, textG, textB;
 
-  var planeRG_material;
+  //var pathPlotMesh;
+
+  /*var planeRG_material;
   var planeRG;
   var planeBG_material;
   var planeBG ;
@@ -45,4 +49,4 @@ var bigcircleRad3D = 10;
   var planeBG255_material;
   var planeBG255;
   var planeBR255_material;
-  var planeBR255;
+  var planeBR255;*/
