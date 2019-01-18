@@ -723,11 +723,11 @@ function rgbMesh(){
 
 
 
-        var material = new THREE.MeshBasicMaterial( {
-                /*side: THREE.DoubleSide,
+        var material = new THREE.MeshBasicMaterial( {//new THREE.MeshLambertMaterial( { //new THREE.MeshBasicMaterial( {
+                /*side: THREE.DoubleSide,*/
                 opacity: 0.5,
       					premultipliedAlpha: true,
-      					transparent: true, //*/
+      					transparent: true, //
 								vertexColors: THREE.VertexColors,
 								reflectivity: 0,
 								reflectionCube : null

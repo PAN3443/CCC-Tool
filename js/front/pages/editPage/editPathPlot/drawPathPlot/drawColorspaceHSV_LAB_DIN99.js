@@ -1073,12 +1073,21 @@ function drawHueElement(tmpColor, xWidth, yHeight, xStart, yStart, xEnd, yEnd, c
     showColor = tmpLMS.calcColorBlindRGBColor();
   }
 
+  var xPos3D = undefined;
+  var yPos3D = undefined;
+  var zPos3D = undefined;
+
   switch (pathColorspace) {
     case "hsv":
       var tmpDis = tmpColor.getSValue() * colorspaceRadius;
       var tmpRad = (tmpColor.getHValue() * Math.PI * 2) - Math.PI;
       xPos = tmpDis * Math.cos(tmpRad) + colorspaceCenterX;
       yPos = tmpDis * Math.sin(tmpRad) + colorspaceCenterY;
+
+      tmpDis = tmpColor.getSValue() * hsv3DRadius;
+      xPos3D = tmpDis * Math.cos(tmpRad);
+      yPos3D = vStart3D+(vEnd3D-vStart3D)*tmpColor.getVValue();
+      zPos3D = tmpDis * Math.sin(tmpRad);
       break;
     case "lab":
       xPos = ((tmpColor.getAValue() / labSpaceRange) * xWidth / 2) + colorspaceCenterX;
@@ -1094,6 +1103,10 @@ function drawHueElement(tmpColor, xWidth, yHeight, xStart, yStart, xEnd, yEnd, c
   }
 
   drawElement(showColor.getRGBString(), colorspaceContex, xPos, yPos, keyIndex, colorSide, drawCircle);
+
+  if(xPos3D!=undefined){
+    draw3DElement(showColor.getHexString(), xPos3D, yPos3D, zPos3D, keyIndex,colorSide, drawCircle);
+  }
 
 }
 
@@ -1166,6 +1179,14 @@ function drawVElement(tmpColor, currentRef, startRef, rangeSize, vPlotxStart, vP
 function drawHueLine(tmpColor, tmpColor2, xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, isDashed, colorspaceContex) {
   // RG
 
+  var xPos3D1 = undefined;
+  var yPos3D1 = undefined;
+  var zPos3D1 = undefined;
+
+  var xPos3D2 = undefined;
+  var yPos3D2 = undefined;
+  var zPos3D2 = undefined;
+
   switch (pathColorspace) {
     case "hsv":
       var tmpDis = tmpColor.getSValue() * colorspaceRadius;
@@ -1177,6 +1198,16 @@ function drawHueLine(tmpColor, tmpColor2, xWidth, yHeight, xStart, yStart, xEnd,
       var tmpRad2 = (tmpColor2.getHValue() * Math.PI * 2) - Math.PI;
       xPos2 = tmpDis2 * Math.cos(tmpRad2) + colorspaceCenterX;
       yPos2 = tmpDis2 * Math.sin(tmpRad2) + colorspaceCenterY;
+
+      tmpDis = tmpColor.getSValue() * hsv3DRadius;
+      xPos3D1 = tmpDis * Math.cos(tmpRad);
+      yPos3D1 = vStart3D+(vEnd3D-vStart3D)*tmpColor.getVValue();
+      zPos3D1 = tmpDis * Math.sin(tmpRad);
+
+      tmpDis2 = tmpColor2.getSValue() * hsv3DRadius;
+      xPos3D2 = tmpDis2 * Math.cos(tmpRad2);
+      yPos3D2 = vStart3D+(vEnd3D-vStart3D)*tmpColor2.getVValue();
+      zPos3D2 = tmpDis2 * Math.sin(tmpRad2);
       break;
     case "lab":
       xPos = ((tmpColor.getAValue() / labSpaceRange) * xWidth / 2) + colorspaceCenterX;
@@ -1205,9 +1236,10 @@ function drawHueLine(tmpColor, tmpColor2, xWidth, yHeight, xStart, yStart, xEnd,
     pathplotLines1.push(yPos);
     pathplotLines1.push(xPos2);
     pathplotLines1.push(yPos2);
-
   }
 
+  if(xPos3D1!=undefined)
+    draw3DLine(xPos3D1, yPos3D1, zPos3D1, xPos3D2, yPos3D2, zPos3D2, isDashed);
 
 
 }

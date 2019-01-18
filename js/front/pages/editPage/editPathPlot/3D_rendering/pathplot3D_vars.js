@@ -24,6 +24,9 @@ var textHeight = 7;
 var circleRad3D = 5;
 var bigcircleRad3D = 10;
 
+var hsv3DRadius = 200;
+var vStart3D = -100;
+var vEnd3D = 100;
 ///////////////////////////////////////
 //// RGB Space
 
