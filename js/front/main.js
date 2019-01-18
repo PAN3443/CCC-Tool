@@ -1,7 +1,7 @@
 window.onload = function() {
 
 
-  openWaitPopUp("Initialisation of the tool.");
+  openWaitPopUp("Initialization of the tool.");
 
   if (typeof (Worker) === undefined)
   browserCanWorker=false;

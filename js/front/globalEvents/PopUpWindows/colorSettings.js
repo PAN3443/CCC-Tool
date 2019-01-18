@@ -11,7 +11,7 @@ function openColorSettings (){
 function closeColorSettings(){
   document.getElementById("id_PopUp_ColorSettingsWindow").style.display="none";
 
-  openWaitPopUp("Initialisation of the tool with the new Settings.");
+  openWaitPopUp("Initialization of the tool with the new Settings.");
 
   updateColorBlindness_TransferMatrices(); // because the colorblindness matrix depenting on the rgb to xyz and the xyz to lms matrices
   // update CMS to the new
