@@ -119,7 +119,7 @@ function rgbMesh(){
   colors.push( tmpRGBColor.get1Value(), tmpRGBColor.get2Value(), tmpRGBColor.get3Value() );
 
   tmpRGBColor.set1Value(0);
-  tmpRGBColor.set2Value(0);
+  tmpRGBColor.set2Value(1);
   tmpRGBColor.set3Value(1);
   if(doColorblindnessSim){
     var tmpLMS = tmpRGBColor.calcLMSColor();
@@ -128,7 +128,7 @@ function rgbMesh(){
   colors.push( tmpRGBColor.get1Value(), tmpRGBColor.get2Value(), tmpRGBColor.get3Value() );
 
   tmpRGBColor.set1Value(1);
-  tmpRGBColor.set2Value(0);
+  tmpRGBColor.set2Value(1);
   tmpRGBColor.set3Value(0);
   if(doColorblindnessSim){
     var tmpLMS = tmpRGBColor.calcLMSColor();

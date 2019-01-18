@@ -100,6 +100,9 @@ function updateEditPage_ColorBlindness(){
 
     if(pathColorspace!="rgb"){
       drawcolormap_hueSpace(true, true, true);
+
+      if(pathColorspace=="hsv")
+        hsvMesh();
     }
     else{
       rgbMesh();

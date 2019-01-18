@@ -127,6 +127,7 @@
   <script src="js/front/pages/editPage/editPathPlot/3D_rendering/hsv3D.js"></script>
   <script src="js/front/pages/editPage/editPathPlot/3D_rendering/lab3D.js"></script>
   <script src="js/front/pages/editPage/editPathPlot/3D_rendering/din993D.js"></script>
+  <script src="js/front/pages/editPage/editPathPlot/3D_rendering/calcSpaceGrid.js"></script>
   <script src="js/front/pages/editPage/editPathPlot/3D_rendering/pathplot3D_vars.js"></script>
   <script src="js/front/pages/editPage/editPathPlot/3D_rendering/init3DPathPlot.js"></script>
 
@@ -3392,6 +3393,26 @@ CIELAB, CIE94, CIEDE2000, and DIN99. For more help, you can always visit the tut
         </div>
 
 
+
+      </div>
+    </div>
+
+
+    <!------------------	Ask Window	  --------------->
+
+    <div id="waitWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:flex;">
+
+      <div style="height:auto; background:white; width:60%; border: 0.2vh solid black; margin:auto;">
+
+        <h3 name="constStyle" class="class_popupWindow_Label"> Please Wait! </h3>
+
+          <div style="width:60%; margin-left:10%; margin-right:5%;">
+            <p id="id_waitText" style="width:100%; text-align:left; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; margin-top:2vh; margin-bottom:2vh; padding:3vh; border: 0.1vh solid rgb(240,240,240);">
+              Initialisation of the tool.
+            </p>
+          </div>
+
+        </div>
 
       </div>
     </div>

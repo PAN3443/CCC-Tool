@@ -75,7 +75,7 @@ var bigcircleRad = 8;// 12;
 var bigLineWidth = 4;//8;
 var smallLineWidth = 2;//4;
 var radiusratio = 0.95;
-var labSpaceRectRange = 0.8;
+var labSpaceRectRange = 128; //0.8
 
 ///////////////////////////////////////////////////////////////////////////////
 /// Predefined CMS

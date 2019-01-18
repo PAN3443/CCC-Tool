@@ -10,8 +10,16 @@ function openColorSettings (){
 
 function closeColorSettings(){
   document.getElementById("id_PopUp_ColorSettingsWindow").style.display="none";
+
+  openWaitPopUp("Initialisation of the tool with the new Settings.");
+
   updateColorBlindness_TransferMatrices(); // because the colorblindness matrix depenting on the rgb to xyz and the xyz to lms matrices
   // update CMS to the new
+
+
+  calcSpaceGridLAB();
+  calcSpaceGridDIN99();
+
 
   for(var i=0; i<myDesignsList.length; i++){
     myDesignsList[i].updateColorToNewSettings();
@@ -74,6 +82,7 @@ function closeColorSettings(){
     }
   }
 
+  closeWaitPopUp();
 
 
 }

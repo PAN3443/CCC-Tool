@@ -2,6 +2,7 @@
 // -------------HSV LAB DIN99---------------//
 //////////////////////////////////////////
 function hueInit() {
+
   var canvasID = "id_EditPage_PathPlot_SingleCanvas_0";
 
   var canvasColorspace = document.getElementById(canvasID);
@@ -21,7 +22,7 @@ function hueInit() {
 
   var colorspaceCenterX = Math.round(canvasColorspace.width / 2);
   var colorspaceCenterY = Math.round(canvasColorspace.height / 2);
-  var colorspaceRadius = Math.round((canvasColorspace.width / 2) * radiusratio);
+  var colorspaceRadius = Math.round((canvasColorspace.width / 2));// * radiusratio);
 
   var errorRGBColor = new classColor_RGB(0.5, 0.5, 0.5);
 
@@ -80,12 +81,6 @@ function hueInit() {
       }
       break;
     case "lab":
-      var xStart = canvasColorspace.width * 0.1;
-      var yStart = canvasColorspace.height * 0.1;
-      var xEnd = canvasColorspace.width * 0.9;
-      var yEnd = canvasColorspace.height * 0.9;
-      var xWidth = canvasColorspace.width * labSpaceRectRange;
-      var yHeight = canvasColorspace.height * labSpaceRectRange;
 
       colorspaceCenterX = Math.round(canvasColorspace.width / 2);
       colorspaceCenterY = Math.round(canvasColorspace.height / 2);
@@ -95,25 +90,17 @@ function hueInit() {
 
         for (var y = 0; y < canvasColorspace.height; y++) {
 
-          if (x >= xStart && x <= xEnd && y >= yStart && y <= yEnd) {
             // calc hsv color
             var colorRGB;
 
+            var aVal = ((x - colorspaceCenterX) / (canvasColorspace.width / 2)) * labSpaceRange;
+            var bVal = ((y - colorspaceCenterY) / (canvasColorspace.height / 2)) * labSpaceRange;
+            var lVal = backgroundValue;
             if (mouseGrappedKeyID == -1) {
-              var lVal;
-
-
-              lVal = backgroundValue;
-
-
-              var aVal = ((x - colorspaceCenterX) / (xWidth / 2)) * labSpaceRange;
-              var bVal = ((y - colorspaceCenterY) / (yHeight / 2)) * labSpaceRange;
 
               var colorLAB = new classColor_LAB(lVal, aVal, bVal);
               colorRGB = colorLAB.calcRGBColor();
             } else {
-
-              var lVal;
 
               switch (mouseGrappedColorSide) {
                 case 0:
@@ -125,8 +112,6 @@ function hueInit() {
                   lVal = globalCMS1.getRightKeyColor(mouseGrappedKeyID, "lab").getLValue();
               }
 
-              var aVal = ((x - colorspaceCenterX) / (xWidth / 2)) * labSpaceRange;
-              var bVal = ((y - colorspaceCenterY) / (yHeight / 2)) * labSpaceRange;
 
               var colorLAB = new classColor_LAB(lVal, aVal, bVal);
 
@@ -150,18 +135,12 @@ function hueInit() {
             colorspaceBackgroundData.data[index + 1] = Math.round(colorRGB.getGValue() * 255); // g
             colorspaceBackgroundData.data[index + 2] = Math.round(colorRGB.getBValue() * 255); // b
             colorspaceBackgroundData.data[index + 3] = 255; //a
-          }
+
         }
 
       }
       break;
     case "din99":
-      var xStart = canvasColorspace.width * 0.1;
-      var yStart = canvasColorspace.height * 0.1;
-      var xEnd = canvasColorspace.width * 0.9;
-      var yEnd = canvasColorspace.height * 0.9;
-      var xWidth = canvasColorspace.width * labSpaceRectRange;
-      var yHeight = canvasColorspace.height * labSpaceRectRange;
 
 
       rangeA99 = rangeA99Pos - rangeA99Neg;
@@ -176,13 +155,12 @@ function hueInit() {
 
         for (var y = 0; y < canvasColorspace.height; y++) {
 
-          if (x >= xStart && x <= xEnd && y >= yStart && y <= yEnd) {
+
             // calc hsv color
             var colorRGB;
-            //var a99Val = ((x-colorspaceCenterX)/(xWidth/2))*din99SpaceRange;
-            //var b99Val = ((y-colorspaceCenterY)/(yHeight/2))*din99SpaceRange;
-            var a99Val = ((x - xStart) / (xEnd - xStart)) * rangeA99 + rangeA99Neg;
-            var b99Val = ((y - yStart) / (yEnd - yStart)) * rangeB99 + rangeB99Neg;
+
+            var a99Val = (x  / canvasColorspace.width) * rangeA99 + rangeA99Neg;
+            var b99Val = (y / canvasColorspace.height) * rangeB99 + rangeB99Neg;
 
             var colorDIN99;
 
@@ -237,7 +215,7 @@ function hueInit() {
             colorspaceBackgroundData.data[index + 1] = Math.round(colorRGB.getGValue() * 255); // g
             colorspaceBackgroundData.data[index + 2] = Math.round(colorRGB.getBValue() * 255); // b
             colorspaceBackgroundData.data[index + 3] = 255; //a
-          }
+
         }
 
       }
@@ -268,7 +246,6 @@ function init_VPlot() {
   canvasVPlot3.width = canvasObjBox.width;
   canvasVPlot3.height = canvasObjBox.height;
 
-  //var ratioWidthHeight = canvasColorspaceWidth/canvasColorspaceHeight;
   var vPlotContex1 = canvasVPlot1.getContext("2d");
   var vPlotContex2 = canvasVPlot2.getContext("2d");
   var vPlotContex3 = canvasVPlot3.getContext("2d");
@@ -628,26 +605,11 @@ function drawElements_HSV_LAB_DIN99(isCompareMap) {
   var canvasColorspace = document.getElementById("id_EditPage_PathPlot_SingleCanvas_2");
   var canvasObjBox = canvasColorspace.getBoundingClientRect();
 
-
   canvasColorspace.width = canvasObjBox.width;
   canvasColorspace.height = canvasObjBox.height;
-  var canvasColorspaceWidth = canvasColorspace.width;
-  var canvasColorspaceHeight = canvasColorspace.height;
 
-  var colorspaceCenterX = Math.round(canvasColorspaceWidth / 2);
-  var colorspaceCenterY = Math.round(canvasColorspaceHeight / 2);
-  var colorspaceRadius = Math.round((canvasColorspaceWidth / 2) * radiusratio);
-  var xStart = canvasColorspaceWidth * 0.1;
-  var yStart = canvasColorspaceHeight * 0.1;
-  var xEnd = canvasColorspaceWidth * 0.9;
-  var yEnd = canvasColorspaceHeight * 0.9;
-
-  var xWidth = canvasColorspaceWidth * 0.8;
-  var yHeight = canvasColorspaceHeight * 0.8;
-
-  //var ratioWidthHeight = canvasColorspaceWidth/canvasColorspaceHeight;
   var colorspaceContex = canvasColorspace.getContext("2d");
-  var canvasColorspaceData = colorspaceContex.getImageData(0, 0, canvasColorspaceWidth, canvasColorspaceHeight);
+  var canvasColorspaceData = colorspaceContex.getImageData(0, 0, canvasColorspace.width, canvasColorspace.height);
 
   colorspaceContex.mozImageSmoothingEnabled = false;
   colorspaceContex.webkitImageSmoothingEnabled = false;
@@ -707,8 +669,8 @@ function drawElements_HSV_LAB_DIN99(isCompareMap) {
   /////////////////////////////////////////////////////////////////
 
   var xPos, yPos, xPos2, yPos2, xVPos, xVPos2, tmpColor, tmpColor2;
-  xVPos = xStart;
-  xVPos2 = xStart;
+  xVPos = 0;
+  xVPos2 = 0;
 
   var csModus=pathColorspace;
   if((pathColorspace=="lab" || pathColorspace=="din99") && onlyRGBPossibleColor){
@@ -740,14 +702,14 @@ function drawElements_HSV_LAB_DIN99(isCompareMap) {
           ////////////////////////////////////////////////////////////////
           /////// left Color
 
-          drawHueElement(tmpColor, xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, drawCircle, colorspaceContex, i, 0);
+          drawHueElement(tmpColor, canvasColorspace.width, canvasColorspace.height, drawCircle, colorspaceContex, i, 0);
 
           ////////////////////////////////////////////////////////////////
           /////// Right Color
 
           var tmpColor2 = workCMS.getRightKeyColor(i, csModus);
 
-          drawHueElement(tmpColor2, xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, true, colorspaceContex, i, 1);
+          drawHueElement(tmpColor2, canvasColorspace.width, canvasColorspace.height, true, colorspaceContex, i, 1);
 
 
           ////////////////////////////////////////////////////////////////
@@ -776,7 +738,7 @@ function drawElements_HSV_LAB_DIN99(isCompareMap) {
 
             tmpColor = workCMS.getLeftKeyColor(i, csModus);
 
-          drawHueElement(tmpColor, xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, drawCircle, colorspaceContex, i, 0);
+          drawHueElement(tmpColor, canvasColorspace.width, canvasColorspace.height, drawCircle, colorspaceContex, i, 0);
 
           ////////////////////////////////////////////////////////
           ///// Right Color
@@ -798,7 +760,7 @@ function drawElements_HSV_LAB_DIN99(isCompareMap) {
 
             tmpColor = workCMS.getRightKeyColor(i, csModus);
 
-          drawHueElement(tmpColor, xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, true, colorspaceContex, i, 1);
+          drawHueElement(tmpColor, canvasColorspace.width, canvasColorspace.height, true, colorspaceContex, i, 1);
 
           ////////////////////////////////////////////////////////////////
           /////// V Plot
@@ -811,7 +773,7 @@ function drawElements_HSV_LAB_DIN99(isCompareMap) {
 
           tmpColor = workCMS.getRightKeyColor(i, csModus);
 
-          drawHueElement(tmpColor, xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, true, colorspaceContex, i, 2);
+          drawHueElement(tmpColor, canvasColorspace.width, canvasColorspace.height, true, colorspaceContex, i, 2);
 
           ////////////////////////////////////////////////////////////////
           /////// V Plot
@@ -846,23 +808,9 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap) {
 
   canvasColorspace.width = canvasObjBox.width;
   canvasColorspace.height = canvasObjBox.height;
-  var canvasColorspaceWidth = canvasColorspace.width;
-  var canvasColorspaceHeight = canvasColorspace.height;
 
-  var colorspaceCenterX = Math.round(canvasColorspaceWidth / 2);
-  var colorspaceCenterY = Math.round(canvasColorspaceHeight / 2);
-  var colorspaceRadius = Math.round((canvasColorspaceWidth / 2) * radiusratio);
-  var xStart = canvasColorspaceWidth * 0.1;
-  var yStart = canvasColorspaceHeight * 0.1;
-  var xEnd = canvasColorspaceWidth * 0.9;
-  var yEnd = canvasColorspaceHeight * 0.9;
-
-  var xWidth = canvasColorspaceWidth * 0.8;
-  var yHeight = canvasColorspaceHeight * 0.8;
-
-  //var ratioWidthHeight = canvasColorspaceWidth/canvasColorspaceHeight;
   var colorspaceContex = canvasColorspace.getContext("2d");
-  var canvasColorspaceData = colorspaceContex.getImageData(0, 0, canvasColorspaceWidth, canvasColorspaceHeight);
+  var canvasColorspaceData = colorspaceContex.getImageData(0, 0, canvasColorspace.width, canvasColorspace.height);
 
   colorspaceContex.mozImageSmoothingEnabled = false;
   colorspaceContex.webkitImageSmoothingEnabled = false;
@@ -946,10 +894,10 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap) {
           break;
         case "twin key":
           var intervalIndexA = workCMS.getIntervalPositions(i);
-          drawHueLine(workCMS.getLeftKeyColor(i, pathColorspace), workCMS.getRightKeyColor(i, csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, true, colorspaceContex);
+          drawHueLine(workCMS.getLeftKeyColor(i, pathColorspace), workCMS.getRightKeyColor(i, csModus), canvasColorspace.width, canvasColorspace.height, true, colorspaceContex);
 
             for (var j = intervalIndexA[0]; j < intervalIndexA[1]; j++) {
-              drawHueLine(workCMS.getIntervalColor(j, csModus), workCMS.getIntervalColor(j + 1, csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false, colorspaceContex);
+              drawHueLine(workCMS.getIntervalColor(j, csModus), workCMS.getIntervalColor(j + 1, csModus), canvasColorspace.width, canvasColorspace.height, false, colorspaceContex);
               drawVLine(workCMS.getIntervalColor(j, csModus),
                 workCMS.getIntervalColor(j + 1, csModus),
                 workCMS.getIntervalRef(j),
@@ -960,7 +908,7 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap) {
             }
           break;
         case "left key":
-          drawHueLine(workCMS.getLeftKeyColor(i, csModus), workCMS.getLeftKeyColor(i + 1, csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, true,  colorspaceContex);
+          drawHueLine(workCMS.getLeftKeyColor(i, csModus), workCMS.getLeftKeyColor(i + 1, csModus), canvasColorspace.width, canvasColorspace.height, true,  colorspaceContex);
           drawVLine(workCMS.getLeftKeyColor(i + 1, csModus),
             workCMS.getLeftKeyColor(i + 1, csModus),
             workCMS.getRefPosition(i),
@@ -975,7 +923,7 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap) {
 
           if(workCMS.getKeyType(i)=="dual key"){
             // we do not save the interval colors for dual key double -> it is easier for the analyze algorithm
-            drawHueLine(workCMS.getLeftKeyColor(i,csModus), workCMS.getIntervalColor(intervalIndexA[0],csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false,  colorspaceContex);
+            drawHueLine(workCMS.getLeftKeyColor(i,csModus), workCMS.getIntervalColor(intervalIndexA[0],csModus), canvasColorspace.width, canvasColorspace.height, false,  colorspaceContex);
             drawVLine(workCMS.getLeftKeyColor(i,csModus),
               workCMS.getIntervalColor(intervalIndexA[0],csModus),
               workCMS.getRefPosition(i),
@@ -986,7 +934,7 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap) {
           }
 
             for (var j = intervalIndexA[0]; j < intervalIndexA[1]; j++) {
-              drawHueLine(workCMS.getIntervalColor(j, csModus), workCMS.getIntervalColor(j + 1, csModus), xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, false,  colorspaceContex);
+              drawHueLine(workCMS.getIntervalColor(j, csModus), workCMS.getIntervalColor(j + 1, csModus), canvasColorspace.width, canvasColorspace.height, false,  colorspaceContex);
               drawVLine(workCMS.getIntervalColor(j, csModus),
                 workCMS.getIntervalColor(j + 1, csModus),
                 workCMS.getIntervalRef(j),
@@ -1065,7 +1013,7 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap) {
 
 }
 
-function drawHueElement(tmpColor, xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, drawCircle, colorspaceContex, keyIndex, colorSide) {
+function drawHueElement(tmpColor, canvasColorspaceWidth, canvasColorspaceHeight, drawCircle, colorspaceContex, keyIndex, colorSide) {
 
   var showColor = tmpColor.calcRGBColor();
   if(doColorblindnessSim){
@@ -1077,8 +1025,14 @@ function drawHueElement(tmpColor, xWidth, yHeight, xStart, yStart, xEnd, yEnd, c
   var yPos3D = undefined;
   var zPos3D = undefined;
 
+  var colorspaceCenterX = Math.round(canvasColorspaceWidth/2);
+  var colorspaceCenterY = Math.round(canvasColorspaceHeight/2);
+
   switch (pathColorspace) {
     case "hsv":
+
+      var colorspaceRadius = Math.round((canvasColorspaceWidth / 2));
+
       var tmpDis = tmpColor.getSValue() * colorspaceRadius;
       var tmpRad = (tmpColor.getHValue() * Math.PI * 2) - Math.PI;
       xPos = tmpDis * Math.cos(tmpRad) + colorspaceCenterX;
@@ -1090,12 +1044,29 @@ function drawHueElement(tmpColor, xWidth, yHeight, xStart, yStart, xEnd, yEnd, c
       zPos3D = tmpDis * Math.sin(tmpRad);
       break;
     case "lab":
-      xPos = ((tmpColor.getAValue() / labSpaceRange) * xWidth / 2) + colorspaceCenterX;
-      yPos = ((tmpColor.getBValue() / labSpaceRange) * yHeight / 2) + colorspaceCenterY;
+      xPos = ((tmpColor.getAValue() / labSpaceRange) * canvasColorspaceWidth / 2) + colorspaceCenterX;
+      yPos = ((tmpColor.getBValue() / labSpaceRange) * canvasColorspaceHeight / 2) + colorspaceCenterY;
+
+      if(positionsLAB.length!=0){
+        var labABMax2 = labABMax*2;
+        xPos3D = labSPos+((tmpColor.get2Value()+labABMax)/labABMax2)*(labEPos-labSPos);
+        yPos3D = labSPos+(tmpColor.get1Value()/100.0)*(labEPos-labSPos);
+        zPos3D = labSPos+((tmpColor.get3Value()+labABMax)/labABMax2)*(labEPos-labSPos);
+      }
+
+
       break;
     case "din99":
-      xPos = ((tmpColor.getA99Value() - rangeA99Neg) / rangeA99 * (xEnd - xStart)) + xStart;
-      yPos = ((tmpColor.getB99Value() - rangeB99Neg) / rangeB99 * (yEnd - yStart)) + yStart;
+      xPos = (tmpColor.getA99Value() - rangeA99Neg) / rangeA99 * canvasColorspaceWidth;
+      yPos = (tmpColor.getB99Value() - rangeB99Neg) / rangeB99 * canvasColorspaceHeight;
+
+      if(positionsDIN99.length!=0){
+        var din99ABMax2 = din99ABMax*2;
+        xPos3D = din99SPos+((tmpColor.get2Value()+din99ABMax)/din99ABMax2)*(din99EPos-din99SPos);
+        yPos3D = din99SPos+(tmpColor.get1Value()/100.0)*(din99EPos-din99SPos);
+        zPos3D = din99SPos+((tmpColor.get3Value()+din99ABMax)/din99ABMax2)*(din99EPos-din99SPos);
+      }
+
       break;
     default:
       console.log("Error at the changeColorspace function");
@@ -1176,7 +1147,7 @@ function drawVElement(tmpColor, currentRef, startRef, rangeSize, vPlotxStart, vP
 
 }
 
-function drawHueLine(tmpColor, tmpColor2, xWidth, yHeight, xStart, yStart, xEnd, yEnd, colorspaceRadius, colorspaceCenterY, colorspaceCenterX, isDashed, colorspaceContex) {
+function drawHueLine(tmpColor, tmpColor2, canvasColorspaceWidth, canvasColorspaceHeight, isDashed, colorspaceContex) {
   // RG
 
   var xPos3D1 = undefined;
@@ -1187,8 +1158,12 @@ function drawHueLine(tmpColor, tmpColor2, xWidth, yHeight, xStart, yStart, xEnd,
   var yPos3D2 = undefined;
   var zPos3D2 = undefined;
 
+  var colorspaceCenterX = Math.round(canvasColorspaceWidth/2);
+  var colorspaceCenterY = Math.round(canvasColorspaceHeight/2);
+
   switch (pathColorspace) {
     case "hsv":
+      var colorspaceRadius = Math.round((canvasColorspaceWidth / 2));
       var tmpDis = tmpColor.getSValue() * colorspaceRadius;
       var tmpRad = (tmpColor.getHValue() * Math.PI * 2) - Math.PI;
       xPos = tmpDis * Math.cos(tmpRad) + colorspaceCenterX;
@@ -1210,18 +1185,41 @@ function drawHueLine(tmpColor, tmpColor2, xWidth, yHeight, xStart, yStart, xEnd,
       zPos3D2 = tmpDis2 * Math.sin(tmpRad2);
       break;
     case "lab":
-      xPos = ((tmpColor.getAValue() / labSpaceRange) * xWidth / 2) + colorspaceCenterX;
-      yPos = ((tmpColor.getBValue() / labSpaceRange) * yHeight / 2) + colorspaceCenterY;
+      xPos = ((tmpColor.getAValue() / labSpaceRange) * canvasColorspaceWidth / 2) + colorspaceCenterX;
+      yPos = ((tmpColor.getBValue() / labSpaceRange) * canvasColorspaceHeight / 2) + colorspaceCenterY;
 
-      xPos2 = ((tmpColor2.getAValue() / labSpaceRange) * xWidth / 2) + colorspaceCenterX;
-      yPos2 = ((tmpColor2.getBValue() / labSpaceRange) * yHeight / 2) + colorspaceCenterY;
+      xPos2 = ((tmpColor2.getAValue() / labSpaceRange) * canvasColorspaceWidth / 2) + colorspaceCenterX;
+      yPos2 = ((tmpColor2.getBValue() / labSpaceRange) * canvasColorspaceHeight / 2) + colorspaceCenterY;
+
+      if(positionsLAB.length!=0){
+        var labABMax2 = labABMax*2;
+        xPos3D1 = labSPos+((tmpColor.get2Value()+labABMax)/labABMax2)*(labEPos-labSPos);
+        yPos3D1 = labSPos+(tmpColor.get1Value()/100.0)*(labEPos-labSPos);
+        zPos3D1 = labSPos+((tmpColor.get3Value()+labABMax)/labABMax2)*(labEPos-labSPos);
+
+        xPos3D2 = labSPos+((tmpColor2.get2Value()+labABMax)/labABMax2)*(labEPos-labSPos);
+        yPos3D2 = labSPos+(tmpColor2.get1Value()/100.0)*(labEPos-labSPos);
+        zPos3D2 = labSPos+((tmpColor2.get3Value()+labABMax)/labABMax2)*(labEPos-labSPos);
+      }
+
       break;
     case "din99":
-      xPos = ((tmpColor.getA99Value() - rangeA99Neg) / rangeA99 * (xEnd - xStart)) + xStart;
-      yPos = ((tmpColor.getB99Value() - rangeB99Neg) / rangeB99 * (yEnd - yStart)) + yStart;
+      xPos = (tmpColor.getA99Value() - rangeA99Neg) / rangeA99 * canvasColorspaceWidth;
+      yPos = (tmpColor.getB99Value() - rangeB99Neg) / rangeB99 * canvasColorspaceHeight;
 
-      xPos2 = ((tmpColor2.getA99Value() - rangeA99Neg) / rangeA99 * (xEnd - xStart)) + xStart;
-      yPos2 = ((tmpColor2.getB99Value() - rangeB99Neg) / rangeB99 * (yEnd - yStart)) + yStart;
+      xPos2 = (tmpColor2.getA99Value() - rangeA99Neg) / rangeA99 * canvasColorspaceWidth;
+      yPos2 = (tmpColor2.getB99Value() - rangeB99Neg) / rangeB99 * canvasColorspaceHeight;
+
+      if(positionsDIN99.length!=0){
+        var din99ABMax2 = din99ABMax*2;
+        xPos3D1 = din99SPos+((tmpColor.get2Value()+din99ABMax)/din99ABMax2)*(din99EPos-din99SPos);
+        yPos3D1 = din99SPos+(tmpColor.get1Value()/100.0)*(din99EPos-din99SPos);
+        zPos3D1 = din99SPos+((tmpColor.get3Value()+din99ABMax)/din99ABMax2)*(din99EPos-din99SPos);
+
+        xPos3D2 = din99SPos+((tmpColor2.get2Value()+din99ABMax)/din99ABMax2)*(din99EPos-din99SPos);
+        yPos3D2 = din99SPos+(tmpColor2.get1Value()/100.0)*(din99EPos-din99SPos);
+        zPos3D2 = din99SPos+((tmpColor2.get3Value()+din99ABMax)/din99ABMax2)*(din99EPos-din99SPos);
+      }
 
       break;
     default:

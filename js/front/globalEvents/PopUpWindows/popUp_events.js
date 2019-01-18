@@ -1,3 +1,18 @@
+//////////////////////////////////////
+/// Wait /////
+///////////////////////////////////
+
+function openWaitPopUp(text){
+  document.getElementById("waitWindow").style.display="flex";
+  document.getElementById("id_waitText").innerHTML = text;
+}
+
+function closeWaitPopUp(){
+  document.getElementById("waitWindow").style.display="none";
+}
+
+
+
 
 //////////////////////////////////////
 /// News /////

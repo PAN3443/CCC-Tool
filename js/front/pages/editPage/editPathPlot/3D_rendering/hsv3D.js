@@ -15,14 +15,8 @@ function hsvMesh(){
 
   var linesGeometry = new THREE.BufferGeometry();
   var linesMaterial = new THREE.LineBasicMaterial( { vertexColors: THREE.VertexColors, linewidth: 2 } );
-
-
   var linesPoints = [];
-
-
   var linesIndices = [];
-
-
   var linesColors = [];
 
 

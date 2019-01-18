@@ -30,7 +30,7 @@ function readDataFile(e) {
   var fileName = file.name;
 
   var reader = new FileReader();
-
+  openWaitPopUp("Loading File.");
   reader.onload = function(e) {
 
     domainContent = e.target.result;
@@ -90,6 +90,7 @@ function readDataFile(e) {
 
         // update the positions of the input fields
         updateEditPage();
+        closeWaitPopUp();
       }
 
 

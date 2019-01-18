@@ -40,28 +40,15 @@ function hsvLabDinAnimation(){
 function mouseMoveColorspace(event) {
   // calc mouse pos
   var canvasObj = document.getElementById(event.target.id);
-  var colorspaceCenterX = Math.round(canvasObj.width / 2);
-  var colorspaceCenterY = Math.round(canvasObj.height / 2);
-  var colorspaceRadius = Math.round((canvasObj.width / 2) * radiusratio);
-  var xStart = canvasObj.width * 0.1;
-  var yStart = canvasObj.height * 0.1;
-  var xEnd = canvasObj.width * 0.9;
-  var yEnd = canvasObj.height * 0.9;
-
 
 
   var rect = canvasObj.getBoundingClientRect();
-  /*var canvasPosX = event.clientX - rect.left;
-  var canvasPosY = event.clientY - rect.top;
-  var ratioToColorspaceResolutionX = hue_resolution_X / rect.width;
-  var ratioToColorspaceResolutionY = hue_resolution_Y / rect.height;
-  mousePosX = canvasPosX * ratioToColorspaceResolutionX;
-  mousePosY = canvasPosY * ratioToColorspaceResolutionY;*/
   mousePosX =  event.clientX - rect.left;
   mousePosY = event.clientY - rect.top;
 
-  var xWidth = canvasObj.width * labSpaceRectRange;
-  var yHeight = canvasObj.height * labSpaceRectRange;
+  var colorspaceCenterX = Math.round(canvasObj.width / 2);
+  var colorspaceCenterY = Math.round(canvasObj.height / 2);
+  var colorspaceRadius = Math.round(canvasObj.width / 2);
 
   if(mouseGrappedKeyID==-1){
 
@@ -95,7 +82,7 @@ function mouseMoveColorspace(event) {
 
           if(drawCircle){
 
-            tmpPos = calcHuePos(tmpColor,xStart,xEnd, yStart, yEnd, colorspaceCenterX,colorspaceCenterY,colorspaceRadius,xWidth,yHeight);
+            tmpPos = calcHuePos(tmpColor,canvasObj.width, canvasObj.height);
 
             if (checkInsideCirce(tmpPos[0], tmpPos[1], i,0)) {
               found = true;
@@ -103,7 +90,7 @@ function mouseMoveColorspace(event) {
               break;
             }
 
-            tmpPos = calcHuePos(tmpColor2,xStart,xEnd, yStart, yEnd, colorspaceCenterX,colorspaceCenterY,colorspaceRadius,xWidth,yHeight);
+            tmpPos = calcHuePos(tmpColor2,canvasObj.width, canvasObj.height);
             if (checkInsideCirce(tmpPos[0], tmpPos[1], i,1)) {
               found = true;
               displayColor=tmpColor2;
@@ -113,7 +100,7 @@ function mouseMoveColorspace(event) {
           }
           else{
 
-            tmpPos = calcHuePos(tmpColor2,xStart,xEnd, yStart, yEnd, colorspaceCenterX,colorspaceCenterY,colorspaceRadius,xWidth,yHeight);
+            tmpPos = calcHuePos(tmpColor2,canvasObj.width, canvasObj.height);
             if (checkInsideCirce(tmpPos[0], tmpPos[1], i,1)) {
               displayColor=tmpColor2;
               found = true;
@@ -121,7 +108,7 @@ function mouseMoveColorspace(event) {
             }
 
 
-            tmpPos = calcHuePos(tmpColor,xStart,xEnd, yStart, yEnd, colorspaceCenterX,colorspaceCenterY,colorspaceRadius,xWidth,yHeight);
+            tmpPos = calcHuePos(tmpColor,canvasObj.width, canvasObj.height);
             if (checkInsideRect(tmpPos[0], tmpPos[1], i,0)) {
               displayColor=tmpColor;
               found = true;
@@ -140,7 +127,7 @@ function mouseMoveColorspace(event) {
             drawCircle = false;
 
 
-          tmpPos = calcHuePos(tmpColor,xStart,xEnd, yStart, yEnd, colorspaceCenterX,colorspaceCenterY,colorspaceRadius,xWidth,yHeight);
+          tmpPos = calcHuePos(tmpColor,canvasObj.width, canvasObj.height);
           if(drawCircle){
               if (checkInsideCirce(tmpPos[0], tmpPos[1], i,0)) {
                 displayColor=tmpColor;
@@ -161,7 +148,7 @@ function mouseMoveColorspace(event) {
 
           tmpColor = globalCMS1.getRightKeyColor(i, pathColorspace); // right color because of right key
 
-          tmpPos = calcHuePos(tmpColor,xStart,xEnd, yStart, yEnd, colorspaceCenterX,colorspaceCenterY,colorspaceRadius,xWidth,yHeight);
+          tmpPos = calcHuePos(tmpColor,canvasObj.width, canvasObj.height);
 
           if (checkInsideCirce(tmpPos[0], tmpPos[1], i,1)) {
             displayColor=tmpColor;
@@ -174,7 +161,7 @@ function mouseMoveColorspace(event) {
 
           tmpColor = globalCMS1.getRightKeyColor(i, pathColorspace); // right color because of right key
 
-          tmpPos = calcHuePos(tmpColor,xStart,xEnd, yStart, yEnd, colorspaceCenterX,colorspaceCenterY,colorspaceRadius,xWidth,yHeight);
+          tmpPos = calcHuePos(tmpColor,canvasObj.width, canvasObj.height);
           if (checkInsideCirce(tmpPos[0], tmpPos[1], i,2)) {
             displayColor=tmpColor;
             found = true;
@@ -255,10 +242,9 @@ function mouseMoveColorspace(event) {
         }
         break
       case "lab":
-        var aVal = ((mousePosX - colorspaceCenterX) / (xWidth / 2)) * labSpaceRange;
-        var bVal = ((mousePosY - colorspaceCenterY) / (yHeight / 2)) * labSpaceRange;
+        var aVal = ((mousePosX - colorspaceCenterX) / (canvasObj.width / 2)) * labSpaceRange;
+        var bVal = ((mousePosY - colorspaceCenterY) / (canvasObj.height / 2)) * labSpaceRange;
 
-        if (aVal >= labSpaceRange * -1 && aVal <= labSpaceRange && bVal >= labSpaceRange * -1 && bVal <= labSpaceRange) {
 
           tmpColor = new classColor_LAB(updateCurrentValue, aVal, bVal);
 
@@ -275,13 +261,11 @@ function mouseMoveColorspace(event) {
             }
           }
 
-        } else {
-          return;
-        }
+
         break;
       case "din99":
-        var a99Val = ((mousePosX - xStart) / (xEnd - xStart)) * rangeA99 + rangeA99Neg;
-        var b99Val = ((mousePosY - yStart) / (yEnd - yStart)) * rangeB99 + rangeB99Neg;
+        var a99Val = (mousePosX / canvasObj.width) * rangeA99 + rangeA99Neg;
+        var b99Val = (mousePosY / canvasObj.height) * rangeB99 + rangeB99Neg;
 
         //if (a99Val>=din99SpaceRange*-1 && a99Val<=din99SpaceRange && b99Val>=din99SpaceRange*-1 && b99Val<=din99SpaceRange){
         if (a99Val >= rangeA99Neg && a99Val <= rangeA99Pos && b99Val >= rangeB99Neg && b99Val <= rangeB99Pos) {
@@ -422,14 +406,20 @@ function mouseUpColorspace() {
 
 }
 
-function calcHuePos(tmpColor,xStart,xEnd, yStart, yEnd, colorspaceCenterX,colorspaceCenterY,colorspaceRadius,xWidth,yHeight){
+function calcHuePos(tmpColor,canvasObjWidth, canvasObjHeight){
 
   var tmpPos=[];
   var xPos = undefined;
   var yPos = undefined;
 
+  var colorspaceCenterX = Math.round(canvasObjWidth / 2);
+  var colorspaceCenterY = Math.round(canvasObjHeight / 2);
+
+
+
   switch (pathColorspace) {
       case "hsv":
+        var colorspaceRadius = Math.round(canvasObjWidth / 2);
         var tmpDis = tmpColor.getSValue() * colorspaceRadius;
         var tmpRad = (tmpColor.getHValue() * Math.PI * 2) - Math.PI;
         xPos = tmpDis * Math.cos(tmpRad) + colorspaceCenterX;
@@ -437,12 +427,12 @@ function calcHuePos(tmpColor,xStart,xEnd, yStart, yEnd, colorspaceCenterX,colors
         break;
       break;
       case "lab":
-        xPos = ((tmpColor.getAValue() / labSpaceRange) * xWidth / 2) + colorspaceCenterX;
-        yPos = ((tmpColor.getBValue() / labSpaceRange) * yHeight / 2) + colorspaceCenterY;
+        xPos = ((tmpColor.getAValue() / labSpaceRange) * canvasObjWidth / 2) + colorspaceCenterX;
+        yPos = ((tmpColor.getBValue() / labSpaceRange) * canvasObjHeight / 2) + colorspaceCenterY;
         break;
       case "din99":
-        xPos = ((tmpColor.getA99Value() - rangeA99Neg) / rangeA99 * (xEnd - xStart)) + xStart;
-        yPos = ((tmpColor.getB99Value() - rangeB99Neg) / rangeB99 * (yEnd - yStart)) + yStart;
+        xPos = (tmpColor.getA99Value() - rangeA99Neg) / rangeA99 * canvasObjWidth;
+        yPos = (tmpColor.getB99Value() - rangeB99Neg) / rangeB99 * canvasObjHeight;
         break;
       break;
         default:
@@ -574,11 +564,9 @@ function calcVYPos(tmpColor,plotYStart,heigthVArea, type){
           tmpY = Math.round(plotYStart - (heigthVArea * tmpColor.getHValue()));
           break;
         case "lab":
-          //tmpY = Math.round(plotYStart - (heigthVArea * (tmpColor.getAValue()+labSpaceRange) / (labSpaceRange*2)));
           tmpY = Math.round(plotYStart - (heigthVArea * tmpColor.getLValue() / 100));
           break;
         case "din99":
-          //tmpY = Math.round(plotYStart - (heigthVArea * (tmpColor.getA99Value()+(rangeA99Neg*-1)) / (rangeA99Pos-rangeA99Neg)));
           tmpY = Math.round(plotYStart - (heigthVArea * tmpColor.getL99Value() / 100));
           break;
         default:
@@ -592,11 +580,9 @@ function calcVYPos(tmpColor,plotYStart,heigthVArea, type){
             tmpY = Math.round(plotYStart - (heigthVArea * tmpColor.getSValue()));
             break;
           case "lab":
-            //tmpY = Math.round(plotYStart - (heigthVArea * (tmpColor.getBValue()+labSpaceRange) / (labSpaceRange*2)));
             tmpY = Math.round(plotYStart - (heigthVArea * (tmpColor.getAValue()+labSpaceRange) / (labSpaceRange*2)));
             break;
           case "din99":
-            //tmpY = Math.round(plotYStart - (heigthVArea * (tmpColor.getB99Value()+(rangeB99Neg*-1)) / (rangeB99Pos-rangeB99Neg)));
             tmpY = Math.round(plotYStart - (heigthVArea * (tmpColor.getA99Value()+(rangeA99Neg*-1)) / (rangeA99Pos-rangeA99Neg)));
             break;
           default:

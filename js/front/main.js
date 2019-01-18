@@ -1,5 +1,8 @@
 window.onload = function() {
 
+
+  openWaitPopUp("Initialisation of the tool.");
+
   if (typeof (Worker) === undefined)
   browserCanWorker=false;
   else
@@ -78,11 +81,15 @@ window.onload = function() {
   updateColorBlindness_TransferMatrices();
   doColorblindnessSim = false;
 
-
-  pageIsLoaded=true;
+  calcSpaceGridLAB();
+  calcSpaceGridDIN99();
 
   stopPathPlotAnimation();
   stopAnimationMapping();
+
+  closeWaitPopUp();
+
+
 
 }
 

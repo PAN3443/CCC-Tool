@@ -125,6 +125,11 @@ class classColorDIN99{
             return tmpLAB.calcRGBColorCorrect(errorRGBColor);
       }
 
+      checkRGBPossiblity(){
+        var tmpLAB = this.calcLABColor();
+        return tmpLAB.checkRGBPossiblity();
+      }
+
       calcHSVColor(){
           var tmpRGB = this.calcRGBColor();
           return tmpRGB.calcHSVColor();

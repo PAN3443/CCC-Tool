@@ -24,11 +24,25 @@ var textHeight = 7;
 var circleRad3D = 5;
 var bigcircleRad3D = 10;
 
+// Lab
+var positionsLAB=[];
+var labABMax = 0;
+var labSPos = -150.0; // -100-200
+var labEPos = 150.0; // -100-200
+
+// din99
+var positionsDIN99=[];
+var din99ABMax = 0;
+var din99SPos = -150.0; // -100-200
+var din99EPos = 150.0; // -100-200
+
+// HSV
 var hsv3DRadius = 200;
 var vStart3D = -100;
 var vEnd3D = 100;
+
 ///////////////////////////////////////
-//// RGB Space
+//// ALL Space
 
   var font;
   var pathPlotGroup;
@@ -36,20 +50,3 @@ var vEnd3D = 100;
   var radius = 400;
 
   var cameraLight;
-
-  //var textR, textG, textB;
-
-  //var pathPlotMesh;
-
-  /*var planeRG_material;
-  var planeRG;
-  var planeBG_material;
-  var planeBG ;
-  var planeBR_material;
-  var planeBR;
-  var planeRG255_material;
-  var planeRG255;
-  var planeBG255_material;
-  var planeBG255;
-  var planeBR255_material;
-  var planeBR255;*/
