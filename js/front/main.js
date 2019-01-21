@@ -44,7 +44,7 @@ window.onload = function() {
     switchModifyModus(1);
     switchPredefinedCMS(0);
     changeFilterPredefined(5);
-    choosePathPlotSpace(0);
+    choosePathPlotSpace(1);
     updateTableStatus();
     updateAnalzyeMappingProbeSetStatus();
 
