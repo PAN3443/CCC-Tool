@@ -103,6 +103,10 @@ function updateEditPage_ColorBlindness(){
 
       if(pathColorspace=="hsv")
         hsvMesh();
+        if(pathColorspace=="lab")
+          labMesh();
+          if(pathColorspace=="din99")
+            din99Mesh();
     }
     else{
       rgbMesh();
