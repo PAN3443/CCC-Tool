@@ -25,7 +25,7 @@ function draw3DLine(xPos,yPos, zPos, xPos2, yPos2, zPos2,isDashed){
     geometry.computeLineDistances();
 
     var line = new THREE.Line( geometry, lineMaterial );
-    pathPlotGroup.add( line );
+    pathPlotLineGroup.add( line );
 }
 
 function draw3DElement(colorHexStr,xPos,yPos,zPos, index,colorside, circle){
@@ -47,7 +47,7 @@ function draw3DElement(colorHexStr,xPos,yPos,zPos, index,colorside, circle){
     sphere.position.x = xPos;
     sphere.position.y = yPos;
     sphere.position.z = zPos;
-    pathPlotGroup.add( sphere );
+    pathPlotElementsGroup.add( sphere );
   }
   else{
 
@@ -63,7 +63,7 @@ function draw3DElement(colorHexStr,xPos,yPos,zPos, index,colorside, circle){
     cube.position.x = xPos;
     cube.position.y = yPos;
     cube.position.z = zPos;
-    pathPlotGroup.add( cube );
+    pathPlotElementsGroup.add( cube );
   }
 }
 

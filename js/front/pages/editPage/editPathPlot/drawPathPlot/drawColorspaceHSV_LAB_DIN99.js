@@ -592,16 +592,23 @@ function drawcolormap_hueSpace(calcBackground, drawInterpolationLine, doInitVplo
 
 
   if (drawInterpolationLine){
-    for (var i = pathPlotGroup.children.length - 1; i >= 0; i--) {
-      pathPlotGroup.remove(pathPlotGroup.children[i]);
-    }
+
     
+    for (var i = pathPlotLineGroup.children.length - 1; i >= 0; i--) {
+      pathPlotLineGroup.remove(pathPlotLineGroup.children[i]);
+    }
+
     drawInterpolationLineHSV_LAB_DIN99(false);
-    drawElements_HSV_LAB_DIN99(false);
+
   }
-  else {
-    drawElements_HSV_LAB_DIN99(false);
+
+  for (var i = pathPlotElementsGroup.children.length - 1; i >= 0; i--) {
+    pathPlotElementsGroup.remove(pathPlotElementsGroup.children[i]);
   }
+
+  drawElements_HSV_LAB_DIN99(false);
+
+
 
 
 }

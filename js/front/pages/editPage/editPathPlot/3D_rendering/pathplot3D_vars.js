@@ -1,9 +1,6 @@
 var doingAnimation = false;
 var pathplotAnimationID;
 
-var testAnimationInterval = 1000/30;
-var testIntervalAnimation;
-
 
 var dorotation = false;
 var downXPos =0;
@@ -45,7 +42,7 @@ var vEnd3D = 100;
 //// ALL Space
 
   var font;
-  var pathPlotGroup;
+  var pathPlotGroup, pathPlotElementsGroup;
   var scene, camera, renderer, stats, colorspaceGroup;
   var radius = 400;
 

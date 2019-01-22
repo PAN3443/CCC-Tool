@@ -18,11 +18,11 @@ function renderPathPlot() {
           renderer.clear();
           colorspaceGroup.rotation.y += ( xRotationAngle - colorspaceGroup.rotation.y ) * 0.05;
           colorspaceGroup.rotation.x += ( yRotationAngle - colorspaceGroup.rotation.x ) * 0.05;
-          pathPlotGroup.rotation.y += ( xRotationAngle - pathPlotGroup.rotation.y ) * 0.05;
-          pathPlotGroup.rotation.x += ( yRotationAngle - pathPlotGroup.rotation.x ) * 0.05;
+          pathPlotLineGroup.rotation.y += ( xRotationAngle - pathPlotLineGroup.rotation.y ) * 0.05;
+          pathPlotLineGroup.rotation.x += ( yRotationAngle - pathPlotLineGroup.rotation.x ) * 0.05;
+          pathPlotElementsGroup.rotation.y += ( xRotationAngle - pathPlotElementsGroup.rotation.y ) * 0.05;
+          pathPlotElementsGroup.rotation.x += ( yRotationAngle - pathPlotElementsGroup.rotation.x ) * 0.05;
 
-          /*pathPlotGroup.rotation.y = pathPlotGroup.rotation.y;
-          pathPlotGroup.rotation.x = pathPlotGroup.rotation.x;*/
 
           /*textR.rotation.y += ( xRotationAngle - textR.rotation.y ) * 0.05;
           textR.rotation.x += ( yRotationAngle - textR.rotation.x ) * 0.05;
@@ -105,9 +105,12 @@ function initPathPlot(){
 	camera.position.z = radius;
 
   colorspaceGroup = new THREE.Group();
-  pathPlotGroup = new THREE.Group();
+  pathPlotLineGroup = new THREE.Group();
+  pathPlotElementsGroup = new THREE.Group();
+
   scene.add( colorspaceGroup );
-  scene.add( pathPlotGroup );
+  scene.add( pathPlotLineGroup );
+  scene.add( pathPlotElementsGroup );
 
 
 }
@@ -195,108 +198,3 @@ function changeOpacityRange(event){
 
 
 }
-
-/*function initRGB3D()
-{
-
-
-
-
-
-  colorspaceGroup = new THREE.Group();
-  pathPlotGroup = new THREE.Group();
-  scene.add( colorspaceGroup );
-  scene.add( pathPlotGroup );
-	//group.position.y = 100;
-
-  // Create a Rectangle
-
-  var textureRG = THREE.ImageUtils.loadTexture( "img/WebGL/rg.png" );
-  var planeRG_geometry = new THREE.PlaneGeometry( 256, 256, 1, 1 );
-  planeRG_material = new THREE.MeshLambertMaterial({ map : textureRG, side: THREE.DoubleSide });
-  planeRG_material.transparent = true;
-  planeRG_material.opacity = opacityVal;
-  planeRG = new THREE.Mesh( planeRG_geometry, planeRG_material );
-  colorspaceGroup.add( planeRG );
-
-  planeRG.position.x = 0;
-  planeRG.position.y = 0;
-  planeRG.position.z = -128;
-
-  var textureBG = THREE.ImageUtils.loadTexture( "img/WebGL/bg.png" );
-  var planeBG_geometry = new THREE.PlaneGeometry( 256, 256, 1, 1 );
-  planeBG_material = new THREE.MeshLambertMaterial({ map : textureBG, side: THREE.DoubleSide });
-  planeBG_material.transparent = true;
-  planeBG_material.opacity = opacityVal;
-  planeBG = new THREE.Mesh( planeBG_geometry, planeBG_material );
-  colorspaceGroup.add( planeBG );
-
-  planeBG.rotation.y = Math.PI+Math.PI/2;
-
-  planeBG.position.x = -128;
-  planeBG.position.y = 0;
-  planeBG.position.z = 0;
-
-  var textureBR = THREE.ImageUtils.loadTexture( "img/WebGL/rb.png" );
-  var planeBR_geometry = new THREE.PlaneGeometry( 256, 256, 1, 1 );
-  planeBR_material = new THREE.MeshLambertMaterial({ map : textureBR, side: THREE.DoubleSide });
-  planeBR_material.transparent = true;
-  planeBR_material.opacity = opacityVal;
-  planeBR = new THREE.Mesh( planeBR_geometry, planeBR_material );
-
-  colorspaceGroup.add( planeBR );
-
-  planeBR.rotation.x = Math.PI/2;
-
-  planeBR.position.x = 0;
-  planeBR.position.y = -128;
-  planeBR.position.z = 0;
-
-  var textureRG255 = THREE.ImageUtils.loadTexture( "img/WebGL/rg_255.png" );
-  var planeRG255_geometry = new THREE.PlaneGeometry( 256, 256, 1, 1 );
-  planeRG255_material = new THREE.MeshLambertMaterial({ map : textureRG255, side: THREE.DoubleSide });
-  planeRG255_material.transparent = true;
-  planeRG255_material.opacity = opacityVal;
-  planeRG255 = new THREE.Mesh( planeRG255_geometry, planeRG255_material );
-  colorspaceGroup.add( planeRG255 );
-
-  planeRG255.position.x = 0;
-  planeRG255.position.y = 0;
-  planeRG255.position.z = 128;//
-
-  var textureBG255 = THREE.ImageUtils.loadTexture( "img/WebGL/bg_255.png" );
-  var planeBG255_geometry = new THREE.PlaneGeometry( 256, 256, 1, 1 );
-  planeBG255_material = new THREE.MeshLambertMaterial({ map : textureBG255, side: THREE.DoubleSide });
-  planeBG255_material.transparent = true;
-  planeBG255_material.opacity = opacityVal;
-  planeBG255 = new THREE.Mesh( planeBG255_geometry, planeBG255_material );
-  colorspaceGroup.add( planeBG255 );
-
-  planeBG255.rotation.y = Math.PI+Math.PI/2;
-
-  planeBG255.position.x = 128;
-  planeBG255.position.y = 0;
-  planeBG255.position.z = 0;
-
-  var textureBR255 = THREE.ImageUtils.loadTexture( "img/WebGL/rb_255.png" );
-  var planeBR255_geometry = new THREE.PlaneGeometry( 256, 256, 1, 1 );
-  planeBR255_material = new THREE.MeshLambertMaterial({ map : textureBR255, side: THREE.DoubleSide });
-  planeBR255_material.transparent = true;
-  planeBR255_material.opacity = opacityVal;
-  planeBR255 = new THREE.Mesh( planeBR255_geometry, planeBR255_material );
-
-  colorspaceGroup.add( planeBR255 );
-
-  planeBR255.rotation.x = Math.PI/2;
-
-  planeBR255.position.x = 0;
-  planeBR255.position.y = 128;
-  planeBR255.position.z = 0;
-
-
-
-
-
-
-
-}*/

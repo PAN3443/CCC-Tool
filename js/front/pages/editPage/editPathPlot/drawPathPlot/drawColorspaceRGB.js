@@ -247,20 +247,22 @@ function drawcolormap_RGBSpace(calcBackground, drawInterpolationLine) {
     rgbInit();
   }
 
-  if(drawInterpolationLine){
-    // 3D init
 
-    for (var i = pathPlotGroup.children.length - 1; i >= 0; i--) {
-      pathPlotGroup.remove(pathPlotGroup.children[i]);
+
+  if(drawInterpolationLine){
+
+    for (var i = pathPlotLineGroup.children.length - 1; i >= 0; i--) {
+      pathPlotLineGroup.remove(pathPlotLineGroup.children[i]);
     }
 
     drawInterpolationLineInRGB();
+  }
 
-    drawElements(); // do3D true
+  for (var i = pathPlotElementsGroup.children.length - 1; i >= 0; i--) {
+    pathPlotElementsGroup.remove(pathPlotElementsGroup.children[i]);
   }
-  else{
-    drawElements(); // do3D false
-  }
+  drawElements(); // do3D true
+
 
 
 
