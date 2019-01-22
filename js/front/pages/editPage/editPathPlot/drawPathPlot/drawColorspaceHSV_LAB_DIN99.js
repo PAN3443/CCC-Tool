@@ -581,19 +581,26 @@ function init_VPlot() {
 
 function drawcolormap_hueSpace(calcBackground, drawInterpolationLine, doInitVplot) {
 
+
+
   if (doInitVplot)
     init_VPlot();
 
   if (calcBackground)
     hueInit();
 
-  drawElements_HSV_LAB_DIN99(false);
+
 
   if (drawInterpolationLine){
     for (var i = pathPlotGroup.children.length - 1; i >= 0; i--) {
       pathPlotGroup.remove(pathPlotGroup.children[i]);
     }
+    
     drawInterpolationLineHSV_LAB_DIN99(false);
+    drawElements_HSV_LAB_DIN99(false);
+  }
+  else {
+    drawElements_HSV_LAB_DIN99(false);
   }
 
 
