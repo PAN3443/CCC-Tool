@@ -207,12 +207,12 @@
   <script src="js/front/globalEvents/ColormapDrawer/drawKeyBursLine.js"></script>
 
   <!-- Pop Up Windows -->
-  <script src="js/front/globalEvents/PopUpWindows/colorPicker.js"></script>
-  <script src="js/front/globalEvents/PopUpWindows/popUp_events.js"></script>
-  <script src="js/front/globalEvents/PopUpWindows/export_events.js"></script>
-  <script src="js/front/globalEvents/PopUpWindows/colorSettings.js"></script>
-  <script src="js/front/globalEvents/PopUpWindows/metricSettings.js"></script>
-  <script src="js/front/globalEvents/PopUpWindows/colorblindness.js"></script>
+  <script src="js/front/PopUpWindows/colorPicker.js"></script>
+  <script src="js/front/PopUpWindows/popUp_events.js"></script>
+  <script src="js/front/PopUpWindows/export_events.js"></script>
+  <script src="js/front/PopUpWindows/colorSettings.js"></script>
+  <script src="js/front/PopUpWindows/metricSettings.js"></script>
+  <script src="js/front/PopUpWindows/colorblindness.js"></script>
 
 
   <!-- WebGL -->
@@ -1811,7 +1811,24 @@ CIELAB, CIE94, CIEDE2000, and DIN99. For more help, you can always visit the tut
                     -------------- Pop Up Pages ---------------
                     -----------------------------------------------
                     -->
+                    <!---------------- Color Transformation Settings ---------------  -->
+                    <div id="id_PopUp_MappingDataSetWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
 
+                      <div style=" height:auto; background:white; width:50vw; border: 0.2vh solid black; margin:auto;">
+
+                        <h3 class="class_popupWindow_Label"> Mapping Data-Set </h3>
+
+
+
+
+
+                        <button class="class_generalbutton " onclick="closeMappingDataSetPopUp()" title="close" style=" width:100%; width:10vw; height:6vh; line-height:6vh; font-size:3vh; margin-bottom:2vh;  margin-left:20vw;"> <p>Close</p> </button>
+
+
+
+
+                      </div>
+                    </div>
 
                     <!---------------- Color Transformation Settings ---------------  -->
                     <div id="id_PopUp_NewsWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
@@ -1822,6 +1839,12 @@ CIELAB, CIE94, CIEDE2000, and DIN99. For more help, you can always visit the tut
 
 
                         <div style="width: 45vw; margin:2.5vw;  overflow-y:auto; overflow-x:hidden;">
+
+                          <!-- Version 0.8 -->
+                          <p class="class_NewsSection">New Features (Version 0.8.0):</p>
+                            <p class="class_NewsParagraph"> - Pop-Up Window: Mapping Data-Set (Import Data-Set, Test Functions, Test Data-Sets)</p>
+                            <p class="class_NewsParagraph"> - Test Function: Perlin Noise Field </p>
+                          <!-- Version 0.7.5 -->
                           <p class="class_NewsSection">New Features (Version 0.7.5):</p>
                           <p class="class_NewsParagraph"> - Pop-Up Window: News (see Menu-Bar)</p>
                           <p class="class_NewsParagraph"> - Pop-Up Window: Tutorials (see Menu-Bar), Welcome-Page</p>

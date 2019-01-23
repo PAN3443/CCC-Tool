@@ -45,6 +45,8 @@ function updateMappingSize()
 
 function renderMapping() {
 
+  if(mappingMesh!=undefined)
+
           mapping_renderer.clear();
 
           coordinateArrowsGroup.rotation.y += ( mapping_xRotationAngle - coordinateArrowsGroup.rotation.y ) * 0.05;
@@ -141,17 +143,22 @@ function initMapping()
   ////////////////////////////////////////////////////////////////////////////////
 
 
-  /*mapping_cameraLight = new THREE.PointLight( 0xffffff,1 );
+
+  /*mapping_cameraLight = new THREE.PointLight( 0xff0040, 1, 0, 2 ); // color, intensity, distance, decay
+  mapping_cameraLight.add( new THREE.Mesh( new THREE.SphereBufferGeometry( 0.02, 16, 8 ), new THREE.MeshBasicMaterial( { color: 0xff0040 } ) ) );
   mapping_cameraLight.position.set( 0, 0, mapping_maxRadius/2 );
-  mapping_scene.add( mapping_cameraLight );*/
+	mapping_cameraLight.castShadow = true;
+  mapping_scene.add( mapping_cameraLight );//*/
+
+  /*mapping_cameraLight = new THREE.PointLight( 0xffffff );
+  mapping_camera.add(mapping_cameraLight);*/
+
+  /////////////////////////////////////
 
   var ambientLight = new THREE.AmbientLight( 0xffffff );
   ambientLight.name = 'ambientLight';
-  mapping_scene.add( ambientLight );
+  mapping_scene.add( ambientLight );//
 
-  /*var pointLight = new THREE.PointLight( 0xffffff,1 );
-  pointLight.position.set( 0, 0, 0 );
-  mapping_scene.add( pointLight );*/
 
   mapping_camera.position.x = 0;
   mapping_camera.position.y = 0;
@@ -269,6 +276,7 @@ function eventMapping_mousewheel(event){
     return;
 
     mapping_camera.position.z=newRadius;
+
 
     return;
   }

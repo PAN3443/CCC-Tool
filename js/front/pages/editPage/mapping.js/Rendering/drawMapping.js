@@ -15,12 +15,7 @@ function drawMapping() {
   switch (type) {
     case 1: // 1. Rectangle
 
-      var geometry = new THREE.Geometry();
-      geometry.vertices = globalDomain.getPointArray();
-
-      var facesArray = new Array(globalDomain.getNumberOfCells()*2);
-
-      var workCMS;
+    var workCMS;
 
       if(document.getElementById("id_EditPage_MappingCMS_Select").selectedIndex==0){
         workCMS = cloneCMS(globalCMS1);
@@ -29,31 +24,87 @@ function drawMapping() {
         workCMS = globalCMS1.getProbeSet(document.getElementById("id_EditPage_MappingCMS_Select").selectedIndex-1).generateProbeCMS(globalCMS1);
       }
 
+      var geometry = new THREE.Geometry();
+      geometry.vertices = globalDomain.getPointArray();
+
       for (var index = 0; index < globalDomain.getNumberOfCells(); index++) {
 
-        var value= globalDomain.getCell(index).getCellValue();
 
-        var toolColor = workCMS.calculateColor(globalDomain.getCell(index).getCellValue());
+        var face1 = new THREE.Face3( globalDomain.getCell(index).getCellIndex(0), globalDomain.getCell(index).getCellIndex(1),globalDomain.getCell(index).getCellIndex(2));
+        var face2 = new THREE.Face3( globalDomain.getCell(index).getCellIndex(0), globalDomain.getCell(index).getCellIndex(2),globalDomain.getCell(index).getCellIndex(3));
 
-        if(toolColor==undefined){
-          toolColor = workCMS.getNaNColor("rgb");
+        //if(globalDomain.getCell(index).getCellValue())
+        //tmpRGBColor.getRGBString()
+
+        // index 0 color
+
+        if(globalDomain.getFieldType(currentFieldIndex)){
+
+
+
+          var tmpRGBColor =  workCMS.calculateColor(globalDomain.getCell(index).getCellValue());
+
+          if(doColorblindnessSim){
+            var tmpLMS = tmpRGBColor.calcLMSColor();
+            tmpRGBColor = tmpLMS.calcColorBlindRGBColor();
+          }
+
+          var rgbString = tmpRGBColor.getRGBString();
+          face1.vertexColors[0] = new THREE.Color(rgbString);
+          face1.vertexColors[1] = new THREE.Color(rgbString);
+          face1.vertexColors[2] = new THREE.Color(rgbString);
+
+          face2.vertexColors[0] = new THREE.Color(rgbString);
+          face2.vertexColors[1] = new THREE.Color(rgbString);
+          face2.vertexColors[2] = new THREE.Color(rgbString);
+
+        }
+        else{
+
+          // color: cell index 0
+          var tmpRGBColor =  workCMS.calculateColor(globalDomain.getCell(index).getVertexValue(0));
+          if(doColorblindnessSim){
+            var tmpLMS = tmpRGBColor.calcLMSColor();
+            tmpRGBColor = tmpLMS.calcColorBlindRGBColor();
+          }
+          face1.vertexColors[0] = new THREE.Color(tmpRGBColor.getRGBString());
+          face2.vertexColors[0] = new THREE.Color(tmpRGBColor.getRGBString());
+
+          // color: cell index 1
+          tmpRGBColor =  workCMS.calculateColor(globalDomain.getCell(index).getVertexValue(1));
+          if(doColorblindnessSim){
+            var tmpLMS = tmpRGBColor.calcLMSColor();
+            tmpRGBColor = tmpLMS.calcColorBlindRGBColor();
+          }
+          face1.vertexColors[1] = new THREE.Color(tmpRGBColor.getRGBString());
+
+
+          // color: cell index 2
+          tmpRGBColor =  workCMS.calculateColor(globalDomain.getCell(index).getVertexValue(2));
+          if(doColorblindnessSim){
+            var tmpLMS = tmpRGBColor.calcLMSColor();
+            tmpRGBColor = tmpLMS.calcColorBlindRGBColor();
+          }
+          face1.vertexColors[2] = new THREE.Color(tmpRGBColor.getRGBString());
+          face2.vertexColors[1] = new THREE.Color(tmpRGBColor.getRGBString());
+
+          // color: cell index 3
+          tmpRGBColor =  workCMS.calculateColor(globalDomain.getCell(index).getVertexValue(3));
+          if(doColorblindnessSim){
+            var tmpLMS = tmpRGBColor.calcLMSColor();
+            tmpRGBColor = tmpLMS.calcColorBlindRGBColor();
+          }
+          face2.vertexColors[2] = new THREE.Color(tmpRGBColor.getRGBString());
+
         }
 
-        if(doColorblindnessSim){
-          var tmpLMS = toolColor.calcLMSColor();
-          toolColor = tmpLMS.calcColorBlindRGBColor();
-        }
 
-        facesArray[index * 2 + 0] = new THREE.Face3( globalDomain.getCell(index).getCellIndex(0), globalDomain.getCell(index).getCellIndex(1),globalDomain.getCell(index).getCellIndex(2));
-        facesArray[index * 2 + 0].color.setRGB( toolColor.getRValue(),toolColor.getGValue(),toolColor.getBValue());
-        facesArray[index * 2 + 1] = new THREE.Face3( globalDomain.getCell(index).getCellIndex(0), globalDomain.getCell(index).getCellIndex(2),globalDomain.getCell(index).getCellIndex(3));
-        facesArray[index * 2 + 1].color.setRGB( toolColor.getRValue(),toolColor.getGValue(),toolColor.getBValue());
+
+        geometry.faces.push(face1);
+        geometry.faces.push(face2);
       }
 
-      geometry.faces=facesArray;
 
-      geometry.computeFaceNormals();
-      //geometry.computeVertexNormals();*/
 
 
       geometry.computeBoundingBox ();
@@ -74,13 +125,9 @@ function drawMapping() {
 
       var material = new THREE.MeshLambertMaterial( {
     						side: THREE.DoubleSide,
-    						color: 0xF5F5F5,
-                vertexColors: THREE.FaceColors
-    						//vertexColors: THREE.VertexColors
+    						vertexColors: THREE.VertexColors
     					} );
 
-      material.transparent = true;
-      material.blending = THREE["NoBlending"];
 
       mappingMesh = new THREE.Mesh(geometry, material);
 
@@ -150,9 +197,12 @@ function drawMapping() {
 
 function updateMesh() {
 
+
   if(globalDomain==undefined || mappingMesh==undefined)
   return;
 
+  if(globalDomain.getNumberOfCells()==0)
+  return;
 
   ///////////////
   // Lets start with coloring
@@ -285,7 +335,78 @@ function updateMesh() {
       workCMS = globalCMS1.getProbeSet(document.getElementById("id_EditPage_MappingCMS_Select").selectedIndex-1).generateProbeCMS(globalCMS1);
     }
 
-    for (var index = 0; index < globalDomain.getNumberOfCells(); index++) {
+
+
+    for (var i = 0; i < globalDomain.getNumberOfCells(); i++) {
+
+
+      if(globalDomain.getFieldType(currentFieldIndex)){
+
+
+
+        var tmpRGBColor =  workCMS.calculateColor(globalDomain.getCell(index).getCellValue());
+
+        if(doColorblindnessSim){
+          var tmpLMS = tmpRGBColor.calcLMSColor();
+          tmpRGBColor = tmpLMS.calcColorBlindRGBColor();
+        }
+
+        mappingMesh.geometry.faces[i*2].vertexColors[0].setRGB(tmpRGBColor.getRValue(),tmpRGBColor.getGValue(),tmpRGBColor.getBValue());
+        mappingMesh.geometry.faces[i*2].vertexColors[1].setRGB(tmpRGBColor.getRValue(),tmpRGBColor.getGValue(),tmpRGBColor.getBValue());
+        mappingMesh.geometry.faces[i*2].vertexColors[2].setRGB(tmpRGBColor.getRValue(),tmpRGBColor.getGValue(),tmpRGBColor.getBValue());
+
+        mappingMesh.geometry.faces[i*2+1].vertexColors[0].setRGB(tmpRGBColor.getRValue(),tmpRGBColor.getGValue(),tmpRGBColor.getBValue());
+        mappingMesh.geometry.faces[i*2+1].vertexColors[1].setRGB(tmpRGBColor.getRValue(),tmpRGBColor.getGValue(),tmpRGBColor.getBValue());
+        mappingMesh.geometry.faces[i*2+1].vertexColors[2].setRGB(tmpRGBColor.getRValue(),tmpRGBColor.getGValue(),tmpRGBColor.getBValue());
+
+      }
+      else{
+
+        // color: cell index 0
+        var tmpRGBColor =  workCMS.calculateColor(globalDomain.getCell(i).getVertexValue(0));
+        if(doColorblindnessSim){
+          var tmpLMS = tmpRGBColor.calcLMSColor();
+          tmpRGBColor = tmpLMS.calcColorBlindRGBColor();
+        }
+        mappingMesh.geometry.faces[i*2].vertexColors[0].setRGB(tmpRGBColor.getRValue(),tmpRGBColor.getGValue(),tmpRGBColor.getBValue());
+        mappingMesh.geometry.faces[i*2+1].vertexColors[0].setRGB(tmpRGBColor.getRValue(),tmpRGBColor.getGValue(),tmpRGBColor.getBValue());
+
+
+
+        // color: cell index 1
+        tmpRGBColor =  workCMS.calculateColor(globalDomain.getCell(i).getVertexValue(1));
+        if(doColorblindnessSim){
+          var tmpLMS = tmpRGBColor.calcLMSColor();
+          tmpRGBColor = tmpLMS.calcColorBlindRGBColor();
+        }
+        mappingMesh.geometry.faces[i*2].vertexColors[1].setRGB(tmpRGBColor.getRValue(),tmpRGBColor.getGValue(),tmpRGBColor.getBValue());
+
+
+        // color: cell index 2
+        tmpRGBColor =  workCMS.calculateColor(globalDomain.getCell(i).getVertexValue(2));
+        if(doColorblindnessSim){
+          var tmpLMS = tmpRGBColor.calcLMSColor();
+          tmpRGBColor = tmpLMS.calcColorBlindRGBColor();
+        }
+        mappingMesh.geometry.faces[i*2].vertexColors[2].setRGB(tmpRGBColor.getRValue(),tmpRGBColor.getGValue(),tmpRGBColor.getBValue());
+        mappingMesh.geometry.faces[i*2+1].vertexColors[1].setRGB(tmpRGBColor.getRValue(),tmpRGBColor.getGValue(),tmpRGBColor.getBValue());
+
+        // color: cell index 3
+        tmpRGBColor =  workCMS.calculateColor(globalDomain.getCell(i).getVertexValue(3));
+        if(doColorblindnessSim){
+          var tmpLMS = tmpRGBColor.calcLMSColor();
+          tmpRGBColor = tmpLMS.calcColorBlindRGBColor();
+        }
+        mappingMesh.geometry.faces[i*2+1].vertexColors[2].setRGB(tmpRGBColor.getRValue(),tmpRGBColor.getGValue(),tmpRGBColor.getBValue());
+
+      }
+
+
+    }
+
+
+
+    /*for (var index = 0; index < globalDomain.getNumberOfCells(); index++) {
 
       var value= globalDomain.getCell(index).getCellValue();
 
@@ -299,9 +420,9 @@ function updateMesh() {
       mappingMesh.geometry.faces[index * 2 + 0].color.setRGB( toolColor.getRValue(),toolColor.getGValue(),toolColor.getBValue());
       mappingMesh.geometry.faces[index * 2 + 1].color.setRGB( toolColor.getRValue(),toolColor.getGValue(),toolColor.getBValue());
 
-    }
+    }*/
 
-    mappingMesh.geometry.verticesNeedUpdate = true;
+    //mappingMesh.geometry.verticesNeedUpdate = true;
     mappingMesh.geometry.colorsNeedUpdate = true;
 
   }
@@ -316,8 +437,9 @@ function updateMesh() {
 function workerPreparation(){
    workerJSON=[];
 
-   var numberOfCellsPerWorker= Math.floor(globalDomain.getNumberOfCells()/numWorkers);
-   var rest = globalDomain.getNumberOfCells()%numWorkers;
+   var numberOfCellsPerWorker= Math.floor( globalDomain.getNumberOfCells()/numWorkers);
+   var rest =  globalDomain.getNumberOfCells()%numWorkers;
+
 
    var currentIndex=0;
    for (var i = 0; i < numWorkers; i++) {
@@ -365,7 +487,19 @@ function workerPreparation(){
      }
 
       for (var j = 0; j < numberOfCellsPerWorker; j++) {
-        jsonObj.cellValues.push(globalDomain.getCell(currentIndex).getCellValue());
+
+        if(globalDomain.getFieldType(currentFieldIndex)){
+          jsonObj.cellValues.push(globalDomain.getCell(currentIndex).getCellValue());
+          jsonObj.cellValues.push(globalDomain.getCell(currentIndex).getCellValue());
+          jsonObj.cellValues.push(globalDomain.getCell(currentIndex).getCellValue());
+          jsonObj.cellValues.push(globalDomain.getCell(currentIndex).getCellValue());
+        }
+        else{
+          jsonObj.cellValues.push(globalDomain.getCell(currentIndex).getVertexValue(0));
+          jsonObj.cellValues.push(globalDomain.getCell(currentIndex).getVertexValue(1));
+          jsonObj.cellValues.push(globalDomain.getCell(currentIndex).getVertexValue(2));
+          jsonObj.cellValues.push(globalDomain.getCell(currentIndex).getVertexValue(3));
+        }
         currentIndex++;
       }
 

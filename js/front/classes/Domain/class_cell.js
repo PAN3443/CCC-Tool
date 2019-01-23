@@ -24,40 +24,73 @@ class class_Cell{
 
   */
 
-    constructor(pointArray,averageValue, type) {
-        this.points = pointArray;
-        this.averageValue = averageValue;
-        this.type = type; // 1. Rectangle, 2. Triangle, 
+    constructor(indexArray,valueArray, type) {
+        //this.points = pointArray;
+        this.indexArray = indexArray;
+        this.valueArray = valueArray;
+        this.type = type; // 1. Rectangle, 2. Triangle,
 
-        /*if(averageValue.length==1){
-          this.cellValue = averageValue[0];
-        }
-        else{
-          if(averageValue.length==this.points.lenght){
-            var sum =0;
-            for (var i = 0; i < averageValue.length; i++) {
-              sum += averageValue[i];
-            }
-            this.cellValue = sum/averageValue.length;
+    }
+
+    getVertexValue(index){
+
+      switch (this.type) {
+        case 2:
+          if(index<3){
+            return this.valueArray[index];
           }
-        }*/
+          else {
+            return undefined;
+          }
+
+          break;
+
+          case 1:
+            if(index<4){
+              return this.valueArray[index];
+            }
+            else {
+              return undefined;
+            }
+
+            break;
+
+        default:
+         return undefined;
+      }
     }
 
 
     getCellValue(){
-      return this.averageValue;
+
+      switch (this.valueArray.lenght) {
+        case 0:
+          return undefined;
+        case 1:
+          return this.valueArray[0];
+        default:
+
+        var averageValue = 0;
+
+        for (var i = 0; i < averageValue.length; i++) {
+          averageValue += this.valueArray[i];
+        }
+        return  averageValue/this.valueArray.length;
+
+      }
+
     }
 
     getCellType(){
       return this.type;
     }
 
-    getCellIndices(){
-      return this.points;
-    }
+    /*getCellIndices(){
+      return this.indexArray;
+    }*/
 
     getCellIndex(index){
-      return this.points[index];
+      return this.indexArray[index];
     }
 
     getIndicesLength(){

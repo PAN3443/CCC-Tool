@@ -169,6 +169,7 @@ class class_Domain {
 
 
 
+
   // for field
 
 
@@ -201,6 +202,7 @@ class class_Domain {
         var xyCellDim = (this.dimensionX-1)*(this.dimensionY-1);
         var xyzCellDim = (this.dimensionX-1)*(this.dimensionY-1)*(this.dimensionZ-1);
         var xCellDim = this.dimensionX-1;
+        var timeDim = time * xyzDim;
 
         var tmp3D = this.is3D;
 
@@ -213,10 +215,350 @@ class class_Domain {
               ////////////   3D
               /////////////////////////////////////////////
 
+
+
+
+
+
+              for (var z = 0; z < this.dimensionZ; z++) {
+                for (var y = 0; y < this.dimensionY; y++) {
+                   for (var x = 0; x < this.dimensionX; x++){
+
+
+                    /////////////////////
+                    /// FRONT
+                    if(z==0){
+
+                        // front
+                        if(y!=0 && x!=0){
+
+                          /////////////////////////////////////////////////////////////
+                          //       y
+                          //        ^
+                          //        |
+                          //        |---> x
+                          //
+                          //
+                          //  preIndex               *-------------*   currentIndex
+                          //                         |           / |
+                          //                         |         /   |
+                          //                         |      /      |
+                          //                         |   /         |
+                          //                         |/            |
+                          //  preIndexLastLoop       *-------------*  currentIndexLastLoop
+                          //
+                          var currentIndex =  y* this.dimensionX +x;
+                          var preIndex = currentIndex-1;
+                          var currentIndexLastLoop = (y-1)*this.dimensionX +x;
+                          var preIndexLastLoop = currentIndexLastLoop-1;
+
+                          var indexArray  = [preIndexLastLoop,preIndex,currentIndex,currentIndexLastLoop];
+
+
+                          var valueArray=[];
+
+                          if (this.fieldType[ifield]) {
+                            // cell values
+                            valueArray.push(this.fieldArray[ifield][(x-1) + (y-1) * xCellDim + timeDim]);
+                          } else {
+                            // vertex values
+                              valueArray.push(this.fieldArray[ifield][indexArray[0] + timeDim],
+                              this.fieldArray[ifield][indexArray[1] + timeDim],
+                              this.fieldArray[ifield][indexArray[2] + timeDim],
+                              this.fieldArray[ifield][indexArray[3] + timeDim]);
+                          }
+
+                          var tmpCell = new class_Cell(indexArray, valueArray, 1);
+                          this.cellArray.push(tmpCell);
+
+
+
+                        }
+                    }
+                    else{
+
+                      /////////////////////
+                      /// Back
+                      if(z==this.dimensionZ-1 && y!=0 && x!=0){
+                        /////////////////////////////////////////////////////////////
+                        //       G
+                        //        ^
+                        //        |
+                        //        |---> R
+                        //
+                        //
+                        //  preIndex               *-------------*   currentIndex
+                        //                         |           / |
+                        //                         |         /   |
+                        //                         |      /      |
+                        //                         |   /         |
+                        //                         |/            |
+                        //  preIndexLastLoop       *-------------*  currentIndexLastLoop
+                        //
+
+                        var currentIndex =  z*xyDim + y* this.dimensionX +x;
+                        var preIndex = currentIndex-1;
+                        var currentIndexLastLoop = z*xyDim+(y-1)*this.dimensionX +x;
+                        var preIndexLastLoop = currentIndexLastLoop-1;
+
+                          var indexArray  = [currentIndex,preIndex,preIndexLastLoop,currentIndexLastLoop];
+
+
+                        var valueArray=[];
+
+                        if (this.fieldType[ifield]) {
+                          // cell values
+                          valueArray.push(this.fieldArray[ifield][(x-1) + (y-1) * xCellDim + timeDim]);
+                        } else {
+                          // vertex values
+                            valueArray.push(this.fieldArray[ifield][indexArray[0] + timeDim],
+                            this.fieldArray[ifield][indexArray[1] + timeDim],
+                            this.fieldArray[ifield][indexArray[2] + timeDim],
+                            this.fieldArray[ifield][indexArray[3] + timeDim]);
+                        }
+
+                        var tmpCell = new class_Cell(indexArray, valueArray, 1);
+                        this.cellArray.push(tmpCell);
+
+
+
+                      } // Back end
+
+                      /////////////////////
+                      /// Left Side
+                      if(x==0 && y!=0){
+
+                        /////////////////////////////////////////////////////////////
+                        //       G
+                        //        ^
+                        //        |
+                        //        |---> B
+                        //
+                        //
+                        //  currentIndexLastZ      *-------------*   currentIndex
+                        //  (g,b-1)                |           / |   (g,b)
+                        //                         |         /   |
+                        //                         |      /      |
+                        //                         |   /         |
+                        //                         |/            |
+                        //  preIndexLastZ          *-------------*  preIndex
+                        //  (g-1,b-1)                                 (g-1,b)
+
+                        /////////////////////////////////////////////////////////////
+                        //       Y
+                        //        ^
+                        //        |
+                        //        |---> z
+                        //
+                        //
+                        //  currentIndexLastZ      *-------------*   currentIndex
+                        //  (y,z-1)                |           / |   (y,z)
+                        //                         |         /   |
+                        //                         |      /      |
+                        //                         |   /         |
+                        //                         |/            |
+                        //  preIndexLastZ          *-------------*  preIndex
+                        //  (y-1,z-1)                                 (y-1,z)
+
+                        var currentIndex = z*xyDim + y* this.dimensionX;
+                        var preIndex = currentIndex - this.dimensionX;
+                        var currentIndexLastZ = (z-1)*xyDim+y*this.dimensionX;
+                        var preIndexLastZ = currentIndexLastZ-this.dimensionX;
+
+                        var indexArray  = [currentIndex,currentIndexLastZ,preIndexLastZ,preIndex];
+
+
+                        var valueArray=[];
+
+                        if (this.fieldType[ifield]) {
+                          // cell values
+                          valueArray.push(this.fieldArray[ifield][(x-1) + (y-1) * xCellDim + timeDim]);
+                        } else {
+                          // vertex values
+                            valueArray.push(this.fieldArray[ifield][indexArray[0] + timeDim],
+                            this.fieldArray[ifield][indexArray[1] + timeDim],
+                            this.fieldArray[ifield][indexArray[2] + timeDim],
+                            this.fieldArray[ifield][indexArray[3] + timeDim]);
+                        }
+
+                        var tmpCell = new class_Cell(indexArray, valueArray, 1);
+                        this.cellArray.push(tmpCell);
+
+                      }
+
+                      //////////////////////
+                      /// Right Side
+                      if(x==this.dimensionX-1 && y!=0){
+
+                        /////////////////////////////////////////////////////////////
+                        //       G
+                        //        ^
+                        //        |
+                        //        |---> B
+                        //
+                        //
+                        //  currentIndexLastZ      *-------------*   currentIndex
+                        //  (g,b-1)                |           / |   (g,b)
+                        //                         |         /   |
+                        //                         |      /      |
+                        //                         |   /         |
+                        //                         |/            |
+                        //  preIndexLastZ          *-------------*  preIndex
+                        //  (g-1,b-1)                                 (g-1,b)
+
+                        var currentIndex = z*xyDim + y* this.dimensionX+x;
+                        var preIndex = currentIndex - this.dimensionX;
+                        var currentIndexLastZ = (z-1)*xyDim+y*this.dimensionX+x;
+                        var preIndexLastZ = currentIndexLastZ-this.dimensionX;
+
+                        var indexArray  = [preIndexLastZ,currentIndexLastZ,currentIndex,preIndex];
+
+                        var valueArray=[];
+
+                        if (this.fieldType[ifield]) {
+                          // cell values
+                          valueArray.push(this.fieldArray[ifield][(x-1) + (y-1) * xCellDim + timeDim]);
+                        } else {
+                          // vertex values
+                            valueArray.push(this.fieldArray[ifield][indexArray[0] + timeDim],
+                            this.fieldArray[ifield][indexArray[1] + timeDim],
+                            this.fieldArray[ifield][indexArray[2] + timeDim],
+                            this.fieldArray[ifield][indexArray[3] + timeDim]);
+                        }
+
+                        var tmpCell = new class_Cell(indexArray, valueArray, 1);
+                        this.cellArray.push(tmpCell);
+
+
+                      }
+
+
+                      /////////////////////
+                      /// Bottom Side
+                      if(y==0 && x!=0){
+                        /////////////////////////////////////////////////////////////
+                        //       G
+                        //        ^
+                        //        |
+                        //        |---> B
+                        //
+                        //
+                        //   preIndexLastZ         *-------------*   currentIndexLastZ
+                        //  (r-1,b-1)              |           / |   (r,b-1)
+                        //                         |         /   |
+                        //                         |      /      |
+                        //                         |   /         |
+                        //                         |/            |
+                        //   preIndex              *-------------*   currentIndex
+                        //  (r-1,b)                                  (r,b)
+
+                        /////////////////////////////////////////////////////////////
+                        //       X
+                        //        ^
+                        //        |
+                        //        |---> Z
+                        //
+                        //
+                        //   preIndexLastZ         *-------------*   currentIndexLastZ
+                        //  (x-1,z-1)              |           / |   (x,z-1)
+                        //                         |         /   |
+                        //                         |      /      |
+                        //                         |   /         |
+                        //                         |/            |
+                        //   preIndex              *-------------*   currentIndex
+                        //  (x-1,z)                                  (x,z)
+
+                        var currentIndex = z*xyDim +x;
+                        var preIndex = currentIndex-1;
+                        var currentIndexLastZ = (z-1)*xyDim+x;
+                        var preIndexLastZ = currentIndexLastZ-1;
+
+                        var indexArray  = [preIndex,preIndexLastZ,currentIndexLastZ,currentIndex];
+
+                        var valueArray=[];
+
+                        if (this.fieldType[ifield]) {
+                          // cell values
+                          valueArray.push(this.fieldArray[ifield][(x-1) + (y-1) * xCellDim + timeDim]);
+                        } else {
+                          // vertex values
+                            valueArray.push(this.fieldArray[ifield][indexArray[0] + timeDim],
+                            this.fieldArray[ifield][indexArray[1] + timeDim],
+                            this.fieldArray[ifield][indexArray[2] + timeDim],
+                            this.fieldArray[ifield][indexArray[3] + timeDim]);
+                        }
+
+                        var tmpCell = new class_Cell(indexArray, valueArray, 1);
+                        this.cellArray.push(tmpCell);
+
+                      }
+
+                      /////////////////////
+                      /// Top Side
+                      if(y==this.dimensionY-1 && x!=0){
+                        /////////////////////////////////////////////////////////////
+                        //       G
+                        //        ^
+                        //        |
+                        //        |---> B
+                        //
+                        //
+                        //   preIndexLastZ         *-------------*   currentIndexLastZ
+                        //  (r-1,b-1)              |           / |   (r,b-1)
+                        //                         |         /   |
+                        //                         |      /      |
+                        //                         |   /         |
+                        //                         |/            |
+                        //   preIndex              *-------------*   currentIndex
+                        //  (r-1,b)                                  (r,b)
+
+
+                        var currentIndex = z*xyDim+ y* this.dimensionX +x;
+                        var preIndex = currentIndex-1;
+                        var currentIndexLastZ = (z-1)*xyDim+ y* this.dimensionX +x;
+                        var preIndexLastZ = currentIndexLastZ-1;
+
+                        var indexArray  = [currentIndexLastZ,preIndexLastZ,preIndex,currentIndex];
+
+                        var valueArray=[];
+
+                        if (this.fieldType[ifield]) {
+                          // cell values
+                          valueArray.push(this.fieldArray[ifield][(x-1) + (y-1) * xCellDim + timeDim]);
+                        } else {
+                          // vertex values
+                            valueArray.push(this.fieldArray[ifield][indexArray[0] + timeDim],
+                            this.fieldArray[ifield][indexArray[1] + timeDim],
+                            this.fieldArray[ifield][indexArray[2] + timeDim],
+                            this.fieldArray[ifield][indexArray[3] + timeDim]);
+                        }
+
+                        var tmpCell = new class_Cell(indexArray, valueArray, 1);
+                        this.cellArray.push(tmpCell);
+
+
+
+                      }
+
+
+                    }
+
+
+                  } // For loop end (r)
+                } // For loop end (g)
+              } // For loop end (b)
+
+
+
+
+
+
+
+
               ////////////////////////////////////////////////////////////////
                     // front and back plane
 
-                for (var y = 0; y < this.dimensionY - 1; y++) {
+              /*  for (var y = 0; y < this.dimensionY - 1; y++) {
                   for (var x = 0; x < this.dimensionX - 1; x++) {
 
                       /////////////////////////////////////////////
@@ -227,22 +569,20 @@ class class_Domain {
                         x + (y + 1) * this.dimensionX
                       ];
 
-                      var averageValue;
+                      var valueArray=[];
 
                       if (this.fieldType[ifield]) {
                         // cell values
-                        averageValue = this.fieldArray[ifield][x + y * xCellDim + time * xyzCellDim];
+                        valueArray.push(this.fieldArray[ifield][x + y * xCellDim + time * xyzCellDim]);
                       } else {
                         // cell points
-                        averageValue = (this.fieldArray[ifield][x + y * this.dimensionX + time * xyzDim]+
-                          this.fieldArray[ifield][(x + 1) + y * this.dimensionX+  time * xyzDim]+
-                          this.fieldArray[ifield][(x + 1) + (y + 1) * this.dimensionX+  time * xyzDim]+
-                          this.fieldArray[ifield][x + (y + 1) * this.dimensionX+  time * xyzDim])/4;
-
-
+                        valueArray.push(this.fieldArray[ifield][x + y * this.dimensionX + time * xyzDim],
+                          this.fieldArray[ifield][(x + 1) + y * this.dimensionX+  time * xyzDim],
+                          this.fieldArray[ifield][(x + 1) + (y + 1) * this.dimensionX+  time * xyzDim],
+                          this.fieldArray[ifield][x + (y + 1) * this.dimensionX+  time * xyzDim]);
                       }
 
-                      var tmpCell = new class_Cell(indexArray, averageValue, 1, this.fieldType[ifield]);
+                      var tmpCell = new class_Cell(indexArray, valueArray, 1);
                       this.cellArray.push(tmpCell);
 
                       /////////////////////////////////////////////
@@ -255,31 +595,30 @@ class class_Domain {
                         x + (y + 1) * this.dimensionX+ lastZIndex*xyDim
                       ];
 
-
+                      valueArray=[]
 
                       if (this.fieldType[ifield]) {
                         // cell values
-                        averageValue = this.fieldArray[ifield][x + y * xCellDim + (lastZIndex-1)* xyCellDim + time * xyzCellDim];
+                        valueArray.push(this.fieldArray[ifield][x + y * xCellDim + (lastZIndex-1)* xyCellDim + time * xyzCellDim]);
                       } else {
                         // cell points
-                        averageValue = (this.fieldArray[ifield][x + y * this.dimensionX + lastZIndex*xyDim + time * xyzDim]+
-                          this.fieldArray[ifield][(x + 1) + y * this.dimensionX+ lastZIndex*xyDim + time * xyzDim]+
-                          this.fieldArray[ifield][(x + 1) + (y + 1) * this.dimensionX+ lastZIndex*xyDim + time * xyzDim]+
-                          this.fieldArray[ifield][x + (y + 1) * this.dimensionX+ lastZIndex*xyDim + time * xyzDim])/4;
+                        valueArray.push(this.fieldArray[ifield][x + y * this.dimensionX + lastZIndex*xyDim + time * xyzDim],
+                          this.fieldArray[ifield][(x + 1) + y * this.dimensionX+ lastZIndex*xyDim + time * xyzDim],
+                          this.fieldArray[ifield][(x + 1) + (y + 1) * this.dimensionX+ lastZIndex*xyDim + time * xyzDim],
+                          this.fieldArray[ifield][x + (y + 1) * this.dimensionX+ lastZIndex*xyDim + time * xyzDim]);
 
-                          //averageValue=500;
                       }
 
-                     var tmpCell2 = new class_Cell(indexArray, averageValue, 1, this.fieldType[ifield]);
+                     var tmpCell2 = new class_Cell(indexArray, valueArray, 1);
                      this.cellArray.push(tmpCell2);
 
                     }
-                  }
+                  }*/
 
 
                   ////////////////////////////////////////////////////////////
                 // left and right side plane
-              for (var y = 0; y < this.dimensionY - 1; y++) {
+            /*  for (var y = 0; y < this.dimensionY - 1; y++) {
                   for (var z = 0; z < this.dimensionZ - 1; z++) {
 
                     // left -> first x
@@ -289,22 +628,21 @@ class class_Domain {
                       (y + 1) * this.dimensionX+ z*xyDim
                     ];
 
-                    var averageValue;
+                    var valueArray = [];
                     if (this.fieldType[ifield]) {
                       // cell values
-
-                      averageValue = this.fieldArray[ifield][y * xCellDim + z*xyDim + time * xyzCellDim];
+                      valueArray.push(this.fieldArray[ifield][y * xCellDim + z*xyDim + time * xyzCellDim]);
 
 
                     } else {
                       // cell points
-                      averageValue = (this.fieldArray[ifield][y * this.dimensionX + time * xyzDim]+
-                        this.fieldArray[ifield][y * this.dimensionX+ (z+1)*xyDim+  time * xyzDim]+
-                        this.fieldArray[ifield][(y + 1) * this.dimensionX+ (z+1)*xyDim+  time * xyzDim]+
-                        this.fieldArray[ifield][(y + 1) * this.dimensionX+ z*xyDim+  time * xyzDim])/4;
+                      valueArray.push(this.fieldArray[ifield][indexArray[0] + time * xyzDim],
+                        this.fieldArray[ifield][indexArray[1] +  time * xyzDim],
+                        this.fieldArray[ifield][indexArray[2]+  time * xyzDim],
+                        this.fieldArray[ifield][indexArray[3]+ z*xyDim+  time * xyzDim]);
                     }
 
-                    var tmpCell = new class_Cell(indexArray, averageValue, 1, this.fieldType[ifield]);
+                    var tmpCell = new class_Cell(indexArray, valueArray, 1);
                     this.cellArray.push(tmpCell);
 
                     /////////////////////////////////////////////
@@ -316,24 +654,25 @@ class class_Domain {
                       lastXIndex+(y + 1) * this.dimensionX+ z*xyDim
                     ];
 
+                    valueArray = [];
 
                     if (this.fieldType[ifield]) {
                       // cell values
-                      averageValue = this.fieldArray[ifield][(lastXIndex-1) + y * xCellDim + z* xyCellDim + time * xyzCellDim];
+                      valueArray.push(this.fieldArray[ifield][(lastXIndex-1) + y * xCellDim + z* xyCellDim + time * xyzCellDim]);
                     } else {
                       // cell points
-                      averageValue = (this.fieldArray[ifield][lastXIndex + y * this.dimensionX + time * xyzDim]+
-                        this.fieldArray[ifield][lastXIndex+y * this.dimensionX+ (z+1)*xyDim+  time * xyzDim]+
-                        this.fieldArray[ifield][lastXIndex+(y + 1) * this.dimensionX+ (z+1)*xyDim+  time * xyzDim]+
-                        this.fieldArray[ifield][lastXIndex+(y + 1) * this.dimensionX+ z*xyDim+  time * xyzDim])/4;
+                      valueArray.push(this.fieldArray[ifield][indexArray[0] + time * xyzDim],
+                        this.fieldArray[ifield][indexArray[1] +  time * xyzDim],
+                        this.fieldArray[ifield][indexArray[2]+  time * xyzDim],
+                        this.fieldArray[ifield][indexArray[3]+ z*xyDim+  time * xyzDim]);
                     }
 
-                   var tmpCell2 = new class_Cell(indexArray, averageValue, 1, this.fieldType[ifield]);
+                   var tmpCell2 = new class_Cell(indexArray, valueArray, 1);
                     this.cellArray.push(tmpCell2);
 
-                  }}
+                  }}//*/
 
-                  ////////////////////////////////////////////////////////////
+                /*  ////////////////////////////////////////////////////////////
                     // top and bottom plane
 
                     for (var x = 0; x < this.dimensionX - 1; x++) {
@@ -346,19 +685,19 @@ class class_Domain {
                           (x + 1) + z*xyDim
                         ];
 
-                        var averageValue;
+                        var valueArray = [];
                         if (this.fieldType[ifield]) {
                           // cell values
-                          averageValue = this.fieldArray[ifield][x + z*xyDim + time * xyzCellDim];
+                          valueArray.push(this.fieldArray[ifield][x + z*xyDim + time * xyzCellDim]);
                         } else {
                           // cell points
-                          averageValue = (this.fieldArray[ifield][x + time * xyzDim]+
-                            this.fieldArray[ifield][x+ (z+1)*xyDim+  time * xyzDim]+
-                            this.fieldArray[ifield][(x + 1) + (z+1)*xyDim+  time * xyzDim]+
-                            this.fieldArray[ifield][(x + 1) + z*xyDim+  time * xyzDim])/4;
+                          valueArray.push(this.fieldArray[ifield][x + time * xyzDim],
+                            this.fieldArray[ifield][x+ (z+1)*xyDim+  time * xyzDim],
+                            this.fieldArray[ifield][(x + 1) + (z+1)*xyDim+  time * xyzDim],
+                            this.fieldArray[ifield][(x + 1) + z*xyDim+  time * xyzDim]);
                         }
 
-                        var tmpCell = new class_Cell(indexArray, averageValue, 1, this.fieldType[ifield]);
+                        var tmpCell = new class_Cell(indexArray, valueArray, 1);
                         this.cellArray.push(tmpCell);
 
                         /////////////////////////////////////////////
@@ -371,19 +710,19 @@ class class_Domain {
                           (x + 1) +lastYIndex * this.dimensionX+ z*xyDim
                         ];
 
-
+                        valueArray = [];
                         if (this.fieldType[ifield]) {
                           // cell values
-                          averageValue = this.fieldArray[ifield][x + (lastYIndex-1) * xCellDim + z* xyCellDim + time * xyzCellDim];
+                          valueArray.push(this.fieldArray[ifield][x + (lastYIndex-1) * xCellDim + z* xyCellDim + time * xyzCellDim]);
                         } else {
                           // cell points
-                          averageValue = (this.fieldArray[ifield][x + lastYIndex * this.dimensionX + time * xyzDim]+
-                            this.fieldArray[ifield][x+lastYIndex * this.dimensionX+ (z+1)*xyDim+  time * xyzDim]+
-                            this.fieldArray[ifield][(x + 1)+lastYIndex * this.dimensionX+ (z+1)*xyDim+  time * xyzDim]+
-                            this.fieldArray[ifield][(x + 1)+lastYIndex * this.dimensionX+ z*xyDim+  time * xyzDim])/4;
+                          valueArray.push(this.fieldArray[ifield][x + lastYIndex * this.dimensionX + time * xyzDim],
+                            this.fieldArray[ifield][x+lastYIndex * this.dimensionX+ (z+1)*xyDim+  time * xyzDim],
+                            this.fieldArray[ifield][(x + 1)+lastYIndex * this.dimensionX+ (z+1)*xyDim+  time * xyzDim],
+                            this.fieldArray[ifield][(x + 1)+lastYIndex * this.dimensionX+ z*xyDim+  time * xyzDim]);
                         }
 
-                       var tmpCell2 = new class_Cell(indexArray, averageValue, 3, this.fieldType[ifield]);
+                       var tmpCell2 = new class_Cell(indexArray, valueArray, 3);
                         this.cellArray.push(tmpCell2);
 
                       }}//*/
@@ -405,20 +744,20 @@ class class_Domain {
                     x + (y + 1) * this.dimensionX
                   ];
 
-                  var averageValue;
+                  var valueArray = [];
                   if (this.fieldType[ifield]) {
                     // cell values
-                    averageValue = this.fieldArray[ifield][x + (y * xCellDim) + time * xyCellDim];
+                    valueArray.push(this.fieldArray[ifield][x + (y * xCellDim) + time * xyCellDim]);
 
                   } else {
                     // cell points
-                    averageValue = (this.fieldArray[ifield][x + y * this.dimensionX + time * xyDim]+
-                      this.fieldArray[ifield][(x + 1) + y * this.dimensionX + time * xyDim]+
-                      this.fieldArray[ifield][(x + 1) + (y + 1) * this.dimensionX + time * xyDim]+
-                      this.fieldArray[ifield][x + (y + 1) * this.dimensionX + time * xyDim])/4;
+                    valueArray.push(this.fieldArray[ifield][x + y * this.dimensionX + time * xyDim],
+                      this.fieldArray[ifield][(x + 1) + y * this.dimensionX + time * xyDim],
+                      this.fieldArray[ifield][(x + 1) + (y + 1) * this.dimensionX + time * xyDim],
+                      this.fieldArray[ifield][x + (y + 1) * this.dimensionX + time * xyDim]);
                   }
 
-                  var tmpCell = new class_Cell(indexArray, averageValue, 1, this.fieldType[ifield]);
+                  var tmpCell = new class_Cell(indexArray, valueArray, 1);
 
 
 
@@ -441,6 +780,10 @@ class class_Domain {
 
   }
 
+
+  getFieldType(fieldIndex){
+    return this.fieldType[fieldIndex];
+  }
 
   getNumberOfCells() {
     return this.cellArray.length;

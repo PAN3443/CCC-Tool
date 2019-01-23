@@ -47,7 +47,6 @@ var oldYPos=0;
 //// VIS
 
 var mapping_scene, mapping_camera, mapping_renderer, mapping_stats;
-
 var mapping_cameraLight;
 
 var mapping_maxRadius = 400;
