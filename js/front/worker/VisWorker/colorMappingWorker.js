@@ -4,8 +4,7 @@ self.addEventListener('message', function(e) {
   var error = 100; // 0.01
   var jsonObj = {};
 
-  jsonObj['workerIndex'] = data.workerIndex;
-  jsonObj['cellStartIndex'] = data.cellStartIndex;
+
   jsonObj['cVal1'] = [];
   jsonObj['cVal2'] = [];
   jsonObj['cVal3'] = [];
@@ -15,24 +14,23 @@ self.addEventListener('message', function(e) {
   switch (data.colorspace) {
     case "rgb":
 
+      for (var valIndex = 0; valIndex < data.domainFieldValues.length; valIndex++) {
 
-      for (var valIndex = 0; valIndex < data.cellValues.length; valIndex++) {
-
-        if (isNaN(data.cellValues[valIndex])) {
-          jsonObj.cVal1.push(undefined);
-          jsonObj.cVal2.push(undefined);
-          jsonObj.cVal3.push(undefined);
+        if (isNaN(data.domainFieldValues[valIndex])) {
+          jsonObj.cVal1.push(data.nanC1);
+          jsonObj.cVal2.push(data.nanC2);
+          jsonObj.cVal3.push(data.nanC3);
           continue;
         }
 
-        if (data.cellValues[valIndex] < data.refVal[0] ) {
+        if (data.domainFieldValues[valIndex] < data.refVal[0] ) {
           jsonObj.cVal1.push(data.belowC1);
           jsonObj.cVal2.push(data.belowC2);
           jsonObj.cVal3.push(data.belowC3);
           continue;
         }
 
-        if (data.cellValues[valIndex] > data.refVal[data.refVal.length - 1]) {
+        if (data.domainFieldValues[valIndex] > data.refVal[data.refVal.length - 1]) {
           jsonObj.cVal1.push(data.aboveC1);
           jsonObj.cVal2.push(data.aboveC2);
           jsonObj.cVal3.push(data.aboveC3);
@@ -43,11 +41,11 @@ self.addEventListener('message', function(e) {
 
         for (var i = 0; i < data.refVal.length - 1; i++) {
 
-          var tmpRatio = (data.cellValues[valIndex] - data.refVal[i]) / (data.refVal[i + 1] - data.refVal[i]);
+          var tmpRatio = (data.domainFieldValues[valIndex] - data.refVal[i]) / (data.refVal[i + 1] - data.refVal[i]);
 
 
 
-          if (data.cellValues[valIndex] > data.refVal[i] && data.cellValues[valIndex] < data.refVal[i + 1]) {
+          if (data.domainFieldValues[valIndex] > data.refVal[i] && data.domainFieldValues[valIndex] < data.refVal[i + 1]) {
 
             if (data.key1cVal1[i] == undefined) { // cVal2 and cVal3 should also be undefined -> constant band
               jsonObj.cVal1.push(data.key2cVal1[i]);
@@ -67,7 +65,7 @@ self.addEventListener('message', function(e) {
 
 
 
-          if(data.cellValues[valIndex]==data.refVal[i]){
+          if(data.domainFieldValues[valIndex]==data.refVal[i]){
 
             if(i==0){
               jsonObj.cVal1.push(data.key1cVal1[i]);
@@ -95,7 +93,7 @@ self.addEventListener('message', function(e) {
         }
 
 
-        if(data.cellValues[valIndex]==data.refVal[data.refVal.length-1]){
+        if(data.domainFieldValues[valIndex]==data.refVal[data.refVal.length-1]){
             jsonObj.cVal1.push(data.key2cVal1[data.key2cVal1.length-1]);
             jsonObj.cVal2.push(data.key2cVal2[data.key2cVal2.length-1]);
             jsonObj.cVal3.push(data.key2cVal3[data.key2cVal3.length-1]);
@@ -103,9 +101,9 @@ self.addEventListener('message', function(e) {
         }
 
         if(foundSomething==false){
-          jsonObj.cVal1.push(undefined);
-          jsonObj.cVal2.push(undefined);
-          jsonObj.cVal3.push(undefined);
+          jsonObj.cVal1.push(data.nanC1);
+          jsonObj.cVal2.push(data.nanC2);
+          jsonObj.cVal3.push(data.nanC3);
           continue;
         }
 
@@ -118,23 +116,23 @@ self.addEventListener('message', function(e) {
     case "din99":
 
 
-      for (var valIndex = 0; valIndex < data.cellValues.length; valIndex++) {
+      for (var valIndex = 0; valIndex < data.domainFieldValues.length; valIndex++) {
 
-        if (isNaN(data.cellValues[valIndex])) {
-          jsonObj.cVal1.push(undefined);
-          jsonObj.cVal2.push(undefined);
-          jsonObj.cVal3.push(undefined);
+        if (isNaN(data.domainFieldValues[valIndex])) {
+          jsonObj.cVal1.push(data.nanC1);
+          jsonObj.cVal2.push(data.nanC2);
+          jsonObj.cVal3.push(data.nanC3);
           continue;
         }
 
-        if (data.cellValues[valIndex] < data.refVal[0] ) {
+        if (data.domainFieldValues[valIndex] < data.refVal[0] ) {
           jsonObj.cVal1.push(data.belowC1);
           jsonObj.cVal2.push(data.belowC2);
           jsonObj.cVal3.push(data.belowC3);
           continue;
         }
 
-        if (data.cellValues[valIndex] > data.refVal[data.refVal.length - 1]) {
+        if (data.domainFieldValues[valIndex] > data.refVal[data.refVal.length - 1]) {
           jsonObj.cVal1.push(data.aboveC1);
           jsonObj.cVal2.push(data.aboveC2);
           jsonObj.cVal3.push(data.aboveC3);
@@ -147,9 +145,9 @@ self.addEventListener('message', function(e) {
 
         for (var i = 0; i < data.refVal.length - 1; i++) {
 
-          var tmpRatio = (data.cellValues[valIndex] - data.refVal[i]) / (data.refVal[i + 1] - data.refVal[i]);
+          var tmpRatio = (data.domainFieldValues[valIndex] - data.refVal[i]) / (data.refVal[i + 1] - data.refVal[i]);
 
-          if (data.cellValues[valIndex] > data.refVal[i] && data.cellValues[valIndex] < data.refVal[i + 1]) {
+          if (data.domainFieldValues[valIndex] > data.refVal[i] && data.domainFieldValues[valIndex] < data.refVal[i + 1]) {
 
             if (data.key1cVal1[i] == undefined) { // cVal2 and cVal3 should also be undefined -> constant band
               val1 = data.key2cVal1[i];
@@ -166,7 +164,7 @@ self.addEventListener('message', function(e) {
           }
 
 
-          if(data.cellValues[valIndex]==data.refVal[i]){
+          if(data.domainFieldValues[valIndex]==data.refVal[i]){
 
             if(i==0){
               val1 = data.key1cVal1[i];
@@ -193,7 +191,7 @@ self.addEventListener('message', function(e) {
         }
 
 
-        if(data.cellValues[valIndex]==data.refVal[data.refVal.length-1]){
+        if(data.domainFieldValues[valIndex]==data.refVal[data.refVal.length-1]){
           val1 = data.key2cVal1[data.key2cVal1.length-1];
           val2 = data.key2cVal2[data.key2cVal2.length-1];
           val3 = data.key2cVal3[data.key2cVal3.length-1];
@@ -201,9 +199,9 @@ self.addEventListener('message', function(e) {
         }
 
         if(foundSomething==false){
-          jsonObj.cVal1.push(undefined);
-          jsonObj.cVal2.push(undefined);
-          jsonObj.cVal3.push(undefined);
+          jsonObj.cVal1.push(data.nanC1);
+          jsonObj.cVal2.push(data.nanC2);
+          jsonObj.cVal3.push(data.nanC3);
         }
         else {
           var value_L, value_A, value_B;
@@ -302,9 +300,9 @@ self.addEventListener('message', function(e) {
               if (var_R>1.0 || var_G>1.0 || var_B>1.0 || var_R<0.0 || var_G<0.0 || var_B<0.0){
                   //var rgbString = "rgb(0,0,0)";
                   //return rgbString;
-                  jsonObj.cVal1.push(undefined);
-                  jsonObj.cVal2.push(undefined);
-                  jsonObj.cVal3.push(undefined);
+                  jsonObj.cVal1.push(data.nanC1);
+                  jsonObj.cVal2.push(data.nanC2);
+                  jsonObj.cVal3.push(data.nanC3);
               }
               else{
                   jsonObj.cVal1.push(var_R);
@@ -327,23 +325,23 @@ self.addEventListener('message', function(e) {
 
     case "hsv":
 
-      for (var valIndex = 0; valIndex < data.cellValues.length; valIndex++) {
+      for (var valIndex = 0; valIndex < data.domainFieldValues.length; valIndex++) {
 
-        if (isNaN(data.cellValues[valIndex])) {
-          jsonObj.cVal1.push(undefined);
-          jsonObj.cVal2.push(undefined);
-          jsonObj.cVal3.push(undefined);
+        if (isNaN(data.domainFieldValues[valIndex])) {
+          jsonObj.cVal1.push(data.nanC1);
+          jsonObj.cVal2.push(data.nanC2);
+          jsonObj.cVal3.push(data.nanC3);
           continue;
         }
 
-        if (data.cellValues[valIndex] < data.refVal[0] ) {
+        if (data.domainFieldValues[valIndex] < data.refVal[0] ) {
           jsonObj.cVal1.push(data.belowC1);
           jsonObj.cVal2.push(data.belowC2);
           jsonObj.cVal3.push(data.belowC3);
           continue;
         }
 
-        if (data.cellValues[valIndex] > data.refVal[data.refVal.length - 1]) {
+        if (data.domainFieldValues[valIndex] > data.refVal[data.refVal.length - 1]) {
           jsonObj.cVal1.push(data.aboveC1);
           jsonObj.cVal2.push(data.aboveC2);
           jsonObj.cVal3.push(data.aboveC3);
@@ -358,9 +356,9 @@ self.addEventListener('message', function(e) {
 
         for (var j = 0; j < data.refVal.length - 1; j++) {
 
-          var tmpRatio = (data.cellValues[valIndex] - data.refVal[j]) / (data.refVal[i + 1] - data.refVal[j]);
+          var tmpRatio = (data.domainFieldValues[valIndex] - data.refVal[j]) / (data.refVal[i + 1] - data.refVal[j]);
 
-          if (data.cellValues[valIndex] > data.refVal[j] && data.cellValues[valIndex] < data.refVal[i + 1]) {
+          if (data.domainFieldValues[valIndex] > data.refVal[j] && data.domainFieldValues[valIndex] < data.refVal[i + 1]) {
             if (data.key1cVal1[j] == undefined) { // cVal2 and cVal3 should also be undefined -> constant band
               tmpH = data.key2cVal1[j];
               tmpS = data.key2cVal2[j];
@@ -389,7 +387,7 @@ self.addEventListener('message', function(e) {
             foundSomething=true;
           }
 
-            if(data.cellValues[valIndex]==data.refVal[i]){
+            if(data.domainFieldValues[valIndex]==data.refVal[i]){
 
               if(i==0){
                 tmpH = data.key1cVal1[i];
@@ -414,7 +412,7 @@ self.addEventListener('message', function(e) {
             }
           }
 
-          if(data.cellValues[valIndex]==data.refVal[data.refVal.length-1]){
+          if(data.domainFieldValues[valIndex]==data.refVal[data.refVal.length-1]){
             tmpH = data.key2cVal1[data.key2cVal1.length-1];
             tmpS = data.key2cVal2[data.key2cVal2.length-1];
             tmpV = data.key2cVal3[data.key2cVal3.length-1];
@@ -422,9 +420,9 @@ self.addEventListener('message', function(e) {
           }
 
           if(foundSomething==false){
-            jsonObj.cVal1.push(undefined);
-            jsonObj.cVal2.push(undefined);
-            jsonObj.cVal3.push(undefined);
+            jsonObj.cVal1.push(data.nanC1);
+            jsonObj.cVal2.push(data.nanC2);
+            jsonObj.cVal3.push(data.nanC3);
           }
           else {
 
@@ -469,94 +467,79 @@ self.addEventListener('message', function(e) {
 
   }
 
-/*  if(data.simColorBlind){
+  if(data.simColorBlind){
     for (var i = 0; i < jsonObj.cVal1.length; i++) {
 
-      if(jsonObj.cVal1[i]!=undefined){
-
-        // to xyz
-
-        if (jsonObj.cVal1[i] > 0.04045) jsonObj.cVal1[i] = Math.pow(((jsonObj.cVal1[i] + 0.055) / 1.055), 2.4);
-        else jsonObj.cVal1[i] = jsonObj.cVal1[i] / 12.92;
-        if (jsonObj.cVal2[i] > 0.04045) jsonObj.cVal2[i] = Math.pow(((jsonObj.cVal2[i] + 0.055) / 1.055), 2.4);
-        else jsonObj.cVal2[i] = jsonObj.cVal2[i] / 12.92;
-        if (jsonObj.cVal3[i] > 0.04045) jsonObj.cVal3[i] = Math.pow(((jsonObj.cVal3[i] + 0.055) / 1.055), 2.4);
-        else jsonObj.cVal3[i] = jsonObj.cVal3[i] / 12.92;
-
-        jsonObj.cVal1[i] = jsonObj.cVal1[i] * 100;
-        jsonObj.cVal2[i] = jsonObj.cVal2[i] * 100;
-        jsonObj.cVal3[i] = jsonObj.cVal3[i] * 100;
-
-        jsonObj.cVal1[i] = jsonObj.cVal1[i] * data.transferMatrixColorXYZ[0][0] + jsonObj.cVal2[i] * data.transferMatrixColorXYZ[0][1] + jsonObj.cVal3[i] * data.transferMatrixColorXYZ[0][2];
-        jsonObj.cVal2[i] = jsonObj.cVal1[i] * data.transferMatrixColorXYZ[1][0] + jsonObj.cVal2[i] * data.transferMatrixColorXYZ[1][1] + jsonObj.cVal3[i] * data.transferMatrixColorXYZ[1][2];
-        jsonObj.cVal3[i] = jsonObj.cVal1[i] * data.transferMatrixColorXYZ[2][0] + jsonObj.cVal2[i] * data.transferMatrixColorXYZ[2][1] + jsonObj.cVal3[i] * data.transferMatrixColorXYZ[2][2];
-
-        // to lms
-        jsonObj.cVal1[i] = jsonObj.cVal1[i] * data.transferMatrixColorLMS[0][0] + jsonObj.cVal2[i] * data.transferMatrixColorLMS[0][1] + jsonObj.cVal3[i] * data.transferMatrixColorLMS[0][2];
-        jsonObj.cVal2[i] = jsonObj.cVal1[i] * data.transferMatrixColorLMS[1][0] + jsonObj.cVal2[i] * data.transferMatrixColorLMS[1][1] + jsonObj.cVal3[i] * data.transferMatrixColorLMS[1][2];
-        jsonObj.cVal3[i] = jsonObj.cVal1[i] * data.transferMatrixColorLMS[2][0] + jsonObj.cVal2[i] * data.transferMatrixColorLMS[2][1] + jsonObj.cVal3[i] * data.transferMatrixColorLMS[2][2];
-
-        // to l'm's'
-        jsonObj.cVal1[i] = jsonObj.cVal1[i] * data.transferMatrixColorSIM[0][0] + jsonObj.cVal2[i] * data.transferMatrixColorSIM[0][1] + jsonObj.cVal3[i] * data.transferMatrixColorSIM[0][2];
-        jsonObj.cVal2[i] = jsonObj.cVal1[i] * data.transferMatrixColorSIM[1][0] + jsonObj.cVal2[i] * data.transferMatrixColorSIM[1][1] + jsonObj.cVal3[i] * data.transferMatrixColorSIM[1][2];
-        jsonObj.cVal3[i] = jsonObj.cVal1[i] * data.transferMatrixColorSIM[2][0] + jsonObj.cVal2[i] * data.transferMatrixColorSIM[2][1] + jsonObj.cVal3[i] * data.transferMatrixColorSIM[2][2];
-
-        // to xyz
-        jsonObj.cVal1[i] = jsonObj.cVal1[i] * data.transferMatrixColorLMS_Inv[0][0] + jsonObj.cVal2[i] * data.transferMatrixColorLMS_Inv[0][1] + jsonObj.cVal3[i] * data.transferMatrixColorLMS_Inv[0][2];
-        jsonObj.cVal2[i] = jsonObj.cVal1[i] * data.transferMatrixColorLMS_Inv[1][0] + jsonObj.cVal2[i] * data.transferMatrixColorLMS_Inv[1][1] + jsonObj.cVal3[i] * data.transferMatrixColorLMS_Inv[1][2];
-        jsonObj.cVal3[i] = jsonObj.cVal1[i] * data.transferMatrixColorLMS_Inv[2][0] + jsonObj.cVal2[i] * data.transferMatrixColorLMS_Inv[2][1] + jsonObj.cVal3[i] * data.transferMatrixColorLMS_Inv[2][2];
-
-        // to rgb
-        jsonObj.cVal1[i] = jsonObj.cVal1[i] * data.transferMatrixColorXYZ_Inv[0][0] + jsonObj.cVal2[i] * data.transferMatrixColorXYZ_Inv[0][1] + jsonObj.cVal3[i] * data.transferMatrixColorXYZ_Inv[0][2];
-        jsonObj.cVal2[i] = jsonObj.cVal1[i] * data.transferMatrixColorXYZ_Inv[1][0] + jsonObj.cVal2[i] * data.transferMatrixColorXYZ_Inv[1][1] + jsonObj.cVal3[i] * data.transferMatrixColorXYZ_Inv[1][2];
-        jsonObj.cVal3[i] = jsonObj.cVal1[i] * data.transferMatrixColorXYZ_Inv[2][0] + jsonObj.cVal2[i] * data.transferMatrixColorXYZ_Inv[2][1] + jsonObj.cVal3[i] * data.transferMatrixColorXYZ_Inv[2][2];
 
 
-        //apply standard gamma correction
-        if ( jsonObj.cVal1[i] > 0.0031308 ) jsonObj.cVal1[i] = 1.055 * Math.pow( jsonObj.cVal1[i] , ( 1.0 / 2.4 ) ) - 0.055;
-        else                     jsonObj.cVal1[i] = 12.92 * jsonObj.cVal1[i];
-        if ( jsonObj.cVal2[i] > 0.0031308 ) jsonObj.cVal2[i] = 1.055 * Math.pow( jsonObj.cVal2[i] , ( 1.0 / 2.4 ) ) - 0.055;
-        else                     jsonObj.cVal2[i] = 12.92 * jsonObj.cVal2[i];
-        if ( jsonObj.cVal3[i] > 0.0031308 ) jsonObj.cVal3[i] = 1.055 * Math.pow( jsonObj.cVal3[i] , ( 1.0 / 2.4 ) ) - 0.055;
-        else                     jsonObj.cVal3[i] = 12.92 * jsonObj.cVal3[i];
+      //////////////////////////////////////////
+      /////////// RGB -> XYZ
+      ///////////
+      var var_R = jsonObj.cVal1[i];
+      var var_G = jsonObj.cVal2[i];
+      var var_B = jsonObj.cVal3[i];
 
+      // remove standard gamma correction
+      if (var_R > 0.04045) var_R = Math.pow(((var_R + 0.055) / 1.055), 2.4);
+      else var_R = var_R / 12.92;
+      if (var_G > 0.04045) var_G = Math.pow(((var_G + 0.055) / 1.055), 2.4);
+      else var_G = var_G / 12.92;
+      if (var_B > 0.04045) var_B = Math.pow(((var_B + 0.055) / 1.055), 2.4);
+      else var_B = var_B / 12.92;
 
-        if (jsonObj.cVal1[i]>1.0 || jsonObj.cVal2[i]>1.0 || jsonObj.cVal3[i]>1.0 || jsonObj.cVal1[i]<0.0 || jsonObj.cVal2[i]<0.0 || jsonObj.cVal3[i]<0.0){
-            // Wrong RGB -Values
+      var_R = var_R * 100;
+      var_G = var_G * 100;
+      var_B = var_B * 100;
 
-            if(jsonObj.cVal1[i]>1.0 && jsonObj.cVal1[i]-1.0<error){
-                jsonObj.cVal1[i]=1.0;
+      var var_X = var_R * data.transferMatrixColorXYZ[0][0] + var_G * data.transferMatrixColorXYZ[0][1] + var_B * data.transferMatrixColorXYZ[0][2];
+      var var_Y = var_R * data.transferMatrixColorXYZ[1][0] + var_G * data.transferMatrixColorXYZ[1][1] + var_B * data.transferMatrixColorXYZ[1][2];
+      var var_Z = var_R * data.transferMatrixColorXYZ[2][0] + var_G * data.transferMatrixColorXYZ[2][1] + var_B * data.transferMatrixColorXYZ[2][2];
 
-            }
-            if(jsonObj.cVal2[i]>1.0 && jsonObj.cVal2[i]-1.0<error){
-                jsonObj.cVal2[i]=1.0;
-            }
-            if(jsonObj.cVal3[i]>1.0 && jsonObj.cVal3[i]-1.0<error){
-                jsonObj.cVal3[i]=1.0;
-            }
-            if(jsonObj.cVal1[i]<0.0 && 1.0-jsonObj.cVal1[i]<error){
-                jsonObj.cVal1[i]=0.0;
-            }
-            if(jsonObj.cVal2[i]<0.0 && 1.0-jsonObj.cVal2[i]<error){
-                jsonObj.cVal2[i]=0.0;
-            }
-            if(jsonObj.cVal3[i]<0.0 && 1.0-jsonObj.cVal3[i]<error){
-                jsonObj.cVal3[i]=0.0;
-            }
-            if (jsonObj.cVal1[i]>1.0 || jsonObj.cVal2[i]>1.0 || jsonObj.cVal3[i]>1.0 || jsonObj.cVal1[i]<0.0 || jsonObj.cVal2[i]<0.0 || jsonObj.cVal3[i]<0.0){
-                jsonObj.cVal1[i]=undefined;
-                jsonObj.cVal1[i]=undefined;
-                jsonObj.cVal1[i]=undefined;
-            }
-        }
+      var var_L = var_X * data.transferMatrixColorLMS[0][0] + var_Y * data.transferMatrixColorLMS[0][1] + var_Z * data.transferMatrixColorLMS[0][2];
+      var var_M = var_X * data.transferMatrixColorLMS[1][0] + var_Y * data.transferMatrixColorLMS[1][1] + var_Z * data.transferMatrixColorLMS[1][2];
+      var var_S = var_X * data.transferMatrixColorLMS[2][0] + var_Y * data.transferMatrixColorLMS[2][1] + var_Z * data.transferMatrixColorLMS[2][2];
 
+      var newL = var_L * data.transferMatrixColorSIM[0][0] + var_M * data.transferMatrixColorSIM[0][1] + var_S * data.transferMatrixColorSIM[0][2];
+      var newM = var_L * data.transferMatrixColorSIM[1][0] + var_M * data.transferMatrixColorSIM[1][1] + var_S * data.transferMatrixColorSIM[1][2];
+      var newS = var_L * data.transferMatrixColorSIM[2][0] + var_M * data.transferMatrixColorSIM[2][1] + var_S * data.transferMatrixColorSIM[2][2];
+
+      var_X = (newL * data.transferMatrixColorLMS_Inv[0][0] + newM * data.transferMatrixColorLMS_Inv[0][1] + newS * data.transferMatrixColorLMS_Inv[0][2])/100;
+      var_Y = (newL * data.transferMatrixColorLMS_Inv[1][0] + newM * data.transferMatrixColorLMS_Inv[1][1] + newS * data.transferMatrixColorLMS_Inv[1][2])/100;
+      var_Z = (newL * data.transferMatrixColorLMS_Inv[2][0] + newM * data.transferMatrixColorLMS_Inv[2][1] + newS * data.transferMatrixColorLMS_Inv[2][2])/100;
+
+      var_R = var_X * data.transferMatrixColorXYZ_Inv[0][0] + var_Y * data.transferMatrixColorXYZ_Inv[0][1] + var_Z * data.transferMatrixColorXYZ_Inv[0][2];
+      var_G = var_X * data.transferMatrixColorXYZ_Inv[1][0] + var_Y * data.transferMatrixColorXYZ_Inv[1][1] + var_Z * data.transferMatrixColorXYZ_Inv[1][2];
+      var_B = var_X * data.transferMatrixColorXYZ_Inv[2][0] + var_Y * data.transferMatrixColorXYZ_Inv[2][1] + var_Z * data.transferMatrixColorXYZ_Inv[2][2];
+
+      //apply standard gamma correction
+      if ( var_R > 0.0031308 ) var_R = 1.055 * Math.pow( var_R , ( 1.0 / 2.4 ) ) - 0.055;
+      else                     var_R = 12.92 * var_R;
+      if ( var_G > 0.0031308 ) var_G = 1.055 * Math.pow( var_G , ( 1.0 / 2.4 ) ) - 0.055;
+      else                     var_G = 12.92 * var_G;
+      if ( var_B > 0.0031308 ) var_B = 1.055 * Math.pow( var_B , ( 1.0 / 2.4 ) ) - 0.055;
+      else                     var_B = 12.92 * var_B;
+
+      if (var_R>1.0 || var_G>1.0 || var_B>1.0 || var_R<0.0 || var_G<0.0 || var_B<0.0){
+          // Wrong RGB -Values
+          jsonObj.cVal1[i]=jsonObj.nanC1;
+          jsonObj.cVal2[i]=jsonObj.nanC2;
+          jsonObj.cVal3[i]=jsonObj.nanC2;
 
       }
+      else{
+          // Right RGB -Values
+          jsonObj.cVal1[i]=var_R;
+          jsonObj.cVal2[i]=var_G;
+          jsonObj.cVal3[i]=var_B;
+      }
+
+
+
 
     }
   }
 
-*/
+
   self.postMessage(jsonObj);
 
 

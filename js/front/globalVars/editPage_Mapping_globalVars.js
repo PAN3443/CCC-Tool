@@ -10,6 +10,7 @@ var currentTimeIndex = 0;
 
 
 var globalDomain;
+var domainFieldColors;
 
 var mappingContainerHeight=50;
 
@@ -21,6 +22,7 @@ var doParallelProcessing = true;
 
 var mapping_doingAnimation = false;
 var mapping_animationID;
+
 
 
 var mapping_dorotation = false;

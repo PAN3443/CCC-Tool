@@ -8,11 +8,14 @@ var workerModus = 0;
 
 //// for mapping
 var numWorkers = 1;//12;
-var workerArray=[];
+var mappingWorker;
 var workerFinished=[];
+var mappingFaceIndexArray = [];
+var mappingVertexIndexArray = [];
+
 var allWorkerFinished=true;
 var doneWorkerPreparation=false;
-var workerJSON=[];
+var workerJSON;
 
 // path plot?
 /*var workerElementContext;

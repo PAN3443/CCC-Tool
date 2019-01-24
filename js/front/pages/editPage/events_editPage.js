@@ -166,7 +166,7 @@ function updateEditPage(){
         // updateMapping
 
         if(doAutoUpdate && mapping_doingAnimation){
-          updateMesh();
+          updateFieldValueColors(true);
         }
 
       }
@@ -278,7 +278,7 @@ function switchAnalyzeMappingProbeSet(type){
         startAnimationMapping();
 
         if(doAutoUpdate && mapping_doingAnimation){
-          updateMesh();
+          updateFieldValueColors(true);
         }
     break;
 

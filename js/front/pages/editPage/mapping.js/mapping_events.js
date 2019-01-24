@@ -110,8 +110,10 @@ function changeField(){
 
 function changeTimeStep(){
   currentTimeIndex=document.getElementById("id_EditPage_SelectMappingTimeStep").selectedIndex;
-  globalDomain.generateCells(currentFieldIndex,currentTimeIndex);
   doneWorkerPreparation=false;
+
+  globalDomain.generateCells(currentFieldIndex,currentTimeIndex);
+
   drawMapping();
 
   if(document.getElementById("id_EditPage_Histogram_Div").style.display!="none")

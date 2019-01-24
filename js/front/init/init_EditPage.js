@@ -154,7 +154,7 @@ function init_events_EditPage(){
     document.getElementById('id_EditPage_NumberHistoRanges').addEventListener("keyup", updateHistogramKey);
     document.getElementById('id_EditPage_NumberHistoRanges').addEventListener("change", updateHistogramChange);
 
-    document.getElementById('id_EditPage_MappingCMS_Select').addEventListener("change", updateMesh);
+    document.getElementById('id_EditPage_MappingCMS_Select').onchange  = function(){ updateFieldValueColors(true)};
 
     /////////////////////////////////////////////////////
     /////////////// side options
