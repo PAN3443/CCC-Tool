@@ -65,6 +65,7 @@ class class_Domain {
               console.log("Detected Time Steps:" + this.timeSteps[this.timeSteps.length - 1]);
 
             } else {
+              console.log(valueArray.length , numberOfPointsTimeStep);
               console.log("Size of the field values are not appropriate to the grid dimensions");
               return false;
             }
@@ -132,7 +133,6 @@ class class_Domain {
     }
     else {
       console.log("Error at the insertGridPoint function. The point array size is smaller than the index.");
-      console.log(point.getXPos() + " " + point.getYPos() + " " + point.getZPos());
     }
 
   }
