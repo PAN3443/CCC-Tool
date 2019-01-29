@@ -42,8 +42,6 @@ function selectTestCMS(){
 }
 
 
-
-
 function switchTest(type){
 
   if (type==1) {
@@ -81,5 +79,27 @@ function switchTest(type){
     default:
         switchMetricSettings(0);
   }
+
+}
+
+
+
+function startCCCTest(){
+
+  var rangeStart = 0;
+  var rangeEnd = 1.0;
+
+
+  // delete fields
+  jumpTestFields_Array=[];
+
+
+  // generate fields
+  jump_upstairs(2, rangeStart, rangeEnd);
+  jump_upstairs(10, rangeStart, rangeEnd);
+  jump_upstairs(100, rangeStart, rangeEnd);
+  jump_upstairs(600, rangeStart, rangeEnd);
+  jump_upstairs(1200, rangeStart, rangeEnd);
+
 
 }
