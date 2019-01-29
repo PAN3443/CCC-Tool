@@ -119,31 +119,31 @@
     <script src="js/Front/GlobalEvents/ColormapDrawer/drawKeyBursLine.js"></script>
 
   <!------------------------------------------->
-  <!-- MyDesigns PAGE -->
-
-  <script src="js/Front/Sections/MyDesigns/draw_mydesigns.js"></script>
-  <script src="js/Front/Sections/MyDesigns/mydesigns.js"></script>
-  <script src="js/Front/Sections/MyDesigns/init_mydesigns.js"></script>
-  <script src="js/Front/Sections/MyDesigns/mydesigns_globalVars.js"></script>
+  <!------------------------------------------->
+  <!-----------      SECTIONS      ------------>
+  <!------------------------------------------->
 
   <!------------------------------------------->
-  <!-- Edit PAGE -->
+  <!-- Edit Section -->
 
   <script src="js/Front/Sections/Edit/events_editPage.js"></script>
-  <script src="js/Front/Sections/Edit/saveCreateProcess.js"></script>
+  <script src="js/Front/Sections/Edit/save.js"></script>
+  <script src="js/Front/Sections/Edit/process.js"></script>
   <script src="js/Front/Sections/Edit/events_keyRef_editPage.js"></script>
   <script src="js/Front/Sections/Edit/dropdown_events.js"></script>
   <script src="js/Front/Sections/Edit/updateEditPage_Style.js"></script>
   <script src="js/Front/Sections/Edit/init_EditPage.js"></script>
   <script src="js/Front/Sections/Edit/editPage_globalVars.js"></script>
+  <script src="js/Front/Sections/Edit/fillTable.js"></script>
+  <script src="js/Front/Sections/Edit/changeInterpolationSpace.js"></script>
 
-    <!-- Edit PAGE: Add CMS -->
+    <!-- Edit Section: Add CMS -->
     <script src="js/Front/Sections/Edit/AddCMS/drawSingleBands.js"></script>
     <script src="js/Front/Sections/Edit/AddCMS/dragAndDropevents.js"></script>
     <script src="js/Front/Sections/Edit/AddCMS/drawPredefinedCMS.js"></script>
     <script src="js/Front/Sections/Edit/AddCMS/predefined_const_bands.js"></script>
 
-    <!-- Edit PAGE: Analyze Key -->
+    <!-- Edit Section: Analyze Key -->
     <script src="js/Front/Sections/Edit/Analyze/analyze_globalVars.js"></script>
     <script src="js/Front/Sections/Edit/Analyze/analyze_events.js"></script>
     <script src="js/Front/Sections/Edit/Analyze/analyze_globalSpeed.js"></script>
@@ -152,14 +152,14 @@
     <script src="js/Front/Sections/Edit/Analyze/analyze_bandKeySpeed.js"></script>
     <script src="js/Front/Sections/Edit/Analyze/analyze_order.js"></script>
 
-    <!-- Edit PAGE: Edit Key -->
+    <!-- Edit Section: Edit Key -->
     <script src="js/Front/Sections/Edit/EditKey/editKeys.js"></script>
 
 
-    <!-- Edit PAGE: Histogram -->
+    <!-- Edit Section: Histogram -->
     <script src="js/Front/Sections/Edit/Histogram/histogram.js"></script>
 
-    <!-- Edit PAGE: Mapping -->
+    <!-- Edit Section: Mapping -->
     <script src="js/Front/Sections/Edit/Mapping/mapping_globalVars.js"></script>
     <script src="js/Front/Sections/Edit/Mapping/mapping_events.js"></script>
     <script src="js/Front/Sections/Edit/Mapping/DataParser/events_loadData.js"></script>
@@ -167,7 +167,7 @@
     <script src="js/Front/Sections/Edit/Mapping/Rendering/drawMapping.js"></script>
     <script src="js/Front/Sections/Edit/Mapping/Rendering/rendering.js"></script>
 
-    <!-- Edit PAGE: Path Plot -->
+    <!-- Edit Section: Path Plot -->
     <script src="js/Front/Sections/Edit/PathPlot/pathplot_globalVars.js"></script>
     <script src="js/Front/Sections/Edit/PathPlot/arrangePlots.js"></script>
     <script src="js/Front/Sections/Edit/PathPlot/drawPathPlot/drawColorspaceHSV_LAB_DIN99.js"></script>
@@ -183,19 +183,34 @@
     <script src="js/Front/Sections/Edit/PathPlot/3D_rendering/pathplot3D_vars.js"></script>
     <script src="js/Front/Sections/Edit/PathPlot/3D_rendering/init3DPathPlot.js"></script>
 
-    <!-- Edit PAGE: Side Options-->
-    <script src="js/Front/Sections/Edit/sideOptions/events_EditPage_showSideOptions.js"></script>
-    <script src="js/Front/Sections/Edit/sideOptions/fillTable.js"></script>
-    <script src="js/Front/Sections/Edit/sideOptions/changeInterpolationSpace.js"></script>
-    <script src="js/Front/Sections/Edit/sideOptions/events_Probes.js"></script>
-    <script src="js/Front/Sections/Edit/sideOptions/events_editProbe.js"></script>
-    <script src="js/Front/Sections/Edit/sideOptions/events_generateProbe.js"></script>
-    <script src="js/Front/Sections/Edit/sideOptions/checkCustomProbeInput.js"></script>
+    <!-- Edit Section: Probes-->
+    <script src="js/Front/Sections/Edit/Probes/events_Probes.js"></script>
+    <script src="js/Front/Sections/Edit/Probes/events_editProbe.js"></script>
+    <script src="js/Front/Sections/Edit/Probes/events_generateProbe.js"></script>
+    <script src="js/Front/Sections/Edit/Probes/checkCustomProbeInput.js"></script>
 
-  <!-- Gallery PAGE-->
+  <!-- Gallery Section-->
   <script src="js/Front/Sections/Gallery/events_Gallery.js"></script>
 
+  <!------------------------------------------->
+  <!-- MyDesigns Section -->
 
+  <script src="js/Front/Sections/MyDesigns/draw_mydesigns.js"></script>
+  <script src="js/Front/Sections/MyDesigns/mydesigns.js"></script>
+  <script src="js/Front/Sections/MyDesigns/init_mydesigns.js"></script>
+  <script src="js/Front/Sections/MyDesigns/mydesigns_globalVars.js"></script>
+
+  <!-- Test Section-->
+  <script src="js/Front/Sections/Testing/testing.js"></script>
+  <script src="js/Front/Sections/Testing/Functions/basis.js"></script>
+  <script src="js/Front/Sections/Testing/Functions/noise.js"></script>
+
+
+
+  <!------------------------------------------->
+  <!------------------------------------------->
+  <!-----------      Windows      ------------>
+  <!------------------------------------------->
 
   <!-- Pop Up Windows -->
   <script src="js/Front/PopUpWindows/init_PopUpWindow.js"></script>
@@ -233,14 +248,15 @@
 
 
   <!-- WebGL -->
-  <script src="js/Front/WebGL/three/three.min.js"></script>
+  <script src="http://mrdoob.github.com/three.js/build/three.min.js"></script>
+  <!--script src="js/Front/WebGL/three/three.min.js"></script>
   <script src="js/Front/WebGL/three/Detector.js"></script>
-  <script src="js/Front/WebGL/three/stats.min.js"></script>
+  <script src="js/Front/WebGL/three/stats.min.js"></script-->
 
 
   <!-- Worker -->
-  <script src="js/Front/worker/worker_globalVars.js"></script>
-  <script src="js/Front/worker/VisWorker/mappingWorkerEvents.js"></script>
+  <script src="js/Front/Worker/worker_globalVars.js"></script>
+  <script src="js/Front/Worker/VisWorker/mappingWorkerEvents.js"></script>
 
   <!--script src="js/worker/worker_vars.js"></script>
   <script src="js/worker/worker_drawHSVIntervalPath.js"></script>
@@ -506,7 +522,7 @@
 
 
     <!--  -----------------------------------------------
-                -------------- The Welcome Page ---------------
+                -------------- The Welcome Section ---------------
                 -----------------------------------------------
                 -->
 
@@ -536,15 +552,10 @@
             <p class="subsectionLabel" style="height:5vh; line-height:5vh; width:40vw; font-weight:bold;">The CCC-Tool</p>
 
             <p  class="standardText" style="margin-bottom:2.5vh; width:30vw; margin-left:5vw;">
-              The CCC-Tool based on the idea of a general tool for the
-creation and export of colormaps with the effort to minimize
-the needed interaction components. To make this possible, we developed a colormap specification <strong>CMS</strong>, which descripe colormaps with a minimum number of key-colors.
-This foundation of the tool is extended by a collection of recommended colormaps (Gallery-Section),
-which can be adapted to encode the users own domain-specific
-semantics, and the facilities for analyzing colormaps.
-CCC-Tool supports some commonly-used color spaces
-and color difference metrics, currently including RGB, HSV,
-CIELAB, CIE94, CIEDE2000, and DIN99. For more help, you can always visit the tutorials page via the menu bar.
+              The CCC-Tool based on the idea of a general tool for the creation and export of colormaps with the effort to minimize the needed interaction components.
+              To make this possible, we developed a colormap specification <strong>CMS</strong>, which descripe colormaps with a minimum number of key-colors.
+              This foundation of the tool is extended by a collection of recommended colormaps (Gallery-Section), which can be adapted to encode the users own domain-specific semantics, and the facilities for analyzing colormaps.
+              CCC-Tool supports some commonly-used color spaces and color difference metrics, currently including RGB, HSV, CIELAB, CIE94, CIEDE2000, and DIN99. For more help, you can always visit the tutorials page via the menu bar.
             </p>
 
             <button onclick="openTutorialWindow()" class="class_generalbutton" style="width:15vw; margin-left:10vw; margin-bottom:1vh;"><p>Tutorials</p></button>
@@ -587,7 +598,7 @@ CIELAB, CIE94, CIEDE2000, and DIN99. For more help, you can always visit the tut
 
 
     <!--  -----------------------------------------------
-                    -------------- The MyDesigns Page ---------------
+                    -------------- The MyDesigns Section ---------------
                     -----------------------------------------------
                     -->
 
@@ -617,7 +628,7 @@ CIELAB, CIE94, CIEDE2000, and DIN99. For more help, you can always visit the tut
 
 
     <!--  -----------------------------------------------
-                    -------------- The Init New CMS Page ---------------
+                    -------------- The Init New CMS Section ---------------
                     -----------------------------------------------
                     -->
 
@@ -650,14 +661,14 @@ CIELAB, CIE94, CIEDE2000, and DIN99. For more help, you can always visit the tut
 
 
     <!--  -----------------------------------------------
-                    -------------- The Gallery Page ---------------
+                    -------------- The Gallery Section ---------------
                     -----------------------------------------------
                     -->
 
     <div id="id_GalleryPage" style="width:100%; height:80vh; display:none; ">
 
 
-      <h1 id="id_MyDesings_Label" class="sectionLabel" style="width:60vw; height:10vh; line-height:10vh; margin:auto;">Gallery</h1>
+      <h1  class="sectionLabel" style="width:60vw; height:10vh; line-height:10vh; margin:auto;">Gallery</h1>
 
       <div class="row" style="width:100%;">
 
@@ -714,7 +725,7 @@ CIELAB, CIE94, CIEDE2000, and DIN99. For more help, you can always visit the tut
 
 
     <!--  -----------------------------------------------
-                    -------------- The Edit Page ---------------
+                    -------------- The Edit Section ---------------
                     -----------------------------------------------
                     -->
 
@@ -1824,24 +1835,72 @@ CIELAB, CIE94, CIEDE2000, and DIN99. For more help, you can always visit the tut
 
 
     <!--  -----------------------------------------------
-                    -------------- The MyDesigns Page ---------------
+                    -------------- The Test Section ---------------
                     -----------------------------------------------
                     -->
 
     <div id="id_TestingPage" style="width:100%; height:80vh; display:none;">
 
+      <h1  class="sectionLabel" style="width:60vw; height:10vh; line-height:10vh; margin:auto;">Test Section</h1>
+
+      <div class="row" style="padding-bottom: 1vh; margin:1vh; border-top: 0.2vh solid grey;">
+
+        <div style="margin-left:5vw; width:10vw; margin-right:5vw;">
+          <p class="standardText" style="width:100%;"> CMS (MyDesigns)</p>
+          <select id="id_TestSection_CMS_Select" style="width:100%;" onchange="selectTestCMS()">
+
+          </select>
+        </div>
+
+        <div style="height:auto; width:75vw;">
+          <canvas id="id_TestPage_CMS_VIS_LinearKeys" class="classColormapCanvas" style="display:block; width:100%; height:2vh; padding-top: 0.5vh;"></canvas>
+          <canvas id="id_TestPage_CMS_VIS_Lines1" class="classColormapCanvas" style="display:block; width:100%; height:0.5vh;"></canvas>
+          <canvas id="id_TestPage_CMS_VIS_ColormapLinear" class="classColormapCanvas" style=" display:block; width:90%; margin-left:5%; margin-right:5%; height:3.5vh; border:0.2vh solid black; background:grey;"></canvas>
+
+          <canvas id="id_TestPage_CMS_VIS_KeyBurs" class="classColormapCanvas" style=" display:block; width:100%; height:2vh;"></canvas>
+          <canvas id="id_TestPage_CMS_VIS_SketchKeyNumbers" class="classColormapCanvas" style="display:block; width:100%; height:2vh;"></canvas>
+          <canvas id="id_TestPage_CMS_VIS_SketchKeys" class="classColormapCanvas" style="display:block; width:100%; height:2vh;"></canvas>
+          <canvas id="id_TestPage_CMS_VIS_Lines2" class="classColormapCanvas" style="display:block; width:100%; height:0.5vh; "></canvas>
+          <canvas id="id_TestPage_CMS_VIS_ColormapSketch" class="classColormapCanvas" style="display:block; width:90%; margin-left:5%; margin-right:5%; height:3.5vh;"></canvas>
+          <div id="id_TestPage_CMS_VIS_Lines3" class="classColormapCanvas" style="display:block; width:90%; height:0.5vh; border-left:0.2vh solid black; border-right:0.2vh solid black; margin-left:5%;"></div>
+          <div style="display:flex; width:90%; margin-left:5%;">
+            <p id="id_TestPage_CMS_VIS_Label1" class="standardText" style="height:1.5vh; line-height:1.5vh; font-size:1.vh;">0</p>
+            <p id="id_TestPage_CMS_VIS_Label2" class="standardText" style="margin-left:auto; height:1.5vh; line-height:1.5vh; font-size:1.vh;">1</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="class_EditPage_TabRow">
+        <button id="id_TestPage_CCCTest" onclick="switchTest(0)" style="height:100%; width:50%; cursor:pointer;">
+          CCC-Tool Test
+        </button>
+        <button id="id_TestPage_CustomTest" onclick="switchTest(1)" style="height:100%; width:50%; cursor:not-allowed;">
+          Custom Test
+        </button>
+      </div>
+
+      <div id="id_TestPage_CCCTest_Div">
+
+      </div>
+
+      <div id="id_TestPage_CustomTest_Div">
+
+      </div>
+
+
 
 
       <div class="row" style="margin-top:1vh;">
-        <button class="class_generalbutton" onclick="showTestPage()" style="margin-left:15%; margin-right:12.5%;  width:15%; margin-top:1vh;"><p>MyDesigns</p></button>
-        <button class="class_generalbutton" onclick="" style="height:6vh; line-height:6vh; width:15%;"><p>Create Report</p></button>
+        <button class="class_generalbutton" onclick="showMyDesignsPage()" style="margin-left:27.5%; margin-right:15%;  width:15%;"><p>MyDesigns</p></button>
+        <button class="class_generalbutton" onclick="" style="width:15%;"><p>Create Report</p></button>
       </div>
 
     </div>
 
 
     <!--  -----------------------------------------------
-                    -------------- Pop Up Pages ---------------
+                    -------------- Pop Up Windows ---------------
                     -----------------------------------------------
                     -->
                     <!---------------- Color Transformation Settings ---------------  -->
@@ -1850,7 +1909,6 @@ CIELAB, CIE94, CIEDE2000, and DIN99. For more help, you can always visit the tut
                       <div style=" height:auto; background:white; width:50vw; border: 0.2vh solid black; margin:auto;">
 
                         <h3 class="class_popupWindow_Label"> Mapping Data-Set </h3>
-
 
                           <div class="row">
                             <p>x-dim:</p> <input id="id_PopUp_GridXDim" type="number" step="1" min="0" name="" value="50">
@@ -1865,13 +1923,9 @@ CIELAB, CIE94, CIEDE2000, and DIN99. For more help, you can always visit the tut
                             <p>y-step:</p> <input id="id_PopUp_GridYStep" type="number" step="1" min="0" name="" value="0.1">
                           </div>
 
-                        <button class="class_generalbutton " onclick="createPerlinNoiseField()" title="close" style=" width:100%; width:10vw; height:6vh; line-height:6vh; font-size:3vh; margin-bottom:2vh;  margin-left:20vw;"> <p>Perlin Noise</p> </button>
+                        <button class="class_generalbutton " onclick="()" title="close" style=" width:100%; width:10vw; height:6vh; line-height:6vh; font-size:3vh; margin-bottom:2vh;  margin-left:20vw;"> <p>Perlin Noise</p> </button>
 
-
-
-                        <button class="class_generalbutton " onclick="closeMappingDataSetPopUp()" title="close" style=" width:100%; width:10vw; height:6vh; line-height:6vh; font-size:3vh; margin-bottom:2vh;  margin-left:20vw;"> <p>Close</p> </button>
-
-
+                        <button class="class_generalbutton " onclick="()" title="close" style=" width:100%; width:10vw; height:6vh; line-height:6vh; font-size:3vh; margin-bottom:2vh;  margin-left:20vw;"> <p>Close</p> </button>
 
 
                       </div>
@@ -1887,7 +1941,7 @@ CIELAB, CIE94, CIEDE2000, and DIN99. For more help, you can always visit the tut
 
                         <div style="width: 45vw; margin:2.5vw;  overflow-y:auto; overflow-x:hidden;">
 
-                          <!-- Version 0.8 ->
+                          <!-- Version 0.8 -->
                           <p class="class_NewsSection">New Features (Version 0.8.0):</p>
                             <p class="class_NewsParagraph"> - Pop-Up Window: Mapping Data-Set (Import Data-Set, Test Functions, Test Data-Sets)</p>
                             <p class="class_NewsParagraph"> - Test Function: Perlin Noise Field </p>
@@ -1918,16 +1972,6 @@ CIELAB, CIE94, CIEDE2000, and DIN99. For more help, you can always visit the tut
                       <div style=" height:auto; background:white; width:60vw; border: 0.2vh solid black; margin:auto;">
 
                         <h3 class="class_popupWindow_Label"> Color-Blindness Settings </h3>
-
-                        <!--div class="class_EditPage_TabRow">
-                          <button id="id_PopUp_Select_MetricDe94" onclick="" style="height:100%; width:50%; cursor:pointer;">
-                            de94
-                          </button>
-                          <button id="id_PopUp_Select_MetricDe2000" onclick="" style="height:100%; width:50%; cursor:pointer;">
-                            CIEDE2000
-                          </button>
-
-                        </div-->
 
 
                           <div class="row" style="width:100%;width:60vw; margin-top:2vh; margin-bottom:2vh;">
@@ -3527,7 +3571,7 @@ CIELAB, CIE94, CIEDE2000, and DIN99. For more help, you can always visit the tut
     </div>
 
     <div style=" width:100%; display:flex; margin-top:1vh; border-top:1px solid grey;">
-      <p id="id_footer_version" onclick="openNewsPopUp()" style="margin:0px; margin-left:2.5vw; margin-right:auto; vertical-align: middle; color:white; height:2.5vh; font-size:1.5vh; cursor:pointer;"> Version: 0.7.5 </p>
+      <p id="id_footer_version" onclick="openNewsPopUp()" style="margin:0px; margin-left:2.5vw; margin-right:auto; vertical-align: middle; color:white; height:2.5vh; font-size:1.5vh; cursor:pointer;"> Version: 0.8.0 </p>
       <p id="id_footer_copyRight" style="margin:0px; margin-right:2.5vw; color:white; vertical-align: middle; height:2.5vh; font-size:1.5vh;"> Copyright © 2019 </p>
     </div>
 

@@ -22,9 +22,9 @@ function draw3DLine(xPos,yPos, zPos, xPos2, yPos2, zPos2,isDashed){
       new THREE.Vector3(xPos,yPos, zPos),
       new THREE.Vector3(xPos2, yPos2, zPos2)
     );
-    geometry.computeLineDistances();
 
     var line = new THREE.Line( geometry, lineMaterial );
+    line.computeLineDistances();
     pathPlotLineGroup.add( line );
 }
 

@@ -91,10 +91,10 @@ function startAnimationMapping(){
 function initMapping()
 {
 
-  if ( ! Detector.webgl ){
+  /*if ( ! Detector.webgl ){
      Detector.addGetWebGLMessage();
       return;
-  }
+  }*/
 
   currentOriginX=0;
   currentOriginY=0;

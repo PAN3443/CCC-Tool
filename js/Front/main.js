@@ -1,6 +1,18 @@
 window.onload = function() {
 
 
+  ///// Future Work:
+  ///
+  /// Dynamically adding different script depenting if the browser is able to work with workers
+  //  var newScript = document.createElement('script');
+  //  newScript.setAttribute('src','http://ccctool.com/front/js/example.js');
+  //  document.head.appendChild(newScript);
+  // -> function addScript(src)
+
+
+
+  //
+
   openWaitPopUp("Initialization of the tool.");
 
   if (typeof (Worker) === undefined)
@@ -68,10 +80,6 @@ window.onload = function() {
   document.getElementById('id_inputSessionData').addEventListener("change", readSessionFile);
   document.getElementById('id_inputData').addEventListener("change", readDataFile);
 
-
-
-
-
   document.getElementById("id_dropDownContainer").onmouseleave  = function(){document.getElementById("id_dropDownContainer").style.display="none";};
   document.getElementById("id_popupColorPicker").onmouseleave  = function(){document.getElementById("id_popupColorPicker").style.display="none";};
 
@@ -91,4 +99,12 @@ window.onload = function() {
 
 
 
+}
+
+
+
+function addScript(src){
+  var newScript = document.createElement('script');
+  newScript.setAttribute('src',src);
+  document.head.appendChild(newScript);
 }

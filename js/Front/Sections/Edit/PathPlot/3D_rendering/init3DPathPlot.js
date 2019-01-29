@@ -67,11 +67,11 @@ function startPathPlotAnimation(){
 
 
 function initPathPlot(){
-  if ( ! Detector.webgl ){
+  /*if ( ! Detector.webgl ){
      Detector.addGetWebGLMessage();
       showSpace=0;
       return;
-  }
+  }*/
 
 
   var canvasObj = document.getElementById("id_EditPage_PathPlot_3D_Div");

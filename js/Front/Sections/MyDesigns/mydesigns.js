@@ -241,8 +241,6 @@ function readSessionFile(e){
         din99_kCH = 1.0;
 
 
-      updateSettingInputFields();
-
     }
 
     // read cms

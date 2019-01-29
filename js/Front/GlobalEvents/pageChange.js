@@ -1,6 +1,9 @@
 
 
 
+
+
+
 function activateMenuDropdown() {
 
     if(document.getElementById("id_dropDownContainer").style.display=="none")
@@ -35,12 +38,28 @@ function startLeaveEditPage(){
 
 }
 
+
+function showTestPage(){
+
+  if(myDesignsList.length>0){
+    document.getElementById("id_myDesignsPage").style.display="none";
+    document.getElementById("id_TestingPage").style.display="block";
+    openTestSection();
+  }
+  else{
+    openAlert("Sorry. You need at least one CMS in the MyDesigns list to visit the Test Section.");
+  }
+
+
+}
+
 function showMyDesignsPage(){
 
   if(doColorblindnessSim){
     changeColorblindness();
   }
 
+  document.getElementById("id_TestingPage").style.display="none";
   document.getElementById("id_welcomePage").style.display="none";
   document.getElementById("id_newCMSPage").style.display="none";
   document.getElementById("id_EditPage").style.display="none";
