@@ -27,7 +27,8 @@
   <link rel="stylesheet" href="css/newDesign_General.css">
   <link rel="stylesheet" href="css/newDesign_MyDesigns.css">
   <link rel="stylesheet" href="css/newDesign_EditPage.css">
-  <link rel="stylesheet" href="css/newDesgin_GalleryPage.css">
+  <link rel="stylesheet" href="css/newDesign_GalleryPage.css">
+  <link rel="stylesheet" href="css/newDesign_TestPage.css">
 
   <link rel="stylesheet" href="css/newDesign_SearchAutoComplete.css">
 
@@ -97,7 +98,7 @@
 
       <!-- Classes : Mapping Data : Testing-->
       <script src="js/Front/Classes/Domain/class_testField.js"></script>
-      
+
   <!------------------------------------------->
   <!-- global Events-->
   <script src="js/Front/GlobalEvents/pageChange.js"></script>
@@ -169,6 +170,9 @@
     <script src="js/Front/Sections/Edit/Mapping/Rendering/drawMapping.js"></script>
     <script src="js/Front/Sections/Edit/Mapping/Rendering/rendering.js"></script>
 
+    <script src="js/Front/Sections/Edit/Mapping/mappingWorker_globlaVars.js"></script>
+    <script src="js/Front/Sections/Edit/Mapping/mappingWorkerEvents.js"></script>
+
     <!-- Edit Section: Path Plot -->
     <script src="js/Front/Sections/Edit/PathPlot/pathplot_globalVars.js"></script>
     <script src="js/Front/Sections/Edit/PathPlot/arrangePlots.js"></script>
@@ -205,9 +209,12 @@
   <!-- Testing Section-->
   <script src="js/Front/Sections/Testing/testing.js"></script>
   <script src="js/Front/Sections/Testing/testing_globalVars.js"></script>
+  <script src="js/Front/Sections/Testing/drawTestingField.js"></script>
 
     <!-- Testing Section : Jumps -->
     <script src="js/Front/Sections/Testing/Functions/Jumps/fieldGeneration.js"></script>
+    <script src="js/Front/Sections/Testing/Functions/Jumps/jumpWorkerEvent.js"></script>
+
 
     <script src="js/Front/Sections/Testing/Functions/basis.js"></script>
     <script src="js/Front/Sections/Testing/Functions/noise.js"></script>
@@ -261,13 +268,6 @@
   <script src="js/Front/WebGL/three/stats.min.js"></script-->
 
 
-  <!-- Worker -->
-  <script src="js/Front/Worker/worker_globalVars.js"></script>
-  <script src="js/Front/Worker/VisWorker/mappingWorkerEvents.js"></script>
-
-  <!--script src="js/worker/worker_vars.js"></script>
-  <script src="js/worker/worker_drawHSVIntervalPath.js"></script>
-  <script src="js/worker/worker_events_drawPath.js"></script-->
 
   <!-- Parser -->
   <script src="js/Front/Parser/csvColormapParser.js"></script>
@@ -1850,31 +1850,16 @@
 
       <h1  class="sectionLabel" style="width:60vw; height:10vh; line-height:10vh; margin:auto;">Test Section</h1>
 
-      <div class="row" style="padding-bottom: 1vh; margin:1vh; border-top: 0.2vh solid grey;">
 
-        <div style="margin-left:5vw; width:10vw; margin-right:5vw;">
-          <p class="standardText" style="width:100%;"> CMS (MyDesigns)</p>
-          <select id="id_TestSection_CMS_Select" style="width:100%;" onchange="selectTestCMS()">
 
-          </select>
-        </div>
+      <div class="row" style="width:100%; background:rgb(80,80,80); padding-top:1vh; padding-bottom:1vh; border-top:0.2vh solid black; border-bottom:0.2vh solid black;" >
 
-        <div style="height:auto; width:75vw;">
-          <canvas id="id_TestPage_CMS_VIS_LinearKeys" class="classColormapCanvas" style="display:block; width:100%; height:2vh; padding-top: 0.5vh;"></canvas>
-          <canvas id="id_TestPage_CMS_VIS_Lines1" class="classColormapCanvas" style="display:block; width:100%; height:0.5vh;"></canvas>
-          <canvas id="id_TestPage_CMS_VIS_ColormapLinear" class="classColormapCanvas" style=" display:block; width:90%; margin-left:5%; margin-right:5%; height:3.5vh; border:0.2vh solid black; background:grey;"></canvas>
+        <p class="standardText" style="width:100%; margin-left:5vw; margin-right:1vw; width: 8vw; color:white; height:3.5vh; line-height:3.5vh;"> CMS (MyDesigns):</p>
+        <select id="id_TestSection_CMS_Select" style="width:10vw; height:3.5vh; line-height:3.5vh; border:0.2vh solid black;" onchange="selectTestCMS()">
 
-          <canvas id="id_TestPage_CMS_VIS_KeyBurs" class="classColormapCanvas" style=" display:block; width:100%; height:2vh;"></canvas>
-          <canvas id="id_TestPage_CMS_VIS_SketchKeyNumbers" class="classColormapCanvas" style="display:block; width:100%; height:2vh;"></canvas>
-          <canvas id="id_TestPage_CMS_VIS_SketchKeys" class="classColormapCanvas" style="display:block; width:100%; height:2vh;"></canvas>
-          <canvas id="id_TestPage_CMS_VIS_Lines2" class="classColormapCanvas" style="display:block; width:100%; height:0.5vh; "></canvas>
-          <canvas id="id_TestPage_CMS_VIS_ColormapSketch" class="classColormapCanvas" style="display:block; width:90%; margin-left:5%; margin-right:5%; height:3.5vh;"></canvas>
-          <div id="id_TestPage_CMS_VIS_Lines3" class="classColormapCanvas" style="display:block; width:90%; height:0.5vh; border-left:0.2vh solid black; border-right:0.2vh solid black; margin-left:5%;"></div>
-          <div style="display:flex; width:90%; margin-left:5%;">
-            <p id="id_TestPage_CMS_VIS_Label1" class="standardText" style="height:1.5vh; line-height:1.5vh; font-size:1.vh;">0</p>
-            <p id="id_TestPage_CMS_VIS_Label2" class="standardText" style="margin-left:auto; height:1.5vh; line-height:1.5vh; font-size:1.vh;">1</p>
-          </div>
-        </div>
+        </select>
+
+        <canvas id="id_TestPage_CMS_VIS_ColormapLinear" class="classColormapCanvas" style=" display:block; width:70vw; height:3.5vh; border:0.2vh solid black; background:grey;"></canvas>
 
       </div>
 
@@ -1889,14 +1874,84 @@
 
       <div id="id_TestPage_CCCTest_Div">
 
+        <div class="row">
+            <div style="width:75vw;">
+                <p class="subsectionLabel" style="margin-top:2vh; margin-bottom:2vh;"> Test Field Generation</p>
+
+                <div style="width:70vw; margin-left:2.5vw; border: 0.2vh solid rgb(220,220,220); background:rgb(245,245,245); overflow-y:auto; height:40vh;">
+
+                  <!-- JUMPS -->
+                  <div class="row" style="width:68vw; margin-left:1vw; height: 4vh; border: 0.2vh solid grey; background:rgb(230,230,230); margin-top:0.5vh; margin-bottom:0.5vh;" >
+                      <input id="id_CCCTest_DoJump" type="checkbox" style="margin-right:1vw; width:1vw; margin-left:0.5vw;" checked>
+                      <p class="standardText" style="width: 10vw; height: 4vh; line-height: 4vh; margin-left:1vw;"> Jumo Fields: </p>
+                      <div style=" margin-left:1vw; height:2vh; margin-top:auto; margin-bottom:auto; border-radius:1vh; overflow:hidden; width:45vw; border: 0.2vh solid grey; background:white;">
+                        <div id="id_TestJump_Status" style="width:0%; height:100%; width:0%; background: rgb(51, 69, 102);">
+
+                        </div>
+                      </div>
+                      <p id="id_TestJump_Check" class="standardText" style="height: 4vh; line-height: 4vh; margin-left:0.5vw; margin-right:1vw; font-size:2.5vh; visibility:hidden; color: rgb(51, 69, 102);"> &#10004; </p>
+
+                      <div class="class_CCCTestfield_Setting">
+
+                      </div>
+                  </div>
+
+                  <!-- Gradients -->
+                  <div class="row" style="width:68vw; margin-left:1vw; height: 4vh; border: 0.2vh solid grey; background:rgb(230,230,230); margin-top:0.5vh; margin-bottom:0.5vh;" >
+                      <input id="id_CCCTest_DoGradient" type="checkbox" style="margin-right:1vw; width:1vw; margin-left:0.5vw;" checked>
+                      <p class="standardText" style="width: 10vw; height: 4vh; line-height: 4vh; margin-left:1vw;"> Gradient Fields: </p>
+                      <div style=" margin-left:1vw; height:2vh; margin-top:auto; margin-bottom:auto; border-radius:1vh; overflow:hidden; width:45vw; border: 0.2vh solid grey; background:white;">
+                        <div id="id_TestGradient_Status" style="width:0%; height:100%; width:0%; background: rgb(51, 69, 102);">
+
+                        </div>
+                      </div>
+                      <p id="id_TestGradient_Check" class="standardText" style="height: 4vh; line-height: 4vh; margin-left:0.5vw; margin-right:1vw; font-size:2.5vh; visibility:hidden; color: rgb(51, 69, 102);"> &#10004; </p>
+
+                      <div class="class_CCCTestfield_Setting">
+
+                      </div>
+                  </div>
+
+                </div>
+
+
+
+
+
+
+                <button class="class_generalbutton" onclick="startCCCTest()" style="width:10vw; margin-left:32.5vw; margin-top:1vh;"><p>Start</p></button>
+            </div>
+
+            <div style="width:25vw; border-right: 0.2vh solid black;">
+              <p class="subsectionLabel" style="margin-top:2vh; margin-bottom:2vh;"> Test Field Visualization</p>
+
+              <div class="row">
+                <select id="id_CCCTest_FieldType_Select" style="width:10vw; height:3.5vh; line-height:3.5vh; border:0.2vh solid black; margin:auto" onchange="selectTestFieldType()">
+                  <option id="id_CCCTest_FieldOption_Jump" disabled>Jump</option>
+                  <option disabled>Gradient</option>
+                  <option disabled>Quads</option>
+                  <option disabled>Frequences</option>
+                </select>
+                <select id="id_CCCTest_Field_Select" style="width:10vw; height:3.5vh; line-height:3.5vh; border:0.2vh solid black; margin:auto" onchange="selectTestField()">
+
+                </select>
+              </div>
+
+              <canvas id="id_CCCTestCanvas" style="border:0.2vh solid black; margin-top:2vh; margin-right:2.5vw; height:30vh; max-height:20vw; width:20vw; max-width:30vh;"></canvas>
+
+            </div>
+        </div>
+
+
+
       </div>
 
-      <div id="id_TestPage_CustomTest_Div">
+      <div id="id_TestPage_CustomTest_Div" style="height:100%;">
 
       </div>
 
 
-
+      <hr>
 
       <div class="row" style="margin-top:1vh;">
         <button class="class_generalbutton" onclick="showMyDesignsPage()" style="margin-left:27.5%; margin-right:15%;  width:15%;"><p>MyDesigns</p></button>

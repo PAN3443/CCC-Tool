@@ -8,7 +8,7 @@ var anonymousMode = true;
 ///
 var globalCMS1;
 
-
+var browserCanWorker = false;
 
 //var refLineSketchContainer = [];
 var numDecimalPlaces=2;

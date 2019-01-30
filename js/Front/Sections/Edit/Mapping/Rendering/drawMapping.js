@@ -270,7 +270,7 @@ function updateFieldValueColors(updateMesh){
         workerJSON.belowC2 = tmpBelow.get2Value();
         workerJSON.belowC3 = tmpBelow.get3Value();
 
-        mappingWorker = new Worker('js/Front/Worker/VisWorker/colorMappingWorker.js');
+        mappingWorker = new Worker('js/Front/Sections/Edit/Mapping/colorMappingWorker.js');
         mappingWorker.addEventListener('message', eventFunctionColorMapping, false);
 
         // seperate start of Worker

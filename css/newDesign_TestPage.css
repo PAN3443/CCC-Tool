@@ -1,0 +1,18 @@
+.class_CCCTestfield_Setting{
+
+  background: url(../img/Buttons/gear_wheel.png);
+  background-size:cover;
+  background-repeat:no-repeat;
+  background-position: center center;
+
+  width:2vw;
+  max-width: 2vh;
+  height: 2vh;
+  max-height: 2vw;
+  margin:auto;
+
+  border: 0.2vh solid rgb(0, 20, 51);
+  background-color: rgb(51, 69, 102);
+
+  cursor:not-allowed;
+}
