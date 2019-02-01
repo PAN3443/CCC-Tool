@@ -26,6 +26,7 @@ function workerEvent_JumpTestField(e){
         var x = i-(y*jumpTestFields_Array[data.index].getXDim())
         var newRGB = new classColor_RGB(data.cVal1[i],data.cVal2[i],data.cVal3[i]);
         var value = data.testFieldVal[i];
+
         jumpTestFields_Array[data.index].setFieldValue(x,y,value,newRGB);
     }
 

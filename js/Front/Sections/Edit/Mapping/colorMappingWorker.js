@@ -356,9 +356,9 @@ self.addEventListener('message', function(e) {
 
         for (var j = 0; j < data.refVal.length - 1; j++) {
 
-          var tmpRatio = (data.domainFieldValues[valIndex] - data.refVal[j]) / (data.refVal[i + 1] - data.refVal[j]);
+          var tmpRatio = (data.domainFieldValues[valIndex] - data.refVal[j]) / (data.refVal[j + 1] - data.refVal[j]);
 
-          if (data.domainFieldValues[valIndex] > data.refVal[j] && data.domainFieldValues[valIndex] < data.refVal[i + 1]) {
+          if (data.domainFieldValues[valIndex] > data.refVal[j] && data.domainFieldValues[valIndex] < data.refVal[j + 1]) {
             if (data.key1cVal1[j] == undefined) { // cVal2 and cVal3 should also be undefined -> constant band
               tmpH = data.key2cVal1[j];
               tmpS = data.key2cVal2[j];
@@ -387,24 +387,24 @@ self.addEventListener('message', function(e) {
             foundSomething=true;
           }
 
-            if(data.domainFieldValues[valIndex]==data.refVal[i]){
+            if(data.domainFieldValues[valIndex]==data.refVal[j]){
 
               if(i==0){
-                tmpH = data.key1cVal1[i];
-                tmpS = data.key1cVal2[i];
-                tmpV = data.key1cVal3[i];
+                tmpH = data.key1cVal1[j];
+                tmpS = data.key1cVal2[j];
+                tmpV = data.key1cVal3[j];
               }
               else{
                 if(data.MoT[i]){
                   //
-                  tmpH = data.key1cVal1[i];
-                  tmpS = data.key1cVal2[i];
-                  tmpV = data.key1cVal3[i];
+                  tmpH = data.key1cVal1[j];
+                  tmpS = data.key1cVal2[j];
+                  tmpV = data.key1cVal3[j];
                 }
                 else{
-                    tmpH = data.key2cVal1[i-1];
-                    tmpS = data.key2cVal2[i-1];
-                    tmpV = data.key2cVal3[i-1];
+                    tmpH = data.key2cVal1[j-1];
+                    tmpS = data.key2cVal2[j-1];
+                    tmpV = data.key2cVal3[j-1];
                 }
               }
               foundSomething=true;

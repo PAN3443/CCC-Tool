@@ -7,27 +7,11 @@
 
 
 
-function jump_upstairs(n, rangeStart, rangeEnd){
-
-
-  var globalTestField = new class_TestField(n,n);
-
-
-
-  jumpTestFields_Array.push(globalTestField);
-
-
-  mappingWorker = new Worker('js/Front/Sections/Edit/Mapping/colorMappingWorker.js');
-  mappingWorker.addEventListener('message', workerEvent_JumpTestField, false);
-
-}
-
-
-
 self.addEventListener('message', function(e) {
 
   var data = e.data;
   var error = 100; // 0.01
+  var errorMath = 1e12;
   var jsonObj = {};
 
   var jsonUpdateObj = {};
@@ -52,23 +36,86 @@ self.addEventListener('message', function(e) {
   switch (data.testFieldType) {
 
     ///////////////////////////
-    //// GRADIENT
+    //// JUMP
     case 0:
         switch (data.testFieldGenerationType) {
-          //// GRADIENT : UPSTAIRS
+          //// JUMP : UPSTAIRS
           case 0:
-          var rangeDistance = data.testFieldRangeEnd-data.testFieldRangeStart;
-          var step = rangeDistance/(data.testFieldDimX-1);
-          var currentStart = data.testFieldRangeStart;
+          //// JUMP : DOWNSTAIRS
+          case 1:
 
-          for (var x = 0; x < data.testFieldDimX; x++) {
-            var substep = (data.testFieldRangeEnd-currentStart)/(data.testFieldDimX-1);
+            var fixedStart = data.testFieldRangeStart;
+            var fixedEnd = data.testFieldRangeEnd;
+            if(data.testFieldGenerationType==1){
+              fixedStart = data.testFieldRangeEnd;
+              fixedEnd = data.testFieldRangeStart;
+            }
+
+            var currentStart = fixedStart;
+
+            var rangeDistance =  Math.round((fixedEnd-fixedStart) * errorMath) / errorMath;
+            var step = Math.round((rangeDistance/(data.testFieldDimY))* errorMath) / errorMath;// Math.round((rangeDistance/(data.testFieldDimY-1))* errorMath) / errorMath;
+
             for (var y = 0; y < data.testFieldDimY; y++) {
-              var value = currentStart+y*substep;
+
+              /*if(y==data.testFieldDimY-1){
+                currentStart=fixedEnd;
+              }*/
+              var substep = Math.round(((fixedEnd-currentStart)/(data.testFieldDimX-1)) * errorMath) / errorMath;
+
+              for (var x = 0; x < data.testFieldDimX; x++) {
+                var value = Math.round((currentStart+x*substep) * errorMath) / errorMath;
+
+                if(x==data.testFieldDimX-1){
+                  value=fixedEnd;
+                }
+
+                jsonObj.testFieldVal.push(value);
+              }
+              currentStart = Math.round((currentStart+step) * errorMath) / errorMath;
+            }
+          break;
+
+          //// JUMP : DECREASE (FIXED Max Value)
+          case 2:
+          //// JUMP : DECREASE (FIXED Min Value)
+          case 3:
+
+          var fixedStart = data.testFieldRangeStart;
+          var fixedEnd = data.testFieldRangeEnd;
+          if(data.testFieldGenerationType==3){
+            fixedStart = data.testFieldRangeEnd;
+            fixedEnd = data.testFieldRangeStart;
+          }
+
+          var currentStart = fixedStart;
+
+          var rangeDistance =  Math.round((fixedEnd-fixedStart) * errorMath) / errorMath;
+          var step = Math.round((rangeDistance/(data.testFieldDimY))* errorMath) / errorMath;// Math.round((rangeDistance/(data.testFieldDimY-1))* errorMath) / errorMath;
+
+          for (var y = 0; y < data.testFieldDimY; y++) {
+
+            /*if(y==data.testFieldDimY-1){
+              currentStart=fixedEnd;
+            }*/
+            var substep = Math.round((((fixedEnd-currentStart)/2)/(data.testFieldDimX-1)) * errorMath) / errorMath; // we want to do a course to the middle between fixed end and current start
+
+            for (var x = 0; x < data.testFieldDimX; x++) {
+
+              var value = 0
+
+              if(x%2==0){
+                value = Math.round((fixedEnd-x*substep) * errorMath) / errorMath;
+              }else{
+                value = Math.round((currentStart+(x-1)*substep) * errorMath) / errorMath; // x-1 because we dont
+              }
+
+
               jsonObj.testFieldVal.push(value);
             }
+            currentStart = Math.round((currentStart+step) * errorMath) / errorMath;
           }
-            break;
+          break;
         }
       break;
   }
@@ -423,30 +470,30 @@ self.addEventListener('message', function(e) {
 
 
           var foundSomething = false;
-          var r, g, b;
           var tmpH, tmpS, tmpV;
 
-        for (var j = 0; j < data.refVal.length - 1; j++) {
+        for (var i = 0; i < data.refVal.length - 1; i++) {
 
-          var tmpRatio = (jsonObj.testFieldVal[valIndex] - data.refVal[j]) / (data.refVal[i + 1] - data.refVal[j]);
+          var tmpRatio = (jsonObj.testFieldVal[valIndex] - data.refVal[i]) / (data.refVal[i + 1] - data.refVal[i]);
 
-          if (jsonObj.testFieldVal[valIndex] > data.refVal[j] && jsonObj.testFieldVal[valIndex] < data.refVal[i + 1]) {
-            if (data.key1cVal1[j] == undefined) { // cVal2 and cVal3 should also be undefined -> constant band
-              tmpH = data.key2cVal1[j];
-              tmpS = data.key2cVal2[j];
-              tmpV = data.key2cVal3[j];
+          if (jsonObj.testFieldVal[valIndex] > data.refVal[i] && jsonObj.testFieldVal[valIndex] < data.refVal[i + 1]) {
+
+            if (data.key1cVal1[i] == undefined) { // cVal2 and cVal3 should also be undefined -> constant band
+              tmpH = data.key2cVal1[i];
+              tmpS = data.key2cVal2[i];
+              tmpV = data.key2cVal3[i];
             } else {
-              var tmpDis = data.key1cVal2[j] * 50; // radius 50; center(0,0,0);
-              var tmpRad = (data.key1cVal1[j] * Math.PI * 2) - Math.PI;
+              var tmpDis = data.key1cVal2[i] * 50; // radius 50; center(0,0,0);
+              var tmpRad = (data.key1cVal1[i] * Math.PI * 2) - Math.PI;
               var xPos = tmpDis * Math.cos(tmpRad);
               var yPos = tmpDis * Math.sin(tmpRad);
-              var zPos = data.key1cVal3[j] - 50;
+              var zPos = data.key1cVal3[i] - 50;
 
-              var tmpDis2 = data.key2cVal2[j] * 50;
-              var tmpRad2 = (data.key2cVal1[j] * Math.PI * 2) - Math.PI;
+              var tmpDis2 = data.key2cVal2[i] * 50;
+              var tmpRad2 = (data.key2cVal1[i] * Math.PI * 2) - Math.PI;
               var xPos2 = tmpDis2 * Math.cos(tmpRad2);
               var yPos2 = tmpDis2 * Math.sin(tmpRad2);
-              var zPos2 = data.key2cVal3[j] - 50;
+              var zPos2 = data.key2cVal3[i] - 50;
 
               var tmpX = xPos + (xPos2 - xPos) * tmpRatio;
               var tmpY = yPos + (yPos2 - yPos) * tmpRatio;
@@ -498,13 +545,15 @@ self.addEventListener('message', function(e) {
           }
           else {
 
-            var i = Math.floor(tmpH * 6);
-            var f = tmpH * 6 - i;
+            var j = Math.floor(tmpH * 6);
+            var f = tmpH * 6 - j;
             var p = tmpV * (1 - tmpS);
             var q = tmpV * (1 - f * tmpS);
             var t = tmpV * (1 - (1 - f) * tmpS);
 
-            switch (i % 6) {
+            var r, g, b;
+
+            switch (j % 6) {
               case 0:
                 r = tmpV, g = t, b = p;
                 break;

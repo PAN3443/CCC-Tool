@@ -29,7 +29,9 @@ function openTestSection(){
     selectobject.add(optionCMS);
   }
   selectobject.selectedIndex = 0;
-  selectTestCMS();
+
+  switchTest(0);
+
 
 }
 
@@ -40,8 +42,9 @@ function selectTestCMS(){
 
   drawCanvasColormap("id_TestPage_CMS_VIS_ColormapLinear", globalCMS1);
 
+  if(document.getElementById("id_TestPage_CCCTest_Div").style.display!="none")
+  startCCCTest();
 
-  switchTest(0);
 }
 
 function switchTest(type){
@@ -69,7 +72,6 @@ function switchTest(type){
 
       document.getElementById("id_TestPage_CCCTest_Div").style.display="flex";
 
-
       break;
       case 1:
       document.getElementById("id_TestPage_CustomTest").style.background=styleActiveColor;
@@ -81,6 +83,8 @@ function switchTest(type){
     default:
         switchMetricSettings(0);
   }
+
+  selectTestCMS();
 
 }
 
@@ -96,11 +100,10 @@ function startCCCTest(){
      selectobject.remove(i);
   }
 
-  var rangeStart = 0;
-  var rangeEnd = 1.0;
+
   allFieldsFinished=false;
 
-  initTesttestField_WorkerJSON(rangeStart,rangeEnd);
+  initTesttestField_WorkerJSON();
 
 
   //// JUMPS /////////////////////////////////
@@ -132,6 +135,7 @@ function checkIfGenerationFinished(){
 
   /////////////////// fill field combo
   var selectobject = document.getElementById("id_CCCTest_FieldType_Select");
+  var oldselectedIndex = selectobject.selectedIndex;
 
   if(document.getElementById("id_CCCTest_DoJump").checked){
     document.getElementById("id_CCCTest_FieldOption_Jump").disabled=false;
@@ -139,8 +143,22 @@ function checkIfGenerationFinished(){
   else{
     document.getElementById("id_CCCTest_FieldOption_Jump").disabled=true;
   }
+  var newSelectedIndex = -1;
+
+  if (oldselectedIndex>-1)
+    if(selectobject.children[oldselectedIndex].disabled==false)
+      newSelectedIndex = oldselectedIndex;
 
 
+  if(newSelectedIndex==-1){
+    for (var i = 0; i < selectobject.children.length; i++) {
+      if(selectobject.children[i].disabled==false){
+        newSelectedIndex=i;
+        break;
+      }
+    }
+  }
+  selectobject.selectedIndex =  newSelectedIndex;
   selectTestFieldType();
 }
 
@@ -177,7 +195,7 @@ function selectTestFieldType(){
         selectobject.add(option);
       }
       selectobject.selectedIndex = 0;
-      selectTestField();
+      selectTestField(false);
       break;
     default:
 
@@ -187,11 +205,17 @@ function selectTestFieldType(){
 }
 
 
-function selectTestField(){
+function selectTestField(doFullWindow){
 
   switch (document.getElementById("id_CCCTest_FieldType_Select").selectedIndex) {
     case 0: // jumps
-        drawTestField(jumpTestFields_Array[document.getElementById("id_CCCTest_Field_Select").selectedIndex],"id_CCCTestCanvas");
+
+        if(doFullWindow)
+          drawTestField(jumpTestFields_Array[document.getElementById("id_CCCTest_Field_Select").selectedIndex],"id_PopUp_FullTestFuctionCanvas");
+        else
+          drawTestField(jumpTestFields_Array[document.getElementById("id_CCCTest_Field_Select").selectedIndex],"id_CCCTestCanvas");
+
+
       break;
     default:
 
@@ -202,11 +226,20 @@ function selectTestField(){
 function drawTestField(field,canvasID){
 
   var canvasPlot = document.getElementById(canvasID);
-
-  canvasPlot.width = field.getXDim();
-  canvasPlot.height = field.getYDim();
-
   var canvasCtx = canvasPlot.getContext("2d");
+
+  var pixelsPerXStep = Math.floor(testingFieldResolution/field.getXDim());
+  var pixelsPerYStep = Math.floor(testingFieldResolution/field.getYDim());
+  var imageDIMX = field.getXDim()*pixelsPerXStep;
+  var imageDIMY = field.getYDim()*pixelsPerXStep;
+
+  if(field==undefined){
+    canvasCtx.clearRect(0, 0, canvasPlot.width, canvasPlot.height);
+    return;
+  }
+
+  canvasPlot.width = imageDIMX;
+  canvasPlot.height = imageDIMY;
 
    canvasCtx.mozImageSmoothingEnabled = false;
    canvasCtx.webkitImageSmoothingEnabled = false;
@@ -219,17 +252,30 @@ function drawTestField(field,canvasID){
 
   for(var x=0; x<field.getXDim(); x++){
 
-    for(var y=0; y<field.getYDim(); y++){
+    for (var subX = 0; subX < pixelsPerXStep; subX++) {
 
-        var tmpColor = field.getFieldColor(x,y);
+      var currentX = x*pixelsPerXStep+subX;
 
-        var index = (x + y * canvasPlot.width) * 4;
-        canvasData.data[index + 0] = Math.round(tmpColor.getRValue() * 255); // r
-        canvasData.data[index + 1] = Math.round(tmpColor.getGValue() * 255); // g
-        canvasData.data[index + 2] = Math.round(tmpColor.getBValue() * 255); // b
-        canvasData.data[index + 3] = 255; //a
+      for(var y=0; y<field.getYDim(); y++){
+
+          var tmpColor = field.getFieldColor(x,y);
+
+          for (var subY = 0; subY < pixelsPerYStep; subY++) {
+
+            var currentY = y*pixelsPerYStep+subY;
+
+            var index = (currentX + currentY * canvasPlot.width) * 4;
+            canvasData.data[index + 0] = Math.round(tmpColor.getRValue() * 255); // r
+            canvasData.data[index + 1] = Math.round(tmpColor.getGValue() * 255); // g
+            canvasData.data[index + 2] = Math.round(tmpColor.getBValue() * 255); // b
+            canvasData.data[index + 3] = 255; //a
+
+          }
+
+      }
 
     }
+
   }
 
   canvasCtx.putImageData(canvasData, 0, 0);
@@ -237,7 +283,26 @@ function drawTestField(field,canvasID){
 }
 
 
-function initTesttestField_WorkerJSON(rangeStart,rangeEnd){
+
+/* Source: https://stackoverflow.com/questions/12796513/html5-canvas-to-png-file*/
+/* REGISTER DOWNLOAD HANDLER */
+/* Only convert the canvas to Data URL when the user clicks.
+   This saves RAM and CPU ressources in case this feature is not required. */
+function downloadTestImage() {
+
+  var canvas = document.getElementById("id_CCCTestCanvas");
+
+  var dt = canvas.toDataURL('image/png');
+  /* Change MIME type to trick the browser to downlaod the file instead of displaying it */
+  dt = dt.replace(/^data:image\/[^;]*/, 'data:application/octet-stream');
+
+  /* In addition to <a>'s "download" attribute, you can define HTTP-style headers */
+  dt = dt.replace(/^data:application\/octet-stream/, 'data:application/octet-stream;headers=Content-Disposition%3A%20attachment%3B%20filename=Canvas.png');
+
+  this.href = dt;
+}
+
+function initTesttestField_WorkerJSON(){
   testField_WorkerJSON = {};
 
   testField_WorkerJSON['testFieldType'] = undefined;
@@ -247,8 +312,8 @@ function initTesttestField_WorkerJSON(rangeStart,rangeEnd){
   testField_WorkerJSON['testFieldDimX'] = undefined;
   testField_WorkerJSON['testFieldDimY'] = undefined;
 
-  testField_WorkerJSON['testFieldRangeStart'] = rangeStart;
-  testField_WorkerJSON['testFieldRangeEnd'] = rangeEnd;
+  testField_WorkerJSON['testFieldRangeStart'] = 0;
+  testField_WorkerJSON['testFieldRangeEnd'] = 1;
 
   testField_WorkerJSON['colorspace'] = globalCMS1.getInterpolationSpace();
   testField_WorkerJSON['refVal'] = [];

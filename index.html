@@ -210,6 +210,7 @@
   <script src="js/Front/Sections/Testing/testing.js"></script>
   <script src="js/Front/Sections/Testing/testing_globalVars.js"></script>
   <script src="js/Front/Sections/Testing/drawTestingField.js"></script>
+  <script src="js/Front/Sections/Testing/init_TestingSection.js"></script>
 
     <!-- Testing Section : Jumps -->
     <script src="js/Front/Sections/Testing/Functions/Jumps/fieldGeneration.js"></script>
@@ -259,13 +260,17 @@
     <!-- Pop Up Windows : Tutorial -->
     <script src="js/Front/PopUpWindows/Tutorials/tutorialVideos.js"></script>
 
-
+  <!------------------------------------------->
+  <!-- EXTERN Libs -->
 
   <!-- WebGL -->
   <script src="http://mrdoob.github.com/three.js/build/three.min.js"></script>
-  <!--script src="js/Front/WebGL/three/three.min.js"></script>
-  <script src="js/Front/WebGL/three/Detector.js"></script>
-  <script src="js/Front/WebGL/three/stats.min.js"></script-->
+  <!-- PDF -->
+  <!--<script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.41/pdfmake.min.js"></script>
+
+
+
 
 
 
@@ -1878,11 +1883,11 @@
             <div style="width:75vw;">
                 <p class="subsectionLabel" style="margin-top:2vh; margin-bottom:2vh;"> Test Field Generation</p>
 
-                <div style="width:70vw; margin-left:2.5vw; border: 0.2vh solid rgb(220,220,220); background:rgb(245,245,245); overflow-y:auto; height:40vh;">
+                <div style="width:70vw; margin-left:2.5vw; border: 0.2vh solid rgb(220,220,220); background:rgb(245,245,245); overflow-y:auto; height:45vh;">
 
                   <!-- JUMPS -->
                   <div class="row" style="width:68vw; margin-left:1vw; height: 4vh; border: 0.2vh solid grey; background:rgb(230,230,230); margin-top:0.5vh; margin-bottom:0.5vh;" >
-                      <input id="id_CCCTest_DoJump" type="checkbox" style="margin-right:1vw; width:1vw; margin-left:0.5vw;" checked>
+                      <input id="id_CCCTest_DoJump" type="checkbox" style="margin-right:1vw; width:1vw; margin-left:0.5vw;" onchange="removeJumpFields()" checked>
                       <p class="standardText" style="width: 10vw; height: 4vh; line-height: 4vh; margin-left:1vw;"> Jumo Fields: </p>
                       <div style=" margin-left:1vw; height:2vh; margin-top:auto; margin-bottom:auto; border-radius:1vh; overflow:hidden; width:45vw; border: 0.2vh solid grey; background:white;">
                         <div id="id_TestJump_Status" style="width:0%; height:100%; width:0%; background: rgb(51, 69, 102);">
@@ -1917,9 +1922,6 @@
 
 
 
-
-
-                <button class="class_generalbutton" onclick="startCCCTest()" style="width:10vw; margin-left:32.5vw; margin-top:1vh;"><p>Start</p></button>
             </div>
 
             <div style="width:25vw; border-right: 0.2vh solid black;">
@@ -1937,7 +1939,14 @@
                 </select>
               </div>
 
-              <canvas id="id_CCCTestCanvas" style="border:0.2vh solid black; margin-top:2vh; margin-right:2.5vw; height:30vh; max-height:20vw; width:20vw; max-width:30vh;"></canvas>
+              <div class="row" style="width:100%; margin-top:2vh; margin-bottom:2vh;">
+                <canvas id="id_CCCTestCanvas" style="border:0.2vh solid black; margin:auto; height:35vh; max-height:23vw; width:23vw; max-width:35vh; background:rgb(50,50,50);"></canvas>
+              </div>
+
+              <div class="row">
+                  <button class="class_generalbutton" onclick="openFullTestFkt()" style="width:5vw; margin:auto;"><p>Fullscreen</p></button>
+                  <a id="id_CCCTest_downloadCanvas" class="class_generalbutton" download="Canvas.png" style="width:5vw; margin:auto;"><p>Download</p></a>
+              </div>
 
             </div>
         </div>
@@ -1965,6 +1974,35 @@
                     -------------- Pop Up Windows ---------------
                     -----------------------------------------------
                     -->
+
+                    <!---------------- Full Analzye ---------------  -->
+                        <div id="id_PopUp_fullTestFktWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
+
+                                      <div style="height:100vh; width:100vw; margin-left:auto; margin-right:auto; background:grey;">
+
+                                        <div class="row" style="background:black; height:5vh;">
+
+                                          <h1 class="class_popupWindow_Label" style="height:5vh; line-height:5vh; font-size:3.5vh; ">Fullscreen Mapping</h1>
+                                          <div style="height:5vh; line-height:5vh; font-size:3.5vh; color:white; cursor:pointer;" onclick="closeFullTestFkt()">
+                                            X
+                                          </div>
+
+                                        </div>
+
+
+                                        <div class="row" style="width:100%;">
+                                          <canvas id="id_PopUp_FullTestFuctionCanvas" style="height:95vh; max-height:100vw; width:100vw; max-width:95vh; margin:auto; background:rgb(50,50,50);"> </canvas>
+                                        </div>
+
+
+
+
+                                      </div>
+                                    </div>
+
+
+
+
                     <!---------------- Color Transformation Settings ---------------  -->
                     <div id="id_PopUp_MappingDataSetWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
 
@@ -3016,8 +3054,8 @@
                     </div>
 
 
-    <!---------------- Full Analzye ---------------  -->
-        <div id="id_PopUp_fullMappingWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
+                    <!---------------- Full Mapping ---------------  -->
+                    <div id="id_PopUp_fullMappingWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
 
                       <div style="height:100vh; width:100vw; margin-left:auto; margin-right:auto;">
 

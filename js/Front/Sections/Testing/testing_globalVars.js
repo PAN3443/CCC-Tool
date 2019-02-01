@@ -4,7 +4,7 @@
 
 
 
-var testingFieldDim = 1200; // ~ 2 million pixels for realistic
+var testingFieldResolution = 1500; // ~ 2 million pixels for realistic
 
 
 ///////////////////////////////////////////
@@ -12,9 +12,13 @@ var testingFieldDim = 1200; // ~ 2 million pixels for realistic
 
 var allFieldsFinished;
 
+// Jumps
+var useCMSRangeForJumpFields = true;
 var jumpTestFields_Array = [];
 var jumpTestFields_Names = [];
 var allJumpsFinished = false;
+var jumpFieldRangeStart =0;
+var jumpFieldRangeEnd =0;
 
 ///////////////////////////////////////////
 ///// worker

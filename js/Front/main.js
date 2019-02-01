@@ -11,8 +11,6 @@ window.onload = function() {
 
 
 
-  //
-
   openWaitPopUp("Initialization of the tool.");
 
   if (typeof (Worker) === undefined)
@@ -28,6 +26,7 @@ window.onload = function() {
   init_events_EditPage();
   init_events_PopUp_ColorPicker();
   init_ExportWindow();
+  init_Testing();
   initMyDesignObj();
   initMapping();
 
