@@ -119,6 +119,32 @@ function startCCCTest(){
     startJumpFieldGeneration();
   }
 
+  //// Gradient /////////////////////////////////
+  if(document.getElementById("id_CCCTest_DoGradient").checked){
+    if(allGradientWorkersFinished=false){
+      for (var i = 0; i < gradientWorkers_Array.length; i++) {
+        if(gradientWorkers_Array[i]!=undefined)
+          gradientWorkers_Array[i].terminate();
+      }
+
+      allGradientWorkersFinished=true;
+    }
+    startGradientFieldGeneration();
+  }
+
+  //// Frequency /////////////////////////////////
+  if(document.getElementById("id_CCCTest_DoFrequency").checked){
+    if(allFrequencyWorkersFinished=false){
+      for (var i = 0; i < frequencyWorkers_Array.length; i++) {
+        if(frequencyWorkers_Array[i]!=undefined)
+          frequencyWorkers_Array[i].terminate();
+      }
+
+      allFrequencyWorkersFinished=true;
+    }
+    startFrequencyFieldGeneration();
+  }
+
 
   //////////////////////////////////////////////
 
@@ -129,13 +155,17 @@ function checkIfGenerationFinished(){
   if(document.getElementById("id_CCCTest_DoJump").checked && allJumpsFinished!=true)
     return;
 
+  if(document.getElementById("id_CCCTest_DoGradient").checked && allGradientFinished!=true)
+    return;
 
+  if(document.getElementById("id_CCCTest_DoFrequency").checked && allFrequencyFinished!=true)
+    return;
 
-  allJumpsFinished=true;
 
   /////////////////// fill field combo
   var selectobject = document.getElementById("id_CCCTest_FieldType_Select");
   var oldselectedIndex = selectobject.selectedIndex;
+
 
   if(document.getElementById("id_CCCTest_DoJump").checked){
     document.getElementById("id_CCCTest_FieldOption_Jump").disabled=false;
@@ -143,6 +173,23 @@ function checkIfGenerationFinished(){
   else{
     document.getElementById("id_CCCTest_FieldOption_Jump").disabled=true;
   }
+
+  if(document.getElementById("id_CCCTest_DoGradient").checked){
+    document.getElementById("id_CCCTest_FieldOption_Gradient").disabled=false;
+  }
+  else{
+    document.getElementById("id_CCCTest_FieldOption_Gradient").disabled=true;
+  }
+
+  if(document.getElementById("id_CCCTest_DoFrequency").checked){
+    document.getElementById("id_CCCTest_FieldOption_Frequency").disabled=false;
+  }
+  else{
+    document.getElementById("id_CCCTest_FieldOption_Frequency").disabled=true;
+  }
+
+
+
   var newSelectedIndex = -1;
 
   if (oldselectedIndex>-1)
@@ -196,7 +243,29 @@ function selectTestFieldType(){
       }
       selectobject.selectedIndex = 0;
       selectTestField(false);
-      break;
+    break;
+    case 1: // gradient
+      for (var i = 0; i < gradientTestFields_Array.length; i++) {
+        var option = document.createElement("option");
+        option.innerHTML = gradientTestFields_Names[i];
+
+        selectobject.add(option);
+      }
+      selectobject.selectedIndex = 0;
+      selectTestField(false);
+    break;
+
+    case 3: // frequency
+      for (var i = 0; i < frequencyTestFields_Array.length; i++) {
+        var option = document.createElement("option");
+        option.innerHTML = frequencyTestFields_Names[i];
+
+        selectobject.add(option);
+      }
+      selectobject.selectedIndex = 0;
+      selectTestField(false);
+    break;
+
     default:
 
   }
@@ -208,15 +277,25 @@ function selectTestFieldType(){
 function selectTestField(doFullWindow){
 
   switch (document.getElementById("id_CCCTest_FieldType_Select").selectedIndex) {
-    case 0: // jumps
-
+    case 0: // Jumps
         if(doFullWindow)
           drawTestField(jumpTestFields_Array[document.getElementById("id_CCCTest_Field_Select").selectedIndex],"id_PopUp_FullTestFuctionCanvas");
         else
           drawTestField(jumpTestFields_Array[document.getElementById("id_CCCTest_Field_Select").selectedIndex],"id_CCCTestCanvas");
-
-
       break;
+
+      case 1: // Gradient
+          if(doFullWindow)
+            drawTestField(gradientTestFields_Array[document.getElementById("id_CCCTest_Field_Select").selectedIndex],"id_PopUp_FullTestFuctionCanvas");
+          else
+            drawTestField(gradientTestFields_Array[document.getElementById("id_CCCTest_Field_Select").selectedIndex],"id_CCCTestCanvas");
+        break;
+      case 3: // Frequency
+            if(doFullWindow)
+              drawTestField(frequencyTestFields_Array[document.getElementById("id_CCCTest_Field_Select").selectedIndex],"id_PopUp_FullTestFuctionCanvas");
+            else
+              drawTestField(frequencyTestFields_Array[document.getElementById("id_CCCTest_Field_Select").selectedIndex],"id_CCCTestCanvas");
+          break;
     default:
 
   }
@@ -228,15 +307,17 @@ function drawTestField(field,canvasID){
   var canvasPlot = document.getElementById(canvasID);
   var canvasCtx = canvasPlot.getContext("2d");
 
-  var pixelsPerXStep = Math.floor(testingFieldResolution/field.getXDim());
-  var pixelsPerYStep = Math.floor(testingFieldResolution/field.getYDim());
-  var imageDIMX = field.getXDim()*pixelsPerXStep;
-  var imageDIMY = field.getYDim()*pixelsPerXStep;
 
   if(field==undefined){
     canvasCtx.clearRect(0, 0, canvasPlot.width, canvasPlot.height);
     return;
   }
+
+  var pixelsPerXStep = Math.floor(testingFieldResolution/field.getXDim());
+  var pixelsPerYStep = Math.floor(testingFieldResolution/field.getYDim());
+
+  var imageDIMX = field.getXDim()*pixelsPerXStep;
+  var imageDIMY = field.getYDim()*pixelsPerXStep;
 
   canvasPlot.width = imageDIMX;
   canvasPlot.height = imageDIMY;
@@ -312,8 +393,22 @@ function initTesttestField_WorkerJSON(){
   testField_WorkerJSON['testFieldDimX'] = undefined;
   testField_WorkerJSON['testFieldDimY'] = undefined;
 
+  testField_WorkerJSON['originIsRelevant'] = false;
+  testField_WorkerJSON['originPosX'] = 0;
+  testField_WorkerJSON['originPosY'] = 0;
+  testField_WorkerJSON['stepXDirection'] = 0.01;
+  testField_WorkerJSON['stepYDirection'] = 0.01;
+  testField_WorkerJSON['originIsCenter'] = true;
+
   testField_WorkerJSON['testFieldRangeStart'] = 0;
   testField_WorkerJSON['testFieldRangeEnd'] = 1;
+
+  //// FOR GRADIENT
+  testField_WorkerJSON['testFieldStartLineValue'] = 0;
+
+  //// FOR FREQUENY
+  testField_WorkerJSON['marschnerLopp_Alpha'] = 0.25;
+  testField_WorkerJSON['marschnerLopp_f_M'] = 6.0;
 
   testField_WorkerJSON['colorspace'] = globalCMS1.getInterpolationSpace();
   testField_WorkerJSON['refVal'] = [];

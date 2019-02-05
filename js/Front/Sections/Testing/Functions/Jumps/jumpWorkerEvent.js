@@ -30,7 +30,8 @@ function workerEvent_JumpTestField(e){
         jumpTestFields_Array[data.index].setFieldValue(x,y,value,newRGB);
     }
 
-
+    jumpWorkerStatus_Array[data.index]=100;
+    document.getElementById("id_TestJump_Status").style.width = "100%";
     for (var i = 0; i < jumpWorkerStatus_Array.length; i++) {
       if(jumpWorkerStatus_Array[i]<100){
         return;

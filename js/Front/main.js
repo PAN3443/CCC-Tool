@@ -9,8 +9,6 @@ window.onload = function() {
   //  document.head.appendChild(newScript);
   // -> function addScript(src)
 
-
-
   openWaitPopUp("Initialization of the tool.");
 
   if (typeof (Worker) === undefined)

@@ -28,8 +28,25 @@ self.addEventListener('message', function(e) {
   jsonObj['status'] = 100;
   jsonObj['index'] = data.testFieldIndex;
 
-
+  var min = Infinity;
+  var max = -Infinity;
+  var doScale = false;
   self.postMessage(jsonUpdateObj);
+
+
+  //////// If origin is relevant -> determine origin
+
+  var originStartX = data.originPosX;
+  var originStartY = data.originPosY;
+
+  if(data.originIsRelevant && data.originIsCenter){
+
+    originStartX= originStartX-((data.testFieldDimX/2)*data.stepXDirection);
+    originStartY= originStartY-((data.testFieldDimY/2)*data.stepYDirection);
+
+  }
+
+
   //////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////
   /// Generate Test Field
@@ -118,8 +135,96 @@ self.addEventListener('message', function(e) {
           break;
         }
       break;
+
+      ///////////////////////////
+      //// Gradient
+      case 1:
+
+      var endStep = (data.testFieldRangeEnd-data.testFieldStartLineValue)/data.testFieldDimY; // y step define the end value for the current y
+
+      for (var y = 0; y < data.testFieldDimY; y++) {
+
+        var endValue = data.testFieldStartLineValue + ((y+1)*endStep);
+        var step= (endValue-data.testFieldStartLineValue)/(data.testFieldDimX-1); // x step to reach the end value (current y)
+
+
+        for (var x = 0; x < data.testFieldDimX; x++) {
+
+          var value = Math.round((data.testFieldStartLineValue+x*step) * errorMath) / errorMath; // x-1 because we dont
+
+          jsonObj.testFieldVal.push(value);
+        }
+
+      }
+
+
+      break;
+
+
+      ///////////////////////////
+      //// Frequency
+      case 3:
+
+      /**
+      * @brief Computes Marschner-Lobb field used to test volumetric reconstructions
+      *
+      * Stephen R. Marschner and Richard J. Lobb,
+      * "An Evaluation of Reconstruction Filters for Volume Rendering"
+      * Proceedings of IEEE Visualization '94 Conference
+      *
+      * http://www.cs.cornell.edu/~srm/publications/Vis94-filters.pdf
+      */
+
+      var zPos = 0;
+
+      for (var y = 0; y < data.testFieldDimY; y++) {
+
+        var yPos= originStartY+y*data.stepYDirection;
+        for (var x = 0; x < data.testFieldDimX; x++) {
+
+          var xPos= originStartX+x*data.stepXDirection;
+          /**
+           * Marchner-Lobb function
+           * \[ ( 1.0 - \sin( \pi * z * 0.5 ) + alpha * ( 1.0 + \rho_r( \sqrt( x * x + y * y ), f_M ) ) ) / ( 2.0 * ( 1.0 + \alpha ) ) )
+             \]
+             with
+             \[rho_r = \cos( 2\pi f_M cos( \frac{\pi r}{2} ) \]
+           */
+           var r = Math.sqrt( xPos * xPos + yPos * yPos );
+
+          var value =  1.0 - Math.sin( Math.PI * zPos * 0.5 ) +
+           data.marschnerLopp_Alpha * ( 1.0 + Math.cos( 2.0 * Math.PI * data.marschnerLopp_f_M * Math.cos( Math.PI * r * 0.5 ) ) ) / ( 2.0 * ( 1.0 + data.marschnerLopp_Alpha ) );
+          min = Math.min(min,value);
+          max = Math.max(max,value);
+          jsonObj.testFieldVal.push(value);
+        }
+
+      }
+
+      doScale = true;
+
+
+      break;
+
   }
 
+
+  /////////////////// Scale
+
+  if(doScale){
+    var tmpDis = min-max;
+    var scaledDis = data.testFieldRangeEnd-data.testFieldRangeStart;
+    if(tmpDis!=0){
+      for (var i = 0; i < jsonObj.testFieldVal.length; i++) {
+        jsonObj.testFieldVal[i]= data.testFieldRangeStart + scaledDis*( (min-jsonObj.testFieldVal[i])/tmpDis);
+      }
+    }
+    else{
+      for (var i = 0; i < jsonObj.testFieldVal.length; i++) {
+        jsonObj.testFieldVal[i]= data.testFieldRangeStart;
+      }
+    }
+  }
 
 
 
@@ -589,7 +694,7 @@ self.addEventListener('message', function(e) {
   }
 
 
-  jsonUpdateObj.status = 100;
+  jsonUpdateObj.status = 80;
   self.postMessage(jsonUpdateObj);
   self.postMessage(jsonObj);
 

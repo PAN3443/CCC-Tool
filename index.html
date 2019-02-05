@@ -213,8 +213,16 @@
   <script src="js/Front/Sections/Testing/init_TestingSection.js"></script>
 
     <!-- Testing Section : Jumps -->
-    <script src="js/Front/Sections/Testing/Functions/Jumps/fieldGeneration.js"></script>
+    <script src="js/Front/Sections/Testing/Functions/Jumps/jumpTest.js"></script>
     <script src="js/Front/Sections/Testing/Functions/Jumps/jumpWorkerEvent.js"></script>
+
+    <!-- Testing Section : Gradient -->
+    <script src="js/Front/Sections/Testing/Functions/Gradient/gradientTest.js"></script>
+    <script src="js/Front/Sections/Testing/Functions/Gradient/gradientWorkerEvent.js"></script>
+
+    <!-- Testing Section : Frequency -->
+    <script src="js/Front/Sections/Testing/Functions/Frequency/frequencyTest.js"></script>
+    <script src="js/Front/Sections/Testing/Functions/Frequency/frequencyWorkerEvent.js"></script>
 
 
     <script src="js/Front/Sections/Testing/Functions/basis.js"></script>
@@ -1903,7 +1911,7 @@
 
                   <!-- Gradients -->
                   <div class="row" style="width:68vw; margin-left:1vw; height: 4vh; border: 0.2vh solid grey; background:rgb(230,230,230); margin-top:0.5vh; margin-bottom:0.5vh;" >
-                      <input id="id_CCCTest_DoGradient" type="checkbox" style="margin-right:1vw; width:1vw; margin-left:0.5vw;" checked>
+                      <input id="id_CCCTest_DoGradient" type="checkbox" style="margin-right:1vw; width:1vw; margin-left:0.5vw;" onclick="removeGradientFields()" checked>
                       <p class="standardText" style="width: 10vw; height: 4vh; line-height: 4vh; margin-left:1vw;"> Gradient Fields: </p>
                       <div style=" margin-left:1vw; height:2vh; margin-top:auto; margin-bottom:auto; border-radius:1vh; overflow:hidden; width:45vw; border: 0.2vh solid grey; background:white;">
                         <div id="id_TestGradient_Status" style="width:0%; height:100%; width:0%; background: rgb(51, 69, 102);">
@@ -1911,6 +1919,22 @@
                         </div>
                       </div>
                       <p id="id_TestGradient_Check" class="standardText" style="height: 4vh; line-height: 4vh; margin-left:0.5vw; margin-right:1vw; font-size:2.5vh; visibility:hidden; color: rgb(51, 69, 102);"> &#10004; </p>
+
+                      <div class="class_CCCTestfield_Setting">
+
+                      </div>
+                  </div>
+
+                  <!-- Frequency -->
+                  <div class="row" style="width:68vw; margin-left:1vw; height: 4vh; border: 0.2vh solid grey; background:rgb(230,230,230); margin-top:0.5vh; margin-bottom:0.5vh;" >
+                      <input id="id_CCCTest_DoFrequency" type="checkbox" style="margin-right:1vw; width:1vw; margin-left:0.5vw;" onclick="removeFrequencyFields()" checked>
+                      <p class="standardText" style="width: 10vw; height: 4vh; line-height: 4vh; margin-left:1vw;"> Frequency Fields: </p>
+                      <div style=" margin-left:1vw; height:2vh; margin-top:auto; margin-bottom:auto; border-radius:1vh; overflow:hidden; width:45vw; border: 0.2vh solid grey; background:white;">
+                        <div id="id_TestFrequency_Status" style="width:0%; height:100%; width:0%; background: rgb(51, 69, 102);">
+
+                        </div>
+                      </div>
+                      <p id="id_TestFrequency_Check" class="standardText" style="height: 4vh; line-height: 4vh; margin-left:0.5vw; margin-right:1vw; font-size:2.5vh; visibility:hidden; color: rgb(51, 69, 102);"> &#10004; </p>
 
                       <div class="class_CCCTestfield_Setting">
 
@@ -1930,9 +1954,9 @@
               <div class="row">
                 <select id="id_CCCTest_FieldType_Select" style="width:10vw; height:3.5vh; line-height:3.5vh; border:0.2vh solid black; margin:auto" onchange="selectTestFieldType()">
                   <option id="id_CCCTest_FieldOption_Jump" disabled>Jump</option>
-                  <option disabled>Gradient</option>
+                  <option id="id_CCCTest_FieldOption_Gradient" disabled>Gradient</option>
                   <option disabled>Quads</option>
-                  <option disabled>Frequences</option>
+                  <option id="id_CCCTest_FieldOption_Frequency" disabled>Frequency</option>
                 </select>
                 <select id="id_CCCTest_Field_Select" style="width:10vw; height:3.5vh; line-height:3.5vh; border:0.2vh solid black; margin:auto" onchange="selectTestField()">
 
@@ -1944,8 +1968,8 @@
               </div>
 
               <div class="row">
-                  <button class="class_generalbutton" onclick="openFullTestFkt()" style="width:5vw; margin:auto;"><p>Fullscreen</p></button>
-                  <a id="id_CCCTest_downloadCanvas" class="class_generalbutton" download="Canvas.png" style="width:5vw; margin:auto;"><p>Download</p></a>
+                  <button class="class_generalbutton" onclick="openFullTestFkt()" style="width:10vw; margin:auto;"><p>Fullscreen</p></button>
+                  <a id="id_CCCTest_downloadCanvas" class="class_generalbutton" download="Canvas.png" style="width:10vw; margin:auto;"><p>Download</p></a>
               </div>
 
             </div>
