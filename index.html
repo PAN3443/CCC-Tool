@@ -208,6 +208,8 @@
 
   <!-- Testing Section-->
   <script src="js/Front/Sections/Testing/testing.js"></script>
+  <script src="js/Front/Sections/Testing/testing_ccctest.js"></script>
+  <script src="js/Front/Sections/Testing/testing_usertest.js"></script>
   <script src="js/Front/Sections/Testing/testing_globalVars.js"></script>
   <script src="js/Front/Sections/Testing/drawTestingField.js"></script>
   <script src="js/Front/Sections/Testing/init_TestingSection.js"></script>
@@ -1881,7 +1883,7 @@
           CCC-Tool Test
         </button>
         <button id="id_TestPage_CustomTest" onclick="switchTest(1)" style="height:100%; width:50%; cursor:not-allowed;">
-          Custom Test
+          User Test
         </button>
       </div>
 
@@ -1952,13 +1954,13 @@
               <p class="subsectionLabel" style="margin-top:2vh; margin-bottom:2vh;"> Test Field Visualization</p>
 
               <div class="row">
-                <select id="id_CCCTest_FieldType_Select" style="width:10vw; height:3.5vh; line-height:3.5vh; border:0.2vh solid black; margin:auto" onchange="selectTestFieldType()">
+                <select id="id_CCCTest_FieldType_Select" style="width:10vw; height:3.5vh; line-height:3.5vh; border:0.2vh solid black; margin:auto" onchange="selectCCCTestFieldType()">
                   <option id="id_CCCTest_FieldOption_Jump" disabled>Jump</option>
                   <option id="id_CCCTest_FieldOption_Gradient" disabled>Gradient</option>
                   <option disabled>Quads</option>
                   <option id="id_CCCTest_FieldOption_Frequency" disabled>Frequency</option>
                 </select>
-                <select id="id_CCCTest_Field_Select" style="width:10vw; height:3.5vh; line-height:3.5vh; border:0.2vh solid black; margin:auto" onchange="selectTestField()">
+                <select id="id_CCCTest_Field_Select" style="width:10vw; height:3.5vh; line-height:3.5vh; border:0.2vh solid black; margin:auto" onchange="selectCCCTestField()">
 
                 </select>
               </div>
@@ -1981,6 +1983,83 @@
 
       <div id="id_TestPage_CustomTest_Div" style="height:100%;">
 
+
+        <div class="row">
+
+          <div style="margin: auto;">
+            <p class="subsectionLabel"> Select Test: </p>
+            <select id="id_TestPage_UserTest_List" name="Key List" size="20" style="width:20vw; height:45vh; margin-top:1vh; margin-bottom:1vh; overflow:auto; background:white;" onchange="startUserTest()">
+                <option disabled>Ackley Function</option>
+                <option disabled>Beale Function</option>
+                <option disabled>Bohachevsky Functions</option>
+                <option disabled>Booth Function</option>
+                <option disabled>Branin Function</option>
+                <option disabled>Bukin Function N. 6</option>
+                <option disabled>Colville Function</option>
+                <option value="Cross-in-Tray">Cross-in-Tray Function</option>
+                <option disabled>De Jong Function N. 5</option>
+                <option disabled>Dixon-Price Function</option>
+                <option disabled>Drop-Wave Function</option>
+                <option disabled>Easom Function</option>
+                <option disabled>Eggholder Function</option>
+                <option disabled>Forrester et al. (2008) Function</option>
+                <option disabled>Goldstein-Price Function</option>
+                <option disabled>Gramacy & Lee (2012) Function</option>
+                <option disabled>Griewank Function</option>
+                <option disabled>Hartmann 3-D Function</option>
+                <option disabled>Hartmann 4-D Function</option>
+                <option disabled>Hartmann 6-D Function</option>
+                <option disabled>Holder Table Function</option>
+                <option disabled>Langermann Function</option>
+                <option disabled>Levy Function</option>
+                <option disabled>Levy Function N. 13</option>
+                <option disabled>Matyas Function</option>
+                <option disabled>McCormick Function</option>
+                <option disabled>Michalewicz Function</option>
+                <option disabled>Perm Function 0, d, β</option>
+                <option disabled>Perm Function d, β</option>
+                <option disabled>Powell Function</option>
+                <option disabled>Power Sum Function</option>
+                <option disabled>Rastrigin Function</option>
+                <option disabled>Rosenbrock Function</option>
+                <option disabled>Rotated Hyper-Ellipsoid Function</option>
+                <option disabled>Schaffer Function N. 2</option>
+                <option disabled>Schaffer Function N. 4</option>
+                <option disabled>Schwefel Function</option>
+                <option disabled>Shekel Function</option>
+                <option disabled>Shubert Function</option>
+                <option disabled>Six-Hump Camel Function</option>
+                <option disabled>Sphere Function</option>
+                <option disabled>Styblinski-Tang Function</option>
+                <option disabled>Sum of Different Powers Function</option>
+                <option disabled>Sum Squares Function</option>
+                <option disabled>Three-Hump Camel Function</option>
+                <option disabled>Trid Function</option>
+                <option disabled>Zakharov Function</option>
+              </select>
+
+              <br>
+
+              <button class="class_generalbutton" onclick="" style="width:20vw; margin-top:1vh;"><p>Settings</p></button>
+          </div>
+
+
+          <div style="margin: auto;">
+            <div class="row" style="width:100%; margin-top:2vh; margin-bottom:2vh;">
+              <canvas id="id_UserTestCanvas" style="border:0.2vh solid black; margin:auto; height:45vh; max-height:25vw; width:25vw; max-width:45vh; background:rgb(50,50,50);"></canvas>
+            </div>
+
+            <div class="row">
+                <button class="class_generalbutton" onclick="openFullTestFkt()" style="width:10vw; margin:auto;"><p>Fullscreen</p></button>
+                <a id="id_CCCTest_downloadCanvas" class="class_generalbutton" download="Canvas.png" style="width:10vw; margin:auto;"><p>Download</p></a>
+            </div>
+          </div>
+
+
+
+        </div>
+
+
       </div>
 
 
@@ -1988,7 +2067,7 @@
 
       <div class="row" style="margin-top:1vh;">
         <button class="class_generalbutton" onclick="showMyDesignsPage()" style="margin-left:27.5%; margin-right:15%;  width:15%;"><p>MyDesigns</p></button>
-        <button class="class_generalbutton" onclick="" style="width:15%;"><p>Create Report</p></button>
+        <button id="id_CCCTest_ReportButton" class="class_generalbutton" onclick="" style="width:15%;"><p>Create Report</p></button>
       </div>
 
     </div>

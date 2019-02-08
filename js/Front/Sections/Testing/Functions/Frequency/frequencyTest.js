@@ -24,22 +24,18 @@ function startFrequencyFieldGeneration(){
 
     // generate fields
     frequencyWorkerStatus_Array.push(0,0,0);
-    frequencyTestFields_Names.push("Marschner Lobb Test (Step:0.001, Dim:600, Alpha: 0.25, f_M: 6.00)","Marschner Lobb Test (Step:0.01, Dim:600, Alpha: 0.25, f_M: 6.00)","Marschner Lobb Test (Step:0.1, Dim:600, Alpha: 0.25, f_M: 6.00)");
-    frequency_startWorker(0, 600, 0.001, 0.25, 6.0);
-    frequency_startWorker(0, 600, 0.01, 0.25, 6.0);
-    frequency_startWorker(0, 600, 0.1, 0.25, 6.0);
+    frequencyTestFields_Names.push("Marschner Lobb Test (Step:0.01, Dim:600, Alpha: 0.25, f_M: 6.00)","Marschner Lobb Test (Step:0.05, Dim:600, Alpha: 0.25, f_M: 6.00)","Marschner Lobb Test (Step:0.1, Dim:600, Alpha: 0.25, f_M: 6.00)");
+    frequency_startWorker("Marschner-Lobb", 600, 0.01, 0.25, 6.0);
+    frequency_startWorker("Marschner-Lobb", 600, 0.05, 0.25, 6.0);
+    frequency_startWorker("Marschner-Lobb", 600, 0.1, 0.25, 6.0);
 
     frequencyWorkerStatus_Array.push(0,0,0);
-    frequencyTestFields_Names.push("Marschner Lobb Test (Step:0.001, Dim:600, Alpha: 0.5, f_M: 6.00)","Marschner Lobb Test (Step:0.01, Dim:600, Alpha: 0.5, f_M: 6.00)","Marschner Lobb Test (Step:0.1, Dim:600, Alpha: 0.5, f_M: 6.00)");
-    frequency_startWorker(0, 600, 0.001, 0.5, 6.0);
-    frequency_startWorker(0, 600, 0.01, 0.5, 6.0);
-    frequency_startWorker(0, 600, 0.1, 0.5, 6.0);
+    frequencyTestFields_Names.push("Cross-in-Tray Test (Step:0.01)","Cross-in-Tray Test (Step:0.05)","Cross-in-Tray Test (Step:0.1)");
+    frequency_startWorker("Cross-in-Tray", 600, 0.01, undefined, undefined);
+    frequency_startWorker("Cross-in-Tray", 600, 0.05, undefined, undefined);
+    frequency_startWorker("Cross-in-Tray", 600, 0.1, undefined, undefined);
 
-    frequencyWorkerStatus_Array.push(0,0,0);
-    frequencyTestFields_Names.push("Marschner Lobb Test (Step:0.001, Dim:600, Alpha: 0.25, f_M: 3.00)","Marschner Lobb Test (Step:0.01, Dim:600, Alpha: 0.25, f_M: 3.00)","Marschner Lobb Test (Step:0.1, Dim:600, Alpha: 0.25, f_M: 3.00)");
-    frequency_startWorker(0, 600, 0.001, 0.25, 3.0);
-    frequency_startWorker(0, 600, 0.01, 0.25, 3.0);
-    frequency_startWorker(0, 600, 0.1, 0.25, 3.0);
+
 
 
 }
@@ -53,7 +49,7 @@ function frequency_startWorker(type,n,steplength, alpha, f_M){
 
   testField_WorkerJSON.originIsRelevant=true;
 
-  testField_WorkerJSON.testFieldType = 3;
+  testField_WorkerJSON.testFieldType = 99;
   testField_WorkerJSON.testFieldGenerationType = type;
   testField_WorkerJSON.testFieldIndex = frequencyWorkers_Array.length;
 
@@ -108,7 +104,7 @@ function removeFrequencyFields(){
       }
     }
 
-    selectTestField(false);
+    selectCCCTestField(false);
 
     if(document.getElementById("id_CCCTest_DoFrequency").checked){
       allFrequencyFinished=false;

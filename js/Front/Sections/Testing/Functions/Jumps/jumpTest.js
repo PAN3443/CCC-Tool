@@ -110,7 +110,7 @@ function removeJumpFields(){
       }
     }
 
-    selectTestField(false);
+    selectCCCTestField(false);
 
     if(document.getElementById("id_CCCTest_DoJump").checked){
       allJumpsFinished=false;

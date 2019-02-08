@@ -91,7 +91,7 @@ function removeGradientFields(){
       }
     }
 
-    selectTestField(false);
+    selectCCCTestField(false);
 
     if(document.getElementById("id_CCCTest_DoGradient").checked){
       allGradientFinished=false;

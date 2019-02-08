@@ -162,44 +162,74 @@ self.addEventListener('message', function(e) {
 
 
       ///////////////////////////
-      //// Frequency
-      case 3:
+      //// Other
+      case 99:
 
-      /**
-      * @brief Computes Marschner-Lobb field used to test volumetric reconstructions
-      *
-      * Stephen R. Marschner and Richard J. Lobb,
-      * "An Evaluation of Reconstruction Filters for Volume Rendering"
-      * Proceedings of IEEE Visualization '94 Conference
-      *
-      * http://www.cs.cornell.edu/~srm/publications/Vis94-filters.pdf
-      */
 
-      var zPos = 0;
-
-      for (var y = 0; y < data.testFieldDimY; y++) {
-
-        var yPos= originStartY+y*data.stepYDirection;
-        for (var x = 0; x < data.testFieldDimX; x++) {
-
-          var xPos= originStartX+x*data.stepXDirection;
+        switch (data.testFieldGenerationType) {
+          case "Marschner-Lobb":
           /**
-           * Marchner-Lobb function
-           * \[ ( 1.0 - \sin( \pi * z * 0.5 ) + alpha * ( 1.0 + \rho_r( \sqrt( x * x + y * y ), f_M ) ) ) / ( 2.0 * ( 1.0 + \alpha ) ) )
-             \]
-             with
-             \[rho_r = \cos( 2\pi f_M cos( \frac{\pi r}{2} ) \]
-           */
-           var r = Math.sqrt( xPos * xPos + yPos * yPos );
+          * @brief Computes Marschner-Lobb field used to test volumetric reconstructions
+          *
+          * Stephen R. Marschner and Richard J. Lobb,
+          * "An Evaluation of Reconstruction Filters for Volume Rendering"
+          * Proceedings of IEEE Visualization '94 Conference
+          *
+          * http://www.cs.cornell.edu/~srm/publications/Vis94-filters.pdf
+          */
 
-          var value =  1.0 - Math.sin( Math.PI * zPos * 0.5 ) +
-           data.marschnerLopp_Alpha * ( 1.0 + Math.cos( 2.0 * Math.PI * data.marschnerLopp_f_M * Math.cos( Math.PI * r * 0.5 ) ) ) / ( 2.0 * ( 1.0 + data.marschnerLopp_Alpha ) );
-          min = Math.min(min,value);
-          max = Math.max(max,value);
-          jsonObj.testFieldVal.push(value);
+          var zPos = 0;
+
+          for (var y = 0; y < data.testFieldDimY; y++) {
+
+            var yPos= originStartY+y*data.stepYDirection;
+            for (var x = 0; x < data.testFieldDimX; x++) {
+
+              var xPos= originStartX+x*data.stepXDirection;
+              /**
+               * Marchner-Lobb function
+               * \[ ( 1.0 - \sin( \pi * z * 0.5 ) + alpha * ( 1.0 + \rho_r( \sqrt( x * x + y * y ), f_M ) ) ) / ( 2.0 * ( 1.0 + \alpha ) ) )
+                 \]
+                 with
+                 \[rho_r = \cos( 2\pi f_M cos( \frac{\pi r}{2} ) \]
+               */
+               var r = Math.sqrt( xPos * xPos + yPos * yPos );
+
+              var value =  1.0 - Math.sin( Math.PI * zPos * 0.5 ) +
+               data.marschnerLopp_Alpha * ( 1.0 + Math.cos( 2.0 * Math.PI * data.marschnerLopp_f_M * Math.cos( Math.PI * r * 0.5 ) ) ) / ( 2.0 * ( 1.0 + data.marschnerLopp_Alpha ) );
+              min = Math.min(min,value);
+              max = Math.max(max,value);
+              jsonObj.testFieldVal.push(value);
+            }
+
+          }
+            break;
+
+            case "Cross-in-Tray":
+
+            for (var y = 0; y < data.testFieldDimY; y++) {
+
+              var yPos= originStartY+y*data.stepYDirection;
+              for (var x = 0; x < data.testFieldDimX; x++) {
+
+
+
+                var xPos= originStartX+x*data.stepXDirection;
+
+                var value =  -0.00001* Math.pow((Math.abs( Math.sin(xPos)*Math.sin(yPos)*Math.exp(  Math.abs(100-(Math.sqrt( Math.pow(xPos,2)+Math.pow(yPos,2))/Math.PI))))+1),0.1);
+                min = Math.min(min,value);
+                max = Math.max(max,value);
+                jsonObj.testFieldVal.push(value);
+
+              }
+
+            }
+
+            break;
+          default:
+
         }
 
-      }
 
       doScale = true;
 
