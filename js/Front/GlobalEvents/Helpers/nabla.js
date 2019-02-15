@@ -1,10 +1,9 @@
-var nablaOn2DScalarField (field){ // width angularWeighting
+var nablaOn2DScalarField (field, angularWeighting){
 
   var weights = new Array(field.getNumPoints()).fill(0);
   var derivs = new Array(field.getNumPoints());
 
-
-
+  var ciede2000Derivs = new Array(field.getNumPoints());
 
   ////////////////////////////////
   //// STEP 1: Iterating Cells
@@ -33,7 +32,7 @@ var nablaOn2DScalarField (field){ // width angularWeighting
 
                           var loc = new Array(3);
                           loc[0] = field.getPoint([indices[j][0]]);
-                          loc[1] = field.getPoint([indices[j][1]]);isSplitter
+                          loc[1] = field.getPoint([indices[j][1]]);
                           loc[2] = field.getPoint([indices[j][2]]);
 
 
@@ -51,15 +50,17 @@ var nablaOn2DScalarField (field){ // width angularWeighting
                           var baseValues= [field.getValue([indices[j][1] ) - field.getValue([indices[j][0]]),
                                            field.getValue([indices[j][2] ) - field.getValue([indices[j][0] )] ;
 
-                          var derivative = [db1dx * baseValues[0] + db2dx * baseValues[1], db1dy * baseValues[0] + db2dy * baseValues[1]];
+                          var ciede2000Values= [calcDeltaCIEDE2000(field.getColor([indices[j][1] ) , field.getColor([indices[j][0]])),
+                                                calcDeltaCIEDE2000(field.getColor([indices[j][2] ) , field.getColor([indices[j][0]]))] ;
 
+                          var deriv = [db1dx * baseValues[0] + db2dx * baseValues[1], db1dy * baseValues[0] + db2dy * baseValues[1]];
+
+                          var ciede2000deriv = [db1dx * ciede2000Values[0] + db2dx * ciede2000Values[1], db1dy * ciede2000Values[0] + db2dy * ciede2000Values[1]];
 
                           var weight;
                           if( angularWeighting )
                           {
                              weight = computeVertexAngle( indices, points, i );
-
-
                              vector2 = new Array(2);
                              vector2[0] = normalized( points[indices[( index + 1 ) % indices.size()]] - points[indices[index]] );
                              vector2[1] = normalized( points[indices[( index + 2 ) % indices.size()]] - points[indices[index]] );
@@ -70,12 +71,16 @@ var nablaOn2DScalarField (field){ // width angularWeighting
                               weight = computeCellVolume( indices, points );
                           }
 
-                          var deriv = derivative;
+
                           deriv[0] = deriv[0] * weight;
                           deriv[1] = deriv[1] * weight;
 
+                          ciede2000deriv[0] = ciede2000deriv[0] * weight;
+                          ciede2000deriv[1] = ciede2000deriv[1] * weight;
+
                           if(derivs[indices[j]]==undefined){
                             derivs[indices[j]] = deriv;
+                            ciede2000Derivs[indices[j]] = ciede2000deriv;
                             weights[indices[j]] = weight;
                           }
                           else{
@@ -91,7 +96,6 @@ var nablaOn2DScalarField (field){ // width angularWeighting
 
 
 
-
           ////////////////////////////////
           //// STEP 2: Normalizing
           ////////////////////////////////
@@ -101,13 +105,11 @@ var nablaOn2DScalarField (field){ // width angularWeighting
             if( weights[i] != 0 ){
               derivs[i][0] /= weights[i];
               derivs[i][1] /= weights[i];
+              ciede2000Derivs[i][0] /= weights[i];
+              ciede2000Derivs[i][1] /= weights[i];
             }
 
           }
-
-
-
-
 
 
 

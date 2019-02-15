@@ -3,21 +3,11 @@
 ///////////////////////////////////
 
 
-
-
 function openTestSection(){
 
-  var children = document.getElementById("id_CCCTest_FieldType_Select").children;
-  for (var i = 0; i < children.length; i++) {
-    children[i].disabled=true;
-  }
+  updateTestMappingCanvas("id_UserTestCanvas"); // updateSize
 
-  var selectobject=document.getElementById("id_CCCTest_Field_Select")
-  for (var i=selectobject.length-1; i>=0; i--){
-     selectobject.remove(i);
-  }
-
-  selectobject=document.getElementById("id_TestSection_CMS_Select")
+  var selectobject=document.getElementById("id_TestSection_CMS_Select")
   for (var i=selectobject.length-1; i>=0; i--){
      selectobject.remove(i);
   }
@@ -30,7 +20,7 @@ function openTestSection(){
   }
   selectobject.selectedIndex = 0;
 
-  switchTest(1);
+  switchTest(0);
 
 
 }
@@ -42,16 +32,28 @@ function selectTestCMS(){
 
   drawCanvasColormap("id_TestPage_CMS_VIS_ColormapLinear", globalCMS1);
 
-  if(document.getElementById("id_TestPage_CCCTest_Div").style.display!="none")
-    startCCCTest();
+  initTesttestField_WorkerJSON();
 
+  startTest();
 
+}
 
+function startTest(){
+  switch (testingType) {
+    case 0:
+      startCCCTest();
+      break;
+      case 1:
+        startUserTest();
+        break;
+    default:
+
+  }
 }
 
 function switchTest(type){
 
-  selectedMetric=type;
+  testingType=type;
 
   document.getElementById("id_TestPage_CCCTest").style.background=styleNotActiveColor;
   document.getElementById("id_TestPage_CustomTest").style.background=styleNotActiveColor;
@@ -60,96 +62,189 @@ function switchTest(type){
   document.getElementById("id_TestPage_CCCTest").style.color=styleNotActiveColorFont;
   document.getElementById("id_TestPage_CustomTest").style.color=styleNotActiveColorFont;
 
-  document.getElementById("id_TestPage_CCCTest_Div").style.display="none";
-  document.getElementById("id_TestPage_CustomTest_Div").style.display="none";
+  var selectbox = document.getElementById("id_TestPage_UserTest_List");
+
+  selectbox.innerHTML=[];
+  /*for(var i = selectbox.options.length - 1 ; i >= 0 ; i--)
+  {
+      selectbox.remove(i);
+  }*/
+
 
   switch (type) {
     case 0:
       document.getElementById("id_TestPage_CCCTest").style.background=styleActiveColor;
       document.getElementById("id_TestPage_CCCTest").style.color=styleActiveColorFont;
 
-      document.getElementById("id_TestPage_CCCTest_Div").style.display="flex";
-      document.getElementById("id_CCCTest_ReportButton").style.visibility="visible";
+      if(cccTest_Jumps_Options.length>0){
+        var optgroupJumps = document.createElement('optgroup');
+        optgroupJumps.label = "Jump Tests:";
+        for (var i = 0; i < cccTest_Jumps_Options.length; i++) {
+          var opt = document.createElement('option');
+
+          var name = "Jump : J={";
+          for (var j = 0; j < cccTest_Jumps_Options[i].length; j++) {
+            name += cccTest_Jumps_Options[i][j];
+
+            if(j!=cccTest_Jumps_Options[i].length-1)
+              name += ",";
+          }
+          name +="}";
+          opt.innerHTML = name;
+          opt.value = "Jump";
+          optgroupJumps.appendChild(opt);
+        }
+        selectbox.appendChild(optgroupJumps);
+      }
+
+
+      if(cccTest_Gradient_Options.length>0){
+        var optgroupGradient = document.createElement('optgroup');
+        optgroupGradient.label = "Gradient Tests:";
+        for (var i = 0; i < cccTest_Gradient_Options.length; i++) {
+          var opt = document.createElement('option');
+
+          var name = "Gradient : S=" + cccTest_Gradient_Options[i][0]*100+"%";
+
+          switch (cccTest_Gradient_Options[i][1]) {
+            case 0:
+                  name +=", Type=Rising";
+              break;
+            case 1:
+                name +=", Type=Falling";
+              break;
+            default:
+
+          }
+
+          name +=", Dimension="+cccTest_Gradient_Options[i][2]+"x"+cccTest_Gradient_Options[i][2];
+          opt.innerHTML = name;
+          opt.value = "Gradient";
+          optgroupGradient.appendChild(opt);
+        }
+        selectbox.appendChild(optgroupGradient);
+      }
+
+
+      if(cccTest_ValleyLine_Options.length>0){
+        var optgroupJumps = document.createElement('optgroup');
+        optgroupJumps.label = "Ridge & Valley Tests:";
+        for (var i = 0; i < cccTest_ValleyLine_Options.length; i++) {
+          var opt = document.createElement('option');
+
+          var name = "Valley : m=" + cccTest_ValleyLine_Options[i][0] + ", M=" + cccTest_ValleyLine_Options[i][1] +", m-Type=";
+
+          switch (cccTest_ValleyLine_Options[i][2]) {
+            case 0:
+                name += "\"Linear\"";
+              break;
+              case 1:
+                  name += "\"Quad\"";
+                break;
+            default:
+
+          }
+          name += ", M-Type=";
+          switch (cccTest_ValleyLine_Options[i][3]) {
+            case 0:
+                name += "\"Linear\"";
+              break;
+              case 1:
+                  name += "\"Quad\"";
+                break;
+            default:
+
+          }
+          name += ", Dimension=" + cccTest_ValleyLine_Options[i][4]+"x"+cccTest_ValleyLine_Options[i][5];
+          opt.innerHTML = name;
+          opt.value = "Valley";
+          optgroupJumps.appendChild(opt);
+        }
+        selectbox.appendChild(optgroupJumps);
+      }
+
+
+      selectbox.selectedIndex=0;
 
       break;
       case 1:
       document.getElementById("id_TestPage_CustomTest").style.background=styleActiveColor;
       document.getElementById("id_TestPage_CustomTest").style.color=styleActiveColorFont;
 
-      document.getElementById("id_TestPage_CustomTest_Div").style.display="flex";
-      document.getElementById("id_CCCTest_ReportButton").style.visibility="hidden";
+      var optgroupExtrema = document.createElement('optgroup');
+      optgroupExtrema.label = "Local Extrema Functions:";
+      for (var i = 0; i < userTest_LocalMin_Options.length; i++) {
+        var opt = document.createElement('option');
+        opt.innerHTML = userTest_LocalMin_Options[i][0];
+        opt.value = userTest_LocalMin_Options[i][1];
+        optgroupExtrema.appendChild(opt);
+      }
+      selectbox.appendChild(optgroupExtrema);
+
+      var optgroupBowl = document.createElement('optgroup');
+      optgroupBowl.label = "Bowl Shaped Functions:";
+      for (var i = 0; i < userTest_BowlShaped_Options.length; i++) {
+        var opt = document.createElement('option');
+        opt.innerHTML = userTest_BowlShaped_Options[i][0];
+        opt.value = userTest_BowlShaped_Options[i][1];
+        optgroupBowl.appendChild(opt);
+      }
+      selectbox.appendChild(optgroupBowl);
+
+      var optgroupValley = document.createElement('optgroup');
+      optgroupValley.label = "Valley Shaped Functions:";
+      for (var i = 0; i < userTest_ValleyShaped_Options.length; i++) {
+        var opt = document.createElement('option');
+        opt.innerHTML = userTest_ValleyShaped_Options[i][0];
+        opt.value = userTest_ValleyShaped_Options[i][1];
+        optgroupValley.appendChild(opt);
+      }
+      selectbox.appendChild(optgroupValley);
+
+
+
+      selectbox.selectedIndex=0;
 
         break;
     default:
-        switchMetricSettings(0);
+        switchTest(0);
   }
 
   selectTestCMS();
 
 }
 
+function workerEvent_showTestField(e) {
 
-function drawTestField(field,canvasID){
+  var data = e.data;
 
-  var canvasPlot = document.getElementById(canvasID);
-  var canvasCtx = canvasPlot.getContext("2d");
-
-
-  if(field==undefined){
-    canvasCtx.clearRect(0, 0, canvasPlot.width, canvasPlot.height);
-    return;
+  if(data.isUpdate){
+    document.getElementById("id_Test_StatusBar").style.width = data.status+"%";
   }
+  else{
 
-  var pixelsPerXStep = Math.floor(testingFieldResolution/field.getXDim());
-  var pixelsPerYStep = Math.floor(testingFieldResolution/field.getYDim());
-
-  var imageDIMX = field.getXDim()*pixelsPerXStep;
-  var imageDIMY = field.getYDim()*pixelsPerXStep;
-
-  canvasPlot.width = imageDIMX;
-  canvasPlot.height = imageDIMY;
-
-   canvasCtx.mozImageSmoothingEnabled = false;
-   canvasCtx.webkitImageSmoothingEnabled = false;
-   canvasCtx.msImageSmoothingEnabled = false;
-   canvasCtx.imageSmoothingEnabled = false; // did not work !?!?!
-   canvasCtx.oImageSmoothingEnabled = false;
-
-  var canvasData = canvasCtx.createImageData(canvasPlot.width, canvasPlot.height); //getImageData(0, 0, canvasPlot.width, canvasPlot.height);
-
-
-  for(var x=0; x<field.getXDim(); x++){
-
-    for (var subX = 0; subX < pixelsPerXStep; subX++) {
-
-      var currentX = x*pixelsPerXStep+subX;
-
-      for(var y=0; y<field.getYDim(); y++){
-
-          var tmpColor = field.getFieldColor(x,y);
-
-          for (var subY = 0; subY < pixelsPerYStep; subY++) {
-
-            var currentY = y*pixelsPerYStep+subY;
-
-            var index = (currentX + currentY * canvasPlot.width) * 4;
-            canvasData.data[index + 0] = Math.round(tmpColor.getRValue() * 255); // r
-            canvasData.data[index + 1] = Math.round(tmpColor.getGValue() * 255); // g
-            canvasData.data[index + 2] = Math.round(tmpColor.getBValue() * 255); // b
-            canvasData.data[index + 3] = 255; //a
-
-          }
-
-      }
-
+    if(data.includeCellValues){
+      userTestGlobalField.setCellValues(true)
     }
 
+    for (var i = 0; i < data.testFieldVal.length; i++) {
+      var y = (i / userTestGlobalField.getXDim()) >> 0
+      var x = i - (y * userTestGlobalField.getXDim())
+      var newRGB = new classColor_RGB(data.cVal1[i], data.cVal2[i], data.cVal3[i]);
+      var value = data.testFieldVal[i];
+      var xPos = data.positions[i][0];
+      var yPos = data.positions[i][1];
+
+      userTestGlobalField.setFieldValue(x, y, value, newRGB,xPos,yPos);
+    }
+
+
+    usertestWorkerfinished = true;
+    drawTestField(userTestGlobalField, "id_UserTestCanvas");
+    document.getElementById("id_Test_StatusBar").style.width = "100%";
   }
 
-  canvasCtx.putImageData(canvasData, 0, 0);
-
 }
-
 
 
 /* Source: https://stackoverflow.com/questions/12796513/html5-canvas-to-png-file*/
@@ -157,15 +252,26 @@ function drawTestField(field,canvasID){
 /* Only convert the canvas to Data URL when the user clicks.
    This saves RAM and CPU ressources in case this feature is not required. */
 function downloadTestImage() {
+  var imageName = "";
+  var canvasID ="";
 
-  var canvas = document.getElementById("id_CCCTestCanvas");
+  if(document.getElementById("id_TestPage_CCCTest_Div").style.display!="none"){
+    canvasID="id_CCCTestCanvas";
+    imageName="CCC-Tool_TestImage_Function_LSLD_Colormap_XYZ";
+  }
+  else{
+    canvasID="id_UserTestCanvas";
+    imageName="CCC-Tool_USERImage_Function_LSLD_Colormap_XYZ";
+  }
+
+  var canvas = document.getElementById(canvasID);
 
   var dt = canvas.toDataURL('image/png');
   /* Change MIME type to trick the browser to downlaod the file instead of displaying it */
   dt = dt.replace(/^data:image\/[^;]*/, 'data:application/octet-stream');
 
   /* In addition to <a>'s "download" attribute, you can define HTTP-style headers */
-  dt = dt.replace(/^data:application\/octet-stream/, 'data:application/octet-stream;headers=Content-Disposition%3A%20attachment%3B%20filename=Canvas.png');
+  dt = dt.replace(/^data:application\/octet-stream/, 'data:application/octet-stream;headers=Content-Disposition%3A%20attachment%3B%20filename='+imageName+'.png');
 
   this.href = dt;
 }
@@ -190,12 +296,11 @@ function initTesttestField_WorkerJSON(){
   testField_WorkerJSON['testFieldRangeStart'] = 0;
   testField_WorkerJSON['testFieldRangeEnd'] = 1;
 
-  //// FOR GRADIENT
-  testField_WorkerJSON['testFieldStartLineValue'] = 0;
-
-  //// FOR FREQUENY
-  testField_WorkerJSON['marschnerLopp_Alpha'] = 0.25;
-  testField_WorkerJSON['marschnerLopp_f_M'] = 6.0;
+  //// Additional Field Variables
+  testField_WorkerJSON['testFieldVar_a'] = undefined;
+  testField_WorkerJSON['testFieldVar_b'] = undefined;
+  testField_WorkerJSON['testFieldVar_c'] = undefined;
+  testField_WorkerJSON['testFieldVar_d'] = undefined;
 
   testField_WorkerJSON['colorspace'] = globalCMS1.getInterpolationSpace();
   testField_WorkerJSON['refVal'] = [];

@@ -142,8 +142,6 @@ function initMapping()
   coordinateArrowsGroup.add( arrowZAxis);
   ////////////////////////////////////////////////////////////////////////////////
 
-
-
   /*mapping_cameraLight = new THREE.PointLight( 0xff0040, 1, 0, 2 ); // color, intensity, distance, decay
   mapping_cameraLight.add( new THREE.Mesh( new THREE.SphereBufferGeometry( 0.02, 16, 8 ), new THREE.MeshBasicMaterial( { color: 0xff0040 } ) ) );
   mapping_cameraLight.position.set( 0, 0, mapping_maxRadius/2 );
@@ -179,11 +177,14 @@ function initMapping()
 
 function eventMapping_mousemove(event){
   // calc mouse pos
-  var rect = document.getElementById("id_EditPage_DrawMappingDiv").getBoundingClientRect();//event.target.id
+
+  var rect = document.getElementById(event.currentTarget.id).getBoundingClientRect();//
+
+/*  var rect = document.getElementById("id_EditPage_DrawMappingDiv").getBoundingClientRect();
 
   if(document.getElementById("id_PopUp_fullMappingWindow").style.display!="none"){
     rect = document.getElementById("id_PopUp_FullMappingDiv").getBoundingClientRect();
-  }
+  }*/
 
   var canvasPosX = event.clientX - rect.left;
   var canvasPosY = event.clientY - rect.top;
@@ -227,7 +228,6 @@ function eventMapping_mouseenter(){
 
 function eventMapping_mousedown(event){
 
-
   switch (event.which) {
     case 1:
       // left mouse click
@@ -257,6 +257,8 @@ function eventMapping_mouseup(){
 
 function eventMapping_mousewheel(event){
 
+
+
   if(event.deltaY>0){
 
     var newRadius=mapping_camera.position.z+mapping_zoomFactor;
@@ -265,7 +267,6 @@ function eventMapping_mousewheel(event){
     return;
 
     mapping_camera.position.z=newRadius;
-
     return;
   }
 
@@ -276,8 +277,6 @@ function eventMapping_mousewheel(event){
     return;
 
     mapping_camera.position.z=newRadius;
-
-
     return;
   }
 

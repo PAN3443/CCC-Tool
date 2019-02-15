@@ -9,25 +9,43 @@ class class_TestField {
     this.dimensionY = dimensionY;
     this.fieldValues = [];
     this.fieldColors = [];
+    this.xPos = [];
+    this.yPos = [];
+    this.cellValues = false;
 
     for (var x = 0; x < dimensionX; x++) {
       var newArray = [];
       var newArray2 = [];
+      var newArray3 = [];
+      var newArray4 = [];
       for (var y = 0; y < dimensionY; y++) {
         newArray.push(undefined);
         newArray2.push(undefined);
+        newArray3.push(undefined);
+        newArray4.push(undefined);
       }
       this.fieldValues.push(newArray);
       this.fieldColors.push(newArray2);
+      this.xPos.push(newArray3);
+      this.yPos.push(newArray4);
 
     }
 
   }
 
+  setCellValues(bool){
+    this.cellValues=bool;
+  }
 
-  setFieldValue(x,y,value,color){
+  getCellValues(){
+    return this.cellValues;
+  }
+
+  setFieldValue(x,y,value,color,xPos,yPos){
     this.fieldValues[x][y] = value;
     this.fieldColors[x][y] = color;
+    this.xPos[x][y] = xPos;
+    this.yPos[x][y] = yPos;
   }
 
   getFieldValue(x,y){
@@ -38,12 +56,37 @@ class class_TestField {
     return this.fieldColors[x][y];
   }
 
+  getXPos(x,y){
+    return this.xPos[x][y];
+  }
+
+  getYPos(x,y){
+    return this.yPos[x][y];
+  }
+
+  getYDim(){
+    return this.dimensionY;
+  }
+
   getXDim(){
     return this.dimensionX;
   }
 
   getYDim(){
     return this.dimensionY;
+  }
+
+  getTHREEPointArray(){
+    var newArray = [];
+
+
+    for (var y = 0; y < this.dimensionY; y++) {
+      for (var x = 0; x < this.dimensionX; x++) {
+        newArray.push(new THREE.Vector3(this.xPos[x][y],this.yPos[x][y],0))
+      }
+    }
+
+    return newArray;
   }
 
 

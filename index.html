@@ -211,24 +211,12 @@
   <script src="js/Front/Sections/Testing/testing_ccctest.js"></script>
   <script src="js/Front/Sections/Testing/testing_usertest.js"></script>
   <script src="js/Front/Sections/Testing/testing_globalVars.js"></script>
-  <script src="js/Front/Sections/Testing/drawTestingField.js"></script>
   <script src="js/Front/Sections/Testing/init_TestingSection.js"></script>
 
-    <!-- Testing Section : Jumps -->
-    <script src="js/Front/Sections/Testing/Functions/Jumps/jumpTest.js"></script>
-    <script src="js/Front/Sections/Testing/Functions/Jumps/jumpWorkerEvent.js"></script>
-
-    <!-- Testing Section : Gradient -->
-    <script src="js/Front/Sections/Testing/Functions/Gradient/gradientTest.js"></script>
-    <script src="js/Front/Sections/Testing/Functions/Gradient/gradientWorkerEvent.js"></script>
-
-    <!-- Testing Section : Frequency -->
-    <script src="js/Front/Sections/Testing/Functions/Frequency/frequencyTest.js"></script>
-    <script src="js/Front/Sections/Testing/Functions/Frequency/frequencyWorkerEvent.js"></script>
-
-
-    <script src="js/Front/Sections/Testing/Functions/basis.js"></script>
-    <script src="js/Front/Sections/Testing/Functions/noise.js"></script>
+    <!-- Testing Section : Rendering -->
+    <script src="js/Front/Sections/Testing/TestImageRendering/initTestRendering.js"></script>
+    <script src="js/Front/Sections/Testing/TestImageRendering/testImageMapping.js"></script>
+    <script src="js/Front/Sections/Testing/TestImageRendering/testMapping_Rendering_GlobalVars.js"></script>
 
 
 
@@ -440,6 +428,15 @@
             </div>
             <div class="dropdownMenuButton" onclick="saveSession()">
               Export Session
+            </div>
+          </div>
+
+          <div id="id_actionMenu_testPart" style="display:none;">
+            <div class="dropdownMenuButton" onclick="showMyDesignsPage()">
+              Back to MyDesigns
+            </div>
+            <div class="dropdownNotActiveMenuButton" onclick="">
+              Create Report
             </div>
           </div>
 
@@ -1882,160 +1879,20 @@
         <button id="id_TestPage_CCCTest" onclick="switchTest(0)" style="height:100%; width:50%; cursor:pointer;">
           CCC-Tool Test
         </button>
-        <button id="id_TestPage_CustomTest" onclick="switchTest(1)" style="height:100%; width:50%; cursor:not-allowed;">
-          User Test
+        <button id="id_TestPage_CustomTest" onclick="switchTest(1)" style="height:100%; width:50%; cursor:pointer;">
+          Collection
         </button>
       </div>
 
-      <div id="id_TestPage_CCCTest_Div">
-
-        <div class="row">
-            <div style="width:75vw;">
-                <p class="subsectionLabel" style="margin-top:2vh; margin-bottom:2vh;"> Test Field Generation</p>
-
-                <div style="width:70vw; margin-left:2.5vw; border: 0.2vh solid rgb(220,220,220); background:rgb(245,245,245); overflow-y:auto; height:45vh;">
-
-                  <!-- JUMPS -->
-                  <div class="row" style="width:68vw; margin-left:1vw; height: 4vh; border: 0.2vh solid grey; background:rgb(230,230,230); margin-top:0.5vh; margin-bottom:0.5vh;" >
-                      <input id="id_CCCTest_DoJump" type="checkbox" style="margin-right:1vw; width:1vw; margin-left:0.5vw;" onchange="removeJumpFields()" checked>
-                      <p class="standardText" style="width: 10vw; height: 4vh; line-height: 4vh; margin-left:1vw;"> Jumo Fields: </p>
-                      <div style=" margin-left:1vw; height:2vh; margin-top:auto; margin-bottom:auto; border-radius:1vh; overflow:hidden; width:45vw; border: 0.2vh solid grey; background:white;">
-                        <div id="id_TestJump_Status" style="width:0%; height:100%; width:0%; background: rgb(51, 69, 102);">
-
-                        </div>
-                      </div>
-                      <p id="id_TestJump_Check" class="standardText" style="height: 4vh; line-height: 4vh; margin-left:0.5vw; margin-right:1vw; font-size:2.5vh; visibility:hidden; color: rgb(51, 69, 102);"> &#10004; </p>
-
-                      <div class="class_CCCTestfield_Setting">
-
-                      </div>
-                  </div>
-
-                  <!-- Gradients -->
-                  <div class="row" style="width:68vw; margin-left:1vw; height: 4vh; border: 0.2vh solid grey; background:rgb(230,230,230); margin-top:0.5vh; margin-bottom:0.5vh;" >
-                      <input id="id_CCCTest_DoGradient" type="checkbox" style="margin-right:1vw; width:1vw; margin-left:0.5vw;" onclick="removeGradientFields()" checked>
-                      <p class="standardText" style="width: 10vw; height: 4vh; line-height: 4vh; margin-left:1vw;"> Gradient Fields: </p>
-                      <div style=" margin-left:1vw; height:2vh; margin-top:auto; margin-bottom:auto; border-radius:1vh; overflow:hidden; width:45vw; border: 0.2vh solid grey; background:white;">
-                        <div id="id_TestGradient_Status" style="width:0%; height:100%; width:0%; background: rgb(51, 69, 102);">
-
-                        </div>
-                      </div>
-                      <p id="id_TestGradient_Check" class="standardText" style="height: 4vh; line-height: 4vh; margin-left:0.5vw; margin-right:1vw; font-size:2.5vh; visibility:hidden; color: rgb(51, 69, 102);"> &#10004; </p>
-
-                      <div class="class_CCCTestfield_Setting">
-
-                      </div>
-                  </div>
-
-                  <!-- Frequency -->
-                  <div class="row" style="width:68vw; margin-left:1vw; height: 4vh; border: 0.2vh solid grey; background:rgb(230,230,230); margin-top:0.5vh; margin-bottom:0.5vh;" >
-                      <input id="id_CCCTest_DoFrequency" type="checkbox" style="margin-right:1vw; width:1vw; margin-left:0.5vw;" onclick="removeFrequencyFields()" checked>
-                      <p class="standardText" style="width: 10vw; height: 4vh; line-height: 4vh; margin-left:1vw;"> Frequency Fields: </p>
-                      <div style=" margin-left:1vw; height:2vh; margin-top:auto; margin-bottom:auto; border-radius:1vh; overflow:hidden; width:45vw; border: 0.2vh solid grey; background:white;">
-                        <div id="id_TestFrequency_Status" style="width:0%; height:100%; width:0%; background: rgb(51, 69, 102);">
-
-                        </div>
-                      </div>
-                      <p id="id_TestFrequency_Check" class="standardText" style="height: 4vh; line-height: 4vh; margin-left:0.5vw; margin-right:1vw; font-size:2.5vh; visibility:hidden; color: rgb(51, 69, 102);"> &#10004; </p>
-
-                      <div class="class_CCCTestfield_Setting">
-
-                      </div>
-                  </div>
-
-                </div>
+      <div >
 
 
-
-
-            </div>
-
-            <div style="width:25vw; border-right: 0.2vh solid black;">
-              <p class="subsectionLabel" style="margin-top:2vh; margin-bottom:2vh;"> Test Field Visualization</p>
-
-              <div class="row">
-                <select id="id_CCCTest_FieldType_Select" style="width:10vw; height:3.5vh; line-height:3.5vh; border:0.2vh solid black; margin:auto" onchange="selectCCCTestFieldType()">
-                  <option id="id_CCCTest_FieldOption_Jump" disabled>Jump</option>
-                  <option id="id_CCCTest_FieldOption_Gradient" disabled>Gradient</option>
-                  <option disabled>Quads</option>
-                  <option id="id_CCCTest_FieldOption_Frequency" disabled>Frequency</option>
-                </select>
-                <select id="id_CCCTest_Field_Select" style="width:10vw; height:3.5vh; line-height:3.5vh; border:0.2vh solid black; margin:auto" onchange="selectCCCTestField()">
-
-                </select>
-              </div>
-
-              <div class="row" style="width:100%; margin-top:2vh; margin-bottom:2vh;">
-                <canvas id="id_CCCTestCanvas" style="border:0.2vh solid black; margin:auto; height:35vh; max-height:23vw; width:23vw; max-width:35vh; background:rgb(50,50,50);"></canvas>
-              </div>
-
-              <div class="row">
-                  <button class="class_generalbutton" onclick="openFullTestFkt()" style="width:10vw; margin:auto;"><p>Fullscreen</p></button>
-                  <a id="id_CCCTest_downloadCanvas" class="class_generalbutton" download="Canvas.png" style="width:10vw; margin:auto;"><p>Download</p></a>
-              </div>
-
-            </div>
-        </div>
-
-
-
-      </div>
-
-      <div id="id_TestPage_CustomTest_Div" style="height:100%;">
-
-
-        <div class="row">
+        <div class="row" style="width">
 
           <div style="margin: auto;">
             <p class="subsectionLabel"> Select Test: </p>
-            <select id="id_TestPage_UserTest_List" name="Key List" size="20" style="width:20vw; height:45vh; margin-top:1vh; margin-bottom:1vh; overflow:auto; background:white;" onchange="startUserTest()">
-                <option disabled>Ackley Function</option>
-                <option disabled>Beale Function</option>
-                <option disabled>Bohachevsky Functions</option>
-                <option disabled>Booth Function</option>
-                <option disabled>Branin Function</option>
-                <option disabled>Bukin Function N. 6</option>
-                <option disabled>Colville Function</option>
-                <option value="Cross-in-Tray">Cross-in-Tray Function</option>
-                <option disabled>De Jong Function N. 5</option>
-                <option disabled>Dixon-Price Function</option>
-                <option disabled>Drop-Wave Function</option>
-                <option disabled>Easom Function</option>
-                <option disabled>Eggholder Function</option>
-                <option disabled>Forrester et al. (2008) Function</option>
-                <option disabled>Goldstein-Price Function</option>
-                <option disabled>Gramacy & Lee (2012) Function</option>
-                <option disabled>Griewank Function</option>
-                <option disabled>Hartmann 3-D Function</option>
-                <option disabled>Hartmann 4-D Function</option>
-                <option disabled>Hartmann 6-D Function</option>
-                <option disabled>Holder Table Function</option>
-                <option disabled>Langermann Function</option>
-                <option disabled>Levy Function</option>
-                <option disabled>Levy Function N. 13</option>
-                <option disabled>Matyas Function</option>
-                <option disabled>McCormick Function</option>
-                <option disabled>Michalewicz Function</option>
-                <option disabled>Perm Function 0, d, β</option>
-                <option disabled>Perm Function d, β</option>
-                <option disabled>Powell Function</option>
-                <option disabled>Power Sum Function</option>
-                <option disabled>Rastrigin Function</option>
-                <option disabled>Rosenbrock Function</option>
-                <option disabled>Rotated Hyper-Ellipsoid Function</option>
-                <option disabled>Schaffer Function N. 2</option>
-                <option disabled>Schaffer Function N. 4</option>
-                <option disabled>Schwefel Function</option>
-                <option disabled>Shekel Function</option>
-                <option disabled>Shubert Function</option>
-                <option disabled>Six-Hump Camel Function</option>
-                <option disabled>Sphere Function</option>
-                <option disabled>Styblinski-Tang Function</option>
-                <option disabled>Sum of Different Powers Function</option>
-                <option disabled>Sum Squares Function</option>
-                <option disabled>Three-Hump Camel Function</option>
-                <option disabled>Trid Function</option>
-                <option disabled>Zakharov Function</option>
+            <select id="id_TestPage_UserTest_List" name="Key List" size="20" style="width:20vw; height:45vh; margin-top:1vh; margin-bottom:1vh; overflow:auto; background:white;" onchange="startTest()">
+
               </select>
 
               <br>
@@ -2045,13 +1902,21 @@
 
 
           <div style="margin: auto;">
-            <div class="row" style="width:100%; margin-top:2vh; margin-bottom:2vh;">
-              <canvas id="id_UserTestCanvas" style="border:0.2vh solid black; margin:auto; height:45vh; max-height:25vw; width:25vw; max-width:45vh; background:rgb(50,50,50);"></canvas>
+            <div class="row" style="width:100%; margin-top:2vh; margin-bottom:1vh;">
+              <div id="id_UserTestCanvas" style="border:0.2vh solid black; margin:auto; height:50vh; width:70vw; overflow:hidden; background: url(img/EditPage/plotBackground.png); background-size:cover; background-repeat:no-repeat; background-position: center center;">
+              </div>
+            </div>
+            <div class="row" style="width:100%; margin-bottom:2vh;">
+              <div style="height:2vh; margin:auto; border-radius:1vh; overflow:hidden; width:70vw; border: 0.2vh solid grey; background:white;">
+                <div id="id_Test_StatusBar" style="width:0%; height:100%; width:0%; background: rgb(51, 69, 102);">
+
+                </div>
+              </div>
             </div>
 
-            <div class="row">
+            <div class="row" style="display:none;">
                 <button class="class_generalbutton" onclick="openFullTestFkt()" style="width:10vw; margin:auto;"><p>Fullscreen</p></button>
-                <a id="id_CCCTest_downloadCanvas" class="class_generalbutton" download="Canvas.png" style="width:10vw; margin:auto;"><p>Download</p></a>
+                <a id="id_UserTest_downloadCanvas" class="class_generalbutton" download="Canvas.png" style="width:10vw; margin:auto;"><p>Download</p></a>
             </div>
           </div>
 
@@ -2063,13 +1928,6 @@
       </div>
 
 
-      <hr>
-
-      <div class="row" style="margin-top:1vh;">
-        <button class="class_generalbutton" onclick="showMyDesignsPage()" style="margin-left:27.5%; margin-right:15%;  width:15%;"><p>MyDesigns</p></button>
-        <button id="id_CCCTest_ReportButton" class="class_generalbutton" onclick="" style="width:15%;"><p>Create Report</p></button>
-      </div>
-
     </div>
 
 
@@ -2077,32 +1935,6 @@
                     -------------- Pop Up Windows ---------------
                     -----------------------------------------------
                     -->
-
-                    <!---------------- Full Analzye ---------------  -->
-                        <div id="id_PopUp_fullTestFktWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
-
-                                      <div style="height:100vh; width:100vw; margin-left:auto; margin-right:auto; background:grey;">
-
-                                        <div class="row" style="background:black; height:5vh;">
-
-                                          <h1 class="class_popupWindow_Label" style="height:5vh; line-height:5vh; font-size:3.5vh; ">Fullscreen Mapping</h1>
-                                          <div style="height:5vh; line-height:5vh; font-size:3.5vh; color:white; cursor:pointer;" onclick="closeFullTestFkt()">
-                                            X
-                                          </div>
-
-                                        </div>
-
-
-                                        <div class="row" style="width:100%;">
-                                          <canvas id="id_PopUp_FullTestFuctionCanvas" style="height:95vh; max-height:100vw; width:100vw; max-width:95vh; margin:auto; background:rgb(50,50,50);"> </canvas>
-                                        </div>
-
-
-
-
-                                      </div>
-                                    </div>
-
 
 
 

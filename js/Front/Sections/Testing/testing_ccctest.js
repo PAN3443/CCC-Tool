@@ -1,213 +1,115 @@
 function startCCCTest(){
 
-  var children = document.getElementById("id_CCCTest_FieldType_Select").children;
-  for (var i = 0; i < children.length; i++) {
-    children[i].disabled=true;
+  if (usertestWorkerfinished == false) {
+
+    if (usertestWorker != undefined)
+      usertestWorker.terminate();
+
+    usertestWorkerfinished = true;
   }
 
-  var selectobject=document.getElementById("id_CCCTest_Field_Select")
-  for (var i=selectobject.length-1; i>=0; i--){
-     selectobject.remove(i);
-  }
+  console.log("Start CCC Test: "+ document.getElementById("id_TestPage_UserTest_List").options[document.getElementById("id_TestPage_UserTest_List").selectedIndex].value);
 
+  if (document.getElementById("id_TestPage_UserTest_List").selectedIndex != -1) {
 
-  allFieldsFinished=false;
+    switch (document.getElementById("id_TestPage_UserTest_List").options[document.getElementById("id_TestPage_UserTest_List").selectedIndex].value) {
 
-  initTesttestField_WorkerJSON();
-
-
-  //// JUMPS /////////////////////////////////
-  if(document.getElementById("id_CCCTest_DoJump").checked){
-    if(allJumpWorkersFinished=false){
-      for (var i = 0; i < jumpWorkers_Array.length; i++) {
-        if(jumpWorkers_Array[i]!=undefined)
-          jumpWorkers_Array[i].terminate();
-      }
-
-      allJumpWorkersFinished=true;
-    }
-    startJumpFieldGeneration();
-  }
-
-  //// Gradient /////////////////////////////////
-  if(document.getElementById("id_CCCTest_DoGradient").checked){
-    if(allGradientWorkersFinished=false){
-      for (var i = 0; i < gradientWorkers_Array.length; i++) {
-        if(gradientWorkers_Array[i]!=undefined)
-          gradientWorkers_Array[i].terminate();
-      }
-
-      allGradientWorkersFinished=true;
-    }
-    startGradientFieldGeneration();
-  }
-
-  //// Frequency /////////////////////////////////
-  if(document.getElementById("id_CCCTest_DoFrequency").checked){
-    if(allFrequencyWorkersFinished=false){
-      for (var i = 0; i < frequencyWorkers_Array.length; i++) {
-        if(frequencyWorkers_Array[i]!=undefined)
-          frequencyWorkers_Array[i].terminate();
-      }
-
-      allFrequencyWorkersFinished=true;
-    }
-    startFrequencyFieldGeneration();
-  }
-
-
-  //////////////////////////////////////////////
-
-}
-
-function checkIfGenerationFinished(){
-
-  if(document.getElementById("id_CCCTest_DoJump").checked && allJumpsFinished!=true)
-    return;
-
-  if(document.getElementById("id_CCCTest_DoGradient").checked && allGradientFinished!=true)
-    return;
-
-  if(document.getElementById("id_CCCTest_DoFrequency").checked && allFrequencyFinished!=true)
-    return;
-
-
-  /////////////////// fill field combo
-  var selectobject = document.getElementById("id_CCCTest_FieldType_Select");
-  var oldselectedIndex = selectobject.selectedIndex;
-
-
-  if(document.getElementById("id_CCCTest_DoJump").checked){
-    document.getElementById("id_CCCTest_FieldOption_Jump").disabled=false;
-  }
-  else{
-    document.getElementById("id_CCCTest_FieldOption_Jump").disabled=true;
-  }
-
-  if(document.getElementById("id_CCCTest_DoGradient").checked){
-    document.getElementById("id_CCCTest_FieldOption_Gradient").disabled=false;
-  }
-  else{
-    document.getElementById("id_CCCTest_FieldOption_Gradient").disabled=true;
-  }
-
-  if(document.getElementById("id_CCCTest_DoFrequency").checked){
-    document.getElementById("id_CCCTest_FieldOption_Frequency").disabled=false;
-  }
-  else{
-    document.getElementById("id_CCCTest_FieldOption_Frequency").disabled=true;
-  }
-
-
-
-  var newSelectedIndex = -1;
-
-  if (oldselectedIndex>-1)
-    if(selectobject.children[oldselectedIndex].disabled==false)
-      newSelectedIndex = oldselectedIndex;
-
-
-  if(newSelectedIndex==-1){
-    for (var i = 0; i < selectobject.children.length; i++) {
-      if(selectobject.children[i].disabled==false){
-        newSelectedIndex=i;
-        break;
-      }
-    }
-  }
-  selectobject.selectedIndex =  newSelectedIndex;
-  selectCCCTestFieldType();
-}
-
-
-
-function selectCCCTestFieldType(){
-
-  if(document.getElementById("id_CCCTest_FieldType_Select").selectedIndex == -1){
-
-    var children = document.getElementById("id_CCCTest_FieldType_Select").children;
-    var allDisabled = true;
-    for (var i = 0; i < children.length; i++) {
-      if(children[i].disabled==false){
-        document.getElementById("id_CCCTest_FieldType_Select").selectedIndex=i;
-        break;
-      }
-    }
-    if(allDisabled)
-      return;
-  }
-
-  var selectobject=document.getElementById("id_CCCTest_Field_Select")
-  for (var i=selectobject.length-1; i>=0; i--){
-     selectobject.remove(i);
-  }
-
-
-  switch (document.getElementById("id_CCCTest_FieldType_Select").selectedIndex) {
-    case 0: // jumps
-      for (var i = 0; i < jumpTestFields_Array.length; i++) {
-        var option = document.createElement("option");
-        option.innerHTML = jumpTestFields_Names[i];
-
-        selectobject.add(option);
-      }
-      selectobject.selectedIndex = 0;
-      selectCCCTestField(false);
-    break;
-    case 1: // gradient
-      for (var i = 0; i < gradientTestFields_Array.length; i++) {
-        var option = document.createElement("option");
-        option.innerHTML = gradientTestFields_Names[i];
-
-        selectobject.add(option);
-      }
-      selectobject.selectedIndex = 0;
-      selectCCCTestField(false);
-    break;
-
-    case 3: // frequency
-      for (var i = 0; i < frequencyTestFields_Array.length; i++) {
-        var option = document.createElement("option");
-        option.innerHTML = frequencyTestFields_Names[i];
-
-        selectobject.add(option);
-      }
-      selectobject.selectedIndex = 0;
-      selectCCCTestField(false);
-    break;
-
-    default:
-
-  }
-
-
-}
-
-
-function selectCCCTestField(doFullWindow){
-
-  switch (document.getElementById("id_CCCTest_FieldType_Select").selectedIndex) {
-    case 0: // Jumps
-        if(doFullWindow)
-          drawTestField(jumpTestFields_Array[document.getElementById("id_CCCTest_Field_Select").selectedIndex],"id_PopUp_FullTestFuctionCanvas");
-        else
-          drawTestField(jumpTestFields_Array[document.getElementById("id_CCCTest_Field_Select").selectedIndex],"id_CCCTestCanvas");
+      case "Jump":
+        jumpTest_startWorker(cccTest_Jumps_Options[document.getElementById("id_TestPage_UserTest_List").selectedIndex]);
       break;
 
-      case 1: // Gradient
-          if(doFullWindow)
-            drawTestField(gradientTestFields_Array[document.getElementById("id_CCCTest_Field_Select").selectedIndex],"id_PopUp_FullTestFuctionCanvas");
-          else
-            drawTestField(gradientTestFields_Array[document.getElementById("id_CCCTest_Field_Select").selectedIndex],"id_CCCTestCanvas");
-        break;
-      case 3: // Frequency
-            if(doFullWindow)
-              drawTestField(frequencyTestFields_Array[document.getElementById("id_CCCTest_Field_Select").selectedIndex],"id_PopUp_FullTestFuctionCanvas");
-            else
-              drawTestField(frequencyTestFields_Array[document.getElementById("id_CCCTest_Field_Select").selectedIndex],"id_CCCTestCanvas");
-          break;
-    default:
+      case "Gradient":
+        var index = document.getElementById("id_TestPage_UserTest_List").selectedIndex - cccTest_Jumps_Options.length;
+        console.log(index);
+        gradient_startWorker(index);
+      break;
+
+      case "Valley":
+        var index = document.getElementById("id_TestPage_UserTest_List").selectedIndex - cccTest_Gradient_Options.length - cccTest_Jumps_Options.length;
+        valleyTest_startWorker(index);
+      break;
+
+
+    }
 
   }
+
+}
+
+function gradient_startWorker(index){
+
+  userTestGlobalField = new class_TestField(cccTest_Gradient_Options[index][2],cccTest_Gradient_Options[index][2]);
+
+  testField_WorkerJSON.originIsRelevant=false;
+
+  testField_WorkerJSON.testFieldType = "GRADIENT";
+  testField_WorkerJSON.testFieldGenerationType = cccTest_Gradient_Options[index][1];
+  testField_WorkerJSON.testFieldIndex = gradientWorkers_Array.length;
+
+  testField_WorkerJSON.testFieldVar_a = cccTest_Gradient_Options[index][0];
+  testField_WorkerJSON.testFieldDimX = cccTest_Gradient_Options[index][2];
+  testField_WorkerJSON.testFieldDimY = cccTest_Gradient_Options[index][2];
+
+  usertestWorker=new Worker('js/Front/Sections/Testing/testingWorker.js');
+
+  usertestWorkerfinished=false;
+  usertestWorker.addEventListener('message', workerEvent_showTestField, false);
+  usertestWorker.postMessage(testField_WorkerJSON);
+
+}
+
+function valleyTest_startWorker(index){
+
+  //var newWorker;
+  userTestGlobalField = new class_TestField(cccTest_ValleyLine_Options[index][4],cccTest_ValleyLine_Options[index][5]);
+
+  testField_WorkerJSON.originIsRelevant=false;
+
+  testField_WorkerJSON.testFieldType = "Valley";
+  testField_WorkerJSON.testFieldIndex = jumpWorkers_Array.length;
+
+  testField_WorkerJSON.testFieldDimX = cccTest_ValleyLine_Options[index][4];
+  testField_WorkerJSON.testFieldDimY = cccTest_ValleyLine_Options[index][5];
+
+  testField_WorkerJSON.testFieldVar_a = cccTest_ValleyLine_Options[index][0];
+  testField_WorkerJSON.testFieldVar_b = cccTest_ValleyLine_Options[index][1];
+  testField_WorkerJSON.testFieldVar_c = cccTest_ValleyLine_Options[index][2]; //m-type
+  testField_WorkerJSON.testFieldVar_d = cccTest_ValleyLine_Options[index][3]; //M-type
+
+  usertestWorker = new Worker('js/Front/Sections/Testing/testingWorker.js');
+
+  usertestWorkerfinished=false;
+  usertestWorker.addEventListener('message', workerEvent_showTestField, false);
+  usertestWorker.postMessage(testField_WorkerJSON);
+
+}
+
+
+
+
+function jumpTest_startWorker(stepArray){
+
+  var nDim = (stepArray.length*2)+1;// oldJump Image: (stepArray.length-1)*2+1; // nDim-1 = number of cells in x direction
+  var mDim = stepArray.length+1; // oldJump Image: stepArray.length+1; // mDim-1 = number of cells in y direction
+
+  //var newWorker;
+  userTestGlobalField = new class_TestField(nDim,mDim);
+
+  testField_WorkerJSON.originIsRelevant=false;
+
+  testField_WorkerJSON.testFieldType = "JUMP";
+  testField_WorkerJSON.testFieldGenerationType = undefined;
+  testField_WorkerJSON.testFieldIndex = jumpWorkers_Array.length;
+
+  testField_WorkerJSON.testFieldDimX = nDim;
+  testField_WorkerJSON.testFieldDimY = mDim;
+
+  testField_WorkerJSON.testFieldVar_a = stepArray;
+
+  usertestWorker = new Worker('js/Front/Sections/Testing/testingWorker.js');
+
+  usertestWorkerfinished=false;
+  usertestWorker.addEventListener('message', workerEvent_showTestField, false);
+  usertestWorker.postMessage(testField_WorkerJSON);
 
 }

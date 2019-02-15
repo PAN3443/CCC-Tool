@@ -28,6 +28,7 @@ window.onload = function() {
   init_Testing();
   initMyDesignObj();
   initMapping();
+  initTestMapping();
 
 
   // load predefiend;

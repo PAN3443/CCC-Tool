@@ -1,20 +1,4 @@
 
-//////////////////////////////////////
-/// Test Fkt /////
-///////////////////////////////////
-
-function openFullTestFkt(){
-  document.getElementById("id_PopUp_fullTestFktWindow").style.display="flex";
-  selectTestField(true);
-}
-
-function closeFullTestFkt(){
-  document.getElementById("id_PopUp_fullTestFktWindow").style.display="none";
-}
-
-
-
-
 
 //////////////////////////////////////
 /// Wait /////

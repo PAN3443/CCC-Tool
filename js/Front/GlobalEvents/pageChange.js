@@ -45,6 +45,10 @@ function showTestPage(){
     document.getElementById("id_myDesignsPage").style.display="none";
     document.getElementById("id_TestingPage").style.display="block";
     openTestSection();
+    startAnimationTestMapping();
+
+    document.getElementById("id_actionMenu_myDesignPart").style.display="none";
+    document.getElementById("id_actionMenu_testPart").style.display="block";
   }
   else{
     openAlert("Sorry. You need at least one CMS in the MyDesigns list to visit the Test Section.");
@@ -87,7 +91,7 @@ function showMyDesignsPage(){
 
 stopPathPlotAnimation();
 stopAnimationMapping();
-
+stopAnimationTestMapping();
 }
 
 

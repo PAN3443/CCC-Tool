@@ -25,6 +25,8 @@ self.addEventListener('message', function(e) {
   jsonObj['cVal1'] = [];
   jsonObj['cVal2'] = [];
   jsonObj['cVal3'] = [];
+  jsonObj['positions'] = [];
+  jsonObj['includeCellValues'] = false;
   jsonObj['status'] = 100;
   jsonObj['index'] = data.testFieldIndex;
 
@@ -34,18 +36,18 @@ self.addEventListener('message', function(e) {
   self.postMessage(jsonUpdateObj);
 
 
+
   //////// If origin is relevant -> determine origin
 
   var originStartX = data.originPosX;
   var originStartY = data.originPosY;
 
-  if(data.originIsRelevant && data.originIsCenter){
+  if(data.originIsCenter){
 
     originStartX= originStartX-((data.testFieldDimX/2)*data.stepXDirection);
     originStartY= originStartY-((data.testFieldDimY/2)*data.stepYDirection);
 
   }
-
 
   //////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////
@@ -54,131 +56,262 @@ self.addEventListener('message', function(e) {
 
     ///////////////////////////
     //// JUMP
-    case 0:
-        switch (data.testFieldGenerationType) {
-          //// JUMP : UPSTAIRS
-          case 0:
-          //// JUMP : DOWNSTAIRS
-          case 1:
+    case "JUMP":
 
-            var fixedStart = data.testFieldRangeStart;
-            var fixedEnd = data.testFieldRangeEnd;
-            if(data.testFieldGenerationType==1){
-              fixedStart = data.testFieldRangeEnd;
-              fixedEnd = data.testFieldRangeStart;
-            }
+        jsonObj.includeCellValues = true;
 
-            var currentStart = fixedStart;
-
-            var rangeDistance =  Math.round((fixedEnd-fixedStart) * errorMath) / errorMath;
-            var step = Math.round((rangeDistance/(data.testFieldDimY))* errorMath) / errorMath;// Math.round((rangeDistance/(data.testFieldDimY-1))* errorMath) / errorMath;
-
-            for (var y = 0; y < data.testFieldDimY; y++) {
-
-              /*if(y==data.testFieldDimY-1){
-                currentStart=fixedEnd;
-              }*/
-              var substep = Math.round(((fixedEnd-currentStart)/(data.testFieldDimX-1)) * errorMath) / errorMath;
-
-              for (var x = 0; x < data.testFieldDimX; x++) {
-                var value = Math.round((currentStart+x*substep) * errorMath) / errorMath;
-
-                if(x==data.testFieldDimX-1){
-                  value=fixedEnd;
-                }
-
-                jsonObj.testFieldVal.push(value);
-              }
-              currentStart = Math.round((currentStart+step) * errorMath) / errorMath;
-            }
-          break;
-
-          //// JUMP : DECREASE (FIXED Max Value)
-          case 2:
-          //// JUMP : DECREASE (FIXED Min Value)
-          case 3:
-
-          var fixedStart = data.testFieldRangeStart;
-          var fixedEnd = data.testFieldRangeEnd;
-          if(data.testFieldGenerationType==3){
-            fixedStart = data.testFieldRangeEnd;
-            fixedEnd = data.testFieldRangeStart;
+        var dis = Math.round((data.testFieldRangeEnd-data.testFieldRangeStart) * errorMath) / errorMath;
+        for (var y = 0; y < data.testFieldDimY; y++) {
+          for (var x = 0; x < data.testFieldDimX; x++) {
+            jsonObj.testFieldVal.push(undefined);
+            jsonObj.positions.push([x,y]);
           }
+        }
 
-          var currentStart = fixedStart;
+        var currentValIndex = 0;
+        for (var i = 0; i < data.testFieldVar_a.length; i++){
 
-          var rangeDistance =  Math.round((fixedEnd-fixedStart) * errorMath) / errorMath;
-          var step = Math.round((rangeDistance/(data.testFieldDimY))* errorMath) / errorMath;// Math.round((rangeDistance/(data.testFieldDimY-1))* errorMath) / errorMath;
+          var value = Math.round((data.testFieldRangeStart + (data.testFieldVar_a[i]*dis))* errorMath) / errorMath;
+          var currentXPos = 1;
+          for (var y = 0; y < (data.testFieldDimY-1); y++) {
+            var tmpIndex =  (y*data.testFieldDimX)+currentValIndex;
+
+            //jsonObj.positions[tmpIndex]=[currentValIndex,y];
+            jsonObj.testFieldVal[tmpIndex] = value;
+            tmpIndex =  (i*data.testFieldDimX)+currentXPos;
+
+            //jsonObj.positions[tmpIndex]=[currentXPos,y];
+            jsonObj.testFieldVal[tmpIndex] = value;
+            currentXPos+=2;
+          }
+          currentValIndex+=2;
+        }
+
+        /*var dis = Math.round((data.testFieldRangeEnd-data.testFieldRangeStart) * errorMath) / errorMath;
+        var compareValues=[];
+        for (var i = 0; i < data.testFieldVar_a.length; i++) {
+          compareValues.push(Math.round((data.testFieldRangeStart + (data.testFieldVar_a[i]*dis))* errorMath) / errorMath);
+        }
+
+        var valueArray = [];
+        var valueEndIndexY =data.testFieldDimY-2;
+        var valueEndIndexX =data.testFieldDimX-2;
+
+        for (var y = 0; y < data.testFieldDimY; y++) {
+          var tmpArray = new Array(data.testFieldDimX).fill(undefined);
+          valueArray.push(tmpArray);
+        }
+
+
+        var limitedTo = valueEndIndexY;
+        for (var x = 0; x < data.testFieldDimX-1; x++) {
+          var startIndex = x/2+1;
+          var researchIndex = x/2;
+          for (var y = 0; y < limitedTo; y++) {
+            valueArray[y][x]=compareValues[researchIndex];
+            valueArray[y][x+1]=compareValues[startIndex];
+            startIndex++;
+          }
+          x++;
+          limitedTo--;
+        }
+
+        ////// now we have to mirror the results
+        var tillXElement = 0;
+        for (var y = valueEndIndexY; y >0; y--) {   // last line is full of undefined because we save point value array, but we habe cell values, first line is already full of values
+          for (var x = valueEndIndexX; x >= tillXElement; x--) {
+            valueArray[y][x] = valueArray[valueEndIndexY-y][valueEndIndexX-x];
+          }
+          tillXElement += 2;
+        }
+
+        ///// save values
+        for (var y = 0; y < valueArray.length; y++) {
+          for (var x = 0; x < valueArray[y].length; x++) {
+            jsonObj.positions.push([x,y]);
+            jsonObj.testFieldVal.push(valueArray[y][x]);
+          }
+        }*/
+
+
+      break;
+
+      ///////////////////////////
+      //// Valley
+      case "Valley":
+
+
+
+
+          var dis = Math.round((data.testFieldRangeEnd-data.testFieldRangeStart) * errorMath) / errorMath;
+          //  f : x=[-1,1] x y=[0,1]
+
+          var minValue = Math.round((data.testFieldRangeStart+(dis*data.testFieldVar_a)) * errorMath) / errorMath;
+          var maxValue = Math.round((data.testFieldRangeStart+(dis*data.testFieldVar_b)) * errorMath) / errorMath;
+
+          var currentMax = undefined;
+          var amountOfGradient = undefined;
+          var currentY = undefined;
+          var currentX =undefined;
 
           for (var y = 0; y < data.testFieldDimY; y++) {
 
-            /*if(y==data.testFieldDimY-1){
-              currentStart=fixedEnd;
-            }*/
-            var substep = Math.round((((fixedEnd-currentStart)/2)/(data.testFieldDimX-1)) * errorMath) / errorMath; // we want to do a course to the middle between fixed end and current start
+            currentY = Math.round((y/(data.testFieldDimY-1)) * errorMath) / errorMath;
+
+            switch (data.testFieldVar_d) {
+              case 0: // M-Type = linear
+                  //  gradient depends on y => g=M*(1-y); and on x <=0 positive x>0 negative
+                  amountOfGradient = Math.round(((maxValue-minValue)*(currentY)) * errorMath) / errorMath;
+                  currentMax = minValue+amountOfGradient;
+                break;
+                case 1: // M-Type = quad
+                   currentMax = maxValue*Math.pow(currentY,2);
+                  break;
+
+            }
+
 
             for (var x = 0; x < data.testFieldDimX; x++) {
 
-              var value = 0
+              var currentX = Math.round((-1+(x/(data.testFieldDimX-1))*2) * errorMath) / errorMath;
 
-              if(x%2==0){
-                value = Math.round((fixedEnd-x*substep) * errorMath) / errorMath;
-              }else{
-                value = Math.round((currentStart+(x-1)*substep) * errorMath) / errorMath; // x-1 because we dont
+              var value = undefined;
+
+              switch (data.testFieldVar_c) {
+                case 0: // m-Type = linear
+                    if(currentX<=0){
+                      value = Math.round((  currentMax+currentX*amountOfGradient            ) * errorMath) / errorMath;
+                    }
+                    else {
+                      value = Math.round((  currentMax+currentX*-1*amountOfGradient          ) * errorMath) / errorMath;
+                    }
+                  break;
+                  case 1: // m-Type = quad
+                      value = Math.round((  (minValue-currentMax)*Math.pow(currentX,2)+currentMax ) * errorMath) / errorMath;
+                    break;
+
               }
 
-
+              //console.log(value);
+              jsonObj.positions.push([x,y]);
               jsonObj.testFieldVal.push(value);
             }
-            currentStart = Math.round((currentStart+step) * errorMath) / errorMath;
+
           }
-          break;
-        }
+
+
+
+
+
       break;
 
       ///////////////////////////
       //// Gradient
-      case 1:
-
-      var endStep = (data.testFieldRangeEnd-data.testFieldStartLineValue)/data.testFieldDimY; // y step define the end value for the current y
-
-      for (var y = 0; y < data.testFieldDimY; y++) {
-
-        var endValue = data.testFieldStartLineValue + ((y+1)*endStep);
-        var step= (endValue-data.testFieldStartLineValue)/(data.testFieldDimX-1); // x step to reach the end value (current y)
+      case "GRADIENT":
 
 
-        for (var x = 0; x < data.testFieldDimX; x++) {
+      var dis = Math.round((data.testFieldRangeEnd-data.testFieldRangeStart) * errorMath) / errorMath;
+      var startValue = Math.round((data.testFieldRangeStart+dis*data.testFieldVar_a) * errorMath) / errorMath;
 
-          var value = Math.round((data.testFieldStartLineValue+x*step) * errorMath) / errorMath; // x-1 because we dont
 
-          jsonObj.testFieldVal.push(value);
-        }
+      switch (data.testFieldGenerationType) {
+        case 0: // Rising Gradient
 
+
+              var endStep = (data.testFieldRangeEnd-startValue)/data.testFieldDimY; // y step define the end value for the current y
+
+              for (var y = 0; y < data.testFieldDimY; y++) {
+
+                var endValue = startValue + ((y+1)*endStep);
+                var step= (endValue-startValue)/(data.testFieldDimX-1); // x step to reach the end value (current y)
+
+
+                for (var x = 0; x < data.testFieldDimX; x++) {
+
+                  var value = Math.round((startValue+x*step) * errorMath) / errorMath; // x-1 because we dont
+                  jsonObj.positions.push([y,x]);
+                  jsonObj.testFieldVal.push(value);
+                }
+
+              }
+          break;
+          case 1: // Falling Gradient
+          var endStep = (startValue-data.testFieldRangeStart)/data.testFieldDimY; // y step define the end value for the current y
+
+          for (var y = 0; y < data.testFieldDimY; y++) {
+
+            var endValue = startValue - ((y+1)*endStep);
+            var step= (startValue-endValue)/(data.testFieldDimX-1); // x step to reach the end value (current y)
+
+
+            for (var x = 0; x < data.testFieldDimX; x++) {
+
+              var value = Math.round((startValue-x*step) * errorMath) / errorMath; // x-1 because we dont
+              jsonObj.positions.push([y,x]);
+              jsonObj.testFieldVal.push(value);
+            }
+
+          }
+            break;
       }
+
+
 
 
       break;
 
-
       ///////////////////////////
-      //// Other
-      case 99:
+      //// Gradient
+      case "FREQUENCY":
 
+      break;
+      ///////////////////////////
+      //// USER TEST
+      case "USER":
+      switch (data.testFieldGenerationType) {
+        /*case "Marschner-Lobb":
+        / **
+        * @brief Computes Marschner-Lobb field used to test volumetric reconstructions
+        *
+        * Stephen R. Marschner and Richard J. Lobb,
+        * "An Evaluation of Reconstruction Filters for Volume Rendering"
+        * Proceedings of IEEE Visualization '94 Conference
+        *
+        * http://www.cs.cornell.edu/~srm/publications/Vis94-filters.pdf
+        * /
 
-        switch (data.testFieldGenerationType) {
-          case "Marschner-Lobb":
-          /**
-          * @brief Computes Marschner-Lobb field used to test volumetric reconstructions
-          *
-          * Stephen R. Marschner and Richard J. Lobb,
-          * "An Evaluation of Reconstruction Filters for Volume Rendering"
-          * Proceedings of IEEE Visualization '94 Conference
-          *
-          * http://www.cs.cornell.edu/~srm/publications/Vis94-filters.pdf
-          */
+        var zPos = 0;
 
-          var zPos = 0;
+        for (var y = 0; y < data.testFieldDimY; y++) {
+
+          var yPos= originStartY+y*data.stepYDirection;
+          for (var x = 0; x < data.testFieldDimX; x++) {
+
+            var xPos= originStartX+x*data.stepXDirection;
+            /**
+             * Marchner-Lobb function
+             * \[ ( 1.0 - \sin( \pi * z * 0.5 ) + alpha * ( 1.0 + \rho_r( \sqrt( x * x + y * y ), f_M ) ) ) / ( 2.0 * ( 1.0 + \alpha ) ) )
+               \]
+               with
+               \[rho_r = \cos( 2\pi f_M cos( \frac{\pi r}{2} ) \]
+             * /
+             var r = Math.sqrt( xPos * xPos + yPos * yPos );
+
+            var value =  1.0 - Math.sin( Math.PI * zPos * 0.5 ) +
+             data.marschnerLopp_Alpha * ( 1.0 + Math.cos( 2.0 * Math.PI * data.marschnerLopp_f_M * Math.cos( Math.PI * r * 0.5 ) ) ) / ( 2.0 * ( 1.0 + data.marschnerLopp_Alpha ) );
+            min = Math.min(min,value);
+            max = Math.max(max,value);
+            jsonObj.testFieldVal.push(value);
+          }
+
+        }
+          break;*/
+          case "Ackley":
+
+          var d = 2; // dimension
+          var a = data.testFieldVar_a;
+          var b = data.testFieldVar_b;
+          var c = data.testFieldVar_c;
 
           for (var y = 0; y < data.testFieldDimY; y++) {
 
@@ -186,55 +319,621 @@ self.addEventListener('message', function(e) {
             for (var x = 0; x < data.testFieldDimX; x++) {
 
               var xPos= originStartX+x*data.stepXDirection;
-              /**
-               * Marchner-Lobb function
-               * \[ ( 1.0 - \sin( \pi * z * 0.5 ) + alpha * ( 1.0 + \rho_r( \sqrt( x * x + y * y ), f_M ) ) ) / ( 2.0 * ( 1.0 + \alpha ) ) )
-                 \]
-                 with
-                 \[rho_r = \cos( 2\pi f_M cos( \frac{\pi r}{2} ) \]
-               */
-               var r = Math.sqrt( xPos * xPos + yPos * yPos );
 
-              var value =  1.0 - Math.sin( Math.PI * zPos * 0.5 ) +
-               data.marschnerLopp_Alpha * ( 1.0 + Math.cos( 2.0 * Math.PI * data.marschnerLopp_f_M * Math.cos( Math.PI * r * 0.5 ) ) ) / ( 2.0 * ( 1.0 + data.marschnerLopp_Alpha ) );
+              var term1 = -a * Math.exp(-b*Math.sqrt((xPos*xPos + yPos*yPos)/d));
+              var term2 = - Math.exp((Math.cos(c*xPos) + Math.cos(c*yPos))/d);
+              var value = term1 + term2 + a + Math.exp(1);
+
               min = Math.min(min,value);
               max = Math.max(max,value);
+              jsonObj.positions.push([xPos,yPos]);
               jsonObj.testFieldVal.push(value);
+
             }
 
           }
-            break;
 
-            case "Cross-in-Tray":
+          break;
+          case "Bukin_N6":
+
+          for (var y = 0; y < data.testFieldDimY; y++) {
+
+            var yPos= originStartY+y*data.stepYDirection;
+            for (var x = 0; x < data.testFieldDimX; x++) {
+
+              var xPos= originStartX+x*data.stepXDirection;
+
+              term1 = 100 * Math.sqrt(Math.abs(yPos - 0.01* Math.pow(xPos,2)));
+              term2 = 0.01 * Math.abs(xPos+10);
+              var value = term1 + term2;
+
+              min = Math.min(min,value);
+              max = Math.max(max,value);
+              jsonObj.positions.push([xPos,yPos]);
+              jsonObj.testFieldVal.push(value);
+
+            }
+
+          }
+
+          break;
+          case "Cross-in-Tray":
+
+          for (var y = 0; y < data.testFieldDimY; y++) {
+
+            var yPos= originStartY+y*data.stepYDirection;
+            for (var x = 0; x < data.testFieldDimX; x++) {
+
+              var xPos= originStartX+x*data.stepXDirection;
+
+              var value =  -0.00001* Math.pow((Math.abs( Math.sin(xPos)*Math.sin(yPos)*Math.exp(  Math.abs(100-(Math.sqrt( Math.pow(xPos,2)+Math.pow(yPos,2))/Math.PI))))+1),0.1);
+              min = Math.min(min,value);
+              max = Math.max(max,value);
+              jsonObj.positions.push([xPos,yPos]);
+              jsonObj.testFieldVal.push(value);
+
+            }
+
+          }
+
+          break;
+          case "Drop-Wave":
+            for (var y = 0; y < data.testFieldDimY; y++) {
+
+              var yPos= originStartY+y*data.stepYDirection;
+              for (var x = 0; x < data.testFieldDimX; x++) {
+
+                var xPos= originStartX+x*data.stepXDirection;
+
+                var frac1 = 1 + Math.cos(12*Math.sqrt(Math.pow(xPos,2)+Math.pow(yPos,2)));
+                var frac2 = 0.5*(Math.pow(xPos,2)+Math.pow(yPos,2)) + 2;
+                var value = -frac1/frac2;
+
+                min = Math.min(min,value);
+                max = Math.max(max,value);
+                jsonObj.positions.push([xPos,yPos]);
+                jsonObj.testFieldVal.push(value);
+
+              }
+
+            }
+          break;
+          case "Eggholder":
+            for (var y = 0; y < data.testFieldDimY; y++) {
+
+              var yPos= originStartY+y*data.stepYDirection;
+              for (var x = 0; x < data.testFieldDimX; x++) {
+
+                var xPos= originStartX+x*data.stepXDirection;
+
+                var term1 = -(yPos+47) * Math.sin(Math.sqrt(Math.abs(yPos+xPos/2+47)));
+                var term2 = -xPos * Math.sin(Math.sqrt(Math.abs(xPos-(yPos+47))));
+
+                var value = term1 + term2;
+
+                min = Math.min(min,value);
+                max = Math.max(max,value);
+                jsonObj.positions.push([xPos,yPos]);
+                jsonObj.testFieldVal.push(value);
+
+              }
+
+            }
+          break;
+          case "Griewank":
+            // 2D version
+            for (var y = 0; y < data.testFieldDimY; y++) {
+
+              var yPos= originStartY+y*data.stepYDirection;
+              for (var x = 0; x < data.testFieldDimX; x++) {
+
+                var xPos= originStartX+x*data.stepXDirection;
+
+                var sum = Math.pow(xPos,2)/4000 + Math.pow(yPos,2)/4000;
+	              var prod = Math.cos(xPos/Math.sqrt(1)) * Math.cos(yPos/Math.sqrt(2));
+
+                var value = sum - prod + 1;
+
+                min = Math.min(min,value);
+                max = Math.max(max,value);
+                jsonObj.positions.push([xPos,yPos]);
+                jsonObj.testFieldVal.push(value);
+
+              }
+
+            }
+          break;
+          case "HolderTable":
 
             for (var y = 0; y < data.testFieldDimY; y++) {
 
               var yPos= originStartY+y*data.stepYDirection;
               for (var x = 0; x < data.testFieldDimX; x++) {
 
-
-
                 var xPos= originStartX+x*data.stepXDirection;
 
-                var value =  -0.00001* Math.pow((Math.abs( Math.sin(xPos)*Math.sin(yPos)*Math.exp(  Math.abs(100-(Math.sqrt( Math.pow(xPos,2)+Math.pow(yPos,2))/Math.PI))))+1),0.1);
+                var fact1 = Math.sin(xPos)*Math.cos(yPos);
+                var fact2 = Math.exp(Math.abs(1 - Math.sqrt(Math.pow(xPos,2)+Math.pow(yPos,2))/Math.PI));
+                var value = -Math.abs(fact1*fact2);
                 min = Math.min(min,value);
                 max = Math.max(max,value);
+                jsonObj.positions.push([xPos,yPos]);
                 jsonObj.testFieldVal.push(value);
 
               }
 
             }
+          break;
+          case "Langermann":
 
-            break;
+            var vec_c = data.testFieldVar_a;
+            var mat_A = data.testFieldVar_b;
+
+            for (var y = 0; y < data.testFieldDimY; y++) {
+
+              var yPos= originStartY+y*data.stepYDirection;
+              for (var x = 0; x < data.testFieldDimX; x++) {
+
+                var xPos= originStartX+x*data.stepXDirection;
+
+                var value = 0;
+                for (var i = 0; i < vec_c.length; i++) {
+                  var innerVal  =  Math.pow((xPos-mat_A[0][i]),2) + Math.pow((yPos-mat_A[1][i]),2);
+                  value += vec_c[i] * Math.exp(-innerVal/Math.PI) * Math.cos(Math.PI*innerVal);
+                }
+
+                min = Math.min(min,value);
+                max = Math.max(max,value);
+                jsonObj.positions.push([xPos,yPos]);
+                jsonObj.testFieldVal.push(value);
+
+              }
+
+            }
+          break;
+          case "Levy":
+
+            for (var y = 0; y < data.testFieldDimY; y++) {
+
+              var yPos= originStartY+y*data.stepYDirection;
+              for (var x = 0; x < data.testFieldDimX; x++) {
+
+                var xPos= originStartX+x*data.stepXDirection;
+                var weightX = 1+(xPos-1)/4;
+                var weightY = 1+(yPos-1)/4;
+
+                var term1 = Math.pow(Math.sin(Math.PI*weightX),2);
+                var term3 = Math.pow((weightY-1),2) * (1+Math.pow(Math.sin(2*Math.PI*weightY),2));
+
+                var term2 = Math.pow((weightX-1),2) * Math.pow(1+10*(Math.sin(Math.PI*weightX+1)),2) + Math.pow((weightY-1),2) * Math.pow(1+10*(Math.sin(Math.PI*weightY+1)),2);
+
+                var value = term1 + term2 + term3;
+
+                min = Math.min(min,value);
+                max = Math.max(max,value);
+                jsonObj.positions.push([xPos,yPos]);
+                jsonObj.testFieldVal.push(value);
+
+              }
+
+            }
+          break;
+          case "Levy_N13":
+
+            for (var y = 0; y < data.testFieldDimY; y++) {
+
+              var yPos= originStartY+y*data.stepYDirection;
+              for (var x = 0; x < data.testFieldDimX; x++) {
+
+                var xPos= originStartX+x*data.stepXDirection;
+
+                var term1 = Math.pow(Math.sin(3*Math.PI*xPos),2);
+                var term2 = Math.pow((xPos-1),2) * Math.pow(1+(Math.sin(3*Math.PI*yPos)),2);
+                var term3 = Math.pow((yPos-1),2) * Math.pow(1+(Math.sin(2*Math.PI*yPos)),2);
+
+                var value = term1 + term2 + term3;
+
+                min = Math.min(min,value);
+                max = Math.max(max,value);
+                jsonObj.positions.push([xPos,yPos]);
+                jsonObj.testFieldVal.push(value);
+
+              }
+
+            }
+          break;
+          case "Rastrigin":
+
+            var d=2;
+            for (var y = 0; y < data.testFieldDimY; y++) {
+
+              var yPos= originStartY+y*data.stepYDirection;
+              for (var x = 0; x < data.testFieldDimX; x++) {
+
+                var xPos= originStartX+x*data.stepXDirection;
+
+                var term1 = Math.pow(xPos,2) - 10*Math.cos(2*Math.PI*xPos);
+                var term2 = Math.pow(yPos,2) - 10*Math.cos(2*Math.PI*yPos);
+
+                var value = 10*d + term1 + term2;
+
+                min = Math.min(min,value);
+                max = Math.max(max,value);
+                jsonObj.positions.push([xPos,yPos]);
+                jsonObj.testFieldVal.push(value);
+
+              }
+
+            }
+          break;
+
+          case "Schaffer_N2":
+
+            for (var y = 0; y < data.testFieldDimY; y++) {
+
+              var yPos= originStartY+y*data.stepYDirection;
+              for (var x = 0; x < data.testFieldDimX; x++) {
+
+                var xPos= originStartX+x*data.stepXDirection;
+
+                var term1 = Math.pow(Math.sin(Math.pow(xPos,2)-Math.pow(yPos,2)),2) - 0.5;
+                var term2 = Math.pow(1 + 0.001*(Math.pow(xPos,2)+Math.pow(yPos,2)),2);
+
+                var value = 0.5 + term1/term2;
+
+                min = Math.min(min,value);
+                max = Math.max(max,value);
+                jsonObj.positions.push([xPos,yPos]);
+                jsonObj.testFieldVal.push(value);
+
+              }
+
+            }
+          break;
+
+          case "Schaffer_N4":
+
+            for (var y = 0; y < data.testFieldDimY; y++) {
+
+              var yPos= originStartY+y*data.stepYDirection;
+              for (var x = 0; x < data.testFieldDimX; x++) {
+
+                var xPos= originStartX+x*data.stepXDirection;
+
+                var term1 = Math.cos(Math.sin(Math.abs(Math.pow(xPos,2)-Math.pow(yPos,2)))) - 0.5;
+                var term2 = Math.pow(1 + 0.001*(Math.pow(xPos,2)+Math.pow(yPos,2)),2);
+
+                var value = 0.5 + term1/term2;
+
+                min = Math.min(min,value);
+                max = Math.max(max,value);
+                jsonObj.positions.push([xPos,yPos]);
+                jsonObj.testFieldVal.push(value);
+
+              }
+
+            }
+          break;
+
+          case "Schwefel":
+
+            var d=2;
+            for (var y = 0; y < data.testFieldDimY; y++) {
+
+              var yPos= originStartY+y*data.stepYDirection;
+              for (var x = 0; x < data.testFieldDimX; x++) {
+
+                var xPos= originStartX+x*data.stepXDirection;
+
+                var term1 = xPos*Math.sin(Math.sqrt(Math.abs(xPos)));
+                var term2 = yPos*Math.sin(Math.sqrt(Math.abs(yPos)));
+
+                var value = 418.9829*d - (term1+term2);
+
+                min = Math.min(min,value);
+                max = Math.max(max,value);
+                jsonObj.positions.push([xPos,yPos]);
+                jsonObj.testFieldVal.push(value);
+
+              }
+
+            }
+          break;
+
+
+          case "Shubert":
+
+            for (var y = 0; y < data.testFieldDimY; y++) {
+
+              var yPos= originStartY+y*data.stepYDirection;
+              for (var x = 0; x < data.testFieldDimX; x++) {
+
+                var xPos= originStartX+x*data.stepXDirection;
+
+                var term1 = 0;
+                var term2 = 0;
+
+                for (var i = 1; i <= 5; i++) {
+                	term1 += i * Math.cos((i+1)*xPos+i);
+                	term2 += i * Math.cos((i+1)*yPos+i);
+                }
+
+                var value = term1 * term2;
+
+                min = Math.min(min,value);
+                max = Math.max(max,value);
+                jsonObj.positions.push([xPos,yPos]);
+                jsonObj.testFieldVal.push(value);
+
+              }
+
+            }
+          break;
+
+          ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+          /// Functions: Bowl-Shaped
+          ///
+
+
+          case "Bohachevsky_F1":
+          for (var y = 0; y < data.testFieldDimY; y++) {
+
+            var yPos= originStartY+y*data.stepYDirection;
+            for (var x = 0; x < data.testFieldDimX; x++) {
+
+              var xPos= originStartX+x*data.stepXDirection;
+
+              var term1 = Math.pow(xPos,2);
+              var term2 = Math.pow(2*yPos,2);
+              var term3 = -0.3 * Math.cos(3*Math.PI*xPos);
+              var term4 = -0.4 * Math.cos(4*Math.PI*yPos);
+
+              var value = term1 + term2 + term3 + term4 + 0.7;
+
+              min = Math.min(min,value);
+              max = Math.max(max,value);
+              jsonObj.positions.push([xPos,yPos]);
+              jsonObj.testFieldVal.push(value);
+
+            }
+
+          }
+        break;
+          case "Bohachevsky_F2":
+          for (var y = 0; y < data.testFieldDimY; y++) {
+
+            var yPos= originStartY+y*data.stepYDirection;
+            for (var x = 0; x < data.testFieldDimX; x++) {
+
+              var xPos= originStartX+x*data.stepXDirection;
+
+              var term1 = Math.pow(xPos,2);
+              var term2 = Math.pow(2*yPos,2);
+              var term3 = -0.3 * Math.cos(3*Math.PI*xPos) * Math.cos(4*Math.PI*yPos);
+
+              var value = term1 + term2 + term3 + 0.3;
+
+              min = Math.min(min,value);
+              max = Math.max(max,value);
+              jsonObj.positions.push([xPos,yPos]);
+              jsonObj.testFieldVal.push(value);
+
+            }
+
+          }
+        break;
+          case "Bohachevsky_F3":
+          for (var y = 0; y < data.testFieldDimY; y++) {
+
+            var yPos= originStartY+y*data.stepYDirection;
+            for (var x = 0; x < data.testFieldDimX; x++) {
+
+              var xPos= originStartX+x*data.stepXDirection;
+
+              var term1 = Math.pow(xPos,2);
+              var term2 = Math.pow(2*yPos,2);
+              var term3 = -0.3 * Math.cos(3*Math.PI*xPos + 4*Math.PI*yPos);
+
+              var value = term1 + term2 + term3 + 0.3;
+
+              min = Math.min(min,value);
+              max = Math.max(max,value);
+              jsonObj.positions.push([xPos,yPos]);
+              jsonObj.testFieldVal.push(value);
+
+            }
+
+          }
+        break;
+
+        case "Perm_V1":
+
+        var b = data.testFieldVar_a;
+        for (var y = 0; y < data.testFieldDimY; y++) {
+
+          var yPos= originStartY+y*data.stepYDirection;
+          for (var x = 0; x < data.testFieldDimX; x++) {
+
+            var xPos= originStartX+x*data.stepXDirection;
+
+            var value = 0;
+
+
+            value+= Math.pow((1+b)*(xPos-(1))+(2+b)*(yPos-(1/2)),2)
+            value+= Math.pow((1+b)*(Math.pow(xPos,2)-1)+(2+b)*(Math.pow(yPos,2)-Math.pow((1/2),2)),2);
+
+            min = Math.min(min,value);
+            max = Math.max(max,value);
+            jsonObj.positions.push([xPos,yPos]);
+            jsonObj.testFieldVal.push(value);
+
+          }
+
+        }
+      break;
+
+      case "Rot_Hyper_Ellipsoid":
+
+      for (var y = 0; y < data.testFieldDimY; y++) {
+
+        var yPos= originStartY+y*data.stepYDirection;
+        for (var x = 0; x < data.testFieldDimX; x++) {
+
+          var xPos= originStartX+x*data.stepXDirection;
+
+          var term1 = Math.pow(xPos,2);// i=1, j=1
+          var term2 = Math.pow(xPos,2);// i=2, j=1
+          var term3 = Math.pow(yPos,2);// i=2, j=2
+          var value = term1+term2+term3;
+
+          min = Math.min(min,value);
+          max = Math.max(max,value);
+          jsonObj.positions.push([xPos,yPos]);
+          jsonObj.testFieldVal.push(value);
+
+        }
+
+      }
+    break;
+
+    case "Sphere":
+
+    for (var y = 0; y < data.testFieldDimY; y++) {
+
+      var yPos= originStartY+y*data.stepYDirection;
+      for (var x = 0; x < data.testFieldDimX; x++) {
+
+        var xPos= originStartX+x*data.stepXDirection;
+
+        var term1 = Math.pow(xPos,2);
+        var term2 = Math.pow(yPos,2);
+        var value = term1+term2;
+
+        min = Math.min(min,value);
+        max = Math.max(max,value);
+        jsonObj.positions.push([xPos,yPos]);
+        jsonObj.testFieldVal.push(value);
+
+      }
+
+    }
+  break;
+
+  case "SumDifPowers":
+
+  for (var y = 0; y < data.testFieldDimY; y++) {
+
+    var yPos= originStartY+y*data.stepYDirection;
+    for (var x = 0; x < data.testFieldDimX; x++) {
+
+      var xPos= originStartX+x*data.stepXDirection;
+
+      var term1 = Math.pow((Math.abs(xPos)),(2));
+      var term2 = Math.pow((Math.abs(yPos)),(3));
+      var value = term1+term2;
+
+      min = Math.min(min,value);
+      max = Math.max(max,value);
+      jsonObj.positions.push([xPos,yPos]);
+      jsonObj.testFieldVal.push(value);
+
+    }
+
+  }
+break;
+
+case "Sum_Squares":
+
+for (var y = 0; y < data.testFieldDimY; y++) {
+
+  var yPos= originStartY+y*data.stepYDirection;
+  for (var x = 0; x < data.testFieldDimX; x++) {
+
+    var xPos= originStartX+x*data.stepXDirection;
+
+    var term1 = Math.pow(xPos,2);
+    var term2 = Math.pow(2*yPos,2);
+    var value = term1+term2;
+
+    min = Math.min(min,value);
+    max = Math.max(max,value);
+    jsonObj.positions.push([xPos,yPos]);
+    jsonObj.testFieldVal.push(value);
+
+  }
+
+}
+break;
+
+case "Trid":
+
+for (var y = 0; y < data.testFieldDimY; y++) {
+
+  var yPos= originStartY+y*data.stepYDirection;
+  for (var x = 0; x < data.testFieldDimX; x++) {
+
+    var xPos= originStartX+x*data.stepXDirection;
+
+    var term1 = Math.pow(xPos-1,2);
+    var term2 = Math.pow(yPos-1,2);
+    var term3 = xPos*yPos;
+    var value = term1+term2-term3;
+
+    min = Math.min(min,value);
+    max = Math.max(max,value);
+    jsonObj.positions.push([xPos,yPos]);
+    jsonObj.testFieldVal.push(value);
+
+  }
+
+}
+break;
+
+
+//////////////////////////////////
+/// Functions: Valley-Shaped
+///
+
+case "Three_Hump_Camel":
+
+for (var y = 0; y < data.testFieldDimY; y++) {
+
+  var yPos= originStartY+y*data.stepYDirection;
+  for (var x = 0; x < data.testFieldDimX; x++) {
+
+    var xPos= originStartX+x*data.stepXDirection;
+
+    var term1 = 2*Math.pow(xPos,2);
+    var term2 = -1.05*Math.pow(xPos,4);
+    var term3 = Math.pow(xPos,6) / 6;
+    var term4 = xPos*yPos;
+    var term5 = Math.pow(yPos,2);
+    var value = term1 + term2 + term3 + term4 + term5;
+
+    min = Math.min(min,value);
+    max = Math.max(max,value);
+    jsonObj.positions.push([xPos,yPos]);
+    jsonObj.testFieldVal.push(value);
+
+  }
+
+}
+break;
+
+
+
+
+
+
           default:
 
         }
 
 
       doScale = true;
-
-
       break;
+
+
 
   }
 
