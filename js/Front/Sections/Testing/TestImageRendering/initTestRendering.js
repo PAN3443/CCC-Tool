@@ -25,6 +25,18 @@ function renderTestMapping() {
           testMappingGroup.position.x += mapping_Translation_X;
           testMappingGroup.position.y += mapping_Translation_Y;
 
+          if(mapping_dorotation && do3DTestField){
+            testMappingGroup.rotation.y += ( mapping_xRotationAngle - testMappingGroup.rotation.y ) * 0.05;
+            testMappingGroup.rotation.x += ( mapping_yRotationAngle - testMappingGroup.rotation.x ) * 0.05;
+          }
+          else{
+
+            if(!do3DTestField){
+              testMappingGroup.rotation.y = 0;
+              testMappingGroup.rotation.x = 0;
+            }
+
+          }
           /*currentOriginX+= mapping_Translation_X;
           currentOriginY+= mapping_Translation_Y;*/
 

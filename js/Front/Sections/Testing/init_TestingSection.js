@@ -1,6 +1,7 @@
 function init_Testing(){
 
   //document.getElementById("id_UserTest_downloadCanvas").addEventListener('click', downloadTestImage, false);
+  do3DTestField=false;
 
   document.getElementById('id_UserTestCanvas').addEventListener('contextmenu', event => event.preventDefault());
   document.getElementById('id_UserTestCanvas').addEventListener("mousemove", eventTestMapping_mousemove);

@@ -1891,13 +1891,18 @@
 
           <div style="margin: auto;">
             <p class="subsectionLabel"> Select Test: </p>
-            <select id="id_TestPage_UserTest_List" name="Key List" size="20" style="width:20vw; height:45vh; margin-top:1vh; margin-bottom:1vh; overflow:auto; background:white;" onchange="startTest()">
+            <select id="id_TestPage_UserTest_List" name="Key List" size="20" style="width:20vw; height:42vh; margin-top:1vh; margin-bottom:1vh; x-overflow:scroll; y-overflow:scroll; background:white;" onchange="startTest()">
 
               </select>
 
               <br>
 
-              <button class="class_generalbutton" onclick="" style="width:20vw; margin-top:1vh;"><p>Settings</p></button>
+              <div class="row" style="width:20vw;margin-top:1vh;">
+                <button class="class_generalbutton" onclick="" style="width:10vw;"><p>ADD</p></button>
+                <button class="class_generalbutton" onclick="" style="width:10vw;"><p>Remove</p></button>
+              </div>
+              <button class="class_generalbutton" onclick="" style="width:20vw;"><p>Settings</p></button>
+
           </div>
 
 
@@ -1912,6 +1917,12 @@
 
                 </div>
               </div>
+            </div>
+            <div class="row" style="width:100%; margin-top:1vh;">
+              <button class="class_generalbutton" onclick="swithHightmap()" style="margin:auto; width:10vw;"><p id="id_TestPage_HightmapLabel">Hightmap</p></button>
+              <button class="class_generalbutton" onclick="" style="margin:auto; display:none;"><p>Gradient</p></button>
+              <p class="standardText" style="margin:auto; margin-right:0.5vw;"> 3D Value-Scale-Factor: </p>
+              <input type="number" id="id_Test_ScaleFactor" class="standardText" style="margin:auto; margin-left:0vw;" name="scalefactor" onchange="changeScaleFactor()">
             </div>
 
             <div class="row" style="display:none;">

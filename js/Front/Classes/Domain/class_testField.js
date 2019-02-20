@@ -12,6 +12,13 @@ class class_TestField {
     this.xPos = [];
     this.yPos = [];
     this.cellValues = false;
+    this.xmax = -Infinity;
+    this.xmin = Infinity;
+    this.ymax = -Infinity;
+    this.ymin = Infinity;
+    this.vmax = -Infinity;
+    this.vmin = Infinity;
+
 
     for (var x = 0; x < dimensionX; x++) {
       var newArray = [];
@@ -42,6 +49,14 @@ class class_TestField {
   }
 
   setFieldValue(x,y,value,color,xPos,yPos){
+
+    this.xmax = Math.max(this.xmax,xPos);
+    this.xmin = Math.min(this.xmin,xPos);
+    this.ymax = Math.max(this.ymax,yPos);
+    this.ymin = Math.min(this.ymin,yPos);
+    this.vmax = Math.max(this.vmax,value);
+    this.vmin = Math.min(this.vmin,value);
+
     this.fieldValues[x][y] = value;
     this.fieldColors[x][y] = color;
     this.xPos[x][y] = xPos;
@@ -88,6 +103,22 @@ class class_TestField {
 
     return newArray;
   }
+
+  getTHREEPointArray3D(scalefactor3DTest){
+
+    var newArray = [];
+    
+      for (var y = 0; y < this.dimensionY; y++) {
+        for (var x = 0; x < this.dimensionX; x++) {
+          newArray.push(new THREE.Vector3(this.xPos[x][y],this.yPos[x][y],this.fieldValues[x][y]*scalefactor3DTest))
+        }
+      }
+
+
+
+    return newArray;
+  }
+
 
 
 

@@ -1,12 +1,4 @@
 
-
-
-
-
-
-
-
-
 self.addEventListener('message', function(e) {
 
   var data = e.data;
@@ -154,21 +146,42 @@ self.addEventListener('message', function(e) {
           var currentY = undefined;
           var currentX =undefined;
 
+          var isValley = true; // valley
+          if(data.testFieldVar_b<data.testFieldVar_a)
+            isValley = false; // ridge*/
+
+
           for (var y = 0; y < data.testFieldDimY; y++) {
 
             currentY = Math.round((y/(data.testFieldDimY-1)) * errorMath) / errorMath;
 
+            if(!isValley)
+            currentY = 1-currentY;
+
+
+
             switch (data.testFieldVar_d) {
               case 0: // M-Type = linear
                   //  gradient depends on y => g=M*(1-y); and on x <=0 positive x>0 negative
-                  amountOfGradient = Math.round(((maxValue-minValue)*(currentY)) * errorMath) / errorMath;
-                  currentMax = minValue+amountOfGradient;
+                    currentMax = Math.round((minValue+(maxValue-minValue)*(currentY)) * errorMath) / errorMath;
                 break;
-                case 1: // M-Type = quad
-                   currentMax = maxValue*Math.pow(currentY,2);
+                case 1: // M-Type = quad (hunch)
+                      if(data.testFieldVar_f%2==0)
+                        currentMax =  minValue+(maxValue-minValue)*(1-Math.pow(currentY-1,data.testFieldVar_f));
+                      else
+                        currentMax =  minValue+(maxValue-minValue)*(1+Math.pow(currentY-1,data.testFieldVar_f));
+                  break;
+
+                  case 2: // M-Type = quad (crumb)
+                      // here we don't need to check if the exponend is 0 for modulo 2, because we only check values between 0 and 1
+                      currentMax =  minValue+(maxValue-minValue)*(Math.pow(currentY,data.testFieldVar_f));
                   break;
 
             }
+
+
+
+            amountOfGradient = Math.round((currentMax-minValue) * errorMath) / errorMath;// Math.round(((maxValue-minValue)*(currentY)) * errorMath) / errorMath;
 
 
             for (var x = 0; x < data.testFieldDimX; x++) {
@@ -180,15 +193,35 @@ self.addEventListener('message', function(e) {
               switch (data.testFieldVar_c) {
                 case 0: // m-Type = linear
                     if(currentX<=0){
-                      value = Math.round((  currentMax+currentX*amountOfGradient            ) * errorMath) / errorMath;
+                      value = Math.round((  currentMax+currentX*amountOfGradient) * errorMath) / errorMath;
                     }
                     else {
-                      value = Math.round((  currentMax+currentX*-1*amountOfGradient          ) * errorMath) / errorMath;
+                      value = Math.round((  currentMax+currentX*-1*amountOfGradient) * errorMath) / errorMath;
                     }
                   break;
                   case 1: // m-Type = quad
-                      value = Math.round((  (minValue-currentMax)*Math.pow(currentX,2)+currentMax ) * errorMath) / errorMath;
-                    break;
+                    if(data.testFieldVar_e%2==0 || currentX>0)
+                      value = Math.round(((minValue-currentMax)*Math.pow(currentX,data.testFieldVar_e)+currentMax ) * errorMath) / errorMath;
+                    else
+                      value = Math.round(((minValue-currentMax)*(Math.pow(currentX,data.testFieldVar_e)*-1)+currentMax) * errorMath) / errorMath;
+                  break;
+                  case 2: // m-Type = quad
+
+                    if(currentX<=0){
+                      //if(data.testFieldVar_e%2==0)
+                        value = Math.round(((minValue-currentMax)*(1-Math.pow(currentX+1,data.testFieldVar_e))+currentMax) * errorMath) / errorMath;
+                      /*else
+                        value = Math.round(((minValue-currentMax)*(1-Math.pow(currentX+1,data.testFieldVar_e))+currentMax) * errorMath) / errorMath;*/
+                    }
+                    else{
+                      if(data.testFieldVar_e%2==0)
+                        value = Math.round(((minValue-currentMax)*(1-Math.pow(currentX-1,data.testFieldVar_e))+currentMax ) * errorMath) / errorMath;
+                      else
+                        value = Math.round(((minValue-currentMax)*(1-(Math.pow(currentX-1,data.testFieldVar_e)*-1))+currentMax ) * errorMath) / errorMath;
+                    }
+
+
+                  break;
 
               }
 
@@ -260,9 +293,123 @@ self.addEventListener('message', function(e) {
 
       break;
 
+
       ///////////////////////////
-      //// Gradient
-      case "FREQUENCY":
+      //// Local Extrema
+      case "Extrema":
+
+      var xStart = undefined;
+      var yStart = undefined;
+
+      if(data.testFieldDimX%2==0){
+        xStart = 0-(data.testFieldVar_d*(data.testFieldDimX/2-1)+data.testFieldVar_d/2);
+      }
+      else{
+        xStart = 0-(data.testFieldVar_d*((data.testFieldDimX-1)/2));
+      }
+
+
+      if(data.testFieldDimY%2==0){
+        yStart = 0-(data.testFieldVar_e*(data.testFieldDimY/2-1)+data.testFieldVar_e/2);
+      }
+      else{
+        yStart = 0-(data.testFieldVar_e*((data.testFieldDimY-1)/2));
+      }
+
+      var currentX = undefined;
+      var currentY = undefined;
+      for (var y = 0; y < data.testFieldDimY; y++) {
+
+        currentY = yStart+y*data.testFieldVar_e;
+
+        for (var x = 0; x < data.testFieldDimX; x++) {
+
+          currentX = xStart+x*data.testFieldVar_d;
+
+          var value = Math.round(( data.testFieldVar_a*Math.pow(currentX,2) +  data.testFieldVar_b*Math.pow(currentY,2) +  data.testFieldVar_c ) * errorMath) / errorMath; // x-1 because we dont
+
+          min = Math.min(min,value);
+          max = Math.max(max,value);
+
+          jsonObj.positions.push([currentY,currentX]);
+          jsonObj.testFieldVal.push(value);
+        }
+
+      }
+       doScale = data.testFieldVar_f;
+      break;
+
+      ///////////////////////////
+      //// Frequency
+      case "Frequency":
+
+
+      var startVal = Math.round((data.testFieldRangeStart+data.testFieldVar_d*(data.testFieldRangeEnd-data.testFieldRangeStart)) * errorMath) / errorMath;
+      var endVal = Math.round((data.testFieldRangeStart+data.testFieldVar_e*(data.testFieldRangeEnd-data.testFieldRangeStart)) * errorMath) / errorMath;
+
+      var amplitude = Math.round(((startVal-endVal)/2.0) * errorMath) / errorMath;
+      var m = Math.round((startVal-amplitude) * errorMath) / errorMath;
+
+      var numberDoublings = data.testFieldVar_c;
+
+      var xStep = Math.round(( (numberDoublings+1.0)/(data.testFieldDimX-1) ) * errorMath) / errorMath;
+      var yStep = Math.round(( (1.0)/(data.testFieldDimY-1) ) * errorMath) / errorMath;
+
+      var basisFrequence = data.testFieldVar_b*2;
+
+      var currentX = undefined;
+      var currentY = undefined;
+      var value = undefined;
+
+      for (var y = 0; y < data.testFieldDimY; y++) {
+
+        currentY = Math.round(( y*yStep ) * errorMath) / errorMath;
+
+        var currentAmplitude = ((data.testFieldDimY-y)/data.testFieldDimY)*amplitude;
+
+        for (var x = 0; x < data.testFieldDimX; x++) {
+
+          var frequencyDeterminer = basisFrequence*(1+Math.floor(currentX))*currentX;
+
+          if(data.testFieldVar_a)
+            value = currentAmplitude*Math.sin(Math.PI*frequencyDeterminer)+m;
+          else
+            value = currentAmplitude*Math.cos(Math.PI*frequencyDeterminer)+m;
+
+          currentX = Math.round(( x*xStep ) * errorMath) / errorMath;
+
+          jsonObj.positions.push([currentX,currentY]);
+          jsonObj.testFieldVal.push(value);
+        }
+
+      }
+
+      /*if(currentY!=1){
+
+        var searchFrequence = true;
+        var counter =1;
+        var basisFirstEnd = 1/basisFrequence;
+        var checkPosition = 0;
+
+        /*while(searchFrequence){
+
+          var newCheckPosition = checkPosition+Math.pow(basisFirstEnd,counter);
+
+
+          console.log(y,currentY,newCheckPosition);
+
+          if(currentY<=newCheckPosition){
+            frequencyDeterminer = basisFrequence*(currentY-checkPosition)/Math.pow(basisFirstEnd,counter);
+            searchFrequence=false;
+          }
+          else {
+            counter++;
+          }
+
+          checkPosition = newCheckPosition;
+        }*
+
+      }*/
 
       break;
       ///////////////////////////

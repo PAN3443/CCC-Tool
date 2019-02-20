@@ -1,6 +1,10 @@
 function drawTestField(field){
 
   var geometry = new THREE.Geometry();
+
+  if(do3DTestField && !field.getCellValues())
+  geometry.vertices = field.getTHREEPointArray3D(scalefactor3DTest);
+  else
   geometry.vertices = field.getTHREEPointArray();
 
   var rgbString ="rgb(0,0,0)"
@@ -69,8 +73,9 @@ function drawTestField(field){
     geometry.faces = faceArray;
 
     geometry.computeBoundingBox();
+    geometry.computeFaceNormals();
 
-    var largestDis = Math.hypot(geometry.boundingBox.size().x,geometry.boundingBox.size().y,geometry.boundingBox.size().z);
+    var largestDis = Math.hypot(geometry.boundingBox.size().x,geometry.boundingBox.size().y); //,geometry.boundingBox.size().z);
 
     var center = geometry.boundingBox.getCenter()
 
@@ -78,23 +83,38 @@ function drawTestField(field){
     mapping_maxRadius = largestDis*2;
     mapping_zoomFactor = largestDis / 50;
 
+    if(testmapping_camera.position.z>mapping_maxRadius || testmapping_camera.position.z<mapping_minRadius)
     testmapping_camera.position.z = largestDis;
 
     testmapping_camera.near = mapping_minRadius/2;
     testmapping_camera.far = mapping_maxRadius*2;
     testmapping_camera.updateProjectionMatrix();
 
-    var material = new THREE.MeshLambertMaterial( {
+    var material =
+      //new THREE.MeshDepthMaterial( {
+      new THREE.MeshLambertMaterial({
               side: THREE.DoubleSide,
-              vertexColors: THREE.VertexColors
+              transparent: false,
+              vertexColors: THREE.VertexColors,
+              blending: THREE.NoBlending,
+              depthTest: true,
+              depthWrite:true,
+              // depthFunc : THREE.NeverDepth
+              //depthFunc : THREE.AlwaysDepth
+              // depthFunc : THREE.LessDepth
+              depthFunc : THREE.LessEqualDepth
+              // depthFunc : THREE.GreaterEqualDepth
+              // depthFunc : THREE.GreaterDepth
+              // depthFunc : THREE.NotEqualDepth
+              //wireframe: true
             } );
-
 
     testmappingMesh = new THREE.Mesh(geometry, material);
 
     testmappingMesh.position.x = -1*center.x;
     testmappingMesh.position.y = -1*center.y;
-    testmappingMesh.position.z = -1*center.z;
+    //testmappingMesh.position.z = -1*center.z;
+    testmappingMesh.position.z = 0;
 
     //// update arrow
 
@@ -103,6 +123,36 @@ function drawTestField(field){
     }
 
     testMappingGroup.add(testmappingMesh);
+
+
+
+    /*if(do3DTestField && !field.getCellValues()){
+      var from = new THREE.Vector3( 0, 0, 0 );
+      var to = new THREE.Vector3( geometry.boundingBox.size().x, 0, 0 );
+      var direction = to.clone().sub(from);
+      var length = direction.length();
+      var arrowXAxis = new THREE.ArrowHelper(direction.normalize(), from, length, 0x0000ff );
+      if(document.getElementById('id_EditPage_Mapping_ShowAxis').checked==false)
+        arrowXAxis.visible=false;
+      testMappingGroup.add( arrowXAxis );
+
+      to = new THREE.Vector3( 0, geometry.boundingBox.size().y,  0 );
+      direction = to.clone().sub(from);
+      length = direction.length();
+      var arrowYAxis = new THREE.ArrowHelper(direction.normalize(), from, length, 0xff0000 );
+      if(document.getElementById('id_EditPage_Mapping_ShowAxis').checked==false)
+        arrowYAxis.visible=false;
+      testMappingGroup.add( arrowYAxis );
+
+      to = new THREE.Vector3( 0, 0, geometry.boundingBox.size().z );
+      direction = to.clone().sub(from);
+      length = direction.length();
+      var arrowZAxis = new THREE.ArrowHelper(direction.normalize(), from, length, 0x00ff00 );
+      if(document.getElementById('id_EditPage_Mapping_ShowAxis').checked==false)
+        arrowZAxis.visible=false;
+      testMappingGroup.add( arrowZAxis );
+    }*/
+
 
 
   /*********************************************
@@ -170,4 +220,26 @@ function drawTestField(field){
 
   canvasCtx.putImageData(canvasData, 0, 0);*/
 
+}
+
+
+function changeScaleFactor(){
+  var value = document.getElementById("id_Test_ScaleFactor").value;
+
+  if(isNaN(value) || value== undefined){
+    openAlert("Invalid input for the scale factor.")
+    document.getElementById("id_Test_ScaleFactor").value = 1.0;
+    return;
+  }
+
+  if(value<=0){
+    openAlert("Invalid input for the scale factor. The input has to be positive!")
+    document.getElementById("id_Test_ScaleFactor").value = 1.0;
+    return;
+  }
+
+  scalefactor3DTest=value;
+
+  if(userTestGlobalField!=undefined)
+  drawTestField(userTestGlobalField);
 }

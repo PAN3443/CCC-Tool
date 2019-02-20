@@ -6,6 +6,8 @@
 function openTestSection(){
 
   updateTestMappingCanvas("id_UserTestCanvas"); // updateSize
+  document.getElementById("id_Test_ScaleFactor").value = scalefactor3DTest;
+
 
   var selectobject=document.getElementById("id_TestSection_CMS_Select")
   for (var i=selectobject.length-1; i>=0; i--){
@@ -21,7 +23,6 @@ function openTestSection(){
   selectobject.selectedIndex = 0;
 
   switchTest(0);
-
 
 }
 
@@ -126,38 +127,121 @@ function switchTest(type){
       }
 
 
-      if(cccTest_ValleyLine_Options.length>0){
+      if(cccTest_RidgeValleyLine_Options.length>0){
         var optgroupJumps = document.createElement('optgroup');
         optgroupJumps.label = "Ridge & Valley Tests:";
-        for (var i = 0; i < cccTest_ValleyLine_Options.length; i++) {
+        for (var i = 0; i < cccTest_RidgeValleyLine_Options.length; i++) {
           var opt = document.createElement('option');
 
-          var name = "Valley : m=" + cccTest_ValleyLine_Options[i][0] + ", M=" + cccTest_ValleyLine_Options[i][1] +", m-Type=";
+          var name = ""
 
-          switch (cccTest_ValleyLine_Options[i][2]) {
+          if(cccTest_RidgeValleyLine_Options[i][0]<cccTest_RidgeValleyLine_Options[i][1])
+            name = "Valley"
+          else
+            name = "Ridge"
+
+          name += " : m=" + cccTest_RidgeValleyLine_Options[i][0] + ", M=" + cccTest_RidgeValleyLine_Options[i][1] +", m-Type=";
+
+          switch (cccTest_RidgeValleyLine_Options[i][2]) {
             case 0:
                 name += "\"Linear\"";
               break;
               case 1:
-                  name += "\"Quad\"";
+                  name += "\"Hunch-Quad\"";
+                  /*var exp = ""+cccTest_RidgeValleyLine_Options[i][3];
+                  name += "\"Quad x"+exp.sup()+"\"";*/
                 break;
+                case 2:
+                    name += "\"Crumb-Quad\"";
+                    /*var exp = ""+cccTest_RidgeValleyLine_Options[i][3];
+                    name += "\"Quad (x&#8723;1)"+exp.sup()+"\"";*/
+                  break;
             default:
 
           }
           name += ", M-Type=";
-          switch (cccTest_ValleyLine_Options[i][3]) {
+          switch (cccTest_RidgeValleyLine_Options[i][4]) {
             case 0:
                 name += "\"Linear\"";
               break;
               case 1:
-                  name += "\"Quad\"";
+                name += "\"Hunch-Quad\"";
+                /*var exp = ""+cccTest_RidgeValleyLine_Options[i][5];
+                name += "\"Quad x"+exp.sup()+"\"";*/
                 break;
+                case 2:
+                    name += "\"Crumb-Quad\"";
+                    /*var exp = ""+cccTest_RidgeValleyLine_Options[i][5];
+                    name += "\"Quad (x-1)"+exp.sup()+"\"";/*/
+                  break;
             default:
 
           }
-          name += ", Dimension=" + cccTest_ValleyLine_Options[i][4]+"x"+cccTest_ValleyLine_Options[i][5];
+          name += ", Dimension=" + cccTest_RidgeValleyLine_Options[i][6]+"x"+cccTest_RidgeValleyLine_Options[i][7];
           opt.innerHTML = name;
           opt.value = "Valley";
+          optgroupJumps.appendChild(opt);
+        }
+        selectbox.appendChild(optgroupJumps);
+      }
+
+
+      if(cccTest_LocalExtrema_Options.length>0){
+        var optgroupJumps = document.createElement('optgroup');
+        optgroupJumps.label = "Local Extrema Tests:";
+        for (var i = 0; i < cccTest_LocalExtrema_Options.length; i++) {
+          var opt = document.createElement('option');
+
+          var name = ""
+
+          if(cccTest_LocalExtrema_Options[i][0]>0 && cccTest_LocalExtrema_Options[i][1]>0){
+            name += "Minimum (";
+          }
+          else if (cccTest_LocalExtrema_Options[i][0]<0 && cccTest_LocalExtrema_Options[i][1]<0) {
+            name += "Maximum (";
+          }
+          else {
+            name += "Sattle (";
+          }
+
+          name += "a="+cccTest_LocalExtrema_Options[i][0]+", b="+cccTest_LocalExtrema_Options[i][1]+", m="+cccTest_LocalExtrema_Options[i][2]+")";
+          name += " : x_step="+cccTest_LocalExtrema_Options[i][3]+", #x_steps="+cccTest_LocalExtrema_Options[i][4]+", y_step="+cccTest_LocalExtrema_Options[i][5]+", #y_steps="+cccTest_LocalExtrema_Options[i][6];
+
+          if(cccTest_LocalExtrema_Options[i][7]){
+            name += ", Autoscale To Range";
+          }
+
+          opt.innerHTML = name;
+          opt.value = "Extrema";
+          optgroupJumps.appendChild(opt);
+        }
+        selectbox.appendChild(optgroupJumps);
+      }
+
+      if(cccTest_Frequency_Options.length>0){
+        var optgroupJumps = document.createElement('optgroup');
+        optgroupJumps.label = "Frequency Tests:";
+        for (var i = 0; i < cccTest_Frequency_Options.length; i++) {
+          var opt = document.createElement('option');
+
+          var name = "";
+
+          if(cccTest_Frequency_Options[i][0])
+            name = "Sinus : ";
+          else
+            name = "Cosinus : ";
+
+          var tmp = "Start";
+          name += "F"+tmp.sub()+"=";
+
+          name += cccTest_Frequency_Options[i][1] +
+          ", #Doublings="+cccTest_Frequency_Options[i][2]+
+          ", Wave-Range="+cccTest_Frequency_Options[i][3]+
+          "-"+cccTest_Frequency_Options[i][4]+
+          ", DIM="+cccTest_Frequency_Options[i][5]+"x"+cccTest_Frequency_Options[i][6];
+
+          opt.innerHTML = name;
+          opt.value = "Frequency";
           optgroupJumps.appendChild(opt);
         }
         selectbox.appendChild(optgroupJumps);
@@ -211,6 +295,21 @@ function switchTest(type){
   }
 
   selectTestCMS();
+
+}
+
+
+function swithHightmap(){
+
+    if(do3DTestField){
+      do3DTestField=false;
+      document.getElementById("id_TestPage_HightmapLabel").innerHTML="Hightmap";
+    }
+    else{
+      do3DTestField=true;
+      document.getElementById("id_TestPage_HightmapLabel").innerHTML="2D Map";
+    }
+    startTest();
 
 }
 
@@ -301,6 +400,8 @@ function initTesttestField_WorkerJSON(){
   testField_WorkerJSON['testFieldVar_b'] = undefined;
   testField_WorkerJSON['testFieldVar_c'] = undefined;
   testField_WorkerJSON['testFieldVar_d'] = undefined;
+  testField_WorkerJSON['testFieldVar_e'] = undefined;
+  testField_WorkerJSON['testFieldVar_f'] = undefined;
 
   testField_WorkerJSON['colorspace'] = globalCMS1.getInterpolationSpace();
   testField_WorkerJSON['refVal'] = [];
