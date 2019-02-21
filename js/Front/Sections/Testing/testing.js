@@ -136,9 +136,9 @@ function switchTest(type){
           var name = ""
 
           if(cccTest_RidgeValleyLine_Options[i][0]<cccTest_RidgeValleyLine_Options[i][1])
-            name = "Valley"
+            name = "Ridge";
           else
-            name = "Ridge"
+            name = "Valley";
 
           name += " : m=" + cccTest_RidgeValleyLine_Options[i][0] + ", M=" + cccTest_RidgeValleyLine_Options[i][1] +", m-Type=";
 
@@ -147,12 +147,12 @@ function switchTest(type){
                 name += "\"Linear\"";
               break;
               case 1:
-                  name += "\"Hunch-Quad\"";
+                  name += "\"Arc\"";
                   /*var exp = ""+cccTest_RidgeValleyLine_Options[i][3];
                   name += "\"Quad x"+exp.sup()+"\"";*/
                 break;
                 case 2:
-                    name += "\"Crumb-Quad\"";
+                    name += "\"Peak\"";
                     /*var exp = ""+cccTest_RidgeValleyLine_Options[i][3];
                     name += "\"Quad (x&#8723;1)"+exp.sup()+"\"";*/
                   break;
@@ -165,12 +165,12 @@ function switchTest(type){
                 name += "\"Linear\"";
               break;
               case 1:
-                name += "\"Hunch-Quad\"";
+                name += "\"Hunch\"";
                 /*var exp = ""+cccTest_RidgeValleyLine_Options[i][5];
                 name += "\"Quad x"+exp.sup()+"\"";*/
                 break;
                 case 2:
-                    name += "\"Crumb-Quad\"";
+                    name += "\"Crook\"";
                     /*var exp = ""+cccTest_RidgeValleyLine_Options[i][5];
                     name += "\"Quad (x-1)"+exp.sup()+"\"";/*/
                   break;
@@ -201,7 +201,7 @@ function switchTest(type){
             name += "Maximum (";
           }
           else {
-            name += "Sattle (";
+            name += "Saddle (";
           }
 
           name += "a="+cccTest_LocalExtrema_Options[i][0]+", b="+cccTest_LocalExtrema_Options[i][1]+", m="+cccTest_LocalExtrema_Options[i][2]+")";

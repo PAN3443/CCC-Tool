@@ -33,12 +33,16 @@ function drawTestField(field){
           faceArray[faceID1].vertexColors[1] = new THREE.Color(tmpColorString);
           faceArray[faceID1].vertexColors[2] = new THREE.Color(tmpColorString);
 
+
+
           faceArray[faceID2] = new THREE.Face3(preIndexLastLoop, currentIndexLastLoop, currentIndex);
           //faceArray.push(new THREE.Face3(preIndexLastLoop, currentIndexLastLoop, currentIndex));
 
           faceArray[faceID2].vertexColors[0] = new THREE.Color(tmpColorString);
           faceArray[faceID2].vertexColors[1] = new THREE.Color(tmpColorString);
           faceArray[faceID2].vertexColors[2] = new THREE.Color(tmpColorString);
+
+
         }
       }
     }
@@ -61,11 +65,14 @@ function drawTestField(field){
           faceArray[faceID1].vertexColors[1] = new THREE.Color(field.getFieldColor(x,y).getRGBString());
           faceArray[faceID1].vertexColors[2] = new THREE.Color(field.getFieldColor(x-1,y).getRGBString());
 
+
           faceArray[faceID2] = new THREE.Face3(preIndexLastLoop, currentIndexLastLoop, currentIndex);
 
           faceArray[faceID2].vertexColors[0] = new THREE.Color(field.getFieldColor(x-1,y-1).getRGBString());
           faceArray[faceID2].vertexColors[1] = new THREE.Color(field.getFieldColor(x,y-1).getRGBString());
           faceArray[faceID2].vertexColors[2] = new THREE.Color(field.getFieldColor(x,y).getRGBString());
+
+
         }
       }
     }
@@ -124,7 +131,8 @@ function drawTestField(field){
 
     testMappingGroup.add(testmappingMesh);
 
-
+    testMappingGroup.position.x = 0;
+    testMappingGroup.position.y = 0;
 
     /*if(do3DTestField && !field.getCellValues()){
       var from = new THREE.Vector3( 0, 0, 0 );

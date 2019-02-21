@@ -83,6 +83,7 @@ var cccTest_Gradient_Options = [
 var cccTest_RidgeValleyLine_Options = [  // m,M,type
   [0.0,1.0,0,undefined,0,undefined,100,100],
   [0.0,1.0,0,undefined,1,2,100,100],
+  [0.0,1.0,0,undefined,2,2,100,100],
   [0.0,1.0,1,2,0,undefined,100,100],
   [0.0,1.0,2,2,0,undefined,100,100],
   [0.0,1.0,1,2,1,2,100,100],

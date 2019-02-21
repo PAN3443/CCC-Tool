@@ -146,18 +146,17 @@ self.addEventListener('message', function(e) {
           var currentY = undefined;
           var currentX =undefined;
 
-          var isValley = true; // valley
+          var isRidge = true; // valley
           if(data.testFieldVar_b<data.testFieldVar_a)
-            isValley = false; // ridge*/
+            isRidge = false; // ridge*/
 
 
           for (var y = 0; y < data.testFieldDimY; y++) {
 
             currentY = Math.round((y/(data.testFieldDimY-1)) * errorMath) / errorMath;
 
-            if(!isValley)
-            currentY = 1-currentY;
-
+            //if(!isRidge)
+            //currentY = 1-currentY;
 
 
             switch (data.testFieldVar_d) {
@@ -166,10 +165,10 @@ self.addEventListener('message', function(e) {
                     currentMax = Math.round((minValue+(maxValue-minValue)*(currentY)) * errorMath) / errorMath;
                 break;
                 case 1: // M-Type = quad (hunch)
-                      if(data.testFieldVar_f%2==0)
+                      //if(data.testFieldVar_f%2==0)
                         currentMax =  minValue+(maxValue-minValue)*(1-Math.pow(currentY-1,data.testFieldVar_f));
-                      else
-                        currentMax =  minValue+(maxValue-minValue)*(1+Math.pow(currentY-1,data.testFieldVar_f));
+                      //else
+                      //  currentMax =  minValue+(maxValue-minValue)*(1+Math.pow(currentY-1,data.testFieldVar_f));
                   break;
 
                   case 2: // M-Type = quad (crumb)
@@ -181,7 +180,7 @@ self.addEventListener('message', function(e) {
 
 
 
-            amountOfGradient = Math.round((currentMax-minValue) * errorMath) / errorMath;// Math.round(((maxValue-minValue)*(currentY)) * errorMath) / errorMath;
+            amountOfGradient = Math.round((minValue-currentMax) * errorMath) / errorMath;// Math.round(((maxValue-minValue)*(currentY)) * errorMath) / errorMath;
 
 
             for (var x = 0; x < data.testFieldDimX; x++) {
@@ -193,31 +192,38 @@ self.addEventListener('message', function(e) {
               switch (data.testFieldVar_c) {
                 case 0: // m-Type = linear
                     if(currentX<=0){
-                      value = Math.round((  currentMax+currentX*amountOfGradient) * errorMath) / errorMath;
-                    }
-                    else {
                       value = Math.round((  currentMax+currentX*-1*amountOfGradient) * errorMath) / errorMath;
                     }
+                    else {
+                      value = Math.round((  currentMax+currentX*amountOfGradient) * errorMath) / errorMath;
+                    }
                   break;
-                  case 1: // m-Type = quad
+                  case 1: // m-Type = quad (arc)
                     if(data.testFieldVar_e%2==0 || currentX>0)
-                      value = Math.round(((minValue-currentMax)*Math.pow(currentX,data.testFieldVar_e)+currentMax ) * errorMath) / errorMath;
-                    else
-                      value = Math.round(((minValue-currentMax)*(Math.pow(currentX,data.testFieldVar_e)*-1)+currentMax) * errorMath) / errorMath;
+                      value = Math.round((amountOfGradient*Math.pow(currentX,data.testFieldVar_e)+currentMax ) * errorMath) / errorMath;
+                    else{
+                      if(currentX<=0){
+                        value = Math.round((amountOfGradient*(Math.pow(currentX,data.testFieldVar_e)*-1)+currentMax) * errorMath) / errorMath;
+                      }
+                      else {
+                        value = Math.round((amountOfGradient*(Math.pow(currentX,data.testFieldVar_e))+currentMax) * errorMath) / errorMath;
+                      }
+                    }
+
                   break;
-                  case 2: // m-Type = quad
+                  case 2: // m-Type = quad (peak)
 
                     if(currentX<=0){
                       //if(data.testFieldVar_e%2==0)
-                        value = Math.round(((minValue-currentMax)*(1-Math.pow(currentX+1,data.testFieldVar_e))+currentMax) * errorMath) / errorMath;
+                        value = Math.round((amountOfGradient*(1-Math.pow(currentX+1,data.testFieldVar_e))+currentMax) * errorMath) / errorMath;
                       /*else
-                        value = Math.round(((minValue-currentMax)*(1-Math.pow(currentX+1,data.testFieldVar_e))+currentMax) * errorMath) / errorMath;*/
+                        value = Math.round((amountOfGradient*(1-Math.pow(currentX+1,data.testFieldVar_e))+currentMax) * errorMath) / errorMath;*/
                     }
                     else{
-                      if(data.testFieldVar_e%2==0)
-                        value = Math.round(((minValue-currentMax)*(1-Math.pow(currentX-1,data.testFieldVar_e))+currentMax ) * errorMath) / errorMath;
-                      else
-                        value = Math.round(((minValue-currentMax)*(1-(Math.pow(currentX-1,data.testFieldVar_e)*-1))+currentMax ) * errorMath) / errorMath;
+                      /*if(data.testFieldVar_e%2==0)
+                        value = Math.round((amountOfGradient*(1-Math.pow(currentX-1,data.testFieldVar_e))+currentMax ) * errorMath) / errorMath;
+                      else*/
+                        value = Math.round((amountOfGradient*(1-Math.pow(currentX-1,data.testFieldVar_e))+currentMax ) * errorMath) / errorMath;
                     }
 
 
