@@ -9,6 +9,7 @@ class class_TestField {
     this.dimensionY = dimensionY;
     this.fieldValues = [];
     this.fieldColors = [];
+    this.fieldGreyColors = [];
     this.xPos = [];
     this.yPos = [];
     this.cellValues = false;
@@ -25,17 +26,19 @@ class class_TestField {
       var newArray2 = [];
       var newArray3 = [];
       var newArray4 = [];
+      var newArray5 = [];
       for (var y = 0; y < dimensionY; y++) {
         newArray.push(undefined);
         newArray2.push(undefined);
         newArray3.push(undefined);
         newArray4.push(undefined);
+        newArray5.push(undefined);
       }
       this.fieldValues.push(newArray);
       this.fieldColors.push(newArray2);
       this.xPos.push(newArray3);
       this.yPos.push(newArray4);
-
+      this.fieldGreyColors.push(newArray5);
     }
 
   }
@@ -48,7 +51,7 @@ class class_TestField {
     return this.cellValues;
   }
 
-  setFieldValue(x,y,value,color,xPos,yPos){
+  setFieldValue(x,y,value,color,greyRGB,xPos,yPos){
 
     this.xmax = Math.max(this.xmax,xPos);
     this.xmin = Math.min(this.xmin,xPos);
@@ -59,6 +62,7 @@ class class_TestField {
 
     this.fieldValues[x][y] = value;
     this.fieldColors[x][y] = color;
+    this.fieldGreyColors[x][y] = greyRGB;
     this.xPos[x][y] = xPos;
     this.yPos[x][y] = yPos;
   }
@@ -70,6 +74,11 @@ class class_TestField {
   getFieldColor(x,y){
     return this.fieldColors[x][y];
   }
+
+  getFieldGreyColor(x,y){
+    return this.fieldGreyColors[x][y];
+  }
+
 
   getXPos(x,y){
     return this.xPos[x][y];
@@ -107,10 +116,11 @@ class class_TestField {
   getTHREEPointArray3D(scalefactor3DTest){
 
     var newArray = [];
-    
+    var goToNull = this.vmin * scalefactor3DTest;
+
       for (var y = 0; y < this.dimensionY; y++) {
         for (var x = 0; x < this.dimensionX; x++) {
-          newArray.push(new THREE.Vector3(this.xPos[x][y],this.yPos[x][y],this.fieldValues[x][y]*scalefactor3DTest))
+          newArray.push(new THREE.Vector3(this.xPos[x][y],this.yPos[x][y],(this.fieldValues[x][y]*scalefactor3DTest)-goToNull));
         }
       }
 

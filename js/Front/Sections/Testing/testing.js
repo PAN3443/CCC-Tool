@@ -5,7 +5,7 @@
 
 function openTestSection(){
 
-  updateTestMappingCanvas("id_UserTestCanvas"); // updateSize
+  updateTestMappingCanvas(false); // updateSize
   document.getElementById("id_Test_ScaleFactor").value = scalefactor3DTest;
 
 
@@ -40,9 +40,16 @@ function selectTestCMS(){
 }
 
 function startTest(){
+
+  testField_WorkerJSON.testFieldRangeStart = globalCMS1.getRefPosition(0);
+  testField_WorkerJSON.testFieldRangeEnd = globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1);
+
   switch (testingType) {
     case 0:
-      startCCCTest();
+        if(document.getElementById("id_Testing_TestSets").style.display!="none")
+        startCCCTest();
+        else
+        selectNewTestType();
       break;
       case 1:
         startUserTest();
@@ -63,231 +70,32 @@ function switchTest(type){
   document.getElementById("id_TestPage_CCCTest").style.color=styleNotActiveColorFont;
   document.getElementById("id_TestPage_CustomTest").style.color=styleNotActiveColorFont;
 
-  var selectbox = document.getElementById("id_TestPage_UserTest_List");
-
-  selectbox.innerHTML=[];
-  /*for(var i = selectbox.options.length - 1 ; i >= 0 ; i--)
-  {
-      selectbox.remove(i);
-  }*/
-
 
   switch (type) {
     case 0:
       document.getElementById("id_TestPage_CCCTest").style.background=styleActiveColor;
       document.getElementById("id_TestPage_CCCTest").style.color=styleActiveColorFont;
 
-      if(cccTest_Jumps_Options.length>0){
-        var optgroupJumps = document.createElement('optgroup');
-        optgroupJumps.label = "Jump Tests:";
-        for (var i = 0; i < cccTest_Jumps_Options.length; i++) {
-          var opt = document.createElement('option');
+      fillCCCTestSelection();
 
-          var name = "Jump : J={";
-          for (var j = 0; j < cccTest_Jumps_Options[i].length; j++) {
-            name += cccTest_Jumps_Options[i][j];
+      document.getElementById("id_TestPage_UserTest_OptionButtons").style.display="block";
+      document.getElementById("id_TestPage_CCCTestInfoBox_Div").style.display="block";
 
-            if(j!=cccTest_Jumps_Options[i].length-1)
-              name += ",";
-          }
-          name +="}";
-          opt.innerHTML = name;
-          opt.value = "Jump";
-          optgroupJumps.appendChild(opt);
+
+        break;
+        case 1:
+        document.getElementById("id_TestPage_CustomTest").style.background=styleActiveColor;
+        document.getElementById("id_TestPage_CustomTest").style.color=styleActiveColorFont;
+        document.getElementById("id_TestPage_UserTest_OptionButtons").style.display="none";
+        document.getElementById("id_TestPage_CCCTestInfoBox_Div").style.display="none";
+
+        if(document.getElementById("id_Testing_TestSets").style.display=="none"){
+          document.getElementById("id_Testing_TestSets").style.display="block";
+          document.getElementById("id_Testing_NewTestSets").style.display="none";
         }
-        selectbox.appendChild(optgroupJumps);
-      }
 
+        fillCollectionSelection();
 
-      if(cccTest_Gradient_Options.length>0){
-        var optgroupGradient = document.createElement('optgroup');
-        optgroupGradient.label = "Gradient Tests:";
-        for (var i = 0; i < cccTest_Gradient_Options.length; i++) {
-          var opt = document.createElement('option');
-
-          var name = "Gradient : S=" + cccTest_Gradient_Options[i][0]*100+"%";
-
-          switch (cccTest_Gradient_Options[i][1]) {
-            case 0:
-                  name +=", Type=Rising";
-              break;
-            case 1:
-                name +=", Type=Falling";
-              break;
-            default:
-
-          }
-
-          name +=", Dimension="+cccTest_Gradient_Options[i][2]+"x"+cccTest_Gradient_Options[i][2];
-          opt.innerHTML = name;
-          opt.value = "Gradient";
-          optgroupGradient.appendChild(opt);
-        }
-        selectbox.appendChild(optgroupGradient);
-      }
-
-
-      if(cccTest_RidgeValleyLine_Options.length>0){
-        var optgroupJumps = document.createElement('optgroup');
-        optgroupJumps.label = "Ridge & Valley Tests:";
-        for (var i = 0; i < cccTest_RidgeValleyLine_Options.length; i++) {
-          var opt = document.createElement('option');
-
-          var name = ""
-
-          if(cccTest_RidgeValleyLine_Options[i][0]<cccTest_RidgeValleyLine_Options[i][1])
-            name = "Ridge";
-          else
-            name = "Valley";
-
-          name += " : m=" + cccTest_RidgeValleyLine_Options[i][0] + ", M=" + cccTest_RidgeValleyLine_Options[i][1] +", m-Type=";
-
-          switch (cccTest_RidgeValleyLine_Options[i][2]) {
-            case 0:
-                name += "\"Linear\"";
-              break;
-              case 1:
-                  name += "\"Arc\"";
-                  /*var exp = ""+cccTest_RidgeValleyLine_Options[i][3];
-                  name += "\"Quad x"+exp.sup()+"\"";*/
-                break;
-                case 2:
-                    name += "\"Peak\"";
-                    /*var exp = ""+cccTest_RidgeValleyLine_Options[i][3];
-                    name += "\"Quad (x&#8723;1)"+exp.sup()+"\"";*/
-                  break;
-            default:
-
-          }
-          name += ", M-Type=";
-          switch (cccTest_RidgeValleyLine_Options[i][4]) {
-            case 0:
-                name += "\"Linear\"";
-              break;
-              case 1:
-                name += "\"Hunch\"";
-                /*var exp = ""+cccTest_RidgeValleyLine_Options[i][5];
-                name += "\"Quad x"+exp.sup()+"\"";*/
-                break;
-                case 2:
-                    name += "\"Crook\"";
-                    /*var exp = ""+cccTest_RidgeValleyLine_Options[i][5];
-                    name += "\"Quad (x-1)"+exp.sup()+"\"";/*/
-                  break;
-            default:
-
-          }
-          name += ", Dimension=" + cccTest_RidgeValleyLine_Options[i][6]+"x"+cccTest_RidgeValleyLine_Options[i][7];
-          opt.innerHTML = name;
-          opt.value = "Valley";
-          optgroupJumps.appendChild(opt);
-        }
-        selectbox.appendChild(optgroupJumps);
-      }
-
-
-      if(cccTest_LocalExtrema_Options.length>0){
-        var optgroupJumps = document.createElement('optgroup');
-        optgroupJumps.label = "Local Extrema Tests:";
-        for (var i = 0; i < cccTest_LocalExtrema_Options.length; i++) {
-          var opt = document.createElement('option');
-
-          var name = ""
-
-          if(cccTest_LocalExtrema_Options[i][0]>0 && cccTest_LocalExtrema_Options[i][1]>0){
-            name += "Minimum (";
-          }
-          else if (cccTest_LocalExtrema_Options[i][0]<0 && cccTest_LocalExtrema_Options[i][1]<0) {
-            name += "Maximum (";
-          }
-          else {
-            name += "Saddle (";
-          }
-
-          name += "a="+cccTest_LocalExtrema_Options[i][0]+", b="+cccTest_LocalExtrema_Options[i][1]+", m="+cccTest_LocalExtrema_Options[i][2]+")";
-          name += " : x_step="+cccTest_LocalExtrema_Options[i][3]+", #x_steps="+cccTest_LocalExtrema_Options[i][4]+", y_step="+cccTest_LocalExtrema_Options[i][5]+", #y_steps="+cccTest_LocalExtrema_Options[i][6];
-
-          if(cccTest_LocalExtrema_Options[i][7]){
-            name += ", Autoscale To Range";
-          }
-
-          opt.innerHTML = name;
-          opt.value = "Extrema";
-          optgroupJumps.appendChild(opt);
-        }
-        selectbox.appendChild(optgroupJumps);
-      }
-
-      if(cccTest_Frequency_Options.length>0){
-        var optgroupJumps = document.createElement('optgroup');
-        optgroupJumps.label = "Frequency Tests:";
-        for (var i = 0; i < cccTest_Frequency_Options.length; i++) {
-          var opt = document.createElement('option');
-
-          var name = "";
-
-          if(cccTest_Frequency_Options[i][0])
-            name = "Sinus : ";
-          else
-            name = "Cosinus : ";
-
-          var tmp = "Start";
-          name += "F"+tmp.sub()+"=";
-
-          name += cccTest_Frequency_Options[i][1] +
-          ", #Doublings="+cccTest_Frequency_Options[i][2]+
-          ", Wave-Range="+cccTest_Frequency_Options[i][3]+
-          "-"+cccTest_Frequency_Options[i][4]+
-          ", DIM="+cccTest_Frequency_Options[i][5]+"x"+cccTest_Frequency_Options[i][6];
-
-          opt.innerHTML = name;
-          opt.value = "Frequency";
-          optgroupJumps.appendChild(opt);
-        }
-        selectbox.appendChild(optgroupJumps);
-      }
-
-
-      selectbox.selectedIndex=0;
-
-      break;
-      case 1:
-      document.getElementById("id_TestPage_CustomTest").style.background=styleActiveColor;
-      document.getElementById("id_TestPage_CustomTest").style.color=styleActiveColorFont;
-
-      var optgroupExtrema = document.createElement('optgroup');
-      optgroupExtrema.label = "Local Extrema Functions:";
-      for (var i = 0; i < userTest_LocalMin_Options.length; i++) {
-        var opt = document.createElement('option');
-        opt.innerHTML = userTest_LocalMin_Options[i][0];
-        opt.value = userTest_LocalMin_Options[i][1];
-        optgroupExtrema.appendChild(opt);
-      }
-      selectbox.appendChild(optgroupExtrema);
-
-      var optgroupBowl = document.createElement('optgroup');
-      optgroupBowl.label = "Bowl Shaped Functions:";
-      for (var i = 0; i < userTest_BowlShaped_Options.length; i++) {
-        var opt = document.createElement('option');
-        opt.innerHTML = userTest_BowlShaped_Options[i][0];
-        opt.value = userTest_BowlShaped_Options[i][1];
-        optgroupBowl.appendChild(opt);
-      }
-      selectbox.appendChild(optgroupBowl);
-
-      var optgroupValley = document.createElement('optgroup');
-      optgroupValley.label = "Valley Shaped Functions:";
-      for (var i = 0; i < userTest_ValleyShaped_Options.length; i++) {
-        var opt = document.createElement('option');
-        opt.innerHTML = userTest_ValleyShaped_Options[i][0];
-        opt.value = userTest_ValleyShaped_Options[i][1];
-        optgroupValley.appendChild(opt);
-      }
-      selectbox.appendChild(optgroupValley);
-
-
-
-      selectbox.selectedIndex=0;
 
         break;
     default:
@@ -298,20 +106,6 @@ function switchTest(type){
 
 }
 
-
-function swithHightmap(){
-
-    if(do3DTestField){
-      do3DTestField=false;
-      document.getElementById("id_TestPage_HightmapLabel").innerHTML="Hightmap";
-    }
-    else{
-      do3DTestField=true;
-      document.getElementById("id_TestPage_HightmapLabel").innerHTML="2D Map";
-    }
-    startTest();
-
-}
 
 function workerEvent_showTestField(e) {
 
@@ -330,50 +124,32 @@ function workerEvent_showTestField(e) {
       var y = (i / userTestGlobalField.getXDim()) >> 0
       var x = i - (y * userTestGlobalField.getXDim())
       var newRGB = new classColor_RGB(data.cVal1[i], data.cVal2[i], data.cVal3[i]);
+
       var value = data.testFieldVal[i];
       var xPos = data.positions[i][0];
       var yPos = data.positions[i][1];
 
-      userTestGlobalField.setFieldValue(x, y, value, newRGB,xPos,yPos);
+      var greyVal = data.gVal[i];
+      var greyRGB = undefined;
+      if(greyVal==undefined || greyVal>1.0 || greyVal<0){
+        greyRGB = new classColor_RGB(1.0,0,0);
+      }
+      else{
+        greyRGB = new classColor_RGB(greyVal, greyVal,greyVal);
+      }
+
+
+      userTestGlobalField.setFieldValue(x, y, value, newRGB, greyRGB,xPos,yPos);
     }
 
 
     usertestWorkerfinished = true;
-    drawTestField(userTestGlobalField, "id_UserTestCanvas");
+    drawTestField(userTestGlobalField,false);
     document.getElementById("id_Test_StatusBar").style.width = "100%";
   }
 
 }
 
-
-/* Source: https://stackoverflow.com/questions/12796513/html5-canvas-to-png-file*/
-/* REGISTER DOWNLOAD HANDLER */
-/* Only convert the canvas to Data URL when the user clicks.
-   This saves RAM and CPU ressources in case this feature is not required. */
-function downloadTestImage() {
-  var imageName = "";
-  var canvasID ="";
-
-  if(document.getElementById("id_TestPage_CCCTest_Div").style.display!="none"){
-    canvasID="id_CCCTestCanvas";
-    imageName="CCC-Tool_TestImage_Function_LSLD_Colormap_XYZ";
-  }
-  else{
-    canvasID="id_UserTestCanvas";
-    imageName="CCC-Tool_USERImage_Function_LSLD_Colormap_XYZ";
-  }
-
-  var canvas = document.getElementById(canvasID);
-
-  var dt = canvas.toDataURL('image/png');
-  /* Change MIME type to trick the browser to downlaod the file instead of displaying it */
-  dt = dt.replace(/^data:image\/[^;]*/, 'data:application/octet-stream');
-
-  /* In addition to <a>'s "download" attribute, you can define HTTP-style headers */
-  dt = dt.replace(/^data:application\/octet-stream/, 'data:application/octet-stream;headers=Content-Disposition%3A%20attachment%3B%20filename='+imageName+'.png');
-
-  this.href = dt;
-}
 
 function initTesttestField_WorkerJSON(){
   testField_WorkerJSON = {};
@@ -392,6 +168,7 @@ function initTesttestField_WorkerJSON(){
   testField_WorkerJSON['stepYDirection'] = 0.01;
   testField_WorkerJSON['originIsCenter'] = true;
 
+  testField_WorkerJSON['testFieldVar_ratio'] = false;
   testField_WorkerJSON['testFieldRangeStart'] = 0;
   testField_WorkerJSON['testFieldRangeEnd'] = 1;
 

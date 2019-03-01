@@ -1,5 +1,16 @@
 
 
+
+function openFullTestMappingScreen(text){
+  document.getElementById("id_PopUp_fullTestingWindow").style.display="flex";
+  updateTestMappingCanvas(true);
+}
+
+function closeFullTestMappingScreen(){
+  document.getElementById("id_PopUp_fullTestingWindow").style.display="none";
+  updateTestMappingCanvas(false);
+}
+
 //////////////////////////////////////
 /// Wait /////
 ///////////////////////////////////

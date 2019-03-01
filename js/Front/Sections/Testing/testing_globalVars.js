@@ -6,7 +6,8 @@ var testingType = 0;
 
 var testingFieldResolution = 5; // ~ 2 million pixels for realistic
 
-
+var current_MType = 0;
+var current_mType = 0;
 ///////////////////////////////////////////
 ///// Fields
 
@@ -62,54 +63,58 @@ var frequencyWorkerStatus_Array=[];
 var usertestWorker = undefined;
 var usertestWorkerfinished = true;
 
+var cccTest_NewJump_Options = [];
 var cccTest_Jumps_Options = [
-  [0.25,0.75],
-  [0.25,0.75,1.0],
-  [0.0,0.25,0.75,1.0],
-  [0.0,0.2,0.4,0.6,0.8,1.0]
+  [true,0.25,0.75],
+  [true,0.25,0.75,1.0],
+  [true,0.0,0.25,0.75,1.0],
+  [true,0.0,0.2,0.4,0.6,0.8,1.0]
 ];
 
+var cccTest_NewGradient_Options = [];
 var cccTest_Gradient_Options = [
-  [0.2,0,100],
-  [0.4,0,100],
-  [0.6,0,100],
-  [0.8,0,100],
-  [0.8,1,100],
-  [0.6,1,100],
-  [0.4,1,100],
-  [0.2,1,100]
+  /*[true,0.2,0],
+  [true,0.4,0],
+  [true,0.6,0],
+  [true,0.8,0],
+  [true,0.8,1],
+  [true,0.6,1],
+  [true,0.4,1],
+  [true,0.2,1]*/
 ];
 
+var cccTest_NewRidgeValley_Options = [];
 var cccTest_RidgeValleyLine_Options = [  // m,M,type
-  [0.0,1.0,0,undefined,0,undefined,100,100],
-  [0.0,1.0,0,undefined,1,2,100,100],
-  [0.0,1.0,0,undefined,2,2,100,100],
-  [0.0,1.0,1,2,0,undefined,100,100],
-  [0.0,1.0,2,2,0,undefined,100,100],
-  [0.0,1.0,1,2,1,2,100,100],
-  [1.0,0.0,0,undefined,0,undefined,100,100],
-  [1.0,0.0,0,undefined,1,2,100,100],
-  [1.0,0.0,1,2,0,undefined,100,100],
-  [1.0,0.0,0,undefined,2,2,100,100],
-  [1.0,0.0,2,2,0,undefined,100,100]
+  [true,0.0,1.0,0,undefined,0,undefined,100,100],
+  [true,0.0,1.0,0,undefined,1,2,100,100],
+  [true,0.0,1.0,0,undefined,2,2,100,100],
+  [true,0.0,1.0,1,2,0,undefined,100,100],
+  [true,0.0,1.0,2,2,0,undefined,100,100],
+  [true,0.0,1.0,1,2,1,2,100,100],
+  [true,1.0,0.0,0,undefined,0,undefined,100,100],
+  [true,1.0,0.0,0,undefined,1,2,100,100],
+  [true,1.0,0.0,1,2,0,undefined,100,100],
+  [true,1.0,0.0,0,undefined,2,2,100,100],
+  [true,1.0,0.0,2,2,0,undefined,100,100]
 ];
 
+var cccTest_NewLocalExtrema_Options = [];
 var cccTest_LocalExtrema_Options = [
   //[a,b,m,stepX,#stepsX,stepY,#stepsY,autoScale],
-  [3,3,0,0.1,50,0.1,50,true],
-  [-3,-3,0,0.1,50,0.1,50,true],
-  [-3,3,0,0.1,50,0.1,50,true],
-  [3,-3,0,0.1,50,0.1,50,true],
+  [3,3,0,0.1,0.1,true],
+  [-3,-3,0,0.1,0.1,true],
+  [-3,30,0,0.1,0.1,true],
+  [3,-3,0,0.1,0.1,true],
 ];
 
-
+var cccTest_NewFrequency_Options = [];
 var cccTest_Frequency_Options = [
 
-  [true,1,4,0.0,1.0,500,50],
-  [false,1,4,0.0,1.0,500,50],
-  [true,1,6,0.0,1.0,500,50],
-  [true,2,4,0.0,1.0,500,50],
-  [true,3,4,0.0,1.0,500,50]
+  /*[true,true,1,4,0.0,1.0],
+  [true,false,1,4,0.0,1.0],
+  [true,true,1,6,0.0,1.0],
+  [true,true,2,4,0.0,1.0],
+  [true,true,3,4,0.0,1.0]*/
 
 ];
 

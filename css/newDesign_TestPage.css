@@ -26,3 +26,24 @@
   image-rendering: pixelated;               /* Possible future browsers.*/
   -ms-interpolation-mode: nearest-neighbor;   /* IE (non standard naming)*/
 }
+
+
+.class_Test_RenderButton{
+  height: 3vh;
+  width:3vh;
+  font-size: 2vh;
+  line-height: 3vh;
+  vertical-align: middle;
+  text-align: center;
+  color: white;
+  background:rgba(20,20,20,0.3);
+  cursor: pointer;
+
+  -moz-box-shadow:    inset 0 0 0.25vh rgb(0,0,0);
+   -webkit-box-shadow: inset 0 0 0.25vh rgb(0,0,0);
+   box-shadow:         inset 0 0 0.25vh rgb(0,0,0);
+}
+
+.class_Test_RenderButton:hover{
+  background:rgba(120,120,120,0.3);
+}

@@ -228,6 +228,9 @@ function eventMapping_mouseenter(){
 
 function eventMapping_mousedown(event){
 
+  oldXPos=mousePosX;
+  oldYPos=mousePosY;
+
   switch (event.which) {
     case 1:
       // left mouse click
@@ -242,8 +245,6 @@ function eventMapping_mousedown(event){
       // right mouse click
       mapping_dorotation=false;
       mapping_doTranslation=true;
-      oldXPos=mousePosX;
-      oldYPos=mousePosY;
       break;
   }
 

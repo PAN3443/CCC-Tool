@@ -11,12 +11,12 @@ self.addEventListener('message', function(e) {
   jsonUpdateObj['status'] = 0;
   jsonUpdateObj['index'] = data.testFieldIndex;
 
-
   jsonObj['testFieldVal'] = [];
   jsonObj['isUpdate'] = false;
   jsonObj['cVal1'] = [];
   jsonObj['cVal2'] = [];
   jsonObj['cVal3'] = [];
+  jsonObj['gVal'] = []; // rgb for RGB; V for HSV, L for Lab, L99 for DIN99
   jsonObj['positions'] = [];
   jsonObj['includeCellValues'] = false;
   jsonObj['status'] = 100;
@@ -52,7 +52,7 @@ self.addEventListener('message', function(e) {
 
         jsonObj.includeCellValues = true;
 
-        var dis = Math.round((data.testFieldRangeEnd-data.testFieldRangeStart) * errorMath) / errorMath;
+        var dis = Math.round((data.testFieldRangeEnd-data.testFieldRangeStart) * errorMath) / errorMath; // = version with rational number jumps
         for (var y = 0; y < data.testFieldDimY; y++) {
           for (var x = 0; x < data.testFieldDimX; x++) {
             jsonObj.testFieldVal.push(undefined);
@@ -61,16 +61,28 @@ self.addEventListener('message', function(e) {
         }
 
         var currentValIndex = 0;
-        for (var i = 0; i < data.testFieldVar_a.length; i++){
+        for (var i = 1; i < data.testFieldVar_a.length; i++){
 
-          var value = Math.round((data.testFieldRangeStart + (data.testFieldVar_a[i]*dis))* errorMath) / errorMath;
+          var value = undefined;
+
+          if(data.testFieldVar_a[0]){
+            value = Math.round((data.testFieldRangeStart + (data.testFieldVar_a[i]*dis))* errorMath) / errorMath; // = version with rational number jumps
+          }
+          else{
+            value = data.testFieldVar_a[i];
+          }
+
+          min = Math.min(min,value);
+          max = Math.max(max,value);
+
+          //var
           var currentXPos = 1;
           for (var y = 0; y < (data.testFieldDimY-1); y++) {
             var tmpIndex =  (y*data.testFieldDimX)+currentValIndex;
 
             //jsonObj.positions[tmpIndex]=[currentValIndex,y];
             jsonObj.testFieldVal[tmpIndex] = value;
-            tmpIndex =  (i*data.testFieldDimX)+currentXPos;
+            tmpIndex =  ((i-1)*data.testFieldDimX)+currentXPos;
 
             //jsonObj.positions[tmpIndex]=[currentXPos,y];
             jsonObj.testFieldVal[tmpIndex] = value;
@@ -78,52 +90,6 @@ self.addEventListener('message', function(e) {
           }
           currentValIndex+=2;
         }
-
-        /*var dis = Math.round((data.testFieldRangeEnd-data.testFieldRangeStart) * errorMath) / errorMath;
-        var compareValues=[];
-        for (var i = 0; i < data.testFieldVar_a.length; i++) {
-          compareValues.push(Math.round((data.testFieldRangeStart + (data.testFieldVar_a[i]*dis))* errorMath) / errorMath);
-        }
-
-        var valueArray = [];
-        var valueEndIndexY =data.testFieldDimY-2;
-        var valueEndIndexX =data.testFieldDimX-2;
-
-        for (var y = 0; y < data.testFieldDimY; y++) {
-          var tmpArray = new Array(data.testFieldDimX).fill(undefined);
-          valueArray.push(tmpArray);
-        }
-
-
-        var limitedTo = valueEndIndexY;
-        for (var x = 0; x < data.testFieldDimX-1; x++) {
-          var startIndex = x/2+1;
-          var researchIndex = x/2;
-          for (var y = 0; y < limitedTo; y++) {
-            valueArray[y][x]=compareValues[researchIndex];
-            valueArray[y][x+1]=compareValues[startIndex];
-            startIndex++;
-          }
-          x++;
-          limitedTo--;
-        }
-
-        ////// now we have to mirror the results
-        var tillXElement = 0;
-        for (var y = valueEndIndexY; y >0; y--) {   // last line is full of undefined because we save point value array, but we habe cell values, first line is already full of values
-          for (var x = valueEndIndexX; x >= tillXElement; x--) {
-            valueArray[y][x] = valueArray[valueEndIndexY-y][valueEndIndexX-x];
-          }
-          tillXElement += 2;
-        }
-
-        ///// save values
-        for (var y = 0; y < valueArray.length; y++) {
-          for (var x = 0; x < valueArray[y].length; x++) {
-            jsonObj.positions.push([x,y]);
-            jsonObj.testFieldVal.push(valueArray[y][x]);
-          }
-        }*/
 
 
       break;
@@ -134,21 +100,25 @@ self.addEventListener('message', function(e) {
 
 
 
-
-          var dis = Math.round((data.testFieldRangeEnd-data.testFieldRangeStart) * errorMath) / errorMath;
+          //var dis = Math.round((data.testFieldRangeEnd-data.testFieldRangeStart) * errorMath) / errorMath;
           //  f : x=[-1,1] x y=[0,1]
 
-          var minValue = Math.round((data.testFieldRangeStart+(dis*data.testFieldVar_a)) * errorMath) / errorMath;
-          var maxValue = Math.round((data.testFieldRangeStart+(dis*data.testFieldVar_b)) * errorMath) / errorMath;
-
+          var minValue = data.testFieldVar_a;//Math.round((data.testFieldRangeStart+(dis*data.testFieldVar_a)) * errorMath) / errorMath;
+          var maxValue = data.testFieldVar_b;//Math.round((data.testFieldRangeStart+(dis*data.testFieldVar_b)) * errorMath) / errorMath;
           var currentMax = undefined;
           var amountOfGradient = undefined;
           var currentY = undefined;
           var currentX =undefined;
 
+          var peakPotenz1 = -1;
+          var peakPotenz2 = 1;
           var isRidge = true; // valley
-          if(data.testFieldVar_b<data.testFieldVar_a)
+          if(data.testFieldVar_b<data.testFieldVar_a){
+            peakPotenz1 = 1;
+            peakPotenz2 = -1;
             isRidge = false; // ridge*/
+          }
+
 
 
           for (var y = 0; y < data.testFieldDimY; y++) {
@@ -165,10 +135,11 @@ self.addEventListener('message', function(e) {
                     currentMax = Math.round((minValue+(maxValue-minValue)*(currentY)) * errorMath) / errorMath;
                 break;
                 case 1: // M-Type = quad (hunch)
-                      //if(data.testFieldVar_f%2==0)
+
+                      if(data.testFieldVar_f%2==0)
                         currentMax =  minValue+(maxValue-minValue)*(1-Math.pow(currentY-1,data.testFieldVar_f));
-                      //else
-                      //  currentMax =  minValue+(maxValue-minValue)*(1+Math.pow(currentY-1,data.testFieldVar_f));
+                      else
+                        currentMax =  minValue+(maxValue-minValue)*(1+Math.pow(currentY-1,data.testFieldVar_f));
                   break;
 
                   case 2: // M-Type = quad (crumb)
@@ -182,6 +153,10 @@ self.addEventListener('message', function(e) {
 
             amountOfGradient = Math.round((minValue-currentMax) * errorMath) / errorMath;// Math.round(((maxValue-minValue)*(currentY)) * errorMath) / errorMath;
 
+            var peakAdd = currentMax;
+
+            if(isRidge)
+              peakAdd = min;
 
             for (var x = 0; x < data.testFieldDimX; x++) {
 
@@ -213,26 +188,47 @@ self.addEventListener('message', function(e) {
                   break;
                   case 2: // m-Type = quad (peak)
 
-                    if(currentX<=0){
-                      //if(data.testFieldVar_e%2==0)
-                        value = Math.round((amountOfGradient*(1-Math.pow(currentX+1,data.testFieldVar_e))+currentMax) * errorMath) / errorMath;
-                      /*else
-                        value = Math.round((amountOfGradient*(1-Math.pow(currentX+1,data.testFieldVar_e))+currentMax) * errorMath) / errorMath;*/
+                    /*if(currentX<=0){
+                      if(data.testFieldVar_e%2==0)
+                        value = Math.round((-1*amountOfGradient*(Math.pow(currentX+1,data.testFieldVar_e))+minValue ) * errorMath) / errorMath;
+                      else
+                        value = Math.round((amountOfGradient*(Math.pow(currentX+peakPotenz2,data.testFieldVar_e)+1)+peakAdd ) * errorMath) / errorMath;
                     }
                     else{
-                      /*if(data.testFieldVar_e%2==0)
-                        value = Math.round((amountOfGradient*(1-Math.pow(currentX-1,data.testFieldVar_e))+currentMax ) * errorMath) / errorMath;
-                      else*/
-                        value = Math.round((amountOfGradient*(1-Math.pow(currentX-1,data.testFieldVar_e))+currentMax ) * errorMath) / errorMath;
-                    }
+                      if(data.testFieldVar_e%2==0)
+                        value = Math.round((-1*amountOfGradient*(Math.pow(currentX-1,data.testFieldVar_e))+minValue ) * errorMath) / errorMath;
+                      else
+                        value = Math.round((-1*amountOfGradient*(Math.pow(currentX+peakPotenz1,data.testFieldVar_e))+peakAdd ) * errorMath) / errorMath;
+                    }*/
 
+
+
+                    if(isRidge){
+                      if(currentX<=0){
+                        value = Math.round(( currentMax-amountOfGradient*(1-Math.pow(1+currentX,data.testFieldVar_e)) ) * errorMath) / errorMath;
+                      }
+                      else {
+                        value = Math.round(( minValue+-1*amountOfGradient*(Math.pow(1-currentX,data.testFieldVar_e)) ) * errorMath) / errorMath;
+                      }
+                    }
+                    else{
+                      if(currentX<=0){
+                        value = Math.round(( currentMax-amountOfGradient*(Math.pow(1+currentX,data.testFieldVar_e)) ) * errorMath) / errorMath;
+                      }
+                      else{
+                        value = Math.round(( minValue+amountOfGradient*(1-Math.pow(1-currentX,data.testFieldVar_e)) ) * errorMath) / errorMath;
+                      }
+                    }
 
                   break;
 
               }
 
+              min = Math.min(min,value);
+              max = Math.max(max,value);
+
               //console.log(value);
-              jsonObj.positions.push([x,y]);
+              jsonObj.positions.push([currentX,currentY]);
               jsonObj.testFieldVal.push(value);
             }
 
@@ -268,6 +264,10 @@ self.addEventListener('message', function(e) {
                 for (var x = 0; x < data.testFieldDimX; x++) {
 
                   var value = Math.round((startValue+x*step) * errorMath) / errorMath; // x-1 because we dont
+
+                  min = Math.min(min,value);
+                  max = Math.max(max,value);
+
                   jsonObj.positions.push([y,x]);
                   jsonObj.testFieldVal.push(value);
                 }
@@ -286,6 +286,10 @@ self.addEventListener('message', function(e) {
             for (var x = 0; x < data.testFieldDimX; x++) {
 
               var value = Math.round((startValue-x*step) * errorMath) / errorMath; // x-1 because we dont
+
+              min = Math.min(min,value);
+              max = Math.max(max,value);
+
               jsonObj.positions.push([y,x]);
               jsonObj.testFieldVal.push(value);
             }
@@ -383,6 +387,9 @@ self.addEventListener('message', function(e) {
             value = currentAmplitude*Math.cos(Math.PI*frequencyDeterminer)+m;
 
           currentX = Math.round(( x*xStep ) * errorMath) / errorMath;
+
+          min = Math.min(min,value);
+          max = Math.max(max,value);
 
           jsonObj.positions.push([currentX,currentY]);
           jsonObj.testFieldVal.push(value);
@@ -1092,13 +1099,13 @@ break;
 
 
   /////////////////// Scale
+  var tmpValueDis = max-min;
 
   if(doScale){
-    var tmpDis = min-max;
     var scaledDis = data.testFieldRangeEnd-data.testFieldRangeStart;
-    if(tmpDis!=0){
+    if(tmpValueDis!=0){
       for (var i = 0; i < jsonObj.testFieldVal.length; i++) {
-        jsonObj.testFieldVal[i]= data.testFieldRangeStart + scaledDis*( (min-jsonObj.testFieldVal[i])/tmpDis);
+        jsonObj.testFieldVal[i]= data.testFieldRangeStart + scaledDis*( (min-jsonObj.testFieldVal[i])/tmpValueDis);
       }
     }
     else{
@@ -1108,6 +1115,13 @@ break;
     }
   }
 
+  //////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////
+  /// Calculate Grey Scale
+
+  for (var valIndex = 0; valIndex < jsonObj.testFieldVal.length; valIndex++) {
+    jsonObj.gVal.push((jsonObj.testFieldVal[valIndex]-min)/tmpValueDis);
+  }
 
 
   //////////////////////////////////////////////////////////////////////////

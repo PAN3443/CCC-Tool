@@ -181,3 +181,43 @@ function userTest_startWorker(n, m, stepX, stepY, originX, originY, doCentralSpr
   usertestWorker.postMessage(testField_WorkerJSON);
 
 }
+
+
+
+function fillCollectionSelection (){
+
+  var selectbox = document.getElementById("id_TestPage_UserTest_List");
+  selectbox.innerHTML=[];
+
+  var optgroupExtrema = document.createElement('optgroup');
+  optgroupExtrema.label = "Local Extrema Functions:";
+  for (var i = 0; i < userTest_LocalMin_Options.length; i++) {
+    var opt = document.createElement('option');
+    opt.innerHTML = userTest_LocalMin_Options[i][0];
+    opt.value = userTest_LocalMin_Options[i][1];
+    optgroupExtrema.appendChild(opt);
+  }
+  selectbox.appendChild(optgroupExtrema);
+
+  var optgroupBowl = document.createElement('optgroup');
+  optgroupBowl.label = "Bowl Shaped Functions:";
+  for (var i = 0; i < userTest_BowlShaped_Options.length; i++) {
+    var opt = document.createElement('option');
+    opt.innerHTML = userTest_BowlShaped_Options[i][0];
+    opt.value = userTest_BowlShaped_Options[i][1];
+    optgroupBowl.appendChild(opt);
+  }
+  selectbox.appendChild(optgroupBowl);
+
+  var optgroupValley = document.createElement('optgroup');
+  optgroupValley.label = "Valley Shaped Functions:";
+  for (var i = 0; i < userTest_ValleyShaped_Options.length; i++) {
+    var opt = document.createElement('option');
+    opt.innerHTML = userTest_ValleyShaped_Options[i][0];
+    opt.value = userTest_ValleyShaped_Options[i][1];
+    optgroupValley.appendChild(opt);
+  }
+  selectbox.appendChild(optgroupValley);
+
+  selectbox.selectedIndex=0;
+}
