@@ -13,29 +13,6 @@ var current_mType = 0;
 
 var allFieldsFinished;
 
-/*var useCMSRangeForJumpFields = true;
-var jumpTestFields_Array = [];
-var jumpTestFields_Names = [];
-var allJumpsFinished = false;
-var jumpFieldRangeStart =0;
-var jumpFieldRangeEnd =0;
-
-// Gradient
-var useCMSRangeForGradientFields = true;
-var gradientTestFields_Array = [];
-var gradientTestFields_Names = [];
-var allGradientFinished = false;
-var gradientFieldRangeStart =0;
-var gradientFieldRangeEnd =0;
-
-// Frequency
-var useCMSRangeForFrequencyFields = true;
-var frequencyTestFields_Array = [];
-var frequencyTestFields_Names = [];
-var allFrequencyFinished = false;
-var frequencyFieldRangeStart =0;
-var frequencyFieldRangeEnd =0;*/
-
 // USER Test Fields
 var userTestGlobalField = undefined;
 
@@ -65,10 +42,10 @@ var usertestWorkerfinished = true;
 
 var cccTest_NewJump_Options = [];
 var cccTest_Jumps_Options = [
-  [true,0.25,0.75],
-  [true,0.25,0.75,1.0],
-  [true,0.0,0.25,0.75,1.0],
-  [true,0.0,0.2,0.4,0.6,0.8,1.0]
+  [true,[0.25,0.75]],
+  [true,[0.25,0.75,1.0]],
+  [true,[0.0,0.25,0.75,1.0]],
+  [true,[0.0,0.2,0.4,0.6,0.8,1.0]]
 ];
 
 var cccTest_NewGradient_Options = [];
@@ -101,10 +78,10 @@ var cccTest_RidgeValleyLine_Options = [  // m,M,type
 var cccTest_NewLocalExtrema_Options = [];
 var cccTest_LocalExtrema_Options = [
   //[a,b,m,stepX,#stepsX,stepY,#stepsY,autoScale],
-  [3,3,0,0.1,0.1,true],
-  [-3,-3,0,0.1,0.1,true],
-  [-3,30,0,0.1,0.1,true],
-  [3,-3,0,0.1,0.1,true],
+  [3,3,0,true],
+  [-3,-3,0,true],
+  [-3,30,0,true],
+  [3,-3,0,true],
 ];
 
 var cccTest_NewFrequency_Options = [];

@@ -208,13 +208,18 @@
 
   <!-- Testing Section-->
   <script src="js/Front/Sections/Testing/testing.js"></script>
-  <script src="js/Front/Sections/Testing/"></script>
   <script src="js/Front/Sections/Testing/testing_globalVars.js"></script>
   <script src="js/Front/Sections/Testing/init_TestingSection.js"></script>
 
     <!-- Testing Section : CCCTest -->
     <script src="js/Front/Sections/Testing/CCCTest/testing_ccctest.js"></script>
-    <script src="js/Front/Sections/Testing/CCCTest/addNewTest.js"></script>
+      <!-- Testing Section : CCCTest : Add New -->
+      <script src="js/Front/Sections/Testing/CCCTest/NewTest/events.js"></script>
+      <script src="js/Front/Sections/Testing/CCCTest/NewTest/newJumpTest.js"></script>
+      <script src="js/Front/Sections/Testing/CCCTest/NewTest/newRidgeValleyTest.js"></script>
+      <script src="js/Front/Sections/Testing/CCCTest/NewTest/newGradientTest.js"></script>
+      <script src="js/Front/Sections/Testing/CCCTest/NewTest/newFrequencyTest.js"></script>
+      <script src="js/Front/Sections/Testing/CCCTest/NewTest/newLocalExtremaTest.js"></script>
 
     <!-- Testing Section : Collection -->
     <script src="js/Front/Sections/Testing/Collection/testing_collectiontest.js"></script>
@@ -1933,7 +1938,7 @@
                   <option value="4">Frequency</option>
                 </select>
 
-                <input id="id_TestPage_doRatioCheckbox" type="checkbox" name="id_TestPage_DoRatio" value="doRatio" onchange="selectNewTestType()">
+                <input id="id_TestPage_doRatioCheckbox" type="checkbox" name="id_TestPage_DoRatio" value="doRatio" onchange="newTest_switchRatioType()">
                 <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-right: 0.25vw;">use Ratio</p>
 
               </div>
@@ -1958,12 +1963,17 @@
                 <div id="id_TestPage_Dimension_Div"  style="width:100%;">
                     <div class="row" style="width:100%;">
                       <p class="standardText" style="margin-top:auto; margin-bottom:auto; width:10vw;">Grid X-Dim:</p>
-                      <input id="id_TestPage_GridDimX" class="standardText" type="number" name="GridDimX" min="1" step="5" value="100" style="margin-left:0.25vw;" onchange="updateTestVariables()">
+                      <input id="id_TestPage_GridDimX" class="standardText" type="number" name="GridDimX" min="1" step="5" value="10" style="margin-left:0.25vw;" onchange="updateTestVariables()">
                     </div>
                     <div class="row" style="width:100%;">
                       <p class="standardText" style="margin-top:auto; margin-bottom:auto; width:10vw;">Grid Y-Dim:</p>
-                      <input id="id_TestPage_GridDimY" class="standardText" type="number" name="GridDimY" min="1" step="5" value="100" style="margin-left:0.25vw;" onchange="updateTestVariables()">
+                      <input id="id_TestPage_GridDimY" class="standardText" type="number" name="GridDimY" min="1" step="5" value="10" style="margin-left:0.25vw;" onchange="updateTestVariables()">
                     </div>
+                </div>
+
+                <div id="id_TestPage_fitToCMS_Div" class="row" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
+                  <input id="id_TestPage_fitToCMS" type="checkbox" name="id_TestPage_DoRatio" value="doRatio" onchange="newTest_switchRatioType()">
+                  <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-right: 0.25vw;">map to CMS Range</p>
                 </div>
 
                   <div id="id_TestPage_NewTest_D1" class="row" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
@@ -2037,6 +2047,8 @@
                         </canvas>
                     </div>
                   </div>
+
+                  <p id="id_TestPage_newTestInfoText" class="standardText" style="margin-top:1vh; white-space: pre-line;"></p>
               </div>
 
 
@@ -2055,7 +2067,7 @@
             <div class="row" style="width:100%; margin-bottom:1vh;">
 
               <div style="position: relative; border:0.2vh solid black; margin:auto; margin-right:0vw; height:50vh; max-height:25vw; width:25vw; max-width:50vh;">
-                <div id="id_TestCanvas" style="position: absolute; left: 0; top: 0; z-index: 0; height:100%; width:100%; overflow:hidden; background: url(img/EditPage/plotBackground.png); background-size:cover; background-repeat:no-repeat; background-position: center center;">
+                <div id="id_TestCanvas" style="position: absolute; left: 0; top: 0; z-index: 0; height:100%; width:100%; overflow:hidden;">
                 </div>
                 <div class="row" style="position: absolute; left: 0; top: 0; float:right; z-index: 1;">
                   <div id="id_TestPage_HightmapButton" class="class_Test_RenderButton" title="Modus 2D,Hightmap" onclick="switchHightmap()">3D</div>

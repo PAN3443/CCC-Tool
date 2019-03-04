@@ -46,7 +46,7 @@ function startCCCTest() {
 
       case "Extrema":
         var index = document.getElementById("id_TestPage_UserTest_List").selectedIndex - cccTest_Gradient_Options.length - cccTest_Jumps_Options.length - cccTest_RidgeValleyLine_Options.length;
-        extremaTest_startWorker(index);
+        extremaTest_startWorker(cccTest_LocalExtrema_Options[index]);
         break;
 
       case "Frequency":
@@ -135,7 +135,6 @@ function valleyTest_startWorker(options) {
     testField_WorkerJSON.testFieldVar_b = options[2];
   }
 
-  console.log(testField_WorkerJSON.testFieldVar_a,testField_WorkerJSON.testFieldVar_b);
   testField_WorkerJSON.testFieldVar_c = options[3];
   testField_WorkerJSON.testFieldVar_d = options[5];
   testField_WorkerJSON.testFieldVar_e = options[4];
@@ -149,7 +148,7 @@ function valleyTest_startWorker(options) {
 
 }
 
-function extremaTest_startWorker(index) {
+function extremaTest_startWorker(options) {
 
   //var newWorker;
   userTestGlobalField = new class_TestField(document.getElementById("id_TestPage_GridDimX").value, document.getElementById("id_TestPage_GridDimY").value);
@@ -162,12 +161,10 @@ function extremaTest_startWorker(index) {
   testField_WorkerJSON.testFieldDimX = document.getElementById("id_TestPage_GridDimX").value;
   testField_WorkerJSON.testFieldDimY = document.getElementById("id_TestPage_GridDimY").value;
 
-  testField_WorkerJSON.testFieldVar_a = cccTest_LocalExtrema_Options[index][0]; // a
-  testField_WorkerJSON.testFieldVar_b = cccTest_LocalExtrema_Options[index][1]; // b
-  testField_WorkerJSON.testFieldVar_c = cccTest_LocalExtrema_Options[index][2]; //m
-  testField_WorkerJSON.testFieldVar_d = cccTest_LocalExtrema_Options[index][3]; // xstep
-  testField_WorkerJSON.testFieldVar_e = cccTest_LocalExtrema_Options[index][4]; // ystep
-  testField_WorkerJSON.testFieldVar_f = cccTest_LocalExtrema_Options[index][5];
+  testField_WorkerJSON.testFieldVar_a = options[0]; // a
+  testField_WorkerJSON.testFieldVar_b = options[1]; // b
+  testField_WorkerJSON.testFieldVar_c = options[2]; //m
+  testField_WorkerJSON.testFieldVar_d = options[3]; // auto sclae
 
   usertestWorker = new Worker('js/Front/Sections/Testing/testingWorker.js');
 
@@ -177,10 +174,10 @@ function extremaTest_startWorker(index) {
 
 }
 
-function jumpTest_startWorker(stepArray) {
+function jumpTest_startWorker(options) {
 
-  var nDim = ((stepArray.length-1) * 2) + 1; // oldJump Image: (stepArray.length-1)*2+1; // nDim-1 = number of cells in x direction
-  var mDim = stepArray.length; // oldJump Image: stepArray.length+1; // mDim-1 = number of cells in y direction
+  var nDim = ((options[1].length) * 2) + 1; // oldJump Image: (stepArray.length-1)*2+1; // nDim-1 = number of cells in x direction
+  var mDim = options[1].length+1; // oldJump Image: stepArray.length+1; // mDim-1 = number of cells in y direction
 
   //var newWorker;
   userTestGlobalField = new class_TestField(nDim, mDim);
@@ -189,12 +186,12 @@ function jumpTest_startWorker(stepArray) {
 
   testField_WorkerJSON.testFieldType = "JUMP";
   testField_WorkerJSON.testFieldGenerationType = undefined;
-  testField_WorkerJSON.testFieldIndex = jumpWorkers_Array.length;
 
   testField_WorkerJSON.testFieldDimX = nDim;
   testField_WorkerJSON.testFieldDimY = mDim;
 
-  testField_WorkerJSON.testFieldVar_a = stepArray;
+  testField_WorkerJSON.testFieldVar_a =  options[1];
+  testField_WorkerJSON.testFieldVar_b =  options[0];
 
   usertestWorker = new Worker('js/Front/Sections/Testing/testingWorker.js');
 

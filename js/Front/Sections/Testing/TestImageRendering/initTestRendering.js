@@ -175,6 +175,8 @@ function initTestMapping()
   mapping_Translation_X=0;
   mapping_Translation_Y=0;
 
+  var bg_texture = THREE.ImageUtils.loadTexture( 'img/EditPage/plotBackground.png' );
+
   var canvasObj = document.getElementById("id_TestCanvas");
   canvasObj.innerHTML = "";
   var box = canvasObj.getBoundingClientRect();
@@ -182,6 +184,7 @@ function initTestMapping()
   var drawHeight =box.height; // window.innerHeight;
 
   testmapping_scene = new THREE.Scene();
+  testmapping_scene.background = texture;
 	testmapping_camera = new THREE.PerspectiveCamera(50,drawWidth /drawHeight, 1, 10000);
   testmapping_renderer = new THREE.WebGLRenderer({ alpha: true,antialias: true,
     logarithmicDepthBuffer: true});
@@ -213,6 +216,7 @@ function initTestMapping()
   var drawHeightGrey =boxGrey.height; // window.innerHeight;
 
   testmapping_sceneGrey = new THREE.Scene();
+  testmapping_sceneGrey.background = texture;
 	testmapping_cameraGrey = new THREE.PerspectiveCamera(50,drawWidth /drawHeight, 1, 10000);
   testmapping_rendererGrey = new THREE.WebGLRenderer( {alpha: true,antialias: true,
     logarithmicDepthBuffer: true } );
@@ -231,7 +235,6 @@ function initTestMapping()
 
   testmapping_rendererGrey.setSize(drawWidthGrey,drawHeightGrey);
   canvasObjGrey.appendChild( testmapping_rendererGrey.domElement );
-
 
 }
 

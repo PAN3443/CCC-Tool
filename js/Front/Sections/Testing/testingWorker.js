@@ -61,11 +61,11 @@ self.addEventListener('message', function(e) {
         }
 
         var currentValIndex = 0;
-        for (var i = 1; i < data.testFieldVar_a.length; i++){
+        for (var i = 0; i < data.testFieldVar_a.length; i++){
 
           var value = undefined;
 
-          if(data.testFieldVar_a[0]){
+          if(data.testFieldVar_b){
             value = Math.round((data.testFieldRangeStart + (data.testFieldVar_a[i]*dis))* errorMath) / errorMath; // = version with rational number jumps
           }
           else{
@@ -82,7 +82,7 @@ self.addEventListener('message', function(e) {
 
             //jsonObj.positions[tmpIndex]=[currentValIndex,y];
             jsonObj.testFieldVal[tmpIndex] = value;
-            tmpIndex =  ((i-1)*data.testFieldDimX)+currentXPos;
+            tmpIndex =  (i*data.testFieldDimX)+currentXPos;
 
             //jsonObj.positions[tmpIndex]=[currentXPos,y];
             jsonObj.testFieldVal[tmpIndex] = value;
@@ -188,37 +188,25 @@ self.addEventListener('message', function(e) {
                   break;
                   case 2: // m-Type = quad (peak)
 
-                    /*if(currentX<=0){
-                      if(data.testFieldVar_e%2==0)
-                        value = Math.round((-1*amountOfGradient*(Math.pow(currentX+1,data.testFieldVar_e))+minValue ) * errorMath) / errorMath;
-                      else
-                        value = Math.round((amountOfGradient*(Math.pow(currentX+peakPotenz2,data.testFieldVar_e)+1)+peakAdd ) * errorMath) / errorMath;
-                    }
-                    else{
-                      if(data.testFieldVar_e%2==0)
-                        value = Math.round((-1*amountOfGradient*(Math.pow(currentX-1,data.testFieldVar_e))+minValue ) * errorMath) / errorMath;
-                      else
-                        value = Math.round((-1*amountOfGradient*(Math.pow(currentX+peakPotenz1,data.testFieldVar_e))+peakAdd ) * errorMath) / errorMath;
-                    }*/
-
-
-
-                    if(isRidge){
+                  //  if(data.testFieldVar_e%2==0){
                       if(currentX<=0){
-                        value = Math.round(( currentMax-amountOfGradient*(1-Math.pow(1+currentX,data.testFieldVar_e)) ) * errorMath) / errorMath;
-                      }
-                      else {
-                        value = Math.round(( minValue+-1*amountOfGradient*(Math.pow(1-currentX,data.testFieldVar_e)) ) * errorMath) / errorMath;
-                      }
-                    }
-                    else{
-                      if(currentX<=0){
-                        value = Math.round(( currentMax-amountOfGradient*(Math.pow(1+currentX,data.testFieldVar_e)) ) * errorMath) / errorMath;
+                        value = Math.round((-1*amountOfGradient*(Math.pow(1+currentX,data.testFieldVar_e))+minValue ) * errorMath) / errorMath;
                       }
                       else{
-                        value = Math.round(( minValue+amountOfGradient*(1-Math.pow(1-currentX,data.testFieldVar_e)) ) * errorMath) / errorMath;
+                        if(data.testFieldVar_e%2==0)
+                          value = Math.round((-1*amountOfGradient*(Math.pow(currentX-1,data.testFieldVar_e))+minValue ) * errorMath) / errorMath;
+                        else
+                          value = Math.round((-1*amountOfGradient*(Math.pow(1-currentX,data.testFieldVar_e))+minValue ) * errorMath) / errorMath;
                       }
-                    }
+                    /*}
+                    else{
+                      if(currentX<=0){
+                        value = Math.round((  minValue-amountOfGradient*(Math.pow(1+currentX,data.testFieldVar_e))) * errorMath) / errorMath;
+                      }
+                      else{
+                        value = Math.round((  minValue-amountOfGradient*(Math.pow(1-currentX,data.testFieldVar_e))) * errorMath) / errorMath;
+                      }
+                    }*/
 
                   break;
 
@@ -308,33 +296,21 @@ self.addEventListener('message', function(e) {
       //// Local Extrema
       case "Extrema":
 
-      var xStart = undefined;
-      var yStart = undefined;
+      var xStart = -1;
+      var yStart = -1;
+      var xStep = 2/(data.testFieldDimX-1);
+      var yStep = 2/(data.testFieldDimY-1);
 
-      if(data.testFieldDimX%2==0){
-        xStart = 0-(data.testFieldVar_d*(data.testFieldDimX/2-1)+data.testFieldVar_d/2);
-      }
-      else{
-        xStart = 0-(data.testFieldVar_d*((data.testFieldDimX-1)/2));
-      }
-
-
-      if(data.testFieldDimY%2==0){
-        yStart = 0-(data.testFieldVar_e*(data.testFieldDimY/2-1)+data.testFieldVar_e/2);
-      }
-      else{
-        yStart = 0-(data.testFieldVar_e*((data.testFieldDimY-1)/2));
-      }
 
       var currentX = undefined;
       var currentY = undefined;
       for (var y = 0; y < data.testFieldDimY; y++) {
 
-        currentY = yStart+y*data.testFieldVar_e;
+        currentY = yStart+y*yStep;
 
         for (var x = 0; x < data.testFieldDimX; x++) {
 
-          currentX = xStart+x*data.testFieldVar_d;
+          currentX = xStart+x*xStep;
 
           var value = Math.round(( data.testFieldVar_a*Math.pow(currentX,2) +  data.testFieldVar_b*Math.pow(currentY,2) +  data.testFieldVar_c ) * errorMath) / errorMath; // x-1 because we dont
 
@@ -346,7 +322,7 @@ self.addEventListener('message', function(e) {
         }
 
       }
-       doScale = data.testFieldVar_f;
+       doScale = data.testFieldVar_d;
       break;
 
       ///////////////////////////
@@ -1098,14 +1074,22 @@ break;
   }
 
 
-  /////////////////// Scale
+  //////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////
+  /// Calculate Grey Scale   // do calculation of grey colors befor auto scale to data range!
   var tmpValueDis = max-min;
+  for (var valIndex = 0; valIndex < jsonObj.testFieldVal.length; valIndex++) {
+    jsonObj.gVal.push((jsonObj.testFieldVal[valIndex]-min)/tmpValueDis);
+  }
+
+  //////////////////////////////////////////////////////////////////////////
+  /////////////////// Scale
 
   if(doScale){
     var scaledDis = data.testFieldRangeEnd-data.testFieldRangeStart;
     if(tmpValueDis!=0){
       for (var i = 0; i < jsonObj.testFieldVal.length; i++) {
-        jsonObj.testFieldVal[i]= data.testFieldRangeStart + scaledDis*( (min-jsonObj.testFieldVal[i])/tmpValueDis);
+        jsonObj.testFieldVal[i]= data.testFieldRangeStart + scaledDis*( (jsonObj.testFieldVal[i]-min)/tmpValueDis);
       }
     }
     else{
@@ -1115,13 +1099,7 @@ break;
     }
   }
 
-  //////////////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////////////
-  /// Calculate Grey Scale
 
-  for (var valIndex = 0; valIndex < jsonObj.testFieldVal.length; valIndex++) {
-    jsonObj.gVal.push((jsonObj.testFieldVal[valIndex]-min)/tmpValueDis);
-  }
 
 
   //////////////////////////////////////////////////////////////////////////

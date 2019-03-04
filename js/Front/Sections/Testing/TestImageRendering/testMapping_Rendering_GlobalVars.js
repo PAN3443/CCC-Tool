@@ -15,9 +15,6 @@ var testmapping_rendererGrey;
 var testMappingGroupGrey;
 var testmappingMeshGrey;
 
-var frontDepthTex;
-var backDepthTex;
-
 var testmapping_doingAnimation = false;
 
 
