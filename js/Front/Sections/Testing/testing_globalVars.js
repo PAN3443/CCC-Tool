@@ -6,8 +6,8 @@ var testingType = 0;
 
 var testingFieldResolution = 5; // ~ 2 million pixels for realistic
 
-var current_MType = 0;
-var current_mType = 0;
+var current_yFktType = 0;
+var current_xFktType = 0;
 ///////////////////////////////////////////
 ///// Fields
 
@@ -78,10 +78,10 @@ var cccTest_RidgeValleyLine_Options = [  // m,M,type
 var cccTest_NewLocalExtrema_Options = [];
 var cccTest_LocalExtrema_Options = [
   //[a,b,m,stepX,#stepsX,stepY,#stepsY,autoScale],
-  [3,3,0,true],
-  [-3,-3,0,true],
-  [-3,30,0,true],
-  [3,-3,0,true],
+  [3,3,0,true,101,101],
+  [-3,-3,0,true,101,101],
+  [-3,30,0,true,101,101],
+  [3,-3,0,true,101,101],
 ];
 
 var cccTest_NewFrequency_Options = [];
@@ -92,6 +92,35 @@ var cccTest_Frequency_Options = [
   [true,true,1,6,0.0,1.0],
   [true,true,2,4,0.0,1.0],
   [true,true,3,4,0.0,1.0]*/
+
+];
+
+var cccTest_NewLittleBit_Options = [];
+var cccTest_LittleBit_Options = [
+  [true,0.0001,0.001,10],
+  [true,0.0001,0.005,10],
+  [true,0.0001,0.01,10],
+  [true,0.0001,0.05,10],
+  [true,0.0001,0.1,10]
+];
+
+var cccTest_NewTreshold_Options = [];
+var cccTest_Treshold_Options = [
+  [true,0,2,0.0,0.25,0.5,101,101],
+  [true,1,2,0.0,0.25,0.5,101,101],
+  [true,1,3,0.0,0.25,0.5,101,101],
+  [true,2,2,0.0,0.25,0.5,101,101],
+  [true,2,3,0.0,0.25,0.5,101,101],
+  [true,0,2,0.0,0.5,1.0,101,101],
+  [true,1,2,0.0,0.5,1.0,101,101],
+  [true,1,3,0.0,0.5,1.0,101,101],
+  [true,2,2,0.0,0.5,1.0,101,101],
+  [true,2,3,0.0,0.5,1.0,101,101],
+  [true,0,2,0.5,0.75,1.0,101,101],
+  [true,1,2,0.5,0.75,1.0,101,101],
+  [true,1,3,0.5,0.75,1.0,101,101],
+  [true,2,2,0.5,0.75,1.0,101,101],
+  [true,2,3,0.5,0.75,1.0,101,101]
 
 ];
 

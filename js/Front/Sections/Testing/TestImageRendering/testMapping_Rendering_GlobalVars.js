@@ -15,7 +15,7 @@ var testmapping_rendererGrey;
 var testMappingGroupGrey;
 var testmappingMeshGrey;
 
-var testmapping_doingAnimation = false;
+var testmapping_doAnimation = false;
 
 
 var mapping_transferBorderX = 0;
@@ -24,3 +24,8 @@ var mapping_transferBorderY = 0;
 var testing_DrawBoundingBox = true;
 
 var testing_DrawAxes = true;
+
+
+var bg_texture;
+var bgWidth;
+var bgHeight;

@@ -1,7 +1,0 @@
-function selectNewGradientTestType(){
-
-}
-
-function updateGradientTestVariables(){
-
-}

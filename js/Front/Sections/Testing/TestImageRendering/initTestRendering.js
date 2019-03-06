@@ -1,33 +1,44 @@
 
 
 
-function updateTestMappingCanvas(isBackground)
+function updateTestMappingCanvas()
 {
 
   var idCanvas="id_TestCanvas";
   var idCanvasGrey = "id_TestCanvasGrey";
 
-  if(isBackground){
+  if(document.getElementById("id_PopUp_fullTestingWindow").style.display!="none"){
     idCanvas="id_TestCanvasFull";
     idCanvasGrey = "id_TestCanvasGreyFull";
   }
 
+
   document.getElementById(idCanvas).appendChild( testmapping_renderer.domElement);
   var box = document.getElementById(idCanvas).getBoundingClientRect();
-  var drawWidth = box.width; //window.innerWidth;
-  var drawHeight =box.height; // window.innerHeight;
-	testmapping_camera.aspect = drawWidth/drawHeight;
+
+  var aspect = box.width / box.height;
+  var texAspect = bgWidth / bgHeight;
+  var relAspect = aspect / texAspect;
+
+  if(bg_texture!=undefined){
+    bg_texture.repeat = new THREE.Vector2(
+        Math.max(relAspect, 1),
+        Math.max(1/relAspect,1) );
+    bg_texture.offset = new THREE.Vector2(
+        -Math.max(relAspect-1, 0)/2,
+        -Math.max(1/relAspect-1, 0)/2 );
+  }
+
+	testmapping_camera.aspect = aspect;
 	testmapping_camera.updateProjectionMatrix();
-	testmapping_renderer.setSize(drawWidth, drawHeight);//*
+	testmapping_renderer.setSize(box.width, box.height);//*
 
 
   document.getElementById(idCanvasGrey).appendChild( testmapping_rendererGrey.domElement);
   var boxGrey = document.getElementById(idCanvasGrey).getBoundingClientRect();
-  var drawWidthGrey = boxGrey.width; //window.innerWidth;
-  var drawHeightGrey =boxGrey.height; // window.innerHeight;
-	testmapping_cameraGrey.aspect = drawWidthGrey/drawHeightGrey;
+	testmapping_cameraGrey.aspect = boxGrey.width/boxGrey.height;
 	testmapping_cameraGrey.updateProjectionMatrix();
-	testmapping_rendererGrey.setSize(drawWidthGrey, drawHeightGrey);
+	testmapping_rendererGrey.setSize(boxGrey.width, boxGrey.height);
 
 }
 
@@ -123,15 +134,15 @@ function renderTestMapping() {
 
 
 function stopAnimationTestMapping(){
-  if(testmapping_doingAnimation){
+  if(testmapping_doAnimation){
     cancelAnimationFrame( mapping_animationID );
-    testmapping_doingAnimation = false;
+    testmapping_doAnimation = false;
   }
 }
 
 function animateTestMapping() {
 
-    if(testmapping_doingAnimation){
+    if(testmapping_doAnimation){
       mapping_animationID = requestAnimationFrame( animateTestMapping );
       renderTestMapping();
     }
@@ -139,7 +150,7 @@ function animateTestMapping() {
 }
 
 function startAnimationTestMapping(){
-  testmapping_doingAnimation = true;
+  testmapping_doAnimation = true;
   animateTestMapping();
 }
 
@@ -171,21 +182,18 @@ function downloadTestImageGrey() {
 
 function initTestMapping()
 {
-
   mapping_Translation_X=0;
   mapping_Translation_Y=0;
 
-  var bg_texture = THREE.ImageUtils.loadTexture( 'img/EditPage/plotBackground.png' );
 
   var canvasObj = document.getElementById("id_TestCanvas");
   canvasObj.innerHTML = "";
   var box = canvasObj.getBoundingClientRect();
-  var drawWidth = box.width; //window.innerWidth;
-  var drawHeight =box.height; // window.innerHeight;
+
+
 
   testmapping_scene = new THREE.Scene();
-  testmapping_scene.background = texture;
-	testmapping_camera = new THREE.PerspectiveCamera(50,drawWidth /drawHeight, 1, 10000);
+	testmapping_camera = new THREE.PerspectiveCamera(50,box.width / box.height, 1, 10000);
   testmapping_renderer = new THREE.WebGLRenderer({ alpha: true,antialias: true,
     logarithmicDepthBuffer: true});
   testmapping_renderer.setClearColor( 0xffffff, 0);
@@ -201,7 +209,7 @@ function initTestMapping()
   testmapping_camera.position.y = 0;
   testmapping_camera.position.z = 0; //mapping_maxRadius/2;
 
-  testmapping_renderer.setSize(drawWidth,drawHeight);//(window.innerWidth, window.innerHeight);
+  testmapping_renderer.setSize(box.width , box.height);//(window.innerWidth, window.innerHeight);
   canvasObj.appendChild( testmapping_renderer.domElement );
 
 
@@ -212,12 +220,9 @@ function initTestMapping()
   var canvasObjGrey = document.getElementById("id_TestCanvasGrey");
   canvasObjGrey.innerHTML = "";
   var boxGrey = canvasObjGrey.getBoundingClientRect();
-  var drawWidthGrey = boxGrey.width; //window.innerWidth;
-  var drawHeightGrey =boxGrey.height; // window.innerHeight;
 
   testmapping_sceneGrey = new THREE.Scene();
-  testmapping_sceneGrey.background = texture;
-	testmapping_cameraGrey = new THREE.PerspectiveCamera(50,drawWidth /drawHeight, 1, 10000);
+	testmapping_cameraGrey = new THREE.PerspectiveCamera(50,boxGrey.width /boxGrey.height, 1, 10000);
   testmapping_rendererGrey = new THREE.WebGLRenderer( {alpha: true,antialias: true,
     logarithmicDepthBuffer: true } );
   testmapping_rendererGrey.setClearColor( 0xffffff, 0);
@@ -233,8 +238,44 @@ function initTestMapping()
   testmapping_cameraGrey.position.y = 0;
   testmapping_cameraGrey.position.z = 0; //mapping_maxRadius/2;
 
-  testmapping_rendererGrey.setSize(drawWidthGrey,drawHeightGrey);
+  testmapping_rendererGrey.setSize(boxGrey.width,boxGrey.height);
   canvasObjGrey.appendChild( testmapping_rendererGrey.domElement );
+
+
+  /////////////////////////////////////
+  /////////////////////////////////////
+  /////////////////////////////////////
+
+  // instantiate a loader
+  var loader = new THREE.TextureLoader();
+
+  // load a resource
+  bg_texture = loader.load(
+  	// resource URL
+  	'img/EditPage/plotBackground.png',
+
+  	// onLoad callback
+  	function ( texture ) {
+      var img = texture.image;
+        bgWidth= img.width;
+        bgHeight = img.height;
+        testmapping_scene.background = bg_texture;
+        testmapping_sceneGrey.background = bg_texture;
+        updateTestMappingCanvas(false);
+  	},
+
+  	// onProgRepeatWrappingress callback currently not supported
+  	undefined,
+
+  	// onError callback
+  	function ( err ) {
+  		console.error( 'Background could not be loaded!!!!' );
+  	}
+  );
+
+  bg_texture.wrapS = THREE.RepeatWrapping;
+  bg_texture.wrapT = THREE.RepeatWrapping;
+
 
 }
 

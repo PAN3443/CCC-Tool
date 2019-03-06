@@ -111,14 +111,15 @@ function drawTestField(field, doStatusbar){
 
     geometry.computeBoundingBox();
 
+
     //geometry.computeFaceNormals();
 
-    var largestDis = Math.hypot(geometry.boundingBox.size().x,geometry.boundingBox.size().y,geometry.boundingBox.size().z); //,geometry.boundingBox.size().z);
+    var largestDis = Math.hypot(geometry.boundingBox.getSize().x,geometry.boundingBox.getSize().y,geometry.boundingBox.getSize().z); //,geometry.boundingBox.getSize().z);
 
     var center = geometry.boundingBox.getCenter()
 
-    mapping_transferBorderX = geometry.boundingBox.size().x*2;
-    mapping_transferBorderY = geometry.boundingBox.size().y*2;
+    mapping_transferBorderX = geometry.boundingBox.getSize().x*2;
+    mapping_transferBorderY = geometry.boundingBox.getSize().y*2;
 
     mapping_maxRadius = largestDis*2;
     mapping_zoomFactor = mapping_maxRadius / 50;
@@ -130,16 +131,16 @@ function drawTestField(field, doStatusbar){
     testmapping_camera.far = mapping_maxRadius*2;
     testmapping_camera.updateProjectionMatrix();*/
 
-    testmapping_camera.position.x = geometry.boundingBox.size().x;
-    testmapping_camera.position.y = geometry.boundingBox.size().y;
+    testmapping_camera.position.x = geometry.boundingBox.getSize().x;
+    testmapping_camera.position.y = geometry.boundingBox.getSize().y;
     testmapping_camera.position.z = 0; //0//-1*center.z;*/
 
     /*testmapping_cameraGrey.near = largestDis*0.000000001;
     testmapping_cameraGrey.far = mapping_maxRadius*2;
     testmapping_cameraGrey.updateProjectionMatrix();*/
 
-    testmapping_cameraGrey.position.x = geometry.boundingBox.size().x;
-    testmapping_cameraGrey.position.y = geometry.boundingBox.size().y;
+    testmapping_cameraGrey.position.x = geometry.boundingBox.getSize().x;
+    testmapping_cameraGrey.position.y = geometry.boundingBox.getSize().y;
     testmapping_cameraGrey.position.z = 0; //0//-1*center.z;*/
 
     var material =
@@ -179,8 +180,8 @@ function drawTestField(field, doStatusbar){
     }
     testMappingGroup.add(testmappingMesh);
 
-    testMappingGroup.position.x = geometry.boundingBox.size().x; //0;
-    testMappingGroup.position.y = geometry.boundingBox.size().y; //0;
+    testMappingGroup.position.x = geometry.boundingBox.getSize().x; //0;
+    testMappingGroup.position.y = geometry.boundingBox.getSize().y; //0;
     testMappingGroup.position.z = largestDis*2; //0;
 
     for (var i = testMappingGroupGrey.children.length - 1; i >= 0; i--) {
@@ -188,8 +189,8 @@ function drawTestField(field, doStatusbar){
     }
     testMappingGroupGrey.add(testmappingMeshGrey);
 
-    testMappingGroupGrey.position.x = geometry.boundingBox.size().x; //0;
-    testMappingGroupGrey.position.y = geometry.boundingBox.size().y; //0;
+    testMappingGroupGrey.position.x = geometry.boundingBox.getSize().x; //0;
+    testMappingGroupGrey.position.y = geometry.boundingBox.getSize().y; //0;
     testMappingGroupGrey.position.z = largestDis*2; //0;
 
     testmapping_camera.lookAt(testMappingGroup.position);
@@ -207,13 +208,13 @@ function drawTestField(field, doStatusbar){
     	var positions = [];
     	var colors = [];
 
-      var startPosX = center.x-(geometry.boundingBox.size().x/2);
-      var startPosY = center.y-(geometry.boundingBox.size().y/2);
-      var startPosZ = center.z-(geometry.boundingBox.size().z/2);
+      var startPosX = center.x-(geometry.boundingBox.getSize().x/2);
+      var startPosY = center.y-(geometry.boundingBox.getSize().y/2);
+      var startPosZ = center.z-(geometry.boundingBox.getSize().z/2);
 
-      var endPosX = center.x+(geometry.boundingBox.size().x/2);
-      var endPosY = center.y+(geometry.boundingBox.size().y/2);
-      var endPosZ = center.z+(geometry.boundingBox.size().z/2);
+      var endPosX = center.x+(geometry.boundingBox.getSize().x/2);
+      var endPosY = center.y+(geometry.boundingBox.getSize().y/2);
+      var endPosZ = center.z+(geometry.boundingBox.getSize().z/2);
 
       positions.push( startPosX, startPosY, startPosZ );
       positions.push( endPosX, startPosY, startPosZ );
@@ -273,22 +274,22 @@ function drawTestField(field, doStatusbar){
 
 
   if(testing_DrawAxes){
-      var orginX = center.x-(geometry.boundingBox.size().x/2);
-      var orginY = center.y-(geometry.boundingBox.size().y/2);
-      var orginZ = center.z-(geometry.boundingBox.size().z/2);
+      var orginX = center.x-(geometry.boundingBox.getSize().x/2);
+      var orginY = center.y-(geometry.boundingBox.getSize().y/2);
+      var orginZ = center.z-(geometry.boundingBox.getSize().z/2);
 
-      var lengthX = geometry.boundingBox.size().x*1.2;
-      var lengthY = geometry.boundingBox.size().y*1.2;
-      var lengthZ = geometry.boundingBox.size().z*1.2;
+      var lengthX = geometry.boundingBox.getSize().x*1.2;
+      var lengthY = geometry.boundingBox.getSize().y*1.2;
+      var lengthZ = geometry.boundingBox.getSize().z*1.2;
 
       if(testing_DrawBoundingBox && do3DTestField && !field.getCellValues()){
-        orginX = center.x+(geometry.boundingBox.size().x/2);
-        orginY = center.y+(geometry.boundingBox.size().y/2);
-        orginZ = center.z+(geometry.boundingBox.size().z/2);
+        orginX = center.x+(geometry.boundingBox.getSize().x/2);
+        orginY = center.y+(geometry.boundingBox.getSize().y/2);
+        orginZ = center.z+(geometry.boundingBox.getSize().z/2);
 
-        lengthX = geometry.boundingBox.size().x*0.2;
-        lengthY = geometry.boundingBox.size().y*0.2;
-        lengthZ = geometry.boundingBox.size().z*0.2;
+        lengthX = geometry.boundingBox.getSize().x*0.2;
+        lengthY = geometry.boundingBox.getSize().y*0.2;
+        lengthZ = geometry.boundingBox.getSize().z*0.2;
       }
 
       var length = Math.max(lengthX,lengthY,lengthZ);

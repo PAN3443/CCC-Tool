@@ -220,6 +220,10 @@
       <script src="js/Front/Sections/Testing/CCCTest/NewTest/newGradientTest.js"></script>
       <script src="js/Front/Sections/Testing/CCCTest/NewTest/newFrequencyTest.js"></script>
       <script src="js/Front/Sections/Testing/CCCTest/NewTest/newLocalExtremaTest.js"></script>
+      <script src="js/Front/Sections/Testing/CCCTest/NewTest/newLittleBitTest.js"></script>
+      <script src="js/Front/Sections/Testing/CCCTest/NewTest/newTresholdTest.js"></script>
+      <script src="js/Front/Sections/Testing/CCCTest/NewTest/newTest_drawFktPreview.js"></script>
+
 
     <!-- Testing Section : Collection -->
     <script src="js/Front/Sections/Testing/Collection/testing_collectiontest.js"></script>
@@ -280,9 +284,6 @@
 
 
 
-
-
-
   <!-- Parser -->
   <script src="js/Front/Parser/csvColormapParser.js"></script>
   <script src="js/Front/Parser/jsonColormapParser.js"></script>
@@ -292,6 +293,7 @@
   <!-- global Vars-->
   <script src="js/Front/fullpage_globalVars.js"></script>
 
+  <script src="js/Front/windowResize.js"></script>
   <!------------------------------------------->
   <!-- MAIN-->
   <script src="js/Front/main.js"></script>
@@ -1936,6 +1938,8 @@
                   <option value="2">Ridge & Valley</option>
                   <option value="3">Local Extrema</option>
                   <option value="4">Frequency</option>
+                  <option value="5">Little Bit</option>
+                  <option value="6">Treshold</option>
                 </select>
 
                 <input id="id_TestPage_doRatioCheckbox" type="checkbox" name="id_TestPage_DoRatio" value="doRatio" onchange="newTest_switchRatioType()">
@@ -1986,31 +1990,7 @@
                     <input id="id_TestPage_NewTest_I2" class="standardText" type="number" name="inputV2"  step="any" value="0.1" onchange="updateTestVariables()">
                   </div>
 
-                  <div id="id_TestPage_mType_Div" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
 
-                    <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-right:auto;">m-Type:</p>
-
-                    <div class="row" style="width:100%;">
-                        <div style="margin:auto;">
-                          <div class="row" >
-                            <input id="id_TestPage_NewTest_mTypeLinear" type="radio" name="mTypeRatioButtons" value="linear"  style="margin-right:0.25vw;" checked onchange="updateTestVariables()">
-                            <p class="standardText" style="margin-top:auto; margin-bottom:auto;"> : Linear</p>
-                          </div>
-                          <div class="row" >
-                            <input id="id_TestPage_NewTest_mTypeArc" type="radio" name="mTypeRatioButtons" value="hunch"  style="margin-right:0.25vw;" onchange="updateTestVariables()">
-                            <p class="standardText" style="margin-top:auto; margin-bottom:auto;"> : Arc</p>
-                          </div>
-                          <div class="row" >
-                            <input id="id_TestPage_NewTest_mTypePeak" type="radio" name="mTypeRatioButtons" value="crook"  style="margin-right:0.25vw;" onchange="updateTestVariables()">
-                            <p class="standardText" style="margin-top:auto; margin-bottom:auto;"> : Peak</p>
-                          </div>
-                        </div>
-
-                        <canvas id="id_TestPage_Canvas_mType" style="width:5vw; height:5vw; margin:auto; border:0.2vh solid rgb(220,220,220); background:white;">
-
-                        </canvas>
-                    </div>
-                  </div>
 
                   <div id="id_TestPage_NewTest_D3" class="row" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
                     <p id="id_TestPage_NewTest_V3" class="standardText" style="margin-top:auto; margin-bottom:auto; width:10vw;"></p>
@@ -2022,27 +2002,53 @@
                     <input id="id_TestPage_NewTest_I4" class="standardText" type="number" name="inputV4"  step="any" value="0.1" onchange="updateTestVariables()">
                   </div>
 
-                  <div id="id_TestPage_MType_Div" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
+                  <div id="id_TestPage_XFctType_Div" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
 
-                    <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-right:auto;">M-Type:</p>
+                    <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-right:auto;">X-Function-Type:</p>
 
                     <div class="row" style="width:100%;">
                         <div style="margin:auto;">
                           <div class="row" >
-                            <input id="id_TestPage_NewTest_MTypeLinear" type="radio" name="MTypeRatioButtons" value="linear"  style="margin-right:0.25vw;" checked onchange="updateTestVariables()">
-                            <p class="standardText" style="margin-top:auto; margin-bottom:auto;"> : Linear</p>
+                            <input id="id_TestPage_NewTest_XType1" type="radio" name="mTypeRatioButtons" value="linear"  style="margin-right:0.25vw;" checked onchange="updateTestVariables()">
+                            <p id="id_TestPage_NewTest_XTypeL1" class="standardText" style="margin-top:auto; margin-bottom:auto;"> : Linear</p>
                           </div>
                           <div class="row" >
-                            <input id="id_TestPage_NewTest_MTypeHunch" type="radio" name="MTypeRatioButtons" value="hunch"  style="margin-right:0.25vw;" onchange="updateTestVariables()">
-                            <p class="standardText" style="margin-top:auto; margin-bottom:auto;"> : Hunch</p>
+                            <input id="id_TestPage_NewTest_XType2" type="radio" name="mTypeRatioButtons" value="hunch"  style="margin-right:0.25vw;" onchange="updateTestVariables()">
+                            <p id="id_TestPage_NewTest_XTypeL2" class="standardText" style="margin-top:auto; margin-bottom:auto;"> : Arc</p>
                           </div>
                           <div class="row" >
-                            <input id="id_TestPage_NewTest_MTypeCrook" type="radio" name="MTypeRatioButtons" value="crook"  style="margin-right:0.25vw;" onchange="updateTestVariables()">
-                            <p class="standardText" style="margin-top:auto; margin-bottom:auto;"> : Crook</p>
+                            <input id="id_TestPage_NewTest_XType3" type="radio" name="mTypeRatioButtons" value="crook"  style="margin-right:0.25vw;" onchange="updateTestVariables()">
+                            <p id="id_TestPage_NewTest_XTypeL3" class="standardText" style="margin-top:auto; margin-bottom:auto;"> : Peak</p>
                           </div>
                         </div>
 
-                        <canvas id="id_TestPage_Canvas_MType" style="width:5vw; height:5vw; margin:auto; border:0.2vh solid border:0.2vh solid rgb(220,220,220); background:white;">
+                        <canvas id="id_TestPage_Canvas_xFktType" style="width:5vw; height:5vw; margin:auto; border:0.2vh solid rgb(220,220,220); background:white;">
+
+                        </canvas>
+                    </div>
+                  </div>
+
+                  <div id="id_TestPage_YFctType_Div" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
+
+                    <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-right:auto;">Y-Function-Type:</p>
+
+                    <div class="row" style="width:100%;">
+                        <div style="margin:auto;">
+                          <div class="row" >
+                            <input id="id_TestPage_NewTest_YType1" type="radio" name="MTypeRatioButtons" value="linear"  style="margin-right:0.25vw;" checked onchange="updateTestVariables()">
+                            <p id="id_TestPage_NewTest_YTypeL1" class="standardText" style="margin-top:auto; margin-bottom:auto;"> : Linear</p>
+                          </div>
+                          <div class="row" >
+                            <input id="id_TestPage_NewTest_YType2" type="radio" name="MTypeRatioButtons" value="hunch"  style="margin-right:0.25vw;" onchange="updateTestVariables()">
+                            <p id="id_TestPage_NewTest_YTypeL2" class="standardText" style="margin-top:auto; margin-bottom:auto;"> : Hunch</p>
+                          </div>
+                          <div class="row" >
+                            <input id="id_TestPage_NewTest_YType3" type="radio" name="MTypeRatioButtons" value="crook"  style="margin-right:0.25vw;" onchange="updateTestVariables()">
+                            <p id="id_TestPage_NewTest_YTypeL3" class="standardText" style="margin-top:auto; margin-bottom:auto;"> : Crook</p>
+                          </div>
+                        </div>
+
+                        <canvas id="id_TestPage_Canvas_yFktType" style="width:5vw; height:5vw; margin:auto; border:0.2vh solid border:0.2vh solid rgb(220,220,220); background:white;">
 
                         </canvas>
                     </div>

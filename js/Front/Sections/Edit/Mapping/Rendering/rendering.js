@@ -36,10 +36,7 @@ function updateMappingSize()
 
 	mapping_renderer.setSize(drawWidth, drawHeight);//*
 
-  ////////////// updating the input elements
 
-  // update the positions of the input fields
-  updateEditPage();
 }
 
 
@@ -67,15 +64,15 @@ function renderMapping() {
 }
 
 function stopAnimationMapping(){
-  if(mapping_doingAnimation){
+  if(mapping_doAnimation){
     cancelAnimationFrame( mapping_animationID );
-    mapping_doingAnimation = false;
+    mapping_doAnimation = false;
   }
 }
 
 function animateMapping() {
 
-    if(mapping_doingAnimation){
+    if(mapping_doAnimation){
       mapping_animationID = requestAnimationFrame( animateMapping );
       renderMapping();
     }
@@ -83,7 +80,7 @@ function animateMapping() {
 }
 
 function startAnimationMapping(){
-  mapping_doingAnimation = true;
+  mapping_doAnimation = true;
   animateMapping();
 }
 

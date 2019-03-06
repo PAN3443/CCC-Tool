@@ -1,4 +1,4 @@
-var doingAnimation = false;
+var pathplot_doAnimation = false;
 var pathplotAnimationID;
 
 

@@ -20,7 +20,7 @@ var doParallelProcessing = true;
 
 ////////// rendering
 
-var mapping_doingAnimation = false;
+var mapping_doAnimation = false;
 var mapping_animationID;
 
 

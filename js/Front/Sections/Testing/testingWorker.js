@@ -28,6 +28,8 @@ self.addEventListener('message', function(e) {
   self.postMessage(jsonUpdateObj);
 
 
+  var cmsStartRef = data.refVal[0];
+  var cmsEndRef = data.refVal[data.refVal.length-1];
 
   //////// If origin is relevant -> determine origin
 
@@ -52,7 +54,7 @@ self.addEventListener('message', function(e) {
 
         jsonObj.includeCellValues = true;
 
-        var dis = Math.round((data.testFieldRangeEnd-data.testFieldRangeStart) * errorMath) / errorMath; // = version with rational number jumps
+        var dis = Math.round((cmsEndRef-cmsStartRef) * errorMath) / errorMath; // = version with rational number jumps
         for (var y = 0; y < data.testFieldDimY; y++) {
           for (var x = 0; x < data.testFieldDimX; x++) {
             jsonObj.testFieldVal.push(undefined);
@@ -66,7 +68,7 @@ self.addEventListener('message', function(e) {
           var value = undefined;
 
           if(data.testFieldVar_b){
-            value = Math.round((data.testFieldRangeStart + (data.testFieldVar_a[i]*dis))* errorMath) / errorMath; // = version with rational number jumps
+            value = Math.round((cmsStartRef + (data.testFieldVar_a[i]*dis))* errorMath) / errorMath; // = version with rational number jumps
           }
           else{
             value = data.testFieldVar_a[i];
@@ -95,31 +97,173 @@ self.addEventListener('message', function(e) {
       break;
 
       ///////////////////////////
+      ////
+      case "LittleBit":
+
+      var minValue = data.testFieldVar_a;
+      var maxValue = data.testFieldVar_b;
+      var currentMax = undefined;
+      var amountOfGradient = undefined;
+      var currentY = undefined;
+      var currentX =undefined;
+
+      var maxSink = data.testFieldVar_c;
+      var minSink = data.testFieldVar_b;
+
+      var cmsRangeDifference = cmsEndRef-cmsStartRef;
+
+      if(data.testFieldVar_a){
+        maxSink = Math.round((data.testFieldVar_c * (cmsRangeDifference))* errorMath) / errorMath;
+        minSink = Math.round((data.testFieldVar_b * (cmsRangeDifference))* errorMath) / errorMath;
+      }
+
+      var newStart = cmsStartRef+maxSink;
+      cmsRangeDifference = cmsEndRef-newStart;
+
+      var sinkStep = Math.round(((maxSink-minSink)/(data.testFieldVar_e-1))* errorMath) / errorMath;
+      var numberOfAreas = data.testFieldVar_e+data.testFieldVar_e+1;
+
+      for (var y = 0; y < data.testFieldDimY; y++) {
+
+        var currentY = y/(data.testFieldDimY-1);
+        var preValue = Math.round((newStart+currentY*(cmsRangeDifference)) * errorMath) / errorMath;
+
+        for (var a = 0; a < numberOfAreas; a++) {
+
+          var times = Math.round((a*0.5+0.5-1)* errorMath) / errorMath; // with numberOfAreas*0.5+0.5 -> 1=1, 3=2, 5=3, 7=5, 9=5;
+          var currentSink = Math.round(Math.abs(minSink+times*sinkStep)* errorMath) / errorMath;
+          var currentSinkAmplitutde = Math.round(currentSink/2* errorMath) / errorMath;
+
+          /*if(y==0 && a%2!=0)
+            console.log(times,currentSink);*/
+
+          for (var p = 0; p < data.testFieldVar_d; p++) {
+
+            var value = preValue;// NO SINK
+            if(a%2!=0){
+              // SINK
+              var currentDegree=p/(data.testFieldVar_d-1)*2*Math.PI;
+              value = Math.round((value+currentSinkAmplitutde*Math.cos(currentDegree)-currentSinkAmplitutde)* errorMath) / errorMath;
+            }
+
+            min = Math.min(min,value);
+            max = Math.max(max,value);
+
+            var x = a*(data.testFieldVar_d)+p;
+            jsonObj.positions.push([x,y]);
+            jsonObj.testFieldVal.push(value);
+
+          }
+
+        }
+
+      }
+
+      break;
+
+
+
+
+      ///////////////////////////
+      //// Treshold
+      case "Treshold":
+
+
+
+          var minValue = data.testFieldVar_d;
+          var treshValue = data.testFieldVar_e;
+          var maxValue = data.testFieldVar_f;
+
+          var cmsRangeDifference = cmsEndRef-cmsStartRef;
+          if(data.testFieldVar_a){
+              minValue = Math.round((cmsStartRef+data.testFieldVar_d * (cmsRangeDifference))* errorMath) / errorMath;
+              treshValue = Math.round((cmsStartRef+data.testFieldVar_e * (cmsRangeDifference))* errorMath) / errorMath;
+              maxValue = Math.round((cmsStartRef+data.testFieldVar_f * (cmsRangeDifference))* errorMath) / errorMath;
+          }
+
+          var currentY = undefined;
+          var currentX =undefined;
+
+          for (var y = 0; y < data.testFieldDimY; y++) {
+
+            currentY = Math.round((y/(data.testFieldDimY-1)) * errorMath) / errorMath;
+
+            var currentYValueMax = maxValue-currentY*(maxValue-treshValue);
+            var currentYValueMin = minValue+currentY*(treshValue-minValue);
+
+
+            for (var x = 0; x < data.testFieldDimX; x++) {
+
+              var currentX = Math.round((-1+(x/(data.testFieldDimX-1))*2) * errorMath) / errorMath;
+
+              var value = undefined;
+
+              if(currentX<=0){
+                switch (data.testFieldVar_b) {
+                  case 0: // Y-Type = linear
+                        value = Math.round((treshValue+(treshValue-currentYValueMin)*(currentX)) * errorMath) / errorMath;
+                    break;
+                    case 1: // Y-Type =
+                          if(data.testFieldVar_c%2==0)
+                            value =  treshValue+(treshValue-currentYValueMin)*-1*(Math.pow(currentX,data.testFieldVar_c));
+                          else
+                            value =  treshValue+(treshValue-currentYValueMin)*(Math.pow(currentX,data.testFieldVar_c));
+                      break;
+
+                      case 2: // Y-Type =
+                        value =  treshValue+(treshValue-currentYValueMin)*(Math.pow(currentX+1,data.testFieldVar_c)-1);
+                      break;
+
+                }
+              }
+              else{
+                switch (data.testFieldVar_b) {
+                  case 0: // Y-Type = linear
+                        value = Math.round((treshValue+(currentYValueMax-treshValue)*(currentX)) * errorMath) / errorMath;
+                    break;
+                    case 1: // Y-Type =
+                        value =  treshValue+(currentYValueMax-treshValue)*(Math.pow(currentX,data.testFieldVar_c));
+                    break;
+                    case 2: // Y-Type =
+                        if(data.testFieldVar_c%2==0)
+                          value =  treshValue+(currentYValueMax-treshValue)*-1*(Math.pow(currentX-1,data.testFieldVar_c)-1);
+                        else
+                          value =  treshValue+(currentYValueMax-treshValue)*(Math.pow(currentX-1,data.testFieldVar_c)+1);
+                    break;
+
+                }
+              }
+
+              min = Math.min(min,value);
+              max = Math.max(max,value);
+
+              //console.log(value);
+              jsonObj.positions.push([currentX,currentY]);
+              jsonObj.testFieldVal.push(value);
+            }
+
+          }
+
+      break;
+
+      ///////////////////////////
       //// Valley
       case "Valley":
 
 
 
-          //var dis = Math.round((data.testFieldRangeEnd-data.testFieldRangeStart) * errorMath) / errorMath;
-          //  f : x=[-1,1] x y=[0,1]
-
-          var minValue = data.testFieldVar_a;//Math.round((data.testFieldRangeStart+(dis*data.testFieldVar_a)) * errorMath) / errorMath;
-          var maxValue = data.testFieldVar_b;//Math.round((data.testFieldRangeStart+(dis*data.testFieldVar_b)) * errorMath) / errorMath;
+          var minValue = data.testFieldVar_a;
+          var maxValue = data.testFieldVar_b;
           var currentMax = undefined;
           var amountOfGradient = undefined;
           var currentY = undefined;
           var currentX =undefined;
 
-          var peakPotenz1 = -1;
-          var peakPotenz2 = 1;
+
           var isRidge = true; // valley
           if(data.testFieldVar_b<data.testFieldVar_a){
-            peakPotenz1 = 1;
-            peakPotenz2 = -1;
             isRidge = false; // ridge*/
           }
-
-
 
           for (var y = 0; y < data.testFieldDimY; y++) {
 
@@ -153,10 +297,6 @@ self.addEventListener('message', function(e) {
 
             amountOfGradient = Math.round((minValue-currentMax) * errorMath) / errorMath;// Math.round(((maxValue-minValue)*(currentY)) * errorMath) / errorMath;
 
-            var peakAdd = currentMax;
-
-            if(isRidge)
-              peakAdd = min;
 
             for (var x = 0; x < data.testFieldDimX; x++) {
 
@@ -230,60 +370,80 @@ self.addEventListener('message', function(e) {
 
       ///////////////////////////
       //// Gradient
-      case "GRADIENT":
+      case "Gradient":
 
 
-      var dis = Math.round((data.testFieldRangeEnd-data.testFieldRangeStart) * errorMath) / errorMath;
-      var startValue = Math.round((data.testFieldRangeStart+dis*data.testFieldVar_a) * errorMath) / errorMath;
+      var minValue = data.testFieldVar_a;
+      var maxValue = data.testFieldVar_b;
+      var currentMax = undefined;
+      var amountOfGradient = undefined;
+      var currentY = undefined;
+      var currentX =undefined;
 
 
-      switch (data.testFieldGenerationType) {
-        case 0: // Rising Gradient
+      var isRidge = true;
+      if(data.testFieldVar_b<data.testFieldVar_a){
+        isRidge = false;
+      }
 
 
-              var endStep = (data.testFieldRangeEnd-startValue)/data.testFieldDimY; // y step define the end value for the current y
 
-              for (var y = 0; y < data.testFieldDimY; y++) {
+      for (var y = 0; y < data.testFieldDimY; y++) {
 
-                var endValue = startValue + ((y+1)*endStep);
-                var step= (endValue-startValue)/(data.testFieldDimX-1); // x step to reach the end value (current y)
+        currentY = Math.round((y/(data.testFieldDimY-1)) * errorMath) / errorMath;
 
+        switch (data.testFieldVar_d) {
+          case 0: // M-Type = linear
+              //  gradient depends on y => g=M*(1-y); and on x <=0 positive x>0 negative
+                currentMax = Math.round((minValue+(maxValue-minValue)*(currentY)) * errorMath) / errorMath;
+            break;
+            case 1: // M-Type = quad (hunch)
+                  if(data.testFieldVar_f%2==0)
+                    currentMax =  minValue+(maxValue-minValue)*(1-Math.pow(currentY-1,data.testFieldVar_f));
+                  else
+                    currentMax =  minValue+(maxValue-minValue)*(1+Math.pow(currentY-1,data.testFieldVar_f));
+              break;
 
-                for (var x = 0; x < data.testFieldDimX; x++) {
+              case 2: // M-Type = quad (crumb)
+                  // here we don't need to check if the exponend is 0 for modulo 2, because we only check values between 0 and 1
+                  currentMax =  minValue+(maxValue-minValue)*(Math.pow(currentY,data.testFieldVar_f));
+              break;
 
-                  var value = Math.round((startValue+x*step) * errorMath) / errorMath; // x-1 because we dont
+        }
 
-                  min = Math.min(min,value);
-                  max = Math.max(max,value);
-
-                  jsonObj.positions.push([y,x]);
-                  jsonObj.testFieldVal.push(value);
-                }
-
-              }
-          break;
-          case 1: // Falling Gradient
-          var endStep = (startValue-data.testFieldRangeStart)/data.testFieldDimY; // y step define the end value for the current y
-
-          for (var y = 0; y < data.testFieldDimY; y++) {
-
-            var endValue = startValue - ((y+1)*endStep);
-            var step= (startValue-endValue)/(data.testFieldDimX-1); // x step to reach the end value (current y)
+        amountOfGradient = Math.round((minValue-currentMax) * errorMath) / errorMath;// Math.round(((maxValue-minValue)*(currentY)) * errorMath) / errorMath;
 
 
-            for (var x = 0; x < data.testFieldDimX; x++) {
+        for (var x = 0; x < data.testFieldDimX; x++) {
 
-              var value = Math.round((startValue-x*step) * errorMath) / errorMath; // x-1 because we dont
+          var currentX = Math.round((x/(data.testFieldDimX-1)) * errorMath) / errorMath;
 
-              min = Math.min(min,value);
-              max = Math.max(max,value);
+          var value = undefined;
 
-              jsonObj.positions.push([y,x]);
-              jsonObj.testFieldVal.push(value);
-            }
+          switch (data.testFieldVar_c) {
+            case 0: // m-Type = linear
+                value = Math.round((minValue+(currentMax-minValue)*(currentX)) * errorMath) / errorMath;
+              break;
+              case 1: // m-Type = quad (arc)
+                if(data.testFieldVar_e%2==0)
+                  value =  minValue+(currentMax-minValue)*(1-Math.pow(currentX-1,data.testFieldVar_e));
+                else
+                  value =  minValue+(currentMax-minValue)*(1+Math.pow(currentX-1,data.testFieldVar_e));
+              break;
+              case 2: // m-Type = quad (peak)
+                  value =  minValue+(currentMax-minValue)*(Math.pow(currentX,data.testFieldVar_e));
+              break;
 
           }
-            break;
+
+          min = Math.min(min,value);
+          max = Math.max(max,value);
+
+          //console.log(value);
+          jsonObj.positions.push([currentX,currentY]);
+          jsonObj.testFieldVal.push(value);
+        }
+
       }
 
 
@@ -330,8 +490,8 @@ self.addEventListener('message', function(e) {
       case "Frequency":
 
 
-      var startVal = Math.round((data.testFieldRangeStart+data.testFieldVar_d*(data.testFieldRangeEnd-data.testFieldRangeStart)) * errorMath) / errorMath;
-      var endVal = Math.round((data.testFieldRangeStart+data.testFieldVar_e*(data.testFieldRangeEnd-data.testFieldRangeStart)) * errorMath) / errorMath;
+      var startVal = Math.round((cmsStartRef+data.testFieldVar_d*(cmsEndRef-cmsStartRef)) * errorMath) / errorMath;
+      var endVal = Math.round((cmsStartRef+data.testFieldVar_e*(cmsEndRef-cmsStartRef)) * errorMath) / errorMath;
 
       var amplitude = Math.round(((startVal-endVal)/2.0) * errorMath) / errorMath;
       var m = Math.round((startVal-amplitude) * errorMath) / errorMath;
@@ -1086,15 +1246,15 @@ break;
   /////////////////// Scale
 
   if(doScale){
-    var scaledDis = data.testFieldRangeEnd-data.testFieldRangeStart;
+    var scaledDis = cmsEndRef-cmsStartRef;
     if(tmpValueDis!=0){
       for (var i = 0; i < jsonObj.testFieldVal.length; i++) {
-        jsonObj.testFieldVal[i]= data.testFieldRangeStart + scaledDis*( (jsonObj.testFieldVal[i]-min)/tmpValueDis);
+        jsonObj.testFieldVal[i]= cmsStartRef + scaledDis*( (jsonObj.testFieldVal[i]-min)/tmpValueDis);
       }
     }
     else{
       for (var i = 0; i < jsonObj.testFieldVal.length; i++) {
-        jsonObj.testFieldVal[i]= data.testFieldRangeStart;
+        jsonObj.testFieldVal[i]= cmsStartRef;
       }
     }
   }

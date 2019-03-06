@@ -36,7 +36,7 @@ function startCCCTest() {
 
       case "Gradient":
         var index = document.getElementById("id_TestPage_UserTest_List").selectedIndex - cccTest_Jumps_Options.length;
-        gradient_startWorker(index);
+        gradient_startWorker(cccTest_Gradient_Options[index]);
         break;
 
       case "Valley":
@@ -51,8 +51,18 @@ function startCCCTest() {
 
       case "Frequency":
         var index = document.getElementById("id_TestPage_UserTest_List").selectedIndex - cccTest_Gradient_Options.length - cccTest_Jumps_Options.length - cccTest_RidgeValleyLine_Options.length - cccTest_LocalExtrema_Options.length;
-        frequency_startWorker(index);
+        littlebit_startWorker(cccTest_Frequency_Options[index]);
         break;
+
+        case "LittleBit":
+          var index = document.getElementById("id_TestPage_UserTest_List").selectedIndex - cccTest_Gradient_Options.length - cccTest_Jumps_Options.length - cccTest_RidgeValleyLine_Options.length - cccTest_LocalExtrema_Options.length - cccTest_Frequency_Options.length;
+          littlebit_startWorker(cccTest_LittleBit_Options[index]);
+          break;
+
+          case "Treshold":
+            var index = document.getElementById("id_TestPage_UserTest_List").selectedIndex - cccTest_Gradient_Options.length - cccTest_Jumps_Options.length - cccTest_RidgeValleyLine_Options.length - cccTest_LocalExtrema_Options.length - cccTest_Frequency_Options.length - cccTest_LittleBit_Options.length;
+            treshold_startWorker(cccTest_Treshold_Options[index]);
+            break;
 
     }
 
@@ -60,26 +70,48 @@ function startCCCTest() {
 
 }
 
-function frequency_startWorker(index) {
+function treshold_startWorker(options) {
 
-  //cccTest_Frequency_Options//
-
-  userTestGlobalField = new class_TestField(document.getElementById("id_TestPage_GridDimX").value, document.getElementById("id_TestPage_GridDimY").value);
-
-
+  userTestGlobalField = new class_TestField(options[6], options[7]);
 
   testField_WorkerJSON.originIsRelevant = false;
 
-  testField_WorkerJSON.testFieldType = "Frequency";
-  testField_WorkerJSON.testFieldGenerationType = cccTest_Gradient_Options[index][1];
+  testField_WorkerJSON.testFieldType = "Treshold";
+  testField_WorkerJSON.testFieldDimX = options[6];
+  testField_WorkerJSON.testFieldDimY = options[7];
+  testField_WorkerJSON.testFieldVar_a = options[0]; // ratio or not
+  testField_WorkerJSON.testFieldVar_b = options[1]; // type
+  testField_WorkerJSON.testFieldVar_c = options[2]; // exp
+  testField_WorkerJSON.testFieldVar_d = options[3]; // min
+  testField_WorkerJSON.testFieldVar_e = options[4]; // treshold
+  testField_WorkerJSON.testFieldVar_f = options[5]; // max
 
-  testField_WorkerJSON.testFieldDimX = document.getElementById("id_TestPage_GridDimX").value;
-  testField_WorkerJSON.testFieldDimY = document.getElementById("id_TestPage_GridDimY").value;
-  testField_WorkerJSON.testFieldVar_a = cccTest_Frequency_Options[index][0]; // sin or cos
-  testField_WorkerJSON.testFieldVar_b = cccTest_Frequency_Options[index][1]; // Start Frequency
-  testField_WorkerJSON.testFieldVar_c = cccTest_Frequency_Options[index][2]; // Doublings
-  testField_WorkerJSON.testFieldVar_d = cccTest_Frequency_Options[index][3]; // Range Start
-  testField_WorkerJSON.testFieldVar_e = cccTest_Frequency_Options[index][4]; // Range End
+  usertestWorker = new Worker('js/Front/Sections/Testing/testingWorker.js');
+
+  usertestWorkerfinished = false;
+  usertestWorker.addEventListener('message', workerEvent_showTestField, false);
+  usertestWorker.postMessage(testField_WorkerJSON);
+}
+
+function littlebit_startWorker(options) {
+
+  var numberOfSinks = 10;
+  var numberOfAreas = numberOfSinks+numberOfSinks+1;
+  var xDim = numberOfAreas*options[3];
+  var yDim = numberOfAreas*options[3];
+  userTestGlobalField = new class_TestField(xDim, yDim);
+
+  testField_WorkerJSON.originIsRelevant = false;
+
+  testField_WorkerJSON.testFieldType = "LittleBit";
+
+  testField_WorkerJSON.testFieldDimX = xDim;
+  testField_WorkerJSON.testFieldDimY = yDim;
+  testField_WorkerJSON.testFieldVar_a = options[0]; // ratio or not
+  testField_WorkerJSON.testFieldVar_b = options[1]; // max little
+  testField_WorkerJSON.testFieldVar_c = options[2]; // min little
+  testField_WorkerJSON.testFieldVar_d = options[3]; // pixel per area
+  testField_WorkerJSON.testFieldVar_e =numberOfSinks;
 
 
   usertestWorker = new Worker('js/Front/Sections/Testing/testingWorker.js');
@@ -90,18 +122,62 @@ function frequency_startWorker(index) {
 
 }
 
-function gradient_startWorker(index) {
+function frequency_startWorker(options) {
+
+  //cccTest_Frequency_Options//
 
   userTestGlobalField = new class_TestField(document.getElementById("id_TestPage_GridDimX").value, document.getElementById("id_TestPage_GridDimY").value);
 
+
+
   testField_WorkerJSON.originIsRelevant = false;
 
-  testField_WorkerJSON.testFieldType = "GRADIENT";
-  testField_WorkerJSON.testFieldGenerationType = cccTest_Gradient_Options[index][1];
+  testField_WorkerJSON.testFieldType = "Frequency";
 
-  testField_WorkerJSON.testFieldVar_a = cccTest_Gradient_Options[index][0];
   testField_WorkerJSON.testFieldDimX = document.getElementById("id_TestPage_GridDimX").value;
   testField_WorkerJSON.testFieldDimY = document.getElementById("id_TestPage_GridDimY").value;
+  testField_WorkerJSON.testFieldVar_a = options[0]; // sin or cos
+  testField_WorkerJSON.testFieldVar_b = options[1]; // Start Frequency
+  testField_WorkerJSON.testFieldVar_c = options[2]; // Doublings
+  testField_WorkerJSON.testFieldVar_d = options[3]; // Range Start
+  testField_WorkerJSON.testFieldVar_e = options[4]; // Range End
+
+
+  usertestWorker = new Worker('js/Front/Sections/Testing/testingWorker.js');
+
+  usertestWorkerfinished = false;
+  usertestWorker.addEventListener('message', workerEvent_showTestField, false);
+  usertestWorker.postMessage(testField_WorkerJSON);
+
+}
+
+function gradient_startWorker(options) {
+
+  userTestGlobalField = new class_TestField(options[7], options[8]);
+
+  testField_WorkerJSON.originIsRelevant = false;
+
+  testField_WorkerJSON.testFieldType = "Gradient";
+
+  testField_WorkerJSON.testFieldDimX = options[7];
+  testField_WorkerJSON.testFieldDimY = options[8];
+
+  if(options[0]){
+    var start= globalCMS1.getRefPosition(0);
+    var end= globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1);
+    var dis = end-start;
+    testField_WorkerJSON.testFieldVar_a = start+options[1]*dis;
+    testField_WorkerJSON.testFieldVar_b = start+options[2]*dis;
+  }
+  else {
+    testField_WorkerJSON.testFieldVar_a = options[1];
+    testField_WorkerJSON.testFieldVar_b = options[2];
+  }
+
+  testField_WorkerJSON.testFieldVar_c = options[3];
+  testField_WorkerJSON.testFieldVar_d = options[5];
+  testField_WorkerJSON.testFieldVar_e = options[4];
+  testField_WorkerJSON.testFieldVar_f = options[6];
 
   usertestWorker = new Worker('js/Front/Sections/Testing/testingWorker.js');
 
@@ -158,8 +234,8 @@ function extremaTest_startWorker(options) {
   testField_WorkerJSON.testFieldType = "Extrema";
   testField_WorkerJSON.testFieldIndex = jumpWorkers_Array.length;
 
-  testField_WorkerJSON.testFieldDimX = document.getElementById("id_TestPage_GridDimX").value;
-  testField_WorkerJSON.testFieldDimY = document.getElementById("id_TestPage_GridDimY").value;
+  testField_WorkerJSON.testFieldDimX = options[4];
+  testField_WorkerJSON.testFieldDimY = options[5];
 
   testField_WorkerJSON.testFieldVar_a = options[0]; // a
   testField_WorkerJSON.testFieldVar_b = options[1]; // b
@@ -213,11 +289,11 @@ function fillCCCTestSelection() {
       var opt = document.createElement('option');
 
       var name = "Jump : J={";
-      for (var j = 1; j < cccTest_Jumps_Options[i].length; j++) {
-        if(cccTest_Jumps_Options[0])
-          name += cccTest_Jumps_Options[i][j]*100+"%";
+      for (var j = 1; j < cccTest_Jumps_Options[i][1].length; j++) {
+        if(cccTest_Jumps_Options[i][0])
+          name += cccTest_Jumps_Options[i][1][j]*100+"%";
         else
-          name += cccTest_Jumps_Options[i][j];
+          name += cccTest_Jumps_Options[i][1][j];
 
 
         if (j != cccTest_Jumps_Options[i].length - 1)
@@ -273,10 +349,10 @@ function fillCCCTestSelection() {
         name = "Valley";
 
       if(cccTest_RidgeValleyLine_Options[i][0]){
-        name += " : m=" + cccTest_RidgeValleyLine_Options[i][1]*100+"%, M=" + cccTest_RidgeValleyLine_Options[i][2]*100+"%, m-Type=";
+        name += " : m=" + cccTest_RidgeValleyLine_Options[i][1]*100+"%, M=" + cccTest_RidgeValleyLine_Options[i][2]*100+"%, X-Type=";
       }
       else {
-        name += " : m=" + cccTest_RidgeValleyLine_Options[i][1] + ", M=" + cccTest_RidgeValleyLine_Options[i][2] + ", m-Type=";
+        name += " : m=" + cccTest_RidgeValleyLine_Options[i][1] + ", M=" + cccTest_RidgeValleyLine_Options[i][2] + ", X-Type=";
       }
 
 
@@ -297,7 +373,7 @@ function fillCCCTestSelection() {
         default:
 
       }
-      name += ", M-Type=";
+      name += ", Y-Type=";
       switch (cccTest_RidgeValleyLine_Options[i][5]) {
         case 0:
           name += "\"Linear\"";
@@ -341,10 +417,9 @@ function fillCCCTestSelection() {
       }
 
       name += "a=" + cccTest_LocalExtrema_Options[i][0] + ", b=" + cccTest_LocalExtrema_Options[i][1] + ", m=" + cccTest_LocalExtrema_Options[i][2] + ")";
-      name += " : x_step=" + cccTest_LocalExtrema_Options[i][3] + ", y_step=" + cccTest_LocalExtrema_Options[i][4];
 
       if (cccTest_LocalExtrema_Options[i][5]) {
-        name += ", Autoscale To Range";
+        name += "; Autoscale To Range";
       }
 
       opt.innerHTML = name;
@@ -381,6 +456,46 @@ function fillCCCTestSelection() {
     }
     selectbox.appendChild(optgroupJumps);
   }
+
+
+  if (cccTest_LittleBit_Options.length > 0) {
+    var optgroupJumps = document.createElement('optgroup');
+    optgroupJumps.label = "Little Bit Tests:";
+    for (var i = 0; i < cccTest_LittleBit_Options.length; i++) {
+      var opt = document.createElement('option');
+
+      var name =  "Little"+"Start".sub()+"="+cccTest_LittleBit_Options[i][1] +
+                  "; Little"+"End".sub()+"="+cccTest_LittleBit_Options[i][2]+";";
+
+
+      opt.innerHTML = name;
+      opt.value = "LittleBit";
+      optgroupJumps.appendChild(opt);
+    }
+    selectbox.appendChild(optgroupJumps);
+  }
+
+  if (cccTest_Treshold_Options.length > 0) {
+    var optgroupJumps = document.createElement('optgroup');
+    optgroupJumps.label = "Treshold Tests:";
+    for (var i = 0; i < cccTest_Treshold_Options.length; i++) {
+      var opt = document.createElement('option');
+
+      var name =  "m="+cccTest_Treshold_Options[i][3] +
+                  ", T="+cccTest_Treshold_Options[i][4]+
+                  ", M="+cccTest_Treshold_Options[i][5]+
+                  ", Type="+cccTest_Treshold_Options[i][1];
+
+
+      opt.innerHTML = name;
+      opt.value = "Treshold";
+      optgroupJumps.appendChild(opt);
+    }
+    selectbox.appendChild(optgroupJumps);
+  }
+
+
+
 
 
   selectbox.selectedIndex = 0;

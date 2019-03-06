@@ -37,9 +37,9 @@ function renderPathPlot() {
 
 function stopPathPlotAnimation(){
 
-  if(doingAnimation){
+  if(pathplot_doAnimation){
     cancelAnimationFrame( pathplotAnimationID );
-    doingAnimation = false;
+    pathplot_doAnimation = false;
   }
 
 
@@ -52,7 +52,7 @@ function animatePathPlot() {
 
         //testIntervalAnimation = setInterval(renderPathPlot, testAnimationInterval);
 
-        if(doingAnimation){
+        if(pathplot_doAnimation){
           pathplotAnimationID = requestAnimationFrame( animatePathPlot );
   				renderPathPlot();
         }
@@ -61,7 +61,7 @@ function animatePathPlot() {
 }
 
 function startPathPlotAnimation(){
-  doingAnimation=true;
+  pathplot_doAnimation=true;
   animatePathPlot();
 }
 
