@@ -79,7 +79,7 @@ var cccTest_NewLocalExtrema_Options = [];
 var cccTest_LocalExtrema_Options = [
   //[a,b,m,stepX,#stepsX,stepY,#stepsY,autoScale],
   [3,3,0,true,101,101],
-  [-3,-3,0,true,101,101],
+  [-3,-3,0,false,101,101],
   [-3,3,0,true,101,101],
   [3,-3,0,true,101,101],
 ];

@@ -165,7 +165,7 @@ function frequency_startWorker(options) {
 
   //cccTest_Frequency_Options//
 
-  userTestGlobalField = new class_TestField(document.getElementById("id_TestPage_GridDimX").value, document.getElementById("id_TestPage_GridDimY").value);
+  userTestGlobalField = new class_TestField(100, 100);
 
 
 
@@ -267,7 +267,7 @@ function valleyTest_startWorker(options) {
 function extremaTest_startWorker(options) {
 
   //var newWorker;
-  userTestGlobalField = new class_TestField(document.getElementById("id_TestPage_GridDimX").value, document.getElementById("id_TestPage_GridDimY").value);
+  userTestGlobalField = new class_TestField(options[4], options[5]);
 
   testField_WorkerJSON.originIsRelevant = false;
 
@@ -458,7 +458,7 @@ function fillCCCTestSelection() {
 
       name += "a=" + cccTest_LocalExtrema_Options[i][0] + ", b=" + cccTest_LocalExtrema_Options[i][1] + ", m=" + cccTest_LocalExtrema_Options[i][2] + ")";
 
-      if (cccTest_LocalExtrema_Options[i][5]) {
+      if (cccTest_LocalExtrema_Options[i][3]) {
         name += "; Autoscale To Range";
       }
 

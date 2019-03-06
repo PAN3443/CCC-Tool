@@ -468,12 +468,13 @@ self.addEventListener('message', function(e) {
           min = Math.min(min,value);
           max = Math.max(max,value);
 
-          jsonObj.positions.push([currentY,currentX]);
+          jsonObj.positions.push([currentX,currentY]);
           jsonObj.testFieldVal.push(value);
         }
 
       }
        doScale = data.testFieldVar_d;
+
       break;
 
       ///////////////////////////
