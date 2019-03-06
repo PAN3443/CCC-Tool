@@ -4,39 +4,84 @@
 
 function addNewTest() {
 
+  var newSelectedIndex = undefined;
   switch (document.getElementById("id_TestPage_SelectNewTestType").selectedIndex) {
     case 0:
       // Jumps
-        cccTest_Jumps_Options.push(cccTest_NewJump_Options);
+        if(cccTest_NewJump_Options[1].length<2){
+          openAlert("Attention".bold()+": The jump set needs at least two jump elements! Please edit the jump set befor adding a new jump-test to the test-list or press cancel and go back to the test list.");
+          return;
+        }
+        var tmpArray = [];
+        tmpArray.push(cccTest_NewJump_Options[0]);
+        var tmpArray2 = [];
+        for (var i = 0; i < cccTest_NewJump_Options[1].length; i++) {
+          tmpArray2.push(cccTest_NewJump_Options[1][i])
+        }
+        tmpArray.push(tmpArray2);
+        cccTest_Jumps_Options.push(tmpArray);
+        newSelectedIndex = cccTest_Jumps_Options.length-1;
       break;
     case 1:
       // Gradient
-
+      var tmpArray = [];
+      for (var i = 0; i < cccTest_NewGradient_Options.length; i++) {
+        tmpArray.push(cccTest_NewGradient_Options[i])
+      }
+      cccTest_Gradient_Options.push(tmpArray);
+      newSelectedIndex = cccTest_Jumps_Options.length+cccTest_Gradient_Options.length-1;
       break;
     case 2:
       // Ridge & Valley
-
+      var tmpArray = [];
+      for (var i = 0; i < cccTest_NewRidgeValley_Options.length; i++) {
+        tmpArray.push(cccTest_NewRidgeValley_Options[i])
+      }
+      cccTest_RidgeValleyLine_Options.push(tmpArray);
+      newSelectedIndex = cccTest_Jumps_Options.length+cccTest_Gradient_Options.length+cccTest_RidgeValleyLine_Options.length-1;
       break;
     case 3:
       // Local Extrema
-
+      var tmpArray = [];
+      for (var i = 0; i < cccTest_NewLocalExtrema_Options.length; i++) {
+        tmpArray.push(cccTest_NewLocalExtrema_Options[i])
+      }
+      cccTest_LocalExtrema_Options.push(tmpArray);
+      newSelectedIndex = cccTest_Jumps_Options.length+cccTest_Gradient_Options.length+cccTest_RidgeValleyLine_Options.length+cccTest_LocalExtrema_Options.length-1;
       break;
     case 4:
       // Frequency
-
+      var tmpArray = [];
+      for (var i = 0; i < cccTest_NewFrequency_Options.length; i++) {
+        tmpArray.push(cccTest_NewFrequency_Options[i])
+      }
+      cccTest_Frequency_Options.push(tmpArray);
+      newSelectedIndex = cccTest_Jumps_Options.length+cccTest_Gradient_Options.length+cccTest_RidgeValleyLine_Options.length+cccTest_LocalExtrema_Options.length+cccTest_Frequency_Options.length-1;
       break;
       case 5:
         // Little Bit
-
+        var tmpArray = [];
+        for (var i = 0; i < cccTest_NewLittleBit_Options.length; i++) {
+          tmpArray.push(cccTest_NewLittleBit_Options[i])
+        }
+        cccTest_LittleBit_Options.push(tmpArray);
+        newSelectedIndex = cccTest_Jumps_Options.length+cccTest_Gradient_Options.length+cccTest_RidgeValleyLine_Options.length+cccTest_LocalExtrema_Options.length+cccTest_Frequency_Options.length+cccTest_LittleBit_Options.length-1;
         break;
         case 6:
           // Treshold
-
+          var tmpArray = [];
+          for (var i = 0; i < cccTest_NewTreshold_Options.length; i++) {
+            tmpArray.push(cccTest_NewTreshold_Options[i])
+          }
+          cccTest_Treshold_Options.push(tmpArray);
+          newSelectedIndex = cccTest_Jumps_Options.length+cccTest_Gradient_Options.length+cccTest_RidgeValleyLine_Options.length+cccTest_LocalExtrema_Options.length+cccTest_Frequency_Options.length+cccTest_LittleBit_Options.length+cccTest_Treshold_Options.length-1;
           break;
   }
 
 
   showTestSet();
+  document.getElementById("id_TestPage_UserTest_List").selectedIndex = newSelectedIndex;
+  //startCCCTest();
 }
 
 
@@ -211,11 +256,9 @@ function updateTestVariables(){
 
 function check_xFktType(){
 
-  document.getElementById("id_TestPage_NewTest_I2").disabled=false;
-  if(document.getElementById("id_TestPage_NewTest_XType1").checked){
+
+  if(document.getElementById("id_TestPage_NewTest_XType1").checked)
     current_xFktType=0;
-    document.getElementById("id_TestPage_NewTest_I2").disabled=true;
-  }
 
     if(document.getElementById("id_TestPage_NewTest_XType2").checked)
       current_xFktType=1;
@@ -227,11 +270,8 @@ function check_xFktType(){
 
 function check_yFktType(){
 
-  document.getElementById("id_TestPage_NewTest_I4").disabled=false;
-  if(document.getElementById("id_TestPage_NewTest_YType1").checked){
+  if(document.getElementById("id_TestPage_NewTest_YType1").checked)
     current_yFktType=0;
-    document.getElementById("id_TestPage_NewTest_I4").disabled=true;
-  }
 
     if(document.getElementById("id_TestPage_NewTest_YType2").checked)
       current_yFktType=1;

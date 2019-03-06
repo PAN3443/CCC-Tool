@@ -6,7 +6,7 @@ function selectNewTresholdTestType(){
   document.getElementById("id_TestPage_NewTest_D3").style.display="flex";
   document.getElementById("id_TestPage_NewTest_D4").style.display="flex";
 
-  document.getElementById("id_TestPage_doRatioCheckbox").checked = cccTest_NewLittleBit_Options[0];
+  document.getElementById("id_TestPage_doRatioCheckbox").checked = cccTest_NewTreshold_Options[0];
 
   document.getElementById("id_TestPage_NewTest_V1").innerHTML="Min:";
   document.getElementById("id_TestPage_NewTest_V2").innerHTML="Treshold:";
@@ -42,9 +42,9 @@ function selectNewTresholdTestType(){
   }
 
   document.getElementById("id_TestPage_XFctType_Div").style.display="block";
-  document.getElementById("id_TestPage_NewTest_XTypeL1").innerHTML=" : Linear-Ambiance";
-  document.getElementById("id_TestPage_NewTest_XTypeL2").innerHTML=" : Flat-Ambiance";
-  document.getElementById("id_TestPage_NewTest_XTypeL3").innerHTML=" : Steep-Ambiance";
+  document.getElementById("id_TestPage_NewTest_XTypeL1").innerHTML=" : Linear-Surrounding";
+  document.getElementById("id_TestPage_NewTest_XTypeL2").innerHTML=" : Flat-Surrounding";
+  document.getElementById("id_TestPage_NewTest_XTypeL3").innerHTML=" : Steep-Surrounding";
 
   current_xFktType= cccTest_NewTreshold_Options[1];
   switch (current_xFktType) { // mType
@@ -69,6 +69,11 @@ function selectNewTresholdTestType(){
 
 function updateTresholdTestVariables(){
     check_xFktType();
+
+    if(current_xFktType==0)
+      document.getElementById("id_TestPage_NewTest_I4").disabled=true;
+    else
+      document.getElementById("id_TestPage_NewTest_I4").disabled=false;
 
     var value_m = parseFloat(document.getElementById("id_TestPage_NewTest_I1").value);
     document.getElementById("id_TestPage_NewTest_I1").value = value_m;
@@ -184,7 +189,6 @@ function draw_TesholdFunctionType(){
   var value_m = document.getElementById("id_TestPage_NewTest_I1").value;
   var value_T = document.getElementById("id_TestPage_NewTest_I2").value;
   var value_M = document.getElementById("id_TestPage_NewTest_I3").value;
-  draw_FunctionType("id_TestPage_Canvas_xFktType",exp,value_m,value_M,current_xFktType);
 
-
+  draw_FunctionTypeTresh("id_TestPage_Canvas_xFktType", exp, current_xFktType )
 }

@@ -80,18 +80,18 @@ var cccTest_LocalExtrema_Options = [
   //[a,b,m,stepX,#stepsX,stepY,#stepsY,autoScale],
   [3,3,0,true,101,101],
   [-3,-3,0,true,101,101],
-  [-3,30,0,true,101,101],
+  [-3,3,0,true,101,101],
   [3,-3,0,true,101,101],
 ];
 
 var cccTest_NewFrequency_Options = [];
 var cccTest_Frequency_Options = [
 
-  /*[true,true,1,4,0.0,1.0],
+  [true,true,1,4,0.0,1.0],
   [true,false,1,4,0.0,1.0],
   [true,true,1,6,0.0,1.0],
   [true,true,2,4,0.0,1.0],
-  [true,true,3,4,0.0,1.0]*/
+  [true,true,3,4,0.0,1.0]
 
 ];
 

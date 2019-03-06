@@ -328,7 +328,7 @@ self.addEventListener('message', function(e) {
                   break;
                   case 2: // m-Type = quad (peak)
 
-                  //  if(data.testFieldVar_e%2==0){
+
                       if(currentX<=0){
                         value = Math.round((-1*amountOfGradient*(Math.pow(1+currentX,data.testFieldVar_e))+minValue ) * errorMath) / errorMath;
                       }
@@ -338,15 +338,6 @@ self.addEventListener('message', function(e) {
                         else
                           value = Math.round((-1*amountOfGradient*(Math.pow(1-currentX,data.testFieldVar_e))+minValue ) * errorMath) / errorMath;
                       }
-                    /*}
-                    else{
-                      if(currentX<=0){
-                        value = Math.round((  minValue-amountOfGradient*(Math.pow(1+currentX,data.testFieldVar_e))) * errorMath) / errorMath;
-                      }
-                      else{
-                        value = Math.round((  minValue-amountOfGradient*(Math.pow(1-currentX,data.testFieldVar_e))) * errorMath) / errorMath;
-                      }
-                    }*/
 
                   break;
 
@@ -532,33 +523,6 @@ self.addEventListener('message', function(e) {
         }
 
       }
-
-      /*if(currentY!=1){
-
-        var searchFrequence = true;
-        var counter =1;
-        var basisFirstEnd = 1/basisFrequence;
-        var checkPosition = 0;
-
-        /*while(searchFrequence){
-
-          var newCheckPosition = checkPosition+Math.pow(basisFirstEnd,counter);
-
-
-          console.log(y,currentY,newCheckPosition);
-
-          if(currentY<=newCheckPosition){
-            frequencyDeterminer = basisFrequence*(currentY-checkPosition)/Math.pow(basisFirstEnd,counter);
-            searchFrequence=false;
-          }
-          else {
-            counter++;
-          }
-
-          checkPosition = newCheckPosition;
-        }*
-
-      }*/
 
       break;
       ///////////////////////////

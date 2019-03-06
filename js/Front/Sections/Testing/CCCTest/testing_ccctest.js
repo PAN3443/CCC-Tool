@@ -12,6 +12,45 @@ function showTestSet() {
 
 function removeCCCTest() {
 
+  switch (document.getElementById("id_TestPage_UserTest_List").options[document.getElementById("id_TestPage_UserTest_List").selectedIndex].value) {
+
+    case "Jump":
+      cccTest_Jumps_Options.splice(document.getElementById("id_TestPage_UserTest_List").selectedIndex, 1);
+      break;
+
+    case "Gradient":
+      var index = document.getElementById("id_TestPage_UserTest_List").selectedIndex - cccTest_Jumps_Options.length;
+      cccTest_Gradient_Options.splice(index, 1);
+      break;
+
+    case "Valley":
+      var index = document.getElementById("id_TestPage_UserTest_List").selectedIndex - cccTest_Gradient_Options.length - cccTest_Jumps_Options.length;
+      cccTest_RidgeValleyLine_Options.splice(index, 1);
+      break;
+
+    case "Extrema":
+      var index = document.getElementById("id_TestPage_UserTest_List").selectedIndex - cccTest_Gradient_Options.length - cccTest_Jumps_Options.length - cccTest_RidgeValleyLine_Options.length;
+      cccTest_LocalExtrema_Options.splice(index, 1);
+      break;
+
+    case "Frequency":
+      var index = document.getElementById("id_TestPage_UserTest_List").selectedIndex - cccTest_Gradient_Options.length - cccTest_Jumps_Options.length - cccTest_RidgeValleyLine_Options.length - cccTest_LocalExtrema_Options.length;
+      cccTest_Frequency_Options.splice(index, 1);
+      break;
+
+      case "LittleBit":
+        var index = document.getElementById("id_TestPage_UserTest_List").selectedIndex - cccTest_Gradient_Options.length - cccTest_Jumps_Options.length - cccTest_RidgeValleyLine_Options.length - cccTest_LocalExtrema_Options.length - cccTest_Frequency_Options.length;
+        cccTest_LittleBit_Options.splice(index, 1);
+        break;
+
+        case "Treshold":
+          var index = document.getElementById("id_TestPage_UserTest_List").selectedIndex - cccTest_Gradient_Options.length - cccTest_Jumps_Options.length - cccTest_RidgeValleyLine_Options.length - cccTest_LocalExtrema_Options.length - cccTest_Frequency_Options.length - cccTest_LittleBit_Options.length;
+          cccTest_Treshold_Options.splice(index, 1);
+          break;
+
+  }
+  fillCCCTestSelection();
+  startCCCTest();
 }
 
 function startCCCTest() {
@@ -134,13 +173,14 @@ function frequency_startWorker(options) {
 
   testField_WorkerJSON.testFieldType = "Frequency";
 
-  testField_WorkerJSON.testFieldDimX = document.getElementById("id_TestPage_GridDimX").value;
-  testField_WorkerJSON.testFieldDimY = document.getElementById("id_TestPage_GridDimY").value;
-  testField_WorkerJSON.testFieldVar_a = options[0]; // sin or cos
-  testField_WorkerJSON.testFieldVar_b = options[1]; // Start Frequency
-  testField_WorkerJSON.testFieldVar_c = options[2]; // Doublings
-  testField_WorkerJSON.testFieldVar_d = options[3]; // Range Start
-  testField_WorkerJSON.testFieldVar_e = options[4]; // Range End
+  testField_WorkerJSON.testFieldDimX = 100;
+  testField_WorkerJSON.testFieldDimY = 100;
+  testField_WorkerJSON.testFieldVar_f = options[0]; // ratio
+  testField_WorkerJSON.testFieldVar_a = options[1]; // sin or cos
+  testField_WorkerJSON.testFieldVar_b = options[2]; // Start Frequency
+  testField_WorkerJSON.testFieldVar_c = options[3]; // Doublings
+  testField_WorkerJSON.testFieldVar_d = options[4]; // Range Start
+  testField_WorkerJSON.testFieldVar_e = options[5]; // Range End
 
 
   usertestWorker = new Worker('js/Front/Sections/Testing/testingWorker.js');
@@ -289,7 +329,7 @@ function fillCCCTestSelection() {
       var opt = document.createElement('option');
 
       var name = "Jump : J={";
-      for (var j = 1; j < cccTest_Jumps_Options[i][1].length; j++) {
+      for (var j = 0; j < cccTest_Jumps_Options[i][1].length; j++) {
         if(cccTest_Jumps_Options[i][0])
           name += cccTest_Jumps_Options[i][1][j]*100+"%";
         else
