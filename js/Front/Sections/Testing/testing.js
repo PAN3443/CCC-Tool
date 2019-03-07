@@ -22,7 +22,36 @@ function openTestSection(){
   }
   selectobject.selectedIndex = 0;
 
-  switchTest(0);
+  document.getElementById("id_TestVisualization_Pixel").checked = true;
+  updateTestVis();
+
+  //switchTest(0);
+  testingModus=true;
+  document.getElementById("id_Test_FunctionCollection").style.width = "100vw";
+  document.getElementById("id_Test_TestDiv").style.width = "0vw";
+}
+
+
+function switchTestDisplay() {
+  if(testingModus){
+    testingModus=false;
+  }
+  else {
+    testingModus=true;
+  }
+  slideTestDisplayDivs();
+}
+
+function slideTestDisplayDivs(){
+
+  if(testingModus){
+    document.getElementById("id_Test_FunctionCollection").style.width = "100vw";
+    document.getElementById("id_Test_TestDiv").style.width = "0vw";
+  }
+  else {
+    document.getElementById("id_Test_FunctionCollection").style.width = "0vw";
+    document.getElementById("id_Test_TestDiv").style.width = "100vw";
+  }
 
 }
 
@@ -59,7 +88,7 @@ function startTest(){
   }
 }
 
-function switchTest(type){
+/*function switchTest(type){
 
   testingType=type;
 
@@ -78,7 +107,7 @@ function switchTest(type){
 
       fillCCCTestSelection();
 
-      document.getElementById("id_TestPage_UserTest_OptionButtons").style.display="block";
+      doswitchTestcument.getElementById("id_TestPage_UserTest_OptionButtons").style.display="block";
       document.getElementById("id_TestPage_CCCTestInfoBox_Div").style.display="block";
 
 
@@ -104,7 +133,7 @@ function switchTest(type){
 
   selectTestCMS();
 
-}
+}*/
 
 
 function workerEvent_showTestField(e) {

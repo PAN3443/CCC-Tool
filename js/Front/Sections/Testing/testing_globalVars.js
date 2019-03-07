@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////
 //////  Testing Global Vars
-
+var testingModus = 0;
 
 var testingType = 0;
 

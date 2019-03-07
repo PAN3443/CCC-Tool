@@ -6,37 +6,37 @@ function init_Testing(){
   document.getElementById("id_Test_downloadScreenshotGreyFull").addEventListener('click', downloadTestImageGrey, false);
   do3DTestField=false;
 
-  document.getElementById('id_TestCanvas').addEventListener('contextmenu', event => event.preventDefault());
-  document.getElementById('id_TestCanvas').addEventListener("mousemove", eventTestMapping_mousemove);
-  document.getElementById('id_TestCanvas').addEventListener("mouseleave", eventMapping_mouseleave);
-  document.getElementById('id_TestCanvas').addEventListener("mouseenter", eventMapping_mouseenter);
-  document.getElementById('id_TestCanvas').addEventListener("mousedown", eventMapping_mousedown);
-  document.getElementById('id_TestCanvas').addEventListener("mouseup", eventMapping_mouseup);
-  document.getElementById("id_TestCanvas").addEventListener("wheel", eventTestMapping_mousewheel);
+  document.getElementById('id_Test_MeshVisDiv').addEventListener('contextmenu', event => event.preventDefault());
+  document.getElementById('id_Test_MeshVisDiv').addEventListener("mousemove", eventTestMapping_mousemove);
+  document.getElementById('id_Test_MeshVisDiv').addEventListener("mouseleave", eventMapping_mouseleave);
+  document.getElementById('id_Test_MeshVisDiv').addEventListener("mouseenter", eventMapping_mouseenter);
+  document.getElementById('id_Test_MeshVisDiv').addEventListener("mousedown", eventMapping_mousedown);
+  document.getElementById('id_Test_MeshVisDiv').addEventListener("mouseup", eventMapping_mouseup);
+  document.getElementById("id_Test_MeshVisDiv").addEventListener("wheel", eventTestMapping_mousewheel);
 
-  document.getElementById('id_TestCanvasGrey').addEventListener('contextmenu', event => event.preventDefault());
-  document.getElementById('id_TestCanvasGrey').addEventListener("mousemove", eventTestMapping_mousemove);
-  document.getElementById('id_TestCanvasGrey').addEventListener("mouseleave", eventMapping_mouseleave);
-  document.getElementById('id_TestCanvasGrey').addEventListener("mouseenter", eventMapping_mouseenter);
-  document.getElementById('id_TestCanvasGrey').addEventListener("mousedown", eventMapping_mousedown);
-  document.getElementById('id_TestCanvasGrey').addEventListener("mouseup", eventMapping_mouseup);
-  document.getElementById("id_TestCanvasGrey").addEventListener("wheel", eventTestMapping_mousewheel);
+  document.getElementById('id_Test_MeshVisDivGrey').addEventListener('contextmenu', event => event.preventDefault());
+  document.getElementById('id_Test_MeshVisDivGrey').addEventListener("mousemove", eventTestMapping_mousemove);
+  document.getElementById('id_Test_MeshVisDivGrey').addEventListener("mouseleave", eventMapping_mouseleave);
+  document.getElementById('id_Test_MeshVisDivGrey').addEventListener("mouseenter", eventMapping_mouseenter);
+  document.getElementById('id_Test_MeshVisDivGrey').addEventListener("mousedown", eventMapping_mousedown);
+  document.getElementById('id_Test_MeshVisDivGrey').addEventListener("mouseup", eventMapping_mouseup);
+  document.getElementById("id_Test_MeshVisDivGrey").addEventListener("wheel", eventTestMapping_mousewheel);
 
-  document.getElementById('id_TestCanvasFull').addEventListener('contextmenu', event => event.preventDefault());
-  document.getElementById('id_TestCanvasFull').addEventListener("mousemove", eventTestMapping_mousemove);
-  document.getElementById('id_TestCanvasFull').addEventListener("mouseleave", eventMapping_mouseleave);
-  document.getElementById('id_TestCanvasFull').addEventListener("mouseenter", eventMapping_mouseenter);
-  document.getElementById('id_TestCanvasFull').addEventListener("mousedown", eventMapping_mousedown);
-  document.getElementById('id_TestCanvasFull').addEventListener("mouseup", eventMapping_mouseup);
-  document.getElementById("id_TestCanvasFull").addEventListener("wheel", eventTestMapping_mousewheel);
+  document.getElementById('id_Test_MeshVisDivFull').addEventListener('contextmenu', event => event.preventDefault());
+  document.getElementById('id_Test_MeshVisDivFull').addEventListener("mousemove", eventTestMapping_mousemove);
+  document.getElementById('id_Test_MeshVisDivFull').addEventListener("mouseleave", eventMapping_mouseleave);
+  document.getElementById('id_Test_MeshVisDivFull').addEventListener("mouseenter", eventMapping_mouseenter);
+  document.getElementById('id_Test_MeshVisDivFull').addEventListener("mousedown", eventMapping_mousedown);
+  document.getElementById('id_Test_MeshVisDivFull').addEventListener("mouseup", eventMapping_mouseup);
+  document.getElementById("id_Test_MeshVisDivFull").addEventListener("wheel", eventTestMapping_mousewheel);
 
-  document.getElementById('id_TestCanvasGreyFull').addEventListener('contextmenu', event => event.preventDefault());
-  document.getElementById('id_TestCanvasGreyFull').addEventListener("mousemove", eventTestMapping_mousemove);
-  document.getElementById('id_TestCanvasGreyFull').addEventListener("mouseleave", eventMapping_mouseleave);
-  document.getElementById('id_TestCanvasGreyFull').addEventListener("mouseenter", eventMapping_mouseenter);
-  document.getElementById('id_TestCanvasGreyFull').addEventListener("mousedown", eventMapping_mousedown);
-  document.getElementById('id_TestCanvasGreyFull').addEventListener("mouseup", eventMapping_mouseup);
-  document.getElementById("id_TestCanvasGreyFull").addEventListener("wheel", eventTestMapping_mousewheel);
+  document.getElementById('id_Test_MeshVisDivGreyFull').addEventListener('contextmenu', event => event.preventDefault());
+  document.getElementById('id_Test_MeshVisDivGreyFull').addEventListener("mousemove", eventTestMapping_mousemove);
+  document.getElementById('id_Test_MeshVisDivGreyFull').addEventListener("mouseleave", eventMapping_mouseleave);
+  document.getElementById('id_Test_MeshVisDivGreyFull').addEventListener("mouseenter", eventMapping_mouseenter);
+  document.getElementById('id_Test_MeshVisDivGreyFull').addEventListener("mousedown", eventMapping_mousedown);
+  document.getElementById('id_Test_MeshVisDivGreyFull').addEventListener("mouseup", eventMapping_mouseup);
+  document.getElementById("id_Test_MeshVisDivGreyFull").addEventListener("wheel", eventTestMapping_mousewheel);
 
   document.getElementById('id_TestPage_NewJumpValue').addEventListener("keyup", newJumpTestStartPerEnter );
 

@@ -25,7 +25,6 @@ var testing_DrawBoundingBox = false;
 
 var testing_DrawAxes = false;
 
-
 var bg_texture;
 var bgWidth;
 var bgHeight;

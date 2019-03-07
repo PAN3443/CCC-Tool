@@ -118,19 +118,21 @@ class class_TestField {
     var newArray = [];
     var goToNull = this.vmin * scalefactor3DTest;
 
-      for (var y = 0; y < this.dimensionY; y++) {
-        for (var x = 0; x < this.dimensionX; x++) {
-          newArray.push(new THREE.Vector3(this.xPos[x][y],this.yPos[x][y],(this.fieldValues[x][y]*scalefactor3DTest)-goToNull));
-        }
-      }
 
+    for (var y = 0; y < this.dimensionY; y++) {
+      for (var x = 0; x < this.dimensionX; x++) {
+        newArray.push(new THREE.Vector3(this.xPos[x][y],this.yPos[x][y],(this.fieldValues[x][y]*scalefactor3DTest)-goToNull));
+      }
+    }
 
 
     return newArray;
   }
 
 
-
+  getZPos(scalefactor3DTest, x,y){
+    return this.fieldValues[x][y]*scalefactor3DTest;
+  }
 
 
 }

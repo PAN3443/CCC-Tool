@@ -4,12 +4,12 @@
 function updateTestMappingCanvas()
 {
 
-  var idCanvas="id_TestCanvas";
-  var idCanvasGrey = "id_TestCanvasGrey";
+  var idCanvas="id_Test_MeshVisDiv";
+  var idCanvasGrey = "id_Test_MeshVisDivGrey";
 
   if(document.getElementById("id_PopUp_fullTestingWindow").style.display!="none"){
-    idCanvas="id_TestCanvasFull";
-    idCanvasGrey = "id_TestCanvasGreyFull";
+    idCanvas="id_Test_MeshVisDivFull";
+    idCanvasGrey = "id_Test_MeshVisDivGreyFull";
   }
 
 
@@ -154,31 +154,7 @@ function startAnimationTestMapping(){
   animateTestMapping();
 }
 
-function downloadTestImage() {
-  stopAnimationTestMapping();
-  var oldSize = testmapping_renderer.getSize();
-  testmapping_renderer.setSize(2160, 2160);
-  testmapping_renderer.preserveDrawingBuffer = true;
-  testmapping_renderer.render( testmapping_scene,testmapping_camera );
-  var testing_ImgData = testmapping_renderer.domElement.toDataURL();
-  testmapping_renderer.preserveDrawingBuffer = false;
-  testmapping_renderer.setSize(oldSize.width, oldSize.height);
-  startAnimationTestMapping();
-  this.href = testing_ImgData;
-}
 
-function downloadTestImageGrey() {
-  stopAnimationTestMapping();
-  var oldSize = testmapping_rendererGrey.getSize();
-  testmapping_rendererGrey.setSize(2160, 2160);
-  testmapping_rendererGrey.preserveDrawingBuffer = true;
-  testmapping_rendererGrey.render( testmapping_sceneGrey,testmapping_cameraGrey );
-  var testing_ImgData = testmapping_rendererGrey.domElement.toDataURL();
-  testmapping_rendererGrey.preserveDrawingBuffer = false;
-  testmapping_rendererGrey.setSize(oldSize.width, oldSize.height);
-  startAnimationTestMapping();
-  this.href = testing_ImgData;
-}
 
 function initTestMapping()
 {
@@ -186,7 +162,7 @@ function initTestMapping()
   mapping_Translation_Y=0;
 
 
-  var canvasObj = document.getElementById("id_TestCanvas");
+  var canvasObj = document.getElementById("id_Test_MeshVisDiv");
   canvasObj.innerHTML = "";
   var box = canvasObj.getBoundingClientRect();
 
@@ -217,7 +193,7 @@ function initTestMapping()
   /////////////////////////////////////
   /////////////////////////////////////
 
-  var canvasObjGrey = document.getElementById("id_TestCanvasGrey");
+  var canvasObjGrey = document.getElementById("id_Test_MeshVisDivGrey");
   canvasObjGrey.innerHTML = "";
   var boxGrey = canvasObjGrey.getBoundingClientRect();
 

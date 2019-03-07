@@ -45,7 +45,6 @@ function showTestPage(){
     document.getElementById("id_myDesignsPage").style.display="none";
     document.getElementById("id_TestingPage").style.display="block";
     openTestSection();
-    startAnimationTestMapping();
 
     document.getElementById("id_actionMenu_myDesignPart").style.display="none";
     document.getElementById("id_actionMenu_testPart").style.display="block";

@@ -3,12 +3,21 @@
 
 function openFullTestMappingScreen(text){
   document.getElementById("id_PopUp_fullTestingWindow").style.display="flex";
-  updateTestMappingCanvas(true);
+
+  if(document.getElementById("id_TestVisualization_Mesh").checked){
+    updateTestMappingCanvas(true);
+  }
+  else{
+    drawTestField(userTestGlobalField, true);
+  }
+
 }
 
 function closeFullTestMappingScreen(){
   document.getElementById("id_PopUp_fullTestingWindow").style.display="none";
-  updateTestMappingCanvas(false);
+
+  if(document.getElementById("id_TestVisualization_Mesh").checked)
+    updateTestMappingCanvas(false);
 }
 
 //////////////////////////////////////

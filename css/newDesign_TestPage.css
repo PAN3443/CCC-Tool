@@ -17,8 +17,10 @@
   cursor:not-allowed;
 }
 
-#id_PopUp_FullTestFuctionCanvas,
-#id_CCCTestCanvas{
+#id_Test_PixelCanvas,
+#id_Test_PixelCanvasGrey,
+#id_Test_PixelCanvasFull,
+#id_Test_PixelCanvasGreyFull{
   image-rendering: optimizeSpeed;             /* Older versions of FF*/
   image-rendering: -moz-crisp-edges;          /* FF 6.0+*/
   image-rendering: -webkit-optimize-contrast; /* Webkit (non standard naming)*/
@@ -26,7 +28,6 @@
   image-rendering: pixelated;               /* Possible future browsers.*/
   -ms-interpolation-mode: nearest-neighbor;   /* IE (non standard naming)*/
 }
-
 
 .class_Test_RenderButton{
   height: 3vh;
@@ -47,3 +48,38 @@
 .class_Test_RenderButton:hover{
   background:rgba(120,120,120,0.3);
 }
+
+
+#id_Test_FunctionCollection,
+#id_Test_TestDiv
+{
+  overflow: hidden;
+  -webkit-transition: width 2s, height 2s; /* For Safari 3.1 to 6.0 */
+  transition: width 2s, height 2s;
+}
+
+.class_Test_ShowTestButton{
+  height:5vh;
+  width:auto;
+  cursor:pointer;
+  vertical-align: middle;
+  text-align:center;
+  line-height:5vh;
+  color: transparent;/*rgb(180,180,180);*/
+  font-size:2.5vh;
+  box-sizing: border-box;
+
+  font-weight:bold;
+  background-color: rgb(20,20,20);
+
+  text-shadow: 0vh 0.1vh 0.1vh rgba(255,255,255,0.2);
+  -webkit-background-clip: text;
+     -moz-background-clip: text;
+          background-clip: text;
+
+
+}
+
+/*#id_Test_ShowTestButton:hover{
+  background:rgb(204, 221, 255);
+}*/
