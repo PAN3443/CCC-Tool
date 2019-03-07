@@ -114,7 +114,7 @@ function drawTestField(field, doStatusbar){
 
     //geometry.computeFaceNormals();
 
-    var largestDis = Math.hypot(geometry.boundingBox.getSize().x,geometry.boundingBox.getSize().y,geometry.boundingBox.getSize().z); //,geometry.boundingBox.getSize().z);
+    var largestDis = Math.max(geometry.boundingBox.getSize().x,geometry.boundingBox.getSize().y,geometry.boundingBox.getSize().z); // Math.hypot(geometry.boundingBox.getSize().x,geometry.boundingBox.getSize().y,geometry.boundingBox.getSize().z); //,geometry.boundingBox.getSize().z);
 
     var center = geometry.boundingBox.getCenter()
 
@@ -124,8 +124,6 @@ function drawTestField(field, doStatusbar){
     mapping_maxRadius = largestDis*2;
     mapping_zoomFactor = mapping_maxRadius / 50;
 
-    /*if(testmapping_camera.position.z>mapping_maxRadius || testmapping_camera.position.z<mapping_minRadius)
-     testmapping_camera.position.z = largestDis;*/
 
     /*testmapping_camera.near = largestDis*0.000000001;
     testmapping_camera.far = mapping_maxRadius*2;
@@ -133,15 +131,16 @@ function drawTestField(field, doStatusbar){
 
     testmapping_camera.position.x = geometry.boundingBox.getSize().x;
     testmapping_camera.position.y = geometry.boundingBox.getSize().y;
-    testmapping_camera.position.z = 0; //0//-1*center.z;*/
-
-    /*testmapping_cameraGrey.near = largestDis*0.000000001;
-    testmapping_cameraGrey.far = mapping_maxRadius*2;
-    testmapping_cameraGrey.updateProjectionMatrix();*/
+    //testmapping_camera.position.z = 0; //0//-1*center.z;*/
 
     testmapping_cameraGrey.position.x = geometry.boundingBox.getSize().x;
     testmapping_cameraGrey.position.y = geometry.boundingBox.getSize().y;
-    testmapping_cameraGrey.position.z = 0; //0//-1*center.z;*/
+    //testmapping_cameraGrey.position.z = 0; //0//-1*center.z;*/
+
+    if(testmapping_camera.position.z>mapping_maxRadius || testmapping_camera.position.z<mapping_minRadius){
+      testmapping_camera.position.z = largestDis;
+      testmapping_cameraGrey.position.z = largestDis;
+    }
 
     var material =
       //new THREE.MeshDepthMaterial( {
@@ -278,9 +277,9 @@ function drawTestField(field, doStatusbar){
       var orginY = center.y-(geometry.boundingBox.getSize().y/2);
       var orginZ = center.z-(geometry.boundingBox.getSize().z/2);
 
-      var lengthX = geometry.boundingBox.getSize().x*1.2;
-      var lengthY = geometry.boundingBox.getSize().y*1.2;
-      var lengthZ = geometry.boundingBox.getSize().z*1.2;
+      var lengthX = geometry.boundingBox.getSize().x*1.5;
+      var lengthY = geometry.boundingBox.getSize().y*1.5;
+      var lengthZ = geometry.boundingBox.getSize().z*1.5;
 
       if(testing_DrawBoundingBox && do3DTestField && !field.getCellValues()){
         orginX = center.x+(geometry.boundingBox.getSize().x/2);
@@ -304,7 +303,6 @@ function drawTestField(field, doStatusbar){
       arrowXAxisGrey.position.y = -1*center.y;
       arrowXAxisGrey.position.z = 0;
       testMappingGroupGrey.add( arrowXAxisGrey );
-
 
       direction = new THREE.Vector3( 0, 1, 0 );
       var arrowYAxis = new THREE.ArrowHelper(direction, orginY, length, 0xff0000 );

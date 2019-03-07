@@ -58,7 +58,7 @@ self.addEventListener('message', function(e) {
         for (var y = 0; y < data.testFieldDimY; y++) {
           for (var x = 0; x < data.testFieldDimX; x++) {
             jsonObj.testFieldVal.push(undefined);
-            jsonObj.positions.push([x,y]);
+            jsonObj.positions.push([(x/2),y]);
           }
         }
 
@@ -238,7 +238,7 @@ self.addEventListener('message', function(e) {
               max = Math.max(max,value);
 
               //console.log(value);
-              jsonObj.positions.push([currentX,currentY]);
+              jsonObj.positions.push([(currentX/2),currentY]);
               jsonObj.testFieldVal.push(value);
             }
 
@@ -347,15 +347,11 @@ self.addEventListener('message', function(e) {
               max = Math.max(max,value);
 
               //console.log(value);
-              jsonObj.positions.push([currentX,currentY]);
+              jsonObj.positions.push([(currentX/2),currentY]);
               jsonObj.testFieldVal.push(value);
             }
 
           }
-
-
-
-
 
       break;
 
@@ -370,14 +366,6 @@ self.addEventListener('message', function(e) {
       var amountOfGradient = undefined;
       var currentY = undefined;
       var currentX =undefined;
-
-
-      var isRidge = true;
-      if(data.testFieldVar_b<data.testFieldVar_a){
-        isRidge = false;
-      }
-
-
 
       for (var y = 0; y < data.testFieldDimY; y++) {
 

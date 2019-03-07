@@ -47,42 +47,78 @@ var cccTest_Jumps_Options = [
   [true,[0.0,0.25,0.75,1.0]],
   [true,[0.0,0.2,0.4,0.6,0.8,1.0]]
 ];
+var cccTest_Jumps_Files = [
+  ["img/TestFunctions/CCCTest/Jump/jumps_1.png","J = {25%,75%}"],
+  ["img/TestFunctions/CCCTest/Jump/jumps_2.png","J = {25%,75%,100%}"],
+  ["img/TestFunctions/CCCTest/Jump/jumps_3.png","J = {0%,25%,75%,100%}"],
+  ["img/TestFunctions/CCCTest/Jump/jumps_4.png","J = {0%,20%,40%,60%,80%,100%}"]
+];
 
 var cccTest_NewGradient_Options = [];
 var cccTest_Gradient_Options = [
-  /*[true,0.2,0],
-  [true,0.4,0],
-  [true,0.6,0],
-  [true,0.8,0],
-  [true,0.8,1],
-  [true,0.6,1],
-  [true,0.4,1],
-  [true,0.2,1]*/
+  [true,0,1,0,2,0,2,101,100],
+  [true,0,1,1,2,1,2,101,100],
+  [true,0,1,2,2,2,2,101,100]
+];
+var cccTest_Gradient_Files = [
+  ["img/TestFunctions/CCCTest/Gradient/gradient_1_linear.png","Gradient Linear"],
+  ["img/TestFunctions/CCCTest/Gradient/gradient_2_convex.png","Gradient Convex"],
+  ["img/TestFunctions/CCCTest/Gradient/gradient_3_concave.png","Gradient Concave"]
 ];
 
 var cccTest_NewRidgeValley_Options = [];
 var cccTest_RidgeValleyLine_Options = [  // m,M,type
-  [true,0.0,1.0,0,undefined,0,undefined,100,100],
-  [true,0.0,1.0,0,undefined,1,2,100,100],
-  [true,0.0,1.0,0,undefined,2,2,100,100],
-  [true,0.0,1.0,1,2,0,undefined,100,100],
-  [true,0.0,1.0,2,2,0,undefined,100,100],
-  [true,0.0,1.0,1,2,1,2,100,100],
-  [true,1.0,0.0,0,undefined,0,undefined,100,100],
-  [true,1.0,0.0,0,undefined,1,2,100,100],
-  [true,1.0,0.0,1,2,0,undefined,100,100],
-  [true,1.0,0.0,0,undefined,2,2,100,100],
-  [true,1.0,0.0,2,2,0,undefined,100,100]
+  [true,0.0,1.0,0,0,0,0,101,101],
+  [true,0.0,1.0,0,0,1,2,101,101],
+  [true,0.0,1.0,0,0,2,2,101,101],
+  [true,0.0,1.0,1,2,0,0,101,101],
+  [true,0.0,1.0,1,2,1,2,101,101],
+  [true,0.0,1.0,1,2,2,2,101,101],
+  [true,0.0,1.0,2,2,0,0,101,101],
+  [true,0.0,1.0,2,2,1,2,101,101],
+  [true,0.0,1.0,2,2,2,2,101,101],
+  [true,1.0,0.0,0,0,0,0,101,101],
+  [true,1.0,0.0,0,0,1,2,101,101],
+  [true,1.0,0.0,0,0,2,2,101,101],
+  [true,1.0,0.0,1,2,0,0,101,101],
+  [true,1.0,0.0,1,2,1,2,101,101],
+  [true,1.0,0.0,1,2,2,2,101,101],
+  [true,1.0,0.0,2,2,0,0,101,101],
+  [true,1.0,0.0,2,2,1,2,101,101],
+  [true,1.0,0.0,2,2,2,2,101,101]
+];
+
+var cccTest_RidgeValley_Files = [
+  ["img/TestFunctions/CCCTest/RidgeValley/ridge_1_linear_linear.png","Ridge Linear:Linear"],
+  ["img/TestFunctions/CCCTest/RidgeValley/ridge_2_linear_convex.png","Ridge Linear:Convex"],
+  ["img/TestFunctions/CCCTest/RidgeValley/ridge_3_linear_concave.png","Ridge Linear:Concave"],
+  ["img/TestFunctions/CCCTest/RidgeValley/ridge_4_convex_linear.png","Ridge Convex:Linear"],
+  ["img/TestFunctions/CCCTest/RidgeValley/ridge_5_convex_convex.png","Ridge Convex:Convex"],
+  ["img/TestFunctions/CCCTest/RidgeValley/ridge_6_convex_concave.png","Ridge Convex:Concave"],
+  ["img/TestFunctions/CCCTest/RidgeValley/ridge_7_concave_linear.png","Ridge Concave:Linear"],
+  ["img/TestFunctions/CCCTest/RidgeValley/ridge_8_concave_convex.png","Ridge Concave:Convex"],
+  ["img/TestFunctions/CCCTest/RidgeValley/ridge_9_concave_concave.png","Ridge Concave:Concave"],
+  ["img/TestFunctions/CCCTest/RidgeValley/valley_1_linear_linear.png","Valley Linear:Linear"],
+  ["img/TestFunctions/CCCTest/RidgeValley/valley_2_linear_convex.png","Valley Linear:Convex"],
+  ["img/TestFunctions/CCCTest/RidgeValley/valley_3_linear_concave.png","Valley Linear:Concave"],
+  ["img/TestFunctions/CCCTest/RidgeValley/valley_4_convex_linear.png","Valley Convex:Linear"],
+  ["img/TestFunctions/CCCTest/RidgeValley/valley_5_convex_convex.png","Valley Convex:Convex"],
+  ["img/TestFunctions/CCCTest/RidgeValley/valley_6_convex_concave.png","Valley Convex:Concave"],
+  ["img/TestFunctions/CCCTest/RidgeValley/valley_7_concave_linear.png","Valley Concave:Linear"],
+  ["img/TestFunctions/CCCTest/RidgeValley/valley_8_concave_convex.png","Valley Concave:Convex"],
+  ["img/TestFunctions/CCCTest/RidgeValley/valley_9_concave_concave.png","Valley Concave:Concave"]
 ];
 
 var cccTest_NewLocalExtrema_Options = [];
 var cccTest_LocalExtrema_Options = [
   //[a,b,m,stepX,#stepsX,stepY,#stepsY,autoScale],
-  [3,3,0,true,101,101],
-  [-3,-3,0,false,101,101],
-  [-3,3,0,true,101,101],
-  [3,-3,0,true,101,101],
+  [1,1,0,true,101,101],
+  [-1,-1,0,true,101,101],
+  [-1,1,0,true,101,101],
+  [1,-1,0,true,101,101],
 ];
+
+
 
 var cccTest_NewFrequency_Options = [];
 var cccTest_Frequency_Options = [
@@ -132,28 +168,26 @@ var cccTest_Treshold_Options = [
 /// User Test Options
 
 var userTest_LocalMin_Options = [
-["Ackley Function","Ackley"],
-["Bukin Function N. 6","Bukin_N6"],
-["Cross-in-Tray Function","Cross-in-Tray"],
-["Drop-Wave Function","Drop-Wave"],
-["Eggholder Function","Eggholder"],
-["Griewank Function","Griewank"],
-["Holder Table Function","HolderTable"],
-["Langermann Function","Langermann"],
-["Levy Function","Levy"],
-["Levy Function N. 13","Levy_N13"],
-["Rastrigin Function","Rastrigin"],
-["Schaffer Function N. 2","Schaffer_N2"],
-["Schaffer Function N. 4","Schaffer_N4" ],
-["Schwefel Function","Schwefel"],
-["Shubert Function","Shubert"]
+["Ackley Function","Ackley","img/TestFunctions/FunctionCollection/LocalMinimum/Ackley.png"],
+["Bukin Function N. 6","Bukin_N6","img/TestFunctions/FunctionCollection/LocalMinimum/Bukin_N6.png"],
+["Cross-in-Tray Function","Cross-in-Tray","img/TestFunctions/FunctionCollection/LocalMinimum/Cross_in_Tray.png"],
+["Drop-Wave Function","Drop-Wave","img/TestFunctions/FunctionCollection/LocalMinimum/Drop_Wave.png"],
+["Eggholder Function","Eggholder","img/TestFunctions/FunctionCollection/LocalMinimum/Eggholder.png"],
+["Griewank Function","Griewank","img/TestFunctions/FunctionCollection/LocalMinimum/Griewank.png"],
+["Holder Table Function","HolderTable","img/TestFunctions/FunctionCollection/LocalMinimum/HolderTable.png"],
+["Langermann Function","Langermann","img/TestFunctions/FunctionCollection/LocalMinimum/Langermann.png"],
+["Levy Function","Levy","img/TestFunctions/FunctionCollection/LocalMinimum/Levy.png"],
+["Levy Function N. 13","Levy_N13","img/TestFunctions/FunctionCollection/LocalMinimum/Levy_N13.png"],
+["Rastrigin Function","Rastrigin","img/TestFunctions/FunctionCollection/LocalMinimum/Rastrigin.png"],
+["Schaffer Function N. 2","Schaffer_N2","img/TestFunctions/FunctionCollection/LocalMinimum/Schaffer_N2.png"],
+["Schaffer Function N. 4","Schaffer_N4","img/TestFunctions/FunctionCollection/LocalMinimum/Schaffer_N4.png"],
+["Schwefel Function","Schwefel","img/TestFunctions/FunctionCollection/LocalMinimum/Schwefel.png"],
+["Shubert Function","Shubert","img/TestFunctions/FunctionCollection/LocalMinimum/Shubert.png"]
 ];
 
 
  var userTest_BowlShaped_Options =[
-   ["Bohachevsky Function 1","Bohachevsky_F1"],
-   ["Bohachevsky Function 2","Bohachevsky_F2"],
-   ["Bohachevsky Function 3","Bohachevsky_F3"],
+   ["Bohachevsky Function ","Bohachevsky_F1"],
    ["Perm Function 0, d, β","Perm_V1"],
    ["Rotated Hyper-Ellipsoid Function","Rot_Hyper_Ellipsoid"],
    ["Sphere Function","Sphere"],

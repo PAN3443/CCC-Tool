@@ -21,9 +21,9 @@ var testmapping_doAnimation = false;
 var mapping_transferBorderX = 0;
 var mapping_transferBorderY = 0;
 
-var testing_DrawBoundingBox = true;
+var testing_DrawBoundingBox = false;
 
-var testing_DrawAxes = true;
+var testing_DrawAxes = false;
 
 
 var bg_texture;
