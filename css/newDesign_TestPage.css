@@ -65,7 +65,7 @@
   vertical-align: middle;
   text-align:center;
   line-height:5vh;
-  color: transparent;/*rgb(180,180,180);*/
+  color: color:rgb(40,40,40); /*transparent;*/
   font-size:2.5vh;
   box-sizing: border-box;
 
@@ -78,6 +78,55 @@
           background-clip: text;
 
 
+}
+
+.class_Test_Selector{
+  display: block;
+  float: left;
+  padding: 1vh;
+  width: 15vw;
+  display: block;
+  margin:auto;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+  box-sizing: border-box;
+  cursor: pointer;
+
+}
+
+.class_Test_Selector:hover{
+  box-shadow: 0.2vw 0.2vh 1vh grey;
+}
+
+.class_Test_Selector p{
+  font-size : 1.5vh;
+  line-height: 2vh;
+  display: block;
+  width: 13vw;
+  margin:auto;
+  color: rgb(180,180,180);
+  margin-top: 0.5vh;
+  margin-bottom: 0.5vh;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.class_Test_Selector canvas{
+  display: block;
+  margin:auto;
+  height: 15vh;
+  max-height: 12vw;
+  width: 12vw;
+  max-width: 15vh;
+  background: black;
+  border: 0.1vh solid rgb(180,180,180);
+  box-sizing: border-box;
+  image-rendering: optimizeSpeed;             /* Older versions of FF*/
+  image-rendering: -moz-crisp-edges;          /* FF 6.0+*/
+  image-rendering: -webkit-optimize-contrast; /* Webkit (non standard naming)*/
+  image-rendering: -o-crisp-edges;            /* OS X & Windows Opera (12.02+)*/
+  image-rendering: pixelated;               /* Possible future browsers.*/
+  -ms-interpolation-mode: nearest-neighbor;   /* IE (non standard naming)*/
 }
 
 /*#id_Test_ShowTestButton:hover{

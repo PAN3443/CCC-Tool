@@ -21,6 +21,9 @@ self.addEventListener('message', function(e) {
   jsonObj['includeCellValues'] = false;
   jsonObj['status'] = 100;
   jsonObj['index'] = data.testFieldIndex;
+  jsonObj['canvasID'] = data.canvasID;
+  jsonObj['width'] = data.testFieldDimX;
+  jsonObj['height'] = data.testFieldDimY;
 
   var min = Infinity;
   var max = -Infinity;
