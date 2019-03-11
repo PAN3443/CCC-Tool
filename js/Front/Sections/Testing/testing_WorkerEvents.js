@@ -8,7 +8,10 @@ function workerEvent_showTestField(e) {
   else{
 
     if(data.includeCellValues){
-      userTestGlobalField.setCellValues(true)
+      userTestGlobalField.setCellValues(true);
+    }
+    else {
+      userTestGlobalField.setCellValues(false);
     }
 
     for (var i = 0; i < data.testFieldVal.length; i++) {

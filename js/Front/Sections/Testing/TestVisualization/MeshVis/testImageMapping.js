@@ -22,10 +22,8 @@ function drawTest_Mesh(field, doStatusbar){
 
   if(do3DTestField && field.getCellValues()){
 
-
     testmappingMesh = new THREE.Group();
     testmappingMeshGrey = new THREE.Group();
-
 
     for (var y = 0; y < field.getYDim()-1; y++) {
 
