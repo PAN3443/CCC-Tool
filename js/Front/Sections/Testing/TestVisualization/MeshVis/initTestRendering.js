@@ -318,6 +318,7 @@ function eventTestMapping_mousewheel(event){
 
   	testmapping_camera.position.z = newRadius;
     testmapping_cameraGrey.position.z = newRadius;
+    document.getElementById("id_Test_MeshVisOptions_Zoom").value = Math.round(newRadius/mapping_maxRadius*100);
     return;
   }
 
@@ -329,7 +330,19 @@ function eventTestMapping_mousewheel(event){
 
     testmapping_camera.position.z = newRadius;
     testmapping_cameraGrey.position.z = newRadius;
+    document.getElementById("id_Test_MeshVisOptions_Zoom").value = Math.round(newRadius/mapping_maxRadius*100);
     return;
   }
+
+}
+
+
+function testmappingZoomInput(){
+
+  var value = parseInt(document.getElementById("id_Test_MeshVisOptions_Zoom").value);
+  var newRadius = value/100*mapping_maxRadius;
+
+  testmapping_camera.position.z = newRadius;
+  testmapping_cameraGrey.position.z = newRadius;
 
 }

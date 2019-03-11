@@ -243,9 +243,17 @@ function drawTest_Mesh(field, doStatusbar){
   mapping_zoomFactor = mapping_maxRadius / 50;
 
 
-  /*testmapping_camera.near = largestDis*0.000000001;
-  testmapping_camera.far = mapping_maxRadius*2;
-  testmapping_camera.updateProjectionMatrix();*/
+  ///*
+
+  testmapping_camera.near = largestDis*0.001;
+  testmapping_camera.far = mapping_maxRadius;
+  testmapping_camera.updateProjectionMatrix();
+
+  testmapping_cameraGrey.near = largestDis*0.001;
+  testmapping_cameraGrey.far = mapping_maxRadius;
+  testmapping_cameraGrey.updateProjectionMatrix();
+
+  //*/
 
   testmapping_camera.position.x = boundingBox.getSize().x;
   testmapping_camera.position.y = boundingBox.getSize().y;
@@ -259,6 +267,9 @@ function drawTest_Mesh(field, doStatusbar){
     testmapping_camera.position.z = largestDis;
     testmapping_cameraGrey.position.z = largestDis;
   //}
+
+    document.getElementById("id_Test_MeshVisOptions_Zoom").value = 50;
+
 
     //// update arrow
     for (var i = testMappingGroup.children.length - 1; i >= 0; i--) {

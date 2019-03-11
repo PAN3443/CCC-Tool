@@ -2103,7 +2103,7 @@
                 <div id="id_Test_MeshVisOptions" class="row" style="width:100%; height:3vh; background: rgb(50,50,50);">
                   <div class="row" style="width: 50%;">
                     <p class="standardText" style="margin:auto; margin-left:1vw; margin-right:1vw; color:white;">Zoom:</p>
-                    <input type="range" step="5" min="-100" max="0" value="100" style="width:20vw; margin-right:auto;">
+                    <input id="id_Test_MeshVisOptions_Zoom"type="range" step="1" min="0" max="100" value="50" style="width:20vw; margin-right:auto;" onchange="testmappingZoomInput()">
                   </div>
                   <div id="id_Test_ScaleFactor_Div" class="row" style="visibility:hidden; width: 50%;">
                     <p class="standardText" style="margin:auto; margin-left:1vw; margin-right:1vw; color:white;">Hight Scale-Factor:</p>
