@@ -1,3 +1,18 @@
+function openRidgeValleyTest(tmpID){
+
+var tmpArray = [];
+for (var i = 0; i < cccTest_RidgeValleyLine_Options[tmpID].length; i++) {
+  tmpArray.push(cccTest_RidgeValleyLine_Options[tmpID][i])
+}
+cccTest_NewRidgeValley_Options = tmpArray;
+
+initNewTest();
+document.getElementById("id_TestPage_SelectNewTestType").selectedIndex = 2;
+selectNewRidgeValleyTestType();
+
+}
+
+
 function selectNewRidgeValleyTestType(){
   document.getElementById("id_TestPage_Dimension_Div").style.display="block";
   document.getElementById("id_TestPage_NewTest_D1").style.display="flex";

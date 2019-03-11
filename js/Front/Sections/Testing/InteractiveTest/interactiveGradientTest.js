@@ -1,3 +1,18 @@
+
+function openGradientTest(tmpID){
+
+var tmpArray = [];
+for (var i = 0; i < cccTest_Gradient_Options[tmpID].length; i++) {
+  tmpArray.push(cccTest_Gradient_Options[tmpID][i])
+}
+cccTest_NewGradient_Options = tmpArray;
+
+initNewTest();
+document.getElementById("id_TestPage_SelectNewTestType").selectedIndex = 1;
+selectNewGradientTestType();
+
+}
+
 function selectNewGradientTestType(){
   document.getElementById("id_TestPage_Dimension_Div").style.display="block";
   document.getElementById("id_TestPage_NewTest_D1").style.display="flex";
@@ -47,8 +62,8 @@ function selectNewGradientTestType(){
           break;
   }
 
-document.getElementById("id_TestPage_GridDimX").value=cccTest_NewGradient_Options[7];
-document.getElementById("id_TestPage_GridDimY").value=cccTest_NewGradient_Options[8];
+ document.getElementById("id_TestPage_GridDimX").value=cccTest_NewGradient_Options[7];
+ document.getElementById("id_TestPage_GridDimY").value=cccTest_NewGradient_Options[8];
 
   document.getElementById("id_TestPage_NewTest_I3").min=2;
   document.getElementById("id_TestPage_NewTest_I4").min=2;

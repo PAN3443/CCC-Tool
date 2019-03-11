@@ -1,3 +1,18 @@
+
+function openTresholdTest(tmpID){
+
+var tmpArray = [];
+for (var i = 0; i < cccTest_Treshold_Options[tmpID].length; i++) {
+  tmpArray.push(cccTest_Treshold_Options[tmpID][i])
+}
+cccTest_NewTreshold_Options = tmpArray;
+
+initNewTest();
+document.getElementById("id_TestPage_SelectNewTestType").selectedIndex = 6;
+selectNewTresholdTestType();
+
+}
+
 function selectNewTresholdTestType(){
 
   document.getElementById("id_TestPage_Dimension_Div").style.display="block";

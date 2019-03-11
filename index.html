@@ -212,33 +212,32 @@
   <script src="js/Front/Sections/Testing/init_TestingSection.js"></script>
   <script src="js/Front/Sections/Testing/drawTestCollection.js"></script>
   <script src="js/Front/Sections/Testing/testing_WorkerEvents.js"></script>
+    <!-- Testing Section : Interacive Test -->
+      <script src="js/Front/Sections/Testing/InteractiveTest/events.js"></script>
+      <script src="js/Front/Sections/Testing/InteractiveTest/interactiveJumpTest.js"></script>
+      <script src="js/Front/Sections/Testing/InteractiveTest/interactiveRidgeValleyTest.js"></script>
+      <script src="js/Front/Sections/Testing/InteractiveTest/interactiveGradientTest.js"></script>
+      <script src="js/Front/Sections/Testing/InteractiveTest/interactiveFrequencyTest.js"></script>
+      <script src="js/Front/Sections/Testing/InteractiveTest/interactiveLocalExtremaTest.js"></script>
+      <script src="js/Front/Sections/Testing/InteractiveTest/interactiveLittleBitTest.js"></script>
+      <script src="js/Front/Sections/Testing/InteractiveTest/interactiveTresholdTest.js"></script>
+      <script src="js/Front/Sections/Testing/InteractiveTest/interactiveTest_drawFktPreview.js"></script>
+      <script src="js/Front/Sections/Testing/InteractiveTest/interactiveLocalMinFunctions.js"></script>
+      <script src="js/Front/Sections/Testing/InteractiveTest/interactiveBowlShapedFunctions.js"></script>
+      <script src="js/Front/Sections/Testing/InteractiveTest/interactiveValleyShapedFunctions.js"></script>
 
-    <!-- Testing Section : CCCTest -->
-      <!-- Testing Section : CCCTest : Interactive Test -->
-      <script src="js/Front/Sections/Testing/CCCTest/InteractiveTest/events.js"></script>
-      <script src="js/Front/Sections/Testing/CCCTest/InteractiveTest/newJumpTest.js"></script>
-      <script src="js/Front/Sections/Testing/CCCTest/InteractiveTest/newRidgeValleyTest.js"></script>
-      <script src="js/Front/Sections/Testing/CCCTest/InteractiveTest/newGradientTest.js"></script>
-      <script src="js/Front/Sections/Testing/CCCTest/InteractiveTest/newFrequencyTest.js"></script>
-      <script src="js/Front/Sections/Testing/CCCTest/InteractiveTest/newLocalExtremaTest.js"></script>
-      <script src="js/Front/Sections/Testing/CCCTest/InteractiveTest/newLittleBitTest.js"></script>
-      <script src="js/Front/Sections/Testing/CCCTest/InteractiveTest/newTresholdTest.js"></script>
-      <script src="js/Front/Sections/Testing/CCCTest/InteractiveTest/newTest_drawFktPreview.js"></script>
-      <!-- Testing Section : CCCTest : Worker -->
-      <script src="js/Front/Sections/Testing/CCCTest/WorkerJS/extremaWorker.js"></script>
-      <script src="js/Front/Sections/Testing/CCCTest/WorkerJS/frequencyWorker.js"></script>
-      <script src="js/Front/Sections/Testing/CCCTest/WorkerJS/gradientWorker.js"></script>
-      <script src="js/Front/Sections/Testing/CCCTest/WorkerJS/jumpWorker.js"></script>
-      <script src="js/Front/Sections/Testing/CCCTest/WorkerJS/littleBitWorker.js"></script>
-      <script src="js/Front/Sections/Testing/CCCTest/WorkerJS/tresholdWorker.js"></script>
-      <script src="js/Front/Sections/Testing/CCCTest/WorkerJS/valleyRidgeWorker.js"></script>
-
-    <!-- Testing Section : Collection -->
-    <script src="js/Front/Sections/Testing/Collection/testing_collectiontest.js"></script>
+      <!-- Testing Section : Worker -->
+      <script src="js/Front/Sections/Testing/WorkerJS/extremaWorker.js"></script>
+      <script src="js/Front/Sections/Testing/WorkerJS/frequencyWorker.js"></script>
+      <script src="js/Front/Sections/Testing/WorkerJS/gradientWorker.js"></script>
+      <script src="js/Front/Sections/Testing/WorkerJS/jumpWorker.js"></script>
+      <script src="js/Front/Sections/Testing/WorkerJS/littleBitWorker.js"></script>
+      <script src="js/Front/Sections/Testing/WorkerJS/tresholdWorker.js"></script>
+      <script src="js/Front/Sections/Testing/WorkerJS/valleyRidgeWorker.js"></script>
+      <script src="js/Front/Sections/Testing/WorkerJS/functionsWorker.js"></script>
 
     <!-- Testing Section : Visualization -->
     <script src="js/Front/Sections/Testing/TestVisualization/test_VisEvents.js"></script>
-
       <!-- Testing Section : Visualization Pxiel Image-->
       <script src="js/Front/Sections/Testing/TestVisualization/PixelVis/drawTestPixelVis.js"></script>
       <!-- Testing Section : Visualization Mesh Rendering-->
@@ -1897,11 +1896,239 @@
 
       </div>
 
-      <div class="row" style="max-height:85vh; height:85vh; width:100%; overflow:hidden;">
-          <div id="id_Test_FunctionCollection" style="width:0%; height:100%; overflow:hidden; y-overflow: scroll;">
+      <div class="row" style="max-height:85vh; height:85vh; width:100vw; overflow:hidden;">
+          <div id="id_Test_FunctionCollection" style="width:100vw; height:85vh; overflow: scroll;">
 
           </div>
-          <div id="id_Test_TestDiv" style="width:0%; height:100%; overflow:hidden; background:black;">
+          <div id="id_Test_TestDiv" style="width:0vw; height:85vh; background:rgb(240,240,240);">
+
+            <div class="row" style="width:100vw; margin:auto;">
+
+              <div  style="margin: auto; width:20vw; height:85vh;">
+
+                  <p class="standardText" style="font-weight:bold; margin-top: 2vh;"> Test Settings: </p>
+
+                  <div class="row" style="margin-top:2vh;">
+                    <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-right: 0.25vw;">Choose Test Type:</p>
+                    <select id="id_TestPage_SelectNewTestType" onchange="selectNewTestType()" class="standardText" style="margin-right: auto; background:white; border: 0.1 solid grey;">
+                       <optgroup label="CCC-Test:">
+                          <option value="0">Jump</option>
+                          <option value="1">Gradient</option>
+                          <option value="2">Ridge & Valley</option>
+                          <option value="3">Local Extrema</option>
+                          <option value="4">Frequency</option>
+                          <option value="5">Little Bit</option>
+                          <option value="6">Treshold</option>
+                        </optgroup>
+
+                        <optgroup label="Functions:">,
+                          <option value="7">Local Minima</option>
+                          <option value="8">Bowl Shaped</option>
+                          <option value="9">Valley Shaped</option>
+                        </optgroup>
+                    </select>
+
+                    <input id="id_TestPage_doRatioCheckbox" type="checkbox" name="id_TestPage_DoRatio" value="doRatio" onchange="newTest_switchRatioType()">
+                    <p id="id_TestPage_doRatioLabel" class="standardText" style="margin-top:auto; margin-bottom:auto; margin-right: 0.25vw;">use Ratio</p>
+
+                  </div>
+
+
+
+                  <div style=" width:100%; margin:auto; margin-top:1vh; height:auto; max-height:75vh; y-overflow:scroll; padding-top:1vh; padding-bottom:1vh; padding-left:1vw; padding-right:1vw; background:rgb(230,230,230); border:0.2vh solid grey;">
+
+
+
+
+                    <div id="id_TestPage_NewTest_JumpDiv" style="width:100%; display:none;">
+                      <select id="id_TestPage_NewTest_JumpList" name="Jump List" size="5" style="width:100%; height:25vh; margin-top:1vh;  y-overflow:scroll; background:white;" >
+
+                      </select>
+
+                      <div class="row" style="margin-top:0.25vh; margin-bottom:1vh; width:100%;">
+                        <p class="standardText" style="margin-top:auto; margin-bottom:auto;">Jump Value:</p>
+                        <input id="id_TestPage_NewJumpValue" type="number" name="JumpValue"  step="any" value="0.1" style="margin-left:auto; margin-right:0.25vw;">
+                        <button class="class_generalbutton" onclick="addJumpToJumpSet()" style="margin-right:0.25vw; padding-left:0.5vw; padding-right:0.5vw;"><p>+</p></button>
+                        <button class="class_generalbutton" onclick="removeJumpToJumpSet()" style="margin-right:auto; padding-left:0.5vw; padding-right:0.5vw;"><p>-</p></button>
+                      </div>
+                    </div>
+
+
+                    <div id="id_TestPage_FctSelection_Div" class="row" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
+                      <p  class="standardText" style="margin-top:auto; margin-bottom:auto; margin-right: 0.25vw;">Function:</p>
+                      <select id="id_TestPage_FctSelection" onchange="updateFunctionSelection()" class="standardText" style="margin-right: auto; background:white; border: 0.1 solid grey;">
+                      </select>
+                    </div>
+
+                    <div id="id_TestPage_Dimension_Div"  style="width:100%;">
+                        <div class="row" style="width:100%;">
+                          <p class="standardText" style="margin-top:auto; margin-bottom:auto; width:10vw;">Grid X-Dim:</p>
+                          <input id="id_TestPage_GridDimX" class="standardText" type="number" name="GridDimX" min="1" step="5" value="10" style="margin-left:0.25vw;" onchange="updateTestVariables()">
+                        </div>
+                        <div class="row" style="width:100%;">
+                          <p class="standardText" style="margin-top:auto; margin-bottom:auto; width:10vw;">Grid Y-Dim:</p>
+                          <input id="id_TestPage_GridDimY" class="standardText" type="number" name="GridDimY" min="1" step="5" value="10" style="margin-left:0.25vw;" onchange="updateTestVariables()">
+                        </div>
+                    </div>
+
+                    <div id="id_TestPage_fitToCMS_Div" class="row" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
+                      <input id="id_TestPage_fitToCMS" type="checkbox" name="id_TestPage_DoRatio" value="doRatio" onchange="newTest_switchRatioType()">
+                      <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-right: 0.25vw;">map to CMS Range</p>
+                    </div>
+
+                      <div id="id_TestPage_NewTest_D1" class="row" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
+                        <p id="id_TestPage_NewTest_V1" class="standardText" style="margin-top:auto; margin-bottom:auto; width:10vw;"></p>
+                        <input id="id_TestPage_NewTest_I1" class="standardText" type="number" name="inputV1"  step="any" value="0.1" onchange="updateTestVariables()">
+                      </div>
+
+                      <div id="id_TestPage_NewTest_D2" class="row" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
+                        <p id="id_TestPage_NewTest_V2" class="standardText" style="margin-top:auto; margin-bottom:auto; width:10vw;"></p>
+                        <input id="id_TestPage_NewTest_I2" class="standardText" type="number" name="inputV2"  step="any" value="0.1" onchange="updateTestVariables()">
+                      </div>
+
+
+
+                      <div id="id_TestPage_NewTest_D3" class="row" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
+                        <p id="id_TestPage_NewTest_V3" class="standardText" style="margin-top:auto; margin-bottom:auto; width:10vw;"></p>
+                        <input id="id_TestPage_NewTest_I3" class="standardText" type="number" name="inputV3"  step="any" value="0.1" onchange="updateTestVariables()">
+                      </div>
+
+                      <div id="id_TestPage_NewTest_D4" class="row" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
+                        <p id="id_TestPage_NewTest_V4" class="standardText" style="margin-top:auto; margin-bottom:auto; width:10vw;"></p>
+                        <input id="id_TestPage_NewTest_I4" class="standardText" type="number" name="inputV4"  step="any" value="0.1" onchange="updateTestVariables()">
+                      </div>
+
+                      <div id="id_TestPage_XFctType_Div" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
+
+                        <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-right:auto;">X-Function-Type:</p>
+
+                        <div class="row" style="width:100%;">
+                            <div style="margin:auto;">
+                              <div class="row" >
+                                <input id="id_TestPage_NewTest_XType1" type="radio" name="mTypeRatioButtons" value="linear"  style="margin-right:0.25vw;" checked onchange="updateTestVariables()">
+                                <p id="id_TestPage_NewTest_XTypeL1" class="standardText" style="margin-top:auto; margin-bottom:auto;"> : Linear</p>
+                              </div>
+                              <div class="row" >
+                                <input id="id_TestPage_NewTest_XType2" type="radio" name="mTypeRatioButtons" value="hunch"  style="margin-right:0.25vw;" onchange="updateTestVariables()">
+                                <p id="id_TestPage_NewTest_XTypeL2" class="standardText" style="margin-top:auto; margin-bottom:auto;"> : Arc</p>
+                              </div>
+                              <div class="row" >
+                                <input id="id_TestPage_NewTest_XType3" type="radio" name="mTypeRatioButtons" value="crook"  style="margin-right:0.25vw;" onchange="updateTestVariables()">
+                                <p id="id_TestPage_NewTest_XTypeL3" class="standardText" style="margin-top:auto; margin-bottom:auto;"> : Peak</p>
+                              </div>
+                            </div>
+
+                            <canvas id="id_TestPage_Canvas_xFktType" style="width:5vw; height:5vw; margin:auto; border:0.2vh solid rgb(220,220,220); background:white;">
+
+                            </canvas>
+                        </div>
+                      </div>
+
+                      <div id="id_TestPage_YFctType_Div" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
+
+                        <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-right:auto;">Y-Function-Type:</p>
+
+                        <div class="row" style="width:100%;">
+                            <div style="margin:auto;">
+                              <div class="row" >
+                                <input id="id_TestPage_NewTest_YType1" type="radio" name="MTypeRatioButtons" value="linear"  style="margin-right:0.25vw;" checked onchange="updateTestVariables()">
+                                <p id="id_TestPage_NewTest_YTypeL1" class="standardText" style="margin-top:auto; margin-bottom:auto;"> : Linear</p>
+                              </div>
+                              <div class="row" >
+                                <input id="id_TestPage_NewTest_YType2" type="radio" name="MTypeRatioButtons" value="hunch"  style="margin-right:0.25vw;" onchange="updateTestVariables()">
+                                <p id="id_TestPage_NewTest_YTypeL2" class="standardText" style="margin-top:auto; margin-bottom:auto;"> : Hunch</p>
+                              </div>
+                              <div class="row" >
+                                <input id="id_TestPage_NewTest_YType3" type="radio" name="MTypeRatioButtons" value="crook"  style="margin-right:0.25vw;" onchange="updateTestVariables()">
+                                <p id="id_TestPage_NewTest_YTypeL3" class="standardText" style="margin-top:auto; margin-bottom:auto;"> : Crook</p>
+                              </div>
+                            </div>
+
+                            <canvas id="id_TestPage_Canvas_yFktType" style="width:5vw; height:5vw; margin:auto; border:0.2vh solid border:0.2vh solid rgb(220,220,220); background:white;">
+
+                            </canvas>
+                        </div>
+                      </div>
+
+                      <p id="id_TestPage_newTestInfoText" class="standardText" style="margin-top:1vh; white-space: pre-line;"></p>
+                  </div>
+
+
+                  <div class="row" style="width:100%; margin-top:1vh; display:none;">
+                    <button class="class_generalbutton" onclick="showTestSet()" style="width:30%; margin-left:17.5%;"><p>Cancel</p></button>
+                    <button class="class_generalbutton" onclick="addNewTest()" style="width:30%; margin-left:5%;"><p>Add Test</p></button>
+                  </div>
+                </div>
+
+              <div style="margin: auto; border:0.2vh solid black; display:block;">
+
+                <div  class="row" style="width:100%; height:3vh; background: black;">
+                  <p class="standardText" style="margin:auto; color:white;">Visualization : </p>
+
+                  <input type="radio" id="id_TestVisualization_Pixel" name="textVisType" value="pixel" onchange="updateTestVis()" style="margin:auto; margin-right:0vw;" checked>
+                  <p class="standardText" style="margin:auto; margin-left:1vw; color:white;" > Pixel-Image </p>
+
+                  <input type="radio" id="id_TestVisualization_Mesh" name="textVisType" value="mesh" onchange="updateTestVis()" style="margin:auto;  margin-right:0vw;" >
+                  <p class="standardText" style="margin:auto; margin-left:1vw; color:white;"> Mesh-Grid </p>
+
+                </div>
+
+                <div class="row" style="width:100%;">
+                  <div style="margin:auto; margin-right:0vw; ">
+                    <div class="row" style="width:100%; background: rgb(50,50,50);">
+                      <div id="id_TestPage_HightmapButton" class="class_Test_RenderButton" title="Modus 2D,Hightmap" onclick="switchHightmap()">3D</div>
+                      <a id="id_Test_downloadScreenshot" download="CCC_Tool_TestImage.png" class="class_Test_RenderButton" title="Screenshot">&#9688;</a>
+                      <div class="class_Test_RenderButton" title="Fullscreen" onclick="openFullTestMappingScreen()">&#9723;</div>
+                      <div id="id_Test_showHideAxis" class="class_Test_RenderButton" onclick="showTestingAxis()" title="Show/Hide Axis" >&#9531;</div>
+                      <div id="id_Test_showBoundingBox" class="class_Test_RenderButton" onclick="showTestingBoundingBox()" title="Show/Hide Bounding Box" >&#9635;</div>
+                    </div>
+                    <div id="id_Test_MeshVisDiv" style="height:72vh; max-height:40vw; width:40vw; max-width:72vh; overflow:hidden;">
+                    </div>
+                    <canvas id="id_Test_PixelCanvas" style="height:72vh; max-height:40vw; width:40vw; max-width:72vh;">
+                    </canvas>
+                  </div>
+
+                  <div style="border-left: 0.2vw solid black; margin:auto; margin-left:0vw; ">
+                    <div class="row" style="width:100%; background: rgb(50,50,50);">
+                      <a id="id_Test_downloadScreenshotGrey" download="CCC_Tool_TestImage_GreyScaled.png" class="class_Test_RenderButton" title="Screenshot" >&#9688;</a>
+                    </div>
+                    <div id="id_Test_MeshVisDivGrey" style="height:72vh; max-height:40vw; width:40vw; max-width:72vh; overflow:hidden;">
+                    </div>
+                    <canvas id="id_Test_PixelCanvasGrey" style="height:72vh; max-height:40vw; width:40vw; max-width:72vh;">
+                    </canvas>
+                  </div>
+
+                </div>
+
+                <div id="id_Test_MeshVisOptions" class="row" style="width:100%; height:3vh; background: rgb(50,50,50);">
+                  <div class="row" style="width: 50%;">
+                    <p class="standardText" style="margin:auto; margin-left:1vw; margin-right:1vw; color:white;">Zoom:</p>
+                    <input type="range" step="5" min="-100" max="0" value="100" style="width:20vw; margin-right:auto;">
+                  </div>
+                  <div id="id_Test_ScaleFactor_Div" class="row" style="visibility:hidden; width: 50%;">
+                    <p class="standardText" style="margin:auto; margin-left:1vw; margin-right:1vw; color:white;">Hight Scale-Factor:</p>
+                    <input type="number" id="id_Test_ScaleFactor" class="standardText" style="margin:auto; margin-left:0vw;" name="scalefactor" onchange="changeScaleFactor()">
+                  </div>
+
+                </div>
+
+                <div class="row" style="width:100%; height:4vh; background: black;">
+                  <p class="standardText" style="margin:auto; margin-right:1vw; color:white;">Status:</p>
+                  <div style="height:2vh; margin:auto; border-radius:1vh; overflow:hidden; width:75%; border: 0.2vh solid grey; background:white;">
+                    <div id="id_Test_StatusBar" style="height:100%; width:0%; background: rgb(102, 204, 255);">
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!--div id="id_TestPage_CCCTestInfoBox_Div" style="display:block; margin:auto; border:0.2 solid grey; background: rgb(220,220,220); height:55vh; width:25vw; overlfow-y:auto;">
+
+                <p class="subsectionLabel"> Info-Box:</p>
+              </div-->
+
+            </div>
 
           </div>
       </div>
@@ -1929,254 +2156,7 @@
 
 
 
-      <div style="display:none;">
 
-
-        <div class="row" style="width:100%; height: 60vh;">
-
-          <div style="margin: auto; width:20vw; display:block;">
-
-
-
-            <div id="id_Testing_TestSets" style="width:100%; margin-top:1vh;">
-              <p class="standardText" style="font-weight:bold;"> Select Test-Set: </p>
-              <select id="id_TestPage_UserTest_List" name="CCCTest List" size="20" style="width:100%; height:45vh; margin-top:1vh; margin-bottom:1vh; x-overflow:scroll; y-overflow:scroll; background:white;" onchange="startTest()">
-
-                </select>
-
-
-                <div id="id_TestPage_UserTest_OptionButtons" style="width:100%;">
-                  <div class="row" style="width:100%; margin-top:1vh;">
-                    <button class="class_generalbutton" onclick="initNewTest()" style="width:40%; margin-left:7.5%;"><p>New Test</p></button>
-                    <button class="class_generalbutton" onclick="removeCCCTest()" style="width:40%; margin-left:5%;"><p>Remove Test</p></button>
-                  </div>
-
-                </div>
-
-            </div>
-
-            <div id="id_Testing_NewTestSets" style="display:none; width:100%; margin-top:1vh;">
-
-              <p class="standardText" style="font-weight:bold;"> Add New Test: </p>
-
-              <div class="row" style="margin-top:2vh;">
-                <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-right: 0.25vw;">Test Type:</p>
-                <select id="id_TestPage_SelectNewTestType" onchange="selectNewTestType()" style="margin-right: auto;">
-                  <option value="0">Jump</option>
-                  <option value="1">Gradient</option>
-                  <option value="2">Ridge & Valley</option>
-                  <option value="3">Local Extrema</option>
-                  <option value="4">Frequency</option>
-                  <option value="5">Little Bit</option>
-                  <option value="6">Treshold</option>
-                </select>
-
-                <input id="id_TestPage_doRatioCheckbox" type="checkbox" name="id_TestPage_DoRatio" value="doRatio" onchange="newTest_switchRatioType()">
-                <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-right: 0.25vw;">use Ratio</p>
-
-              </div>
-
-
-              <hr>
-              <div style=" width:100%; margin:auto; height:45vh; max-height:45vh; y-overflow:scroll; padding-top:1vh; padding-bottom:1vh; padding-left:1vw; padding-right:1vw; background:rgb(230,230,230); border:0.2vh solid grey;">
-                <div id="id_TestPage_NewTest_JumpDiv" style="width:100%; display:none;">
-                  <select id="id_TestPage_NewTest_JumpList" name="Jump List" size="5" style="width:100%; height:25vh; margin-top:1vh;  y-overflow:scroll; background:white;" >
-
-                  </select>
-
-                  <div class="row" style="margin-top:0.25vh; margin-bottom:1vh; width:100%;">
-                    <p class="standardText" style="margin-top:auto; margin-bottom:auto;">Jump Value:</p>
-                    <input id="id_TestPage_NewJumpValue" type="number" name="JumpValue"  step="any" value="0.1" style="margin-left:auto; margin-right:0.25vw;">
-                    <button class="class_generalbutton" onclick="addJumpToJumpSet()" style="margin-right:0.25vw; padding-left:0.5vw; padding-right:0.5vw;"><p>+</p></button>
-                    <button class="class_generalbutton" onclick="removeJumpToJumpSet()" style="margin-right:auto; padding-left:0.5vw; padding-right:0.5vw;"><p>-</p></button>
-                  </div>
-                </div>
-
-
-                <div id="id_TestPage_Dimension_Div"  style="width:100%;">
-                    <div class="row" style="width:100%;">
-                      <p class="standardText" style="margin-top:auto; margin-bottom:auto; width:10vw;">Grid X-Dim:</p>
-                      <input id="id_TestPage_GridDimX" class="standardText" type="number" name="GridDimX" min="1" step="5" value="10" style="margin-left:0.25vw;" onchange="updateTestVariables()">
-                    </div>
-                    <div class="row" style="width:100%;">
-                      <p class="standardText" style="margin-top:auto; margin-bottom:auto; width:10vw;">Grid Y-Dim:</p>
-                      <input id="id_TestPage_GridDimY" class="standardText" type="number" name="GridDimY" min="1" step="5" value="10" style="margin-left:0.25vw;" onchange="updateTestVariables()">
-                    </div>
-                </div>
-
-                <div id="id_TestPage_fitToCMS_Div" class="row" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
-                  <input id="id_TestPage_fitToCMS" type="checkbox" name="id_TestPage_DoRatio" value="doRatio" onchange="newTest_switchRatioType()">
-                  <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-right: 0.25vw;">map to CMS Range</p>
-                </div>
-
-                  <div id="id_TestPage_NewTest_D1" class="row" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
-                    <p id="id_TestPage_NewTest_V1" class="standardText" style="margin-top:auto; margin-bottom:auto; width:10vw;"></p>
-                    <input id="id_TestPage_NewTest_I1" class="standardText" type="number" name="inputV1"  step="any" value="0.1" onchange="updateTestVariables()">
-                  </div>
-
-                  <div id="id_TestPage_NewTest_D2" class="row" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
-                    <p id="id_TestPage_NewTest_V2" class="standardText" style="margin-top:auto; margin-bottom:auto; width:10vw;"></p>
-                    <input id="id_TestPage_NewTest_I2" class="standardText" type="number" name="inputV2"  step="any" value="0.1" onchange="updateTestVariables()">
-                  </div>
-
-
-
-                  <div id="id_TestPage_NewTest_D3" class="row" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
-                    <p id="id_TestPage_NewTest_V3" class="standardText" style="margin-top:auto; margin-bottom:auto; width:10vw;"></p>
-                    <input id="id_TestPage_NewTest_I3" class="standardText" type="number" name="inputV3"  step="any" value="0.1" onchange="updateTestVariables()">
-                  </div>
-
-                  <div id="id_TestPage_NewTest_D4" class="row" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
-                    <p id="id_TestPage_NewTest_V4" class="standardText" style="margin-top:auto; margin-bottom:auto; width:10vw;"></p>
-                    <input id="id_TestPage_NewTest_I4" class="standardText" type="number" name="inputV4"  step="any" value="0.1" onchange="updateTestVariables()">
-                  </div>
-
-                  <div id="id_TestPage_XFctType_Div" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
-
-                    <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-right:auto;">X-Function-Type:</p>
-
-                    <div class="row" style="width:100%;">
-                        <div style="margin:auto;">
-                          <div class="row" >
-                            <input id="id_TestPage_NewTest_XType1" type="radio" name="mTypeRatioButtons" value="linear"  style="margin-right:0.25vw;" checked onchange="updateTestVariables()">
-                            <p id="id_TestPage_NewTest_XTypeL1" class="standardText" style="margin-top:auto; margin-bottom:auto;"> : Linear</p>
-                          </div>
-                          <div class="row" >
-                            <input id="id_TestPage_NewTest_XType2" type="radio" name="mTypeRatioButtons" value="hunch"  style="margin-right:0.25vw;" onchange="updateTestVariables()">
-                            <p id="id_TestPage_NewTest_XTypeL2" class="standardText" style="margin-top:auto; margin-bottom:auto;"> : Arc</p>
-                          </div>
-                          <div class="row" >
-                            <input id="id_TestPage_NewTest_XType3" type="radio" name="mTypeRatioButtons" value="crook"  style="margin-right:0.25vw;" onchange="updateTestVariables()">
-                            <p id="id_TestPage_NewTest_XTypeL3" class="standardText" style="margin-top:auto; margin-bottom:auto;"> : Peak</p>
-                          </div>
-                        </div>
-
-                        <canvas id="id_TestPage_Canvas_xFktType" style="width:5vw; height:5vw; margin:auto; border:0.2vh solid rgb(220,220,220); background:white;">
-
-                        </canvas>
-                    </div>
-                  </div>
-
-                  <div id="id_TestPage_YFctType_Div" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
-
-                    <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-right:auto;">Y-Function-Type:</p>
-
-                    <div class="row" style="width:100%;">
-                        <div style="margin:auto;">
-                          <div class="row" >
-                            <input id="id_TestPage_NewTest_YType1" type="radio" name="MTypeRatioButtons" value="linear"  style="margin-right:0.25vw;" checked onchange="updateTestVariables()">
-                            <p id="id_TestPage_NewTest_YTypeL1" class="standardText" style="margin-top:auto; margin-bottom:auto;"> : Linear</p>
-                          </div>
-                          <div class="row" >
-                            <input id="id_TestPage_NewTest_YType2" type="radio" name="MTypeRatioButtons" value="hunch"  style="margin-right:0.25vw;" onchange="updateTestVariables()">
-                            <p id="id_TestPage_NewTest_YTypeL2" class="standardText" style="margin-top:auto; margin-bottom:auto;"> : Hunch</p>
-                          </div>
-                          <div class="row" >
-                            <input id="id_TestPage_NewTest_YType3" type="radio" name="MTypeRatioButtons" value="crook"  style="margin-right:0.25vw;" onchange="updateTestVariables()">
-                            <p id="id_TestPage_NewTest_YTypeL3" class="standardText" style="margin-top:auto; margin-bottom:auto;"> : Crook</p>
-                          </div>
-                        </div>
-
-                        <canvas id="id_TestPage_Canvas_yFktType" style="width:5vw; height:5vw; margin:auto; border:0.2vh solid border:0.2vh solid rgb(220,220,220); background:white;">
-
-                        </canvas>
-                    </div>
-                  </div>
-
-                  <p id="id_TestPage_newTestInfoText" class="standardText" style="margin-top:1vh; white-space: pre-line;"></p>
-              </div>
-
-
-
-
-              <div class="row" style="width:100%; margin-top:1vh;">
-                <button class="class_generalbutton" onclick="showTestSet()" style="width:30%; margin-left:17.5%;"><p>Cancel</p></button>
-                <button class="class_generalbutton" onclick="addNewTest()" style="width:30%; margin-left:5%;"><p>Add Test</p></button>
-              </div>
-            </div>
-
-          </div>
-
-
-
-          <div style="margin: auto;  border:0.2vh solid black; display:block;">
-
-            <div  class="row" style="width:100%; background: black;">
-              <p class="standardText" style="margin:auto; color:white;">Visualization : </p>
-
-              <input type="radio" id="id_TestVisualization_Pixel" name="textVisType" value="pixel" onchange="updateTestVis()" checked>
-              <p class="standardText" style="margin:auto; margin-left:1vw; color:white;" > Pixel-Image </p>
-
-              <input type="radio" id="id_TestVisualization_Mesh" name="textVisType" value="mesh" onchange="updateTestVis()">
-              <p class="standardText" style="margin:auto; margin-left:1vw; color:white;"> Mesh-Grid </p>
-
-
-            </div>
-
-            <div class="row" style="width:100%;">
-              <div style="margin:auto; margin-right:0vw; ">
-                <div class="row" style="width:100%; background: rgb(50,50,50);">
-                  <div id="id_TestPage_HightmapButton" class="class_Test_RenderButton" title="Modus 2D,Hightmap" onclick="switchHightmap()">3D</div>
-                  <a id="id_Test_downloadScreenshot" download="CCC_Tool_TestImage.png" class="class_Test_RenderButton" title="Screenshot">&#9688;</a>
-                  <div class="class_Test_RenderButton" title="Fullscreen" onclick="openFullTestMappingScreen()">&#9723;</div>
-                  <div id="id_Test_showHideAxis" class="class_Test_RenderButton" onclick="showTestingAxis()" title="Show/Hide Axis" >&#9531;</div>
-                  <div id="id_Test_showBoundingBox" class="class_Test_RenderButton" onclick="showTestingBoundingBox()" title="Show/Hide Bounding Box" >&#9635;</div>
-                </div>
-                <div id="id_Test_MeshVisDiv" style="height:50vh; max-height:25vw; width:25vw; max-width:50vh; overflow:hidden;">
-                </div>
-                <canvas id="id_Test_PixelCanvas" style="height:50vh; max-height:25vw; width:25vw; max-width:50vh;">
-                </canvas>
-              </div>
-
-              <div style="border-left: 0.2vw solid black; margin:auto; margin-left:0vw; ">
-                <div class="row" style="width:100%; background: rgb(50,50,50);">
-                  <a id="id_Test_downloadScreenshotGrey" download="CCC_Tool_TestImage_GreyScaled.png" class="class_Test_RenderButton" title="Screenshot" >&#9688;</a>
-                </div>
-                <div id="id_Test_MeshVisDivGrey" style="height:50vh; max-height:25vw; width:25vw; max-width:50vh; overflow:hidden;">
-                </div>
-                <canvas id="id_Test_PixelCanvasGrey" style="height:50vh; max-height:25vw; width:25vw; max-width:50vh;">
-                </canvas>
-              </div>
-
-            </div>
-
-            <div id="id_Test_MeshVisOptions" class="row" style="width:100%; background: rgb(50,50,50);">
-              <p class="standardText" style="margin:auto; margin-right:1vw; color:white;">Zoom:</p>
-              <input type="range" step="5" min="-100" max="0" value="100" style="width:20vw; margin-right:auto;">
-              <div id="id_Test_ScaleFactor_Div" class="row" style="margin:auto; visibility:hidden;">
-                <p class="standardText" style="margin-right:1vw; color:white;">Hight Scale-Factor:</p>
-                <input type="number" id="id_Test_ScaleFactor" class="standardText" style="margin:auto; margin-left:0vw;" name="scalefactor" onchange="changeScaleFactor()">
-              </div>
-
-            </div>
-
-            <div class="row" style="width:100%; height:4vh; background: black;">
-              <p class="standardText" style="margin:auto; margin-right:1vw; color:white;">Status:</p>
-              <div style="height:2vh; margin:auto; border-radius:1vh; overflow:hidden; width:75%; border: 0.2vh solid grey; background:white;">
-                <div id="id_Test_StatusBar" style="height:100%; width:0%; background: rgb(102, 204, 255);">
-
-                </div>
-              </div>
-            </div>
-
-
-
-
-
-          </div>
-
-
-          <div id="id_TestPage_CCCTestInfoBox_Div" style="display:block; margin:auto; border:0.2 solid grey; background: rgb(220,220,220); height:55vh; width:25vw; overlfow-y:auto;">
-
-            <p class="subsectionLabel"> Info-Box:</p>
-          </div>
-
-
-
-        </div>
-
-
-      </div>
 
 
     </div>
@@ -2190,7 +2170,7 @@
 
 
                     <!---------------- Color Transformation Settings ---------------  -->
-                    <div id="id_PopUp_fullTestingWindow" style="background: rgba(100,100,100,0.9); width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
+                    <div id="id_PopUp_fullTestingWindow" style="background: rgba(100,100,100); width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
 
                       <div style="height:100vh; width:100vw; margin-left:auto; margin-right:auto;">
 

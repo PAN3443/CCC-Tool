@@ -31,10 +31,8 @@ function openTestSection(){
   document.getElementById("id_Test_pageSwitchRight").style.visibility = "visible";
   document.getElementById("id_Test_pageSwitchStatus").innerHTML = "&#x25C9; &#x25CE;";
 
-  fillTestCollection();
   selectTestCMS();
 }
-
 
 function switchTestDisplay() {
   if(testingModus){
@@ -48,7 +46,6 @@ function switchTestDisplay() {
 
 function slideTestDisplayDivs(){
 
-
   document.getElementById("id_Test_pageSwitchRight").style.visibility = "hidden";
   document.getElementById("id_Test_pageSwitchLeft").style.visibility = "hidden";
 
@@ -57,15 +54,22 @@ function slideTestDisplayDivs(){
     document.getElementById("id_Test_TestDiv").style.width = "0vw";
     document.getElementById("id_Test_pageSwitchRight").style.visibility = "visible";
     document.getElementById("id_Test_pageSwitchStatus").innerHTML = "&#x25C9; &#x25CE;";
+    if(redrawCollection)
+    drawTestCollection();
+    redrawCollection=false;
   }
   else {
     document.getElementById("id_Test_FunctionCollection").style.width = "0vw";
     document.getElementById("id_Test_TestDiv").style.width = "100vw";
     document.getElementById("id_Test_pageSwitchStatus").innerHTML = "&#x25CE; &#x25C9;";
     document.getElementById("id_Test_pageSwitchLeft").style.visibility = "visible";
+    if(redrawTest)
+    selectNewTestType();
+    redrawTest = false;
   }
 
 }
+
 
 function selectTestCMS(){
 
@@ -76,6 +80,15 @@ function selectTestCMS(){
 
   initTesttestField_WorkerJSON();
 
-  drawTestCollection();
+
+  if(testingModus){
+    drawTestCollection();
+    redrawTest = true;
+  }
+  else{
+    selectNewTestType();
+    redrawCollection = true;
+  }
+
 
 }

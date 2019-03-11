@@ -102,11 +102,14 @@ function initTesttestField_WorkerJSON(){
   testField_WorkerJSON['testFieldDimY'] = undefined;
 
   testField_WorkerJSON['originIsRelevant'] = false;
-  testField_WorkerJSON['originPosX'] = 0;
+  testField_WorkerJSON['functionDim'] = undefined;
+
+
+  /*testField_WorkerJSON['originPosX'] = 0;
   testField_WorkerJSON['originPosY'] = 0;
   testField_WorkerJSON['stepXDirection'] = 0.01;
   testField_WorkerJSON['stepYDirection'] = 0.01;
-  testField_WorkerJSON['originIsCenter'] = true;
+  testField_WorkerJSON['originIsCenter'] = true;*/
 
   testField_WorkerJSON['testFieldVar_ratio'] = false;
   testField_WorkerJSON['testFieldRangeStart'] = 0;

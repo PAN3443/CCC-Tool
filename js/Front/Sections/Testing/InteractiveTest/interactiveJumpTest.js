@@ -1,9 +1,27 @@
+function openJumpTest(jumpID){
+
+cccTest_NewJump_Options = [];
+var tmpRatio = cccTest_Jumps_Options[jumpID][1];
+cccTest_NewJump_Options.push(tmpRatio);
+var tmpArray = [];
+for (var i = 0; i < cccTest_Jumps_Options[jumpID][1].length; i++) {
+  var tmpJump = cccTest_Jumps_Options[jumpID][1][i];
+  tmpArray.push(tmpJump);
+}
+cccTest_NewJump_Options.push(tmpArray);
+
+initNewTest();
+document.getElementById("id_TestPage_SelectNewTestType").selectedIndex = 0;
+document.getElementById("id_TestPage_NewTest_JumpDiv").style.display="block";
+document.getElementById("id_TestPage_doRatioCheckbox").checked = cccTest_NewJump_Options[0];
+fillNewJumpsList();
+}
+
+
 function selectNewJumpTestType(){
 
   document.getElementById("id_TestPage_NewTest_JumpDiv").style.display="block";
-
   document.getElementById("id_TestPage_doRatioCheckbox").checked = cccTest_NewJump_Options[0];
-
   fillNewJumpsList();
 
 }

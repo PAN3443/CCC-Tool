@@ -1,3 +1,18 @@
+
+function openLittleBitTest(tmpID){
+
+var tmpArray = [];
+for (var i = 0; i < cccTest_LittleBit_Options[tmpID].length; i++) {
+  tmpArray.push(cccTest_LittleBit_Options[tmpID][i])
+}
+cccTest_NewLittleBit_Options = tmpArray;
+
+initNewTest();
+document.getElementById("id_TestPage_SelectNewTestType").selectedIndex = 5;
+selectNewLittleBitTestType();
+
+}
+
 function selectNewLittleBitTestType(){
 
 

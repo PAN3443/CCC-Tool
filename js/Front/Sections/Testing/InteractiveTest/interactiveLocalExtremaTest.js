@@ -1,3 +1,18 @@
+
+function openExtremaTest(tmpID){
+
+var tmpArray = [];
+for (var i = 0; i < cccTest_LocalExtrema_Options[tmpID].length; i++) {
+  tmpArray.push(cccTest_LocalExtrema_Options[tmpID][i])
+}
+cccTest_NewLocalExtrema_Options = tmpArray;
+
+initNewTest();
+document.getElementById("id_TestPage_SelectNewTestType").selectedIndex = 3;
+selectNewExtremaTestType();
+
+}
+
 function selectNewExtremaTestType(){
 
   document.getElementById("id_TestPage_Dimension_Div").style.display="block";
@@ -6,6 +21,7 @@ function selectNewExtremaTestType(){
   document.getElementById("id_TestPage_NewTest_D3").style.display="flex";
   document.getElementById("id_TestPage_fitToCMS_Div").style.display="flex";
   document.getElementById("id_TestPage_doRatioCheckbox").disabled = true;
+  document.getElementById("id_TestPage_doRatioLabel").style.color = "grey";
   document.getElementById("id_TestPage_newTestInfoText").style.display="block";
   document.getElementById("id_TestPage_fitToCMS").checked = cccTest_NewLocalExtrema_Options[3];
 
