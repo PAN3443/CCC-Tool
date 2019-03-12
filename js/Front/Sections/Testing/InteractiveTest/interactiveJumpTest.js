@@ -12,15 +12,15 @@ cccTest_NewJump_Options.push(tmpArray);
 
 initNewTest();
 document.getElementById("id_TestPage_SelectNewTestType").selectedIndex = 0;
-document.getElementById("id_TestPage_NewTest_JumpDiv").style.display="block";
-document.getElementById("id_TestPage_doRatioCheckbox").checked = cccTest_NewJump_Options[0];
-fillNewJumpsList();
+selectNewJumpTestType();
 }
 
 
 function selectNewJumpTestType(){
 
   document.getElementById("id_TestPage_NewTest_JumpDiv").style.display="block";
+  document.getElementById("id_TestPage_newTestNoiseDiv").style.display="none";
+  document.getElementById("id_Test_NoiseType").selectedIndex=0;
   document.getElementById("id_TestPage_doRatioCheckbox").checked = cccTest_NewJump_Options[0];
   fillNewJumpsList();
 

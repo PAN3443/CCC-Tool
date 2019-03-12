@@ -17,7 +17,7 @@ function initNewTest() {
   document.getElementById("id_TestPage_XFctType_Div").style.display="none";
 
   document.getElementById("id_TestPage_FctSelection_Div").style.display="none";
-
+  document.getElementById("id_TestPage_newTestNoiseDiv").style.display="block";
 
   document.getElementById("id_TestPage_fitToCMS_Div").style.display="none";
 
@@ -50,6 +50,8 @@ function initNewTest() {
     testmappingMesh.visible = false;
     testmappingMeshGrey.visible = false;
   }
+
+  updateNoise();
 }
 
 function selectNewTestType(){
@@ -97,7 +99,6 @@ function selectNewTestType(){
 
   }
 }
-
 
 function newTest_switchRatioType(){
 
@@ -147,6 +148,8 @@ function updateTestVariables(){
     usertestWorkerfinished = true;
   }
 
+  updateNoise();
+
   switch (document.getElementById("id_TestPage_SelectNewTestType").selectedIndex) {
     case 1:
           updateGradientTestVariables();
@@ -179,8 +182,9 @@ function updateTestVariables(){
 
 
   }
-}
 
+
+}
 
 function updateFunctionSelection(){
   switch (document.getElementById("id_TestPage_SelectNewTestType").selectedIndex) {
@@ -220,5 +224,54 @@ function check_yFktType(){
 
       if(document.getElementById("id_TestPage_NewTest_YType3").checked)
         current_yFktType=2;
+
+}
+
+
+function updateNoise(){
+
+  document.getElementById("id_TestPage_newTestNoiseDivSub").style.display="none";
+  document.getElementById("id_Test_NoiseProportionDiv").style.display="none";
+  document.getElementById("id_Test_NoiseDistributionDiv").style.display="none";
+  document.getElementById("id_Test_NoiseScalingDiv").style.display="none";
+  document.getElementById("id_Test_NoiseMaxChangeDiv").style.display="none";
+  document.getElementById("id_Test_NoiseBehaviorReplacing").disabled = false;
+
+  testField_WorkerJSON.doNoise = false;
+
+  switch (document.getElementById("id_Test_NoiseType").selectedIndex) {
+    case 1:  case 2:
+
+
+        document.getElementById("id_TestPage_newTestNoiseDivSub").style.display="block";
+
+        if(document.getElementById("id_Test_NoiseType").selectedIndex==1){
+          document.getElementById("id_Test_NoiseProportionDiv").style.display="flex";
+          document.getElementById("id_Test_NoiseDistributionDiv").style.display="flex";
+        }
+
+        if(document.getElementById("id_Test_NoiseType").selectedIndex==2){
+          document.getElementById("id_Test_NoiseScalingDiv").style.display="flex";
+
+          if(document.getElementById("id_Test_NoiseBehavior").selectedIndex==1){
+            document.getElementById("id_Test_NoiseBehavior").selectedIndex=0;
+          }
+          document.getElementById("id_Test_NoiseBehaviorReplacing").disabled = true;
+
+        }
+
+        if(document.getElementById("id_Test_NoiseBehavior").selectedIndex!=1){
+          document.getElementById("id_Test_NoiseMaxChangeDiv").style.display="flex";
+        }
+
+
+        // For the Worker
+        testField_WorkerJSON.doNoise = true;
+        testField_WorkerJSON.noiseBehavior = document.getElementById("id_Test_NoiseBehavior").selectedIndex;
+        testField_WorkerJSON.maxChange = parseFloat(document.getElementById("id_Test_NoiseMaxChange").value);
+
+        calcNoise();
+    break;
+  }
 
 }

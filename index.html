@@ -111,6 +111,7 @@
     <script src="js/Front/GlobalEvents/Helpers/quicksort.js"></script>
     <script src="js/Front/GlobalEvents/Helpers/math_matrices_calculation.js"></script>
     <script src="js/Front/GlobalEvents/Helpers/others.js"></script>
+    <script src="js/Front/GlobalEvents/Helpers/random.js"></script>
 
     <!-- global Events : Colormap Drawer -->
     <script src="js/Front/GlobalEvents/ColormapDrawer/drawBandSegments.js"></script>
@@ -235,6 +236,10 @@
       <script src="js/Front/Sections/Testing/WorkerJS/tresholdWorker.js"></script>
       <script src="js/Front/Sections/Testing/WorkerJS/valleyRidgeWorker.js"></script>
       <script src="js/Front/Sections/Testing/WorkerJS/functionsWorker.js"></script>
+
+      <!-- Testing Section : Noise -->
+      <script src="js/Front/Sections/Testing/Noise/noise_interactiveTest.js"></script>
+      <script src="js/Front/Sections/Testing/Noise/simplexNoise.js"></script>
 
     <!-- Testing Section : Visualization -->
     <script src="js/Front/Sections/Testing/TestVisualization/test_VisEvents.js"></script>
@@ -2051,6 +2056,74 @@
                       </div>
 
                       <p id="id_TestPage_newTestInfoText" class="standardText" style="margin-top:1vh; white-space: pre-line;"></p>
+
+
+                      <div id="id_TestPage_newTestNoiseDiv" class="width:100%;">
+
+
+                        <div class="row" style="width: 100%;  margin-top:0.5vh;">
+                          <p class="standardText" style="margin:auto; margin-left:0vw; margin-right:1vw; ">Noise-Type:</p>
+                          <select id="id_Test_NoiseType" onchange="updateTestVariables()" class="standardText" style="margin-right: auto; background:white; border: 0.1 solid grey;">
+                                <option value="0">No Noise</option>
+                                <option value="1">Random</option>
+                                <option value="2" >Simplex Noise</option>
+                          </select>
+                        </div>
+
+                        <div id="id_TestPage_newTestNoiseDivSub" class="width:100%;">
+
+
+                          <div class="row" style="width: 100%;  margin-top:0.5vh;">
+                            <p class="standardText" style="margin:auto; margin-left:0vw; margin-right:1vw; ">Noise-Behavior:</p>
+                            <select id="id_Test_NoiseBehavior" onchange="updateTestVariables()" class="standardText" style="margin-right: auto; background:white; border: 0.1 solid grey;">
+                                  <option value="0">Additional (Local)</option>
+                                  <option id="id_Test_NoiseBehaviorReplacing" value="1">Replacing</option>
+                                  <option value="2">Additional (Global)</option>
+                            </select>
+                          </div>
+
+
+                          <div id="id_Test_NoiseDistributionDiv" class="row" style="width: 100%; margin-top:0.5vh;">
+                            <p class="standardText" style="margin:auto; margin-left:0vw; margin-right:1vw; ">Distribution:</p>
+                            <select id="id_Test_NoiseDistribution" onchange="updateTestVariables()" class="standardText" style="margin-right: auto; background:white; border: 0.1 solid grey;">
+                                  <option value="0">Uniform</option>
+                                  <option value="1">Normal</option>
+                                  <option value="2">Beta</option>
+                                  <option value="3">Beta-Left</option>
+                                  <option value="4">Beta-Right</option>
+                            </select>
+                          </div>
+
+                          <div id="id_Test_NoiseProportionDiv" class="row" style="width: 100%; margin-top:0.5vh;">
+                            <p class="standardText" style="margin:auto; margin-left:0vw; margin-right:1vw; ">Proportion:</p>
+                            <input id="id_Test_NoiseProportion"type="range" step="0.01" min="0" max="1" value="0.25" style="width:8vw; margin-right:auto;" onchange="updateTestVariables()">
+                          </div>
+
+                          <div id="id_Test_NoiseScalingDiv" class="row" style="width: 100%; margin-top:0.5vh;">
+                            <p class="standardText" style="margin:auto; margin-left:0vw; margin-right:1vw; ">Scaling:</p>
+                            <input id="id_Test_NoiseScaling" type="range" step="1" min="1" max="100" value="1" style="width:8vw; margin-right:auto;" onchange="updateTestVariables()">
+                          </div>
+
+                          <div id="id_Test_NoiseMaxChangeDiv" class="row" style="width: 100%; margin-top:0.5vh;">
+                            <p class="standardText" style="margin:auto; margin-left:0vw; margin-right:1vw; ">Maximal Change:</p>
+                            <input id="id_Test_NoiseMaxChange" type="range" step="0.001" min="0" max="1" value="0.5" style="width:8vw; margin-right:auto;" onchange="updateTestVariables()">
+                          </div>
+
+                          <div class="row" style="width: 100%; margin-top:0.5vh;">
+                            <div>
+                              <canvas id="id_TestPage_newTestNoiseCanvas"  style="width: 5vw; height: 5vw; border: 0.2vh solid grey; margin:auto; margin-right:0vw;"></canvas>
+                              <p class="standardText" style="color:grey; font-size:1.0vh;">Example </p>
+                            </div>
+                            <div>
+                              <canvas id="id_TestPage_newTestNoiseDistributionCanvas"  style="width: 10vw; height: 5vw; border: 0.2vh solid grey; margin:auto; margin-left:0vw;"></canvas>
+                              <p class="standardText" style="color:grey; font-size:1.0vh;">Histogram (Distribution)</p>
+                            </div>
+                          </div>
+
+
+
+                        </div>
+                      </div>
                   </div>
 
 
@@ -3490,10 +3563,7 @@
 
         <h3 class="class_popupWindow_Label"> Scale CMS </h3>
 
-
-
         <img src="img/CCCToolComic/scalePage.jpg" style="width:50%; margin-left:25%;">
-
 
 
         <div class="row" style="width:100%; margin-bottom:2vh; padding-top:2vh; padding-bottom:2vh; border-top:1px solid grey; border-bottom:1px solid grey; background:rgb(220,220,220);">

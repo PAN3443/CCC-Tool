@@ -118,6 +118,13 @@ function initTesttestField_WorkerJSON(){
   testField_WorkerJSON['testFieldRangeStart'] = 0;
   testField_WorkerJSON['testFieldRangeEnd'] = 1;
 
+
+  ////// Noise
+  testField_WorkerJSON['doNoise'] = false;
+  testField_WorkerJSON['noiseBehavior'] = undefined;
+  testField_WorkerJSON['maxChange'] = undefined;
+  testField_WorkerJSON['noiseField'] = undefined;
+
   testField_WorkerJSON['canvasID'] = undefined;
 
   //// Additional Field Variables

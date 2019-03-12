@@ -17,6 +17,7 @@
   cursor:not-allowed;
 }
 
+#id_TestPage_newTestNoiseCanvas,
 #id_Test_PixelCanvas,
 #id_Test_PixelCanvasGrey,
 #id_Test_PixelCanvasFull,

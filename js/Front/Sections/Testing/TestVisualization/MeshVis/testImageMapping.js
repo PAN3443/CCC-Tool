@@ -244,11 +244,11 @@ function drawTest_Mesh(field, doStatusbar){
   ///*
 
   testmapping_camera.near = largestDis*0.001;
-  testmapping_camera.far = mapping_maxRadius;
+  testmapping_camera.far = 2*mapping_maxRadius;
   testmapping_camera.updateProjectionMatrix();
 
   testmapping_cameraGrey.near = largestDis*0.001;
-  testmapping_cameraGrey.far = mapping_maxRadius;
+  testmapping_cameraGrey.far = 2*mapping_maxRadius;
   testmapping_cameraGrey.updateProjectionMatrix();
 
   //*/

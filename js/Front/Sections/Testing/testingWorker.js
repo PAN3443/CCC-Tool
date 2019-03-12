@@ -1182,19 +1182,53 @@ self.addEventListener('message', function(e) {
   }
 
 
+    //////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////
+    /// noise
+  var tmpValueDis = max - min;
+  if(data.doNoise){
+    //console.log(data.noiseBehavior, data.noiseField.length,jsonObj.testFieldVal.length);
+    if(data.noiseField.length==jsonObj.testFieldVal.length){
+      for (var i = 0; i < data.noiseField.length; i++) {
+        if(data.noiseField[i]!=undefined){
+          switch (data.noiseBehavior) {
+            case 0:
+              jsonObj.testFieldVal[i] += data.noiseField[i];
+              if(jsonObj.testFieldVal[i]>max)
+                jsonObj.testFieldVal[i]=max;
+
+                if(jsonObj.testFieldVal[i]<min)
+                  jsonObj.testFieldVal[i]=min;
+            break;
+            case 1:
+              jsonObj.testFieldVal[i] = (data.noiseField[i]*tmpValueDis)+min;
+            break;
+            case 2:
+              jsonObj.testFieldVal[i] += (data.noiseField[i]*tmpValueDis);
+                if(jsonObj.testFieldVal[i]>max)
+                  jsonObj.testFieldVal[i]=max;
+
+                  if(jsonObj.testFieldVal[i]<min)
+                    jsonObj.testFieldVal[i]=min;
+            break;
+          }
+        }
+      }
+    }
+  }
+
   //////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////
   /// Calculate Grey Scale   // do calculation of grey colors befor auto scale to data range!
-  var tmpValueDis = max - min;
+
   for (var valIndex = 0; valIndex < jsonObj.testFieldVal.length; valIndex++) {
     jsonObj.gVal.push((jsonObj.testFieldVal[valIndex] - min) / tmpValueDis);
   }
 
   //////////////////////////////////////////////////////////////////////////
   /////////////////// Scale
-
+  var scaledDis = cmsEndRef - cmsStartRef;
   if (doScale) {
-    var scaledDis = cmsEndRef - cmsStartRef;
     if (tmpValueDis != 0) {
       for (var i = 0; i < jsonObj.testFieldVal.length; i++) {
         jsonObj.testFieldVal[i] = cmsStartRef + scaledDis * ((jsonObj.testFieldVal[i] - min) / tmpValueDis);
@@ -1205,7 +1239,6 @@ self.addEventListener('message', function(e) {
       }
     }
   }
-
 
 
 

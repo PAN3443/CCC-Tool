@@ -32,3 +32,6 @@ var intervalSize = 1;
 
 // Draw Reference Information
 //var refElementContainer = [];
+
+
+var errorMath = 1e12;
