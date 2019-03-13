@@ -92,6 +92,7 @@ function selectNewGradientTestType(){
   document.getElementById("id_TestPage_YFctType_Div").style.display="block";
 
   draw_GradientFunctionType();
+  updateNoise();
   gradient_startWorker(cccTest_NewGradient_Options);
 }
 
@@ -196,6 +197,7 @@ function updateGradientTestVariables(){
   cccTest_NewGradient_Options[8] = dimY;
 
   draw_GradientFunctionType();
+  updateNoise();
   gradient_startWorker(cccTest_NewGradient_Options);
 }
 

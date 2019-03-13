@@ -95,13 +95,14 @@ var cccTest_LocalExtrema_Options = [
 
 var cccTest_NewFrequency_Options = [];
 var cccTest_Frequency_Options = [
-  [true,true,1,4,0.0,1.0],
-  [true,false,1,4,0.0,1.0],
-  [true,true,1,6,0.0,1.0],
-  [true,true,2,4,0.0,1.0],
-  [true,true,3,4,0.0,1.0]
+  [true,true,1,0,0.0,1.0,100,100],
+  [true,false,1,1,0.0,1.0,100,100],
+  [true,true,1,2,0.0,1.0,100,100],
+  [true,true,1,4,0.0,1.0,100,100],
+  [true,true,1,8,0.0,1.0,100,100]
 ];
 
+var littleBit_NumberOfSinks = 10;
 var cccTest_NewLittleBit_Options = [];
 var cccTest_LittleBit_Options = [
   [true,0.0001,0.001,10],
@@ -116,6 +117,23 @@ var cccTest_Treshold_Options = [
   [true,0,2,0.0,0.5,1.0,101,101],
   [true,1,2,0.0,0.5,1.0,101,101],
   [true,2,2,0.0,0.5,1.0,101,101]
+];
+
+
+var topologyField;
+var cccTest_NewTopology_Options = [true,
+[0,0.5],
+[true,1,2,0.0,0.5,1.0,101,101]];
+
+var cccTest_NewTopologyFoundation_Defaults =
+[[0,0.5],
+ [1,0.0,1.0,0.0,2.0,0.0,2.0],
+ [2,0.0,1.0,0.0,2.0,0.0,2.0],
+ [3,1,-1,0]
+];
+
+var cccTest_Topology_Options = [
+1,1
 ];
 
 

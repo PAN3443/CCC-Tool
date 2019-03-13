@@ -23,7 +23,7 @@ for (var i = 0; i < fctTest_LocalMin_Options[tmpID].length; i++) {
 fctTest_NewLocalMin_Options = tmpArray;
 
 initNewTest();
-document.getElementById("id_TestPage_SelectNewTestType").selectedIndex = 7;
+document.getElementById("id_TestPage_SelectNewTestType").selectedIndex = 8;
 selectNewFctLocalMinimaType();
 
 }
@@ -66,7 +66,7 @@ function selectNewFctLocalMinimaType(){
 
   document.getElementById("id_TestPage_GridDimX").value=fctTest_NewLocalMin_Options[3];
   document.getElementById("id_TestPage_GridDimY").value=fctTest_NewLocalMin_Options[4];
-
+  updateNoise();
   fct_Worker(fctTest_NewLocalMin_Options);
 }
 
@@ -138,22 +138,34 @@ function updateFctLocalMinimaTestVariables(){
 
   fctTest_NewLocalMin_Options[3]=dimX;
   fctTest_NewLocalMin_Options[4]=dimY;
-
+  updateNoise();
   fct_Worker(fctTest_NewLocalMin_Options);
 }
 
 
 function updateLocalMinimaFctSelection(){
-  var selectedID = document.getElementById("id_TestPage_FctSelection").selectedIndex;
-  var tmpName = fctTest_LocalMin_Options[selectedID][0];
-  fctTest_NewLocalMin_Options[0]=tmpName;
-  var tmpID = fctTest_LocalMin_Options[selectedID][1];
-  fctTest_NewLocalMin_Options[1]=tmpID;
 
+  var selectedID = document.getElementById("id_TestPage_FctSelection").selectedIndex;
+  /*fctTest_NewLocalMin_Options = [];
+  var tmpName = fctTest_LocalMin_Options[selectedID][0];
+  fctTest_NewLocalMin_Options.push(tmpName);
+  var tmpID = fctTest_LocalMin_Options[selectedID][1];
+  fctTest_NewLocalMin_Options.push(tmpID);
+
+  var tmpArray = [];
   for (var j = 0; j < fctTest_LocalMin_Options[selectedID][2].length; j++) {
     var tmpVal = fctTest_LocalMin_Options[selectedID][2][j];
-    fctTest_NewLocalMin_Options[2][j]=tmpVal;
+    tmpArray.push(tmpVal);
   }
+  fctTest_NewLocalMin_Options.push(tmpArray);
 
+  if(fctTest_LocalMin_Options[selectedID].length>3){
+    for (var i = 3; i < fctTest_LocalMin_Options[selectedID].length; i++) {
+      var tmpVal = fctTest_LocalMin_Options[selectedID][2][j];
+    }
+  }
   selectNewFctLocalMinimaType();
+  */
+  openFctLocalMinimaTest(selectedID);
+
 }

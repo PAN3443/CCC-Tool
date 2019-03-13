@@ -93,6 +93,7 @@ document.getElementById("id_TestPage_GridDimY").value=cccTest_NewRidgeValley_Opt
   document.getElementById("id_TestPage_YFctType_Div").style.display="block";
 
   draw_RidgeValleyFunctionType();
+  updateNoise();
   valleyTest_startWorker(cccTest_NewRidgeValley_Options);
 }
 
@@ -198,6 +199,7 @@ function updateRidgeValleyTestVariables(){
   cccTest_NewRidgeValley_Options[8] = dimY;
 
   draw_RidgeValleyFunctionType();
+  updateNoise();
   valleyTest_startWorker(cccTest_NewRidgeValley_Options);
 }
 

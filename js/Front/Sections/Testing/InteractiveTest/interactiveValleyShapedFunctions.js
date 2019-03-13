@@ -22,7 +22,7 @@ for (var i = 0; i < fctTest_ValleyShaped_Options[tmpID].length; i++) {
 fctTest_NewValleyShaped_Options = tmpArray;
 
 initNewTest();
-document.getElementById("id_TestPage_SelectNewTestType").selectedIndex = 9;
+document.getElementById("id_TestPage_SelectNewTestType").selectedIndex = 10;
 selectNewFctValleyShapedType();
 
 }
@@ -65,7 +65,7 @@ function selectNewFctValleyShapedType(){
 
   document.getElementById("id_TestPage_GridDimX").value=fctTest_NewValleyShaped_Options[3];
   document.getElementById("id_TestPage_GridDimY").value=fctTest_NewValleyShaped_Options[4];
-
+  updateNoise();
   fct_Worker(fctTest_NewValleyShaped_Options);
 }
 
@@ -137,13 +137,13 @@ function updateFctValleyShapedTestVariables(){
 
   fctTest_NewValleyShaped_Options[3]=dimX;
   fctTest_NewValleyShaped_Options[4]=dimY;
-
+  updateNoise();
   fct_Worker(fctTest_NewValleyShaped_Options);
 }
 
 function updateValleyShapedFctSelection(){
   var selectedID = document.getElementById("id_TestPage_FctSelection").selectedIndex;
-  var tmpName = fctTest_ValleyShaped_Options[selectedID][0];
+  /* var tmpName = fctTest_ValleyShaped_Options[selectedID][0];
   fctTest_NewValleyShaped_Options[0]=tmpName;
   var tmpID = fctTest_ValleyShaped_Options[selectedID][1];
   fctTest_NewValleyShaped_Options[1]=tmpID;
@@ -153,5 +153,7 @@ function updateValleyShapedFctSelection(){
     fctTest_NewValleyShaped_Options[2][j]=tmpVal;
   }
 
-  selectNewFctValleyShapedType();
+  selectNewFctValleyShapedType();*/
+
+  openFctValleyShapedTest(selectedID);
 }

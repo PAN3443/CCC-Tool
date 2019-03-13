@@ -23,7 +23,7 @@ for (var i = 0; i < fctTest_BowlShaped_Options[tmpID].length; i++) {
 fctTest_NewBowlShaped_Options = tmpArray;
 
 initNewTest();
-document.getElementById("id_TestPage_SelectNewTestType").selectedIndex = 7;
+document.getElementById("id_TestPage_SelectNewTestType").selectedIndex = 9;
 selectNewFctBowlShapedType();
 
 }
@@ -66,7 +66,7 @@ function selectNewFctBowlShapedType(){
 
   document.getElementById("id_TestPage_GridDimX").value=fctTest_NewBowlShaped_Options[3];
   document.getElementById("id_TestPage_GridDimY").value=fctTest_NewBowlShaped_Options[4];
-
+  updateNoise();
   fct_Worker(fctTest_NewBowlShaped_Options);
 }
 
@@ -138,14 +138,14 @@ function updateFctBowlShapedTestVariables(){
 
   fctTest_NewBowlShaped_Options[3]=dimX;
   fctTest_NewBowlShaped_Options[4]=dimY;
-
+  updateNoise();
   fct_Worker(fctTest_NewBowlShaped_Options);
 }
 
 
 function updateBowlShapedFctSelection(){
   var selectedID = document.getElementById("id_TestPage_FctSelection").selectedIndex;
-  var tmpName = fctTest_BowlShaped_Options[selectedID][0];
+  /*var tmpName = fctTest_BowlShaped_Options[selectedID][0];
   fctTest_NewBowlShaped_Options[0]=tmpName;
   var tmpID = fctTest_BowlShaped_Options[selectedID][1];
   fctTest_NewBowlShaped_Options[1]=tmpID;
@@ -155,5 +155,6 @@ function updateBowlShapedFctSelection(){
     fctTest_NewBowlShaped_Options[2][j]=tmpVal;
   }
 
-  selectNewFctBowlShapedType();
+  selectNewFctBowlShapedType();*/
+  openFctBowlShapedTest(selectedID);
 }

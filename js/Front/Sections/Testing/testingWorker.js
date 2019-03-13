@@ -464,10 +464,14 @@ self.addEventListener('message', function(e) {
 
       var numberDoublings = data.testFieldVar_c;
 
-      var xStep = Math.round(((numberDoublings + 1.0) / (data.testFieldDimX - 1)) * errorMath) / errorMath;
+
+
+      ///////////////////////
+      //// old
+      /*var xStep = Math.round(((numberDoublings + 1.0) / (data.testFieldDimX - 1)) * errorMath) / errorMath;
       var yStep = Math.round(((1.0) / (data.testFieldDimY - 1)) * errorMath) / errorMath;
 
-      var basisFrequence = data.testFieldVar_b * 2;
+      /*var basisFrequence = data.testFieldVar_b * 2;
 
       var currentX = undefined;
       var currentY = undefined;
@@ -497,11 +501,113 @@ self.addEventListener('message', function(e) {
           jsonObj.testFieldVal.push(value);
         }
 
+      }*/
+
+
+
+
+
+      var currentX = undefined;
+      var currentY = undefined;
+      var value = undefined;
+
+      var startFrequency = data.testFieldVar_b;
+
+
+      var harmonicSeries = [];
+      var sum=0;
+
+      /// init start of the harmonic series depending on the start frequency
+      if(startFrequency==1)
+          harmonicSeries = [0];
+      else{
+        for(var i=1; i=startFrequency; i++)
+        {
+          sum+=1/i;
+        }
+        var tmp = sum;
+        harmonicSeries.push(tmp)
       }
+
+      for(var i=startFrequency; i<=(numberDoublings+1); i++)
+      {
+        sum+=1/i;
+        var tmp = sum;
+        harmonicSeries.push(tmp)
+      }
+
+      //console.log(harmonicSeries);
+
+      var maxHarmonic = harmonicSeries[harmonicSeries.length-1];
+      var minHarmonic = harmonicSeries[0];
+
+      for (var y = 0; y < data.testFieldDimY; y++) {
+
+        currentY = y/(data.testFieldDimY-1);
+
+        var currentAmplitude = amplitude*currentY;
+        var yPos = currentX*(maxHarmonic-minHarmonic)+minHarmonic;
+
+        for (var x = 0; x < data.testFieldDimX; x++) {
+
+          currentX = x/(data.testFieldDimX-1);
+
+          var xPos = currentX*maxHarmonic;
+          var xsubPos = 0;
+          var j = 0;
+
+          for (var i = 1; i < harmonicSeries.length; i++) {
+              if(xPos<=harmonicSeries[i]){
+                xsubPos = xPos-harmonicSeries[i-1];
+                break;
+              }
+              else {
+                j++;
+              }
+          }
+
+
+          value = currentAmplitude * Math.sin( 2*Math.PI *(startFrequency+j)*xsubPos)+m;
+
+          min = Math.min(min, value);
+          max = Math.max(max, value);
+
+          jsonObj.positions.push([currentX, currentY]);
+          jsonObj.testFieldVal.push(value);
+        }
+
+      }
+
+
+
+
+
+
+
 
       break;
       ///////////////////////////
       //// USER TEST
+
+    case "Topology":
+
+    for (var y = 0; y < data.testFieldDimY; y++) {
+
+      for (var x = 0; x < data.testFieldDimX; x++) {
+
+        var value = data.testFieldVar_a[x][y];
+
+        min = Math.min(min, value);
+        max = Math.max(max, value);
+
+        jsonObj.positions.push([x, y]);
+        jsonObj.testFieldVal.push(value);
+
+      }
+
+    }
+
+    break;
     case "FCT":
 
 
@@ -1186,8 +1292,14 @@ self.addEventListener('message', function(e) {
     //////////////////////////////////////////////////////////////////////////
     /// noise
   var tmpValueDis = max - min;
-  if(data.doNoise){
-    //console.log(data.noiseBehavior, data.noiseField.length,jsonObj.testFieldVal.length);
+  var scaledDis = cmsEndRef - cmsStartRef;
+  if(data.doNoise && tmpValueDis!=0){
+
+    /*console.log("-----------------------------------------");
+    console.log("Do noise for: ",data.testFieldType);
+    console.log("Dim: ", data.testFieldDimX,":",data.testFieldDimY);
+    console.log(data.noiseField.length,jsonObj.testFieldVal.length);
+    console.log("-----------------------------------------");*/
     if(data.noiseField.length==jsonObj.testFieldVal.length){
       for (var i = 0; i < data.noiseField.length; i++) {
         if(data.noiseField[i]!=undefined){
@@ -1201,15 +1313,15 @@ self.addEventListener('message', function(e) {
                   jsonObj.testFieldVal[i]=min;
             break;
             case 1:
-              jsonObj.testFieldVal[i] = (data.noiseField[i]*tmpValueDis)+min;
+            jsonObj.testFieldVal[i] += (data.noiseField[i]*tmpValueDis);
+              if(jsonObj.testFieldVal[i]>max)
+                jsonObj.testFieldVal[i]=max;
+
+                if(jsonObj.testFieldVal[i]<min)
+                  jsonObj.testFieldVal[i]=min;
             break;
             case 2:
-              jsonObj.testFieldVal[i] += (data.noiseField[i]*tmpValueDis);
-                if(jsonObj.testFieldVal[i]>max)
-                  jsonObj.testFieldVal[i]=max;
-
-                  if(jsonObj.testFieldVal[i]<min)
-                    jsonObj.testFieldVal[i]=min;
+              jsonObj.testFieldVal[i] = (data.noiseField[i]*tmpValueDis)+min;
             break;
           }
         }
@@ -1220,14 +1332,23 @@ self.addEventListener('message', function(e) {
   //////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////
   /// Calculate Grey Scale   // do calculation of grey colors befor auto scale to data range!
-
-  for (var valIndex = 0; valIndex < jsonObj.testFieldVal.length; valIndex++) {
-    jsonObj.gVal.push((jsonObj.testFieldVal[valIndex] - min) / tmpValueDis);
+  if(tmpValueDis==0){
+    var val = 0.5;
+    if(max>cmsStartRef && max<cmsEndRef)
+      val = (max-cmsStartRef)/scaledDis;
+    for (var valIndex = 0; valIndex < jsonObj.testFieldVal.length; valIndex++) {
+      jsonObj.gVal.push(val);
+    }
   }
+  else{
+    for (var valIndex = 0; valIndex < jsonObj.testFieldVal.length; valIndex++) {
+      jsonObj.gVal.push((jsonObj.testFieldVal[valIndex] - min) / tmpValueDis);
+    }
+  }
+
 
   //////////////////////////////////////////////////////////////////////////
   /////////////////// Scale
-  var scaledDis = cmsEndRef - cmsStartRef;
   if (doScale) {
     if (tmpValueDis != 0) {
       for (var i = 0; i < jsonObj.testFieldVal.length; i++) {

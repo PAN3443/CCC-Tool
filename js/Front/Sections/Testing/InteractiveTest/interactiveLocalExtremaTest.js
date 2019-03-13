@@ -37,6 +37,7 @@ function selectNewExtremaTestType(){
   document.getElementById("id_TestPage_GridDimY").value=cccTest_NewLocalExtrema_Options[5];
 
   newTestExtremaInfoText();
+  updateNoise();
   extremaTest_startWorker(cccTest_NewLocalExtrema_Options);
 }
 
@@ -45,8 +46,13 @@ function updateExtremaTestVariables(){
     cccTest_NewLocalExtrema_Options[3]=document.getElementById("id_TestPage_fitToCMS").checked;
 
     cccTest_NewLocalExtrema_Options[0]= parseFloat(document.getElementById("id_TestPage_NewTest_I1").value);
+    document.getElementById("id_TestPage_NewTest_I1").value = cccTest_NewLocalExtrema_Options[0];
+
     cccTest_NewLocalExtrema_Options[1]= parseFloat(document.getElementById("id_TestPage_NewTest_I2").value);
+    document.getElementById("id_TestPage_NewTest_I2").value=cccTest_NewLocalExtrema_Options[1];
+
     cccTest_NewLocalExtrema_Options[2]= parseFloat(document.getElementById("id_TestPage_NewTest_I3").value);
+    document.getElementById("id_TestPage_NewTest_I3").value=cccTest_NewLocalExtrema_Options[2];
 
     // check x,y DIM
     var dimX = parseInt(document.getElementById("id_TestPage_GridDimX").value);
@@ -75,6 +81,7 @@ function updateExtremaTestVariables(){
     cccTest_NewLocalExtrema_Options[5]= dimY;
 
     newTestExtremaInfoText();
+    updateNoise();
     extremaTest_startWorker(cccTest_NewLocalExtrema_Options);
 }
 

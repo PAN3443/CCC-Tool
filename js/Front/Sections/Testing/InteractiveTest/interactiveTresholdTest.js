@@ -78,6 +78,7 @@ function selectNewTresholdTestType(){
   document.getElementById("id_TestPage_GridDimY").value=cccTest_NewTreshold_Options[7];
 
   draw_TesholdFunctionType();
+  updateNoise();
   treshold_startWorker(cccTest_NewTreshold_Options);
 }
 
@@ -177,6 +178,7 @@ function updateTresholdTestVariables(){
     cccTest_NewTreshold_Options[7]=dimY;
 
     draw_TesholdFunctionType();
+    updateNoise();
     treshold_startWorker(cccTest_NewTreshold_Options);
 }
 

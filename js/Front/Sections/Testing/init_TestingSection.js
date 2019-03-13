@@ -47,6 +47,7 @@ function init_Testing(){
   cccTest_NewGradient_Options= [true,0,1,1,2,1,2,101,100];
   cccTest_NewLittleBit_Options=[true,0.001,0.1,10];
   cccTest_NewTreshold_Options=[true,0,2,0.0,0.5,1.0,101,101];
+  cccTest_NewFrequency_Options = [true,true,1,1,0.0,1.0,100,100];
 
   fctTest_NewValleyShaped_Options=["Three-Hump Camel Function","Three_Hump_Camel",[-5,5,-5,5],100,100];
   fctTest_NewBowlShaped_Options=["Bohachevsky Function ","Bohachevsky_F1",[-100,100,-100,100],100,100];

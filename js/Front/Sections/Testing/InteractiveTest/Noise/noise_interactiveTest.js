@@ -129,16 +129,15 @@ function calcNoise(){
                 simData[x][y]=0;
           break;
           case 1:
-            simData[x][y] = newVal;
+          simData[x][y] += newVal;
+            if(simData[x][y]>255)
+              simData[x][y]=255;
+
+              if(simData[x][y]<0)
+                simData[x][y]=0;
           break;
           case 2:
-
-            simData[x][y] += newVal;
-              if(simData[x][y]>255)
-                simData[x][y]=255;
-
-                if(simData[x][y]<0)
-                  simData[x][y]=0;
+            simData[x][y] = newVal;
           break;
         }
       }
@@ -189,13 +188,29 @@ function calcNoise(){
   var numOfBars = 50;
   var hitogram = new Array(numOfBars).fill(0.0);
   var maxHisto = 0;
-  var step = Math.round((2.0/numOfBars) * errorMath) / errorMath;
+
+  var step = undefined;
+
+  if(document.getElementById("id_Test_NoiseBehavior").selectedIndex==2){
+    step = Math.round((1.0/numOfBars) * errorMath) / errorMath;
+  }
+  else {
+    step = Math.round((2.0/numOfBars) * errorMath) / errorMath;
+  }
+
   for (var i = 0; i < randomArray.length; i++) {
 
     if(randomArray[i]==undefined)
     continue;
 
-    var index = Math.round((randomArray[i]+1)/step)-1;
+    var index = undefined;
+
+    if(document.getElementById("id_Test_NoiseBehavior").selectedIndex==2){
+      index = Math.round((randomArray[i])/step)-1;
+    }
+    else {
+      index = Math.round((randomArray[i]+1)/step)-1;
+    }
 
     if(index==-1)
       index++;
@@ -253,5 +268,8 @@ function checkForMaximalChange(random){
 
     return newRandom;*/
 
-    return random * maxChangeFactor;
+    if(document.getElementById("id_Test_NoiseBehavior").selectedIndex==2)
+      return (random+1)/2 * maxChangeFactor;
+    else
+      return random * maxChangeFactor;
 }

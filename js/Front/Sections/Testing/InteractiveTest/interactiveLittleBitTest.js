@@ -44,7 +44,7 @@ function selectNewLittleBitTestType(){
     document.getElementById("id_TestPage_NewTest_I2").min= undefined;
     document.getElementById("id_TestPage_NewTest_I2").max= undefined;
   }
-
+  updateNoise();
   littlebit_startWorker(cccTest_NewLittleBit_Options);
 }
 
@@ -96,6 +96,11 @@ function updateLittleBitTestVariables(){
     cccTest_NewLittleBit_Options[2]= lEnd;
     cccTest_NewLittleBit_Options[3]= pixelsArea;
 
+    // Update input for noise calculation
+    var numberOfAreas = littleBit_NumberOfSinks+littleBit_NumberOfSinks+1;
+    document.getElementById("id_TestPage_GridDimX").value=numberOfAreas*pixelsArea;
+    document.getElementById("id_TestPage_GridDimY").value=numberOfAreas*pixelsArea;
+    updateNoise();
     littlebit_startWorker(cccTest_NewLittleBit_Options);
 }
 

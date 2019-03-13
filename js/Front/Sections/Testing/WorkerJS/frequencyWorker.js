@@ -2,9 +2,9 @@
 function frequencyTest_JSON(options, createGlobalField){
 
   if(createGlobalField){
-    userTestGlobalField = new class_TestField(100, 100);
-    testField_WorkerJSON.testFieldDimX = 100;
-    testField_WorkerJSON.testFieldDimY = 100;
+    userTestGlobalField = new class_TestField(options[6], options[7]);
+    testField_WorkerJSON.testFieldDimX = options[6];
+    testField_WorkerJSON.testFieldDimY = options[7];
   }
   else {
     testField_WorkerJSON.testFieldDimX = 50;
@@ -26,8 +26,6 @@ function frequencyTest_JSON(options, createGlobalField){
 function frequency_startWorker(options) {
 
   //cccTest_Frequency_Options//
-
-  userTestGlobalField = new class_TestField(100, 100);
 
   frequencyTest_JSON(options, true);
 

@@ -15,6 +15,10 @@ function initNewTest() {
   document.getElementById("id_TestPage_NewTest_D3").style.display="none";
   document.getElementById("id_TestPage_NewTest_D4").style.display="none";
   document.getElementById("id_TestPage_XFctType_Div").style.display="none";
+  document.getElementById("id_TestPage_NewTest_TopologyDiv1").style.display="none";
+  document.getElementById("id_TestPage_NewTest_TopologyDiv2").style.display="none";
+  document.getElementById("id_NewTest_TopologySubDivOptionDiv").style.display="none";
+
 
   document.getElementById("id_TestPage_FctSelection_Div").style.display="none";
   document.getElementById("id_TestPage_newTestNoiseDiv").style.display="block";
@@ -45,19 +49,19 @@ function initNewTest() {
   document.getElementById("id_TestPage_NewTest_I3").step="any";
   document.getElementById("id_TestPage_NewTest_I4").step="any";
 
+  document.getElementById("id_TestPage_NewTest_subDiv1").style.display="block";
+  document.getElementById("id_TestPage_NewTest_subDiv2").style.display="none";
 
   if(testmappingMesh!=undefined){
     testmappingMesh.visible = false;
     testmappingMeshGrey.visible = false;
   }
 
-  updateNoise();
 }
 
 function selectNewTestType(){
 
   initNewTest();
-
   switch (document.getElementById("id_TestPage_SelectNewTestType").selectedIndex) {
     case 0:
         selectNewJumpTestType();
@@ -81,12 +85,15 @@ function selectNewTestType(){
           selectNewTresholdTestType();
           break;
           case 7:
+            selectNewTopologyTestType();
+            break;
+          case 8:
             selectNewFctLocalMinimaType();
             break;
-            case 8:
+            case 9:
               selectNewFctBowlShapedType();
               break;
-              case 9:
+              case 10:
                 selectNewFctValleyShapedType();
                 break;
 
@@ -115,10 +122,10 @@ function newTest_switchRatioType(){
       // Ridge & Valley
        selectNewRidgeValleyTestType();
       break;
-    case 3:
+    /*case 3:
       // Local Extrema
         updateExtremaTestVariables();
-      break;
+      break;*/
     case 4:
       // Frequency
       selectNewFrequencyTestType();
@@ -148,8 +155,6 @@ function updateTestVariables(){
     usertestWorkerfinished = true;
   }
 
-  updateNoise();
-
   switch (document.getElementById("id_TestPage_SelectNewTestType").selectedIndex) {
     case 1:
           updateGradientTestVariables();
@@ -170,12 +175,15 @@ function updateTestVariables(){
             updateTresholdTestVariables();
           break;
           case 7:
+              updateTopologyTestVariables();
+            break;
+          case 8:
               updateFctLocalMinimaTestVariables();
             break;
-            case 8:
+            case 9:
                 updateFctBowlShapedTestVariables();
               break;
-              case 9:
+              case 10:
                   updateFctValleyShapedTestVariables();
                 break;
 
@@ -188,13 +196,13 @@ function updateTestVariables(){
 
 function updateFunctionSelection(){
   switch (document.getElementById("id_TestPage_SelectNewTestType").selectedIndex) {
-          case 7:
+          case 8:
               updateLocalMinimaFctSelection();
             break;
-            case 8:
+            case 9:
                 updateBowlShapedFctSelection();
               break;
-              case 9:
+              case 10:
                   updateValleyShapedFctSelection();
                 break;
   }
@@ -244,6 +252,7 @@ function updateNoise(){
 
 
         document.getElementById("id_TestPage_newTestNoiseDivSub").style.display="block";
+        document.getElementById("id_Test_NoiseMaxChangeDiv").style.display="flex";
 
         if(document.getElementById("id_Test_NoiseType").selectedIndex==1){
           document.getElementById("id_Test_NoiseProportionDiv").style.display="flex";
@@ -253,16 +262,16 @@ function updateNoise(){
         if(document.getElementById("id_Test_NoiseType").selectedIndex==2){
           document.getElementById("id_Test_NoiseScalingDiv").style.display="flex";
 
-          if(document.getElementById("id_Test_NoiseBehavior").selectedIndex==1){
+          if(document.getElementById("id_Test_NoiseBehavior").selectedIndex==2){
             document.getElementById("id_Test_NoiseBehavior").selectedIndex=0;
           }
           document.getElementById("id_Test_NoiseBehaviorReplacing").disabled = true;
 
         }
 
-        if(document.getElementById("id_Test_NoiseBehavior").selectedIndex!=1){
-          document.getElementById("id_Test_NoiseMaxChangeDiv").style.display="flex";
-        }
+
+
+
 
 
         // For the Worker

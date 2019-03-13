@@ -22,6 +22,7 @@ function selectNewJumpTestType(){
   document.getElementById("id_TestPage_newTestNoiseDiv").style.display="none";
   document.getElementById("id_Test_NoiseType").selectedIndex=0;
   document.getElementById("id_TestPage_doRatioCheckbox").checked = cccTest_NewJump_Options[0];
+  updateNoise();
   fillNewJumpsList();
 
 }

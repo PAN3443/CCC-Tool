@@ -95,13 +95,13 @@ function drawTestCollection(){
       tmpWorker.postMessage(testField_WorkerJSON);
   }
 
-  /*for (var i = 0; i < cccTest_Frequency_Options.length; i++) {
+  for (var i = 0; i < cccTest_Frequency_Options.length; i++) {
       frequencyTest_JSON(cccTest_Frequency_Options[i], false);
       testField_WorkerJSON.canvasID = "frequencyCanvas_"+i;
       var tmpWorker = new Worker('js/Front/Sections/Testing/testingWorker.js');
       tmpWorker.addEventListener('message', workerEvent_drawTest, false);
       tmpWorker.postMessage(testField_WorkerJSON);
-  }*/
+  }
 
 
   for (var i = 0; i < cccTest_LittleBit_Options.length; i++) {
@@ -482,7 +482,6 @@ function createFrequency(){
   tmpDivRow.style.marginBottom = "1vh";
   tmpTestDiv.appendChild(tmpDivRow);
 
-  return tmpTestDiv;
   for (var i = 0; i < cccTest_Frequency_Options.length; i++) {
 
       var tmpSelection = document.createElement('div');
@@ -493,7 +492,7 @@ function createFrequency(){
       tmpSelection.appendChild(tmpCanvas);
 
       var tmpTestLabel = document.createElement('p');
-      var labelText = "FRRR";
+      var labelText = "Frequency-Increases: " + cccTest_Frequency_Options[i][3];
 
       tmpTestLabel.innerHTML = labelText;
       tmpSelection.appendChild(tmpTestLabel);

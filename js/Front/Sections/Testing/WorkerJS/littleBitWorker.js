@@ -13,8 +13,8 @@ function littlebit_startWorker(options) {
 
 function littleBitTest_JSON(options, createGlobalField){
 
-  var numberOfSinks = 10;
-  var numberOfAreas = numberOfSinks+numberOfSinks+1;
+  
+  var numberOfAreas = littleBit_NumberOfSinks+littleBit_NumberOfSinks+1;
 
   var xDim = undefined;
   var yDim = undefined;
@@ -38,7 +38,7 @@ function littleBitTest_JSON(options, createGlobalField){
   testField_WorkerJSON.testFieldVar_b = options[1]; // max little
   testField_WorkerJSON.testFieldVar_c = options[2]; // min little
   testField_WorkerJSON.testFieldVar_d = options[3]; // pixel per area
-  testField_WorkerJSON.testFieldVar_e =numberOfSinks;
+  testField_WorkerJSON.testFieldVar_e =littleBit_NumberOfSinks;
   testField_WorkerJSON.onlyGrey = false;
 
 }
