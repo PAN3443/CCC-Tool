@@ -177,6 +177,9 @@ function selectNewTopologyTestType(){
   document.getElementById("id_TestPage_NewTest_V4").innerHTML="Wava-Range End: ";*/
 
 
+  document.getElementById("id_TestPage_GridDimX").value=100;
+  document.getElementById("id_TestPage_GridDimY").value=100;
+
 
   chooseTopologySubDiv(0);
   updateNoise();
@@ -231,10 +234,7 @@ function updateTopologyTestVariables(){
     openAlert("Invalid input for the Grid x-dimension!");
     return;
   }
-  if(dimX<100){
-    openAlert("Invalid input for the Grid x-dimension. The exponent has to be an integer and has to be 100 or greater than 100.");
-    return;
-  }
+
 
   var dimY = parseInt(document.getElementById("id_TestPage_GridDimY").value);
   document.getElementById("id_TestPage_GridDimY").value=dimY;
@@ -242,12 +242,18 @@ function updateTopologyTestVariables(){
     openAlert("Invalid input for the Grid y-dimension!");
     return;
   }
-  if(dimY<100){
-    openAlert("Invalid input for the Grid y-dimension. The exponent has to be an integer and has to be 100 or greater than 100.");
-    return;
+
+  if(dimX<100 || dimY<100){
+    openAlert("Invalid input for the Grid x-dimension. The exponent has to be an integer and has to be 100 or greater than 100.");
+    if(dimX<100){
+      dimX=100;
+      document.getElementById("id_TestPage_GridDimY").value=100;
+    }
+    if(dimY<100){
+      dimY=100;
+      document.getElementById("id_TestPage_GridDimY").value=100;
+    }
   }
-
-
 
   switch (document.getElementById("id_Test_TopologyFoundation").selectedIndex) {
     case 0:

@@ -60,14 +60,17 @@ function createTopologyField(options){
 
     for (var y = 0; y < canvasPlot.height; y++) {
 
-        var val = (topologyField[x][y]-min)/dis;
+
+        var mirrorY = canvasPlot.height-1-y;
+
+        var val = (topologyField[x][mirrorY]-min)/dis;
 
         if(document.getElementById("id_Test_TopologyFoundation").selectedIndex!=0)
-          val = (topologyField[x][y]-min)/dis*255;
+          val = (topologyField[x][mirrorY]-min)/dis*255;
         else
           val = 125;
 
-        var index = (x + (canvasPlot.height-y) * canvasPlot.width) * 4;
+        var index = (x + y * canvasPlot.width) * 4;
 
         canvasData.data[index + 0] = Math.round(val); // r
         canvasData.data[index + 1] = Math.round(val); // g
