@@ -138,7 +138,7 @@ function updateTresholdTestVariables(){
     }
 
     if(exp<2){
-      openAlert("Invalid input for the exponent! The value is not allowed to be smaller than three!");
+      openAlert("Invalid input for the exponent! The value is not allowed to be smaller than two!");
       return;
     }
 

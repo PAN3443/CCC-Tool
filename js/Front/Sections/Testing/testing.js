@@ -25,23 +25,22 @@ function openTestSection(){
   document.getElementById("id_TestVisualization_Pixel").checked = true;
   updateTestVis();
 
-  testingModus=true;
+  testingModus=0;
   document.getElementById("id_Test_FunctionCollection").style.width = "100vw";
   document.getElementById("id_Test_TestDiv").style.width = "0vw";
   document.getElementById("id_Test_pageSwitchRight").style.visibility = "visible";
-  document.getElementById("id_Test_pageSwitchStatus").innerHTML = "&#x25C9; &#x25CE;";
-
+  document.getElementById("id_Test_pageSwitchStatusLeft").innerHTML = "&#x25C9;";
+  document.getElementById("id_Test_pageSwitchStatusRight").innerHTML = "&#x25CE;";
   selectTestCMS();
 }
 
-function switchTestDisplay() {
-  if(testingModus){
-    testingModus=false;
+function switchTestDisplay(type) {
+
+  if(testingModus!=type){
+    testingModus=type;
+    slideTestDisplayDivs();
   }
-  else {
-    testingModus=true;
-  }
-  slideTestDisplayDivs();
+
 }
 
 function slideTestDisplayDivs(){
@@ -49,23 +48,29 @@ function slideTestDisplayDivs(){
   document.getElementById("id_Test_pageSwitchRight").style.visibility = "hidden";
   document.getElementById("id_Test_pageSwitchLeft").style.visibility = "hidden";
 
-  if(testingModus){
+
+
+  switch (testingModus) {
+    case 0:
     document.getElementById("id_Test_FunctionCollection").style.width = "100vw";
     document.getElementById("id_Test_TestDiv").style.width = "0vw";
     document.getElementById("id_Test_pageSwitchRight").style.visibility = "visible";
-    document.getElementById("id_Test_pageSwitchStatus").innerHTML = "&#x25C9; &#x25CE;";
+    document.getElementById("id_Test_pageSwitchStatusLeft").innerHTML = "&#x25C9;";
+    document.getElementById("id_Test_pageSwitchStatusRight").innerHTML = "&#x25CE;";
     if(redrawCollection)
     drawTestCollection();
     redrawCollection=false;
-  }
-  else {
-    document.getElementById("id_Test_FunctionCollection").style.width = "0vw";
-    document.getElementById("id_Test_TestDiv").style.width = "100vw";
-    document.getElementById("id_Test_pageSwitchStatus").innerHTML = "&#x25CE; &#x25C9;";
-    document.getElementById("id_Test_pageSwitchLeft").style.visibility = "visible";
-    if(redrawTest)
-    selectNewTestType();
-    redrawTest = false;
+    break;
+    case 1:
+      document.getElementById("id_Test_FunctionCollection").style.width = "0vw";
+      document.getElementById("id_Test_TestDiv").style.width = "100vw";
+      document.getElementById("id_Test_pageSwitchStatusLeft").innerHTML = "&#x25CE;";
+      document.getElementById("id_Test_pageSwitchStatusRight").innerHTML = "&#x25C9;";
+      document.getElementById("id_Test_pageSwitchLeft").style.visibility = "visible";
+      if(redrawTest)
+      selectNewTestType();
+      redrawTest = false;
+    break;
   }
 
 }
@@ -80,15 +85,15 @@ function selectTestCMS(){
 
   initTesttestField_WorkerJSON();
 
-
-  if(testingModus){
+  switch (testingModus) {
+    case 0:
     drawTestCollection();
     redrawTest = true;
+      break;
+      case 1:
+      selectNewTestType();
+      redrawCollection = true;
+        break;
   }
-  else{
-    selectNewTestType();
-    redrawCollection = true;
-  }
-
 
 }

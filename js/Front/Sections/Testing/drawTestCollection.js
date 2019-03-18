@@ -201,7 +201,7 @@ function createtmpTestDiv(){
       tmpSelection.onclick = (function(tmpID) {
       return function() {
         redrawTests = false;
-         switchTestDisplay();
+         switchTestDisplay(1);
          openJumpTest(tmpID);
       };
     })(i);
@@ -291,7 +291,7 @@ function createGradientDiv(){
       tmpSelection.onclick = (function(tmpID) {
       return function() {
         redrawTests = false;
-         switchTestDisplay();
+         switchTestDisplay(1);
          openGradientTest(tmpID);
       };
     })(i);
@@ -381,7 +381,7 @@ function createRidgeAndValley(){
       tmpSelection.onclick = (function(tmpID) {
       return function() {
          redrawTests = false;
-         switchTestDisplay();
+         switchTestDisplay(1);
          openRidgeValleyTest(tmpID);
       };
     })(i);
@@ -406,7 +406,7 @@ function createLocalExtrema(){
   tmpDivLabel.style.lineHeight = "2.5vh";
   tmpDivLabel.style.marginTop = "2vh";
   tmpDivLabel.style.fontWeight = "bold";
-  tmpDivLabel.innerHTML = "1.4 Local Extrema:";
+  tmpDivLabel.innerHTML = "1.4 Minimum/Maximum/Saddle:";
   tmpTestDiv.appendChild(tmpDivLabel);
 
   var tmpDivRow = document.createElement('div');
@@ -446,7 +446,7 @@ function createLocalExtrema(){
       tmpSelection.onclick = (function(tmpID) {
       return function() {
         redrawTests = false;
-         switchTestDisplay();
+         switchTestDisplay(1);
          openExtremaTest(tmpID);
       };
     })(i);
@@ -500,7 +500,7 @@ function createFrequency(){
       tmpSelection.onclick = (function(tmpID) {
       return function() {
         redrawTests = false;
-         switchTestDisplay();
+         switchTestDisplay(1);
          openFrequencyTest(tmpID);
       };
     })(i);
@@ -563,7 +563,7 @@ function createLittleBit(){
       tmpSelection.onclick = (function(tmpID) {
       return function() {
         redrawTests = false;
-         switchTestDisplay();
+         switchTestDisplay(1);
          openLittleBitTest(tmpID);
       };
     })(i);
@@ -644,7 +644,7 @@ function createTreshold(){
       tmpSelection.onclick = (function(tmpID) {
       return function() {
         redrawTests = false;
-         switchTestDisplay();
+         switchTestDisplay(1);
          openTresholdTest(tmpID);
       };
     })(i);
@@ -699,7 +699,7 @@ function createFunctionLocalMin(){
       tmpSelection.onclick = (function(tmpID) {
       return function() {
         redrawTests = false;
-         switchTestDisplay();
+         switchTestDisplay(1);
          openFctLocalMinimaTest(tmpID);
       };
     })(i);
@@ -753,7 +753,7 @@ function createFunctionBowlShaped(){
       tmpSelection.onclick = (function(tmpID) {
       return function() {
         redrawTests = false;
-         switchTestDisplay();
+         switchTestDisplay(1);
          openFctBowlShapedTest(tmpID);
       };
     })(i);
@@ -807,7 +807,7 @@ function createFunctionValleyShaped(){
       tmpSelection.onclick = (function(tmpID) {
       return function() {
         redrawTests = false;
-         switchTestDisplay();
+         switchTestDisplay(1);
          openFctValleyShapedTest(tmpID);
       };
     })(i);

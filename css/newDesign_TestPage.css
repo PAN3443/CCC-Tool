@@ -66,14 +66,14 @@
   vertical-align: middle;
   text-align:center;
   line-height:5vh;
-  color: color:rgb(40,40,40); /*transparent;*/
+  color:rgba(51, 61, 76,0.7); /*transparent;*/
   font-size:2.5vh;
   box-sizing: border-box;
 
   font-weight:bold;
-  background-color: rgb(20,20,20);
+  background-color: rgb(153, 210, 255);
 
-  text-shadow: 0vh 0.1vh 0.1vh rgba(255,255,255,0.2);
+  text-shadow: 0vh 0.2vh 0.2vh rgba(51, 61, 76,0.5);
   -webkit-background-clip: text;
      -moz-background-clip: text;
           background-clip: text;

@@ -123,7 +123,11 @@ var cccTest_Treshold_Options = [
 var topologyField;
 var cccTest_NewTopology_Options = [true,
 [0,0.5],
-[true,1,2,0.0,0.5,1.0,101,101]];
+[[0,0.2,0.2,0.2,0.5,0.05],
+[1,0.5,0.1,0.1,0.1,0.01],
+[2,0.8,0.7,0.1,0.25],
+[3,0.5,0.5,0.5,0.2]],101,101
+];
 
 var cccTest_NewTopologyFoundation_Defaults =
 [[0,0.5],
@@ -135,6 +139,9 @@ var cccTest_NewTopologyFoundation_Defaults =
 var cccTest_Topology_Options = [
 1,1
 ];
+
+var drawElementInPreview = false;
+var drawElementID = 0;
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////

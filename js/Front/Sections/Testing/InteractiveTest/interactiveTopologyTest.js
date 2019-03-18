@@ -165,20 +165,11 @@ function selectNewTopologyTestType(){
 
   }
   topologyTest_Htmlupdate();
-
-/*  document.getElementById("id_TestPage_NewTest_D1").style.display="flex";
-  document.getElementById("id_TestPage_NewTest_D2").style.display="flex";
-  document.getElementById("id_TestPage_NewTest_D3").style.display="flex";
-  document.getElementById("id_TestPage_NewTest_D4").style.display="flex";
-
-  document.getElementById("id_TestPage_NewTest_V1").innerHTML="Start Topology: ";
-  document.getElementById("id_TestPage_NewTest_V2").innerHTML="#Increases: ";
-  document.getElementById("id_TestPage_NewTest_V3").innerHTML="Wava-Range Start: ";
-  document.getElementById("id_TestPage_NewTest_V4").innerHTML="Wava-Range End: ";*/
+  fillTopologyElementList();
 
 
-  document.getElementById("id_TestPage_GridDimX").value=100;
-  document.getElementById("id_TestPage_GridDimY").value=100;
+  document.getElementById("id_TestPage_GridDimX").value=cccTest_NewTopology_Options[3];
+  document.getElementById("id_TestPage_GridDimY").value=cccTest_NewTopology_Options[4];
 
 
   chooseTopologySubDiv(0);
@@ -351,7 +342,8 @@ function updateTopologyTestVariables(){
 
   }
 
-
+  cccTest_NewTopology_Options[3]=dimX;
+  cccTest_NewTopology_Options[4]=dimY;
 
   updateNoise();
   topology_startWorker(cccTest_NewTopology_Options);
@@ -375,14 +367,88 @@ function chooseTopologySubDiv(type){
     document.getElementById("id_TestPage_NewTest_subDiv1").style.display="block";
     document.getElementById("id_NewTest_SubDivOption1").style.background=styleActiveColor;
     document.getElementById("id_NewTest_SubDivOption1").style.color=styleActiveColorFont;
+    drawElementInPreview=false;
   }
   else {
     document.getElementById("id_TestPage_NewTest_subDiv2").style.display="block";
     document.getElementById("id_NewTest_SubDivOption2").style.background=styleActiveColor;
     document.getElementById("id_NewTest_SubDivOption2").style.color=styleActiveColorFont;
+    drawElementInPreview=true;
   }
 }
 
+
+
+
+function fillTopologyElementList(){
+  document.getElementById("id_TestPage_NewTest_ElementList").innerHTML = "";
+
+  if(cccTest_NewTopology_Options[2].length==0)
+    return;
+
+  for (var i = 0; i < cccTest_NewTopology_Options[2].length; i++) {
+    var option = document.createElement("option");
+
+    var optionLabel = "";
+
+    var elementType = cccTest_NewTopology_Options[2][i][0];
+
+    switch (elementType) {
+      case 0:
+        optionLabel = "Minimum:".bold();
+        break;
+        case 1:
+            optionLabel = "Maximum:".bold();
+          break;
+          case 2:
+              optionLabel = "Saddle:".bold();
+            break;
+            case 3:
+                optionLabel = "Valley Mountains:".bold();
+              break;
+      default:
+
+    }
+
+    optionLabel+=" Pos("+cccTest_NewTopology_Options[2][i][1]+","+cccTest_NewTopology_Options[2][i][2]+");";
+    optionLabel+=" Size="+cccTest_NewTopology_Options[2][i][3]+"x"+cccTest_NewTopology_Options[2][i][4]+";";
+
+    option.innerHTML = optionLabel;
+    document.getElementById("id_TestPage_NewTest_ElementList").add(option);
+  }
+
+  document.getElementById("id_TestPage_NewTest_ElementList").selectedIndex = 0;
+  selectTopologyElement();
+}
+
+function selectTopologyElement(){
+  drawElementID=document.getElementById("id_TestPage_NewTest_ElementList").selectedIndex;
+
+  createTopologyField(cccTest_NewTopology_Options);
+}
+
+
+function updateTopologyElementVars(){
+  fillTopologyElementList();
+  updateTopologyTestVariables();
+}
+
+function removeTopololyElement(){
+
+    if(document.getElementById("id_TestPage_NewTest_ElementList").selectedIndex!=-1){
+      cccTest_NewTopology_Options[2].splice(document.getElementById("id_TestPage_NewTest_ElementList").selectedIndex, 1);
+      updateTopoloyElementVars();
+    }
+
+
+}
+
+
+
+
+function switchElement(){
+
+}
 /////
 /// [
 // bool,
