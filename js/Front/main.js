@@ -94,10 +94,11 @@ window.onload = function() {
   stopPathPlotAnimation();
   stopAnimationMapping();
 
+
+  /// for testing
+  loadRealWorldData();
+
   closeWaitPopUp();
-
-
-
 
   ///////////////////////////////
   // For Testing: with start CMS in the MyDesigns
@@ -109,6 +110,7 @@ window.onload = function() {
 
     showMyDesignsPage();
     showTestPage();
+
 
 }
 

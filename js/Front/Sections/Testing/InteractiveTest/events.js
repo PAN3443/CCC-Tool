@@ -28,6 +28,14 @@ function initNewTest() {
   document.getElementById("id_TestPage_newTestInfoText").innerHTML="";
   document.getElementById("id_TestPage_newTestInfoText").style.display="none";
 
+  document.getElementById("id_TestPage_GridDimX").disabled=false;
+  document.getElementById("id_TestPage_GridDimY").disabled=false;
+
+  document.getElementById("id_TestPage_GridDimXLabel").style.color="black";
+  document.getElementById("id_TestPage_GridDimYLabel").style.color="black";
+
+  document.getElementById("id_TestPage_GridDimX").style.color="black";
+  document.getElementById("id_TestPage_GridDimY").style.color="black";
 
   document.getElementById("id_TestPage_doRatioCheckbox").disabled = false;
   document.getElementById("id_TestPage_doRatioCheckbox").checked = false;
@@ -87,6 +95,8 @@ function selectNewTestType(){
           case 7:
             selectNewTopologyTestType();
             break;
+
+            /////////////////////////////////////
           case 8:
             selectNewFctLocalMinimaType();
             break;
@@ -97,6 +107,19 @@ function selectNewTestType(){
                 selectNewFctValleyShapedType();
                 break;
 
+                /////////////////////////////////////
+                case 11:
+                  selectedRealWorldType="bio";
+                  selectRealWorldType(0);
+                  break;
+                  case 12:
+                    selectedRealWorldType="medical";
+                    selectRealWorldType(0);
+                    break;
+                    case 13:
+                      selectedRealWorldType="other";
+                      selectRealWorldType(0);
+                      break;
 
 
 
@@ -177,6 +200,8 @@ function updateTestVariables(){
           case 7:
               updateTopologyTestVariables();
             break;
+
+            ///////////////////////////////////////////////
           case 8:
               updateFctLocalMinimaTestVariables();
             break;
@@ -186,6 +211,13 @@ function updateTestVariables(){
               case 10:
                   updateFctValleyShapedTestVariables();
                 break;
+
+                /////////////////////////////////////////////////
+                case 11:
+                  case 12:
+                    case 13:
+                      updateRealWorldVariables();
+                      break;
 
 
 
@@ -205,11 +237,18 @@ function updateFunctionSelection(){
               case 10:
                   updateValleyShapedFctSelection();
                 break;
+                /////////////////////////////////////////////////
+                case 11:
+                  case 12:
+                    case 13:
+                      updateRealWorldVariables();
+                      break;
   }
 }
 
-function check_xFktType(){
 
+
+function check_xFktType(){
 
   if(document.getElementById("id_TestPage_NewTest_XType1").checked)
     current_xFktType=0;

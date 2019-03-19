@@ -591,23 +591,44 @@ self.addEventListener('message', function(e) {
 
     case "Topology":
 
-    for (var y = 0; y < data.testFieldDimY; y++) {
+      for (var y = 0; y < data.testFieldDimY; y++) {
 
-      for (var x = 0; x < data.testFieldDimX; x++) {
+        for (var x = 0; x < data.testFieldDimX; x++) {
 
-        var value = data.testFieldVar_a[x][y];
+          var value = data.testFieldVar_a[x][y];
 
-        min = Math.min(min, value);
-        max = Math.max(max, value);
+          min = Math.min(min, value);
+          max = Math.max(max, value);
 
-        jsonObj.positions.push([x, y]);
-        jsonObj.testFieldVal.push(value);
+          jsonObj.positions.push([x, y]);
+          jsonObj.testFieldVal.push(value);
+
+        }
 
       }
 
-    }
-
     break;
+
+    case "RealWorldData":
+
+      for (var y = 0; y < data.testFieldDimY; y++) {
+
+        for (var x = 0; x < data.testFieldDimX; x++) {
+
+          var value = data.testFieldVar_a[x][y];
+
+          min = Math.min(min, value);
+          max = Math.max(max, value);
+
+          jsonObj.positions.push([x, y]);
+          jsonObj.testFieldVal.push(value);
+
+        }
+
+      }
+      doScale = true;
+    break;
+
     case "FCT":
 
 
@@ -1305,7 +1326,7 @@ self.addEventListener('message', function(e) {
         if(data.noiseField[i]!=undefined){
           switch (data.noiseBehavior) {
             case 0:
-              jsonObj.testFieldVal[i] += data.noiseField[i];
+              jsonObj.testFieldVal[i] += jsonObj.testFieldVal[i]*data.noiseField[i];
               if(jsonObj.testFieldVal[i]>max)
                 jsonObj.testFieldVal[i]=max;
 

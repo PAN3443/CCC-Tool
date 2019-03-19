@@ -4,6 +4,7 @@ function createTopologyField(options){
 
   topologyField=undefined;
 
+  /////
   switch (document.getElementById("id_Test_TopologyFoundation").selectedIndex) {
     case 0:
       createPlaneFoundation(options[1]);
@@ -162,7 +163,6 @@ canvasPlot.height = topologyField[0].length;
 
     for (var y = 0; y < canvasPlot.height; y++) {
 
-
         var mirrorY = canvasPlot.height-1-y;
 
         var val = (topologyField[x][mirrorY]-min)/dis;
@@ -178,7 +178,6 @@ canvasPlot.height = topologyField[0].length;
         canvasData.data[index + 1] = Math.round(val); // g
         canvasData.data[index + 2] = Math.round(val); // b
         canvasData.data[index + 3] = 255; //a
-
 
     }
 

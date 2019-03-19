@@ -54,9 +54,33 @@ function fillTestCollection(){
   tmpDivFunctionCollection.appendChild(createFunctionBowlShaped());
   tmpDivFunctionCollection.appendChild(createFunctionValleyShaped());
 
-  document.getElementById("id_Test_FunctionCollection").appendChild(tmpDivCCCTests);
+  /////////////////////////////////////////////////////////////////////////////
+  ///// Real World Data
 
+  var tmpDivRealWorld = document.createElement('div');
+  tmpDivRealWorld.style.margin = "auto";
+  tmpDivRealWorld.style.background = backgroundColor1;
+  tmpDivRealWorld.style.paddingTop = "2vh";
+
+  var tmpDivRealWorldLabel = document.createElement('p');
+  tmpDivRealWorldLabel.className = "standardText";
+  tmpDivRealWorldLabel.style.color = "rgb(100,100,100)";
+  tmpDivRealWorldLabel.style.height = "4vh";
+  tmpDivRealWorldLabel.style.lineHeight = "4vh";
+  tmpDivRealWorldLabel.style.fontSize = "3.5vh";
+  tmpDivRealWorldLabel.style.marginLeft = "2.5vw";
+  tmpDivRealWorldLabel.style.fontWeight = "bold";
+  tmpDivRealWorldLabel.innerHTML = "3. Real World Data:";
+  tmpDivRealWorld.appendChild(tmpDivRealWorldLabel);
+
+  tmpDivRealWorld.appendChild(createRealWorld_MedicalDiv());
+  tmpDivRealWorld.appendChild(createRealWorld_OtherDiv());
+
+
+  ////////////////////////////////////////////////////////////////////////////////////
+  document.getElementById("id_Test_FunctionCollection").appendChild(tmpDivCCCTests);
   document.getElementById("id_Test_FunctionCollection").appendChild(tmpDivFunctionCollection);
+  document.getElementById("id_Test_FunctionCollection").appendChild(tmpDivRealWorld);
 }
 
 
@@ -120,6 +144,7 @@ function drawTestCollection(){
       tmpWorker.postMessage(testField_WorkerJSON);
   }
 
+  /////////////////////////////////////////////////////////////////////////
 
   for (var i = 0; i < fctTest_LocalMin_Options.length; i++) {
       fct_JSON(fctTest_LocalMin_Options[i],false);
@@ -143,6 +168,26 @@ function drawTestCollection(){
       var tmpWorker = new Worker('js/Front/Sections/Testing/testingWorker.js');
       tmpWorker.addEventListener('message', workerEvent_drawTest, false);
       tmpWorker.postMessage(testField_WorkerJSON);
+  }
+
+  ///////////////////////////////////////////////////////////////////////////
+
+  for (var i = 0; i < medicalData.length; i++) {
+      if(realWorldTest_JSON("medical",i, false)){
+        testField_WorkerJSON.canvasID = "rw_medical_canvas_"+i;
+        var tmpWorker = new Worker('js/Front/Sections/Testing/testingWorker.js');
+        tmpWorker.addEventListener('message', workerEvent_drawTest, false);
+        tmpWorker.postMessage(testField_WorkerJSON);
+      }
+  }
+
+  for (var i = 0; i < otherData.length; i++) {
+      if(realWorldTest_JSON("other",i, false)){
+        testField_WorkerJSON.canvasID = "rw_other_canvas_"+i;
+        var tmpWorker = new Worker('js/Front/Sections/Testing/testingWorker.js');
+        tmpWorker.addEventListener('message', workerEvent_drawTest, false);
+        tmpWorker.postMessage(testField_WorkerJSON);
+      }
   }
 
 }
@@ -655,7 +700,6 @@ function createTreshold(){
   return tmpTestDiv;
 }
 
-
 function createFunctionLocalMin(){
 
   var tmpTestDiv = document.createElement('div');
@@ -809,6 +853,114 @@ function createFunctionValleyShaped(){
         redrawTests = false;
          switchTestDisplay(1);
          openFctValleyShapedTest(tmpID);
+      };
+    })(i);
+
+      tmpDivRow.appendChild(tmpSelection);
+  }
+
+  return tmpTestDiv;
+}
+
+function createRealWorld_MedicalDiv(){
+
+  var tmpTestDiv = document.createElement('div');
+  tmpTestDiv.style.width = "90vw";
+  tmpTestDiv.style.maxWidth = "90vw";
+  tmpTestDiv.style.marginLeft = "5vw";
+
+  var tmpDivLabel = document.createElement('p');
+  tmpDivLabel.className = "standardText";
+  tmpDivLabel.style.color = "rgb(100,100,100)";
+  tmpDivLabel.style.fontSize = "2.5vh";
+  tmpDivLabel.style.lineHeight = "2.5vh";
+  tmpDivLabel.style.marginTop = "2vh";
+  tmpDivLabel.style.fontWeight = "bold";
+  tmpDivLabel.innerHTML = "3.1 Medical:";
+  tmpTestDiv.appendChild(tmpDivLabel);
+
+  var tmpDivRow = document.createElement('div');
+  tmpDivRow.style.width = "90vw";
+  tmpDivRow.style.maxWidth = "90vw";
+  tmpDivRow.style.display = "inline-block";
+  tmpDivRow.style.paddingTop = "1vh";
+  tmpDivRow.style.marginBottom = "1vh";
+  tmpTestDiv.appendChild(tmpDivRow);
+
+  for (var i = 0; i < medicalLabels.length; i++) {
+
+      var tmpSelection = document.createElement('div');
+      tmpSelection.className = "class_Test_Selector";
+
+      var tmpCanvas = document.createElement('canvas');
+      tmpCanvas.id = "rw_medical_canvas_"+i;
+      tmpSelection.appendChild(tmpCanvas);
+
+      var tmpTestLabel = document.createElement('p');
+      var labelText = medicalLabels[i];
+
+      tmpTestLabel.innerHTML = labelText;
+      tmpSelection.appendChild(tmpTestLabel);
+
+      tmpSelection.onclick = (function(tmpID) {
+      return function() {
+         redrawTests = false;
+         switchTestDisplay(1);
+         openRealWorldTest("medical",tmpID);
+      };
+    })(i);
+
+      tmpDivRow.appendChild(tmpSelection);
+  }
+
+  return tmpTestDiv;
+}
+
+function createRealWorld_OtherDiv(){
+
+  var tmpTestDiv = document.createElement('div');
+  tmpTestDiv.style.width = "90vw";
+  tmpTestDiv.style.maxWidth = "90vw";
+  tmpTestDiv.style.marginLeft = "5vw";
+
+  var tmpDivLabel = document.createElement('p');
+  tmpDivLabel.className = "standardText";
+  tmpDivLabel.style.color = "rgb(100,100,100)";
+  tmpDivLabel.style.fontSize = "2.5vh";
+  tmpDivLabel.style.lineHeight = "2.5vh";
+  tmpDivLabel.style.marginTop = "2vh";
+  tmpDivLabel.style.fontWeight = "bold";
+  tmpDivLabel.innerHTML = "3.3 Other:";
+  tmpTestDiv.appendChild(tmpDivLabel);
+
+  var tmpDivRow = document.createElement('div');
+  tmpDivRow.style.width = "90vw";
+  tmpDivRow.style.maxWidth = "90vw";
+  tmpDivRow.style.display = "inline-block";
+  tmpDivRow.style.paddingTop = "1vh";
+  tmpDivRow.style.marginBottom = "1vh";
+  tmpTestDiv.appendChild(tmpDivRow);
+
+  for (var i = 0; i < otherLabels.length; i++) {
+
+      var tmpSelection = document.createElement('div');
+      tmpSelection.className = "class_Test_Selector";
+
+      var tmpCanvas = document.createElement('canvas');
+      tmpCanvas.id = "rw_other_canvas_"+i;
+      tmpSelection.appendChild(tmpCanvas);
+
+      var tmpTestLabel = document.createElement('p');
+      var labelText = otherLabels[i];
+
+      tmpTestLabel.innerHTML = labelText;
+      tmpSelection.appendChild(tmpTestLabel);
+
+      tmpSelection.onclick = (function(tmpID) {
+      return function() {
+         redrawTests = false;
+         switchTestDisplay(1);
+         openRealWorldTest("other",tmpID);
       };
     })(i);
 

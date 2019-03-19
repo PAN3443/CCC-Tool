@@ -213,20 +213,29 @@
   <script src="js/Front/Sections/Testing/init_TestingSection.js"></script>
   <script src="js/Front/Sections/Testing/drawTestCollection.js"></script>
   <script src="js/Front/Sections/Testing/testing_WorkerEvents.js"></script>
+  <script src="js/Front/Sections/Testing/testing_RealWorld_Vars.js"></script>
+  <script src="js/Front/Sections/Testing/loadRealWorldData.js"></script>
+
+
     <!-- Testing Section : Interacive Test -->
       <script src="js/Front/Sections/Testing/InteractiveTest/events.js"></script>
-      <script src="js/Front/Sections/Testing/InteractiveTest/interactiveJumpTest.js"></script>
-      <script src="js/Front/Sections/Testing/InteractiveTest/interactiveRidgeValleyTest.js"></script>
-      <script src="js/Front/Sections/Testing/InteractiveTest/interactiveGradientTest.js"></script>
-      <script src="js/Front/Sections/Testing/InteractiveTest/interactiveFrequencyTest.js"></script>
-      <script src="js/Front/Sections/Testing/InteractiveTest/interactiveLocalExtremaTest.js"></script>
-      <script src="js/Front/Sections/Testing/InteractiveTest/interactiveLittleBitTest.js"></script>
-      <script src="js/Front/Sections/Testing/InteractiveTest/interactiveTresholdTest.js"></script>
       <script src="js/Front/Sections/Testing/InteractiveTest/interactiveTest_drawFktPreview.js"></script>
-      <script src="js/Front/Sections/Testing/InteractiveTest/interactiveLocalMinFunctions.js"></script>
-      <script src="js/Front/Sections/Testing/InteractiveTest/interactiveBowlShapedFunctions.js"></script>
-      <script src="js/Front/Sections/Testing/InteractiveTest/interactiveValleyShapedFunctions.js"></script>
-      <script src="js/Front/Sections/Testing/InteractiveTest/interactiveTopologyTest.js"></script>
+
+      <script src="js/Front/Sections/Testing/InteractiveTest/CCCTest/interactiveJumpTest.js"></script>
+      <script src="js/Front/Sections/Testing/InteractiveTest/CCCTest/interactiveRidgeValleyTest.js"></script>
+      <script src="js/Front/Sections/Testing/InteractiveTest/CCCTest/interactiveGradientTest.js"></script>
+      <script src="js/Front/Sections/Testing/InteractiveTest/CCCTest/interactiveFrequencyTest.js"></script>
+      <script src="js/Front/Sections/Testing/InteractiveTest/CCCTest/interactiveLocalExtremaTest.js"></script>
+      <script src="js/Front/Sections/Testing/InteractiveTest/CCCTest/interactiveLittleBitTest.js"></script>
+      <script src="js/Front/Sections/Testing/InteractiveTest/CCCTest/interactiveTresholdTest.js"></script>
+      <script src="js/Front/Sections/Testing/InteractiveTest/CCCTest/interactiveTopologyTest.js"></script>
+
+      <script src="js/Front/Sections/Testing/InteractiveTest/FktCollection/interactiveLocalMinFunctions.js"></script>
+      <script src="js/Front/Sections/Testing/InteractiveTest/FktCollection/interactiveBowlShapedFunctions.js"></script>
+      <script src="js/Front/Sections/Testing/InteractiveTest/FktCollection/interactiveValleyShapedFunctions.js"></script>
+
+      <script src="js/Front/Sections/Testing/InteractiveTest/RealWorldData/interactiveRealWorldData.js"></script>
+
         <!-- Testing Section : Noise -->
         <script src="js/Front/Sections/Testing/InteractiveTest/Noise/noise_interactiveTest.js"></script>
         <script src="js/Front/Sections/Testing/InteractiveTest/Noise/simplexNoise.js"></script>
@@ -242,8 +251,9 @@
       <script src="js/Front/Sections/Testing/WorkerJS/littleBitWorker.js"></script>
       <script src="js/Front/Sections/Testing/WorkerJS/tresholdWorker.js"></script>
       <script src="js/Front/Sections/Testing/WorkerJS/valleyRidgeWorker.js"></script>
-      <script src="js/Front/Sections/Testing/WorkerJS/functionsWorker.js"></script>
       <script src="js/Front/Sections/Testing/WorkerJS/topologyWorker.js"></script>
+      <script src="js/Front/Sections/Testing/WorkerJS/functionsWorker.js"></script>
+      <script src="js/Front/Sections/Testing/WorkerJS/realDataWorker.js"></script>
 
 
 
@@ -295,6 +305,9 @@
 
     <!-- Pop Up Windows : Tutorial -->
     <script src="js/Front/PopUpWindows/Tutorials/tutorialVideos.js"></script>
+
+
+
 
   <!------------------------------------------->
   <!-- EXTERN Libs -->
@@ -1930,7 +1943,7 @@
                           <option value="4">Frequency</option>
                           <option value="5">Little Bit</option>
                           <option value="6">Treshold</option>
-                          <option value="7">Topology</option>
+                          <option value="7" style="display:none;">Topology</option>
                         </optgroup>
 
                         <optgroup label="Functions:">,
@@ -1938,6 +1951,13 @@
                           <option value="9">Bowl Shaped</option>
                           <option value="10">Valley Shaped</option>
                         </optgroup>
+
+                        <optgroup label="Real World Data:">,
+                          <option value="11" style="display:none;">Bio</option>
+                          <option value="12">Medical</option>
+                          <option value="13">Other</option>
+                        </optgroup>
+
                     </select>
 
                     <input id="id_TestPage_doRatioCheckbox" type="checkbox" name="id_TestPage_DoRatio" value="doRatio" onchange="newTest_switchRatioType()">
@@ -1971,11 +1991,11 @@
 
                     <div id="id_TestPage_Dimension_Div"  style="width:100%;">
                         <div class="row" style="width:100%;">
-                          <p class="standardText" style="margin-top:auto; margin-bottom:auto; width:10vw;">Grid X-Dim:</p>
+                          <p id="id_TestPage_GridDimXLabel" class="standardText" style="margin-top:auto; margin-bottom:auto; width:10vw;">Grid X-Dim:</p>
                           <input id="id_TestPage_GridDimX" class="standardText" type="number" name="GridDimX" min="2" step="1" value="10" style="margin-left:0.25vw;" onchange="updateTestVariables()">
                         </div>
                         <div class="row" style="width:100%;">
-                          <p class="standardText" style="margin-top:auto; margin-bottom:auto; width:10vw;">Grid Y-Dim:</p>
+                          <p id="id_TestPage_GridDimYLabel" class="standardText" style="margin-top:auto; margin-bottom:auto; width:10vw;">Grid Y-Dim:</p>
                           <input id="id_TestPage_GridDimY" class="standardText" type="number" name="GridDimY" min="2" step="1" value="10" style="margin-left:0.25vw;" onchange="updateTestVariables()">
                         </div>
                     </div>
