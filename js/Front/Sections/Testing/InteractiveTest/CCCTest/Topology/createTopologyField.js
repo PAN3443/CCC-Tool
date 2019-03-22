@@ -6,11 +6,11 @@ function createTopologyField(options){
 
 
 
-  ////////////////////////////////////////
+  /*////////////////////////////////////////
   /// use this part of the topology algorithm to create grey scaled image from the real world data.
 
-  var xdim = 200;
-  var ydim = 200;
+  var xdim = 201;
+  var ydim = 201;
 
   var tmpField = new Array(xdim).fill(undefined);
 
@@ -24,13 +24,13 @@ function createTopologyField(options){
     for (var y = 0; y < ydim; y++) {
 
       var index = x+y*xdim;
-      var val = ftle[index];
+      var val = importRealDataField[index];
       tmpField[x][y]=val;
     }
   }
   topologyField=tmpField;
   return;
-  ////////////////////////////////////////
+  ////////////////////////////////////////*/
 
 
   /////
