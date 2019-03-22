@@ -30,12 +30,12 @@ function selectNewRidgeValleyTestType(){
 
 
   document.getElementById("id_TestPage_NewTest_XTypeL1").innerHTML=" : Linear";
-  document.getElementById("id_TestPage_NewTest_XTypeL2").innerHTML=" : Convex";
-  document.getElementById("id_TestPage_NewTest_XTypeL3").innerHTML=" : Concave";
+  document.getElementById("id_TestPage_NewTest_XTypeL2").innerHTML=" : Concave";
+  document.getElementById("id_TestPage_NewTest_XTypeL3").innerHTML=" : Convex";
 
   document.getElementById("id_TestPage_NewTest_YTypeL1").innerHTML=" : Linear";
-  document.getElementById("id_TestPage_NewTest_YTypeL2").innerHTML=" : Convex";
-  document.getElementById("id_TestPage_NewTest_YTypeL3").innerHTML=" : Concave";
+  document.getElementById("id_TestPage_NewTest_YTypeL2").innerHTML=" : Concave";
+  document.getElementById("id_TestPage_NewTest_YTypeL3").innerHTML=" : Convex";
 
   current_xFktType= cccTest_NewRidgeValley_Options[3];
   switch (current_xFktType) {
