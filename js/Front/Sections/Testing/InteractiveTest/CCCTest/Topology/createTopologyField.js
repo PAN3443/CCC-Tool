@@ -4,6 +4,35 @@ function createTopologyField(options){
 
   topologyField=undefined;
 
+
+
+  ////////////////////////////////////////
+  /// use this part of the topology algorithm to create grey scaled image from the real world data.
+
+  var xdim = 200;
+  var ydim = 200;
+
+  var tmpField = new Array(xdim).fill(undefined);
+
+  for (var i = 0; i < xdim; i++) {
+    var ycol = new Array(ydim).fill(undefined);
+    tmpField[i]=ycol;
+  }
+
+
+  for (var x = 0; x < xdim; x++) {
+    for (var y = 0; y < ydim; y++) {
+
+      var index = x+y*xdim;
+      var val = ftle[index];
+      tmpField[x][y]=val;
+    }
+  }
+  topologyField=tmpField;
+  return;
+  ////////////////////////////////////////
+
+
   /////
   switch (document.getElementById("id_Test_TopologyFoundation").selectedIndex) {
     case 0:

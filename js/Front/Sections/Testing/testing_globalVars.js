@@ -105,11 +105,11 @@ var cccTest_Frequency_Options = [
 var littleBit_NumberOfSinks = 10;
 var cccTest_NewLittleBit_Options = [];
 var cccTest_LittleBit_Options = [
-  [true,0.0001,0.001,10],
-  [true,0.0001,0.005,10],
-  [true,0.0001,0.01,10],
-  [true,0.0001,0.05,10],
-  [true,0.0001,0.1,10]
+  [true,0.0001,0.001,10,0.0,1.0],
+  [true,0.0001,0.005,10,0.0,1.0],
+  [true,0.0001,0.01,10,0.0,1.0],
+  [true,0.0001,0.05,10,0.0,1.0],
+  [true,0.0001,0.1,10,0.0,1.0]
 ];
 
 var cccTest_NewTreshold_Options = [];
@@ -179,7 +179,9 @@ var fctTest_NewBowlShaped_Options = [];
 
 var fctTest_NewValleyShaped_Options = [];
  var fctTest_ValleyShaped_Options =[
-   ["Three-Hump Camel Function","Three_Hump_Camel",[-5,5,-5,5],100,100]
+   ["Three-Hump Camel Function","Three_Hump_Camel",[-5,5,-5,5],100,100],
+   ["Six-Hump Camel Function","Six_Hump_Camel",[-5,5,-5,5],100,100]
+
  ];
 
 /*

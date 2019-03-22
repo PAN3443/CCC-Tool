@@ -14,6 +14,7 @@ function draw_FunctionTypeMirrored(canvasID, exp, value_m, value_M, fctType ){
   }
 
   var canvas = document.getElementById(canvasID);
+
   var context = canvas.getContext("2d");
   context.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -208,6 +209,8 @@ function draw_FunctionType(canvasID, exp, value_m, value_M, fctType){
 
 
   var canvas = document.getElementById(canvasID);
+
+
   var context = canvas.getContext("2d");
   context.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -369,6 +372,8 @@ function draw_FunctionTypeTresh(canvasID, exp, fctType ){
 
 
   var canvas = document.getElementById(canvasID);
+
+
   var context = canvas.getContext("2d");
   context.clearRect(0, 0, canvas.width, canvas.height);
 

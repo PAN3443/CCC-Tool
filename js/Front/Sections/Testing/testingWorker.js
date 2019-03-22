@@ -90,25 +90,28 @@ self.addEventListener('message', function(e) {
       ////
     case "LittleBit":
 
-      var minValue = data.testFieldVar_a;
-      var maxValue = data.testFieldVar_b;
+
       var currentMax = undefined;
       var amountOfGradient = undefined;
       var currentY = undefined;
       var currentX = undefined;
 
-      var maxSink = data.testFieldVar_c;
       var minSink = data.testFieldVar_b;
+      var maxSink = data.testFieldVar_c;
+
+      var startVal = data.testFieldVar_f;
+      var endVal = data.testFieldVar_g;
 
       var cmsRangeDifference = cmsEndRef - cmsStartRef;
 
       if (data.testFieldVar_a) {
         maxSink = Math.round((data.testFieldVar_c * (cmsRangeDifference)) * errorMath) / errorMath;
         minSink = Math.round((data.testFieldVar_b * (cmsRangeDifference)) * errorMath) / errorMath;
+        startVal = Math.round((data.testFieldVar_f * (cmsRangeDifference)+cmsStartRef) * errorMath) / errorMath;
+        endVal = Math.round((data.testFieldVar_g * (cmsRangeDifference)+cmsStartRef) * errorMath) / errorMath;
       }
-
-      var newStart = cmsStartRef + maxSink;
-      cmsRangeDifference = cmsEndRef - newStart;
+console.log(startVal,endVal);
+      cmsRangeDifference = endVal - startVal;
 
       var sinkStep = Math.round(((maxSink - minSink) / (data.testFieldVar_e - 1)) * errorMath) / errorMath;
       var numberOfAreas = data.testFieldVar_e + data.testFieldVar_e + 1;
@@ -116,7 +119,7 @@ self.addEventListener('message', function(e) {
       for (var y = 0; y < data.testFieldDimY; y++) {
 
         var currentY = y / (data.testFieldDimY - 1);
-        var preValue = Math.round((newStart + currentY * (cmsRangeDifference)) * errorMath) / errorMath;
+        var preValue = Math.round((startVal + currentY * (cmsRangeDifference)) * errorMath) / errorMath;
 
         for (var a = 0; a < numberOfAreas; a++) {
 
@@ -545,7 +548,7 @@ self.addEventListener('message', function(e) {
 
         currentY = y/(data.testFieldDimY-1);
 
-        var currentAmplitude = amplitude*currentY;
+        var currentAmplitude = amplitude*(1.0-currentY);
         var yPos = currentX*(maxHarmonic-minHarmonic)+minHarmonic;
 
         for (var x = 0; x < data.testFieldDimX; x++) {
@@ -937,7 +940,6 @@ self.addEventListener('message', function(e) {
 
           }
           break;
-
         case "Schaffer_N2":
 
           for (var y = 0; y < data.testFieldDimY; y++) {
@@ -961,7 +963,6 @@ self.addEventListener('message', function(e) {
 
           }
           break;
-
         case "Schaffer_N4":
 
           for (var y = 0; y < data.testFieldDimY; y++) {
@@ -985,7 +986,6 @@ self.addEventListener('message', function(e) {
 
           }
           break;
-
         case "Schwefel":
 
           var d = 2;
@@ -1010,8 +1010,6 @@ self.addEventListener('message', function(e) {
 
           }
           break;
-
-
         case "Shubert":
 
           for (var y = 0; y < data.testFieldDimY; y++) {
@@ -1044,8 +1042,6 @@ self.addEventListener('message', function(e) {
           ////////////////////////////////////////////////////////////////////////////////////////////////////////////
           /// Functions: Bowl-Shaped
           ///
-
-
         case "Bohachevsky_F1":
           for (var y = 0; y < data.testFieldDimY; y++) {
 
@@ -1116,7 +1112,6 @@ self.addEventListener('message', function(e) {
 
           }
           break;
-
         case "Perm_V1":
 
           var b = data.testFieldVar_a;
@@ -1142,7 +1137,6 @@ self.addEventListener('message', function(e) {
 
           }
           break;
-
         case "Rot_Hyper_Ellipsoid":
 
           for (var y = 0; y < data.testFieldDimY; y++) {
@@ -1166,7 +1160,6 @@ self.addEventListener('message', function(e) {
 
           }
           break;
-
         case "Sphere":
 
           for (var y = 0; y < data.testFieldDimY; y++) {
@@ -1189,7 +1182,6 @@ self.addEventListener('message', function(e) {
 
           }
           break;
-
         case "SumDifPowers":
 
           for (var y = 0; y < data.testFieldDimY; y++) {
@@ -1212,7 +1204,6 @@ self.addEventListener('message', function(e) {
 
           }
           break;
-
         case "Sum_Squares":
 
           for (var y = 0; y < data.testFieldDimY; y++) {
@@ -1235,7 +1226,6 @@ self.addEventListener('message', function(e) {
 
           }
           break;
-
         case "Trid":
 
           for (var y = 0; y < data.testFieldDimY; y++) {
@@ -1264,7 +1254,6 @@ self.addEventListener('message', function(e) {
           //////////////////////////////////
           /// Functions: Valley-Shaped
           ///
-
         case "Three_Hump_Camel":
 
           for (var y = 0; y < data.testFieldDimY; y++) {
@@ -1290,6 +1279,32 @@ self.addEventListener('message', function(e) {
 
           }
           break;
+          case "Six_Hump_Camel":
+
+            for (var y = 0; y < data.testFieldDimY; y++) {
+
+              var yPos = fieldStartY + y * fieldStepY;
+              for (var x = 0; x < data.testFieldDimX; x++) {
+
+                var xPos = fieldStartX + x * fieldStepX;
+
+                var term1 = (4-2.1*Math.pow(xPos, 2)+(Math.pow(xPos, 4)/3))*Math.pow(xPos, 2);
+                var term2 = xPos*yPos;
+                var term3 = (-4+4*Math.pow(yPos, 2))*Math.pow(yPos, 2);
+
+                var value = term1 + term2 + term3;
+
+                min = Math.min(min, value);
+                max = Math.max(max, value);
+                jsonObj.positions.push([xPos, yPos]);
+                jsonObj.testFieldVal.push(value);
+
+              }
+
+            }
+
+            console.log(min,max);
+            break;
 
 
 

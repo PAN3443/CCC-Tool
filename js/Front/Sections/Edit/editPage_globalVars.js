@@ -3,6 +3,7 @@
 
 var somethingChanged = false;
 
+var mapping_doAnimation = false;
 
 ////////////////////////////
 /// Colormap Process

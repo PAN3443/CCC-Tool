@@ -134,6 +134,7 @@ function initTesttestField_WorkerJSON(){
   testField_WorkerJSON['testFieldVar_d'] = undefined;
   testField_WorkerJSON['testFieldVar_e'] = undefined;
   testField_WorkerJSON['testFieldVar_f'] = undefined;
+  testField_WorkerJSON['testFieldVar_g'] = undefined;
 
   testField_WorkerJSON['colorspace'] = globalCMS1.getInterpolationSpace();
   testField_WorkerJSON['refVal'] = [];
