@@ -304,26 +304,26 @@ function createGradientDiv(){
 
       switch (cccTest_Gradient_Options[i][3]) {
         case 0:
-            labelText +="linear:";
+            labelText +="Const Gradient :";
           break;
           case 1:
-              labelText +="convex:";
+              labelText +="Decreasing Gradient :";
             break;
             case 2:
-                labelText +="concave:";
+                labelText +="Increasing Gradient :";
               break;
 
       }
 
       switch (cccTest_Gradient_Options[i][5]) {
         case 0:
-            labelText +="linear;";
+            labelText +="Const Gradient;";
           break;
           case 1:
-              labelText +="convex;";
+              labelText +="Decreasing Gradient;";
             break;
             case 2:
-                labelText +="concave;";
+                labelText +="Increasing Gradient;";
               break;
 
       }
@@ -394,26 +394,26 @@ function createRidgeAndValley(){
 
       switch (cccTest_RidgeValleyLine_Options[i][3]) {
         case 0:
-            labelText +="linear:";
+            labelText +="Linear : ";
           break;
           case 1:
-              labelText +="convex:";
+              labelText +="Mound:";
             break;
             case 2:
-                labelText +="concave:";
+                labelText +="Peak:";
               break;
 
       }
 
       switch (cccTest_RidgeValleyLine_Options[i][5]) {
         case 0:
-            labelText +="linear;";
+            labelText +="Linear;";
           break;
           case 1:
-              labelText +="convex;";
+              labelText +="Mound;";
             break;
             case 2:
-                labelText +="concave;";
+                labelText +="Peak;";
               break;
 
       }
@@ -473,10 +473,10 @@ function createLocalExtrema(){
       var tmpTestLabel = document.createElement('p');
       var labelText;
 
-      if(cccTest_LocalExtrema_Options[i][0]>0 && cccTest_LocalExtrema_Options[i][1]>0){
+      if(cccTest_LocalExtrema_Options[i][0]<0 && cccTest_LocalExtrema_Options[i][1]<0){
         labelText = "Maximum".bold()+": ";
       }
-      else if(cccTest_LocalExtrema_Options[i][0]<0 && cccTest_LocalExtrema_Options[i][1]<0){
+      else if(cccTest_LocalExtrema_Options[i][0]>0 && cccTest_LocalExtrema_Options[i][1]>0){
         labelText = "Minimum".bold()+": ";
       }
       else {

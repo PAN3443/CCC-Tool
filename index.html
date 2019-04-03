@@ -2205,6 +2205,16 @@
                             <input id="id_Test_NoiseScaling" type="range" step="1" min="1" max="100" value="1" style="width:8vw; margin-right:auto;" onchange="updateTestVariables()">
                           </div>
 
+                          <div id="id_Test_NoiseValueRangeDiv1" class="row" style="width: 100%; margin-top:0.5vh;">
+                            <p class="standardText" style="margin:auto; margin-left:0vw; margin-right:1vw; width:10vw; ">From:</p>
+                            <input id="id_TestPage_Noise_ReplaceFromValue" class="standardText" type="number" name="inputV4"  step="any" value="0" onchange="updateTestVariables()">
+                          </div>
+
+                          <div id="id_Test_NoiseValueRangeDiv2" class="row" style="width: 100%; margin-top:0.5vh;">
+                            <p class="standardText" style="margin:auto; margin-left:0vw; margin-right:1vw; width:10vw; ">Till:</p>
+                            <input id="id_TestPage_Noise_ReplaceTillValue" class="standardText" type="number" name="inputV4"  step="any" value="1" onchange="updateTestVariables()">
+                          </div>
+
                           <div id="id_Test_NoiseMaxChangeDiv" class="row" style="width: 100%; margin-top:0.5vh;">
                             <p class="standardText" style="margin:auto; margin-left:0vw; margin-right:1vw; width:10vw; ">Maximal Change:</p>
                             <input id="id_Test_NoiseMaxChange" type="range" step="0.001" min="0" max="1" value="0.5" style="width:8vw; margin-right:auto;" onchange="updateTestVariables()">
@@ -2216,7 +2226,7 @@
                               <p class="standardText" style="color:grey; font-size:1.0vh;">Example </p>
                             </div>
                             <div>
-                              <canvas id="id_TestPage_newTestNoiseDistributionCanvas"  style="width: 10vw; height: 5vw; border: 0.2vh solid grey; margin:auto; margin-left:0vw;"></canvas>
+                              <canvas id="id_TestPage_newTestNoiseDistributionCanvas" height="200" width="800"  style="width: 10vw; height: 5vw; border: 0.2vh solid grey; margin:auto; margin-left:0vw;"></canvas>
                               <p class="standardText" style="color:grey; font-size:1.0vh;">Histogram (Distribution)</p>
                             </div>
                           </div>

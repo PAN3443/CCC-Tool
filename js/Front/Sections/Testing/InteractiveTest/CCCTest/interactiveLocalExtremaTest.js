@@ -92,8 +92,8 @@ function newTestExtremaInfoText(){
   if(cccTest_NewLocalExtrema_Options[0]==0 || cccTest_NewLocalExtrema_Options[1]==0){
     diagnoseText += "Undefined\n".bold();
   }
-  else if(cccTest_NewLocalExtrema_Options[0]>0){
-    if(cccTest_NewLocalExtrema_Options[1]>0){
+  else if(cccTest_NewLocalExtrema_Options[0]<0){
+    if(cccTest_NewLocalExtrema_Options[1]<0){
       diagnoseText += "Maximum\n".bold();
     }
     else {
@@ -101,7 +101,7 @@ function newTestExtremaInfoText(){
     }
   }
   else{
-    if(cccTest_NewLocalExtrema_Options[1]<0){
+    if(cccTest_NewLocalExtrema_Options[1]>0){
       diagnoseText += "Minimum\n".bold();
     }
     else {
@@ -109,7 +109,7 @@ function newTestExtremaInfoText(){
     }
   }
 
-  var standartText = "\nMaximum: a>0 and b>0\nMinimum: a<0 and b<0\nSaddle: a<0 and b>0 or a>0 and b<0".italics();
+  var standartText = "\nMaximum: a<0 and b<0\nMinimum: a>0 and b>0\nSaddle: a<0 and b>0 or a>0 and b<0".italics();
 
   document.getElementById("id_TestPage_newTestInfoText").innerHTML="Info:\n".bold()+diagnoseText+standartText;
 }

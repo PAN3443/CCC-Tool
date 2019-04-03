@@ -24,62 +24,52 @@ function calcNoise(){
 
       var proportion = parseFloat(document.getElementById("id_Test_NoiseProportion").value);
       var numNois = Math.round(numValues*proportion);
+
       ///////////////////////////////
       // for noise Distirbution
 
+      var useRandomPos = true;
+
+      if(proportion==1){
+        useRandomPos=false;
+      }
 
 
-
-      switch (document.getElementById("id_Test_NoiseDistribution").selectedIndex) {
-        case 1:
-            var rMax = -Infinity;
-            var rMin = Infinity;
-            var tmpRand = new Array(numNois);
-            for (var i = 0; i < numNois; i++) {
-              var rand = randn_bm();
-              rMax = Math.max(rand, rMax);
-              rMin = Math.min(rand, rMin);
-              tmpRand[i] = rand;
-            }
-
-
-            var dis = Math.abs(rMax-rMin);
-            if(dis!=0){
+      if(useRandomPos){
+        switch (document.getElementById("id_Test_NoiseDistribution").selectedIndex) {
+          case 1:
+              var rMax = -Infinity;
+              var rMin = Infinity;
+              var tmpRand = new Array(numNois);
               for (var i = 0; i < numNois; i++) {
-                tmpRand[i] = checkForMaximalChange((((tmpRand[i]-rMin)/dis-0.5)*2));
-                noHit=true;
-                while (noHit) {
-                  var rXPos = getRandomInt(0, dimX);
-                  var rYPos = getRandomInt(0, dimY);
-                  var noHit = true;
-                  var index = rYPos*dimX+rXPos;
-                  randomArray[index]=tmpRand[i];
-                  checkData[rXPos][rYPos] = true;
-                  noHit=false;
-                }
+                var rand = randn_bm();
+                rMax = Math.max(rand, rMax);
+                rMin = Math.min(rand, rMin);
+                tmpRand[i] = rand;
               }
-          }
-          break;
 
-          case 2: case 3: case 4:
-          var type = document.getElementById("id_Test_NoiseDistribution").selectedIndex-2;
-          for (var i = 0; i < numNois; i++) {
-            var rand = checkForMaximalChange((rand_beta(type)-0.5)*2);
-            noHit=true;
-            while (noHit) {
-              var rXPos = getRandomInt(0, dimX);
-              var rYPos = getRandomInt(0, dimY);
-              var noHit = true;
-              var index = rYPos*dimX+rXPos;
-              randomArray[index]=rand;
-              checkData[rXPos][rYPos] = true;
-              noHit=false;
+              var dis = Math.abs(rMax-rMin);
+              if(dis!=0){
+                for (var i = 0; i < numNois; i++) {
+                  tmpRand[i] = checkForMaximalChange((((tmpRand[i]-rMin)/dis-0.5)*2));
+                  noHit=true;
+                  while (noHit) {
+                    var rXPos = getRandomInt(0, dimX);
+                    var rYPos = getRandomInt(0, dimY);
+                    var noHit = true;
+                    var index = rYPos*dimX+rXPos;
+                    randomArray[index]=tmpRand[i];
+                    checkData[rXPos][rYPos] = true;
+                    noHit=false;
+                  }
+                }
             }
-          }
-          break;
-        default:
+            break;
+
+            case 2: case 3: case 4:
+            var type = document.getElementById("id_Test_NoiseDistribution").selectedIndex-2;
             for (var i = 0; i < numNois; i++) {
-              var rand = checkForMaximalChange(getRandomArbitrary(-1,1));
+              var rand = checkForMaximalChange((rand_beta(type)-0.5)*2);
               noHit=true;
               while (noHit) {
                 var rXPos = getRandomInt(0, dimX);
@@ -91,8 +81,72 @@ function calcNoise(){
                 noHit=false;
               }
             }
-
+            break;
+          default:
+              for (var i = 0; i < numNois; i++) {
+                var rand = checkForMaximalChange(getRandomArbitrary(-1,1));
+                noHit=true;
+                while (noHit) {
+                  var rXPos = getRandomInt(0, dimX);
+                  var rYPos = getRandomInt(0, dimY);
+                  var noHit = true;
+                  var index = rYPos*dimX+rXPos;
+                  randomArray[index]=rand;
+                  checkData[rXPos][rYPos] = true;
+                  noHit=false;
+                }
+              }
+        }
       }
+      else{
+
+        switch (document.getElementById("id_Test_NoiseDistribution").selectedIndex) {
+          case 1:
+              var rMax = -Infinity;
+              var rMin = Infinity;
+              var tmpRand = new Array(numNois);
+              for (var i = 0; i < numNois; i++) {
+                var rand = randn_bm();
+                rMax = Math.max(rand, rMax);
+                rMin = Math.min(rand, rMin);
+                tmpRand[i] = rand;
+              }
+
+              var dis = Math.abs(rMax-rMin);
+              if(dis!=0){
+                for (var i = 0; i < numNois; i++) {
+                  tmpRand[i] = checkForMaximalChange((((tmpRand[i]-rMin)/dis-0.5)*2));
+                  /*var rYPos = (i / dimX) >> 0;
+                  var rXPos = i - (rYPos * dimY);
+                  checkData[rXPos][rYPos] = true;*/
+                  randomArray[i]=tmpRand[i];
+                }
+            }
+            break;
+
+            case 2: case 3: case 4:
+            var type = document.getElementById("id_Test_NoiseDistribution").selectedIndex-2;
+            for (var i = 0; i < numNois; i++) {
+              var rand = checkForMaximalChange((rand_beta(type)-0.5)*2);
+              /*var rYPos = (i / dimX) >> 0;
+              var rXPos = i - (rYPos * dimY);
+                checkData[rXPos][rYPos] = true;*/
+                randomArray[i]=rand;
+            }
+            break;
+          default:
+              for (var i = 0; i < numNois; i++) {
+                var rand = checkForMaximalChange(getRandomArbitrary(-1,1));
+                /*var rYPos = (i / dimX) >> 0;
+                var rXPos = i - (rYPos * dimY);
+
+                console.log(rYPos,rXPos);
+                  checkData[rXPos][rYPos] = true;*/
+                  randomArray[i]=rand;
+              }
+        }
+      }
+
 
       break;
       case 2:
@@ -268,8 +322,17 @@ function checkForMaximalChange(random){
 
     return newRandom;*/
 
-    if(document.getElementById("id_Test_NoiseBehavior").selectedIndex==2)
-      return (random+1)/2 * maxChangeFactor;
-    else
-      return random * maxChangeFactor;
+    if(document.getElementById("id_Test_NoiseBehavior").selectedIndex==2){
+      return (random+1)/2;// * maxChangeFactor;
+    }
+    else{
+      /*if(document.getElementById("id_Test_NoiseType").selectedIndex==2){
+        return (random-0.5)*2* maxChangeFactor; // make 0,1 -> -1,1
+      }
+      else{*/
+        return random * maxChangeFactor;
+      //}
+
+    }
+
 }

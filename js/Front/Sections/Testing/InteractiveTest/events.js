@@ -282,6 +282,8 @@ function updateNoise(){
   document.getElementById("id_Test_NoiseDistributionDiv").style.display="none";
   document.getElementById("id_Test_NoiseScalingDiv").style.display="none";
   document.getElementById("id_Test_NoiseMaxChangeDiv").style.display="none";
+  document.getElementById("id_Test_NoiseValueRangeDiv1").style.display="none";
+  document.getElementById("id_Test_NoiseValueRangeDiv2").style.display="none";
   document.getElementById("id_Test_NoiseBehaviorReplacing").disabled = false;
 
   testField_WorkerJSON.doNoise = false;
@@ -301,22 +303,48 @@ function updateNoise(){
         if(document.getElementById("id_Test_NoiseType").selectedIndex==2){
           document.getElementById("id_Test_NoiseScalingDiv").style.display="flex";
 
-          if(document.getElementById("id_Test_NoiseBehavior").selectedIndex==2){
+          /*if(document.getElementById("id_Test_NoiseBehavior").selectedIndex==2){
             document.getElementById("id_Test_NoiseBehavior").selectedIndex=0;
           }
-          document.getElementById("id_Test_NoiseBehaviorReplacing").disabled = true;
+          document.getElementById("id_Test_NoiseBehaviorReplacing").disabled = true; //*/
 
         }
 
-
-
-
-
+        if(document.getElementById("id_Test_NoiseBehavior").selectedIndex==2){
+          document.getElementById("id_Test_NoiseMaxChangeDiv").style.display="none";
+          document.getElementById("id_Test_NoiseValueRangeDiv1").style.display="flex";
+          document.getElementById("id_Test_NoiseValueRangeDiv2").style.display="flex";
+        }
 
         // For the Worker
         testField_WorkerJSON.doNoise = true;
         testField_WorkerJSON.noiseBehavior = document.getElementById("id_Test_NoiseBehavior").selectedIndex;
         testField_WorkerJSON.maxChange = parseFloat(document.getElementById("id_Test_NoiseMaxChange").value);
+
+        var replaceFrom = parseFloat(document.getElementById("id_TestPage_Noise_ReplaceFromValue").value);
+        if(isNaN(replaceFrom) || replaceFrom == undefined){
+          openAlert("Attention! The input for the noise replacing range wasn't correct.");
+          document.getElementById("id_TestPage_Noise_ReplaceFromValue").value = 0;
+          document.getElementById("id_TestPage_Noise_ReplaceTillValue").value = 1.0;
+        }
+
+        var replaceTill = parseFloat(document.getElementById("id_TestPage_Noise_ReplaceTillValue").value);
+        if(isNaN(replaceTill) || replaceTill == undefined){
+          openAlert("Attention! The input for the noise replacing range wasn't correct.");
+          document.getElementById("id_TestPage_Noise_ReplaceFromValue").value = 0;
+          document.getElementById("id_TestPage_Noise_ReplaceTillValue").value = 1.0;
+        }
+
+        if(replaceFrom>=replaceTill){
+          openAlert("Attention! The input for the noise replacing range wasn't correct. The \"From\" value has to be smaller than the \"Till\" value!");
+          document.getElementById("id_TestPage_Noise_ReplaceFromValue").value = 0;
+          document.getElementById("id_TestPage_Noise_ReplaceTillValue").value = 1.0;
+        }
+
+        testField_WorkerJSON.replaceNoiseFrom = replaceFrom;
+        testField_WorkerJSON.replaceNoiseTill = replaceTill;
+
+
 
         calcNoise();
     break;

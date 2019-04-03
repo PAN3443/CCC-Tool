@@ -185,6 +185,7 @@ console.log(startVal,endVal);
         var currentYValueMin = minValue + currentY * (treshValue - minValue);
 
 
+
         for (var x = 0; x < data.testFieldDimX; x++) {
 
           var currentX = Math.round((-1 + (x / (data.testFieldDimX - 1)) * 2) * errorMath) / errorMath;
@@ -1329,35 +1330,50 @@ console.log(startVal,endVal);
     /// noise
   var tmpValueDis = max - min;
   var scaledDis = cmsEndRef - cmsStartRef;
+
+
+  var replaceDis =  data.replaceNoiseTill-data.replaceNoiseFrom;
+
   if(data.doNoise && tmpValueDis!=0){
 
-    /*console.log("-----------------------------------------");
-    console.log("Do noise for: ",data.testFieldType);
-    console.log("Dim: ", data.testFieldDimX,":",data.testFieldDimY);
-    console.log(data.noiseField.length,jsonObj.testFieldVal.length);
-    console.log("-----------------------------------------");*/
     if(data.noiseField.length==jsonObj.testFieldVal.length){
       for (var i = 0; i < data.noiseField.length; i++) {
         if(data.noiseField[i]!=undefined){
           switch (data.noiseBehavior) {
             case 0:
-              jsonObj.testFieldVal[i] += jsonObj.testFieldVal[i]*data.noiseField[i];
-              if(jsonObj.testFieldVal[i]>max)
-                jsonObj.testFieldVal[i]=max;
-
-                if(jsonObj.testFieldVal[i]<min)
-                  jsonObj.testFieldVal[i]=min;
-            break;
             case 1:
-            jsonObj.testFieldVal[i] += (data.noiseField[i]*tmpValueDis);
-              if(jsonObj.testFieldVal[i]>max)
-                jsonObj.testFieldVal[i]=max;
 
-                if(jsonObj.testFieldVal[i]<min)
-                  jsonObj.testFieldVal[i]=min;
+              var amount = undefined;
+
+              if(data.noiseBehavior==0)
+                amount = jsonObj.testFieldVal[i]*data.noiseField[i];
+              else
+                amount = data.noiseField[i]*tmpValueDis;
+
+              var newVal = jsonObj.testFieldVal[i] + amount;
+
+              if(amount==undefined || newVal==undefined)
+                continue;
+
+              var stopper = 0;
+
+              if(newVal>max)
+                newVal=max;
+
+              if(newVal<min)
+                newVal=min;
+              /*while(newVal>max || newVal<min){
+                amount /=2;
+                newVal = jsonObj.testFieldVal[i] + amount;
+                stopper++;
+                if(stopper==1000)
+                  break;
+              }*/
+
+              jsonObj.testFieldVal[i] = newVal
             break;
             case 2:
-              jsonObj.testFieldVal[i] = (data.noiseField[i]*tmpValueDis)+min;
+              jsonObj.testFieldVal[i] = replaceDis*data.noiseField[i]+data.replaceNoiseFrom; //(data.noiseField[i]*tmpValueDis)+min;
             break;
           }
         }

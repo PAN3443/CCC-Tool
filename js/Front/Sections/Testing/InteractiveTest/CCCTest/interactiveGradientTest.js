@@ -28,13 +28,13 @@ function selectNewGradientTestType(){
   document.getElementById("id_TestPage_NewTest_I1").value=cccTest_NewGradient_Options[1];
   document.getElementById("id_TestPage_NewTest_I2").value=cccTest_NewGradient_Options[2];
 
-  document.getElementById("id_TestPage_NewTest_XTypeL1").innerHTML=" : Linear";
-  document.getElementById("id_TestPage_NewTest_XTypeL2").innerHTML=" : Concave";
-  document.getElementById("id_TestPage_NewTest_XTypeL3").innerHTML=" : Convex";
+  document.getElementById("id_TestPage_NewTest_XTypeL1").innerHTML=" : Const";
+  document.getElementById("id_TestPage_NewTest_XTypeL2").innerHTML=" : Decreasing";
+  document.getElementById("id_TestPage_NewTest_XTypeL3").innerHTML=" : Increasing";
 
-  document.getElementById("id_TestPage_NewTest_YTypeL1").innerHTML=" : Linear";
-  document.getElementById("id_TestPage_NewTest_YTypeL2").innerHTML=" : Concave";
-  document.getElementById("id_TestPage_NewTest_YTypeL3").innerHTML=" : Convex";
+  document.getElementById("id_TestPage_NewTest_YTypeL1").innerHTML=" : Const";
+  document.getElementById("id_TestPage_NewTest_YTypeL2").innerHTML=" : Decreasing";
+  document.getElementById("id_TestPage_NewTest_YTypeL3").innerHTML=" : Increasing";
 
   current_xFktType= cccTest_NewGradient_Options[3];
   switch (current_xFktType) { // mType
