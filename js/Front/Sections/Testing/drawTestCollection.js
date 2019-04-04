@@ -74,7 +74,8 @@ function fillTestCollection(){
   tmpDivRealWorld.appendChild(tmpDivRealWorldLabel);
 
   tmpDivRealWorld.appendChild(createRealWorld_MedicalDiv());
-  tmpDivRealWorld.appendChild(createRealWorld_OtherDiv());
+  tmpDivRealWorld.appendChild(createRealWorld_FlowSimDiv());
+  tmpDivRealWorld.appendChild(createRealWorld_PhotographDiv());
 
 
   ////////////////////////////////////////////////////////////////////////////////////
@@ -180,15 +181,27 @@ function drawTestCollection(){
         tmpWorker.postMessage(testField_WorkerJSON);
       }
   }
-
-  for (var i = 0; i < otherData.length; i++) {
-      if(realWorldTest_JSON("other",i, false)){
-        testField_WorkerJSON.canvasID = "rw_other_canvas_"+i;
+  
+  console.log(scientificFlowSimData.length);
+  for (var i = 0; i < scientificFlowSimData.length; i++) {
+      if(realWorldTest_JSON("scientificFlowSim",i, false)){
+        testField_WorkerJSON.canvasID = "rw_scientificFlowSim_canvas_"+i;
         var tmpWorker = new Worker('js/Front/Sections/Testing/testingWorker.js');
         tmpWorker.addEventListener('message', workerEvent_drawTest, false);
         tmpWorker.postMessage(testField_WorkerJSON);
       }
   }
+
+  for (var i = 0; i < photographsData.length; i++) {
+      if(realWorldTest_JSON("photographs",i, false)){
+        testField_WorkerJSON.canvasID = "rw_photographs_canvas_"+i;
+        var tmpWorker = new Worker('js/Front/Sections/Testing/testingWorker.js');
+        tmpWorker.addEventListener('message', workerEvent_drawTest, false);
+        tmpWorker.postMessage(testField_WorkerJSON);
+      }
+  }
+
+  
 
 }
 
@@ -594,12 +607,12 @@ function createLittleBit(){
       var labelText = "from ";
 
       if(cccTest_LittleBit_Options[i][0]){
-        labelText += cccTest_LittleBit_Options[i][1]*100+"% to ";
-        labelText += cccTest_LittleBit_Options[i][2]*100+"%;";
+        labelText += cccTest_LittleBit_Options[i][3]*100+"% to ";
+        labelText += cccTest_LittleBit_Options[i][4]*100+"%;";
       }
       else{
-        labelText += cccTest_LittleBit_Options[i][1]+" to ";
-        labelText += cccTest_LittleBit_Options[i][2]+";";
+        labelText += cccTest_LittleBit_Options[i][3]+" to ";
+        labelText += cccTest_LittleBit_Options[i][4]+";";
       }
 
       tmpTestLabel.innerHTML = labelText;
@@ -902,6 +915,9 @@ function createRealWorld_MedicalDiv(){
       tmpTestLabel.innerHTML = labelText;
       tmpSelection.appendChild(tmpTestLabel);
 
+      if(medicalAcknowlegments[i]!=undefined)
+      tmpSelection.appendChild(createAchnowledgments(medicalAcknowlegments[i]));
+
       tmpSelection.onclick = (function(tmpID) {
       return function() {
          redrawTests = false;
@@ -916,7 +932,7 @@ function createRealWorld_MedicalDiv(){
   return tmpTestDiv;
 }
 
-function createRealWorld_OtherDiv(){
+function createRealWorld_FlowSimDiv(){
 
   var tmpTestDiv = document.createElement('div');
   tmpTestDiv.style.width = "90vw";
@@ -930,7 +946,7 @@ function createRealWorld_OtherDiv(){
   tmpDivLabel.style.lineHeight = "2.5vh";
   tmpDivLabel.style.marginTop = "2vh";
   tmpDivLabel.style.fontWeight = "bold";
-  tmpDivLabel.innerHTML = "3.3 Other:";
+  tmpDivLabel.innerHTML = "3.2 Scientific Flow Simulation:";
   tmpTestDiv.appendChild(tmpDivLabel);
 
   var tmpDivRow = document.createElement('div');
@@ -941,26 +957,29 @@ function createRealWorld_OtherDiv(){
   tmpDivRow.style.marginBottom = "1vh";
   tmpTestDiv.appendChild(tmpDivRow);
 
-  for (var i = 0; i < otherLabels.length; i++) {
+  for (var i = 0; i < scientificFlowSimLabels.length; i++) {
 
       var tmpSelection = document.createElement('div');
       tmpSelection.className = "class_Test_Selector";
 
       var tmpCanvas = document.createElement('canvas');
-      tmpCanvas.id = "rw_other_canvas_"+i;
+      tmpCanvas.id = "rw_scientificFlowSim_canvas_"+i;
       tmpSelection.appendChild(tmpCanvas);
 
       var tmpTestLabel = document.createElement('p');
-      var labelText = otherLabels[i];
+      var labelText = scientificFlowSimLabels[i];
 
       tmpTestLabel.innerHTML = labelText;
       tmpSelection.appendChild(tmpTestLabel);
+
+      if(scientificFlowSimAcknowlegments[i]!=undefined)
+      tmpSelection.appendChild(createAchnowledgments(scientificFlowSimAcknowlegments[i]));
 
       tmpSelection.onclick = (function(tmpID) {
       return function() {
          redrawTests = false;
          switchTestDisplay(1);
-         openRealWorldTest("other",tmpID);
+         openRealWorldTest("scientificFlowSim",tmpID);
       };
     })(i);
 
@@ -969,3 +988,78 @@ function createRealWorld_OtherDiv(){
 
   return tmpTestDiv;
 }
+
+function createRealWorld_PhotographDiv(){
+
+  var tmpTestDiv = document.createElement('div');
+  tmpTestDiv.style.width = "90vw";
+  tmpTestDiv.style.maxWidth = "90vw";
+  tmpTestDiv.style.marginLeft = "5vw";
+
+  var tmpDivLabel = document.createElement('p');
+  tmpDivLabel.className = "standardText";
+  tmpDivLabel.style.color = "rgb(100,100,100)";
+  tmpDivLabel.style.fontSize = "2.5vh";
+  tmpDivLabel.style.lineHeight = "2.5vh";
+  tmpDivLabel.style.marginTop = "2vh";
+  tmpDivLabel.style.fontWeight = "bold";
+  tmpDivLabel.innerHTML = "3.3 Photographs:";
+  tmpTestDiv.appendChild(tmpDivLabel);
+
+  var tmpDivRow = document.createElement('div');
+  tmpDivRow.style.width = "90vw";
+  tmpDivRow.style.maxWidth = "90vw";
+  tmpDivRow.style.display = "inline-block";
+  tmpDivRow.style.paddingTop = "1vh";
+  tmpDivRow.style.marginBottom = "1vh";
+  tmpTestDiv.appendChild(tmpDivRow);
+
+  for (var i = 0; i < photographsLabels.length; i++) {
+
+      var tmpSelection = document.createElement('div');
+      tmpSelection.className = "class_Test_Selector";
+
+      var tmpCanvas = document.createElement('canvas');
+      tmpCanvas.id = "rw_photographs_canvas_"+i;
+      tmpSelection.appendChild(tmpCanvas);
+
+      var tmpTestLabel = document.createElement('p');
+      var labelText = photographsLabels[i];
+
+      tmpTestLabel.innerHTML = labelText;
+      tmpSelection.appendChild(tmpTestLabel);
+
+      if(photographsAcknowlegments[i]!=undefined)
+      tmpSelection.appendChild(createAchnowledgments(photographsAcknowlegments[i]));
+
+      tmpSelection.onclick = (function(tmpID) {
+      return function() {
+         redrawTests = false;
+         switchTestDisplay(1);
+         openRealWorldTest("photographs",tmpID);
+      };
+    })(i);
+
+      tmpDivRow.appendChild(tmpSelection);
+  }
+
+  return tmpTestDiv;
+}
+
+
+
+
+function createAchnowledgments(index){
+
+  var tmpLabel = document.createElement('p');
+
+  var text = "We thank "+acknowlegments[index].blankLink(acknowlegmentsURL[index])+" for provision of real world data.";
+
+  tmpLabel.innerHTML = text;
+
+  tmpLabel.onclick = function(event){event.stopPropagation();};
+
+  return tmpLabel;
+}
+
+

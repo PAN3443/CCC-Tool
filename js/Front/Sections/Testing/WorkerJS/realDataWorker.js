@@ -22,15 +22,15 @@ function realWorldTest_JSON(type,index, createGlobalField){
           return;
         testField_WorkerJSON.testFieldVar_a = medicalData[index];
       break;
-    case "bio":
-        if(bioData[index]==undefined)
+    case "scientificFlowSim":
+        if(scientificFlowSimData[index]==undefined)
           return;
-        testField_WorkerJSON.testFieldVar_a = bioData[index];
+        testField_WorkerJSON.testFieldVar_a = scientificFlowSimData[index];
       break;
-      case "other":
-        if(otherData[index]==undefined)
+      case "photographs":
+        if(photographsData[index]==undefined)
           return;
-        testField_WorkerJSON.testFieldVar_a = otherData[index];
+        testField_WorkerJSON.testFieldVar_a = photographsData[index];
         break;
     default:
       return false;

@@ -36,6 +36,9 @@ function selectNewGradientTestType(){
   document.getElementById("id_TestPage_NewTest_YTypeL2").innerHTML=" : Decreasing";
   document.getElementById("id_TestPage_NewTest_YTypeL3").innerHTML=" : Increasing";
 
+  document.getElementById("id_TestPage_NewTest_I1").step=0.001;
+  document.getElementById("id_TestPage_NewTest_I2").step=0.001;
+
   current_xFktType= cccTest_NewGradient_Options[3];
   switch (current_xFktType) { // mType
     case 0:
@@ -100,15 +103,27 @@ function updateGradientTestVariables(){
   check_xFktType();
   check_yFktType();
 
-  if(current_xFktType==0)
+  if(current_xFktType==0){
     document.getElementById("id_TestPage_NewTest_I3").disabled=true;
-  else
+    document.getElementById("id_TestPage_NewTest_I3").value=1;
+  }
+  else{
     document.getElementById("id_TestPage_NewTest_I3").disabled=false;
 
-  if(current_yFktType==0)
+    if(document.getElementById("id_TestPage_NewTest_I3").value==1)
+      document.getElementById("id_TestPage_NewTest_I3").value=2
+  }
+
+  if(current_yFktType==0){
     document.getElementById("id_TestPage_NewTest_I4").disabled=true;
-  else
+    document.getElementById("id_TestPage_NewTest_I4").value=1;
+  }
+  else{
     document.getElementById("id_TestPage_NewTest_I4").disabled=false;
+
+    if(document.getElementById("id_TestPage_NewTest_I4").value==1)
+      document.getElementById("id_TestPage_NewTest_I4").value=2
+  }
 
   // check m-value
   var value_m = parseFloat(document.getElementById("id_TestPage_NewTest_I1").value);
@@ -145,7 +160,7 @@ function updateGradientTestVariables(){
     return;
   }
   document.getElementById("id_TestPage_NewTest_I3").value =exp_x;
-  if(exp_x<2){
+  if(document.getElementById("id_TestPage_NewTest_I3").disabled==false &&exp_x<2){
     openAlert("Invalid input for m-Exponent. The exponent has to be an integer and has to be 2 or greater than 2.");
     return;
   }
@@ -157,7 +172,7 @@ function updateGradientTestVariables(){
     openAlert("Invalid input for m-Exponent");
     return;
   }
-  if(exp_y<2){
+  if(document.getElementById("id_TestPage_NewTest_I4").disabled==false &&exp_y<2){
     openAlert("Invalid input for m-Exponent. The exponent has to be an integer and has to be 2 or greater than 2.");
     return;
   }

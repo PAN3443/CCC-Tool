@@ -371,8 +371,7 @@
 
       <img src="img/Logos/CCC-LOGO_new.png" alt="CCC-Tool Logo" style="height:80%; margin-left:1vw; margin-right:0.5vw; margin-top:auto; margin-bottom:auto;">
 
-      <p id="id_header_ccctoolLabel" style="margin:0px; text-align:left; vertical-align: middle; color:white; font-size: 3vh; margin-top:auto; line-height:5vh; margin-bottom:auto; margin-right:auto;">
-      <strong>C</strong>harting <strong>C</strong>ontinuous <strong>C</strong>olormap </p>
+      <p id="id_header_ccctoolLabel" style="margin:0px; text-align:left; vertical-align: middle; color:white; font-size: 3vh; margin-top:auto; line-height:5vh; margin-bottom:auto; margin-right:auto;"><strong>C</strong>harting <strong>C</strong>ontinuous <strong>C</strong>olormap </p>
 
 
       <p id="id_header_colorBlindWarning" class="standardText " style="margin:0px; vertical-align: middle; color:red; font-size: 3vh; line-height:5vh; margin-top:auto; margin-bottom:auto; color:red; visibility:hidden; cursor:help; margin-right:1vw;" title="Colorblind Modus">
@@ -602,8 +601,8 @@
 
         <div style="margin:auto; width:50vw;">
           <p id="id_welcomePage_Txt" class="standardText" style="margin-bottom:2.5vh;">
-            Welcome to the CCC-Tool! For the log in or a registration please use the buttons in the upper right corner of the window. You can use the full functionality for the creation of colormaps without an account by using the button "Anonymous User". The benefit
-            of an account is a cloud storage for your session files and the opportunity to rate and comment colormaps from other users. For anonymous user the tool offers the export and import of a XML session file. Enjoy our tool. <br> Best wishes
+            Welcome to the CCC-Tool! For the log in or a registration please use the buttons in the upper right corner of the window. You can use the full functionality for the creation of colormaps without an account by using the button "Anonymous User". The benefit of an account is a cloud storage for your session files and the opportunity to rate and comment colormaps from other users. For anonymous user the tool offers the export and import of a XML session file. Enjoy our tool.
+            Best wishes,
             your CCC-Tool team.
           </p>
 
@@ -1953,9 +1952,9 @@
                         </optgroup>
 
                         <optgroup label="Real World Data:">,
-                          <option value="11" style="display:none;">Bio</option>
-                          <option value="12">Medical</option>
-                          <option value="13">Other</option>
+                          <option value="11">Medical</option>
+                          <option value="12">Scientific Flow Sim</option>
+                          <option value="13">Photographs</option>
                         </optgroup>
 
                     </select>
@@ -2002,6 +2001,8 @@
 
                     <hr>
 
+
+
                     <div id="id_NewTest_TopologySubDivOptionDiv" style="width:100%;">
                       <div class="class_EditPage_TabRow" style="width:100%; height:3vh; background:rgb(220,220,220);">
                         <button id="id_NewTest_SubDivOption1" onclick="chooseTopologySubDiv(0)" style="margin:auto; width: 50%; height:3vh; line-height:3vh; font-size:2.2vh; cursor:pointer; ">
@@ -2030,7 +2031,7 @@
                       </div>
 
                       <div id="id_TestPage_fitToCMS_Div" class="row" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
-                        <input id="id_TestPage_fitToCMS" type="checkbox" name="id_TestPage_DoRatio" value="doRatio" onchange="newTest_switchRatioType()">
+                        <input id="id_TestPage_fitToCMS" type="checkbox" name="id_TestPage_DoRatio" value="doRatio" onchange="updateTestVariables()">
                         <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-right: 0.25vw;">map to CMS Range</p>
                       </div>
 
@@ -2054,6 +2055,11 @@
                         <div id="id_TestPage_NewTest_D4" class="row" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
                           <p id="id_TestPage_NewTest_V4" class="standardText" style="margin-top:auto; margin-bottom:auto; width:10vw;"></p>
                           <input id="id_TestPage_NewTest_I4" class="standardText" type="number" name="inputV4"  step="any" value="0.1" onchange="updateTestVariables()">
+                        </div>
+
+                        <div id="id_TestPage_NewTest_D5" class="row" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
+                          <p id="id_TestPage_NewTest_V5" class="standardText" style="margin-top:auto; margin-bottom:auto; width:10vw;"></p>
+                          <input id="id_TestPage_NewTest_I5" class="standardText" type="number" name="inputV5"  step="any" value="0.1" onchange="updateTestVariables()">
                         </div>
 
                         <div id="id_TestPage_XFctType_Div" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
@@ -2108,7 +2114,7 @@
                           </div>
                         </div>
 
-                        <p id="id_TestPage_newTestInfoText" class="standardText" style="margin-top:1vh; white-space: pre-line;"></p>
+                        <p id="id_TestPage_newTestInfoText" class="standardText" style="margin-top:1vh;"></p>
                     </div>
 
                     <div id="id_TestPage_NewTest_subDiv2" style="width:100%;">
@@ -2153,7 +2159,10 @@
 
                     </div>
 
-
+                    <div id="id_TestPage_newTestAcknowledgmentsDiv" class="width:100%;" >
+                        
+                        <p id="id_TestPage_newTestAcknowledgmentsText" class="standardText" style="margin:auto; margin-left:0vw; max-width: 100%; "></p>
+                      </div>
 
 
 
@@ -2235,6 +2244,8 @@
 
                         </div>
                       </div>
+
+                      
                   </div>
 
 

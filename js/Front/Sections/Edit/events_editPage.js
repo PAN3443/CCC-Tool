@@ -164,6 +164,7 @@ function updateEditPage(){
 function reverseCMS(){
   globalCMS1.calcReverse();
   updateEditPage();
+  saveCreateProcess();
 
   if(document.getElementById("id_EditPage_Edit_Keys").style.display!="none"){
      openEditKeyDiv(document.getElementById("id_EditPage_EditKey_List").selectedIndex);

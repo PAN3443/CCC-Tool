@@ -24,7 +24,30 @@
    margin: 0;
  }
 
- p,
+ input{
+  display:block;
+  width:auto;
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+   -moz-box-sizing: border-box;
+   -webkit-box-sizing: border-box;
+  font-size: 1.6vh;
+  line-height: 1.8vh;
+  height: 1.8vh;
+ }
+
+ p{
+  height:auto;
+   width:auto;
+   margin: 0px;
+   padding: 0px;
+   box-sizing: border-box;
+   -moz-box-sizing: border-box;
+   -webkit-box-sizing: border-box;
+   white-space: pre-line;
+ }
+
  h1,
  h2,
  h3,
@@ -82,7 +105,6 @@ div.sticky {
   font-size: 1.6vh;
   line-height: 1.8vh;
   color:black;
-  height:auto;
   vertical-align:middle;
   margin:0px;
   overflow: hidden;

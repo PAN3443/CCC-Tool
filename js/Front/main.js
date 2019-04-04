@@ -100,7 +100,7 @@ window.onload = function() {
 
   closeWaitPopUp();
 
-  ///////////////////////////////
+  /*///////////////////////////////
   // For Testing: with start CMS in the MyDesigns
   ///
 
@@ -109,7 +109,7 @@ window.onload = function() {
     myDesignsList.push(cmsRedPurpleColormaps[0]);
 
     showMyDesignsPage();
-    showTestPage();
+    showTestPage();//*/
 
 
 }

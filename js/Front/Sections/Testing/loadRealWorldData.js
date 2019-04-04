@@ -1,6 +1,6 @@
 function loadRealWorldData() {
 
-  var path = "resource/realWorldData/Med/";
+  var path = "resource/realWorldData/medicalData/";
   medicalData = new Array(medicalFiles.length);
   for (var i = 0; i < medicalFiles.length; i++) {
       var url = path+medicalFiles[i];
@@ -17,16 +17,16 @@ function loadRealWorldData() {
   }
 
 
-  path = "resource/realWorldData/Bio/";
-  bioData = new Array(bioFiles.length);
-  for (var i = 0; i < bioFiles.length; i++) {
-      var url = path+bioFiles[i];
+  path = "resource/realWorldData/scientificFlowSimulation/";
+  scientificFlowSimData = new Array(scientificFlowSimFiles.length);
+  for (var i = 0; i < scientificFlowSimFiles.length; i++) {
+      var url = path+scientificFlowSimFiles[i];
       var img = new Image();
       img.setAttribute('crossOrigin', 'anonymous');
 
       img.onload = (function(index) {
       return function () {
-        bioData[index] = getCanvasImgData(this);
+        scientificFlowSimData[index] = getCanvasImgData(this);
       };
       })(i);
 
@@ -34,16 +34,16 @@ function loadRealWorldData() {
   }
 
 
-  path = "resource/realWorldData/Other/";
-  otherData = new Array(otherFiles.length);
-  for (var i = 0; i < otherFiles.length; i++) {
-      var url = path+otherFiles[i];
+  path = "resource/realWorldData/photographs/";
+  photographsData = new Array(photographsFiles.length);
+  for (var i = 0; i < photographsFiles.length; i++) {
+      var url = path+photographsFiles[i];
       var img = new Image();
       img.setAttribute('crossOrigin', 'anonymous');
 
       img.onload = (function(index) {
       return function () {
-        otherData[index] = getCanvasImgData(this);
+        photographsData[index] = getCanvasImgData(this);
       };
       })(i);
 

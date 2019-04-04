@@ -27,12 +27,12 @@ initNewTest();*/
 
   switch (selectedRealWorldType) {
     case "medical":
-        document.getElementById("id_TestPage_SelectNewTestType").selectedIndex = 12;
-      break;
-    case "bio":
         document.getElementById("id_TestPage_SelectNewTestType").selectedIndex = 11;
       break;
-    case "other":
+    case "scientificFlowSim":
+        document.getElementById("id_TestPage_SelectNewTestType").selectedIndex = 12;
+      break;
+    case "photographs":
         document.getElementById("id_TestPage_SelectNewTestType").selectedIndex = 13;
       break;
     default:
@@ -75,24 +75,24 @@ function selectRealWorldType(index){
           }
 
       break;
-    case "bio":
-        if(bioData[index]==undefined)
+    case "scientificFlowSim":
+        if(scientificFlowSimData[index]==undefined)
           return;
 
-          for (var i = 0; i < bioData.length; i++) {
+          for (var i = 0; i < scientificFlowSimData.length; i++) {
             var option = document.createElement("option");
-            option.innerHTML = bioLabels[i];
+            option.innerHTML = scientificFlowSimLabels[i];
             document.getElementById("id_TestPage_FctSelection").add(option);
           }
 
       break;
-      case "other":
-        if(otherData[index]==undefined)
+      case "photographs":
+        if(photographsData[index]==undefined)
           return;
 
-        for (var i = 0; i < otherData.length; i++) {
+        for (var i = 0; i < photographsData.length; i++) {
           var option = document.createElement("option");
-          option.innerHTML = otherLabels[i];
+          option.innerHTML = photographsLabels[i];
           document.getElementById("id_TestPage_FctSelection").add(option);
         }
 
@@ -119,26 +119,81 @@ function updateRealWorldVariables(){
         document.getElementById("id_TestPage_GridDimY").value=medicalData[selectedID][0].length;
 
       break;
-    case "bio":
-        if(bioData[selectedID]==undefined)
+    case "scientificFlowSim":
+        if(scientificFlowSimData[selectedID]==undefined)
           return;
 
-          document.getElementById("id_TestPage_GridDimX").value=bioData[selectedID].length;
-          document.getElementById("id_TestPage_GridDimY").value=bioData[selectedID][0].length;
+          document.getElementById("id_TestPage_GridDimX").value=scientificFlowSimData[selectedID].length;
+          document.getElementById("id_TestPage_GridDimY").value=scientificFlowSimData[selectedID][0].length;
 
       break;
-      case "other":
-        if(otherData[selectedID]==undefined)
+      case "photographs":
+        if(photographsData[selectedID]==undefined)
           return;
 
-          document.getElementById("id_TestPage_GridDimX").value=otherData[selectedID].length;
-          document.getElementById("id_TestPage_GridDimY").value=otherData[selectedID][0].length;
+          document.getElementById("id_TestPage_GridDimX").value=photographsData[selectedID].length;
+          document.getElementById("id_TestPage_GridDimY").value=photographsData[selectedID][0].length;
 
         break;
     default:
       return;
   }
 
+  checkAcknowledgements(selectedID);
   updateNoise();
   realData_startWorker(selectedRealWorldType,selectedID);
+}
+
+
+
+function checkAcknowledgements(selectedID){
+
+
+  var index = undefined;
+
+  switch (selectedRealWorldType) {
+    case "medical":
+        if(medicalData[selectedID]==undefined)
+          return;
+
+        if(medicalAcknowlegments[selectedID]!=undefined)
+          index=medicalAcknowlegments[selectedID];
+
+      break;
+    case "scientificFlowSim":
+        if(scientificFlowSimData[selectedID]==undefined)
+          return;
+
+         if(scientificFlowSimAcknowlegments[selectedID]!=undefined)
+          index=scientificFlowSimAcknowlegments[selectedID];
+
+      break;
+      case "photographs":
+        if(photographsData[selectedID]==undefined)
+          return;
+
+         if(photographsAcknowlegments[selectedID]!=undefined)
+          index=photographsAcknowlegments[selectedID];
+
+        break;
+    default:
+      return;
+  }
+
+  if(index!=undefined){
+    document.getElementById("id_TestPage_newTestAcknowledgmentsDiv").style.display="block";
+
+    var atext = "Acknowledgments".bold()+": We thank "+acknowlegments[index].blankLink(acknowlegmentsURL[index])+" for provision of real world data.";
+
+   if(acknowlegmentsAdditional[index]!=undefined){
+    atext += "\n"+acknowlegmentsAdditional[index];
+   }
+
+    document.getElementById("id_TestPage_newTestAcknowledgmentsText").innerHTML = atext;
+
+  }
+  else{
+    document.getElementById("id_TestPage_newTestAcknowledgmentsDiv").style.display="none";
+  }
+  
 }

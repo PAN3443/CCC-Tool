@@ -90,7 +90,6 @@ self.addEventListener('message', function(e) {
       ////
     case "LittleBit":
 
-
       var currentMax = undefined;
       var amountOfGradient = undefined;
       var currentY = undefined;
@@ -110,7 +109,7 @@ self.addEventListener('message', function(e) {
         startVal = Math.round((data.testFieldVar_f * (cmsRangeDifference)+cmsStartRef) * errorMath) / errorMath;
         endVal = Math.round((data.testFieldVar_g * (cmsRangeDifference)+cmsStartRef) * errorMath) / errorMath;
       }
-console.log(startVal,endVal);
+
       cmsRangeDifference = endVal - startVal;
 
       var sinkStep = Math.round(((maxSink - minSink) / (data.testFieldVar_e - 1)) * errorMath) / errorMath;

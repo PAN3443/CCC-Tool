@@ -33,6 +33,10 @@ function selectNewExtremaTestType(){
   document.getElementById("id_TestPage_NewTest_I2").value= cccTest_NewLocalExtrema_Options[1];
   document.getElementById("id_TestPage_NewTest_I3").value= cccTest_NewLocalExtrema_Options[2];
 
+  document.getElementById("id_TestPage_NewTest_I1").step= 0.001;
+  document.getElementById("id_TestPage_NewTest_I2").step= 0.001;
+  document.getElementById("id_TestPage_NewTest_I3").step= 0.001;
+
   document.getElementById("id_TestPage_GridDimX").value=cccTest_NewLocalExtrema_Options[4];
   document.getElementById("id_TestPage_GridDimY").value=cccTest_NewLocalExtrema_Options[5];
 

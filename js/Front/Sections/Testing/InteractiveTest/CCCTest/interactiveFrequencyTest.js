@@ -38,6 +38,11 @@ function selectNewFrequencyTestType(){
   document.getElementById("id_TestPage_NewTest_I2").min=0;
 
 
+  document.getElementById("id_TestPage_NewTest_I2").step=1;
+  document.getElementById("id_TestPage_NewTest_I3").step=0.001;
+  document.getElementById("id_TestPage_NewTest_I4").step=0.001;
+
+
 
   updateNoise();
   frequency_startWorker(cccTest_NewFrequency_Options);

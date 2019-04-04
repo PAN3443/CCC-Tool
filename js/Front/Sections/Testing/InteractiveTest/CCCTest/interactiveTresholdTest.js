@@ -39,6 +39,10 @@ function selectNewTresholdTestType(){
   document.getElementById("id_TestPage_NewTest_I4").min= 2;
   document.getElementById("id_TestPage_NewTest_I4").step= 1;
 
+  document.getElementById("id_TestPage_NewTest_I1").step= 0.001;
+  document.getElementById("id_TestPage_NewTest_I2").step= 0.001;
+  document.getElementById("id_TestPage_NewTest_I3").step= 0.001;
+
   if(document.getElementById("id_TestPage_doRatioCheckbox").checked){
     document.getElementById("id_TestPage_NewTest_I1").min= 0;
     document.getElementById("id_TestPage_NewTest_I1").max= 1;
@@ -86,10 +90,16 @@ function selectNewTresholdTestType(){
 function updateTresholdTestVariables(){
     check_xFktType();
 
-    if(current_xFktType==0)
+    if(current_xFktType==0){
       document.getElementById("id_TestPage_NewTest_I4").disabled=true;
-    else
+      document.getElementById("id_TestPage_NewTest_I4").value=1;
+    }
+    else{
       document.getElementById("id_TestPage_NewTest_I4").disabled=false;
+
+      if(document.getElementById("id_TestPage_NewTest_I4").value==1)
+      document.getElementById("id_TestPage_NewTest_I4").value=2
+    }
 
     var value_m = parseFloat(document.getElementById("id_TestPage_NewTest_I1").value);
     document.getElementById("id_TestPage_NewTest_I1").value = value_m;
@@ -137,7 +147,7 @@ function updateTresholdTestVariables(){
       return;
     }
 
-    if(exp<2){
+    if(document.getElementById("id_TestPage_NewTest_I4").disabled==false && exp<2){
       openAlert("Invalid input for the exponent! The value is not allowed to be smaller than two!");
       return;
     }

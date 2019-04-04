@@ -14,11 +14,14 @@ function initNewTest() {
   document.getElementById("id_TestPage_NewTest_D2").style.display="none";
   document.getElementById("id_TestPage_NewTest_D3").style.display="none";
   document.getElementById("id_TestPage_NewTest_D4").style.display="none";
+  document.getElementById("id_TestPage_NewTest_D5").style.display="none";
+  
   document.getElementById("id_TestPage_XFctType_Div").style.display="none";
   document.getElementById("id_TestPage_NewTest_TopologyDiv1").style.display="none";
   document.getElementById("id_TestPage_NewTest_TopologyDiv2").style.display="none";
   document.getElementById("id_NewTest_TopologySubDivOptionDiv").style.display="none";
-
+  document.getElementById("id_TestPage_newTestAcknowledgmentsDiv").style.display="none";
+  
 
   document.getElementById("id_TestPage_FctSelection_Div").style.display="none";
   document.getElementById("id_TestPage_newTestNoiseDiv").style.display="block";
@@ -109,15 +112,15 @@ function selectNewTestType(){
 
                 /////////////////////////////////////
                 case 11:
-                  selectedRealWorldType="bio";
+                  selectedRealWorldType="medical";
                   selectRealWorldType(0);
                   break;
                   case 12:
-                    selectedRealWorldType="medical";
+                    selectedRealWorldType="scientificFlowSim";
                     selectRealWorldType(0);
                     break;
                     case 13:
-                      selectedRealWorldType="other";
+                      selectedRealWorldType="photographs";
                       selectRealWorldType(0);
                       break;
 

@@ -105,11 +105,11 @@ var cccTest_Frequency_Options = [
 var littleBit_NumberOfSinks = 10;
 var cccTest_NewLittleBit_Options = [];
 var cccTest_LittleBit_Options = [
-  [true,0.0001,0.001,10,0.0,1.0],
-  [true,0.0001,0.005,10,0.0,1.0],
-  [true,0.0001,0.01,10,0.0,1.0],
-  [true,0.0001,0.05,10,0.0,1.0],
-  [true,0.0001,0.1,10,0.0,1.0]
+  [true,0.0,1.0,0.0001,0.001,10,10,100],
+  [true,0.0,1.0,0.0001,0.005,10,10,100],
+  [true,0.0,1.0,0.0001,0.01,10,10,100],
+  [true,0.0,1.0,0.0001,0.05,10,10,100],
+  [true,0.0,1.0,0.0001,0.1,10,10,100]
 ];
 
 var cccTest_NewTreshold_Options = [];

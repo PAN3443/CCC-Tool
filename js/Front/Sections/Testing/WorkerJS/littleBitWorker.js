@@ -14,18 +14,17 @@ function littlebit_startWorker(options) {
 function littleBitTest_JSON(options, createGlobalField){
 
 
-  var numberOfAreas = littleBit_NumberOfSinks+littleBit_NumberOfSinks+1;
-
+  var numberOfAreas = options[6]+options[6]+1;
   var xDim = undefined;
   var yDim = undefined;
   if(createGlobalField){
-    xDim = numberOfAreas*options[3];
-    yDim = numberOfAreas*options[3];
+    xDim = numberOfAreas*options[5];
+    yDim = options[7];
     userTestGlobalField = new class_TestField(xDim, yDim);
   }
   else {
-    xDim = numberOfAreas*5;
-    yDim = numberOfAreas*5;
+    xDim = numberOfAreas*3;
+    yDim = 50;
   }
 
   testField_WorkerJSON.testFieldDimX = xDim;
@@ -35,12 +34,12 @@ function littleBitTest_JSON(options, createGlobalField){
   testField_WorkerJSON.testFieldType = "LittleBit";
 
   testField_WorkerJSON.testFieldVar_a = options[0]; // ratio or not
-  testField_WorkerJSON.testFieldVar_b = options[1]; // max little
-  testField_WorkerJSON.testFieldVar_c = options[2]; // min little
-  testField_WorkerJSON.testFieldVar_d = options[3]; // pixel per area
-  testField_WorkerJSON.testFieldVar_e =littleBit_NumberOfSinks;
-  testField_WorkerJSON.testFieldVar_f = options[4];
-  testField_WorkerJSON.testFieldVar_g = options[5];
+  testField_WorkerJSON.testFieldVar_b = options[3]; // start little
+  testField_WorkerJSON.testFieldVar_c = options[4]; // end little
+  testField_WorkerJSON.testFieldVar_d = options[5]; // pixel per area
+  testField_WorkerJSON.testFieldVar_e = options[6]; // pixel per area
+  testField_WorkerJSON.testFieldVar_f = options[1];
+  testField_WorkerJSON.testFieldVar_g = options[2];
   testField_WorkerJSON.onlyGrey = false;
 
 }
