@@ -1,6 +1,13 @@
 //////////////////////////
 ///// Colorspace VIS
 
+var drawBackgroundWorker1 = undefined;
+var drawBackgroundWorker2 = undefined;
+var drawBackgroundWorker3 = undefined;
+var drawBackgroundWorker4 = undefined;
+
+
+//////////////////////////////////////
 var labSpaceRange = 128;
 //var din99SpaceRange = 156;
 

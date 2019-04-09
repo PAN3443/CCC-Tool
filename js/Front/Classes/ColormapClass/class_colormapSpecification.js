@@ -111,8 +111,6 @@ class class_CMS {
 
   calculateColor(val){
 
-
-
     if(isNaN(val)){
       return this.NaN_RGB;
     }
@@ -148,54 +146,23 @@ class class_CMS {
         switch (this.interpolationSpace) {
           case "rgb":
 
-              var rValue = color1.get1Value()+(color2.get1Value() - color1.get1Value())*tmpRatio;
-              var gValue = color1.get2Value()+(color2.get2Value() - color1.get2Value())*tmpRatio;
-              var bValue = color1.get3Value()+(color2.get3Value() - color1.get3Value())*tmpRatio;
+              var newColor = calcGradientLinear(color1.getRValue(),color1.getGValue(),color1.getBValue(),color2.getRValue(),color2.getGValue(),color2.getBValue(), tmpRatio);
+              return new classColor_RGB(newColor[0],newColor[1],newColor[2]);
 
-              if(rValue==0 &&  gValue==0 && bValue==0) {
-                console.log(val);
-              }
-
-            return new classColor_RGB(rValue,gValue,bValue);
           case "hsv":
-
-              var tmpDis = color1.getSValue()*50; // radius 50; center(0,0,0);
-              var tmpRad = (color1.getHValue()*Math.PI*2)-Math.PI;
-              var xPos = tmpDis*Math.cos(tmpRad);
-              var yPos = tmpDis*Math.sin(tmpRad);
-              var zPos = color1.getVValue()-50;
-
-              var tmpDis2 = color2.getSValue()*50;
-              var tmpRad2 = (color2.getHValue()*Math.PI*2)-Math.PI;
-              var xPos2 = tmpDis2*Math.cos(tmpRad2);
-              var yPos2 = tmpDis2*Math.sin(tmpRad2);
-              var zPos2 = color2.getVValue()-50;
-
-              var tmpX = xPos+(xPos2 - xPos)*tmpRatio;
-              var tmpY = yPos+(yPos2 - yPos)*tmpRatio;
-              var tmpZ = zPos+(zPos2 - zPos)*tmpRatio;
-
-              var tmpH =(Math.atan2(tmpY,tmpX)+Math.PI)/(Math.PI*2);
-              var tmpS = Math.sqrt(Math.pow(tmpX,2)+Math.pow(tmpY,2))/50;
-              var tmpV = tmpZ+50;
-              var tmpColor = new classColor_HSV(tmpH,tmpS,tmpV);
+              var newColor = calcGradientHSV(color1.getHValue(),color1.getSValue(),color1.getVValue(),color2.getHValue(),color2.getSValue(),color2.getVValue(), tmpRatio);
+              var tmpColor = new classColor_HSV(newColor[0],newColor[1],newColor[2]);
               return tmpColor.calcRGBColor();
             break;
           case "lab":
 
-              var lValue = color1.get1Value()+(color2.get1Value() - color1.get1Value())*tmpRatio;
-              var aValue = color1.get2Value()+(color2.get2Value() - color1.get2Value())*tmpRatio;
-              var bValue = color1.get3Value()+(color2.get3Value() - color1.get3Value())*tmpRatio;
-
-              var tmpColor = new classColor_LAB(lValue,aValue,bValue);
+              var newColor = calcGradientLinear(color1.get1Value(),color1.get2Value(),color1.get3Value(),color2.get1Value(),color2.get2Value(),color2.get3Value(), tmpRatio);
+              var tmpColor = new classColor_LAB(newColor[0],newColor[1],newColor[2]);
               return tmpColor.calcRGBColor();
             break;
           case "din99":
-              var l99Value = color1.get1Value()+(color2.get1Value() - color1.get1Value())*tmpRatio;
-              var a99Value = color1.get2Value()+(color2.get2Value() - color1.get2Value())*tmpRatio;
-              var b99Value = color1.get3Value()+(color2.get3Value() - color1.get3Value())*tmpRatio;
-
-              var tmpColor = new classColorDIN99(l99Value,a99Value,b99Value);
+              var newColor = calcGradientLinear(color1.get1Value(),color1.get2Value(),color1.get3Value(),color2.get1Value(),color2.get2Value(),color2.get3Value(), tmpRatio);
+              var tmpColor = new classColorDIN99(newColor[0],newColor[1],newColor[2]);
               return tmpColor.calcRGBColor();
             break;
           default:

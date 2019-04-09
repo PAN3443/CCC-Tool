@@ -1,260 +1,81 @@
-function rgbInit() {
+
+
+function rgbDrawBackground() {
 
   var canvasObj0 = document.getElementById("id_EditPage_PathPlot_Canvas1_0");
-  var canvasObjBox = canvasObj0.getBoundingClientRect();
-  canvasObj0.width = canvasObjBox.width;
-  canvasObj0.height = canvasObjBox.height;
   var canvasContex0 = canvasObj0.getContext("2d");
-  canvasContex0.clearRect(0, 0, canvasObj0.width, canvasObj0.height);
-  var canvasData0 = canvasContex0.getImageData(0, 0, canvasObj0.width, canvasObj0.height);
-
 
   var canvasObj1 = document.getElementById("id_EditPage_PathPlot_Canvas2_0");
-  canvasObj1.width = canvasObjBox.width;
-  canvasObj1.height = canvasObjBox.height;
   var canvasContex1 = canvasObj1.getContext("2d");
-  canvasContex1.clearRect(0, 0, canvasObj1.width, canvasObj1.height);
-  var canvasData1 = canvasContex1.getImageData(0, 0, canvasObj1.width, canvasObj1.height);
 
   var canvasObj2 = document.getElementById("id_EditPage_PathPlot_Canvas3_0");
-  canvasObj2.width = canvasObjBox.width;
-  canvasObj2.height = canvasObjBox.height;
   var canvasContex2 = canvasObj2.getContext("2d");
-  canvasContex2.clearRect(0, 0, canvasObj2.width, canvasObj2.height);
-  var canvasData2 = canvasContex2.getImageData(0, 0, canvasObj2.width, canvasObj2.height);
 
+  var fixedColor = undefined;
+  if (mouseGrappedKeyID != -1) {
 
-    var xStart = canvasObj0.width * 0.1;
-    var yStart = canvasObj0.height * 0.9;
-    var xEnd = canvasObj0.width * 0.8;
-    var yEnd = canvasObj0.height * 0.2;
-    var xWidth = xEnd - xStart;
-    var yHeight = yStart - yEnd;
-
-    var r = 0;
-    var g = 0;
-    var b = 0;
-
-    if (mouseGrappedKeyID != -1) {
-
-      var tmpColor;
-      switch (mouseGrappedColorSide) {
-        case 0:
-        // left color
-          tmpColor = globalCMS1.getLeftKeyColor(mouseGrappedKeyID, "rgb");
-          break;
-        default:
-          // both colors
-          tmpColor = globalCMS1.getRightKeyColor(mouseGrappedKeyID, "rgb");
-      }
-
-      r=tmpColor.get1Value();
-      g=tmpColor.get2Value();
-      b=tmpColor.get3Value();
+    switch (mouseGrappedColorSide) {
+      case 0:
+      // left color
+        fixedColor = globalCMS1.getLeftKeyColor(mouseGrappedKeyID, "rgb");
+        break;
+      default:
+        // both colors
+        fixedColor = globalCMS1.getRightKeyColor(mouseGrappedKeyID, "rgb");
     }
 
-    var tmpRGB1= new classColor_RGB(1,1,1);
-    var tmpRGB2= new classColor_RGB(1,1,1);
-    var tmpRGB3= new classColor_RGB(1,1,1);
+  }
 
-    //RG
-    for (var x = 0; x < canvasObj0.width; x++) {
-
-      for (var y = 0; y < canvasObj0.height; y++) {
-
-
-        if (x >= xStart && x <= xEnd && y <= yStart && y >= yEnd) {
-          // calc hsv color
-
-          var xVal = (x - xStart) / xWidth;
-          var yVal = (yStart - y) / yHeight;
-
-          var index = (x + y * canvasObj0.width) * 4;
-
-          tmpRGB1.set1Value(yVal);
-          tmpRGB1.set2Value(xVal);
-          tmpRGB1.set3Value(b);
-
-          tmpRGB2.set1Value(yVal);
-          tmpRGB2.set2Value(g);
-          tmpRGB2.set3Value(xVal);
-
-          tmpRGB3.set1Value(r);
-          tmpRGB3.set2Value(xVal);
-          tmpRGB3.set3Value(yVal);
-
-          if(doColorblindnessSim){
-            var tmpLMS = tmpRGB1.calcLMSColor();
-            tmpRGB1 = tmpLMS.calcColorBlindRGBColor();
-
-            tmpLMS = tmpRGB2.calcLMSColor();
-            tmpRGB2 = tmpLMS.calcColorBlindRGBColor();
-
-            tmpLMS = tmpRGB3.calcLMSColor();
-            tmpRGB3 = tmpLMS.calcColorBlindRGBColor();
-          }
-
-            canvasData0.data[index + 0] = Math.round(tmpRGB1.get1Value() * 255); // r
-            canvasData0.data[index + 1] = Math.round(tmpRGB1.get2Value() * 255); // g
-            canvasData0.data[index + 2] = Math.round(tmpRGB1.get3Value() * 255); // b
-            canvasData0.data[index + 3] = 255; //a
-
-            canvasData1.data[index + 0] = Math.round(tmpRGB2.get1Value() * 255); // r
-            canvasData1.data[index + 1] = Math.round(tmpRGB2.get2Value() * 255); // g
-            canvasData1.data[index + 2] = Math.round(tmpRGB2.get3Value() * 255); // b
-            canvasData1.data[index + 3] = 255; //a
-
-            canvasData2.data[index + 0] = Math.round(tmpRGB3.get1Value() * 255); // r
-            canvasData2.data[index + 1] = Math.round(tmpRGB3.get2Value() * 255); // g
-            canvasData2.data[index + 2] = Math.round(tmpRGB3.get3Value() * 255); // b
-            canvasData2.data[index + 3] = 255; //a
-
-        }
-      }
-
-    }
-
-
-  canvasContex0.putImageData(canvasData0, 0, 0); // update ColorspaceCanvas;
-  canvasContex1.putImageData(canvasData1, 0, 0); // update ColorspaceCanvas;
-  canvasContex2.putImageData(canvasData2, 0, 0); // update ColorspaceCanvas;
-
-
-    rgbPlot(canvasContex0, canvasObj0.width, canvasObj0.height, "G", "R");
-
-    rgbPlot(canvasContex1, canvasObj1.width, canvasObj1.height, "B", "R");
-
-    rgbPlot(canvasContex2, canvasObj2.width, canvasObj2.height, "G", "B");
-
-
+  drawGRBackground(canvasContex0,canvasObj0.width,canvasObj0.height,fixedColor);
+  drawBRBackground(canvasContex1,canvasObj0.width,canvasObj0.height,fixedColor);
+  drawGBBackground(canvasContex2,canvasObj0.width,canvasObj0.height,fixedColor);
 
 }
 
-function rgbPlot(context, canvasWidth, canvasHidth, xlabel, ylabel) {
+function rgbDrawBackground_Offscreen(){
+  return;
 
-  var yStart = Math.round(canvasHidth * 0.9);
-  var yEnd = Math.round(canvasHidth * 0.2);
-  var yEndLine = Math.round(canvasHidth * 0.15);
-  var yEndArrow = Math.round(canvasHidth * 0.1);
-  var arrowHeight = Math.round((yEndLine - yEndArrow) * 0.75);
-  var labelFontSize = arrowHeight * 0.85;
-  var labelFontSizeSmall = arrowHeight * 0.75;
-  var xStart = Math.round(canvasWidth * 0.1);
-  var xEnd = Math.round(canvasWidth * 0.8);
-  var xEndLine = Math.round(canvasWidth * 0.85);
-  var xEndArrow = Math.round(canvasWidth * 0.9);
+  /*var htmlCanvas = document.getElementById("testcanvas");
+  var offscreen = htmlCanvas.transferControlToOffscreen();* /
+  var worker =
 
+  console.log(321);
+  //var workerJSON = {canvas: offscreen};
+  var workerJSON = {};
+  workerJSON['color'] = "rgb(0,0,255)";
+  worker.postMessage(workerJSON);//, [offscreen]);*/
 
-  var lineColor = 'rgb(200,200,200)';
-  var arrowFontColor = 'rgb(90,90,90)';
+   drawBackgroundWorker1 = new Worker("js/Front/Worker/PathPlot/offscreenWorker_DrawPathPlotBackground.js");
 
-  plotXStart = xStart;
-  heigthVArea = yStart - yEnd;
-  plotYStart = yStart;
-  plotYEnd = yEnd;
+   drawBackgroundWorker2 = new Worker("js/Front/Worker/PathPlot/offscreenWorker_DrawPathPlotBackground.js");
 
-  context.fillStyle = arrowFontColor;
+   drawBackgroundWorker3 = new Worker("js/Front/Worker/PathPlot/offscreenWorker_DrawPathPlotBackground.js");
 
-
-  var xPosPos;
-  var yPos = canvasHidth * 0.93;
-  context.font = labelFontSizeSmall + "px Arial";
-
-  var steps = 5;
-  for (var i = 0; i <= steps; i++) {
-
-    xPosPos = xStart + (xEnd - xStart) * (i / steps);
-    context.beginPath();
-    context.lineWidth = 1;
-    context.moveTo(xPosPos, yStart);
-    context.lineTo(xPosPos, yPos);
-    context.strokeStyle = lineColor;
-    context.stroke();
-    context.strokeStyle = arrowFontColor;
-    var text = "" + i * (255 / steps);
-    context.fillText(text, xPosPos, yPos + labelFontSizeSmall);
-  }
-
-  xPosPos = Math.round(canvasWidth * 0.07);
-  yPos = yStart;
-  context.font = labelFontSizeSmall + "px Arial";
-
-  for (var i = 0; i <= steps; i++) {
-
-    yPos = yStart - (yStart - yEnd) * (i / steps);
-    context.beginPath();
-    context.lineWidth = 1;
-    context.moveTo(xPosPos, yPos);
-    context.lineTo(xStart, yPos);
-    context.strokeStyle = lineColor;
-    context.stroke();
-    context.strokeStyle = arrowFontColor;
-    var text = "" + i * (255 / steps);
-    context.fillText(text, xPosPos * 0.5, yPos);
-  }
-
-
-  ////////////////////////////////////////////////////////////
-  /////////////ARROWS////////////////////
-  ////////////////////////////////////////////////////////////
-  context.strokeStyle = arrowFontColor;
-  context.beginPath();
-  context.lineWidth = lineWidthVPlot;
-  context.moveTo(xStart, yStart);
-  context.lineTo(xEndLine, yStart);
-  context.stroke();
-
-  // the triangle
-  context.beginPath();
-  context.moveTo(xEndLine, yStart - arrowHeight/2);
-  context.lineTo(xEndArrow, yStart);
-  context.lineTo(xEndLine, yStart + arrowHeight/2);
-  context.closePath();
-
-  // the fill color
-  context.fillStyle = arrowFontColor;
-  context.fill();
-
-  context.beginPath();
-  context.lineWidth = lineWidthVPlot;
-  context.moveTo(xStart, yStart);
-  context.lineTo(xStart, yEndLine);
-  context.stroke();
-
-  // the triangle
-  context.beginPath();
-  context.moveTo(xStart - arrowHeight/2, yEndLine);
-  context.lineTo(xStart, yEndArrow);
-  context.lineTo(xStart + arrowHeight/2, yEndLine);
-  context.closePath();
-
-  // the fill color
-  context.fill();
-
-  ////////////////// TEXT /////////////////////
-  context.font = labelFontSize + "px Arial";
-
-  context.fillText(xlabel, xEndArrow, yStart + labelFontSize);
-  context.fillText(ylabel, xStart - labelFontSize, yEndArrow);
-
-
+   drawBackgroundWorker4 = new Worker("js/Front/Worker/PathPlot/offscreenWorker_DrawPathPlotBackground.js");
 }
+
+
+
 
 function drawcolormap_RGBSpace(calcBackground, drawInterpolationLine) {
 
+  //pathPlotCanvasInit();
+
+
 
   if(calcBackground){
-    rgbInit();
+
+    if(browserCanWorker && browserCanOffscreenCanvas){
+      rgbDrawBackground_Offscreen();
+    }
+    else
+      rgbDrawBackground();
   }
 
-
-
   if(drawInterpolationLine){
-
     for (var i = pathPlotLineGroup.children.length - 1; i >= 0; i--) {
       pathPlotLineGroup.remove(pathPlotLineGroup.children[i]);
     }
-
     drawInterpolationLineInRGB();
   }
 

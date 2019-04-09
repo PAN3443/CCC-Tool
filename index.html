@@ -122,6 +122,10 @@
     <script src="js/Front/GlobalEvents/ColormapDrawer/drawSketchKeys.js"></script>
     <script src="js/Front/GlobalEvents/ColormapDrawer/drawKeyBursLine.js"></script>
 
+    <!-- global Events : Color Gradient -->
+    <script src="js/Front/GlobalEvents/CMSColorGradient/calcGradientLinear.js"></script>
+    <script src="js/Front/GlobalEvents/CMSColorGradient/calcGradientHSV.js"></script>
+
   <!------------------------------------------->
   <!------------------------------------------->
   <!-----------      SECTIONS      ------------>
@@ -177,11 +181,16 @@
     <!-- Edit Section: Path Plot -->
     <script src="js/Front/Sections/Edit/PathPlot/pathplot_globalVars.js"></script>
     <script src="js/Front/Sections/Edit/PathPlot/arrangePlots.js"></script>
+
     <script src="js/Front/Sections/Edit/PathPlot/drawPathPlot/drawColorspaceHSV_LAB_DIN99.js"></script>
     <script src="js/Front/Sections/Edit/PathPlot/drawPathPlot/drawColorspaceRGB.js"></script>
-    <script src="js/Front/Sections/Edit/PathPlot/drawPathPlot/drawColorspaceHelpers.js"></script>
+    <script src="js/Front/Sections/Edit/PathPlot/drawPathPlot/drawColorspaceHelpers2D.js"></script>
+    <script src="js/Front/Sections/Edit/PathPlot/drawPathPlot/drawColorspaceHelpers3D.js"></script>
+    <script src="js/Front/Sections/Edit/PathPlot/drawPathPlot/drawColorspaceHelpersRGBBackground.js"></script>
+    
     <script src="js/Front/Sections/Edit/PathPlot/events_ColorspaceCanvas.js"></script>
     <script src="js/Front/Sections/Edit/PathPlot/events_ColorspaceCanvasRGB.js"></script>
+
     <script src="js/Front/Sections/Edit/PathPlot/3D_rendering/rgb3D.js"></script>
     <script src="js/Front/Sections/Edit/PathPlot/3D_rendering/hsv3D.js"></script>
     <script src="js/Front/Sections/Edit/PathPlot/3D_rendering/lab3D.js"></script>
@@ -243,7 +252,7 @@
         <script src="js/Front/Sections/Testing/InteractiveTest/CCCTest/Topology/createTopologyField.js"></script>
         <script src="js/Front/Sections/Testing/InteractiveTest/CCCTest/Topology/createTopologyFoundation.js"></script>
 
-      <!-- Testing Section : Worker -->
+      <!-- Testing Section : Worker Call -->
       <script src="js/Front/Sections/Testing/WorkerJS/extremaWorker.js"></script>
       <script src="js/Front/Sections/Testing/WorkerJS/frequencyWorker.js"></script>
       <script src="js/Front/Sections/Testing/WorkerJS/gradientWorker.js"></script>
@@ -266,7 +275,15 @@
       <script src="js/Front/Sections/Testing/TestVisualization/MeshVis/testImageMapping.js"></script>
       <script src="js/Front/Sections/Testing/TestVisualization/MeshVis/testMapping_Rendering_GlobalVars.js"></script>
 
-
+  <!------------------------------------------->
+  <!------------------------------------------->
+  <!-----------      Worker        ------------>
+  <!------------------------------------------->
+  <!-- Testing Section : Visualization -->
+  <script src="js/Front/Worker/jsonCreation/generalJson.js"></script>
+  <script src="js/Front/Worker/jsonCreation/cmsJson.js"></script>
+  <script src="js/Front/Worker/jsonCreation/testJson.js"></script>
+  <script src="js/Front/Worker/jsonCreation/canvasJson.js"></script>
 
   <!------------------------------------------->
   <!------------------------------------------->
@@ -374,9 +391,8 @@
       <p id="id_header_ccctoolLabel" style="margin:0px; text-align:left; vertical-align: middle; color:white; font-size: 3vh; margin-top:auto; line-height:5vh; margin-bottom:auto; margin-right:auto; cursor: none;" onclick=""><strong>C</strong>harting <strong>C</strong>ontinuous <strong>C</strong>olormap </p>
 
 
-      <p id="id_header_colorBlindWarning" class="standardText " style="margin:0px; vertical-align: middle; color:red; font-size: 3vh; line-height:5vh; margin-top:auto; margin-bottom:auto; color:red; visibility:hidden; cursor:help; margin-right:1vw;" title="Colorblind Modus">
-      &#128065; </p>
-      <p id="id_header_editWarning" class="standardText " style="margin:0px; vertical-align: middle; color:white; font-size: 3vh; line-height:5vh; margin-top:auto; margin-bottom:auto; color:red; visibility:hidden; cursor:help;" title="Unsaved Content"> &#9888; </p>
+      <p id="id_header_colorBlindWarning" class="standardText " style="margin:0px; vertical-align: middle; color:red; font-size: 3vh; line-height:5vh; margin-top:auto; margin-bottom:auto; color:red; visibility:hidden; cursor:help; margin-right:1vw;" title="Colorblind Modus">&#128065;</p>
+      <p id="id_header_editWarning" class="standardText " style="margin:0px; vertical-align: middle; color:white; font-size: 3vh; line-height:5vh; margin-top:auto; margin-bottom:auto; color:red; visibility:hidden; cursor:help;" title="Unsaved Content">&#9888;</p>
 
 
 
@@ -605,8 +621,11 @@
             Best wishes,
             your CCC-Tool team.
           </p>
+          <p id="id_welcomePage_InfoTxt" class="standardText" style="margin-bottom:2.5vh; color:red; display:none;">
 
-          <button onclick="showMyDesignsPage()" class="class_generalbutton" style="width:20vw; margin-left:15vw; margin-bottom:2.5vh;"><p>Anonymous User</p></button>
+          </p>
+
+          <button onclick="showMyDesignsPage()" class="class_generalbutton" style="width:20vw; margin-left:15vw; margin-bottom:2.5vh;">Anonymous User</button>
         </div>
       </div>
 
@@ -625,9 +644,9 @@
               CCC-Tool supports some commonly-used color spaces and color difference metrics, currently including RGB, HSV, CIELAB, CIE94, CIEDE2000, and DIN99. For more help, you can always visit the tutorials page via the menu bar.
             </p>
 
-            <button onclick="openTutorialWindow()" class="class_generalbutton" style="width:15vw; margin-left:10vw; margin-bottom:1vh;"><p>Tutorials</p></button>
+            <button onclick="openTutorialWindow()" class="class_generalbutton" style="width:15vw; margin-left:10vw; margin-bottom:1vh;">Tutorials</button>
 
-            <button onclick="openNewsPopUp()" class="class_generalbutton" style="width:15vw; margin-left:10vw; margin-bottom:2.5vh;"><p> News </p></button>
+            <button onclick="openNewsPopUp()" class="class_generalbutton" style="width:15vw; margin-left:10vw; margin-bottom:2.5vh;">News</button>
 
 
 
@@ -686,9 +705,9 @@
       </div>
 
       <div class="row" style="margin-top:1vh;">
-        <button class="class_generalbutton" onclick="showTestPage()" style="margin-left:15%; margin-right:12.5%;  width:15%; margin-top:1vh;"><p>CMS Tests</p></button>
-        <button class="class_generalbutton" onclick="showNewCMSPage()" style="height:6vh; line-height:6vh; width:15%;"><p>New CMS</p></button>
-        <button class="class_generalbutton" onclick="showGallery()" style="margin-left:12.5%; margin-right:15%;  width:15%; margin-top:1vh;"><p>Visit Gallery</p></button>
+        <button class="class_generalbutton" onclick="showTestPage()" style="margin-left:15%; margin-right:12.5%;  width:15%; margin-top:1vh;">CMS Tests</button>
+        <button class="class_generalbutton" onclick="showNewCMSPage()" style="height:6vh; line-height:6vh; width:15%;">New CMS</button>
+        <button class="class_generalbutton" onclick="showGallery()" style="margin-left:12.5%; margin-right:15%;  width:15%; margin-top:1vh;">Visit Gallery</button>
       </div>
 
     </div>
@@ -710,18 +729,18 @@
         <div style="width:50%; margin:auto;">
 
           <p class="standardText " style="margin-left:10%; font-weight:bold; margin-bottom:1vh;">Name: </p>
-          <input class="standardText" type="text" id="id_newCMSPage_ColormapName" style="width:80%; margin-left:10%;" name="mapname" required placeholder="Please enter a name for your colormap" />
+          <input class="standardText" type="text" id="id_newCMSPage_ColormapName" style="width:80%; margin-left:10%; padding:0.5vh;" name="mapname" required placeholder="Please enter a name for your colormap" />
 
           <p class="standardText " style="margin-left:10%; font-weight:bold; margin-top:3vh; margin-bottom:1vh;">Description: </p>
-          <textarea class="standardText" id="id_newCMSPage_MapDescription" name="colormap description" style="width:80%; margin-left:10%; height:40vh;; overflow-y:auto; padding:5px; resize:none;" placeholder="Enter a rough description of the colormap here. This is primarily used as note or reminder for you and in the case of sharing to inform other users what you want to show with this colormap. For more detailed information like semantics or special meaning of colormap components, the tool offers an additional description for keys or key strings."></textarea>
+          <textarea class="standardText" id="id_newCMSPage_MapDescription" name="colormap description" style="width:80%; margin-left:10%; height:40vh;; overflow-y:auto; padding:0.5vh; resize:none;" placeholder="Enter a rough description of the colormap here. This is primarily used as note or reminder for you and in the case of sharing to inform other users what you want to show with this colormap. For more detailed information like semantics or special meaning of colormap components, the tool offers an additional description for keys or key strings."></textarea>
         </div>
 
       </div>
 
 
       <div class="row" style="margin-top:2.5%;">
-        <button class="class_generalbutton" onclick="showMyDesignsPage()" style="margin-left:25%; margin-right:10%;  width:20%;"><p>Cancel</p></button>
-        <button class="class_generalbutton" onclick="showEditPage()" style="margin-right:25%;  width:20%;"><p>Create</p></button>
+        <button class="class_generalbutton" onclick="showMyDesignsPage()" style="margin-left:25%; margin-right:10%;  width:20%;">Cancel</button>
+        <button class="class_generalbutton" onclick="showEditPage()" style="margin-right:25%;  width:20%;">Create</button>
       </div>
 
     </div>
@@ -735,7 +754,7 @@
     <div id="id_GalleryPage" style="width:100%; height:80vh; display:none; ">
 
 
-      <h1  class="sectionLabel" style="width:60vw; height:10vh; line-height:10vh; margin:auto;">Gallery</h1>
+      <h1  class="sectionLabel" style="width:100vw; height:10vh; line-height:10vh; margin:auto; color:white; background-image: linear-gradient(rgb(60,60,60), rgb(90,90,90));">Gallery</h1>
 
       <div class="row" style="width:100%;">
 
@@ -784,7 +803,7 @@
 
 
 
-      <button class="class_generalbutton" onclick="showMyDesignsPage()" style="margin-left:40%; margin-top:2vh;  width:20%;"><p>MyDesigns</p></button>
+      <button class="class_generalbutton" onclick="showMyDesignsPage()" style="margin-left:40%; margin-top:2vh;  width:20%;">MyDesigns</button>
 
 
 
@@ -806,7 +825,9 @@
         <div style="width:100%; height:15vh;">
 
           <div class="class_EditPage_closeDiv">
-            <div onclick="updateAddStructureStatus()">X</div>
+            <div  onclick="updateAddStructureStatus()">
+              X
+            </div>
           </div>
 
           <div id="id_EditPage_ConstBandDiv" style="width:100%; height:13vh; overflow-y:auto; display: inline-block; padding-top:1vh;">
@@ -868,7 +889,7 @@
           <!----------- CMS VIS Container ------------------->
           <div id="id_EditPage_CMS_Div" style="width:60vw; height:100%;">
 
-            <div style="width:100%; height:8.5vh; background: rgb(25, 38, 51); border-bottom:0.2vh solid black;">
+            <div style="width:100%; height:8.5vh; background-image: linear-gradient(rgb(60,60,60), rgb(40,40,40)); border-bottom:0.2vh solid black;">
 
               <div style="display:flex; width:100%; height:4.5vh; border-bottom:0.2vh solid grey;">
                 <div style=" display:flex; width:50%; border-right: 0.2vh solid grey; ">
@@ -952,7 +973,9 @@
           <!----------- Section Generation, Table ------------------->
           <div id="id_EditPage_Table_Div" style="width:20vw; height:100%; border-left:0.2vh solid black;  background:rgb(220,220,220);">
             <div class="class_EditPage_closeDiv">
-              <div onclick="updateTableStatus()">X</div>
+              <div onclick="updateTableStatus()">
+                X
+              </div>
             </div>
             <div id="id_EditPage_TableDiv" style="height:30vh; width:20vw;">
               <table cellspacing="0" cellpadding="0" style="width:20vw;">
@@ -991,7 +1014,9 @@
 
           <div id="id_editPage_AnalyzeMappingProbeSetDiv" style="width:70%; height:100%;">
             <div class="class_EditPage_closeDiv">
-              <div onclick="updateAnalzyeMappingProbeSetStatus()">X</div>
+              <div onclick="updateAnalzyeMappingProbeSetStatus()">
+                X
+              </div>
             </div>
             <div class="class_EditPage_TabRow">
               <button id="id_editPage_SelectAnalyze" type="button" name="button" style="width:33%;" onclick="switchAnalyzeMappingProbeSet(0)">Analysis</button>
@@ -1014,7 +1039,7 @@
                    <option class="standardText" value="Order" >Order</option>
                   </select>
 
-                  <button class="class_generalbutton" onclick="updateAnalyze()" type="button" name="button" style="width:80%; margin-left:10%; margin-top:20px;"><p>Update</p></button>
+                  <button class="class_generalbutton" onclick="updateAnalyze()" type="button" name="button" style="width:80%; margin-left:10%; margin-top:20px;">Update</button>
                   <p class="standardText" style="width:80%; margin-left:10%;">(Info: If you have deactivated the automatical calculation of the analyze plots, you can update the plots manually by this button.)</p>
                 </div>
 
@@ -1340,7 +1365,7 @@
                               <option value="1" >Probe 1; Type: Gradient; Function: linear;</option>
                             </select>
 
-                      <button id="id_EditPage_RemoveProbeButton" class="class_generalbutton" onclick="deleteProbe()" type="button" name="button" style=" margin-left:25%; width:50%; font-weight:bold; vertical-align:middle; margin-top:1.5vh;"> <p >Remove Probe</p> </button>
+                      <button id="id_EditPage_RemoveProbeButton" class="class_generalbutton" onclick="deleteProbe()" type="button" name="button" style=" margin-left:25%; width:50%; font-weight:bold; vertical-align:middle; margin-top:1.5vh;">Remove Probe</button>
                     </div>
 
                     <div style=" width:50%;">
@@ -1625,7 +1650,7 @@
                         </div>
                       </div>
 
-                      <button  class="class_generalbutton" onclick="addOrUpdateProbe()" type="button" name="button" style=" margin-left:25%; width:50%; margin-top:2vh;"> <p id="id_EditPage_AddUpdateProbeButton">Update Probe</p> </button>
+                      <button  class="class_generalbutton" onclick="addOrUpdateProbe()" type="button" name="button" style=" margin-left:25%; width:50%; margin-top:2vh;"> <p id="id_EditPage_AddUpdateProbeButton">Update Probe</button>
 
 
                     </div>
@@ -1649,8 +1674,10 @@
 
           <!----------- Edit Key, Edit Path Plot  ------------------->
           <div id="id_editPage_EditKeyPathPlotDiv" style="width:30%; height:100%; overflow:hidden; border-left:0.2vh solid black;">
-            <div class="class_EditPage_closeDiv">
-              <div onclick="updateEditKeyPathPlotStatus()">X</div>
+            <div class="class_EditPage_closeDiv" >
+              <div onclick="updateEditKeyPathPlotStatus()">
+                X
+              </div>
             </div>
             <div class="class_EditPage_TabRow">
               <button id="id_editPage_SelectEditKeys" type="button" name="button" style="width:50%;" onclick="switchModifyModus(0)">Key Edit</button>
@@ -1676,7 +1703,7 @@
                     </select>
 
 
-                  <button id="id_EditPage_EditKey_DeleteButton" class="class_generalbutton" onclick="delteKey()" style=" margin-left:5%; width:80%; margin-top:auto; margin-bottom:auto;"><p>Delete Key</p></button>
+                  <button id="id_EditPage_EditKey_DeleteButton" class="class_generalbutton" onclick="delteKey()" style=" margin-left:5%; width:80%; margin-top:auto; margin-bottom:auto;">Delete Key</button>
                 </div>
 
                 <div id="id_EditPage_Edit_Keys_Div2" style="width:100%; height:15vh; border-right: 0.2vh solid grey; border-bottom: 0.2vh solid grey;">
@@ -1976,8 +2003,8 @@
                       <div class="row" style="margin-top:0.25vh; margin-bottom:1vh; width:100%;">
                         <p class="standardText" style="margin-top:auto; margin-bottom:auto;">Jump Value:</p>
                         <input id="id_TestPage_NewJumpValue" type="number" name="JumpValue"  step="any" value="0.1" style="margin-left:auto; margin-right:0.25vw;">
-                        <button class="class_generalbutton" onclick="addJumpToJumpSet()" style="margin-right:0.25vw; padding-left:0.5vw; padding-right:0.5vw;"><p>+</p></button>
-                        <button class="class_generalbutton" onclick="removeJumpToJumpSet()" style="margin-right:auto; padding-left:0.5vw; padding-right:0.5vw;"><p>-</p></button>
+                        <button class="class_generalbutton" onclick="addJumpToJumpSet()" style="margin-right:0.25vw; padding-left:0.5vw; padding-right:0.5vw;">+</button>
+                        <button class="class_generalbutton" onclick="removeJumpToJumpSet()" style="margin-right:auto; padding-left:0.5vw; padding-right:0.5vw;">-</button>
                       </div>
                     </div>
 
@@ -2123,7 +2150,7 @@
                       <select id="id_TestPage_NewTest_ElementList" name="Jump List" size="5" style="width:100%; height:15vh; margin-top:1vh; background:white;" onchange="selectTopologyElement()" >
 
                       </select>
-                      <button class="class_generalbutton" onclick="removeTopololyElement()" style="margin:auto; width: 50%; display:block;  margin-top:0.5vh;"><p>Remove</p></button>
+                      <button class="class_generalbutton" onclick="removeTopololyElement()" style="margin:auto; width: 50%; display:block;  margin-top:0.5vh;">Remove</button>
 
 
                       <hr>
@@ -2160,7 +2187,7 @@
                     </div>
 
                     <div id="id_TestPage_newTestAcknowledgmentsDiv" class="width:100%;" >
-                        
+
                         <p id="id_TestPage_newTestAcknowledgmentsText" class="standardText" style="margin:auto; margin-left:0vw; max-width: 100%; "></p>
                       </div>
 
@@ -2245,13 +2272,13 @@
                         </div>
                       </div>
 
-                      
+
                   </div>
 
 
                   <div class="row" style="width:100%; margin-top:1vh; display:none;">
-                    <button class="class_generalbutton" onclick="showTestSet()" style="width:30%; margin-left:17.5%;"><p>Cancel</p></button>
-                    <button class="class_generalbutton" onclick="addNewTest()" style="width:30%; margin-left:5%;"><p>Add Test</p></button>
+                    <button class="class_generalbutton" onclick="showTestSet()" style="width:30%; margin-left:17.5%;">Cancel</button>
+                    <button class="class_generalbutton" onclick="addNewTest()" style="width:30%; margin-left:5%;">Add Test</button>
                   </div>
                 </div>
 
@@ -2343,20 +2370,6 @@
         </div>
       </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </div>
 
 
@@ -2364,7 +2377,6 @@
                     -------------- Pop Up Windows ---------------
                     -----------------------------------------------
                     -->
-
 
 
                     <!---------------- Color Transformation Settings ---------------  -->
@@ -2440,7 +2452,7 @@
                         </div>
 
 
-                        <button class="class_generalbutton " onclick="closeNewsPopUp()" title="close" style=" width:100%; width:10vw; height:6vh; line-height:6vh; font-size:3vh; margin-bottom:2vh;  margin-left:20vw;"> <p>Close</p> </button>
+                        <button class="class_generalbutton " onclick="closeNewsPopUp()" title="close" style=" width:100%; width:10vw; height:6vh; line-height:6vh; font-size:3vh; margin-bottom:2vh;  margin-left:20vw;">Close</button>
 
 
 
@@ -2599,7 +2611,7 @@
                             <p class="standardText" style=" text-align:left; width:80%; margin-left:10%; margin-top:1vh; margin-bottom:1vh;"> Info: The values of the transfer matrix for color blindness simulation are depenting on the selected transfer-matrix for the RGB to XYZ conversion and the selected transer-matrix for XYZ to LMS conversion (see Color Transformation Settings). </p>
 
 
-                                  <button class="class_generalbutton " onclick="closeColorBlindnessSettings()" title="accept" style="width:10vw; height:6vh; line-height:6vh; font-size:3vh; margin-left:25vw; margin-bottom:2vh;"> <p>Accept</p> </button>
+                                  <button class="class_generalbutton " onclick="closeColorBlindnessSettings()" title="accept" style="width:10vw; height:6vh; line-height:6vh; font-size:3vh; margin-left:25vw; margin-bottom:2vh;">Accept</button>
 
 
 
@@ -2661,7 +2673,7 @@
                             </div>
 
 
-                            <button class="class_generalbutton " onclick="retrieveMetricSettings()" title="accept" style="width:10vw; height:6vh; line-height:6vh; font-size:3vh; margin-left: 3vw; margin-right: auto; margin-top:auto; margin-bottom:auto;"> <p>Retrieve</p> </button>
+                            <button class="class_generalbutton " onclick="retrieveMetricSettings()" title="accept" style="width:10vw; height:6vh; line-height:6vh; font-size:3vh; margin-left: 3vw; margin-right: auto; margin-top:auto; margin-bottom:auto;">Retrieve</button>
 
 
 
@@ -2674,7 +2686,7 @@
 
                     <hr>
 
-                    <button class="class_generalbutton " onclick="closeColorMetrics()" title="accept" style="width:10vw; height:6vh; line-height:6vh; font-size:3vh; margin-left:30vw; margin-bottom:2vh;"> <p>Accept</p> </button>
+                    <button class="class_generalbutton " onclick="closeColorMetrics()" title="accept" style="width:10vw; height:6vh; line-height:6vh; font-size:3vh; margin-left:30vw; margin-bottom:2vh;">Accept</button>
 
 
 
@@ -2847,7 +2859,7 @@
 
 
 
-                                  <button class="class_generalbutton " onclick="retrieveColorSettings()" title="accept" style="width:10vw; height:6vh; line-height:6vh; font-size:3vh; margin-left: 3vw; margin-right: auto; margin-top:auto; margin-bottom:auto;"> <p>Retrieve</p> </button>
+                                  <button class="class_generalbutton " onclick="retrieveColorSettings()" title="accept" style="width:10vw; height:6vh; line-height:6vh; font-size:3vh; margin-left: 3vw; margin-right: auto; margin-top:auto; margin-bottom:auto;">Retrieve</button>
 
 
 
@@ -2862,7 +2874,7 @@
 
                         <hr>
 
-                        <button class="class_generalbutton " onclick="closeColorSettings()" title="accept" style="width:10vw; height:6vh; line-height:6vh; font-size:3vh; margin-left:30vw; margin-bottom:2vh;"> <p>Accept</p> </button>
+                        <button class="class_generalbutton " onclick="closeColorSettings()" title="accept" style="width:10vw; height:6vh; line-height:6vh; font-size:3vh; margin-left:30vw; margin-bottom:2vh;">Accept</button>
 
 
 
@@ -3035,8 +3047,8 @@
 
                             <input class="standardText " type="text" id="id_probe_GenerationName" style="font-weight:bold; margin:auto; margin-left:0.5vw;" name="mapname" required placeholder="Please enter a probe-set name"/>
 
-                            <button class="class_generalbutton" onclick="addProbeToCMS()" type="button" name="button" style="font-weight:bold; margin:auto; width:20vw;"> <p>Add Probe-Set</p> </button>
-                            <button class="class_generalbutton" onclick="closeProbeGeneration()" type="button" name="button" style="font-weight:bold; margin:auto;  width:20vw;"> <p>Cancel</p> </button>
+                            <button class="class_generalbutton" onclick="addProbeToCMS()" type="button" name="button" style="font-weight:bold; margin:auto; width:20vw;">Add Probe-Set</button>
+                            <button class="class_generalbutton" onclick="closeProbeGeneration()" type="button" name="button" style="font-weight:bold; margin:auto;  width:20vw;">Cancel</button>
                           </div>
 
 
@@ -3586,8 +3598,8 @@
         </div>
 
         <div class="row" style="margin-top:1vh; margin-bottom:1vh; width:100%;">
-          <button class="class_generalbutton " onclick="closeExportWindow()" title="cancel" style=" width: 30%; height:4vh; line-height:4vh; font-size:2.6vh; border-width: 0.2vh; margin-left:15%;"> <p>Cancel</p> </button>
-          <button class="class_generalbutton " onclick="downloadCMSFile()" title="export" style=" width: 30%; height:4vh; line-height:4vh; font-size:2.6vh; border-width: 0.2vh; margin-left:10%;"> <p>Export</p> </button>
+          <button class="class_generalbutton " onclick="closeExportWindow()" title="cancel" style=" width: 30%; height:4vh; line-height:4vh; font-size:2.6vh; border-width: 0.2vh; margin-left:15%;">Cancel</button>
+          <button class="class_generalbutton " onclick="downloadCMSFile()" title="export" style=" width: 30%; height:4vh; line-height:4vh; font-size:2.6vh; border-width: 0.2vh; margin-left:10%;">Export</button>
         </div>
       </div>
     </div>
@@ -3704,8 +3716,8 @@
         <p id="id_popupWindow_ScaleInfoText" class="standardText " style="margin-left:auto; margin-right:auto; line-height:2.5vh; font-size:2.2vh; color:red; display:none;">The range start has to be smaller than the range end!</p>
 
         <div class="row" style="margin-top:2vh; margin-bottom:2vh; width:100%;">
-          <button class="class_generalbutton " onclick="closeScale()" title="close" style=" width: 30%; height:6vh; line-height:6vh; font-size:3vh; border-width: 0.2vh; margin-left:15%;"> <p>Cancel</p> </button>
-          <button class="class_generalbutton " onclick="checkScale()" title="check" style=" width: 30%; height:6vh; line-height:6vh; font-size:3vh; border-width: 0.2vh; margin-left:10%;"> <p>Scale!</p> </button>
+          <button class="class_generalbutton " onclick="closeScale()" title="close" style=" width: 30%; height:6vh; line-height:6vh; font-size:3vh; border-width: 0.2vh; margin-left:15%;">Cancel</button>
+          <button class="class_generalbutton " onclick="checkScale()" title="check" style=" width: 30%; height:6vh; line-height:6vh; font-size:3vh; border-width: 0.2vh; margin-left:10%;">Scale!</button>
         </div>
       </div>
 
@@ -3737,7 +3749,7 @@
             <p id="id_alertText" class="standardText " style="width:100%; text-align:left; height:20vh; line-height:3.2vh; font-size:3vh; vertical-align:middle; overflow:auto; margin-top:2vh; margin-bottom:2vh; padding:1vh; border: 0.1vh solid rgb(240,240,240);">
             </p>
 
-            <button class="class_generalbutton " onclick="closeAlert()" title="close" style=" width:100%; height:6vh; line-height:6vh; font-size:3vh; margin-bottom:2vh;"> <p>Close</p> </button>
+            <button class="class_generalbutton " onclick="closeAlert()" title="close" style=" width:100%; height:6vh; line-height:6vh; font-size:3vh; margin-bottom:2vh;">Close</button>
           </div>
 
         </div>
@@ -3879,7 +3891,7 @@
         </div>
 
 
-        <button class="class_generalbutton " onclick="closeShortcutsWindow()" title="close" style=" width:60%; height:6vh; line-height:6vh; font-size:3vh; margin-top:2vh; margin-bottom:2vh; margin-left:20%;"><p>Close</p></button>
+        <button class="class_generalbutton " onclick="closeShortcutsWindow()" title="close" style=" width:60%; height:6vh; line-height:6vh; font-size:3vh; margin-top:2vh; margin-bottom:2vh; margin-left:20%;">Close</button>
 
       </div>
     </div>
@@ -3948,7 +3960,7 @@
 
         </div>
 
-        <button class="class_generalbutton " onclick="closeImpressum()" title="close" style=" margin-left:25%; margin-right:25%; width:50%; height:6vh; line-height:6vh; font-size:3vh;  margin-top:2vh; margin-bottom:2vh;"> <p>Close</p> </button>
+        <button class="class_generalbutton " onclick="closeImpressum()" title="close" style=" margin-left:25%; margin-right:25%; width:50%; height:6vh; line-height:6vh; font-size:3vh;  margin-top:2vh; margin-bottom:2vh;">Close</button>
 
 
       </div>
@@ -3979,8 +3991,8 @@
             </p>
 
             <div class="row" style="margin-top:2vh; margin-bottom:2vh; width:100%;">
-              <button class="class_generalbutton " onclick="closeAsk()" title="close" style=" width: 30%; height:6vh; line-height:6vh; font-size:3vh; border-width: 0.2vh; margin-left:15%;"> <p>Cancel</p> </button>
-              <button class="class_generalbutton " onclick="checkAsk()" title="check" style=" width: 30%; height:6vh; line-height:6vh; font-size:3vh; border-width: 0.2vh; margin-left:10%;"> <p>Do it!</p> </button>
+              <button class="class_generalbutton " onclick="closeAsk()" title="close" style=" width: 30%; height:6vh; line-height:6vh; font-size:3vh; border-width: 0.2vh; margin-left:15%;">Cancel</button>
+              <button class="class_generalbutton " onclick="checkAsk()" title="check" style=" width: 30%; height:6vh; line-height:6vh; font-size:3vh; border-width: 0.2vh; margin-left:10%;">Do it!</button>
             </div>
           </div>
 

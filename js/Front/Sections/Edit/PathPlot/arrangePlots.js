@@ -3,23 +3,23 @@
 function choosePathPlotSpace(type){
 //id_EditPage_PathPlot_ThreeCanvas
 
-document.getElementById("id_editPage_PathPlotSpaces_RGB").style.background = styleNotActiveColor;
-document.getElementById("id_editPage_PathPlotSpaces_HSV").style.background = styleNotActiveColor;
-document.getElementById("id_editPage_PathPlotSpaces_LAB").style.background = styleNotActiveColor;
-document.getElementById("id_editPage_PathPlotSpaces_DIN99").style.background = styleNotActiveColor;
 
-document.getElementById("id_editPage_PathPlotSpaces_RGB").style.color=styleNotActiveColorFont;
-document.getElementById("id_editPage_PathPlotSpaces_HSV").style.color=styleNotActiveColorFont;
-document.getElementById("id_editPage_PathPlotSpaces_LAB").style.color=styleNotActiveColorFont;
-document.getElementById("id_editPage_PathPlotSpaces_DIN99").style.color=styleNotActiveColorFont;
 
-//document.getElementById('id_EditPage_PathPlot_Div').style.display = "block";
-//document.getElementById("id_EditPage_OuterDiv").style.display = "block";
+document.getElementById("id_editPage_PathPlotSpaces_RGB").classList.remove("class_EditPage_TabRowButtonActive");
+document.getElementById("id_editPage_PathPlotSpaces_HSV").classList.remove("class_EditPage_TabRowButtonActive");
+document.getElementById("id_editPage_PathPlotSpaces_LAB").classList.remove("class_EditPage_TabRowButtonActive");
+document.getElementById("id_editPage_PathPlotSpaces_DIN99").classList.remove("class_EditPage_TabRowButtonActive");
+
+document.getElementById("id_editPage_PathPlotSpaces_RGB").classList.add("class_EditPage_TabRowButtonNotActive");
+document.getElementById("id_editPage_PathPlotSpaces_HSV").classList.add("class_EditPage_TabRowButtonNotActive");
+document.getElementById("id_editPage_PathPlotSpaces_LAB").classList.add("class_EditPage_TabRowButtonNotActive");
+document.getElementById("id_editPage_PathPlotSpaces_DIN99").classList.add("class_EditPage_TabRowButtonNotActive");
+
 
   if(type==0){
 
-    document.getElementById("id_editPage_PathPlotSpaces_RGB").style.background=styleActiveColor;
-    document.getElementById("id_editPage_PathPlotSpaces_RGB").style.color=styleActiveColorFont;
+    document.getElementById("id_editPage_PathPlotSpaces_RGB").classList.remove("class_EditPage_TabRowButtonNotActive");
+    document.getElementById("id_editPage_PathPlotSpaces_RGB").classList.add("class_EditPage_TabRowButtonActive");
     initPlotLabel("RG", "RB", "BG");
     pathColorspace="rgb";
     document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "R : -, G: -, B: -";
@@ -130,7 +130,7 @@ document.getElementById("id_editPage_PathPlotSpaces_DIN99").style.color=styleNot
     document.getElementById("id_EditPage_PathPlot_Canvas2_Div").style.width = canvasDim;
     document.getElementById("id_EditPage_PathPlot_Canvas3_Div").style.height = canvasDim;
     document.getElementById("id_EditPage_PathPlot_Canvas3_Div").style.width = canvasDim;
-
+    pathplotCanvasToHTMLSize();
     drawcolormap_RGBSpace(true,true);
     rgbMesh();
 
@@ -141,8 +141,8 @@ document.getElementById("id_editPage_PathPlotSpaces_DIN99").style.color=styleNot
 
     switch (type) {
         case 1: // HSV
-          document.getElementById("id_editPage_PathPlotSpaces_HSV").style.background=styleActiveColor;
-          document.getElementById("id_editPage_PathPlotSpaces_HSV").style.color=styleActiveColorFont;
+          document.getElementById("id_editPage_PathPlotSpaces_HSV").classList.remove("class_EditPage_TabRowButtonNotActive");
+          document.getElementById("id_editPage_PathPlotSpaces_HSV").classList.add("class_EditPage_TabRowButtonActive");
           pathColorspace="hsv";
           initPlotLabel("Hue", "Saturation", "Value");
           document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "H : -, S: -, V: -";
@@ -150,8 +150,8 @@ document.getElementById("id_editPage_PathPlotSpaces_DIN99").style.color=styleNot
           hsvMesh();
           break;
           case 2: // LAB
-            document.getElementById("id_editPage_PathPlotSpaces_LAB").style.background=styleActiveColor;
-            document.getElementById("id_editPage_PathPlotSpaces_LAB").style.color=styleActiveColorFont;
+            document.getElementById("id_editPage_PathPlotSpaces_LAB").classList.remove("class_EditPage_TabRowButtonNotActive");
+            document.getElementById("id_editPage_PathPlotSpaces_LAB").classList.add("class_EditPage_TabRowButtonActive");
             pathColorspace="lab";
             initPlotLabel("Lightness", "Green-Red : A", "Blue-Yellow : B");
             document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L : -, a: -, b: -";
@@ -159,8 +159,8 @@ document.getElementById("id_editPage_PathPlotSpaces_DIN99").style.color=styleNot
             labMesh();
             break;
             case 3: // DIN99
-            document.getElementById("id_editPage_PathPlotSpaces_DIN99").style.background=styleActiveColor;
-            document.getElementById("id_editPage_PathPlotSpaces_DIN99").style.color=styleActiveColorFont;
+            document.getElementById("id_editPage_PathPlotSpaces_DIN99").classList.remove("class_EditPage_TabRowButtonNotActive");
+            document.getElementById("id_editPage_PathPlotSpaces_DIN99").classList.add("class_EditPage_TabRowButtonActive");
             pathColorspace="din99";
             initPlotLabel("Lightness", "Green-Red : A99", "Blue-Yellow : B99");
             document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L99 : -, a99: -, b99: -";
@@ -296,11 +296,25 @@ document.getElementById("id_editPage_PathPlotSpaces_DIN99").style.color=styleNot
 
       }
 
+
+    pathplotCanvasToHTMLSize();
     drawcolormap_hueSpace(true, true, true);
   }
 
   pathPlot3D_Resize();
 
+}
+
+function pathplotCanvasToHTMLSize(){
+  canvasToHTMLSize("id_EditPage_PathPlot_Canvas1_0");
+  canvasToHTMLSize("id_EditPage_PathPlot_Canvas2_0");
+  canvasToHTMLSize("id_EditPage_PathPlot_Canvas3_0");
+  canvasToHTMLSize("id_EditPage_PathPlot_Canvas1_1");
+  canvasToHTMLSize("id_EditPage_PathPlot_Canvas2_1");
+  canvasToHTMLSize("id_EditPage_PathPlot_Canvas3_1");
+  canvasToHTMLSize("id_EditPage_PathPlot_Canvas1_2");
+  canvasToHTMLSize("id_EditPage_PathPlot_Canvas2_2");
+  canvasToHTMLSize("id_EditPage_PathPlot_Canvas3_2");
 }
 
 

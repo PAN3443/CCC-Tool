@@ -1,6 +1,42 @@
 window.onload = function() {
 
 
+  openWaitPopUp("Initialization of the tool.");
+
+  /////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////// Check Browerser and Hardware ////////////////////////////////
+
+  numberOfCores = navigator.hardwareConcurrency;
+
+  if(numberOfCores==undefined)
+    numberOfMaxWorker = 4; // use maximal 2/3 of cores or 4 as default.
+  else
+    numberOfMaxWorker = Math.round(numberOfCores*2.0/3.0);
+
+  var attentionText = "";
+  if (typeof (Worker) === undefined){
+    browserCanWorker=false;
+    attentionText += "Attention".bold()+": Your browser does not support Worker. Therefore the some features of the CCC-Tool won't work.\n"
+  }
+  else
+  browserCanWorker=true;
+
+  if (typeof OffscreenCanvas === 'function'){
+    browserCanOffscreenCanvas = true;
+  }
+  else{
+    browserCanOffscreenCanvas = false;
+    attentionText += "Attention".bold()+": Your browser does not support OffscreenCanvas. Therefore the performance of the CCC-Tool will be impeded.\n"
+  }
+
+  if(attentionText.length>0){
+    document.getElementById("id_welcomePage_InfoTxt").style.display = "block";
+    document.getElementById("id_welcomePage_InfoTxt").innerHTML = attentionText;
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////
+
   ///// Future Work:
   ///
   /// Dynamically adding different script depenting if the browser is able to work with workers
@@ -9,13 +45,8 @@ window.onload = function() {
   //  document.head.appendChild(newScript);
   // -> function addScript(src)
 
-
-  openWaitPopUp("Initialization of the tool.");
-
-  if (typeof (Worker) === undefined)
-  browserCanWorker=false;
-  else
-  browserCanWorker=true;
+  ////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////
 
   // init global vars
   globalProbeSet = new class_ProbeSet("");
@@ -100,17 +131,16 @@ window.onload = function() {
 
   closeWaitPopUp();
 
-  /*///////////////////////////////
+  ////////////////////////////////
   // For Testing: with start CMS in the MyDesigns
   ///
 
-    myDesignsList.push(cmsGreenColormaps[0]);
+  /*  myDesignsList.push(cmsGreenColormaps[0]);
     myDesignsList.push(cmsDivergentColormaps[0]);
     myDesignsList.push(cmsRedPurpleColormaps[0]);
 
     showMyDesignsPage();
     showTestPage();//*/
-
 
 }
 

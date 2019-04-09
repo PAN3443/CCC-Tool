@@ -1,62 +1,61 @@
 function changeGalleryPredefined(type){
 
-  document.getElementById("id_GalleryPage_Div_Multiband").style.background = styleNotActiveColor;
-  document.getElementById("id_GalleryPage_Div_Divergent").style.background = styleNotActiveColor;
-  document.getElementById("id_GalleryPage_Div_ScaledBlue").style.background = styleNotActiveColor;
-  document.getElementById("id_GalleryPage_Div_ScaledBrown").style.background = styleNotActiveColor;
-  document.getElementById("id_GalleryPage_Div_ScaledGreen").style.background = styleNotActiveColor;
-  document.getElementById("id_GalleryPage_Div_ScaledRedPurple").style.background = styleNotActiveColor;
-  document.getElementById("id_GalleryPage_Div_ScaledYellowOrange").style.background = styleNotActiveColor;
+  document.getElementById("id_GalleryPage_Div_Multiband").classList.remove("class_EditPage_TabRowButtonActive");
+  document.getElementById("id_GalleryPage_Div_Divergent").classList.remove("class_EditPage_TabRowButtonActive");
+  document.getElementById("id_GalleryPage_Div_ScaledBlue").classList.remove("class_EditPage_TabRowButtonActive");
+  document.getElementById("id_GalleryPage_Div_ScaledBrown").classList.remove("class_EditPage_TabRowButtonActive");
+  document.getElementById("id_GalleryPage_Div_ScaledGreen").classList.remove("class_EditPage_TabRowButtonActive");
+  document.getElementById("id_GalleryPage_Div_ScaledRedPurple").classList.remove("class_EditPage_TabRowButtonActive");
+  document.getElementById("id_GalleryPage_Div_ScaledYellowOrange").classList.remove("class_EditPage_TabRowButtonActive");
 
-  document.getElementById("id_GalleryPage_Div_MultibandText").style.color = styleNotActiveColorFont;
-  document.getElementById("id_GalleryPage_Div_DivergentText").style.color = styleNotActiveColorFont;
-  document.getElementById("id_GalleryPage_Div_ScaledBlueText").style.color = styleNotActiveColorFont;
-  document.getElementById("id_GalleryPage_Div_ScaledBrownText").style.color = styleNotActiveColorFont;
-  document.getElementById("id_GalleryPage_Div_ScaledGreenText").style.color = styleNotActiveColorFont;
-  document.getElementById("id_GalleryPage_Div_ScaledRedPurpleText").style.color = styleNotActiveColorFont;
-  document.getElementById("id_GalleryPage_Div_ScaledYellowOrangeText").style.color = styleNotActiveColorFont;
+  document.getElementById("id_GalleryPage_Div_Multiband").classList.add("class_EditPage_TabRowButtonNotActive");
+  document.getElementById("id_GalleryPage_Div_Divergent").classList.add("class_EditPage_TabRowButtonNotActive");
+  document.getElementById("id_GalleryPage_Div_ScaledBlue").classList.add("class_EditPage_TabRowButtonNotActive");
+  document.getElementById("id_GalleryPage_Div_ScaledBrown").classList.add("class_EditPage_TabRowButtonNotActive");
+  document.getElementById("id_GalleryPage_Div_ScaledGreen").classList.add("class_EditPage_TabRowButtonNotActive");
+  document.getElementById("id_GalleryPage_Div_ScaledRedPurple").classList.add("class_EditPage_TabRowButtonNotActive");
+  document.getElementById("id_GalleryPage_Div_ScaledYellowOrange").classList.add("class_EditPage_TabRowButtonNotActive");
 
   var children = document.getElementById("id_GalleryPage_CMS_Div").children;
   for (var i = children.length-1; i >=0; i--) {
     children[i].parentNode.removeChild(children[i]);
   }
 
-
   switch (type) {
     case 0:
-    document.getElementById("id_GalleryPage_Div_Multiband").style.background = styleActiveColor;
-    document.getElementById("id_GalleryPage_Div_MultibandText").style.color = styleActiveColorFont;
+    document.getElementById("id_GalleryPage_Div_Multiband").classList.remove("class_EditPage_TabRowButtonNotActive");
+    document.getElementById("id_GalleryPage_Div_Multiband").classList.add("class_EditPage_TabRowButtonActive");
       drawGalleryPredefinedCMS(cmsThreeBandColormaps, 0);
       drawGalleryPredefinedCMS(cmsFourBandColormaps, 1);
       break;
       case 1:
-      document.getElementById("id_GalleryPage_Div_Divergent").style.background = styleActiveColor;
-      document.getElementById("id_GalleryPage_Div_DivergentText").style.color = styleActiveColorFont;
+      document.getElementById("id_GalleryPage_Div_Divergent").classList.remove("class_EditPage_TabRowButtonNotActive");
+      document.getElementById("id_GalleryPage_Div_Divergent").classList.add("class_EditPage_TabRowButtonActive");
         drawGalleryPredefinedCMS(cmsDivergentColormaps, 2);
         break
         case 2:
-        document.getElementById("id_GalleryPage_Div_ScaledBlue").style.background = styleActiveColor;
-        document.getElementById("id_GalleryPage_Div_ScaledBlueText").style.color = styleActiveColorFont;
+        document.getElementById("id_GalleryPage_Div_ScaledBlue").classList.remove("class_EditPage_TabRowButtonNotActive");
+        document.getElementById("id_GalleryPage_Div_ScaledBlue").classList.add("class_EditPage_TabRowButtonActive");
           drawGalleryPredefinedCMS(cmsBlueColormaps, 3);
           break
             case 3:
-            document.getElementById("id_GalleryPage_Div_ScaledBrown").style.background = styleActiveColor;
-            document.getElementById("id_GalleryPage_Div_ScaledBrownText").style.color = styleActiveColorFont;
+            document.getElementById("id_GalleryPage_Div_ScaledBrown").classList.remove("class_EditPage_TabRowButtonNotActive");
+            document.getElementById("id_GalleryPage_Div_ScaledBrown").classList.add("class_EditPage_TabRowButtonActive");
               drawGalleryPredefinedCMS(cmsBrownColormaps, 4);
               break
               case 4:
-              document.getElementById("id_GalleryPage_Div_ScaledGreen").style.background = styleActiveColor;
-              document.getElementById("id_GalleryPage_Div_ScaledGreenText").style.color = styleActiveColorFont;
+              document.getElementById("id_GalleryPage_Div_ScaledGreen").classList.remove("class_EditPage_TabRowButtonNotActive");
+              document.getElementById("id_GalleryPage_Div_ScaledGreen").classList.add("class_EditPage_TabRowButtonActive");
                 drawGalleryPredefinedCMS(cmsGreenColormaps, 5);
                 break
                 case 5:
-                document.getElementById("id_GalleryPage_Div_ScaledRedPurple").style.background = styleActiveColor;
-                document.getElementById("id_GalleryPage_Div_ScaledRedPurpleText").style.color = styleActiveColorFont;
+                document.getElementById("id_GalleryPage_Div_ScaledRedPurple").classList.remove("class_EditPage_TabRowButtonNotActive");
+                document.getElementById("id_GalleryPage_Div_ScaledRedPurple").classList.add("class_EditPage_TabRowButtonActive");
                   drawGalleryPredefinedCMS(cmsRedPurpleColormaps, 6);
                   break
                   case 6:
-                    document.getElementById("id_GalleryPage_Div_ScaledYellowOrange").style.background = styleActiveColor;
-                    document.getElementById("id_GalleryPage_Div_ScaledYellowOrangeText").style.color = styleActiveColorFont;
+                    document.getElementById("id_GalleryPage_Div_ScaledYellowOrange").classList.remove("class_EditPage_TabRowButtonNotActive");
+                    document.getElementById("id_GalleryPage_Div_ScaledYellowOrange").classList.add("class_EditPage_TabRowButtonActive");
                       drawGalleryPredefinedCMS(cmsYellowColormaps, 7);
                     break
 

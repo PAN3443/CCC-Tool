@@ -1453,8 +1453,6 @@ self.addEventListener('message', function(e) {
 
           var tmpRatio = (jsonObj.testFieldVal[valIndex] - data.refVal[i]) / (data.refVal[i + 1] - data.refVal[i]);
 
-
-
           if (jsonObj.testFieldVal[valIndex] > data.refVal[i] && jsonObj.testFieldVal[valIndex] < data.refVal[i + 1]) {
 
             if (data.key1cVal1[i] == undefined) { // cVal2 and cVal3 should also be undefined -> constant band
@@ -1471,8 +1469,6 @@ self.addEventListener('message', function(e) {
             foundeSomething = true;
             break;
           }
-
-
 
 
           if (jsonObj.testFieldVal[valIndex] == data.refVal[i]) {

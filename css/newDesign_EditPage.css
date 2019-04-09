@@ -2,29 +2,41 @@
 .class_EditPage_closeDiv {
   height:2vh;
   width: 100%;
-  background: rgb(25, 38, 51);
+  /*background: rgb(25, 38, 51);*/
+
+  background-image: linear-gradient(rgb(60,60,60), rgb(40,40,40));
   margin:0;
   border: 0.2vh solid black;
+  display: flex;
   /*-moz-box-shadow:    inset 0 0 0.2vh white;
    -webkit-box-shadow: inset 0 0 0.2vh white;
    box-shadow:         inset 0 0 0.2vh white;*/
 }
 
 .class_EditPage_closeDiv div{
-  height:2vh;
-  line-height: 2vh;
-  width: 2vh;
-  font-size: 1.2vh;
-  float:right;
-  background: none;
-  color:white;
-  text-align: center;
-  border-left: 0.2vh solid white;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left:auto;
+  margin-right:0.25vw;
   cursor: pointer;
-  /*-moz-box-shadow:    inset 0 0 0.2vh rgb(0,0,0);
-   -webkit-box-shadow: inset 0 0 0.2vh rgb(0,0,0);
-   box-shadow:         inset 0 0 0.2vh rgb(0,0,0);*/
+  height: 1.5vh;
+  line-height: 1.5vh;
+  font-size: 1.5vh;
+  font-weight: bold;
+  color: rgb(69, 180, 231);
+  text-shadow: 0 0 2vh rgb(69, 180, 231);
+  vertical-align: middle;
+  text-align: center;
+  transition: transform ease-in 0.1s;
+
 }
+
+.class_EditPage_closeDiv div:hover{
+  transform: rotate(360deg);
+  color: #F25C66;
+  text-shadow: 0 0 2vh #F25C66;
+}
+
 
 .class_EditPage_EditButton{
   line-height: 3vh;
@@ -39,6 +51,7 @@
   border-radius: 0.5vh;
   overflow: hidden;
   margin:auto;
+  transition: transform ease-in 0.1s;
   cursor: pointer;
   /*-moz-box-shadow:    inset 0 0 0.3vh rgb(180,180,180);
    -webkit-box-shadow: inset 0 0 0.3vh rgb(180,180,180);
@@ -50,11 +63,16 @@
 
 }
 
+.class_EditPage_EditButton:hover{
+  transform: scale(0.9);
+}
+
 .class_EditPage_SelectPredefinedCMS{
   -moz-box-shadow:    inset 0 0 0.5vh rgb(0,0,0);
    -webkit-box-shadow: inset 0 0 0.5vh rgb(0,0,0);
    box-shadow:         inset 0 0 0.5vh rgb(0,0,0);
 }
+
 
 .class_EditPage_SelectPredefinedCMS:hover{
   -moz-box-shadow:    inset 0 0 0.5vh rgb(255,255,255);
@@ -71,10 +89,6 @@
   overflow: hidden;
   margin:auto;
 }
-
-
-
-
 
 .class_EditPage_TabRow {
   margin:0;
@@ -94,24 +108,89 @@
 }
 
 .class_EditPage_TabRow canvas{
-  height:4vh;
-  line-height: 4vh;
-  background: rgb(50,50,50);
-  border: 0.1vh solid rgb(25, 37, 51);
-  box-sizing: border-box;
-  /*-moz-box-shadow:    inset 0 0 0.5vh rgb(0,0,0);
-   -webkit-box-shadow: inset 0 0 0.5vh rgb(0,0,0);
-   box-shadow:         inset 0 0 0.5vh rgb(0,0,0);*/
+  height:3vh;
+  line-height: 3vh;
+  width: 100%;
+  text-align: center;
+  border: 0.1vh solid black;
+  transition: transform ease-in 0.1s;
 }
-
 
 .class_EditPage_TabRow canvas:hover{
-  border: 0.1vh solid white;
-  /*-moz-box-shadow:    inset 0 0 0.5vh rgb(255,255,255);
-   -webkit-box-shadow: inset 0 0 0.5vh rgb(255,255,255);
-   box-shadow:         inset 0 0 0.5vh rgb(255,255,255);*/
+  border-color: white;
+  transform: scale(0.9);
 }
 
+.class_EditPage_TabRowButtonActive{
+  background-image: linear-gradient(rgb(40,40,40), rgb(10,10,10));
+  color: rgb(69, 180, 231);
+  text-shadow: 0 0 0.2vh rgb(9, 120, 171);
+}
+
+.class_EditPage_TabRowButtonActive:hover{
+  color: white;
+}
+
+.class_EditPage_TabRowButtonActive p{
+  color: rgb(69, 180, 231);
+  text-shadow: 0 0 0.2vh rgb(9, 120, 171);
+  transition: transform ease-in 0.1s;
+}
+
+.class_EditPage_TabRowButtonActive:hover p{
+  color: white;
+  transition: transform ease-in 0.1s;
+  transform: scale(0.9);
+}
+
+.class_EditPage_TabRowButtonActive canvas{
+  /*box-shadow: 0 0 0.5vh rgb(9, 120, 171);*/
+  box-sizing: border-box;
+  transition: transform ease-in 0.1s;
+}
+
+.class_EditPage_TabRowButtonActive:hover canvas{
+  border-color: white;
+  transform: scale(0.9);
+}
+
+.class_EditPage_TabRowButtonNotActive{
+  background-image: linear-gradient(rgb(60,60,60), rgb(25,25,25));
+  color: rgb(180,180,180);
+  text-shadow: none;
+}
+
+.class_EditPage_TabRowButtonNotActive:hover{
+  color: white;
+}
+
+.class_EditPage_TabRowButtonNotActive p{
+  color: rgb(180,180,180);
+  text-shadow: 0 0 0.2vh none;
+  transition: transform ease-in 0.1s;
+}
+
+.class_EditPage_TabRowButtonNotActive:hover p{
+  color: white;
+  transform: scale(0.9);
+}
+
+.class_EditPage_TabRowButtonNotActive canvas{
+  box-shadow: 0 0 0.2vh none;
+  transition: transform ease-in 0.1s;
+}
+
+.class_EditPage_TabRowButtonNotActive:hover canvas{
+  border-color: white;
+  transform: scale(0.9);
+}
+
+
+/*.class_EditPage_TabRow canvas{
+  background: none;
+  height:4vh;
+  line-height: 4vh;
+}*/
 
 
 
@@ -162,10 +241,15 @@
     float:left;
     display: inline-block;
     white-space: nowrap;
+    transition: transform ease-in 0.1s;
 
     /*-moz-box-shadow:    inset 0 0 0.3vh rgb(180,180,180);
      -webkit-box-shadow: inset 0 0 0.3vh rgb(180,180,180);
      box-shadow:         inset 0 0 0.3vh rgb(180,180,180);*/
+}
+
+.class_predefinedConstBands:hover{
+  transform: scale(0.9);
 }
 
 
@@ -181,7 +265,12 @@
      -webkit-box-shadow: inset 0 0 0.5vh rgb(180,180,180);
      box-shadow:         inset 0 0 0.5vh rgb(180,180,180);*/
     cursor: grabbing;
+    transition: transform ease-in 0.1s;
 
+}
+
+.class_predefinedLinearCMSBands:hover{
+  transform: scale(0.9);
 }
 
 .class_predefinedLinearCMSBandsWidthReverse{
@@ -196,7 +285,12 @@
      -webkit-box-shadow: inset 0 0 0.5vh rgb(180,180,180);
      box-shadow:         inset 0 0 0.5vh rgb(180,180,180);*/
     cursor: grabbing;
+    transition: transform ease-in 0.1s;
 
+}
+
+.class_predefinedLinearCMSBandsWidthReverse:hover{
+  transform: scale(0.9);
 }
 
 
@@ -218,7 +312,12 @@
      -webkit-box-shadow: inset 0 0 0.3vh rgb(180,180,180);
      box-shadow:         inset 0 0 0.3vh rgb(180,180,180);*/
     cursor: pointer;
+    transition: transform ease-in 0.1s;
 
+}
+
+.class_predefinedLinearCMSBandsReverseButton:hover{
+  transform: scale(0.9);
 }
 
 

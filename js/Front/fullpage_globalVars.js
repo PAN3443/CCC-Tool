@@ -9,17 +9,21 @@ var anonymousMode = true;
 var globalCMS1;
 
 var browserCanWorker = false;
+var browserCanOffscreenCanvas = false;
+var browsertype = undefined;
+var numberOfCores = undefined;
+var numberOfMaxWorker = undefined;
 
 //var refLineSketchContainer = [];
 var numDecimalPlaces=2;
 
 
 
-var styleActiveColor = "rgb(153, 210, 255)";//"rgba(76, 175, 80,0.7)";
-var styleNotActiveColor = "rgb(51, 61, 76)"; //"rgba(125,125,125,0.7)";
+/*var styleActiveColor = "rgb(153, 210, 255)";
+var styleNotActiveColor = "rgb(51, 61, 76)";
 
-var styleActiveColorFont = "rgb(0, 11, 25)";//"rgba(76, 175, 80,0.7)";
-var styleNotActiveColorFont = "rgb(240, 240, 240)"; //"rgba(125,125,125,0.7)";
+var styleActiveColorFont = "rgb(0, 11, 25)";
+var styleNotActiveColorFont = "rgb(240, 240, 240)";*/
 
 
 /// Switch Pages

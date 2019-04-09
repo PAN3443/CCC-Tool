@@ -2,37 +2,26 @@
 
   width: 14.285%;/*10%;*/
   margin: auto;
-  border: 0.2vh solid black;
-  /*border-radius: 0.5vh;*/
+  /*border: 0.2vh solid black;
   background: rgb(120,120,120);
   cursor:pointer;
   -moz-box-shadow:    inset 0 0 0.4vh rgb(0,0,0);
    -webkit-box-shadow: inset 0 0 0.4vh rgb(0,0,0);
-   box-shadow:         inset 0 0 0.4vh rgb(0,0,0);
+   box-shadow:         inset 0 0 0.4vh rgb(0,0,0);*/
 
 }
-
-
-.class_GallerySectionButton:hover{
-  -moz-box-shadow:    inset 0 0 0.4vh rgb(255,255,255);
-   -webkit-box-shadow: inset 0 0 0.4vh rgb(255,255,255);
-   box-shadow:         inset 0 0 0.4vh rgb(255,255,255);
-}
-
 
 .class_GallerySectionButton p{
   text-align: center;
-  margin-top: 0.5vh;
-  margin-bottom:0.5vh;
-  color: black;
-  font-weight: bold;
+  margin-top: 0.25vh;
+  margin-bottom:0.25vh;
+  /*font-weight: bold;*/
 }
 
 .class_GallerySectionButton canvas{
   width:90%;
   margin-left: 5%;
-  border-top: 0.2vh solid black;
-  border-bottom: 0.2vh solid black;
+  border: 0.2vh solid grey;
   box-sizing: border-box;
   margin-bottom:0.5vh;
   height:3vh;
