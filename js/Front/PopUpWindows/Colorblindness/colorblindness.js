@@ -87,6 +87,9 @@ function updateEditPage_ColorBlindness(){
     updatePredefined();
   }
 
+  ////////////////////////////////////
+  //// Updata Worker
+  inform_Worker_ColorblindSimulation();
 
 
   updateEditPage();

@@ -631,7 +631,6 @@ function readSessionFile(e){
 
    drawMyDesigns();
 
-
   };
 
 

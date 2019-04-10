@@ -103,6 +103,7 @@
   <!-- global Events-->
   <script src="js/Front/GlobalEvents/pageChange.js"></script>
   <script src="js/Front/GlobalEvents/cmsIntervals.js"></script>
+  <script src="js/Front/GlobalEvents/navi.js"></script>
 
     <!------------------------------------------->
     <!-- global Events : Helpers-->
@@ -125,6 +126,10 @@
     <!-- global Events : Color Gradient -->
     <script src="js/Front/GlobalEvents/CMSColorGradient/calcGradientLinear.js"></script>
     <script src="js/Front/GlobalEvents/CMSColorGradient/calcGradientHSV.js"></script>
+
+    <!-- global Events : Worker Dependent -->
+    <script src="js/Front/GlobalEvents/WorkerDependent/initWorker.js"></script>
+
 
   <!------------------------------------------->
   <!------------------------------------------->
@@ -186,8 +191,8 @@
     <script src="js/Front/Sections/Edit/PathPlot/drawPathPlot/drawColorspaceRGB.js"></script>
     <script src="js/Front/Sections/Edit/PathPlot/drawPathPlot/drawColorspaceHelpers2D.js"></script>
     <script src="js/Front/Sections/Edit/PathPlot/drawPathPlot/drawColorspaceHelpers3D.js"></script>
-    <script src="js/Front/Sections/Edit/PathPlot/drawPathPlot/drawColorspaceHelpersRGBBackground.js"></script>
-    
+    <script src="js/Front/Sections/Edit/PathPlot/drawPathPlot/drawColorspaceHelpersBackground.js"></script>
+
     <script src="js/Front/Sections/Edit/PathPlot/events_ColorspaceCanvas.js"></script>
     <script src="js/Front/Sections/Edit/PathPlot/events_ColorspaceCanvasRGB.js"></script>
 
@@ -394,7 +399,57 @@
       <p id="id_header_colorBlindWarning" class="standardText " style="margin:0px; vertical-align: middle; color:red; font-size: 3vh; line-height:5vh; margin-top:auto; margin-bottom:auto; color:red; visibility:hidden; cursor:help; margin-right:1vw;" title="Colorblind Modus">&#128065;</p>
       <p id="id_header_editWarning" class="standardText " style="margin:0px; vertical-align: middle; color:white; font-size: 3vh; line-height:5vh; margin-top:auto; margin-bottom:auto; color:red; visibility:hidden; cursor:help;" title="Unsaved Content">&#9888;</p>
 
+      <div style="height:100%; width:auto; position: relative; display: inline-block;">
+        <div onclick="activateNaviDropdown()" class="menu_button"> Navi &#128743; </div>
 
+        <div id="id_dropDownContainerNavi" style="background: rgba(0,0,0,0.85); min-width:30vw;  display: none; position: absolute; right: 0; z-index: 101;">
+
+          <div class="row" style="margin-top:0.25vh; width:100%;">
+            <p class="standardText" style="margin-left:2vw; margin-right:auto; font-size: 3vh; font-weight: bold; color:white; height:4vh; line-height:4vh;">Navigator:</p>
+            <p class="standardText" style="margin-right:2vw; margin-left:auto; font-size: 3vh;  color:white; height:4vh; line-height:4vh;">&#128743;</p>
+          </div>
+
+            <div id="id_navi_WelcomePage" class="navi_div" style="margin-left: auto; margin-right: auto; width:10vw;">
+              <p class="navi_Label" style="margin-right:none;" id="id_navi_WelcomePage_Label"></p>
+              <p>Welcome Page</p>
+            </div>
+
+            <canvas class="navi_canvas" id="id_navi_WelcomeToMyDesigns" style="margin-left: auto; margin-right: auto;"></canvas>
+
+            <div id="id_navi_MyDesigns" class="navi_div" style="margin-left: auto; width:10vw; margin-right: auto;">
+              <p class="navi_Label" style="margin-right:none;" id="id_navi_MyDesigns_Label"></p>
+              <p>MyDesigns</p>
+            </div>
+
+            <canvas class="navi_canvas" id="id_navi_ArrowsFromMyDesigns"  style="margin-left: auto; margin-right: auto; width: 55vw; margin-left:2vw; "></canvas>
+
+            <div class="row" style="margin-left:2vw; margin-right:2vw; margin-bottom: 5vh;">
+              <div id="id_navi_Testing" class="navi_div">
+                <p class="navi_Label" style="margin-right:none;" id="id_navi_Testing_Label"></p>
+                <p>Testing</p>
+              </div>
+              <div id="id_navi_New" class="navi_div" style="margin-left:5vw;">
+                <p class="navi_Label" style="margin-right:none;" id="id_navi_New_Label"></p>
+                <p>New</p>
+              </div>
+              <canvas class="navi_canvas" id="id_navi_NewToEdit" ></canvas>
+              <div id="id_navi_Edit" class="navi_div">
+                <p class="id_navi_Edit_Label" id="id_navi_Edit_Label"></p>
+                <p>Edit</p>
+              </div>
+              <canvas class="navi_canvas" id="id_navi_GalleryToEdit" ></canvas>
+              <div id="id_navi_Gallery" class="navi_div">
+                <p class="navi_Label" style="margin-right:none;" id="id_navi_Gallery_Label"></p>
+                <p>Gallery</p>
+              </div>
+            </div>
+
+
+        </div>
+        <!--End Dropdown Container -->
+
+      </div>
+      <!--End Dropdown Navi Button -->
 
       <div class="menu_buttonNotActive" style="height:100%; width:auto;">
         Log In
@@ -414,9 +469,7 @@
 
           <div class="row dropdownMenuLabelBox" style="background:rgba(255,255,255,0.3); border-bottom: 1px solid white;">
 
-            <div class="dropdownMenuLabelImg" style=" background: url(img/Buttons/gear_wheel.png);background-size:cover;
-              background-repeat:no-repeat;
-              background-position: center center;">
+            <div class="dropdownMenuLabelImg" style=" background: url(img/Buttons/gear_wheel.png);background-size:cover; background-repeat:no-repeat; background-position: center center;">
 
             </div>
 
@@ -454,9 +507,7 @@
 
           <div id="id_actionMenu_Label" class="row dropdownMenuLabelBox" style="background:rgba(255,255,255,0.3); border-bottom: 1px solid white; display:none;">
 
-            <div class="dropdownMenuLabelImg" style=" background: url(img/Buttons/actionImg.png);background-size:cover;
-                  background-repeat:no-repeat;
-                  background-position: center center;">
+            <div class="dropdownMenuLabelImg" style=" background: url(img/Buttons/actionImg.png);background-size:cover;  background-repeat:no-repeat; background-position: center center;">
             </div>
 
             <p class="dropdownMenuLabel"> Action: </p>
@@ -508,9 +559,7 @@
           <div id="id_dropDownMenu_DisplayOptions" style="display:none;">
             <div class="row dropdownMenuLabelBox" style="background:rgba(255,255,255,0.3); border-bottom: 1px solid white;">
 
-              <div class="dropdownMenuLabelImg" style=" background: url(img/Buttons/displayImg.png);background-size:cover;
-                background-repeat:no-repeat;
-                background-position: center center;">
+              <div class="dropdownMenuLabelImg" style=" background: url(img/Buttons/displayImg.png);background-size:cover; background-repeat:no-repeat; background-position: center center;">
 
               </div>
 
@@ -1060,9 +1109,7 @@
                       <div style=" display:flex; margin:auto; width:100%; background:white; border-top:0.2 solid grey; border-bottom:0.2 solid grey; ">
                         <div style="margin-right:1vw; margin-left: auto;">
                           <p id="id_editPage_OrderAxisLabel1" class="standardText" style="height:4.5vh; line-height: 4.5vh; text-align:bottom; font-weight:bold; ">Local Order</p>
-                          <canvas id="id_EditPage_Canvas_GlobalLocalOrder" style="height:50vh; width:20vw; border: 0.2vh solid black; background: url(img/EditPage/plotBackground.png); background-size:cover;
-                                background-repeat:no-repeat;
-                                background-position: center center; cursor:pointer;" onclick="openFullAnalyzeScreen();"></canvas>
+                          <canvas id="id_EditPage_Canvas_GlobalLocalOrder" style="height:50vh; width:20vw; border: 0.2vh solid black; background: url(img/EditPage/plotBackground.png); background-size:cover; background-repeat:no-repeat; background-position: center center; cursor:pointer;" onclick="openFullAnalyzeScreen();"></canvas>
                           <p id="id_editPage_OrderAxisLabel2" class="standardText" style="height:4.5vh; line-height: 4.5vh; text-align:top; font-weight:bold;">Negative Global Order</p>
                         </div>
 
@@ -1321,9 +1368,7 @@
                   </div>
                 </div>
 
-                <div id="id_EditPage_DrawMappingDiv" style="width:100%; height:55vh; background: url(img/EditPage/plotBackground.png); background-size:cover;
-                  background-repeat:no-repeat;
-                  background-position: center center;">
+                <div id="id_EditPage_DrawMappingDiv" style="width:100%; height:55vh; background: url(img/EditPage/plotBackground.png); background-size:cover;  background-repeat:no-repeat;  background-position: center center;">
                 </div>
               </div>
             </div>
@@ -1866,6 +1911,7 @@
                 <div id="id_EditPage_PathPlot_1_Container" style="margin:auto;">
                   <p id="id_EditPage_PathPlot_Canvas1_Label" class="standardText" style="width:100%; text-align:center; margin-top:auto; vertical-align:middle; "></p>
                   <div id="id_EditPage_PathPlot_Canvas1_Div" style="position: relative; width:100%;">
+                    <canvas id="id_EditPage_PathPlot_Canvas1_WorkerBackground" height="500" width="500" style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:100%;"></canvas>
                     <canvas id="id_EditPage_PathPlot_Canvas1_0" style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:100%;"></canvas>
                     <canvas id="id_EditPage_PathPlot_Canvas1_1" style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:100%;"></canvas>
                     <canvas id="id_EditPage_PathPlot_Canvas1_2" style="position: absolute; left: 0; top: 0; z-index: 2; width:100%; height:100%;"></canvas>
@@ -3465,9 +3511,7 @@
 
 
 
-                        <div id="id_PopUp_FullMappingDiv" style="height:95vh; width:100vw; background: url(img/EditPage/plotBackground.png); background-size:cover;
-                                          background-repeat:no-repeat;
-                                          background-position: center center;"> </div>
+                        <div id="id_PopUp_FullMappingDiv" style="height:95vh; width:100vw; background: url(img/EditPage/plotBackground.png); background-size:cover; background-repeat:no-repeat;  background-position: center center;"> </div>
 
 
 
@@ -3492,9 +3536,7 @@
 
 
 
-        <canvas id="id_PopUp_FullAnalayzeCanvas" style="height:80vh; width:80vh; background: url(img/EditPage/plotBackground.png); background-size:cover;
-                          background-repeat:no-repeat;
-                          background-position: center center;"> </canvas>
+        <canvas id="id_PopUp_FullAnalayzeCanvas" style="height:80vh; width:80vh; background: url(img/EditPage/plotBackground.png); background-size:cover; background-repeat:no-repeat; background-position: center center;"> </canvas>
 
 
 
@@ -3660,9 +3702,7 @@
 
           <div class="row" style="background:black;">
 
-            <div onclick="openColorPickerSettings()" style="height:3vh; width:3vh; background: url(img/Buttons/gear_wheel.png); background-size:cover;
-                background-repeat:no-repeat;
-                background-position: center center; cursor:pointer;">
+            <div onclick="openColorPickerSettings()" style="height:3vh; width:3vh; background: url(img/Buttons/gear_wheel.png); background-size:cover; background-repeat:no-repeat; background-position: center center; cursor:pointer;">
             </div>
 
             <h1 class="class_popupWindow_Label" style="height:3vh; line-height:3vh; font-size:2.5vh;"> Color Picker </h1>

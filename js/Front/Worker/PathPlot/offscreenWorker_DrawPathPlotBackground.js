@@ -1,43 +1,80 @@
 
 
-onmessage = function(evt) {
-  var canvas = evt.data.canvas;
-  var ctx = canvas.getContext("2d");
+// Offscreen Canvas
+var canvas = undefined;
+var ctx = undefined;
 
-  var height = canvas.height;
-  var width = canvas.width;
+// Simulation Colorblindness
+var doColorblindnessSim = false;
+var tmXYZ_Selected = undefined;
+var tmXYZ_Selected_Inv = undefined;
+var tmLMS_Selected = undefined;
+var tmLMS_Selected_Inv = undefined;
+var sim_AdaptiveColorblindness = undefined;
 
-  var currentSize = 0;
-  var rising = true;
+// Draw Settings
+var lineWidthVPlot = 2;
 
-  function render(time) {
+self.addEventListener('message', function(e) {
 
-    ctx.clearRect(0, 0, width, height);
-    if(rising){
-      currentSize+=0.01;
-      if(currentSize>=1)
-        rising=false;
-    }
-    else{
-      currentSize-=0.01;
+  switch (e.data.message) {
+    case "canvas":
+        canvas = e.data.canvas;
+        ctx = canvas.getContext("2d");
+      break;
 
-      if(currentSize<=0)
-        rising=true;
-    }
+   case "init":
+      // Colors
+      self.importScripts('../../Classes/ColormapClass/class_Colorspace_RGB.js');
+      self.importScripts('../../Classes/ColormapClass/class_Colorspace_XYZ.js');
+      self.importScripts('../../Classes/ColormapClass/class_Colorspace_LMS.js');
+      self.importScripts('../../Classes/ColormapClass/class_Colorspace_HSV.js');
+      self.importScripts('../../Classes/ColormapClass/class_Colorspace_LAB.js');
+      self.importScripts('../../Classes/ColormapClass/class_Colorspace_DIN99.js');
 
-    ctx.fillRect(0, 0, width*currentSize, height*currentSize);
-    requestAnimationFrame(render);
+      // draw algorithm for the background
+      self.importScripts('../../Sections/Edit/PathPlot/drawPathPlot/drawColorspaceHelpersBackground.js');
+    break;
+
+    case "colorSimSettings":
+      doColorblindnessSim = e.data.doColorblindnessSim;
+      tmXYZ_Selected = e.data.tmXYZ_Selected;
+      tmXYZ_Selected_Inv = e.data.tmXYZ_Selected_Inv;
+      tmLMS_Selected = e.data.tmLMS_Selected;
+      tmLMS_Selected_Inv = e.data.tmLMS_Selected_Inv;
+      sim_AdaptiveColorblindness = e.data.sim_AdaptiveColorblindness;
+    break;
+
+    case "draw":
+
+      var fixedColor = undefined;
+      switch (e.data.space) {
+        case "rgb":
+
+          canvas.height=500;
+          canvas.width=500;
+
+          if(e.data.fixedColorR != undefined && e.data.fixedColorG != undefined && e.data.fixedColorB != undefined)
+            fixedColor = new classColor_RGB(e.data.fixedColorR, e.data.fixedColorG, e.data.fixedColorB);
+
+          switch (e.data.type) {
+            case "GR":
+              drawGRBackground(ctx,canvas.width,canvas.height,fixedColor);
+            break;
+            case "BR":
+              drawBRBackground(ctx,canvas.width,canvas.height,fixedColor);
+            break;
+            case "GB":
+              drawGBBackground(ctx,canvas.width,canvas.height,fixedColor);
+            break;
+
+          }
+
+        break;
+
+      }
+
+      break;
   }
-  requestAnimationFrame(render);*/
 
-
-  //self.importScripts('js/Front/GlobalEvents/CMSColorGradient/calcGradientLinear.js');
-  self.importScripts('../../GlobalEvents/CMSColorGradient/calcGradientLinear.js');
-
-  var results = calcGradientWorker(0,0,255,255,0,0,0.25);
-  console.log(results);
-
-
-
-
-};
+}, false);

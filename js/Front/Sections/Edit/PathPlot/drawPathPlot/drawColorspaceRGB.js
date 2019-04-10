@@ -11,6 +11,8 @@ function rgbDrawBackground() {
   var canvasObj2 = document.getElementById("id_EditPage_PathPlot_Canvas3_0");
   var canvasContex2 = canvasObj2.getContext("2d");
 
+  
+
   var fixedColor = undefined;
   if (mouseGrappedKeyID != -1) {
 
@@ -27,31 +29,53 @@ function rgbDrawBackground() {
   }
 
   drawGRBackground(canvasContex0,canvasObj0.width,canvasObj0.height,fixedColor);
-  drawBRBackground(canvasContex1,canvasObj0.width,canvasObj0.height,fixedColor);
-  drawGBBackground(canvasContex2,canvasObj0.width,canvasObj0.height,fixedColor);
+  drawBRBackground(canvasContex1,canvasObj1.width,canvasObj1.height,fixedColor);
+  drawGBBackground(canvasContex2,canvasObj2.width,canvasObj2.height,fixedColor);
 
 }
 
 function rgbDrawBackground_Offscreen(){
-  return;
 
-  /*var htmlCanvas = document.getElementById("testcanvas");
-  var offscreen = htmlCanvas.transferControlToOffscreen();* /
-  var worker =
+  var fixR = undefined;
+  var fixG = undefined;
+  var fixB = undefined;
+  if (mouseGrappedKeyID != -1) {
+    var fixedColor = undefined;
+    switch (mouseGrappedColorSide) {
+      case 0:
+      // left color
+        fixedColor = globalCMS1.getLeftKeyColor(mouseGrappedKeyID, "rgb");
+        break;
+      default:
+        // both colors
+        fixedColor = globalCMS1.getRightKeyColor(mouseGrappedKeyID, "rgb");
+    }
+    if(fixedColor!=undefined){
+      fixR = fixedColor.get1Value();
+      fixG = fixedColor.get2Value();
+      fixB = fixedColor.get3Value();
+    }
 
-  console.log(321);
-  //var workerJSON = {canvas: offscreen};
+  }
+
+
   var workerJSON = {};
-  workerJSON['color'] = "rgb(0,0,255)";
-  worker.postMessage(workerJSON);//, [offscreen]);*/
 
-   drawBackgroundWorker1 = new Worker("js/Front/Worker/PathPlot/offscreenWorker_DrawPathPlotBackground.js");
+  workerJSON['message'] = "draw";
+  workerJSON['space'] = "rgb";
+  workerJSON['type'] = "GR";
+  workerJSON['fixedColorR'] = fixR;
+  workerJSON['fixedColorG'] = fixG;
+  workerJSON['fixedColorB'] = fixB;
+  drawBackgroundWorker1.postMessage(workerJSON);
 
-   drawBackgroundWorker2 = new Worker("js/Front/Worker/PathPlot/offscreenWorker_DrawPathPlotBackground.js");
+  workerJSON.type = "BR";
+  drawBackgroundWorker2.postMessage(workerJSON);
 
-   drawBackgroundWorker3 = new Worker("js/Front/Worker/PathPlot/offscreenWorker_DrawPathPlotBackground.js");
+  workerJSON.type = "GB";
+  drawBackgroundWorker3.postMessage(workerJSON);
 
-   drawBackgroundWorker4 = new Worker("js/Front/Worker/PathPlot/offscreenWorker_DrawPathPlotBackground.js");
+
 }
 
 

@@ -583,17 +583,17 @@ function drawcolormap_hueSpace(calcBackground, drawInterpolationLine, doInitVplo
 
 
 
-  if (doInitVplot)
+  /*if (doInitVplot)
     init_VPlot();
 
   if (calcBackground)
-    hueInit();
+    hueInit();*/
 
 
 
   if (drawInterpolationLine){
 
-    
+
     for (var i = pathPlotLineGroup.children.length - 1; i >= 0; i--) {
       pathPlotLineGroup.remove(pathPlotLineGroup.children[i]);
     }

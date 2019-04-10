@@ -1,11 +1,10 @@
 //////////////////////////
 ///// Colorspace VIS
 
-var drawBackgroundWorker1 = undefined;
-var drawBackgroundWorker2 = undefined;
-var drawBackgroundWorker3 = undefined;
-var drawBackgroundWorker4 = undefined;
-
+var drawBackgroundWorker1 = new Worker("js/Front/Worker/PathPlot/offscreenWorker_DrawPathPlotBackground.js");
+var drawBackgroundWorker2 = new Worker("js/Front/Worker/PathPlot/offscreenWorker_DrawPathPlotBackground.js");
+var drawBackgroundWorker3 = new Worker("js/Front/Worker/PathPlot/offscreenWorker_DrawPathPlotBackground.js");
+var drawBackgroundWorker4 = new Worker("js/Front/Worker/PathPlot/offscreenWorker_DrawPathPlotBackground.js");
 
 //////////////////////////////////////
 var labSpaceRange = 128;

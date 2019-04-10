@@ -1,5 +1,95 @@
 
 
+.navi_div{
+  margin-top: 0.25vh;
+  margin-bottom: 0.25vh;
+  width:10vw;
+  border: 0.2vh solid black;
+  display:flex;
+}
+
+.navi_div p{
+  margin:auto;
+  height:4vh;
+  line-height:4vh;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 2vh;
+}
+
+.navi_divPos{
+  border-color: rgb(0,250,154);
+  cursor: pointer;
+  transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
+
+}
+
+.navi_divPos p{
+  color:rgb(0,250,154);
+  height:4vh;
+  line-height:4vh;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 2vh;
+}
+
+.navi_divPos:hover{
+  transform: scale(0.9);
+  box-shadow: 0 0 1vh rgb(0,250,154);
+}
+
+/*.navi_divPos:hover .navi_Label{
+  transform: rotate(360deg);
+}*/
+
+
+.navi_divCurrent{
+  border-color: rgb(255,255,255);
+  transition: transform ease-in 0.1s;
+  cursor: default;
+}
+
+
+.navi_Label{
+  transition: transform ease-in 0.1s;
+}
+.navi_div:hover .navi_Label{
+  transform: rotate(360deg);
+}
+
+.navi_divCurrent p{
+  color:rgb(255,255,255);
+  height:4vh;
+  line-height:4vh;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 2vh;
+}
+
+.navi_divNeg{
+  border-color: rgb(242,92,102);
+  cursor: not-allowed;
+}
+
+.navi_divNeg p{
+  color:rgb(242,92,102);
+  height:4vh;
+  line-height:4vh;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 2vh;
+}
+
+.navi_canvas{
+  margin-top: 0.25vh;
+  margin-bottom: 0.25vh;
+  height:4vh;
+  display:block;
+  width:5vw;
+  /*background:red;*/
+}
+
+
 .menu_button {
   padding-right:1vw;
   padding-left:1vw;

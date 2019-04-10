@@ -130,7 +130,11 @@ document.getElementById("id_editPage_PathPlotSpaces_DIN99").classList.add("class
     document.getElementById("id_EditPage_PathPlot_Canvas2_Div").style.width = canvasDim;
     document.getElementById("id_EditPage_PathPlot_Canvas3_Div").style.height = canvasDim;
     document.getElementById("id_EditPage_PathPlot_Canvas3_Div").style.width = canvasDim;
-    pathplotCanvasToHTMLSize();
+
+
+    if(!browserCanOffscreenCanvas)
+      pathplotCanvasToHTMLSize();
+
     drawcolormap_RGBSpace(true,true);
     rgbMesh();
 
@@ -237,7 +241,7 @@ document.getElementById("id_editPage_PathPlotSpaces_DIN99").classList.add("class
 
         var rect = document.getElementById("id_EditPage_PathPlot_SingleCanvasDiv").getBoundingClientRect();
 
-        /*zzzzzzzzzzzzzzif(rect.width<rect.height){
+        /*if(rect.width<rect.height){
           canvasDim2=canvasDim;
         }*/
 
@@ -296,14 +300,15 @@ document.getElementById("id_editPage_PathPlotSpaces_DIN99").classList.add("class
 
       }
 
-
-    pathplotCanvasToHTMLSize();
+    if(!browserCanOffscreenCanvas)
+      pathplotCanvasToHTMLSize();
     drawcolormap_hueSpace(true, true, true);
   }
 
   pathPlot3D_Resize();
 
 }
+
 
 function pathplotCanvasToHTMLSize(){
   canvasToHTMLSize("id_EditPage_PathPlot_Canvas1_0");
@@ -316,7 +321,6 @@ function pathplotCanvasToHTMLSize(){
   canvasToHTMLSize("id_EditPage_PathPlot_Canvas2_2");
   canvasToHTMLSize("id_EditPage_PathPlot_Canvas3_2");
 }
-
 
 function initPlotLabel(label0, label1, label2){
   document.getElementById("id_EditPage_PathPlot_Canvas1_Label").innerHTML = label0;

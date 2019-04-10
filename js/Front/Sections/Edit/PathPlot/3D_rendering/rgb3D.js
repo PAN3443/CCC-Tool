@@ -14,9 +14,9 @@ function rgbMesh(){
   //////////////////////////////////////////////////////////////////
   // Arrow Labels
 
-    var loader = new THREE.FontLoader();
+    /*var loader = new THREE.FontLoader();
 
-      loader.load( 'js/front/WebGL/three/helvetiker_regular.typeface.json', function ( font ) {
+      loader.load( 'js/Front/WebGL/three/helvetiker_regular.typeface.json', function ( font ) {
 
       var textGeo1 = new THREE.TextGeometry( "R", {
           font: font,
@@ -63,7 +63,7 @@ function rgbMesh(){
       colorspaceGroup.add( textG );
       colorspaceGroup.add( textB );
 
-  } );
+  } );*/
 
   /////////////////////////////////////////////////////////////
   //// Arrows

@@ -6,10 +6,27 @@
 
 function activateMenuDropdown() {
 
+    if(document.getElementById("id_dropDownContainerNavi").style.display!="none")
+      activateNaviDropdown();
+
     if(document.getElementById("id_dropDownContainer").style.display=="none")
     document.getElementById("id_dropDownContainer").style.display="block";
     else
     document.getElementById("id_dropDownContainer").style.display="none";
+}
+
+
+function activateNaviDropdown() {
+
+  if(document.getElementById("id_dropDownContainer").style.display!="none")
+    activateMenuDropdown();
+
+    if(document.getElementById("id_dropDownContainerNavi").style.display=="none"){
+      document.getElementById("id_dropDownContainerNavi").style.display="block";
+      drawCurrentNavi();
+    }
+    else
+    document.getElementById("id_dropDownContainerNavi").style.display="none";
 }
 
 /*window.onclick = function(event) {
@@ -48,6 +65,7 @@ function showTestPage(){
 
     document.getElementById("id_actionMenu_myDesignPart").style.display="none";
     document.getElementById("id_actionMenu_testPart").style.display="block";
+    drawCurrentNavi();
   }
   else{
     openAlert("Sorry. You need at least one CMS in the MyDesigns list to visit the Test Section.");
@@ -91,6 +109,7 @@ function showMyDesignsPage(){
 stopPathPlotAnimation();
 stopAnimationMapping();
 stopAnimationTestMapping();
+drawCurrentNavi();
 }
 
 
@@ -177,6 +196,7 @@ function showEditPage(){
   if(document.getElementById("id_EditPage_DivMapping").style.display != "none"){
     startAnimationMapping();
   }
+  drawCurrentNavi();
 
 }
 
@@ -188,6 +208,8 @@ function showGallery(){
   document.getElementById("id_myDesignsPage").style.display="none";
 
   document.getElementById("id_GalleryPage").style.display="block";
+  drawCurrentNavi();
+
 }
 
 //////////////////////
@@ -218,6 +240,6 @@ document.getElementById("id_settingMenu_Label_MappingUpdate_Button").style.displ
 document.getElementById("id_settingMenu_Label_ReturnMyDesigns_Button").style.display="none";
 document.getElementById("id_actionMenu_myDesignPart").style.display="none";
 document.getElementById("id_dropDownMenu_DisplayOptions").style.display="none";
-
+drawCurrentNavi();
 
 }

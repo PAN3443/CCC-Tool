@@ -16,17 +16,18 @@ window.onload = function() {
   var attentionText = "";
   if (typeof (Worker) === undefined){
     browserCanWorker=false;
-    attentionText += "Attention".bold()+": Your browser does not support Worker. Therefore the some features of the CCC-Tool won't work.\n"
+    attentionText += "Attention".bold()+": Your browser does not support Worker. Therefore the some features of the CCC-Tool won't work and the the performance can be impeded.\n"
   }
   else
   browserCanWorker=true;
 
   if (typeof OffscreenCanvas === 'function'){
     browserCanOffscreenCanvas = true;
+    initOffscreenWorker(); // Global Events -> WorkerDependent -> others
   }
   else{
     browserCanOffscreenCanvas = false;
-    attentionText += "Attention".bold()+": Your browser does not support OffscreenCanvas. Therefore the performance of the CCC-Tool will be impeded.\n"
+    attentionText += "Attention".bold()+": Your browser does not support OffscreenCanvas. Therefore the performance of the CCC-Tool can be impeded.\n"
   }
 
   if(attentionText.length>0){
@@ -53,6 +54,10 @@ window.onload = function() {
   globalCMS1 = new class_CMS();
   // init events
 
+  // global init
+  document.getElementById('id_dropDownContainerNavi').addEventListener("mouseleave", activateNaviDropdown);
+
+  /////////////////////
   init_events_EditPage();
   init_events_PopUp_ColorPicker();
   init_ExportWindow();
@@ -128,6 +133,8 @@ window.onload = function() {
 
   /// for testing
   loadRealWorldData();
+
+  ////////////////
 
   closeWaitPopUp();
 
