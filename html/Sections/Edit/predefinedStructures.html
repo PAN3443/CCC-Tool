@@ -1,0 +1,57 @@
+<!----------- Constant ------------------->
+<div style="width:100%; height:15vh;">
+
+  <div class="class_EditPage_closeDiv">
+    <div  onclick="updateAddStructureStatus()">
+      X
+    </div>
+  </div>
+
+  <div id="id_EditPage_ConstBandDiv" style="width:100%; height:13vh; overflow-y:auto; display: inline-block; padding-top:1vh;">
+
+  </div>
+
+</div>
+
+<!----------- Predefined CMS ------------------->
+<div style="width:100%; height:80vh;">
+
+  <div class="class_EditPage_TabRow">
+    <button id="id_EditPage_Select_Predefined" onclick="switchPredefinedCMS(0)" style="height:100%; width:50%; cursor:pointer;">
+      Predefined
+    </button>
+    <button id="id_EditPage_Select_MyDesigns" onclick="switchPredefinedCMS(1)" style="height:100%; width:50%; cursor:pointer;">
+      MyDesigns
+    </button>
+  </div>
+
+  <div id="id_EditPage_Predefined_Div" style="width:100%; height:76vh;">
+    <p class="standardText" style="width:100%; text-align:center; color:white; background:rgb(50,50,50);">Click to show the predefined:</p>
+    <div class="class_EditPage_TabRow" style="width:100%;">
+
+
+          <canvas id="id_EditPage_Preview_ScaledBrown" onclick="changeFilterPredefined(5)" style="width:14.28%;"></canvas>
+          <canvas id="id_EditPage_Preview_ScaledBlue" onclick="changeFilterPredefined(4)" style="width:14.28%;"></canvas>
+          <canvas id="id_EditPage_Preview_ScaledGreen" onclick="changeFilterPredefined(6)" style="width:14.28%;"></canvas>
+          <canvas id="id_EditPage_Preview_ScaledRedPurple" onclick="changeFilterPredefined(7)" style="width:14.28%;"></canvas>
+          <canvas id="id_EditPage_Preview_ScaledYellowOrange" onclick="changeFilterPredefined(8)" style="width:14.28%;"></canvas>
+          <canvas id="id_EditPage_Preview_Divergent" onclick="changeFilterPredefined(2)" style="width:14.28%;"></canvas>
+          <canvas id="id_EditPage_Preview_Multiband" onclick="changeFilterPredefined(1)" style="width:14.28%;"></canvas>
+
+    </div>
+    <div id="id_EditPage_Predefined_CMS_Div" style="width:100%; height:71vh; overflow-y: auto; padding-top:1vh;">
+
+    </div>
+  </div>
+
+  <div id="id_EditPage_MyDesigns_CMS_Div" style="width:100%; height:76vh; overflow-y: auto; display:none; padding-top:1vh;">
+
+  </div>
+
+  <div id="id_EditPage_MyDesigns_EmptyDiv" style="width:100%; height:76vh; display:none;">
+
+    <p class="subsectionLabel class_InsetLabelText" style="margin:auto; color:transparent;"> Empty </p>
+
+  </div>
+
+</div>

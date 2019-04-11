@@ -1,0 +1,101 @@
+<!--
+-----------------------------------------------
+----------------  	Export Window	  -----------------
+-----------------------------------------------
+-->
+<div style="height:auto; background:white; width:80%; border: 0.2vh solid black; margin:auto; overflow:auto;">
+
+  <h3 class="class_popupWindow_Label"> Export CMS </h3>
+
+  <div id="exportprobeDiv" style="display:flex; border:0.2vh solid grey; background:rgb(250,250,250); width:80%; margin-left:10%; margin-top:2vh; padding:1vh;">
+    <p class="standardText " style="margin:0px; width:30%; height:3vh; line-height:3vh; font-size:2vh;">Select:</p>
+    <select id="id_selectProbeListExport" class="standardText " name="ProbeListExport" size="8" style="width:40%; height:10vh; margin-right:auto;">
+                        <option value="0" style="font-weight:bold;">Original CMS</option>
+                      </select>
+  </div>
+
+
+  <div class="row" style="display:flex; border:0.2vh solid grey; background:rgb(250,250,250); width:80%; margin-left:10%; margin-top:1vh; padding:0.5vh;">
+    <p style="margin:0px; width:30%; height:3vh; line-height:3vh; font-size:2vh;">Space Notation:</p>
+    <div class="row">
+      <button class="class_generalbutton " id="button_ExportSpaceRGB" onclick="changeExportColorspace(0)" title="RGB" style="border-radius: 0.5vh; width: 5vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;">RGB</button>
+      <button class="class_generalbutton " id="button_ExportSpaceHSV" onclick="changeExportColorspace(1)" title="HSV" style="border-radius: 0.5vh; width: 5vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;">HSV</button>
+      <button class="class_generalbutton " id="button_ExportSpaceLAB" onclick="changeExportColorspace(2)" title="LAB" style="border-radius: 0.5vh; width: 5vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;">LAB</button>
+      <button class="class_generalbutton " id="button_ExportSpaceDIN99" onclick="changeExportColorspace(3)" title="DIN99" style="border-radius: 0.5vh; width: 5vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;">DIN99</button>
+    </div>
+  </div>
+
+
+  <div style="display:flex; border:0.2vh solid grey; background:rgb(250,250,250); width:80%; margin-left:10%; margin-top:1vh; padding:0.5vh;">
+
+    <p class="standardText " style="margin:0px; width:30%; height:3vh; line-height:3vh; font-size:2vh;">Interval Options:</p>
+
+    <p class="standardText " style="margin:0px; width:30%; height:3vh; line-height:3vh; font-size:2vh;"> Number of Intervals: </p>
+    <input id="id_ExportIntervalNum" type="number" value="200" step="1" min="1" style=" height:3vh; line-height:3vh; font-size:2vh; text-align:center; vertical-align: middle; margin:auto; margin-left:1vw; margin-right:auto;">
+
+  </div>
+
+
+  <div style="display:flex; border:0.2vh solid grey; background:rgb(250,250,250); width:80%; margin-left:10%; margin-top:1vh; padding:0.5vh;">
+
+    <p class="standardText " style="margin:0px; width:30%; height:3vh; line-height:3vh; font-size:2vh;">Handle Twin Issue :</p>
+    <button class="class_generalbutton " id="id_ExportPage_Button_TwinKeyIssue" onclick="changeTwinKeyIssue()" title="TwinIssue" style="border-radius: 0.5vh; width: 10vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;">active</button>
+
+    <div class="helpButtonDiv" style="width:auto; margin-right:auto;">
+      <button class="helpButton " style="margin-right:auto; border-radius: 0.5vh; height:3vh; line-height:3vh; font-weight:bold; text-align:center; width: 3vh; height:3vh; margin-left:1vw; border: 0.2vh solid black;">?</button>
+      <div class="helpButtonDiv-content" style="border: 0.2vh solid black; background: rgb(220,220,220); z-index:103;">
+        <p class="standardText " style="padding:1vh; height:auto; font-size: 1.8vh; line-height: 2vh; max-width:40vw; z-index:103; "> <strong>Info:</strong> There are visualization tools, which cannot handle the two colors of the twin keys with the same reference value. By activating this solution, the algorithm is adding a 0.00001-factor of the CMS-range to the reference
+          value of the right key-color of all twin keys.
+        </p>
+      </div>
+    </div>
+  </div>
+
+
+  <div style="display:flex; border:0.2vh solid grey; background:rgb(250,250,250); width:80%; margin-left:10%; margin-top:1vh; padding:0.5vh;">
+    <p class="standardText " style="margin:0px; width:30%; height:3vh; line-height:3vh; font-size:2vh;">Format:</p>
+    <button class="class_generalbutton " id="button_ExportFormatXML" onclick="changeOutputformat(1)" title="XML" style="border-radius: 0.5vh; width: 5vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;">XML</button>
+    <button class="class_generalbutton " id="button_ExportFormatJSON" onclick="changeOutputformat(2)" title="JSON" style="border-radius: 0.5vh; width: 5vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;">JSON</button>
+    <button class="class_generalbutton " id="button_ExportFormatCSV" onclick="changeOutputformat(0)" title="CSV" style="border-radius: 0.5vh; width: 5vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;">CSV</button>
+  </div>
+
+
+  <div style="border:0.2vh solid grey; background:rgb(250,250,250); width:80%; margin-left:10%; margin-top:1vh; padding:0.5vh;">
+
+    <h2 class="subsectionLabel " style="margin:0px; width:30%; height:3vh; line-height:3vh; font-size:2vh;">Table:</h2>
+
+    <table cellspacing="0" cellpadding="0" style="width:100%;">
+      <tr>
+        <td>
+          <table cellspacing="0" cellpadding="1" style="width:100%;">
+            <tr style="color:white;background-color:grey; ">
+              <th class="class_tablelabel" style="width:5%;  background:grey; border:none;">#</th>
+              <th class="class_tablelabel" style="width:20%; border-color:black; background:grey;border:none;">Scalar</th>
+              <th class="class_tablelabel" style="width:10%; border-color:black; background:grey;border:none;">Type</th>
+              <th class="class_tablelabel" id="id_table_exportColor1" style=" width:60%; border-color:black; background:grey;border:none;">Color (RGB)</th>
+              <th class="class_tablelabel" style="width:5%;  border-color:black; background:grey;border:none;"></th>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div style="width:100%; height:40vh; overflow:auto;">
+            <table cellspacing="0" cellpadding="1" id="id_table_export" style="width:100%; border: 0.1vh solid black;">
+              <tbody id="id_exportTableBody">
+
+              </tbody>
+            </table>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+
+  </div>
+
+  <div class="row" style="margin-top:1vh; margin-bottom:1vh; width:100%;">
+    <button class="class_generalbutton " onclick="closeExportWindow()" title="cancel" style=" width: 30%; height:4vh; line-height:4vh; font-size:2.6vh; border-width: 0.2vh; margin-left:15%;">Cancel</button>
+    <button class="class_generalbutton " onclick="downloadCMSFile()" title="export" style=" width: 30%; height:4vh; line-height:4vh; font-size:2.6vh; border-width: 0.2vh; margin-left:10%;">Export</button>
+  </div>
+</div>

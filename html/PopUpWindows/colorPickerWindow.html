@@ -1,0 +1,79 @@
+<!--
+-----------------------------------------------
+----------------  	Colorpicker Window	  -----------------
+-----------------------------------------------
+-->
+<div class="row">
+
+  <div id="id_popupColorPicker_settingDiv" style="height: 36vh; width:8vw; overflow-x:hidden; overflow-y:hidden; display:none; ">
+
+    <h1 class="class_popupWindow_Label" style="height:3vh; line-height:3vh; font-size:2vh;"> Settings </h1>
+
+    <!--p class="class_RadioButtonPopUpWindow" style="font-weight:bold; color:white; background:black; width:100%; padding-left:0.5vw;"> Select:</p-->
+    <input class="class_RadioButtonPopUpWindow" style="margin-left:0.5vw;" type="radio" id="id_popupWindow_Colorpicker_RG_B" name="popupWindow_Colorpicker_Type" value="1" checked="checked">
+    <label class="class_RadioButtonPopUpWindow" for="id_popupWindow_Colorpicker_RG_B"> RG+B </label><br>
+    <input class="class_RadioButtonPopUpWindow" style="margin-left:0.5vw;" type="radio" id="id_popupWindow_Colorpicker_RB_G" name="popupWindow_Colorpicker_Type" value="2">
+    <label class="class_RadioButtonPopUpWindow" for="id_popupWindow_Colorpicker_RB_G"> RB+G </label><br>
+    <input class="class_RadioButtonPopUpWindow" style="margin-left:0.5vw; " type="radio" id="id_popupWindow_Colorpicker_GB_R" name="popupWindow_Colorpicker_Type" value="3">
+    <label class="class_RadioButtonPopUpWindow" for="id_popupWindow_Colorpicker_GB_R"> GB+R </label><br>
+    <input class="class_RadioButtonPopUpWindow" style="margin-left:0.5vw;" type="radio" id="id_popupWindow_Colorpicker_HS_V" name="popupWindow_Colorpicker_Type" value="4">
+    <label class="class_RadioButtonPopUpWindow" for="id_popupWindow_Colorpicker_HS_V"> HS+V </label><br>
+    <input class="class_RadioButtonPopUpWindow" style="margin-left:0.5vw;" type="radio" id="id_popupWindow_Colorpicker_HV_S" name="popupWindow_Colorpicker_Type" value="5">
+    <label class="class_RadioButtonPopUpWindow" for="id_popupWindow_Colorpicker_HV_S"> HV_S </label><br>
+    <input class="class_RadioButtonPopUpWindow" style="margin-left:0.5vw;" type="radio" id="id_popupWindow_Colorpicker_SV_H" name="popupWindow_Colorpicker_Type" value="6">
+    <label class="class_RadioButtonPopUpWindow" for="id_popupWindow_Colorpicker_SV_H"> SV_H </label><br>
+
+    <p id="id_popupColorPicker_InputLabel" class="class_RadioButtonPopUpWindow" style="font-weight:bold; color:white; background:black; width:100%; margin-top:1vh; padding-left:0.5vw;"> RGB:</p>
+
+    <div class="row" style="margin-left:0.5vw;">
+
+      <p id="id_popupColorPicker_InputLabel1" class="class_InputPopUpWindow" id="id_popupWindow_Colorpicker_Label1" style="font-weight:bold; width:2vw;">
+        R :
+      </p>
+      <input id="id_popupWindow_Colorpicker_Input1" class="class_InputPopUpWindow" type="number" step="any" value="0" min="0" max="255" style="text-align:center;  width:3vw">
+    </div>
+    <div class="row" style="margin-left:0.5vw;">
+      <p id="id_popupColorPicker_InputLabel2" class="class_InputPopUpWindow" id="id_popupWindow_Colorpicker_Label2" style="font-weight:bold; width:2vw;">
+        G :
+      </p>
+      <input id="id_popupWindow_Colorpicker_Input2" class="class_InputPopUpWindow" type="number" step="any" value="0" min="0" max="255" style="text-align:center;  width:3vw">
+    </div>
+    <div class="row" style="margin-left:0.5vw;">
+      <p id="id_popupColorPicker_InputLabel3" class="class_InputPopUpWindow" id="id_popupWindow_Colorpicker_Label3" style="font-weight:bold; width:2vw;">
+        B :
+      </p>
+      <input id="id_popupWindow_Colorpicker_Input3" class="class_InputPopUpWindow" type="number" step="any" value="0" min="0" max="255" style="text-align:center; margin-right:auto; width:3vw">
+    </div>
+
+
+  </div>
+
+  <div>
+
+    <div class="row" style="background:black;">
+
+      <div onclick="openColorPickerSettings()" style="height:3vh; width:3vh; background: url(img/Buttons/gear_wheel.png); background-size:cover; background-repeat:no-repeat; background-position: center center; cursor:pointer;">
+      </div>
+
+      <h1 class="class_popupWindow_Label" style="height:3vh; line-height:3vh; font-size:2.5vh;"> Color Picker </h1>
+      <div id="id_popupWindow_CloseColorpicker" onclick="closeColorPicker()">
+        X
+      </div>
+    </div>
+
+    <div class="row" style="height:33vh; width:43vh;">
+
+      <div style="position: relative; width:33vh; height:33vh; border:0.2vh solid black; background:grey;">
+        <canvas id="id_popupWindow_Colorpicker_canvasPicker" style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:100%;"></canvas>
+        <canvas id="id_popupWindow_Colorpicker_canvasPicker_circle" style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:100%;"></canvas>
+      </div>
+
+      <div style="position: relative;width:10vh; height:33vh; border:0.2vh solid black; background:grey;">
+        <canvas id="id_popupWindow_Colorpicker_canvasPicker2" style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:100%;"></canvas>
+        <canvas id="id_popupWindow_Colorpicker_canvasPicker2_bar" style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:100%;"></canvas>
+      </div>
+
+    </div>
+  </div>
+
+</div>

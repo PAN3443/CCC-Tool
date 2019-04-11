@@ -121,7 +121,6 @@ function drawBRBackground(canvasContex,canvasWidth,canvasHeight,fixedColor){
   rgbPlot(canvasContex, canvasWidth, canvasHeight, "B", "R");
 }
 
-
 function drawGBBackground(canvasContex,canvasWidth,canvasHeight,fixedColor){
 
 
@@ -181,13 +180,12 @@ function drawGBBackground(canvasContex,canvasWidth,canvasHeight,fixedColor){
 }
 
 
+function rgbPlot(context, canvasWidth, canvasHeight, xlabel, ylabel) {
 
-function rgbPlot(context, canvasWidth, canvasHidth, xlabel, ylabel) {
-
-  var yStart = Math.round(canvasHidth * 0.9);
-  var yEnd = Math.round(canvasHidth * 0.2);
-  var yEndLine = Math.round(canvasHidth * 0.15);
-  var yEndArrow = Math.round(canvasHidth * 0.1);
+  var yStart = Math.round(canvasHeight * 0.9);
+  var yEnd = Math.round(canvasHeight * 0.2);
+  var yEndLine = Math.round(canvasHeight * 0.15);
+  var yEndArrow = Math.round(canvasHeight * 0.1);
   var arrowHeight = Math.round((yEndLine - yEndArrow) * 0.75);
   var labelFontSize = arrowHeight * 0.85;
   var labelFontSizeSmall = arrowHeight * 0.75;
@@ -209,7 +207,7 @@ function rgbPlot(context, canvasWidth, canvasHidth, xlabel, ylabel) {
 
 
   var xPosPos;
-  var yPos = canvasHidth * 0.93;
+  var yPos = canvasHeight * 0.93;
   context.font = labelFontSizeSmall + "px Arial";
 
   var steps = 5;
@@ -289,5 +287,284 @@ function rgbPlot(context, canvasWidth, canvasHidth, xlabel, ylabel) {
   context.fillText(xlabel, xEndArrow, yStart + labelFontSize);
   context.fillText(ylabel, xStart - labelFontSize, yEndArrow);
 
+
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+
+
+function drawVPlot(vPlotContex, canvasWidth, canvasHeight, label, startValue, endValue){
+  /*vPlotContex.mozImageSmoothingEnabled = false;
+  vPlotContex.webkitImageSmoothingEnabled = false;
+  vPlotContex.msImageSmoothingEnabled = false;
+  vPlotContex.imageSmoothingEnabled = false; // did not work !?!?!
+  vPlotContex.oImageSmoothingEnabled = false;*/
+
+
+  var yStart = Math.round(canvasHeight * 0.9);
+  var yEnd = Math.round(canvasHeight * 0.1);
+  var yEndLine = Math.round(canvasHeight * 0.05);
+  var yEndArrow = 0;
+  var arrowHeight = Math.round(yEndLine - yEndArrow);
+  var labelFontSize = arrowHeight * 1.5;
+  var labelFontSizeSmall = arrowHeight * 1;
+  var xStart = Math.round(canvasWidth * 0.1);
+  var xEnd = Math.round(canvasWidth * 0.85);
+  var xEndArrow = Math.round(canvasWidth * 0.9);
+  var xEndLine = xEndArrow - arrowHeight;
+
+  var lineColor = 'rgb(200,200,200)';
+  var arrowFontColor = 'rgb(0,0,00)';//'rgb(90,90,90)';
+
+  vPlotContex.fillStyle = arrowFontColor;
+
+
+  var widthVArea = 0;
+  var widthVArea2 = 0;
+
+  var tmpCounter = 0;
+  var leftCounter = 0;
+
+  var xPosPos;
+  var plotwidth = xEnd - xStart;
+
+  widthVArea = globalCMS1.getRefRange();
+
+  for (var i = 0; i < globalCMS1.getKeyLength(); i++) {
+
+    xPosPos = xStart + ((globalCMS1.getRefPosition(i) - globalCMS1.getRefPosition(0)) / widthVArea) * plotwidth;
+
+    vPlotContex.beginPath();
+    vPlotContex.lineWidth = Math.round(lineWidthVPlot / 2);
+    vPlotContex.moveTo(xPosPos, yStart);
+    vPlotContex.lineTo(xPosPos, canvasHeight * 0.93);
+    vPlotContex.strokeStyle = lineColor;
+    vPlotContex.stroke();
+    vPlotContex.strokeStyle = arrowFontColor;
+    var text = "" + (i + 1);
+    vPlotContex.font = labelFontSizeSmall + "px Arial";
+    vPlotContex.fillText(text, xPosPos, canvasHeight * 0.93 + labelFontSizeSmall);
+
+  }
+
+  xPosPos = Math.round(canvasWidth * 0.075);
+  var yPos = yStart;
+  vPlotContex.font = labelFontSizeSmall + "px Arial";
+
+  var steps = 10;
+
+  var startValue=0;
+  var endValue=1.0;
+
+
+
+
+
+}
+
+
+function init_VPlot() {
+
+  switch (pathColorspace) {
+    case "hsv":
+      break;
+    case "lab":
+      startValue2=labSpaceRange*-1;
+      endValue2=labSpaceRange;
+      startValue3=labSpaceRange*-1;
+      endValue3=labSpaceRange;
+      break;
+    case "din99":
+      startValue2=rangeA99Neg;
+      endValue2=rangeA99Pos;
+      startValue3=rangeB99Neg;
+      endValue3=rangeB99Pos;
+
+
+      yPos = yStart - (yStart - yEnd) * (rangeA99Neg*-1)/(rangeA99Pos-rangeA99Neg);
+      vPlotContex2.beginPath();
+      vPlotContex2.lineWidth = 2;
+      vPlotContex2.moveTo(xPosPos, yPos);
+      vPlotContex2.lineTo(xEnd, yPos);
+      vPlotContex2.strokeStyle = lineColor;
+      vPlotContex2.stroke();
+      vPlotContex2.strokeStyle = arrowFontColor;
+      //vPlotContex2.fillText("0", xPosPos * 0.75, yPos);
+
+      yyPos = yStart - (yStart - yEnd) * (rangeA99Neg*-1)/(rangeB99Pos-rangeB99Neg);
+      vPlotContex3.beginPath();
+      vPlotContex3.lineWidth = 2;
+      vPlotContex3.moveTo(xPosPos, yPos);
+      vPlotContex3.lineTo(xEnd, yPos);
+      vPlotContex3.strokeStyle = lineColor;
+      vPlotContex3.stroke();
+      vPlotContex3.strokeStyle = arrowFontColor;
+      //vPlotContex3.fillText("0", xPosPos * 0.75, yPos);
+
+      break;
+    default:
+      console.log("Error at the changeColorspace function");
+      return;
+  }
+
+
+  for (var i = 0; i <= steps; i++) {
+    yPos = yStart - (yStart - yEnd) * i/steps;
+    var tmpVal = (startValue1+(endValue1-startValue1)*i/steps);
+    var text = ""+tmpVal.toFixed(2);
+    vPlotContex1.beginPath();
+    vPlotContex1.lineWidth = 1;
+    vPlotContex1.moveTo(xStart, yPos);
+    vPlotContex1.lineTo(xEnd, yPos);
+    vPlotContex1.strokeStyle = lineColor;
+    vPlotContex1.stroke();
+    vPlotContex1.strokeStyle = arrowFontColor;
+    vPlotContex1.fillText(text, xPosPos * 0.75, yPos);
+
+    yPos = yStart - (yStart - yEnd) * i/steps;
+    var tmpVal =(startValue2+(endValue2-startValue2)*i/steps);
+    var text = ""+tmpVal.toFixed(2);
+    vPlotContex2.beginPath();
+    vPlotContex2.lineWidth = 1;
+    vPlotContex2.moveTo(xStart, yPos);
+    vPlotContex2.lineTo(xEnd, yPos);
+    vPlotContex2.strokeStyle = lineColor;
+    vPlotContex2.stroke();
+    vPlotContex2.strokeStyle = arrowFontColor;
+    vPlotContex2.fillText(text, xPosPos * 0.75, yPos);
+
+    yPos = yStart - (yStart - yEnd) * i/steps;
+    var tmpVal =(startValue3+(endValue3-startValue3)*i/steps);
+    var text = ""+tmpVal.toFixed(2);
+    vPlotContex3.beginPath();
+    vPlotContex3.lineWidth = 1;
+    vPlotContex3.moveTo(xStart, yPos);
+    vPlotContex3.lineTo(xEnd, yPos);
+    vPlotContex3.strokeStyle = lineColor;
+    vPlotContex3.stroke();
+    vPlotContex3.strokeStyle = arrowFontColor;
+    vPlotContex3.fillText(text, xPosPos * 0.75, yPos);
+  }
+
+
+  ////////////////////////////////////////////////////////////
+  /////////////ARROWS////////////////////
+  ////////////////////////////////////////////////////////////
+
+  // the fill color
+  vPlotContex2.fill();
+
+  vPlotContex1.strokeStyle = arrowFontColor;
+  vPlotContex1.beginPath();
+  vPlotContex1.lineWidth = lineWidthVPlot;
+  vPlotContex1.moveTo(xStart, yStart);
+  vPlotContex1.lineTo(xEndLine, yStart);
+  vPlotContex1.stroke();
+
+  // the triangle
+  vPlotContex1.beginPath();
+  vPlotContex1.moveTo(xEndLine, yStart - (arrowHeight/2));
+  vPlotContex1.lineTo(xEndArrow, yStart);
+  vPlotContex1.lineTo(xEndLine, yStart + (arrowHeight/2));
+  vPlotContex1.closePath();
+
+  // the fill color
+  vPlotContex1.fillStyle = arrowFontColor;
+  vPlotContex1.fill();
+
+  vPlotContex1.beginPath();
+  vPlotContex1.lineWidth = lineWidthVPlot;
+  vPlotContex1.moveTo(xStart, yStart);
+  vPlotContex1.lineTo(xStart, yEndLine);
+  vPlotContex1.stroke();
+
+  // the triangle
+  vPlotContex1.beginPath();
+  vPlotContex1.moveTo(xStart - (arrowHeight/2), yEndLine);
+  vPlotContex1.lineTo(xStart, yEndArrow);
+  vPlotContex1.lineTo(xStart + (arrowHeight/2), yEndLine);
+  vPlotContex1.closePath();
+
+  // the fill color
+  vPlotContex1.fill();
+
+  vPlotContex2.strokeStyle = arrowFontColor;
+  vPlotContex2.beginPath();
+  vPlotContex2.lineWidth = lineWidthVPlot;
+  vPlotContex2.moveTo(xStart, yStart);
+  vPlotContex2.lineTo(xEndLine, yStart);
+  vPlotContex2.stroke();
+
+  // the triangle
+  vPlotContex2.beginPath();
+  vPlotContex2.moveTo(xEndLine, yStart - (arrowHeight/2));
+  vPlotContex2.lineTo(xEndArrow, yStart);
+  vPlotContex2.lineTo(xEndLine, yStart + (arrowHeight/2));
+  vPlotContex2.closePath();
+
+  // the fill color
+  vPlotContex2.fillStyle = arrowFontColor;
+  vPlotContex2.fill();
+
+  vPlotContex2.beginPath();
+  vPlotContex2.lineWidth = lineWidthVPlot;
+  vPlotContex2.moveTo(xStart, yStart);
+  vPlotContex2.lineTo(xStart, yEndLine);
+  vPlotContex2.stroke();
+
+  // the triangle
+  vPlotContex2.beginPath();
+  vPlotContex2.moveTo(xStart - (arrowHeight/2), yEndLine);
+  vPlotContex2.lineTo(xStart, yEndArrow);
+  vPlotContex2.lineTo(xStart + (arrowHeight/2), yEndLine);
+  vPlotContex2.closePath();
+
+  // the fill color
+  vPlotContex2.fill();
+
+  vPlotContex3.strokeStyle = arrowFontColor;
+  vPlotContex3.beginPath();
+  vPlotContex3.lineWidth = lineWidthVPlot;
+  vPlotContex3.moveTo(xStart, yStart);
+  vPlotContex3.lineTo(xEndLine, yStart);
+  vPlotContex3.stroke();
+
+  // the triangle
+  vPlotContex3.beginPath();
+  vPlotContex3.moveTo(xEndLine, yStart - (arrowHeight/2));
+  vPlotContex3.lineTo(xEndArrow, yStart);
+  vPlotContex3.lineTo(xEndLine, yStart + (arrowHeight/2));
+  vPlotContex3.closePath();
+
+  // the fill color
+  vPlotContex3.fillStyle = arrowFontColor;
+  vPlotContex3.fill();
+
+  vPlotContex3.beginPath();
+  vPlotContex3.lineWidth = lineWidthVPlot;
+  vPlotContex3.moveTo(xStart, yStart);
+  vPlotContex3.lineTo(xStart, yEndLine);
+  vPlotContex3.stroke();
+
+  // the triangle
+  vPlotContex3.beginPath();
+  vPlotContex3.moveTo(xStart - (arrowHeight/2), yEndLine);
+  vPlotContex3.lineTo(xStart, yEndArrow);
+  vPlotContex3.lineTo(xStart + (arrowHeight/2), yEndLine);
+  vPlotContex3.closePath();
+
+  // the fill color
+  vPlotContex3.fill();
+
+  ////////////////// TEXT /////////////////////
+  vPlotContex1.font = labelFontSize + "px Arial";
+  vPlotContex1.fillText("Position", xEndArrow, yStart + labelFontSize);
+
+  vPlotContex2.font = labelFontSize + "px Arial";
+  vPlotContex2.fillText("Position", xEndArrow, yStart + labelFontSize);
+
+  vPlotContex3.font = labelFontSize + "px Arial";
+  vPlotContex3.fillText("Position", xEndArrow, yStart + labelFontSize);
 
 }

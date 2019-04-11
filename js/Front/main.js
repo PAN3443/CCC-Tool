@@ -1,7 +1,37 @@
+
+function includeHTML() {
+  var z, i, elmnt, file, xhttp;
+  /*loop through a collection of all HTML elements:*/
+  z = document.getElementsByTagName("*");
+  for (i = 0; i < z.length; i++) {
+    elmnt = z[i];
+    /*search for elements with a certain atrribute:*/
+    file = elmnt.getAttribute("include-html");
+    if (file) {
+      /*make an HTTP request using the attribute value as the file name:*/
+      xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4) {
+          if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+          if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+          /*remove the attribute, and call this function once more:*/
+          elmnt.removeAttribute("include-html");
+          includeHTML();
+        }
+      }
+      xhttp.open("GET", file, false); // true); //
+      xhttp.send();
+      /*exit the function:*/
+      return;
+    }
+  }
+};
+
+
 window.onload = function() {
 
 
-  openWaitPopUp("Initialization of the tool.");
+  includeHTML();
 
   /////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////// Check Browerser and Hardware ////////////////////////////////
@@ -109,7 +139,7 @@ window.onload = function() {
    drawCanvasColormap("id_GalleryPage_Preview_ScaledYellowOrange", cmsYellowColormaps[0]);
    changeGalleryPredefined(3);
 
-   document.getElementById("id_GalleryPage").style.display = "none";
+  document.getElementById("id_GalleryPage").style.display = "none";
 
   document.getElementById('id_inputCMSData').addEventListener("change", readCMSFile);
   document.getElementById('id_inputSessionData').addEventListener("change", readSessionFile);

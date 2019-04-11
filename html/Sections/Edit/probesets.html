@@ -1,0 +1,339 @@
+<!--
+---------------------------------------------------------
+-------------  	Section Edit : Probe Sets	  ---------------
+--------------------------------------------------------
+-->
+
+<div style="display:flex; width:100%; height:4vh; background:rgb(80,80,80); margin-bottom:0.5vh;">
+    <p class="class_EditPage_EditButtonLabel" style="font-weight:bold; margin-right:0.5vw;"> Probe-Set:</p>
+
+    <select class="class_EditPage_EditButtonLabel" id="id_selectProbeSetList" style="margin-left:0.5vw; margin-right:0.5vw; background:none; min-width:15vw;">
+    </select>
+
+    <button class="class_EditPage_EditButton" onclick="openProbeGeneration()" type="button" name="button" title="Add Probe-Set" style="margin-right:0.5vw; margin-left:0.5vw;">+</button>
+    <button id="id_EditPage_ProbeSetDeleteButton" class="class_EditPage_EditButton" onclick="deleteProbeSet()" type="button" name="button" title="Remove Probe-Set" style="margin-left:0.5vw;" >X</button>
+    <!--button class="class_EditPage_EditButton" onclick="duplicateProbeSet()" type="button" name="button" title="Close Histogram" >X</button-->
+
+    <div id="id_EditPage_ProbeSetNameDiv" style="display:flex; margin:auto;">
+      <p class="class_EditPage_EditButtonLabel" style="margin-right:0.5vw;">Name:</p>
+      <input id="id_probe_EditProbeName" type="text" class="class_EditPage_EditButtonLabel" style="background:none; margin-left:0.5vw;" name="cmsname" required placeholder="Please enter a probe-set name" />
+    </div>
+
+</div>
+
+<div id="id_EditPage_ProbeEdit_EmptyDiv" style="width:100%; height:100%; display:none;">
+
+  <p class="subsectionLabel class_InsetLabelText" style="margin:auto; color:transparent;"> Empty Probe-Set List </p>
+
+</div>
+
+  <div id="id_EditPage_ProbeEditDiv" style="widht: 100%; height:100%;">
+
+    <div style="display:flex; widht: 100%; padding-top:3vh; padding-bottom:3vh; background:white;">
+      <div style=" width:50%;">
+        <h2 class="subsectionLabel "> Select Probe: </h2>
+
+        <select id="id_selectProbeList" class="standardText " name="ProbeList" size="20" style="width:80%; margin-left:10%; height:30vh;">
+                <option value="0" style="font-weight:bold;">Add New Probe</option>
+                <option value="1" >Probe 1; Type: Gradient; Function: linear;</option>
+              </select>
+
+        <button id="id_EditPage_RemoveProbeButton" class="class_generalbutton" onclick="deleteProbe()" type="button" name="button" style=" margin-left:25%; width:50%; font-weight:bold; vertical-align:middle; margin-top:1.5vh;">Remove Probe</button>
+      </div>
+
+      <div style=" width:50%;">
+        <h2 class="subsectionLabel" style="margin-bottom:2vh;"> Probe-Options: </h2>
+
+        <div class="row" style="width:100%; margin-top:1vh; margin-bottom:1vh;">
+          <p class="standardText " style="font-weight:bold; width:40%; margin-top:auto; margin-bottom:auto; margin-left:1vw;"> Start: </p>
+
+          <input class="standardText " type="number" step="any" id="id_probe_EditProbeStart" style="font-weight:bold; width:40%; margin:auto;  margin-left:5%;" />
+        </div>
+
+        <div class="row" style="width:100%; margin-top:1vh; margin-bottom:1vh;">
+          <p class="standardText " style="font-weight:bold; width:40%; margin-top:auto; margin-bottom:auto; margin-left:1vw;"> End: </p>
+
+          <input class="standardText " type="number" step="any" id="id_probe_EditProbeEnd" style="font-weight:bold; width:40%; margin:auto;  margin-left:5%;" />
+        </div>
+
+        <div class="row" style="width:100%; margin-top:1vh; margin-bottom:1vh;">
+
+          <p class="standardText " style="font-weight:bold; width:40%; margin-top:auto; margin-bottom:auto; margin-left:1vw;"> Probe-Type: </p>
+
+          <div style="width:40%; margin:auto;  margin-left:5%;">
+            <div id="id_EditPage_editProbeTypeLabel" class="standardText " style="width:100%; cursor: pointer; text-align:center; border: 0.2vh solid black;"> &#9660; Contour </div>
+            <div id="id_EditPage_editProbeTypeDropDown" style="background: black; display: none; position: absolute; left: 0px; z-index: 101;  border: 0.2vh solid black;">
+              <div id="id_EditPage_editProbeType_Constant" onclick="changeProbeType(0)" class="standardText">
+                Constant
+              </div>
+              <div id="id_EditPage_editProbeType_OneSided" onclick="changeProbeType(1)" class="standardText" style="padding-left:1vw; padding-right:1vw;">
+                One Sided
+              </div>
+              <div id="id_EditPage_editProbeType_OneSidedTrans" onclick="changeProbeType(2)" class="standardText" style="padding-left:1vw; padding-right:1vw;">
+                One Sided Transparent
+              </div>
+              <div id="id_EditPage_editProbeType_TwoSided" onclick="changeProbeType(3)" class="standardText" style="padding-left:1vw; padding-right:1vw;">
+                Two Sided
+              </div>
+              <div id="id_EditPage_editProbeType_TwoSidedTrans" onclick="changeProbeType(4)" class="standardText" style="padding-left:1vw; padding-right:1vw;">
+                Two Sided Transparent
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div id="id_EditPage_editProbeFunction_Div" class="row" style="width:100%; margin-top:1vh; margin-bottom:1vh;">
+          <p class="standardText " style="font-weight:bold; width:40%; margin-top:auto; margin-bottom:auto; margin-left:1vw;">Functions:</p>
+
+          <div style="display:flex; width:40%; margin:auto;  margin-left:5%;">
+
+            <div>
+              <p id="id_EditPage_editProbeFunction_ValLabel" class="standardText " style="font-size: 1.2vh; height:2vh; line-height: 3vh; font-weight:bold; margin-left:auto; vertical-align:middle;">Value (100%,0%,100%)</p>
+              <p id="id_EditPage_editProbeFunction_SatLabel" class="standardText " style="font-size: 1.2vh; height:2vh; line-height: 3vh; font-weight:bold; margin-left:auto; vertical-align:middle;">Saturation (100%,0%,100%)</p>
+            </div>
+
+            <div id="id_EditPage_editProbeFunctionLabel" class="standardText " style="width:3vh; margin:auto; margin-top:0px; cursor: pointer; text-align:center; border: 0.2vh solid black;"> &#9660; </div>
+            <div id="id_EditPage_editProbeFunctionDropDown" style="background: black; display: none; position: absolute; left: 0px; z-index: 101; border: 0.2vh solid black; padding:1vh;">
+
+              <div id="id_EditPage_editProbeFunctionOneSided_Div" style="display:none;">
+
+                <div class="row" style="width:100%;">
+                  <div id="id_EditPage_editFunctionOneSided_Selection1" onclick="changeOneSideFunction(0)" style="background:rgb(220,220,220); padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer; width:10vw; margin-right:1vw;">
+                    <p id="id_EditPage_editFunctionOneSided_Label1" class="standardText " style="height:2vh; line-height:2vh; font-size:1.6vh; margin-top:auto; margin-bottom:auto; width:90%; margin-left:5%; text-align:center;">Value 100% to 0% </p>
+                    <svg style="border: 0.2vh solid black; height:3vw; width:90%; background:white; margin-left:5%; margin-top:1vh;">
+                                      <line x1="10%" y1="10%" x2="90%" y2="90%" style="stroke:rgb(0,0,0);stroke-width:2" />
+                                      <circle cx="10%" cy="10%" r="2.5%" fill="black" />
+                                      <circle cx="90%" cy="90%" r="2.5%" fill="black" />
+                                    </svg>
+                  </div>
+
+                  <div id="id_EditPage_editFunctionOneSided_Selection2" onclick="changeOneSideFunction(1)" style="background:rgb(220,220,220); padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer; width:10vw;">
+                    <p id="id_EditPage_editFunctionOneSided_Label2" class="standardText " style="height:2vh; line-height:2vh; font-size:1.6vh; margin-top:auto; margin-bottom:auto; width:90%; margin-left:5%; text-align:center;">Value 0% to 100% </p>
+                    <svg style="border: 0.2vh solid black; height:3vw; width:90%; background:white; margin-left:5%; margin-top:1vh;">
+                                      <line x1="10%" y1="90%" x2="90%" y2="10%" style="stroke:rgb(0,0,0);stroke-width:2" />
+                                      <circle cx="90%" cy="10%" r="2.5%" fill="black" />
+                                      <circle cx="10%" cy="90%" r="2.5%" fill="black" />
+                                    </svg>
+                  </div>
+                </div>
+                <div class="row" style="width:100%;">
+                  <div id="id_EditPage_editFunctionOneSided_Selection3" onclick="changeOneSideFunction(2)" style="background:rgb(220,220,220); padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer; width:10vw; margin-right:1vw;">
+                    <p id="id_EditPage_editFunctionOneSided_Label3" class="standardText " style="height:2vh; line-height:2vh; font-size:1.6vh; margin-top:auto; margin-bottom:auto; width:90%; margin-left:5%; text-align:center;">Saturation 100% to 0% </p>
+                    <svg style="border: 0.2vh solid black; height:3vw; width:90%; background:white; margin-left:5%; margin-top:1vh;">
+                                      <line x1="10%" y1="10%" x2="90%" y2="90%" style="stroke:rgb(0,0,0);stroke-width:2" />
+                                      <circle cx="10%" cy="10%" r="2.5%" fill="black" />
+                                      <circle cx="90%" cy="90%" r="2.5%" fill="black" />
+                                    </svg>
+                  </div>
+
+                  <div id="id_EditPage_editFunctionOneSided_Selection4" onclick="changeOneSideFunction(3)" style="background:rgb(220,220,220); padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer; width:10vw;">
+                    <p id="id_EditPage_editFunctionOneSided_Label4" class="standardText " style="height:2vh; line-height:2vh; font-size:1.6vh; margin-top:auto; margin-bottom:auto; width:90%; margin-left:5%; text-align:center;">Saturation 0% to 100% </p>
+                    <svg style="border: 0.2vh solid black; height:3vw; width:90%; background:white; margin-left:5%; margin-top:1vh;">
+                                      <line x1="10%" y1="90%" x2="90%" y2="10%" style="stroke:rgb(0,0,0);stroke-width:2" />
+                                      <circle cx="90%" cy="10%" r="2.5%" fill="black" />
+                                      <circle cx="10%" cy="90%" r="2.5%" fill="black" />
+                                    </svg>
+                  </div>
+                </div>
+
+              </div>
+
+              <div id="id_EditPage_editProbeFunctionTwoSided_Div" style="display:none;">
+
+                <div class="row" style="width:100%;">
+                  <div id="id_EditPage_editFunctionTwoSided_Selection0" onclick="changeTwoSideFunction(0);" style="width:15vw; margin-right:1vw; background:rgb(220,220,220);          padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer;">
+
+                    <div class="row">
+                      <p class="standardText " style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Value <br> (0%, 100%)</p>
+                      <p class="standardText " style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:20%; font-weight:bold;">AND </p>
+                      <p class="standardText " style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Saturation <br> (0%, 100%, 0%)</p>
+                    </div>
+
+                    <div class="row">
+                      <svg style="border: 0.2vh solid black; height:3vw; width:40%; background:white; margin-right:20%; margin-top:1vh;">
+                                   <line x1="10%" y1="90%" x2="90%" y2="10%" style="stroke:rgb(0,0,0);stroke-width:2" />
+                                   <circle cx="10%" cy="90%" r="2.5%" fill="black" />
+                                   <circle cx="90%" cy="10%" r="2.5%" fill="black" />
+                                 </svg>
+
+                      <svg style="border: 0.2vh solid black; height:3vw; width:40%; background:white; margin-top:1vh;">
+                                   <line x1="10%" y1="90%" x2="50%" y2="10%" style="stroke:rgb(0,0,0);stroke-width:2" />
+                                   <line x1="50%" y1="10%" x2="90%" y2="90%" style="stroke:rgb(0,0,0);stroke-width:2" />
+                                   <circle cx="10%" cy="90%" r="2.5%" fill="black" />
+                                   <circle cx="50%" cy="10%" r="2.5%" fill="black" />
+                                   <circle cx="90%" cy="90%" r="2.5%" fill="black" />
+                                 </svg>
+                    </div>
+
+                  </div>
+
+                  <div id="id_EditPage_editFunctionTwoSided_Selection1" onclick="changeTwoSideFunction(1);" style="width:15vw; background:rgb(220,220,220);             padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer;">
+
+                    <div class="row">
+                      <p class="standardText " style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Value <br> (100%, 0%)</p>
+                      <p class="standardText " style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:20%; font-weight:bold;">AND </p>
+                      <p class="standardText " style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Saturation <br> (0%, 100%, 0%)</p>
+                    </div>
+
+                    <div class="row">
+                      <svg style="border: 0.2vh solid black; height:3vw; width:40%; background:white; margin-right:20%; margin-top:1vh;">
+                                   <line x1="10%" y1="10%" x2="90%" y2="90%" style="stroke:rgb(0,0,0);stroke-width:2" />
+                                   <circle cx="10%" cy="10%" r="2.5%" fill="black" />
+                                   <circle cx="90%" cy="90%" r="2.5%" fill="black" />
+                                 </svg>
+
+                      <svg style="border: 0.2vh solid black; height:3vw; width:40%; background:white; margin-top:1vh;">
+                                   <line x1="10%" y1="90%" x2="50%" y2="10%" style="stroke:rgb(0,0,0);stroke-width:2" />
+                                   <line x1="50%" y1="10%" x2="90%" y2="90%" style="stroke:rgb(0,0,0);stroke-width:2" />
+                                   <circle cx="10%" cy="90%" r="2.5%" fill="black" />
+                                   <circle cx="50%" cy="10%" r="2.5%" fill="black" />
+                                   <circle cx="90%" cy="90%" r="2.5%" fill="black" />
+                                 </svg>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="row" style="width:100%; margin-top:1vh;">
+                  <div id="id_EditPage_editFunctionTwoSided_Selection2" onclick="changeTwoSideFunction(2);" style="width:15vw; margin-right:1vw; background:rgb(220,220,220);          padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer;">
+
+                    <div class="row">
+                      <p class="standardText " style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Value <br> (100%, 0%, 100%)</p>
+                      <p class="standardText " style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:20%; font-weight:bold;">AND </p>
+                      <p class="standardText " style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Saturation <br> (0%, 100%)</p>
+                    </div>
+
+                    <div class="row">
+                      <svg style="border: 0.2vh solid black; height:3vw; width:40%; background:white; margin-top:1vh; margin-right:20%;">
+                                   <line x1="10%" y1="10%" x2="50%" y2="90%" style="stroke:rgb(0,0,0);stroke-width:2" />
+                                   <line x1="50%" y1="90%" x2="90%" y2="10%" style="stroke:rgb(0,0,0);stroke-width:2" />
+                                   <circle cx="10%" cy="10%" r="2.5%" fill="black" />
+                                   <circle cx="50%" cy="90%" r="2.5%" fill="black" />
+                                   <circle cx="90%" cy="10%" r="2.5%" fill="black" />
+                                 </svg>
+
+                      <svg style="border: 0.2vh solid black; height:3vw; width:40%; background:white; margin-top:1vh;">
+                                   <line x1="10%" y1="90%" x2="90%" y2="10%" style="stroke:rgb(0,0,0);stroke-width:2" />
+                                   <circle cx="10%" cy="90%" r="2.5%" fill="black" />
+                                   <circle cx="90%" cy="10%" r="2.5%" fill="black" />
+                                 </svg>
+
+                    </div>
+
+                  </div>
+
+                  <div id="id_EditPage_editFunctionTwoSided_Selection3" onclick="changeTwoSideFunction(3);" style="width:15vw; background:rgb(220,220,220);             padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer;">
+
+                    <div class="row">
+                      <p class="standardText " style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Value <br> (100%, 0%, 100%)</p>
+                      <p class="standardText " style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:20%; font-weight:bold;">AND </p>
+                      <p class="standardText " style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Saturation <br> (100%, 0%)</p>
+                    </div>
+
+                    <div class="row">
+                      <svg style="border: 0.2vh solid black; height:3vw; width:40%; background:white; margin-top:1vh; margin-right:20%;">
+                                   <line x1="10%" y1="10%" x2="50%" y2="90%" style="stroke:rgb(0,0,0);stroke-width:2" />
+                                   <line x1="50%" y1="90%" x2="90%" y2="10%" style="stroke:rgb(0,0,0);stroke-width:2" />
+                                   <circle cx="10%" cy="10%" r="2.5%" fill="black" />
+                                   <circle cx="50%" cy="90%" r="2.5%" fill="black" />
+                                   <circle cx="90%" cy="10%" r="2.5%" fill="black" />
+                                 </svg>
+
+                      <svg style="border: 0.2vh solid black; height:3vw; width:40%; background:white; margin-top:1vh;">
+                                   <line x1="10%" y1="10%" x2="90%" y2="90%" style="stroke:rgb(0,0,0);stroke-width:2" />
+                                   <circle cx="10%" cy="10%" r="2.5%" fill="black" />
+                                   <circle cx="90%" cy="90%" r="2.5%" fill="black" />
+                                 </svg>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="row" style="width:100%; margin-top:1vh;">
+                  <div id="id_EditPage_editFunctionTwoSided_Selection4" onclick="changeTwoSideFunction(4);" style="width:15vw; margin-right:1vw; background:rgb(220,220,220); padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer;">
+
+                    <div class="row">
+                      <p class="standardText " style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Value <br> (0%, 100%, 0%)</p>
+                      <p class="standardText " style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:20%; font-weight:bold;">AND </p>
+                      <p class="standardText " style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Saturation <br> (0%, 100%)</p>
+                    </div>
+
+                    <div class="row">
+                      <svg style="border: 0.2vh solid black; height:3vw; width:40%; background:white; margin-top:1vh; margin-right:20%;">
+                                   <line x1="10%" y1="90%" x2="50%" y2="10%" style="stroke:rgb(0,0,0);stroke-width:2" />
+                                   <line x1="50%" y1="10%" x2="90%" y2="90%" style="stroke:rgb(0,0,0);stroke-width:2" />
+                                   <circle cx="10%" cy="90%" r="2.5%" fill="black" />
+                                   <circle cx="50%" cy="10%" r="2.5%" fill="black" />
+                                   <circle cx="90%" cy="90%" r="2.5%" fill="black" />
+                                 </svg>
+
+                      <svg style="border: 0.2vh solid black; height:3vw; width:40%; background:white; margin-top:1vh;">
+                                   <line x1="10%" y1="90%" x2="90%" y2="10%" style="stroke:rgb(0,0,0);stroke-width:2" />
+                                   <circle cx="10%" cy="90%" r="2.5%" fill="black" />
+                                   <circle cx="90%" cy="10%" r="2.5%" fill="black" />
+                                 </svg>
+
+                    </div>
+
+                  </div>
+
+                  <div id="id_EditPage_editFunctionTwoSided_Selection5" onclick="changeTwoSideFunction(5);" style="width:15vw; background:rgb(220,220,220);  padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer;">
+
+                    <div class="row">
+                      <p class="standardText " style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Value <br> (0%, 100%, 0%)</p>
+                      <p class="standardText " style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:20%; font-weight:bold;">AND </p>
+                      <p class="standardText " style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Saturation <br> (100%, 0%)</p>
+                    </div>
+
+                    <div class="row">
+                      <svg style="border: 0.2vh solid black; height:3vw; width:40%; background:white; margin-top:1vh; margin-right:20%;">
+                                   <line x1="10%" y1="90%" x2="50%" y2="10%" style="stroke:rgb(0,0,0);stroke-width:2" />
+                                   <line x1="50%" y1="10%" x2="90%" y2="90%" style="stroke:rgb(0,0,0);stroke-width:2" />
+                                   <circle cx="10%" cy="90%" r="2.5%" fill="black" />
+                                   <circle cx="50%" cy="10%" r="2.5%" fill="black" />
+                                   <circle cx="90%" cy="90%" r="2.5%" fill="black" />
+                                 </svg>
+
+                      <svg style="border: 0.2vh solid black; height:3vw; width:40%; background:white; margin-top:1vh;">
+                                   <line x1="10%" y1="10%" x2="90%" y2="90%" style="stroke:rgb(0,0,0);stroke-width:2" />
+                                   <circle cx="10%" cy="10%" r="2.5%" fill="black" />
+                                   <circle cx="90%" cy="90%" r="2.5%" fill="black" />
+                                 </svg>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div id="id_EditPage_editProbeColor_Div" class="row" style="width:100%; margin-top:1vh; margin-bottom:1vh;">
+          <p class="standardText " style="font-weight:bold; width:40%; margin-top:auto; margin-bottom:auto; margin-left:1vw;">Color:</p>
+
+          <div style="margin:auto; margin-left:5%; display:flex; width:40%;">
+            <div id="id_inputEditProbeColor" style="width: 2vw; height:2vw; border: 0.2vh solid black; margin-left:1vw; margin-top:auto; margin-bottom:auto; cursor:pointer;"></div>
+            <canvas id="id_inputEditProbeColorPreview" style="width: 8vw; height:2vw; border: 0.2vh solid black; margin-left:1vw; margin-top:auto; margin-bottom:auto; background:white;"></canvas>
+          </div>
+        </div>
+
+        <button  class="class_generalbutton" onclick="addOrUpdateProbe()" type="button" name="button" style=" margin-left:25%; width:50%; margin-top:2vh;"> <p id="id_EditPage_AddUpdateProbeButton">Update Probe</button>
+
+
+      </div>
+
+
+    </div>
+
+
+    <div style="display:flex; height: 8vh; border-top:0.2vh solid black; ">
+      <p id="id_EditPage_ProbePreviewLabel" class="standardText " style="font-weight:bold; margin-top:auto; margin-bottom:auto;"> Preview: </p>
+      <canvas id="id_EditPage_ProbePreview" style="width:85%; height:6vh; border: 0.2vh solid black; margin-top:2vh;"></canvas>
+    </div>
+  </div>

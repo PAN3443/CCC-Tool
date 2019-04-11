@@ -1,0 +1,250 @@
+<!--
+-----------------------------------------------
+----------------	 Header 	  -----------------
+-----------------------------------------------
+-->
+    <div class="row" style="width:100%; height:100%; margin:0px;">
+
+
+      <img src="img/Logos/CCC-LOGO_new.png" alt="CCC-Tool Logo" style="height:80%; margin-left:1vw; margin-right:0.5vw; margin-top:auto; margin-bottom:auto;">
+
+      <p id="id_header_ccctoolLabel" style="margin:0px; text-align:left; vertical-align: middle; color:white; font-size: 3vh; margin-top:auto; line-height:5vh; margin-bottom:auto; margin-right:auto; cursor: none;" onclick=""><strong>C</strong>harting <strong>C</strong>ontinuous <strong>C</strong>olormap </p>
+
+
+      <p id="id_header_colorBlindWarning" class="standardText " style="margin:0px; vertical-align: middle; color:red; font-size: 3vh; line-height:5vh; margin-top:auto; margin-bottom:auto; color:red; visibility:hidden; cursor:help; margin-right:1vw;" title="Colorblind Modus">&#128065;</p>
+      <p id="id_header_editWarning" class="standardText " style="margin:0px; vertical-align: middle; color:white; font-size: 3vh; line-height:5vh; margin-top:auto; margin-bottom:auto; color:red; visibility:hidden; cursor:help;" title="Unsaved Content">&#9888;</p>
+
+      <div style="height:100%; width:auto; position: relative; display: inline-block;">
+        <div onclick="activateNaviDropdown()" class="menu_button"> Navi &#128743; </div>
+
+        <div id="id_dropDownContainerNavi" style="background: rgba(0,0,0,0.85); min-width:30vw;  display: none; position: absolute; right: 0; z-index: 101;">
+
+          <div class="row" style="margin-top:0.25vh; width:100%;">
+            <p class="standardText" style="margin-left:2vw; margin-right:auto; font-size: 3vh; font-weight: bold; color:white; height:4vh; line-height:4vh;">Navigator:</p>
+            <p class="standardText" style="margin-right:2vw; margin-left:auto; font-size: 3vh;  color:white; height:4vh; line-height:4vh;">&#128743;</p>
+          </div>
+
+            <div id="id_navi_WelcomePage" class="navi_div" style="margin-left: auto; margin-right: auto; width:10vw;">
+              <p class="navi_Label" style="margin-right:none;" id="id_navi_WelcomePage_Label"></p>
+              <p>Welcome Page</p>
+            </div>
+
+            <canvas class="navi_canvas" id="id_navi_WelcomeToMyDesigns" style="margin-left: auto; margin-right: auto;"></canvas>
+
+            <div id="id_navi_MyDesigns" class="navi_div" style="margin-left: auto; width:10vw; margin-right: auto;">
+              <p class="navi_Label" style="margin-right:none;" id="id_navi_MyDesigns_Label"></p>
+              <p>MyDesigns</p>
+            </div>
+
+            <canvas class="navi_canvas" id="id_navi_ArrowsFromMyDesigns"  style="margin-left: auto; margin-right: auto; width: 55vw; margin-left:2vw; "></canvas>
+
+            <div class="row" style="margin-left:2vw; margin-right:2vw; margin-bottom: 5vh;">
+              <div id="id_navi_Testing" class="navi_div">
+                <p class="navi_Label" style="margin-right:none;" id="id_navi_Testing_Label"></p>
+                <p>Testing</p>
+              </div>
+              <div id="id_navi_New" class="navi_div" style="margin-left:5vw;">
+                <p class="navi_Label" style="margin-right:none;" id="id_navi_New_Label"></p>
+                <p>New</p>
+              </div>
+              <canvas class="navi_canvas" id="id_navi_NewToEdit" ></canvas>
+              <div id="id_navi_Edit" class="navi_div">
+                <p class="id_navi_Edit_Label" id="id_navi_Edit_Label"></p>
+                <p>Edit</p>
+              </div>
+              <canvas class="navi_canvas" id="id_navi_GalleryToEdit" ></canvas>
+              <div id="id_navi_Gallery" class="navi_div">
+                <p class="navi_Label" style="margin-right:none;" id="id_navi_Gallery_Label"></p>
+                <p>Gallery</p>
+              </div>
+            </div>
+
+
+        </div>
+        <!--End Dropdown Container -->
+
+      </div>
+      <!--End Dropdown Navi Button -->
+
+      <div class="menu_buttonNotActive" style="height:100%; width:auto;">
+        Log In
+      </div>
+
+      <div class="menu_buttonNotActive" style="height:100%; width:auto;">
+        Register
+      </div>
+
+
+
+      <div style="height:100%; width:auto; position: relative; display: inline-block;">
+        <div onclick="activateMenuDropdown()" class="menu_button"> Menu </div>
+
+        <div id="id_dropDownContainer" style="background: rgb(0, 11, 25); min-width:20vw;  display: none; position: absolute; right: 0; z-index: 101;">
+
+
+          <div class="row dropdownMenuLabelBox" style="background:rgba(255,255,255,0.3); border-bottom: 1px solid white;">
+
+            <div class="dropdownMenuLabelImg" style=" background: url(img/Buttons/gear_wheel.png);background-size:cover; background-repeat:no-repeat; background-position: center center;">
+
+            </div>
+
+            <p class="dropdownMenuLabel"> Settings: </p>
+
+          </div>
+
+
+          <div class="dropdownNotActiveMenuButton">
+            Account
+          </div>
+          <div onclick="openColorSettings()" class="dropdownMenuButton">
+            Color Transformation
+          </div>
+          <div onclick="openColorMetrics()" class="dropdownMenuButton">
+            Color Difference Metrics
+          </div>
+
+          <div onclick="openColorBlindnessSettings()" class="dropdownMenuButton">
+            Color Blindness
+          </div>
+
+          <!--div id="id_settingMenu_Label_RGBPossible_Button" oonclick="changeColorPossiblity()" class="dropdownNotActiveMenuButton" style="display:none;">
+            Allow RGB Incompalible Colors : false
+          </div-->
+
+          <div id="id_settingMenu_Label_AnalyzeUpdate_Button" onclick="changeAutoAnalyze()" class="dropdownMenuButton" style="display:none">
+            Deactivate Automatical Analyze Update
+          </div>
+
+          <div id="id_settingMenu_Label_MappingUpdate_Button" onclick="changeAutoMapping()" class="dropdownMenuButton" style="display:none">
+            Deactivate Automatical Mapping Update
+          </div>
+
+
+          <div id="id_actionMenu_Label" class="row dropdownMenuLabelBox" style="background:rgba(255,255,255,0.3); border-bottom: 1px solid white; display:none;">
+
+            <div class="dropdownMenuLabelImg" style=" background: url(img/Buttons/actionImg.png);background-size:cover;  background-repeat:no-repeat; background-position: center center;">
+            </div>
+
+            <p class="dropdownMenuLabel"> Action: </p>
+
+          </div>
+
+
+          <div id="id_actionMenu_editPart" style="display:none;">
+            <div id="id_actionMenu_undo" onclick="undo()" class="dropdownMenuButton">
+              Undo
+            </div>
+            <div id="id_actionMenu_redo" onclick="redo()" class="dropdownMenuButton">
+              Redo
+            </div>
+            <div id="id_actionMenu_clearButton" onclick="clearColormap()" class="dropdownMenuButton">
+              Clear CMS
+            </div>
+            <div id="id_actionMenu_scaleButton" onclick="openScale()" class="dropdownMenuButton">
+              Scale CMS
+            </div>
+            <div id="id_actionMenu_exportButton" onclick="openExportWindow()" class="dropdownMenuButton">
+              Export CMS
+            </div>
+
+          </div>
+
+          <div id="id_actionMenu_myDesignPart" style="display:none;">
+            <div class="dropdownMenuButton" onclick="loadCMS()">
+              Import CMS
+            </div>
+            <div class="dropdownMenuButton" onclick="loadSession()">
+              Import Session
+            </div>
+            <div class="dropdownMenuButton" onclick="saveSession()">
+              Export Session
+            </div>
+          </div>
+
+          <div id="id_actionMenu_testPart" style="display:none;">
+            <div class="dropdownMenuButton" onclick="showMyDesignsPage()">
+              Back to MyDesigns
+            </div>
+            <div class="dropdownNotActiveMenuButton" onclick="">
+              Create Report
+            </div>
+          </div>
+
+
+          <div id="id_dropDownMenu_DisplayOptions" style="display:none;">
+            <div class="row dropdownMenuLabelBox" style="background:rgba(255,255,255,0.3); border-bottom: 1px solid white;">
+
+              <div class="dropdownMenuLabelImg" style=" background: url(img/Buttons/displayImg.png);background-size:cover; background-repeat:no-repeat; background-position: center center;">
+
+              </div>
+
+              <p class="dropdownMenuLabel"> Display: </p>
+
+            </div>
+
+
+            <div id="id_dropDownMenue_StructureWindow_Label" onclick="updateAddStructureStatus()" class="dropdownMenuButton">
+              &#9673; Structure Window
+            </div>
+            <div id="id_dropDownMenue_EditWindow_Label" onclick="updateEditKeyPathPlotStatus()" class="dropdownMenuButton">
+              &#9673; Edit Window
+            </div>
+            <div id="id_dropDownMenue_AnalyzeWindow_Label" onclick="updateAnalzyeMappingProbeSetStatus()" class="dropdownMenuButton">
+              &#9673; Analysis Window
+            </div>
+            <div id="id_dropDownMenue_TableWindow_Label" onclick="updateTableStatus()" class="dropdownMenuButton">
+              &#9673; Table Window
+            </div>
+            <div id="id_dropDownMenue_ShowHistogram" onclick="showHideHistogram()" class="dropdownNotActiveMenuButton">
+              &#9675; Histogram
+            </div>
+
+
+            <div onclick="openShortcutsWindow()" class="dropdownMenuButton">
+              Show Shortcuts
+            </div>
+
+            <div id="id_dropDownMenue_LimitKeyBurLine_Label" onclick="changeLimitKeyBurLine()" class="dropdownMenuButton">
+              Show Full Key Burdock Line
+            </div>
+
+
+
+
+          </div>
+
+
+          <div style="width:100%; border-top:1px solid white;">
+
+            <div id="id_settingMenu_Label_ReturnMyDesigns_Button" onclick="startLeaveEditPage()" class="dropdownMenuButton" style="display:none">
+              Return to MyDesigns
+            </div>
+
+            <div onclick="openImpressum()" class="dropdownMenuButton">
+              Show Impressum / Contact
+            </div>
+
+            <div onclick="openTutorialWindow()" class="dropdownMenuButton">
+              Show Tutorials
+            </div>
+
+            <div class="dropdownNotActiveMenuButton">
+              Log Out
+            </div>
+
+
+
+
+          </div>
+
+
+        </div>
+        <!--End Dropdown Container -->
+
+      </div>
+      <!--End Dropdown Menu Button -->
+
+
+
+    </div>
+    <!--End Row -->

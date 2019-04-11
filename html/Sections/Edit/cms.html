@@ -1,0 +1,81 @@
+<!--
+---------------------------------------------------------
+-------------  	Section Edit : CMS	  ---------------
+--------------------------------------------------------
+-->
+<div style="width:100%; height:8.5vh; background-image: linear-gradient(rgb(60,60,60), rgb(40,40,40)); border-bottom:0.2vh solid black;">
+
+  <div style="display:flex; width:100%; height:4.5vh; border-bottom:0.2vh solid grey;">
+    <div style=" display:flex; width:50%; border-right: 0.2vh solid grey; ">
+      <p class="class_EditPage_EditButtonLabel" style="margin-right:0.5vw;">Name:</p>
+      <input id="id_EditPage_CMSName" type="text" class="class_EditPage_EditButtonLabel" id="id_EditPage_CMSName" style="background:none; margin-left:0.5vw;" name="cmsname" required placeholder="Please enter a name for your colormap" />
+    </div>
+    <div style="display:flex; width:50%; border-right: 0.2vh solid grey; ">
+      <p class="class_EditPage_EditButtonLabel">Interpolation: </p>
+      <p id="id_header_interpolationSpaceWarning" class="class_EditPage_EditButtonLabel"> &#9786; </p>
+      <select id="id_editPage_InterpolationSelect" class="class_EditPage_EditButtonLabel" name="InterpolationSpaceList" style="background:none;" onchange="changeColorspace()">
+        <optgroup label="&#9786; Perceptually Uniform:">
+          <option value="lab" style="color:black; background:white;">Lab</option>
+          <option value="din99" style="color:black; background:white;">DIN99</option>
+          <option value="de94" disabled>Lab using de94</option>
+          <option value="de2000" disabled>Lab using CIEDE2000</option>
+        </optgroup>
+        <optgroup label="&#9785; Not Perceptually Uniform:">
+          <option value="rgb" style="color:black; background:white;">RGB</option>
+          <option value="hsv" style="color:black; background:white;">HSV</option>
+        </optgroup>
+      </select>
+    </div>
+  </div>
+
+  <div style="display:flex; width:100%; height:4vh;">
+
+    <div style=" display:flex; width:60%; border-right: 0.2vh solid rgb(180,180,180); ">
+      <button class="class_EditPage_EditButton" type="button" name="button" title="undo" onclick="undo()">&#8634;</button>
+      <button class="class_EditPage_EditButton" type="button" name="button" title="redo" onclick="redo()">&#8635;</button>
+      <button class="class_EditPage_EditButton" type="button" name="button" title="save" onclick="saveCMS()">&#9715;</button>
+
+      <div style="width:0.01vw; height:100%; border-right:0.2vh solid grey;"></div>
+
+
+      <button class="class_EditPage_EditButton" type="button" name="button" title="clear" onclick="clearColormap()">&#9746;</button>
+      <button class="class_EditPage_EditButton" type="button" name="button" title="scale" onclick="openScale()">&#8596;</button>
+      <button class="class_EditPage_EditButton" type="button" name="button" title="reverse" onclick="reverseCMS()">&#8644;</button>
+      <button class="class_EditPage_EditButton" type="button" name="button" title="Burdock" onclick="changeLimitKeyBurLine()">&#9728;</button>
+      <button class="class_EditPage_EditButton" type="button" name="button" title="Color-Blindness" onclick="changeColorblindness()">&#128065;</button>
+
+
+      <div style="width:0.01vw; height:100%; border-right:0.2vh solid grey;"></div>
+
+      <button class="class_EditPage_EditButton" type="button" name="button" title="export" onclick="openExportWindow()">&#8615;</button>
+      <button class="class_EditPage_EditButton" type="button" name="button" title="MyDesigns" onclick="startLeaveEditPage()">&#9750;</button>
+    </div>
+    <div style="display:flex; width:40%; border-right: 0.2vh solid rgb(180,180,180); ">
+      <p class="class_EditPage_EditButtonLabel">NaN:</p>
+      <button id="id_EditPage_CMS_NaN_Color" class="class_EditPage_EditButton" type="button" name="button" title="NaN"></button>
+      <p class="class_EditPage_EditButtonLabel">Above:</p>
+      <button id="id_EditPage_CMS_Above_Color" class="class_EditPage_EditButton" type="button" name="button" title="Above"></button>
+      <p class="class_EditPage_EditButtonLabel">Below:</p>
+      <button id="id_EditPage_CMS_Below_Color" class="class_EditPage_EditButton" type="button" name="button" title="Below"></button>
+    </div>
+  </div>
+
+</div>
+
+<div style="height:auto; width:100%;">
+  <canvas id="id_EditPage_CMS_VIS_LinearKeys" class="classColormapCanvas" style="display:block; width:100%; height:2vh; padding-top: 0.5vh;"></canvas>
+  <canvas id="id_EditPage_CMS_VIS_Lines1" class="classColormapCanvas" style="display:block; width:100%; height:0.5vh;"></canvas>
+  <canvas id="id_EditPage_CMS_VIS_ColormapLinear" class="classColormapCanvas" style=" display:block; width:90%; margin-left:5%; margin-right:5%; height:3.5vh; border:0.2vh solid black; background:grey;"></canvas>
+
+  <canvas id="id_EditPage_CMS_VIS_KeyBurs" class="classColormapCanvas" style=" display:block; width:100%; height:2vh;"></canvas>
+  <img id="id_EditPage_DragImage" src="img/CCCToolComic/dragImg.jpg" style="height:6.5vh; margin-left:auto; margin-right:auto; display:none;">
+  <canvas id="id_EditPage_CMS_VIS_SketchKeyNumbers" class="classColormapCanvas" style="display:block; width:100%; height:2vh;"></canvas>
+  <canvas id="id_EditPage_CMS_VIS_SketchKeys" class="classColormapCanvas" style="display:block; width:100%; height:2vh;"></canvas>
+  <canvas id="id_EditPage_CMS_VIS_Lines2" class="classColormapCanvas" style="display:block; width:100%; height:0.5vh; "></canvas>
+  <canvas id="id_EditPage_CMS_VIS_ColormapSketch" class="classColormapCanvas" style="display:block; width:90%; margin-left:5%; margin-right:5%; height:3.5vh;"></canvas>
+  <div id="id_EditPage_CMS_VIS_Lines3" class="classColormapCanvas" style="display:block; width:90%; height:0.5vh; border-left:0.2vh solid black; border-right:0.2vh solid black; margin-left:5%;"></div>
+  <div style="display:flex; width:90%; margin-left:5%;">
+    <p id="id_EditPage_CMS_VIS_Label1" class="standardText" style="height:1.5vh; line-height:1.5vh; font-size:1.vh;">0</p>
+    <p id="id_EditPage_CMS_VIS_Label2" class="standardText" style="margin-left:auto; height:1.5vh; line-height:1.5vh; font-size:1.vh;">1</p>
+  </div>
+</div>

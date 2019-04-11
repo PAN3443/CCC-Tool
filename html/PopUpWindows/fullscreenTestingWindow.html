@@ -1,0 +1,45 @@
+<!--
+-----------------------------------------------
+----------------  	Fulscreen Testing Window	  -----------------
+-----------------------------------------------
+-->
+<div style="height:100vh; width:100vw; margin-left:auto; margin-right:auto;">
+
+  <div class="row" style="background:black; height:5vh;">
+
+    <h1 class="class_popupWindow_Label" style="height:5vh; line-height:5vh; font-size:3.5vh; ">Fullscreen Test Mapping</h1>
+    <div style="height:5vh; line-height:5vh; font-size:3.5vh; color:white; cursor:pointer;" onclick="closeFullTestMappingScreen()">
+      X
+    </div>
+
+  </div>
+
+
+  <div id="id_TestFull_MeshVis" class="row" style="background: rgb(50,50,50);">
+    <div style="position: relative; border:0.2vh solid black; margin:auto; margin-right:0vw; height:95vh; width:50vw;">
+        <div id="id_Test_MeshVisDivFull" style="position: absolute; left: 0; top: 0; z-index: 0; height:100%; width:100%; overflow:hidden; background: url(img/EditPage/plotBackground.png); background-size:cover; background-repeat:no-repeat; background-position: center center;">
+        </div>
+        <div class="row" style="position: absolute; left: 0; top: 0; float:right; z-index: 1;">
+          <div id="id_TestPage_HightmapButtonFull" class="class_Test_RenderButton" title="Modus 2D,Hightmap" onclick="switchHightmap()">3D</div>
+          <a id="id_Test_downloadScreenshotFull" download="CCC_Tool_TestImage.png" class="class_Test_RenderButton" title="Screenshot">&#9688;</a>
+          <div class="class_Test_RenderButton" onclick="showTestingAxis()" title="Show/Hide Axis" >&#9531;</div>
+          <div class="class_Test_RenderButton" onclick="showTestingBoundingBox()" title="Show/Hide Bounding Box" >&#9635;</div>
+      </div>
+      </div>
+      <div style="position: relative; border:0.2vh solid black; border-left:none; margin:auto; margin-left:0vw; height:95vh; width:50vw; ">
+        <div id="id_Test_MeshVisDivGreyFull" style="position: absolute; left: 0; top: 0; z-index: 0; height:100%; width:100%; overflow:hidden; background: url(img/EditPage/plotBackground.png); background-size:cover; background-repeat:no-repeat; background-position: center center;">
+        </div>
+        <div class="row" style="position: absolute; left: 0; top: 0; float:right; z-index: 1;">
+          <a id="id_Test_downloadScreenshotGreyFull" download="CCC_Tool_TestImage_GreyScaled.png" class="class_Test_RenderButton" title="Screenshot" >&#9688;</a>
+        </div>
+      </div>
+  </div>
+
+  <div id="id_TestFull_PixelVis" class="row">
+      <canvas id="id_Test_PixelCanvasFull" style="margin:auto; height:95vh; max-height:50vw; width:50vw; max-width:95vh;">
+      </canvas>
+      <canvas id="id_Test_PixelCanvasGreyFull" style="margin:auto; height:95vh; max-height:50vw; width:50vw; max-width:95vh;">
+      </canvas>
+  </div>
+
+</div>

@@ -1,0 +1,187 @@
+<!--
+---------------------------------------------------------
+-------------  	Section Edit : Analyze	  ---------------
+--------------------------------------------------------
+-->
+
+<div class="row" style="width:100%;">
+
+  <div style="width:15vw; border-right: 1px solid grey; height:100%; background:rgb(220,220,220);">
+
+    <p class="subsectionLabel class_InsetLabelText" style="margin-top:2vh; margin-bottom:1vh; color:transparent;"> Select Plot:</p>
+    <select id="id_EditPage_SelectAnalyzePlot" class="standardText" style="margin-bottom: auto; width:80%; margin-left:10%; margin-top:0.5vh;">
+     <option class="standardText" value=" Interpolation Colorspace" >Interpolation Colorspace</option>
+     <option class="standardText" value="Band Speed" >Band Speed</option>
+     <option class="standardText" value="LocalSpeed" >Local Speed</option>
+     <option class="standardText" value="GlobalSpeed" >Global Speed</option>
+     <option class="standardText" value="Order" >Order</option>
+    </select>
+
+    <button class="class_generalbutton" onclick="updateAnalyze()" type="button" name="button" style="width:80%; margin-left:10%; margin-top:20px;">Update</button>
+    <p class="standardText" style="width:80%; margin-left:10%;">(Info: If you have deactivated the automatical calculation of the analyze plots, you can update the plots manually by this button.)</p>
+  </div>
+
+
+
+  <div style="height:100%;">
+    <div id="id_EditPage_Analyze_EmptyDiv" class=" class_EditDiv_SubDiv" style="display:none; width:41vw; height:100%; ">
+
+      <p class="standardText" style="margin:auto; color:grey; font-weight:bold;">The CMS is Empty. <br> No analysis is possible.</p>
+
+
+    </div>
+    <div id="id_EditPage_AnalyzePlot_Container" class="row" style="height:100%; width:41vw;">
+
+      <div id="id_EditPage_AnalyzeContainer_GlobalLocalOrder" style="height:100%; width:100%; overflow:none; background:rgb(220,220,220);">
+
+
+        <div style=" display:flex; margin:auto; width:100%; background:white; border-top:0.2 solid grey; border-bottom:0.2 solid grey; ">
+          <div style="margin-right:1vw; margin-left: auto;">
+            <p id="id_editPage_OrderAxisLabel1" class="standardText" style="height:4.5vh; line-height: 4.5vh; text-align:bottom; font-weight:bold; ">Local Order</p>
+            <canvas id="id_EditPage_Canvas_GlobalLocalOrder" style="height:50vh; width:20vw; border: 0.2vh solid black; background: url(img/EditPage/plotBackground.png); background-size:cover; background-repeat:no-repeat; background-position: center center; cursor:pointer;" onclick="openFullAnalyzeScreen();"></canvas>
+            <p id="id_editPage_OrderAxisLabel2" class="standardText" style="height:4.5vh; line-height: 4.5vh; text-align:top; font-weight:bold;">Negative Global Order</p>
+          </div>
+
+
+
+          <div id="id_EditPage_LabelDiv_GlobalLocalOrder" style="overflow-y:auto; width:20vw; margin-right: auto;">
+
+            <p class="subsectionLabel class_InsetLabelText" style="color:transparent; margin-top:1vh; margin-bottom:1vh;"> Values:</p>
+
+            <p id="id_EditPage_Max_GlobalLocalOrder" class="standardText" style="margin-top:2%; width:100%;">Max:</p>
+            <p id="id_EditPage_Min_GlobalLocalOrder" class="standardText" style="margin-top:2%; width:100%;">Min:</p>
+            <p id="id_EditPage_Average_GlobalLocalOrder" class="standardText" style="margin-top:2%; width:100%;">Average:</p>
+            <p id="id_EditPage_Deviation_GlobalLocalOrder" class="standardText" style="margin-top:2%; width:100%;">Deviation:</p>
+
+            <div style="width:100%; height:0.01vh; border-bottom:0.2vh solid grey; margin-top:1vh; margin-bottom:1vh;"></div>
+
+            <p class="subsectionLabel class_InsetLabelText" style="color:transparent; margin-top:1vh; margin-bottom:1vh;">Settings:</p>
+
+
+
+            <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-left:0px; font-weight:bold;">Color Difference:</p>
+
+            <select class="standardText" id="id_AnalyzeSubContainer_Select" style="margin-left:10%;">
+                      <option >Lab (Euclidean Distance)</option>
+                      <option >Lab (de94)</option>
+                      <option >Lab (CIEDE2000)</option>
+                      <option >DIN99 (Euclidean Distance)</option>
+                    </select>
+
+
+
+            <p class="standardText" style="margin-top:auto; margin-bottom:auto; font-weight:bold; ">CMS Section:</p>
+            <div class="row" style="width:100%;  margin-top:0.5vh;">
+              <p class="standardText" style="margin-left:10%; margin-top:auto; margin-bottom:auto;">From Key:</p>
+              <select class="standardText" id="id_EditPage_SelectFrom_GlobalLocalOrder" style="margin:auto; margin-left:0.5vw;">
+
+                    </select>
+
+              <p class="standardText" style="margin:auto;">Till Key:</p>
+              <select class="standardText" id="id_EditPage_SelectTill_GlobalLocalOrder" style="margin:auto; margin-left:0.5vw;">
+
+                    </select>
+            </div>
+
+            <div style="width:100%; height:0.01vh; border-bottom:0.2vh solid grey; margin-top:1vh; margin-bottom:1vh;"></div>
+
+            <div id="id_EditPage_FixedAxisDiv_GlobalLocalOrder" style="width:100%; display:none;">
+              <div class="row" style="width:100%;">
+                <p id="id_EditPage_FixedAxisLabel_GlobalLocalOrder" class="standardText" style=" margin-right:0.5vw; margin-top:auto; margin-bottom:auto; font-weight:bold;">Fixed Maximum</p> <input id="id_EditPage_DoFixedAxis_GlobalLocalOrder" type="checkbox" class="standardText">
+              </div>
+
+              <div class="row" style="width:100%;">
+                <p class="standardText" style=" margin-top:0.5vh; margin-bottom:auto; margin-left:10%;">Border:</p> <input id="id_EditPage_InputFixedAxis_GlobalLocalOrder" type="number" class="standardText" min="0" step="any" style="margin-left:0.5vw;">
+              </div>
+
+
+              <div id="id_EditPage_ColorAboveDiv_GlobalLocalOrder" class="row" style="width:100%; margin-top:0.5vh;">
+                <p class="standardText" style="margin-bottom:auto; margin-left:10%;">Color Above:</p>
+                <div id="id_EditPage_ColorAboveFixedAxis_GlobalLocalOrder" style="margin-left:0.5vw; width:3vh; height:3vh; border: 0.2vh solid black; border-radius:0.5vh;"></div>
+              </div>
+            </div>
+
+            <div id="id_EditPage_DoLogDiv_GlobalLocalOrder" style="width:100%; margin-top:2.5%; z-index: 99;">
+              <div class="row" style="width:100%; ">
+                <p class="standardText" style="margin-top:auto; margin-right:0.5vw; margin-bottom:auto; margin-left:0px; font-weight:bold;">Logatrithm Mapping:</p> <input id="id_EditPage_DoLogSelect_GlobalLocalOrder" type="checkbox" class="standardText">
+              </div>
+
+              <div style="width:100%; height:0.01vh; border-bottom:0.2vh solid grey; margin-top:1vh; margin-bottom:1vh;"></div>
+            </div>
+
+
+
+
+            <p class="standardText" style="margin-left:0px; font-weight:bold;">Interval Calculation:</p>
+
+            <div>
+              <div class="row">
+                <input class="standardText" style="margin-right: 0.5vw; margin-left: 10%; margin-top:auto; margin-bottom:auto;" type="radio" id="id_editPage_Anaylze_IntervalNumber" name="editPage_intervalCalcType" value="0" checked="checked">
+                <label class="standardText" for="id_editPage_Anaylze_IntervalNumber" style="margin-top:auto; margin-bottom:auto;"> Fixed Number of Interval Colors </label>
+              </div>
+              <div class="row">
+                <input class="standardText" style="margin-right: 0.5vw; margin-left: 10%; margin-bottom:auto;" type="radio" id="id_editPage_Anaylze_IntervalColorDifference" name="editPage_intervalCalcType" value="1">
+                <label class="standardText" for="id_editPage_Anaylze_IntervalNumber" style="margin-top:auto; margin-bottom:auto;"> Color Difference Dependenting Intervals  </label>
+              </div>
+            </div>
+
+
+            <div class="row" style="width:100%; margin-bottom:1vh; z-index: 99;">
+              <p class="standardText" id="id_editPage_Anaylze_IntervalCalcInputLabel" style="margin-left:10%; margin-top:0.5vh; margin-bottom:auto;">Number of Intervals:</p> <input id="id_editPage_Anaylze_IntervalCalcInput" type="number" class="standardText" min="0" step="any" style="margin-left:0.5vw;">
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+      </div>
+
+      <div id="id_EditPage_AnalyzeContainer_SpacesKeyspeed" style="height:100%; width:100%;">
+
+        <div id="id_EditPage_AnalyzeContainer_SpacesSelectVisType" style="width:100%; margin-top:1vh;">
+          <div class="row" style="width:100%;">
+            <p class="standardText" style="margin-left:auto; margin-right:5%; margin-top:1vh; margin-bottom:1vh; width:25%; text-align:right; font-weight:bold;"> Visualization Type: </p>
+            <input type="radio" class="standardText" id="id_EditPage_AnalyzeSelect_LinearVisType" name="editPage_SpaceVisType" checked>
+            <p class="standardText" style="margin-left:2.5%; margin-right:5%; margin-top:auto; margin-bottom:auto; text-align:right;">: Linear </p>
+            <input type="radio" class="standardText" id="id_EditPage_AnalyzeSelect_SketchVisType" name="editPage_SpaceVisType">
+            <p class="standardText" style="margin-left:2.5%; margin-right:auto; margin-top:auto; margin-bottom:auto; text-align:right;">: Sketch </p>
+          </div>
+        </div>
+
+
+        <p id="id_EditPage_MatricLabel_IntSpaceKeySpeed" class="subsectionLabel class_InsetLabelText" style="margin-left:5%; margin-top:1vh; text-decoration:underline; color:transparent;">Metrics: </p>
+        <div id="id_EditPage_MatricDiv1_IntSpaceKeySpeed" class="row" style="width:100%; margin-top:1vh;">
+          <p class="standardText" style="margin-left:5%; margin-top:auto; margin-bottom:auto; width:10%; text-align:right;">de94: </p>
+          <canvas id="id_EditPage_CanvasDE94_IntSpaceKeySpeed" class="class_Analysis_Colormaps" style="margin-left:5%; width:75%; height:10vh;"></canvas>
+        </div>
+        <div id="id_EditPage_MatricDiv2_IntSpaceKeySpeed" class="row" style="width:100%; margin-top:1vh;">
+          <p class="standardText" style="margin-left:5%; margin-top:auto; margin-bottom:auto; width:10%; text-align:right;">CIEDE2000: </p>
+          <canvas id="id_EditPage_CanvasCIEDE2000_IntSpaceKeySpeed" class="class_Analysis_Colormaps" style="margin-left:5%; width:75%; height:10vh;"></canvas>
+        </div>
+
+
+        <p id="id_EditPage_EuDisLabel_IntSpaceKeySpeed" class="subsectionLabel class_InsetLabelText" style="margin-left:2.5%; margin-top:1.5%; text-decoration:underline; color:transparent;">Euclidean Disance: </p>
+        <div class="row" style="width:100%; margin-top:1vh;">
+          <p class="standardText" style="margin-left:5%; margin-top:auto; margin-bottom:auto; width:10%; text-align:right;">Lab: </p>
+          <canvas id="id_EditPage_CanvasLAB_IntSpaceKeySpeed" class="class_Analysis_Colormaps" style="margin-left:5%; width:75%; height:10vh;"></canvas>
+        </div>
+        <div class="row" style="width:100%; margin-top:1vh;">
+          <p class="standardText" style="margin-left:5%; margin-top:auto; margin-bottom:auto; width:10%; text-align:right;">DIN99: </p>
+          <canvas id="id_EditPage_CanvasDIN99_IntSpaceKeySpeed" class="class_Analysis_Colormaps" style="margin-left:5%; width:75%; height:10vh;"></canvas>
+        </div>
+        <div class="row" style="width:100%; margin-top:1vh;">
+          <p class="standardText" style="margin-left:5%; margin-top:auto; margin-bottom:auto; width:10%; text-align:right;">RGB: </p>
+          <canvas id="id_EditPage_CanvasRGB_IntSpaceKeySpeed" class="class_Analysis_Colormaps" style="margin-left:5%; width:75%; height:10vh;"></canvas>
+        </div>
+        <div class="row" style="width:100%; margin-top:1vh;">
+          <p class="standardText" style="margin-left:5%; margin-top:auto; margin-bottom:auto; width:10%; text-align:right;">HSV: </p>
+          <canvas id="id_EditPage_CanvasHSV_IntSpaceKeySpeed" class="class_Analysis_Colormaps" style="margin-left:5%; width:75%; height:10vh;"></canvas>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
