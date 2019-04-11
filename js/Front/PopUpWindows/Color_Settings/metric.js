@@ -82,12 +82,11 @@ function switchMetricSettings(type){
 
   selectedMetric=type;
 
-  document.getElementById("id_PopUp_Select_MetricDe94").style.background=styleNotActiveColor;
-  document.getElementById("id_PopUp_Select_MetricDe2000").style.background=styleNotActiveColor;
+  document.getElementById("id_PopUp_Select_MetricDe94").classList.remove("class_EditPage_TabRowButtonActive");
+  document.getElementById("id_PopUp_Select_MetricDe2000").classList.remove("class_EditPage_TabRowButtonActive");
 
-
-  document.getElementById("id_PopUp_Select_MetricDe94").style.color=styleNotActiveColorFont;
-  document.getElementById("id_PopUp_Select_MetricDe2000").style.color=styleNotActiveColorFont;
+  document.getElementById("id_PopUp_Select_MetricDe94").classList.add("class_EditPage_TabRowButtonNotActive");
+  document.getElementById("id_PopUp_Select_MetricDe2000").classList.add("class_EditPage_TabRowButtonNotActive");
 
 
   // init
@@ -98,8 +97,8 @@ function switchMetricSettings(type){
 
   switch (type) {
     case 0:
-      document.getElementById("id_PopUp_Select_MetricDe94").style.background=styleActiveColor;
-      document.getElementById("id_PopUp_Select_MetricDe94").style.color=styleActiveColorFont;
+      document.getElementById("id_PopUp_Select_MetricDe94").classList.remove("class_EditPage_TabRowButtonNotActive");
+      document.getElementById("id_PopUp_Select_MetricDe94").classList.add("class_EditPage_TabRowButtonActive");
 
       document.getElementById("id_PopUp_Metric_Div4").style.display="flex";
       document.getElementById("id_PopUp_Metric_Div5").style.display="flex";
@@ -112,8 +111,8 @@ function switchMetricSettings(type){
 
       break;
       case 1:
-      document.getElementById("id_PopUp_Select_MetricDe2000").style.background=styleActiveColor;
-      document.getElementById("id_PopUp_Select_MetricDe2000").style.color=styleActiveColorFont;
+      document.getElementById("id_PopUp_Select_MetricDe2000").classList.remove("class_EditPage_TabRowButtonNotActive");
+      document.getElementById("id_PopUp_Select_MetricDe2000").classList.add("class_EditPage_TabRowButtonActive");
 
       document.getElementById("id_PopUp_Metric_Input1").value = de2000_k_L;
       document.getElementById("id_PopUp_Metric_Input2").value = de2000_k_C;

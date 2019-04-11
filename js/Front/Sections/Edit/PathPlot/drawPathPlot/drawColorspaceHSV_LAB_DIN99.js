@@ -240,25 +240,67 @@ function init_VPlot() {
   var canvasObj2 = document.getElementById("id_EditPage_PathPlot_Canvas3_0");
   var canvasContex2 = canvasObj2.getContext("2d");
 
-  drawVPlot(canvasContex0,canvasObj0.width,canvasObj0.height,"");
-  drawVPlot(canvasContex1,canvasObj1.width,canvasObj1.height,"");
-  drawVPlot(canvasContex2,canvasObj2.width,canvasObj2.height,"");
+  switch (pathColorspace) {
+  case "hsv":
+    drawVPlot(canvasContex0,canvasObj0.width,canvasObj0.height,0,1);
+    drawVPlot(canvasContex1,canvasObj1.width,canvasObj1.height,0,1);
+    drawVPlot(canvasContex2,canvasObj2.width,canvasObj2.height,0,1);
+   break;
+  case "lab":
+    drawVPlot(canvasContex0,canvasObj0.width,canvasObj0.height,0,1);
+    drawVPlot(canvasContex1,canvasObj1.width,canvasObj1.height,labSpaceRange*-1,labSpaceRange);
+    drawVPlot(canvasContex2,canvasObj2.width,canvasObj2.height,labSpaceRange*-1,labSpaceRange);
+    break;
+  case "din99":
+    drawVPlot(canvasContex0,canvasObj0.width,canvasObj0.height,0,1);
+    drawVPlot(canvasContex1,canvasObj1.width,canvasObj1.height,rangeA99Neg,rangeA99Pos);
+    drawVPlot(canvasContex2,canvasObj2.width,canvasObj2.height,rangeB99Neg,rangeB99Pos);
+    break;
+  }
+
+}
+
+
+function init_VPlot_Offscreen(){
+
+  ///// update CMS
+  drawBackgroundWorker1.postMessage(globalCMS1JSON);
+  drawBackgroundWorker2.postMessage(globalCMS1JSON);
+  drawBackgroundWorker3.postMessage(globalCMS1JSON);
+
+  /////
+  var workerJSON = {};
+
+  workerJSON['message'] = "draw";
+  workerJSON['space'] = pathColorspace;
+  workerJSON['type'] = "V1";
+  drawBackgroundWorker1.postMessage(workerJSON);
+
+  workerJSON.type = "V2";
+  drawBackgroundWorker2.postMessage(workerJSON);
+
+  workerJSON.type = "V3";
+  drawBackgroundWorker3.postMessage(workerJSON);
+
+
 }
 
 function drawcolormap_hueSpace(calcBackground, drawInterpolationLine, doInitVplot) {
 
+  if (doInitVplot){
+    if(browserCanOffscreenCanvas)
+      init_VPlot_Offscreen();
+    else
+      init_VPlot();
+  }
 
 
-  /*if (doInitVplot)
-    init_VPlot();
+
 
   if (calcBackground)
-    hueInit();*/
-
-
+    hueInit();//*/
 
   if (drawInterpolationLine){
-
 
     for (var i = pathPlotLineGroup.children.length - 1; i >= 0; i--) {
       pathPlotLineGroup.remove(pathPlotLineGroup.children[i]);

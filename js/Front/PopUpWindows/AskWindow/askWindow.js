@@ -93,7 +93,7 @@ function checkAsk(){
           case 5:
             //delete probe set
             globalCMS1.deleteProbeSet(document.getElementById("id_selectProbeSetList").selectedIndex);
-            initProbePage();
+            init_editProbe();
             break;
 
             case 6:
@@ -101,11 +101,12 @@ function checkAsk(){
               var tmpProbeSet = globalCMS1.getProbeSet(document.getElementById("id_selectProbeSetList").selectedIndex);
               if(tmpProbeSet.getProbeLength()==1){
                 globalCMS1.deleteProbeSet(document.getElementById("id_selectProbeSetList").selectedIndex);
-                initProbePage();
+                init_editProbe();
               }
               else {
                 globalCMS1.deleteProbe(document.getElementById("id_selectProbeSetList").selectedIndex,document.getElementById("id_selectProbeList").selectedIndex-1);
                 drawProbePreview(tmpProbeSet);
+                updateProbeSelectBox();
               }
 
               break;

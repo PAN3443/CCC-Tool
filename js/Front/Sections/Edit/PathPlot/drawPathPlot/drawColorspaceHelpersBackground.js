@@ -294,7 +294,10 @@ function rgbPlot(context, canvasWidth, canvasHeight, xlabel, ylabel) {
 ///////////////////////////////////////////////////////////////////////////////
 
 
-function drawVPlot(vPlotContex, canvasWidth, canvasHeight, label, startValue, endValue){
+function drawVPlot(vPlotContex, canvasWidth, canvasHeight, startValue, endValue){
+
+  vPlotContex.clearRect(0, 0, canvasWidth, canvasHeight);
+  
   /*vPlotContex.mozImageSmoothingEnabled = false;
   vPlotContex.webkitImageSmoothingEnabled = false;
   vPlotContex.msImageSmoothingEnabled = false;
@@ -317,8 +320,8 @@ function drawVPlot(vPlotContex, canvasWidth, canvasHeight, label, startValue, en
   var lineColor = 'rgb(200,200,200)';
   var arrowFontColor = 'rgb(0,0,00)';//'rgb(90,90,90)';
 
+  vPlotContex.strokeStyle = arrowFontColor;
   vPlotContex.fillStyle = arrowFontColor;
-
 
   var widthVArea = 0;
   var widthVArea2 = 0;
@@ -354,217 +357,55 @@ function drawVPlot(vPlotContex, canvasWidth, canvasHeight, label, startValue, en
 
   var steps = 10;
 
-  var startValue=0;
-  var endValue=1.0;
-
-
-
-
-
-}
-
-
-function init_VPlot() {
-
-  switch (pathColorspace) {
-    case "hsv":
-      break;
-    case "lab":
-      startValue2=labSpaceRange*-1;
-      endValue2=labSpaceRange;
-      startValue3=labSpaceRange*-1;
-      endValue3=labSpaceRange;
-      break;
-    case "din99":
-      startValue2=rangeA99Neg;
-      endValue2=rangeA99Pos;
-      startValue3=rangeB99Neg;
-      endValue3=rangeB99Pos;
-
-
-      yPos = yStart - (yStart - yEnd) * (rangeA99Neg*-1)/(rangeA99Pos-rangeA99Neg);
-      vPlotContex2.beginPath();
-      vPlotContex2.lineWidth = 2;
-      vPlotContex2.moveTo(xPosPos, yPos);
-      vPlotContex2.lineTo(xEnd, yPos);
-      vPlotContex2.strokeStyle = lineColor;
-      vPlotContex2.stroke();
-      vPlotContex2.strokeStyle = arrowFontColor;
-      //vPlotContex2.fillText("0", xPosPos * 0.75, yPos);
-
-      yyPos = yStart - (yStart - yEnd) * (rangeA99Neg*-1)/(rangeB99Pos-rangeB99Neg);
-      vPlotContex3.beginPath();
-      vPlotContex3.lineWidth = 2;
-      vPlotContex3.moveTo(xPosPos, yPos);
-      vPlotContex3.lineTo(xEnd, yPos);
-      vPlotContex3.strokeStyle = lineColor;
-      vPlotContex3.stroke();
-      vPlotContex3.strokeStyle = arrowFontColor;
-      //vPlotContex3.fillText("0", xPosPos * 0.75, yPos);
-
-      break;
-    default:
-      console.log("Error at the changeColorspace function");
-      return;
-  }
-
-
   for (var i = 0; i <= steps; i++) {
     yPos = yStart - (yStart - yEnd) * i/steps;
-    var tmpVal = (startValue1+(endValue1-startValue1)*i/steps);
+    var tmpVal = (startValue+(endValue-startValue)*i/steps);
     var text = ""+tmpVal.toFixed(2);
-    vPlotContex1.beginPath();
-    vPlotContex1.lineWidth = 1;
-    vPlotContex1.moveTo(xStart, yPos);
-    vPlotContex1.lineTo(xEnd, yPos);
-    vPlotContex1.strokeStyle = lineColor;
-    vPlotContex1.stroke();
-    vPlotContex1.strokeStyle = arrowFontColor;
-    vPlotContex1.fillText(text, xPosPos * 0.75, yPos);
-
-    yPos = yStart - (yStart - yEnd) * i/steps;
-    var tmpVal =(startValue2+(endValue2-startValue2)*i/steps);
-    var text = ""+tmpVal.toFixed(2);
-    vPlotContex2.beginPath();
-    vPlotContex2.lineWidth = 1;
-    vPlotContex2.moveTo(xStart, yPos);
-    vPlotContex2.lineTo(xEnd, yPos);
-    vPlotContex2.strokeStyle = lineColor;
-    vPlotContex2.stroke();
-    vPlotContex2.strokeStyle = arrowFontColor;
-    vPlotContex2.fillText(text, xPosPos * 0.75, yPos);
-
-    yPos = yStart - (yStart - yEnd) * i/steps;
-    var tmpVal =(startValue3+(endValue3-startValue3)*i/steps);
-    var text = ""+tmpVal.toFixed(2);
-    vPlotContex3.beginPath();
-    vPlotContex3.lineWidth = 1;
-    vPlotContex3.moveTo(xStart, yPos);
-    vPlotContex3.lineTo(xEnd, yPos);
-    vPlotContex3.strokeStyle = lineColor;
-    vPlotContex3.stroke();
-    vPlotContex3.strokeStyle = arrowFontColor;
-    vPlotContex3.fillText(text, xPosPos * 0.75, yPos);
+    vPlotContex.beginPath();
+    vPlotContex.lineWidth = 1;
+    vPlotContex.moveTo(xStart, yPos);
+    vPlotContex.lineTo(xEnd, yPos);
+    vPlotContex.strokeStyle = lineColor;
+    vPlotContex.stroke();
+    vPlotContex.strokeStyle = arrowFontColor;
+    vPlotContex.fillText(text, xPosPos * 0.75, yPos);
   }
 
-
-  ////////////////////////////////////////////////////////////
-  /////////////ARROWS////////////////////
-  ////////////////////////////////////////////////////////////
-
-  // the fill color
-  vPlotContex2.fill();
-
-  vPlotContex1.strokeStyle = arrowFontColor;
-  vPlotContex1.beginPath();
-  vPlotContex1.lineWidth = lineWidthVPlot;
-  vPlotContex1.moveTo(xStart, yStart);
-  vPlotContex1.lineTo(xEndLine, yStart);
-  vPlotContex1.stroke();
+  vPlotContex.strokeStyle = arrowFontColor;
+  vPlotContex.beginPath();
+  vPlotContex.lineWidth = lineWidthVPlot;
+  vPlotContex.moveTo(xStart, yStart);
+  vPlotContex.lineTo(xEndLine, yStart);
+  vPlotContex.stroke();
 
   // the triangle
-  vPlotContex1.beginPath();
-  vPlotContex1.moveTo(xEndLine, yStart - (arrowHeight/2));
-  vPlotContex1.lineTo(xEndArrow, yStart);
-  vPlotContex1.lineTo(xEndLine, yStart + (arrowHeight/2));
-  vPlotContex1.closePath();
+  vPlotContex.beginPath();
+  vPlotContex.moveTo(xEndLine, yStart - (arrowHeight/2));
+  vPlotContex.lineTo(xEndArrow, yStart);
+  vPlotContex.lineTo(xEndLine, yStart + (arrowHeight/2));
+  vPlotContex.closePath();
 
   // the fill color
-  vPlotContex1.fillStyle = arrowFontColor;
-  vPlotContex1.fill();
+  vPlotContex.fillStyle = arrowFontColor;
+  vPlotContex.fill();
 
-  vPlotContex1.beginPath();
-  vPlotContex1.lineWidth = lineWidthVPlot;
-  vPlotContex1.moveTo(xStart, yStart);
-  vPlotContex1.lineTo(xStart, yEndLine);
-  vPlotContex1.stroke();
+  vPlotContex.beginPath();
+  vPlotContex.lineWidth = lineWidthVPlot;
+  vPlotContex.moveTo(xStart, yStart);
+  vPlotContex.lineTo(xStart, yEndLine);
+  vPlotContex.stroke();
 
   // the triangle
-  vPlotContex1.beginPath();
-  vPlotContex1.moveTo(xStart - (arrowHeight/2), yEndLine);
-  vPlotContex1.lineTo(xStart, yEndArrow);
-  vPlotContex1.lineTo(xStart + (arrowHeight/2), yEndLine);
-  vPlotContex1.closePath();
+  vPlotContex.beginPath();
+  vPlotContex.moveTo(xStart - (arrowHeight/2), yEndLine);
+  vPlotContex.lineTo(xStart, yEndArrow);
+  vPlotContex.lineTo(xStart + (arrowHeight/2), yEndLine);
+  vPlotContex.closePath();
 
   // the fill color
-  vPlotContex1.fill();
+  vPlotContex.fill();
 
-  vPlotContex2.strokeStyle = arrowFontColor;
-  vPlotContex2.beginPath();
-  vPlotContex2.lineWidth = lineWidthVPlot;
-  vPlotContex2.moveTo(xStart, yStart);
-  vPlotContex2.lineTo(xEndLine, yStart);
-  vPlotContex2.stroke();
-
-  // the triangle
-  vPlotContex2.beginPath();
-  vPlotContex2.moveTo(xEndLine, yStart - (arrowHeight/2));
-  vPlotContex2.lineTo(xEndArrow, yStart);
-  vPlotContex2.lineTo(xEndLine, yStart + (arrowHeight/2));
-  vPlotContex2.closePath();
-
-  // the fill color
-  vPlotContex2.fillStyle = arrowFontColor;
-  vPlotContex2.fill();
-
-  vPlotContex2.beginPath();
-  vPlotContex2.lineWidth = lineWidthVPlot;
-  vPlotContex2.moveTo(xStart, yStart);
-  vPlotContex2.lineTo(xStart, yEndLine);
-  vPlotContex2.stroke();
-
-  // the triangle
-  vPlotContex2.beginPath();
-  vPlotContex2.moveTo(xStart - (arrowHeight/2), yEndLine);
-  vPlotContex2.lineTo(xStart, yEndArrow);
-  vPlotContex2.lineTo(xStart + (arrowHeight/2), yEndLine);
-  vPlotContex2.closePath();
-
-  // the fill color
-  vPlotContex2.fill();
-
-  vPlotContex3.strokeStyle = arrowFontColor;
-  vPlotContex3.beginPath();
-  vPlotContex3.lineWidth = lineWidthVPlot;
-  vPlotContex3.moveTo(xStart, yStart);
-  vPlotContex3.lineTo(xEndLine, yStart);
-  vPlotContex3.stroke();
-
-  // the triangle
-  vPlotContex3.beginPath();
-  vPlotContex3.moveTo(xEndLine, yStart - (arrowHeight/2));
-  vPlotContex3.lineTo(xEndArrow, yStart);
-  vPlotContex3.lineTo(xEndLine, yStart + (arrowHeight/2));
-  vPlotContex3.closePath();
-
-  // the fill color
-  vPlotContex3.fillStyle = arrowFontColor;
-  vPlotContex3.fill();
-
-  vPlotContex3.beginPath();
-  vPlotContex3.lineWidth = lineWidthVPlot;
-  vPlotContex3.moveTo(xStart, yStart);
-  vPlotContex3.lineTo(xStart, yEndLine);
-  vPlotContex3.stroke();
-
-  // the triangle
-  vPlotContex3.beginPath();
-  vPlotContex3.moveTo(xStart - (arrowHeight/2), yEndLine);
-  vPlotContex3.lineTo(xStart, yEndArrow);
-  vPlotContex3.lineTo(xStart + (arrowHeight/2), yEndLine);
-  vPlotContex3.closePath();
-
-  // the fill color
-  vPlotContex3.fill();
-
-  ////////////////// TEXT /////////////////////
-  vPlotContex1.font = labelFontSize + "px Arial";
-  vPlotContex1.fillText("Position", xEndArrow, yStart + labelFontSize);
-
-  vPlotContex2.font = labelFontSize + "px Arial";
-  vPlotContex2.fillText("Position", xEndArrow, yStart + labelFontSize);
-
-  vPlotContex3.font = labelFontSize + "px Arial";
-  vPlotContex3.fillText("Position", xEndArrow, yStart + labelFontSize);
+  vPlotContex.font = labelFontSize + "px Arial";
+  vPlotContex.fillText("Position", xEndArrow, yStart + labelFontSize);
 
 }

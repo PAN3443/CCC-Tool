@@ -7,6 +7,7 @@ var anonymousMode = true;
 
 ///
 var globalCMS1;
+var globalCMS1JSON = {'message':'undefined'};
 
 var browserCanWorker = false;
 var browserCanOffscreenCanvas = false;

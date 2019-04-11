@@ -79,7 +79,7 @@ function slideTestDisplayDivs(){
 function selectTestCMS(){
 
   globalCMS1 = cloneCMS(myDesignsList[document.getElementById("id_TestSection_CMS_Select").selectedIndex]);
-
+  globalCMS1JSON=inform_Worker_GlobalCMS();
 
   drawCanvasColormap("id_TestPage_CMS_VIS_ColormapLinear", globalCMS1);
 

@@ -11,7 +11,7 @@ function rgbDrawBackground() {
   var canvasObj2 = document.getElementById("id_EditPage_PathPlot_Canvas3_0");
   var canvasContex2 = canvasObj2.getContext("2d");
 
-  
+
 
   var fixedColor = undefined;
   if (mouseGrappedKeyID != -1) {
@@ -90,7 +90,10 @@ function drawcolormap_RGBSpace(calcBackground, drawInterpolationLine) {
   if(calcBackground){
 
     if(browserCanWorker && browserCanOffscreenCanvas){
-      rgbDrawBackground_Offscreen();
+      if(browserCanOffscreenCanvas)
+        rgbDrawBackground_Offscreen();
+      else
+        rgbDrawBackground();
     }
     else
       rgbDrawBackground();

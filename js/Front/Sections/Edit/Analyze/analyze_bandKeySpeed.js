@@ -40,7 +40,8 @@ function draw_BandSpeed(cms, plotid, type){
 
   var canvasPlot = document.getElementById(plotid);
 
-  canvasPlot.width = resolutionX_differenceMetrics;
+  var rect = canvasPlot.getBoundingClientRect();
+  canvasPlot.width = rect.width;
   canvasPlot.height = 1;
 
   var canvasCtx = canvasPlot.getContext("2d");
@@ -48,7 +49,7 @@ function draw_BandSpeed(cms, plotid, type){
   canvasCtx.mozImageSmoothingEnabled = false;
   canvasCtx.imageSmoothingEnabled = false;
   canvasCtx.clearRect(0, 0, canvasPlot.width, canvasPlot.height);
-  var canvasData = canvasCtx.createImageData(resolutionX_differenceMetrics, 1); //getImageData(0, 0, canvasPlot.width, canvasPlot.height);
+  var canvasData = canvasCtx.createImageData(canvasPlot.width, 1); //getImageData(0, 0, canvasPlot.width, canvasPlot.height);
 
   var borderWidth = 2; //px
 
@@ -133,7 +134,7 @@ function draw_BandSpeed(cms, plotid, type){
           arraySpeedSum += speed;
   }
 
-  var restWidth = resolutionX_differenceMetrics-(numberOfScaledBands-1)*borderWidth;
+  var restWidth = canvasPlot.width-(numberOfScaledBands-1)*borderWidth;
   /////////////////////////////////////////////////////////////////////////////
   // Calc Speed
   for (var i = 0; i < arraySpeed.length; i++) {

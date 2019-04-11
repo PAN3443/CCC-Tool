@@ -39,7 +39,7 @@ function changeLimitKeyBurLine(){
 
 function updateEditPage(){
 
-
+  globalCMS1JSON=inform_Worker_GlobalCMS();
   drawBandSketch(globalCMS1,"id_EditPage_CMS_VIS_ColormapSketch", false, -1);
 
   var context = document.getElementById("id_EditPage_CMS_VIS_ColormapLinear").getContext('2d');

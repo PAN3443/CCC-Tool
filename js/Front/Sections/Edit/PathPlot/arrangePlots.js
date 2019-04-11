@@ -3,8 +3,6 @@
 function choosePathPlotSpace(type){
 //id_EditPage_PathPlot_ThreeCanvas
 
-
-
 document.getElementById("id_editPage_PathPlotSpaces_RGB").classList.remove("class_EditPage_TabRowButtonActive");
 document.getElementById("id_editPage_PathPlotSpaces_HSV").classList.remove("class_EditPage_TabRowButtonActive");
 document.getElementById("id_editPage_PathPlotSpaces_LAB").classList.remove("class_EditPage_TabRowButtonActive");
@@ -14,7 +12,6 @@ document.getElementById("id_editPage_PathPlotSpaces_RGB").classList.add("class_E
 document.getElementById("id_editPage_PathPlotSpaces_HSV").classList.add("class_EditPage_TabRowButtonNotActive");
 document.getElementById("id_editPage_PathPlotSpaces_LAB").classList.add("class_EditPage_TabRowButtonNotActive");
 document.getElementById("id_editPage_PathPlotSpaces_DIN99").classList.add("class_EditPage_TabRowButtonNotActive");
-
 
   if(type==0){
 

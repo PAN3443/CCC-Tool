@@ -94,15 +94,15 @@ function switchColorTransformationSettings(type){
 
   selectedColorTransformation=type;
 
-  document.getElementById("id_PopUp_Select_RGBtoXYZ").style.background=styleNotActiveColor;
-  document.getElementById("id_PopUp_Select_XYZtoLMS").style.background=styleNotActiveColor;
-  document.getElementById("id_PopUp_Select_XYZtoLab").style.background=styleNotActiveColor;
-  document.getElementById("id_PopUp_Select_LABtoDIN99").style.background=styleNotActiveColor;
+  document.getElementById("id_PopUp_Select_RGBtoXYZ").classList.remove("class_EditPage_TabRowButtonActive");
+  document.getElementById("id_PopUp_Select_XYZtoLMS").classList.remove("class_EditPage_TabRowButtonActive");
+  document.getElementById("id_PopUp_Select_XYZtoLab").classList.remove("class_EditPage_TabRowButtonActive");
+  document.getElementById("id_PopUp_Select_LABtoDIN99").classList.remove("class_EditPage_TabRowButtonActive");
 
-  document.getElementById("id_PopUp_Select_RGBtoXYZ").style.color=styleNotActiveColorFont;
-  document.getElementById("id_PopUp_Select_XYZtoLMS").style.color=styleNotActiveColorFont;
-  document.getElementById("id_PopUp_Select_XYZtoLab").style.color=styleNotActiveColorFont;
-  document.getElementById("id_PopUp_Select_LABtoDIN99").style.color=styleNotActiveColorFont;
+  document.getElementById("id_PopUp_Select_RGBtoXYZ").classList.add("class_EditPage_TabRowButtonNotActive");
+  document.getElementById("id_PopUp_Select_XYZtoLMS").classList.add("class_EditPage_TabRowButtonNotActive");
+  document.getElementById("id_PopUp_Select_XYZtoLab").classList.add("class_EditPage_TabRowButtonNotActive");
+  document.getElementById("id_PopUp_Select_LABtoDIN99").classList.add("class_EditPage_TabRowButtonNotActive");
 
   // init
   document.getElementById("id_PopUp_Matrix_Selecter").style.display="none";
@@ -116,8 +116,9 @@ function switchColorTransformationSettings(type){
 
   switch (type) {
     case 0:
-      document.getElementById("id_PopUp_Select_RGBtoXYZ").style.background=styleActiveColor;
-      document.getElementById("id_PopUp_Select_RGBtoXYZ").style.color=styleActiveColorFont;
+      document.getElementById("id_PopUp_Select_RGBtoXYZ").classList.remove("class_EditPage_TabRowButtonNotActive");
+      document.getElementById("id_PopUp_Select_RGBtoXYZ").classList.add("class_EditPage_TabRowButtonActive");
+
       document.getElementById("id_PopUp_Matrix_Selecter").style.display="block";
       document.getElementById("select_XYZTransferMatrix").style.display="block";
 
@@ -131,8 +132,8 @@ function switchColorTransformationSettings(type){
       updateRGBtoXYZ_TransferMatrices();
       break;
       case 1:
-      document.getElementById("id_PopUp_Select_XYZtoLMS").style.background=styleActiveColor;
-      document.getElementById("id_PopUp_Select_XYZtoLMS").style.color=styleActiveColorFont;
+      document.getElementById("id_PopUp_Select_XYZtoLMS").classList.remove("class_EditPage_TabRowButtonNotActive");
+      document.getElementById("id_PopUp_Select_XYZtoLMS").classList.add("class_EditPage_TabRowButtonActive");
       document.getElementById("id_PopUp_Matrix_Selecter").style.display="block";
       document.getElementById("select_LMSTransferMatrix").style.display="block";
 
@@ -146,8 +147,9 @@ function switchColorTransformationSettings(type){
       updateXYZtoLMS_TransferMatrices();
         break;
         case 2:
-        document.getElementById("id_PopUp_Select_XYZtoLab").style.background=styleActiveColor;
-        document.getElementById("id_PopUp_Select_XYZtoLab").style.color=styleActiveColorFont;
+
+        document.getElementById("id_PopUp_Select_XYZtoLab").classList.remove("class_EditPage_TabRowButtonNotActive");
+        document.getElementById("id_PopUp_Select_XYZtoLab").classList.add("class_EditPage_TabRowButtonActive");
 
         document.getElementById("id_PopUp_TransformationValues").style.display="block";
         document.getElementById("id_PopUp_TransformationValue_Div3").style.display="flex";
@@ -163,8 +165,8 @@ function switchColorTransformationSettings(type){
 
           break;
           case 3:
-          document.getElementById("id_PopUp_Select_LABtoDIN99").style.background=styleActiveColor;
-          document.getElementById("id_PopUp_Select_LABtoDIN99").style.color=styleActiveColorFont;
+          document.getElementById("id_PopUp_Select_LABtoDIN99").classList.remove("class_EditPage_TabRowButtonNotActive");
+          document.getElementById("id_PopUp_Select_LABtoDIN99").classList.add("class_EditPage_TabRowButtonActive");
 
           document.getElementById("id_PopUp_TransformationValues").style.display="block";
 
