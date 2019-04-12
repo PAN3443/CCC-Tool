@@ -64,9 +64,9 @@ function rgbDrawBackground_Offscreen(){
   workerJSON['message'] = "draw";
   workerJSON['space'] = "rgb";
   workerJSON['type'] = "GR";
-  workerJSON['fixedColorR'] = fixR;
-  workerJSON['fixedColorG'] = fixG;
-  workerJSON['fixedColorB'] = fixB;
+  workerJSON['fixedColorV1'] = fixR;
+  workerJSON['fixedColorV2'] = fixG;
+  workerJSON['fixedColorV3'] = fixB;
   drawBackgroundWorker1.postMessage(workerJSON);
 
   workerJSON.type = "BR";

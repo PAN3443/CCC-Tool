@@ -26,6 +26,8 @@ var rangeA99Neg = undefined;
 var rangeA99Pos = undefined;
 var rangeB99Neg = undefined;
 var rangeB99Pos = undefined;
+var rangeA99 = undefined;
+var rangeB99 = undefined;
 
 // CMS
 var globalCMS1 = undefined;
@@ -64,6 +66,7 @@ self.addEventListener('message', function(e) {
 
   case "draw":
 
+
       if(canvas==undefined)
         break;
 
@@ -74,8 +77,8 @@ self.addEventListener('message', function(e) {
           canvas.height=500;
           canvas.width=500;
 
-          if(e.data.fixedColorR != undefined && e.data.fixedColorG != undefined && e.data.fixedColorB != undefined)
-            fixedColor = new classColor_RGB(e.data.fixedColorR, e.data.fixedColorG, e.data.fixedColorB);
+          if(e.data.fixedColorV1 != undefined && e.data.fixedColorV2 != undefined && e.data.fixedColorV3 != undefined)
+            fixedColor = new classColor_RGB(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
 
           switch (e.data.type) {
             case "GR":
@@ -107,8 +110,14 @@ self.addEventListener('message', function(e) {
             case "V3":
                 drawVPlot(canvasContex,canvas.width,canvas.height,0,1);
             break;
-            case "H1":
+            case "Hue":
                 canvas.width=500;
+
+                if(e.data.fixedColorV1 != undefined && e.data.fixedColorV2 != undefined && e.data.fixedColorV3 != undefined)
+                  fixedColor = new classColor_HSV(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
+
+                drawHSVBackground(canvasContex,canvas.width,canvas.height,fixedColor);
+
             break;
 
           }
@@ -130,8 +139,13 @@ self.addEventListener('message', function(e) {
             case "V3":
                 drawVPlot(canvasContex,canvas.width,canvas.height,labSpaceRange*-1,labSpaceRange);
             break;
-            case "H1":
+            case "Hue":
                 canvas.width=500;
+
+                if(e.data.fixedColorV1 != undefined && e.data.fixedColorV2 != undefined && e.data.fixedColorV3 != undefined)
+                  fixedColor = new classColor_LAB(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
+
+                drawLabBackground(canvasContex,canvas.width,canvas.height,fixedColor);
             break;
 
           }
@@ -153,8 +167,14 @@ self.addEventListener('message', function(e) {
             case "V3":
                 drawVPlot(canvasContex,canvas.width,canvas.height,rangeB99Neg,rangeB99Pos);
             break;
-            case "H1":
+            case "Hue":
                 canvas.width=500;
+
+                if(e.data.fixedColorV1 != undefined && e.data.fixedColorV2 != undefined && e.data.fixedColorV3 != undefined)
+                  fixedColor = new classColorDIN99(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
+
+                drawDIN99Background(canvasContex,canvas.width,canvas.height,fixedColor);
+
             break;
 
           }

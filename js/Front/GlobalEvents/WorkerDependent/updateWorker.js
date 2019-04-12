@@ -15,6 +15,7 @@ function inform_Worker_ColorblindSimulation(){
     drawBackgroundWorker1.postMessage(workerJSON);
     drawBackgroundWorker2.postMessage(workerJSON);
     drawBackgroundWorker3.postMessage(workerJSON);
+    drawBackgroundWorker4.postMessage(workerJSON);
 
 }
 
@@ -34,6 +35,7 @@ function inform_Worker_ColorSettings(){
   drawBackgroundWorker1.postMessage(workerJSON);
   drawBackgroundWorker2.postMessage(workerJSON);
   drawBackgroundWorker3.postMessage(workerJSON);
+  drawBackgroundWorker4.postMessage(workerJSON);
 }
 
 function inform_Worker_ColorMetrics(){
@@ -48,6 +50,7 @@ function inform_Worker_ColorMetrics(){
   drawBackgroundWorker1.postMessage(workerJSON);
   drawBackgroundWorker2.postMessage(workerJSON);
   drawBackgroundWorker3.postMessage(workerJSON);
+  drawBackgroundWorker4.postMessage(workerJSON);
 }
 
 
@@ -67,6 +70,7 @@ function inform_Worker_PathPlotBackgroundParams(){
     drawBackgroundWorker1.postMessage(workerJSON);
     drawBackgroundWorker2.postMessage(workerJSON);
     drawBackgroundWorker3.postMessage(workerJSON);
+    drawBackgroundWorker4.postMessage(workerJSON);
 
 }
 
@@ -150,7 +154,7 @@ function inform_Worker_GlobalCMS(){
       tmpMoT.push(globalCMS1.getKey(globalCMS1.getKeyLength()-1).getMoT());
     }
 
-  
+
     var tmpNaN = globalCMS1.getNaNColor("lab");
     var tmpAbove = globalCMS1.getAboveColor("lab");
     var tmpBelow = globalCMS1.getBelowColor("lab");
@@ -176,7 +180,6 @@ function inform_Worker_GlobalCMS(){
       workerJSON.belowC1 = tmpBelow.get1Value();
       workerJSON.belowC2 = tmpBelow.get2Value();
       workerJSON.belowC3 = tmpBelow.get3Value();
-
 
     return workerJSON;
 

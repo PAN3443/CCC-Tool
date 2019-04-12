@@ -297,7 +297,7 @@ function rgbPlot(context, canvasWidth, canvasHeight, xlabel, ylabel) {
 function drawVPlot(vPlotContex, canvasWidth, canvasHeight, startValue, endValue){
 
   vPlotContex.clearRect(0, 0, canvasWidth, canvasHeight);
-  
+
   /*vPlotContex.mozImageSmoothingEnabled = false;
   vPlotContex.webkitImageSmoothingEnabled = false;
   vPlotContex.msImageSmoothingEnabled = false;
@@ -407,5 +407,199 @@ function drawVPlot(vPlotContex, canvasWidth, canvasHeight, startValue, endValue)
 
   vPlotContex.font = labelFontSize + "px Arial";
   vPlotContex.fillText("Position", xEndArrow, yStart + labelFontSize);
+
+}
+
+function drawHSVBackground(canvasContex,canvasWidth,canvasHeight,fixedColor){
+
+  canvasContex.clearRect(0, 0, canvasWidth, canvasHeight);
+  /*canvasContex.mozImageSmoothingEnabled = false;
+  canvasContex.webkitImageSmoothingEnabled = false;
+  canvasContex.msImageSmoothingEnabled = false;
+  canvasContex.imageSmoothingEnabled = false; // did not work !?!?!
+  canvasContex.oImageSmoothingEnabled = false;*/
+
+  var colorspaceBackgroundData = canvasContex.getImageData(0, 0, canvasWidth, canvasHeight);
+
+  var colorspaceCenterX = Math.round(canvasWidth / 2);
+  var colorspaceCenterY = Math.round(canvasHeight / 2);
+  var colorspaceRadius = Math.round((canvasWidth / 2));// * radiusratio);
+
+  var vVal = 1.0;
+
+  if (fixedColor!=undefined)
+    vVal=fixedColor.getVValue();
+
+  var colorRGB;
+  for (var x = 0; x < canvasWidth; x++) {
+
+    for (var y = 0; y < canvasHeight; y++) {
+
+      var dis = Math.sqrt(Math.pow(colorspaceCenterX - x, 2) + Math.pow(colorspaceCenterY - y, 2));
+
+      if (dis <= colorspaceRadius) {
+        // calc hsv color
+
+        var ty = (y) - (colorspaceCenterY);
+        var tx = x - colorspaceCenterX;
+        var angle = (Math.atan2(ty, tx) + Math.PI) / (Math.PI * 2); // values 0-1 ...
+        var hVal = angle;
+        var sVal = dis / colorspaceRadius;
+
+
+        var colorHSV = new classColor_HSV(hVal, sVal, vVal);
+        colorRGB = colorHSV.calcRGBColor();
+
+        if(doColorblindnessSim){
+          var tmpLMS = colorRGB.calcLMSColor();
+          colorRGB = tmpLMS.calcColorBlindRGBColor();
+        }
+
+        var index = (x + y * canvasWidth) * 4;
+
+        colorspaceBackgroundData.data[index + 0] = Math.round(colorRGB.getRValue() * 255); // r
+        colorspaceBackgroundData.data[index + 1] = Math.round(colorRGB.getGValue() * 255); // g
+        colorspaceBackgroundData.data[index + 2] = Math.round(colorRGB.getBValue() * 255); // b
+        colorspaceBackgroundData.data[index + 3] = 255; //a
+
+
+      }
+
+    }
+
+  }
+
+  canvasContex.putImageData(colorspaceBackgroundData, 0, 0); // update ColorspaceCanvas;
+
+}
+
+function drawLabBackground(canvasContex,canvasWidth,canvasHeight,fixedColor){
+
+  canvasContex.clearRect(0, 0, canvasWidth, canvasHeight);
+  /*canvasContex.mozImageSmoothingEnabled = false;
+  canvasContex.webkitImageSmoothingEnabled = false;
+  canvasContex.msImageSmoothingEnabled = false;
+  canvasContex.imageSmoothingEnabled = false; // did not work !?!?!
+  canvasContex.oImageSmoothingEnabled = false;*/
+
+  var colorspaceBackgroundData = canvasContex.getImageData(0, 0, canvasWidth, canvasHeight);
+
+  var colorspaceCenterX = Math.round(canvasWidth / 2);
+  var colorspaceCenterY = Math.round(canvasHeight / 2);
+  var colorspaceRadius = Math.round((canvasWidth / 2));// * radiusratio);
+
+  var errorRGBColor = new classColor_RGB(0.5, 0.5, 0.5);
+
+  var lVal = 50;
+
+  if (fixedColor!=undefined)
+    lVal=fixedColor.getLValue();
+
+  for (var x = 0; x < canvasWidth; x++) {
+
+    for (var y = 0; y < canvasHeight; y++) {
+
+        // calc hsv color
+        var colorRGB;
+
+        var aVal = ((x - colorspaceCenterX) / (canvasWidth / 2)) * labSpaceRange;
+        var bVal = ((y - colorspaceCenterY) / (canvasHeight / 2)) * labSpaceRange;
+
+        var colorLAB = new classColor_LAB(lVal, aVal, bVal);
+        colorRGB = colorLAB.calcRGBColor();
+
+        var colorLAB = new classColor_LAB(lVal, aVal, bVal);
+
+        if (fixedColor!=undefined){
+          colorRGB = colorLAB.calcRGBColorCorrect(errorRGBColor);
+        } else{
+          colorRGB = colorLAB.calcRGBColor();
+        }
+
+
+        if(doColorblindnessSim){
+          var tmpLMS = colorRGB.calcLMSColor();
+          colorRGB = tmpLMS.calcColorBlindRGBColor();
+        }
+
+        var index = (x + y * canvasWidth) * 4;
+
+        colorspaceBackgroundData.data[index + 0] = Math.round(colorRGB.getRValue() * 255); // r
+        colorspaceBackgroundData.data[index + 1] = Math.round(colorRGB.getGValue() * 255); // g
+        colorspaceBackgroundData.data[index + 2] = Math.round(colorRGB.getBValue() * 255); // b
+        colorspaceBackgroundData.data[index + 3] = 255; //a
+
+    }
+
+  }
+
+  canvasContex.putImageData(colorspaceBackgroundData, 0, 0); // update ColorspaceCanvas;
+
+}
+
+function drawDIN99Background(canvasContex,canvasWidth,canvasHeight,fixedColor){
+
+  canvasContex.clearRect(0, 0, canvasWidth, canvasHeight);
+  /*canvasContex.mozImageSmoothingEnabled = false;
+  canvasContex.webkitImageSmoothingEnabled = false;
+  canvasContex.msImageSmoothingEnabled = false;
+  canvasContex.imageSmoothingEnabled = false; // did not work !?!?!
+  canvasContex.oImageSmoothingEnabled = false;*/
+
+  rangeA99 = rangeA99Pos - rangeA99Neg;
+  rangeB99 = rangeB99Pos - rangeB99Neg;
+
+  var colorspaceBackgroundData = canvasContex.getImageData(0, 0, canvasWidth, canvasHeight);
+
+  var colorspaceCenterX = Math.round(canvasWidth / 2);
+  var colorspaceCenterY = Math.round(canvasHeight / 2);
+  var colorspaceRadius = Math.round((canvasWidth / 2));// * radiusratio);
+
+  var errorRGBColor = new classColor_RGB(0.5, 0.5, 0.5);
+
+  var l99Val = 50;
+
+  if (fixedColor!=undefined)
+    l99Val=fixedColor.getL99Value();
+
+  var colorRGB;
+
+
+  for (var x = 0; x < canvasWidth; x++) {
+
+    for (var y = 0; y < canvasHeight; y++) {
+
+        var a99Val = (x  / canvasWidth) * rangeA99 + rangeA99Neg;
+        var b99Val = (y / canvasHeight) * rangeB99 + rangeB99Neg;
+
+        var colorDIN99 = new classColorDIN99(l99Val, a99Val, b99Val);
+
+        if (fixedColor!=undefined){
+          colorRGB = colorDIN99.calcRGBColorCorrect(errorRGBColor);
+        } else {
+          colorRGB = colorDIN99.calcRGBColor();
+        }
+
+        if (colorRGB.getRValue() == 0 && colorRGB.getGValue() == 0 && colorRGB.getBValue() == 0) {
+            if (colorDIN99.getL99Value() != 0 || colorDIN99.getA99Value() != 0 || colorDIN99.getB99Value() != 0) {
+              colorRGB = new classColor_RGB(1, 1, 1);
+            }
+        }
+
+        if(doColorblindnessSim){
+          var tmpLMS = colorRGB.calcLMSColor();
+          colorRGB = tmpLMS.calcColorBlindRGBColor();
+        }
+
+        var index = (x + y * canvasWidth) * 4;
+        colorspaceBackgroundData.data[index + 0] = Math.round(colorRGB.getRValue() * 255); // r
+        colorspaceBackgroundData.data[index + 1] = Math.round(colorRGB.getGValue() * 255); // g
+        colorspaceBackgroundData.data[index + 2] = Math.round(colorRGB.getBValue() * 255); // b
+        colorspaceBackgroundData.data[index + 3] = 255; //a
+
+    }
+  }
+
+  canvasContex.putImageData(colorspaceBackgroundData, 0, 0); // update ColorspaceCanvas;
 
 }

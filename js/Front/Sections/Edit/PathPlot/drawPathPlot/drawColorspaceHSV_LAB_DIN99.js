@@ -3,231 +3,81 @@
 //////////////////////////////////////////
 function hueInit() {
 
-  var canvasID = "id_EditPage_PathPlot_SingleCanvas_0";
+  if(browserCanOffscreenCanvas){
+    hueInit_Offscreen();
+  }
+  else{
+    var canvas = document.getElementById("id_EditPage_PathPlot_SingleCanvas_0");
+    var canvasContex = canvas.getContext("2d");
 
-  var canvasColorspace = document.getElementById(canvasID);
-  var canvasObjBox = canvasColorspace.getBoundingClientRect();
-  canvasColorspace.width = canvasObjBox.width;
-  canvasColorspace.height = canvasObjBox.height;
+    var fixedColor = undefined;
+    if (mouseGrappedKeyID != -1) {
 
-  var colorspaceContex = canvasColorspace.getContext("2d");
-
-  colorspaceContex.mozImageSmoothingEnabled = false;
-  colorspaceContex.webkitImageSmoothingEnabled = false;
-  colorspaceContex.msImageSmoothingEnabled = false;
-  colorspaceContex.imageSmoothingEnabled = false; // did not work !?!?!
-  colorspaceContex.oImageSmoothingEnabled = false;
-
-  var colorspaceBackgroundData = colorspaceContex.getImageData(0, 0, canvasColorspace.width, canvasColorspace.height);
-
-  var colorspaceCenterX = Math.round(canvasColorspace.width / 2);
-  var colorspaceCenterY = Math.round(canvasColorspace.height / 2);
-  var colorspaceRadius = Math.round((canvasColorspace.width / 2));// * radiusratio);
-
-  var errorRGBColor = new classColor_RGB(0.5, 0.5, 0.5);
-
-  switch (pathColorspace) {
-    case "hsv":
-      for (var x = 0; x < canvasColorspace.width; x++) {
-
-        for (var y = 0; y < canvasColorspace.height; y++) {
-
-          var dis = Math.sqrt(Math.pow(colorspaceCenterX - x, 2) + Math.pow(colorspaceCenterY - y, 2));
-
-          if (dis <= colorspaceRadius) {
-            // calc hsv color
-
-            var ty = (y) - (colorspaceCenterY);
-            var tx = x - colorspaceCenterX;
-            var angle = (Math.atan2(ty, tx) + Math.PI) / (Math.PI * 2); // values 0-1 ...
-            var hVal = angle;
-            var sVal = dis / colorspaceRadius;
-            var vVal;
-
-            if (mouseGrappedKeyID == -1) {
-                vVal = backgroundValue / 100;
-            } else {
-              switch (mouseGrappedColorSide) {
-                case 0:
-                  // left color
-                  vVal = globalCMS1.getLeftKeyColor(mouseGrappedKeyID, "hsv").getVValue();
-                  break;
-                default:
-                  // both colors
-                  vVal = globalCMS1.getRightKeyColor(mouseGrappedKeyID, "hsv").getVValue();
-              }
-            }
-
-            var colorHSV = new classColor_HSV(hVal, sVal, vVal);
-            var colorRGB = colorHSV.calcRGBColor();
-
-            if(doColorblindnessSim){
-              var tmpLMS = colorRGB.calcLMSColor();
-              colorRGB = tmpLMS.calcColorBlindRGBColor();
-            }
-
-            var index = (x + y * canvasColorspace.width) * 4;
-
-            colorspaceBackgroundData.data[index + 0] = Math.round(colorRGB.getRValue() * 255); // r
-            colorspaceBackgroundData.data[index + 1] = Math.round(colorRGB.getGValue() * 255); // g
-            colorspaceBackgroundData.data[index + 2] = Math.round(colorRGB.getBValue() * 255); // b
-            colorspaceBackgroundData.data[index + 3] = 255; //a
-
-
-          }
-
-        }
-
+      switch (mouseGrappedColorSide) {
+        case 0:
+        // left color
+          fixedColor = globalCMS1.getLeftKeyColor(mouseGrappedKeyID, pathColorspace);
+          break;
+        default:
+          // both colors
+          fixedColor = globalCMS1.getRightKeyColor(mouseGrappedKeyID, pathColorspace);
       }
-      break;
-    case "lab":
 
-      colorspaceCenterX = Math.round(canvasColorspace.width / 2);
-      colorspaceCenterY = Math.round(canvasColorspace.height / 2);
-
-      // draw colorspace
-      for (var x = 0; x < canvasColorspace.width; x++) {
-
-        for (var y = 0; y < canvasColorspace.height; y++) {
-
-            // calc hsv color
-            var colorRGB;
-
-            var aVal = ((x - colorspaceCenterX) / (canvasColorspace.width / 2)) * labSpaceRange;
-            var bVal = ((y - colorspaceCenterY) / (canvasColorspace.height / 2)) * labSpaceRange;
-            var lVal = backgroundValue;
-            if (mouseGrappedKeyID == -1) {
-
-              var colorLAB = new classColor_LAB(lVal, aVal, bVal);
-              colorRGB = colorLAB.calcRGBColor();
-            } else {
-
-              switch (mouseGrappedColorSide) {
-                case 0:
-                  // left color
-                  lVal = globalCMS1.getLeftKeyColor(mouseGrappedKeyID, "lab").getLValue();
-                  break;
-                default:
-                  // both colors
-                  lVal = globalCMS1.getRightKeyColor(mouseGrappedKeyID, "lab").getLValue();
-              }
+    }
 
 
-              var colorLAB = new classColor_LAB(lVal, aVal, bVal);
-
-              if (onlyRGBPossibleColor) {
-                colorRGB = colorLAB.calcRGBColorCorrect(errorRGBColor);
-              } else {
-                colorRGB = colorLAB.calcRGBColor();
-              }
-
-
-            } // else
-
-            if(doColorblindnessSim){
-              var tmpLMS = colorRGB.calcLMSColor();
-              colorRGB = tmpLMS.calcColorBlindRGBColor();
-            }
-
-            var index = (x + y * canvasColorspace.width) * 4;
-
-            colorspaceBackgroundData.data[index + 0] = Math.round(colorRGB.getRValue() * 255); // r
-            colorspaceBackgroundData.data[index + 1] = Math.round(colorRGB.getGValue() * 255); // g
-            colorspaceBackgroundData.data[index + 2] = Math.round(colorRGB.getBValue() * 255); // b
-            colorspaceBackgroundData.data[index + 3] = 255; //a
-
-        }
-
-      }
-      break;
-    case "din99":
-
-
-      rangeA99 = rangeA99Pos - rangeA99Neg;
-      rangeB99 = rangeB99Pos - rangeB99Neg;
-
-      colorspaceCenterX = Math.round(canvasColorspace.width / 2);
-      colorspaceCenterY = Math.round(canvasColorspace.height / 2);
-
-
-      // draw colorspace
-      for (var x = 0; x < canvasColorspace.width; x++) {
-
-        for (var y = 0; y < canvasColorspace.height; y++) {
-
-
-            // calc hsv color
-            var colorRGB;
-
-            var a99Val = (x  / canvasColorspace.width) * rangeA99 + rangeA99Neg;
-            var b99Val = (y / canvasColorspace.height) * rangeB99 + rangeB99Neg;
-
-            var colorDIN99;
-
-            if (mouseGrappedKeyID == -1) {
-              var l99Val;
-
-
-                l99Val = backgroundValue;
-
-
-              colorDIN99 = new classColorDIN99(l99Val, a99Val, b99Val);
-              colorRGB = colorDIN99.calcRGBColor();
-            } else {
-
-              var l99Val;
-
-              switch (mouseGrappedColorSide) {
-                case 0:
-                  // left color
-                  l99Val = globalCMS1.getLeftKeyColor(mouseGrappedKeyID, "din99").getL99Value();
-                  break;
-                default:
-                  // both colors
-                  l99Val = globalCMS1.getRightKeyColor(mouseGrappedKeyID, "din99").getL99Value();
-              }
-
-              colorDIN99 = new classColorDIN99(l99Val, a99Val, b99Val);
-
-              if (onlyRGBPossibleColor) {
-                colorRGB = colorDIN99.calcRGBColorCorrect(errorRGBColor);
-              } else {
-                colorRGB = colorDIN99.calcRGBColor();
-              }
-
-            } // else
-
-            if (colorRGB.getRValue() == 0 && colorRGB.getGValue() == 0 && colorRGB.getBValue() == 0) {
-              if (colorDIN99.getL99Value() != 0 || colorDIN99.getA99Value() != 0 || colorDIN99.getB99Value() != 0) {
-                colorRGB = new classColor_RGB(1, 1, 1);
-              }
-            }
-
-
-            if(doColorblindnessSim){
-              var tmpLMS = colorRGB.calcLMSColor();
-              colorRGB = tmpLMS.calcColorBlindRGBColor();
-            }
-
-            var index = (x + y * canvasColorspace.width) * 4;
-
-            colorspaceBackgroundData.data[index + 0] = Math.round(colorRGB.getRValue() * 255); // r
-            colorspaceBackgroundData.data[index + 1] = Math.round(colorRGB.getGValue() * 255); // g
-            colorspaceBackgroundData.data[index + 2] = Math.round(colorRGB.getBValue() * 255); // b
-            colorspaceBackgroundData.data[index + 3] = 255; //a
-
-        }
-
-      }
-      break;
-    default:
-      console.log("Error at the changeColorspace function");
-      return;
+    switch (pathColorspace) {
+      case "hsv":
+        drawHSVBackground(canvasContex,canvas.width,canvas.height,fixedColor);
+        break;
+        case "lab":
+          drawLabBackground(canvasContex,canvas.width,canvas.height,fixedColor);
+          break;
+          case "din99":
+            drawDIN99Background(canvasContex,canvas.width,canvas.height,fixedColor);
+            break;
+    }
   }
 
-  colorspaceContex.putImageData(colorspaceBackgroundData, 0, 0); // update ColorspaceCanvas;
+
+
 
 }
+
+function hueInit_Offscreen(){
+  var fixV1 = undefined;
+  var fixV2 = undefined;
+  var fixV3 = undefined;
+  if (mouseGrappedKeyID != -1) {
+    var fixedColor = undefined;
+    switch (mouseGrappedColorSide) {
+      case 0:
+      // left color
+        fixedColor = globalCMS1.getLeftKeyColor(mouseGrappedKeyID, pathColorspace);
+        break;
+      default:
+        // both colors
+        fixedColor = globalCMS1.getRightKeyColor(mouseGrappedKeyID, pathColorspace);
+    }
+    if(fixedColor!=undefined){
+      fixV1 = fixedColor.get1Value();
+      fixV2 = fixedColor.get2Value();
+      fixV3 = fixedColor.get3Value();
+    }
+
+  }
+
+  var workerJSON = {};
+  workerJSON['message'] = "draw";
+  workerJSON['space'] = pathColorspace;
+  workerJSON['type'] = "Hue";
+  workerJSON['fixedColorV1'] = fixV1;
+  workerJSON['fixedColorV2'] = fixV2;
+  workerJSON['fixedColorV3'] = fixV3;
+
+  drawBackgroundWorker4.postMessage(workerJSON);
+}
+
 
 function init_VPlot() {
 
@@ -295,10 +145,10 @@ function drawcolormap_hueSpace(calcBackground, drawInterpolationLine, doInitVplo
   }
 
 
-
-
   if (calcBackground)
-    hueInit();//*/
+    hueInit();
+
+
 
   if (drawInterpolationLine){
 

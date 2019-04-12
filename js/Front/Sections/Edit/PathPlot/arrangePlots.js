@@ -317,6 +317,9 @@ function pathplotCanvasToHTMLSize(){
   canvasToHTMLSize("id_EditPage_PathPlot_Canvas1_2");
   canvasToHTMLSize("id_EditPage_PathPlot_Canvas2_2");
   canvasToHTMLSize("id_EditPage_PathPlot_Canvas3_2");
+  canvasToHTMLSize("id_EditPage_PathPlot_SingleCanvas_0");
+
+
 }
 
 function initPlotLabel(label0, label1, label2){
