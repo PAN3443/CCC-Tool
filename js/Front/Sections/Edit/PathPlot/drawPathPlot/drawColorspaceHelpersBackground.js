@@ -3,119 +3,17 @@
 function drawGRBackground(canvasContex,canvasWidth,canvasHeight,fixedColor){
 
   canvasContex.clearRect(0, 0, canvasWidth, canvasHeight);
-  var canvasData = canvasContex.getImageData(0, 0, canvasWidth, canvasHeight);
-
-  var xStart = canvasWidth * 0.1;
-  var yStart = canvasHeight * 0.9;
-  var xEnd = canvasWidth * 0.8;
-  var yEnd = canvasHeight * 0.2;
-  var xWidth = xEnd - xStart;
-  var yHeight = yStart - yEnd;
-
-  var b = 0;
-
-  if (fixedColor != undefined) {
-    b=fixedColor.get3Value();
-  }
-
-  var tmpRGB= new classColor_RGB(1,1,1);
-
-  for (var x = 0; x < canvasWidth; x++) {
-
-    for (var y = 0; y < canvasHeight; y++) {
-
-
-      if (x >= xStart && x <= xEnd && y <= yStart && y >= yEnd) {
-        // calc hsv color
-
-        var xVal = (x - xStart) / xWidth;
-        var yVal = (yStart - y) / yHeight;
-
-        var index = (x + y * canvasWidth) * 4;
-
-        tmpRGB.set1Value(yVal);
-        tmpRGB.set2Value(xVal);
-        tmpRGB.set3Value(b);
-
-
-        if(doColorblindnessSim){
-          var tmpLMS = tmpRGB.calcLMSColor();
-          tmpRGB = tmpLMS.calcColorBlindRGBColor();
-        }
-
-          canvasData.data[index + 0] = Math.round(tmpRGB.get1Value() * 255); // r
-          canvasData.data[index + 1] = Math.round(tmpRGB.get2Value() * 255); // g
-          canvasData.data[index + 2] = Math.round(tmpRGB.get3Value() * 255); // b
-          canvasData.data[index + 3] = 255; //a
-
-      }
-    }
-
-  }
-
+  var canvasData =  getRGBBackground(canvasWidth, canvasHeight, fixedColor, "GR"); //canvasContex.getImageData(0, 0, canvasWidth, canvasHeight);
 
   canvasContex.putImageData(canvasData, 0, 0); // update ColorspaceCanvas;
   rgbPlot(canvasContex, canvasWidth, canvasHeight, "G", "R");
-
 }
+
 
 function drawBRBackground(canvasContex,canvasWidth,canvasHeight,fixedColor){
 
   canvasContex.clearRect(0, 0, canvasWidth, canvasHeight);
-  var canvasData = canvasContex.getImageData(0, 0, canvasWidth, canvasHeight);
-
-  var xStart = canvasWidth * 0.1;
-  var yStart = canvasHeight * 0.9;
-  var xEnd = canvasWidth * 0.8;
-  var yEnd = canvasHeight * 0.2;
-  var xWidth = xEnd - xStart;
-  var yHeight = yStart - yEnd;
-
-  var g = 0;
-
-  if (fixedColor != undefined) {
-    g=fixedColor.get2Value();
-  }
-
-  var tmpRGB= new classColor_RGB(1,1,1);
-
-  for (var x = 0; x < canvasWidth; x++) {
-
-    for (var y = 0; y < canvasHeight; y++) {
-
-
-      if (x >= xStart && x <= xEnd && y <= yStart && y >= yEnd) {
-        // calc hsv color
-
-        var xVal = (x - xStart) / xWidth;
-        var yVal = (yStart - y) / yHeight;
-
-        var index = (x + y * canvasWidth) * 4;
-
-
-        tmpRGB.set1Value(yVal);
-        tmpRGB.set2Value(g);
-        tmpRGB.set3Value(xVal);
-
-
-
-        if(doColorblindnessSim){
-
-          var tmpLMS = tmpRGB.calcLMSColor();
-          tmpRGB = tmpLMS.calcColorBlindRGBColor();
-
-        }
-
-          canvasData.data[index + 0] = Math.round(tmpRGB.get1Value() * 255); // r
-          canvasData.data[index + 1] = Math.round(tmpRGB.get2Value() * 255); // g
-          canvasData.data[index + 2] = Math.round(tmpRGB.get3Value() * 255); // b
-          canvasData.data[index + 3] = 255; //a
-
-      }
-    }
-
-  }
-
+  var canvasData = getRGBBackground(canvasWidth, canvasHeight, fixedColor,"BR");
 
   canvasContex.putImageData(canvasData, 0, 0); // update ColorspaceCanvas;
   rgbPlot(canvasContex, canvasWidth, canvasHeight, "B", "R");
@@ -125,7 +23,13 @@ function drawGBBackground(canvasContex,canvasWidth,canvasHeight,fixedColor){
 
 
   canvasContex.clearRect(0, 0, canvasWidth, canvasHeight);
-  var canvasData = canvasContex.getImageData(0, 0, canvasWidth, canvasHeight);
+  var canvasData = getRGBBackground(canvasWidth, canvasHeight, fixedColor,"GB");
+
+  canvasContex.putImageData(canvasData, 0, 0); // update ColorspaceCanvas;
+  rgbPlot(canvasContex, canvasWidth, canvasHeight, "G", "B");
+}
+
+function getRGBBackground(canvasWidth, canvasHeight, fixedColor, type){
 
   var xStart = canvasWidth * 0.1;
   var yStart = canvasHeight * 0.9;
@@ -134,50 +38,77 @@ function drawGBBackground(canvasContex,canvasWidth,canvasHeight,fixedColor){
   var xWidth = xEnd - xStart;
   var yHeight = yStart - yEnd;
 
-  var r = 0;
 
-  if (fixedColor != undefined) {
-    r=fixedColor.get1Value();
+  var fixedValue = 0;
+
+  if(fixedColor!=undefined){
+    switch (type) {
+      case "GR":
+        fixedValue=fixedColor.get3Value();
+        break;
+        case "BR":
+          fixedValue=fixedColor.get2Value();
+          break;
+          case "GB":
+            fixedValue=fixedColor.get1Value();
+            break;
+    }
   }
 
+
+
   var tmpRGB= new classColor_RGB(1,1,1);
+
+  var background = new ImageData(canvasWidth, canvasHeight);
 
   for (var x = 0; x < canvasWidth; x++) {
 
     for (var y = 0; y < canvasHeight; y++) {
 
-
       if (x >= xStart && x <= xEnd && y <= yStart && y >= yEnd) {
         // calc hsv color
+        var indices = getColorIndicesForCoord(x, y, canvasWidth);
 
         var xVal = (x - xStart) / xWidth;
         var yVal = (yStart - y) / yHeight;
 
-        var index = (x + y * canvasWidth) * 4;
 
-        tmpRGB.set1Value(r);
-        tmpRGB.set2Value(xVal);
-        tmpRGB.set3Value(yVal);
+        switch (type) {
+          case "GR":
+            tmpRGB.set1Value(yVal);
+            tmpRGB.set2Value(xVal);
+            tmpRGB.set3Value(fixedValue);
+            break;
+            case "BR":
+            tmpRGB.set1Value(yVal);
+            tmpRGB.set2Value(fixedValue);
+            tmpRGB.set3Value(xVal);
+              break;
+              case "GB":
+                tmpRGB.set1Value(fixedValue);
+                tmpRGB.set2Value(xVal);
+                tmpRGB.set3Value(yVal);
+                break;
+        }
+
 
         if(doColorblindnessSim){
-
           var tmpLMS = tmpRGB.calcLMSColor();
           tmpRGB = tmpLMS.calcColorBlindRGBColor();
         }
 
-          canvasData.data[index + 0] = Math.round(tmpRGB.get1Value() * 255); // r
-          canvasData.data[index + 1] = Math.round(tmpRGB.get2Value() * 255); // g
-          canvasData.data[index + 2] = Math.round(tmpRGB.get3Value() * 255); // b
-          canvasData.data[index + 3] = 255; //a
-
+        background.data[indices[0]] = Math.round(tmpRGB.get1Value() * 255); // r
+        background.data[indices[1]] = Math.round(tmpRGB.get2Value() * 255); // g
+        background.data[indices[2]] = Math.round(tmpRGB.get3Value() * 255); // b
+        background.data[indices[3]] = 255; //a
       }
-    }
 
+    }
   }
 
-  canvasContex.putImageData(canvasData, 0, 0); // update ColorspaceCanvas;
-  rgbPlot(canvasContex, canvasWidth, canvasHeight, "G", "B");
+  return background;
 }
+
 
 
 function rgbPlot(context, canvasWidth, canvasHeight, xlabel, ylabel) {
@@ -289,6 +220,9 @@ function rgbPlot(context, canvasWidth, canvasHeight, xlabel, ylabel) {
 
 
 }
+
+
+
 
 
 ///////////////////////////////////////////////////////////////////////////////
