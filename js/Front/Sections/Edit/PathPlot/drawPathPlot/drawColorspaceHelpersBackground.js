@@ -223,8 +223,6 @@ function rgbPlot(context, canvasWidth, canvasHeight, xlabel, ylabel) {
 
 
 
-
-
 ///////////////////////////////////////////////////////////////////////////////
 
 
@@ -353,7 +351,14 @@ function drawHSVBackground(canvasContex,canvasWidth,canvasHeight,fixedColor){
   canvasContex.imageSmoothingEnabled = false; // did not work !?!?!
   canvasContex.oImageSmoothingEnabled = false;*/
 
-  var colorspaceBackgroundData = canvasContex.getImageData(0, 0, canvasWidth, canvasHeight);
+  var colorspaceBackgroundData = getHSVBackground(canvasWidth, canvasHeight, fixedColor);//canvasContex.getImageData(0, 0, canvasWidth, canvasHeight);
+  canvasContex.putImageData(colorspaceBackgroundData, 0, 0); // update ColorspaceCanvas;
+
+}
+
+function getHSVBackground(canvasWidth, canvasHeight, fixedColor){
+
+  var background = new ImageData(canvasWidth, canvasHeight);
 
   var colorspaceCenterX = Math.round(canvasWidth / 2);
   var colorspaceCenterY = Math.round(canvasHeight / 2);
@@ -380,7 +385,6 @@ function drawHSVBackground(canvasContex,canvasWidth,canvasHeight,fixedColor){
         var hVal = angle;
         var sVal = dis / colorspaceRadius;
 
-
         var colorHSV = new classColor_HSV(hVal, sVal, vVal);
         colorRGB = colorHSV.calcRGBColor();
 
@@ -389,12 +393,12 @@ function drawHSVBackground(canvasContex,canvasWidth,canvasHeight,fixedColor){
           colorRGB = tmpLMS.calcColorBlindRGBColor();
         }
 
-        var index = (x + y * canvasWidth) * 4;
+        var indices = getColorIndicesForCoord(x, y, canvasWidth);
 
-        colorspaceBackgroundData.data[index + 0] = Math.round(colorRGB.getRValue() * 255); // r
-        colorspaceBackgroundData.data[index + 1] = Math.round(colorRGB.getGValue() * 255); // g
-        colorspaceBackgroundData.data[index + 2] = Math.round(colorRGB.getBValue() * 255); // b
-        colorspaceBackgroundData.data[index + 3] = 255; //a
+        background.data[indices[0]] = Math.round(colorRGB.get1Value() * 255); // r
+        background.data[indices[1]] = Math.round(colorRGB.get2Value() * 255); // g
+        background.data[indices[2]] = Math.round(colorRGB.get3Value() * 255); // b
+        background.data[indices[3]] = 255; //a
 
 
       }
@@ -403,8 +407,7 @@ function drawHSVBackground(canvasContex,canvasWidth,canvasHeight,fixedColor){
 
   }
 
-  canvasContex.putImageData(colorspaceBackgroundData, 0, 0); // update ColorspaceCanvas;
-
+  return background;
 }
 
 function drawLabBackground(canvasContex,canvasWidth,canvasHeight,fixedColor){
@@ -416,7 +419,16 @@ function drawLabBackground(canvasContex,canvasWidth,canvasHeight,fixedColor){
   canvasContex.imageSmoothingEnabled = false; // did not work !?!?!
   canvasContex.oImageSmoothingEnabled = false;*/
 
-  var colorspaceBackgroundData = canvasContex.getImageData(0, 0, canvasWidth, canvasHeight);
+  var colorspaceBackgroundData = getLabBackground(canvasWidth, canvasHeight, fixedColor);//canvasContex.getImageData(0, 0, canvasWidth, canvasHeight);
+
+
+
+  canvasContex.putImageData(colorspaceBackgroundData, 0, 0); // update ColorspaceCanvas;
+
+}
+
+function getLabBackground(canvasWidth, canvasHeight, fixedColor){
+  var background = new ImageData(canvasWidth, canvasHeight);
 
   var colorspaceCenterX = Math.round(canvasWidth / 2);
   var colorspaceCenterY = Math.round(canvasHeight / 2);
@@ -456,19 +468,18 @@ function drawLabBackground(canvasContex,canvasWidth,canvasHeight,fixedColor){
           colorRGB = tmpLMS.calcColorBlindRGBColor();
         }
 
-        var index = (x + y * canvasWidth) * 4;
+        var indices = getColorIndicesForCoord(x, y, canvasWidth);
 
-        colorspaceBackgroundData.data[index + 0] = Math.round(colorRGB.getRValue() * 255); // r
-        colorspaceBackgroundData.data[index + 1] = Math.round(colorRGB.getGValue() * 255); // g
-        colorspaceBackgroundData.data[index + 2] = Math.round(colorRGB.getBValue() * 255); // b
-        colorspaceBackgroundData.data[index + 3] = 255; //a
+        background.data[indices[0]] = Math.round(colorRGB.get1Value() * 255); // r
+        background.data[indices[1]] = Math.round(colorRGB.get2Value() * 255); // g
+        background.data[indices[2]] = Math.round(colorRGB.get3Value() * 255); // b
+        background.data[indices[3]] = 255; //a
 
     }
 
   }
 
-  canvasContex.putImageData(colorspaceBackgroundData, 0, 0); // update ColorspaceCanvas;
-
+  return background;
 }
 
 function drawDIN99Background(canvasContex,canvasWidth,canvasHeight,fixedColor){
@@ -480,10 +491,17 @@ function drawDIN99Background(canvasContex,canvasWidth,canvasHeight,fixedColor){
   canvasContex.imageSmoothingEnabled = false; // did not work !?!?!
   canvasContex.oImageSmoothingEnabled = false;*/
 
+  var colorspaceBackgroundData = getDIN99Background(canvasWidth, canvasHeight, fixedColor);//canvasContex.getImageData(0, 0, canvasWidth, canvasHeight);
+
+  canvasContex.putImageData(colorspaceBackgroundData, 0, 0); // update ColorspaceCanvas;
+
+}
+
+function getDIN99Background(canvasWidth, canvasHeight, fixedColor){
+  var background = new ImageData(canvasWidth, canvasHeight);
+
   rangeA99 = rangeA99Pos - rangeA99Neg;
   rangeB99 = rangeB99Pos - rangeB99Neg;
-
-  var colorspaceBackgroundData = canvasContex.getImageData(0, 0, canvasWidth, canvasHeight);
 
   var colorspaceCenterX = Math.round(canvasWidth / 2);
   var colorspaceCenterY = Math.round(canvasHeight / 2);
@@ -497,7 +515,6 @@ function drawDIN99Background(canvasContex,canvasWidth,canvasHeight,fixedColor){
     l99Val=fixedColor.getL99Value();
 
   var colorRGB;
-
 
   for (var x = 0; x < canvasWidth; x++) {
 
@@ -525,15 +542,14 @@ function drawDIN99Background(canvasContex,canvasWidth,canvasHeight,fixedColor){
           colorRGB = tmpLMS.calcColorBlindRGBColor();
         }
 
-        var index = (x + y * canvasWidth) * 4;
-        colorspaceBackgroundData.data[index + 0] = Math.round(colorRGB.getRValue() * 255); // r
-        colorspaceBackgroundData.data[index + 1] = Math.round(colorRGB.getGValue() * 255); // g
-        colorspaceBackgroundData.data[index + 2] = Math.round(colorRGB.getBValue() * 255); // b
-        colorspaceBackgroundData.data[index + 3] = 255; //a
+        var indices = getColorIndicesForCoord(x, y, canvasWidth);
+        background.data[indices[0]] = Math.round(colorRGB.get1Value() * 255); // r
+        background.data[indices[1]] = Math.round(colorRGB.get2Value() * 255); // g
+        background.data[indices[2]] = Math.round(colorRGB.get3Value() * 255); // b
+        background.data[indices[3]] = 255; //a
 
     }
   }
 
-  canvasContex.putImageData(colorspaceBackgroundData, 0, 0); // update ColorspaceCanvas;
-
+  return background;
 }

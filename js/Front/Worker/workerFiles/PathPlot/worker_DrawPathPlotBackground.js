@@ -40,29 +40,96 @@ self.addEventListener('message', function(e) {
 
 
    case "init":
-      self.importScripts('../../GlobalEvents/WorkerDependent/standartJSON_Processing.js');
+      self.importScripts('../../processingCases.js');
       // Colors
-      self.importScripts('../../Classes/ColormapClass/class_Colorspace_RGB.js');
-      self.importScripts('../../Classes/ColormapClass/class_Colorspace_XYZ.js');
-      self.importScripts('../../Classes/ColormapClass/class_Colorspace_LMS.js');
-      self.importScripts('../../Classes/ColormapClass/class_Colorspace_HSV.js');
-      self.importScripts('../../Classes/ColormapClass/class_Colorspace_LAB.js');
-      self.importScripts('../../Classes/ColormapClass/class_Colorspace_DIN99.js');
+      self.importScripts('../../../Classes/ColormapClass/class_Colorspace_RGB.js');
+      self.importScripts('../../../Classes/ColormapClass/class_Colorspace_XYZ.js');
+      self.importScripts('../../../Classes/ColormapClass/class_Colorspace_LMS.js');
+      self.importScripts('../../../Classes/ColormapClass/class_Colorspace_HSV.js');
+      self.importScripts('../../../Classes/ColormapClass/class_Colorspace_LAB.js');
+      self.importScripts('../../../Classes/ColormapClass/class_Colorspace_DIN99.js');
 
-      self.importScripts('../../Classes/ColormapClass/class_colormapSpecification.js');
-      self.importScripts('../../Classes/ColormapClass/class_Colormap_Key.js');
-      self.importScripts('../../Classes/ColormapClass/class_Colormap_Interval.js');
-      self.importScripts('../../Classes/ColormapClass/class_Colormap_Probe.js');
-      self.importScripts('../../Classes/ColormapClass/class_Colormap_ProbeSet.js');
+      self.importScripts('../../../Classes/ColormapClass/class_colormapSpecification.js');
+      self.importScripts('../../../Classes/ColormapClass/class_Colormap_Key.js');
+      self.importScripts('../../../Classes/ColormapClass/class_Colormap_Interval.js');
+      self.importScripts('../../../Classes/ColormapClass/class_Colormap_Probe.js');
+      self.importScripts('../../../Classes/ColormapClass/class_Colormap_ProbeSet.js');
+
+      self.importScripts('../../../GlobalEvents/Helpers/canvasHelpers.js');
 
       globalCMS1 = new class_CMS();
 
       // draw algorithm for the background
-      self.importScripts('../../Sections/Edit/PathPlot/drawPathPlot/drawColorspaceHelpersBackground.js');
+      self.importScripts('../../../Sections/Edit/PathPlot/drawPathPlot/drawColorspaceHelpersBackground.js');
 
       initIsDone=true;
 
     break;
+
+  case "getData":
+
+  var answerJSON = {};
+  answerJSON['canvasID'] = undefined;
+  answerJSON['imageData'] = undefined;
+console.log(123123);
+  var fixedColor = undefined;
+  switch (e.data.space) {
+    case "rgb":
+
+      if(e.data.fixedColorV1 != undefined && e.data.fixedColorV2 != undefined && e.data.fixedColorV3 != undefined)
+        fixedColor = new classColor_RGB(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
+
+      answerJSON.additionalFct = 0;
+      answerJSON.imageData=getRGBBackground(500, 500, fixedColor, e.data.type);
+      switch (e.data.type) {
+        case "GR":
+          answerJSON.canvasID="id_EditPage_PathPlot_Canvas1_0";
+          answerJSON.optionA = "G";
+          answerJSON.optionB = "R";
+        break;
+        case "BR":
+          answerJSON.canvasID="id_EditPage_PathPlot_Canvas2_0";
+          answerJSON.optionA = "B";
+          answerJSON.optionB = "R";
+        break;
+        case "GB":
+          answerJSON.canvasID="id_EditPage_PathPlot_Canvas3_0";
+          answerJSON.optionA = "G";
+          answerJSON.optionB = "B";
+        break;
+
+      }
+
+    break;
+
+    case "hsv":
+      answerJSON.canvasID="id_EditPage_PathPlot_SingleCanvas_0";
+      if(e.data.fixedColorV1 != undefined && e.data.fixedColorV2 != undefined && e.data.fixedColorV3 != undefined)
+        fixedColor = new classColor_HSV(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
+      answerJSON.imageData=getHSVBackground(500, 500, fixedColor);
+    break;
+
+    case "lab":
+      answerJSON.canvasID="id_EditPage_PathPlot_SingleCanvas_0";
+      if(e.data.fixedColorV1 != undefined && e.data.fixedColorV2 != undefined && e.data.fixedColorV3 != undefined)
+        fixedColor = new classColor_LAB(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
+      answerJSON.imageData=getLabBackground(500, 500, fixedColor);
+    break;
+
+    case "din99":
+      answerJSON.canvasID="id_EditPage_PathPlot_SingleCanvas_0";
+      if(e.data.fixedColorV1 != undefined && e.data.fixedColorV2 != undefined && e.data.fixedColorV3 != undefined)
+        fixedColor = new classColorDIN99(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
+      answerJSON.imageData=getDIN99Background(500, 500, fixedColor);
+    break;
+
+
+  }
+  self.postMessage(answerJSON);
+
+
+
+  break;
 
   case "draw":
 

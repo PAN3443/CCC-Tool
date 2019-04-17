@@ -34,7 +34,7 @@ function rgbDrawBackground() {
 
 }
 
-function rgbDrawBackground_Offscreen(){
+function rgbWorkerDrawBackground(){
 
   var fixR = undefined;
   var fixG = undefined;
@@ -61,7 +61,11 @@ function rgbDrawBackground_Offscreen(){
 
   var workerJSON = {};
 
-  workerJSON['message'] = "draw";
+  if(browserCanOffscreenCanvas)
+    workerJSON['message'] = "draw";
+  else
+    workerJSON['message'] = "getData";
+
   workerJSON['space'] = "rgb";
   workerJSON['type'] = "GR";
   workerJSON['fixedColorV1'] = fixR;
@@ -89,12 +93,8 @@ function drawcolormap_RGBSpace(calcBackground, drawInterpolationLine) {
 
   if(calcBackground){
 
-    if(browserCanWorker && browserCanOffscreenCanvas){
-      if(browserCanOffscreenCanvas)
-        rgbDrawBackground_Offscreen();
-      else
-        rgbDrawBackground();
-    }
+    if(browserCanWorker)
+      rgbWorkerDrawBackground();
     else
       rgbDrawBackground();
   }

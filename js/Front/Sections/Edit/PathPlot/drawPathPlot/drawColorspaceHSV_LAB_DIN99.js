@@ -3,8 +3,11 @@
 //////////////////////////////////////////
 function hueInit() {
 
-  if(browserCanOffscreenCanvas){
-    hueInit_Offscreen();
+  if(browserCanWorker){
+    hueInit_Worker();
+  }
+  else if(browserCanWorker){
+
   }
   else{
     var canvas = document.getElementById("id_EditPage_PathPlot_SingleCanvas_0");
@@ -44,7 +47,8 @@ function hueInit() {
 
 }
 
-function hueInit_Offscreen(){
+function hueInit_Worker(){
+
   var fixV1 = undefined;
   var fixV2 = undefined;
   var fixV3 = undefined;
@@ -68,7 +72,12 @@ function hueInit_Offscreen(){
   }
 
   var workerJSON = {};
-  workerJSON['message'] = "draw";
+
+  if(browserCanOffscreenCanvas)
+    workerJSON['message'] = "draw";
+  else
+    workerJSON['message'] = "getData";
+
   workerJSON['space'] = pathColorspace;
   workerJSON['type'] = "Hue";
   workerJSON['fixedColorV1'] = fixV1;
