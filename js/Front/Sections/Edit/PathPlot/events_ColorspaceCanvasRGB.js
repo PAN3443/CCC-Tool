@@ -75,16 +75,20 @@ function mouseMoveColorspaceRGB(event) {
 
   // calc mouse pos
   var rect = document.getElementById(event.target.id).getBoundingClientRect();
+  var resolutionX = document.getElementById(event.target.id).width;
+  var resolutionY = document.getElementById(event.target.id).height;
+
   var canvasPosX = event.clientX - rect.left;
   var canvasPosY = event.clientY - rect.top;
-  //var ratioToColorspaceResolutionX = hue_resolution_X / rect.width;
-  //var ratioToColorspaceResolutionY = hue_resolution_Y / rect.height;
-  mousePosX = canvasPosX;// * ratioToColorspaceResolutionX;
-  mousePosY = canvasPosY;// * ratioToColorspaceResolutionY;
-  var xStart = document.getElementById(event.target.id).width*0.1;
-  var yStart = document.getElementById(event.target.id).height*0.9;
-  var xEnd = document.getElementById(event.target.id).width*0.8;
-  var yEnd = document.getElementById(event.target.id).height*0.2;
+
+  var ratioToColorspaceResolutionX = resolutionX / rect.width;
+  var ratioToColorspaceResolutionY = resolutionY / rect.height;
+  mousePosX = canvasPosX * ratioToColorspaceResolutionX;
+  mousePosY = canvasPosY * ratioToColorspaceResolutionY;
+  var xStart = resolutionX*0.1;
+  var yStart = resolutionY*0.9;
+  var xEnd = resolutionX*0.8;
+  var yEnd = resolutionY*0.2;
   var xWidth = xEnd-xStart;
   var yHeight =yStart-yEnd;
 
@@ -310,7 +314,7 @@ function mouseDownColorspaceRGB(event) {
     if(mouseAboveKeyID!=-1){
 
 
-      timer2DAnimation = setInterval(rgb2DAnimation, animationInterval);
+      timer2DAnimation = setInterval(rgb2DAnimation, animationIntervalPathPlot);
       // Calc Band Index
 
       mouseGrappedKeyID = mouseAboveKeyID;

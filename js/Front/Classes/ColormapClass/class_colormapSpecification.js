@@ -425,6 +425,11 @@ class class_CMS {
     this.intervalArray=[];
     this.intervalPosition=[];
 
+    if(this.keyArray.length==0)
+    return;
+
+    if(this.keyArray.length<=startKey || this.keyArray.length<=endKey)
+    return;
 
     var startPos = this.keyArray[startKey].getRefPosition();
     var endPos = this.keyArray[endKey].getRefPosition();
@@ -544,6 +549,9 @@ class class_CMS {
     this.intervalPosition=[];
 
     if(this.keyArray.length==0)
+    return;
+
+    if(this.keyArray.length<=startKey || this.keyArray.length<=endKey)
     return;
 
     for(var keyIndex=startKey; keyIndex<endKey; keyIndex++){

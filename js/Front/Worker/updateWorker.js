@@ -17,6 +17,12 @@ function inform_Worker_ColorblindSimulation(){
     drawBackgroundWorker3.postMessage(workerJSON);
     drawBackgroundWorker4.postMessage(workerJSON);
 
+    drawInterpolationLineWorker1.postMessage(workerJSON);
+    drawInterpolationLineWorker2.postMessage(workerJSON);
+    drawInterpolationLineWorker3.postMessage(workerJSON);
+    drawInterpolationLineWorker4.postMessage(workerJSON);
+
+
 }
 
 function inform_Worker_ColorSettings(){
@@ -36,6 +42,11 @@ function inform_Worker_ColorSettings(){
   drawBackgroundWorker2.postMessage(workerJSON);
   drawBackgroundWorker3.postMessage(workerJSON);
   drawBackgroundWorker4.postMessage(workerJSON);
+
+  drawInterpolationLineWorker1.postMessage(workerJSON);
+  drawInterpolationLineWorker2.postMessage(workerJSON);
+  drawInterpolationLineWorker3.postMessage(workerJSON);
+  drawInterpolationLineWorker4.postMessage(workerJSON);
 }
 
 function inform_Worker_ColorMetrics(){
@@ -44,13 +55,24 @@ function inform_Worker_ColorMetrics(){
     return;
 
   var workerJSON = {};
-  workerJSON['message'] = "colorMetricss";
+  workerJSON['message'] = "colorMetrics";
 
+  // 2000
+  workerJSON['de2000_k_L'] = de2000_k_L;
+  workerJSON['de2000_k_C'] = de2000_k_C;
+  workerJSON['de2000_k_H'] = de2000_k_H;
 
-  drawBackgroundWorker1.postMessage(workerJSON);
-  drawBackgroundWorker2.postMessage(workerJSON);
-  drawBackgroundWorker3.postMessage(workerJSON);
-  drawBackgroundWorker4.postMessage(workerJSON);
+  // 94
+  workerJSON['de94_k_L'] = de94_k_L;
+  workerJSON['de94_k_C'] = de94_k_C;
+  workerJSON['de94_k_H'] = de94_k_H;
+  workerJSON['de94_k_1'] = de94_k_1;
+  workerJSON['de94_k_2'] = de94_k_2;
+
+  drawInterpolationLineWorker1.postMessage(workerJSON);
+  drawInterpolationLineWorker2.postMessage(workerJSON);
+  drawInterpolationLineWorker3.postMessage(workerJSON);
+  drawInterpolationLineWorker4.postMessage(workerJSON);
 }
 
 
@@ -71,6 +93,11 @@ function inform_Worker_PathPlotBackgroundParams(){
     drawBackgroundWorker2.postMessage(workerJSON);
     drawBackgroundWorker3.postMessage(workerJSON);
     drawBackgroundWorker4.postMessage(workerJSON);
+
+    drawInterpolationLineWorker1.postMessage(workerJSON);
+    drawInterpolationLineWorker2.postMessage(workerJSON);
+    drawInterpolationLineWorker3.postMessage(workerJSON);
+    drawInterpolationLineWorker4.postMessage(workerJSON);
 
 }
 
@@ -120,11 +147,12 @@ function inform_Worker_GlobalCMS(){
     var tmpMoT = [];
 
     if(globalCMS1.getKeyLength()>0){
-      for (var i = 0; i < globalCMS1.getKeyLength()-1; i++) {
+
+      for (var i = 0; i < globalCMS1.getKeyLength(); i++) {
 
         tmpRefVal.push(globalCMS1.getKey(i).getRefPosition());
-        var color1=globalCMS1.getKey(i).getRightKeyColor("lab");
-        var color2=globalCMS1.getKey(i+1).getLeftKeyColor("lab");
+        var color2=globalCMS1.getKey(i).getRightKeyColor("lab");
+        var color1=globalCMS1.getKey(i).getLeftKeyColor("lab");
 
         if(color1!=undefined){
           tmpkey1CVal1.push(color1.get1Value());
@@ -150,8 +178,9 @@ function inform_Worker_GlobalCMS(){
 
         tmpMoT.push(globalCMS1.getKey(i).getMoT());
       }
-      tmpRefVal.push(globalCMS1.getKey(globalCMS1.getKeyLength()-1).getRefPosition());
-      tmpMoT.push(globalCMS1.getKey(globalCMS1.getKeyLength()-1).getMoT());
+
+      //tmpRefVal.push(globalCMS1.getKey(globalCMS1.getKeyLength()-1).getRefPosition());
+      //tmpMoT.push(globalCMS1.getKey(globalCMS1.getKeyLength()-1).getMoT());
     }
 
 

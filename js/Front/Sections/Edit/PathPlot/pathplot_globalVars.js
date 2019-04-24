@@ -14,3 +14,11 @@ var rangeA99;
 var rangeB99Neg = -83;
 var rangeB99Pos = 155;
 var rangeB99;
+
+var pathplotLines = [];
+var pathplotLinesDashed = [];
+
+var pathplotElementPositions = [];
+
+var framesPerSecond = 10;
+var animationIntervalPathPlot = 1000/framesPerSecond;

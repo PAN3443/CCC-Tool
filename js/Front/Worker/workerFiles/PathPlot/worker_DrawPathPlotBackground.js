@@ -60,7 +60,7 @@ self.addEventListener('message', function(e) {
       globalCMS1 = new class_CMS();
 
       // draw algorithm for the background
-      self.importScripts('../../../Sections/Edit/PathPlot/drawPathPlot/drawColorspaceHelpersBackground.js');
+      self.importScripts('../../../Sections/Edit/PathPlot/drawPathPlot/drawPathPlotHelpersBackground.js');
 
       initIsDone=true;
 
@@ -71,7 +71,7 @@ self.addEventListener('message', function(e) {
   var answerJSON = {};
   answerJSON['canvasID'] = undefined;
   answerJSON['imageData'] = undefined;
-console.log(123123);
+
   var fixedColor = undefined;
   switch (e.data.space) {
     case "rgb":

@@ -11,7 +11,6 @@ class class_Interval{
 
         this.setColor(color);
 
-
     }
 
     setColor(color) {

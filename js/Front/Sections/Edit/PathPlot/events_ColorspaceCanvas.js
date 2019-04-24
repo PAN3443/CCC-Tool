@@ -331,7 +331,7 @@ function mouseDownColorspace() {
   if (mouseAboveKeyID != -1) {
     mouseGrappedKeyID = mouseAboveKeyID;
     hueInit();
-    timer2DAnimation = setInterval(hsvLabDinAnimation, animationInterval);
+    timer2DAnimation = setInterval(hsvLabDinAnimation, animationIntervalPathPlot);
 
     var tmpColor;
     switch (mouseGrappedColorSide) {
@@ -1032,6 +1032,6 @@ function mouseMoveValuePlot(event) {
 function mouseDownValuePlot() {
     if (mouseAboveKeyID != -1) {
       mouseGrappedKeyID = mouseAboveKeyID;
-      timer2DAnimation = setInterval(hsvLabDinAnimation, animationInterval);
+      timer2DAnimation = setInterval(hsvLabDinAnimation, animationIntervalPathPlot);
     }
 }

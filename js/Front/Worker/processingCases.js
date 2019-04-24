@@ -32,6 +32,20 @@ function generalJSON_Processing(json){
       cielab_ref_Z = json.cielab_ref_Z;
     break;
 
+    case "colorMetrics":
+      // 2000
+      de2000_k_L = json.de2000_k_L;
+      de2000_k_C = json.de2000_k_C;
+      de2000_k_H = json.de2000_k_H;
+
+      // 94
+      de94_k_L = json.de94_k_L;
+      de94_k_C = json.de94_k_C;
+      de94_k_H = json.de94_k_H;
+      de94_k_1 = json.de94_k_1;
+      de94_k_2 = json.de94_k_2;
+    break;
+
 
     case "globalCMS":
 
@@ -60,8 +74,7 @@ function generalJSON_Processing(json){
           colorL = new classColor_LAB(json.key1cVal1[i],json.key1cVal2[i],json.key1cVal3[i]);
 
         if(json.key2cVal1[i]!=undefined && json.key2cVal2[i]!=undefined && json.key2cVal3[i]!=undefined)
-          colorL = new classColor_LAB(json.key2cVal1[i],json.key2cVal2[i],json.key2cVal3[i]);
-
+          colorR = new classColor_LAB(json.key2cVal1[i],json.key2cVal2[i],json.key2cVal3[i]);
 
         var tmpKey = new class_Key(colorL, colorR, json.refVal[i], false);
         tmpKey.setMoT(json.MoT[i]);
