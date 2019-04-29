@@ -6,8 +6,6 @@ function drawcolormap_RGBSpace(calcBackground, drawInterpolationLine) {
 
   //pathPlotCanvasInit();
 
-
-
   if(calcBackground){
 
     if(browserCanWorker)
@@ -17,48 +15,48 @@ function drawcolormap_RGBSpace(calcBackground, drawInterpolationLine) {
   }
 
 
-  if(drawInterpolationLine){
-
-    if(browserCanWorker)
-      rgbWorkerDrawInterpolationLine();
-    else
-      rgbDrawInterpolationLine();
-
-  }
 
 
-  rgbDrawElements(); // do3D true
+    if(browserCanWorker){
+      rgbWorkerDrawElements_And_InterpolationLine(drawInterpolationLine);
+    }
+    else{
+      if(drawInterpolationLine)
+        rgbDrawInterpolationLine();
+
+      rgbDrawElements(); // do3D true
+    }
+
 
 
 }
 
 function rgbDrawElements(){
 
-  var canvasSize = 500;
-
   var canvasObj0 = document.getElementById("id_EditPage_PathPlot_Canvas1_2");
-  canvasObj0.width = canvasSize;
-  canvasObj0.height = canvasSize;
+  canvasObj0.width = pathPlotResolution;
+  canvasObj0.height = pathPlotResolution;
   var canvasContex0 = canvasObj0.getContext("2d");
   canvasContex0.clearRect(0, 0, canvasObj0.width, canvasObj0.height);
 
   var canvasObj1 = document.getElementById("id_EditPage_PathPlot_Canvas2_2");
-  canvasObj1.width = canvasSize;
-  canvasObj1.height = canvasSize;
+  canvasObj1.width = pathPlotResolution;
+  canvasObj1.height = pathPlotResolution;
   var canvasContex1 = canvasObj1.getContext("2d");
   canvasContex1.clearRect(0, 0, canvasObj1.width, canvasObj1.height);
 
   var canvasObj2 = document.getElementById("id_EditPage_PathPlot_Canvas3_2");
-  canvasObj2.width = canvasSize;
-  canvasObj2.height = canvasSize;
+  canvasObj2.width = pathPlotResolution;
+  canvasObj2.height = pathPlotResolution;
   var canvasContex2 = canvasObj2.getContext("2d");
   canvasContex2.clearRect(0, 0, canvasObj2.width, canvasObj2.height);
 
-  calcRGBElements(canvasSize);
 
-  drawRGBElements(canvasContex0,canvasSize, 1, 0);
-  drawRGBElements(canvasContex1,canvasSize, 2, 0);
-  drawRGBElements(canvasContex2,canvasSize, 1, 2);
+  calcRGBElements();
+
+  drawRGBElements(canvasContex0, 1, 0);
+  drawRGBElements(canvasContex1, 2, 0);
+  drawRGBElements(canvasContex2, 1, 2);
 
   for (var i = pathPlotElementsGroup.children.length - 1; i >= 0; i--) {
     pathPlotElementsGroup.remove(pathPlotElementsGroup.children[i]);
@@ -72,47 +70,38 @@ function rgbDrawElements(){
 
 function rgbDrawInterpolationLine() {
 
-  var canvasSize = 500;
 
   var canvasObj0 = document.getElementById("id_EditPage_PathPlot_Canvas1_1");
-  canvasObj0.width = canvasSize;
-  canvasObj0.height = canvasSize;
+  canvasObj0.width = pathPlotResolution;
+  canvasObj0.height = pathPlotResolution;
   var canvasContex0 = canvasObj0.getContext("2d");
   canvasContex0.clearRect(0, 0, canvasObj0.width, canvasObj0.height);
 
   var canvasObj1 = document.getElementById("id_EditPage_PathPlot_Canvas2_1");
-  canvasObj1.width = canvasSize;
-  canvasObj1.height = canvasSize;
+  canvasObj1.width = pathPlotResolution;
+  canvasObj1.height = pathPlotResolution;
   var canvasContex1 = canvasObj1.getContext("2d");
   canvasContex1.clearRect(0, 0, canvasObj1.width, canvasObj1.height);
 
   var canvasObj2 = document.getElementById("id_EditPage_PathPlot_Canvas3_1");
-  canvasObj2.width = canvasSize;
-  canvasObj2.height = canvasSize;
+  canvasObj2.width = pathPlotResolution;
+  canvasObj2.height = pathPlotResolution;
   var canvasContex2 = canvasObj2.getContext("2d");
   canvasContex2.clearRect(0, 0, canvasObj2.width, canvasObj2.height);
 
-  calcRGBInterpolationLine(canvasSize);
 
-  drawInterpolationLine(canvasContex0,canvasSize,pathplotLines, false, 1, 0);
-  drawInterpolationLine(canvasContex0,canvasSize,pathplotLinesDashed, true, 1, 0);
+  calcRGBInterpolationLine();
 
-  drawInterpolationLine(canvasContex1,canvasSize,pathplotLines, false, 2, 0);
-  drawInterpolationLine(canvasContex1,canvasSize,pathplotLinesDashed, true, 2, 0);
+  drawInterpolationLine(canvasContex0,1,0,true);
+  drawInterpolationLine(canvasContex1,2,0,true);
+  drawInterpolationLine(canvasContex2,1,2,true);
+  
+  draw3DInterpolationLine();
 
-  drawInterpolationLine(canvasContex2,canvasSize,pathplotLines, false, 1, 2);
-  drawInterpolationLine(canvasContex2,canvasSize,pathplotLinesDashed, true, 1, 2);
-
-  for (var i = pathPlotLineGroup.children.length - 1; i >= 0; i--) {
-    pathPlotLineGroup.remove(pathPlotLineGroup.children[i]);
-  }
-
-  draw3DInterpolationLine(pathplotLines,false);
-  draw3DInterpolationLine(pathplotLinesDashed,true);
 
 }
 
-function rgbWorkerDrawInterpolationLine(){
+function rgbWorkerDrawElements_And_InterpolationLine(drawInterpolationLine){
 
     drawInterpolationLineWorker1.postMessage(globalCMS1JSON);
     drawInterpolationLineWorker2.postMessage(globalCMS1JSON);
@@ -125,8 +114,10 @@ function rgbWorkerDrawInterpolationLine(){
     else
       workerJSON['message'] = "getData";
 
+    workerJSON['drawInterpolationLine'] = drawInterpolationLine;
     workerJSON['intervalDelta'] = intervalDelta;
-    workerJSON['canvasSize'] = 500;
+    workerJSON['pathPlotResolution'] = pathPlotResolution;
+    workerJSON['vPlotWidth'] = undefined;
     workerJSON['do3D'] = false;
     workerJSON['space'] = "rgb";
     workerJSON['type'] = "GR";
@@ -146,13 +137,22 @@ function rgbWorkerDrawInterpolationLine(){
 function rgbDrawBackground() {
 
   var canvasObj0 = document.getElementById("id_EditPage_PathPlot_Canvas1_0");
+  canvasObj0.width = pathPlotResolution;
+  canvasObj0.height = pathPlotResolution;
   var canvasContex0 = canvasObj0.getContext("2d");
+  canvasContex0.clearRect(0, 0, canvasObj0.width, canvasObj0.height);
 
   var canvasObj1 = document.getElementById("id_EditPage_PathPlot_Canvas2_0");
+  canvasObj1.width = pathPlotResolution;
+  canvasObj1.height = pathPlotResolution;
   var canvasContex1 = canvasObj1.getContext("2d");
+  canvasContex1.clearRect(0, 0, canvasObj1.width, canvasObj1.height);
 
   var canvasObj2 = document.getElementById("id_EditPage_PathPlot_Canvas3_0");
+  canvasObj2.width = pathPlotResolution;
+  canvasObj2.height = pathPlotResolution;
   var canvasContex2 = canvasObj2.getContext("2d");
+  canvasContex2.clearRect(0, 0, canvasObj2.width, canvasObj2.height);
 
   var fixedColor = undefined;
   if (mouseGrappedKeyID != -1) {
@@ -169,9 +169,9 @@ function rgbDrawBackground() {
 
   }
 
-  drawGRBackground(canvasContex0,canvasObj0.width,canvasObj0.height,fixedColor);
-  drawBRBackground(canvasContex1,canvasObj1.width,canvasObj1.height,fixedColor);
-  drawGBBackground(canvasContex2,canvasObj2.width,canvasObj2.height,fixedColor);
+  drawGRBackground(canvasContex0,fixedColor);
+  drawBRBackground(canvasContex1,fixedColor);
+  drawGBBackground(canvasContex2,fixedColor);
 
 }
 
@@ -207,6 +207,8 @@ function rgbWorkerDrawBackground(){
   else
     workerJSON['message'] = "getData";
 
+  workerJSON['pathPlotResolution'] = pathPlotResolution;
+  workerJSON['vPlotWidth'] = undefined;
   workerJSON['space'] = "rgb";
   workerJSON['type'] = "GR";
   workerJSON['fixedColorV1'] = fixR;

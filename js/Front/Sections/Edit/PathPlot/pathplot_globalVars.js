@@ -17,8 +17,20 @@ var rangeB99;
 
 var pathplotLines = [];
 var pathplotLinesDashed = [];
+var pathplotLinesVPlot=[];
 
 var pathplotElementPositions = [];
+var vPlotElementPositions=[];
 
 var framesPerSecond = 10;
 var animationIntervalPathPlot = 1000/framesPerSecond;
+
+var pathPlotResolution = 500;
+var vPlotWidth = 1500;
+
+var vPlotyStart = Math.round(pathPlotResolution * 0.9);
+var vPlotyEnd = Math.round(pathPlotResolution * 0.1);
+var vPlotxStart = Math.round(vPlotWidth * 0.1);
+var vPlotxEnd = Math.round(vPlotWidth * 0.85);
+var heigthVArea = vPlotyStart - vPlotyEnd;
+var plotwidth = vPlotxEnd - vPlotxStart;

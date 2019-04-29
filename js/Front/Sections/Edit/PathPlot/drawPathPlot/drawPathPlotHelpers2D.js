@@ -1,3 +1,18 @@
+function updateVPlotWidth(canvas){
+  // Update vPlotWidth
+  var rect = canvas.getBoundingClientRect();
+  var ratio = rect.width/rect.height;
+  vPlotWidth = Math.round(pathPlotResolution*ratio);
+
+  vPlotyStart = Math.round(pathPlotResolution * 0.9);
+  vPlotyEnd = Math.round(pathPlotResolution * 0.1);
+  vPlotxStart = Math.round(vPlotWidth * 0.1);
+  vPlotxEnd = Math.round(vPlotWidth * 0.85);
+  heigthVArea = vPlotyStart - vPlotyEnd;
+  plotwidth = vPlotxEnd - vPlotxStart;
+}
+
+
 function drawElement(colorString,colorspaceContex,xPos,yPos, index, colorside, circle){
   // draw circle
 

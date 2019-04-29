@@ -28,6 +28,8 @@ var rangeB99Neg = undefined;
 var rangeB99Pos = undefined;
 var rangeA99 = undefined;
 var rangeB99 = undefined;
+var pathPlotResolution = 500;
+var vPlotWidth = undefined;
 
 // CMS
 var globalCMS1 = undefined;
@@ -72,6 +74,12 @@ self.addEventListener('message', function(e) {
   answerJSON['canvasID'] = undefined;
   answerJSON['imageData'] = undefined;
 
+  pathPlotResolution = e.data.pathPlotResolution;
+  vPlotWidth = e.data.vPlotWidth;
+
+  answerJSON['pathPlotResolution'] = pathPlotResolution;
+  answerJSON['vPlotWidth'] = vPlotWidth;
+
   var fixedColor = undefined;
   switch (e.data.space) {
     case "rgb":
@@ -80,7 +88,7 @@ self.addEventListener('message', function(e) {
         fixedColor = new classColor_RGB(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
 
       answerJSON.additionalFct = 0;
-      answerJSON.imageData=getRGBBackground(500, 500, fixedColor, e.data.type);
+      answerJSON.imageData=getRGBBackground(fixedColor, e.data.type);
       switch (e.data.type) {
         case "GR":
           answerJSON.canvasID="id_EditPage_PathPlot_Canvas1_0";
@@ -106,21 +114,21 @@ self.addEventListener('message', function(e) {
       answerJSON.canvasID="id_EditPage_PathPlot_SingleCanvas_0";
       if(e.data.fixedColorV1 != undefined && e.data.fixedColorV2 != undefined && e.data.fixedColorV3 != undefined)
         fixedColor = new classColor_HSV(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
-      answerJSON.imageData=getHSVBackground(500, 500, fixedColor);
+      answerJSON.imageData=getHSVBackground(fixedColor);
     break;
 
     case "lab":
       answerJSON.canvasID="id_EditPage_PathPlot_SingleCanvas_0";
       if(e.data.fixedColorV1 != undefined && e.data.fixedColorV2 != undefined && e.data.fixedColorV3 != undefined)
         fixedColor = new classColor_LAB(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
-      answerJSON.imageData=getLabBackground(500, 500, fixedColor);
+      answerJSON.imageData=getLabBackground(fixedColor);
     break;
 
     case "din99":
       answerJSON.canvasID="id_EditPage_PathPlot_SingleCanvas_0";
       if(e.data.fixedColorV1 != undefined && e.data.fixedColorV2 != undefined && e.data.fixedColorV3 != undefined)
         fixedColor = new classColorDIN99(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
-      answerJSON.imageData=getDIN99Background(500, 500, fixedColor);
+      answerJSON.imageData=getDIN99Background(fixedColor);
     break;
 
 
@@ -133,6 +141,7 @@ self.addEventListener('message', function(e) {
 
   case "draw":
 
+      pathPlotResolution = e.data.pathPlotResolution;
 
       if(canvas==undefined)
         break;
@@ -141,8 +150,8 @@ self.addEventListener('message', function(e) {
       switch (e.data.space) {
         case "rgb":
 
-          canvas.height=500;
-          canvas.width=500;
+          canvas.height=pathPlotResolution;
+          canvas.width=pathPlotResolution;
 
           if(e.data.fixedColorV1 != undefined && e.data.fixedColorV2 != undefined && e.data.fixedColorV3 != undefined)
             fixedColor = new classColor_RGB(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
@@ -164,8 +173,10 @@ self.addEventListener('message', function(e) {
 
         case "hsv":
 
-          canvas.height=500;
-          canvas.width=1500;
+          //////////////////////
+          updateVPlotWidth(canvas);
+          canvas.height=pathPlotResolution;
+          canvas.width=vPlotWidth;
 
           switch (e.data.type) {
             case "V1":
@@ -178,7 +189,7 @@ self.addEventListener('message', function(e) {
                 drawVPlot(canvasContex,canvas.width,canvas.height,0,1);
             break;
             case "Hue":
-                canvas.width=500;
+                canvas.width=pathPlotResolution;
 
                 if(e.data.fixedColorV1 != undefined && e.data.fixedColorV2 != undefined && e.data.fixedColorV3 != undefined)
                   fixedColor = new classColor_HSV(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
@@ -192,9 +203,9 @@ self.addEventListener('message', function(e) {
         break;
 
         case "lab":
-
-          canvas.height=500;
-          canvas.width=1500;
+          updateVPlotWidth(canvas);
+          canvas.height=pathPlotResolution;
+          canvas.width=vPlotWidth;
 
           switch (e.data.type) {
             case "V1":
@@ -207,7 +218,7 @@ self.addEventListener('message', function(e) {
                 drawVPlot(canvasContex,canvas.width,canvas.height,labSpaceRange*-1,labSpaceRange);
             break;
             case "Hue":
-                canvas.width=500;
+                canvas.width=pathPlotResolution;
 
                 if(e.data.fixedColorV1 != undefined && e.data.fixedColorV2 != undefined && e.data.fixedColorV3 != undefined)
                   fixedColor = new classColor_LAB(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
@@ -220,9 +231,9 @@ self.addEventListener('message', function(e) {
         break;
 
         case "din99":
-
-          canvas.height=500;
-          canvas.width=1500;
+          updateVPlotWidth(canvas);
+          canvas.height=pathPlotResolution;
+          canvas.width=vPlotWidth;
 
           switch (e.data.type) {
             case "V1":
@@ -235,7 +246,7 @@ self.addEventListener('message', function(e) {
                 drawVPlot(canvasContex,canvas.width,canvas.height,rangeB99Neg,rangeB99Pos);
             break;
             case "Hue":
-                canvas.width=500;
+                canvas.width=pathPlotResolution;
 
                 if(e.data.fixedColorV1 != undefined && e.data.fixedColorV2 != undefined && e.data.fixedColorV3 != undefined)
                   fixedColor = new classColorDIN99(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);

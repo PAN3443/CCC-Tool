@@ -32,7 +32,11 @@ var sim_AdaptiveColorblindness = undefined;
 // Draw Settings
 var pathplotLines = [];
 var pathplotLinesDashed = [];
+var pathplotElementPositions=[];
+var vPlotElementPositions=[];
 var intervalDelta = undefined;
+var pathPlotResolution = 500;
+var vPlotWidth = 1500;
 
 var lineWidthVPlot = 2;
 var labSpaceRange = undefined;
@@ -78,6 +82,7 @@ self.addEventListener('message', function(e) {
 
       // draw algorithm for the background
       self.importScripts('../../../Sections/Edit/PathPlot/drawPathPlot/drawPathPlotHelpersInterpolationLine.js');
+      self.importScripts('../../../Sections/Edit/PathPlot/drawPathPlot/drawPathPlotHelpersKeyElements.js');
 
       initIsDone=true;
 
@@ -87,47 +92,66 @@ self.addEventListener('message', function(e) {
 
   var answerJSON = {};
   answerJSON['canvasID'] = undefined;
-  answerJSON['canvasSize'] = e.data.canvasSize;
+  answerJSON['canvasID2'] = undefined;
+
+  pathPlotResolution = e.data.pathPlotResolution;
+  vPlotWidth = e.data.vPlotWidth;
+
+  answerJSON['pathPlotResolution'] = pathPlotResolution;
+  answerJSON['vPlotWidth'] = vPlotWidth;
+
   answerJSON['do3D'] = e.data.do3D;
   intervalDelta = e.data.intervalDelta;
 
   answerJSON['pathplotLines'] = [];
   answerJSON['pathplotLinesDashed'] = [];
+  answerJSON['pathplotElementPositions'] = [];
+  answerJSON['index1'] = undefined;
+  answerJSON['index2'] = undefined;
+  answerJSON['isRGB'] = false;
+  answerJSON['drawInterpolationLine'] = e.data.drawInterpolationLine;
+
 
   switch (e.data.space) {
     case "rgb":
 
-      calcRGBInterpolationLine(e.data.canvasSize);
+      answerJSON.isRGB = true;
+      if(e.data.drawInterpolationLine)
+        calcRGBInterpolationLine();
 
-      var index1 = 0;
-      var index2 = 0;
+        calcRGBElements();
+
+
       switch (e.data.type) {
         case "GR":
           answerJSON.canvasID="id_EditPage_PathPlot_Canvas1_1";
-          index1 = 1;
-          index2 = 0;
+          answerJSON.canvasID2="id_EditPage_PathPlot_Canvas1_2";
+          answerJSON.index1 = 1;
+          answerJSON.index2 = 0;
         break;
         case "BR":
           answerJSON.canvasID="id_EditPage_PathPlot_Canvas2_1";
-          index1 = 2;
-          index2 = 0;
+          answerJSON.canvasID2="id_EditPage_PathPlot_Canvas2_2";
+          answerJSON.index1 = 2;
+          answerJSON.index2 = 0;
         break;
         case "GB":
           answerJSON.canvasID="id_EditPage_PathPlot_Canvas3_1";
-          index1 = 1;
-          index2 = 2;
+          answerJSON.canvasID2="id_EditPage_PathPlot_Canvas3_2";
+          answerJSON.index1 = 1;
+          answerJSON.index2 = 2;
         break;
       }
 
       if(e.data.do3D){
         for (var i = 0; i < pathplotLines.length; i++) {
           var tmpFrom = [];
-          tmpFrom.push(pathplotLines[i][0][index1]);
-          tmpFrom.push(pathplotLines[i][0][index2]);
+          tmpFrom.push(pathplotLines[i][0][answerJSON.index1]);
+          tmpFrom.push(pathplotLines[i][0][answerJSON.index2]);
 
           var tmpTill = [];
-          tmpTill.push(pathplotLines[i][1][index1]);
-          tmpTill.push(pathplotLines[i][1][index2]);
+          tmpTill.push(pathplotLines[i][1][answerJSON.index1]);
+          tmpTill.push(pathplotLines[i][1][answerJSON.index2]);
 
           var tmpFrom3D = [];
           tmpFrom3D.push(pathplotLines[i][2][0]);
@@ -145,12 +169,12 @@ self.addEventListener('message', function(e) {
 
         for (var i = 0; i < pathplotLinesDashed.length; i++) {
           var tmpFrom = [];
-          tmpFrom.push(pathplotLinesDashed[i][0][index1]);
-          tmpFrom.push(pathplotLinesDashed[i][0][index2]);
+          tmpFrom.push(pathplotLinesDashed[i][0][answerJSON.index1]);
+          tmpFrom.push(pathplotLinesDashed[i][0][answerJSON.index2]);
 
           var tmpTill = [];
-          tmpTill.push(pathplotLinesDashed[i][1][index1]);
-          tmpTill.push(pathplotLinesDashed[i][1][index2]);
+          tmpTill.push(pathplotLinesDashed[i][1][answerJSON.index1]);
+          tmpTill.push(pathplotLinesDashed[i][1][answerJSON.index2]);
 
           var tmpFrom3D = [];
           tmpFrom3D.push(pathplotLinesDashed[i][2][0]);
@@ -169,12 +193,12 @@ self.addEventListener('message', function(e) {
       else {
         for (var i = 0; i < pathplotLines.length; i++) {
           var tmpFrom = [];
-          tmpFrom.push(pathplotLines[i][0][index1]);
-          tmpFrom.push(pathplotLines[i][0][index2]);
+          tmpFrom.push(pathplotLines[i][0][answerJSON.index1]);
+          tmpFrom.push(pathplotLines[i][0][answerJSON.index2]);
 
           var tmpTill = [];
-          tmpTill.push(pathplotLines[i][1][index1]);
-          tmpTill.push(pathplotLines[i][1][index2]);
+          tmpTill.push(pathplotLines[i][1][answerJSON.index1]);
+          tmpTill.push(pathplotLines[i][1][answerJSON.index2]);
 
           var tmpPos = [tmpFrom,tmpTill];
           answerJSON.pathplotLines.push(tmpPos);
@@ -182,17 +206,19 @@ self.addEventListener('message', function(e) {
 
         for (var i = 0; i < pathplotLinesDashed.length; i++) {
           var tmpFrom = [];
-          tmpFrom.push(pathplotLinesDashed[i][0][index1]);
-          tmpFrom.push(pathplotLinesDashed[i][0][index2]);
+          tmpFrom.push(pathplotLinesDashed[i][0][answerJSON.index1]);
+          tmpFrom.push(pathplotLinesDashed[i][0][answerJSON.index2]);
 
           var tmpTill = [];
-          tmpTill.push(pathplotLinesDashed[i][1][index1]);
-          tmpTill.push(pathplotLinesDashed[i][1][index2]);
+          tmpTill.push(pathplotLinesDashed[i][1][answerJSON.index1]);
+          tmpTill.push(pathplotLinesDashed[i][1][answerJSON.index2]);
 
           var tmpPos = [tmpFrom,tmpTill];
           answerJSON.pathplotLinesDashed.push(tmpPos);
         }
       }
+
+      answerJSON.pathplotElementPositions = pathplotElementPositions;
 
 
     break;
@@ -222,7 +248,7 @@ self.addEventListener('message', function(e) {
 
   case "draw":
 
-
+    updateVPlotWidth(canvas);
     /*  if(canvas==undefined)
         break;
 

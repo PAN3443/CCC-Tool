@@ -20,8 +20,6 @@ function mouseLeaveColorspace(event) {
 
   }
 
-
-
   mouseAboveKeyID = -1;
   mouseGrappedColorSide = -1;
   if (mouseGrappedKeyID != -1) {
@@ -40,11 +38,17 @@ function hsvLabDinAnimation(){
 function mouseMoveColorspace(event) {
   // calc mouse pos
   var canvasObj = document.getElementById(event.target.id);
-
-
   var rect = canvasObj.getBoundingClientRect();
-  mousePosX =  event.clientX - rect.left;
-  mousePosY = event.clientY - rect.top;
+  var resolutionX = canvasObj.width;
+  var resolutionY = canvasObj.height;
+
+  var canvasPosX = event.clientX - rect.left;
+  var canvasPosY = event.clientY - rect.top;
+
+  var ratioToColorspaceResolutionX = resolutionX / rect.width;
+  var ratioToColorspaceResolutionY = resolutionY / rect.height;
+  mousePosX = canvasPosX * ratioToColorspaceResolutionX;
+  mousePosY = canvasPosY * ratioToColorspaceResolutionY;
 
   var colorspaceCenterX = Math.round(canvasObj.width / 2);
   var colorspaceCenterY = Math.round(canvasObj.height / 2);
@@ -53,7 +57,7 @@ function mouseMoveColorspace(event) {
   if(mouseGrappedKeyID==-1){
 
     // check if mouse is above a element
-
+    var oldMouseAboveKeyID=mouseAboveKeyID;
     var displayColor;
     for (var i = 0; i < globalCMS1.getKeyLength(); i++) {
 
@@ -180,7 +184,7 @@ function mouseMoveColorspace(event) {
       }
 
       if (found) {
-        document.getElementById(event.target.id).style.cursor = "pointer";
+        canvasObj.style.cursor = "pointer";
         switch(pathColorspace) {
           case "hsv":
               var diplay1Val = Math.round(displayColor.get1Value()*360);
@@ -211,10 +215,12 @@ function mouseMoveColorspace(event) {
         mouseGrappedColorSide = -1;
       }
 
-
     }
 
-    drawcolormap_hueSpace(false,false,false);
+    if(oldMouseAboveKeyID!=mouseAboveKeyID){
+      drawcolormap_hueSpace(false,false,false);
+    }
+    //drawcolormap_hueSpace(false,false,false);
 
   }//if grapped key == -1
   else{
@@ -225,7 +231,7 @@ function mouseMoveColorspace(event) {
       case "hsv":
         var dis = Math.sqrt(Math.pow(colorspaceCenterX - mousePosX, 2) + Math.pow(colorspaceCenterY - mousePosY, 2));
         if (dis <= colorspaceRadius) {
-          //document.getElementById(event.target.id).style.cursor = "pointer"; // crosshair
+          //canvasObj.style.cursor = "pointer"; // crosshair
           var ty = (mousePosY) - (colorspaceCenterY);
           var tx = mousePosX - colorspaceCenterX;
           var angle = (Math.atan2(ty, tx) + Math.PI) / (Math.PI * 2); // values 0-1 ...
@@ -291,7 +297,6 @@ function mouseMoveColorspace(event) {
             }
           }
         } else {
-          console.log(123);
           return;
         }
         break;
@@ -317,8 +322,6 @@ function mouseMoveColorspace(event) {
       default:
       console.log("Error "+ mouseGrappedColorSide);
     }
-
-    somethingChanged = true;
 
   }
 
@@ -637,32 +640,25 @@ function mouseMoveValuePlot(event) {
   }
 
   // calc mouse pos
-  var rect = document.getElementById(event.target.id).getBoundingClientRect();
-  /*var canvasPosX = event.clientX - rect.left;
+  var canvasObj = document.getElementById(event.target.id);
+  var rect = canvasObj.getBoundingClientRect();
+  var resolutionX = canvasObj.width;
+  var resolutionY = canvasObj.height;
+
+  var canvasPosX = event.clientX - rect.left;
   var canvasPosY = event.clientY - rect.top;
-  var ratioToColorspaceResolutionX = vPlot_resolution_X / rect.width;
-  var ratioToColorspaceResolutionY = vPlot_resolution_Y / rect.height;
+
+  var ratioToColorspaceResolutionX = resolutionX / rect.width;
+  var ratioToColorspaceResolutionY = resolutionY / rect.height;
   mousePosX = canvasPosX * ratioToColorspaceResolutionX;
-  mousePosY = canvasPosY * ratioToColorspaceResolutionY;*/
-
-  mousePosX = event.clientX - rect.left;
-  mousePosY = event.clientY - rect.top;
-
-  var vPlotyStart =  Math.round(rect.height*0.9);
-
-  var vPlotyStart =  Math.round(rect.height*0.9);
-  var vPlotyEnd =  Math.round(rect.height*0.1);
-  var vPlotxStart =  Math.round(rect.width*0.1);
-  var vPlotxEnd =  Math.round(rect.width*0.85);
-  var heigthVArea =vPlotyStart-vPlotyEnd;
-  var plotwidth = vPlotxEnd-vPlotxStart;
+  mousePosY = canvasPosY * ratioToColorspaceResolutionY;
 
   var tmpX, tmpY;
-  document.getElementById(event.target.id).style.cursor = "default";
-
+  canvasObj.style.cursor = "default";
 
   if(mouseGrappedKeyID==-1){
 
+    var oldMouseAboveKeyID=mouseAboveKeyID;
     var displayColor;
     for (var i = 0; i < globalCMS1.getKeyLength(); i++) {
 
@@ -803,7 +799,7 @@ function mouseMoveValuePlot(event) {
       }
 
       if (found) {
-        document.getElementById(event.target.id).style.cursor = "pointer";
+        canvasObj.style.cursor = "pointer";
         switch(pathColorspace) {
           case "hsv":
               var diplay1Val = Math.round(displayColor.get1Value()*360);
@@ -837,9 +833,9 @@ function mouseMoveValuePlot(event) {
 
     }
 
-
-
-    drawcolormap_hueSpace(false,false,false);
+    if(oldMouseAboveKeyID!=mouseAboveKeyID){
+      drawcolormap_hueSpace(false,false,false);
+    }
 
   }//if grapped key == -1
   else{
@@ -1021,7 +1017,6 @@ function mouseMoveValuePlot(event) {
         console.log("Error "+ mouseGrappedColorSide);
       }
 
-      somethingChanged = true;
     }
   }
 
