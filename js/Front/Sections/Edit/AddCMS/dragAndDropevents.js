@@ -545,7 +545,7 @@ function bandOnDrop(event){
          openEditKeyDiv(document.getElementById("id_EditPage_EditKey_List").selectedIndex);
       }
 
-
+      globalCMS1JSON=inform_Worker_GlobalCMS();
 
       if(document.getElementById("id_EditPage_Edit_Path").style.display!="none"){
         if(pathColorspace==="rgb")

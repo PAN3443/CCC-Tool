@@ -267,9 +267,8 @@ self.addEventListener('message', function(e) {
     mouseAboveKeyID = e.data.mouseAboveKeyID;
     mouseGrappedColorSide = e.data.mouseGrappedColorSide;
     mouseGrappedColor = e.data.mouseGrappedColor;
+    intervalDelta = e.data.intervalDelta;
     updateVPlotData();
-
-
 
   if(canvas==undefined || canvas2 ==undefined)
       break;

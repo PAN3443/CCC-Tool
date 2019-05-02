@@ -14,8 +14,6 @@ function updateVPlotCanvasSize(id){
 
 function drawcolormap_hueSpace(calcBackground, drawInterpolationLine, doInitVplot) {
 
-
-
   if (doInitVplot){
     if(browserCanOffscreenCanvas)
       init_VPlot_Offscreen();
