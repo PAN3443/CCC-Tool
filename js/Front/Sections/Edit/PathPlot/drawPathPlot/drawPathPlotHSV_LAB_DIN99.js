@@ -1,6 +1,17 @@
 //////////////////////////////////////////
 // -------------HSV LAB DIN99---------------//
 //////////////////////////////////////////
+
+function updateVPlotCanvasSize(id){
+  // Update vPlotWidth
+
+  /*var rect = document.getElementById(id).getBoundingClientRect();
+  var ratio = rect.width/rect.height;
+  vPlotWidth = Math.round(pathPlotResolution*ratio);*/
+
+  updateVPlotData();
+}
+
 function drawcolormap_hueSpace(calcBackground, drawInterpolationLine, doInitVplot) {
 
 
@@ -16,32 +27,24 @@ function drawcolormap_hueSpace(calcBackground, drawInterpolationLine, doInitVplo
   if (calcBackground)
     hueInit();
 
-
-
-  if (drawInterpolationLine){
-
-    for (var i = pathPlotLineGroup.children.length - 1; i >= 0; i--) {
-      pathPlotLineGroup.remove(pathPlotLineGroup.children[i]);
-    }
-
-    drawInterpolationLineHSV_LAB_DIN99(false);
-
+  if(browserCanWorker){
+      pathplot_WorkerDrawElements_And_InterpolationLine(drawInterpolationLine);
   }
+  else{
+      if (drawInterpolationLine)
+        drawInterpolationLineHSV_LAB_DIN99(false);
 
-  for (var i = pathPlotElementsGroup.children.length - 1; i >= 0; i--) {
-    pathPlotElementsGroup.remove(pathPlotElementsGroup.children[i]);
+      drawElements_HSV_LAB_DIN99(false);
   }
-
-  drawElements_HSV_LAB_DIN99(false);
 
 }
 
 ////////////////////////////////////////////
 function hueInit() {
 
-  if(!browserCanWorker || !browserCanOffscreenCanvas){
-    updateVPlotWidth(document.getElementById("id_EditPage_PathPlot_Canvas1_0"));
-  }
+
+  updateVPlotCanvasSize(document.getElementById("id_EditPage_PathPlot_Canvas1_Div")); // we are using the div containing the canvas because of the offscreen worker we cant use the canvas object in the main thread
+
 
   if(browserCanWorker){
     hueInit_Worker();
@@ -235,7 +238,7 @@ function drawElements_HSV_LAB_DIN99() {
 
   }
 
-  drawHueElements(canvasContex3);
+  drawPathplotElements(canvasContex3,0,1, false);
 
   drawVplotElements(canvasContex0,0);
   drawVplotElements(canvasContex1,1);
@@ -281,21 +284,18 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap) {
   switch (pathColorspace) {
     case "hsv":
       calcInterpolationLine_HSV();
-      drawInterpolationLine(canvasContex3,0, 1, false);
       break;
       case "lab":
         calcInterpolationLine_Lab();
-        drawInterpolationLine(canvasContex3,1, 2, false);
         break;
         case "din99":
           calcInterpolationLine_DIN99();
-          drawInterpolationLine(canvasContex3,1, 2, false);
           break;
     default:
       return;
 
   }
-
+  drawInterpolationLine(canvasContex3,0, 1, false);
 
   drawInterpolationLine_VPlot(canvasContex0, 0);
   drawInterpolationLine_VPlot(canvasContex1, 1);
@@ -304,5 +304,55 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap) {
   draw3DInterpolationLine()
 
 
+
+}
+
+function pathplot_WorkerDrawElements_And_InterpolationLine(drawInterpolationLine){
+
+    drawInterpolationLineWorker1.postMessage(globalCMS1JSON);
+    drawInterpolationLineWorker2.postMessage(globalCMS1JSON);
+    drawInterpolationLineWorker3.postMessage(globalCMS1JSON);
+    drawInterpolationLineWorker4.postMessage(globalCMS1JSON);
+
+    var workerJSON = {};
+
+    if(browserCanOffscreenCanvas)
+      workerJSON['message'] = "draw";
+    else
+      workerJSON['message'] = "getData";
+
+    ///// Settings
+    workerJSON['hsv3DRadius'] = hsv3DRadius;
+    workerJSON['vStart3D'] = vStart3D;
+    workerJSON['vEnd3D'] = vEnd3D;
+    workerJSON['labABMax'] = labABMax;
+    workerJSON['labSPos'] =  labSPos;
+    workerJSON['labEPos'] =  labEPos;
+    workerJSON['din99ABMax'] = din99ABMax;
+    workerJSON['din99SPos'] =  din99SPos;
+    workerJSON['din99EPos'] =  din99EPos;
+    workerJSON['intervalDelta'] = intervalDelta;
+    workerJSON['pathPlotResolution'] = pathPlotResolution;
+    workerJSON['vPlotWidth'] = vPlotWidth;
+    workerJSON['mouseAboveKeyID'] = mouseAboveKeyID;
+    workerJSON['mouseGrappedColor'] = mouseGrappedColor;
+    workerJSON['mouseGrappedColorSide'] = mouseGrappedColorSide;
+
+    workerJSON['do3D'] = false;
+    workerJSON['drawInterpolationLine'] = drawInterpolationLine;
+    workerJSON['space'] = pathColorspace;
+    workerJSON['type'] = "vplot1";
+    drawInterpolationLineWorker1.postMessage(workerJSON);
+
+    workerJSON.type = "vplot2";
+    drawInterpolationLineWorker2.postMessage(workerJSON);
+
+    workerJSON.type = "vplot3";
+    drawInterpolationLineWorker3.postMessage(workerJSON);
+
+    workerJSON.vPlotWidth = undefined;
+    workerJSON.do3D = true;
+    workerJSON.type = "hue";
+    drawInterpolationLineWorker4.postMessage(workerJSON);
 
 }

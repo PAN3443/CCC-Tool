@@ -59,7 +59,6 @@ function calcRGBElements(){
 
 }
 
-
 function calcRGBElementPos(tmpColor,shape,areaDim,keyindex,colorSide){
 
   var rgbPos = [];
@@ -84,7 +83,7 @@ function calcRGBElementPos(tmpColor,shape,areaDim,keyindex,colorSide){
 
 }
 
-function drawRGBElements(canvasContex, index1, index2){
+/*function drawRGBElements(canvasContex, index1, index2){
 
   var startPosX = pathPlotResolution * 0.1;
   var startPosY = pathPlotResolution * 0.9;
@@ -95,17 +94,15 @@ function drawRGBElements(canvasContex, index1, index2){
     drawElement(pathplotElementPositions[i][1], canvasContex, xPos, yPos, pathplotElementPositions[i][0],pathplotElementPositions[i][3], pathplotElementPositions[i][2]);
   }
 
-}
+}*/
 
-function drawRGB3DElements(){
+/*function drawRGB3DElements(){
   for (var i = 0; i < pathplotElementPositions.length; i++) {
     draw3DElement(pathplotElementPositions[i][1], pathplotElementPositions[i][5][0], pathplotElementPositions[i][5][1], pathplotElementPositions[i][5][2], pathplotElementPositions[i][0],pathplotElementPositions[i][3], pathplotElementPositions[i][2]);
   }
-}
-
+}*/
 
 /////////////////////////////////////////////////////////////////////
-
 
 function calcHSVElements(){
 
@@ -135,7 +132,7 @@ function calcHSVElements(){
         ////////////////////////////////////////////////////////////////
         /////// Right Color
         var tmpColor2 = globalCMS1.getRightKeyColor(i, "hsv");
-        pathplotElementPositions.push(calcHSV_Hue_ElementPos(tmpColor,true,i,1));
+        pathplotElementPositions.push(calcHSV_Hue_ElementPos(tmpColor2,true,i,1));
 
         ////////////////////////////////////////////////////////////////
         /////// V Plot
@@ -144,11 +141,9 @@ function calcHSVElements(){
           vPlotElementPositions.push(calcHSV_VPlot_ElementPos(tmpColor,true,i,0,i));
           vPlotElementPositions.push(calcHSV_VPlot_ElementPos(tmpColor2,true,i,1,i));
         } else {
-
           vPlotElementPositions.push(calcHSV_VPlot_ElementPos(tmpColor,drawCircle,i,0,(i - 1)));
           vPlotElementPositions.push(calcHSV_VPlot_ElementPos(tmpColor,drawCircle,i,0,i));
           vPlotElementPositions.push(calcHSV_VPlot_ElementPos(tmpColor2,true,i,1,i));
-
         }
 
         break;
@@ -304,7 +299,7 @@ function calcLabElements(){
         ////////////////////////////////////////////////////////////////
         /////// Right Color
         var tmpColor2 = globalCMS1.getRightKeyColor(i, "lab_rgb_possible");
-        pathplotElementPositions.push(calcLab_Hue_ElementPos(tmpColor,true,i,1));
+        pathplotElementPositions.push(calcLab_Hue_ElementPos(tmpColor2,true,i,1));
 
         ////////////////////////////////////////////////////////////////
         /////// V Plot
@@ -396,7 +391,7 @@ function calcLab_Hue_ElementPos(tmpColor,shape,keyindex,colorSide){
   var yPos3D = 0;
   var zPos3D = 0;
 
-  if(labABMax2!=undefined && labABMax2!=0){
+  if(labABMax!=undefined && labABMax!=0){
     var labABMax2 = labABMax*2;
     xPos3D = labSPos+((tmpColor.get2Value()+labABMax)/labABMax2)*(labEPos-labSPos);
     yPos3D = labSPos+(tmpColor.get1Value()/100.0)*(labEPos-labSPos);
@@ -452,6 +447,9 @@ function calcDIN99Elements(){
   pathplotElementPositions=[];
   vPlotElementPositions=[];
 
+  rangeA99 = rangeA99Pos - rangeA99Neg;
+  rangeB99 = rangeB99Pos - rangeB99Neg;
+
   for (var i = 0; i < globalCMS1.getKeyLength(); i++) {
 
     switch (globalCMS1.getKeyType(i)) {
@@ -475,7 +473,7 @@ function calcDIN99Elements(){
         ////////////////////////////////////////////////////////////////
         /////// Right Color
         var tmpColor2 = globalCMS1.getRightKeyColor(i, "din99_rgb_possible");
-        pathplotElementPositions.push(calcDIN99_Hue_ElementPos(tmpColor,true,i,1));
+        pathplotElementPositions.push(calcDIN99_Hue_ElementPos(tmpColor2,true,i,1));
 
         ////////////////////////////////////////////////////////////////
         /////// V Plot
@@ -555,11 +553,12 @@ function calcDIN99Elements(){
 
 function calcDIN99_Hue_ElementPos(tmpColor,shape,keyindex,colorSide){
 
-  var abPos = [];
+  var ab99Pos = [];
   var xPos = (tmpColor.getA99Value() - rangeA99Neg) / rangeA99 * pathPlotResolution;
   var yPos = (tmpColor.getB99Value() - rangeB99Neg) / rangeB99 * pathPlotResolution;
-  abPos.push(xPos);
-  abPos.push(yPos);
+
+  ab99Pos.push(xPos);
+  ab99Pos.push(yPos);
 
   var labPos3D = [];
   var xPos3D = 0;
@@ -581,7 +580,7 @@ function calcDIN99_Hue_ElementPos(tmpColor,shape,keyindex,colorSide){
     showColor = tmpLMS.calcColorBlindRGBColor();
   }
 
-  var posArray = [keyindex,showColor.getHexString(),shape,colorSide,abPos,labPos3D]; // first element is to seperate between vplot element and hue plot element
+  var posArray = [keyindex,showColor.getHexString(),shape,colorSide,ab99Pos,labPos3D]; // first element is to seperate between vplot element and hue plot element
 
   return posArray;
 
@@ -615,13 +614,25 @@ function calcDIN99_VPlot_ElementPos(tmpColor,shape,keyindex,colorSide,currentRef
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
-function drawHueElements(canvasContex){
+function drawPathplotElements(canvasContex,index1,index2, isRGB){
 
-  for (var i = 0; i < pathplotElementPositions.length; i++) {
-      // Hue Plot
-      var xPos = pathplotElementPositions[i][4][0];
-      var yPos = pathplotElementPositions[i][4][1];
+  if (isRGB) {
+    var startPosX = pathPlotResolution * 0.1;
+    var startPosY = pathPlotResolution * 0.9;
+
+    for (var i = 0; i < pathplotElementPositions.length; i++) {
+      var xPos = pathplotElementPositions[i][4][index1]+startPosX;
+      var yPos = startPosY-pathplotElementPositions[i][4][index2];
       drawElement(pathplotElementPositions[i][1], canvasContex, xPos, yPos, pathplotElementPositions[i][0],pathplotElementPositions[i][3], pathplotElementPositions[i][2]);
+    }
+  }
+  else {
+    for (var i = 0; i < pathplotElementPositions.length; i++) {
+        // Hue Plot
+        var xPos = pathplotElementPositions[i][4][0];
+        var yPos = pathplotElementPositions[i][4][1];
+        drawElement(pathplotElementPositions[i][1], canvasContex, xPos, yPos, pathplotElementPositions[i][0],pathplotElementPositions[i][3], pathplotElementPositions[i][2]);
+    }
   }
 
 }
@@ -638,8 +649,12 @@ function drawVplotElements(canvasContex,vPlotIndex){
 }
 
 function drawPathplot3DElements(){
+  for (var i = pathPlotElementsGroup.children.length - 1; i >= 0; i--) {
+    pathPlotElementsGroup.remove(pathPlotElementsGroup.children[i]);
+  }
+
   for (var i = 0; i < pathplotElementPositions.length; i++) {
-    if(pathplotElementPositions[i][0])
+    //if(pathplotElementPositions[i][0])
     draw3DElement(pathplotElementPositions[i][1], pathplotElementPositions[i][5][0], pathplotElementPositions[i][5][1], pathplotElementPositions[i][5][2], pathplotElementPositions[i][0],pathplotElementPositions[i][3], pathplotElementPositions[i][2]);
   }
 }

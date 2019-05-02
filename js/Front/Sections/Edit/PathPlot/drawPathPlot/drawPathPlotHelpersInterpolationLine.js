@@ -96,7 +96,7 @@ function calcInterpolationLine_HSV(){
         break;
       case "left key":
         pathplotLinesDashed.push(getLineSegment_Hue_HSV(globalCMS1.getLeftKeyColor(i, "hsv"), globalCMS1.getLeftKeyColor(i + 1, "hsv")));
-        pathplotLinesVPlot.push(getLineSegment_VPlot_HSV(globalCMS1.getLeftKeyColor(i + 1, "hsv"),globalCMS1.getLeftKeyColor(i + 1, "hsv"),globalCMS1.getRefPosition(i)));
+        pathplotLinesVPlot.push(getLineSegment_VPlot_HSV(globalCMS1.getLeftKeyColor(i + 1, "hsv"),globalCMS1.getLeftKeyColor(i + 1, "hsv"),globalCMS1.getRefPosition(i),globalCMS1.getRefPosition(i+1)));
         break;
       default:
 
@@ -220,7 +220,7 @@ function calcInterpolationLine_Lab(){
         break;
       case "left key":
         pathplotLinesDashed.push(getLineSegment_Hue_Lab(globalCMS1.getLeftKeyColor(i, "lab_rgb_possible"), globalCMS1.getLeftKeyColor(i + 1, "lab_rgb_possible")));
-        pathplotLinesVPlot.push(getLineSegment_VPlot_Lab(globalCMS1.getLeftKeyColor(i + 1, "lab_rgb_possible"),globalCMS1.getLeftKeyColor(i + 1, "lab_rgb_possible"),globalCMS1.getRefPosition(i)));
+        pathplotLinesVPlot.push(getLineSegment_VPlot_Lab(globalCMS1.getLeftKeyColor(i + 1, "lab_rgb_possible"),globalCMS1.getLeftKeyColor(i + 1, "lab_rgb_possible"),globalCMS1.getRefPosition(i),globalCMS1.getRefPosition(i+1)));
         break;
       default:
 
@@ -296,6 +296,7 @@ function getLineSegment_Hue_Lab(fromColor, tillColor){
 }
 
 function getLineSegment_VPlot_Lab(fromColor, tillColor, ref1, ref2){
+
   var fromPos = [];
   var xRatio = (ref1-globalCMS1.getRefPosition(0))/ globalCMS1.getRefRange();
   var xPos1 = vPlotxStart + xRatio * plotwidth;
@@ -328,6 +329,9 @@ function calcInterpolationLine_DIN99(){
   pathplotLinesDashed=[];
   pathplotLinesVPlot=[];
 
+  rangeA99 = rangeA99Pos - rangeA99Neg;
+  rangeB99 = rangeB99Pos - rangeB99Neg;
+
   globalCMS1.calcDeltaIntervalColors(intervalDelta, 0,globalCMS1.getKeyLength()-1);
 
   var tmpColor, tmpColor2, xPos, xPos2, yPos, yPos2;
@@ -349,7 +353,7 @@ function calcInterpolationLine_DIN99(){
         break;
       case "left key":
         pathplotLinesDashed.push(getLineSegment_Hue_DIN99(globalCMS1.getLeftKeyColor(i, "din99_rgb_possible"), globalCMS1.getLeftKeyColor(i + 1, "din99_rgb_possible")));
-        pathplotLinesVPlot.push(getLineSegment_VPlot_DIN99(globalCMS1.getLeftKeyColor(i + 1, "din99_rgb_possible"),globalCMS1.getLeftKeyColor(i + 1, "din99_rgb_possible"),globalCMS1.getRefPosition(i)));
+        pathplotLinesVPlot.push(getLineSegment_VPlot_DIN99(globalCMS1.getLeftKeyColor(i + 1, "din99_rgb_possible"),globalCMS1.getLeftKeyColor(i + 1, "din99_rgb_possible"),globalCMS1.getRefPosition(i),globalCMS1.getRefPosition(i+1)));
         break;
       default:
 
@@ -454,7 +458,6 @@ function getLineSegment_VPlot_DIN99(fromColor, tillColor, ref1, ref2){
 
 function drawInterpolationLine(canvasContex,index1, index2, isRGB){
 
-
   var startPosX = pathPlotResolution * 0.1;
   var startPosY = pathPlotResolution * 0.9;
 
@@ -469,6 +472,7 @@ function drawInterpolationLine(canvasContex,index1, index2, isRGB){
     }
   }
   else{
+
     for (var i = 0; i < pathplotLines.length; i++) {
         canvasContex.moveTo(pathplotLines[i][0][index1], pathplotLines[i][0][index2]);
         canvasContex.lineTo(pathplotLines[i][1][index1], pathplotLines[i][1][index2]);

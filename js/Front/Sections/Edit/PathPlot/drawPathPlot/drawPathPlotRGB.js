@@ -51,18 +51,17 @@ function rgbDrawElements(){
   var canvasContex2 = canvasObj2.getContext("2d");
   canvasContex2.clearRect(0, 0, canvasObj2.width, canvasObj2.height);
 
-
   calcRGBElements();
 
-  drawRGBElements(canvasContex0, 1, 0);
-  drawRGBElements(canvasContex1, 2, 0);
-  drawRGBElements(canvasContex2, 1, 2);
+  drawPathplotElements(canvasContex0, 1, 0,true);
+  drawPathplotElements(canvasContex1, 2, 0,true);
+  drawPathplotElements(canvasContex2, 1, 2,true);
 
   for (var i = pathPlotElementsGroup.children.length - 1; i >= 0; i--) {
     pathPlotElementsGroup.remove(pathPlotElementsGroup.children[i]);
   }
 
-  drawRGB3DElements();
+  drawPathplot3DElements();
 
 }
 
@@ -95,7 +94,7 @@ function rgbDrawInterpolationLine() {
   drawInterpolationLine(canvasContex0,1,0,true);
   drawInterpolationLine(canvasContex1,2,0,true);
   drawInterpolationLine(canvasContex2,1,2,true);
-  
+
   draw3DInterpolationLine();
 
 
@@ -118,6 +117,9 @@ function rgbWorkerDrawElements_And_InterpolationLine(drawInterpolationLine){
     workerJSON['intervalDelta'] = intervalDelta;
     workerJSON['pathPlotResolution'] = pathPlotResolution;
     workerJSON['vPlotWidth'] = undefined;
+    workerJSON['mouseAboveKeyID'] = mouseAboveKeyID;
+    workerJSON['mouseGrappedColorSide'] = mouseGrappedColorSide;
+    workerJSON['mouseGrappedColor'] = mouseGrappedColor;
     workerJSON['do3D'] = false;
     workerJSON['space'] = "rgb";
     workerJSON['type'] = "GR";
@@ -131,7 +133,6 @@ function rgbWorkerDrawElements_And_InterpolationLine(drawInterpolationLine){
     drawInterpolationLineWorker3.postMessage(workerJSON);
 
 }
-
 
 
 function rgbDrawBackground() {

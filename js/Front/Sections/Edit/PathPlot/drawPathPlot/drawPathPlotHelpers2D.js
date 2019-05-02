@@ -1,9 +1,6 @@
-function updateVPlotWidth(canvas){
-  // Update vPlotWidth
-  var rect = canvas.getBoundingClientRect();
-  var ratio = rect.width/rect.height;
-  vPlotWidth = Math.round(pathPlotResolution*ratio);
 
+
+function updateVPlotData(){
   vPlotyStart = Math.round(pathPlotResolution * 0.9);
   vPlotyEnd = Math.round(pathPlotResolution * 0.1);
   vPlotxStart = Math.round(vPlotWidth * 0.1);

@@ -28,7 +28,7 @@ function initOffscreenWorker(){
   workerJSON['canvas'] = offscreenBackground;
   drawBackgroundWorker4.postMessage(workerJSON, [offscreenBackground]);
 
-  //////////////// Path Plot Interpolation Line /////////////////////
+  //////////////// Path Plot Elements /////////////////////
   htmlCanvas = document.getElementById("id_EditPage_PathPlot_Canvas1_1");
   offscreenBackground = htmlCanvas.transferControlToOffscreen();
   workerJSON.message = "canvas";
@@ -50,6 +50,31 @@ function initOffscreenWorker(){
   htmlCanvas = document.getElementById("id_EditPage_PathPlot_SingleCanvas_1");
   offscreenBackground = htmlCanvas.transferControlToOffscreen();
   workerJSON.message = "canvas";
+  workerJSON['canvas'] = offscreenBackground;
+  drawInterpolationLineWorker4.postMessage(workerJSON, [offscreenBackground]);
+
+  //////////////// Path Plot Interpolation Line /////////////////////
+  htmlCanvas = document.getElementById("id_EditPage_PathPlot_Canvas1_2");
+  offscreenBackground = htmlCanvas.transferControlToOffscreen();
+  workerJSON.message = "canvas2";
+  workerJSON['canvas'] = offscreenBackground;
+  drawInterpolationLineWorker1.postMessage(workerJSON, [offscreenBackground]);
+
+  htmlCanvas = document.getElementById("id_EditPage_PathPlot_Canvas2_2");
+  offscreenBackground = htmlCanvas.transferControlToOffscreen();
+  workerJSON.message = "canvas2";
+  workerJSON['canvas'] = offscreenBackground;
+  drawInterpolationLineWorker2.postMessage(workerJSON, [offscreenBackground]);
+
+  htmlCanvas = document.getElementById("id_EditPage_PathPlot_Canvas3_2");
+  offscreenBackground = htmlCanvas.transferControlToOffscreen();
+  workerJSON.message = "canvas2";
+  workerJSON['canvas'] = offscreenBackground;
+  drawInterpolationLineWorker3.postMessage(workerJSON, [offscreenBackground]);
+
+  htmlCanvas = document.getElementById("id_EditPage_PathPlot_SingleCanvas_2");
+  offscreenBackground = htmlCanvas.transferControlToOffscreen();
+  workerJSON.message = "canvas2";
   workerJSON['canvas'] = offscreenBackground;
   drawInterpolationLineWorker4.postMessage(workerJSON, [offscreenBackground]);
 

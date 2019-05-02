@@ -9,11 +9,11 @@ var lineWidth3D = 3;
 
 var rangeA99Neg = -155;
 var rangeA99Pos = 105;
-var rangeA99;
+var rangeA99 = rangeA99Pos - rangeA99Neg;
 
 var rangeB99Neg = -83;
 var rangeB99Pos = 155;
-var rangeB99;
+var rangeB99 = rangeB99Pos - rangeB99Neg;
 
 var pathplotLines = [];
 var pathplotLinesDashed = [];

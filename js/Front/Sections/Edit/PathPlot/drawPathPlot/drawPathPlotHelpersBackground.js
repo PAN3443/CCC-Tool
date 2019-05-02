@@ -56,8 +56,6 @@ function getRGBBackground(fixedColor, type){
     }
   }
 
-
-
   var tmpRGB= new classColor_RGB(1,1,1);
 
   var background = new ImageData(pathPlotResolution, pathPlotResolution);
@@ -242,8 +240,8 @@ function drawVPlot(vPlotContex, startValue, endValue){
   var yEndLine = Math.round(pathPlotResolution * 0.05);
   var yEndArrow = 0;
   var arrowHeight = Math.round(yEndLine - yEndArrow);
-  var labelFontSize = arrowHeight * 1.5;
-  var labelFontSizeSmall = arrowHeight * 1;
+  var labelFontSize = arrowHeight * 1;
+  var labelFontSizeSmall = arrowHeight * 0.5;
   var xStart = vPlotxStart;
   var xEnd = vPlotxEnd;
   var xEndArrow = Math.round(vPlotWidth * 0.9);

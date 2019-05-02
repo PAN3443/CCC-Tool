@@ -62,6 +62,7 @@ self.addEventListener('message', function(e) {
       globalCMS1 = new class_CMS();
 
       // draw algorithm for the background
+      self.importScripts('../../../Sections/Edit/PathPlot/drawPathPlot/drawPathPlotHelpers2D.js');
       self.importScripts('../../../Sections/Edit/PathPlot/drawPathPlot/drawPathPlotHelpersBackground.js');
 
       initIsDone=true;
@@ -142,14 +143,16 @@ self.addEventListener('message', function(e) {
   case "draw":
 
       pathPlotResolution = e.data.pathPlotResolution;
+      vPlotWidth = e.data.vPlotWidth;
+      updateVPlotData();
 
       if(canvas==undefined)
         break;
 
-      var fixedColor = undefined;
+
       switch (e.data.space) {
         case "rgb":
-
+          var fixedColor = undefined;
           canvas.height=pathPlotResolution;
           canvas.width=pathPlotResolution;
 
@@ -158,13 +161,13 @@ self.addEventListener('message', function(e) {
 
           switch (e.data.type) {
             case "GR":
-              drawGRBackground(canvasContex,canvas.width,canvas.height,fixedColor);
+              drawGRBackground(canvasContex,fixedColor);
             break;
             case "BR":
-              drawBRBackground(canvasContex,canvas.width,canvas.height,fixedColor);
+              drawBRBackground(canvasContex,fixedColor);
             break;
             case "GB":
-              drawGBBackground(canvasContex,canvas.width,canvas.height,fixedColor);
+              drawGBBackground(canvasContex,fixedColor);
             break;
 
           }
@@ -173,28 +176,28 @@ self.addEventListener('message', function(e) {
 
         case "hsv":
 
-          //////////////////////
-          updateVPlotWidth(canvas);
           canvas.height=pathPlotResolution;
           canvas.width=vPlotWidth;
 
+          var fixedColor = undefined;
+
+          if(e.data.fixedColorV1 != undefined && e.data.fixedColorV2 != undefined && e.data.fixedColorV3 != undefined)
+            fixedColor = new classColor_HSV(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
+
           switch (e.data.type) {
             case "V1":
-                drawVPlot(canvasContex,canvas.width,canvas.height,0,1);
+                drawVPlot(canvasContex,0,1);
             break;
             case "V2":
-                drawVPlot(canvasContex,canvas.width,canvas.height,0,1);
+                drawVPlot(canvasContex,0,1);
             break;
             case "V3":
-                drawVPlot(canvasContex,canvas.width,canvas.height,0,1);
+                drawVPlot(canvasContex,0,1);
             break;
             case "Hue":
                 canvas.width=pathPlotResolution;
 
-                if(e.data.fixedColorV1 != undefined && e.data.fixedColorV2 != undefined && e.data.fixedColorV3 != undefined)
-                  fixedColor = new classColor_HSV(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
-
-                drawHSVBackground(canvasContex,canvas.width,canvas.height,fixedColor);
+                drawHSVBackground(canvasContex,fixedColor);
 
             break;
 
@@ -203,27 +206,29 @@ self.addEventListener('message', function(e) {
         break;
 
         case "lab":
-          updateVPlotWidth(canvas);
+
           canvas.height=pathPlotResolution;
           canvas.width=vPlotWidth;
 
+          var fixedColor = undefined;
+
+          if(e.data.fixedColorV1 != undefined && e.data.fixedColorV2 != undefined && e.data.fixedColorV3 != undefined)
+            fixedColor = new classColor_LAB(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
+
           switch (e.data.type) {
             case "V1":
-                drawVPlot(canvasContex,canvas.width,canvas.height,0,1);
+                drawVPlot(canvasContex,0,1);
             break;
             case "V2":
-                drawVPlot(canvasContex,canvas.width,canvas.height,labSpaceRange*-1,labSpaceRange);
+                drawVPlot(canvasContex,labSpaceRange*-1,labSpaceRange);
             break;
             case "V3":
-                drawVPlot(canvasContex,canvas.width,canvas.height,labSpaceRange*-1,labSpaceRange);
+                drawVPlot(canvasContex,labSpaceRange*-1,labSpaceRange);
             break;
             case "Hue":
                 canvas.width=pathPlotResolution;
 
-                if(e.data.fixedColorV1 != undefined && e.data.fixedColorV2 != undefined && e.data.fixedColorV3 != undefined)
-                  fixedColor = new classColor_LAB(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
-
-                drawLabBackground(canvasContex,canvas.width,canvas.height,fixedColor);
+                drawLabBackground(canvasContex,fixedColor);
             break;
 
           }
@@ -231,27 +236,29 @@ self.addEventListener('message', function(e) {
         break;
 
         case "din99":
-          updateVPlotWidth(canvas);
+
           canvas.height=pathPlotResolution;
           canvas.width=vPlotWidth;
 
+          var fixedColor = undefined;
+
+          if(e.data.fixedColorV1 != undefined && e.data.fixedColorV2 != undefined && e.data.fixedColorV3 != undefined)
+            fixedColor = new classColorDIN99(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
+
           switch (e.data.type) {
             case "V1":
-                drawVPlot(canvasContex,canvas.width,canvas.height,0,1);
+                drawVPlot(canvasContex,0,1);
             break;
             case "V2":
-                drawVPlot(canvasContex,canvas.width,canvas.height,rangeA99Neg,rangeA99Pos);
+                drawVPlot(canvasContex,rangeA99Neg,rangeA99Pos);
             break;
             case "V3":
-                drawVPlot(canvasContex,canvas.width,canvas.height,rangeB99Neg,rangeB99Pos);
+                drawVPlot(canvasContex,rangeB99Neg,rangeB99Pos);
             break;
             case "Hue":
                 canvas.width=pathPlotResolution;
 
-                if(e.data.fixedColorV1 != undefined && e.data.fixedColorV2 != undefined && e.data.fixedColorV3 != undefined)
-                  fixedColor = new classColorDIN99(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
-
-                drawDIN99Background(canvasContex,canvas.width,canvas.height,fixedColor);
+                drawDIN99Background(canvasContex,fixedColor);
 
             break;
 

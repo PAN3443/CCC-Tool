@@ -7,6 +7,11 @@ function generalJSON_Processing(json){
         canvasContex = canvas.getContext("2d");
     break;
 
+    case "canvas2":
+        canvas2 = json.canvas;
+        canvasContex2 = canvas2.getContext("2d");
+    break;
+
     case "general_parameter":
       labSpaceRange = json.labSpaceRange;
       rangeA99Neg = json.rangeA99Neg;

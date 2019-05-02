@@ -21,6 +21,22 @@ function workerEvent_DrawCanvasData(e) {
 
 function workerEvent_DrawInterpolationLine(e) {
 
+  if(e.data.doOnly3D){
+    pathplotElementPositions = e.data.pathplotElementPositions;
+    drawPathplot3DElements();
+
+    if(e.data.drawInterpolationLine){
+      pathplotLines=e.data.pathplotLines;
+      pathplotLinesDashed=e.data.pathplotLinesDashed;
+      
+      draw3DInterpolationLine();
+    }
+
+
+    return;
+  }
+
+
   ////////////////////////////
   /// ELEMENTS
   var canvasElements = document.getElementById(e.data.canvasID2);
@@ -41,45 +57,81 @@ function workerEvent_DrawInterpolationLine(e) {
   var canvasElementsContex = canvasElements.getContext("2d");
   canvasElementsContex.clearRect(0, 0, canvasElements.width, canvasElements.height);
 
-  pathplotElementPositions = e.data.pathplotElementPositions;
-  drawRGBElements(canvasElementsContex, e.data.index1, e.data.index2);
 
-  if(e.data.do3D){
-    for (var i = pathPlotElementsGroup.children.length - 1; i >= 0; i--) {
-      pathPlotElementsGroup.remove(pathPlotElementsGroup.children[i]);
+
+  if(e.data.isVplot){
+
+    vPlotElementPositions = e.data.vPlotElementPositions;
+    drawVplotElements(canvasElementsContex,e.data.index1);
+
+    if(e.data.drawInterpolationLine){
+      var canvasInterpolationLine = document.getElementById(e.data.canvasID);
+      canvasInterpolationLine.width = e.data.canvasSize;
+      canvasInterpolationLine.height = e.data.canvasSize;
+
+      if(e.data.vPlotWidth==undefined){
+        // => RGB or Hue Plot
+        canvasInterpolationLine.width = pathPlotResolution;
+        canvasInterpolationLine.height = pathPlotResolution;
+      }
+      else {
+        canvasInterpolationLine.width = vPlotWidth;
+        canvasInterpolationLine.height = pathPlotResolution;
+      }
+
+      var canvasInterpolationLineContex = canvasInterpolationLine.getContext("2d");
+      canvasInterpolationLineContex.clearRect(0, 0, canvasInterpolationLine.width, canvasInterpolationLine.height);
+
+      pathplotLinesVPlot = e.data.pathplotLinesVPlot;
+
+      drawInterpolationLine_VPlot(canvasInterpolationLineContex, e.data.index1);
     }
-    drawRGB3DElements();
+
+
+  }
+  else {
+    pathplotElementPositions = e.data.pathplotElementPositions;
+    drawPathplotElements(canvasElementsContex, e.data.index1, e.data.index2,e.data.isRGB)
+
+    if(e.data.do3D){
+      drawPathplot3DElements();
+    }
+
+    ////////////////////////////
+    /// Interpolation line
+    if(e.data.drawInterpolationLine){
+
+      var canvasInterpolationLine = document.getElementById(e.data.canvasID);
+      canvasInterpolationLine.width = e.data.canvasSize;
+      canvasInterpolationLine.height = e.data.canvasSize;
+
+      if(e.data.vPlotWidth==undefined){
+        // => RGB or Hue Plot
+        canvasInterpolationLine.width = pathPlotResolution;
+        canvasInterpolationLine.height = pathPlotResolution;
+      }
+      else {
+        canvasInterpolationLine.width = vPlotWidth;
+        canvasInterpolationLine.height = pathPlotResolution;
+      }
+
+      var canvasInterpolationLineContex = canvasInterpolationLine.getContext("2d");
+      canvasInterpolationLineContex.clearRect(0, 0, canvasInterpolationLine.width, canvasInterpolationLine.height);
+
+      pathplotLines=e.data.pathplotLines;
+      pathplotLinesDashed=e.data.pathplotLinesDashed;
+
+      drawInterpolationLine(canvasInterpolationLineContex, e.data.index1, e.data.index2,e.data.isRGB);
+      drawInterpolationLine(canvasInterpolationLineContex, e.data.index1, e.data.index2,e.data.isRGB);
+
+      if(e.data.do3D)
+        draw3DInterpolationLine();
   }
 
-  ////////////////////////////
-  /// Interpolation line
-  if(e.data.drawInterpolationLine){
 
-    var canvasInterpolationLine = document.getElementById(e.data.canvasID);
-    canvasInterpolationLine.width = e.data.canvasSize;
-    canvasInterpolationLine.height = e.data.canvasSize;
 
-    if(e.data.vPlotWidth==undefined){
-      // => RGB or Hue Plot
-      canvasInterpolationLine.width = pathPlotResolution;
-      canvasInterpolationLine.height = pathPlotResolution;
-    }
-    else {
-      canvasInterpolationLine.width = vPlotWidth;
-      canvasInterpolationLine.height = pathPlotResolution;
-    }
 
-    var canvasInterpolationLineContex = canvasInterpolationLine.getContext("2d");
-    canvasInterpolationLineContex.clearRect(0, 0, canvasInterpolationLine.width, canvasInterpolationLine.height);
 
-    pathplotLines=e.data.pathplotLines;
-    pathplotLinesDashed=e.data.pathplotLinesDashed;
-
-    drawInterpolationLine_RGB(canvasInterpolationLineContex, 0, 1,e.data.isRGB);
-    drawInterpolationLine_RGB(canvasInterpolationLineContex, 0, 1,e.data.isRGB);
-
-    if(e.data.do3D)
-      draw3DInterpolationLine();
 
   }
 
