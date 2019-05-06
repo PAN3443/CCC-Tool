@@ -90,20 +90,41 @@ function initWorker(){
   drawBackgroundWorker2.postMessage({'message':'init'});
   drawBackgroundWorker3.postMessage({'message':'init'});
   drawBackgroundWorker4.postMessage({'message':'init'});
-    drawInterpolationLineWorker1.postMessage({'message':'init'});
-    drawInterpolationLineWorker2.postMessage({'message':'init'});
-    drawInterpolationLineWorker3.postMessage({'message':'init'});
-    drawInterpolationLineWorker4.postMessage({'message':'init'});
-
   drawBackgroundWorker1.addEventListener('message', workerEvent_DrawCanvasData, false);
   drawBackgroundWorker2.addEventListener('message', workerEvent_DrawCanvasData, false);
   drawBackgroundWorker3.addEventListener('message', workerEvent_DrawCanvasData, false);
   drawBackgroundWorker4.addEventListener('message', workerEvent_DrawCanvasData, false);
 
+  drawInterpolationLineWorker1.postMessage({'message':'init'});
+  drawInterpolationLineWorker2.postMessage({'message':'init'});
+  drawInterpolationLineWorker3.postMessage({'message':'init'});
+  drawInterpolationLineWorker4.postMessage({'message':'init'});
   drawInterpolationLineWorker1.addEventListener('message', workerEvent_DrawInterpolationLine, false);
   drawInterpolationLineWorker2.addEventListener('message', workerEvent_DrawInterpolationLine, false);
   drawInterpolationLineWorker3.addEventListener('message', workerEvent_DrawInterpolationLine, false);
   drawInterpolationLineWorker4.addEventListener('message', workerEvent_DrawInterpolationLine, false);
+
+
+  drawInterpolationLineWorker1.postMessage({'message':'init'});
+  drawInterpolationLineWorker2.postMessage({'message':'init'});
+  drawInterpolationLineWorker3.postMessage({'message':'init'});
+  drawInterpolationLineWorker4.postMessage({'message':'init'});
+  drawInterpolationLineWorker1.addEventListener('message', workerEvent_DrawPreviewTestfunction, false);
+  drawInterpolationLineWorker2.addEventListener('message', workerEvent_DrawPreviewTestfunction, false);
+  drawInterpolationLineWorker3.addEventListener('message', workerEvent_DrawPreviewTestfunction, false);
+  drawInterpolationLineWorker4.addEventListener('message', workerEvent_DrawTestfunction, false);
+
+
+
+
+
+
+
+  var drawInterpolationLineWorkerCCCTest = new Worker("js/Front/Worker/workerFiles/Testing/worker_PreviewTesting.js");
+  var drawInterpolationLineWorkerCollection = new Worker("js/Front/Worker/workerFiles/Testing/worker_PreviewTesting.js");
+  var drawInterpolationLineWorkerReakWorldData = new Worker("js/Front/Worker/workerFiles/Testing/worker_PreviewTesting.js");
+
+  var drawInterpolationLineWorker4 = new Worker("js/Front/Worker/workerFiles/Testing/worker_SingleTesting.js");
 
   inform_Worker_ColorblindSimulation();
   inform_Worker_PathPlotBackgroundParams();
