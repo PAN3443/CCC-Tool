@@ -105,26 +105,18 @@ function initWorker(){
   drawInterpolationLineWorker4.addEventListener('message', workerEvent_DrawInterpolationLine, false);
 
 
-  drawInterpolationLineWorker1.postMessage({'message':'init'});
-  drawInterpolationLineWorker2.postMessage({'message':'init'});
-  drawInterpolationLineWorker3.postMessage({'message':'init'});
-  drawInterpolationLineWorker4.postMessage({'message':'init'});
-  drawInterpolationLineWorker1.addEventListener('message', workerEvent_DrawPreviewTestfunction, false);
-  drawInterpolationLineWorker2.addEventListener('message', workerEvent_DrawPreviewTestfunction, false);
-  drawInterpolationLineWorker3.addEventListener('message', workerEvent_DrawPreviewTestfunction, false);
-  drawInterpolationLineWorker4.addEventListener('message', workerEvent_DrawTestfunction, false);
+  /////////////////////////////////////
+  testpreviewWorker_CCCTest.postMessage({'message':'init'});
+  testpreviewWorker_Collection.postMessage({'message':'init'});
+  testpreviewWorker_RealWorldData.postMessage({'message':'init'});
+  testpreviewWorker_CCCTest.addEventListener('message', workerEvent_DrawPreviewTestfunction, false);
+  testpreviewWorker_Collection.addEventListener('message', workerEvent_DrawPreviewTestfunction, false);
+  testpreviewWorker_RealWorldData.addEventListener('message', workerEvent_DrawPreviewTestfunction, false);
+
+  testfunctionWorker.postMessage({'message':'init'});
+  testfunctionWorker.addEventListener('message', workerEvent_DrawTestfunction, false);
 
 
-
-
-
-
-
-  var drawInterpolationLineWorkerCCCTest = new Worker("js/Front/Worker/workerFiles/Testing/worker_PreviewTesting.js");
-  var drawInterpolationLineWorkerCollection = new Worker("js/Front/Worker/workerFiles/Testing/worker_PreviewTesting.js");
-  var drawInterpolationLineWorkerReakWorldData = new Worker("js/Front/Worker/workerFiles/Testing/worker_PreviewTesting.js");
-
-  var drawInterpolationLineWorker4 = new Worker("js/Front/Worker/workerFiles/Testing/worker_SingleTesting.js");
 
   inform_Worker_ColorblindSimulation();
   inform_Worker_PathPlotBackgroundParams();
