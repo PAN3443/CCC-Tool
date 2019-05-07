@@ -252,7 +252,6 @@ self.addEventListener('message', function(e) {
       break;
     }
 
-    console.log(answerJSON.isVplot);
     answerJSON.pathplotLines = pathplotLines;
     answerJSON.pathplotLinesDashed = pathplotLinesDashed;
     answerJSON.pathplotLinesVPlot = pathplotLinesVPlot;
