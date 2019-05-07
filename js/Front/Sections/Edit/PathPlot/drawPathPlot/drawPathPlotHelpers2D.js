@@ -1,8 +1,8 @@
 
 
 function updateVPlotData(){
-  vPlotyStart = Math.round(pathPlotResolution * 0.9);
-  vPlotyEnd = Math.round(pathPlotResolution * 0.1);
+  vPlotyStart = Math.round(vPlotHeight * 0.9);
+  vPlotyEnd = Math.round(vPlotHeight * 0.1);
   vPlotxStart = Math.round(vPlotWidth * 0.1);
   vPlotxEnd = Math.round(vPlotWidth * 0.85);
   heigthVArea = vPlotyStart - vPlotyEnd;

@@ -5,14 +5,16 @@
 function updateVPlotCanvasSize(id){
   // Update vPlotWidth
 
-  /*var rect = document.getElementById(id).getBoundingClientRect();
+  var rect = document.getElementById(id).getBoundingClientRect();
   var ratio = rect.width/rect.height;
-  vPlotWidth = Math.round(pathPlotResolution*ratio);*/
+  vPlotWidth = Math.round(vPlotHeight*ratio);
 
   updateVPlotData();
 }
 
 function drawcolormap_hueSpace(calcBackground, drawInterpolationLine, doInitVplot) {
+
+  updateVPlotCanvasSize("id_EditPage_PathPlot_Canvas1_Div"); // we are using the div containing the canvas because of the offscreen worker we cant use the canvas object in the main thread
 
   if (doInitVplot){
     if(browserCanOffscreenCanvas)
@@ -39,9 +41,6 @@ function drawcolormap_hueSpace(calcBackground, drawInterpolationLine, doInitVplo
 
 ////////////////////////////////////////////
 function hueInit() {
-
-
-  updateVPlotCanvasSize(document.getElementById("id_EditPage_PathPlot_Canvas1_Div")); // we are using the div containing the canvas because of the offscreen worker we cant use the canvas object in the main thread
 
 
   if(browserCanWorker){
@@ -133,17 +132,17 @@ function init_VPlot() {
 
   var canvasObj0 = document.getElementById("id_EditPage_PathPlot_Canvas1_0");
   canvasObj0.width = vPlotWidth;
-  canvasObj0.height = pathPlotResolution;
+  canvasObj0.height = vPlotHeight;
   var canvasContex0 = canvasObj0.getContext("2d");
 
   var canvasObj1 = document.getElementById("id_EditPage_PathPlot_Canvas2_0");
   canvasObj1.width = vPlotWidth;
-  canvasObj1.height = pathPlotResolution;
+  canvasObj1.height = vPlotHeight;
   var canvasContex1 = canvasObj1.getContext("2d");
 
   var canvasObj2 = document.getElementById("id_EditPage_PathPlot_Canvas3_0");
   canvasObj2.width = vPlotWidth;
-  canvasObj2.height = pathPlotResolution;
+  canvasObj2.height = vPlotHeight;
   var canvasContex2 = canvasObj2.getContext("2d");
 
   switch (pathColorspace) {
@@ -179,6 +178,7 @@ function init_VPlot_Offscreen(){
   workerJSON['message'] = "draw";
   workerJSON['pathPlotResolution'] = pathPlotResolution;
   workerJSON['vPlotWidth'] = vPlotWidth;
+  workerJSON['vPlotHeight'] = vPlotHeight;
   workerJSON['space'] = pathColorspace;
   workerJSON['type'] = "V1";
   drawBackgroundWorker1.postMessage(workerJSON);
@@ -197,19 +197,19 @@ function drawElements_HSV_LAB_DIN99() {
 
   var canvasObj0 = document.getElementById("id_EditPage_PathPlot_Canvas1_2");
   canvasObj0.width = vPlotWidth;
-  canvasObj0.height = pathPlotResolution;
+  canvasObj0.height = vPlotHeight;
   var canvasContex0 = canvasObj0.getContext("2d");
   canvasContex0.clearRect(0, 0, canvasObj0.width, canvasObj0.height);
 
   var canvasObj1 = document.getElementById("id_EditPage_PathPlot_Canvas2_2");
   canvasObj1.width = vPlotWidth;
-  canvasObj1.height = pathPlotResolution;
+  canvasObj1.height = vPlotHeight;
   var canvasContex1 = canvasObj1.getContext("2d");
   canvasContex1.clearRect(0, 0, canvasObj1.width, canvasObj1.height);
 
   var canvasObj2 = document.getElementById("id_EditPage_PathPlot_Canvas3_2");
   canvasObj2.width = vPlotWidth;
-  canvasObj2.height = pathPlotResolution;
+  canvasObj2.height = vPlotHeight;
   var canvasContex2 = canvasObj2.getContext("2d");
   canvasContex2.clearRect(0, 0, canvasObj2.width, canvasObj2.height);
 
@@ -255,19 +255,19 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap) {
 
   var canvasObj0 = document.getElementById("id_EditPage_PathPlot_Canvas1_1");
   canvasObj0.width = vPlotWidth;
-  canvasObj0.height = pathPlotResolution;
+  canvasObj0.height = vPlotHeight;
   var canvasContex0 = canvasObj0.getContext("2d");
   canvasContex0.clearRect(0, 0, canvasObj0.width, canvasObj0.height);
 
   var canvasObj1 = document.getElementById("id_EditPage_PathPlot_Canvas2_1");
   canvasObj1.width = vPlotWidth;
-  canvasObj1.height = pathPlotResolution;
+  canvasObj1.height = vPlotHeight;
   var canvasContex1 = canvasObj1.getContext("2d");
   canvasContex1.clearRect(0, 0, canvasObj1.width, canvasObj1.height);
 
   var canvasObj2 = document.getElementById("id_EditPage_PathPlot_Canvas3_1");
   canvasObj2.width = vPlotWidth;
-  canvasObj2.height = pathPlotResolution;
+  canvasObj2.height = vPlotHeight;
   var canvasContex2 = canvasObj2.getContext("2d");
   canvasContex2.clearRect(0, 0, canvasObj2.width, canvasObj2.height);
 
@@ -332,6 +332,7 @@ function pathplot_WorkerDrawElements_And_InterpolationLine(drawInterpolationLine
     workerJSON['intervalDelta'] = intervalDelta;
     workerJSON['pathPlotResolution'] = pathPlotResolution;
     workerJSON['vPlotWidth'] = vPlotWidth;
+    workerJSON['vPlotHeight'] = vPlotHeight;
     workerJSON['mouseAboveKeyID'] = mouseAboveKeyID;
     workerJSON['mouseGrappedColor'] = mouseGrappedColor;
     workerJSON['mouseGrappedColorSide'] = mouseGrappedColorSide;
@@ -348,7 +349,7 @@ function pathplot_WorkerDrawElements_And_InterpolationLine(drawInterpolationLine
     workerJSON.type = "vplot3";
     drawInterpolationLineWorker3.postMessage(workerJSON);
 
-    workerJSON.vPlotWidth = undefined;
+    workerJSON.vPlotWidth = undefined; // to identify
     workerJSON.do3D = true;
     workerJSON.type = "hue";
     drawInterpolationLineWorker4.postMessage(workerJSON);

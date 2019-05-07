@@ -26,10 +26,11 @@ var framesPerSecond = 10;
 var animationIntervalPathPlot = 1000/framesPerSecond;
 
 var pathPlotResolution = 500;
-var vPlotWidth = 1500;
+var vPlotHeight = 200;
+var vPlotWidth = 600;
 
-var vPlotyStart = Math.round(pathPlotResolution * 0.9);
-var vPlotyEnd = Math.round(pathPlotResolution * 0.1);
+var vPlotyStart = Math.round(vPlotHeight * 0.9);
+var vPlotyEnd = Math.round(vPlotHeight * 0.1);
 var vPlotxStart = Math.round(vPlotWidth * 0.1);
 var vPlotxEnd = Math.round(vPlotWidth * 0.85);
 var heigthVArea = vPlotyStart - vPlotyEnd;

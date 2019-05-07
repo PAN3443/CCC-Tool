@@ -43,10 +43,11 @@ var vPlotElementPositions=[];
 
 var intervalDelta = undefined;
 var pathPlotResolution = 500;
-var vPlotWidth = 1500;
+var vPlotHeight = 200;
+var vPlotWidth = 600;
 
-var vPlotyStart = Math.round(pathPlotResolution * 0.9);
-var vPlotyEnd = Math.round(pathPlotResolution * 0.1);
+var vPlotyStart = Math.round(vPlotHeight * 0.9);
+var vPlotyEnd = Math.round(vPlotHeight * 0.1);
 var vPlotxStart = Math.round(vPlotWidth * 0.1);
 var vPlotxEnd = Math.round(vPlotWidth * 0.85);
 var heigthVArea = vPlotyStart - vPlotyEnd;
@@ -135,6 +136,7 @@ self.addEventListener('message', function(e) {
 
   pathPlotResolution = e.data.pathPlotResolution;
   vPlotWidth = e.data.vPlotWidth;
+  vPlotHeight = e.data.vPlotHeight;
 
   if(vPlotWidth!=undefined)
     updateVPlotData();
@@ -161,6 +163,7 @@ self.addEventListener('message', function(e) {
 
   if(e.data.space==="rgb"){
     answerJSON.isRGB = true;
+
     if(e.data.drawInterpolationLine)
       calcRGBInterpolationLine();
 
@@ -191,6 +194,7 @@ self.addEventListener('message', function(e) {
     answerJSON.pathplotLines = pathplotLines;
     answerJSON.pathplotLinesDashed = pathplotLinesDashed;
     answerJSON.pathplotElementPositions = pathplotElementPositions;
+    self.postMessage(answerJSON);
   }
   else {
     switch (e.data.space) {
@@ -243,31 +247,34 @@ self.addEventListener('message', function(e) {
         answerJSON.index1 = 2;
       break;
       case "hue":
-
         answerJSON.canvasID="id_EditPage_PathPlot_SingleCanvas_1";
         answerJSON.canvasID2="id_EditPage_PathPlot_SingleCanvas_2";
       break;
     }
 
+    console.log(answerJSON.isVplot);
     answerJSON.pathplotLines = pathplotLines;
     answerJSON.pathplotLinesDashed = pathplotLinesDashed;
     answerJSON.pathplotLinesVPlot = pathplotLinesVPlot;
 
     answerJSON.pathplotElementPositions = pathplotElementPositions;
     answerJSON.vPlotElementPositions = vPlotElementPositions;
-
     self.postMessage(answerJSON);
+
   }
+
 
   break;
 
   case "draw":
     pathPlotResolution = e.data.pathPlotResolution;
     vPlotWidth = e.data.vPlotWidth;
+    vPlotHeight = e.data.vPlotHeight;
     mouseAboveKeyID = e.data.mouseAboveKeyID;
     mouseGrappedColorSide = e.data.mouseGrappedColorSide;
     mouseGrappedColor = e.data.mouseGrappedColor;
     intervalDelta = e.data.intervalDelta;
+
     updateVPlotData();
 
   if(canvas==undefined || canvas2 ==undefined)
@@ -323,16 +330,19 @@ self.addEventListener('message', function(e) {
     }
     else {
 
-
+      var height = vPlotHeight;
       var width = vPlotWidth;
-      if(vPlotWidth==undefined) // is undefined in case of the hue visualization, is not undefined in case of vplot vis
+      if(vPlotWidth==undefined){// is undefined in case of the hue visualization, is not undefined in case of vplot vis
+        height = pathPlotResolution;
         width = pathPlotResolution;
+      }
 
-      canvas2.height=pathPlotResolution;
+
+      canvas2.height=height;
       canvas2.width=width;
 
       if(e.data.drawInterpolationLine){
-        canvas.height=pathPlotResolution;
+        canvas.height=height;
         canvas.width=width;
       }
 

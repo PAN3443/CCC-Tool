@@ -227,7 +227,7 @@ function rgbPlot(context, xlabel, ylabel) {
 
 function drawVPlot(vPlotContex, startValue, endValue){
 
-  vPlotContex.clearRect(0, 0, vPlotWidth, pathPlotResolution);
+  vPlotContex.clearRect(0, 0, vPlotWidth, vPlotHeight);
 
   /*vPlotContex.mozImageSmoothingEnabled = false;
   vPlotContex.webkitImageSmoothingEnabled = false;
@@ -237,11 +237,11 @@ function drawVPlot(vPlotContex, startValue, endValue){
 
   var yStart = vPlotyStart;
   var yEnd = vPlotyEnd;
-  var yEndLine = Math.round(pathPlotResolution * 0.05);
+  var yEndLine = Math.round(vPlotHeight * 0.05);
   var yEndArrow = 0;
   var arrowHeight = Math.round(yEndLine - yEndArrow);
-  var labelFontSize = arrowHeight * 1;
-  var labelFontSizeSmall = arrowHeight * 0.5;
+  var labelFontSize = arrowHeight * 1.5;
+  var labelFontSizeSmall = arrowHeight * 1.0;
   var xStart = vPlotxStart;
   var xEnd = vPlotxEnd;
   var xEndArrow = Math.round(vPlotWidth * 0.9);
@@ -271,13 +271,13 @@ function drawVPlot(vPlotContex, startValue, endValue){
     vPlotContex.beginPath();
     vPlotContex.lineWidth = Math.round(lineWidthVPlot / 2);
     vPlotContex.moveTo(xPosPos, yStart);
-    vPlotContex.lineTo(xPosPos, pathPlotResolution * 0.93);
+    vPlotContex.lineTo(xPosPos, vPlotHeight * 0.93);
     vPlotContex.strokeStyle = lineColor;
     vPlotContex.stroke();
     vPlotContex.strokeStyle = arrowFontColor;
     var text = "" + (i + 1);
     vPlotContex.font = labelFontSizeSmall + "px Arial";
-    vPlotContex.fillText(text, xPosPos, pathPlotResolution * 0.93 + labelFontSizeSmall);
+    vPlotContex.fillText(text, xPosPos, vPlotHeight * 0.93 + labelFontSizeSmall);
 
   }
 
