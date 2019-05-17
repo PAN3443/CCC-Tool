@@ -14,4 +14,4 @@ var testpreviewWorker_CCCTest = new Worker("js/Front/Worker/workerFiles/Testing/
 var testpreviewWorker_Collection = new Worker("js/Front/Worker/workerFiles/Testing/worker_PreviewTesting.js");
 var testpreviewWorker_RealWorldData = new Worker("js/Front/Worker/workerFiles/Testing/worker_PreviewTesting.js");
 
-var testfunctionWorker = new Worker("js/Front/Worker/workerFiles/Testing/worker_SingleTesting.js");
+var testfunctionWorker_InteractiveTest = new Worker("js/Front/Worker/workerFiles/Testing/worker_SingleTesting.js");

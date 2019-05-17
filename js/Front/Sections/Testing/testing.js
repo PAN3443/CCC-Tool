@@ -83,7 +83,10 @@ function selectTestCMS(){
 
   drawCanvasColormap("id_TestPage_CMS_VIS_ColormapLinear", globalCMS1);
 
-  initTesttestField_WorkerJSON();
+  testpreviewWorker_CCCTest.postMessage(globalCMS1JSON);
+  testpreviewWorker_Collection.postMessage(globalCMS1JSON);
+  testpreviewWorker_RealWorldData.postMessage(globalCMS1JSON);
+  testfunctionWorker_InteractiveTest.postMessage(globalCMS1JSON);
 
   switch (testingModus) {
     case 0:
@@ -91,7 +94,7 @@ function selectTestCMS(){
     redrawTest = true;
       break;
       case 1:
-      selectNewTestType();
+    selectNewTestType();
       redrawCollection = true;
         break;
   }

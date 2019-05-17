@@ -8,39 +8,80 @@ class class_TestField {
     this.dimensionX = dimensionX;
     this.dimensionY = dimensionY;
     this.fieldValues = [];
-    this.fieldColors = [];
-    this.fieldGreyColors = [];
     this.xPos = [];
     this.yPos = [];
     this.cellValues = false;
-    this.xmax = -Infinity;
+    /*this.xmax = -Infinity;
     this.xmin = Infinity;
     this.ymax = -Infinity;
-    this.ymin = Infinity;
+    this.ymin = Infinity;*/
     this.vmax = -Infinity;
     this.vmin = Infinity;
-
+    this.vdis = undefined;
+    this.doAutoScale = false;
+    this.scaleRangeMin = undefined;
+    this.scaleRangeMax = undefined;
+    this.scaleRangeDis = undefined;
 
     for (var x = 0; x < dimensionX; x++) {
       var newArray = [];
       var newArray2 = [];
       var newArray3 = [];
-      var newArray4 = [];
-      var newArray5 = [];
       for (var y = 0; y < dimensionY; y++) {
         newArray.push(undefined);
         newArray2.push(undefined);
         newArray3.push(undefined);
-        newArray4.push(undefined);
-        newArray5.push(undefined);
       }
       this.fieldValues.push(newArray);
-      this.fieldColors.push(newArray2);
-      this.xPos.push(newArray3);
-      this.yPos.push(newArray4);
-      this.fieldGreyColors.push(newArray5);
+      this.xPos.push(newArray2);
+      this.yPos.push(newArray3);
     }
 
+  }
+
+  setAutoScale(bool){
+    this.doAutoScale = bool;
+  }
+
+  getAutoScale(){
+    return this.doAutoScale;
+  }
+
+  setScaleRange(min,max){
+    this.scaleRangeMin = min;
+    this.scaleRangeMax = max;
+    this.scaleRangeDis = Math.abs(this.scaleRangeMax-this.scaleRangeMin);
+  }
+
+  setField(data){
+    this.dimensionX = data[0];
+    this.dimensionY = data[1];
+    this.fieldValues = [];
+    this.xPos = [];
+    this.yPos = [];
+    this.vmax = -Infinity;
+    this.vmin = Infinity;
+
+    for (var x = 0; x < this.dimensionX; x++) {
+      var newArray = [];
+      var newArray2 = [];
+      var newArray3 = [];
+      for (var y = 0; y < this.dimensionY; y++) {
+
+        var index = y*this.dimensionX+x;
+        if(data[2][index]!=undefined){
+          this.vmax = Math.max(this.vmax,data[2][index]);
+          this.vmin = Math.min(this.vmin,data[2][index]);
+        }
+        newArray.push(data[2][index]);
+        newArray2.push(data[3][index][0]);
+        newArray3.push(data[3][index][1]);
+      }
+      this.fieldValues.push(newArray);
+      this.xPos.push(newArray2);
+      this.yPos.push(newArray3);
+    }
+    this.vdis = Math.abs(this.vmax-this.vmin);
   }
 
   setCellValues(bool){
@@ -51,8 +92,7 @@ class class_TestField {
     return this.cellValues;
   }
 
-  setFieldValue(x,y,value,color,greyRGB,xPos,yPos){
-
+  /*setFieldValue(x,y,value,color,greyRGB,xPos,yPos){
     this.xmax = Math.max(this.xmax,xPos);
     this.xmin = Math.min(this.xmin,xPos);
     this.ymax = Math.max(this.ymax,yPos);
@@ -65,10 +105,16 @@ class class_TestField {
     this.fieldGreyColors[x][y] = greyRGB;
     this.xPos[x][y] = xPos;
     this.yPos[x][y] = yPos;
-  }
+  }*/
 
   getFieldValue(x,y){
-    return this.fieldValues[x][y];
+    if(this.doAutoScale){
+      var valueRatio = (this.fieldValues[x][y]-this.vmin)/this.vdis;
+      return this.scaleRangeMin+this.scaleRangeDis*valueRatio;
+    }
+    else{
+      return this.fieldValues[x][y];
+    }
   }
 
   getFieldColor(x,y){

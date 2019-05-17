@@ -1,6 +1,9 @@
 // Offscreen Canvas
-var canvas = undefined;
-var canvasContex = undefined;
+var canvasList = [];
+var typeList = []; // ccctest, collection, realdata
+var subtypeList = []; // e.g. jump test ....
+var optionsList = [];
+var testFieldList = [];
 
 /// color settings
 var din99_kE = undefined;
@@ -23,16 +26,9 @@ var globalCMS1 = undefined;
 var error = 100; // 0.01
 var errorMath = 1e12;
 
-var testFieldMax = undefined;
-var testFieldMin = undefined;
-
-var testFieldDimY = undefined;
-var testFieldDimX = undefined;
-
 self.addEventListener('message', function(e) {
 
   switch (e.data.message) {
-
 
     case "init":
       self.importScripts('../../processingCases.js');
@@ -50,25 +46,83 @@ self.addEventListener('message', function(e) {
       self.importScripts('../../../Classes/ColormapClass/class_Colormap_Probe.js');
       self.importScripts('../../../Classes/ColormapClass/class_Colormap_ProbeSet.js');
 
+      self.importScripts('../../../Classes/Domain/class_testField.js');
+      self.importScripts('../../../Worker/workerFiles/Testing/workerFunctions_testing.js');
+
+      switch (e.data.initOption1) {
+        case "CCCTest":
+          self.importScripts('../../../Sections/Testing/Testfunctions/cccTest.js');
+          break;
+          case "Collection":
+            self.importScripts('../../../Sections/Testing/Testfunctions/FctCollection/collection_BowlShaped.js');
+            self.importScripts('../../../Sections/Testing/Testfunctions/FctCollection/collection_localMinima.js');
+            self.importScripts('../../../Sections/Testing/Testfunctions/FctCollection/collection_ValleyShaped.js');
+            self.importScripts('../../../Sections/Testing/Testfunctions/FctCollection/collection_other.js');
+          break;
+          case "RealData":
+            self.importScripts('../../../Sections/Testing/Testfunctions/realWorldData.js');
+          break;
+
+      }
+
       self.importScripts('../../../GlobalEvents/Helpers/canvasHelpers.js');
+
+      self.importScripts('../../../GlobalEvents/CMSColorGradient/calcGradientHSV.js');
+      self.importScripts('../../../GlobalEvents/CMSColorGradient/calcGradientLinear.js');
 
       globalCMS1 = new class_CMS();
     break;
 
-    case "getData":
 
-      console.log("getData");
+
+    case "pushOptions":
+        optionsList.push(e.data.optionsList);
+    break;
+    case "setType":
+      typeList.push(e.data.type);
+      subtypeList.push(e.data.subtype);
     break;
 
-    case "draw":
+    case "pushCanvas":
+        canvasList.push(e.data.canvas);
+        var newTestField = new class_TestField(0,0);
+        testFieldList.push(newTestField);
+    break;
+    case "calcTestFields":
+
+      for (var i = 0; i < typeList.length; i++) {
+        calc_Preview_TestingField(i);
+      }
+    break;
+
+    case "getRealWorldData_IMG":
+
+      while(optionsList.length<=e.data.index){
+        optionsList.push(undefined);
+      }
+
+      optionsList[e.data.index] = e.data.img;
+    break;
+
+
+    case "getImgData":
+
+      for (var i = 0; i < testFieldList.length; i++) {
+        var answerJSON = {};
+        answerJSON['canvasID'] = canvasList[i];
+        answerJSON['imageData'] = calculateImageData(testFieldList[i],false);
+        self.postMessage(answerJSON);
+      }
+
+    break;
+
+    case "drawTestField":
       console.log("drawData");
 
     break;
 
   default:
-
-    if(initIsDone)
-      generalJSON_Processing(e.data);
+    generalJSON_Processing(e.data);
 
 
   }

@@ -11,7 +11,7 @@ function extremaTest_startWorker(options) {
 }
 
 function extremaTest_JSON(options, createGlobalField){
-
+  
   if(createGlobalField){
     userTestGlobalField = new class_TestField(options[4], options[5]);
     testField_WorkerJSON.testFieldDimX = options[4];

@@ -116,6 +116,9 @@ self.addEventListener('message', function(e) {
       self.importScripts('../../../GlobalEvents/Helpers/calcColordifference.js');
       self.importScripts('../../../GlobalEvents/Helpers/math.js');
 
+      self.importScripts('../../../GlobalEvents/CMSColorGradient/calcGradientHSV.js');
+      self.importScripts('../../../GlobalEvents/CMSColorGradient/calcGradientLinear.js');
+
 
       globalCMS1 = new class_CMS();
 

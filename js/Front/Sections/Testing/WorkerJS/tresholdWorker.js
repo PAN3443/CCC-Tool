@@ -12,6 +12,9 @@ function treshold_startWorker(options) {
 
 function tresholdTest_JSON(options, createGlobalField){
 
+
+  
+
   if(createGlobalField){
     userTestGlobalField = new class_TestField(options[6], options[7]);
     testField_WorkerJSON.testFieldDimX = options[6];

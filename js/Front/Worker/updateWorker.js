@@ -1,3 +1,68 @@
+
+
+function calcPreviewTestFields(worker){
+  var workerJSON = {};
+  workerJSON['message'] = "calcTestFields";
+  worker.postMessage(workerJSON);
+}
+
+
+function inform_Worker_LoadRealWorldIMG(worker,url,imgIndex){
+
+        var img = new Image();
+        img.setAttribute('crossOrigin', 'anonymous');
+        img.onload = (function(index,wk) {
+        return function () {
+          var workerJSON = {};
+          workerJSON['message'] = "getRealWorldData_IMG";
+          workerJSON['index'] = index;
+          workerJSON['img'] = getCanvasImgData(this);
+          wk.postMessage(workerJSON);
+        };
+      })(imgIndex,worker);
+
+      img.src = url;
+
+}
+
+
+function inform_Worker_PushTestingOptions(worker,options){
+  var workerJSON = {};
+  workerJSON['message'] = "pushOptions";
+  workerJSON['optionsList'] = [];
+  for (var i = 0; i < options.length; i++) {
+    var elem = options[i];
+    workerJSON.optionsList.push(elem);
+  }
+  worker.postMessage(workerJSON);
+}
+
+function inform_Worker_PushTestingCanvas(worker,canvasID){
+  var workerJSON = {};
+  workerJSON['message'] = "pushCanvas";
+  workerJSON['canvas'] = undefined;
+  if(browserCanOffscreenCanvas){
+    // add canvasElement
+    var htmlCanvas = document.getElementById(canvasID);
+    var offscreenBackground = htmlCanvas.transferControlToOffscreen();
+    workerJSON.canvas = offscreenBackground;
+    worker.postMessage(workerJSON, [offscreenBackground]);
+  }
+  else{
+    // add ID
+    workerJSON.canvas = canvasID;
+    worker.postMessage(workerJSON);
+  }
+}
+
+function inform_Worker_PushTestingType(worker,type,subtype){
+  var workerJSON = {};
+  workerJSON['message'] = "setType";
+  workerJSON['type'] = type;
+  workerJSON['subtype'] = subtype;
+  worker.postMessage(workerJSON);
+}
+
 function inform_Worker_ColorblindSimulation(){
 
     if(!browserCanWorker)
@@ -21,6 +86,11 @@ function inform_Worker_ColorblindSimulation(){
     drawInterpolationLineWorker2.postMessage(workerJSON);
     drawInterpolationLineWorker3.postMessage(workerJSON);
     drawInterpolationLineWorker4.postMessage(workerJSON);
+
+    testpreviewWorker_CCCTest.postMessage(workerJSON);
+    testpreviewWorker_Collection.postMessage(workerJSON);
+    testpreviewWorker_RealWorldData.postMessage(workerJSON);
+    testfunctionWorker_InteractiveTest.postMessage(workerJSON);
 
 
 }
@@ -47,6 +117,11 @@ function inform_Worker_ColorSettings(){
   drawInterpolationLineWorker2.postMessage(workerJSON);
   drawInterpolationLineWorker3.postMessage(workerJSON);
   drawInterpolationLineWorker4.postMessage(workerJSON);
+
+  testpreviewWorker_CCCTest.postMessage(workerJSON);
+  testpreviewWorker_Collection.postMessage(workerJSON);
+  testpreviewWorker_RealWorldData.postMessage(workerJSON);
+  testfunctionWorker_InteractiveTest.postMessage(workerJSON);
 }
 
 function inform_Worker_ColorMetrics(){
@@ -73,8 +148,12 @@ function inform_Worker_ColorMetrics(){
   drawInterpolationLineWorker2.postMessage(workerJSON);
   drawInterpolationLineWorker3.postMessage(workerJSON);
   drawInterpolationLineWorker4.postMessage(workerJSON);
-}
 
+  testpreviewWorker_CCCTest.postMessage(workerJSON);
+  testpreviewWorker_Collection.postMessage(workerJSON);
+  testpreviewWorker_RealWorldData.postMessage(workerJSON);
+  testfunctionWorker_InteractiveTest.postMessage(workerJSON);
+}
 
 function inform_Worker_PathPlotBackgroundParams(){
 

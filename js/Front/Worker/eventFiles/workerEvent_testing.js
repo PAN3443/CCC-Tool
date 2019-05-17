@@ -8,7 +8,6 @@ function workerEvent_DrawPreviewTestfunction(e) {
   canvasContex.clearRect(0, 0, canvas.width, canvas.height);
   canvasContex.putImageData(e.data.imageData, 0, 0);
 
-
 }
 
 
@@ -21,6 +20,5 @@ function workerEvent_DrawTestfunction(e) {
   var canvasContex = canvas.getContext("2d");
   canvasContex.clearRect(0, 0, canvas.width, canvas.height);
   canvasContex.putImageData(e.data.imageData, 0, 0);
-
 
 }

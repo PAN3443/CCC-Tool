@@ -13,7 +13,6 @@ function littlebit_startWorker(options) {
 
 function littleBitTest_JSON(options, createGlobalField){
 
-
   var numberOfAreas = options[6]+options[6]+1;
   var xDim = undefined;
   var yDim = undefined;

@@ -1,6 +1,6 @@
 var selectedRealWorldType = undefined;
 
-
+var realWorldCanvasIndex = 0;
 
 var medicalLabels = ["CT Head","MR Brain","Thermography","Mammography",];
 var medicalFiles = ["cthead-8bit061.png","mrbrain-8bit038.png","thermography.png","M0279.LEFT_MLO.2017-05-04.00.png",];
@@ -56,5 +56,3 @@ var acknowlegmentsAdditional = [undefined,
 "This data set comes from the SciVis contest 2018 and includes the simulation data of asteroid impacts in deep ocean water.",
 "Lenna is a test image often used in the computer science of image processing. The image is popular because of its different areas of multifarious detail degree."
 ];
-
-

@@ -87,122 +87,21 @@ function fillTestCollection(){
 
 function drawTestCollection(){
 
-  for (var i = 0; i < cccTest_Jumps_Options.length; i++) {
-      jumpTest_JSON(cccTest_Jumps_Options[i], false);
-      testField_WorkerJSON.canvasID = "jumpSelectorCanvas_"+i;
-      var tmpWorker = new Worker('js/Front/Sections/Testing/testingWorker.js');
-      tmpWorker.addEventListener('message', workerEvent_drawTest, false);
-      tmpWorker.postMessage(testField_WorkerJSON);
-  }
+  calcPreviewTestFields(testpreviewWorker_CCCTest);
+  calcPreviewTestFields(testpreviewWorker_Collection);
+  calcPreviewTestFields(testpreviewWorker_RealWorldData);
 
-  for (var i = 0; i < cccTest_Gradient_Options.length; i++) {
-      gradientTest_JSON(cccTest_Gradient_Options[i], false);
-      testField_WorkerJSON.canvasID = "gradientSelectorCanvas_"+i;
-      var tmpWorker = new Worker('js/Front/Sections/Testing/testingWorker.js');
-      tmpWorker.addEventListener('message', workerEvent_drawTest, false);
-      tmpWorker.postMessage(testField_WorkerJSON);
-  }
+  var workerJSON = {};
+  workerJSON['message'] = undefined;
 
-  for (var i = 0; i < cccTest_RidgeValleyLine_Options.length; i++) {
-      ridgeValleyTest_JSON(cccTest_RidgeValleyLine_Options[i], false);
-      testField_WorkerJSON.canvasID = "ridgeValleySelectorCanvas_"+i;
-      var tmpWorker = new Worker('js/Front/Sections/Testing/testingWorker.js');
-      tmpWorker.addEventListener('message', workerEvent_drawTest, false);
-      tmpWorker.postMessage(testField_WorkerJSON);
-  }
+  if(browserCanOffscreenCanvas)
+    workerJSON.message = "drawTestField";
+  else
+    workerJSON.message = "getImgData";
 
-
-  for (var i = 0; i < cccTest_LocalExtrema_Options.length; i++) {
-      extremaTest_JSON(cccTest_LocalExtrema_Options[i], false);
-      testField_WorkerJSON.canvasID = "localExtremaCanvas_"+i;
-      var tmpWorker = new Worker('js/Front/Sections/Testing/testingWorker.js');
-      tmpWorker.addEventListener('message', workerEvent_drawTest, false);
-      tmpWorker.postMessage(testField_WorkerJSON);
-  }
-
-  for (var i = 0; i < cccTest_Frequency_Options.length; i++) {
-      frequencyTest_JSON(cccTest_Frequency_Options[i], false);
-      testField_WorkerJSON.canvasID = "frequencyCanvas_"+i;
-      var tmpWorker = new Worker('js/Front/Sections/Testing/testingWorker.js');
-      tmpWorker.addEventListener('message', workerEvent_drawTest, false);
-      tmpWorker.postMessage(testField_WorkerJSON);
-  }
-
-
-  for (var i = 0; i < cccTest_LittleBit_Options.length; i++) {
-      littleBitTest_JSON(cccTest_LittleBit_Options[i], false);
-      testField_WorkerJSON.canvasID = "littlebitCanvas_"+i;
-      var tmpWorker = new Worker('js/Front/Sections/Testing/testingWorker.js');
-      tmpWorker.addEventListener('message', workerEvent_drawTest, false);
-      tmpWorker.postMessage(testField_WorkerJSON);
-  }
-
-  for (var i = 0; i < cccTest_Treshold_Options.length; i++) {
-      tresholdTest_JSON(cccTest_Treshold_Options[i], false);
-      testField_WorkerJSON.canvasID = "tresholdCanvas_"+i;
-      var tmpWorker = new Worker('js/Front/Sections/Testing/testingWorker.js');
-      tmpWorker.addEventListener('message', workerEvent_drawTest, false);
-      tmpWorker.postMessage(testField_WorkerJSON);
-  }
-
-  /////////////////////////////////////////////////////////////////////////
-
-  for (var i = 0; i < fctTest_LocalMin_Options.length; i++) {
-      fct_JSON(fctTest_LocalMin_Options[i],false);
-      testField_WorkerJSON.canvasID = fctTest_LocalMin_Options[i][1];
-      var tmpWorker = new Worker('js/Front/Sections/Testing/testingWorker.js');
-      tmpWorker.addEventListener('message', workerEvent_drawTest, false);
-      tmpWorker.postMessage(testField_WorkerJSON);
-  }
-
-  for (var i = 0; i < fctTest_BowlShaped_Options.length; i++) {
-      fct_JSON(fctTest_BowlShaped_Options[i],false);
-      testField_WorkerJSON.canvasID = fctTest_BowlShaped_Options[i][1];
-      var tmpWorker = new Worker('js/Front/Sections/Testing/testingWorker.js');
-      tmpWorker.addEventListener('message', workerEvent_drawTest, false);
-      tmpWorker.postMessage(testField_WorkerJSON);
-  }
-
-  for (var i = 0; i < fctTest_ValleyShaped_Options.length; i++) {
-      fct_JSON(fctTest_ValleyShaped_Options[i],false);
-      testField_WorkerJSON.canvasID = fctTest_ValleyShaped_Options[i][1];
-      var tmpWorker = new Worker('js/Front/Sections/Testing/testingWorker.js');
-      tmpWorker.addEventListener('message', workerEvent_drawTest, false);
-      tmpWorker.postMessage(testField_WorkerJSON);
-  }
-
-  ///////////////////////////////////////////////////////////////////////////
-
-  for (var i = 0; i < medicalData.length; i++) {
-      if(realWorldTest_JSON("medical",i, false)){
-        testField_WorkerJSON.canvasID = "rw_medical_canvas_"+i;
-        var tmpWorker = new Worker('js/Front/Sections/Testing/testingWorker.js');
-        tmpWorker.addEventListener('message', workerEvent_drawTest, false);
-        tmpWorker.postMessage(testField_WorkerJSON);
-      }
-  }
-  
-  console.log(scientificFlowSimData.length);
-  for (var i = 0; i < scientificFlowSimData.length; i++) {
-      if(realWorldTest_JSON("scientificFlowSim",i, false)){
-        testField_WorkerJSON.canvasID = "rw_scientificFlowSim_canvas_"+i;
-        var tmpWorker = new Worker('js/Front/Sections/Testing/testingWorker.js');
-        tmpWorker.addEventListener('message', workerEvent_drawTest, false);
-        tmpWorker.postMessage(testField_WorkerJSON);
-      }
-  }
-
-  for (var i = 0; i < photographsData.length; i++) {
-      if(realWorldTest_JSON("photographs",i, false)){
-        testField_WorkerJSON.canvasID = "rw_photographs_canvas_"+i;
-        var tmpWorker = new Worker('js/Front/Sections/Testing/testingWorker.js');
-        tmpWorker.addEventListener('message', workerEvent_drawTest, false);
-        tmpWorker.postMessage(testField_WorkerJSON);
-      }
-  }
-
-  
-
+  testpreviewWorker_CCCTest.postMessage(workerJSON);
+  testpreviewWorker_Collection.postMessage(workerJSON);
+  testpreviewWorker_RealWorldData.postMessage(workerJSON);
 }
 
 function createtmpTestDiv(){
@@ -237,6 +136,13 @@ function createtmpTestDiv(){
       var tmpCanvas = document.createElement('canvas');
       tmpCanvas.id = "jumpSelectorCanvas_"+i;
       tmpSelection.appendChild(tmpCanvas);
+
+      ///////////////////////////////////////////////////////////
+      //// For Worker add canvas or canvasID
+      inform_Worker_PushTestingType(testpreviewWorker_CCCTest,"CCCTest","Jump");
+      inform_Worker_PushTestingOptions(testpreviewWorker_CCCTest,cccTest_Jumps_Options[i]);
+      inform_Worker_PushTestingCanvas(testpreviewWorker_CCCTest,tmpCanvas.id);
+      ///////////////////////////////////////////////////////////
 
       var tmpTestLabel = document.createElement('p');
       labelText ="J = {";
@@ -302,6 +208,13 @@ function createGradientDiv(){
       var tmpCanvas = document.createElement('canvas');
       tmpCanvas.id = "gradientSelectorCanvas_"+i;
       tmpSelection.appendChild(tmpCanvas);
+
+      ///////////////////////////////////////////////////////////
+      //// For Worker add canvas or canvasID
+      inform_Worker_PushTestingType(testpreviewWorker_CCCTest,"CCCTest","Gradient");
+      inform_Worker_PushTestingOptions(testpreviewWorker_CCCTest,cccTest_Gradient_Options[i]);
+      inform_Worker_PushTestingCanvas(testpreviewWorker_CCCTest,tmpCanvas.id);
+      ///////////////////////////////////////////////////////////
 
       var tmpTestLabel = document.createElement('p');
       var labelText;
@@ -393,6 +306,14 @@ function createRidgeAndValley(){
       tmpCanvas.id = "ridgeValleySelectorCanvas_"+i;
       tmpSelection.appendChild(tmpCanvas);
 
+
+      ///////////////////////////////////////////////////////////
+      //// For Worker add canvas or canvasID
+      inform_Worker_PushTestingType(testpreviewWorker_CCCTest,"CCCTest","RiVa");
+      inform_Worker_PushTestingOptions(testpreviewWorker_CCCTest,cccTest_RidgeValleyLine_Options[i]);
+      inform_Worker_PushTestingCanvas(testpreviewWorker_CCCTest,tmpCanvas.id);
+      ///////////////////////////////////////////////////////////
+
       var tmpTestLabel = document.createElement('p');
       var labelText;
       if(cccTest_RidgeValleyLine_Options[i][0]){
@@ -483,6 +404,13 @@ function createLocalExtrema(){
       tmpCanvas.id = "localExtremaCanvas_"+i;
       tmpSelection.appendChild(tmpCanvas);
 
+      ///////////////////////////////////////////////////////////
+      //// For Worker add canvas or canvasID
+      inform_Worker_PushTestingType(testpreviewWorker_CCCTest,"CCCTest","Extrema");
+      inform_Worker_PushTestingOptions(testpreviewWorker_CCCTest,cccTest_LocalExtrema_Options[i]);
+      inform_Worker_PushTestingCanvas(testpreviewWorker_CCCTest,tmpCanvas.id);
+      ///////////////////////////////////////////////////////////
+
       var tmpTestLabel = document.createElement('p');
       var labelText;
 
@@ -549,6 +477,13 @@ function createFrequency(){
       tmpCanvas.id = "frequencyCanvas_"+i;
       tmpSelection.appendChild(tmpCanvas);
 
+      ///////////////////////////////////////////////////////////
+      //// For Worker add canvas or canvasID
+      inform_Worker_PushTestingType(testpreviewWorker_CCCTest,"CCCTest","Frequency");
+      inform_Worker_PushTestingOptions(testpreviewWorker_CCCTest,cccTest_Frequency_Options[i]);
+      inform_Worker_PushTestingCanvas(testpreviewWorker_CCCTest,tmpCanvas.id);
+      ///////////////////////////////////////////////////////////
+
       var tmpTestLabel = document.createElement('p');
       var labelText = "Frequency-Increases: " + cccTest_Frequency_Options[i][3];
 
@@ -602,6 +537,13 @@ function createLittleBit(){
       var tmpCanvas = document.createElement('canvas');
       tmpCanvas.id = "littlebitCanvas_"+i;
       tmpSelection.appendChild(tmpCanvas);
+
+      ///////////////////////////////////////////////////////////
+      //// For Worker add canvas or canvasID
+      inform_Worker_PushTestingType(testpreviewWorker_CCCTest,"CCCTest","LittleBit");
+      inform_Worker_PushTestingOptions(testpreviewWorker_CCCTest,cccTest_LittleBit_Options[i]);
+      inform_Worker_PushTestingCanvas(testpreviewWorker_CCCTest,tmpCanvas.id);
+      ///////////////////////////////////////////////////////////
 
       var tmpTestLabel = document.createElement('p');
       var labelText = "from ";
@@ -665,6 +607,13 @@ function createTreshold(){
       var tmpCanvas = document.createElement('canvas');
       tmpCanvas.id = "tresholdCanvas_"+i;
       tmpSelection.appendChild(tmpCanvas);
+
+      ///////////////////////////////////////////////////////////
+      //// For Worker add canvas or canvasID
+      inform_Worker_PushTestingType(testpreviewWorker_CCCTest,"CCCTest","Treshold");
+      inform_Worker_PushTestingOptions(testpreviewWorker_CCCTest,cccTest_Treshold_Options[i]);
+      inform_Worker_PushTestingCanvas(testpreviewWorker_CCCTest,tmpCanvas.id);
+      ///////////////////////////////////////////////////////////
 
       var tmpTestLabel = document.createElement('p');
       var labelText = "";
@@ -747,6 +696,13 @@ function createFunctionLocalMin(){
       tmpCanvas.id = fctTest_LocalMin_Options[i][1];
       tmpSelection.appendChild(tmpCanvas);
 
+      ///////////////////////////////////////////////////////////
+      //// For Worker add canvas or canvasID
+      inform_Worker_PushTestingType(testpreviewWorker_Collection,"Collection",fctTest_LocalMin_Options[i][1]);
+      inform_Worker_PushTestingOptions(testpreviewWorker_Collection,fctTest_LocalMin_Options[i]);
+      inform_Worker_PushTestingCanvas(testpreviewWorker_Collection,tmpCanvas.id);
+      ///////////////////////////////////////////////////////////
+
       var tmpTestLabel = document.createElement('p');
       var labelText = fctTest_LocalMin_Options[i][0];
 
@@ -800,6 +756,13 @@ function createFunctionBowlShaped(){
       var tmpCanvas = document.createElement('canvas');
       tmpCanvas.id = fctTest_BowlShaped_Options[i][1];
       tmpSelection.appendChild(tmpCanvas);
+
+      ///////////////////////////////////////////////////////////
+      //// For Worker add canvas or canvasID
+      inform_Worker_PushTestingType(testpreviewWorker_Collection,"Collection",fctTest_BowlShaped_Options[i][1]);
+      inform_Worker_PushTestingOptions(testpreviewWorker_Collection,fctTest_BowlShaped_Options[i]);
+      inform_Worker_PushTestingCanvas(testpreviewWorker_Collection,tmpCanvas.id);
+      ///////////////////////////////////////////////////////////
 
       var tmpTestLabel = document.createElement('p');
       var labelText = fctTest_BowlShaped_Options[i][0];
@@ -855,6 +818,13 @@ function createFunctionValleyShaped(){
       tmpCanvas.id = fctTest_ValleyShaped_Options[i][1];
       tmpSelection.appendChild(tmpCanvas);
 
+      ///////////////////////////////////////////////////////////
+      //// For Worker add canvas or canvasID
+      inform_Worker_PushTestingType(testpreviewWorker_Collection,"Collection",fctTest_ValleyShaped_Options[i][1]);
+      inform_Worker_PushTestingOptions(testpreviewWorker_Collection,fctTest_ValleyShaped_Options[i]);
+      inform_Worker_PushTestingCanvas(testpreviewWorker_Collection,tmpCanvas.id);
+      ///////////////////////////////////////////////////////////
+
       var tmpTestLabel = document.createElement('p');
       var labelText = fctTest_ValleyShaped_Options[i][0];
 
@@ -908,6 +878,14 @@ function createRealWorld_MedicalDiv(){
       var tmpCanvas = document.createElement('canvas');
       tmpCanvas.id = "rw_medical_canvas_"+i;
       tmpSelection.appendChild(tmpCanvas);
+
+      ///////////////////////////////////////////////////////////
+      //// For Worker add canvas or canvasID
+      inform_Worker_PushTestingType(testpreviewWorker_RealWorldData,"RealData",undefined);
+      inform_Worker_LoadRealWorldIMG(testpreviewWorker_RealWorldData,"resource/realWorldData/medicalData/"+medicalFiles[i],realWorldCanvasIndex);
+      realWorldCanvasIndex++;
+      inform_Worker_PushTestingCanvas(testpreviewWorker_RealWorldData,tmpCanvas.id);
+      ///////////////////////////////////////////////////////////
 
       var tmpTestLabel = document.createElement('p');
       var labelText = medicalLabels[i];
@@ -972,6 +950,14 @@ function createRealWorld_FlowSimDiv(){
       tmpTestLabel.innerHTML = labelText;
       tmpSelection.appendChild(tmpTestLabel);
 
+      ///////////////////////////////////////////////////////////
+      //// For Worker add canvas or canvasID
+      inform_Worker_PushTestingType(testpreviewWorker_RealWorldData,"RealData",undefined);
+      inform_Worker_LoadRealWorldIMG(testpreviewWorker_RealWorldData,"resource/realWorldData/scientificFlowSimulation/"+scientificFlowSimFiles[i],realWorldCanvasIndex);
+      realWorldCanvasIndex++;
+      inform_Worker_PushTestingCanvas(testpreviewWorker_RealWorldData,tmpCanvas.id);
+      ///////////////////////////////////////////////////////////
+
       if(scientificFlowSimAcknowlegments[i]!=undefined)
       tmpSelection.appendChild(createAchnowledgments(scientificFlowSimAcknowlegments[i]));
 
@@ -1023,6 +1009,14 @@ function createRealWorld_PhotographDiv(){
       tmpCanvas.id = "rw_photographs_canvas_"+i;
       tmpSelection.appendChild(tmpCanvas);
 
+      ///////////////////////////////////////////////////////////
+      //// For Worker add canvas or canvasID
+      inform_Worker_PushTestingType(testpreviewWorker_RealWorldData,"RealData",undefined);
+      inform_Worker_LoadRealWorldIMG(testpreviewWorker_RealWorldData,"resource/realWorldData/photographs/"+photographsFiles[i],realWorldCanvasIndex);
+      realWorldCanvasIndex++
+      inform_Worker_PushTestingCanvas(testpreviewWorker_RealWorldData,tmpCanvas.id);
+      ///////////////////////////////////////////////////////////
+
       var tmpTestLabel = document.createElement('p');
       var labelText = photographsLabels[i];
 
@@ -1047,8 +1041,6 @@ function createRealWorld_PhotographDiv(){
 }
 
 
-
-
 function createAchnowledgments(index){
 
   var tmpLabel = document.createElement('p');
@@ -1061,5 +1053,3 @@ function createAchnowledgments(index){
 
   return tmpLabel;
 }
-
-

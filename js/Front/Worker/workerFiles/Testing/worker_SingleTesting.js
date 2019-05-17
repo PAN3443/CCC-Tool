@@ -1,3 +1,9 @@
+var testField = undefined;
+var testtype = undefined;
+var testsubtype = undefined;
+var testoptions = undefined;
+
+
 // Offscreen Canvas
 var canvas = undefined;
 var canvasContex = undefined;
@@ -25,6 +31,8 @@ var errorMath = 1e12;
 
 self.addEventListener('message', function(e) {
 
+
+  return;
   switch (e.data.message) {
 
 
@@ -46,10 +54,49 @@ self.addEventListener('message', function(e) {
 
       self.importScripts('../../../GlobalEvents/Helpers/canvasHelpers.js');
 
+      self.importScripts('../../../Classes/Domain/class_testField.js');
+      self.importScripts('../../../Worker/workerFiles/Testing/workerFunctions_testing.js');
+
+      self.importScripts('../../../Sections/Testing/Testfunctions/cccTest.js');
+      self.importScripts('../../../Sections/Testing/Testfunctions/FctCollection/collection_BowlShaped.js');
+      self.importScripts('../../../Sections/Testing/Testfunctions/FctCollection/collection_localMinima.js');
+      self.importScripts('../../../Sections/Testing/Testfunctions/FctCollection/collection_ValleyShaped.js');
+      self.importScripts('../../../Sections/Testing/Testfunctions/FctCollection/collection_other.js');
+      self.importScripts('../../../Sections/Testing/Testfunctions/realWorldData.js');
+
+
+      self.importScripts('../../../GlobalEvents/CMSColorGradient/calcGradientHSV.js');
+      self.importScripts('../../../GlobalEvents/CMSColorGradient/calcGradientLinear.js');
+
       globalCMS1 = new class_CMS();
+
+      testField = new class_TestField(0,0);
     break;
 
-    case "getData":
+
+    case "setTest":
+      testtype = e.data.testtype;
+      testsubtype = e.data.testsubtype;
+      testoptions = e.data.testoptions;
+    break;
+
+    case "calcTestField":
+        calc_TestingField(i);
+    break;
+
+    case "getIMGData":
+      var answerJSON = {};
+      answerJSON['canvasID'] = "id_Test_PixelCanvas";
+      answerJSON['imageData'] = calculateImageData(testField,false);
+      self.postMessage(answerJSON);
+
+      var answerJSON = {};
+      answerJSON['canvasID'] = "id_Test_PixelCanvasGrey";
+      answerJSON['imageData'] = calculateImageData(testField,true);
+      self.postMessage(answerJSON);
+    break;
+
+    case "getMeshData":
 
       console.log("getData");
     break;
@@ -61,8 +108,7 @@ self.addEventListener('message', function(e) {
 
   default:
 
-    if(initIsDone)
-      generalJSON_Processing(e.data);
+    //  generalJSON_Processing(e.data);
 
 
   }

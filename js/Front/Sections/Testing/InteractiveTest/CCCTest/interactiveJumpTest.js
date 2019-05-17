@@ -10,9 +10,14 @@ for (var i = 0; i < cccTest_Jumps_Options[jumpID][1].length; i++) {
 }
 cccTest_NewJump_Options.push(tmpArray);
 
-initNewTest();
-document.getElementById("id_TestPage_SelectNewTestType").selectedIndex = 0;
-selectNewJumpTestType();
+
+///////////////////////////////////////////////////////////
+//// For Worker add canvas or canvasID
+inform_Worker_PushTestingOptions(testpreviewWorker_CCCTest,"CCCTest","Jump",cccTest_NewJump_Options);
+///////////////////////////////////////////////////////////
+//initNewTest();
+//document.getElementById("id_TestPage_SelectNewTestType").selectedIndex = 0;
+//selectNewJumpTestType();
 }
 
 

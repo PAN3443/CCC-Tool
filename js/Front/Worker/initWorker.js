@@ -106,15 +106,15 @@ function initWorker(){
 
 
   /////////////////////////////////////
-  testpreviewWorker_CCCTest.postMessage({'message':'init'});
-  testpreviewWorker_Collection.postMessage({'message':'init'});
-  testpreviewWorker_RealWorldData.postMessage({'message':'init'});
+  testpreviewWorker_CCCTest.postMessage({'message':'init', 'initOption1' : 'CCCTest'});
+  testpreviewWorker_Collection.postMessage({'message':'init', 'initOption1' : 'Collection'});
+  testpreviewWorker_RealWorldData.postMessage({'message':'init', 'initOption1' : 'RealData'});
   testpreviewWorker_CCCTest.addEventListener('message', workerEvent_DrawPreviewTestfunction, false);
   testpreviewWorker_Collection.addEventListener('message', workerEvent_DrawPreviewTestfunction, false);
   testpreviewWorker_RealWorldData.addEventListener('message', workerEvent_DrawPreviewTestfunction, false);
 
-  testfunctionWorker.postMessage({'message':'init'});
-  testfunctionWorker.addEventListener('message', workerEvent_DrawTestfunction, false);
+  testfunctionWorker_InteractiveTest.postMessage({'message':'init'});
+  testfunctionWorker_InteractiveTest.addEventListener('message', workerEvent_DrawTestfunction, false);
 
 
 
