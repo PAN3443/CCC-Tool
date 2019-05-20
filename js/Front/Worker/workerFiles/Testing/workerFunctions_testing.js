@@ -24,7 +24,7 @@ function calculateImageData(testfield, doGreyScaled) {
   if (doGreyScaled) {
     for (var y = 0; y < imgHeight; y++) {
       for (var x = 0; x < imgWidth; x++) {
-        var greyVal = 125;
+        var greyVal = testfield.getRatioFieldValue(x, y)*255;
         var indices = getColorIndicesForCoord(x, maxHeightIndex - y, imgWidth);
         imgData.data[indices[0]] = Math.round(greyVal); // r
         imgData.data[indices[1]] = Math.round(greyVal); // g
@@ -33,7 +33,6 @@ function calculateImageData(testfield, doGreyScaled) {
       }
     }
   } else {
-
 
     for (var y = 0; y < imgHeight; y++) {
       for (var x = 0; x < imgWidth; x++) {
@@ -200,5 +199,197 @@ function calc_Preview_RealDataField(index) {
   testFieldList[index].setAutoScale(true);
   testFieldList[index].setScaleRange(globalCMS1.getRefPosition(0), globalCMS1.getRefPosition(globalCMS1.getKeyLength() - 1));
   testFieldList[index].setField(realWorldDataTestField(optionsList[index]));
+
+}
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+///// Single Interactive testField
+
+function calc_Single_TestingField() {
+
+  switch (testtype) {
+    case "CCCTest":
+      calc_Single_CCCTestField();
+      break;
+    case "Collection":
+      calc_Single_CollectionField();
+      break;
+    case "RealData":
+      calc_Single_RealDataField();
+      break;
+  }
+
+}
+
+function calc_Single_CCCTestField() {
+
+  switch (testsubtype) {
+    case "Jump":
+      testField.setCellValues(true);
+      testField.setField(jumpTestField(testoptions));
+      break;
+    case "LittleBit":
+      testField.setField(littleBitTestField(testoptions));
+      break;
+    case "Treshold":
+      testField.setField(tresholdTestField(testoptions));
+      break;
+    case "RiVa":
+      testField.setField(ridgeValleyTestField(testoptions));
+      break;
+    case "Gradient":
+      testField.setField(gradientTestField(testoptions));
+      break;
+    case "Extrema":
+      testField.setAutoScale(testoptions[3]);
+      testField.setScaleRange(globalCMS1.getRefPosition(0), globalCMS1.getRefPosition(globalCMS1.getKeyLength() - 1));
+      testField.setField(extremaTestField(testoptions));
+      break;
+    case "Frequency":
+      testField.setField(frequencyTestField(testoptions));
+      break;
+    case "Topology":
+        break;
+  }
+
+
+
+  //[testFieldDimX,testFieldDimY,testFieldVal,positions]
+
+}
+
+function calc_Single_CollectionField() {
+
+  testField.setAutoScale(true);
+  testField.setScaleRange(globalCMS1.getRefPosition(0), globalCMS1.getRefPosition(globalCMS1.getKeyLength() - 1));
+
+  switch (testsubtype) {
+    case "Ackley":
+      testField.setField(ackley_TestField(testoptions));
+      break;
+    case "Bukin_N6":
+      testField.setField(bukin_N6_TestField(testoptions));
+      break;
+    case "Cross-in-Tray":
+      testField.setField(crossInTray_TestField(testoptions));
+      break;
+    case "Drop-Wave":
+      testField.setField(dropWave_TestField(testoptions));
+      break;
+    case "Eggholder":
+      testField.setField(eggholder_TestField(testoptions));
+      break;
+    case "Griewank":
+      testField.setField(griewank_TestField(testoptions));
+      break;
+    case "HolderTable":
+      testField.setField(holderTable_TestField(testoptions));
+      break;
+    case "Langermann":
+      testField.setField(langermann_TestField(testoptions));
+      break;
+    case "Levy":
+      testField.setField(levy_TestField(testoptions));
+      break;
+    case "Levy_N13":
+      testField.setField(levyN13_TestField(testoptions));
+      break;
+    case "Rastrigin":
+      testField.setField(rastrigin_TestField(testoptions));
+      break;
+    case "Schaffer_N2":
+      testField.setField(schaffer_N2_TestField(testoptions));
+      break;
+    case "Schaffer_N4":
+      testField.setField(schafferN4_TestField(testoptions));
+      break;
+    case "Schwefel":
+      testField.setField(schwefel_TestField(testoptions));
+      break;
+    case "Shubert":
+      testField.setField(shubert_TestField(testoptions));
+      break;
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      /// Functions: Bowl-Shaped
+    case "Bohachevsky_F1":
+      testField.setField(bohachevsky_F1_TestField(testoptions));
+      break;
+    case "Bohachevsky_F2":
+      testField.setField(bohachevsky_F2_TestField(testoptions));
+      break;
+    case "Bohachevsky_F3":
+    testField.setField(bohachevsky_F3_TestField(testoptions));
+      break;
+    case "Perm_V1":
+    testField.setField(perm_V1_TestField(testoptions));
+      break;
+    case "Rot_Hyper_Ellipsoid":
+    testField.setField(rot_Hyper_Ellipsoid_TestField(testoptions));
+      break;
+    case "Sphere":
+    testField.setField(sphere_TestField(testoptions));
+      break;
+    case "SumDifPowers":
+    testField.setField(sumDifPowers_TestField(testoptions));
+      break;
+    case "Sum_Squares":
+    testField.setField(sum_Squares_TestField(testoptions));
+      break;
+    case "Trid":
+    testField.setField(trid_TestField(testoptions));
+      break;
+      //////////////////////////////////
+      /// Functions: Valley-Shaped
+    case "Three_Hump_Camel":
+    testField.setField(three_Hump_Camel_TestField(testoptions));
+      break;
+    case "Six_Hump_Camel":
+    testField.setField(six_Hump_Camel_TestField(testoptions));
+      break;
+
+  }
+}
+
+function calc_Single_RealDataField() {
+
+  if(isNaN(testoptions) || testoptions==undefined)
+    return;
+
+  testField.setAutoScale(true);
+  testField.setScaleRange(globalCMS1.getRefPosition(0), globalCMS1.getRefPosition(globalCMS1.getKeyLength() - 1));
+  switch (testsubtype) {
+      case "medical":
+
+        if(imgData_medical.length<=testoptions)
+          return;
+
+        if(imgData_medical[testoptions]==undefined)
+          return;
+
+          console.log(123123123);
+        testField.setField(realWorldDataTestField(imgData_medical[testoptions]));
+      break;
+      case "scientificFlowSim":
+
+        if(imgData_scientificFlowSim.length<=testoptions)
+          return;
+
+        if(imgData_scientificFlowSim[testoptions]==undefined)
+          return;
+
+        testField.setField(realWorldDataTestField(imgData_scientificFlowSim[testoptions]));
+      break;
+      case "photographs":
+
+        if(imgData_photographs.length<=testoptions)
+          return;
+
+        if(imgData_photographs[testoptions]==undefined)
+          return;
+
+        testField.setField(realWorldDataTestField(imgData_photographs[testoptions]));
+      break;
+    }
 
 }

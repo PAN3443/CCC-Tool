@@ -1,10 +1,36 @@
 
 
+function inform_Worker_PushInteractiveTest(type,subtype,options){
+
+  var workerJSON = {};
+  workerJSON['message'] = "updateTest";
+  workerJSON['type'] = type;
+  workerJSON['subtype'] = subtype;
+  workerJSON['options'] = options;
+  testfunctionWorker_InteractiveTest.postMessage(workerJSON);
+
+}
+
+function inform_Worker_GetVisualisation(){
+  var workerJSON = {};
+  workerJSON['message'] = "getVisData";
+
+  if(document.getElementById("id_TestVisualization_Pixel").checked)
+    workerJSON['visType'] = "pixel";
+  else
+    workerJSON['visType'] = "mesh";
+
+  testfunctionWorker_InteractiveTest.postMessage(workerJSON);
+}
+
 function calcPreviewTestFields(worker){
   var workerJSON = {};
   workerJSON['message'] = "calcTestFields";
   worker.postMessage(workerJSON);
 }
+
+
+
 
 
 function inform_Worker_LoadRealWorldIMG(worker,url,imgIndex){
@@ -41,18 +67,18 @@ function inform_Worker_PushTestingCanvas(worker,canvasID){
   var workerJSON = {};
   workerJSON['message'] = "pushCanvas";
   workerJSON['canvas'] = undefined;
-  if(browserCanOffscreenCanvas){
+  /*if(browserCanOffscreenCanvas){
     // add canvasElement
     var htmlCanvas = document.getElementById(canvasID);
     var offscreenBackground = htmlCanvas.transferControlToOffscreen();
     workerJSON.canvas = offscreenBackground;
     worker.postMessage(workerJSON, [offscreenBackground]);
   }
-  else{
+  else{*/
     // add ID
     workerJSON.canvas = canvasID;
     worker.postMessage(workerJSON);
-  }
+  //}
 }
 
 function inform_Worker_PushTestingType(worker,type,subtype){

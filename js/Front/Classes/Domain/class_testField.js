@@ -23,6 +23,13 @@ class class_TestField {
     this.scaleRangeMax = undefined;
     this.scaleRangeDis = undefined;
 
+    this.noiseValues = [];
+    this.addNoise = false;
+    this.noiseBehavior = undefined;
+    this.noiseMaxChange = undefined;
+    this.replaceNoiseFrom = undefined;
+    this.replaceNoiseTill = undefined;
+
     for (var x = 0; x < dimensionX; x++) {
       var newArray = [];
       var newArray2 = [];
@@ -36,6 +43,297 @@ class class_TestField {
       this.xPos.push(newArray2);
       this.yPos.push(newArray3);
     }
+
+  }
+
+  generateNoiseField(noiseType,noiseBehavior,noiseMaxChange,noiseProportion,noiseDistribution,noiseScaling,replaceFrom,replaceTill){
+
+      this.addNoise = true;
+      this.replaceNoiseFrom = replaceFrom;
+      this.replaceNoiseTill = replaceTill;
+      this.noiseBehavior = noiseBehavior;
+      this.noiseMaxChange = noiseMaxChange;
+      this.noiseValues = new Array(this.dimensionX);;
+      var checkData = new Array(this.dimensionX);
+
+      for (var i = 0; i < this.dimensionX; i++) {
+        checkData[i] = new Array(this.dimensionY).fill(false);
+        this.noiseValues[i] = new Array(this.dimensionY).fill(undefined);
+      }
+      ////
+      var numValues = this.dimensionX*this.dimensionY;
+      switch (noiseType) {
+        case 0:
+          this.addNoise = false;
+          return;
+
+        case 1:
+
+          var numNois = Math.round(numValues*noiseProportion);
+
+          ///////////////////////////////
+          // for noise Distirbution
+
+          var useRandomPos = true;
+
+          if(noiseProportion==1){
+            useRandomPos=false;
+          }
+
+
+          if(useRandomPos){
+            switch (noiseDistribution) {
+              case 1:
+                  var rMax = -Infinity;
+                  var rMin = Infinity;
+                  var tmpRand = new Array(numNois);
+                  for (var i = 0; i < numNois; i++) {
+                    var rand = randn_bm();
+                    rMax = Math.max(rand, rMax);
+                    rMin = Math.min(rand, rMin);
+                    tmpRand[i] = rand;
+                  }
+
+                  var dis = Math.abs(rMax-rMin);
+                  if(dis!=0){
+                    for (var i = 0; i < numNois; i++) {
+                      tmpRand[i] = this.checkForMaximalChange((((tmpRand[i]-rMin)/dis-0.5)*2));
+                      noHit=true;
+                      while (noHit) {
+                        var rXPos = getRandomInt(0, this.dimensionX);
+                        var rYPos = getRandomInt(0, this.dimensionY);
+                        var noHit = true;
+                        this.noiseValues[rXPos][rYPos]=tmpRand[i];
+                        checkData[rXPos][rYPos] = true;
+                        noHit=false;
+                      }
+                    }
+                }
+                break;
+
+                case 2: case 3: case 4:
+                var type = noiseDistribution-2;
+                for (var i = 0; i < numNois; i++) {
+                  var rand = this.checkForMaximalChange((rand_beta(type)-0.5)*2);
+                  noHit=true;
+                  while (noHit) {
+                    var rXPos = getRandomInt(0, this.dimensionX);
+                    var rYPos = getRandomInt(0, this.dimensionY);
+                    var noHit = true;
+                    this.noiseValues[rXPos][rYPos]=rand;
+                    checkData[rXPos][rYPos] = true;
+                    noHit=false;
+                  }
+                }
+                break;
+              default:
+                  for (var i = 0; i < numNois; i++) {
+                    var rand = this.checkForMaximalChange(getRandomArbitrary(-1,1));
+                    noHit=true;
+                    while (noHit) {
+                      var rXPos = getRandomInt(0, this.dimensionX);
+                      var rYPos = getRandomInt(0, this.dimensionY);
+                      var noHit = true;
+                      this.noiseValues[rXPos][rYPos]=rand;
+                      checkData[rXPos][rYPos] = true;
+                      noHit=false;
+                    }
+                  }
+            }
+          }
+          else{
+
+            switch (noiseDistribution) {
+              case 1:
+                  var rMax = -Infinity;
+                  var rMin = Infinity;
+                  for (var x = 0; x < this.dimensionX; x++) {
+                    for (var y = 0; y < this.dimensionY; y++) {
+                      var rand = randn_bm();
+                      rMax = Math.max(rand, rMax);
+                      rMin = Math.min(rand, rMin);
+                      this.noiseValues[x][y] = rand;
+                    }
+                  }
+
+                  var dis = Math.abs(rMax-rMin);
+                  if(dis!=0){
+                    for (var x = 0; x < this.dimensionX; x++) {
+                      for (var y = 0; y < this.dimensionY; y++) {
+                        /*checkData[x][y] = true;*/
+                        this.noiseValues[x][y]=this.checkForMaximalChange((((this.noiseValues[x][y]-rMin)/dis-0.5)*2));
+                      }
+                    }
+                }
+                break;
+
+                case 2: case 3: case 4:
+                var type = noiseDistribution-2;
+                for (var x = 0; x < this.dimensionX; x++) {
+                  for (var y = 0; y < this.dimensionY; y++) {
+                    var rand = this.checkForMaximalChange((rand_beta(type)-0.5)*2);
+                    /*checkData[x][y] = true;*/
+                    this.noiseValues[x][y]=rand;
+                  }
+                }
+                break;
+              default:
+                for (var x = 0; x < this.dimensionX; x++) {
+                  for (var y = 0; y < this.dimensionY; y++) {
+                    var rand = this.checkForMaximalChange(getRandomArbitrary(-1,1));
+                    /*checkData[x][y] = true;*/
+                    this.noiseValues[x][y]=rand;
+                  }
+                }
+            }
+          }
+
+
+          break;
+          case 2:
+            noise.seed(Math.random());
+            for (var x = 0; x < this.dimensionX; x++) {
+              for (var y = 0; y < this.dimensionY; y++) {
+                var rand = this.checkForMaximalChange(noise.simplex2(x/noiseScaling , y/noiseScaling));
+                this.noiseValues[x][y] = rand;
+              }
+            }
+          break;
+        default:
+
+      }
+
+  }
+
+
+  generateNoiseExampleImage(){
+
+    var simData = new Array(this.dimensionX);
+    for (var i = 0; i < this.dimensionX; i++){
+      var ratio = i/(this.dimensionX-1);
+      simData[i] = new Array(this.dimensionY).fill(ratio*255);
+    }
+    /////////////// add noise to sim data ///////////////
+    for (var x = 0; x < this.dimensionX; x++) {
+      for (var y = 0; y < this.dimensionY; y++) {
+        var index = y*this.dimensionX+x;
+        if(this.noiseValues[x][y]!=undefined){
+          var newVal = 255*this.noiseValues[x][y];
+          switch (this.noiseBehavior) {
+            case 0:
+              simData[x][y] += (simData[x][y]*this.noiseValues[x][y]);
+              if(simData[x][y]>255)
+                simData[x][y]=255;
+
+                if(simData[x][y]<0)
+                  simData[x][y]=0;
+            break;
+            case 1:
+            simData[x][y] += newVal;
+              if(simData[x][y]>255)
+                simData[x][y]=255;
+
+                if(simData[x][y]<0)
+                  simData[x][y]=0;
+            break;
+            case 2:
+              simData[x][y] = newVal;
+            break;
+          }
+        }
+
+      }
+    }
+    //////////////////////////////////
+    var imgData = new ImageData(this.dimensionX, this.dimensionY);
+    for (var x = 0; x < this.dimensionX; x++) {
+
+      for (var y = 0; y < this.dimensionY; y++) {
+
+          var index = (x + y * this.dimensionX) * 4;
+
+          imgData.data[index + 0] = Math.round(simData[x][y]); // r
+          imgData.data[index + 1] = Math.round(simData[x][y]); // g
+          imgData.data[index + 2] = Math.round(simData[x][y]); // b
+          imgData.data[index + 3] = 255; //a
+
+
+      }
+
+    }
+
+    return imgData;
+  }
+
+  generateNoiseDistributionHisto(){
+    var numBars = 50;
+    var hitogram = new Array(numBars).fill(0.0);
+    var maxHisto = 0;
+
+    var step = undefined;
+
+    if(this.noiseBehavior==2){
+      step = Math.round((1.0/numBars) * errorMath) / errorMath;
+    }
+    else {
+      step = Math.round((2.0/numBars) * errorMath) / errorMath;
+    }
+
+
+    for (var x = 0; x < this.dimensionX; x++) {
+      for (var y = 0; y < this.dimensionY; y++) {
+
+      if(this.noiseValues[x][y]==undefined)
+      continue;
+
+      var index = undefined;
+
+      if(this.noiseBehavior==2){
+        index = Math.round((this.noiseValues[x][y])/step)-1;
+      }
+      else {
+        index = Math.round((this.noiseValues[x][y]+1)/step)-1;
+      }
+
+      if(index==-1)
+        index++;
+
+      hitogram[index]++;
+      maxHisto = Math.max(maxHisto,hitogram[index]);
+    }
+  }
+
+  for (var j = 0; j < hitogram.length; j++){
+    hitogram[j] = hitogram[j]/maxHisto;
+  }
+
+  return hitogram;
+
+  }
+
+  checkForMaximalChange(random){
+      /*if(Math.abs(random)<this.noiseMaxChange)
+        return random;
+
+      var newRandom = this.noiseMaxChange;
+
+      if(random<0)
+        newRandom *= -1;
+
+      return newRandom;*/
+
+      if(this.noiseBehavior==2){
+        return (random+1)/2;// * this.noiseMaxChange;
+      }
+      else{
+        /*if(noiseType==2){
+          return (random-0.5)*2* this.noiseMaxChange; // make 0,1 -> -1,1
+        }
+        else{*/
+          return random * this.noiseMaxChange;
+        //}
+
+      }
 
   }
 
@@ -107,23 +405,119 @@ class class_TestField {
     this.yPos[x][y] = yPos;
   }*/
 
+  getRatioFieldValue(x,y){
+
+    var result = this.fieldValues[x][y];
+
+    if(this.addNoise && this.noiseValues[x][y]!=undefined){
+
+      var replaceDis =  this.replaceNoiseTill-this.replaceNoiseFrom;
+      var tmpValueDis = this.vmax-this.vmin;
+
+      switch (this.noiseBehavior) {
+        case 0:
+        case 1:
+
+          var amount = undefined;
+
+          if(this.noiseBehavior==0)
+            amount = result*this.noiseValues[x][y];
+          else
+            amount = this.noiseValues[x][y]*tmpValueDis;
+
+          var newVal = result + amount;
+
+          if(amount==undefined || newVal==undefined)
+            break;
+
+          var stopper = 0;
+
+          if(newVal>this.vmax)
+            newVal=this.vmax;
+
+          if(newVal<this.vmin)
+            newVal=this.vmin;
+
+          /*while(newVal>this.vmax || newVal<this.vmin){
+            amount /=2;
+            newVal = result + amount;
+            stopper++;
+            if(stopper==1000)
+              break;
+          }*/
+          result = newVal
+        break;
+        case 2:
+          result = replaceDis*this.noiseValues[x][y]+this.replaceNoiseFrom; //(this.noiseValues[x][y]*tmpValueDis)+this.vmin;
+        break;
+      }//switch
+    }//if*/
+
+    return result/this.vmax;
+  }
+
   getFieldValue(x,y){
+
+    var result = undefined;
     if(this.doAutoScale){
       var valueRatio = (this.fieldValues[x][y]-this.vmin)/this.vdis;
-      return this.scaleRangeMin+this.scaleRangeDis*valueRatio;
+      result = this.scaleRangeMin+this.scaleRangeDis*valueRatio;
     }
     else{
-      return this.fieldValues[x][y];
+      result = this.fieldValues[x][y];
     }
+
+
+    if(this.addNoise && this.noiseValues[x][y]!=undefined){
+
+      var replaceDis =  this.replaceNoiseTill-this.replaceNoiseFrom;
+      var tmpValueDis = this.vmax-this.vmin;
+
+      switch (this.noiseBehavior) {
+        case 0:
+        case 1:
+
+          var amount = undefined;
+
+          if(this.noiseBehavior==0)
+            amount = result*this.noiseValues[x][y];
+          else
+            amount = this.noiseValues[x][y]*tmpValueDis;
+
+          var newVal = result + amount;
+
+          if(amount==undefined || newVal==undefined)
+            break;
+
+          var stopper = 0;
+
+          if(newVal>this.vmax)
+            newVal=this.vmax;
+
+          if(newVal<this.vmin)
+            newVal=this.vmin;
+
+          /*while(newVal>this.vmax || newVal<this.vmin){
+            amount /=2;
+            newVal = result + amount;
+            stopper++;
+            if(stopper==1000)
+              break;
+          }*/
+
+
+          result = newVal
+        break;
+        case 2:
+          result = replaceDis*this.noiseValues[x][y]+this.replaceNoiseFrom; //(this.noiseValues[x][y]*tmpValueDis)+this.vmin;
+        break;
+      }//switch
+    }//if*/
+
+    return result;
+
   }
 
-  getFieldColor(x,y){
-    return this.fieldColors[x][y];
-  }
-
-  getFieldGreyColor(x,y){
-    return this.fieldGreyColors[x][y];
-  }
 
 
   getXPos(x,y){

@@ -43,9 +43,12 @@ function selectNewFrequencyTestType(){
   document.getElementById("id_TestPage_NewTest_I4").step=0.001;
 
 
-
+  ///////////////////////////////////////////////////////////
+  //// For Worker add canvas or canvasID
+  inform_Worker_PushInteractiveTest("CCCTest","Frequency",cccTest_NewFrequency_Options);
   updateNoise();
-  frequency_startWorker(cccTest_NewFrequency_Options);
+  inform_Worker_GetVisualisation();
+  ///////////////////////////////////////////////////////////
 }
 
 function updateFrequencyTestVariables (){
@@ -131,6 +134,10 @@ function updateFrequencyTestVariables (){
   cccTest_NewFrequency_Options[6]=dimX;
   cccTest_NewFrequency_Options[7]=dimY;
 
+  ///////////////////////////////////////////////////////////
+  //// For Worker add canvas or canvasID
+  inform_Worker_PushInteractiveTest("CCCTest","Frequency",cccTest_NewFrequency_Options);
   updateNoise();
-  frequency_startWorker(cccTest_NewFrequency_Options);
+  inform_Worker_GetVisualisation();
+  ///////////////////////////////////////////////////////////
 }

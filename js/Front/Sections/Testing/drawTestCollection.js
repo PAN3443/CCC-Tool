@@ -23,7 +23,7 @@ function fillTestCollection(){
   tmpDivCCCLabel.innerHTML = "1. CCC-Tests:";
   tmpDivCCCTests.appendChild(tmpDivCCCLabel);
 
-  tmpDivCCCTests.appendChild(createtmpTestDiv());
+  tmpDivCCCTests.appendChild(createJumpDiv());
   tmpDivCCCTests.appendChild(createGradientDiv());
   tmpDivCCCTests.appendChild(createRidgeAndValley());
   tmpDivCCCTests.appendChild(createLocalExtrema());
@@ -94,9 +94,9 @@ function drawTestCollection(){
   var workerJSON = {};
   workerJSON['message'] = undefined;
 
-  if(browserCanOffscreenCanvas)
+  /*if(browserCanOffscreenCanvas)
     workerJSON.message = "drawTestField";
-  else
+  else*/
     workerJSON.message = "getImgData";
 
   testpreviewWorker_CCCTest.postMessage(workerJSON);
@@ -104,7 +104,7 @@ function drawTestCollection(){
   testpreviewWorker_RealWorldData.postMessage(workerJSON);
 }
 
-function createtmpTestDiv(){
+function createJumpDiv(){
 
   var tmpTestDiv = document.createElement('div');
   tmpTestDiv.style.width = "90vw";

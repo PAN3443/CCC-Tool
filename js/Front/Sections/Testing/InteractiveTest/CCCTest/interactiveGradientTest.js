@@ -95,8 +95,13 @@ function selectNewGradientTestType(){
   document.getElementById("id_TestPage_YFctType_Div").style.display="block";
 
   draw_GradientFunctionType();
+
+  ///////////////////////////////////////////////////////////
+  //// For Worker add canvas or canvasID
+  inform_Worker_PushInteractiveTest("CCCTest","Gradient",cccTest_NewGradient_Options);
   updateNoise();
-  gradient_startWorker(cccTest_NewGradient_Options);
+  inform_Worker_GetVisualisation();
+  ///////////////////////////////////////////////////////////
 }
 
 function updateGradientTestVariables(){
@@ -212,8 +217,13 @@ function updateGradientTestVariables(){
   cccTest_NewGradient_Options[8] = dimY;
 
   draw_GradientFunctionType();
+
+  ///////////////////////////////////////////////////////////
+  //// For Worker add canvas or canvasID
+  inform_Worker_PushInteractiveTest("CCCTest","Gradient",cccTest_NewGradient_Options);
   updateNoise();
-  gradient_startWorker(cccTest_NewGradient_Options);
+  inform_Worker_GetVisualisation();
+  ///////////////////////////////////////////////////////////
 }
 
 

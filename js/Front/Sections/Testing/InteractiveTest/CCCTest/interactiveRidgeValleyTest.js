@@ -96,8 +96,13 @@ document.getElementById("id_TestPage_GridDimY").value=cccTest_NewRidgeValley_Opt
   document.getElementById("id_TestPage_YFctType_Div").style.display="block";
 
   draw_RidgeValleyFunctionType();
+
+  ///////////////////////////////////////////////////////////
+  //// For Worker add canvas or canvasID
+  inform_Worker_PushInteractiveTest("CCCTest","RiVa",cccTest_NewRidgeValley_Options);
   updateNoise();
-  valleyTest_startWorker(cccTest_NewRidgeValley_Options);
+  inform_Worker_GetVisualisation();
+  ///////////////////////////////////////////////////////////
 }
 
 
@@ -214,8 +219,13 @@ function updateRidgeValleyTestVariables(){
   cccTest_NewRidgeValley_Options[8] = dimY;
 
   draw_RidgeValleyFunctionType();
+
+  ///////////////////////////////////////////////////////////
+  //// For Worker add canvas or canvasID
+  inform_Worker_PushInteractiveTest("CCCTest","RiVa",cccTest_NewRidgeValley_Options);
   updateNoise();
-  valleyTest_startWorker(cccTest_NewRidgeValley_Options);
+  inform_Worker_GetVisualisation();
+  ///////////////////////////////////////////////////////////
 }
 
 

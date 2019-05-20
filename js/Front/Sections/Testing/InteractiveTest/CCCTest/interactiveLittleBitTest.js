@@ -72,8 +72,13 @@ function selectNewLittleBitTestType(){
   document.getElementById("id_TestPage_GridDimX").value=cccTest_NewGradient_Options[5]*numStribes;
   document.getElementById("id_TestPage_GridDimY").value=cccTest_NewLittleBit_Options[7];
 
+
+  ///////////////////////////////////////////////////////////
+  //// For Worker add canvas or canvasID
+  inform_Worker_PushInteractiveTest("CCCTest","LittleBit",cccTest_NewLittleBit_Options);
   updateNoise();
-  littlebit_startWorker(cccTest_NewLittleBit_Options);
+  inform_Worker_GetVisualisation();
+  ///////////////////////////////////////////////////////////
 }
 
 
@@ -165,8 +170,13 @@ function updateLittleBitTestVariables(){
     // Update input for noise calculation
     var numberOfAreas = littleBit_NumberOfSinks+littleBit_NumberOfSinks+1;
     document.getElementById("id_TestPage_GridDimX").value=numberOfAreas*pixelsArea;
+
+    ///////////////////////////////////////////////////////////
+    //// For Worker add canvas or canvasID
+    inform_Worker_PushInteractiveTest("CCCTest","LittleBit",cccTest_NewLittleBit_Options);
     updateNoise();
-    littlebit_startWorker(cccTest_NewLittleBit_Options);
+    inform_Worker_GetVisualisation();
+    ///////////////////////////////////////////////////////////
 }
 
 

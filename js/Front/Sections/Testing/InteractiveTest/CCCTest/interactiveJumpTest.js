@@ -10,14 +10,9 @@ for (var i = 0; i < cccTest_Jumps_Options[jumpID][1].length; i++) {
 }
 cccTest_NewJump_Options.push(tmpArray);
 
-
-///////////////////////////////////////////////////////////
-//// For Worker add canvas or canvasID
-inform_Worker_PushTestingOptions(testpreviewWorker_CCCTest,"CCCTest","Jump",cccTest_NewJump_Options);
-///////////////////////////////////////////////////////////
-//initNewTest();
-//document.getElementById("id_TestPage_SelectNewTestType").selectedIndex = 0;
-//selectNewJumpTestType();
+initNewTest();
+document.getElementById("id_TestPage_SelectNewTestType").selectedIndex = 0;
+selectNewJumpTestType();
 }
 
 
@@ -27,8 +22,9 @@ function selectNewJumpTestType(){
   document.getElementById("id_TestPage_newTestNoiseDiv").style.display="none";
   document.getElementById("id_Test_NoiseType").selectedIndex=0;
   document.getElementById("id_TestPage_doRatioCheckbox").checked = cccTest_NewJump_Options[0];
-  updateNoise();
+
   fillNewJumpsList();
+  updateNoise();
 
 }
 
@@ -78,7 +74,8 @@ function fillNewJumpsList(){
       usertestWorkerfinished = true;
     }
 
-    jumpTest_startWorker(cccTest_NewJump_Options);
+    inform_Worker_PushInteractiveTest("CCCTest","Jump",cccTest_NewJump_Options);
+    inform_Worker_GetVisualisation();
   }
   else{
     testmappingMesh.visible = false;

@@ -41,8 +41,13 @@ function selectNewExtremaTestType(){
   document.getElementById("id_TestPage_GridDimY").value=cccTest_NewLocalExtrema_Options[5];
 
   newTestExtremaInfoText();
+
+  ///////////////////////////////////////////////////////////
+  //// For Worker add canvas or canvasID
+  inform_Worker_PushInteractiveTest("CCCTest","Extrema",cccTest_NewLocalExtrema_Options);
   updateNoise();
-  extremaTest_startWorker(cccTest_NewLocalExtrema_Options);
+  inform_Worker_GetVisualisation();
+  ///////////////////////////////////////////////////////////
 }
 
 
@@ -85,8 +90,13 @@ function updateExtremaTestVariables(){
     cccTest_NewLocalExtrema_Options[5]= dimY;
 
     newTestExtremaInfoText();
+
+    ///////////////////////////////////////////////////////////
+    //// For Worker add canvas or canvasID
+    inform_Worker_PushInteractiveTest("CCCTest","Extrema",cccTest_NewLocalExtrema_Options);
     updateNoise();
-    extremaTest_startWorker(cccTest_NewLocalExtrema_Options);
+    inform_Worker_GetVisualisation();
+    ///////////////////////////////////////////////////////////
 }
 
 function newTestExtremaInfoText(){

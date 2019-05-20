@@ -74,47 +74,7 @@ self.addEventListener('message', function(e) {
   if(data.doNoise && tmpValueDis!=0){
 
     if(data.noiseField.length==jsonObj.testFieldVal.length){
-      for (var i = 0; i < data.noiseField.length; i++) {
-        if(data.noiseField[i]!=undefined){
-          switch (data.noiseBehavior) {
-            case 0:
-            case 1:
-
-              var amount = undefined;
-
-              if(data.noiseBehavior==0)
-                amount = jsonObj.testFieldVal[i]*data.noiseField[i];
-              else
-                amount = data.noiseField[i]*tmpValueDis;
-
-              var newVal = jsonObj.testFieldVal[i] + amount;
-
-              if(amount==undefined || newVal==undefined)
-                continue;
-
-              var stopper = 0;
-
-              if(newVal>max)
-                newVal=max;
-
-              if(newVal<min)
-                newVal=min;
-              /*while(newVal>max || newVal<min){
-                amount /=2;
-                newVal = jsonObj.testFieldVal[i] + amount;
-                stopper++;
-                if(stopper==1000)
-                  break;
-              }*/
-
-              jsonObj.testFieldVal[i] = newVal
-            break;
-            case 2:
-              jsonObj.testFieldVal[i] = replaceDis*data.noiseField[i]+data.replaceNoiseFrom; //(data.noiseField[i]*tmpValueDis)+min;
-            break;
-          }
-        }
-      }
+      
     }
   }
 

@@ -82,8 +82,13 @@ function selectNewTresholdTestType(){
   document.getElementById("id_TestPage_GridDimY").value=cccTest_NewTreshold_Options[7];
 
   draw_TesholdFunctionType();
+
+  ///////////////////////////////////////////////////////////
+  //// For Worker add canvas or canvasID
+  inform_Worker_PushInteractiveTest("CCCTest","Treshold",cccTest_NewTreshold_Options);
   updateNoise();
-  treshold_startWorker(cccTest_NewTreshold_Options);
+  inform_Worker_GetVisualisation();
+  ///////////////////////////////////////////////////////////
 }
 
 
@@ -188,8 +193,13 @@ function updateTresholdTestVariables(){
     cccTest_NewTreshold_Options[7]=dimY;
 
     draw_TesholdFunctionType();
+
+    ///////////////////////////////////////////////////////////
+    //// For Worker add canvas or canvasID
+    inform_Worker_PushInteractiveTest("CCCTest","Treshold",cccTest_NewTreshold_Options);
     updateNoise();
-    treshold_startWorker(cccTest_NewTreshold_Options);
+    inform_Worker_GetVisualisation();
+    ///////////////////////////////////////////////////////////
 }
 
 

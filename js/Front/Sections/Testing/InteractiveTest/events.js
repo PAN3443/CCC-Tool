@@ -2,7 +2,6 @@
 ////////////// Add New Test Part
 //////////////
 
-
 function initNewTest() {
 
   document.getElementById("id_TestPage_Dimension_Div").style.display="none";
@@ -15,13 +14,13 @@ function initNewTest() {
   document.getElementById("id_TestPage_NewTest_D3").style.display="none";
   document.getElementById("id_TestPage_NewTest_D4").style.display="none";
   document.getElementById("id_TestPage_NewTest_D5").style.display="none";
-  
+
   document.getElementById("id_TestPage_XFctType_Div").style.display="none";
   document.getElementById("id_TestPage_NewTest_TopologyDiv1").style.display="none";
   document.getElementById("id_TestPage_NewTest_TopologyDiv2").style.display="none";
   document.getElementById("id_NewTest_TopologySubDivOptionDiv").style.display="none";
   document.getElementById("id_TestPage_newTestAcknowledgmentsDiv").style.display="none";
-  
+
 
   document.getElementById("id_TestPage_FctSelection_Div").style.display="none";
   document.getElementById("id_TestPage_newTestNoiseDiv").style.display="block";
@@ -289,7 +288,7 @@ function updateNoise(){
   document.getElementById("id_Test_NoiseValueRangeDiv2").style.display="none";
   document.getElementById("id_Test_NoiseBehaviorReplacing").disabled = false;
 
-  testField_WorkerJSON.doNoise = false;
+  noiseField_WorkerJSON.addNoise = false;
 
   switch (document.getElementById("id_Test_NoiseType").selectedIndex) {
     case 1:  case 2:
@@ -320,9 +319,9 @@ function updateNoise(){
         }
 
         // For the Worker
-        testField_WorkerJSON.doNoise = true;
-        testField_WorkerJSON.noiseBehavior = document.getElementById("id_Test_NoiseBehavior").selectedIndex;
-        testField_WorkerJSON.maxChange = parseFloat(document.getElementById("id_Test_NoiseMaxChange").value);
+        noiseField_WorkerJSON.addNoise = true;
+        noiseField_WorkerJSON.noiseBehavior = document.getElementById("id_Test_NoiseBehavior").selectedIndex;
+        noiseField_WorkerJSON.maxChange = parseFloat(document.getElementById("id_Test_NoiseMaxChange").value);
 
         var replaceFrom = parseFloat(document.getElementById("id_TestPage_Noise_ReplaceFromValue").value);
         if(isNaN(replaceFrom) || replaceFrom == undefined){
@@ -344,13 +343,10 @@ function updateNoise(){
           document.getElementById("id_TestPage_Noise_ReplaceTillValue").value = 1.0;
         }
 
-        testField_WorkerJSON.replaceNoiseFrom = replaceFrom;
-        testField_WorkerJSON.replaceNoiseTill = replaceTill;
-
-
-
         calcNoise();
     break;
   }
+
+  testfunctionWorker_InteractiveTest.postMessage(noiseField_WorkerJSON);
 
 }

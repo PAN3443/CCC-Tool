@@ -18,7 +18,7 @@ var userTestGlobalField = undefined;
 
 ///////////////////////////////////////////
 ///// worker
-var testField_WorkerJSON;
+var noiseField_WorkerJSON = {"addNoise":false,"noiseField":undefined,"noiseBehavior":undefined,"maxChange":undefined,"replaceNoiseFrom":undefined,"replaceNoiseTill":undefined};
 
 //// Worker : Jumps
 var allJumpWorkersFinished=true;

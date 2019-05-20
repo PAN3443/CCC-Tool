@@ -65,8 +65,13 @@ function selectNewFctValleyShapedType(){
 
   document.getElementById("id_TestPage_GridDimX").value=fctTest_NewValleyShaped_Options[3];
   document.getElementById("id_TestPage_GridDimY").value=fctTest_NewValleyShaped_Options[4];
+
+  ///////////////////////////////////////////////////////////
+  //// For Worker add canvas or canvasID
+  inform_Worker_PushInteractiveTest("Collection",fctTest_NewValleyShaped_Options[1],fctTest_NewValleyShaped_Options);
   updateNoise();
-  fct_Worker(fctTest_NewValleyShaped_Options);
+  inform_Worker_GetVisualisation();
+  ///////////////////////////////////////////////////////////
 }
 
 function updateFctValleyShapedTestVariables(){
@@ -137,8 +142,13 @@ function updateFctValleyShapedTestVariables(){
 
   fctTest_NewValleyShaped_Options[3]=dimX;
   fctTest_NewValleyShaped_Options[4]=dimY;
+
+  ///////////////////////////////////////////////////////////
+  //// For Worker add canvas or canvasID
+  inform_Worker_PushInteractiveTest("Collection",fctTest_NewValleyShaped_Options[1],fctTest_NewValleyShaped_Options);
   updateNoise();
-  fct_Worker(fctTest_NewValleyShaped_Options);
+  inform_Worker_GetVisualisation();
+  ///////////////////////////////////////////////////////////
 }
 
 function updateValleyShapedFctSelection(){

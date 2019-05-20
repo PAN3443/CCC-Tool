@@ -66,8 +66,13 @@ function selectNewFctBowlShapedType(){
 
   document.getElementById("id_TestPage_GridDimX").value=fctTest_NewBowlShaped_Options[3];
   document.getElementById("id_TestPage_GridDimY").value=fctTest_NewBowlShaped_Options[4];
+
+  ///////////////////////////////////////////////////////////
+  //// For Worker add canvas or canvasID
+  inform_Worker_PushInteractiveTest("Collection",fctTest_NewBowlShaped_Options[1],fctTest_NewBowlShaped_Options);
   updateNoise();
-  fct_Worker(fctTest_NewBowlShaped_Options);
+  inform_Worker_GetVisualisation();
+  ///////////////////////////////////////////////////////////
 }
 
 function updateFctBowlShapedTestVariables(){
@@ -138,8 +143,13 @@ function updateFctBowlShapedTestVariables(){
 
   fctTest_NewBowlShaped_Options[3]=dimX;
   fctTest_NewBowlShaped_Options[4]=dimY;
+
+  ///////////////////////////////////////////////////////////
+  //// For Worker add canvas or canvasID
+  inform_Worker_PushInteractiveTest("Collection",fctTest_NewBowlShaped_Options[1],fctTest_NewBowlShaped_Options);
   updateNoise();
-  fct_Worker(fctTest_NewBowlShaped_Options);
+  inform_Worker_GetVisualisation();
+  ///////////////////////////////////////////////////////////
 }
 
 

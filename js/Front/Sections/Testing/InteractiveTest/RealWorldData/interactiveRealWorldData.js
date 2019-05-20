@@ -48,16 +48,13 @@ function selectRealWorldType(index){
 
   document.getElementById("id_TestPage_FctSelection").innerHTML = [];
 
-  document.getElementById("id_TestPage_Dimension_Div").style.display="block";
-
+  /*document.getElementById("id_TestPage_Dimension_Div").style.display="block";
   document.getElementById("id_TestPage_GridDimX").disabled=true;
   document.getElementById("id_TestPage_GridDimY").disabled=true;
-
   document.getElementById("id_TestPage_GridDimX").style.color="grey";
   document.getElementById("id_TestPage_GridDimY").style.color="grey";
-
   document.getElementById("id_TestPage_GridDimXLabel").style.color="grey";
-  document.getElementById("id_TestPage_GridDimYLabel").style.color="grey";
+  document.getElementById("id_TestPage_GridDimYLabel").style.color="grey";*/
 
   document.getElementById("id_TestPage_FctSelection_Div").style.display="flex";
   document.getElementById("id_TestPage_doRatioCheckbox").disabled = true;
@@ -65,8 +62,6 @@ function selectRealWorldType(index){
 
   switch (selectedRealWorldType) {
     case "medical":
-        if(medicalData[index]==undefined)
-          return;
 
           for (var i = 0; i < medicalData.length; i++) {
             var option = document.createElement("option");
@@ -76,8 +71,6 @@ function selectRealWorldType(index){
 
       break;
     case "scientificFlowSim":
-        if(scientificFlowSimData[index]==undefined)
-          return;
 
           for (var i = 0; i < scientificFlowSimData.length; i++) {
             var option = document.createElement("option");
@@ -87,8 +80,6 @@ function selectRealWorldType(index){
 
       break;
       case "photographs":
-        if(photographsData[index]==undefined)
-          return;
 
         for (var i = 0; i < photographsData.length; i++) {
           var option = document.createElement("option");
@@ -110,26 +101,20 @@ function selectRealWorldType(index){
 function updateRealWorldVariables(){
   var selectedID = document.getElementById("id_TestPage_FctSelection").selectedIndex;
 
-  switch (selectedRealWorldType) {
+  /*switch (selectedRealWorldType) {
     case "medical":
-        if(medicalData[selectedID]==undefined)
-          return;
 
         document.getElementById("id_TestPage_GridDimX").value=medicalData[selectedID].length;
         document.getElementById("id_TestPage_GridDimY").value=medicalData[selectedID][0].length;
 
       break;
     case "scientificFlowSim":
-        if(scientificFlowSimData[selectedID]==undefined)
-          return;
 
           document.getElementById("id_TestPage_GridDimX").value=scientificFlowSimData[selectedID].length;
           document.getElementById("id_TestPage_GridDimY").value=scientificFlowSimData[selectedID][0].length;
 
       break;
       case "photographs":
-        if(photographsData[selectedID]==undefined)
-          return;
 
           document.getElementById("id_TestPage_GridDimX").value=photographsData[selectedID].length;
           document.getElementById("id_TestPage_GridDimY").value=photographsData[selectedID][0].length;
@@ -137,11 +122,15 @@ function updateRealWorldVariables(){
         break;
     default:
       return;
-  }
-
+  }*/
   checkAcknowledgements(selectedID);
+
+  ///////////////////////////////////////////////////////////
+  //// For Worker add canvas or canvasID
+  inform_Worker_PushInteractiveTest("RealData",selectedRealWorldType,selectedID);
   updateNoise();
-  realData_startWorker(selectedRealWorldType,selectedID);
+  inform_Worker_GetVisualisation();
+  ///////////////////////////////////////////////////////////
 }
 
 
@@ -153,24 +142,18 @@ function checkAcknowledgements(selectedID){
 
   switch (selectedRealWorldType) {
     case "medical":
-        if(medicalData[selectedID]==undefined)
-          return;
 
         if(medicalAcknowlegments[selectedID]!=undefined)
           index=medicalAcknowlegments[selectedID];
 
       break;
     case "scientificFlowSim":
-        if(scientificFlowSimData[selectedID]==undefined)
-          return;
 
          if(scientificFlowSimAcknowlegments[selectedID]!=undefined)
           index=scientificFlowSimAcknowlegments[selectedID];
 
       break;
       case "photographs":
-        if(photographsData[selectedID]==undefined)
-          return;
 
          if(photographsAcknowlegments[selectedID]!=undefined)
           index=photographsAcknowlegments[selectedID];
@@ -195,5 +178,5 @@ function checkAcknowledgements(selectedID){
   else{
     document.getElementById("id_TestPage_newTestAcknowledgmentsDiv").style.display="none";
   }
-  
+
 }

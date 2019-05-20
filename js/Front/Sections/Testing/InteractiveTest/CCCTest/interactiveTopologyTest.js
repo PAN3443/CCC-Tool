@@ -173,8 +173,13 @@ function selectNewTopologyTestType(){
 
 
   chooseTopologySubDiv(0);
+
+  ///////////////////////////////////////////////////////////
+  //// For Worker add canvas or canvasID
+  inform_Worker_PushInteractiveTest("CCCTest","Topology",cccTest_NewTopology_Options);
   updateNoise();
-  topology_startWorker(cccTest_NewTopology_Options);
+  inform_Worker_GetVisualisation();
+  ///////////////////////////////////////////////////////////
 }
 
 
@@ -216,7 +221,6 @@ function switchFoundation (){
 
 
 function updateTopologyTestVariables(){
-  //updateNoise();
 
   // check x,y DIM
   var dimX = parseInt(document.getElementById("id_TestPage_GridDimX").value);
@@ -345,8 +349,12 @@ function updateTopologyTestVariables(){
   cccTest_NewTopology_Options[3]=dimX;
   cccTest_NewTopology_Options[4]=dimY;
 
+  ///////////////////////////////////////////////////////////
+  //// For Worker add canvas or canvasID
+  inform_Worker_PushInteractiveTest("CCCTest","Topology",cccTest_NewTopology_Options);
   updateNoise();
-  topology_startWorker(cccTest_NewTopology_Options);
+  inform_Worker_GetVisualisation();
+  ///////////////////////////////////////////////////////////
 }
 
 

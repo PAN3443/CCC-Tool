@@ -66,8 +66,13 @@ function selectNewFctLocalMinimaType(){
 
   document.getElementById("id_TestPage_GridDimX").value=fctTest_NewLocalMin_Options[3];
   document.getElementById("id_TestPage_GridDimY").value=fctTest_NewLocalMin_Options[4];
+
+  ///////////////////////////////////////////////////////////
+  //// For Worker add canvas or canvasID
+  inform_Worker_PushInteractiveTest("Collection",fctTest_NewLocalMin_Options[1],fctTest_NewLocalMin_Options);
   updateNoise();
-  fct_Worker(fctTest_NewLocalMin_Options);
+  inform_Worker_GetVisualisation();
+  ///////////////////////////////////////////////////////////
 }
 
 function updateFctLocalMinimaTestVariables(){
@@ -138,8 +143,13 @@ function updateFctLocalMinimaTestVariables(){
 
   fctTest_NewLocalMin_Options[3]=dimX;
   fctTest_NewLocalMin_Options[4]=dimY;
+
+  ///////////////////////////////////////////////////////////
+  //// For Worker add canvas or canvasID
+  inform_Worker_PushInteractiveTest("Collection",fctTest_NewLocalMin_Options[1],fctTest_NewLocalMin_Options);
   updateNoise();
-  fct_Worker(fctTest_NewLocalMin_Options);
+  inform_Worker_GetVisualisation();
+  ///////////////////////////////////////////////////////////
 }
 
 

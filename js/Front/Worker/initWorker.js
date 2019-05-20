@@ -115,8 +115,7 @@ function initWorker(){
 
   testfunctionWorker_InteractiveTest.postMessage({'message':'init'});
   testfunctionWorker_InteractiveTest.addEventListener('message', workerEvent_DrawTestfunction, false);
-
-
+  init_Worker_SingleTesting_LoadRealWorld();
 
   inform_Worker_ColorblindSimulation();
   inform_Worker_PathPlotBackgroundParams();
@@ -125,5 +124,67 @@ function initWorker(){
 
   if(browserCanOffscreenCanvas)
     initOffscreenWorker(); // Global Events -> WorkerDependent -> others
+
+}
+
+
+function init_Worker_SingleTesting_LoadRealWorld(){
+
+  for (var i = 0; i < medicalFiles.length; i++) {
+
+        var url = "resource/realWorldData/medicalData/"+medicalFiles[i];
+        var img = new Image();
+        img.setAttribute('crossOrigin', 'anonymous');
+        img.onload = (function(index) {
+        return function () {
+          var workerJSON = {};
+          workerJSON['message'] = "pushRealWorldData";
+          workerJSON['type'] = "medical";
+          workerJSON['index'] = index;
+          workerJSON['imgData'] = getCanvasImgData(this);
+          testfunctionWorker_InteractiveTest.postMessage(workerJSON);
+        };
+      })(i);
+
+      img.src = url;
+  }
+
+  for (var i = 0; i < scientificFlowSimFiles.length; i++) {
+
+        var url = "resource/realWorldData/scientificFlowSimulation/"+scientificFlowSimFiles[i];
+        var img = new Image();
+        img.setAttribute('crossOrigin', 'anonymous');
+        img.onload = (function(index) {
+        return function () {
+          var workerJSON = {};
+          workerJSON['message'] = "pushRealWorldData";
+          workerJSON['type'] = "scientificFlowSim";
+          workerJSON['index'] = index;
+          workerJSON['imgData'] = getCanvasImgData(this);
+          testfunctionWorker_InteractiveTest.postMessage(workerJSON);
+        };
+      })(i);
+
+      img.src = url;
+  }
+
+  for (var i = 0; i < photographsFiles.length; i++) {
+
+        var url = "resource/realWorldData/photographs/"+photographsFiles[i];
+        var img = new Image();
+        img.setAttribute('crossOrigin', 'anonymous');
+        img.onload = (function(index) {
+        return function () {
+          var workerJSON = {};
+          workerJSON['message'] = "pushRealWorldData";
+          workerJSON['type'] = "photographs";
+          workerJSON['index'] = index;
+          workerJSON['imgData'] = getCanvasImgData(this);
+          testfunctionWorker_InteractiveTest.postMessage(workerJSON);
+        };
+      })(i);
+
+      img.src = url;
+  }
 
 }
