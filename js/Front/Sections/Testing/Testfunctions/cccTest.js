@@ -418,8 +418,13 @@ function frequencyTestField(options){
   var testFieldDimX = options[6];
   var testFieldDimY = options[7];
 
-  var startVal = Math.round((globalCMS1.getRefPosition(0) + options[4] * (globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1) - globalCMS1.getRefPosition(0))) * errorMath) / errorMath;
-  var endVal = Math.round((globalCMS1.getRefPosition(0) + options[5] * (globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1) - globalCMS1.getRefPosition(0))) * errorMath) / errorMath;
+  var startVal = options[4];
+  var endVal = options[5];
+
+  if(options[0]){
+    startVal = Math.round((globalCMS1.getRefPosition(0) + options[4] * (globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1) - globalCMS1.getRefPosition(0))) * errorMath) / errorMath;
+    endVal = Math.round((globalCMS1.getRefPosition(0) + options[5] * (globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1) - globalCMS1.getRefPosition(0))) * errorMath) / errorMath;
+  }
 
   var amplitude = Math.round(((startVal - endVal) / 2.0) * errorMath) / errorMath;
   var m = Math.round((startVal - amplitude) * errorMath) / errorMath;

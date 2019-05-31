@@ -6,14 +6,29 @@ for (var i = 0; i < cccTest_RidgeValleyLine_Options[tmpID].length; i++) {
 }
 cccTest_NewRidgeValley_Options = tmpArray;
 
-initNewTest();
+
 document.getElementById("id_TestPage_SelectNewTestType").selectedIndex = 2;
+
 selectNewRidgeValleyTestType();
 
 }
 
+function switchRatioType_RidgeValleyTest(){
+  cccTest_NewRidgeValley_Options[0] = document.getElementById("id_TestPage_doRatioCheckbox").checked;
+
+  if(document.getElementById("id_TestPage_doRatioCheckbox").checked){
+    cccTest_NewRidgeValley_Options[1] = 0;
+    cccTest_NewRidgeValley_Options[2] = 1;
+  }
+  else {
+    cccTest_NewRidgeValley_Options[1] = globalCMS1.getRefPosition(0);
+    cccTest_NewRidgeValley_Options[2] = globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1);
+  }
+  selectNewRidgeValleyTestType();
+}
 
 function selectNewRidgeValleyTestType(){
+  initNewTest();
   document.getElementById("id_TestPage_Dimension_Div").style.display="block";
   document.getElementById("id_TestPage_NewTest_D1").style.display="flex";
   document.getElementById("id_TestPage_NewTest_D2").style.display="flex";

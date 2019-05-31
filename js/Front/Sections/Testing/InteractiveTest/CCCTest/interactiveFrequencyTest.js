@@ -7,14 +7,29 @@ for (var i = 0; i < cccTest_Frequency_Options[tmpID].length; i++) {
 }
 cccTest_NewFrequency_Options = tmpArray;
 
-initNewTest();
+
 document.getElementById("id_TestPage_SelectNewTestType").selectedIndex = 4;
 selectNewFrequencyTestType();
 
 }
 
+function switchRatioType_FrequencyTest(){
+  cccTest_NewFrequency_Options[0] = document.getElementById("id_TestPage_doRatioCheckbox").checked;
+
+  if(document.getElementById("id_TestPage_doRatioCheckbox").checked){
+    cccTest_NewFrequency_Options[4] = 0;
+    cccTest_NewFrequency_Options[5] = 1;
+  }
+  else {
+    cccTest_NewFrequency_Options[4] = globalCMS1.getRefPosition(0);
+    cccTest_NewFrequency_Options[5] = globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1);
+  }
+  selectNewFrequencyTestType();
+}
+
 function selectNewFrequencyTestType(){
 
+  initNewTest();
   document.getElementById("id_TestPage_Dimension_Div").style.display="block";
   //document.getElementById("id_TestPage_NewTest_D1").style.display="flex";
   document.getElementById("id_TestPage_NewTest_D2").style.display="flex";
@@ -25,6 +40,8 @@ function selectNewFrequencyTestType(){
   document.getElementById("id_TestPage_NewTest_V2").innerHTML="#Increases: ";
   document.getElementById("id_TestPage_NewTest_V3").innerHTML="Wava"+"Start".sub()+": ";
   document.getElementById("id_TestPage_NewTest_V4").innerHTML="Wava"+"End".sub()+": ";
+
+  document.getElementById("id_TestPage_doRatioCheckbox").checked=cccTest_NewFrequency_Options[0];
 
   //document.getElementById("id_TestPage_NewTest_I1").value=cccTest_NewFrequency_Options[2];
   document.getElementById("id_TestPage_NewTest_I2").value=cccTest_NewFrequency_Options[3];
@@ -37,6 +54,15 @@ function selectNewFrequencyTestType(){
   document.getElementById("id_TestPage_NewTest_I1").min=1;
   document.getElementById("id_TestPage_NewTest_I2").min=0;
 
+  if(document.getElementById("id_TestPage_doRatioCheckbox").checked){
+
+    document.getElementById("id_TestPage_NewTest_I3").min=0;
+    document.getElementById("id_TestPage_NewTest_I3").max=1.0;
+
+    document.getElementById("id_TestPage_NewTest_I4").min=0;
+    document.getElementById("id_TestPage_NewTest_I4").max=1.0;
+
+  }
 
   document.getElementById("id_TestPage_NewTest_I2").step=1;
   document.getElementById("id_TestPage_NewTest_I3").step=0.001;

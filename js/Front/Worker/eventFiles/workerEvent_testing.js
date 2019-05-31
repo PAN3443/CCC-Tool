@@ -24,6 +24,14 @@ function workerEvent_DrawTestfunction(e) {
       canvasContex.clearRect(0, 0, canvas.width, canvas.height);
       canvasContex.putImageData(e.data.imageData, 0, 0);
 
+      var canvasFull = document.getElementById(e.data.canvasIDFull);
+      canvasFull.width = e.data.imageData.width;
+      canvasFull.height = e.data.imageData.height;
+
+      var canvasContexFull = canvasFull.getContext("2d");
+      canvasContexFull.clearRect(0, 0, canvasFull.width, canvasFull.height);
+      canvasContexFull.putImageData(e.data.imageData, 0, 0);
+
       var canvasGrey = document.getElementById(e.data.canvasIDGrey);
       canvasGrey.width = e.data.imageDataGrey.width;
       canvasGrey.height = e.data.imageDataGrey.height;
@@ -31,9 +39,17 @@ function workerEvent_DrawTestfunction(e) {
       var canvasContexGrey = canvasGrey.getContext("2d");
       canvasContexGrey.clearRect(0, 0, canvasGrey.width, canvasGrey.height);
       canvasContexGrey.putImageData(e.data.imageDataGrey, 0, 0);
+
+      var canvasGreyFull = document.getElementById(e.data.canvasIDGreyFull);
+      canvasGreyFull.width = e.data.imageDataGrey.width;
+      canvasGreyFull.height = e.data.imageDataGrey.height;
+
+      var canvasContexGreyFull = canvasGreyFull.getContext("2d");
+      canvasContexGreyFull.clearRect(0, 0, canvasGreyFull.width, canvasGreyFull.height);
+      canvasContexGreyFull.putImageData(e.data.imageDataGrey, 0, 0);
       break;
     case "mesh":
-        console.log(123);
+      drawTransfered_Mesh(e.data.testMappingMeshData); // js/Front/Sections/Testing/3D_TestVis/testImageMapping.js
     break;
 
     case "noiseExample":

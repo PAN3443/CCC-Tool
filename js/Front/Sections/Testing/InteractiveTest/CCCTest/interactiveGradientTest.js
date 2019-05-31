@@ -7,13 +7,31 @@ for (var i = 0; i < cccTest_Gradient_Options[tmpID].length; i++) {
 }
 cccTest_NewGradient_Options = tmpArray;
 
-initNewTest();
+
 document.getElementById("id_TestPage_SelectNewTestType").selectedIndex = 1;
 selectNewGradientTestType();
 
 }
 
+
+function switchRatioType_GradientTest(){
+
+  cccTest_NewGradient_Options[0] = document.getElementById("id_TestPage_doRatioCheckbox").checked;
+
+  if(document.getElementById("id_TestPage_doRatioCheckbox").checked){
+    cccTest_NewGradient_Options[1] = 0;
+    cccTest_NewGradient_Options[2] = 1;
+  }
+  else {
+    cccTest_NewGradient_Options[1] = globalCMS1.getRefPosition(0);
+    cccTest_NewGradient_Options[2] = globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1);
+  }
+  selectNewGradientTestType();
+}
+
 function selectNewGradientTestType(){
+
+  initNewTest();
   document.getElementById("id_TestPage_Dimension_Div").style.display="block";
   document.getElementById("id_TestPage_NewTest_D1").style.display="flex";
   document.getElementById("id_TestPage_NewTest_D2").style.display="flex";
@@ -77,13 +95,16 @@ function selectNewGradientTestType(){
 
 
   if(document.getElementById("id_TestPage_doRatioCheckbox").checked){
-
     document.getElementById("id_TestPage_NewTest_I1").min=0;
     document.getElementById("id_TestPage_NewTest_I1").max=1.0;
-
-    document.getElementById("id_TestPage_NewTest_I1").min=0;
-    document.getElementById("id_TestPage_NewTest_I1").max=1.0;
-
+    document.getElementById("id_TestPage_NewTest_I2").min=0;
+    document.getElementById("id_TestPage_NewTest_I2").max=1.0;
+  }
+  else {
+    document.getElementById("id_TestPage_NewTest_I1").min=undefined;
+    document.getElementById("id_TestPage_NewTest_I1").max=undefined;
+    document.getElementById("id_TestPage_NewTest_I2").min=undefined;
+    document.getElementById("id_TestPage_NewTest_I2").max=undefined;
   }
 
   document.getElementById("id_TestPage_NewTest_V1").innerHTML="m-Value: ";

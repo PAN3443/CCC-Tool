@@ -3,6 +3,10 @@ var testtype = undefined;
 var testsubtype = undefined;
 var testoptions = undefined;
 
+var testMappingMesh = undefined;
+var testMappingMeshGrey = undefined;
+var testMappingMeshData = [];
+
 // Offscreen Canvas
 var canvas = undefined;
 var canvasContex = undefined;
@@ -72,6 +76,9 @@ self.addEventListener('message', function(e) {
       self.importScripts('../../../GlobalEvents/Helpers/random.js');
       self.importScripts('../../../Sections/Testing/InteractiveTest/Noise/simplexNoise.js');
 
+      // For ThreeJS Mesh
+      self.importScripts('../../../../libs/ThreeJS/three.min.js');
+
       globalCMS1 = new class_CMS();
 
       testField = new class_TestField(0,0);
@@ -101,7 +108,6 @@ self.addEventListener('message', function(e) {
       answerJSON['canvasID'] = "id_TestPage_newTestNoiseDistributionCanvas";
       answerJSON['histoData'] = testField.generateNoiseDistributionHisto();
       self.postMessage(answerJSON);
-
 
     break;
 
@@ -142,15 +148,19 @@ self.addEventListener('message', function(e) {
 
       var answerJSON = {};
       answerJSON['visType'] = e.data.visType;
+
       switch (e.data.visType) {
         case "pixel":
           answerJSON['canvasID'] = "id_Test_PixelCanvas";
+          answerJSON['canvasIDFull'] = "id_Test_PixelCanvasFull";
           answerJSON['imageData'] = calculateImageData(testField,false);
           answerJSON['canvasIDGrey'] = "id_Test_PixelCanvasGrey";
+          answerJSON['canvasIDGreyFull'] = "id_Test_PixelCanvasGreyFull";
           answerJSON['imageDataGrey'] = calculateImageData(testField,true);
           break;
         case "mesh":
-            console.log(123);
+            calculateTransferMeshData(testField,e.data.do3DTestField,e.data.scalefactor3DTest);
+            answerJSON['testMappingMeshData'] = testMappingMeshData;
         break;
       }
       self.postMessage(answerJSON);

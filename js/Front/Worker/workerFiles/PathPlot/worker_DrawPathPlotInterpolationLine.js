@@ -126,7 +126,7 @@ self.addEventListener('message', function(e) {
       self.importScripts('../../../Sections/Edit/PathPlot/drawPathPlot/drawPathPlotHelpers2D.js');
       self.importScripts('../../../Sections/Edit/PathPlot/drawPathPlot/drawPathPlotHelpersInterpolationLine.js');
       self.importScripts('../../../Sections/Edit/PathPlot/drawPathPlot/drawPathPlotHelpersKeyElements.js');
-
+      
       initIsDone=true;
 
     break;

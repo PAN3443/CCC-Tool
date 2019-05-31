@@ -23,6 +23,9 @@ var mapping_transferBorderY = 0;
 
 var testing_DrawBoundingBox = false;
 
+var testMeshBoundingBox = undefined;
+var testMeshCenter =undefined;
+
 var testing_DrawAxes = false;
 
 var bg_texture;

@@ -7,9 +7,6 @@ function openFullTestMappingScreen(text){
   if(document.getElementById("id_TestVisualization_Mesh").checked){
     updateTestMappingCanvas(true);
   }
-  else{
-    drawTestField(userTestGlobalField, true);
-  }
 
 }
 

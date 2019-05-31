@@ -6,7 +6,7 @@ for (var i = 0; i < cccTest_Topology_Options[tmpID].length; i++) {
 }
 cccTest_NewTopology_Options = tmpArray;
 
-initNewTest();
+
 document.getElementById("id_TestPage_SelectNewTestType").selectedIndex = 4;
 selectNewTopologyTestType();
 
@@ -127,7 +127,8 @@ function topologyTest_Htmlupdate(){
 
 function selectNewTopologyTestType(){
 
-
+  initNewTest();
+  
   document.getElementById("id_TestPage_doRatioCheckbox").checked = cccTest_NewTopology_Options[0];
 
   document.getElementById("id_NewTest_TopologySubDivOptionDiv").style.display="block";

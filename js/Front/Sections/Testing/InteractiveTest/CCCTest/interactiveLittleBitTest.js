@@ -7,7 +7,7 @@ for (var i = 0; i < cccTest_LittleBit_Options[tmpID].length; i++) {
 }
 cccTest_NewLittleBit_Options = tmpArray;
 
-initNewTest();
+
 document.getElementById("id_TestPage_SelectNewTestType").selectedIndex = 5;
 selectNewLittleBitTestType();
 
@@ -15,6 +15,8 @@ selectNewLittleBitTestType();
 
 function selectNewLittleBitTestType(){
 
+  initNewTest();
+  
   document.getElementById("id_TestPage_Dimension_Div").style.display="block";
   document.getElementById("id_TestPage_GridDimX").disabled=true;
 
@@ -184,12 +186,16 @@ function switchRatioType_LittleBitTest(){
   cccTest_NewLittleBit_Options[0] = document.getElementById("id_TestPage_doRatioCheckbox").checked;
 
   if(document.getElementById("id_TestPage_doRatioCheckbox").checked){
-    cccTest_NewLittleBit_Options[1] = 0.001;
-    cccTest_NewLittleBit_Options[2] = 0.01;
+    cccTest_NewLittleBit_Options[1] = 0;
+    cccTest_NewLittleBit_Options[2] = 1;
+    cccTest_NewLittleBit_Options[3] = 0.001;
+    cccTest_NewLittleBit_Options[4] = 0.01;
   }
   else {
-    cccTest_NewLittleBit_Options[1] = 0.001*(globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1)-globalCMS1.getRefPosition(0));
-    cccTest_NewLittleBit_Options[2] = 0.01*(globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1)-globalCMS1.getRefPosition(0));
+    cccTest_NewLittleBit_Options[1] = globalCMS1.getRefPosition(0);
+    cccTest_NewLittleBit_Options[2] = globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1);
+    cccTest_NewLittleBit_Options[3] = 0.001*(globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1)-globalCMS1.getRefPosition(0));
+    cccTest_NewLittleBit_Options[4] = 0.01*(globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1)-globalCMS1.getRefPosition(0));
   }
   selectNewLittleBitTestType();
 }

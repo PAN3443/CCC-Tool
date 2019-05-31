@@ -1,3 +1,310 @@
+function calculateMesh(field, do3DTestField, scalefactor3DTest) {
+
+  if (do3DTestField && field.getCellValues()) {
+
+    testMappingMesh = new THREE.Group();
+    testMappingMeshGrey = new THREE.Group();
+
+    for (var y = 0; y < field.getYDim() - 1; y++) {
+
+
+      for (var x = 0; x < field.getXDim() - 1; x++) {
+
+        var xpos1 = field.getXPos(x, y);
+        var xpos2 = field.getXPos(x + 1, y + 1);
+        var ypos1 = field.getYPos(x, y);
+        var ypos2 = field.getYPos(x + 1, y + 1);
+
+        var width = Math.abs(xpos1 - xpos2);
+        var height = Math.abs(ypos1 - ypos2);
+        var deep = field.getZPos(scalefactor3DTest, x, y);
+
+        var geometry = undefined;
+        var geometryGrey = undefined;
+
+        if (deep == 0) {
+          geometry = new THREE.PlaneGeometry(width, height, 1, 1);
+          geometryGrey = new THREE.PlaneGeometry(width, height, 1, 1);
+        } else {
+          geometry = new THREE.BoxBufferGeometry(width, height, deep);
+          geometryGrey = new THREE.BoxBufferGeometry(width, height, deep);
+        }
+
+        var xmeshPos = (xpos1 + xpos2) / 2;
+        var ymeshPos = (ypos1 + ypos2) / 2;
+        var zmeshPos = deep / 2;
+
+        var colorRGB = globalCMS1.calculateColor(field.getFieldValue(x, y));
+        var material = new THREE.MeshLambertMaterial({
+          side: THREE.DoubleSide
+        });
+        material.color.set(new THREE.Color(colorRGB.getRValue(),colorRGB.getGValue(),colorRGB.getBValue()));
+        var mesh = new THREE.Mesh(geometry, material);
+        mesh.position.x = xmeshPos;
+        mesh.position.y = ymeshPos;
+        mesh.position.z = zmeshPos;
+        testMappingMesh.add(mesh);
+
+        var greyVal = field.getRatioFieldValue(x, y);
+        var materialGrey = new THREE.MeshLambertMaterial({
+          side: THREE.DoubleSide
+        });
+        materialGrey.color.set(new THREE.Color(greyVal,greyVal,greyVal));
+        var meshGrey = new THREE.Mesh(geometryGrey, materialGrey);
+        meshGrey.position.x = xmeshPos;
+        meshGrey.position.y = ymeshPos;
+        meshGrey.position.z = zmeshPos;
+        testMappingMeshGrey.add(meshGrey);
+
+
+      }
+    }
+
+  } else {
+    var geometry = new THREE.Geometry(); //
+    var geometryGrey = new THREE.Geometry(); //
+
+    if (do3DTestField) {
+      geometry.vertices = field.getTHREEPointArray3D(scalefactor3DTest);
+      geometryGrey.vertices = geometry.vertices; //field.getTHREEPointArray3D(scalefactor3DTest);
+    } else {
+      geometry.vertices = field.getTHREEPointArray();
+      geometryGrey.vertices = geometry.vertices //field.getTHREEPointArray();
+    }
+
+    //// create faces
+    var numFaces = (field.getXDim() - 1) * (field.getYDim() - 1) * 2;
+    var faceArray = new Array(numFaces).fill(undefined); //[];
+    var faceArrayGrey = new Array(numFaces).fill(undefined);
+
+    if (field.getCellValues()) {
+      for (var y = 1; y < field.getYDim(); y++) {
+
+        for (var x = 1; x < field.getXDim(); x++) {
+
+          var currentIndex = y * field.getXDim() + x;
+          var preIndex = currentIndex - 1;
+          var currentIndexLastLoop = (y - 1) * field.getXDim() + x;
+          var preIndexLastLoop = currentIndexLastLoop - 1;
+
+          var faceID1 = ((y - 1) * (field.getXDim() - 1) + (x - 1)) * 2;
+          var faceID2 = faceID1 + 1;
+
+          var colorRGB = globalCMS1.calculateColor(field.getFieldValue(x - 1, y - 1));
+          faceArray[faceID1] = new THREE.Face3(preIndexLastLoop, currentIndex, preIndex);
+          faceArray[faceID1].vertexColors[0] = new THREE.Color(colorRGB.getRValue(),colorRGB.getGValue(),colorRGB.getBValue());
+          faceArray[faceID1].vertexColors[1] = new THREE.Color(colorRGB.getRValue(),colorRGB.getGValue(),colorRGB.getBValue());
+          faceArray[faceID1].vertexColors[2] = new THREE.Color(colorRGB.getRValue(),colorRGB.getGValue(),colorRGB.getBValue());
+
+          faceArray[faceID2] = new THREE.Face3(preIndexLastLoop, currentIndexLastLoop, currentIndex);
+          faceArray[faceID2].vertexColors[0] = new THREE.Color(colorRGB.getRValue(),colorRGB.getGValue(),colorRGB.getBValue());
+          faceArray[faceID2].vertexColors[1] = new THREE.Color(colorRGB.getRValue(),colorRGB.getGValue(),colorRGB.getBValue());
+          faceArray[faceID2].vertexColors[2] = new THREE.Color(colorRGB.getRValue(),colorRGB.getGValue(),colorRGB.getBValue());
+
+          var greyVal = field.getRatioFieldValue(x - 1, y - 1);
+          faceArrayGrey[faceID1] = new THREE.Face3(preIndexLastLoop, currentIndex, preIndex);
+          faceArrayGrey[faceID1].vertexColors[0] = new THREE.Color(greyVal,greyVal,greyVal);
+          faceArrayGrey[faceID1].vertexColors[1] = new THREE.Color(greyVal,greyVal,greyVal);
+          faceArrayGrey[faceID1].vertexColors[2] = new THREE.Color(greyVal,greyVal,greyVal);
+
+          faceArrayGrey[faceID2] = new THREE.Face3(preIndexLastLoop, currentIndexLastLoop, currentIndex);
+          faceArrayGrey[faceID2].vertexColors[0] = new THREE.Color(greyVal,greyVal,greyVal);
+          faceArrayGrey[faceID2].vertexColors[1] = new THREE.Color(greyVal,greyVal,greyVal);
+          faceArrayGrey[faceID2].vertexColors[2] = new THREE.Color(greyVal,greyVal,greyVal);
+
+        }
+      }
+    } else {
+
+      for (var y = 1; y < field.getYDim(); y++) {
+
+        for (var x = 1; x < field.getXDim(); x++) {
+
+          var currentIndex = y * field.getXDim() + x;
+          var preIndex = currentIndex - 1;
+          var currentIndexLastLoop = (y - 1) * field.getXDim() + x;
+          var preIndexLastLoop = currentIndexLastLoop - 1;
+
+          var faceID1 = ((y - 1) * (field.getXDim() - 1) + (x - 1)) * 2;
+          var faceID2 = faceID1 + 1;
+
+          faceArray[faceID1] = new THREE.Face3(preIndexLastLoop, currentIndex, preIndex);
+          faceArray[faceID2] = new THREE.Face3(preIndexLastLoop, currentIndexLastLoop, currentIndex);
+          var colorRGB = globalCMS1.calculateColor(field.getFieldValue(x - 1, y - 1));
+          faceArray[faceID1].vertexColors[0] = new THREE.Color(colorRGB.getRValue(),colorRGB.getGValue(),colorRGB.getBValue());
+          faceArray[faceID2].vertexColors[0] = new THREE.Color(colorRGB.getRValue(),colorRGB.getGValue(),colorRGB.getBValue());
+          colorRGB = globalCMS1.calculateColor(field.getFieldValue(x, y));
+          faceArray[faceID1].vertexColors[1] = new THREE.Color(colorRGB.getRValue(),colorRGB.getGValue(),colorRGB.getBValue());
+          faceArray[faceID2].vertexColors[2] = new THREE.Color(colorRGB.getRValue(),colorRGB.getGValue(),colorRGB.getBValue());
+          colorRGB = globalCMS1.calculateColor(field.getFieldValue(x - 1, y));
+          faceArray[faceID1].vertexColors[2] = new THREE.Color(colorRGB.getRValue(),colorRGB.getGValue(),colorRGB.getBValue());
+          colorRGB = globalCMS1.calculateColor(field.getFieldValue(x, y - 1));
+          faceArray[faceID2].vertexColors[1] = new THREE.Color(colorRGB.getRValue(),colorRGB.getGValue(),colorRGB.getBValue());
+
+          faceArrayGrey[faceID1] = new THREE.Face3(preIndexLastLoop, currentIndex, preIndex);
+          faceArrayGrey[faceID2] = new THREE.Face3(preIndexLastLoop, currentIndexLastLoop, currentIndex);
+          var greyVal = field.getRatioFieldValue(x - 1, y - 1);
+          faceArrayGrey[faceID1].vertexColors[0] = new THREE.Color(greyVal,greyVal,greyVal);
+          faceArrayGrey[faceID2].vertexColors[0] = new THREE.Color(greyVal,greyVal,greyVal);
+          greyVal = field.getRatioFieldValue(x, y);
+          faceArrayGrey[faceID1].vertexColors[1] = new THREE.Color(greyVal,greyVal,greyVal);
+          faceArrayGrey[faceID2].vertexColors[2] = new THREE.Color(greyVal,greyVal,greyVal);
+          greyVal = field.getRatioFieldValue(x - 1, y);
+          faceArrayGrey[faceID1].vertexColors[2] = new THREE.Color(greyVal,greyVal,greyVal);
+          greyVal = field.getRatioFieldValue(x, y - 1);
+          faceArrayGrey[faceID2].vertexColors[1] = new THREE.Color(greyVal,greyVal,greyVal);
+
+        }
+      }
+
+    }
+
+    geometry.faces = faceArray;
+    geometryGrey.faces = faceArrayGrey;
+    geometry.computeBoundingBox();
+
+    var material =
+      //new THREE.MeshDepthMaterial( {
+      new THREE.MeshLambertMaterial({
+        side: THREE.DoubleSide,
+        vertexColors: THREE.VertexColors
+        //  blending: THREE.NoBlending,
+        //depthTest: true,
+        //depthWrite:true,
+        // depthFunc : THREE.NeverDepth
+        // depthFunc : THREE.AlwaysDepth
+        // depthFunc : THREE.LessDepth
+        // depthFunc : THREE.LessEqualDepth
+        // depthFunc : THREE.GreaterEqualDepth
+        // depthFunc : THREE.GreaterDepth
+        // depthFunc : THREE.NotEqualDepth
+        //wireframe: true
+      });
+
+    testMappingMesh = new THREE.Mesh(geometry, material);
+    testMappingMeshGrey = new THREE.Mesh(geometryGrey, material);
+  }
+
+}
+
+
+function calculateTransferMeshData(field, do3DTestField, scalefactor3DTest) {
+
+  testMappingMeshData=[];
+
+  testMappingMeshData.push(field.getCellValues());
+  testMappingMeshData.push(do3DTestField);
+
+  if (do3DTestField && field.getCellValues()) {
+  
+    var dataRows = [];
+    for (var y = 0; y < field.getYDim() - 1; y++) {
+
+      for (var x = 0; x < field.getXDim() - 1; x++) {
+
+        var xpos1 = field.getXPos(x, y);
+        var xpos2 = field.getXPos(x + 1, y + 1);
+        var ypos1 = field.getYPos(x, y);
+        var ypos2 = field.getYPos(x + 1, y + 1);
+
+        var width = Math.abs(xpos1 - xpos2);
+        var height = Math.abs(ypos1 - ypos2);
+        var deep = field.getZPos(scalefactor3DTest, x, y);
+
+        var xmeshPos = (xpos1 + xpos2) / 2;
+        var ymeshPos = (ypos1 + ypos2) / 2;
+        var zmeshPos = deep / 2;
+
+        var colorRGB = globalCMS1.calculateColor(field.getFieldValue(x, y));
+        var greyVal = field.getRatioFieldValue(x, y);
+
+        var dataRow = [width,height,deep,xmeshPos,ymeshPos,zmeshPos,colorRGB.getRValue(),colorRGB.getGValue(),colorRGB.getBValue(),greyVal];
+        dataRows.push(dataRow);
+      }
+    }
+    testMappingMeshData.push(dataRows);
+
+  } else {
+
+    if(do3DTestField)
+      testMappingMeshData.push(field.getTHREEPointArray3D(scalefactor3DTest));
+    else
+      testMappingMeshData.push(field.getTHREEPointArray());
+
+
+    //// create faces
+    var numFaces = (field.getXDim() - 1) * (field.getYDim() - 1) * 2;
+    var faceArray = new Array(numFaces).fill(undefined); //[];
+
+    if (field.getCellValues()) {
+      for (var y = 1; y < field.getYDim(); y++) {
+
+        for (var x = 1; x < field.getXDim(); x++) {
+
+          var currentIndex = y * field.getXDim() + x;
+          var preIndex = currentIndex - 1;
+          var currentIndexLastLoop = (y - 1) * field.getXDim() + x;
+          var preIndexLastLoop = currentIndexLastLoop - 1;
+
+          var faceID1 = ((y - 1) * (field.getXDim() - 1) + (x - 1)) * 2;
+          var faceID2 = faceID1 + 1;
+
+          var colorRGB = globalCMS1.calculateColor(field.getFieldValue(x - 1, y - 1));
+          var greyVal = field.getRatioFieldValue(x - 1, y - 1);
+
+          faceArray[faceID1] = [preIndexLastLoop, currentIndex, preIndex,colorRGB.getRValue(),colorRGB.getGValue(),colorRGB.getBValue(),greyVal];
+          faceArray[faceID2] = [preIndexLastLoop, currentIndexLastLoop, currentIndex,colorRGB.getRValue(),colorRGB.getGValue(),colorRGB.getBValue(),greyVal];
+        }
+      }
+    } else {
+
+      for (var y = 1; y < field.getYDim(); y++) {
+
+        for (var x = 1; x < field.getXDim(); x++) {
+
+          var currentIndex = y * field.getXDim() + x;
+          var preIndex = currentIndex - 1;
+          var currentIndexLastLoop = (y - 1) * field.getXDim() + x;
+          var preIndexLastLoop = currentIndexLastLoop - 1;
+
+          var faceID1 = ((y - 1) * (field.getXDim() - 1) + (x - 1)) * 2;
+          var faceID2 = faceID1 + 1;
+
+          var greyVal1 = field.getRatioFieldValue(x - 1, y - 1);
+          var greyVal2 = field.getRatioFieldValue(x, y);
+          var greyVal3 = field.getRatioFieldValue(x - 1, y);
+          var greyVal4 = field.getRatioFieldValue(x, y - 1);
+
+          var colorRGB1 = globalCMS1.calculateColor(field.getFieldValue(x - 1, y - 1));
+          var colorRGB2 = globalCMS1.calculateColor(field.getFieldValue(x, y));
+          var colorRGB3 = globalCMS1.calculateColor(field.getFieldValue(x - 1, y));
+          var colorRGB4 = globalCMS1.calculateColor(field.getFieldValue(x, y-1));
+          faceArray[faceID1] = [preIndexLastLoop, currentIndex, preIndex,
+            [colorRGB1.getRValue(),colorRGB1.getGValue(),colorRGB1.getBValue(),greyVal1],
+            [colorRGB2.getRValue(),colorRGB2.getGValue(),colorRGB2.getBValue(),greyVal2],
+            [colorRGB3.getRValue(),colorRGB3.getGValue(),colorRGB3.getBValue(),greyVal3]
+          ];
+          faceArray[faceID2] = [preIndexLastLoop, currentIndexLastLoop, currentIndex,
+            [colorRGB1.getRValue(),colorRGB1.getGValue(),colorRGB1.getBValue(),greyVal1],
+            [colorRGB4.getRValue(),colorRGB4.getGValue(),colorRGB4.getBValue(),greyVal4],
+            [colorRGB2.getRValue(),colorRGB2.getGValue(),colorRGB2.getBValue(),greyVal2]
+          ];
+
+        }
+      }
+    }
+
+    testMappingMeshData.push(faceArray);
+  }
+
+}
+
+
+
+
+
+
+
 function calculateImageData(testfield, doGreyScaled) {
 
   var imgWidth = testfield.getXDim();
@@ -10,21 +317,21 @@ function calculateImageData(testfield, doGreyScaled) {
 
   var maxHeightIndex = imgHeight - 1;
 
-  if(isNaN(imgWidth) || isNaN(imgWidth))
+  if (isNaN(imgWidth) || isNaN(imgWidth))
     return new ImageData(1, 1);
 
-  if(imgWidth==undefined || imgWidth==undefined)
+  if (imgWidth == undefined || imgWidth == undefined)
     return new ImageData(1, 1);
 
-  if(imgWidth<1 || imgWidth<1)
-    return new ImageData(1, 1);//*/
+  if (imgWidth < 1 || imgWidth < 1)
+    return new ImageData(1, 1); //*/
 
   var imgData = new ImageData(imgWidth, imgHeight);
 
   if (doGreyScaled) {
     for (var y = 0; y < imgHeight; y++) {
       for (var x = 0; x < imgWidth; x++) {
-        var greyVal = testfield.getRatioFieldValue(x, y)*255;
+        var greyVal = testfield.getRatioFieldValue(x, y) * 255;
         var indices = getColorIndicesForCoord(x, maxHeightIndex - y, imgWidth);
         imgData.data[indices[0]] = Math.round(greyVal); // r
         imgData.data[indices[1]] = Math.round(greyVal); // g
@@ -162,33 +469,33 @@ function calc_Preview_CollectionField(index) {
       testFieldList[index].setField(bohachevsky_F2_TestField(optionsList[index]));
       break;
     case "Bohachevsky_F3":
-    testFieldList[index].setField(bohachevsky_F3_TestField(optionsList[index]));
+      testFieldList[index].setField(bohachevsky_F3_TestField(optionsList[index]));
       break;
     case "Perm_V1":
-    testFieldList[index].setField(perm_V1_TestField(optionsList[index]));
+      testFieldList[index].setField(perm_V1_TestField(optionsList[index]));
       break;
     case "Rot_Hyper_Ellipsoid":
-    testFieldList[index].setField(rot_Hyper_Ellipsoid_TestField(optionsList[index]));
+      testFieldList[index].setField(rot_Hyper_Ellipsoid_TestField(optionsList[index]));
       break;
     case "Sphere":
-    testFieldList[index].setField(sphere_TestField(optionsList[index]));
+      testFieldList[index].setField(sphere_TestField(optionsList[index]));
       break;
     case "SumDifPowers":
-    testFieldList[index].setField(sumDifPowers_TestField(optionsList[index]));
+      testFieldList[index].setField(sumDifPowers_TestField(optionsList[index]));
       break;
     case "Sum_Squares":
-    testFieldList[index].setField(sum_Squares_TestField(optionsList[index]));
+      testFieldList[index].setField(sum_Squares_TestField(optionsList[index]));
       break;
     case "Trid":
-    testFieldList[index].setField(trid_TestField(optionsList[index]));
+      testFieldList[index].setField(trid_TestField(optionsList[index]));
       break;
       //////////////////////////////////
       /// Functions: Valley-Shaped
     case "Three_Hump_Camel":
-    testFieldList[index].setField(three_Hump_Camel_TestField(optionsList[index]));
+      testFieldList[index].setField(three_Hump_Camel_TestField(optionsList[index]));
       break;
     case "Six_Hump_Camel":
-    testFieldList[index].setField(six_Hump_Camel_TestField(optionsList[index]));
+      testFieldList[index].setField(six_Hump_Camel_TestField(optionsList[index]));
       break;
 
   }
@@ -250,7 +557,7 @@ function calc_Single_CCCTestField() {
       testField.setField(frequencyTestField(testoptions));
       break;
     case "Topology":
-        break;
+      break;
   }
 
 
@@ -319,33 +626,33 @@ function calc_Single_CollectionField() {
       testField.setField(bohachevsky_F2_TestField(testoptions));
       break;
     case "Bohachevsky_F3":
-    testField.setField(bohachevsky_F3_TestField(testoptions));
+      testField.setField(bohachevsky_F3_TestField(testoptions));
       break;
     case "Perm_V1":
-    testField.setField(perm_V1_TestField(testoptions));
+      testField.setField(perm_V1_TestField(testoptions));
       break;
     case "Rot_Hyper_Ellipsoid":
-    testField.setField(rot_Hyper_Ellipsoid_TestField(testoptions));
+      testField.setField(rot_Hyper_Ellipsoid_TestField(testoptions));
       break;
     case "Sphere":
-    testField.setField(sphere_TestField(testoptions));
+      testField.setField(sphere_TestField(testoptions));
       break;
     case "SumDifPowers":
-    testField.setField(sumDifPowers_TestField(testoptions));
+      testField.setField(sumDifPowers_TestField(testoptions));
       break;
     case "Sum_Squares":
-    testField.setField(sum_Squares_TestField(testoptions));
+      testField.setField(sum_Squares_TestField(testoptions));
       break;
     case "Trid":
-    testField.setField(trid_TestField(testoptions));
+      testField.setField(trid_TestField(testoptions));
       break;
       //////////////////////////////////
       /// Functions: Valley-Shaped
     case "Three_Hump_Camel":
-    testField.setField(three_Hump_Camel_TestField(testoptions));
+      testField.setField(three_Hump_Camel_TestField(testoptions));
       break;
     case "Six_Hump_Camel":
-    testField.setField(six_Hump_Camel_TestField(testoptions));
+      testField.setField(six_Hump_Camel_TestField(testoptions));
       break;
 
   }
@@ -353,43 +660,42 @@ function calc_Single_CollectionField() {
 
 function calc_Single_RealDataField() {
 
-  if(isNaN(testoptions) || testoptions==undefined)
+  if (isNaN(testoptions) || testoptions == undefined)
     return;
 
   testField.setAutoScale(true);
   testField.setScaleRange(globalCMS1.getRefPosition(0), globalCMS1.getRefPosition(globalCMS1.getKeyLength() - 1));
   switch (testsubtype) {
-      case "medical":
+    case "medical":
 
-        if(imgData_medical.length<=testoptions)
-          return;
+      if (imgData_medical.length <= testoptions)
+        return;
 
-        if(imgData_medical[testoptions]==undefined)
-          return;
+      if (imgData_medical[testoptions] == undefined)
+        return;
 
-          console.log(123123123);
-        testField.setField(realWorldDataTestField(imgData_medical[testoptions]));
+      testField.setField(realWorldDataTestField(imgData_medical[testoptions]));
       break;
-      case "scientificFlowSim":
+    case "scientificFlowSim":
 
-        if(imgData_scientificFlowSim.length<=testoptions)
-          return;
+      if (imgData_scientificFlowSim.length <= testoptions)
+        return;
 
-        if(imgData_scientificFlowSim[testoptions]==undefined)
-          return;
+      if (imgData_scientificFlowSim[testoptions] == undefined)
+        return;
 
-        testField.setField(realWorldDataTestField(imgData_scientificFlowSim[testoptions]));
+      testField.setField(realWorldDataTestField(imgData_scientificFlowSim[testoptions]));
       break;
-      case "photographs":
+    case "photographs":
 
-        if(imgData_photographs.length<=testoptions)
-          return;
+      if (imgData_photographs.length <= testoptions)
+        return;
 
-        if(imgData_photographs[testoptions]==undefined)
-          return;
+      if (imgData_photographs[testoptions] == undefined)
+        return;
 
-        testField.setField(realWorldDataTestField(imgData_photographs[testoptions]));
+      testField.setField(realWorldDataTestField(imgData_photographs[testoptions]));
       break;
-    }
+  }
 
 }

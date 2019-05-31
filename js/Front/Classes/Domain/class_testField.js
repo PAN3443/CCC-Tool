@@ -453,7 +453,7 @@ class class_TestField {
       }//switch
     }//if*/
 
-    return result/this.vmax;
+    return (result-this.vmin)/(this.vmax-this.vmin);
   }
 
   getFieldValue(x,y){
@@ -556,12 +556,58 @@ class class_TestField {
   getTHREEPointArray3D(scalefactor3DTest){
 
     var newArray = [];
-    var goToNull = this.vmin * scalefactor3DTest;
-
 
     for (var y = 0; y < this.dimensionY; y++) {
       for (var x = 0; x < this.dimensionX; x++) {
-        newArray.push(new THREE.Vector3(this.xPos[x][y],this.yPos[x][y],(this.fieldValues[x][y]*scalefactor3DTest)-goToNull));
+
+        var value = this.fieldValues[x][y];
+
+        if(this.addNoise && this.noiseValues[x][y]!=undefined){
+
+          var replaceDis =  this.replaceNoiseTill-this.replaceNoiseFrom;
+          var tmpValueDis = this.vmax-this.vmin;
+
+          switch (this.noiseBehavior) {
+            case 0:
+            case 1:
+
+              var amount = undefined;
+
+              if(this.noiseBehavior==0)
+                amount = value*this.noiseValues[x][y];
+              else
+                amount = this.noiseValues[x][y]*tmpValueDis;
+
+              var newVal = value + amount;
+
+              if(amount==undefined || newVal==undefined)
+                break;
+
+              var stopper = 0;
+
+              if(newVal>this.vmax)
+                newVal=this.vmax;
+
+              if(newVal<this.vmin)
+                newVal=this.vmin;
+
+              /*while(newVal>this.vmax || newVal<this.vmin){
+                amount /=2;
+                newVal = value + amount;
+                stopper++;
+                if(stopper==1000)
+                  break;
+              }*/
+
+              value = newVal
+            break;
+            case 2:
+              value = replaceDis*this.noiseValues[x][y]+this.replaceNoiseFrom; //(this.noiseValues[x][y]*tmpValueDis)+this.vmin;
+            break;
+          }//switch
+        }//if*/
+
+        newArray.push(new THREE.Vector3(this.xPos[x][y],this.yPos[x][y],(value-this.vmin)*scalefactor3DTest));
       }
     }
 

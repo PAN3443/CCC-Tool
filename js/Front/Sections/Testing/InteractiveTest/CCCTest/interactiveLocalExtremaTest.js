@@ -7,7 +7,7 @@ for (var i = 0; i < cccTest_LocalExtrema_Options[tmpID].length; i++) {
 }
 cccTest_NewLocalExtrema_Options = tmpArray;
 
-initNewTest();
+
 document.getElementById("id_TestPage_SelectNewTestType").selectedIndex = 3;
 selectNewExtremaTestType();
 
@@ -15,6 +15,8 @@ selectNewExtremaTestType();
 
 function selectNewExtremaTestType(){
 
+  initNewTest();
+  
   document.getElementById("id_TestPage_Dimension_Div").style.display="block";
   document.getElementById("id_TestPage_NewTest_D1").style.display="flex";
   document.getElementById("id_TestPage_NewTest_D2").style.display="flex";

@@ -68,8 +68,7 @@ function switchHightmap(){
     }
 
 
-        if(userTestGlobalField!=undefined)
-    drawTestField(userTestGlobalField,true);
+    inform_Worker_GetVisualisation();
 
 }
 
@@ -82,8 +81,7 @@ function showTestingAxis(){
       testing_DrawAxes=true;
     }
 
-        if(userTestGlobalField!=undefined)
-    drawTestField(userTestGlobalField,true);
+    updateTest_Mesh();
 
 }
 
@@ -96,13 +94,9 @@ function showTestingBoundingBox(){
       testing_DrawBoundingBox=true;
     }
 
-    if(userTestGlobalField!=undefined)
-    drawTestField(userTestGlobalField,true);
+    updateTest_Mesh();
 
 }
-
-
-
 
 
 function renderTestMapping() {

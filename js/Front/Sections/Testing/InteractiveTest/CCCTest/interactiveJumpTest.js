@@ -10,7 +10,6 @@ for (var i = 0; i < cccTest_Jumps_Options[jumpID][1].length; i++) {
 }
 cccTest_NewJump_Options.push(tmpArray);
 
-initNewTest();
 document.getElementById("id_TestPage_SelectNewTestType").selectedIndex = 0;
 selectNewJumpTestType();
 }
@@ -18,6 +17,8 @@ selectNewJumpTestType();
 
 function selectNewJumpTestType(){
 
+  initNewTest();
+  
   document.getElementById("id_TestPage_NewTest_JumpDiv").style.display="block";
   document.getElementById("id_TestPage_newTestNoiseDiv").style.display="none";
   document.getElementById("id_Test_NoiseType").selectedIndex=0;

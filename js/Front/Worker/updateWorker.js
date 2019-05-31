@@ -17,8 +17,12 @@ function inform_Worker_GetVisualisation(){
 
   if(document.getElementById("id_TestVisualization_Pixel").checked)
     workerJSON['visType'] = "pixel";
-  else
+  else{
     workerJSON['visType'] = "mesh";
+    workerJSON['do3DTestField'] = do3DTestField;
+    workerJSON['scalefactor3DTest'] = scalefactor3DTest;
+
+  }
 
   testfunctionWorker_InteractiveTest.postMessage(workerJSON);
 }
