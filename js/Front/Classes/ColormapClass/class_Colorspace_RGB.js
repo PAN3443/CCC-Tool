@@ -91,7 +91,6 @@ class classColor_RGB {
           return false;
 
     }
-
   }
 
   getInColorFormat(format) {

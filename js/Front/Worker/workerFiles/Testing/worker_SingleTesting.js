@@ -37,6 +37,7 @@ var globalCMS1 = undefined;
 var error = 100; // 0.01
 var errorMath = 1e12;
 
+
 self.addEventListener('message', function(e) {
 
   switch (e.data.message) {
@@ -98,13 +99,13 @@ self.addEventListener('message', function(e) {
 
       /// give main thread an example image of the noise and a histogram describing the distribution of the noise field
       var answerJSON = {};
-      answerJSON['visType'] = "noiseExample";
+      answerJSON['type'] = "noiseExample";
       answerJSON['canvasID'] = "id_TestPage_newTestNoiseCanvas";
       answerJSON['imageData'] = testField.generateNoiseExampleImage();
       self.postMessage(answerJSON);
 
       answerJSON = {};
-      answerJSON['visType'] = "noiseHisto";
+      answerJSON['type'] = "noiseHisto";
       answerJSON['canvasID'] = "id_TestPage_newTestNoiseDistributionCanvas";
       answerJSON['histoData'] = testField.generateNoiseDistributionHisto();
       self.postMessage(answerJSON);
@@ -147,7 +148,7 @@ self.addEventListener('message', function(e) {
     case "getVisData":
 
       var answerJSON = {};
-      answerJSON['visType'] = e.data.visType;
+      answerJSON['type'] = e.data.visType;
 
       switch (e.data.visType) {
         case "pixel":
@@ -164,9 +165,23 @@ self.addEventListener('message', function(e) {
         break;
       }
       self.postMessage(answerJSON);
-
     break;
-
+    case "sendTestfield":
+      var answerJSON = {};
+      answerJSON['type'] = "sendTestfield";
+      answerJSON['arrayIndex'] = e.data.arrayIndex;
+      var testFieldArray = [];
+      for (var x = 0; x < testField.getXDim(); x++) {
+        var tmpArray = [];
+        for (var y = 0; y < testField.getYDim(); y++) {
+          var value = testField.getFieldValue(x,y);
+          tmpArray.push(value);
+        }
+        testFieldArray.push(tmpArray);
+      }
+      answerJSON['testField'] = testFieldArray;
+      self.postMessage(answerJSON);
+    break;
     case "draw":
       console.log("drawData");
 

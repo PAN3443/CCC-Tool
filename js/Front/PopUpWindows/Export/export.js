@@ -35,20 +35,16 @@ function openExportWindow(){
   changeOutputformat(1);
 
   if(doTwinErrorSolution){
-    document.getElementById("id_ExportPage_Button_TwinKeyIssue").style.background = styleActiveColor;
-    document.getElementById("id_ExportPage_Button_TwinKeyIssue").style.color=styleActiveColorFont;
+    document.getElementById("id_ExportPage_Button_TwinKeyIssue").classList.remove("class_generalbutton");
+    document.getElementById("id_ExportPage_Button_TwinKeyIssue").classList.add("class_generalbuttonActive");
   }
   else{
-  document.getElementById("id_ExportPage_Button_TwinKeyIssue").style.background = styleNotActiveColor;
-  document.getElementById("id_ExportPage_Button_TwinKeyIssue").style.color=styleNotActiveColorFont;
+    document.getElementById("id_ExportPage_Button_TwinKeyIssue").classList.remove("class_generalbuttonActive");
+    document.getElementById("id_ExportPage_Button_TwinKeyIssue").classList.add("class_generalbutton");
   }
 
-
-
   /// updateProbeList
-
   var selectbox = document.getElementById("id_selectProbeListExport");
-
   for(var i = selectbox.options.length - 1 ; i > 0 ; i--)
   {
       selectbox.remove(i);
@@ -199,43 +195,40 @@ function createExportTableRow(counter,ref, type, tmpColor){
 
 function changeExportColorspace(type){
 
+  document.getElementById("button_ExportSpaceRGB").classList.remove("class_generalbuttonActive");
+  document.getElementById("button_ExportSpaceHSV").classList.remove("class_generalbuttonActive");
+  document.getElementById("button_ExportSpaceLAB").classList.remove("class_generalbuttonActive");
+  document.getElementById("button_ExportSpaceDIN99").classList.remove("class_generalbuttonActive");
 
-  document.getElementById("button_ExportSpaceRGB").style.background = styleNotActiveColor;
-  document.getElementById("button_ExportSpaceHSV").style.background = styleNotActiveColor;
-  document.getElementById("button_ExportSpaceLAB").style.background = styleNotActiveColor;
-  document.getElementById("button_ExportSpaceDIN99").style.background = styleNotActiveColor;
-
-  document.getElementById("button_ExportSpaceRGB").style.color=styleNotActiveColorFont;
-  document.getElementById("button_ExportSpaceHSV").style.color=styleNotActiveColorFont;
-  document.getElementById("button_ExportSpaceLAB").style.color=styleNotActiveColorFont;
-  document.getElementById("button_ExportSpaceDIN99").style.color=styleNotActiveColorFont;
-
-
+  document.getElementById("button_ExportSpaceRGB").classList.add("class_generalbutton");
+  document.getElementById("button_ExportSpaceHSV").classList.add("class_generalbutton");
+  document.getElementById("button_ExportSpaceLAB").classList.add("class_generalbutton");
+  document.getElementById("button_ExportSpaceDIN99").classList.add("class_generalbutton");
 
   switch (type) {
     case 0:
       exportColorspace = "rgb";
       document.getElementById("id_table_exportColor1").innerHTML = "Color (RGB)";
-      document.getElementById("button_ExportSpaceRGB").style.background = styleActiveColor;
-      document.getElementById("button_ExportSpaceRGB").style.color=styleActiveColorFont;
+      document.getElementById("button_ExportSpaceRGB").classList.remove("class_generalbutton");
+      document.getElementById("button_ExportSpaceRGB").classList.add("class_generalbuttonActive");
       break;
     case 1:
       exportColorspace = "hsv";
       document.getElementById("id_table_exportColor1").innerHTML = "Color (HSV)";
-      document.getElementById("button_ExportSpaceHSV").style.background = styleActiveColor;
-      document.getElementById("button_ExportSpaceHSV").style.color=styleActiveColorFont;
+      document.getElementById("button_ExportSpaceHSV").classList.remove("class_generalbutton");
+      document.getElementById("button_ExportSpaceHSV").classList.add("class_generalbuttonActive");
       break;
     case 2:
       exportColorspace = "lab";
       document.getElementById("id_table_exportColor1").innerHTML = "Color (LAB)";
-      document.getElementById("button_ExportSpaceLAB").style.background = styleActiveColor;
-      document.getElementById("button_ExportSpaceLAB").style.color=styleActiveColorFont;
+      document.getElementById("button_ExportSpaceLAB").classList.remove("class_generalbutton");
+      document.getElementById("button_ExportSpaceLAB").classList.add("class_generalbuttonActive");
       break;
     case 3:
       exportColorspace = "din99";
       document.getElementById("id_table_exportColor1").innerHTML = "Color (DIN99)";
-      document.getElementById("button_ExportSpaceDIN99").style.background = styleActiveColor;
-      document.getElementById("button_ExportSpaceDIN99").style.color=styleActiveColorFont;
+      document.getElementById("button_ExportSpaceDIN99").classList.remove("class_generalbutton");
+      document.getElementById("button_ExportSpaceDIN99").classList.add("class_generalbuttonActive");
       break;
     default:
       return;
@@ -249,27 +242,26 @@ function changeExportColorspace(type){
 
 function changeOutputformat(type){
 
+  document.getElementById("button_ExportFormatXML").classList.remove("class_generalbuttonActive");
+  document.getElementById("button_ExportFormatCSV").classList.remove("class_generalbuttonActive");
+  document.getElementById("button_ExportFormatJSON").classList.remove("class_generalbuttonActive");
 
-  document.getElementById("button_ExportFormatXML").style.background = styleNotActiveColor;
-  document.getElementById("button_ExportFormatCSV").style.background = styleNotActiveColor;
-  document.getElementById("button_ExportFormatJSON").style.background = styleNotActiveColor;
-
-  document.getElementById("button_ExportFormatXML").style.color=styleNotActiveColorFont;
-  document.getElementById("button_ExportFormatCSV").style.color=styleNotActiveColorFont;
-  document.getElementById("button_ExportFormatJSON").style.color=styleNotActiveColorFont;
+  document.getElementById("button_ExportFormatXML").classList.add("class_generalbutton");
+  document.getElementById("button_ExportFormatCSV").classList.add("class_generalbutton");
+  document.getElementById("button_ExportFormatJSON").classList.add("class_generalbutton");
 
   switch (type) {
     case 0:
-      document.getElementById("button_ExportFormatCSV").style.background = styleActiveColor;
-      document.getElementById("button_ExportFormatCSV").style.color=styleActiveColorFont;
+      document.getElementById("button_ExportFormatCSV").classList.remove("class_generalbutton");
+      document.getElementById("button_ExportFormatCSV").classList.add("class_generalbuttonActive");
       break;
     case 1:
-      document.getElementById("button_ExportFormatXML").style.background = styleActiveColor;
-      document.getElementById("button_ExportFormatXML").style.color=styleActiveColorFont;
+      document.getElementById("button_ExportFormatXML").classList.remove("class_generalbutton");
+      document.getElementById("button_ExportFormatXML").classList.add("class_generalbuttonActive");
       break;
     case 2:
-      document.getElementById("button_ExportFormatJSON").style.background = styleActiveColor;
-      document.getElementById("button_ExportFormatJSON").style.color=styleActiveColorFont;
+      document.getElementById("button_ExportFormatJSON").classList.remove("class_generalbutton");
+      document.getElementById("button_ExportFormatJSON").classList.add("class_generalbuttonActive");
       break;
     default:
       return;
@@ -284,16 +276,14 @@ function changeTwinKeyIssue(){
   if(doTwinErrorSolution){
     doTwinErrorSolution=false;
     document.getElementById("id_ExportPage_Button_TwinKeyIssue").innerHTML = "not active";
-    document.getElementById("id_ExportPage_Button_TwinKeyIssue").style.background = styleNotActiveColor;
-    document.getElementById("id_ExportPage_Button_TwinKeyIssue").style.color=styleNotActiveColorFont;
+    document.getElementById("id_ExportPage_Button_TwinKeyIssue").classList.remove("class_generalbuttonActive");
+    document.getElementById("id_ExportPage_Button_TwinKeyIssue").classList.add("class_generalbutton");
   }
   else{
     doTwinErrorSolution=true;
     document.getElementById("id_ExportPage_Button_TwinKeyIssue").innerHTML = "active";
-
-    document.getElementById("id_ExportPage_Button_TwinKeyIssue").style.background = styleActiveColor;
-    document.getElementById("id_ExportPage_Button_TwinKeyIssue").style.color=styleActiveColorFont;
-
+    document.getElementById("id_ExportPage_Button_TwinKeyIssue").classList.remove("class_generalbutton");
+    document.getElementById("id_ExportPage_Button_TwinKeyIssue").classList.add("class_generalbuttonActive");
   }
 
   if(doTwinErrorSolution){

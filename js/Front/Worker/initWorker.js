@@ -117,6 +117,9 @@ function initWorker(){
   testfunctionWorker_InteractiveTest.addEventListener('message', workerEvent_DrawTestfunction, false);
   init_Worker_SingleTesting_LoadRealWorld();
 
+  testfunctionWorker_Report0.postMessage({'message':'init','reportType':0});
+  testfunctionWorker_Report0.addEventListener('message', workerEvent_GetReport, false);
+
   inform_Worker_ColorblindSimulation();
   inform_Worker_PathPlotBackgroundParams();
   inform_Worker_ColorSettings();

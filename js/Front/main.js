@@ -177,12 +177,12 @@ window.onload = function() {
   // For Testing: with start CMS in the MyDesigns
   ///
 
-  /*  myDesignsList.push(cmsGreenColormaps[0]);
+    /*myDesignsList.push(cmsGreenColormaps[0]);
     myDesignsList.push(cmsDivergentColormaps[0]);
     myDesignsList.push(cmsRedPurpleColormaps[0]);
 
     showMyDesignsPage();
-    showTestPage();*/
+    showTestPage();//*/
 
 }
 

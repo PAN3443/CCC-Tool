@@ -1,14 +1,45 @@
 
 
-function inform_Worker_PushInteractiveTest(type,subtype,options){
 
+function inform_Worker_Testfield (worker,index){
+  var workerJSON = {};
+  workerJSON['message'] = "Testfield";
+  workerJSON['reportOptions_ColorDif'] = reportOptions_ColorDif;
+  workerJSON['testfield'] = reportListTestField[index];
+  worker.postMessage(workerJSON);//*/
+}
+
+function inform_Worker_Tensorfield(worker){
+  var workerJSON = {};
+  workerJSON['message'] = "calcTensorField";
+  workerJSON['reportOptions_ColorDif'] = reportOptions_ColorDif;
+  worker.postMessage(workerJSON);//*/
+}
+
+function inform_Worker_CalcReport(worker){
+  var workerJSON = {};
+  workerJSON['message'] = "calcReport";
+  worker.postMessage(workerJSON);//*/
+}
+
+
+
+
+function request_Worker_Testfield(index){
+  var workerJSON = {};
+  workerJSON['message'] = "sendTestfield";
+  workerJSON['arrayIndex'] = index;
+  testfunctionWorker_InteractiveTest.postMessage(workerJSON);//*/
+}
+
+
+function inform_Worker_PushInteractiveTest(type,subtype,options){
   var workerJSON = {};
   workerJSON['message'] = "updateTest";
   workerJSON['type'] = type;
   workerJSON['subtype'] = subtype;
   workerJSON['options'] = options;
   testfunctionWorker_InteractiveTest.postMessage(workerJSON);
-
 }
 
 function inform_Worker_GetVisualisation(){
@@ -32,9 +63,6 @@ function calcPreviewTestFields(worker){
   workerJSON['message'] = "calcTestFields";
   worker.postMessage(workerJSON);
 }
-
-
-
 
 
 function inform_Worker_LoadRealWorldIMG(worker,url,imgIndex){
@@ -122,6 +150,8 @@ function inform_Worker_ColorblindSimulation(){
     testpreviewWorker_RealWorldData.postMessage(workerJSON);
     testfunctionWorker_InteractiveTest.postMessage(workerJSON);
 
+    testfunctionWorker_Report0.postMessage(workerJSON);
+
 
 }
 
@@ -152,6 +182,8 @@ function inform_Worker_ColorSettings(){
   testpreviewWorker_Collection.postMessage(workerJSON);
   testpreviewWorker_RealWorldData.postMessage(workerJSON);
   testfunctionWorker_InteractiveTest.postMessage(workerJSON);
+
+  testfunctionWorker_Report0.postMessage(workerJSON);
 }
 
 function inform_Worker_ColorMetrics(){
@@ -183,6 +215,8 @@ function inform_Worker_ColorMetrics(){
   testpreviewWorker_Collection.postMessage(workerJSON);
   testpreviewWorker_RealWorldData.postMessage(workerJSON);
   testfunctionWorker_InteractiveTest.postMessage(workerJSON);
+
+  testfunctionWorker_Report0.postMessage(workerJSON);
 }
 
 function inform_Worker_PathPlotBackgroundParams(){

@@ -56,3 +56,12 @@ var acknowlegmentsAdditional = [undefined,
 "This data set comes from the SciVis contest 2018 and includes the simulation data of asteroid impacts in deep ocean water.",
 "Lenna is a test image often used in the computer science of image processing. The image is popular because of its different areas of multifarious detail degree."
 ];
+
+
+/////////////////////////////////////////////////////////////////////////////
+/////// Report //////////////////////////////////////////////////////////////
+
+
+var reportOptions_ColorDif = 2; // 0=eu.Lab, 1=de94, 2=de2000, 3=din99
+var reportListTestInfo = [];
+var reportListTestField = [];

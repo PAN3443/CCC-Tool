@@ -193,7 +193,6 @@ function draw_FunctionTypeMirrored_CoordinateSystem(context,canvasHight,canvasWi
 
 }
 
-
 function draw_FunctionType(canvasID, exp, value_m, value_M, fctType){
 
   var lineWidth = 2;
@@ -361,8 +360,6 @@ function draw_FunctionType_CoordinateSystem(context,canvasHight,canvasWidth){
 
 }
 
-
-
 function draw_FunctionTypeTresh(canvasID, exp, fctType ){
 
   var lineWidth = 2;
@@ -451,8 +448,6 @@ function draw_FunctionTypeTresh(canvasID, exp, fctType ){
   draw_FunctionTypeTresh_CoordinateSystem(context,canvas.height,canvas.width);
 
 }
-
-
 
 function draw_FunctionTypeTresh_CoordinateSystem(context,canvasHight,canvasWidth){
 

@@ -6,7 +6,7 @@
 
 <div class="row" style="width:100%; background:rgb(80,80,80); padding-top:1vh; padding-bottom:1vh; border-top:0.2vh solid black; border-bottom:0.2vh solid black; box-sizing: border-box;" >
 
-  <p class="standardText" style="width:100%; margin-left:5vw; margin-right:1vw; width: 8vw; color:white; height:3.5vh; line-height:3.5vh;"> CMS (MyDesigns):</p>
+  <p class="standardText" style="width:100%; margin-left:5vw; margin-right:1vw; width: 8vw; color:white; height:3vh; line-height:3vh;"> CMS (MyDesigns):</p>
   <select id="id_TestSection_CMS_Select" style="width:10vw; height:3vh; line-height:3vh; border:0.2vh solid black;" onchange="selectTestCMS()">
 
   </select>
@@ -15,11 +15,11 @@
 
 </div>
 
-<div class="row" style="max-height:83vh; height:85vh; width:100vw; overflow:hidden;">
-    <div id="id_Test_FunctionCollection" style="width:100vw; height:85vh; overflow: scroll;">
+<div class="row" style="max-height:83vh; height:83vh; width:100vw; overflow:hidden;">
+    <div id="id_Test_FunctionCollection" style="width:100vw; height:84vh; overflow: scroll;">
 
     </div>
-    <div id="id_Test_TestDiv" style="width:0vw; height:85vh; background:rgb(240,240,240);">
+    <div id="id_Test_TestDiv" style="width:0vw; height:83vh; background:rgb(240,240,240);">
 
       <div class="row" style="width:100vw; margin:auto;">
 
@@ -60,7 +60,7 @@
 
             </div>
 
-            <div style=" width:100%; margin:auto; margin-top:1vh; height:auto; max-height:72vh; overflow-y: auto; padding-top:1vh; padding-bottom:1vh; padding-left:1vw; padding-right:1vw; background:rgb(230,230,230); border:0.2vh solid grey;">
+            <div style=" width:100%; margin:auto; margin-top:1vh; height:auto; max-height:65vh; overflow-y: auto; padding-top:1vh; padding-bottom:1vh; padding-left:1vw; padding-right:1vw; background:rgb(230,230,230); border:0.2vh solid grey;">
 
               <div id="id_TestPage_NewTest_JumpDiv" style="width:100%; display:none;">
                 <select id="id_TestPage_NewTest_JumpList" name="Jump List" size="5" style="width:100%; height:25vh; margin-top:1vh; background:white;" >
@@ -219,7 +219,6 @@
                 </select>
                 <button class="class_generalbutton" onclick="removeTopololyElement()" style="margin:auto; width: 50%; display:block;  margin-top:0.5vh;">Remove</button>
 
-
                 <hr>
 
                 <div class="row" style="width: 100%;  margin-top:0.5vh;">
@@ -241,16 +240,12 @@
                   <canvas id="id_TestPage_newTestTopologyCanvas"  style="width: 10vw; height: 10vw; border: 0.2vh solid grey; margin:auto; margin-right:0vw;"></canvas>
                 </div>
 
-
               </div>
 
               <div id="id_TestPage_newTestAcknowledgmentsDiv" class="width:100%;" >
 
                   <p id="id_TestPage_newTestAcknowledgmentsText" class="standardText" style="margin:auto; margin-left:0vw; max-width: 100%; "></p>
                 </div>
-
-
-
 
                 <div id="id_TestPage_newTestNoiseDiv" class="width:100%;">
 
@@ -325,19 +320,13 @@
                       </div>
                     </div>
 
-
-
                   </div>
                 </div>
 
-
             </div>
 
+            <button class="class_generalbutton" onclick="addTestToReport()" style="width:90%; margin-left:5%; margin-top:1vh; display:none;">Add To Report</button>
 
-            <div class="row" style="width:100%; margin-top:1vh; display:none;">
-              <button class="class_generalbutton" onclick="showTestSet()" style="width:30%; margin-left:17.5%;">Cancel</button>
-              <button class="class_generalbutton" onclick="addNewTest()" style="width:30%; margin-left:5%;">Add Test</button>
-            </div>
           </div>
 
         <div style="margin: auto; border:0.2vh solid black; display:block;">
@@ -411,19 +400,44 @@
       </div>
 
     </div>
+    <div id="id_Test_ReportDiv" style="display:flex; width:0vw; height:82vh; ">
+      <div style="width:20vw;">
+
+          <p class="standardText" style="font-weight:bold; margin-top: 2vh;  margin-left: 1vw;"> Test List: </p>
+
+          <div style="width:18vw; margin:auto; margin-top:1vh; height:auto; max-height:80vh; overflow-y: auto; padding-top:1vh; padding-bottom:1vh; padding-left:1vw; padding-right:1vw; background:rgb(230,230,230); border:0.2vh solid grey;">
+            <select id="id_TestPage_ReportList" name="Jump List" size="25" style="width:16vw; height:auto; background:white;" >
+
+            </select>
+
+            <button class="class_generalbutton" onclick="remove_Report()" style="width:16vw; margin-top:1vh;">Remove</button>
+          </div>
+      </div>
+      <div style="width:80vw; height: 82vh;  overflow-y:auto;">
+        <p class="standardText" style="font-weight:bold; width:100%; margin-top: 2vh; margin-bottom: 2vh; text-align: center;"> Report </p>
+
+          <canvas id="id_TestPage_Report0Canvas" style="margin: auto; width: 30vw; max-width: 50vh; height: 50vh; max-height: 30vw; background:red;">
+
+          </canvas>
+      </div>
+    </div>
 </div>
 
-<div class="row" style="height:7vh; padding-top:1vh; background:rgb(240,240,240); width:100%; border-top:0.2vh solid black; box-sizing: border-box;">
-  <div id="id_Test_pageSwitchLeft" class="class_generalbutton" onclick="switchTestDisplay(0)" style="margin-left:auto; width:2vw; margin-right:2vw;">
+
+<div class="row" style="height:auto; padding-top:1vh; padding-bottom:1vh; background:rgba(240,240,240,0.5); width:100%; border-top:0.2vh solid black; box-sizing: border-box;">
+  <div id="id_Test_pageSwitchLeft" class="class_generalbutton" onclick="switchToPreviousTest()" style="margin-left:auto; width:2vw; margin-right:2vw;">
     <<
   </div>
-  <div id="id_Test_pageSwitchStatusLeft" class="class_Test_ShowTestButton" onclick="switchTestDisplay(0)">
+  <div id="id_Test_pageSwitchStatus0" class="class_Test_ShowTestButton" onclick="switchTestDisplay(0)">
 
   </div>
-  <div id="id_Test_pageSwitchStatusRight" class="class_Test_ShowTestButton" onclick="switchTestDisplay(1)">
+  <div id="id_Test_pageSwitchStatus1" class="class_Test_ShowTestButton" onclick="switchTestDisplay(1)">
 
   </div>
-  <div id="id_Test_pageSwitchRight" class="class_generalbutton" onclick="switchTestDisplay(1)" style="margin-right:auto; width:2vw; margin-left:2vw;">
+  <div id="id_Test_pageSwitchStatus2" class="class_Test_ShowTestButton" style="visibility:hidden;" onclick="switchTestDisplay(2)">
+
+  </div>
+  <div id="id_Test_pageSwitchRight" class="class_generalbutton" onclick="switchToNextTest()" style="margin-right:auto; width:2vw; margin-left:2vw;">
     >>
   </div>
 </div>

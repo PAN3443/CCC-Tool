@@ -13,8 +13,7 @@ function workerEvent_DrawPreviewTestfunction(e) {
 
 function workerEvent_DrawTestfunction(e) {
 
-
-  switch (e.data.visType) {
+  switch (e.data.type) {
     case "pixel":
       var canvas = document.getElementById(e.data.canvasID);
       canvas.width = e.data.imageData.width;
@@ -51,7 +50,6 @@ function workerEvent_DrawTestfunction(e) {
     case "mesh":
       drawTransfered_Mesh(e.data.testMappingMeshData); // js/Front/Sections/Testing/3D_TestVis/testImageMapping.js
     break;
-
     case "noiseExample":
       var canvas = document.getElementById(e.data.canvasID);
       canvas.width = e.data.imageData.width;
@@ -61,7 +59,6 @@ function workerEvent_DrawTestfunction(e) {
       canvasContex.clearRect(0, 0, canvas.width, canvas.height);
       canvasContex.putImageData(e.data.imageData, 0, 0);
     break;
-
     case "noiseHisto":
       var canvas = document.getElementById(e.data.canvasID);
       var rect = canvas.getBoundingClientRect();
@@ -90,8 +87,44 @@ function workerEvent_DrawTestfunction(e) {
           canvasCtx.fillRect(currentPos,canvas.height-tmpHeight,rangeWidth,tmpHeight);
           currentPos+=rangeWidth;
       }
+    break;
+    case "sendTestfield":
+
+      reportListTestField[e.data.arrayIndex]=e.data.testField;
+
+      document.getElementById("id_Test_FunctionCollection").style.width = "0vw";
+      document.getElementById("id_Test_TestDiv").style.width = "0vw";
+      document.getElementById("id_Test_ReportDiv").style.width = "100vw";
+      document.getElementById("id_Test_pageSwitchStatus2").style.visibility = "visible";
+      document.getElementById("id_Test_pageSwitchStatus2").innerHTML = "&#x25C9;";
+      document.getElementById("id_Test_pageSwitchStatus0").innerHTML = "&#x25CE;";
+      document.getElementById("id_Test_pageSwitchStatus1").innerHTML = "&#x25CE;";
+      document.getElementById("id_Test_pageSwitchLeft").style.visibility = "visible";
+      document.getElementById("id_Test_pageSwitchRight").style.visibility = "hidden";
+      testingModus=2;
+
+      updateReportList(e.data.arrayIndex);
 
     break;
+  }
+
+}
+
+
+function workerEvent_GetReport(e){
+
+  switch (e.data.type) {
+    case 0:
+      var canvas = document.getElementById(e.data.canvasID);
+      canvas.width = e.data.imageData.width;
+      canvas.height = e.data.imageData.height;
+
+      var canvasContex = canvas.getContext("2d");
+      canvasContex.clearRect(0, 0, canvas.width, canvas.height);
+      canvasContex.putImageData(e.data.imageData, 0, 0);
+      break;
+    default:
+
   }
 
 }

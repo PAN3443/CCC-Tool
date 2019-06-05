@@ -15,3 +15,6 @@ var testpreviewWorker_Collection = new Worker("js/Front/Worker/workerFiles/Testi
 var testpreviewWorker_RealWorldData = new Worker("js/Front/Worker/workerFiles/Testing/worker_PreviewTesting.js");
 
 var testfunctionWorker_InteractiveTest = new Worker("js/Front/Worker/workerFiles/Testing/worker_SingleTesting.js");
+
+
+var testfunctionWorker_Report0 = new Worker("js/Front/Worker/workerFiles/Testing/worker_ReportTesting.js");
