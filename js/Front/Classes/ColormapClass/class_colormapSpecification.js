@@ -145,10 +145,8 @@ class class_CMS {
 
         switch (this.interpolationSpace) {
           case "rgb":
-
               var newColor = calcGradientLinear(color1.getRValue(),color1.getGValue(),color1.getBValue(),color2.getRValue(),color2.getGValue(),color2.getBValue(), tmpRatio);
               return new classColor_RGB(newColor[0],newColor[1],newColor[2]);
-
           case "hsv":
               var newColor = calcGradientHSV(color1.getHValue(),color1.getSValue(),color1.getVValue(),color2.getHValue(),color2.getSValue(),color2.getVValue(), tmpRatio);
               var tmpColor = new classColor_HSV(newColor[0],newColor[1],newColor[2]);

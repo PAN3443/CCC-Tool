@@ -325,7 +325,7 @@
 
             </div>
 
-            <button class="class_generalbutton" onclick="addTestToReport()" style="width:90%; margin-left:5%; margin-top:1vh; display:none;">Add To Report</button>
+            <button class="class_generalbutton" onclick="addTestToReport()" style="width:90%; margin-left:5%; margin-top:1vh;">Add To Report</button>
 
           </div>
 
@@ -416,9 +416,38 @@
       <div style="width:80vw; height: 82vh;  overflow-y:auto;">
         <p class="standardText" style="font-weight:bold; width:100%; margin-top: 2vh; margin-bottom: 2vh; text-align: center;"> Report </p>
 
-          <canvas id="id_TestPage_Report0Canvas" style="margin: auto; width: 30vw; max-width: 50vh; height: 50vh; max-height: 30vw; background:red;">
+          <div class="row">
+            <div id="id_TestPage_ReportOrginalCDiv" style="margin-left: auto; width: 25vw; max-width: 40vh; height: 40vh; max-height: 25vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
+              <canvas id="id_TestPage_ReportOrginalCCanvas" style="width: 100%; height: 100%;">
 
-          </canvas>
+              </canvas>
+            </div>
+            <div id="id_TestPage_ReportOrginalGDiv" style="margin-right: auto; width: 25vw; max-width: 40vh; height: 40vh; max-height: 25vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
+              <canvas id="id_TestPage_ReportOrginalGCanvas" style="width: 100%; height: 100%;">
+
+              </canvas>
+            </div>
+          </div>
+
+          <div class="row">
+            <div id="id_TestPage_Report0Div" style="margin-left: auto; width: 25vw; max-width: 40vh; height: 40vh; max-height: 25vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
+              <canvas id="id_TestPage_Report0Canvas" style="width: 100%; height: 100%;">
+
+              </canvas>
+            </div>
+            <div id="id_TestPage_Report1Div" style="width: 25vw; max-width: 40vh; height: 40vh; max-height: 25vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
+              <canvas id="id_TestPage_Report1Canvas" style="width: 100%; height: 100%;">
+
+              </canvas>
+            </div>
+            <div id="id_TestPage_Report2Div" style="margin-right: auto; width: 25vw; max-width: 40vh; height: 40vh; max-height: 25vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
+              <canvas id="id_TestPage_Report2Canvas" style="width: 100%; height: 100%;">
+
+              </canvas>
+            </div>
+          </div>
+
+
       </div>
     </div>
 </div>

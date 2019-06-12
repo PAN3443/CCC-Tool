@@ -145,7 +145,7 @@ function addTestToReport() {
     case 13:
       testLabel = "RealData";
       testSublabel = selectedRealWorldType;
-      optionList = selectedID;
+      optionList = document.getElementById("id_TestPage_FctSelection").selectedIndex;
       break;
   }
   reportListTestInfo.push([testLabel,testSublabel,optionList]);

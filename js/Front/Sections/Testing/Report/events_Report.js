@@ -47,3 +47,47 @@ function remove_Report(){
   }
 
 }
+
+
+function eventZoomReport(e){
+
+  var element = document.getElementById(e.target.id);
+
+  if(event.deltaY>0){
+    if(zoomStatus==100)
+    return;
+
+    zoomStatus-=10;
+  }
+
+  if(event.deltaY<0){
+    zoomStatus+=10;
+  }
+
+  changeReportZoom("id_TestPage_ReportOrginalCCanvas");
+  changeReportZoom("id_TestPage_ReportOrginalGCanvas");
+  changeReportZoom("id_TestPage_Report0Canvas");
+  changeReportZoom("id_TestPage_Report1Canvas");
+  changeReportZoom("id_TestPage_Report2Canvas");
+}
+
+function changeReportZoom(id){
+  document.getElementById(id).style.height = zoomStatus+"%";
+  document.getElementById(id).style.width = zoomStatus+"%";
+}
+
+function eventScrollReport(e){
+  var element = document.getElementById(e.target.id);
+  var scrollTop=element.scrollTop;
+  var scrollLeft=element.scrollLeft;
+  changeReportScroll("id_TestPage_ReportOrginalCDiv",scrollTop,scrollLeft);
+  changeReportScroll("id_TestPage_ReportOrginalGDiv",scrollTop,scrollLeft);
+  changeReportScroll("id_TestPage_Report0Div",scrollTop,scrollLeft);
+  changeReportScroll("id_TestPage_Report1Div",scrollTop,scrollLeft);
+  changeReportScroll("id_TestPage_Report2Div",scrollTop,scrollLeft);
+}
+
+function changeReportScroll(id,scrollTop,scrollLeft){
+  document.getElementById(id).scrollTop = scrollTop;
+  document.getElementById(id).scrollLeft = scrollLeft;
+}

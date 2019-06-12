@@ -125,6 +125,9 @@ function initWorker(){
   inform_Worker_ColorSettings();
   inform_Worker_ColorMetrics();
 
+  // Define CMS for Testing Report
+  testfunctionWorker_Report0.postMessage({'message':'defineReportCMS'});
+
   if(browserCanOffscreenCanvas)
     initOffscreenWorker(); // Global Events -> WorkerDependent -> others
 

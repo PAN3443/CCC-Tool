@@ -21,7 +21,12 @@
 #id_Test_PixelCanvas,
 #id_Test_PixelCanvasGrey,
 #id_Test_PixelCanvasFull,
-#id_Test_PixelCanvasGreyFull{
+#id_Test_PixelCanvasGreyFull,
+#id_TestPage_ReportOrginalCCanvas,
+#id_TestPage_ReportOrginalGCanvas,
+#id_TestPage_Report0Canvas,
+#id_TestPage_Report1Canvas,
+#id_TestPage_Report2Canvas{
   image-rendering: optimizeSpeed;             /* Older versions of FF*/
   image-rendering: -moz-crisp-edges;          /* FF 6.0+*/
   image-rendering: -webkit-optimize-contrast; /* Webkit (non standard naming)*/

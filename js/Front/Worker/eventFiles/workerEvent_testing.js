@@ -115,6 +115,8 @@ function workerEvent_GetReport(e){
 
   switch (e.data.type) {
     case 0:
+      console.log(e.data.canvasID);
+
       var canvas = document.getElementById(e.data.canvasID);
       canvas.width = e.data.imageData.width;
       canvas.height = e.data.imageData.height;

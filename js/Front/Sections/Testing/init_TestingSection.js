@@ -38,8 +38,22 @@ function init_Testing(){
   document.getElementById('id_Test_MeshVisDivGreyFull').addEventListener("mouseup", eventMapping_mouseup);
   document.getElementById("id_Test_MeshVisDivGreyFull").addEventListener("wheel", eventTestMapping_mousewheel);
 
-  document.getElementById('id_TestPage_NewJumpValue').addEventListener("keyup", newJumpTestStartPerEnter );
-
+  /// REPORT
+  document.getElementById('id_TestPage_ReportOrginalCCanvas').addEventListener("wheel", eventZoomReport);
+  document.getElementById('id_TestPage_ReportOrginalCDiv').addEventListener("scroll", eventScrollReport);
+  document.getElementById('id_TestPage_ReportOrginalCDiv').onwheel = function(){ return false; }
+  document.getElementById('id_TestPage_ReportOrginalGCanvas').addEventListener("wheel", eventZoomReport);
+  document.getElementById('id_TestPage_ReportOrginalGDiv').addEventListener("scroll", eventScrollReport);
+  document.getElementById('id_TestPage_ReportOrginalGDiv').onwheel = function(){ return false; }
+  document.getElementById('id_TestPage_Report0Canvas').addEventListener("wheel", eventZoomReport);
+  document.getElementById('id_TestPage_Report0Div').addEventListener("scroll", eventScrollReport);
+  document.getElementById('id_TestPage_Report0Div').onwheel = function(){ return false; }
+  document.getElementById('id_TestPage_Report1Canvas').addEventListener("wheel", eventZoomReport);
+  document.getElementById('id_TestPage_Report1Div').addEventListener("scroll", eventScrollReport);
+  document.getElementById('id_TestPage_Report1Div').onwheel = function(){ return false; }
+  document.getElementById('id_TestPage_Report2Canvas').addEventListener("wheel", eventZoomReport);
+  document.getElementById('id_TestPage_Report2Div').addEventListener("scroll", eventScrollReport);
+  document.getElementById('id_TestPage_Report2Div').onwheel = function(){ return false; }
 
   cccTest_NewJump_Options = [true,[0,1]];
   cccTest_NewRidgeValley_Options= [true,0,1,1,2,1,2,101,100];

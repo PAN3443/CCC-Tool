@@ -70,7 +70,6 @@ self.addEventListener('message', function(e) {
       self.importScripts('../../../Sections/Testing/Testfunctions/FctCollection/collection_other.js');
       self.importScripts('../../../Sections/Testing/Testfunctions/realWorldData.js');
 
-      // For Noise Field
       self.importScripts('../../../GlobalEvents/CMSColorGradient/calcGradientHSV.js');
       self.importScripts('../../../GlobalEvents/CMSColorGradient/calcGradientLinear.js');
 
@@ -171,14 +170,28 @@ self.addEventListener('message', function(e) {
       answerJSON['type'] = "sendTestfield";
       answerJSON['arrayIndex'] = e.data.arrayIndex;
       var testFieldArray = [];
-      for (var x = 0; x < testField.getXDim(); x++) {
-        var tmpArray = [];
-        for (var y = 0; y < testField.getYDim(); y++) {
-          var value = testField.getFieldValue(x,y);
-          tmpArray.push(value);
+
+      if(testField.getCellValues()){
+        for (var x = 0; x < testField.getXDim()-1; x++) {
+          var tmpArray = [];
+          for (var y = 0; y < testField.getYDim()-1; y++) {
+            var value = testField.getFieldValue(x,y);
+            tmpArray.push(value);
+          }
+          testFieldArray.push(tmpArray);
         }
-        testFieldArray.push(tmpArray);
       }
+      else {
+        for (var x = 0; x < testField.getXDim(); x++) {
+          var tmpArray = [];
+          for (var y = 0; y < testField.getYDim(); y++) {
+            var value = testField.getFieldValue(x,y);
+            tmpArray.push(value);
+          }
+          testFieldArray.push(tmpArray);
+        }
+      }
+
       answerJSON['testField'] = testFieldArray;
       self.postMessage(answerJSON);
     break;
