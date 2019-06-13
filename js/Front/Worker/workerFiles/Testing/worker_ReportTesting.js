@@ -85,26 +85,28 @@ self.addEventListener('message', function(e) {
       ratioDifCMS.pushKey(new class_Key(new classColorDIN99(86.74992752799066,-3.4687500000000013,25.166053771972656), new classColorDIN99(86.74992752799066,-3.4687500000000013,25.166053771972656), 0.2620538509705699, false));
       ratioDifCMS.pushKey(new class_Key(new classColorDIN99(61.129411174208734,20.093750000000004,25.90980377197265), new classColorDIN99(61.129411174208734,20.093750000000004,25.90980377197265), 0.6152160300563556, false));
       ratioDifCMS.pushKey(new class_Key(new classColorDIN99(28.529860414174685,30.656250000000004,10.291053771972658), undefined, 1, false));
+      ratioDifCMS.setAboveColor(new classColor_RGB(1.0,0,0));
+      ratioDifCMS.setBelowColor(new classColor_RGB(0,0,1.0));
+      ratioDifCMS.setInterpolationSpace("lab");
     break;
     case "Testfield":
       testfield = e.data.testfield;
       reportOptions_ColorDif= e.data.reportOptions_ColorDif;
-      testTensorFieldValues = calcValueDifField(testfield);
       colorfield = calcColorField();
-      testTensorFieldColorDif = calcColorDifField(colorfield,reportOptions_ColorDif);
+      sendReportOriginalImage();
+      sendReportGreyImage();
       startReportCalc();
     break;
     case "calcTensorField":
       reportOptions_ColorDif= e.data.reportOptions_ColorDif;
-      testTensorFieldValues = calcValueDifField(testfield);
       colorfield = calcColorField();
-      testTensorFieldColorDif = calcColorDifField(colorfield,reportOptions_ColorDif);
+      //sendReportOriginalImage();
       startReportCalc();
     break;
     case "calcReport":
       // new CMS
       colorfield = calcColorField();
-      testTensorFieldColorDif = calcColorDifField(colorfield,reportOptions_ColorDif);
+      sendReportOriginalImage();
       startReportCalc();
     break;
   default:
