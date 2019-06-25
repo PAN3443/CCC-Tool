@@ -55,6 +55,10 @@ function init_Testing(){
   document.getElementById('id_TestPage_Report2Div').addEventListener("scroll", eventScrollReport);
   document.getElementById('id_TestPage_Report2Div').onwheel = function(){ return false; }
 
+  document.getElementById('id_TestPage_ReportList').addEventListener("change", open_Report);
+
+
+  ////// Init interactive Tests
   cccTest_NewJump_Options = [true,[0,1]];
   cccTest_NewRidgeValley_Options= [true,0,1,1,2,1,2,101,100];
   cccTest_NewLocalExtrema_Options = [1,-1,0,true,101,101];

@@ -36,13 +36,30 @@ function remove_Report(){
   var selectedIndex = document.getElementById("id_TestPage_ReportList").selectedIndex;
 
   if(reportListTestField.length==1){
-    var reportListTestInfo = [];
-    var reportListTestField = [];
+    reportListTestInfo = [];
+    reportListTestField = [];
     document.getElementById("id_Test_pageSwitchStatus2").style.visibility = "hidden";
     testingModus=0;
     slideTestDisplayDivs();
   }
   else{
+
+    reportListTestInfo.splice(selectedIndex, 1);
+    reportListTestField.splice(selectedIndex, 1);
+    document.getElementById("id_TestPage_ReportList").innerHTML = "";
+    for (var i = 0; i < reportListTestField.length; i++) {
+      var option = document.createElement("option");
+      option.innerHTML = "Testfield "+i+" ("+reportListTestInfo[i][1]+")";
+      document.getElementById("id_TestPage_ReportList").add(option);
+    }
+
+    if(selectedIndex<reportListTestField.length){
+      document.getElementById("id_TestPage_ReportList").selectedIndex=selectedIndex;
+    }
+    else {
+      document.getElementById("id_TestPage_ReportList").selectedIndex=selectedIndex-1;
+    }
+
     updateReportList();
   }
 

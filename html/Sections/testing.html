@@ -406,46 +406,64 @@
           <p class="standardText" style="font-weight:bold; margin-top: 2vh;  margin-left: 1vw;"> Test List: </p>
 
           <div style="width:18vw; margin:auto; margin-top:1vh; height:auto; max-height:80vh; overflow-y: auto; padding-top:1vh; padding-bottom:1vh; padding-left:1vw; padding-right:1vw; background:rgb(230,230,230); border:0.2vh solid grey;">
-            <select id="id_TestPage_ReportList" name="Jump List" size="25" style="width:16vw; height:auto; background:white;" >
+            <select id="id_TestPage_ReportList" name="Jump List" size="20" style="width:16vw; height:auto; background:white;" >
 
             </select>
 
             <button class="class_generalbutton" onclick="remove_Report()" style="width:16vw; margin-top:1vh;">Remove</button>
           </div>
       </div>
-      <div style="width:80vw; height: 82vh;  overflow-y:auto;">
-        <p class="standardText" style="font-weight:bold; width:100%; margin-top: 2vh; margin-bottom: 2vh; text-align: center;"> Report </p>
+      <div style="width:80vw; height: 82vh;  overflow-y:auto; border-left: 0.2vh solid grey;">
+
+
+        <div class="class_ReportLabel">
+           Value-Color Difference Report
+        </div>
+
+
+        <div class="class_ReportOptionDiv">
+           <p class="standardText" style="font-weight:">Options:</p>
+        </div>
+
+          <div class="row" style="padding-bottom:0.5vh;">
+              <p class="standardText" style="margin-left: auto; text-align:center; width: 16vw; max-width: 35vh;"> Grey Scaled</p>
+              <p class="standardText" style="text-align:center; width: 16vw; max-width: 35vh;">CMS Colormapping</p>
+              <p class="standardText" style="text-align:center; width: 16vw; max-width: 35vh;">Ratio-Field (Value Difference)</p>
+              <p class="standardText" style="text-align:center; width: 16vw; max-width: 35vh;">Ratio-Field (Color Difference)</p>
+              <p class="standardText" style="margin-right: auto; text-align:center; width: 16vw; max-width: 35vh;">Subtraction Field </p>
+          </div>
 
           <div class="row">
-            <div id="id_TestPage_ReportOrginalCDiv" style="margin-left: auto; width: 25vw; max-width: 40vh; height: 40vh; max-height: 25vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
+            <div id="id_TestPage_ReportOrginalCDiv" style="margin-left: auto; width: 16vw; max-width: 35vh; height: 35vh; max-height: 16vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
               <canvas id="id_TestPage_ReportOrginalCCanvas" style="width: 100%; height: 100%;">
 
               </canvas>
             </div>
-            <div id="id_TestPage_ReportOrginalGDiv" style="margin-right: auto; width: 25vw; max-width: 40vh; height: 40vh; max-height: 25vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
+            <div id="id_TestPage_ReportOrginalGDiv" style="width: 16vw; max-width: 35vh; height: 35vh; max-height: 16vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
               <canvas id="id_TestPage_ReportOrginalGCanvas" style="width: 100%; height: 100%;">
 
               </canvas>
             </div>
-          </div>
-
-          <div class="row">
-            <div id="id_TestPage_Report0Div" style="margin-left: auto; width: 25vw; max-width: 40vh; height: 40vh; max-height: 25vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
+            <div id="id_TestPage_Report0Div" style="width: 16vw; max-width: 35vh; height: 35vh; max-height: 16vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
               <canvas id="id_TestPage_Report0Canvas" style="width: 100%; height: 100%;">
 
               </canvas>
             </div>
-            <div id="id_TestPage_Report1Div" style="width: 25vw; max-width: 40vh; height: 40vh; max-height: 25vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
+            <div id="id_TestPage_Report1Div" style="width: 16vw; max-width: 35vh; height: 35vh; max-height: 16vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
               <canvas id="id_TestPage_Report1Canvas" style="width: 100%; height: 100%;">
 
               </canvas>
             </div>
-            <div id="id_TestPage_Report2Div" style="margin-right: auto; width: 25vw; max-width: 40vh; height: 40vh; max-height: 25vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
+            <div id="id_TestPage_Report2Div" style="margin-right: auto; width: 16vw; max-width: 35vh; height: 35vh; max-height: 16vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
               <canvas id="id_TestPage_Report2Canvas" style="width: 100%; height: 100%;">
 
               </canvas>
             </div>
           </div>
+
+
+
+
 
 
       </div>
