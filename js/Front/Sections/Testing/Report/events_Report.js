@@ -1,4 +1,14 @@
 
+
+
+function activateTestSelectionDropdown() {
+    if(document.getElementById("id_dropDownTestSelection").style.display=="none")
+    document.getElementById("id_dropDownTestSelection").style.display="block";
+    else
+    document.getElementById("id_dropDownTestSelection").style.display="none";
+}
+
+
 function updateReportList(selectedIndex){
 
   document.getElementById("id_TestPage_ReportList").innerHTML = "";
@@ -22,6 +32,7 @@ function calc_Report(){
 }
 
 function open_Report(){
+  document.getElementById("id_dropDownTestSelection").style.display="none";
   var selectedIndex = document.getElementById("id_TestPage_ReportList").selectedIndex;
   inform_Worker_Testfield (testfunctionWorker_Report0,selectedIndex);
 

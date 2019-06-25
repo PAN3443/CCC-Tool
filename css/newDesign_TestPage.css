@@ -1,3 +1,19 @@
+
+.class_ReportTestSelectionDiv{
+  padding-top:1vh;
+  padding-bottom:1vh;
+  padding-left:1vw;
+  padding-right:1vw;
+  width:18vw;
+  display: none;
+  position: absolute;
+  left: 40%;
+  z-index: 101;
+  background-color: rgb(240, 240, 240);
+  border: 0.2vh solid black;
+  box-shadow: 0 0.25vh 0.25vh 0 rgba(0, 0, 0, 0.2), 0 0.15vh 0.15vh 0 rgba(0, 0, 0, 0.25);
+}
+
 .class_CCCTestfield_Setting{
 
   background: url(../img/Buttons/gear_wheel.png);
@@ -19,16 +35,16 @@
 
 .class_ReportLabel{
   width: 100%;
-  padding-top: 5vh;
-  padding-bottom: 5vh;
-  background: rgb(220,220,220);
+  padding-top: 3vh;
+  padding-bottom: 3vh;
+  background: rgb(200,200,200);
   text-align:center;
   vertical-align:middle;
   font-weight:bold;
-  font-size: 5vh;
-  line-height: 5vh;
-  margin-top: 2.5vh;
-  margin-bottom:2.5vh;
+  font-size: 3vh;
+  line-height: 3vh;
+  margin-top:2vh;
+  margin-bottom:2vh;
 }
 
 .class_ReportOptionDiv{
@@ -36,9 +52,9 @@
   /*width: auto;
   max-width: 80%;*/
   width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom:2.5vh;
+  margin-left: 10%;
+  margin-bottom:2vh;
+  margin-top:2vh;
   padding: 1vh;
   border: 0.2vh solid black;
   box-shadow: 0 0.25vh 0.25vh 0 rgba(0, 0, 0, 0.2), 0 0.15vh 0.15vh 0 rgba(0, 0, 0, 0.25);

@@ -234,6 +234,8 @@ var fctTest_NewValleyShaped_Options = [];
 /////////////////////////////////////////////////////////////////////////////
 /////// Report //////////////////////////////////////////////////////////////
 
+var reportColorValueDifColormap = new class_CMS();
+var hasDrawnReportCMS = false;
 
 var reportOptions_ColorDif = 2; // 0=eu.Lab, 1=de94, 2=de2000, 3=din99
 var reportListTestInfo = [];

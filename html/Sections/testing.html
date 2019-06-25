@@ -7,7 +7,7 @@
 <div class="row" style="width:100%; background:rgb(80,80,80); padding-top:1vh; padding-bottom:1vh; border-top:0.2vh solid black; border-bottom:0.2vh solid black; box-sizing: border-box;" >
 
   <p class="standardText" style="width:100%; margin-left:5vw; margin-right:1vw; width: 8vw; color:white; height:3vh; line-height:3vh;"> CMS (MyDesigns):</p>
-  <select id="id_TestSection_CMS_Select" style="width:10vw; height:3vh; line-height:3vh; border:0.2vh solid black;" onchange="selectTestCMS()">
+  <select id="id_TestSection_CMS_Select" style="width:10vw; height:3vh; line-height:3vh; border:0.2vh solid black; color:white;" onchange="selectTestCMS()">
 
   </select>
 
@@ -401,64 +401,116 @@
 
     </div>
     <div id="id_Test_ReportDiv" style="display:flex; width:0vw; height:82vh; ">
-      <div style="width:20vw;">
 
-          <p class="standardText" style="font-weight:bold; margin-top: 2vh;  margin-left: 1vw;"> Test List: </p>
+      <div style="width:100vw; height: 82vh;  overflow-y:auto; border-left: 0.2vh solid grey;">
 
-          <div style="width:18vw; margin:auto; margin-top:1vh; height:auto; max-height:80vh; overflow-y: auto; padding-top:1vh; padding-bottom:1vh; padding-left:1vw; padding-right:1vw; background:rgb(230,230,230); border:0.2vh solid grey;">
-            <select id="id_TestPage_ReportList" name="Jump List" size="20" style="width:16vw; height:auto; background:white;" >
+        <div class="class_ReportLabel" style="margin-top:0px;">
+           Selected Test
+        </div>
 
-            </select>
 
-            <button class="class_generalbutton" onclick="remove_Report()" style="width:16vw; margin-top:1vh;">Remove</button>
-          </div>
-      </div>
-      <div style="width:80vw; height: 82vh;  overflow-y:auto; border-left: 0.2vh solid grey;">
 
+        <div class="class_ReportOptionDiv">
+           <p class="standardText" style="font-weight:bold;">Test:</p>
+             <p style="color:grey; width:100%; text-align:center;">Display Test Information here!!!!</p>
+
+
+             <div style="width:100%; position: relative; display: inline-block;">
+               <div onclick="activateTestSelectionDropdown()" class="class_generalbutton" style="width:20%; margin-left: 40%; padding-left:1vw; padding-right:1vw; "> Change Test </div>
+
+               <div id="id_dropDownTestSelection" class="class_ReportTestSelectionDiv">
+
+                 <select id="id_TestPage_ReportList" name="Report Test List" size="20" style="width:16vw; height:auto; background:white;" >
+
+                 </select>
+
+                 <button class="class_generalbutton" onclick="remove_Report()" style="width:16vw; margin-top:1vh;">Remove Test</button>
+
+               </div>
+               <!--End Dropdown Container -->
+             </div>
+        </div>
 
         <div class="class_ReportLabel">
            Value-Color Difference Report
         </div>
 
-
         <div class="class_ReportOptionDiv">
-           <p class="standardText" style="font-weight:">Options:</p>
+           <p class="standardText" style="font-weight:bold;">Options:</p>
         </div>
 
-          <div class="row" style="padding-bottom:0.5vh;">
-              <p class="standardText" style="margin-left: auto; text-align:center; width: 16vw; max-width: 35vh;"> Grey Scaled</p>
-              <p class="standardText" style="text-align:center; width: 16vw; max-width: 35vh;">CMS Colormapping</p>
-              <p class="standardText" style="text-align:center; width: 16vw; max-width: 35vh;">Ratio-Field (Value Difference)</p>
-              <p class="standardText" style="text-align:center; width: 16vw; max-width: 35vh;">Ratio-Field (Color Difference)</p>
-              <p class="standardText" style="margin-right: auto; text-align:center; width: 16vw; max-width: 35vh;">Subtraction Field </p>
-          </div>
-
-          <div class="row">
-            <div id="id_TestPage_ReportOrginalCDiv" style="margin-left: auto; width: 16vw; max-width: 35vh; height: 35vh; max-height: 16vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
-              <canvas id="id_TestPage_ReportOrginalCCanvas" style="width: 100%; height: 100%;">
-
-              </canvas>
+          <div style="width:100%;">
+            <div class="row" style="padding-bottom:0.5vh; padding-top:0.5vh; background: rgb(25,25,25);">
+                <p class="standardText" style="margin-left: auto; text-align:center; color:white;  width: 20vw;"> Grey Scaled</p>
+                <p class="standardText" style="text-align:center; color:white; width: 20vw;">CMS Colormapping</p>
+                <p class="standardText" style="text-align:center; color:white; width: 20vw;">Ratio-Field (Value Difference)</p>
+                <p class="standardText" style="text-align:center; color:white; width: 20vw;">Ratio-Field (Color Difference)</p>
+                <p class="standardText" style="margin-right: auto; color:white; text-align:center;  width: 20vw;">Subtraction Field </p>
             </div>
-            <div id="id_TestPage_ReportOrginalGDiv" style="width: 16vw; max-width: 35vh; height: 35vh; max-height: 16vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
-              <canvas id="id_TestPage_ReportOrginalGCanvas" style="width: 100%; height: 100%;">
 
-              </canvas>
-            </div>
-            <div id="id_TestPage_Report0Div" style="width: 16vw; max-width: 35vh; height: 35vh; max-height: 16vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
-              <canvas id="id_TestPage_Report0Canvas" style="width: 100%; height: 100%;">
+            <div class="row">
+              <div id="id_TestPage_ReportOrginalCDiv" style="margin-left: auto; width: 20vw; height: 20vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
+                <canvas id="id_TestPage_ReportOrginalCCanvas" style="width: 100%; height: 100%;">
 
-              </canvas>
-            </div>
-            <div id="id_TestPage_Report1Div" style="width: 16vw; max-width: 35vh; height: 35vh; max-height: 16vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
-              <canvas id="id_TestPage_Report1Canvas" style="width: 100%; height: 100%;">
+                </canvas>
+              </div>
+              <div id="id_TestPage_ReportOrginalGDiv" style="width: 20vw; height: 20vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
+                <canvas id="id_TestPage_ReportOrginalGCanvas" style="width: 100%; height: 100%;">
 
-              </canvas>
-            </div>
-            <div id="id_TestPage_Report2Div" style="margin-right: auto; width: 16vw; max-width: 35vh; height: 35vh; max-height: 16vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
-              <canvas id="id_TestPage_Report2Canvas" style="width: 100%; height: 100%;">
+                </canvas>
+              </div>
+              <div id="id_TestPage_Report0Div" style="width: 20vw; height: 20vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
+                <canvas id="id_TestPage_Report0Canvas" style="width: 100%; height: 100%;">
 
-              </canvas>
+                </canvas>
+              </div>
+              <div id="id_TestPage_Report1Div" style="width: 20vw; height: 20vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
+                <canvas id="id_TestPage_Report1Canvas" style="width: 100%; height: 100%;">
+
+                </canvas>
+              </div>
+              <div id="id_TestPage_Report2Div" style="margin-right: auto; width: 20vw; height: 20vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
+                <canvas id="id_TestPage_Report2Canvas" style="width: 100%; height: 100%;">
+
+                </canvas>
+              </div>
             </div>
+
+            <div style="width:100%; display:flex;">
+              <div style="width:10%;">
+                <div id="id_TestPage_DifReportBelowColor" style="width:100%; border:0.2vh solid black; border-top:none; height:3vh;">
+
+                </div>
+                <div class="width:100%; height:5vh; border-right: 0.2vh solid black;">
+
+                </div>
+                <p class="standardText" style=" width:100%; text-align:center;"> Below (&#60;-1) </p>
+              </div>
+              <div style="width:80%;">
+                <canvas id="id_TestPage_DifReportColormap" style="width:100%; border:0.2vh solid black; border-top:none; height:3vh;">
+
+                </canvas>
+                <div class="width:50%; height:0.5vh; border-right: 0.2vh solid black;">
+
+                </div>
+                <div class="row" style="width:100%;">
+                  <p class="standardText" style="margin-left:auto;"> -1 </p>
+                  <p class="standardText" > 0 </p>
+                  <p class="standardText" style="margin-right:auto;"> 1 </p>
+                </div>
+              </div>
+              <div style="width:10%;">
+                <div id="id_TestPage_DifReportAboveColor" style="width:100%; border:0.2vh solid black; border-top:none; height:3vh;">
+
+                </div>
+                <div class="width:100%; height:0.5vh; border-left: 0.2vh solid black;">
+
+                </div>
+                <p class="standardText" style=" width:100%; text-align:center;"> Above (&#62;1) </p>
+              </div>
+            </div>
+
+
           </div>
 
 
