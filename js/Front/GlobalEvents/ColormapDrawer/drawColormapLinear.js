@@ -3,7 +3,14 @@ function drawCanvasColormap(canvasID, tmpCMS) { //1920,150
   // start
   var canvasObject = document.getElementById(canvasID);
   var canvasRect = canvasObject.getBoundingClientRect();
-  canvasObject.width = canvasRect.width;
+
+  if(canvasRect.width>1)
+    canvasObject.width = canvasRect.width;
+  else
+    canvasObject.width = 500;
+
+
+
   canvasObject.height = 1; //canvasRect.height;
 
   var canvasContex = canvasObject.getContext("2d");

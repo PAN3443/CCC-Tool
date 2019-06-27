@@ -16,8 +16,10 @@ function getRatioDifField(testfield, colorField, colorDifType){
 
   var tmpMin = Infinity;
   var tmpMax = -Infinity;
-  var tmpColorMin = undefined;
-  var tmpColorMax = undefined;
+  var tmpColorMin = Infinity;
+  var tmpColorMax = -Infinity;
+  var tmpShouldBeColorMin = undefined;
+  var tmpShouldBeColorMax = undefined;
 
   if(colorField.length==0)
   return [];
@@ -45,13 +47,17 @@ function getRatioDifField(testfield, colorField, colorDifType){
 
             if(tmpVal<tmpMin){
               tmpMin=tmpVal;
-              tmpColorMin=tmpColorDifVal;
+              tmpShouldBeColorMin=tmpColorDifVal;
             }
 
             if(tmpVal>tmpMax){
               tmpMax=tmpVal;
-              tmpColorMax=tmpColorDifVal;
+              tmpShouldBeColorMax=tmpColorDifVal;
             }
+
+            tmpColorMax=Math.max(tmpColorMax,tmpColorDifVal);
+            tmpColorMin=Math.min(tmpColorMin,tmpColorDifVal);
+
           }
 
           if(y!=yDim-1){
@@ -62,13 +68,16 @@ function getRatioDifField(testfield, colorField, colorDifType){
 
             if(tmpVal<tmpMin){
               tmpMin=tmpVal;
-              tmpColorMin=tmpColorDifVal;
+              tmpShouldBeColorMin=tmpColorDifVal;
             }
 
             if(tmpVal>tmpMax){
               tmpMax=tmpVal;
-              tmpColorMax=tmpColorDifVal;
+              tmpShouldBeColorMax=tmpColorDifVal;
             }
+
+            tmpColorMax=Math.max(tmpColorMax,tmpColorDifVal);
+            tmpColorMin=Math.min(tmpColorMin,tmpColorDifVal);
           }
 
           if(x!=xDim-1&&y!=yDim-1){
@@ -80,13 +89,16 @@ function getRatioDifField(testfield, colorField, colorDifType){
 
             if(tmpVal<tmpMin){
               tmpMin=tmpVal;
-              tmpColorMin=tmpColorDifVal;
+              tmpShouldBeColorMin=tmpColorDifVal;
             }
 
             if(tmpVal>tmpMax){
               tmpMax=tmpVal;
-              tmpColorMax=tmpColorDifVal;
+              tmpShouldBeColorMax=tmpColorDifVal;
             }
+
+            tmpColorMax=Math.max(tmpColorMax,tmpColorDifVal);
+            tmpColorMin=Math.min(tmpColorMin,tmpColorDifVal);
           }
 
           if(x!=0&&y!=yDim-1){
@@ -98,13 +110,16 @@ function getRatioDifField(testfield, colorField, colorDifType){
 
             if(tmpVal<tmpMin){
               tmpMin=tmpVal;
-              tmpColorMin=tmpColorDifVal;
+              tmpShouldBeColorMin=tmpColorDifVal;
             }
 
             if(tmpVal>tmpMax){
               tmpMax=tmpVal;
-              tmpColorMax=tmpColorDifVal;
+              tmpShouldBeColorMax=tmpColorDifVal;
             }
+
+            tmpColorMax=Math.max(tmpColorMax,tmpColorDifVal);
+            tmpColorMin=Math.min(tmpColorMin,tmpColorDifVal);
           }
         }
         if(tmpCDifArrayX.length!=0)
@@ -129,11 +144,20 @@ function getRatioDifField(testfield, colorField, colorDifType){
       ////////////////////////////////////////////
       ////  Step 2: Calc Ratio of Value Dif and Color Dif
       ////////////////////////////////////////////
-      
-      xColorDifArray = makeRatioField(xColorDifArray, tmpColorMin, tmpColorMax);
+
+
+      console.log("Min=",tmpShouldBeColorMin,"Max=",tmpShouldBeColorMax);
+
+      xColorDifArray = makeRatioField(xColorDifArray, tmpShouldBeColorMin, tmpShouldBeColorMax);
+      yColorDifArray = makeRatioField(yColorDifArray, tmpShouldBeColorMin, tmpShouldBeColorMax);
+      diagonal1ColorDifArray = makeRatioField(diagonal1ColorDifArray, tmpShouldBeColorMin, tmpShouldBeColorMax);
+      diagonal2ColorDifArray = makeRatioField(diagonal2ColorDifArray, tmpShouldBeColorMin, tmpShouldBeColorMax);//*/
+
+      /*xColorDifArray = makeRatioField(xColorDifArray, tmpColorMin, tmpColorMax);
       yColorDifArray = makeRatioField(yColorDifArray, tmpColorMin, tmpColorMax);
       diagonal1ColorDifArray = makeRatioField(diagonal1ColorDifArray, tmpColorMin, tmpColorMax);
-      diagonal2ColorDifArray = makeRatioField(diagonal2ColorDifArray, tmpColorMin, tmpColorMax);
+      diagonal2ColorDifArray = makeRatioField(diagonal2ColorDifArray, tmpColorMin, tmpColorMax);//*/
+
       xDifArray = makeRatioField(xDifArray, tmpMin, tmpMax);
       yDifArray = makeRatioField(yDifArray, tmpMin, tmpMax);
       diagonal1DifArray = makeRatioField(diagonal1DifArray, tmpMin, tmpMax);
@@ -167,13 +191,18 @@ function getRatioDifField(testfield, colorField, colorDifType){
       ////  Step 5: Create Field
       ////////////////////////////////////////////
 
-      var newXDim = testfield.length*3-2;
+      /*var newXDim = testfield.length*3-2;
       var newYDim = testfield[0].length*3-2;
       var maxHeightIndex = newYDim - 1;
 
       var ratioColorDifField=new ImageData(newXDim, newYDim);
       var ratioValueDifField=new ImageData(newXDim, newYDim);
-      var ratioDifField =new ImageData(newXDim, newYDim);
+      var ratioDifField =new ImageData(newXDim, newYDim);*/
+
+      var maxHeightIndex = yDim - 1;
+      var ratioColorDifField=new ImageData(xDim, yDim);
+      var ratioValueDifField=new ImageData(xDim, yDim);
+      var ratioDifField =new ImageData(xDim, yDim);
 
       // Ratio Dif Cell
       //////////////////////////
@@ -203,8 +232,8 @@ function getRatioDifField(testfield, colorField, colorDifType){
           var maxRatioV = undefined;
           var maxRatioC = undefined;
 
-          var mIndexX = x*3;
-          var mIndexY = y*3;
+          /*var mIndexX = x*3;
+          var mIndexY = y*3;*/
           // isEdgeElement or isSideElement
           if(x==0){
             if(y==0){
@@ -216,19 +245,19 @@ function getRatioDifField(testfield, colorField, colorDifType){
               else
                 maxABSRatio = tmpMax;
 
-              setColorToImgData(ratioDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_subyDifArray[x][y]);
+              /*setColorToImgData(ratioDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_subyDifArray[x][y]);
               setColorToImgData(ratioDifField,mIndexX+1,mIndexY+1,maxHeightIndex,newXDim,color_subdiagonal1DifArray[x][y]);
-              setColorToImgData(ratioDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_subxDifArray[x][y]);
+              setColorToImgData(ratioDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_subxDifArray[x][y]);*/
 
               maxRatioV = Math.max(yDifArray[x][y],diagonal1DifArray[x][y],xDifArray[x][y]);
-              setColorToImgData(ratioValueDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_yDifArray[x][y]);
+              /*setColorToImgData(ratioValueDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_yDifArray[x][y]);
               setColorToImgData(ratioValueDifField,mIndexX+1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal1DifArray[x][y]);
-              setColorToImgData(ratioValueDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_xDifArray[x][y]);
+              setColorToImgData(ratioValueDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_xDifArray[x][y]);*/
 
               maxRatioC = Math.max(yColorDifArray[x][y],diagonal1ColorDifArray[x][y],xColorDifArray[x][y]);
-              setColorToImgData(ratioColorDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_yColorDifArray[x][y]);
+              /*setColorToImgData(ratioColorDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_yColorDifArray[x][y]);
               setColorToImgData(ratioColorDifField,mIndexX+1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal1ColorDifArray[x][y]);
-              setColorToImgData(ratioColorDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_xColorDifArray[x][y]);
+              setColorToImgData(ratioColorDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_xColorDifArray[x][y]);*/
             }
             else if (y==yDim-1) {
               // corner leftTop
@@ -238,19 +267,19 @@ function getRatioDifField(testfield, colorField, colorDifType){
                 maxABSRatio = tmpMin;
               else
                 maxABSRatio = tmpMax;
-              setColorToImgData(ratioDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_subxDifArray[x][y]);
+              /*setColorToImgData(ratioDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_subxDifArray[x][y]);
               setColorToImgData(ratioDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_subyDifArray[x][y-1]);
-              setColorToImgData(ratioDifField,mIndexX+1,mIndexY-1,maxHeightIndex,newXDim,color_subdiagonal2DifArray[x][y-1]);
+              setColorToImgData(ratioDifField,mIndexX+1,mIndexY-1,maxHeightIndex,newXDim,color_subdiagonal2DifArray[x][y-1]);*/
 
               maxRatioV = Math.max(xDifArray[x][y],yDifArray[x][y-1],diagonal2DifArray[x][y-1]);
-              setColorToImgData(ratioValueDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_xDifArray[x][y]);
+              /*setColorToImgData(ratioValueDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_xDifArray[x][y]);
               setColorToImgData(ratioValueDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_yDifArray[x][y-1]);
-              setColorToImgData(ratioValueDifField,mIndexX+1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal2DifArray[x][y-1]);
+              setColorToImgData(ratioValueDifField,mIndexX+1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal2DifArray[x][y-1]);*/
 
               maxRatioC = Math.max(xColorDifArray[x][y],yColorDifArray[x][y-1],diagonal2ColorDifArray[x][y-1]);
-              setColorToImgData(ratioColorDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_xColorDifArray[x][y]);
+              /*setColorToImgData(ratioColorDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_xColorDifArray[x][y]);
               setColorToImgData(ratioColorDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_yColorDifArray[x][y-1]);
-              setColorToImgData(ratioColorDifField,mIndexX+1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal2ColorDifArray[x][y-1]);
+              setColorToImgData(ratioColorDifField,mIndexX+1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal2ColorDifArray[x][y-1]);*/
             }
             else {
               // left side
@@ -261,25 +290,25 @@ function getRatioDifField(testfield, colorField, colorDifType){
                 maxABSRatio = tmpMin;
               else
                 maxABSRatio = tmpMax;
-              setColorToImgData(ratioDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_subyDifArray[x][y]);
+              /*setColorToImgData(ratioDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_subyDifArray[x][y]);
               setColorToImgData(ratioDifField,mIndexX+1,mIndexY+1,maxHeightIndex,newXDim,color_subdiagonal1DifArray[x][y]);
               setColorToImgData(ratioDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_subxDifArray[x][y]);
               setColorToImgData(ratioDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_subyDifArray[x][y-1]);
-              setColorToImgData(ratioDifField,mIndexX+1,mIndexY-1,maxHeightIndex,newXDim,color_subdiagonal2DifArray[x][y-1]);
+              setColorToImgData(ratioDifField,mIndexX+1,mIndexY-1,maxHeightIndex,newXDim,color_subdiagonal2DifArray[x][y-1]);*/
 
               maxRatioV = Math.max(yDifArray[x][y],diagonal1DifArray[x][y],xDifArray[x][y],yDifArray[x][y-1],diagonal2DifArray[x][y-1]);
-              setColorToImgData(ratioValueDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_yDifArray[x][y]);
+              /*setColorToImgData(ratioValueDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_yDifArray[x][y]);
               setColorToImgData(ratioValueDifField,mIndexX+1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal1DifArray[x][y]);
               setColorToImgData(ratioValueDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_xDifArray[x][y]);
               setColorToImgData(ratioValueDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_yDifArray[x][y-1]);
-              setColorToImgData(ratioValueDifField,mIndexX+1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal2DifArray[x][y-1]);
+              setColorToImgData(ratioValueDifField,mIndexX+1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal2DifArray[x][y-1]);*/
 
               maxRatioC = Math.max(yColorDifArray[x][y],diagonal1ColorDifArray[x][y],xColorDifArray[x][y],yColorDifArray[x][y-1],diagonal2ColorDifArray[x][y-1]);
-              setColorToImgData(ratioColorDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_yColorDifArray[x][y]);
+              /*setColorToImgData(ratioColorDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_yColorDifArray[x][y]);
               setColorToImgData(ratioColorDifField,mIndexX+1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal1ColorDifArray[x][y]);
               setColorToImgData(ratioColorDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_xColorDifArray[x][y]);
               setColorToImgData(ratioColorDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_yColorDifArray[x][y-1]);
-              setColorToImgData(ratioColorDifField,mIndexX+1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal2ColorDifArray[x][y-1]);
+              setColorToImgData(ratioColorDifField,mIndexX+1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal2ColorDifArray[x][y-1]);*/
             }
           }
           else if(x==xDim-1){
@@ -292,19 +321,19 @@ function getRatioDifField(testfield, colorField, colorDifType){
               else
                 maxABSRatio = tmpMax;
 
-              setColorToImgData(ratioDifField,mIndexX-1,mIndexY+1,maxHeightIndex,newXDim,color_subdiagonal2DifArray[x-1][y]);
+              /*setColorToImgData(ratioDifField,mIndexX-1,mIndexY+1,maxHeightIndex,newXDim,color_subdiagonal2DifArray[x-1][y]);
               setColorToImgData(ratioDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_subyDifArray[x][y]);
-              setColorToImgData(ratioDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_subxDifArray[x-1][y]);
+              setColorToImgData(ratioDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_subxDifArray[x-1][y]);*/
 
               maxRatioV = Math.max(diagonal2DifArray[x-1][y],yDifArray[x][y],xDifArray[x-1][y]);
-              setColorToImgData(ratioValueDifField,mIndexX-1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal2DifArray[x-1][y]);
+              /*setColorToImgData(ratioValueDifField,mIndexX-1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal2DifArray[x-1][y]);
               setColorToImgData(ratioValueDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_yDifArray[x][y]);
-              setColorToImgData(ratioValueDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_xDifArray[x-1][y]);
+              setColorToImgData(ratioValueDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_xDifArray[x-1][y]);*/
 
               maxRatioC = Math.max(diagonal2ColorDifArray[x-1][y],yColorDifArray[x][y],xColorDifArray[x-1][y]);
-              setColorToImgData(ratioColorDifField,mIndexX-1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal2ColorDifArray[x-1][y]);
+              /*setColorToImgData(ratioColorDifField,mIndexX-1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal2ColorDifArray[x-1][y]);
               setColorToImgData(ratioColorDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_yColorDifArray[x][y]);
-              setColorToImgData(ratioColorDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_xColorDifArray[x-1][y]);
+              setColorToImgData(ratioColorDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_xColorDifArray[x-1][y]);*/
             }
             else if (y==yDim-1) {
               // corner
@@ -314,19 +343,19 @@ function getRatioDifField(testfield, colorField, colorDifType){
                 maxABSRatio = tmpMin;
               else
                 maxABSRatio = tmpMax;
-              setColorToImgData(ratioDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_subxDifArray[x-1][y]);
+              /*setColorToImgData(ratioDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_subxDifArray[x-1][y]);
               setColorToImgData(ratioDifField,mIndexX-1,mIndexY-1,maxHeightIndex,newXDim,color_subdiagonal1DifArray[x-1][y-1]);
-              setColorToImgData(ratioDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_subyDifArray[x][y-1]);
+              setColorToImgData(ratioDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_subyDifArray[x][y-1]);*/
 
               maxRatioV = Math.max(xDifArray[x-1][y],diagonal1DifArray[x-1][y-1],yDifArray[x][y-1]);
-              setColorToImgData(ratioValueDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_xDifArray[x-1][y]);
+              /*setColorToImgData(ratioValueDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_xDifArray[x-1][y]);
               setColorToImgData(ratioValueDifField,mIndexX-1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal1DifArray[x-1][y-1]);
-              setColorToImgData(ratioValueDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_yDifArray[x][y-1]);
+              setColorToImgData(ratioValueDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_yDifArray[x][y-1]);*/
 
               maxRatioC = Math.max(xColorDifArray[x-1][y],diagonal2ColorDifArray[x-1][y-1],yColorDifArray[x][y-1]);
-              setColorToImgData(ratioColorDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_xColorDifArray[x-1][y]);
+              /*setColorToImgData(ratioColorDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_xColorDifArray[x-1][y]);
               setColorToImgData(ratioColorDifField,mIndexX-1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal1ColorDifArray[x-1][y-1]);
-              setColorToImgData(ratioColorDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_yColorDifArray[x][y-1]);
+              setColorToImgData(ratioColorDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_yColorDifArray[x][y-1]);*/
             }
             else {
               // right side
@@ -336,25 +365,25 @@ function getRatioDifField(testfield, colorField, colorDifType){
                 maxABSRatio = tmpMin;
               else
                 maxABSRatio = tmpMax;
-              setColorToImgData(ratioDifField,mIndexX-1,mIndexY+1,maxHeightIndex,newXDim,color_subdiagonal2DifArray[x-1][y]);
+              /*setColorToImgData(ratioDifField,mIndexX-1,mIndexY+1,maxHeightIndex,newXDim,color_subdiagonal2DifArray[x-1][y]);
               setColorToImgData(ratioDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_subyDifArray[x][y]);
               setColorToImgData(ratioDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_subxDifArray[x-1][y]);
               setColorToImgData(ratioDifField,mIndexX-1,mIndexY-1,maxHeightIndex,newXDim,color_subdiagonal1DifArray[x-1][y-1]);
-              setColorToImgData(ratioDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_subyDifArray[x][y-1]);
+              setColorToImgData(ratioDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_subyDifArray[x][y-1]);*/
 
               maxRatioV = Math.max(diagonal2DifArray[x-1][y],yDifArray[x][y],xDifArray[x-1][y],diagonal1DifArray[x-1][y-1],yDifArray[x][y-1]);
-              setColorToImgData(ratioValueDifField,mIndexX-1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal2DifArray[x-1][y]);
+              /*setColorToImgData(ratioValueDifField,mIndexX-1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal2DifArray[x-1][y]);
               setColorToImgData(ratioValueDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_yDifArray[x][y]);
               setColorToImgData(ratioValueDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_xDifArray[x-1][y]);
               setColorToImgData(ratioValueDifField,mIndexX-1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal1DifArray[x-1][y-1]);
-              setColorToImgData(ratioValueDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_yDifArray[x][y-1]);
+              setColorToImgData(ratioValueDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_yDifArray[x][y-1]);*/
 
               maxRatioC = Math.max(diagonal2ColorDifArray[x-1][y],yColorDifArray[x][y],xColorDifArray[x-1][y],diagonal2ColorDifArray[x-1][y-1],yColorDifArray[x][y-1]);
-              setColorToImgData(ratioColorDifField,mIndexX-1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal2ColorDifArray[x-1][y]);
+              /*setColorToImgData(ratioColorDifField,mIndexX-1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal2ColorDifArray[x-1][y]);
               setColorToImgData(ratioColorDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_yColorDifArray[x][y]);
               setColorToImgData(ratioColorDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_xColorDifArray[x-1][y]);
               setColorToImgData(ratioColorDifField,mIndexX-1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal1ColorDifArray[x-1][y-1]);
-              setColorToImgData(ratioColorDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_yColorDifArray[x][y-1]);
+              setColorToImgData(ratioColorDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_yColorDifArray[x][y-1]);*/
              }
           }
           else {
@@ -366,25 +395,25 @@ function getRatioDifField(testfield, colorField, colorDifType){
                 maxABSRatio = tmpMin;
               else
                 maxABSRatio = tmpMax;
-              setColorToImgData(ratioDifField,mIndexX-1,mIndexY+1,maxHeightIndex,newXDim,color_subdiagonal2DifArray[x-1][y]);
+              /*setColorToImgData(ratioDifField,mIndexX-1,mIndexY+1,maxHeightIndex,newXDim,color_subdiagonal2DifArray[x-1][y]);
               setColorToImgData(ratioDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_subyDifArray[x][y]);
               setColorToImgData(ratioDifField,mIndexX+1,mIndexY+1,maxHeightIndex,newXDim,color_subdiagonal1DifArray[x][y]);
               setColorToImgData(ratioDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_subxDifArray[x-1][y]);
-              setColorToImgData(ratioDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_subxDifArray[x][y]);
+              setColorToImgData(ratioDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_subxDifArray[x][y]);*/
 
               maxRatioV = Math.max(diagonal2DifArray[x-1][y],yDifArray[x][y],diagonal1DifArray[x][y],xDifArray[x-1][y],xDifArray[x][y]);
-              setColorToImgData(ratioValueDifField,mIndexX-1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal2DifArray[x-1][y]);
+              /*setColorToImgData(ratioValueDifField,mIndexX-1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal2DifArray[x-1][y]);
               setColorToImgData(ratioValueDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_yDifArray[x][y]);
               setColorToImgData(ratioValueDifField,mIndexX+1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal1DifArray[x][y]);
               setColorToImgData(ratioValueDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_xDifArray[x-1][y]);
-              setColorToImgData(ratioValueDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_xDifArray[x][y]);
+              setColorToImgData(ratioValueDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_xDifArray[x][y]);*/
 
               maxRatioC = Math.max(diagonal2ColorDifArray[x-1][y],yColorDifArray[x][y],diagonal1ColorDifArray[x][y],xColorDifArray[x-1][y],xColorDifArray[x][y]);
-              setColorToImgData(ratioColorDifField,mIndexX-1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal2ColorDifArray[x-1][y]);
+              /*setColorToImgData(ratioColorDifField,mIndexX-1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal2ColorDifArray[x-1][y]);
               setColorToImgData(ratioColorDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_yColorDifArray[x][y]);
               setColorToImgData(ratioColorDifField,mIndexX+1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal1ColorDifArray[x][y]);
               setColorToImgData(ratioColorDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_xColorDifArray[x-1][y]);
-              setColorToImgData(ratioColorDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_xColorDifArray[x][y]);
+              setColorToImgData(ratioColorDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_xColorDifArray[x][y]);*/
             }
             else if(y==yDim-1){
               // top side
@@ -394,25 +423,25 @@ function getRatioDifField(testfield, colorField, colorDifType){
                 maxABSRatio = tmpMin;
               else
                 maxABSRatio = tmpMax;
-              setColorToImgData(ratioDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_subxDifArray[x-1][y]);
+              /*setColorToImgData(ratioDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_subxDifArray[x-1][y]);
               setColorToImgData(ratioDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_subxDifArray[x][y]);
               setColorToImgData(ratioDifField,mIndexX-1,mIndexY-1,maxHeightIndex,newXDim,color_subdiagonal1DifArray[x-1][y-1]);
               setColorToImgData(ratioDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_subyDifArray[x][y-1]);
-              setColorToImgData(ratioDifField,mIndexX+1,mIndexY-1,maxHeightIndex,newXDim,color_subdiagonal2DifArray[x][y-1]);
+              setColorToImgData(ratioDifField,mIndexX+1,mIndexY-1,maxHeightIndex,newXDim,color_subdiagonal2DifArray[x][y-1]);*/
 
               maxRatioV = Math.max(xDifArray[x-1][y],xDifArray[x][y],diagonal1DifArray[x-1][y-1],yDifArray[x][y-1],diagonal2DifArray[x][y-1]);
-              setColorToImgData(ratioValueDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_xDifArray[x-1][y]);
+              /*setColorToImgData(ratioValueDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_xDifArray[x-1][y]);
               setColorToImgData(ratioValueDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_xDifArray[x][y]);
               setColorToImgData(ratioValueDifField,mIndexX-1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal1DifArray[x-1][y-1]);
               setColorToImgData(ratioValueDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_yDifArray[x][y-1]);
-              setColorToImgData(ratioValueDifField,mIndexX+1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal2DifArray[x][y-1]);
+              setColorToImgData(ratioValueDifField,mIndexX+1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal2DifArray[x][y-1]);*/
 
               maxRatioC = Math.max(xColorDifArray[x-1][y],xColorDifArray[x][y],diagonal2ColorDifArray[x-1][y-1],yColorDifArray[x][y-1],diagonal2ColorDifArray[x][y-1]);
-              setColorToImgData(ratioColorDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_xColorDifArray[x-1][y]);
+              /*setColorToImgData(ratioColorDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_xColorDifArray[x-1][y]);
               setColorToImgData(ratioColorDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_xColorDifArray[x][y]);
               setColorToImgData(ratioColorDifField,mIndexX-1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal1ColorDifArray[x-1][y-1]);
               setColorToImgData(ratioColorDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_yColorDifArray[x][y-1]);
-              setColorToImgData(ratioColorDifField,mIndexX+1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal2ColorDifArray[x][y-1]);
+              setColorToImgData(ratioColorDifField,mIndexX+1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal2ColorDifArray[x][y-1]);*/
             }
             else{
               // isInsideElement
@@ -422,43 +451,49 @@ function getRatioDifField(testfield, colorField, colorDifType){
                 maxABSRatio = tmpMin;
               else
                 maxABSRatio = tmpMax;
-              setColorToImgData(ratioDifField,mIndexX-1,mIndexY+1,maxHeightIndex,newXDim,color_subdiagonal2DifArray[x-1][y]);
+              /*setColorToImgData(ratioDifField,mIndexX-1,mIndexY+1,maxHeightIndex,newXDim,color_subdiagonal2DifArray[x-1][y]);
               setColorToImgData(ratioDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_subyDifArray[x][y]);
               setColorToImgData(ratioDifField,mIndexX+1,mIndexY+1,maxHeightIndex,newXDim,color_subdiagonal1DifArray[x][y]);
               setColorToImgData(ratioDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_subxDifArray[x-1][y]);
               setColorToImgData(ratioDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_subxDifArray[x][y]);
               setColorToImgData(ratioDifField,mIndexX-1,mIndexY-1,maxHeightIndex,newXDim,color_subdiagonal1DifArray[x-1][y-1]);
               setColorToImgData(ratioDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_subyDifArray[x][y-1]);
-              setColorToImgData(ratioDifField,mIndexX+1,mIndexY-1,maxHeightIndex,newXDim,color_subdiagonal2DifArray[x][y-1]);
+              setColorToImgData(ratioDifField,mIndexX+1,mIndexY-1,maxHeightIndex,newXDim,color_subdiagonal2DifArray[x][y-1]);*/
 
               maxRatioV = Math.max(diagonal2DifArray[x-1][y],yDifArray[x][y],diagonal1DifArray[x][y],xDifArray[x-1][y],xDifArray[x][y],diagonal1DifArray[x-1][y-1],yDifArray[x][y-1],diagonal2DifArray[x][y-1]);
-              setColorToImgData(ratioValueDifField,mIndexX-1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal2DifArray[x-1][y]);
+              /*setColorToImgData(ratioValueDifField,mIndexX-1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal2DifArray[x-1][y]);
               setColorToImgData(ratioValueDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_yDifArray[x][y]);
               setColorToImgData(ratioValueDifField,mIndexX+1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal1DifArray[x][y]);
               setColorToImgData(ratioValueDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_xDifArray[x-1][y]);
               setColorToImgData(ratioValueDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_xDifArray[x][y]);
               setColorToImgData(ratioValueDifField,mIndexX-1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal1DifArray[x-1][y-1]);
               setColorToImgData(ratioValueDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_yDifArray[x][y-1]);
-              setColorToImgData(ratioValueDifField,mIndexX+1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal2DifArray[x][y-1]);
+              setColorToImgData(ratioValueDifField,mIndexX+1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal2DifArray[x][y-1]);*/
 
               maxRatioC = Math.max(diagonal2ColorDifArray[x-1][y],yColorDifArray[x][y],diagonal1ColorDifArray[x][y],xColorDifArray[x-1][y],xColorDifArray[x][y],diagonal2ColorDifArray[x-1][y-1],yColorDifArray[x][y-1],diagonal2ColorDifArray[x][y-1]);
-              setColorToImgData(ratioColorDifField,mIndexX-1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal2ColorDifArray[x-1][y]);
+              /*setColorToImgData(ratioColorDifField,mIndexX-1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal2ColorDifArray[x-1][y]);
               setColorToImgData(ratioColorDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_yColorDifArray[x][y]);
               setColorToImgData(ratioColorDifField,mIndexX+1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal1ColorDifArray[x][y]);
               setColorToImgData(ratioColorDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_xColorDifArray[x-1][y]);
               setColorToImgData(ratioColorDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_xColorDifArray[x][y]);
               setColorToImgData(ratioColorDifField,mIndexX-1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal1ColorDifArray[x-1][y-1]);
               setColorToImgData(ratioColorDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_yColorDifArray[x][y-1]);
-              setColorToImgData(ratioColorDifField,mIndexX+1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal2ColorDifArray[x][y-1]);
+              setColorToImgData(ratioColorDifField,mIndexX+1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal2ColorDifArray[x][y-1]);*/
 
             }
           }
 
-          setColorToImgData(ratioDifField,mIndexX,mIndexY,maxHeightIndex,newXDim,ratioDifCMS.calculateColor(maxABSRatio));
+          /*setColorToImgData(ratioDifField,mIndexX,mIndexY,maxHeightIndex,newXDim,ratioDifCMS.calculateColor(maxABSRatio));
           setColorToImgData(ratioValueDifField,mIndexX,mIndexY,maxHeightIndex,newXDim,ratioDifCMS.calculateColor(maxRatioV));
-          setColorToImgData(ratioColorDifField,mIndexX,mIndexY,maxHeightIndex,newXDim,ratioDifCMS.calculateColor(maxRatioC));
+          setColorToImgData(ratioColorDifField,mIndexX,mIndexY,maxHeightIndex,newXDim,ratioDifCMS.calculateColor(maxRatioC));*/
+
+          setColorToImgData(ratioDifField,x,y,maxHeightIndex,xDim,ratioDifCMS.calculateColor(maxABSRatio));
+          setColorToImgData(ratioValueDifField,x,y,maxHeightIndex,xDim,ratioDifCMS.calculateColor(maxRatioV));
+          setColorToImgData(ratioColorDifField,x,y,maxHeightIndex,xDim,ratioDifCMS.calculateColor(maxRatioC));
         }
       }
+
+
 
       return [ratioValueDifField,ratioColorDifField,ratioDifField];
 
