@@ -98,19 +98,7 @@ self.addEventListener('message', function(e) {
 
    case "init":
       self.importScripts('../../processingCases.js');
-      // Colors
-      self.importScripts('../../../Classes/ColormapClass/class_Colorspace_RGB.js');
-      self.importScripts('../../../Classes/ColormapClass/class_Colorspace_XYZ.js');
-      self.importScripts('../../../Classes/ColormapClass/class_Colorspace_LMS.js');
-      self.importScripts('../../../Classes/ColormapClass/class_Colorspace_HSV.js');
-      self.importScripts('../../../Classes/ColormapClass/class_Colorspace_LAB.js');
-      self.importScripts('../../../Classes/ColormapClass/class_Colorspace_DIN99.js');
-
-      self.importScripts('../../../Classes/ColormapClass/class_colormapSpecification.js');
-      self.importScripts('../../../Classes/ColormapClass/class_Colormap_Key.js');
-      self.importScripts('../../../Classes/ColormapClass/class_Colormap_Interval.js');
-      self.importScripts('../../../Classes/ColormapClass/class_Colormap_Probe.js');
-      self.importScripts('../../../Classes/ColormapClass/class_Colormap_ProbeSet.js');
+      worker_LoadColorClasses();
 
       self.importScripts('../../../GlobalEvents/Helpers/canvasHelpers.js');
       self.importScripts('../../../GlobalEvents/Helpers/calcColordifference.js');
@@ -126,7 +114,7 @@ self.addEventListener('message', function(e) {
       self.importScripts('../../../Sections/Edit/PathPlot/drawPathPlot/drawPathPlotHelpers2D.js');
       self.importScripts('../../../Sections/Edit/PathPlot/drawPathPlot/drawPathPlotHelpersInterpolationLine.js');
       self.importScripts('../../../Sections/Edit/PathPlot/drawPathPlot/drawPathPlotHelpersKeyElements.js');
-      
+
       initIsDone=true;
 
     break;
@@ -226,6 +214,12 @@ self.addEventListener('message', function(e) {
         if(e.data.drawInterpolationLine)
           calcInterpolationLine_DIN99();
         calcDIN99Elements();
+      break;
+
+      case "lch":
+        if(e.data.drawInterpolationLine)
+          calcInterpolationLine_LCH();
+        calcLCHElements();
       break;
 
     }
@@ -377,6 +371,17 @@ self.addEventListener('message', function(e) {
         calcDIN99Elements();
           if(e.data.drawInterpolationLine)
             calcInterpolationLine_DIN99();
+
+        break;
+
+        case "lch":
+          hsv3DRadius = e.data.hsv3DRadius;
+          vStart3D = e.data.vStart3D;
+          vEnd3D = e.data.vEnd3D;
+          calcLCHElements();
+
+          if(e.data.drawInterpolationLine)
+            calcInterpolationLine_LCH();
 
         break;
 

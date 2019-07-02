@@ -77,6 +77,9 @@ function hueInit() {
           case "din99":
             drawDIN99Background(canvasContex,fixedColor);
             break;
+            case "lch":
+              drawLCHBackground(canvasContex,fixedColor);
+              break;
     }
   }
 
@@ -147,20 +150,25 @@ function init_VPlot() {
 
   switch (pathColorspace) {
   case "hsv":
-    drawVPlot(canvasContex0,0,1);
-    drawVPlot(canvasContex1,0,1);
-    drawVPlot(canvasContex2,0,1);
+    drawVPlot(canvasContex0,0,360);
+    drawVPlot(canvasContex1,0,100);
+    drawVPlot(canvasContex2,0,100);
    break;
   case "lab":
-    drawVPlot(canvasContex0,0,1);
+    drawVPlot(canvasContex0,0,100);
     drawVPlot(canvasContex1,labSpaceRange*-1,labSpaceRange);
     drawVPlot(canvasContex2,labSpaceRange*-1,labSpaceRange);
     break;
   case "din99":
-    drawVPlot(canvasContex0,0,1);
+    drawVPlot(canvasContex0,0,100);
     drawVPlot(canvasContex1,rangeA99Neg,rangeA99Pos);
     drawVPlot(canvasContex2,rangeB99Neg,rangeB99Pos);
     break;
+  case "lch":
+    drawVPlot(canvasContex0,0,100);
+    drawVPlot(canvasContex1,0,100);
+    drawVPlot(canvasContex2,0,360);
+   break;
   }
 
 }
@@ -231,6 +239,9 @@ function drawElements_HSV_LAB_DIN99() {
         case "din99":
           calcDIN99Elements();
           break;
+          case "lch":
+            calcLCHElements();
+            break;
     default:
       return;
 
@@ -289,6 +300,9 @@ function drawInterpolationLineHSV_LAB_DIN99(isCompareMap) {
         case "din99":
           calcInterpolationLine_DIN99();
           break;
+          case "lch":
+            calcInterpolationLine_LCH();
+            break;
     default:
       return;
 

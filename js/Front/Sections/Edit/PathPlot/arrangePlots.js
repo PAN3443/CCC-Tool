@@ -7,11 +7,13 @@ document.getElementById("id_editPage_PathPlotSpaces_RGB").classList.remove("clas
 document.getElementById("id_editPage_PathPlotSpaces_HSV").classList.remove("class_EditPage_TabRowButtonActive");
 document.getElementById("id_editPage_PathPlotSpaces_LAB").classList.remove("class_EditPage_TabRowButtonActive");
 document.getElementById("id_editPage_PathPlotSpaces_DIN99").classList.remove("class_EditPage_TabRowButtonActive");
+document.getElementById("id_editPage_PathPlotSpaces_LCH").classList.remove("class_EditPage_TabRowButtonActive");
 
 document.getElementById("id_editPage_PathPlotSpaces_RGB").classList.add("class_EditPage_TabRowButtonNotActive");
 document.getElementById("id_editPage_PathPlotSpaces_HSV").classList.add("class_EditPage_TabRowButtonNotActive");
 document.getElementById("id_editPage_PathPlotSpaces_LAB").classList.add("class_EditPage_TabRowButtonNotActive");
 document.getElementById("id_editPage_PathPlotSpaces_DIN99").classList.add("class_EditPage_TabRowButtonNotActive");
+document.getElementById("id_editPage_PathPlotSpaces_LCH").classList.add("class_EditPage_TabRowButtonNotActive");
 
   if(type==0){
 
@@ -160,13 +162,22 @@ document.getElementById("id_editPage_PathPlotSpaces_DIN99").classList.add("class
             labMesh();
             break;
             case 3: // DIN99
-            document.getElementById("id_editPage_PathPlotSpaces_DIN99").classList.remove("class_EditPage_TabRowButtonNotActive");
-            document.getElementById("id_editPage_PathPlotSpaces_DIN99").classList.add("class_EditPage_TabRowButtonActive");
-            pathColorspace="din99";
-            initPlotLabel("Lightness", "Green-Red : A99", "Blue-Yellow : B99");
-            document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L99 : -, a99: -, b99: -";
-            backgroundValue=65;
-            din99Mesh();
+              document.getElementById("id_editPage_PathPlotSpaces_DIN99").classList.remove("class_EditPage_TabRowButtonNotActive");
+              document.getElementById("id_editPage_PathPlotSpaces_DIN99").classList.add("class_EditPage_TabRowButtonActive");
+              pathColorspace="din99";
+              initPlotLabel("Lightness", "Green-Red : A99", "Blue-Yellow : B99");
+              document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L99 : -, a99: -, b99: -";
+              backgroundValue=65;
+              din99Mesh();
+            break;
+            case 4: // LCH
+              document.getElementById("id_editPage_PathPlotSpaces_LCH").classList.remove("class_EditPage_TabRowButtonNotActive");
+              document.getElementById("id_editPage_PathPlotSpaces_LCH").classList.add("class_EditPage_TabRowButtonActive");
+              pathColorspace="lch";
+              initPlotLabel("Lightness", "Chroma", "Hue");
+              document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L : -, C : -, H: -";
+              backgroundValue=0.65;
+              lchMesh();
               break;
       default:
 

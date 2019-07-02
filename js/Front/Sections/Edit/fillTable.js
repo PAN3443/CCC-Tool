@@ -73,6 +73,10 @@ function fillTable() {
        td.appendChild(document.createTextNode(color1.getDIN99String(numDecimalPlaces)));
        td2.appendChild(document.createTextNode(color2.getDIN99String(numDecimalPlaces)));
         break;
+        case "lch":
+         td.appendChild(document.createTextNode(color1.getLCHString(numDecimalPlaces)));
+         td2.appendChild(document.createTextNode(color2.getLCHString(numDecimalPlaces)));
+          break;
       default:
         console.log("Error at the changeColorspace function");
     }

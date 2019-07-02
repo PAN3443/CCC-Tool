@@ -62,7 +62,6 @@ function createScaledBand(canvasData, xStart, bandWidth, bandHeight, color1, col
 
       break;
     case "hsv":
-
       var tmpDis = color1.getSValue() * 50; // radius 50; center(0,0,0);
       var tmpRad = (color1.getHValue() * Math.PI * 2) - Math.PI;
       var xPos = tmpDis * Math.cos(tmpRad);
@@ -101,8 +100,47 @@ function createScaledBand(canvasData, xStart, bandWidth, bandHeight, color1, col
       }
 
       break;
+      case "lch":
+        var tmpDis = color1.getCValue() * 50; // radius 50; center(0,0,0);
+        var tmpRad = (color1.getHValue() * Math.PI * 2) - Math.PI;
+        var xPos = tmpDis * Math.cos(tmpRad);
+        var yPos = tmpDis * Math.sin(tmpRad);
+        var zPos = color1.getLValue() - 50;
 
-      for (var x = xStart; x <= xStart + bandWidth; x++) {
+        var tmpDis2 = color2.getCValue() * 50;
+        var tmpRad2 = (color2.getHValue() * Math.PI * 2) - Math.PI;
+        var xPos2 = tmpDis2 * Math.cos(tmpRad2);
+        var yPos2 = tmpDis2 * Math.sin(tmpRad2);
+        var zPos2 = color2.getLValue() - 50;
+
+
+        for (var x = xStart; x <= xStart + bandWidth; x++) {
+
+          var tmpRatio = (x - xStart) / bandWidth;
+
+          var tmpX = xPos + (xPos2 - xPos) * tmpRatio;
+          var tmpY = yPos + (yPos2 - yPos) * tmpRatio;
+          var tmpZ = zPos + (zPos2 - zPos) * tmpRatio;
+
+          var tmpH = (Math.atan2(tmpY, tmpX) + Math.PI) / (Math.PI * 2);
+          var tmpC = Math.sqrt(Math.pow(tmpX, 2) + Math.pow(tmpY, 2)) / 50;
+          var tmpL = tmpZ + 50;
+          var tmpCurrentLCHColor = new classColor_LCH(tmpL, tmpC, tmpH);
+
+          var tmpCurrentColor = tmpCurrentLCHColor.calcRGBColor();
+          for (var y = 0; y < bandHeight; y++) {
+            var index = (x + y * canvasWidth) * 4;
+            canvasData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
+            canvasData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
+            canvasData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
+            canvasData.data[index + 3] = 255; //a
+          }
+
+        }
+
+        break;
+
+      /*for (var x = xStart; x <= xStart + bandWidth; x++) {
 
         var tmpRatio = (x - xStart) / bandWidth;
 
@@ -148,7 +186,7 @@ function createScaledBand(canvasData, xStart, bandWidth, bandHeight, color1, col
 
       }
 
-      break;
+      break;*/
     default:
       console.log("Error at the createBand function");
 
@@ -164,7 +202,7 @@ function createConstantBand(canvasData, xStart, bandWidth, bandHeight, color1, c
   bandWidth = Math.round(bandWidth);
   bandHeight = Math.round(bandHeight);
 
-  switch (globalCMS1.getInterpolationSpace()) {
+  /*switch (globalCMS1.getInterpolationSpace()) {
     case "rgb":
 
       for (var x = xStart; x <= xStart + bandWidth; x++) {
@@ -180,7 +218,7 @@ function createConstantBand(canvasData, xStart, bandWidth, bandHeight, color1, c
       }
 
       break;
-    case "hsv":
+    case "hsv":*/
 
       var tmpCurrentColor = color1.calcRGBColor();
 
@@ -195,7 +233,7 @@ function createConstantBand(canvasData, xStart, bandWidth, bandHeight, color1, c
         }
 
       }
-      break;
+    /*  break;
     case "lab":
 
       var tmpCurrentColor = color1.calcRGBColor();
@@ -229,11 +267,28 @@ function createConstantBand(canvasData, xStart, bandWidth, bandHeight, color1, c
 
       }
 
+      case "lch":
+
+        var tmpCurrentColor = color1.calcRGBColor();
+
+        for (var x = xStart; x <= xStart + bandWidth; x++) {
+
+          for (var y = 0; y < bandHeight; y++) {
+            var index = (x + y * canvasWidth) * 4;
+            canvasData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
+            canvasData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
+            canvasData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
+            canvasData.data[index + 3] = 255; //a
+          }
+
+        }
+        break;
+
       break;
     default:
       console.log("Error at the createBand function");
 
-  }
+  }*/
 
   return canvasData;
 }

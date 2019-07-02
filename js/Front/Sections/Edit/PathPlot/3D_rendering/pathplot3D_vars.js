@@ -16,7 +16,7 @@ var opacityVal = 0.5;
 var showSpace = 0; // 1=rgb, 2=lab
 
 var textSize = 30;
-var textHeight = 7;
+var textHeight = 2.5;
 
 var circleRad3D = 5;
 var bigcircleRad3D = 10;

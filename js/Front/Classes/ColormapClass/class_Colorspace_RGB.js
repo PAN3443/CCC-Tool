@@ -104,6 +104,8 @@ class classColor_RGB {
         return this.calcLABColor();
       case "din99":
         return this.calcDIN99Color();
+      case "lch":
+        return this.calcLCHColor();
       default:
         console.log("Error in function getColorFormat of RGB class");
     }
@@ -217,6 +219,11 @@ class classColor_RGB {
     }
     return (new classColor_HSV(h, s, v));
 
+  }
+
+  calcLCHColor(){
+    var tmpLAB = this.calcLABColor();
+    return tmpLAB.calcLCHColor();
   }
 
   calcDIN99Color() {

@@ -99,6 +99,8 @@ class classColorDIN99{
               return this.calcLABColor();
           case "din99":
               return new classColorDIN99(this.get1Value(),this.get2Value(),this.get3Value());
+          case "lch":
+              return this.calcLCHColor();
           default:
             console.log("Error in function getColorFormat of DIN99 class");
         }
@@ -133,6 +135,11 @@ class classColorDIN99{
       calcHSVColor(){
           var tmpRGB = this.calcRGBColor();
           return tmpRGB.calcHSVColor();
+      }
+
+      calcLCHColor(){
+        var tmpLAB = this.calcLABColor();
+        return tmpLAB.calcLCHColor();
       }
 
       calcLABColor(){

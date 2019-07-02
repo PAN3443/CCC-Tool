@@ -372,9 +372,10 @@ function getHSVBackground( fixedColor){
       if (dis <= colorspaceRadius) {
         // calc hsv color
 
-        var ty = (y) - (colorspaceCenterY);
+        var tmpY= pathPlotResolution-y;
+        var ty = (tmpY) - (colorspaceCenterY);
         var tx = x - colorspaceCenterX;
-        var angle = (Math.atan2(ty, tx) + Math.PI) / (Math.PI * 2); // values 0-1 ...
+        var angle = atan2_360Degree(tx,ty)/360; // values 0-1 ...
         var hVal = angle;
         var sVal = dis / colorspaceRadius;
 
@@ -441,8 +442,9 @@ function getLabBackground( fixedColor){
         // calc hsv color
         var colorRGB;
 
+        var tmpY = pathPlotResolution-y;
         var aVal = ((x - colorspaceCenterX) / (pathPlotResolution / 2)) * labSpaceRange;
-        var bVal = ((y - colorspaceCenterY) / (pathPlotResolution / 2)) * labSpaceRange;
+        var bVal = ((tmpY - colorspaceCenterY) / (pathPlotResolution / 2)) * labSpaceRange;
 
         var colorLAB = new classColor_LAB(lVal, aVal, bVal);
         colorRGB = colorLAB.calcRGBColor();
@@ -513,8 +515,9 @@ function getDIN99Background( fixedColor){
 
     for (var y = 0; y < pathPlotResolution; y++) {
 
+        var tmpY = pathPlotResolution-y;
         var a99Val = (x  / pathPlotResolution) * rangeA99 + rangeA99Neg;
-        var b99Val = (y / pathPlotResolution) * rangeB99 + rangeB99Neg;
+        var b99Val = (tmpY / pathPlotResolution) * rangeB99 + rangeB99Neg;
 
         var colorDIN99 = new classColorDIN99(l99Val, a99Val, b99Val);
 
@@ -542,6 +545,78 @@ function getDIN99Background( fixedColor){
         background.data[indices[3]] = 255; //a
 
     }
+  }
+
+  return background;
+}
+
+
+function drawLCHBackground(canvasContex,fixedColor){
+
+  canvasContex.clearRect(0, 0, pathPlotResolution, pathPlotResolution);
+
+  var colorspaceBackgroundData = getLCHBackground(fixedColor);//canvasContex.getImageData(0, 0, pathPlotResolution, pathPlotResolution);
+  canvasContex.putImageData(colorspaceBackgroundData, 0, 0); // update ColorspaceCanvas;
+
+}
+
+function getLCHBackground(fixedColor){
+
+  var background = new ImageData(pathPlotResolution, pathPlotResolution);
+
+  var errorRGBColor = new classColor_RGB(0.5, 0.5, 0.5);
+
+  var colorspaceCenterX = Math.round(pathPlotResolution / 2);
+  var colorspaceCenterY = Math.round(pathPlotResolution / 2);
+  var colorspaceRadius = Math.round((pathPlotResolution / 2));// * radiusratio);
+
+  var lVal = 0.50;
+
+  if (fixedColor!=undefined)
+    lVal=fixedColor.getLValue();
+
+  var colorRGB;
+  for (var x = 0; x < pathPlotResolution; x++) {
+
+    for (var y = 0; y < pathPlotResolution; y++) {
+
+      var dis = Math.sqrt(Math.pow(colorspaceCenterX - x, 2) + Math.pow(colorspaceCenterY - y, 2));
+
+      if (dis <= colorspaceRadius) {
+        // calc hsv color
+
+        var tmpY= pathPlotResolution-y;
+        var ty = (tmpY) - (colorspaceCenterY);
+        var tx = x - colorspaceCenterX;
+        var angle = atan2_360Degree(tx,ty)/360; // values 0-1 ...
+        var hVal = angle;
+        var cVal = dis / colorspaceRadius;
+
+        var colorLCH = new classColor_LCH(lVal,cVal,hVal);
+
+        if (fixedColor!=undefined){
+          colorRGB = colorLCH.calcRGBColorCorrect(errorRGBColor);
+        } else{
+          colorRGB = colorLCH.calcRGBColor();
+        }
+
+        if(doColorblindnessSim){
+          var tmpLMS = colorRGB.calcLMSColor();
+          colorRGB = tmpLMS.calcColorBlindRGBColor();
+        }
+
+        var indices = getColorIndicesForCoord(x, y, pathPlotResolution);
+
+        background.data[indices[0]] = Math.round(colorRGB.get1Value() * 255); // r
+        background.data[indices[1]] = Math.round(colorRGB.get2Value() * 255); // g
+        background.data[indices[2]] = Math.round(colorRGB.get3Value() * 255); // b
+        background.data[indices[3]] = 255; //a
+
+
+      }
+
+    }
+
   }
 
   return background;

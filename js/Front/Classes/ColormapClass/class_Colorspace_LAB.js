@@ -96,6 +96,8 @@ class classColor_LAB{
               return new classColor_LAB(this.get1Value(),this.get2Value(),this.get3Value());
           case "din99":
               return this.calcDIN99Color();
+          case "lch":
+              return this.calcLCHColor();
           default:
             console.log("Error in function getColorFormat of LAB class");
         }
@@ -234,6 +236,18 @@ class classColor_LAB{
       calcHSVColor(){
         var tmpRGBColor = this.calcRGBColor();
         return tmpRGBColor.calcHSVColor();
+      }
+
+
+      calcLCHColor(){
+        var valueL = this.lValue/100;
+        var normAVal = this.aValue/128.0;
+        var normBVal = this.bValue/128.0;
+        var valueC = Math.sqrt(Math.pow(normAVal,2) + Math.pow(normBVal,2));
+
+        var valueH = atan2_360Degree(normAVal,normBVal)/360; // values 0-1
+
+        return new classColor_LCH(valueL, valueC, valueH);
       }
 
       calcDIN99Color(){

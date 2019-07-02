@@ -148,12 +148,12 @@ function getRatioDifField(testfield, colorField, colorDifType){
 
       console.log("Min=",tmpShouldBeColorMin,"Max=",tmpShouldBeColorMax);
 
-      xColorDifArray = makeRatioField(xColorDifArray, tmpShouldBeColorMin, tmpShouldBeColorMax);
+      /*xColorDifArray = makeRatioField(xColorDifArray, tmpShouldBeColorMin, tmpShouldBeColorMax);
       yColorDifArray = makeRatioField(yColorDifArray, tmpShouldBeColorMin, tmpShouldBeColorMax);
       diagonal1ColorDifArray = makeRatioField(diagonal1ColorDifArray, tmpShouldBeColorMin, tmpShouldBeColorMax);
       diagonal2ColorDifArray = makeRatioField(diagonal2ColorDifArray, tmpShouldBeColorMin, tmpShouldBeColorMax);//*/
 
-      /*xColorDifArray = makeRatioField(xColorDifArray, tmpColorMin, tmpColorMax);
+      xColorDifArray = makeRatioField(xColorDifArray, tmpColorMin, tmpColorMax);
       yColorDifArray = makeRatioField(yColorDifArray, tmpColorMin, tmpColorMax);
       diagonal1ColorDifArray = makeRatioField(diagonal1ColorDifArray, tmpColorMin, tmpColorMax);
       diagonal2ColorDifArray = makeRatioField(diagonal2ColorDifArray, tmpColorMin, tmpColorMax);//*/

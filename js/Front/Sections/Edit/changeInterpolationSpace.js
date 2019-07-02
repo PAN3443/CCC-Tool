@@ -4,11 +4,11 @@ function changeColorspace(){
   document.getElementById("id_header_interpolationSpaceWarning").innerHTML = "&#9785;";
 
   switch (document.getElementById("id_editPage_InterpolationSelect").selectedIndex) {
-    case 4:
+    case 5:
         globalCMS1.setInterpolationSpace("rgb");
         document.getElementById("id_header_interpolationSpaceWarning").innerHTML = "&#9785;";
       break;
-      case 5:
+      case 6:
           globalCMS1.setInterpolationSpace("hsv");
           document.getElementById("id_header_interpolationSpaceWarning").innerHTML = "&#9785;";
         break;
@@ -16,12 +16,15 @@ function changeColorspace(){
             globalCMS1.setInterpolationSpace("lab");
           break;
           case 1:
+              globalCMS1.setInterpolationSpace("lch");
+            break;
+          case 2:
               globalCMS1.setInterpolationSpace("din99");
             break;
-            case 2:
+            case 3:
                 globalCMS1.setInterpolationSpace("de94");
               break;
-              case 3:
+              case 4:
                   globalCMS1.setInterpolationSpace("de2000");
                 break;
     default:

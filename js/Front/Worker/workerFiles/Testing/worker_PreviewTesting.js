@@ -32,22 +32,11 @@ self.addEventListener('message', function(e) {
 
     case "init":
       self.importScripts('../../processingCases.js');
-      // Colors
-      self.importScripts('../../../Classes/ColormapClass/class_Colorspace_RGB.js');
-      self.importScripts('../../../Classes/ColormapClass/class_Colorspace_XYZ.js');
-      self.importScripts('../../../Classes/ColormapClass/class_Colorspace_LMS.js');
-      self.importScripts('../../../Classes/ColormapClass/class_Colorspace_HSV.js');
-      self.importScripts('../../../Classes/ColormapClass/class_Colorspace_LAB.js');
-      self.importScripts('../../../Classes/ColormapClass/class_Colorspace_DIN99.js');
-
-      self.importScripts('../../../Classes/ColormapClass/class_colormapSpecification.js');
-      self.importScripts('../../../Classes/ColormapClass/class_Colormap_Key.js');
-      self.importScripts('../../../Classes/ColormapClass/class_Colormap_Interval.js');
-      self.importScripts('../../../Classes/ColormapClass/class_Colormap_Probe.js');
-      self.importScripts('../../../Classes/ColormapClass/class_Colormap_ProbeSet.js');
+      worker_LoadColorClasses();
 
       self.importScripts('../../../Classes/Domain/class_testField.js');
       self.importScripts('../../../Worker/workerFiles/Testing/workerFunctions_testing.js');
+      self.importScripts('../../../GlobalEvents/Helpers/math.js');
 
       switch (e.data.initOption1) {
         case "CCCTest":

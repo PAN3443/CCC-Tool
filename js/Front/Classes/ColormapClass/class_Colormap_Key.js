@@ -6,8 +6,8 @@ class class_Key{
     constructor(colorL, colorR, refPos, isBur) {
 
         this.type = "";
-        this.cL=[undefined,undefined,undefined,undefined];
-        this.cR = [undefined,undefined,undefined,undefined];
+        this.cL=[undefined,undefined,undefined,undefined,undefined];
+        this.cR = [undefined,undefined,undefined,undefined,undefined];
         this.setLeftKeyColor(colorL);
         this.setRightKeyColor(colorR);
 
@@ -61,7 +61,7 @@ class class_Key{
     setLeftKeyColor(color){
 
 
-        this.cL = [undefined,undefined,undefined,undefined];
+        this.cL = [undefined,undefined,undefined,undefined,undefined];
 
         if(color!=undefined)
         switch (color.getColorType()) {
@@ -70,26 +70,36 @@ class class_Key{
           this.cL[1]=color.calcHSVColor();
           this.cL[2]=color.calcLABColor();
           this.cL[3]=color.calcDIN99Color();
+          this.cL[4]=color.calcLCHColor();
           break;
           case "hsv":
           this.cL[0]=color.calcRGBColor();
           this.cL[1]=color;
           this.cL[2]=color.calcLABColor();
           this.cL[3]=color.calcDIN99Color();
+          this.cL[4]=color.calcLCHColor();
           break;
           case "lab":
           this.cL[0]=color.calcRGBColor();
           this.cL[1]=color.calcHSVColor();
           this.cL[2]=color;
           this.cL[3]=color.calcDIN99Color();
+          this.cL[4]=color.calcLCHColor();
           break;
           case "din99":
           this.cL[0]=color.calcRGBColor();
           this.cL[1]=color.calcHSVColor();
           this.cL[2]=color.calcLABColor();
           this.cL[3]=color;
+          this.cL[4]=color.calcLCHColor();
           break;
-          default:
+          case "lch":
+          this.cL[0]=color.calcRGBColor();
+          this.cL[1]=color.calcHSVColor();
+          this.cL[2]=color.calcLABColor();
+          this.cL[3]=color.calcDIN99Color();
+          this.cL[4]=color;
+          break;
         }
 
         this.determineType("lab");
@@ -97,7 +107,7 @@ class class_Key{
     }
 
     setRightKeyColor(color) {
-      this.cR = [undefined,undefined,undefined,undefined];
+      this.cR = [undefined,undefined,undefined,undefined,undefined];
 
       if(color!=undefined)
       switch (color.getColorType()) {
@@ -106,26 +116,36 @@ class class_Key{
         this.cR[1]=color.calcHSVColor();
         this.cR[2]=color.calcLABColor();
         this.cR[3]=color.calcDIN99Color();
+        this.cR[4]=color.calcLCHColor();
         break;
         case "hsv":
         this.cR[0]=color.calcRGBColor();
         this.cR[1]=color;
         this.cR[2]=color.calcLABColor();
         this.cR[3]=color.calcDIN99Color();
+        this.cR[4]=color.calcLCHColor();
         break;
         case "lab":
         this.cR[0]=color.calcRGBColor();
         this.cR[1]=color.calcHSVColor();
         this.cR[2]=color;
         this.cR[3]=color.calcDIN99Color();
+        this.cR[4]=color.calcLCHColor();
         break;
         case "din99":
         this.cR[0]=color.calcRGBColor();
         this.cR[1]=color.calcHSVColor();
         this.cR[2]=color.calcLABColor();
         this.cR[3]=color;
+        this.cR[4]=color.calcLCHColor();
         break;
-        default:
+        case "lch":
+        this.cR[0]=color.calcRGBColor();
+        this.cR[1]=color.calcHSVColor();
+        this.cR[2]=color.calcLABColor();
+        this.cR[3]=color.calcDIN99Color();
+        this.cR[4]=color;
+        break;
       }
 
       this.determineType("lab");
@@ -152,6 +172,10 @@ class class_Key{
         case "din99":
         colorL=this.cL[3];
         colorR=this.cR[3];
+        break;
+        case "lch":
+        colorL=this.cL[4];
+        colorR=this.cR[4];
         break;
         default:
       }
@@ -241,6 +265,14 @@ class class_Key{
           var ncolor = new classColor_RGB(this.cL[0].get1Value(),this.cL[0].get2Value(),this.cL[0].get3Value());
           return ncolor.calcDIN99Color();
           break;
+          case "lch":
+          var ncolor = new classColor_LCH(this.cL[4].get1Value(),this.cL[4].get2Value(),this.cL[4].get3Value());
+          return ncolor;
+          break;
+          case "lch_rgb_possible":
+          var ncolor = new classColor_RGB(this.cL[0].get1Value(),this.cL[0].get2Value(),this.cL[0].get3Value());
+          return ncolor.calcLCHColor();
+          break;
           default:
           return undefined;
         }
@@ -278,6 +310,14 @@ class class_Key{
         case "din99_rgb_possible":
         var ncolor = new classColor_RGB(this.cR[0].get1Value(),this.cR[0].get2Value(),this.cR[0].get3Value());
         return ncolor.calcDIN99Color();
+        break;
+        case "lch":
+        var ncolor = new classColor_LCH(this.cR[4].get1Value(),this.cR[4].get2Value(),this.cR[4].get3Value());
+        return ncolor;
+        break;
+        case "lch_rgb_possible":
+        var ncolor = new classColor_RGB(this.cR[0].get1Value(),this.cR[0].get2Value(),this.cR[0].get3Value());
+        return ncolor.calcLCHColor();
         break;
         default:
       }

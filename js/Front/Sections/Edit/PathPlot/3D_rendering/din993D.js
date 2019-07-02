@@ -40,7 +40,7 @@ function din99Mesh(){
 
         var xpos = din99SPos+((positionsDIN99[i][j].get2Value()+din99ABMax)/din99ABMax2)*(din99EPos-din99SPos);
         var ypos = din99SPos+(positionsDIN99[i][j].get1Value()/100.0)*(din99EPos-din99SPos);
-        var zpos = din99SPos+((positionsDIN99[i][j].get3Value()+din99ABMax)/din99ABMax2)*(din99EPos-din99SPos);
+        var zpos = din99EPos-((positionsDIN99[i][j].get3Value()+din99ABMax)/din99ABMax2)*(din99EPos-din99SPos);
 
         linesPoints.push(xpos,ypos,zpos);
 
@@ -94,8 +94,8 @@ function din99Mesh(){
               //
 
 
-              geometry.faces.push(new THREE.Face3(currentIndex2, lastIndex2, lastIndex1));
-              geometry.faces.push(new THREE.Face3(currentIndex2, lastIndex1, currentIndex1 ));
+              geometry.faces.push(new THREE.Face3(currentIndex2, lastIndex1, lastIndex2));
+              geometry.faces.push(new THREE.Face3(currentIndex2, currentIndex1, lastIndex1));
 
               // Color currentIndex1
               tmpRGBColor=positionsDIN99[i][j].calcRGBColor();
@@ -103,7 +103,7 @@ function din99Mesh(){
                 var tmpLMS = tmpRGBColor.calcLMSColor();
                 tmpRGBColor = tmpLMS.calcColorBlindRGBColor();
               }
-              geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor.getRGBString());
+              geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor.getRGBString());
 
               // Color currentIndex2
               tmpRGBColor=positionsDIN99[i][j-1].calcRGBColor();
@@ -121,8 +121,8 @@ function din99Mesh(){
                 var tmpLMS = tmpRGBColor.calcLMSColor();
                 tmpRGBColor = tmpLMS.calcColorBlindRGBColor();
               }
-              geometry.faces[geometry.faces.length-2].vertexColors[2] = new THREE.Color(tmpRGBColor.getRGBString());
-              geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor.getRGBString());
+              geometry.faces[geometry.faces.length-2].vertexColors[1] = new THREE.Color(tmpRGBColor.getRGBString());
+              geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor.getRGBString());
 
               // Color lastIndex2
               tmpRGBColor=positionsDIN99[i-1][j-1].calcRGBColor();
@@ -130,13 +130,13 @@ function din99Mesh(){
                 var tmpLMS = tmpRGBColor.calcLMSColor();
                 tmpRGBColor = tmpLMS.calcColorBlindRGBColor();
               }
-              geometry.faces[geometry.faces.length-2].vertexColors[1] = new THREE.Color(tmpRGBColor.getRGBString());
+              geometry.faces[geometry.faces.length-2].vertexColors[2] = new THREE.Color(tmpRGBColor.getRGBString());
 
 
               if(i==positionsDIN99.length-1){
                  // Top Pyramide
-                geometry.faces.push(new THREE.Face3(currentIndex2, currentIndex1, 1));
-                geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color("rgb(255,255,255)");
+                geometry.faces.push(new THREE.Face3(currentIndex2, 1, currentIndex1));
+                geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color("rgb(255,255,255)");
 
                 // Color currentIndex1
                 tmpRGBColor=positionsDIN99[i][j].calcRGBColor();
@@ -144,7 +144,7 @@ function din99Mesh(){
                   var tmpLMS = tmpRGBColor.calcLMSColor();
                   tmpRGBColor = tmpLMS.calcColorBlindRGBColor();
                 }
-                geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor.getRGBString());
+                geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor.getRGBString());
 
                 // Color currentIndex2
                 tmpRGBColor=positionsDIN99[i][j-1].calcRGBColor();
@@ -158,8 +158,8 @@ function din99Mesh(){
           }// bracket if i !=0
           else{
             // Bottom Pyramide
-           geometry.faces.push(new THREE.Face3(currentIndex2, 0, currentIndex1));
-           geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color("rgb(0,0,0)");
+           geometry.faces.push(new THREE.Face3(currentIndex2, currentIndex1, 0));
+           geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color("rgb(0,0,0)");
 
            // Color currentIndex1
            tmpRGBColor=positionsDIN99[i][j].calcRGBColor();
@@ -167,7 +167,7 @@ function din99Mesh(){
              var tmpLMS = tmpRGBColor.calcLMSColor();
              tmpRGBColor = tmpLMS.calcColorBlindRGBColor();
            }
-           geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor.getRGBString());
+           geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor.getRGBString());
 
            // Color currentIndex2
            tmpRGBColor=positionsDIN99[i][j-1].calcRGBColor();
@@ -200,8 +200,8 @@ function din99Mesh(){
                 //
 
 
-                geometry.faces.push(new THREE.Face3(currentIndex2, lastIndex1, lastIndex2 ));
-                geometry.faces.push(new THREE.Face3(currentIndex2, currentIndex1, lastIndex1 ));
+                geometry.faces.push(new THREE.Face3(currentIndex2, lastIndex2, lastIndex1 ));
+                geometry.faces.push(new THREE.Face3(currentIndex2, lastIndex1, currentIndex1 ));
 
                 // Color currentIndex1
                 tmpRGBColor=positionsDIN99[i][j].calcRGBColor();
@@ -209,7 +209,7 @@ function din99Mesh(){
                   var tmpLMS = tmpRGBColor.calcLMSColor();
                   tmpRGBColor = tmpLMS.calcColorBlindRGBColor();
                 }
-                geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor.getRGBString());
+                geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor.getRGBString());
 
                 // Color currentIndex2
                 tmpRGBColor=positionsDIN99[i][0].calcRGBColor();
@@ -227,8 +227,8 @@ function din99Mesh(){
                   var tmpLMS = tmpRGBColor.calcLMSColor();
                   tmpRGBColor = tmpLMS.calcColorBlindRGBColor();
                 }
-                geometry.faces[geometry.faces.length-2].vertexColors[1] = new THREE.Color(tmpRGBColor.getRGBString());
-                geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor.getRGBString());
+                geometry.faces[geometry.faces.length-2].vertexColors[2] = new THREE.Color(tmpRGBColor.getRGBString());
+                geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor.getRGBString());
 
                 // Color lastIndex2
                 tmpRGBColor=positionsDIN99[i-1][0].calcRGBColor();
@@ -236,13 +236,13 @@ function din99Mesh(){
                   var tmpLMS = tmpRGBColor.calcLMSColor();
                   tmpRGBColor = tmpLMS.calcColorBlindRGBColor();
                 }
-                geometry.faces[geometry.faces.length-2].vertexColors[2] = new THREE.Color(tmpRGBColor.getRGBString());
+                geometry.faces[geometry.faces.length-2].vertexColors[1] = new THREE.Color(tmpRGBColor.getRGBString());
 
 
                 if(i==positionsDIN99.length-1){
                    // Top Pyramide
-                  geometry.faces.push(new THREE.Face3(currentIndex2, 1, currentIndex1));
-                  geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color("rgb(255,255,255)");
+                  geometry.faces.push(new THREE.Face3(currentIndex2, currentIndex1, 1));
+                  geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color("rgb(255,255,255)");
 
                   // Color currentIndex1
                   tmpRGBColor=positionsDIN99[i][j].calcRGBColor();
@@ -250,7 +250,7 @@ function din99Mesh(){
                     var tmpLMS = tmpRGBColor.calcLMSColor();
                     tmpRGBColor = tmpLMS.calcColorBlindRGBColor();
                   }
-                  geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor.getRGBString());
+                  geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor.getRGBString());
 
                   // Color currentIndex2
                   tmpRGBColor=positionsDIN99[i][0].calcRGBColor();
@@ -264,8 +264,8 @@ function din99Mesh(){
             }// bracket if i !=0
             else{
               // Bottom Pyramide
-             geometry.faces.push(new THREE.Face3(currentIndex2, currentIndex1, 0));
-             geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color("rgb(0,0,0)");
+             geometry.faces.push(new THREE.Face3(currentIndex2, 0, currentIndex1));
+             geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color("rgb(0,0,0)");
 
              // Color currentIndex1
              tmpRGBColor=positionsDIN99[i][j].calcRGBColor();
@@ -273,7 +273,7 @@ function din99Mesh(){
                var tmpLMS = tmpRGBColor.calcLMSColor();
                tmpRGBColor = tmpLMS.calcColorBlindRGBColor();
              }
-             geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor.getRGBString());
+             geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor.getRGBString());
 
              // Color currentIndex2
              tmpRGBColor=positionsDIN99[i][0].calcRGBColor();

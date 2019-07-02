@@ -96,6 +96,8 @@ class classColor_HSV{
             return this.calcLABColor();
         case "din99":
             return this.calcDIN99Color();
+        case "lch":
+            return this.calcLCHColor();
         default:
           console.log("Error in function getColorFormat of HSV class");
       }
@@ -120,8 +122,12 @@ class classColor_HSV{
 
     calcDIN99Color(){
         var tmpRGB = this.calcRGBColor();
-
         return tmpRGB.calcDIN99Color();
+    }
+
+    calcLCHColor(){
+      var tmpLAB = this.calcLABColor();
+      return tmpLAB.calcLCHColor();
     }
 
     calcHSVColor() {

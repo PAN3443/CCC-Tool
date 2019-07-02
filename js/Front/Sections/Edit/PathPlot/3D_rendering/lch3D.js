@@ -1,7 +1,7 @@
-function hsvMesh(){
+function lchMesh(){
 
-  var tmpHSV1 = new classColor_HSV(0,0,0);
-  var tmpHSV2 = new classColor_HSV(0,0,0);
+  var tmpLCH1 = new classColor_LCH(0,0,0);
+  var tmpLCH2 = new classColor_LCH(0,0,0);
   var tmpRGB;
 
   for (var i = colorspaceGroup.children.length - 1; i >= 0; i--) {
@@ -45,20 +45,20 @@ function hsvMesh(){
     geometry.vertices.push(new THREE.Vector3(xPos,vStart3D,zPos));
     geometry.vertices.push(new THREE.Vector3(xPos,vEnd3D,zPos));
 
-    tmpHSV1.set1Value(hueVal);
-    tmpHSV1.set2Value(1.0);
-    tmpHSV1.set3Value(0);
-    tmpRGB = tmpHSV1.calcRGBColor();
+    tmpLCH1.set1Value(0);
+    tmpLCH1.set2Value(1.0);
+    tmpLCH1.set3Value(hueVal);
+    tmpRGB = tmpLCH1.calcRGBColor();
     if(doColorblindnessSim){
       var tmpLMS = tmpRGBColor.calcLMSColor();
       tmpRGB = tmpLMS.calcColorBlindRGBColor();
     }
 
     linesColors.push( tmpRGB.get1Value(), tmpRGB.get2Value(), tmpRGB.get3Value() );
-    tmpHSV2.set1Value(hueVal);
-    tmpHSV2.set2Value(1.0);
-    tmpHSV2.set3Value(1);
-    tmpRGB = tmpHSV2.calcRGBColor();
+    tmpLCH2.set1Value(1);
+    tmpLCH2.set2Value(1.0);
+    tmpLCH2.set3Value(hueVal);
+    tmpRGB = tmpLCH2.calcRGBColor();
     if(doColorblindnessSim){
       var tmpLMS = tmpRGBColor.calcLMSColor();
       tmpRGB = tmpLMS.calcColorBlindRGBColor();
@@ -106,7 +106,7 @@ function hsvMesh(){
       geometry.faces.push(new THREE.Face3(currentIndex1, lastIndex1, lastIndex2 ));
 
       // Color currentIndex1
-      tmpRGBColor=tmpHSV1.calcRGBColor();
+      tmpRGBColor=tmpLCH1.calcRGBColor();
       if(doColorblindnessSim){
         var tmpLMS = tmpRGBColor.calcLMSColor();
         tmpRGBColor = tmpLMS.calcColorBlindRGBColor();
@@ -116,7 +116,7 @@ function hsvMesh(){
       geometry.faces[geometry.faces.length-4].vertexColors[0] = new THREE.Color(tmpRGBColor.getRGBString());
 
       // Color currentIndex2
-      tmpRGBColor=tmpHSV2.calcRGBColor();
+      tmpRGBColor=tmpLCH2.calcRGBColor();
       if(doColorblindnessSim){
         var tmpLMS = tmpRGBColor.calcLMSColor();
         tmpRGBColor = tmpLMS.calcColorBlindRGBColor();
@@ -147,8 +147,8 @@ function hsvMesh(){
 
     }
     else {
-      firstColor1= new classColor_HSV(tmpHSV1.get1Value(),tmpHSV1.get2Value(),tmpHSV1.get3Value());
-      firstColor2= new classColor_HSV(tmpHSV2.get1Value(),tmpHSV2.get2Value(),tmpHSV2.get3Value());
+      firstColor1= new classColor_LCH(tmpLCH1.get1Value(),tmpLCH1.get2Value(),tmpLCH1.get3Value());
+      firstColor2= new classColor_LCH(tmpLCH2.get1Value(),tmpLCH2.get2Value(),tmpLCH2.get3Value());
     }
 
     if(hStep==numberParticelsPerCircle-1){
@@ -206,7 +206,7 @@ function hsvMesh(){
       geometry.faces[geometry.faces.length-3].vertexColors[0] = new THREE.Color(tmpRGBColor.getRGBString());
 
       // Color currentIndex1
-      tmpRGBColor=tmpHSV1.calcRGBColor();
+      tmpRGBColor=tmpLCH1.calcRGBColor();
       if(doColorblindnessSim){
         var tmpLMS = tmpRGBColor.calcLMSColor();
         tmpRGBColor = tmpLMS.calcColorBlindRGBColor();
@@ -215,7 +215,7 @@ function hsvMesh(){
       geometry.faces[geometry.faces.length-4].vertexColors[2] = new THREE.Color(tmpRGBColor.getRGBString());
 
       // Color currentIndex2
-      tmpRGBColor=tmpHSV2.calcRGBColor();
+      tmpRGBColor=tmpLCH2.calcRGBColor();
       if(doColorblindnessSim){
         var tmpLMS = tmpRGBColor.calcLMSColor();
         tmpRGBColor = tmpLMS.calcColorBlindRGBColor();
@@ -225,8 +225,8 @@ function hsvMesh(){
       geometry.faces[geometry.faces.length-3].vertexColors[1] = new THREE.Color(tmpRGBColor.getRGBString());
     }
 
-    lastColor1= new classColor_HSV(tmpHSV1.get1Value(),tmpHSV1.get2Value(),tmpHSV1.get3Value());
-    lastColor2= new classColor_HSV(tmpHSV2.get1Value(),tmpHSV2.get2Value(),tmpHSV2.get3Value());
+    lastColor1= new classColor_LCH(tmpLCH1.get1Value(),tmpLCH1.get2Value(),tmpLCH1.get3Value());
+    lastColor2= new classColor_LCH(tmpLCH2.get1Value(),tmpLCH2.get2Value(),tmpLCH2.get3Value());
 
   }
 
@@ -245,8 +245,6 @@ function hsvMesh(){
 
         geometry.computeFaceNormals();
 
-
-
         var material = new THREE.MeshBasicMaterial( {
                       /*side: THREE.DoubleSide,*/
                       opacity: 0.5,
@@ -259,10 +257,10 @@ function hsvMesh(){
 
 
 
-        var meshHSV = new THREE.Mesh(geometry, material);
-        meshHSV.position.x = 0;
-        meshHSV.position.y = 0;
-        meshHSV.position.z = 0;
-        colorspaceGroup.add(meshHSV);
+        var meshLCH = new THREE.Mesh(geometry, material);
+        meshLCH.position.x = 0;
+        meshLCH.position.y = 0;
+        meshLCH.position.z = 0;
+        colorspaceGroup.add(meshLCH);
 
 }

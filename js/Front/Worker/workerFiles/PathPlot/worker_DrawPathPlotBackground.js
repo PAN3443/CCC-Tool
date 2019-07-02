@@ -42,21 +42,10 @@ self.addEventListener('message', function(e) {
 
     case "init":
       self.importScripts('../../processingCases.js');
-      // Colors
-      self.importScripts('../../../Classes/ColormapClass/class_Colorspace_RGB.js');
-      self.importScripts('../../../Classes/ColormapClass/class_Colorspace_XYZ.js');
-      self.importScripts('../../../Classes/ColormapClass/class_Colorspace_LMS.js');
-      self.importScripts('../../../Classes/ColormapClass/class_Colorspace_HSV.js');
-      self.importScripts('../../../Classes/ColormapClass/class_Colorspace_LAB.js');
-      self.importScripts('../../../Classes/ColormapClass/class_Colorspace_DIN99.js');
-
-      self.importScripts('../../../Classes/ColormapClass/class_colormapSpecification.js');
-      self.importScripts('../../../Classes/ColormapClass/class_Colormap_Key.js');
-      self.importScripts('../../../Classes/ColormapClass/class_Colormap_Interval.js');
-      self.importScripts('../../../Classes/ColormapClass/class_Colormap_Probe.js');
-      self.importScripts('../../../Classes/ColormapClass/class_Colormap_ProbeSet.js');
+      worker_LoadColorClasses();
 
       self.importScripts('../../../GlobalEvents/Helpers/canvasHelpers.js');
+      self.importScripts('../../../GlobalEvents/Helpers/math.js');
 
       globalCMS1 = new class_CMS();
 
@@ -131,6 +120,12 @@ self.addEventListener('message', function(e) {
             fixedColor = new classColorDIN99(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
           answerJSON.imageData = getDIN99Background(fixedColor);
           break;
+        case "lch":
+          answerJSON.canvasID = "id_EditPage_PathPlot_SingleCanvas_0";
+          if (e.data.fixedColorV1 != undefined && e.data.fixedColorV2 != undefined && e.data.fixedColorV3 != undefined)
+            fixedColor = new classColor_LCH(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
+          answerJSON.imageData = getLCHBackground(fixedColor);
+          break;
 
 
       }
@@ -177,8 +172,6 @@ self.addEventListener('message', function(e) {
 
         case "hsv":
 
-
-
           var fixedColor = undefined;
 
           if (e.data.fixedColorV1 != undefined && e.data.fixedColorV2 != undefined && e.data.fixedColorV3 != undefined)
@@ -188,17 +181,17 @@ self.addEventListener('message', function(e) {
             case "V1":
               canvas.height = vPlotHeight;
               canvas.width = vPlotWidth;
-              drawVPlot(canvasContex, 0, 1);
+              drawVPlot(canvasContex, 0, 360);
               break;
             case "V2":
               canvas.height = vPlotHeight;
               canvas.width = vPlotWidth;
-              drawVPlot(canvasContex, 0, 1);
+              drawVPlot(canvasContex, 0, 100);
               break;
             case "V3":
               canvas.height = vPlotHeight;
               canvas.width = vPlotWidth;
-              drawVPlot(canvasContex, 0, 1);
+              drawVPlot(canvasContex, 0, 100);
               break;
             case "Hue":
               canvas.height = pathPlotResolution;
@@ -223,7 +216,7 @@ self.addEventListener('message', function(e) {
             case "V1":
               canvas.height = vPlotHeight;
               canvas.width = vPlotWidth;
-              drawVPlot(canvasContex, 0, 1);
+              drawVPlot(canvasContex, 0, 100);
               break;
             case "V2":
               canvas.height = vPlotHeight;
@@ -257,7 +250,7 @@ self.addEventListener('message', function(e) {
             case "V1":
               canvas.height = vPlotHeight;
               canvas.width = vPlotWidth;
-              drawVPlot(canvasContex, 0, 1);
+              drawVPlot(canvasContex, 0, 100);
               break;
             case "V2":
               canvas.height = vPlotHeight;
@@ -274,6 +267,35 @@ self.addEventListener('message', function(e) {
               canvas.width = pathPlotResolution;
 
               drawDIN99Background(canvasContex, fixedColor);
+
+              break;
+
+          }
+
+          break;
+
+        case "lch":
+          switch (e.data.type) {
+            case "V1":
+              canvas.height = vPlotHeight;
+              canvas.width = vPlotWidth;
+              drawVPlot(canvasContex, 0, 100);
+              break;
+            case "V2":
+              canvas.height = vPlotHeight;
+              canvas.width = vPlotWidth;
+              drawVPlot(canvasContex, 0, 100);
+              break;
+            case "V3":
+              canvas.height = vPlotHeight;
+              canvas.width = vPlotWidth;
+              drawVPlot(canvasContex, 0, 360);
+              break;
+            case "Hue":
+              canvas.height = pathPlotResolution;
+              canvas.width = pathPlotResolution;
+
+              drawLCHBackground(canvasContex, fixedColor);
 
               break;
 

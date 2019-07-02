@@ -1,5 +1,5 @@
 
-function calcGradientHSV(hVal1,sVal1,vVal1,hVal2,sVal2,vVal2,ratio){
+function calcGradientCylinder(hVal1,sVal1,vVal1,hVal2,sVal2,vVal2,ratio){
 
 
   var tmpDis = sVal1*50; // radius 50; center(0,0,0);
@@ -28,5 +28,5 @@ function calcGradientHSV(hVal1,sVal1,vVal1,hVal2,sVal2,vVal2,ratio){
 
 
 function calcGradientWorker(c1Val1,c2Val1,c3Val1,c1Val2,c2Val2,c3Val2,ratio){ // this function is at each gradient calculation file and allows the worker to differ rgb-,hsv,..-gradients
-  return calcGradientHSV(c1Val1,c2Val1,c3Val1,c1Val2,c2Val2,c3Val2,ratio);
+  return calcGradientCylinder(c1Val1,c2Val1,c3Val1,c1Val2,c2Val2,c3Val2,ratio);
 }

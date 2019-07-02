@@ -8,14 +8,17 @@ function mouseLeaveColorspace(event) {
 
   switch (pathColorspace) {
     case "hsv":
-      document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "H : -, S: -, V: -";
+      document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "H : -, S : -, V : -";
       break;
       case "lab":
-        document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L : -, a: -, b: -";
+        document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L : -, a : -, b : -";
         break;
         case "din99":
-          document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L99 : -, a99: -, b99: -";
+          document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L99 : -, a99 : -, b99 : -";
           break;
+          case "lch":
+            document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L : -, C : -, h : -";
+            break;
     default:
 
   }
@@ -48,7 +51,7 @@ function mouseMoveColorspace(event) {
   var ratioToColorspaceResolutionX = resolutionX / rect.width;
   var ratioToColorspaceResolutionY = resolutionY / rect.height;
   mousePosX = canvasPosX * ratioToColorspaceResolutionX;
-  mousePosY = canvasPosY * ratioToColorspaceResolutionY;
+  mousePosY = pathPlotResolution-(canvasPosY * ratioToColorspaceResolutionY);
 
   var colorspaceCenterX = Math.round(canvasObj.width / 2);
   var colorspaceCenterY = Math.round(canvasObj.height / 2);
@@ -190,7 +193,7 @@ function mouseMoveColorspace(event) {
               var diplay1Val = Math.round(displayColor.get1Value()*360);
               var diplay2Val = Math.round(displayColor.get2Value()*100);
               var diplay3Val = Math.round(displayColor.get3Value()*100);
-              document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "H : " + diplay1Val + ", S : " + diplay2Val + ", V : " + diplay3Val;
+              document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "H : " + diplay1Val + "&deg;, S : " + diplay2Val + ", V : " + diplay3Val;
             break
           case "lab":
               var diplay1Val = Math.round(displayColor.get1Value());
@@ -203,6 +206,12 @@ function mouseMoveColorspace(event) {
               var diplay2Val = Math.round(displayColor.get2Value());
               var diplay3Val = Math.round(displayColor.get3Value());
               document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L99 : " + diplay1Val + ", a99 : " + diplay2Val + ", b99 : " + diplay3Val;
+          break;
+          case "lch":
+            var diplay1Val = Math.round(displayColor.get1Value()*100);
+            var diplay2Val = Math.round(displayColor.get2Value()*100);
+            var diplay3Val = Math.round(displayColor.get3Value()*360);
+            document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L : " + diplay1Val + ", C : " + diplay2Val + ", h : " + diplay3Val+ "&deg;";
             break;
           default:
             console.log("Error at the getC1CurrentValue function");
@@ -211,6 +220,23 @@ function mouseMoveColorspace(event) {
         break;
       }
       else{
+        switch (pathColorspace) {
+          case "hsv":
+            document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "H : -, S : -, V : -";
+            break;
+            case "lab":
+              document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L : -, a : -, b : -";
+              break;
+              case "din99":
+                document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L99 : -, a99 : -, b99 : -";
+                break;
+                case "lch":
+                  document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L : -, C : -, h : -";
+                  break;
+          default:
+
+        }
+
         document.getElementById(event.target.id).style.cursor = "default";
         mouseAboveKeyID = -1;
         mouseGrappedColorSide = -1;
@@ -235,7 +261,7 @@ function mouseMoveColorspace(event) {
           //canvasObj.style.cursor = "pointer"; // crosshair
           var ty = (mousePosY) - (colorspaceCenterY);
           var tx = mousePosX - colorspaceCenterX;
-          var angle = (Math.atan2(ty, tx) + Math.PI) / (Math.PI * 2); // values 0-1 ...
+          var angle = atan2_360Degree(tx,ty)/360; // values 0-1 ...
           var hVal = angle;
           var sVal = dis / colorspaceRadius;
           tmpColor = new classColor_HSV(hVal, sVal, updateCurrentValue);
@@ -243,7 +269,7 @@ function mouseMoveColorspace(event) {
           var diplay1Val = Math.round(hVal*360);
           var diplay2Val = Math.round(sVal*100);
           var diplay3Val = Math.round(updateCurrentValue*100);
-          document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "H : " + diplay1Val + ", S : " + diplay2Val + ", V : " + diplay3Val;
+          document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "H : " + diplay1Val + "&deg;, S : " + diplay2Val + ", V : " + diplay3Val;
         } else {
           return;
         }
@@ -254,12 +280,6 @@ function mouseMoveColorspace(event) {
 
 
           tmpColor = new classColor_LAB(updateCurrentValue, aVal, bVal);
-
-          var diplay1Val = Math.round(updateCurrentValue);
-          var diplay2Val = Math.round(aVal);
-          var diplay3Val = Math.round(bVal);
-          document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L : " + diplay1Val + ", a : " + diplay2Val + ", b : " + diplay3Val;
-
           if (onlyRGBPossibleColor) {
             var testColor = tmpColor.calcRGBColorCorrect(errorRGBColor);
 
@@ -267,6 +287,11 @@ function mouseMoveColorspace(event) {
               return;
             }
           }
+
+          var diplay1Val = Math.round(updateCurrentValue);
+          var diplay2Val = Math.round(aVal);
+          var diplay3Val = Math.round(bVal);
+          document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L : " + diplay1Val + ", a : " + diplay2Val + ", b : " + diplay3Val;
 
 
         break;
@@ -277,11 +302,6 @@ function mouseMoveColorspace(event) {
         //if (a99Val>=din99SpaceRange*-1 && a99Val<=din99SpaceRange && b99Val>=din99SpaceRange*-1 && b99Val<=din99SpaceRange){
         if (a99Val >= rangeA99Neg && a99Val <= rangeA99Pos && b99Val >= rangeB99Neg && b99Val <= rangeB99Pos) {
           tmpColor = new classColorDIN99(updateCurrentValue, a99Val, b99Val);
-
-          var diplay1Val = Math.round(updateCurrentValue);
-          var diplay2Val = Math.round(a99Val);
-          var diplay3Val = Math.round(b99Val);
-          document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L99 : " + diplay1Val + ", a99 : " + diplay2Val + ", b99 : " + diplay3Val;
 
           var colorRGB = tmpColor.calcRGBColor();
           if(colorRGB.getRValue()==0 && colorRGB.getGValue()==0 && colorRGB.getBValue()==0){
@@ -297,10 +317,44 @@ function mouseMoveColorspace(event) {
               return;
             }
           }
+
+          var diplay1Val = Math.round(updateCurrentValue);
+          var diplay2Val = Math.round(a99Val);
+          var diplay3Val = Math.round(b99Val);
+          document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L99 : " + diplay1Val + ", a99 : " + diplay2Val + ", b99 : " + diplay3Val;
         } else {
           return;
         }
         break;
+
+        case "lch":
+          var dis = Math.sqrt(Math.pow(colorspaceCenterX - mousePosX, 2) + Math.pow(colorspaceCenterY - mousePosY, 2));
+          if (dis <= colorspaceRadius) {
+            //canvasObj.style.cursor = "pointer"; // crosshair
+            var ty = (mousePosY) - (colorspaceCenterY);
+            var tx = mousePosX - colorspaceCenterX;
+            var angle = atan2_360Degree(tx,ty)/360; // values 0-1 ...
+            var hVal = angle;
+            var cVal = dis / colorspaceRadius;
+            tmpColor = new classColor_LCH(updateCurrentValue, cVal,hVal);
+
+            if (onlyRGBPossibleColor) {
+              var testColor = tmpColor.calcRGBColorCorrect(errorRGBColor);
+
+              if (testColor.getRValue() == -1) {
+                return;
+              }
+            }
+
+            var diplay1Val = Math.round(updateCurrentValue*100);
+            var diplay2Val = Math.round(cVal*100);
+            var diplay3Val = Math.round(hVal*360);
+            document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L : " + diplay1Val + ", C : " + diplay2Val + ", h : " + diplay3Val+"&deg;";
+          } else {
+            return;
+          }
+          break
+
       default:
         console.log("Error at the getC1CurrentValue function");
         return;
@@ -358,7 +412,7 @@ function mouseDownColorspace() {
           var diplay1Val = Math.round(tmpColor.get1Value()*360);
           var diplay2Val = Math.round(tmpColor.get2Value()*100);
           var diplay3Val = Math.round(tmpColor.get3Value()*100);
-          document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "H : " + diplay1Val + ", S : " + diplay2Val + ", V : " + diplay3Val;
+          document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "H : " + diplay1Val + "&deg;, S : " + diplay2Val + ", V : " + diplay3Val;
         break
       case "lab":
           updateCurrentValue=tmpColor.get1Value();
@@ -374,6 +428,13 @@ function mouseDownColorspace() {
           var diplay3Val = Math.round(tmpColor.get3Value());
           document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L99 : " + diplay1Val + ", a99 : " + diplay2Val + ", b99 : " + diplay3Val;
         break;
+      case "lch":
+          updateCurrentValue=tmpColor.get1Value();
+          var diplay1Val = Math.round(tmpColor.get1Value()*100);
+          var diplay2Val = Math.round(tmpColor.get2Value()*100);
+          var diplay3Val = Math.round(tmpColor.get3Value()*360);
+          document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L : " + diplay1Val + ", C : " + diplay2Val + ", h : " + diplay3Val +"&deg;";
+      break;
       default:
         console.log("Error at the getC1CurrentValue function");
         return;
@@ -393,14 +454,17 @@ function mouseUpColorspace() {
 
   switch (pathColorspace) {
     case "hsv":
-      document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "H : -, S: -, V: -";
+      document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "H : -, S : -, V : -";
       break;
       case "lab":
-        document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L : -, a: -, b: -";
+        document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L : -, a : -, b : -";
         break;
         case "din99":
-          document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L99 : -, a99: -, b99: -";
+          document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L99 : -, a99 : -, b99 : -";
           break;
+          case "lch":
+            document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L : -, C : -, h : -";
+            break;
     default:
 
   }
@@ -424,24 +488,32 @@ function calcHuePos(tmpColor){
       case "hsv":
         var colorspaceRadius = Math.round(pathPlotResolution / 2);
         var tmpDis = tmpColor.getSValue() * colorspaceRadius;
-        var tmpRad = (tmpColor.getHValue() * Math.PI * 2) - Math.PI;
+        var tmpRad = degree360ToRad(tmpColor.getHValue()*360);
+
         xPos = tmpDis * Math.cos(tmpRad) + colorspaceCenterX;
         yPos = tmpDis * Math.sin(tmpRad) + colorspaceCenterY;
-        break;
       break;
       case "lab":
         xPos = ((tmpColor.getAValue() / labSpaceRange) * pathPlotResolution / 2) + colorspaceCenterX;
         yPos = ((tmpColor.getBValue() / labSpaceRange) * pathPlotResolution / 2) + colorspaceCenterY;
-        break;
+      break;
       case "din99":
         xPos = (tmpColor.getA99Value() - rangeA99Neg) / rangeA99 * pathPlotResolution;
         yPos = (tmpColor.getB99Value() - rangeB99Neg) / rangeB99 * pathPlotResolution;
-        break;
+      break;
+      case "lch":
+        var colorspaceRadius = Math.round(pathPlotResolution / 2);
+        var tmpDis = tmpColor.getCValue() * colorspaceRadius;
+        var tmpRad = degree360ToRad(tmpColor.getHValue()*360);
+        xPos = tmpDis * Math.cos(tmpRad) + colorspaceCenterX;
+        yPos = tmpDis * Math.sin(tmpRad) + colorspaceCenterY;
       break;
         default:
           console.log("Error at the changeColorspace function");
           return;
       }
+
+  //var tmpY= pathPlotResolution-yPos;
   tmpPos=[xPos,yPos];
   return tmpPos;
 }
@@ -457,14 +529,17 @@ function mouseLeaveValuePlot(event) {
 
   switch (pathColorspace) {
     case "hsv":
-      document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "H : -, S: -, V: -";
+      document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "H : -, S : -, V : -";
       break;
       case "lab":
-        document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L : -, a: -, b: -";
+        document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L : -, a : -, b : -";
         break;
         case "din99":
-          document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L99 : -, a99: -, b99: -";
+          document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L99 : -, a99 : -, b99 : -";
           break;
+          case "lch":
+            document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L : -, C : -, h : -";
+            break;
     default:
 
   }
@@ -525,10 +600,10 @@ function checkInsideRect(centerPosX, centerPosY, i, colorside) {
 
 function checkInsideCirce(centerPosX, centerPosY, i, colorside){
 
+  var dis = Math.sqrt(Math.pow(centerPosX - mousePosX, 2) + Math.pow(centerPosY - mousePosY, 2));
+
   if (mouseAboveKeyID == i) {
     // Circle -> Part of Scaled Band
-    var dis = Math.sqrt(Math.pow(centerPosX - mousePosX, 2) + Math.pow(centerPosY - mousePosY, 2));
-
     if (dis > bigcircleRad) {
       mouseAboveKeyID = -1;
         //drawcolormap_hueSpace(false,false,false);
@@ -537,8 +612,6 @@ function checkInsideCirce(centerPosX, centerPosY, i, colorside){
       return true;
     }
   } else {
-
-    var dis = Math.sqrt(Math.pow(centerPosX - mousePosX, 2) + Math.pow(centerPosY - mousePosY, 2));
 
     if (dis <= circleRad) {
       mouseAboveKeyID = i;
@@ -569,6 +642,9 @@ function calcVYPos(tmpColor,plotYStart,heigthVArea, type){
         case "din99":
           tmpY = Math.round(plotYStart - (heigthVArea * tmpColor.getL99Value() / 100));
           break;
+        case "lch":
+          tmpY = Math.round(plotYStart - (heigthVArea * tmpColor.getLValue()));
+        break;
         default:
           console.log("Error at the changeColorspace function");
           return;
@@ -584,6 +660,9 @@ function calcVYPos(tmpColor,plotYStart,heigthVArea, type){
             break;
           case "din99":
             tmpY = Math.round(plotYStart - (heigthVArea * (tmpColor.getA99Value()+(rangeA99Neg*-1)) / (rangeA99Pos-rangeA99Neg)));
+            break;
+            case "lch":
+              tmpY = Math.round(plotYStart - (heigthVArea * tmpColor.getCValue()));
             break;
           default:
             console.log("Error at the changeColorspace function");
@@ -604,6 +683,9 @@ function calcVYPos(tmpColor,plotYStart,heigthVArea, type){
             case "din99":
               //tmpY = Math.round(plotYStart - (heigthVArea * tmpColor.getL99Value() / 100));
               tmpY = Math.round(plotYStart - (heigthVArea * (tmpColor.getB99Value()+(rangeB99Neg*-1)) / (rangeB99Pos-rangeB99Neg)));
+              break;
+              case "lch":
+                tmpY = Math.round(plotYStart - (heigthVArea * tmpColor.getHValue()));
               break;
             default:
               console.log("Error at the getC1CurrentValue function");
@@ -802,7 +884,7 @@ function mouseMoveValuePlot(event) {
               var diplay1Val = Math.round(displayColor.get1Value()*360);
               var diplay2Val = Math.round(displayColor.get2Value()*100);
               var diplay3Val = Math.round(displayColor.get3Value()*100);
-              document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "H : " + diplay1Val + ", S : " + diplay2Val + ", V : " + diplay3Val;
+              document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "H : " + diplay1Val + "&deg;, S : " + diplay2Val + ", V : " + diplay3Val;
             break
           case "lab":
               var diplay1Val = Math.round(displayColor.get1Value());
@@ -816,6 +898,12 @@ function mouseMoveValuePlot(event) {
               var diplay3Val = Math.round(displayColor.get3Value());
               document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L99 : " + diplay1Val + ", a99 : " + diplay2Val + ", b99 : " + diplay3Val;
             break;
+            case "lch":
+                var diplay1Val = Math.round(displayColor.get1Value());
+                var diplay2Val = Math.round(displayColor.get2Value());
+                var diplay3Val = Math.round(displayColor.get3Value());
+                document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L : " + diplay1Val + ", C : " + diplay2Val + ", h : " + diplay3Val +"&deg;";
+              break;
           default:
             console.log("Error at the getC1CurrentValue function");
             return;
@@ -823,6 +911,24 @@ function mouseMoveValuePlot(event) {
         break;
       }
       else{
+
+        switch (pathColorspace) {
+          case "hsv":
+            document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "H : -, S : -, V : -";
+            break;
+            case "lab":
+              document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L : -, a : -, b : -";
+              break;
+              case "din99":
+                document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L99 : -, a99 : -, b99 : -";
+                break;
+                case "lch":
+                  document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L : -, C : -, h : -";
+                  break;
+          default:
+
+        }
+
         mouseAboveKeyID = -1;
         mouseGrappedColorSide = -1;
       }
@@ -889,6 +995,18 @@ function mouseMoveValuePlot(event) {
                 }
                 break;
 
+
+                case "lch":
+                  tmpColor = new classColor_LCH(newValue, oldColor.getCValue(), oldColor.getHValue());
+                  if (onlyRGBPossibleColor) {
+                    var testColor = tmpColor.calcRGBColorCorrect(errorRGBColor);
+
+                    if (testColor.getRValue() == -1) {
+                      return;
+                    }
+                  }
+                break;
+
             default:
               console.log("Error at the getC1CurrentValue function");
               return;
@@ -930,6 +1048,19 @@ function mouseMoveValuePlot(event) {
                   if((tmpColor.getA99Value()!=0 || tmpColor.getB99Value()!=0)  && testColor2.equalTo(new classColor_RGB(0,0,0)))
                     return;
                   break;
+
+
+                  case "lch":
+                    tmpColor = new classColor_LCH(oldColor.getLValue(), newValue, oldColor.getHValue());
+                    if (onlyRGBPossibleColor) {
+                      var testColor = tmpColor.calcRGBColorCorrect(errorRGBColor);
+
+                      if (testColor.getRValue() == -1) {
+                        return;
+                      }
+                    }
+                  break;
+
               default:
                 console.log("Error at the getC1CurrentValue function");
                 return;
@@ -962,6 +1093,19 @@ function mouseMoveValuePlot(event) {
                             return;
                           }
                         }
+                        break;
+
+                        case "lch":
+                          tmpColor = new classColor_LCH(oldColor.getLValue(), oldColor.getCValue(), newValue);
+                          if (onlyRGBPossibleColor) {
+                            var testColor = tmpColor.calcRGBColorCorrect(errorRGBColor);
+
+                            if (testColor.getRValue() == -1) {
+                              return;
+                            }
+                          }
+                        break;
+
                     default:
                       console.log("Error at the getC1CurrentValue function");
                       return;
@@ -977,7 +1121,7 @@ function mouseMoveValuePlot(event) {
             var diplay1Val = Math.round(tmpColor.get1Value()*360);
             var diplay2Val = Math.round(tmpColor.get2Value()*100);
             var diplay3Val = Math.round(tmpColor.get3Value()*100);
-            document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "H : " + diplay1Val + ", S : " + diplay2Val + ", V : " + diplay3Val;
+            document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "H : " + diplay1Val + "&deg;, S : " + diplay2Val + ", V : " + diplay3Val;
           break
         case "lab":
             var diplay1Val = Math.round(tmpColor.get1Value());
@@ -990,6 +1134,12 @@ function mouseMoveValuePlot(event) {
             var diplay2Val = Math.round(tmpColor.get2Value());
             var diplay3Val = Math.round(tmpColor.get3Value());
             document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L99 : " + diplay1Val + ", a99 : " + diplay2Val + ", b99 : " + diplay3Val;
+          break;
+        case "lch":
+            var diplay1Val = Math.round(tmpColor.get1Value()*100);
+            var diplay2Val = Math.round(tmpColor.get2Value()*100);
+            var diplay3Val = Math.round(tmpColor.get3Value()*360);
+            document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L : " + diplay1Val + ", C : " + diplay2Val + ", h : " + diplay3Val + "&deg;";
           break;
         default:
           console.log("Error at the getC1CurrentValue function");

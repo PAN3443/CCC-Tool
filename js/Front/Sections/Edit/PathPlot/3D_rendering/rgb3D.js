@@ -14,17 +14,17 @@ function rgbMesh(){
   //////////////////////////////////////////////////////////////////
   // Arrow Labels
 
-    /*var loader = new THREE.FontLoader();
+    var loader = new THREE.FontLoader();
 
-      loader.load( 'js/Front/WebGL/three/helvetiker_regular.typeface.json', function ( font ) {
+      loader.load( 'js/libs/ThreeJS/Fonts/helvetiker_regular.typeface.json', function ( font ) {
 
       var textGeo1 = new THREE.TextGeometry( "R", {
           font: font,
           size: textSize,
           height: textHeight,
           curveSegments: 4,
-          bevelThickness: 2,
-          bevelSize: 1.5,
+          bevelThickness: 1,
+          bevelSize: 1.0,
           bevelEnabled: true
       } );
 
@@ -33,8 +33,8 @@ function rgbMesh(){
           size: textSize,
           height: textHeight,
           curveSegments: 4,
-          bevelThickness: 2,
-          bevelSize: 1.5,
+          bevelThickness: 1,
+          bevelSize: 1.0,
           bevelEnabled: true
       } );
 
@@ -43,8 +43,8 @@ function rgbMesh(){
           size: textSize,
           height: textHeight,
           curveSegments: 4,
-          bevelThickness: 2,
-          bevelSize: 1.5,
+          bevelThickness: 1,
+          bevelSize: 1.0,
           bevelEnabled: true
       } );
 
@@ -63,7 +63,7 @@ function rgbMesh(){
       colorspaceGroup.add( textG );
       colorspaceGroup.add( textB );
 
-  } );*/
+  } );
 
   /////////////////////////////////////////////////////////////
   //// Arrows

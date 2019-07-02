@@ -148,7 +148,7 @@ class class_CMS {
               var newColor = calcGradientLinear(color1.getRValue(),color1.getGValue(),color1.getBValue(),color2.getRValue(),color2.getGValue(),color2.getBValue(), tmpRatio);
               return new classColor_RGB(newColor[0],newColor[1],newColor[2]);
           case "hsv":
-              var newColor = calcGradientHSV(color1.getHValue(),color1.getSValue(),color1.getVValue(),color2.getHValue(),color2.getSValue(),color2.getVValue(), tmpRatio);
+              var newColor = calcGradientCylinder(color1.getHValue(),color1.getSValue(),color1.getVValue(),color2.getHValue(),color2.getSValue(),color2.getVValue(), tmpRatio);
               var tmpColor = new classColor_HSV(newColor[0],newColor[1],newColor[2]);
               return tmpColor.calcRGBColor();
             break;
@@ -163,6 +163,12 @@ class class_CMS {
               var tmpColor = new classColorDIN99(newColor[0],newColor[1],newColor[2]);
               return tmpColor.calcRGBColor();
             break;
+          case "lch":
+              var newColor = calcGradientCylinder(color1.getHValue(),color1.getCValue(),color1.getLValue(),color2.getHValue(),color2.getCValue(),color2.getLValue(), tmpRatio);
+              var tmpColor = new classColor_LCH(newColor[2],newColor[1],newColor[0]);
+              return tmpColor.calcRGBColor();
+          break;
+
           default:
           console.log("Error calculateColor function");
           return this.NaN_RGB;
@@ -671,6 +677,29 @@ class class_CMS {
 
                   intervalColor = new classColorDIN99(l99Value,a99Value,b99Value);
                 break;
+              case "lch":
+                    var tmpDis = tmpColor.getCValue()*50; // radius 50; center(0,0,0);
+                    var tmpRad = (tmpColor.getHValue()*Math.PI*2)-Math.PI;
+                    var xPos = tmpDis*Math.cos(tmpRad);
+                    var yPos = tmpDis*Math.sin(tmpRad);
+                    var zPos = tmpColor.getLValue()-50;
+
+                    var tmpDis2 = tmpColor2.getCValue()*50;
+                    var tmpRad2 = (tmpColor2.getHValue()*Math.PI*2)-Math.PI;
+                    var xPos2 = tmpDis2*Math.cos(tmpRad2);
+                    var yPos2 = tmpDis2*Math.sin(tmpRad2);
+                    var zPos2 = tmpColor2.getLValue()-50;
+
+                    var tmpX = xPos+(xPos2 - xPos)*tmpRatio;
+                    var tmpY = yPos+(yPos2 - yPos)*tmpRatio;
+                    var tmpZ = zPos+(zPos2 - zPos)*tmpRatio;
+
+                    var tmpH =(Math.atan2(tmpY,tmpX)+Math.PI)/(Math.PI*2);
+                    var tmpC = Math.sqrt(Math.pow(tmpX,2)+Math.pow(tmpY,2))/50;
+                    var tmpL = tmpZ+50;
+                    intervalColor = new classColor_LCH(tmpL,tmpC,tmpH);
+
+                  break;
               default:
               console.log("Error calcColorMap function");
             }
