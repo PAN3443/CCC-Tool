@@ -28,7 +28,9 @@ function openTestSection(){
   testingModus=0;
   document.getElementById("id_Test_FunctionCollection").style.width = "100vw";
   document.getElementById("id_Test_TestDiv").style.width = "0vw";
+  document.getElementById("id_Test_ReportDiv").style.width = "0vw";
   document.getElementById("id_Test_pageSwitchRight").style.visibility = "visible";
+  document.getElementById("id_Test_pageSwitchLeft").style.visibility = "hidden";
 
   if(reportListTestField.length==0)
     document.getElementById("id_Test_pageSwitchStatus2").style.visibility = "hidden";
@@ -128,6 +130,3 @@ function selectTestCMS(){
   }
 
 }
-
-
-var importRealDataField = [];

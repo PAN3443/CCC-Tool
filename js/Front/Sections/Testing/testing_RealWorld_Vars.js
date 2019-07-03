@@ -7,6 +7,7 @@ var medicalFiles = ["cthead-8bit061.png","mrbrain-8bit038.png","thermography.png
 var medicalData = new Array(medicalFiles.length);
 var medicalAcknowlegments = [0,0,1,1];
 
+var importRealDataField = [];
 
 var scientificMeasurmentsLabels = [];
 var scientificMeasurmentsFiles = [];
