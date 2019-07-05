@@ -1,5 +1,36 @@
 
 
+function changeIntervalOption(type){
+
+  document.getElementById("button_ExportOnlyKeys").classList.remove("class_generalbuttonActive");
+  document.getElementById("button_ExportKeysAndIntervals").classList.remove("class_generalbuttonActive");
+
+  document.getElementById("button_ExportOnlyKeys").classList.add("class_generalbutton");
+  document.getElementById("button_ExportKeysAndIntervals").classList.add("class_generalbutton");
+
+
+  if(type==0){
+    document.getElementById("button_ExportOnlyKeys").classList.remove("class_generalbutton");
+    document.getElementById("button_ExportOnlyKeys").classList.add("class_generalbuttonActive");
+    exportOnlyKeys=true;
+
+    document.getElementById("id_Export_NumIntervalDiv").style.display = "none";
+    document.getElementById("id_ExportIntervalNum").value = 1;
+    intervalSize = parseFloat(document.getElementById("id_ExportIntervalNum").value);
+  }
+  else{
+    document.getElementById("button_ExportKeysAndIntervals").classList.remove("class_generalbutton");
+    document.getElementById("button_ExportKeysAndIntervals").classList.add("class_generalbuttonActive");
+    exportOnlyKeys=false;
+    document.getElementById("id_ExportIntervalNum").value = 100;
+    intervalSize = parseFloat(document.getElementById("id_ExportIntervalNum").value);
+    document.getElementById("id_Export_NumIntervalDiv").style.display = "flex";
+  }
+
+  // Fill Table
+  fillExportTable();
+}
+
 
 function closeExportWindow(){
   document.getElementById("id_PopUp_ExportWindow").style.display="none";
@@ -31,6 +62,7 @@ function openExportWindow(){
     twinErrorValue=0;
   }
 
+  changeIntervalOption(1);
   changeExportColorspace(0);
   changeOutputformat(1);
 
@@ -82,7 +114,6 @@ function fillExportTable(){
 
 
     workCMS = calcCMSIntervals(workCMS,0,workCMS.getKeyLength()-1,globalIntervalMode);
-
 
     var old_tbody = document.getElementById("id_exportTableBody");
     var new_tbody = document.createElement('tbody');
@@ -156,41 +187,43 @@ function fillExportTable(){
 function createExportTableRow(counter,ref, type, tmpColor){
   var tr = document.createElement('tr');
 
+  var className = "class_tableInput";
+  if(counter%2==1){
+    className = "class_tableInputDark";
+  }
+
   var td = document.createElement('td')
-  td.className = "class_tableInput";
+  td.className = className;
   td.style.width = "5%";
   td.appendChild(document.createTextNode(counter));
   tr.appendChild(td);
 
   td = document.createElement('td')
-  td.className = "class_tableInput";
+  td.className = className;
   td.style.width = "20%";
   td.appendChild(document.createTextNode(ref));
   tr.appendChild(td);
 
   td = document.createElement('td')
-  td.className = "class_tableInput";
+  td.className = className;
   td.style.width = "10%";
   td.appendChild(document.createTextNode(type));
   tr.appendChild(td);
 
   td = document.createElement('td')
-  td.className = "class_tableInput";
+  td.className = className;
   td.style.width = "60%";
   td.appendChild(document.createTextNode(exportColorspace+"("+tmpColor.get1Value()+','+tmpColor.get2Value()+','+tmpColor.get3Value()+')'));
   tr.appendChild(td);
 
   td = document.createElement('td')
-  td.className = "class_tableInput";
+  td.className = className;
   td.style.width = "5%";
   td.style.background = tmpColor.calcRGBColor().getRGBString();
   tr.appendChild(td);
 
   return tr;
 }
-
-
-
 
 
 function changeExportColorspace(type){
@@ -354,7 +387,9 @@ function downloadCMSFile(){
 
 function exportSide_createXML(workCMS){
 
+
     workCMS = calcCMSIntervals(workCMS,0,workCMS.getKeyLength()-1,globalIntervalMode);
+
 
     var xmltext = "<ColorMaps>\n<ColorMap name=\""+workCMS.getColormapName()+"\" space=\"";
 
@@ -409,7 +444,9 @@ function exportSide_createCSV_Lookup(workCMS){
 
     var text = "";
 
+
     workCMS = calcCMSIntervals(workCMS,0,workCMS.getKeyLength()-1,globalIntervalMode);
+
 
     var opacityVal =1;
     var tmpColor2 = workCMS.getNaNColor(exportColorspace);
@@ -738,6 +775,7 @@ function createLine(format,tmpColor,refVal,opacityVal,isCMS,isMoT){
 function exportSide_createJSON(workCMS){
 
     workCMS = calcCMSIntervals(workCMS,0,workCMS.getKeyLength()-1,globalIntervalMode);
+
 
     var jsontext = "[\n\t{\n\t\t\"ColorSpace\" : ";
 

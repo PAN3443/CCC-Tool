@@ -743,6 +743,11 @@ class class_CMS {
       return this.intervalArray[index].getRefPosition();
   }
 
+  clearIntervalColors(){
+    this.intervalArray=[];
+    this.intervalPosition=[];
+  }
+
   /////////////// Other GET SET ////////////////////
 
   getIntervalPositions(keyIndex){

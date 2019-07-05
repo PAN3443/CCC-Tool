@@ -211,8 +211,8 @@ div.sticky {
 .class_generalbuttonActive{
     border: none;
     font-weight:bold;
-    background-color: rgb(0,191,255); /*rgb(15, 107, 149);*/
-    box-shadow: 0 0 1vh rgba(0,191,255, 0.5);
+    background-color: rgb(228,62,0); /*rgb(0,191,255); rgb(15, 107, 149);*/
+    box-shadow: 0 0 1vh rgba(228,62,0, 0.5);
     color:white;
     transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
     height: 4vh;
@@ -236,8 +236,8 @@ div.sticky {
 
 .class_generalbuttonActive:hover{
   transform: scale(0.9);
-  background-color: rgb(30,144,255);
-  box-shadow: 0 0 1vh rgba(30,144,255, 0.5);
+  background-color: rgb(255,69,0); /*30,144,255*/
+  box-shadow: 0 0 1vh rgba(255,69,0, 0.5); /*30,144,255*/
 }
 
 

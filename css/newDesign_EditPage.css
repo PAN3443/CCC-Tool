@@ -221,6 +221,22 @@
     text-overflow: ellipsis;
 }
 
+.class_tableInputDark{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height:2vh;
+    max-height: 2vh;
+    line-height:2vh;
+    font-size:1.0vh;
+    color: black;
+    background:rgb(220,220,220);
+    border: 0.1vh solid black;
+    vertical-align: middle;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 
 .class_predefinedConstBands{
 

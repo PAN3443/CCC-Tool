@@ -10,6 +10,8 @@ var doTwinErrorSolution = true;
 var twinError = 0.00001;
 var twinErrorValue = 0;
 
-
+var exportOnlyKeys = false
 //
+
+var exportColorspace = "rgb";
 var outputFormat = "xml";
