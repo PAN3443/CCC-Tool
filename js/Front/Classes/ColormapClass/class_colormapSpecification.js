@@ -6,20 +6,9 @@ class class_CMS {
 
     this.description = "";
 
-    this.NaN_RGB = new classColor_RGB(0,0,0);
-    this.NaN_HSV = new classColor_HSV(0,0,0);
-    this.NaN_LAB = new classColor_LAB(0,0,0);
-    this.NaN_DIN99 = new classColorDIN99(0,0,0);
-
-    this.Below_RGB = new classColor_RGB(0,0,0);
-    this.Below_HSV = new classColor_HSV(0,0,0);
-    this.Below_LAB = new classColor_LAB(0,0,0);
-    this.Below_DIN99 = new classColorDIN99(0,0,0);
-
-    this.Above_RGB = new classColor_RGB(0,0,0);
-    this.Above_HSV = new classColor_HSV(0,0,0);
-    this.Above_LAB = new classColor_LAB(0,0,0);
-    this.Above_DIN99 = new classColorDIN99(0,0,0);
+    this.colorNaN = new classColor_LAB(0,0,0);
+    this.colorBelow = new classColor_LAB(0,0,0);
+    this.colorAbove = new classColor_LAB(0,0,0);
 
     /// color array from import and for the export
     this.preprocessingColorArray = [];
@@ -44,22 +33,18 @@ class class_CMS {
     return this.interpolationSpace;
   }
 
+  /* Not sure if we need updateColorToNewSettings anymore.
+  /*updateColorToNewSettings(){
 
-  updateColorToNewSettings(){
-    this.NaN_LAB = this.NaN_RGB.calcLABColor();
-    this.NaN_DIN99 = this.NaN_RGB.calcDIN99Color();
-
-    this.Below_LAB = this.Below_RGB.calcLABColor();
-    this.Below_DIN99 = this.Below_RGB.calcDIN99Color();
-
-    this.Above_LAB = this.Above_RGB.calcLABColor();
-    this.Above_DIN99 = this.Above_RGB.calcDIN99Color();
+    this.colorNaN = this.colorNaN.calcDIN99Color();
+    this.colorBelow = this.colorBelow.calcLABColor();
+    this.colorAbove = this.colorAbove.calcLABColor();
 
     for (var i = 0; i < this.keyArray.length; i++) {
       this.keyArray[i].updateKeyColorsToSettings();
     }
 
-  }
+  }*/
 
   /////////////////////////////////
   //// Key Structure
@@ -112,16 +97,16 @@ class class_CMS {
   calculateColor(val){
 
     if(isNaN(val)){
-      return this.NaN_RGB;
+      return this.colorNaN.calcRGBColor();
     }
 
     if(val<this.keyArray[0].getRefPosition()){
-      return this.Below_RGB;
+      return this.colorBelow.calcRGBColor();
     }
 
 
     if(val>this.keyArray[this.keyArray.length-1].getRefPosition()){
-      return this.Above_RGB;
+      return this.colorAbove.calcRGBColor();
     }
 
     for (var i = 0; i < this.keyArray.length-1; i++) {
@@ -171,7 +156,7 @@ class class_CMS {
 
           default:
           console.log("Error calculateColor function");
-          return this.NaN_RGB;
+          return this.colorNaN;
         }
 
       }
@@ -221,7 +206,7 @@ class class_CMS {
       }
     }
 
-    return this.NaN_RGB;
+    return this.colorNaN;
   }
 
   deleteKey(index){
@@ -231,10 +216,9 @@ class class_CMS {
   clear(){
     /*this.name = "Customer Colormap";*/
 
-    this.NaN_RGB = new classColor_RGB(0,0,0);
-    this.NaN_HSV = new classColor_HSV(0,0,0);
-    this.NaN_LAB = new classColor_LAB(0,0,0);
-    this.NaN_DIN99 = new classColorDIN99(0,0,0);
+    this.colorNaN = new classColor_LAB(0,0,0);
+    this.colorBelow = new classColor_LAB(0,0,0);
+    this.colorNaN = new classColor_LAB(0,0,0);
 
     /// color array from import and for the export
     this.preprocessingColorArray = [];
@@ -262,8 +246,6 @@ class class_CMS {
     return newKey;
   }
 
-
-
   setRefPosition(index, ref){
     this.keyArray[index].setRefPosition(ref);
   }
@@ -287,6 +269,10 @@ class class_CMS {
   }
 
   getRefPosition(index){
+
+    if(index<0 || index>=this.keyArray.length)
+    return undefined;
+
     return this.keyArray[index].getRefPosition();
   }
 
@@ -788,53 +774,32 @@ class class_CMS {
 
    setNaNColor(color){
 
-     var colorType = color.getColorType();
-     switch (colorType) {
-       case "rgb":
-       this.NaN_RGB = color;
-       this.NaN_HSV = color.calcHSVColor();
-       this.NaN_LAB = color.calcLABColor();
-       this.NaN_DIN99 = color.calcDIN99Color(1,1);
-         break;
-       case "hsv":
-       this.NaN_RGB = color.calcRGBColor();
-       this.NaN_HSV = color;
-       this.NaN_LAB = color.calcLABColor();
-       this.NaN_DIN99 = color.calcDIN99Color(1,1);
-         break;
-       case "lab":
-       this.NaN_RGB = color.calcRGBColor();
-       this.NaN_HSV = color.calcHSVColor();
-       this.NaN_LAB = color;
-       this.NaN_DIN99 = color.calcDIN99Color(1,1);
-         break;
-       case "din99":
-       this.NaN_RGB = color.calcRGBColor();
-       this.NaN_HSV = color.calcHSVColor();
-       this.NaN_LAB = color.calcLABColor();
-       this.NaN_DIN99 = color;
-         break;
-       default:
-
+     if(color.getColorType()==="lab"){
+       this.colorNaN = color;
      }
+     else {
+       this.colorNaN = color.calcLABColor();
+     }
+
    }
 
    getNaNColor(colorspace){
 
      switch (colorspace) {
        case "rgb":
-       return this.NaN_RGB;
+       return this.colorNaN.calcRGBColor();
 
        case "hsv":
-       return this.NaN_HSV;
+       return this.colorNaN.calcHSVColor();
 
        case "lab":
-       return this.NaN_LAB;
+       return this.colorNaN.calcLABColor();
 
        case "din99":
-       return this.NaN_DIN99;
+       return this.colorNaN.calcDIN99Color();
 
-       default:
+       case "lch":
+       return this.colorNaN.calcLCHColor();
 
      }
    }
@@ -843,53 +808,32 @@ class class_CMS {
 
    setBelowColor(color){
 
-     var colorType = color.getColorType();
-     switch (colorType) {
-       case "rgb":
-       this.Below_RGB = color;
-       this.Below_HSV = color.calcHSVColor();
-       this.Below_LAB = color.calcLABColor();
-       this.Below_DIN99 = color.calcDIN99Color(1,1);
-         break;
-       case "hsv":
-       this.Below_RGB = color.calcRGBColor();
-       this.Below_HSV = color;
-       this.Below_LAB = color.calcLABColor();
-       this.Below_DIN99 = color.calcDIN99Color(1,1);
-         break;
-       case "lab":
-       this.Below_RGB = color.calcRGBColor();
-       this.Below_HSV = color.calcHSVColor();
-       this.Below_LAB = color;
-       this.Below_DIN99 = color.calcDIN99Color(1,1);
-         break;
-       case "din99":
-       this.Below_RGB = color.calcRGBColor();
-       this.Below_HSV = color.calcHSVColor();
-       this.Below_LAB = color.calcLABColor();
-       this.Below_DIN99 = color;
-         break;
-       default:
-
+     if(color.getColorType()==="lab"){
+       this.colorBelow = color;
      }
+     else {
+       this.colorBelow = color.calcLABColor();
+     }
+
    }
 
    getBelowColor(colorspace){
 
      switch (colorspace) {
        case "rgb":
-       return this.Below_RGB;
+       return this.colorBelow.calcRGBColor();
 
        case "hsv":
-       return this.Below_HSV;
+       return this.colorBelow.calcHSVColor();
 
        case "lab":
-       return this.Below_LAB;
+       return this.colorBelow.calcLABColor();
 
        case "din99":
-       return this.Below_DIN99;
+       return this.colorBelow.calcDIN99Color();
 
-       default:
+       case "lch":
+       return this.colorBelow.calcLCHColor();
 
      }
    }
@@ -898,53 +842,32 @@ class class_CMS {
 
    setAboveColor(color){
 
-     var colorType = color.getColorType();
-     switch (colorType) {
-       case "rgb":
-       this.Above_RGB = color;
-       this.Above_HSV = color.calcHSVColor();
-       this.Above_LAB = color.calcLABColor();
-       this.Above_DIN99 = color.calcDIN99Color(1,1);
-         break;
-       case "hsv":
-       this.Above_RGB = color.calcRGBColor();
-       this.Above_HSV = color;
-       this.Above_LAB = color.calcLABColor();
-       this.Above_DIN99 = color.calcDIN99Color(1,1);
-         break;
-       case "lab":
-       this.Above_RGB = color.calcRGBColor();
-       this.Above_HSV = color.calcHSVColor();
-       this.Above_LAB = color;
-       this.Above_DIN99 = color.calcDIN99Color(1,1);
-         break;
-       case "din99":
-       this.Above_RGB = color.calcRGBColor();
-       this.Above_HSV = color.calcHSVColor();
-       this.Above_LAB = color.calcLABColor();
-       this.Above_DIN99 = color;
-         break;
-       default:
-
+     if(color.getColorType()==="lab"){
+       this.colorAbove = color;
      }
+     else {
+       this.colorAbove = color.calcLABColor();
+     }
+
    }
 
    getAboveColor(colorspace){
 
      switch (colorspace) {
        case "rgb":
-       return this.Above_RGB;
+       return this.colorAbove.calcRGBColor();
 
        case "hsv":
-       return this.Above_HSV;
+       return this.colorAbove.calcHSVColor();
 
        case "lab":
-       return this.Above_LAB;
+       return this.colorAbove.calcLABColor();
 
        case "din99":
-       return this.Above_DIN99;
+       return this.colorAbove.calcDIN99Color();
 
-       default:
+       case "lch":
+       return this.colorAbove.calcLCHColor();
 
      }
    }

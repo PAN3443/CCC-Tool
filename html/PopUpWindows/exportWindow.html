@@ -15,14 +15,18 @@
       </select>
     </div>
 
+  <div id="id_exportOptionsDiv" style="width:100%;">
 
     <div class="row" style="width:100%; margin-top: 2vh;">
       <p style="margin:0px; width:20%; height:3vh; line-height:3vh; font-size:2vh;">Space Notation:</p>
 
-      <button class="class_generalbutton " id="button_ExportSpaceRGB" onclick="changeExportColorspace(0)" title="RGB" style="border-radius: 0.5vh; width: 5vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;">RGB</button>
-      <button class="class_generalbutton " id="button_ExportSpaceHSV" onclick="changeExportColorspace(1)" title="HSV" style="border-radius: 0.5vh; width: 5vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;">HSV</button>
-      <button class="class_generalbutton " id="button_ExportSpaceLAB" onclick="changeExportColorspace(2)" title="LAB" style="border-radius: 0.5vh; width: 5vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;">LAB</button>
-      <button class="class_generalbutton " id="button_ExportSpaceDIN99" onclick="changeExportColorspace(3)" title="DIN99" style="border-radius: 0.5vh; width: 5vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;">DIN99</button>
+      <button class="class_generalbutton " id="button_ExportSpaceRGB" onclick="changeExportColorspace(0)" title="RGB" style="border-radius: 0.5vh; width: 6vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;"> RGB </button>
+      <button class="class_generalbutton " id="button_ExportSpaceRGBRatio" onclick="changeExportColorspace(1)" title="RGB" style="border-radius: 0.5vh; width: 6vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;">RGB [0,1]</button>
+      <button class="class_generalbutton " id="button_ExportSpaceHSV" onclick="changeExportColorspace(2)" title="HSV" style="border-radius: 0.5vh; width: 6vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;">HSV</button>
+      <button class="class_generalbutton " id="button_ExportSpaceHSVRatio" onclick="changeExportColorspace(3)" title="HSV" style="border-radius: 0.5vh; width: 6vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;">HSV [0,1]</button>
+      <button class="class_generalbutton " id="button_ExportSpaceLAB" onclick="changeExportColorspace(4)" title="LAB" style="border-radius: 0.5vh; width: 6vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;">LAB</button>
+      <button class="class_generalbutton " id="button_ExportSpaceLCh" onclick="changeExportColorspace(5)" title="LCH" style="border-radius: 0.5vh; width: 6vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;">LCh</button>
+      <button class="class_generalbutton " id="button_ExportSpaceDIN99" onclick="changeExportColorspace(6)" title="DIN99" style="border-radius: 0.5vh; width: 6vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;">DIN99</button>
 
     </div>
 
@@ -30,8 +34,8 @@
       <div style="display:flex; width:100%;">
         <p class="standardText " style="margin:0px; width:20%; height:3vh; line-height:3vh; font-size:2vh;">Interval Options:</p>
 
-        <button class="class_generalbutton " id="button_ExportOnlyKeys" onclick="changeIntervalOption(0)" title="Keys" style="border-radius: 0.5vh; width: 15vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;">Only Keys</button>
-        <button class="class_generalbutton " id="button_ExportKeysAndIntervals" onclick="changeIntervalOption(1)" title="Keys+Intervals" style="border-radius: 0.5vh; width: 15vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;">Add Interval Colors</button>
+        <button class="class_generalbutton " id="button_ExportOnlyKeys" onclick="changeIntervalOption(0)" title="Keys" style="border-radius: 0.5vh; width: 15vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;">Only Key Colors</button>
+        <button class="class_generalbutton " id="button_ExportKeysAndIntervals" onclick="changeIntervalOption(1)" title="Keys+Intervals" style="border-radius: 0.5vh; width: 15vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;">Key+Interval Colors</button>
 
         <div id="id_Export_NumIntervalDiv" style="display:flex;">
           <p class="standardText " style="margin:0px; margin-left: 1vw; height:3vh; line-height:3vh; font-size:2vh;"> #Intervals: </p>
@@ -54,14 +58,20 @@
         </div>
       </div>
     </div>
+  </div>
 
 
+
+    <canvas id="id_exportPNGCanvas" width="300" height="300" style="width:0px; height:0px;"></canvas>
     <div class="row" style="width:100%; margin-top: 2vh;">
       <p class="standardText " style="margin:0px; width:20%; height:3vh; line-height:3vh; font-size:2vh;">Format:</p>
       <button class="class_generalbutton " id="button_ExportFormatXML" onclick="changeOutputformat(1)" title="XML" style="border-radius: 0.5vh; width: 5vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;">XML</button>
       <button class="class_generalbutton " id="button_ExportFormatJSON" onclick="changeOutputformat(2)" title="JSON" style="border-radius: 0.5vh; width: 5vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;">JSON</button>
       <button class="class_generalbutton " id="button_ExportFormatCSV" onclick="changeOutputformat(0)" title="CSV" style="border-radius: 0.5vh; width: 5vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;">CSV</button>
+      <button class="class_generalbutton " id="button_ExportFormatPNGH" onclick="changeOutputformat(3)" title="PNG" style="border-radius: 0.5vh; width: 5vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;">PNG &#8596;</button>
+      <button class="class_generalbutton " id="button_ExportFormatPNGV" onclick="changeOutputformat(4)" title="PNG" style="border-radius: 0.5vh; width: 5vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;">PNG &#8597;</button>
     </div>
+    <p id="id_exportPNG_Info" class="standardText" style="margin-left:20%; margin-top:0.5vh;"> <strong>Info:</strong> Files exported with the PNG format include only the image and no key-information. These files can't be reloaded back to the tool.</p>
   </div>
 
 

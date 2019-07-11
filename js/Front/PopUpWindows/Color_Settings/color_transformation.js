@@ -21,7 +21,7 @@ function closeColorSettings(){
   calcSpaceGridDIN99();
 
 
-  for(var i=0; i<myDesignsList.length; i++){
+  /*for(var i=0; i<myDesignsList.length; i++){
     myDesignsList[i].updateColorToNewSettings();
   }
 
@@ -56,12 +56,12 @@ function closeColorSettings(){
 
   for(var i=0; i<cmsYellowColormaps.length; i++){
     cmsYellowColormaps[i].updateColorToNewSettings();
-  }
+  }*/
 
 
   // Update Edit Page
   if(document.getElementById("id_EditPage").style.display!="none"){
-    globalCMS1.updateColorToNewSettings();
+    //globalCMS1.updateColorToNewSettings();
 
     updatePredefined();
 

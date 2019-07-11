@@ -114,6 +114,11 @@ class classColor_LAB{
           return tmpString;
       }
 
+
+      calcLABColor() {
+        return this;
+      }
+
       calcXYZColor(){
         //  Calc XYZ
         var var_Y = (this.lValue + 16.0)/116.0;

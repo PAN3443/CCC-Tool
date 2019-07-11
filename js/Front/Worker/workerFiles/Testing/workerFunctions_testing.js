@@ -196,7 +196,7 @@ function calculateTransferMeshData(field, do3DTestField, scalefactor3DTest) {
   testMappingMeshData.push(do3DTestField);
 
   if (do3DTestField && field.getCellValues()) {
-  
+
     var dataRows = [];
     for (var y = 0; y < field.getYDim() - 1; y++) {
 
@@ -345,6 +345,11 @@ function calculateImageData(testfield, doGreyScaled) {
       for (var x = 0; x < imgWidth; x++) {
         var colorRGB = globalCMS1.calculateColor(testfield.getFieldValue(x, y));
         var indices = getColorIndicesForCoord(x, maxHeightIndex - y, imgWidth);
+
+        if(colorRGB==undefined){
+          console.log(testfield.getFieldValue(x, y));
+        }
+
         imgData.data[indices[0]] = Math.round(colorRGB.get1Value() * 255); // r
         imgData.data[indices[1]] = Math.round(colorRGB.get2Value() * 255); // g
         imgData.data[indices[2]] = Math.round(colorRGB.get3Value() * 255); // b

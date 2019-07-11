@@ -52,3 +52,71 @@ function drawCanvasColormap(canvasID, tmpCMS) { //1920,150
 
 
 }
+
+
+function drawCanvasColormapHorizontal(canvasID, tmpCMS, height, width) {
+
+  // start
+  var canvasObject = document.getElementById(canvasID);
+  canvasObject.height = height;
+  canvasObject.width = width;
+  var canvasContex = canvasObject.getContext("2d");
+
+  var canvasData = canvasContex.getImageData(0, 0, canvasObject.width, canvasObject.height);
+
+  /////////////////////////////////////////////////////////
+
+  var xPos = 0;
+  var yPos = 0;
+  // draw colormap
+  for (var i = 0; i < tmpCMS.getKeyLength()-1; i++) {
+
+    var pos1 = Math.round((tmpCMS.getRefPosition(i) - tmpCMS.getRefPosition(0)) / (tmpCMS.getRefPosition(tmpCMS.getKeyLength()-1) - tmpCMS.getRefPosition(0)) * canvasObject.width);
+    var pos2 = Math.round((tmpCMS.getRefPosition(i+1) - tmpCMS.getRefPosition(0)) / (tmpCMS.getRefPosition(tmpCMS.getKeyLength()-1) - tmpCMS.getRefPosition(0)) * canvasObject.width);
+    var elementwidth = pos2 - pos1;
+
+    switch (tmpCMS.getKeyType(i)) {
+      case "nil key": case "left key":
+        canvasData = createConstantBand(canvasData, xPos + pos1, elementwidth, canvasObject.height, tmpCMS.getLeftKeyColor(i+1,globalCMS1.getInterpolationSpace()), canvasObject.width);
+        break;
+      default:
+        canvasData = createScaledBand(canvasData, xPos + pos1, elementwidth, canvasObject.height, tmpCMS.getRightKeyColor(i,globalCMS1.getInterpolationSpace()), tmpCMS.getLeftKeyColor(i+1,globalCMS1.getInterpolationSpace()), canvasObject.width);
+    }
+
+  }
+  canvasContex.putImageData(canvasData, 0, 0);
+
+}
+
+
+function drawCanvasColormapVertical(canvasID, tmpCMS, height, width) {
+
+  // start
+  var canvasObject = document.getElementById(canvasID);
+  canvasObject.height = height;
+  canvasObject.width = width;
+  var canvasContex = canvasObject.getContext("2d");
+
+  var canvasData = canvasContex.getImageData(0, 0, canvasObject.width, canvasObject.height);
+
+  /////////////////////////////////////////////////////////
+
+  // draw colormap
+  for (var i = 0; i < tmpCMS.getKeyLength()-1; i++) {
+
+    var pos1 = Math.round((tmpCMS.getRefPosition(i) - tmpCMS.getRefPosition(0)) / (tmpCMS.getRefPosition(tmpCMS.getKeyLength()-1) - tmpCMS.getRefPosition(0)) * canvasObject.height);
+    var pos2 = Math.round((tmpCMS.getRefPosition(i+1) - tmpCMS.getRefPosition(0)) / (tmpCMS.getRefPosition(tmpCMS.getKeyLength()-1) - tmpCMS.getRefPosition(0)) * canvasObject.height);
+    var elementheight = pos2 - pos1;
+
+    switch (tmpCMS.getKeyType(i)) {
+      case "nil key": case "left key":
+        canvasData = createConstantBandVertical(canvasData, canvasObject.height-pos1, canvasObject.width,elementheight, tmpCMS.getLeftKeyColor(i+1,globalCMS1.getInterpolationSpace()), canvasObject.width);
+        break;
+      default:
+        canvasData = createScaledBandVertical(canvasData, canvasObject.height-pos1, canvasObject.width, elementheight, tmpCMS.getRightKeyColor(i,globalCMS1.getInterpolationSpace()), tmpCMS.getLeftKeyColor(i+1,globalCMS1.getInterpolationSpace()), canvasObject.width);
+    }
+
+  }
+  canvasContex.putImageData(canvasData, 0, 0);
+
+}

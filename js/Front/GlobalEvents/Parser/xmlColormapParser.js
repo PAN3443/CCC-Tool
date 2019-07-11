@@ -444,6 +444,9 @@ function getLoadedColor(val1,val2,val3,space){
      case "DIN99": case "din99": case "Din99":
          tmpColor = new classColorDIN99(val1,val2,val3);
        break;
+      case "LCH": case "lch": case "Lch": case "LCh":
+          tmpColor = new classColor_LCH(val1,val2,val3);
+      break;
      default:
            console.log("Error with XML File -> found no space ");
    }

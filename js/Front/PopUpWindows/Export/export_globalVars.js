@@ -12,6 +12,8 @@ var twinErrorValue = 0;
 
 var exportOnlyKeys = false
 //
-
+var scaleExpVal1 = 1;
+var scaleExpVal2 = 1;
+var scaleExpVal3 = 1;
 var exportColorspace = "rgb";
 var outputFormat = "xml";
