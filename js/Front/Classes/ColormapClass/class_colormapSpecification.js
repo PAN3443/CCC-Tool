@@ -167,7 +167,10 @@ class class_CMS {
         var color;
 
         if(i==0){
-          color = this.keyArray[i].getRightKeyColor(this.interpolationSpace);
+          if(this.keyArray[i].getKeyType()==="nil key")
+            color = this.keyArray[i+1].getLeftKeyColor(this.interpolationSpace);
+          else
+            color = this.keyArray[i].getRightKeyColor(this.interpolationSpace);
         }
         else{
           if(this.keyArray[i].getMoT()){
@@ -197,6 +200,9 @@ class class_CMS {
 
     if(val==this.keyArray[this.keyArray.length-1].getRefPosition()){
       var color = this.keyArray[this.keyArray.length-1].getLeftKeyColor(this.interpolationSpace);
+
+      if(color==undefined)
+        return undefined;
 
       switch (this.interpolationSpace) {
         case "rgb":
