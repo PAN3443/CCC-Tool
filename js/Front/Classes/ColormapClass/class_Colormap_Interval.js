@@ -6,7 +6,7 @@ class class_Interval{
     constructor(color, isKeyPart, refPos) {
 
         this.isKeyPart = isKeyPart;
-        this.iColor= [undefined,undefined,undefined,undefined,undefined];
+        this.iColor= undefined;
         this.ref = refPos;
 
         this.setColor(color);
@@ -14,73 +14,44 @@ class class_Interval{
     }
 
     setColor(color) {
-        switch (color.getColorType()) {
-          case "rgb":
-          this.iColor[0]=color;
-          this.iColor[1]=color.calcHSVColor();
-          this.iColor[2]=color.calcLABColor();
-          this.iColor[3]=color.calcDIN99Color();
-          this.iColor[4]=color.calcLCHColor();
-          break;
-          case "hsv":
-          this.iColor[0]=color.calcRGBColor();
-          this.iColor[1]=color;
-          this.iColor[2]=color.calcLABColor();
-          this.iColor[3]=color.calcDIN99Color();
-          this.iColor[4]=color.calcLCHColor();
-          break;
-          case "lab":
-          this.iColor[0]=color.calcRGBColor();
-          this.iColor[1]=color.calcHSVColor();
-          this.iColor[2]=color;
-          this.iColor[3]=color.calcDIN99Color();
-          this.iColor[4]=color.calcLCHColor();
-          break;
-          case "din99":
-          this.iColor[0]=color.calcRGBColor();
-          this.iColor[1]=color.calcHSVColor();
-          this.iColor[2]=color.calcLABColor();
-          this.iColor[3]=color;
-          this.iColor[4]=color.calcLCHColor();
-          break;
-          case "lch":
-          this.iColor[0]=color.calcRGBColor();
-          this.iColor[1]=color.calcHSVColor();
-          this.iColor[2]=color.calcLABColor();
-          this.iColor[3]=color.calcDIN99Color();
-          this.iColor[4]=color;
-          break;
-
-          default:
-        }
-
+        if(color != undefined) // should never happen
+          this.iColor=color.calcLABColor();
     }
 
     getColor(colorspace) {
 
+      if(this.iColor==undefined)
+      return undefined;
+
         switch (colorspace) {
           case "rgb":
-          return this.iColor[0];
+          return this.iColor.calcRGBColor();
+          break;
           case "hsv":
-          //return this.iColor[1];
-          return this.iColor[0].calcHSVColor();
+          return this.iColor.calcHSVColor();
+          break;
           case "lab":
-          return this.iColor[2];
+          return this.iColor.calcLABColor();
+          break;
           case "din99":
-          return this.iColor[3];
+          return this.iColor.calcDIN99Color();
+          break;
           case "lab_rgb_possible":
-          return this.iColor[0].calcLABColor();
+          var ncolor = this.iColor.calcRGBColor();
+          return ncolor.calcLABColor();
+          break;
           case "din99_rgb_possible":
-          return this.iColor[0].calcDIN99Color();
-          case "lab":
-          return this.iColor[2];
+          var ncolor = this.iColor.calcRGBColor();
+          return ncolor.calcDIN99Color();
+          break;
           case "lch":
-          return this.iColor[4];
+          return this.iColor.calcLCHColor();
+          break;
           case "lch_rgb_possible":
-          return this.iColor[0].calcLCHColor();
-
+          var ncolor = this.iColor.calcRGBColor();
+          return ncolor.calcLCHColor();
+          break;
         }
-
     }
 
     getIsKeyPart(){
