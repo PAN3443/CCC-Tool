@@ -3,25 +3,37 @@
 ----------------  	Section New CMS	  -----------------
 -----------------------------------------------
 -->
-<h1 id="id_newCMSPage_Label" class="sectionLabel" style="height:10vh; line-height:10vh;">New CMS</h1>
 
-<div class="row" style="width:100%;">
 
-  <img id="id_newCMSPage_Img" src="img/CCCToolComic/newPage.jpg" style=" height: 50vh; max-width: 25%;  margin-left:auto; margin-top:auto; margin-bottom:auto;">
+<div class="row" style="height: 100%; width:100%;">
 
-  <div style="width:50%; margin:auto;">
+  <div style="height: 100%; width:12vw; background:rgb(60,60,60);">
+      <p class="sectionLabel" style="width:100%; margin:auto; color:white; margin-top:5vh;">New CMS</p>
 
-    <p class="standardText " style="margin-left:10%; font-weight:bold; margin-bottom:1vh;">Name: </p>
-    <input class="standardText" type="text" id="id_newCMSPage_ColormapName" style="width:80%; margin-left:10%; padding:0.5vh;" name="mapname" required placeholder="Please enter a name for your colormap" />
-
-    <p class="standardText " style="margin-left:10%; font-weight:bold; margin-top:3vh; margin-bottom:1vh;">Description: </p>
-    <textarea class="standardText" id="id_newCMSPage_MapDescription" name="colormap description" style="width:80%; margin-left:10%; height:40vh;; overflow-y:auto; padding:0.5vh; resize:none;" placeholder="Enter a rough description of the colormap here. This is primarily used as note or reminder for you and in the case of sharing to inform other users what you want to show with this colormap. For more detailed information like semantics or special meaning of colormap components, the tool offers an additional description for keys or key strings."></textarea>
+      <button class="class_generalbutton_DarkBackground" onclick="showEditPage()" style="width:10vw; margin-top:5vh; margin-left:1vw;">Create</button>
+      <button class="class_generalbutton_DarkBackground" onclick="showMyDesignsPage()" style="width:10vw; margin-top:2vh; margin-left:1vw;">Cancel</button>
   </div>
 
-</div>
+  <div style="width:88vw; height:100%; overflow:auto; display:flex;">
+
+    <div class="class_OptionDiv" style="margin:auto; margin-right:3vw;">
+      <p class="standardText " style="font-weight:bold; margin-bottom:1vh; width: 10vw;">Name: </p>
+      <input class="standardText" type="text" id="id_newCMSPage_ColormapName" style="width: 35vw; padding:0.5vh;" name="mapname" required placeholder="Please enter a name for your colormap" />
+
+      <p class="standardText " style="width: 10vw; font-weight:bold; margin-top:3vh; margin-bottom:1vh;">Interpolation Space: </p>
+      <div class="row" style="width:100%;">
+        <button class="class_generalbutton " id="id_NewCMS_SpaceLAB" onclick="changeNewInterSpace(2)" title="LAB" style="border-radius: 0.5vh; width: 6vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:auto; border-width: 0.2vh;">LAB</button>
+        <button class="class_generalbutton " id="id_NewCMS_SpaceDIN99" onclick="changeNewInterSpace(3)" title="DIN99" style="border-radius: 0.5vh; width: 6vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;">DIN99</button>
+        <button class="class_generalbutton " id="id_NewCMS_SpaceRGB" onclick="changeNewInterSpace(0)" title="RGB" style="border-radius: 0.5vh; width: 6vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;"> RGB </button>
+        <button class="class_generalbutton " id="id_NewCMS_SpaceHSV" onclick="changeNewInterSpace(1)" title="HSV" style="border-radius: 0.5vh; width: 6vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; margin-right:auto; border-width: 0.2vh;">HSV</button>
+      </div>
+
+      <p class="standardText " style="width: 10vw; font-weight:bold; margin-top:3vh; margin-bottom:1vh;">Description: </p>
+      <textarea class="standardText" id="id_newCMSPage_MapDescription" name="colormap description" style="width: 35vw; height:40vh; overflow-y:auto; padding:0.5vh; resize:none; background: white;" placeholder="Enter a rough description of the colormap here. This is primarily used as note or reminder for you and in the case of sharing to inform other users what you want to show with this colormap. For more detailed information like semantics or special meaning of colormap components, the tool offers an additional description for keys or key strings."></textarea>
+    </div>
+
+    <img id="id_newCMSPage_Img" src="img/CCCToolComic/newPage.jpg" style=" height: 50vh; max-width: 40vw;  margin:auto; margin-left:none;">
+  </div>
 
 
-<div class="row" style="margin-top:2.5%;">
-  <button class="class_generalbutton" onclick="showMyDesignsPage()" style="margin-left:25%; margin-right:10%;  width:20%;">Cancel</button>
-  <button class="class_generalbutton" onclick="showEditPage()" style="margin-right:25%;  width:20%;">Create</button>
 </div>

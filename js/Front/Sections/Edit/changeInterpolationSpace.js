@@ -55,32 +55,32 @@ function changeColorspace(){
 
 
 function updateInterpolationSpaceEditPage(){
-
+console.log(globalCMS1.getInterpolationSpace());
   switch (globalCMS1.getInterpolationSpace()) {
     case "rgb":
-    document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 4;
-
+    document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 5;
       break;
       case "hsv":
-      document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 5;
-
+      document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 6;
         break;
         case "lab":
         document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 0;
           break;
-          case "din99":
+          case "lch":
           document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 1;
             break;
+          case "din99":
+          document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 2;
+            break;
             case "de94":
-            document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 2;
+            document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 3;
               break;
               case "de2000":
-              document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 3;
+              document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 4;
                 break;
     default:
 
   }
-
   changeColorspace();
 
 }

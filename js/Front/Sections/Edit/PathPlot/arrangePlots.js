@@ -3,22 +3,22 @@
 function choosePathPlotSpace(type){
 //id_EditPage_PathPlot_ThreeCanvas
 
-document.getElementById("id_editPage_PathPlotSpaces_RGB").classList.remove("class_EditPage_TabRowButtonActive");
-document.getElementById("id_editPage_PathPlotSpaces_HSV").classList.remove("class_EditPage_TabRowButtonActive");
-document.getElementById("id_editPage_PathPlotSpaces_LAB").classList.remove("class_EditPage_TabRowButtonActive");
-document.getElementById("id_editPage_PathPlotSpaces_DIN99").classList.remove("class_EditPage_TabRowButtonActive");
-document.getElementById("id_editPage_PathPlotSpaces_LCH").classList.remove("class_EditPage_TabRowButtonActive");
+document.getElementById("id_editPage_PathPlotSpaces_RGB").classList.remove("class_TabRowButtonActive");
+document.getElementById("id_editPage_PathPlotSpaces_HSV").classList.remove("class_TabRowButtonActive");
+document.getElementById("id_editPage_PathPlotSpaces_LAB").classList.remove("class_TabRowButtonActive");
+document.getElementById("id_editPage_PathPlotSpaces_DIN99").classList.remove("class_TabRowButtonActive");
+document.getElementById("id_editPage_PathPlotSpaces_LCH").classList.remove("class_TabRowButtonActive");
 
-document.getElementById("id_editPage_PathPlotSpaces_RGB").classList.add("class_EditPage_TabRowButtonNotActive");
-document.getElementById("id_editPage_PathPlotSpaces_HSV").classList.add("class_EditPage_TabRowButtonNotActive");
-document.getElementById("id_editPage_PathPlotSpaces_LAB").classList.add("class_EditPage_TabRowButtonNotActive");
-document.getElementById("id_editPage_PathPlotSpaces_DIN99").classList.add("class_EditPage_TabRowButtonNotActive");
-document.getElementById("id_editPage_PathPlotSpaces_LCH").classList.add("class_EditPage_TabRowButtonNotActive");
+document.getElementById("id_editPage_PathPlotSpaces_RGB").classList.add("class_TabRowButtonNotActive");
+document.getElementById("id_editPage_PathPlotSpaces_HSV").classList.add("class_TabRowButtonNotActive");
+document.getElementById("id_editPage_PathPlotSpaces_LAB").classList.add("class_TabRowButtonNotActive");
+document.getElementById("id_editPage_PathPlotSpaces_DIN99").classList.add("class_TabRowButtonNotActive");
+document.getElementById("id_editPage_PathPlotSpaces_LCH").classList.add("class_TabRowButtonNotActive");
 
   if(type==0){
 
-    document.getElementById("id_editPage_PathPlotSpaces_RGB").classList.remove("class_EditPage_TabRowButtonNotActive");
-    document.getElementById("id_editPage_PathPlotSpaces_RGB").classList.add("class_EditPage_TabRowButtonActive");
+    document.getElementById("id_editPage_PathPlotSpaces_RGB").classList.remove("class_TabRowButtonNotActive");
+    document.getElementById("id_editPage_PathPlotSpaces_RGB").classList.add("class_TabRowButtonActive");
     initPlotLabel("RG", "RB", "BG");
     pathColorspace="rgb";
     document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "R : -, G: -, B: -";
@@ -144,8 +144,8 @@ document.getElementById("id_editPage_PathPlotSpaces_LCH").classList.add("class_E
 
     switch (type) {
         case 1: // HSV
-          document.getElementById("id_editPage_PathPlotSpaces_HSV").classList.remove("class_EditPage_TabRowButtonNotActive");
-          document.getElementById("id_editPage_PathPlotSpaces_HSV").classList.add("class_EditPage_TabRowButtonActive");
+          document.getElementById("id_editPage_PathPlotSpaces_HSV").classList.remove("class_TabRowButtonNotActive");
+          document.getElementById("id_editPage_PathPlotSpaces_HSV").classList.add("class_TabRowButtonActive");
           pathColorspace="hsv";
           initPlotLabel("Hue", "Saturation", "Value");
           document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "H : -, S: -, V: -";
@@ -153,8 +153,8 @@ document.getElementById("id_editPage_PathPlotSpaces_LCH").classList.add("class_E
           hsvMesh();
           break;
           case 2: // LAB
-            document.getElementById("id_editPage_PathPlotSpaces_LAB").classList.remove("class_EditPage_TabRowButtonNotActive");
-            document.getElementById("id_editPage_PathPlotSpaces_LAB").classList.add("class_EditPage_TabRowButtonActive");
+            document.getElementById("id_editPage_PathPlotSpaces_LAB").classList.remove("class_TabRowButtonNotActive");
+            document.getElementById("id_editPage_PathPlotSpaces_LAB").classList.add("class_TabRowButtonActive");
             pathColorspace="lab";
             initPlotLabel("Lightness", "Green-Red : A", "Blue-Yellow : B");
             document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L : -, a: -, b: -";
@@ -162,8 +162,8 @@ document.getElementById("id_editPage_PathPlotSpaces_LCH").classList.add("class_E
             labMesh();
             break;
             case 3: // DIN99
-              document.getElementById("id_editPage_PathPlotSpaces_DIN99").classList.remove("class_EditPage_TabRowButtonNotActive");
-              document.getElementById("id_editPage_PathPlotSpaces_DIN99").classList.add("class_EditPage_TabRowButtonActive");
+              document.getElementById("id_editPage_PathPlotSpaces_DIN99").classList.remove("class_TabRowButtonNotActive");
+              document.getElementById("id_editPage_PathPlotSpaces_DIN99").classList.add("class_TabRowButtonActive");
               pathColorspace="din99";
               initPlotLabel("Lightness", "Green-Red : A99", "Blue-Yellow : B99");
               document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L99 : -, a99: -, b99: -";
@@ -171,8 +171,8 @@ document.getElementById("id_editPage_PathPlotSpaces_LCH").classList.add("class_E
               din99Mesh();
             break;
             case 4: // LCH
-              document.getElementById("id_editPage_PathPlotSpaces_LCH").classList.remove("class_EditPage_TabRowButtonNotActive");
-              document.getElementById("id_editPage_PathPlotSpaces_LCH").classList.add("class_EditPage_TabRowButtonActive");
+              document.getElementById("id_editPage_PathPlotSpaces_LCH").classList.remove("class_TabRowButtonNotActive");
+              document.getElementById("id_editPage_PathPlotSpaces_LCH").classList.add("class_TabRowButtonActive");
               pathColorspace="lch";
               initPlotLabel("Lightness", "Chroma", "Hue");
               document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L : -, C : -, H: -";

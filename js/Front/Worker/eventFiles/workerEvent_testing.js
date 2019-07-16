@@ -101,7 +101,10 @@ function workerEvent_DrawTestfunction(e) {
       document.getElementById("id_Test_pageSwitchStatus1").innerHTML = "&#x25CE;";
       document.getElementById("id_Test_pageSwitchLeft").style.visibility = "visible";
       document.getElementById("id_Test_pageSwitchRight").style.visibility = "hidden";
+      document.getElementById("id_reportPageLabelDiv").style.visibility = "visible";
       testingModus=2;
+      reportModus=0;
+      switchReportDisplay();
 
       if(!hasDrawnReportCMS){
         drawCanvasColormap("id_TestPage_DifReportColormap", reportColorValueDifColormap);

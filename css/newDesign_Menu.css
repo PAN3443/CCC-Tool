@@ -18,14 +18,14 @@
 }
 
 .navi_divPos{
-  border-color: rgb(0,250,154);
+  border-color: rgb(10, 239, 251); /*rgb(0,250,154);*/
   cursor: pointer;
   transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
 
 }
 
 .navi_divPos p{
-  color:rgb(0,250,154);
+  color: rgb(10, 239, 251); /*rgb(0,250,154);*/
   height:4vh;
   line-height:4vh;
   vertical-align: middle;
@@ -35,7 +35,7 @@
 
 .navi_divPos:hover{
   transform: scale(0.9);
-  box-shadow: 0 0 1vh rgb(0,250,154);
+  box-shadow: 0 0 1vh rgb(10, 239, 251);
 }
 
 /*.navi_divPos:hover .navi_Label{
@@ -67,12 +67,12 @@
 }
 
 .navi_divNeg{
-  border-color: rgb(242,92,102);
+  border-color: rgb(255,69,0); /*rgb(242,92,102);*/
   cursor: not-allowed;
 }
 
 .navi_divNeg p{
-  color:rgb(242,92,102);
+  color: rgb(255,69,0); /*rgb(242,92,102);*/
   height:4vh;
   line-height:4vh;
   vertical-align: middle;

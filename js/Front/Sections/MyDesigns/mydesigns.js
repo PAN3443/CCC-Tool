@@ -1,5 +1,52 @@
 
 
+
+function changeNewInterSpace(type){
+
+    document.getElementById("id_NewCMS_SpaceRGB").classList.remove("class_generalbuttonActive");
+    document.getElementById("id_NewCMS_SpaceHSV").classList.remove("class_generalbuttonActive");
+    document.getElementById("id_NewCMS_SpaceLAB").classList.remove("class_generalbuttonActive");
+    document.getElementById("id_NewCMS_SpaceDIN99").classList.remove("class_generalbuttonActive");
+
+    document.getElementById("id_NewCMS_SpaceRGB").classList.add("class_generalbutton");
+    document.getElementById("id_NewCMS_SpaceHSV").classList.add("class_generalbutton");
+    document.getElementById("id_NewCMS_SpaceLAB").classList.add("class_generalbutton");
+    document.getElementById("id_NewCMS_SpaceDIN99").classList.add("class_generalbutton");
+
+
+    switch (type) {
+      case 0:
+        newCMSInterpolationSpace = "rgb";
+        document.getElementById("id_NewCMS_SpaceRGB").classList.remove("class_generalbutton");
+        document.getElementById("id_NewCMS_SpaceRGB").classList.add("class_generalbuttonActive");
+        scaleExpVal1=255;
+        scaleExpVal2=255;
+        scaleExpVal3=255;
+        break;
+      case 1:
+        newCMSInterpolationSpace = "hsv";
+        document.getElementById("id_NewCMS_SpaceHSV").classList.remove("class_generalbutton");
+        document.getElementById("id_NewCMS_SpaceHSV").classList.add("class_generalbuttonActive");
+        scaleExpVal1=360;
+        scaleExpVal2=100;
+        scaleExpVal3=100;
+        break;
+      case 2:
+        newCMSInterpolationSpace = "lab";
+        document.getElementById("id_NewCMS_SpaceLAB").classList.remove("class_generalbutton");
+        document.getElementById("id_NewCMS_SpaceLAB").classList.add("class_generalbuttonActive");
+        break;
+      case 3:
+        newCMSInterpolationSpace = "din99";
+        document.getElementById("id_NewCMS_SpaceDIN99").classList.remove("class_generalbutton");
+        document.getElementById("id_NewCMS_SpaceDIN99").classList.add("class_generalbuttonActive");
+        break;
+    }
+
+
+}
+
+
 function saveSession() {
 
   if (myDesignsList.length == 0) {

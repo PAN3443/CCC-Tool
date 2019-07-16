@@ -74,6 +74,30 @@ function init_Testing(){
   document.getElementById('id_TestPage_Report2Div').addEventListener("scroll", eventScrollReport);
   document.getElementById('id_TestPage_Report2Div').onwheel = function(){ return false; }
 
+  document.getElementById('id_TestPage_ReportOrginalCCanvas').addEventListener("mousedown", switchPixelPreviewModus);
+  document.getElementById('id_TestPage_ReportOrginalGCanvas').addEventListener("mousedown", switchPixelPreviewModus);
+  document.getElementById('id_TestPage_Report0Canvas').addEventListener("mousedown", switchPixelPreviewModus);
+  document.getElementById('id_TestPage_Report1Canvas').addEventListener("mousedown", switchPixelPreviewModus);
+  document.getElementById('id_TestPage_Report2Canvas').addEventListener("mousedown", switchPixelPreviewModus);
+
+  document.getElementById('id_TestPage_ReportOrginalCCanvas').addEventListener('contextmenu', event => event.preventDefault());
+  document.getElementById('id_TestPage_ReportOrginalGCanvas').addEventListener('contextmenu', event => event.preventDefault());
+  document.getElementById('id_TestPage_Report0Canvas').addEventListener('contextmenu', event => event.preventDefault());
+  document.getElementById('id_TestPage_Report1Canvas').addEventListener('contextmenu', event => event.preventDefault());
+  document.getElementById('id_TestPage_Report2Canvas').addEventListener('contextmenu', event => event.preventDefault());
+
+  document.getElementById('id_TestPage_ReportOrginalCCanvas').addEventListener("mousemove", mouseMoveReport);
+  document.getElementById('id_TestPage_ReportOrginalGCanvas').addEventListener("mousemove", mouseMoveReport);
+  document.getElementById('id_TestPage_Report0Canvas').addEventListener("mousemove", mouseMoveReport);
+  document.getElementById('id_TestPage_Report1Canvas').addEventListener("mousemove", mouseMoveReport);
+  document.getElementById('id_TestPage_Report2Canvas').addEventListener("mousemove", mouseMoveReport);
+
+  fixPixelPreview = false;
+  pixelPreviewX = 0;
+  pixelPreviewY = 0;
+
+
+
   document.getElementById('id_TestPage_ReportList').addEventListener("change", open_Report);
 
   ////////////// define CMS for Value Color Difference Report

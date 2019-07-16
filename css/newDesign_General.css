@@ -65,6 +65,49 @@ input[type='radio']{
  }*/
 
 
+
+
+ /*Chrome*/
+ @media screen and (-webkit-min-device-pixel-ratio:0) {
+     input[type='range'] {
+       width: 20vw;
+       overflow: hidden;
+       -webkit-appearance: none;
+       background-color: rgba(235, 239, 240,0.1);
+     }
+
+     input[type='range']::-webkit-slider-runnable-track {
+       height: 2vh;
+       -webkit-appearance: none;
+       color: #13bba4;
+       margin-top: -1px;
+     }
+
+     input[type='range']::-webkit-slider-thumb {
+       width: 2vh;
+       -webkit-appearance: none;
+       height: 2vh;
+       cursor: ew-resize;
+       background: rgb(67, 67, 67);
+       box-shadow: -20vw 0 0 20vw rgb(175,255,255);
+     }
+
+ }
+ /** FF*/
+ input[type="range"]::-moz-range-progress {
+   background-color: rgb(175,255,255);
+ }
+ input[type="range"]::-moz-range-track {
+   background-color: rgba(235, 239, 240,0.1);
+ }
+ /* IE*/
+ input[type="range"]::-ms-fill-lower {
+   background-color: rgb(175,255,255);
+ }
+ input[type="range"]::-ms-fill-upper {
+   background-color: rgba(235, 239, 240,0.1);
+ }
+
  p{
   font-family: 'Helvetica', 'Arial', sans-serif;
   background: none;
@@ -107,6 +150,16 @@ input[type='radio']{
 
 
 
+  .class_OptionDiv{
+    background:rgb(240,240,240);
+    padding-top:1vh;
+    padding-bottom:1vh;
+    padding-left:1vw;
+    padding-right:1vw;
+    border: 0.2vh solid black;
+    box-shadow: 0 0.25vh 0.25vh 0 rgba(0, 0, 0, 0.2), 0 0.15vh 0.15vh 0 rgba(0, 0, 0, 0.25);
+  }
+
 .class_InsetLabelText{
   font-weight:bold;
   background-color: #565656;
@@ -139,7 +192,7 @@ div.sticky {
 
 .standardText{
   font-size: 1.6vh;
-  line-height: 1.8vh;
+  line-height: 2vh;
   color:black;
   vertical-align:middle;
   margin:0px;
@@ -152,11 +205,12 @@ div.sticky {
   font-size: 3.5vh;
   line-height: 4vh;
   color:black;
+  font-weight: bold;
   height:auto;
   vertical-align:middle;
   text-align:center;
   width:100%;
-  text-decoration: underline;
+  /*text-decoration: underline;*/
   margin:0px;
   /*font-family:verdana;*/
 }
@@ -179,7 +233,7 @@ div.sticky {
     border: none;
     font-weight:bold;
     background-color: rgb(19, 111, 153);
-    box-shadow: 0 0 1vh rgba(19, 111, 153, 0.5);
+    /*box-shadow: 0 0 1vh rgba(19, 111, 153, 0.5);*/
     color:white;
     transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
     height: 4vh;
@@ -200,11 +254,10 @@ div.sticky {
 }
 
 
-
 .class_generalbutton:hover{
   transform: scale(0.9);
   background-color: rgb( 	8, 48, 66);
-  box-shadow: 0 0 1vh rgba(8, 48, 66, 0.5);
+  /*box-shadow: 0 0 1vh rgba(8, 48, 66, 0.5);*/
 }
 
 
@@ -238,6 +291,38 @@ div.sticky {
   transform: scale(0.9);
   background-color: rgb(255,69,0); /*30,144,255*/
   box-shadow: 0 0 1vh rgba(255,69,0, 0.5); /*30,144,255*/
+}
+
+.class_generalbutton_DarkBackground{
+    border: none;
+    font-weight:bold;
+    background-color: rgb(245,255,255);
+    /*box-shadow: none; /* 0 0 1vh rgba(175,255,255, 0.5)*/
+    color:rgb(60,60,60);
+    transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
+    height: 4vh;
+    line-height: 4vh;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1.8vh;
+    border-radius: 1vh;
+    font-size: 1.8vh;
+    text-align:center;
+    overflow: auto;
+    font-weight: bold;
+    vertical-align: middle;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+
+
+.class_generalbutton_DarkBackground:hover{
+  transform: scale(0.9);
+  background-color: rgb(10, 239, 251);
+  /*box-shadow: 0 0 1vh rgba(10, 239, 251, 0.5);*/
 }
 
 

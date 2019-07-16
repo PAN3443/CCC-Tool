@@ -2,8 +2,8 @@
 
 function drawCurrentNavi(){
 
-    var colorPosArrow = "rgb(0,250,154)";
-    var colorNegArrow = "rgb(242,92,102)";
+    var colorPosArrow = "rgb(10, 239, 251)"; //"rgb(0,250,154)";
+    var colorNegArrow = "rgb(255,69,0)";  //rgb(242,92,102)";
 
     var cArrowWelcomeToMyDesign = colorNegArrow;
 

@@ -26,11 +26,13 @@ function openTestSection(){
   updateTestVis();
 
   testingModus=0;
+  document.getElementById("id_reportPageLabelDiv").style.visibility = "hidden";
   document.getElementById("id_Test_FunctionCollection").style.width = "100vw";
   document.getElementById("id_Test_TestDiv").style.width = "0vw";
   document.getElementById("id_Test_ReportDiv").style.width = "0vw";
   document.getElementById("id_Test_pageSwitchRight").style.visibility = "visible";
   document.getElementById("id_Test_pageSwitchLeft").style.visibility = "hidden";
+  document.getElementById("id_testPageLabel").innerHTML = "Test Collection";
 
   if(reportListTestField.length==0)
     document.getElementById("id_Test_pageSwitchStatus2").style.visibility = "hidden";
@@ -65,10 +67,13 @@ function slideTestDisplayDivs(){
 
   document.getElementById("id_Test_pageSwitchRight").style.visibility = "hidden";
   document.getElementById("id_Test_pageSwitchLeft").style.visibility = "hidden";
+  document.getElementById("id_reportPageLabelDiv").style.visibility = "hidden";
 
   document.getElementById("id_Test_pageSwitchStatus0").innerHTML = "&#x25CE;";
   document.getElementById("id_Test_pageSwitchStatus1").innerHTML = "&#x25CE;";
   document.getElementById("id_Test_pageSwitchStatus2").innerHTML = "&#x25CE;";
+
+
 
   switch (testingModus) {
     case 0:
@@ -77,6 +82,7 @@ function slideTestDisplayDivs(){
     document.getElementById("id_Test_ReportDiv").style.width = "0vw";
     document.getElementById("id_Test_pageSwitchRight").style.visibility = "visible";
     document.getElementById("id_Test_pageSwitchStatus0").innerHTML = "&#x25C9;";
+    document.getElementById("id_testPageLabel").innerHTML = "Test Collection";
     drawTestCollection();
     break;
     case 1:
@@ -85,6 +91,7 @@ function slideTestDisplayDivs(){
       document.getElementById("id_Test_ReportDiv").style.width = "0vw";
       document.getElementById("id_Test_pageSwitchStatus1").innerHTML = "&#x25C9;";
       document.getElementById("id_Test_pageSwitchLeft").style.visibility = "visible";
+      document.getElementById("id_testPageLabel").innerHTML = "Interactive Test";
 
       if(reportListTestField.length>0)
         document.getElementById("id_Test_pageSwitchRight").style.visibility = "visible";
@@ -97,6 +104,16 @@ function slideTestDisplayDivs(){
       document.getElementById("id_Test_ReportDiv").style.width = "100vw";
       document.getElementById("id_Test_pageSwitchStatus2").innerHTML = "&#x25C9;";
       document.getElementById("id_Test_pageSwitchLeft").style.visibility = "visible";
+      document.getElementById("id_reportPageLabelDiv").style.visibility = "visible";
+      document.getElementById("id_testPageLabel").innerHTML = "Test Report";
+
+      fixPixelPreview = false;
+      pixelPreviewX = 0;
+      pixelPreviewY = 0;
+
+      reportModus=0;
+      switchReportDisplay();
+
       calc_Report();
     break;
   }

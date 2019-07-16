@@ -1,52 +1,82 @@
-.class_MyDesignObjContainer {
-  width: 50%;
-}
+
 
 .class_MyDesignObjCMSDiv{
-  width: 75%;
-  height: 100%;
-  margin-top:1vh;
-  margin-bottom:1vh;
+  width: 45%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  margin-top:1.5vh;
+  margin-bottom:1.5vh;
+  transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
 }
+
+
+
+.class_MyDesignObjCMSDiv:hover{
+  transform: scale(1.05);
+  box-shadow: 0 0 1vh rgba(30, 30, 30, 0.5);
+}
+
 
 .class_MyDesignObjCMSCanvas{
   width: 100%;
-  height: 3vh;
+  height: 4vh;
+  margin:0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor:pointer;
+  display: block;
+  line-height: 4vh;
+  font-size: 2vh;
+  text-align: left;
+  vertical-align: middle;
+  background: rgb(60,60,60);
+  /*font-family:courier;*/
+}
+
+
+.class_MyDesignObjButton{
+  width: 5%;
+  height: 4vh;
+  line-height: 4vh;
+  font-size: 2vh;
+  color: white;
+  background:none;
+  text-align:center;
+  cursor:pointer;
   margin:0;
   overflow: hidden;
   text-overflow: ellipsis;
   display: block;
-  line-height: 3vh;
-  font-size: 2vh;
-  text-align: center;
   vertical-align: middle;
   /*font-family:courier;*/
 }
 
-.class_MyDesignObjButtonsDiv{
-  width: 15%;
-  margin-left: 2%;
-  height: 100%;
+.class_MyDesignObjButton:hover{
+  font-size: 2.5vh;
+  background: rgba(255,255,255,0.1);
 }
 
-.class_MyDesignButton{
-  height: 3vh;
-  width: 3vh;
-  margin-top: 1.33vh;
-  margin-bottom: 1.33vh;
-  margin-left: auto;
-  margin-right: auto;
-  border: 1px solid rgb(180, 180, 180);
-  border-radius: 0.5vh;
-  background-size:cover;
-  background-repeat:no-repeat;
-  background-position: center center;
+
+.class_MyDesigns_CMS_Selector{
+  display: block;
+  width: 95%;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  display: block;
+  margin:auto;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+  box-sizing: border-box;
+  cursor: pointer;
 }
 
-.class_MyDesignButton:hover{
-
-
+.class_MyDesigns_CMS_Selector:hover{
+  box-shadow: 0.2vw 0.2vh 1vh grey;
 }
+
+
 
 #id_MyDesings_Example_Img{
 

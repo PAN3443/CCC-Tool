@@ -181,11 +181,11 @@ function reverseCMS(){
 
 function switchModifyModus(type){
 
-  document.getElementById("id_editPage_SelectEditKeys").classList.remove("class_EditPage_TabRowButtonActive");
-  document.getElementById("id_editPage_SelectEditPath").classList.remove("class_EditPage_TabRowButtonActive");
+  document.getElementById("id_editPage_SelectEditKeys").classList.remove("class_TabRowButtonActive");
+  document.getElementById("id_editPage_SelectEditPath").classList.remove("class_TabRowButtonActive");
 
-  document.getElementById("id_editPage_SelectEditKeys").classList.add("class_EditPage_TabRowButtonNotActive");
-  document.getElementById("id_editPage_SelectEditPath").classList.add("class_EditPage_TabRowButtonNotActive");
+  document.getElementById("id_editPage_SelectEditKeys").classList.add("class_TabRowButtonNotActive");
+  document.getElementById("id_editPage_SelectEditPath").classList.add("class_TabRowButtonNotActive");
 
 
   document.getElementById("id_EditPage_Edit_Keys").style.display="none";
@@ -194,16 +194,16 @@ function switchModifyModus(type){
   stopPathPlotAnimation();
   switch (type) {
     case 0:
-      document.getElementById("id_editPage_SelectEditKeys").classList.remove("class_EditPage_TabRowButtonNotActive");
-      document.getElementById("id_editPage_SelectEditKeys").classList.add("class_EditPage_TabRowButtonActive");
+      document.getElementById("id_editPage_SelectEditKeys").classList.remove("class_TabRowButtonNotActive");
+      document.getElementById("id_editPage_SelectEditKeys").classList.add("class_TabRowButtonActive");
       document.getElementById("id_EditPage_Edit_Keys").style.display="block";
       openEditKeyDiv(0);
 
     break;
 
     case 1:
-      document.getElementById("id_editPage_SelectEditPath").classList.remove("class_EditPage_TabRowButtonNotActive");
-      document.getElementById("id_editPage_SelectEditPath").classList.add("class_EditPage_TabRowButtonActive");
+      document.getElementById("id_editPage_SelectEditPath").classList.remove("class_TabRowButtonNotActive");
+      document.getElementById("id_editPage_SelectEditPath").classList.add("class_TabRowButtonActive");
         document.getElementById("id_EditPage_Edit_Path").style.display="block";
         choosePathPlotSpace(2);
         startPathPlotAnimation();
@@ -219,13 +219,13 @@ function switchAnalyzeMappingProbeSet(type){
   if(document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.display=="none")
   return;
 
-  document.getElementById("id_editPage_SelectAnalyze").classList.remove("class_EditPage_TabRowButtonActive");
-  document.getElementById("id_editPage_SelectMapping").classList.remove("class_EditPage_TabRowButtonActive");
-  document.getElementById("id_editPage_SelectProbeSet").classList.remove("class_EditPage_TabRowButtonActive");
+  document.getElementById("id_editPage_SelectAnalyze").classList.remove("class_TabRowButtonActive");
+  document.getElementById("id_editPage_SelectMapping").classList.remove("class_TabRowButtonActive");
+  document.getElementById("id_editPage_SelectProbeSet").classList.remove("class_TabRowButtonActive");
 
-  document.getElementById("id_editPage_SelectAnalyze").classList.add("class_EditPage_TabRowButtonNotActive");
-  document.getElementById("id_editPage_SelectMapping").classList.add("class_EditPage_TabRowButtonNotActive");
-  document.getElementById("id_editPage_SelectProbeSet").classList.add("class_EditPage_TabRowButtonNotActive");
+  document.getElementById("id_editPage_SelectAnalyze").classList.add("class_TabRowButtonNotActive");
+  document.getElementById("id_editPage_SelectMapping").classList.add("class_TabRowButtonNotActive");
+  document.getElementById("id_editPage_SelectProbeSet").classList.add("class_TabRowButtonNotActive");
 
   document.getElementById("id_EditPage_DivAnalyze").style.display="none";
   document.getElementById("id_EditPage_DivMapping").style.display="none";
@@ -236,15 +236,15 @@ function switchAnalyzeMappingProbeSet(type){
 
   switch (type) {
     case 0:
-      document.getElementById("id_editPage_SelectAnalyze").classList.remove("class_EditPage_TabRowButtonNotActive");
-      document.getElementById("id_editPage_SelectAnalyze").classList.add("class_EditPage_TabRowButtonActive");
+      document.getElementById("id_editPage_SelectAnalyze").classList.remove("class_TabRowButtonNotActive");
+      document.getElementById("id_editPage_SelectAnalyze").classList.add("class_TabRowButtonActive");
       document.getElementById("id_EditPage_DivAnalyze").style.display="flex";
       updateAnalyze();
     break;
 
     case 1:
-      document.getElementById("id_editPage_SelectMapping").classList.remove("class_EditPage_TabRowButtonNotActive");
-      document.getElementById("id_editPage_SelectMapping").classList.add("class_EditPage_TabRowButtonActive");
+      document.getElementById("id_editPage_SelectMapping").classList.remove("class_TabRowButtonNotActive");
+      document.getElementById("id_editPage_SelectMapping").classList.add("class_TabRowButtonActive");
       document.getElementById("id_EditPage_DivMapping").style.display="block";
 
         var rect = document.getElementById("id_EditPage_DivMapping").getBoundingClientRect();
@@ -267,8 +267,8 @@ function switchAnalyzeMappingProbeSet(type){
     break;
 
     case 2:
-      document.getElementById("id_editPage_SelectProbeSet").classList.remove("class_EditPage_TabRowButtonNotActive");
-      document.getElementById("id_editPage_SelectProbeSet").classList.add("class_EditPage_TabRowButtonActive");
+      document.getElementById("id_editPage_SelectProbeSet").classList.remove("class_TabRowButtonNotActive");
+      document.getElementById("id_editPage_SelectProbeSet").classList.add("class_TabRowButtonActive");
       document.getElementById("id_EditPage_DivProbeSets").style.display="block";
       init_editProbe();
     break;
@@ -281,11 +281,11 @@ function switchAnalyzeMappingProbeSet(type){
 
 function switchPredefinedCMS(type){
 
-  document.getElementById("id_EditPage_Select_Predefined").classList.remove("class_EditPage_TabRowButtonActive");
-  document.getElementById("id_EditPage_Select_MyDesigns").classList.remove("class_EditPage_TabRowButtonActive");
+  document.getElementById("id_EditPage_Select_Predefined").classList.remove("class_TabRowButtonActive");
+  document.getElementById("id_EditPage_Select_MyDesigns").classList.remove("class_TabRowButtonActive");
 
-  document.getElementById("id_EditPage_Select_Predefined").classList.add("class_EditPage_TabRowButtonNotActive");
-  document.getElementById("id_EditPage_Select_MyDesigns").classList.add("class_EditPage_TabRowButtonNotActive");
+  document.getElementById("id_EditPage_Select_Predefined").classList.add("class_TabRowButtonNotActive");
+  document.getElementById("id_EditPage_Select_MyDesigns").classList.add("class_TabRowButtonNotActive");
 
   document.getElementById("id_EditPage_Predefined_Div").style.display="none";
   document.getElementById("id_EditPage_MyDesigns_CMS_Div").style.display="none";
@@ -293,14 +293,14 @@ function switchPredefinedCMS(type){
 
   switch (type) {
     case 0:
-      document.getElementById("id_EditPage_Select_Predefined").classList.remove("class_EditPage_TabRowButtonNotActive");
-      document.getElementById("id_EditPage_Select_Predefined").classList.add("class_EditPage_TabRowButtonActive");
+      document.getElementById("id_EditPage_Select_Predefined").classList.remove("class_TabRowButtonNotActive");
+      document.getElementById("id_EditPage_Select_Predefined").classList.add("class_TabRowButtonActive");
       document.getElementById("id_EditPage_Predefined_Div").style.display="block";
       changePredefined();
       break;
     case 1:
-      document.getElementById("id_EditPage_Select_MyDesigns").classList.remove("class_EditPage_TabRowButtonNotActive");
-      document.getElementById("id_EditPage_Select_MyDesigns").classList.add("class_EditPage_TabRowButtonActive");
+      document.getElementById("id_EditPage_Select_MyDesigns").classList.remove("class_TabRowButtonNotActive");
+      document.getElementById("id_EditPage_Select_MyDesigns").classList.add("class_TabRowButtonActive");
       document.getElementById("id_EditPage_MyDesigns_CMS_Div").style.display="block";
 
       drawPredefined_MyDesignsCMS();

@@ -86,6 +86,7 @@ function showMyDesignsPage(){
   document.getElementById("id_EditPage").style.display="none";
   document.getElementById("id_GalleryPage").style.display="none";
   document.getElementById("id_myDesignsPage").style.display="block";
+  document.getElementById("id_actionMenu_testPart").style.display="none";
   drawMyDesigns();
 
 
@@ -137,7 +138,7 @@ function showEditPage(){
     globalCMS1 = new class_CMS();
     globalCMS1.setColormapName(document.getElementById("id_newCMSPage_ColormapName").value);
     globalCMS1.setDescription(document.getElementById("id_newCMSPage_MapDescription").value);
-
+    globalCMS1.setInterpolationSpace(newCMSInterpolationSpace);
     myDesignsList.push(cloneCMS(globalCMS1));
     indexActiveCMS=myDesignsList.length-1;
 
@@ -240,6 +241,9 @@ document.getElementById("id_settingMenu_Label_MappingUpdate_Button").style.displ
 document.getElementById("id_settingMenu_Label_ReturnMyDesigns_Button").style.display="none";
 document.getElementById("id_actionMenu_myDesignPart").style.display="none";
 document.getElementById("id_dropDownMenu_DisplayOptions").style.display="none";
+
+changeNewInterSpace(2);
+
 drawCurrentNavi();
 
 }

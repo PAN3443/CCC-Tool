@@ -9,3 +9,6 @@ var myDesignObj = 0;
 
 var myDesignsList = [];
 var indexActiveCMS=0;
+
+
+var newCMSInterpolationSpace = "lab";

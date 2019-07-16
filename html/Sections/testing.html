@@ -4,7 +4,7 @@
 -----------------------------------------------
 -->
 
-<div class="row" style="width:100%; background:rgb(80,80,80); padding-top:1vh; padding-bottom:1vh; border-top:0.2vh solid black; border-bottom:0.2vh solid black; box-sizing: border-box;" >
+<div class="row" style="width:100%; background:rgb(60,60,60); padding-top:1vh; padding-bottom:1vh; box-sizing: border-box;" >
 
   <p class="standardText" style="width:100%; margin-left:5vw; margin-right:1vw; width: 8vw; color:white; height:3vh; line-height:3vh;"> CMS (MyDesigns):</p>
   <select id="id_TestSection_CMS_Select" style="width:10vw; height:3vh; line-height:3vh; border:0.2vh solid black; color:white;" onchange="selectTestCMS()">
@@ -16,7 +16,7 @@
 </div>
 
 <div class="row" style="max-height:83vh; height:83vh; width:100vw; overflow:hidden;">
-    <div id="id_Test_FunctionCollection" style="width:100vw; height:84vh; overflow: scroll;">
+    <div id="id_Test_FunctionCollection" style="width:100vw; height:84vh; overflow: scroll; background:white;">
 
     </div>
     <div id="id_Test_TestDiv" style="width:0vw; height:83vh; background:rgb(240,240,240);">
@@ -60,7 +60,7 @@
 
             </div>
 
-            <div style=" width:100%; margin:auto; margin-top:1vh; height:auto; max-height:65vh; overflow-y: auto; padding-top:1vh; padding-bottom:1vh; padding-left:1vw; padding-right:1vw; background:rgb(230,230,230); border:0.2vh solid grey;">
+            <div class="class_OptionDiv" style=" width:100%; margin:auto; margin-top:1vh; height:auto; max-height:65vh; overflow-y: auto;">
 
               <div id="id_TestPage_NewTest_JumpDiv" style="width:100%; display:none;">
                 <select id="id_TestPage_NewTest_JumpList" name="Jump List" size="5" style="width:100%; height:25vh; margin-top:1vh; background:white;" >
@@ -325,7 +325,7 @@
 
             </div>
 
-            <button class="class_generalbutton" onclick="addTestToReport()" style="width:90%; margin-left:5%; margin-top:1vh; display:none;">Add To Report</button>
+            <button class="class_generalbutton" onclick="addTestToReport()" style="width:90%; margin-left:5%; margin-top:1vh;">Add To Report</button>
 
           </div>
 
@@ -400,142 +400,486 @@
       </div>
 
     </div>
-    <div id="id_Test_ReportDiv" style="display:flex; width:0vw; height:82vh; ">
-
-      <div style="width:100vw; height: 82vh;  overflow-y:auto; border-left: 0.2vh solid grey;">
-
-        <div class="class_ReportLabel" style="margin-top:0px;">
-           Selected Test
-        </div>
 
 
+    <!--------------------------------------------------------------------------
+    ----------------------- Test Report -------------------------------
+    --------------------------------------------------------------------------
+    -------------------------------------------------------------------------->
+    <div id="id_Test_ReportDiv" style="display:flex; width:0vw; height:83vh; overflow: hidden;">
 
-        <div class="class_ReportOptionDiv">
-           <p class="standardText" style="font-weight:bold;">Test:</p>
-             <p style="color:grey; width:100%; text-align:center;">Display Test Information here!!!!</p>
 
 
-             <div style="width:100%; position: relative; display: inline-block;">
-               <div onclick="activateTestSelectionDropdown()" class="class_generalbutton" style="width:20%; margin-left: 40%; padding-left:1vw; padding-right:1vw; "> Change Test </div>
+          <div style="height:83vh; width: 97vw; overflow: hidden;">
 
-               <div id="id_dropDownTestSelection" class="class_ReportTestSelectionDiv">
 
-                 <select id="id_TestPage_ReportList" name="Report Test List" size="20" style="width:16vw; height:auto; background:white;" >
+            <!---------------------- Test Information ----------------------------
+            ------>
 
-                 </select>
+                <div id="id_report_TestInfoDiv" style="height: 83vh; width: 100%; overflow: hidden; display:flex; ">
 
-                 <button class="class_generalbutton" onclick="remove_Report()" style="width:16vw; margin-top:1vh;">Remove Test</button>
 
-               </div>
-               <!--End Dropdown Container -->
-             </div>
-        </div>
+                        <div style="margin:auto; width: 16vw; display: block; border: 0.2vh solid black;">
+                          <p class="standardText" style="font-weight:bold; color:black; width: 16vw; background: rgb(220,220,220); height: 5vh; line-height: 5vh; font-size: 2.5vh; vertical-align:middle; text-align:center;">Test-List:</p>
+                          <select id="id_TestPage_ReportList" name="Report Test List" size="20" style="width:16vw; height:auto; background:white;" >
 
-        <div class="class_ReportLabel">
-           Value-Color Difference Report
-        </div>
+                          </select>
 
-        <div class="class_ReportOptionDiv">
+                          <button class="class_generalbutton" onclick="remove_Report()" style="width:15vw; margin-top:1vh; margin-left:0.5vw; margin-bottom:0.5vh;">Remove Test</button>
+                        </div>
 
-           <p class="standardText" style="font-weight:bold; margin-bottom:0.5vh;">Information:</p>
-           <p class="standardText" style="margin-bottom:0.5vh;">The Value-Color Difference Report enable you to rate your CMS. For this the tool offers five synchronous-interactive visualizations of the testfield data. </p>
-           <p class="standardText" style="font-weight:bold; margin-bottom:0.5vh;">Options:</p>
-        </div>
+                        <div style="margin:auto;">
+                          <p style="color:grey; width:100%; text-align:center;">Display Test Information here!!!!</p>
+                        </div>
 
-          <div style="width:100%;">
-            <div class="row" style="padding-bottom:0.5vh; padding-top:0.5vh; background: rgb(25,25,25);">
-                <p class="standardText" style="margin-left: auto; text-align:center; color:white;  width: 20vw;"> Grey Scaled</p>
-                <p class="standardText" style="text-align:center; color:white; width: 20vw;">CMS Colormapping</p>
-                <p class="standardText" style="text-align:center; color:white; width: 20vw;">Ratio-Field (Value Difference)</p>
-                <p class="standardText" style="text-align:center; color:white; width: 20vw;">Ratio-Field (Color Difference)</p>
-                <p class="standardText" style="margin-right: auto; color:white; text-align:center;  width: 20vw;">Subtraction Field </p>
-            </div>
 
-            <div class="row">
-              <div id="id_TestPage_ReportOrginalCDiv" style="margin-left: auto; width: 20vw; height: 20vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
-                <canvas id="id_TestPage_ReportOrginalCCanvas" style="width: 100%; height: 100%;">
 
-                </canvas>
-              </div>
-              <div id="id_TestPage_ReportOrginalGDiv" style="width: 20vw; height: 20vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
-                <canvas id="id_TestPage_ReportOrginalGCanvas" style="width: 100%; height: 100%;">
-
-                </canvas>
-              </div>
-              <div id="id_TestPage_Report0Div" style="width: 20vw; height: 20vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
-                <canvas id="id_TestPage_Report0Canvas" style="width: 100%; height: 100%;">
-
-                </canvas>
-              </div>
-              <div id="id_TestPage_Report1Div" style="width: 20vw; height: 20vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
-                <canvas id="id_TestPage_Report1Canvas" style="width: 100%; height: 100%;">
-
-                </canvas>
-              </div>
-              <div id="id_TestPage_Report2Div" style="margin-right: auto; width: 20vw; height: 20vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
-                <canvas id="id_TestPage_Report2Canvas" style="width: 100%; height: 100%;">
-
-                </canvas>
-              </div>
-            </div>
-
-            <div style="width:100%; display:flex;">
-              <div style="width:10%;">
-                <div id="id_TestPage_DifReportBelowColor" style="width:100%; border:0.2vh solid black; border-top:none; height:3vh;">
 
                 </div>
-                <div style="width:100%; height:0.5vh; border-right: 0.2vh solid black;">
 
-                </div>
-                <p class="standardText" style=" width:100%; text-align:center;"> Below ( &#60; -1 ) </p>
-              </div>
-              <div style="width:80%;">
-                <canvas id="id_TestPage_DifReportColormap" style="width:100%; border-bottom:0.2vh solid black; height:3vh; margin: 0px;">
 
-                </canvas>
-                <div style="width:50%; height:0.5vh; border-right: 0.2vh solid black;">
+                <!---------------------- Subtraction Report ----------------------------
+                ------>
 
-                </div>
-                <div class="row" style="width:100%;">
-                  <p class="standardText" style="margin-right:auto; text-align: left;"> -1 </p>
-                  <p class="standardText" style="text-align: center;"> 0 </p>
-                  <p class="standardText" style="margin-left:auto; text-align: right;"> 1 </p>
-                </div>
-              </div>
-              <div style="width:10%;">
-                <div id="id_TestPage_DifReportAboveColor" style="width:100%; border:0.2vh solid black; border-top:none; height:3vh;">
 
-                </div>
-                <div style="width:100%; height:0.5vh; border-left: 0.2vh solid black;">
+                  <div id="id_report_SubReportDiv" style="height: 83vh; width: 97vw; overflow: hidden; background:rgb(240,240,240); ">
 
-                </div>
-                <p class="standardText" style=" width:100%; text-align:center;"> Above ( &#62; 1 ) </p>
-              </div>
-            </div>
+                    <!--div class="class_OptionDiv">
 
+                       <p class="standardText" style="font-weight:bold; margin-bottom:0.5vh;">Information:</p>
+                       <p class="standardText" style="margin-bottom:0.5vh;">The Value-Color Difference Report enable you to rate your CMS. For this the tool offers five synchronous-interactive visualizations of the testfield data. </p>
+                       <p class="standardText" style="font-weight:bold; margin-bottom:0.5vh;">Options:</p>
+                    </div-->
+
+
+                      <div style="width:97vw; height:83vh; display:flex;">
+
+
+                        <!---------------------- Subtraction Report (visualizations) ----------------------------
+                        ------>
+                        <div style="margin:auto; ">
+                          <div class="row" style="padding-bottom:0.5vh; padding-top:0.5vh; background: rgb(25,25,25); ">
+                              <p class="standardText" style="text-align:center; color:white; width: 20vw; max-width:32vh;"> Values (Grey Scaled)</p>
+                              <p class="standardText" style="text-align:center; color:white; width: 20vw; max-width:32vh;">CMS Colormapping</p>
+                              <p class="standardText" style="text-align:center; color:white; width: 20vw; max-width:32vh;">Observe Pixel</p>
+                          </div>
+
+
+                          <div class="row">
+                            <div id="id_TestPage_ReportOrginalCDiv" style="width: 20vw; max-width:32vh; height: 32vh; max-height:20vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
+                              <canvas id="id_TestPage_ReportOrginalCCanvas" style="width: 100%; height: 100%;">
+
+                              </canvas>
+                            </div>
+                            <div id="id_TestPage_ReportOrginalGDiv" style="width: 20vw; max-width:32vh; height: 32vh; max-height:20vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
+                              <canvas id="id_TestPage_ReportOrginalGCanvas" style="width: 100%; height: 100%;">
+
+                              </canvas>
+                            </div>
+                            <div style="display:inline-block; width: 20vw; max-width:32vh; height: 32vh; max-height:20vw; overflow-x: auto; overflow: hidden; background: rgb(240,240,240); border: 0.2vh solid black;">
+                              <p id="id_pixelPreviewModus" class="standardText" style="margin-bottom: 1vh; text-align: center; width: 100%;"> </p>
+
+                                <div class="row" style="width:100%;">
+
+                                      <div id="id_report_pixelPreview00" class="class_pixelColorPreviewDiv" style="margin-left:auto;">
+
+                                      </div>
+
+                                      <div class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none;">
+
+                                      </div>
+
+                                      <div id="id_report_pixelPreview01" class="class_pixelColorPreviewDiv">
+
+                                      </div>
+
+                                      <div class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none;">
+
+                                      </div>
+
+                                      <div id="id_report_pixelPreview02" class="class_pixelColorPreviewDiv" style="margin-right:auto;">
+
+                                      </div>
+
+                                </div>
+
+                                <div class="row" style="width:100%;">
+                                      <div class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none; margin-left:auto;">
+                                      </div>
+
+                                      <svg id="id_report_linePreview00" class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none;">
+                                        <text x="5%" y="55%" >1</text>
+                                        <line x1="10%" y1="10%" x2="90%" y2="90%"/>
+                                      </svg>
+
+                                      <svg id="id_report_linePreview01" class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none;">
+                                       <text x="5%" y="55%" fill="black">2</text>
+                                       <line x1="50%" y1="10%" x2="50%" y2="90%" />
+                                      </svg>
+
+                                      <svg id="id_report_linePreview02" class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none;">
+                                        <text x="5%" y="55%" >3</text>
+                                        <line x1="10%" y1="90%" x2="90%" y2="10%" />
+                                      </svg>
+
+                                      <div class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none; margin-right:auto;">
+                                      </div>
+                                </div>
+
+                                <div class="row" style="width:100%;">
+
+                                      <div id="id_report_pixelPreview10" class="class_pixelColorPreviewDiv" style="margin-left:auto;">
+
+                                      </div>
+
+                                      <svg id="id_report_linePreview10" class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none;">
+                                       <text x="40%" y="40%" fill="black">4</text>
+                                       <line x1="10%" y1="50%" x2="90%" y2="50%" />
+                                      </svg>
+
+                                      <div id="id_report_pixelPreview11" class="class_pixelColorPreviewDiv" style="border: 0.5vh solid black;">
+
+                                      </div>
+
+                                      <svg id="id_report_linePreview12" class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none;">
+                                        <text x="40%" y="40%" fill="black">5</text>
+                                        <line x1="10%" y1="50%" x2="90%" y2="50%" />
+                                      </svg>
+
+                                      <div id="id_report_pixelPreview12" class="class_pixelColorPreviewDiv" style="margin-right:auto;">
+
+                                      </div>
+
+                                </div>
+
+                                <div class="row" style="width:100%;">
+                                      <div class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none; margin-left:auto;">
+                                      </div>
+
+                                      <svg id="id_report_linePreview20" class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none;">
+                                        <text x="5%" y="55%">6</text>
+                                        <line x1="10%" y1="90%" x2="90%" y2="10%"/>
+                                      </svg>
+
+                                      <svg id="id_report_linePreview21" class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none;">
+                                       <text x="5%" y="55%" fill="black">7</text>
+                                       <line x1="50%" y1="10%" x2="50%" y2="90%" />
+                                      </svg>
+
+                                      <svg id="id_report_linePreview22" class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none;">
+                                        <text x="5%" y="50%" >8</text>
+                                        <line x1="10%" y1="10%" x2="90%" y2="90%" />
+                                      </svg>
+
+                                      <div class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none; margin-right:auto;">
+                                      </div>
+                                </div>
+
+                                <div class="row" style="width:100%;">
+
+                                      <div id="id_report_pixelPreview20" class="class_pixelColorPreviewDiv" style="margin-left:auto;">
+
+                                      </div>
+
+                                      <div class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none;">
+                                      </div>
+
+                                      <div id="id_report_pixelPreview21" class="class_pixelColorPreviewDiv">
+
+                                      </div>
+
+                                      <div class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none;">
+                                      </div>
+
+                                      <div id="id_report_pixelPreview22" class="class_pixelColorPreviewDiv" style="margin-right:auto;">
+
+                                      </div>
+
+                                </div>
+
+
+
+                            </div>
+                          </div>
+
+                          <div class="row" style="padding-bottom:0.5vh; padding-top:0.5vh; background: rgb(25,25,25); ">
+                              <p class="standardText" style="text-align:center; color:white; width: 20vw; max-width:32vh;">Ratio-Field (&#916; Value)</p>
+                              <p class="standardText" style="text-align:center; color:white; width: 20vw; max-width:32vh;">Ratio-Field (&#916; Color-Metric)</p>
+                              <p class="standardText" style="text-align:center; color:white; width: 20vw; max-width:32vh;">Subtraction Field </p>
+                          </div>
+
+                          <div class="row">
+                            <div id="id_TestPage_Report0Div" style="width: 20vw; max-width:32vh; height: 32vh; max-height:20vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
+                              <canvas id="id_TestPage_Report0Canvas" style="width: 100%; height: 100%;">
+
+                              </canvas>
+                            </div>
+                            <div id="id_TestPage_Report1Div" style="width: 20vw; max-width:32vh; height: 32vh; max-height:20vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
+                              <canvas id="id_TestPage_Report1Canvas" style="width: 100%; height: 100%;">
+
+                              </canvas>
+                            </div>
+                            <div id="id_TestPage_Report2Div" style="width: 20vw; max-width:32vh; height: 32vh; max-height:20vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
+                              <canvas id="id_TestPage_Report2Canvas" style="width: 100%; height: 100%;">
+
+                              </canvas>
+                            </div>
+                          </div>
+
+                          <div class="row" style="width: 100%; background: rgb(25,25,25);">
+                            <p class="standardText" style="margin:auto; margin-left:1vw; margin-right:1vw; color:white;">Notebook-Zoom:</p>
+                            <input id="id_Test_SubReport_Zoom" type="range" step="1" min="100" max="1500" value="100" style="width:50%; margin-right:auto;" onchange="subreportZoom()">
+                          </div>
+
+                          <div style="width:60vw; max-width:96vh; display:flex;">
+                            <div style="width:10%;">
+                              <div id="id_TestPage_DifReportBelowColor" style="width:100%; border:0.2vh solid black; border-top:none; height:3vh;">
+
+                              </div>
+                              <div style="width:100%; height:0.5vh; border-right: 0.2vh solid black;">
+
+                              </div>
+                              <p class="standardText" style=" width:100%; text-align:center;"> ( &#60; -1 ) </p>
+                            </div>
+                            <div style="width:80%;">
+                              <canvas id="id_TestPage_DifReportColormap" style="width:100%; border-bottom:0.2vh solid black; height:3vh; margin: 0px;">
+
+                              </canvas>
+                              <div style="width:50%; height:0.5vh; border-right: 0.2vh solid black;">
+
+                              </div>
+                              <div class="row" style="width:100%;">
+                                <p class="standardText" style="margin-right:auto; text-align: left;"> -1 </p>
+                                <p class="standardText" style="text-align: center;"> 0 </p>
+                                <p class="standardText" style="margin-left:auto; text-align: right;"> 1 </p>
+                              </div>
+                            </div>
+                            <div style="width:10%;">
+                              <div id="id_TestPage_DifReportAboveColor" style="width:100%; border:0.2vh solid black; border-top:none; height:3vh;">
+
+                              </div>
+                              <div style="width:100%; height:0.5vh; border-left: 0.2vh solid black;">
+
+                              </div>
+                              <p class="standardText" style=" width:100%; text-align:center;"> ( &#62; 1 ) </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!---------------------- Subtraction Report (Talbe, Statistics) ----------------------------
+                        ------>
+
+                        <div style="margin:auto;  margin-left: 0vw;">
+
+                          <div class="class_OptionDiv" style="width: 35vw; display:flex;">
+                              <p class="standardText" style="font-weight:bold; margin-right:auto;">Color-Metric:</p>
+
+                              <button class="class_generalbutton" onclick="()" style="margin: auto; padding-left: 0.5vw; padding-right: 0.5vw;">&#916;Lab</button>
+                              <button class="class_generalbutton" onclick="()" style="margin: auto; padding-left: 0.5vw; padding-right: 0.5vw;">DE94</button>
+                              <button class="class_generalbutton" onclick="()" style="margin: auto; padding-left: 0.5vw; padding-right: 0.5vw;">CIEDE2000</button>
+                              <button class="class_generalbutton" onclick="()" style="margin: auto; padding-left: 0.5vw; padding-right: 0.5vw;">&#916;DIN99</button>
+
+
+                          </div>
+
+                          <div class="class_OptionDiv" style="width: 35vw; margin-top: 2vh;">
+                              <p class="standardText" style="font-weight:bold; margin-bottom: 1vh;">Table (Pixel Observer):</p>
+
+                              <div class="row" style="width:100%;">
+
+                                <!--------------- Table of PIXEL PREVIEW -------------
+                                 ------------------------------------------------>
+
+                                 <table cellspacing="0" cellpadding="0" style="border: 0.2vh solid black; margin:auto;">
+                                   <tr>
+                                     <td>
+                                       <table cellspacing="0" cellpadding="1">
+                                         <tr style="color:white;">
+                                           <th class="class_tablelabel" style="width:2vw;  background:black;border:none;">ID</th>
+                                           <th class="class_tablelabel" id="id_table_subReportLabel" style="width:6vw; border-color:black; background:black;">&#916; Value</th>
+                                           <th class="class_tablelabel" id="id_table_subReportLabel" style="width:6vw; border-color:black; background:black;">Ratio (&#916; Value)</th>
+                                           <th class="class_tablelabel" id="id_table_subReportLabel" style="width:6vw; border-color:black; background:black;">&#916; Color-Metric</th>
+                                           <th class="class_tablelabel" id="id_table_subReportLabel" style="width:6vw; border-color:black; background:black;">Ratio (&#916; Color-Metric)</th>
+                                           <th class="class_tablelabel" id="id_table_subReportLabel" style="width:6vw; border-color:black; background:black;">Ratio Subtraction</th>
+                                         </tr>
+                                       </table>
+                                     </td>
+                                   </tr>
+                                   <tr>
+                                     <td>
+                                       <div style="width:100%; overflow:auto;">
+                                         <table cellspacing="0" cellpadding="1" id="id_table_subReport" style="width:100%; border: 0.1vh solid black;">
+                                           <tbody id="id_subReportTableBody">
+
+                                           </tbody>
+                                         </table>
+                                       </div>
+                                     </td>
+                                   </tr>
+                                 </table>
+
+                              </div>
+
+                              <!--p class="standardText" style="margin-top: 3vh; color:red;"> <strong>Erinnerung an mich: die tabelle mit allen infos fuellen. damit kann man auch vergleichen bei welchen bild die maximal achse genommen wurde und schauen ob die von unterschiedlichen achsen stammen. Zusatzlich Design Aenderung! wie mit den testseiten bloss runterwaerts.</strong> </p>
+
+                              <p class="standardText" style="margin-top: 3vh;"> <strong>Info: </strong> Explore the five figures with the mouse-cursor. Fix the pixel information with a left mouse-click and switch back to the explore modus with a right mouse-click. The left table shows depending on the hovered figure the value difference, color difference, ratio value difference, ratio color difference, or the results of the ratio subtraction. For the last three options, the bold table row shows the maximal difference value, which is used to color the corresponding pixel in the figure. </p-->
+
+
+
+                          </div>
+
+                          <div class="class_OptionDiv" style="width: 35vw; margin-top: 2vh;">
+                                <p class="standardText" style="font-weight:bold;">Statistics:</p>
+
+
+                                <div class="row" style="width:100%; margin-top: 1vh; margin-bottom:1vh;">
+                                  <div style="margin: auto;">
+                                    <p class="standardText" style="text-decoration: underline;">&#916; Value: </p>
+                                    <div class="row">
+                                      <p class="standardText">Maximum =</p>
+                                      <p id="id_subReportValueDifMax" class="standardText"> / </p>
+                                    </div>
+                                    <div class="row">
+                                      <p class="standardText">Minimum =</p>
+                                      <p id="id_subReportValueDifMin" class="standardText"> / </p>
+                                    </div>
+                                    <div class="row">
+                                      <p class="standardText">Average =</p>
+                                      <p id="id_subReportValueDifAvg" class="standardText"> / </p>
+                                    </div>
+                                    <div class="row">
+                                      <p class="standardText">Deviation =</p>
+                                      <p id="id_subReportValueDifDev" class="standardText"> / </p>
+                                    </div>
+                                  </div>
+
+
+                                  <div style="margin: auto;">
+                                    <p class="standardText" style="text-decoration: underline;">&#916; Color-Metric: </p>
+                                    <div class="row">
+                                      <p class="standardText">Maximum =</p>
+                                      <p id="id_subReportValueDifMax" class="standardText"> / </p>
+                                    </div>
+                                    <div class="row">
+                                      <p class="standardText">Minimum =</p>
+                                      <p id="id_subReportValueDifMin" class="standardText"> / </p>
+                                    </div>
+                                    <div class="row">
+                                      <p class="standardText">Average =</p>
+                                      <p id="id_subReportValueDifAvg" class="standardText"> / </p>
+                                    </div>
+                                    <div class="row">
+                                      <p class="standardText">Deviation =</p>
+                                      <p id="id_subReportValueDifDev" class="standardText"> / </p>
+                                    </div>
+                                  </div>
+
+
+                                  <div style="margin: auto;">
+                                    <p class="standardText" style="text-decoration: underline;">Subtraction Field: </p>
+                                    <div class="row">
+                                      <p class="standardText">Maximum =</p>
+                                      <p id="id_subReportValueDifMax" class="standardText"> / </p>
+                                    </div>
+                                    <div class="row">
+                                      <p class="standardText">Minimum =</p>
+                                      <p id="id_subReportValueDifMin" class="standardText"> / </p>
+                                    </div>
+                                    <div class="row">
+                                      <p class="standardText">Average =</p>
+                                      <p id="id_subReportValueDifAvg" class="standardText"> / </p>
+                                    </div>
+                                    <div class="row">
+                                      <p class="standardText">Deviation =</p>
+                                      <p id="id_subReportValueDifDev" class="standardText"> / </p>
+                                    </div>
+                                  </div>
+                                </div>
+
+
+
+                            </div>
+
+                          <button class="class_generalbutton" onclick="showSubtractionReportInfo()" style="margin-left: 7.5vw; width:20vw;  margin-top:2vh; ">Click to show information.</button>
+
+                        </div>
+
+
+                      </div>
+
+
+
+
+                  </div>
+
+                  <!---------------------- Orther Report ----------------------------
+                  ------>
+
+
+                    <div id="id_report_OtherReportDiv" style="height: 0vh; width: 100%; overflow: hidden; ">
+
+                    </div>
 
           </div>
 
 
-      </div>
+
+          <div style="height:83vh; width: 3vw; background:rgb(60,60,60); display:flex;">
+
+            <div style="margin-top:auto; margin-bottom:auto;">
+
+                <div id="id_Report_pageSwitchUp" class="class_generalbutton_DarkBackground" onclick="switchToPreviousReport()" style="margin-left:0.5vw; margin-bottom: 2vh; width: 2vw;">
+                  &#8593;
+                </div>
+                <div id="id_Report_pageSwitchStatus0" class="class_Test_ShowTestButton" onclick="setReportDisplay(0)" style="width:3vw;">
+
+                </div>
+                <div id="id_Report_pageSwitchStatus1" class="class_Test_ShowTestButton" onclick="setReportDisplay(1)" style="width:3vw;">
+
+                </div>
+                <div id="id_Report_pageSwitchStatus2" class="class_Test_ShowTestButton" onclick="setReportDisplay(2)" style="width:3vw;">
+
+                </div>
+                <div id="id_Report_pageSwitchDown" class="class_generalbutton_DarkBackground" onclick="switchToNextReport()" style="margin-left:0.5vw;  margin-top: 2vh; width: 2vw;">
+                  &#8595;
+                </div>
+
+            </div>
+
+          </div>
+
     </div>
 </div>
 
+<div class="row" style="height:7vh; background: rgb(60,60,60); width:100%; box-sizing: border-box;">
 
-<div class="row" style="height:auto; padding-top:1vh; padding-bottom:1vh; background: white; width:100%; border-top:0.2vh solid black; box-sizing: border-box;">
-  <div id="id_Test_pageSwitchLeft" class="class_generalbutton" onclick="switchToPreviousTest()" style="margin-left:auto; width:2vw; margin-right:2vw;">
-    <<
+  <div style=" width:30%; height: 7vh; display:flex;">
+    <p  style="margin-left: 1vw; height:7vh; font-size : 4vh; line-height: 7vh; font-weight: bold; color: white; vertical-align:middle;">&#8596;</p>
+    <p id="id_testPageLabel" style="margin-left: 0.5vw; margin-right: auto; font-size : 2vh; height:7vh; line-height: 7vh; color: white; vertical-align:middle;">TEST</p>
   </div>
-  <div id="id_Test_pageSwitchStatus0" class="class_Test_ShowTestButton" onclick="switchTestDisplay(0)">
 
-  </div>
-  <div id="id_Test_pageSwitchStatus1" class="class_Test_ShowTestButton" onclick="switchTestDisplay(1)">
+  <div style="display:flex; height:7vh; width: 40%;">
+    <div id="id_Test_pageSwitchLeft" class="class_generalbutton_DarkBackground" onclick="switchToPreviousTest()" style="margin:auto; width:2vw; margin-right:2vw;">
+      &#8592;
+    </div>
+    <div id="id_Test_pageSwitchStatus0" class="class_Test_ShowTestButton" style=" margin-top:auto; margin-bottom:auto;" onclick="switchTestDisplay(0)">
 
-  </div>
-  <div id="id_Test_pageSwitchStatus2" class="class_Test_ShowTestButton" style="visibility:hidden;" onclick="switchTestDisplay(2)">
+    </div>
+    <div id="id_Test_pageSwitchStatus1" class="class_Test_ShowTestButton" style=" margin-top:auto; margin-bottom:auto;" onclick="switchTestDisplay(1)">
 
+    </div>
+    <div id="id_Test_pageSwitchStatus2" class="class_Test_ShowTestButton" style="visibility:hidden; margin-top:auto; margin-bottom:auto;" onclick="switchTestDisplay(2)">
+
+    </div>
+    <div id="id_Test_pageSwitchRight" class="class_generalbutton_DarkBackground" onclick="switchToNextTest()" style="margin:auto; width:2vw; margin-left:2vw;">
+      &#8594;
+    </div>
   </div>
-  <div id="id_Test_pageSwitchRight" class="class_generalbutton" onclick="switchToNextTest()" style="margin-right:auto; width:2vw; margin-left:2vw;">
-    >>
+
+  <div id="id_reportPageLabelDiv" style=" width:30%; height: 7vh; display:flex;">
+    <p  style=" margin-left: auto; margin-right: 0.5vw; height:7vh; font-size : 4vh; line-height: 7vh; font-weight: bold; color: white; vertical-align:middle;">&#8597;</p>
+    <p id="id_reportPageLabel" style="margin-right: 1vw; font-size : 2vh; height:7vh; line-height: 7vh; color: white; vertical-align:middle;">TEST</p>
   </div>
+
+
 </div>

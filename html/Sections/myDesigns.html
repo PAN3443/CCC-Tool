@@ -3,22 +3,29 @@
 ----------------  	Section MyDesigns	  -----------------
 -----------------------------------------------
 -->
-<div class="row">
+<div class="row" style="height: 100%; width:100%;">
 
-  <img id="id_MyDesings_Example_Img" src="img/myDesignsExampleImg.png" style="height:10vh">
+  <div style="height: 100%; width:12vw; background:rgb(60,60,60);">
+      <p class="sectionLabel" style="width:100%; margin:auto; color:white; margin-top:5vh;">My Designs</p>
 
-  <h1 id="id_MyDesings_Label" class="sectionLabel" style="width:60vw; margin:auto;">My Designs</h1>
+      <button class="class_generalbutton_DarkBackground" onclick="showNewCMSPage()" style="width:10vw; margin-top:5vh; margin-left:1vw;">New CMS</button>
+      <button class="class_generalbutton_DarkBackground" onclick="showGallery()" style="width:10vw; margin-top:2vh; margin-left:1vw;">Gallery</button>
+      <button class="class_generalbutton_DarkBackground" onclick="showTestPage()" style="width:10vw; margin-top:2vh; margin-left:1vw;">Testing</button>
 
-  <img id="id_MyDesings_IMG" src="img/CCCToolComic/MyDesignsPage.jpg" style="height:10vh">
-</div>
+      <hr style="color:white; margin-top:2vh; width:95%; margin-left: 2.5%;">
+
+      <button class="class_generalbutton_DarkBackground" onclick="saveSession()" style="width:10vw; margin-top:2vh; margin-left:1vw;">Export Session</button>
+      <button class="class_generalbutton_DarkBackground" onclick="loadSession()" style="width:10vw; margin-top:2vh; margin-left:1vw;">Import Session</button>
+      <button class="class_generalbutton_DarkBackground" onclick="loadCMS()" style="width:10vw; margin-top:2vh; margin-left:1vw;">Import CMS</button>
 
 
-<div id="id_myDesignsPage_colormap_container" style="width:80%; height:62vh; maxHeight:100%; margin-left:10%; overflow:auto;">
+      <img id="id_MyDesings_Example_Img" src="img/myDesignsExampleImg.png" style="width:10vw; display:none;">
+      <img id="id_MyDesings_IMG" src="img/CCCToolComic/MyDesignsPage.jpg" style="width:10vw; display:none;">
+  </div>
 
-</div>
+  <div id="id_myDesignsPage_colormap_container" style="width:88vw; height:100%; overflow:auto;">
 
-<div class="row" style="margin-top:1vh;">
-  <button class="class_generalbutton" onclick="showTestPage()" style="margin-left:15%; margin-right:12.5%;  width:15%; margin-top:1vh;">CMS Tests</button>
-  <button class="class_generalbutton" onclick="showNewCMSPage()" style="height:6vh; line-height:6vh; width:15%;">New CMS</button>
-  <button class="class_generalbutton" onclick="showGallery()" style="margin-left:12.5%; margin-right:15%;  width:15%; margin-top:1vh;">Visit Gallery</button>
+  </div>
+
+
 </div>

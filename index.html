@@ -30,6 +30,9 @@
   <link rel="stylesheet" href="css/newDesign_GalleryPage.css">
   <link rel="stylesheet" href="css/newDesign_TestPage.css">
 
+
+  <link rel="stylesheet" href="css/newDesign_TabRow.css">
+
   <link rel="stylesheet" href="css/newDesign_SearchAutoComplete.css">
 
 
@@ -267,6 +270,7 @@
 
         <!-- Testing Section : Test Report -->
         <script src="js/Front/Sections/Testing/Report/events_Report.js"></script>
+        <script src="js/Front/Sections/Testing/Report/report_globalVars.js"></script>
 
       <script src="js/Front/Sections/Testing/3D_TestVis/initTestRendering.js"></script>
       <script src="js/Front/Sections/Testing/3D_TestVis/testImageMapping.js"></script>
@@ -369,7 +373,7 @@
 
 
   <!-- ------------- Menue --------------- -->
-  <div id="headerDiv" include-html="html/header.html" style="width:100vw; height:5vh; margin:0px;  position:fixed; top:0px; left:0px; z-index:90; background: rgb(0, 11, 25);"></div>
+  <div id="headerDiv" include-html="html/header.html" style="width:100vw; height:5vh; margin:0px;  position:fixed; top:0px; left:0px; z-index:90; background: rgb(25, 25, 25);"></div>
 
 
   <!-- ------------- THE TOOL --------------- -->
@@ -386,13 +390,13 @@
     -->
 
     <!-- ------------- 1.Section: Gallery --------------- -->
-    <div id="id_myDesignsPage" include-html="html/Sections/myDesigns.html" style="width:100%; height:80vh; display:none;"></div>
+    <div id="id_myDesignsPage" include-html="html/Sections/myDesigns.html" style="width:100%; height:95vh; display:none;"></div>
 
     <!-- ------------- 2.Section: Gallery --------------- -->
-    <div id="id_newCMSPage" include-html="html/Sections/newCMS.html" style="width:100%; height:80vh; display:none;"></div>
+    <div id="id_newCMSPage" include-html="html/Sections/newCMS.html" style="width:100%; height:95vh; display:none;"></div>
 
     <!-- ------------- 3.Section: Gallery --------------- -->
-    <div id="id_GalleryPage" include-html="html/Sections/gallery.html" style="width:100%; height:80vh; display:none; "></div>
+    <div id="id_GalleryPage" include-html="html/Sections/gallery.html" style="width:100%; height:95vh; display:none; "></div>
 
     <!-- ------------- 4.Section: Edit --------------- -->
     <div id="id_EditPage" style="display:flex; height:95vh; width:100%; display:none; ">
@@ -422,7 +426,7 @@
                 X
               </div>
             </div>
-            <div class="class_EditPage_TabRow">
+            <div class="class_TabRow">
               <button id="id_editPage_SelectAnalyze" type="button" name="button" style="width:33%;" onclick="switchAnalyzeMappingProbeSet(0)">Analysis</button>
               <button id="id_editPage_SelectMapping" type="button" name="button" style="width:34%;" onclick="switchAnalyzeMappingProbeSet(1)">Color-Mapping</button>
               <button id="id_editPage_SelectProbeSet" type="button" name="button" style="width:33%;" onclick="switchAnalyzeMappingProbeSet(2)">Probe-Set</button>
@@ -442,7 +446,7 @@
                 X
               </div>
             </div>
-            <div class="class_EditPage_TabRow">
+            <div class="class_TabRow">
               <button id="id_editPage_SelectEditKeys" type="button" name="button" style="width:50%;" onclick="switchModifyModus(0)">Key Edit</button>
               <button id="id_editPage_SelectEditPath" type="button" name="button" style="width:50%;" onclick="switchModifyModus(1)">Path Plot</button>
             </div>

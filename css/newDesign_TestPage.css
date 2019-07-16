@@ -15,21 +15,17 @@
 }
 
 .class_CCCTestfield_Setting{
-
   background: url(../img/Buttons/gear_wheel.png);
   background-size:cover;
   background-repeat:no-repeat;
   background-position: center center;
-
   width:2vw;
   max-width: 2vh;
   height: 2vh;
   max-height: 2vw;
   margin:auto;
-
   border: 0.2vh solid rgb(0, 20, 51);
   background-color: rgb(51, 69, 102);
-
   cursor:not-allowed;
 }
 
@@ -37,7 +33,11 @@
   width: 100%;
   padding-top: 3vh;
   padding-bottom: 3vh;
-  background: rgb(200,200,200);
+  /*background: rgb(200,200,200);
+  color : black;*/
+
+  background: rgb(0,0,0);
+  color : white;
   text-align:center;
   vertical-align:middle;
   font-weight:bold;
@@ -47,18 +47,27 @@
   margin-bottom:2vh;
 }
 
-.class_ReportOptionDiv{
-  background: white;
-  /*width: auto;
-  max-width: 80%;*/
-  width: 80%;
-  margin-left: 10%;
-  margin-bottom:2vh;
-  margin-top:2vh;
-  padding: 1vh;
+
+.class_pixelColorPreviewDiv{
+  width: 3.5vw;
+  max-width: 5vh;
+  height: 5vh;
+  max-height: 3.5vw;
   border: 0.2vh solid black;
-  box-shadow: 0 0.25vh 0.25vh 0 rgba(0, 0, 0, 0.2), 0 0.15vh 0.15vh 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0.15vh 0.15vh 0 rgba(0, 0, 0, 0.2), 0 0.15vh 0.15vh 0 rgba(0, 0, 0, 0.25);
 }
+
+.class_pixelColorPreviewDiv line{
+  stroke : rgb(0,0,0);
+  stroke-width:0.25vh;
+}
+
+.class_pixelColorPreviewDiv text{
+  font-size: 1.2vh;
+
+}
+
+
 
 #id_TestPage_newTestNoiseCanvas,
 #id_Test_PixelCanvas,
@@ -98,7 +107,9 @@
   background:rgba(120,120,120,0.3);
 }
 
-
+#id_report_TestInfoDiv,
+#id_report_SubReportDiv,
+#id_report_OtherReportDiv,
 #id_Test_FunctionCollection,
 #id_Test_TestDiv,
 #id_Test_ReportDiv
@@ -115,7 +126,7 @@
   text-align:center;
   height: 4vh;
   line-height: 4vh;
-  color:rgb(19, 111, 153);
+
   font-size: 2.5vh;
   font-weight: bold;
   overflow: hidden;
@@ -126,7 +137,8 @@
 
   transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
 
-  text-shadow: 0 0 1vh rgba(19, 111, 153, 0.5);
+  color:rgb(245,255,255); /*19, 111, 153*/
+  /*text-shadow: 0 0 1vh rgba(175,255,255, 0.5);*/
   -webkit-background-clip: text;
      -moz-background-clip: text;
           background-clip: text;
@@ -136,8 +148,8 @@
 
 .class_Test_ShowTestButton:hover{
   transform: scale(0.9);
-  color: rgb( 	8, 48, 66);
-  text-shadow: 0 0 1vh rgba(8, 48, 66, 0.5);
+  color: rgb(10, 239, 251); /*8, 48, 66*/
+  /*text-shadow: 0 0 1vh rgba(10, 239, 251, 0.5);*/
   -webkit-background-clip: text;
      -moz-background-clip: text;
           background-clip: text;

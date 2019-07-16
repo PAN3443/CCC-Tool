@@ -28,6 +28,8 @@ function includeHTML() {
 };
 
 
+window.onbeforeunload = function() { return "Attention: Your work will be lost, if you will leave this page."; };
+
 window.onload = function() {
 
   includeHTML();
@@ -174,7 +176,7 @@ window.onload = function() {
   ////////////////////////////////
   // For Testing: with start CMS in the MyDesigns
   ///
-  /*  myDesignsList.push(cmsFourBandColormaps[0]);
+    myDesignsList.push(cmsFourBandColormaps[0]);
     myDesignsList.push(cmsGreenColormaps[0]);
     myDesignsList.push(cmsDivergentColormaps[0]);
     myDesignsList.push(cmsRedPurpleColormaps[0]);
