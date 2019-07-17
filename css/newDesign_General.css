@@ -80,7 +80,7 @@ input[type='radio']{
        height: 2vh;
        -webkit-appearance: none;
        color: #13bba4;
-       margin-top: -1px;
+       /*margin-top: -1vh;*/
      }
 
      input[type='range']::-webkit-slider-thumb {
@@ -88,24 +88,24 @@ input[type='radio']{
        -webkit-appearance: none;
        height: 2vh;
        cursor: ew-resize;
-       background: rgb(67, 67, 67);
-       box-shadow: -20vw 0 0 20vw rgb(175,255,255);
+       background: rgb(30, 30, 30);
+       box-shadow: -20vw 0 0 20vw rgb(60,60,60);
      }
 
  }
  /** FF*/
  input[type="range"]::-moz-range-progress {
-   background-color: rgb(175,255,255);
+   background-color: rgb(60,60,60);
  }
  input[type="range"]::-moz-range-track {
-   background-color: rgba(235, 239, 240,0.1);
+   background-color: rgba(230, 230, 230,0.5);
  }
  /* IE*/
  input[type="range"]::-ms-fill-lower {
-   background-color: rgb(175,255,255);
+   background-color: rgb(60,60,60);
  }
  input[type="range"]::-ms-fill-upper {
-   background-color: rgba(235, 239, 240,0.1);
+   background-color: rgba(230, 230, 230,0.5);
  }
 
  p{
@@ -265,7 +265,7 @@ div.sticky {
     border: none;
     font-weight:bold;
     background-color: rgb(228,62,0); /*rgb(0,191,255); rgb(15, 107, 149);*/
-    box-shadow: 0 0 1vh rgba(228,62,0, 0.5);
+    /*box-shadow: 0 0 1vh rgba(228,62,0, 0.5);*/
     color:white;
     transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
     height: 4vh;
@@ -290,13 +290,13 @@ div.sticky {
 .class_generalbuttonActive:hover{
   transform: scale(0.9);
   background-color: rgb(255,69,0); /*30,144,255*/
-  box-shadow: 0 0 1vh rgba(255,69,0, 0.5); /*30,144,255*/
+  /*box-shadow: 0 0 1vh rgba(255,69,0, 0.5); /*30,144,255*/
 }
 
 .class_generalbutton_DarkBackground{
     border: none;
     font-weight:bold;
-    background-color: rgb(245,255,255);
+    background-color: rgb(255,255,255);
     /*box-shadow: none; /* 0 0 1vh rgba(175,255,255, 0.5)*/
     color:rgb(60,60,60);
     transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
@@ -321,10 +321,39 @@ div.sticky {
 
 .class_generalbutton_DarkBackground:hover{
   transform: scale(0.9);
-  background-color: rgb(10, 239, 251);
+  background-color: rgb(150, 245, 255);/*rgb(10, 239, 251);*/
   /*box-shadow: 0 0 1vh rgba(10, 239, 251, 0.5);*/
 }
 
+
+
+.helpButton_DarkBackground {
+    font-size: 1.6vh;
+    font-weight: bold;
+    padding: auto;
+    color:white;
+    background: rgba(255,255,255,0.3)
+    height:5vh;
+    max-height:5vw;
+    width:5vw;
+    max-width:5vh;
+    border: 0.5vh solid white;
+    border-radius: 0.5vh;
+    border-color:white;
+    text-align:center;
+    vertical-align: middle;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+
+}
+
+.helpButton_DarkBackground:hover {
+    display: block;
+    background-color: rgba(150, 245, 255,0.3);/*rgb(10, 239, 251);*/
+    border-color:rgb(150, 245, 255);
+    color: rgb(150, 245, 255);
+}
 
 
 

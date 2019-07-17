@@ -95,7 +95,7 @@ function saveSession() {
 
   text = text + "<ColorMaps>\n";
 
-  changeExportColorspace(2); // session save in LAB Colorspace
+  //changeExportColorspace(2); // session save in LAB Colorspace
 
   var tmpGlobalCMS = cloneCMS(globalCMS1);
 
@@ -109,13 +109,15 @@ function saveSession() {
     /*globalCMS1 = calcCMSIntervals(globalCMS1,0,globalCMS1.getKeyLength()-1);*/
     text = text + "<ColorMap name=\"" + globalCMS1.getColormapName() + "\" space=\"";
 
-    switch (exportColorspace) {
-      case "rgb":
+
+    // RGB only in RGB [0,1]
+    /*switch (exportColorspace) {
+      case "rgb":*/
         text = text + "RGB";
         txtNaN="<NaN r=\""+globalCMS1.getNaNColor("rgb").get1Value()+"\" g=\""+globalCMS1.getNaNColor("rgb").get2Value()+"\" b=\""+globalCMS1.getNaNColor("rgb").get3Value()+"\"/>\n";
         txtAbove="<Above r=\""+globalCMS1.getAboveColor("rgb").get1Value()+"\" g=\""+globalCMS1.getAboveColor("rgb").get2Value()+"\" b=\""+globalCMS1.getAboveColor("rgb").get3Value()+"\"/>\n";
         txtBelow="<Below r=\""+globalCMS1.getBelowColor("rgb").get1Value()+"\" g=\""+globalCMS1.getBelowColor("rgb").get2Value()+"\" b=\""+globalCMS1.getBelowColor("rgb").get3Value()+"\"/>\n";
-        break;
+        /*break;
       case "hsv":
         text = text + "HSV";
         txtNaN="<NaN h=\""+globalCMS1.getNaNColor("hsv").get1Value()+"\" s=\""+globalCMS1.getNaNColor("hsv").get2Value()+"\" v=\""+globalCMS1.getNaNColor("hsv").get3Value()+"\"/>\n";
@@ -136,7 +138,7 @@ function saveSession() {
         break;
       default:
         return;
-    }
+    }*/
 
     text = text + "\" interpolationspace=\""+globalCMS1.getInterpolationSpace()+"\" creator=\"CCC-Tool\">\n";
 
@@ -216,7 +218,6 @@ function readSessionFile(e){
 
     // set Settings
     if (xmlObject.getElementsByTagName("settings").length != 0) {
-
       ////// DE 2000
       if (xmlObject.getElementsByTagName("de2000_k_L").length != 0)
         de2000_k_L = parseFloat(xmlObject.getElementsByTagName("de2000_k_L")[0].getAttribute("value"));
@@ -286,8 +287,6 @@ function readSessionFile(e){
         din99_kCH = parseFloat(xmlObject.getElementsByTagName("din99_kCH")[0].getAttribute("value"));
       else
         din99_kCH = 1.0;
-
-
     }
 
     // read cms
@@ -343,7 +342,6 @@ function readSessionFile(e){
            default:
                  console.log("Error with XML File -> found no space ");
          }
-
 
          for (var i = 0; i < pointObject.length; i++)
          {
@@ -432,7 +430,6 @@ function readSessionFile(e){
                         }
 
                         var tmpColor_Prev = getLoadedColor(val1_Prev,val2_Prev,val3_Prev,space);
-
 
                         if(tmpColor2.equalTo(tmpColor)){
                           // left key

@@ -12,6 +12,15 @@
 }
 
 
+.class_PopUpButtonDiv{
+  width:100%;
+  margin-top: 2vh;
+  display:flex;
+  padding-top: 1.5vh;
+  padding-bottom: 1.5vh;
+  background: rgb(60,60,60);
+}
+
 .class_svgBrackets{
   height: 100%;
   width: 1vw;
@@ -95,16 +104,16 @@
 
 .class_popupWindow_Label{
   width:100%;
-  height:5vh;
-  height:5vh;
   line-height:5vh;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
   vertical-align:middle;
   text-align:center;
   vertical-align: middle;
   margin:0px;
   color:white;
-  font-size:4vh;
-  background: rgb(0,11,25);
+  font-size:3vh;
+  background: rgb(30,30,30);
   /*font-family:verdana;*/
 }
 

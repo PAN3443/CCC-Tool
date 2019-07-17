@@ -23,8 +23,8 @@
   line-height: 1.5vh;
   font-size: 1.5vh;
   font-weight: bold;
-  color: rgb(69, 180, 231);
-  text-shadow: 0 0 2vh rgb(69, 180, 231);
+  color: rgb(10, 239, 251); /*rgb(69, 180, 231);*/
+  /*text-shadow: 0 0 2vh rgb(69, 180, 231);*/
   vertical-align: middle;
   text-align: center;
   transition: transform ease-in 0.1s;
@@ -34,7 +34,7 @@
 .class_EditPage_closeDiv div:hover{
   transform: rotate(360deg);
   color: rgb(242,92,102);
-  text-shadow: 0 0 2vh rgb(242,92,102);
+  /*text-shadow: 0 0 2vh rgb(242,92,102);*/
 }
 
 

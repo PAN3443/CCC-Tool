@@ -213,6 +213,13 @@ function drawPreviewPixels(x,y){
 
   var selectedIndex = document.getElementById("id_TestPage_ReportList").selectedIndex;
 
+
+  if(reportListTestField[selectedIndex][x]==undefined)
+  return;
+
+  if(reportListTestField[selectedIndex][x][y]==undefined)
+  return;
+
   document.getElementById("id_report_pixelPreview11").style.background = globalCMS1.calculateColor(reportListTestField[selectedIndex][x][y]).getRGBString();
 
   document.getElementById("id_report_pixelPreview00").style.visibility = "hidden";

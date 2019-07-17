@@ -137,7 +137,7 @@
 
   transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
 
-  color:rgb(245,255,255); /*19, 111, 153*/
+  color:rgb(255,255,255); /*19, 111, 153*/
   /*text-shadow: 0 0 1vh rgba(175,255,255, 0.5);*/
   -webkit-background-clip: text;
      -moz-background-clip: text;
@@ -148,7 +148,7 @@
 
 .class_Test_ShowTestButton:hover{
   transform: scale(0.9);
-  color: rgb(10, 239, 251); /*8, 48, 66*/
+  color: rgb(150, 245, 255); /*rgb(10, 239, 251)*/ /*8, 48, 66*/
   /*text-shadow: 0 0 1vh rgba(10, 239, 251, 0.5);*/
   -webkit-background-clip: text;
      -moz-background-clip: text;

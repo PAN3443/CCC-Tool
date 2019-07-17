@@ -37,16 +37,16 @@
 
 .class_TabRowButtonActive{
   /*background-image: linear-gradient(rgb(40,40,40), rgb(10,10,10));*/
-  color: rgb(10, 239, 251);
+  color: rgb(150, 245, 255); /*rgb(10, 239, 251)*/
   /*text-shadow: 0 0 0.2vh rgb(9, 120, 171);*/
 }
 
-.class_TabRowButtonActive:hover{
+/*.class_TabRowButtonActive:hover{
   color: white;
-}
+}*/
 
 .class_TabRowButtonActive p{
-  color: rgb(10, 239, 251);
+  color: rgb(150, 245, 255); /*rgb(10, 239, 251)*/
   /*text-shadow: 0 0 0.2vh rgb(9, 120, 171);*/
   transition: transform ease-in 0.1s;
 }
@@ -72,9 +72,9 @@
   text-shadow: none;
 }
 
-.class_TabRowButtonNotActive:hover{
+/*.class_TabRowButtonNotActive:hover{
   color: white;
-}
+}*/
 
 .class_TabRowButtonNotActive p{
   color: rgb(230,230,230);
