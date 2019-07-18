@@ -325,7 +325,7 @@
 
             </div>
 
-            <button class="class_generalbutton" onclick="addTestToReport()" style="width:90%; margin-left:5%; margin-top:1vh; display:none;">Add To Report</button>
+            <button class="class_generalbutton" onclick="addTestToReport()" style="width:90%; margin-left:5%; margin-top:1vh;">Add To Report</button>
 
           </div>
 
@@ -351,9 +351,9 @@
                 <div id="id_Test_showHideAxis" class="class_Test_RenderButton" onclick="showTestingAxis()" title="Show/Hide Axis" >&#9531;</div>
                 <div id="id_Test_showBoundingBox" class="class_Test_RenderButton" onclick="showTestingBoundingBox()" title="Show/Hide Bounding Box" >&#9635;</div>
               </div>
-              <div id="id_Test_MeshVisDiv" style="height:72vh; max-height:40vw; width:40vw; max-width:72vh; overflow:hidden;">
+              <div id="id_Test_MeshVisDiv" style="height:65vh; max-height:35vw; width:35vw; max-width:65vh; overflow:hidden;">
               </div>
-              <canvas id="id_Test_PixelCanvas" style="height:72vh; max-height:40vw; width:40vw; max-width:72vh;">
+              <canvas id="id_Test_PixelCanvas" style="height:65vh; max-height:35vw; width:35vw; max-width:65vh;">
               </canvas>
             </div>
 
@@ -361,9 +361,9 @@
               <div class="row" style="width:100%; background: rgb(50,50,50);">
                 <a id="id_Test_downloadScreenshotGrey" download="CCC_Tool_TestImage_GreyScaled.png" class="class_Test_RenderButton" title="Screenshot" >&#9688;</a>
               </div>
-              <div id="id_Test_MeshVisDivGrey" style="height:72vh; max-height:40vw; width:40vw; max-width:72vh; overflow:hidden;">
+              <div id="id_Test_MeshVisDivGrey" style="height:65vh; max-height:35vw; width:35vw; max-width:65vh; overflow:hidden;">
               </div>
-              <canvas id="id_Test_PixelCanvasGrey" style="height:72vh; max-height:40vw; width:40vw; max-width:72vh;">
+              <canvas id="id_Test_PixelCanvasGrey" style="height:65vh; max-height:35vw; width:35vw; max-width:65vh;">
               </canvas>
             </div>
 
@@ -466,13 +466,19 @@
 
 
                           <div class="row">
-                            <div id="id_TestPage_ReportOrginalCDiv" style="width: 20vw; max-width:32vh; height: 32vh; max-height:20vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
-                              <canvas id="id_TestPage_ReportOrginalCCanvas" style="width: 100%; height: 100%;">
+                            <div id="id_TestPage_ReportOrginalCDiv" style="position: relative; width: 20vw; max-width:32vh; height: 32vh; max-height:20vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
+                              <canvas id="id_TestPage_ReportOrginalGCanvas" style="position: absolute; left: 0; top: 0; z-index: 0; width: 100%; height: 100%;">
+
+                              </canvas>
+                              <canvas id="id_TestPage_ReportOrginalGCanvas_Pixel" style="position: absolute; left: 0; top: 0; z-index: 1; width: 100%; height: 100%;">
 
                               </canvas>
                             </div>
-                            <div id="id_TestPage_ReportOrginalGDiv" style="width: 20vw; max-width:32vh; height: 32vh; max-height:20vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
-                              <canvas id="id_TestPage_ReportOrginalGCanvas" style="width: 100%; height: 100%;">
+                            <div id="id_TestPage_ReportOrginalGDiv" style="position: relative; width: 20vw; max-width:32vh; height: 32vh; max-height:20vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
+                              <canvas id="id_TestPage_ReportOrginalCCanvas" style="position: absolute; left: 0; top: 0; z-index: 0; width: 100%; height: 100%;">
+
+                              </canvas>
+                              <canvas id="id_TestPage_ReportOrginalCCanvas_Pixel" style="position: absolute; left: 0; top: 0; z-index: 1; width: 100%; height: 100%;">
 
                               </canvas>
                             </div>
@@ -609,30 +615,44 @@
                           </div>
 
                           <div class="row">
-                            <div id="id_TestPage_Report0Div" style="width: 20vw; max-width:32vh; height: 32vh; max-height:20vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
-                              <canvas id="id_TestPage_Report0Canvas" style="width: 100%; height: 100%;">
+                            <div id="id_TestPage_Report0Div" style="position: relative; width: 20vw; max-width:32vh; height: 32vh; max-height:20vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
+                              <canvas id="id_TestPage_Report0Canvas" style="position: absolute; left: 0; top: 0; z-index: 0; width: 100%; height: 100%;">
+
+                              </canvas>
+                              <canvas id="id_TestPage_Report0Canvas_Pixel" style="position: absolute; left: 0; top: 0; z-index: 1; width: 100%; height: 100%;">
 
                               </canvas>
                             </div>
-                            <div id="id_TestPage_Report1Div" style="width: 20vw; max-width:32vh; height: 32vh; max-height:20vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
-                              <canvas id="id_TestPage_Report1Canvas" style="width: 100%; height: 100%;">
+                            <div id="id_TestPage_Report1Div" style="position: relative; width: 20vw; max-width:32vh; height: 32vh; max-height:20vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
+                              <canvas id="id_TestPage_Report1Canvas" style="position: absolute; left: 0; top: 0; z-index: 0; width: 100%; height: 100%;">
+
+                              </canvas>
+                              <canvas id="id_TestPage_Report1Canvas_Pixel" style="position: absolute; left: 0; top: 0; z-index: 1; width: 100%; height: 100%;">
 
                               </canvas>
                             </div>
-                            <div id="id_TestPage_Report2Div" style="width: 20vw; max-width:32vh; height: 32vh; max-height:20vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
-                              <canvas id="id_TestPage_Report2Canvas" style="width: 100%; height: 100%;">
+                            <div id="id_TestPage_Report2Div" style="position: relative; width: 20vw; max-width:32vh; height: 32vh; max-height:20vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
+                              <canvas id="id_TestPage_Report2Canvas" style="position: absolute; left: 0; top: 0; z-index: 0; width: 100%; height: 100%;">
+
+                              </canvas>
+                              <canvas id="id_TestPage_Report2Canvas_Pixel" style="position: absolute; left: 0; top: 0; z-index: 1; width: 100%; height: 100%;">
 
                               </canvas>
                             </div>
                           </div>
+
 
                           <div class="row" style="width: 100%; background: rgb(25,25,25);">
                             <p class="standardText" style="margin:auto; margin-left:1vw; margin-right:1vw; color:white;">Notebook-Zoom:</p>
-                            <input id="id_Test_SubReport_Zoom" type="range" step="1" min="100" max="1500" value="100" style="width:50%; margin-right:auto;" onchange="subreportZoom()">
+                            <input id="id_Test_SubReport_Zoom" type="range" step="1" min="100" max="1500" value="100" style="width:40%; margin-right:auto;" onchange="subreportZoom()">
+
+                            <p class="standardText" style="margin:auto; margin-left:auto; margin-right:1vw; color:white;">Mark Cursor:</p>
+                            <input id="id_Test_SubReport_DoMarkedCursor" type="checkbox" name="MarkCursor" style="margin-right:auto;" onchange="changeMarkReportCursor()" checked>
+
                           </div>
 
                           <div style="width:60vw; max-width:96vh; display:flex;">
-                            <div style="width:10%;">
+                            <div style="width:10%; display:none;">
                               <div id="id_TestPage_DifReportBelowColor" style="width:100%; border:0.2vh solid black; border-top:none; height:3vh;">
 
                               </div>
@@ -641,7 +661,7 @@
                               </div>
                               <p class="standardText" style=" width:100%; text-align:center;"> ( &#60; -1 ) </p>
                             </div>
-                            <div style="width:80%;">
+                            <div style="width:100%;">
                               <canvas id="id_TestPage_DifReportColormap" style="width:100%; border-bottom:0.2vh solid black; height:3vh; margin: 0px;">
 
                               </canvas>
@@ -654,7 +674,7 @@
                                 <p class="standardText" style="margin-left:auto; text-align: right;"> 1 </p>
                               </div>
                             </div>
-                            <div style="width:10%;">
+                            <div style="width:10%; display:none;">
                               <div id="id_TestPage_DifReportAboveColor" style="width:100%; border:0.2vh solid black; border-top:none; height:3vh;">
 
                               </div>

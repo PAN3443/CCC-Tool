@@ -58,39 +58,41 @@ function init_Testing(){
 
   /////////////////// Report ///////////
 
-  document.getElementById('id_TestPage_ReportOrginalCCanvas').addEventListener("wheel", eventZoomReport);
+  document.getElementById('id_TestPage_ReportOrginalCDiv').addEventListener("wheel", eventZoomReport);
   document.getElementById('id_TestPage_ReportOrginalCDiv').addEventListener("scroll", eventScrollReport);
-  document.getElementById('id_TestPage_ReportOrginalCDiv').onwheel = function(){ return false; }
-  document.getElementById('id_TestPage_ReportOrginalGCanvas').addEventListener("wheel", eventZoomReport);
+  document.getElementById('id_TestPage_ReportOrginalGDiv').addEventListener("wheel", eventZoomReport);
   document.getElementById('id_TestPage_ReportOrginalGDiv').addEventListener("scroll", eventScrollReport);
-  document.getElementById('id_TestPage_ReportOrginalGDiv').onwheel = function(){ return false; }
-  document.getElementById('id_TestPage_Report0Canvas').addEventListener("wheel", eventZoomReport);
+  document.getElementById('id_TestPage_Report0Div').addEventListener("wheel", eventZoomReport);
   document.getElementById('id_TestPage_Report0Div').addEventListener("scroll", eventScrollReport);
-  document.getElementById('id_TestPage_Report0Div').onwheel = function(){ return false; }
-  document.getElementById('id_TestPage_Report1Canvas').addEventListener("wheel", eventZoomReport);
+  document.getElementById('id_TestPage_Report1Div').addEventListener("wheel", eventZoomReport);
   document.getElementById('id_TestPage_Report1Div').addEventListener("scroll", eventScrollReport);
-  document.getElementById('id_TestPage_Report1Div').onwheel = function(){ return false; }
-  document.getElementById('id_TestPage_Report2Canvas').addEventListener("wheel", eventZoomReport);
+  document.getElementById('id_TestPage_Report2Div').addEventListener("wheel", eventZoomReport);
   document.getElementById('id_TestPage_Report2Div').addEventListener("scroll", eventScrollReport);
-  document.getElementById('id_TestPage_Report2Div').onwheel = function(){ return false; }
 
-  document.getElementById('id_TestPage_ReportOrginalCCanvas').addEventListener("mousedown", switchPixelPreviewModus);
-  document.getElementById('id_TestPage_ReportOrginalGCanvas').addEventListener("mousedown", switchPixelPreviewModus);
-  document.getElementById('id_TestPage_Report0Canvas').addEventListener("mousedown", switchPixelPreviewModus);
-  document.getElementById('id_TestPage_Report1Canvas').addEventListener("mousedown", switchPixelPreviewModus);
-  document.getElementById('id_TestPage_Report2Canvas').addEventListener("mousedown", switchPixelPreviewModus);
+  document.getElementById('id_TestPage_ReportOrginalCDiv').addEventListener("mousedown", switchPixelPreviewModus);
+  document.getElementById('id_TestPage_ReportOrginalGDiv').addEventListener("mousedown", switchPixelPreviewModus);
+  document.getElementById('id_TestPage_Report0Div').addEventListener("mousedown", switchPixelPreviewModus);
+  document.getElementById('id_TestPage_Report1Div').addEventListener("mousedown", switchPixelPreviewModus);
+  document.getElementById('id_TestPage_Report2Div').addEventListener("mousedown", switchPixelPreviewModus);
 
-  document.getElementById('id_TestPage_ReportOrginalCCanvas').addEventListener('contextmenu', event => event.preventDefault());
-  document.getElementById('id_TestPage_ReportOrginalGCanvas').addEventListener('contextmenu', event => event.preventDefault());
-  document.getElementById('id_TestPage_Report0Canvas').addEventListener('contextmenu', event => event.preventDefault());
-  document.getElementById('id_TestPage_Report1Canvas').addEventListener('contextmenu', event => event.preventDefault());
-  document.getElementById('id_TestPage_Report2Canvas').addEventListener('contextmenu', event => event.preventDefault());
+  document.getElementById('id_TestPage_ReportOrginalCDiv').addEventListener('contextmenu', event => event.preventDefault());
+  document.getElementById('id_TestPage_ReportOrginalGDiv').addEventListener('contextmenu', event => event.preventDefault());
+  document.getElementById('id_TestPage_Report0Div').addEventListener('contextmenu', event => event.preventDefault());
+  document.getElementById('id_TestPage_Report1Div').addEventListener('contextmenu', event => event.preventDefault());
+  document.getElementById('id_TestPage_Report2Div').addEventListener('contextmenu', event => event.preventDefault());
 
-  document.getElementById('id_TestPage_ReportOrginalCCanvas').addEventListener("mousemove", mouseMoveReport);
-  document.getElementById('id_TestPage_ReportOrginalGCanvas').addEventListener("mousemove", mouseMoveReport);
-  document.getElementById('id_TestPage_Report0Canvas').addEventListener("mousemove", mouseMoveReport);
-  document.getElementById('id_TestPage_Report1Canvas').addEventListener("mousemove", mouseMoveReport);
-  document.getElementById('id_TestPage_Report2Canvas').addEventListener("mousemove", mouseMoveReport);
+  document.getElementById('id_TestPage_ReportOrginalCCanvas_Pixel').addEventListener("mousemove", mouseMoveReport);
+  document.getElementById('id_TestPage_ReportOrginalGCanvas_Pixel').addEventListener("mousemove", mouseMoveReport);
+  document.getElementById('id_TestPage_Report0Canvas_Pixel').addEventListener("mousemove", mouseMoveReport);
+  document.getElementById('id_TestPage_Report1Canvas_Pixel').addEventListener("mousemove", mouseMoveReport);
+  document.getElementById('id_TestPage_Report2Canvas_Pixel').addEventListener("mousemove", mouseMoveReport);
+
+
+  document.getElementById('id_TestPage_ReportOrginalCCanvas_Pixel').addEventListener("mouseleave", eventSubReport_mouseleave);
+  document.getElementById('id_TestPage_ReportOrginalGCanvas_Pixel').addEventListener("mouseleave", eventSubReport_mouseleave);
+  document.getElementById('id_TestPage_Report0Canvas_Pixel').addEventListener("mouseleave", eventSubReport_mouseleave);
+  document.getElementById('id_TestPage_Report1Canvas_Pixel').addEventListener("mouseleave", eventSubReport_mouseleave);
+  document.getElementById('id_TestPage_Report2Canvas_Pixel').addEventListener("mouseleave", eventSubReport_mouseleave);
 
   fixPixelPreview = false;
   pixelPreviewX = 0;
@@ -115,6 +117,9 @@ function init_Testing(){
 
   document.getElementById("id_TestPage_DifReportBelowColor").style.background = 'rgb(0,0,255)';
   document.getElementById("id_TestPage_DifReportAboveColor").style.background = 'rgb(255,0,0)';
+
+
+
 
 
 

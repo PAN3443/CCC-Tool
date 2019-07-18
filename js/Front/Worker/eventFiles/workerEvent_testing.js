@@ -128,6 +128,10 @@ function workerEvent_GetReport(e){
       canvas.width = e.data.imageData.width;
       canvas.height = e.data.imageData.height;
 
+      var canvas2 = document.getElementById(e.data.canvasID+"_Pixel");
+      canvas2.width = e.data.imageData.width;
+      canvas2.height = e.data.imageData.height;
+
       var canvasContex = canvas.getContext("2d");
       canvasContex.clearRect(0, 0, canvas.width, canvas.height);
       canvasContex.putImageData(e.data.imageData, 0, 0);

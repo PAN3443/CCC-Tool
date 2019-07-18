@@ -157,6 +157,12 @@ function eventZoomReport(e){
   changeReportZoom("id_TestPage_Report0Canvas");
   changeReportZoom("id_TestPage_Report1Canvas");
   changeReportZoom("id_TestPage_Report2Canvas");
+
+  changeReportZoom("id_TestPage_ReportOrginalCCanvas_Pixel");
+  changeReportZoom("id_TestPage_ReportOrginalGCanvas_Pixel");
+  changeReportZoom("id_TestPage_Report0Canvas_Pixel");
+  changeReportZoom("id_TestPage_Report1Canvas_Pixel");
+  changeReportZoom("id_TestPage_Report2Canvas_Pixel");
 }
 
 
@@ -169,6 +175,12 @@ function subreportZoom (){
   changeReportZoom("id_TestPage_Report0Canvas");
   changeReportZoom("id_TestPage_Report1Canvas");
   changeReportZoom("id_TestPage_Report2Canvas");
+
+  changeReportZoom("id_TestPage_ReportOrginalCCanvas_Pixel");
+  changeReportZoom("id_TestPage_ReportOrginalGCanvas_Pixel");
+  changeReportZoom("id_TestPage_Report0Canvas_Pixel");
+  changeReportZoom("id_TestPage_Report1Canvas_Pixel");
+  changeReportZoom("id_TestPage_Report2Canvas_Pixel");
 }
 
 function changeReportZoom(id){
@@ -193,11 +205,14 @@ function changeReportScroll(id,scrollTop,scrollLeft){
 }
 
 function mouseMoveReport(e){
+
+
+
   // calc mouse pos
   var rect = document.getElementById(event.currentTarget.id).getBoundingClientRect();//
 
-  var canvasPosX = Math.floor((event.clientX - rect.left)/rect.width*document.getElementById(event.currentTarget.id).width);
-  var canvasPosY = reportListTestField[document.getElementById("id_TestPage_ReportList").selectedIndex][0].length-Math.floor((event.clientY - rect.top)/rect.height*document.getElementById(event.currentTarget.id).height)-1;
+  var canvasPosX = Math.floor((event.clientX - rect.left)/rect.width*reportListTestField[document.getElementById("id_TestPage_ReportList").selectedIndex].length);
+  var canvasPosY = reportListTestField[document.getElementById("id_TestPage_ReportList").selectedIndex][0].length-Math.floor((event.clientY - rect.top)/rect.height*reportListTestField[document.getElementById("id_TestPage_ReportList").selectedIndex][0].length)-1;
 
   mousePosX = canvasPosX;
   mousePosY = canvasPosY;
@@ -207,6 +222,11 @@ function mouseMoveReport(e){
     drawPreviewPixels(mousePosX,mousePosY);
   }
 
+}
+
+
+function changeMarkReportCursor(){
+  doPixelMarking = document.getElementById("id_Test_SubReport_DoMarkedCursor").checked;
 }
 
 function drawPreviewPixels(x,y){
@@ -220,7 +240,130 @@ function drawPreviewPixels(x,y){
   if(reportListTestField[selectedIndex][x][y]==undefined)
   return;
 
-  document.getElementById("id_report_pixelPreview11").style.background = globalCMS1.calculateColor(reportListTestField[selectedIndex][x][y]).getRGBString();
+    var context_OrginalCCanvas_Pixel =  document.getElementById("id_TestPage_ReportOrginalCCanvas_Pixel").getContext('2d');
+    var context_OrginalGCanvas_Pixel =  document.getElementById("id_TestPage_ReportOrginalGCanvas_Pixel").getContext('2d');
+    var context_Orginal0Canvas_Pixel =  document.getElementById("id_TestPage_Report0Canvas_Pixel").getContext('2d');
+    var context_Orginal1Canvas_Pixel =  document.getElementById("id_TestPage_Report1Canvas_Pixel").getContext('2d');
+    var context_Orginal2Canvas_Pixel =  document.getElementById("id_TestPage_Report2Canvas_Pixel").getContext('2d');
+
+    context_OrginalCCanvas_Pixel.clearRect(0, 0, reportListTestField[selectedIndex].length, reportListTestField[selectedIndex][0].length);
+    context_OrginalGCanvas_Pixel.clearRect(0, 0, reportListTestField[selectedIndex].length, reportListTestField[selectedIndex][0].length);
+    context_Orginal0Canvas_Pixel.clearRect(0, 0, reportListTestField[selectedIndex].length, reportListTestField[selectedIndex][0].length);
+    context_Orginal1Canvas_Pixel.clearRect(0, 0, reportListTestField[selectedIndex].length, reportListTestField[selectedIndex][0].length);
+    context_Orginal2Canvas_Pixel.clearRect(0, 0, reportListTestField[selectedIndex].length, reportListTestField[selectedIndex][0].length);
+
+    if(doPixelMarking){
+
+      var context_OrginalCCanvas  =  document.getElementById("id_TestPage_ReportOrginalCCanvas").getContext('2d');
+      var context_OrginalGCanvas  =  document.getElementById("id_TestPage_ReportOrginalGCanvas").getContext('2d');
+      var context_Orginal0Canvas  =  document.getElementById("id_TestPage_Report0Canvas").getContext('2d');
+      var context_Orginal1Canvas  =  document.getElementById("id_TestPage_Report1Canvas").getContext('2d');
+      var context_Orginal2Canvas  =  document.getElementById("id_TestPage_Report2Canvas").getContext('2d');
+
+      var markpixelColorG = determineMarkColor(context_OrginalGCanvas.getImageData(x, reportListTestField[selectedIndex][0].length-y, 1, 1).data);
+      var markpixelColorC = determineMarkColor(context_OrginalCCanvas.getImageData(x, reportListTestField[selectedIndex][0].length-y, 1, 1).data);
+      var markpixelColor0 = determineMarkColor(context_Orginal0Canvas.getImageData(x, reportListTestField[selectedIndex][0].length-y, 1, 1).data);
+      var markpixelColor1 = determineMarkColor(context_Orginal1Canvas.getImageData(x, reportListTestField[selectedIndex][0].length-y, 1, 1).data);
+      var markpixelColor2 = determineMarkColor(context_Orginal2Canvas.getImageData(x, reportListTestField[selectedIndex][0].length-y, 1, 1).data);
+
+      var imgDataG = new ImageData(reportListTestField[selectedIndex].length, reportListTestField[selectedIndex][0].length);
+      var imgDataC = new ImageData(reportListTestField[selectedIndex].length, reportListTestField[selectedIndex][0].length);
+      var imgData0 = new ImageData(reportListTestField[selectedIndex].length, reportListTestField[selectedIndex][0].length);
+      var imgData1 = new ImageData(reportListTestField[selectedIndex].length, reportListTestField[selectedIndex][0].length);
+      var imgData2 = new ImageData(reportListTestField[selectedIndex].length, reportListTestField[selectedIndex][0].length);
+
+      var tmpDistance = Math.round((reportListTestField[selectedIndex].length+reportListTestField[selectedIndex][0].length)/2*0.01);
+      if(tmpDistance==0)
+      tmpDistance=1;
+
+      for (var tx = 0; tx < imgDataG.width; tx++) {
+        for (var ty = 0; ty < imgDataG.height; ty++) {
+          var indices = getColorIndicesForCoord(tx, reportListTestField[selectedIndex][0].length-1 - ty, reportListTestField[selectedIndex].length);
+          imgDataG.data[indices[0]] = Math.round(markpixelColorG);
+          imgDataG.data[indices[1]] = Math.round(markpixelColorG);
+          imgDataG.data[indices[2]] = Math.round(markpixelColorG);
+
+          imgDataC.data[indices[0]] = Math.round(markpixelColorC);
+          imgDataC.data[indices[1]] = Math.round(markpixelColorC);
+          imgDataC.data[indices[2]] = Math.round(markpixelColorC);
+
+          imgData0.data[indices[0]] = Math.round(markpixelColor0);
+          imgData0.data[indices[1]] = Math.round(markpixelColor0);
+          imgData0.data[indices[2]] = Math.round(markpixelColor0);
+
+          imgData1.data[indices[0]] = Math.round(markpixelColor1);
+          imgData1.data[indices[1]] = Math.round(markpixelColor1);
+          imgData1.data[indices[2]] = Math.round(markpixelColor1);
+
+          imgData2.data[indices[0]] = Math.round(markpixelColor2);
+          imgData2.data[indices[1]] = Math.round(markpixelColor2);
+          imgData2.data[indices[2]] = Math.round(markpixelColor2);
+
+          if(tmpDistance==1){
+            if(x==tx && y==ty){
+              imgDataG.data[indices[3]] = 255;
+              imgDataC.data[indices[3]] = 255;
+              imgData0.data[indices[3]] = 255;
+              imgData1.data[indices[3]] = 255;
+              imgData2.data[indices[3]] = 255;
+            }
+            else{
+              imgDataG.data[indices[3]] = 0;
+              imgDataC.data[indices[3]] = 0;
+              imgData0.data[indices[3]] = 0;
+              imgData1.data[indices[3]] = 0;
+              imgData2.data[indices[3]] = 0;
+            }
+          }
+          else{
+            var a = tx-x;
+            var b = ty-y;
+            var ratioDistance = Math.sqrt( a*a + b*b )/tmpDistance;
+
+            if(ratioDistance<=1 && ratioDistance>0){
+              var factor = Math.pow(ratioDistance,4);
+              imgDataG.data[indices[3]] = factor*255;
+              imgDataC.data[indices[3]] = factor*255;
+              imgData0.data[indices[3]] = factor*255;
+              imgData1.data[indices[3]] = factor*255;
+              imgData2.data[indices[3]] = factor*255;
+            }
+            else{
+              imgDataG.data[indices[3]] = 0;
+              imgDataC.data[indices[3]] = 0;
+              imgData0.data[indices[3]] = 0;
+              imgData1.data[indices[3]] = 0;
+              imgData2.data[indices[3]] = 0;
+            }
+          }
+
+        }
+      }
+
+      context_OrginalCCanvas_Pixel.putImageData( imgDataC, 0, 0 );
+      context_OrginalGCanvas_Pixel.putImageData( imgDataG, 0, 0 );
+      context_Orginal0Canvas_Pixel.putImageData( imgData0, 0, 0 );
+      context_Orginal1Canvas_Pixel.putImageData( imgData1, 0, 0 );
+      context_Orginal2Canvas_Pixel.putImageData( imgData2, 0, 0 );
+      //*/
+
+
+
+
+      /*imgData = new ImageData(1,1);
+      imgData[0]   = markpixelColor;
+      imgData[1]   = markpixelColor;
+      imgData[2]   = markpixelColor;
+      imgData[3]   = 10; // 255 = solid
+      context_OrginalCCanvas_Pixel.putImageData( imgData, x, y );
+      context_OrginalGCanvas_Pixel.putImageData( imgData, x, y );
+      context_Orginal0Canvas_Pixel.putImageData( imgData, x, y );
+      context_Orginal1Canvas_Pixel.putImageData( imgData, x, y );
+      context_Orginal2Canvas_Pixel.putImageData( imgData, x, y );*/
+    }
+
+
+  document.getElementById("id_report_pixelPreview11").style.background = globalCMS1.calculateColor(reportListTestField[selectedIndex][x][y]).getRGBString();;
 
   document.getElementById("id_report_pixelPreview00").style.visibility = "hidden";
   document.getElementById("id_report_pixelPreview01").style.visibility = "hidden";
@@ -256,6 +399,7 @@ function drawPreviewPixels(x,y){
               document.getElementById("id_report_linePreview01").style.visibility = "visible";
               document.getElementById("id_report_linePreview02").style.visibility = "visible";
               document.getElementById("id_report_linePreview12").style.visibility = "visible";
+
             break;
             case reportListTestField[selectedIndex][0].length-1:
                 // left top corner
@@ -417,24 +561,43 @@ function drawPreviewPixels(x,y){
   }//*/
 }
 
+
+function determineMarkColor(c){
+  if((c[0]+c[1]+c[2])/3 > 125 )
+    return 0;
+  else
+    return 255;
+}
+
 function switchPixelPreviewModus(e){
 
   switch (event.which) {
     case 1:
       // Left Mouse Click
-      fixPixelPreview = true;
-      pixelPreviewX = mousePosX;
-      pixelPreviewY = mousePosY;
-      document.getElementById("id_pixelPreviewModus").innerHTML = "Modus".bold()+": Fixed Pixel (x:"+mousePosX+", y:"+mousePosY+")";
-      drawPreviewPixels(mousePosX,mousePosY);
+      fixPixelPreview = false;
+      pixelPreviewX = 0;
+      pixelPreviewY = 0;
       break;
     case 3:
     // Right Mouse Click
-    fixPixelPreview = false;
-    pixelPreviewX = 0;
-    pixelPreviewY = 0;
+    fixPixelPreview = true;
+    pixelPreviewX = mousePosX;
+    pixelPreviewY = mousePosY;
+    document.getElementById("id_pixelPreviewModus").innerHTML = "Modus".bold()+": Fixed Pixel (x:"+mousePosX+", y:"+mousePosY+")";
+    drawPreviewPixels(mousePosX,mousePosY);
+    var context_OrginalCCanvas_Pixel =  document.getElementById("id_TestPage_ReportOrginalCCanvas_Pixel").getContext('2d');
+    var context_OrginalGCanvas_Pixel =  document.getElementById("id_TestPage_ReportOrginalGCanvas_Pixel").getContext('2d');
+    var context_Orginal0Canvas_Pixel =  document.getElementById("id_TestPage_Report0Canvas_Pixel").getContext('2d');
+    var context_Orginal1Canvas_Pixel =  document.getElementById("id_TestPage_Report1Canvas_Pixel").getContext('2d');
+    var context_Orginal2Canvas_Pixel =  document.getElementById("id_TestPage_Report2Canvas_Pixel").getContext('2d');
 
-      break;
+    context_OrginalCCanvas_Pixel.clearRect(0, 0, reportListTestField[selectedIndex].length, reportListTestField[selectedIndex][0].length);
+    context_OrginalGCanvas_Pixel.clearRect(0, 0, reportListTestField[selectedIndex].length, reportListTestField[selectedIndex][0].length);
+    context_Orginal0Canvas_Pixel.clearRect(0, 0, reportListTestField[selectedIndex].length, reportListTestField[selectedIndex][0].length);
+    context_Orginal1Canvas_Pixel.clearRect(0, 0, reportListTestField[selectedIndex].length, reportListTestField[selectedIndex][0].length);
+    context_Orginal2Canvas_Pixel.clearRect(0, 0, reportListTestField[selectedIndex].length, reportListTestField[selectedIndex][0].length);
+
+    break;
   }
 
 
@@ -442,6 +605,20 @@ function switchPixelPreviewModus(e){
 
 
 function eventSubReport_mouseleave(){
+
+  var selectedIndex = document.getElementById("id_TestPage_ReportList").selectedIndex;
+
+  var context_OrginalCCanvas_Pixel =  document.getElementById("id_TestPage_ReportOrginalCCanvas_Pixel").getContext('2d');
+  var context_OrginalGCanvas_Pixel =  document.getElementById("id_TestPage_ReportOrginalGCanvas_Pixel").getContext('2d');
+  var context_Orginal0Canvas_Pixel =  document.getElementById("id_TestPage_Report0Canvas_Pixel").getContext('2d');
+  var context_Orginal1Canvas_Pixel =  document.getElementById("id_TestPage_Report1Canvas_Pixel").getContext('2d');
+  var context_Orginal2Canvas_Pixel =  document.getElementById("id_TestPage_Report2Canvas_Pixel").getContext('2d');
+
+  context_OrginalCCanvas_Pixel.clearRect(0, 0, reportListTestField[selectedIndex].length, reportListTestField[selectedIndex][0].length);
+  context_OrginalGCanvas_Pixel.clearRect(0, 0, reportListTestField[selectedIndex].length, reportListTestField[selectedIndex][0].length);
+  context_Orginal0Canvas_Pixel.clearRect(0, 0, reportListTestField[selectedIndex].length, reportListTestField[selectedIndex][0].length);
+  context_Orginal1Canvas_Pixel.clearRect(0, 0, reportListTestField[selectedIndex].length, reportListTestField[selectedIndex][0].length);
+  context_Orginal2Canvas_Pixel.clearRect(0, 0, reportListTestField[selectedIndex].length, reportListTestField[selectedIndex][0].length);
 
 }
 

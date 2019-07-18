@@ -78,7 +78,12 @@
 #id_TestPage_ReportOrginalGCanvas,
 #id_TestPage_Report0Canvas,
 #id_TestPage_Report1Canvas,
-#id_TestPage_Report2Canvas{
+#id_TestPage_Report2Canvas,
+#id_TestPage_ReportOrginalCCanvas_Pixel,
+#id_TestPage_ReportOrginalGCanvas_Pixel,
+#id_TestPage_Report0Canvas_Pixel,
+#id_TestPage_Report1Canvas_Pixel,
+#id_TestPage_Report2Canvas_Pixel{
   image-rendering: optimizeSpeed;             /* Older versions of FF*/
   image-rendering: -moz-crisp-edges;          /* FF 6.0+*/
   image-rendering: -webkit-optimize-contrast; /* Webkit (non standard naming)*/

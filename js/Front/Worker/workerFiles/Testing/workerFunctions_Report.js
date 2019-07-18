@@ -71,7 +71,7 @@ function sendReportOriginalImage(){
 
   var answerJSON = {};
   answerJSON['type'] = 0;
-  answerJSON['canvasID'] = "id_TestPage_ReportOrginalGCanvas";
+  answerJSON['canvasID'] = "id_TestPage_ReportOrginalCCanvas";
   var imgData = new ImageData(colorfield.length, colorfield[0].length);
   var maxHeightIndex = colorfield[0].length - 1;
   for (var y = 0; y < colorfield[0].length; y++) {
@@ -104,7 +104,7 @@ function sendReportGreyImage(){
 
   var answerJSON = {};
   answerJSON['type'] = 0;
-  answerJSON['canvasID'] = "id_TestPage_ReportOrginalCCanvas";
+  answerJSON['canvasID'] = "id_TestPage_ReportOrginalGCanvas";
   var imgData = new ImageData(testfield.length, testfield[0].length);
   var maxHeightIndex = testfield[0].length - 1;
   for (var y = 0; y < testfield[0].length; y++) {
