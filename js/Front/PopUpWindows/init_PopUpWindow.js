@@ -55,7 +55,7 @@ function init_events_PopUp_ColorPicker(){
 }
 
 function init_ExportWindow(){
-
+  doTwinErrorSolution=false;
   document.getElementById('id_ExportIntervalNum').addEventListener("change", checkIntervalInputFieldsChange);
   document.getElementById('id_ExportIntervalNum').addEventListener("keyup", checkIntervalInputFieldsKey);
 
