@@ -1,5 +1,8 @@
 
-
+function initMyDesign(){
+  document.getElementById('id_MyDesings_HelpButton').onmouseenter= function(){ document.getElementById("id_MyDesings_Example_Img").style.display="flex"};
+  document.getElementById('id_MyDesings_HelpButton').onmouseleave= function(){ document.getElementById("id_MyDesings_Example_Img").style.display="none"};
+}
 
 function changeNewInterSpace(type){
 

@@ -97,7 +97,7 @@ window.onload = function() {
   init_events_PopUp_ColorPicker();
   init_ExportWindow();
   init_Testing();
-  initMyDesignObj();
+  initMyDesign();
   initMapping();
   initTestMapping();
 
@@ -176,7 +176,7 @@ window.onload = function() {
   ////////////////////////////////
   // For Testing: with start CMS in the MyDesigns
   ///
-    myDesignsList.push(cmsFourBandColormaps[0]);
+  /*  myDesignsList.push(cmsFourBandColormaps[0]);
     myDesignsList.push(cmsGreenColormaps[0]);
     myDesignsList.push(cmsDivergentColormaps[0]);
     myDesignsList.push(cmsRedPurpleColormaps[0]);
