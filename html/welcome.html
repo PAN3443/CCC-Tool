@@ -3,7 +3,7 @@
 ------------  	Welcome Page	  ---------------
 -----------------------------------------------
 -->
-<div class="row" style="height:35vh; padding-top:2.5vh; padding-bottom:2.5vh;">
+<div class="row" style=" height: 45vh; padding-top:2.5vh; padding-bottom:2.5vh; border-bottom: 0.2vh solid grey;">
   <img id="id_welcomePage_Img" src="img/CCCToolComic/welcome.jpg" style="margin-left:auto; height:30vh; max-width:30vw;">
 
   <div style="margin:auto; width:50vw;">
@@ -23,33 +23,25 @@
   </div>
 </div>
 
-<div style="height:45vh; border-top: 0.2vh solid grey;">
+<div >
 
-
-  <div class="row">
+  <div class="row" style="height: 35vh;">
 
     <div style="width:40vw; margin:auto;" >
-      <p class="subsectionLabel" style="height:5vh; line-height:5vh; width:40vw; font-weight:bold;">The CCC-Tool</p>
+      <p class="subsectionLabel" style="height:4vh; line-height:4vh; width:40vw; font-weight:bold;">The CCC-Tool</p>
 
-      <p  class="standardText" style="margin-bottom:2.5vh; width:30vw; margin-left:5vw;">
+      <p  class="standardText" style="margin-bottom:1.5vh; width:40vw; height: 25vh; max-height: 30vh; overflow-y: auto; margin-left:2.5vw;">
         The CCC-Tool based on the idea of a general tool for the creation and export of colormaps with the effort to minimize the needed interaction components.
         To make this possible, we developed a colormap specification <strong>CMS</strong>, which descripe colormaps with a minimum number of key-colors.
         This foundation of the tool is extended by a collection of recommended colormaps (Gallery-Section), which can be adapted to encode the users own domain-specific semantics, and the facilities for analyzing colormaps.
         CCC-Tool supports some commonly-used color spaces and color difference metrics, currently including RGB, HSV, CIELAB, CIE94, CIEDE2000, and DIN99. For more help, you can always visit the tutorials page via the menu bar.
       </p>
 
-      <button onclick="openTutorialWindow()" class="class_generalbutton" style="width:15vw; margin-left:10vw; margin-bottom:1vh;">Tutorials</button>
-
-      <button onclick="openNewsPopUp()" class="class_generalbutton" style="width:15vw; margin-left:10vw; margin-bottom:2.5vh;">News</button>
-
-
-
-
     </div>
 
-    <div style="width:40vw; margin-left:auto; margin-right:auto;" >
+    <!--div style="width:40vw; margin-left:auto; margin-right:auto;" >
       <p class="subsectionLabel" style="height:5vh; line-height:5vh; width:40vw; font-weight:bold;">Tutorial: Colormap Specification (CMS)</p>
-      <!--iframe style="height:40vh; width:40vw;" src="https://www.youtube.com/embed/hmrIzNo5sjE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe-->
+      <!--iframe style="height:40vh; width:40vw;" src="https://www.youtube.com/embed/hmrIzNo5sjE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe--  ->
       <div  style="width:40vw; height:40vh; background: rgb(180,180,180); border: 0.2vh solid grey; display:flex; -moz-box-shadow:  inset 0 0 0.5vh rgb(0,0,0); -webkit-box-shadow: inset 0 0 0.5vh rgb(0,0,0);  box-shadow: inset 0 0 0.5vh rgb(0,0,0);">
 
         <div style="margin:auto;">
@@ -58,12 +50,16 @@
         </div>
 
       </div>
+    </div-->
+
+    <div style="width:20vw; margin-right:auto; height:100%; display: flex; flex-direction: column;" >
+      <button onclick="openTutorialWindow()" class="class_generalbutton" style="width:20vw;  margin-top:auto;">Tutorials</button>
+
+      <button onclick="openNewsPopUp()" class="class_generalbutton" style="width:20vw; margin-top:2vh; ">Version News</button>
+
+      <button onclick="openImpressum()" class="class_generalbutton" style="width:20vw; margin-top:2vh; margin-bottom:auto;">Impressum</button>
     </div>
 
-    <!--div style="width:40vw; margin-left:auto; margin-right:auto;" >
-      <p class="subsectionLabel" style="height:5vh; line-height:5vh; width:40vw; font-weight:bold;">Tutorial: Tool Overview</p>
-      <iframe style="height:40vh; width:40vw; border: 0.2vh solid black;" src="https://www.youtube.com/embed/hmrIzNo5sjE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </div-->
 
   </div>
 

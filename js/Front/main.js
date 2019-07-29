@@ -184,9 +184,31 @@ window.onload = function() {
     showMyDesignsPage();
     showTestPage();//*/
 
+    checkLandscapeWindow();
+
 
 }
 
+
+window.onresize = function (){
+  checkLandscapeWindow();
+
+  if(document.getElementById("id_EditPage").style.display!="none"){
+    updateEditPage();
+  }
+}
+
+function checkLandscapeWindow(){
+
+  var ratio = window.innerHeight/window.innerWidth;
+
+  if(ratio>0.75){
+    document.getElementById("id_PopUp_LandscapeWindow").style.display = "flex";
+  }
+  else{
+    document.getElementById("id_PopUp_LandscapeWindow").style.display = "none";
+  }
+}
 
 
 function addScript(src){
