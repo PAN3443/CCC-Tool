@@ -55,7 +55,7 @@ function switchReportDisplay(){
     document.getElementById("id_report_AnalysisReportDiv").style.height = "0vh";
     document.getElementById("id_Report_pageSwitchDown").style.visibility = "visible";
     document.getElementById("id_Report_pageSwitchStatus0").innerHTML = "&#x25C9;";
-    document.getElementById("id_reportPageLabel").innerHTML = "MyTests";
+    document.getElementById("id_reportPageLabel").innerHTML = "Report".bold()+" : MyTests";
 
     document.getElementById("id_Test_Map_MyTests").classList.remove("class_Test_Map_Div");
     document.getElementById("id_Test_Map_MyTests").classList.add("class_Test_Map_DivActive");
@@ -68,7 +68,7 @@ function switchReportDisplay(){
       document.getElementById("id_Report_pageSwitchStatus1").innerHTML = "&#x25C9;";
       document.getElementById("id_Report_pageSwitchUp").style.visibility = "visible";
       document.getElementById("id_Report_pageSwitchDown").style.visibility = "visible";
-      document.getElementById("id_reportPageLabel").innerHTML = "Subtraction Report";
+      document.getElementById("id_reportPageLabel").innerHTML = "Report".bold()+" : Subtraction Report";
 
       document.getElementById("id_Test_Map_SubReport").classList.remove("class_Test_Map_Div");
       document.getElementById("id_Test_Map_SubReport").classList.add("class_Test_Map_DivActive");
@@ -81,7 +81,7 @@ function switchReportDisplay(){
       document.getElementById("id_Report_pageSwitchStatus2").innerHTML = "&#x25C9;";
       document.getElementById("id_Report_pageSwitchUp").style.visibility = "visible";
       document.getElementById("id_Report_pageSwitchDown").style.visibility = "visible";
-      document.getElementById("id_reportPageLabel").innerHTML = "Auto Analysis";
+      document.getElementById("id_reportPageLabel").innerHTML = "Report".bold()+" : Auto Analysis";
 
       document.getElementById("id_Test_Map_AutoAnalysis").classList.remove("class_Test_Map_Div");
       document.getElementById("id_Test_Map_AutoAnalysis").classList.add("class_Test_Map_DivActive");
@@ -93,8 +93,8 @@ function switchReportDisplay(){
       document.getElementById("id_report_AnalysisReportDiv").style.height = "83vh";
       document.getElementById("id_Report_pageSwitchStatus3").innerHTML = "&#x25C9;";
       document.getElementById("id_Report_pageSwitchUp").style.visibility = "visible";
-      document.getElementById("id_reportPageLabel").innerHTML = "Optimization";
-
+      document.getElementById("id_reportPageLabel").innerHTML = "Report".bold()+" : Auto Optimization";
+      
       document.getElementById("id_Test_Map_Optimization").classList.remove("class_Test_Map_Div");
       document.getElementById("id_Test_Map_Optimization").classList.add("class_Test_Map_DivActive");
     break;

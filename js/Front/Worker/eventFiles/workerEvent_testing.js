@@ -102,6 +102,7 @@ function workerEvent_DrawTestfunction(e) {
       document.getElementById("id_Test_pageSwitchLeft").style.visibility = "visible";
       document.getElementById("id_Test_pageSwitchRight").style.visibility = "hidden";
       document.getElementById("id_reportPageLabelDiv").style.visibility = "visible";
+      document.getElementById("id_testPageLabel").innerHTML = "Test".bold()+" : Report/Optimization";
       testingModus=2;
       reportModus=0;
       switchReportDisplay();

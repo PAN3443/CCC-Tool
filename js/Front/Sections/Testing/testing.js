@@ -47,7 +47,7 @@ function openTestSection(){
   document.getElementById("id_Test_ReportDiv").style.width = "0vw";
   document.getElementById("id_Test_pageSwitchRight").style.visibility = "visible";
   document.getElementById("id_Test_pageSwitchLeft").style.visibility = "hidden";
-  document.getElementById("id_testPageLabel").innerHTML = "Test Collection";
+  document.getElementById("id_testPageLabel").innerHTML = "Test".bold()+" : Collection";
 
   if(reportListTestField.length==0)
     document.getElementById("id_Test_pageSwitchStatus2").style.visibility = "hidden";
@@ -109,7 +109,7 @@ function slideTestDisplayDivs(){
     document.getElementById("id_Test_ReportDiv").style.width = "0vw";
     document.getElementById("id_Test_pageSwitchRight").style.visibility = "visible";
     document.getElementById("id_Test_pageSwitchStatus0").innerHTML = "&#x25C9;";
-    document.getElementById("id_testPageLabel").innerHTML = "Test Collection";
+    document.getElementById("id_testPageLabel").innerHTML = "Test".bold()+" : Collection";
     drawTestCollection();
 
     document.getElementById("id_Test_Map_Collection").classList.remove("class_Test_Map_Div");
@@ -121,7 +121,7 @@ function slideTestDisplayDivs(){
       document.getElementById("id_Test_ReportDiv").style.width = "0vw";
       document.getElementById("id_Test_pageSwitchStatus1").innerHTML = "&#x25C9;";
       document.getElementById("id_Test_pageSwitchLeft").style.visibility = "visible";
-      document.getElementById("id_testPageLabel").innerHTML = "Interactive Test Setting";
+      document.getElementById("id_testPageLabel").innerHTML = "Test".bold()+" : Interactive";
 
       if(reportListTestField.length>0)
         document.getElementById("id_Test_pageSwitchRight").style.visibility = "visible";
@@ -137,8 +137,7 @@ function slideTestDisplayDivs(){
       document.getElementById("id_Test_pageSwitchStatus2").innerHTML = "&#x25C9;";
       document.getElementById("id_Test_pageSwitchLeft").style.visibility = "visible";
       document.getElementById("id_reportPageLabelDiv").style.visibility = "visible";
-      document.getElementById("id_testPageLabel").innerHTML = "Test Report";
-
+      document.getElementById("id_testPageLabel").innerHTML = "Test".bold()+" : Report/Optimization";
       fixPixelPreview = false;
       pixelPreviewX = 0;
       pixelPreviewY = 0;
