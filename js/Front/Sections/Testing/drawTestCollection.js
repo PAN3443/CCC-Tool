@@ -115,18 +115,14 @@ function createJumpDiv(){
   tmpDivLabel.className = "standardText";
   tmpDivLabel.style.color = "rgb(100,100,100)";
   tmpDivLabel.style.fontSize = "2.5vh";
-  tmpDivLabel.style.lineHeight = "2.5vh";
+  tmpDivLabel.style.lineHeight = "4vh";
   tmpDivLabel.style.marginTop = "2vh";
   tmpDivLabel.style.fontWeight = "bold";
   tmpDivLabel.innerHTML = "1.1 Jumps:";
   tmpTestDiv.appendChild(tmpDivLabel);
 
   var tmpDivRow = document.createElement('div');
-  tmpDivRow.style.width = "90vw";
-  tmpDivRow.style.maxWidth = "90vw";
-  tmpDivRow.style.display = "inline-block";
-  tmpDivRow.style.paddingTop = "1vh";
-  tmpDivRow.style.marginBottom = "1vh";
+  tmpDivRow.className = "class_Test_SelectorRow";
   tmpTestDiv.appendChild(tmpDivRow);
   for (var i = 0; i < cccTest_Jumps_Options.length; i++) {
 
@@ -187,18 +183,14 @@ function createGradientDiv(){
   tmpDivLabel.className = "standardText";
   tmpDivLabel.style.color = "rgb(100,100,100)";
   tmpDivLabel.style.fontSize = "2.5vh";
-  tmpDivLabel.style.lineHeight = "2.5vh";
+  tmpDivLabel.style.lineHeight = "4vh";
   tmpDivLabel.style.marginTop = "2vh";
   tmpDivLabel.style.fontWeight = "bold";
   tmpDivLabel.innerHTML = "1.2 Gradient:";
   tmpTestDiv.appendChild(tmpDivLabel);
 
   var tmpDivRow = document.createElement('div');
-  tmpDivRow.style.width = "90vw";
-  tmpDivRow.style.maxWidth = "90vw";
-  tmpDivRow.style.display = "inline-block";
-  tmpDivRow.style.paddingTop = "1vh";
-  tmpDivRow.style.marginBottom = "1vh";
+  tmpDivRow.className = "class_Test_SelectorRow";
   tmpTestDiv.appendChild(tmpDivRow);
   for (var i = 0; i < cccTest_Gradient_Options.length; i++) {
 
@@ -284,18 +276,14 @@ function createRidgeAndValley(){
   tmpDivLabel.className = "standardText";
   tmpDivLabel.style.color = "rgb(100,100,100)";
   tmpDivLabel.style.fontSize = "2.5vh";
-  tmpDivLabel.style.lineHeight = "2.5vh";
+  tmpDivLabel.style.lineHeight = "4vh";
   tmpDivLabel.style.marginTop = "2vh";
   tmpDivLabel.style.fontWeight = "bold";
   tmpDivLabel.innerHTML = "1.3 Ridge/Valley:";
   tmpTestDiv.appendChild(tmpDivLabel);
 
   var tmpDivRow = document.createElement('div');
-  tmpDivRow.style.width = "90vw";
-  tmpDivRow.style.maxWidth = "90vw";
-  tmpDivRow.style.display = "inline-block";
-  tmpDivRow.style.paddingTop = "1vh";
-  tmpDivRow.style.marginBottom = "1vh";
+  tmpDivRow.className = "class_Test_SelectorRow";
   tmpTestDiv.appendChild(tmpDivRow);
   for (var i = 0; i < cccTest_RidgeValleyLine_Options.length; i++) {
 
@@ -382,18 +370,14 @@ function createLocalExtrema(){
   tmpDivLabel.className = "standardText";
   tmpDivLabel.style.color = "rgb(100,100,100)";
   tmpDivLabel.style.fontSize = "2.5vh";
-  tmpDivLabel.style.lineHeight = "2.5vh";
+  tmpDivLabel.style.lineHeight = "4vh";
   tmpDivLabel.style.marginTop = "2vh";
   tmpDivLabel.style.fontWeight = "bold";
   tmpDivLabel.innerHTML = "1.4 Minimum/Maximum/Saddle:";
   tmpTestDiv.appendChild(tmpDivLabel);
 
   var tmpDivRow = document.createElement('div');
-  tmpDivRow.style.width = "90vw";
-  tmpDivRow.style.maxWidth = "90vw";
-  tmpDivRow.style.display = "inline-block";
-  tmpDivRow.style.paddingTop = "1vh";
-  tmpDivRow.style.marginBottom = "1vh";
+  tmpDivRow.className = "class_Test_SelectorRow";
   tmpTestDiv.appendChild(tmpDivRow);
   for (var i = 0; i < cccTest_LocalExtrema_Options.length; i++) {
 
@@ -454,18 +438,14 @@ function createFrequency(){
   tmpDivLabel.className = "standardText";
   tmpDivLabel.style.color = "rgb(100,100,100)";
   tmpDivLabel.style.fontSize = "2.5vh";
-  tmpDivLabel.style.lineHeight = "2.5vh";
+  tmpDivLabel.style.lineHeight = "4vh";
   tmpDivLabel.style.marginTop = "2vh";
   tmpDivLabel.style.fontWeight = "bold";
   tmpDivLabel.innerHTML = "1.5 Frequency:";
   tmpTestDiv.appendChild(tmpDivLabel);
 
   var tmpDivRow = document.createElement('div');
-  tmpDivRow.style.width = "90vw";
-  tmpDivRow.style.maxWidth = "90vw";
-  tmpDivRow.style.display = "inline-block";
-  tmpDivRow.style.paddingTop = "1vh";
-  tmpDivRow.style.marginBottom = "1vh";
+  tmpDivRow.className = "class_Test_SelectorRow";
   tmpTestDiv.appendChild(tmpDivRow);
 
   for (var i = 0; i < cccTest_Frequency_Options.length; i++) {
@@ -515,18 +495,14 @@ function createLittleBit(){
   tmpDivLabel.className = "standardText";
   tmpDivLabel.style.color = "rgb(100,100,100)";
   tmpDivLabel.style.fontSize = "2.5vh";
-  tmpDivLabel.style.lineHeight = "2.5vh";
+  tmpDivLabel.style.lineHeight = "4vh";
   tmpDivLabel.style.marginTop = "2vh";
   tmpDivLabel.style.fontWeight = "bold";
   tmpDivLabel.innerHTML = "1.6 Little Bit:";
   tmpTestDiv.appendChild(tmpDivLabel);
 
   var tmpDivRow = document.createElement('div');
-  tmpDivRow.style.width = "90vw";
-  tmpDivRow.style.maxWidth = "90vw";
-  tmpDivRow.style.display = "inline-block";
-  tmpDivRow.style.paddingTop = "1vh";
-  tmpDivRow.style.marginBottom = "1vh";
+  tmpDivRow.className = "class_Test_SelectorRow";
   tmpTestDiv.appendChild(tmpDivRow);
 
   for (var i = 0; i < cccTest_LittleBit_Options.length; i++) {
@@ -585,18 +561,14 @@ function createTreshold(){
   tmpDivLabel.className = "standardText";
   tmpDivLabel.style.color = "rgb(100,100,100)";
   tmpDivLabel.style.fontSize = "2.5vh";
-  tmpDivLabel.style.lineHeight = "2.5vh";
+  tmpDivLabel.style.lineHeight = "4vh";
   tmpDivLabel.style.marginTop = "2vh";
   tmpDivLabel.style.fontWeight = "bold";
   tmpDivLabel.innerHTML = "1.7 Treshold:";
   tmpTestDiv.appendChild(tmpDivLabel);
 
   var tmpDivRow = document.createElement('div');
-  tmpDivRow.style.width = "90vw";
-  tmpDivRow.style.maxWidth = "90vw";
-  tmpDivRow.style.display = "inline-block";
-  tmpDivRow.style.paddingTop = "1vh";
-  tmpDivRow.style.marginBottom = "1vh";
+  tmpDivRow.className = "class_Test_SelectorRow";
   tmpTestDiv.appendChild(tmpDivRow);
 
   for (var i = 0; i < cccTest_Treshold_Options.length; i++) {
@@ -673,18 +645,14 @@ function createFunctionLocalMin(){
   tmpDivLabel.className = "standardText";
   tmpDivLabel.style.color = "rgb(100,100,100)";
   tmpDivLabel.style.fontSize = "2.5vh";
-  tmpDivLabel.style.lineHeight = "2.5vh";
+  tmpDivLabel.style.lineHeight = "4vh";
   tmpDivLabel.style.marginTop = "2vh";
   tmpDivLabel.style.fontWeight = "bold";
   tmpDivLabel.innerHTML = "2.1 Local Minimum:";
   tmpTestDiv.appendChild(tmpDivLabel);
 
   var tmpDivRow = document.createElement('div');
-  tmpDivRow.style.width = "90vw";
-  tmpDivRow.style.maxWidth = "90vw";
-  tmpDivRow.style.display = "inline-block";
-  tmpDivRow.style.paddingTop = "1vh";
-  tmpDivRow.style.marginBottom = "1vh";
+  tmpDivRow.className = "class_Test_SelectorRow";
   tmpTestDiv.appendChild(tmpDivRow);
 
   for (var i = 0; i < fctTest_LocalMin_Options.length; i++) {
@@ -734,18 +702,14 @@ function createFunctionBowlShaped(){
   tmpDivLabel.className = "standardText";
   tmpDivLabel.style.color = "rgb(100,100,100)";
   tmpDivLabel.style.fontSize = "2.5vh";
-  tmpDivLabel.style.lineHeight = "2.5vh";
+  tmpDivLabel.style.lineHeight = "4vh";
   tmpDivLabel.style.marginTop = "2vh";
   tmpDivLabel.style.fontWeight = "bold";
   tmpDivLabel.innerHTML = "2.2 Bowl Shaped:";
   tmpTestDiv.appendChild(tmpDivLabel);
 
   var tmpDivRow = document.createElement('div');
-  tmpDivRow.style.width = "90vw";
-  tmpDivRow.style.maxWidth = "90vw";
-  tmpDivRow.style.display = "inline-block";
-  tmpDivRow.style.paddingTop = "1vh";
-  tmpDivRow.style.marginBottom = "1vh";
+  tmpDivRow.className = "class_Test_SelectorRow";
   tmpTestDiv.appendChild(tmpDivRow);
 
   for (var i = 0; i < fctTest_BowlShaped_Options.length; i++) {
@@ -795,18 +759,14 @@ function createFunctionValleyShaped(){
   tmpDivLabel.className = "standardText";
   tmpDivLabel.style.color = "rgb(100,100,100)";
   tmpDivLabel.style.fontSize = "2.5vh";
-  tmpDivLabel.style.lineHeight = "2.5vh";
+  tmpDivLabel.style.lineHeight = "4vh";
   tmpDivLabel.style.marginTop = "2vh";
   tmpDivLabel.style.fontWeight = "bold";
   tmpDivLabel.innerHTML = "2.3 Valley Shaped:";
   tmpTestDiv.appendChild(tmpDivLabel);
 
   var tmpDivRow = document.createElement('div');
-  tmpDivRow.style.width = "90vw";
-  tmpDivRow.style.maxWidth = "90vw";
-  tmpDivRow.style.display = "inline-block";
-  tmpDivRow.style.paddingTop = "1vh";
-  tmpDivRow.style.marginBottom = "1vh";
+  tmpDivRow.className = "class_Test_SelectorRow";
   tmpTestDiv.appendChild(tmpDivRow);
 
   for (var i = 0; i < fctTest_ValleyShaped_Options.length; i++) {
@@ -856,18 +816,14 @@ function createRealWorld_MedicalDiv(){
   tmpDivLabel.className = "standardText";
   tmpDivLabel.style.color = "rgb(100,100,100)";
   tmpDivLabel.style.fontSize = "2.5vh";
-  tmpDivLabel.style.lineHeight = "2.5vh";
+  tmpDivLabel.style.lineHeight = "4vh";
   tmpDivLabel.style.marginTop = "2vh";
   tmpDivLabel.style.fontWeight = "bold";
   tmpDivLabel.innerHTML = "3.1 Medical:";
   tmpTestDiv.appendChild(tmpDivLabel);
 
   var tmpDivRow = document.createElement('div');
-  tmpDivRow.style.width = "90vw";
-  tmpDivRow.style.maxWidth = "90vw";
-  tmpDivRow.style.display = "inline-block";
-  tmpDivRow.style.paddingTop = "1vh";
-  tmpDivRow.style.marginBottom = "1vh";
+  tmpDivRow.className = "class_Test_SelectorRow";
   tmpTestDiv.appendChild(tmpDivRow);
 
   for (var i = 0; i < medicalLabels.length; i++) {
@@ -921,18 +877,14 @@ function createRealWorld_FlowSimDiv(){
   tmpDivLabel.className = "standardText";
   tmpDivLabel.style.color = "rgb(100,100,100)";
   tmpDivLabel.style.fontSize = "2.5vh";
-  tmpDivLabel.style.lineHeight = "2.5vh";
+  tmpDivLabel.style.lineHeight = "4vh";
   tmpDivLabel.style.marginTop = "2vh";
   tmpDivLabel.style.fontWeight = "bold";
   tmpDivLabel.innerHTML = "3.2 Scientific Flow Simulation:";
   tmpTestDiv.appendChild(tmpDivLabel);
 
   var tmpDivRow = document.createElement('div');
-  tmpDivRow.style.width = "90vw";
-  tmpDivRow.style.maxWidth = "90vw";
-  tmpDivRow.style.display = "inline-block";
-  tmpDivRow.style.paddingTop = "1vh";
-  tmpDivRow.style.marginBottom = "1vh";
+  tmpDivRow.className = "class_Test_SelectorRow";
   tmpTestDiv.appendChild(tmpDivRow);
 
   for (var i = 0; i < scientificFlowSimLabels.length; i++) {
@@ -986,18 +938,14 @@ function createRealWorld_PhotographDiv(){
   tmpDivLabel.className = "standardText";
   tmpDivLabel.style.color = "rgb(100,100,100)";
   tmpDivLabel.style.fontSize = "2.5vh";
-  tmpDivLabel.style.lineHeight = "2.5vh";
+  tmpDivLabel.style.lineHeight = "4vh";
   tmpDivLabel.style.marginTop = "2vh";
   tmpDivLabel.style.fontWeight = "bold";
   tmpDivLabel.innerHTML = "3.3 Photographs:";
   tmpTestDiv.appendChild(tmpDivLabel);
 
   var tmpDivRow = document.createElement('div');
-  tmpDivRow.style.width = "90vw";
-  tmpDivRow.style.maxWidth = "90vw";
-  tmpDivRow.style.display = "inline-block";
-  tmpDivRow.style.paddingTop = "1vh";
-  tmpDivRow.style.marginBottom = "1vh";
+  tmpDivRow.className = "class_Test_SelectorRow";
   tmpTestDiv.appendChild(tmpDivRow);
 
   for (var i = 0; i < photographsLabels.length; i++) {

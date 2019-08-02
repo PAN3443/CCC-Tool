@@ -3,9 +3,7 @@
 ///////////////////////////////////
 
 
-function closeShortcutsWindow(){
-  document.getElementById("id_PopUp_ShortcutsWindow").style.display="none";
-}
+
 
 
 function updateShortCuts(){
@@ -22,11 +20,7 @@ function updateShortCuts(){
   document.getElementById("id_PopUp_Shortcuts_MappingMode_Label").innerHTML= short_mappingWinKey;
 }
 
-function openShortcutsWindow(){
-  document.getElementById("id_PopUp_ShortcutsWindow").style.display="flex";
-  document.getElementById("id_dropDownContainer").style.display="none";
-  updateShortCuts();
-}
+
 
 
 document.onkeydown = keyDownDocumentHandler;
@@ -36,15 +30,12 @@ function keyDownDocumentHandler(event){
 
   if(document.getElementById("id_EditPage").style.display!="none" && event.ctrlKey){
 
-
     var keynum;
     if(window.event) { // IE
       keynum = event.keyCode;
     } else if(event.which){ // Netscape/Firefox/Opera
       keynum = event.which;
     }
-
-//console.log(keynum);
 
     switch (keynum) {
 
@@ -136,5 +127,42 @@ function keyDownDocumentHandler(event){
   }
 
 
+
+  if(document.getElementById("id_TestingPage").style.display!="none"){
+    var keynum;
+    if(window.event) { // IE
+      keynum = event.keyCode;
+    } else if(event.which){ // Netscape/Firefox/Opera
+      keynum = event.which;
+    }
+
+    switch (keynum) {
+
+      case 37:
+        // left arrow
+        if(testingModus>0)
+         switchToPreviousTest();
+      break;
+      case 38:
+          // up arrow
+          if(testingModus==2 && reportModus>0)
+            switchToPreviousReport();
+      break;
+      case 39:
+        // right arrow
+        if(testingModus==1 && reportListTestField.length>0)
+          switchToNextTest();
+        else if(testingModus==0)
+          switchToNextTest();
+      break;
+      case 40:
+        // down arrow
+        if(testingModus==2 && reportModus<3)
+          switchToNextReport();
+      break;
+    }
+
+    console.log(keynum);
+  }
 
 }

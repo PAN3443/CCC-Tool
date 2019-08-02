@@ -29,32 +29,74 @@ function switchReportDisplay(){
   document.getElementById("id_Report_pageSwitchStatus0").innerHTML = "&#x25CE;";
   document.getElementById("id_Report_pageSwitchStatus1").innerHTML = "&#x25CE;";
   document.getElementById("id_Report_pageSwitchStatus2").innerHTML = "&#x25CE;";
+  document.getElementById("id_Report_pageSwitchStatus3").innerHTML = "&#x25CE;";
+
+  document.getElementById("id_Test_Map_Collection").classList.remove("class_Test_Map_DivActive");
+  document.getElementById("id_Test_Map_InteractiveTest").classList.remove("class_Test_Map_DivActive");
+  document.getElementById("id_Test_Map_MyTests").classList.remove("class_Test_Map_DivActive");
+  document.getElementById("id_Test_Map_SubReport").classList.remove("class_Test_Map_DivActive");
+  document.getElementById("id_Test_Map_AutoAnalysis").classList.remove("class_Test_Map_DivActive");
+  document.getElementById("id_Test_Map_Optimization").classList.remove("class_Test_Map_DivActive");
+
+  document.getElementById("id_Test_Map_Collection").classList.add("class_Test_Map_Div");
+  document.getElementById("id_Test_Map_InteractiveTest").classList.add("class_Test_Map_Div");
+  document.getElementById("id_Test_Map_MyTests").classList.add("class_Test_Map_Div");
+  document.getElementById("id_Test_Map_SubReport").classList.add("class_Test_Map_Div");
+  document.getElementById("id_Test_Map_AutoAnalysis").classList.add("class_Test_Map_Div");
+  document.getElementById("id_Test_Map_Optimization").classList.add("class_Test_Map_Div");
+
+
 
   switch (reportModus) {
     case 0:
     document.getElementById("id_report_TestInfoDiv").style.height = "83vh";
     document.getElementById("id_report_SubReportDiv").style.height = "0vh";
-    document.getElementById("id_report_OtherReportDiv").style.height = "0vh";
+    document.getElementById("id_report_OpitimizationReportDiv").style.height = "0vh";
+    document.getElementById("id_report_AnalysisReportDiv").style.height = "0vh";
     document.getElementById("id_Report_pageSwitchDown").style.visibility = "visible";
     document.getElementById("id_Report_pageSwitchStatus0").innerHTML = "&#x25C9;";
-    document.getElementById("id_reportPageLabel").innerHTML = "Test List";
+    document.getElementById("id_reportPageLabel").innerHTML = "MyTests";
+
+    document.getElementById("id_Test_Map_MyTests").classList.remove("class_Test_Map_Div");
+    document.getElementById("id_Test_Map_MyTests").classList.add("class_Test_Map_DivActive");
     break;
     case 1:
       document.getElementById("id_report_TestInfoDiv").style.height = "0vh";
       document.getElementById("id_report_SubReportDiv").style.height = "83vh";
-      document.getElementById("id_report_OtherReportDiv").style.height = "0vh";
+      document.getElementById("id_report_OpitimizationReportDiv").style.height = "0vh";
+      document.getElementById("id_report_AnalysisReportDiv").style.height = "0vh";
       document.getElementById("id_Report_pageSwitchStatus1").innerHTML = "&#x25C9;";
       document.getElementById("id_Report_pageSwitchUp").style.visibility = "visible";
       document.getElementById("id_Report_pageSwitchDown").style.visibility = "visible";
       document.getElementById("id_reportPageLabel").innerHTML = "Subtraction Report";
+
+      document.getElementById("id_Test_Map_SubReport").classList.remove("class_Test_Map_Div");
+      document.getElementById("id_Test_Map_SubReport").classList.add("class_Test_Map_DivActive");
     break;
     case 2:
       document.getElementById("id_report_TestInfoDiv").style.height = "0vh";
       document.getElementById("id_report_SubReportDiv").style.height = "0vh";
-      document.getElementById("id_report_OtherReportDiv").style.height = "83vh";
+      document.getElementById("id_report_OpitimizationReportDiv").style.height = "83vh";
+      document.getElementById("id_report_AnalysisReportDiv").style.height = "0vh";
       document.getElementById("id_Report_pageSwitchStatus2").innerHTML = "&#x25C9;";
       document.getElementById("id_Report_pageSwitchUp").style.visibility = "visible";
-      document.getElementById("id_reportPageLabel").innerHTML = "Other Report";
+      document.getElementById("id_Report_pageSwitchDown").style.visibility = "visible";
+      document.getElementById("id_reportPageLabel").innerHTML = "Auto Analysis";
+
+      document.getElementById("id_Test_Map_AutoAnalysis").classList.remove("class_Test_Map_Div");
+      document.getElementById("id_Test_Map_AutoAnalysis").classList.add("class_Test_Map_DivActive");
+    break;
+    case 3:
+      document.getElementById("id_report_TestInfoDiv").style.height = "0vh";
+      document.getElementById("id_report_SubReportDiv").style.height = "0vh";
+      document.getElementById("id_report_OpitimizationReportDiv").style.height = "0vh";
+      document.getElementById("id_report_AnalysisReportDiv").style.height = "83vh";
+      document.getElementById("id_Report_pageSwitchStatus3").innerHTML = "&#x25C9;";
+      document.getElementById("id_Report_pageSwitchUp").style.visibility = "visible";
+      document.getElementById("id_reportPageLabel").innerHTML = "Optimization";
+
+      document.getElementById("id_Test_Map_Optimization").classList.remove("class_Test_Map_Div");
+      document.getElementById("id_Test_Map_Optimization").classList.add("class_Test_Map_DivActive");
     break;
   }
 

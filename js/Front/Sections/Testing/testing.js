@@ -26,6 +26,21 @@ function openTestSection(){
   updateTestVis();
 
   testingModus=0;
+
+  document.getElementById("id_Test_Map_Collection").classList.remove("class_Test_Map_DivActive");
+  document.getElementById("id_Test_Map_InteractiveTest").classList.remove("class_Test_Map_DivActive");
+  document.getElementById("id_Test_Map_MyTests").classList.remove("class_Test_Map_DivActive");
+  document.getElementById("id_Test_Map_SubReport").classList.remove("class_Test_Map_DivActive");
+  document.getElementById("id_Test_Map_AutoAnalysis").classList.remove("class_Test_Map_DivActive");
+  document.getElementById("id_Test_Map_Optimization").classList.remove("class_Test_Map_DivActive");
+
+  document.getElementById("id_Test_Map_Collection").classList.add("class_Test_Map_Div");
+  document.getElementById("id_Test_Map_InteractiveTest").classList.add("class_Test_Map_Div");
+  document.getElementById("id_Test_Map_MyTests").classList.add("class_Test_Map_Div");
+  document.getElementById("id_Test_Map_SubReport").classList.add("class_Test_Map_Div");
+  document.getElementById("id_Test_Map_AutoAnalysis").classList.add("class_Test_Map_Div");
+  document.getElementById("id_Test_Map_Optimization").classList.add("class_Test_Map_Div");
+
   document.getElementById("id_reportPageLabelDiv").style.visibility = "hidden";
   document.getElementById("id_Test_FunctionCollection").style.width = "100vw";
   document.getElementById("id_Test_TestDiv").style.width = "0vw";
@@ -73,7 +88,19 @@ function slideTestDisplayDivs(){
   document.getElementById("id_Test_pageSwitchStatus1").innerHTML = "&#x25CE;";
   document.getElementById("id_Test_pageSwitchStatus2").innerHTML = "&#x25CE;";
 
+  document.getElementById("id_Test_Map_Collection").classList.remove("class_Test_Map_DivActive");
+  document.getElementById("id_Test_Map_InteractiveTest").classList.remove("class_Test_Map_DivActive");
+  document.getElementById("id_Test_Map_MyTests").classList.remove("class_Test_Map_DivActive");
+  document.getElementById("id_Test_Map_SubReport").classList.remove("class_Test_Map_DivActive");
+  document.getElementById("id_Test_Map_AutoAnalysis").classList.remove("class_Test_Map_DivActive");
+  document.getElementById("id_Test_Map_Optimization").classList.remove("class_Test_Map_DivActive");
 
+  document.getElementById("id_Test_Map_Collection").classList.add("class_Test_Map_Div");
+  document.getElementById("id_Test_Map_InteractiveTest").classList.add("class_Test_Map_Div");
+  document.getElementById("id_Test_Map_MyTests").classList.add("class_Test_Map_Div");
+  document.getElementById("id_Test_Map_SubReport").classList.add("class_Test_Map_Div");
+  document.getElementById("id_Test_Map_AutoAnalysis").classList.add("class_Test_Map_Div");
+  document.getElementById("id_Test_Map_Optimization").classList.add("class_Test_Map_Div");
 
   switch (testingModus) {
     case 0:
@@ -84,6 +111,9 @@ function slideTestDisplayDivs(){
     document.getElementById("id_Test_pageSwitchStatus0").innerHTML = "&#x25C9;";
     document.getElementById("id_testPageLabel").innerHTML = "Test Collection";
     drawTestCollection();
+
+    document.getElementById("id_Test_Map_Collection").classList.remove("class_Test_Map_Div");
+    document.getElementById("id_Test_Map_Collection").classList.add("class_Test_Map_DivActive");
     break;
     case 1:
       document.getElementById("id_Test_FunctionCollection").style.width = "0vw";
@@ -91,12 +121,14 @@ function slideTestDisplayDivs(){
       document.getElementById("id_Test_ReportDiv").style.width = "0vw";
       document.getElementById("id_Test_pageSwitchStatus1").innerHTML = "&#x25C9;";
       document.getElementById("id_Test_pageSwitchLeft").style.visibility = "visible";
-      document.getElementById("id_testPageLabel").innerHTML = "Interactive Test";
+      document.getElementById("id_testPageLabel").innerHTML = "Interactive Test Setting";
 
       if(reportListTestField.length>0)
         document.getElementById("id_Test_pageSwitchRight").style.visibility = "visible";
 
       selectNewTestType();
+      document.getElementById("id_Test_Map_InteractiveTest").classList.remove("class_Test_Map_Div");
+      document.getElementById("id_Test_Map_InteractiveTest").classList.add("class_Test_Map_DivActive");
     break;
     case 2:
       document.getElementById("id_Test_FunctionCollection").style.width = "0vw";

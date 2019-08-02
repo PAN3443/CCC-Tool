@@ -83,6 +83,7 @@ function createMyDesignObject(id){
 
   var tmpCMSDownload = document.createElement('div');
   tmpCMSDownload.className = 'class_MyDesignObjButton';
+  tmpCMSDownload.title = 'Export CMS';
   tmpCMSDownload.innerHTML="&#8615;";
 
   tmpCMSDownload.onclick = (function(cmsID) {
@@ -96,6 +97,7 @@ function createMyDesignObject(id){
 
   var tmpCMSDelete = document.createElement('div');
   tmpCMSDelete.className = 'class_MyDesignObjButton';
+  tmpCMSDelete.title = 'Delete CMS';
   tmpCMSDelete.innerHTML="X";
 
   tmpCMSDelete.onclick = (function(cmsID) {

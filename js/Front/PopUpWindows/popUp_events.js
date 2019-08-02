@@ -1,4 +1,21 @@
 
+//////////////////////////////////////
+/// Short Cuts /////
+///////////////////////////////////
+
+function closeShortcutsWindow(){
+  document.getElementById("id_PopUp_ShortcutsWindow").style.display="none";
+}
+
+function openShortcutsWindow(){
+  document.getElementById("id_PopUp_ShortcutsWindow").style.display="flex";
+  document.getElementById("id_dropDownContainer").style.display="none";
+  updateShortCuts();
+}
+
+//////////////////////////////////////
+/// Full Screen Mapping Vis /////
+///////////////////////////////////
 
 
 function openFullTestMappingScreen(text){

@@ -1,5 +1,16 @@
 function init_Testing(){
 
+
+  document.getElementById('id_testPageLabel').onmouseenter= function(){ displayTestMap();};
+  document.getElementById('id_testPageLabel').onmouseleave= function(){ document.getElementById("id_Test_Map").style.display="none"};
+  document.getElementById('id_testPageLabelArrow').onmouseenter= function(){ displayTestMap();};
+  document.getElementById('id_testPageLabelArrow').onmouseleave= function(){ document.getElementById("id_Test_Map").style.display="none"};
+
+  document.getElementById('id_reportPageLabel').onmouseenter= function(){ displayTestMap();};
+  document.getElementById('id_reportPageLabel').onmouseleave= function(){ document.getElementById("id_Test_Map").style.display="none"};
+  document.getElementById('id_reportPageLabelArrow').onmouseenter= function(){ displayTestMap();};
+  document.getElementById('id_reportPageLabelArrow').onmouseleave= function(){ document.getElementById("id_Test_Map").style.display="none"};
+
   document.getElementById("id_Test_downloadScreenshot").addEventListener('click', downloadTestImage, false);
   document.getElementById("id_Test_downloadScreenshotGrey").addEventListener('click', downloadTestImageGrey, false);
   document.getElementById("id_Test_downloadScreenshotFull").addEventListener('click', downloadTestImage, false);
@@ -120,7 +131,15 @@ function init_Testing(){
 
 
 
+}
 
 
-
+function displayTestMap(){
+  if(testingModus==2){
+    document.getElementById("id_Test_Map").style.width="97vw";
+  }
+  else{
+    document.getElementById("id_Test_Map").style.width="100vw";
+  }
+  document.getElementById("id_Test_Map").style.display="flex";
 }

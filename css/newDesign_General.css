@@ -151,13 +151,36 @@ input[type='radio']{
 
 
   .class_OptionDiv{
-    background:rgb(240,240,240);
+    background:rgb(60,60,60);
     padding-top:1vh;
     padding-bottom:1vh;
     padding-left:1vw;
     padding-right:1vw;
     border: 0.2vh solid black;
     box-shadow: 0 0.25vh 0.25vh 0 rgba(0, 0, 0, 0.2), 0 0.15vh 0.15vh 0 rgba(0, 0, 0, 0.25);
+  }
+
+  .class_OptionDiv p{
+    color: white;
+  }
+
+  .class_OptionDiv a:link {
+      color: rgb(63, 139, 183);
+  }
+
+  /* visited link */
+  .class_OptionDiv a:visited {
+      color: rgb(228,62,0);
+  }
+
+  /* mouse over link */
+  .class_OptionDiv a:hover {
+      color: rgb(19, 111, 153);
+  }
+
+  /* selected link */
+  .class_OptionDiv a:active {
+      color: rgb(19, 111, 153);
   }
 
 .class_InsetLabelText{
@@ -232,7 +255,7 @@ div.sticky {
 .class_generalbutton{
     border: none;
     font-weight:bold;
-    background-color: rgb(19, 111, 153);
+    background-color: rgb(63, 139, 183);/*rgb(19, 111, 153);*/
     /*box-shadow: 0 0 1vh rgba(19, 111, 153, 0.5);*/
     color:white;
     transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
@@ -256,7 +279,7 @@ div.sticky {
 
 .class_generalbutton:hover{
   transform: scale(0.9);
-  background-color: rgb( 	8, 48, 66);
+  background-color: rgb(19, 111, 153);/*rgb( 	8, 48, 66);*/
   /*box-shadow: 0 0 1vh rgba(8, 48, 66, 0.5);*/
 }
 

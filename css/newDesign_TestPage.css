@@ -1,4 +1,36 @@
 
+.class_Test_Map_Div{
+  width: 15vw;
+  display:flex;
+  height: 10vh;
+  border: 0.2vh solid white;
+}
+
+.class_Test_Map_Div p{
+  margin: auto;
+  vertical-align: middle;
+  text-align: center;
+  line-height: 2.5vh;
+  font-size: 2.0vh;
+  color: white;
+}
+
+.class_Test_Map_DivActive{
+  width: 15vw;
+  display:flex;
+  height: 10vh;
+  border: 0.2vh solid rgb(10, 239, 251);
+}
+
+.class_Test_Map_DivActive p{
+  margin: auto;
+  vertical-align: middle;
+  text-align: center;
+  line-height: 2.5vh;
+  font-size: 2.0vh;
+  color: rgb(10, 239, 251);
+}
+
 .class_ReportTestSelectionDiv{
   padding-top:1vh;
   padding-bottom:1vh;
@@ -42,7 +74,7 @@
   vertical-align:middle;
   font-weight:bold;
   font-size: 3vh;
-  line-height: 3vh;
+  line-height: 5vh;
   margin-top:2vh;
   margin-bottom:2vh;
 }
@@ -160,13 +192,27 @@
           background-clip: text;
 }
 
+.class_Test_SelectorRow{
+  width:90vw;
+  max-width: 90vw;
+  padding-top: 1vh;
+  margin-bottom: 1vh;
+  display: flex;
+  flex-flow: row wrap;
+  /*align-content: space-between;
+  justify-content: space-between;*/
+}
+
 .class_Test_Selector{
-  display: block;
+  float: left;
+  display: inline-block;
   float: left;
   padding: 1vh;
   width: 15vw;
   display: block;
-  margin:auto;
+  /*margin:auto;*/
+  margin-left:0vh;
+  margin-right:0vh;
   margin-top: 1vh;
   margin-bottom: 1vh;
   box-sizing: border-box;
