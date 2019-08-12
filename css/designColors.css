@@ -1,0 +1,78 @@
+:root {
+
+  --general-active-color: rgb(218,146,77);
+  --general-hover-color: rgb(225,192,141);
+
+  /**************************************
+  **** General
+  ***************************************/
+  --main-bg-color: rgb(57,60,67);/*rgb(255,255,255);*/
+  --main-second-bg-color: rgb(77,80,87);
+  --main-font-color: rgb(157,163,178);
+  --main-font-notactive-color: rgb(107,113,128);
+  --main-warning-font-color: rgb(224,108,117);/*tomato;*/
+  --main-label-font-color: rgb(225,192,141);
+  --main-nonActiveColor: rgb(63, 139, 183);
+  --main-nonActiveColor-hover: rgb(19, 111, 153);
+  /*--main-activeColor: rgb(228,62,0);
+  --main-activeColor-hover: rgb(255,69,0);*/
+  --main-button-bg: var(--main-font-color);/*rgb(157,163,178);*/
+  --main-button-bg-hover: var(--general-hover-color);
+  --main-button-font: var(--main-bg-color); /*rgb(57,60,67);*/
+  --main-activebutton-bg: var(--general-active-color);/*rgb(157,163,178);*/
+  --main-activebutton-bg-hover: var(--main-button-bg-hover);
+
+
+  /**** Sep Area ****/
+  --main-sepArea-bg: rgb(32, 36, 43);
+  --main-optionBox-bg: rgb(32, 36, 43);
+  --main-optionBox-border: rgb(32, 36, 43);
+  --main-Button-sepArea-font-color: rgb(32, 36, 43);
+  --main-Button-sepArea-bg-color: var(--main-font-color);/*rgb(157,163,178);*/
+  --main-Button-sepArea-bg-color-hover: var(--general-hover-color);
+
+
+  /***** Scrollbar *****/
+  --scrollbar-track-bg: var(--main-bg-color); /*rgb(57,60,67);*/
+  --scrollbar-track-shadow: rgb(37,40,47);
+  --scrollbar-thump-bg: rgb(97,100,107);
+  --scrollbar-thump-bg-hover: var(--general-hover-color);
+
+
+  /**** Table *****/
+  --main-table-bg1-color: rgb(245,245,245);
+  --main-table-bg2-color: rgb(225,225,225);
+  --main-table-border-color: rgb(32, 36, 43);
+  --main-table-font-color: rgb(32, 36, 43);
+
+
+  /**** Input *****/
+  --radio-bg-color: var(--main-font-color);
+  --radio-bg-color-hover: var(--general-hover-color);
+
+
+
+  /**************************************
+  **** Menue
+  ***************************************/
+  --menue-bg-color: rgb(12, 16, 23);/*rgb(45, 45, 45);*/
+  --menue-navi-bg-color: rgba(32, 36, 43,0.95);
+  --menue-font-color: var(--main-font-color);/*rgb(157,163,178);*/
+  --menue-label-color:  rgb(197,203,218);
+  --menue-warning-font-color: rgb(224,108,117);/*tomato;*/
+  --menue-bg-color-hover: rgba(157,163,178,0.5);
+  --menue-font-activ-color: var(--main-font-color);/*rgb(157,163,178);*/
+  --menue-font-notActiv-color: var(--main-font-notactive-color);
+  --menue-barLabel-bg-color: rgba(157,163,178,0.3);
+  --menue-navi-negative-color: rgb(224,108,117);/*tomato;*/
+  --menue-navi-positive-color: rgb(86,182,194);
+
+
+
+  --main-popUpWindow-bg-color: rgba(255, 255, 255,0.3); /*rgba(100,100,100,0.9)*/
+  --main-popUpWindow-labelbg-color: var(--menue-bg-color); /*rgba(100,100,100,0.9)*/
+
+
+
+
+}

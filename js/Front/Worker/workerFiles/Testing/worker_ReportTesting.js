@@ -5,6 +5,7 @@ var testTensorFieldColorDif = undefined;
 var reportOptions_ColorDif = 2;
 var ratioFields = undefined;
 
+
 var reportType = undefined;
 
 // Offscreen Canvas
@@ -30,6 +31,7 @@ var sim_AdaptiveColorblindness = undefined;
 // CMS
 var globalCMS1 = undefined;
 var ratioDifCMS = undefined;
+var greyScaledCMS = undefined;
 
 var error = 100; // 0.01
 var errorMath = 1e12;
@@ -61,6 +63,7 @@ self.addEventListener('message', function(e) {
 
       globalCMS1 = new class_CMS();
       ratioDifCMS = new class_CMS();
+      greyScaledCMS = new class_CMS();
       reportType = e.data.reportType;
 
     break;
@@ -76,6 +79,24 @@ self.addEventListener('message', function(e) {
       ratioDifCMS.setAboveColor(new classColor_RGB(1.0,0,0));
       ratioDifCMS.setBelowColor(new classColor_RGB(0,0,1.0));
       ratioDifCMS.setInterpolationSpace("lab");
+
+      greyScaledCMS.pushKey(new class_Key(undefined, new classColor_LAB(0,0,0), 0, false));
+      greyScaledCMS.pushKey(new class_Key(new classColor_LAB(8.584251408919807,0,0), new classColor_LAB(8.584251408919807,0,0), 1.0-0.9331267977291702, false));
+      greyScaledCMS.pushKey(new class_Key(new classColor_LAB(17.45589136962069,0,0), new classColor_LAB(17.45589136962069,0,0), 1.0-0.857733338111792, false));
+      greyScaledCMS.pushKey(new class_Key(new classColor_LAB(26.624541242866588,0,0), new classColor_LAB(26.624541242866588,0,0), 1.0-0.7717210813652056, false));
+      greyScaledCMS.pushKey(new class_Key(new classColor_LAB(36.10014449892251,0,0), new classColor_LAB(36.10014449892251,0,0), 1.0-0.6724353282071089, false));
+      greyScaledCMS.pushKey(new class_Key(new classColor_LAB(45.89297750132293,0,0), new classColor_LAB(45.89297750132293,0,0), 1.0-0.5540357402164376, false));
+      greyScaledCMS.pushKey(new class_Key(new classColor_LAB(56.01366065166631,0,0), new classColor_LAB(56.01366065166631,0,0), 1.0-0.42607923480947885, false));
+      greyScaledCMS.pushKey(new class_Key(new classColor_LAB(66.47316990752064,0,0), new classColor_LAB(66.47316990752064,0,0), 1.0-0.30343212796712415, false));
+      greyScaledCMS.pushKey(new class_Key(new classColor_LAB(77.28284868593305,0,0), new classColor_LAB(77.28284868593305,0,0), 1.0-0.19353721300887902, false));
+      greyScaledCMS.pushKey(new class_Key(new classColor_LAB(88.45442016545135,0,0), new classColor_LAB(88.45442016545135,0,0), 1.0-0.09275388606291055, false));
+      greyScaledCMS.pushKey(new class_Key(new classColor_LAB(100,0,0), undefined, 1, false));
+      greyScaledCMS.setAboveColor(new classColor_RGB(1.0,0,0));
+      greyScaledCMS.setBelowColor(new classColor_RGB(0,0,1.0));
+      greyScaledCMS.setInterpolationSpace("lab");
+
+
+
     break;
     case "Testfield":
       testfield = e.data.testfield;

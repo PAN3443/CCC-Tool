@@ -331,11 +331,18 @@ function calculateImageData(testfield, doGreyScaled) {
   if (doGreyScaled) {
     for (var y = 0; y < imgHeight; y++) {
       for (var x = 0; x < imgWidth; x++) {
-        var greyVal = testfield.getRatioFieldValue(x, y) * 255;
+        /*var greyVal = testfield.getRatioFieldValue(x, y) * 255;
         var indices = getColorIndicesForCoord(x, maxHeightIndex - y, imgWidth);
         imgData.data[indices[0]] = Math.round(greyVal); // r
         imgData.data[indices[1]] = Math.round(greyVal); // g
         imgData.data[indices[2]] = Math.round(greyVal); // b
+        imgData.data[indices[3]] = 255; //a*/
+
+        var greyVal = greyScaledCMS.calculateColor(testfield.getRatioFieldValue(x, y));
+        var indices = getColorIndicesForCoord(x, maxHeightIndex - y, imgWidth);
+        imgData.data[indices[0]] = Math.round(greyVal.getRValue()*255); // r
+        imgData.data[indices[1]] = Math.round(greyVal.getGValue()*255); // g
+        imgData.data[indices[2]] = Math.round(greyVal.getBValue()*255); // b
         imgData.data[indices[3]] = 255; //a
       }
     }

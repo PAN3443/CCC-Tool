@@ -17,3 +17,10 @@ var maximalZoomBar = 500;
 var fixPixelPreview = false;
 var pixelPreviewX = 0;
 var pixelPreviewY = 0;
+
+
+var valueDifInfo = undefined;
+var colorDifInfo = undefined;
+var valueRatioInfo = undefined;
+var colorRatioInfo = undefined;
+var ratioInfo = undefined;

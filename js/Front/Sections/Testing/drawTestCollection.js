@@ -1,8 +1,10 @@
 
 function fillTestCollection(){
 
-  var backgroundColor1 = "rgb(250,250,250)";
-  var backgroundColor2 = "rgb(240,240,240)";
+  document.getElementById("id_Test_FunctionCollection").innerHTML = "";
+
+  var backgroundColor1 = getComputedStyle(document.documentElement).getPropertyValue('--main-bg-color');
+  var backgroundColor2 = getComputedStyle(document.documentElement).getPropertyValue('--main-second-bg-color');
 
   /////////////////////////////////////////////////////////////////////////////
   ///// CCC-Tests
@@ -14,7 +16,7 @@ function fillTestCollection(){
 
   var tmpDivCCCLabel = document.createElement('p');
   tmpDivCCCLabel.className = "standardText";
-  tmpDivCCCLabel.style.color = "rgb(100,100,100)";
+  tmpDivCCCLabel.style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');;
   tmpDivCCCLabel.style.height = "4vh";
   tmpDivCCCLabel.style.lineHeight = "4vh";
   tmpDivCCCLabel.style.fontSize = "3.5vh";
@@ -41,7 +43,7 @@ function fillTestCollection(){
 
   var tmpDivFCLabel = document.createElement('p');
   tmpDivFCLabel.className = "standardText";
-  tmpDivFCLabel.style.color = "rgb(100,100,100)";
+  tmpDivFCLabel.style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');;
   tmpDivFCLabel.style.height = "4vh";
   tmpDivFCLabel.style.lineHeight = "4vh";
   tmpDivFCLabel.style.fontSize = "3.5vh";
@@ -64,7 +66,7 @@ function fillTestCollection(){
 
   var tmpDivRealWorldLabel = document.createElement('p');
   tmpDivRealWorldLabel.className = "standardText";
-  tmpDivRealWorldLabel.style.color = "rgb(100,100,100)";
+  tmpDivRealWorldLabel.style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');;
   tmpDivRealWorldLabel.style.height = "4vh";
   tmpDivRealWorldLabel.style.lineHeight = "4vh";
   tmpDivRealWorldLabel.style.fontSize = "3.5vh";
@@ -113,7 +115,7 @@ function createJumpDiv(){
 
   var tmpDivLabel = document.createElement('p');
   tmpDivLabel.className = "standardText";
-  tmpDivLabel.style.color = "rgb(100,100,100)";
+  tmpDivLabel.style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');;
   tmpDivLabel.style.fontSize = "2.5vh";
   tmpDivLabel.style.lineHeight = "4vh";
   tmpDivLabel.style.marginTop = "2vh";
@@ -181,7 +183,7 @@ function createGradientDiv(){
 
   var tmpDivLabel = document.createElement('p');
   tmpDivLabel.className = "standardText";
-  tmpDivLabel.style.color = "rgb(100,100,100)";
+  tmpDivLabel.style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');;
   tmpDivLabel.style.fontSize = "2.5vh";
   tmpDivLabel.style.lineHeight = "4vh";
   tmpDivLabel.style.marginTop = "2vh";
@@ -274,7 +276,7 @@ function createRidgeAndValley(){
 
   var tmpDivLabel = document.createElement('p');
   tmpDivLabel.className = "standardText";
-  tmpDivLabel.style.color = "rgb(100,100,100)";
+  tmpDivLabel.style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');;
   tmpDivLabel.style.fontSize = "2.5vh";
   tmpDivLabel.style.lineHeight = "4vh";
   tmpDivLabel.style.marginTop = "2vh";
@@ -368,7 +370,7 @@ function createLocalExtrema(){
 
   var tmpDivLabel = document.createElement('p');
   tmpDivLabel.className = "standardText";
-  tmpDivLabel.style.color = "rgb(100,100,100)";
+  tmpDivLabel.style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');;
   tmpDivLabel.style.fontSize = "2.5vh";
   tmpDivLabel.style.lineHeight = "4vh";
   tmpDivLabel.style.marginTop = "2vh";
@@ -436,7 +438,7 @@ function createFrequency(){
 
   var tmpDivLabel = document.createElement('p');
   tmpDivLabel.className = "standardText";
-  tmpDivLabel.style.color = "rgb(100,100,100)";
+  tmpDivLabel.style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');;
   tmpDivLabel.style.fontSize = "2.5vh";
   tmpDivLabel.style.lineHeight = "4vh";
   tmpDivLabel.style.marginTop = "2vh";
@@ -493,7 +495,7 @@ function createLittleBit(){
 
   var tmpDivLabel = document.createElement('p');
   tmpDivLabel.className = "standardText";
-  tmpDivLabel.style.color = "rgb(100,100,100)";
+  tmpDivLabel.style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');;
   tmpDivLabel.style.fontSize = "2.5vh";
   tmpDivLabel.style.lineHeight = "4vh";
   tmpDivLabel.style.marginTop = "2vh";
@@ -559,7 +561,7 @@ function createTreshold(){
 
   var tmpDivLabel = document.createElement('p');
   tmpDivLabel.className = "standardText";
-  tmpDivLabel.style.color = "rgb(100,100,100)";
+  tmpDivLabel.style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');;
   tmpDivLabel.style.fontSize = "2.5vh";
   tmpDivLabel.style.lineHeight = "4vh";
   tmpDivLabel.style.marginTop = "2vh";
@@ -643,7 +645,7 @@ function createFunctionLocalMin(){
 
   var tmpDivLabel = document.createElement('p');
   tmpDivLabel.className = "standardText";
-  tmpDivLabel.style.color = "rgb(100,100,100)";
+  tmpDivLabel.style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');;
   tmpDivLabel.style.fontSize = "2.5vh";
   tmpDivLabel.style.lineHeight = "4vh";
   tmpDivLabel.style.marginTop = "2vh";
@@ -700,7 +702,7 @@ function createFunctionBowlShaped(){
 
   var tmpDivLabel = document.createElement('p');
   tmpDivLabel.className = "standardText";
-  tmpDivLabel.style.color = "rgb(100,100,100)";
+  tmpDivLabel.style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');;
   tmpDivLabel.style.fontSize = "2.5vh";
   tmpDivLabel.style.lineHeight = "4vh";
   tmpDivLabel.style.marginTop = "2vh";
@@ -757,7 +759,7 @@ function createFunctionValleyShaped(){
 
   var tmpDivLabel = document.createElement('p');
   tmpDivLabel.className = "standardText";
-  tmpDivLabel.style.color = "rgb(100,100,100)";
+  tmpDivLabel.style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');;
   tmpDivLabel.style.fontSize = "2.5vh";
   tmpDivLabel.style.lineHeight = "4vh";
   tmpDivLabel.style.marginTop = "2vh";
@@ -814,7 +816,7 @@ function createRealWorld_MedicalDiv(){
 
   var tmpDivLabel = document.createElement('p');
   tmpDivLabel.className = "standardText";
-  tmpDivLabel.style.color = "rgb(100,100,100)";
+  tmpDivLabel.style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');;
   tmpDivLabel.style.fontSize = "2.5vh";
   tmpDivLabel.style.lineHeight = "4vh";
   tmpDivLabel.style.marginTop = "2vh";
@@ -875,7 +877,7 @@ function createRealWorld_FlowSimDiv(){
 
   var tmpDivLabel = document.createElement('p');
   tmpDivLabel.className = "standardText";
-  tmpDivLabel.style.color = "rgb(100,100,100)";
+  tmpDivLabel.style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');;
   tmpDivLabel.style.fontSize = "2.5vh";
   tmpDivLabel.style.lineHeight = "4vh";
   tmpDivLabel.style.marginTop = "2vh";
@@ -936,7 +938,7 @@ function createRealWorld_PhotographDiv(){
 
   var tmpDivLabel = document.createElement('p');
   tmpDivLabel.className = "standardText";
-  tmpDivLabel.style.color = "rgb(100,100,100)";
+  tmpDivLabel.style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');;
   tmpDivLabel.style.fontSize = "2.5vh";
   tmpDivLabel.style.lineHeight = "4vh";
   tmpDivLabel.style.marginTop = "2vh";

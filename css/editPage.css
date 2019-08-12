@@ -91,48 +91,7 @@
 }
 
 
-.class_tablelabel{
-    height:1.5vh;
-    line-height:1.5vh;
-    font-size:1.0vh;
-    font-weight: bold;
-    background: grey;
-    color: white;
-    vertical-align: middle;
-    text-align: center;
-}
 
-.class_tableInput{
-    overflow: hidden;
-    text-overflow: ellipsis;
-    height:2vh;
-    max-height: 2vh;
-    line-height:2vh;
-    font-size:1.0vh;
-    color: black;
-    background:white;
-    border: 0.1vh solid black;
-    vertical-align: middle;
-    text-align: center;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.class_tableInputDark{
-    overflow: hidden;
-    text-overflow: ellipsis;
-    height:2vh;
-    max-height: 2vh;
-    line-height:2vh;
-    font-size:1.0vh;
-    color: black;
-    background:rgb(220,220,220);
-    border: 0.1vh solid black;
-    vertical-align: middle;
-    text-align: center;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
 
 
 .class_predefinedConstBands{
@@ -207,31 +166,7 @@
 }
 
 
-.class_predefinedLinearCMSBandsReverseButton{
-    box-sizing: content-box;
-    border: 0.2vh solid black;
-    width: 7.5%;
-    max-width: 7.5%;
-    height:3vh;
-    background: white;
-    color: black;
-    line-height:3vh;
-    font-size: 1.8vh;
-    margin-top: 0.25vh;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 0.5vh;
-    /*-moz-box-shadow:    inset 0 0 0.3vh rgb(180,180,180);
-     -webkit-box-shadow: inset 0 0 0.3vh rgb(180,180,180);
-     box-shadow:         inset 0 0 0.3vh rgb(180,180,180);*/
-    cursor: pointer;
-    transition: transform ease-in 0.1s;
 
-}
-
-.class_predefinedLinearCMSBandsReverseButton:hover{
-  transform: scale(0.9);
-}
 
 
 

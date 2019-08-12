@@ -18,14 +18,14 @@
 }
 
 .navi_divPos{
-  border-color: rgb(10, 239, 251); /*rgb(0,250,154);*/
+  border-color: var(--menue-navi-positive-color); /*rgb(0,250,154);*/
   cursor: pointer;
-  transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
+  /*transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;*/
 
 }
 
 .navi_divPos p{
-  color: rgb(10, 239, 251); /*rgb(0,250,154);*/
+  color: var(--menue-navi-positive-color); /*rgb(0,250,154);*/
   height:4vh;
   line-height:4vh;
   vertical-align: middle;
@@ -35,7 +35,7 @@
 
 .navi_divPos:hover{
   transform: scale(0.9);
-  box-shadow: 0 0 1vh rgb(10, 239, 251);
+  /*box-shadow: 0 0 1vh rgb(10, 239, 251);*/
 }
 
 /*.navi_divPos:hover .navi_Label{
@@ -44,7 +44,7 @@
 
 
 .navi_divCurrent{
-  border-color: rgb(255,255,255);
+  border-color: var(--menue-font-color);
   transition: transform ease-in 0.1s;
   cursor: default;
 }
@@ -58,7 +58,7 @@
 }
 
 .navi_divCurrent p{
-  color:rgb(255,255,255);
+  color:var(--menue-font-color);
   height:4vh;
   line-height:4vh;
   vertical-align: middle;
@@ -67,12 +67,12 @@
 }
 
 .navi_divNeg{
-  border-color: rgb(255,69,0); /*rgb(242,92,102);*/
+  border-color: var(--menue-navi-negative-color); /*rgb(242,92,102);*/
   cursor: not-allowed;
 }
 
 .navi_divNeg p{
-  color: rgb(255,69,0); /*rgb(242,92,102);*/
+  color: var(--menue-navi-negative-color); /*rgb(242,92,102);*/
   height:4vh;
   line-height:4vh;
   vertical-align: middle;
@@ -97,7 +97,7 @@
   line-height: 5vh;
   height:5vh;
   cursor:pointer;
-  color:white;
+  color:var(--menue-font-color);
   vertical-align: middle;
   text-align: center;
   background:none;
@@ -108,7 +108,7 @@
 
 
 .menu_button:hover {
-  background: rgba(255,255,255,0.5);
+  background: var(--menue-bg-color-hover);
 }
 
 
@@ -119,7 +119,7 @@
   line-height: 5vh;
   height:5vh;
   cursor:not-allowed;
-  color:rgb(180,180,180);
+  color:var(--menue-font-notActiv-color);
   vertical-align: middle;
   text-align: left;
   background:none;
@@ -132,8 +132,9 @@
 .dropdownMenuLabelBox{
   width:auto;
   height: auto;
-  background:rgba(255,255,255,0.3);
-  border-bottom: 1px solid white;
+  background:var(--menue-barLabel-bg-color);
+  border-bottom: 1px solid var(--menue-font-color);
+  display: flex;
 }
 
 
@@ -144,7 +145,7 @@
   line-height: 3vh;
   /*height: 3vh;*/
   font-weight: bold;
-  color:white;
+  color:var(--menue-font-color);
   vertical-align: middle;
   text-align: left;
   margin: 0px;
@@ -168,7 +169,7 @@
   line-height: 3vh;
   /*height: 3vh;*/
   cursor:pointer;
-  color:white;
+  color:var(--menue-font-color);
   vertical-align: middle;
   text-align: left;
   /*font-family:verdana;*/
@@ -176,7 +177,7 @@
 }
 
 .dropdownMenuButton:hover {
-  background: rgba(255,255,255,0.2);
+  background: var(--menue-bg-color-hover);
 }
 
 
@@ -189,7 +190,7 @@
   line-height: 3vh;
   /*height: 3vh;*/
   cursor:not-allowed;
-  color:rgb(180,180,180);
+  color:var(--menue-font-notActiv-color);
   vertical-align: middle;
   text-align: left;
   /*font-family:verdana;*/

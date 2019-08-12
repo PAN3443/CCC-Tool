@@ -99,11 +99,11 @@ function init_Testing(){
   document.getElementById('id_TestPage_Report2Canvas_Pixel').addEventListener("mousemove", mouseMoveReport);
 
 
-  document.getElementById('id_TestPage_ReportOrginalCCanvas_Pixel').addEventListener("mouseleave", eventSubReport_mouseleave);
-  document.getElementById('id_TestPage_ReportOrginalGCanvas_Pixel').addEventListener("mouseleave", eventSubReport_mouseleave);
-  document.getElementById('id_TestPage_Report0Canvas_Pixel').addEventListener("mouseleave", eventSubReport_mouseleave);
-  document.getElementById('id_TestPage_Report1Canvas_Pixel').addEventListener("mouseleave", eventSubReport_mouseleave);
-  document.getElementById('id_TestPage_Report2Canvas_Pixel').addEventListener("mouseleave", eventSubReport_mouseleave);
+  document.getElementById('id_TestPage_ReportOrginalCCanvas_Pixel').addEventListener("mouseleave", eventRatioReport_mouseleave);
+  document.getElementById('id_TestPage_ReportOrginalGCanvas_Pixel').addEventListener("mouseleave", eventRatioReport_mouseleave);
+  document.getElementById('id_TestPage_Report0Canvas_Pixel').addEventListener("mouseleave", eventRatioReport_mouseleave);
+  document.getElementById('id_TestPage_Report1Canvas_Pixel').addEventListener("mouseleave", eventRatioReport_mouseleave);
+  document.getElementById('id_TestPage_Report2Canvas_Pixel').addEventListener("mouseleave", eventRatioReport_mouseleave);
 
   fixPixelPreview = false;
   pixelPreviewX = 0;

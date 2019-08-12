@@ -1,0 +1,141 @@
+
+button:focus {outline:0;}
+
+.class_generalbutton{
+    border: none;
+    font-weight:bold;
+    background-color: var(--main-button-bg);/*rgb(19, 111, 153);*/
+    /*box-shadow: 0 0 1vh rgba(19, 111, 153, 0.5);*/
+    color:white;
+    transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
+    height: 4vh;
+    line-height: 4vh;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1.8vh;
+    border-radius: 1vh;
+    font-size: 1.8vh;
+    text-align:center;
+    overflow: auto;
+    font-weight: bold;
+    vertical-align: middle;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+
+.class_generalbutton:hover{
+  transform: scale(0.9);
+  background-color: var(--main-button-bg-hover);/*rgb( 	8, 48, 66);*/
+  /*box-shadow: 0 0 1vh rgba(8, 48, 66, 0.5);*/
+}
+
+
+.class_generalbuttonActive{
+    border: none;
+    font-weight:bold;
+    background-color: var(--main-activebutton-bg); /*rgb(0,191,255); rgb(15, 107, 149);*/
+    /*box-shadow: 0 0 1vh rgba(228,62,0, 0.5);*/
+    color:white;
+    transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
+    height: 4vh;
+    line-height: 4vh;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1.8vh;
+    border-radius: 1vh;
+    font-size: 1.8vh;
+    text-align:center;
+    overflow: auto;
+    font-weight: bold;
+    vertical-align: middle;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+
+
+.class_generalbuttonActive:hover{
+  transform: scale(0.9);
+  background-color: var(--main-activebutton-bg-hover); /*30,144,255*/
+  /*box-shadow: 0 0 1vh rgba(255,69,0, 0.5); /*30,144,255*/
+}
+
+.class_generalbutton_DarkBackground{
+    border: none;
+    font-weight:bold;
+    background-color: var(--main-Button-sepArea-bg-color);
+    /*box-shadow: none; /* 0 0 1vh rgba(175,255,255, 0.5)*/
+    color:var(--main-Button-sepArea-font-color);
+    transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
+    height: 4vh;
+    line-height: 4vh;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1.8vh;
+    border-radius: 1vh;
+    font-size: 1.8vh;
+    text-align:center;
+    overflow: auto;
+    font-weight: bold;
+    vertical-align: middle;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+
+
+.class_generalbutton_DarkBackground:hover{
+  transform: scale(0.9);
+  background-color: var(--main-Button-sepArea-bg-color-hover);
+}
+
+
+.helpButtonDiv {
+    position: relative;
+    display: inline-block;
+}
+
+.helpButton {
+    font-size: 1.6vh;
+    line-height: 2vh;
+    color:black;
+    height:2vh;
+    width:2vh;
+    border: 0.2vh solid black;
+    border-radius: 0.5vh;
+    vertical-align:middle;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /*font-family:courier;*/
+}
+
+.helpButtonDiv-content {
+    display:none;
+    position: absolute;
+    padding:0.5vh;
+    font-size: 1.6vh;
+    line-height: 2vh;
+    color:black;
+    height:auto;
+    width:250px;
+    border: 0.2vh solid black;
+    vertical-align:middle;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /*font-family:courier;*/
+    background: rgb(220,220,220);
+    z-index:5
+
+}
+
+.helpButtonDiv:hover .helpButtonDiv-content {
+    display: block;
+}

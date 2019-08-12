@@ -80,6 +80,7 @@ function showMyDesignsPage(){
     changeColorblindness();
   }
 
+  document.getElementById("footerDiv").style.display="none";
   document.getElementById("id_TestingPage").style.display="none";
   document.getElementById("id_welcomePage").style.display="none";
   document.getElementById("id_newCMSPage").style.display="none";

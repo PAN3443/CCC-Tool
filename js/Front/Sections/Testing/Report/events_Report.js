@@ -21,6 +21,7 @@ function setReportDisplay(type) {
 
 }
 
+
 function switchReportDisplay(){
 
   document.getElementById("id_Report_pageSwitchDown").style.visibility = "hidden";
@@ -76,8 +77,8 @@ function switchReportDisplay(){
     case 2:
       document.getElementById("id_report_TestInfoDiv").style.height = "0vh";
       document.getElementById("id_report_SubReportDiv").style.height = "0vh";
-      document.getElementById("id_report_OpitimizationReportDiv").style.height = "83vh";
-      document.getElementById("id_report_AnalysisReportDiv").style.height = "0vh";
+      document.getElementById("id_report_AnalysisReportDiv").style.height = "83vh";
+      document.getElementById("id_report_OpitimizationReportDiv").style.height = "0vh";
       document.getElementById("id_Report_pageSwitchStatus2").innerHTML = "&#x25C9;";
       document.getElementById("id_Report_pageSwitchUp").style.visibility = "visible";
       document.getElementById("id_Report_pageSwitchDown").style.visibility = "visible";
@@ -89,12 +90,12 @@ function switchReportDisplay(){
     case 3:
       document.getElementById("id_report_TestInfoDiv").style.height = "0vh";
       document.getElementById("id_report_SubReportDiv").style.height = "0vh";
-      document.getElementById("id_report_OpitimizationReportDiv").style.height = "0vh";
-      document.getElementById("id_report_AnalysisReportDiv").style.height = "83vh";
+      document.getElementById("id_report_AnalysisReportDiv").style.height = "0vh";
+      document.getElementById("id_report_OpitimizationReportDiv").style.height = "83vh";
       document.getElementById("id_Report_pageSwitchStatus3").innerHTML = "&#x25C9;";
       document.getElementById("id_Report_pageSwitchUp").style.visibility = "visible";
       document.getElementById("id_reportPageLabel").innerHTML = "Report".bold()+" : Auto Optimization";
-      
+
       document.getElementById("id_Test_Map_Optimization").classList.remove("class_Test_Map_Div");
       document.getElementById("id_Test_Map_Optimization").classList.add("class_Test_Map_DivActive");
     break;
@@ -126,8 +127,8 @@ function calc_Report(){
 
 function open_Report(){
   var selectedIndex = document.getElementById("id_TestPage_ReportList").selectedIndex;
+  updateSubReport_MetricButton();
   inform_Worker_Testfield (testfunctionWorker_Report0,selectedIndex);
-
 }
 
 function updateReportTensorFields(){
@@ -169,6 +170,43 @@ function remove_Report(){
 }
 
 
+function changeSubReportMetric(type){
+  reportOptions_ColorDif=type;
+  updateSubReport_MetricButton();
+  inform_Worker_Tensorfield(testfunctionWorker_Report0);
+}
+
+function updateSubReport_MetricButton(){
+  document.getElementById("id_test_subreport_MetricLab").classList.remove("class_generalbuttonActive");
+  document.getElementById("id_test_subreport_MetricDe94").classList.remove("class_generalbuttonActive");
+  document.getElementById("id_test_subreport_MetricDe2000").classList.remove("class_generalbuttonActive");
+  document.getElementById("id_test_subreport_MetricDIN99").classList.remove("class_generalbuttonActive");
+
+  document.getElementById("id_test_subreport_MetricLab").classList.add("class_generalbutton");
+  document.getElementById("id_test_subreport_MetricDe94").classList.add("class_generalbutton");
+  document.getElementById("id_test_subreport_MetricDe2000").classList.add("class_generalbutton");
+  document.getElementById("id_test_subreport_MetricDIN99").classList.add("class_generalbutton");
+
+  switch (reportOptions_ColorDif) {
+    case 0:
+    document.getElementById("id_test_subreport_MetricLab").classList.remove("class_generalbutton");
+    document.getElementById("id_test_subreport_MetricLab").classList.add("class_generalbuttonActive");
+      break;
+      case 1:
+      document.getElementById("id_test_subreport_MetricDe94").classList.remove("class_generalbutton");
+      document.getElementById("id_test_subreport_MetricDe94").classList.add("class_generalbuttonActive");
+        break;
+        case 2:
+        document.getElementById("id_test_subreport_MetricDe2000").classList.remove("class_generalbutton");
+        document.getElementById("id_test_subreport_MetricDe2000").classList.add("class_generalbuttonActive");
+          break;
+          case 3:
+          document.getElementById("id_test_subreport_MetricDIN99").classList.remove("class_generalbutton");
+          document.getElementById("id_test_subreport_MetricDIN99").classList.add("class_generalbuttonActive");
+            break;
+  }
+}
+
 /////////////////////////////////////////////
 ////// Substraction Report
 
@@ -188,11 +226,11 @@ function eventZoomReport(e){
   }
 
 
-  if(parseInt(document.getElementById("id_Test_SubReport_Zoom").max)<zoomStatus){
-    document.getElementById("id_Test_SubReport_Zoom").max=zoomStatus;
+  if(parseInt(document.getElementById("id_Test_RatioReport_Zoom").max)<zoomStatus){
+    document.getElementById("id_Test_RatioReport_Zoom").max=zoomStatus;
   }
 
-  document.getElementById("id_Test_SubReport_Zoom").value = zoomStatus;
+  document.getElementById("id_Test_RatioReport_Zoom").value = zoomStatus;
 
   changeReportZoom("id_TestPage_ReportOrginalCCanvas");
   changeReportZoom("id_TestPage_ReportOrginalGCanvas");
@@ -207,10 +245,9 @@ function eventZoomReport(e){
   changeReportZoom("id_TestPage_Report2Canvas_Pixel");
 }
 
+function ratioReportZoom (){
 
-function subreportZoom (){
-
-  zoomStatus = parseInt(document.getElementById("id_Test_SubReport_Zoom").value);
+  zoomStatus = parseInt(document.getElementById("id_Test_RatioReport_Zoom").value);
 
   changeReportZoom("id_TestPage_ReportOrginalCCanvas");
   changeReportZoom("id_TestPage_ReportOrginalGCanvas");
@@ -262,13 +299,34 @@ function mouseMoveReport(e){
   if(!fixPixelPreview){
     document.getElementById("id_pixelPreviewModus").innerHTML = "Modus".bold()+": Explore (x:"+mousePosX+", y:"+mousePosY+")";
     drawPreviewPixels(mousePosX,mousePosY);
+    fillSubReportTable(mousePosX,mousePosY);
   }
 
 }
 
 
+function getMaxIndex(array){
+
+  var maxVal = -Infinity;
+  var maxIndex = undefined;
+  for (var i = 0; i < array.length; i++) {
+    if(array[i]==undefined)
+      continue;
+
+    var testVal= array[i];
+    if(testVal<0)
+      testVal=testVal*-1;
+
+    if(testVal>maxVal){
+      maxVal=testVal;
+      maxIndex=i;
+    }
+  }
+  return maxIndex;
+}
+
 function changeMarkReportCursor(){
-  doPixelMarking = document.getElementById("id_Test_SubReport_DoMarkedCursor").checked;
+  doPixelMarking = document.getElementById("id_Test_RatioReport_DoMarkedCursor").checked;
 }
 
 function drawPreviewPixels(x,y){
@@ -627,6 +685,7 @@ function switchPixelPreviewModus(e){
     pixelPreviewY = mousePosY;
     document.getElementById("id_pixelPreviewModus").innerHTML = "Modus".bold()+": Fixed Pixel (x:"+mousePosX+", y:"+mousePosY+")";
     drawPreviewPixels(mousePosX,mousePosY);
+    fillSubReportTable(mousePosX,mousePosY);
     var context_OrginalCCanvas_Pixel =  document.getElementById("id_TestPage_ReportOrginalCCanvas_Pixel").getContext('2d');
     var context_OrginalGCanvas_Pixel =  document.getElementById("id_TestPage_ReportOrginalGCanvas_Pixel").getContext('2d');
     var context_Orginal0Canvas_Pixel =  document.getElementById("id_TestPage_Report0Canvas_Pixel").getContext('2d');
@@ -646,9 +705,9 @@ function switchPixelPreviewModus(e){
 }
 
 
-function eventSubReport_mouseleave(){
+function eventRatioReport_mouseleave(){
 
-  var selectedIndex = document.getElementById("id_TestPage_ReportList").selectedIndex;
+  /*var selectedIndex = document.getElementById("id_TestPage_ReportList").selectedIndex;
 
   var context_OrginalCCanvas_Pixel =  document.getElementById("id_TestPage_ReportOrginalCCanvas_Pixel").getContext('2d');
   var context_OrginalGCanvas_Pixel =  document.getElementById("id_TestPage_ReportOrginalGCanvas_Pixel").getContext('2d');
@@ -660,11 +719,322 @@ function eventSubReport_mouseleave(){
   context_OrginalGCanvas_Pixel.clearRect(0, 0, reportListTestField[selectedIndex].length, reportListTestField[selectedIndex][0].length);
   context_Orginal0Canvas_Pixel.clearRect(0, 0, reportListTestField[selectedIndex].length, reportListTestField[selectedIndex][0].length);
   context_Orginal1Canvas_Pixel.clearRect(0, 0, reportListTestField[selectedIndex].length, reportListTestField[selectedIndex][0].length);
-  context_Orginal2Canvas_Pixel.clearRect(0, 0, reportListTestField[selectedIndex].length, reportListTestField[selectedIndex][0].length);
+  context_Orginal2Canvas_Pixel.clearRect(0, 0, reportListTestField[selectedIndex].length, reportListTestField[selectedIndex][0].length);*/
 
 }
 
 
 function eventSubReport_mouseenter(){
+
+}
+
+
+
+function fillSubReportTable(x,y){
+
+  var selectedIndex = document.getElementById("id_TestPage_ReportList").selectedIndex;
+
+  var old_tbody = document.getElementById("id_ratioReportTableBody");
+  var new_tbody = document.createElement('tbody');
+
+  var tableInfo = [undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined];
+
+  if(x != undefined && y != undefined){
+
+    var indexMaxRatioValue = undefined;
+    var indexMaxRatioColor = undefined;
+    var indexMaxRatioSub = undefined;
+
+    switch (x) {
+      case 0:
+
+          switch (y) {
+            case 0:
+              // left bottom corner
+
+                indexMaxRatioValue = getMaxIndex([undefined,valueRatioInfo[1][x][y],valueRatioInfo[2][x][y],undefined,valueDifInfo[0][x][y],undefined,undefined,undefined]);
+                indexMaxRatioColor = getMaxIndex([undefined,colorRatioInfo[1][x][y],colorRatioInfo[2][x][y],undefined,colorRatioInfo[0][x][y],undefined,undefined,undefined]);
+                indexMaxRatioSub = getMaxIndex([undefined,ratioInfo[1][x][y],ratioInfo[2][x][y],undefined,ratioInfo[0][x][y],undefined,undefined,undefined]);
+                tableInfo[1] = [valueDifInfo[1][x][y],valueRatioInfo[1][x][y],reportColorValueDifColormap.calculateColor(valueRatioInfo[1][x][y]),colorDifInfo[1][x][y],colorRatioInfo[1][x][y],reportColorValueDifColormap.calculateColor(colorRatioInfo[1][x][y]),ratioInfo[1][x][y],reportColorValueDifColormap.calculateColor(ratioInfo[1][x][y]),false,false,false];
+                tableInfo[2] = [valueDifInfo[2][x][y],valueRatioInfo[2][x][y],reportColorValueDifColormap.calculateColor(valueRatioInfo[2][x][y]),colorDifInfo[2][x][y],colorRatioInfo[2][x][y],reportColorValueDifColormap.calculateColor(colorRatioInfo[2][x][y]),ratioInfo[2][x][y],reportColorValueDifColormap.calculateColor(ratioInfo[2][x][y]),false,false,false];
+                tableInfo[4] = [valueDifInfo[0][x][y],valueRatioInfo[0][x][y],reportColorValueDifColormap.calculateColor(valueRatioInfo[0][x][y]),colorDifInfo[0][x][y],colorRatioInfo[0][x][y],reportColorValueDifColormap.calculateColor(colorRatioInfo[0][x][y]),ratioInfo[0][x][y],reportColorValueDifColormap.calculateColor(ratioInfo[0][x][y]),false,false,false];
+
+              break;
+              case reportListTestField[selectedIndex][0].length-1:
+                  // left top corner
+                  indexMaxRatioValue = getMaxIndex([undefined,undefined,undefined,undefined,valueRatioInfo[0][x][y],undefined,valueRatioInfo[1][x][y-1],valueRatioInfo[3][x][y-1]]);
+                  indexMaxRatioColor = getMaxIndex([undefined,undefined,undefined,undefined,colorRatioInfo[0][x][y],undefined,colorRatioInfo[1][x][y-1],colorRatioInfo[3][x][y-1]]);
+                  indexMaxRatioSub = getMaxIndex([undefined,undefined,undefined,undefined,ratioInfo[0][x][y],undefined,ratioInfo[1][x][y-1],ratioInfo[3][x][y-1]]);
+                  tableInfo[4] = [valueDifInfo[0][x][y],valueRatioInfo[0][x][y],reportColorValueDifColormap.calculateColor(valueRatioInfo[0][x][y]),colorDifInfo[0][x][y],colorRatioInfo[0][x][y],reportColorValueDifColormap.calculateColor(colorRatioInfo[0][x][y]),ratioInfo[0][x][y],reportColorValueDifColormap.calculateColor(ratioInfo[0][x][y]),false,false,false];
+                  tableInfo[6] = [valueDifInfo[1][x][y-1],valueRatioInfo[1][x][y-1],reportColorValueDifColormap.calculateColor(valueRatioInfo[1][x][y-1]),colorDifInfo[1][x][y-1],colorRatioInfo[1][x][y-1],reportColorValueDifColormap.calculateColor(colorRatioInfo[1][x][y-1]),ratioInfo[1][x][y-1],reportColorValueDifColormap.calculateColor(ratioInfo[1][x][y-1]),false,false,false];
+                  tableInfo[7] = [valueDifInfo[3][x][y-1],valueRatioInfo[3][x][y-1],reportColorValueDifColormap.calculateColor(valueRatioInfo[3][x][y-1]),colorDifInfo[3][x][y-1],colorRatioInfo[3][x][y-1],reportColorValueDifColormap.calculateColor(colorRatioInfo[3][x][y-1]),ratioInfo[3][x][y-1],reportColorValueDifColormap.calculateColor(ratioInfo[3][x][y-1]),false,false,false];
+                break;
+            default:
+                // left side
+                indexMaxRatioValue = getMaxIndex([undefined,valueRatioInfo[1][x][y],valueRatioInfo[2][x][y],undefined,valueDifInfo[0][x][y],undefined,valueRatioInfo[1][x][y-1],valueRatioInfo[3][x][y-1]]);
+                indexMaxRatioColor = getMaxIndex([undefined,colorRatioInfo[1][x][y],colorRatioInfo[2][x][y],undefined,colorRatioInfo[0][x][y],undefined,colorRatioInfo[1][x][y-1],colorRatioInfo[3][x][y-1]]);
+                indexMaxRatioSub = getMaxIndex([undefined,ratioInfo[1][x][y],ratioInfo[2][x][y],undefined,ratioInfo[0][x][y],undefined,ratioInfo[1][x][y-1],ratioInfo[3][x][y-1]]);
+                tableInfo[1] = [valueDifInfo[1][x][y],valueRatioInfo[1][x][y],reportColorValueDifColormap.calculateColor(valueRatioInfo[1][x][y]),colorDifInfo[1][x][y],colorRatioInfo[1][x][y],reportColorValueDifColormap.calculateColor(colorRatioInfo[1][x][y]),ratioInfo[1][x][y],reportColorValueDifColormap.calculateColor(ratioInfo[1][x][y]),false,false,false];
+                tableInfo[2] = [valueDifInfo[2][x][y],valueRatioInfo[2][x][y],reportColorValueDifColormap.calculateColor(valueRatioInfo[2][x][y]),colorDifInfo[2][x][y],colorRatioInfo[2][x][y],reportColorValueDifColormap.calculateColor(colorRatioInfo[2][x][y]),ratioInfo[2][x][y],reportColorValueDifColormap.calculateColor(ratioInfo[2][x][y]),false,false,false];
+                tableInfo[4] = [valueDifInfo[0][x][y],valueRatioInfo[0][x][y],reportColorValueDifColormap.calculateColor(valueRatioInfo[0][x][y]),colorDifInfo[0][x][y],colorRatioInfo[0][x][y],reportColorValueDifColormap.calculateColor(colorRatioInfo[0][x][y]),ratioInfo[0][x][y],reportColorValueDifColormap.calculateColor(ratioInfo[0][x][y]),false,false,false];
+                tableInfo[6] = [valueDifInfo[1][x][y-1],valueRatioInfo[1][x][y-1],reportColorValueDifColormap.calculateColor(valueRatioInfo[1][x][y-1]),colorDifInfo[1][x][y-1],colorRatioInfo[1][x][y-1],reportColorValueDifColormap.calculateColor(colorRatioInfo[1][x][y-1]),ratioInfo[1][x][y-1],reportColorValueDifColormap.calculateColor(ratioInfo[1][x][y-1]),false,false,false];
+                tableInfo[7] = [valueDifInfo[3][x][y-1],valueRatioInfo[3][x][y-1],reportColorValueDifColormap.calculateColor(valueRatioInfo[3][x][y-1]),colorDifInfo[3][x][y-1],colorRatioInfo[3][x][y-1],reportColorValueDifColormap.calculateColor(colorRatioInfo[3][x][y-1]),ratioInfo[3][x][y-1],reportColorValueDifColormap.calculateColor(ratioInfo[3][x][y-1]),false,false,false];
+          }
+
+        break;
+        case reportListTestField[selectedIndex].length-1:
+
+            switch (y) {
+              case 0:
+                //  right bottom corner
+                indexMaxRatioValue = getMaxIndex([valueRatioInfo[3][x-1][y],valueRatioInfo[1][x][y],undefined,valueRatioInfo[0][x-1][y],undefined,undefined,undefined,undefined]);
+                indexMaxRatioColor = getMaxIndex([colorRatioInfo[3][x-1][y],colorRatioInfo[1][x][y],undefined,colorRatioInfo[0][x-1][y],undefined,undefined,undefined,undefined]);
+                indexMaxRatioSub = getMaxIndex([ratioInfo[3][x-1][y],ratioInfo[1][x][y],undefined,ratioInfo[0][x-1][y],undefined,undefined,undefined,undefined]);
+                tableInfo[0] = [valueDifInfo[3][x-1][y],valueRatioInfo[3][x-1][y],reportColorValueDifColormap.calculateColor(valueRatioInfo[3][x-1][y]),colorDifInfo[3][x-1][y],colorRatioInfo[3][x-1][y],reportColorValueDifColormap.calculateColor(colorRatioInfo[3][x-1][y]),ratioInfo[3][x-1][y],reportColorValueDifColormap.calculateColor(ratioInfo[3][x-1][y]),false,false,false];
+                tableInfo[1] = [valueDifInfo[1][x][y],valueRatioInfo[1][x][y],reportColorValueDifColormap.calculateColor(valueRatioInfo[1][x][y]),colorDifInfo[1][x][y],colorRatioInfo[1][x][y],reportColorValueDifColormap.calculateColor(colorRatioInfo[1][x][y]),ratioInfo[1][x][y],reportColorValueDifColormap.calculateColor(ratioInfo[1][x][y]),false,false,false];
+                tableInfo[3] = [valueDifInfo[0][x-1][y],valueRatioInfo[0][x-1][y],reportColorValueDifColormap.calculateColor(valueRatioInfo[0][x-1][y]),colorDifInfo[0][x-1][y],colorRatioInfo[0][x-1][y],reportColorValueDifColormap.calculateColor(colorRatioInfo[0][x-1][y]),ratioInfo[0][x-1][y],reportColorValueDifColormap.calculateColor(ratioInfo[0][x-1][y]),false,false,false];
+                break;
+                case reportListTestField[selectedIndex][0].length-1:
+                  //  right top corner
+                  indexMaxRatioValue = getMaxIndex([undefined,undefined,undefined,valueRatioInfo[0][x-1][y],undefined,valueRatioInfo[2][x-1][y-1],valueRatioInfo[1][x][y-1],undefined]);
+                  indexMaxRatioColor = getMaxIndex([undefined,undefined,undefined,colorRatioInfo[0][x-1][y],undefined,colorRatioInfo[2][x-1][y-1],colorRatioInfo[1][x][y-1],undefined]);
+                  indexMaxRatioSub = getMaxIndex([undefined,undefined,undefined,ratioInfo[0][x-1][y],undefined,ratioInfo[2][x-1][y-1],ratioInfo[1][x][y-1],undefined]);
+                  tableInfo[3] = [valueDifInfo[0][x-1][y],valueRatioInfo[0][x-1][y],reportColorValueDifColormap.calculateColor(valueRatioInfo[0][x-1][y]),colorDifInfo[0][x-1][y],colorRatioInfo[0][x-1][y],reportColorValueDifColormap.calculateColor(colorRatioInfo[0][x-1][y]),ratioInfo[0][x-1][y],reportColorValueDifColormap.calculateColor(ratioInfo[0][x-1][y]),false,false,false];
+                  tableInfo[5] = [valueDifInfo[2][x-1][y-1],valueRatioInfo[2][x-1][y-1],reportColorValueDifColormap.calculateColor(valueRatioInfo[2][x-1][y-1]),colorDifInfo[2][x-1][y-1],colorRatioInfo[2][x-1][y-1],reportColorValueDifColormap.calculateColor(colorRatioInfo[2][x-1][y-1]),ratioInfo[2][x-1][y-1],reportColorValueDifColormap.calculateColor(ratioInfo[2][x-1][y-1]),false,false,false];
+                  tableInfo[6] = [valueDifInfo[1][x][y-1],valueRatioInfo[1][x][y-1],reportColorValueDifColormap.calculateColor(valueRatioInfo[1][x][y-1]),colorDifInfo[1][x][y-1],colorRatioInfo[1][x][y-1],reportColorValueDifColormap.calculateColor(colorRatioInfo[1][x][y-1]),ratioInfo[1][x][y-1],reportColorValueDifColormap.calculateColor(ratioInfo[1][x][y-1]),false,false,false];
+                  break;
+              default:
+                // right sieht
+                indexMaxRatioValue = getMaxIndex([valueRatioInfo[3][x-1][y],valueRatioInfo[1][x][y],undefined,valueRatioInfo[0][x-1][y],undefined,valueRatioInfo[2][x-1][y-1],valueRatioInfo[1][x][y-1],undefined]);
+                indexMaxRatioColor = getMaxIndex([colorRatioInfo[3][x-1][y],colorRatioInfo[1][x][y],undefined,colorRatioInfo[0][x-1][y],undefined,colorRatioInfo[2][x-1][y-1],colorRatioInfo[1][x][y-1],undefined]);
+                indexMaxRatioSub = getMaxIndex([ratioInfo[3][x-1][y],ratioInfo[1][x][y],undefined,ratioInfo[0][x-1][y],undefined,ratioInfo[2][x-1][y-1],ratioInfo[1][x][y-1],undefined]);
+                tableInfo[0] = [valueDifInfo[3][x-1][y],valueRatioInfo[3][x-1][y],reportColorValueDifColormap.calculateColor(valueRatioInfo[3][x-1][y]),colorDifInfo[3][x-1][y],colorRatioInfo[3][x-1][y],reportColorValueDifColormap.calculateColor(colorRatioInfo[3][x-1][y]),ratioInfo[3][x-1][y],reportColorValueDifColormap.calculateColor(ratioInfo[3][x-1][y]),false,false,false];
+                tableInfo[1] = [valueDifInfo[1][x][y],valueRatioInfo[1][x][y],reportColorValueDifColormap.calculateColor(valueRatioInfo[1][x][y]),colorDifInfo[1][x][y],colorRatioInfo[1][x][y],reportColorValueDifColormap.calculateColor(colorRatioInfo[1][x][y]),ratioInfo[1][x][y],reportColorValueDifColormap.calculateColor(ratioInfo[1][x][y]),false,false,false];
+                tableInfo[3] = [valueDifInfo[0][x-1][y],valueRatioInfo[0][x-1][y],reportColorValueDifColormap.calculateColor(valueRatioInfo[0][x-1][y]),colorDifInfo[0][x-1][y],colorRatioInfo[0][x-1][y],reportColorValueDifColormap.calculateColor(colorRatioInfo[0][x-1][y]),ratioInfo[0][x-1][y],reportColorValueDifColormap.calculateColor(ratioInfo[0][x-1][y]),false,false,false];
+                tableInfo[5] = [valueDifInfo[2][x-1][y-1],valueRatioInfo[2][x-1][y-1],reportColorValueDifColormap.calculateColor(valueRatioInfo[2][x-1][y-1]),colorDifInfo[2][x-1][y-1],colorRatioInfo[2][x-1][y-1],reportColorValueDifColormap.calculateColor(colorRatioInfo[2][x-1][y-1]),ratioInfo[2][x-1][y-1],reportColorValueDifColormap.calculateColor(ratioInfo[2][x-1][y-1]),false,false,false];
+                tableInfo[6] = [valueDifInfo[1][x][y-1],valueRatioInfo[1][x][y-1],reportColorValueDifColormap.calculateColor(valueRatioInfo[1][x][y-1]),colorDifInfo[1][x][y-1],colorRatioInfo[1][x][y-1],reportColorValueDifColormap.calculateColor(colorRatioInfo[1][x][y-1]),ratioInfo[1][x][y-1],reportColorValueDifColormap.calculateColor(ratioInfo[1][x][y-1]),false,false,false];
+            }
+          break;
+      default:
+
+      switch (y) {
+        case 0:
+          //  bottom side
+          indexMaxRatioValue = getMaxIndex([valueRatioInfo[3][x-1][y],valueRatioInfo[1][x][y],valueRatioInfo[2][x][y],valueRatioInfo[0][x-1][y],valueRatioInfo[0][x][y],undefined,undefined,undefined]);
+          indexMaxRatioColor = getMaxIndex([colorRatioInfo[3][x-1][y],colorRatioInfo[1][x][y],colorRatioInfo[2][x][y],colorRatioInfo[0][x-1][y],colorRatioInfo[0][x][y],undefined,undefined,undefined]);
+          indexMaxRatioSub = getMaxIndex([ratioInfo[3][x-1][y],ratioInfo[1][x][y],ratioInfo[2][x][y],ratioInfo[0][x-1][y],ratioInfo[0][x][y],undefined,undefined,undefined]);
+          tableInfo[0] = [valueDifInfo[3][x-1][y],valueRatioInfo[3][x-1][y],reportColorValueDifColormap.calculateColor(valueRatioInfo[3][x-1][y]),colorDifInfo[3][x-1][y],colorRatioInfo[3][x-1][y],reportColorValueDifColormap.calculateColor(colorRatioInfo[3][x-1][y]),ratioInfo[3][x-1][y],reportColorValueDifColormap.calculateColor(ratioInfo[3][x-1][y]),false,false,false];
+          tableInfo[1] = [valueDifInfo[1][x][y],valueRatioInfo[1][x][y],reportColorValueDifColormap.calculateColor(valueRatioInfo[1][x][y]),colorDifInfo[1][x][y],colorRatioInfo[1][x][y],reportColorValueDifColormap.calculateColor(colorRatioInfo[1][x][y]),ratioInfo[1][x][y],reportColorValueDifColormap.calculateColor(ratioInfo[1][x][y]),false,false,false];
+          tableInfo[2] = [valueDifInfo[2][x][y],valueRatioInfo[2][x][y],reportColorValueDifColormap.calculateColor(valueRatioInfo[2][x][y]),colorDifInfo[2][x][y],colorRatioInfo[2][x][y],reportColorValueDifColormap.calculateColor(colorRatioInfo[2][x][y]),ratioInfo[2][x][y],reportColorValueDifColormap.calculateColor(ratioInfo[2][x][y]),false,false,false];
+          tableInfo[3] = [valueDifInfo[0][x-1][y],valueRatioInfo[0][x-1][y],reportColorValueDifColormap.calculateColor(valueRatioInfo[0][x-1][y]),colorDifInfo[0][x-1][y],colorRatioInfo[0][x-1][y],reportColorValueDifColormap.calculateColor(colorRatioInfo[0][x-1][y]),ratioInfo[0][x-1][y],reportColorValueDifColormap.calculateColor(ratioInfo[0][x-1][y]),false,false,false];
+          tableInfo[4] = [valueDifInfo[0][x][y],valueRatioInfo[0][x][y],reportColorValueDifColormap.calculateColor(valueRatioInfo[0][x][y]),colorDifInfo[0][x][y],colorRatioInfo[0][x][y],reportColorValueDifColormap.calculateColor(colorRatioInfo[0][x][y]),ratioInfo[0][x][y],reportColorValueDifColormap.calculateColor(ratioInfo[0][x][y]),false,false,false];
+          break;
+          case reportListTestField[selectedIndex][0].length-1:
+          // top side
+          indexMaxRatioValue = getMaxIndex([undefined,undefined,undefined,valueRatioInfo[0][x-1][y],valueRatioInfo[0][x][y],valueRatioInfo[2][x-1][y-1],valueRatioInfo[1][x][y-1],valueRatioInfo[3][x][y-1]]);
+          indexMaxRatioColor = getMaxIndex([undefined,undefined,undefined,colorRatioInfo[0][x-1][y],colorRatioInfo[0][x][y],colorRatioInfo[2][x-1][y-1],colorRatioInfo[1][x][y-1],colorRatioInfo[3][x][y-1]]);
+          indexMaxRatioSub = getMaxIndex([undefined,undefined,undefined,ratioInfo[0][x-1][y],ratioInfo[0][x][y],ratioInfo[2][x-1][y-1],ratioInfo[1][x][y-1],ratioInfo[3][x][y-1]]);
+          tableInfo[3] = [valueDifInfo[0][x-1][y],valueRatioInfo[0][x-1][y],reportColorValueDifColormap.calculateColor(valueRatioInfo[0][x-1][y]),colorDifInfo[0][x-1][y],colorRatioInfo[0][x-1][y],reportColorValueDifColormap.calculateColor(colorRatioInfo[0][x-1][y]),ratioInfo[0][x-1][y],reportColorValueDifColormap.calculateColor(ratioInfo[0][x-1][y]),false,false,false];
+          tableInfo[4] = [valueDifInfo[0][x][y],valueRatioInfo[0][x][y],reportColorValueDifColormap.calculateColor(valueRatioInfo[0][x][y]),colorDifInfo[0][x][y],colorRatioInfo[0][x][y],reportColorValueDifColormap.calculateColor(colorRatioInfo[0][x][y]),ratioInfo[0][x][y],reportColorValueDifColormap.calculateColor(ratioInfo[0][x][y]),false,false,false];
+          tableInfo[5] = [valueDifInfo[2][x-1][y-1],valueRatioInfo[2][x-1][y-1],reportColorValueDifColormap.calculateColor(valueRatioInfo[2][x-1][y-1]),colorDifInfo[2][x-1][y-1],colorRatioInfo[2][x-1][y-1],reportColorValueDifColormap.calculateColor(colorRatioInfo[2][x-1][y-1]),ratioInfo[2][x-1][y-1],reportColorValueDifColormap.calculateColor(ratioInfo[2][x-1][y-1]),false,false,false];
+          tableInfo[6] = [valueDifInfo[1][x][y-1],valueRatioInfo[1][x][y-1],reportColorValueDifColormap.calculateColor(valueRatioInfo[1][x][y-1]),colorDifInfo[1][x][y-1],colorRatioInfo[1][x][y-1],reportColorValueDifColormap.calculateColor(colorRatioInfo[1][x][y-1]),ratioInfo[1][x][y-1],reportColorValueDifColormap.calculateColor(ratioInfo[1][x][y-1]),false,false,false];
+          tableInfo[7] = [valueDifInfo[3][x][y-1],valueRatioInfo[3][x][y-1],reportColorValueDifColormap.calculateColor(valueRatioInfo[3][x][y-1]),colorDifInfo[3][x][y-1],colorRatioInfo[3][x][y-1],reportColorValueDifColormap.calculateColor(colorRatioInfo[3][x][y-1]),ratioInfo[3][x][y-1],reportColorValueDifColormap.calculateColor(ratioInfo[3][x][y-1]),false,false,false];
+            break;
+        default:
+        indexMaxRatioValue = getMaxIndex([valueRatioInfo[3][x-1][y],valueRatioInfo[1][x][y],valueRatioInfo[2][x][y],valueRatioInfo[0][x-1][y],valueRatioInfo[0][x][y],valueRatioInfo[2][x-1][y-1],valueRatioInfo[1][x][y-1],valueRatioInfo[3][x][y-1]]);
+        indexMaxRatioColor = getMaxIndex([colorRatioInfo[3][x-1][y],colorRatioInfo[1][x][y],colorRatioInfo[2][x][y],colorRatioInfo[0][x-1][y],colorRatioInfo[0][x][y],colorRatioInfo[2][x-1][y-1],colorRatioInfo[1][x][y-1],colorRatioInfo[3][x][y-1]]);
+        indexMaxRatioSub = getMaxIndex([ratioInfo[3][x-1][y],ratioInfo[1][x][y],ratioInfo[2][x][y],ratioInfo[0][x-1][y],ratioInfo[0][x][y],ratioInfo[2][x-1][y-1],ratioInfo[1][x][y-1],ratioInfo[3][x][y-1]]);
+        tableInfo[0] = [valueDifInfo[3][x-1][y],valueRatioInfo[3][x-1][y],reportColorValueDifColormap.calculateColor(valueRatioInfo[3][x-1][y]),colorDifInfo[3][x-1][y],colorRatioInfo[3][x-1][y],reportColorValueDifColormap.calculateColor(colorRatioInfo[3][x-1][y]),ratioInfo[3][x-1][y],reportColorValueDifColormap.calculateColor(ratioInfo[3][x-1][y]),false,false,false];
+        tableInfo[1] = [valueDifInfo[1][x][y],valueRatioInfo[1][x][y],reportColorValueDifColormap.calculateColor(valueRatioInfo[1][x][y]),colorDifInfo[1][x][y],colorRatioInfo[1][x][y],reportColorValueDifColormap.calculateColor(colorRatioInfo[1][x][y]),ratioInfo[1][x][y],reportColorValueDifColormap.calculateColor(ratioInfo[1][x][y]),false,false,false];
+        tableInfo[2] = [valueDifInfo[2][x][y],valueRatioInfo[2][x][y],reportColorValueDifColormap.calculateColor(valueRatioInfo[2][x][y]),colorDifInfo[2][x][y],colorRatioInfo[2][x][y],reportColorValueDifColormap.calculateColor(colorRatioInfo[2][x][y]),ratioInfo[2][x][y],reportColorValueDifColormap.calculateColor(ratioInfo[2][x][y]),false,false,false];
+        tableInfo[3] = [valueDifInfo[0][x-1][y],valueRatioInfo[0][x-1][y],reportColorValueDifColormap.calculateColor(valueRatioInfo[0][x-1][y]),colorDifInfo[0][x-1][y],colorRatioInfo[0][x-1][y],reportColorValueDifColormap.calculateColor(colorRatioInfo[0][x-1][y]),ratioInfo[0][x-1][y],reportColorValueDifColormap.calculateColor(ratioInfo[0][x-1][y]),false,false,false];
+        tableInfo[4] = [valueDifInfo[0][x][y],valueRatioInfo[0][x][y],reportColorValueDifColormap.calculateColor(valueRatioInfo[0][x][y]),colorDifInfo[0][x][y],colorRatioInfo[0][x][y],reportColorValueDifColormap.calculateColor(colorRatioInfo[0][x][y]),ratioInfo[0][x][y],reportColorValueDifColormap.calculateColor(ratioInfo[0][x][y]),false,false,false];
+        tableInfo[5] = [valueDifInfo[2][x-1][y-1],valueRatioInfo[2][x-1][y-1],reportColorValueDifColormap.calculateColor(valueRatioInfo[2][x-1][y-1]),colorDifInfo[2][x-1][y-1],colorRatioInfo[2][x-1][y-1],reportColorValueDifColormap.calculateColor(colorRatioInfo[2][x-1][y-1]),ratioInfo[2][x-1][y-1],reportColorValueDifColormap.calculateColor(ratioInfo[2][x-1][y-1]),false,false,false];
+        tableInfo[6] = [valueDifInfo[1][x][y-1],valueRatioInfo[1][x][y-1],reportColorValueDifColormap.calculateColor(valueRatioInfo[1][x][y-1]),colorDifInfo[1][x][y-1],colorRatioInfo[1][x][y-1],reportColorValueDifColormap.calculateColor(colorRatioInfo[1][x][y-1]),ratioInfo[1][x][y-1],reportColorValueDifColormap.calculateColor(ratioInfo[1][x][y-1]),false,false,false];
+        tableInfo[7] = [valueDifInfo[3][x][y-1],valueRatioInfo[3][x][y-1],reportColorValueDifColormap.calculateColor(valueRatioInfo[3][x][y-1]),colorDifInfo[3][x][y-1],colorRatioInfo[3][x][y-1],reportColorValueDifColormap.calculateColor(colorRatioInfo[3][x][y-1]),ratioInfo[3][x][y-1],reportColorValueDifColormap.calculateColor(ratioInfo[3][x][y-1]),false,false,false];
+      }
+
+    }//*/
+
+    console.log(indexMaxRatioValue,indexMaxRatioColor,indexMaxRatioSub);
+
+    if(indexMaxRatioValue!=undefined)
+      tableInfo[indexMaxRatioValue][8]=true;
+
+      if(indexMaxRatioColor!=undefined)
+        tableInfo[indexMaxRatioColor][9]=true;
+
+        if(indexMaxRatioSub!=undefined)
+          tableInfo[indexMaxRatioSub][10]=true;
+
+  }
+
+
+  for (var i = 0; i < tableInfo.length; i++) {
+
+    var className = "class_tableInput";
+    if(i%2==1){
+      className = "class_tableInputDark";
+    }
+
+    /*if(tableInfo!=undefined){
+
+    }*/
+
+    var tr = document.createElement('tr');
+
+    // ID
+    td = document.createElement('td')
+    td.className = className;
+    td.style.width = "2vw";
+    td.style.maxWidth = "2vw";
+    td.appendChild(document.createTextNode(i+1));
+    tr.appendChild(td);
+
+    //////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////
+    // Value
+    td = document.createElement('td')
+    td.className = className;
+    td.style.width = "6vw";
+    td.style.maxWidth = "6vw";
+    if(tableInfo[i]!=undefined)
+      td.appendChild(document.createTextNode(tableInfo[i][0]));
+    else
+      td.appendChild(document.createTextNode("/"));
+    tr.appendChild(td);
+
+    // Ratio Value
+    td = document.createElement('td')
+    td.className = className;
+    td.style.width = "6vw";
+    td.style.maxWidth = "6vw";
+    td.style.borderRight = "none";
+    if(tableInfo[i]!=undefined){
+      td.appendChild(document.createTextNode(tableInfo[i][1]));
+
+      if(tableInfo[i][8]){
+        td.style.borderWidth = "0.2vh";
+        td.style.borderColor = "rgb(0,0,0)";
+      }
+    }
+    else
+      td.appendChild(document.createTextNode("/"));
+
+
+
+    tr.appendChild(td);
+
+    // Colored Entry for Ratio Value
+    td = document.createElement('td')
+    td.className = className;
+    td.style.width = "1vw";
+    td.style.maxWidth = "1vw";
+    td.style.borderLeft = "none";
+    if(tableInfo[i]!=undefined){
+      td.style.background = tableInfo[i][2].getRGBString();
+
+      if(tableInfo[i][8]){
+        td.style.borderWidth = "0.2vh";
+        td.style.borderColor = "rgb(0,0,0)";
+      }
+    }
+    tr.appendChild(td);
+
+    //////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////
+    // Color Dif
+    td = document.createElement('td')
+    td.className = className;
+    td.style.width = "6vw";
+    td.style.maxWidth = "6vw";
+    if(tableInfo[i]!=undefined)
+      td.appendChild(document.createTextNode(tableInfo[i][3]));
+    else
+      td.appendChild(document.createTextNode("/"));
+    tr.appendChild(td);
+
+    // Ratio Color Dif
+    td = document.createElement('td')
+    td.className = className;
+    td.style.width = "6vw";
+    td.style.maxWidth = "6vw";
+    td.style.borderRight = "none";
+    if(tableInfo[i]!=undefined){
+        td.appendChild(document.createTextNode(tableInfo[i][4]));
+
+        if(tableInfo[i][9]){
+          td.style.borderWidth = "0.2vh";
+          td.style.borderColor = "rgb(0,0,0)";
+        }
+    }
+    else
+      td.appendChild(document.createTextNode("/"));
+
+
+    tr.appendChild(td);
+
+    // Colored Entry for Ratio Color Dif
+    td = document.createElement('td')
+    td.className = className;
+    td.style.width = "1vw";
+    td.style.maxWidth = "1vw";
+    td.style.borderLeft = "none";
+    if(tableInfo[i]!=undefined){
+      td.style.background = tableInfo[i][5].getRGBString();
+
+      if(tableInfo[i][9]){
+        td.style.borderWidth = "0.2vh";
+        td.style.borderColor = "rgb(0,0,0)";
+      }
+    }
+    tr.appendChild(td);
+
+    //////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////
+    // Subtraction Field
+    td = document.createElement('td')
+    td.className = className;
+    td.style.width = "6vw";
+    td.style.maxWidth = "6vw";
+    td.style.borderRight = "none";
+    if(tableInfo[i]!=undefined){
+      td.appendChild(document.createTextNode(tableInfo[i][6]));
+
+      if(tableInfo[i][10]){
+        td.style.borderWidth = "0.2vh";
+        td.style.borderColor = "rgb(0,0,0)";
+      }
+    }
+    else
+      td.appendChild(document.createTextNode("/"));
+
+
+    tr.appendChild(td);
+
+    // Colored Entry for Subtraction
+    td = document.createElement('td')
+    td.className = className;
+    td.style.width = "1vw";
+    td.style.maxWidth = "1vw";
+    td.style.borderLeft = "none";
+    if(tableInfo[i]!=undefined){
+      td.style.background = tableInfo[i][7].getRGBString();
+
+      if(tableInfo[i][10]){
+        td.style.borderWidth = "0.2vh";
+        td.style.borderColor = "rgb(0,0,0)";
+      }
+
+    }
+
+    tr.appendChild(td);
+
+    new_tbody.appendChild(tr);
+
+  }
+
+  old_tbody.parentNode.replaceChild(new_tbody, old_tbody);
+  new_tbody.id="id_ratioReportTableBody";
 
 }

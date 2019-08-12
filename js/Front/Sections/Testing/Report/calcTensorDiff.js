@@ -4,6 +4,7 @@ function getRatioDifField(testfield, colorField, colorDifType){
   ////  Step 1: Calc Value Dif and Color Dif
   ////////////////////////////////////////////
 
+
   var xColorDifArray = [];
   var yColorDifArray = [];
   var diagonal1ColorDifArray = []; // x+1, y+1
@@ -27,7 +28,7 @@ function getRatioDifField(testfield, colorField, colorDifType){
   var xDim = colorField.length;
   var yDim = colorField[0].length;
 
-        for (var x = 0; x < xDim; x++) {
+      for (var x = 0; x < xDim; x++) {
         var tmpArrayX = [];
         var tmpCDifArrayX = [];
         var tmpArrayY = [];
@@ -146,58 +147,37 @@ function getRatioDifField(testfield, colorField, colorDifType){
       ////////////////////////////////////////////
 
 
-      console.log("Min=",tmpShouldBeColorMin,"Max=",tmpShouldBeColorMax);
+      //console.log("Min=",tmpShouldBeColorMin,"Max=",tmpShouldBeColorMax);
 
-      /*xColorDifArray = makeRatioField(xColorDifArray, tmpShouldBeColorMin, tmpShouldBeColorMax);
-      yColorDifArray = makeRatioField(yColorDifArray, tmpShouldBeColorMin, tmpShouldBeColorMax);
-      diagonal1ColorDifArray = makeRatioField(diagonal1ColorDifArray, tmpShouldBeColorMin, tmpShouldBeColorMax);
-      diagonal2ColorDifArray = makeRatioField(diagonal2ColorDifArray, tmpShouldBeColorMin, tmpShouldBeColorMax);//*/
 
-      xColorDifArray = makeRatioField(xColorDifArray, tmpColorMin, tmpColorMax);
-      yColorDifArray = makeRatioField(yColorDifArray, tmpColorMin, tmpColorMax);
-      diagonal1ColorDifArray = makeRatioField(diagonal1ColorDifArray, tmpColorMin, tmpColorMax);
-      diagonal2ColorDifArray = makeRatioField(diagonal2ColorDifArray, tmpColorMin, tmpColorMax);//*/
+      /*var xColorDifArray_Ratio = makeRatioField(xColorDifArray, tmpShouldBeColorMin, tmpShouldBeColorMax);
+      var yColorDifArray_Ratio = makeRatioField(yColorDifArray, tmpShouldBeColorMin, tmpShouldBeColorMax);
+      var diagonal1ColorDifArray_Ratio = makeRatioField(diagonal1ColorDifArray, tmpShouldBeColorMin, tmpShouldBeColorMax);
+      var diagonal2ColorDifArray_Ratio = makeRatioField(diagonal2ColorDifArray, tmpShouldBeColorMin, tmpShouldBeColorMax);//*/
 
-      xDifArray = makeRatioField(xDifArray, tmpMin, tmpMax);
-      yDifArray = makeRatioField(yDifArray, tmpMin, tmpMax);
-      diagonal1DifArray = makeRatioField(diagonal1DifArray, tmpMin, tmpMax);
-      diagonal2DifArray = makeRatioField(diagonal2DifArray, tmpMin, tmpMax);
+      var xColorDifArray_Ratio = makeRatioField(xColorDifArray, tmpColorMin, tmpColorMax);
+      var yColorDifArray_Ratio = makeRatioField(yColorDifArray, tmpColorMin, tmpColorMax);
+      var diagonal1ColorDifArray_Ratio = makeRatioField(diagonal1ColorDifArray, tmpColorMin, tmpColorMax);
+      var diagonal2ColorDifArray_Ratio = makeRatioField(diagonal2ColorDifArray, tmpColorMin, tmpColorMax);//*/
+
+      var xDifArray_Ratio = makeRatioField(xDifArray, tmpMin, tmpMax);
+      var yDifArray_Ratio = makeRatioField(yDifArray, tmpMin, tmpMax);
+      var diagonal1DifArray_Ratio = makeRatioField(diagonal1DifArray, tmpMin, tmpMax);
+      var diagonal2DifArray_Ratio = makeRatioField(diagonal2DifArray, tmpMin, tmpMax);
 
       ////////////////////////////////////////////
       ////  Step 3: Subtraction Differences
       ////////////////////////////////////////////
-      var subxDifArray = calcSubtractionField(xDifArray, xColorDifArray);
-      var subyDifArray = calcSubtractionField(yDifArray, yColorDifArray);
-      var subdiagonal1DifArray = calcSubtractionField(diagonal1DifArray, diagonal1ColorDifArray);
-      var subdiagonal2DifArray = calcSubtractionField(diagonal2DifArray, diagonal2ColorDifArray);
+      var xDifArray_Sub = calcSubtractionField(xDifArray_Ratio, xColorDifArray_Ratio);
+      var yDifArray_Sub = calcSubtractionField(yDifArray_Ratio, yColorDifArray_Ratio);
+      var diagonal1DifArray_Sub = calcSubtractionField(diagonal1DifArray_Ratio, diagonal1ColorDifArray_Ratio);
+      var diagonal2DifArray_Sub = calcSubtractionField(diagonal2DifArray_Ratio, diagonal2ColorDifArray_Ratio);
+
 
       ////////////////////////////////////////////
-      ////  Step 4: Calc Colors for Vis
-      ////////////////////////////////////////////
-      var color_xColorDifArray = getDifFieldColorArray(xColorDifArray);
-      var color_yColorDifArray = getDifFieldColorArray(yColorDifArray);
-      var color_diagonal1ColorDifArray = getDifFieldColorArray(diagonal1ColorDifArray);
-      var color_diagonal2ColorDifArray = getDifFieldColorArray(diagonal2ColorDifArray);
-      var color_xDifArray = getDifFieldColorArray(xDifArray);
-      var color_yDifArray = getDifFieldColorArray(yDifArray);
-      var color_diagonal1DifArray = getDifFieldColorArray(diagonal1DifArray);
-      var color_diagonal2DifArray = getDifFieldColorArray(diagonal2DifArray);
-      var color_subxDifArray = getDifFieldColorArray(subxDifArray);
-      var color_subyDifArray = getDifFieldColorArray(subyDifArray);
-      var color_subdiagonal1DifArray = getDifFieldColorArray(subdiagonal1DifArray);
-      var color_subdiagonal2DifArray = getDifFieldColorArray(subdiagonal2DifArray);
-
-      ////////////////////////////////////////////
-      ////  Step 5: Create Field
+      ////  Step 4: Create Field
       ////////////////////////////////////////////
 
-      /*var newXDim = testfield.length*3-2;
-      var newYDim = testfield[0].length*3-2;
-      var maxHeightIndex = newYDim - 1;
-
-      var ratioColorDifField=new ImageData(newXDim, newYDim);
-      var ratioValueDifField=new ImageData(newXDim, newYDim);
-      var ratioDifField =new ImageData(newXDim, newYDim);*/
 
       var maxHeightIndex = yDim - 1;
       var ratioColorDifField=new ImageData(xDim, yDim);
@@ -216,14 +196,7 @@ function getRatioDifField(testfield, colorField, colorDifType){
       ///   ----------------
       ///
       ///   M = Math.max(0,1,2,3,4,5,6,7)
-      ///   var subdiagonal2DifArray[x-1][y] = ((diagonal2DifArray[x-1][y]-valueDifField[6])/valueMinMaxDis)-((diagonal2ColorDifArray[x-1][y]-colorDifMinRef)/colorDifMinMaxDis);
-      ///   var subxDifArray[x][y] = ((xDifArray[x][y]-valueDifField[6])/valueMinMaxDis)-((yColorDifArray[x][y]-colorDifMinRef)/colorDifMinMaxDis);
-      ///   var subdiagonal1DifArray[x][y] = ((diagonal1DifArray[x][y]-valueDifField[6])/valueMinMaxDis)-((diagonal1ColorDifArray[x][y]-colorDifMinRef)/colorDifMinMaxDis);
-      ///   var subyDifArray[x-1][y] = ((yDifArray[x-1][y]-valueDifField[6])/valueMinMaxDis)-((xColorDifArray[x-1][y]-colorDifMinRef)/colorDifMinMaxDis);
-      ///   var subyDifArray[x][y] = ((yDifArray[x][y]-valueDifField[6])/valueMinMaxDis)-((xColorDifArray[x][y]-colorDifMinRef)/colorDifMinMaxDis);
-      ///   var subdiagonal1DifArray[x-1][y-1] = ((diagonal1DifArray[x-1][y-1]-valueDifField[6])/valueMinMaxDis)-((diagonal2ColorDifArray[x-1][y-1]-colorDifMinRef)/colorDifMinMaxDis);
-      ///   var subxDifArray[x][y-1] = ((xDifArray[x][y-1]-valueDifField[6])/valueMinMaxDis)-((yColorDifArray[x][y-1]-colorDifMinRef)/colorDifMinMaxDis);
-      ///   var subdiagonal2DifArray[x][y-1] = ((diagonal2DifArray[x][y-1]-valueDifField[6])/valueMinMaxDis)-((diagonal2ColorDifArray[x][y-1]-colorDifMinRef)/colorDifMinMaxDis);
+
 
       ///////////////////////////////////////////////////
       for (var x = 0; x < xDim; x++) {
@@ -238,254 +211,129 @@ function getRatioDifField(testfield, colorField, colorDifType){
           if(x==0){
             if(y==0){
               // corner leftBottom
-              var tmpMax = Math.max(subyDifArray[x][y],subdiagonal1DifArray[x][y],subxDifArray[x][y]);
-              var tmpMin = Math.min(subyDifArray[x][y],subdiagonal1DifArray[x][y],subxDifArray[x][y]);
+              var tmpMax = Math.max(yDifArray_Sub[x][y],diagonal1DifArray_Sub[x][y],xDifArray_Sub[x][y]);
+              var tmpMin = Math.min(yDifArray_Sub[x][y],diagonal1DifArray_Sub[x][y],xDifArray_Sub[x][y]);
               if(Math.abs(tmpMin)>Math.abs(tmpMax))
                 maxABSRatio = tmpMin;
               else
                 maxABSRatio = tmpMax;
 
-              /*setColorToImgData(ratioDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_subyDifArray[x][y]);
-              setColorToImgData(ratioDifField,mIndexX+1,mIndexY+1,maxHeightIndex,newXDim,color_subdiagonal1DifArray[x][y]);
-              setColorToImgData(ratioDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_subxDifArray[x][y]);*/
+              maxRatioV = Math.max(yDifArray_Ratio[x][y],diagonal1DifArray_Ratio[x][y],xDifArray_Ratio[x][y]);
 
-              maxRatioV = Math.max(yDifArray[x][y],diagonal1DifArray[x][y],xDifArray[x][y]);
-              /*setColorToImgData(ratioValueDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_yDifArray[x][y]);
-              setColorToImgData(ratioValueDifField,mIndexX+1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal1DifArray[x][y]);
-              setColorToImgData(ratioValueDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_xDifArray[x][y]);*/
-
-              maxRatioC = Math.max(yColorDifArray[x][y],diagonal1ColorDifArray[x][y],xColorDifArray[x][y]);
-              /*setColorToImgData(ratioColorDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_yColorDifArray[x][y]);
-              setColorToImgData(ratioColorDifField,mIndexX+1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal1ColorDifArray[x][y]);
-              setColorToImgData(ratioColorDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_xColorDifArray[x][y]);*/
+              maxRatioC = Math.max(yColorDifArray_Ratio[x][y],diagonal1ColorDifArray_Ratio[x][y],xColorDifArray_Ratio[x][y]);
             }
             else if (y==yDim-1) {
               // corner leftTop
-              var tmpMax = Math.max(subxDifArray[x][y],subyDifArray[x][y-1],subdiagonal2DifArray[x][y-1]);
-              var tmpMin = Math.min(subxDifArray[x][y],subyDifArray[x][y-1],subdiagonal2DifArray[x][y-1]);
+              var tmpMax = Math.max(xDifArray_Sub[x][y],yDifArray_Sub[x][y-1],diagonal2DifArray_Sub[x][y-1]);
+              var tmpMin = Math.min(xDifArray_Sub[x][y],yDifArray_Sub[x][y-1],diagonal2DifArray_Sub[x][y-1]);
               if(Math.abs(tmpMin)>Math.abs(tmpMax))
                 maxABSRatio = tmpMin;
               else
                 maxABSRatio = tmpMax;
-              /*setColorToImgData(ratioDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_subxDifArray[x][y]);
-              setColorToImgData(ratioDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_subyDifArray[x][y-1]);
-              setColorToImgData(ratioDifField,mIndexX+1,mIndexY-1,maxHeightIndex,newXDim,color_subdiagonal2DifArray[x][y-1]);*/
 
-              maxRatioV = Math.max(xDifArray[x][y],yDifArray[x][y-1],diagonal2DifArray[x][y-1]);
-              /*setColorToImgData(ratioValueDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_xDifArray[x][y]);
-              setColorToImgData(ratioValueDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_yDifArray[x][y-1]);
-              setColorToImgData(ratioValueDifField,mIndexX+1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal2DifArray[x][y-1]);*/
+              maxRatioV = Math.max(xDifArray_Ratio[x][y],yDifArray_Ratio[x][y-1],diagonal2DifArray_Ratio[x][y-1]);
 
-              maxRatioC = Math.max(xColorDifArray[x][y],yColorDifArray[x][y-1],diagonal2ColorDifArray[x][y-1]);
-              /*setColorToImgData(ratioColorDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_xColorDifArray[x][y]);
-              setColorToImgData(ratioColorDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_yColorDifArray[x][y-1]);
-              setColorToImgData(ratioColorDifField,mIndexX+1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal2ColorDifArray[x][y-1]);*/
+              maxRatioC = Math.max(xColorDifArray_Ratio[x][y],yColorDifArray_Ratio[x][y-1],diagonal2ColorDifArray_Ratio[x][y-1]);
             }
             else {
               // left side
               // max
-              var tmpMax = Math.max(subyDifArray[x][y],subdiagonal1DifArray[x][y],subxDifArray[x][y],subyDifArray[x][y-1],subdiagonal2DifArray[x][y-1]);
-              var tmpMin = Math.min(subyDifArray[x][y],subdiagonal1DifArray[x][y],subxDifArray[x][y],subyDifArray[x][y-1],subdiagonal2DifArray[x][y-1]);
+              var tmpMax = Math.max(yDifArray_Sub[x][y],diagonal1DifArray_Sub[x][y],xDifArray_Sub[x][y],yDifArray_Sub[x][y-1],diagonal2DifArray_Sub[x][y-1]);
+              var tmpMin = Math.min(yDifArray_Sub[x][y],diagonal1DifArray_Sub[x][y],xDifArray_Sub[x][y],yDifArray_Sub[x][y-1],diagonal2DifArray_Sub[x][y-1]);
               if(Math.abs(tmpMin)>Math.abs(tmpMax))
                 maxABSRatio = tmpMin;
               else
                 maxABSRatio = tmpMax;
-              /*setColorToImgData(ratioDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_subyDifArray[x][y]);
-              setColorToImgData(ratioDifField,mIndexX+1,mIndexY+1,maxHeightIndex,newXDim,color_subdiagonal1DifArray[x][y]);
-              setColorToImgData(ratioDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_subxDifArray[x][y]);
-              setColorToImgData(ratioDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_subyDifArray[x][y-1]);
-              setColorToImgData(ratioDifField,mIndexX+1,mIndexY-1,maxHeightIndex,newXDim,color_subdiagonal2DifArray[x][y-1]);*/
 
-              maxRatioV = Math.max(yDifArray[x][y],diagonal1DifArray[x][y],xDifArray[x][y],yDifArray[x][y-1],diagonal2DifArray[x][y-1]);
-              /*setColorToImgData(ratioValueDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_yDifArray[x][y]);
-              setColorToImgData(ratioValueDifField,mIndexX+1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal1DifArray[x][y]);
-              setColorToImgData(ratioValueDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_xDifArray[x][y]);
-              setColorToImgData(ratioValueDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_yDifArray[x][y-1]);
-              setColorToImgData(ratioValueDifField,mIndexX+1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal2DifArray[x][y-1]);*/
+              maxRatioV = Math.max(yDifArray_Ratio[x][y],diagonal1DifArray_Ratio[x][y],xDifArray_Ratio[x][y],yDifArray_Ratio[x][y-1],diagonal2DifArray_Ratio[x][y-1]);
 
-              maxRatioC = Math.max(yColorDifArray[x][y],diagonal1ColorDifArray[x][y],xColorDifArray[x][y],yColorDifArray[x][y-1],diagonal2ColorDifArray[x][y-1]);
-              /*setColorToImgData(ratioColorDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_yColorDifArray[x][y]);
-              setColorToImgData(ratioColorDifField,mIndexX+1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal1ColorDifArray[x][y]);
-              setColorToImgData(ratioColorDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_xColorDifArray[x][y]);
-              setColorToImgData(ratioColorDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_yColorDifArray[x][y-1]);
-              setColorToImgData(ratioColorDifField,mIndexX+1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal2ColorDifArray[x][y-1]);*/
+              maxRatioC = Math.max(yColorDifArray_Ratio[x][y],diagonal1ColorDifArray_Ratio[x][y],xColorDifArray_Ratio[x][y],yColorDifArray_Ratio[x][y-1],diagonal2ColorDifArray_Ratio[x][y-1]);
             }
           }
           else if(x==xDim-1){
             if(y==0){
               // corner
-              var tmpMax = Math.max(subdiagonal2DifArray[x-1][y],subyDifArray[x][y],subxDifArray[x-1][y]);
-              var tmpMin = Math.min(subdiagonal2DifArray[x-1][y],subyDifArray[x][y],subxDifArray[x-1][y]);
+              var tmpMax = Math.max(diagonal2DifArray_Sub[x-1][y],yDifArray_Sub[x][y],xDifArray_Sub[x-1][y]);
+              var tmpMin = Math.min(diagonal2DifArray_Sub[x-1][y],yDifArray_Sub[x][y],xDifArray_Sub[x-1][y]);
               if(Math.abs(tmpMin)>Math.abs(tmpMax))
                 maxABSRatio = tmpMin;
               else
                 maxABSRatio = tmpMax;
 
-              /*setColorToImgData(ratioDifField,mIndexX-1,mIndexY+1,maxHeightIndex,newXDim,color_subdiagonal2DifArray[x-1][y]);
-              setColorToImgData(ratioDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_subyDifArray[x][y]);
-              setColorToImgData(ratioDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_subxDifArray[x-1][y]);*/
 
-              maxRatioV = Math.max(diagonal2DifArray[x-1][y],yDifArray[x][y],xDifArray[x-1][y]);
-              /*setColorToImgData(ratioValueDifField,mIndexX-1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal2DifArray[x-1][y]);
-              setColorToImgData(ratioValueDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_yDifArray[x][y]);
-              setColorToImgData(ratioValueDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_xDifArray[x-1][y]);*/
+              maxRatioV = Math.max(diagonal2DifArray_Ratio[x-1][y],yDifArray_Ratio[x][y],xDifArray_Ratio[x-1][y]);
 
-              maxRatioC = Math.max(diagonal2ColorDifArray[x-1][y],yColorDifArray[x][y],xColorDifArray[x-1][y]);
-              /*setColorToImgData(ratioColorDifField,mIndexX-1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal2ColorDifArray[x-1][y]);
-              setColorToImgData(ratioColorDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_yColorDifArray[x][y]);
-              setColorToImgData(ratioColorDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_xColorDifArray[x-1][y]);*/
+              maxRatioC = Math.max(diagonal2ColorDifArray_Ratio[x-1][y],yColorDifArray_Ratio[x][y],xColorDifArray_Ratio[x-1][y]);
             }
             else if (y==yDim-1) {
               // corner
-              var tmpMax = Math.max(subxDifArray[x-1][y],subdiagonal1DifArray[x-1][y-1],subyDifArray[x][y-1]);
-              var tmpMin = Math.min(subxDifArray[x-1][y],subdiagonal1DifArray[x-1][y-1],subyDifArray[x][y-1]);
+              var tmpMax = Math.max(xDifArray_Sub[x-1][y],diagonal1DifArray_Sub[x-1][y-1],yDifArray_Sub[x][y-1]);
+              var tmpMin = Math.min(xDifArray_Sub[x-1][y],diagonal1DifArray_Sub[x-1][y-1],yDifArray_Sub[x][y-1]);
               if(Math.abs(tmpMin)>Math.abs(tmpMax))
                 maxABSRatio = tmpMin;
               else
                 maxABSRatio = tmpMax;
-              /*setColorToImgData(ratioDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_subxDifArray[x-1][y]);
-              setColorToImgData(ratioDifField,mIndexX-1,mIndexY-1,maxHeightIndex,newXDim,color_subdiagonal1DifArray[x-1][y-1]);
-              setColorToImgData(ratioDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_subyDifArray[x][y-1]);*/
 
-              maxRatioV = Math.max(xDifArray[x-1][y],diagonal1DifArray[x-1][y-1],yDifArray[x][y-1]);
-              /*setColorToImgData(ratioValueDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_xDifArray[x-1][y]);
-              setColorToImgData(ratioValueDifField,mIndexX-1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal1DifArray[x-1][y-1]);
-              setColorToImgData(ratioValueDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_yDifArray[x][y-1]);*/
+              maxRatioV = Math.max(xDifArray_Ratio[x-1][y],diagonal1DifArray_Ratio[x-1][y-1],yDifArray_Ratio[x][y-1]);
 
-              maxRatioC = Math.max(xColorDifArray[x-1][y],diagonal2ColorDifArray[x-1][y-1],yColorDifArray[x][y-1]);
-              /*setColorToImgData(ratioColorDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_xColorDifArray[x-1][y]);
-              setColorToImgData(ratioColorDifField,mIndexX-1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal1ColorDifArray[x-1][y-1]);
-              setColorToImgData(ratioColorDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_yColorDifArray[x][y-1]);*/
+              maxRatioC = Math.max(xColorDifArray_Ratio[x-1][y],diagonal2ColorDifArray_Ratio[x-1][y-1],yColorDifArray_Ratio[x][y-1]);
             }
             else {
               // right side
-              var tmpMax = Math.max(subdiagonal2DifArray[x-1][y],subyDifArray[x][y],subxDifArray[x-1][y],subdiagonal1DifArray[x-1][y-1],subyDifArray[x][y-1]);
-              var tmpMin = Math.min(subdiagonal2DifArray[x-1][y],subyDifArray[x][y],subxDifArray[x-1][y],subdiagonal1DifArray[x-1][y-1],subyDifArray[x][y-1]);
+              var tmpMax = Math.max(diagonal2DifArray_Sub[x-1][y],yDifArray_Sub[x][y],xDifArray_Sub[x-1][y],diagonal1DifArray_Sub[x-1][y-1],yDifArray_Sub[x][y-1]);
+              var tmpMin = Math.min(diagonal2DifArray_Sub[x-1][y],yDifArray_Sub[x][y],xDifArray_Sub[x-1][y],diagonal1DifArray_Sub[x-1][y-1],yDifArray_Sub[x][y-1]);
               if(Math.abs(tmpMin)>Math.abs(tmpMax))
                 maxABSRatio = tmpMin;
               else
                 maxABSRatio = tmpMax;
-              /*setColorToImgData(ratioDifField,mIndexX-1,mIndexY+1,maxHeightIndex,newXDim,color_subdiagonal2DifArray[x-1][y]);
-              setColorToImgData(ratioDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_subyDifArray[x][y]);
-              setColorToImgData(ratioDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_subxDifArray[x-1][y]);
-              setColorToImgData(ratioDifField,mIndexX-1,mIndexY-1,maxHeightIndex,newXDim,color_subdiagonal1DifArray[x-1][y-1]);
-              setColorToImgData(ratioDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_subyDifArray[x][y-1]);*/
 
-              maxRatioV = Math.max(diagonal2DifArray[x-1][y],yDifArray[x][y],xDifArray[x-1][y],diagonal1DifArray[x-1][y-1],yDifArray[x][y-1]);
-              /*setColorToImgData(ratioValueDifField,mIndexX-1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal2DifArray[x-1][y]);
-              setColorToImgData(ratioValueDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_yDifArray[x][y]);
-              setColorToImgData(ratioValueDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_xDifArray[x-1][y]);
-              setColorToImgData(ratioValueDifField,mIndexX-1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal1DifArray[x-1][y-1]);
-              setColorToImgData(ratioValueDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_yDifArray[x][y-1]);*/
+              maxRatioV = Math.max(diagonal2DifArray_Ratio[x-1][y],yDifArray_Ratio[x][y],xDifArray_Ratio[x-1][y],diagonal1DifArray_Ratio[x-1][y-1],yDifArray_Ratio[x][y-1]);
 
-              maxRatioC = Math.max(diagonal2ColorDifArray[x-1][y],yColorDifArray[x][y],xColorDifArray[x-1][y],diagonal2ColorDifArray[x-1][y-1],yColorDifArray[x][y-1]);
-              /*setColorToImgData(ratioColorDifField,mIndexX-1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal2ColorDifArray[x-1][y]);
-              setColorToImgData(ratioColorDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_yColorDifArray[x][y]);
-              setColorToImgData(ratioColorDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_xColorDifArray[x-1][y]);
-              setColorToImgData(ratioColorDifField,mIndexX-1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal1ColorDifArray[x-1][y-1]);
-              setColorToImgData(ratioColorDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_yColorDifArray[x][y-1]);*/
+              maxRatioC = Math.max(diagonal2ColorDifArray_Ratio[x-1][y],yColorDifArray_Ratio[x][y],xColorDifArray_Ratio[x-1][y],diagonal2ColorDifArray_Ratio[x-1][y-1],yColorDifArray_Ratio[x][y-1]);
              }
           }
           else {
             if(y==0){
               // bottom side
-              var tmpMax = Math.max(subdiagonal2DifArray[x-1][y],subyDifArray[x][y],subdiagonal1DifArray[x][y],subxDifArray[x-1][y],subxDifArray[x][y]);
-              var tmpMin = Math.min(subdiagonal2DifArray[x-1][y],subyDifArray[x][y],subdiagonal1DifArray[x][y],subxDifArray[x-1][y],subxDifArray[x][y]);
+              var tmpMax = Math.max(diagonal2DifArray_Sub[x-1][y],yDifArray_Sub[x][y],diagonal1DifArray_Sub[x][y],xDifArray_Sub[x-1][y],xDifArray_Sub[x][y]);
+              var tmpMin = Math.min(diagonal2DifArray_Sub[x-1][y],yDifArray_Sub[x][y],diagonal1DifArray_Sub[x][y],xDifArray_Sub[x-1][y],xDifArray_Sub[x][y]);
               if(Math.abs(tmpMin)>Math.abs(tmpMax))
                 maxABSRatio = tmpMin;
               else
                 maxABSRatio = tmpMax;
-              /*setColorToImgData(ratioDifField,mIndexX-1,mIndexY+1,maxHeightIndex,newXDim,color_subdiagonal2DifArray[x-1][y]);
-              setColorToImgData(ratioDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_subyDifArray[x][y]);
-              setColorToImgData(ratioDifField,mIndexX+1,mIndexY+1,maxHeightIndex,newXDim,color_subdiagonal1DifArray[x][y]);
-              setColorToImgData(ratioDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_subxDifArray[x-1][y]);
-              setColorToImgData(ratioDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_subxDifArray[x][y]);*/
 
-              maxRatioV = Math.max(diagonal2DifArray[x-1][y],yDifArray[x][y],diagonal1DifArray[x][y],xDifArray[x-1][y],xDifArray[x][y]);
-              /*setColorToImgData(ratioValueDifField,mIndexX-1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal2DifArray[x-1][y]);
-              setColorToImgData(ratioValueDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_yDifArray[x][y]);
-              setColorToImgData(ratioValueDifField,mIndexX+1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal1DifArray[x][y]);
-              setColorToImgData(ratioValueDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_xDifArray[x-1][y]);
-              setColorToImgData(ratioValueDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_xDifArray[x][y]);*/
+              maxRatioV = Math.max(diagonal2DifArray_Ratio[x-1][y],yDifArray_Ratio[x][y],diagonal1DifArray_Ratio[x][y],xDifArray_Ratio[x-1][y],xDifArray_Ratio[x][y]);
 
-              maxRatioC = Math.max(diagonal2ColorDifArray[x-1][y],yColorDifArray[x][y],diagonal1ColorDifArray[x][y],xColorDifArray[x-1][y],xColorDifArray[x][y]);
-              /*setColorToImgData(ratioColorDifField,mIndexX-1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal2ColorDifArray[x-1][y]);
-              setColorToImgData(ratioColorDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_yColorDifArray[x][y]);
-              setColorToImgData(ratioColorDifField,mIndexX+1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal1ColorDifArray[x][y]);
-              setColorToImgData(ratioColorDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_xColorDifArray[x-1][y]);
-              setColorToImgData(ratioColorDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_xColorDifArray[x][y]);*/
+              maxRatioC = Math.max(diagonal2ColorDifArray_Ratio[x-1][y],yColorDifArray_Ratio[x][y],diagonal1ColorDifArray_Ratio[x][y],xColorDifArray_Ratio[x-1][y],xColorDifArray_Ratio[x][y]);
             }
             else if(y==yDim-1){
               // top side
-              var tmpMax = Math.max(subxDifArray[x-1][y],subxDifArray[x][y],subdiagonal1DifArray[x-1][y-1],subyDifArray[x][y-1],subdiagonal2DifArray[x][y-1]);
-              var tmpMin = Math.min(subxDifArray[x-1][y],subxDifArray[x][y],subdiagonal1DifArray[x-1][y-1],subyDifArray[x][y-1],subdiagonal2DifArray[x][y-1]);
+              var tmpMax = Math.max(xDifArray_Sub[x-1][y],xDifArray_Sub[x][y],diagonal1DifArray_Sub[x-1][y-1],yDifArray_Sub[x][y-1],diagonal2DifArray_Sub[x][y-1]);
+              var tmpMin = Math.min(xDifArray_Sub[x-1][y],xDifArray_Sub[x][y],diagonal1DifArray_Sub[x-1][y-1],yDifArray_Sub[x][y-1],diagonal2DifArray_Sub[x][y-1]);
               if(Math.abs(tmpMin)>Math.abs(tmpMax))
                 maxABSRatio = tmpMin;
               else
                 maxABSRatio = tmpMax;
-              /*setColorToImgData(ratioDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_subxDifArray[x-1][y]);
-              setColorToImgData(ratioDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_subxDifArray[x][y]);
-              setColorToImgData(ratioDifField,mIndexX-1,mIndexY-1,maxHeightIndex,newXDim,color_subdiagonal1DifArray[x-1][y-1]);
-              setColorToImgData(ratioDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_subyDifArray[x][y-1]);
-              setColorToImgData(ratioDifField,mIndexX+1,mIndexY-1,maxHeightIndex,newXDim,color_subdiagonal2DifArray[x][y-1]);*/
 
-              maxRatioV = Math.max(xDifArray[x-1][y],xDifArray[x][y],diagonal1DifArray[x-1][y-1],yDifArray[x][y-1],diagonal2DifArray[x][y-1]);
-              /*setColorToImgData(ratioValueDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_xDifArray[x-1][y]);
-              setColorToImgData(ratioValueDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_xDifArray[x][y]);
-              setColorToImgData(ratioValueDifField,mIndexX-1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal1DifArray[x-1][y-1]);
-              setColorToImgData(ratioValueDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_yDifArray[x][y-1]);
-              setColorToImgData(ratioValueDifField,mIndexX+1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal2DifArray[x][y-1]);*/
+              maxRatioV = Math.max(xDifArray_Ratio[x-1][y],xDifArray_Ratio[x][y],diagonal1DifArray_Ratio[x-1][y-1],yDifArray_Ratio[x][y-1],diagonal2DifArray_Ratio[x][y-1]);
 
-              maxRatioC = Math.max(xColorDifArray[x-1][y],xColorDifArray[x][y],diagonal2ColorDifArray[x-1][y-1],yColorDifArray[x][y-1],diagonal2ColorDifArray[x][y-1]);
-              /*setColorToImgData(ratioColorDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_xColorDifArray[x-1][y]);
-              setColorToImgData(ratioColorDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_xColorDifArray[x][y]);
-              setColorToImgData(ratioColorDifField,mIndexX-1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal1ColorDifArray[x-1][y-1]);
-              setColorToImgData(ratioColorDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_yColorDifArray[x][y-1]);
-              setColorToImgData(ratioColorDifField,mIndexX+1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal2ColorDifArray[x][y-1]);*/
+              maxRatioC = Math.max(xColorDifArray_Ratio[x-1][y],xColorDifArray_Ratio[x][y],diagonal2ColorDifArray_Ratio[x-1][y-1],yColorDifArray_Ratio[x][y-1],diagonal2ColorDifArray_Ratio[x][y-1]);
             }
             else{
               // isInsideElement
-              var tmpMax = Math.max(subdiagonal2DifArray[x-1][y],subyDifArray[x][y],subdiagonal1DifArray[x][y],subxDifArray[x-1][y],subxDifArray[x][y],subdiagonal1DifArray[x-1][y-1],subyDifArray[x][y-1],subdiagonal2DifArray[x][y-1]);
-              var tmpMin = Math.min(subdiagonal2DifArray[x-1][y],subyDifArray[x][y],subdiagonal1DifArray[x][y],subxDifArray[x-1][y],subxDifArray[x][y],subdiagonal1DifArray[x-1][y-1],subyDifArray[x][y-1],subdiagonal2DifArray[x][y-1]);
+              var tmpMax = Math.max(diagonal2DifArray_Sub[x-1][y],yDifArray_Sub[x][y],diagonal1DifArray_Sub[x][y],xDifArray_Sub[x-1][y],xDifArray_Sub[x][y],diagonal1DifArray_Sub[x-1][y-1],yDifArray_Sub[x][y-1],diagonal2DifArray_Sub[x][y-1]);
+              var tmpMin = Math.min(diagonal2DifArray_Sub[x-1][y],yDifArray_Sub[x][y],diagonal1DifArray_Sub[x][y],xDifArray_Sub[x-1][y],xDifArray_Sub[x][y],diagonal1DifArray_Sub[x-1][y-1],yDifArray_Sub[x][y-1],diagonal2DifArray_Sub[x][y-1]);
               if(Math.abs(tmpMin)>Math.abs(tmpMax))
                 maxABSRatio = tmpMin;
               else
                 maxABSRatio = tmpMax;
-              /*setColorToImgData(ratioDifField,mIndexX-1,mIndexY+1,maxHeightIndex,newXDim,color_subdiagonal2DifArray[x-1][y]);
-              setColorToImgData(ratioDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_subyDifArray[x][y]);
-              setColorToImgData(ratioDifField,mIndexX+1,mIndexY+1,maxHeightIndex,newXDim,color_subdiagonal1DifArray[x][y]);
-              setColorToImgData(ratioDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_subxDifArray[x-1][y]);
-              setColorToImgData(ratioDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_subxDifArray[x][y]);
-              setColorToImgData(ratioDifField,mIndexX-1,mIndexY-1,maxHeightIndex,newXDim,color_subdiagonal1DifArray[x-1][y-1]);
-              setColorToImgData(ratioDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_subyDifArray[x][y-1]);
-              setColorToImgData(ratioDifField,mIndexX+1,mIndexY-1,maxHeightIndex,newXDim,color_subdiagonal2DifArray[x][y-1]);*/
 
-              maxRatioV = Math.max(diagonal2DifArray[x-1][y],yDifArray[x][y],diagonal1DifArray[x][y],xDifArray[x-1][y],xDifArray[x][y],diagonal1DifArray[x-1][y-1],yDifArray[x][y-1],diagonal2DifArray[x][y-1]);
-              /*setColorToImgData(ratioValueDifField,mIndexX-1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal2DifArray[x-1][y]);
-              setColorToImgData(ratioValueDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_yDifArray[x][y]);
-              setColorToImgData(ratioValueDifField,mIndexX+1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal1DifArray[x][y]);
-              setColorToImgData(ratioValueDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_xDifArray[x-1][y]);
-              setColorToImgData(ratioValueDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_xDifArray[x][y]);
-              setColorToImgData(ratioValueDifField,mIndexX-1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal1DifArray[x-1][y-1]);
-              setColorToImgData(ratioValueDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_yDifArray[x][y-1]);
-              setColorToImgData(ratioValueDifField,mIndexX+1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal2DifArray[x][y-1]);*/
+              maxRatioV = Math.max(diagonal2DifArray_Ratio[x-1][y],yDifArray_Ratio[x][y],diagonal1DifArray_Ratio[x][y],xDifArray_Ratio[x-1][y],xDifArray_Ratio[x][y],diagonal1DifArray_Ratio[x-1][y-1],yDifArray_Ratio[x][y-1],diagonal2DifArray_Ratio[x][y-1]);
 
-              maxRatioC = Math.max(diagonal2ColorDifArray[x-1][y],yColorDifArray[x][y],diagonal1ColorDifArray[x][y],xColorDifArray[x-1][y],xColorDifArray[x][y],diagonal2ColorDifArray[x-1][y-1],yColorDifArray[x][y-1],diagonal2ColorDifArray[x][y-1]);
-              /*setColorToImgData(ratioColorDifField,mIndexX-1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal2ColorDifArray[x-1][y]);
-              setColorToImgData(ratioColorDifField,mIndexX,mIndexY+1,maxHeightIndex,newXDim,color_yColorDifArray[x][y]);
-              setColorToImgData(ratioColorDifField,mIndexX+1,mIndexY+1,maxHeightIndex,newXDim,color_diagonal1ColorDifArray[x][y]);
-              setColorToImgData(ratioColorDifField,mIndexX-1,mIndexY,maxHeightIndex,newXDim,color_xColorDifArray[x-1][y]);
-              setColorToImgData(ratioColorDifField,mIndexX+1,mIndexY,maxHeightIndex,newXDim,color_xColorDifArray[x][y]);
-              setColorToImgData(ratioColorDifField,mIndexX-1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal1ColorDifArray[x-1][y-1]);
-              setColorToImgData(ratioColorDifField,mIndexX,mIndexY-1,maxHeightIndex,newXDim,color_yColorDifArray[x][y-1]);
-              setColorToImgData(ratioColorDifField,mIndexX+1,mIndexY-1,maxHeightIndex,newXDim,color_diagonal2ColorDifArray[x][y-1]);*/
-
+              maxRatioC = Math.max(diagonal2ColorDifArray_Ratio[x-1][y],yColorDifArray_Ratio[x][y],diagonal1ColorDifArray_Ratio[x][y],xColorDifArray_Ratio[x-1][y],xColorDifArray_Ratio[x][y],diagonal2ColorDifArray_Ratio[x-1][y-1],yColorDifArray_Ratio[x][y-1],diagonal2ColorDifArray_Ratio[x][y-1]);
             }
           }
 
-          /*setColorToImgData(ratioDifField,mIndexX,mIndexY,maxHeightIndex,newXDim,ratioDifCMS.calculateColor(maxABSRatio));
-          setColorToImgData(ratioValueDifField,mIndexX,mIndexY,maxHeightIndex,newXDim,ratioDifCMS.calculateColor(maxRatioV));
-          setColorToImgData(ratioColorDifField,mIndexX,mIndexY,maxHeightIndex,newXDim,ratioDifCMS.calculateColor(maxRatioC));*/
 
           setColorToImgData(ratioDifField,x,y,maxHeightIndex,xDim,ratioDifCMS.calculateColor(maxABSRatio));
           setColorToImgData(ratioValueDifField,x,y,maxHeightIndex,xDim,ratioDifCMS.calculateColor(maxRatioV));
@@ -494,8 +342,13 @@ function getRatioDifField(testfield, colorField, colorDifType){
       }
 
 
+      var valueDifInfo = [xDifArray,yDifArray,diagonal1DifArray,diagonal2DifArray];
+      var colorDifInfo = [xColorDifArray,yColorDifArray,diagonal1ColorDifArray,diagonal2ColorDifArray];
+      var valueRatioInfo = [xDifArray_Ratio,yDifArray_Ratio,diagonal1DifArray_Ratio,diagonal2DifArray_Ratio];
+      var colorRatioInfo = [xColorDifArray_Ratio,yColorDifArray_Ratio,diagonal1ColorDifArray_Ratio,diagonal2ColorDifArray_Ratio];
+      var subtractionInfo = [xDifArray_Sub,yDifArray_Sub,diagonal1DifArray_Sub,diagonal2DifArray_Sub];
 
-      return [ratioValueDifField,ratioColorDifField,ratioDifField];
+      return [ratioValueDifField,ratioColorDifField,ratioDifField,valueDifInfo,colorDifInfo,valueRatioInfo,colorRatioInfo,subtractionInfo];
 
 }
 

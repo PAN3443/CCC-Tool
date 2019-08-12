@@ -2,8 +2,8 @@
 
 function drawCurrentNavi(){
 
-    var colorPosArrow = "rgb(10, 239, 251)"; //"rgb(0,250,154)";
-    var colorNegArrow = "rgb(255,69,0)";  //rgb(242,92,102)";
+    var colorPosArrow = getComputedStyle(document.documentElement).getPropertyValue('--menue-navi-positive-color');
+    var colorNegArrow = getComputedStyle(document.documentElement).getPropertyValue('--menue-navi-negative-color');
 
     var cArrowWelcomeToMyDesign = colorNegArrow;
 

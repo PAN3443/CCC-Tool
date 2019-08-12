@@ -184,7 +184,16 @@ function drawPredefinedCMS(cmsArray, cmsType){
     tmpDiv.appendChild(tmpCMSlinear);
 
     var tmpReverseButton = document.createElement('button');
-    tmpReverseButton.className= "class_predefinedLinearCMSBandsReverseButton";
+    tmpReverseButton.className= "class_generalbutton_DarkBackground";
+    tmpReverseButton.style.width= "7.5%";
+    tmpReverseButton.style.maxWidth= "7.5%";
+    tmpReverseButton.style.height="3vh";
+    tmpReverseButton.style.lineHeight="3vh";
+    tmpReverseButton.style.fontSize="1.8vh";
+    tmpReverseButton.style.marginTop= "0.25vh";
+    tmpReverseButton.style.marginLeft= "auto";
+    tmpReverseButton.style.marginRight= "auto";
+    tmpReverseButton.style.borderRadius= "0.5vh";
     tmpReverseButton.innerHTML = "&#8646;"
     tmpReverseButton.onclick = (function(id,type) {
     return function() {

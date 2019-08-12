@@ -18,7 +18,7 @@
   display:flex;
   padding-top: 1.5vh;
   padding-bottom: 1.5vh;
-  background: rgb(60,60,60);
+  background: var(--main-popUpWindow-labelbg-color);
 }
 
 .class_svgBrackets{
@@ -111,9 +111,9 @@
   text-align:center;
   vertical-align: middle;
   margin:0px;
-  color:white;
+  color:var(--main-label-font-color);
   font-size:3vh;
-  background: rgb(30,30,30);
+  background: var(--main-popUpWindow-labelbg-color);
   /*font-family:verdana;*/
 }
 

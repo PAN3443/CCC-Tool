@@ -4,7 +4,7 @@
 -----------------------------------------------
 -->
 
-<div class="row" style="width:100%; background:rgb(60,60,60); padding-top:1vh; padding-bottom:1vh; box-sizing: border-box;" >
+<div class="row" style="width:100%; background:var(--main-sepArea-bg); padding-top:1vh; padding-bottom:1vh; box-sizing: border-box;" >
 
   <p class="standardText" style="width:100%; margin-left:5vw; margin-right:1vw; width: 8vw; color:white; height:3vh; line-height:3vh;"> CMS (MyDesigns):</p>
   <select id="id_TestSection_CMS_Select" style="width:10vw; height:3vh; line-height:3vh; border:0.2vh solid black; color:white;" onchange="selectTestCMS()">
@@ -25,14 +25,14 @@
 
           <div class="row" style="width:100%;">
             <div id="id_Test_Map_Collection" class="class_Test_Map_Div">
-              <p><strong>Test</strong> :  Collection</p>
+              <p><strong>Test-Collection</strong> </p>
             </div>
 
             <p style="margin:auto; margin-left: 1vw; margin-right: 1vw; color: white; font-size: 2.5vh; ">&#8596;</p>
 
 
             <div id="id_Test_Map_InteractiveTest" class="class_Test_Map_Div">
-              <p><strong>Test</strong> :  Interactive</p>
+              <p><strong>Test-Interactive</strong></p>
             </div>
 
             <p style="margin:auto; margin-left: 1vw; margin-right: 1vw; color: white; font-size: 2.5vh; ">&#8596;</p>
@@ -46,7 +46,7 @@
             <div style="margin-left:auto;">
               <p style="width:100%; text-align: center; margin-top: 1vh; margin-bottom: 1vh; color: white; font-size: 2.5vh; ">&#8597;</p>
               <div id="id_Test_Map_SubReport" class="class_Test_Map_Div" >
-                <p><strong>Test-Report </strong> : Subtraction Report</p>
+                <p><strong>Test-Report </strong> : Ratio Report</p>
               </div>
             </div>
           </div>
@@ -116,7 +116,7 @@
   --------------------------------------------------------------------------
   -------------------------------------------------------------------------->
 
-    <div id="id_Test_FunctionCollection" style="width:100vw; height:84vh; overflow: scroll; background:white;">
+    <div id="id_Test_FunctionCollection" style="width:100vw; height:84vh; overflow: scroll; background:var(--main-bg-color);">
 
     </div>
 
@@ -124,7 +124,7 @@
     ----------------------- Test Interactive -------------------------------
     --------------------------------------------------------------------------
     -------------------------------------------------------------------------->
-    <div id="id_Test_TestDiv" style="width:0vw; height:83vh; background:rgb(240,240,240);">
+    <div id="id_Test_TestDiv" style="width:0vw; height:83vh;">
 
       <div class="row" style="width:100vw; height:83vh; margin:auto;">
 
@@ -446,7 +446,7 @@
 
           <div class="row" style="width:100%;">
             <div style="margin:auto; margin-right:0vw; ">
-              <div class="row" style="width:100%; background: rgb(50,50,50);">
+              <div class="row" style="width:100%; background: var(--main-optionBox-bg);">
                 <div id="id_TestPage_HightmapButton" class="class_Test_RenderButton" title="Modus 2D,Hightmap" onclick="switchHightmap()">3D</div>
                 <a id="id_Test_downloadScreenshot" download="CCC_Tool_TestImage.png" class="class_Test_RenderButton" title="Screenshot">&#9688;</a>
                 <div class="class_Test_RenderButton" title="Fullscreen" onclick="openFullTestMappingScreen()">&#9723;</div>
@@ -460,7 +460,7 @@
             </div>
 
             <div style="border-left: 0.2vw solid black; margin:auto; margin-left:0vw; ">
-              <div class="row" style="width:100%; background: rgb(50,50,50);">
+              <div class="row" style="width:100%; background: var(--main-optionBox-bg);">
                 <a id="id_Test_downloadScreenshotGrey" download="CCC_Tool_TestImage_GreyScaled.png" class="class_Test_RenderButton" title="Screenshot" >&#9688;</a>
               </div>
               <div id="id_Test_MeshVisDivGrey" style="height:65vh; max-height:35vw; width:35vw; max-width:65vh; overflow:hidden;">
@@ -471,7 +471,7 @@
 
           </div>
 
-          <div id="id_Test_MeshVisOptions" class="row" style="width:100%; height:3vh; background: rgb(50,50,50);">
+          <div id="id_Test_MeshVisOptions" class="row" style="width:100%; height:3vh; background: var(--main-optionBox-bg);">
             <div class="row" style="width: 50%;">
               <p class="standardText" style="margin:auto; margin-left:1vw; margin-right:1vw; color:white;">Zoom:</p>
               <input id="id_Test_MeshVisOptions_Zoom"type="range" step="1" min="0" max="100" value="50" style="width:20vw; margin-right:auto;" onchange="testmappingZoomInput()">
@@ -510,16 +510,13 @@
     -------------------------------------------------------------------------->
     <div id="id_Test_ReportDiv" style="display:flex; width:0vw; height:83vh; overflow: hidden;">
 
-
-
           <div style="height:83vh; width: 97vw; overflow: hidden;">
-
 
 
             <!---------------------- Test Information ----------------------------
             ------>
 
-                <div id="id_report_TestInfoDiv" style="height: 83vh; width: 100%; overflow: hidden; display:flex; ">
+                <div id="id_report_TestInfoDiv" style="height: 83vh; width: 100%; overflow: hidden; display:flex; background:var(--main-bg-color);">
 
 
                         <div class="class_OptionDiv" style="margin:auto; display: block; border: 0.2vh solid black;">
@@ -569,11 +566,11 @@
                 </div>
 
 
-                <!---------------------- Subtraction Report ----------------------------
+                <!---------------------- Ratio Report ----------------------------
                 ------>
 
 
-                  <div id="id_report_SubReportDiv" style="height: 83vh; width: 97vw; overflow: hidden; background:rgb(240,240,240); ">
+                  <div id="id_report_SubReportDiv" style="height: 83vh; width: 97vw; overflow: hidden; background:var(--main-second-bg-color); ">
 
                     <!--div class="class_OptionDiv">
 
@@ -586,13 +583,13 @@
                       <div style="width:97vw; height:83vh; display:flex;">
 
 
-                        <!---------------------- Subtraction Report (visualizations) ----------------------------
+                        <!---------------------- Ratio Report (visualizations) ----------------------------
                         ------>
                         <div style="margin:auto; ">
-                          <div class="row" style="padding-bottom:0.5vh; padding-top:0.5vh; background: rgb(25,25,25); ">
-                              <p class="standardText" style="text-align:center; color:white; width: 20vw; max-width:32vh;"> Values (Grey Scaled)</p>
-                              <p class="standardText" style="text-align:center; color:white; width: 20vw; max-width:32vh;">CMS Colormapping</p>
-                              <p class="standardText" style="text-align:center; color:white; width: 20vw; max-width:32vh;">Observe Pixel</p>
+                          <div class="row" style="padding-bottom:0.5vh; padding-top:0.5vh; background: var(--main-label-bg-color); ">
+                              <p class="standardText" style="text-align:center; color:var(--main-label-font-color); width: 20vw; max-width:32vh;"> Values (Grey Scaled)</p>
+                              <p class="standardText" style="text-align:center; color:var(--main-label-font-color); width: 20vw; max-width:32vh;">CMS Colormapping</p>
+                              <p class="standardText" style="text-align:center; color:var(--main-label-font-color); width: 20vw; max-width:32vh;">Pixel Observer</p>
                           </div>
 
 
@@ -739,10 +736,17 @@
                             </div>
                           </div>
 
-                          <div class="row" style="padding-bottom:0.5vh; padding-top:0.5vh; background: rgb(25,25,25); ">
-                              <p class="standardText" style="text-align:center; color:white; width: 20vw; max-width:32vh;">Ratio-Field (&#916; Value)</p>
-                              <p class="standardText" style="text-align:center; color:white; width: 20vw; max-width:32vh;">Ratio-Field (&#916; Color-Metric)</p>
-                              <p class="standardText" style="text-align:center; color:white; width: 20vw; max-width:32vh;">Subtraction Field </p>
+                          <div class="row" style="padding-bottom:0.5vh; padding-top:0.5vh; background: var(--main-label-bg-color); ">
+                              <p class="standardText" style="text-align:center; color:var(--main-label-font-color); width: 20vw; max-width:32vh;">N(&#916; Value)</p>
+                              <p class="standardText" style="text-align:center; color:var(--main-label-font-color); width: 20vw; max-width:32vh;">N(&#916; Color-Metric)</p>
+                              <div style="display: flex; color:var(--main-label-font-color); width: 20vw; max-width:32vh;">
+                                <p class="standardText" style="margin-left:auto; margin-top: auto; margin-bottom:auto; margin-right: 0.25vw; color:var(--main-label-font-color);">Ratio (</p>
+                                 <div style="margin-top: auto; margin-bottom:auto;">
+                                   <p style="font-size:1vh; line-height:1.2vh; color:var(--main-label-font-color);">N(&#916; Color-Metric)</p>
+                                   <p style="font-size:1vh; line-height:1.2vh; border-top: 0.2vh solid var(--main-label-font-color); color:var(--main-label-font-color);">N(&#916; Value)</p>
+                                 </div>
+                                <p class="standardText" style="margin-top: auto; margin-bottom:auto; margin-left: 0.25vw; margin-right:auto; color:var(--main-label-font-color);">)</p></p>
+                              </div>
                           </div>
 
                           <div class="row">
@@ -773,12 +777,12 @@
                           </div>
 
 
-                          <div class="row" style="width: 100%; background: rgb(25,25,25);">
-                            <p class="standardText" style="margin:auto; margin-left:1vw; margin-right:1vw; color:white;">Notebook-Zoom:</p>
-                            <input id="id_Test_SubReport_Zoom" type="range" step="1" min="100" max="1500" value="100" style="width:40%; margin-right:auto;" onchange="subreportZoom()">
+                          <div class="row" style="width: 100%; background: var(--main-label-bg-color);">
+                            <p class="standardText" style="margin:auto; margin-left:1vw; margin-right:1vw; color:var(--main-label-font-color);">Notebook-Zoom:</p>
+                            <input id="id_Test_RatioReport_Zoom" type="range" step="1" min="100" max="1500" value="100" style="width:40%; margin-right:auto;" onchange="ratioReportZoom()">
 
-                            <p class="standardText" style="margin:auto; margin-left:auto; margin-right:1vw; color:white;">Mark Cursor:</p>
-                            <input id="id_Test_SubReport_DoMarkedCursor" type="checkbox" name="MarkCursor" style="margin-right:auto;" onchange="changeMarkReportCursor()" checked>
+                            <p class="standardText" style="margin:auto; margin-left:auto; margin-right:1vw; color:var(--main-label-font-color);">Mark Cursor:</p>
+                            <input id="id_Test_RatioReport_DoMarkedCursor" type="checkbox" name="MarkCursor" style="margin-right:auto;" onchange="changeMarkReportCursor()" checked>
 
                           </div>
 
@@ -817,23 +821,31 @@
                           </div>
                         </div>
 
-                        <!---------------------- Subtraction Report (Talbe, Statistics) ----------------------------
+                        <!---------------------- Ratio Report (Talbe, Statistics) ----------------------------
                         ------>
 
                         <div style="margin:auto;  margin-left: 0vw;">
 
-                          <div class="class_OptionDiv" style="width: 35vw; display:flex;">
+                          <div class="class_OptionDiv" style="width: 40vw;">
+
+                            <div class="width:100%; display:flex;">
                               <p class="standardText" style="font-weight:bold; margin-right:auto;">Color-Metric:</p>
 
-                              <button class="class_generalbutton" onclick="()" style="margin: auto; padding-left: 0.5vw; padding-right: 0.5vw;">&#916;Lab</button>
-                              <button class="class_generalbutton" onclick="()" style="margin: auto; padding-left: 0.5vw; padding-right: 0.5vw;">DE94</button>
-                              <button class="class_generalbutton" onclick="()" style="margin: auto; padding-left: 0.5vw; padding-right: 0.5vw;">CIEDE2000</button>
-                              <button class="class_generalbutton" onclick="()" style="margin: auto; padding-left: 0.5vw; padding-right: 0.5vw;">&#916;DIN99</button>
+                              <button id="id_test_subreport_MetricLab" class="class_generalbutton" onclick="changeSubReportMetric(0)" style="margin: auto; padding-left: 0.5vw; padding-right: 0.5vw;">&#916;Lab</button>
+                              <button id="id_test_subreport_MetricDe94" class="class_generalbutton" onclick="changeSubReportMetric(1)" style="margin: auto; padding-left: 0.5vw; padding-right: 0.5vw;">DE94</button>
+                              <button id="id_test_subreport_MetricDe2000" class="class_generalbutton" onclick="changeSubReportMetric(2)" style="margin: auto; padding-left: 0.5vw; padding-right: 0.5vw;">CIEDE2000</button>
+                              <button id="id_test_subreport_MetricDIN99" class="class_generalbutton" onclick="changeSubReportMetric(3)" style="margin: auto; padding-left: 0.5vw; padding-right: 0.5vw;">&#916;DIN99</button>
+                            </div>
+
+
+                            <div class="width:100%; display:flex;">
+                              <p class="standardText" style="font-weight:bold; margin-right:auto;">Normalization:</p>
+                            </div>
 
 
                           </div>
 
-                          <div class="class_OptionDiv" style="width: 35vw; margin-top: 2vh;">
+                          <div class="class_OptionDiv" style="width: 40vw; margin-top: 2vh;">
                               <p class="standardText" style="font-weight:bold; margin-bottom: 1vh;">Table (Pixel Observer):</p>
 
                               <div class="row" style="width:100%;">
@@ -841,17 +853,28 @@
                                 <!--------------- Table of PIXEL PREVIEW -------------
                                  ------------------------------------------------>
 
-                                 <table cellspacing="0" cellpadding="0" style="border: 0.2vh solid black; margin:auto;">
+                                 <table cellspacing="0" cellpadding="0" style="margin:auto;">
                                    <tr>
                                      <td>
                                        <table cellspacing="0" cellpadding="1">
                                          <tr style="color:white;">
-                                           <th class="class_tablelabel" style="width:2vw;  background:black;border:none;">ID</th>
-                                           <th class="class_tablelabel" id="id_table_subReportLabel" style="width:6vw; border-color:black; background:black;">&#916; Value</th>
-                                           <th class="class_tablelabel" id="id_table_subReportLabel" style="width:6vw; border-color:black; background:black;">Ratio (&#916; Value)</th>
-                                           <th class="class_tablelabel" id="id_table_subReportLabel" style="width:6vw; border-color:black; background:black;">&#916; Color-Metric</th>
-                                           <th class="class_tablelabel" id="id_table_subReportLabel" style="width:6vw; border-color:black; background:black;">Ratio (&#916; Color-Metric)</th>
-                                           <th class="class_tablelabel" id="id_table_subReportLabel" style="width:6vw; border-color:black; background:black;">Ratio Subtraction</th>
+                                           <th class="class_tablelabel" style="width:2vw; border-right: 0.1vw solid var(--main-label-font-color);">ID</th>
+
+                                           <th class="class_tablelabel" style="width:6vw; border-right: 0.1vw solid var(--main-label-font-color);">&#916; Value</th>
+                                           <th class="class_tablelabel" style="width:7vw; border-right: 0.1vw solid var(--main-label-font-color);">N(&#916; Value)</th>
+
+                                           <th class="class_tablelabel" style="width:6vw; border-right: 0.1vw solid var(--main-label-font-color);">&#916; Color-Metric</th>
+                                           <th class="class_tablelabel" style="width:7vw; border-right: 0.1vw solid var(--main-label-font-color);">N(&#916; Color-Metric)</th>
+
+                                           <th class="class_tablelabel" style="width:7vw; display:flex;">
+                                             <p style="font-size:1.0vh; margin-left:auto; margin-top: auto; margin-bottom:auto; margin-right: 0.25vw; ">Ratio (</p>
+                                              <div style="margin-top: auto; margin-bottom:auto;">
+                                                <p style="font-size:0.8vh; line-height:1vh;">N(&#916; Color-Metric)</p>
+                                                <p style="font-size:0.8vh; line-height:1vh; border-top: 0.2vh solid var(--main-label-font-color); ">N(&#916; Value)</p>
+                                              </div>
+                                             <p style="font-size:1.0vh; margin-top: auto; margin-bottom:auto; margin-left: 0.25vw; margin-right:auto;">)</p>
+
+                                           </th>
                                          </tr>
                                        </table>
                                      </td>
@@ -860,7 +883,7 @@
                                      <td>
                                        <div style="width:100%; overflow:auto;">
                                          <table cellspacing="0" cellpadding="1" id="id_table_subReport" style="width:100%; border: 0.1vh solid black;">
-                                           <tbody id="id_subReportTableBody">
+                                           <tbody id="id_ratioReportTableBody">
 
                                            </tbody>
                                          </table>
@@ -873,13 +896,13 @@
 
                               <!--p class="standardText" style="margin-top: 3vh; color:red;"> <strong>Erinnerung an mich: die tabelle mit allen infos fuellen. damit kann man auch vergleichen bei welchen bild die maximal achse genommen wurde und schauen ob die von unterschiedlichen achsen stammen. Zusatzlich Design Aenderung! wie mit den testseiten bloss runterwaerts.</strong> </p>
 
-                              <p class="standardText" style="margin-top: 3vh;"> <strong>Info: </strong> Explore the five figures with the mouse-cursor. Fix the pixel information with a left mouse-click and switch back to the explore modus with a right mouse-click. The left table shows depending on the hovered figure the value difference, color difference, ratio value difference, ratio color difference, or the results of the ratio subtraction. For the last three options, the bold table row shows the maximal difference value, which is used to color the corresponding pixel in the figure. </p-->
+                              <p class="standardText" style="margin-top: 3vh;"> <strong>Info: </strong> Explore the five figures with the mouse-cursor. Fix the pixel information with a left mouse-click and switch back to the explore modus with a right mouse-click. The left table shows depending on the hovered figure the value difference, color difference, ratio value difference, ratio color difference, or the results of the ratio Ratio. For the last three options, the bold table row shows the maximal difference value, which is used to color the corresponding pixel in the figure. </p-->
 
 
 
                           </div>
 
-                          <div class="class_OptionDiv" style="width: 35vw; margin-top: 2vh;">
+                          <div class="class_OptionDiv" style="width: 40vw; margin-top: 2vh;">
                                 <p class="standardText" style="font-weight:bold;">Statistics:</p>
 
 
@@ -887,20 +910,24 @@
                                   <div style="margin: auto;">
                                     <p class="standardText" style="text-decoration: underline;">&#916; Value: </p>
                                     <div class="row">
-                                      <p class="standardText">Maximum =</p>
-                                      <p id="id_subReportValueDifMax" class="standardText"> / </p>
+                                      <p class="standardText" style="font-size: 1.2vh; line-height: 1.6vh;">Maximum =</p>
+                                      <p id="id_ratioReportValueDifMax" class="standardText" style="font-size: 1.2vh; line-height: 1.6vh;"> / </p>
                                     </div>
                                     <div class="row">
-                                      <p class="standardText">Minimum =</p>
-                                      <p id="id_subReportValueDifMin" class="standardText"> / </p>
+                                      <p class="standardText" style="font-size: 1.2vh; line-height: 1.6vh;">Minimum =</p>
+                                      <p id="id_ratioReportValueDifMin" class="standardText" style="font-size: 1.2vh; line-height: 1.6vh;"> / </p>
                                     </div>
                                     <div class="row">
-                                      <p class="standardText">Average =</p>
-                                      <p id="id_subReportValueDifAvg" class="standardText"> / </p>
+                                      <p class="standardText" style="font-size: 1.2vh; line-height: 1.6vh;">Average =</p>
+                                      <p id="id_ratioReportValueDifAvg" class="standardText" style="font-size: 1.2vh; line-height: 1.6vh;"> / </p>
                                     </div>
                                     <div class="row">
-                                      <p class="standardText">Deviation =</p>
-                                      <p id="id_subReportValueDifDev" class="standardText"> / </p>
+                                      <p class="standardText" style="font-size: 1.2vh; line-height: 1.6vh;">Variance =</p>
+                                      <p id="id_ratioReportValueDifVar" class="standardText" style="font-size: 1.2vh; line-height: 1.6vh;"> / </p>
+                                    </div>
+                                    <div class="row">
+                                      <p class="standardText" style="font-size: 1.2vh; line-height: 1.6vh;">Deviation =</p>
+                                      <p id="id_ratioReportValueDifDev" class="standardText" style="font-size: 1.2vh; line-height: 1.6vh;"> / </p>
                                     </div>
                                   </div>
 
@@ -908,41 +935,49 @@
                                   <div style="margin: auto;">
                                     <p class="standardText" style="text-decoration: underline;">&#916; Color-Metric: </p>
                                     <div class="row">
-                                      <p class="standardText">Maximum =</p>
-                                      <p id="id_subReportValueDifMax" class="standardText"> / </p>
+                                      <p class="standardText" style="font-size: 1.2vh; line-height: 1.6vh;">Maximum =</p>
+                                      <p id="id_ratioReportColorDifMax" class="standardText" style="font-size: 1.2vh; line-height: 1.6vh;"> / </p>
                                     </div>
                                     <div class="row">
-                                      <p class="standardText">Minimum =</p>
-                                      <p id="id_subReportValueDifMin" class="standardText"> / </p>
+                                      <p class="standardText" style="font-size: 1.2vh; line-height: 1.6vh;">Minimum =</p>
+                                      <p id="id_ratioReportColorDifMin" class="standardText" style="font-size: 1.2vh; line-height: 1.6vh;"> / </p>
                                     </div>
                                     <div class="row">
-                                      <p class="standardText">Average =</p>
-                                      <p id="id_subReportValueDifAvg" class="standardText"> / </p>
+                                      <p class="standardText" style="font-size: 1.2vh; line-height: 1.6vh;">Average =</p>
+                                      <p id="id_ratioReportColorDifAvg" class="standardText" style="font-size: 1.2vh; line-height: 1.6vh;"> / </p>
                                     </div>
                                     <div class="row">
-                                      <p class="standardText">Deviation =</p>
-                                      <p id="id_subReportValueDifDev" class="standardText"> / </p>
+                                      <p class="standardText" style="font-size: 1.2vh; line-height: 1.6vh;">Variance =</p>
+                                      <p id="id_ratioReportColorDifVar" class="standardText" style="font-size: 1.2vh; line-height: 1.6vh;"> / </p>
+                                    </div>
+                                    <div class="row">
+                                      <p class="standardText" style="font-size: 1.2vh; line-height: 1.6vh;">Deviation =</p>
+                                      <p id="id_ratioReportColorDifDev" class="standardText" style="font-size: 1.2vh; line-height: 1.6vh;"> / </p>
                                     </div>
                                   </div>
 
 
                                   <div style="margin: auto;">
-                                    <p class="standardText" style="text-decoration: underline;">Subtraction Field: </p>
+                                    <p class="standardText" style="text-decoration: underline;">Ratio Field: </p>
                                     <div class="row">
-                                      <p class="standardText">Maximum =</p>
-                                      <p id="id_subReportValueDifMax" class="standardText"> / </p>
+                                      <p class="standardText" style="font-size: 1.2vh; line-height: 1.6vh;">Maximum =</p>
+                                      <p id="id_ratioReportSubMax" class="standardText" style="font-size: 1.2vh; line-height: 1.6vh;"> / </p>
                                     </div>
                                     <div class="row">
-                                      <p class="standardText">Minimum =</p>
-                                      <p id="id_subReportValueDifMin" class="standardText"> / </p>
+                                      <p class="standardText" style="font-size: 1.2vh; line-height: 1.6vh;">Minimum =</p>
+                                      <p id="id_ratioReportSubMin" class="standardText" style="font-size: 1.2vh; line-height: 1.6vh;"> / </p>
                                     </div>
                                     <div class="row">
-                                      <p class="standardText">Average =</p>
-                                      <p id="id_subReportValueDifAvg" class="standardText"> / </p>
+                                      <p class="standardText" style="font-size: 1.2vh; line-height: 1.6vh;">Average =</p>
+                                      <p id="id_ratioReportSubAvg" class="standardText" style="font-size: 1.2vh; line-height: 1.6vh;"> / </p>
                                     </div>
                                     <div class="row">
-                                      <p class="standardText">Deviation =</p>
-                                      <p id="id_subReportValueDifDev" class="standardText"> / </p>
+                                      <p class="standardText" style="font-size: 1.2vh; line-height: 1.6vh;">Variance =</p>
+                                      <p id="id_ratioReportSubVar" class="standardText" style="font-size: 1.2vh; line-height: 1.6vh;"> / </p>
+                                    </div>
+                                    <div class="row">
+                                      <p class="standardText" style="font-size: 1.2vh; line-height: 1.6vh;">Deviation =</p>
+                                      <p id="id_ratioReportSubDev" class="standardText" style="font-size: 1.2vh; line-height: 1.6vh;"> / </p>
                                     </div>
                                   </div>
                                 </div>
@@ -951,7 +986,7 @@
 
                             </div>
 
-                          <button class="class_generalbutton" onclick="showSubtractionReportInfo()" style="margin-left: 7.5vw; width:20vw;  margin-top:2vh; ">Click to show information.</button>
+                          <button class="class_generalbutton" onclick="showRatioReportInfo()" style="margin-left: 7.5vw; width:20vw;  margin-top:2vh; ">Click to show information.</button>
 
                         </div>
 
@@ -967,7 +1002,7 @@
                   ------>
 
 
-                    <div id="id_report_AnalysisReportDiv" style="height: 0vh; width: 100%; overflow: hidden; ">
+                    <div id="id_report_AnalysisReportDiv" style="height: 0vh; width: 100%; overflow: hidden; background:var(--main-bg-color);">
 
                     </div>
 
@@ -975,7 +1010,7 @@
                     ------>
 
 
-                      <div id="id_report_OpitimizationReportDiv" style="height: 0vh; width: 100%; overflow: hidden; ">
+                      <div id="id_report_OpitimizationReportDiv" style="height: 0vh; width: 100%; overflow: hidden; background:var(--main-second-bg-color);">
 
                       </div>
 
@@ -983,7 +1018,7 @@
 
 
 
-          <div style="height:83vh; width: 3vw; background:rgb(60,60,60); display:flex;">
+          <div style="height:83vh; width: 3vw; background:var(--main-sepArea-bg); display:flex;">
 
             <div style="margin-top:auto; margin-bottom:auto;">
 
@@ -1018,7 +1053,7 @@
 
 </div>
 
-<div class="row" style="height:7vh; background: rgb(60,60,60); width:100%; box-sizing: border-box;">
+<div class="row" style="height:7vh; background: var(--main-sepArea-bg); width:100%; box-sizing: border-box;">
 
   <div style=" width:30%; height: 7vh; display:flex;">
     <p id="id_testPageLabelArrow" style="margin-left: 1vw; height:7vh; font-size : 4vh; line-height: 7vh; font-weight: bold; color: white; vertical-align:middle;  cursor:pointer;">&#8596;</p>

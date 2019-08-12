@@ -1,0 +1,156 @@
+
+
+
+input{
+ font-family: 'Helvetica', 'Arial', sans-serif;
+ background: white;
+ color: black;
+ display:block;
+ width:auto;
+ font-size: 1.6vh;
+ line-height: 1.8vh;
+ height: 1.8vh;
+ /*padding: 0.2vh;
+ margin: 0px;
+ box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;*/
+
+}
+
+input:disabled{
+  color: grey;
+  border-color: grey;
+}
+
+
+/************************************
+*********** Radio Buttons *********
+**********************************/
+
+input[type='radio']{
+ width: 1.5vh;
+ height: 1.5vh;
+ margin:auto;
+ border-radius: 1.5vh;
+ /*background-color: #d1d3d1;*/
+ /*border: 0.1 solid grey;*/
+}
+
+.class_radio_container {
+  display: block;
+  color: var(--main-font-color);
+  position: relative;
+  padding-left: 3vh;
+
+  margin-top: 0.25vh;
+  margin-bottom: 0.25vh;
+  cursor: pointer;
+  font-size: 1.6vh;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+   user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.class_radio_container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.class_radio_checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 2vh;
+  width: 2vh;
+  background-color: var(--radio-bg-color);
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.class_radio_container:hover input ~ .class_radio_checkmark {
+  background-color: var(--radio-bg-color-hover);
+}
+
+/* When the radio button is checked, add a blue background */
+.class_radio_container input:checked ~ .class_radio_checkmark {
+  background-color: var(--general-active-color);
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.class_radio_checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.class_radio_container input:checked ~ .class_radio_checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.class_radio_container .class_radio_checkmark:after {
+ 	top: 0.5vh;
+	left: 0.5vh;
+	width: 1vh;
+	height: 1vh;
+	border-radius: 50%;
+	background: var(--main-bg-color);
+}
+
+/************************************
+*********** Checkbox Buttons *********
+**********************************/
+
+
+
+/*****************************
+*********** Range Slider   *********
+*****************************/
+
+
+/*Chrome*/
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    input[type='range'] {
+      width: 20vw;
+      overflow: hidden;
+      -webkit-appearance: none;
+      background-color: rgba(235, 239, 240,0.1);
+    }
+
+    input[type='range']::-webkit-slider-runnable-track {
+      height: 2vh;
+      -webkit-appearance: none;
+      color: #13bba4;
+      /*margin-top: -1vh;*/
+    }
+
+    input[type='range']::-webkit-slider-thumb {
+      width: 2vh;
+      -webkit-appearance: none;
+      height: 2vh;
+      cursor: ew-resize;
+      background: rgb(30, 30, 30);
+      box-shadow: -20vw 0 0 20vw rgb(60,60,60);
+    }
+
+}
+/** FF*/
+input[type="range"]::-moz-range-progress {
+  background-color: rgb(60,60,60);
+}
+input[type="range"]::-moz-range-track {
+  background-color: rgba(230, 230, 230,0.5);
+}
+/* IE*/
+input[type="range"]::-ms-fill-lower {
+  background-color: rgb(60,60,60);
+}
+input[type="range"]::-ms-fill-upper {
+  background-color: rgba(230, 230, 230,0.5);
+}

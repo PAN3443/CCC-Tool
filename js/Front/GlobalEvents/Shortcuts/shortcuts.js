@@ -162,7 +162,7 @@ function keyDownDocumentHandler(event){
       break;
     }
 
-    console.log(keynum);
+    //console.log(keynum);
   }
 
 }

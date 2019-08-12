@@ -8,19 +8,19 @@
 
       <img src="img/Logos/CCC-LOGO_new.png" alt="CCC-Tool Logo" style="height:80%; margin-left:1vw; margin-right:0.5vw; margin-top:auto; margin-bottom:auto;">
 
-      <p id="id_header_ccctoolLabel" style="margin:0px; text-align:left; vertical-align: middle; color:white; font-size: 3vh; margin-top:auto; height:5vh; line-height:5vh; margin-bottom:auto; margin-right:auto; cursor: none; overflow: hidden; text-overflow: ellipsis;" onclick=""><strong>C</strong>harting <strong>C</strong>ontinuous <strong>C</strong>olormap </p>
+      <p id="id_header_ccctoolLabel" style="margin:0px; text-align:left; vertical-align: middle; color:var(--menue-label-color); font-size: 3vh; margin-top:auto; height:5vh; line-height:5vh; margin-bottom:auto; margin-right:auto; cursor: none; overflow: hidden; text-overflow: ellipsis;" onclick=""><strong>C</strong>harting <strong>C</strong>ontinuous <strong>C</strong>olormap </p>
 
-      <p id="id_header_colorBlindWarning" class="standardText " style="margin:0px; vertical-align: middle; color:red; font-size: 3vh; line-height:5vh; margin-top:auto; margin-bottom:auto; color:red; visibility:hidden; cursor:help; margin-right:1vw;" title="Colorblind Modus">&#128065;</p>
-      <p id="id_header_editWarning" class="standardText " style="margin:0px; vertical-align: middle; color:white; font-size: 3vh; line-height:5vh; margin-top:auto; margin-bottom:auto; color:red; visibility:hidden; cursor:help;" title="Unsaved Content">&#9888;</p>
+      <p id="id_header_colorBlindWarning" class="standardText " style="margin:0px; vertical-align: middle; color:var(--menue-warning-font-color); font-size: 3vh; line-height:5vh; margin-top:auto; margin-bottom:auto; visibility:hidden; cursor:help; margin-right:1vw;" title="Colorblind Modus">&#128065;</p>
+      <p id="id_header_editWarning" class="standardText " style="margin:0px; vertical-align: middle; color:var(--menue-warning-font-color); font-size: 3vh; line-height:5vh; margin-top:auto; margin-bottom:auto; visibility:hidden; cursor:help;" title="Unsaved Content">&#9888;</p>
 
       <div style="height:100%; width:auto; position: relative; display: inline-block;">
         <div onclick="activateNaviDropdown()" class="menu_button"> Navi &#128743; </div>
 
-        <div id="id_dropDownContainerNavi" style="background: rgba(25,25,25,0.95); min-width:30vw;  display: none; position: absolute; right: 0; z-index: 101;">
+        <div id="id_dropDownContainerNavi" style="background: var(--menue-navi-bg-color); min-width:30vw;  display: none; position: absolute; right: 0; z-index: 101;">
 
           <div class="row" style="margin-top:0.25vh; width:100%;">
-            <p class="standardText" style="margin-left:2vw; margin-right:auto; font-size: 3vh; font-weight: bold; color:white; height:4vh; line-height:4vh;">Navigator:</p>
-            <p class="standardText" style="margin-right:2vw; margin-left:auto; font-size: 3vh;  color:white; height:4vh; line-height:4vh;">&#128743;</p>
+            <p class="standardText" style="margin-left:2vw; margin-right:auto; font-size: 3vh; font-weight: bold; color:var(--menue-font-color); height:4vh; line-height:4vh;">Navigator:</p>
+            <p class="standardText" style="margin-right:2vw; margin-left:auto; font-size: 3vh;  color:var(--menue-font-color); height:4vh; line-height:4vh;">&#128743;</p>
           </div>
 
             <div id="id_navi_WelcomePage" class="navi_div" style="margin-left: auto; margin-right: auto; width:10vw;">
@@ -65,11 +65,16 @@
       </div>
       <!--End Dropdown Navi Button -->
 
-      <div class="menu_buttonNotActive" style="height:100%; width:auto;">
+
+      <div class="menu_buttonNotActive" style="height:100%; width:auto;" onclick="switchToolTheme()">
+        Theme
+      </div>
+
+      <div class="menu_buttonNotActive" style="height:100%; width:auto; display:none;">
         Log In
       </div>
 
-      <div class="menu_buttonNotActive" style="height:100%; width:auto;">
+      <div class="menu_buttonNotActive" style="height:100%; width:auto; display:none;">
         Register
       </div>
 
@@ -78,10 +83,10 @@
       <div style="height:100%; width:auto; position: relative; display: inline-block;">
         <div onclick="activateMenuDropdown()" class="menu_button"> Menu </div>
 
-        <div id="id_dropDownContainer" style="background: rgb(0, 11, 25); min-width:20vw;  display: none; position: absolute; right: 0; z-index: 101;">
+        <div id="id_dropDownContainer" style="background: var(--menue-bg-color); min-width:20vw;  display: none; position: absolute; right: 0; z-index: 101;">
 
 
-          <div class="row dropdownMenuLabelBox" style="background:rgba(255,255,255,0.3); border-bottom: 1px solid white;">
+          <div class="dropdownMenuLabelBox">
 
             <div class="dropdownMenuLabelImg" style=" background: url(img/Buttons/gear_wheel.png);background-size:cover; background-repeat:no-repeat; background-position: center center;">
 
@@ -119,7 +124,7 @@
           </div>
 
 
-          <div id="id_actionMenu_Label" class="row dropdownMenuLabelBox" style="background:rgba(255,255,255,0.3); border-bottom: 1px solid white; display:none;">
+          <div id="id_actionMenu_Label" class="dropdownMenuLabelBox" style="display:none;">
 
             <div class="dropdownMenuLabelImg" style=" background: url(img/Buttons/actionImg.png);background-size:cover;  background-repeat:no-repeat; background-position: center center;">
             </div>
@@ -171,7 +176,7 @@
 
 
           <div id="id_dropDownMenu_DisplayOptions" style="display:none;">
-            <div class="row dropdownMenuLabelBox" style="background:rgba(255,255,255,0.3); border-bottom: 1px solid white;">
+            <div class="dropdownMenuLabelBox">
 
               <div class="dropdownMenuLabelImg" style=" background: url(img/Buttons/displayImg.png);background-size:cover; background-repeat:no-repeat; background-position: center center;">
 
@@ -213,7 +218,7 @@
           </div>
 
 
-          <div style="width:100%; border-top:1px solid white;">
+          <div style="width:100%; border-top:1px solid var(--menue-font-color);">
 
             <div id="id_settingMenu_Label_ReturnMyDesigns_Button" onclick="startLeaveEditPage()" class="dropdownMenuButton" style="display:none">
               Return to MyDesigns
