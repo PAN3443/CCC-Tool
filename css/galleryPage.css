@@ -48,6 +48,8 @@
   width: 100%;
   height: 6vh;
   margin:0;
+  border: 0.2vh solid var(--menue-bg-color);
+  background: var(--main-sepArea-bg);
   display: block;
   /*font-family:courier;*/
 }
@@ -56,7 +58,9 @@
 .class_GalleryObjCMSLabel{
   width: 100%;
   height: 4vh;
-  background: rgb(60,60,60);
+  background: var(--main-sepArea-bg);
+  border: 0.2vh solid var(--menue-bg-color);
+  border-bottom:none;
   margin:0;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -64,6 +68,7 @@
   line-height: 4vh;
   font-size: 2vh;
   text-align: left;
+  color: var(--main-font-color);
   vertical-align: middle;
   /*font-family:courier;*/
 }
@@ -74,7 +79,7 @@
   height: 4vh;
   line-height: 4vh;
   font-size: 2vh;
-  color: white;
+  color: var(--main-font-color);
   text-align:center;
   cursor:pointer;
   margin:0;
@@ -88,41 +93,5 @@
 
 .class_GalleryObjButton:hover{
   font-size: 2.5vh;
-  background: rgba(255,255,255,0.1);
+  background: var(--general-bg-hover-color);
 }
-
-
-
-/*.class_GalleryCanvas{
-  height:5vh;
-  width:40vw;
-  margin-left: 5vh;
-  color: black;
-  line-height:5vh;
-
-  box-sizing: border-box;
-  border: 0.2vh solid black;
-  border-radius: 0.5vh;
-
-  -moz-box-shadow:    inset 0 0 0.2vw rgb(0,0,0);
-   -webkit-box-shadow: inset 0 0 0.2vw rgb(0,0,0);
-   box-shadow:         inset 0 0 0.2vw rgb(0,0,0);
-}
-
-.class_GalleryButton{
-  height:5vh;
-  line-height:5vh;
-  width:5vh;
-  border: 0.2vh solid black;
-  margin-left: 1vw;
-  border-radius: 0.5vh;
-  box-sizing: border-box;
-  cursor: pointer;
-  font-size: 3vh;
-  vertical-align: middle;
-  text-align: center;
-  background:black;
-  background-size:cover;
-  background-repeat:no-repeat;
-  background-position: center center;
-}*/

@@ -3,7 +3,7 @@
   width: 15vw;
   display:flex;
   height: 10vh;
-  border: 0.2vh solid white;
+  border: 0.2vh solid var(--main-sepArea-font-color);
 }
 
 .class_Test_Map_Div p{
@@ -12,14 +12,14 @@
   text-align: center;
   line-height: 2.5vh;
   font-size: 2.0vh;
-  color: white;
+  color: var(--main-sepArea-font-color);
 }
 
 .class_Test_Map_DivActive{
   width: 15vw;
   display:flex;
   height: 10vh;
-  border: 0.2vh solid rgb(10, 239, 251);
+  border: 0.2vh solid var(--general-active-color);
 }
 
 .class_Test_Map_DivActive p{
@@ -28,7 +28,7 @@
   text-align: center;
   line-height: 2.5vh;
   font-size: 2.0vh;
-  color: rgb(10, 239, 251);
+  color: var(--general-active-color);
 }
 
 .class_ReportTestSelectionDiv{
@@ -158,41 +158,6 @@
   transition: width 2s, height 2s;
 }
 
-.class_Test_ShowTestButton{
-  width:auto;
-  cursor:pointer;
-  vertical-align: middle;
-  text-align:center;
-  height: 4vh;
-  line-height: 4vh;
-
-  font-size: 2.5vh;
-  font-weight: bold;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  cursor: pointer;
-
-  box-sizing: border-box;
-
-  transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
-
-  color:rgb(255,255,255); /*19, 111, 153*/
-  /*text-shadow: 0 0 1vh rgba(175,255,255, 0.5);*/
-  -webkit-background-clip: text;
-     -moz-background-clip: text;
-          background-clip: text;
-
-
-}
-
-.class_Test_ShowTestButton:hover{
-  transform: scale(0.9);
-  color: rgb(150, 245, 255); /*rgb(10, 239, 251)*/ /*8, 48, 66*/
-  /*text-shadow: 0 0 1vh rgba(10, 239, 251, 0.5);*/
-  -webkit-background-clip: text;
-     -moz-background-clip: text;
-          background-clip: text;
-}
 
 .class_Test_SelectorRow{
   width:90vw;

@@ -12,8 +12,8 @@
 
 
 .class_MyDesignObjCMSDiv:hover{
-  transform: scale(1.05);
-  box-shadow: 0 0 1vh rgba(30, 30, 30, 0.5);
+  /*transform: scale(1.05);*/
+  box-shadow: 0.2vw 0.2vh 1vh var(--main-font-color);
 }
 
 
@@ -25,11 +25,12 @@
   text-overflow: ellipsis;
   cursor:pointer;
   display: block;
+  border: 0.2vh solid var(--menue-bg-color);
   line-height: 4vh;
   font-size: 2vh;
   text-align: left;
   vertical-align: middle;
-  background: rgb(60,60,60);
+  background: var(--main-sepArea-bg);
   /*font-family:courier;*/
 }
 
@@ -39,7 +40,7 @@
   height: 4vh;
   line-height: 4vh;
   font-size: 2vh;
-  color: white;
+  color: var(--main-font-color);
   background:none;
   text-align:center;
   cursor:pointer;
@@ -53,7 +54,7 @@
 
 .class_MyDesignObjButton:hover{
   font-size: 2.5vh;
-  background: rgba(255,255,255,0.1);
+  background: var(--general-bg-hover-color);
 }
 
 

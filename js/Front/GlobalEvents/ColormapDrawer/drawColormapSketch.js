@@ -38,7 +38,9 @@ function drawBandSketch(cms,sketchObjectID, withInputFields, aboveInputField){
     canvasObject.height = 80;//40;
     canvasObject.width = 2500;//1500;
 
-    canvasObject.style.borderStyle = "dashed";
+    if(document.getElementById("id_EditPage").display!="none")
+      canvasObject.style.borderStyle = "dashed";
+
     canvasContex.textBaseline="bottom";
     // write text into the canvasID
 
@@ -80,7 +82,8 @@ function drawBandSketch(cms,sketchObjectID, withInputFields, aboveInputField){
   }
   else{
 
-    canvasObject.style.borderStyle = "solid";
+    if(document.getElementById("id_EditPage").display!="none")
+      canvasObject.style.borderStyle = "solid";
 
     if(withInputFields){
       dropRects = [];

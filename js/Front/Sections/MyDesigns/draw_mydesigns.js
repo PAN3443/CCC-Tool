@@ -58,7 +58,6 @@ function createMyDesignObject(id){
   var tmpLabelDiv = document.createElement('div');
   tmpLabelDiv.className = 'class_MyDesignObjCMSCanvas';
   tmpLabelDiv.style.display="flex";
-  tmpLabelDiv.style.border = "0.2vh solid rgb(40,40,40)"
   tmpLabelDiv.style.borderBottom = "none";
   tmpLabelDiv.style.borderRadius = "0.5vh 0.5vh 0px 0px";
 
@@ -67,7 +66,8 @@ function createMyDesignObject(id){
   tmpLabel.style.width="90%";
   tmpLabel.style.paddingLeft="5%";
   tmpLabel.className = 'class_MyDesignObjCMSCanvas';
-  tmpLabel.style.color="white";
+  tmpLabel.style.border = "none";
+  tmpLabel.style.color="var(--main-font-color)";
   tmpLabel.innerHTML=myDesignsList[id].getColormapName(); //"Emty CMS:"
 
 
@@ -118,7 +118,6 @@ function createMyDesignObject(id){
   var tmpCMSlinear = document.createElement('canvas');
   tmpCMSlinear.id="myDesignObj_CMSlinear_"+id;
   tmpCMSlinear.className = 'class_MyDesignObjCMSCanvas classColormapCanvas';
-  tmpCMSlinear.style.border = "0.2vh solid rgb(40,40,40)"
   tmpCMSlinear.style.borderBottom = "none";
   tmpDiv.appendChild(tmpCMSlinear);
 
@@ -134,7 +133,6 @@ function createMyDesignObject(id){
   var tmpCMSsketch = document.createElement('canvas');
   tmpCMSsketch.id="myDesignObj_CMSsketch_"+id;
   tmpCMSsketch.className = 'class_MyDesignObjCMSCanvas classColormapCanvas';
-  tmpCMSsketch.style.border = "0.2vh solid rgb(40,40,40)"
   tmpCMSsketch.style.borderRadius = "0px 0px 0.5vh 0.5vh";
   tmpDiv.appendChild(tmpCMSsketch);
 

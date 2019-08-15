@@ -25,6 +25,26 @@
  }
 
 
+ a:link {
+     color: var(--link-color);
+ }
+
+ /* visited link */
+ a:visited {
+     color: var(--link-color-visited);
+ }
+
+ /* mouse over link */
+ a:hover {
+     color: var(--link-color-hover);
+ }
+
+ /* selected link */
+ a:active {
+     color: var(--link-color-active);
+ }
+
+
 
 
  .footer_coopImg{
@@ -74,7 +94,6 @@
  h4,
  button,
  canvas,
- textarea,
  select,
  div{
    font-family: 'Helvetica', 'Arial', sans-serif;
@@ -88,6 +107,10 @@
    -webkit-box-sizing: border-box;
  }
 
+
+ hr{
+   color: var(--main-font-color);
+ }
 
  /*********************************************************************************
  ************* Scroll bar
@@ -177,36 +200,36 @@
   }
 
   .class_OptionDiv{
-    background:var(--main-optionBox-bg);
+    background:var(--main-sepArea-bg);
     padding-top:1vh;
     padding-bottom:1vh;
     padding-left:1vw;
     padding-right:1vw;
-    border: 0.2vh solid var(--main-optionBox-border);
+    border: 0.2vh solid var(--main-sepArea-border);
     /*box-shadow: 0 0.25vh 0.25vh 0 rgba(0, 0, 0, 0.2), 0 0.15vh 0.15vh 0 rgba(0, 0, 0, 0.25);*/
   }
 
   .class_OptionDiv p{
-    color: white;
+    color: var(--main-sepArea-font-color);
   }
 
   .class_OptionDiv a:link {
-      color: rgb(63, 139, 183);
+      color: var(--main-sepArea-link-color);
   }
 
   /* visited link */
   .class_OptionDiv a:visited {
-      color: rgb(228,62,0);
+      color: var(--main-sepArea-link-color-visited);
   }
 
   /* mouse over link */
   .class_OptionDiv a:hover {
-      color: rgb(19, 111, 153);
+      color: var(--main-sepArea-link-color-hover);
   }
 
   /* selected link */
   .class_OptionDiv a:active {
-      color: rgb(19, 111, 153);
+      color: var(--main-sepArea-link-color-active);
   }
 
 .class_InsetLabelText{
@@ -240,8 +263,8 @@ div.sticky {
 }
 
 .standardText{
-  font-size: 1.6vh;
-  line-height: 2vh;
+  font-size: var(--font-size-normal);
+  line-height: var(--line-height-normal);
   color:var(--main-font-color);
   vertical-align:middle;
   margin:0px;
@@ -255,8 +278,8 @@ div.sticky {
   color:var(--main-label-font-color);
   vertical-align:middle;
   text-align: center;
-  line-height: 5vh;
-  font-size: 3.5vh;
+  line-height: var(--line-height-label);
+  font-size: var(--font-size-label);
   font-weight: bold;
   overflow: hidden;
   text-overflow: ellipsis;

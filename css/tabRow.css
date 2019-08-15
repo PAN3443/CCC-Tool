@@ -1,24 +1,26 @@
 .class_TabRow {
   margin:0;
-  background: rgb(60,60,60);
+  background: var(--tabrow-bg-color);
   display: flex;
   height: auto;
   width: 100%;
+  cursor: pointer;
 }
+
+
 
 .class_TabRow button{
   height:4vh;
   line-height: 4vh;
   width: 100%;
   font-size: 2.0vh;
+  border-color: var(--tabrow-bg-color);
   text-align: center;
-  border: 0.1vh solid black;
 }
 
-
-.class_TabRow button:hover{
-  background: rgba(255,255,255,0.1);
-}
+/*.class_TabRow button:hover{
+  background: var(--tabrow-hover-bg-color);
+}*/
 
 
 .class_TabRow canvas{
@@ -26,28 +28,25 @@
   line-height: 3vh;
   width: 100%;
   text-align: center;
-  border: 0.1vh solid black;
+  border: 0.1vh solid none;
   transition: transform ease-in 0.1s;
 }
 
 .class_TabRow canvas:hover{
-  border-color: white;
   transform: scale(0.9);
 }
 
+
+
+
 .class_TabRowButtonActive{
-  /*background-image: linear-gradient(rgb(40,40,40), rgb(10,10,10));*/
-  color: rgb(150, 245, 255); /*rgb(10, 239, 251)*/
-  /*text-shadow: 0 0 0.2vh rgb(9, 120, 171);*/
+  background: var(--tabrow-active-color);
+  color: var(--tabrow-active-font-color);
 }
 
-/*.class_TabRowButtonActive:hover{
-  color: white;
-}*/
+
 
 .class_TabRowButtonActive p{
-  color: rgb(150, 245, 255); /*rgb(10, 239, 251)*/
-  /*text-shadow: 0 0 0.2vh rgb(9, 120, 171);*/
   transition: transform ease-in 0.1s;
 }
 
@@ -56,50 +55,101 @@
 }
 
 .class_TabRowButtonActive canvas{
-  /*box-shadow: 0 0 0.5vh rgb(9, 120, 171);*/
   box-sizing: border-box;
   transition: transform ease-in 0.1s;
 }
 
 .class_TabRowButtonActive:hover canvas{
-  border-color: white;
   transform: scale(0.9);
 }
 
+
+
+
 .class_TabRowButtonNotActive{
-  /*background-image: linear-gradient(rgb(60,60,60), rgb(25,25,25));*/
-  color: rgb(230,230,230);
-  text-shadow: none;
+  height:4vh;
+  line-height: 4vh;
+  width: 100%;
+  font-size: 2.0vh;
+  text-align: center;
+  color: var(--tabrow-font-color);
 }
 
-/*.class_TabRowButtonNotActive:hover{
-  color: white;
-}*/
+.class_TabRowButtonNotActive:hover{
+  background: var(--tabrow-font-color);
+  color: var(--tabrow-bg-color);
+}
 
 .class_TabRowButtonNotActive p{
-  color: rgb(230,230,230);
-  text-shadow: 0 0 0.2vh none;
   transition: transform ease-in 0.1s;
 }
 
 .class_TabRowButtonNotActive:hover p{
-  color: white;
+  color: var(--tabrow-bg-color);
   transform: scale(0.9);
 }
 
 .class_TabRowButtonNotActive canvas{
-  box-shadow: 0 0 0.2vh none;
   transition: transform ease-in 0.1s;
 }
 
 .class_TabRowButtonNotActive:hover canvas{
-  border-color: white;
   transform: scale(0.9);
 }
 
 
-/*.class_TabRow canvas{
-  background: none;
-  height:4vh;
-  line-height: 4vh;
-}*/
+/************************************************************/
+
+.class_TabRowBorderButtonActive{
+  border: 0.1vw solid var(--tabrow-active-color);
+  color: var(--tabrow-active-color);
+}
+
+
+
+.class_TabRowBorderButtonActive p{
+  color: var(--tabrow-active-color);
+  transition: transform ease-in 0.1s;
+}
+
+.class_TabRowBorderButtonActive:hover p{
+  transform: scale(0.9);
+}
+
+.class_TabRowBorderButtonActive canvas{
+  border-color: var(--tabrow-bg-color);
+  box-sizing: border-box;
+  transition: transform ease-in 0.1s;
+}
+
+.class_TabRowBorderButtonActive:hover canvas{
+  transform: scale(0.9);
+}
+
+
+.class_TabRowBorderButtonNotActive{
+  color: var(--tabrow-font-color);
+}
+
+.class_TabRowBorderButtonNotActive:hover{
+  background: var(--tabrow-font-color);
+  color: var(--tabrow-bg-color);
+}
+
+.class_TabRowBorderButtonNotActive p{
+  transition: transform ease-in 0.1s;
+}
+
+.class_TabRowBorderButtonNotActive:hover p{
+  color: var(--tabrow-bg-color);
+  transform: scale(0.9);
+}
+
+.class_TabRowBorderButtonNotActive canvas{
+  border-color: var(--tabrow-bg-color);
+  transition: transform ease-in 0.1s;
+}
+
+.class_TabRowBorderButtonNotActive:hover canvas{
+  transform: scale(0.9);
+}

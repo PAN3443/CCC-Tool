@@ -13,49 +13,63 @@
 
       <p class="standardText" style="margin-left:auto; margin-right:3vw; font-weight:bold; "> Select: </p>
 
-      <input class="standardText" id="id_radio_SelectTrichomacy_Dichromatism" type="radio" name="selectColorblindnessChapter" value="0" checked onchange="changeColorblindnessType()">
-      <p class="standardText" style="margin-left:1vw; margin-right:3vw; "> AnomalousTrichomacy Dichromatism View</p>
+      <label class="class_radio_container" style="margin-left:auto;">AnomalousTrichomacy Dichromatism View
+        <input type="radio" checked="checked" name="selectColorblindnessChapter" id="id_radio_SelectTrichomacy_Dichromatism" checked onchange="changeColorblindnessType()">
+        <span class="class_radio_checkmark"></span>
+      </label>
 
-      <input class="standardText" id="id_radio_Monochromatic"  disabled type="radio" name="selectColorblindnessChapter" value="1" onchange="changeColorblindnessType()">
-      <p class="standardText" style="color:grey; margin-left:1vw; margin-right:3vw "> Monochromatic View</p>
+      <label class="class_radio_container" style="margin-left:auto;">Monochromatic View
+        <input type="radio" checked="checked" name="selectColorblindnessChapter" id="id_radio_Monochromatic" onchange="changeColorblindnessType()" disabled>
+        <span class="class_radio_checkmark"></span>
+      </label>
 
-      <input class="standardText" id="id_radio_CustomColorblindness"  type="radio" name="selectColorblindnessChapter" value="2" onchange="changeColorblindnessType()">
-      <p class="standardText" style="margin-left:1vw; margin-right:3vw"> Custom View</p>
+      <label class="class_radio_container" style="margin-left:auto; margin-right:auto;">Custom View
+        <input type="radio" checked="checked" name="selectColorblindnessChapter" id="id_radio_CustomColorblindness" onchange="changeColorblindnessType()">
+        <span class="class_radio_checkmark"></span>
+      </label>
     </div>
 
     <hr>
 
       <div id="AnomalousTrichomacy_Dichromatism_View_Div" style="margin-top:2vh; margin-bottom:2vh;">
 
-          <div class="row" style="margin-top: 10px;">
-            <input id="id_radio_Protanopia" style="margin:0px; margin-left:5%;" type="radio" name="selectColorblindnessDichromatism" value="0" checked onchange="changeColorblindnessType()">
-            <p style=" text-align:left; height:30px; line-height:30px;  vertical-align:middle; margin:0px; margin-left:1.25%; margin-right:2%; width:25%;"> Protanomaly (Red Weak)</p>
+          <div class="row" style="margin-top: 1vh;">
 
-            <p style=" text-align:left; height:30px; line-height:30px;  vertical-align:middle; margin:0px; margin-right:0.25%; "> Degree:</p>
+            <label class="class_radio_container" style="margin-left:5%;">Protanomaly (Red Weak)
+              <input type="radio" checked="checked" name="selectColorblindnessDichromatism" id="id_radio_Protanopia" onchange="changeColorblindnessType() " checked>
+              <span class="class_radio_checkmark"></span>
+            </label>
+
+            <p style=" margin:auto; margin-right:0vh; "> Degree:</p>
             <input type="range" min="0" max="100" value="50" class="rangeslider" id="range_DegreeProtanopia" style="width:30%; margin-right:1.25%; margin-top:auto; margin-bottom:auto;" onchange="changeColorblindnessDegree()">
-            <p id="ProtanopiaLabel" style=" text-align:left; height:30px; line-height:30px;  vertical-align:middle; margin:0px; margin-right:auto; visibility:hidden;"> &rarr; Protanopia (Red Blind) </p>
+            <p id="ProtanopiaLabel" style=" margin:auto; margin-left:2vw; visibility:hidden;"> &rarr; Protanopia (Red Blind) </p>
 
           </div>
 
-          <div class="row" style="margin-top: 10px;">
-            <input id="id_radio_Deuteranopia"  style="margin:0px; margin-left:5%;" type="radio" name="selectColorblindnessDichromatism" value="1" onchange="changeColorblindnessType()">
-            <p style="text-align:left; height:30px; line-height:30px;  vertical-align:middle; margin:0px; margin-left:1.25%; margin-right:2%; width:25%;"> Deuteranomaly (Green Weak)</p>
+          <div class="row" style="margin-top: 1vh;">
 
-            <p style=" text-align:left; height:30px; line-height:30px;  vertical-align:middle; margin:0px; margin-right:0.25%; "> Degree:</p>
+            <label class="class_radio_container" style="margin-left:5%;">Deuteranomaly (Green Weak)
+              <input type="radio" checked="checked" name="selectColorblindnessDichromatism" id="id_radio_Deuteranopia" onchange="changeColorblindnessType() " checked>
+              <span class="class_radio_checkmark"></span>
+            </label>
+
+            <p style=" margin:auto; margin-right:0vh; "> Degree:</p>
             <input type="range" min="0" max="100" value="50" class="rangeslider" id="range_DegreeDeuteranopia" style="width:30%; margin-right:1.25%; margin-top:auto; margin-bottom:auto;" onchange="changeColorblindnessDegree()">
-            <p id="DeuteranopiaLabel" style=" text-align:left; height:30px; line-height:30px; vertical-align:middle; margin:0px; margin-right:auto; visibility:hidden;"> &rarr; Deuteranopia (Green Blind) </p>
+            <p id="DeuteranopiaLabel" style=" margin:auto; margin-left:2vw; visibility:hidden;"> &rarr; Deuteranopia (Green Blind) </p>
           </div>
 
-          <div class="row" style="margin-top: 10px;">
-            <input id="id_radio_Tritanopes" style="margin:0px; margin-left:5%;" type="radio" name="selectColorblindnessDichromatism" value="2" onchange="changeColorblindnessType()">
-            <p style="text-align:left; height:30px; line-height:30px;  vertical-align:middle; margin:0px; margin-left:1.25%; margin-right:2%; width:25%;"> Tritanomaly (Blue Weak)</p>
+          <div class="row" style="margin-top: 1vh;">
 
-            <p style=" text-align:left; height:30px; line-height:30px;  vertical-align:middle; margin:0px; margin-right:0.25%; "> Degree:</p>
+            <label class="class_radio_container" style="margin-left:5%;">Tritanomaly (Blue Weak)
+              <input type="radio" checked="checked" name="selectColorblindnessDichromatism" id="id_radio_Tritanopes" onchange="changeColorblindnessType() " checked>
+              <span class="class_radio_checkmark"></span>
+            </label>
+
+            <p style=" margin:auto; margin-right:0vh; "> Degree:</p>
             <input type="range" min="0" max="100" value="50" class="rangeslider" id="range_DegreeTritanopes" style="width:30%; margin-right:1.25%; margin-top:auto; margin-bottom:auto;" onchange="changeColorblindnessDegree()">
-            <p id="TritanopiaLabel" style=" text-align:left; height:30px; line-height:30px;  vertical-align:middle; margin:0px; margin-right:auto; visibility:hidden;">  &rarr; Tritanopia (Blue Blind) </p>
+            <p id="TritanopiaLabel" style=" margin:auto; margin-left:2vw; visibility:hidden;">  &rarr; Tritanopia (Blue Blind) </p>
           </div>
 
-           <hr>
 
       </div>
 
@@ -75,82 +89,88 @@
        </div-->
 
 
+      <div style="width: 100%; padding-bottom:2vh;">
+        <p class="sectionLabel" style="margin-top:2vh; margin-bottom:1vh; background: var(--main-popUpWindow-labelbg-color);"> Transformation Matrix: </p>
+
+        <div class="row" style="width:60vw; margin-top:2vh; margin-bottom:2vh;">
+
+            <svg class="class_svgBrackets" style="margin-left:auto;">
+              <line x1="10%" y1="0%" x2="10%" y2="100%" style="stroke: var(--main-font-color);stroke-width:0.2vw" />
+              <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke: var(--main-font-color);stroke-width:0.2vw" />
+              <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke: var(--main-font-color);stroke-width:0.2vw" />
+            </svg>
+
+            <div style="margin-top:auto; margin-bottom:auto;">
+              <input id="inputCBTransferMatrix00" step="any" class="class_transferInput" value="1" disabled><br>
+              <input id="inputCBTransferMatrix10" step="any" class="class_transferInput" value="0" disabled><br>
+              <input id="inputCBTransferMatrix20" step="any" class="class_transferInput" value="0" disabled><br>
+            </div>
+            <div style="margin-top:auto; margin-bottom:auto;">
+              <input id="inputCBTransferMatrix01" step="any" class="class_transferInput" value="0" disabled><br>
+              <input id="inputCBTransferMatrix11" step="any" class="class_transferInput" value="1" disabled><br>
+              <input id="inputCBTransferMatrix21" step="any" class="class_transferInput" value="0" disabled><br>
+            </div>
+            <div style="margin-top:auto; margin-bottom:auto;">
+              <input id="inputCBTransferMatrix02" step="any" class="class_transferInput" value="0" disabled><br>
+              <input id="inputCBTransferMatrix12" step="any" class="class_transferInput" value="0" disabled><br>
+              <input id="inputCBTransferMatrix22" step="any" class="class_transferInput" value="1" disabled><br>
+            </div>
 
 
-       <p class="subsectionLabel" style="margin-top:2vh; margin-bottom:1vh;"> Transformation Matrix: </p>
+            <svg class="class_svgBrackets">
+              <line x1="90%" y1="0%" x2="90%" y2="100%" style="stroke: var(--main-font-color);stroke-width:0.2vw" />
+              <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke: var(--main-font-color);stroke-width:0.2vw" />
+              <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke: var(--main-font-color);stroke-width:0.2vw" />
+            </svg>
+            <svg class="class_svgBrackets">
+              <line x1="10%" y1="0%" x2="10%" y2="100%" style="stroke: var(--main-font-color);stroke-width:0.2vw" />
+              <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke: var(--main-font-color);stroke-width:0.2vw" />
+              <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke: var(--main-font-color);stroke-width:0.2vw" />
+            </svg>
 
-       <div class="row" style="width:60vw; margin-top:2vh; margin-bottom:2vh; background:rgb(220,220,220); padding-top:2vh; padding-bottom:2vh;  ">
+            <div style="margin-top:auto; margin-bottom:auto;">
+              <p  class="class_transferInput">L</p>
+              <p  class="class_transferInput">M</p>
+              <p  class="class_transferInput">S</p>
+            </div>
 
-           <svg class="class_svgBrackets" style="margin-left:auto;">
-             <line x1="10%" y1="0%" x2="10%" y2="100%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
-             <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
-             <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
-           </svg>
+            <svg class="class_svgBrackets">
+              <line x1="90%" y1="0%" x2="90%" y2="100%" style="stroke: var(--main-font-color);stroke-width:0.2vw" />
+              <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke: var(--main-font-color);stroke-width:0.2vw" />
+              <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke: var(--main-font-color);stroke-width:0.2vw" />
+            </svg>
+            <p class="class_transferInput" style="margin-top:auto; margin-bottom:auto; margin-left:1vw; margin-right:1vw;"> = </p>
+            <svg class="class_svgBrackets">
+              <line x1="10%" y1="0%" x2="10%" y2="100%" style="stroke: var(--main-font-color);stroke-width:0.2vw" />
+              <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke: var(--main-font-color);stroke-width:0.2vw" />
+              <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke: var(--main-font-color);stroke-width:0.2vw" />
+            </svg>
 
-           <div style="margin-top:auto; margin-bottom:auto;">
-             <input id="inputCBTransferMatrix00" step="any" class="class_transferInput" value="1" disabled><br>
-             <input id="inputCBTransferMatrix10" step="any" class="class_transferInput" value="0" disabled><br>
-             <input id="inputCBTransferMatrix20" step="any" class="class_transferInput" value="0" disabled><br>
-           </div>
-           <div style="margin-top:auto; margin-bottom:auto;">
-             <input id="inputCBTransferMatrix01" step="any" class="class_transferInput" value="0" disabled><br>
-             <input id="inputCBTransferMatrix11" step="any" class="class_transferInput" value="1" disabled><br>
-             <input id="inputCBTransferMatrix21" step="any" class="class_transferInput" value="0" disabled><br>
-           </div>
-           <div style="margin-top:auto; margin-bottom:auto;">
-             <input id="inputCBTransferMatrix02" step="any" class="class_transferInput" value="0" disabled><br>
-             <input id="inputCBTransferMatrix12" step="any" class="class_transferInput" value="0" disabled><br>
-             <input id="inputCBTransferMatrix22" step="any" class="class_transferInput" value="1" disabled><br>
-           </div>
+            <div style="margin-top:auto; margin-bottom:auto;">
+              <p  class="class_transferInput">L'</p>
+              <p  class="class_transferInput">M'</p>
+              <p  class="class_transferInput">S'</p>
+            </div>
+            <svg class="class_svgBrackets" style="margin-right:auto;">
+              <line x1="90%" y1="0%" x2="90%" y2="100%" style="stroke: var(--main-font-color);stroke-width:0.2vw" />
+              <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke: var(--main-font-color);stroke-width:0.2vw" />
+              <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke: var(--main-font-color);stroke-width:0.2vw" />
+            </svg>
 
+       </div>
 
-           <svg class="class_svgBrackets">
-             <line x1="90%" y1="0%" x2="90%" y2="100%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
-             <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
-             <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
-           </svg>
-           <svg class="class_svgBrackets">
-             <line x1="10%" y1="0%" x2="10%" y2="100%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
-             <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
-             <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
-           </svg>
+        <hr>
 
-           <div style="margin-top:auto; margin-bottom:auto;">
-             <p  class="class_transferInput">L</p>
-             <p  class="class_transferInput">M</p>
-             <p  class="class_transferInput">S</p>
-           </div>
+       <p class="standardText" id="id_CBSettings_Warning" style=" text-align: center; width:100%; margin-top:1vh; margin-bottom:1vh; color:var(--general-warning-color); display:none;"> Invalid Matrix Input </p>
 
-           <svg class="class_svgBrackets">
-             <line x1="90%" y1="0%" x2="90%" y2="100%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
-             <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
-             <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
-           </svg>
-           <p class="class_transferInput" style="margin-top:auto; margin-bottom:auto; margin-left:1vw; margin-right:1vw;"> = </p>
-           <svg class="class_svgBrackets">
-             <line x1="10%" y1="0%" x2="10%" y2="100%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
-             <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
-             <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
-           </svg>
-
-           <div style="margin-top:auto; margin-bottom:auto;">
-             <p  class="class_transferInput">L'</p>
-             <p  class="class_transferInput">M'</p>
-             <p  class="class_transferInput">S'</p>
-           </div>
-           <svg class="class_svgBrackets" style="margin-right:auto;">
-             <line x1="90%" y1="0%" x2="90%" y2="100%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
-             <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
-             <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
-           </svg>
-
+       <p class="standardText" style=" text-align:left; width:80%; margin-left:10%; margin-top:1vh; margin-bottom:1vh;"> Info: The values of the transfer matrix for color blindness simulation are depenting on the selected transfer-matrix for the RGB to XYZ conversion and the selected transer-matrix for XYZ to LMS conversion (see Color Transformation Settings). </p>
       </div>
 
-      <p class="standardText" id="id_CBSettings_Warning" style=" text-align: center; width:100%; margin-top:1vh; margin-bottom:1vh; color:red; display:none;"> Invalid Matrix Input </p>
 
-      <p class="standardText" style=" text-align:left; width:80%; margin-left:10%; margin-top:1vh; margin-bottom:1vh;"> Info: The values of the transfer matrix for color blindness simulation are depenting on the selected transfer-matrix for the RGB to XYZ conversion and the selected transer-matrix for XYZ to LMS conversion (see Color Transformation Settings). </p>
 
-      <div class="class_PopUpButtonDiv">
+
+
+      <div class="class_PopUpButtonDiv" style="margin-top:0vh;">
         <button class="class_generalbutton_DarkBackground" onclick="closeColorBlindnessSettings()" title="accept" style=" width: 60%; margin:auto;">Accept</button>
       </div>
 

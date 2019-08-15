@@ -13,7 +13,7 @@ var theme_0_darkMode = [
   ["--main-font-color","rgb(157,163,178)"],
   ["--main-font-notactive-color","rgb(107,113,128)"],
   ["--main-warning-font-color","rgb(224,108,117)"],
-  ["--main-label-font-color","rgb(225,192,141)"],
+  ["--main-label-font-color","rgb(218,146,77)"],//--general-active-color)
   ["--main-nonActiveColor","rgb(63, 139, 183)"],
   ["--main-nonActiveColor-hover","rgb(19, 111, 153)"],
   ["--main-button-bg","rgb(157,163,178)"],// = --main-font-color

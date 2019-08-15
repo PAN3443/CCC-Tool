@@ -1,26 +1,46 @@
 
-
+textarea{
+  background: var(--input-bg-color);
+  border: none;
+  color: var(--input-font-color);
+  display:block;
+  width:auto;
+  font-size: var(--font-size-normal);
+  line-height: var(--line-height-normal);
+}
 
 input{
- font-family: 'Helvetica', 'Arial', sans-serif;
- background: white;
- color: black;
+ background: var(--input-bg-color);
+ border: none;
+ color: var(--input-font-color);
  display:block;
  width:auto;
- font-size: 1.6vh;
- line-height: 1.8vh;
- height: 1.8vh;
- /*padding: 0.2vh;
- margin: 0px;
- box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;*/
+ font-size: var(--font-size-normal);
+ line-height: var(--line-height-normal);
+ height: var(--line-height-normal);
+}
 
+input::placeholder{
+  color: var(--input-placeholder-font-color);
+}
+
+input::-ms-input-placeholder{
+  color: var(--input-placeholder-font-color);
+}
+
+input::-ms-input-placeholder {
+  color: var(--input-placeholder-font-color);
+}
+
+
+input:focus {
+  outline: none;
 }
 
 input:disabled{
-  color: grey;
-  border-color: grey;
+  color: var(--input-disabled-font-color);
+  background: var(--input-disabled-bg-color);
+  cursor: not-allowed;
 }
 
 
@@ -46,7 +66,8 @@ input[type='radio']{
   margin-top: 0.25vh;
   margin-bottom: 0.25vh;
   cursor: pointer;
-  font-size: 1.6vh;
+  font-size: var(--font-size-normal);
+  line-height: var(--line-height-normal);
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -65,15 +86,23 @@ input[type='radio']{
   position: absolute;
   top: 0;
   left: 0;
-  height: 2vh;
-  width: 2vh;
+  height: var(--line-height-normal);
+  width: var(--line-height-normal);
   background-color: var(--radio-bg-color);
   border-radius: 50%;
+}
+
+.class_radio_container input:disabled ~ .class_radio_checkmark {
+  background-color: var(--radio-disabled-bg-color);
 }
 
 /* On mouse-over, add a grey background color */
 .class_radio_container:hover input ~ .class_radio_checkmark {
   background-color: var(--radio-bg-color-hover);
+}
+
+.class_radio_container:hover input:disabled ~ .class_radio_checkmark {
+  background-color: var(--radio-disabled-bg-color-hover);
 }
 
 /* When the radio button is checked, add a blue background */
@@ -113,44 +142,63 @@ input[type='radio']{
 *********** Range Slider   *********
 *****************************/
 
+input[type='range'] {
+  width: 20vw;
+  overflow: hidden;
+  -webkit-appearance: none;
+  background-color: var(--range-bg-color);
+}
 
 /*Chrome*/
-@media screen and (-webkit-min-device-pixel-ratio:0) {
-    input[type='range'] {
-      width: 20vw;
-      overflow: hidden;
-      -webkit-appearance: none;
-      background-color: rgba(235, 239, 240,0.1);
-    }
 
-    input[type='range']::-webkit-slider-runnable-track {
-      height: 2vh;
-      -webkit-appearance: none;
-      color: #13bba4;
-      /*margin-top: -1vh;*/
-    }
-
-    input[type='range']::-webkit-slider-thumb {
-      width: 2vh;
-      -webkit-appearance: none;
-      height: 2vh;
-      cursor: ew-resize;
-      background: rgb(30, 30, 30);
-      box-shadow: -20vw 0 0 20vw rgb(60,60,60);
-    }
-
+input[type='range']::-webkit-slider-thumb {
+    width: 2vh;
+    -webkit-appearance: none;
+    height: 2vh;
+    cursor: ew-resize;
+    background: var(--range-slider-thumb-color);
+    margin-top: -0.5vh;
+    border-radius: 0.5vh;
+    border: 0.1vh solid var(--range-slider-thumb-border-color);
+    box-sizing: border-box;
 }
+
+input[type='range']::-webkit-slider-runnable-track {
+  height: 1vh;
+  -webkit-appearance: none;
+  background-color: var(--range-track-color);
+  /*margin-top: -1vh;*/
+}
+
+
 /** FF*/
+
+input[type=range]::-moz-range-thumb {
+  width: 2vh;
+  -webkit-appearance: none;
+  height: 2vh;
+  cursor: ew-resize;
+  background: var(--range-slider-thumb-color);
+  margin-top: -0.5vh;
+  border-radius: 0.5vh;
+  border: 0.1vh solid var(--range-slider-thumb-border-color);
+  box-sizing: border-box;
+}
+
+input[type=range]::-moz-range-thumb:hover {
+  background: var(--range-slider-thumb-color-hover);
+}
+
 input[type="range"]::-moz-range-progress {
-  background-color: rgb(60,60,60);
+  background-color: var(--range-lower-color);
 }
 input[type="range"]::-moz-range-track {
-  background-color: rgba(230, 230, 230,0.5);
+  background-color: var(--range-upper-color);
 }
 /* IE*/
 input[type="range"]::-ms-fill-lower {
-  background-color: rgb(60,60,60);
+  background-color: var(--range-lower-color);
 }
 input[type="range"]::-ms-fill-upper {
-  background-color: rgba(230, 230, 230,0.5);
+  background-color: var(--range-upper-color);
 }
