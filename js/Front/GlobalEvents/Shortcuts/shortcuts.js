@@ -102,7 +102,7 @@ function keyDownDocumentHandler(event){
 
                 switch (globalCMS1.getInterpolationSpace()) {
                   case "rgb":
-                      document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 5;
+                      document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 6;
                     break;
                     case "hsv":
                       document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 0;
@@ -111,7 +111,7 @@ function keyDownDocumentHandler(event){
                         document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 1;
                         break;
                         case "din99":
-                          document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 4;
+                          document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 5;
                           break;
                   default:
 

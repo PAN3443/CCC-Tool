@@ -9,11 +9,11 @@
 
   <div style="height:auto; width:100%; overflow:auto;">
 
-    <div class="row" style="margin:auto; margin-left: 5%; width:90%; border: 0.2vh solid grey; background:rgb(245,245,245);  padding-top:1vh; padding-bottom:1vh; margin-top:2vh;">
+    <div class="row" style="margin:auto; margin-left: 5%; width:90%; border: 0.2vh solid grey;  background: var(--main-sepArea-bg);  padding-top:1vh; padding-bottom:1vh; margin-top:2vh;">
 
       <p class="standardText " style="font-weight:bold;  margin:auto; margin-right:0.5vw;"> Probe: </p>
 
-      <input class="standardText " type="text" id="id_probe_GenerationName" style="font-weight:bold; margin:auto; margin-left:0.5vw;" name="mapname" required placeholder="Please enter a probe-set name"/>
+      <input type="text" id="id_probe_GenerationName" style="font-weight:bold; margin:auto; margin-left:0.5vw;" name="mapname" required placeholder="Please enter a probe-set name"/>
 
       <button class="class_generalbutton" onclick="addProbeToCMS()" type="button" name="button" style="font-weight:bold; margin:auto; width:20vw;">Add Probe-Set</button>
       <button class="class_generalbutton" onclick="closeProbeGeneration()" type="button" name="button" style="font-weight:bold; margin:auto;  width:20vw;">Cancel</button>
@@ -21,16 +21,16 @@
 
     <div class="row" style="width:100%;">
 
-      <div style="margin-left: 5%; width:50%; border: 0.2vh solid grey; background:rgb(245,245,245);  padding-top:1vh; padding-bottom:1vh; margin-top:2vh; margin-bottom:2vh;">
+      <div style="margin-left: 5%; width:50%; border: 0.2vh solid grey; background:var(--main-sepArea-bg);;  padding-top:1vh; padding-bottom:1vh; margin-top:2vh; margin-bottom:2vh;">
 
 
         <div class="row">
 
           <p class="standardText " style="font-weight:bold; margin-left:2.5%; margin-top:auto; margin-bottom:auto;"> Select Probe-Type: </p>
 
-          <div id="id_EditPage_selectProbeTypeLabel" class="standardText " style="padding-left:1vw; padding-right:1vw;  margin:auto; margin-left: 5%;  cursor: pointer; border: 0.2vh solid black;"
+          <div id="id_EditPage_selectProbeTypeLabel" class="standardText " style="padding-left:1vw; padding-right:1vw;  margin:auto; margin-left: 5%;  cursor: pointer; border: 0.2vh solid var(--main-font-color);"
             title="All"> &#9660; Contour </div>
-          <div id="id_EditPage_selectProbeTypeDropDown" style="background: black; display: none; position: absolute; left: 0px; z-index: 101;  border: 0.2vh solid black;">
+          <div id="id_EditPage_selectProbeTypeDropDown" style="background: var(--main-font-color); display: none; position: absolute; left: 0px; z-index: 101;">
             <div id="id_EditPage_ProbeType_Constant" onclick="changeProbeType(0)" class="dropdownButtonEditPage">
               Constant
             </div>
@@ -58,10 +58,10 @@
 
           <div id="id_EditPage_ProbeParameter_Div" style="display:none; margin-top:2vh; margin-bottom:2vh; width:100%;">
             <p class="standardText " style="height:2vh; width:15%; line-height:2vh; font-size:1.6vh;">Parameter:</p>
-            <input class="standardText " style="margin-left:1vw;" type="radio" id="id_editPage_ProbeSpace_Value" name="editPage_keyType" value="1" checked="checked">
-            <label class="standardText " for="id_editPage_ProbeSpace_Value" style="height:2vh; line-height:2vh; font-size:1.6vh; margin-left:1vw;" id="id_editPage_ProbeSpace_Value_Label"> Value (HSV) </label>
-            <input class="standardText " style="margin-left:2vw;" type="radio" id="id_editPage_ProbeSpace_Lightness" name="editPage_keyType" value="1" checked="checked">
-            <label class="standardText " for="id_editPage_ProbeSpace_Lightness" style="height:2vh; line-height:2vh; font-size:1.6vh; margin-left:1vw;" id="id_editPage_ProbeSpace_Lightness_Label"> Lightness (Lab) </label>
+            <input style="margin-left:1vw;" type="radio" id="id_editPage_ProbeSpace_Value" name="editPage_keyType" value="1" checked="checked">
+            <label class="standardText " for="id_editPage_ProbeSpace_Value" style=" margin-left:1vw;" id="id_editPage_ProbeSpace_Value_Label"> Value (HSV) </label>
+            <input style="margin-left:2vw;" type="radio" id="id_editPage_ProbeSpace_Lightness" name="editPage_keyType" value="1" checked="checked">
+            <label class="standardText " for="id_editPage_ProbeSpace_Lightness" style=" margin-left:1vw;" id="id_editPage_ProbeSpace_Lightness_Label"> Lightness (Lab) </label>
           </div>
 
 
@@ -73,19 +73,19 @@
             <div id="id_EditPage_ProbeFunctionOneSided_Div" style="display:none; margin-left:5%; width:90%;">
 
               <div class="row" style="width:100%;">
-                <div id="id_EditPage_FunctionOneSided_Selection1" onclick="changeOneSideFunction(0)" style="background:rgb(220,220,220); padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer; width:47.5%;">
-                  <p id="id_EditPage_FunctionOneSided_Label1" class="standardText " style="height:2vh; line-height:2vh; font-size:1.6vh; margin-top:auto; margin-bottom:auto; width:90%; margin-left:5%; text-align:center;">Value 100% to 0% </p>
-                  <svg style="border: 0.2vh solid black; height:3vw; width:90%; background:white; margin-left:5%; margin-top:1vh;">
-                                        <line x1="10%" y1="10%" x2="90%" y2="90%" style="stroke:rgb(0,0,0);stroke-width:2" />
+                <div id="id_EditPage_FunctionOneSided_Selection1" onclick="changeOneSideFunction(0)" style="background: var(--main-second-bg-color); padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer; width:47.5%;">
+                  <p id="id_EditPage_FunctionOneSided_Label1" class="standardText " style="margin-top:auto; margin-bottom:auto; width:90%; color: var(--main-sepArea-bg); margin-left:5%; text-align:center;">Value 100% to 0% </p>
+                  <svg style="border: 0.2vh solid black; height:3vw; width:90%; background: var(--main-bg-color); margin-left:5%; margin-top:1vh;">
+                                        <line x1="10%" y1="10%" x2="90%" y2="90%" style="stroke: var(--main-font-color);stroke-width:2" />
                                         <circle cx="10%" cy="10%" r="2.5%" fill="black" />
                                         <circle cx="90%" cy="90%" r="2.5%" fill="black" />
                                       </svg>
                 </div>
 
-                <div id="id_EditPage_FunctionOneSided_Selection2" onclick="changeOneSideFunction(1)" style="background:rgb(220,220,220); padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer; width:47.5%; margin-left:5%;">
-                  <p id="id_EditPage_FunctionOneSided_Label2" class="standardText " style="height:2vh; line-height:2vh; font-size:1.6vh; margin-top:auto; margin-bottom:auto; width:90%; margin-left:5%; text-align:center;">Value 100% to 0% </p>
-                  <svg style="border: 0.2vh solid black; height:3vw; width:90%; background:white; margin-left:5%; margin-top:1vh;">
-                                        <line x1="10%" y1="90%" x2="90%" y2="10%" style="stroke:rgb(0,0,0);stroke-width:2" />
+                <div id="id_EditPage_FunctionOneSided_Selection2" onclick="changeOneSideFunction(1)" style="background: var(--main-second-bg-color); padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer; width:47.5%; margin-left:5%;">
+                  <p id="id_EditPage_FunctionOneSided_Label2" class="standardText " style="margin-top:auto; margin-bottom:auto; width:90%; color: var(--main-sepArea-bg); margin-left:5%; text-align:center;">Value 100% to 0% </p>
+                  <svg style="border: 0.2vh solid black; height:3vw; width:90%; background: var(--main-bg-color); margin-left:5%; margin-top:1vh;">
+                                        <line x1="10%" y1="90%" x2="90%" y2="10%" style="stroke: var(--main-font-color);stroke-width:2" />
                                         <circle cx="90%" cy="10%" r="2.5%" fill="black" />
                                         <circle cx="10%" cy="90%" r="2.5%" fill="black" />
                                       </svg>
@@ -93,19 +93,19 @@
               </div>
 
               <div class="row" style="width:100%; margin-top:1vh;">
-                <div id="id_EditPage_FunctionOneSided_Selection3" onclick="changeOneSideFunction(2)" style="background:rgb(220,220,220); padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer; width:47.5%;">
-                  <p id="id_EditPage_FunctionOneSided_Label3" class="standardText " style="height:2vh; line-height:2vh; font-size:1.6vh; margin-top:auto; margin-bottom:auto; width:90%; margin-left:5%; text-align:center;">Saturation 100% to 0% </p>
-                  <svg style="border: 0.2vh solid black; height:3vw; width:90%; background:white; margin-left:5%; margin-top:1vh;">
-                                        <line x1="10%" y1="10%" x2="90%" y2="90%" style="stroke:rgb(0,0,0);stroke-width:2" />
+                <div id="id_EditPage_FunctionOneSided_Selection3" onclick="changeOneSideFunction(2)" style="background: var(--main-second-bg-color); padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer; width:47.5%;">
+                  <p id="id_EditPage_FunctionOneSided_Label3" class="standardText " style="margin-top:auto; margin-bottom:auto; width:90%; color: var(--main-sepArea-bg); margin-left:5%; text-align:center;">Saturation 100% to 0% </p>
+                  <svg style="border: 0.2vh solid black; height:3vw; width:90%; background: var(--main-bg-color); margin-left:5%; margin-top:1vh;">
+                                        <line x1="10%" y1="10%" x2="90%" y2="90%" style="stroke: var(--main-font-color);stroke-width:2" />
                                         <circle cx="10%" cy="10%" r="2.5%" fill="black" />
                                         <circle cx="90%" cy="90%" r="2.5%" fill="black" />
                                       </svg>
                 </div>
 
-                <div id="id_EditPage_FunctionOneSided_Selection4" onclick="changeOneSideFunction(3)" style="background:rgb(220,220,220); padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer; width:47.5%; margin-left:5%;">
-                  <p id="id_EditPage_FunctionOneSided_Label4" class="standardText " style="height:2vh; line-height:2vh; font-size:1.6vh; margin-top:auto; margin-bottom:auto; width:90%; margin-left:5%; text-align:center;">Saturation 100% to 0% </p>
-                  <svg style="border: 0.2vh solid black; height:3vw; width:90%; background:white; margin-left:5%; margin-top:1vh;">
-                                        <line x1="10%" y1="90%" x2="90%" y2="10%" style="stroke:rgb(0,0,0);stroke-width:2" />
+                <div id="id_EditPage_FunctionOneSided_Selection4" onclick="changeOneSideFunction(3)" style="background: var(--main-second-bg-color); padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer; width:47.5%; margin-left:5%;">
+                  <p id="id_EditPage_FunctionOneSided_Label4" class="standardText " style="margin-top:auto; margin-bottom:auto; width:90%; color: var(--main-sepArea-bg); margin-left:5%; text-align:center;">Saturation 100% to 0% </p>
+                  <svg style="border: 0.2vh solid black; height:3vw; width:90%; background: var(--main-bg-color); margin-left:5%; margin-top:1vh;">
+                                        <line x1="10%" y1="90%" x2="90%" y2="10%" style="stroke: var(--main-font-color);stroke-width:2" />
                                         <circle cx="90%" cy="10%" r="2.5%" fill="black" />
                                         <circle cx="10%" cy="90%" r="2.5%" fill="black" />
                                       </svg>
@@ -117,24 +117,24 @@
             <div id="id_EditPage_ProbeFunctionTwoSided_Div" style="margin-left:5%; width:90%;">
 
               <div class="row" style="width:100%;">
-                <div id="id_EditPage_FunctionTwoSided_Selection0" onclick="changeTwoSideFunction(0);" style="width:47.5%; background:rgb(220,220,220); padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer;">
+                <div id="id_EditPage_FunctionTwoSided_Selection0" onclick="changeTwoSideFunction(0);" style="width:47.5%; background: var(--main-second-bg-color); padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer;">
 
                   <div class="row">
-                    <p class="standardText " style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Value <br> (0%, 100%)</p>
-                    <p class="standardText " style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:20%; font-weight:bold;">AND </p>
-                    <p class="standardText " style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Saturation <br> (0%, 100%, 0%)</p>
+                    <p class="standardText " style="font-size:1.6vh; color: var(--main-sepArea-bg); margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Value <br> (0%, 100%)</p>
+                    <p class="standardText " style="font-size:1.6vh; color: var(--main-sepArea-bg); margin-top:auto; margin-bottom:auto; text-align:center; width:20%; font-weight:bold;">AND </p>
+                    <p class="standardText " style="font-size:1.6vh; color: var(--main-sepArea-bg); margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Saturation <br> (0%, 100%, 0%)</p>
                   </div>
 
                   <div class="row">
-                    <svg style="border: 0.2vh solid black; height:3vw; width:40%; background:white; margin-right:20%; margin-top:1vh;">
-                                 <line x1="10%" y1="90%" x2="90%" y2="10%" style="stroke:rgb(0,0,0);stroke-width:2" />
+                    <svg style="border: 0.2vh solid black; height:3vw; width:40%; background: var(--main-bg-color); margin-right:20%; margin-top:1vh;">
+                                 <line x1="10%" y1="90%" x2="90%" y2="10%" style="stroke: var(--main-font-color);stroke-width:2" />
                                  <circle cx="10%" cy="90%" r="2.5%" fill="black" />
                                  <circle cx="90%" cy="10%" r="2.5%" fill="black" />
                                </svg>
 
-                    <svg style="border: 0.2vh solid black; height:3vw; width:40%; background:white; margin-top:1vh;">
-                                 <line x1="10%" y1="90%" x2="50%" y2="10%" style="stroke:rgb(0,0,0);stroke-width:2" />
-                                 <line x1="50%" y1="10%" x2="90%" y2="90%" style="stroke:rgb(0,0,0);stroke-width:2" />
+                    <svg style="border: 0.2vh solid black; height:3vw; width:40%; background: var(--main-bg-color); margin-top:1vh;">
+                                 <line x1="10%" y1="90%" x2="50%" y2="10%" style="stroke: var(--main-font-color);stroke-width:2" />
+                                 <line x1="50%" y1="10%" x2="90%" y2="90%" style="stroke: var(--main-font-color);stroke-width:2" />
                                  <circle cx="10%" cy="90%" r="2.5%" fill="black" />
                                  <circle cx="50%" cy="10%" r="2.5%" fill="black" />
                                  <circle cx="90%" cy="90%" r="2.5%" fill="black" />
@@ -143,24 +143,24 @@
 
                 </div>
 
-                <div id="id_EditPage_FunctionTwoSided_Selection1" onclick="changeTwoSideFunction(1);" style="width:47.5%; margin-left:5%; background:rgb(220,220,220); padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer;">
+                <div id="id_EditPage_FunctionTwoSided_Selection1" onclick="changeTwoSideFunction(1);" style="width:47.5%; margin-left:5%; background: var(--main-second-bg-color); padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer;">
 
                   <div class="row">
-                    <p class="standardText " style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Value <br> (100%, 0%)</p>
-                    <p class="standardText " style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:20%; font-weight:bold;">AND </p>
-                    <p class="standardText " style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Saturation <br> (0%, 100%, 0%)</p>
+                    <p class="standardText " style="font-size:1.6vh; color: var(--main-sepArea-bg); margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Value <br> (100%, 0%)</p>
+                    <p class="standardText " style="font-size:1.6vh; color: var(--main-sepArea-bg); margin-top:auto; margin-bottom:auto; text-align:center; width:20%; font-weight:bold;">AND </p>
+                    <p class="standardText " style="font-size:1.6vh; color: var(--main-sepArea-bg); margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Saturation <br> (0%, 100%, 0%)</p>
                   </div>
 
                   <div class="row">
-                    <svg style="border: 0.2vh solid black; height:3vw; width:40%; background:white; margin-right:20%; margin-top:1vh;">
-                                 <line x1="10%" y1="10%" x2="90%" y2="90%" style="stroke:rgb(0,0,0);stroke-width:2" />
+                    <svg style="border: 0.2vh solid black; height:3vw; width:40%; background: var(--main-bg-color); margin-right:20%; margin-top:1vh;">
+                                 <line x1="10%" y1="10%" x2="90%" y2="90%" style="stroke: var(--main-font-color);stroke-width:2" />
                                  <circle cx="10%" cy="10%" r="2.5%" fill="black" />
                                  <circle cx="90%" cy="90%" r="2.5%" fill="black" />
                                </svg>
 
-                    <svg style="border: 0.2vh solid black; height:3vw; width:40%; background:white; margin-top:1vh;">
-                                 <line x1="10%" y1="90%" x2="50%" y2="10%" style="stroke:rgb(0,0,0);stroke-width:2" />
-                                 <line x1="50%" y1="10%" x2="90%" y2="90%" style="stroke:rgb(0,0,0);stroke-width:2" />
+                    <svg style="border: 0.2vh solid black; height:3vw; width:40%; background: var(--main-bg-color); margin-top:1vh;">
+                                 <line x1="10%" y1="90%" x2="50%" y2="10%" style="stroke: var(--main-font-color);stroke-width:2" />
+                                 <line x1="50%" y1="10%" x2="90%" y2="90%" style="stroke: var(--main-font-color);stroke-width:2" />
                                  <circle cx="10%" cy="90%" r="2.5%" fill="black" />
                                  <circle cx="50%" cy="10%" r="2.5%" fill="black" />
                                  <circle cx="90%" cy="90%" r="2.5%" fill="black" />
@@ -171,25 +171,25 @@
               </div>
 
               <div class="row" style="width:100%; margin-top:1vh;">
-                <div id="id_EditPage_FunctionTwoSided_Selection2" onclick="changeTwoSideFunction(2);" style="width:47.5%; background:rgb(220,220,220); padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer;">
+                <div id="id_EditPage_FunctionTwoSided_Selection2" onclick="changeTwoSideFunction(2);" style="width:47.5%; background: var(--main-second-bg-color); padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer;">
 
                   <div class="row">
-                    <p class="standardText " style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Value <br> (100%, 0%, 100%)</p>
-                    <p class="standardText " style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:20%; font-weight:bold;">AND </p>
-                    <p class="standardText " style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Saturation <br> (0%, 100%)</p>
+                    <p class="standardText " style="font-size:1.6vh; color: var(--main-sepArea-bg); margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Value <br> (100%, 0%, 100%)</p>
+                    <p class="standardText " style="font-size:1.6vh; color: var(--main-sepArea-bg); margin-top:auto; margin-bottom:auto; text-align:center; width:20%; font-weight:bold;">AND </p>
+                    <p class="standardText " style="font-size:1.6vh; color: var(--main-sepArea-bg); margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Saturation <br> (0%, 100%)</p>
                   </div>
 
                   <div class="row">
-                    <svg style="border: 0.2vh solid black; height:3vw; width:40%; background:white; margin-top:1vh; margin-right:20%;">
-                                 <line x1="10%" y1="10%" x2="50%" y2="90%" style="stroke:rgb(0,0,0);stroke-width:2" />
-                                 <line x1="50%" y1="90%" x2="90%" y2="10%" style="stroke:rgb(0,0,0);stroke-width:2" />
+                    <svg style="border: 0.2vh solid black; height:3vw; width:40%; background: var(--main-bg-color); margin-top:1vh; margin-right:20%;">
+                                 <line x1="10%" y1="10%" x2="50%" y2="90%" style="stroke: var(--main-font-color);stroke-width:2" />
+                                 <line x1="50%" y1="90%" x2="90%" y2="10%" style="stroke: var(--main-font-color);stroke-width:2" />
                                  <circle cx="10%" cy="10%" r="2.5%" fill="black" />
                                  <circle cx="50%" cy="90%" r="2.5%" fill="black" />
                                  <circle cx="90%" cy="10%" r="2.5%" fill="black" />
                                </svg>
 
-                    <svg style="border: 0.2vh solid black; height:3vw; width:40%; background:white; margin-top:1vh;">
-                                 <line x1="10%" y1="90%" x2="90%" y2="10%" style="stroke:rgb(0,0,0);stroke-width:2" />
+                    <svg style="border: 0.2vh solid black; height:3vw; width:40%; background: var(--main-bg-color); margin-top:1vh;">
+                                 <line x1="10%" y1="90%" x2="90%" y2="10%" style="stroke: var(--main-font-color);stroke-width:2" />
                                  <circle cx="10%" cy="90%" r="2.5%" fill="black" />
                                  <circle cx="90%" cy="10%" r="2.5%" fill="black" />
                                </svg>
@@ -198,25 +198,25 @@
 
                 </div>
 
-                <div id="id_EditPage_FunctionTwoSided_Selection3" onclick="changeTwoSideFunction(3);" style="width:47.5%; margin-left:5%; background:rgb(220,220,220); padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer;">
+                <div id="id_EditPage_FunctionTwoSided_Selection3" onclick="changeTwoSideFunction(3);" style="width:47.5%; margin-left:5%; background: var(--main-second-bg-color); padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer;">
 
                   <div class="row">
-                    <p class="standardText " style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Value <br> (100%, 0%, 100%)</p>
-                    <p class="standardText " style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:20%; font-weight:bold;">AND </p>
-                    <p class="standardText " style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Saturation <br> (100%, 0%)</p>
+                    <p class="standardText " style="font-size:1.6vh; color: var(--main-sepArea-bg); margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Value <br> (100%, 0%, 100%)</p>
+                    <p class="standardText " style="font-size:1.6vh; color: var(--main-sepArea-bg); margin-top:auto; margin-bottom:auto; text-align:center; width:20%; font-weight:bold;">AND </p>
+                    <p class="standardText " style="font-size:1.6vh; color: var(--main-sepArea-bg); margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Saturation <br> (100%, 0%)</p>
                   </div>
 
                   <div class="row">
-                    <svg style="border: 0.2vh solid black; height:3vw; width:40%; background:white; margin-top:1vh; margin-right:20%;">
-                                 <line x1="10%" y1="10%" x2="50%" y2="90%" style="stroke:rgb(0,0,0);stroke-width:2" />
-                                 <line x1="50%" y1="90%" x2="90%" y2="10%" style="stroke:rgb(0,0,0);stroke-width:2" />
+                    <svg style="border: 0.2vh solid black; height:3vw; width:40%; background: var(--main-bg-color); margin-top:1vh; margin-right:20%;">
+                                 <line x1="10%" y1="10%" x2="50%" y2="90%" style="stroke: var(--main-font-color);stroke-width:2" />
+                                 <line x1="50%" y1="90%" x2="90%" y2="10%" style="stroke: var(--main-font-color);stroke-width:2" />
                                  <circle cx="10%" cy="10%" r="2.5%" fill="black" />
                                  <circle cx="50%" cy="90%" r="2.5%" fill="black" />
                                  <circle cx="90%" cy="10%" r="2.5%" fill="black" />
                                </svg>
 
-                    <svg style="border: 0.2vh solid black; height:3vw; width:40%; background:white; margin-top:1vh;">
-                                 <line x1="10%" y1="10%" x2="90%" y2="90%" style="stroke:rgb(0,0,0);stroke-width:2" />
+                    <svg style="border: 0.2vh solid black; height:3vw; width:40%; background: var(--main-bg-color); margin-top:1vh;">
+                                 <line x1="10%" y1="10%" x2="90%" y2="90%" style="stroke: var(--main-font-color);stroke-width:2" />
                                  <circle cx="10%" cy="10%" r="2.5%" fill="black" />
                                  <circle cx="90%" cy="90%" r="2.5%" fill="black" />
                                </svg>
@@ -226,25 +226,25 @@
               </div>
 
               <div class="row" style="width:100%; margin-top:1vh;">
-                <div id="id_EditPage_FunctionTwoSided_Selection4" onclick="changeTwoSideFunction(4);" style="width:47.5%; background:rgb(220,220,220); padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer;">
+                <div id="id_EditPage_FunctionTwoSided_Selection4" onclick="changeTwoSideFunction(4);" style="width:47.5%; background: var(--main-second-bg-color); padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer;">
 
                   <div class="row">
-                    <p class="standardText " style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Value <br> (0%, 100%, 0%)</p>
-                    <p class="standardText " style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:20%; font-weight:bold;">AND </p>
-                    <p class="standardText " style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Saturation <br> (0%, 100%)</p>
+                    <p class="standardText " style="font-size:1.6vh; color: var(--main-sepArea-bg); margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Value <br> (0%, 100%, 0%)</p>
+                    <p class="standardText " style="font-size:1.6vh; color: var(--main-sepArea-bg); margin-top:auto; margin-bottom:auto; text-align:center; width:20%; font-weight:bold;">AND </p>
+                    <p class="standardText " style="font-size:1.6vh; color: var(--main-sepArea-bg); margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Saturation <br> (0%, 100%)</p>
                   </div>
 
                   <div class="row">
-                    <svg style="border: 0.2vh solid black; height:3vw; width:40%; background:white; margin-top:1vh; margin-right:20%;">
-                                 <line x1="10%" y1="90%" x2="50%" y2="10%" style="stroke:rgb(0,0,0);stroke-width:2" />
-                                 <line x1="50%" y1="10%" x2="90%" y2="90%" style="stroke:rgb(0,0,0);stroke-width:2" />
+                    <svg style="border: 0.2vh solid black; height:3vw; width:40%; background: var(--main-bg-color); margin-top:1vh; margin-right:20%;">
+                                 <line x1="10%" y1="90%" x2="50%" y2="10%" style="stroke: var(--main-font-color);stroke-width:2" />
+                                 <line x1="50%" y1="10%" x2="90%" y2="90%" style="stroke: var(--main-font-color);stroke-width:2" />
                                  <circle cx="10%" cy="90%" r="2.5%" fill="black" />
                                  <circle cx="50%" cy="10%" r="2.5%" fill="black" />
                                  <circle cx="90%" cy="90%" r="2.5%" fill="black" />
                                </svg>
 
-                    <svg style="border: 0.2vh solid black; height:3vw; width:40%; background:white; margin-top:1vh;">
-                                 <line x1="10%" y1="90%" x2="90%" y2="10%" style="stroke:rgb(0,0,0);stroke-width:2" />
+                    <svg style="border: 0.2vh solid black; height:3vw; width:40%; background: var(--main-bg-color); margin-top:1vh;">
+                                 <line x1="10%" y1="90%" x2="90%" y2="10%" style="stroke: var(--main-font-color);stroke-width:2" />
                                  <circle cx="10%" cy="90%" r="2.5%" fill="black" />
                                  <circle cx="90%" cy="10%" r="2.5%" fill="black" />
                                </svg>
@@ -253,25 +253,25 @@
 
                 </div>
 
-                <div id="id_EditPage_FunctionTwoSided_Selection5" onclick="changeTwoSideFunction(5);" style="width:47.5%; margin-left:5%; background:rgb(220,220,220); padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer;">
+                <div id="id_EditPage_FunctionTwoSided_Selection5" onclick="changeTwoSideFunction(5);" style="width:47.5%; margin-left:5%; background: var(--main-second-bg-color); padding: 1vh; border: 0.2vh solid black; overflow:auto; cursor:pointer;">
 
                   <div class="row">
-                    <p class="standardText " style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Value <br> (0%, 100%, 0%)</p>
-                    <p class="standardText " style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:20%; font-weight:bold;">AND </p>
-                    <p class="standardText " style="font-size:1.6vh; margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Saturation <br> (100%, 0%)</p>
+                    <p class="standardText " style="font-size:1.6vh; color: var(--main-sepArea-bg); margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Value <br> (0%, 100%, 0%)</p>
+                    <p class="standardText " style="font-size:1.6vh; color: var(--main-sepArea-bg); margin-top:auto; margin-bottom:auto; text-align:center; width:20%; font-weight:bold;">AND </p>
+                    <p class="standardText " style="font-size:1.6vh; color: var(--main-sepArea-bg); margin-top:auto; margin-bottom:auto; text-align:center; width:40%;">Saturation <br> (100%, 0%)</p>
                   </div>
 
                   <div class="row">
-                    <svg style="border: 0.2vh solid black; height:3vw; width:40%; background:white; margin-top:1vh; margin-right:20%;">
-                                 <line x1="10%" y1="90%" x2="50%" y2="10%" style="stroke:rgb(0,0,0);stroke-width:2" />
-                                 <line x1="50%" y1="10%" x2="90%" y2="90%" style="stroke:rgb(0,0,0);stroke-width:2" />
+                    <svg style="border: 0.2vh solid black; height:3vw; width:40%; background: var(--main-bg-color); margin-top:1vh; margin-right:20%;">
+                                 <line x1="10%" y1="90%" x2="50%" y2="10%" style="stroke: var(--main-font-color);stroke-width:2" />
+                                 <line x1="50%" y1="10%" x2="90%" y2="90%" style="stroke: var(--main-font-color);stroke-width:2" />
                                  <circle cx="10%" cy="90%" r="2.5%" fill="black" />
                                  <circle cx="50%" cy="10%" r="2.5%" fill="black" />
                                  <circle cx="90%" cy="90%" r="2.5%" fill="black" />
                                </svg>
 
-                    <svg style="border: 0.2vh solid black; height:3vw; width:40%; background:white; margin-top:1vh;">
-                                 <line x1="10%" y1="10%" x2="90%" y2="90%" style="stroke:rgb(0,0,0);stroke-width:2" />
+                    <svg style="border: 0.2vh solid black; height:3vw; width:40%; background: var(--main-bg-color); margin-top:1vh;">
+                                 <line x1="10%" y1="10%" x2="90%" y2="90%" style="stroke: var(--main-font-color);stroke-width:2" />
                                  <circle cx="10%" cy="10%" r="2.5%" fill="black" />
                                  <circle cx="90%" cy="90%" r="2.5%" fill="black" />
                                </svg>
@@ -289,7 +289,7 @@
             <p class="standardText " style="margin-left:5%; margin-bottom:2vh;">Color:</p>
             <div class="row" style="margin-left:5%;">
               <div id="id_inputProbeColor" style="width: 3vh; height:3vh; border: 0.2vh solid black; margin-left:1vw; cursor:pointer;"></div>
-              <canvas id="id_inputProbeColorPreview" style="width: 15vw; height:3vh; border: 0.2vh solid black; margin-left:1vw; background:white;"></canvas>
+              <canvas id="id_inputProbeColorPreview" style="width: 15vw; height:3vh; border: 0.2vh solid black; margin-left:1vw; background: var(--main-bg-color);"></canvas>
             </div>
 
           </div>
@@ -304,7 +304,7 @@
       <!-------------------------------------------------------------------------------------------------------------------------------------->
 
 
-      <div style="margin-left: 5%; width:35%; margin-right: 5%; border: 0.2vh solid grey; background:rgb(245,245,245);  padding-top:1vh; padding-bottom:1vh; margin-top:2vh; margin-bottom:2vh;">
+      <div style="margin-left: 5%; width:35%; margin-right: 5%; border: 0.2vh solid grey; background:var(--main-sepArea-bg);;  padding-top:1vh; padding-bottom:1vh; margin-top:2vh; margin-bottom:2vh;">
         <p class="standardText " style="font-weight:bold; margin-left:2.5%; width:17.5%;"> Probe-Set: </p>
 
         <div style="width:80%; overflow:auto;">
@@ -313,9 +313,9 @@
 
             <p class="standardText" style="margin-left:5%;">Generation:</p>
 
-            <div id="id_EditPage_selectProbeSetRangeType" class="standardText " style="padding-left:1vw; width:10vw; margin-left:1vw; padding-right:1vw; margin-top:auto; margin-bottom:auto; cursor: pointer; border: 0.2vh solid black;"
+            <div id="id_EditPage_selectProbeSetRangeType" class="standardText " style="padding-left:1vw; width:10vw; margin-left:1vw; padding-right:1vw; margin-top:auto; margin-bottom:auto; cursor: pointer; border: 0.2vh solid var(--main-font-color);;"
               title="All"> &#9660; Contour </div>
-            <div id="id_EditPage_selectProbeSetRangeTypeDropDown" style="background: black; display: none; position: absolute; left: 0px; z-index: 101;  width:10%; border: 0.2vh solid black;">
+            <div id="id_EditPage_selectProbeSetRangeTypeDropDown" style="background: var(--main-font-color); display: none; position: absolute; left: 0px; z-index: 101;  width:10%; border: 0.2vh solid black;">
               <div id="id_EditPage_ProbeSetRangeType_Single" onclick="changeRangeGeneration(0)" class="dropdownButtonEditPage">
                 Single
               </div>
@@ -332,12 +332,12 @@
 
             <div style="display:flex; margin-top:1vh; margin-bottom:1vh; width:100%;">
               <p class="standardText " style="margin-left:5%;">Probe Start:</p>
-              <input id="id_inputSingleProbeRangeStart" type="number" value="0" step="any" class="standardText" style="width: 5vw; height:2vh; line-height:2vh; font-size:1.6vh; margin-left:1vw;">
+              <input id="id_inputSingleProbeRangeStart" type="number" value="0" step="any" style="width: 5vw;  margin-left:1vw;">
             </div>
 
             <div style="display:flex; margin-top:1vh; margin-bottom:1vh; width:100%;">
               <p class="standardText " style="margin-left:5%;">Probe End:</p>
-              <input id="id_inputSingleProbeRangeEnd" type="number" value="0" step="any" class="standardText" style="width: 5vw; height:2vh; line-height:2vh; font-size:1.6vh; margin-left:1vw;">
+              <input id="id_inputSingleProbeRangeEnd" type="number" value="0" step="any" style="width: 5vw;  margin-left:1vw;">
             </div>
 
           </div>
@@ -346,22 +346,22 @@
 
             <div style="display:flex; margin-top:1vh; margin-bottom:1vh; width:100%;">
               <p class="standardText " style="margin-left:5%;">Interval Start:</p>
-              <input id="id_inputProbeIntervalStart" type="number" value="0" step="any" class="standardText" style="width: 5vw; height:2vh; line-height:2vh; font-size:1.6vh; margin-left:1vw;">
+              <input id="id_inputProbeIntervalStart" type="number" value="0" step="any" style="width: 5vw;  margin-left:1vw;">
             </div>
 
             <div style="display:flex; margin-top:1vh; margin-bottom:1vh; width:100%;">
               <p class="standardText " style="margin-left:5%;">Probe Width:</p>
-              <input id="id_inputProbeIntervalLength" type="number" value="0" step="any" class="standardText" style="width: 5vw; height:2vh; line-height:2vh; font-size:1.6vh; margin-left:1vw;">
+              <input id="id_inputProbeIntervalLength" type="number" value="0" step="any" style="width: 5vw;  margin-left:1vw;">
             </div>
 
             <div style="display:flex; margin-top:1vh; margin-bottom:1vh; width:100%;">
               <p class="standardText " style="margin-left:5%;">Distance:</p>
-              <input id="id_inputProbeDistance" type="number" value="0" step="any" class="standardText" style="width: 5vw; height:2vh; line-height:2vh; font-size:1.6vh; margin-left:1vw;">
+              <input id="id_inputProbeDistance" type="number" value="0" step="any" style="width: 5vw;  margin-left:1vw;">
             </div>
 
             <div style="display:flex; margin-top:1vh; margin-bottom:1vh; width:100%;">
               <p class="standardText " style="margin-left:5%;">Number of Probes:</p>
-              <input id="id_inputNumberIntervalAuto" type="number" value="1" min="1" step="1" class="standardText" style="width: 5vw; height:2vh; line-height:2vh; font-size:1.6vh; margin-left:1vw;">
+              <input id="id_inputNumberIntervalAuto" type="number" value="1" min="1" step="1" style="width: 5vw;  margin-left:1vw;">
             </div>
           </div>
 
@@ -371,9 +371,9 @@
               <p class="standardText " style="margin-left:5%;">Custom Range:</p>
 
               <div style="width: 80%; margin-left:10%; margin-top:1vh;">
-                <!--input id="id_inputCustomProbeRanges"   type="text"  value="1" min="1" step="1" class="standardText" style="width: 100%; height:2vh; line-height:2vh; font-size:1.6vh;"-->
+                <!--input id="id_inputCustomProbeRanges"   type="text"  value="1" min="1" step="1" class="standardText" style="width: 100%; "-->
 
-                <textarea id="id_inputCustomProbeRanges" type="text" value="1" min="1" step="1" class="standardText" style="width: 100%; height:15vh; resize: none; overflow:auto;"></textarea>
+                <textarea id="id_inputCustomProbeRanges" type="text" value="1" min="1" step="1" style="width: 100%; height:15vh; resize: none; overflow:auto;"></textarea>
                 <p id="CustomProbeInfoText" class="standardText " style="width:100%; line-height:1.6vh; font-size:1.3vh; color:red; font-weight:bold;"></p>
                 <p class="standardText " style="font-size:1.3vh; width:100%; line-height:1.6vh;">Semantic: A custom range is defined by two values separated by comma. The range concludes with a semicolon at the end. (Example: "0.1,0.4;0.75,0.8;" results in two custom ranges) Please check that the second value of a range
                   is alwasy bigger than the first one. Overlapping range are not allowed!</p>
@@ -396,7 +396,7 @@
   </div>
 
 
-  <div id="id_EditPage_ProbePreviewDiv2" style="display:flex; height: auto; border: 0.2vh solid grey; margin-bottom:2vh; padding-bottom:2vh; padding-top:2vh; margin-left: 5%; width:90%; background:rgb(245,245,245);">
+  <div id="id_EditPage_ProbePreviewDiv2" style="display:flex; height: auto; border: 0.2vh solid grey; margin-bottom:2vh; padding-bottom:2vh; padding-top:2vh; margin-left: 5%; width:90%; background:var(--main-sepArea-bg);;">
     <p  class="standardText " style="font-weight:bold; margin:auto;"> Preview: </p>
     <canvas id="id_EditPage_ProbePreview2" style="width:85%; height:6vh; border: 0.2vh solid black; margin:auto; "></canvas>
   </div>

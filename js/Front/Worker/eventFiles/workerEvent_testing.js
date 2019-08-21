@@ -81,7 +81,7 @@ function workerEvent_DrawTestfunction(e) {
       var currentPos = 0;
       for (var j = 0; j < e.data.histoData.length; j++) {
           var tmpHeight = Math.round((canvas.height*e.data.histoData[j]));
-          canvasCtx.fillStyle="rgb(80,80,80)";
+          canvasCtx.fillStyle= getComputedStyle(document.documentElement).getPropertyValue('--general-active-color');
           canvasCtx.strokeStyle="black";
           canvasCtx.lineWidth=1;
           canvasCtx.fillRect(currentPos,canvas.height-tmpHeight,rangeWidth,tmpHeight);

@@ -102,6 +102,8 @@ function drawSketchKeys(canvasID, tmpCMS){
 
 function drawKeyNumber(canvasID, tmpCMS){
 
+    var lineColor =  getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');
+
     var canvasObject = document.getElementById(canvasID);
     var rect = canvasObject.getBoundingClientRect();
     canvasObject.width = rect.width; //canvasObject.width;
@@ -132,7 +134,7 @@ function drawKeyNumber(canvasID, tmpCMS){
 
       var text = ""+(i+1);
       canvasContex.font = labelFontSize+"px Arial";
-      canvasContex.fillStyle = 'rgb(0,0,0)';
+      canvasContex.fillStyle = lineColor;
       canvasContex.fillText(text,xPos-(labelFontSize/3),colorrectYPos);
 
       xPos+=bandWidth;

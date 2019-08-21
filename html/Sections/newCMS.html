@@ -1,39 +1,39 @@
 <!--
 -----------------------------------------------
-----------------  	Section New CMS	  -----------------
+---------------- 	Section New CMS	 -----------------
 -----------------------------------------------
 -->
 
 
 <div class="row" style="height: 100%; width:100%;">
 
-  <div style="height: 100%; width:12vw; background:var(--main-sepArea-bg);">
-      <p class="sectionLabel" style="width:100%; margin:auto; margin-top:5vh;">New CMS</p>
+ <div style="height: 100%; width:12vw; background:var(--main-sepArea-bg);">
+   <p class="sectionLabel" style="width:100%; margin:auto; margin-top:5vh;">New CMS</p>
 
-      <button class="class_generalbutton_DarkBackground" onclick="showEditPage()" style="width:10vw; margin-top:5vh; margin-left:1vw;">Create</button>
-      <button class="class_generalbutton_DarkBackground" onclick="showMyDesignsPage()" style="width:10vw; margin-top:2vh; margin-left:1vw;">Cancel</button>
+   <button class="class_generalbutton_DarkBackground" onclick="showEditPage()" style="width:10vw; margin-top:5vh; margin-left:1vw;">Create</button>
+   <button class="class_generalbutton_DarkBackground" onclick="showMyDesignsPage()" style="width:10vw; margin-top:2vh; margin-left:1vw;">Cancel</button>
+ </div>
+
+ <div style="width:88vw; height:100%; overflow:auto; display:flex;">
+
+  <div class="class_OptionDiv" style="margin:auto; margin-right:3vw;">
+   <p class="standardText " style="font-weight:bold; margin-bottom:1vh; width: 10vw;">Name: </p>
+   <input type="text" id="id_newCMSPage_ColormapName" style="width: 35vw; padding:0.5vh;" name="mapname" placeholder="Please enter a name for your colormap" />
+
+   <p class="standardText " style="width: 10vw; font-weight:bold; margin-top:3vh; margin-bottom:1vh;">Interpolation Space: </p>
+   <div class="row" style="width:100%;">
+    <button class="class_generalbutton " id="id_NewCMS_SpaceLAB" onclick="changeNewInterSpace(2)" title="LAB" style=" width: 6vw; margin-left:auto; ">LAB</button>
+    <button class="class_generalbutton " id="id_NewCMS_SpaceDIN99" onclick="changeNewInterSpace(3)" title="DIN99" style=" width: 6vw; margin-left:1vw; ">DIN99</button>
+    <button class="class_generalbutton " id="id_NewCMS_SpaceRGB" onclick="changeNewInterSpace(0)" title="RGB" style=" width: 6vw; margin-left:1vw; "> RGB </button>
+    <button class="class_generalbutton " id="id_NewCMS_SpaceHSV" onclick="changeNewInterSpace(1)" title="HSV" style=" width: 6vw; margin-left:1vw; margin-right:auto; ">HSV</button>
+   </div>
+
+   <p class="standardText " style="width: 10vw; font-weight:bold; margin-top:3vh; margin-bottom:1vh;">Description: </p>
+   <textarea id="id_newCMSPage_MapDescription" name="colormap description" style="width: 35vw; height:40vh; overflow-y:auto; padding:0.5vh; resize:none;" placeholder="Enter a rough description of the colormap here. This is primarily used as note or reminder for you and in the case of sharing to inform other users what you want to show with this colormap. For more detailed information like semantics or special meaning of colormap components, the tool offers an additional description for keys or key strings."></textarea>
   </div>
 
-  <div style="width:88vw; height:100%; overflow:auto; display:flex;">
-
-    <div class="class_OptionDiv" style="margin:auto; margin-right:3vw;">
-      <p class="standardText " style="font-weight:bold; margin-bottom:1vh; width: 10vw;">Name: </p>
-      <input type="text" id="id_newCMSPage_ColormapName" style="width: 35vw; padding:0.5vh;" name="mapname" placeholder="Please enter a name for your colormap" />
-
-      <p class="standardText " style="width: 10vw; font-weight:bold; margin-top:3vh; margin-bottom:1vh;">Interpolation Space: </p>
-      <div class="row" style="width:100%;">
-        <button class="class_generalbutton " id="id_NewCMS_SpaceLAB" onclick="changeNewInterSpace(2)" title="LAB" style="border-radius: 0.5vh; width: 6vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:auto; border-width: 0.2vh;">LAB</button>
-        <button class="class_generalbutton " id="id_NewCMS_SpaceDIN99" onclick="changeNewInterSpace(3)" title="DIN99" style="border-radius: 0.5vh; width: 6vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;">DIN99</button>
-        <button class="class_generalbutton " id="id_NewCMS_SpaceRGB" onclick="changeNewInterSpace(0)" title="RGB" style="border-radius: 0.5vh; width: 6vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; border-width: 0.2vh;"> RGB </button>
-        <button class="class_generalbutton " id="id_NewCMS_SpaceHSV" onclick="changeNewInterSpace(1)" title="HSV" style="border-radius: 0.5vh; width: 6vw; height:3vh; line-height:3vh; font-size:2vh; margin-left:1vw; margin-right:auto; border-width: 0.2vh;">HSV</button>
-      </div>
-
-      <p class="standardText " style="width: 10vw; font-weight:bold; margin-top:3vh; margin-bottom:1vh;">Description: </p>
-      <textarea id="id_newCMSPage_MapDescription" name="colormap description" style="width: 35vw; height:40vh; overflow-y:auto; padding:0.5vh; resize:none;" placeholder="Enter a rough description of the colormap here. This is primarily used as note or reminder for you and in the case of sharing to inform other users what you want to show with this colormap. For more detailed information like semantics or special meaning of colormap components, the tool offers an additional description for keys or key strings."></textarea>
-    </div>
-
-    <img id="id_newCMSPage_Img" src="img/CCCToolComic/newPage.png" style=" height: 50vh; max-width: 40vw;  margin:auto; margin-left:none;">
-  </div>
+  <img id="id_newCMSPage_Img" src="img/CCCToolComic/newPage.png" style=" height: 50vh; max-width: 40vw; margin:auto; margin-left:none;">
+ </div>
 
 
 </div>

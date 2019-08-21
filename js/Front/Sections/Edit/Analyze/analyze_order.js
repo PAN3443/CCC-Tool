@@ -397,14 +397,14 @@ function drawOrderPlot(intervalColormap,plotid, type, minId, minGlobalId){
         //////////////////////////////////////////////////////////////
 
         if(minLocal<0)
-        document.getElementById(minId).style.color = "red";
+        document.getElementById(minId).style.color = getComputedStyle(document.documentElement).getPropertyValue('--general-warning-color');
         else
-        document.getElementById(minId).style.color = "black";
+        document.getElementById(minId).style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');
 
         if(minGlobal<0)
-        document.getElementById(minGlobalId).style.color = "red";
+        document.getElementById(minGlobalId).style.color = getComputedStyle(document.documentElement).getPropertyValue('--general-warning-color');
         else
-        document.getElementById(minGlobalId).style.color = "black";
+        document.getElementById(minGlobalId).style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');
 
         document.getElementById(minId).innerHTML = "Local Minimum = "+ minLocal;//.toFixed(numDecimalPlaces);
         document.getElementById(minGlobalId).innerHTML = "Global Minimum = "+ minGlobal;//.toFixed(numDecimalPlaces);

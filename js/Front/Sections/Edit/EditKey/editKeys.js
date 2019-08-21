@@ -27,7 +27,6 @@ function openEditKeyDiv(key){
 
   for (var i = 0; i < globalCMS1.getKeyLength(); i++) {
       var opt = document.createElement('option');
-      opt.className = 'standardText';
       opt.innerHTML = "Key : \t"+ (i+1) +";\t  "+globalCMS1.getKeyType(i)+";\t   Reference : " + globalCMS1.getRefPosition(i);
       selectbox.appendChild(opt);
 
@@ -170,11 +169,6 @@ function selectKey(){
   document.getElementById("id_editPage_KeyTypeLeft").disabled = false;
   document.getElementById("id_editPage_KeyTypeDual").disabled = false;
 
-  document.getElementById("id_editPage_KeyTypeTwinLabel").style.color = "black";
-  document.getElementById("id_editPage_KeyTypeLeftLabel").style.color = "black";
-  document.getElementById("id_editPage_KeyTypeDualLabel").style.color = "black";
-  document.getElementById("id_editPage_KeyTypeNilLabel").style.color = "black";
-  document.getElementById("id_editPage_KeyTypeRightLabel").style.color = "black";
 
   switch (globalCMS1.getKeyType(selectedKey)) {
     case "nil key":
@@ -182,38 +176,26 @@ function selectKey(){
       document.getElementById("id_editPage_KeyTypeTwin").disabled = true;
       document.getElementById("id_editPage_KeyTypeLeft").disabled = true;
       document.getElementById("id_editPage_KeyTypeDual").disabled = true;
-      document.getElementById("id_editPage_KeyTypeTwinLabel").style.color = "grey";
-      document.getElementById("id_editPage_KeyTypeLeftLabel").style.color = "grey";
-      document.getElementById("id_editPage_KeyTypeDualLabel").style.color = "grey";
       break;
     case "right key":
         document.getElementById("id_editPage_KeyTypeRight").checked = true;
         document.getElementById("id_editPage_KeyTypeTwin").disabled = true;
         document.getElementById("id_editPage_KeyTypeLeft").disabled = true;
         document.getElementById("id_editPage_KeyTypeDual").disabled = true;
-        document.getElementById("id_editPage_KeyTypeTwinLabel").style.color = "grey";
-        document.getElementById("id_editPage_KeyTypeLeftLabel").style.color = "grey";
-        document.getElementById("id_editPage_KeyTypeDualLabel").style.color = "grey";
         break;
     case "twin key":
       document.getElementById("id_editPage_KeyTypeTwin").checked = true;
       document.getElementById("id_editPage_KeyTypeNil").disabled = true;
       document.getElementById("id_editPage_KeyTypeRight").disabled = true;
-      document.getElementById("id_editPage_KeyTypeNilLabel").style.color = "grey";
-      document.getElementById("id_editPage_KeyTypeRightLabel").style.color = "grey";
       break;
     case "left key":
       document.getElementById("id_editPage_KeyTypeLeft").checked = true;
       document.getElementById("id_editPage_KeyTypeNil").disabled = true;
       document.getElementById("id_editPage_KeyTypeRight").disabled = true;
-      document.getElementById("id_editPage_KeyTypeNilLabel").style.color = "grey";
-      document.getElementById("id_editPage_KeyTypeRightLabel").style.color = "grey";
 
       if(selectedKey==globalCMS1.getKeyLength()-1){
         document.getElementById("id_editPage_KeyTypeTwin").disabled = true;
         document.getElementById("id_editPage_KeyTypeDual").disabled = true;
-        document.getElementById("id_editPage_KeyTypeTwinLabel").style.color = "grey";
-        document.getElementById("id_editPage_KeyTypeDualLabel").style.color = "grey";
       }
       break;
 
@@ -221,8 +203,6 @@ function selectKey(){
     document.getElementById("id_editPage_KeyTypeDual").checked = true;
     document.getElementById("id_editPage_KeyTypeNil").disabled = true;
     document.getElementById("id_editPage_KeyTypeRight").disabled = true;
-    document.getElementById("id_editPage_KeyTypeNilLabel").style.color = "grey";
-    document.getElementById("id_editPage_KeyTypeRightLabel").style.color = "grey";
   }
 
 

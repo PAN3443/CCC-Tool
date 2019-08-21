@@ -4,11 +4,12 @@
 
 function draw3DLine(xPos,yPos, zPos, xPos2, yPos2, zPos2,isDashed){
 
+    var linecolor = new THREE.Color(pathplotFontColor);
 
-    var lineMaterial = new THREE.LineBasicMaterial( { color: 0x000000, linewidth: lineWidth3D } );
+    var lineMaterial = new THREE.LineBasicMaterial( { color: linecolor, linewidth: lineWidth3D } );
 
     if(isDashed)
-      lineMaterial = new THREE.LineDashedMaterial( { color: 0x000000, dashSize: 10, gapSize: 10, linewidth: lineWidth3D } );
+      lineMaterial = new THREE.LineDashedMaterial( { color: linecolor, dashSize: 10, gapSize: 10, linewidth: lineWidth3D } );
 
   /*  if(secondStrokeStyle){
       lineMaterial = new THREE.LineBasicMaterial( { color: 0x907D27, linewidth: lineWidth3D } );

@@ -140,6 +140,8 @@ self.addEventListener('message', function(e) {
       pathPlotResolution = e.data.pathPlotResolution;
       vPlotWidth = e.data.vPlotWidth;
       vPlotHeight = e.data.vPlotHeight;
+      pathplotFontColor = e.data.pathplotFontColor;
+      
       updateVPlotData();
 
       if (canvas == undefined)

@@ -1,5 +1,8 @@
 function drawKeyBursLine(canvasID,tmpCMS){
 
+  var lineColor =  getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');
+  var activeColor =  getComputedStyle(document.documentElement).getPropertyValue('--general-active-color');
+
   keyBurPoint = [];
   keyBurKeyIndex = [];
 
@@ -23,7 +26,7 @@ function drawKeyBursLine(canvasID,tmpCMS){
   canvasContex.lineWidth = 2;
   canvasContex.moveTo(xPos, Math.round(tmpRect.height/2));
   canvasContex.lineTo(xPos + colormapWidth, Math.round(tmpRect.height/2));
-  canvasContex.strokeStyle = 'rgb(120,120,120)';
+  canvasContex.strokeStyle = lineColor;
   canvasContex.stroke();
 
 
@@ -47,14 +50,14 @@ function drawKeyBursLine(canvasID,tmpCMS){
     canvasContex.lineWidth = 1;
     canvasContex.moveTo(pos1, 0);
     canvasContex.lineTo(pos1, middlePos);
-    canvasContex.strokeStyle = 'rgb(120,120,120)';
+    canvasContex.strokeStyle = lineColor;
     canvasContex.stroke();
 
     canvasContex.beginPath();
     canvasContex.lineWidth = 1;
     canvasContex.moveTo(pos1, middlePos);
     canvasContex.lineTo(pos2, tmpRect.height);
-    canvasContex.strokeStyle = 'rgb(120,120,120)';
+    canvasContex.strokeStyle = lineColor;
     canvasContex.stroke();
   }
 
@@ -72,18 +75,18 @@ function drawKeyBursLine(canvasID,tmpCMS){
 
         canvasContex.beginPath(pos1);
         canvasContex.arc(pos1, middlePos, bigRad, 0, 2 * Math.PI, false);
-        canvasContex.fillStyle = 'black';
+        canvasContex.fillStyle = lineColor;
         canvasContex.fill();
         canvasContex.beginPath(pos1);
         canvasContex.arc(pos1, middlePos, smallRad, 0, 2 * Math.PI, false);
-        canvasContex.fillStyle = 'green';
+        canvasContex.fillStyle = activeColor;
         canvasContex.fill();
 
       }
       else{
         canvasContex.beginPath();
         canvasContex.arc(pos1, middlePos, bigRad, 0, 2 * Math.PI, false);
-        canvasContex.fillStyle = 'black';
+        canvasContex.fillStyle = lineColor;
         canvasContex.fill();
 
       }
@@ -96,7 +99,7 @@ function drawKeyBursLine(canvasID,tmpCMS){
 
       canvasContex.beginPath();
       canvasContex.arc(pos1, middlePos, smallRad, 0, 2 * Math.PI, false);
-      canvasContex.fillStyle = 'black';
+      canvasContex.fillStyle = lineColor;
       canvasContex.fill();
     }
 

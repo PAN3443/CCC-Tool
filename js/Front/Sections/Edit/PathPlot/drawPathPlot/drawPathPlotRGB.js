@@ -6,6 +6,8 @@ function drawcolormap_RGBSpace(calcBackground, drawInterpolationLine) {
 
   //pathPlotCanvasInit();
 
+  pathplotFontColor = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');
+
   if(calcBackground){
 
     if(browserCanWorker)
@@ -120,6 +122,7 @@ function rgbWorkerDrawElements_And_InterpolationLine(drawInterpolationLine){
     workerJSON['mouseAboveKeyID'] = mouseAboveKeyID;
     workerJSON['mouseGrappedColorSide'] = mouseGrappedColorSide;
     workerJSON['mouseGrappedColor'] = mouseGrappedColor;
+    workerJSON['pathplotFontColor'] = pathplotFontColor;
     workerJSON['do3D'] = false;
     workerJSON['space'] = "rgb";
     workerJSON['type'] = "GR";
@@ -215,6 +218,7 @@ function rgbWorkerDrawBackground(){
   workerJSON['fixedColorV1'] = fixR;
   workerJSON['fixedColorV2'] = fixG;
   workerJSON['fixedColorV3'] = fixB;
+  workerJSON['pathplotFontColor'] = pathplotFontColor;
   drawBackgroundWorker1.postMessage(workerJSON);
 
   workerJSON.type = "BR";

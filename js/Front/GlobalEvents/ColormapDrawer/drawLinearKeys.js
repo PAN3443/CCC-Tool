@@ -126,6 +126,7 @@ function drawKeys(canvasID, tmpCMS) {
 function drawColorRect(contex, colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth, rgbColor, isGrey) {
 
   var strokeWidth =1;
+  var lineColor =  getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');
 
   if(doColorblindnessSim){
     var tmpLMS = rgbColor.calcLMSColor();
@@ -139,13 +140,13 @@ function drawColorRect(contex, colorrectXPos, colorrectYPos, colorrectWitdh, col
     contex.beginPath();
     contex.moveTo(colorrectXPos, colorrectYPos + colorrectHeigth);
     contex.lineTo(colorrectXPos + colorrectWitdh, colorrectYPos);
-    contex.strokeStyle = 'rgb(0,0,0)';
+    contex.strokeStyle = lineColor;
     contex.lineWidth = strokeWidth;
     contex.stroke();
   }
 
   contex.lineWidth = strokeWidth;
-  contex.strokeStyle = 'rgb(0,0,0)';
+  contex.strokeStyle = lineColor;
   contex.strokeRect(colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth);
 
 }

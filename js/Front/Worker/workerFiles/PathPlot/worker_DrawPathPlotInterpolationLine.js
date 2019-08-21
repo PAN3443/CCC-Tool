@@ -78,6 +78,8 @@ var mouseAboveKeyID = undefined;
 var mouseGrappedColorSide = undefined;
 var mouseGrappedColor = undefined;
 
+var pathplotFontColor = "rgb(0,0,0)";
+
 // CMS
 var globalCMS1 = undefined;
 
@@ -270,6 +272,7 @@ self.addEventListener('message', function(e) {
     mouseGrappedColorSide = e.data.mouseGrappedColorSide;
     mouseGrappedColor = e.data.mouseGrappedColor;
     intervalDelta = e.data.intervalDelta;
+    pathplotFontColor = e.data.pathplotFontColor;
 
     updateVPlotData();
 

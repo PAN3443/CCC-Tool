@@ -145,7 +145,8 @@ padding-right: 1vh;
 vertical-align:middle;
 border: 0.2vh solid black;
 border-radius: 1vh;
-background:white;
+color: var(--main-font-color);
+background: var(--main-second-bg-color);
 }
 
 .class_ShortcutText{
@@ -153,6 +154,7 @@ text-align:center;
 height:5vh;
 line-height:5vh;
 font-size:3vh;
+color: var(--main-font-color);
 vertical-align:middle;
 }
 

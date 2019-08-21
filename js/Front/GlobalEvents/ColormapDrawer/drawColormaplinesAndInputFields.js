@@ -4,6 +4,8 @@
 
 function drawLines(cmsID,fromIsLinear, toIsLinear, tmpCMS){
 
+  var lineColor =  getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');
+
   var canvasObject = document.getElementById(cmsID);
   var rect = canvasObject.getBoundingClientRect();
   canvasObject.width = rect.width;
@@ -40,7 +42,7 @@ function drawLines(cmsID,fromIsLinear, toIsLinear, tmpCMS){
     canvasContex.moveTo(xPos + pos1, 0);
 
     canvasContex.lineTo(xPos + pos2, canvasObject.height);
-    canvasContex.strokeStyle = 'rgb(0,0,0)';
+    canvasContex.strokeStyle = lineColor;
     canvasContex.stroke();
 
   }

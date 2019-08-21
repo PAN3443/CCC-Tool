@@ -5,6 +5,8 @@ function rgbMesh(){
     colorspaceGroup.remove(colorspaceGroup.children[i]);
   }
 
+  var linecolor = new THREE.Color(pathplotFontColor);
+
   var startPos = -128;
   var textPos = 220;
   var arrowEnd = 200;
@@ -48,7 +50,7 @@ function rgbMesh(){
           bevelEnabled: true
       } );
 
-      var textMaterial = new THREE.MeshPhongMaterial( { color: 0x000000 } );
+      var textMaterial = new THREE.MeshPhongMaterial( { color: linecolor } );
 
       var textR = new THREE.Mesh( textGeo1, textMaterial );
       textR.position.set( textPos, startPos, startPos );
@@ -72,21 +74,21 @@ function rgbMesh(){
   var to = new THREE.Vector3( arrowEnd, startPos, startPos );
   var direction = to.clone().sub(from);
   var length = direction.length();
-  var arrowXCoord = new THREE.ArrowHelper(direction.normalize(), from, length, 0x000000 );
+  var arrowXCoord = new THREE.ArrowHelper(direction.normalize(), from, length, linecolor );
   colorspaceGroup.add( arrowXCoord );
 
   from = new THREE.Vector3( startPos, endpos, startPos );
   to = new THREE.Vector3( startPos, arrowEnd,  startPos );
   direction = to.clone().sub(from);
   length = direction.length();
-  var arrowYCoord = new THREE.ArrowHelper(direction.normalize(), from, length, 0x000000 );
+  var arrowYCoord = new THREE.ArrowHelper(direction.normalize(), from, length, linecolor );
   colorspaceGroup.add( arrowYCoord );
 
   from = new THREE.Vector3( startPos, startPos, endpos );
   to = new THREE.Vector3( startPos, startPos, arrowEnd );
   direction = to.clone().sub(from);
   length = direction.length();
-  var arrowZCoord = new THREE.ArrowHelper(direction.normalize(), from, length, 0x000000 );
+  var arrowZCoord = new THREE.ArrowHelper(direction.normalize(), from, length, linecolor );
   colorspaceGroup.add( arrowZCoord );
 
   /////////////////////////////////////////////////////////////

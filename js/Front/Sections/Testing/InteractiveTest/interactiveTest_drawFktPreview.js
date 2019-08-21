@@ -3,7 +3,7 @@
 function draw_FunctionTypeMirrored(canvasID, exp, value_m, value_M, fctType ){
 
   var lineWidth = 2;
-  var lineColor = "rgb(0,191,255)";
+  var lineColor = getComputedStyle(document.documentElement).getPropertyValue('--general-active-color');
   var numberSteps = 21;
   var ratioStep = 1.0/(numberSteps-1);
 
@@ -107,7 +107,7 @@ function draw_FunctionTypeMirrored(canvasID, exp, value_m, value_M, fctType ){
 
 function draw_FunctionTypeMirrored_CoordinateSystem(context,canvasHight,canvasWidth){
 
-    var arrowColor = "rgb(80,80,80)";
+    var arrowColor = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');
     var arrowlineWidth = 2;
 
     var value_m = document.getElementById("id_TestPage_NewTest_I1").value;
@@ -122,6 +122,7 @@ function draw_FunctionTypeMirrored_CoordinateSystem(context,canvasHight,canvasWi
     ////////////////////////////////////////////////
     // Y-Arrow
     context.strokeStyle = arrowColor;
+    context.fillStyle = arrowColor;
     context.lineWidth = arrowlineWidth;
 
     context.beginPath();
@@ -196,7 +197,7 @@ function draw_FunctionTypeMirrored_CoordinateSystem(context,canvasHight,canvasWi
 function draw_FunctionType(canvasID, exp, value_m, value_M, fctType){
 
   var lineWidth = 2;
-  var lineColor = "rgb(0,191,255)";
+  var lineColor = getComputedStyle(document.documentElement).getPropertyValue('--general-active-color');
   var numberSteps = 50;
   var ratioStep = 1.0/(numberSteps-1);
 
@@ -277,7 +278,7 @@ function draw_FunctionType(canvasID, exp, value_m, value_M, fctType){
 
 function draw_FunctionType_CoordinateSystem(context,canvasHight,canvasWidth){
 
-    var arrowColor = "rgb(80,80,80)";
+    var arrowColor = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');
     var arrowlineWidth = 2;
 
     var value_m = document.getElementById("id_TestPage_NewTest_I1").value;
@@ -292,6 +293,7 @@ function draw_FunctionType_CoordinateSystem(context,canvasHight,canvasWidth){
     ////////////////////////////////////////////////
     // Y-Arrow
     context.strokeStyle = arrowColor;
+    context.fillStyle = arrowColor;
     context.lineWidth = arrowlineWidth;
 
     context.beginPath();
@@ -363,7 +365,7 @@ function draw_FunctionType_CoordinateSystem(context,canvasHight,canvasWidth){
 function draw_FunctionTypeTresh(canvasID, exp, fctType ){
 
   var lineWidth = 2;
-  var lineColor = "rgb(0,191,255)";
+  var lineColor = getComputedStyle(document.documentElement).getPropertyValue('--general-active-color');
   var numberSteps = 21;
   var ratioStep = 1.0/(numberSteps-1);
 
@@ -451,7 +453,7 @@ function draw_FunctionTypeTresh(canvasID, exp, fctType ){
 
 function draw_FunctionTypeTresh_CoordinateSystem(context,canvasHight,canvasWidth){
 
-    var arrowColor = "rgb(80,80,80)";
+    var arrowColor = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');
     var arrowlineWidth = 2;
 
     var value_m = document.getElementById("id_TestPage_NewTest_I1").value;
@@ -462,6 +464,7 @@ function draw_FunctionTypeTresh_CoordinateSystem(context,canvasHight,canvasWidth
     ////////////////////////////////////////////////
     // Y-Arrow
     context.strokeStyle = arrowColor;
+    context.fillStyle = arrowColor;
     context.lineWidth = arrowlineWidth;
 
     context.beginPath();

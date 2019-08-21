@@ -283,9 +283,9 @@ function drawGlobalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId,
       document.getElementById(minId).innerHTML = "Global Speed Minimum = "+ min;//.toFixed(numDecimalPlaces);
 
       if(min==0)
-      document.getElementById(minId).style.color = "red";
+      document.getElementById(minId).style.color = getComputedStyle(document.documentElement).getPropertyValue('--general-warning-color');
       else
-      document.getElementById(minId).style.color = "black";
+      document.getElementById(minId).style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');
 
       document.getElementById(maxId).innerHTML = "Global Speed Maximum = "+ max;//.toFixed(numDecimalPlaces);
       document.getElementById(avId).innerHTML = "Global Speed Average = "+ average;//.toFixed(numDecimalPlaces);

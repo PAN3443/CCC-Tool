@@ -211,19 +211,19 @@ function changeRangeGeneration(type){
 
   switch (type){
     case 0:
-        document.getElementById("id_EditPage_ProbeSetRangeType_Single").style.background="rgb(76, 175, 80)";
+        document.getElementById("id_EditPage_ProbeSetRangeType_Single").style.background=getComputedStyle(document.documentElement).getPropertyValue('--general-active-color');
         document.getElementById("id_EditPage_selectProbeSetRangeType").innerHTML="&#9660; Single";
         document.getElementById("id_EditPage_SingleProbeOptions").style.display = 'block';
         generateProbeSet();
       break;
     case 1:
-        document.getElementById("id_EditPage_ProbeSetRangeType_Interval").style.background="rgb(76, 175, 80)";
+        document.getElementById("id_EditPage_ProbeSetRangeType_Interval").style.background=getComputedStyle(document.documentElement).getPropertyValue('--general-active-color');
         document.getElementById("id_EditPage_selectProbeSetRangeType").innerHTML="&#9660; Interval";
         document.getElementById("id_EditPage_IntervalProbeOptions").style.display = 'block';
         generateProbeSet();
       break;
     case 2:
-        document.getElementById("id_EditPage_ProbeSetRangeType_Custom").style.background="rgb(76, 175, 80)";
+        document.getElementById("id_EditPage_ProbeSetRangeType_Custom").style.background=getComputedStyle(document.documentElement).getPropertyValue('--general-active-color');
         document.getElementById("id_EditPage_selectProbeSetRangeType").innerHTML="&#9660; Custom";
         document.getElementById("id_EditPage_CustomProbeOptions").style.display = 'block';
         checkKeyCustomRangeInput();

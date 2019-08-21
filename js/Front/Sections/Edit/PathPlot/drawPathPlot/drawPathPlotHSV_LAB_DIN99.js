@@ -14,6 +14,8 @@ function updateVPlotCanvasSize(id){
 
 function drawcolormap_hueSpace(calcBackground, drawInterpolationLine, doInitVplot) {
 
+  pathplotFontColor = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');
+
   updateVPlotCanvasSize("id_EditPage_PathPlot_Canvas1_Div"); // we are using the div containing the canvas because of the offscreen worker we cant use the canvas object in the main thread
 
   if (doInitVplot){
@@ -126,6 +128,7 @@ function hueInit_Worker(){
   workerJSON['fixedColorV1'] = fixV1;
   workerJSON['fixedColorV2'] = fixV2;
   workerJSON['fixedColorV3'] = fixV3;
+  workerJSON['pathplotFontColor'] = pathplotFontColor;
 
   drawBackgroundWorker4.postMessage(workerJSON);
 }
@@ -188,6 +191,7 @@ function init_VPlot_Offscreen(){
   workerJSON['vPlotWidth'] = vPlotWidth;
   workerJSON['vPlotHeight'] = vPlotHeight;
   workerJSON['space'] = pathColorspace;
+  workerJSON['pathplotFontColor'] = pathplotFontColor;
   workerJSON['type'] = "V1";
   drawBackgroundWorker1.postMessage(workerJSON);
 

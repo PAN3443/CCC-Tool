@@ -1,16 +1,12 @@
 
 function changeColorspace(){
 
-  document.getElementById("id_header_interpolationSpaceWarning").innerHTML = "&#9785;";
-
   switch (document.getElementById("id_editPage_InterpolationSelect").selectedIndex) {
     case 5:
         globalCMS1.setInterpolationSpace("rgb");
-        document.getElementById("id_header_interpolationSpaceWarning").innerHTML = "&#9785;";
       break;
       case 6:
           globalCMS1.setInterpolationSpace("hsv");
-          document.getElementById("id_header_interpolationSpaceWarning").innerHTML = "&#9785;";
         break;
         case 0:
             globalCMS1.setInterpolationSpace("lab");

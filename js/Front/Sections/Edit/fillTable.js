@@ -8,32 +8,38 @@ function fillTable() {
 
 
   for (i = 0; i < globalCMS1.getKeyLength()-1; i++) {
+
+    var className = "class_tableInput";
+    if(i%2==1){
+      className = "class_tableInputDark";
+    }
+
     var tr = document.createElement('tr');
     tr.style.background = "white";
 
     var td = document.createElement('td');
-    td.className = "class_tableInput";
+    td.className = className;
     td.appendChild(document.createTextNode(i + 1));
     td.style.maxWidth="2vw";
     td.style.width="2vw";
     tr.appendChild(td);
 
     td = document.createElement('td')
-    td.className = "class_tableInput";
+    td.className = className;
     td.appendChild(document.createTextNode(globalCMS1.getRefPosition(i)));
     td.style.maxWidth="3.5vw";
     td.style.width="3.5vw";
     tr.appendChild(td);
 
     td = document.createElement('td')
-    td.className = "class_tableInput";
+    td.className = className;
     td.appendChild(document.createTextNode(globalCMS1.getRefPosition(i+1)));
     td.style.maxWidth="3.5vw";
     td.style.width="3.5vw";
     tr.appendChild(td);
 
     td = document.createElement('td')
-    td.className = "class_tableInput";
+    td.className = className;
 
 
     var color1 = globalCMS1.getRightKeyColor(i,globalCMS1.getInterpolationSpace());
@@ -52,9 +58,9 @@ function fillTable() {
     tr.appendChild(td);
 
     td = document.createElement('td')
-    td.className = "class_tableInput";
+    td.className = className;
     var td2 = document.createElement('td')
-    td2.className = "class_tableInput";
+    td2.className = className;
 
     switch (globalCMS1.getInterpolationSpace()) {
       case "rgb":

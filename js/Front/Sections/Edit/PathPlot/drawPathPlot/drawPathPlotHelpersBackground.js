@@ -125,8 +125,8 @@ function rgbPlot(context, xlabel, ylabel) {
   var xEndArrow = Math.round(pathPlotResolution * 0.9);
 
 
-  var lineColor = 'rgb(200,200,200)';
-  var arrowFontColor = 'rgb(90,90,90)';
+  var lineColor = pathplotFontColor;
+  var arrowFontColor = pathplotFontColor;
 
   plotXStart = xStart;
   heigthVArea = yStart - yEnd;
@@ -247,8 +247,8 @@ function drawVPlot(vPlotContex, startValue, endValue){
   var xEndArrow = Math.round(vPlotWidth * 0.9);
   var xEndLine = xEndArrow - arrowHeight;
 
-  var lineColor = 'rgb(200,200,200)';
-  var arrowFontColor = 'rgb(0,0,00)';//'rgb(90,90,90)';
+  var lineColor = pathplotFontColor;//'rgb(200,200,200)';
+  var arrowFontColor = pathplotFontColor;
 
   vPlotContex.strokeStyle = arrowFontColor;
   vPlotContex.fillStyle = arrowFontColor;

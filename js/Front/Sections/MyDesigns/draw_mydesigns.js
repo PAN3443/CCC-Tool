@@ -68,7 +68,7 @@ function createMyDesignObject(id){
   tmpLabel.className = 'class_MyDesignObjCMSCanvas';
   tmpLabel.style.border = "none";
   tmpLabel.style.color="var(--main-font-color)";
-  tmpLabel.innerHTML=myDesignsList[id].getColormapName(); //"Emty CMS:"
+  tmpLabel.innerHTML=myDesignsList[id].getColormapName()+" ("+myDesignsList[id].getInterpolationSpace()+")"; //"Emty CMS:"
 
 
   tmpLabel.onclick = (function(cmsID) {

@@ -33,15 +33,8 @@ function initNewTest() {
   document.getElementById("id_TestPage_GridDimX").disabled = false;
   document.getElementById("id_TestPage_GridDimY").disabled = false;
 
-  document.getElementById("id_TestPage_GridDimXLabel").style.color = "white";
-  document.getElementById("id_TestPage_GridDimYLabel").style.color = "white";
-
-  document.getElementById("id_TestPage_GridDimX").style.color = "white";
-  document.getElementById("id_TestPage_GridDimY").style.color = "white";
-
   document.getElementById("id_TestPage_doRatioCheckbox").disabled = false;
   document.getElementById("id_TestPage_doRatioCheckbox").checked = false;
-  document.getElementById("id_TestPage_doRatioLabel").style.color = "white";
 
 
   document.getElementById("id_TestPage_NewTest_I1").min = undefined;

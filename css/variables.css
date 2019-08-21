@@ -6,7 +6,11 @@
   --font-size-label: 3.5vh;
   --line-height-label: 5vh;
 
+  --button-font-size : 1.6vh;
+  --button-height: 3vh;
+  --button-border-radius: 0.75vh;
 
+  --font-family: 'Helvetica', 'Arial', sans-serif;
 
 
 
@@ -70,15 +74,15 @@
 
 
   /**** Table *****/
-  --main-table-bg1-color: rgb(245,245,245);
-  --main-table-bg2-color: rgb(225,225,225);
-  --main-table-border-color: rgb(32, 36, 43);
-  --main-table-font-color: rgb(32, 36, 43);
+  --main-table-bg1-color: var(--main-bg-color);
+  --main-table-bg2-color: var(--main-second-bg-color);
+  --main-table-border-color: var(--main-sepArea-bg);
+  --main-table-font-color: var(--main-font-color);
 
 
   /**** Input *****/
-  --input-bg-color: var(--main-font-color);
-  --input-font-color: var(--main-sepArea-bg);/*var(--main-bg-color);*/
+  --input-bg-color: rgb(157,163,178);/* var(--main-font-color);*/
+  --input-font-color: rgb(32, 36, 43);/*var(--main-sepArea-bg);/*var(--main-bg-color);*/
   --input-placeholder-font-color: var(--main-second-bg-color); /*brighter than normal font color and darker than background color*/
   --input-disabled-bg-color: none;
   --input-disabled-font-color: var(--main-font-color);

@@ -105,7 +105,6 @@ function showMyDesignsPage(){
   document.getElementById("id_actionMenu_myDesignPart").style.display="block";
   document.getElementById("id_dropDownMenu_DisplayOptions").style.display="none";
   document.getElementById("id_header_editWarning").style.visibility="hidden";
-  document.getElementById("id_header_interpolationSpaceWarning").style.visibility="hidden";
 
 
 stopPathPlotAnimation();

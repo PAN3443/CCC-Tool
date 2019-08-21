@@ -53,12 +53,15 @@ function drawBandSketch(cms,sketchObjectID, withInputFields, aboveInputField){
           canvasContex.putImageData(canvasData, 0, 0);
       }
       else{
+
+
         dropRects = [];
         dropRects.push(0);
         canvasContex.font = fontSize+"px Arial";
         var txt="Drop It Here";
         var xPos=(canvasObject.width/2)-(canvasContex.measureText(txt).width/2);
         var yPos=(canvasObject.height/2)+(fontSize/2);
+        canvasContex.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');
         canvasContex.fillText(txt,xPos,yPos);
         return;
       }

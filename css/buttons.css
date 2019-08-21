@@ -2,22 +2,22 @@
 button:focus {outline:0;}
 
 .class_generalbutton{
+  font-family: var(--font-family);
     box-sizing: content-box;
-    border: none;
+    background: none;
     font-weight:bold;
     /*background-color: var(--main-button-bg);/*rgb(19, 111, 153);*/
     border: 0.1vw solid var(--main-button-bg);
     /*box-shadow: 0 0 1vh rgba(19, 111, 153, 0.5);*/
     color:var(--main-font-color);
     transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
-    height: 4vh;
-    line-height: 4vh;
+    height: var(--button-height);
+    line-height: var(--button-height);
+    font-size: var(--button-font-size);
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 1.8vh;
-    border-radius: 1vh;
-    font-size: 1.8vh;
+    border-radius: var(--button-border-radius);
     text-align:center;
     overflow: auto;
     font-weight: bold;
@@ -38,7 +38,8 @@ button:focus {outline:0;}
 
 
 .class_generalbuttonActive{
-    border: none;
+  font-family: var(--font-family);
+    background: none;
     box-sizing: content-box;
     font-weight:bold;
     /*background-color: var(--main-activebutton-bg); /*rgb(0,191,255); rgb(15, 107, 149);*/
@@ -46,14 +47,13 @@ button:focus {outline:0;}
     /*box-shadow: 0 0 1vh rgba(228,62,0, 0.5);*/
     color: var(--main-activebutton-bg);
     transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
-    height: 4vh;
-    line-height: 4vh;
+    height: var(--button-height);
+    line-height: var(--button-height);
+    font-size: var(--button-font-size);
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 1.8vh;
-    border-radius: 1vh;
-    font-size: 1.8vh;
+    border-radius: var(--button-border-radius);
     text-align:center;
     overflow: auto;
     font-weight: bold;
@@ -74,9 +74,9 @@ button:focus {outline:0;}
 }
 
 .class_generalbutton_DarkBackground{
-    border: none;
+    background: none;
     font-weight:bold;
-
+    font-family: var(--font-family);
     /*box-shadow: none; /* 0 0 1vh rgba(175,255,255, 0.5)*/
     /*background-color: var(--main-Button-sepArea-bg-color);
     color: var(--main-Button-sepArea-font-color);*/
@@ -85,14 +85,13 @@ button:focus {outline:0;}
     color: var(--main-Button-sepArea-bg-color);
 
     transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
-    height: 4vh;
-    line-height: 4vh;
+    height: var(--button-height);
+    line-height: var(--button-height);
+    font-size: var(--button-font-size);
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 1.8vh;
-    border-radius: 1vh;
-    font-size: 1.8vh;
+    border-radius: var(--button-border-radius);
     text-align:center;
     overflow: auto;
     font-weight: bold;
@@ -163,13 +162,20 @@ button:focus {outline:0;}
 }
 
 .helpButton {
-    font-size: 1.6vh;
-    line-height: 2vh;
-    color:black;
-    height:2vh;
-    width:2vh;
-    border: 0.2vh solid black;
-    border-radius: 0.5vh;
+
+    font-family: var(--font-family);
+    box-sizing: content-box;
+    background: none;
+    font-weight:bold;
+    /*background-color: var(--main-button-bg);/*rgb(19, 111, 153);*/
+    border: 0.1vw solid var(--main-button-bg);
+    /*box-shadow: 0 0 1vh rgba(19, 111, 153, 0.5);*/
+    color:var(--main-font-color);
+    height: var(--button-height);
+    width:  var(--button-height);
+    line-height: var(--button-height);
+    font-size: var(--button-font-size);
+    border-radius: var(--button-border-radius);
     vertical-align:middle;
     text-align: center;
     overflow: hidden;
@@ -181,21 +187,90 @@ button:focus {outline:0;}
     display:none;
     position: absolute;
     padding:0.5vh;
-    font-size: 1.6vh;
-    line-height: 2vh;
-    color:black;
+    font-family: var(--font-family);
+    font-size: var(--font-size-normal);
+    line-height: var(--line-height-normal);
+    color: var(--main-font-color);
     height:auto;
-    width:250px;
-    border: 0.2vh solid black;
+    width: 20vw;
+    border: 0.2vh solid var(--main-font-color);
     vertical-align:middle;
     overflow: hidden;
     text-overflow: ellipsis;
     /*font-family:courier;*/
-    background: rgb(220,220,220);
+    background: var(--main-bg-color);
     z-index:5
 
 }
 
 .helpButtonDiv:hover .helpButtonDiv-content {
     display: block;
+}
+
+
+/************************************************
+******************* Edit Page ********************
+************************************************/
+
+
+
+.class_EditPage_closeDiv {
+  height:2vh;
+  width: 100%;
+  background: var(--menue-bg-color);
+  margin:0;
+  display: flex;
+}
+
+.class_EditPage_closeDiv div{
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left:auto;
+  margin-right:0.25vw;
+  cursor: pointer;
+  height: 1.5vh;
+  line-height: 1.5vh;
+  font-size: 1.5vh;
+  color: var(--main-font-color);
+  vertical-align: middle;
+  text-align: center;
+  transition: transform ease-in 0.1s;
+
+}
+
+.class_EditPage_closeDiv div:hover{
+  color: var(--general-active-color);
+}
+
+
+.class_EditPage_EditButton{
+  color: var(--main-sepArea-bg);
+  height: 3vh;
+  line-height: 3vh;
+  width: 3vh;
+  font-size: 1.2vh;
+  vertical-align: middle;
+  text-align: center;
+  background: var(--main-font-color);
+  border: 0.2vh solid var(--main-font-color);
+  border-radius: 0.5vh;
+  overflow: hidden;
+  margin:auto;
+  transition: transform ease-in 0.1s;
+  cursor: pointer;
+
+}
+
+.class_EditPage_EditButton:hover{
+  transform: scale(0.9);
+  background: var(--general-hover-color);
+}
+
+.class_EditPage_EditButtonLabel{
+  line-height: 3vh;
+  color: rgb(220,220,220);
+  height: 3vh;
+  font-size: 1.8vh;
+  overflow: hidden;
+  margin:auto;
 }
