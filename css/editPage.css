@@ -43,7 +43,6 @@
   transform: scale(0.9);
 }
 
-
 .class_predefinedLinearCMSBands{
     box-sizing: content-box;
     border: 0.2vh solid black;
@@ -106,14 +105,14 @@
 .dropdownButtonEditPage{
   display: flex;
   /*width:250px;*/
-  font-size: 16px;
-  line-height: 25px;
+  font-size: 1.6vh;
+  line-height: 2.5vh;
   cursor:pointer;
-  color:var(--main-bg-color);
+  color:var(--main-sepArea-font-color);
   vertical-align: middle;
   text-align: left;
   padding: 0.2vh;
-  border-top:0.2 solid var(--main-font-color);
+
   /*font-family:courier;*/
   font-weight: bold;
 }

@@ -10,6 +10,10 @@ textarea{
   line-height: var(--line-height-normal);
 }
 
+textarea::placeholder{
+  color: var(--input-placeholder-font-color);
+}
+
 input{
  font-family: var(--font-family);
  background: var(--input-bg-color);

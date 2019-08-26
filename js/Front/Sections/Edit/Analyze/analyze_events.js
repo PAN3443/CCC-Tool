@@ -19,10 +19,10 @@ function updateAnalyze(){
       return;
 
 
-      document.getElementById("id_EditPage_Max_GlobalLocalOrder").style.color=getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');
-      document.getElementById("id_EditPage_Min_GlobalLocalOrder").style.color=getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');
-      document.getElementById("id_EditPage_Average_GlobalLocalOrder").style.color=getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');
-      document.getElementById("id_EditPage_Deviation_GlobalLocalOrder").style.color=getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');
+      document.getElementById("id_EditPage_Max_GlobalLocalOrder").style.color=getComputedStyle(document.documentElement).getPropertyValue('--main-sepArea-font-color');
+      document.getElementById("id_EditPage_Min_GlobalLocalOrder").style.color=getComputedStyle(document.documentElement).getPropertyValue('--main-sepArea-font-color');
+      document.getElementById("id_EditPage_Average_GlobalLocalOrder").style.color=getComputedStyle(document.documentElement).getPropertyValue('--main-sepArea-font-color');
+      document.getElementById("id_EditPage_Deviation_GlobalLocalOrder").style.color=getComputedStyle(document.documentElement).getPropertyValue('--main-sepArea-font-color');
 
       switch (document.getElementById("id_EditPage_SelectAnalyzePlot").selectedIndex) {
         case 0:

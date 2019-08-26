@@ -1,13 +1,8 @@
 
 
-
-
-
-
 function activateMenuDropdown() {
 
-    if(document.getElementById("id_dropDownContainerNavi").style.display!="none")
-      activateNaviDropdown();
+    hideAllMenueDropDowns();
 
     if(document.getElementById("id_dropDownContainer").style.display=="none")
     document.getElementById("id_dropDownContainer").style.display="block";
@@ -16,10 +11,21 @@ function activateMenuDropdown() {
 }
 
 
+function activateThemeDropdown(){
+
+    hideAllMenueDropDowns();
+
+    if(document.getElementById("id_dropDownContainerTheme").style.display=="none"){
+      document.getElementById("id_dropDownContainerTheme").style.display="block";
+      drawThemes();
+    }
+    else
+    document.getElementById("id_dropDownContainerTheme").style.display="none";
+}
+
 function activateNaviDropdown() {
 
-  if(document.getElementById("id_dropDownContainer").style.display!="none")
-    activateMenuDropdown();
+    hideAllMenueDropDowns();
 
     if(document.getElementById("id_dropDownContainerNavi").style.display=="none"){
       document.getElementById("id_dropDownContainerNavi").style.display="block";
@@ -29,23 +35,18 @@ function activateNaviDropdown() {
     document.getElementById("id_dropDownContainerNavi").style.display="none";
 }
 
-/*window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
+function hideAllMenueDropDowns(){
 
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}*/
+  document.getElementById("id_dropDownContainer").style.display="none";
+  document.getElementById("id_dropDownContainerTheme").style.display="none";
+  document.getElementById("id_dropDownContainerNavi").style.display="none";
+
+}
+
 
 function startLeaveEditPage(){
 
-  if(somethingChanged){
+  if(document.getElementById("id_EditPage").display!="none" && somethingChanged){
     askType=4;
     openAskWindow();
   }
@@ -55,6 +56,17 @@ function startLeaveEditPage(){
 
 }
 
+
+function showWelcomePage(){
+  document.getElementById("id_myDesignsPage").style.display="none";
+  document.getElementById("footerDiv").style.display="block";
+  document.getElementById("id_TestingPage").style.display="none";
+  document.getElementById("id_welcomePage").style.display="block";
+  document.getElementById("id_newCMSPage").style.display="none";
+  document.getElementById("id_EditPage").style.display="none";
+  document.getElementById("id_GalleryPage").style.display="none";
+  hideQuickGuide();
+}
 
 function showTestPage(){
 

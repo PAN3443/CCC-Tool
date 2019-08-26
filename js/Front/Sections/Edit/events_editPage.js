@@ -40,11 +40,39 @@ function changeLimitKeyBurLine(){
 function updateEditPage(){
 
   globalCMS1JSON=inform_Worker_GlobalCMS();
+
+  updateEditColormapVis();
+
+  fillTable();
+
+  if(document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.display!="none"){
+
+      if(document.getElementById("id_EditPage_DivAnalyze").style.display!="none" && autoAnalyze){
+        updateAnalyze();
+      }
+      else{
+        // updateMapping
+
+        if(doAutoUpdate && mapping_doAnimation){
+          updateFieldValueColors(true);
+        }
+
+      }
+    }
+
+
+}
+
+function updateEditColormapVis(){
+
+  drawEditCMSVIS(globalCMS1);
+
+  return;
+
   drawBandSketch(globalCMS1,"id_EditPage_CMS_VIS_ColormapSketch", false, -1);
 
   var context = document.getElementById("id_EditPage_CMS_VIS_ColormapLinear").getContext('2d');
   context.clearRect(0, 0, document.getElementById("id_EditPage_CMS_VIS_ColormapLinear").width, document.getElementById("id_EditPage_CMS_VIS_ColormapLinear").height);
-
 
   if(globalCMS1.getKeyLength() != 0){
 
@@ -139,23 +167,6 @@ function updateEditPage(){
         document.getElementById("id_EditPage_CMS_VIS_Label1").innerHTML = "";
         document.getElementById("id_EditPage_CMS_VIS_Label2").innerHTML = "";
   }
-
-  fillTable();
-
-  if(document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.display!="none"){
-
-      if(document.getElementById("id_EditPage_DivAnalyze").style.display!="none" && autoAnalyze){
-        updateAnalyze();
-      }
-      else{
-        // updateMapping
-
-        if(doAutoUpdate && mapping_doAnimation){
-          updateFieldValueColors(true);
-        }
-
-      }
-    }
 
 
 }

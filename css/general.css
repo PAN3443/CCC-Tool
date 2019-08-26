@@ -45,6 +45,13 @@
  }
 
 
+.class_img_container{
+    background-image: url("");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
 
 
  .footer_coopImg{
@@ -76,6 +83,21 @@
    color: var(--main-font-color);
  }
 
+ /*.standardText{*/
+ p{
+   font-family: var(--font-family);
+   font-size: var(--font-size-normal);
+   line-height: var(--line-height-normal);
+   color:var(--main-font-color);
+   vertical-align:middle;
+   margin:0vw;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: pre-line;
+   /*font-family:courier;*/
+ }
+
+
  /*********************************************************************************
  ************* Scroll bar
  ****************************************************************************/
@@ -104,6 +126,7 @@
   background:var(--scrollbar-thump-bg-hover);
 }
 
+/**************************************************************************/
 
  .row{
      width: 100%;
@@ -179,6 +202,10 @@
     color: var(--main-sepArea-font-color);
   }
 
+  .class_OptionDiv label{
+    color: var(--main-sepArea-font-color);
+  }
+
   .class_OptionDiv a:link {
       color: var(--main-sepArea-link-color);
   }
@@ -228,17 +255,7 @@ div.sticky {
   top: 0;
 }
 
-.standardText{
-  font-family: var(--font-family);
-  font-size: var(--font-size-normal);
-  line-height: var(--line-height-normal);
-  color:var(--main-font-color);
-  vertical-align:middle;
-  margin:0px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  /*font-family:courier;*/
-}
+
 
 .sectionLabel{
   width: 100%;

@@ -1,11 +1,12 @@
 
 
+
 function drawCurrentNavi(){
 
     var colorPosArrow = getComputedStyle(document.documentElement).getPropertyValue('--menue-navi-positive-color');
     var colorNegArrow = getComputedStyle(document.documentElement).getPropertyValue('--menue-navi-negative-color');
 
-    var cArrowWelcomeToMyDesign = colorNegArrow;
+    var cArrowWelcomeToMyDesign = colorPosArrow; // is always reachable
 
     var cArrowMyDesignToTesting = colorNegArrow;
     var cArrowMyDesignToNew = colorNegArrow;
@@ -21,7 +22,7 @@ function drawCurrentNavi(){
     clearCanvas("id_navi_NewToEdit");
     clearCanvas("id_navi_GalleryToEdit");
 
-    changeNaviStatus("id_navi_WelcomePage",0);
+    changeNaviStatus("id_navi_WelcomePage",2); // is always reachable
     changeNaviStatus("id_navi_MyDesigns",0);
     changeNaviStatus("id_navi_Testing",0);
     changeNaviStatus("id_navi_New",0);
@@ -130,13 +131,23 @@ function drawCurrentNavi(){
     var middle=Math.round(canvas.width*0.5);
     var middleMinus=Math.round(middle-arrowSite);
     var middlePlus=Math.round(middle+arrowSite);
-    var start=Math.round(canvas.height*0.0);
+    var startArrow=Math.round(0.0);
+    var start=Math.round(startArrow+arrowHead);
     var endArrow=Math.round(canvas.height*1.0);
     var end=Math.round(endArrow-arrowHead);
 
     // Line
     context.moveTo(middle, start);
     context.lineTo(middle, end);
+    context.stroke();
+
+    // Triangle
+    context.beginPath();
+    context.moveTo(middleMinus, start);
+    context.lineTo(middle, startArrow);
+    context.lineTo(middlePlus, start);
+    context.closePath();
+    context.fill();
     context.stroke();
 
     // Triangle
@@ -298,7 +309,7 @@ function changeNaviStatus(id,type){
         case 2:
           document.getElementById(id+"_Label").style.display = "block";
           document.getElementById(id).classList.add("navi_divPos");
-          document.getElementById(id+"_Label").innerHTML = "&#128743;";
+          /*document.getElementById(id+"_Label").innerHTML = "&#128743;";*/
           break;
           case 3:
             document.getElementById(id).classList.add("navi_divPos");

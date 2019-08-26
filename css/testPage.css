@@ -172,8 +172,6 @@
 
 .class_Test_Selector{
   float: left;
-  display: inline-block;
-  float: left;
   padding: 1vh;
   width: 15vw;
   display: block;

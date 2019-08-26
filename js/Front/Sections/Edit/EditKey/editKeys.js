@@ -214,7 +214,11 @@ function selectKey(){
 
 function updateKeyDrawSize(){
 
-document.getElementById("id_EditPage_EditKey_DrawKeyDiv").style.width = "40%";
+  document.getElementById("id_EditPage_EditKey_DrawKeyDiv").style.maxWidth = document.getElementById("id_EditPage_EditKey_DrawKeyDiv").style.height;
+  document.getElementById("id_EditPage_EditKey_DrawKeyDiv").style.maxHeight = document.getElementById("id_EditPage_EditKey_DrawKeyDiv").style.width;
+
+
+/*document.getElementById("id_EditPage_EditKey_DrawKeyDiv").style.width = "30%";
 document.getElementById("id_EditPage_EditKey_DrawKeyDiv").style.height = "100%";
   var box = document.getElementById("id_EditPage_EditKey_DrawKeyDiv").getBoundingClientRect();
 
@@ -226,7 +230,7 @@ document.getElementById("id_EditPage_EditKey_DrawKeyDiv").style.height = "100%";
   else {
     document.getElementById("id_EditPage_EditKey_DrawKeyDiv").style.width = box.height+"px";
     document.getElementById("id_EditPage_EditKey_DrawKeyDiv").style.height = box.height+"px";
-  }
+  }*/
 
 }
 

@@ -2,7 +2,7 @@
 
 function init_events_EditPage(){
 
-  var sketchElement = document.getElementById('id_EditPage_CMS_VIS_ColormapSketch');
+  /*var sketchElement = document.getElementById('id_EditPage_CMS_VIS_ColormapSketch');
   sketchElement.addEventListener("dragenter", bandOnEnter);
   sketchElement.addEventListener("dragleave", bandOnLeave);
   //sketchElement.addEventListener("drop dragdrop", createSide_BandOnDrop);
@@ -50,7 +50,7 @@ function init_events_EditPage(){
 
 
   // Ref Change Key Rects
-  document.getElementById('id_EditPage_CMS_VIS_LinearKeys').addEventListener("mouseenter", mouseEnterKeyRef);
+  /*document.getElementById('id_EditPage_CMS_VIS_LinearKeys').addEventListener("mouseenter", mouseEnterKeyRef);
   document.getElementById('id_EditPage_CMS_VIS_LinearKeys').addEventListener("mouseleave", mouseLeaveKeyRef);
   document.getElementById('id_EditPage_CMS_VIS_LinearKeys').addEventListener("mousemove", mouseMoveKeyRef);
   document.getElementById('id_EditPage_CMS_VIS_LinearKeys').addEventListener("mousedown", mouseDownKeyRef);
@@ -60,19 +60,13 @@ function init_events_EditPage(){
   document.getElementById('id_EditPage_CMS_VIS_KeyBurs').addEventListener("mouseleave", mouseLeaveKeyRef);
   document.getElementById('id_EditPage_CMS_VIS_KeyBurs').addEventListener("mousemove", mouseMoveKeyRef);
   document.getElementById('id_EditPage_CMS_VIS_KeyBurs').addEventListener("mousedown", mouseDownKeyRef);
-  document.getElementById('id_EditPage_CMS_VIS_KeyBurs').addEventListener("mouseup", mouseUpKeyRef);
+  document.getElementById('id_EditPage_CMS_VIS_KeyBurs').addEventListener("mouseup", mouseUpKeyRef);*/
 
-  //check document.getElementById('id_editPage_CMSDescription').addEventListener("change", updateDescription);
   document.getElementById('id_EditPage_CMSName').addEventListener("change", updateColormapName);
 
   limitKeyBurLine=true;
 
   document.getElementById('id_EditPage_DataInfoButton').addEventListener("click", activateDropdown);
-
-  document.getElementById('id_EditPage_selectProbeTypeLabel').addEventListener("click", activateDropdown);
-  document.getElementById('id_EditPage_selectProbeSetRangeType').addEventListener("click", activateDropdown);
-
-  document.getElementById('id_EditPage_editProbeTypeLabel').addEventListener("click", activateDropdown);
   document.getElementById('id_EditPage_editProbeFunctionLabel').addEventListener("click", activateDropdown);
 
   initPathPlot();
@@ -94,8 +88,8 @@ function init_events_EditPage(){
     document.getElementById('id_editPage_KeyTypeRight').addEventListener("change", changeKeyType);
     document.getElementById('id_editPage_KeyTypeDual').addEventListener("change", changeKeyType);
 
-    document.getElementById('id_EditPage_HelpButton_DrawnKey').addEventListener("mouseenter", showDrawnKeyHelp);
-    document.getElementById('id_EditPage_HelpButton_DrawnKey').addEventListener("mouseleave", hideDrawnKeyHelp);
+    document.getElementById('id_EditPage_EditKey_DrawKeyDiv').addEventListener("mouseenter", showDrawnKeyHelp);
+    document.getElementById('id_EditPage_EditKey_DrawKeyDiv').addEventListener("mouseleave", hideDrawnKeyHelp);
 
     // Path plots
     document.getElementById('id_EditPage_PathPlot_SingleCanvas_2').addEventListener("mouseleave", mouseLeaveColorspace);

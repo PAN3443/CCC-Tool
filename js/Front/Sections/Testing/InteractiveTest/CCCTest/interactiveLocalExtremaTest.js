@@ -16,14 +16,13 @@ selectNewExtremaTestType();
 function selectNewExtremaTestType(){
 
   initNewTest();
-  
+
   document.getElementById("id_TestPage_Dimension_Div").style.display="block";
   document.getElementById("id_TestPage_NewTest_D1").style.display="flex";
   document.getElementById("id_TestPage_NewTest_D2").style.display="flex";
   document.getElementById("id_TestPage_NewTest_D3").style.display="flex";
   document.getElementById("id_TestPage_fitToCMS_Div").style.display="flex";
   document.getElementById("id_TestPage_doRatioCheckbox").disabled = true;
-  document.getElementById("id_TestPage_doRatioLabel").style.color = "grey";
   document.getElementById("id_TestPage_newTestInfoText").style.display="block";
   document.getElementById("id_TestPage_fitToCMS").checked = cccTest_NewLocalExtrema_Options[3];
 

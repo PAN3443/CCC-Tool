@@ -44,6 +44,8 @@
   color: var(--tabrow-active-font-color);
 }
 
+.class_TabRowButtonActive:focus {outline:0;}
+
 
 
 .class_TabRowButtonActive p{
@@ -76,6 +78,8 @@
   color: var(--tabrow-font-color);
 }
 
+.class_TabRowButtonNotActive:focus {outline:0;}
+
 .class_TabRowButtonNotActive:hover{
   background: var(--tabrow-font-color);
   color: var(--tabrow-bg-color);
@@ -107,7 +111,7 @@
   color: var(--tabrow-active-color);
 }
 
-
+.class_TabRowBorderButtonActive:focus {outline:0;}
 
 .class_TabRowBorderButtonActive p{
   color: var(--tabrow-active-color);
@@ -133,6 +137,8 @@
   background:none;
   color: var(--tabrow-font-color);
 }
+
+.class_TabRowBorderButtonNotActive:focus {outline:0;}
 
 .class_TabRowBorderButtonNotActive:hover{
   background: var(--tabrow-font-color);

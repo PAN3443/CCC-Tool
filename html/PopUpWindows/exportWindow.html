@@ -7,9 +7,9 @@
 
   <h3 class="class_popupWindow_Label"> Export CMS </h3>
 
-  <div class="class_OptionDiv">
-    <div id="exportprobeDiv" class="row" style="width:100%;">
-      <p class="standardText " style="margin:auto; margin-right:0vh; margin-left:0vh; width:20%;">Select:</p>
+  <div style="padding-left: 1vw; padding-right: 1vw; padding-top: 1vh; padding-bottom: 1vh; ">
+    <div id="exportprobeDiv" class="row" style="width:100%; margin-bottom: 2vh;">
+      <p style="margin:auto; margin-right:0vh; margin-left:0vh; width:20%;">Select:</p>
       <select id="id_selectProbeListExport" name="ProbeListExport" style="width:40%; height:3vh; margin-right:auto;">
                           <option value="0" style="font-weight:bold;">Original CMS</option>
       </select>
@@ -17,7 +17,7 @@
 
   <div id="id_exportOptionsDiv" style="width:100%;">
 
-    <div class="row" style="width:100%; margin-top: 2vh;">
+    <div class="row" style="width:100%;">
       <p style="margin:auto; margin-right:0vh; margin-left:0vh; width:20%;">Space Notation:</p>
 
       <button class="class_generalbutton " id="button_ExportSpaceRGB" onclick="changeExportColorspace(0)" title="RGB" style="border-radius: 0.5vh; width: 6vw;  margin-left:1vw; border-width: 0.2vh;"> RGB </button>
@@ -32,13 +32,13 @@
 
     <div style="width:100%; margin-top: 2vh;">
       <div style="display:flex; width:100%;">
-        <p class="standardText " style="margin:auto; margin-right:0vh; margin-left:0vh; width:20%;">Interval Options:</p>
+        <p style="margin:auto; margin-right:0vh; margin-left:0vh; width:20%;">Interval Options:</p>
 
         <button class="class_generalbutton " id="button_ExportOnlyKeys" onclick="changeIntervalOption(0)" title="Keys" style="border-radius: 0.5vh; width: 15vw;  margin-left:1vw; border-width: 0.2vh;">Only Keys</button>
         <button class="class_generalbutton " id="button_ExportKeysAndIntervals" onclick="changeIntervalOption(1)" title="Keys+Intervals" style="border-radius: 0.5vh; width: 15vw;  margin-left:1vw; border-width: 0.2vh;">Keys+Intervals</button>
 
         <div id="id_Export_NumIntervalDiv" style="display:flex;">
-          <p class="standardText " style="margin:auto; margin-right:0vh; margin-left: 1vw; "> #Intervals: </p>
+          <p style="margin:auto; margin-right:0vh; margin-left: 1vw; "> #Intervals: </p>
           <input id="id_ExportIntervalNum" type="number" value="200" step="1" min="1" style="width: 5vw; text-align:center; vertical-align: middle; margin:auto; margin-left:0.5vw; margin-right:auto;">
         </div>
       </div>
@@ -46,13 +46,13 @@
 
     <div class="row" style="width:100%; margin-top: 2vh;">
 
-      <p class="standardText " style="margin:auto; margin-right:0vh; margin-left:0vh; width:20%;">Handle Twin Issue :</p>
+      <p style="margin:auto; margin-right:0vh; margin-left:0vh; width:20%;">Handle Twin Issue :</p>
       <button class="class_generalbutton " id="id_ExportPage_Button_TwinKeyIssue" onclick="changeTwinKeyIssue()" title="TwinIssue" style="border-radius: 0.5vh; width: 10vw;  margin-left:1vw; border-width: 0.2vh;">active</button>
 
       <div class="helpButtonDiv" style="width:auto; margin-right:auto;">
-        <button class="helpButton " style="margin-right:auto; margin-left:1vw;">?</button>
+        <button class="helpButton" style="margin-right:auto; margin-left:1vw;">?</button>
         <div class="helpButtonDiv-content" style="width:40vw; z-index:103;">
-          <p class="standardText " style="padding:1vh; height:auto; width:40vw; max-width:40vw; z-index:103; "> <strong>Info:</strong> There are visualization tools, which cannot handle the two colors of the twin keys with the same reference value. By activating this solution, the algorithm is adding a 0.00001-factor of the CMS-range to the reference
+          <p style="padding:1vh; height:auto; width:40vw; max-width:40vw; z-index:103; "> <strong>Info:</strong> There are visualization tools, which cannot handle the two colors of the twin keys with the same reference value. By activating this solution, the algorithm is adding a 0.00001-factor of the CMS-range to the reference
             value of the right key-color of all twin keys. (<strong>Attention:</strong> This solution is modifing the twin keys and the tool will identify them as two dual keys during the import. If you want to keep the twin information, please donwload an extra file without using the twin issue handling.)
           </p>
         </div>
@@ -64,31 +64,31 @@
 
     <canvas id="id_exportPNGCanvas" width="300" height="300" style="width:0px; height:0px;"></canvas>
     <div class="row" style="width:100%; margin-top: 2vh;">
-      <p class="standardText " style="margin:auto; margin-right:0vh; margin-left:0vh; width:20%;">Format:</p>
+      <p style="margin:auto; margin-right:0vh; margin-left:0vh; width:20%;">Format:</p>
       <button class="class_generalbutton " id="button_ExportFormatXML" onclick="changeOutputformat(1)" title="XML" style="border-radius: 0.5vh; width: 5vw;  margin-left:1vw; border-width: 0.2vh;">XML</button>
       <button class="class_generalbutton " id="button_ExportFormatJSON" onclick="changeOutputformat(2)" title="JSON" style="border-radius: 0.5vh; width: 5vw;  margin-left:1vw; border-width: 0.2vh;">JSON</button>
       <button class="class_generalbutton " id="button_ExportFormatCSV" onclick="changeOutputformat(0)" title="CSV" style="border-radius: 0.5vh; width: 5vw;  margin-left:1vw; border-width: 0.2vh;">CSV</button>
       <button class="class_generalbutton " id="button_ExportFormatPNGH" onclick="changeOutputformat(3)" title="PNG" style="border-radius: 0.5vh; width: 5vw;  margin-left:1vw; border-width: 0.2vh;">PNG &#8596;</button>
       <button class="class_generalbutton " id="button_ExportFormatPNGV" onclick="changeOutputformat(4)" title="PNG" style="border-radius: 0.5vh; width: 5vw;  margin-left:1vw; border-width: 0.2vh;">PNG &#8597;</button>
     </div>
-    <p id="id_exportPNG_Info" class="standardText" style="margin-left:20%; margin-top:0.5vh;"> <strong>Info:</strong> Files exported with the PNG format include only the image and no key-information. These files can't be reloaded back to the tool.</p>
+    <p id="id_exportPNG_Info" style="margin-left:20%; margin-top:0.5vh;"> <strong>Info:</strong> Files exported with the PNG format include only the image and no key-information. These files can't be reloaded back to the tool.</p>
   </div>
 
 
 
   <h2 class="class_popupWindow_Label ">Table:</h2>
-  <div class="class_OptionDiv">
+  <div>
 
     <table cellspacing="0" cellpadding="0" style="width:100%; border: 0.2vh solid black;">
       <tr>
         <td>
           <table cellspacing="0" cellpadding="1" style="width:100%;">
             <tr style="color:white;">
-              <th class="class_tablelabel" style="width:5%;  background:black; border:none;">#</th>
-              <th class="class_tablelabel" style="width:20%; border-color:black; background:black;border:none;">Scalar</th>
-              <th class="class_tablelabel" style="width:10%; border-color:black; background:black;border:none;">Type</th>
-              <th class="class_tablelabel" id="id_table_exportColor1" style=" width:60%; border-color:black; background:black;border:none;">Color (RGB)</th>
-              <th class="class_tablelabel" style="width:5%;  border-color:black; background:black;border:none;"></th>
+              <th class="class_tablelabel" style="width:5%; color: var(--main-sepArea-font-color);">#</th>
+              <th class="class_tablelabel" style="width:20%; color: var(--main-sepArea-font-color);">Scalar</th>
+              <th class="class_tablelabel" style="width:10%; color: var(--main-sepArea-font-color);">Type</th>
+              <th class="class_tablelabel" id="id_table_exportColor1" style=" width:60%; color: var(--main-sepArea-font-color);">Color (RGB)</th>
+              <th class="class_tablelabel" style="width:5%; color: var(--main-sepArea-font-color);"></th>
             </tr>
           </table>
         </td>

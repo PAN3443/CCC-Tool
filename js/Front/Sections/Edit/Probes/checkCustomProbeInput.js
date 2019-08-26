@@ -145,7 +145,7 @@ function checkProbeInputVal(objID){
 
     //// check input semantic
     document.getElementById("CustomProbeInfoText").innerHTML = "";
-    document.getElementById("CustomProbeInfoText").style.color="red";
+    document.getElementById("CustomProbeInfoText").style.color = getComputedStyle(document.documentElement).getPropertyValue('--general-warning-color');
     var content = checkstring;
     var errorMess3 = "Error: Following Chars are not compatible with the custom probe grammer: \n";
     var grammerErr = "";
@@ -328,11 +328,11 @@ function checkProbeInputVal(objID){
 
           document.getElementById("id_inputCustomProbeRanges").value=inputString;
 
-          document.getElementById("CustomProbeInfoText").style.color="orange";
+          document.getElementById("CustomProbeInfoText").style.color= getComputedStyle(document.documentElement).getPropertyValue('--general-lowWarning-color');
           document.getElementById("CustomProbeInfoText").innerHTML = "Info: The order of the probe ranges was not correct. The input has been adjusted automatically.";
         }
         else{
-          document.getElementById("CustomProbeInfoText").style.color="green";
+          document.getElementById("CustomProbeInfoText").style.color= getComputedStyle(document.documentElement).getPropertyValue('--general-check-color');
           document.getElementById("CustomProbeInfoText").innerHTML = "The input is correct.";
         }
 

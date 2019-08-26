@@ -4,15 +4,17 @@
 --------------------------------------------------------
 -->
 
-<div id="id_EditPage_EmptyDiv" style="width:100%; height:100%; display:none;">
+
+
+<div id="id_EditPage_EmptyDiv" style="width:100%; height:59vh; display:none;">
   <!--p class="subsectionLabel class_InsetLabelText" style="margin:auto; color:transparent;"> Empty </p-->
-  <p class="standardText" style="margin:auto;"> Empty </p>
+  <p style="margin:auto;"> Empty </p>
 </div>
-<div id="id_EditPage_WorkDiv" style="width:100%; height:100%; display:none;">
+<div id="id_EditPage_WorkDiv" style="width:100%; height:59vh; display:none;">
 
   <div id="id_EditPage_Edit_Keys_Div1" style="width:100%; height:20vh; border-right: 0.2vh solid var(--main-font-color); border-bottom: 0.2vh solid var(--main-font-color);">
 
-    <p class="standardText" style="font-weight:bold; margin-left: 0.5vw;"> Select Key: </p>
+    <p style="font-weight:bold; margin-left: 0.5vw;"> Select Key: </p>
 
     <select id="id_EditPage_EditKey_List" name="Key List" size="20" style="margin-left:5%; min-width:80%; max-width:80%; height:11vh; margin-top:1vh; margin-bottom:1vh; overflow:auto;">
 
@@ -24,118 +26,117 @@
 
   <div id="id_EditPage_Edit_Keys_Div2" style="width:100%; height:15vh; border-right: 0.2vh solid var(--main-font-color); border-bottom: 0.2vh solid var(--main-font-color);">
 
-    <div style="display:flex; height:25%; width:100%;">
+    <div id="id_EditPage_Edit_Keys_Div2_Subdiv1" style="display:flex; width:100%; margin-top:auto; padding-top:auto;">
 
-      <div id="id_EditPage_DrawnKey_NilKeyHelp" style="width:100%; margin-top:auto; margin-bottom:2.5%; display:none;">
-        <p class="standardText" style="margin:auto; font-weight:bold; width:100%; text-align:center; height:auto;"> The Nil Key can not be edited here!</p>
+      <div id="id_EditPage_DrawnKey_NilKeyHelp" style="width:100%; margin-top:auto; margin-bottom:2.5%; display:none; ">
+        <p style="margin:auto; font-weight:bold; width:100%; text-align:center; height:auto;"> The Nil Key can not be edited here!</p>
       </div>
 
       <div id="id_EditPage_DrawnKey_MoTHelp" style="width:100%; margin-top:auto; margin-bottom:2.5%; display:none;">
-        <p class="standardText" style="margin:auto; font-weight:bold; width:100%; text-align:center; height:auto;">Click to switch the middle of triple color.</p>
-        <p class="standardText" style="margin:auto; font-weight:bold; width:100%; text-align:center;">&#8595;</p>
+        <p style="margin:auto; font-weight:bold; width:100%; text-align:center; height:auto;">Click to switch the middle of triple color.</p>
+        <p style="margin:auto; font-weight:bold; width:100%; text-align:center;">&#8595;</p>
       </div>
-
 
     </div>
-    <div style="display:flex; height:50%; width:100%;">
+    <div id="id_EditPage_Edit_Keys_Div2_Subdiv2" style="width:100%; margin-bottom:auto;  margin-top:0vh;">
 
-      <div id="id_EditPage_DrawnKey_LeftKeyHelp" style="display:flex; height:100%; width:30%; visibility:hidden;">
-        <p id="id_EditPage_DrawnKey_LeftKeyHelpLabel" class="standardText" style="margin-top:auto; margin-bottom:auto; width:60%; margin-left:10%; font-weight:bold; height:auto;">Click to change the left key color.</p>
-        <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-left:5%; margin-right:5%; width:20%; font-weight:bold;">&#8594;</p>
+      <div style="display:flex; margin-bottom:auto; width:100%;">
+        <div id="id_EditPage_DrawnKey_LeftKeyHelp" style="display:flex; margin:auto; visibility:hidden;">
+          <p id="id_EditPage_DrawnKey_LeftKeyHelpLabel" style="margin-top:auto; margin-bottom:auto; width:60%; margin-left:10%; font-weight:bold; height:auto;">Click to change the left key color.</p>
+          <p style="margin-top:auto; margin-bottom:auto; margin-left:5%; margin-right:5%; width:20%; font-weight:bold;">&#8594;</p>
+        </div>
+        <div id="id_EditPage_EditKey_DrawKeyDiv" style="margin:auto; box-sizing: border-box; border: 0.2vh solid var(--main-font-color); border-radius: 10%; overflow:hidden; margin:auto;">
+        </div>
+        <div id="id_EditPage_DrawnKey_RightKeyHelp" style="display:flex; margin:auto; visibility:hidden;">
+          <p style="margin-top:auto; margin-bottom:auto; margin-left:5%; margin-right:5%; width:20%; font-weight:bold; ">&#8592;</p>
+          <p style="margin-top:auto; margin-bottom:auto; width:60%; margin-right:10%; font-weight:bold; height:auto;">Click to change the right key color.</p>
+        </div>
       </div>
-      <div id="id_EditPage_EditKey_DrawKeyDiv" style="height:100%; width:40%; border: 0.2vh solid black; border-radius: 0.5vh; overflow:hidden; margin:auto;">
-      </div>
-      <div id="id_EditPage_DrawnKey_RightKeyHelp" style="display:flex; height:100%; width:30%; visibility:hidden;">
-        <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-left:5%; margin-right:5%; width:20%; font-weight:bold; ">&#8592;</p>
-        <p class="standardText" style="margin-top:auto; margin-bottom:auto; width:60%; margin-right:10%; font-weight:bold; height:auto;">Click to change the right key color.</p>
-      </div>
-    </div>
-    <div style="display:flex; height:25%; width:100%;">
-
-      <button id="id_EditPage_HelpButton_DrawnKey" class="helpButton" style="margin:auto;">?</button>
 
     </div>
+    <!--div style="display:flex; height:25%; width:100%;">
+
+      <button id="id_EditPage_HelpButton_DrawnKey" class="helpButton" style="margin:auto; height:3vh; max-height:3vh; width: 3vw; max-width:3vh; font-size= 1.5vh;">?</button>
+
+    </div-->
 
 
   </div>
 
-  <div id="id_EditPage_Edit_Keys_Div3" style="width:100%; height:24vh; display:flex; flex-flow: wrap;">
+  <div id="id_EditPage_Edit_Keys_Div3" style="width:100%; height:24vh; display:flex;">
 
 
-      <div id="id_EditPage_Edit_Keys_Div3_1" style=" margin:0vh; margin-top:auto; ">
-        <p class="standardText" style="font-weight:bold; margin-bottom:1vh; margin-left: 0.5vw;"> Change Key Type: </p>
+      <div style="width:100%; margin:auto;">
+        <div id="id_EditPage_Edit_Keys_Div3_1" style="width:100%; padding-top: 0.5vh; padding-bottom: 0.5vh; background: var(--main-second-bg-color); display:block;">
+          <p style="font-weight:bold;width:100%; text-align:center;"> Change Key Type: </p>
 
-        <div style="display:flex; width:100%; margin-top:1vh;">
+          <div style="display:flex; width:100%; margin-top:1vh;">
 
-          <div id="id_EditPage_Edit_Keys_Div3" style="margin:auto;">
+            <div id="id_EditPage_Edit_Keys_Div3" style="margin:auto;">
 
-            <label class="class_radio_container" style="margin: auto;"> nil key
-              <input type="radio" checked="checked" name="editPage_keyType" id="id_editPage_KeyTypeNil" checked="checked">
-              <span class="class_radio_checkmark"></span>
-            </label>
-            <label class="class_radio_container" style="margin: auto; margin-top:1vh;"> right key
-              <input type="radio" checked="checked" name="editPage_keyType" id="id_editPage_KeyTypeRight">
-              <span class="class_radio_checkmark"></span>
-            </label>
+              <label class="class_radio_container" style="margin: auto;"> nil key
+                <input type="radio" checked="checked" name="editPage_keyType" id="id_editPage_KeyTypeNil" checked="checked">
+                <span class="class_radio_checkmark"></span>
+              </label>
+              <label class="class_radio_container" style="margin: auto; margin-top:1vh;"> right key
+                <input type="radio" checked="checked" name="editPage_keyType" id="id_editPage_KeyTypeRight">
+                <span class="class_radio_checkmark"></span>
+              </label>
+            </div>
+
+            <div style="margin:auto;">
+              <label class="class_radio_container" style="margin: auto;"> left key
+                <input type="radio" checked="checked" name="editPage_keyType" id="id_editPage_KeyTypeLeft">
+                <span class="class_radio_checkmark"></span>
+              </label>
+              <label class="class_radio_container" style="margin: auto; margin-top:1vh;"> twin key
+                <input type="radio" checked="checked" name="editPage_keyType" id="id_editPage_KeyTypeTwin">
+                <span class="class_radio_checkmark"></span>
+              </label>
+            </div>
+
+            <div style="margin:auto; margin-top:none;">
+              <label class="class_radio_container" style="margin: auto;"> dual key
+                <input type="radio" checked="checked" name="editPage_keyType" id="id_editPage_KeyTypeDual">
+                <span class="class_radio_checkmark"></span>
+              </label>
+            </div>
+
           </div>
 
-          <div style="margin:auto;">
-            <label class="class_radio_container" style="margin: auto;"> left key
-              <input type="radio" checked="checked" name="editPage_keyType" id="id_editPage_KeyTypeLeft">
-              <span class="class_radio_checkmark"></span>
-            </label>
-            <label class="class_radio_container" style="margin: auto; margin-top:1vh;"> twin key
-              <input type="radio" checked="checked" name="editPage_keyType" id="id_editPage_KeyTypeTwin">
-              <span class="class_radio_checkmark"></span>
-            </label>
-          </div>
 
-          <div style="margin:auto; margin-top:none;">
-            <label class="class_radio_container" style="margin: auto;"> dual key
-              <input type="radio" checked="checked" name="editPage_keyType" id="id_editPage_KeyTypeDual">
-              <span class="class_radio_checkmark"></span>
-            </label>
-          </div>
 
         </div>
 
 
+        <div id="id_EditPage_Edit_Keys_Div3_2" style="width:100%; max-height: 5vh;  border-top: 0.2vh solid var(--main-font-color); padding-top: 0.5vh; padding-bottom: 0.5vh; background: var(--main-second-bg-color); display:block;">
+          <p style="font-weight:bold; text-align:center; width:100%; "> Change Reference Value: </p>
 
-      </div>
-
-      <div id="id_EditPage_Edit_Keys_Div3_2" style=" margin:0vh; margin-top:auto;">
-        <p class="standardText" style="font-weight:bold; margin-bottom:1vh; margin-left: 0.5vw;"> Change Reference Value: </p>
-
-        <input id="id_EditPage_EditKey_SetReference" type="number" name="Reference" value="1" step="any" style="width:40%; margin-left:30%;">
-
-      </div>
-
-      <div id="id_EditPage_Edit_Keys_Div3_3" style=" margin:0vh; margin-top:auto; margin-bottom:auto;">
-        <p class="standardText" style="font-weight:bold; margin-bottom:1vh; margin-left: 0.5vw;"> Set As Burdock-Key: </p>
-
-        <div class="row" style="margin-left:20%; width:60%; margin-top:auto;">
-
-          <label class="class_radio_container" style="margin: auto;">true
-            <input type="radio" checked="checked" name="editPage_BurType" id="id_editPage_BurKeyTrue" checked="checked">
-            <span class="class_radio_checkmark"></span>
-          </label>
-
-          <label class="class_radio_container" style="margin: auto; margin-right: 0vh;">false
-            <input type="radio" checked="checked" name="editPage_BurType" id="id_editPage_BurKeyFalse">
-            <span class="class_radio_checkmark"></span>
-          </label>
-
-
-
-          <!--div class="helpButtonDiv" style="margin-left:15px; margin-right:auto; margin-top:auto; margin-bottom:auto; ">
-              <button class="helpButton">?</button>
-              <div class="helpButtonDiv-content" >
-                <strong>Info:</strong> The Key Burdock feature allows you to scale a connected sequence of key at the Key-Burdock-Line. You can activate a key as burdock here.
-              </div>
-            </div-->
+          <input id="id_EditPage_EditKey_SetReference" type="number" name="Reference" value="1" step="any" style="width:40%; margin-left:30%;">
 
         </div>
+
+        <div id="id_EditPage_Edit_Keys_Div3_3" style="width:100%; border-top: 0.2vh solid var(--main-font-color); padding-top: 0.5vh; padding-bottom: 0.5vh; background: var(--main-second-bg-color); display:block;">
+          <p style="font-weight:bold;width:100%; text-align:center;"> Set As Burdock-Key: </p>
+
+          <div class="row" style="margin-left:20%; width:60%; margin-top:auto;">
+
+            <label class="class_radio_container" style="margin: auto;">true
+              <input type="radio" checked="checked" name="editPage_BurType" id="id_editPage_BurKeyTrue" checked="checked">
+              <span class="class_radio_checkmark"></span>
+            </label>
+
+            <label class="class_radio_container" style="margin: auto; margin-right: 0vh;">false
+              <input type="radio" checked="checked" name="editPage_BurType" id="id_editPage_BurKeyFalse">
+              <span class="class_radio_checkmark"></span>
+            </label>
+
+          </div>
+        </div>
       </div>
+
+
+
 
 
   </div>

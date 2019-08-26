@@ -2,6 +2,7 @@
 
   width: 100%;/*10%;*/
   margin: auto;
+  box-sizing: border-box;
   /*border: 0.2vh solid black;
   background: rgb(120,120,120);
   cursor:pointer;
@@ -12,6 +13,15 @@
 }
 
 .class_GallerySectionButton p{
+  text-align: center;
+  margin-top: 0.25vh;
+  margin-bottom:0.25vh;
+  font-size: 2vh;
+  line-height: 3vh;
+  /*font-weight: bold;*/
+}
+
+.class_GallerySectionButton h1{
   text-align: center;
   margin-top: 0.25vh;
   margin-bottom:0.25vh;
@@ -68,7 +78,7 @@
   line-height: 4vh;
   font-size: 2vh;
   text-align: left;
-  color: var(--main-font-color);
+  color: var(--cms-obj-font-color);
   vertical-align: middle;
   /*font-family:courier;*/
 }
@@ -79,7 +89,7 @@
   height: 4vh;
   line-height: 4vh;
   font-size: 2vh;
-  color: var(--main-font-color);
+  color: var(--cms-obj-font-color);
   text-align:center;
   cursor:pointer;
   margin:0;

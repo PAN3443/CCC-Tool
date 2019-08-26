@@ -58,7 +58,6 @@ function selectRealWorldType(index){
 
   document.getElementById("id_TestPage_FctSelection_Div").style.display="flex";
   document.getElementById("id_TestPage_doRatioCheckbox").disabled = true;
-  document.getElementById("id_TestPage_doRatioLabel").style.color = "grey";
 
   switch (selectedRealWorldType) {
     case "medical":

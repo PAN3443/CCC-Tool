@@ -216,7 +216,7 @@ function drawLocalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId, 
       if(min==0)
       document.getElementById(minId).style.color = getComputedStyle(document.documentElement).getPropertyValue('--general-warning-color');
       else
-      document.getElementById(minId).style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');
+      document.getElementById(minId).style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-sepArea-font-color');
 
       document.getElementById(maxId).innerHTML = "Local Speed Maximum = "+ max;//.toFixed(numDecimalPlaces);
       document.getElementById(avId).innerHTML = "Local Speed Average = "+ average;//.toFixed(numDecimalPlaces);

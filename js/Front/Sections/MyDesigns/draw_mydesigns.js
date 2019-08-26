@@ -67,7 +67,7 @@ function createMyDesignObject(id){
   tmpLabel.style.paddingLeft="5%";
   tmpLabel.className = 'class_MyDesignObjCMSCanvas';
   tmpLabel.style.border = "none";
-  tmpLabel.style.color="var(--main-font-color)";
+  tmpLabel.style.color="var(--cms-obj-font-color)";
   tmpLabel.innerHTML=myDesignsList[id].getColormapName()+" ("+myDesignsList[id].getInterpolationSpace()+")"; //"Emty CMS:"
 
 

@@ -28,6 +28,25 @@ button:focus {outline:0;}
 }
 
 
+.class_welcomePageButton{
+  border:none;
+  font-weight: bold;
+  font-size: 4vh;
+  line-height: 5vh;
+  color: var(--main-font-color);
+  cursor:pointer;
+  margin:auto;
+}
+
+
+.class_welcomePageButton:hover{
+  color: var(--general-active-color);
+}
+
+
+
+
+
 .class_generalbutton:hover{
   transform: scale(0.95);
   /*background-color: var(--main-button-bg-hover);/*rgb( 	8, 48, 66);*/
@@ -77,12 +96,10 @@ button:focus {outline:0;}
     background: none;
     font-weight:bold;
     font-family: var(--font-family);
-    /*box-shadow: none; /* 0 0 1vh rgba(175,255,255, 0.5)*/
-    /*background-color: var(--main-Button-sepArea-bg-color);
-    color: var(--main-Button-sepArea-font-color);*/
+    background-color: var(--main-Button-sepArea-bg-color);
 
-    border: 0.1vw solid var(--main-Button-sepArea-bg-color);
-    color: var(--main-Button-sepArea-bg-color);
+    border: 0.1vw solid var(--main-Button-sepArea-font-color);
+    color: var(--main-Button-sepArea-font-color);
 
     transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
     height: var(--button-height);
@@ -105,9 +122,44 @@ button:focus {outline:0;}
 
 .class_generalbutton_DarkBackground:hover{
   transform: scale(0.95);
-  /*background-color: var(--main-Button-sepArea-bg-color-hover);*/
-  border: 0.1vw solid var(--main-Button-sepArea-bg-color-hover);
-  color: var(--main-Button-sepArea-bg-color-hover);
+  background-color: var(--main-Button-sepArea-bg-color-hover);
+  border: 0.1vw solid var(--main-Button-sepArea-font-hover);
+  color: var(--main-Button-sepArea-font-hover);
+}
+
+
+.class_generalbutton_DarkBackgroundActive{
+    font-family: var(--font-family);
+      background: none;
+      box-sizing: content-box;
+      font-weight:bold;
+      /*background-color: var(--main-activebutton-bg); /*rgb(0,191,255); rgb(15, 107, 149);*/
+      border: 0.1vw solid var(--main-activebutton-bg);
+      /*box-shadow: 0 0 1vh rgba(228,62,0, 0.5);*/
+      color: var(--main-activebutton-bg);
+      transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
+      height: var(--button-height);
+      line-height: var(--button-height);
+      font-size: var(--button-font-size);
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      border-radius: var(--button-border-radius);
+      text-align:center;
+      overflow: auto;
+      font-weight: bold;
+      vertical-align: middle;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      cursor: pointer;
+}
+
+
+
+.class_generalbutton_DarkBackgroundActive:hover{
+  transform: scale(0.95);
+  /border: 0.1vw solid var(--main-activebutton-bg-hover);
+  color: var(--main-activebutton-bg-hover);
 }
 
 
@@ -134,7 +186,7 @@ button:focus {outline:0;}
 
   transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
 
-  color: var(--main-Button-sepArea-bg-color);
+  color: var(--main-Button-sepArea-font-color);
   /*text-shadow: 0 0 1vh rgba(175,255,255, 0.5);*/
   -webkit-background-clip: text;
      -moz-background-clip: text;
@@ -145,7 +197,7 @@ button:focus {outline:0;}
 
 .class_Test_ShowTestButton:hover{
   transform: scale(0.9);
-  color: var(--main-Button-sepArea-bg-color-hover);
+  color: var(--main-Button-sepArea-font-hover);
   /*text-shadow: 0 0 1vh rgba(10, 239, 251, 0.5);*/
   -webkit-background-clip: text;
      -moz-background-clip: text;
@@ -159,6 +211,7 @@ button:focus {outline:0;}
 .helpButtonDiv {
     position: relative;
     display: inline-block;
+
 }
 
 .helpButton {
@@ -180,8 +233,34 @@ button:focus {outline:0;}
     text-align: center;
     overflow: hidden;
     text-overflow: ellipsis;
+    cursor: pointer;
     /*font-family:courier;*/
 }
+
+
+.helpButton_sepArea {
+
+    font-family: var(--font-family);
+    box-sizing: content-box;
+    background: none;
+    font-weight:bold;
+    /*background-color: var(--main-button-bg);/*rgb(19, 111, 153);*/
+    border: 0.1vw solid var(--main-sepArea-font-color);
+    /*box-shadow: 0 0 1vh rgba(19, 111, 153, 0.5);*/
+    color: var(--main-sepArea-font-color);
+    height: var(--button-height);
+    width:  var(--button-height);
+    line-height: var(--button-height);
+    font-size: var(--button-font-size);
+    border-radius: var(--button-border-radius);
+    vertical-align:middle;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    /*font-family:courier;*/
+}
+
 
 .helpButtonDiv-content {
     display:none;
@@ -204,6 +283,10 @@ button:focus {outline:0;}
 }
 
 .helpButtonDiv:hover .helpButtonDiv-content {
+    display: block;
+}
+
+.helpButton_sepArea:hover .helpButtonDiv-content {
     display: block;
 }
 
@@ -231,7 +314,7 @@ button:focus {outline:0;}
   height: 1.5vh;
   line-height: 1.5vh;
   font-size: 1.5vh;
-  color: var(--main-font-color);
+  color: var(--main-sepArea-font-color);
   vertical-align: middle;
   text-align: center;
   transition: transform ease-in 0.1s;
@@ -244,15 +327,19 @@ button:focus {outline:0;}
 
 
 .class_EditPage_EditButton{
-  color: var(--main-sepArea-bg);
+
   height: 3vh;
   line-height: 3vh;
   width: 3vh;
   font-size: 1.2vh;
   vertical-align: middle;
   text-align: center;
-  background: var(--main-font-color);
-  border: 0.2vh solid var(--main-font-color);
+  /*background: var(--main-font-color);
+  color: var(--main-sepArea-bg);*/
+
+  background: none;
+  color: var(--main-sepArea-font-color);
+  border: 0.2vh solid var(--main-sepArea-font-color);
   border-radius: 0.5vh;
   overflow: hidden;
   margin:auto;
@@ -263,14 +350,8 @@ button:focus {outline:0;}
 
 .class_EditPage_EditButton:hover{
   transform: scale(0.9);
-  background: var(--general-hover-color);
-}
+  /*background: var();*/
 
-.class_EditPage_EditButtonLabel{
-  line-height: 3vh;
-  color: rgb(220,220,220);
-  height: 3vh;
-  font-size: 1.8vh;
-  overflow: hidden;
-  margin:auto;
+  color: var(--general-active-color);
+  border-color: var(--general-active-color);
 }

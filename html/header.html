@@ -8,22 +8,22 @@
 
       <img src="img/Logos/CCC-LOGO_new.png" alt="CCC-Tool Logo" style="height:80%; margin-left:1vw; margin-right:0.5vw; margin-top:auto; margin-bottom:auto;">
 
-      <p id="id_header_ccctoolLabel" style="margin:0px; text-align:left; vertical-align: middle; color:var(--menue-label-color); font-size: 3vh; margin-top:auto; height:5vh; line-height:5vh; margin-bottom:auto; margin-right:auto; cursor: none; overflow: hidden; text-overflow: ellipsis;" onclick=""><strong>C</strong>harting <strong>C</strong>ontinuous <strong>C</strong>olormap </p>
+      <p id="id_header_ccctoolLabel" style="margin:0px; text-align:left; vertical-align: middle; color:var(--menue-label-color); font-size: 3vh; margin-top:auto; height:5vh; line-height:5vh; margin-bottom:auto; margin-right:auto; overflow: hidden; text-overflow: ellipsis; cursor:pointer;" onclick="startLeaveEditPage()"><strong>C</strong>harting <strong>C</strong>ontinuous <strong>C</strong>olormap </p>
 
-      <p id="id_header_colorBlindWarning" class="standardText " style="margin:0px; vertical-align: middle; color:var(--menue-warning-font-color); font-size: 3vh; line-height:5vh; margin-top:auto; margin-bottom:auto; visibility:hidden; cursor:help; margin-right:1vw;" title="Colorblind Modus">&#128065;</p>
-      <p id="id_header_editWarning" class="standardText " style="margin:0px; vertical-align: middle; color:var(--menue-warning-font-color); font-size: 3vh; line-height:5vh; margin-top:auto; margin-bottom:auto; visibility:hidden; cursor:help;" title="Unsaved Content">&#9888;</p>
+      <p id="id_header_colorBlindWarning" style="margin:0px; vertical-align: middle; color:var(--menue-warning-font-color); font-size: 3vh; line-height:5vh; margin-top:auto; margin-bottom:auto; visibility:hidden; cursor:help; margin-right:1vw;" title="Colorblind Modus">&#128065;</p>
+      <p id="id_header_editWarning" style="margin:0px; vertical-align: middle; color:var(--menue-warning-font-color); font-size: 3vh; line-height:5vh; margin-top:auto; margin-bottom:auto; visibility:hidden; cursor:help;" title="Unsaved Content">&#9888;</p>
 
-      <div style="height:100%; width:auto; position: relative; display: inline-block;">
-        <div onclick="activateNaviDropdown()" class="menu_button"> Navi &#128743; </div>
+      <div style="height:100%; width:auto; position: relative; display: inline-block; margin-left:1vw;">
+        <div onclick="activateNaviDropdown()" class="menu_button"> Navi </div> <!-- &#128743; -->
 
         <div id="id_dropDownContainerNavi" style="background: var(--menue-navi-bg-color); min-width:30vw;  display: none; position: absolute; right: 0; z-index: 101;">
 
           <div class="row" style="margin-top:0.25vh; width:100%;">
-            <p class="standardText" style="margin-left:2vw; margin-right:auto; font-size: 3vh; font-weight: bold; color:var(--menue-font-color); height:4vh; line-height:4vh;">Navigator:</p>
-            <p class="standardText" style="margin-right:2vw; margin-left:auto; font-size: 3vh;  color:var(--menue-font-color); height:4vh; line-height:4vh;">&#128743;</p>
+            <p style="margin-left:2vw; margin-right:auto; font-size: 3vh; font-weight: bold; color:var(--menue-font-color); height:4vh; line-height:4vh;">Navigator:</p>
+            <p style="display:none; margin-right:2vw; margin-left:auto; font-size: 3vh;  color:var(--menue-font-color); height:4vh; line-height:4vh;">&#128743;</p>
           </div>
 
-            <div id="id_navi_WelcomePage" class="navi_div" style="margin-left: auto; margin-right: auto; width:10vw;">
+            <div id="id_navi_WelcomePage" class="navi_div" style="margin-left: auto; margin-right: auto; width:10vw;" onclick="showWelcomePage()">
               <p class="navi_Label" style="margin-right:none;" id="id_navi_WelcomePage_Label"></p>
               <p>Welcome Page</p>
             </div>
@@ -65,10 +65,13 @@
       </div>
       <!--End Dropdown Navi Button -->
 
+      <div style="height:100%; width:auto; position: relative; display: inline-block;">
+        <div onclick="activateThemeDropdown()" class="menu_button"> Theme </div> <!-- &#128743; -->
 
-      <div class="menu_buttonNotActive" style="height:100%; width:auto;" onclick="switchToolTheme()">
-        Theme
+        <div id="id_dropDownContainerTheme" style="background: var(--main-bg-color); border: 0.2vh solid var(--menue-bg-color); width:40vw; padding-top:1vh; padding-bottom:1vh; padding-left:1vw; padding-right:1vw; display: none; position: absolute; right: 0; z-index: 101; overflow-x : scroll;">
+        </div>
       </div>
+
 
       <div class="menu_buttonNotActive" style="height:100%; width:auto; display:none;">
         Log In

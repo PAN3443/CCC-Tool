@@ -90,7 +90,9 @@ window.onload = function() {
   // init events
 
   // global init
-  document.getElementById('id_dropDownContainerNavi').addEventListener("mouseleave", activateNaviDropdown);
+  document.getElementById('id_dropDownContainerNavi').addEventListener("mouseleave", hideAllMenueDropDowns);
+  document.getElementById('id_dropDownContainerTheme').addEventListener("mouseleave", hideAllMenueDropDowns);
+
 
   /////////////////////
   init_events_EditPage();

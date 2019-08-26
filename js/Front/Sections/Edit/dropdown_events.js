@@ -8,30 +8,13 @@ function activateDropdown(event) {
     var onTop = false;
     var toRight=false;
     switch (labelID) {
-        case "id_EditPage_extraOptionsMapping":
-          dropdownID = "id_EditPage_extraOptionsMappingDropDown";
-          onTop=true;
-          toRight=true;
-        break;
-              case "id_EditPage_selectProbeTypeLabel":
-                dropdownID = "id_EditPage_selectProbeTypeDropDown";
-                document.getElementById("id_EditPage_selectProbeSetRangeTypeDropDown").style.display="none";
-                break;
                   case "id_EditPage_selectProbeSetRangeType":
                     dropdownID = "id_EditPage_selectProbeSetRangeTypeDropDown";
-                    document.getElementById("id_EditPage_selectProbeTypeDropDown").style.display="none";
                     break;
-
-                    case "id_EditPage_editProbeTypeLabel":
-                      dropdownID = "id_EditPage_editProbeTypeDropDown";
-                      document.getElementById("id_EditPage_editProbeFunctionDropDown").style.display="none";
-                      break;
                         case "id_EditPage_editProbeFunctionLabel":
                           onTop=true;
                           dropdownID = "id_EditPage_editProbeFunctionDropDown";
-                          document.getElementById("id_EditPage_editProbeTypeDropDown").style.display="none";
                           break;
-
                           case "id_EditPage_DataInfoButton":
                             onTop=true;
                             toRight=true;

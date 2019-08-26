@@ -1,5 +1,12 @@
 
 
+
+.class_welcomePage_Div{
+  overflow: hidden;
+  -webkit-transition: width 2s, height 2s; /* For Safari 3.1 to 6.0 */
+  transition: width 2s, height 2s;
+}
+
 .class_MyDesignObjCMSDiv{
   width: 45%;
   margin-left: 2.5%;
@@ -40,7 +47,7 @@
   height: 4vh;
   line-height: 4vh;
   font-size: 2vh;
-  color: var(--main-font-color);
+  color: var(--cms-obj-font-color);
   background:none;
   text-align:center;
   cursor:pointer;

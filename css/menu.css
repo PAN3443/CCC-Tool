@@ -89,6 +89,39 @@
   /*background:red;*/
 }
 
+.class_Theme_Selector{
+  float: left;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  margin-right: 0.5vw;
+  /*margin:auto;*/
+  margin-left:0vh;
+  margin-right:0vh;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+  box-sizing: border-box;
+  cursor: pointer;
+
+}
+
+.class_Theme_Selector:hover{
+  box-shadow: 0.2vw 0.2vh 1vh var(--menue-bg-color);
+}
+
+.class_Theme_Container{
+  display: flex;
+  background: var(--menue-bg-color);
+  height: 3vh;
+  border-radius: 1.5vh;
+  width: 4vw;
+  padding-left: 0.5vw;
+  padding-right: 0.5vw;
+  padding-top: 0.25vh;
+  padding-bottom: 0.25vh;
+}
+
 
 .menu_button {
   padding-right:1vw;

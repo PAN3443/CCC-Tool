@@ -27,9 +27,9 @@
       <div id="id_PopUp_Matrix_Selecter" class="width:100%;">
         <div  class="row" style="width:100%; margin-top:2vh; margin-bottom:2vh;">
 
-          <p class="standardText" style="margin-left:auto; margin-right:1vw; ">Select Transformation Matrix:</p>
+          <p style="margin-left:auto; margin-right:1vw; ">Select Transformation Matrix:</p>
 
-         <select id="select_XYZTransferMatrix" class="standardText" style="margin-right:auto;" onchange="changeRGBtoXYZ_TransferMatrices()">
+         <select id="select_XYZTransferMatrix" style="margin-right:auto;" onchange="changeRGBtoXYZ_TransferMatrices()">
            <option value="sRGB_D65">sRGB D65</option>
            <option value="sRGB_D50">sRGB D50</option>
            <option value="tmXYZ_AdobeRGB_D65">Adobe RGB D65</option>
@@ -57,7 +57,7 @@
            <option value="Custom" disabled>Custom</option>
          </select>
 
-         <select id="select_LMSTransferMatrix" class="standardText" style="margin-right:auto;" onchange="changeXYZtoLMS_TransferMatrices()">
+         <select id="select_LMSTransferMatrix" style="margin-right:auto;" onchange="changeXYZtoLMS_TransferMatrices()">
            <option value="HPE">Hunt-Pointer-Estevez</option>
            <option value="vK">von Kries</option>
            <option value="BFD">Bradford</option>
@@ -143,23 +143,23 @@
 
           <div style="margin-left: auto;">
             <div class="row" style=" margin-top:0.5vh; margin-bottom:0.5vh;">
-            <p id="id_PopUp_TransformationValue_Label1" class="standardText">
+            <p id="id_PopUp_TransformationValue_Label1">
               ref_X:
             </p>
-            <input id="id_PopUp_TransformationValue_Input1" step="any" class="standardText" value="1" style="margin-left: 2vw;">
+            <input id="id_PopUp_TransformationValue_Input1" step="any" value="1" style="margin-left: 2vw;">
             </div>
             <div class="row" style="margin-top:0.5vh; margin-bottom:0.5vh;">
-            <p id="id_PopUp_TransformationValue_Label2" class="standardText">
+            <p id="id_PopUp_TransformationValue_Label2">
               ref_Y:
             </p>
-            <input id="id_PopUp_TransformationValue_Input2" step="any" class="standardText" value="1" style="margin-left: 2vw;">
+            <input id="id_PopUp_TransformationValue_Input2" step="any" value="1" style="margin-left: 2vw;">
             </div>
             <div id="id_PopUp_TransformationValue_Div3" class="row" style="margin-top:0.5vh; margin-bottom:0.5vh;">
 
-            <p id="id_PopUp_TransformationValue_Label3" class="standardText" >
+            <p id="id_PopUp_TransformationValue_Label3" >
               ref_Z:
             </p>
-            <input id="id_PopUp_TransformationValue_Input3" step="any" class="standardText" value="1" style="margin-left: 2vw;">
+            <input id="id_PopUp_TransformationValue_Input3" step="any" value="1" style="margin-left: 2vw;">
 
             </div>
           </div>
@@ -172,7 +172,7 @@
 
         </div>
 
-        <p id="id_PopUp_TransformationValue_Warning" class="standardText" style="text-align:center; width:100%; color:red;"></p>
+        <p id="id_PopUp_TransformationValue_Warning" style="text-align:center; width:100%; color:red;"></p>
 
 
 

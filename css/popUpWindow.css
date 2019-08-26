@@ -98,7 +98,7 @@
   text-align:center;
   vertical-align: middle;
   margin:0px;
-  color:var(--main-label-font-color);
+  color:var(--main-popUpWindow-labelfont-color);
   line-height: var(--line-height-label);
   font-size: var(--font-size-label);
   background: var(--main-popUpWindow-labelbg-color);

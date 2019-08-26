@@ -41,10 +41,10 @@ function drawCanvasColormap(canvasID, tmpCMS) { //1920,150
 
     switch (tmpCMS.getKeyType(i)) {
       case "nil key": case "left key":
-        canvasData = createConstantBand(canvasData, xPos + pos1, elementwidth, colormapHeigth, tmpCMS.getLeftKeyColor(i+1,globalCMS1.getInterpolationSpace()), canvasObject.width);
+        canvasData = createConstantBand(canvasData, xPos + pos1, 0, elementwidth, colormapHeigth, tmpCMS.getLeftKeyColor(i+1,globalCMS1.getInterpolationSpace()), canvasObject.width);
         break;
       default:
-        canvasData = createScaledBand(canvasData, xPos + pos1, elementwidth, colormapHeigth, tmpCMS.getRightKeyColor(i,globalCMS1.getInterpolationSpace()), tmpCMS.getLeftKeyColor(i+1,globalCMS1.getInterpolationSpace()), canvasObject.width);
+        canvasData = createScaledBand(canvasData, xPos + pos1, 0, elementwidth, colormapHeigth, tmpCMS.getRightKeyColor(i,globalCMS1.getInterpolationSpace()), tmpCMS.getLeftKeyColor(i+1,globalCMS1.getInterpolationSpace()), canvasObject.width);
     }
 
   }
@@ -77,10 +77,10 @@ function drawCanvasColormapHorizontal(canvasID, tmpCMS, height, width) {
 
     switch (tmpCMS.getKeyType(i)) {
       case "nil key": case "left key":
-        canvasData = createConstantBand(canvasData, xPos + pos1, elementwidth, canvasObject.height, tmpCMS.getLeftKeyColor(i+1,globalCMS1.getInterpolationSpace()), canvasObject.width);
+        canvasData = createConstantBand(canvasData, xPos + pos1, 0, elementwidth, canvasObject.height, tmpCMS.getLeftKeyColor(i+1,globalCMS1.getInterpolationSpace()), canvasObject.width);
         break;
       default:
-        canvasData = createScaledBand(canvasData, xPos + pos1, elementwidth, canvasObject.height, tmpCMS.getRightKeyColor(i,globalCMS1.getInterpolationSpace()), tmpCMS.getLeftKeyColor(i+1,globalCMS1.getInterpolationSpace()), canvasObject.width);
+        canvasData = createScaledBand(canvasData, xPos + pos1, 0, elementwidth, canvasObject.height, tmpCMS.getRightKeyColor(i,globalCMS1.getInterpolationSpace()), tmpCMS.getLeftKeyColor(i+1,globalCMS1.getInterpolationSpace()), canvasObject.width);
     }
 
   }
@@ -110,10 +110,10 @@ function drawCanvasColormapVertical(canvasID, tmpCMS, height, width) {
 
     switch (tmpCMS.getKeyType(i)) {
       case "nil key": case "left key":
-        canvasData = createConstantBandVertical(canvasData, canvasObject.height-pos1, canvasObject.width,elementheight, tmpCMS.getLeftKeyColor(i+1,globalCMS1.getInterpolationSpace()), canvasObject.width);
+        canvasData = createConstantBandVertical(canvasData, canvasObject.height-pos1, 0, canvasObject.width,elementheight, tmpCMS.getLeftKeyColor(i+1,globalCMS1.getInterpolationSpace()), canvasObject.width);
         break;
       default:
-        canvasData = createScaledBandVertical(canvasData, canvasObject.height-pos1, canvasObject.width, elementheight, tmpCMS.getRightKeyColor(i,globalCMS1.getInterpolationSpace()), tmpCMS.getLeftKeyColor(i+1,globalCMS1.getInterpolationSpace()), canvasObject.width);
+        canvasData = createScaledBandVertical(canvasData, canvasObject.height-pos1, 0, canvasObject.width, elementheight, tmpCMS.getRightKeyColor(i,globalCMS1.getInterpolationSpace()), tmpCMS.getLeftKeyColor(i+1,globalCMS1.getInterpolationSpace()), canvasObject.width);
     }
 
   }

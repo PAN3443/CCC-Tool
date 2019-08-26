@@ -4,19 +4,19 @@
 --------------------------------------------------------
 -->
 
-<div id="id_EditPage_Histogram_Div" style="width:100%; height:29.5vh; display:none; var(--main-second-bg-color);">
+<div id="id_EditPage_Histogram_Div" style="width:100%; height:29.5vh; display:none; background: var(--main-second-bg-color);">
 
   <div style="display:flex; width:100%; height:4vh; background:var(--main-bg-color); margin-bottom:0.5vh;">
-      <p class="standardText" style="font-weight:bold;"> Histogram:</p>
+      <p style="font-weight:bold;"> Histogram:</p>
 
-      <p class="standardText" style="margin-right:0.5vw;"> #Ranges:</p>
+      <p style="margin-right:0.5vw;"> #Ranges:</p>
       <input" type="number" id="id_EditPage_NumberHistoRanges" value="100" style="margin-left:0.5vw; ">
-      <p class="standardText" style="margin-right:0.5vw;"> Consider: </p>
+      <p style="margin-right:0.5vw;"> Consider: </p>
       <input  id="id_EditPage_SelectTimeStepHistogram" type="radio" name="selectHistoData" value="1" style="margin-left:0.5vw; margin-right:0.1vw;">
-      <p class="standardText" style="margin-left:0.1vw; margin-right:0.5vw;">
+      <p style="margin-left:0.1vw; margin-right:0.5vw;">
       Time Step </p>
       <input  id="id_EditPage_SelectFullDataHistogram" type="radio" name="selectHistoData" value="2" style="margin-left:0.5vw; margin-right:0.1vw;" checked>
-      <p class="standardText" style="margin-left:0.1vw;">
+      <p style="margin-left:0.1vw;">
       Full Field </p>
 
       <button id="id_EditPage_Mapping_HistoButton2" class="class_EditPage_EditButton" type="button" name="button" title="Close Histogram" onclick="showHideHistogram()">X</button>
@@ -27,18 +27,18 @@
   <canvas id="id_EditPage_CMS_VIS_HistogrammCMS" style="display:block; width:90%; margin:0px; margin-left:5%; margin-right:5%; height:2vh;overflow:hidden; border: 0.2vh solid black; border-bottom: none; box-sizing: border-box;"></canvas>
   <!--div style="height:10px; border-left: 1px solid black; border-right: 1px solid black; width:90%; margin:0px; margin-left:5%;"></div-->
   <div class="row">
-    <p id="id_EditPage_HistoMinVal" class="standardText" style="text-align:left; margin-left:5%; height:1.5vh; line-height:1.5vh; font-size:1.vh;"></p>
-    <p id="id_EditPage_HistoMaxVal" class="standardText" style="text-align:right; margin-left:auto; margin-right:5%; height:1.5vh; line-height:1.5vh; font-size:1.vh;"></p>
+    <p id="id_EditPage_HistoMinVal" style="text-align:left; margin-left:5%; height:1.5vh; line-height:1.5vh; font-size:1.vh;"></p>
+    <p id="id_EditPage_HistoMaxVal" style="text-align:right; margin-left:auto; margin-right:5%; height:1.5vh; line-height:1.5vh; font-size:1.vh;"></p>
   </div>
 
-  <p id="id_EditPage_HistogramCMSFitLabel" class="standardText" style="text-align:center; width:90%; margin-left:5%;"></p>
+  <p id="id_EditPage_HistogramCMSFitLabel" style="text-align:center; width:90%; margin-left:5%;"></p>
 
 
 </div>
 
 <div id="id_EditPage_Mapping_Div" style="width:100%;">
 
-  <div style="display:flex; width:100%; height:4vh; background: var(--main-second-bg-color);">
+  <div style="display:flex; width:100%; height:4vh; background: var(--main-sepArea-bg);">
 
     <div style=" display:flex; width:25%; border-right: 0.2vh solid var(--main-font-color); ">
       <button class="class_EditPage_EditButton" type="button" name="button" title="Upload Data" onclick="startReadFile()">&#8613;</button>
@@ -46,9 +46,9 @@
 
 
         <button id="id_EditPage_DataInfoButton" class="class_EditPage_EditButton" style="padding-right:0.5vw; padding-left:0.5vw; border-radius: 0.5vh; height:3vh; line-height:3vh; width:auto; font-weight:bold; text-align:center; visibility:hidden;">Data &#8711;</button>
-        <div id="id_EditPage_DataInfoDiv" style="position: absolute; left: 0px; border: 0.2vh solid black; background:rgb(80,80,80); z-index:103; min-width:25vw; padding-top:2vh; padding-bottom:2vh; display:none;">
+        <div id="id_EditPage_DataInfoDiv" style="position: absolute; left: 0px; border: 0.2vh solid var(--menue-bg-color); background:var(--main-second-bg-color); z-index:103; min-width:25vw; padding-top:2vh; padding-bottom:2vh; display:none;">
             <div class="row" style="width:100%;">
-              <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-left:10%; font-weight:bold; width:40%;">Field:</p>
+              <p style="margin-top:auto; margin-bottom:auto; margin-left:10%; font-weight:bold; width:40%; ">Field:</p>
 
               <select id="id_EditPage_SelectMappingField" style="margin-left:5%;  width:40%;">
 
@@ -57,7 +57,7 @@
 
 
             <div class="row" style="width:100%; margin-top:0.5vh;">
-              <p class="standardText" style="margin-top:auto; margin-bottom:auto; margin-left:10%; font-weight:bold; width:35%;">Time-Step:</p>
+              <p style="margin-top:auto; margin-bottom:auto; margin-left:10%; font-weight:bold; width:35%;">Time-Step:</p>
 
               <select id="id_EditPage_SelectMappingTimeStep" style="margin-left:5%;  width:35%;">
 
@@ -65,13 +65,13 @@
             </div>
 
             <div class="row" style="width:100%; margin-top:20px;">
-              <p class="standardText" style="font-weight:bold; width:40%; margin-left:10%;">Min Value:</p>
-              <p class="standardText" id="id_EditPage_FieldMinValue" style="font-weight:bold; width:47.5%; margin-left:2.5%;">/</p>
+              <p style="font-weight:bold; width:40%; margin-left:10%;">Min Value:</p>
+              <p id="id_EditPage_FieldMinValue" style="font-weight:bold; width:47.5%; margin-left:2.5%;">/</p>
             </div>
 
             <div class="row" style="width:100%; margin-top:20px;">
-              <p class="standardText" style="font-weight:bold; width:40%; margin-left:10%;">Max Value:</p>
-              <p class="standardText" id="id_EditPage_FieldMaxValue" style="font-weight:bold; width:47.5%; margin-left:2.5%;">/</p>
+              <p style="font-weight:bold; width:40%; margin-left:10%;">Max Value:</p>
+              <p id="id_EditPage_FieldMaxValue" style="font-weight:bold; width:47.5%; margin-left:2.5%;">/</p>
             </div>
           </div>
 
@@ -80,7 +80,7 @@
 
     </div>
     <div style="display:flex; width:75%; border-right: 0.2vh solid var(--main-font-color); ">
-      <p class="standardText" style="margin: auto; margin-right:0.5vw;">CMS:</p>
+      <p style="margin: auto; margin-right:0.5vw; color: var(--main-sepArea-font-color);">CMS:</p>
 
       <select id="id_EditPage_MappingCMS_Select" style="margin-left:0.5vw; ">
            <option >Original CMS</option>
@@ -93,7 +93,7 @@
 
       <button id="id_EditPage_Mapping_DoParallel" class="class_EditPage_EditButton" type="button" name="button" title="Do Parallel Processing" onclick="changeParallelProcessing()">&#8649;</button>
 
-      <p class="standardText" style="margin: auto; margin-right:0.5vw;">BG:</p>
+      <p style="margin: auto; margin-right:0.5vw; color: var(--main-sepArea-font-color);">BG:</p>
       <select id="id_EditPage_MappingBackground_Select" style=" margin-left:0.5vw; margin-right:0.5vw;">
            <option >None</option>
            <option >White</option>

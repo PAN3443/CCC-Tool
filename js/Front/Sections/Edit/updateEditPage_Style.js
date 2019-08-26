@@ -150,7 +150,10 @@ function update_EditPageStyle(){
         document.getElementById("id_EditPage_CMSTable_Div").style.height="95vh";
         document.getElementById("id_EditPage_TableBodyDiv").style.height="90vh";
 
-        document.getElementById("id_EditPage_CMS_VIS_LinearKeys").style.marginTop="5vh";
+
+        document.getElementById("id_EditPage_CMSVisCanvas").style.height="86.5vh";
+
+        /*document.getElementById("id_EditPage_CMS_VIS_LinearKeys").style.marginTop="5vh";
         document.getElementById("id_EditPage_CMS_VIS_LinearKeys").style.height="5vh";
         document.getElementById("id_EditPage_CMS_VIS_Lines1").style.height="2vh";
         document.getElementById("id_EditPage_CMS_VIS_ColormapLinear").style.height="15vh";
@@ -166,7 +169,7 @@ function update_EditPageStyle(){
         document.getElementById("id_EditPage_CMS_VIS_Label1").style.fontSize="3vh";
         document.getElementById("id_EditPage_CMS_VIS_Label2").style.height="5vh";
         document.getElementById("id_EditPage_CMS_VIS_Label2").style.lineHeight="5vh";
-        document.getElementById("id_EditPage_CMS_VIS_Label2").style.fontSize="3vh";
+        document.getElementById("id_EditPage_CMS_VIS_Label2").style.fontSize="3vh";*/
 
     }
     else{
@@ -175,7 +178,9 @@ function update_EditPageStyle(){
         document.getElementById("id_EditPage_CMSTable_Div").style.height="30vh";
         document.getElementById("id_EditPage_TableBodyDiv").style.height="25vh";
 
-        document.getElementById("id_EditPage_CMS_VIS_LinearKeys").style.marginTop="0.5vh";
+        document.getElementById("id_EditPage_CMSVisCanvas").style.height="21.5vh";
+
+        /*document.getElementById("id_EditPage_CMS_VIS_LinearKeys").style.marginTop="0.5vh";
         document.getElementById("id_EditPage_CMS_VIS_LinearKeys").style.height="2vh";
         document.getElementById("id_EditPage_CMS_VIS_Lines1").style.height="0.5vh";
         document.getElementById("id_EditPage_CMS_VIS_ColormapLinear").style.height="3.5vh";
@@ -192,7 +197,7 @@ function update_EditPageStyle(){
         document.getElementById("id_EditPage_CMS_VIS_Label1").style.fontSize="1.6vh";
         document.getElementById("id_EditPage_CMS_VIS_Label2").style.height="2vh";
         document.getElementById("id_EditPage_CMS_VIS_Label2").style.lineHeight="2vh";
-        document.getElementById("id_EditPage_CMS_VIS_Label2").style.fontSize="1.6vh";
+        document.getElementById("id_EditPage_CMS_VIS_Label2").style.fontSize="1.6vh";*/
 
         if (document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.display == "none"){
 
@@ -208,6 +213,11 @@ function update_EditPageStyle(){
               document.getElementById("id_EditPage_Edit_Keys_Div3_2").style.width="33vw";
               document.getElementById("id_EditPage_Edit_Keys_Div3_3").style.width="33vw";
 
+              /// because document.getElementById("id_EditPage_Edit_Keys_Div2").style.width="34vw";
+              document.getElementById("id_EditPage_DrawnKey_LeftKeyHelp").style.width="11vw";
+              document.getElementById("id_EditPage_DrawnKey_RightKeyHelp").style.width="12vw";
+              document.getElementById("id_EditPage_EditKey_DrawKeyDiv").style.width="11vw";
+
             }
             else {
               document.getElementById("id_editPage_EditKeyPathPlotDiv").style.width="80vw";
@@ -220,6 +230,11 @@ function update_EditPageStyle(){
               document.getElementById("id_EditPage_Edit_Keys_Div3_2").style.width="26.4vw";
               document.getElementById("id_EditPage_Edit_Keys_Div3_3").style.width="26.4vw";
 
+              /// because document.getElementById("id_EditPage_Edit_Keys_Div2").style.width="27.2vw";
+              document.getElementById("id_EditPage_DrawnKey_LeftKeyHelp").style.width="8.6vw";
+              document.getElementById("id_EditPage_DrawnKey_RightKeyHelp").style.width="10vw";
+              document.getElementById("id_EditPage_EditKey_DrawKeyDiv").style.width="8.6vw";
+
             }
 
 
@@ -227,9 +242,28 @@ function update_EditPageStyle(){
             document.getElementById("id_EditPage_Edit_Keys_Div1").style.height="59vh";
             document.getElementById("id_EditPage_Edit_Keys_Div2").style.height="59vh";
             document.getElementById("id_EditPage_Edit_Keys_Div3").style.height="59vh";
-            document.getElementById("id_EditPage_Edit_Keys_Div3").style.height="59vh";
+
 
             document.getElementById("id_EditPage_EditKey_List").style.height="49vh";
+
+
+            ///// because document.getElementById("id_EditPage_Edit_Keys_Div2").style.height="59vh";
+              document.getElementById("id_EditPage_Edit_Keys_Div2_Subdiv1").style.marginTop="2vh";
+              document.getElementById("id_EditPage_Edit_Keys_Div2_Subdiv1").style.height="20vh";
+              document.getElementById("id_EditPage_Edit_Keys_Div2_Subdiv2").style.height="35vh";
+              document.getElementById("id_EditPage_EditKey_DrawKeyDiv").style.height="35vh";
+              document.getElementById("id_EditPage_Edit_Keys_Div2_Subdiv1").style.marginBottom="2vh";
+
+
+          /// because document.getElementById("id_EditPage_Edit_Keys_Div3").style.height="59vh";
+            document.getElementById("id_EditPage_Edit_Keys_Div3_1").style.paddingTop="2vh";
+            document.getElementById("id_EditPage_Edit_Keys_Div3_1").style.paddingBottom="2vh";
+            document.getElementById("id_EditPage_Edit_Keys_Div3_2").style.paddingTop="2vh";
+            document.getElementById("id_EditPage_Edit_Keys_Div3_2").style.paddingBottom="2vh";
+            document.getElementById("id_EditPage_Edit_Keys_Div3_3").style.paddingTop="2vh";
+            document.getElementById("id_EditPage_Edit_Keys_Div3_3").style.paddingBottom="2vh";
+
+
 
 
         }
@@ -246,6 +280,11 @@ function update_EditPageStyle(){
             document.getElementById("id_EditPage_Edit_Keys_Div3_2").style.width="30vw";
             document.getElementById("id_EditPage_Edit_Keys_Div3_3").style.width="30vw";
 
+            /// because document.getElementById("id_EditPage_Edit_Keys_Div2").style.width="30vw";
+            document.getElementById("id_EditPage_DrawnKey_LeftKeyHelp").style.width="10vw";
+            document.getElementById("id_EditPage_DrawnKey_RightKeyHelp").style.width="10vw";
+            document.getElementById("id_EditPage_EditKey_DrawKeyDiv").style.width="10vw";
+
           }
           else {
             document.getElementById("id_editPage_EditKeyPathPlotDiv").style.width="24vw";
@@ -257,6 +296,12 @@ function update_EditPageStyle(){
             document.getElementById("id_EditPage_Edit_Keys_Div3_1").style.width="24vw";
             document.getElementById("id_EditPage_Edit_Keys_Div3_2").style.width="24vw";
             document.getElementById("id_EditPage_Edit_Keys_Div3_3").style.width="24vw";
+
+            /// because document.getElementById("id_EditPage_Edit_Keys_Div2").style.width="24vw";
+            document.getElementById("id_EditPage_DrawnKey_LeftKeyHelp").style.width="8vw";
+            document.getElementById("id_EditPage_DrawnKey_RightKeyHelp").style.width="8vw";
+            document.getElementById("id_EditPage_EditKey_DrawKeyDiv").style.width="8vw";
+
           }
 
             document.getElementById("id_EditPage_EditKey_List").style.height="11vh";
@@ -264,6 +309,22 @@ function update_EditPageStyle(){
             document.getElementById("id_EditPage_Edit_Keys_Div1").style.height="20vh";
             document.getElementById("id_EditPage_Edit_Keys_Div2").style.height="15vh";
             document.getElementById("id_EditPage_Edit_Keys_Div3").style.height="24vh";
+
+
+            ///// because document.getElementById("id_EditPage_Edit_Keys_Div2").style.height="15";
+            document.getElementById("id_EditPage_Edit_Keys_Div2_Subdiv1").style.marginTop="0.5vh";
+            document.getElementById("id_EditPage_Edit_Keys_Div2_Subdiv1").style.height="5vh";
+            document.getElementById("id_EditPage_Edit_Keys_Div2_Subdiv2").style.height="9vh";
+            document.getElementById("id_EditPage_EditKey_DrawKeyDiv").style.height="9vh";
+            document.getElementById("id_EditPage_Edit_Keys_Div2_Subdiv1").style.marginBottom="0.5vh";
+
+            /// because document.getElementById("id_EditPage_Edit_Keys_Div3").style.height="24vh";
+              document.getElementById("id_EditPage_Edit_Keys_Div3_1").style.paddingTop="0.5vh";
+              document.getElementById("id_EditPage_Edit_Keys_Div3_1").style.paddingBottom="0.5vh";
+              document.getElementById("id_EditPage_Edit_Keys_Div3_2").style.paddingTop="0.5vh";
+              document.getElementById("id_EditPage_Edit_Keys_Div3_2").style.paddingBottom="0.5vh";
+              document.getElementById("id_EditPage_Edit_Keys_Div3_3").style.paddingTop="0.5vh";
+              document.getElementById("id_EditPage_Edit_Keys_Div3_3").style.paddingBottom="0.5vh";
 
         }
 

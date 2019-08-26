@@ -3,64 +3,192 @@
 ------------  	Welcome Page	  ---------------
 -----------------------------------------------
 -->
-<div class="row" style=" height: 45vh; padding-top:2.5vh; padding-bottom:2.5vh; border-bottom: 0.2vh solid grey;">
-  <img id="id_welcomePage_Img" src="img/CCCToolComic/welcome.png" style="margin-left:auto; height:30vh; max-width:30vw;">
 
-  <div style="margin:auto; width:50vw;">
-    <p id="id_welcomePage_Txt" class="standardText" style="margin-bottom:1vh;">
-      Welcome to the CCC-Tool! For the log in or a registration please use the buttons in the upper right corner of the window. You can use the full functionality for the creation of colormaps without an account by using the button "Anonymous User". The benefit of an account is a cloud storage for your session files and the opportunity to rate and comment colormaps from other users. For anonymous user the tool offers the export and import of a XML session file. Enjoy our tool.
-      Best wishes,
-      your CCC-Tool team.
-    </p>
-    <p class="standardText" style="margin-bottom:1vh; color:var(--main-warning-font-color);">
-      Please note that the CCC-Tool is under development and this is an early access version. Therefore, some features and tutorial parts are not implemented so far.
-    </p>
-    <p id="id_welcomePage_InfoTxt" class="standardText" style="margin-bottom:2.5vh; color:var(--main-warning-font-color); display:none;">
 
-    </p>
 
-    <button onclick="showMyDesignsPage()" class="class_generalbutton" style="width:20vw; margin-left:15vw; margin-bottom:2.5vh;">Start</button>
-  </div>
-</div>
 
-<div >
 
-  <div class="row" style="height: 35vh;">
 
-    <div style="width:40vw; margin:auto;" >
-      <p class="standardText" style="height:4vh; line-height:4vh; width:40vw; font-size: 2vh; line-height: 2.5vh; font-weight:bold;">The CCC-Tool</p>
 
-      <p  class="standardText" style="margin-bottom:1.5vh; width:40vw; height: 25vh; max-height: 30vh; overflow-y: auto; margin-left:2.5vw;">
-        The CCC-Tool based on the idea of a general tool for the creation and export of colormaps with the effort to minimize the needed interaction components.
-        To make this possible, we developed a colormap specification <strong>CMS</strong>, which descripe colormaps with a minimum number of key-colors.
-        This foundation of the tool is extended by a collection of recommended colormaps (Gallery-Section), which can be adapted to encode the users own domain-specific semantics, and the facilities for analyzing colormaps.
-        CCC-Tool supports some commonly-used color spaces and color difference metrics, currently including RGB, HSV, CIELAB, CIE94, CIEDE2000, and DIN99. For more help, you can always visit the tutorials page via the menu bar.
-      </p>
+  <div id="id_WelcomePage_Welcome" class="class_welcomePage_Div" style=" background:var(--main-bg-color); width:100%;  height: 80vh;">
+    <!-- START: Welcome Page Divs-->
+    <div  class="row" style="width:100%; height: 75vh;">
 
-    </div>
+        <img id="id_welcomePage_Img" src="img/CCCToolComic/welcome.png" style="margin:auto; margin-right:0vw; height:75vh; max-width:40vw;">
 
-    <!--div style="width:40vw; margin-left:auto; margin-right:auto;" >
-      <p class="subsectionLabel" style="height:5vh; line-height:5vh; width:40vw; font-weight:bold;">Tutorial: Colormap Specification (CMS)</p>
-      <!--iframe style="height:40vh; width:40vw;" src="https://www.youtube.com/embed/hmrIzNo5sjE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe--  ->
-      <div  style="width:40vw; height:40vh; background: rgb(180,180,180); border: 0.2vh solid grey; display:flex; -moz-box-shadow:  inset 0 0 0.5vh rgb(0,0,0); -webkit-box-shadow: inset 0 0 0.5vh rgb(0,0,0);  box-shadow: inset 0 0 0.5vh rgb(0,0,0);">
+        <div style="height: 80vh; margin:auto; display: flex; flex-direction: column;">
 
-        <div style="margin:auto;">
-          <p class="subsectionLabel class_InsetLabelText" style="margin:auto; color:transparent;"> This video is not available at the moment.</p>
-          <p class="subsectionLabel class_InsetLabelText" style="margin:auto; color:transparent;"> :( </p>
+          <div style="margin:auto; width:40vw;">
+            <p id="id_welcomePage_Txt" style="margin-bottom:1vh;">
+              Welcome to the CCC-Tool!
+              <strong>Start</strong> the tool by using the button "To MyDesings". After the click the tool will display the MyDesings section. At this section you can organize your stored colormap specifications (CMS), add new ones, reach the test function and export/import session files.
+              Click at the arrow at the bottom of this page to show the <strong>quick tool guide</strong>. For more help, you can always visit the tutorial page via the menu bar.
+              Enjoy our tool.
+
+              Best wishes,
+              Pascal Nardini.
+            </p>
+            <p style="margin-bottom:1vh; color:var(--main-warning-font-color);">
+              Please note that the CCC-Tool is under development and this is an early access version. Therefore, some features and tutorial parts are not implemented so far.
+            </p>
+            <p id="id_welcomePage_InfoTxt" style="color:var(--main-warning-font-color); display:none;">
+
+            </p>
+          </div>
+
+          <div style="margin: auto; margin-top:0vh; display: flex; flex-direction: column;" >
+            <button onclick="showMyDesignsPage()" class="class_generalbutton" style="width:20vw; margin-top:auto; border-width: 0.3vh;">To MyDesings</button>
+
+            <button onclick="openTutorialWindow()" class="class_generalbutton" style="width:20vw; margin-top:2vh; ">Tutorials</button>
+
+            <button onclick="openNewsPopUp()" class="class_generalbutton" style="width:20vw; margin-top:2vh; ">Version News</button>
+
+            <button onclick="openImpressum()" class="class_generalbutton" style="width:20vw; margin-top:2vh; margin-bottom:auto;">Impressum</button>
+          </div>
+
         </div>
 
-      </div>
-    </div-->
+    </div>
 
-    <div style="width:20vw; margin-right:auto; height:100%; display: flex; flex-direction: column;" >
-      <button onclick="openTutorialWindow()" class="class_generalbutton" style="width:20vw;  margin-top:auto;">Tutorials</button>
+    <div style="width:100%; height:5vh; display:flex;">
+      <p class="class_welcomePageButton" title="Quick Tool-Guide" onclick="showQuickGuide()">&#9660;</p>
+    </div>
+  </div>
 
-      <button onclick="openNewsPopUp()" class="class_generalbutton" style="width:20vw; margin-top:2vh; ">Version News</button>
 
-      <button onclick="openImpressum()" class="class_generalbutton" style="width:20vw; margin-top:2vh; margin-bottom:auto;">Impressum</button>
+<div id="id_WelcomePage_QuickGuide" class="class_welcomePage_Div" style="height: 0vh; background:var(--main-second-bg-color); width:100%; display:flex;">
+
+
+  <div style="width:2.5vw; height: 80vh; display:flex;">
+
+    <p id="id_welcomePage_PreviousGuidePage" class="class_welcomePageButton" title="Previous Page" onclick="showPreviousGuidePage()">&#9664;</p>
+
+  </div>
+
+  <div style="height: 80vh; width:95vw;">
+
+    <div style="width:100%; height:5vh; display:flex;">
+      <p class="class_welcomePageButton" title="Back to Welcome Section" onclick="hideQuickGuide()">&#9650;</p>
+    </div>
+
+    <div style="width:100%; height:75vh; display:flex;">
+
+        <!-- START: Welcome Page Divs-->
+        <div id="id_WelcomePage_Div_0" class="class_welcomePage_Div" style="width0%; height:100%; display:flex;">
+
+          <div style="margin:auto; width: 40vw;">
+            <p style="height:4vh; line-height:4vh; width:35vw; font-size: 3vh; line-height: 3.5vh; font-weight:bold;">The CCC-Tool</p>
+
+            <p style="width:35vw; overflow-y: auto;">
+              The CCC-Tool based on the idea of a general tool for the creation and export of colormaps with the effort to minimize the needed interaction components.
+              To make this possible, we developed a colormap specification <strong>CMS</strong>.
+            </p>
+          </div>
+
+          <div id="id_welcomePage_GuideImg_CCCTool" class="class_img_container" style="width: 40vw; height: 75vh; margin:auto; margin-left:0vh;"></div>
+
+        </div>
+
+        <div id="id_WelcomePage_Div_1" class="class_welcomePage_Div" style="width:0%; height:100%; background:var(--main-bg-color); display:flex;">
+
+
+          <div style="margin:auto; width: 40vw;">
+            <p style="height:4vh; line-height:4vh; width:35vw; font-size: 3vh; line-height: 3.5vh; font-weight:bold;">The Colormap specification (CMS)</p>
+
+            <p style="width:35vw; overflow-y: auto;">
+              The CMS was developed to descripe colormaps with a minimum number of key-colors.
+            </p>
+          </div>
+
+          <div class="class_img_container" style="width: 40vw; height: 75vh; margin:auto; margin-left:0vh;"></div>
+
+        </div>
+
+        <div id="id_WelcomePage_Div_2" class="class_welcomePage_Div" style="width:0%; height:100%; display:flex;">
+
+
+          <div style="margin:auto; width: 40vw;">
+            <p style="height:4vh; line-height:4vh; width:35vw; font-size: 3vh; line-height: 3.5vh; font-weight:bold;">Navigator</p>
+
+            <p style="width:35vw; overflow-y: auto;">
+              LALALA
+            </p>
+          </div>
+
+          <div class="class_img_container" style="width: 40vw; height: 75vh; margin:auto; margin-left:0vh;"></div>
+
+        </div>
+
+        <div id="id_WelcomePage_Div_3" class="class_welcomePage_Div" style="width:0%; height:100%; background:var(--main-bg-color); display:flex;">
+
+
+          <div style="margin:auto; width: 40vw;">
+            <p style="height:4vh; line-height:4vh; width:35vw; font-size: 3vh; line-height: 3.5vh; font-weight:bold;">Gallery</p>
+
+            <p style="width:35vw; overflow-y: auto;">
+              This foundation of the tool is extended by a collection of recommended colormaps (Gallery-Section), which can be adapted to encode the users own domain-specific semantics, and the facilities for analyzing colormaps.
+            </p>
+          </div>
+
+          <div id="id_welcomePage_GuideImg_Gallery" class="class_img_container" style="width: 40vw; height: 75vh; margin:auto; margin-left:0vh;"></div>
+
+        </div>
+
+        <div id="id_WelcomePage_Div_4" class="class_welcomePage_Div" style="width:0%; height:100%; display:flex;">
+
+
+          <div style="margin:auto; width: 40vw;">
+            <p style="height:4vh; line-height:4vh; width:35vw; font-size: 3vh; line-height: 3.5vh; font-weight:bold;">Edit</p>
+
+            <p style="width:35vw; overflow-y: auto;">
+              CCC-Tool supports some commonly-used color spaces and color difference metrics, currently including RGB, HSV, CIELAB, CIE94, CIEDE2000, and DIN99.
+            </p>
+          </div>
+
+          <div class="class_img_container" style="width: 40vw; height: 75vh; margin:auto; margin-left:0vh;"></div>
+
+        </div>
+
+        <div id="id_WelcomePage_Div_5" class="class_welcomePage_Div" style="width:0%; height:100%; background:var(--main-bg-color); display:flex;">
+
+
+          <div style="margin:auto; width: 40vw;">
+            <p style="height:4vh; line-height:4vh; width:35vw; font-size: 3vh; line-height: 3.5vh; font-weight:bold;">Export</p>
+
+            <p style="width:35vw; overflow-y: auto;">
+
+            </p>
+          </div>
+
+          <div class="class_img_container" style="width: 40vw; height: 75vh; margin:auto; margin-left:0vh;"></div>
+
+        </div>
+
+        <div id="id_WelcomePage_Div_6" class="class_welcomePage_Div" style="width:0%; height:100%; display:flex;">
+
+
+          <div style="margin:auto; width: 40vw;">
+            <p style="height:4vh; line-height:4vh; width:35vw; font-size: 3vh; line-height: 3.5vh; font-weight:bold;">Test Functions</p>
+
+            <p style="width:35vw; overflow-y: auto;">
+
+            </p>
+          </div>
+
+          <div class="class_img_container" style="width: 40vw; height: 75vh; margin:auto; margin-left:0vh;"></div>
+
+        </div>
+        <!-- END: Welcome Page Divs-->
+
     </div>
 
 
   </div>
+
+    <div style="width:2.5vw; height: 80vh; display:flex;">
+
+      <p id="id_welcomePage_NextGuidePage" class="class_welcomePageButton" title="Next Page" onclick="showNextGuidePage()">&#9654;</p>
+
+    </div>
 
 </div>

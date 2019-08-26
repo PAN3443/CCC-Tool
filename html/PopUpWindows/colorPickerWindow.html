@@ -5,39 +5,41 @@
 -->
 <div class="row">
 
-  <div id="id_popupColorPicker_settingDiv" style="height: 36vh; width:8vw; overflow-x:hidden; overflow-y:hidden; display:none; ">
+  <div id="id_popupColorPicker_settingDiv" style="height: 36vh; width:8vw; overflow-x:hidden; overflow-y:hidden; display:none; background: var(--main-bg-color); ">
 
     <p class="class_popupWindow_Label" style="height:3vh; line-height:3vh; font-size:2vh; padding-top:0vh; padding-bottom:0vh;"> Settings </p>
 
-    <!--p class="standardText" style="font-weight:bold; color:white; background:black; width:100%; padding-left:0.5vw;"> Select:</p-->
+    <!--p style="font-weight:bold; color:white; background:black; width:100%; padding-left:0.5vw;"> Select:</p-->
 
 
-  <div class="row" style="width:100%;">
-    <input class="standardText" style="margin-left:0.5vw; margin-right:0vw;" type="radio" id="id_popupWindow_Colorpicker_RG_B" name="popupWindow_Colorpicker_Type" value="1" checked="checked">
-    <p class="standardText" style="margin-left:0.5vw;" for="id_popupWindow_Colorpicker_RG_B"> RG+B </p>
-  </div>
-  <div class="row" style="width:100%;">
-    <input class="standardText" style="margin-left:0.5vw; margin-right:0vw;" type="radio" id="id_popupWindow_Colorpicker_RB_G" name="popupWindow_Colorpicker_Type" value="2">
-    <p class="standardText" style="margin-left:0.5vw;" for="id_popupWindow_Colorpicker_RB_G"> RB+G </p>
-  </div>
-  <div class="row" style="width:100%;">
-    <input class="standardText" style="margin-left:0.5vw; margin-right:0vw;" type="radio" id="id_popupWindow_Colorpicker_GB_R" name="popupWindow_Colorpicker_Type" value="3">
-    <p class="standardText" style="margin-left:0.5vw;" for="id_popupWindow_Colorpicker_GB_R"> GB+R </p>
-  </div>
-  <div class="row" style="width:100%;">
-    <input class="standardText" style="margin-left:0.5vw; margin-right:0vw;" type="radio" id="id_popupWindow_Colorpicker_HS_V" name="popupWindow_Colorpicker_Type" value="4">
-    <p class="standardText" style="margin-left:0.5vw;" for="id_popupWindow_Colorpicker_HS_V"> HS+V </p>
-  </div>
-  <div class="row" style="width:100%;">
-    <input class="standardText" style="margin-left:0.5vw; margin-right:0vw;" type="radio" id="id_popupWindow_Colorpicker_HV_S" name="popupWindow_Colorpicker_Type" value="5">
-    <p class="standardText" style="margin-left:0.5vw;" for="id_popupWindow_Colorpicker_HV_S"> HV_S </p>
-  </div>
-  <div class="row" style="width:100%;">
-    <input class="standardText" style="margin-left:0.5vw; margin-right:0vw;" type="radio" id="id_popupWindow_Colorpicker_SV_H" name="popupWindow_Colorpicker_Type" value="6">
-    <p class="standardText" style="margin-left:0.5vw;" for="id_popupWindow_Colorpicker_SV_H"> SV_H </p>
-  </div>
+    <label class="class_radio_container" style="margin-left:0.5vw;">RG+B
+      <input type="radio" checked="checked" name="popupWindow_Colorpicker_Type" id="id_popupWindow_Colorpicker_RG_B" >
+      <span class="class_radio_checkmark"></span>
+    </label>
+    <label class="class_radio_container" style="margin-left:0.5vw;">RB+G
+      <input type="radio"  name="popupWindow_Colorpicker_Type" id="id_popupWindow_Colorpicker_RB_G" >
+      <span class="class_radio_checkmark"></span>
+    </label>
+    <label class="class_radio_container" style="margin-left:0.5vw;">GB+R
+      <input type="radio"  name="popupWindow_Colorpicker_Type" id="id_popupWindow_Colorpicker_GB_R" >
+      <span class="class_radio_checkmark"></span>
+    </label>
 
-    <p id="id_popupColorPicker_InputLabel" class="standardText" style="font-weight:bold; color:white; background:black; width:100%; margin-top:1vh; padding-left:0.5vw;"> RGB:</p>
+    <label class="class_radio_container" style="margin-left:0.5vw;">HS+V
+      <input type="radio"  name="popupWindow_Colorpicker_Type" id="id_popupWindow_Colorpicker_HS_V" >
+      <span class="class_radio_checkmark"></span>
+    </label>
+    <label class="class_radio_container" style="margin-left:0.5vw;">HV_S
+      <input type="radio"  name="popupWindow_Colorpicker_Type" id="id_popupWindow_Colorpicker_HV_S" >
+      <span class="class_radio_checkmark"></span>
+    </label>
+    <label class="class_radio_container" style="margin-left:0.5vw;">SV_H
+      <input type="radio" name="popupWindow_Colorpicker_Type" id="id_popupWindow_Colorpicker_SV_H" >
+      <span class="class_radio_checkmark"></span>
+    </label>
+
+
+    <p id="id_popupColorPicker_InputLabel" style="font-weight:bold; color:white; background:black; width:100%; margin-top:1vh; padding-left:0.5vw;"> RGB:</p>
 
     <div class="row" style="margin-left:0.5vw;">
       <p  class="class_InputPopUpWindow" id="id_popupColorPicker_InputLabel1" style="font-weight:bold; width:2vw;">R :</p>

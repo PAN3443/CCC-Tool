@@ -1,17 +1,17 @@
-function createUnknownTypeBand(canvasData, xStart, bandWidth, bandHeight, color1, color2, canvasWidth) {
+function createUnknownTypeBand(canvasData, xStart, yStart, bandWidth, bandHeight, color1, color2, canvasWidth) {
 
   if(color1.equalTo(color2)){
-    canvasData=createConstantBand(canvasData, xStart, bandWidth, bandHeight, color1, canvasWidth);
+    canvasData=createConstantBand(canvasData, xStart, yStart, bandWidth, bandHeight, color1, canvasWidth);
   }
   else{
-    canvasData=createScaledBand(canvasData, xStart, bandWidth, bandHeight, color1, color2, canvasWidth);
+    canvasData=createScaledBand(canvasData, xStart, yStart, bandWidth, bandHeight, color1, color2, canvasWidth);
   }
 
   return canvasData;
 
 }
 
-function createScaledBand(canvasData, xStart, bandWidth, bandHeight, color1, color2, canvasWidth) {
+function createScaledBand(canvasData, xStart, yStart, bandWidth, bandHeight, color1, color2, canvasWidth) {
 
   xStart = Math.round(xStart);
   bandWidth = Math.round(bandWidth);
@@ -49,7 +49,7 @@ function createScaledBand(canvasData, xStart, bandWidth, bandHeight, color1, col
         }
 
         for (var y = 0; y < bandHeight; y++) {
-          var index = (x + y * canvasWidth) * 4;
+          var index = (x + (y+yStart) * canvasWidth) * 4;
           //var index = ((xStart+x) + y * canvasWidth) * 4;
           canvasData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
           canvasData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
@@ -90,7 +90,7 @@ function createScaledBand(canvasData, xStart, bandWidth, bandHeight, color1, col
 
         var tmpCurrentColor = tmpCurrentHSVColor.calcRGBColor();
         for (var y = 0; y < bandHeight; y++) {
-          var index = (x + y * canvasWidth) * 4;
+          var index = (x + (y+yStart) * canvasWidth) * 4;
           canvasData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
           canvasData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
           canvasData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
@@ -129,7 +129,7 @@ function createScaledBand(canvasData, xStart, bandWidth, bandHeight, color1, col
 
           var tmpCurrentColor = tmpCurrentLCHColor.calcRGBColor();
           for (var y = 0; y < bandHeight; y++) {
-            var index = (x + y * canvasWidth) * 4;
+            var index = (x + (y+yStart) * canvasWidth) * 4;
             canvasData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
             canvasData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
             canvasData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
@@ -152,7 +152,7 @@ function createScaledBand(canvasData, xStart, bandWidth, bandHeight, color1, col
         var tmpCurrentColor = tmpCurrentLABColor.calcRGBColor();
 
         for (var y = 0; y < bandHeight; y++) {
-          var index = (x + y * canvasWidth) * 4;
+          var index = (x + (y+yStart) * canvasWidth) * 4;
           canvasData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
           canvasData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
           canvasData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
@@ -177,7 +177,7 @@ function createScaledBand(canvasData, xStart, bandWidth, bandHeight, color1, col
         var tmpCurrentColor = tmpCurrentDIN99Color.calcRGBColor();
 
         for (var y = 0; y < bandHeight; y++) {
-          var index = (x + y * canvasWidth) * 4;
+          var index = (x + (y+yStart) * canvasWidth) * 4;
           canvasData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
           canvasData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
           canvasData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
@@ -196,7 +196,7 @@ function createScaledBand(canvasData, xStart, bandWidth, bandHeight, color1, col
 }
 
 
-function createConstantBand(canvasData, xStart, bandWidth, bandHeight, color1, canvasWidth) {
+function createConstantBand(canvasData, xStart, yStart, bandWidth, bandHeight, color1, canvasWidth) {
 
   xStart = Math.round(xStart);
   bandWidth = Math.round(bandWidth);
@@ -208,7 +208,7 @@ function createConstantBand(canvasData, xStart, bandWidth, bandHeight, color1, c
       for (var x = xStart; x <= xStart + bandWidth; x++) {
 
         for (var y = 0; y < bandHeight; y++) {
-          var index = (x + y * canvasWidth) * 4;
+          var index = (x + (y+yStart) * canvasWidth) * 4;
           canvasData.data[index + 0] = Math.round(color1.getRValue() * 255); // r
           canvasData.data[index + 1] = Math.round(color1.getGValue() * 255); // g
           canvasData.data[index + 2] = Math.round(color1.getBValue() * 255); // b
@@ -225,7 +225,7 @@ function createConstantBand(canvasData, xStart, bandWidth, bandHeight, color1, c
       for (var x = xStart; x <= xStart + bandWidth; x++) {
 
         for (var y = 0; y < bandHeight; y++) {
-          var index = (x + y * canvasWidth) * 4;
+          var index = (x + (y+yStart) * canvasWidth) * 4;
           canvasData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
           canvasData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
           canvasData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
@@ -241,7 +241,7 @@ function createConstantBand(canvasData, xStart, bandWidth, bandHeight, color1, c
       for (var x = xStart; x <= xStart + bandWidth; x++) {
 
         for (var y = 0; y < bandHeight; y++) {
-          var index = (x + y * canvasWidth) * 4;
+          var index = (x + (y+yStart) * canvasWidth) * 4;
           canvasData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
           canvasData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
           canvasData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
@@ -258,7 +258,7 @@ function createConstantBand(canvasData, xStart, bandWidth, bandHeight, color1, c
       for (var x = xStart; x <= xStart + bandWidth; x++) {
 
         for (var y = 0; y < bandHeight; y++) {
-          var index = (x + y * canvasWidth) * 4;
+          var index = (x + (y+yStart) * canvasWidth) * 4;
           canvasData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
           canvasData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
           canvasData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
@@ -274,7 +274,7 @@ function createConstantBand(canvasData, xStart, bandWidth, bandHeight, color1, c
         for (var x = xStart; x <= xStart + bandWidth; x++) {
 
           for (var y = 0; y < bandHeight; y++) {
-            var index = (x + y * canvasWidth) * 4;
+            var index = (x + (y+yStart) * canvasWidth) * 4;
             canvasData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
             canvasData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
             canvasData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
@@ -330,7 +330,7 @@ function createScaledBandVertical(canvasData, yStart, bandWidth, bandHeight, col
         }
 
         for (var x = 0; x < bandWidth; x++) {
-          var index = (x + y * canvasWidth) * 4;
+          var index = (x + (y+yStart) * canvasWidth) * 4;
           //var index = ((xStart+x) + y * canvasWidth) * 4;
           canvasData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
           canvasData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
@@ -370,7 +370,7 @@ function createScaledBandVertical(canvasData, yStart, bandWidth, bandHeight, col
 
         var tmpCurrentColor = tmpCurrentHSVColor.calcRGBColor();
         for (var x = 0; x < bandWidth; x++) {
-          var index = (x + y * canvasWidth) * 4;
+          var index = (x + (y+yStart) * canvasWidth) * 4;
           canvasData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
           canvasData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
           canvasData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
@@ -408,7 +408,7 @@ function createScaledBandVertical(canvasData, yStart, bandWidth, bandHeight, col
 
           var tmpCurrentColor = tmpCurrentLCHColor.calcRGBColor();
           for (var x = 0; x < bandHeight; x++) {
-            var index = (x + y * canvasWidth) * 4;
+            var index = (x + (y+yStart) * canvasWidth) * 4;
             canvasData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
             canvasData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
             canvasData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
@@ -441,7 +441,7 @@ function createConstantBandVertical(canvasData, yStart, bandWidth, bandHeight, c
       for (var y = yStart; y >= yStart - bandHeight; y--) {
 
         for (var x = 0; x < bandWidth; x++) {
-          var index = (x + y * canvasWidth) * 4;
+          var index = (x + (y+yStart) * canvasWidth) * 4;
           canvasData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
           canvasData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
           canvasData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
