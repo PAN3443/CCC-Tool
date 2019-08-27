@@ -37,4 +37,4 @@ var heigthVArea = vPlotyStart - vPlotyEnd;
 var plotwidth = vPlotxEnd - vPlotxStart;
 
 
-var pathplotFontColor = "rgb(0,0,0)";
+var pathplotFontColor = "rgb(10, 10, 10)";

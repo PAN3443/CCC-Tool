@@ -33,6 +33,73 @@ class class_CMS {
     return this.interpolationSpace;
   }
 
+
+  insertCMS(cms, insertIndex){
+
+    if(this.getKeyLength()==0)
+      return;
+
+    var cmsDis = cms.getRefRange();
+
+    switch (insertIndex) {
+      case this.getKeyLength()-1:
+        // case scaled band
+        var tmpVal = this.getRefPosition(insertIndex);
+        var dist = Math.abs(tmpVal-this.getRefPosition(insertIndex-1))*0.5;
+        var startPos = tmpVal-dist;
+
+        this.setRefPosition(insertIndex,startPos);
+        this.setRightKeyColor(insertIndex,cms.getRightKeyColor(0,"lab"));
+
+        for (var i = 1; i < cms.getKeyLength()-1; i++) {
+
+          var ratio = (cms.getRefPosition(i)-cms.getRefPosition(i-1))/cmsDis;
+          startPos = startPos+dist*ratio;
+
+          var tmpKey = cms.getKeyClone(i);
+          tmpKey.setRefPosition(startPos);
+          this.pushKey(tmpKey,false); // push new left key
+        }
+
+        var tmpKey2 = cms.getKeyClone(i);
+        tmpKey2.setRefPosition(tmpVal);
+        this.pushKey(tmpKey2,true);
+
+        break;
+
+      default:
+
+      var startPos = this.getRefPosition(insertIndex);
+      var dist = Math.abs(this.getRefPosition(insertIndex+1)-startPos)*0.5;
+      var endPos = (startPos+dist);
+
+
+
+      this.setRefPosition(insertIndex,endPos);
+      var oldColor = this.getLeftKeyColor(insertIndex,"lab");
+
+
+      this.setLeftKeyColor(insertIndex,cms.getLeftKeyColor(cms.getKeyLength()-1,"lab"));
+      this.setBur(insertIndex,true);
+
+      for (var i = cms.getKeyLength()-2; i >= 0 ; i--) {
+
+        var ratio = (cms.getRefPosition(i+1)-cms.getRefPosition(i))/cmsDis;
+        endPos = endPos-dist*ratio;
+
+        var tmpKey = cms.getKeyClone(i);
+        tmpKey.setRefPosition(endPos);
+        this.insertKey(insertIndex, tmpKey);
+      }
+
+      this.setLeftKeyColor(insertIndex,oldColor);
+      this.setBur(insertIndex,true);
+
+
+
+    }
+  }
+
   /* Not sure if we need updateColorToNewSettings anymore.
   /*updateColorToNewSettings(){
 

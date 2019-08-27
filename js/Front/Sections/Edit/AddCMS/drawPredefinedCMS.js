@@ -52,8 +52,8 @@ function drawPredefined_MyDesignsCMS(){
 
     tmpCMSlinear.setAttribute('draggable', true);
 
-    tmpCMSlinear.addEventListener("dragstart", bandOnDragStart);
-    tmpCMSlinear.addEventListener("dragend", bandOnDragEnd);
+    tmpCMSlinear.addEventListener("dragstart", cmsStructureOnDragStart);
+    tmpCMSlinear.addEventListener("dragend", cmsStructureOnDragEnd);
 
     tmpCMSlinear.onmousedown = (function(id) {
     return function() {
@@ -242,8 +242,8 @@ function drawPredefinedCMS(cmsArray, cmsType){
 
     tmpCMSlinear.setAttribute('draggable', true);
 
-    tmpCMSlinear.addEventListener("dragstart", bandOnDragStart);
-    tmpCMSlinear.addEventListener("dragend", bandOnDragEnd);
+    tmpCMSlinear.addEventListener("dragstart", cmsStructureOnDragStart);
+    tmpCMSlinear.addEventListener("dragend", cmsStructureOnDragEnd);
 
     tmpCMSlinear.onmousedown = (function(id,type) {
     return function() {

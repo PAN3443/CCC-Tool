@@ -55,32 +55,3 @@ function drawBandSketch(cms,sketchObjectID){
  }
 
 }
-
-
-/*function sketch_MouseMove(event){
-  if(document.getElementById("id_EditPage").style.display == "none")
-  return;
-
-  var rect = event.target.getBoundingClientRect();
-  var canvasPosX = event.clientX - rect.left;
-  var canvasPosY = event.clientY - rect.top;
-  var ratioToColorspaceResolutionX = event.target.width / rect.width;
-  var ratioToColorspaceResolutionY = event.target.height / rect.height;
-  mousePosX = canvasPosX * ratioToColorspaceResolutionX;
-  mousePosY = canvasPosY * ratioToColorspaceResolutionY;
-}
-
-function sketch_MouseClick(){
-  if(document.getElementById("id_EditPage").style.display == "none")
-  return;
-
-  for (var i = 1; i <= globalCMS1.getKeyLength()-1; i++) {
-    if(mousePosX-(bandSketchObjLength*i)<=0){
-      askIndex=i-1;
-      askType=1;
-      openAskWindow()
-      break;
-    }
-  }
-
-}*/

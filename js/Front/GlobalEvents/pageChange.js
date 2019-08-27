@@ -2,7 +2,7 @@
 
 function activateMenuDropdown() {
 
-    hideAllMenueDropDowns();
+    hideAllDropDowns();
 
     if(document.getElementById("id_dropDownContainer").style.display=="none")
     document.getElementById("id_dropDownContainer").style.display="block";
@@ -13,7 +13,7 @@ function activateMenuDropdown() {
 
 function activateThemeDropdown(){
 
-    hideAllMenueDropDowns();
+    hideAllDropDowns();
 
     if(document.getElementById("id_dropDownContainerTheme").style.display=="none"){
       document.getElementById("id_dropDownContainerTheme").style.display="block";
@@ -25,7 +25,7 @@ function activateThemeDropdown(){
 
 function activateNaviDropdown() {
 
-    hideAllMenueDropDowns();
+    hideAllDropDowns();
 
     if(document.getElementById("id_dropDownContainerNavi").style.display=="none"){
       document.getElementById("id_dropDownContainerNavi").style.display="block";
@@ -35,11 +35,12 @@ function activateNaviDropdown() {
     document.getElementById("id_dropDownContainerNavi").style.display="none";
 }
 
-function hideAllMenueDropDowns(){
+function hideAllDropDowns(){
 
   document.getElementById("id_dropDownContainer").style.display="none";
   document.getElementById("id_dropDownContainerTheme").style.display="none";
   document.getElementById("id_dropDownContainerNavi").style.display="none";
+  document.getElementById("id_popupColorPicker").style.display="none";
 
 }
 

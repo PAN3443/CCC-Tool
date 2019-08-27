@@ -26,8 +26,8 @@ function drawConstantBands(){
         iDiv.style.background = constBands[i].getRGBString();
       }
 
-      iDiv.addEventListener("dragstart", bandOnDragStart);
-      iDiv.addEventListener("dragend", bandOnDragEnd);
+      iDiv.addEventListener("dragstart", cmsStructureOnDragStart);
+      iDiv.addEventListener("dragend", cmsStructureOnDragEnd);
       //iDiv.style.cursor = "move";
 
       document.getElementById('id_EditPage_ConstBandDiv').appendChild(iDiv);
@@ -62,8 +62,8 @@ function drawScaledBands(){
       iCan.id = id;
       iCan.className = 'class_predefinedScaledBands';
       iCan.setAttribute('draggable', true);
-      iCan.addEventListener("dragstart", bandOnDragStart);
-      iCan.addEventListener("dragend", bandOnDragEnd);
+      iCan.addEventListener("dragstart", cmsStructureOnDragStart);
+      iCan.addEventListener("dragend", cmsStructureOnDragEnd);
       //iCan.style.cursor = "move";
 
       var tmpC1RGB = scaleBands[i][0];
@@ -132,8 +132,8 @@ function drawDoubleBands(){
       iCan.className = 'class_predefinedScaledBands';
       iCan.setAttribute('draggable', true);
 
-      iCan.addEventListener("dragstart", bandOnDragStart);
-      iCan.addEventListener("dragend", bandOnDragEnd);
+      iCan.addEventListener("dragstart", cmsStructureOnDragStart);
+      iCan.addEventListener("dragend", cmsStructureOnDragEnd);
       iCan.style.cursor = "move";
 
       iCan.width = resolutionX;
@@ -258,8 +258,8 @@ function drawTripleBands(){
       iCan.setAttribute('draggable', true);
       iCan.style.cursor = "move";
 
-      iCan.addEventListener("dragstart", bandOnDragStart);
-      iCan.addEventListener("dragend", bandOnDragEnd);
+      iCan.addEventListener("dragstart", cmsStructureOnDragStart);
+      iCan.addEventListener("dragend", cmsStructureOnDragEnd);
 
 
       var reverseButton = document.createElement("button");
@@ -406,8 +406,8 @@ function drawQuadrupleBands(){
      iCan.setAttribute('draggable', true);
      iCan.style.cursor = "move";
 
-     iCan.addEventListener("dragstart", bandOnDragStart);
-     iCan.addEventListener("dragend", bandOnDragEnd);
+     iCan.addEventListener("dragstart", cmsStructureOnDragStart);
+     iCan.addEventListener("dragend", cmsStructureOnDragEnd);
 
      var reverseButton = document.createElement("button");
      reverseButton.className = "class_reversebuttonEditPage classButtonWhite";

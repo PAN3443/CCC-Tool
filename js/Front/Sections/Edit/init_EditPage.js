@@ -2,51 +2,147 @@
 
 function init_events_EditPage(){
 
-  /*var sketchElement = document.getElementById('id_EditPage_CMS_VIS_ColormapSketch');
-  sketchElement.addEventListener("dragenter", bandOnEnter);
-  sketchElement.addEventListener("dragleave", bandOnLeave);
-  //sketchElement.addEventListener("drop dragdrop", createSide_BandOnDrop);
 
-  sketchElement.addEventListener("mousemove", sketch_MouseMove);
-  sketchElement.addEventListener("click", sketch_MouseClick);
+  var editCMSElement = document.getElementById('id_EditPage_CMSVisCanvas');
+  editCMSElement.addEventListener("dragenter", cmsStructureOnEnter);
+  editCMSElement.addEventListener("dragleave", cmsStructureOnLeave);
+  //editCMSElement.addEventListener("drop dragdrop", createSide_cmsStructureOnDrop);
+  editCMSElement.addEventListener("mousemove", editCMS_MouseMove);
+  editCMSElement.addEventListener("click", editCMS_MouseClick);
 
-  sketchElement.ondrop = function(event) {
+  editCMSElement.ondrop = function(event) {
     event.preventDefault();
-    bandOnDrop();
+    cmsStructureOnDrop();
   }; // allow Drop
 
-
-  sketchElement.ondragover = function(event) {
+  editCMS_dragOver_LastKey = -1;
+  editCMS_dragOver_DrawGlobalCMS = false;
+  editCMSElement.ondragover = function(event) {
     event.preventDefault();
 
     event = event || window.event;
     //var dragX = event.pageX, dragY = event.pageY;
 
-    var rect = event.target.getBoundingClientRect();
-    var canvasPosX = event.clientX - rect.left;
-    //var canvasPosY = event.clientY - rect.top;
-    var ratioToColorspaceResolutionX = event.target.width / rect.width;
-    //var ratioToColorspaceResolutionY = event.target.height / rect.height;
-    mousePosX = canvasPosX * ratioToColorspaceResolutionX;
-    //mousePosY = canvasPosY * ratioToColorspaceResolutionY;
+        if(globalCMS1.getKeyLength()!=0){
 
-    if (globalCMS1.getKeyLength() == 0) {
-      indexOfDroppedPlace = 0;
-      return;
-    }
 
-    for (var i = 0; i < dropRects.length; i++) {
-      if (mousePosX >= dropRects[i] && mousePosX <= dropRects[i] + bandSketchObjLength) {
-        if (indexOfDroppedPlace != i) {
-          indexOfDroppedPlace = i;
-          drawBandSketch(globalCMS1, "id_EditPage_CMS_VIS_ColormapSketch",  true, i);
+
+          var rect = event.target.getBoundingClientRect();
+          var canvasPosX = event.clientX - rect.left;
+          var canvasPosY = event.clientY - rect.top;
+          var ratioToColorspaceResolutionX = event.target.width / rect.width;
+          var ratioToColorspaceResolutionY = event.target.height / rect.height;
+          mousePosX = canvasPosX * ratioToColorspaceResolutionX;
+          mousePosY = canvasPosY * ratioToColorspaceResolutionY;
+
+          /// Are we between Linear Key Start and Linear CMS End?
+          var keyIndex = undefined;
+          if(around_LinearCMSVis_yPosition()){
+            keyIndex = getClosest_linearKey();
+          }
+          else if(around_SketchCMSVis_yPosition()){
+            keyIndex = getClosest_sketchKey();
+          }
+
+          if(keyIndex!=undefined){
+
+            if(keyIndex!=editCMS_dragOver_LastKey){
+
+              workCMS_Edit = cloneCMS(globalCMS1);
+              switch(dragPredefinedBandType){
+                    case 0:
+                            // ->const
+
+                                // band at the end
+                                switch (keyIndex) {
+                                  case workCMS_Edit.getKeyLength()-1:
+                                    // case constant
+                                    var tmpVal = workCMS_Edit.getRefPosition(indexOfDroppedPlace);
+                                    var dist = Math.abs(tmpVal-workCMS_Edit.getRefPosition(indexOfDroppedPlace-1));
+                                    workCMS_Edit.setRefPosition(indexOfDroppedPlace,tmpVal-dist*0.5);
+                                    workCMS_Edit.pushKey(new class_Key(constBands[dragPredefinedBandIndex],undefined,tmpVal,true)); // push left key
+                                    break;
+
+                                  default:
+                                    var startPos = workCMS_Edit.getRefPosition(indexOfDroppedPlace);
+                                    var endPos = (startPos+Math.abs(workCMS_Edit.getRefPosition(indexOfDroppedPlace+1)-startPos)*0.5);
+
+                                    ///////////
+                                    ///// split key
+                                    workCMS_Edit.setRefPosition(indexOfDroppedPlace,endPos);
+                                    workCMS_Edit.setBur(indexOfDroppedPlace,true);
+                                    // case constant add Keys
+                                    var oldColor = workCMS_Edit.getLeftKeyColor(indexOfDroppedPlace,"lab");
+                                    workCMS_Edit.setLeftKeyColor(indexOfDroppedPlace,constBands[dragPredefinedBandIndex]); // create left key
+                                    workCMS_Edit.insertKey(indexOfDroppedPlace, new class_Key(oldColor,undefined,startPos,true));
+
+                                }
+
+
+                    break;
+
+                    case 1:
+                          // -> myDesign CMS
+                          workCMS_Edit.insertCMS(myDesignsList[currentPredefinedId], keyIndex);
+                    break;
+                    case 2:
+
+                      var tmpCMS;
+                      switch (currentPredefinedType) {
+                        case 0:
+                            tmpCMS = cmsYellowColormaps[currentPredefinedId];
+                          break
+                          case 1:
+                            tmpCMS = cmsBlueColormaps[currentPredefinedId];
+                            break
+                            case 2:
+                              tmpCMS = cmsRedPurpleColormaps[currentPredefinedId];
+                              break
+                              case 3:
+                                tmpCMS = cmsGreenColormaps[currentPredefinedId];
+                                break
+                                case 4:
+                                tmpCMS = cmsBrownColormaps[currentPredefinedId];
+                                  break
+                                  case 5:
+                                  tmpCMS = cmsDivergentColormaps[currentPredefinedId];
+                                    break
+                                    case 6:
+                                    tmpCMS = cmsThreeBandColormaps[currentPredefinedId];
+                                      break
+                                      case 7:
+                                        tmpCMS = cmsFourBandColormaps[currentPredefinedId];
+                                        break
+
+                      default:
+                        return;
+                    }
+
+                      workCMS_Edit.insertCMS(tmpCMS, keyIndex);
+                    break;
+
+                }
+
+                editCMS_dragOver_LastKey=keyIndex;
+                editCMS_dragOver_DrawGlobalCMS=false;
+                editCMS_AllowDrop = true;
+                drawEditCMSVIS(workCMS_Edit,[]);
+
+          }
         }
-        return;
-      }
-    }
-    indexOfDroppedPlace = -1;
+        else{
+          editCMS_AllowDrop=false;
+          if(editCMS_dragOver_DrawGlobalCMS==false){
+            drawEditCMSVIS(globalCMS1,[]);
+            editCMS_dragOver_LastKey=-1;
+            editCMS_dragOver_DrawGlobalCMS=true;
+          }
+        }
 
-  }; // allow Drop
+      }
+
+
+  }; // allow Drop*/
 
 
   // Ref Change Key Rects

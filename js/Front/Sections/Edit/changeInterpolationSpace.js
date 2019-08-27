@@ -51,7 +51,6 @@ function changeColorspace(){
 
 
 function updateInterpolationSpaceEditPage(){
-console.log(globalCMS1.getInterpolationSpace());
   switch (globalCMS1.getInterpolationSpace()) {
     case "rgb":
     document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 5;

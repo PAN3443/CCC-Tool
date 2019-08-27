@@ -37,6 +37,7 @@ window.onload = function() {
   // init global vars
   globalProbeSet = new class_ProbeSet("");
   globalCMS1 = new class_CMS();
+  workCMS_Edit = new class_CMS();
 
   /////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////// Check Browerser and Hardware ////////////////////////////////
@@ -90,8 +91,8 @@ window.onload = function() {
   // init events
 
   // global init
-  document.getElementById('id_dropDownContainerNavi').addEventListener("mouseleave", hideAllMenueDropDowns);
-  document.getElementById('id_dropDownContainerTheme').addEventListener("mouseleave", hideAllMenueDropDowns);
+  document.getElementById('id_dropDownContainerNavi').addEventListener("mouseleave", hideAllDropDowns);
+  document.getElementById('id_dropDownContainerTheme').addEventListener("mouseleave", hideAllDropDowns);
 
 
   /////////////////////
@@ -167,6 +168,9 @@ window.onload = function() {
   stopPathPlotAnimation();
   stopAnimationMapping();
 
+
+  /////
+  setToolTheme(currentTheme);
 
   /// for testing
   //loadRealWorldData();

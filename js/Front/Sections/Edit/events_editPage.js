@@ -65,11 +65,11 @@ function updateEditPage(){
 
 function updateEditColormapVis(){
 
-  drawEditCMSVIS(globalCMS1);
+  drawEditCMSVIS(globalCMS1,[]);
 
-  return;
+  /*return;
 
-  drawBandSketch(globalCMS1,"id_EditPage_CMS_VIS_ColormapSketch", false, -1);
+  /*drawBandSketch(globalCMS1,"id_EditPage_CMS_VIS_ColormapSketch", false, -1);
 
   var context = document.getElementById("id_EditPage_CMS_VIS_ColormapLinear").getContext('2d');
   context.clearRect(0, 0, document.getElementById("id_EditPage_CMS_VIS_ColormapLinear").width, document.getElementById("id_EditPage_CMS_VIS_ColormapLinear").height);
@@ -166,7 +166,7 @@ function updateEditColormapVis(){
 
         document.getElementById("id_EditPage_CMS_VIS_Label1").innerHTML = "";
         document.getElementById("id_EditPage_CMS_VIS_Label2").innerHTML = "";
-  }
+  }*/
 
 
 }
