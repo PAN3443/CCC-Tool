@@ -194,9 +194,30 @@ function editCMS_MouseDown(){
 
   }
   else if(editCMS_RemoveKeyModus){
+
+    if(overKeyID==0 || overKeyID==undefined || overKeyID==globalCMS1.getKeyLength()-1)
+      return;
+      
     globalCMS1.deleteKey(overKeyID);
+    globalCMS1JSON=inform_Worker_GlobalCMS();
+    /////////////
+    ////  Save Band Process
     saveCreateProcess();
-    updateEditPage();
+
+    drawEditCMSVIS(globalCMS1,[]);
+
+      if(document.getElementById("id_EditPage_Edit_Keys").style.display!="none"){
+         openEditKeyDiv(document.getElementById("id_EditPage_EditKey_List").selectedIndex);
+      }
+
+
+
+      if(document.getElementById("id_EditPage_Edit_Path").style.display!="none"){
+        if(pathColorspace==="rgb")
+          drawcolormap_RGBSpace(true,true);
+        else
+          drawcolormap_hueSpace(true, true, true);
+      }
   }
   else{
     if(overKeyID!=undefined){
