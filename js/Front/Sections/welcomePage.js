@@ -1,6 +1,6 @@
 
 var currentQuickGuidePage = 0;
-var maxNumberGuidePages = 7;
+var maxNumberGuidePages = 4;
 var guideImagesUploaded = [false,false,false,false,false,false,false];
 
 
@@ -66,13 +66,14 @@ function updateGuidePage(){
         document.getElementById("id_welcomePage_GuideImg_CCCTool").style.backgroundImage = "url('img/WelcomePageImages/edit_Example.png')";
       break;
       case 1:
-
+        document.getElementById("id_welcomePage_GuideImg_CMS").style.backgroundImage = "url('img/WelcomePageImages/cms_Example.png')";
       break;
       case 2:
-
+        document.getElementById("id_welcomePage_GuideImg_CMSVis").style.backgroundImage = "url('img/WelcomePageImages/cmsVis_Example.png')";
       break;
       case 3:
-        document.getElementById("id_welcomePage_GuideImg_Gallery").style.backgroundImage = "url('img/WelcomePageImages/gallery_Example.png')";
+        //document.getElementById("id_welcomePage_GuideImg_Gallery").style.backgroundImage = "url('img/WelcomePageImages/gallery_Example.png')";
+        document.getElementById("id_welcomePage_GuideImg_Navi").style.backgroundImage = "url('img/WelcomePageImages/navi_Example.png')";
       break;
       case 4:
 

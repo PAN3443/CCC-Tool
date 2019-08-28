@@ -41,7 +41,7 @@ var pathplotLinesVPlot=[];
 var pathplotElementPositions=[];
 var vPlotElementPositions=[];
 
-var intervalDelta = undefined;
+var pathplotIntervalDelta = undefined;
 var pathPlotResolution = 500;
 var vPlotHeight = 200;
 var vPlotWidth = 600;
@@ -138,7 +138,7 @@ self.addEventListener('message', function(e) {
   answerJSON['vPlotWidth'] = vPlotWidth;
   answerJSON['doOnly3D'] = false;
   answerJSON['do3D'] = e.data.do3D;
-  intervalDelta = e.data.intervalDelta;
+  pathplotIntervalDelta = e.data.pathplotIntervalDelta;
 
   answerJSON['pathplotLines'] = [];
   answerJSON['pathplotLinesDashed'] = [];
@@ -271,7 +271,7 @@ self.addEventListener('message', function(e) {
     mouseAboveKeyID = e.data.mouseAboveKeyID;
     mouseGrappedColorSide = e.data.mouseGrappedColorSide;
     mouseGrappedColor = e.data.mouseGrappedColor;
-    intervalDelta = e.data.intervalDelta;
+    pathplotIntervalDelta = e.data.pathplotIntervalDelta;
     pathplotFontColor = e.data.pathplotFontColor;
 
     updateVPlotData();

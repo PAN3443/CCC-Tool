@@ -352,6 +352,37 @@ button:focus {outline:0;}
   transform: scale(0.9);
   /*background: var();*/
 
+  color: var(--general-hover-color);
+  border-color: var(--general-hover-color);
+}
+
+
+.class_EditPage_EditButtonActive{
+
+  height: 3vh;
+  line-height: 3vh;
+  width: 3vh;
+  font-size: 1.2vh;
+  vertical-align: middle;
+  text-align: center;
+  /*background: var(--main-font-color);
+  color: var(--main-sepArea-bg);*/
+
+  background: none;
   color: var(--general-active-color);
-  border-color: var(--general-active-color);
+  border: 0.2vh solid var(--general-active-color);
+  border-radius: 0.5vh;
+  overflow: hidden;
+  margin:auto;
+  transition: transform ease-in 0.1s;
+  cursor: pointer;
+
+}
+
+.class_EditPage_EditButtonActive:hover{
+  transform: scale(0.9);
+  /*background: var();*/
+
+  color: var(--general-hover-color);
+  border-color: var(--general-hover-color);
 }

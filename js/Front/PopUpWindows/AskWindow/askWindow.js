@@ -45,10 +45,10 @@ function openAskWindow(){
                 else {
                     document.getElementById("id_askText").innerHTML="Do you really want to delete the selected probe?";
                 }
-
-
-
-
+              break;
+              case 7:
+              // equal key intervals
+                document.getElementById("id_askText").innerHTML="Do you really want to change the reference values of all keys to equal intervals?";
               break;
       default:
 
@@ -110,6 +110,28 @@ function checkAsk(){
               }
 
               break;
+
+              case 7:
+                // equal key intervals
+                globalCMS1.equalKeyIntervals();
+
+                saveCreateProcess();
+
+                  if(document.getElementById("id_EditPage_Edit_Keys").style.display!="none"){
+                     openEditKeyDiv(document.getElementById("id_EditPage_EditKey_List").selectedIndex);
+                  }
+
+                  globalCMS1JSON=inform_Worker_GlobalCMS();
+
+                  if(document.getElementById("id_EditPage_Edit_Path").style.display!="none"){
+                    if(pathColorspace==="rgb")
+                      drawcolormap_RGBSpace(true,true);
+                    else
+                      drawcolormap_hueSpace(true, true, true);
+                  }
+
+                  drawEditCMSVIS(globalCMS1,[]);
+                break;
 
     default:
 

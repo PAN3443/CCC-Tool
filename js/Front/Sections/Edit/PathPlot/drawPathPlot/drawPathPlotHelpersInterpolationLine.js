@@ -5,7 +5,7 @@ function calcRGBInterpolationLine(){
 
   var areaDim = pathPlotResolution * 0.7;
 
-  globalCMS1.calcDeltaIntervalColors(intervalDelta, 0,globalCMS1.getKeyLength()-1);
+  globalCMS1.calcDeltaIntervalColors(pathplotIntervalDelta, 0,globalCMS1.getKeyLength()-1);
   for (var i = 0; i < globalCMS1.getKeyLength()-1; i++) {
 
     switch (globalCMS1.getKeyType(i)) {
@@ -75,7 +75,7 @@ function calcInterpolationLine_HSV(){
   pathplotLinesDashed=[];
   pathplotLinesVPlot=[];
 
-  globalCMS1.calcDeltaIntervalColors(intervalDelta, 0,globalCMS1.getKeyLength()-1);
+  globalCMS1.calcDeltaIntervalColors(pathplotIntervalDelta, 0,globalCMS1.getKeyLength()-1);
 
   var tmpColor, tmpColor2, xPos, xPos2, yPos, yPos2;
 
@@ -201,7 +201,7 @@ function calcInterpolationLine_Lab(){
   pathplotLinesDashed=[];
   pathplotLinesVPlot=[];
 
-  globalCMS1.calcDeltaIntervalColors(intervalDelta, 0,globalCMS1.getKeyLength()-1);
+  globalCMS1.calcDeltaIntervalColors(pathplotIntervalDelta, 0,globalCMS1.getKeyLength()-1);
 
   var tmpColor, tmpColor2, xPos, xPos2, yPos, yPos2;
 
@@ -337,7 +337,7 @@ function calcInterpolationLine_DIN99(){
   rangeA99 = rangeA99Pos - rangeA99Neg;
   rangeB99 = rangeB99Pos - rangeB99Neg;
 
-  globalCMS1.calcDeltaIntervalColors(intervalDelta, 0,globalCMS1.getKeyLength()-1);
+  globalCMS1.calcDeltaIntervalColors(pathplotIntervalDelta, 0,globalCMS1.getKeyLength()-1);
 
   var tmpColor, tmpColor2, xPos, xPos2, yPos, yPos2;
 
@@ -467,7 +467,7 @@ function calcInterpolationLine_LCH(){
   pathplotLinesDashed=[];
   pathplotLinesVPlot=[];
 
-  globalCMS1.calcDeltaIntervalColors(intervalDelta, 0,globalCMS1.getKeyLength()-1);
+  globalCMS1.calcDeltaIntervalColors(pathplotIntervalDelta, 0,globalCMS1.getKeyLength()-1);
 
   var tmpColor, tmpColor2, xPos, xPos2, yPos, yPos2;
 
@@ -618,7 +618,7 @@ function drawInterpolationLine(canvasContex,index1, index2, isRGB){
 
   canvasContex.lineWidth=smallLineWidth;
   canvasContex.strokeStyle = 'rgb(255,255,255)';
-  canvasContex.stroke();
+  canvasContex.stroke();//*/
 
   //////////////////////////////////////////////////////////////////////////////////
   canvasContex.beginPath();
@@ -643,7 +643,7 @@ function drawInterpolationLine(canvasContex,index1, index2, isRGB){
 
   canvasContex.lineWidth=smallLineWidth;
   canvasContex.strokeStyle = 'rgb(255,255,255)';
-  canvasContex.stroke();
+  canvasContex.stroke();//*/
 
 }
 
@@ -658,12 +658,9 @@ function drawInterpolationLine_VPlot(canvasContex, index){
   }
 
   canvasContex.lineWidth=bigLineWidth;
-  canvasContex.strokeStyle = 'rgb(0,0,0)';
+  canvasContex.strokeStyle = pathplotFontColor;
   canvasContex.stroke();
 
-  canvasContex.lineWidth=smallLineWidth;
-  canvasContex.strokeStyle = 'rgb(255,255,255)';
-  canvasContex.stroke();
 
 }
 

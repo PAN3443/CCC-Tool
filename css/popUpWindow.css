@@ -143,10 +143,10 @@ font-size:3vh;
 padding-left: 1vh;
 padding-right: 1vh;
 vertical-align:middle;
-border: 0.2vh solid black;
+border: 0.2vh solid var(--main-font-color);
 border-radius: 1vh;
 color: var(--main-font-color);
-background: var(--main-second-bg-color);
+background: var(--main-bg-color);
 }
 
 .class_ShortcutText{

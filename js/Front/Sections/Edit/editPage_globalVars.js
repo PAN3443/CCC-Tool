@@ -26,10 +26,7 @@ var mousePosY;
 var timer2DAnimation;
 var animationInterval = 1000/30;
 
-// key moving vars
-var grappedKey = false;
-var overKeyID = -1;
-var mouseKeyChangeUp = true;
+
 
 var colorpickerAffectID="";
 var colorpickerType = "RG_B";

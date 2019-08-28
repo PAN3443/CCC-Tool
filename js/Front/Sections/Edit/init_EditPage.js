@@ -7,8 +7,11 @@ function init_events_EditPage(){
   editCMSElement.addEventListener("dragenter", cmsStructureOnEnter);
   editCMSElement.addEventListener("dragleave", cmsStructureOnLeave);
   //editCMSElement.addEventListener("drop dragdrop", createSide_cmsStructureOnDrop);
+  editCMSElement.addEventListener("mousedown", editCMS_MouseDown);
+  editCMSElement.addEventListener("mouseup", editCMS_MouseUp);
   editCMSElement.addEventListener("mousemove", editCMS_MouseMove);
-  editCMSElement.addEventListener("click", editCMS_MouseClick);
+  editCMSElement.addEventListener("mouseenter",editCMS_MouseEnter);
+  editCMSElement.addEventListener("mouseleave",editCMS_MouseLeave);
 
   editCMSElement.ondrop = function(event) {
     event.preventDefault();
@@ -24,8 +27,6 @@ function init_events_EditPage(){
     //var dragX = event.pageX, dragY = event.pageY;
 
         if(globalCMS1.getKeyLength()!=0){
-
-
 
           var rect = event.target.getBoundingClientRect();
           var canvasPosX = event.clientX - rect.left;
@@ -57,24 +58,24 @@ function init_events_EditPage(){
                                 switch (keyIndex) {
                                   case workCMS_Edit.getKeyLength()-1:
                                     // case constant
-                                    var tmpVal = workCMS_Edit.getRefPosition(indexOfDroppedPlace);
-                                    var dist = Math.abs(tmpVal-workCMS_Edit.getRefPosition(indexOfDroppedPlace-1));
-                                    workCMS_Edit.setRefPosition(indexOfDroppedPlace,tmpVal-dist*0.5);
+                                    var tmpVal = workCMS_Edit.getRefPosition(keyIndex);
+                                    var dist = Math.abs(tmpVal-workCMS_Edit.getRefPosition(keyIndex-1));
+                                    workCMS_Edit.setRefPosition(keyIndex,tmpVal-dist*0.5);
                                     workCMS_Edit.pushKey(new class_Key(constBands[dragPredefinedBandIndex],undefined,tmpVal,true)); // push left key
                                     break;
 
                                   default:
-                                    var startPos = workCMS_Edit.getRefPosition(indexOfDroppedPlace);
-                                    var endPos = (startPos+Math.abs(workCMS_Edit.getRefPosition(indexOfDroppedPlace+1)-startPos)*0.5);
+                                    var startPos = workCMS_Edit.getRefPosition(keyIndex);
+                                    var endPos = (startPos+Math.abs(workCMS_Edit.getRefPosition(keyIndex+1)-startPos)*0.5);
 
                                     ///////////
                                     ///// split key
-                                    workCMS_Edit.setRefPosition(indexOfDroppedPlace,endPos);
-                                    workCMS_Edit.setBur(indexOfDroppedPlace,true);
+                                    workCMS_Edit.setRefPosition(keyIndex,endPos);
+                                    workCMS_Edit.setBur(keyIndex,true);
                                     // case constant add Keys
-                                    var oldColor = workCMS_Edit.getLeftKeyColor(indexOfDroppedPlace,"lab");
-                                    workCMS_Edit.setLeftKeyColor(indexOfDroppedPlace,constBands[dragPredefinedBandIndex]); // create left key
-                                    workCMS_Edit.insertKey(indexOfDroppedPlace, new class_Key(oldColor,undefined,startPos,true));
+                                    var oldColor = workCMS_Edit.getLeftKeyColor(keyIndex,"lab");
+                                    workCMS_Edit.setLeftKeyColor(keyIndex,constBands[dragPredefinedBandIndex]); // create left key
+                                    workCMS_Edit.insertKey(keyIndex, new class_Key(oldColor,undefined,startPos,true));
 
                                 }
 

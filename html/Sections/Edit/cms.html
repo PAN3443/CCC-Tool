@@ -6,11 +6,11 @@
 <div style="width:100%; height:8.5vh; background: var(--main-sepArea-bg);">
 
   <div style="display:flex; width:100%; height:4.5vh; border-bottom:0.2vh solid var(--main-sepArea-font-color); box-sizing: border-box;">
-    <div style=" display:flex; width:50%; border-right: 0.2vh solid var(--main-sepArea-font-color); box-sizing: border-box;">
+    <div style=" display:flex; width:33%; border-right: 0.2vh solid var(--main-sepArea-font-color); box-sizing: border-box;">
       <p style="margin:auto; margin-right:0.5vw; color: var(--main-sepArea-font-color);">Name:</p>
       <input id="id_EditPage_CMSName" type="text" id="id_EditPage_CMSName" style="margin:auto; margin-left:0.5vw;" name="cmsname" required placeholder="Please enter a name for your colormap" />
     </div>
-    <div style="display:flex; width:50%; ">
+    <div style="display:flex; width:34%;  border-right: 0.2vh solid var(--main-sepArea-font-color); box-sizing: border-box;">
       <p style="margin:auto; margin-right:0.5vw; color: var(--main-sepArea-font-color);">Interpolation: </p>
       <select id="id_editPage_InterpolationSelect" style="margin:auto; margin-left:0.5vw;" name="InterpolationSpaceList" onchange="changeColorspace()">
         <optgroup label="&#9786; Perceptually Uniform:">
@@ -26,11 +26,19 @@
         </optgroup>
       </select>
     </div>
+    <div style=" display:flex; width:33%;">
+      <p style="margin-top:auto; margin-bottom:auto; margin-left:auto; color: var(--main-sepArea-font-color);">NaN:</p>
+      <button id="id_EditPage_CMS_NaN_Color" class="class_EditPage_EditButton" type="button" name="button" title="NaN"></button>
+      <p style="margin-top:auto; margin-bottom:auto; color: var(--main-sepArea-font-color);">Above:</p>
+      <button id="id_EditPage_CMS_Above_Color" class="class_EditPage_EditButton" type="button" name="button" title="Above"></button>
+      <p style="margin-top:auto; margin-bottom:auto; color: var(--main-sepArea-font-color);">Below:</p>
+      <button id="id_EditPage_CMS_Below_Color" class="class_EditPage_EditButton" type="button" name="button" title="Below"></button>
+    </div>
   </div>
 
   <div style="display:flex; width:100%; height:4vh;">
 
-    <div style=" display:flex; width:60%; border-right: 0.2vh solid var(--main-sepArea-font-color); box-sizing: border-box; ">
+    <div style=" display:flex; width:100%; border-right: 0.2vh solid var(--main-sepArea-font-color); box-sizing: border-box; ">
       <button class="class_EditPage_EditButton" type="button" name="button" title="undo" onclick="undo()">&#8634;</button>
       <button class="class_EditPage_EditButton" type="button" name="button" title="redo" onclick="redo()">&#8635;</button>
       <button class="class_EditPage_EditButton" type="button" name="button" title="save" onclick="saveCMS()">&#9715;</button>
@@ -41,7 +49,9 @@
       <button class="class_EditPage_EditButton" type="button" name="button" title="clear" onclick="clearColormap()">&#9746;</button>
       <button class="class_EditPage_EditButton" type="button" name="button" title="scale" onclick="openScale()">&#8596;</button>
       <button class="class_EditPage_EditButton" type="button" name="button" title="reverse" onclick="reverseCMS()">&#8644;</button>
-      <button class="class_EditPage_EditButton" type="button" name="button" title="Burdock" onclick="changeLimitKeyBurLine()">&#9728;</button>
+      <button id="id_EditPage_AddKeyButton" class="class_EditPage_EditButton" type="button" name="button" title="add Key" onclick="changeAddKeyModus()">+</button>
+      <button id="id_EditPage_RemoveKeyButton" class="class_EditPage_EditButton" type="button" name="button" title="remove Key" onclick="changeRemoveKeyModus()">-</button>
+      <button class="class_EditPage_EditButton" type="button" name="button" title="Equal Key Intervals" onclick="editCMS_equalKeyIntervals()">|||</button>
       <button class="class_EditPage_EditButton" type="button" name="button" title="Color-Blindness" onclick="changeColorblindness()">&#128065;</button>
 
 
@@ -50,22 +60,17 @@
       <button class="class_EditPage_EditButton" type="button" name="button" title="export" onclick="openExportWindow()">&#8615;</button>
       <button class="class_EditPage_EditButton" type="button" name="button" title="MyDesigns" onclick="startLeaveEditPage()">&#9750;</button>
     </div>
-    <div style="display:flex; width:40%; ">
-      <p style="margin-top:auto; margin-bottom:auto; margin-left:auto; color: var(--main-sepArea-font-color);">NaN:</p>
-      <button id="id_EditPage_CMS_NaN_Color" class="class_EditPage_EditButton" type="button" name="button" title="NaN"></button>
-      <p style="margin-top:auto; margin-bottom:auto; color: var(--main-sepArea-font-color);">Above:</p>
-      <button id="id_EditPage_CMS_Above_Color" class="class_EditPage_EditButton" type="button" name="button" title="Above"></button>
-      <p style="margin-top:auto; margin-bottom:auto; color: var(--main-sepArea-font-color);">Below:</p>
-      <button id="id_EditPage_CMS_Below_Color" class="class_EditPage_EditButton" type="button" name="button" title="Below"></button>
-    </div>
   </div>
 
 </div>
 
-<div style="height:auto; width:100%; ">
+<div id="id_EditPage_CMSVisDiv" style="height:auto; width:100%; position: relative; margin:auto;">
 
-  <canvas id="id_EditPage_CMSVisCanvas" style="width:100%;"></canvas>
+  <div style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:100%; display:flex;">
+    <p id="id_EditPage_CMSVisDragDropLabel" style="margin:auto; font-size: 4vh; line-height:5vh;">Drop CMS-Elements Here</p>
+  </div>
 
+  <canvas id="id_EditPage_CMSVisCanvas" style="position: absolute; left: 0; top: 0; z-index: 1; height:100%; width:100%;"></canvas>
 
   <!--canvas id="id_EditPage_CMS_VIS_LinearKeys" class="classColormapCanvas" style="display:block; width:100%; height:2vh; padding-top: 0.5vh;"></canvas>
   <canvas id="id_EditPage_CMS_VIS_Lines1" class="classColormapCanvas" style="display:block; width:100%; height:0.5vh;"></canvas>

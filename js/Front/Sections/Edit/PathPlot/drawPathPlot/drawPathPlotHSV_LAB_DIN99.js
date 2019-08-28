@@ -14,6 +14,11 @@ function updateVPlotCanvasSize(id){
 
 function drawcolormap_hueSpace(calcBackground, drawInterpolationLine, doInitVplot) {
 
+  var tmpCanWorker = browserCanWorker;
+
+  if(useWorkerForPathplot==false)
+  browserCanWorker = false;
+
   pathplotFontColor = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');
 
   updateVPlotCanvasSize("id_EditPage_PathPlot_Canvas1_Div"); // we are using the div containing the canvas because of the offscreen worker we cant use the canvas object in the main thread
@@ -38,6 +43,9 @@ function drawcolormap_hueSpace(calcBackground, drawInterpolationLine, doInitVplo
 
       drawElements_HSV_LAB_DIN99(false);
   }
+
+  if(useWorkerForPathplot==false)
+  browserCanWorker=tmpCanWorker;
 
 }
 
@@ -347,7 +355,7 @@ function pathplot_WorkerDrawElements_And_InterpolationLine(drawInterpolationLine
     workerJSON['din99ABMax'] = din99ABMax;
     workerJSON['din99SPos'] =  din99SPos;
     workerJSON['din99EPos'] =  din99EPos;
-    workerJSON['intervalDelta'] = intervalDelta;
+    workerJSON['pathplotIntervalDelta'] = pathplotIntervalDelta;
     workerJSON['pathPlotResolution'] = pathPlotResolution;
     workerJSON['vPlotWidth'] = vPlotWidth;
     workerJSON['vPlotHeight'] = vPlotHeight;

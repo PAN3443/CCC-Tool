@@ -59,8 +59,8 @@ function cmsStructureOnEnter(event) {
               // ->const
 
               workCMS_Edit.clear();
-              workCMS_Edit.pushKey(new class_Key(undefined, undefined, 0, false));
-              workCMS_Edit.pushKey(new class_Key(constBands[dragPredefinedBandIndex], undefined, 1, false));
+              workCMS_Edit.pushKey(new class_Key(undefined, undefined, 0, true));
+              workCMS_Edit.pushKey(new class_Key(constBands[dragPredefinedBandIndex], undefined, 1, true));
       break;
 
       case 1:

@@ -151,7 +151,7 @@ function update_EditPageStyle(){
         document.getElementById("id_EditPage_TableBodyDiv").style.height="90vh";
 
 
-        document.getElementById("id_EditPage_CMSVisCanvas").style.height="86.5vh";
+        document.getElementById("id_EditPage_CMSVisDiv").style.height="86.5vh";
 
         /*document.getElementById("id_EditPage_CMS_VIS_LinearKeys").style.marginTop="5vh";
         document.getElementById("id_EditPage_CMS_VIS_LinearKeys").style.height="5vh";
@@ -178,7 +178,7 @@ function update_EditPageStyle(){
         document.getElementById("id_EditPage_CMSTable_Div").style.height="30vh";
         document.getElementById("id_EditPage_TableBodyDiv").style.height="25vh";
 
-        document.getElementById("id_EditPage_CMSVisCanvas").style.height="21.5vh";
+        document.getElementById("id_EditPage_CMSVisDiv").style.height="21.5vh";
 
         /*document.getElementById("id_EditPage_CMS_VIS_LinearKeys").style.marginTop="0.5vh";
         document.getElementById("id_EditPage_CMS_VIS_LinearKeys").style.height="2vh";

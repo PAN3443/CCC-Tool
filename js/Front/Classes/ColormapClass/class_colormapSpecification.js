@@ -350,6 +350,24 @@ class class_CMS {
   }
 
 
+  equalKeyIntervals(){
+
+
+    if(this.keyArray.length>2){
+
+      var startPos = this.keyArray[0].getRefPosition();
+      var fullDis = Math.abs(this.keyArray[this.keyArray.length-1].getRefPosition()-startPos);
+      var equalDis = fullDis/(this.keyArray.length-1);
+
+      for (var i = 1; i < this.keyArray.length-1; i++) {
+        var newPos = startPos+(i*equalDis);
+        this.keyArray[i].setRefPosition(newPos);
+      }
+    }
+
+  }
+
+
   setLeftKeyColor(index, color){
     this.keyArray[index].setLeftKeyColor(color);
   }
@@ -391,6 +409,23 @@ class class_CMS {
 
       this.keyArray.splice(index, 0,key);
 
+  }
+
+  addKey(key){
+    // find position
+    var index = undefined;
+    var ref = key.getRefPosition();
+
+    for (var i = 1; i < this.keyArray.length; i++) {
+      if(ref>this.keyArray[i-1].getRefPosition() && ref<this.keyArray[i].getRefPosition()){
+        index=i;
+        break;
+      }
+    }
+
+    if(index!=undefined){
+      this.keyArray.splice(index, 0,key);
+    }
   }
 
   pushKey(key){

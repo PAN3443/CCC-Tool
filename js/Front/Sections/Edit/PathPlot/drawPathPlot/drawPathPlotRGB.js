@@ -4,7 +4,10 @@
 
 function drawcolormap_RGBSpace(calcBackground, drawInterpolationLine) {
 
-  //pathPlotCanvasInit();
+  var tmpCanWorker = browserCanWorker;
+
+  if(useWorkerForPathplot==false)
+  browserCanWorker = false;
 
   pathplotFontColor = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');
 
@@ -17,8 +20,6 @@ function drawcolormap_RGBSpace(calcBackground, drawInterpolationLine) {
   }
 
 
-
-
     if(browserCanWorker){
       rgbWorkerDrawElements_And_InterpolationLine(drawInterpolationLine);
     }
@@ -29,7 +30,8 @@ function drawcolormap_RGBSpace(calcBackground, drawInterpolationLine) {
       rgbDrawElements(); // do3D true
     }
 
-
+    if(useWorkerForPathplot==false)
+    browserCanWorker = tmpCanWorker;
 
 }
 
@@ -116,7 +118,7 @@ function rgbWorkerDrawElements_And_InterpolationLine(drawInterpolationLine){
       workerJSON['message'] = "getData";
 
     workerJSON['drawInterpolationLine'] = drawInterpolationLine;
-    workerJSON['intervalDelta'] = intervalDelta;
+    workerJSON['pathplotIntervalDelta'] = pathplotIntervalDelta;
     workerJSON['pathPlotResolution'] = pathPlotResolution;
     workerJSON['vPlotWidth'] = undefined;
     workerJSON['mouseAboveKeyID'] = mouseAboveKeyID;

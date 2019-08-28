@@ -32,16 +32,24 @@ function drawEditCMSVIS(tmpCMS, markedKeysArray){
 
 
   var context = canvasObject.getContext("2d");
+
+  var strokeWidth = Math.min(Math.round(canvasObject.height*0.005),Math.round(canvasObject.width*0.005));
+  if(strokeWidth==0){
+    strokeWidth=1;
+  }
+  context.lineWidth = strokeWidth;
+
   context.strokeStyle = strokeColor;
   context.fillStyle = strokeColor;
   context.clearRect(0, 0, canvasObject.width, canvasObject.height);
 
   if(tmpCMS.getKeyLength()==0){
+    document.getElementById("id_EditPage_CMSVisDragDropLabel").style.visibility = "visible";
     context.setLineDash([5, 15]);
     context.strokeRect(x1, y1, limitedWidth, limitedHeight);
   }
   else{
-
+    document.getElementById("id_EditPage_CMSVisDragDropLabel").style.visibility = "hidden";
     editCMS_key_size = Math.min(Math.round(limitedWidth*0.1),Math.round(limitedHeight*0.1));
     editCMS_key_half = Math.round(editCMS_key_size/2.0);
     var lineHeight = editCMS_key_half;
@@ -59,10 +67,10 @@ function drawEditCMSVIS(tmpCMS, markedKeysArray){
 
     editCMS_linearKey_y1 = y1;
 
-    var burkey_y1 = cmsAreaY1;
-    var burKeyLine_Height = Math.round(cmsAreaHeight*0.1);
+    editCMS_burdock_y1 = cmsAreaY1;
+    editCMS_burdock_height = Math.round(cmsAreaHeight*0.1);
 
-    editCMS_linearCMS_y1 = burkey_y1+burKeyLine_Height;
+    editCMS_linearCMS_y1 = editCMS_burdock_y1+editCMS_burdock_height;
     editCMS_linearCMS_height = Math.round(cmsAreaHeight*0.35);
 
     var sectionLine_y1 = editCMS_linearCMS_y1+editCMS_linearCMS_height;
@@ -108,13 +116,14 @@ function drawEditCMSVIS(tmpCMS, markedKeysArray){
       context.putImageData(canvasData, 0, 0);
 
 
-      var sectionColor1 = getComputedStyle(document.documentElement).getPropertyValue('--main-sepArea-bg');
-      var sectionColor2 = getComputedStyle(document.documentElement).getPropertyValue('--menue-bg-color');
+      var sectionColor1 = getComputedStyle(document.documentElement).getPropertyValue('--main-bg-color');
+      var sectionColor2 = getComputedStyle(document.documentElement).getPropertyValue('--main-second-bg-color');
+      var nilBackground = getComputedStyle(document.documentElement).getPropertyValue('--main-second-bg-color');
       var selectedSectionColor = true;
       var lastSectionLinearPos = editCMS_cmsArea_x1;
       var lastSectionSketchPos = editCMS_cmsArea_x1;
 
-      context.fillRect(editCMS_cmsArea_x1,burkey_y1,editCMS_cmsArea_width,burKeyLine_Height); // for the burdock key line
+      context.fillRect(editCMS_cmsArea_x1,editCMS_burdock_y1,editCMS_cmsArea_width,editCMS_burdock_height); // for the burdock key line
 
       currentSktech_xPos = editCMS_cmsArea_x1;
       for (var i = 0; i < tmpCMS.getKeyLength(); i++) {
@@ -164,7 +173,7 @@ function drawEditCMSVIS(tmpCMS, markedKeysArray){
           if(i==tmpCMS.getKeyLength()-1 || i==0)
             burkey_width=editCMS_key_half;
 
-          context.fillRect(burkey_x1,burkey_y1,burkey_width,burKeyLine_Height); // for the burdock key line
+          context.fillRect(burkey_x1,editCMS_burdock_y1,burkey_width,editCMS_burdock_height); // for the burdock key line
           context.fillStyle = strokeColor;
 
         }
@@ -174,7 +183,7 @@ function drawEditCMSVIS(tmpCMS, markedKeysArray){
         /////////////////////////////////////////////
         context.beginPath();
         context.moveTo(linearKey_xPos,linearKeyLine_y1);
-        context.lineTo(linearKey_xPos,burkey_y1);
+        context.lineTo(linearKey_xPos,editCMS_burdock_y1);
         context.stroke();
 
         context.beginPath();
@@ -194,9 +203,9 @@ function drawEditCMSVIS(tmpCMS, markedKeysArray){
         switch (tmpCMS.getKeyType(i)) {
           case "nil key":
 
-            drawColorRect(context, keyRect_Linear_XPos, editCMS_linearKey_y1, editCMS_key_size, editCMS_key_size, new classColor_RGB(0.5,0.5,0.5), true);
+            drawColorRect(context, keyRect_Linear_XPos, editCMS_linearKey_y1, editCMS_key_size, editCMS_key_size, nilBackground, true);
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            drawColorRect(context, keyRect_Sketch_XPos, editCMS_sketchKey_y1, editCMS_key_size, editCMS_key_size, new classColor_RGB(0.5,0.5,0.5), true);
+            drawColorRect(context, keyRect_Sketch_XPos, editCMS_sketchKey_y1, editCMS_key_size, editCMS_key_size, nilBackground, true);
             break;
           case "twin key":
 
@@ -235,12 +244,12 @@ function drawEditCMSVIS(tmpCMS, markedKeysArray){
               var tmp_y1=Math.round(editCMS_linearKey_y1+editCMS_key_size / 2);
 
               drawColorRect(context, keyRect_Linear_XPos, tmp_y1, Math.round(editCMS_key_size / 2), Math.round(editCMS_key_size/2), tmpCMS.getLeftKeyColor(i,"rgb"), false);
-              drawColorRect(context, linearKey_xPos, tmp_y1, Math.round(editCMS_key_size / 2), Math.round(editCMS_key_size/2), new classColor_RGB(0.5,0.5,0.5), true);
+              drawColorRect(context, linearKey_xPos, tmp_y1, Math.round(editCMS_key_size / 2), Math.round(editCMS_key_size/2), nilBackground, true);
 
               /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
               drawColorRect(context, keyRect_Sketch_XPos, editCMS_sketchKey_y1, Math.round(editCMS_key_size / 2), Math.round(editCMS_key_size/2), tmpCMS.getLeftKeyColor(i,"rgb"), false);
-              drawColorRect(context, currentSktech_xPos, editCMS_sketchKey_y1, Math.round(editCMS_key_size / 2), Math.round(editCMS_key_size/2), new classColor_RGB(0.5,0.5,0.5), true);
+              drawColorRect(context, currentSktech_xPos, editCMS_sketchKey_y1, Math.round(editCMS_key_size / 2), Math.round(editCMS_key_size/2), nilBackground, true);
 
               tmp_y1=Math.round(editCMS_sketchKey_y1+editCMS_key_size / 2);
 
@@ -255,10 +264,10 @@ function drawEditCMSVIS(tmpCMS, markedKeysArray){
             break;
           case "right key":
 
-            drawColorRect(context, keyRect_Linear_XPos, editCMS_linearKey_y1, Math.round(editCMS_key_size / 2), editCMS_key_size, new classColor_RGB(0.5,0.5,0.5), true);
+            drawColorRect(context, keyRect_Linear_XPos, editCMS_linearKey_y1, Math.round(editCMS_key_size / 2), editCMS_key_size, nilBackground, true);
             drawColorRect(context, linearKey_xPos, editCMS_linearKey_y1, Math.round(editCMS_key_size / 2), editCMS_key_size, tmpCMS.getRightKeyColor(i,"rgb"), false);
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            drawColorRect(context, keyRect_Sketch_XPos, editCMS_sketchKey_y1, Math.round(editCMS_key_size / 2), editCMS_key_size, new classColor_RGB(0.5,0.5,0.5), true);
+            drawColorRect(context, keyRect_Sketch_XPos, editCMS_sketchKey_y1, Math.round(editCMS_key_size / 2), editCMS_key_size, nilBackground, true);
             drawColorRect(context, currentSktech_xPos, editCMS_sketchKey_y1, Math.round(editCMS_key_size / 2), editCMS_key_size, tmpCMS.getRightKeyColor(i,"rgb"), false);
 
             break;
@@ -289,7 +298,7 @@ function drawEditCMSVIS(tmpCMS, markedKeysArray){
       context.strokeRect(editCMS_cmsArea_x1,editCMS_linearCMS_y1,editCMS_cmsArea_width,editCMS_linearCMS_height);
       context.strokeRect(editCMS_cmsArea_x1,editCMS_sketchCMS_y1,editCMS_cmsArea_width,editCMS_sketchCMS_height);
       context.strokeRect(editCMS_cmsArea_x1,sectionLine_y1,editCMS_cmsArea_width,sectionLine_Height);
-      context.strokeRect(editCMS_cmsArea_x1,burkey_y1,editCMS_cmsArea_width,burKeyLine_Height);
+      context.strokeRect(editCMS_cmsArea_x1,editCMS_burdock_y1,editCMS_cmsArea_width,editCMS_burdock_height);
 
     } // else number of keys !=0
 
@@ -299,28 +308,26 @@ function drawEditCMSVIS(tmpCMS, markedKeysArray){
 
 function drawColorRect(contex, colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth, rgbColor, isGrey) {
 
-  var strokeWidth =1;
-  var lineColor =  getComputedStyle(document.documentElement).getPropertyValue('--menue-bg-color');
-
-  if(doColorblindnessSim){
-    var tmpLMS = rgbColor.calcLMSColor();
-    rgbColor = tmpLMS.calcColorBlindRGBColor();
-  }
-
-  contex.fillStyle = rgbColor.getRGBString();
-  contex.fillRect(colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth);
 
   if (isGrey == true) {
+    contex.fillStyle = rgbColor;
+    contex.fillRect(colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth);
+
     contex.beginPath();
     contex.moveTo(colorrectXPos, colorrectYPos + colorrectHeigth);
     contex.lineTo(colorrectXPos + colorrectWitdh, colorrectYPos);
-    contex.strokeStyle = lineColor;
-    contex.lineWidth = strokeWidth;
     contex.stroke();
   }
+  else {
+    if(doColorblindnessSim){
+      var tmpLMS = rgbColor.calcLMSColor();
+      rgbColor = tmpLMS.calcColorBlindRGBColor();
+    }
 
-  contex.lineWidth = strokeWidth;
-  contex.strokeStyle = lineColor;
+    contex.fillStyle = rgbColor.getRGBString();
+    contex.fillRect(colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth);
+  }
+
   contex.strokeRect(colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth);
 
 }

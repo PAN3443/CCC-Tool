@@ -116,7 +116,7 @@ function changeKeyBurStatus(){
   else{
     globalCMS1.setBur(selectedKey,false);
   }
-  drawKeyBursLine("id_EditPage_CMS_VIS_KeyBurs",globalCMS1);
+  drawEditCMSVIS(globalCMS1,[]);
   saveCreateProcess();
 }
 
@@ -389,27 +389,22 @@ function changeKeyType(event){
     case "id_editPage_KeyTypeTwin":
       if(globalCMS1.getKeyType(selectedKey)==="dual key" || globalCMS1.getKeyType(selectedKey)==="left key"){
 
-        var tmpColor = globalCMS1.getLeftKeyColor(selectedKey+1,"lab");
+        var tmpColor = globalCMS1.getLeftKeyColor(selectedKey,"hsv");
 
-
-        if(tmpColor.get1Value()!=0||tmpColor.get2Value()!=0||tmpColor.get3Value()!=0)
+        if(tmpColor.get3Value()>0.5)
         {
-          tmpColor.set1Value(tmpColor.get1Value()*0.75);
-          tmpColor.set2Value(tmpColor.get2Value()*0.75);
-          tmpColor.set3Value(tmpColor.get3Value()*0.75);
+          tmpColor.set3Value(0.25);
         }
         else{
-          tmpColor.set1Value(1);
-          tmpColor.set2Value(1);
-          tmpColor.set3Value(1);
+          tmpColor.set3Value(0.75);
         }
         globalCMS1.setRightKeyColor(selectedKey,tmpColor);
 
-        var tmpColor2;
+        /*var tmpColor2;
         if(globalCMS1.getKeyType(selectedKey-1)==="left key" || globalCMS1.getKeyType(selectedKey-1)==="nil key")
-          tmpColor2 = globalCMS1.getLeftKeyColor(selectedKey,"lab");
+          tmpColor2 = globalCMS1.getLeftKeyColor(selectedKey,"hsv");
         else{
-          tmpColor2 = globalCMS1.getRightKeyColor(selectedKey-1,"lab");
+          tmpColor2 = globalCMS1.getRightKeyColor(selectedKey-1,"hsv");
 
           if(tmpColor2.get1Value()!=0||tmpColor2.get2Value()!=0||tmpColor2.get3Value()!=0)
           {
@@ -423,8 +418,7 @@ function changeKeyType(event){
             tmpColor2.set3Value(1);
           }
         }
-
-        globalCMS1.setLeftKeyColor(selectedKey,tmpColor2);
+        globalCMS1.setLeftKeyColor(selectedKey,tmpColor2);*/
 
       }
       break;
@@ -436,21 +430,17 @@ function changeKeyType(event){
       break;
     case "id_editPage_KeyTypeRight":
       if(globalCMS1.getKeyType(selectedKey)==="nil key"){
-        var tmpColor = globalCMS1.getLeftKeyColor(selectedKey+1,"lab");
+        var tmpColor = globalCMS1.getLeftKeyColor(selectedKey+1,"hsv");
 
-        if(tmpColor.get1Value()!=0||tmpColor.get2Value()!=0||tmpColor.get3Value()!=0)
+        if(tmpColor.get3Value()>0.5)
         {
-          tmpColor.set1Value(tmpColor.get1Value()*0.5);
-          tmpColor.set2Value(tmpColor.get2Value()*0.5);
-          tmpColor.set3Value(tmpColor.get3Value()*0.5);
+          tmpColor.set3Value(0.25);
         }
         else{
-          tmpColor.set1Value(1);
-          tmpColor.set2Value(1);
-          tmpColor.set3Value(1);
+          tmpColor.set3Value(0.75);
         }
         globalCMS1.setRightKeyColor(selectedKey,tmpColor);
-        globalCMS1.setLeftKeyColor(selectedKey,undefined);
+        //globalCMS1.setLeftKeyColor(selectedKey,undefined);
       }
 
       break;
@@ -458,35 +448,10 @@ function changeKeyType(event){
     // dual key+
         if(globalCMS1.getKeyType(selectedKey)==="twin key" || globalCMS1.getKeyType(selectedKey)==="left key"){
 
-            /*var tmpColor1 = globalCMS1.getRightKeyColor(selectedKey-1,"lab");
-            var tmpColor2 = globalCMS1.getLeftKeyColor(selectedKey-2,"lab");
-
-
-
-            var newlightness;
-            if(tmpColor1==undefined){
-              var ratio = (globalCMS1.getRefPosition(selectedKey)-globalCMS1.getRefPosition(selectedKey-1))/(globalCMS1.getRefPosition(selectedKey+1)-globalCMS1.getRefPosition(selectedKey-1));
-            }
-            else{
-              if(mpColor.get2Value()!=0)
-            }*/
-
-            var tmpColor = globalCMS1.getLeftKeyColor(selectedKey,"lab");
-
-            if(tmpColor.get1Value()!=0||tmpColor.get2Value()!=0||tmpColor.get3Value()!=0)
-            {
-              tmpColor.set1Value(tmpColor.get1Value()*0.5);
-              tmpColor.set2Value(tmpColor.get2Value()*0.5);
-              tmpColor.set3Value(tmpColor.get3Value()*0.5);
-            }
-            else{
-              tmpColor.set1Value(1);
-              tmpColor.set2Value(1);
-              tmpColor.set3Value(1);
-            }
+            var tmpColor = globalCMS1.getLeftKeyColor(selectedKey,"lab"); // here lab so the key does not have to convert
 
             globalCMS1.setRightKeyColor(selectedKey,tmpColor);
-            globalCMS1.setLeftKeyColor(selectedKey,tmpColor);
+            //globalCMS1.setLeftKeyColor(selectedKey,tmpColor);
 
 
         }

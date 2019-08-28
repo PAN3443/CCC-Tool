@@ -41,7 +41,7 @@ function updateEditPage(){
 
   globalCMS1JSON=inform_Worker_GlobalCMS();
 
-  updateEditColormapVis();
+  drawEditCMSVIS(globalCMS1,[]);
 
   fillTable();
 
@@ -62,115 +62,6 @@ function updateEditPage(){
 
 
 }
-
-function updateEditColormapVis(){
-
-  drawEditCMSVIS(globalCMS1,[]);
-
-  /*return;
-
-  /*drawBandSketch(globalCMS1,"id_EditPage_CMS_VIS_ColormapSketch", false, -1);
-
-  var context = document.getElementById("id_EditPage_CMS_VIS_ColormapLinear").getContext('2d');
-  context.clearRect(0, 0, document.getElementById("id_EditPage_CMS_VIS_ColormapLinear").width, document.getElementById("id_EditPage_CMS_VIS_ColormapLinear").height);
-
-  if(globalCMS1.getKeyLength() != 0){
-
-
-        document.getElementById("id_EditPage_CMS_VIS_SketchKeyNumbers").style.visibility="visible";
-        document.getElementById("id_EditPage_CMS_VIS_LinearKeys").style.visibility="visible";
-        document.getElementById("id_EditPage_CMS_VIS_KeyBurs").style.visibility="visible";
-        document.getElementById("id_EditPage_CMS_VIS_SketchKeys").style.visibility="visible";
-        document.getElementById("id_EditPage_CMS_VIS_Lines1").style.visibility="visible";
-        document.getElementById("id_EditPage_CMS_VIS_Lines2").style.visibility="visible";
-        document.getElementById("id_EditPage_CMS_VIS_Lines3").style.visibility="visible";
-
-
-        var scaleButton = document.getElementById("id_actionMenu_scaleButton");
-        if (scaleButton.classList.contains('dropdownNotActiveMenuButton'))
-        scaleButton.classList.remove('dropdownNotActiveMenuButton');
-
-        if (!scaleButton.classList.contains('dropdownMenuButton'))
-        scaleButton.classList.toggle("dropdownMenuButton");
-
-        var exportButton = document.getElementById("id_actionMenu_exportButton");
-        if (exportButton.classList.contains('dropdownNotActiveMenuButton'))
-        exportButton.classList.remove('dropdownNotActiveMenuButton');
-
-        if (!exportButton.classList.contains('dropdownMenuButton'))
-        exportButton.classList.toggle("dropdownMenuButton");
-
-        var clearButton = document.getElementById("id_actionMenu_clearButton");
-        if (clearButton.classList.contains('dropdownNotActiveMenuButton'))
-        clearButton.classList.remove('dropdownNotActiveMenuButton');
-
-        if (!clearButton.classList.contains('dropdownMenuButton'))
-        clearButton.classList.toggle("dropdownMenuButton");
-
-
-        if(globalCMS1.getProbeSetLength()!=0 && document.getElementById("id_EditPage_DivProbeSets").style.display!="none"){
-
-          var tmpCMS = globalCMS1.getProbeSet(document.getElementById("id_selectProbeSetList").selectedIndex).generateProbeCMS(globalCMS1);
-
-          drawCanvasColormap("id_EditPage_ProbePreview", tmpCMS);
-
-        }
-
-        drawCanvasColormap("id_EditPage_CMS_VIS_ColormapLinear", globalCMS1);
-        drawKeys("id_EditPage_CMS_VIS_LinearKeys",  globalCMS1);
-        drawSketchKeys("id_EditPage_CMS_VIS_SketchKeys", globalCMS1);
-        drawLines("id_EditPage_CMS_VIS_Lines1",true, true,  globalCMS1);
-        drawLines("id_EditPage_CMS_VIS_Lines2",false, false,  globalCMS1);
-        drawKeyNumber("id_EditPage_CMS_VIS_SketchKeyNumbers", globalCMS1);
-        drawKeyBursLine("id_EditPage_CMS_VIS_KeyBurs",globalCMS1);
-
-        document.getElementById("id_EditPage_CMS_VIS_Label1").innerHTML = globalCMS1.getRefPosition(0);
-        document.getElementById("id_EditPage_CMS_VIS_Label2").innerHTML = globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1);
-
-
-
-
-  }
-  else{
-
-    document.getElementById("id_EditPage_CMS_VIS_SketchKeyNumbers").style.visibility="hidden";
-    document.getElementById("id_EditPage_CMS_VIS_LinearKeys").style.visibility="hidden";
-    document.getElementById("id_EditPage_CMS_VIS_KeyBurs").style.visibility="hidden";
-    document.getElementById("id_EditPage_CMS_VIS_SketchKeys").style.visibility="hidden";
-    document.getElementById("id_EditPage_CMS_VIS_Lines1").style.visibility="hidden";
-      document.getElementById("id_EditPage_CMS_VIS_Lines2").style.visibility="hidden";
-      document.getElementById("id_EditPage_CMS_VIS_Lines3").style.visibility="hidden";
-
-
-        var scaleButton = document.getElementById("id_actionMenu_scaleButton");
-        if (scaleButton.classList.contains('dropdownMenuButton'))
-        scaleButton.classList.remove('dropdownMenuButton');
-
-        if (!scaleButton.classList.contains('dropdownNotActiveMenuButton'))
-        scaleButton.classList.toggle("dropdownNotActiveMenuButton");
-
-        var exportButton = document.getElementById("id_actionMenu_exportButton");
-        if (exportButton.classList.contains('dropdownMenuButton'))
-        exportButton.classList.remove('dropdownMenuButton');
-
-        if (!exportButton.classList.contains('dropdownNotActiveMenuButton'))
-        exportButton.classList.toggle("dropdownNotActiveMenuButton");
-
-        var clearButton = document.getElementById("id_actionMenu_clearButton");
-        if (clearButton.classList.contains('dropdownMenuButton'))
-        clearButton.classList.remove('dropdownMenuButton');
-
-        if (!clearButton.classList.contains('dropdownNotActiveMenuButton'))
-        clearButton.classList.toggle("dropdownNotActiveMenuButton");
-
-
-        document.getElementById("id_EditPage_CMS_VIS_Label1").innerHTML = "";
-        document.getElementById("id_EditPage_CMS_VIS_Label2").innerHTML = "";
-  }*/
-
-
-}
-
 
 function reverseCMS(){
   globalCMS1.calcReverse();

@@ -65,7 +65,7 @@ function setToolTheme(theme){
 
   if (document.getElementById("id_EditPage").style.display != "none"){
 
-    updateEditColormapVis();
+    drawEditCMSVIS(globalCMS1,[]);
 
      if(document.getElementById("id_EditPage_Edit_Path").style.display != "none") {
       switch (pathColorspace) {

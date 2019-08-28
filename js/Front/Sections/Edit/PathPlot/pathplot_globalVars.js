@@ -38,3 +38,6 @@ var plotwidth = vPlotxEnd - vPlotxStart;
 
 
 var pathplotFontColor = "rgb(10, 10, 10)";
+
+var useWorkerForPathplot = false;
+var pathplotIntervalDelta = 5;
