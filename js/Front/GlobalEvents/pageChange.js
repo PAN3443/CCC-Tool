@@ -89,9 +89,17 @@ function showTestPage(){
 
 function showMyDesignsPage(){
 
-  if(doColorblindnessSim){
+  if(doColorblindnessSim)
     changeColorblindness();
-  }
+
+  if(editPage_optimizationMode)
+    changeOpimizationMode();
+
+  if(editCMS_RemoveKeyModus)
+    changeRemoveKeyModus();
+
+  if(editCMS_AddKeyModus)
+    changeAddKeyModus();
 
   document.getElementById("footerDiv").style.display="none";
   document.getElementById("id_TestingPage").style.display="none";

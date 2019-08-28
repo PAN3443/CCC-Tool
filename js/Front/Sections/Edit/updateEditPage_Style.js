@@ -4,12 +4,12 @@
 
 function updateAddStructureStatus(){
 
-  if (document.getElementById("id_EditPage_Add_Structures").style.display == "none") {
-    document.getElementById("id_EditPage_Add_Structures").style.display = "block";
+  if (document.getElementById("id_EditPage_Add_Structures_Optimization").style.display == "none") {
+    document.getElementById("id_EditPage_Add_Structures_Optimization").style.display = "block";
     document.getElementById("id_dropDownMenue_StructureWindow_Label").innerHTML="&#9673; Structure Window";
   }
   else{
-    document.getElementById("id_EditPage_Add_Structures").style.display = "none";
+    document.getElementById("id_EditPage_Add_Structures_Optimization").style.display = "none";
     document.getElementById("id_dropDownMenue_StructureWindow_Label").innerHTML="&#9675; Structure Window";
   }
 
@@ -73,7 +73,7 @@ function updateTableStatus(){
 function showEditMode(){
   document.getElementById("id_EditPage_Table_Div").style.display = "none";
   document.getElementById("id_dropDownMenue_TableWindow_Label").innerHTML="&#9675; Table Window";
-  document.getElementById("id_EditPage_Add_Structures").style.display = "block";
+  document.getElementById("id_EditPage_Add_Structures_Optimization").style.display = "block";
   document.getElementById("id_dropDownMenue_StructureWindow_Label").innerHTML="&#9673; Structure Window";
   document.getElementById("id_editPage_EditKeyPathPlotDiv").style.display = "block";
   document.getElementById("id_dropDownMenue_EditWindow_Label").innerHTML="&#9673; Edit Window";
@@ -85,7 +85,7 @@ function showEditMode(){
 function showAnalyzeMode(){
   document.getElementById("id_EditPage_Table_Div").style.display = "none";
   document.getElementById("id_dropDownMenue_TableWindow_Label").innerHTML="&#9675; Table Window";
-  document.getElementById("id_EditPage_Add_Structures").style.display = "none";
+  document.getElementById("id_EditPage_Add_Structures_Optimization").style.display = "none";
   document.getElementById("id_dropDownMenue_StructureWindow_Label").innerHTML="&#9675; Structure Window";
   document.getElementById("id_editPage_EditKeyPathPlotDiv").style.display = "none";
   document.getElementById("id_dropDownMenue_EditWindow_Label").innerHTML="&#9675; Edit Window";
@@ -101,7 +101,7 @@ function showAnalyzeMode(){
 function showMappingMode(){
   document.getElementById("id_EditPage_Table_Div").style.display = "none";
   document.getElementById("id_dropDownMenue_TableWindow_Label").innerHTML="&#9675; Table Window";
-  document.getElementById("id_EditPage_Add_Structures").style.display = "none";
+  document.getElementById("id_EditPage_Add_Structures_Optimization").style.display = "none";
   document.getElementById("id_dropDownMenue_StructureWindow_Label").innerHTML="&#9675; Structure Window";
   document.getElementById("id_editPage_EditKeyPathPlotDiv").style.display = "none";
   document.getElementById("id_dropDownMenue_EditWindow_Label").innerHTML="&#9675; Edit Window";
@@ -118,7 +118,7 @@ function showMappingMode(){
 
 function update_EditPageStyle(){
 
-    if (document.getElementById("id_EditPage_Add_Structures").style.display == "none"){
+    if (document.getElementById("id_EditPage_Add_Structures_Optimization").style.display == "none"){
         document.getElementById("id_EditPage_CMSEditAnalzyeMapping_Div").style.width="100%";
 
         if (document.getElementById("id_EditPage_Table_Div").style.display == "none"){
@@ -202,7 +202,7 @@ function update_EditPageStyle(){
         if (document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.display == "none"){
 
 
-            if(document.getElementById("id_EditPage_Add_Structures").style.display == "none"){
+            if(document.getElementById("id_EditPage_Add_Structures_Optimization").style.display == "none"){
               document.getElementById("id_editPage_EditKeyPathPlotDiv").style.width="100vw";
 
               document.getElementById("id_EditPage_Edit_Keys_Div1").style.width="33vw";
@@ -269,7 +269,7 @@ function update_EditPageStyle(){
         }
         else{
 
-          if(document.getElementById("id_EditPage_Add_Structures").style.display == "none"){
+          if(document.getElementById("id_EditPage_Add_Structures_Optimization").style.display == "none"){
             document.getElementById("id_editPage_EditKeyPathPlotDiv").style.width="30vw";
 
             document.getElementById("id_EditPage_Edit_Keys_Div1").style.width="30vw";
@@ -335,7 +335,7 @@ function update_EditPageStyle(){
             // style analyze mapping probe div without edit key div
             document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.width="35vw";
 
-            if(document.getElementById("id_EditPage_Add_Structures").style.display == "none"){
+            if(document.getElementById("id_EditPage_Add_Structures_Optimization").style.display == "none"){
               document.getElementById("id_EditPage_Analyze_EmptyDiv").style.width="85vw";
               document.getElementById("id_EditPage_AnalyzePlot_Container").style.width="85vw";
             }
@@ -349,7 +349,7 @@ function update_EditPageStyle(){
             document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.width="70%";
 
             // style analyze mapping probe div with edit key div
-            if(document.getElementById("id_EditPage_Add_Structures").style.display == "none"){
+            if(document.getElementById("id_EditPage_Add_Structures_Optimization").style.display == "none"){
               document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.width="35vw";
               document.getElementById("id_EditPage_Analyze_EmptyDiv").style.width="56vw";
               document.getElementById("id_EditPage_AnalyzePlot_Container").style.width="56vw";

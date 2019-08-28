@@ -29,7 +29,7 @@ function changeColorspace(){
 
   globalCMS1JSON=inform_Worker_GlobalCMS();
 
-  if(document.getElementById("id_EditPage_Add_Structures").style.display!="none"){
+  if(document.getElementById("id_EditPage_Add_Structures_Optimization").style.display!="none"){
     updatePredefined();
   }
 

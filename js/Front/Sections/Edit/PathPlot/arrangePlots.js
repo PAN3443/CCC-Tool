@@ -75,7 +75,7 @@ document.getElementById("id_editPage_PathPlotSpaces_LCH").classList.add("class_T
 
       var tmpWidth = 12;
 
-      if(document.getElementById("id_EditPage_Add_Structures").style.display == "none"){
+      if(document.getElementById("id_EditPage_Add_Structures_Optimization").style.display == "none"){
         tmpWidth = 15;
       }
 
@@ -106,7 +106,7 @@ document.getElementById("id_editPage_PathPlotSpaces_LCH").classList.add("class_T
 
       var tmpWidth = 20;
 
-      if(document.getElementById("id_EditPage_Add_Structures").style.display == "none"){
+      if(document.getElementById("id_EditPage_Add_Structures_Optimization").style.display == "none"){
         tmpWidth = 25;
       }
 
@@ -237,7 +237,7 @@ document.getElementById("id_editPage_PathPlotSpaces_LCH").classList.add("class_T
 
         canvasDim="24vw";
         var canvasDimHalf="12vw";
-        if(document.getElementById("id_EditPage_Add_Structures").style.display == "none"){
+        if(document.getElementById("id_EditPage_Add_Structures_Optimization").style.display == "none"){
           canvasDim="30vw";
           canvasDimHalf="15vw";
         }
@@ -279,7 +279,7 @@ document.getElementById("id_editPage_PathPlotSpaces_LCH").classList.add("class_T
         canvasDim="20vw"
         var canvasDim3="40vw"
 
-        if(document.getElementById("id_EditPage_Add_Structures").style.display == "none"){
+        if(document.getElementById("id_EditPage_Add_Structures_Optimization").style.display == "none"){
           canvasDim="25vw"
           canvasDim3="50vw"
         }

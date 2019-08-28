@@ -68,7 +68,7 @@ function updateEditPage_ColorBlindness() {
   document.getElementById("id_EditPage_CMS_Above_Color").style.background = tmpColor.getRGBString();
 
 
-  if (document.getElementById("id_EditPage_Add_Structures").style.display != "none") {
+  if (document.getElementById("id_EditPage_Add_Structures_Optimization").style.display != "none") {
 
     if (document.getElementById("id_EditPage_Predefined_Div").style.display != "none") {
       drawCanvasColormap("id_EditPage_Preview_Multiband", cmsFourBandColormaps[0]);
