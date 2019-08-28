@@ -168,7 +168,7 @@ var cccTool_Themes = [
   ["--menue-navi-negative-color","rgb(255,153,153)"], // --general-warning-color"],
   ["--menue-navi-positive-color","rgb(255,255,153)"],
 
-  ["--main-popUpWindow-bg-color","rgba(0, 13, 51,0.5)"],
+  ["--main-popUpWindow-bg-color","rgba(220, 220, 220, 0.75)"],
   ["--main-popUpWindow-labelbg-color","rgb(0, 33, 71)"], // --menue-bg-color"],
   ["--main-popUpWindow-labelfont-color","rgba(220, 220, 220, 0.75)"],
 
