@@ -40,7 +40,7 @@ var cccTool_Themes = [
   ["--menue-navi-negative-color","var(--general-warning-color)"],
   ["--menue-navi-positive-color","rgb(153,204,255"],
 
-  ["--main-popUpWindow-bg-color","rgba(0, 0, 0,0.75"],
+  ["--main-popUpWindow-bg-color","rgba(220, 220, 220, 0.75)"],
   ["--main-popUpWindow-labelbg-color","var(--menue-bg-color)"],
   ["--main-popUpWindow-labelfont-color"," rgb(153,204,255"],
 
@@ -170,7 +170,7 @@ var cccTool_Themes = [
 
   ["--main-popUpWindow-bg-color","rgba(0, 13, 51,0.5)"],
   ["--main-popUpWindow-labelbg-color","rgb(0, 33, 71)"], // --menue-bg-color"],
-  ["--main-popUpWindow-labelfont-color"," rgb(255,255,255)"],
+  ["--main-popUpWindow-labelfont-color","rgba(220, 220, 220, 0.75)"],
 
   /**************************************
   **** General
@@ -296,7 +296,7 @@ var cccTool_Themes = [
 
 
 
-  ["--main-popUpWindow-bg-color","rgba(255, 255, 255,0.3)"],
+  ["--main-popUpWindow-bg-color","rgba(157,163,178, 0.6)"],
   ["--main-popUpWindow-labelbg-color","rgb(12, 16, 23)"], //-menue-bg-color
   ["--main-popUpWindow-labelfont-color","rgb(218,146,77)"],
 

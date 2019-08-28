@@ -44,7 +44,7 @@
   --menue-navi-negative-color: var(--general-warning-color);
   --menue-navi-positive-color: rgb(153,204,255);
 
-  --main-popUpWindow-bg-color: rgba(0, 0, 0,0.75);
+  --main-popUpWindow-bg-color: rgba(220, 220, 220, 0.75);
   --main-popUpWindow-labelbg-color: var(--menue-bg-color);
   --main-popUpWindow-labelfont-color:  rgb(153,204,255);
 
