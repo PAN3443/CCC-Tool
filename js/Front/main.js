@@ -57,13 +57,13 @@ window.onload = function() {
   else
   browserCanWorker=true;
 
-  if (typeof OffscreenCanvas === 'function'){
+  /*if (typeof OffscreenCanvas === 'function'){
     browserCanOffscreenCanvas = true;
   }
   else{
     browserCanOffscreenCanvas = false;
     attentionText += "Attention".bold()+": Your browser does not support OffscreenCanvas. Therefore the performance of the CCC-Tool can be impeded.\n"
-  }
+  }*/
 
   initWorker();
 

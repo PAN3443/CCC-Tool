@@ -71,6 +71,10 @@ function updateTableStatus(){
 }
 
 function showEditMode(){
+
+  if(editPage_optimizationMode)
+    return;
+
   document.getElementById("id_EditPage_Table_Div").style.display = "none";
   document.getElementById("id_dropDownMenue_TableWindow_Label").innerHTML="&#9675; Table Window";
   document.getElementById("id_EditPage_Add_Structures_Optimization").style.display = "block";
@@ -83,6 +87,10 @@ function showEditMode(){
 }
 
 function showAnalyzeMode(){
+
+  if(editPage_optimizationMode)
+    return;
+
   document.getElementById("id_EditPage_Table_Div").style.display = "none";
   document.getElementById("id_dropDownMenue_TableWindow_Label").innerHTML="&#9675; Table Window";
   document.getElementById("id_EditPage_Add_Structures_Optimization").style.display = "none";
@@ -99,6 +107,10 @@ function showAnalyzeMode(){
 }
 
 function showMappingMode(){
+
+  if(editPage_optimizationMode)
+    return;
+
   document.getElementById("id_EditPage_Table_Div").style.display = "none";
   document.getElementById("id_dropDownMenue_TableWindow_Label").innerHTML="&#9675; Table Window";
   document.getElementById("id_EditPage_Add_Structures_Optimization").style.display = "none";
@@ -333,7 +345,10 @@ function update_EditPageStyle(){
             document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.width="100%";
 
             // style analyze mapping probe div without edit key div
-            document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.width="35vw";
+            document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.width = "40vw";
+            document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.maxWidth = "50vh";
+            document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.height = "50vh";
+            document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.maxHeight= "40vw";
 
             if(document.getElementById("id_EditPage_Add_Structures_Optimization").style.display == "none"){
               document.getElementById("id_EditPage_Analyze_EmptyDiv").style.width="85vw";
@@ -350,12 +365,18 @@ function update_EditPageStyle(){
 
             // style analyze mapping probe div with edit key div
             if(document.getElementById("id_EditPage_Add_Structures_Optimization").style.display == "none"){
-              document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.width="35vw";
+              document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.width = "35vw";
+              document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.maxWidth = "50vh";
+              document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.height = "50vh";
+              document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.maxHeight= "35vw";
               document.getElementById("id_EditPage_Analyze_EmptyDiv").style.width="56vw";
               document.getElementById("id_EditPage_AnalyzePlot_Container").style.width="56vw";
             }
             else {
-              document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.width="20vw";
+              document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.width = "20vw";
+              document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.maxWidth = "50vh";
+              document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.height = "50vh";
+              document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.maxHeight= "20vw";
               document.getElementById("id_EditPage_Analyze_EmptyDiv").style.width="41vw";
               document.getElementById("id_EditPage_AnalyzePlot_Container").style.width="41vw";
             }

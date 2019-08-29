@@ -4,12 +4,12 @@
 --------------------------------------------------------
 -->
 
-<div class="row" style="width:100%;">
+<div id="id_EditPage_AnalyseContentDiv" class="row" style="width:100%;">
 
-  <div style="width:15vw; border-right: 0.1vh solid grey; height:100%; background: var(--main-bg-color);">
+  <div id="id_EditPage_AnalyseContentDiv_1" style="width:10vw; border-right: 0.1vh solid grey; height:100%; background: var(--main-bg-color);">
 
-    <p style="margin-top:2vh; margin-bottom:1vh;"> Select Plot:</p>
-    <select id="id_EditPage_SelectAnalyzePlot" style="margin-bottom: auto; width:80%; margin-left:10%; margin-top:0.5vh;">
+    <p  id="id_EditPage_AnalyseContentDiv_1_Obj1" style="margin-top:2vh; margin-left:1vw; margin-bottom:1vh;"> Select Plot:</p>
+    <select id="id_EditPage_SelectAnalyzePlot" style="margin-bottom: auto; max-width:8vw; min-width:8vw; margin-left:1vw; margin-top:0.5vh;">
      <option value=" Interpolation Colorspace" >Interpolation Colorspace</option>
      <option value="Band Speed" >Band Speed</option>
      <option value="LocalSpeed" >Local Speed</option>
@@ -17,13 +17,13 @@
      <option value="Order" >Order</option>
     </select>
 
-    <button class="class_generalbutton" onclick="updateAnalyze()" type="button" name="button" style="width:80%; margin-left:10%; margin-top:2vh;">Update</button>
-    <p style="width:80%; margin-left:10%;">(Info: If you have deactivated the automatical calculation of the analyze plots, you can update the plots manually by this button.)</p>
+    <!--button class="class_generalbutton" onclick="updateAnalyze()" type="button" name="button" style="width:80%; margin-left:10%; margin-top:2vh;">Update</button>
+    <p style="width:80%; margin-left:10%;">(Info: If you have deactivated the automatical calculation of the analyze plots, you can update the plots manually by this button.)</p-->
   </div>
 
 
 
-  <div style="height:100%; background: var(--main-second-bg-color);">
+  <div id="id_EditPage_AnalyseContentDiv_2" style="height:100%; width:100%; background: var(--main-second-bg-color);">
     <div id="id_EditPage_Analyze_EmptyDiv" class=" class_EditDiv_SubDiv" style="display:none; width:41vw; height:100%; ">
 
       <p style="margin:auto; font-weight:bold;">The CMS is Empty. <br> No analysis is possible.</p>
@@ -35,7 +35,7 @@
 
 
         <div style=" display:flex; margin:auto; width:100%; border-top:0.2 solid grey; border-bottom:0.2 solid grey; ">
-          <div style="margin-right:1vw; margin-left: auto;">
+          <div style="margin: auto;">
             <p id="id_editPage_OrderAxisLabel1" style="height:4.5vh; line-height: 4.5vh; text-align:bottom; font-weight:bold; ">Local Order</p>
             <canvas id="id_EditPage_Canvas_GlobalLocalOrder" style="height:50vh; width:20vw; border: 0.2vh solid black; background: url(img/EditPage/plotBackground.png); background-size:cover; background-repeat:no-repeat; background-position: center center; cursor:pointer;" onclick="openFullAnalyzeScreen();"></canvas>
             <p id="id_editPage_OrderAxisLabel2" style="height:4.5vh; line-height: 4.5vh; text-align:top; font-weight:bold;">Negative Global Order</p>
@@ -43,7 +43,7 @@
 
 
 
-          <div class="class_OptionDiv" id="id_EditPage_LabelDiv_GlobalLocalOrder" style="overflow-y:auto; width:20vw; margin: auto; margin-left:0vh;">
+          <div class="class_OptionDiv" id="id_EditPage_LabelDiv_GlobalLocalOrder" style="overflow-y:auto; max-width:20vw; margin: auto; ">
 
             <p style=" margin-top:1vh; margin-bottom:1vh;"> Statisic:</p>
 

@@ -54,7 +54,7 @@ function styleGlobalLocalOrderPlot(){
   document.getElementById("id_EditPage_AnalyzeContainer_SpacesKeyspeed").style.display = "none";
   document.getElementById("id_EditPage_AnalyzeContainer_GlobalLocalOrder").style.display = "flex";
 
-  var tmpBox = document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").getBoundingClientRect();
+  /*var tmpBox = document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").getBoundingClientRect();
 
   if(tmpBox.height<tmpBox.width)
   document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.width = document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.height;
@@ -62,7 +62,7 @@ function styleGlobalLocalOrderPlot(){
   document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.height = document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.width;
 
   document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.marginLeft = "auto";
-  document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.marginRight = "auto";
+  document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.marginRight = "auto";*/
 
 }
 
