@@ -32,20 +32,8 @@ function undo(){
     globalCMS1 = colormapProcess[processPosition];
     updateEditPage();
 
-    if(document.getElementById("id_editPage_SelectEditPath").style.display!="none"){
-
-      if(pathColorspace!="rgb"){
-        drawcolormap_hueSpace(true, true, true);
-      }
-      else{
-        drawcolormap_RGBSpace(true,true);
-      }
-
-    }
-
-
-    if(document.getElementById("id_editPage_SelectEditKeys").style.display!="none"){
-      selectKey();
+    if(editPage_optimizationMode){
+      updateOptimizationPage();
     }
 
   }
@@ -58,17 +46,8 @@ function redo(){
     globalCMS1 = colormapProcess[processPosition];
     updateEditPage();
 
-    if(document.getElementById("id_editPage_SelectEditPath").style.display!="none"){
-      if(pathColorspace!="rgb"){
-        drawcolormap_hueSpace(true, true, true);
-      }
-      else{
-        drawcolormap_RGBSpace(true,true);
-      }
-    }
-
-    if(document.getElementById("id_editPage_SelectEditKeys").style.display!="none"){
-      selectKey();
+    if(editPage_optimizationMode){
+      updateOptimizationPage();
     }
   }
 }

@@ -29,6 +29,10 @@ function mouseLeaveColorspace(event) {
     mouseGrappedKeyID = -1;
       drawcolormap_hueSpace(true,true,false);
       saveCreateProcess();
+
+      if(editPage_optimizationMode){
+        updateOptimizationPage();
+      }
   }
 }
 
@@ -472,6 +476,10 @@ function mouseUpColorspace() {
   drawcolormap_hueSpace(true,true,false);
   saveCreateProcess();
 
+  if(editPage_optimizationMode){
+    updateOptimizationPage();
+  }
+
 }
 
 function calcHuePos(tmpColor){
@@ -550,6 +558,10 @@ function mouseLeaveValuePlot(event) {
     mouseGrappedKeyID = -1;
       drawcolormap_hueSpace(true,true,false);
       saveCreateProcess();
+
+      if(editPage_optimizationMode){
+        updateOptimizationPage();
+      }
   }
 }
 ////////////////////////////////////////////////////////////////////////////////

@@ -1,7 +1,7 @@
 function calcSpaceGridLAB(){
 
-  var numberOfSteps = 20;
-  var numberOfParticles = 20;
+  var numberOfSteps = 50;
+  var numberOfParticles = 180;
   var radStep = 1.0/numberOfParticles;
   var lightStep = 100/numberOfSteps;
   var tmpLABColor = new classColor_LAB(0,0,0);
@@ -85,8 +85,8 @@ function calcSpaceGridLAB(){
 
 function calcSpaceGridDIN99(){
 
-  var numberOfSteps = 10;
-  var numberOfParticles = 20;
+  var numberOfSteps = 50;
+  var numberOfParticles = 180;
   var radStep = 1.0/numberOfParticles;
   var lightStep = 100/numberOfSteps;
 

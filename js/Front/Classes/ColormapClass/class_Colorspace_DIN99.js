@@ -65,6 +65,11 @@ class classColorDIN99{
         this.bValue = newBVal;
       }
 
+      getRGBString() {
+        var tmpRGB = this.calcRGBColor();
+        return tmpRGB.getRGBString();
+      }
+
       equalTo(color){
 
         switch (color.getColorType()) {

@@ -72,6 +72,10 @@ function fillTable() {
        td2.appendChild(document.createTextNode(color2.getHSVString(numDecimalPlaces)));
         break;
       case "lab":
+      case "de94":
+      case "de2000":
+      case "de94-ds":
+      case "de2000-ds":
        td.appendChild(document.createTextNode(color1.getLABString(numDecimalPlaces)));
        td2.appendChild(document.createTextNode(color2.getLABString(numDecimalPlaces)));
         break;
@@ -84,7 +88,7 @@ function fillTable() {
          td2.appendChild(document.createTextNode(color2.getLCHString(numDecimalPlaces)));
           break;
       default:
-        console.log("Error at the changeColorspace function");
+        console.log("Error at the fill talbe function");
     }
 
     td.style.width="4vw";

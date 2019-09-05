@@ -135,6 +135,10 @@ class class_Key{
           return this.cL.calcHSVColor();
           break;
           case "lab":
+          case "de94":
+          case "de94-ds":
+          case "de2000":
+          case "de2000-ds":
           var tmpLabColor = new classColor_LAB(this.cL.get1Value(),this.cL.get2Value(),this.cL.get3Value());
           return tmpLabColor;
           break;
@@ -173,6 +177,10 @@ class class_Key{
           return this.cR.calcHSVColor();
           break;
           case "lab":
+          case "de94":
+          case "de94-ds":
+          case "de2000":
+          case "de2000-ds":
           var tmpLabColor = new classColor_LAB(this.cR.get1Value(),this.cR.get2Value(),this.cR.get3Value());
           return tmpLabColor;
           break;

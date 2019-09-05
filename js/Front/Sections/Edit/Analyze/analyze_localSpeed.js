@@ -27,25 +27,8 @@ function styleStructure_LocalSpeed(){
       plotid="id_PopUp_FullAnalayzeCanvas";
 
 
-    var oldInterval = intervalDelta;
-    var oldIntervalSize = intervalSize;
-    if(document.getElementById("id_editPage_Anaylze_IntervalNumber").checked){
-      document.getElementById("id_editPage_Anaylze_IntervalCalcInputLabel").innerHTML = "Number of Intervals:";
-      document.getElementById("id_editPage_Anaylze_IntervalCalcInput").value = numberOfIntervalsLocal;
-      intervalSize = numberOfIntervalsLocal;
-      globalCMS1 = calcCMSIntervals(globalCMS1,document.getElementById("id_EditPage_SelectFrom_GlobalLocalOrder").selectedIndex,document.getElementById("id_EditPage_SelectTill_GlobalLocalOrder").selectedIndex,0);
-    }
-    else{
-      document.getElementById("id_editPage_Anaylze_IntervalCalcInputLabel").innerHTML = "Value of Color-Difference:";
-      document.getElementById("id_editPage_Anaylze_IntervalCalcInput").value = colorDifferenceLocal;
-      intervalDelta=colorDifferenceLocal;
-      globalCMS1 = calcCMSIntervals(globalCMS1,document.getElementById("id_EditPage_SelectFrom_GlobalLocalOrder").selectedIndex,document.getElementById("id_EditPage_SelectTill_GlobalLocalOrder").selectedIndex,2);
-    }
-    intervalDelta=oldInterval;
-    intervalSize=oldIntervalSize;
-
     if(document.getElementById("id_EditPage_SelectFrom_GlobalLocalOrder").selectedIndex!=document.getElementById("id_EditPage_SelectTill_GlobalLocalOrder").selectedIndex)
-    drawLocalSpeedPlot(globalCMS1, plotid, document.getElementById("id_AnalyzeSubContainer_Select").selectedIndex, "id_EditPage_Min_GlobalLocalOrder", "id_EditPage_Max_GlobalLocalOrder", "id_EditPage_Average_GlobalLocalOrder", "id_EditPage_Deviation_GlobalLocalOrder");
+      drawLocalSpeedPlot(globalCMS1, plotid, "id_EditPage_Min_GlobalLocalOrder", "id_EditPage_Max_GlobalLocalOrder", "id_EditPage_Average_GlobalLocalOrder", "id_EditPage_Deviation_GlobalLocalOrder");
     else{
       var context = document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").getContext('2d');
       context.clearRect(0, 0, document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").width, document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").height);
@@ -60,93 +43,110 @@ function styleStructure_LocalSpeed(){
 
 
 
-function drawLocalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId, devId){
+function drawLocalSpeedPlot(intervalColormap, plotid, minId, maxId, avId, devId){
 
       var canvasPlot = document.getElementById(plotid);
-
-      canvasPlot.width = 500;
-      canvasPlot.height = 500;
 
       var canvasCtx = canvasPlot.getContext("2d");
       canvasCtx.webkitImageSmoothingEnabled = false;
       canvasCtx.mozImageSmoothingEnabled = false;
       canvasCtx.imageSmoothingEnabled = false;
       canvasCtx.clearRect(0, 0, canvasPlot.width, canvasPlot.height);
+
       var canvasData = canvasCtx.createImageData(canvasPlot.width, canvasPlot.height); //getImageData(0, 0, canvasPlot.width, canvasPlot.height);
       var sumForAverage = 0;
       var min = Infinity;
       var max = -Infinity;
 
-      var bandWidth = canvasPlot.width/(intervalColormap.getIntervalLength()-1);
+      var colors = [];
+      var speeds = [];
+      var space = globalCMS1.getInterpolationSpace();
+      var sumBands = 0;
 
-      var vector = [];
+        for (var i = 0; i < globalCMS1.getKeyLength()-1; i++) {
 
-      var numTwinOrLeft=0;
-      for(var x=0; x<intervalColormap.getIntervalLength()-1; x++){
+          if(globalCMS1.getKeyType(i)==="nil key" || globalCMS1.getKeyType(i)==="left key"){
+            colors.push(undefined);
+            speeds.push(undefined);
+          }
+          else {
 
-            var deltaE=0;
-            var speed=0;
-            //if(x!=y){
+            colors.push([]);
+            speeds.push([]);
 
-              switch (type) {
-                case 0:
+            if(space==="de94" || space==="de2000"){
+                return;
+            }
+            else {
+                  var c1 = globalCMS1.getRightKeyColor(i,space);
+                  var c2 = globalCMS1.getLeftKeyColor(i+1,space);
+                  var r1 = globalCMS1.getRefPosition(i);
+                  var r2 = globalCMS1.getRefPosition(i+1);
+                  var tmpResults = calcDeltaIntervalBetween_C1C2(c1,c2, deltaSampling_Analyze, space);
 
-                deltaE = calc3DEuclideanDistance(intervalColormap.getIntervalColor(x,"lab"),intervalColormap.getIntervalColor(x+1,"lab"));
-                  break;
+                if(tmpResults==undefined){
+                  tmpResults=[];
+                  tmpResults.push([]);
+                  var tmpBandDelta = undefined;
 
-                  case 1:
-                    deltaE = calcDeltaDE94(intervalColormap.getIntervalColor(x,"lab"),intervalColormap.getIntervalColor(x+1,"lab"));
+                  switch (space) {
+                    case "rgb":
+                    case "hsv":
+                    case "lab":
+                    case "din99":
+                      tmpBandDelta = calc3DEuclideanDistance(c1,c2);
                     break;
-
-                    case 2:
-                      deltaE = calcDeltaCIEDE2000(intervalColormap.getIntervalColor(x,"lab"),intervalColormap.getIntervalColor(x+1,"lab"));
-                      break;
-
-                      case 3:
-                      deltaE = calc3DEuclideanDistance(intervalColormap.getIntervalColor(x,"din99"),intervalColormap.getIntervalColor(x+1,"din99"));
-                        break;
-                default:
-
-              }
-
-
-
-
-              /*switch (plotType) {
-                case 0:*/
-                  var distance = Math.abs(intervalColormap.getIntervalRef(x+1)-intervalColormap.getIntervalRef(x));
-
-                  if(distance==0){
-                    speed=-1;
-                    numTwinOrLeft++;
-                  }
-                  else{
-                    speed = deltaE/distance;
-                    min = Math.min(min,speed);
-                    max = Math.max(max,speed);
-                    sumForAverage += speed;
-                  }
-                  vector.push(speed);
-              /*    break;
-                case 1:
-                    min = Math.min(min,deltaE);
-                    max = Math.max(max,deltaE);
-                    sumForAverage += deltaE;
-                    vector.push(deltaE);
+                    case "de94":
+                    case "de94-ds":
+                      tmpBandDelta = calcDeltaDE94(c1,c2);
                     break;
-                default:
-                  return;
+                    case "de2000":
+                    case "de2000-ds":
+                      tmpBandDelta = calcDeltaCIEDE2000(c1,c2);
+                    break;
+                    default:
+                      return;
+                  }
 
-              }*/
+                  tmpResults.push([tmpBandDelta]);
+                  tmpResults.push([1.0]);
+                }
 
-      }
+                colors[i]=tmpResults[0];
 
+                sumBands += tmpResults[1].length;
+                var tmpDis = Math.abs(r2-r1);
+                var intervalDis = tmpDis/tmpResults[1].length; // for equal distances between the interval colors
+                for (var j = 0; j < tmpResults[1].length; j++) {
+                  var speed = undefined;
+                  if(space==="de94-ds" || space==="de2000-ds"){
+                    speed = tmpResults[1][j]/(tmpDis*tmpResults[2][j]);
+                  }
+                  else {
+                    speed = tmpResults[1][j]/intervalDis;
+                  }
+                  min = Math.min(min,speed);
+                  max = Math.max(max,speed);
+                  sumForAverage += speed;
+                  speeds[i].push(speed);
+                }
+          }// ELSE (!= graph interpolation)
+        } // ELSE (!=CONST BAND)
+      } // FOR
 
-      var average=sumForAverage/(vector.length-numTwinOrLeft);
+      var average = sumForAverage/sumBands;
+
+      ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+      canvasPlot.width = sumBands;
+      canvasPlot.height = 500;
+      canvasCtx.clearRect(0, 0, canvasPlot.width, canvasPlot.height);
+
+      var bandWidth = 1;//Math.floor(canvasPlot.width/sumBands);
       var sumForVariance = 0;
 
       //////////////////////////////////////////////////////////////////////////////////
-      // calc variance
+      // calc variance and draw
       ////////////////////////////////////////////////////////////////////////////////////
 
       var fixedMax = 200;
@@ -160,56 +160,91 @@ function drawLocalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId, 
       }
 
       var currentXPos = 0;
-      for(var y=0; y<vector.length; y++){
+
+      //var ratioArray = [] ;
+      for (var i = 0; i < globalCMS1.getKeyLength()-1; i++) {
+
+        if(speeds[i]==undefined) // = const band
+          continue;
+
+        var ratioBlockSum = 0 ;
+        for (var j = 0; j < speeds[i].length; j++) {
+
+          var c1 = undefined;
+          var c2 = undefined;
+
+          switch (j) {
+            case 0:
+              c1 = globalCMS1.getRightKeyColor(i,space);
+
+              if(colors[i].length==0)
+                c2 = globalCMS1.getLeftKeyColor(i+1,space);
+              else
+                c2 = colors[i][j];
+              break;
+              case speeds[i].length-1:
+                c1 = colors[i][j-1];
+                c2 = globalCMS1.getLeftKeyColor(i+1,space);
+              break;
+            default:
+              c1 = colors[i][j-1];
+              c2 = colors[i][j];
+          }
 
 
-            if(vector[y]!=-1){
-              var colorRef = intervalColormap.getIntervalColor(y,"rgb");
-              var colorRef2 = intervalColormap.getIntervalColor(y+1,"rgb");
+          if(c1==undefined){
+            console.log("c1",j,speeds[i].length-1);
+            continue;
+          }
 
-              var deltaHeight;
+          if(c2==undefined){
+            console.log("c2",j,speeds[i].length-1);
+            continue;
+          }
 
-              if(document.getElementById("id_EditPage_DoFixedAxis_GlobalLocalOrder").checked){
-                var ratio = (vector[y]/fixedMax);
-                if(ratio>1.0)
-                  ratio=1.0;
+          //ratioBlockSum+=speeds[i][j]/sumForAverage;
 
-                deltaHeight=canvasPlot.height*ratio;
-              }
-              else{
-                deltaHeight=canvasPlot.height*(vector[y]/max);
-              }
+          //////////////////////////////////////
 
-              var yPos= canvasPlot.height-deltaHeight;
+          var barHeight;
+
+          if(document.getElementById("id_EditPage_DoFixedAxis_GlobalLocalOrder").checked){
+            var ratio = (speeds[i][j]/fixedMax);
+            if(ratio>1.0)
+              ratio=1.0;
+            barHeight=canvasPlot.height*ratio;
+          }
+          else{
+            barHeight=canvasPlot.height*(speeds[i][j]/max);
+          }
+
+          var yPos= canvasPlot.height-barHeight;
+
+          var gradient=canvasCtx.createLinearGradient(0,0,0,canvasPlot.height);
+          gradient.addColorStop(0,c1.getRGBString());
+          gradient.addColorStop(1,c2.getRGBString());
+          canvasCtx.fillStyle=gradient;
+          canvasCtx.fillRect(currentXPos,yPos,bandWidth,barHeight);
+
+          //canvasCtx.strokeStyle = "rgb(0,0,0)";
+          //canvasCtx.rect(currentXPos,yPos,bandWidth,barHeight);
+          //canvasCtx.stroke();
+
+          sumForVariance += Math.pow(speeds[i][j]-average,2);
 
 
-              var gradient=canvasCtx.createLinearGradient(0,0,0,canvasPlot.height);
-              gradient.addColorStop(0,colorRef2.getRGBString());
-              gradient.addColorStop(1,colorRef.getRGBString());
-              canvasCtx.fillStyle=gradient;
-              canvasCtx.fillRect(currentXPos,yPos,bandWidth,deltaHeight);
+          currentXPos+=bandWidth;
 
-              //canvasCtx.strokeStyle = "rgb(0,0,0)";
-              //canvasCtx.rect(currentXPos,yPos,bandWidth,deltaHeight);
-              //canvasCtx.stroke();
+        }
 
-              sumForVariance += Math.pow(vector[y]-average,2);
-            }
-            else{
-
-            }
-
-
-
-            currentXPos+=bandWidth;
+        //ratioArray.push(ratioBlockSum);
 
       }
 
-      //canvasCtx.putImageData(canvasData, 0, 0);
+      //console.log(ratioArray);
 
-      var variance = sumForVariance/(vector.length-numTwinOrLeft);
+      var variance = sumForVariance/sumBands;
       var deviation = Math.sqrt(variance);
-
 
       document.getElementById(minId).innerHTML = "Local Speed Minimum = "+ min;//.toFixed(numDecimalPlaces);
 
@@ -220,7 +255,7 @@ function drawLocalSpeedPlot(intervalColormap, plotid, type, minId, maxId, avId, 
 
       document.getElementById(maxId).innerHTML = "Local Speed Maximum = "+ max;//.toFixed(numDecimalPlaces);
       document.getElementById(avId).innerHTML = "Local Speed Average = "+ average;//.toFixed(numDecimalPlaces);
-      document.getElementById(devId).innerHTML = "Local Speed Deviation = "+ deviation;//.toFixed(numDecimalPlaces);
+      document.getElementById(devId).innerHTML = "Local Speed Deviation = "+ deviation;//.toFixed(numDecimalPlaces);*/
 
 
 }

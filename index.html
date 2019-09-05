@@ -49,287 +49,282 @@
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         -->
 
-  <!--script src="js/vendor/modernizr-2.8.3.min.js"></script-->
-  <!--[if lt IE 9]>
-	    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
-	    <![endif]-->
-  <!--link rel="stylesheet" href="https://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script-->
 
-  <!--script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script-->
+        <!-- Classes -->
 
-
-  <!--script src="js/plugins.js"></script-->
-
-  <!-- Classes -->
-
-  <!-- Classes : Colors-->
-  <script src="js/Front/Classes/ColormapClass/class_Colorspace_HSV.js"></script>
-  <script src="js/Front/Classes/ColormapClass/class_Colorspace_LCH.js"></script>
-  <script src="js/Front/Classes/ColormapClass/class_Colorspace_LAB.js"></script>
-  <script src="js/Front/Classes/ColormapClass/class_Colorspace_RGB.js"></script>
-  <script src="js/Front/Classes/ColormapClass/class_Colorspace_DIN99.js"></script>
-  <script src="js/Front/Classes/ColormapClass/class_Colorspace_XYZ.js"></script>
-  <script src="js/Front/Classes/ColormapClass/class_Colorspace_LMS.js"></script>
+        <!-- Classes : Colors-->
+        <script src="js/Front/Classes/ColormapClass/class_Colorspace_HSV.js"></script>
+        <script src="js/Front/Classes/ColormapClass/class_Colorspace_LCH.js"></script>
+        <script src="js/Front/Classes/ColormapClass/class_Colorspace_LAB.js"></script>
+        <script src="js/Front/Classes/ColormapClass/class_Colorspace_RGB.js"></script>
+        <script src="js/Front/Classes/ColormapClass/class_Colorspace_DIN99.js"></script>
+        <script src="js/Front/Classes/ColormapClass/class_Colorspace_XYZ.js"></script>
+        <script src="js/Front/Classes/ColormapClass/class_Colorspace_LMS.js"></script>
 
 
-  <!-- Classes : Probes-->
-  <script src="js/Front/Classes/ColormapClass/class_Colormap_Probe.js"></script>
-  <script src="js/Front/Classes/ColormapClass/class_Colormap_ProbeSet.js"></script>
+        <!-- Classes : Probes-->
+        <script src="js/Front/Classes/ColormapClass/class_Colormap_Probe.js"></script>
+        <script src="js/Front/Classes/ColormapClass/class_Colormap_ProbeSet.js"></script>
 
-  <!-- Classes : CMS-->
-  <script src="js/Front/Classes/ColormapClass/class_Colormap_Key.js"></script>
-  <script src="js/Front/Classes/ColormapClass/class_Colormap_Interval.js"></script>
-  <script src="js/Front/Classes/ColormapClass/class_colormapSpecification.js"></script>
+        <!-- Classes : CMS-->
+        <script src="js/Front/Classes/ColormapClass/class_Colormap_Key.js"></script>
+        <script src="js/Front/Classes/ColormapClass/class_Colormap_Interval.js"></script>
+        <script src="js/Front/Classes/ColormapClass/class_colormapSpecification.js"></script>
 
 
-  <!-- Classes : Mapping Data-->
-  <script src="js/Front/Classes/Domain/class_cell.js"></script>
-  <script src="js/Front/Classes/Domain/class_domain.js"></script>
-  <script src="js/Front/Classes/Domain/class_point.js"></script>
+        <!-- Classes : Mapping Data-->
+        <script src="js/Front/Classes/Domain/class_cell.js"></script>
+        <script src="js/Front/Classes/Domain/class_domain.js"></script>
+        <script src="js/Front/Classes/Domain/class_point.js"></script>
 
-      <!-- Classes : Mapping Data : Testing-->
-      <script src="js/Front/Classes/Domain/class_testField.js"></script>
+            <!-- Classes : Mapping Data : Testing-->
+            <script src="js/Front/Classes/Domain/class_testField.js"></script>
+
+        <!------------------------------------------->
+        <!-- global Events-->
+        <script src="js/Front/GlobalEvents/pageChange.js"></script>
+        <script src="js/Front/GlobalEvents/cmsIntervals.js"></script>
+        <script src="js/Front/GlobalEvents/navi.js"></script>
+
+          <!------------------------------------------->
+          <!-- global Events : Helpers-->
+          <script src="js/Front/GlobalEvents/Helpers/checkInput.js"></script>
+          <script src="js/Front/GlobalEvents/Helpers/calcColordifference.js"></script>
+          <script src="js/Front/GlobalEvents/Helpers/quicksort.js"></script>
+          <script src="js/Front/GlobalEvents/Helpers/math_matrices_calculation.js"></script>
+          <script src="js/Front/GlobalEvents/Helpers/math.js"></script>
+          <script src="js/Front/GlobalEvents/Helpers/others.js"></script>
+          <script src="js/Front/GlobalEvents/Helpers/canvasHelpers.js"></script>
+          <script src="js/Front/GlobalEvents/Helpers/random.js"></script>
+
+          <!-- global Events : ShortCuts -->
+          <script src="js/Front/GlobalEvents/Shortcuts/shortcuts_globalVars.js"></script>
+          <script src="js/Front/GlobalEvents/Shortcuts/shortcuts.js"></script>
+
+          <!-- global Events : Parser -->
+          <script src="js/Front/GlobalEvents/Parser/csvColormapParser.js"></script>
+          <script src="js/Front/GlobalEvents/Parser/jsonColormapParser.js"></script>
+          <script src="js/Front/GlobalEvents/Parser/xmlColormapParser.js"></script>
+
+          <!-- global Events : Colormap Drawer -->
+          <script src="js/Front/GlobalEvents/ColormapDrawer/drawBandSegments.js"></script>
+          <script src="js/Front/GlobalEvents/ColormapDrawer/drawColormapLinear.js"></script>
+          <script src="js/Front/GlobalEvents/ColormapDrawer/drawColormapSketch.js"></script>
+
+          <!-- global Events : Color Gradient -->
+          <script src="js/Front/GlobalEvents/CMSColorGradient/calcGradientLinear.js"></script>
+          <script src="js/Front/GlobalEvents/CMSColorGradient/calcGradientHSV.js"></script>
+
+          <!-- global Events : Tool Themes -->
+          <script src="js/Front/GlobalEvents/ToolTheme/themesVars.js"></script>
+          <script src="js/Front/GlobalEvents/ToolTheme/events_tooltheme.js"></script>
+
+        <!------------------------------------------->
+        <!------------------------------------------->
+        <!-----------      SECTIONS      ------------>
+        <!------------------------------------------->
+
+        <!------------------------------------------->
+        <!-- Welcome Section -->
+        <script src="js/Front/Sections/welcomePage.js"></script>
+
+        <!------------------------------------------->
+        <!-- Edit Section -->
+
+        <script src="js/Front/Sections/Edit/events_editPage.js"></script>
+        <script src="js/Front/Sections/Edit/save.js"></script>
+        <script src="js/Front/Sections/Edit/process.js"></script>
+        <script src="js/Front/Sections/Edit/dropdown_events.js"></script>
+        <script src="js/Front/Sections/Edit/updateEditPage_Style.js"></script>
+        <script src="js/Front/Sections/Edit/init_EditPage.js"></script>
+        <script src="js/Front/Sections/Edit/editPage_globalVars.js"></script>
+        <script src="js/Front/Sections/Edit/fillTable.js"></script>
+        <script src="js/Front/Sections/Edit/changeInterpolationSpace.js"></script>
+
+          <!-- Edit Section: CMS visualization-->
+          <script src="js/Front/Sections/Edit/CMSVisualization/globalVars_EditCMS.js"></script>
+          <script src="js/Front/Sections/Edit/CMSVisualization/draw_EditCMS.js"></script>
+          <script src="js/Front/Sections/Edit/CMSVisualization/events_CMS.js"></script>
+
+
+
+          <!-- Edit Section: Add CMS -->
+          <script src="js/Front/Sections/Edit/AddCMS/drawSingleBands.js"></script>
+          <script src="js/Front/Sections/Edit/AddCMS/dragAndDropevents.js"></script>
+          <script src="js/Front/Sections/Edit/AddCMS/drawPredefinedCMS.js"></script>
+          <script src="js/Front/Sections/Edit/AddCMS/predefined_const_bands.js"></script>
+
+          <!-- Edit Section: Analyze Key -->
+          <script src="js/Front/Sections/Edit/Analyze/analyze_globalVars.js"></script>
+          <script src="js/Front/Sections/Edit/Analyze/analyze_events.js"></script>
+          <script src="js/Front/Sections/Edit/Analyze/analyze_globalSpeed.js"></script>
+          <script src="js/Front/Sections/Edit/Analyze/analyze_localSpeed.js"></script>
+          <script src="js/Front/Sections/Edit/Analyze/analyze_interpolationSpace.js"></script>
+          <script src="js/Front/Sections/Edit/Analyze/analyze_bandKeySpeed.js"></script>
+          <script src="js/Front/Sections/Edit/Analyze/analyze_order.js"></script>
+
+          <!-- Edit Section: Edit Key -->
+          <script src="js/Front/Sections/Edit/EditKey/editKeys.js"></script>
+
+
+          <!-- Edit Section: Histogram -->
+          <script src="js/Front/Sections/Edit/Histogram/histogram.js"></script>
+
+          <!-- Edit Section: Mapping -->
+          <script src="js/Front/Sections/Edit/Mapping/mapping_globalVars.js"></script>
+          <script src="js/Front/Sections/Edit/Mapping/mapping_events.js"></script>
+          <script src="js/Front/Sections/Edit/Mapping/DataParser/events_loadData.js"></script>
+          <script src="js/Front/Sections/Edit/Mapping/DataParser/vtkParser.js"></script>
+          <script src="js/Front/Sections/Edit/Mapping/Rendering/drawMapping.js"></script>
+          <script src="js/Front/Sections/Edit/Mapping/Rendering/rendering.js"></script>
+
+          <script src="js/Front/Sections/Edit/Mapping/mappingWorker_globlaVars.js"></script>
+          <script src="js/Front/Sections/Edit/Mapping/mappingWorkerEvents.js"></script>
+
+          <!-- Edit Section: Path Plot -->
+          <script src="js/Front/Sections/Edit/PathPlot/pathplot_globalVars.js"></script>
+          <script src="js/Front/Sections/Edit/PathPlot/arrangePlots.js"></script>
+
+          <script src="js/Front/Sections/Edit/PathPlot/drawPathPlot/drawPathPlotHSV_LAB_DIN99.js"></script>
+          <script src="js/Front/Sections/Edit/PathPlot/drawPathPlot/drawPathPlotRGB.js"></script>
+          <script src="js/Front/Sections/Edit/PathPlot/drawPathPlot/drawPathPlotHelpers2D.js"></script>
+          <script src="js/Front/Sections/Edit/PathPlot/drawPathPlot/drawPathPlotHelpers3D.js"></script>
+          <script src="js/Front/Sections/Edit/PathPlot/drawPathPlot/drawPathPlotHelpersBackground.js"></script>
+          <script src="js/Front/Sections/Edit/PathPlot/drawPathPlot/drawPathPlotHelpersInterpolationLine.js"></script>
+          <script src="js/Front/Sections/Edit/PathPlot/drawPathPlot/drawPathPlotHelpersKeyElements.js"></script>
+
+          <script src="js/Front/Sections/Edit/PathPlot/events_ColorspaceCanvas.js"></script>
+          <script src="js/Front/Sections/Edit/PathPlot/events_ColorspaceCanvasRGB.js"></script>
+
+          <script src="js/Front/Sections/Edit/PathPlot/3D_rendering/rgb3D.js"></script>
+          <script src="js/Front/Sections/Edit/PathPlot/3D_rendering/hsv3D.js"></script>
+          <script src="js/Front/Sections/Edit/PathPlot/3D_rendering/lab3D.js"></script>
+          <script src="js/Front/Sections/Edit/PathPlot/3D_rendering/din993D.js"></script>
+          <script src="js/Front/Sections/Edit/PathPlot/3D_rendering/lch3D.js"></script>
+          <script src="js/Front/Sections/Edit/PathPlot/3D_rendering/calcSpaceGrid.js"></script>
+          <script src="js/Front/Sections/Edit/PathPlot/3D_rendering/pathplot3D_vars.js"></script>
+          <script src="js/Front/Sections/Edit/PathPlot/3D_rendering/init3DPathPlot.js"></script>
+
+          <!-- Edit Section: Probes-->
+          <script src="js/Front/Sections/Edit/Probes/events_Probes.js"></script>
+          <script src="js/Front/Sections/Edit/Probes/events_editProbe.js"></script>
+          <script src="js/Front/Sections/Edit/Probes/events_generateProbe.js"></script>
+          <script src="js/Front/Sections/Edit/Probes/checkCustomProbeInput.js"></script>
+
+          <!-- Edit Section: Optimization-->
+          <script src="js/Front/Sections/Edit/Optimization/events_Optimization.js"></script>
+          <script src="js/Front/Sections/Edit/Optimization/globalVars_Optimization.js"></script>
+          <script src="js/Front/Sections/Edit/Optimization/uniformity.js"></script>
+
+        <!-- Gallery Section-->
+        <script src="js/Front/Sections/Gallery/events_Gallery.js"></script>
+
+        <!------------------------------------------->
+        <!-- MyDesigns Section -->
+
+        <script src="js/Front/Sections/MyDesigns/draw_mydesigns.js"></script>
+        <script src="js/Front/Sections/MyDesigns/mydesigns.js"></script>
+        <script src="js/Front/Sections/MyDesigns/mydesigns_globalVars.js"></script>
+
+        <!-- Testing Section-->
+        <script src="js/Front/Sections/Testing/testing.js"></script>
+        <script src="js/Front/Sections/Testing/testing_globalVars.js"></script>
+        <script src="js/Front/Sections/Testing/init_TestingSection.js"></script>
+        <script src="js/Front/Sections/Testing/drawTestCollection.js"></script>
+        <script src="js/Front/Sections/Testing/testing_RealWorld_Vars.js"></script>
+        <script src="js/Front/Sections/Testing/loadRealWorldData.js"></script>
+
+
+          <!-- Testing Section : Interacive Test -->
+            <script src="js/Front/Sections/Testing/InteractiveTest/events.js"></script>
+            <script src="js/Front/Sections/Testing/InteractiveTest/interactiveTest_drawFktPreview.js"></script>
+
+            <script src="js/Front/Sections/Testing/InteractiveTest/CCCTest/interactiveJumpTest.js"></script>
+            <script src="js/Front/Sections/Testing/InteractiveTest/CCCTest/interactiveRidgeValleyTest.js"></script>
+            <script src="js/Front/Sections/Testing/InteractiveTest/CCCTest/interactiveGradientTest.js"></script>
+            <script src="js/Front/Sections/Testing/InteractiveTest/CCCTest/interactiveFrequencyTest.js"></script>
+            <script src="js/Front/Sections/Testing/InteractiveTest/CCCTest/interactiveLocalExtremaTest.js"></script>
+            <script src="js/Front/Sections/Testing/InteractiveTest/CCCTest/interactiveLittleBitTest.js"></script>
+            <script src="js/Front/Sections/Testing/InteractiveTest/CCCTest/interactiveTresholdTest.js"></script>
+            <script src="js/Front/Sections/Testing/InteractiveTest/CCCTest/interactiveTopologyTest.js"></script>
+
+            <script src="js/Front/Sections/Testing/InteractiveTest/FktCollection/interactiveLocalMinFunctions.js"></script>
+            <script src="js/Front/Sections/Testing/InteractiveTest/FktCollection/interactiveBowlShapedFunctions.js"></script>
+            <script src="js/Front/Sections/Testing/InteractiveTest/FktCollection/interactiveValleyShapedFunctions.js"></script>
+
+            <script src="js/Front/Sections/Testing/InteractiveTest/RealWorldData/interactiveRealWorldData.js"></script>
+
+              <!-- Testing Section : Noise -->
+              <script src="js/Front/Sections/Testing/InteractiveTest/Noise/noise_interactiveTest.js"></script>
+              <script src="js/Front/Sections/Testing/InteractiveTest/Noise/simplexNoise.js"></script>
+              <!-- Testing Section : Topology -->
+              <script src="js/Front/Sections/Testing/InteractiveTest/CCCTest/Topology/createTopologyField.js"></script>
+              <script src="js/Front/Sections/Testing/InteractiveTest/CCCTest/Topology/createTopologyFoundation.js"></script>
+
+              <!-- Testing Section : Test Report -->
+              <script src="js/Front/Sections/Testing/Report/events_Report.js"></script>
+              <script src="js/Front/Sections/Testing/Report/report_globalVars.js"></script>
+
+            <script src="js/Front/Sections/Testing/3D_TestVis/initTestRendering.js"></script>
+            <script src="js/Front/Sections/Testing/3D_TestVis/testImageMapping.js"></script>
+            <script src="js/Front/Sections/Testing/3D_TestVis/testMapping_Rendering_GlobalVars.js"></script>
+
+        <!------------------------------------------->
+        <!------------------------------------------->
+        <!-----------      Worker        ------------>
+        <!------------------------------------------->
+        <!-- Testing Section : Visualization -->
+        <script src="js/Front/Worker/updateWorker.js"></script>
+        <script src="js/Front/Worker/worker_globalVars.js"></script>
+        <script src="js/Front/Worker/initWorker.js"></script>
+
+        <script src="js/Front/Worker/eventFiles/workerEvent_pathplot.js"></script>
+        <script src="js/Front/Worker/eventFiles/workerEvent_testing.js"></script>
+
+
+        <!------------------------------------------->
+        <!------------------------------------------->
+        <!-----------      Windows      ------------>
+        <!------------------------------------------->
+
+        <!-- Pop Up Windows -->
+        <script src="js/Front/PopUpWindows/init_PopUpWindow.js"></script>
+        <script src="js/Front/PopUpWindows/popUp_events.js"></script>
+
+          <!-- Pop Up Windows : Ask Window -->
+          <script src="js/Front/PopUpWindows/AskWindow/askWindow_globalVars.js"></script>
+          <script src="js/Front/PopUpWindows/AskWindow/askWindow.js"></script>
+
+          <!-- Pop Up Windows : Color_Picker -->
+          <script src="js/Front/PopUpWindows/Color_Picker/colorpicker_globalVars.js"></script>
+          <script src="js/Front/PopUpWindows/Color_Picker/colorpicker.js"></script>
+
+          <!-- Pop Up Windows : Color Settings -->
+          <script src="js/Front/PopUpWindows/Color_Settings/color_transformation_globalVars.js"></script>
+          <script src="js/Front/PopUpWindows/Color_Settings/color_transformation.js"></script>
+          <script src="js/Front/PopUpWindows/Color_Settings/metric_globalVars.js"></script>
+          <script src="js/Front/PopUpWindows/Color_Settings/metric.js"></script>
+
+          <!-- Pop Up Windows : Color Blindness -->
+          <script src="js/Front/PopUpWindows/Colorblindness/colorblindness_globalVars.js"></script>
+          <script src="js/Front/PopUpWindows/Colorblindness/colorblindness.js"></script>
+
+          <!-- Pop Up Windows : Export -->
+          <script src="js/Front/PopUpWindows/Export/export_globalVars.js"></script>
+          <script src="js/Front/PopUpWindows/Export/export.js"></script>
+
+
+          <!-- Pop Up Windows : Tutorial -->
+          <script src="js/Front/PopUpWindows/Tutorials/tutorialVideos.js"></script>
 
   <!------------------------------------------->
-  <!-- global Events-->
-  <script src="js/Front/GlobalEvents/pageChange.js"></script>
-  <script src="js/Front/GlobalEvents/cmsIntervals.js"></script>
-  <script src="js/Front/GlobalEvents/navi.js"></script>
-
-    <!------------------------------------------->
-    <!-- global Events : Helpers-->
-    <script src="js/Front/GlobalEvents/Helpers/checkInput.js"></script>
-    <script src="js/Front/GlobalEvents/Helpers/calcColordifference.js"></script>
-    <script src="js/Front/GlobalEvents/Helpers/quicksort.js"></script>
-    <script src="js/Front/GlobalEvents/Helpers/math_matrices_calculation.js"></script>
-    <script src="js/Front/GlobalEvents/Helpers/math.js"></script>
-    <script src="js/Front/GlobalEvents/Helpers/others.js"></script>
-    <script src="js/Front/GlobalEvents/Helpers/canvasHelpers.js"></script>
-    <script src="js/Front/GlobalEvents/Helpers/random.js"></script>
-
-    <!-- global Events : ShortCuts -->
-    <script src="js/Front/GlobalEvents/Shortcuts/shortcuts_globalVars.js"></script>
-    <script src="js/Front/GlobalEvents/Shortcuts/shortcuts.js"></script>
-
-    <!-- global Events : Parser -->
-    <script src="js/Front/GlobalEvents/Parser/csvColormapParser.js"></script>
-    <script src="js/Front/GlobalEvents/Parser/jsonColormapParser.js"></script>
-    <script src="js/Front/GlobalEvents/Parser/xmlColormapParser.js"></script>
-
-    <!-- global Events : Colormap Drawer -->
-    <script src="js/Front/GlobalEvents/ColormapDrawer/drawBandSegments.js"></script>
-    <script src="js/Front/GlobalEvents/ColormapDrawer/drawColormapLinear.js"></script>
-    <script src="js/Front/GlobalEvents/ColormapDrawer/drawColormapSketch.js"></script>
-
-    <!-- global Events : Color Gradient -->
-    <script src="js/Front/GlobalEvents/CMSColorGradient/calcGradientLinear.js"></script>
-    <script src="js/Front/GlobalEvents/CMSColorGradient/calcGradientHSV.js"></script>
-
-    <!-- global Events : Tool Themes -->
-    <script src="js/Front/GlobalEvents/ToolTheme/themesVars.js"></script>
-    <script src="js/Front/GlobalEvents/ToolTheme/events_tooltheme.js"></script>
-
-  <!------------------------------------------->
-  <!------------------------------------------->
-  <!-----------      SECTIONS      ------------>
-  <!------------------------------------------->
-
-  <!------------------------------------------->
-  <!-- Welcome Section -->
-  <script src="js/Front/Sections/welcomePage.js"></script>
-
-  <!------------------------------------------->
-  <!-- Edit Section -->
-
-  <script src="js/Front/Sections/Edit/events_editPage.js"></script>
-  <script src="js/Front/Sections/Edit/save.js"></script>
-  <script src="js/Front/Sections/Edit/process.js"></script>
-  <script src="js/Front/Sections/Edit/dropdown_events.js"></script>
-  <script src="js/Front/Sections/Edit/updateEditPage_Style.js"></script>
-  <script src="js/Front/Sections/Edit/init_EditPage.js"></script>
-  <script src="js/Front/Sections/Edit/editPage_globalVars.js"></script>
-  <script src="js/Front/Sections/Edit/fillTable.js"></script>
-  <script src="js/Front/Sections/Edit/changeInterpolationSpace.js"></script>
-
-    <!-- Edit Section: CMS visualization-->
-    <script src="js/Front/Sections/Edit/CMSVisualization/globalVars_EditCMS.js"></script>
-    <script src="js/Front/Sections/Edit/CMSVisualization/draw_EditCMS.js"></script>
-    <script src="js/Front/Sections/Edit/CMSVisualization/events_CMS.js"></script>
-
-
-
-    <!-- Edit Section: Add CMS -->
-    <script src="js/Front/Sections/Edit/AddCMS/drawSingleBands.js"></script>
-    <script src="js/Front/Sections/Edit/AddCMS/dragAndDropevents.js"></script>
-    <script src="js/Front/Sections/Edit/AddCMS/drawPredefinedCMS.js"></script>
-    <script src="js/Front/Sections/Edit/AddCMS/predefined_const_bands.js"></script>
-
-    <!-- Edit Section: Analyze Key -->
-    <script src="js/Front/Sections/Edit/Analyze/analyze_globalVars.js"></script>
-    <script src="js/Front/Sections/Edit/Analyze/analyze_events.js"></script>
-    <script src="js/Front/Sections/Edit/Analyze/analyze_globalSpeed.js"></script>
-    <script src="js/Front/Sections/Edit/Analyze/analyze_localSpeed.js"></script>
-    <script src="js/Front/Sections/Edit/Analyze/analyze_interpolationSpace.js"></script>
-    <script src="js/Front/Sections/Edit/Analyze/analyze_bandKeySpeed.js"></script>
-    <script src="js/Front/Sections/Edit/Analyze/analyze_order.js"></script>
-
-    <!-- Edit Section: Edit Key -->
-    <script src="js/Front/Sections/Edit/EditKey/editKeys.js"></script>
-
-
-    <!-- Edit Section: Histogram -->
-    <script src="js/Front/Sections/Edit/Histogram/histogram.js"></script>
-
-    <!-- Edit Section: Mapping -->
-    <script src="js/Front/Sections/Edit/Mapping/mapping_globalVars.js"></script>
-    <script src="js/Front/Sections/Edit/Mapping/mapping_events.js"></script>
-    <script src="js/Front/Sections/Edit/Mapping/DataParser/events_loadData.js"></script>
-    <script src="js/Front/Sections/Edit/Mapping/DataParser/vtkParser.js"></script>
-    <script src="js/Front/Sections/Edit/Mapping/Rendering/drawMapping.js"></script>
-    <script src="js/Front/Sections/Edit/Mapping/Rendering/rendering.js"></script>
-
-    <script src="js/Front/Sections/Edit/Mapping/mappingWorker_globlaVars.js"></script>
-    <script src="js/Front/Sections/Edit/Mapping/mappingWorkerEvents.js"></script>
-
-    <!-- Edit Section: Path Plot -->
-    <script src="js/Front/Sections/Edit/PathPlot/pathplot_globalVars.js"></script>
-    <script src="js/Front/Sections/Edit/PathPlot/arrangePlots.js"></script>
-
-    <script src="js/Front/Sections/Edit/PathPlot/drawPathPlot/drawPathPlotHSV_LAB_DIN99.js"></script>
-    <script src="js/Front/Sections/Edit/PathPlot/drawPathPlot/drawPathPlotRGB.js"></script>
-    <script src="js/Front/Sections/Edit/PathPlot/drawPathPlot/drawPathPlotHelpers2D.js"></script>
-    <script src="js/Front/Sections/Edit/PathPlot/drawPathPlot/drawPathPlotHelpers3D.js"></script>
-    <script src="js/Front/Sections/Edit/PathPlot/drawPathPlot/drawPathPlotHelpersBackground.js"></script>
-    <script src="js/Front/Sections/Edit/PathPlot/drawPathPlot/drawPathPlotHelpersInterpolationLine.js"></script>
-    <script src="js/Front/Sections/Edit/PathPlot/drawPathPlot/drawPathPlotHelpersKeyElements.js"></script>
-
-    <script src="js/Front/Sections/Edit/PathPlot/events_ColorspaceCanvas.js"></script>
-    <script src="js/Front/Sections/Edit/PathPlot/events_ColorspaceCanvasRGB.js"></script>
-
-    <script src="js/Front/Sections/Edit/PathPlot/3D_rendering/rgb3D.js"></script>
-    <script src="js/Front/Sections/Edit/PathPlot/3D_rendering/hsv3D.js"></script>
-    <script src="js/Front/Sections/Edit/PathPlot/3D_rendering/lab3D.js"></script>
-    <script src="js/Front/Sections/Edit/PathPlot/3D_rendering/din993D.js"></script>
-    <script src="js/Front/Sections/Edit/PathPlot/3D_rendering/lch3D.js"></script>
-    <script src="js/Front/Sections/Edit/PathPlot/3D_rendering/calcSpaceGrid.js"></script>
-    <script src="js/Front/Sections/Edit/PathPlot/3D_rendering/pathplot3D_vars.js"></script>
-    <script src="js/Front/Sections/Edit/PathPlot/3D_rendering/init3DPathPlot.js"></script>
-
-    <!-- Edit Section: Probes-->
-    <script src="js/Front/Sections/Edit/Probes/events_Probes.js"></script>
-    <script src="js/Front/Sections/Edit/Probes/events_editProbe.js"></script>
-    <script src="js/Front/Sections/Edit/Probes/events_generateProbe.js"></script>
-    <script src="js/Front/Sections/Edit/Probes/checkCustomProbeInput.js"></script>
-
-    <!-- Edit Section: Optimization-->
-    <script src="js/Front/Sections/Edit/Optimization/events_Optimization.js"></script>
-    <script src="js/Front/Sections/Edit/Optimization/globalVars_Optimization.js"></script>
-
-  <!-- Gallery Section-->
-  <script src="js/Front/Sections/Gallery/events_Gallery.js"></script>
-
-  <!------------------------------------------->
-  <!-- MyDesigns Section -->
-
-  <script src="js/Front/Sections/MyDesigns/draw_mydesigns.js"></script>
-  <script src="js/Front/Sections/MyDesigns/mydesigns.js"></script>
-  <script src="js/Front/Sections/MyDesigns/mydesigns_globalVars.js"></script>
-
-  <!-- Testing Section-->
-  <script src="js/Front/Sections/Testing/testing.js"></script>
-  <script src="js/Front/Sections/Testing/testing_globalVars.js"></script>
-  <script src="js/Front/Sections/Testing/init_TestingSection.js"></script>
-  <script src="js/Front/Sections/Testing/drawTestCollection.js"></script>
-  <script src="js/Front/Sections/Testing/testing_RealWorld_Vars.js"></script>
-  <script src="js/Front/Sections/Testing/loadRealWorldData.js"></script>
-
-
-    <!-- Testing Section : Interacive Test -->
-      <script src="js/Front/Sections/Testing/InteractiveTest/events.js"></script>
-      <script src="js/Front/Sections/Testing/InteractiveTest/interactiveTest_drawFktPreview.js"></script>
-
-      <script src="js/Front/Sections/Testing/InteractiveTest/CCCTest/interactiveJumpTest.js"></script>
-      <script src="js/Front/Sections/Testing/InteractiveTest/CCCTest/interactiveRidgeValleyTest.js"></script>
-      <script src="js/Front/Sections/Testing/InteractiveTest/CCCTest/interactiveGradientTest.js"></script>
-      <script src="js/Front/Sections/Testing/InteractiveTest/CCCTest/interactiveFrequencyTest.js"></script>
-      <script src="js/Front/Sections/Testing/InteractiveTest/CCCTest/interactiveLocalExtremaTest.js"></script>
-      <script src="js/Front/Sections/Testing/InteractiveTest/CCCTest/interactiveLittleBitTest.js"></script>
-      <script src="js/Front/Sections/Testing/InteractiveTest/CCCTest/interactiveTresholdTest.js"></script>
-      <script src="js/Front/Sections/Testing/InteractiveTest/CCCTest/interactiveTopologyTest.js"></script>
-
-      <script src="js/Front/Sections/Testing/InteractiveTest/FktCollection/interactiveLocalMinFunctions.js"></script>
-      <script src="js/Front/Sections/Testing/InteractiveTest/FktCollection/interactiveBowlShapedFunctions.js"></script>
-      <script src="js/Front/Sections/Testing/InteractiveTest/FktCollection/interactiveValleyShapedFunctions.js"></script>
-
-      <script src="js/Front/Sections/Testing/InteractiveTest/RealWorldData/interactiveRealWorldData.js"></script>
-
-        <!-- Testing Section : Noise -->
-        <script src="js/Front/Sections/Testing/InteractiveTest/Noise/noise_interactiveTest.js"></script>
-        <script src="js/Front/Sections/Testing/InteractiveTest/Noise/simplexNoise.js"></script>
-        <!-- Testing Section : Topology -->
-        <script src="js/Front/Sections/Testing/InteractiveTest/CCCTest/Topology/createTopologyField.js"></script>
-        <script src="js/Front/Sections/Testing/InteractiveTest/CCCTest/Topology/createTopologyFoundation.js"></script>
-
-        <!-- Testing Section : Test Report -->
-        <script src="js/Front/Sections/Testing/Report/events_Report.js"></script>
-        <script src="js/Front/Sections/Testing/Report/report_globalVars.js"></script>
-
-      <script src="js/Front/Sections/Testing/3D_TestVis/initTestRendering.js"></script>
-      <script src="js/Front/Sections/Testing/3D_TestVis/testImageMapping.js"></script>
-      <script src="js/Front/Sections/Testing/3D_TestVis/testMapping_Rendering_GlobalVars.js"></script>
-
-  <!------------------------------------------->
-  <!------------------------------------------->
-  <!-----------      Worker        ------------>
-  <!------------------------------------------->
-  <!-- Testing Section : Visualization -->
-  <script src="js/Front/Worker/updateWorker.js"></script>
-  <script src="js/Front/Worker/worker_globalVars.js"></script>
-  <script src="js/Front/Worker/initWorker.js"></script>
-
-  <script src="js/Front/Worker/eventFiles/workerEvent_pathplot.js"></script>
-  <script src="js/Front/Worker/eventFiles/workerEvent_testing.js"></script>
+  <!-- global Vars-->
+  <script src="js/Front/fullpage_globalVars.js"></script>
 
 
   <!------------------------------------------->
-  <!------------------------------------------->
-  <!-----------      Windows      ------------>
-  <!------------------------------------------->
-
-  <!-- Pop Up Windows -->
-  <script src="js/Front/PopUpWindows/init_PopUpWindow.js"></script>
-  <script src="js/Front/PopUpWindows/popUp_events.js"></script>
-
-    <!-- Pop Up Windows : Ask Window -->
-    <script src="js/Front/PopUpWindows/AskWindow/askWindow_globalVars.js"></script>
-    <script src="js/Front/PopUpWindows/AskWindow/askWindow.js"></script>
-
-    <!-- Pop Up Windows : Color_Picker -->
-    <script src="js/Front/PopUpWindows/Color_Picker/colorpicker_globalVars.js"></script>
-    <script src="js/Front/PopUpWindows/Color_Picker/colorpicker.js"></script>
-
-    <!-- Pop Up Windows : Color Settings -->
-    <script src="js/Front/PopUpWindows/Color_Settings/color_transformation_globalVars.js"></script>
-    <script src="js/Front/PopUpWindows/Color_Settings/color_transformation.js"></script>
-    <script src="js/Front/PopUpWindows/Color_Settings/metric_globalVars.js"></script>
-    <script src="js/Front/PopUpWindows/Color_Settings/metric.js"></script>
-
-    <!-- Pop Up Windows : Color Blindness -->
-    <script src="js/Front/PopUpWindows/Colorblindness/colorblindness_globalVars.js"></script>
-    <script src="js/Front/PopUpWindows/Colorblindness/colorblindness.js"></script>
-
-    <!-- Pop Up Windows : Export -->
-    <script src="js/Front/PopUpWindows/Export/export_globalVars.js"></script>
-    <script src="js/Front/PopUpWindows/Export/export.js"></script>
-
-
-    <!-- Pop Up Windows : Tutorial -->
-    <script src="js/Front/PopUpWindows/Tutorials/tutorialVideos.js"></script>
-
-
-
+  <!-- MAIN-->
+  <script src="js/Front/main.js"></script>
 
   <!------------------------------------------->
   <!-- EXTERN Libs -->
@@ -341,17 +336,7 @@
   <!-- script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.41/pdfmake.min.js"></script-->
   <script src="js/libs/ThreeJS/three.min.js"></script>
 
-
-
-
-  <!------------------------------------------->
-  <!-- global Vars-->
-  <script src="js/Front/fullpage_globalVars.js"></script>
-
-  <script src="js/Front/windowResize.js"></script>
-  <!------------------------------------------->
-  <!-- MAIN-->
-  <script src="js/Front/main.js"></script>
+  <script src="js/windowEvents.js"></script>
 
 </head>
 
@@ -438,7 +423,6 @@
             <div id="id_EditPage_DivProbeSets" include-html="html/Sections/Edit/probesets.html" style="width:100%; height:59vh; display:none;"></div>
           </div>
           <!-- END-DIV: 4.2.2.1 Analyze,Mapping,ProbeSet   ------------------->
-
 
           <!-- START-DIV: 4.2.2.2 Edit Key, Edit Path Plot  ------------------->
           <div id="id_editPage_EditKeyPathPlotDiv" style="width:30%; height:100%; overflow:hidden; border-left:0.2vh solid black;">

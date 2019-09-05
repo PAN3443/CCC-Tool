@@ -12,7 +12,7 @@ function din99Mesh(){
     var tmpRGB;
 
     var linesGeometry = new THREE.BufferGeometry();
-    var linesMaterial = new THREE.LineBasicMaterial( { vertexColors: THREE.VertexColors, linewidth: 1, transparent: true, opacity: 0.6, } );
+    var linesMaterial = new THREE.LineBasicMaterial( { vertexColors: THREE.VertexColors, linewidth: 1, transparent: true, opacity: 0.5, } );
     var linesPoints = [];
     var linesIndices = [];
     var linesColors = [];
@@ -311,7 +311,7 @@ function din99Mesh(){
 
         var material = new THREE.MeshBasicMaterial( {
                       /*side: THREE.DoubleSide,*/
-                      opacity: 0.4,
+                      opacity: 0.5,
                       premultipliedAlpha: true,
                       transparent: true, //*/
                       vertexColors: THREE.VertexColors,

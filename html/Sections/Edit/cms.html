@@ -12,19 +12,28 @@
     </div>
     <div style="display:flex; width:34%;  border-right: 0.2vh solid var(--main-sepArea-font-color); box-sizing: border-box;">
       <p style="margin:auto; margin-right:0.5vw; color: var(--main-sepArea-font-color);">Interpolation: </p>
-      <select id="id_editPage_InterpolationSelect" style="margin:auto; margin-left:0.5vw;" name="InterpolationSpaceList" onchange="changeColorspace()">
+      <select id="id_editPage_InterpolationSelect" style="min-width: 8vw; width: 8vw; max-width: 8vw; margin:auto; margin-left:0.5vw; margin-right:0.5vw;" name="InterpolationSpaceList" onchange="changeColorspace()">
         <optgroup label="&#9786; Perceptually Uniform:">
           <option value="lab" >Lab</option>
-          <option value="lch" style="display:none;">LCH</option>
+          <option value="de94-ds">Lab - de94 (Delta Sampling)</option>
+          <option value="de2000-ds">Lab - CIEDE2000 (Delta Sampling)</option>
+          <option value="de94" disabled> de94 (Graph)</option>
+          <option value="de2000" disabled> CIEDE2000 (Graph)</option>
           <option value="din99">DIN99</option>
-          <option value="de94" disabled>Lab using de94</option>
-          <option value="de2000" disabled>Lab using CIEDE2000</option>
         </optgroup>
         <optgroup label="&#9785; Not Perceptually Uniform:">
           <option value="rgb" >RGB</option>
           <option value="hsv">HSV</option>
         </optgroup>
       </select>
+
+      <p style="margin:auto; margin-left:0vw; margin-right:0.5vw; color: var(--main-sepArea-font-color);">Type: </p>
+      <select id="id_editPage_InterpolationTypeSelect" style=" min-width: 3vw; width: 3vw; max-width: 3vw; margin:auto; margin-left:0.5vw; margin-right:0.5vw;" name="InterpolationSpaceList" onchange="changeInterpolationType()">
+          <option value="linear" >Linear</option>
+          <option value="spline">Spline</option>
+      </select>
+
+      <p id="id_editPage_idUsedMetric" style="margin:auto; color: var(--main-sepArea-font-color);"> </p>
     </div>
     <div style=" display:flex; width:33%;">
       <p style="margin-top:auto; margin-bottom:auto; margin-left:auto; color: var(--main-sepArea-font-color);">NaN:</p>
@@ -54,7 +63,7 @@
       <button class="class_EditPage_EditButton" type="button" name="button" title="Equal Key Intervals" onclick="editCMS_equalKeyIntervals()">|||</button>
       <button class="class_EditPage_EditButton" type="button" name="button" title="Color-Blindness" onclick="changeColorblindness()">&#128065;</button>
 
-      <button id="id_EditPage_OptimizationModeButton" class="class_EditPage_EditButton" type="button" name="button" title="Optimization Mode" style="display:none;" onclick="changeOpimizationMode()">O</button>
+      <button id="id_EditPage_OptimizationModeButton" class="class_EditPage_EditButton" type="button" name="button" title="Optimization Mode" onclick="changeOpimizationMode()">O</button>
 
       <div style="width:0.01vw; height:100%; border-right:0.2vh solid var(--main-sepArea-font-color); box-sizing: border-box;"></div>
 

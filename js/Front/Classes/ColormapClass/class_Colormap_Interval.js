@@ -3,14 +3,10 @@
 ////////////////////////////////////////////////
 
 class class_Interval{
-    constructor(color, isKeyPart, refPos) {
-
-        this.isKeyPart = isKeyPart;
+    constructor(color, refPos) {
         this.iColor= undefined;
         this.ref = refPos;
-
         this.setColor(color);
-
     }
 
     setColor(color) {
@@ -31,6 +27,10 @@ class class_Interval{
           return this.iColor.calcHSVColor();
           break;
           case "lab":
+          case "de94":
+          case "de94-ds":
+          case "de2000":
+          case "de2000-ds":
           return this.iColor.calcLABColor();
           break;
           case "din99":
@@ -52,10 +52,6 @@ class class_Interval{
           return ncolor.calcLCHColor();
           break;
         }
-    }
-
-    getIsKeyPart(){
-      return this.isKeyPart;
     }
 
     setRefPosition(pos) {

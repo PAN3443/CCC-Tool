@@ -209,6 +209,7 @@ function showEditPage(){
 
 
   updateInterpolationSpaceEditPage();
+  updateInterpolationType();
 
   //DropDown
   if(document.getElementById("id_dropDownContainer").style.display=="block")

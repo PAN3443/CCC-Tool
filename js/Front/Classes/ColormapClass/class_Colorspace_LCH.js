@@ -62,6 +62,11 @@ class classColor_LCH{
         this.hValue = newBVal;
       }
 
+      getRGBString() {
+        var tmpRGB = this.calcRGBColor();
+        return tmpRGB.getRGBString();
+      }
+
       equalTo(color){
 
         switch (color.getColorType()) {
@@ -148,7 +153,7 @@ class classColor_LCH{
         var tmpLab = this.calcLABColor();
         return tmpLab.calcLMSColor();
       }
-      
+
 
       calcHSVColor(){
         var tmpLab = this.calcLABColor();

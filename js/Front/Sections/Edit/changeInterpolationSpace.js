@@ -1,31 +1,55 @@
 
 function changeColorspace(){
 
-  switch (document.getElementById("id_editPage_InterpolationSelect").selectedIndex) {
-    case 5:
-        globalCMS1.setInterpolationSpace("rgb");
-      break;
-      case 6:
-          globalCMS1.setInterpolationSpace("hsv");
-        break;
-        case 0:
-            globalCMS1.setInterpolationSpace("lab");
-          break;
-          case 1:
-              globalCMS1.setInterpolationSpace("lch");
-            break;
-          case 2:
-              globalCMS1.setInterpolationSpace("din99");
-            break;
-            case 3:
-                globalCMS1.setInterpolationSpace("de94");
-              break;
-              case 4:
-                  globalCMS1.setInterpolationSpace("de2000");
-                break;
-    default:
 
+
+  var intSpace =   document.getElementById("id_editPage_InterpolationSelect").options[document.getElementById("id_editPage_InterpolationSelect").selectedIndex].value;
+
+
+
+  switch (intSpace) {
+    case "rgb":
+        document.getElementById("id_editPage_idUsedMetric").innerHTML = "Metric: None";
+        document.getElementById("id_EditPage_Analysis_UsedMetric").innerHTML = "Metric: None";
+      break;
+      case "hsv":
+          document.getElementById("id_editPage_idUsedMetric").innerHTML = "Metric: None";
+          document.getElementById("id_EditPage_Analysis_UsedMetric").innerHTML = "Metric: None";
+        break;
+        case "lab":
+            document.getElementById("id_editPage_idUsedMetric").innerHTML = "Metric: Euclidean Distance";
+            document.getElementById("id_EditPage_Analysis_UsedMetric").innerHTML = "Metric: Euclidean Distance (Lab Space)";
+          break;
+          case "lch":
+              document.getElementById("id_editPage_idUsedMetric").innerHTML = "Metric: Euclidean Distance";
+              document.getElementById("id_EditPage_Analysis_UsedMetric").innerHTML = "Metric: Euclidean Distance (Lab Space)";
+            break;
+          case "din99":
+              document.getElementById("id_editPage_idUsedMetric").innerHTML = "Metric: Euclidean Distance";
+              document.getElementById("id_EditPage_Analysis_UsedMetric").innerHTML = "Metric: Euclidean Distance (DIN99 Space)";
+            break;
+            case "de94":
+                document.getElementById("id_editPage_idUsedMetric").innerHTML = "Metric: de94";
+                document.getElementById("id_EditPage_Analysis_UsedMetric").innerHTML = "Metric: de94";
+              break;
+              case "de2000":
+                  document.getElementById("id_editPage_idUsedMetric").innerHTML = "Metric: CIEDE2000";
+                  document.getElementById("id_EditPage_Analysis_UsedMetric").innerHTML = "Metric: CIEDE2000";
+                break;
+                case "de94-ds":
+                    document.getElementById("id_editPage_idUsedMetric").innerHTML = "Metric: de94";
+                    document.getElementById("id_EditPage_Analysis_UsedMetric").innerHTML = "Metric: de94";
+                  break;
+                  case "de2000-ds":
+                      document.getElementById("id_editPage_idUsedMetric").innerHTML = "Metric: CIEDE2000";
+                      document.getElementById("id_EditPage_Analysis_UsedMetric").innerHTML = "Metric: CIEDE2000";
+                    break;
+    default:
+      intSpace="lab";
+      document.getElementById("id_editPage_idUsedMetric").innerHTML = "Metric: Euclidean Distance";
   }
+
+  globalCMS1.setInterpolationSpace(intSpace);
 
   globalCMS1JSON=inform_Worker_GlobalCMS();
 
@@ -45,6 +69,10 @@ function changeColorspace(){
 
 
   updateEditPage(); // = update CMS, Mapping and Analyze Plots
+
+  if(editPage_optimizationMode){
+    updateOptimizationPage();
+  }
 
 
 }
@@ -78,4 +106,22 @@ function updateInterpolationSpaceEditPage(){
   }
   changeColorspace();
 
+}
+
+function changeInterpolationType(){
+  globalCMS1.setInterpolationType(document.getElementById("id_editPage_InterpolationTypeSelect").options[document.getElementById("id_editPage_InterpolationTypeSelect").selectedIndex].value);
+}
+
+function updateInterpolationType(){
+
+  if(globalCMS1.setInterpolationType()=="linear")
+    document.getElementById("id_editPage_InterpolationTypeSelect").selectedIndex=0;
+  else
+    document.getElementById("id_editPage_InterpolationTypeSelect").selectedIndex=1;
+
+  updateEditPage(); // = update CMS, Mapping and Analyze Plots
+
+  if(editPage_optimizationMode){
+    updateOptimizationPage();
+  }
 }

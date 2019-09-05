@@ -29,3 +29,18 @@ function degree360ToRad(degree){
 
   return deg2rad (degree);
 }
+
+
+function sum(...theArgs) {
+  return theArgs.reduce((previous, current) => {
+    return previous + current;
+  });
+}
+
+function sumArray(array){
+  var sum = 0;
+  for (var i = 0; i < array.length; i++) {
+    sum +=  array[i];
+  }
+  return sum;
+}

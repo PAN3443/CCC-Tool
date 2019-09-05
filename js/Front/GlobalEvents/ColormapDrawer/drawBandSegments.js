@@ -20,19 +20,31 @@ function createScaledBand(canvasData, xStart, yStart, bandWidth, bandHeight, col
   //  console.log(typeof color1);
   //  console.log('createScaledBand: ' + color1.getColorType());
 
-  switch (globalCMS1.getInterpolationSpace()) {
-    case "rgb": case "lab": case "din99":
+  /*switch (globalCMS1.getInterpolationSpace()) {
+    case "rgb":
+    case "lab":
+    case "de94":
+    case "de94-ds":
+    case "de2000":
+    case "de2000-ds":
+    case "din99":*/
 
       var tmpWorkColor;
 
       if(globalCMS1.getInterpolationSpace()==="rgb")
         tmpWorkColor = new classColor_RGB(0, 0, 0);
 
-      if(globalCMS1.getInterpolationSpace()==="lab")
+      if(globalCMS1.getInterpolationSpace()==="lab" || globalCMS1.getInterpolationSpace()==="de2000" || globalCMS1.getInterpolationSpace()==="de94" || globalCMS1.getInterpolationSpace()==="de2000-ds" || globalCMS1.getInterpolationSpace()==="de94-ds")
         tmpWorkColor = new classColor_LAB(0, 0, 0);
 
       if(globalCMS1.getInterpolationSpace()==="din99")
         tmpWorkColor = new classColorDIN99(0, 0, 0);
+
+        if(globalCMS1.getInterpolationSpace()==="hsv")
+          tmpWorkColor = new classColor_HSV(0, 0, 0);
+
+          if(globalCMS1.getInterpolationSpace()==="lch")
+            tmpWorkColor = new classColor_LCH(0, 0, 0);
 
       for (var x = xStart; x < xStart + bandWidth; x++) {
        var tmpRatio = (x - xStart) / bandWidth;
@@ -60,8 +72,8 @@ function createScaledBand(canvasData, xStart, yStart, bandWidth, bandHeight, col
 
       }
 
-      break;
-    case "hsv":
+    /*  break;
+    /*case "hsv":
       var tmpDis = color1.getSValue() * 50; // radius 50; center(0,0,0);
       var tmpRad = (color1.getHValue() * Math.PI * 2) - Math.PI;
       var xPos = tmpDis * Math.cos(tmpRad);
@@ -140,57 +152,11 @@ function createScaledBand(canvasData, xStart, yStart, bandWidth, bandHeight, col
 
         break;
 
-      /*for (var x = xStart; x <= xStart + bandWidth; x++) {
 
-        var tmpRatio = (x - xStart) / bandWidth;
-
-        var lValue = color1.getLValue() + (color2.getLValue() - color1.getLValue()) * tmpRatio;
-        var aValue = color1.getAValue() + (color2.getAValue() - color1.getAValue()) * tmpRatio;
-        var bValue = color1.getBValue() + (color2.getBValue() - color1.getBValue()) * tmpRatio;
-        var tmpCurrentLABColor = new classColor_LAB(lValue, aValue, bValue);
-
-        var tmpCurrentColor = tmpCurrentLABColor.calcRGBColor();
-
-        for (var y = 0; y < bandHeight; y++) {
-          var index = (x + (y+yStart) * canvasWidth) * 4;
-          canvasData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
-          canvasData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
-          canvasData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
-          canvasData.data[index + 3] = 255; //a
-        }
-
-      }
-
-      break;
-
-
-      for (var x = xStart; x <= xStart + bandWidth; x++) {
-
-        var tmpRatio = (x - xStart) / bandWidth;
-
-        var l99Value = color1.getL99Value() + (color2.getL99Value() - color1.getL99Value()) * tmpRatio;
-        var a99Value = color1.getA99Value() + (color2.getA99Value() - color1.getA99Value()) * tmpRatio;
-        var b99Value = color1.getB99Value() + (color2.getB99Value() - color1.getB99Value()) * tmpRatio;
-
-        var tmpCurrentDIN99Color = new classColorDIN99(l99Value, a99Value, b99Value);
-
-        var tmpCurrentColor = tmpCurrentDIN99Color.calcRGBColor();
-
-        for (var y = 0; y < bandHeight; y++) {
-          var index = (x + (y+yStart) * canvasWidth) * 4;
-          canvasData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
-          canvasData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
-          canvasData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
-          canvasData.data[index + 3] = 255; //a
-        }
-
-      }
-
-      break;*/
     default:
       console.log("Error at the createBand function");
 
-  }
+  }*/
 
   return canvasData;
 }
@@ -202,24 +168,6 @@ function createConstantBand(canvasData, xStart, yStart, bandWidth, bandHeight, c
   bandWidth = Math.round(bandWidth);
   bandHeight = Math.round(bandHeight);
 
-  /*switch (globalCMS1.getInterpolationSpace()) {
-    case "rgb":
-
-      for (var x = xStart; x <= xStart + bandWidth; x++) {
-
-        for (var y = 0; y < bandHeight; y++) {
-          var index = (x + (y+yStart) * canvasWidth) * 4;
-          canvasData.data[index + 0] = Math.round(color1.getRValue() * 255); // r
-          canvasData.data[index + 1] = Math.round(color1.getGValue() * 255); // g
-          canvasData.data[index + 2] = Math.round(color1.getBValue() * 255); // b
-          canvasData.data[index + 3] = 255; //a
-        }
-
-      }
-
-      break;
-    case "hsv":*/
-
       var tmpCurrentColor = color1.calcRGBColor();
 
       for (var x = xStart; x <= xStart + bandWidth; x++) {
@@ -233,62 +181,6 @@ function createConstantBand(canvasData, xStart, yStart, bandWidth, bandHeight, c
         }
 
       }
-    /*  break;
-    case "lab":
-
-      var tmpCurrentColor = color1.calcRGBColor();
-
-      for (var x = xStart; x <= xStart + bandWidth; x++) {
-
-        for (var y = 0; y < bandHeight; y++) {
-          var index = (x + (y+yStart) * canvasWidth) * 4;
-          canvasData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
-          canvasData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
-          canvasData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
-          canvasData.data[index + 3] = 255; //a
-        }
-
-      }
-
-      break;
-    case "din99":
-
-      var tmpCurrentColor = color1.calcRGBColor();
-
-      for (var x = xStart; x <= xStart + bandWidth; x++) {
-
-        for (var y = 0; y < bandHeight; y++) {
-          var index = (x + (y+yStart) * canvasWidth) * 4;
-          canvasData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
-          canvasData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
-          canvasData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
-          canvasData.data[index + 3] = 255; //a
-        }
-
-      }
-
-      case "lch":
-
-        var tmpCurrentColor = color1.calcRGBColor();
-
-        for (var x = xStart; x <= xStart + bandWidth; x++) {
-
-          for (var y = 0; y < bandHeight; y++) {
-            var index = (x + (y+yStart) * canvasWidth) * 4;
-            canvasData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
-            canvasData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
-            canvasData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
-            canvasData.data[index + 3] = 255; //a
-          }
-
-        }
-        break;
-
-      break;
-    default:
-      console.log("Error at the createBand function");
-
-  }*/
 
   return canvasData;
 }
@@ -302,14 +194,20 @@ function createScaledBandVertical(canvasData, yStart, bandWidth, bandHeight, col
   bandHeight = Math.round(bandHeight);
 
   switch (globalCMS1.getInterpolationSpace()) {
-    case "rgb": case "lab": case "din99":
+    case "rgb":
+    case "lab":
+    case "de94":
+    case "de94-ds":
+    case "de2000":
+    case "de2000-ds":
+    case "din99":
 
       var tmpWorkColor;
 
       if(globalCMS1.getInterpolationSpace()==="rgb")
         tmpWorkColor = new classColor_RGB(0, 0, 0);
 
-      if(globalCMS1.getInterpolationSpace()==="lab")
+      if(globalCMS1.getInterpolationSpace()==="lab" || globalCMS1.getInterpolationSpace()==="de2000" || globalCMS1.getInterpolationSpace()==="de94" || globalCMS1.getInterpolationSpace()==="de2000-ds" || globalCMS1.getInterpolationSpace()==="de94-ds")
         tmpWorkColor = new classColor_LAB(0, 0, 0);
 
       if(globalCMS1.getInterpolationSpace()==="din99")

@@ -153,6 +153,11 @@ function checkScale(){
   else{
     globalCMS1.setAutoRange(start,end);
     saveCreateProcess();
+
+    if(editPage_optimizationMode){
+      updateOptimizationPage();
+    }
+
     updateEditPage();
     document.getElementById("id_PopUp_ScaleWindow").style.display="none";
     document.getElementById("id_popupWindow_ScaleInfoText").style.display="none";

@@ -2,6 +2,14 @@
 
 var editPage_optimizationMode = false;
 
+var globalCMS1_Original = undefined;
+var globalCMS_Uniform = undefined;
+
+
+var optimization_StartKey = 0;
+var optimization_EndKey = 0;
+
+
 
 // Information of the general edit Window settings
 var editPage_table_wasDisplayed = false;

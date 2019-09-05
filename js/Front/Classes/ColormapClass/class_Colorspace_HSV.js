@@ -85,6 +85,11 @@ class classColor_HSV{
 
     }
 
+    getRGBString() {
+      var tmpRGB = this.calcRGBColor();
+      return tmpRGB.getRGBString();
+    }
+
     getInColorFormat(format){
 
       switch (format) {
@@ -185,6 +190,23 @@ class classColor_HSV{
 
 
         return new classColor_RGB(r,g,b);
+    }
+
+    checkRGBPossiblity(){
+
+      var tmpRGB = this.calcRGBColor();
+
+      if(tmpRGB.get1Value()>1.0 || tmpRGB.get1Value()<0.0)
+        return false;
+
+        if(tmpRGB.get1Value()>1.0 || tmpRGB.get1Value()<0.0)
+          return false;
+
+          if(tmpRGB.get1Value()>1.0 || tmpRGB.get1Value()<0.0)
+            return false;
+
+
+      return true;
     }
 
 }

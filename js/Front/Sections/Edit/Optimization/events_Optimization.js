@@ -33,6 +33,9 @@ function changeOpimizationMode(){
     document.getElementById("id_EditPage_SelectAnalyzePlot").style.margin = "0vh";
     document.getElementById("id_EditPage_SelectAnalyzePlot").style.marginLeft = "1vw";
 
+    document.getElementById("id_EditPage_AnalyseContentDiv_1_Obj3").style.display = "block";
+    document.getElementById("id_editPage_Anaylze_IntervalCalcInput").style.display = "block";
+
     document.getElementById("id_EditPage_AnalyseContentDiv_2").style.height = "100%";
 
     // update STYLE Pathplot Page
@@ -85,6 +88,8 @@ function changeOpimizationMode(){
     update_EditPageStyle();
   }
   else {
+
+    globalCMS1_Original = cloneCMS(globalCMS1);
 
     editPage_optimizationMode=true;
     document.getElementById("id_EditPage_OptimizationModeButton").classList.remove("class_EditPage_EditButton");
@@ -182,10 +187,15 @@ function changeOpimizationMode(){
     document.getElementById("id_EditPage_AnalyseContentDiv_1").style.background = getComputedStyle(document.documentElement).getPropertyValue('--main-sepArea-bg'); // old --main-bg-color
 
     document.getElementById("id_EditPage_AnalyseContentDiv_1_Obj1").style.margin = "auto";
+    document.getElementById("id_EditPage_AnalyseContentDiv_1_Obj1").style.marginLeft = "2vw";
     document.getElementById("id_EditPage_AnalyseContentDiv_1_Obj1").style.marginRight = "1vw";
     document.getElementById("id_EditPage_AnalyseContentDiv_1_Obj1").style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-sepArea-font-color'); // old --main-font-color
+
     document.getElementById("id_EditPage_SelectAnalyzePlot").style.margin = "auto";
     document.getElementById("id_EditPage_SelectAnalyzePlot").style.marginLeft = "1vw";
+
+    document.getElementById("id_EditPage_AnalyseContentDiv_1_Obj3").style.display = "none";
+    document.getElementById("id_editPage_Anaylze_IntervalCalcInput").style.display = "none";
 
     document.getElementById("id_EditPage_AnalyseContentDiv_2").style.height = "60vh";
 
@@ -200,9 +210,54 @@ function changeOpimizationMode(){
     document.getElementById("id_editPage_EditKeyPathPlot_CloseDiv").style.display = "none"; // old flex
     document.getElementById("id_editPage_EditKeyPathPlot_TabDiv").style.display = "none"; // old flex
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
+    optimization_StartKey = 0;
+    optimization_EndKey = globalCMS1.getKeyLength()-1;
+    document.getElementById("id_Optimization_UniformityDegree").value=0;
+    /////
 
-
-
+    calcUniformityOptimum ();
+    updateCMSwithOptInfo();
   }
+
+}
+
+
+function updateOptimizationPage(){
+
+  document.getElementById("id_Optimization_UniformityDegree").value=0;
+  globalCMS1_Original = cloneCMS(globalCMS1);
+  optimization_StartKey = 0;
+  optimization_EndKey = globalCMS1.getKeyLength()-1;
+  calcUniformityOptimum ();
+  updateCMSwithOptInfo();
+}
+
+
+function updateCMSwithOptInfo(){
+
+  globalCMS1 = cloneCMS(globalCMS1_Original);
+
+  /////////////////////////////////////////////////////////////////////////
+  //// Uniformity
+  ///////////////////////////////////////////////////////////////////////
+  var uniformity_degree = document.getElementById("id_Optimization_UniformityDegree").value;
+  if(uniformity_degree>0){
+    for (var i = optimization_StartKey+1; i < optimization_EndKey; i++) {
+
+      var originalPos = globalCMS1_Original.getRefPosition(i);
+      var optiPos = globalCMS_Uniform.getRefPosition(i);
+
+      var dis = optiPos-originalPos;
+
+      var newPosition = originalPos+(dis*uniformity_degree);
+
+      globalCMS1.setRefPosition(i,newPosition);
+    }
+  }
+
+
+  //// Update Edit Page => Plots for Analysis, Visualization and Edit
+  updateEditPage();
 
 }

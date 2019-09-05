@@ -1,38 +1,5 @@
 
-function includeHTML() {
-  var z, i, elmnt, file, xhttp;
-  /*loop through a collection of all HTML elements:*/
-  z = document.getElementsByTagName("*");
-  for (i = 0; i < z.length; i++) {
-    elmnt = z[i];
-    /*search for elements with a certain atrribute:*/
-    file = elmnt.getAttribute("include-html");
-    if (file) {
-      /*make an HTTP request using the attribute value as the file name:*/
-      xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function() {
-        if (this.readyState == 4) {
-          if (this.status == 200) {elmnt.innerHTML = this.responseText;}
-          if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
-          /*remove the attribute, and call this function once more:*/
-          elmnt.removeAttribute("include-html");
-          includeHTML();
-        }
-      }
-      xhttp.open("GET", file, false); // true); //
-      xhttp.send();
-      /*exit the function:*/
-      return;
-    }
-  }
-};
-
-
-window.onbeforeunload = function() { return "Attention: Your work will be lost, if you will leave this page."; };
-
-window.onload = function() {
-
-  includeHTML();
+function main_init() {
 
   // init global vars
   globalProbeSet = new class_ProbeSet("");
@@ -72,20 +39,6 @@ window.onload = function() {
     document.getElementById("id_welcomePage_InfoTxt").style.display = "block";
     document.getElementById("id_welcomePage_InfoTxt").innerHTML = attentionText;
   }
-
-  ////////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////////
-
-  ///// Future Work:
-  ///
-  /// Dynamically adding different script depenting if the browser is able to work with workers
-  //  var newScript = document.createElement('script');
-  //  newScript.setAttribute('src','http://ccctool.com/front/js/example.js');
-  //  document.head.appendChild(newScript);
-  // -> function addScript(src)
-
-  ////////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////////
 
 
   // init events
@@ -195,32 +148,4 @@ window.onload = function() {
     checkLandscapeWindow();
 
 
-}
-
-
-window.onresize = function (){
-  checkLandscapeWindow();
-
-  if(document.getElementById("id_EditPage").style.display!="none"){
-    updateEditPage();
-  }
-}
-
-function checkLandscapeWindow(){
-
-  var ratio = window.innerHeight/window.innerWidth;
-
-  if(ratio>0.75){
-    document.getElementById("id_PopUp_LandscapeWindow").style.display = "flex";
-  }
-  else{
-    document.getElementById("id_PopUp_LandscapeWindow").style.display = "none";
-  }
-}
-
-
-function addScript(src){
-  var newScript = document.createElement('script');
-  newScript.setAttribute('src',src);
-  document.head.appendChild(newScript);
 }

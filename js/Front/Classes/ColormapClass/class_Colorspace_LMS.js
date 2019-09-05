@@ -45,6 +45,16 @@ class classColor_LMS{
     return tmpXYZ.calcRGBColor();
   }
 
+  checkRGBPossiblity(){
+    var tmpXYZ = this.calcXYZColor();
+    return tmpXYZ.checkRGBPossiblity();
+  }
+
+  getRGBString() {
+    var tmpRGB = this.calcRGBColor();
+    return tmpRGB.getRGBString();
+  }
+
   calcColorBlindRGBColor(){
 
     var newL = this.lValue * sim_AdaptiveColorblindness[0][0] + this.mValue * sim_AdaptiveColorblindness[0][1] + this.sValue * sim_AdaptiveColorblindness[0][2];

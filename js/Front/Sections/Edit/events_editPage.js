@@ -21,22 +21,6 @@ function changeColorPossiblity(){
 
 }
 
-function changeLimitKeyBurLine(){
-
-  if(limitKeyBurLine){
-    limitKeyBurLine=false,
-    document.getElementById('id_dropDownMenue_LimitKeyBurLine_Label').innerHTML="Show Limited Key Bur Line";
-  }
-  else {
-    limitKeyBurLine=true,
-    document.getElementById('id_dropDownMenue_LimitKeyBurLine_Label').innerHTML="Show Full Key Bur Line";
-  }
-
-  document.getElementById("id_dropDownContainer").style.display="none";
-  drawKeyBursLine("id_EditPage_CMS_VIS_KeyBurs",globalCMS1);
-}
-
-
 function updateEditPage(){
 
   globalCMS1JSON=inform_Worker_GlobalCMS();
@@ -45,9 +29,17 @@ function updateEditPage(){
 
   fillTable();
 
+  if(document.getElementById("id_EditPage_Edit_Keys").style.display!="none"){
+     openEditKeyDiv(document.getElementById("id_EditPage_EditKey_List").selectedIndex);
+  }
+
+  if(document.getElementById("id_editPage_EditKeyPathPlotDiv").style.display!="none" && document.getElementById("id_EditPage_Edit_Path").style.display!="none" && pathColorspace!="rgb"){
+      drawcolormap_hueSpace(true, true, true);
+  }
+
   if(document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.display!="none"){
 
-      if(document.getElementById("id_EditPage_DivAnalyze").style.display!="none" && autoAnalyze){
+      if(document.getElementById("id_EditPage_DivAnalyze").style.display!="none"){// && autoAnalyze){
         updateAnalyze();
       }
       else{
@@ -60,7 +52,6 @@ function updateEditPage(){
       }
     }
 
-
 }
 
 function reverseCMS(){
@@ -68,15 +59,8 @@ function reverseCMS(){
   updateEditPage();
   saveCreateProcess();
 
-  if(document.getElementById("id_EditPage_Edit_Keys").style.display!="none"){
-     openEditKeyDiv(document.getElementById("id_EditPage_EditKey_List").selectedIndex);
-  }
-
-  if(document.getElementById("id_EditPage_Edit_Path").style.display!="none"){
-    if(pathColorspace==="rgb")
-      drawcolormap_RGBSpace(true,true);
-    else
-      drawcolormap_hueSpace(true, true, true);
+  if(editPage_optimizationMode){
+    updateOptimizationPage();
   }
 }
 

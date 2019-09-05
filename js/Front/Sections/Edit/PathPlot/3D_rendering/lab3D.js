@@ -12,7 +12,7 @@ function labMesh(){
     var tmpRGB;
 
     var linesGeometry = new THREE.BufferGeometry();
-    var linesMaterial = new THREE.LineBasicMaterial( { vertexColors: THREE.VertexColors, linewidth: 1 } );
+      var linesMaterial = new THREE.LineBasicMaterial( { vertexColors: THREE.VertexColors, linewidth: 1, transparent: true, opacity: 0.5, } );
     var linesPoints = [];
     var linesIndices = [];
     var linesColors = [];

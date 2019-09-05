@@ -17,6 +17,10 @@ function mouseLeaveColorspaceRGB(event) {
       drawcolormap_RGBSpace(true,true);
       saveCreateProcess();
 
+      if(editPage_optimizationMode){
+        updateOptimizationPage();
+      }
+
   }
 }
 
@@ -405,4 +409,8 @@ function mouseUpColorspaceRGB() {
   clearInterval(timer2DAnimation);
   drawcolormap_RGBSpace(true,true);
   saveCreateProcess();
+
+  if(editPage_optimizationMode){
+    updateOptimizationPage();
+  }
 }

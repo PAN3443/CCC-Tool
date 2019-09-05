@@ -386,12 +386,10 @@ function update_EditPageStyle(){
 
     }
 
+    drawEditCMSVIS(globalCMS1,[]);
 
     if(document.getElementById("id_EditPage_DivMapping").style.display!="none"){
       updateMappingSize();
-    }
-    else {
-      updateEditPage();
     }
 
 

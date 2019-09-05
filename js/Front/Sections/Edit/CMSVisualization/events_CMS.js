@@ -10,16 +10,7 @@ function keyAdd2DAnimation(){
 
 
 function keyChange2DAnimation(){
-
-  drawEditCMSVIS(globalCMS1,[]);
-
-  if(document.getElementById("id_EditPage_Edit_Keys").style.display!="none"){
-     openEditKeyDiv(document.getElementById("id_EditPage_EditKey_List").selectedIndex);
-  }
-
-  if(document.getElementById("id_editPage_EditKeyPathPlotDiv").style.display!="none" && document.getElementById("id_EditPage_Edit_Path").style.display!="none" && pathColorspace!="rgb"){
-      drawcolormap_hueSpace(true, true, true);
-  }
+  updateEditPage();
 }
 
 function editCMS_MouseMove(event){
@@ -174,50 +165,32 @@ function editCMS_MouseDown(){
   if(editCMS_AddKeyModus){
 
     globalCMS1=cloneCMS(workCMS_Edit);
-
+    updateEditPage();
     /////////////
     ////  Save Band Process
     saveCreateProcess();
 
-      if(document.getElementById("id_EditPage_Edit_Keys").style.display!="none"){
-         openEditKeyDiv(document.getElementById("id_EditPage_EditKey_List").selectedIndex);
-      }
-
-      globalCMS1JSON=inform_Worker_GlobalCMS();
-
-      if(document.getElementById("id_EditPage_Edit_Path").style.display!="none"){
-        if(pathColorspace==="rgb")
-          drawcolormap_RGBSpace(true,true);
-        else
-          drawcolormap_hueSpace(true, true, true);
-      }
+    if(editPage_optimizationMode){
+      updateOptimizationPage();
+    }
 
   }
   else if(editCMS_RemoveKeyModus){
 
     if(overKeyID==0 || overKeyID==undefined || overKeyID==globalCMS1.getKeyLength()-1)
       return;
-      
+
     globalCMS1.deleteKey(overKeyID);
     globalCMS1JSON=inform_Worker_GlobalCMS();
     /////////////
     ////  Save Band Process
     saveCreateProcess();
 
-    drawEditCMSVIS(globalCMS1,[]);
+    if(editPage_optimizationMode){
+      updateOptimizationPage();
+    }
 
-      if(document.getElementById("id_EditPage_Edit_Keys").style.display!="none"){
-         openEditKeyDiv(document.getElementById("id_EditPage_EditKey_List").selectedIndex);
-      }
-
-
-
-      if(document.getElementById("id_EditPage_Edit_Path").style.display!="none"){
-        if(pathColorspace==="rgb")
-          drawcolormap_RGBSpace(true,true);
-        else
-          drawcolormap_hueSpace(true, true, true);
-      }
+    updateEditPage();
   }
   else{
     if(overKeyID!=undefined){
@@ -250,6 +223,10 @@ function editCMS_MouseUp(){
     overBurdockID = undefined;
     saveCreateProcess();
     globalCMS1JSON=inform_Worker_GlobalCMS();
+
+    if(editPage_optimizationMode){
+      updateOptimizationPage();
+    }
   }
 }
 
@@ -267,6 +244,10 @@ function editCMS_MouseEnter(){
       overBurdockID = undefined;
       saveCreateProcess();
       globalCMS1JSON=inform_Worker_GlobalCMS();
+
+      if(editPage_optimizationMode){
+        updateOptimizationPage();
+      }
     }
   }
 
@@ -288,6 +269,10 @@ function editCMS_MouseLeave(){
   if(grappedKey || grappedBurdock){
     saveCreateProcess();
     globalCMS1JSON=inform_Worker_GlobalCMS();
+
+    if(editPage_optimizationMode){
+      updateOptimizationPage();
+    }
   }
 }
 

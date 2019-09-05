@@ -12,31 +12,29 @@ function styleStructure_BandSpeed(){
     document.getElementById("id_EditPage_AnalyzeContainer_SpacesSelectVisType").style.display = "none";
     document.getElementById("id_EditPage_AnalyzeContainer_SpacesKeyspeed").style.display = "block";
 
-    document.getElementById("id_EditPage_MatricLabel_IntSpaceKeySpeed").style.display = "block";
-    document.getElementById("id_EditPage_MatricDiv1_IntSpaceKeySpeed").style.display = "flex";
-    document.getElementById("id_EditPage_MatricDiv2_IntSpaceKeySpeed").style.display = "flex";
+    document.getElementById("id_EditPage_InterpolationAnalyse_RGB_Div").style.display = "none";
+    document.getElementById("id_EditPage_InterpolationAnalyse_HSV_Div").style.display = "none";
 
-    document.getElementById("id_EditPage_EuDisLabel_IntSpaceKeySpeed").style.display = "block";
+    document.getElementById("id_EditPage_CanvasLAB_IntSpaceKeySpeed").style.height = "7.5vh";
+    document.getElementById("id_EditPage_CanvasLAB_DS94_IntSpaceKeySpeed").style.height = "7.5vh";
+    document.getElementById("id_EditPage_CanvasLAB_DS2000_IntSpaceKeySpeed").style.height = "7.5vh";
+    document.getElementById("id_EditPage_CanvasDE94_IntSpaceKeySpeed").style.height = "7.5vh";
+    document.getElementById("id_EditPage_CanvasCIEDE2000_IntSpaceKeySpeed").style.height = "7.5vh";
+    document.getElementById("id_EditPage_CanvasDIN99_IntSpaceKeySpeed").style.height = "7.5vh";
 
-    document.getElementById("id_EditPage_CanvasDE94_IntSpaceKeySpeed").style.height = "7.25vh";
-    document.getElementById("id_EditPage_CanvasCIEDE2000_IntSpaceKeySpeed").style.height = "7.25vh";
-    document.getElementById("id_EditPage_CanvasLAB_IntSpaceKeySpeed").style.height = "7.25vh";
-    document.getElementById("id_EditPage_CanvasDIN99_IntSpaceKeySpeed").style.height = "7.25vh";
-    document.getElementById("id_EditPage_CanvasRGB_IntSpaceKeySpeed").style.height = "7.25vh";
-    document.getElementById("id_EditPage_CanvasHSV_IntSpaceKeySpeed").style.height = "7.25vh";
 
-    draw_BandSpeed(globalCMS1,"id_EditPage_CanvasDE94_IntSpaceKeySpeed", 3);
-    draw_BandSpeed(globalCMS1, "id_EditPage_CanvasCIEDE2000_IntSpaceKeySpeed", 4);
-    draw_BandSpeed(globalCMS1, "id_EditPage_CanvasLAB_IntSpaceKeySpeed", 2);
-    draw_BandSpeed(globalCMS1, "id_EditPage_CanvasDIN99_IntSpaceKeySpeed", 5);
-    draw_BandSpeed(globalCMS1, "id_EditPage_CanvasRGB_IntSpaceKeySpeed", 0);
-    draw_BandSpeed(globalCMS1, "id_EditPage_CanvasHSV_IntSpaceKeySpeed", 1);
+    draw_BandSpeed("id_EditPage_CanvasLAB_IntSpaceKeySpeed","lab")
+    draw_BandSpeed("id_EditPage_CanvasLAB_DS94_IntSpaceKeySpeed","de94-ds")
+    draw_BandSpeed("id_EditPage_CanvasLAB_DS2000_IntSpaceKeySpeed","de2000-ds")
+    draw_BandSpeed("id_EditPage_CanvasDE94_IntSpaceKeySpeed","de94")
+    draw_BandSpeed("id_EditPage_CanvasCIEDE2000_IntSpaceKeySpeed","de2000")
+    draw_BandSpeed("id_EditPage_CanvasDIN99_IntSpaceKeySpeed","din99")
   }
 
 }
 
 
-function draw_BandSpeed(cms, plotid, type){
+function draw_BandSpeed(plotid, type){
 
   var canvasPlot = document.getElementById(plotid);
 
@@ -53,7 +51,6 @@ function draw_BandSpeed(cms, plotid, type){
 
   var borderWidth = 2; //px
 
-
   var numberOfScaledBands=0;
   var currentWidth=0;
   var currentPos=0;
@@ -61,70 +58,48 @@ function draw_BandSpeed(cms, plotid, type){
   var arraySpeed = [];
   var arraySpeedSum = 0;
   var indexList = [];
+
+
   /////////////////////////////////////////////////////////////////////////////
   // Calc Speed
-  for(var x=0; x<cms.getKeyLength()-1; x++){
+  for(var x=0; x<globalCMS1.getKeyLength()-1; x++){
 
           var speed=0;
-          var dis = cms.getRefPosition(x+1)-cms.getRefPosition(x);
+          var dis = globalCMS1.getRefPosition(x+1)-globalCMS1.getRefPosition(x);
 
-          if(cms.getKeyType(x)==="nil key" || cms.getKeyType(x)==="left key")
+          if(globalCMS1.getKeyType(x)==="nil key" || globalCMS1.getKeyType(x)==="left key")
           continue;
-
 
           numberOfScaledBands++;
           indexList.push(x);
 
           if(dis!=0){
+
             switch (type) {
-              case 0:
-                var c1 = cms.getRightKeyColor(x,"rgb");
-                var c2 = cms.getLeftKeyColor(x+1,"rgb");
+              case "lab":
+              case "din99":
+                var c1 = globalCMS1.getRightKeyColor(x,type);
+                var c2 = globalCMS1.getLeftKeyColor(x+1,type);
 
                 if(c1!=undefined)
                  speed= calc3DEuclideanDistance(c1,c2)/dis;
                 break;
-              case 1:
-                  var c1 = cms.getRightKeyColor(x,"hsv");
-                  var c2 = cms.getLeftKeyColor(x+1,"hsv");
-
-                  if(c1!=undefined)
-                   speed= calc3DEuclideanDistance(c1,c2)/dis;
-                  break;
-              case 2:
-                var c1 = cms.getRightKeyColor(x,"lab");
-                var c2 = cms.getLeftKeyColor(x+1,"lab");
-
-                if(c1!=undefined)
-                 speed= calc3DEuclideanDistance(c1,c2)/dis;
-
+              case "de94-ds":
+              case "de2000-ds":
+                var c1 = globalCMS1.getRightKeyColor(x,type);
+                var c2 = globalCMS1.getLeftKeyColor(x+1,type);
+                var tmpResults = calcDeltaIntervalBetween_C1C2(c1,c2, deltaSampling_Analyze, type);
+                if(tmpResults!=undefined)
+                 speed= sumArray(tmpResults[1])/dis;
                 break;
-                case 3:
-                var c1 = cms.getRightKeyColor(x,"lab");
-                var c2 = cms.getLeftKeyColor(x+1,"lab");
 
-                if(c1!=undefined)
-                 speed= calcDeltaDE94(c1,c2)/dis;
-
+              case "de94":
+              case "de2000":
+                  return;
                   break;
 
-                  case 4:
-                  var c1 = cms.getRightKeyColor(x,"lab");
-                  var c2 = cms.getLeftKeyColor(x+1,"lab");
-
-                  if(c1!=undefined)
-                   speed= calcDeltaCIEDE2000(c1,c2)/dis;
-                    break;
-
-                    case 5:
-                    var c1 = cms.getRightKeyColor(x,"din99");
-                    var c2 = cms.getLeftKeyColor(x+1,"din99");
-
-                    if(c1!=undefined)
-                     speed= calc3DEuclideanDistance(c1,c2)/dis;
-
-                      break;
               default:
+                return;
             }
 
           }
@@ -133,6 +108,9 @@ function draw_BandSpeed(cms, plotid, type){
           arraySpeed.push(speed);
           arraySpeedSum += speed;
   }
+
+  if(type=="de2000-ds")
+    console.log(arraySpeed);
 
   var restWidth = canvasPlot.width-(numberOfScaledBands-1)*borderWidth;
   /////////////////////////////////////////////////////////////////////////////
@@ -156,67 +134,9 @@ function draw_BandSpeed(cms, plotid, type){
     var color2;
 
     switch (type) {
-      case 0:
-      color1 = cms.getRightKeyColor(indexList[i],"rgb");
-      color2 = cms.getLeftKeyColor(indexList[i]+1,"rgb");
-
-        for(var x=0; x<currentWidth; x++){
-          var index = (currentPos+x) * 4;
-
-          var tmpRatio = x/currentWidth;
-
-          var rValue = color1.getRValue() + (color2.getRValue() - color1.getRValue()) * tmpRatio;
-          var gValue = color1.getGValue() + (color2.getGValue() - color1.getGValue()) * tmpRatio;
-          var bValue = color1.getBValue() + (color2.getBValue() - color1.getBValue()) * tmpRatio;
-
-          canvasData.data[index + 0] = Math.round(rValue * 255); // r
-          canvasData.data[index + 1] = Math.round(gValue * 255); // g
-          canvasData.data[index + 2] = Math.round(bValue * 255); // b
-          canvasData.data[index + 3] = 255; //a
-        }
-
-        break;
-      case 1:
-      color1 = cms.getRightKeyColor(indexList[i],"hsv");
-      color2 = cms.getLeftKeyColor(indexList[i]+1,"hsv");
-
-      var tmpDis = color1.getSValue()*50; // radius 50; center(0,0,0);
-                                    var tmpRad = (color1.getHValue()*Math.PI*2)-Math.PI;
-                                    var xPos = tmpDis*Math.cos(tmpRad);
-                                    var yPos = tmpDis*Math.sin(tmpRad);
-                                    var zPos = color1.getVValue()-50;
-
-                                    var tmpDis2 = color2.getSValue()*50;
-                                    var tmpRad2 = (color2.getHValue()*Math.PI*2)-Math.PI;
-                                    var xPos2 = tmpDis2*Math.cos(tmpRad2);
-                                    var yPos2 = tmpDis2*Math.sin(tmpRad2);
-                                    var zPos2 = color2.getVValue()-50;
-
-        for(var x=0; x<currentWidth; x++){
-          var index = (currentPos+x) * 4;
-
-          var tmpRatio = x/currentWidth;
-
-          var tmpX = xPos + (xPos2 - xPos) * tmpRatio;
-          var tmpY = yPos + (yPos2 - yPos) * tmpRatio;
-          var tmpZ = zPos + (zPos2 - zPos) * tmpRatio;
-
-          var tmpH = (Math.atan2(tmpY, tmpX) + Math.PI) / (Math.PI * 2);
-          var tmpS = Math.sqrt(Math.pow(tmpX, 2) + Math.pow(tmpY, 2)) / 50;
-          var tmpV = tmpZ + 50;
-          var tmpCurrentHSVColor = new classColor_HSV(tmpH, tmpS, tmpV);
-
-          var tmpCurrentColor = tmpCurrentHSVColor.calcRGBColor();
-
-          canvasData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
-          canvasData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
-          canvasData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
-          canvasData.data[index + 3] = 255; //a
-        }
-          break;
-      case 2: case 3: case 4:
-      color1 = cms.getRightKeyColor(indexList[i],"lab");
-      color2 = cms.getLeftKeyColor(indexList[i]+1,"lab");
+      case "lab":
+        color1 = globalCMS1.getRightKeyColor(indexList[i],"lab");
+        color2 = globalCMS1.getLeftKeyColor(indexList[i]+1,"lab");
 
         for(var x=0; x<currentWidth; x++){
           var index = (currentPos+x) * 4;
@@ -236,9 +156,13 @@ function draw_BandSpeed(cms, plotid, type){
           canvasData.data[index + 3] = 255; //a
         }
         break;
-      case 5:
-      color1 = cms.getRightKeyColor(indexList[i],"din99");
-      color2 = cms.getLeftKeyColor(indexList[i]+1,"din99");
+      case "din99":
+      case "de94-ds":
+      case "de2000-ds":
+      case "de94":
+      case "de2000":
+      color1 = globalCMS1.getRightKeyColor(indexList[i],"din99");
+      color2 = globalCMS1.getLeftKeyColor(indexList[i]+1,"din99");
 
       for(var x=0; x<currentWidth; x++){
         var index = (currentPos+x) * 4;
@@ -258,7 +182,6 @@ function draw_BandSpeed(cms, plotid, type){
         canvasData.data[index + 3] = 255; //a
       }
       break;
-      default:
 
     }
     currentPos+=currentWidth;

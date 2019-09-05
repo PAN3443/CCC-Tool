@@ -284,17 +284,22 @@ function init_events_EditPage(){
     };
 
 
+
     document.getElementById("id_EditPage_InputFixedAxis_GlobalLocalOrder").addEventListener("change", updateAnalyze);
     document.getElementById("id_EditPage_DoFixedAxis_GlobalLocalOrder").addEventListener("change", updateAnalyze);
-    document.getElementById("id_AnalyzeSubContainer_Select").addEventListener("change", updateAnalyze);
+    //document.getElementById("id_AnalyzeSubContainer_Select").addEventListener("change", updateAnalyze);
     document.getElementById("id_EditPage_DoLogSelect_GlobalLocalOrder").addEventListener("change", updateAnalyze);
 
     document.getElementById("id_EditPage_SelectAnalyzePlot").addEventListener("change", updateAnalyze);
 
-    document.getElementById("id_editPage_Anaylze_IntervalCalcInput").addEventListener("change", changeAnalyzeIntervalInput);
-    document.getElementById("id_editPage_Anaylze_IntervalNumber").addEventListener("change", changeAnalyzeIntervalCalculation);
+    document.getElementById("id_editPage_Optimization_IntervalCalcInput").value = deltaSampling_Analyze;
+    document.getElementById("id_editPage_Optimization_IntervalCalcInput").addEventListener("change", changeDeltaSampling);
+    document.getElementById("id_editPage_Anaylze_IntervalCalcInput").value = deltaSampling_Analyze;
+    document.getElementById("id_editPage_Anaylze_IntervalCalcInput").addEventListener("change", changeDeltaSampling);
+    /*document.getElementById("id_editPage_Anaylze_IntervalCalcInput").addEventListener("change", changeAnalyzeIntervalInput);
+    /*document.getElementById("id_editPage_Anaylze_IntervalNumber").addEventListener("change", changeAnalyzeIntervalCalculation);
     document.getElementById("id_editPage_Anaylze_IntervalColorDifference").addEventListener("change", changeAnalyzeIntervalCalculation);
-    document.getElementById("id_editPage_Anaylze_IntervalNumber").checked=true;
+    document.getElementById("id_editPage_Anaylze_IntervalNumber").checked=true;*/
 
 
 }

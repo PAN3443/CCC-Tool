@@ -1,39 +1,91 @@
 
+
+
+function deltaSamplingInterpolationLine(pathplotType){
+  switch (globalCMS1.getInterpolationSpace()) {
+    case "rgb":
+      if(pathplotType == "rgb" && globalCMS1.getInterpolationType=="linear"){
+        globalCMS1.clearIntervalColors();
+      }
+      else {
+        globalCMS1.calcDeltaIntervalColors(pathplotIntervalDelta_rgb);
+      }
+      break;
+      case "hsv":
+        if(pathplotType == "hsv" && globalCMS1.getInterpolationType=="linear"){
+          globalCMS1.clearIntervalColors();
+        }
+        else {
+          globalCMS1.calcDeltaIntervalColors(pathplotIntervalDelta_rgb);
+        }
+        break;
+        case "din99":
+        if(pathplotType == "din99" && globalCMS1.getInterpolationType=="linear"){
+          globalCMS1.clearIntervalColors();
+        }
+        else {
+          globalCMS1.calcDeltaIntervalColors(pathplotIntervalDelta_rgb);
+        }
+          break;
+          case "lab":
+          case "lch":
+          case "de94-ds":
+          case "de2000-ds":
+              if(pathplotType == "lab" && globalCMS1.getInterpolationType=="linear"){
+                globalCMS1.clearIntervalColors();
+              }
+              else {
+                globalCMS1.calcDeltaIntervalColors(pathplotIntervalDelta_lab);
+              }
+          break;
+
+          case "de2000":
+          case "de94":
+            // NOT Implemented
+            globalCMS1.clearIntervalColors();
+          break;
+
+  }
+}
+
+
 function calcRGBInterpolationLine(){
   pathplotLines=[];
   pathplotLinesDashed=[];
 
   var areaDim = pathPlotResolution * 0.7;
 
-  globalCMS1.calcDeltaIntervalColors(pathplotIntervalDelta, 0,globalCMS1.getKeyLength()-1);
+  deltaSamplingInterpolationLine("rgb");
+
   for (var i = 0; i < globalCMS1.getKeyLength()-1; i++) {
 
     switch (globalCMS1.getKeyType(i)) {
       case "nil key":
 
       break;
-      case "twin key":
-        var intervalIndexA = globalCMS1.getIntervalPositions(i);
-        pathplotLinesDashed.push(getRGBLineSegment(globalCMS1.getLeftKeyColor(i,"rgb"),globalCMS1.getRightKeyColor(i,"rgb"),areaDim));
-          for(var j=intervalIndexA[0]; j<intervalIndexA[1]; j++){
-            pathplotLines.push(getRGBLineSegment(globalCMS1.getIntervalColor(j,"rgb"),globalCMS1.getIntervalColor(j+1,"rgb"),areaDim));
-          }
-        break;
+
       case "left key":
         pathplotLinesDashed.push(getRGBLineSegment(globalCMS1.getLeftKeyColor(i,"rgb"),globalCMS1.getLeftKeyColor(i+1,"rgb"),areaDim));
         break;
 
+      case "twin key":
+
+        pathplotLinesDashed.push(getRGBLineSegment(globalCMS1.getLeftKeyColor(i,"rgb"),globalCMS1.getRightKeyColor(i,"rgb"),areaDim));
+
       default:
 
-        var intervalIndexA = globalCMS1.getIntervalPositions(i);
-        if(globalCMS1.getKeyType(i)=="dual key"){
-          pathplotLines.push(getRGBLineSegment(globalCMS1.getLeftKeyColor(i,"rgb"),globalCMS1.getIntervalColor(intervalIndexA[0],"rgb"),areaDim));
+        if(globalCMS1.getIntervalLength(i)==0){
+            pathplotLines.push(getRGBLineSegment(globalCMS1.getRightKeyColor(i,"rgb"),globalCMS1.getLeftKeyColor(i+1,"rgb"),areaDim));
         }
+        else {
+          pathplotLines.push(getRGBLineSegment(globalCMS1.getRightKeyColor(i,"rgb"),globalCMS1.getIntervalColor(i,0,"rgb"),areaDim));
 
-          for(var j=intervalIndexA[0]; j<intervalIndexA[1]; j++){
-            pathplotLines.push(getRGBLineSegment(globalCMS1.getIntervalColor(j,"rgb"),globalCMS1.getIntervalColor(j+1,"rgb"),areaDim));
+          for(var j=0; j<globalCMS1.getIntervalLength(i)-1; j++){
+            pathplotLines.push(getRGBLineSegment(globalCMS1.getIntervalColor(i,j,"rgb"),globalCMS1.getIntervalColor(i,j+1,"rgb"),areaDim));
           }
 
+          pathplotLines.push(getRGBLineSegment(globalCMS1.getIntervalColor(i,globalCMS1.getIntervalLength(i)-1,"rgb"),globalCMS1.getLeftKeyColor(i+1,"rgb"),areaDim));
+        }
       }
 
     }
@@ -75,7 +127,8 @@ function calcInterpolationLine_HSV(){
   pathplotLinesDashed=[];
   pathplotLinesVPlot=[];
 
-  globalCMS1.calcDeltaIntervalColors(pathplotIntervalDelta, 0,globalCMS1.getKeyLength()-1);
+  deltaSamplingInterpolationLine("hsv");
+
 
   var tmpColor, tmpColor2, xPos, xPos2, yPos, yPos2;
 
@@ -85,34 +138,33 @@ function calcInterpolationLine_HSV(){
       case "nil key":
         pathplotLinesVPlot.push(getLineSegment_VPlot_HSV(globalCMS1.getLeftKeyColor(i + 1, "hsv"), globalCMS1.getLeftKeyColor(i + 1, "hsv"), globalCMS1.getRefPosition(i), globalCMS1.getRefPosition(i + 1)));
       break;
-      case "twin key":
-        var intervalIndexA = globalCMS1.getIntervalPositions(i);
-        pathplotLinesDashed.push(getLineSegment_Hue_HSV(globalCMS1.getLeftKeyColor(i, "hsv"), globalCMS1.getRightKeyColor(i, "hsv")));
 
-          for (var j = intervalIndexA[0]; j < intervalIndexA[1]; j++) {
-            pathplotLines.push(getLineSegment_Hue_HSV(globalCMS1.getIntervalColor(j, "hsv"), globalCMS1.getIntervalColor(j + 1, "hsv")));
-            pathplotLinesVPlot.push(getLineSegment_VPlot_HSV(globalCMS1.getIntervalColor(j, "hsv"),globalCMS1.getIntervalColor(j + 1, "hsv"),globalCMS1.getIntervalRef(j),globalCMS1.getIntervalRef(j + 1)));
-          }
-        break;
       case "left key":
         pathplotLinesDashed.push(getLineSegment_Hue_HSV(globalCMS1.getLeftKeyColor(i, "hsv"), globalCMS1.getLeftKeyColor(i + 1, "hsv")));
         pathplotLinesVPlot.push(getLineSegment_VPlot_HSV(globalCMS1.getLeftKeyColor(i + 1, "hsv"),globalCMS1.getLeftKeyColor(i + 1, "hsv"),globalCMS1.getRefPosition(i),globalCMS1.getRefPosition(i+1)));
         break;
+
+      case "twin key":
+
+        pathplotLinesDashed.push(getLineSegment_Hue_HSV(globalCMS1.getRightKeyColor(i, "hsv"), globalCMS1.getLeftKeyColor(i, "hsv")));
+
       default:
 
-        var intervalIndexA = globalCMS1.getIntervalPositions(i);
+      if(globalCMS1.getIntervalLength(i)==0){
+          pathplotLines.push(getLineSegment_Hue_HSV(globalCMS1.getRightKeyColor(i,"hsv"),globalCMS1.getLeftKeyColor(i+1,"hsv")));
+          pathplotLinesVPlot.push(getLineSegment_VPlot_HSV(globalCMS1.getRightKeyColor(i,"hsv"),globalCMS1.getLeftKeyColor(i+1,"hsv"), globalCMS1.getRefPosition(i),globalCMS1.getRefPosition(i+1)));
+      }
+      else {
+        pathplotLines.push(getLineSegment_Hue_HSV(globalCMS1.getRightKeyColor(i,"hsv"),globalCMS1.getIntervalColor(i,0,"hsv")));
+        pathplotLinesVPlot.push(getLineSegment_VPlot_HSV(globalCMS1.getRightKeyColor(i,"hsv"),globalCMS1.getIntervalColor(i,0,"hsv"), globalCMS1.getRefPosition(i),globalCMS1.getIntervalRef(i,0)));
 
-        if(globalCMS1.getKeyType(i)=="dual key"){
-          // we do not save the interval colors for dual key double -> it is easier for the analyze algorithm
-          pathplotLines.push(getLineSegment_Hue_HSV(globalCMS1.getLeftKeyColor(i,"hsv"), globalCMS1.getIntervalColor(intervalIndexA[0],"hsv")));
-          pathplotLinesVPlot.push(getLineSegment_VPlot_HSV(globalCMS1.getLeftKeyColor(i,"hsv"),globalCMS1.getIntervalColor(intervalIndexA[0],"hsv"), globalCMS1.getRefPosition(i),globalCMS1.getIntervalRef(intervalIndexA[0])));
+        for(var j=0; j<globalCMS1.getIntervalLength(i)-1; j++){
+          pathplotLines.push(getLineSegment_Hue_HSV(globalCMS1.getIntervalColor(i,j,"hsv"),globalCMS1.getIntervalColor(i,j+1,"hsv")));
+          pathplotLinesVPlot.push(getLineSegment_VPlot_HSV(globalCMS1.getIntervalColor(i, j, "hsv"),globalCMS1.getIntervalColor(i, j + 1, "hsv"), globalCMS1.getIntervalRef(i,j),globalCMS1.getIntervalRef(i,j + 1)));
         }
-
-          for (var j = intervalIndexA[0]; j < intervalIndexA[1]; j++) {
-            pathplotLines.push(getLineSegment_Hue_HSV(globalCMS1.getIntervalColor(j, "hsv"), globalCMS1.getIntervalColor(j + 1, "hsv")));
-            pathplotLinesVPlot.push(getLineSegment_VPlot_HSV(globalCMS1.getIntervalColor(j, "hsv"),globalCMS1.getIntervalColor(j + 1, "hsv"), globalCMS1.getIntervalRef(j),globalCMS1.getIntervalRef(j + 1)));
-          }
-
+        pathplotLines.push(getLineSegment_Hue_HSV(globalCMS1.getIntervalColor(i,globalCMS1.getIntervalLength(i)-1,"hsv"),globalCMS1.getLeftKeyColor(i+1,"hsv")));
+        pathplotLinesVPlot.push(getLineSegment_VPlot_HSV(globalCMS1.getIntervalColor(i,globalCMS1.getIntervalLength(i)-1,"hsv"),globalCMS1.getLeftKeyColor(i+1,"hsv"),globalCMS1.getIntervalRef(i,globalCMS1.getIntervalLength(i)-1),globalCMS1.getRefPosition(i+1)));
+      }
     }
 
   }
@@ -201,7 +253,7 @@ function calcInterpolationLine_Lab(){
   pathplotLinesDashed=[];
   pathplotLinesVPlot=[];
 
-  globalCMS1.calcDeltaIntervalColors(pathplotIntervalDelta, 0,globalCMS1.getKeyLength()-1);
+  deltaSamplingInterpolationLine("lab");
 
   var tmpColor, tmpColor2, xPos, xPos2, yPos, yPos2;
 
@@ -211,33 +263,35 @@ function calcInterpolationLine_Lab(){
       case "nil key":
         pathplotLinesVPlot.push(getLineSegment_VPlot_Lab(globalCMS1.getLeftKeyColor(i + 1, "lab_rgb_possible"), globalCMS1.getLeftKeyColor(i + 1, "lab_rgb_possible"), globalCMS1.getRefPosition(i), globalCMS1.getRefPosition(i + 1)));
       break;
-      case "twin key":
-        var intervalIndexA = globalCMS1.getIntervalPositions(i);
-        pathplotLinesDashed.push(getLineSegment_Hue_Lab(globalCMS1.getLeftKeyColor(i, "lab_rgb_possible"), globalCMS1.getRightKeyColor(i, "lab_rgb_possible")));
 
-          for (var j = intervalIndexA[0]; j < intervalIndexA[1]; j++) {
-            pathplotLines.push(getLineSegment_Hue_Lab(globalCMS1.getIntervalColor(j, "lab_rgb_possible"), globalCMS1.getIntervalColor(j + 1, "lab_rgb_possible")));
-            pathplotLinesVPlot.push(getLineSegment_VPlot_Lab(globalCMS1.getIntervalColor(j, "lab_rgb_possible"),globalCMS1.getIntervalColor(j + 1, "lab_rgb_possible"),globalCMS1.getIntervalRef(j),globalCMS1.getIntervalRef(j + 1)));
-          }
-        break;
       case "left key":
         pathplotLinesDashed.push(getLineSegment_Hue_Lab(globalCMS1.getLeftKeyColor(i, "lab_rgb_possible"), globalCMS1.getLeftKeyColor(i + 1, "lab_rgb_possible")));
         pathplotLinesVPlot.push(getLineSegment_VPlot_Lab(globalCMS1.getLeftKeyColor(i + 1, "lab_rgb_possible"),globalCMS1.getLeftKeyColor(i + 1, "lab_rgb_possible"),globalCMS1.getRefPosition(i),globalCMS1.getRefPosition(i+1)));
         break;
+
+      case "twin key":
+
+        pathplotLinesDashed.push(getLineSegment_Hue_Lab(globalCMS1.getRightKeyColor(i, "lab_rgb_possible"), globalCMS1.getLeftKeyColor(i, "lab_rgb_possible")));
+        // no break because we want to do the default here, too!
+
       default:
 
-        var intervalIndexA = globalCMS1.getIntervalPositions(i);
+      if(globalCMS1.getIntervalLength(i)==0){
+          pathplotLines.push(getLineSegment_Hue_Lab(globalCMS1.getRightKeyColor(i,"lab_rgb_possible"),globalCMS1.getLeftKeyColor(i+1,"lab_rgb_possible")));
+          pathplotLinesVPlot.push(getLineSegment_VPlot_Lab(globalCMS1.getRightKeyColor(i,"lab_rgb_possible"),globalCMS1.getLeftKeyColor(i+1,"lab_rgb_possible"), globalCMS1.getRefPosition(i),globalCMS1.getRefPosition(i+1)));
+      }
+      else {
+          pathplotLines.push(getLineSegment_Hue_Lab(globalCMS1.getRightKeyColor(i,"lab_rgb_possible"),globalCMS1.getIntervalColor(i,0,"lab_rgb_possible")));
+          pathplotLinesVPlot.push(getLineSegment_VPlot_Lab(globalCMS1.getRightKeyColor(i,"lab_rgb_possible"),globalCMS1.getIntervalColor(i,0,"lab_rgb_possible"), globalCMS1.getRefPosition(i),globalCMS1.getIntervalRef(i,0)));
 
-        if(globalCMS1.getKeyType(i)=="dual key"){
-          // we do not save the interval colors for dual key double -> it is easier for the analyze algorithm
-          pathplotLines.push(getLineSegment_Hue_Lab(globalCMS1.getLeftKeyColor(i,"lab_rgb_possible"), globalCMS1.getIntervalColor(intervalIndexA[0],"lab_rgb_possible")));
-          pathplotLinesVPlot.push(getLineSegment_VPlot_Lab(globalCMS1.getLeftKeyColor(i,"lab_rgb_possible"),globalCMS1.getIntervalColor(intervalIndexA[0],"lab_rgb_possible"), globalCMS1.getRefPosition(i),globalCMS1.getIntervalRef(intervalIndexA[0])));
+        for(var j=0; j<globalCMS1.getIntervalLength(i)-1; j++){
+          pathplotLines.push(getLineSegment_Hue_Lab(globalCMS1.getIntervalColor(i,j,"lab_rgb_possible"),globalCMS1.getIntervalColor(i,j+1,"lab_rgb_possible")));
+          pathplotLinesVPlot.push(getLineSegment_VPlot_Lab(globalCMS1.getIntervalColor(i, j, "lab_rgb_possible"),globalCMS1.getIntervalColor(i, j + 1, "lab_rgb_possible"), globalCMS1.getIntervalRef(i,j),globalCMS1.getIntervalRef(i,j + 1)));
         }
 
-          for (var j = intervalIndexA[0]; j < intervalIndexA[1]; j++) {
-            pathplotLines.push(getLineSegment_Hue_Lab(globalCMS1.getIntervalColor(j, "lab_rgb_possible"), globalCMS1.getIntervalColor(j + 1, "lab_rgb_possible")));
-            pathplotLinesVPlot.push(getLineSegment_VPlot_Lab(globalCMS1.getIntervalColor(j, "lab_rgb_possible"),globalCMS1.getIntervalColor(j + 1, "lab_rgb_possible"), globalCMS1.getIntervalRef(j),globalCMS1.getIntervalRef(j + 1)));
-          }
+        pathplotLines.push(getLineSegment_Hue_Lab(globalCMS1.getIntervalColor(i,globalCMS1.getIntervalLength(i)-1,"lab_rgb_possible"),globalCMS1.getLeftKeyColor(i+1,"lab_rgb_possible")));
+        pathplotLinesVPlot.push(getLineSegment_VPlot_Lab(globalCMS1.getIntervalColor(i,globalCMS1.getIntervalLength(i)-1,"lab_rgb_possible"),globalCMS1.getLeftKeyColor(i+1,"lab_rgb_possible"),globalCMS1.getIntervalRef(i,globalCMS1.getIntervalLength(i)-1),globalCMS1.getRefPosition(i+1)));
+      }
 
     }
 
@@ -337,7 +391,7 @@ function calcInterpolationLine_DIN99(){
   rangeA99 = rangeA99Pos - rangeA99Neg;
   rangeB99 = rangeB99Pos - rangeB99Neg;
 
-  globalCMS1.calcDeltaIntervalColors(pathplotIntervalDelta, 0,globalCMS1.getKeyLength()-1);
+  deltaSamplingInterpolationLine("din99");
 
   var tmpColor, tmpColor2, xPos, xPos2, yPos, yPos2;
 
@@ -347,33 +401,37 @@ function calcInterpolationLine_DIN99(){
       case "nil key":
         pathplotLinesVPlot.push(getLineSegment_VPlot_DIN99(globalCMS1.getLeftKeyColor(i + 1, "din99_rgb_possible"), globalCMS1.getLeftKeyColor(i + 1, "din99_rgb_possible"), globalCMS1.getRefPosition(i), globalCMS1.getRefPosition(i + 1)));
       break;
-      case "twin key":
-        var intervalIndexA = globalCMS1.getIntervalPositions(i);
-        pathplotLinesDashed.push(getLineSegment_Hue_DIN99(globalCMS1.getLeftKeyColor(i, "din99_rgb_possible"), globalCMS1.getRightKeyColor(i, "din99_rgb_possible")));
-
-          for (var j = intervalIndexA[0]; j < intervalIndexA[1]; j++) {
-            pathplotLines.push(getLineSegment_Hue_DIN99(globalCMS1.getIntervalColor(j, "din99_rgb_possible"), globalCMS1.getIntervalColor(j + 1, "din99_rgb_possible")));
-            pathplotLinesVPlot.push(getLineSegment_VPlot_DIN99(globalCMS1.getIntervalColor(j, "din99_rgb_possible"),globalCMS1.getIntervalColor(j + 1, "din99_rgb_possible"),globalCMS1.getIntervalRef(j),globalCMS1.getIntervalRef(j + 1)));
-          }
-        break;
       case "left key":
         pathplotLinesDashed.push(getLineSegment_Hue_DIN99(globalCMS1.getLeftKeyColor(i, "din99_rgb_possible"), globalCMS1.getLeftKeyColor(i + 1, "din99_rgb_possible")));
         pathplotLinesVPlot.push(getLineSegment_VPlot_DIN99(globalCMS1.getLeftKeyColor(i + 1, "din99_rgb_possible"),globalCMS1.getLeftKeyColor(i + 1, "din99_rgb_possible"),globalCMS1.getRefPosition(i),globalCMS1.getRefPosition(i+1)));
         break;
+
+      case "twin key":
+
+          pathplotLinesDashed.push(getLineSegment_Hue_DIN99(globalCMS1.getRightKeyColor(i, "din99_rgb_possible"), globalCMS1.getLeftKeyColor(i, "din99_rgb_possible")));
+
+          // no break because we want to do the default here, too!
+
       default:
 
-        var intervalIndexA = globalCMS1.getIntervalPositions(i);
+      if(globalCMS1.getIntervalLength(i)==0){
+          pathplotLines.push(getLineSegment_Hue_DIN99(globalCMS1.getRightKeyColor(i,"din99_rgb_possible"),globalCMS1.getLeftKeyColor(i+1,"din99_rgb_possible")));
+          pathplotLinesVPlot.push(getLineSegment_VPlot_DIN99(globalCMS1.getRightKeyColor(i,"din99_rgb_possible"),globalCMS1.getLeftKeyColor(i+1,"din99_rgb_possible"), globalCMS1.getRefPosition(i),globalCMS1.getRefPosition(i+1)));
 
-        if(globalCMS1.getKeyType(i)=="dual key"){
-          // we do not save the interval colors for dual key double -> it is easier for the analyze algorithm
-          pathplotLines.push(getLineSegment_Hue_DIN99(globalCMS1.getLeftKeyColor(i,"din99_rgb_possible"), globalCMS1.getIntervalColor(intervalIndexA[0],"din99_rgb_possible")));
-          pathplotLinesVPlot.push(getLineSegment_VPlot_DIN99(globalCMS1.getLeftKeyColor(i,"din99_rgb_possible"),globalCMS1.getIntervalColor(intervalIndexA[0],"din99_rgb_possible"), globalCMS1.getRefPosition(i),globalCMS1.getIntervalRef(intervalIndexA[0])));
+      }
+      else {
+          pathplotLines.push(getLineSegment_Hue_DIN99(globalCMS1.getRightKeyColor(i,"din99_rgb_possible"),globalCMS1.getIntervalColor(i,0,"din99_rgb_possible")));
+          pathplotLinesVPlot.push(getLineSegment_VPlot_DIN99(globalCMS1.getRightKeyColor(i,"din99_rgb_possible"),globalCMS1.getIntervalColor(i,0,"din99_rgb_possible"), globalCMS1.getRefPosition(i),globalCMS1.getIntervalRef(i,0)));
+
+
+        for(var j=0; j<globalCMS1.getIntervalLength(i)-1; j++){
+          pathplotLines.push(getLineSegment_Hue_DIN99(globalCMS1.getIntervalColor(i,j,"din99_rgb_possible"),globalCMS1.getIntervalColor(i,j+1,"din99_rgb_possible")));
+          pathplotLinesVPlot.push(getLineSegment_VPlot_DIN99(globalCMS1.getIntervalColor(i, j, "din99_rgb_possible"),globalCMS1.getIntervalColor(i, j + 1, "din99_rgb_possible"), globalCMS1.getIntervalRef(i,j),globalCMS1.getIntervalRef(i,j + 1)));
         }
 
-          for (var j = intervalIndexA[0]; j < intervalIndexA[1]; j++) {
-            pathplotLines.push(getLineSegment_Hue_DIN99(globalCMS1.getIntervalColor(j, "din99_rgb_possible"), globalCMS1.getIntervalColor(j + 1, "din99_rgb_possible")));
-            pathplotLinesVPlot.push(getLineSegment_VPlot_DIN99(globalCMS1.getIntervalColor(j, "din99_rgb_possible"),globalCMS1.getIntervalColor(j + 1, "din99_rgb_possible"), globalCMS1.getIntervalRef(j),globalCMS1.getIntervalRef(j + 1)));
-          }
+        pathplotLines.push(getLineSegment_Hue_DIN99(globalCMS1.getIntervalColor(i,globalCMS1.getIntervalLength(i)-1,"din99_rgb_possible"),globalCMS1.getLeftKeyColor(i+1,"din99_rgb_possible")));
+        pathplotLinesVPlot.push(getLineSegment_VPlot_DIN99(globalCMS1.getIntervalColor(i,globalCMS1.getIntervalLength(i)-1,"din99_rgb_possible"),globalCMS1.getLeftKeyColor(i+1,"din99_rgb_possible"),globalCMS1.getIntervalRef(i,globalCMS1.getIntervalLength(i)-1),globalCMS1.getRefPosition(i+1)));
+      }
 
     }
 
@@ -467,7 +525,7 @@ function calcInterpolationLine_LCH(){
   pathplotLinesDashed=[];
   pathplotLinesVPlot=[];
 
-  globalCMS1.calcDeltaIntervalColors(pathplotIntervalDelta, 0,globalCMS1.getKeyLength()-1);
+  deltaSamplingInterpolationLine("lab");
 
   var tmpColor, tmpColor2, xPos, xPos2, yPos, yPos2;
 
@@ -477,33 +535,34 @@ function calcInterpolationLine_LCH(){
       case "nil key":
         pathplotLinesVPlot.push(getLineSegment_VPlot_LCH(globalCMS1.getLeftKeyColor(i + 1, "lch_rgb_possible"), globalCMS1.getLeftKeyColor(i + 1, "lch_rgb_possible"), globalCMS1.getRefPosition(i), globalCMS1.getRefPosition(i + 1)));
       break;
-      case "twin key":
-        var intervalIndexA = globalCMS1.getIntervalPositions(i);
-        pathplotLinesDashed.push(getLineSegment_Hue_LCH(globalCMS1.getLeftKeyColor(i, "lch_rgb_possible"), globalCMS1.getRightKeyColor(i, "lch_rgb_possible")));
 
-          for (var j = intervalIndexA[0]; j < intervalIndexA[1]; j++) {
-            pathplotLines.push(getLineSegment_Hue_LCH(globalCMS1.getIntervalColor(j, "lch_rgb_possible"), globalCMS1.getIntervalColor(j + 1, "lch_rgb_possible")));
-            pathplotLinesVPlot.push(getLineSegment_VPlot_LCH(globalCMS1.getIntervalColor(j, "lch_rgb_possible"),globalCMS1.getIntervalColor(j + 1, "lch_rgb_possible"),globalCMS1.getIntervalRef(j),globalCMS1.getIntervalRef(j + 1)));
-          }
-        break;
       case "left key":
         pathplotLinesDashed.push(getLineSegment_Hue_LCH(globalCMS1.getLeftKeyColor(i, "lch_rgb_possible"), globalCMS1.getLeftKeyColor(i + 1, "lch_rgb_possible")));
         pathplotLinesVPlot.push(getLineSegment_VPlot_LCH(globalCMS1.getLeftKeyColor(i + 1, "lch_rgb_possible"),globalCMS1.getLeftKeyColor(i + 1, "lch_rgb_possible"),globalCMS1.getRefPosition(i),globalCMS1.getRefPosition(i+1)));
         break;
+
+      case "twin key":
+
+        pathplotLinesDashed.push(getLineSegment_Hue_LCH(globalCMS1.getRightKeyColor(i, "lch_rgb_possible"), globalCMS1.getLeftKeyColor(i, "lch_rgb_possible")));
+
       default:
 
-        var intervalIndexA = globalCMS1.getIntervalPositions(i);
+      if(globalCMS1.getIntervalLength(i)==0){
+          pathplotLines.push(getLineSegment_Hue_LCH(globalCMS1.getRightKeyColor(i,"lch_rgb_possible"),globalCMS1.getLeftKeyColor(i+1,"lch_rgb_possible")));
+          pathplotLinesVPlot.push(getLineSegment_VPlot_LCH(globalCMS1.getRightKeyColor(i,"lch_rgb_possible"),globalCMS1.getLeftKeyColor(i+1,"lch_rgb_possible"), globalCMS1.getRefPosition(i),globalCMS1.getRefPosition(i+1)));
+      }
+      else {
+        pathplotLines.push(getLineSegment_Hue_LCH(globalCMS1.getRightKeyColor(i,"lch_rgb_possible"),globalCMS1.getIntervalColor(i,0,"lch_rgb_possible")));
+        pathplotLinesVPlot.push(getLineSegment_VPlot_LCH(globalCMS1.getRightKeyColor(i,"lch_rgb_possible"),globalCMS1.getIntervalColor(i,0,"lch_rgb_possible"), globalCMS1.getRefPosition(i),globalCMS1.getIntervalRef(i,0)));
 
-        if(globalCMS1.getKeyType(i)=="dual key"){
-          // we do not save the interval colors for dual key double -> it is easier for the analyze algorithm
-          pathplotLines.push(getLineSegment_Hue_LCH(globalCMS1.getLeftKeyColor(i,"lch_rgb_possible"), globalCMS1.getIntervalColor(intervalIndexA[0],"lch_rgb_possible")));
-          pathplotLinesVPlot.push(getLineSegment_VPlot_LCH(globalCMS1.getLeftKeyColor(i,"lch_rgb_possible"),globalCMS1.getIntervalColor(intervalIndexA[0],"lch_rgb_possible"), globalCMS1.getRefPosition(i),globalCMS1.getIntervalRef(intervalIndexA[0])));
+        for(var j=0; j<globalCMS1.getIntervalLength(i)-1; j++){
+          pathplotLines.push(getLineSegment_Hue_LCH(globalCMS1.getIntervalColor(i,j,"lch_rgb_possible"),globalCMS1.getIntervalColor(i,j+1,"lch_rgb_possible")));
+          pathplotLinesVPlot.push(getLineSegment_VPlot_LCH(globalCMS1.getIntervalColor(i, j, "lch_rgb_possible"),globalCMS1.getIntervalColor(i, j + 1, "lch_rgb_possible"), globalCMS1.getIntervalRef(i,j),globalCMS1.getIntervalRef(i,j + 1)));
         }
+        pathplotLines.push(getLineSegment_Hue_LCH(globalCMS1.getIntervalColor(i,globalCMS1.getIntervalLength(i)-1,"lch_rgb_possible"),globalCMS1.getLeftKeyColor(i+1,"lch_rgb_possible")));
+        pathplotLinesVPlot.push(getLineSegment_VPlot_LCH(globalCMS1.getIntervalColor(i,globalCMS1.getIntervalLength(i)-1,"lch_rgb_possible"),globalCMS1.getLeftKeyColor(i+1,"lch_rgb_possible"),globalCMS1.getIntervalRef(i,globalCMS1.getIntervalLength(i)-1),globalCMS1.getRefPosition(i+1)));
+      }
 
-          for (var j = intervalIndexA[0]; j < intervalIndexA[1]; j++) {
-            pathplotLines.push(getLineSegment_Hue_LCH(globalCMS1.getIntervalColor(j, "lch_rgb_possible"), globalCMS1.getIntervalColor(j + 1, "lch_rgb_possible")));
-            pathplotLinesVPlot.push(getLineSegment_VPlot_LCH(globalCMS1.getIntervalColor(j, "lch_rgb_possible"),globalCMS1.getIntervalColor(j + 1, "lch_rgb_possible"), globalCMS1.getIntervalRef(j),globalCMS1.getIntervalRef(j + 1)));
-          }
 
     }
 

@@ -64,12 +64,22 @@ function checkAsk(){
       globalCMS1.clear();
       switchModifyModus(0);
       updateEditPage();
+
+      saveCreateProcess();
+
+      if(editPage_optimizationMode){
+        changeOpimizationMode();
+      }
       break;
     case 1:
       //delete Band
       globalCMS1.deleteBand(askIndex);
       updateEditPage();
       saveCreateProcess();
+
+      if(editPage_optimizationMode){
+        updateOptimizationPage();
+      }
       break;
 
       case 2:
@@ -114,23 +124,13 @@ function checkAsk(){
               case 7:
                 // equal key intervals
                 globalCMS1.equalKeyIntervals();
-
                 saveCreateProcess();
 
-                  if(document.getElementById("id_EditPage_Edit_Keys").style.display!="none"){
-                     openEditKeyDiv(document.getElementById("id_EditPage_EditKey_List").selectedIndex);
-                  }
-
-                  globalCMS1JSON=inform_Worker_GlobalCMS();
-
-                  if(document.getElementById("id_EditPage_Edit_Path").style.display!="none"){
-                    if(pathColorspace==="rgb")
-                      drawcolormap_RGBSpace(true,true);
-                    else
-                      drawcolormap_hueSpace(true, true, true);
-                  }
-
-                  drawEditCMSVIS(globalCMS1,[]);
+                if(editPage_optimizationMode){
+                  updateOptimizationPage();
+                }
+                
+                updateEditPage();
                 break;
 
     default:

@@ -60,76 +60,63 @@ document.getElementById("id_editPage_PathPlotSpaces_LCH").classList.add("class_T
     document.getElementById("id_EditPage_PathPlot_SubContainer2").style.display = "flex";
 
     //// height 54vh
-    var canvasDim = "";
-    if (document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.display != "none"){
+    var tmpHeight = 0;
+    var tmpWidth = 0;
 
+    if(editPage_optimizationMode){
       document.getElementById("id_EditPage_PathPlot_Container").style.display = "block";
-      document.getElementById("id_EditPage_PathPlot_SubContainer1").appendChild(document.getElementById("id_EditPage_PathPlot_1_Container"));
-      document.getElementById("id_EditPage_PathPlot_SubContainer1").appendChild(document.getElementById("id_EditPage_PathPlot_2_Container"));
-      document.getElementById("id_EditPage_PathPlot_SubContainer2").appendChild(document.getElementById("id_EditPage_PathPlot_3_Container"));
-      document.getElementById("id_EditPage_PathPlot_SubContainer2").appendChild(document.getElementById("id_EditPage_PathPlot_3D_Container"));
-
-
-      /// width : 24vw
-      // height 54vh - 2* 2vh (because of standardText labels)
-
-      var tmpWidth = 12;
-
-      if(document.getElementById("id_EditPage_Add_Structures_Optimization").style.display == "none"){
-        tmpWidth = 15;
-      }
-
-      // test possible
-      document.getElementById("id_EditPage_PathPlot_3D_Div").style.height = "25vh";
-      document.getElementById("id_EditPage_PathPlot_3D_Div").style.width = tmpWidth+"vw";
-
-      var rect = document.getElementById("id_EditPage_PathPlot_3D_Div").getBoundingClientRect();
-
-
-      if(rect.width<rect.height)
-        canvasDim= tmpWidth+"vw";
-      else
-        canvasDim="25vh";
-
+      tmpHeight = 25;
+      tmpWidth = 20;
     }
     else {
+      if (document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.display != "none"){
 
-      document.getElementById("id_EditPage_PathPlot_Container").style.display = "flex";
-      document.getElementById("id_EditPage_PathPlot_SubContainer1").appendChild(document.getElementById("id_EditPage_PathPlot_1_Container"));
-      document.getElementById("id_EditPage_PathPlot_SubContainer1").appendChild(document.getElementById("id_EditPage_PathPlot_2_Container"));
-      document.getElementById("id_EditPage_PathPlot_SubContainer2").appendChild(document.getElementById("id_EditPage_PathPlot_3_Container"));
-      document.getElementById("id_EditPage_PathPlot_SubContainer2").appendChild(document.getElementById("id_EditPage_PathPlot_3D_Container"));
-
-      /// width : 80vw
-      // height 54vh -  2vh (because of standardText labels)
-
-
-      var tmpWidth = 20;
-
-      if(document.getElementById("id_EditPage_Add_Structures_Optimization").style.display == "none"){
-        tmpWidth = 25;
+        document.getElementById("id_EditPage_PathPlot_Container").style.display = "block";
+        /// width : 24vw
+        // height 54vh - 2* 2vh (because of standardText labels)
+        tmpHeight = 25;
+        tmpWidth = 12;
+        if(document.getElementById("id_EditPage_Add_Structures_Optimization").style.display == "none"){
+          tmpWidth = 15;
+        }
       }
+      else {
 
-      document.getElementById("id_EditPage_PathPlot_3D_Div").style.height = "52vh";
-      document.getElementById("id_EditPage_PathPlot_3D_Div").style.width = tmpWidth+"vw";
-      var rect = document.getElementById("id_EditPage_PathPlot_3D_Div").getBoundingClientRect();
-
-      if(rect.width<rect.height)
-        canvasDim=tmpWidth+"vw";
-      else
-        canvasDim="52vh";
-
+        document.getElementById("id_EditPage_PathPlot_Container").style.display = "flex";
+        /// width : 80vw
+        // height 54vh -  2vh (because of standardText labels)
+        tmpHeight = 45;
+        tmpWidth = 20;
+        if(document.getElementById("id_EditPage_Add_Structures_Optimization").style.display == "none"){
+          tmpWidth = 25;
+        }
+      }
     }
 
-    document.getElementById("id_EditPage_PathPlot_3D_Div").style.height = canvasDim;
-    document.getElementById("id_EditPage_PathPlot_3D_Div").style.width = canvasDim;
-    document.getElementById("id_EditPage_PathPlot_Canvas1_Div").style.height = canvasDim;
-    document.getElementById("id_EditPage_PathPlot_Canvas1_Div").style.width = canvasDim;
-    document.getElementById("id_EditPage_PathPlot_Canvas2_Div").style.height = canvasDim;
-    document.getElementById("id_EditPage_PathPlot_Canvas2_Div").style.width = canvasDim;
-    document.getElementById("id_EditPage_PathPlot_Canvas3_Div").style.height = canvasDim;
-    document.getElementById("id_EditPage_PathPlot_Canvas3_Div").style.width = canvasDim;
+    document.getElementById("id_EditPage_PathPlot_SubContainer1").appendChild(document.getElementById("id_EditPage_PathPlot_1_Container"));
+    document.getElementById("id_EditPage_PathPlot_SubContainer1").appendChild(document.getElementById("id_EditPage_PathPlot_2_Container"));
+    document.getElementById("id_EditPage_PathPlot_SubContainer2").appendChild(document.getElementById("id_EditPage_PathPlot_3_Container"));
+    document.getElementById("id_EditPage_PathPlot_SubContainer2").appendChild(document.getElementById("id_EditPage_PathPlot_3D_Container"));
 
+    document.getElementById("id_EditPage_PathPlot_3D_Div").style.height = tmpHeight+"vh";
+    document.getElementById("id_EditPage_PathPlot_3D_Div").style.maxHeight = tmpWidth+"vw";
+    document.getElementById("id_EditPage_PathPlot_3D_Div").style.width = tmpWidth+"vw";
+    document.getElementById("id_EditPage_PathPlot_3D_Div").style.maxWidth = tmpHeight+"vh";
+
+    document.getElementById("id_EditPage_PathPlot_Canvas1_Div").style.height = tmpHeight+"vh";
+    document.getElementById("id_EditPage_PathPlot_Canvas1_Div").style.maxHeight = tmpWidth+"vw";
+    document.getElementById("id_EditPage_PathPlot_Canvas1_Div").style.width = tmpWidth+"vw";
+    document.getElementById("id_EditPage_PathPlot_Canvas1_Div").style.maxWidth = tmpHeight+"vh";
+
+    document.getElementById("id_EditPage_PathPlot_Canvas2_Div").style.height = tmpHeight+"vh";
+    document.getElementById("id_EditPage_PathPlot_Canvas2_Div").style.maxHeight = tmpWidth+"vw";
+    document.getElementById("id_EditPage_PathPlot_Canvas2_Div").style.width = tmpWidth+"vw";
+    document.getElementById("id_EditPage_PathPlot_Canvas2_Div").style.maxWidth = tmpHeight+"vh";
+
+    document.getElementById("id_EditPage_PathPlot_Canvas3_Div").style.height = tmpHeight+"vh";
+    document.getElementById("id_EditPage_PathPlot_Canvas3_Div").style.maxHeight = tmpWidth+"vw";
+    document.getElementById("id_EditPage_PathPlot_Canvas3_Div").style.width = tmpWidth+"vw";
+    document.getElementById("id_EditPage_PathPlot_Canvas3_Div").style.maxWidth = tmpHeight+"vh";
 
     if(!browserCanOffscreenCanvas)
       pathplotCanvasToHTMLSize();
@@ -217,6 +204,11 @@ document.getElementById("id_editPage_PathPlotSpaces_LCH").classList.add("class_T
       var canvasDim = "";
       var canvasDim2 = "";
 
+      var tmpHeightVPlot = 0;
+      var tmpHeightSingle = 0;
+      var tmpWidthSingle = 0;
+      var tmpWidthVPlot =0;
+
 
       document.getElementById("id_EditPage_PathPlot_SubContainer1").style.display = "block";
       document.getElementById("id_EditPage_PathPlot_SubContainer2").style.display = "flex";
@@ -227,86 +219,81 @@ document.getElementById("id_editPage_PathPlotSpaces_LCH").classList.add("class_T
       document.getElementById("id_EditPage_PathPlot_SubContainer2").appendChild(document.getElementById("id_EditPage_PathPlot_3D_Container"));
 
 
-      if (document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.display != "none"){
-        /// width : 24vw
-        // height 54vh - 3* 2vh (because of standardText labels)
+      if(editPage_optimizationMode){
+          document.getElementById("id_EditPage_PathPlot_Container").style.display = "flex";
+          document.getElementById("id_EditPage_PathPlot_SubContainer2").style.display = "block";
 
+          /// width : 50vw
+          // height 54vh -  2vh (because of standardText labels)
 
-        document.getElementById("id_EditPage_PathPlot_Container").style.display = "block";
-
-
-        canvasDim="24vw";
-        var canvasDimHalf="12vw";
-        if(document.getElementById("id_EditPage_Add_Structures_Optimization").style.display == "none"){
-          canvasDim="30vw";
-          canvasDimHalf="15vw";
-        }
-
-        canvasDim2="11vh";
-        document.getElementById("id_EditPage_PathPlot_SingleCanvasDiv").style.height = canvasDim2;
-        document.getElementById("id_EditPage_PathPlot_SingleCanvasDiv").style.width = canvasDimHalf;
-
-
-        var rect = document.getElementById("id_EditPage_PathPlot_SingleCanvasDiv").getBoundingClientRect();
-
-        /*if(rect.width<rect.height){
-          canvasDim2=canvasDim;
-        }*/
-
-
-          document.getElementById("id_EditPage_PathPlot_SingleCanvasDiv").style.height = canvasDim2;
-          document.getElementById("id_EditPage_PathPlot_SingleCanvasDiv").style.width = canvasDim2;
-
-          document.getElementById("id_EditPage_PathPlot_3D_Div").style.height = canvasDim2;
-          document.getElementById("id_EditPage_PathPlot_3D_Div").style.width = canvasDimHalf;
-
-        document.getElementById("id_EditPage_PathPlot_Canvas1_Div").style.height = canvasDim2;
-        document.getElementById("id_EditPage_PathPlot_Canvas1_Div").style.width = canvasDim;
-        document.getElementById("id_EditPage_PathPlot_Canvas2_Div").style.height = canvasDim2;
-        document.getElementById("id_EditPage_PathPlot_Canvas2_Div").style.width = canvasDim;
-        document.getElementById("id_EditPage_PathPlot_Canvas3_Div").style.height = canvasDim2;
-        document.getElementById("id_EditPage_PathPlot_Canvas3_Div").style.width = canvasDim;
-
+          tmpWidthVPlot=25;
+          tmpWidthSingle=20;
+          tmpHeightVPlot=15;
+          tmpHeightSingle=20;
       }
       else {
+        if (document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.display != "none"){
+          /// width : 24vw
+          // height 54vh - 3* 2vh (because of standardText labels)
+          document.getElementById("id_EditPage_PathPlot_Container").style.display = "block";
 
-        document.getElementById("id_EditPage_PathPlot_Container").style.display = "flex";
+          tmpWidthVPlot=24;
+          tmpWidthSingle=12;
+          if(document.getElementById("id_EditPage_Add_Structures_Optimization").style.display == "none"){
+            tmpWidthVPlot=30;
+            tmpWidthSingle=15;
+          }
 
+          tmpHeightVPlot=10;
+          tmpHeightSingle=15;
 
-        /// width : 80vw
-        // height 54vh -  2vh (because of standardText labels)
-
-        canvasDim="20vw"
-        var canvasDim3="40vw"
-
-        if(document.getElementById("id_EditPage_Add_Structures_Optimization").style.display == "none"){
-          canvasDim="25vw"
-          canvasDim3="50vw"
         }
+        else {
 
+          document.getElementById("id_EditPage_PathPlot_Container").style.display = "flex";
 
-        canvasDim2="52vh"
-        document.getElementById("id_EditPage_PathPlot_SingleCanvasDiv").style.height = canvasDim2;
-        document.getElementById("id_EditPage_PathPlot_SingleCanvasDiv").style.width = canvasDim;
-        var rect = document.getElementById("id_EditPage_PathPlot_SingleCanvasDiv").getBoundingClientRect();
+          /// width : 80vw
+          // height 54vh -  2vh (because of standardText labels)
 
-        if(rect.width<rect.height)
-          canvasDim2=canvasDim;
+          tmpWidthVPlot=40;
+          tmpWidthSingle=20;
+          if(document.getElementById("id_EditPage_Add_Structures_Optimization").style.display == "none"){
+            tmpWidthVPlot=50;
+            tmpWidthSingle=25;
+          }
 
-          document.getElementById("id_EditPage_PathPlot_SingleCanvasDiv").style.height = canvasDim2;
-          document.getElementById("id_EditPage_PathPlot_SingleCanvasDiv").style.width = canvasDim2;
+          tmpHeightVPlot=15;
+          tmpHeightSingle=40;
 
-          document.getElementById("id_EditPage_PathPlot_3D_Div").style.height = canvasDim2;
-          document.getElementById("id_EditPage_PathPlot_3D_Div").style.width = canvasDim2;
-
-        document.getElementById("id_EditPage_PathPlot_Canvas1_Div").style.height = "15vh";//canvasDim2;
-        document.getElementById("id_EditPage_PathPlot_Canvas1_Div").style.width = canvasDim3;//canvasDim;
-        document.getElementById("id_EditPage_PathPlot_Canvas2_Div").style.height = "15vh";//canvasDim2;
-        document.getElementById("id_EditPage_PathPlot_Canvas2_Div").style.width = canvasDim3;//canvasDim;
-        document.getElementById("id_EditPage_PathPlot_Canvas3_Div").style.height = "15vh";//canvasDim2;
-        document.getElementById("id_EditPage_PathPlot_Canvas3_Div").style.width = canvasDim3;//canvasDim;
-
+        }
       }
+
+      document.getElementById("id_EditPage_PathPlot_SingleCanvasDiv").style.height = tmpHeightSingle+"vh";
+      document.getElementById("id_EditPage_PathPlot_SingleCanvasDiv").style.maxHeight = tmpWidthSingle+"vw";
+      document.getElementById("id_EditPage_PathPlot_SingleCanvasDiv").style.width = tmpWidthSingle+"vw";
+      document.getElementById("id_EditPage_PathPlot_SingleCanvasDiv").style.maxWidth = tmpHeightSingle+"vh";
+
+      document.getElementById("id_EditPage_PathPlot_3D_Div").style.height = tmpHeightSingle+"vh";
+      document.getElementById("id_EditPage_PathPlot_3D_Div").style.maxHeight = tmpWidthSingle+"vw";
+      document.getElementById("id_EditPage_PathPlot_3D_Div").style.width = tmpWidthSingle+"vw";
+      document.getElementById("id_EditPage_PathPlot_3D_Div").style.maxWidth = tmpHeightSingle+"vh";
+
+      document.getElementById("id_EditPage_PathPlot_Canvas1_Div").style.height = tmpHeightVPlot+"vh";
+      document.getElementById("id_EditPage_PathPlot_Canvas1_Div").style.maxHeight = tmpHeightVPlot+"vh";
+      document.getElementById("id_EditPage_PathPlot_Canvas1_Div").style.width = tmpWidthVPlot+"vw";
+      document.getElementById("id_EditPage_PathPlot_Canvas1_Div").style.maxWidth = tmpWidthVPlot+"vw";
+
+      document.getElementById("id_EditPage_PathPlot_Canvas2_Div").style.height = tmpHeightVPlot+"vh";
+      document.getElementById("id_EditPage_PathPlot_Canvas2_Div").style.maxHeight = tmpHeightVPlot+"vh";
+      document.getElementById("id_EditPage_PathPlot_Canvas2_Div").style.width = tmpWidthVPlot+"vw";
+      document.getElementById("id_EditPage_PathPlot_Canvas2_Div").style.maxWidth = tmpWidthVPlot+"vw";
+
+      document.getElementById("id_EditPage_PathPlot_Canvas3_Div").style.height = tmpHeightVPlot+"vh";
+      document.getElementById("id_EditPage_PathPlot_Canvas3_Div").style.maxHeight = tmpHeightVPlot+"vh";
+      document.getElementById("id_EditPage_PathPlot_Canvas3_Div").style.width = tmpWidthVPlot+"vw";
+      document.getElementById("id_EditPage_PathPlot_Canvas3_Div").style.maxWidth = tmpWidthVPlot+"vw";
+
+
 
     if(!browserCanOffscreenCanvas)
       pathplotCanvasToHTMLSize();
