@@ -1,0 +1,221 @@
+function styleStructure_GlobalSpeed(){
+
+  if(globalCMS1.getKeyLength()==0){
+    document.getElementById("id_EditPage_Analyze_EmptyDiv").style.display = "flex";
+    document.getElementById("id_EditPage_AnalyzePlot_Container").style.display = "none";
+  }
+  else{
+    document.getElementById("id_EditPage_AnalyzePlot_Container").style.display = "flex";
+    document.getElementById("id_EditPage_Analyze_EmptyDiv").style.display = "none";
+    document.getElementById("id_editPage_OrderAxisLabel1").style.visibility = "hidden";
+    document.getElementById("id_editPage_OrderAxisLabel2").style.visibility = "hidden";
+    document.getElementById("id_EditPage_Average_GlobalLocalOrder").style.display = "block";
+    document.getElementById("id_EditPage_Deviation_GlobalLocalOrder").style.display = "block";
+    //document.getElementById("id_EditPage_FixedAxisDiv_GlobalLocalOrder").style.display = "block";
+    document.getElementById("id_EditPage_ColorAboveDiv_GlobalLocalOrder").style.display = "flex";
+    document.getElementById("id_EditPage_ColorAboveFixedAxis_GlobalLocalOrder").style.background = globalPlotAboveColor.getRGBString();
+    document.getElementById("id_EditPage_DoLogDiv_GlobalLocalOrder").style.display = "block";
+    document.getElementById("id_EditPage_FixedAxisLabel_GlobalLocalOrder").innerHTML="Fixed Global Speed Difference:";
+
+    styleGlobalLocalOrderPlot();
+    updateKeySelection();
+
+    var oldInterval = intervalDelta;
+    var oldIntervalSize = intervalSize;
+
+
+    var plotid ="id_EditPage_Canvas_GlobalLocalOrder";
+
+
+    if(document.getElementById("id_PopUp_fullAnalzeWindow").style.display!="none")
+      plotid="id_PopUp_FullAnalayzeCanvas";
+
+    globalCMS1.calcDeltaIntervalColors(deltaSampling_Analyze);
+    intervalDelta=oldInterval;
+    intervalSize=oldIntervalSize;
+
+    if(document.getElementById("id_EditPage_SelectFrom_GlobalLocalOrder").selectedIndex!=document.getElementById("id_EditPage_SelectTill_GlobalLocalOrder").selectedIndex)
+    drawGlobalSpeedPlot(globalCMS1, plotid, "id_EditPage_Min_GlobalLocalOrder", "id_EditPage_Max_GlobalLocalOrder", "id_EditPage_Average_GlobalLocalOrder", "id_EditPage_Deviation_GlobalLocalOrder");
+    else{
+      var context = document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").getContext('2d');
+      context.clearRect(0, 0, document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").width, document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").height);
+    }
+  }
+
+}
+
+
+function drawGlobalSpeedPlot(intervalColormap, plotid, minId, maxId, avId, devId){
+
+      var canvasPlot = document.getElementById(plotid);
+
+
+      canvasPlot.width = intervalColormap.getIntervalLength();
+      canvasPlot.height = intervalColormap.getIntervalLength();
+
+      var canvasCtx = canvasPlot.getContext("2d");
+
+       canvasCtx.mozImageSmoothingEnabled = false;
+       canvasCtx.webkitImageSmoothingEnabled = false;
+       canvasCtx.msImageSmoothingEnabled = false;
+       canvasCtx.imageSmoothingEnabled = false; // did not work !?!?!
+       canvasCtx.oImageSmoothingEnabled = false;
+
+      var canvasData = canvasCtx.createImageData(canvasPlot.width, canvasPlot.height); //getImageData(0, 0, canvasPlot.width, canvasPlot.height);
+      var sumForAverage = 0;
+
+
+
+      var min = Infinity;
+      var max = -Infinity;
+        var numTwinOrLeft=0;
+
+      var matrix = [];
+
+      for(var x=0; x<intervalColormap.getIntervalLength(); x++){
+
+        var column = [];
+        for(var y=0; y<intervalColormap.getIntervalLength(); y++){
+
+            var deltaE=0;
+            var speed=0;
+            if(x!=y){
+
+              switch (globalCMS1.getInterpolationSpace()) {
+                  case "lab":
+                   deltaE = calc3DEuclideanDistance(intervalColormap.getIntervalColor(x,"lab"),intervalColormap.getIntervalColor(y,"lab"));
+                    break;
+                    case "de94":
+                     deltaE = calcDeltaDE94(intervalColormap.getIntervalColor(x,"lab"),intervalColormap.getIntervalColor(y,"lab"));
+                      break;
+                      case "de2000":
+                       deltaE = calcDeltaCIEDE2000(intervalColormap.getIntervalColor(x,"lab"),intervalColormap.getIntervalColor(y,"lab"));
+                        break;
+                      case "din99":
+                        deltaE = calc3DEuclideanDistance(intervalColormap.getIntervalColor(x,"din99"),intervalColormap.getIntervalColor(y,"din99"));
+                        break;
+              }
+
+
+                  if(intervalColormap.getIntervalRef(x)==intervalColormap.getIntervalRef(y)){
+
+                    speed=-1;
+                    numTwinOrLeft++;
+                  }
+                  else{
+                    var distance = Math.abs(intervalColormap.getIntervalRef(x)-intervalColormap.getIntervalRef(y));//Math.sqrt(Math.pow(intervalColormap.getIntervalRef(x)-intervalColormap.getIntervalRef(y),2))
+                    speed = deltaE/distance;
+                    sumForAverage += speed;
+                    //if(document.getElementById("id_EditPage_DoLogSelect_GlobalLocalOrder").checked)
+                    //speed = Math.log(speed+1);
+                    min = Math.min(min,speed);
+                    max = Math.max(max,speed);
+                    //sumForAverage += speed;
+                  }
+
+            }
+
+            column.push(speed);
+        }
+        matrix.push(column);
+      }
+
+
+      var average=sumForAverage/(intervalColormap.getIntervalLength()*intervalColormap.getIntervalLength()-intervalColormap.getIntervalLength()-numTwinOrLeft);
+      var sumForVariance = 0;
+
+      //////////////////////////////////////////////////////////////////////////////////
+      // calc variance
+      ////////////////////////////////////////////////////////////////////////////////////
+
+      var fixedMax = max;
+
+      if(document.getElementById("id_EditPage_DoFixedAxis_GlobalLocalOrder").checked){
+        fixedMax = parseFloat(document.getElementById("id_EditPage_InputFixedAxis_GlobalLocalOrder").value);
+
+
+        if(isNaN(fixedMax) || fixedMax<=0){
+          fixedMax=(max-min);
+          document.getElementById("id_EditPage_InputFixedAxis_GlobalLocalOrder").value=fixedMax;
+        }
+
+      }
+
+      for(var x=0; x<intervalColormap.getIntervalLength(); x++){
+
+        for(var y=0; y<intervalColormap.getIntervalLength(); y++){
+
+            var colorRef = undefined;
+            if(x==y){
+              colorRef = intervalColormap.getIntervalColor(x,"rgb")
+            }
+            else
+            {
+
+                  var speed= matrix[x][y];
+                  var val;
+                  if(speed==-1){
+                    val=1;
+                  }
+                  else{
+
+                      if(document.getElementById("id_EditPage_DoLogSelect_GlobalLocalOrder").checked){
+
+                        if(document.getElementById("id_EditPage_DoFixedAxis_GlobalLocalOrder").checked && speed>fixedMax ){
+                          val = 1.1; // bigger than 1 -> coloring in above border color
+                        }
+                        else{
+                          val = (Math.log(speed+1)-Math.log(min+1))/Math.log(fixedMax+1);
+                        }
+                      }
+                      else{
+                        val = (speed-min)/fixedMax;
+                      }
+
+                    sumForVariance += Math.pow(matrix[x][y]-average,2);
+                  }
+
+                  if(val<0.0)
+                    val=0.0;
+
+                  colorRef = new classColor_RGB(val,val,val);
+
+                  if(val>1.0)
+                    colorRef = globalPlotAboveColor
+
+
+            }
+
+            var index = (x + y * canvasPlot.width) * 4;
+            canvasData.data[index + 0] = Math.round(colorRef.getRValue() * 255); // r
+            canvasData.data[index + 1] = Math.round(colorRef.getGValue() * 255); // g
+            canvasData.data[index + 2] = Math.round(colorRef.getBValue() * 255); // b
+            canvasData.data[index + 3] = 255; //a
+            colorRef.deleteReferences();
+            colorRef=null;
+
+
+
+
+        }
+      }
+
+      canvasCtx.putImageData(canvasData, 0, 0);
+
+      var variance = sumForVariance/(intervalColormap.getIntervalLength()*intervalColormap.getIntervalLength()-intervalColormap.getIntervalLength()-numTwinOrLeft);
+      var deviation = Math.sqrt(variance);
+
+
+      document.getElementById(minId).innerHTML = "Global Speed Minimum = "+ min;//.toFixed(numDecimalPlaces);
+
+      if(min==0)
+      document.getElementById(minId).style.color = getComputedStyle(document.documentElement).getPropertyValue('--general-warning-color');
+      else
+      document.getElementById(minId).style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-sepArea-font-color');
+
+      document.getElementById(maxId).innerHTML = "Global Speed Maximum = "+ max;//.toFixed(numDecimalPlaces);
+      document.getElementById(avId).innerHTML = "Global Speed Average = "+ average;//.toFixed(numDecimalPlaces);
+      document.getElementById(devId).innerHTML = "Global Speed Deviation = "+ deviation;//.toFixed(numDecimalPlaces);
+
+
+}
