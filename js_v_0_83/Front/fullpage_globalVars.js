@@ -2,6 +2,7 @@
 /// GLOBAL
 //////////////////////////
 
+var version_JS_FolderName = "js_v_0_83";
 
 var anonymousMode = true;
 
