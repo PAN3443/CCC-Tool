@@ -4,7 +4,7 @@
 
 // DIN99 Version o
 
-class classColorDIN99{
+class class_Color_DIN99{
 
       constructor(lValue, aValue, bValue) {
         this.l99Value = lValue;
@@ -112,7 +112,7 @@ class classColorDIN99{
           case "lab":
               return this.calcLABColor();
           case "din99":
-              return new classColorDIN99(this.get1Value(),this.get2Value(),this.get3Value());
+              return new class_Color_DIN99(this.get1Value(),this.get2Value(),this.get3Value());
           case "lch":
               return this.calcLCHColor();
           default:
@@ -122,7 +122,7 @@ class classColorDIN99{
       }
 
       calcDIN99Color() {
-        return new classColorDIN99(this.get1Value(), this.get2Value(), this.get3Value());
+        return new class_Color_DIN99(this.get1Value(), this.get2Value(), this.get3Value());
       }
 
       getDIN99String(){
@@ -180,7 +180,7 @@ class classColorDIN99{
         var value_A = e*Math.cos(angle)-(f/0.83)*Math.sin(angle);
         var value_B = e*Math.sin(angle)+(f/0.83)*Math.cos(angle);
 
-        return new classColor_LAB(value_L,value_A,value_B);
+        return new class_Color_LAB(value_L,value_A,value_B);
       }
 
     };

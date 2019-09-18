@@ -4,8 +4,8 @@ function calcSpaceGridLAB(){
   var numberOfParticles = 180;
   var radStep = 1.0/numberOfParticles;
   var lightStep = 100/numberOfSteps;
-  var tmpLABColor = new classColor_LAB(0,0,0);
-  var tmpLABColorTest = new classColor_LAB(0,0,0);
+  var tmpLABColor = new class_Color_LAB(0,0,0);
+  var tmpLABColorTest = new class_Color_LAB(0,0,0);
 
   if(positionsLAB!=undefined){
     for (var i = positionsLAB.length-1; i >=0; i--) {
@@ -62,7 +62,7 @@ function calcSpaceGridLAB(){
                   labABMax = Math.max(labABMax,tmpLABColor.get2Value());
                   labABMax = Math.max(labABMax,tmpLABColor.get3Value());
 
-                  particelSet.push(new classColor_LAB(tmpLABColor.get1Value(), tmpLABColor.get2Value(), tmpLABColor.get3Value()));
+                  particelSet.push(new class_Color_LAB(tmpLABColor.get1Value(), tmpLABColor.get2Value(), tmpLABColor.get3Value()));
                 }
               }
               else {
@@ -100,8 +100,8 @@ function calcSpaceGridDIN99(){
   var radStep = 1.0/numberOfParticles;
   var lightStep = 100/numberOfSteps;
 
-  var tmpDIN99Color = new classColorDIN99(0,0,0);
-  var tmpDIN99ColorTest = new classColorDIN99(0,0,0);
+  var tmpDIN99Color = new class_Color_DIN99(0,0,0);
+  var tmpDIN99ColorTest = new class_Color_DIN99(0,0,0);
 
   if(positionsDIN99!=undefined){
     for (var i = positionsDIN99.length-1; i >=0; i--) {
@@ -159,7 +159,7 @@ function calcSpaceGridDIN99(){
                   finishedSpreading=true;
                   din99ABMax = Math.max(din99ABMax,tmpDIN99Color.get2Value());
                   din99ABMax = Math.max(din99ABMax,tmpDIN99Color.get3Value());
-                  particelSet.push(new classColorDIN99(tmpDIN99Color.get1Value(), tmpDIN99Color.get2Value(), tmpDIN99Color.get3Value()));
+                  particelSet.push(new class_Color_DIN99(tmpDIN99Color.get1Value(), tmpDIN99Color.get2Value(), tmpDIN99Color.get3Value()));
 
                 }
               }

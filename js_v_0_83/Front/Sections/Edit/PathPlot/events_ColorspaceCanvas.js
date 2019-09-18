@@ -31,7 +31,7 @@ function mouseLeaveColorspace(event) {
       saveCreateProcess();
 
       if(editPage_optimizationMode){
-        updateOptimizationPage();
+        editCMSduringOptimizationMode();
       }
   }
 }
@@ -291,7 +291,7 @@ function mouseMoveColorspace(event) {
   else{
     // check if mouse is inside of Colorspace
     var tmpColor;
-    var errorRGBColor = new classColor_RGB(-1, -1, -1);
+    var errorRGBColor = new class_Color_RGB(-1, -1, -1);
     switch(pathColorspace) {
       case "hsv":
         var dis = Math.sqrt(Math.pow(colorspaceCenterX - mousePosX, 2) + Math.pow(colorspaceCenterY - mousePosY, 2));
@@ -302,7 +302,7 @@ function mouseMoveColorspace(event) {
           var angle = atan2_360Degree(tx,ty)/360; // values 0-1 ...
           var hVal = angle;
           var sVal = dis / colorspaceRadius;
-          tmpColor = new classColor_HSV(hVal, sVal, updateCurrentValue);
+          tmpColor = new class_Color_HSV(hVal, sVal, updateCurrentValue);
 
           var diplay1Val = Math.round(hVal*360);
           var diplay2Val = Math.round(sVal*100);
@@ -317,7 +317,7 @@ function mouseMoveColorspace(event) {
         var bVal = ((mousePosY - colorspaceCenterY) / (canvasObj.height / 2)) * labSpaceRange;
 
 
-          tmpColor = new classColor_LAB(updateCurrentValue, aVal, bVal);
+          tmpColor = new class_Color_LAB(updateCurrentValue, aVal, bVal);
           if (onlyRGBPossibleColor) {
             var testColor = tmpColor.calcRGBColorCorrect(errorRGBColor);
             var rValue = testColor.getRValue();
@@ -341,7 +341,7 @@ function mouseMoveColorspace(event) {
 
         //if (a99Val>=din99SpaceRange*-1 && a99Val<=din99SpaceRange && b99Val>=din99SpaceRange*-1 && b99Val<=din99SpaceRange){
         if (a99Val >= rangeA99Neg && a99Val <= rangeA99Pos && b99Val >= rangeB99Neg && b99Val <= rangeB99Pos) {
-          tmpColor = new classColorDIN99(updateCurrentValue, a99Val, b99Val);
+          tmpColor = new class_Color_DIN99(updateCurrentValue, a99Val, b99Val);
 
           var colorRGB = tmpColor.calcRGBColor();
           if(colorRGB.getRValue()==0 && colorRGB.getGValue()==0 && colorRGB.getBValue()==0){
@@ -378,7 +378,7 @@ function mouseMoveColorspace(event) {
             var angle = atan2_360Degree(tx,ty)/360; // values 0-1 ...
             var hVal = angle;
             var cVal = dis / colorspaceRadius;
-            tmpColor = new classColor_LCH(updateCurrentValue, cVal,hVal);
+            tmpColor = new class_Color_LCH(updateCurrentValue, cVal,hVal);
 
             if (onlyRGBPossibleColor) {
               var testColor = tmpColor.calcRGBColorCorrect(errorRGBColor);
@@ -455,6 +455,9 @@ function mouseDownColorspace() {
         tmpColor = globalCMS1.getLeftKeyColor(mouseGrappedKeyID, pathColorspace);
     }
 
+    if(tmpColor==undefined)
+      return;
+
     switch(pathColorspace) {
       case "hsv":
           updateCurrentValue=tmpColor.get3Value();
@@ -525,7 +528,7 @@ function mouseUpColorspace() {
   saveCreateProcess();
 
   if(editPage_optimizationMode){
-    updateOptimizationPage();
+    editCMSduringOptimizationMode();
   }
 
 }
@@ -608,7 +611,7 @@ function mouseLeaveValuePlot(event) {
       saveCreateProcess();
 
       if(editPage_optimizationMode){
-        updateOptimizationPage();
+        editCMSduringOptimizationMode();
       }
   }
 }
@@ -1050,7 +1053,7 @@ function mouseMoveValuePlot(event) {
   }//if grapped key == -1
   else{
     //calc color and give it to the band
-    var errorRGBColor = new classColor_RGB(-1, -1, -1);
+    var errorRGBColor = new class_Color_RGB(-1, -1, -1);
 
     var newValue = (vPlotyStart - mousePosY) / heigthVArea;
 
@@ -1079,10 +1082,10 @@ function mouseMoveValuePlot(event) {
           case 0:
           switch(pathColorspace) {
             case "hsv":
-              tmpColor = new classColor_HSV(newValue, oldColor.getSValue(), oldColor.getVValue());
+              tmpColor = new class_Color_HSV(newValue, oldColor.getSValue(), oldColor.getVValue());
               break;
               case "lab":
-                tmpColor = new classColor_LAB(newValue * 100, oldColor.getAValue(), oldColor.getBValue());
+                tmpColor = new class_Color_LAB(newValue * 100, oldColor.getAValue(), oldColor.getBValue());
                 if (onlyRGBPossibleColor) {
                   var testColor = tmpColor.calcRGBColorCorrect(errorRGBColor);
 
@@ -1100,7 +1103,7 @@ function mouseMoveValuePlot(event) {
                 }
                 break;
               case "din99":
-                tmpColor = new classColorDIN99(newValue * 100, oldColor.getA99Value(), oldColor.getB99Value());
+                tmpColor = new class_Color_DIN99(newValue * 100, oldColor.getA99Value(), oldColor.getB99Value());
                 if (onlyRGBPossibleColor) {
                   var testColor = tmpColor.calcRGBColorCorrect(errorRGBColor);
 
@@ -1120,7 +1123,7 @@ function mouseMoveValuePlot(event) {
 
 
                 case "lch":
-                  tmpColor = new classColor_LCH(newValue, oldColor.getCValue(), oldColor.getHValue());
+                  tmpColor = new class_Color_LCH(newValue, oldColor.getCValue(), oldColor.getHValue());
                   if (onlyRGBPossibleColor) {
                     var testColor = tmpColor.calcRGBColorCorrect(errorRGBColor);
 
@@ -1146,11 +1149,11 @@ function mouseMoveValuePlot(event) {
             case 1:
             switch(pathColorspace) {
               case "hsv":
-                tmpColor = new classColor_HSV(oldColor.getHValue(), newValue, oldColor.getVValue());
+                tmpColor = new class_Color_HSV(oldColor.getHValue(), newValue, oldColor.getVValue());
                 break;
 
                 var testColor2 = tmpColor.calcRGBColor();
-                if((tmpColor.getA99Value()!=0 || tmpColor.getB99Value()!=0)  && testColor2.equalTo(new classColor_RGB(0,0,0))){
+                if((tmpColor.getA99Value()!=0 || tmpColor.getB99Value()!=0)  && testColor2.equalTo(new class_Color_RGB(0,0,0))){
                   testColor2.deleteReferences();
                   testColor2=null;
                   oldColor.deleteReferences();
@@ -1166,7 +1169,7 @@ function mouseMoveValuePlot(event) {
 
                 case "lab":
                   newValue= newValue*(labSpaceRange*2)+(labSpaceRange*-1);
-                  tmpColor = new classColor_LAB(oldColor.getLValue(), newValue, oldColor.getBValue());
+                  tmpColor = new class_Color_LAB(oldColor.getLValue(), newValue, oldColor.getBValue());
                   if (onlyRGBPossibleColor) {
                     var testColor = tmpColor.calcRGBColorCorrect(errorRGBColor);
 
@@ -1185,7 +1188,7 @@ function mouseMoveValuePlot(event) {
                   break;
                 case "din99":
                   newValue= newValue*(rangeA99Pos-rangeA99Neg)+(rangeA99Neg);
-                  tmpColor = new classColorDIN99(oldColor.getL99Value(),newValue, oldColor.getB99Value());
+                  tmpColor = new class_Color_DIN99(oldColor.getL99Value(),newValue, oldColor.getB99Value());
 
                   if (onlyRGBPossibleColor) {
                     var testColor = tmpColor.calcRGBColorCorrect(errorRGBColor);
@@ -1202,7 +1205,7 @@ function mouseMoveValuePlot(event) {
                   testColor.deleteReferences();
                   testColor=null;
                   var testColor2 = tmpColor.calcRGBColor();
-                  if((tmpColor.getA99Value()!=0 || tmpColor.getB99Value()!=0)  && testColor2.equalTo(new classColor_RGB(0,0,0))){
+                  if((tmpColor.getA99Value()!=0 || tmpColor.getB99Value()!=0)  && testColor2.equalTo(new class_Color_RGB(0,0,0))){
                     testColor2.deleteReferences();
                     testColor2=null;
                     oldColor.deleteReferences();
@@ -1217,7 +1220,7 @@ function mouseMoveValuePlot(event) {
 
 
                   case "lch":
-                    tmpColor = new classColor_LCH(oldColor.getLValue(), newValue, oldColor.getHValue());
+                    tmpColor = new class_Color_LCH(oldColor.getLValue(), newValue, oldColor.getHValue());
                     if (onlyRGBPossibleColor) {
                       var testColor = tmpColor.calcRGBColorCorrect(errorRGBColor);
 
@@ -1243,12 +1246,12 @@ function mouseMoveValuePlot(event) {
               case 2:
                   switch(pathColorspace) {
                     case "hsv":
-                      tmpColor = new classColor_HSV(oldColor.getHValue(), oldColor.getSValue(), newValue);
+                      tmpColor = new class_Color_HSV(oldColor.getHValue(), oldColor.getSValue(), newValue);
                       break;
 
                       case "lab":
                         newValue= newValue*(labSpaceRange*2)+(labSpaceRange*-1);
-                        tmpColor = new classColor_LAB(oldColor.getLValue(), oldColor.getAValue(),newValue);
+                        tmpColor = new class_Color_LAB(oldColor.getLValue(), oldColor.getAValue(),newValue);
                         if (onlyRGBPossibleColor) {
                           var testColor = tmpColor.calcRGBColorCorrect(errorRGBColor);
 
@@ -1263,7 +1266,7 @@ function mouseMoveValuePlot(event) {
                         break;
                       case "din99":
                         newValue= newValue*(rangeB99Pos-rangeB99Neg)+(rangeB99Neg);
-                        tmpColor = new classColorDIN99(oldColor.getL99Value(), oldColor.getA99Value(), newValue);
+                        tmpColor = new class_Color_DIN99(oldColor.getL99Value(), oldColor.getA99Value(), newValue);
 
                         if (onlyRGBPossibleColor) {
                           var testColor = tmpColor.calcRGBColorCorrect(errorRGBColor);
@@ -1282,7 +1285,7 @@ function mouseMoveValuePlot(event) {
                         break;
 
                         case "lch":
-                          tmpColor = new classColor_LCH(oldColor.getLValue(), oldColor.getCValue(), newValue);
+                          tmpColor = new class_Color_LCH(oldColor.getLValue(), oldColor.getCValue(), newValue);
                           if (onlyRGBPossibleColor) {
                             var testColor = tmpColor.calcRGBColorCorrect(errorRGBColor);
 

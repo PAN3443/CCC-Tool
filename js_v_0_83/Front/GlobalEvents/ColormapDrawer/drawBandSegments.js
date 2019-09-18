@@ -29,23 +29,23 @@ function createScaledBand(canvasData, xStart, yStart, bandWidth, bandHeight, col
       switch (color1.getColorType()) {
 
         case "rgb":
-         tmpWorkColor = new classColor_RGB(0, 0, 0);
+         tmpWorkColor = new class_Color_RGB(0, 0, 0);
          break;
         case "hsv":
-        tmpWorkColor = new classColor_HSV(0, 0, 0);
+        tmpWorkColor = new class_Color_HSV(0, 0, 0);
         break;
         case "lab":
         case "de2000-ds":
         case "de2000":
         case "de94-ds":
         case "de94":
-          tmpWorkColor = new classColor_LAB(0, 0, 0);
+          tmpWorkColor = new class_Color_LAB(0, 0, 0);
         break;
         case "din99":
-        tmpWorkColor = new classColorDIN99(0, 0, 0);
+        tmpWorkColor = new class_Color_DIN99(0, 0, 0);
         break;
         case "lch":
-          tmpWorkColor = new classColor_LCH(0, 0, 0);
+          tmpWorkColor = new class_Color_LCH(0, 0, 0);
         break;
 
      }
@@ -140,23 +140,23 @@ function createScaledBandVertical(canvasData, yStart, bandWidth, bandHeight, col
     switch (color1.getColorType()) {
 
       case "rgb":
-       tmpWorkColor = new classColor_RGB(0, 0, 0);
+       tmpWorkColor = new class_Color_RGB(0, 0, 0);
        break;
       case "hsv":
-      tmpWorkColor = new classColor_HSV(0, 0, 0);
+      tmpWorkColor = new class_Color_HSV(0, 0, 0);
       break;
       case "lab":
       case "de2000-ds":
       case "de2000":
       case "de94-ds":
       case "de94":
-        tmpWorkColor = new classColor_LAB(0, 0, 0);
+        tmpWorkColor = new class_Color_LAB(0, 0, 0);
       break;
       case "din99":
-      tmpWorkColor = new classColorDIN99(0, 0, 0);
+      tmpWorkColor = new class_Color_DIN99(0, 0, 0);
       break;
       case "lch":
-        tmpWorkColor = new classColor_LCH(0, 0, 0);
+        tmpWorkColor = new class_Color_LCH(0, 0, 0);
       break;
 
    }

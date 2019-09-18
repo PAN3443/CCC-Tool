@@ -4,7 +4,8 @@ var editPage_optimizationMode = false;
 
 var globalCMS1_Original = undefined;
 var globalCMS_Uniform = undefined;
-
+var globalCMS_Order = undefined;
+var selectedOptimizationType = 0;
 
 var optimization_StartKey = 0;
 var optimization_EndKey = 0;

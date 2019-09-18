@@ -22,4 +22,5 @@ var numDecimalPlaces=2;
 var intervalDelta = 1;
 var intervalSize = 1;
 
-var errorMath = 1e12;
+var errorMath = 1e12;   // for math operations with wrong decimal places
+var smallErrorMath = 1e-12; // for math operation, which should be zero.

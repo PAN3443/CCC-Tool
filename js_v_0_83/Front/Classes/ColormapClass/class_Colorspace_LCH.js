@@ -2,7 +2,7 @@
 // ------------ Class CIELab ---------------//
 ////////////////////////////////////////////////
 
-class classColor_LCH{
+class class_Color_LCH{
 
       constructor(lValue, cValue, hValue) {
         this.lValue = lValue;
@@ -110,7 +110,7 @@ class classColor_LCH{
           case "din99":
               return this.calcDIN99Color();
           case "lch":
-              return new classColor_LCH(this.get1Value(),this.get2Value(),this.get3Value());
+              return new class_Color_LCH(this.get1Value(),this.get2Value(),this.get3Value());
           default:
             console.log("Error in function getColorFormat of LAB class");
         }
@@ -139,7 +139,7 @@ class classColor_LCH{
       }
 
       calcLCHColor(){
-        return new classColor_LCH(this.get1Value(), this.get2Value(), this.get3Value());
+        return new class_Color_LCH(this.get1Value(), this.get2Value(), this.get3Value());
       }
 
 
@@ -168,7 +168,7 @@ class classColor_LCH{
 
         var aValue = Math.cos(tmpRad) * this.cValue *128;
         var bValue = Math.sin(tmpRad) * this.cValue *128;
-        return new classColor_LAB(lValue,aValue,bValue);
+        return new class_Color_LAB(lValue,aValue,bValue);
       }
 
 

@@ -431,7 +431,7 @@ class class_ProbeSet{
             /////////////////////////////////////////////////
             // contour probe
             if(keyColor==undefined)
-            return new classColor_HSV(0.0,1.0,1.0);
+            return new class_Color_HSV(0.0,1.0,1.0);
 
             tmpHSVColor = keyColor.calcHSVColor();
           }

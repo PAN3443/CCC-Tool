@@ -14,49 +14,27 @@ function styleStructure_Order(){
     document.getElementById("id_EditPage_ColorAboveDiv_GlobalLocalOrder").style.display = "none";
     document.getElementById("id_editPage_OrderAxisLabel1").style.visibility = "visible";
     document.getElementById("id_editPage_OrderAxisLabel2").style.visibility = "visible";
+    document.getElementById("id_EditPage_Analyze_ContiuousSections").style.display = "none";
+    document.getElementById("id_EditPage_MaxSetting_GlobalLocalOrder").style.display = "none";
+    document.getElementById("id_EditPage_KeyOrSamplingSetting_GlobalLocalOrder").style.display = "block";
 
 
     styleGlobalLocalOrderPlot();
 
-    updateKeySelection();
-
     var plotid ="id_EditPage_Canvas_GlobalLocalOrder";
-
 
     if(document.getElementById("id_PopUp_fullAnalzeWindow").style.display!="none")
       plotid="id_PopUp_FullAnalayzeCanvas";
 
-    var oldInterval = intervalDelta;
-    var oldIntervalSize = intervalSize;
-    /*if(document.getElementById("id_editPage_Anaylze_IntervalNumber").checked){
-      document.getElementById("id_editPage_Anaylze_IntervalCalcInputLabel").innerHTML = "Number of Intervals:";
-      document.getElementById("id_editPage_Anaylze_IntervalCalcInput").value = numberOfIntervalsOrder;
-      intervalSize = numberOfIntervalsOrder;
-      globalCMS1 = calcCMSIntervals(globalCMS1,document.getElementById("id_EditPage_SelectFrom_GlobalLocalOrder").selectedIndex,document.getElementById("id_EditPage_SelectTill_GlobalLocalOrder").selectedIndex,0);
-    }
-    else{
-      document.getElementById("id_editPage_Anaylze_IntervalCalcInputLabel").innerHTML = "Value of Color-Difference:";
-      document.getElementById("id_editPage_Anaylze_IntervalCalcInput").value = deltaSampling_Analyze;*/
-      intervalDelta=deltaSampling_Analyze;
-      globalCMS1 = calcCMSIntervals(globalCMS1,document.getElementById("id_EditPage_SelectFrom_GlobalLocalOrder").selectedIndex,document.getElementById("id_EditPage_SelectTill_GlobalLocalOrder").selectedIndex,2);
-    //}
-    intervalDelta=oldInterval;
-    intervalSize=oldIntervalSize;
+    drawOrderPlot(plotid, "id_EditPage_Min_GlobalLocalOrder", "id_EditPage_Max_GlobalLocalOrder");
 
-
-    if(document.getElementById("id_EditPage_SelectFrom_GlobalLocalOrder").selectedIndex!=document.getElementById("id_EditPage_SelectTill_GlobalLocalOrder").selectedIndex)
-    drawOrderPlot(globalCMS1, plotid, "id_EditPage_Min_GlobalLocalOrder", "id_EditPage_Max_GlobalLocalOrder");
-    else{
-      var context = document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").getContext('2d');
-      context.clearRect(0, 0, document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").width, document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").height);
-    }
   }
 
 }
 
 
 
-function drawOrderPlot(intervalColormap,plotid, minId, minGlobalId){
+function drawOrderPlot(plotid, minId, minGlobalId){
 
       var canvasPlot = document.getElementById(plotid);
 
@@ -71,7 +49,6 @@ function drawOrderPlot(intervalColormap,plotid, minId, minGlobalId){
       canvasCtx.msImageSmoothingEnabled = false;
       canvasCtx.imageSmoothingEnabled = false; // did not work !?!?!
       canvasCtx.oImageSmoothingEnabled = false;
-
 
       ///////////////////////////////////////////////////////////////
       ///// init order plot
@@ -147,42 +124,81 @@ function drawOrderPlot(intervalColormap,plotid, minId, minGlobalId){
           canvasCtx.fillStyle = "rgb(1,1,1)";
           canvasCtx.fillRect(colormapXStart+arrowWidth,canvasPlot.height-labelYStart, width, height);*/
 
-
           //////////////////////////////////////////////////////////// draw refLineSketchContainer
           canvasCtx.lineWidth=1;
+
+          //////////////////////////////////////////////////////////////////////
+          //// get colors
+          var colorArray = [];
+
+          if(document.getElementById("id_EditPage_AnalyseOnlyUseKeys").checked){
+            for (var i = 0; i < globalCMS1.getKeyLength(); i++) {
+              switch (globalCMS1.getKeyType(i)) {
+                case "nil key":
+                  continue;
+                break;
+                case "left key":
+                  colorArray.push(globalCMS1.getLeftKeyColor(i,globalCMS1.getInterpolationSpace()));
+                break;
+                case "twin key":
+                  colorArray.push(globalCMS1.getLeftKeyColor(i,globalCMS1.getInterpolationSpace()));
+                  colorArray.push(globalCMS1.getRightKeyColor(i,globalCMS1.getInterpolationSpace()));
+                break;
+                case "right key":
+                  colorArray.push(globalCMS1.getRightKeyColor(i,globalCMS1.getInterpolationSpace()));
+                break;
+                default:
+                  colorArray.push(globalCMS1.getRightKeyColor(i,globalCMS1.getInterpolationSpace()));
+              }
+            }
+          }
+          else {
+            for (var i = 0; i < globalCMS1.getKeyLength(); i++) {
+              switch (globalCMS1.getKeyType(i)) {
+                case "nil key":
+                  continue;
+                break;
+                case "left key":
+                  colorArray.push(globalCMS1.getLeftKeyColor(i,globalCMS1.getInterpolationSpace()));
+                break;
+                case "twin key":
+                  colorArray.push(globalCMS1.getLeftKeyColor(i,globalCMS1.getInterpolationSpace()));
+                  colorArray.push(globalCMS1.getRightKeyColor(i,globalCMS1.getInterpolationSpace()));
+                  for (var j = 0; j < globalCMS1.getIntervalLength(i)-1; j++) {
+                    colorArray.push(globalCMS1.getIntervalColor(i,j,globalCMS1.getInterpolationSpace()));
+                  }
+                break;
+                case "right key":
+                  colorArray.push(globalCMS1.getRightKeyColor(i,globalCMS1.getInterpolationSpace()));
+                  for (var j = 0; j < globalCMS1.getIntervalLength(i)-1; j++) {
+                    colorArray.push(globalCMS1.getIntervalColor(i,j,globalCMS1.getInterpolationSpace()));
+                  }
+                break;
+                default:
+                  colorArray.push(globalCMS1.getRightKeyColor(i,globalCMS1.getInterpolationSpace()));
+                  for (var j = 0; j < globalCMS1.getIntervalLength(i)-1; j++) {
+                    colorArray.push(globalCMS1.getIntervalColor(i,j,globalCMS1.getInterpolationSpace()));
+                  }
+              }
+            }
+          }
 
 
           //////////////////////////////////////////////////////////////////////
           //// Draw intervals
 
-          var numKeyBars = 0;
-
-
 
           var currentXPos = colormapXStart;
-          var bandWidth = colormapbarwidth/(intervalColormap.getIntervalLength()); //+numKeyBars);
+          var bandWidth = colormapbarwidth/(colorArray.length);
 
-
-          for(var y=0; y<intervalColormap.getIntervalLength(); y++){
-
-                  var colorRef = intervalColormap.getIntervalColor(y,"rgb");
-
-                  canvasCtx.fillStyle=colorRef.getRGBString();
+          for(var i=0; i<colorArray.length; i++){
+                  canvasCtx.fillStyle=colorArray[i].getRGBString();
                   canvasCtx.fillRect(currentXPos,colormapYStart,bandWidth,colormapHeight);
-
-                  canvasCtx.strokeStyle = "rgb(0,0,0)";
+                  /*canvasCtx.strokeStyle = "rgb(0,0,0)";
                   canvasCtx.rect(currentXPos,colormapYStart,bandWidth,colormapHeight);
-                  canvasCtx.stroke();
-
-                  colorRef.deleteReferences();
-                  colorRef=null;
+                  canvasCtx.stroke();*/
                   currentXPos+=bandWidth;
-
           }
-
-
-
-
 
         ///////////////////////////////////////////////////////////////
         ///// Calculation of Order
@@ -197,41 +213,36 @@ function drawOrderPlot(intervalColormap,plotid, minId, minGlobalId){
 
           var localOrder = [];
 
-          for(var x=1; x<intervalColormap.getIntervalLength()-1; x++){
+          for(var i=1; i<colorArray.length-1; i++){
 
                   var deltaE_K0_K2=0;
                   var deltaE_K1_K2=0;
                   var deltaE_K0_K1=0;
 
-
                   switch (globalCMS1.getInterpolationSpace()) {
                       case "lab":
-                       deltaE_K0_K2= calc3DEuclideanDistance(intervalColormap.getIntervalColor(x-1,"lab"),intervalColormap.getIntervalColor(x+1,"lab"));
-                       deltaE_K1_K2= calc3DEuclideanDistance(intervalColormap.getIntervalColor(x,"lab"),intervalColormap.getIntervalColor(x+1,"lab"));
-                       deltaE_K0_K1= calc3DEuclideanDistance(intervalColormap.getIntervalColor(x-1,"lab"),intervalColormap.getIntervalColor(x,"lab"));
+                      case "din99":
+                       deltaE_K0_K2= calc3DEuclideanDistance(cloneColor(colorArray[i-1]),cloneColor(colorArray[i+1]));
+                       deltaE_K1_K2= calc3DEuclideanDistance(cloneColor(colorArray[i]),cloneColor(colorArray[i+1]));
+                       deltaE_K0_K1= calc3DEuclideanDistance(cloneColor(colorArray[i-1]),cloneColor(colorArray[i]));
                         break;
                         case "de94":
-                         deltaE_K0_K2= calcDeltaDE94(intervalColormap.getIntervalColor(x-1,"lab"),intervalColormap.getIntervalColor(x+1,"lab"));
-                         deltaE_K1_K2= calcDeltaDE94(intervalColormap.getIntervalColor(x,"lab"),intervalColormap.getIntervalColor(x+1,"lab"));
-                         deltaE_K0_K1= calcDeltaDE94(intervalColormap.getIntervalColor(x-1,"lab"),intervalColormap.getIntervalColor(x,"lab"));
+                        case "de94-ds":
+                         deltaE_K0_K2= calcDeltaDE94(cloneColor(colorArray[i-1]),cloneColor(colorArray[i+1]));
+                         deltaE_K1_K2= calcDeltaDE94(cloneColor(colorArray[i]),cloneColor(colorArray[i+1]));
+                         deltaE_K0_K1= calcDeltaDE94(cloneColor(colorArray[i-1]),cloneColor(colorArray[i]));
                           break;
                           case "de2000":
-                           deltaE_K0_K2= calcDeltaCIEDE2000(intervalColormap.getIntervalColor(x-1,"lab"),intervalColormap.getIntervalColor(x+1,"lab"));
-                           deltaE_K1_K2= calcDeltaCIEDE2000(intervalColormap.getIntervalColor(x,"lab"),intervalColormap.getIntervalColor(x+1,"lab"));
-                           deltaE_K0_K1= calcDeltaCIEDE2000(intervalColormap.getIntervalColor(x-1,"lab"),intervalColormap.getIntervalColor(x,"lab"));
-                            break;
-                          case "din99":
-                            deltaE_K0_K2= calc3DEuclideanDistance(intervalColormap.getIntervalColor(x-1,"din99"),intervalColormap.getIntervalColor(x+1,"din99"));
-                            deltaE_K1_K2= calc3DEuclideanDistance(intervalColormap.getIntervalColor(x,"din99"),intervalColormap.getIntervalColor(x+1,"din99"));
-                            deltaE_K0_K1= calc3DEuclideanDistance(intervalColormap.getIntervalColor(x-1,"din99"),intervalColormap.getIntervalColor(x,"din99"));
+                          case "de2000-ds":
+                           deltaE_K0_K2= calcDeltaCIEDE2000(cloneColor(colorArray[i-1]),cloneColor(colorArray[i+1]));
+                           deltaE_K1_K2= calcDeltaCIEDE2000(cloneColor(colorArray[i]),cloneColor(colorArray[i+1]));
+                           deltaE_K0_K1= calcDeltaCIEDE2000(cloneColor(colorArray[i-1]),cloneColor(colorArray[i]));
                             break;
                       default:
-
                   }
 
-                  var tmpVal1 = deltaE_K0_K2-deltaE_K0_K1;
-                  var tmpVal2 = deltaE_K0_K2-deltaE_K1_K2;
-
+                  var tmpVal1 = (deltaE_K0_K2-deltaE_K0_K1) *errorMath/errorMath;
+                  var tmpVal2 = (deltaE_K0_K2-deltaE_K1_K2) *errorMath/errorMath;
 
                   var orderVal = Math.min(tmpVal1,tmpVal2);
 
@@ -239,14 +250,13 @@ function drawOrderPlot(intervalColormap,plotid, minId, minGlobalId){
                   minLocal = Math.min(minLocal,orderVal);
 
                   localOrder.push(orderVal);
-
           }
 
           // draw
             currentXPos = colormapXStart+bandWidth;
 
             if(minLocal<0)
-            maxLocal = Math.max(maxLocal,minLocal*-1);
+              maxLocal = Math.max(maxLocal,minLocal*-1);
 
             for(var y=0; y<localOrder.length; y++){
 
@@ -255,10 +265,10 @@ function drawOrderPlot(intervalColormap,plotid, minId, minGlobalId){
                   var tmpVal = localOrder[y];
                   if(tmpVal<0){
                     tmpVal *= -1;
-                    colorRef = new classColor_RGB(1,0,0);
+                    colorRef = new class_Color_RGB(1,0,0);
                   }
                   else {
-                    colorRef = new classColor_RGB(0,0,1);
+                    colorRef = new class_Color_RGB(0,0,1);
                   }
 
                     var deltaHeight = arrowPlotHeight*(tmpVal/maxLocal);
@@ -269,12 +279,6 @@ function drawOrderPlot(intervalColormap,plotid, minId, minGlobalId){
 
                     colorRef.deleteReferences();
                     colorRef=null;
-
-                    //canvasCtx.strokeStyle = "rgb(0,0,0)";
-                    //canvasCtx.rect(currentXPos,yPos,bandWidth,deltaHeight);
-                    //canvasCtx.stroke();
-
-
 
                   currentXPos+=bandWidth;
 
@@ -288,8 +292,8 @@ function drawOrderPlot(intervalColormap,plotid, minId, minGlobalId){
           var arrayk0 = [];
           var t1,t2,t3;
 
-          var minGlobal = 100000;
-          for(var k0=0; k0<intervalColormap.getIntervalLength()-2; k0++){
+          var minGlobal = 1; // Infinity is not needed, because min is only intressting if it is negative
+          for(var k0=0; k0<colorArray.length-2; k0++){
 
                   var deltaE_K0_K2=0;
                   var deltaE_K1_K2=0;
@@ -297,7 +301,7 @@ function drawOrderPlot(intervalColormap,plotid, minId, minGlobalId){
 
                   //var arrayk2 = [-1,-1,-1,-1];
 
-                  for(var k2=k0+2; k2<intervalColormap.getIntervalLength(); k2++){
+                  for(var k2=k0+2; k2<colorArray.length; k2++){
 
                       var arrayk2 = [-1,-1,-1,-1];
 
@@ -305,31 +309,27 @@ function drawOrderPlot(intervalColormap,plotid, minId, minGlobalId){
 
                         switch (globalCMS1.getInterpolationSpace()) {
                             case "lab":
-                            deltaE_K0_K2= calc3DEuclideanDistance(intervalColormap.getIntervalColor(k0,"lab"),intervalColormap.getIntervalColor(k2,"lab"));
-                            deltaE_K1_K2= calc3DEuclideanDistance(intervalColormap.getIntervalColor(k1,"lab"),intervalColormap.getIntervalColor(k2,"lab"));
-                            deltaE_K0_K1= calc3DEuclideanDistance(intervalColormap.getIntervalColor(k0,"lab"),intervalColormap.getIntervalColor(k1,"lab"));
+                            case "din99":
+                            deltaE_K0_K2= calc3DEuclideanDistance(cloneColor(colorArray[k0]),cloneColor(colorArray[k2]));
+                            deltaE_K1_K2= calc3DEuclideanDistance(cloneColor(colorArray[k1]),cloneColor(colorArray[k2]));
+                            deltaE_K0_K1= calc3DEuclideanDistance(cloneColor(colorArray[k0]),cloneColor(colorArray[k1]));
                               break;
                               case "de94":
-                              deltaE_K0_K2= calcDeltaDE94(intervalColormap.getIntervalColor(k0,"lab"),intervalColormap.getIntervalColor(k2,"lab"));
-                              deltaE_K1_K2= calcDeltaDE94(intervalColormap.getIntervalColor(k1,"lab"),intervalColormap.getIntervalColor(k2,"lab"));
-                              deltaE_K0_K1= calcDeltaDE94(intervalColormap.getIntervalColor(k0,"lab"),intervalColormap.getIntervalColor(k1,"lab"));
+                              deltaE_K0_K2= calcDeltaDE94(cloneColor(colorArray[k0]),cloneColor(colorArray[k2]));
+                              deltaE_K1_K2= calcDeltaDE94(cloneColor(colorArray[k1]),cloneColor(colorArray[k2]));
+                              deltaE_K0_K1= calcDeltaDE94(cloneColor(colorArray[k0]),cloneColor(colorArray[k1]));
                                 break;
                                 case "de2000":
-                                deltaE_K0_K2= calcDeltaCIEDE2000(intervalColormap.getIntervalColor(k0,"lab"),intervalColormap.getIntervalColor(k2,"lab"));
-                                deltaE_K1_K2= calcDeltaCIEDE2000(intervalColormap.getIntervalColor(k1,"lab"),intervalColormap.getIntervalColor(k2,"lab"));
-                                deltaE_K0_K1= calcDeltaCIEDE2000(intervalColormap.getIntervalColor(k0,"lab"),intervalColormap.getIntervalColor(k1,"lab"));
-                                  break;
-                                case "din99":
-                                deltaE_K0_K2= calc3DEuclideanDistance(intervalColormap.getIntervalColor(k0,"din99"),intervalColormap.getIntervalColor(k2,"din99"));
-                                deltaE_K1_K2= calc3DEuclideanDistance(intervalColormap.getIntervalColor(k1,"din99"),intervalColormap.getIntervalColor(k2,"din99"));
-                                deltaE_K0_K1= calc3DEuclideanDistance(intervalColormap.getIntervalColor(k0,"din99"),intervalColormap.getIntervalColor(k1,"din99"));
+                                deltaE_K0_K2= calcDeltaCIEDE2000(cloneColor(colorArray[k0]),cloneColor(colorArray[k2]));
+                                deltaE_K1_K2= calcDeltaCIEDE2000(cloneColor(colorArray[k1]),cloneColor(colorArray[k2]));
+                                deltaE_K0_K1= calcDeltaCIEDE2000(cloneColor(colorArray[k0]),cloneColor(colorArray[k1]));
                                   break;
                             default:
 
                         }
 
-                        var tmpVal1 = deltaE_K0_K2-deltaE_K0_K1;
-                        var tmpVal2 = deltaE_K0_K2-deltaE_K1_K2;
+                        var tmpVal1 = (deltaE_K0_K2-deltaE_K0_K1) *errorMath/errorMath;
+                        var tmpVal2 = (deltaE_K0_K2-deltaE_K1_K2) *errorMath/errorMath;
 
                         var orderVal = Math.min(tmpVal1,tmpVal2);
 
@@ -368,8 +368,6 @@ function drawOrderPlot(intervalColormap,plotid, minId, minGlobalId){
 
             for(var i=0; i<arrayk0.length; i++){
 
-                var colorRef = intervalColormap.getIntervalColor(arrayk0[i][2],"rgb");//new classColor_RGB(0,0,0); //intervalColormap.getIntervalColor(k1Pos,"rgb");
-
                 var xPosK0 = colormapXStart+arrayk0[i][1]*bandWidth+(bandWidth/2);
                 var xPosK2 = colormapXStart+arrayk0[i][3]*bandWidth+(bandWidth/2);
                 var xPosK1 = colormapXStart+arrayk0[i][2]*bandWidth+(bandWidth/2);
@@ -379,7 +377,7 @@ function drawOrderPlot(intervalColormap,plotid, minId, minGlobalId){
                 var yPosK1 = colormapYEnd+deltaHeight;
 
                 //canvasCtx.globalAlpha=1.0+(-0.8*(tmpMin/maxNegMin));
-                        canvasCtx.strokeStyle = colorRef.getRGBString();//"rgb(0,0,0)";
+                        canvasCtx.strokeStyle = colorArray[arrayk0[i][2]].getRGBString();//"rgb(0,0,0)";
                         canvasCtx.beginPath();
                         canvasCtx.lineWidth=2;
                         canvasCtx.beginPath();
@@ -406,6 +404,6 @@ function drawOrderPlot(intervalColormap,plotid, minId, minGlobalId){
         document.getElementById(minGlobalId).style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-sepArea-font-color');
 
         document.getElementById(minId).innerHTML = "Local Minimum = "+ minLocal;//.toFixed(numDecimalPlaces);
-        document.getElementById(minGlobalId).innerHTML = "Global Minimum = "+ minGlobal;//.toFixed(numDecimalPlaces);
+        document.getElementById(minGlobalId).innerHTML = "Global Minimum = "+ minGlobal;//.toFixed(numDecimalPlaces);*/
 
 }

@@ -67,6 +67,29 @@ function init_events_EditPage(){
     document.getElementById('id_EditPage_AnalyzeSelect_LinearVisType').addEventListener("change", styleStructure_InterpolationSpaces);
     document.getElementById('id_EditPage_AnalyzeSelect_SketchVisType').addEventListener("change", styleStructure_InterpolationSpaces);
 
+    /*document.getElementById("id_EditPage_SelectFrom_GlobalLocalOrder").onchange = function (){
+      updateAnalyzeCompareKeyIndex("id_EditPage_SelectFrom_GlobalLocalOrder","id_EditPage_SelectTill_GlobalLocalOrder");
+    };
+
+    document.getElementById("id_EditPage_SelectTill_GlobalLocalOrder").onchange = function (){
+      updateAnalyzeCompareKeyIndex("id_EditPage_SelectFrom_GlobalLocalOrder","id_EditPage_SelectTill_GlobalLocalOrder");
+    };*/
+
+    document.getElementById("id_EditPage_BlackWhiteRatio").addEventListener("change", updateAnalyze);
+    document.getElementById("id_EditPage_MinMaxRatio").addEventListener("change", updateAnalyze);
+
+    document.getElementById("id_EditPage_Analyze_ContiuousSelector").addEventListener("change", updateAnalyze);
+    document.getElementById("id_EditPage_InputFixedAxis_GlobalLocalOrder").addEventListener("change", updateAnalyze);
+    document.getElementById("id_EditPage_DoFixedAxis_GlobalLocalOrder").addEventListener("change", updateAnalyze);
+    document.getElementById("id_EditPage_DoLogSelect_GlobalLocalOrder").addEventListener("change", updateAnalyze);
+
+    document.getElementById("id_EditPage_SelectAnalyzePlot").addEventListener("change", updateAnalyze);
+
+    document.getElementById("id_editPage_Optimization_IntervalCalcInput").value = deltaSampling_Analyze;
+    document.getElementById("id_editPage_Optimization_IntervalCalcInput").addEventListener("change", changeDeltaSampling);
+    document.getElementById("id_editPage_Anaylze_IntervalCalcInput").value = deltaSampling_Analyze;
+    document.getElementById("id_editPage_Anaylze_IntervalCalcInput").addEventListener("change", changeDeltaSampling);
+
 
     //////////////////////////////////////////
     /// mapping
@@ -110,7 +133,17 @@ function init_events_EditPage(){
     document.getElementById('id_EditPage_MappingCMS_Select').onchange  = function(){ updateFieldValueColors(true)};
 
     /////////////////////////////////////////////////////
-    /////////////// side options
+    /////////////// Optimization options
+
+    document.getElementById('id_EditPage_IntrinsicSmoothnessOptimization').addEventListener("change", setOptimizationCombination);
+    document.getElementById('id_EditPage_IntrinsicOrderOptimization').addEventListener("change", setOptimizationCombination);
+    document.getElementById('id_EditPage_GlobalLegendOrderOptimization').addEventListener("change", setOptimizationCombination);
+    document.getElementById('id_EditPage_LocalLegendOrderOptimization').addEventListener("change", setOptimizationCombination);
+    document.getElementById('id_EditPage_GlobalSpeedOptimization').addEventListener("change", setOptimizationCombination);
+    document.getElementById('id_EditPage_LocalSpeedOptimization').addEventListener("change", setOptimizationCombination);
+
+    /////////////////////////////////////////////////////
+    /////////////// Probe options
     document.getElementById('id_editPage_ProbeSpace_Value').addEventListener("change", changeProbeSpace);
     document.getElementById('id_editPage_ProbeSpace_Lightness').addEventListener("change", changeProbeSpace);
 
@@ -131,24 +164,7 @@ function init_events_EditPage(){
     document.getElementById("id_probe_EditProbeName").addEventListener("change", editPageChangeProbeSetName);
 
 
-    document.getElementById("id_EditPage_SelectFrom_GlobalLocalOrder").onchange = function (){
-      updateAnalyzeCompareKeyIndex("id_EditPage_SelectFrom_GlobalLocalOrder","id_EditPage_SelectTill_GlobalLocalOrder");
-    };
 
-    document.getElementById("id_EditPage_SelectTill_GlobalLocalOrder").onchange = function (){
-      updateAnalyzeCompareKeyIndex("id_EditPage_SelectFrom_GlobalLocalOrder","id_EditPage_SelectTill_GlobalLocalOrder");
-    };
-
-    document.getElementById("id_EditPage_InputFixedAxis_GlobalLocalOrder").addEventListener("change", updateAnalyze);
-    document.getElementById("id_EditPage_DoFixedAxis_GlobalLocalOrder").addEventListener("change", updateAnalyze);
-    document.getElementById("id_EditPage_DoLogSelect_GlobalLocalOrder").addEventListener("change", updateAnalyze);
-
-    document.getElementById("id_EditPage_SelectAnalyzePlot").addEventListener("change", updateAnalyze);
-
-    document.getElementById("id_editPage_Optimization_IntervalCalcInput").value = deltaSampling_Analyze;
-    document.getElementById("id_editPage_Optimization_IntervalCalcInput").addEventListener("change", changeDeltaSampling);
-    document.getElementById("id_editPage_Anaylze_IntervalCalcInput").value = deltaSampling_Analyze;
-    document.getElementById("id_editPage_Anaylze_IntervalCalcInput").addEventListener("change", changeDeltaSampling);
 
 
 }

@@ -180,7 +180,7 @@ class class_Key{
           case "de94-ds":
           case "de2000":
           case "de2000-ds":
-          return new classColor_LAB(this.cL.get1Value(),this.cL.get2Value(),this.cL.get3Value());
+          return new class_Color_LAB(this.cL.get1Value(),this.cL.get2Value(),this.cL.get3Value());
           break;
           case "din99":
           return this.cL.calcDIN99Color();
@@ -230,7 +230,7 @@ class class_Key{
           case "de94-ds":
           case "de2000":
           case "de2000-ds":
-          return new classColor_LAB(this.cR.get1Value(),this.cR.get2Value(),this.cR.get3Value());
+          return new class_Color_LAB(this.cR.get1Value(),this.cR.get2Value(),this.cR.get3Value());
           break;
           case "din99":
           return this.cR.calcDIN99Color();

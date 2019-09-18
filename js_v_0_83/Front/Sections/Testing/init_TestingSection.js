@@ -114,15 +114,15 @@ function init_Testing(){
   document.getElementById('id_TestPage_ReportList').addEventListener("change", open_Report);
 
   ////////////// define CMS for Value Color Difference Report
-  reportColorValueDifColormap.pushKey(new class_Key(undefined, new classColorDIN99(29.581458825788705,16.03125,-26.896446228027347), -1, false));
-  reportColorValueDifColormap.pushKey(new class_Key(new classColorDIN99(55.87141911613874,-7.531250000000001,-28.383946228027348), new classColorDIN99(55.87141911613874,-7.531250000000001,-28.383946228027348), -0.6446462116468379, false));
-  reportColorValueDifColormap.pushKey(new class_Key(new classColorDIN99(81.87664737898814,-20.531249999999996,-9.790196228027346), new classColorDIN99(81.87664737898814,-20.531249999999996,-9.790196228027346), -0.2977457733249843, false));
-  reportColorValueDifColormap.pushKey(new class_Key(new classColorDIN99(99.85395907566293,-0.9780546619960879,3.201916766455866), new classColorDIN99(99.85395907566293,-0.9780546619960879,3.201916766455866), 0, false));
-  reportColorValueDifColormap.pushKey(new class_Key(new classColorDIN99(86.74992752799066,-3.4687500000000013,25.166053771972656), new classColorDIN99(86.74992752799066,-3.4687500000000013,25.166053771972656), 0.2620538509705699, false));
-  reportColorValueDifColormap.pushKey(new class_Key(new classColorDIN99(61.129411174208734,20.093750000000004,25.90980377197265), new classColorDIN99(61.129411174208734,20.093750000000004,25.90980377197265), 0.6152160300563556, false));
-  reportColorValueDifColormap.pushKey(new class_Key(new classColorDIN99(28.529860414174685,30.656250000000004,10.291053771972658), undefined, 1, false));
-  reportColorValueDifColormap.setAboveColor(new classColor_RGB(1.0,0,0));
-  reportColorValueDifColormap.setBelowColor(new classColor_RGB(0,0,1.0));
+  reportColorValueDifColormap.pushKey(new class_Key(undefined, new class_Color_DIN99(29.581458825788705,16.03125,-26.896446228027347), -1, false));
+  reportColorValueDifColormap.pushKey(new class_Key(new class_Color_DIN99(55.87141911613874,-7.531250000000001,-28.383946228027348), new class_Color_DIN99(55.87141911613874,-7.531250000000001,-28.383946228027348), -0.6446462116468379, false));
+  reportColorValueDifColormap.pushKey(new class_Key(new class_Color_DIN99(81.87664737898814,-20.531249999999996,-9.790196228027346), new class_Color_DIN99(81.87664737898814,-20.531249999999996,-9.790196228027346), -0.2977457733249843, false));
+  reportColorValueDifColormap.pushKey(new class_Key(new class_Color_DIN99(99.85395907566293,-0.9780546619960879,3.201916766455866), new class_Color_DIN99(99.85395907566293,-0.9780546619960879,3.201916766455866), 0, false));
+  reportColorValueDifColormap.pushKey(new class_Key(new class_Color_DIN99(86.74992752799066,-3.4687500000000013,25.166053771972656), new class_Color_DIN99(86.74992752799066,-3.4687500000000013,25.166053771972656), 0.2620538509705699, false));
+  reportColorValueDifColormap.pushKey(new class_Key(new class_Color_DIN99(61.129411174208734,20.093750000000004,25.90980377197265), new class_Color_DIN99(61.129411174208734,20.093750000000004,25.90980377197265), 0.6152160300563556, false));
+  reportColorValueDifColormap.pushKey(new class_Key(new class_Color_DIN99(28.529860414174685,30.656250000000004,10.291053771972658), undefined, 1, false));
+  reportColorValueDifColormap.setAboveColor(new class_Color_RGB(1.0,0,0));
+  reportColorValueDifColormap.setBelowColor(new class_Color_RGB(0,0,1.0));
   reportColorValueDifColormap.setInterpolationSpace("lab");
   hasDrawnReportCMS = false;
 

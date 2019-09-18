@@ -326,7 +326,7 @@ function createGalleryElement(cmsType, i){
 
   var tmpCMSlinear = document.createElement("canvas");
   tmpCMSlinear.id = "id_Gallery_"+cmsType+"_"+i;
-  tmpCMSlinear.className = "class_GalleryObjCMSCanvas classColormapCanvas";
+  tmpCMSlinear.className = "class_GalleryObjCMSCanvas class_ColormapCanvas";
   tmpCMSlinear.style.borderRadius = "0px 0px 0.5vh 0.5vh";
   tmpDiv.appendChild(tmpCMSlinear);
 

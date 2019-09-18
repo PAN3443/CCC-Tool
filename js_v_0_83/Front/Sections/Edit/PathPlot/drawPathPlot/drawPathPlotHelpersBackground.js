@@ -56,7 +56,7 @@ function getRGBBackground(fixedColor, type){
     }
   }
 
-  var tmpRGB= new classColor_RGB(1,1,1);
+  var tmpRGB= new class_Color_RGB(1,1,1);
 
   var background = new ImageData(pathPlotResolution, pathPlotResolution);
 
@@ -385,7 +385,7 @@ function getHSVBackground( fixedColor){
         var hVal = angle;
         var sVal = dis / colorspaceRadius;
 
-        var colorHSV = new classColor_HSV(hVal, sVal, vVal);
+        var colorHSV = new class_Color_HSV(hVal, sVal, vVal);
         colorRGB = colorHSV.calcRGBColor();
 
         if(doColorblindnessSim){
@@ -434,7 +434,7 @@ function getLabBackground( fixedColor){
   var colorspaceCenterY = Math.round(pathPlotResolution / 2);
   var colorspaceRadius = Math.round((pathPlotResolution / 2));// * radiusratio);
 
-  var errorRGBColor = new classColor_RGB(0.5, 0.5, 0.5);
+  var errorRGBColor = new class_Color_RGB(0.5, 0.5, 0.5);
 
   var lVal = 50;
 
@@ -452,10 +452,10 @@ function getLabBackground( fixedColor){
         var aVal = ((x - colorspaceCenterX) / (pathPlotResolution / 2)) * labSpaceRange;
         var bVal = ((tmpY - colorspaceCenterY) / (pathPlotResolution / 2)) * labSpaceRange;
 
-        var colorLAB = new classColor_LAB(lVal, aVal, bVal);
+        var colorLAB = new class_Color_LAB(lVal, aVal, bVal);
         colorRGB = colorLAB.calcRGBColor();
 
-        var colorLAB = new classColor_LAB(lVal, aVal, bVal);
+        var colorLAB = new class_Color_LAB(lVal, aVal, bVal);
 
         if (fixedColor!=undefined){
           colorRGB = colorLAB.calcRGBColorCorrect(errorRGBColor);
@@ -508,7 +508,7 @@ function getDIN99Background( fixedColor){
   var colorspaceCenterY = Math.round(pathPlotResolution / 2);
   var colorspaceRadius = Math.round((pathPlotResolution / 2));// * radiusratio);
 
-  var errorRGBColor = new classColor_RGB(0.5, 0.5, 0.5);
+  var errorRGBColor = new class_Color_RGB(0.5, 0.5, 0.5);
 
   var l99Val = 50;
 
@@ -525,7 +525,7 @@ function getDIN99Background( fixedColor){
         var a99Val = (x  / pathPlotResolution) * rangeA99 + rangeA99Neg;
         var b99Val = (tmpY / pathPlotResolution) * rangeB99 + rangeB99Neg;
 
-        var colorDIN99 = new classColorDIN99(l99Val, a99Val, b99Val);
+        var colorDIN99 = new class_Color_DIN99(l99Val, a99Val, b99Val);
 
         if (fixedColor!=undefined){
           colorRGB = colorDIN99.calcRGBColorCorrect(errorRGBColor);
@@ -535,7 +535,7 @@ function getDIN99Background( fixedColor){
 
         if (colorRGB.getRValue() == 0 && colorRGB.getGValue() == 0 && colorRGB.getBValue() == 0) {
             if (colorDIN99.getL99Value() != 0 || colorDIN99.getA99Value() != 0 || colorDIN99.getB99Value() != 0) {
-              colorRGB = new classColor_RGB(1, 1, 1);
+              colorRGB = new class_Color_RGB(1, 1, 1);
             }
         }
 
@@ -570,7 +570,7 @@ function getLCHBackground(fixedColor){
 
   var background = new ImageData(pathPlotResolution, pathPlotResolution);
 
-  var errorRGBColor = new classColor_RGB(0.5, 0.5, 0.5);
+  var errorRGBColor = new class_Color_RGB(0.5, 0.5, 0.5);
 
   var colorspaceCenterX = Math.round(pathPlotResolution / 2);
   var colorspaceCenterY = Math.round(pathPlotResolution / 2);
@@ -598,7 +598,7 @@ function getLCHBackground(fixedColor){
         var hVal = angle;
         var cVal = dis / colorspaceRadius;
 
-        var colorLCH = new classColor_LCH(lVal,cVal,hVal);
+        var colorLCH = new class_Color_LCH(lVal,cVal,hVal);
 
         if (fixedColor!=undefined){
           colorRGB = colorLCH.calcRGBColorCorrect(errorRGBColor);

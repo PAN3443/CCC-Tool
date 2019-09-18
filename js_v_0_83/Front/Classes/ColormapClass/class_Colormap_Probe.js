@@ -6,7 +6,7 @@ class class_Probe{
 
       constructor(type, start, end , space) {
         this.ProbeType = type; // 0=gradient, 1=contour, 2=constant
-        this.probeColor = new classColor_HSV(0.0,0.0,1.0);
+        this.probeColor = new class_Color_HSV(0.0,0.0,1.0);
         this.functionType =0;
         this.colorspace = space;
         this.startPos = start;
@@ -90,7 +90,7 @@ class class_Probe{
       }
 
       getProbeColor(){
-        return new classColor_HSV(this.probeColor.get1Value(),this.probeColor.get2Value(),this.probeColor.get3Value());
+        return new class_Color_HSV(this.probeColor.get1Value(),this.probeColor.get2Value(),this.probeColor.get3Value());
       }
 
 
@@ -109,7 +109,7 @@ class class_Probe{
         this.intervalStartPos = [];
         this.intervalEndPos = [];
         this.workColorspace = "hsv";
-        this.probeColor = new classColor_HSV(0,0,0);
+        this.probeColor = new class_Color_HSV(0,0,0);
         this.numberOfProbes = 0;
         this.valueStart = 0;
         this.valueEnd = 1.0;
@@ -266,15 +266,15 @@ class class_Probe{
 
                   switch (typeArray[currentArrayPos]) {
                     case "S":
-                      colorR = new classColor_HSV(colorL.get1Value(),colorL.get2Value(),this.valueStart);
+                      colorR = new class_Color_HSV(colorL.get1Value(),colorL.get2Value(),this.valueStart);
                       break;
                       case "E":
-                        colorR = new classColor_HSV(colorL.get1Value(),colorL.get2Value(),colorL.get3Value());
+                        colorR = new class_Color_HSV(colorL.get1Value(),colorL.get2Value(),colorL.get3Value());
                         colorL.set3Value(this.valueEnd);
                         break;
                         case "SE":
                           colorL.set3Value(this.valueEnd);
-                          colorR = new classColor_HSV(colorL.get1Value(),colorL.get2Value(),this.valueStart);
+                          colorR = new class_Color_HSV(colorL.get1Value(),colorL.get2Value(),this.valueStart);
                           break;
                     default:
                       console.log("Error at function generateProbeCMS");
@@ -323,7 +323,7 @@ class class_Probe{
                   break;
                   case "E": case "SE":
                   if(leftKeyColor!=undefined){
-                    leftKeyColor = this.probeColor; //new classColor_HSV(this.probeColor.get1Value(),this.probeColor.get2Value(),this.probeColor.get3Value())
+                    leftKeyColor = this.probeColor; //new class_Color_HSV(this.probeColor.get1Value(),this.probeColor.get2Value(),this.probeColor.get3Value())
                   }
                     break;
                   default:

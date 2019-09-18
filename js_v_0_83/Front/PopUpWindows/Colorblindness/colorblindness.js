@@ -297,10 +297,10 @@ function updateEditPage_ColorBlindness() {
 
 
   function updateColorBlindness_TransferMatrices() {
-    var rgbWhiteOrigin = new classColor_RGB(1, 1, 1);
-    var rgbBluePrimary = new classColor_RGB(0, 0, 1);
-    var rgbRedPrimary = new classColor_RGB(1, 0, 0);
-    //var rgbGreenPrimary = new classColor_RGB(0,1,0);
+    var rgbWhiteOrigin = new class_Color_RGB(1, 1, 1);
+    var rgbBluePrimary = new class_Color_RGB(0, 0, 1);
+    var rgbRedPrimary = new class_Color_RGB(1, 0, 0);
+    //var rgbGreenPrimary = new class_Color_RGB(0,1,0);
 
     var xyzWhiteOrigin = rgbWhiteOrigin.calcXYZColor();
     var xyzBluePrimary = rgbBluePrimary.calcXYZColor();

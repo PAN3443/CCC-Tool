@@ -31,8 +31,10 @@ function editCMS_MouseMove(event){
         var tmpRef = (mousePosX-editCMS_cmsArea_x1)/editCMS_cmsArea_width * Math.abs(globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1)-globalCMS1.getRefPosition(0))+globalCMS1.getRefPosition(0);
         tmpRef = parseFloat(tmpRef);
 
+        var tmpColor = globalCMS1.calculateColor(tmpRef);
+
         workCMS_Edit = cloneCMS(globalCMS1);
-        workCMS_Edit.addKey(new class_Key(globalCMS1.calculateColor(tmpRef), new classColor_RGB(tmpColor.get1Value(),tmpColor.get2Value(),tmpColor.get3Value()), tmpRef, false));
+        workCMS_Edit.addKey(new class_Key(new class_Color_RGB(tmpColor.get1Value(),tmpColor.get2Value(),tmpColor.get3Value()), new class_Color_RGB(tmpColor.get1Value(),tmpColor.get2Value(),tmpColor.get3Value()), tmpRef, false));
         editCMS_drawADDKey=true;
         editCMS_AddKeyDrawOriginal=true;
       }
@@ -163,7 +165,7 @@ function editCMS_MouseDown(){
     saveCreateProcess();
 
     if(editPage_optimizationMode){
-      updateOptimizationPage();
+      editCMSduringOptimizationMode();
     }
 
   }
@@ -179,7 +181,7 @@ function editCMS_MouseDown(){
     saveCreateProcess();
 
     if(editPage_optimizationMode){
-      updateOptimizationPage();
+      editCMSduringOptimizationMode();
     }
 
     updateEditPage();
@@ -222,7 +224,7 @@ function editCMS_MouseUp(){
     globalCMS1JSON=inform_Worker_GlobalCMS();
 
     if(editPage_optimizationMode){
-      updateOptimizationPage();
+      editCMSduringOptimizationMode();
     }
   }
 }
@@ -244,7 +246,7 @@ function editCMS_MouseEnter(){
       globalCMS1JSON=inform_Worker_GlobalCMS();
 
       if(editPage_optimizationMode){
-        updateOptimizationPage();
+        editCMSduringOptimizationMode();
       }
     }
   }
@@ -270,7 +272,7 @@ function editCMS_MouseLeave(){
     globalCMS1JSON=inform_Worker_GlobalCMS();
 
     if(editPage_optimizationMode){
-      updateOptimizationPage();
+      editCMSduringOptimizationMode();
     }
   }
 }

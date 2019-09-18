@@ -46,9 +46,9 @@ self.addEventListener('message', function(e) {
 
       self.importScripts('../../../GlobalEvents/Helpers/canvasHelpers.js');
       self.importScripts('../../../GlobalEvents/Helpers/math.js');
-      self.importScripts('../../../GlobalEvents/cmsIntervals.js');
-      self.importScripts('../../../GlobalEvents/CMSColorGradient/calcGradientLinear.js');
-      self.importScripts('../../../GlobalEvents/Helpers/calcColordifference.js');
+      self.importScripts('../../../GlobalEvents/Color_CMS_Helpers/cmsIntervals.js');
+      self.importScripts('../../../GlobalEvents/Color_CMS_Helpers/calcGradientLinear.js');
+      self.importScripts('../../../GlobalEvents/Color_CMS_Helpers/calcColordifference.js');
 
       globalCMS1 = new class_CMS();
 
@@ -78,7 +78,7 @@ self.addEventListener('message', function(e) {
         case "rgb":
 
           if (e.data.fixedColorV1 != undefined && e.data.fixedColorV2 != undefined && e.data.fixedColorV3 != undefined)
-            fixedColor = new classColor_RGB(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
+            fixedColor = new class_Color_RGB(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
 
           answerJSON.additionalFct = 0;
           answerJSON.imageData = getRGBBackground(fixedColor, e.data.type);
@@ -106,27 +106,27 @@ self.addEventListener('message', function(e) {
         case "hsv":
           answerJSON.canvasID = "id_EditPage_PathPlot_SingleCanvas_0";
           if (e.data.fixedColorV1 != undefined && e.data.fixedColorV2 != undefined && e.data.fixedColorV3 != undefined)
-            fixedColor = new classColor_HSV(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
+            fixedColor = new class_Color_HSV(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
           answerJSON.imageData = getHSVBackground(fixedColor);
           break;
 
         case "lab":
           answerJSON.canvasID = "id_EditPage_PathPlot_SingleCanvas_0";
           if (e.data.fixedColorV1 != undefined && e.data.fixedColorV2 != undefined && e.data.fixedColorV3 != undefined)
-            fixedColor = new classColor_LAB(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
+            fixedColor = new class_Color_LAB(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
           answerJSON.imageData = getLabBackground(fixedColor);
           break;
 
         case "din99":
           answerJSON.canvasID = "id_EditPage_PathPlot_SingleCanvas_0";
           if (e.data.fixedColorV1 != undefined && e.data.fixedColorV2 != undefined && e.data.fixedColorV3 != undefined)
-            fixedColor = new classColorDIN99(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
+            fixedColor = new class_Color_DIN99(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
           answerJSON.imageData = getDIN99Background(fixedColor);
           break;
         case "lch":
           answerJSON.canvasID = "id_EditPage_PathPlot_SingleCanvas_0";
           if (e.data.fixedColorV1 != undefined && e.data.fixedColorV2 != undefined && e.data.fixedColorV3 != undefined)
-            fixedColor = new classColor_LCH(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
+            fixedColor = new class_Color_LCH(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
           answerJSON.imageData = getLCHBackground(fixedColor);
           break;
 
@@ -158,7 +158,7 @@ self.addEventListener('message', function(e) {
           canvas.width = pathPlotResolution;
 
           if (e.data.fixedColorV1 != undefined && e.data.fixedColorV2 != undefined && e.data.fixedColorV3 != undefined)
-            fixedColor = new classColor_RGB(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
+            fixedColor = new class_Color_RGB(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
 
           switch (e.data.type) {
             case "GR":
@@ -180,7 +180,7 @@ self.addEventListener('message', function(e) {
           var fixedColor = undefined;
 
           if (e.data.fixedColorV1 != undefined && e.data.fixedColorV2 != undefined && e.data.fixedColorV3 != undefined)
-            fixedColor = new classColor_HSV(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
+            fixedColor = new class_Color_HSV(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
 
           switch (e.data.type) {
             case "V1":
@@ -215,7 +215,7 @@ self.addEventListener('message', function(e) {
           var fixedColor = undefined;
 
           if (e.data.fixedColorV1 != undefined && e.data.fixedColorV2 != undefined && e.data.fixedColorV3 != undefined)
-            fixedColor = new classColor_LAB(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
+            fixedColor = new class_Color_LAB(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
 
           switch (e.data.type) {
             case "V1":
@@ -249,7 +249,7 @@ self.addEventListener('message', function(e) {
           var fixedColor = undefined;
 
           if (e.data.fixedColorV1 != undefined && e.data.fixedColorV2 != undefined && e.data.fixedColorV3 != undefined)
-            fixedColor = new classColorDIN99(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
+            fixedColor = new class_Color_DIN99(e.data.fixedColorV1, e.data.fixedColorV2, e.data.fixedColorV3);
 
           switch (e.data.type) {
             case "V1":

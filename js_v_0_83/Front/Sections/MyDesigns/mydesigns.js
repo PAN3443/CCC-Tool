@@ -501,7 +501,7 @@ function readSessionFile(e){
                 var val2 = parseFloat(probeColorObj[0].getAttribute("s"));
                 var val3 = parseFloat(probeColorObj[0].getAttribute("v"));
 
-                tmpProbe.setProbeColor(new classColor_HSV(val1,val2,val3));
+                tmpProbe.setProbeColor(new class_Color_HSV(val1,val2,val3));
               }
 
               if(type == 0) // const _> no functions

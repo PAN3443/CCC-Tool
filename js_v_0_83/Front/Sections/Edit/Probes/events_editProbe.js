@@ -161,7 +161,7 @@ function selectProbe(){
       document.getElementById("id_probe_EditProbeStart").value='';
       document.getElementById("id_probe_EditProbeEnd").value='';
 
-      globalProbeColor = new  classColor_HSV(0,0,1.0);
+      globalProbeColor = new  class_Color_HSV(0,0,1.0);
       changeProbeType(0);
   }
   else{

@@ -1,7 +1,7 @@
 var histogramColor = "rgb(25, 38, 51)";
 
 
-var mappingBackgroundColor = new classColor_RGB(1.0,0,0);
+var mappingBackgroundColor = new class_Color_RGB(1.0,0,0);
 
 var domainContent;
 var fileType=0; // 0=vtk;

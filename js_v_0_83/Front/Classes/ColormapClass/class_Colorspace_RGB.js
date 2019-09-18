@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////
 // ------------ Class RGB ---------------//
 ////////////////////////////////////////////////
-class classColor_RGB {
+class class_Color_RGB {
   constructor(rValue, gValue, bValue) {
     this.rValue = rValue;
     this.gValue = gValue;
@@ -116,7 +116,7 @@ class classColor_RGB {
 
     switch (format) {
       case "rgb":
-        return new classColor_RGB(this.get1Value(), this.get2Value(), this.get3Value());
+        return new class_Color_RGB(this.get1Value(), this.get2Value(), this.get3Value());
       case "hsv":
         return this.calcHSVColor();
       case "lab":
@@ -166,7 +166,7 @@ class classColor_RGB {
     var var_Z = var_R * tmXYZ_Selected[2][0] + var_G * tmXYZ_Selected[2][1] + var_B * tmXYZ_Selected[2][2];
 
 
-    return (new classColor_XYZ(var_X, var_Y, var_Z));
+    return (new class_Color_XYZ(var_X, var_Y, var_Z));
   }
 
   calcLABColor() {
@@ -178,7 +178,7 @@ class classColor_RGB {
   }
 
   calcRGBColor() {
-    return new classColor_RGB(this.get1Value(), this.get2Value(), this.get3Value());
+    return new class_Color_RGB(this.get1Value(), this.get2Value(), this.get3Value());
   }
 
   calcHSVColor() {
@@ -206,7 +206,7 @@ class classColor_RGB {
       }
       h /= 6;
     }
-    return (new classColor_HSV(h, s, v));
+    return (new class_Color_HSV(h, s, v));
 
   }
 

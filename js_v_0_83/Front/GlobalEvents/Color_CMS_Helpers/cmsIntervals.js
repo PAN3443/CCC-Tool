@@ -62,16 +62,16 @@ function  calcDeltaIntervalBetween_C1C2(tmpColor,tmpColor2, intervalDeltaDis, in
 
     switch (interpolationSpace) {
         case "rgb":
-          colors.push(new classColor_RGB(newColor[0],newColor[1],newColor[2]));
-                  /*colors.push(new classColor_HSV(newColor[0],newColor[1],newColor[2]));
+          colors.push(new class_Color_RGB(newColor[0],newColor[1],newColor[2]));
+                  /*colors.push(new class_Color_HSV(newColor[0],newColor[1],newColor[2]));
                   var rValue = tmpColor.get1Value()+(tmpColor2.get1Value() - tmpColor.get1Value())*tmpRatio;
                   var gValue = tmpColor.get2Value()+(tmpColor2.get2Value() - tmpColor.get2Value())*tmpRatio;
                   var bValue = tmpColor.get3Value()+(tmpColor2.get3Value() - tmpColor.get3Value())*tmpRatio;
 
-                  colors.push(new classColor_RGB(rValue,gValue,bValue));*/
+                  colors.push(new class_Color_RGB(rValue,gValue,bValue));*/
                 break;
           case "hsv":
-            colors.push(new classColor_HSV(newColor[0],newColor[1],newColor[2]));
+            colors.push(new class_Color_HSV(newColor[0],newColor[1],newColor[2]));
 
                 /*  var tmpDis = tmpColor.getSValue()*50; // radius 50; center(0,0,0);
                   var tmpRad = (tmpColor.getHValue()*Math.PI*2)-Math.PI;
@@ -92,7 +92,7 @@ function  calcDeltaIntervalBetween_C1C2(tmpColor,tmpColor2, intervalDeltaDis, in
                   var tmpH =(Math.atan2(tmpY,tmpX)+Math.PI)/(Math.PI*2);
                   var tmpS = Math.sqrt(Math.pow(tmpX,2)+Math.pow(tmpY,2))/50;
                   var tmpV = tmpZ+50;
-                  colors.push(new classColor_HSV(tmpH,tmpS,tmpV));*/
+                  colors.push(new class_Color_HSV(tmpH,tmpS,tmpV));*/
 
         break;
 
@@ -101,24 +101,24 @@ function  calcDeltaIntervalBetween_C1C2(tmpColor,tmpColor2, intervalDeltaDis, in
       case "de2000-ds":
       case "de94":
       case "de2000":
-          colors.push(new classColor_LAB(newColor[0],newColor[1],newColor[2]));
+          colors.push(new class_Color_LAB(newColor[0],newColor[1],newColor[2]));
           /*var lValue = tmpColor.get1Value()+(tmpColor2.get1Value() - tmpColor.get1Value())*tmpRatio;
           var aValue = tmpColor.get2Value()+(tmpColor2.get2Value() - tmpColor.get2Value())*tmpRatio;
           var bValue = tmpColor.get3Value()+(tmpColor2.get3Value() - tmpColor.get3Value())*tmpRatio;
 
-          colors.push(new classColor_LAB(lValue,aValue,bValue));*/
+          colors.push(new class_Color_LAB(lValue,aValue,bValue));*/
 
         break;
       case "din99":
-          colors.push(new classColorDIN99(newColor[0],newColor[1],newColor[2]));
+          colors.push(new class_Color_DIN99(newColor[0],newColor[1],newColor[2]));
           /*var l99Value = tmpColor.get1Value()+(tmpColor2.get1Value() - tmpColor.get1Value())*tmpRatio;
           var a99Value = tmpColor.get2Value()+(tmpColor2.get2Value() - tmpColor.get2Value())*tmpRatio;
           var b99Value = tmpColor.get3Value()+(tmpColor2.get3Value() - tmpColor.get3Value())*tmpRatio;
 
-          colors.push(new classColorDIN99(l99Value,a99Value,b99Value));*/
+          colors.push(new class_Color_DIN99(l99Value,a99Value,b99Value));*/
         break;
       case "lch":
-            colors.push(new classColor_LCH(newColor[0],newColor[1],newColor[2]));
+            colors.push(new class_Color_LCH(newColor[0],newColor[1],newColor[2]));
             /*var tmpDis = tmpColor.getCValue()*50; // radius 50; center(0,0,0);
             var tmpRad = (tmpColor.getHValue()*Math.PI*2)-Math.PI;
             var xPos = tmpDis*Math.cos(tmpRad);
@@ -138,7 +138,7 @@ function  calcDeltaIntervalBetween_C1C2(tmpColor,tmpColor2, intervalDeltaDis, in
             var tmpH =(Math.atan2(tmpY,tmpX)+Math.PI)/(Math.PI*2);
             var tmpC = Math.sqrt(Math.pow(tmpX,2)+Math.pow(tmpY,2))/50;
             var tmpL = tmpZ+50;
-            colors.push(new classColor_LCH(tmpL,tmpC,tmpH));
+            colors.push(new class_Color_LCH(tmpL,tmpC,tmpH));
             */
           break;
     }
@@ -264,7 +264,7 @@ function calcSplineIntervalBetween_C1C2(tArray, colorsArray, curvescale, interpo
   var c3 = colorsArray[3]; //
 
   var continueCounter = 0;
-  
+
   for (var i = 0; i < tArray.length; i++) {
 
     var t = tArray[i];
@@ -326,19 +326,19 @@ function calcSplineIntervalBetween_C1C2(tArray, colorsArray, curvescale, interpo
     var newColor = undefined;
     switch (interpolationSpace){
       case "rgb":
-        newColor= new classColor_RGB(colorVal1,colorVal2,colorVal3);
+        newColor= new class_Color_RGB(colorVal1,colorVal2,colorVal3);
         break;
         case "hsv":
-          newColor= new classColor_HSV(colorVal1,colorVal2,colorVal3);
+          newColor= new class_Color_HSV(colorVal1,colorVal2,colorVal3);
           break;
           case "lab":
           case "de94":
           case "de94-ds":
           case "de2000-ds":
-            newColor= new classColor_LAB(colorVal1,colorVal2,colorVal3);
+            newColor= new class_Color_LAB(colorVal1,colorVal2,colorVal3);
             break;
             case "din99":
-              newColor= new classColorDIN99(colorVal1,colorVal2,colorVal3);
+              newColor= new class_Color_DIN99(colorVal1,colorVal2,colorVal3);
               break;
       default:
 

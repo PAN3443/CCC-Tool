@@ -7,9 +7,9 @@ class class_CMS {
 
     this.description = "";
 
-    this.colorNaN = new classColor_LAB(0,0,0);
-    this.colorBelow = new classColor_LAB(0,0,0);
-    this.colorAbove = new classColor_LAB(0,0,0);
+    this.colorNaN = new class_Color_LAB(0,0,0);
+    this.colorBelow = new class_Color_LAB(0,0,0);
+    this.colorAbove = new class_Color_LAB(0,0,0);
 
     /// color array from import and for the export
     //this.preprocessingColorArray = [];
@@ -24,6 +24,7 @@ class class_CMS {
     this.preventIntervalCalculation = true;
     this.keyArray = [];
     this.intervalArray=[];
+    this.intervalExportSampling=[];
 
     /// Probes
     this.probeSetArray=[];
@@ -57,6 +58,14 @@ class class_CMS {
       }
     }
     delete this.intervalArray;
+
+    for (var i = this.intervalExportSampling.length-1; i>=0 ; i--) {
+      for (var j = this.intervalExportSampling[i].length-1; j>=0; j--) {
+        this.intervalExportSampling[i][j].deleteReferences();
+        this.intervalExportSampling[i][j]=null;
+      }
+    }
+    delete this.intervalExportSampling;
 
     for (var i = this.probeSetArray.length-1; i >=0 ; i--) {
       this.probeSetArray[i].deleteReferences();
@@ -109,7 +118,6 @@ class class_CMS {
     }
     this.keyArray = [];
 
-
     for (var i = this.intervalArray.length-1; i>=0 ; i--) {
       for (var j = this.intervalArray[i].length-1; j>=0; j--) {
         this.intervalArray[i][j].deleteReferences();
@@ -117,6 +125,14 @@ class class_CMS {
       }
     }
     this.intervalArray=[];
+
+    for (var i = this.intervalExportSampling.length-1; i>=0 ; i--) {
+      for (var j = this.intervalExportSampling[i].length-1; j>=0; j--) {
+        this.intervalExportSampling[i][j].deleteReferences();
+        this.intervalExportSampling[i][j]=null;
+      }
+    }
+    this.intervalExportSampling=[];
 
     for (var i = this.probeSetArray.length-1; i >=0 ; i--) {
       this.probeSetArray[i].deleteReferences();
@@ -154,15 +170,15 @@ class class_CMS {
     return this.preventIntervalCalculation;
   }
 
-  calcGlobalIntervalColors(numIntervals){
-
-    for (var i = this.intervalArray.length-1; i>=0 ; i--) {
-      for (var j = this.intervalArray[i].length-1; j>=0; j--) {
-        this.intervalArray[i][j].deleteReferences();
-        this.intervalArray[i][j]=null;
+  calcExportSampling(numIntervals){
+    
+    for (var i = this.intervalExportSampling.length-1; i>=0 ; i--) {
+      for (var j = this.intervalExportSampling[i].length-1; j>=0; j--) {
+        this.intervalExportSampling[i][j].deleteReferences();
+        this.intervalExportSampling[i][j]=null;
       }
     }
-    this.intervalArray=[];
+    this.intervalExportSampling=[];
 
 
     if(this.keyArray.length<2)
@@ -183,7 +199,7 @@ class class_CMS {
 
       var currentPos = this.keyArray[keyIndex].getRefPosition();
       var nextPos = this.keyArray[keyIndex+1].getRefPosition();
-      this.intervalArray.push([]);
+      this.intervalExportSampling.push([]);
 
       if(currentIntervalPointPos==currentPos){
         currentIntervalPointPos=Math.round((currentIntervalPointPos+intervalDistance) * error) / error; //currentIntervalPointPos+=intervalDistance;
@@ -221,7 +237,7 @@ class class_CMS {
           break;
 
           var intervalColor = this.calculateColor(currentIntervalPointPos, this.interpolationSpace);
-          this.intervalArray[keyIndex].push(new class_Interval(intervalColor,  currentIntervalPointPos));
+          this.intervalExportSampling[keyIndex].push(new class_Interval(intervalColor,  currentIntervalPointPos));
 
           currentIntervalPointPos=Math.round((currentIntervalPointPos+intervalDistance) * error) / error; //currentIntervalPointPos+=intervalDistance;
 
@@ -337,6 +353,21 @@ class class_CMS {
         return this.intervalArray[keyBandIndex][index].getRefPosition();
     }
 
+  getExportSamplingLength(keyBandIndex){
+    if(keyBandIndex<this.intervalExportSampling.length)
+      return this.intervalExportSampling[keyBandIndex].length;
+    else
+      return 0;
+  }
+
+  getExportSamplingColor(keyBandIndex,index,colorspace){
+      return this.intervalExportSampling[keyBandIndex][index].getColor(colorspace);
+  }
+
+  getExportSamplingRef(keyBandIndex,index){
+    return this.intervalExportSampling[keyBandIndex][index].getRefPosition();
+  }
+
   getSplineColors(keyIndex1,keyIndex2){
 
         // no interpolation needed for constand bands
@@ -363,7 +394,7 @@ class class_CMS {
         var c3 = undefined; //
 
         if(!existingC1)
-          c0 = new classColor_RGB(0,0,0);  // every value is zero and has no influence
+          c0 = new class_Color_RGB(0,0,0);  // every value is zero and has no influence
         else
           c0 = this.getRightKeyColor(keyIndex1-1,this.interpolationSpace);
 
@@ -372,7 +403,7 @@ class class_CMS {
         c2 = this.getLeftKeyColor(keyIndex2,this.interpolationSpace);
 
         if(!existingC3)
-          c3 = new classColor_RGB(0,0,0);  // every value is zero and has no influence
+          c3 = new class_Color_RGB(0,0,0);  // every value is zero and has no influence
         else{
           c3 = this.getLeftKeyColor(keyIndex2+1,this.interpolationSpace);
         }
@@ -380,7 +411,6 @@ class class_CMS {
         return [c0,c1,c2,c3];
 
     }
-
 
   ///////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////
@@ -602,9 +632,9 @@ class class_CMS {
 
         switch (this.interpolationSpace) {
           case "rgb":
-              return new classColor_RGB(newColorValues[0],newColorValues[1],newColorValues[2]);
+              return new class_Color_RGB(newColorValues[0],newColorValues[1],newColorValues[2]);
           case "hsv":
-              var tmpColor = new classColor_HSV(newColorValues[0],newColorValues[1],newColorValues[2]);
+              var tmpColor = new class_Color_HSV(newColorValues[0],newColorValues[1],newColorValues[2]);
               var rgbColor = tmpColor.calcRGBColor();
               tmpColor.deleteReferences();
               tmpColor=null;
@@ -615,21 +645,21 @@ class class_CMS {
           case "de94-ds":
           case "de2000":
           case "de2000-ds":
-              var tmpColor = new classColor_LAB(newColorValues[0],newColorValues[1],newColorValues[2]);
+              var tmpColor = new class_Color_LAB(newColorValues[0],newColorValues[1],newColorValues[2]);
               var rgbColor = tmpColor.calcRGBColor();
               tmpColor.deleteReferences();
               tmpColor=null;
               return rgbColor;
             break;
           case "din99":
-              var tmpColor = new classColorDIN99(newColorValues[0],newColorValues[1],newColorValues[2]);
+              var tmpColor = new class_Color_DIN99(newColorValues[0],newColorValues[1],newColorValues[2]);
               var rgbColor = tmpColor.calcRGBColor();
               tmpColor.deleteReferences();
               tmpColor=null;
               return rgbColor;
             break;
           case "lch":
-              var tmpColor = new classColor_LCH(newColorValues[2],newColorValues[1],newColorValues[0]);
+              var tmpColor = new class_Color_LCH(newColorValues[2],newColorValues[1],newColorValues[0]);
               var rgbColor = tmpColor.calcRGBColor();
               tmpColor.deleteReferences();
               tmpColor=null;
@@ -700,7 +730,7 @@ class class_CMS {
 
       switch (this.interpolationSpace) {
         case "rgb":
-          return new classColor_RGB(color.get1Value(),color.get2Value(),color.get3Value());
+          return new class_Color_RGB(color.get1Value(),color.get2Value(),color.get3Value());
         default:
           var tmpRGBColor = color.calcRGBColor();
           color.deleteReferences();
@@ -1087,25 +1117,25 @@ class class_CMS {
 function cloneColor(color){
   switch (color.getColorType()) {
     case "rgb":
-        return new classColor_RGB(color.get1Value(),color.get2Value(),color.get3Value());
+        return new class_Color_RGB(color.get1Value(),color.get2Value(),color.get3Value());
       break;
       case "hsv":
-          return new classColor_HSV(color.get1Value(),color.get2Value(),color.get3Value());
+          return new class_Color_HSV(color.get1Value(),color.get2Value(),color.get3Value());
         break;
         case "lab":
-            return new classColor_LAB(color.get1Value(),color.get2Value(),color.get3Value());
+            return new class_Color_LAB(color.get1Value(),color.get2Value(),color.get3Value());
           break;
           case "lch":
-              return new classColor_LCH(color.get1Value(),color.get2Value(),color.get3Value());
+              return new class_Color_LCH(color.get1Value(),color.get2Value(),color.get3Value());
             break;
             case "LMS":
-                return new classColor_LMS(color.get1Value(),color.get2Value(),color.get3Value());
+                return new class_Color_LMS(color.get1Value(),color.get2Value(),color.get3Value());
               break;
               case "din99":
-                  return new classColorDIN99(color.get1Value(),color.get2Value(),color.get3Value());
+                  return new class_Color_DIN99(color.get1Value(),color.get2Value(),color.get3Value());
                 break;
                 case "xyz":
-                  return new classColor_XYZ(color.get1Value(),color.get2Value(),color.get3Value());
+                  return new class_Color_XYZ(color.get1Value(),color.get2Value(),color.get3Value());
                 break;
     default:
         return undefined;

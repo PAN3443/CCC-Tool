@@ -2,7 +2,7 @@
 // ------------ Class CIELab ---------------//
 ////////////////////////////////////////////////
 
-class classColor_LAB{
+class class_Color_LAB{
 
       constructor(lValue, aValue, bValue) {
         this.lValue = lValue;
@@ -107,7 +107,7 @@ class classColor_LAB{
           case "hsv":
               return this.calcHSVColor();
           case "lab":
-              return new classColor_LAB(this.get1Value(),this.get2Value(),this.get3Value());
+              return new class_Color_LAB(this.get1Value(),this.get2Value(),this.get3Value());
           case "din99":
               return this.calcDIN99Color();
           case "lch":
@@ -130,7 +130,7 @@ class classColor_LAB{
 
 
       calcLABColor() {
-        return new classColor_LAB(this.get1Value(), this.get2Value(), this.get3Value());;
+        return new class_Color_LAB(this.get1Value(), this.get2Value(), this.get3Value());;
       }
 
       calcXYZColor(){
@@ -164,7 +164,7 @@ class classColor_LAB{
         var_Y = (var_Y * cielab_ref_Y);
         var_Z = (var_Z * cielab_ref_Z);
 
-        return(new classColor_XYZ(var_X, var_Y, var_Z));
+        return(new class_Color_XYZ(var_X, var_Y, var_Z));
       }
 
       calcRGBColor(){
@@ -212,7 +212,7 @@ class classColor_LAB{
                     // Right RGB -Values
                     //var rgbString = "rgba("+var_R*255+","+var_G*255+","+var_B*255+",1.0)";
                     //return rgbString;
-                    return new classColor_RGB(var_R,var_G,var_B);
+                    return new class_Color_RGB(var_R,var_G,var_B);
                 }
 
 
@@ -234,7 +234,7 @@ class classColor_LAB{
 
         var valueH = atan2_360Degree(normAVal,normBVal)/360; // values 0-1
 
-        return new classColor_LCH(valueL, valueC, valueH);
+        return new class_Color_LCH(valueL, valueC, valueH);
       }
 
       calcDIN99Color(){
@@ -258,7 +258,7 @@ class classColor_LAB{
             valueB99 = C99 * Math.sin(h99);
         }
 
-        return new classColorDIN99(valueL99, valueA99, valueB99);
+        return new class_Color_DIN99(valueL99, valueA99, valueB99);
       }
 
     };

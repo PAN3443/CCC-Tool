@@ -61,7 +61,7 @@ function createProbe(start,end){
   var newProbe = new class_Probe(globalProbeType, start, end , globalProbeSpace);
 
   newProbe.setFunctionType(globalProbeSubtypeIndex);
-  newProbe.setProbeColor(new classColor_HSV(globalProbeColor.get1Value(),globalProbeColor.get2Value(),globalProbeColor.get3Value()));
+  newProbe.setProbeColor(new class_Color_HSV(globalProbeColor.get1Value(),globalProbeColor.get2Value(),globalProbeColor.get3Value()));
 
   return newProbe;
 }

@@ -103,14 +103,12 @@ self.addEventListener('message', function(e) {
       worker_LoadColorClasses();
 
       self.importScripts('../../../GlobalEvents/Helpers/canvasHelpers.js');
-      self.importScripts('../../../GlobalEvents/Helpers/calcColordifference.js');
       self.importScripts('../../../GlobalEvents/Helpers/math.js');
-      self.importScripts('../../../GlobalEvents/cmsIntervals.js');
-      self.importScripts('../../../GlobalEvents/CMSColorGradient/calcGradientLinear.js');
-      self.importScripts('../../../GlobalEvents/Helpers/calcColordifference.js');
+      self.importScripts('../../../GlobalEvents/Color_CMS_Helpers/cmsIntervals.js');
+      self.importScripts('../../../GlobalEvents/Color_CMS_Helpers/calcColordifference.js');
 
-      self.importScripts('../../../GlobalEvents/CMSColorGradient/calcGradientHSV.js');
-      self.importScripts('../../../GlobalEvents/CMSColorGradient/calcGradientLinear.js');
+      self.importScripts('../../../GlobalEvents/Color_CMS_Helpers/calcGradientHSV.js');
+      self.importScripts('../../../GlobalEvents/Color_CMS_Helpers/calcGradientLinear.js');
 
 
       globalCMS1 = new class_CMS();

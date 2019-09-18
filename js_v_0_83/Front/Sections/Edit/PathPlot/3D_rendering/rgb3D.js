@@ -12,7 +12,7 @@ function rgbMesh(){
   var arrowEnd = 200;
   var endpos = startPos+255;
 
-  var tmpRGBColor = new classColor_RGB(0,0,0);
+  var tmpRGBColor = new class_Color_RGB(0,0,0);
   //////////////////////////////////////////////////////////////////
   // Arrow Labels
 

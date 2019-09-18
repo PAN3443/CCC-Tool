@@ -117,7 +117,7 @@ function createMyDesignObject(id){
 
   var tmpCMSlinear = document.createElement('canvas');
   tmpCMSlinear.id="myDesignObj_CMSlinear_"+id;
-  tmpCMSlinear.className = 'class_MyDesignObjCMSCanvas classColormapCanvas';
+  tmpCMSlinear.className = 'class_MyDesignObjCMSCanvas class_ColormapCanvas';
   tmpCMSlinear.style.borderBottom = "none";
   tmpDiv.appendChild(tmpCMSlinear);
 
@@ -132,7 +132,7 @@ function createMyDesignObject(id){
 
   var tmpCMSsketch = document.createElement('canvas');
   tmpCMSsketch.id="myDesignObj_CMSsketch_"+id;
-  tmpCMSsketch.className = 'class_MyDesignObjCMSCanvas classColormapCanvas';
+  tmpCMSsketch.className = 'class_MyDesignObjCMSCanvas class_ColormapCanvas';
   tmpCMSsketch.style.borderRadius = "0px 0px 0.5vh 0.5vh";
   tmpDiv.appendChild(tmpCMSsketch);
 

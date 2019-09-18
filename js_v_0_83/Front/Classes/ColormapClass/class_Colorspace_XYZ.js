@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////
 // ------------ Class LMS ---------------//
 ////////////////////////////////////////////////
-class classColor_XYZ{
+class class_Color_XYZ{
     constructor(x, y, z) {
 
     this.valueX = x; // long wave red area
@@ -90,19 +90,19 @@ class classColor_XYZ{
             if (var_R>1.0 || var_G>1.0 || var_B>1.0 || var_R<0.0 || var_G<0.0 || var_B<0.0){
                 //var rgbString = "rgb(0,0,0)";
                 //return rgbString;
-                return new classColor_RGB(0,0,0);
+                return new class_Color_RGB(0,0,0);
             }
             else{
                 //var rgbString = "rgb("+var_R*255+","+var_G*255+","+var_B*255+")";
                 //return rgbString;
-                return new classColor_RGB(var_R,var_G,var_B);
+                return new class_Color_RGB(var_R,var_G,var_B);
             }
         }
         else{
             // Right RGB -Values
             //var rgbString = "rgba("+var_R*255+","+var_G*255+","+var_B*255+",1.0)";
             //return rgbString;
-            return new classColor_RGB(var_R,var_G,var_B);
+            return new class_Color_RGB(var_R,var_G,var_B);
         }
   }
 
@@ -156,7 +156,7 @@ class classColor_XYZ{
     var var_A = 500 * ( var_X  - var_Y )
     var var_B = 200 * ( var_Y - var_Z )
 
-    return(new classColor_LAB(var_L, var_A, var_B));
+    return(new class_Color_LAB(var_L, var_A, var_B));
   }
 
   calcLMSColor() {
@@ -165,7 +165,7 @@ class classColor_XYZ{
     var var_M = this.valueX * tmLMS_Selected[1][0] + this.valueY * tmLMS_Selected[1][1] + this.valueZ * tmLMS_Selected[1][2];
     var var_S = this.valueX * tmLMS_Selected[2][0] + this.valueY * tmLMS_Selected[2][1] + this.valueZ * tmLMS_Selected[2][2];
 
-    return (new classColor_LMS(var_L, var_M, var_S));
+    return (new class_Color_LMS(var_L, var_M, var_S));
   }
 
 };

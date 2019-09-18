@@ -18,7 +18,7 @@ function mouseLeaveColorspaceRGB(event) {
       saveCreateProcess();
 
       if(editPage_optimizationMode){
-        updateOptimizationPage();
+        editCMSduringOptimizationMode();
       }
 
   }
@@ -245,21 +245,21 @@ function mouseMoveColorspaceRGB(event) {
 
       switch (event.target.id) {
         case "id_EditPage_PathPlot_Canvas1_2":
-          tmpColor = new classColor_RGB(val2,val1,updateCurrentValue);
+          tmpColor = new class_Color_RGB(val2,val1,updateCurrentValue);
           var diplay1Val = Math.round(val2*255);
           var diplay2Val = Math.round(val1*255);
           var diplay3Val = Math.round(updateCurrentValue*255);
           document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "R : " + diplay1Val + ", G : " + diplay2Val + ", B : " + diplay3Val;
           break;
         case "id_EditPage_PathPlot_Canvas2_2":
-          tmpColor = new classColor_RGB(val2,updateCurrentValue,val1);
+          tmpColor = new class_Color_RGB(val2,updateCurrentValue,val1);
           var diplay1Val = Math.round(val2*255);
           var diplay2Val = Math.round(updateCurrentValue*255);
           var diplay3Val = Math.round(val1*255);
           document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "R : " + diplay1Val + ", G : " + diplay2Val + ", B : " + diplay3Val;
           break;
         case "id_EditPage_PathPlot_Canvas3_2":
-        tmpColor = new classColor_RGB(updateCurrentValue,val1,val2);
+        tmpColor = new class_Color_RGB(updateCurrentValue,val1,val2);
           var diplay1Val = Math.round(updateCurrentValue*255);
           var diplay2Val = Math.round(val2*255);
           var diplay3Val = Math.round(val1*255);
@@ -393,6 +393,6 @@ function mouseUpColorspaceRGB() {
   saveCreateProcess();
 
   if(editPage_optimizationMode){
-    updateOptimizationPage();
+    editCMSduringOptimizationMode();
   }
 }

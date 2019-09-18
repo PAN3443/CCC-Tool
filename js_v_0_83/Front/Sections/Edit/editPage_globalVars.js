@@ -11,7 +11,6 @@ var colormapProcess = [];
 var processPosition = -1;
 var processLimitation = 20;
 
-
 var keyRectPoint = [];
 var keyBurPoint = [];
 var keyBurKeyIndex = [];
@@ -39,15 +38,15 @@ var globalProbeType = 0;
 var globalProbeSubtype = 0;
 var globalProbeSubtypeIndex = 0;
 var globalProbeRangeType = 0;
-var globalProbeColor = new classColor_HSV(0,0,1.0);
+var globalProbeColor = new class_Color_HSV(0,0,1.0);
 
 
 //////////////////////////////////////////////////////////////
 // ADD CMS
-var colorpickerColor = new classColor_RGB(1,1,1);
-var customConstBandColor = new classColor_RGB(0.5,0.5,0.5);
-var customScaleBandColor1 = new classColor_RGB(1.0,1.0,1.0);
-var customScaleBandColor2 = new classColor_RGB(0.0,0.0,0.0);
+var colorpickerColor = new class_Color_RGB(1,1,1);
+var customConstBandColor = new class_Color_RGB(0.5,0.5,0.5);
+var customScaleBandColor1 = new class_Color_RGB(1.0,1.0,1.0);
+var customScaleBandColor2 = new class_Color_RGB(0.0,0.0,0.0);
 var selectedPredefinedType = 0;
 
 ///////////////////////////////////////////////////////////////////////

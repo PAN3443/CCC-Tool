@@ -268,7 +268,7 @@ function initColorpickerBackground(){
                   // calc hsv color
                   var gVal = 1-y/canvasColorspace.height;
 
-                  var colorRGB = new classColor_RGB(rVal,gVal,bVal);
+                  var colorRGB = new class_Color_RGB(rVal,gVal,bVal);
 
                   if(doColorblindnessSim){
                     var tmpLMS = colorRGB.calcLMSColor();
@@ -306,7 +306,7 @@ function initColorpickerBackground(){
                   // calc hsv color
                   var bVal = 1-y/canvasColorspace.height;
 
-                  var colorRGB = new classColor_RGB(rVal,gVal,bVal);
+                  var colorRGB = new class_Color_RGB(rVal,gVal,bVal);
 
                   if(doColorblindnessSim){
                     var tmpLMS = colorRGB.calcLMSColor();
@@ -343,7 +343,7 @@ function initColorpickerBackground(){
                   // calc hsv color
                   var bVal = 1-y/canvasColorspace.height;
 
-                  var colorRGB = new classColor_RGB(rVal,gVal,bVal);
+                  var colorRGB = new class_Color_RGB(rVal,gVal,bVal);
 
                   if(doColorblindnessSim){
                     var tmpLMS = colorRGB.calcLMSColor();
@@ -380,7 +380,7 @@ function initColorpickerBackground(){
                   // calc hsv color
                   var sVal = 1-y/canvasColorspace.height;
 
-                  var colorHSV = new classColor_HSV(hVal,sVal,vVal);
+                  var colorHSV = new class_Color_HSV(hVal,sVal,vVal);
                   var colorRGB = colorHSV.calcRGBColor();
 
                   if(doColorblindnessSim){
@@ -420,7 +420,7 @@ function initColorpickerBackground(){
                   // calc hsv color
                   var vVal = 1-y/canvasColorspace.height;
 
-                  var colorHSV = new classColor_HSV(hVal,sVal,vVal);
+                  var colorHSV = new class_Color_HSV(hVal,sVal,vVal);
                   var colorRGB = colorHSV.calcRGBColor();
 
                   if(doColorblindnessSim){
@@ -459,7 +459,7 @@ function initColorpickerBackground(){
                   // calc hsv color
                   var vVal = 1-y/canvasColorspace.height;
 
-                  var colorHSV = new classColor_HSV(hVal,sVal,vVal);
+                  var colorHSV = new class_Color_HSV(hVal,sVal,vVal);
                   var colorRGB = colorHSV.calcRGBColor();
 
                   if(doColorblindnessSim){
@@ -518,34 +518,34 @@ function initColorPickerVBarBackground(){
 
       var gVal = colorpickerColor.getGValue();
       var rVal = colorpickerColor.getRValue();
-      colorRGB1 = new classColor_RGB(rVal,gVal,1);
-      colorRGB2 = new classColor_RGB(rVal,gVal,0);
+      colorRGB1 = new class_Color_RGB(rVal,gVal,1);
+      colorRGB2 = new class_Color_RGB(rVal,gVal,0);
 
       break;
       case "RB_G":
 
       var rVal = colorpickerColor.getRValue();
       var bVal = colorpickerColor.getBValue();
-      colorRGB1 = new classColor_RGB(rVal,1,bVal);
-      colorRGB2 = new classColor_RGB(rVal,0,bVal);
+      colorRGB1 = new class_Color_RGB(rVal,1,bVal);
+      colorRGB2 = new class_Color_RGB(rVal,0,bVal);
 
       break;
       case "GB_R":
 
       var gVal = colorpickerColor.getGValue();
       var bVal = colorpickerColor.getBValue();
-      colorRGB1 = new classColor_RGB(1,gVal,bVal);
-      colorRGB2 = new classColor_RGB(0,gVal,bVal);
+      colorRGB1 = new class_Color_RGB(1,gVal,bVal);
+      colorRGB2 = new class_Color_RGB(0,gVal,bVal);
 
       break;
       case "HS_V":
 
       var hVal = colorpickerColor.getHValue();
       var sVal = colorpickerColor.getSValue();
-      var colorHSV = new classColor_HSV(hVal,sVal,1);
+      var colorHSV = new class_Color_HSV(hVal,sVal,1);
       colorRGB1 = colorHSV.calcRGBColor();
       colorHSV.deleteReferences();
-      colorHSV = new classColor_HSV(hVal,sVal,0);
+      colorHSV = new class_Color_HSV(hVal,sVal,0);
       colorRGB2 = colorHSV.calcRGBColor();
       colorHSV.deleteReferences();
       colorHSV=null;
@@ -555,10 +555,10 @@ function initColorPickerVBarBackground(){
 
       var hVal = colorpickerColor.getHValue();
       var vVal = colorpickerColor.getVValue();
-      var colorHSV = new classColor_HSV(hVal,1,vVal);
+      var colorHSV = new class_Color_HSV(hVal,1,vVal);
       colorRGB1 = colorHSV.calcRGBColor();
       colorHSV.deleteReferences();
-      colorHSV = new classColor_HSV(hVal,0,vVal);
+      colorHSV = new class_Color_HSV(hVal,0,vVal);
       colorRGB2 = colorHSV.calcRGBColor();
       colorHSV.deleteReferences();
       colorHSV=null;
@@ -568,10 +568,10 @@ function initColorPickerVBarBackground(){
 
       var sVal = colorpickerColor.getSValue();
       var vVal = colorpickerColor.getVValue();
-      var colorHSV = new classColor_HSV(1,sVal,vVal);
+      var colorHSV = new class_Color_HSV(1,sVal,vVal);
       colorRGB1 = colorHSV.calcRGBColor();
       colorHSV.deleteReferences();
-      colorHSV = new classColor_HSV(0,sVal,vVal);
+      colorHSV = new class_Color_HSV(0,sVal,vVal);
       colorRGB2 = colorHSV.calcRGBColor();
       colorHSV.deleteReferences();
       colorHSV=null;
@@ -614,7 +614,7 @@ function initColorPickerVBarBackground(){
                     var sVal = colorpickerColor.getSValue();
                     var vVal = colorpickerColor.getVValue();
 
-                    var cHSV = new classColor_HSV(hVal,sVal,vVal);
+                    var cHSV = new class_Color_HSV(hVal,sVal,vVal);
                     var cRGB = cHSV.calcRGBColor();
                     cHSV.deleteReferences();
                     cHSV=null;
@@ -1037,7 +1037,7 @@ function changeColorPickerInput(){
         }
 
 
-        colorpickerColor = new classColor_HSV(hVal,sVal,vVal);
+        colorpickerColor = new class_Color_HSV(hVal,sVal,vVal);
 
 }
 else{
@@ -1079,7 +1079,7 @@ else{
   }
 
 
-  colorpickerColor = new classColor_RGB(rVal,gVal,bVal);
+  colorpickerColor = new class_Color_RGB(rVal,gVal,bVal);
 
 }
 

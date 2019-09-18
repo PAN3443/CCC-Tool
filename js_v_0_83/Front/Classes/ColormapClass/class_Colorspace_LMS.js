@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////
 // ------------ Class LMS ---------------//
 ////////////////////////////////////////////////
-class classColor_LMS{
+class class_Color_LMS{
     constructor(lValue, mValue, sValue) {
 
     //this.protanopie = rValue; // max perception red
@@ -43,7 +43,7 @@ class classColor_LMS{
     var var_Y = this.lValue * tmLMS_Selected_Inv[1][0] + this.mValue * tmLMS_Selected_Inv[1][1] + this.sValue * tmLMS_Selected_Inv[1][2];
     var var_Z = this.lValue * tmLMS_Selected_Inv[2][0] + this.mValue * tmLMS_Selected_Inv[2][1] + this.sValue * tmLMS_Selected_Inv[2][2];
 
-    return (new classColor_XYZ(var_X, var_Y, var_Z));
+    return (new class_Color_XYZ(var_X, var_Y, var_Z));
 
   }
 
@@ -74,7 +74,7 @@ class classColor_LMS{
     var var_Y = newL * tmLMS_Selected_Inv[1][0] + newM * tmLMS_Selected_Inv[1][1] + newS * tmLMS_Selected_Inv[1][2];
     var var_Z = newL * tmLMS_Selected_Inv[2][0] + newM * tmLMS_Selected_Inv[2][1] + newS * tmLMS_Selected_Inv[2][2];
 
-    var tmpXYZ = new classColor_XYZ(var_X, var_Y, var_Z);
+    var tmpXYZ = new class_Color_XYZ(var_X, var_Y, var_Z);
 
     var tmpRGB =  tmpXYZ.calcRGBColor();
     tmpXYZ.deleteReferences();

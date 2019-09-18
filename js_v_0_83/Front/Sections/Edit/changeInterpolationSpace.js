@@ -67,7 +67,7 @@ function changeColorspace(){
   updateEditPage(); // = update CMS, Mapping and Analyze Plots
 
   if(editPage_optimizationMode){
-    updateOptimizationPage();
+    editCMSduringOptimizationMode();
   }
 
 
@@ -76,27 +76,32 @@ function changeColorspace(){
 
 function updateInterpolationSpaceEditPage(){
   switch (globalCMS1.getInterpolationSpace()) {
-    case "rgb":
-    document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 5;
-      break;
-      case "hsv":
-      document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 6;
-        break;
+
         case "lab":
         document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 0;
           break;
-          case "lch":
+          case "de94-ds":
           document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 1;
             break;
-          case "din99":
-          document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 2;
-            break;
-            case "de94":
-            document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 3;
+            case "de2000-ds":
+            document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 2;
               break;
-              case "de2000":
-              document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 4;
+          case "de94":
+          document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 3;
+            break;
+            case "de2000":
+            document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 4;
+              break;
+          case "din99":
+          document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 5;
+            break;
+            case "rgb":
+            document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 6;
+              break;
+              case "hsv":
+              document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 7;
                 break;
+
     default:
 
   }
@@ -128,7 +133,7 @@ function changeInterpolationType(){
   updateEditPage(); // = update CMS, Mapping and Analyze Plots
 
   if(editPage_optimizationMode){
-    updateOptimizationPage();
+    editCMSduringOptimizationMode();
   }
 
 }

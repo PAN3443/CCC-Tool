@@ -34,7 +34,7 @@ function undo(){
     updateEditPage();
 
     if(editPage_optimizationMode){
-      updateOptimizationPage();
+      editCMSduringOptimizationMode();
     }
 
   }
@@ -48,7 +48,7 @@ function redo(){
     updateEditPage();
 
     if(editPage_optimizationMode){
-      updateOptimizationPage();
+      editCMSduringOptimizationMode();
     }
   }
 }

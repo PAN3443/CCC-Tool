@@ -1,7 +1,7 @@
 function hsvMesh(){
 
-  var tmpHSV1 = new classColor_HSV(0,0,0);
-  var tmpHSV2 = new classColor_HSV(0,0,0);
+  var tmpHSV1 = new class_Color_HSV(0,0,0);
+  var tmpHSV2 = new class_Color_HSV(0,0,0);
   var tmpRGB;
 
   for (var i = colorspaceGroup.children.length - 1; i >= 0; i--) {
@@ -147,8 +147,8 @@ function hsvMesh(){
 
     }
     else {
-      firstColor1= new classColor_HSV(tmpHSV1.get1Value(),tmpHSV1.get2Value(),tmpHSV1.get3Value());
-      firstColor2= new classColor_HSV(tmpHSV2.get1Value(),tmpHSV2.get2Value(),tmpHSV2.get3Value());
+      firstColor1= new class_Color_HSV(tmpHSV1.get1Value(),tmpHSV1.get2Value(),tmpHSV1.get3Value());
+      firstColor2= new class_Color_HSV(tmpHSV2.get1Value(),tmpHSV2.get2Value(),tmpHSV2.get3Value());
     }
 
     if(hStep==numberParticelsPerCircle-1){
@@ -225,8 +225,8 @@ function hsvMesh(){
       geometry.faces[geometry.faces.length-3].vertexColors[1] = new THREE.Color(tmpRGBColor.getRGBString());
     }
 
-    lastColor1= new classColor_HSV(tmpHSV1.get1Value(),tmpHSV1.get2Value(),tmpHSV1.get3Value());
-    lastColor2= new classColor_HSV(tmpHSV2.get1Value(),tmpHSV2.get2Value(),tmpHSV2.get3Value());
+    lastColor1= new class_Color_HSV(tmpHSV1.get1Value(),tmpHSV1.get2Value(),tmpHSV1.get3Value());
+    lastColor2= new class_Color_HSV(tmpHSV2.get1Value(),tmpHSV2.get2Value(),tmpHSV2.get3Value());
 
   }
 

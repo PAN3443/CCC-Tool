@@ -303,6 +303,7 @@ function update_EditPageStyle(){
             document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.maxWidth = "50vh";
             document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.height = "50vh";
             document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.maxHeight= "40vw";
+            document.getElementById("id_EditPage_LabelDiv_GlobalLocalOrder").style.maxWidth = "40vw";
 
             if(document.getElementById("id_EditPage_Add_Structures_Optimization").style.display == "none"){
               document.getElementById("id_EditPage_Analyze_EmptyDiv").style.width="85vw";
@@ -323,6 +324,7 @@ function update_EditPageStyle(){
               document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.maxWidth = "50vh";
               document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.height = "50vh";
               document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.maxHeight= "35vw";
+              document.getElementById("id_EditPage_LabelDiv_GlobalLocalOrder").style.maxWidth = "35vw";
               document.getElementById("id_EditPage_Analyze_EmptyDiv").style.width="56vw";
               document.getElementById("id_EditPage_AnalyzePlot_Container").style.width="56vw";
             }
@@ -331,6 +333,7 @@ function update_EditPageStyle(){
               document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.maxWidth = "50vh";
               document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.height = "50vh";
               document.getElementById("id_EditPage_Canvas_GlobalLocalOrder").style.maxHeight= "20vw";
+              document.getElementById("id_EditPage_LabelDiv_GlobalLocalOrder").style.maxWidth = "20vw";
               document.getElementById("id_EditPage_Analyze_EmptyDiv").style.width="41vw";
               document.getElementById("id_EditPage_AnalyzePlot_Container").style.width="41vw";
             }

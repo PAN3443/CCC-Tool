@@ -66,13 +66,13 @@ function generalJSON_Processing(json){
 
 
       if(json.nanC1!=undefined && json.nanC2!=undefined && json.nanC3!=undefined)
-        globalCMS1.setNaNColor(new classColor_LAB(json.nanC1,json.nanC2,json.nanC3));
+        globalCMS1.setNaNColor(new class_Color_LAB(json.nanC1,json.nanC2,json.nanC3));
 
       if(json.aboveC1!=undefined && json.aboveC2!=undefined && json.aboveC3!=undefined)
-        globalCMS1.setAboveColor(new classColor_LAB(json.aboveC1,json.aboveC2,json.aboveC3));
+        globalCMS1.setAboveColor(new class_Color_LAB(json.aboveC1,json.aboveC2,json.aboveC3));
 
       if(json.belowC1!=undefined && json.belowC2!=undefined && json.belowC3!=undefined)
-        globalCMS1.setBelowColor(new classColor_LAB(json.belowC1,json.belowC2,json.belowC3));
+        globalCMS1.setBelowColor(new class_Color_LAB(json.belowC1,json.belowC2,json.belowC3));
 
       for (var i = 0; i < json.refVal.length; i++) {
 
@@ -80,10 +80,10 @@ function generalJSON_Processing(json){
         var colorR = undefined;
 
         if(json.key1cVal1[i]!=undefined && json.key1cVal2[i]!=undefined && json.key1cVal3[i]!=undefined)
-          colorL = new classColor_LAB(json.key1cVal1[i],json.key1cVal2[i],json.key1cVal3[i]);
+          colorL = new class_Color_LAB(json.key1cVal1[i],json.key1cVal2[i],json.key1cVal3[i]);
 
         if(json.key2cVal1[i]!=undefined && json.key2cVal2[i]!=undefined && json.key2cVal3[i]!=undefined)
-          colorR = new classColor_LAB(json.key2cVal1[i],json.key2cVal2[i],json.key2cVal3[i]);
+          colorR = new class_Color_LAB(json.key2cVal1[i],json.key2cVal2[i],json.key2cVal3[i]);
 
         var tmpKey = new class_Key(colorL, colorR, json.refVal[i], false);
         tmpKey.setMoT(json.MoT[i]);

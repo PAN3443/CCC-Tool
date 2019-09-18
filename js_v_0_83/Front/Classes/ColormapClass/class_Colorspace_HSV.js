@@ -2,7 +2,7 @@
 // ------------ Class HSV ---------------//
 ////////////////////////////////////////////////
 
-class classColor_HSV{
+class class_Color_HSV{
     constructor(hValue, sValue, vValue) {
     this.hValue = hValue;
     this.sValue = sValue;
@@ -105,7 +105,7 @@ class classColor_HSV{
         case "rgb":
             return this.calcRGBColor();
         case "hsv":
-            return new classColor_HSV(this.get1Value(),this.get2Value(),this.get3Value());
+            return new class_Color_HSV(this.get1Value(),this.get2Value(),this.get3Value());
         case "lab":
             return this.calcLABColor();
         case "din99":
@@ -152,7 +152,7 @@ class classColor_HSV{
     }
 
     calcHSVColor() {
-      return new classColor_HSV(this.hValue,this.sValue,this.vValue);
+      return new class_Color_HSV(this.hValue,this.sValue,this.vValue);
     }
 
     calcRGBColor(){
@@ -184,7 +184,7 @@ class classColor_HSV{
             G = var_g;
             B = var_b;
         }
-        return new classColor_RGB(R,G,B); */
+        return new class_Color_RGB(R,G,B); */
 
         var r, g, b;
 
@@ -204,7 +204,7 @@ class classColor_HSV{
             }
 
 
-        return new classColor_RGB(r,g,b);
+        return new class_Color_RGB(r,g,b);
     }
 
     checkRGBPossiblity(){

@@ -22,13 +22,14 @@ function styleStructure_BandSpeed(){
     document.getElementById("id_EditPage_CanvasCIEDE2000_IntSpaceKeySpeed").style.height = "7.5vh";
     document.getElementById("id_EditPage_CanvasDIN99_IntSpaceKeySpeed").style.height = "7.5vh";
 
-
-    draw_BandSpeed("id_EditPage_CanvasLAB_IntSpaceKeySpeed","lab")
-    draw_BandSpeed("id_EditPage_CanvasLAB_DS94_IntSpaceKeySpeed","de94-ds")
-    draw_BandSpeed("id_EditPage_CanvasLAB_DS2000_IntSpaceKeySpeed","de2000-ds")
-    draw_BandSpeed("id_EditPage_CanvasDE94_IntSpaceKeySpeed","de94")
-    draw_BandSpeed("id_EditPage_CanvasCIEDE2000_IntSpaceKeySpeed","de2000")
-    draw_BandSpeed("id_EditPage_CanvasDIN99_IntSpaceKeySpeed","din99")
+    var orginalIntSpace = globalCMS1.getInterpolationSpace();
+    draw_BandSpeed("id_EditPage_CanvasLAB_IntSpaceKeySpeed","lab");
+    draw_BandSpeed("id_EditPage_CanvasLAB_DS94_IntSpaceKeySpeed","de94-ds");
+    draw_BandSpeed("id_EditPage_CanvasLAB_DS2000_IntSpaceKeySpeed","de2000-ds");
+    draw_BandSpeed("id_EditPage_CanvasDE94_IntSpaceKeySpeed","de94");
+    draw_BandSpeed("id_EditPage_CanvasCIEDE2000_IntSpaceKeySpeed","de2000");
+    draw_BandSpeed("id_EditPage_CanvasDIN99_IntSpaceKeySpeed","din99");
+    globalCMS1.setInterpolationSpace(orginalIntSpace);
   }
 
 }
@@ -59,52 +60,95 @@ function draw_BandSpeed(plotid, type){
   var arraySpeedSum = 0;
   var indexList = [];
 
+  if(type==="de94"||type==="de2000")
+    return;
 
+  globalCMS1.setInterpolationSpace(type);
   /////////////////////////////////////////////////////////////////////////////
   // Calc Speed
-  for(var x=0; x<globalCMS1.getKeyLength()-1; x++){
+  for(var i=0; i<globalCMS1.getKeyLength()-1; i++){
 
           var speed=0;
-          var dis = globalCMS1.getRefPosition(x+1)-globalCMS1.getRefPosition(x);
 
-          if(globalCMS1.getKeyType(x)==="nil key" || globalCMS1.getKeyType(x)==="left key")
+          if(globalCMS1.getKeyType(i)==="nil key" || globalCMS1.getKeyType(i)==="left key")
           continue;
 
           numberOfScaledBands++;
-          indexList.push(x);
+          indexList.push(i);
 
-          if(dis!=0){
+          var c1 = globalCMS1.getRightKeyColor(i,globalCMS1.getInterpolationSpace());
+          var c2 = globalCMS1.getLeftKeyColor(i+1,globalCMS1.getInterpolationSpace());
 
-            switch (type) {
+          var dis = globalCMS1.getRefPosition(i+1)-globalCMS1.getRefPosition(i);
+
+          var deltaSum =0;
+          if(((globalCMS1.getInterpolationType()==="linear" &&
+             globalCMS1.getInterpolationSpace()!="rgb" &&  // distance of intervals is the same like the distance of start and end color
+             globalCMS1.getInterpolationSpace()!="hsv" &&
+             globalCMS1.getInterpolationSpace()!="lab" &&
+             globalCMS1.getInterpolationSpace()!="din99") || globalCMS1.getInterpolationType()==="spline") &&
+             globalCMS1.getIntervalLength(i)>0){
+
+            switch (globalCMS1.getInterpolationSpace()) {
+              case "rgb":
+              case "hsv":
               case "lab":
               case "din99":
-                speed= calc3DEuclideanDistance(globalCMS1.getRightKeyColor(x,type),globalCMS1.getLeftKeyColor(x+1,type))/dis;
+                deltaSum += calc3DEuclideanDistance(c1,globalCMS1.getIntervalColor(i,0,globalCMS1.getInterpolationSpace()));// /(globalCMS1.getIntervalRef(i,0)-globalCMS1.getRefPosition(i)));
+                for (var j = 0; j < globalCMS1.getIntervalLength(i)-1; j++) {
+                  deltaSum += calc3DEuclideanDistance(globalCMS1.getIntervalColor(i,j,globalCMS1.getInterpolationSpace()),globalCMS1.getIntervalColor(i,j+1,globalCMS1.getInterpolationSpace()));// /(globalCMS1.getIntervalRef(i,j+1)-globalCMS1.getIntervalRef(i,j)));
+                }
+                deltaSum += calc3DEuclideanDistance(globalCMS1.getIntervalColor(i,globalCMS1.getIntervalLength(i)-1,globalCMS1.getInterpolationSpace()),c2);// /(globalCMS1.getRefPosition(i+1)-globalCMS1.getIntervalRef(i,globalCMS1.getIntervalLength(i)-1)));
                 break;
-              case "de94-ds":
-              case "de2000-ds":
-                var tmpResults = calcDeltaIntervalBetween_C1C2(globalCMS1.getRightKeyColor(x,type),globalCMS1.getLeftKeyColor(x+1,type), deltaSampling_Analyze, type);
-                if(tmpResults!=undefined)
-                 speed= sumArray(tmpResults[1])/dis;
-                break;
-
               case "de94":
+              case "de94-ds":
+                deltaSum += calcDeltaDE94(c1,globalCMS1.getIntervalColor(i,0,globalCMS1.getInterpolationSpace()));// /(globalCMS1.getIntervalRef(i,0)-globalCMS1.getRefPosition(i)));
+                for (var j = 0; j < globalCMS1.getIntervalLength(i)-1; j++) {
+                  deltaSum += calcDeltaDE94(globalCMS1.getIntervalColor(i,j,globalCMS1.getInterpolationSpace()),globalCMS1.getIntervalColor(i,j+1,globalCMS1.getInterpolationSpace()));// /(globalCMS1.getIntervalRef(i,j+1)-globalCMS1.getIntervalRef(i,j)));
+                }
+                deltaSum += calcDeltaDE94(globalCMS1.getIntervalColor(i,globalCMS1.getIntervalLength(i)-1,globalCMS1.getInterpolationSpace()),c2);// /(globalCMS1.getRefPosition(i+1)-globalCMS1.getIntervalRef(i,globalCMS1.getIntervalLength(i)-1)));
+              break;
               case "de2000":
-                  return;
-                  break;
-
+              case "de2000-ds":
+                deltaSum += calcDeltaCIEDE2000(c1,globalCMS1.getIntervalColor(i,0,globalCMS1.getInterpolationSpace()));// /(globalCMS1.getIntervalRef(i,0)-globalCMS1.getRefPosition(i)));
+                for (var j = 0; j < globalCMS1.getIntervalLength(i)-1; j++) {
+                  deltaSum += calcDeltaCIEDE2000(globalCMS1.getIntervalColor(i,j,globalCMS1.getInterpolationSpace()),globalCMS1.getIntervalColor(i,j+1,globalCMS1.getInterpolationSpace()));// /(globalCMS1.getIntervalRef(i,j+1)-globalCMS1.getIntervalRef(i,j)));
+                }
+                deltaSum += calcDeltaCIEDE2000(globalCMS1.getIntervalColor(i,globalCMS1.getIntervalLength(i)-1,globalCMS1.getInterpolationSpace()),c2);// /(globalCMS1.getRefPosition(i+1)-globalCMS1.getIntervalRef(i,globalCMS1.getIntervalLength(i)-1)));
+              break;
               default:
                 return;
             }
 
-          }
+            speed = deltaSum/dis;
 
+          }
+          else {
+
+            switch (globalCMS1.getInterpolationSpace()) {
+              case "rgb":
+              case "hsv":
+              case "lab":
+              case "din99":
+                speed = calc3DEuclideanDistance(c1,c2)/dis;
+              break;
+              case "de94":
+              case "de94-ds":
+                speed = calcDeltaDE94(c1,c2)/dis;
+              break;
+              case "de2000":
+              case "de2000-ds":
+                speed = calcDeltaCIEDE2000(c1,c2)/dis;
+              break;
+              default:
+                return;
+            }
+          }
 
           arraySpeed.push(speed);
           arraySpeedSum += speed;
   }
 
-  if(type=="de2000-ds")
-    console.log(arraySpeed);
 
   var restWidth = canvasPlot.width-(numberOfScaledBands-1)*borderWidth;
   /////////////////////////////////////////////////////////////////////////////
@@ -114,9 +158,7 @@ function draw_BandSpeed(plotid, type){
     var tr = document.createElement('tr');
 
     if(speed[i]==0){
-
       // table
-
       continue;
     }
 
@@ -141,7 +183,7 @@ function draw_BandSpeed(plotid, type){
           var aValue = color1.get2Value() + (color2.get2Value() - color1.get2Value()) * tmpRatio;
           var bValue = color1.get3Value() + (color2.get3Value() - color1.get3Value()) * tmpRatio;
 
-          var tmpCurrentLABColor = new classColor_LAB(lValue,aValue,bValue);
+          var tmpCurrentLABColor = new class_Color_LAB(lValue,aValue,bValue);
           var tmpCurrentColor = tmpCurrentLABColor.calcRGBColor();
 
           canvasData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
@@ -175,7 +217,7 @@ function draw_BandSpeed(plotid, type){
         var a99Value = color1.get2Value() + (color2.get2Value() - color1.get2Value()) * tmpRatio;
         var b99Value = color1.get3Value() + (color2.get3Value() - color1.get3Value()) * tmpRatio;
 
-        var tmpCurrentDIN99Color = new classColorDIN99(l99Value,a99Value,b99Value);
+        var tmpCurrentDIN99Color = new class_Color_DIN99(l99Value,a99Value,b99Value);
         var tmpCurrentColor = tmpCurrentDIN99Color.calcRGBColor();
 
         canvasData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r

@@ -42,7 +42,7 @@ function xmlColormapParserFile(xmlString){
                 var space = checkXMLColorspace(pointObject);
 
 
-                //colormapObjects.push(new classColorMapSpecification());
+                //colormapObjects.push(new class_ColorMapSpecification());
                 //var index = colormapObjects.length-1;
                 var tmpCMS = new class_CMS();
 
@@ -254,7 +254,7 @@ function xmlColormapParserFile(xmlString){
                                   var val2 = parseFloat(probeColorObj[0].getAttribute("s"));
                                   var val3 = parseFloat(probeColorObj[0].getAttribute("v"));
 
-                                  tmpProbe.setProbeColor(new classColor_HSV(val1,val2,val3));
+                                  tmpProbe.setProbeColor(new class_Color_HSV(val1,val2,val3));
                                 }
 
                                 if(type == 0) // const _> no functions
@@ -437,19 +437,19 @@ function getLoadedColor(val1,val2,val3,space){
   var tmpColor;
   switch (space) {
      case "RGB": case "rgb": case "Rgb":
-         tmpColor = new classColor_RGB(val1,val2,val3);
+         tmpColor = new class_Color_RGB(val1,val2,val3);
          break;
      case "HSV": case "hsv": case "Hsv":
-         tmpColor = new classColor_HSV(val1,val2,val3);
+         tmpColor = new class_Color_HSV(val1,val2,val3);
        break;
       case "LAB": case "lab": case "Lab":
-          tmpColor = new classColor_LAB(val1,val2,val3);
+          tmpColor = new class_Color_LAB(val1,val2,val3);
        break;
      case "DIN99": case "din99": case "Din99":
-         tmpColor = new classColorDIN99(val1,val2,val3);
+         tmpColor = new class_Color_DIN99(val1,val2,val3);
        break;
       case "LCH": case "lch": case "Lch": case "LCh":
-          tmpColor = new classColor_LCH(val1,val2,val3);
+          tmpColor = new class_Color_LCH(val1,val2,val3);
       break;
      default:
            console.log("Error with XML File -> found no space ");

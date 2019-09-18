@@ -1,7 +1,7 @@
 function lchMesh(){
 
-  var tmpLCH1 = new classColor_LCH(0,0,0);
-  var tmpLCH2 = new classColor_LCH(0,0,0);
+  var tmpLCH1 = new class_Color_LCH(0,0,0);
+  var tmpLCH2 = new class_Color_LCH(0,0,0);
   var tmpRGB;
 
   for (var i = colorspaceGroup.children.length - 1; i >= 0; i--) {
@@ -147,8 +147,8 @@ function lchMesh(){
 
     }
     else {
-      firstColor1= new classColor_LCH(tmpLCH1.get1Value(),tmpLCH1.get2Value(),tmpLCH1.get3Value());
-      firstColor2= new classColor_LCH(tmpLCH2.get1Value(),tmpLCH2.get2Value(),tmpLCH2.get3Value());
+      firstColor1= new class_Color_LCH(tmpLCH1.get1Value(),tmpLCH1.get2Value(),tmpLCH1.get3Value());
+      firstColor2= new class_Color_LCH(tmpLCH2.get1Value(),tmpLCH2.get2Value(),tmpLCH2.get3Value());
     }
 
     if(hStep==numberParticelsPerCircle-1){
@@ -225,8 +225,8 @@ function lchMesh(){
       geometry.faces[geometry.faces.length-3].vertexColors[1] = new THREE.Color(tmpRGBColor.getRGBString());
     }
 
-    lastColor1= new classColor_LCH(tmpLCH1.get1Value(),tmpLCH1.get2Value(),tmpLCH1.get3Value());
-    lastColor2= new classColor_LCH(tmpLCH2.get1Value(),tmpLCH2.get2Value(),tmpLCH2.get3Value());
+    lastColor1= new class_Color_LCH(tmpLCH1.get1Value(),tmpLCH1.get2Value(),tmpLCH1.get3Value());
+    lastColor2= new class_Color_LCH(tmpLCH2.get1Value(),tmpLCH2.get2Value(),tmpLCH2.get3Value());
 
   }
 

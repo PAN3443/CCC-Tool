@@ -48,7 +48,9 @@
         -------------------------------------------------
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         -->
-
+        <!------------------------------------------->
+        <!-- global Vars-->
+        <script src="js_v_0_83/Front/fullpage_globalVars.js"></script>
 
         <!-- Classes -->
 
@@ -60,7 +62,6 @@
         <script src="js_v_0_83/Front/Classes/ColormapClass/class_Colorspace_DIN99.js"></script>
         <script src="js_v_0_83/Front/Classes/ColormapClass/class_Colorspace_XYZ.js"></script>
         <script src="js_v_0_83/Front/Classes/ColormapClass/class_Colorspace_LMS.js"></script>
-
 
         <!-- Classes : Probes-->
         <script src="js_v_0_83/Front/Classes/ColormapClass/class_Colormap_Probe.js"></script>
@@ -83,13 +84,11 @@
         <!------------------------------------------->
         <!-- global Events-->
         <script src="js_v_0_83/Front/GlobalEvents/pageChange.js"></script>
-        <script src="js_v_0_83/Front/GlobalEvents/cmsIntervals.js"></script>
         <script src="js_v_0_83/Front/GlobalEvents/navi.js"></script>
 
           <!------------------------------------------->
           <!-- global Events : Helpers-->
           <script src="js_v_0_83/Front/GlobalEvents/Helpers/checkInput.js"></script>
-          <script src="js_v_0_83/Front/GlobalEvents/Helpers/calcColordifference.js"></script>
           <script src="js_v_0_83/Front/GlobalEvents/Helpers/quicksort.js"></script>
           <script src="js_v_0_83/Front/GlobalEvents/Helpers/math_matrices_calculation.js"></script>
           <script src="js_v_0_83/Front/GlobalEvents/Helpers/math.js"></script>
@@ -111,9 +110,12 @@
           <script src="js_v_0_83/Front/GlobalEvents/ColormapDrawer/drawColormapLinear.js"></script>
           <script src="js_v_0_83/Front/GlobalEvents/ColormapDrawer/drawColormapSketch.js"></script>
 
-          <!-- global Events : Color Gradient -->
-          <script src="js_v_0_83/Front/GlobalEvents/CMSColorGradient/calcGradientLinear.js"></script>
-          <script src="js_v_0_83/Front/GlobalEvents/CMSColorGradient/calcGradientHSV.js"></script>
+          <!-- global Events : Color or CMS Helpers -->
+          <script src="js_v_0_83/Front/GlobalEvents/Color_CMS_Helpers/calcGradientLinear.js"></script>
+          <script src="js_v_0_83/Front/GlobalEvents/Color_CMS_Helpers/calcGradientHSV.js"></script>
+          <script src="js_v_0_83/Front/GlobalEvents/Color_CMS_Helpers/calcColordifference.js"></script>
+          <script src="js_v_0_83/Front/GlobalEvents/Color_CMS_Helpers/cmsIntervals.js"></script>
+          <script src="js_v_0_83/Front/GlobalEvents/Color_CMS_Helpers/others.js"></script>
 
           <!-- global Events : Tool Themes -->
           <script src="js_v_0_83/Front/GlobalEvents/ToolTheme/themesVars.js"></script>
@@ -123,10 +125,6 @@
         <!------------------------------------------->
         <!-----------      SECTIONS      ------------>
         <!------------------------------------------->
-
-        <!------------------------------------------->
-        <!-- global Vars-->
-        <script src="js_v_0_83/Front/fullpage_globalVars.js"></script>
 
         <!------------------------------------------->
         <!-- Welcome Section -->
@@ -219,6 +217,7 @@
           <script src="js_v_0_83/Front/Sections/Edit/Optimization/events_Optimization.js"></script>
           <script src="js_v_0_83/Front/Sections/Edit/Optimization/globalVars_Optimization.js"></script>
           <script src="js_v_0_83/Front/Sections/Edit/Optimization/uniformity.js"></script>
+          <script src="js_v_0_83/Front/Sections/Edit/Optimization/order.js"></script>
 
         <!-- Gallery Section-->
         <script src="js_v_0_83/Front/Sections/Gallery/events_Gallery.js"></script>
