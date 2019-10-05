@@ -6,6 +6,13 @@
 
 class class_Color_DIN99{
 
+      // for future # => private  .... change this. to this.#
+      // private fields are not supported at the moment
+      /*#l99Value = undefined;
+      #a99Value = undefined;
+      #b99Value = undefined;
+      #colorType = undefined;*/
+
       constructor(lValue, aValue, bValue) {
         this.l99Value = lValue;
         this.a99Value = aValue;
@@ -150,6 +157,19 @@ class class_Color_DIN99{
         var result = tmpLAB.checkRGBPossiblity();
         tmpLAB.deleteReferences();
         return result;
+      }
+
+      setColorToRGBPossiblity(){
+        var tmpRGB = this.calcRGBColor();
+        tmpRGB.setColorToRGBPossiblity();
+        var tmpColor = tmpRGB.calcDIN99Color();
+        tmpRGB.deleteReferences();
+        tmpRGB=null;
+        this.l99Value = tmpColor.get1Value();
+        this.a99Value = tmpColor.get2Value();
+        this.b99Value = tmpColor.get3Value();
+        tmpColor.deleteReferences();
+        tmpColor=null;
       }
 
       calcHSVColor(){

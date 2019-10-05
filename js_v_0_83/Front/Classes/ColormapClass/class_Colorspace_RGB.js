@@ -2,6 +2,14 @@
 // ------------ Class RGB ---------------//
 ////////////////////////////////////////////////
 class class_Color_RGB {
+
+  // for future # => private  .... change this. to this.#
+  // private fields are not supported at the moment
+  /*#rValue = undefined;
+  #gValue = undefined;
+  #bValue = undefined;
+  #colorType = undefined;*/
+
   constructor(rValue, gValue, bValue) {
     this.rValue = rValue;
     this.gValue = gValue;
@@ -70,16 +78,33 @@ class class_Color_RGB {
 
 
   checkRGBPossiblity(){
-    if(this.rvalue>1.0 || this.rvalue<0.0)
+    if(this.rValue>1.0 || this.rValue<0.0)
       return false;
 
-      if(this.gvalue>1.0 || this.gvalue<0.0)
+      if(this.gValue>1.0 || this.gValue<0.0)
         return false;
 
-        if(this.bvalue>1.0 || this.bvalue<0.0)
+        if(this.bValue>1.0 || this.bValue<0.0)
           return false;
 
     return true;
+  }
+
+  setColorToRGBPossiblity(){
+    if(this.rValue>1.0)
+      this.rValue=1.0;
+    else if(this.rValue<0.0)
+      this.rValue=0.0;
+
+      if(this.gValue>1.0)
+        this.gValue=1.0;
+      else if(this.gValue<0.0)
+        this.gValue=0.0;
+
+        if(this.bValue>1.0)
+          this.bValue=1.0;
+        else if(this.bValue<0.0)
+          this.bValue=0.0;
   }
 
   getRGBString() {

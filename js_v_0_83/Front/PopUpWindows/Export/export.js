@@ -916,8 +916,6 @@ function exportSide_createJSON(workCMS){
                 return;
     }
 
-
-
     jsontext = jsontext+",\n\t\t\"Creator\" : \"CCC-Tool\",\n\t\t\"Name\" : \""+workCMS.getColormapName()+"\",\n\t\t\"NanColor\" : [";
     var tmpColor = workCMS.getNaNColor(exportColorspace);
     jsontext = jsontext+ tmpColor.get1Value()*scaleExpVal1 +","+tmpColor.get2Value()*scaleExpVal2+","+tmpColor.get3Value()*scaleExpVal3+"],\n\t\t\"AboveColor\" : [";

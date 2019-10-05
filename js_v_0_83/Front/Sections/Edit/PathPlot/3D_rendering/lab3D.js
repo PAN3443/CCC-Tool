@@ -5,8 +5,6 @@ function labMesh(){
   }
 
 
-
-
   if(positionsLAB.length!=0){
 
     var tmpRGB;

@@ -60,7 +60,6 @@ self.addEventListener('message', function(e) {
       self.importScripts('../../../Sections/Testing/Testfunctions/FctCollection/collection_other.js');
       self.importScripts('../../../Sections/Testing/Testfunctions/realWorldData.js');
 
-      self.importScripts('../../../GlobalEvents/Color_CMS_Helpers/calcGradientHSV.js');
       self.importScripts('../../../GlobalEvents/Color_CMS_Helpers/calcGradientLinear.js');
 
       self.importScripts('../../../GlobalEvents/Helpers/random.js');

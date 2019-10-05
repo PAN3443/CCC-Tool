@@ -37,15 +37,15 @@ function updateAnalyze(){
             styleStructure_BandSpeed();
             break;
             case 2:
-              if(analyze_checkChoosedInterpoationSpace())
+              //if(analyze_checkChoosedInterpoationSpace())
               styleStructure_LocalSpeed();
               break;
               case 3:
-                if(analyze_checkChoosedInterpoationSpace())
+                //if(analyze_checkChoosedInterpoationSpace())
                 styleStructure_GlobalSpeed();
                 break;
                 case 4:
-                  if(analyze_checkChoosedInterpoationSpace())
+                  //if(analyze_checkChoosedInterpoationSpace())
                   styleStructure_Order();
                   break;
         default:

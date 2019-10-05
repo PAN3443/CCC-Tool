@@ -2,6 +2,14 @@
 // ------------ Class LMS ---------------//
 ////////////////////////////////////////////////
 class class_Color_LMS{
+
+  // for future # => private  .... change this. to this.#
+  // private fields are not supported at the moment
+  /*#lValue = undefined;
+  #mValue = undefined;
+  #sValue = undefined;
+  #colorType = undefined;*/
+
     constructor(lValue, mValue, sValue) {
 
     //this.protanopie = rValue; // max perception red
@@ -49,12 +57,31 @@ class class_Color_LMS{
 
   calcRGBColor(){
     var tmpXYZ = this.calcXYZColor();
-    return tmpXYZ.calcRGBColor();
+    var result = tmpXYZ.calcRGBColor();
+    tmpXYZ.deleteReferences();
+    tmpXYZ=null;
+    return result;
   }
 
   checkRGBPossiblity(){
     var tmpXYZ = this.calcXYZColor();
+    var result = tmpXYZ.checkRGBPossiblity();
+    tmpXYZ.deleteReferences();
+    tmpXYZ=null;
     return tmpXYZ.checkRGBPossiblity();
+  }
+
+  setColorToRGBPossiblity(){
+    var tmpRGB = this.calcRGBColor();
+    tmpRGB.setColorToRGBPossiblity();
+    var tmpColor = tmpRGB.calcLMSColor();
+    tmpRGB.deleteReferences();
+    tmpRGB=null;
+    this.lValue = tmpColor.get1Value();
+    this.mValue = tmpColor.get2Value();
+    this.sValue = tmpColor.get3Value();
+    tmpColor.deleteReferences();
+    tmpColor=null;
   }
 
   getRGBString() {

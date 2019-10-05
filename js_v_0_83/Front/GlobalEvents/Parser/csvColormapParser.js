@@ -80,7 +80,7 @@ function csvColormapParserFile(csvString) {
         var val3 = parseFloat(keyData[3])/val3_RatioFactor;
         var o = parseFloat(keyData[4]);
 
-        var tmpColor = getLoadedColor(val1,val2,val3,space);
+        var tmpColor = createColor(val1,val2,val3,space);
 
         switch (i) {
           case 1:
@@ -89,7 +89,7 @@ function csvColormapParserFile(csvString) {
               var val2_Next = parseFloat(keyData_Next[2])/val2_RatioFactor;
               var val3_Next = parseFloat(keyData_Next[3])/val3_RatioFactor;
 
-            var tmpColor2 = getLoadedColor(val1_Next,val2_Next,val3_Next,space);
+            var tmpColor2 = createColor(val1_Next,val2_Next,val3_Next,space);
 
              if(tmpColor2.equalTo(tmpColor)){
                // nil key
@@ -133,7 +133,7 @@ function csvColormapParserFile(csvString) {
              var val3_Next = parseFloat(keyData_Next[3])/val3_RatioFactor;
 
 
-             var tmpColor2 = getLoadedColor(val1_Next,val2_Next,val3_Next,space);
+             var tmpColor2 = createColor(val1_Next,val2_Next,val3_Next,space);
 
 
              if(x_Previous==x){
@@ -142,7 +142,7 @@ function csvColormapParserFile(csvString) {
                var val2_Prev = parseFloat(keyData_Previous[2])/val2_RatioFactor;
                var val3_Prev = parseFloat(keyData_Previous[3])/val3_RatioFactor;
 
-               var tmpColor_Prev = getLoadedColor(val1_Prev,val2_Prev,val3_Prev,space);
+               var tmpColor_Prev = createColor(val1_Prev,val2_Prev,val3_Prev,space);
 
 
                if(tmpColor2.equalTo(tmpColor)){
@@ -202,21 +202,21 @@ function csvColormapParserFile(csvString) {
        var val1 = parseFloat(firstLineElements[9])/val1_RatioFactor;
        var val2 = parseFloat(firstLineElements[11])/val2_RatioFactor;
        var val3 = parseFloat(firstLineElements[13])/val3_RatioFactor;
-       tmpCMS.setNaNColor(getLoadedColor(val1,val2,val3,space));
+       tmpCMS.setNaNColor(createColor(val1,val2,val3,space));
      }
      // Above
      if(firstLineElements.length>20){
        var val1 = parseFloat(firstLineElements[16])/val1_RatioFactor;
        var val2 = parseFloat(firstLineElements[18])/val2_RatioFactor;
        var val3 = parseFloat(firstLineElements[20])/val3_RatioFactor;
-       tmpCMS.setAboveColor(getLoadedColor(val1,val2,val3,space));
+       tmpCMS.setAboveColor(createColor(val1,val2,val3,space));
      }
      // Below
      if(firstLineElements.length>27){
        var val1 = parseFloat(firstLineElements[23])/val1_RatioFactor;
        var val2 = parseFloat(firstLineElements[25])/val2_RatioFactor;
        var val3 = parseFloat(firstLineElements[27])/val3_RatioFactor;
-       tmpCMS.setBelowColor(getLoadedColor(val1,val2,val3,space));
+       tmpCMS.setBelowColor(createColor(val1,val2,val3,space));
      }
 
      return tmpCMS;

@@ -56,6 +56,8 @@ function main_init() {
   initMyDesign();
   initMapping();
   initTestMapping();
+  init_MetricInt_Events();
+  init_MetricInt_Graph();
 
 
   // load predefiend;

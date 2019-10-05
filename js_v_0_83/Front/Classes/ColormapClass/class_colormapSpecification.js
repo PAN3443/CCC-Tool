@@ -1,5 +1,25 @@
 class class_CMS {
 
+
+    // for future # => private  .... change this. to this.#
+    // private fields are not supported at the moment
+    /*  #name = "Customer Colormap";
+        #interpolationSpace="lab";
+        #interpolationType="linear"; // linear or spline or optimization
+        #description = "";
+        #colorNaN = new class_Color_LAB(0,0,0);
+        #colorBelow = new class_Color_LAB(0,0,0);
+        #colorAbove = new class_Color_LAB(0,0,0);
+        #deltaE_RGB = 10;
+        #deltaE_HSV = 10;
+        #deltaE_LAB = 2;
+        #deltaE_DIN99 = 2;
+        #preventIntervalCalculation = true;
+        #keyArray = [];
+        #intervalArray=[];
+        #intervalExportSampling=[];
+        #probeSetArray=[];*/
+
     constructor() {
     this.name = "Customer Colormap";
     this.interpolationSpace="lab";
@@ -171,7 +191,7 @@ class class_CMS {
   }
 
   calcExportSampling(numIntervals){
-    
+
     for (var i = this.intervalExportSampling.length-1; i>=0 ; i--) {
       for (var j = this.intervalExportSampling[i].length-1; j>=0; j--) {
         this.intervalExportSampling[i][j].deleteReferences();
@@ -282,6 +302,9 @@ class class_CMS {
                 tmpDeltaIntervals = calcDeltaIntervalBetween_C1C2(this.keyArray[keyIndex].getRightKeyColor(this.interpolationSpace),this.keyArray[keyIndex+1].getLeftKeyColor(this.interpolationSpace), this.deltaE_RGB, this.interpolationSpace);
               break;
               case "hsv":
+                tmpDeltaIntervals = calcDeltaIntervalBetween_C1C2(this.keyArray[keyIndex].getRightKeyColor(this.interpolationSpace),this.keyArray[keyIndex+1].getLeftKeyColor(this.interpolationSpace), this.deltaE_HSV, this.interpolationSpace);
+              break;
+              case "lch":
                 tmpDeltaIntervals = calcDeltaIntervalBetween_C1C2(this.keyArray[keyIndex].getRightKeyColor(this.interpolationSpace),this.keyArray[keyIndex+1].getLeftKeyColor(this.interpolationSpace), this.deltaE_HSV, this.interpolationSpace);
               break;
               case "lab":
@@ -520,8 +543,10 @@ class class_CMS {
     var endPos = this.keyArray[this.keyArray.length-1].getRefPosition();
     var dis = endPos-startPos;
 
+
     for (var i = 0; i < this.keyArray.length; i++) {
 
+      //
       if((this.keyArray[i].getKeyType()==="nil key" || this.keyArray[i].getKeyType()==="left key") && i!=this.keyArray.length-1){
          this.keyArray[i].setRightKeyColor(this.keyArray[i+1].getLeftKeyColor("lab"));
          this.keyArray[i+1].setLeftKeyColor(undefined);
@@ -529,14 +554,21 @@ class class_CMS {
 
       var newPos = startPos+(endPos-this.keyArray[i].getRefPosition());
 
-
+      var tmpColor = this.keyArray[i].getLeftKeyColor("lab");
       this.keyArray[i].setLeftKeyColor(this.keyArray[i].getRightKeyColor("lab"));
-      this.keyArray[i].setRightKeyColor(this.keyArray[i].getLeftKeyColor("lab"));
+      this.keyArray[i].setRightKeyColor(tmpColor);
 
       tmpKeyArray.splice(0, 0,this.getKeyClone(i));
       tmpKeyArray[0].setRefPosition(newPos);
     }
 
+    for (var i = 0; i < array.length; i++) {
+      array[i]
+    }
+    for (var i = this.keyArray.length-1; i >=0 ; i--) {
+      this.keyArray[i].deleteReferences();
+      this.keyArray[i]=null;
+    }
     this.keyArray = tmpKeyArray;
     this.calcDeltaIntervalColors();
   }
@@ -1112,9 +1144,11 @@ class class_CMS {
 
 }
 
-
-
 function cloneColor(color){
+
+  if(color==undefined)
+    return undefined;
+
   switch (color.getColorType()) {
     case "rgb":
         return new class_Color_RGB(color.get1Value(),color.get2Value(),color.get3Value());

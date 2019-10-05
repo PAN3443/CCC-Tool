@@ -28,6 +28,7 @@ function  calcDeltaIntervalBetween_C1C2(tmpColor,tmpColor2, intervalDeltaDis, in
   switch (interpolationSpace) {
     case "rgb":
     case "hsv":
+    case "lch":
     case "lab":
     case "din99":
       tmpDelta = calc3DEuclideanDistance(cloneColor(tmpColor),cloneColor(tmpColor2));
@@ -95,7 +96,9 @@ function  calcDeltaIntervalBetween_C1C2(tmpColor,tmpColor2, intervalDeltaDis, in
                   colors.push(new class_Color_HSV(tmpH,tmpS,tmpV));*/
 
         break;
-
+        case "lch":
+          colors.push(new class_Color_LCH(newColor[0],newColor[1],newColor[2]));
+        break;
       case "lab":
       case "de94-ds":
       case "de2000-ds":
@@ -160,6 +163,7 @@ function  calcDeltaIntervalBetween_C1C2(tmpColor,tmpColor2, intervalDeltaDis, in
     switch (interpolationSpace) {
       case "rgb":
       case "hsv":
+      case "lch":
       case "lab":
       case "din99":
         colorDifferences.push(calc3DEuclideanDistance(cloneColor(tmpColor),cloneColor(colors[0])));
@@ -178,6 +182,7 @@ function  calcDeltaIntervalBetween_C1C2(tmpColor,tmpColor2, intervalDeltaDis, in
       switch (interpolationSpace) {
         case "rgb":
         case "hsv":
+        case "lch":
         case "lab":
         case "din99":
           colorDifferences.push(calc3DEuclideanDistance(cloneColor(colors[i]),cloneColor(colors[i+1])));
@@ -196,6 +201,7 @@ function  calcDeltaIntervalBetween_C1C2(tmpColor,tmpColor2, intervalDeltaDis, in
     switch (interpolationSpace) {
       case "rgb":
       case "hsv":
+      case "lch":
       case "lab":
       case "din99":
         colorDifferences.push(calc3DEuclideanDistance(cloneColor(colors[colors.length-1]),cloneColor(tmpColor2)));
@@ -331,6 +337,9 @@ function calcSplineIntervalBetween_C1C2(tArray, colorsArray, curvescale, interpo
         case "hsv":
           newColor= new class_Color_HSV(colorVal1,colorVal2,colorVal3);
           break;
+          case "lch":
+          newColor= new class_Color_LCH(colorVal1,colorVal2,colorVal3);
+          break;
           case "lab":
           case "de94":
           case "de94-ds":
@@ -384,6 +393,7 @@ function calcSplineIntervalBetween_C1C2(tArray, colorsArray, curvescale, interpo
   switch (interpolationSpace) {
     case "rgb":
     case "hsv":
+    case "lch":
     case "lab":
     case "din99":
       colorDifferences.push(calc3DEuclideanDistance(cloneColor(c1),cloneColor(resultColors[0])));
@@ -402,6 +412,7 @@ function calcSplineIntervalBetween_C1C2(tArray, colorsArray, curvescale, interpo
     switch (interpolationSpace) {
       case "rgb":
       case "hsv":
+      case "lch":
       case "lab":
       case "din99":
         colorDifferences.push(calc3DEuclideanDistance(cloneColor(resultColors[i]),cloneColor(resultColors[i+1])));
@@ -420,6 +431,7 @@ function calcSplineIntervalBetween_C1C2(tArray, colorsArray, curvescale, interpo
   switch (interpolationSpace) {
     case "rgb":
     case "hsv":
+    case "lch":
     case "lab":
     case "din99":
       colorDifferences.push(calc3DEuclideanDistance(cloneColor(resultColors[resultColors.length-1]),cloneColor(c2)));

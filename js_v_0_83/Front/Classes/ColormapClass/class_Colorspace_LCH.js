@@ -4,6 +4,13 @@
 
 class class_Color_LCH{
 
+  // for future # => private  .... change this. to this.#
+  // private fields are not supported at the moment
+  /*#lValue = undefined;
+  #cValue = undefined;
+  #hValue = undefined;
+  #colorType = undefined;*/
+
       constructor(lValue, cValue, hValue) {
         this.lValue = lValue;
         this.cValue = cValue;
@@ -142,13 +149,24 @@ class class_Color_LCH{
         return new class_Color_LCH(this.get1Value(), this.get2Value(), this.get3Value());
       }
 
-
-
       checkRGBPossiblity(){
         var tmpLab = this.calcLABColor();
         var rgbPossibility = tmpLab.checkRGBPossiblity();
         tmpLab.deleteReferences();
         return rgbPossibility;
+      }
+
+      setColorToRGBPossiblity(){
+        var tmpRGB = this.calcRGBColor();
+        tmpRGB.setColorToRGBPossiblity();
+        var tmpColor = tmpRGB.calcLCHColor();
+        tmpRGB.deleteReferences();
+        tmpRGB=null;
+        this.lValue = tmpColor.get1Value();
+        this.cValue = tmpColor.get2Value();
+        this.hValue = tmpColor.get3Value();
+        tmpColor.deleteReferences();
+        tmpColor=null;
       }
 
       getLCHString(){

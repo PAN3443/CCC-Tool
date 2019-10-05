@@ -45,12 +45,33 @@ function sumArray(array){
   return sum;
 }
 
-function vecNorm(v){
-  var tmp = 1/vecLength(v);
+function copyVector(v){
+  var result = [];
   for (var i = 0; i < v.length; i++) {
-    v[i]=v[i]*tmp;
+    result.push(v[i]);
   }
-  return v;
+  return result;
+}
+
+function vecScalMulti(v,s){
+  var result = copyVector(v);
+  for (var i = 0; i < result.length; i++) {
+    result[i]=result[i]*s;
+  }
+  return result;
+}
+
+function vecNorm(v){
+  var result = copyVector(v);
+  if(vecLength(v)!=0){
+    var tmp = 1/vecLength(v);
+    for (var i = 0; i < result.length; i++) {
+      result[i] = result[i]*tmp;
+    }
+    return result;
+  }
+  return result; // vector is [0,0,....];
+
 }
 
 function vecLength(v){

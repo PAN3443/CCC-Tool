@@ -133,7 +133,8 @@ function drawGlobalSpeedPlot(plotid, minId, maxId, avId, devId){
               if(x!=y){
 
                 switch (globalCMS1.getInterpolationSpace()) {
-
+                    case "rgb":
+                    case "hsv":
                     case "lab":
                     case "din99":
                      deltaE = calc3DEuclideanDistance(cloneColor(colorArray[x]),cloneColor(colorArray[y]));
@@ -171,7 +172,7 @@ function drawGlobalSpeedPlot(plotid, minId, maxId, avId, devId){
         }
 
 
-      var maxColorDif = (max-min);
+      var maxColorDif = max;//(max-min);
 
       /*if(document.getElementById("id_EditPage_BlackWhiteRatio").checked){
         maxColorDif = blackWhiteMaxSpeed;
@@ -241,7 +242,7 @@ function drawGlobalSpeedPlot(plotid, minId, maxId, avId, devId){
                         }
                       }
                       else{*/
-                        val = (speed-min)/maxColorDif;
+                        val = 1-(speed/maxColorDif);//(speed-min)/maxColorDif;
                       //}
 
                     sumForVariance += Math.pow(matrix[x][y]-average,2);

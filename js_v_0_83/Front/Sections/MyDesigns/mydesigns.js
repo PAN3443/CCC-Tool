@@ -100,7 +100,7 @@ function saveSession() {
 
   //changeExportColorspace(2); // session save in LAB Colorspace
 
-  var tmpGlobalCMS = cloneCMS(globalCMS1);
+  //var tmpGlobalCMS = cloneCMS(globalCMS1);
 
   for (var i = 0; i < myDesignsList.length; i++) {
     globalCMS1 = cloneCMS(myDesignsList[i]);
@@ -158,10 +158,11 @@ function saveSession() {
 
     text = text + "</ColorMap>\n";
 
-
+    globalCMS1.deleteReferences();
+    globalCMS1=null;
   }
 
-  globalCMS1 = cloneCMS(tmpGlobalCMS);
+  //globalCMS1 = cloneCMS(tmpGlobalCMS);
 
   text = text + "</ColorMaps>\n</CCCToolSession>";
 
@@ -360,7 +361,7 @@ function readSessionFile(e){
                      val3=val2/255.0;
                  }
 
-                 var tmpColor = getLoadedColor(val1,val2,val3,space);
+                 var tmpColor = createColor(val1,val2,val3,space);
 
 
                  switch (i) {
@@ -376,7 +377,7 @@ function readSessionFile(e){
                            val3_Next=val2_Next/255.0;
                        }
 
-                       var tmpColor2 = getLoadedColor(val1_Next,val2_Next,val3_Next,space);
+                       var tmpColor2 = createColor(val1_Next,val2_Next,val3_Next,space);
 
 
                       if(tmpColor2.equalTo(tmpColor)){
@@ -385,13 +386,13 @@ function readSessionFile(e){
                         tmpCMS.pushKey(newKey);
                       }else{
                         // right key
-                        var newKey = new class_Key(undefined,tmpColor,x);
+                        var newKey = new class_Key(undefined,cloneColor(tmpColor),x);
                         tmpCMS.pushKey(newKey);
                       }
                      break;
                     case pointObject.length-1:
                         // right key
-                        var newKey = new class_Key(tmpColor,undefined,x);
+                        var newKey = new class_Key(cloneColor(tmpColor),undefined,x);
                         tmpCMS.pushKey(newKey);
                      break;
                    default:
@@ -417,7 +418,7 @@ function readSessionFile(e){
                           val3_Next=val2_Next/255.0;
                       }
 
-                      var tmpColor2 = getLoadedColor(val1_Next,val2_Next,val3_Next,space);
+                      var tmpColor2 = createColor(val1_Next,val2_Next,val3_Next,space);
 
 
                       if(x_Previous==x){
@@ -432,11 +433,11 @@ function readSessionFile(e){
                             val3_Prev=val3_Prev/255.0;
                         }
 
-                        var tmpColor_Prev = getLoadedColor(val1_Prev,val2_Prev,val3_Prev,space);
+                        var tmpColor_Prev = createColor(val1_Prev,val2_Prev,val3_Prev,space);
 
                         if(tmpColor2.equalTo(tmpColor)){
                           // left key
-                          var newKey = new class_Key(tmpColor_Prev,undefined,x);
+                          var newKey = new class_Key(cloneColor(tmpColor_Prev),undefined,x);
 
                           if(pointObject[i].hasAttribute("isMoT")){
                             if(pointObject[i].getAttribute("isMoT")=="true")
@@ -445,7 +446,7 @@ function readSessionFile(e){
                           tmpCMS.pushKey(newKey);
                         }else{
                           // twin key
-                          var newKey = new class_Key(tmpColor_Prev,tmpColor,x);
+                          var newKey = new class_Key(cloneColor(tmpColor_Prev),cloneColor(tmpColor),x);
                           if(pointObject[i].hasAttribute("isMoT")){
                             if(pointObject[i].getAttribute("isMoT")=="true")
                               newKey.setMoT(true); // if right key color isMoT (left is default)
@@ -453,16 +454,21 @@ function readSessionFile(e){
                           tmpCMS.pushKey(newKey);
                         }
 
+                        tmpColor_Prev.deleteReferences();
+                        tmpColor_Prev=null;
+
                       }
                       else{
                         if(x!=x_Next){
                           // dual key
-                          var newKey = new class_Key(tmpColor,tmpColor,x);
+                          var newKey = new class_Key(cloneColor(tmpColor),cloneColor(tmpColor),x);
                           tmpCMS.pushKey(newKey);
                         }
                       }
                     }//switch
 
+                    tmpColor.deleteReferences();
+                    tmpColor=null;
                 } // for
 
 
@@ -633,7 +639,7 @@ function readSessionFile(e){
                        val3=val2/255.0;
                    }
 
-                   var tmpColor = getLoadedColor(val1,val2,val3,space);
+                   var tmpColor = createColor(val1,val2,val3,space);
                    tmpCMS.setNaNColor(tmpColor);
                  }
 
@@ -651,7 +657,7 @@ function readSessionFile(e){
                        val3=val2/255.0;
                    }
 
-                   var tmpColor = getLoadedColor(val1,val2,val3,space);
+                   var tmpColor = createColor(val1,val2,val3,space);
                    tmpCMS.setAboveColor(tmpColor);
                  }
 
@@ -668,7 +674,7 @@ function readSessionFile(e){
                        val3=val2/255.0;
                    }
 
-                   var tmpColor = getLoadedColor(val1,val2,val3,space);
+                   var tmpColor = createColor(val1,val2,val3,space);
                    tmpCMS.setBelowColor(tmpColor);
                  }
 

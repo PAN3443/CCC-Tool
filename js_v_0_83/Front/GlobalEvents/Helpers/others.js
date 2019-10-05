@@ -1,3 +1,6 @@
+
+
+
 Number.prototype.countDecimals = function () {
     if(Math.floor(this.valueOf()) === this.valueOf()) return 0;
     return this.toString().split(".")[1].length || 0;
@@ -16,7 +19,12 @@ String.prototype.blankLink = function(url) {
 }
 
 
-
+/*function sleep(milliseconds) { // for testing
+  var start = new Date().getTime();
+  while ((new Date().getTime() - start) < milliseconds){
+    // wait
+  }
+}*/
 
 
 function checkBrowser(){

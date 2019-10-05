@@ -55,7 +55,6 @@ self.addEventListener('message', function(e) {
 
       self.importScripts('../../../Worker/workerFiles/Testing/workerFunctions_Report.js');
 
-      self.importScripts('../../../GlobalEvents/Color_CMS_Helpers/calcGradientHSV.js');
       self.importScripts('../../../GlobalEvents/Color_CMS_Helpers/calcGradientLinear.js');
 
       // For ThreeJS Mesh

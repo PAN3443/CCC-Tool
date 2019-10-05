@@ -103,7 +103,7 @@ function jsonColormapParserFile(jsonString){
         var val2 = parseFloat(jsonObj[0].RGBPoints[i*4+2])/val2_RatioFactor;
         var val3 = parseFloat(jsonObj[0].RGBPoints[i*4+3])/val3_RatioFactor;
 
-        var tmpColor = getLoadedColor(val1,val2,val3,space);
+        var tmpColor = createColor(val1,val2,val3,space);
 
         switch (i) {
           case 0:
@@ -111,7 +111,7 @@ function jsonColormapParserFile(jsonString){
               var val2_Next = parseFloat(jsonObj[0].RGBPoints[(i+1)*4+2])/val2_RatioFactor;
               var val3_Next = parseFloat(jsonObj[0].RGBPoints[(i+1)*4+3])/val3_RatioFactor;
 
-              var tmpColor2 = getLoadedColor(val1_Next,val2_Next,val3_Next,space);
+              var tmpColor2 = createColor(val1_Next,val2_Next,val3_Next,space);
 
 
              if(tmpColor2.equalTo(tmpColor)){
@@ -143,7 +143,7 @@ function jsonColormapParserFile(jsonString){
              var val2_Next = parseFloat(jsonObj[0].RGBPoints[(i+1)*4+2])/val2_RatioFactor;
              var val3_Next = parseFloat(jsonObj[0].RGBPoints[(i+1)*4+3])/val3_RatioFactor;
 
-             var tmpColor2 = getLoadedColor(val1_Next,val2_Next,val3_Next,space);
+             var tmpColor2 = createColor(val1_Next,val2_Next,val3_Next,space);
 
 
              if(x_Previous==x){
@@ -152,7 +152,7 @@ function jsonColormapParserFile(jsonString){
                var val2_Prev = parseFloat(jsonObj[0].RGBPoints[(i-1)*4+2])/val2_RatioFactor;
                var val3_Prev = parseFloat(jsonObj[0].RGBPoints[(i-1)*4+3])/val3_RatioFactor;
 
-               var tmpColor_Prev = getLoadedColor(val1_Prev,val2_Prev,val3_Prev,space);
+               var tmpColor_Prev = createColor(val1_Prev,val2_Prev,val3_Prev,space);
 
 
                if(tmpColor2.equalTo(tmpColor)){
@@ -200,21 +200,21 @@ function jsonColormapParserFile(jsonString){
         var val1 = parseFloat(jsonObj[0].NanColor[0])/val1_RatioFactor;
         var val2 = parseFloat(jsonObj[0].NanColor[1])/val2_RatioFactor;
         var val3 = parseFloat(jsonObj[0].NanColor[2])/val3_RatioFactor;
-        tmpCMS.setNaNColor(getLoadedColor(val1,val2,val3,space));
+        tmpCMS.setNaNColor(createColor(val1,val2,val3,space));
       }
 
       if(hasAboveColor){
         var val1 = parseFloat(jsonObj[0].AboveColor[0])/val1_RatioFactor;
         var val2 = parseFloat(jsonObj[0].AboveColor[1])/val2_RatioFactor;
         var val3 = parseFloat(jsonObj[0].AboveColor[2])/val3_RatioFactor;
-        tmpCMS.setAboveColor(getLoadedColor(val1,val2,val3,space));
+        tmpCMS.setAboveColor(createColor(val1,val2,val3,space));
       }
 
       if(hasBelowColor){
         var val1 = parseFloat(jsonObj[0].BelowColor[0])/val1_RatioFactor;
         var val2 = parseFloat(jsonObj[0].BelowColor[1])/val2_RatioFactor;
         var val3 = parseFloat(jsonObj[0].BelowColor[2])/val3_RatioFactor;
-        tmpCMS.setBelowColor(getLoadedColor(val1,val2,val3,space));
+        tmpCMS.setBelowColor(createColor(val1,val2,val3,space));
       }
 
       return tmpCMS;

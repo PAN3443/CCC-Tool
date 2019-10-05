@@ -1,5 +1,35 @@
 
 
+window.onresize = function(event) {
+
+    // if Edit Page is visible
+    checkLandscapeWindow();
+
+    if(document.getElementById("id_EditPage").style.display!="none"){
+      updateEditPage();
+
+      if(mapping_doAnimation){
+        updateMappingSize();
+      }
+
+      if(pathplot_doAnimation){
+        pathPlot3D_Resize();
+      }
+    }
+    else {
+      // if Test Page is visible
+      if(testmapping_doAnimation){
+        updateTestMappingCanvas();
+      }
+    }
+
+    if(metricInt_Graph_doAnimation){
+      update_MetricInt_RenderSize();
+    }
+
+};
+
+
 window.onbeforeunload = function() { return "Attention: Your work will be lost, if you will leave this page."; };
 
 window.onload = function() {
@@ -8,14 +38,6 @@ window.onload = function() {
   main_init();
 }
 
-
-  window.onresize = function (){
-    checkLandscapeWindow();
-
-    if(document.getElementById("id_EditPage").style.display!="none"){
-      updateEditPage();
-    }
-  }
 
 
   function includeHTML() {

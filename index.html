@@ -73,6 +73,11 @@
         <script src="js_v_0_83/Front/Classes/ColormapClass/class_colormapSpecification.js"></script>
 
 
+        <!-- Classes : Graph -->
+        <script src="js_v_0_83/Front/Classes/Graph/class_Edge.js"></script>
+        <script src="js_v_0_83/Front/Classes/Graph/class_Node.js"></script>
+        <script src="js_v_0_83/Front/Classes/Graph/class_Graph.js"></script>
+
         <!-- Classes : Mapping Data-->
         <script src="js_v_0_83/Front/Classes/Domain/class_cell.js"></script>
         <script src="js_v_0_83/Front/Classes/Domain/class_domain.js"></script>
@@ -217,7 +222,8 @@
           <script src="js_v_0_83/Front/Sections/Edit/Optimization/events_Optimization.js"></script>
           <script src="js_v_0_83/Front/Sections/Edit/Optimization/globalVars_Optimization.js"></script>
           <script src="js_v_0_83/Front/Sections/Edit/Optimization/uniformity.js"></script>
-          <script src="js_v_0_83/Front/Sections/Edit/Optimization/order.js"></script>
+          <script src="js_v_0_83/Front/Sections/Edit/Optimization/intrinsicOrder.js"></script>
+          <script src="js_v_0_83/Front/Sections/Edit/Optimization/legendBasedOrder.js"></script>
 
         <!-- Gallery Section-->
         <script src="js_v_0_83/Front/Sections/Gallery/events_Gallery.js"></script>
@@ -283,6 +289,8 @@
 
         <script src="js_v_0_83/Front/Worker/eventFiles/workerEvent_pathplot.js"></script>
         <script src="js_v_0_83/Front/Worker/eventFiles/workerEvent_testing.js"></script>
+        <script src="js_v_0_83/Front/Worker/eventFiles/workerEvent_metricInterpolation.js"></script>
+
 
 
         <!------------------------------------------->
@@ -316,6 +324,12 @@
           <script src="js_v_0_83/Front/PopUpWindows/Export/export_globalVars.js"></script>
           <script src="js_v_0_83/Front/PopUpWindows/Export/export.js"></script>
 
+          <!-- Pop Up Windows : Metric Int -->
+          <script src="js_v_0_83/Front/PopUpWindows/MetricInterpolation/metricInterpolation.js"></script>
+          <script src="js_v_0_83/Front/PopUpWindows/MetricInterpolation/metricInt_globalVars.js"></script>
+          <script src="js_v_0_83/Front/PopUpWindows/MetricInterpolation/graphRendering.js"></script>
+
+
 
           <!-- Pop Up Windows : Tutorial -->
           <script src="js_v_0_83/Front/PopUpWindows/Tutorials/tutorialVideos.js"></script>
@@ -334,6 +348,7 @@
   <!--<script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script-->
   <!-- script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.41/pdfmake.min.js"></script-->
   <script src="js_v_0_83/libs/ThreeJS/three.min.js"></script>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
 
   <script src="js_v_0_83/windowEvents.js"></script>
 
@@ -476,7 +491,7 @@
     <div id="popupAskWindow" include-html="html/PopUpWindows/askWindow.html" style="background: var(--main-popUpWindow-bg-color); width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
     <div id="waitWindow" include-html="html/PopUpWindows/waitWindow.html" style="background: var(--main-popUpWindow-bg-color); width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:flex;"></div>
     <div id="id_PopUp_LandscapeWindow" include-html="html/PopUpWindows/landscapeWindow.html" style="background: var(--main-popUpWindow-bg-color); width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
-
+    <div id="id_PopUp_MetricIntOpt" include-html="html/PopUpWindows/metricInterpolationOptions.html" style="background: var(--main-popUpWindow-bg-color); width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
 
   </div>
   <!--End of CCC-Tool Page -->

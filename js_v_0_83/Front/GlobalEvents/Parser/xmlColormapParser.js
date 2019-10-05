@@ -106,7 +106,7 @@ function xmlColormapParserFile(xmlString){
                              val3=val2/255.0;
                          }
 
-                         var tmpColor = getLoadedColor(val1,val2,val3,space);
+                         var tmpColor = createColor(val1,val2,val3,space);
 
 
                          switch (i) {
@@ -122,7 +122,7 @@ function xmlColormapParserFile(xmlString){
                                    val3_Next=val2_Next/255.0;
                                }
 
-                               var tmpColor2 = getLoadedColor(val1_Next,val2_Next,val3_Next,space);
+                               var tmpColor2 = createColor(val1_Next,val2_Next,val3_Next,space);
 
 
                               if(tmpColor2.equalTo(tmpColor)){
@@ -164,7 +164,7 @@ function xmlColormapParserFile(xmlString){
                                   val3_Next=val2_Next/255.0;
                               }
 
-                              var tmpColor2 = getLoadedColor(val1_Next,val2_Next,val3_Next,space);
+                              var tmpColor2 = createColor(val1_Next,val2_Next,val3_Next,space);
 
                               if(x_Previous==x){
                                 var val1_Prev = parseFloat(pointObject[i-1].getAttribute(val1Name));
@@ -177,7 +177,7 @@ function xmlColormapParserFile(xmlString){
                                     val3_Prev=val3_Prev/255.0;
                                 }
 
-                                var tmpColor_Prev = getLoadedColor(val1_Prev,val2_Prev,val3_Prev,space);
+                                var tmpColor_Prev = createColor(val1_Prev,val2_Prev,val3_Prev,space);
 
 
                                 if(tmpColor2.equalTo(tmpColor)){
@@ -386,7 +386,7 @@ function xmlColormapParserFile(xmlString){
                                val3=val2/255.0;
                            }
 
-                           tmpCMS.setNaNColor(getLoadedColor(val1,val2,val3,space));
+                           tmpCMS.setNaNColor(createColor(val1,val2,val3,space));
                          }
 
 
@@ -403,7 +403,7 @@ function xmlColormapParserFile(xmlString){
                                val3=val2/255.0;
                            }
 
-                           tmpCMS.setAboveColor(getLoadedColor(val1,val2,val3,space));
+                           tmpCMS.setAboveColor(createColor(val1,val2,val3,space));
                          }
 
                          if(colormapObject[0].getElementsByTagName("Below").length !=0){
@@ -419,7 +419,7 @@ function xmlColormapParserFile(xmlString){
                                val3=val2/255.0;
                            }
 
-                           tmpCMS.setBelowColor(getLoadedColor(val1,val2,val3,space));
+                           tmpCMS.setBelowColor(createColor(val1,val2,val3,space));
                          }
 
                  return tmpCMS;
@@ -433,30 +433,7 @@ function xmlColormapParserFile(xmlString){
 
 }
 
-function getLoadedColor(val1,val2,val3,space){
-  var tmpColor;
-  switch (space) {
-     case "RGB": case "rgb": case "Rgb":
-         tmpColor = new class_Color_RGB(val1,val2,val3);
-         break;
-     case "HSV": case "hsv": case "Hsv":
-         tmpColor = new class_Color_HSV(val1,val2,val3);
-       break;
-      case "LAB": case "lab": case "Lab":
-          tmpColor = new class_Color_LAB(val1,val2,val3);
-       break;
-     case "DIN99": case "din99": case "Din99":
-         tmpColor = new class_Color_DIN99(val1,val2,val3);
-       break;
-      case "LCH": case "lch": case "Lch": case "LCh":
-          tmpColor = new class_Color_LCH(val1,val2,val3);
-      break;
-     default:
-           console.log("Error with XML File -> found no space ");
-   }
 
-   return tmpColor;
-}
 
 function checkXMLColorspace(xmlObj){
 

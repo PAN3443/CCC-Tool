@@ -19,7 +19,6 @@ function changeAxisVisibility(){
 
 
 
-
 function updateMappingSize()
 {
   var box = document.getElementById("id_EditPage_DrawMappingDiv").getBoundingClientRect();
@@ -36,9 +35,7 @@ function updateMappingSize()
 
 	mapping_renderer.setSize(drawWidth, drawHeight);//*
 
-
 }
-
 
 function renderMapping() {
 
@@ -60,7 +57,6 @@ function renderMapping() {
 
           mapping_camera.lookAt( mapping_scene.position);//mapping_scene.position );
           mapping_renderer.render( mapping_scene, mapping_camera );
-
 }
 
 function stopAnimationMapping(){
@@ -71,12 +67,10 @@ function stopAnimationMapping(){
 }
 
 function animateMapping() {
-
     if(mapping_doAnimation){
       mapping_animationID = requestAnimationFrame( animateMapping );
       renderMapping();
     }
-
 }
 
 function startAnimationMapping(){
@@ -210,20 +204,20 @@ function eventMapping_mousemove(event){
 
 }
 
-function eventMapping_mouseleave(){
+/*export*/ function eventMapping_mouseleave(){
   mapping_dorotation=false;
   mapping_doTranslation=false;
   enableScroll();
 }
 
 
-function eventMapping_mouseenter(){
+/*export*/ function eventMapping_mouseenter(){
   mapping_dorotation=false;
   mapping_doTranslation=false;
   disableScroll();
 }
 
-function eventMapping_mousedown(event){
+/*export*/ function eventMapping_mousedown(event){
 
   oldXPos=mousePosX;
   oldYPos=mousePosY;

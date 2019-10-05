@@ -3,12 +3,14 @@
 ----------------	 Header 	  -----------------
 -----------------------------------------------
 -->
-    <div class="row" style="width:100%; height:100%; margin:0px;">
+    <div  style="width:100%; height:100%; margin:0px; display:flex;">
 
 
-      <img src="img/Logos/CCC-LOGO_new.png" alt="CCC-Tool Logo" style="height:80%; margin-left:1vw; margin-right:0.5vw; margin-top:auto; margin-bottom:auto;">
+      <div style="height:100%; display:flex; cursor:pointer;  margin-right:auto; overflow:hidden;" onclick="startLeaveEditPage()">
+        <img src="img/Logos/CCC-LOGO_new.png" alt="CCC-Tool Logo" style="height:80%; margin-left:1vw; margin-right:0.5vw; margin-top:auto; margin-bottom:auto;">
 
-      <p id="id_header_ccctoolLabel" style="margin:0px; text-align:left; vertical-align: middle; color:var(--menue-label-color); font-size: 3vh; margin-top:auto; height:5vh; line-height:5vh; margin-bottom:auto; margin-right:auto; overflow: hidden; text-overflow: ellipsis; cursor:pointer;" onclick="startLeaveEditPage()"><strong>C</strong>harting <strong>C</strong>ontinuous <strong>C</strong>olormap </p>
+        <p id="id_header_ccctoolLabel" style="margin:0px; text-align:left; vertical-align: middle; color:var(--menue-label-color); font-size: 3vh; margin-top:auto; height:5vh; line-height:5vh; margin-bottom:auto; overflow: hidden; text-overflow: ellipsis; " ><strong>C</strong>harting <strong>C</strong>ontinuous <strong>C</strong>olormap </p>
+      </div>
 
       <p id="id_header_colorBlindWarning" style="margin-left:0.25vw; width:2vw; margin-right:0.25vw; text-align:center; vertical-align: middle; color:var(--menue-warning-font-color); font-size: 3vh; line-height:5vh; margin-top:auto; margin-bottom:auto; visibility:hidden; cursor:help; margin-right:1vw;" title="Colorblind Modus">&#128065;</p>
       <p id="id_header_editWarning" style="margin-left:0.25vw;  width:2vw; margin-right:0.25vw; text-align:center; vertical-align: middle; color:var(--menue-warning-font-color); font-size: 3vh; line-height:5vh; margin-top:auto; margin-bottom:auto; visibility:hidden; cursor:help;" title="Unsaved Content">&#9888;</p>
@@ -115,6 +117,9 @@
           <div onclick="openColorBlindnessSettings()" class="dropdownMenuButton">
             Color Blindness
           </div>
+          <div onclick="openMetricIntOpt()" class="dropdownMenuButton">
+            Metric Interpolation
+          </div>
 
           <!--div id="id_settingMenu_Label_RGBPossible_Button" oonclick="changeColorPossiblity()" class="dropdownNotActiveMenuButton" style="display:none;">
             Allow RGB Incompalible Colors : false
@@ -201,7 +206,7 @@
             <div id="id_dropDownMenue_AnalyzeWindow_Label" onclick="updateAnalzyeMappingProbeSetStatus()" class="dropdownMenuButton">
               &#9673; Analysis Window
             </div>
-            <div id="id_dropDownMenue_TableWindow_Label" onclick="updateTableStatus()" class="dropdownMenuButton">
+            <div id="id_dropDownMenue_TableWindow_Label" onclick="updateTableStatus()" class="dropdownMenuButton" style="display:none;">
               &#9673; Table Window
             </div>
             <div id="id_dropDownMenue_ShowHistogram" onclick="showHideHistogram()" class="dropdownNotActiveMenuButton">

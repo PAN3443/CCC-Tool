@@ -86,6 +86,10 @@ function initWorker(){
   if(!browserCanWorker)
     return;
 
+  metricInterpolationWorker.postMessage({'message':'init'});
+  metricInterpolationWorker.addEventListener('message', workerEvent_MetricInterpolation, false);
+  //////////////////////////////////////////////////////////////////////////
+
   drawBackgroundWorker1.postMessage({'message':'init'});
   drawBackgroundWorker2.postMessage({'message':'init'});
   drawBackgroundWorker3.postMessage({'message':'init'});

@@ -2,11 +2,20 @@
 // ------------ Class LMS ---------------//
 ////////////////////////////////////////////////
 class class_Color_XYZ{
+
+
+  // for future # => private  .... change this. to this.#
+  // private fields are not supported at the moment
+  /*  #xValue = undefined;
+  #yValue = undefined;
+  #zValue = undefined;
+  #colorType = undefined;*/
+
     constructor(x, y, z) {
 
-    this.valueX = x; // long wave red area
-    this.valueY = y; // middle wave green area
-    this.valueZ = z; // short wave blue area
+    this.xValue = x; // long wave red area
+    this.yValue = y; // middle wave green area
+    this.zValue = z; // short wave blue area
 
     this.colorType = "xyz";
   }
@@ -23,15 +32,15 @@ class class_Color_XYZ{
   }
 
   getXValue() {
-      return this.valueX;
+      return this.xValue;
   }
 
   getYValue() {
-      return this.valueY;
+      return this.yValue;
   }
 
   getZValue(){
-      return this.valueZ;
+      return this.zValue;
   }
 
   getRGBString() {
@@ -46,9 +55,9 @@ class class_Color_XYZ{
       var error = 100.0; //0.01;
 
       //    Calc RGB
-        var var_X = this.valueX / 100.0;
-        var var_Y = this.valueY / 100.0;
-        var var_Z = this.valueZ / 100.0;
+        var var_X = this.xValue / 100.0;
+        var var_Y = this.yValue / 100.0;
+        var var_Z = this.zValue / 100.0;
 
         /*var var_R = var_X *  3.2406 + var_Y * -1.5372 + var_Z * -0.4986;
         var var_G = var_X * -0.9689 + var_Y *  1.8758 + var_Z *  0.0415;
@@ -109,9 +118,9 @@ class class_Color_XYZ{
 
   checkRGBPossiblity(){
 
-    var var_X = this.valueX / 100.0;
-    var var_Y = this.valueY / 100.0;
-    var var_Z = this.valueZ / 100.0;
+    var var_X = this.xValue / 100.0;
+    var var_Y = this.yValue / 100.0;
+    var var_Z = this.zValue / 100.0;
 
     /*var var_R = var_X *  3.2406 + var_Y * -1.5372 + var_Z * -0.4986;
     var var_G = var_X * -0.9689 + var_Y *  1.8758 + var_Z *  0.0415;
@@ -138,12 +147,25 @@ class class_Color_XYZ{
     }
   }
 
+  setColorToRGBPossiblity(){
+    var tmpRGB = this.calcRGBColor();
+    tmpRGB.setColorToRGBPossiblity();
+    var tmpColor = tmpRGB.calcXYZColor();
+    tmpRGB.deleteReferences();
+    tmpRGB=null;
+    this.xValue = tmpColor.get1Value();
+    this.yValue = tmpColor.get2Value();
+    this.zValue = tmpColor.get3Value();
+    tmpColor.deleteReferences();
+    tmpColor=null;
+  }
+
 
   calcLABColor(){
     /// from XYZ -> LAB
-    var var_X = this.valueX   / cielab_ref_X;
-    var var_Y = this.valueY  / cielab_ref_Y;
-    var var_Z = this.valueZ / cielab_ref_Z;
+    var var_X = this.xValue   / cielab_ref_X;
+    var var_Y = this.yValue  / cielab_ref_Y;
+    var var_Z = this.zValue / cielab_ref_Z;
 
     if ( var_X  > 0.008856 ) var_X = Math.pow(var_X, ( 1/3 ));
     else var_X  = ( 7.787 * var_X ) + ( 16 / 116 );
@@ -161,9 +183,9 @@ class class_Color_XYZ{
 
   calcLMSColor() {
 
-    var var_L = this.valueX * tmLMS_Selected[0][0] + this.valueY * tmLMS_Selected[0][1] + this.valueZ * tmLMS_Selected[0][2];
-    var var_M = this.valueX * tmLMS_Selected[1][0] + this.valueY * tmLMS_Selected[1][1] + this.valueZ * tmLMS_Selected[1][2];
-    var var_S = this.valueX * tmLMS_Selected[2][0] + this.valueY * tmLMS_Selected[2][1] + this.valueZ * tmLMS_Selected[2][2];
+    var var_L = this.xValue * tmLMS_Selected[0][0] + this.yValue * tmLMS_Selected[0][1] + this.zValue * tmLMS_Selected[0][2];
+    var var_M = this.xValue * tmLMS_Selected[1][0] + this.yValue * tmLMS_Selected[1][1] + this.zValue * tmLMS_Selected[1][2];
+    var var_S = this.xValue * tmLMS_Selected[2][0] + this.yValue * tmLMS_Selected[2][1] + this.zValue * tmLMS_Selected[2][2];
 
     return (new class_Color_LMS(var_L, var_M, var_S));
   }

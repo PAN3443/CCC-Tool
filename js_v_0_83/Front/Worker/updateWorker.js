@@ -168,6 +168,8 @@ function inform_Worker_ColorSettings(){
   workerJSON['cielab_ref_Y'] = cielab_ref_Y;
   workerJSON['cielab_ref_Z'] = cielab_ref_Z;
 
+  metricInterpolationWorker.postMessage(workerJSON);
+
   drawBackgroundWorker1.postMessage(workerJSON);
   drawBackgroundWorker2.postMessage(workerJSON);
   drawBackgroundWorker3.postMessage(workerJSON);
@@ -205,6 +207,8 @@ function inform_Worker_ColorMetrics(){
   workerJSON['de94_k_H'] = de94_k_H;
   workerJSON['de94_k_1'] = de94_k_1;
   workerJSON['de94_k_2'] = de94_k_2;
+
+  metricInterpolationWorker.postMessage(workerJSON);
 
   drawInterpolationLineWorker1.postMessage(workerJSON);
   drawInterpolationLineWorker2.postMessage(workerJSON);

@@ -58,7 +58,6 @@ self.addEventListener('message', function(e) {
 
       self.importScripts('../../../GlobalEvents/Helpers/canvasHelpers.js');
 
-      self.importScripts('../../../GlobalEvents/Color_CMS_Helpers/calcGradientHSV.js');
       self.importScripts('../../../GlobalEvents/Color_CMS_Helpers/calcGradientLinear.js');
 
       globalCMS1 = new class_CMS();

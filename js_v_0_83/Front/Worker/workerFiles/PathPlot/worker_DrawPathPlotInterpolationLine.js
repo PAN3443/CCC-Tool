@@ -107,7 +107,6 @@ self.addEventListener('message', function(e) {
       self.importScripts('../../../GlobalEvents/Color_CMS_Helpers/cmsIntervals.js');
       self.importScripts('../../../GlobalEvents/Color_CMS_Helpers/calcColordifference.js');
 
-      self.importScripts('../../../GlobalEvents/Color_CMS_Helpers/calcGradientHSV.js');
       self.importScripts('../../../GlobalEvents/Color_CMS_Helpers/calcGradientLinear.js');
 
 

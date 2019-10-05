@@ -4,6 +4,13 @@
 
 class class_Color_LAB{
 
+  // for future # => private  .... change this. to this.#
+  // private fields are not supported at the moment
+  /*#lValue = undefined;
+  #aValue = undefined;
+  #bValue = undefined;
+  #colorType = undefined;*/
+
       constructor(lValue, aValue, bValue) {
         this.lValue = lValue;
         this.aValue = aValue;
@@ -174,7 +181,27 @@ class class_Color_LAB{
 
       checkRGBPossiblity(){
         var colorXYZ = this.calcXYZColor();
-        return colorXYZ.checkRGBPossiblity();
+        var result = colorXYZ.checkRGBPossiblity();
+        colorXYZ.deleteReferences();
+        colorXYZ=null;
+        return result;
+      }
+
+      setColorToRGBPossiblity(){
+        var tmpRGB = this.calcRGBColor();
+        tmpRGB.setColorToRGBPossiblity();
+        var tmpColor = tmpRGB.calcLABColor();
+        tmpRGB.deleteReferences();
+        tmpRGB=null;
+        this.lValue = tmpColor.get1Value();
+        this.aValue = tmpColor.get2Value();
+        this.bValue = tmpColor.get3Value();
+        tmpColor.deleteReferences();
+        tmpColor=null;
+      }
+
+      setColorToRGBPossiblity(){
+
       }
 
       calcRGBColorCorrect(errorRGBColor){
@@ -187,6 +214,9 @@ class class_Color_LAB{
                 var var_X = colorXYZ.getXValue() / 100.0;
                 var var_Y = colorXYZ.getYValue() / 100.0;
                 var var_Z = colorXYZ.getZValue() / 100.0;
+
+                colorXYZ.deleteReferences();
+                colorXYZ=null;
 
                 /*var var_R = var_X *  3.2406 + var_Y * -1.5372 + var_Z * -0.4986;
                 var var_G = var_X * -0.9689 + var_Y *  1.8758 + var_Z *  0.0415;

@@ -7,7 +7,7 @@ function rgbMesh(){
 
   var linecolor = new THREE.Color(pathplotFontColor);
 
-  var startPos = -128;
+  var startPos = -127.5;
   var textPos = 220;
   var arrowEnd = 200;
   var endpos = startPos+255;
@@ -92,14 +92,26 @@ function rgbMesh(){
   colorspaceGroup.add( arrowZCoord );
 
   /////////////////////////////////////////////////////////////
-  //// Rest Cube
+  //// Cube
+  colorspaceGroup.add(create_RGB_Line_Mesh(startPos,endpos));
+  colorspaceGroup.add(create_RGB_Plane_Mesh(5,startPos));
+
+  tmpRGBColor.deleteReferences();
+  tmpRGBColor=null;
+
+
+}
+
+function create_RGB_Line_Mesh(startPos,endpos){
+
+  var tmpRGBColor = new class_Color_RGB(0,0,0);
 
   var linesGeometry = new THREE.BufferGeometry();
   var linesMaterial = new THREE.LineBasicMaterial( { vertexColors: THREE.VertexColors, linewidth: 2 } );
 
   var indices = [];
-	var positions = [];
-	var colors = [];
+  var positions = [];
+  var colors = [];
 
   positions.push( endpos, endpos, endpos );  //eee = 0
   positions.push( startPos, endpos, endpos );  //see = 1
@@ -190,22 +202,25 @@ function rgbMesh(){
   ];
 
   linesGeometry.setIndex( indices );
-				linesGeometry.addAttribute( 'position', new THREE.Float32BufferAttribute( positions, 3 ) );
-				linesGeometry.addAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3 ) );
-				linesGeometry.computeBoundingSphere();
-				linesMesh = new THREE.LineSegments( linesGeometry, linesMaterial );
-				linesMesh.position.x = 0;
-				linesMesh.position.y = 0;
-        linesMesh.position.z = 0;
-        colorspaceGroup.add(linesMesh);
+  linesGeometry.addAttribute( 'position', new THREE.Float32BufferAttribute( positions, 3 ) );
+  linesGeometry.addAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3 ) );
+  linesGeometry.computeBoundingSphere();
+  var linesMesh = new THREE.LineSegments( linesGeometry, linesMaterial );
+  linesMesh.position.x = 0;
+  linesMesh.position.y = 0;
+  linesMesh.position.z = 0;
 
-  ////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////
-  //
+  tmpRGBColor.deleteReferences();
+  tmpRGBColor=null;
 
-  // vertices
-  var numberOfPieces = 5;
+  return linesMesh;
+
+}
+
+
+function create_RGB_Plane_Mesh(numberOfPieces,startPos){
+
+  var tmpRGBColor = new class_Color_RGB(0,0,0);
   var distance = 255/numberOfPieces;
 
   var numberOfLine = numberOfPieces+1;
@@ -741,8 +756,9 @@ function rgbMesh(){
   meshRGB.position.x = 0;
   meshRGB.position.y = 0;
   meshRGB.position.z = 0;
-  colorspaceGroup.add(meshRGB);
 
+  tmpRGBColor.deleteReferences();
+  tmpRGBColor=null;
 
-
+  return meshRGB;
 }

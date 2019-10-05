@@ -82,6 +82,8 @@ function init_events_EditPage(){
     document.getElementById("id_EditPage_InputFixedAxis_GlobalLocalOrder").addEventListener("change", updateAnalyze);
     document.getElementById("id_EditPage_DoFixedAxis_GlobalLocalOrder").addEventListener("change", updateAnalyze);
     document.getElementById("id_EditPage_DoLogSelect_GlobalLocalOrder").addEventListener("change", updateAnalyze);
+    document.getElementById("id_EditPage_AnalyseOnlyUseKeys").addEventListener("change", updateAnalyze);
+    document.getElementById("id_EditPage_AnalyseUseSampling").addEventListener("change", updateAnalyze);
 
     document.getElementById("id_EditPage_SelectAnalyzePlot").addEventListener("change", updateAnalyze);
 
@@ -132,15 +134,6 @@ function init_events_EditPage(){
 
     document.getElementById('id_EditPage_MappingCMS_Select').onchange  = function(){ updateFieldValueColors(true)};
 
-    /////////////////////////////////////////////////////
-    /////////////// Optimization options
-
-    document.getElementById('id_EditPage_IntrinsicSmoothnessOptimization').addEventListener("change", setOptimizationCombination);
-    document.getElementById('id_EditPage_IntrinsicOrderOptimization').addEventListener("change", setOptimizationCombination);
-    document.getElementById('id_EditPage_GlobalLegendOrderOptimization').addEventListener("change", setOptimizationCombination);
-    document.getElementById('id_EditPage_LocalLegendOrderOptimization').addEventListener("change", setOptimizationCombination);
-    document.getElementById('id_EditPage_GlobalSpeedOptimization').addEventListener("change", setOptimizationCombination);
-    document.getElementById('id_EditPage_LocalSpeedOptimization').addEventListener("change", setOptimizationCombination);
 
     /////////////////////////////////////////////////////
     /////////////// Probe options

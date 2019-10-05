@@ -3,6 +3,14 @@
 ////////////////////////////////////////////////
 
 class class_Color_HSV{
+
+    // for future # => private  .... change this. to this.#
+    // private fields are not supported at the moment
+    /*#hValue = undefined;
+    #sValue = undefined;
+    #vValue = undefined;
+    #colorType = undefined;*/
+
     constructor(hValue, sValue, vValue) {
     this.hValue = hValue;
     this.sValue = sValue;
@@ -208,20 +216,24 @@ class class_Color_HSV{
     }
 
     checkRGBPossiblity(){
-
       var tmpRGB = this.calcRGBColor();
+      var result = tmpRGB.checkRGBPossiblity();
+      tmpRGB.deleteReferences();
+      tmpRGB=null;
+      return result;
+    }
 
-      if(tmpRGB.get1Value()>1.0 || tmpRGB.get1Value()<0.0)
-        return false;
-
-        if(tmpRGB.get1Value()>1.0 || tmpRGB.get1Value()<0.0)
-          return false;
-
-          if(tmpRGB.get1Value()>1.0 || tmpRGB.get1Value()<0.0)
-            return false;
-
-
-      return true;
+    setColorToRGBPossiblity(){
+      var tmpRGB = this.calcRGBColor();
+      tmpRGB.setColorToRGBPossiblity();
+      var tmpColor = tmpRGB.calcHSVColor();
+      tmpRGB.deleteReferences();
+      tmpRGB=null;
+      this.hValue = tmpColor.get1Value();
+      this.sValue = tmpColor.get2Value();
+      this.vValue = tmpColor.get3Value();
+      tmpColor.deleteReferences();
+      tmpColor=null;
     }
 
 }
