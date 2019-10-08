@@ -200,10 +200,6 @@ class class_Color_LAB{
         tmpColor=null;
       }
 
-      setColorToRGBPossiblity(){
-
-      }
-
       calcRGBColorCorrect(errorRGBColor){
             var error = 100.0; //0.01;
 

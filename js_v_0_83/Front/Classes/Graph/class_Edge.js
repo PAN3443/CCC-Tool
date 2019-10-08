@@ -3,9 +3,9 @@ class class_Edge {
   constructor(nodeID1, nodeID2) {
     this.nodeID1 = nodeID1;
     this.nodeID2 = nodeID2;
+    this.forceWeight = undefined;
     this.weight_DE94 = undefined;
     this.weight_DE2000 = undefined;
-
   }
 
   deleteReferences(){
@@ -13,6 +13,14 @@ class class_Edge {
     delete this.nodeID2;
       delete this.weight_DE94;
     delete this.weight_DE2000;
+  }
+
+  setForceWeight(weight){
+    this.forceWeight = weight;
+  }
+
+  getForceWeight(){
+    return this.forceWeight;
   }
 
   getNodeID1() {

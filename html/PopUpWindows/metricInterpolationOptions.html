@@ -6,37 +6,40 @@
 
     <div style="width:25vw; padding-left:1vw; margin-top: 2vh;">
 
-      <p style="font-weight:bold;"> Graph Options </p>
+      <div style="visibility:hidden;">
+        <p style="font-weight:bold;"> Graph Options </p>
 
-      <div class="row" style="width:100%;">
-        <p style="margin:auto; margin-left:0vw;  width:10vw;"> Type: </p>
-        <label class="class_radio_container" style="margin:auto;  margin-left:0vw;"> : RGB
-          <input type="radio" name="selectGraphSpace" id="id_MetricInter_RGB_Select" checked onchange="updateMetricInterSpace()">
-          <span class="class_radio_checkmark"></span>
-        </label>
+        <div class="row" style="width:100%;">
+          <p style="margin:auto; margin-left:0vw;  width:10vw;"> Type: </p>
+          <label class="class_radio_container" style="margin:auto;  margin-left:0vw;"> : RGB
+            <input type="radio" name="selectGraphSpace" id="id_MetricInter_RGB_Select" checked onchange="updateMetricInterSpace()">
+            <span class="class_radio_checkmark"></span>
+          </label>
 
-        <label class="class_radio_container" style="margin-left:0vw; margin:auto;"> : Lab
-          <input type="radio" name="selectGraphSpace" id="id_MetricInter_Lab_Select"onchange="updateMetricInterSpace()" >
-          <span class="class_radio_checkmark"></span>
-        </label>
+          <label class="class_radio_container" style="margin-left:0vw; margin:auto;"> : Lab
+            <input type="radio" name="selectGraphSpace" id="id_MetricInter_Lab_Select"onchange="updateMetricInterSpace()" >
+            <span class="class_radio_checkmark"></span>
+          </label>
+        </div>
+
+        <div id="id_metricInter_Lab_Options" style="width:100%; display:none;">
+          <div class="row" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
+            <p id="id_TestPage_GridDimXLabel" style="margin-top:auto; margin-bottom:auto; width:10vw;">L-Sampling:</p>
+            <input id="id_MetricInter_L_Sampling" type="number" name="GridDimX" min="1" step="1" value="5" style="margin-left:0.25vw;">
+          </div>
+          <div class="row" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
+            <p id="id_TestPage_GridDimXLabel" style="margin-top:auto; margin-bottom:auto; width:10vw;">AB-Sampling:</p>
+            <input id="id_MetricInter_AB_Sampling" type="number" name="GridDimX" min="1" step="1" value="180" style="margin-left:0.25vw;">
+          </div>
+        </div>
+        <div id="id_metricInter_RGB_Options" style="width:100%; display:none;">
+          <div class="row" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
+            <p id="id_TestPage_GridDimXLabel" style="margin-top:auto; margin-bottom:auto; width:10vw;">RGB-Sampling:</p>
+            <input id="id_MetricInter_RGB_Sampling" type="number" name="GridDimX" min="1" step="1" value="16" style="margin-left:0.25vw;" >
+          </div>
+        </div>
       </div>
 
-      <div id="id_metricInter_Lab_Options" style="width:100%; display:none;">
-        <div class="row" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
-          <p id="id_TestPage_GridDimXLabel" style="margin-top:auto; margin-bottom:auto; width:10vw;">L-Sampling:</p>
-          <input id="id_MetricInter_L_Sampling" type="number" name="GridDimX" min="1" step="1" value="5" style="margin-left:0.25vw;">
-        </div>
-        <div class="row" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
-          <p id="id_TestPage_GridDimXLabel" style="margin-top:auto; margin-bottom:auto; width:10vw;">AB-Sampling:</p>
-          <input id="id_MetricInter_AB_Sampling" type="number" name="GridDimX" min="1" step="1" value="180" style="margin-left:0.25vw;">
-        </div>
-      </div>
-      <div id="id_metricInter_RGB_Options" style="width:100%; display:none;">
-        <div class="row" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
-          <p id="id_TestPage_GridDimXLabel" style="margin-top:auto; margin-bottom:auto; width:10vw;">RGB-Sampling:</p>
-          <input id="id_MetricInter_RGB_Sampling" type="number" name="GridDimX" min="1" step="1" value="16" style="margin-left:0.25vw;" >
-        </div>
-      </div>
 
 
 
@@ -57,6 +60,29 @@
       <p id="id_teeeeeestvalue" style="magrin-bottom:auto;"></p-->
 
 
+      <label class="class_checkbox_container" style="margin-left:1vw; color: var(--general-font-color); font-weight:bold; margin-top:auto;"> : Orgin Force
+        <input type="checkbox" id="id_OrginForceCheck" onchange="initForceGraph()">
+        <span class="class_checkbox_checkmark"></span>
+      </label>
+
+      <label class="class_checkbox_container" style="margin-left:1vw; color: var(--general-font-color); font-weight:bold; margin-top:2vh; "> : RGB Correction
+        <input type="checkbox" id="id_RGBCorrCheck" onchange="initForceGraph()">
+        <span class="class_checkbox_checkmark"></span>
+      </label>
+
+      <label class="class_checkbox_container" style="margin-left:1vw; color: var(--general-font-color); font-weight:bold; margin-top:2vh; "> : Average Speed Update
+        <input type="checkbox" id="id_AvgSpeedUpdateCheck" onchange="initForceGraph()">
+        <span class="class_checkbox_checkmark"></span>
+      </label>
+
+      <label class="class_checkbox_container" style="margin-left:1vw; color: var(--general-font-color); font-weight:bold; margin-top:2vh; "> : Legendbased Order Variante
+        <input type="checkbox" id="id_LegendBasedOrderVariante" onchange="initForceGraph()">
+        <span class="class_checkbox_checkmark"></span>
+      </label>
+
+      <div class="row" style="margin-top:2vh; margin-left:1vw;">
+        <p style="color: var(--general-font-color); margin-right:2vw;">Intertions: </p> <input id="id_iterations" type="number" name="quantity" min="1" value="100" step="1" onchange="initForceGraph()">
+      </div>
 
 
 

@@ -47,6 +47,8 @@ function main_init() {
   document.getElementById('id_dropDownContainerNavi').addEventListener("mouseleave", hideAllDropDowns);
   document.getElementById('id_dropDownContainerTheme').addEventListener("mouseleave", hideAllDropDowns);
 
+  calcSpaceGridLAB();
+  calcSpaceGridDIN99();
 
   /////////////////////
   init_events_EditPage();
@@ -58,6 +60,8 @@ function main_init() {
   initTestMapping();
   init_MetricInt_Events();
   init_MetricInt_Graph();
+
+
 
 
   // load predefiend;
@@ -117,9 +121,6 @@ function main_init() {
   updateColorBlindness_TransferMatrices();
   doColorblindnessSim = false;
 
-  calcSpaceGridLAB();
-  calcSpaceGridDIN99();
-
   stopPathPlotAnimation();
   stopAnimationMapping();
 
@@ -146,6 +147,16 @@ function main_init() {
 
     showMyDesignsPage();
     showTestPage();//*/
+
+
+    ////////////////////////////////
+    // For Testing: with start EditPage
+    ///
+
+      myDesignsList.push(cmsDivergentColormaps[0]);
+      showMyDesignsPage();
+      indexActiveCMS=0;
+      showEditPage();//*/
 
     checkLandscapeWindow();
 

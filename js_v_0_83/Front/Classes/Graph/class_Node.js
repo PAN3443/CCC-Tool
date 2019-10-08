@@ -1,6 +1,6 @@
 class class_Node {
 
-  constructor(color) {
+  constructor(color, refPos) {
     this.nodeColor = color;
     this.isStart = false;
     this.isEnd = false;
@@ -9,44 +9,79 @@ class class_Node {
     this.isInactive = false;
 
     // for force graph
+    this.refPos = refPos;
     this.fixedNode = false;
-    this.disp = [0,0,0];
+    this.disp = [0, 0, 0];
+
+
 
   }
 
-  resetDisp(){
-    this.disp = [0,0,0];
+
+  changeColorType(type) {
+
+    if (this.nodeColor.getColorType() === type)
+      return;
+
+    var tmpColor = cloneColor(this.nodeColor);
+    this.nodeColor.deleteReferences();
+    switch (type) {
+      case "rgb":
+        this.nodeColor = tmpColor.calcRGBColor();
+        break;
+      case "lab":
+        this.nodeColor = tmpColor.calcLABColor();
+        break;
+      case "din99":
+        this.nodeColor = tmpColor.calcDIN99Color();
+        break;
+      case "hsv":
+        this.nodeColor = tmpColor.calcHSVColor();
+        break;
+      case "lch":
+        this.nodeColor = tmpColor.calcLCHColor();
+        break;
+      default:
+        return;
+    }
+
+    tmpColor.deleteReferences();
+    tmpColor=null;
   }
 
-  addDisp(vec){
-    if(Array.isArray(vec)){
-        if(vec.length==3){
-          this.disp[0] += vec[0];
-          this.disp[1] += vec[1];
-          this.disp[2] += vec[2];
-        }
+  resetDisp() {
+    this.disp = [0, 0, 0];
+  }
+
+  addDisp(vec) {
+    if (Array.isArray(vec)) {
+      if (vec.length == 3) {
+        this.disp[0] += vec[0];
+        this.disp[1] += vec[1];
+        this.disp[2] += vec[2];
+      }
     }
   }
 
-  subDisp(vec){
-    if(Array.isArray(vec)){
-        if(vec.length==3){
-          this.disp[0] -= vec[0];
-          this.disp[1] -= vec[1];
-          this.disp[2] -= vec[2];
-        }
+  subDisp(vec) {
+    if (Array.isArray(vec)) {
+      if (vec.length == 3) {
+        this.disp[0] -= vec[0];
+        this.disp[1] -= vec[1];
+        this.disp[2] -= vec[2];
+      }
     }
   }
 
-  getDisp(){
+  getDisp() {
     return this.disp;
   }
 
-  setDisp(vec){
+  setDisp(vec) {
     this.disp = vec;
   }
 
-  deleteReferences(){
+  deleteReferences() {
     this.nodeColor.deleteReferences();
     delete this.nodeColor;
     delete this.isStart;
@@ -58,31 +93,40 @@ class class_Node {
     delete this.velocity_X;
     delete this.velocity_Y;
     delete this.velocity_Z;
+    delete this.refPos;
   }
 
-  setVelocity(x,y,z){
+  setVelocity(x, y, z) {
     this.velocity_X = x;
     this.velocity_Y = y;
     this.velocity_Z = z;
   }
 
-  forceMovement(){
+  getNodeRefPos() {
+    return this.refPos;
+  }
+
+  setNodeRefPos(ref) {
+    this.refPos = ref;
+  }
+
+  forceMovement(rgbCorrection) {
 
     /*console.log(this.nodeColor.get1Value(),this.nodeColor.get1Value()+this.disp[0]);
     console.log(this.nodeColor.get2Value(),this.nodeColor.get2Value()+this.disp[1]);
     console.log(this.nodeColor.get3Value(),this.nodeColor.get3Value()+this.disp[2]);*/
 
-    if(!this.fixedNode){
-      this.nodeColor.set1Value(this.nodeColor.get1Value()+this.disp[0]);
-      this.nodeColor.set2Value(this.nodeColor.get2Value()+this.disp[1]);
-      this.nodeColor.set3Value(this.nodeColor.get3Value()+this.disp[2]);
+    if (!this.fixedNode) {
+      this.nodeColor.set1Value(this.nodeColor.get1Value() + this.disp[0]);
+      this.nodeColor.set2Value(this.nodeColor.get2Value() + this.disp[1]);
+      this.nodeColor.set3Value(this.nodeColor.get3Value() + this.disp[2]);
 
-      if(!this.nodeColor.checkRGBPossiblity()){
+      if (rgbCorrection && !this.nodeColor.checkRGBPossiblity()) {
         this.nodeColor.setColorToRGBPossiblity();
-      }//*/
+      } //*/
     }
 
-    this.disp = [0,0,0];
+    this.disp = [0, 0, 0];
   }
 
 
@@ -100,7 +144,7 @@ class class_Node {
 
   setNodeColor(color) {
     this.nodeColor.deleteReferences();
-    this.nodeColor=color;
+    this.nodeColor = color;
   }
 
   getIsStart() {

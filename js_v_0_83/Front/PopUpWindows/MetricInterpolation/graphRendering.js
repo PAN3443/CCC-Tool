@@ -12,7 +12,10 @@ var tmpGraph = undefined;
 
 function initForceGraph(){
   tmpGraph = new class_Graph("rgb");
-
+  tmpGraph.changeColorEdgeOptions(globalCMS1.getInterpolationSpace(),true,"eu");
+  tmpGraph.setOF(document.getElementById("id_OrginForceCheck").checked);
+  tmpGraph.setRGBCorr(document.getElementById("id_RGBCorrCheck").checked);
+  tmpGraph.setAvgSpeedUpdate(document.getElementById("id_AvgSpeedUpdateCheck").checked);
 
   if(globalCMS1==undefined)
     return;
@@ -26,87 +29,30 @@ function initForceGraph(){
 
   var continuousSections = searchForContinuousSections(0,globalCMS1.getKeyLength()-1);
 
+  var nodeIDs=[];
+  var ncounter = 0;
   for (var j = 0; j < continuousSections.length; j++) {
-      for (var i = continuousSections[j][0]; i < continuousSections[j][1]; i++) {
-        tmpGraph.pushNode(globalCMS1.getRightKeyColor(i,globalCMS1.getInterpolationSpace()));
-      }// for
-      tmpGraph.pushNode(globalCMS1.getLeftKeyColor(continuousSections[j][1],globalCMS1.getInterpolationSpace()));
 
-      for (var i = continuousSections[j][0]; i < continuousSections[j][1]; i++) {
-        for (var k = i+1; k <= continuousSections[j][1]; k++) {
-          tmpGraph.pushEdge_DistanceWeight(i,k,"eu");
+      if(continuousSections[j][0]<continuousSections[j][1]){
+
+        var nstart = ncounter;
+        for (var i = continuousSections[j][0]; i < continuousSections[j][1]; i++) {
+          tmpGraph.pushNode(globalCMS1.getRightKeyColor(i,globalCMS1.getInterpolationSpace()),globalCMS1.getRefPosition(i));
+          ncounter++;
+        }// for
+        tmpGraph.pushNode(globalCMS1.getLeftKeyColor(continuousSections[j][1],globalCMS1.getInterpolationSpace()),globalCMS1.getRefPosition(continuousSections[j][1]));
+        nodeIDs.push([nstart,ncounter]);
+        ncounter++;
+
+        for (var i = nstart; i < ncounter-1; i++) {
+          for (var k = i+1; k < ncounter; k++) {
+            tmpGraph.pushEdge_ColorWeight(i,k);
+          }
         }
       }
-      break;
+
   }
 
-
-  /*switch (document.getElementById("id_teeeeeestselect").selectedIndex) {
-    case 0:
-      tmpGraph.pushNode(new class_Color_RGB(80/255, 200/255, 50/255));
-      tmpGraph.pushNode(new class_Color_RGB(20/255, 80/255, 140/255));
-      tmpGraph.pushNode(new class_Color_RGB(50/255, 20/255, 8/255));
-      tmpGraph.pushNode(new class_Color_RGB(80/255, 200/255, 10/255));
-      tmpGraph.pushNode(new class_Color_RGB(50/255, 50/255, 250/255));
-      tmpGraph.pushEdge_DistanceWeight(0,1,"eu");
-      tmpGraph.pushEdge_DistanceWeight(1,2,"eu");
-      tmpGraph.pushEdge_DistanceWeight(2,3,"eu");
-      tmpGraph.pushEdge_DistanceWeight(3,4,"eu");
-      break;
-      case 1:
-      tmpGraph.pushNode(new class_Color_RGB(80/255, 200/255, 50/255));
-      tmpGraph.pushNode(new class_Color_RGB(50/255, 20/255, 8/255));
-      tmpGraph.pushNode(new class_Color_RGB(50/255, 50/255, 250/255));
-      tmpGraph.pushEdge_DistanceWeight(0,1,"eu");
-      break;
-      case 2:
-      tmpGraph.pushNode(new class_Color_RGB(80/255, 200/255, 50/255));
-      tmpGraph.pushNode(new class_Color_RGB(50/255, 20/255, 8/255));
-      tmpGraph.pushNode(new class_Color_RGB(50/255, 50/255, 250/255));
-      tmpGraph.pushEdge_DistanceWeight(0,1,"eu");
-      tmpGraph.pushEdge_DistanceWeight(1,2,"eu");
-      tmpGraph.pushEdge_DistanceWeight(2,0,"eu");
-      break;
-      case 3:
-      tmpGraph.pushNode(new class_Color_RGB(50/255, 0, 0));
-      tmpGraph.pushNode(new class_Color_RGB(50/255, 80/255, 0));
-      tmpGraph.pushNode(new class_Color_RGB(50/255, 200/255, 90/255));
-      tmpGraph.pushNode(new class_Color_RGB(50/255, 0/255, 80/255));
-      tmpGraph.pushEdge_DistanceWeight(0,1,"eu");
-      tmpGraph.pushEdge_DistanceWeight(1,2,"eu");
-      tmpGraph.pushEdge_DistanceWeight(2,3,"eu");
-      tmpGraph.pushEdge_DistanceWeight(3,0,"eu");
-      break;
-      case 4:
-      tmpGraph.pushNode(new class_Color_RGB(0, 0, 0));
-      tmpGraph.pushNode(new class_Color_RGB(20/255, 80/255, 140/255));
-      tmpGraph.pushNode(new class_Color_RGB(80/255, 200/255, 10/255));
-      tmpGraph.pushNode(new class_Color_RGB(50/255, 50/255, 250/255));
-      tmpGraph.pushEdge_DistanceWeight(0,1,"eu");
-      tmpGraph.pushEdge_DistanceWeight(0,2,"eu");
-      tmpGraph.pushEdge_DistanceWeight(0,3,"eu");
-      tmpGraph.pushEdge_DistanceWeight(1,2,"eu");
-      tmpGraph.pushEdge_DistanceWeight(1,3,"eu");
-      tmpGraph.pushEdge_DistanceWeight(2,3,"eu");
-      break;
-      case 5:
-      tmpGraph.pushNode(new class_Color_RGB(0, 0, 0));
-      tmpGraph.pushNode(new class_Color_RGB(20/255, 80/255, 140/255));
-      tmpGraph.pushNode(new class_Color_RGB(50/255, 20/255, 8/255));
-      tmpGraph.pushNode(new class_Color_RGB(80/255, 200/255, 10/255));
-      tmpGraph.pushNode(new class_Color_RGB(50/255, 50/255, 250/255));
-      tmpGraph.pushEdge_DistanceWeight(0,1,"eu");
-      tmpGraph.pushEdge_DistanceWeight(1,2,"eu");
-      tmpGraph.pushEdge_DistanceWeight(2,3,"eu");
-      tmpGraph.pushEdge_DistanceWeight(3,0,"eu");
-      tmpGraph.pushEdge_DistanceWeight(0,4,"eu");
-      tmpGraph.pushEdge_DistanceWeight(1,4,"eu");
-      tmpGraph.pushEdge_DistanceWeight(2,4,"eu");
-      tmpGraph.pushEdge_DistanceWeight(3,4,"eu");
-      break;
-    default:
-      return;
-  }*/
 
   draw_MetricInt_Graph();
 }
@@ -131,11 +77,17 @@ function testForceGraph(){
     tmpGraph.force(100,value);
     */
 
-  tmpGraph.force(100,0.2);
+  var test = parseInt(document.getElementById("id_iterations").value);
+
+  if(document.getElementById("id_LegendBasedOrderVariante").checked){
+    tmpGraph.speedForce2(test);
+  }
+  else{
+    tmpGraph.speedForce(test);
+  }
+
   draw_MetricInt_Graph();
 }
-
-
 
 //////////////////////////////////////////////////////////////
 
@@ -146,11 +98,6 @@ function draw_MetricInt_Graph(){
     metricInt_GraphGroup.remove(metricInt_GraphGroup.children[i]);
   }
 
-  metricInt_GraphGroup.add(metricInT_GraphRendering_RGBMesh);
-  metricInt_GraphGroup.add(metricInT_GraphRendering_RGBLineMesh);
-
-
-
   var linesGeometry = new THREE.BufferGeometry();
   var linesMaterial = new THREE.LineBasicMaterial( { color: 0x000000, linewidth: 1 } );
   var linesIndices = [];
@@ -160,25 +107,60 @@ function draw_MetricInt_Graph(){
   var points_Positions = [];
   var points_Colors = [];
 
-  for ( var i = 0; i < tmpGraph.getNodeLength(); i ++ ) {
-    // positions
+  switch (tmpGraph.getGraphColorSpace()){
+    case "rgb":
+      metricInt_GraphGroup.add(metricInT_GraphRendering_RGBMesh);
+      metricInt_GraphGroup.add(metricInT_GraphRendering_RGBLineMesh);
 
-    var tmpColor = tmpGraph.getNodeColor(i);
+      for ( var i = 0; i < tmpGraph.getNodeLength(); i ++ ) {
+        // positions
 
-    if(tmpColor.getColorType()==="rgb"){
-      points_Positions.push(tmpColor.get1Value()*255-127.5, tmpColor.get2Value()*255-127.5, tmpColor.get3Value()*255-127.5);
-      points_Colors.push(tmpColor.get1Value(), tmpColor.get2Value(), tmpColor.get3Value()); //0,0,0);//
-    }
-    else{
-      points_Positions.push(tmpColor.get1Value(), tmpColor.get2Value(), tmpColor.get3Value());
-      var tmpRGB = tmpColor.calcRGBColor();
-      points_Colors.push(tmpRGB.get1Value(), tmpRGB.get2Value(), tmpRGB.get3Value());
-      tmpRGB.deleteReferences();
-      tmpRGB=null;
-    }
+        var tmpColor = tmpGraph.getNodeColor(i);
 
-    tmpColor.deleteReferences();
-    tmpColor=null;
+        points_Positions.push(tmpColor.get1Value()*255-127.5, tmpColor.get2Value()*255-127.5, tmpColor.get3Value()*255-127.5);
+        points_Colors.push(tmpColor.get1Value(), tmpColor.get2Value(), tmpColor.get3Value()); //0,0,0);//
+
+        tmpColor.deleteReferences();
+        tmpColor=null;
+      }
+
+      break;
+      case "hsv":
+
+        break;
+        case "lab":
+          if(metricInT_GraphRendering_LabMesh!=undefined){
+                metricInt_GraphGroup.add(metricInT_GraphRendering_LabMesh[0]);
+                metricInt_GraphGroup.add(metricInT_GraphRendering_LabMesh[1]);
+          }
+
+          if(labABMax!=undefined && labABMax!=0){
+          var labABMax2 = labABMax*2;
+          for ( var i = 0; i < tmpGraph.getNodeLength(); i ++ ) {
+            var tmpColor = tmpGraph.getNodeColor(i);
+            var xPos3D1 = labSPos+((tmpColor.get2Value()+labABMax)/labABMax2)*(labEPos-labSPos);
+            var yPos3D1 = labSPos+(tmpColor.get1Value()/100.0)*(labEPos-labSPos);
+            var zPos3D1 = labEPos-((tmpColor.get3Value()+labABMax)/labABMax2)*(labEPos-labSPos);
+            points_Positions.push(xPos3D1,yPos3D1,zPos3D1);
+            var tmpRGB = tmpColor.calcRGBColor();
+            points_Colors.push(tmpRGB.get1Value(), tmpRGB.get2Value(), tmpRGB.get3Value());
+            tmpRGB.deleteReferences();
+            tmpRGB=null;
+
+            tmpColor.deleteReferences();
+            tmpColor=null;
+          }
+        }
+
+          break;
+          case "lch":
+
+            break;
+            case "din99":
+
+              break;
+    default:
+
   }
 
   for ( var i = 0; i < tmpGraph.getEdgeLength(); i ++ ) {
@@ -237,11 +219,11 @@ var metricInt_GraphMesh;
 var metricInt_Graph_controls;
 var metricInT_GraphRendering_RGBMesh;
 var metricInT_GraphRendering_RGBLineMesh;
+var metricInT_GraphRendering_LabMesh;
 
 /////////////////////////////////////////
 
 function render_MetricInt_Graph() {
-
     metricInt_Graph_renderer.clear();
 
     var newXPos = metricInt_GraphGroup.position.x + mapping_Translation_X;
@@ -381,6 +363,8 @@ function init_MetricInt_Graph()
   metricInT_GraphRendering_RGBMesh = create_RGB_Plane_Mesh(1,-127.5);
   metricInT_GraphRendering_RGBLineMesh = create_RGB_Line_Mesh(-127.5,127.5);
 
+  if(positionsLAB.length!=0)
+  metricInT_GraphRendering_LabMesh = lab3DMesh();
 
 
 }
