@@ -86,6 +86,8 @@ function changeOpimizationMode(){
   }
   else {
 
+    if(globalCMS1_Original!=undefined)
+      globalCMS1_Original.deleteReferences();
     globalCMS1_Original = cloneCMS(globalCMS1);
 
     editPage_optimizationMode=true;
@@ -210,19 +212,23 @@ function changeOpimizationMode(){
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     document.getElementById("id_EditPage_LocalSpeedOptimization").checked = true;
-    selectedOptimizationType=0;
-    updateOptimizationPage();
+    document.getElementById("id_EditPage_UniOpti_Check").checked=false;
+    document.getElementById("id_EditPage_IntOrderOpti_Check").checked=false;
+    document.getElementById("id_EditPage_LegOrderOpti_Check").checked=false;
+    document.getElementById("id_EditPage_DisPowerOpti_Check").checked=false;
+
+    fillKeyCombobox(false);
+    updateOptiPageStyle();
   }
 }
 
-
 function editCMSduringOptimizationMode(){
-  console.log(123);
   globalCMS1_Original = cloneCMS(globalCMS1);
-  updateOptimizationPage();
+  fillKeyCombobox(true);
+  updateOptiPageStyle();
 }
 
-function updateOptimizationPage(){
+function updateOptiPageStyle(){
 
   /*if(globalCMS1.getInterpolationSpace()==="rgb" || globalCMS1.getInterpolationSpace()==="hsv"){
     document.getElementById("id_EditPage_OptimizationWarning").style.display="flex";
@@ -231,25 +237,24 @@ function updateOptimizationPage(){
   else {*/
     document.getElementById("id_EditPage_OptimizationWarning").style.display="none";
     document.getElementById("id_EditPage_OptimizationSettings").style.display="block";
-
-    optimization_StartKey = 0;
-    optimization_EndKey = globalCMS1.getKeyLength()-1;
-
-    calcOptiCMS();
-
-    document.getElementById("id_Optimization_Degree").value=0;
-    updateOptiCMSDegree();
+    //document.getElementById("id_Optimization_Degree").value=0;
+    //updateOptiCMSDegree();
   //}
-}
 
-function updateOptiPageStyle(){
   if(document.getElementById("id_EditPage_UniOpti_Check").checked){
     document.getElementById("id_EditPage_UniOpti_Options").style.display="block";
+
+    document.getElementById("id_EditPage_UniOpti_FixedDiv").style.display="none";
+    document.getElementById("id_EditPage_UniOpti_GlobalTypesDiv").style.display="none";
+    document.getElementById("id_EditPage_UniOpti_GraphSettings").style.display="none";
+
     if(document.getElementById("id_EditPage_GlobalSpeedOptimization").checked){
-      document.getElementById("id_EditPage_UniOpti_FixedDiv").style.display="flex";
-    }
-    else {
-      document.getElementById("id_EditPage_UniOpti_FixedDiv").style.display="none";
+      document.getElementById("id_EditPage_UniOpti_GlobalTypesDiv").style.display="block";
+
+      if(document.getElementById("id_EditPage_GlobalLinearReg").checked)
+        document.getElementById("id_EditPage_UniOpti_FixedDiv").style.display="block";
+      else
+        document.getElementById("id_EditPage_UniOpti_GraphSettings").style.display="block";
     }
   }
   else {
@@ -264,66 +269,43 @@ function updateOptiPageStyle(){
     document.getElementById("id_EditPage_IntOrderOpti_Options").style.display="none";
   }
 
-  /*if(document.getElementById("id_EditPage_LegOrderOpti_Check").checked){
-  }*/
-
-  if(document.getElementById("id_EditPage_UniOpti_Check").checked || document.getElementById("id_EditPage_LegOrderOpti_Check").checked || document.getElementById("id_EditPage_IntOrderOpti_Check").checked){
-    document.getElementById("id_EditPage_Opti_AcceptDiv").style.display="block";
+  if(document.getElementById("id_EditPage_LegOrderOpti_Check").checked){
+    document.getElementById("id_EditPage_LegOrderOpti_Options").style.display="block";
   }
-  else{
-    document.getElementById("id_EditPage_Opti_AcceptDiv").style.display="none";
+  else {
+    document.getElementById("id_EditPage_LegOrderOpti_Options").style.display="none";
   }
-}
 
-function calcOptiCMS(){
-
-  updateOptiPageStyle();
-
-  globalCMS1_Optimum = cloneCMS(globalCMS1_Original);
-  globalCMS1 = cloneCMS(globalCMS1_Original);
-
-  if(document.getElementById("id_EditPage_UniOpti_Check").checked && document.getElementById("id_EditPage_GlobalSpeedOptimization").checked){
-    calcGlobalUniformityOptimum();
+  if(document.getElementById("id_EditPage_DisPowerOpti_Check").checked){
+    document.getElementById("id_EditPage_DisPowerOpti_Options").style.display="block";
   }
-  else{
-    if(document.getElementById("id_EditPage_IntOrderOpti_Check").checked){
-      if(document.getElementById("id_EditPage_GlobalLegendOrderOptimization").checked){
-        calcGlobalIntOrderOptimum();
-      }else {
-        calcLocalIntOrderOptimum();
-      }
-    }
-    //
-    if(document.getElementById("id_EditPage_LegOrderOpti_Check").checked){
-      calcLegOrderOptimum();
-    }
-
-    if(document.getElementById("id_EditPage_UniOpti_Check").checked)
-      calcLocalUniformityOptimum();
+  else {
+    document.getElementById("id_EditPage_DisPowerOpti_Options").style.display="none";
   }
+
+  calcOptiCMS();
 
 }
 
-function updateOptiCMSDegree(){
 
-  var degree = document.getElementById("id_Optimization_Degree").value;
+function updateOptimizationCMS(optiDegree){
 
-    for (var i = optimization_StartKey; i <= optimization_EndKey; i++) {
+    for (var i = document.getElementById("id_editPage_Optimization_FromKey").selectedIndex; i <= document.getElementById("id_editPage_Optimization_TillKey").selectedIndex; i++) {
 
-      if(i!=optimization_StartKey || i !=optimization_EndKey){
-        var originalPos = globalCMS1_Original.getRefPosition(i);
+      if(i!=document.getElementById("id_editPage_Optimization_FromKey").selectedIndex || i !=document.getElementById("id_editPage_Optimization_TillKey").selectedIndex){
+        var originalPos = globalCMS1.getRefPosition(i);
         var optiPos = globalCMS1_Optimum.getRefPosition(i);
 
         var dis = optiPos-originalPos;
 
-        var newPosition = originalPos+(dis*degree);
+        var newPosition = originalPos+(dis*optiDegree);
 
         globalCMS1.setRefPosition(i,newPosition);
       }
 
       /////////////////////////////////////////////////////////////////
       ///// Left Color
-      var original_LeftColor = globalCMS1_Original.getLeftKeyColor(i,globalCMS1_Original.getInterpolationSpace());
+      var original_LeftColor = globalCMS1.getLeftKeyColor(i,globalCMS1_Original.getInterpolationSpace());
       var opti_LeftColor = globalCMS1_Optimum.getLeftKeyColor(i,globalCMS1_Original.getInterpolationSpace());
       if(original_LeftColor!=undefined && opti_LeftColor!=undefined){
         if(!original_LeftColor.equalTo(opti_LeftColor)){
@@ -331,9 +313,9 @@ function updateOptiCMSDegree(){
           var val2_dis = opti_LeftColor.get2Value()-original_LeftColor.get2Value();
           var val3_dis = opti_LeftColor.get3Value()-original_LeftColor.get3Value();
 
-          var newVal1 = original_LeftColor.get1Value()+(val1_dis*degree);
-          var newVal2 = original_LeftColor.get2Value()+(val2_dis*degree);
-          var newVal3 = original_LeftColor.get3Value()+(val3_dis*degree);
+          var newVal1 = original_LeftColor.get1Value()+(val1_dis*optiDegree);
+          var newVal2 = original_LeftColor.get2Value()+(val2_dis*optiDegree);
+          var newVal3 = original_LeftColor.get3Value()+(val3_dis*optiDegree);
 
           globalCMS1.setLeftKeyColor(i,createColor(newVal1,newVal2,newVal3,globalCMS1.getInterpolationSpace()));
         }
@@ -346,7 +328,7 @@ function updateOptiCMSDegree(){
 
       /////////////////////////////////////////////////////////////////
       ///// Right Color
-      var original_RightColor = globalCMS1_Original.getRightKeyColor(i,globalCMS1_Original.getInterpolationSpace());
+      var original_RightColor = globalCMS1.getRightKeyColor(i,globalCMS1_Original.getInterpolationSpace());
       var opti_RightColor = globalCMS1_Optimum.getRightKeyColor(i,globalCMS1_Original.getInterpolationSpace());
 
       if(original_RightColor!=undefined && opti_RightColor!=undefined){
@@ -355,9 +337,9 @@ function updateOptiCMSDegree(){
           var val2_dis = opti_RightColor.get2Value()-original_RightColor.get2Value();
           var val3_dis = opti_RightColor.get3Value()-original_RightColor.get3Value();
 
-          var newVal1 = original_RightColor.get1Value()+(val1_dis*degree);
-          var newVal2 = original_RightColor.get2Value()+(val2_dis*degree);
-          var newVal3 = original_RightColor.get3Value()+(val3_dis*degree);
+          var newVal1 = original_RightColor.get1Value()+(val1_dis*optiDegree);
+          var newVal2 = original_RightColor.get2Value()+(val2_dis*optiDegree);
+          var newVal3 = original_RightColor.get3Value()+(val3_dis*optiDegree);
 
           globalCMS1.setRightKeyColor(i,createColor(newVal1,newVal2,newVal3,globalCMS1.getInterpolationSpace()));
         }
@@ -370,12 +352,292 @@ function updateOptiCMSDegree(){
 
     } // FOR
 
+    globalCMS1_Optimum = cloneCMS(globalCMS1);
+    globalCMS1_Optimum.setPreventIntervals(true);
+
   //// Update Edit Page => Plots for Analysis, Visualization and Edit
+
+}
+
+function calcOptiCMS(){
+
+  if(globalCMS1_Optimum!=undefined)
+    globalCMS1_Optimum.deleteReferences();
+  globalCMS1_Optimum = cloneCMS(globalCMS1_Original);
+  globalCMS1_Optimum.setPreventIntervals(true);
+
+  globalCMS1.deleteReferences();
+  globalCMS1 = cloneCMS(globalCMS1_Original);
+
+  /////////////////////////////////////////////////////////////////////////////////////
+  /// because of many of the optimization algorith has negative effects to the other
+
+  var optitype = [];
+  var optiDegree = [];
+  var usedSpeedForcGraphv= false;
+
+  if(document.getElementById("id_EditPage_IntOrderOpti_Check").checked){
+      var inserted = false;
+      var degree = document.getElementById("id_EditPage_IntOrderOpti_Degree").value;
+      var type = undefined;
+
+      if(document.getElementById("id_EditPage_LocalIntOrderOptimization").checked)
+        type=3;
+      else
+        type=4;
+
+      if(degree!=0){
+        for (var i = 0; i < optiDegree.length; i++) {
+          if(degree<optiDegree[i]){
+            optitype.splice(i, 0,type);
+            optiDegree.splice(i, 0,degree);
+            inserted=true;
+            break;
+          }
+        }
+
+        if(!inserted){
+          optitype.push(type);
+          optiDegree.push(degree);
+        }
+      }
+
+
+  }
+
+  if(document.getElementById("id_EditPage_LegOrderOpti_Check").checked){
+    var inserted = false;
+    var degree = document.getElementById("id_EditPage_LegOrderOpti_Degree").value;
+    var type = 5;
+    usedSpeedForcGraphv=true;
+
+    if(degree!=0){
+    for (var i = 0; i < optiDegree.length; i++) {
+      if(degree<optiDegree[i]){
+        optitype.splice(i, 0,type);
+        optiDegree.splice(i, 0,degree);
+        inserted=true;
+        break;
+      }
+    }
+
+    if(!inserted){
+      optitype.push(type);
+      optiDegree.push(degree);
+    }
+  }
+
+  }
+
+  if(document.getElementById("id_EditPage_DisPowerOpti_Check").checked){
+    var inserted = false;
+    var degree = document.getElementById("id_EditPage_DisPowerOpti_Degree").value;
+    var type = 6;
+
+    if(degree!=0){
+    for (var i = 0; i < optiDegree.length; i++) {
+      if(degree<optiDegree[i]){
+        optitype.splice(i, 0,type);
+        optiDegree.splice(i, 0,degree);
+        inserted=true;
+        break;
+      }
+    }
+
+    if(!inserted){
+      optitype.push(type);
+      optiDegree.push(degree);
+    }
+  }
+
+  }
+
+  // local uniformity only affects the forced speed graph => if we do force speed graph the order depends on the degree, if not local perceptual optimization is alway the last!
+  if(document.getElementById("id_EditPage_UniOpti_Check").checked){
+      var degree = document.getElementById("id_EditPage_UniOpti_Degree").value;
+      var type = undefined;
+
+      if(document.getElementById("id_EditPage_GlobalSpeedOptimization").checked){
+        if(document.getElementById("id_EditPage_GlobalLinearReg").checked)
+          type = 1;
+        else
+          type = 2;
+      }
+      else
+        type = 0;
+
+      if(degree!=0){
+      if(type==0 && !usedSpeedForcGraphv){
+        optitype.push(type);
+        optiDegree.push(degree);
+      }
+      else{
+        var inserted = false;
+        for (var i = 0; i < optiDegree.length; i++) {
+          if(degree<optiDegree[i]){
+            optitype.splice(i, 0,type);
+            optiDegree.splice(i, 0,degree);
+            inserted=true;
+            break;
+          }
+        }
+
+        if(!inserted){
+          optitype.push(type);
+          optiDegree.push(degree);
+        }
+      }
+    }
+
+  }
+
+
+  if(optitype.length!=0){
+    document.getElementById("id_EditPage_OptimizationExOrder").style.display="block";
+    var text = "Execute Order:".bold()+"\n";
+
+    for (var i = 0; i < optitype.length; i++) {
+      text+=(i+1)+". ";
+      switch (optitype[i]) {
+        case 0: // perceptual uniformity local
+          text+="Local Perceptual Uniformity";
+          calcLocalUniformityOptimum();
+          updateOptimizationCMS(optiDegree[i]);
+          break;
+          case 1: // perceptual uniformity global linear reg,
+            text+="Global Perceptual Uniformity Linear Regression";
+              calcGlobalUniformityLinearRegOptimum();
+              updateOptimizationCMS(optiDegree[i]);
+            break;
+            case 2: // perceptual uniformity global graph,
+              text+="Global Perceptual Uniformity Forced Graph";
+              calcGlobalUniformityForcedGraphOptimum(optiDegree[i]);
+              globalCMS1= cloneCMS(globalCMS1_Optimum);
+              break;
+              case 3: //  Intrinsic Order local
+                text+="Local Intrinsic Order";
+                calcLocalIntOrderOptimum();
+                updateOptimizationCMS(optiDegree[i]);
+                break;
+                case 4: //  Intrinsic Order global
+                  text+="Global Intrinsic Order";
+                  calcGlobalIntOrderOptimum();
+                  updateOptimizationCMS(optiDegree[i]);
+                  break;
+                  case 5: //  Legendbased Order
+                    text+="Legendbased Order";
+                    calcLegOrderOptimum(optiDegree[i]);
+                    globalCMS1= cloneCMS(globalCMS1_Optimum);
+                    break;
+                    case 6: //  Discriminative Power
+                      text+="Discriminative Power";
+                      calcDisPowerOptimum(optiDegree[i]);
+                      globalCMS1= cloneCMS(globalCMS1_Optimum);
+                      break;
+
+      }
+      text+="  (Degree: "+optiDegree[i]+");\n";
+      document.getElementById("id_EditPage_OptimizationExOrder").innerHTML=text;
+
+    }
+
+
+
+  }
+  else{
+    document.getElementById("id_EditPage_OptimizationExOrder").style.display="none";
+  }
+
   updateEditPage();
 
   if(pathColorspace==="rgb"){
     drawcolormap_RGBSpace(true,true);
   }
 
+}
 
+
+function updateKeyIndex(){
+
+  var startIndex = document.getElementById("id_editPage_Optimization_FromKey").selectedIndex;
+  var endIndex = document.getElementById("id_editPage_Optimization_TillKey").selectedIndex;
+
+  var options = document.getElementById("id_editPage_Optimization_FromKey").options;
+  for (var i = 0; i < options.length; i++) {
+    if(i<endIndex)
+      options[i].disabled = false;
+    else
+      options[i].disabled = true;
+  }
+
+  options = document.getElementById("id_editPage_Optimization_TillKey").options;
+  for (var i = 0; i < options.length; i++) {
+    if(i>startIndex)
+      options[i].disabled = false;
+    else
+      options[i].disabled = true;
+  }
+
+
+  calcOptiCMS();
+
+
+}
+
+function fillKeyCombobox(saveOldPosition){
+
+
+  var tmpStartID = document.getElementById("id_editPage_Optimization_FromKey").selectedIndex;
+  var tmpEndID = document.getElementById("id_editPage_Optimization_TillKey").selectedIndex;
+
+    var selectbox = document.getElementById("id_editPage_Optimization_FromKey");
+    for(var i = selectbox.options.length - 1 ; i >= 0 ; i--)
+    {
+        selectbox.remove(i);
+    }
+
+    // fill startbox
+    if(globalCMS1.getKeyLength()==0)
+    return;
+
+
+    for (var i = 1; i <= globalCMS1.getKeyLength(); i++) {
+
+      var opt = document.createElement('option');
+      opt.innerHTML = "Key "+i;
+      opt.value = i;
+
+      if(i == globalCMS1.getKeyLength()){
+        opt.disabled = true;
+      }
+
+      selectbox.appendChild(opt);
+    }
+    document.getElementById("id_editPage_Optimization_FromKey").options[0].selected = true;
+    ///////////////////////////////////////////////////////////////////////
+    selectbox = document.getElementById("id_editPage_Optimization_TillKey");
+    for(var i = selectbox.options.length - 1 ; i >= 0 ; i--)
+    {
+        selectbox.remove(i);
+    }
+
+    for (var i = 1; i <= globalCMS1.getKeyLength(); i++) {
+
+      var opt = document.createElement('option');
+      opt.innerHTML = "Key "+i;
+      opt.value = i;
+
+      if(i == 1){
+        opt.disabled = true;
+      }
+
+      selectbox.appendChild(opt);
+    }
+    document.getElementById("id_editPage_Optimization_TillKey").options[document.getElementById("id_editPage_Optimization_TillKey").options.length-1].selected = true;
+
+    if(saveOldPosition && tmpStartID!=tmpEndID && tmpStartID>=0 && tmpEndID>=0 && tmpStartID<globalCMS1.getKeyLength() && tmpEndID<globalCMS1.getKeyLength()){
+      document.getElementById("id_editPage_Optimization_FromKey").selectedIndex=tmpStartID;
+      document.getElementById("id_editPage_Optimization_TillKey").selectedIndex=tmpEndID;
+      updateKeyIndex();
+    }
 }

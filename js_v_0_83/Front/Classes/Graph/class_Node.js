@@ -1,4 +1,4 @@
-class class_Node {
+ class class_Node {
 
   constructor(color, refPos) {
     this.nodeColor = color;
@@ -54,6 +54,7 @@ class class_Node {
   }
 
   addDisp(vec) {
+
     if (Array.isArray(vec)) {
       if (vec.length == 3) {
         this.disp[0] += vec[0];
@@ -111,22 +112,46 @@ class class_Node {
   }
 
   forceMovement(rgbCorrection) {
-
-    /*console.log(this.nodeColor.get1Value(),this.nodeColor.get1Value()+this.disp[0]);
-    console.log(this.nodeColor.get2Value(),this.nodeColor.get2Value()+this.disp[1]);
-    console.log(this.nodeColor.get3Value(),this.nodeColor.get3Value()+this.disp[2]);*/
-
     if (!this.fixedNode) {
       this.nodeColor.set1Value(this.nodeColor.get1Value() + this.disp[0]);
       this.nodeColor.set2Value(this.nodeColor.get2Value() + this.disp[1]);
       this.nodeColor.set3Value(this.nodeColor.get3Value() + this.disp[2]);
 
-      if (rgbCorrection && !this.nodeColor.checkRGBPossiblity()) {
+      if (!this.nodeColor.checkRGBPossiblity()) { // rgbCorrection &&
         this.nodeColor.setColorToRGBPossiblity();
       } //*/
     }
-
     this.disp = [0, 0, 0];
+  }
+
+  vecMove(vec){
+    this.nodeColor.set1Value(this.nodeColor.get1Value() + vec[0]);
+    this.nodeColor.set2Value(this.nodeColor.get2Value() + vec[1]);
+    this.nodeColor.set3Value(this.nodeColor.get3Value() + vec[2]);
+
+    if (!this.nodeColor.checkRGBPossiblity()) { // rgbCorrection &&
+      this.nodeColor.setColorToRGBPossiblity();
+    } //*/
+  }
+
+  calcRepulseForce(){
+    var tmpColor = createColor(this.nodeColor.get1Value(),this.nodeColor.get2Value(),this.nodeColor.get3Value(),this.nodeColor.getColorType());
+
+    tmpColor.set1Value(tmpColor.get1Value() + this.disp[0]);
+    tmpColor.set2Value(tmpColor.get2Value() + this.disp[1]);
+    tmpColor.set3Value(tmpColor.get3Value() + this.disp[2]);
+
+    if (this.nodeColor.checkRGBPossiblity()) {
+      return undefined;
+    }
+    else {
+
+      var clonedColor = cloneColor(tmpColor);
+      clonedColor.setColorToRGBPossiblity();
+
+      return [clonedColor.get1Value()-tmpColor.get1Value(),clonedColor.get2Value()-tmpColor.get2Value(),clonedColor.get3Value()-tmpColor.get3Value()];
+    }
+
   }
 
 

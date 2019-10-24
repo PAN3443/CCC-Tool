@@ -5,13 +5,7 @@ var editPage_optimizationMode = false;
 var globalCMS1_Original = undefined;
 var globalCMS1_Optimum = undefined;
 
-var optimization_StartKey = 0;
-var optimization_EndKey = 0;
-
-
 var legOrderColorArray=[];
-
-
 
 // Information of the general edit Window settings
 var editPage_table_wasDisplayed = false;

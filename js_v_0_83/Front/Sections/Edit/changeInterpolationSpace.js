@@ -92,14 +92,17 @@ function updateInterpolationSpaceEditPage(){
             case "de2000":
             document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 4;
               break;
+              case "lch":
+              document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 5;
+              break;
           case "din99":
-          document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 5;
+          document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 6;
             break;
             case "rgb":
-            document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 6;
+            document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 7;
               break;
               case "hsv":
-              document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 7;
+              document.getElementById("id_editPage_InterpolationSelect").selectedIndex = 8;
                 break;
 
     default:

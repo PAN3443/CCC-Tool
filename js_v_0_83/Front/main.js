@@ -154,11 +154,26 @@ function main_init() {
     ///
 
       myDesignsList.push(cmsDivergentColormaps[0]);
-      showMyDesignsPage();
-      indexActiveCMS=0;
-      showEditPage();//*/
 
-    checkLandscapeWindow();
+
+      var tmpCMS = new class_CMS();
+      tmpCMS.setPreventIntervals(true);
+      tmpCMS.pushKey(new class_Key(undefined, new class_Color_RGB(0.25,0.25,0.25), 0, false));
+      tmpCMS.pushKey(new class_Key(new class_Color_RGB(0.5,0.5,0.5), new class_Color_RGB(0.5,0.5,0.5), 0.5, false));
+      tmpCMS.pushKey(new class_Key(new class_Color_RGB(0.75,0.75,0.75), undefined, 1, false));
+      tmpCMS.setAboveColor(new class_Color_RGB(1.0,0,0));
+      tmpCMS.setBelowColor(new class_Color_RGB(0,0,1.0));
+      tmpCMS.setInterpolationSpace("lab");
+      tmpCMS.setPreventIntervals(false);
+      myDesignsList.push(tmpCMS);
+
+
+      showMyDesignsPage();
+      indexActiveCMS=1;
+      showEditPage();//*/
+      globalCMS1.setInterpolationSpace("rgb");
+      updateInterpolationSpaceEditPage();
+      checkLandscapeWindow();
 
 
 }

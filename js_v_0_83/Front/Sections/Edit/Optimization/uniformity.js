@@ -2,15 +2,17 @@
 
 function calcLocalUniformityOptimum (){
 
-  var r1 = globalCMS1_Optimum.getRefPosition(optimization_StartKey);
-  var r2 = globalCMS1_Optimum.getRefPosition(optimization_EndKey);
+  var r1 = globalCMS1_Optimum.getRefPosition(document.getElementById("id_editPage_Optimization_FromKey").selectedIndex);
+  var r2 = globalCMS1_Optimum.getRefPosition(document.getElementById("id_editPage_Optimization_TillKey").selectedIndex);
   var relevantDistance = Math.abs(r2-r1);
 
   var bandsDeltaArray = [];
   var contBandsDistances = [];
   var bandsDeltaSum = 0;
 
-  for (var i = optimization_StartKey; i < optimization_EndKey; i++) {
+
+
+  for (var i = document.getElementById("id_editPage_Optimization_FromKey").selectedIndex; i < document.getElementById("id_editPage_Optimization_TillKey").selectedIndex; i++) {
 
     if(globalCMS1_Optimum.getKeyType(i)==="nil key" || globalCMS1_Optimum.getKeyType(i)==="left key"){
       bandsDeltaArray.push(undefined);
@@ -82,17 +84,11 @@ function calcLocalUniformityOptimum (){
                 return;
             }
           }
-
           bandsDeltaSum+=tmpDeltaSum;
           bandsDeltaArray.push(tmpDeltaSum);
           contBandsDistances.push(undefined);
-
     }
-
-
   }
-
-
 
   /////////////////////////////////////////////////////////////////////
 
@@ -105,18 +101,16 @@ function calcLocalUniformityOptimum (){
     else {
       currentPos+=(bandsDeltaArray[i]/perfectSpeend);
     }
-    globalCMS1_Optimum.setRefPosition(i+1,currentPos);
+    globalCMS1_Optimum.setRefPosition(document.getElementById("id_editPage_Optimization_FromKey").selectedIndex+i+1,currentPos);
   }
-
-
 }
 
 
-function calcGlobalUniformityOptimum(){
+function calcGlobalUniformityLinearRegOptimum(){
 
   var fixedStartKey = document.getElementById('id_EditPage_UniOpti_FixedStart').checked;
   var fixedEndKey = document.getElementById('id_EditPage_UniOpti_FixedEnd').checked;
-  var continuousSections = searchForContinuousSections(optimization_StartKey,optimization_EndKey);
+  var continuousSections = searchForContinuousSections(document.getElementById("id_editPage_Optimization_FromKey").selectedIndex,document.getElementById("id_editPage_Optimization_TillKey").selectedIndex);
 
   //console.log(i);
   for (var i = 0; i < continuousSections.length; i++) {
@@ -151,14 +145,12 @@ function linearRegression(startKey,endKey,fixedStartKey,fixedEndKey){
     ////////////////////////////////////////////////
     // normal linear linearRegression
     // standart formula: 0 = (X^T X)^-1 X^T y
-    ////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////
     var transponse = [];
     var value_XT_X = 0;
     var vector_y_val1 = [];
     var vector_y_val2 = [];
     var vector_y_val3 = [];
-
-
     var fixedColor = undefined;
 
     var tmpStart = startKey;
@@ -307,22 +299,94 @@ function linearRegression(startKey,endKey,fixedStartKey,fixedEndKey){
       tmpColor = null;
     }
 
-    switch (i) {
-      case 0:
-          globalCMS1_Optimum.setRightKeyColor(startKey,cloneColor(newLineColors[i]));
-        break;
-        case newLineColors.length-1:
-          globalCMS1_Optimum.setLeftKeyColor(endKey,cloneColor(newLineColors[i])); // startKey+i
-          break;
-      default:
+
+    switch (globalCMS1_Optimum.getKeyType(startKey+i)){
+      case "nil key":
+          // should never happen
+      break;
+      case "right key":
+        globalCMS1_Optimum.setRightKeyColor(startKey,cloneColor(newLineColors[i]));
+      break;
+
+      case "dual key":
         globalCMS1_Optimum.setLeftKeyColor(startKey+i,cloneColor(newLineColors[i]));
         globalCMS1_Optimum.setRightKeyColor(startKey+i,cloneColor(newLineColors[i]));
+      break;
+      case "twin key":
+        if(i==0)
+          globalCMS1_Optimum.setRightKeyColor(startKey+i,cloneColor(newLineColors[i]));
+        else
+          globalCMS1_Optimum.setLeftKeyColor(startKey+i,cloneColor(newLineColors[i]));
+      break;
+      case "left key":
+        // should be alwas the endKey
+        globalCMS1_Optimum.setLeftKeyColor(startKey+i,cloneColor(newLineColors[i]));
+      break;
     }
-
     newLineColors[i].deleteReferences();
     newLineColors[i]=null;
   }
   globalCMS1_Optimum.setPreventIntervals(false);
 
 
+}
+
+function calcGlobalUniformityForcedGraphOptimum(degree){
+
+  // create graph
+
+  var graph = new class_Graph(globalCMS1.getInterpolationSpace());
+  graph.changeColorEdgeOptions(globalCMS1.getInterpolationSpace(),true,"eu");
+  graph.setOF(document.getElementById("id_OrginForceCheck").checked);
+  graph.setRGBCorr(document.getElementById("id_RGBCorrCheck").checked);
+  graph.setAvgSpeedUpdate(document.getElementById("id_AvgSpeedUpdateCheck").checked);
+
+  var continuousSections = searchForContinuousSections(0,globalCMS1.getKeyLength()-1);
+
+  for (var j = 0; j < continuousSections.length; j++) {
+      if(continuousSections[j][0]<continuousSections[j][1]){
+        for (var i = continuousSections[j][0]; i < continuousSections[j][1]; i++){
+          graph.pushNode(globalCMS1.getRightKeyColor(i,globalCMS1.getInterpolationSpace()),globalCMS1.getRefPosition(i));
+          if(i == continuousSections[j][0] && (globalCMS1.getKeyType(i)==="right key"||globalCMS1.getKeyType(i)==="twin key"))
+            graph.pushCMSInfo([i,1]); // save key index information and if the node represent the right, left or both colors of the key
+          else
+            graph.pushCMSInfo([i,2]);
+        }// for
+        graph.pushNode(globalCMS1.getLeftKeyColor(continuousSections[j][1],globalCMS1.getInterpolationSpace()),globalCMS1.getRefPosition(continuousSections[j][1]));
+        if(globalCMS1.getKeyType(i)==="left key"|| globalCMS1.getKeyType(i)==="twin key")
+          graph.pushCMSInfo([continuousSections[j][1],0]);
+        else
+          graph.pushCMSInfo([continuousSections[j][1],2]);
+      }
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  graph.speedForce_GlobalSpeed(document.getElementById("id_EditPage_UniOpti_Iterations").value,degree,document.getElementById("id_EditPage_UniOpti_OptiSpeed").value);
+  //////////////////////////////////////////////////////////////////////////////
+
+  for ( var i = 0; i < graph.getNodeLength(); i ++ ) {
+    // positions
+    var tmpKeyInfo = graph.getCMSInfo(i);
+
+    if(tmpKeyInfo==undefined)
+      continue;
+
+    switch (tmpKeyInfo[1]) {
+      case 0:
+        globalCMS1_Optimum.setLeftKeyColor(tmpKeyInfo[0],graph.getNodeColor(i));
+      break;
+      case 1:
+        globalCMS1_Optimum.setRightKeyColor(tmpKeyInfo[0],graph.getNodeColor(i));
+      break;
+      case 2:
+        globalCMS1_Optimum.setLeftKeyColor(tmpKeyInfo[0],graph.getNodeColor(i));
+        globalCMS1_Optimum.setRightKeyColor(tmpKeyInfo[0],graph.getNodeColor(i));
+      break;
+    }
+  }
+
+  /////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////
+
+  graph.deleteReferences();
 }

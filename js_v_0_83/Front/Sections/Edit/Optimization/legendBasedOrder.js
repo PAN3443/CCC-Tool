@@ -1,133 +1,83 @@
-function calcLegOrderOptimum(){
+function calcLegOrderOptimum(degree){
 
-  /*for (var i = 0; i < legOrderColorArray.length; i++) {
-    legOrderColorArray[i][2].deleteReferences();
-    legOrderColorArray[i][2]=null;
-  }
-  legOrderColorArray=[];
+  // create graph
 
-  ///////////////////////////////////////////////////////////////////////////////////
-  /////////// Search for Equal Colors and for Intersections of the lines  ///////////
-  var lines = [];
+  var graph = new class_Graph(globalCMS1.getInterpolationSpace());
+  graph.changeColorEdgeOptions(globalCMS1.getInterpolationSpace(),false,"eu");
+  graph.setOF(document.getElementById("id_OrginForceCheck").checked);
+  graph.setRGBCorr(document.getElementById("id_RGBCorrCheck").checked);
+  graph.setAvgSpeedUpdate(document.getElementById("id_AvgSpeedUpdateCheck").checked);
 
-  for (var i = 0; i < globalCMS1_Optimum.getKeyLength(); i++) {
-    switch (globalCMS1_Optimum.getKeyType(i)) {
-      case "right key":
-        legOrderColorArray.push([i,1,globalCMS1_Optimum.getRightKeyColor(i,globalCMS1_Optimum.getInterpolationSpace()),globalCMS1_Optimum.getRefPosition(i)]); // 0 = leftt, 1=right, 2 = both
-        lines.push(i);
-      break;
-      case "left key":
-        legOrderColorArray.push([i,0,globalCMS1_Optimum.getLeftKeyColor(i,globalCMS1_Optimum.getInterpolationSpace()),globalCMS1_Optimum.getRefPosition(i)]);
-      break;
-      case "twin key":
-        legOrderColorArray.push([i,1,globalCMS1_Optimum.getRightKeyColor(i,globalCMS1_Optimum.getInterpolationSpace()),globalCMS1_Optimum.getRefPosition(i)]);
-        legOrderColorArray.push([i,0,globalCMS1_Optimum.getLeftKeyColor(i,globalCMS1_Optimum.getInterpolationSpace()),globalCMS1_Optimum.getRefPosition(i)]);
-        lines.push(i);
-      break;
-      case "dual key":
-        legOrderColorArray.push([i,2,globalCMS1_Optimum.getRightKeyColor(i,globalCMS1_Optimum.getInterpolationSpace()),globalCMS1_Optimum.getRefPosition(i)]);
-        lines.push(i);
-      break;
-    }
-  }
+  var continuousSections = searchForContinuousSections(0,globalCMS1.getKeyLength()-1);
 
-  var equalColors = [];
-  for (var i = 0; i < legOrderColorArray.length-1; i++) {
-    for (var j = i+1; j < legOrderColorArray.length; j++) {
-      if(legOrderColorArray[i][2].equalTo(legOrderColorArray[j][2])){
-        equalColors.push([i,j]);
+  var ncounter = 0;
+  for (var j = 0; j < continuousSections.length; j++) {
+      if(continuousSections[j][0]<continuousSections[j][1]){
+        var nstart = ncounter;
+        for (var i = continuousSections[j][0]; i < continuousSections[j][1]; i++){
+          graph.pushNode(globalCMS1.getRightKeyColor(i,globalCMS1.getInterpolationSpace()),globalCMS1.getRefPosition(i));
+          if(i == continuousSections[j][0] && (globalCMS1.getKeyType(i)==="right key"||globalCMS1.getKeyType(i)==="twin key"))
+            graph.pushCMSInfo([i,1]); // save key index information and if the node represent the right, left or both colors of the key
+          else
+            graph.pushCMSInfo([i,2]);
+          ncounter++;
+        }// for
+        graph.pushNode(globalCMS1.getLeftKeyColor(continuousSections[j][1],globalCMS1.getInterpolationSpace()),globalCMS1.getRefPosition(continuousSections[j][1]));
+        if(globalCMS1.getKeyType(i)==="left key"|| globalCMS1.getKeyType(i)==="twin key")
+          graph.pushCMSInfo([continuousSections[j][1],0]);
+        else
+          graph.pushCMSInfo([continuousSections[j][1],2]);
+        ncounter++;
+
+        for (var i = nstart; i < ncounter-1; i++){
+          for (var k = i+1; k < ncounter; k++){
+            graph.pushEdge_ColorWeight(i,k);
+          }
+        }
       }
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+
+  graph.speedForce_LegendOrder(document.getElementById("id_EditPage_LegOrderOpti_Iterations").value,degree);
+
+  //////////////////////////////////////////////////////////////////////////////
+
+  for ( var i = 0; i < graph.getNodeLength(); i ++ ) {
+    // positions
+    var tmpKeyInfo = graph.getCMSInfo(i);
+
+    if(tmpKeyInfo==undefined)
+      continue;
+
+    switch (tmpKeyInfo[1]) {
+      case 0:
+        globalCMS1_Optimum.setLeftKeyColor(tmpKeyInfo[0],graph.getNodeColor(i));
+      break;
+      case 1:
+        globalCMS1_Optimum.setRightKeyColor(tmpKeyInfo[0],graph.getNodeColor(i));
+      break;
+      case 2:
+        globalCMS1_Optimum.setLeftKeyColor(tmpKeyInfo[0],graph.getNodeColor(i));
+        globalCMS1_Optimum.setRightKeyColor(tmpKeyInfo[0],graph.getNodeColor(i));
+      break;
     }
   }
 
-  var interSectionLines = [];
-  for (var i = 0; i < lines.length-1; i++) {
-    for (var j = i+1; j < lines.length; j++) {
-
-    }
-  }
-  ///////////////////////////////////////////////////////////////////////////////////*/
-
-}
+  /////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////
 
 
-function line_intersect(x1, y1, x2, y2, x3, y3, x4, y4)
-{
-    var ua, ub, denom = (y4 - y3)*(x2 - x1) - (x4 - x3)*(y2 - y1);
-    if (denom == 0) {
-        return null;
-    }
-    ua = ((x4 - x3)*(y1 - y3) - (y4 - y3)*(x1 - x3))/denom;
-    ub = ((x2 - x1)*(y1 - y3) - (y2 - y1)*(x1 - x3))/denom;
-    return {
-        x: x1 + ua * (x2 - x1),
-        y: y1 + ua * (y2 - y1),
-        seg1: ua >= 0 && ua <= 1,
-        seg2: ub >= 0 && ub <= 1
-    };
-}
 
 
-function getLegOrderDeltaE(i,j){
-  var deltaE=undefined;
-  switch (globalCMS1_Optimum.getInterpolationSpace()) {
-    case "rgb":
-    case "hsv":
-    case "lab":
-    case "din99":
-    case "de94-ds":
-    case "de2000-ds":
-      deltaE = calc3DEuclideanDistance(cloneColor(legOrderColorArray[i][2]),cloneColor(legOrderColorArray[j][2]));
-    break;
-    case "de94":
-      deltaE = calcDeltaDE94(cloneColor(legOrderColorArray[i][2]),cloneColor(legOrderColorArray[j][2]));
-    break;
-    case "de2000":
-      deltaE = calcDeltaCIEDE2000(cloneColor(legOrderColorArray[i][2]),cloneColor(legOrderColorArray[j][2]));
-    break;
-  }
-  return deltaE;
-}
-
-function getLegOrderSpeed(i,j){
-
-  var dis = Math.abs(legOrderColorArray[j][3]-legOrderColorArray[i][3]);
-
-  if(dis==0)
-    return undefined;
-
-  var deltaE = getLegOrderDeltaE(i,j);
-
-  if(deltaE==undefined)
-    return undefined;
-
-  return deltaE/dis;
+  graph.deleteReferences();
 
 }
 
 
-function getAverageGlobalSpeed(){
-  var sum = 0;
-  var counter = 0;
-  for (var i = 0; i < legOrderColorArray.length-1; i++) {
-    for (var j = i+1; j < legOrderColorArray.length; j++) {
 
-      // legOrderColorArray [0] = key pos
-      // legOrderColorArray [1] = affect left, right key color or both
-      // legOrderColorArray [2] = key color
-      // legOrderColorArray [3] = key ref
-      var speed = getLegOrderSpeed(i,j);
 
-      if(speed==undefined)
-        continue;
 
-      sum += speed;
-      counter++;
-    }
-
-    return sum/counter;
-  }
-}
 
 
 
@@ -236,4 +186,84 @@ function getAverageGlobalSpeed(){
       }
     }
   }
-}*/
+}
+
+
+function getLegOrderDeltaE(i,j){
+  var deltaE=undefined;
+  switch (globalCMS1_Optimum.getInterpolationSpace()) {
+    case "rgb":
+    case "hsv":
+    case "lab":
+    case "din99":
+    case "de94-ds":
+    case "de2000-ds":
+      deltaE = calc3DEuclideanDistance(cloneColor(legOrderColorArray[i][2]),cloneColor(legOrderColorArray[j][2]));
+    break;
+    case "de94":
+      deltaE = calcDeltaDE94(cloneColor(legOrderColorArray[i][2]),cloneColor(legOrderColorArray[j][2]));
+    break;
+    case "de2000":
+      deltaE = calcDeltaCIEDE2000(cloneColor(legOrderColorArray[i][2]),cloneColor(legOrderColorArray[j][2]));
+    break;
+  }
+  return deltaE;
+}
+
+function getLegOrderSpeed(i,j){
+
+  var dis = Math.abs(legOrderColorArray[j][3]-legOrderColorArray[i][3]);
+
+  if(dis==0)
+    return undefined;
+
+  var deltaE = getLegOrderDeltaE(i,j);
+
+  if(deltaE==undefined)
+    return undefined;
+
+  return deltaE/dis;
+
+}
+
+
+function getAverageGlobalSpeed(){
+  var sum = 0;
+  var counter = 0;
+  for (var i = 0; i < legOrderColorArray.length-1; i++) {
+    for (var j = i+1; j < legOrderColorArray.length; j++) {
+
+      // legOrderColorArray [0] = key pos
+      // legOrderColorArray [1] = affect left, right key color or both
+      // legOrderColorArray [2] = key color
+      // legOrderColorArray [3] = key ref
+      var speed = getLegOrderSpeed(i,j);
+
+      if(speed==undefined)
+        continue;
+
+      sum += speed;
+      counter++;
+    }
+
+    return sum/counter;
+  }
+}
+
+function line_intersect(x1, y1, x2, y2, x3, y3, x4, y4)
+{
+    var ua, ub, denom = (y4 - y3)*(x2 - x1) - (x4 - x3)*(y2 - y1);
+    if (denom == 0) {
+        return null;
+    }
+    ua = ((x4 - x3)*(y1 - y3) - (y4 - y3)*(x1 - x3))/denom;
+    ub = ((x2 - x1)*(y1 - y3) - (y2 - y1)*(x1 - x3))/denom;
+    return {
+        x: x1 + ua * (x2 - x1),
+        y: y1 + ua * (y2 - y1),
+        seg1: ua >= 0 && ua <= 1,
+        seg2: ub >= 0 && ub <= 1
+    };
+}
+
+*/

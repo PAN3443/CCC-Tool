@@ -38,9 +38,7 @@ window.onload = function() {
   main_init();
 }
 
-
-
-  function includeHTML() {
+function includeHTML() {
     var z, i, elmnt, file, xhttp;
     /*loop through a collection of all HTML elements:*/
     z = document.getElementsByTagName("*");
@@ -70,17 +68,15 @@ window.onload = function() {
 
   function checkLandscapeWindow(){
 
-    var ratio = window.innerHeight/window.innerWidth;
+    var ratio = window.innerWidth/window.innerHeight;
 
-    if(ratio>0.75){
+    if(ratio<4/3){
       document.getElementById("id_PopUp_LandscapeWindow").style.display = "flex";
     }
     else{
       document.getElementById("id_PopUp_LandscapeWindow").style.display = "none";
     }
   }
-
-
 
   function dynamicallyLoadScript_VersionsCheck(url) {
       var versionUpdate = (new Date()).getTime();

@@ -562,9 +562,6 @@ class class_CMS {
       tmpKeyArray[0].setRefPosition(newPos);
     }
 
-    for (var i = 0; i < array.length; i++) {
-      array[i]
-    }
     for (var i = this.keyArray.length-1; i >=0 ; i--) {
       this.keyArray[i].deleteReferences();
       this.keyArray[i]=null;
@@ -877,7 +874,12 @@ class class_CMS {
   }
 
   getKeyType(index){
-    return this.keyArray[index].getKeyType();
+    if(this.keyArray[index]==undefined){
+        console.log(index,this.keyArray[index]);
+        return "nope";
+    }
+    else
+      return this.keyArray[index].getKeyType();
   }
 
   getMoT(index){

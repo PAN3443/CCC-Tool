@@ -1,5 +1,5 @@
 function calcLocalIntOrderOptimum (){
-  var continuousSections = searchForContinuousSections(optimization_StartKey,optimization_EndKey);
+  var continuousSections = searchForContinuousSections(document.getElementById("id_editPage_Optimization_FromKey").selectedIndex,document.getElementById("id_editPage_Optimization_TillKey").selectedIndex);
 
   for (var j = 0; j < continuousSections.length; j++) {
 
@@ -12,7 +12,7 @@ function calcLocalIntOrderOptimum (){
 }
 
 function calcGlobalIntOrderOptimum (){
-  var continuousSections = searchForContinuousSections(optimization_StartKey,optimization_EndKey);
+  var continuousSections = searchForContinuousSections(document.getElementById("id_editPage_Optimization_FromKey").selectedIndex,document.getElementById("id_editPage_Optimization_TillKey").selectedIndex);
 
   for (var j = 0; j < continuousSections.length; j++) {
 

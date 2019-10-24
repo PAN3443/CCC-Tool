@@ -227,7 +227,7 @@ function calc3DEuclideanDistance(color1, color2) {
   }
 
   if (typ1 != "hsv") {
-    var result = Math.sqrt(Math.pow(color1.get1Value() - color2.get1Value(), 2) + Math.pow(color1.get2Value() - color2.get2Value(), 2) + Math.pow(color1.get3Value() - color2.get3Value(), 2));
+    var result = Math.sqrt(Math.pow(color2.get1Value() - color1.get1Value(), 2) + Math.pow(color2.get2Value() - color1.get2Value(), 2) + Math.pow(color2.get3Value() - color1.get3Value(), 2));
     color1.deleteReferences();
     color2.deleteReferences();
     color1=null;
@@ -253,5 +253,4 @@ function calc3DEuclideanDistance(color1, color2) {
     color2=null;
     return result;
   }
-
 }

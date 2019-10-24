@@ -477,38 +477,6 @@ function calcSplineIntervalBetween_C1C2(tArray, colorsArray, curvescale, interpo
 
 
 
-////////////////////////////////////////////////////////////
-//////////////////////// old
-////////////////////////////////////////////////////////////
-
-/*function calcCMSIntervals(workCMS, startKeyIndex, endKeyIndex,intervalMode){
-
-  switch (intervalMode) {
-    case 0:
-
-        workCMS.calcGlobalIntervalColors(intervalSize, startKeyIndex, endKeyIndex, doNoMerge);
-
-      break;
-
-
-    case 2:
-
-        workCMS.calcDeltaIntervalColors(intervalDelta, startKeyIndex, endKeyIndex);
-
-    break;
-    default:
-      intervalMode=0;
-
-        workCMS.calcGlobalIntervalColors(intervalSize, startKeyIndex, endKeyIndex, doNoMerge);
-
-
-  }
-
-  return workCMS;
-
-}*/
-
-
 function checkIntervalInputFieldsChange(event){
 
     checkInputVal(document.getElementById(event.target.id),false,false);

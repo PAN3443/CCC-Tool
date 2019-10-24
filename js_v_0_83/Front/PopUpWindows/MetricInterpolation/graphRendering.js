@@ -12,10 +12,10 @@ var tmpGraph = undefined;
 
 function initForceGraph(){
   tmpGraph = new class_Graph("rgb");
-  tmpGraph.changeColorEdgeOptions(globalCMS1.getInterpolationSpace(),true,"eu");
-  tmpGraph.setOF(document.getElementById("id_OrginForceCheck").checked);
+  /*tmpGraph.changeColorEdgeOptions(globalCMS1.getInterpolationSpace(),false,"eu");//globalCMS1.getInterpolationSpace(),true,"eu");
+  /*tmpGraph.setOF(document.getElementById("id_OrginForceCheck").checked);
   tmpGraph.setRGBCorr(document.getElementById("id_RGBCorrCheck").checked);
-  tmpGraph.setAvgSpeedUpdate(document.getElementById("id_AvgSpeedUpdateCheck").checked);
+  tmpGraph.setAvgSpeedUpdate(document.getElementById("id_AvgSpeedUpdateCheck").checked);*/
 
   if(globalCMS1==undefined)
     return;
@@ -26,15 +26,12 @@ function initForceGraph(){
   if(globalCMS1.getKeyLength()==0)
     return;
 
-
   var continuousSections = searchForContinuousSections(0,globalCMS1.getKeyLength()-1);
 
   var nodeIDs=[];
   var ncounter = 0;
   for (var j = 0; j < continuousSections.length; j++) {
-
       if(continuousSections[j][0]<continuousSections[j][1]){
-
         var nstart = ncounter;
         for (var i = continuousSections[j][0]; i < continuousSections[j][1]; i++) {
           tmpGraph.pushNode(globalCMS1.getRightKeyColor(i,globalCMS1.getInterpolationSpace()),globalCMS1.getRefPosition(i));
@@ -50,10 +47,7 @@ function initForceGraph(){
           }
         }
       }
-
   }
-
-
   draw_MetricInt_Graph();
 }
 
@@ -79,12 +73,15 @@ function testForceGraph(){
 
   var test = parseInt(document.getElementById("id_iterations").value);
 
-  if(document.getElementById("id_LegendBasedOrderVariante").checked){
+/*  if(document.getElementById("id_LegendBasedOrderVariante").checked){
     tmpGraph.speedForce2(test);
   }
   else{
     tmpGraph.speedForce(test);
-  }
+  }*/
+
+  tmpGraph.speedForce_DisPower(test);
+
 
   draw_MetricInt_Graph();
 }
