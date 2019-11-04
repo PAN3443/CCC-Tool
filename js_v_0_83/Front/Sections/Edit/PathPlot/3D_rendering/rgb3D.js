@@ -742,7 +742,7 @@ function create_RGB_Plane_Mesh(numberOfPieces,startPos){
 
         var material = new THREE.MeshBasicMaterial( {//new THREE.MeshLambertMaterial( { //new THREE.MeshBasicMaterial( {
                 /*side: THREE.DoubleSide,*/
-                opacity: 0.5,
+                opacity: planesOpacity,
       					premultipliedAlpha: true,
       					transparent: true, //
 								vertexColors: THREE.VertexColors,

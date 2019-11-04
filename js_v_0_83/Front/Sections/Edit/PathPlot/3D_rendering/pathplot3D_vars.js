@@ -1,7 +1,7 @@
 var pathplot_doAnimation = false;
 var pathplotAnimationID;
 
-
+var pathplotImgData = undefined;
 var dorotation = false;
 var downXPos =0;
 var downYPos =0;
@@ -38,6 +38,7 @@ var hsv3DRadius = 200;
 var vStart3D = -100;
 var vEnd3D = 100;
 
+
 ///////////////////////////////////////
 //// ALL Space
 
@@ -47,3 +48,12 @@ var vEnd3D = 100;
   var radius = 400;
 
   var cameraLight;
+
+
+  var bg_texture_pathplot;
+  var bgWidth_pathplot;
+  var bgHeight_pathplot;
+
+
+  var planesOpacity = 0.75;
+  var lineOpacity = 0.35;

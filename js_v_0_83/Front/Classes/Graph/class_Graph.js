@@ -76,10 +76,15 @@ class class_Graph {
 
   getAvgSpeed() {
     var sum = 0;
-    for (var i = 0; i < this.edgeArray.length; i++) {
-      sum += this.edgeArray[i].getForceWeight();
+    var counter=0;
+
+    for (var v = 0; v < this.nodeArray.length; ++v) {
+      for (var u = v+1; u < this.nodeArray.length; ++u) {
+          sum += this.getNodeSpeed(v, u);
+          counter++;
+      }
     }
-    return sum / this.edgeArray.length;
+    return sum / counter;
   }
 
 
@@ -96,17 +101,18 @@ class class_Graph {
     this.nodeArray[nodeID].forceMovement(this.rgbCorr);
   }
 
+  speedForce_LegendOrder(iterations,degree) {
 
-  speedForce_LegendOrder(iterations) {
-
-    /*var orginColors = [];
+    var orginColors = [];
     for(var v=0; v < this.nodeArray.length; v++)
     {
        orginColors.push(this.nodeArray[v].getNodeColor());
-    }*/
+    }
 
-    var optimumSpeed = this.getAvgSpeed();
-    var impulseFactor = optimumSpeed * 1e-12;
+    if (degree == 1)
+      degree = 1 - 1e-5;
+
+
     var start_temperature = 1 * 10;
     var check_temperature = 1 * 10; // maximal distance, will be updated with each interval; convert to null at each step;
 
@@ -114,92 +120,110 @@ class class_Graph {
 
     for (var i = 0; i < iterations; i++) {
 
+      var minFirstSpeed = Infinity;
+      var min_1_SpeedIDs = [];
+      var min_2_SpeedIDs = [];
+      var minSecondSpeed = Infinity;
+
       /////////////////////////////////////////////////
       //// PART 1: Set Disp to zero and add orgin force
-      var minSpeed = Infinity;
-      var minSpeedID = -1;
-      for (var e = 0; e < this.edgeArray.length; e++) {
-        if (this.edgeArray[e].getForceWeight() < minSpeed) {
-          minSpeed = this.edgeArray[e].getForceWeight();
-          minSpeedID = e;
+      for (var v = 0; v < this.nodeArray.length; ++v) {
+      for (var u = v+1; u < this.nodeArray.length; ++u) {
+
+        var edgeSpeed = this.getNodeSpeed(v, u);
+
+        if(u==v)
+          continue;
+      //for (var e = 0; e < this.edgeArray.length; e++) {
+        //var edgeSpeed = this.getNodeSpeed(this.edgeArray[e].getNodeID1(), this.edgeArray[e].getNodeID2());
+
+        if(edgeSpeed == minFirstSpeed){ //
+          min_1_SpeedIDs.push(v);
+          min_2_SpeedIDs.push(u);
+        }
+        else if (edgeSpeed < minFirstSpeed) {
+          minSecondSpeed=minFirstSpeed;
+          minFirstSpeed = edgeSpeed;
+          min_1_SpeedIDs=[];
+          min_2_SpeedIDs=[];
+          min_1_SpeedIDs.push(v);
+          min_2_SpeedIDs.push(u);
+        }
+        else if(edgeSpeed < minSecondSpeed){
+          minSecondSpeed = edgeSpeed;
         }
       }
+    }
 
-      /////////////////////////////////////////////////
-      //// PART 1: Set Disp to zero and add orgin force
+      if(minSecondSpeed == Infinity){ // all edges have the same speed
+        break;
+      }
 
-      /*for(var v=0; v < this.nodeArray.length; v++)
-      {
-          this.nodeArray[v].resetDisp();
+      var optimumSpeed = minSecondSpeed; //this.getAvgSpeed();
+      var impulseFactor = optimumSpeed * 1e-12;
 
-         //if(this.originForce){
-           var color_v_Node = this.nodeArray[v].getNodeColor();
-           var vec_d = [orginColors[v].get1Value()-color_v_Node.get1Value(),orginColors[v].get2Value()-color_v_Node.get2Value(),orginColors[v].get3Value()-color_v_Node.get3Value()];
-           this.nodeArray[v].addDisp(vec_d); // direction vector = force
-         //}
-      }*/
+      /*console.log("minFirstSpeed",minFirstSpeed);
+      console.log(min_1_SpeedIDs);
+      console.log(min_2_SpeedIDs);
+      console.log("minSecondSpeed",minSecondSpeed);//*/
 
       /////////////////////////////////////////////////
       //// PART 2:
-      if (minSpeedID < 0 || minSpeedID >= this.edgeArray.length)
-        continue;
+      for (var o = 0; o < min_1_SpeedIDs.length; o++) {
 
-      var idV = this.edgeArray[minSpeedID].getNodeID1();
-      var idU = this.edgeArray[minSpeedID].getNodeID2();
-      var color_v_Node = this.nodeArray[idV].getNodeColor();
-      var color_u_Node = this.nodeArray[idU].getNodeColor();
-      var refDis = Math.abs(this.nodeArray[idU].getNodeRefPos() - this.nodeArray[idV].getNodeRefPos());
+        var color_v_Node = this.nodeArray[min_1_SpeedIDs[o]].getNodeColor();
+        var color_u_Node = this.nodeArray[min_2_SpeedIDs[o]].getNodeColor();
 
-      var vec_d = [color_v_Node.get1Value() - color_u_Node.get1Value(), color_v_Node.get2Value() - color_u_Node.get2Value(), color_v_Node.get3Value() - color_u_Node.get3Value()];
-      var vec_dL = vecLength(vec_d);
+        /////////////////////////////////////////////////
+        //// PART 2.1: Force To Origin
+        var vec_d = [orginColors[min_1_SpeedIDs[o]].get1Value() - color_v_Node.get1Value(), orginColors[min_1_SpeedIDs[o]].get2Value() - color_v_Node.get2Value(), orginColors[min_1_SpeedIDs[o]].get3Value() - color_v_Node.get3Value()];
+        this.nodeArray[min_1_SpeedIDs[o]].addDisp(vecScalMulti(vec_d, (1.0 - degree)));
 
-      while (vec_dL == 0) {
-        var impulseDistance = refDis * impulseFactor;
-        if (impulseDistance == 0)
-          impulseDistance = 1e-12;
-        vec_d[0] = getRandomArbitrary(-impulseDistance, impulseDistance);
-        vec_d[1] = getRandomArbitrary(-impulseDistance, impulseDistance);
-        vec_d[2] = getRandomArbitrary(-impulseDistance, impulseDistance);
-        vec_dL = vecLength(vec_d);
+        vec_d = [orginColors[min_2_SpeedIDs[o]].get1Value() - color_u_Node.get1Value(), orginColors[min_2_SpeedIDs[o]].get2Value() - color_u_Node.get2Value(), orginColors[min_2_SpeedIDs[o]].get3Value() - color_u_Node.get3Value()];
+        this.nodeArray[min_2_SpeedIDs[o]].addDisp(vecScalMulti(vec_d, (1.0 - degree)));
+
+        /////////////////////////////////////////////////
+        //// PART 2.2: Force To Opti Speed
+        var refDis = Math.abs(this.nodeArray[min_2_SpeedIDs[o]].getNodeRefPos() - this.nodeArray[min_1_SpeedIDs[o]].getNodeRefPos());
+        var vec_d = [color_v_Node.get1Value() - color_u_Node.get1Value(), color_v_Node.get2Value() - color_u_Node.get2Value(), color_v_Node.get3Value() - color_u_Node.get3Value()];
+        var vec_dL = vecLength(vec_d);
+
+        while (vec_dL == 0) {
+          var impulseDistance = refDis * impulseFactor;
+          if (impulseDistance == 0)
+            impulseDistance = 1e-12;
+          vec_d[0] = getRandomArbitrary(-impulseDistance, impulseDistance);
+          vec_d[1] = getRandomArbitrary(-impulseDistance, impulseDistance);
+          vec_d[2] = getRandomArbitrary(-impulseDistance, impulseDistance);
+          vec_dL = vecLength(vec_d);
+        }
+
+        var vec_dN = vecNorm(vec_d);
+
+        var speedDif = this.getNodeSpeed(min_1_SpeedIDs[o], min_2_SpeedIDs[o]) - optimumSpeed;
+        var cDif_Change = ((speedDif * refDis) / 2) * degree;
+        var force = vecScalMulti(vec_dN, cDif_Change);
+
+        /*this.nodeArray[this.edgeArray[e].getNodeID1()].addDisp(force);
+        this.nodeArray[this.edgeArray[e].getNodeID2()].subDisp(force);*/
+
+        this.nodeArray[min_1_SpeedIDs[o]].subDisp(force);
+        this.nodeArray[min_2_SpeedIDs[o]].addDisp(force);
+
+        color_u_Node.deleteReferences();
+        color_u_Node = null;
+        color_v_Node.deleteReferences();
+        color_v_Node = null;
       }
-
-      var vec_dN = vecNorm(vec_d);
-
-      var speedDif = this.edgeArray[minSpeedID].getForceWeight() - optimumSpeed;
-      var cDif_Change = (speedDif * refDis) / 2; // /2 because we want to move both nodes in opposite direction
-      var force = vecScalMulti(vec_dN, cDif_Change);
-
-      /*this.nodeArray[this.edgeArray[e].getNodeID1()].addDisp(force);
-      this.nodeArray[this.edgeArray[e].getNodeID2()].subDisp(force);*/
-
-      this.nodeArray[this.edgeArray[minSpeedID].getNodeID1()].subDisp(force);
-      this.nodeArray[this.edgeArray[minSpeedID].getNodeID2()].addDisp(force);
-
-      color_u_Node.deleteReferences();
-      color_u_Node = null;
-      color_v_Node.deleteReferences();
-      color_v_Node = null;
-
 
       /////////////////////////////////////////////////
       //// PART 3: limit max displacement to temperaturetand prevent from displacementoutside frame
-
       for (var v = 0; v < this.nodeArray.length; v++)
         this.forceMovement_TMP(v, check_temperature);
-
 
       /////////////////////////////////////////////////
       //// PART 4: reduce the temperature as the layout approaches a better configuration and update the new edgeWeights
       check_temperature = start_temperature * (1 - i / (iterations - 1)); //temperature_steps;
-      this.updateEdgeColorWeights();
-
-      if (this.avgSpeedUpdate) {
-        optimumSpeed = this.getAvgSpeed();
-      }
-
-      /*draw_MetricInt_Graph();
-      render_MetricInt_Graph();
-      alert(123);*/
 
     } // FOR (interations)
 
@@ -227,8 +251,7 @@ class class_Graph {
     ///////////////////////////////////////////////////////////////
 
     var distance = Math.abs(this.nodeArray[this.nodeArray.length - 1].getNodeRefPos() - this.nodeArray[0].getNodeRefPos());
-
-    var optimumSpeed = 1 / distance;
+    var optimumSpeed = undefined;
     var blackWhiteSpeed = undefined;
     var averageSpeed = this.getAvgSpeed();
     switch (this.graphColorSpace) {
@@ -257,6 +280,7 @@ class class_Graph {
     }
 
 
+
     /*optimumSpeed = blackWhiteSpeed*optiSpeedDegree;
     console.log(optimumSpeed,"=",blackWhiteSpeed,"*",optiSpeedDegree);*/
 
@@ -266,6 +290,8 @@ class class_Graph {
     else {
       optimumSpeed=blackWhiteSpeed;
     }
+
+    console.log(averageSpeed,blackWhiteSpeed,optimumSpeed);
 
     var impulseFactor = 1e-12;
     var start_temperature = 1 * 10;
@@ -398,7 +424,6 @@ class class_Graph {
 
   }
 
-
   getNodeSpeed(id1, id2) {
     var cDif = this.getNodeColorDifference(id1, id2);
     return cDif / Math.abs(this.nodeArray[id2].getNodeRefPos() - this.nodeArray[id1].getNodeRefPos());
@@ -419,9 +444,6 @@ class class_Graph {
         return undefined;
     }
   }
-
-
-
 
   speedForce_DisPower_v2(iterations, power, degree) {
 
@@ -703,9 +725,6 @@ class class_Graph {
 
     } // END For Loop (interations)
   }
-
-
-
 
   hasIntersectionPoint(e1_id1, e1_id2, e2_id1, e2_id2) {
     var edge1_color1 = this.nodeArray[e1_id1].getNodeColor();

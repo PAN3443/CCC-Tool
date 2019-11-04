@@ -1,3 +1,18 @@
+
+function downloadPathPlot3DImage(){
+  stopPathPlotAnimation();
+  var oldSize = renderer.getSize();
+  renderer.setSize(2160, 2160);
+  renderer.preserveDrawingBuffer = true;
+  renderer.render(scene,camera);
+  pathplotImgData = renderer.domElement.toDataURL();
+  renderer.preserveDrawingBuffer = false;
+  renderer.setSize(oldSize.width, oldSize.height);
+  startPathPlotAnimation();
+  this.href = pathplotImgData;
+}
+
+
 function pathPlot3D_Resize()
 {
 
@@ -83,13 +98,11 @@ function initPathPlot(){
   var drawWidth = box.width; //window.innerWidth;
   var drawHeight =box.height; // window.innerHeight;
 	scene = new THREE.Scene();
-  //scene.background = new THREE.Color( 0xffffff); //0xf6f6f6
 	camera = new THREE.PerspectiveCamera(75,drawWidth /drawHeight, 0.1, 1000);//new THREE.OrthographicCamera( 0.5 * drawWidth * 2 / - 2, 0.5 * drawWidth * 2 / 2, drawWidth / 2, drawWidth / - 2, 150, 1000 ); //new THREE.PerspectiveCamera(75,drawWidth /drawHeight, 0.1, 1000);
-	//renderer = new THREE.WebGLRenderer();
-  renderer = new THREE.WebGLRenderer( { alpha: true } ); //new THREE.WebGLRenderer();
+  renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, logarithmicDepthBuffer: true}); //renderer = new THREE.WebGLRenderer( { alpha: true } ); //new THREE.WebGLRenderer();
   renderer.setClearColor( 0xffffff, 0);
-
   renderer.setSize(drawWidth,drawHeight);//(window.innerWidth, window.innerHeight);
+
   canvasObj.appendChild( renderer.domElement );
 
   cameraLight = new THREE.PointLight( 0xffffff,1 );
@@ -111,6 +124,37 @@ function initPathPlot(){
   scene.add( colorspaceGroup );
   scene.add( pathPlotLineGroup );
   scene.add( pathPlotElementsGroup );
+
+  /////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////
+  // instantiate a loader
+  /*var loader = new THREE.TextureLoader();
+
+  // load a resource
+  bg_texture_pathplot = loader.load(
+  	// resource URL
+  	'img/EditPage/plotBackground.png',
+
+  	// onLoad callback
+  	function ( texture ) {
+      var img = texture.image;
+        bgWidth_pathplot= img.width;
+        bgHeight_pathplot = img.height;
+        scene.background = bg_texture_pathplot;
+  	},
+
+  	// onProgRepeatWrappingress callback currently not supported
+  	undefined,
+
+  	// onError callback
+  	function ( err ) {
+  		console.error( 'Background could not be loaded!!!!' );
+  	}
+  );
+
+  bg_texture_pathplot.wrapS = THREE.RepeatWrapping;
+  bg_texture_pathplot.wrapT = THREE.RepeatWrapping;*/
 
 
 }

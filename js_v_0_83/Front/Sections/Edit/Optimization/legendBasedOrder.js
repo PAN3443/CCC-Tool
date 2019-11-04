@@ -20,20 +20,21 @@ function calcLegOrderOptimum(degree){
             graph.pushCMSInfo([i,1]); // save key index information and if the node represent the right, left or both colors of the key
           else
             graph.pushCMSInfo([i,2]);
-          ncounter++;
+          //ncounter++;
         }// for
         graph.pushNode(globalCMS1.getLeftKeyColor(continuousSections[j][1],globalCMS1.getInterpolationSpace()),globalCMS1.getRefPosition(continuousSections[j][1]));
         if(globalCMS1.getKeyType(i)==="left key"|| globalCMS1.getKeyType(i)==="twin key")
           graph.pushCMSInfo([continuousSections[j][1],0]);
         else
           graph.pushCMSInfo([continuousSections[j][1],2]);
-        ncounter++;
 
-        for (var i = nstart; i < ncounter-1; i++){
+        //ncounter++;
+
+        /*for (var i = nstart; i < ncounter-1; i++){
           for (var k = i+1; k < ncounter; k++){
             graph.pushEdge_ColorWeight(i,k);
           }
-        }
+        }*/
       }
   }
 

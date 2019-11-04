@@ -247,7 +247,7 @@ function lchMesh(){
 
         var material = new THREE.MeshBasicMaterial( {
                       /*side: THREE.DoubleSide,*/
-                      opacity: 0.5,
+                      opacity: planesOpacity,
             					premultipliedAlpha: true,
             					transparent: true, //*/
       								vertexColors: THREE.VertexColors,

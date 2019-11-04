@@ -59,6 +59,8 @@ function init_events_EditPage(){
     document.getElementById('id_EditPage_PathPlot_SingleCanvas_2').addEventListener("mousedown", mouseDownColorspace);
     document.getElementById('id_EditPage_PathPlot_SingleCanvas_2').addEventListener("mouseup", mouseUpColorspace);
 
+    document.getElementById("id_actionMenu_pathplotScreenshotButton").addEventListener('click', downloadPathPlot3DImage, false);
+
     // Analyze
     document.getElementById("id_EditPage_SelectAnalyzePlot").selectedIndex=1;
 
