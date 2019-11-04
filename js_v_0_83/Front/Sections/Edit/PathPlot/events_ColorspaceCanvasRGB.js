@@ -27,11 +27,8 @@ function mouseLeaveColorspaceRGB(event) {
 
 
 function rgb2DAnimation(){
-
   updateEditPage();
-
-  drawcolormap_RGBSpace(false,true);
-
+  //drawcolormap_RGBSpace(false,true);
 }
 
 

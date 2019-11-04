@@ -411,7 +411,6 @@ function getHSVBackground( fixedColor){
 }
 
 function drawLabBackground(canvasContex,fixedColor){
-
   canvasContex.clearRect(0, 0, pathPlotResolution, pathPlotResolution);
   /*canvasContex.mozImageSmoothingEnabled = false;
   canvasContex.webkitImageSmoothingEnabled = false;

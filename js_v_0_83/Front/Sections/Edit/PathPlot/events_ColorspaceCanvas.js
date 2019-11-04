@@ -39,7 +39,7 @@ function mouseLeaveColorspace(event) {
 
 function hsvLabDinAnimation(){
   updateEditPage();
-  drawcolormap_hueSpace(false,true,false);
+  //drawcolormap_hueSpace(false,true,false);
 }
 
 function mouseMoveColorspace(event) {

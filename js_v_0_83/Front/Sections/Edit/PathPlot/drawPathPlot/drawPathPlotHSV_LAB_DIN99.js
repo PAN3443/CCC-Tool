@@ -1,7 +1,6 @@
 //////////////////////////////////////////
 // -------------HSV LAB DIN99---------------//
 //////////////////////////////////////////
-
 function updateVPlotCanvasSize(id){
   // Update vPlotWidth
 
@@ -30,8 +29,9 @@ function drawcolormap_hueSpace(calcBackground, drawInterpolationLine, doInitVplo
       init_VPlot();
   }
 
-  if (calcBackground)
+  if (calcBackground){
     hueInit();
+  }
 
   if(browserCanWorker){
       pathplot_WorkerDrawElements_And_InterpolationLine(drawInterpolationLine);

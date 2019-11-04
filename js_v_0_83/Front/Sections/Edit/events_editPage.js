@@ -82,8 +82,11 @@ function updateEditPage(){
      openEditKeyDiv(document.getElementById("id_EditPage_EditKey_List").selectedIndex);
   }
 
-  if(document.getElementById("id_editPage_EditKeyPathPlotDiv").style.display!="none" && document.getElementById("id_EditPage_Edit_Path").style.display!="none" && pathColorspace!="rgb"){
-      drawcolormap_hueSpace(true, true, true);
+  if(document.getElementById("id_editPage_EditKeyPathPlotDiv").style.display!="none" && document.getElementById("id_EditPage_Edit_Path").style.display!="none"){
+    if(pathColorspace=="rgb")
+      drawcolormap_RGBSpace(false,true);
+    else
+      drawcolormap_hueSpace(false, true, false);
   }
 
   if(document.getElementById("id_editPage_AnalyzeMappingProbeSetDiv").style.display!="none"){
