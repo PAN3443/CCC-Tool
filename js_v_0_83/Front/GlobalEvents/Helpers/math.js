@@ -61,6 +61,54 @@ function vecScalMulti(v,s){
   return result;
 }
 
+
+
+function vec_Diff_COLOR(c1,c2){
+
+  var result = [
+    c1.get1Value()-c2.get1Value(),
+    c1.get2Value()-c2.get2Value(),
+    c1.get3Value()-c2.get3Value()
+  ];
+
+  return result;
+}
+
+function vec_Diff(v1,v2){
+  if(v1.length!=v2.length)
+    return undefined;
+  var result = [];
+
+  for (var i = 0; i < v1.length; i++) {
+    result.push(v1[i]-v2[i]);
+  }
+  return result;
+}
+
+function vec_Add(v1,v2){
+  if(v1.length!=v2.length)
+    return undefined;
+
+  var result = [];
+
+  for (var i = 0; i < v1.length; i++) {
+    result.push(v1[i]+v2[i]);
+  }
+  return result;
+}
+
+function vec_Dot(v1,v2){
+
+  if(v1.length!=v2.length)
+    return undefined;
+  var result = 0;
+
+  for (var i = 0; i < v1.length; i++) {
+    result+=v1[i]*v2[i];
+  }
+  return result;
+}
+
 function vecNorm(v){
   var result = copyVector(v);
   if(vecLength(v)!=0){

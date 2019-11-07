@@ -17,3 +17,11 @@ var editPage_analyzeP_wasDisplayed = false; // probeset
 var editPage_edit_wasDisplayed = false;
 var editPage_editK_wasDisplayed = false; // key
 var editPage_editP_wasDisplayed = false; // pathplot
+
+
+/// Forced Graph algos
+var optiGraph = undefined;
+
+///
+var legOrderOptiGraph=undefined;
+var legOrderNoticeableBorder = 0;

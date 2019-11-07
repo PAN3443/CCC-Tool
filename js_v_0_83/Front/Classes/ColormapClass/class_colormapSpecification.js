@@ -320,7 +320,9 @@ class class_CMS {
           }
           else {
             var tArray = [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9];
-            //var tArray = [0.02, 0.04, 0.06, 0.08, 0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9, 0.92, 0.94, 0.96, 0.98];
+          /*  var tArray = [0.025, 0.05, 0.075, 0.1, 0.125, 0.15, 0.175, 0.2, 0.225, 0.25 // 0 till 0.25 fine
+              ,0.3,0.4,0.5,0.6,0.7,
+              0.75, 0.775,0.8,0.825, 0.85, 0.875, 0.9, 0.925, 0.95, 0.975]; // 0.75 till 1.0 fine*/
 
             tmpDeltaIntervals = calcSplineIntervalBetween_C1C2(tArray, this.getSplineColors(keyIndex,keyIndex+1), 1.0,this.interpolationSpace);
           }

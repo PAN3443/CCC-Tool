@@ -219,6 +219,7 @@ function changeOpimizationMode(){
 
     fillKeyCombobox(false);
     updateOptiPageStyle();
+    updateLegendOptiWarningArea();
   }
 }
 
@@ -285,6 +286,155 @@ function updateOptiPageStyle(){
 
   calcOptiCMS();
 
+}
+
+function updateLegendOptiWarningArea(){
+
+  if(globalCMS1.getKeyLength()<2)
+    return;
+
+  var deleteGraph=false;
+
+  if(optiGraph==undefined){
+    deleteGraph=true;
+    createLegendBasedGraph();
+  }
+
+  var distance = Math.abs(globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1) - globalCMS1.getRefPosition(0));
+  var blackWhiteSpeed = undefined;
+  var smallestNoticeableDelta = undefined;
+  switch (globalCMS1.getInterpolationSpace()) {
+    case "rgb":
+      var rgbBlack = new class_Color_RGB(0, 0, 0);
+      var rgbWhite = new class_Color_RGB(1, 1, 1);
+      blackWhiteSpeed = calc3DEuclideanDistance(rgbBlack,rgbWhite)/ distance; //
+      smallestNoticeableDelta = 0.05;
+      break;
+    case "hsv":
+      blackWhiteSpeed = 100.0 / distance;
+      smallestNoticeableDelta = 4;
+      break;
+    case "lab":
+    case "de94":
+    case "de94-ds":
+    case "de2000":
+    case "de2000-ds":
+      blackWhiteSpeed = 100.0 / distance;
+      smallestNoticeableDelta = 4;
+      break;
+    case "din99":
+      blackWhiteSpeed = 100.0 / distance;
+      smallestNoticeableDelta = 4;
+      break;
+    case "lch":
+      blackWhiteSpeed = 100.0 / distance;
+      smallestNoticeableDelta = 4;
+      break;
+    default:
+  }
+
+  ///////////////////////////////////////////////////////
+  ///// Get important infos from the CMS
+
+  //var smallesRefDis = Infinity;
+  var smallesSpeedInOriginal = Infinity;
+  smallesSpeedInOriginal = optiGraph.getMinSpeed();
+  /*for (var i = 0; i < globalCMS1.getKeyLength()-1; i++) {
+    //smallesRefDis = Math.min(smallesRefDis,Math.abs(globalCMS1.getRefPosition(i+1) - globalCMS1.getRefPosition(i)));
+
+    if(document.getElementById("id_EditPage_LocalLegOrderOptimization").checked){
+      var tmpDis = Math.abs(globalCMS1.getRefPosition(i+1) - globalCMS1.getRefPosition(i));
+      if(globalCMS1.getKeyType(i)!="nil key" && globalCMS1.getKeyType(i)!="left key"){
+        var tmpSpeed = undefined;
+        switch (globalCMS1.getInterpolationSpace()) {
+          case "de94":
+          case "de94-ds":
+            // smallesSpeedInOriginal=calcDeltaDE94(globalCMS1.getLeftKeyColor(i,globalCMS1.getInterpolationSpace()), globalCMS1.getRightKeyColor(i+1,globalCMS1.getInterpolationSpace()))/tmpDis;
+            // break;
+          case "de2000":
+          case "de2000-ds":
+            // smallesSpeedInOriginal=calcDeltaCIEDE2000(globalCMS1.getLeftKeyColor(i,globalCMS1.getInterpolationSpace()), globalCMS1.getRightKeyColor(i+1,globalCMS1.getInterpolationSpace()))/tmpDis;
+            // break;
+          case "lab":
+          case "rgb":
+          case "hsv":
+          case "din99":
+          case "lch":
+              tmpSpeed=calc3DEuclideanDistance(globalCMS1.getRightKeyColor(i,globalCMS1.getInterpolationSpace()), globalCMS1.getLeftKeyColor(i+1,globalCMS1.getInterpolationSpace()))/tmpDis;
+            break;
+          default:
+        }
+        smallesSpeedInOriginal=Math.min(smallesSpeedInOriginal,tmpSpeed)
+      }
+    }
+    else{
+      for (var j = i+1; j < globalCMS1.getKeyLength(); j++) {
+        var tmpDis = Math.abs(globalCMS1.getRefPosition(j) - globalCMS1.getRefPosition(i));
+        if(globalCMS1.getKeyType(i)!="nil key" && globalCMS1.getKeyType(i)!="left key"){
+          var tmpSpeed = undefined;
+          switch (globalCMS1.getInterpolationSpace()) {
+            case "de94":
+            case "de94-ds":
+              // smallesSpeedInOriginal=calcDeltaDE94(globalCMS1.getLeftKeyColor(i,globalCMS1.getInterpolationSpace()), globalCMS1.getRightKeyColor(i+1,globalCMS1.getInterpolationSpace()))/tmpDis;
+              // break;
+            case "de2000":
+            case "de2000-ds":
+              // smallesSpeedInOriginal=calcDeltaCIEDE2000(globalCMS1.getLeftKeyColor(i,globalCMS1.getInterpolationSpace()), globalCMS1.getRightKeyColor(i+1,globalCMS1.getInterpolationSpace()))/tmpDis;
+              // break;
+            case "lab":
+            case "rgb":
+            case "hsv":
+            case "din99":
+            case "lch":
+                tmpSpeed=calc3DEuclideanDistance(globalCMS1.getRightKeyColor(i,globalCMS1.getInterpolationSpace()), globalCMS1.getLeftKeyColor(j,globalCMS1.getInterpolationSpace()))/tmpDis;
+              break;
+            default:
+          }
+          smallesSpeedInOriginal=Math.min(smallesSpeedInOriginal,tmpSpeed)
+        }
+      }
+    }
+
+  }//*/
+
+  ///////////////////////////////////////////////////////
+  ///// Not Noticeable Area
+  var smallestNoticeable = smallestNoticeableDelta/distance; // smallesRefDis; smallest distance was an old idea.
+  var smallestNoticeableArea = smallestNoticeable/blackWhiteSpeed;
+
+  legOrderNoticeableBorder = smallestNoticeableArea;
+  document.getElementById("id_EditPage_LegOrderOpti_NotNoticeableArea").style.width=smallestNoticeableArea*100+"%";
+
+  ///////////////////////////////////////////////////////
+  ///// No Change Area
+  var remainingNoChange=undefined;
+  if(smallesSpeedInOriginal != Infinity && smallesSpeedInOriginal>smallestNoticeable){
+    var smallestSpeedPos = smallesSpeedInOriginal/blackWhiteSpeed;
+    remainingNoChange = smallestSpeedPos-smallestNoticeableArea;
+    document.getElementById("id_EditPage_LegOrderOpti_NoChangeArea").style.width=remainingNoChange*100+"%";
+    document.getElementById("id_EditPage_LegOrderOpti_Info").style.visibility="visible";
+  }
+  else {
+    ///////////////////////////////////////////////////////
+    ///// Fitable Area
+    remainingNoChange=0;
+    document.getElementById("id_EditPage_LegOrderOpti_NoChangeArea").style.width=0+"%";
+    document.getElementById("id_EditPage_LegOrderOpti_Info").style.visibility="hidden";
+  }
+
+  var remainingFitable = 1.0-smallestNoticeableArea-remainingNoChange;
+  document.getElementById("id_EditPage_LegOrderOpti_OkayArea").style.width=remainingFitable*100+"%";
+
+
+  ///////////////////////////////////////////////////////
+  ///// Above Area
+  //var remainingNotFitable = 1.0-remainingFitable;
+  //document.getElementById("id_EditPage_LegOrderOpti_NotFitableArea").style.width=(remainingNotFitable*100)+"%";
+
+
+  if(deleteGraph){
+    optiGraph.deleteReferences();
+  }
 }
 
 
@@ -406,9 +556,25 @@ function calcOptiCMS(){
   }
 
   if(document.getElementById("id_EditPage_LegOrderOpti_Check").checked){
+    createLegendBasedGraph(); // create Graph here because we need the information for the warning area
+    updateLegendOptiWarningArea();
     var inserted = false;
     var degree = document.getElementById("id_EditPage_LegOrderOpti_Degree").value;
-    var type = 5;
+
+    if(degree<legOrderNoticeableBorder){
+      document.getElementById("id_EditPage_LegOrderOpti_Warning").style.visibility="visible";
+    }
+    else {
+      document.getElementById("id_EditPage_LegOrderOpti_Warning").style.visibility="hidden";
+    }
+
+    var type = undefined;
+
+    if(document.getElementById("id_EditPage_LocalLegOrderOptimization").checked)
+      type=5;
+    else
+      type=6;
+
     usedSpeedForcGraphv=true;
 
     if(degree!=0){
@@ -432,7 +598,7 @@ function calcOptiCMS(){
   if(document.getElementById("id_EditPage_DisPowerOpti_Check").checked){
     var inserted = false;
     var degree = document.getElementById("id_EditPage_DisPowerOpti_Degree").value;
-    var type = 6;
+    var type = 7;
 
     if(degree!=0){
     for (var i = 0; i < optiDegree.length; i++) {
@@ -525,11 +691,16 @@ function calcOptiCMS(){
                   updateOptimizationCMS(optiDegree[i]);
                   break;
                   case 5: //  Legendbased Order
-                    text+="Legendbased Order";
-                    calcLegOrderOptimum(optiDegree[i]);
+                    text+="Local Legendbased Order";
+                    calcLegOrderOptimum(false,optiDegree[i]);
                     globalCMS1= cloneCMS(globalCMS1_Optimum);
                     break;
-                    case 6: //  Discriminative Power
+                    case 6: //  Legendbased Order
+                      text+="Global Legendbased Order";
+                      calcLegOrderOptimum(true,optiDegree[i]);
+                      globalCMS1= cloneCMS(globalCMS1_Optimum);
+                      break;
+                    case 7: //  Discriminative Power
                       text+="Discriminative Power";
                       calcDisPowerOptimum(optiDegree[i]);
                       globalCMS1= cloneCMS(globalCMS1_Optimum);
@@ -555,7 +726,6 @@ function calcOptiCMS(){
   }
 
 }
-
 
 function updateKeyIndex(){
 
@@ -640,4 +810,37 @@ function fillKeyCombobox(saveOldPosition){
       document.getElementById("id_editPage_Optimization_TillKey").selectedIndex=tmpEndID;
       updateKeyIndex();
     }
+}
+
+
+function optiGraphToCMS(){
+  if(optiGraph==undefined)
+    return;
+
+  for ( var i = 0; i < optiGraph.getNodeLength(); i ++ ) {
+    // positions
+    var tmpKeyInfo = optiGraph.getCMSInfo(i);
+
+    if(tmpKeyInfo==undefined)
+      continue;
+
+    switch (tmpKeyInfo[1]) {
+      case 0:
+        globalCMS1_Optimum.setLeftKeyColor(tmpKeyInfo[0],optiGraph.getNodeColor(i));
+      break;
+      case 1:
+        globalCMS1_Optimum.setRightKeyColor(tmpKeyInfo[0],optiGraph.getNodeColor(i));
+      break;
+      case 2:
+        globalCMS1_Optimum.setLeftKeyColor(tmpKeyInfo[0],optiGraph.getNodeColor(i));
+        globalCMS1_Optimum.setRightKeyColor(tmpKeyInfo[0],optiGraph.getNodeColor(i));
+      break;
+    }
+  }
+
+  /////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////
+
+  optiGraph.deleteReferences();
+  optiGraph=undefined;
 }
