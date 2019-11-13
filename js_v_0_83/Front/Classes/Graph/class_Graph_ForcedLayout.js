@@ -168,4 +168,193 @@ class class_Graph_ForcedLayout extends class_Graph {
     console.log("Original Forced Layout");
   }
 
+
+
+
+  areEdgeNeighbours(id1,id2){
+    if(this.edgeArray[id1].getNodeID1()==this.edgeArray[id2].getNodeID1() ||
+       this.edgeArray[id1].getNodeID1()==this.edgeArray[id2].getNodeID2() ||
+       this.edgeArray[id1].getNodeID2()==this.edgeArray[id2].getNodeID1() ||
+       this.edgeArray[id1].getNodeID2()==this.edgeArray[id2].getNodeID2()){
+      return true;
+    }
+    return false;
+  }
+
+
+  getLineSegmentSpeed(eID1,eID2){
+
+    var distanceInfo = this.getLineSegmentDistancePoints(eID1,eID2);
+
+    var distance = vecLength(vec_Diff_COLOR(distanceInfo[1],distanceInfo[0]));
+    var refPos1= this.nodeArray[this.edgeArray[eID1].getNodeID1()].getNodeRefPos()+distanceInfo[2]*Math.abs(this.nodeArray[this.edgeArray[eID1].getNodeID2()].getNodeRefPos() - this.nodeArray[this.edgeArray[eID1].getNodeID1()].getNodeRefPos());
+    var refPos2= this.nodeArray[this.edgeArray[eID2].getNodeID1()].getNodeRefPos()+distanceInfo[3]*Math.abs(this.nodeArray[this.edgeArray[eID2].getNodeID2()].getNodeRefPos() - this.nodeArray[this.edgeArray[eID2].getNodeID1()].getNodeRefPos());
+
+    distanceInfo[0].deleteReferences();
+    distanceInfo[1].deleteReferences();
+
+    return distance / Math.abs(refPos2 - refPos1);
+
+  }
+
+
+  getNearestPoint_PointSegmentDistance(nodeID,edgeID)
+  {
+    var tmp_p = this.nodeArray[nodeID].getNodeColor();
+    var tmp_s_p1 = this.nodeArray[this.edgeArray[edgeID].getNodeID1()].getNodeColor();
+    var tmp_s_p2 = this.nodeArray[this.edgeArray[edgeID].getNodeID2()].getNodeColor();
+
+    var vec_v = vec_Diff_COLOR(tmp_s_p2,tmp_s_p1); //S.P1 - S.P0;
+    var vec_w = vec_Diff_COLOR(tmp_p,tmp_s_p1); //P - S.P0;
+
+     var tmp_c1 = vec_Dot(vec_w,vec_v);
+     if ( tmp_c1 <= 0 ){
+        tmp_s_p2.deleteReferences();
+        return [tmp_s_p1,0.0];
+     }
+
+     var tmp_c2 = vec_Dot(vec_v,vec_v);
+     if ( tmp_c2 <= tmp_c1 ){
+       tmp_s_p1.deleteReferences();
+       return [tmp_s_p2,1.0];
+     }
+
+     var tmp_b = tmp_c1 / tmp_c2;
+     var vec_Pb = vec_Add([tmp_s_p1.get1Value(),tmp_s_p1.get2Value(),tmp_s_p1.get3Value()], vecScalMulti(vec_v,tmp_b));
+     var nearestColor = createColor(vec_Pb[0],vec_Pb[1],vec_Pb[2],this.graphColorSpace);
+
+     var length_S = vecLength(vec_v);
+     var length_S_Pb = vecLength(vec_Diff_COLOR(nearestColor,tmp_s_p1));
+     var ratioPos_S_Pb = length_S_Pb/length_S;
+
+     tmp_s_p1.deleteReferences();
+     tmp_s_p2.deleteReferences();
+     return [nearestColor,ratioPos_S_Pb];
+   }
+
+
+
+  getEdgeCrossProduct(eID1,eID2){
+
+    var tmp_s1p1 = this.nodeArray[this.edgeArray[eID1].getNodeID1()].getNodeColor();
+    var tmp_s1p2 = this.nodeArray[this.edgeArray[eID1].getNodeID2()].getNodeColor();
+    var tmp_s2p1 = this.nodeArray[this.edgeArray[eID2].getNodeID1()].getNodeColor();
+    var tmp_s2p2 = this.nodeArray[this.edgeArray[eID2].getNodeID2()].getNodeColor();
+
+    var vec_u = vec_Diff_COLOR(tmp_s1p2,tmp_s1p1);// S1.P1 - S1.P0;
+    var vec_v = vec_Diff_COLOR(tmp_s2p2,tmp_s2p1); //S2.P1 - S2.P0;
+
+    tmp_s1p1.deleteReferences();
+    tmp_s1p2.deleteReferences();
+    tmp_s2p1.deleteReferences();
+    tmp_s2p2.deleteReferences();
+
+    return [
+      vec_u[1]*vec_v[2]-vec_u[2]*vec_v[1],
+      vec_u[2]*vec_v[0]-vec_u[0]*vec_v[2],
+      vec_u[0]*vec_v[1]-vec_u[1]*vec_v[0]
+    ];
+
+  }
+
+  getLineSegmentDistancePoints(eID1,eID2){
+
+        var small_Num = 1e-12;
+
+        var tmp_s1p1 = this.nodeArray[this.edgeArray[eID1].getNodeID1()].getNodeColor();
+        var tmp_s1p2 = this.nodeArray[this.edgeArray[eID1].getNodeID2()].getNodeColor();
+        var tmp_s2p1 = this.nodeArray[this.edgeArray[eID2].getNodeID1()].getNodeColor();
+        var tmp_s2p2 = this.nodeArray[this.edgeArray[eID2].getNodeID2()].getNodeColor();
+
+        var vec_u = vec_Diff_COLOR(tmp_s1p2,tmp_s1p1);// S1.P1 - S1.P0;
+        var vec_v = vec_Diff_COLOR(tmp_s2p2,tmp_s2p1); //S2.P1 - S2.P0;
+        var vec_w = vec_Diff_COLOR(tmp_s1p1,tmp_s2p1); //S1.P0 - S2.P0;
+        var tmp_a = vec_Dot(vec_u,vec_u);         // always >= 0
+        var tmp_b = vec_Dot(vec_u,vec_v);
+        var tmp_c = vec_Dot(vec_v,vec_v);         // always >= 0
+        var tmp_d = vec_Dot(vec_u,vec_w);
+        var tmp_e = vec_Dot(vec_v,vec_w);
+        var tmp_D = tmp_a*tmp_c - tmp_b*tmp_b;        // always >= 0
+        var tmp_sc, tmp_sN, tmp_sD = tmp_D;       // sc = sN / sD, default sD = D >= 0
+        var tmp_tc, tmp_tN, tmp_tD = tmp_D;       // tc = tN / tD, default tD = D >= 0
+
+        // compute the line parameters of the two closest points
+        if (tmp_D < small_Num) { // the lines are almost parallel
+            tmp_sN = 0.0;         // force using point P0 on segment S1
+            tmp_sD = 1.0;         // to prevent possible division by 0.0 later
+            tmp_tN = tmp_e;
+            tmp_tD = tmp_c;
+        }
+        else {                 // get the closest points on the infinite lines
+            tmp_sN = (tmp_b*tmp_e - tmp_c*tmp_d);
+            tmp_tN = (tmp_a*tmp_e - tmp_b*tmp_d);
+            if (tmp_sN < 0.0) {        // sc < 0 => the s=0 edge is visible
+                tmp_sN = 0.0;
+                tmp_tN = tmp_e;
+                tmp_tD = tmp_c;
+            }
+            else if (tmp_sN > tmp_sD) {  // sc > 1  => the s=1 edge is visible
+                tmp_sN = tmp_sD;
+                tmp_tN = tmp_e + tmp_b;
+                tmp_tD = tmp_c;
+            }
+        }
+
+        if (tmp_tN < 0.0) {            // tc < 0 => the t=0 edge is visible
+            tmp_tN = 0.0;
+            // recompute sc for this edge
+            if (-tmp_d < 0.0)
+                tmp_sN = 0.0;
+            else if (-tmp_d > tmp_a)
+                tmp_sN = tmp_sD;
+            else {
+                tmp_sN = -tmp_d;
+                tmp_sD = tmp_a;
+            }
+        }
+        else if (tmp_tN > tmp_tD) {      // tc > 1  => the t=1 edge is visible
+            tmp_tN = tmp_tD;
+            // recompute sc for this edge
+            if ((-tmp_d + tmp_b) < 0.0)
+                tmp_sN = 0;
+            else if ((-tmp_d + tmp_b) > tmp_a)
+                tmp_sN = tmp_sD;
+            else {
+                tmp_sN = (-tmp_d + tmp_b);
+                tmp_sD = tmp_a;
+            }
+        }
+        // finally do the division to get sc and tc
+
+        tmp_sc = (Math.abs(tmp_sN) < small_Num ? 0.0 : tmp_sN / tmp_sD);
+        tmp_tc = (Math.abs(tmp_tN) < small_Num ? 0.0 : tmp_tN / tmp_tD);
+
+        // get the difference of the two closest points
+
+        //var vec_dP = vec_Add(vec_w, vec_Diff(vecScalMulti(vec_u,tmp_sc),vecScalMulti(vec_v,tmp_tc)));  // =  S1(sc) - S2(tc)
+        //return vecLength(vec_dP);
+
+
+        var vec_NP_S1 = vecScalMulti(vec_u,tmp_sc);
+        var nearestPoint_S1 = createColor(tmp_s1p1.get1Value()+vec_NP_S1[0],tmp_s1p1.get2Value()+vec_NP_S1[1],tmp_s1p1.get3Value()+vec_NP_S1[2],this.graphColorSpace);
+        var vec_NP_S2 = vecScalMulti(vec_v,tmp_tc);
+        var nearestPoint_S2 = createColor(tmp_s2p1.get1Value()+vec_NP_S2[0],tmp_s2p1.get2Value()+vec_NP_S2[1],tmp_s2p1.get3Value()+vec_NP_S2[2],this.graphColorSpace);
+
+        var length_S1 = vecLength(vec_u);
+        var length_S1_P1NP = vecLength(vec_Diff_COLOR(nearestPoint_S1,tmp_s1p1));
+        var ratioPos_S1_NP = length_S1_P1NP/length_S1;
+
+        var length_S2 = vecLength(vec_v);
+        var length_S2_P1NP = vecLength(vec_Diff_COLOR(nearestPoint_S2,tmp_s2p1));
+        var ratioPos_S2_NP = length_S2_P1NP/length_S2;
+
+
+        tmp_s1p1.deleteReferences();
+        tmp_s1p2.deleteReferences();
+        tmp_s2p1.deleteReferences();
+        tmp_s2p2.deleteReferences();
+
+      return [nearestPoint_S1,nearestPoint_S2,ratioPos_S1_NP,ratioPos_S2_NP];
+  }
+
 }

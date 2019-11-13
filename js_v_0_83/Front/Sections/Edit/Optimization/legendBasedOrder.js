@@ -1,6 +1,12 @@
 
 
 function createLegendBasedGraph(){
+
+  if(optiGraph!=undefined){
+    optiGraph.deleteReferences();
+    optiGraph=undefined;
+  }
+
   optiGraph = new class_Graph_ForcedLegOrder(globalCMS1.getInterpolationSpace(),document.getElementById("id_EditPage_GlobalLegOrderOptimization").checked);
   optiGraph.changeColorEdgeOptions(globalCMS1.getInterpolationSpace(),false,"eu");
   var continuousSections = searchForContinuousSections(0,globalCMS1.getKeyLength()-1);
@@ -14,9 +20,7 @@ function createLegendBasedGraph(){
         optiGraph.pushCMSInfo([i,1]); // save key index information and if the node represent the right, left or both colors of the key
       else
         optiGraph.pushCMSInfo([i,2]);
-      //ncounter++;
 
-      //if(document.getElementById("id_EditPage_LocalLegOrderOptimization").checked)
         optiGraph.pushEdge(i,i+1);
     }// for
 
@@ -25,15 +29,7 @@ function createLegendBasedGraph(){
       optiGraph.pushCMSInfo([continuousSections[j][1],0]);
     else
       optiGraph.pushCMSInfo([continuousSections[j][1],2]);
-    //ncounter++;
 
-      /*if(document.getElementById("id_EditPage_GlobalLegOrderOptimization").checked){
-        for (var i = nstart; i < ncounter-1; i++){
-          for (var k = i+1; k < ncounter; k++){
-            optiGraph.pushEdge(i,k);
-          }
-        }
-      }*/
   }
 }
 
@@ -41,7 +37,38 @@ function createLegendBasedGraph(){
 
 function calcLegOrderOptimum(isGlobal,degree){
 
-  optiGraph.forceLayout(document.getElementById("id_EditPage_LegOrderOpti_Iterations").value,degree,document.getElementById("id_EditPage_LegOrderOpti_Speed").value);
+  createLegendBasedGraph();
+
+  var distance = Math.abs(globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1) - globalCMS1.getRefPosition(0));
+  var blackWhiteSpeed = undefined;
+  switch (globalCMS1.getInterpolationSpace()) {
+    case "rgb":
+      var rgbBlack = new class_Color_RGB(0, 0, 0);
+      var rgbWhite = new class_Color_RGB(1, 1, 1);
+      blackWhiteSpeed = calc3DEuclideanDistance(rgbBlack,rgbWhite)/ distance; //
+      break;
+    case "hsv":
+      blackWhiteSpeed = 100.0 / distance;
+      break;
+    case "lab":
+    case "de94":
+    case "de94-ds":
+    case "de2000":
+    case "de2000-ds":
+      blackWhiteSpeed = 100.0 / distance;
+      break;
+    case "din99":
+      blackWhiteSpeed = 100.0 / distance;
+      break;
+    case "lch":
+      blackWhiteSpeed = 100.0 / distance;
+      break;
+    default:
+  }
+
+  var optiSpeed = blackWhiteSpeed*document.getElementById("id_EditPage_LegOrderOpti_Speed").value;
+
+  optiGraph.forceLayout(document.getElementById("id_EditPage_LegOrderOpti_Iterations").value,degree,optiSpeed);
   optiGraphToCMS();
 
 }

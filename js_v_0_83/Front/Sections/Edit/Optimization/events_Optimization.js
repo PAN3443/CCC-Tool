@@ -211,11 +211,30 @@ function changeOpimizationMode(){
     document.getElementById("id_editPage_EditKeyPathPlot_TabDiv").style.display = "none"; // old flex
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////
-    document.getElementById("id_EditPage_LocalSpeedOptimization").checked = true;
     document.getElementById("id_EditPage_UniOpti_Check").checked=false;
+    document.getElementById("id_EditPage_LocalSpeedOptimization").checked=false;
+    document.getElementById("id_EditPage_GlobalSpeedOptimization").checked=false;
+
     document.getElementById("id_EditPage_IntOrderOpti_Check").checked=false;
+    document.getElementById("id_EditPage_LocalIntOrderOptimization").checked=false;
+    document.getElementById("id_EditPage_GlobalIntOrderOptimization").checked=false;
+
     document.getElementById("id_EditPage_LegOrderOpti_Check").checked=false;
+    document.getElementById("id_EditPage_LocalLegOrderOptimization").checked=false;
+    document.getElementById("id_EditPage_GlobalLegOrderOptimization").checked=false;
+
     document.getElementById("id_EditPage_DisPowerOpti_Check").checked=false;
+    document.getElementById("id_EditPage_LocalDisPowerOptimization").checked=false;
+    document.getElementById("id_EditPage_GlobalDisPowerOptimization").checked=false;
+
+    document.getElementById("id_EditPage_UniOpti_Local_Degree").value=0;
+    document.getElementById("id_EditPage_UniOpti_Global_Degree").value=0;
+    document.getElementById("id_EditPage_IntOrderOpti_Local_Degree").value=0;
+    document.getElementById("id_EditPage_IntOrderOpti_Global_Degree").value=0;
+    document.getElementById("id_EditPage_LegOrderOpti_Local_Degree").value=0;
+    document.getElementById("id_EditPage_LegOrderOpti_Global_Degree").value=0;
+    document.getElementById("id_EditPage_DisPowerOpti_Local_Degree").value=0;
+    document.getElementById("id_EditPage_DisPowerOpti_Global_Degree").value=0;
 
     fillKeyCombobox(false);
     updateOptiPageStyle();
@@ -231,54 +250,141 @@ function editCMSduringOptimizationMode(){
 
 function updateOptiPageStyle(){
 
-  /*if(globalCMS1.getInterpolationSpace()==="rgb" || globalCMS1.getInterpolationSpace()==="hsv"){
+  if(globalCMS1.getInterpolationSpace()==="lch" || globalCMS1.getInterpolationSpace()==="hsv"){
     document.getElementById("id_EditPage_OptimizationWarning").style.display="flex";
     document.getElementById("id_EditPage_OptimizationSettings").style.display="none";
+    return;
   }
-  else {*/
+  else {
     document.getElementById("id_EditPage_OptimizationWarning").style.display="none";
     document.getElementById("id_EditPage_OptimizationSettings").style.display="block";
     //document.getElementById("id_Optimization_Degree").value=0;
     //updateOptiCMSDegree();
-  //}
+  }
 
+  ///////////////////////////////////////////////////////////////
+  //// 1. Uniformity
+  //////////////////////////////////////////////////////////////
   if(document.getElementById("id_EditPage_UniOpti_Check").checked){
     document.getElementById("id_EditPage_UniOpti_Options").style.display="block";
 
-    document.getElementById("id_EditPage_UniOpti_FixedDiv").style.display="none";
-    document.getElementById("id_EditPage_UniOpti_GlobalTypesDiv").style.display="none";
-    document.getElementById("id_EditPage_UniOpti_GraphSettings").style.display="none";
+    ///////////////////////////////////////////////////////////////
+    //// 1.1 Local Uniformity
+    //////////////////////////////////////////////////////////////
+    if(document.getElementById("id_EditPage_LocalSpeedOptimization").checked){
+      document.getElementById("id_EditPage_UniOpti_Local_Options").style.display="block";
+    }
+    else{
+      document.getElementById("id_EditPage_UniOpti_Local_Options").style.display="none";
+    }
 
+    ///////////////////////////////////////////////////////////////
+    //// 1.2 Global Uniformity
+    //////////////////////////////////////////////////////////////
     if(document.getElementById("id_EditPage_GlobalSpeedOptimization").checked){
-      document.getElementById("id_EditPage_UniOpti_GlobalTypesDiv").style.display="block";
+
+      document.getElementById("id_EditPage_UniOpti_FixedDiv").style.display="none";
+      document.getElementById("id_EditPage_UniOpti_GraphSettings").style.display="none";
+
+      document.getElementById("id_EditPage_UniOpti_Global_Options").style.display="block";
 
       if(document.getElementById("id_EditPage_GlobalLinearReg").checked)
         document.getElementById("id_EditPage_UniOpti_FixedDiv").style.display="block";
       else
         document.getElementById("id_EditPage_UniOpti_GraphSettings").style.display="block";
     }
+    else{
+      document.getElementById("id_EditPage_UniOpti_Global_Options").style.display="none";
+    }
+
   }
   else {
     document.getElementById("id_EditPage_UniOpti_Options").style.display="none";
   }
 
-
+  ///////////////////////////////////////////////////////////////
+  //// 2. Intrinsic Order
+  //////////////////////////////////////////////////////////////
   if(document.getElementById("id_EditPage_IntOrderOpti_Check").checked){
     document.getElementById("id_EditPage_IntOrderOpti_Options").style.display="block";
+
+    ///////////////////////////////////////////////////////////////
+    //// 2.1 Local Intrinsic Order
+    //////////////////////////////////////////////////////////////
+    if(document.getElementById("id_EditPage_LocalIntOrderOptimization").checked){
+      document.getElementById("id_EditPage_IntOrderOpti_Local_Options").style.display="block";
+    }
+    else{
+      document.getElementById("id_EditPage_IntOrderOpti_Local_Options").style.display="none";
+    }
+
+    ///////////////////////////////////////////////////////////////
+    //// 2.2 Global Intrinsic Order
+    //////////////////////////////////////////////////////////////
+    if(document.getElementById("id_EditPage_GlobalIntOrderOptimization").checked){
+      document.getElementById("id_EditPage_IntOrderOpti_Global_Options").style.display="block";
+    }
+    else{
+      document.getElementById("id_EditPage_IntOrderOpti_Global_Options").style.display="none";
+    }
   }
   else {
     document.getElementById("id_EditPage_IntOrderOpti_Options").style.display="none";
   }
 
+  ///////////////////////////////////////////////////////////////
+  //// 3. Legendbased Order
+  //////////////////////////////////////////////////////////////
   if(document.getElementById("id_EditPage_LegOrderOpti_Check").checked){
     document.getElementById("id_EditPage_LegOrderOpti_Options").style.display="block";
+    ///////////////////////////////////////////////////////////////
+    //// 3.1 Local Legendbased Order
+    //////////////////////////////////////////////////////////////
+    if(document.getElementById("id_EditPage_LocalLegOrderOptimization").checked){
+      document.getElementById("id_EditPage_LegOrderOpti_Local_Options").style.display="block";
+    }
+    else{
+      document.getElementById("id_EditPage_LegOrderOpti_Local_Options").style.display="none";
+    }
+
+    ///////////////////////////////////////////////////////////////
+    //// 3.2 Global Legendbased Order
+    //////////////////////////////////////////////////////////////
+    if(document.getElementById("id_EditPage_GlobalLegOrderOptimization").checked){
+      document.getElementById("id_EditPage_LegOrderOpti_Global_Options").style.display="block";
+    }
+    else{
+      document.getElementById("id_EditPage_LegOrderOpti_Global_Options").style.display="none";
+    }
   }
   else {
     document.getElementById("id_EditPage_LegOrderOpti_Options").style.display="none";
   }
 
+  ///////////////////////////////////////////////////////////////
+  //// 4. Discriminative Power
+  //////////////////////////////////////////////////////////////
   if(document.getElementById("id_EditPage_DisPowerOpti_Check").checked){
     document.getElementById("id_EditPage_DisPowerOpti_Options").style.display="block";
+    ///////////////////////////////////////////////////////////////
+    //// 4.1 Local Discriminative Power
+    //////////////////////////////////////////////////////////////
+    if(document.getElementById("id_EditPage_LocalDisPowerOptimization").checked){
+      document.getElementById("id_EditPage_DisPowerOpti_Local_Options").style.display="block";
+    }
+    else{
+      document.getElementById("id_EditPage_DisPowerOpti_Local_Options").style.display="none";
+    }
+
+    ///////////////////////////////////////////////////////////////
+    //// 4.2 Global Discriminative Power
+    //////////////////////////////////////////////////////////////
+    if(document.getElementById("id_EditPage_GlobalDisPowerOptimization").checked){
+      document.getElementById("id_EditPage_DisPowerOpti_Global_Options").style.display="block";
+    }
+    else{
+      document.getElementById("id_EditPage_DisPowerOpti_Global_Options").style.display="none";
+    }
   }
   else {
     document.getElementById("id_EditPage_DisPowerOpti_Options").style.display="none";
@@ -289,14 +395,11 @@ function updateOptiPageStyle(){
 }
 
 function updateLegendOptiWarningArea(){
-
+  return;
   if(globalCMS1.getKeyLength()<2)
     return;
 
-  var deleteGraph=false;
-
   if(optiGraph==undefined){
-    deleteGraph=true;
     createLegendBasedGraph();
   }
 
@@ -339,63 +442,6 @@ function updateLegendOptiWarningArea(){
   //var smallesRefDis = Infinity;
   var smallesSpeedInOriginal = Infinity;
   smallesSpeedInOriginal = optiGraph.getMinSpeed();
-  /*for (var i = 0; i < globalCMS1.getKeyLength()-1; i++) {
-    //smallesRefDis = Math.min(smallesRefDis,Math.abs(globalCMS1.getRefPosition(i+1) - globalCMS1.getRefPosition(i)));
-
-    if(document.getElementById("id_EditPage_LocalLegOrderOptimization").checked){
-      var tmpDis = Math.abs(globalCMS1.getRefPosition(i+1) - globalCMS1.getRefPosition(i));
-      if(globalCMS1.getKeyType(i)!="nil key" && globalCMS1.getKeyType(i)!="left key"){
-        var tmpSpeed = undefined;
-        switch (globalCMS1.getInterpolationSpace()) {
-          case "de94":
-          case "de94-ds":
-            // smallesSpeedInOriginal=calcDeltaDE94(globalCMS1.getLeftKeyColor(i,globalCMS1.getInterpolationSpace()), globalCMS1.getRightKeyColor(i+1,globalCMS1.getInterpolationSpace()))/tmpDis;
-            // break;
-          case "de2000":
-          case "de2000-ds":
-            // smallesSpeedInOriginal=calcDeltaCIEDE2000(globalCMS1.getLeftKeyColor(i,globalCMS1.getInterpolationSpace()), globalCMS1.getRightKeyColor(i+1,globalCMS1.getInterpolationSpace()))/tmpDis;
-            // break;
-          case "lab":
-          case "rgb":
-          case "hsv":
-          case "din99":
-          case "lch":
-              tmpSpeed=calc3DEuclideanDistance(globalCMS1.getRightKeyColor(i,globalCMS1.getInterpolationSpace()), globalCMS1.getLeftKeyColor(i+1,globalCMS1.getInterpolationSpace()))/tmpDis;
-            break;
-          default:
-        }
-        smallesSpeedInOriginal=Math.min(smallesSpeedInOriginal,tmpSpeed)
-      }
-    }
-    else{
-      for (var j = i+1; j < globalCMS1.getKeyLength(); j++) {
-        var tmpDis = Math.abs(globalCMS1.getRefPosition(j) - globalCMS1.getRefPosition(i));
-        if(globalCMS1.getKeyType(i)!="nil key" && globalCMS1.getKeyType(i)!="left key"){
-          var tmpSpeed = undefined;
-          switch (globalCMS1.getInterpolationSpace()) {
-            case "de94":
-            case "de94-ds":
-              // smallesSpeedInOriginal=calcDeltaDE94(globalCMS1.getLeftKeyColor(i,globalCMS1.getInterpolationSpace()), globalCMS1.getRightKeyColor(i+1,globalCMS1.getInterpolationSpace()))/tmpDis;
-              // break;
-            case "de2000":
-            case "de2000-ds":
-              // smallesSpeedInOriginal=calcDeltaCIEDE2000(globalCMS1.getLeftKeyColor(i,globalCMS1.getInterpolationSpace()), globalCMS1.getRightKeyColor(i+1,globalCMS1.getInterpolationSpace()))/tmpDis;
-              // break;
-            case "lab":
-            case "rgb":
-            case "hsv":
-            case "din99":
-            case "lch":
-                tmpSpeed=calc3DEuclideanDistance(globalCMS1.getRightKeyColor(i,globalCMS1.getInterpolationSpace()), globalCMS1.getLeftKeyColor(j,globalCMS1.getInterpolationSpace()))/tmpDis;
-              break;
-            default:
-          }
-          smallesSpeedInOriginal=Math.min(smallesSpeedInOriginal,tmpSpeed)
-        }
-      }
-    }
-
-  }//*/
 
   ///////////////////////////////////////////////////////
   ///// Not Noticeable Area
@@ -431,10 +477,6 @@ function updateLegendOptiWarningArea(){
   //var remainingNotFitable = 1.0-remainingFitable;
   //document.getElementById("id_EditPage_LegOrderOpti_NotFitableArea").style.width=(remainingNotFitable*100)+"%";
 
-
-  if(deleteGraph){
-    optiGraph.deleteReferences();
-  }
 }
 
 
@@ -509,6 +551,7 @@ function updateOptimizationCMS(optiDegree){
 
 }
 
+
 function calcOptiCMS(){
 
   if(globalCMS1_Optimum!=undefined)
@@ -522,202 +565,277 @@ function calcOptiCMS(){
   /////////////////////////////////////////////////////////////////////////////////////
   /// because of many of the optimization algorith has negative effects to the other
 
-  var optitype = [];
-  var optiDegree = [];
-  var usedSpeedForcGraphv= false;
+  var optiLocalType = [];
+  var optiLocalDegree = [];
+
+  var optiGlobalType = [];
+  var optiGlobalDegree = [];
 
   if(document.getElementById("id_EditPage_IntOrderOpti_Check").checked){
-      var inserted = false;
-      var degree = document.getElementById("id_EditPage_IntOrderOpti_Degree").value;
-      var type = undefined;
 
-      if(document.getElementById("id_EditPage_LocalIntOrderOptimization").checked)
-        type=3;
-      else
-        type=4;
-
-      if(degree!=0){
-        for (var i = 0; i < optiDegree.length; i++) {
-          if(degree<optiDegree[i]){
-            optitype.splice(i, 0,type);
-            optiDegree.splice(i, 0,degree);
-            inserted=true;
-            break;
+      if(document.getElementById("id_EditPage_LocalIntOrderOptimization").checked){
+        var degree = document.getElementById("id_EditPage_IntOrderOpti_Local_Degree").value;
+        var inserted = false;
+        if(degree!=0){
+          for (var i = 0; i < optiLocalDegree.length; i++) {
+            if(degree<optiLocalDegree[i]){
+              optiLocalType.splice(i, 0,0);
+              optiLocalDegree.splice(i, 0,degree);
+              inserted=true;
+              break;
+            }
           }
-        }
 
-        if(!inserted){
-          optitype.push(type);
-          optiDegree.push(degree);
+          if(!inserted){
+            optiLocalType.push(0);
+            optiLocalDegree.push(degree);
+          }
         }
       }
 
+      if(document.getElementById("id_EditPage_LocalIntOrderOptimization").checked){
+        var degree = document.getElementById("id_EditPage_IntOrderOpti_Global_Degree").value;
+        var inserted = false;
+        if(degree!=0){
+          for (var i = 0; i < optiGlobalDegree.length; i++) {
+            if(degree<optiGlobalDegree[i]){
+              optiGlobalType.splice(i, 0,0);
+              optiGlobalDegree.splice(i, 0,degree);
+              inserted=true;
+              break;
+            }
+          }
 
+          if(!inserted){
+            optiGlobalType.push(0);
+            optiGlobalDegree.push(degree);
+          }
+        }
+      }
   }
 
   if(document.getElementById("id_EditPage_LegOrderOpti_Check").checked){
     createLegendBasedGraph(); // create Graph here because we need the information for the warning area
     updateLegendOptiWarningArea();
-    var inserted = false;
-    var degree = document.getElementById("id_EditPage_LegOrderOpti_Degree").value;
 
-    if(degree<legOrderNoticeableBorder){
-      document.getElementById("id_EditPage_LegOrderOpti_Warning").style.visibility="visible";
-    }
-    else {
-      document.getElementById("id_EditPage_LegOrderOpti_Warning").style.visibility="hidden";
-    }
 
-    var type = undefined;
-
-    if(document.getElementById("id_EditPage_LocalLegOrderOptimization").checked)
-      type=5;
-    else
-      type=6;
-
-    usedSpeedForcGraphv=true;
-
-    if(degree!=0){
-    for (var i = 0; i < optiDegree.length; i++) {
-      if(degree<optiDegree[i]){
-        optitype.splice(i, 0,type);
-        optiDegree.splice(i, 0,degree);
-        inserted=true;
-        break;
-      }
-    }
-
-    if(!inserted){
-      optitype.push(type);
-      optiDegree.push(degree);
-    }
-  }
-
-  }
-
-  if(document.getElementById("id_EditPage_DisPowerOpti_Check").checked){
-    var inserted = false;
-    var degree = document.getElementById("id_EditPage_DisPowerOpti_Degree").value;
-    var type = 7;
-
-    if(degree!=0){
-    for (var i = 0; i < optiDegree.length; i++) {
-      if(degree<optiDegree[i]){
-        optitype.splice(i, 0,type);
-        optiDegree.splice(i, 0,degree);
-        inserted=true;
-        break;
-      }
-    }
-
-    if(!inserted){
-      optitype.push(type);
-      optiDegree.push(degree);
-    }
-  }
-
-  }
-
-  // local uniformity only affects the forced speed graph => if we do force speed graph the order depends on the degree, if not local perceptual optimization is alway the last!
-  if(document.getElementById("id_EditPage_UniOpti_Check").checked){
-      var degree = document.getElementById("id_EditPage_UniOpti_Degree").value;
-      var type = undefined;
-
-      if(document.getElementById("id_EditPage_GlobalSpeedOptimization").checked){
-        if(document.getElementById("id_EditPage_GlobalLinearReg").checked)
-          type = 1;
-        else
-          type = 2;
-      }
-      else
-        type = 0;
-
+    if(document.getElementById("id_EditPage_LocalLegOrderOptimization").checked){
+      var degree = document.getElementById("id_EditPage_LegOrderOpti_Local_Degree").value;
+      var inserted = false;
       if(degree!=0){
-      if(type==0 && !usedSpeedForcGraphv){
-        optitype.push(type);
-        optiDegree.push(degree);
-      }
-      else{
-        var inserted = false;
-        for (var i = 0; i < optiDegree.length; i++) {
-          if(degree<optiDegree[i]){
-            optitype.splice(i, 0,type);
-            optiDegree.splice(i, 0,degree);
+        for (var i = 0; i < optiLocalDegree.length; i++) {
+          if(degree<optiLocalDegree[i]){
+            optiLocalType.splice(i, 0,1);
+            optiLocalDegree.splice(i, 0,degree);
             inserted=true;
             break;
           }
         }
 
         if(!inserted){
-          optitype.push(type);
-          optiDegree.push(degree);
+          optiLocalType.push(0);
+          optiLocalDegree.push(degree);
+        }
+      }
+    }
+
+    if(document.getElementById("id_EditPage_GlobalLegOrderOptimization").checked){
+      var degree = document.getElementById("id_EditPage_LegOrderOpti_Global_Degree").value;
+      var inserted = false;
+      if(degree!=0){
+        for (var i = 0; i < optiGlobalDegree.length; i++) {
+          if(degree<optiGlobalDegree[i]){
+            optiGlobalType.splice(i, 0,1);
+            optiGlobalDegree.splice(i, 0,degree);
+            inserted=true;
+            break;
+          }
+        }
+
+        if(!inserted){
+          optiGlobalType.push(1);
+          optiGlobalDegree.push(degree);
         }
       }
     }
 
   }
 
+  if(document.getElementById("id_EditPage_DisPowerOpti_Check").checked){
 
-  if(optitype.length!=0){
-    document.getElementById("id_EditPage_OptimizationExOrder").style.display="block";
-    var text = "Execute Order:".bold()+"\n";
+    var degree = document.getElementById("id_EditPage_DisPowerOpti_Local_Degree").value;
 
-    for (var i = 0; i < optitype.length; i++) {
-      text+=(i+1)+". ";
-      switch (optitype[i]) {
-        case 0: // perceptual uniformity local
-          text+="Local Perceptual Uniformity";
-          calcLocalUniformityOptimum();
-          updateOptimizationCMS(optiDegree[i]);
-          break;
-          case 1: // perceptual uniformity global linear reg,
-            text+="Global Perceptual Uniformity Linear Regression";
-              calcGlobalUniformityLinearRegOptimum();
-              updateOptimizationCMS(optiDegree[i]);
+    if(document.getElementById("id_EditPage_LocalDisPowerOptimization").checked){
+      var degree = document.getElementById("id_EditPage_DisPowerOpti_Local_Degree").value;
+      var inserted = false;
+      if(degree!=0){
+        for (var i = 0; i < optiLocalDegree.length; i++) {
+          if(degree<optiLocalDegree[i]){
+            optiLocalType.splice(i, 0,2);
+            optiLocalDegree.splice(i, 0,degree);
+            inserted=true;
             break;
-            case 2: // perceptual uniformity global graph,
-              text+="Global Perceptual Uniformity Forced Graph";
-              calcGlobalUniformityForcedGraphOptimum(optiDegree[i]);
-              globalCMS1= cloneCMS(globalCMS1_Optimum);
-              break;
-              case 3: //  Intrinsic Order local
-                text+="Local Intrinsic Order";
-                calcLocalIntOrderOptimum();
-                updateOptimizationCMS(optiDegree[i]);
-                break;
-                case 4: //  Intrinsic Order global
-                  text+="Global Intrinsic Order";
-                  calcGlobalIntOrderOptimum();
-                  updateOptimizationCMS(optiDegree[i]);
-                  break;
-                  case 5: //  Legendbased Order
-                    text+="Local Legendbased Order";
-                    calcLegOrderOptimum(false,optiDegree[i]);
-                    globalCMS1= cloneCMS(globalCMS1_Optimum);
-                    break;
-                    case 6: //  Legendbased Order
-                      text+="Global Legendbased Order";
-                      calcLegOrderOptimum(true,optiDegree[i]);
-                      globalCMS1= cloneCMS(globalCMS1_Optimum);
-                      break;
-                    case 7: //  Discriminative Power
-                      text+="Discriminative Power";
-                      calcDisPowerOptimum(optiDegree[i]);
-                      globalCMS1= cloneCMS(globalCMS1_Optimum);
-                      break;
+          }
+        }
 
+        if(!inserted){
+          optiLocalType.push(2);
+          optiLocalDegree.push(degree);
+        }
       }
-      text+="  (Degree: "+optiDegree[i]+");\n";
-      document.getElementById("id_EditPage_OptimizationExOrder").innerHTML=text;
+    }
 
+    if(document.getElementById("id_EditPage_GlobalDisPowerOptimization").checked){
+
+      var degree = document.getElementById("id_EditPage_DisPowerOpti_Global_Degree").value;
+
+      if(degree!=0){
+        for (var i = 0; i < optiGlobalDegree.length; i++) {
+          if(degree<optiGlobalDegree[i]){
+            optiGlobalType.splice(i, 0,2);
+            optiGlobalDegree.splice(i, 0,degree);
+            inserted=true;
+            break;
+          }
+        }
+
+        if(!inserted){
+          optiGlobalType.push(2);
+          optiGlobalDegree.push(degree);
+        }
+      }
     }
 
 
 
   }
-  else{
-    document.getElementById("id_EditPage_OptimizationExOrder").style.display="none";
+
+  if(document.getElementById("id_EditPage_UniOpti_Check").checked){
+
+    if(document.getElementById("id_EditPage_LocalSpeedOptimization").checked){
+      var degree = document.getElementById("id_EditPage_UniOpti_Local_Degree").value;
+      var inserted = false;
+      if(degree!=0){
+        for (var i = 0; i < optiLocalDegree.length; i++) {
+          if(degree<optiLocalDegree[i]){
+            optiLocalType.splice(i, 0,3);
+            optiLocalDegree.splice(i, 0,degree);
+            inserted=true;
+            break;
+          }
+        }
+
+        if(!inserted){
+          optiLocalType.push(3);
+          optiLocalDegree.push(degree);
+        }
+      }
+    }
+
+    if(document.getElementById("id_EditPage_GlobalSpeedOptimization").checked){
+
+      var degree = document.getElementById("id_EditPage_UniOpti_Global_Degree").value;
+
+      if(degree!=0){
+        for (var i = 0; i < optiGlobalDegree.length; i++) {
+          if(degree<optiGlobalDegree[i]){
+            optiGlobalType.splice(i, 0,3);
+            optiGlobalDegree.splice(i, 0,degree);
+            inserted=true;
+            break;
+          }
+        }
+
+        if(!inserted){
+          optiGlobalType.push(3);
+          optiGlobalDegree.push(degree);
+        }
+      }
+    }
+
   }
+
+  console.log(optiGlobalType);
+  console.log(optiLocalType);
+
+  var text = "";
+  if(optiGlobalType.length!=0){
+    text += "Execute Order (global)".bold()+"\n";
+
+    for (var i = 0; i < optiGlobalType.length; i++) {
+      text+=(i+1)+". ";
+      switch (optiGlobalType[i]) {
+          case 3:
+            text+="Global Perceptual Uniformity";
+
+              if(document.getElementById("id_EditPage_GlobalLinearReg").checked){
+                // perceptual uniformity global linear reg,
+          //      calcGlobalUniformityLinearRegOptimum();
+          //      updateOptimizationCMS(optiGlobalDegree[i]);
+              }
+              else{
+                // perceptual uniformity global graph,
+          //      calcGlobalUniformityForcedGraphOptimum(optiGlobalDegree[i]);
+          //      globalCMS1= cloneCMS(globalCMS1_Optimum);
+              }
+
+            break;
+                case 0: //  Intrinsic Order global
+                  text+="Global Intrinsic Order";
+      //            calcGlobalIntOrderOptimum();
+      //            updateOptimizationCMS(optiGlobalDegree[i]);
+                  break;
+                    case 1: //  Legendbased Order
+                      text+="Global Legendbased Order";
+        //              calcLegOrderOptimum(true,optiGlobalDegree[i]);
+      //                globalCMS1= cloneCMS(globalCMS1_Optimum);
+                      break;
+                    case 2: //  Discriminative Power
+                      text+="Global Discriminative Power";
+    //                  calcDisPowerOptimum(true,optiGlobalDegree[i]);
+    //                  globalCMS1= cloneCMS(globalCMS1_Optimum);
+                      break;
+
+      }
+      text+="  (Degree: "+optiGlobalDegree[i]+");\n";
+    }
+
+  }
+
+  if(optiLocalType.length!=0){
+
+    text += "\nExecute Order (local)".bold()+"\n";
+
+    for (var i = 0; i < optiLocalType.length; i++) {
+      text+=(i+1)+".";
+      switch (optiLocalType[i]) {
+        case 0: // perceptual uniformity local
+          text+="Local Perceptual Uniformity";
+  //        calcLocalUniformityOptimum();
+  //        updateOptimizationCMS(optiLocalDegree[i]);
+          break;
+              case 3: //  Intrinsic Order local
+                text+="Local Intrinsic Order";
+//                calcLocalIntOrderOptimum();
+//                updateOptimizationCMS(optiLocalDegree[i]);
+                break;
+                  case 5: //  Legendbased Order
+                    text+="Local Legendbased Order";
+  //                  calcLegOrderOptimum(false,optiLocalDegree[i]);
+//                    globalCMS1= cloneCMS(globalCMS1_Optimum);
+                    break;
+                    case 7: //  Discriminative Power
+                      text+="Local Discriminative Power";
+    //                  calcDisPowerOptimum(false,optiLocalDegree[i]);
+  //                    globalCMS1= cloneCMS(globalCMS1_Optimum);
+                      break;
+
+      }
+      text+="  (Degree: "+optiLocalDegree[i]+");\n";
+    }
+  }
+
+  document.getElementById("id_EditPage_OptimizationExOrder").innerHTML=text;
 
   updateEditPage();
 
