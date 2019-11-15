@@ -47,6 +47,24 @@ class class_Graph_ForcedLayout extends class_Graph {
   */
 
 
+  getStartTemp(){
+
+    // Start Tmeperatur is the longest possible way => black white
+    switch (this.graphColorSpace) {
+      case "rgb":
+        return Math.sqrt(3);
+      case "hsv":
+        return 100;
+      case "lab":
+        return 100;
+      case "din99":
+        return 100;
+      case "lch":
+        return 100;
+    }
+  }
+
+
   setNode(index, color, refPos) {
     var tmpColor = undefined;
 

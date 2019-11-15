@@ -97,7 +97,7 @@ function changeOpimizationMode(){
 
     document.getElementById("id_dropDownMenu_DisplayOptions").style.display = "none";
     document.getElementById("predefinedStructures_Div").style.display = "none";
-    document.getElementById("optimization_Div").style.display = "block";
+    document.getElementById("optimization_Div").style.display = "flex";
 
 
     editPage_table_wasDisplayed = false;
@@ -211,19 +211,16 @@ function changeOpimizationMode(){
     document.getElementById("id_editPage_EditKeyPathPlot_TabDiv").style.display = "none"; // old flex
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////
-    document.getElementById("id_EditPage_UniOpti_Check").checked=false;
+
     document.getElementById("id_EditPage_LocalSpeedOptimization").checked=false;
     document.getElementById("id_EditPage_GlobalSpeedOptimization").checked=false;
 
-    document.getElementById("id_EditPage_IntOrderOpti_Check").checked=false;
     document.getElementById("id_EditPage_LocalIntOrderOptimization").checked=false;
     document.getElementById("id_EditPage_GlobalIntOrderOptimization").checked=false;
 
-    document.getElementById("id_EditPage_LegOrderOpti_Check").checked=false;
     document.getElementById("id_EditPage_LocalLegOrderOptimization").checked=false;
     document.getElementById("id_EditPage_GlobalLegOrderOptimization").checked=false;
 
-    document.getElementById("id_EditPage_DisPowerOpti_Check").checked=false;
     document.getElementById("id_EditPage_LocalDisPowerOptimization").checked=false;
     document.getElementById("id_EditPage_GlobalDisPowerOptimization").checked=false;
 
@@ -237,14 +234,60 @@ function changeOpimizationMode(){
     document.getElementById("id_EditPage_DisPowerOpti_Global_Degree").value=0;
 
     fillKeyCombobox(false);
-    updateOptiPageStyle();
-    updateLegendOptiWarningArea();
+    chooseOptimizationType(0);
   }
 }
 
 function editCMSduringOptimizationMode(){
   globalCMS1_Original = cloneCMS(globalCMS1);
   fillKeyCombobox(true);
+  updateOptiPageStyle();
+}
+
+
+
+function chooseOptimizationType(type){
+
+  document.getElementById("id_Select_Uniform_Opti").classList.remove("class_TabRowButtonActive");
+  document.getElementById("id_Select_IntOrder_Opti").classList.remove("class_TabRowButtonActive");
+  document.getElementById("id_Select_LegOrder_Opti").classList.remove("class_TabRowButtonActive");
+  document.getElementById("id_Select_DisPower_Opti").classList.remove("class_TabRowButtonActive");
+
+  document.getElementById("id_Select_Uniform_Opti").classList.add("class_TabRowButtonNotActive");
+  document.getElementById("id_Select_IntOrder_Opti").classList.add("class_TabRowButtonNotActive");
+  document.getElementById("id_Select_LegOrder_Opti").classList.add("class_TabRowButtonNotActive");
+  document.getElementById("id_Select_DisPower_Opti").classList.add("class_TabRowButtonNotActive");
+
+  document.getElementById("id_Opti_Uniformity_Div").style.display="none";
+  document.getElementById("id_Opti_IntOrder_Div").style.display="none";
+  document.getElementById("id_Opti_LegOrder_Div").style.display="none";
+  document.getElementById("id_Opti_DisPower_Div").style.display="none";
+
+  switch (type) {
+    case 0:
+    document.getElementById("id_Select_Uniform_Opti").classList.remove("class_TabRowButtonNotActive");
+    document.getElementById("id_Select_Uniform_Opti").classList.add("class_TabRowButtonActive");
+    document.getElementById("id_Opti_Uniformity_Div").style.display="block";
+      break;
+      case 1:
+      document.getElementById("id_Select_IntOrder_Opti").classList.remove("class_TabRowButtonNotActive");
+      document.getElementById("id_Select_IntOrder_Opti").classList.add("class_TabRowButtonActive");
+      document.getElementById("id_Opti_IntOrder_Div").style.display="block";
+        break;
+        case 2:
+        document.getElementById("id_Select_LegOrder_Opti").classList.remove("class_TabRowButtonNotActive");
+        document.getElementById("id_Select_LegOrder_Opti").classList.add("class_TabRowButtonActive");
+        document.getElementById("id_Opti_LegOrder_Div").style.display="block";
+          break;
+          case 3:
+          document.getElementById("id_Select_DisPower_Opti").classList.remove("class_TabRowButtonNotActive");
+          document.getElementById("id_Select_DisPower_Opti").classList.add("class_TabRowButtonActive");
+          document.getElementById("id_Opti_DisPower_Div").style.display="block";
+            break;
+    default:
+      return;
+  }
+
   updateOptiPageStyle();
 }
 
@@ -265,49 +308,41 @@ function updateOptiPageStyle(){
   ///////////////////////////////////////////////////////////////
   //// 1. Uniformity
   //////////////////////////////////////////////////////////////
-  if(document.getElementById("id_EditPage_UniOpti_Check").checked){
-    document.getElementById("id_EditPage_UniOpti_Options").style.display="block";
+    if(document.getElementById("id_Opti_Uniformity_Div").style.display!="none"){
+      ///////////////////////////////////////////////////////////////
+      //// 1.1 Local Uniformity
+      //////////////////////////////////////////////////////////////
+      if(document.getElementById("id_EditPage_LocalSpeedOptimization").checked){
+        document.getElementById("id_EditPage_UniOpti_Local_Options").style.display="block";
+      }
+      else{
+        document.getElementById("id_EditPage_UniOpti_Local_Options").style.display="none";
+      }
 
-    ///////////////////////////////////////////////////////////////
-    //// 1.1 Local Uniformity
-    //////////////////////////////////////////////////////////////
-    if(document.getElementById("id_EditPage_LocalSpeedOptimization").checked){
-      document.getElementById("id_EditPage_UniOpti_Local_Options").style.display="block";
+      ///////////////////////////////////////////////////////////////
+      //// 1.2 Global Uniformity
+      //////////////////////////////////////////////////////////////
+      if(document.getElementById("id_EditPage_GlobalSpeedOptimization").checked){
+
+        document.getElementById("id_EditPage_UniOpti_FixedDiv").style.display="none";
+        document.getElementById("id_EditPage_UniOpti_GraphSettings").style.display="none";
+
+        document.getElementById("id_EditPage_UniOpti_Global_Options").style.display="block";
+
+        if(document.getElementById("id_EditPage_GlobalLinearReg").checked)
+          document.getElementById("id_EditPage_UniOpti_FixedDiv").style.display="block";
+        else
+          document.getElementById("id_EditPage_UniOpti_GraphSettings").style.display="block";
+      }
+      else{
+        document.getElementById("id_EditPage_UniOpti_Global_Options").style.display="none";
+      }
     }
-    else{
-      document.getElementById("id_EditPage_UniOpti_Local_Options").style.display="none";
-    }
-
-    ///////////////////////////////////////////////////////////////
-    //// 1.2 Global Uniformity
-    //////////////////////////////////////////////////////////////
-    if(document.getElementById("id_EditPage_GlobalSpeedOptimization").checked){
-
-      document.getElementById("id_EditPage_UniOpti_FixedDiv").style.display="none";
-      document.getElementById("id_EditPage_UniOpti_GraphSettings").style.display="none";
-
-      document.getElementById("id_EditPage_UniOpti_Global_Options").style.display="block";
-
-      if(document.getElementById("id_EditPage_GlobalLinearReg").checked)
-        document.getElementById("id_EditPage_UniOpti_FixedDiv").style.display="block";
-      else
-        document.getElementById("id_EditPage_UniOpti_GraphSettings").style.display="block";
-    }
-    else{
-      document.getElementById("id_EditPage_UniOpti_Global_Options").style.display="none";
-    }
-
-  }
-  else {
-    document.getElementById("id_EditPage_UniOpti_Options").style.display="none";
-  }
 
   ///////////////////////////////////////////////////////////////
   //// 2. Intrinsic Order
   //////////////////////////////////////////////////////////////
-  if(document.getElementById("id_EditPage_IntOrderOpti_Check").checked){
-    document.getElementById("id_EditPage_IntOrderOpti_Options").style.display="block";
-
+  if(document.getElementById("id_Opti_IntOrder_Div").style.display!="none"){
     ///////////////////////////////////////////////////////////////
     //// 2.1 Local Intrinsic Order
     //////////////////////////////////////////////////////////////
@@ -328,15 +363,14 @@ function updateOptiPageStyle(){
       document.getElementById("id_EditPage_IntOrderOpti_Global_Options").style.display="none";
     }
   }
-  else {
-    document.getElementById("id_EditPage_IntOrderOpti_Options").style.display="none";
-  }
 
   ///////////////////////////////////////////////////////////////
   //// 3. Legendbased Order
   //////////////////////////////////////////////////////////////
-  if(document.getElementById("id_EditPage_LegOrderOpti_Check").checked){
-    document.getElementById("id_EditPage_LegOrderOpti_Options").style.display="block";
+  if(document.getElementById("id_Opti_LegOrder_Div").style.display!="none"){
+
+    updateLegendOptiWarningArea();
+
     ///////////////////////////////////////////////////////////////
     //// 3.1 Local Legendbased Order
     //////////////////////////////////////////////////////////////
@@ -357,15 +391,11 @@ function updateOptiPageStyle(){
       document.getElementById("id_EditPage_LegOrderOpti_Global_Options").style.display="none";
     }
   }
-  else {
-    document.getElementById("id_EditPage_LegOrderOpti_Options").style.display="none";
-  }
 
   ///////////////////////////////////////////////////////////////
   //// 4. Discriminative Power
   //////////////////////////////////////////////////////////////
-  if(document.getElementById("id_EditPage_DisPowerOpti_Check").checked){
-    document.getElementById("id_EditPage_DisPowerOpti_Options").style.display="block";
+  if(document.getElementById("id_Opti_DisPower_Div").style.display!="none"){
     ///////////////////////////////////////////////////////////////
     //// 4.1 Local Discriminative Power
     //////////////////////////////////////////////////////////////
@@ -386,22 +416,18 @@ function updateOptiPageStyle(){
       document.getElementById("id_EditPage_DisPowerOpti_Global_Options").style.display="none";
     }
   }
-  else {
-    document.getElementById("id_EditPage_DisPowerOpti_Options").style.display="none";
-  }
 
   calcOptiCMS();
 
 }
 
 function updateLegendOptiWarningArea(){
-  return;
+
+
   if(globalCMS1.getKeyLength()<2)
     return;
 
-  if(optiGraph==undefined){
-    createLegendBasedGraph();
-  }
+  createLegendBasedGraph(); // create Graph here because we need the information for the warning area
 
   var distance = Math.abs(globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1) - globalCMS1.getRefPosition(0));
   var blackWhiteSpeed = undefined;
@@ -436,12 +462,15 @@ function updateLegendOptiWarningArea(){
     default:
   }
 
+  document.getElementById("id_EditPage_LegOrderOpti_Local_SpeedDisplay").innerHTML =  blackWhiteSpeed*document.getElementById("id_EditPage_LegOrderOpti_Local_Speed").value;
+  document.getElementById("id_EditPage_LegOrderOpti_Global_SpeedDisplay").innerHTML =  blackWhiteSpeed*document.getElementById("id_EditPage_LegOrderOpti_Global_Speed").value;
+
   ///////////////////////////////////////////////////////
   ///// Get important infos from the CMS
 
   //var smallesRefDis = Infinity;
-  var smallesSpeedInOriginal = Infinity;
-  smallesSpeedInOriginal = optiGraph.getMinSpeed();
+  var smallesSpeedInOriginal_Global  = optiGraph.getMinSpeed(true);
+  var smallesSpeedInOriginal_Local  = optiGraph.getMinSpeed(false);
 
   ///////////////////////////////////////////////////////
   ///// Not Noticeable Area
@@ -449,27 +478,49 @@ function updateLegendOptiWarningArea(){
   var smallestNoticeableArea = smallestNoticeable/blackWhiteSpeed;
 
   legOrderNoticeableBorder = smallestNoticeableArea;
-  document.getElementById("id_EditPage_LegOrderOpti_NotNoticeableArea").style.width=smallestNoticeableArea*100+"%";
+  document.getElementById("id_EditPage_LegOrderOpti_Local_NotNoticeableArea").style.width=smallestNoticeableArea*100+"%";
+  document.getElementById("id_EditPage_LegOrderOpti_Global_NotNoticeableArea").style.width=smallestNoticeableArea*100+"%";
 
   ///////////////////////////////////////////////////////
   ///// No Change Area
-  var remainingNoChange=undefined;
-  if(smallesSpeedInOriginal != Infinity && smallesSpeedInOriginal>smallestNoticeable){
-    var smallestSpeedPos = smallesSpeedInOriginal/blackWhiteSpeed;
+  var remainingNoChange=0;
+
+  if(smallesSpeedInOriginal_Local != Infinity && smallesSpeedInOriginal_Local>smallestNoticeable){
+    var smallestSpeedPos = smallesSpeedInOriginal_Local/blackWhiteSpeed;
     remainingNoChange = smallestSpeedPos-smallestNoticeableArea;
-    document.getElementById("id_EditPage_LegOrderOpti_NoChangeArea").style.width=remainingNoChange*100+"%";
-    document.getElementById("id_EditPage_LegOrderOpti_Info").style.visibility="visible";
+    document.getElementById("id_EditPage_LegOrderOpti_Local_NoChangeArea").style.width=remainingNoChange*100+"%";
+    //document.getElementById("id_EditPage_LegOrderOpti_Info").style.visibility="visible";
   }
   else {
     ///////////////////////////////////////////////////////
     ///// Fitable Area
     remainingNoChange=0;
-    document.getElementById("id_EditPage_LegOrderOpti_NoChangeArea").style.width=0+"%";
+    document.getElementById("id_EditPage_LegOrderOpti_Local_NoChangeArea").style.width=0+"%";
     document.getElementById("id_EditPage_LegOrderOpti_Info").style.visibility="hidden";
   }
 
   var remainingFitable = 1.0-smallestNoticeableArea-remainingNoChange;
-  document.getElementById("id_EditPage_LegOrderOpti_OkayArea").style.width=remainingFitable*100+"%";
+  document.getElementById("id_EditPage_LegOrderOpti_Local_OkayArea").style.width=remainingFitable*100+"%";
+
+
+  remainingNoChange=0;
+
+  if(smallesSpeedInOriginal_Global != Infinity && smallesSpeedInOriginal_Global>smallestNoticeable){
+    var smallestSpeedPos = smallesSpeedInOriginal_Global/blackWhiteSpeed;
+    remainingNoChange = smallestSpeedPos-smallestNoticeableArea;
+    document.getElementById("id_EditPage_LegOrderOpti_Global_NoChangeArea").style.width=remainingNoChange*100+"%";
+    //document.getElementById("id_EditPage_LegOrderOpti_Info").style.visibility="visible";
+  }
+  else {
+    ///////////////////////////////////////////////////////
+    ///// Fitable Area
+    remainingNoChange=0;
+    document.getElementById("id_EditPage_LegOrderOpti_Global_NoChangeArea").style.width=0+"%";
+    document.getElementById("id_EditPage_LegOrderOpti_Info").style.visibility="hidden";
+  }
+
+  var remainingFitable = 1.0-smallestNoticeableArea-remainingNoChange;
+  document.getElementById("id_EditPage_LegOrderOpti_Global_OkayArea").style.width=remainingFitable*100+"%";
 
 
   ///////////////////////////////////////////////////////
@@ -478,7 +529,6 @@ function updateLegendOptiWarningArea(){
   //document.getElementById("id_EditPage_LegOrderOpti_NotFitableArea").style.width=(remainingNotFitable*100)+"%";
 
 }
-
 
 function updateOptimizationCMS(optiDegree){
 
@@ -551,7 +601,6 @@ function updateOptimizationCMS(optiDegree){
 
 }
 
-
 function calcOptiCMS(){
 
   if(globalCMS1_Optimum!=undefined)
@@ -571,7 +620,7 @@ function calcOptiCMS(){
   var optiGlobalType = [];
   var optiGlobalDegree = [];
 
-  if(document.getElementById("id_EditPage_IntOrderOpti_Check").checked){
+
 
       if(document.getElementById("id_EditPage_LocalIntOrderOptimization").checked){
         var degree = document.getElementById("id_EditPage_IntOrderOpti_Local_Degree").value;
@@ -593,7 +642,7 @@ function calcOptiCMS(){
         }
       }
 
-      if(document.getElementById("id_EditPage_LocalIntOrderOptimization").checked){
+      if(document.getElementById("id_EditPage_GlobalIntOrderOptimization").checked){
         var degree = document.getElementById("id_EditPage_IntOrderOpti_Global_Degree").value;
         var inserted = false;
         if(degree!=0){
@@ -612,11 +661,6 @@ function calcOptiCMS(){
           }
         }
       }
-  }
-
-  if(document.getElementById("id_EditPage_LegOrderOpti_Check").checked){
-    createLegendBasedGraph(); // create Graph here because we need the information for the warning area
-    updateLegendOptiWarningArea();
 
 
     if(document.getElementById("id_EditPage_LocalLegOrderOptimization").checked){
@@ -633,7 +677,7 @@ function calcOptiCMS(){
         }
 
         if(!inserted){
-          optiLocalType.push(0);
+          optiLocalType.push(1);
           optiLocalDegree.push(degree);
         }
       }
@@ -659,13 +703,12 @@ function calcOptiCMS(){
       }
     }
 
-  }
 
-  if(document.getElementById("id_EditPage_DisPowerOpti_Check").checked){
-
-    var degree = document.getElementById("id_EditPage_DisPowerOpti_Local_Degree").value;
+    createDisPowerGraph();
 
     if(document.getElementById("id_EditPage_LocalDisPowerOptimization").checked){
+
+      document.getElementById("id_EditPage_DisPowerOpti_Local_SpeedDisplay").innerHTML =  optiGraph.determineOptimalSpeed(false)*document.getElementById("id_EditPage_LegOrderOpti_Local_Speed").value;
       var degree = document.getElementById("id_EditPage_DisPowerOpti_Local_Degree").value;
       var inserted = false;
       if(degree!=0){
@@ -687,7 +730,9 @@ function calcOptiCMS(){
 
     if(document.getElementById("id_EditPage_GlobalDisPowerOptimization").checked){
 
+      document.getElementById("id_EditPage_DisPowerOpti_Global_SpeedDisplay").innerHTML =  optiGraph.determineOptimalSpeed(true)*document.getElementById("id_EditPage_LegOrderOpti_Global_Speed").value;
       var degree = document.getElementById("id_EditPage_DisPowerOpti_Global_Degree").value;
+      var inserted = false;
 
       if(degree!=0){
         for (var i = 0; i < optiGlobalDegree.length; i++) {
@@ -707,10 +752,6 @@ function calcOptiCMS(){
     }
 
 
-
-  }
-
-  if(document.getElementById("id_EditPage_UniOpti_Check").checked){
 
     if(document.getElementById("id_EditPage_LocalSpeedOptimization").checked){
       var degree = document.getElementById("id_EditPage_UniOpti_Local_Degree").value;
@@ -735,6 +776,7 @@ function calcOptiCMS(){
     if(document.getElementById("id_EditPage_GlobalSpeedOptimization").checked){
 
       var degree = document.getElementById("id_EditPage_UniOpti_Global_Degree").value;
+      var inserted = false;
 
       if(degree!=0){
         for (var i = 0; i < optiGlobalDegree.length; i++) {
@@ -753,47 +795,42 @@ function calcOptiCMS(){
       }
     }
 
-  }
-
-  console.log(optiGlobalType);
-  console.log(optiLocalType);
 
   var text = "";
   if(optiGlobalType.length!=0){
-    text += "Execute Order (global)".bold()+"\n";
 
     for (var i = 0; i < optiGlobalType.length; i++) {
       text+=(i+1)+". ";
       switch (optiGlobalType[i]) {
           case 3:
-            text+="Global Perceptual Uniformity";
+            text+="Perceptual Uniformity";
 
               if(document.getElementById("id_EditPage_GlobalLinearReg").checked){
                 // perceptual uniformity global linear reg,
-          //      calcGlobalUniformityLinearRegOptimum();
-          //      updateOptimizationCMS(optiGlobalDegree[i]);
+                calcGlobalUniformityLinearRegOptimum();
+                updateOptimizationCMS(optiGlobalDegree[i]);
               }
               else{
                 // perceptual uniformity global graph,
-          //      calcGlobalUniformityForcedGraphOptimum(optiGlobalDegree[i]);
-          //      globalCMS1= cloneCMS(globalCMS1_Optimum);
+                calcGlobalUniformityForcedGraphOptimum(optiGlobalDegree[i]);
+                globalCMS1= cloneCMS(globalCMS1_Optimum);
               }
 
             break;
                 case 0: //  Intrinsic Order global
-                  text+="Global Intrinsic Order";
-      //            calcGlobalIntOrderOptimum();
-      //            updateOptimizationCMS(optiGlobalDegree[i]);
+                  text+="Intrinsic Order";
+                  calcGlobalIntOrderOptimum();
+                  updateOptimizationCMS(optiGlobalDegree[i]);
                   break;
                     case 1: //  Legendbased Order
-                      text+="Global Legendbased Order";
-        //              calcLegOrderOptimum(true,optiGlobalDegree[i]);
-      //                globalCMS1= cloneCMS(globalCMS1_Optimum);
+                      text+="Legendbased Order";
+                      calcLegOrderOptimum(true,optiGlobalDegree[i]);
+                      globalCMS1= cloneCMS(globalCMS1_Optimum);
                       break;
                     case 2: //  Discriminative Power
-                      text+="Global Discriminative Power";
-    //                  calcDisPowerOptimum(true,optiGlobalDegree[i]);
-    //                  globalCMS1= cloneCMS(globalCMS1_Optimum);
+                      text+="Discriminative Power";
+                      calcDisPowerOptimum(true,optiGlobalDegree[i]);
+                      globalCMS1= cloneCMS(globalCMS1_Optimum);
                       break;
 
       }
@@ -802,32 +839,33 @@ function calcOptiCMS(){
 
   }
 
-  if(optiLocalType.length!=0){
+  document.getElementById("id_EditPage_OptimizationExOrderGlobal").innerHTML=text;
 
-    text += "\nExecute Order (local)".bold()+"\n";
+  text = "";
+  if(optiLocalType.length!=0){
 
     for (var i = 0; i < optiLocalType.length; i++) {
       text+=(i+1)+".";
       switch (optiLocalType[i]) {
-        case 0: // perceptual uniformity local
-          text+="Local Perceptual Uniformity";
-  //        calcLocalUniformityOptimum();
-  //        updateOptimizationCMS(optiLocalDegree[i]);
+        case 3: // perceptual uniformity local
+          text+="Perceptual Uniformity";
+          calcLocalUniformityOptimum();
+          updateOptimizationCMS(optiLocalDegree[i]);
           break;
-              case 3: //  Intrinsic Order local
-                text+="Local Intrinsic Order";
-//                calcLocalIntOrderOptimum();
-//                updateOptimizationCMS(optiLocalDegree[i]);
+              case 0: //  Intrinsic Order local
+                text+="Intrinsic Order";
+                calcLocalIntOrderOptimum();
+                updateOptimizationCMS(optiLocalDegree[i]);
                 break;
-                  case 5: //  Legendbased Order
-                    text+="Local Legendbased Order";
-  //                  calcLegOrderOptimum(false,optiLocalDegree[i]);
-//                    globalCMS1= cloneCMS(globalCMS1_Optimum);
+                  case 1: //  Legendbased Order
+                    text+="Legendbased Order";
+                    calcLegOrderOptimum(false,optiLocalDegree[i]);
+                    globalCMS1= cloneCMS(globalCMS1_Optimum);
                     break;
-                    case 7: //  Discriminative Power
-                      text+="Local Discriminative Power";
-    //                  calcDisPowerOptimum(false,optiLocalDegree[i]);
-  //                    globalCMS1= cloneCMS(globalCMS1_Optimum);
+                    case 2: //  Discriminative Power
+                      text+="Discriminative Power";
+                      calcDisPowerOptimum(false,optiLocalDegree[i]);
+                      globalCMS1= cloneCMS(globalCMS1_Optimum);
                       break;
 
       }
@@ -835,7 +873,7 @@ function calcOptiCMS(){
     }
   }
 
-  document.getElementById("id_EditPage_OptimizationExOrder").innerHTML=text;
+  document.getElementById("id_EditPage_OptimizationExOrderLocal").innerHTML=text;
 
   updateEditPage();
 

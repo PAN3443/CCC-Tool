@@ -153,7 +153,7 @@ function main_init() {
     // For Testing: with start EditPage
     ///
 
-    /*  myDesignsList.push(cmsDivergentColormaps[0]);
+      myDesignsList.push(cmsDivergentColormaps[0]);
 
 
       var tmpCMS = new class_CMS();
@@ -169,7 +169,7 @@ function main_init() {
 
 
       showMyDesignsPage();
-      indexActiveCMS=1;
+      indexActiveCMS=0;
       showEditPage();// /
       globalCMS1.setInterpolationSpace("rgb");
       updateInterpolationSpaceEditPage();

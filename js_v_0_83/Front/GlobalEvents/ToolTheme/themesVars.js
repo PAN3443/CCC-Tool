@@ -73,6 +73,7 @@ var cccTool_Themes = [
 
   /**** Sep Area ****/
   ["--main-sepArea-bg","rgb(50, 50, 50"],
+  ["--main-second-sepArea-bg","rgb(80, 80, 80"],
   ["--main-sepArea-font-color","rgb(255,255,255"],
   ["--main-sepArea-border","none"],
   ["--main-Button-sepArea-font-color","rgb(255,255,255"],
@@ -201,6 +202,7 @@ var cccTool_Themes = [
 
   /**** Sep Area ****/
   ["--main-sepArea-bg","rgb(30, 63, 101)"],
+  ["--main-second-sepArea-bg","rgb(60, 93, 131"],
   ["--main-sepArea-font-color","rgb(255,255,255)"],
   ["--main-sepArea-border","none"],
   ["--main-Button-sepArea-font-color","rgb(255,255,255)"],
@@ -330,6 +332,7 @@ var cccTool_Themes = [
 
   /**** Sep Area ****/
   ["--main-sepArea-bg","rgb(32, 36, 43)"],
+  ["--main-second-sepArea-bg","rgb(62, 66, 73"],
   ["--main-sepArea-font-color","rgb(157,163,178)"],//--main-font-color
   ["--main-sepArea-border","none"],
   ["--main-Button-sepArea-font-color","rgb(157,163,178)"],

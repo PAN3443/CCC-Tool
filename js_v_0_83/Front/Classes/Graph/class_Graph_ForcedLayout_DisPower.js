@@ -1,6 +1,15 @@
 class class_Graph_ForcedDisPower extends class_Graph_ForcedLayout {
 
-  forceLayout(iterations,degree, optiSpeedDegree) {
+  forceLayout(iterations, optiSpeedDegree,degree,isGlobal){
+    if(isGlobal){
+      this.forceLayoutGlobal(iterations, optiSpeedDegree,degree);
+    }
+    else{
+      this.forceLayoutLocal(iterations, optiSpeedDegree,degree);
+    }
+  }
+
+  forceLayoutGlobal(iterations, optiSpeedDegree,degree) {
 
     if (isNaN(iterations))
       return;
@@ -24,12 +33,12 @@ class class_Graph_ForcedDisPower extends class_Graph_ForcedLayout {
       orginEdgeLength.push(this.getNodeColorDifference(this.edgeArray[e].getNodeID1(), this.edgeArray[e].getNodeID2()));
     }
 
-    var start_temperature = 1 * 10;
-    var check_temperature = 1 * 10; // maximal distance, will be updated with each interval; convert to null at each step;
+    var start_temperature = this.getStartTemp();
+    var check_temperature = start_temperature; // maximal distance, will be updated with each interval; convert to null at each step;
     var impulseFactor = 1e-12;
     var nearZero = 1e-12;
 
-    optiSpeed=this.determineOptimalSpeed();
+    var optiSpeed=this.determineOptimalSpeed(true)*optiSpeedDegree;
 
     for (var i = 0; i < iterations; i++) {
 
@@ -39,12 +48,11 @@ class class_Graph_ForcedDisPower extends class_Graph_ForcedLayout {
 
         /////////////////////////////////////////////////
         //// PART 1: add orgin force
-        var color_v_Node = this.nodeArray[v].getNodeColor();
+        /*var color_v_Node = this.nodeArray[v].getNodeColor();
         var vec_d = [orginColors[v].get1Value() - color_v_Node.get1Value(), orginColors[v].get2Value() - color_v_Node.get2Value(), orginColors[v].get3Value() - color_v_Node.get3Value()];
-        this.nodeArray[v].addDisp(vecScalMulti(vec_d, (1.0 - degree))); //this.nodeArray[v].addDisp(vec_d); // direction vector = force
+        this.nodeArray[v].addDisp(vecScalMulti(vec_d, (1.0 - degree))); //this.nodeArray[v].addDisp(vec_d); // direction vector = force*/
       }
 
-      if(this.isGlobal){
 
         for (var e = 0; e < this.edgeArray.length; e++) {
 
@@ -80,7 +88,11 @@ class class_Graph_ForcedDisPower extends class_Graph_ForcedLayout {
 
                 var segmentSpeed = distance / Math.abs(refPos2 - refPos1);
 
-                //console.log(segmentSpeed,"<",optiSpeed);
+                if(i==iterations-1){
+                  console.log("Edge Speed (",e,"):",segmentSpeed,"<",optiSpeed);
+                }
+
+
                 if(segmentSpeed<optiSpeed){
 
                   var speedDif = optiSpeed-segmentSpeed;
@@ -89,6 +101,10 @@ class class_Graph_ForcedDisPower extends class_Graph_ForcedLayout {
                   var vec_dN = vecNorm(vec_d);
 
                   var force = vecScalMulti(vec_dN, cDif_Change);
+
+                  if(i==iterations-1){
+                    console.log(force);
+                  }
 
                   //console.log(force);
                   this.nodeArray[this.edgeArray[e].getNodeID1()].addDisp(force);
@@ -107,34 +123,6 @@ class class_Graph_ForcedDisPower extends class_Graph_ForcedLayout {
 
 
           }
-
-
-          /////////////////////////////////////////////////
-          //// PART 3: add edge length maintenance force
-          /////////////////////////////////////////////////
-          /*var currentEdgeLength = this.getNodeColorDifference(this.edgeArray[e].getNodeID1(), this.edgeArray[e].getNodeID2());
-
-          if(currentEdgeLength-orginEdgeLength[e]<0){
-            var nodeColor1 = this.nodeArray[this.edgeArray[e].getNodeID1()].getNodeColor();
-            var nodeColor2 = this.nodeArray[this.edgeArray[e].getNodeID2()].getNodeColor();
-            var vec_d = vec_Diff_COLOR(nodeColor2,nodeColor1);
-
-            if(vecLength(vec_d) == 0){
-              vec_d = vec_Diff_COLOR(orginColors[this.edgeArray[e].getNodeID2()],orginColors[this.edgeArray[e].getNodeID1()]);
-
-              while (vecLength(vec_d)){
-                vec_d[0] = getRandomArbitrary(-impulseFactor, impulseFactor);
-                vec_d[1] = getRandomArbitrary(-impulseFactor, impulseFactor);
-                vec_d[2] = getRandomArbitrary(-impulseFactor, impulseFactor);
-              }
-            }
-
-            var vec_dN = vecNorm(vec_d);
-
-            var force = vecScalMulti(vec_dN, (orginEdgeLength[e]-currentEdgeLength)/2 );
-            this.nodeArray[this.edgeArray[e].getNodeID1()].subDisp(force);
-            this.nodeArray[this.edgeArray[e].getNodeID2()].addDisp(force);
-          }*/
 
         }
 
@@ -184,14 +172,26 @@ class class_Graph_ForcedDisPower extends class_Graph_ForcedLayout {
         var refPos_End= this.nodeArray[nodeEndID].getNodeRefPos();
         var segmentPointSpeed = distance / Math.abs(refPos_End - refPos_Closes);
 
+        if(i==iterations-1){
+          console.log("End Node:",segmentPointSpeed,"<",optiSpeed);
+          // segmentPointSpeed=1000;
+        }
+
+
         if(segmentPointSpeed<optiSpeed){
 
           var speedDif = optiSpeed-segmentPointSpeed;
           var cDif_Change = (speedDif * Math.abs(refPos_End - refPos_Closes)) * degree;
           var vec_dN = vecNorm(vec_d);
-          var force = vecScalMulti(vec_dN, cDif_Change);
+          var force = vecScalMulti(vec_dN, cDif_Change/2);
+
+          if(i==iterations-1){
+            console.log(force);
+          }
 
           this.nodeArray[nodeEndID].addDisp(force);
+          this.nodeArray[this.edgeArray[edgeIDBefore].getNodeID1()].subDisp(force);
+          this.nodeArray[this.edgeArray[edgeIDBefore].getNodeID2()].subDisp(force);
         }
 
         closestColor[0].deleteReferences();
@@ -231,21 +231,96 @@ class class_Graph_ForcedDisPower extends class_Graph_ForcedLayout {
           var refPos_Start= this.nodeArray[nodeStartID].getNodeRefPos();
           segmentPointSpeed = distance / Math.abs(refPos_Closes-refPos_Start);
 
+          if(i==iterations-1){
+            console.log("Start Node:",segmentPointSpeed,"<",optiSpeed);
+          }
+
+
           if(segmentPointSpeed<optiSpeed){
             var speedDif = optiSpeed-segmentPointSpeed;
             var cDif_Change = (speedDif * Math.abs(refPos_Closes-refPos_Start)) * degree;
             var vec_dN = vecNorm(vec_d);
-            var force = vecScalMulti(vec_dN, cDif_Change);
+            var force = vecScalMulti(vec_dN, cDif_Change/2);
+
+            if(i==iterations-1){
+              console.log(force);
+            }
 
             this.nodeArray[nodeStartID].addDisp(force);
+            this.nodeArray[this.edgeArray[edgeIDAfter].getNodeID1()].subDisp(force);
+            this.nodeArray[this.edgeArray[edgeIDAfter].getNodeID2()].subDisp(force);
           }
 
           closestColor[0].deleteReferences();
 
         startColor.deleteReferences();
         endColor.deleteReferences();
+
+
+        if(i==iterations-1){
+          for (var v = 0; v < this.nodeArray.length; v++)
+            console.log("Node Disp ",v," : ",this.nodeArray[v].getDisp());
+        }
+
+      /////////////////////////////////////////////////
+      //// PART 5: Do Movement with temperature
+      for (var v = 0; v < this.nodeArray.length; v++)
+        this.forceMovement_TMP(v, check_temperature);
+
+      /////////////////////////////////////////////////
+      //// PART 6: reduce the temperature as the layout approaches a better configuration and update the new edgeWeights
+      check_temperature = start_temperature * (1 - i / (iterations - 1)); //temperature_steps;
+
+
+    } // FOR (interations)
+
+  }
+
+  forceLayoutLocal(iterations, optiSpeedDegree,degree) {
+
+    if (isNaN(iterations))
+      return;
+
+    if (degree == 1)
+      degree = 1 - 1e-5;
+
+    /////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////
+    ////  LegendBased Forced Graph
+    /////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////
+
+    var orginColors = [];
+    for (var v = 0; v < this.nodeArray.length; v++) {
+      orginColors.push(this.nodeArray[v].getNodeColor());
+    }
+
+    var orginEdgeLength= [];
+    for (var e = 0; e < this.edgeArray.length; e++) {
+      orginEdgeLength.push(this.getNodeColorDifference(this.edgeArray[e].getNodeID1(), this.edgeArray[e].getNodeID2()));
+    }
+
+    var start_temperature = this.getStartTemp();
+    var check_temperature = start_temperature; // maximal distance, will be updated with each interval; convert to null at each step;
+    var impulseFactor = 1e-12;
+    var nearZero = 1e-12;
+
+    var optiSpeed=this.determineOptimalSpeed(false)*optiSpeedDegree;
+
+    for (var i = 0; i < iterations; i++) {
+
+      for (var v = 0; v < this.nodeArray.length; ++v) {
+        //repusleForces.push([0, 0, 0]);
+        this.nodeArray[v].resetDisp();
+
+        /////////////////////////////////////////////////
+        //// PART 1: add orgin force
+        var color_v_Node = this.nodeArray[v].getNodeColor();
+        var vec_d = [orginColors[v].get1Value() - color_v_Node.get1Value(), orginColors[v].get2Value() - color_v_Node.get2Value(), orginColors[v].get3Value() - color_v_Node.get3Value()];
+        this.nodeArray[v].addDisp(vecScalMulti(vec_d, (1.0 - degree))); //this.nodeArray[v].addDisp(vec_d); // direction vector = force
       }
-      else{
+
+
           ////////////////////////////
           ///// Local Legendbased
 
@@ -271,7 +346,6 @@ class class_Graph_ForcedDisPower extends class_Graph_ForcedLayout {
               }
           }
 
-      }
 
       /////////////////////////////////////////////////
       //// PART 5: Do Movement with temperature
@@ -287,305 +361,322 @@ class class_Graph_ForcedDisPower extends class_Graph_ForcedLayout {
 
   }
 
+  determineOptimalSpeed(isGlobal){
 
-
-  determineOptimalSpeed(){
-
-    if(this.nodeArray.length<2)
-      return undefined;
-
-    var volumen = undefined;
-    switch (this.graphColorSpace) {
-      case "rgb":
-        volumen = 1.0; //area/this.nodeArray.length; //Math.sqrt(area/this.nodeArray.length);
-        break;
-      case "lab":
-        volumen = 4/3*Math.PI*Math.pow(75,3); // approximation: use sphere with radius 75;
-        break;
-      case "din99":
-        volumen = 4/3*Math.PI*Math.pow(75,3); // approximation: use sphere with radius 75;
-        break;
-      default:
-        return;
-    }
-
-    var optimalDistanceSegment = Math.pow(volumen/this.nodeArray.length, 1/3); // in 2D rood of plane, in 3D 3th root of volumen
-    var optimalDistance = optimalDistanceSegment*this.edgeArray.length;
     var refDis = Math.abs(this.nodeArray[this.nodeArray.length-1].getNodeRefPos() - this.nodeArray[0].getNodeRefPos());
 
-    return optimalDistance/refDis;
+    if(isGlobal){
+      return 3.4;
+      /*var volumen = undefined;
+      switch (this.graphColorSpace) {
+        case "rgb":
+          volumen = 1.0; //area/this.nodeArray.length; //Math.sqrt(area/this.nodeArray.length);
+          break;
+        case "lab":
+          volumen = 4/3*Math.PI*Math.pow(75,3); // approximation: use sphere with radius 75;
+          break;
+        case "din99":
+          volumen = 4/3*Math.PI*Math.pow(75,3); // approximation: use sphere with radius 75;
+          break;
+        default:
+          return;
+      }
+      var optimalDistanceSegment = Math.pow(volumen/this.nodeArray.length, 1/3); // in 2D rood of plane, in 3D 3th root of volumen
+      var optimalDistance = optimalDistanceSegment*this.edgeArray.length;
+
+
+      return optimalDistance/refDis;
+      */
+    }
+    else {
+      switch (this.graphColorSpace) {
+        case "rgb":
+          return Math.sqrt(3)/refDis * this.edgeArray.length;
+        case "lab":
+          return 100/refDis * this.edgeArray.length;
+        case "din99":
+          return 100/refDis * this.edgeArray.length;
+        default:
+          return undefined;
+      }
+    }
   }
 
-  /*forceLayout(iterations, power, degree) {
 
-    if (isNaN(iterations))
+}
+
+
+
+
+/*forceLayout(iterations, power, degree) {
+
+  if (isNaN(iterations))
+    return;
+
+  var orginColors = [];
+  for (var v = 0; v < this.nodeArray.length; v++) {
+    orginColors.push(this.nodeArray[v].getNodeColor());
+  }
+
+  /////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////
+  ////  Forced Graph
+  /////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////
+
+  var val_k = undefined;
+  switch (this.graphColorSpace) {
+    case "rgb":
+      val_k = power; //Math.sqrt(1.0/this.nodeArray.length); //area/this.nodeArray.length; //Math.sqrt(area/this.nodeArray.length);
+      break;
+    case "lab":
+      val_k = power * 128;
+      break;
+    case "din99":
+      val_k = power * 128;
+      break;
+    case "hsv":
+      val_k = power * 100;
+      break;
+    case "lch":
+      val_k = power * 100;
+      break;
+    default:
       return;
+  } //* /
 
-    var orginColors = [];
+  ///////////////////////////////////////////////////////////////
+  var impulseFactor = 1e-12;
+  var start_temperature = 1 * 10;
+  var check_temperature = 1 * 10; // maximal distance, will be updated with each interval; convert to null at each step;
+
+  // Alternative use as optimal distance the average speed?
+
+  for (var i = 0; i < iterations; i++) {
+
+    /////////////////////////////////////////////////
+    //// PART 1: Set Disp to zero and add orgin force
     for (var v = 0; v < this.nodeArray.length; v++) {
-      orginColors.push(this.nodeArray[v].getNodeColor());
+      this.nodeArray[v].resetDisp();
+
+      var color_v_Node = this.nodeArray[v].getNodeColor();
+      var vec_d = [orginColors[v].get1Value() - color_v_Node.get1Value(), orginColors[v].get2Value() - color_v_Node.get2Value(), orginColors[v].get3Value() - color_v_Node.get3Value()];
+      this.nodeArray[v].addDisp(vecScalMulti(vec_d, (1.0 - degree))); // direction vector = force* /
     }
 
-    /////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////
-    ////  Forced Graph
-    /////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////
+    //// PART 2:
+    for (var e = 0; e < this.edgeArray.length; e++) {
+      var idV = this.edgeArray[e].getNodeID1();
+      var idU = this.edgeArray[e].getNodeID2();
+      var color_v_Node = this.nodeArray[idV].getNodeColor();
+      var color_u_Node = this.nodeArray[idU].getNodeColor();
 
-    var val_k = undefined;
-    switch (this.graphColorSpace) {
-      case "rgb":
-        val_k = power; //Math.sqrt(1.0/this.nodeArray.length); //area/this.nodeArray.length; //Math.sqrt(area/this.nodeArray.length);
-        break;
-      case "lab":
-        val_k = power * 128;
-        break;
-      case "din99":
-        val_k = power * 128;
-        break;
-      case "hsv":
-        val_k = power * 100;
-        break;
-      case "lch":
-        val_k = power * 100;
-        break;
-      default:
-        return;
-    } //* /
+      var vec_d = [color_v_Node.get1Value() - color_u_Node.get1Value(), color_v_Node.get2Value() - color_u_Node.get2Value(), color_v_Node.get3Value() - color_u_Node.get3Value()];
+      var vec_dL = vecLength(vec_d);
 
-    ///////////////////////////////////////////////////////////////
-    var impulseFactor = 1e-12;
-    var start_temperature = 1 * 10;
-    var check_temperature = 1 * 10; // maximal distance, will be updated with each interval; convert to null at each step;
-
-    // Alternative use as optimal distance the average speed?
-
-    for (var i = 0; i < iterations; i++) {
-
-      /////////////////////////////////////////////////
-      //// PART 1: Set Disp to zero and add orgin force
-      for (var v = 0; v < this.nodeArray.length; v++) {
-        this.nodeArray[v].resetDisp();
-
-        var color_v_Node = this.nodeArray[v].getNodeColor();
-        var vec_d = [orginColors[v].get1Value() - color_v_Node.get1Value(), orginColors[v].get2Value() - color_v_Node.get2Value(), orginColors[v].get3Value() - color_v_Node.get3Value()];
-        this.nodeArray[v].addDisp(vecScalMulti(vec_d, (1.0 - degree))); // direction vector = force* /
+      while (vec_dL == 0) {
+        vec_d[0] = getRandomArbitrary(-impulseFactor, impulseFactor);
+        vec_d[1] = getRandomArbitrary(-impulseFactor, impulseFactor);
+        vec_d[2] = getRandomArbitrary(-impulseFactor, impulseFactor);
+        vec_dL = vecLength(vec_d);
       }
 
-      /////////////////////////////////////////////////
-      //// PART 2:
-      for (var e = 0; e < this.edgeArray.length; e++) {
-        var idV = this.edgeArray[e].getNodeID1();
-        var idU = this.edgeArray[e].getNodeID2();
-        var color_v_Node = this.nodeArray[idV].getNodeColor();
-        var color_u_Node = this.nodeArray[idU].getNodeColor();
+      var vec_dN = vecNorm(vec_d);
+      var cDif_Change = ((val_k - vec_dL) / 2) * degree;
 
-        var vec_d = [color_v_Node.get1Value() - color_u_Node.get1Value(), color_v_Node.get2Value() - color_u_Node.get2Value(), color_v_Node.get3Value() - color_u_Node.get3Value()];
+      if (i == 0)
+        console.log(cDif_Change);
+
+      var force = vecScalMulti(vec_dN, cDif_Change);
+
+      /*this.nodeArray[this.edgeArray[e].getNodeID1()].addDisp(force);
+      this.nodeArray[this.edgeArray[e].getNodeID2()].subDisp(force);* /
+
+      this.nodeArray[this.edgeArray[e].getNodeID1()].addDisp(force);
+      this.nodeArray[this.edgeArray[e].getNodeID2()].subDisp(force);
+
+      color_u_Node.deleteReferences();
+      color_u_Node = null;
+      color_v_Node.deleteReferences();
+      color_v_Node = null;
+    }
+
+    /////////////////////////////////////////////////
+    //// PART 3: limit max displacement to temperaturetand prevent from displacementoutside frame
+
+    for (var v = 0; v < this.nodeArray.length; v++)
+      this.forceMovement_TMP(v, check_temperature);
+
+    /////////////////////////////////////////////////
+    //// PART 4: reduce the temperature as the layout approaches a better configuration and update the new edgeWeights
+    check_temperature = start_temperature * (1 - i / (iterations - 1)); //temperature_steps;
+    this.updateEdgeColorWeights();
+
+    if (this.avgSpeedUpdate) {
+      optimumSpeed = this.getAvgSpeed();
+    }
+
+  } // FOR (interations)
+
+}*/
+
+/*forceLayout(iterations, power) { //space,useSpeed){
+  console.log("disPower with orgin force:", this.originForce);
+  var orginColors = [];
+  for (var v = 0; v < this.nodeArray.length; v++) {
+    orginColors.push(this.nodeArray[v].getNodeColor());
+  }
+
+  ////////////////////////////////////////////////////////////////////
+  /// Force-Directed after the algorithm by Fruchterman and Reingold
+  //////////////////////////////////
+
+  var val_k = undefined;
+  switch (this.graphColorSpace) {
+    case "rgb":
+      val_k = power; //area/this.nodeArray.length; //Math.sqrt(area/this.nodeArray.length);
+      break;
+    case "lab":
+      val_k = power * 100;
+      break;
+    case "din99":
+      val_k = power * 100;
+      break;
+    case "hsv":
+      val_k = power * 100;
+      break;
+    case "lch":
+      val_k = power * 100;
+      break;
+    default:
+      return;
+  } //
+
+  var val_ks = Math.pow(val_k, 2);
+  var impulseFactor = val_ks * 1e-12;
+  var start_temperature = 1 * 10;
+  var check_temperature = 1 * 10; // maximal distance, will be updated with each interval; convert to null at each step;
+  var temperature_steps = check_temperature / (iterations + 1);
+
+  // Alternative use as optimal distance the average speed?
+
+  for (var i = 0; i < iterations; i++) {
+
+    /////////////////////////////////////////////////
+    //// PART 1: Calc Respulsive Forces (Forces between nodes)
+    for (var v = 0; v < this.nodeArray.length; v++) {
+      this.nodeArray[v].resetDisp(); // set disp to zero
+      var color_v_Node = this.nodeArray[v].getNodeColor();
+
+      if (this.originForce) {
+        var vec_d = [orginColors[v].get1Value() - color_v_Node.get1Value(), orginColors[v].get2Value() - color_v_Node.get2Value(), orginColors[v].get3Value() - color_v_Node.get3Value()];
+        this.nodeArray[v].addDisp(vec_d); // direction vector = force
+      } //
+
+      for (var u = 0; u < this.nodeArray.length; u++) {
+        if (v == u)
+          continue;
+
+        var color_u_Node = this.nodeArray[u].getNodeColor();
+        var vec_d = [color_v_Node.get1Value() - color_u_Node.get1Value(), color_v_Node.get2Value() - color_u_Node.get2Value(), color_v_Node.get3Value() - color_u_Node.get3Value()]; // difference vector between the positions of the two vertices
+        var vec_dN = vecNorm(vec_d);
         var vec_dL = vecLength(vec_d);
+
+        var rep_Force = [0, 0, 0];
 
         while (vec_dL == 0) {
           vec_d[0] = getRandomArbitrary(-impulseFactor, impulseFactor);
           vec_d[1] = getRandomArbitrary(-impulseFactor, impulseFactor);
           vec_d[2] = getRandomArbitrary(-impulseFactor, impulseFactor);
+          vec_dN = vecNorm(vec_d);
           vec_dL = vecLength(vec_d);
         }
 
-        var vec_dN = vecNorm(vec_d);
-        var cDif_Change = ((val_k - vec_dL) / 2) * degree;
+        var rep_Force = vecScalMulti(vec_dN, (val_ks / vec_dL)); // function repulse force f(x) = Math.pow(val_k,2)/x
 
-        if (i == 0)
-          console.log(cDif_Change);
-
-        var force = vecScalMulti(vec_dN, cDif_Change);
-
-        /*this.nodeArray[this.edgeArray[e].getNodeID1()].addDisp(force);
-        this.nodeArray[this.edgeArray[e].getNodeID2()].subDisp(force);* /
-
-        this.nodeArray[this.edgeArray[e].getNodeID1()].addDisp(force);
-        this.nodeArray[this.edgeArray[e].getNodeID2()].subDisp(force);
+        this.nodeArray[v].addDisp(rep_Force);
 
         color_u_Node.deleteReferences();
         color_u_Node = null;
-        color_v_Node.deleteReferences();
-        color_v_Node = null;
       }
 
-      /////////////////////////////////////////////////
-      //// PART 3: limit max displacement to temperaturetand prevent from displacementoutside frame
-
-      for (var v = 0; v < this.nodeArray.length; v++)
-        this.forceMovement_TMP(v, check_temperature);
-
-      /////////////////////////////////////////////////
-      //// PART 4: reduce the temperature as the layout approaches a better configuration and update the new edgeWeights
-      check_temperature = start_temperature * (1 - i / (iterations - 1)); //temperature_steps;
-      this.updateEdgeColorWeights();
-
-      if (this.avgSpeedUpdate) {
-        optimumSpeed = this.getAvgSpeed();
-      }
-
-    } // FOR (interations)
-
-  }*/
-
-  /*forceLayout(iterations, power) { //space,useSpeed){
-    console.log("disPower with orgin force:", this.originForce);
-    var orginColors = [];
-    for (var v = 0; v < this.nodeArray.length; v++) {
-      orginColors.push(this.nodeArray[v].getNodeColor());
+      color_v_Node.deleteReferences();
+      color_v_Node = null;
     }
 
-    ////////////////////////////////////////////////////////////////////
-    /// Force-Directed after the algorithm by Fruchterman and Reingold
-    //////////////////////////////////
+    /////////////////////////////////////////////////
+    //// PART 2: Calc Attractive  Forces (Forces between two the nodes of each edge)
+    for (var e = 0; e < this.edgeArray.length; e++) {
+      var color_v_Node = this.nodeArray[this.edgeArray[e].getNodeID1()].getNodeColor();
+      var color_u_Node = this.nodeArray[this.edgeArray[e].getNodeID2()].getNodeColor();
 
-    var val_k = undefined;
-    switch (this.graphColorSpace) {
-      case "rgb":
-        val_k = power; //area/this.nodeArray.length; //Math.sqrt(area/this.nodeArray.length);
-        break;
-      case "lab":
-        val_k = power * 100;
-        break;
-      case "din99":
-        val_k = power * 100;
-        break;
-      case "hsv":
-        val_k = power * 100;
-        break;
-      case "lch":
-        val_k = power * 100;
-        break;
-      default:
-        return;
-    } //
+      var vec_d = [color_v_Node.get1Value() - color_u_Node.get1Value(), color_v_Node.get2Value() - color_u_Node.get2Value(), color_v_Node.get3Value() - color_u_Node.get3Value()];
 
-    var val_ks = Math.pow(val_k, 2);
-    var impulseFactor = val_ks * 1e-12;
-    var start_temperature = 1 * 10;
-    var check_temperature = 1 * 10; // maximal distance, will be updated with each interval; convert to null at each step;
-    var temperature_steps = check_temperature / (iterations + 1);
+      var vec_dN = vecNorm(vec_d);
+      var vec_dLs = Math.pow(vecLength(vec_d), 2);
+      var at_Force = vecScalMulti(vec_dN, (vec_dLs / val_k)); // function attractive f(x) = Math.pow(x,2)/val_k
 
-    // Alternative use as optimal distance the average speed?
+      this.nodeArray[this.edgeArray[e].getNodeID1()].subDisp(at_Force);
+      this.nodeArray[this.edgeArray[e].getNodeID2()].addDisp(at_Force);
 
-    for (var i = 0; i < iterations; i++) {
+      color_u_Node.deleteReferences();
+      color_u_Node = null;
+      color_v_Node.deleteReferences();
+      color_v_Node = null;
+    }
 
-      /////////////////////////////////////////////////
-      //// PART 1: Calc Respulsive Forces (Forces between nodes)
-      for (var v = 0; v < this.nodeArray.length; v++) {
-        this.nodeArray[v].resetDisp(); // set disp to zero
-        var color_v_Node = this.nodeArray[v].getNodeColor();
+    /////////////////////////////////////////////////
+    //// PART 3: limit max displacement to temperaturetand prevent from displacementoutside frame
+    for (var v = 0; v < this.nodeArray.length; v++) // set new positions
+    {
+      //v.pos:=v.pos+ (v.disp/|v.disp|)∗min(v.disp, t);
 
-        if (this.originForce) {
-          var vec_d = [orginColors[v].get1Value() - color_v_Node.get1Value(), orginColors[v].get2Value() - color_v_Node.get2Value(), orginColors[v].get3Value() - color_v_Node.get3Value()];
-          this.nodeArray[v].addDisp(vec_d); // direction vector = force
-        } //
+      var tmp_disp = this.nodeArray[v].getDisp();
 
-        for (var u = 0; u < this.nodeArray.length; u++) {
-          if (v == u)
-            continue;
+      var length = vecLength(tmp_disp);
 
-          var color_u_Node = this.nodeArray[u].getNodeColor();
-          var vec_d = [color_v_Node.get1Value() - color_u_Node.get1Value(), color_v_Node.get2Value() - color_u_Node.get2Value(), color_v_Node.get3Value() - color_u_Node.get3Value()]; // difference vector between the positions of the two vertices
-          var vec_dN = vecNorm(vec_d);
-          var vec_dL = vecLength(vec_d);
-
-          var rep_Force = [0, 0, 0];
-
-          while (vec_dL == 0) {
-            vec_d[0] = getRandomArbitrary(-impulseFactor, impulseFactor);
-            vec_d[1] = getRandomArbitrary(-impulseFactor, impulseFactor);
-            vec_d[2] = getRandomArbitrary(-impulseFactor, impulseFactor);
-            vec_dN = vecNorm(vec_d);
-            vec_dL = vecLength(vec_d);
-          }
-
-          var rep_Force = vecScalMulti(vec_dN, (val_ks / vec_dL)); // function repulse force f(x) = Math.pow(val_k,2)/x
-
-          this.nodeArray[v].addDisp(rep_Force);
-
-          color_u_Node.deleteReferences();
-          color_u_Node = null;
-        }
-
-        color_v_Node.deleteReferences();
-        color_v_Node = null;
+      // check if it is colder than the check_temperature, if not -> update
+      if (check_temperature < length) {
+        var norm = vecNorm(tmp_disp);
+        this.nodeArray[v].setDisp(vecScalMulti(norm, check_temperature));
       }
+      this.nodeArray[v].forceMovement(this.rgbCorr);
 
-      /////////////////////////////////////////////////
-      //// PART 2: Calc Attractive  Forces (Forces between two the nodes of each edge)
-      for (var e = 0; e < this.edgeArray.length; e++) {
-        var color_v_Node = this.nodeArray[this.edgeArray[e].getNodeID1()].getNodeColor();
-        var color_u_Node = this.nodeArray[this.edgeArray[e].getNodeID2()].getNodeColor();
+    }
 
-        var vec_d = [color_v_Node.get1Value() - color_u_Node.get1Value(), color_v_Node.get2Value() - color_u_Node.get2Value(), color_v_Node.get3Value() - color_u_Node.get3Value()];
+    /////////////////////////////////////////////////
+    //// PART 4: Prevent Colormap Path Intersections
+    /*if(this.preventCMapPathIntersections){
 
-        var vec_dN = vecNorm(vec_d);
-        var vec_dLs = Math.pow(vecLength(vec_d), 2);
-        var at_Force = vecScalMulti(vec_dN, (vec_dLs / val_k)); // function attractive f(x) = Math.pow(x,2)/val_k
+      var foundIntersection = true;
+      var maxCounter = 0;
 
-        this.nodeArray[this.edgeArray[e].getNodeID1()].subDisp(at_Force);
-        this.nodeArray[this.edgeArray[e].getNodeID2()].addDisp(at_Force);
-
-        color_u_Node.deleteReferences();
-        color_u_Node = null;
-        color_v_Node.deleteReferences();
-        color_v_Node = null;
-      }
-
-      /////////////////////////////////////////////////
-      //// PART 3: limit max displacement to temperaturetand prevent from displacementoutside frame
-      for (var v = 0; v < this.nodeArray.length; v++) // set new positions
-      {
-        //v.pos:=v.pos+ (v.disp/|v.disp|)∗min(v.disp, t);
-
-        var tmp_disp = this.nodeArray[v].getDisp();
-
-        var length = vecLength(tmp_disp);
-
-        // check if it is colder than the check_temperature, if not -> update
-        if (check_temperature < length) {
-          var norm = vecNorm(tmp_disp);
-          this.nodeArray[v].setDisp(vecScalMulti(norm, check_temperature));
-        }
-        this.nodeArray[v].forceMovement(this.rgbCorr);
-
-      }
-
-      /////////////////////////////////////////////////
-      //// PART 4: Prevent Colormap Path Intersections
-      /*if(this.preventCMapPathIntersections){
-
-        var foundIntersection = true;
-        var maxCounter = 0;
-
-        while (foundIntersection && maxCounter<1000) {
-          foundIntersection = false;
-          maxCounter++;
-          for(var v=0; v < this.nodeArray.length; v++) // set new positions
+      while (foundIntersection && maxCounter<1000) {
+        foundIntersection = false;
+        maxCounter++;
+        for(var v=0; v < this.nodeArray.length; v++) // set new positions
+        {
+          for(var u=0; u < this.nodeArray.length; u++) // set new positions
           {
-            for(var u=0; u < this.nodeArray.length; u++) // set new positions
-            {
-              if(v==u || v+1==u || v==u+1 || v+1==u+1)
-                continue;
+            if(v==u || v+1==u || v==u+1 || v+1==u+1)
+              continue;
 
-              if(this.hasIntersectionPoint(v,v+1,u,u+1)){
-                foundIntersection = true;
-              }
+            if(this.hasIntersectionPoint(v,v+1,u,u+1)){
+              foundIntersection = true;
             }
-
           }
+
         }
-        console.log(maxCounter);
       }
+      console.log(maxCounter);
+    }
 
-      /////////////////////////////////////////////////
-      //// PART 5: reduce the temperature as the layout approaches a better configuration
-      check_temperature = start_temperature * (1 - i / (iterations - 1)); //temperature_steps;
+    /////////////////////////////////////////////////
+    //// PART 5: reduce the temperature as the layout approaches a better configuration
+    check_temperature = start_temperature * (1 - i / (iterations - 1)); //temperature_steps;
 
-    } // END For Loop (interations)
-  }
-
-  */
+  } // END For Loop (interations)
 }
+
+*/

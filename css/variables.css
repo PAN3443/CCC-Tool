@@ -77,6 +77,7 @@
 
   /**** Sep Area ****/
   --main-sepArea-bg: rgb(50, 50, 50);
+  --main-second-sepArea-bg: rgb(80, 80, 80);
   --main-sepArea-font-color: rgb(255,255,255);
   --main-sepArea-border: none;
   --main-Button-sepArea-font-color: rgb(255,255,255);

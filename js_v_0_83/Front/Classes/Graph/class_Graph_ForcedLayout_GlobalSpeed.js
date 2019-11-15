@@ -60,8 +60,8 @@ class class_Graph_ForcedGlobalSpeed extends class_Graph_ForcedLayout {
 
 
     var impulseFactor = 1e-12;
-    var start_temperature = 1 * 10;
-    var check_temperature = 1 * 10; // maximal distance, will be updated with each interval; convert to null at each step;
+    var start_temperature = this.getStartTemp();
+    var check_temperature = start_temperature; // maximal distance, will be updated with each interval; convert to null at each step;
     // Alternative use as optimal distance the average speed?
 
     for (var i = 0; i < iterations; i++) {

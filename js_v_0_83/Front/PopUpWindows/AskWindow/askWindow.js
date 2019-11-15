@@ -99,6 +99,11 @@ function checkAsk(){
 
         case 4:
           //leave edit page
+          
+          if(editPage_optimizationMode){
+            changeOpimizationMode();
+          }
+
           showMyDesignsPage();
           break;
 

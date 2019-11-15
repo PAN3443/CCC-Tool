@@ -33,8 +33,6 @@ function createLegendBasedGraph(){
   }
 }
 
-
-
 function calcLegOrderOptimum(isGlobal,degree){
 
   createLegendBasedGraph();
@@ -65,12 +63,17 @@ function calcLegOrderOptimum(isGlobal,degree){
       break;
     default:
   }
+  
+  if(isGlobal){
+    var optiSpeed = blackWhiteSpeed*document.getElementById("id_EditPage_LegOrderOpti_Global_Speed").value;
+    optiGraph.forceLayout(document.getElementById("id_EditPage_LegOrderOpti_Global_Iterations").value,degree,optiSpeed,isGlobal);
+  }
+  else {
+    var optiSpeed = blackWhiteSpeed*document.getElementById("id_EditPage_LegOrderOpti_Local_Speed").value;
+    optiGraph.forceLayout(document.getElementById("id_EditPage_LegOrderOpti_Local_Iterations").value,degree,optiSpeed,isGlobal);
+  }
 
-  var optiSpeed = blackWhiteSpeed*document.getElementById("id_EditPage_LegOrderOpti_Speed").value;
-
-  optiGraph.forceLayout(document.getElementById("id_EditPage_LegOrderOpti_Iterations").value,degree,optiSpeed);
   optiGraphToCMS();
-
 }
 
 

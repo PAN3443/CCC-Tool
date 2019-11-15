@@ -89,8 +89,8 @@ function init_events_EditPage(){
 
     document.getElementById("id_EditPage_SelectAnalyzePlot").addEventListener("change", updateAnalyze);
 
-    document.getElementById("id_editPage_Optimization_IntervalCalcInput").value = deltaSampling_Analyze;
-    document.getElementById("id_editPage_Optimization_IntervalCalcInput").addEventListener("change", changeDeltaSampling);
+    //document.getElementById("id_editPage_Optimization_IntervalCalcInput").value = deltaSampling_Analyze;
+    //document.getElementById("id_editPage_Optimization_IntervalCalcInput").addEventListener("change", changeDeltaSampling);
     document.getElementById("id_editPage_Anaylze_IntervalCalcInput").value = deltaSampling_Analyze;
     document.getElementById("id_editPage_Anaylze_IntervalCalcInput").addEventListener("change", changeDeltaSampling);
 

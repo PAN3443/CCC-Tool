@@ -47,9 +47,21 @@ function hideAllDropDowns(){
 
 function startLeaveEditPage(){
 
-  if(document.getElementById("id_EditPage").display!="none" && somethingChanged){
-    askType=4;
-    openAskWindow();
+  if(document.getElementById("id_EditPage").display!="none"){
+
+    if(somethingChanged){
+      askType=4;
+      openAskWindow();
+    }
+    else{
+
+      if(editPage_optimizationMode){
+        changeOpimizationMode();
+      }
+
+      showMyDesignsPage();
+    }
+
   }
   else{
     showMyDesignsPage();
