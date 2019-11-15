@@ -136,6 +136,7 @@ function main_init() {
   //selectToolTheme(); // cookie?
 
   closeWaitPopUp();
+  checkLandscapeWindow();//
 
   ////////////////////////////////
   // For Testing: with start CMS in the MyDesigns
@@ -156,7 +157,7 @@ function main_init() {
       myDesignsList.push(cmsDivergentColormaps[0]);
 
 
-      var tmpCMS = new class_CMS();
+      /*var tmpCMS = new class_CMS();
       tmpCMS.setPreventIntervals(true);
       tmpCMS.pushKey(new class_Key(undefined, new class_Color_RGB(0.25,0.25,0.25), 0, false));
       tmpCMS.pushKey(new class_Key(new class_Color_RGB(0.5,0.5,0.5), new class_Color_RGB(0.5,0.5,0.5), 0.5, false));
@@ -165,15 +166,19 @@ function main_init() {
       tmpCMS.setBelowColor(new class_Color_RGB(0,0,1.0));
       tmpCMS.setInterpolationSpace("lab");
       tmpCMS.setPreventIntervals(false);
-      myDesignsList.push(tmpCMS);
+      myDesignsList.push(tmpCMS);*/
 
 
       showMyDesignsPage();
-      indexActiveCMS=0;
-      showEditPage();// /
-      globalCMS1.setInterpolationSpace("rgb");
-      updateInterpolationSpaceEditPage();
-      checkLandscapeWindow();//*/
+      //indexActiveCMS=0;
+      //showEditPage();// /
+      //globalCMS1.setInterpolationSpace("rgb");
+      //updateInterpolationSpaceEditPage();//*/
+
+
+
+
+
 
 
 }
