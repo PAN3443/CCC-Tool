@@ -88,9 +88,9 @@ class class_Graph_ForcedDisPower extends class_Graph_ForcedLayout {
 
                 var segmentSpeed = distance / Math.abs(refPos2 - refPos1);
 
-                if(i==iterations-1){
+                /*if(i==iterations-1){
                   console.log("Edge Speed (",e,"):",segmentSpeed,"<",optiSpeed);
-                }
+                }*/
 
 
                 if(segmentSpeed<optiSpeed){
@@ -102,9 +102,9 @@ class class_Graph_ForcedDisPower extends class_Graph_ForcedLayout {
 
                   var force = vecScalMulti(vec_dN, cDif_Change);
 
-                  if(i==iterations-1){
+                  /*if(i==iterations-1){
                     console.log(force);
-                  }
+                  }*/
 
                   //console.log(force);
                   this.nodeArray[this.edgeArray[e].getNodeID1()].addDisp(force);
@@ -172,12 +172,6 @@ class class_Graph_ForcedDisPower extends class_Graph_ForcedLayout {
         var refPos_End= this.nodeArray[nodeEndID].getNodeRefPos();
         var segmentPointSpeed = distance / Math.abs(refPos_End - refPos_Closes);
 
-        if(i==iterations-1){
-          console.log("End Node:",segmentPointSpeed,"<",optiSpeed);
-          // segmentPointSpeed=1000;
-        }
-
-
         if(segmentPointSpeed<optiSpeed){
 
           var speedDif = optiSpeed-segmentPointSpeed;
@@ -185,9 +179,6 @@ class class_Graph_ForcedDisPower extends class_Graph_ForcedLayout {
           var vec_dN = vecNorm(vec_d);
           var force = vecScalMulti(vec_dN, cDif_Change/2);
 
-          if(i==iterations-1){
-            console.log(force);
-          }
 
           this.nodeArray[nodeEndID].addDisp(force);
           this.nodeArray[this.edgeArray[edgeIDBefore].getNodeID1()].subDisp(force);
@@ -206,7 +197,7 @@ class class_Graph_ForcedDisPower extends class_Graph_ForcedLayout {
           vec_d = vec_Diff_COLOR(startColor,closestColor[0]);
           if(vecLength(vec_d) == 0){
 
-            continue;
+            //continue;
 
             var secondColor = this.nodeArray[nodeStartID+1].getNodeColor();
 
@@ -231,9 +222,7 @@ class class_Graph_ForcedDisPower extends class_Graph_ForcedLayout {
           var refPos_Start= this.nodeArray[nodeStartID].getNodeRefPos();
           segmentPointSpeed = distance / Math.abs(refPos_Closes-refPos_Start);
 
-          if(i==iterations-1){
-            console.log("Start Node:",segmentPointSpeed,"<",optiSpeed);
-          }
+
 
 
           if(segmentPointSpeed<optiSpeed){
@@ -241,10 +230,6 @@ class class_Graph_ForcedDisPower extends class_Graph_ForcedLayout {
             var cDif_Change = (speedDif * Math.abs(refPos_Closes-refPos_Start)) * degree;
             var vec_dN = vecNorm(vec_d);
             var force = vecScalMulti(vec_dN, cDif_Change/2);
-
-            if(i==iterations-1){
-              console.log(force);
-            }
 
             this.nodeArray[nodeStartID].addDisp(force);
             this.nodeArray[this.edgeArray[edgeIDAfter].getNodeID1()].subDisp(force);
@@ -255,12 +240,6 @@ class class_Graph_ForcedDisPower extends class_Graph_ForcedLayout {
 
         startColor.deleteReferences();
         endColor.deleteReferences();
-
-
-        if(i==iterations-1){
-          for (var v = 0; v < this.nodeArray.length; v++)
-            console.log("Node Disp ",v," : ",this.nodeArray[v].getDisp());
-        }
 
       /////////////////////////////////////////////////
       //// PART 5: Do Movement with temperature
@@ -366,7 +345,20 @@ class class_Graph_ForcedDisPower extends class_Graph_ForcedLayout {
     var refDis = Math.abs(this.nodeArray[this.nodeArray.length-1].getNodeRefPos() - this.nodeArray[0].getNodeRefPos());
 
     if(isGlobal){
-      return 3.4;
+
+      switch (this.graphColorSpace) {
+        case "rgb":
+          return 3.4*refDis;
+        case "lab":
+          return 3.4*75*refDis;
+        case "din99":
+          return 3.4*75*refDis;
+        default:
+          return undefined;
+      }
+
+      ///////////////////////////////////
+      // Old Volume Idea
       /*var volumen = undefined;
       switch (this.graphColorSpace) {
         case "rgb":
@@ -384,9 +376,7 @@ class class_Graph_ForcedDisPower extends class_Graph_ForcedLayout {
       var optimalDistanceSegment = Math.pow(volumen/this.nodeArray.length, 1/3); // in 2D rood of plane, in 3D 3th root of volumen
       var optimalDistance = optimalDistanceSegment*this.edgeArray.length;
 
-
-      return optimalDistance/refDis;
-      */
+      return optimalDistance/refDis;*/
     }
     else {
       switch (this.graphColorSpace) {

@@ -232,6 +232,8 @@ function changeOpimizationMode(){
     document.getElementById("id_EditPage_LegOrderOpti_Global_Degree").value=0;
     document.getElementById("id_EditPage_DisPowerOpti_Local_Degree").value=0;
     document.getElementById("id_EditPage_DisPowerOpti_Global_Degree").value=0;
+    document.getElementById("id_EditPage_SmoothOpti_Local_Degree").value=0;
+    document.getElementById("id_EditPage_SmoothOpti_Global_Degree").value=0;
 
     fillKeyCombobox(false);
     chooseOptimizationType(0);
@@ -252,16 +254,20 @@ function chooseOptimizationType(type){
   document.getElementById("id_Select_IntOrder_Opti").classList.remove("class_TabRowButtonActive");
   document.getElementById("id_Select_LegOrder_Opti").classList.remove("class_TabRowButtonActive");
   document.getElementById("id_Select_DisPower_Opti").classList.remove("class_TabRowButtonActive");
+  document.getElementById("id_Select_Smoothness_Opti").classList.remove("class_TabRowButtonActive");
 
   document.getElementById("id_Select_Uniform_Opti").classList.add("class_TabRowButtonNotActive");
   document.getElementById("id_Select_IntOrder_Opti").classList.add("class_TabRowButtonNotActive");
   document.getElementById("id_Select_LegOrder_Opti").classList.add("class_TabRowButtonNotActive");
   document.getElementById("id_Select_DisPower_Opti").classList.add("class_TabRowButtonNotActive");
+  document.getElementById("id_Select_Smoothness_Opti").classList.add("class_TabRowButtonNotActive");
+
 
   document.getElementById("id_Opti_Uniformity_Div").style.display="none";
   document.getElementById("id_Opti_IntOrder_Div").style.display="none";
   document.getElementById("id_Opti_LegOrder_Div").style.display="none";
   document.getElementById("id_Opti_DisPower_Div").style.display="none";
+  document.getElementById("id_Opti_Smooth_Div").style.display="none";
 
   switch (type) {
     case 0:
@@ -284,12 +290,18 @@ function chooseOptimizationType(type){
           document.getElementById("id_Select_DisPower_Opti").classList.add("class_TabRowButtonActive");
           document.getElementById("id_Opti_DisPower_Div").style.display="block";
             break;
+            case 4:
+            document.getElementById("id_Select_Smoothness_Opti").classList.remove("class_TabRowButtonNotActive");
+            document.getElementById("id_Select_Smoothness_Opti").classList.add("class_TabRowButtonActive");
+            document.getElementById("id_Opti_Smooth_Div").style.display="block";
+              break;
     default:
       return;
   }
-
   updateOptiPageStyle();
 }
+
+
 
 function updateOptiPageStyle(){
 
@@ -414,6 +426,31 @@ function updateOptiPageStyle(){
     }
     else{
       document.getElementById("id_EditPage_DisPowerOpti_Global_Options").style.display="none";
+    }
+  }
+
+  ///////////////////////////////////////////////////////////////
+  //// 5. Discriminative Smoothness
+  //////////////////////////////////////////////////////////////
+  if(document.getElementById("id_Opti_DisPower_Div").style.display!="none"){
+    ///////////////////////////////////////////////////////////////
+    //// 4.1 Local Discriminative Smoothness
+    //////////////////////////////////////////////////////////////
+    if(document.getElementById("id_EditPage_Local_SmoothOptimization").checked){
+      document.getElementById("id_EditPage_SmoothOpti_Local_Options").style.display="block";
+    }
+    else{
+      document.getElementById("id_EditPage_SmoothOpti_Local_Options").style.display="none";
+    }
+
+    ///////////////////////////////////////////////////////////////
+    //// 4.2 Global Discriminative Smoothness
+    //////////////////////////////////////////////////////////////
+    if(document.getElementById("id_EditPage_Global_SmoothOptimization").checked){
+      document.getElementById("id_EditPage_SmoothOpti_Global_Options").style.display="block";
+    }
+    else{
+      document.getElementById("id_EditPage_SmoothOpti_Global_Options").style.display="none";
     }
   }
 
@@ -662,6 +699,7 @@ function calcOptiCMS(){
         }
       }
 
+      /////////////////////////////////////////////////////////////////////////////
 
     if(document.getElementById("id_EditPage_LocalLegOrderOptimization").checked){
       var degree = document.getElementById("id_EditPage_LegOrderOpti_Local_Degree").value;
@@ -703,7 +741,7 @@ function calcOptiCMS(){
       }
     }
 
-
+    /////////////////////////////////////////////////////////////////////////////
     createDisPowerGraph();
 
     if(document.getElementById("id_EditPage_LocalDisPowerOptimization").checked){
@@ -751,7 +789,7 @@ function calcOptiCMS(){
       }
     }
 
-
+    /////////////////////////////////////////////////////////////////////////////
 
     if(document.getElementById("id_EditPage_LocalSpeedOptimization").checked){
       var degree = document.getElementById("id_EditPage_UniOpti_Local_Degree").value;
@@ -795,6 +833,52 @@ function calcOptiCMS(){
       }
     }
 
+    /////////////////////////////////////////////////////////////////////////////
+
+    if(document.getElementById("id_EditPage_Local_SmoothOptimization").checked){
+      var degree = document.getElementById("id_EditPage_SmoothOpti_Local_Degree").value;
+      var inserted = false;
+      if(degree!=0){
+        for (var i = 0; i < optiLocalDegree.length; i++) {
+          if(degree<optiLocalDegree[i]){
+            optiLocalType.splice(i, 0,4);
+            optiLocalDegree.splice(i, 0,degree);
+            inserted=true;
+            break;
+          }
+        }
+
+        if(!inserted){
+          optiLocalType.push(4);
+          optiLocalDegree.push(degree);
+        }
+      }
+    }
+
+    if(document.getElementById("id_EditPage_Global_SmoothOptimization").checked){
+
+      var degree = document.getElementById("id_EditPage_SmoothOpti_Global_Degree").value;
+      var inserted = false;
+
+      if(degree!=0){
+        for (var i = 0; i < optiGlobalDegree.length; i++) {
+          if(degree<optiGlobalDegree[i]){
+            optiGlobalType.splice(i, 0,4);
+            optiGlobalDegree.splice(i, 0,degree);
+            inserted=true;
+            break;
+          }
+        }
+
+        if(!inserted){
+          optiGlobalType.push(4);
+          optiGlobalDegree.push(degree);
+        }
+      }
+    }
+
+    /////////////////////////////////////////////////////////////////////////////
+
 
   var text = "";
   if(optiGlobalType.length!=0){
@@ -833,6 +917,12 @@ function calcOptiCMS(){
                       globalCMS1= cloneCMS(globalCMS1_Optimum);
                       break;
 
+                      case 4: //  Smoothness
+                        text+="Smoothness";
+                        calcGlobalSmoothOptimum();
+                        updateOptimizationCMS(optiGlobalDegree[i]);
+                        break;
+
       }
       text+="  (Degree: "+optiGlobalDegree[i]+");\n";
     }
@@ -867,6 +957,11 @@ function calcOptiCMS(){
                       calcDisPowerOptimum(false,optiLocalDegree[i]);
                       globalCMS1= cloneCMS(globalCMS1_Optimum);
                       break;
+                      case 4: //  Smoothness
+                        text+="Smoothness";
+                        calcLocalSmoothOptimum();
+                        updateOptimizationCMS(optiLocalDegree[i]);
+                        break;
 
       }
       text+="  (Degree: "+optiLocalDegree[i]+");\n";
@@ -904,10 +999,7 @@ function updateKeyIndex(){
       options[i].disabled = true;
   }
 
-
   calcOptiCMS();
-
-
 }
 
 function fillKeyCombobox(saveOldPosition){
