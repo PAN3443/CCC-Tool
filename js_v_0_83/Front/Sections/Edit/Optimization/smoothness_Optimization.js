@@ -42,51 +42,270 @@ function calcGlobalSmoothOptimum(){
 
 function calcSmoothnessOptiumumForKey(k0,k1,k2){
 
-  var color_K0 = globalCMS1_Optimum.getRightKeyColor(k0,globalCMS1_Optimum.getInterpolationSpace());
-  var color_K1 = globalCMS1_Optimum.getRightKeyColor(k1,globalCMS1_Optimum.getInterpolationSpace());
-  var color_K2 = globalCMS1_Optimum.getLeftKeyColor(k2,globalCMS1_Optimum.getInterpolationSpace());
+  var color_Ci = globalCMS1_Optimum.getRightKeyColor(k0,globalCMS1_Optimum.getInterpolationSpace());
+  var color_Cj = globalCMS1_Optimum.getRightKeyColor(k1,globalCMS1_Optimum.getInterpolationSpace());
+  var color_Ck = globalCMS1_Optimum.getLeftKeyColor(k2,globalCMS1_Optimum.getInterpolationSpace());
 
-  /*console.log("color_K0: ",color_K0.get1Value(),color_K0.get2Value(),color_K0.get3Value());
-  console.log("color_K1: ",color_K1.get1Value(),color_K1.get2Value(),color_K1.get3Value());
-  console.log("color_K2: ",color_K2.get1Value(),color_K2.get2Value(),color_K2.get3Value());
+  /*console.log("color_Ci: ",color_Ci.get1Value(),color_Ci.get2Value(),color_Ci.get3Value());
+  console.log("color_Cj: ",color_Cj.get1Value(),color_Cj.get2Value(),color_Cj.get3Value());
+  console.log("color_Ck: ",color_Ck.get1Value(),color_Ck.get2Value(),color_Ck.get3Value());
 
-  /*color_K0.set1Value(0.25);color_K0.set2Value(0.25);color_K0.set3Value(0.5);
-  color_K1.set1Value(0.25);color_K1.set2Value(0.75);color_K1.set3Value(0.5);
-  color_K2.set1Value(0.25);color_K2.set2Value(0.75);color_K2.set3Value(0.75);
+  /*color_Ci.set1Value(0.25);color_Ci.set2Value(0.25);color_Ci.set3Value(0.5);
+  color_Cj.set1Value(0.25);color_Cj.set2Value(0.75);color_Cj.set3Value(0.5);
+  color_Ck.set1Value(0.25);color_Ck.set2Value(0.75);color_Ck.set3Value(0.75);
 
-  console.log("color_K0: ",color_K0.get1Value(),color_K0.get2Value(),color_K0.get3Value());
-  console.log("color_K1: ",color_K1.get1Value(),color_K1.get2Value(),color_K1.get3Value());
-  console.log("color_K2: ",color_K2.get1Value(),color_K2.get2Value(),color_K2.get3Value());//*/
+  console.log("color_Ci: ",color_Ci.get1Value(),color_Ci.get2Value(),color_Ci.get3Value());
+  console.log("color_Cj: ",color_Cj.get1Value(),color_Cj.get2Value(),color_Cj.get3Value());
+  console.log("color_Ck: ",color_Ck.get1Value(),color_Ck.get2Value(),color_Ck.get3Value());//*/
 
-  if(color_K0.equalTo(color_K1))
+  if(color_Ci.equalTo(color_Cj))
     return;
 
-  if(color_K0.equalTo(color_K2))
+  if(color_Ci.equalTo(color_Ck))
     return;
 
-  if(color_K2.equalTo(color_K1))
+  if(color_Ck.equalTo(color_Cj))
     return;
 
 
   /////////////////////////
-  // Translation of color_K0 into the origin
-  /*var vec_A = vec_Diff_COLOR(color_K1,color_K0);
-  var vec_B = vec_Diff_COLOR(color_K2,color_K0);*/
+  // Translation of color_Ci into the origin
 
-  /*var vec_A = [color_K1.get1Value()-color_K0.get1Value(),color_K1.get2Value()-color_K0.get2Value(),color_K1.get3Value()-color_K0.get3Value()];
-  var vec_B = [color_K2.get1Value()-color_K0.get1Value(),color_K2.get2Value()-color_K0.get2Value(),color_K2.get3Value()-color_K0.get3Value()];*/
-
-
-  var vec_A = [0.26,0.85,0.7];
-  var vec_B = [0.2,0.44,0.65];//*/
-
-  /*var vec_A = [0,0.0,0.75];
-  var vec_B = [0,0.8,0.75];*/
 
   /////////////////////////
   // calc plane unit normal
-  var vec_PUN = vecNorm(vec_Cross(vec_A,vec_B));
 
+
+  ///////////////////////////
+  /// Determine Radius
+
+  var ref_i = globalCMS1_Optimum.getRefPosition(k0);
+  var ref_j = globalCMS1_Optimum.getRefPosition(k1);
+  var ref_k = globalCMS1_Optimum.getRefPosition(k2);
+
+  var tangentVec_ij = vec_Divi(vec_Diff_COLOR(color_Cj,color_Ci),ref_j-ref_i);
+  var tangentVec_jk = vec_Divi(vec_Diff_COLOR(color_Ck,color_Cj),ref_k-ref_j);
+
+  var scalarProduct = vec_Dot(tangentVec_ij,tangentVec_jk);
+
+  var curvature = Math.sqrt(1-Math.pow(scalarProduct,2))/(0.5*(ref_k-ref_i));
+
+  var radius = 1/curvature;
+
+
+  console.log("Smooth: tangent vec (ci,cj) = ", tangentVec_ij);
+  console.log("Smooth: tangent vec (cj,ck) = ", tangentVec_jk);
+  console.log("curvature = ", curvature);
+  console.log("radius = ", radius);
+
+
+  ///////////////////////////////////////////////
+  // PLANE 1
+  // norm form of plane  n*(x-A)=0
+
+  var vec_A = vec_Diff_COLOR(color_Ci,color_Cj);
+  var vec_B = vec_Diff_COLOR(color_Ck,color_Cj);
+  var norm1 = vecNorm(vec_Cross(vec_A,vec_B));
+
+  ///////////////////////////////////////////////
+  /// convert to coordinate form
+  /// plane = Ax+By+Cz+D=0
+  /// A=norm[0], B=norm[1], C=norm[2],
+  /// insert known point for x,y,z
+  /// D =  (Ax+By+Cz)*-1
+
+  var plane_Point1 = [color_Ci.get1Value(),color_Ci.get2Value(),color_Ci.get3Value()];
+  //var val_D1 = (plane_Point1[0]*norm1[0]+plane_Point1[1]*norm1[1]+plane_Point1[2]*norm1[2])*-1;
+  var d1 = -vec_Dot(norm1, plane_Point1);
+
+  ///////////////////////////////////////////////
+  // PLANE 2
+  // norm form of plane  n*(x-A)=0
+
+  var direction = [color_Ck.get1Value()-color_Ci.get1Value(),
+                  color_Ck.get2Value()-color_Ci.get2Value(),
+                  color_Ck.get3Value()-color_Ci.get3Value()];
+
+  var plane_Point2 = [color_Ci.get1Value()+(0.5*direction[0]),
+                color_Ci.get2Value()+(0.5*direction[1]),
+                color_Ci.get3Value()+(0.5*direction[2])]; // = middle point between c_i and c_k
+
+  var norm2 = vecNorm(direction);
+
+  ///////////////////////////////////////////////////
+  // get coordinate form of plane 2
+  //var val_D2 = (plane_Point2[0]*norm2[0]+plane_Point2[1]*norm2[1]+plane_Point2[2]*norm2[2])*-1;
+  var d2 = -vec_Dot(norm2, plane_Point2);
+
+  ///////////////////////////////////////////////
+  // PLANE-PLANE Intersection Line
+  // http://geomalgorithms.com/a05-_intersect-1.html
+  /*var norm3 = vecNorm(vec_Cross(norm1,norm2));
+  var ax = (norm3[0] >= 0 ? norm3[0] : -norm3[0]);
+  var ay = (norm3[1] >= 0 ? norm3[1] : -norm3[1]);
+  var az = (norm3[2] >= 0 ? norm3[2] : -norm3[2]);
+  var small_NUM = 1e-12;
+  // test if the two planes are parallel
+    if ((ax+ay+az) < small_NUM) {        // Pn1 and Pn2 are near parallel
+        // test if disjoint or coincide
+        var vec_V = vec_Diff(plane_Point2,plane_Point1);
+        if (vec_Dot(norm1, vec_V) == 0)          // Pn2.V0 lies in Pn1
+            return 1;                    // Pn1 and Pn2 coincide
+        else
+            return 0;                    // Pn1 and Pn2 are disjoint
+    }
+
+
+    // Pn1 and Pn2 intersect in a line
+    // first determine max abs coordinate of cross product
+    var  maxc = undefined;                       // max coordinate
+    if (ax > ay) {
+        if (ax > az)
+             maxc =  1;
+        else maxc = 3;
+    }
+    else {
+        if (ay > az)
+             maxc =  2;
+        else maxc = 3;
+    }
+
+    // next, to get a point on the intersect line
+    // zero the max coord, and solve for the other two
+    var point_iP = [undefined,undefined,undefined];                // intersect point
+
+    // the constants in the 2 plane equations
+    switch (maxc) {             // select max coordinate
+    case 1:                     // intersect with x=0
+        point_iP[0] = 0;
+        point_iP[1] = (d2*norm1[2] - d1*norm2[2]) /  norm3[0];
+        point_iP[2] = (d1*norm2[1] - d2*norm1[1]) /  norm3[0];
+        break;
+    case 2:                     // intersect with y=0
+        point_iP[0] = ((d1*norm2[2]) - (d2*norm1[2])) /  norm3[1];//((d1*norm2[2]) - (d2*norm1[2])) /  norm3[1];
+        point_iP[1] = 0;
+        point_iP[2] = ((d2*norm1[0]) - (d1*norm2[0])) /  norm3[1];//((d2*norm1[0]) - (d1*norm2[0])) /  norm3[1];
+
+
+        console.log("point_iP[0]=(",d1,"*",norm2[2],"-",d2,"*",norm1[2],")/",norm3[1],"=",point_iP[0]);
+        console.log("point_iP[2]=(",d2,"*",norm1[0],"-",d1,"*",norm2[0],")/",norm3[1],"=",point_iP[2]);
+
+        break;
+    case 3:                     // intersect with z=0
+        point_iP[0] = ((d2*norm1[1]) - (d1*norm2[1])) /  norm3[2];
+        point_iP[1] = ((d1*norm2[0]) - (d2*norm1[0])) /  norm3[2];
+        point_iP[2] = 0;
+
+        //console.log("point_iP[0]=(",d2,"*",norm1[1],"-",d1,"*",norm2[1],")/",norm3[2],"=",point_iP[0]);
+        //console.log("point_iP[1]=(",d1,"*",norm2[0],"-",d2,"*",norm1[0],")/",norm3[2],"=",point_iP[1]);
+        break;
+    }*/
+
+
+
+    //////////////////////////////////////////////////////////////
+    //// Alternative: Plane 2 into Parameter Form
+    /// coordinate form :  plane = Ax+By+Cz+D=0
+    /// => z = (Ax+By+D)/-C
+    // x = 0+ 1r + 0s
+    // y = 0+ 0r + 1s
+    // z = D/-C + A/-C*r + B/-C*s = d2/(-1*norm2[2]) + norm2[0]/(-1*norm2[2])*r + norm2[1]/(-1*norm2[2])*s
+    //      (0)+r*(1)+s*(0)
+    // H: = (0)+r*(0)+s*(1)
+    //      (d2/(-1*norm2[2]))+r*(norm2[0]/(-1*norm2[2]))+s*(norm2[1]/(-1*norm2[2]))
+    //
+    // P : 0 = norm1[0]*x+norm1[1]*y+norm1[2]*z+d1
+    // https://www.frustfrei-lernen.de/mathematik/koordinatengleichung-zu-parametergleichung.html
+    // https://de.serlo.org/mathe/geometrie/analytische-geometrie/lagebeziehung-punkten-geraden-ebenen/lagebeziehung-zweier-ebenen/lagebeziehungen-zwei-ebenen
+
+    // To get the intersection line we use the coordinate (H:) form from plane 2 and the parameter form (P:) of plane 1
+    // 0 =
+
+    console.log("Smooth: Plane Intersection Line : g(x,y,z) = ", point_iP ,"+ delta * ", norm3);
+
+    /////////////////////////////////////////////////////
+    /// get two points on this line with the distance of r to c_i and c_k
+    /// line = point_iP + delta * norm3;
+    /// line_q1 = point_iP[0] + delta * norm3[0]
+    /// line_q2 = point_iP[1] + delta * norm3[1]
+    /// line_q3 = point_iP[2] + delta * norm3[2]
+    /// Searching for one or two points with the distance r to point_P1 with distance r to our line
+    /// distance (= Math.pow(r,2))= Math.sqrt(Math.pow(line_q1-P1[0],2)+Math.pow(line_q2-P1[1],2)+Math.pow(line_q3-P1[2],2))
+    var point_P1 = [color_Ci.get1Value(),color_Ci.get2Value(),color_Ci.get3Value()];// we can choose c_i or c_j as this color
+    var point_Controll = [color_Ck.get1Value(),color_Ck.get2Value(),color_Ck.get3Value()];
+    var equation_Part3 = Math.pow(point_iP[0]-point_P1[0],2)+Math.pow(point_iP[1]-point_P1[1],2)+Math.pow(point_iP[2]-point_P1[2],2)-Math.pow(radius,2);
+    var equation_Part2 = 2*((norm3[0]*(point_iP[0]-point_P1[0])) + (norm3[1]*(point_iP[1]-point_P1[1])) + (norm3[2]*(point_iP[2]-point_P1[2])));// delta part
+    var equation_Part1 = Math.pow(norm3[0],2)+Math.pow(norm3[1],2)+Math.pow(norm3[2],2);// delta square part
+
+    // 0 = equation_Part1+equation_Part2*delta+equation_Part3*Math.pow(delta,2);
+    console.log("Smooth: delta for Roots for possible m : 0 = ", equation_Part3,"+",equation_Part2,"*delta+",equation_Part1,"*delta^2+");
+
+    var deltas = midnightFormula(equation_Part1,equation_Part2,equation_Part3);
+    var vec_Cj = [color_Cj.get1Value(),color_Cj.get2Value(),color_Cj.get3Value()];
+
+    var point_m = [undefined,undefined,undefined];
+    switch (deltas.length) {
+      case 0:
+        console.log("Smooth: No Point m !!!!!!!!. No calculation possible! ");
+        return;
+      break;
+      case 1:
+        point_m[0] = point_iP[0] + deltas[0] * norm3[0];
+        point_m[1] = point_iP[1] + deltas[0] * norm3[1];
+        point_m[2] = point_iP[2] + deltas[0] * norm3[2];
+      break;
+      case 2:
+        var tmp_M1 = [undefined,undefined,undefined];
+        tmp_M1[0] = point_iP[0] + deltas[0] * norm3[0];
+        tmp_M1[1] = point_iP[1] + deltas[0] * norm3[1];
+        tmp_M1[2] = point_iP[2] + deltas[0] * norm3[2];
+
+        var tmp_M2 = [undefined,undefined,undefined];
+        tmp_M2[0] = point_iP[0] + deltas[1] * norm3[0];
+        tmp_M2[1] = point_iP[1] + deltas[1] * norm3[1];
+        tmp_M2[2] = point_iP[2] + deltas[1] * norm3[2];
+
+        var dist_M1_Cj = vecLength(vec_Diff(tmp_M1,vec_Cj));
+        var dist_M2_Cj = vecLength(vec_Diff(tmp_M2,vec_Cj));
+
+        console.log("Smooth: Two Solutions for Point m!!");
+        console.log("Smooth: 1. Possible Point m = [",tmp_M1[0],",",tmp_M1[1],",",tmp_M1[2],"]");
+        console.log("Smooth: 2. Possible Point m = [",tmp_M2[0],",",tmp_M2[1],",",tmp_M2[2],"]");
+
+        if(dist_M1_Cj>dist_M2_Cj){
+          point_m=tmp_M1;
+        }
+        else {
+          point_m=tmp_M2;
+        }
+      break;
+
+    }
+
+    console.log("Smooth: Check point m: distance m to c_i = ",vecLength(vec_Diff(point_P1,point_m))," = distance m to c_k = ",vecLength(vec_Diff(point_Controll,point_m))," = ",radius,"(radius)");
+
+
+    console.log("Smooth: Point m = [",point_m[0],",",point_m[1],",",point_m[2],"]");
+    var distance_m_Cj = vecLength(vec_Diff(vec_Cj,point_m));
+    console.log("Smooth: Distance m to c_j = ",distance_m_Cj);
+
+
+    if(distance_m_Cj>radius){
+      console.log("Smooth: c_j need a movement");
+    }
+    else {
+      console.log("Smooth: the position of c_j is fine.");
+    }
+
+  color_Ci.deleteReferences();
+  color_Cj.deleteReferences();
+  color_Ck.deleteReferences();
+
+
+  ////////////////////////////////////////////////////
+  ///// OLD ROTATION idea
+  ////////////////////////////////////////////////////
+  /*
   console.log("vec_A:",vec_A);
   console.log("vec_B:",vec_B);
   console.log("vec_PUN:",vec_PUN);
@@ -140,7 +359,7 @@ function calcSmoothnessOptiumumForKey(k0,k1,k2){
     [Math.cos(angleToZ),0,Math.sin(angleToZ)],
     [0,1,0],
     [-Math.sin(angleToZ),0,Math.cos(angleToZ)]
-  ];//*/
+  ];//
 
 
   ////////////////
@@ -162,64 +381,19 @@ function calcSmoothnessOptiumumForKey(k0,k1,k2){
     [roation_Y[0][0],roation_Y[1][0],roation_Y[2][0]],
     [roation_Y[0][1],roation_Y[1][1],roation_Y[2][1]],
     [roation_Y[0][2],roation_Y[1][2],roation_Y[2][2]]
-  ];*/
-
-
-  ////////////////////////////
-  // Calc Rotated Points
+  ];
+  */
 
 
 
-  color_K0.set1Value(0);color_K0.set2Value(0);color_K0.set3Value(0);
-  color_K1.set1Value(vec_A_Rot[0]);color_K1.set2Value(vec_A_Rot[1]);color_K1.set3Value(vec_A_Rot[2]);
-  color_K2.set1Value(vec_B_Rot[0]);color_K2.set2Value(vec_B_Rot[1]);color_K2.set3Value(vec_B_Rot[2]);
-
-  globalCMS1_Optimum.setRightKeyColor(k0,color_K0);
-  globalCMS1_Optimum.setRightKeyColor(k1,cloneColor(color_K1));
-  globalCMS1_Optimum.setLeftKeyColor(k1,color_K1);
-  globalCMS1_Optimum.setLeftKeyColor(k2,color_K2);//*/
-
-  /*var middle = vecScalMulti(vec_B_Rot,0.5);
-  var radius = vecLength(middle);
-  var dis_MtoA = vecLength(vec_Diff(vec_A_Rot,middle));*/
 
 
-  /*////////////////////////////////////////////////
-  // create plane out of
-  // plane: a*x+b*y+c*z+d = 0.
 
-  var a1 = color_K1.get1Value()-color_K0.get1Value();//x2 - x1;
-  var b1 = color_K1.get2Value()-color_K0.get2Value();//y2 - y1;
-  var c1 = color_K1.get3Value()-color_K0.get3Value();//z2 - z1;
-  var a2 = color_K2.get1Value()-color_K0.get1Value();//x3 - x1;
-  var b2 = color_K2.get2Value()-color_K0.get2Value();//y3 - y1;
-  var c2 = color_K2.get3Value()-color_K0.get3Value();//z3 - z1;
-  var a = b1 * c2 - b2 * c1;
-  var b = a2 * c1 - a1 * c2;
-  var c = a1 * b2 - b1 * a2;
-  var d = (- a * x1 - b * y1 - c * z1);
 
-  ///////////////////////////////////////////////////
-  ////  Determine Middle Point between K0 and K2
-  var direction = [color_K2.get1Value()-color_K0.get1Value(),
-                  color_K2.get2Value()-color_K0.get2Value(),
-                  color_K2.get3Value()-color_K0.get3Value()]
 
-  var middle = [color_K0.get1Value()+(0.5*direction[0]),
-                color_K0.get2Value()+(0.5*direction[1]),
-                color_K0.get3Value()+(0.5*direction[2])];*/
 
-  /*var result = calcolor_K2ColorOrderOptimum(globalCMS1_Optimum.getRightKeyColor(k0,globalCMS1_Optimum.getInterpolationSpace()),
-  var c1 = _Optimum.getRightKeyColor(k1,globalCMS1_Optimum.getInterpolationSpace()),
-  var c1 = _Optimum.getLeftKeyColor(k2,globalCMS1_Optimum.getInterpolationSpace()));
 
-  switch (result[0]) {
-    //case 0: break; //do nothing
-    case 1:
-      globalCMS1_Optimum.setRightKeyColor(k1,cloneColor(result[1]));
-      globalCMS1_Optimum.setLeftKeyColor(k1,cloneColor(result[1]));
-      result[1].deleteReferences();
-      result[1]=null;
-    break;
-  }*/
+
+
+
 }

@@ -279,25 +279,34 @@ function chooseOptimizationType(type){
       document.getElementById("id_Select_IntOrder_Opti").classList.remove("class_TabRowButtonNotActive");
       document.getElementById("id_Select_IntOrder_Opti").classList.add("class_TabRowButtonActive");
       document.getElementById("id_Opti_IntOrder_Div").style.display="block";
+      document.getElementById("id_EditPage_SelectAnalyzePlot").selectedIndex = 4;
+      updateAnalyze();
         break;
         case 2:
         document.getElementById("id_Select_LegOrder_Opti").classList.remove("class_TabRowButtonNotActive");
         document.getElementById("id_Select_LegOrder_Opti").classList.add("class_TabRowButtonActive");
         document.getElementById("id_Opti_LegOrder_Div").style.display="block";
+        document.getElementById("id_EditPage_SelectAnalyzePlot").selectedIndex = 3;
+        updateAnalyze();
           break;
           case 3:
           document.getElementById("id_Select_DisPower_Opti").classList.remove("class_TabRowButtonNotActive");
           document.getElementById("id_Select_DisPower_Opti").classList.add("class_TabRowButtonActive");
           document.getElementById("id_Opti_DisPower_Div").style.display="block";
+          document.getElementById("id_EditPage_SelectAnalyzePlot").selectedIndex = 3;
+          updateAnalyze();
             break;
             case 4:
             document.getElementById("id_Select_Smoothness_Opti").classList.remove("class_TabRowButtonNotActive");
             document.getElementById("id_Select_Smoothness_Opti").classList.add("class_TabRowButtonActive");
             document.getElementById("id_Opti_Smooth_Div").style.display="block";
+            document.getElementById("id_EditPage_SelectAnalyzePlot").selectedIndex = 3;
+            updateAnalyze();
               break;
     default:
       return;
   }
+
   updateOptiPageStyle();
 }
 
@@ -345,10 +354,18 @@ function updateOptiPageStyle(){
           document.getElementById("id_EditPage_UniOpti_FixedDiv").style.display="block";
         else
           document.getElementById("id_EditPage_UniOpti_GraphSettings").style.display="block";
+
+
+          document.getElementById("id_EditPage_SelectAnalyzePlot").selectedIndex = 3;
+          updateAnalyze();
       }
       else{
         document.getElementById("id_EditPage_UniOpti_Global_Options").style.display="none";
+
+        document.getElementById("id_EditPage_SelectAnalyzePlot").selectedIndex = 2;
+        updateAnalyze();
       }
+
     }
 
   ///////////////////////////////////////////////////////////////

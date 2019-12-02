@@ -47,6 +47,11 @@ function changeColorspace(){
 
   globalCMS1.setInterpolationSpace(intSpace);
 
+  if(editPage_optimizationMode){
+    globalCMS1_Original.setInterpolationSpace(intSpace);
+    globalCMS1_Optimum.setInterpolationSpace(intSpace);
+  }
+
   globalCMS1JSON=inform_Worker_GlobalCMS();
 
   if(document.getElementById("id_EditPage_Add_Structures_Optimization").style.display!="none"){
@@ -65,10 +70,6 @@ function changeColorspace(){
 
 
   updateEditPage(); // = update CMS, Mapping and Analyze Plots
-
-  if(editPage_optimizationMode){
-    editCMSduringOptimizationMode();
-  }
 
 
 }
@@ -117,9 +118,19 @@ function changeInterpolationType(){
   switch (document.getElementById("id_editPage_InterpolationTypeSelect").selectedIndex){
     case 0:
       globalCMS1.setInterpolationType("linear");
+
+      if(editPage_optimizationMode){
+        globalCMS1_Original.setInterpolationType("linear");
+        globalCMS1_Optimum.setInterpolationType("linear");
+      }
+
       break;
       case 1:
         globalCMS1.setInterpolationType("spline");
+        if(editPage_optimizationMode){
+          globalCMS1_Original.setInterpolationType("spline");
+          globalCMS1_Optimum.setInterpolationType("spline");
+        }
         break;
   }
 
@@ -135,9 +146,7 @@ function changeInterpolationType(){
 
   updateEditPage(); // = update CMS, Mapping and Analyze Plots
 
-  if(editPage_optimizationMode){
-    editCMSduringOptimizationMode();
-  }
+
 
 }
 

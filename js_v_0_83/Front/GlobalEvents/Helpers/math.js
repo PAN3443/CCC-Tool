@@ -74,6 +74,14 @@ function vec_Diff_COLOR(c1,c2){
   return result;
 }
 
+function vec_Divi(v,s){
+  var result = [];
+  for (var i = 0; i < v.length; i++) {
+    result.push(v[i]/s);
+  }
+  return result;
+}
+
 function vec_Diff(v1,v2){
   if(v1.length!=v2.length)
     return undefined;
@@ -153,4 +161,32 @@ function vec_Distance(v1,v2){
     return Math.sqrt(sum);
   }
   return undefined;
+}
+
+
+
+function midnightFormula(a,b,c){
+
+
+  var results = [];
+  var discriminant = Math.pow(b,2) - (4*a*c);
+
+  if(discriminant>0){
+    // Roots are real and different
+    results.push((-b + Math.sqrt(discriminant)) / (2*a));
+    results.push((-b - Math.sqrt(discriminant)) / (2*a));
+  }
+  else if(discriminant==0){
+    // Roots are real and same
+    results.push((-b + Math.sqrt(discriminant)) / (2*a));
+  }
+  else{
+    // Roots are complex and different
+    //var realPart = -b/(2*a);
+    //var imaginaryPart = Math.sqrt(-discriminant)/(2*a);
+
+  }
+
+  return results;
+
 }
