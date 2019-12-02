@@ -151,7 +151,7 @@ function main_init() {
     // For Testing: with start EditPage
     ///
 
-      myDesignsList.push(cmsDivergentColormaps[0]);
+      /*myDesignsList.push(cmsDivergentColormaps[0]);
 
 
       var tmpCMS = new class_CMS();
@@ -163,7 +163,7 @@ function main_init() {
       tmpCMS.setBelowColor(new class_Color_RGB(0,0,1.0));
       tmpCMS.setInterpolationSpace("rgb");
       tmpCMS.setPreventIntervals(false);
-      myDesignsList.push(tmpCMS);
+      myDesignsList.push(tmpCMS);*/
 
 
       var tmpCMS = new class_CMS();
@@ -203,7 +203,7 @@ function main_init() {
 
 
       showMyDesignsPage();
-      indexActiveCMS=4;
+      indexActiveCMS=2;
       showEditPage();// /
       //globalCMS1.setInterpolationSpace("rgb");
       //updateInterpolationSpaceEditPage();//*/

@@ -5,7 +5,7 @@ function  calcLocalSmoothOptimum(){
 
     if(continuousSections[j][0]+1<continuousSections[j][1]){
       for (var i = continuousSections[j][0]+1; i < continuousSections[j][1]; i++) {
-        calcSmoothnessOptiumumForKey(i-1,i,i+1);
+        testCalcSmoothnessOptiumumForKey(i-1,i,i+1,continuousSections[j][0],continuousSections[j][1]);//calcSmoothnessOptiumumForKey(i-1,i,i+1);
         break;
       }// for
     } // if
@@ -29,8 +29,7 @@ function calcGlobalSmoothOptimum(){
       for (var k0 = continuousSections[j][0]; k0 < continuousSections[j][1]-1; k0++) {
       for (var k2=k0+2; k2<=continuousSections[j][1]; k2++) {
       for (var k1=k0+1; k1<k2; k1++) {
-        calcSmoothnessOptiumumForKey(k0,k1,k2);
-        break;
+        testCalcSmoothnessOptiumumForKey(k0,k1,k2,continuousSections[j][0],continuousSections[j][1]);//calcSmoothnessOptiumumForKey(k0,k1,k2);
       }// for k1
       }// for k2
       }// for k0
@@ -38,6 +37,20 @@ function calcGlobalSmoothOptimum(){
   }
 }
 
+
+function testCalcSmoothnessOptiumumForKey(k0,k1,k2,startID,endID){
+  var status = calcSmoothnessOptiumumForKey(k0,k1,k2);
+
+  if(status==2){
+    if(k0!=startID){
+      testCalcSmoothnessOptiumumForKey(k0-1,k1-1,k2-1,startID,endID);
+    }
+    if(k2!=endID){
+      testCalcSmoothnessOptiumumForKey(k0+1,k1+1,k2+1,startID,endID);
+    }
+  }
+
+}
 
 
 function calcSmoothnessOptiumumForKey(k0,k1,k2){
@@ -59,13 +72,13 @@ function calcSmoothnessOptiumumForKey(k0,k1,k2){
   console.log("color_Ck: ",color_Ck.get1Value(),color_Ck.get2Value(),color_Ck.get3Value());//*/
 
   if(color_Ci.equalTo(color_Cj))
-    return;
+    return 0;
 
   if(color_Ci.equalTo(color_Ck))
-    return;
+    return 0;
 
   if(color_Ck.equalTo(color_Cj))
-    return;
+    return 0;
 
 
   /////////////////////////
@@ -140,7 +153,7 @@ function calcSmoothnessOptiumumForKey(k0,k1,k2){
   ///////////////////////////////////////////////
   // PLANE-PLANE Intersection Line
   // http://geomalgorithms.com/a05-_intersect-1.html
-  /*var norm3 = vecNorm(vec_Cross(norm1,norm2));
+  var norm3 = vecNorm(vec_Cross(norm1,norm2));
   var ax = (norm3[0] >= 0 ? norm3[0] : -norm3[0]);
   var ay = (norm3[1] >= 0 ? norm3[1] : -norm3[1]);
   var az = (norm3[2] >= 0 ? norm3[2] : -norm3[2]);
@@ -150,7 +163,7 @@ function calcSmoothnessOptiumumForKey(k0,k1,k2){
         // test if disjoint or coincide
         var vec_V = vec_Diff(plane_Point2,plane_Point1);
         if (vec_Dot(norm1, vec_V) == 0)          // Pn2.V0 lies in Pn1
-            return 1;                    // Pn1 and Pn2 coincide
+            return 0;                    // Pn1 and Pn2 coincide
         else
             return 0;                    // Pn1 and Pn2 are disjoint
     }
@@ -187,8 +200,8 @@ function calcSmoothnessOptiumumForKey(k0,k1,k2){
         point_iP[2] = ((d2*norm1[0]) - (d1*norm2[0])) /  norm3[1];//((d2*norm1[0]) - (d1*norm2[0])) /  norm3[1];
 
 
-        console.log("point_iP[0]=(",d1,"*",norm2[2],"-",d2,"*",norm1[2],")/",norm3[1],"=",point_iP[0]);
-        console.log("point_iP[2]=(",d2,"*",norm1[0],"-",d1,"*",norm2[0],")/",norm3[1],"=",point_iP[2]);
+        //console.log("point_iP[0]=(",d1,"*",norm2[2],"-",d2,"*",norm1[2],")/",norm3[1],"=",point_iP[0]);
+        //console.log("point_iP[2]=(",d2,"*",norm1[0],"-",d1,"*",norm2[0],")/",norm3[1],"=",point_iP[2]);
 
         break;
     case 3:                     // intersect with z=0
@@ -199,27 +212,24 @@ function calcSmoothnessOptiumumForKey(k0,k1,k2){
         //console.log("point_iP[0]=(",d2,"*",norm1[1],"-",d1,"*",norm2[1],")/",norm3[2],"=",point_iP[0]);
         //console.log("point_iP[1]=(",d1,"*",norm2[0],"-",d2,"*",norm1[0],")/",norm3[2],"=",point_iP[1]);
         break;
-    }*/
+    }//*/
 
 
 
     //////////////////////////////////////////////////////////////
     //// Alternative: Plane 2 into Parameter Form
     /// coordinate form :  plane = Ax+By+Cz+D=0
-    /// => z = (Ax+By+D)/-C
-    // x = 0+ 1r + 0s
-    // y = 0+ 0r + 1s
-    // z = D/-C + A/-C*r + B/-C*s = d2/(-1*norm2[2]) + norm2[0]/(-1*norm2[2])*r + norm2[1]/(-1*norm2[2])*s
-    //      (0)+r*(1)+s*(0)
-    // H: = (0)+r*(0)+s*(1)
-    //      (d2/(-1*norm2[2]))+r*(norm2[0]/(-1*norm2[2]))+s*(norm2[1]/(-1*norm2[2]))
-    //
-    // P : 0 = norm1[0]*x+norm1[1]*y+norm1[2]*z+d1
-    // https://www.frustfrei-lernen.de/mathematik/koordinatengleichung-zu-parametergleichung.html
-    // https://de.serlo.org/mathe/geometrie/analytische-geometrie/lagebeziehung-punkten-geraden-ebenen/lagebeziehung-zweier-ebenen/lagebeziehungen-zwei-ebenen
+    // for plane2: d2 = norm2[0]x+norm2[1]y+norm2[2]z
+    // spurpunkte sx,sy,sz / put in coordinate form of plane2
+    // sx(x|0|0)
+  /*  var sx = [d2/norm2[0],0,0];
+    // sy(x|0|0)
+    var sy = [0,d2/norm2[1],0];
+    // sx(x|0|0)
+    var sz = [0,0,d2/norm2[2]];
 
-    // To get the intersection line we use the coordinate (H:) form from plane 2 and the parameter form (P:) of plane 1
-    // 0 =
+    var sxsy = [sx[0]+]*/
+    // X = Sx + s · SxSy + t · SxSz
 
     console.log("Smooth: Plane Intersection Line : g(x,y,z) = ", point_iP ,"+ delta * ", norm3);
 
@@ -286,15 +296,23 @@ function calcSmoothnessOptiumumForKey(k0,k1,k2){
 
 
     console.log("Smooth: Point m = [",point_m[0],",",point_m[1],",",point_m[2],"]");
-    var distance_m_Cj = vecLength(vec_Diff(vec_Cj,point_m));
+
+    var direction_m_To_Cj = vec_Diff(vec_Cj,point_m);
+    var distance_m_Cj = vecLength(direction_m_To_Cj);
     console.log("Smooth: Distance m to c_j = ",distance_m_Cj);
 
 
     if(distance_m_Cj>radius){
       console.log("Smooth: c_j need a movement");
+      var newPoint = vec_Add(point_m,vecScalMulti(vecNorm(direction_m_To_Cj),radius));
+      console.log(createColor(newPoint[0],newPoint[1],newPoint[2],globalCMS1_Optimum.getInterpolationSpace()));
+      globalCMS1_Optimum.setRightKeyColor(k1,createColor(newPoint[0],newPoint[1],newPoint[2],globalCMS1_Optimum.getInterpolationSpace()));
+      globalCMS1_Optimum.setLeftKeyColor(k1,createColor(newPoint[0],newPoint[1],newPoint[2],globalCMS1_Optimum.getInterpolationSpace()));
+      return 2;
     }
     else {
       console.log("Smooth: the position of c_j is fine.");
+      return 1;
     }
 
   color_Ci.deleteReferences();
@@ -382,6 +400,58 @@ function calcSmoothnessOptiumumForKey(k0,k1,k2){
     [roation_Y[0][1],roation_Y[1][1],roation_Y[2][1]],
     [roation_Y[0][2],roation_Y[1][2],roation_Y[2][2]]
   ];
+  */
+
+
+
+
+
+  //////////////////////////////////////////////////////////////////////////////
+  /*
+  //////////////////////////////////////////////////////////////
+  //// Alternative: Plane 2 into Parameter Form
+  /// coordinate form :  plane = Ax+By+Cz+D=0
+  /// => z = (Ax+By+D)/-C
+  // x = 0+ 1r + 0s
+  // y = 0+ 0r + 1s
+  // z = D/-C + A/-C*r + B/-C*s = d2/(-1*norm2[2]) + norm2[0]/(-1*norm2[2])*r + norm2[1]/(-1*norm2[2])*s
+  //      (0)+r*(1)+s*(0)
+  // H: = (0)+r*(0)+s*(1)
+  //      (d2/(-1*norm2[2]))+r*(norm2[0]/(-1*norm2[2]))+s*(norm2[1]/(-1*norm2[2]))
+  //
+  // P : 0 = norm1[0]*x+norm1[1]*y+norm1[2]*z+d1
+  // https://www.frustfrei-lernen.de/mathematik/koordinatengleichung-zu-parametergleichung.html
+  // https://de.serlo.org/mathe/geometrie/analytische-geometrie/lagebeziehung-punkten-geraden-ebenen/lagebeziehung-zweier-ebenen/lagebeziehungen-zwei-ebenen
+
+  // To get the intersection line we use the coordinate (H:) form from plane 2 and the parameter form (P:) of plane 1
+  /* 0 =  norm1[0]*(0+1r+0s)
+  +norm1[1]*(0+0r+1s)
+  +norm1[2]*(d2/(-1*norm2[2])+r*(norm2[0]/(-1*norm2[2]))+s*(norm2[1]/(-1*norm2[2])))
+  +d1 */
+  /* 0 =  norm1[2]*d2/(-1*norm2[2])+
+  (norm1[0]+norm1[2]*(norm2[0]/(-1*norm2[2])))*r+
+  (norm1[1]+norm1[2]*(norm2[1]/(-1*norm2[2])))*s*/
+  /* -(norm1[0]+norm1[2]*(norm2[0]/(-1*norm2[2])))*r =  norm1[2]*d2/(-1*norm2[2])+
+  (norm1[1]+norm1[2]*(norm2[1]/(-1*norm2[2])))*s*/
+  /* r = (norm1[2]*d2/(-1*norm2[2])+ (norm1[1]+norm1[2]*(norm2[1]/(-1*norm2[2])))*s)/(-(norm1[0]+norm1[2]*(norm2[0]/(-1*norm2[2]))))* /
+
+  var tmp_Div = -1*(norm1[0]+norm1[2]*(norm2[0]/(-1*norm2[2])));
+  var equ_nonSFactor = norm1[2]*d2/(-1*norm2[2])/tmp_Div;
+  var equ_SFactor = (norm1[1]+norm1[2]*(norm2[1]/(-1*norm2[2])))/tmp_Div;
+
+  // r=(equ_nonSFactor+equ_SFactor*s)
+
+  //      (0)+(equ_nonSFactor+equ_SFactor*s)*(1)+s*(0)
+  // H: = (0)+(equ_nonSFactor+equ_SFactor*s)*(0)+s*(1)
+  //      (d2/(-1*norm2[2]))+(equ_nonSFactor+equ_SFactor*s)*(norm2[0]/(-1*norm2[2]))+s*(norm2[1]/(-1*norm2[2]))
+
+  //      equ_nonSFactor + equ_SFactor*s
+  // G: =  0 + (1)s
+  //       (d2/(-1*norm2[2]))+equ_nonSFactor*(norm2[0]/(-1*norm2[2]))  + ((norm2[1]/(-1*norm2[2]))+ equ_SFactor*(norm2[0]/(-1*norm2[2])) )*s
+
+  var point_iP=[equ_nonSFactor,0,(d2/(-1*norm2[2]))+equ_nonSFactor*(norm2[0]/(-1*norm2[2]))];
+
+  var norm3 = [equ_SFactor,1,((norm2[1]/(-1*norm2[2]))+ equ_SFactor*(norm2[0]/(-1*norm2[2])))];
   */
 
 
