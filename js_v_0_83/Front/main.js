@@ -151,10 +151,10 @@ function main_init() {
     // For Testing: with start EditPage
     ///
 
-      /*myDesignsList.push(cmsDivergentColormaps[0]);
+      //myDesignsList.push(cmsDivergentColormaps[0]);
 
 
-      var tmpCMS = new class_CMS();
+      /*var tmpCMS = new class_CMS();
       tmpCMS.setPreventIntervals(true);
       tmpCMS.pushKey(new class_Key(undefined, new class_Color_RGB(0.25,0.25,0.5), 0, false));
       tmpCMS.pushKey(new class_Key(new class_Color_RGB(0.25,0.75,0.5), new class_Color_RGB(0.25,0.75,0.5), 0.5, false));
@@ -203,7 +203,7 @@ function main_init() {
 
 
       showMyDesignsPage();
-      indexActiveCMS=2;
+      /*indexActiveCMS=0;
       showEditPage();// /
       //globalCMS1.setInterpolationSpace("rgb");
       //updateInterpolationSpaceEditPage();//*/
