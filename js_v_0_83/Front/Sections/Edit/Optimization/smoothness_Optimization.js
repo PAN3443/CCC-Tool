@@ -99,16 +99,28 @@ function calcSmoothnessOptiumumForKey(k0,k1,k2){
   var tangentVec_ij = vec_Divi(vec_Diff_COLOR(color_Cj,color_Ci),ref_j-ref_i);
   var tangentVec_jk = vec_Divi(vec_Diff_COLOR(color_Ck,color_Cj),ref_k-ref_j);
 
+  var tangentVec_Norm_ij = vecNorm(tangentVec_ij);
+  var tangentVec_Norm_jk = vecNorm(tangentVec_jk);
+
   console.log("----------------------------------------------------");
   console.log("Smooth: tangent vec (ci) = (",color_Ci.get1Value(),",",color_Ci.get2Value(),",",color_Ci.get3Value(),")");
   console.log("Smooth: tangent vec (cj) = (",color_Cj.get1Value(),",",color_Cj.get2Value(),",",color_Cj.get3Value(),")");
   console.log("Smooth: tangent vec (ck) = (",color_Ck.get1Value(),",",color_Ck.get2Value(),",",color_Ck.get3Value(),")");
-  console.log("Smooth: tangent vec (ci,cj) = ", tangentVec_ij);
-  console.log("Smooth: tangent vec (cj,ck) = ", tangentVec_jk);
+  console.log("Smooth: normierter tangent vec (ci,cj) = ", tangentVec_Norm_ij);
+  console.log("Smooth: normierter tangent vec (cj,ck) = ", tangentVec_Norm_jk);
 
-  var scalarProduct = vec_Dot(tangentVec_ij,tangentVec_jk);
-
+  var scalarProduct = vec_Dot(tangentVec_Norm_ij,tangentVec_Norm_jk);
   console.log("Smooth: scalarProduct <tangentVec_ij,tangentVec_jk> = ", scalarProduct);
+
+  if(scalarProduct>1){
+    console.log("Smooth: scalarProduct > 1 => Clippen to 1 ");
+    scalarProduct=1;
+  }
+
+  if(scalarProduct<-1){
+    console.log("Smooth: scalarProduct < -1 => Clippen to -1 ");
+    scalarProduct=-1;
+  }
 
   var curvature = Math.sqrt(1-Math.pow(scalarProduct,2))/(0.5*(ref_k-ref_i));
   var curvature2 = Math.sin(Math.acos(scalarProduct))/(0.5*(ref_k-ref_i));
