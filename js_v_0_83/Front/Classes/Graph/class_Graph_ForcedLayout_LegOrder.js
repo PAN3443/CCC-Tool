@@ -47,6 +47,9 @@ class class_Graph_ForcedLegOrder extends class_Graph_ForcedLayout {
         //repusleForces.push([0, 0, 0]);
         this.nodeArray[v].resetDisp();
 
+        if(this.nodeArray[v].getFixStatus())
+          continue;
+
         /////////////////////////////////////////////////
         //// PART 1: add orgin force
         var color_v_Node = this.nodeArray[v].getNodeColor();
@@ -54,7 +57,7 @@ class class_Graph_ForcedLegOrder extends class_Graph_ForcedLayout {
         this.nodeArray[v].addDisp(vecScalMulti(vec_d, (1.0 - degree))); //this.nodeArray[v].addDisp(vec_d); // direction vector = force
       }
 
-      ////////////////////////////
+    ////////////////////////////
     ///// Local Legendbased
 
           for (var e = 0; e < this.edgeArray.length; e++) {
@@ -127,18 +130,140 @@ class class_Graph_ForcedLegOrder extends class_Graph_ForcedLayout {
     var nearZero = 1e-12;
 
     //console.log("degree",degree);
-
     for (var i = 0; i < iterations; i++) {
 
       for (var v = 0; v < this.nodeArray.length; ++v) {
         //repusleForces.push([0, 0, 0]);
         this.nodeArray[v].resetDisp();
+      }
+
+      for (var v = 0; v < this.nodeArray.length; ++v) {
+
+        if(this.nodeArray[v].getFixStatus())
+          continue;
 
         /////////////////////////////////////////////////
         //// PART 1: add orgin force
         var color_v_Node = this.nodeArray[v].getNodeColor();
         var vec_d = [orginColors[v].get1Value() - color_v_Node.get1Value(), orginColors[v].get2Value() - color_v_Node.get2Value(), orginColors[v].get3Value() - color_v_Node.get3Value()];
         this.nodeArray[v].addDisp(vecScalMulti(vec_d, (1.0 - degree))); //this.nodeArray[v].addDisp(vec_d); // direction vector = force
+
+        //////////////////////////////////////////////////////////////////////////////////
+        //////////// TEST
+
+        /////////////////////////////////////////////////
+        //// PART 4: Node-Edge force
+        /////////////////////////////////////////////////
+
+        if(this.nodeArray[v].getColorID()!=2){
+
+          if(this.nodeArray[v].getColorID()==1){
+
+            /////////////////////////////////////////////////
+            //// PART 4.2: add Start Node force
+            /////////////////////////////////////////////////
+            var nodeStartID = v;
+            var edgeIDAfter = this.searchEdgeAfter(v);
+            var startColor = this.nodeArray[nodeStartID].getNodeColor();
+              var closestColor = this.getNearestPoint_PointSegmentDistance(nodeStartID,edgeIDAfter);
+              var vec_d = vec_Diff_COLOR(startColor,closestColor[0]);
+              if(vecLength(vec_d) == 0){
+
+                //continue;
+                var secondColor = this.nodeArray[nodeStartID+1].getNodeColor();
+
+                //// Find a random orthogonal vector
+                var vec_v = vec_Diff_COLOR(startColor,secondColor);
+                var randomX = getRandomArbitrary(0.0,1.0);
+                var randomY = getRandomArbitrary(0.0,1.0);
+
+                var orthogonalZ = (-(vec_v[0]*randomX)-(vec_v[1]*randomX))/vec_v[2];
+
+                vec_d = [randomX,randomY,orthogonalZ];
+                vec_d= vecScalMulti(vec_d,impulseFactor);
+                secondColor.deleteReferences();
+                //randomPoint.deleteReferences();
+
+                if(vecLength(vec_d) == 0)
+                  continue;
+              }
+              var distance = vecLength(vec_d);
+
+              var refPos_Closes= this.nodeArray[this.edgeArray[edgeIDAfter].getNodeID1()].getNodeRefPos()+closestColor[1]*Math.abs(this.nodeArray[this.edgeArray[edgeIDAfter].getNodeID2()].getNodeRefPos() - this.nodeArray[this.edgeArray[edgeIDAfter].getNodeID1()].getNodeRefPos());
+              var refPos_Start= this.nodeArray[nodeStartID].getNodeRefPos();
+              var segmentPointSpeed = distance / Math.abs(refPos_Closes-refPos_Start);
+
+              if(segmentPointSpeed<optiSpeed){
+                var speedDif = optiSpeed-segmentPointSpeed;
+                var cDif_Change = (speedDif * Math.abs(refPos_Closes-refPos_Start)) * degree;
+                var vec_dN = vecNorm(vec_d);
+                var force = vecScalMulti(vec_dN, cDif_Change/2);
+
+                this.nodeArray[nodeStartID].addDisp(force);
+                this.nodeArray[this.edgeArray[edgeIDAfter].getNodeID1()].subDisp(force);
+                this.nodeArray[this.edgeArray[edgeIDAfter].getNodeID2()].subDisp(force);
+              }
+
+              closestColor[0].deleteReferences();
+
+            startColor.deleteReferences();
+
+          }
+          else if(this.nodeArray[v].getColorID()==0){
+            /////////////////////////////////////////////////
+            //// PART 4.1: add End Node force
+            /////////////////////////////////////////////////
+
+            var nodeEndID = v;
+            var edgeIDBefore = this.searchEdgeBefore(v);
+
+            var endColor = this.nodeArray[nodeEndID].getNodeColor();
+            var closestColor = this.getNearestPoint_PointSegmentDistance(nodeEndID,edgeIDBefore);
+
+            var vec_d = vec_Diff_COLOR(endColor,closestColor[0]);
+            if(vecLength(vec_d) == 0){
+
+              continue;
+
+              var penultimateColor = this.nodeArray[nodeEndID-1].getNodeColor();
+
+              //// Find a random orthogonal vector
+              var vec_v = vec_Diff_COLOR(endColor,penultimateColor);
+              var randomX = getRandomArbitrary(0.0,1.0);
+              var randomY = getRandomArbitrary(0.0,1.0);
+
+              var orthogonalZ = (-(vec_v[0]*randomX)-(vec_v[1]*randomX))/vec_v[2];
+
+              vec_d = [randomX,randomY,orthogonalZ];
+              vec_d= vecScalMulti(vec_d,impulseFactor);
+
+              if(vecLength(vec_d) == 0)
+                continue;
+
+            }
+            var distance = vecLength(vec_d);
+            var refPos_Closes= this.nodeArray[this.edgeArray[edgeIDBefore].getNodeID1()].getNodeRefPos()+closestColor[1]*Math.abs(this.nodeArray[this.edgeArray[edgeIDBefore].getNodeID2()].getNodeRefPos() - this.nodeArray[this.edgeArray[edgeIDBefore].getNodeID1()].getNodeRefPos());
+            var refPos_End= this.nodeArray[nodeEndID].getNodeRefPos();
+            var segmentPointSpeed = distance / Math.abs(refPos_End - refPos_Closes);
+
+            if(segmentPointSpeed<optiSpeed){
+
+              var speedDif = optiSpeed-segmentPointSpeed;
+              var cDif_Change = (speedDif * Math.abs(refPos_End - refPos_Closes)) * degree;
+              var vec_dN = vecNorm(vec_d);
+              var force = vecScalMulti(vec_dN, cDif_Change/2);
+
+
+              this.nodeArray[nodeEndID].addDisp(force);
+              this.nodeArray[this.edgeArray[edgeIDBefore].getNodeID1()].subDisp(force);
+              this.nodeArray[this.edgeArray[edgeIDBefore].getNodeID2()].subDisp(force);
+            }
+
+            closestColor[0].deleteReferences();
+            closestColor=undefined;
+            endColor.deleteReferences();
+          }
+        }
       }
 
 
@@ -241,7 +366,7 @@ class class_Graph_ForcedLegOrder extends class_Graph_ForcedLayout {
         /////////////////////////////////////////////////
         //// PART 4: Node-Edge force
         /////////////////////////////////////////////////
-        var nodeEndID = this.nodeArray.length-1;
+        /*var nodeEndID = this.nodeArray.length-1;
         var edgeIDBefore = this.edgeArray.length-2;
 
         var nodeStartID = 0;
@@ -319,7 +444,7 @@ class class_Graph_ForcedLegOrder extends class_Graph_ForcedLayout {
             vec_d = [randomX,randomY,orthogonalZ];
             vec_d= vecScalMulti(vec_d,impulseFactor);
             secondColor.deleteReferences();
-            randomPoint.deleteReferences();
+            //randomPoint.deleteReferences();
 
             if(vecLength(vec_d) == 0)
               continue;
@@ -344,7 +469,7 @@ class class_Graph_ForcedLegOrder extends class_Graph_ForcedLayout {
           closestColor[0].deleteReferences();
 
         startColor.deleteReferences();
-        endColor.deleteReferences();
+        endColor.deleteReferences();*/
 
 
       /////////////////////////////////////////////////

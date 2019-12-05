@@ -25,7 +25,10 @@ function searchForContinuousSections(startKey, endKey){
 
   var continuousSections=[];
   var beforeConstant = false;
-  var startKey = 0;
+  //var startKey = 0;
+  if(globalCMS1.getKeyType(startKey)==="twin key" || globalCMS1.getKeyType(startKey)==="left key")
+    beforeConstant=true;
+
   for (var i = startKey; i <= endKey; i++) {
 
     switch (globalCMS1.getKeyType(i)) {

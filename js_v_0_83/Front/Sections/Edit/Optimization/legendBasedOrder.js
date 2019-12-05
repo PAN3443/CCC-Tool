@@ -9,29 +9,78 @@ function createLegendBasedGraph(){
 
   optiGraph = new class_Graph_ForcedLegOrder(globalCMS1.getInterpolationSpace(),document.getElementById("id_EditPage_GlobalLegOrderOptimization").checked);
   optiGraph.changeColorEdgeOptions(globalCMS1.getInterpolationSpace(),false,"eu");
+
   //var continuousSections = searchForContinuousSections(0,globalCMS1.getKeyLength()-1);
   var continuousSections = searchForContinuousSections(document.getElementById("id_editPage_Optimization_FromKey").selectedIndex,document.getElementById("id_editPage_Optimization_TillKey").selectedIndex);
 
-  //var ncounter = 0;
+  ///////
+   // save not editAble color
+   var firstID = continuousSections[0][0];
+   var lastID= continuousSections[continuousSections.length-1][1];
+   for (var i = 0; i < firstID; i++) {
+     switch (globalCMS1.getKeyType(i)) {
+       case "dual key":
+         optiGraph.pushNode(globalCMS1.getRightKeyColor(i,globalCMS1.getInterpolationSpace()),globalCMS1.getRefPosition(i), true,i,2);
+         break;
+         case "left key":
+           optiGraph.pushNode(globalCMS1.getLeftKeyColor(i,globalCMS1.getInterpolationSpace()),globalCMS1.getRefPosition(i), true,i,0);
+           break;
+           case "right key":
+            optiGraph.pushNode(globalCMS1.getRightKeyColor(i,globalCMS1.getInterpolationSpace()),globalCMS1.getRefPosition(i), true,i,1);
+             break;
+             case "twin key":
+              optiGraph.pushNode(globalCMS1.getLeftKeyColor(i,globalCMS1.getInterpolationSpace()),globalCMS1.getRefPosition(i), true,i,0);
+              optiGraph.pushNode(globalCMS1.getRightKeyColor(i,globalCMS1.getInterpolationSpace()),globalCMS1.getRefPosition(i), true,i,1);
+            break;
+     }
+   }
 
+   if(globalCMS1.getKeyType(firstID)=="twin key"){
+     optiGraph.pushNode(globalCMS1.getLeftKeyColor(i,globalCMS1.getInterpolationSpace()),globalCMS1.getRefPosition(i), true,i,0);
+   }
+
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   for (var j = 0; j < continuousSections.length; j++) {
-    //var nstart = ncounter;
     for (var i = continuousSections[j][0]; i < continuousSections[j][1]; i++){
-      optiGraph.pushNode(globalCMS1.getRightKeyColor(i,globalCMS1.getInterpolationSpace()),globalCMS1.getRefPosition(i));
-      if(i == continuousSections[j][0] && (globalCMS1.getKeyType(i)==="right key"||globalCMS1.getKeyType(i)==="twin key"))
-        optiGraph.pushCMSInfo([i,1]); // save key index information and if the node represent the right, left or both colors of the key
+      if(i == continuousSections[j][0] && (globalCMS1.getKeyType(i)==="right key" || globalCMS1.getKeyType(i)==="twin key"))
+        optiGraph.pushNode(globalCMS1.getRightKeyColor(i,globalCMS1.getInterpolationSpace()),globalCMS1.getRefPosition(i), false,i,1); // save key index information and if the node represent the right, left or both colors of the key
       else
-        optiGraph.pushCMSInfo([i,2]);
+        optiGraph.pushNode(globalCMS1.getRightKeyColor(i,globalCMS1.getInterpolationSpace()),globalCMS1.getRefPosition(i), false,i,2);
 
-        optiGraph.pushEdge(i,i+1);
+        optiGraph.pushEdge(optiGraph.getNodeLength()-1,optiGraph.getNodeLength());
     }// for
 
-    optiGraph.pushNode(globalCMS1.getLeftKeyColor(continuousSections[j][1],globalCMS1.getInterpolationSpace()),globalCMS1.getRefPosition(continuousSections[j][1]));
     if(globalCMS1.getKeyType(continuousSections[j][1])==="left key"|| globalCMS1.getKeyType(i)==="twin key")
-      optiGraph.pushCMSInfo([continuousSections[j][1],0]);
+      optiGraph.pushNode(globalCMS1.getLeftKeyColor(continuousSections[j][1],globalCMS1.getInterpolationSpace()),globalCMS1.getRefPosition(continuousSections[j][1]),false,continuousSections[j][1],0);
     else
-      optiGraph.pushCMSInfo([continuousSections[j][1],2]);
+      optiGraph.pushNode(globalCMS1.getLeftKeyColor(continuousSections[j][1],globalCMS1.getInterpolationSpace()),globalCMS1.getRefPosition(continuousSections[j][1]),false,continuousSections[j][1],2);
 
+  }
+
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+  if(globalCMS1.getKeyType(lastID)==="twin key"){
+    optiGraph.pushNode(globalCMS1.getRightKeyColor(i,globalCMS1.getInterpolationSpace()),globalCMS1.getRefPosition(i), true,lastID,1);
+  }
+
+
+  for (var i = lastID+1; i < globalCMS1.getKeyLength; i++) {
+    switch (globalCMS1.getKeyType(i)) {
+      case "dual key":
+        optiGraph.pushNode(globalCMS1.getRightKeyColor(i,globalCMS1.getInterpolationSpace()),globalCMS1.getRefPosition(i), true,i,2);
+        break;
+        case "left key":
+          optiGraph.pushNode(globalCMS1.getLeftKeyColor(i,globalCMS1.getInterpolationSpace()),globalCMS1.getRefPosition(i), true,i,0);
+          break;
+          case "right key":
+           optiGraph.pushNode(globalCMS1.getRightKeyColor(i,globalCMS1.getInterpolationSpace()),globalCMS1.getRefPosition(i), true,i,1);
+            break;
+            case "twin key":
+             optiGraph.pushNode(globalCMS1.getLeftKeyColor(i,globalCMS1.getInterpolationSpace()),globalCMS1.getRefPosition(i), true,i,0);
+             optiGraph.pushNode(globalCMS1.getRightKeyColor(i,globalCMS1.getInterpolationSpace()),globalCMS1.getRefPosition(i), true,i,1);
+           break;
+    }
   }
 }
 

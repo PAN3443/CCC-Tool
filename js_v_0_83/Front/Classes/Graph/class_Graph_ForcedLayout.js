@@ -8,13 +8,12 @@ class class_Graph_ForcedLayout extends class_Graph {
     this.rgbCorr = true;
 
 
-    this.cmsInfo = [];
+
 
   }
 
   deleteReferences() {
     super.deleteReferences();
-    delete this.cmsInfo;
   }
 
   setRGBCorr(bool) {
@@ -94,35 +93,29 @@ class class_Graph_ForcedLayout extends class_Graph {
   }
 
 
-  pushNode(color, refPos) {
+  pushNode(color, refPos, fixed, keyID, colorID) {
     switch (this.graphColorSpace) {
       case "rgb":
-        this.nodeArray.push(new class_ForcedGraph_Node(color.calcRGBColor(), refPos));
+        this.nodeArray.push(new class_ForcedGraph_Node(color.calcRGBColor(), refPos, fixed, keyID, colorID));
         break;
       case "hsv":
-        this.nodeArray.push(new class_ForcedGraph_Node(color.calcHSVColor(), refPos));
+        this.nodeArray.push(new class_ForcedGraph_Node(color.calcHSVColor(), refPos, fixed, keyID, colorID));
         break;
       case "lab":
-        this.nodeArray.push(new class_ForcedGraph_Node(color.calcLABColor(), refPos));
+        this.nodeArray.push(new class_ForcedGraph_Node(color.calcLABColor(), refPos, fixed, keyID, colorID));
         break;
       case "din99":
-        this.nodeArray.push(new class_ForcedGraph_Node(color.calcDIN99Color(), refPos));
+        this.nodeArray.push(new class_ForcedGraph_Node(color.calcDIN99Color(), refPos, fixed, keyID, colorID));
         break;
       case "lch":
-        this.nodeArray.push(new class_ForcedGraph_Node(color.calcLCHColor(), refPos));
+        this.nodeArray.push(new class_ForcedGraph_Node(color.calcLCHColor(), refPos, fixed, keyID, colorID));
         break;
     }
     color.deleteReferences();
   }
 
-
-
-  pushCMSInfo(info) {
-    this.cmsInfo.push(info);
-  }
-
   getCMSInfo(index) {
-    return this.cmsInfo[index];
+    return [this.nodeArray[index].getKeyID(),this.nodeArray[index].getColorID()];
   }
 
   getAvgSpeed() {
@@ -248,6 +241,28 @@ class class_Graph_ForcedLayout extends class_Graph {
      tmp_s_p1.deleteReferences();
      tmp_s_p2.deleteReferences();
      return [nearestColor,ratioPos_S_Pb];
+   }
+
+
+
+   searchEdgeBefore(v){
+     for (var i = 0; i < this.edgeArray.length; i++) {
+       if(this.edgeArray[i].getNodeID1()==v || this.edgeArray[i].getNodeID2()==v){
+         return i-1;
+       }
+     }
+
+     return undefined;// should never happen
+   }
+
+   searchEdgeAfter(v){
+     var foundFirst = false;
+     for (var i = 0; i < this.edgeArray.length; i++) {
+       if(this.edgeArray[i].getNodeID1()==v || this.edgeArray[i].getNodeID2()==v){
+         return i+1;
+       }
+     }
+     return undefined; // should never happen
    }
 
 

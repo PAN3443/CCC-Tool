@@ -1,12 +1,14 @@
 class class_ForcedGraph_Node extends class_Node {
 
- constructor(color, refPos) {
+ constructor(color, refPos, fixed, keyID, colorID) {
    super(color);
 
    // for force graph
    this.refPos = refPos;
-   this.fixedNode = false;
+   this.fixedNode = fixed;
    this.disp = [0, 0, 0];
+   this.keyID = keyID;
+   this.colorID = colorID;
  }
 
 
@@ -18,6 +20,17 @@ class class_ForcedGraph_Node extends class_Node {
    delete this.refPos;
  }
 
+ getKeyID(){
+   return this.keyID;
+ }
+
+getColorID(){
+    return this.colorID;
+  }
+
+ getFixStatus(){
+   return this.fixedNode;
+ }
 
  resetDisp() {
     this.disp = [0, 0, 0];

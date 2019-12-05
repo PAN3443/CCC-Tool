@@ -37,6 +37,11 @@
   }
 
 
+getNodeLength(){
+  return this.nodeArray.length;
+}
+
+
 
   deleteReferences() {
     this.nodeColor.deleteReferences();
