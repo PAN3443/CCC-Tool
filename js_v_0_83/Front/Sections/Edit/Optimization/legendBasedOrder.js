@@ -9,7 +9,9 @@ function createLegendBasedGraph(){
 
   optiGraph = new class_Graph_ForcedLegOrder(globalCMS1.getInterpolationSpace(),document.getElementById("id_EditPage_GlobalLegOrderOptimization").checked);
   optiGraph.changeColorEdgeOptions(globalCMS1.getInterpolationSpace(),false,"eu");
-  var continuousSections = searchForContinuousSections(0,globalCMS1.getKeyLength()-1);
+  //var continuousSections = searchForContinuousSections(0,globalCMS1.getKeyLength()-1);
+  var continuousSections = searchForContinuousSections(document.getElementById("id_editPage_Optimization_FromKey").selectedIndex,document.getElementById("id_editPage_Optimization_TillKey").selectedIndex);
+
   //var ncounter = 0;
 
   for (var j = 0; j < continuousSections.length; j++) {
@@ -63,7 +65,7 @@ function calcLegOrderOptimum(isGlobal,degree){
       break;
     default:
   }
-  
+
   if(isGlobal){
     var optiSpeed = blackWhiteSpeed*document.getElementById("id_EditPage_LegOrderOpti_Global_Speed").value;
     optiGraph.forceLayout(document.getElementById("id_EditPage_LegOrderOpti_Global_Iterations").value,degree,optiSpeed,isGlobal);

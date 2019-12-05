@@ -11,7 +11,8 @@ function createDisPowerGraph(){
   optiGraph = new class_Graph_ForcedDisPower(globalCMS1.getInterpolationSpace());
   optiGraph.changeColorEdgeOptions(globalCMS1.getInterpolationSpace(),true,"eu");
 
-  var continuousSections = searchForContinuousSections(0,globalCMS1.getKeyLength()-1);
+  //var continuousSections = searchForContinuousSections(0,globalCMS1.getKeyLength()-1);
+  var continuousSections = searchForContinuousSections(document.getElementById("id_editPage_Optimization_FromKey").selectedIndex,document.getElementById("id_editPage_Optimization_TillKey").selectedIndex);
 
   for (var j = 0; j < continuousSections.length; j++) {
     for (var i = continuousSections[j][0]; i < continuousSections[j][1]; i++){

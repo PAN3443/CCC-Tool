@@ -40,14 +40,14 @@ function calcGlobalSmoothOptimum(){
 function testCalcSmoothnessOptiumumForKey(k0,k1,k2,startID,endID){
   var status = calcSmoothnessOptiumumForKey(k0,k1,k2);
 
-  if(status==2){
+  /*if(status==2){
     if(k0!=startID){
       testCalcSmoothnessOptiumumForKey(k0-1,k1-1,k2-1,startID,endID);
     }
     if(k2!=endID){
       testCalcSmoothnessOptiumumForKey(k0+1,k1+1,k2+1,startID,endID);
     }
-  }
+  }*/
 
 }
 
