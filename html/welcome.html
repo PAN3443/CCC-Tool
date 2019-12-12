@@ -4,216 +4,232 @@
 -----------------------------------------------
 -->
 
-  <div id="id_WelcomePage_Welcome" class="class_welcomePage_Div" style=" background:var(--main-bg-color); width:100%;  height: 80vh;">
+<div id="id_WelcomePage_Loading" class="class_slidingDiv" style=" background:black; width:100%;  height:100vh; max-height:100vh; display:flex; flex-direction: column;">
+
+  <div style="margin:auto; margin-bottom:0vh; display:flex;">
+    <img src="img/Logos/CCC-LOGO_new.png" alt="CCC-Tool Logo" style="height: 15vw; margin:auto; margin-right:2vw;">
+
+    <div style="margin:auto; height: 15vw; margin-left:0px;">
+      <p id="id_header_ccctoolLabel" style="margin:0px; color:white; font-size: 4vw; height:4vw; line-height:4vw; font-weight: bold; overflow: hidden; text-overflow: ellipsis; font-family: Arial Black, sans-serif" >THE
+      <p id="id_header_ccctoolLabel" style="margin:0px; color:white; font-size: 11vw; height:11vw; line-height:11vw; font-weight: bold; overflow: hidden; text-overflow: ellipsis; font-family: Arial Black, sans-serif" >CCC-Tool
+    </div>
+  </div>
+
+  <div id="id_WelcomePage_Loading_Animation" style="margin:auto; display:flex; flex-direction: column;">
+    <div class="lds-spinner" style="margin:auto;">
+      <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+    </div>
+    <p style="color:rgba(255,255,255,0.3); font-size: 2vh; line-height: 3vh; margin:auto; margin-top:0.5vh;">Loading ... </p>
+  </div>
+
+  <p style="color:rgba(255,255,255,0.3); font-size: 2vh; line-height: 3vh; margin:auto; margin-bottom:0.1vh;"><strong>C</strong>harting <strong>C</strong>ontinuous <strong>C</strong>olormap (Version 0.9)</p></p>
+
+</div>
+
+
+
+
+
+
+<div id="id_WelcomePage_Welcome" class="class_slidingDiv" style=" background:var(--main-bg-color); width:100%;  height: 0vh; overflow-y:auto;">
+
     <!-- START: Welcome Page Divs-->
-    <div  class="row" style="width:100%; height: 72vh;">
+    <div  class="row" style="width:100%; height:100vh;">
 
-        <img id="id_welcomePage_Img" src="img/CCCToolComic/welcome.png" style="margin:auto; margin-right:0vw; height:70vh; max-width:40vw;">
-
-        <div style="margin:auto; display: flex; flex-direction: column; height: 72vh;">
-
-          <div style="margin:auto; width:40vw;">
-            <p id="id_welcomePage_Txt" style="margin-bottom:1vh;">
-              <strong>Welcome to the CCC-Tool!</strong>
-              <strong>Start</strong> the tool by using the button "Begin". After the click the tool will display the MyDesings section. At this section you can organize your stored colormap specifications (CMS), add new ones, reach the test function and export/import session files.
-              Click at the arrow at the bottom of this page to show the <strong>quick start</strong>. For more help, you can always visit the tutorial page via the menu bar. Enjoy our tool!
-
-              Best wishes,
-              Pascal Nardini.
-            </p>
-            <p style="margin-bottom:1vh; color:var(--main-warning-font-color);">
-              Please note that the CCC-Tool is under development and this is an early access version. Therefore, some features and tutorial parts are not implemented so far.
-            </p>
-            <p id="id_welcomePage_InfoTxt" style="color:var(--main-warning-font-color); display:none;">
-
-            </p>
-          </div>
-
-          <div style="margin: auto; margin-top:0vh; display: flex; flex-direction: column;" >
-            <button onclick="showMyDesignsPage()" class="class_generalbutton" style="width:20vw; margin-top:auto; border-width: 0.3vh;">Begin</button>
-
-            <button onclick="openTutorialWindow()" class="class_generalbutton" style="width:20vw; margin-top:2vh; ">Tutorials</button>
-
-            <button onclick="openNewsPopUp()" class="class_generalbutton" style="width:20vw; margin-top:2vh; ">Version News</button>
-
-            <button onclick="openImpressum()" class="class_generalbutton" style="width:20vw; margin-top:2vh; margin-bottom:auto;">Impressum</button>
-          </div>
-
-        </div>
-
-    </div>
-
-    <div style="width:100%; height:8vh; display:flex;">
-        <p class="class_welcomePageButton" title="Quick Tool-Guide" onclick="showQuickGuide()">Quick Start <br> &#9660;</p>
-    </div>
-  </div>
+        <img id="id_welcomePage_Img" src="img/CCCToolComic/welcome.png" style="margin:auto; margin-right:0vw; height:70vh; max-width:50%;">
 
 
-<div id="id_WelcomePage_QuickGuide" class="class_welcomePage_Div" style="height: 0vh; background:var(--main-second-bg-color); width:100%; display:flex;">
+        <div style="margin:auto; width:50%;">
 
+            <div style="display:flex; height: 20vh; margin-bottom: 5px; display:flex;">
+              <button onclick="showMyDesignsPage()" class="class_coloredButton" style="height:100%; width:40%; font-size: 3vh; margin:auto; margin-right:5px;">Begin</button>
 
-  <div style="width:2.5vw; height: 80vh; display:flex;">
-
-    <p id="id_welcomePage_PreviousGuidePage" class="class_welcomePageButton" title="Previous Page" onclick="showPreviousGuidePage()">&#9664;</p>
-
-  </div>
-
-  <div style="height: 80vh; width:95vw;">
-
-    <div style="width:100%; height:5vh; display:flex;">
-      <p class="class_welcomePageButton" title="Back to Welcome Section" onclick="hideQuickGuide()">&#9650;</p>
-    </div>
-
-    <div style="width:100%; height:75vh; display:flex;">
-
-        <!-- START: Welcome Page Divs-->
-        <div id="id_WelcomePage_Div_0" class="class_welcomePage_Div" style="width0%; height:100%; display:flex;">
-
-          <div style="margin:auto; width: 40vw;">
-            <p style="height:4vh; line-height:4vh; width:35vw; font-size: 3vh; line-height: 3.5vh; font-weight:bold;">The CCC-Tool</p>
-
-            <p style="width:35vw; overflow-y: auto;">
-              The CCC-Tool based on the idea of a general tool for the creation and export of colormaps with the effort to minimize the needed interaction components. To make this possible, we developed a colormap specification <strong>CMS</strong>. Furthermore, the tool offers different methods and functions for the analyzing and testing of colormaps.
-              CCC-Tool supports some commonly-used color spaces and color difference metrics, currently including RGB, HSV, CIELAB (CIELCH), CIE94, CIEDE2000, and DIN99.
-            </p>
-          </div>
-
-          <div id="id_welcomePage_GuideImg_CCCTool" class="class_img_container" style="width: 40vw; height: 75vh; margin:auto; margin-left:0vh;"></div>
-
-        </div>
-
-        <div id="id_WelcomePage_Div_1" class="class_welcomePage_Div" style="width:0%; height:100%; background:var(--main-bg-color); display:flex;">
-
-
-          <div style="margin:auto; width: 40vw;">
-            <p style="height:4vh; line-height:4vh; width:35vw; font-size: 3vh; line-height: 3.5vh; font-weight:bold;">The Colormap specification (CMS)</p>
-
-            <p style="width:35vw; overflow-y: auto;">
-              The CMS was developed to describe colormaps with a minimum number of key-colors. Each key data tuple, k:= (type,x,c<sub>L</sub>,c<sub>M</sub>,c<sub>R</sub>,bur), where x is the corresponding data value, and c<sub>L</sub>,c<sub>M</sub>,c<sub>R</sub> are the "color-foundation" of the colormap. c<sub>L</sub> determines the color gradient to the left side and c<sub>R</sub> to the right side. c<sub>M</sub> determine the color for the data value x. The boolean variable bur chooses keys as Burdock Key, which are used to determine sections in the cms. There are five types of keys, each of which is associated with different requirements for the three color specifications.
-            </p>
-            <ul>
-             <li>
-               <strong>nil key</strong>: c<sub>L</sub> = c<sub>M</sub> = c<sub>R</sub> = nil. The nil key is always placed at the first place of the cms and initialize a constant band as beginning of the cms.
-             </li>
-             <li>
-               <strong>right key</strong>: c<sub>L</sub> = nil is undefined while c<sub>R</sub> = c<sub>M</sub> is defined. The right key is always placed at the first place of the cms and initialize a scaled band as beginning of the cms.
-             </li>
-             <li>
-               <strong>left key</strong>: c<sub>R</sub> = nil is undefined while c<sub>L</sub> is defined. c<sub>M</sub> must be assigned to c<sub>L</sub> or the nil state of c<sub>R</sub>. The left key can be placed inside the cms and is always placed at the end of the cms. Within the cms the left key initialize a constant band.
-             </li>
-             <li>
-              <strong>dual key</strong>: c<sub>L</sub> = c<sub>M</sub> = c<sub>R</sub> are defined as the same color. The dual key is always placed inside the cms and initialize a continuous transition.
-             </li>
-             <li>
-               <strong>twin key</strong>: c<sub>L</sub> and c<sub>R</sub> are defined separately, and have to be different colors (c<sub>R</sub> 6= c<sub>L</sub>). c<sub>M</sub> must be assigned to c<sub>L</sub> or c<sub>R</sub>. The twin key is always placed inside the cms and initialize a discontinuous transition.
-             </li>
-            </ul>
-          </div>
-
-          <div id="id_welcomePage_GuideImg_CMS" class="class_img_container" style="width: 40vw; height: 75vh; margin:auto; margin-left:0vh;"></div>
-
-        </div>
-
-        <div id="id_WelcomePage_Div_2" class="class_welcomePage_Div" style="width:0%; height:100%; display:flex;">
-
-
-          <div style="margin:auto; width: 40vw;">
-            <p style="height:4vh; line-height:4vh; width:35vw; font-size: 3vh; line-height: 3.5vh; font-weight:bold;">CMS Visualization</p>
-
-            <p style="width:35vw; overflow-y: auto;">
-              For the visualization of the CMS, the tool offers the two versions, the <strong>Linear Colormap</strong> and the <strong>Band Sketch</strong>. The Linear Colormap shows the colormap with the right ratio of the key reference values. Unlike that, the band sketch uses equal widths for each band, which is the reference area between two keys. The Band Sketch version is well-suited to show you relatively small colormap parts, which could be skipped at the Linear Colormap visualization. The Linear Colormap is always the top visualization, and the Band Sketch version is always the bottom ones. At the Edit section of the tool is also the <strong>Burdock-Key Line</strong> between the Linear Colormap and its key visualizations. The Burdock-Key Line highlights the Burdock Keys and allows the modifications of cms sections.
-            </p>
-          </div>
-
-          <div id="id_welcomePage_GuideImg_CMSVis" class="class_img_container" style="width: 40vw; height: 75vh; margin:auto; margin-left:0vh;"></div>
-
-        </div>
-
-
-        <div id="id_WelcomePage_Div_3" class="class_welcomePage_Div" style="width:0%; height:100%; background:var(--main-bg-color); display:flex;">
-
-
-          <div style="margin:auto; width: 40vw;">
-            <p style="height:4vh; line-height:4vh; width:35vw; font-size: 3vh; line-height: 3.5vh; font-weight:bold;">Tool Structure </p>
-
-            <p style="width:35vw; overflow-y: auto;">
-              The tool is separated into the sections "Welcome", "MyDesings", "Gallery", "New", "Edit" and "Test Functions". For a better overview and navigation, you can click at the "Navi" button at the menu bar. The MyDesings section is the center of this tool and is used for the management of your cms. You can start with the creation of cms with a collection of recommended colormaps at the Gallery-Section or with a completely new cms at the New section. At the Edit section, you can edit keys, add predefined cms or constant bands, change the interpolation color space, analyze for perceptual uniformity or order, and observe colorblindness. You can always export a colormap at the MyDesings, Gallery, and Edit section. Additional, it is possible to export a full session file at the MyDesings section, where you can also import cms- or session-files.
-            </p>
-          </div>
-
-          <!--div style="margin:auto; margin-left:0vh;">
-            <div style="width: 40vw; height: 75vh; display:flex;">
-
-              <div id="id_welcomePage_GuideImg_MyDesings" class="class_img_container" style="width: 25%; height: 25%; "></div>
-
-              <div id="id_welcomePage_GuideImg_Navi" class="class_img_container" style="width: 25%; height: 25%;"></div>
-
-              <div id="id_welcomePage_GuideImg_Gallery" class="class_img_container" style="width: 25%; height: 25%;"></div>
-
-              <div id="id_welcomePage_GuideImg_New" class="class_img_container" style="width: 25%; height: 25%;"></div>
-
+              <button onclick="openTutorialWindow()" class="class_coloredButton" style="height:100%; width:40%; font-size: 3vh; margin:auto; margin-left:0px;">Tutorials</button>
             </div>
-            <p id="id_quickGuide_Div_3_FigureLabel"></p>
-          </div-->
-          <div id="id_welcomePage_GuideImg_Navi" class="class_img_container" style="width: 40vw; height: 75vh; margin:auto; margin-left:0vh;"></div>
 
+            <div style="display:flex; height: 20vh; margin-top: 0px; display:flex;">
+              <button onclick="openNewsPopUp()" class="class_coloredButton" style="height:100%; width:40%; font-size: 3vh; margin:auto; margin-right:5px;">Version News</button>
+
+              <button onclick="openImpressum()" class="class_coloredButton" style="height:100%; width:40%; font-size: 3vh; margin:auto; margin-left:0px;">Impressum</button>
+            </div>
         </div>
 
-        <div id="id_WelcomePage_Div_4" class="class_welcomePage_Div" style="width:0%; height:100%; display:flex;">
+      </div>
 
 
-          <div style="margin:auto; width: 40vw;">
-            <p style="height:4vh; line-height:4vh; width:35vw; font-size: 3vh; line-height: 3.5vh; font-weight:bold;">Edit</p>
+  <div  class="row" style="width:100%; padding-top:10vh; padding-bottom:10vh; background:black;">
+    <div style="margin:auto; width:40vw;">
+      <p id="id_welcomePage_Txt" style="margin-bottom:1vh; color:white;">
+        <strong>Welcome to the CCC-Tool!</strong>
+        <strong>Start</strong> the tool by using the button "Begin". After the click the tool will display the MyDesings section. At this section you can organize your stored colormap specifications (CMS), add new ones, reach the test function and export/import session files.
+        Click at the arrow at the bottom of this page to show the <strong>quick start</strong>. For more help, you can always visit the tutorial page via the menu bar. Enjoy our tool!
 
-            <p style="width:35vw; overflow-y: auto;">
-              CCC-Tool supports some commonly-used color spaces and color difference metrics, currently including RGB, HSV, CIELAB, CIE94, CIEDE2000, and DIN99.
-            </p>
-          </div>
+        Best wishes,
+        Pascal Nardini.
+      </p>
+      <p style="margin-bottom:1vh; color:var(--main-warning-font-color); color:white;">
+        Please note that the CCC-Tool is under development and this is an early access version. Therefore, some features and tutorial parts are not implemented so far.
+      </p>
+      <p id="id_welcomePage_InfoTxt" style="color:var(--main-warning-font-color); display:none;">
 
-          <div  class="class_img_container" style="width: 40vw; height: 75vh; margin:auto; margin-left:0vh;"></div>
+      </p>
+    </div>
+  </div>
+
+  <div style="width:100%; display:flex; padding-top:5vh; flex-direction: column;">
+
+    <p class="sectionLabel" style="color:black;">Quick Start</p>
+
+    <!-- START: Welcome Page Divs-->
+    <div style="width:100%; display:flex; padding-top:5vh;">
+
+      <div style="margin:auto; width: 40vw;">
+        <p style="height:4vh; line-height:4vh; width:35vw; font-size: 3vh; line-height: 3.5vh; font-weight:bold;">The CCC-Tool</p>
+
+        <p style="width:35vw;">
+          The CCC-Tool based on the idea of a general tool for the creation and export of colormaps with the effort to minimize the needed interaction components. To make this possible, we developed a colormap specification <strong>CMS</strong>. Furthermore, the tool offers different methods and functions for the analyzing and testing of colormaps.
+          CCC-Tool supports some commonly-used color spaces and color difference metrics, currently including RGB, HSV, CIELAB (CIELCH), CIE94, CIEDE2000, and DIN99.
+        </p>
+      </div>
+
+      <div class="class_img_container" style="width: 40vw; height: 75vh; margin:auto; margin-left:0vh; background-image: url('img/WelcomePageImages/edit_Example.png');"></div>
+
+    </div>
+
+
+    <div class="class_welcomePage_Div" style="width:100%; background:var(--main-bg-color); display:flex;">
+
+
+      <div style="margin:auto; width: 40vw;">
+        <p style="height:4vh; line-height:4vh; width:35vw; font-size: 3vh; line-height: 3.5vh; font-weight:bold;">The Colormap specification (CMS)</p>
+
+        <p style="width:35vw;">
+          The CMS was developed to describe colormaps with a minimum number of key-colors. Each key data tuple, k:= (type,x,c<sub>L</sub>,c<sub>M</sub>,c<sub>R</sub>,bur), where x is the corresponding data value, and c<sub>L</sub>,c<sub>M</sub>,c<sub>R</sub> are the "color-foundation" of the colormap. c<sub>L</sub> determines the color gradient to the left side and c<sub>R</sub> to the right side. c<sub>M</sub> determine the color for the data value x. The boolean variable bur chooses keys as Burdock Key, which are used to determine sections in the cms. There are five types of keys, each of which is associated with different requirements for the three color specifications.
+        </p>
+        <ul>
+         <li>
+           <strong>nil key</strong>: c<sub>L</sub> = c<sub>M</sub> = c<sub>R</sub> = nil. The nil key is always placed at the first place of the cms and initialize a constant band as beginning of the cms.
+         </li>
+         <li>
+           <strong>right key</strong>: c<sub>L</sub> = nil is undefined while c<sub>R</sub> = c<sub>M</sub> is defined. The right key is always placed at the first place of the cms and initialize a scaled band as beginning of the cms.
+         </li>
+         <li>
+           <strong>left key</strong>: c<sub>R</sub> = nil is undefined while c<sub>L</sub> is defined. c<sub>M</sub> must be assigned to c<sub>L</sub> or the nil state of c<sub>R</sub>. The left key can be placed inside the cms and is always placed at the end of the cms. Within the cms the left key initialize a constant band.
+         </li>
+         <li>
+          <strong>dual key</strong>: c<sub>L</sub> = c<sub>M</sub> = c<sub>R</sub> are defined as the same color. The dual key is always placed inside the cms and initialize a continuous transition.
+         </li>
+         <li>
+           <strong>twin key</strong>: c<sub>L</sub> and c<sub>R</sub> are defined separately, and have to be different colors (c<sub>R</sub> 6= c<sub>L</sub>). c<sub>M</sub> must be assigned to c<sub>L</sub> or c<sub>R</sub>. The twin key is always placed inside the cms and initialize a discontinuous transition.
+         </li>
+        </ul>
+      </div>
+
+      <div class="class_img_container" style="width: 40vw; height: 75vh; margin:auto; margin-left:0vh; background-image: url('img/WelcomePageImages/cms_Example.png');"></div>
+
+    </div>
+
+    <div style="width:100%; display:flex; padding-top:5vh;">
+
+
+      <div style="margin:auto; width: 40vw;">
+        <p style="height:4vh; line-height:4vh; width:35vw; font-size: 3vh; line-height: 3.5vh; font-weight:bold;">CMS Visualization</p>
+
+        <p style="width:35vw;">
+          For the visualization of the CMS, the tool offers the two versions, the <strong>Linear Colormap</strong> and the <strong>Band Sketch</strong>. The Linear Colormap shows the colormap with the right ratio of the key reference values. Unlike that, the band sketch uses equal widths for each band, which is the reference area between two keys. The Band Sketch version is well-suited to show you relatively small colormap parts, which could be skipped at the Linear Colormap visualization. The Linear Colormap is always the top visualization, and the Band Sketch version is always the bottom ones. At the Edit section of the tool is also the <strong>Burdock-Key Line</strong> between the Linear Colormap and its key visualizations. The Burdock-Key Line highlights the Burdock Keys and allows the modifications of cms sections.
+        </p>
+      </div>
+
+      <div class="class_img_container" style="width: 40vw; height: 75vh; margin:auto; margin-left:0vh; background-image:url('img/WelcomePageImages/cmsVis_Example.png');"></div>
+
+    </div>
+
+
+    <div style="width:100%; display:flex; padding-top:5vh;">
+
+
+      <div style="margin:auto; width: 40vw;">
+        <p style="height:4vh; line-height:4vh; width:35vw; font-size: 3vh; line-height: 3.5vh; font-weight:bold;">Tool Structure </p>
+
+        <p style="width:35vw;">
+          The tool is separated into the sections "Welcome", "MyDesings", "Gallery", "New", "Edit" and "Test Functions". For a better overview and navigation, you can click at the "Navi" button at the menu bar. The MyDesings section is the center of this tool and is used for the management of your cms. You can start with the creation of cms with a collection of recommended colormaps at the Gallery-Section or with a completely new cms at the New section. At the Edit section, you can edit keys, add predefined cms or constant bands, change the interpolation color space, analyze for perceptual uniformity or order, and observe colorblindness. You can always export a colormap at the MyDesings, Gallery, and Edit section. Additional, it is possible to export a full session file at the MyDesings section, where you can also import cms- or session-files.
+        </p>
+      </div>
+
+      <!--div style="margin:auto; margin-left:0vh;">
+        <div style="width: 40vw; height: 75vh; display:flex;">
+
+          <div id="id_welcomePage_GuideImg_MyDesings" class="class_img_container" style="width: 25%; height: 25%; "></div>
+
+          <div id="id_welcomePage_GuideImg_Navi" class="class_img_container" style="width: 25%; height: 25%;"></div>
+
+          <div id="id_welcomePage_GuideImg_Gallery" class="class_img_container" style="width: 25%; height: 25%;"></div>
+
+          <div id="id_welcomePage_GuideImg_New" class="class_img_container" style="width: 25%; height: 25%;"></div>
 
         </div>
+        <p id="id_quickGuide_Div_3_FigureLabel"></p>
+      </div-->
+      <div class="class_img_container" style="width: 40vw; height: 75vh; margin:auto; margin-left:0vh; background-image: url('img/WelcomePageImages/navi_Example.png');"></div>
 
-        <div id="id_WelcomePage_Div_5" class="class_welcomePage_Div" style="width:0%; height:100%; background:var(--main-bg-color); display:flex;">
+    </div>
 
-
-          <div style="margin:auto; width: 40vw;">
-            <p style="height:4vh; line-height:4vh; width:35vw; font-size: 3vh; line-height: 3.5vh; font-weight:bold;">Export</p>
-
-            <p style="width:35vw; overflow-y: auto;">
-
-            </p>
-          </div>
-
-          <div class="class_img_container" style="width: 40vw; height: 75vh; margin:auto; margin-left:0vh;"></div>
-
-        </div>
-
-        <div id="id_WelcomePage_Div_6" class="class_welcomePage_Div" style="width:0%; height:100%; display:flex;">
+    <div style="width:100%; display:flex; padding-top:5vh; padding-bottom:5vh; display:none;">
 
 
-          <div style="margin:auto; width: 40vw;">
-            <p style="height:4vh; line-height:4vh; width:35vw; font-size: 3vh; line-height: 3.5vh; font-weight:bold;">Test Functions</p>
+      <div style="margin:auto; width: 40vw;">
+        <p style="height:4vh; line-height:4vh; width:35vw; font-size: 3vh; line-height: 3.5vh; font-weight:bold;">Edit</p>
 
-            <p style="width:35vw; overflow-y: auto;">
+        <p style="width:35vw;">
+          CCC-Tool supports some commonly-used color spaces and color difference metrics, currently including RGB, HSV, CIELAB, CIE94, CIEDE2000, and DIN99.
+        </p>
+      </div>
 
-            </p>
-          </div>
-
-          <div class="class_img_container" style="width: 40vw; height: 75vh; margin:auto; margin-left:0vh;"></div>
-
-        </div>
-        <!-- END: Welcome Page Divs-->
+      <div  class="class_img_container" style="width: 40vw; height: 75vh; margin:auto; margin-left:0vh;"></div>
 
     </div>
 
 
   </div>
 
-    <div style="width:2.5vw; height: 80vh; display:flex;">
 
-      <p id="id_welcomePage_NextGuidePage" class="class_welcomePageButton" title="Next Page" onclick="showNextGuidePage()">&#9654;</p>
+  <div  style="width:100%; padding-top:10vh; padding-bottom:2vh; background:black;">
 
+    <p class="sectionLabel" style="color:white;">Special Thanks To My Cooperation Partners</p>
+
+    <div style=" width:100%; display:flex; ">
+      <a href="https://www.uni-leipzig.de/en/" target="_blank" class="coopImg" style="margin-left:auto;">
+          <img title="University Leipzig" src="img/Logos/university_leipzig.png" >
+        </a>
+      <a href="https://www.informatik.uni-leipzig.de/bsv/homepage/en" target="_blank" class="coopImg">
+          <img title="BSV Workgroup, University Leipzig" src="img/Logos/bsv_logo_small.png" >
+        </a>
+      <a href="http://www.oerc.ox.ac.uk/" target="_blank" class="coopImg">
+          <img title="University Oxford" src="img/Logos/oxford.png" >
+        </a>
+      <a href="https://www.energy.gov/" target="_blank" class="coopImg" style="margin-right:auto;">
+          <img title="U.S. Department of Energy" src="img/Logos/CMYK_Color-Seal_Green-Mark_SC_Vertical.png" style="width:100%;">
+        </a>
     </div>
+
+  <div style=" width:100%; display:flex; ">
+    <a href="https://www.lanl.gov/" target="_blank" class="coopImg" style="margin-left:auto;">
+        <img title="Los Alamos National Laboratory" src="img/Logos/logo_LANLsm.png" >
+      </a>
+    <a href="https://www.utexas.edu/" target="_blank" class="coopImg">
+        <img title="University of Texas at Austin" src="img/Logos/UT.png" >
+      </a>
+    <a href="https://www.dkrz.de/about-en" target="_blank" class="coopImg" style="margin-right:auto;">
+          <img title="German Climate Computing Center" src="img/Logos/DKRZ.png" >
+      </a>
+  </div>
+
+    <div style=" width:100%; height:3vh; display:flex; margin-top:1vh; border-top:0.2vh solid var(--menue-font-color);">
+      <p id="id_footer_version" onclick="openNewsPopUp()" style="margin:auto; margin-left:2.5vw; color:var(--menue-font-color); cursor:pointer;"> Version: 0.9 </p>
+      <p id="id_footer_copyRight" style="margin:auto; margin-right:2.5vw; color:var(--menue-font-color); "> Copyright © 2019 </p>
+    </div>
+
+  </div>
+
 
 </div>

@@ -1,42 +1,24 @@
 
 
-window.onresize = function(event) {
-
-    // if Edit Page is visible
-    checkLandscapeWindow();
-
-    if(document.getElementById("id_EditPage").style.display!="none"){
-      updateEditPage();
-
-      if(mapping_doAnimation){
-        updateMappingSize();
-      }
-
-      if(pathplot_doAnimation){
-        pathPlot3D_Resize();
-      }
-    }
-    else {
-      // if Test Page is visible
-      if(testmapping_doAnimation){
-        updateTestMappingCanvas();
-      }
-    }
-
-    if(metricInt_Graph_doAnimation){
-      update_MetricInt_RenderSize();
-    }
-
-};
-
-
 window.onbeforeunload = function() { return "Attention: Your work will be lost, if you will leave this page."; };
 
+
+// main
 window.onload = function() {
   includeHTML();
-  //includeScripts();
-  main_init();
+
+
+
+
+  /////////////////////////////////////
+  /// Start tool
+  document.getElementById("id_WelcomePage_Loading_Animation").style.display="none";
+  document.getElementById("id_WelcomePage_Loading").style.height="0vh";
+  document.getElementById("id_WelcomePage_Welcome").style.height="100vh";
+
+
 }
+
 
 function includeHTML() {
     var z, i, elmnt, file, xhttp;
@@ -76,12 +58,4 @@ function includeHTML() {
     else{
       document.getElementById("id_PopUp_LandscapeWindow").style.display = "none";
     }
-  }
-
-  function dynamicallyLoadScript_VersionsCheck(url) {
-      var versionUpdate = (new Date()).getTime();
-      var script = document.createElement("script");
-      script.type = "text/javascript";
-      script.src = url+"?v=" + versionUpdate;
-      document.head.appendChild(script);
   }

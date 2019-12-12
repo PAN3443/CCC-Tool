@@ -1,6 +1,33 @@
 
 button:focus {outline:0;}
 
+
+.class_coloredButton{
+  font-family: var(--font-family);
+  background-color: #4CAF50; /* Green */
+  box-sizing: content-box;
+  font-weight:bold;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  height: var(--button-height);
+  line-height: var(--button-height);
+  font-size: var(--button-font-size);
+  transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
+  text-align:center;
+  overflow: auto;
+  vertical-align: middle;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+.class_coloredButton:hover{
+  transform: scale(0.95);
+}
+
 .class_generalbutton{
   font-family: var(--font-family);
     box-sizing: content-box;
@@ -17,7 +44,7 @@ button:focus {outline:0;}
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    border-radius: var(--button-border-radius);
+    /*border-radius: 0px;/*var(--button-border-radius);*/
     text-align:center;
     overflow: auto;
     font-weight: bold;

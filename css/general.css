@@ -53,10 +53,15 @@
 }
 
 
+.class_slidingDiv{
+  overflow: hidden;
+  -webkit-transition: width 3s, height 3s; /* For Safari 3.1 to 6.0 */
+  transition: width 3s, height 3s;
+}
 
- .footer_coopImg{
-   height: 10vh;
-   width:7.5vw;
+ .coopImg{
+   height: 20vh;
+   width:15vw;
    /*height: 8vh;*/
    /*max-width: 10%;*/
    /*max-height:10vh;*/
@@ -67,15 +72,15 @@
    display: flex;
  }
 
- .footer_coopImg img{
+ .coopImg img{
    max-width:100%;
     height:auto;
    transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
    margin: auto;
  }
 
- .footer_coopImg:hover img{
-   transform: scale(1.1);
+ .coopImg:hover img{
+   transform: scale(0.95);
  }
 
 

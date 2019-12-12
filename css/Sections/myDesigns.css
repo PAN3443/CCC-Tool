@@ -1,11 +1,7 @@
 
 
 
-.class_welcomePage_Div{
-  overflow: hidden;
-  -webkit-transition: width 2s, height 2s; /* For Safari 3.1 to 6.0 */
-  transition: width 2s, height 2s;
-}
+
 
 .class_MyDesignObjCMSDiv{
   width: 45%;
