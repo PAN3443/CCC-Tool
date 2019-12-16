@@ -1,5 +1,12 @@
 
+function openNaviWindow(){
+ document.getElementById('id_PopUp_navigationWindow').style.display="flex";
+ drawCurrentNavi();
+}
 
+function closeNaviWindow(){
+  document.getElementById('id_PopUp_navigationWindow').style.display="none";
+}
 
 function drawCurrentNavi(){
 
@@ -287,8 +294,6 @@ function drawMyDesignArrows(context, color, isDashed, xpos1, xpos2, yPos1, yPos2
   context.fill();
   context.stroke();
 }
-
-
 
 function changeNaviStatus(id,type){
   document.getElementById(id).classList.remove("navi_divPos");

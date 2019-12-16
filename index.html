@@ -15,13 +15,11 @@
 
 
 
-  <!--
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        -------------------------------------------------
-        ----------------	STYLE	-----------------
-        -------------------------------------------------
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        -->
+  <!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%	STYLE	%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
 
 
   <link rel="stylesheet" href="css/variables.css">
@@ -42,13 +40,54 @@
 
 
 
-  <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    -------------------------------------------------
-    ----------------	SCRIPT	-----------------
-    -------------------------------------------------
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
-  <script src="js_v_0_9/fullpage_globalVars.js"></script>
-  <script src="js_v_0_9/main.js"></script>
+  <!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%	SCRIPT	%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+
+        <!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%%%%%%%%%%%%%%%%%%%%	Sections	%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+        <script type="text/javascript" src="js_v_0_9/src/sections/class_section.js"></script>
+
+        <!--%%%%%%%%%%%%%%% Weclome Section %%%%%%%%%%%%%%%-->
+        <script type="text/javascript" src="js_v_0_9/src/sections/welcome/class_section_welcome.js"></script>
+
+        <!--%%%%%%%%%%%%%%% MyDesigns Section %%%%%%%%%%%%%%%-->
+        <script type="text/javascript" src="js_v_0_9/src/sections/mydesigns/class_section_mydesigns.js"></script>
+
+        <!--%%%%%%%%%%%%%%% Gallery Section %%%%%%%%%%%%%%%-->
+        <script type="text/javascript" src="js_v_0_9/src/sections/gallery/class_section_gallery.js"></script>
+
+        <!--%%%%%%%%%%%%%%% New CMS Section %%%%%%%%%%%%%%%-->
+        <script type="text/javascript" src="js_v_0_9/src/sections/newCMS/class_section_newCMS.js"></script>
+
+        <!--%%%%%%%%%%%%%%% Edit Section %%%%%%%%%%%%%%%-->
+        <script type="text/javascript" src="js_v_0_9/src/sections/edit/class_section_edit.js"></script>
+
+        <!--%%%%%%%%%%%%%%% Testing Section %%%%%%%%%%%%%%%-->
+        <script type="text/javascript" src="js_v_0_9/src/sections/test_functions/class_section_test_functions.js"></script>
+
+
+        <!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%%%%%%%%%%%%%%%%%	PopUp Windows	%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+        <script type="text/javascript" src="js_v_0_9/src/popUpWindows/Navigation/navi.js"></script>
+
+        <!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%%%%%%%%%%%%%%%%%	Global Events	%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+        <script type="text/javascript" src="js_v_0_9/src/globalEvents/switchSection.js"></script>
+        <script type="text/javascript" src="js_v_0_9/src/globalEvents/shortcuts.js"></script>
+
+          <!--%%%%%%%%%%%%%%% Global Events (Helper) %%%%%%%%%%%%%%%-->
+          <script type="text/javascript" src="js_v_0_9/src/globalEvents/Helper/canvasHelper.js"></script>
+
+
+
+  <script type="text/javascript" src="js_v_0_9/global_vars.js"></script>
+  <script type="text/javascript" src="js_v_0_9/main.js"></script>
   <!-- EXTERN Libs -->
   <script src="js_v_0_9/libs/ThreeJS/three.min.js"></script>
 
@@ -57,13 +96,11 @@
 <body style="height:auto; width:100vw; background:black; overflow:hidden;">
 
 
-  <!--
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        -------------------------------------------------
-        ----------------	THE SIDE	-----------------
-        -------------------------------------------------
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        -->
+  <!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%	HTML	%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
 
   <div id="wrapper">
     <input type="file" id="id_inputData" style="width: 0px; height:0px; margin:0px; display:none;" accept=".vtk">
@@ -71,14 +108,7 @@
     <input type="file" id="id_inputSessionData" style="width: 0px; height:0px; margin:0px; display:none;" accept=".xml">
   </div>
 
-
-  <!-- ------------- Menue --------------- -->
-  <!--div id="headerDiv" include-html="html/header.html" style="width:100vw; height:5vh; margin:0px;  position:fixed; top:0px; left:0px; z-index:90; background: var(--menue-bg-color);"></div-->
-
-
-
-
-    <!-- ------------- Welcome Page --------------- -->
+    <!-- ------------- Welcome Section --------------- -->
     <div id="id_welcomePage" include-html="html/welcome.html" style="width:100%;"></div>
 
 
@@ -171,6 +201,7 @@
           -----------     Pop Up Windows     ------------
           -----------------------------------------------
     -->
+    <div id="id_PopUp_navigationWindow" include-html="html/PopUpWindows/navigationWindow.html" style=" width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
     <div id="id_PopUp_fullTestingWindow" include-html="html/PopUpWindows/fullscreenTestingWindow.html" style=" width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
     <div id="id_PopUp_NewsWindow" include-html="html/PopUpWindows/newsWindow.html" style=" width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
     <div id="id_PopUp_ColorBlindnessWindow" include-html="html/PopUpWindows/colorblindnessWindow.html"  style=" width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>

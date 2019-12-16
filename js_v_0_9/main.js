@@ -1,21 +1,27 @@
 
-
 window.onbeforeunload = function() { return "Attention: Your work will be lost, if you will leave this page."; };
-
 
 // main
 window.onload = function() {
+
   includeHTML();
 
+  // init section object
+  document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Welcome Section";
+  welcomeSection = new class_Welcome_Section();
+  document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: MyDesigns Section";
+  myDesignsSection = new class_MyDesigns_Section();
+  document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Gallery Section";
+  gallerySection = new class_Gallery_Section();
+  document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: New CMS Section";
+  newSection = new class_NewCMS_Section();
+  document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Edit Section";
+  editSection = new class_Edit_Section();
+  document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Test-Function Section";
+  testingSection = new class_TestFunction_Section();
 
-
-
-  /////////////////////////////////////
-  /// Start tool
-  document.getElementById("id_WelcomePage_Loading_Animation").style.display="none";
-  document.getElementById("id_WelcomePage_Loading").style.height="0vh";
-  document.getElementById("id_WelcomePage_Welcome").style.height="100vh";
-
+  document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Loading Finished";
+  welcomeSection.updateSection();
 
 }
 
