@@ -1,51 +1,6 @@
 function drawMyDesigns(){
 
-  //document.getElementById("id_myDesignsPage_colormap_container").innerHTML = "";
-  var children = document.getElementById("id_myDesignsPage_colormap_container").children;
-  for (var i = children.length-1; i >0; i--) { // i=0 => id_myDesignsPage_emptyImgDiv
-    children[i].parentNode.removeChild(children[i]);
-  }
 
-  if(myDesignsList.length==0){
-    document.getElementById("id_myDesignsPage_emptyImgDiv").style.display="flex";
-  }
-  else {
-    document.getElementById("id_myDesignsPage_emptyImgDiv").style.display="none";
-  }
-
-
-  for (var i = 0; i < myDesignsList.length; i++) {
-
-    var check =false;
-    var divRow = document.createElement('div');
-    divRow.className = 'row';
-    divRow.style.width = '100%';
-
-
-    var div1 = createMyDesignObject(i);
-    divRow.appendChild(div1);
-
-
-
-    if(i+1<myDesignsList.length){
-      i++;
-      check=true;
-      var div2 = createMyDesignObject(i);
-      divRow.appendChild(div2);
-    }
-
-    document.getElementById("id_myDesignsPage_colormap_container").appendChild(divRow);
-
-    drawCanvasColormap("myDesignObj_CMSlinear_"+i, myDesignsList[i]);
-    drawBandSketch(myDesignsList[i],"myDesignObj_CMSsketch_"+i);
-
-    if(check){
-      drawCanvasColormap("myDesignObj_CMSlinear_"+(i-1), myDesignsList[(i-1)]);
-      drawBandSketch(myDesignsList[(i-1)],"myDesignObj_CMSsketch_"+(i-1));
-    }
-
-
-  }
 
 
 }

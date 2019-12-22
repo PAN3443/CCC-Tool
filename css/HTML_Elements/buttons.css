@@ -4,7 +4,7 @@ button:focus {outline:0;}
 
 .class_coloredButton{
   font-family: var(--font-family);
-  background-color: #4CAF50; /* Green */
+  background-color: var(--main-coloredButton); /* Green */
   box-sizing: content-box;
   font-weight:bold;
   border: none;

@@ -53,7 +53,7 @@ function changeNewInterSpace(type){
 function saveSession() {
 
   if (myDesignsList.length == 0) {
-    openAlert("The MyDesigns list is empty")
+    openAlert("The MyDesigns list is empty");
     return;
   }
 

@@ -5,7 +5,8 @@
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title>CCC-Tool</title>
-  <meta name="keywords" content="coloroptimizer,color,visualization,colorbrewer,ccctool,ccc-tool,ccc,tool,colormap,colortable, color map, color table, continuous, continuous colormap, analysis colormap, analyse colormap, create colormap, export colormap, download colormap">
+  <meta name="keywords"
+    content="coloroptimizer,color,visualization,colorbrewer,ccctool,ccc-tool,ccc,tool,colormap,colortable, color map, color table, continuous, continuous colormap, analysis colormap, analyse colormap, create colormap, export colormap, download colormap">
   <meta name="description" content="Determine a colormap for visualization with the CCC toolbox">
   <meta name="author" content="Pascal Nardini">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -46,47 +47,81 @@
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
 
-        <!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        %%%%%%%%%%%%%%%%%%%%%%%%%	Sections	%%%%%%%%%%%%%%%%%%%%%%%%%
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
-        <script type="text/javascript" src="js_v_0_9/src/sections/class_section.js"></script>
+  <!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%	Global	%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+  <script type="text/javascript" src="js_v_0_9/src/global/global_vars.js"></script>
+  <script type="text/javascript" src="js_v_0_9/src/global/switchSection.js"></script>
+  <script type="text/javascript" src="js_v_0_9/src/global/shortcuts.js"></script>
 
-        <!--%%%%%%%%%%%%%%% Weclome Section %%%%%%%%%%%%%%%-->
-        <script type="text/javascript" src="js_v_0_9/src/sections/welcome/class_section_welcome.js"></script>
+  <!--%%%%%%%%%%%%%%% Global Events (Helper) %%%%%%%%%%%%%%%-->
+  <script type="text/javascript" src="js_v_0_9/src/global/helper/canvasHelper.js"></script>
 
-        <!--%%%%%%%%%%%%%%% MyDesigns Section %%%%%%%%%%%%%%%-->
-        <script type="text/javascript" src="js_v_0_9/src/sections/mydesigns/class_section_mydesigns.js"></script>
+  <!--%%%%%%%%%%%%%%% Global Events (Parser) %%%%%%%%%%%%%%%-->
+  <script type="text/javascript" src="js_v_0_9/src/global/parser/csvColormapParser.js"></script>
+  <script type="text/javascript" src="js_v_0_9/src/global/parser/jsonColormapParser.js"></script>
+  <script type="text/javascript" src="js_v_0_9/src/global/parser/xmlColormapParser.js"></script>
 
-        <!--%%%%%%%%%%%%%%% Gallery Section %%%%%%%%%%%%%%%-->
-        <script type="text/javascript" src="js_v_0_9/src/sections/gallery/class_section_gallery.js"></script>
+  <!--%%%%%%%%%%%%%%% Colors %%%%%%%%%%%%%%%-->
+  <script type="text/javascript" src="js_v_0_9/src/global/color/color_transformation_globalVars.js"></script>
+  <script type="text/javascript" src="js_v_0_9/src/global/color/metric_globalVars.js"></script>
+  <script type="text/javascript" src="js_v_0_9/src/global/color/class_Colorspace_XYZ.js"></script>
+  <script type="text/javascript" src="js_v_0_9/src/global/color/class_Colorspace_LMS.js"></script>
+  <script type="text/javascript" src="js_v_0_9/src/global/color/class_Colorspace_LCH.js"></script>
+  <script type="text/javascript" src="js_v_0_9/src/global/color/class_Colorspace_RGB.js"></script>
+  <script type="text/javascript" src="js_v_0_9/src/global/color/class_Colorspace_HSV.js"></script>
+  <script type="text/javascript" src="js_v_0_9/src/global/color/class_Colorspace_LAB.js"></script>
+  <script type="text/javascript" src="js_v_0_9/src/global/color/class_Colorspace_DIN99.js"></script>
+  <script type="text/javascript" src="js_v_0_9/src/global/color/colorHelper.js"></script>
+  <script type="text/javascript" src="js_v_0_9/src/global/color/colorDifference.js"></script>
 
-        <!--%%%%%%%%%%%%%%% New CMS Section %%%%%%%%%%%%%%%-->
-        <script type="text/javascript" src="js_v_0_9/src/sections/newCMS/class_section_newCMS.js"></script>
-
-        <!--%%%%%%%%%%%%%%% Edit Section %%%%%%%%%%%%%%%-->
-        <script type="text/javascript" src="js_v_0_9/src/sections/edit/class_section_edit.js"></script>
-
-        <!--%%%%%%%%%%%%%%% Testing Section %%%%%%%%%%%%%%%-->
-        <script type="text/javascript" src="js_v_0_9/src/sections/test_functions/class_section_test_functions.js"></script>
-
-
-        <!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        %%%%%%%%%%%%%%%%%%%%%%	PopUp Windows	%%%%%%%%%%%%%%%%%%%%%%%
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
-        <script type="text/javascript" src="js_v_0_9/src/popUpWindows/Navigation/navi.js"></script>
-
-        <!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        %%%%%%%%%%%%%%%%%%%%%%	Global Events	%%%%%%%%%%%%%%%%%%%%%%%
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
-        <script type="text/javascript" src="js_v_0_9/src/globalEvents/switchSection.js"></script>
-        <script type="text/javascript" src="js_v_0_9/src/globalEvents/shortcuts.js"></script>
-
-          <!--%%%%%%%%%%%%%%% Global Events (Helper) %%%%%%%%%%%%%%%-->
-          <script type="text/javascript" src="js_v_0_9/src/globalEvents/Helper/canvasHelper.js"></script>
+  <!--%%%%%%%%%%%%%%% CMS %%%%%%%%%%%%%%%-->
+  <script type="text/javascript" src="js_v_0_9/src/global/cms/cmsIntervalHelper.js"></script>
+  <script type="text/javascript" src="js_v_0_9/src/global/cms/class_Colormap_Interval.js"></script>
+  <script type="text/javascript" src="js_v_0_9/src/global/cms/class_Colormap_Key.js"></script>
+  <script type="text/javascript" src="js_v_0_9/src/global/cms/class_Colormap_Probe.js"></script>
+  <script type="text/javascript" src="js_v_0_9/src/global/cms/class_Colormap_ProbeSet.js"></script>
+  <script type="text/javascript" src="js_v_0_9/src/global/cms/class_Colormap_Specification.js"></script>
 
 
+  <!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%%	Sections	%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+  <script type="text/javascript" src="js_v_0_9/src/sections/class_section.js"></script>
 
-  <script type="text/javascript" src="js_v_0_9/global_vars.js"></script>
+  <!--%%%%%%%%%%%%%%% Weclome Section %%%%%%%%%%%%%%%-->
+  <script type="text/javascript" src="js_v_0_9/src/sections/welcome/class_section_welcome.js"></script>
+
+  <!--%%%%%%%%%%%%%%% MyDesigns Section %%%%%%%%%%%%%%%-->
+  <script type="text/javascript" src="js_v_0_9/src/sections/mydesigns/class_section_mydesigns.js"></script>
+
+  <!--%%%%%%%%%%%%%%% Gallery Section %%%%%%%%%%%%%%%-->
+  <script type="text/javascript" src="js_v_0_9/src/sections/gallery/class_section_gallery.js"></script>
+
+  <!--%%%%%%%%%%%%%%% New CMS Section %%%%%%%%%%%%%%%-->
+  <script type="text/javascript" src="js_v_0_9/src/sections/newCMS/class_section_newCMS.js"></script>
+
+  <!--%%%%%%%%%%%%%%% Edit Section %%%%%%%%%%%%%%%-->
+  <script type="text/javascript" src="js_v_0_9/src/sections/edit/class_section_edit_basis.js"></script>
+  <script type="text/javascript" src="js_v_0_9/src/sections/edit/class_section_edit.js"></script>
+  <script type="text/javascript" src="js_v_0_9/src/sections/edit/class_section_edit_probe.js"></script>
+  <script type="text/javascript" src="js_v_0_9/src/sections/edit/class_section_edit_optimization.js"></script>
+
+  <!--%%%%%%%%%%%%%%% Testing Section %%%%%%%%%%%%%%%-->
+  <script type="text/javascript" src="js_v_0_9/src/sections/test_functions/class_section_test_functions.js"></script>
+
+  <!--%%%%%%%%%%%%%%% Export Section %%%%%%%%%%%%%%%-->
+  <script type="text/javascript" src="js_v_0_9/src/sections/export/class_section_export.js"></script>
+
+
+  <!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%	PopUp Windows	%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+  <script type="text/javascript" src="js_v_0_9/src/popUpWindows/Navigation/navi.js"></script>
+  <script type="text/javascript" src="js_v_0_9/src/popUpWindows/popUp_Events.js"></script>
+
+
+
   <script type="text/javascript" src="js_v_0_9/main.js"></script>
   <!-- EXTERN Libs -->
   <script src="js_v_0_9/libs/ThreeJS/three.min.js"></script>
@@ -98,7 +133,7 @@
 
   <!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  %%%%%%%%%%%%%%%%%%%%%%%%	HTML	%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%	HTML	%%%%%%%%%%%%%%%%%%%%%%%%%%%
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
 
@@ -108,47 +143,73 @@
     <input type="file" id="id_inputSessionData" style="width: 0px; height:0px; margin:0px; display:none;" accept=".xml">
   </div>
 
-    <!-- ------------- Welcome Section --------------- -->
-    <div id="id_welcomePage" include-html="html/welcome.html" style="width:100%;"></div>
+  <!-- ------------- Welcome Section --------------- -->
+  <div id="id_welcomePage" include-html="html/welcome.html" style="width:100%;"></div>
 
 
-    <!--  -----------------------------------------------
+  <!--  -----------------------------------------------
           --------------     Sections     ---------------
           -----------------------------------------------
     -->
 
-    <!-- ------------- 1.Section: Gallery --------------- -->
-    <div id="id_myDesignsPage" include-html="html/Sections/myDesigns.html" style="width:100%; display:none;"></div>
+  <!-- ------------- 1.Section: myDesigns --------------- -->
+  <div id="id_myDesignsPage" include-html="html/Sections/myDesigns.html" style="width:100%; display:none;  overflow: hidden;"></div>
 
-    <!-- ------------- 2.Section: Gallery --------------- -->
-    <div id="id_newCMSPage" include-html="html/Sections/newCMS.html" style="width:100%; display:none;"></div>
+  <!-- ------------- 2.Section: New CMS --------------- -->
+  <div id="id_newCMSPage" include-html="html/Sections/newCMS.html" style="width:100%; display:none;  overflow: hidden;"></div>
 
-    <!-- ------------- 3.Section: Gallery --------------- -->
-    <div id="id_GalleryPage" include-html="html/Sections/gallery.html" style="width:100%; display:none; "></div>
+  <!-- ------------- 3.Section: Gallery --------------- -->
+  <div id="id_GalleryPage" include-html="html/Sections/gallery.html" style="width:100%; display:none;  overflow: hidden;"></div>
 
-    <!-- ------------- 4.Section: Edit --------------- -->
-    <div id="id_EditPage" style="display:flex; height:95vh; width:100%; display:none; ">
+  <!-- ------------- 4.Section: Edit --------------- -->
+  <div id="id_EditPage" style="display:flex; height:100vh; width:100vw; background:var(--main-bg-color); overflow: hidden; display:none; flex-direction:column;">
 
-      <!-- START-DIV: 4.1 Add Predefined Structures ------------------->
-      <div id="id_EditPage_Add_Structures_Optimization" include-html="html/Sections/Edit/predefinedStructures_Optimization.html" style="width:20%; height:100%; background:rgb(220,220,220); border:0.2vh solid black; border-right:none"></div>
+    <div style="width:100vw; height:95vh; display:flex;">
+      <div id="id_EditPage_PredefinedStructures" include-html="html/Sections/Edit/predefinedStructures.html" style="width:15vw; height:95vh; background: var(--main-sepArea-bg);"></div>
+
+      <div style="width:85vw; height:95vh; display:flex; flex-direction:column;">
+        <div style="display:flex; width:85vw; height:30vh; border-bottom:0.2vw solid var(--main-sepArea-bg);">
+          <div id="id_EditPage_CMS_Div" include-html="html/Sections/Edit/cms.html"style="width:65vw; height:30vh; border-right:0.2vw solid var(--main-sepArea-bg);">
+
+          </div>
+          <div id="id_EditPage_Key_Edit" style="width:20vw; height:30vh;">
+
+          </div>
+        </div>
+        <div class="">
+
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="width:100%; height: 5vh; background:var(--main-active-coloredButton);">
+      <button class="class_coloredButton" title="MyDesigns" style=" height:5vh; width: 5vw; font-size: 3vh;">&lArr;</button>
+      <button class="class_coloredButton" title="CMS Options" style=" height:5vh; width: 19vw; font-size: 3vh;">CMS &#8683;</button>
+      <button class="class_coloredButton" title="Display Options" style=" height:5vh; width: 19vw; font-size: 3vh;">Display &#8683;</button>
+      <button class="class_coloredButton" title="Probes" style=" height:5vh; width: 19vw; font-size: 3vh;">Probes</button>
+      <button class="class_coloredButton" title="Optimization" style=" height:5vh; width: 19vw; font-size: 3vh;">Optimization</button>
+      <button class="class_coloredButton" title="Settings" style=" height:5vh; width: 19vw; font-size: 3vh;">Settings &#8683;</button>
+    </div>
+
+
+    <!-- START-DIV: 4.1 Add Predefined Structures ------------------->
+    <!--div id="id_EditPage_Add_Structures"  style="width:20%; height:100%; background:rgb(220,220,220); border:0.2vh solid black; border-right:none"></div>
       <!-- END-DIN: 4.1 Add Predefined Structures ------------------->
 
-
-
-      <!-- START-DIV: 4.2 CMS,Table,Edit,Analyze,Mapping,ProbeSet ------------------->
-      <div id="id_EditPage_CMSEditAnalzyeMapping_Div" style="width:80%; height:100%; border:0.2vh solid black;">
+    <!-- START-DIV: 4.2 CMS,Table,Edit,Analyze,Mapping,ProbeSet ------------------->
+    <!--div id="id_EditPage_CMSEditAnalzyeMapping_Div" style="width:80%; height:100%; border:0.2vh solid black;">
 
         <!-- START-DIV: 4.2.1 CMS,Table ------------------->
-        <div id="id_EditPage_CMSTable_Div" style="height:30vh; width:100%; display:flex; border-bottom:0.2vh solid black;">
-          <div id="id_EditPage_CMS_Div" include-html="html/Sections/Edit/cms.html" style="width:60vw; height:100%; background: var(--main-bg-color);"></div>
+    <!--div id="id_EditPage_CMSTable_Div" style="height:30vh; width:100%; display:flex; border-bottom:0.2vh solid black;">
+          <div  style="width:60vw; height:100%; background: var(--main-bg-color);"></div>
           <div id="id_EditPage_Table_Div" include-html="html/Sections/Edit/table.html" style="width:20vw; height:100%; border-left:0.2vh solid black; background: var(--main-bg-color);"></div>
         </div>
         <!-- END-DIV: 4.2.1 CMS,Table ------------------->
 
-        <!-- START-DIV: 4.2.2 Edit,Analzye,Mapping,ProbeSet ------------------->
-        <div id="id_EditPage_AnalzyeMappingProbeSetEditKey_Div" style="height:65vh; width:100%; display:flex;">
+    <!-- START-DIV: 4.2.2 Edit,Analzye,Mapping,ProbeSet ------------------->
+    <!--div id="id_EditPage_AnalzyeMappingProbeSetEditKey_Div" style="height:65vh; width:100%; display:flex;">
           <!-- START-DIV: 4.2.2.1 Analyze,Mapping,ProbeSet   ------------------->
-          <div id="id_editPage_AnalyzeMappingProbeSetDiv" style="width:70%; height:100%;">
+    <!--div id="id_editPage_AnalyzeMappingProbeSetDiv" style="width:70%; height:100%;">
             <div id="id_editPage_AnalyzeMappingProbeSet_CloseDiv"class="class_EditPage_closeDiv">
               <div onclick="updateAnalzyeMappingProbeSetStatus()">
                 X
@@ -166,8 +227,8 @@
           </div>
           <!-- END-DIV: 4.2.2.1 Analyze,Mapping,ProbeSet   ------------------->
 
-          <!-- START-DIV: 4.2.2.2 Edit Key, Edit Path Plot  ------------------->
-          <div id="id_editPage_EditKeyPathPlotDiv" style="width:30%; height:100%; overflow:hidden; border-left:0.2vh solid black;">
+    <!-- START-DIV: 4.2.2.2 Edit Key, Edit Path Plot  ------------------->
+    <!--div id="id_editPage_EditKeyPathPlotDiv" style="width:30%; height:100%; overflow:hidden; border-left:0.2vh solid black;">
             <div id="id_editPage_EditKeyPathPlot_CloseDiv" class="class_EditPage_closeDiv" >
               <div onclick="updateEditKeyPathPlotStatus()">
                 X
@@ -182,48 +243,54 @@
             <div id="id_EditPage_Edit_Path" include-html="html/Sections/Edit/pathplot.html" style="width:100%; height:59vh; display:none;"></div>
           </div>
           <!-- END-DIV: 4.2.2.2  Edit Key, Edit Path Plot  ------------------->
-        </div>
+    <!--/div>
         <!-- END-DIV: 4.2.2 Edit,Analzye,Mapping,ProbeSet ------------------->
 
-      </div>
+    <!--/div>
       <!-- END-DIV: 4.2 CMS,Table,Edit,Analyze,Mapping,ProbeSet ------------------->
 
-    </div>
-    <!-- END: 4. Section ------------------->
+  </div>
+  <!-- END: 4. Section ------------------->
 
 
-    <!-- ------------- 5.Section: Testing --------------- -->
-    <div id="id_TestingPage" include-html="html/Sections/testing.html" style="width:100%; height:100; display:none;"></div>
+  <!-- ------------- 5.Section: Testing --------------- -->
+  <div id="id_TestingPage" include-html="html/Sections/testing.html" style="width:100%; height:100; display:none;"></div>
 
-
-
-    <!--  -----------------------------------------------
+  <!--  -----------------------------------------------
           -----------     Pop Up Windows     ------------
           -----------------------------------------------
     -->
-    <div id="id_PopUp_navigationWindow" include-html="html/PopUpWindows/navigationWindow.html" style=" width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
-    <div id="id_PopUp_fullTestingWindow" include-html="html/PopUpWindows/fullscreenTestingWindow.html" style=" width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
-    <div id="id_PopUp_NewsWindow" include-html="html/PopUpWindows/newsWindow.html" style=" width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
-    <div id="id_PopUp_ColorBlindnessWindow" include-html="html/PopUpWindows/colorblindnessWindow.html"  style=" width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
-    <div id="id_PopUp_ColorMetricsWindow" include-html="html/PopUpWindows/colorMetricWindow.html" style=" width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
-    <div id="id_PopUp_ColorSettingsWindow" include-html="html/PopUpWindows/colorSettingsWindow.html" style=" width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
-    <div id="id_PopUp_TutorialWindow" include-html="html/PopUpWindows/tutorialWindow.html" style=" width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none; "></div>
-    <div id="id_PopUp_GenerateProbeSetWindow" include-html="html/PopUpWindows/generateProbeSetWindow.html" style=" width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
-    <div id="id_PopUp_fullMappingWindow" include-html="html/PopUpWindows/fullscreenMappingWindow.html" style=" width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
-    <div id="id_PopUp_fullAnalzeWindow" include-html="html/PopUpWindows/fullscreenAnalyzeWindow.html" style=" width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
-    <div id="id_PopUp_ExportWindow" include-html="html/PopUpWindows/exportWindow.html" style=" width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
-    <div id="id_popupColorPicker" include-html="html/PopUpWindows/colorPickerWindow.html" style=" height: 36vh; position:absolute; z-index:85; top:50px; left:50px; bottom:0px; border: 0.2vh solid black; display:none;"></div>
-    <div id="id_PopUp_ScaleWindow" include-html="html/PopUpWindows/scaleWindow.html" style=" width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
-    <div id="id_PopUp_AlertWindow" include-html="html/PopUpWindows/alertWindow.html" style=" width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
-    <div id="id_PopUp_ShortcutsWindow" include-html="html/PopUpWindows/shortcutsWindow.html" style=" width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
-    <div id="id_PopUp_ImpessumWindow" include-html="html/PopUpWindows/impressumWindow.html" style=" width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
-    <div id="popupAskWindow" include-html="html/PopUpWindows/askWindow.html" style=" width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
-    <div id="waitWindow" include-html="html/PopUpWindows/waitWindow.html" style=" width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:flex; display:none;"></div>
-    <div id="id_PopUp_LandscapeWindow" include-html="html/PopUpWindows/landscapeWindow.html" style=" width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
-    <div id="id_PopUp_MetricIntOpt" include-html="html/PopUpWindows/metricInterpolationOptions.html" style=" width:100%; height:100%; position:absolute; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
-
-
-
+  <div id="id_PopUp_navigationWindow" include-html="html/PopUpWindows/navigationWindow.html" style=" width:100%; height:100%; background: var(--main-popUpWindow-bg-color); position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
+  </div>
+  <div id="id_PopUp_fullTestingWindow" include-html="html/PopUpWindows/fullscreenTestingWindow.html" style=" width:100%; height:100%; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
+  <div id="id_PopUp_NewsWindow" include-html="html/PopUpWindows/newsWindow.html"
+    style=" width:100%; height:100%; position:absolute; background: var(--main-popUpWindow-bg-color); position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
+  <div id="id_PopUp_ColorBlindnessWindow" include-html="html/PopUpWindows/colorblindnessWindow.html"
+    style=" width:100%; height:100%; background: var(--main-popUpWindow-bg-color); position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
+  <div id="id_PopUp_ColorMetricsWindow" include-html="html/PopUpWindows/colorMetricWindow.html"
+    style=" width:100%; height:100%; background: var(--main-popUpWindow-bg-color); position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
+  <div id="id_PopUp_ColorSettingsWindow" include-html="html/PopUpWindows/colorSettingsWindow.html"
+    style=" width:100%; height:100%; background: var(--main-popUpWindow-bg-color); position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
+  <div id="id_PopUp_GenerateProbeSetWindow" include-html="html/PopUpWindows/generateProbeSetWindow.html"
+    style=" width:100%; height:100%; background: var(--main-popUpWindow-bg-color); position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
+  <div id="id_PopUp_fullMappingWindow" include-html="html/PopUpWindows/fullscreenMappingWindow.html"
+    style=" width:100%; height:100%; background: var(--main-popUpWindow-bg-color); position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
+  <div id="id_PopUp_fullAnalzeWindow" include-html="html/PopUpWindows/fullscreenAnalyzeWindow.html"
+    style=" width:100%; height:100%; background: var(--main-popUpWindow-bg-color); position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
+  <div id="id_PopUp_ExportWindow" include-html="html/PopUpWindows/exportWindow.html"
+    style=" width:100%; height:100%; position:absolute; background: var(--main-popUpWindow-bg-color); position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
+  <div id="id_popupColorPicker" include-html="html/PopUpWindows/colorPickerWindow.html" style=" height: 36vh; position:absolute; z-index:85; top:50px; left:50px; bottom:0px; border: 0.2vh solid black; display:none;"></div>
+  <div id="id_PopUp_ScaleWindow" include-html="html/PopUpWindows/scaleWindow.html" style=" width:100%; height:100%; background: var(--main-popUpWindow-bg-color); position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
+  <div id="id_PopUp_AlertWindow" include-html="html/PopUpWindows/alertWindow.html" style=" width:100%; height:100%; background: var(--main-popUpWindow-bg-color);  position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
+  <div id="id_PopUp_ShortcutsWindow" include-html="html/PopUpWindows/shortcutsWindow.html" style=" width:100%; height:100%; background: var(--main-popUpWindow-bg-color);  position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
+  </div>
+  <div id="id_PopUp_ImpessumWindow" include-html="html/PopUpWindows/impressumWindow.html" style=" width:100%; height:100%; background: var(--main-popUpWindow-bg-color);  position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
+  </div>
+  <div id="popupAskWindow" include-html="html/PopUpWindows/askWindow.html" style=" width:100%; height:100%; background: var(--main-popUpWindow-bg-color);  position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
+  <div id="waitWindow" include-html="html/PopUpWindows/waitWindow.html" style=" width:100%; height:100%; background: var(--main-popUpWindow-bg-color);  position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:flex; display:none;"></div>
+  <div id="id_PopUp_LandscapeWindow" include-html="html/PopUpWindows/landscapeWindow.html" style=" width:100%; height:100%; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
+  <div id="id_PopUp_MetricIntOpt" include-html="html/PopUpWindows/metricInterpolationOptions.html"
+    style=" width:100%; background: var(--main-popUpWindow-bg-color);  height:100%; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
 
 </body>
 

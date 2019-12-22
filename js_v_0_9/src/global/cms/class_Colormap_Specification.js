@@ -31,9 +31,7 @@ class class_CMS {
     this.colorBelow = new class_Color_LAB(0,0,0);
     this.colorAbove = new class_Color_LAB(0,0,0);
 
-    /// color array from import and for the export
-    //this.preprocessingColorArray = [];
-    //this.preprocessingPositionPoints = [];
+    this.doColorblindnessSim = false;
 
     //// Real CMS structure
     this.deltaE_RGB = 10;
@@ -162,11 +160,11 @@ class class_CMS {
 
   }
 
-  ///////////////////////////////////////////////////////////////////////////////////
-  ///////////////////////////////////////////////////////////////////////////////////
-  /////////////////////////////// Interval functions
-  ///////////////////////////////////////////////////////////////////////////////////
-  ///////////////////////////////////////////////////////////////////////////////////
+
+  //********************************************************************************//
+  //***************************   Interval functions   *****************************//
+  //********************************************************************************//
+
 
   setPreventIntervals(bool){
     this.preventIntervalCalculation=bool;
@@ -437,103 +435,9 @@ class class_CMS {
 
     }
 
-  ///////////////////////////////////////////////////////////////////////////////////
-  ///////////////////////////////////////////////////////////////////////////////////
-  ///////////////////////////////////////////////////////////////////////////////////
-
-  setInterpolationSpace(space){
-    this.interpolationSpace=space;
-    this.calcDeltaIntervalColors();
-  }
-
-  getInterpolationSpace(){
-    return this.interpolationSpace;
-  }
-
-
-  insertCMS(cms, insertIndex){
-
-    if(this.getKeyLength()==0)
-      return;
-
-    var cmsDis = cms.getRefRange();
-
-    switch (insertIndex) {
-      case this.getKeyLength()-1:
-        // case scaled band
-        var tmpVal = this.getRefPosition(insertIndex);
-        var dist = Math.abs(tmpVal-this.getRefPosition(insertIndex-1))*0.5;
-        var startPos = tmpVal-dist;
-
-        this.setRefPosition(insertIndex,startPos);
-        this.setRightKeyColor(insertIndex,cms.getRightKeyColor(0,"lab"));
-
-        for (var i = 1; i < cms.getKeyLength()-1; i++) {
-
-          var ratio = (cms.getRefPosition(i)-cms.getRefPosition(i-1))/cmsDis;
-          startPos = startPos+dist*ratio;
-
-          var tmpKey = cms.getKeyClone(i);
-          tmpKey.setRefPosition(startPos);
-          this.pushKey(tmpKey,false); // push new left key
-        }
-
-        var tmpKey2 = cms.getKeyClone(i);
-        tmpKey2.setRefPosition(tmpVal);
-        this.pushKey(tmpKey2,true);
-
-        break;
-
-      default:
-
-      var startPos = this.getRefPosition(insertIndex);
-      var dist = Math.abs(this.getRefPosition(insertIndex+1)-startPos)*0.5;
-      var endPos = (startPos+dist);
-
-
-
-      this.setRefPosition(insertIndex,endPos);
-      var oldColor = this.getLeftKeyColor(insertIndex,"lab");
-
-
-      this.setLeftKeyColor(insertIndex,cms.getLeftKeyColor(cms.getKeyLength()-1,"lab"));
-      this.setBur(insertIndex,true);
-
-      for (var i = cms.getKeyLength()-2; i >= 0 ; i--) {
-
-        var ratio = (cms.getRefPosition(i+1)-cms.getRefPosition(i))/cmsDis;
-        endPos = endPos-dist*ratio;
-
-        var tmpKey = cms.getKeyClone(i);
-        tmpKey.setRefPosition(endPos);
-        this.insertKey(insertIndex, tmpKey);
-      }
-
-      this.setLeftKeyColor(insertIndex,oldColor);
-      this.setBur(insertIndex,true);
-
-
-
-    }
-    this.calcDeltaIntervalColors();
-  }
-
-  /* Not sure if we need updateColorToNewSettings anymore.
-  /*updateColorToNewSettings(){
-
-    this.colorNaN = this.colorNaN.calcDIN99Color();
-    this.colorBelow = this.colorBelow.calcLABColor();
-    this.colorAbove = this.colorAbove.calcLABColor();
-
-    for (var i = 0; i < this.keyArray.length; i++) {
-      this.keyArray[i].updateKeyColorsToSettings();
-    }
-
-  }*/
-
-  /////////////////////////////////
-  //// Key Structure
-  /////////////////////////////////
+    //********************************************************************************//
+    //*****************************   Key Structure   ********************************//
+    //********************************************************************************//
 
   calcReverse(){
 
@@ -780,8 +684,6 @@ class class_CMS {
     this.calcDeltaIntervalColors();
   }
 
-
-
   getKeyLength(){
     return this.keyArray.length;
   }
@@ -828,7 +730,6 @@ class class_CMS {
     return this.keyArray[index].getRefPosition();
   }
 
-
   equalKeyIntervals(){
 
 
@@ -847,7 +748,6 @@ class class_CMS {
     this.calcDeltaIntervalColors();
 
   }
-
 
   setLeftKeyColor(index, color){
     this.keyArray[index].setLeftKeyColor(color);
@@ -892,7 +792,6 @@ class class_CMS {
     this.keyArray[index].setMoT(mot);
   }
 
-
   insertKey(index,key){
 
       this.keyArray.splice(index, 0,key);
@@ -932,7 +831,6 @@ class class_CMS {
     this.keyArray[index].setBur(newBurs);
   }
 
-
   deleteBand(index){
     var tmpRightColor = this.keyArray[index+1].getRightKeyColor("lab");
     this.keyArray[index].setRightKeyColor(tmpRightColor);
@@ -940,10 +838,76 @@ class class_CMS {
     this.calcDeltaIntervalColors();
   }
 
+  insertCMS(cms, insertIndex){
 
-  ///////////////////////////////////
-  /// Probe
-  ///////////////////////////////////
+    if(this.getKeyLength()==0)
+      return;
+
+    var cmsDis = cms.getRefRange();
+
+    switch (insertIndex) {
+      case this.getKeyLength()-1:
+        // case scaled band
+        var tmpVal = this.getRefPosition(insertIndex);
+        var dist = Math.abs(tmpVal-this.getRefPosition(insertIndex-1))*0.5;
+        var startPos = tmpVal-dist;
+
+        this.setRefPosition(insertIndex,startPos);
+        this.setRightKeyColor(insertIndex,cms.getRightKeyColor(0,"lab"));
+
+        for (var i = 1; i < cms.getKeyLength()-1; i++) {
+
+          var ratio = (cms.getRefPosition(i)-cms.getRefPosition(i-1))/cmsDis;
+          startPos = startPos+dist*ratio;
+
+          var tmpKey = cms.getKeyClone(i);
+          tmpKey.setRefPosition(startPos);
+          this.pushKey(tmpKey,false); // push new left key
+        }
+
+        var tmpKey2 = cms.getKeyClone(i);
+        tmpKey2.setRefPosition(tmpVal);
+        this.pushKey(tmpKey2,true);
+
+        break;
+
+      default:
+
+      var startPos = this.getRefPosition(insertIndex);
+      var dist = Math.abs(this.getRefPosition(insertIndex+1)-startPos)*0.5;
+      var endPos = (startPos+dist);
+
+
+
+      this.setRefPosition(insertIndex,endPos);
+      var oldColor = this.getLeftKeyColor(insertIndex,"lab");
+
+
+      this.setLeftKeyColor(insertIndex,cms.getLeftKeyColor(cms.getKeyLength()-1,"lab"));
+      this.setBur(insertIndex,true);
+
+      for (var i = cms.getKeyLength()-2; i >= 0 ; i--) {
+
+        var ratio = (cms.getRefPosition(i+1)-cms.getRefPosition(i))/cmsDis;
+        endPos = endPos-dist*ratio;
+
+        var tmpKey = cms.getKeyClone(i);
+        tmpKey.setRefPosition(endPos);
+        this.insertKey(insertIndex, tmpKey);
+      }
+
+      this.setLeftKeyColor(insertIndex,oldColor);
+      this.setBur(insertIndex,true);
+
+
+
+    }
+    this.calcDeltaIntervalColors();
+  }
+
+  //********************************************************************************//
+  //*********************************   Probes   ***********************************//
+  //********************************************************************************//
 
   clearProbeSetList(){
     this.probeSetArray=[];
@@ -1001,9 +965,239 @@ class class_CMS {
   }
 
 
+  //********************************************************************************//
+  //*******************************   Draw Functions   *****************************//
+  //********************************************************************************//
 
-  /////////////// Other GET SET ////////////////////
+  drawCMS_Horizontal(canvasID, width, height ) {
 
+    // start
+    var canvasObject = document.getElementById(canvasID);
+    // check hight
+    if(height!=undefined)
+      canvasObject.height = height;
+    else{
+      var canvasRect = canvasObject.getBoundingClientRect();
+      if(canvasRect.height>1)
+        canvasObject.height = canvasRect.height;
+      else
+        canvasObject.height = 20;
+    }
+    // check width
+    if(width!=undefined)
+      canvasObject.width = width;
+    else{
+      var canvasRect = canvasObject.getBoundingClientRect();
+      if(canvasRect.width>1)
+        canvasObject.width = canvasRect.width;
+      else
+        canvasObject.width = 500;
+    }
+
+    var canvasContex = canvasObject.getContext("2d");
+
+    var canvasData = canvasContex.getImageData(0, 0, canvasObject.width, canvasObject.height);
+
+    /////////////////////////////////////////////////////////
+
+    var xPos = 0;
+    var yPos = 0;
+    // draw colormap
+    for (var i = 0; i < this.getKeyLength()-1; i++) {
+
+      /*var pos1 = Math.round((this.getRefPosition(i) - this.getRefPosition(0)) / (this.getRefPosition(this.getKeyLength()-1) - this.getRefPosition(0)) * canvasObject.width);
+      var pos2 = Math.round((this.getRefPosition(i+1) - this.getRefPosition(0)) / (this.getRefPosition(this.getKeyLength()-1) - this.getRefPosition(0)) * canvasObject.width);
+      var elementwidth = pos2 - pos1;*/
+
+      var linearKey_xPos = Math.round((this.getRefPosition(i) - this.getRefPosition(0)) / (this.getRefPosition(this.getKeyLength()-1) - this.getRefPosition(0)) * canvasObject.width);
+      var elementwidth = Math.round((this.getRefPosition(i+1) - this.getRefPosition(i)) / (this.getRefPosition(this.getKeyLength()-1) - this.getRefPosition(0)) * canvasObject.width);
+
+      switch (this.getKeyType(i)) {
+        case "nil key": case "left key":
+          canvasData = createConstantBand(canvasData, xPos + pos1, 0, elementwidth, canvasObject.height, this.getLeftKeyColor(i+1,this.getInterpolationSpace()), canvasObject.width);
+          break;
+        default:
+        if((this.getInterpolationSpace()==="de94-ds" || this.getInterpolationSpace()==="de2000-ds" || this.getInterpolationType()==="spline") && this.getIntervalLength(i)>0){
+
+          var linearKey_Sub_xPos = linearKey_xPos;
+
+          // from left key to first interval
+          elementwidth = Math.round((this.getIntervalRef(i,0) - this.getRefPosition(i)) / (this.getRefPosition(this.getKeyLength()-1) - this.getRefPosition(0)) * canvasObject.width);
+          canvasData = createScaledBand(canvasData,linearKey_Sub_xPos, 0, elementwidth, canvasObject.height, this.getRightKeyColor(i,this.getInterpolationSpace()), this.getIntervalColor(i,0,this.getInterpolationSpace()), canvasObject.width);
+
+            // between intervals
+          for (var j = 0; j < this.getIntervalLength(i)-1; j++) {
+            linearKey_Sub_xPos += elementwidth;
+            elementwidth = Math.round((this.getIntervalRef(i,j+1) - this.getIntervalRef(i,j)) / (this.getRefPosition(this.getKeyLength()-1) - this.getRefPosition(0)) * canvasObject.width);
+            canvasData = createScaledBand(canvasData,linearKey_Sub_xPos, 0, elementwidth, canvasObject.height, this.getIntervalColor(i,j,this.getInterpolationSpace()), this.getIntervalColor(i,j+1,this.getInterpolationSpace()), canvasObject.width);
+          }
+          // from last interval to last key
+          linearKey_Sub_xPos += elementwidth;
+          var tmpEndPos = editCMS_cmsArea_x1+Math.round((this.getRefPosition(i+1) - this.getRefPosition(0)) / (this.getRefPosition(this.getKeyLength()-1) - this.getRefPosition(0)) * canvasObject.width);
+          elementwidth = (tmpEndPos-linearKey_Sub_xPos);
+          canvasData = createScaledBand(canvasData,linearKey_Sub_xPos, 0, elementwidth, canvasObject.height, this.getIntervalColor(i,this.getIntervalLength(i)-1,this.getInterpolationSpace()), this.getLeftKeyColor(i+1,this.getInterpolationSpace()), canvasObject.width);
+        }
+        else
+          canvasData = createScaledBand(canvasData, linearKey_xPos, 0, elementwidth, canvasObject.height, this.getRightKeyColor(i,this.getInterpolationSpace()), this.getLeftKeyColor(i+1,this.getInterpolationSpace()), canvasObject.width);
+
+      }
+
+    }
+    canvasContex.putImageData(canvasData, 0, 0);
+
+  }
+
+  drawCMS_Vertical(canvasID, height, width) {
+
+    // start
+    var canvasObject = document.getElementById(canvasID);
+    // check hight
+    if(height!=undefined)
+      canvasObject.height = height;
+    else{
+      var canvasRect = canvasObject.getBoundingClientRect();
+      if(canvasRect.height>1)
+        canvasObject.height = canvasRect.height;
+      else
+        canvasObject.height = 500;
+    }
+    // check width
+    if(width!=undefined)
+      canvasObject.width = width;
+    else{
+      var canvasRect = canvasObject.getBoundingClientRect();
+      if(canvasRect.width>1)
+        canvasObject.width = canvasRect.width;
+      else
+        canvasObject.width = 500;
+    }
+
+    var canvasContex = canvasObject.getContext("2d");
+    var canvasData = canvasContex.getImageData(0, 0, canvasObject.width, canvasObject.height);
+
+    /////////////////////////////////////////////////////////
+    // draw colormap
+    for (var i = 0; i < this.getKeyLength()-1; i++) {
+
+      /*var pos1 = Math.round((this.getRefPosition(i) - this.getRefPosition(0)) / (this.getRefPosition(this.getKeyLength()-1) - this.getRefPosition(0)) * canvasObject.height);
+      var pos2 = Math.round((this.getRefPosition(i+1) - this.getRefPosition(0)) / (this.getRefPosition(this.getKeyLength()-1) - this.getRefPosition(0)) * canvasObject.height);
+      var elementheight = pos2 - pos1;*/
+
+      var linearKey_yPos = Math.round((this.getRefPosition(i) - this.getRefPosition(0)) / (this.getRefPosition(this.getKeyLength()-1) - this.getRefPosition(0)) * canvasObject.height);
+      var elementheight = Math.round((this.getRefPosition(i+1) - this.getRefPosition(i)) / (this.getRefPosition(this.getKeyLength()-1) - this.getRefPosition(0)) * canvasObject.height);
+
+      switch (this.getKeyType(i)) {
+        case "nil key": case "left key":
+          canvasData = createConstantBandVertical(canvasData, canvasObject.height-pos1, 0, canvasObject.width,elementheight, this.getLeftKeyColor(i+1,this.getInterpolationSpace()), canvasObject.width);
+          break;
+        default:
+        if((this.getInterpolationSpace()==="de94-ds" || this.getInterpolationSpace()==="de2000-ds" || this.getInterpolationType()==="spline") && this.getIntervalLength(i)>0){
+
+          var linearKey_Sub_yPos = linearKey_yPos;
+
+          // from left key to first interval
+          elementheight = Math.round((this.getIntervalRef(i,0) - this.getRefPosition(i)) / (this.getRefPosition(this.getKeyLength()-1) - this.getRefPosition(0)) * canvasObject.height);
+          canvasData = createScaledBandVertical(canvasData,canvasObject.height-linearKey_Sub_yPos, 0, canvasObject.width, elementheight, this.getRightKeyColor(i,this.getInterpolationSpace()), this.getIntervalColor(i,0,this.getInterpolationSpace()), canvasObject.width);
+
+            // between intervals
+          for (var j = 0; j < this.getIntervalLength(i)-1; j++) {
+            linearKey_Sub_yPos += elementheight;
+            elementheight = Math.round((this.getIntervalRef(i,j+1) - this.getIntervalRef(i,j)) / (this.getRefPosition(this.getKeyLength()-1) - this.getRefPosition(0)) * canvasObject.height);
+            canvasData = createScaledBandVertical(canvasData,canvasObject.height-linearKey_Sub_yPos, 0, canvasObject.width, elementheight, this.getIntervalColor(i,j,this.getInterpolationSpace()), this.getIntervalColor(i,j+1,this.getInterpolationSpace()), canvasObject.width);
+          }
+          // from last interval to last key
+          linearKey_Sub_yPos += elementheight;
+          var tmpEndPos = editCMS_cmsArea_x1+Math.round((this.getRefPosition(i+1) - this.getRefPosition(0)) / (this.getRefPosition(this.getKeyLength()-1) - this.getRefPosition(0)) * canvasObject.height);
+          elementheight = (tmpEndPos-linearKey_Sub_yPos);
+          canvasData = createScaledBandVertical(canvasData,canvasObject.height-linearKey_Sub_yPos, 0, canvasObject.width, elementheight, this.getIntervalColor(i,this.getIntervalLength(i)-1,this.getInterpolationSpace()), this.getLeftKeyColor(i+1,this.getInterpolationSpace()), canvasObject.width);
+        }
+        else
+          canvasData = createScaledBandVertical(canvasData, canvasObject.height-linearKey_yPos, 0, canvasObject.width, elementheight, this.getRightKeyColor(i,this.getInterpolationSpace()), this.getLeftKeyColor(i+1,this.getInterpolationSpace()), canvasObject.width);
+      }
+
+    }
+    canvasContex.putImageData(canvasData, 0, 0);
+
+  }
+
+  drawCMS_BandSketch(canvasID){
+
+    // start
+    var canvasObject = document.getElementById(canvasID);
+    var rect = canvasObject.getBoundingClientRect();
+
+    var canvasContex = canvasObject.getContext("2d");
+
+    var sketch_BandWidth; //= bandSketchObjLength;
+    canvasObject.height = 1;//40;
+    if(rect.width!=0)
+      sketch_BandWidth= Math.round(rect.width/(this.getKeyLength()-1 + this.getKeyLength()));
+    else
+      sketch_BandWidth= Math.round(500/(this.getKeyLength()-1 + this.getKeyLength()));
+
+
+    //bandSketchObjLength=bandLength;
+
+    if(this.getKeyLength()!=0){
+
+      if(document.getElementById("id_EditPage").display!="none")
+        canvasObject.style.borderStyle = "solid";
+
+      canvasObject.width = (this.getKeyLength()-1)*sketch_BandWidth;
+
+      var canvasData = canvasContex.getImageData(0, 0, canvasObject.width, canvasObject.height);
+      var currentSktech_xPos=0;
+
+      ///////////////////////////////
+      // draw bands
+      for(var i=0; i<this.getKeyLength()-1; i++){
+
+        switch (this.getKeyType(i)) {
+          case "nil key": case "left key":
+            canvasData = createConstantBand(canvasData, currentSktech_xPos, 0, sketch_BandWidth, canvasObject.height, this.getLeftKeyColor(i+1,this.getInterpolationSpace()), canvasObject.width);
+            break;
+          default:
+          if((this.getInterpolationSpace()==="de94-ds" || this.getInterpolationSpace()==="de2000-ds" || this.getInterpolationType()==="spline") && this.getIntervalLength(i)>0){
+            var sketch_SubBandWidth = Math.round(sketch_BandWidth/(this.getIntervalLength(i)+1));
+            var currentSktech_SubxPos = currentSktech_xPos;
+
+            // from left key to first interval
+            canvasData = createScaledBand(canvasData,currentSktech_SubxPos, 0, sketch_SubBandWidth, canvasObject.height, this.getRightKeyColor(i,this.getInterpolationSpace()), this.getIntervalColor(i,0,this.getInterpolationSpace()), canvasObject.width);
+            currentSktech_SubxPos+=sketch_SubBandWidth;
+            // between intervals
+            for (var j = 0; j < this.getIntervalLength(i)-1; j++) {
+              canvasData = createScaledBand(canvasData,currentSktech_SubxPos, 0, sketch_SubBandWidth, canvasObject.height, this.getIntervalColor(i,j,this.getInterpolationSpace()), this.getIntervalColor(i,j+1,this.getInterpolationSpace()), canvasObject.width);
+              currentSktech_SubxPos+=sketch_SubBandWidth;
+            }
+            // from last interval to last key
+            sketch_SubBandWidth = (currentSktech_xPos+sketch_BandWidth-currentSktech_SubxPos);
+            canvasData = createScaledBand(canvasData,currentSktech_SubxPos, 0, sketch_SubBandWidth, canvasObject.height, this.getIntervalColor(i,this.getIntervalLength(i)-1,this.getInterpolationSpace()), this.getLeftKeyColor(i+1,this.getInterpolationSpace()), canvasObject.width);
+          }
+          else {
+            canvasData = createScaledBand(canvasData,currentSktech_xPos, 0, sketch_BandWidth, canvasObject.height, this.getRightKeyColor(i,this.getInterpolationSpace()), this.getLeftKeyColor(i+1,this.getInterpolationSpace()), canvasObject.width);
+          }
+        }
+        currentSktech_xPos += sketch_BandWidth;
+      }
+
+      canvasContex.putImageData(canvasData, 0, 0);
+
+   }
+
+  }
+
+  //********************************************************************************//
+  //*********************   Remaining Get Set Functions   **************************//
+  //********************************************************************************//
+
+  setInterpolationSpace(space){
+    this.interpolationSpace=space;
+    this.calcDeltaIntervalColors();
+  }
+
+  getInterpolationSpace(){
+    return this.interpolationSpace;
+  }
 
    getColormapName() {
     return this.name;
@@ -1020,16 +1214,6 @@ class class_CMS {
    setDescription(description) {
     this.description = description;
    }
-
-   /*pushPreprocessColor(color){
-     preprocessingColorArray.push(color);
-
-   }
-
-    pushPreprocessRef(position){
-        this.preprocessingPositionPoints.push(position);
-    }*/
-
 
    setNaNColor(color){
 
@@ -1106,8 +1290,6 @@ class class_CMS {
      }
    }
 
-
-
    setAboveColor(color){
 
      this.colorAbove.deleteReferences();
@@ -1143,10 +1325,236 @@ class class_CMS {
      }
    }
 
+}
 
+function createUnknownTypeBand(canvasData, xStart, yStart, bandWidth, bandHeight, color1, color2, canvasWidth) {
 
+  if(color1.equalTo(color2)){
+    canvasData=createConstantBand(canvasData, xStart, yStart, bandWidth, bandHeight, color1, canvasWidth);
+  }
+  else{
+    canvasData=createScaledBand(canvasData, xStart, yStart, bandWidth, bandHeight, color1, color2, canvasWidth);
+  }
+
+  return canvasData;
 
 }
+
+function createScaledBand(canvasData, xStart, yStart, bandWidth, bandHeight, color1, color2, canvasWidth) {
+
+  xStart = Math.round(xStart);
+  bandWidth = Math.round(bandWidth);
+  bandHeight = Math.round(bandHeight);
+
+
+      if(color1.getColorType()!=color2.getColorType()){
+        var newColor = color2.getInColorFormat(color1.getColorType());
+        color2.deleteReferences();
+        color2=newColor;
+      }
+
+      var tmpWorkColor;
+
+      switch (color1.getColorType()) {
+
+        case "rgb":
+         tmpWorkColor = new class_Color_RGB(0, 0, 0);
+         break;
+        case "hsv":
+        tmpWorkColor = new class_Color_HSV(0, 0, 0);
+        break;
+        case "lab":
+        case "de2000-ds":
+        case "de2000":
+        case "de94-ds":
+        case "de94":
+          tmpWorkColor = new class_Color_LAB(0, 0, 0);
+        break;
+        case "din99":
+        tmpWorkColor = new class_Color_DIN99(0, 0, 0);
+        break;
+        case "lch":
+          tmpWorkColor = new class_Color_LCH(0, 0, 0);
+        break;
+
+     }
+
+      for (var x = xStart; x < xStart + bandWidth; x++) {
+       var tmpRatio = (x - xStart) / bandWidth;
+
+        tmpWorkColor.set1Value(color1.get1Value() + (color2.get1Value() - color1.get1Value()) * tmpRatio);
+        tmpWorkColor.set2Value(color1.get2Value() + (color2.get2Value() - color1.get2Value()) * tmpRatio);
+        tmpWorkColor.set3Value(color1.get3Value() + (color2.get3Value() - color1.get3Value()) * tmpRatio);
+
+        var tmpCurrentColor=tmpWorkColor.getInColorFormat("rgb");
+
+        if(this.doColorblindnessSim){
+          var tmpLMS = tmpCurrentColor.calcLMSColor();
+          tmpCurrentColor.deleteReferences();
+          tmpCurrentColor = tmpLMS.calcColorBlindRGBColor();
+          tmpLMS.deleteReferences();
+          tmpLMS=null;
+        }
+
+        for (var y = 0; y < bandHeight; y++) {
+          var index = (x + (y+yStart) * canvasWidth) * 4;
+          //var index = ((xStart+x) + y * canvasWidth) * 4;
+          canvasData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
+          canvasData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
+          canvasData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
+          canvasData.data[index + 3] = 255; //a
+        }
+        tmpCurrentColor.deleteReferences();
+        tmpCurrentColor=null;
+
+      }
+
+      tmpWorkColor.deleteReferences();
+      color1.deleteReferences();
+      color2.deleteReferences();
+      tmpWorkColor=null;
+      color1=null;
+      color2=null;
+
+
+  return canvasData;
+}
+
+function createConstantBand(canvasData, xStart, yStart, bandWidth, bandHeight, color1, canvasWidth) {
+
+  xStart = Math.round(xStart);
+  bandWidth = Math.round(bandWidth);
+  bandHeight = Math.round(bandHeight);
+
+      var tmpCurrentColor = color1.calcRGBColor();
+
+      for (var x = xStart; x <= xStart + bandWidth; x++) {
+
+        for (var y = 0; y < bandHeight; y++) {
+          var index = (x + (y+yStart) * canvasWidth) * 4;
+          canvasData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
+          canvasData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
+          canvasData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
+          canvasData.data[index + 3] = 255; //a
+        }
+
+      }
+
+      tmpCurrentColor.deleteReferences();
+      color1.deleteReferences();
+      tmpCurrentColor=null;
+      color1=null;
+  return canvasData;
+}
+
+function createScaledBandVertical(canvasData, yStart, bandWidth, bandHeight, color1, color2, canvasWidth) {
+
+  yStart = Math.round(yStart);
+  bandWidth = Math.round(bandWidth);
+  bandHeight = Math.round(bandHeight);
+
+    if(color1.getColorType()!=color2.getColorType()){
+      var newColor = color2.getInColorFormat(color1.getColorType());
+      color2.deleteReferences();
+      color2=newColor;
+    }
+
+    var tmpWorkColor;
+
+    switch (color1.getColorType()) {
+
+      case "rgb":
+       tmpWorkColor = new class_Color_RGB(0, 0, 0);
+       break;
+      case "hsv":
+      tmpWorkColor = new class_Color_HSV(0, 0, 0);
+      break;
+      case "lab":
+      case "de2000-ds":
+      case "de2000":
+      case "de94-ds":
+      case "de94":
+        tmpWorkColor = new class_Color_LAB(0, 0, 0);
+      break;
+      case "din99":
+      tmpWorkColor = new class_Color_DIN99(0, 0, 0);
+      break;
+      case "lch":
+        tmpWorkColor = new class_Color_LCH(0, 0, 0);
+      break;
+
+   }
+
+      for (var y = yStart; y >= yStart - bandHeight; y--) {
+       var tmpRatio = (yStart - y) / bandHeight;
+
+        tmpWorkColor.set1Value(color1.get1Value() + (color2.get1Value() - color1.get1Value()) * tmpRatio);
+        tmpWorkColor.set2Value(color1.get2Value() + (color2.get2Value() - color1.get2Value()) * tmpRatio);
+        tmpWorkColor.set3Value(color1.get3Value() + (color2.get3Value() - color1.get3Value()) * tmpRatio);
+
+        var tmpCurrentColor=tmpWorkColor.getInColorFormat("rgb");
+
+        if(this.doColorblindnessSim){
+          var tmpLMS = tmpCurrentColor.calcLMSColor();
+          tmpCurrentColor.deleteReferences();
+          tmpCurrentColor = tmpLMS.calcColorBlindRGBColor();
+          tmpLMS.deleteReferences();
+          tmpLMS=null;
+        }
+
+        for (var x = 0; x < bandWidth; x++) {
+          var index = (x + (y+yStart) * canvasWidth) * 4;
+          //var index = ((xStart+x) + y * canvasWidth) * 4;
+          canvasData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
+          canvasData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
+          canvasData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
+          canvasData.data[index + 3] = 255; //a
+
+        }
+        tmpCurrentColor.deleteReferences();
+        tmpCurrentColor=null;
+
+      }
+
+      tmpWorkColor.deleteReferences();
+      color1.deleteReferences();
+      color2.deleteReferences();
+      tmpWorkColor=null;
+      color1=null;
+      color2=null;
+
+  return canvasData;
+}
+
+function createConstantBandVertical(canvasData, yStart, bandWidth, bandHeight, color1, canvasWidth) {
+
+  yStart = Math.round(yStart);
+  bandWidth = Math.round(bandWidth);
+  bandHeight = Math.round(bandHeight);
+
+
+      var tmpCurrentColor = color1.calcRGBColor();
+
+      for (var y = yStart; y >= yStart - bandHeight; y--) {
+
+        for (var x = 0; x < bandWidth; x++) {
+          var index = (x + (y+yStart) * canvasWidth) * 4;
+          canvasData.data[index + 0] = Math.round(tmpCurrentColor.getRValue() * 255); // r
+          canvasData.data[index + 1] = Math.round(tmpCurrentColor.getGValue() * 255); // g
+          canvasData.data[index + 2] = Math.round(tmpCurrentColor.getBValue() * 255); // b
+          canvasData.data[index + 3] = 255; //a
+        }
+
+      }
+
+      tmpCurrentColor.deleteReferences();
+      color1.deleteReferences();
+      tmpCurrentColor=null;
+      color1=null;
+
+  return canvasData;
+}
+
 
 function cloneColor(color){
 
@@ -1182,8 +1590,6 @@ function cloneColor(color){
 
 
 function cloneCMS(cmsObj){
-
-
 
   var newCMS = new class_CMS();
 

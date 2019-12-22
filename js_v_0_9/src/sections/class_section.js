@@ -5,7 +5,7 @@ class class_Section {
   }
 
   isSectionOpen(){
-    if(document.getElementById(this.sectionID).style.display!='none')
+    if(document.getElementById(this.sectionID).style.display!=='none')
       return true;
     else
       return false;
@@ -16,7 +16,6 @@ class class_Section {
   }
 
   showSection(){
-
     welcomeSection.hideSection();
     myDesignsSection.hideSection();
     gallerySection.hideSection();

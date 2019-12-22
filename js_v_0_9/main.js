@@ -19,11 +19,43 @@ window.onload = function() {
   editSection = new class_Edit_Section();
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Test-Function Section";
   testingSection = new class_TestFunction_Section();
+  document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Export Section";
+  exportSection = new class_Export_Section();
 
+  checkLandscapeWindow();
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Loading Finished";
   welcomeSection.updateSection();
 
 }
+
+window.onresize = function(event) {
+
+    // if Edit Page is visible
+    checkLandscapeWindow();
+
+    /*if(document.getElementById("id_EditPage").style.display!="none"){
+      updateEditPage();
+
+      if(mapping_doAnimation){
+        updateMappingSize();
+      }
+
+      if(pathplot_doAnimation){
+        pathPlot3D_Resize();
+      }
+    }
+    else {
+      // if Test Page is visible
+      if(testmapping_doAnimation){
+        updateTestMappingCanvas();
+      }
+    }
+
+    if(metricInt_Graph_doAnimation){
+      update_MetricInt_RenderSize();
+    }*/
+
+};
 
 
 function includeHTML() {
@@ -57,8 +89,8 @@ function includeHTML() {
   function checkLandscapeWindow(){
 
     var ratio = window.innerWidth/window.innerHeight;
-
-    if(ratio<4/3){
+    //console.log(ratio);
+    if(ratio <4/3){
       document.getElementById("id_PopUp_LandscapeWindow").style.display = "flex";
     }
     else{

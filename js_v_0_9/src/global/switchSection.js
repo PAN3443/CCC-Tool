@@ -11,6 +11,10 @@ function switchSection(type){
       gallerySection.showSection();
     break;
     case 3:
+      if(myDesignsSection.checkMyDesignLimit()){
+          openAlert("You already used the full CMS-storage!");
+          return;
+      }
       newSection.showSection();
     break;
     case 4:

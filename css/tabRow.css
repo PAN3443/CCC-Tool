@@ -74,7 +74,7 @@
   width: 100%;
   font-size: 2.0vh;
   text-align: center;
-  background:none;
+  background: var(--tabrow-bg-color);
   color: var(--tabrow-font-color);
 }
 
@@ -106,8 +106,8 @@
 /************************************************************/
 
 .class_TabRowBorderButtonActive{
-  background:none;
-  border: 0.1vw solid var(--tabrow-active-color);
+  background: var(--tabrow-active-bg-color);
+  /*border: 0.1vw solid var(--tabrow-active-color);*/
   color: var(--tabrow-active-color);
 }
 

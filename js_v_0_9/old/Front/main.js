@@ -73,13 +73,7 @@ function main_init() {
 
   document.getElementById("id_EditPage").style.display = "flex";
 
-    drawCanvasColormap("id_EditPage_Preview_Multiband", cmsFourBandColormaps[0]);
-    drawCanvasColormap("id_EditPage_Preview_Divergent", cmsDivergentColormaps[0]);
-    drawCanvasColormap("id_EditPage_Preview_ScaledBlue", cmsBlueColormaps[0]);
-    drawCanvasColormap("id_EditPage_Preview_ScaledBrown", cmsBrownColormaps[0]);
-    drawCanvasColormap("id_EditPage_Preview_ScaledGreen", cmsGreenColormaps[0]);
-    drawCanvasColormap("id_EditPage_Preview_ScaledRedPurple", cmsRedPurpleColormaps[0]);
-    drawCanvasColormap("id_EditPage_Preview_ScaledYellowOrange", cmsYellowColormaps[0]);
+    
 
     switchAnalyzeMappingProbeSet(0);
     switchModifyModus(1);

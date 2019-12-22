@@ -29,11 +29,6 @@ window.onresize = function(event) {
 
 };
 
-
-
-
-
-
   function dynamicallyLoadScript_VersionsCheck(url) {
       var versionUpdate = (new Date()).getTime();
       var script = document.createElement("script");

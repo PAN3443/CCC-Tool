@@ -3,23 +3,19 @@
 ----------------  	Alert Window	  -----------------
 -----------------------------------------------
 -->
-<div style=" height:auto; background:var(--main-bg-color); width:60%; border: 0.2vh solid black; margin:auto;">
+<div style=" height:auto; background:var(--main-bg-color); width:60%; border: 0.2vh solid black; margin:auto; display:flex; flex-direction:column;">
 
   <h3 class="class_popupWindow_Label"> Warning </h3>
 
   <div class="row" style="width:100%;">
 
+    <img src="img/CCCToolComic/alertPage.png" style="max-width:40vw; max-height:40vh; margin-left:auto; margin-top:auto; margin-bottom:auto;">
 
-    <img src="img/CCCToolComic/alertPage.png" style="max-width:20%; max-height:20vh; margin-left:5%; margin-top:auto; margin-bottom:auto;">
-
-    <p id="id_alertText" style="width:60%; margin-left:10%; margin-right:5%; height:20vh; overflow:auto; margin-top:2vh; margin-bottom:2vh; padding:1vh;">
+    <p id="id_alertText" style="width:60%; margin-left:auto; margin-right:auto; height:20vh; overflow:auto; margin-top:2vh; margin-bottom:2vh; padding:1vh;">
     </p>
 
-
   </div>
 
-  <div class="class_PopUpButtonDiv">
-    <button class="class_generalbutton_DarkBackground" onclick="closeAlert()" title="close" style=" width:60%; margin-left:20%;">Close</button>
-  </div>
+  <button class="class_coloredButton" onclick="closeAlert()" title="close" style="width:60%; height: 5vh; margin:auto; margin-top:3vh; margin-bottom:3vh;">Close</button>
 
 </div>
