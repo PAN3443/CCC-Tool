@@ -48,6 +48,13 @@ class class_Gallery_Section extends class_Section {
     this.predefinedCMS[0][0].drawCMS_Horizontal("id_EditPage_Preview_Multiband"); //
   }
 
+  getPredefinedSize(type){
+    if(type<this.predefinedCMS.length){
+      return this.predefinedCMS[type].length;
+    }
+    return undefined;
+  }
+
   getPredefinedCMS(type,id){
     if(type<this.predefinedCMS.length){
       if(id<this.predefinedCMS[type].length){
@@ -61,7 +68,8 @@ class class_Gallery_Section extends class_Section {
     if(type<this.predefinedCMS.length){
       if(id<this.predefinedCMS[type].length){
         this.predefinedCMS[type][id].calcReverse();
-        this.predefinedCMS[type][id].drawCMS_Horizontal("id_Gallery_"+type+"_"+id);
+        if(document.getElementById(this.sectionID).style.display!=='none')
+          this.predefinedCMS[type][id].drawCMS_Horizontal("id_Gallery_"+type+"_"+id);
       }
     }
   }
@@ -256,5 +264,11 @@ class class_Gallery_Section extends class_Section {
 
   }
 
-
+  drawElementWithGalleryCMS(elemId,type,id,width,height){
+    if(type<this.predefinedCMS.length){
+      if(id<this.predefinedCMS[type].length){
+        this.predefinedCMS[type][id].drawCMS_Horizontal(elemId,width,height);
+      }
+    }
+  }
 };

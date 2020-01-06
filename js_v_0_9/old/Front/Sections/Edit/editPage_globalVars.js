@@ -27,8 +27,7 @@ var animationInterval = 1000/30;
 
 
 
-var colorpickerAffectID="";
-var colorpickerType = "RG_B";
+
 
 //////////////////////////////////////////////////////////////
 // Probes

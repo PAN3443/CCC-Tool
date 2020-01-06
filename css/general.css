@@ -8,9 +8,6 @@
      color: #222;
      font-size: 1em;
      line-height: 1.4;
- }
-
- html {
    font-family: sans-serif; /* 1 */
    -ms-text-size-adjust: 100%; /* 2 */
    -webkit-text-size-adjust: 100%; /* 2 */
@@ -44,6 +41,17 @@
      color: var(--link-color-active);
  }
 
+.class_dropDownContent{
+  /*padding-top: 1vh;
+  padding-bottom: 1vh;
+  padding-left: 1vw;
+  padding-right: 1vw;*/
+  display: none;
+  position: absolute;
+  top:0px;
+  left: 0px;
+  z-index:5;
+}
 
 .class_img_container{
     background-image: url("");
@@ -193,7 +201,7 @@
   }
 
   .class_OptionDiv{
-    background:var(--main-sepArea-bg);
+    background: var(--main-sepArea-bg);
     padding-top:1vh;
     padding-bottom:1vh;
     padding-left:1vw;

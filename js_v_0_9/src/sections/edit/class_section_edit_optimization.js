@@ -1,7 +1,7 @@
 class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
 
   constructor() {
-    super('id_OptimizationPage');
+    super('id_OptimizationPage','id_OptiPage_CMS_Canvas','id_opti_cms_name','id_opti_cms_interpolation','id_opti_cms_NaN','id_opti_cms_Below','id_opti_cms_Above');
     this.originalCMS = new class_CMS();
     this.optimizationCMS = new class_CMS();
   }

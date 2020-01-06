@@ -17,10 +17,16 @@ window.onload = function() {
   newSection = new class_NewCMS_Section();
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Edit Section";
   editSection = new class_Edit_Section();
+  editSection.drawConstantBands();
+  editSection.drawPredefined();
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Test-Function Section";
   testingSection = new class_TestFunction_Section();
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Export Section";
   exportSection = new class_Export_Section();
+
+  document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Events";
+  initColorPicker();
+  initDropDowns();
 
   checkLandscapeWindow();
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Loading Finished";

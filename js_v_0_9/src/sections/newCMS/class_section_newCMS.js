@@ -9,22 +9,22 @@ class class_NewCMS_Section extends class_Section {
 
     document.getElementById("id_newCMSPage_ColormapName").value = "Custom CMS";
 
-    document.getElementById("id_NewCMS_SpaceLAB").style.background = "var(--main-coloredButton)";
-    document.getElementById("id_NewCMS_SpaceDIN99").style.background = "var(--main-coloredButton)";
-    document.getElementById("id_NewCMS_SpaceRGB").style.background = "var(--main-coloredButton)";
-    document.getElementById("id_NewCMS_SpaceHSV").style.background = "var(--main-coloredButton)";
+    document.getElementById("id_NewCMS_SpaceLAB").style.background = "var(--main-coloredButton_Dark)";
+    document.getElementById("id_NewCMS_SpaceDIN99").style.background = "var(--main-coloredButton_Dark)";
+    document.getElementById("id_NewCMS_SpaceRGB").style.background = "var(--main-coloredButton_Dark)";
+    document.getElementById("id_NewCMS_SpaceHSV").style.background = "var(--main-coloredButton_Dark)";
     switch (this.interpolationSpace) {
       case "lab":
-        document.getElementById("id_NewCMS_SpaceLAB").style.background = "var(--main-active-coloredButton)";
+        document.getElementById("id_NewCMS_SpaceLAB").style.background = "var(--main-active-coloredButton_Dark)";
       break;
       case "din99":
-        document.getElementById("id_NewCMS_SpaceDIN99").style.background = "var(--main-active-coloredButton)";
+        document.getElementById("id_NewCMS_SpaceDIN99").style.background = "var(--main-active-coloredButton_Dark)";
       break;
       case "rgb":
-        document.getElementById("id_NewCMS_SpaceRGB").style.background = "var(--main-active-coloredButton)";
+        document.getElementById("id_NewCMS_SpaceRGB").style.background = "var(--main-active-coloredButton_Dark)";
       break;
       case "hsv":
-        document.getElementById("id_NewCMS_SpaceHSV").style.background = "var(--main-active-coloredButton)";
+        document.getElementById("id_NewCMS_SpaceHSV").style.background = "var(--main-active-coloredButton_Dark)";
       break;
     }
 

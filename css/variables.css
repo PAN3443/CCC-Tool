@@ -64,8 +64,11 @@
   --main-button-font: var(--main-bg-color);
   --main-activebutton-bg: var(--general-active-color);
   --main-activebutton-bg-hover: var(--main-button-bg-hover);
-  --main-coloredButton: rgb(76, 175, 80);
-  --main-active-coloredButton: rgb(26, 97, 29);
+  --main-coloredButton: #333; /*rgb(76, 175, 80);*/
+  --main-hover-coloredButton: red; /*rgb(76, 175, 80);*/
+  --main-active-coloredButton: rgb(128, 23, 23); /*rgb(26, 97, 29);*/
+  --main-active-coloredButton_Dark: rgb(224, 82, 82); /*rgb(26, 97, 29);*/
+  --main-coloredButton_Dark: rgb(240,240,240);
 
   /**** Link Colors ****/
   --link-color: rgb(0, 102, 204);
@@ -78,10 +81,11 @@
   --cms-obj-font-color:rgb(255,255,255);
 
   /**** Sep Area ****/
-  --main-sepArea-bg: rgb(50, 50, 50);
-  --main-second-sepArea-bg: rgb(80, 80, 80);
-  --main-sepArea-font-color: rgb(0,0,0);
-  --main-sepArea-border: none;
+  --main-sepArea-bg: rgb(30, 30, 30);
+  --main-sepArea-bg-alpha: rgba(30, 30, 30,0.98);
+  --main-sepArea-border: rgb(15, 15, 15);
+  --main-second-sepArea-bg: rgb(50, 50, 50);
+  --main-sepArea-font-color: rgb(240,240,240);
   --main-Button-sepArea-font-color: rgb(255,255,255);
   --main-Button-sepArea-font-hover: rgb(153,204,255);
   --main-Button-sepArea-bg-color: none;

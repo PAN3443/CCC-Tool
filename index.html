@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="css/general.css">
   <link rel="stylesheet" href="css/tabRow.css">
   <link rel="stylesheet" href="css/loaderAnimation.css">
-  <link rel="stylesheet" href="css/searchAutoComplete.css">
+  <link rel="stylesheet" href="css/dropdown.css">
 
   <link rel="stylesheet" href="css/HTML_Elements/input.css">
   <link rel="stylesheet" href="css/HTML_Elements/buttons.css">
@@ -53,6 +53,7 @@
   <script type="text/javascript" src="js_v_0_9/src/global/global_vars.js"></script>
   <script type="text/javascript" src="js_v_0_9/src/global/switchSection.js"></script>
   <script type="text/javascript" src="js_v_0_9/src/global/shortcuts.js"></script>
+  <script type="text/javascript" src="js_v_0_9/src/global/dropdown_events.js"></script>
 
   <!--%%%%%%%%%%%%%%% Global Events (Helper) %%%%%%%%%%%%%%%-->
   <script type="text/javascript" src="js_v_0_9/src/global/helper/canvasHelper.js"></script>
@@ -120,7 +121,9 @@
   <script type="text/javascript" src="js_v_0_9/src/popUpWindows/Navigation/navi.js"></script>
   <script type="text/javascript" src="js_v_0_9/src/popUpWindows/popUp_Events.js"></script>
 
-
+  <!--%%%%%%%%%%%%%%% Color Picker %%%%%%%%%%%%%%%-->
+  <script type="text/javascript" src="js_v_0_9/src/popUpWindows/Color_Picker/colorpicker.js"></script>
+  <script type="text/javascript" src="js_v_0_9/src/popUpWindows/Color_Picker/colorpicker_globalVars.js"></script>
 
   <script type="text/javascript" src="js_v_0_9/main.js"></script>
   <!-- EXTERN Libs -->
@@ -162,96 +165,9 @@
   <div id="id_GalleryPage" include-html="html/Sections/gallery.html" style="width:100%; display:none;  overflow: hidden;"></div>
 
   <!-- ------------- 4.Section: Edit --------------- -->
-  <div id="id_EditPage" style="display:flex; height:100vh; width:100vw; background:var(--main-bg-color); overflow: hidden; display:none; flex-direction:column;">
-
-    <div style="width:100vw; height:95vh; display:flex;">
-      <div id="id_EditPage_PredefinedStructures" include-html="html/Sections/Edit/predefinedStructures.html" style="width:15vw; height:95vh; background: var(--main-sepArea-bg);"></div>
-
-      <div style="width:85vw; height:95vh; display:flex; flex-direction:column;">
-        <div style="display:flex; width:85vw; height:30vh; border-bottom:0.2vw solid var(--main-sepArea-bg);">
-          <div id="id_EditPage_CMS_Div" include-html="html/Sections/Edit/cms.html"style="width:65vw; height:30vh; border-right:0.2vw solid var(--main-sepArea-bg);">
-
-          </div>
-          <div id="id_EditPage_Key_Edit" style="width:20vw; height:30vh;">
-
-          </div>
-        </div>
-        <div class="">
-
-        </div>
-      </div>
-    </div>
-
-    <div class="row" style="width:100%; height: 5vh; background:var(--main-active-coloredButton);">
-      <button class="class_coloredButton" title="MyDesigns" style=" height:5vh; width: 5vw; font-size: 3vh;">&lArr;</button>
-      <button class="class_coloredButton" title="CMS Options" style=" height:5vh; width: 19vw; font-size: 3vh;">CMS &#8683;</button>
-      <button class="class_coloredButton" title="Display Options" style=" height:5vh; width: 19vw; font-size: 3vh;">Display &#8683;</button>
-      <button class="class_coloredButton" title="Probes" style=" height:5vh; width: 19vw; font-size: 3vh;">Probes</button>
-      <button class="class_coloredButton" title="Optimization" style=" height:5vh; width: 19vw; font-size: 3vh;">Optimization</button>
-      <button class="class_coloredButton" title="Settings" style=" height:5vh; width: 19vw; font-size: 3vh;">Settings &#8683;</button>
-    </div>
-
-
-    <!-- START-DIV: 4.1 Add Predefined Structures ------------------->
-    <!--div id="id_EditPage_Add_Structures"  style="width:20%; height:100%; background:rgb(220,220,220); border:0.2vh solid black; border-right:none"></div>
-      <!-- END-DIN: 4.1 Add Predefined Structures ------------------->
-
-    <!-- START-DIV: 4.2 CMS,Table,Edit,Analyze,Mapping,ProbeSet ------------------->
-    <!--div id="id_EditPage_CMSEditAnalzyeMapping_Div" style="width:80%; height:100%; border:0.2vh solid black;">
-
-        <!-- START-DIV: 4.2.1 CMS,Table ------------------->
-    <!--div id="id_EditPage_CMSTable_Div" style="height:30vh; width:100%; display:flex; border-bottom:0.2vh solid black;">
-          <div  style="width:60vw; height:100%; background: var(--main-bg-color);"></div>
-          <div id="id_EditPage_Table_Div" include-html="html/Sections/Edit/table.html" style="width:20vw; height:100%; border-left:0.2vh solid black; background: var(--main-bg-color);"></div>
-        </div>
-        <!-- END-DIV: 4.2.1 CMS,Table ------------------->
-
-    <!-- START-DIV: 4.2.2 Edit,Analzye,Mapping,ProbeSet ------------------->
-    <!--div id="id_EditPage_AnalzyeMappingProbeSetEditKey_Div" style="height:65vh; width:100%; display:flex;">
-          <!-- START-DIV: 4.2.2.1 Analyze,Mapping,ProbeSet   ------------------->
-    <!--div id="id_editPage_AnalyzeMappingProbeSetDiv" style="width:70%; height:100%;">
-            <div id="id_editPage_AnalyzeMappingProbeSet_CloseDiv"class="class_EditPage_closeDiv">
-              <div onclick="updateAnalzyeMappingProbeSetStatus()">
-                X
-              </div>
-            </div>
-            <div id="id_editPage_AnalyzeMappingProbeSet_TabDiv" class="class_TabRow">
-              <button id="id_editPage_SelectAnalyze" type="button" name="button" style="width:33%;" onclick="switchAnalyzeMappingProbeSet(0)">Analysis</button>
-              <button id="id_editPage_SelectMapping" type="button" name="button" style="width:34%;" onclick="switchAnalyzeMappingProbeSet(1)">Color-Mapping</button>
-              <button id="id_editPage_SelectProbeSet" type="button" name="button" style="width:33%;" onclick="switchAnalyzeMappingProbeSet(2)">Probe-Set</button>
-            </div>
-
-            <div id="id_EditPage_DivAnalyze" include-html="html/Sections/Edit/analyze.html" style="width:100%; height:59vh; display:none; "></div>
-            <div id="id_EditPage_DivMapping" include-html="html/Sections/Edit/mapping.html" style="width:100%; height:59vh; display:none;"></div>
-            <div id="id_EditPage_DivProbeSets" include-html="html/Sections/Edit/probesets.html" style="width:100%; height:59vh; display:none;"></div>
-          </div>
-          <!-- END-DIV: 4.2.2.1 Analyze,Mapping,ProbeSet   ------------------->
-
-    <!-- START-DIV: 4.2.2.2 Edit Key, Edit Path Plot  ------------------->
-    <!--div id="id_editPage_EditKeyPathPlotDiv" style="width:30%; height:100%; overflow:hidden; border-left:0.2vh solid black;">
-            <div id="id_editPage_EditKeyPathPlot_CloseDiv" class="class_EditPage_closeDiv" >
-              <div onclick="updateEditKeyPathPlotStatus()">
-                X
-              </div>
-            </div>
-            <div id="id_editPage_EditKeyPathPlot_TabDiv" class="class_TabRow">
-              <button id="id_editPage_SelectEditKeys" type="button" name="button" style="width:50%;" onclick="switchModifyModus(0)">Key Edit</button>
-              <button id="id_editPage_SelectEditPath" type="button" name="button" style="width:50%;" onclick="switchModifyModus(1)">Path Plot</button>
-            </div>
-
-            <div id="id_EditPage_Edit_Keys" include-html="html/Sections/Edit/editKeys.html" style="width:100%; height:59vh; display:none;"></div>
-            <div id="id_EditPage_Edit_Path" include-html="html/Sections/Edit/pathplot.html" style="width:100%; height:59vh; display:none;"></div>
-          </div>
-          <!-- END-DIV: 4.2.2.2  Edit Key, Edit Path Plot  ------------------->
-    <!--/div>
-        <!-- END-DIV: 4.2.2 Edit,Analzye,Mapping,ProbeSet ------------------->
-
-    <!--/div>
-      <!-- END-DIV: 4.2 CMS,Table,Edit,Analyze,Mapping,ProbeSet ------------------->
-
-  </div>
-  <!-- END: 4. Section ------------------->
-
+  <div id="id_EditPage" include-html="html/Sections/edit.html" style="width:100%; display:none;  overflow: hidden;"></div>
+  <div id="id_ProbePage" include-html="html/Sections/probe.html" style="width:100%; display:none;  overflow: hidden;"></div>
+  <div id="id_OptimizationPage" include-html="html/Sections/optimization.html" style="width:100%; display:none;  overflow: hidden;"></div>
 
   <!-- ------------- 5.Section: Testing --------------- -->
   <div id="id_TestingPage" include-html="html/Sections/testing.html" style="width:100%; height:100; display:none;"></div>

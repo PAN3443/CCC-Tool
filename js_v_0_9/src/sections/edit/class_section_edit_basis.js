@@ -1,13 +1,18 @@
 class class_Edit_Basis_Section extends class_Section {
 
-  constructor(div_id, cmsID, intSpaceID, intTypeID) {
+  constructor(div_id, cmsID, nameID, intID, nanID, aboveID, belowID) {
     super(div_id);
     this.editCMS = new class_CMS();
     /////
     this.cmsCanvasID = cmsID;
     this.doColorblindnessSim = false;
-    this.selectInterpolationSpaceID = intSpaceID;
-    this.selectInterpolationTypeID = intTypeID;
+
+
+    this.cmsNameID = nameID;
+    this.cmsInterpolationID = intID;
+    this.cmsNaNColorID = nanID;
+    this.cmsAboveID = aboveID;
+    this.cmsBelowID = belowID;
 
     // CMS Plot Information
     this.editCMS_key_size=undefined;
@@ -23,21 +28,70 @@ class class_Edit_Basis_Section extends class_Section {
     this.editCMS_sketchKey_y1=undefined;
   }
 
+
+  showSection(){
+    super.showSection();
+    this.doPagePeculiarity();
+  }
+
+  doPagePeculiarity(){
+    // is empty. Filled at the classes extends from this class
+    // is for special updating of the section, which not need to be done with each call of updateSection()
+
+    // update Name, Interpolation ....
+    document.getElementById(this.cmsNameID).innerHTML = "Name: "+ this.editCMS.getColormapName();
+    document.getElementById(this.cmsInterpolationID).innerHTML =  "Interpolation: "+this.editCMS.getInterpolationSpace()+" ("+this.editCMS.getInterpolationType()+")"
+    document.getElementById(this.cmsNaNColorID).style.background = this.editCMS.getNaNColor("rgb").getRGBString();
+    document.getElementById(this.cmsAboveID).style.background = this.editCMS.getAboveColor("rgb").getRGBString();
+    document.getElementById(this.cmsBelowID).style.background = this.editCMS.getBelowColor("rgb").getRGBString();
+  }
+
   updateSection(){
     // ONLY BASIS like draw CMS
-    this.updateInterpolationSpaceEditPage();
     this.drawEditCMSVIS();
   }
 
-  changeInterpolationSpace(){
-    var intSpace = document.getElementById(this.selectInterpolationSpaceID).options[document.getElementById(this.selectInterpolationSpaceID).selectedIndex].value;
-    this.editCMS.setInterpolationSpace(intSpace);
-    this.updateSection();
+  getColorblindnessInfo(){
+    return this.doColorblindnessSim;
   }
 
-  changeInterpolationType(){
+  getCMSColor(type,space){
+    switch (type) {
+      case "nan":
+          return this.editCMS.getNaNColor(space);
+          case "below":
+              return this.editCMS.getAboveColor(space);
+              case "above":
+                  return this.editCMS.getBelowColor(space);
+      default:
+        return undefined;
+    }
+  }
 
-    switch (document.getElementById(this.selectInterpolationTypeID).selectedIndex){
+  changeInterpolationSpace(type){
+    var intSpace = "lab";
+    switch (type) {
+      case 0:
+        intSpace = "lab";
+      break;
+      case 1:
+        intSpace = "din99";
+      break;
+      case 2:
+        intSpace = "rgb";
+      break;
+      case 3:
+        intSpace = "hsv";
+      break;
+    }
+    this.editCMS.setInterpolationSpace(intSpace);
+    this.updateSection();
+    this.doPagePeculiarity();
+  }
+
+  changeInterpolationType(type){
+
+    switch (type){
       case 0:
         this.editCMS.setInterpolationType("linear");
         break;
@@ -47,45 +101,7 @@ class class_Edit_Basis_Section extends class_Section {
     }
 
     this.updateSection(); // = update CMS, Mapping and Analyze Plots
-  }
-
-  updateInterpolationType(){
-    if(this.editCMS.getInterpolationType()==="linear")
-      document.getElementById(this.selectInterpolationTypeID).selectedIndex=0;
-    else
-      document.getElementById(this.selectInterpolationTypeID).selectedIndex=1;
-  }
-
-  updateInterpolationSpaceEditPage(){
-    switch (this.editCMS.getInterpolationSpace()) {
-          case "lab":
-          document.getElementById(this.selectInterpolationSpaceID).selectedIndex = 0;
-            break;
-            case "de94-ds":
-            document.getElementById(this.selectInterpolationSpaceID).selectedIndex = 1;
-              break;
-              case "de2000-ds":
-              document.getElementById(this.selectInterpolationSpaceID).selectedIndex = 2;
-                break;
-            case "de94":
-            document.getElementById(this.selectInterpolationSpaceID).selectedIndex = 3;
-              break;
-              case "de2000":
-              document.getElementById(this.selectInterpolationSpaceID).selectedIndex = 4;
-                break;
-                case "lch":
-                document.getElementById(this.selectInterpolationSpaceID).selectedIndex = 5;
-                break;
-            case "din99":
-            document.getElementById(this.selectInterpolationSpaceID).selectedIndex = 6;
-              break;
-              case "rgb":
-              document.getElementById(this.selectInterpolationSpaceID).selectedIndex = 7;
-                break;
-                case "hsv":
-                document.getElementById(this.selectInterpolationSpaceID).selectedIndex = 8;
-                  break;
-    }
+    this.doPagePeculiarity();
   }
 
   drawEditCMSVIS(){
@@ -446,4 +462,9 @@ class class_Edit_Basis_Section extends class_Section {
     this.editCMS=cms;
   }
 
+  changeColorblindness(bin){
+    this.doColorblindnessSim = bin;
+    this.updateSection();
+    this.doPagePeculiarity();
+  }
 };
