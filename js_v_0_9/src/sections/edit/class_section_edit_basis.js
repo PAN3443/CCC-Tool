@@ -28,7 +28,6 @@ class class_Edit_Basis_Section extends class_Section {
     this.editCMS_sketchKey_y1=undefined;
   }
 
-
   showSection(){
     super.showSection();
     this.doPagePeculiarity();
@@ -51,11 +50,19 @@ class class_Edit_Basis_Section extends class_Section {
     this.drawEditCMSVIS();
   }
 
+  updateAnalysis(){
+    // used in edit and optimization
+  }
+
+  updateMapping(){
+    // used in edit and optimization and probe
+  }
+
   getColorblindnessInfo(){
     return this.doColorblindnessSim;
   }
 
-  getCMSColor(type,space){
+  getSpecialCMSColor(type,space){
     switch (type) {
       case "nan":
           return this.editCMS.getNaNColor(space);
@@ -65,6 +72,20 @@ class class_Edit_Basis_Section extends class_Section {
                   return this.editCMS.getBelowColor(space);
       default:
         return undefined;
+    }
+  }
+
+  setSpecialCMSColor(type,color){
+    switch (type) {
+      case "nan":
+          this.editCMS.setNaNColor(color);
+          break;
+          case "below":
+              this.editCMS.setAboveColor(color);
+              break;
+              case "above":
+                  this.editCMS.setBelowColor(color);
+                  break;
     }
   }
 
@@ -103,6 +124,21 @@ class class_Edit_Basis_Section extends class_Section {
     this.updateSection(); // = update CMS, Mapping and Analyze Plots
     this.doPagePeculiarity();
   }
+
+  setCMS(cms){
+    this.editCMS.deleteReferences();
+    this.editCMS=cms;
+  }
+
+  changeColorblindness(bin){
+    this.doColorblindnessSim = bin;
+    this.updateSection();
+    this.doPagePeculiarity();
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  ////////////              (Start) CMS Drawing                     ////////////
+  ////////////////////////////////////////////////////////////////////////////
 
   drawEditCMSVIS(){
 
@@ -457,14 +493,74 @@ class class_Edit_Basis_Section extends class_Section {
 
   }
 
-  setCMS(cms){
-    this.editCMS.deleteReferences();
-    this.editCMS=cms;
+  about_LinearKey_yPosition(mousePosY){
+    if(mousePosY>this.editCMS_linearKey_y1 && mousePosY<(this.editCMS_linearKey_y1+this.editCMS_key_size)){
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 
-  changeColorblindness(bin){
-    this.doColorblindnessSim = bin;
-    this.updateSection();
-    this.doPagePeculiarity();
+  about_BurdockLine_yPosition(mousePosY){
+    if(mousePosY>this.editCMS_burdock_y1 && mousePosY<(this.editCMS_burdock_y1+this.editCMS_burdock_height)){
+      return true;
+    }
+    else {
+      return false;
+    }
   }
+
+  around_LinearCMSVis_yPosition(mousePosY){
+    if(mousePosY>this.editCMS_linearKey_y1 && mousePosY<(this.editCMS_linearCMS_y1+this.editCMS_linearCMS_height)){
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  around_SketchCMSVis_yPosition(mousePosY){
+    if(mousePosY>this.editCMS_sketchCMS_y1 && mousePosY<(this.editCMS_sketchKey_y1+this.editCMS_key_size)){
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  getClosest_linearKey(mousePosX){
+
+    for (var index = 0; index < this.editCMS.getKeyLength(); index++) {
+      var keyPos = this.editCMS_cmsArea_x1+Math.round((this.editCMS.getRefPosition(index) - this.editCMS.getRefPosition(0)) / (this.editCMS.getRefPosition(this.editCMS.getKeyLength()-1) - this.editCMS.getRefPosition(0)) * this.editCMS_cmsArea_width);
+
+      if(mousePosX>keyPos-(this.editCMS_key_size/2) && mousePosX<keyPos+(this.editCMS_key_size/2)){
+        return index;
+      }
+    }
+
+    return undefined;
+  }
+
+  getClosest_sketchKey(mousePosX){
+
+    var sketch_BandWidth = Math.round(this.editCMS_cmsArea_width/(this.editCMS.getKeyLength()-1));
+    var currentSktech_xPos = this.editCMS_cmsArea_x1;
+
+    for (var index = 0; index < this.editCMS.getKeyLength(); index++) {
+
+      if(mousePosX>currentSktech_xPos-(this.editCMS_key_size/2) && mousePosX<currentSktech_xPos+(this.editCMS_key_size/2)){
+        return index;
+      }
+
+      currentSktech_xPos+=sketch_BandWidth;
+    }
+
+    return undefined;
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  ////////////              (END) CMS Drawing                     ////////////
+  ////////////////////////////////////////////////////////////////////////////
+
 };

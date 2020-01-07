@@ -2,13 +2,16 @@
 /// GLOBAL
 //////////////////////////
 
-var version_JS_FolderName = "js_v_0_83";
+var version_JS_FolderName = "js_v_0_9";
 
 var anonymousMode = true;
 
 ///
 var globalCMS1;
 var globalCMS1JSON = {'message':'undefined'};
+
+
+
 
 var browserCanWorker = false;
 var browserCanOffscreenCanvas = false;

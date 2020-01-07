@@ -271,4 +271,5 @@ class class_Gallery_Section extends class_Section {
       }
     }
   }
+
 };

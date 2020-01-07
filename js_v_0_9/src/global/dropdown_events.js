@@ -2,6 +2,9 @@ function initDropDowns(){
  document.getElementById("id_EditPage_CMSInfoDiv").onclick =  function() {dropDownEvents("id_EditPage_CMSInfoDiv", "id_EditPage_CMSInfoDiv_dropdown", false,false);};
 }
 
+function hideAllDropDowns(){
+  document.getElementById("id_EditPage_CMSInfoDiv_dropdown").style.display="none";
+}
 
 function dropDownEvents(dropdownID, contentID, onTop,toRight){
   var additionalScrollID="";

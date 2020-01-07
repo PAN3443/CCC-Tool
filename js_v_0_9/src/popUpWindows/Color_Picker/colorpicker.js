@@ -71,19 +71,19 @@ function openColorPicker(event) {
     document.getElementById("id_popupColorPicker").style.left=(left-pickerBox.width)+"px";
     break;*/
     case "id_edit_cms_SetNaN":
-    colorpickerColor=editSection.getCMSColor("nan","rgb");
+    colorpickerColor=editSection.getSpecialCMSColor("nan","rgb");
     // below the object
     document.getElementById("id_popupColorPicker").style.top=(top+box.height)+"px";
     document.getElementById("id_popupColorPicker").style.left=(left-pickerBox.width)+"px";
     break;
     case "id_edit_cms_SetBelow":
-      colorpickerColor = editSection.getCMSColor("below","rgb");
+      colorpickerColor = editSection.getSpecialCMSColor("below","rgb");
       // below the object
       document.getElementById("id_popupColorPicker").style.top = (top + box.height) + "px";
       document.getElementById("id_popupColorPicker").style.left = (left - pickerBox.width) + "px";
       break;
     case "id_edit_cms_SetAbove":
-      colorpickerColor = editSection.getCMSColor("above","rgb");
+      colorpickerColor = editSection.getSpecialCMSColor("above","rgb");
       // below the object
       document.getElementById("id_popupColorPicker").style.top = (top + box.height) + "px";
       document.getElementById("id_popupColorPicker").style.left = (left - pickerBox.width) + "px";
@@ -929,11 +929,10 @@ function event_colorpicker_MouseClick(event) {
 }
 
 
-
 function affectColorpickerChange() {
-  switch (colorpickerAffectID) {
 
-    case "id_EditPage_MappingBackground_Custom":
+  switch (colorpickerAffectID) {
+    /*case "id_EditPage_MappingBackground_Custom":
 
       if (mappingBackgroundColor != undefined) {
         mappingBackgroundColor.deleteReferences();
@@ -951,20 +950,26 @@ function affectColorpickerChange() {
       }
       globalPlotAboveColor = colorpickerColor.calcRGBColor();
       updateAnalyze();
+      break;*/
+    case "id_edit_cms_SetNaN":
+      editSection.setSpecialCMSColor("nan",cloneColor(colorpickerColor));
+      editSection.updateMapping();
+      editSection.doPagePeculiarity();
+      editSection.saveCreateProcess();
       break;
-    case "id_EditPage_CMS_NaN_Color":
-      globalCMS1.setNaNColor(cloneColor(colorpickerColor));
-      saveCreateProcess();
+    case "id_edit_cms_SetBelow":
+    editSection.setSpecialCMSColor("below",cloneColor(colorpickerColor));
+    editSection.updateMapping();
+    editSection.doPagePeculiarity();
+    editSection.saveCreateProcess();
       break;
-    case "id_EditPage_CMS_Below_Color":
-      globalCMS1.setBelowColor(cloneColor(colorpickerColor));
-      saveCreateProcess();
+    case "id_edit_cms_SetAbove":
+    editSection.setSpecialCMSColor("above",cloneColor(colorpickerColor));
+    editSection.updateMapping();
+    editSection.doPagePeculiarity();
+    editSection.saveCreateProcess();
       break;
-    case "id_EditPage_CMS_Above_Color":
-      globalCMS1.setAboveColor(cloneColor(colorpickerColor));
-      saveCreateProcess();
-      break;
-    case "id_EditPage_DrawnDualKey":
+    /*case "id_EditPage_DrawnDualKey":
       globalCMS1.setRightKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex, cloneColor(colorpickerColor));
       globalCMS1.setLeftKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex, cloneColor(colorpickerColor));
       updateEditPage();
@@ -994,7 +999,7 @@ function affectColorpickerChange() {
     case "id_inputEditProbeColor":
       globalProbeColor = colorpickerColor.calcHSVColor();
       changeProbeColor();
-      break;
+      break;*/
 
 
     default:

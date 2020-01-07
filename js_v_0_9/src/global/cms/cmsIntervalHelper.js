@@ -1,4 +1,13 @@
 
+function calcGradientLinear(rVal1,gVal1,bVal1,rVal2,gVal2,bVal2,ratio){
+
+  var rValue = rVal1+(rVal2-rVal1)*ratio;
+  var gValue = gVal1+(gVal2-gVal1)*ratio;
+  var bValue = bVal1+(bVal2-bVal1)*ratio;
+
+  return [rValue,gValue,bValue];
+
+}
 
 function  calcDeltaIntervalBetween_C1C2(tmpColor,tmpColor2, intervalDeltaDis, interpolationSpace){
 

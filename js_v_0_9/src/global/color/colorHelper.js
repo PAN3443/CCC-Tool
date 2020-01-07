@@ -1,3 +1,6 @@
+
+
+
 function createColor(v1,v2,v3,space){
   switch (space) {
     case "RGB": case "rgb": case "Rgb":
@@ -22,6 +25,13 @@ function createColor(v1,v2,v3,space){
 
   }
   return undefined;
+}
+
+function checkConstantBand(c1,c2){
+  if(c1.equalTo(c2)) // case constant band
+    return undefined;
+  else
+    return c1;
 }
 
 

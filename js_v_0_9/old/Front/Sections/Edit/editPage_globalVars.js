@@ -22,8 +22,7 @@ var limitKeyBurLine = true;
 var mousePosX;
 var mousePosY;
 
-var timer2DAnimation;
-var animationInterval = 1000/30;
+
 
 
 
