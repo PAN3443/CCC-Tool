@@ -1,5 +1,39 @@
 
+.class_EditDropDownMenueSection{
+  width:100%;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 3vh;
+  font-weight:bold;
+  background: var(--main-menue-section);
+  color: var(--main-menue-font);
+  line-height: 5vh;
+  border-bottom: 0.2vh solid var(--main-coloredFont);
+  border-top: 0.2vh solid var(--main-coloredFont);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
+.class_EditDropDownMenueButton{
+  font-family: var(--font-family);
+  background: none;
+  border: none;
+  color: var(--main-coloredFont);
+  text-align: left;
+  padding-left: 1vw;
+  text-decoration: none;
+  font-size: 3vh;
+  line-height: 5vh;
+  vertical-align: middle;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+.class_EditDropDownMenueButton:hover{
+  background: var(--main-hover-coloredButton);
+}
+W
 .class_EditPage_SelectPredefinedCMS{
   -moz-box-shadow:    inset 0 0 0.5vh rgb(0,0,0);
    -webkit-box-shadow: inset 0 0 0.5vh rgb(0,0,0);

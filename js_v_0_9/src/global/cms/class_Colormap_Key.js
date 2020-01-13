@@ -132,7 +132,7 @@ class class_Key{
       }
     }
 
-    getRightKeyColorCB(index){
+    getRightKeyColorCB(index,doColorblindnessSim){
       if(this.cR==undefined)
       return undefined;
 
@@ -147,7 +147,7 @@ class class_Key{
       return ncolor;
     }
 
-    getLeftKeyColorCB(index){
+    getLeftKeyColorCB(index,doColorblindnessSim){
       if(this.cL==undefined)
       return undefined;
 

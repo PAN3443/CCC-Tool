@@ -28,7 +28,7 @@
   text-overflow: ellipsis;
   cursor:pointer;
   display: block;
-  border: 0.2vh solid var(--menue-bg-color);
+  border: 0.2vh solid var(--main-border);
   line-height: 4vh;
   font-size: 2vh;
   text-align: left;

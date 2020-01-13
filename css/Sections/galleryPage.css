@@ -60,7 +60,7 @@
   width: 100%;
   height: 6vh;
   margin:0;
-  border: 0.2vh solid var(--menue-bg-color);
+  border: 0.2vh solid var(--main-border);
   background: var(--main-sepArea-bg);
   display: block;
   /*font-family:courier;*/
@@ -71,7 +71,7 @@
   width: 100%;
   height: 4vh;
   background: var(--main-sepArea-bg);
-  border: 0.2vh solid var(--menue-bg-color);
+  border: 0.2vh solid var(--main-border);
   border-bottom:none;
   margin:0;
   overflow: hidden;

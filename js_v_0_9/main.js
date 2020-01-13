@@ -25,6 +25,9 @@ window.onload = function() {
   exportSection = new class_Export_Section();
 
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Events";
+  document.getElementById('id_inputCMSData').addEventListener("change", myDesignsSection.readCMSFile);
+  document.getElementById('id_inputSessionData').addEventListener("change", myDesignsSection.readSessionFile);
+  document.getElementById('id_inputData').addEventListener("change", editSection.readDataFile);
   initColorPicker();
   initDropDowns();
 

@@ -27,12 +27,11 @@ function cmsStructureOnDragEnd(event) {
 }
 
 function cmsStructureOnEnter(event) {
-  editCMS_AllowDrop=false;
-  //document.getElementById('id_EditPage_CMSVisCanvas').style.border = "0.4 solid var(--general-active-color)";
+  editSection.predefinedDrawStatus = -2;
 }
 
 function cmsStructureOnLeave(event) {
-    //document.getElementById('id_EditPage_CMSVisCanvas').style.border = "none";
+    editSection.predefinedDrawStatus = -2;
     editSection.updateSection();
 }
 

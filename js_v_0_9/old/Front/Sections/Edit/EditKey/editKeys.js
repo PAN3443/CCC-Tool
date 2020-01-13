@@ -25,22 +25,6 @@ function openEditKeyDiv(key){
       selectbox.remove(i);
   }
 
-  for (var i = 0; i < globalCMS1.getKeyLength(); i++) {
-      var opt = document.createElement('option');
-      opt.innerHTML = "Key : \t"+ (i+1) +";\t  "+globalCMS1.getKeyType(i)+";\t   Reference : " + globalCMS1.getRefPosition(i);
-      selectbox.appendChild(opt);
-
-  }
-
-  if(key==undefined || key<0  || key>selectbox.options.length-1){
-    selectbox.selectedIndex = 0;
-  }
-  else{
-    selectbox.selectedIndex = key;
-  }
-
-  selectKey();
-
 }
 
 
@@ -258,9 +242,7 @@ function drawSelectedKey(){
 
   switch (globalCMS1.getKeyType(selectedKey)) {
     case "nil key": // Nil
-
       document.getElementById("id_EditPage_EditKey_DrawKeyDiv").appendChild(svg);
-
       break;
 
     case "right key": case "twin key": case "left key": // right // twin // left
@@ -399,76 +381,6 @@ function drawSelectedKey(){
 }
 
 
-function changeKeyType(event){
-
-  var selectedKey= document.getElementById("id_EditPage_EditKey_List").selectedIndex;
-
-  switch (event.target.id) {
-    case "id_editPage_KeyTypeNil":
-    if(globalCMS1.getKeyType(selectedKey)==="right key"){
-
-      globalCMS1.setRightKeyColor(selectedKey,undefined);
-      globalCMS1.setLeftKeyColor(selectedKey,undefined);
-
-    }
-
-      break;
-    case "id_editPage_KeyTypeTwin":
-      if(globalCMS1.getKeyType(selectedKey)==="dual key" || globalCMS1.getKeyType(selectedKey)==="left key"){
-
-        var tmpColor = globalCMS1.getLeftKeyColor(selectedKey,"hsv");
-
-        if(tmpColor.get3Value()>0.5)
-        {
-          tmpColor.set3Value(0.25);
-        }
-        else{
-          tmpColor.set3Value(0.75);
-        }
-        globalCMS1.setRightKeyColor(selectedKey,tmpColor);
-        
-      }
-      break;
-    case "id_editPage_KeyTypeLeft":
-      if(globalCMS1.getKeyType(selectedKey)==="dual key" || globalCMS1.getKeyType(selectedKey)==="twin key"){
-        globalCMS1.setRightKeyColor(selectedKey,undefined);
-      }
-
-      break;
-    case "id_editPage_KeyTypeRight":
-      if(globalCMS1.getKeyType(selectedKey)==="nil key"){
-        var tmpColor = globalCMS1.getLeftKeyColor(selectedKey+1,"hsv");
-
-        if(tmpColor.get3Value()>0.5)
-        {
-          tmpColor.set3Value(0.25);
-        }
-        else{
-          tmpColor.set3Value(0.75);
-        }
-        globalCMS1.setRightKeyColor(selectedKey,tmpColor);
-      }
-
-      break;
-    default:
-    // dual key+
-        if(globalCMS1.getKeyType(selectedKey)==="twin key" || globalCMS1.getKeyType(selectedKey)==="left key"){
-
-            var tmpColor = globalCMS1.getLeftKeyColor(selectedKey,"lab"); // here lab so the key does not have to convert
-
-            globalCMS1.setRightKeyColor(selectedKey,tmpColor);
-
-
-        }
-
-
-  }
-
-  updateEditPage();
-  drawSelectedKey();
-  saveCreateProcess();
-
-}
 
 
 

@@ -73,7 +73,7 @@ function main_init() {
 
   document.getElementById("id_EditPage").style.display = "flex";
 
-    
+
 
     switchAnalyzeMappingProbeSet(0);
     switchModifyModus(1);
@@ -99,9 +99,7 @@ function main_init() {
 
   document.getElementById("id_GalleryPage").style.display = "none";
 
-  document.getElementById('id_inputCMSData').addEventListener("change", readCMSFile);
-  document.getElementById('id_inputSessionData').addEventListener("change", readSessionFile);
-  document.getElementById('id_inputData').addEventListener("change", readDataFile);
+  
 
   document.getElementById("id_dropDownContainer").onmouseleave  = function(){document.getElementById("id_dropDownContainer").style.display="none";};
   document.getElementById("id_popupColorPicker").onmouseleave  = function(){document.getElementById("id_popupColorPicker").style.display="none";};

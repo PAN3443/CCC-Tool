@@ -21,31 +21,22 @@
   ***************************************
   ***************************************
   ***************************************/
+  /*--main-nonActiveColor: rgb(63, 139, 183);
+  --main-nonActiveColor-hover: rgb(19, 111, 153);
+  --main-activebutton-bg: var(--general-active-color);
+  --main-activebutton-bg-hover: var(--main-button-bg-hover);*/
 
-  --general-active-color: rgb(51,153,255);
-  --general-hover-color: rgb(0,102,204);
-  --general-warning-color: rgb(255,153,153);
+  --general-active-color: rgb(128, 23, 23);
+  --general-hover-color: red;
+  --general-warning-color: red;
   --general-lowWarning-color : rgb(255,69,0);
   --general-check-color: rgb(124,252,0);
-  --general-bg-hover-color: rgb(107,113,128); /*brighter than background, darker than font*/
 
   /**************************************
-  **** Menue
+  **** Pop Up Windows
   ***************************************/
-  --menue-bg-color: rgb(0, 0, 0);
-  --menue-navi-bg-color: rgba(0, 0, 0,0.9);
-  --menue-font-color: rgb(255,255,255);
-  --menue-label-color:  rgb(255,255,255);
-  --menue-warning-font-color: var(--general-warning-color);
-  --menue-bg-color-hover: rgba(255,255,255,0.3);
-  --menue-font-activ-color: rgb(255,255,255);
-  --menue-font-notActiv-color: rgb(180 ,180,180);
-  --menue-barLabel-bg-color: rgba(255,255,255,0.3);
-  --menue-navi-negative-color: var(--general-warning-color);
-  --menue-navi-positive-color: rgb(153,204,255);
-
   --main-popUpWindow-bg-color: rgba(0,0,0,0.85);
-  --main-popUpWindow-labelbg-color: var(--menue-bg-color);
+  --main-popUpWindow-labelbg-color: rgb(10,10,10);
   --main-popUpWindow-labelfont-color:  rgb(255,255,255);
 
   /**************************************
@@ -54,22 +45,21 @@
   --main-bg-color: rgb(255,255,255);
   --main-second-bg-color: rgb(225,225,225);
   --main-font-color: rgb(10,10,10);
+  --main-border: rgb(0, 0, 0);
   --main-font-notactive-color: rgb(120,120,120);
   --main-warning-font-color: rgb(224,108,117);
   --main-label-font-color: rgb(255,255,255);
-  --main-nonActiveColor: rgb(63, 139, 183);
-  --main-nonActiveColor-hover: rgb(19, 111, 153);
-  --main-button-bg: var(--main-font-color);
-  --main-button-bg-hover: var(--general-hover-color);
-  --main-button-font: var(--main-bg-color);
-  --main-activebutton-bg: var(--general-active-color);
-  --main-activebutton-bg-hover: var(--main-button-bg-hover);
-  --main-coloredButton: #333; /*rgb(76, 175, 80);*/
+
+  --main-coloredButton: rgb(40,40,40); /*rgb(76, 175, 80);*/
+  --main-coloredFont: rgb(240,240,240);
   --main-hover-coloredButton: red; /*rgb(76, 175, 80);*/
   --main-active-coloredButton: rgb(128, 23, 23); /*rgb(26, 97, 29);*/
   --main-active-coloredButton_Dark: rgb(224, 82, 82); /*rgb(26, 97, 29);*/
   --main-coloredButton_Dark: rgb(240,240,240);
 
+  --main-menue-background: rgb(60,60,60);
+  --main-menue-section: rgb(20,20,20);
+  --main-menue-font: rgb(240,240,240);
   /**** Link Colors ****/
   --link-color: rgb(0, 102, 204);
   --link-color-visited:rgb(128, 0, 128);
@@ -83,7 +73,7 @@
   /**** Sep Area ****/
   --main-sepArea-bg: rgb(30, 30, 30);
   --main-sepArea-bg-alpha: rgba(30, 30, 30,0.98);
-  --main-sepArea-border: rgb(15, 15, 15);
+  --main-sepArea-border: rgb(0, 0, 0);
   --main-second-sepArea-bg: rgb(50, 50, 50);
   --main-sepArea-font-color: rgb(240,240,240);
   --main-Button-sepArea-font-color: rgb(255,255,255);
@@ -123,8 +113,8 @@
   --radio-bg-color-hover: var(--general-hover-color);
   --radio-disabled-bg-color-hover: var(--general-warning-color);
 
-  --range-bg-color: var(--menue-bg-color);
-  --range-track-color: var(--menue-bg-color);
+  --range-bg-color: var(--main-border);
+  --range-track-color: var(--main-border);
   --range-lower-color: var(--general-active-color);
   --range-upper-color: var(--main-sepArea-bg);
   --range-slider-thumb-color: rgb(217,220,227);

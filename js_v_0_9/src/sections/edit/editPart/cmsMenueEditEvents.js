@@ -20,3 +20,16 @@ function changeRemoveKeyModus(){
     editSection.setKeyModus(2);
   }
 }
+
+function clearColormap(){
+  if(editSection.editCMS.getKeyLength()>0){
+    askType=0;
+    openAskWindow();
+  }
+}
+
+function reverseCMS(){
+  editSection.editCMS.calcReverse();
+  editSection.updateSection();
+  editSection.saveCreateProcess();
+}

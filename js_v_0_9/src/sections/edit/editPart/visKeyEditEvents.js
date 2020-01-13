@@ -1,10 +1,7 @@
 
-var editCMS_drawADDKey=false;
-var editCMS_AddKeyDrawOriginal=false;
-
 function keyAdd2DAnimation(){
-  if(editCMS_drawADDKey){
-    editSection.drawEditCMSVIS();
+  if(editSection.drawAddKey){
+    editSection.drawWorkCMS();
   }
 }
 
@@ -35,7 +32,7 @@ function editCMS_MouseDown(){
         editSection.updateSection();
         break;
         case 2:
-            editSection.deleteKey();
+            editSection.cmsVisDeleteKey();
           break;
   }
 }
@@ -65,9 +62,9 @@ function editCMS_MouseEnter(){
 
 function editCMS_MouseLeave(){
 
-  if(editCMS_AddKeyDrawOriginal){
+  if(editSection.drawOriginal){
     editSection.drawEditCMSVIS();
-    editCMS_AddKeyDrawOriginal=false;
+    editSection.drawOriginal=false;
   }
 
   clearInterval(timer2DAnimation);
@@ -76,4 +73,6 @@ function editCMS_MouseLeave(){
   if(editSection.grappedSomething()){
     editSection.saveCreateProcess();
   }
+
+  editSection.drawEditCMSVIS();
 }

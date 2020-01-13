@@ -8,10 +8,6 @@ function openAskWindow(){
       case 0:
       //delete CMS
         document.getElementById("id_askText").innerHTML="Do you really want to clear the CMS?";
-
-        if(document.getElementById("id_EditPage_Edit_Keys").style.display!="none"){
-           openEditKeyDiv(document.getElementById("id_EditPage_EditKey_List").selectedIndex);
-        }
         break;
       case 1:
         //delete Band
@@ -61,16 +57,10 @@ function checkAsk(){
   switch (askType) {
     case 0:
       //delete CMS
-      globalCMS1.clear();
-      switchModifyModus(0);
-      updateEditPage();
-
-      saveCreateProcess();
-
-      if(editPage_optimizationMode){
-        changeOpimizationMode();
-      }
-      break;
+      editSection.editCMS.clear();
+      editSection.updateSection();
+      editSection.saveCreateProcess();
+    break;
     case 1:
       //delete Band
       globalCMS1.deleteBand(askIndex);
@@ -85,21 +75,16 @@ function checkAsk(){
       case 2:
         //load Session
         document.getElementById("id_inputSessionData").click();
-        document.getElementById("id_dropDownContainer").style.display="none";
+        document.getElementById("id_MyDesigns_Import_dropdown").style.display="none";
         break;
 
         case 3:
-
-          myDesignsList[askIndex].deleteReferences();
-          myDesignsList[askIndex]=null;
-          myDesignsList.splice(askIndex, 1);
-
-          drawMyDesigns();
+          myDesignsSection.deleteCMS(askIndex);
         break;
 
         case 4:
           //leave edit page
-          
+
           if(editPage_optimizationMode){
             changeOpimizationMode();
           }
@@ -132,15 +117,10 @@ function checkAsk(){
 
               case 7:
                 // equal key intervals
-                globalCMS1.equalKeyIntervals();
-                saveCreateProcess();
-
-                if(editPage_optimizationMode){
-                  updateOptimizationPage();
-                }
-
-                updateEditPage();
-                break;
+                editSection.editCMS.equalKeyIntervals();
+                editSection.saveCreateProcess();
+                editSection.updateSection();
+              break;
 
     default:
 

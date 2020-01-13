@@ -1,5 +1,11 @@
 function initDropDowns(){
  document.getElementById("id_EditPage_CMSInfoDiv").onclick =  function() {dropDownEvents("id_EditPage_CMSInfoDiv", "id_EditPage_CMSInfoDiv_dropdown", false,false);};
+ //
+ document.getElementById("id_EditPage_CMSOptionButton").onclick =  function() {dropDownEvents("id_EditPage_CMSOptionButton", "id_EditPage_CMSOptionDiv_dropdown", true,false);};
+ document.getElementById("id_EditPage_CMSOptionDiv_dropdown").onmouseleave =  function() {document.getElementById("id_EditPage_CMSOptionDiv_dropdown").style.display="none";};
+ //
+ document.getElementById("id_MyDesigns_Import").onclick =  function() {dropDownEvents("id_MyDesigns_Import", "id_MyDesigns_Import_dropdown", true,false);};
+ document.getElementById("id_MyDesigns_Import_dropdown").onmouseleave =  function() {document.getElementById("id_MyDesigns_Import_dropdown").style.display="none";};
 }
 
 function hideAllDropDowns(){
@@ -9,8 +15,10 @@ function hideAllDropDowns(){
 function dropDownEvents(dropdownID, contentID, onTop,toRight){
   var additionalScrollID="";
 
-  if(document.getElementById(contentID).style.display==="none"){
-
+  if(document.getElementById(contentID).style.display!=="none"){
+    document.getElementById(contentID).style.display="none";
+  }
+  else{
     document.getElementById(contentID).style.display="flex";
 
     var refObj = document.getElementById(dropdownID);
@@ -33,7 +41,6 @@ function dropDownEvents(dropdownID, contentID, onTop,toRight){
       top = box.top + scrollTop - clientTop;
       left = box.left+ scrollLeft - clientLeft;
 
-
     if(onTop){
       document.getElementById(contentID).style.top=(top-dropdownBox.height)+"px";
     }
@@ -46,11 +53,6 @@ function dropDownEvents(dropdownID, contentID, onTop,toRight){
     else {
         document.getElementById(contentID).style.left=(left+box.width-dropdownBox.width)+"px";
     }
-
-
-  }
-  else{
-    document.getElementById(contentID).style.display="none";
   }
 
 }

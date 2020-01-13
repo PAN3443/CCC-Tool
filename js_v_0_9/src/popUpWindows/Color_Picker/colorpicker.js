@@ -88,22 +88,22 @@ function openColorPicker(event) {
       document.getElementById("id_popupColorPicker").style.top = (top + box.height) + "px";
       document.getElementById("id_popupColorPicker").style.left = (left - pickerBox.width) + "px";
       break;
-    /*case "id_EditPage_DrawnDualKey":
+    case "id_EditPage_DrawnDualKey":
     case "id_EditPage_DrawnRightKey":
-      colorpickerColor = globalCMS1.getRightKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex, "rgb");
+      colorpickerColor = editSection.editCMS.getRightKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex, "rgb");
       // above the object
-      document.getElementById("id_popupColorPicker").style.top = (top - pickerBox.height) + "px";
+      document.getElementById("id_popupColorPicker").style.top = (top + box.height) + "px";
       document.getElementById("id_popupColorPicker").style.left = (left - pickerBox.width) + "px";
       break;
 
     case "id_EditPage_DrawnLeftKey":
-      colorpickerColor = globalCMS1.getLeftKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex, "rgb");
+      colorpickerColor = editSection.editCMS.getLeftKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex, "rgb");
       // above the object
-      document.getElementById("id_popupColorPicker").style.top = (top - pickerBox.height) + "px";
+      document.getElementById("id_popupColorPicker").style.top = (top + box.height) + "px";
       document.getElementById("id_popupColorPicker").style.left = (left - pickerBox.width) + "px";
       break;
 
-    case "id_inputProbeColor":
+    /*case "id_inputProbeColor":
       document.getElementById("id_popupColorPicker").style.zIndex = 105;
       colorpickerColor = globalProbeColor;
       // above the object
@@ -969,28 +969,25 @@ function affectColorpickerChange() {
     editSection.doPagePeculiarity();
     editSection.saveCreateProcess();
       break;
-    /*case "id_EditPage_DrawnDualKey":
-      globalCMS1.setRightKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex, cloneColor(colorpickerColor));
-      globalCMS1.setLeftKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex, cloneColor(colorpickerColor));
-      updateEditPage();
-      saveCreateProcess();
+    case "id_EditPage_DrawnDualKey":
+      editSection.editCMS.setRightKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex, cloneColor(colorpickerColor));
+      editSection.editCMS.setLeftKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex, cloneColor(colorpickerColor));
+      editSection.updateSection();
+      editSection.saveCreateProcess();
       break;
     case "id_EditPage_DrawnLeftKey":
-      globalCMS1.setLeftKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex, cloneColor(colorpickerColor));
-      drawSelectedKey();
-      updateEditPage();
-      saveCreateProcess();
+      editSection.editCMS.setLeftKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex, cloneColor(colorpickerColor));
+      editSection.updateSection();
+      editSection.saveCreateProcess();
       break;
 
     case "id_EditPage_DrawnRightKey":
-      globalCMS1.setRightKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex, cloneColor(colorpickerColor));
-
-      drawSelectedKey();
-      updateEditPage();
-      saveCreateProcess();
+      editSection.editCMS.setRightKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex, cloneColor(colorpickerColor));
+      editSection.updateSection();
+      editSection.saveCreateProcess();
       break;
 
-    case "id_inputProbeColor":
+    /*case "id_inputProbeColor":
       globalProbeColor = colorpickerColor.calcHSVColor();
       changeProbeColor();
       generateProbeSet();

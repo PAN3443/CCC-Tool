@@ -109,15 +109,7 @@ function updateEditPage(){
 
 }
 
-function reverseCMS(){
-  globalCMS1.calcReverse();
-  updateEditPage();
-  saveCreateProcess();
 
-  if(editPage_optimizationMode){
-    editCMSduringOptimizationMode();
-  }
-}
 
 
 function switchModifyModus(type){
@@ -263,12 +255,7 @@ function updateColormapName(){
   saveCreateProcess();
 }
 
-function updateAutoRangeInput(){
-  document.getElementById("id_inputAutoRangeStart").value=globalCMS1.getRefPosition(0);
-  document.getElementById("id_inputAutoRangeEnd").value=globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1);
-  document.getElementById("id_inputAutoRangeEnd").min = document.getElementById("id_inputAutoRangeStart").value;
-  document.getElementById("id_inputAutoRangeStart").max = document.getElementById("id_inputAutoRangeEnd").value;
-}
+
 
 
 function switchCustomScaleColors(){
@@ -282,19 +269,4 @@ function switchCustomScaleColors(){
   if(document.getElementById("id_popupColorPicker").style.display!="none"){
     document.getElementById("id_popupColorPicker").style.display="none";
   }
-}
-
-
-function clearColormap(){
-
-  if(document.getElementById("id_actionMenu_clearButton").classList.contains('dropdownMenuButton')){
-    askType=0;
-    openAskWindow();
-
-
-  }
-  document.getElementById("id_dropDownContainer").style.display="none";
-
-
-
 }

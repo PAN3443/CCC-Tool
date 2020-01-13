@@ -9,7 +9,6 @@ function closeShortcutsWindow(){
 
 function openShortcutsWindow(){
   document.getElementById("id_PopUp_ShortcutsWindow").style.display="flex";
-  document.getElementById("id_dropDownContainer").style.display="none";
   updateShortCuts();
 }
 
@@ -109,7 +108,6 @@ function closeImpressum(){
 
 function openImpressum(){
   document.getElementById("id_PopUp_ImpessumWindow").style.display="flex";
-  document.getElementById("id_dropDownContainer").style.display="none";
 }
 
 //////////////////////////////////////
@@ -126,19 +124,24 @@ function openAlert(txt){
   document.getElementById("id_alertText").innerHTML=txt;
 }
 
-
 //////////////////////////////////////
 /// Ask Window /////
 ///////////////////////////////////
 
 function openScale(){
 
-  if(globalCMS1.getKeyLength()>0){
+  if(editSection.editCMS.getKeyLength()>0){
     document.getElementById("id_PopUp_ScaleWindow").style.display="flex";
     document.getElementById("id_popupWindow_ScaleInfoText").style.display="none";
     updateAutoRangeInput();
   }
-  document.getElementById("id_dropDownContainer").style.display="none";
+}
+
+function updateAutoRangeInput(){
+  document.getElementById("id_inputAutoRangeStart").value=editSection.editCMS.getRefPosition(0);
+  document.getElementById("id_inputAutoRangeEnd").value=editSection.editCMS.getRefPosition(editSection.editCMS.getKeyLength()-1);
+  document.getElementById("id_inputAutoRangeEnd").min = document.getElementById("id_inputAutoRangeStart").value;
+  document.getElementById("id_inputAutoRangeStart").max = document.getElementById("id_inputAutoRangeEnd").value;
 }
 
 function checkScale(){
@@ -151,20 +154,11 @@ function checkScale(){
     document.getElementById("id_popupWindow_ScaleInfoText").style.display="block";
   }
   else{
-    globalCMS1.setAutoRange(start,end);
-    saveCreateProcess();
-
-    if(editPage_optimizationMode){
-      updateOptimizationPage();
-    }
-
-    updateEditPage();
+    editSection.editCMS.setAutoRange(start,end);
+    editSection.saveCreateProcess();
+    editSection.updateSection();
     document.getElementById("id_PopUp_ScaleWindow").style.display="none";
     document.getElementById("id_popupWindow_ScaleInfoText").style.display="none";
-
-    if(document.getElementById("id_EditPage_Edit_Keys").style.display!="none"){
-       openEditKeyDiv(document.getElementById("id_EditPage_EditKey_List").selectedIndex);
-    }
   }
 
 }

@@ -5,29 +5,41 @@ button:focus {outline:0;}
 .class_coloredButton{
   font-family: var(--font-family);
   background-color: var(--main-coloredButton); /* Green */
-  box-sizing: content-box;
   font-weight:bold;
-  border: none;
-  color: white;
+  color: var(--main-coloredFont);
   text-align: center;
   text-decoration: none;
-  display: inline-block;
+  /*display: inline-block;*/
+  border:none;
   height: var(--button-height);
   line-height: var(--button-height);
   font-size: var(--button-font-size);
-  transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
-  text-align:center;
-  overflow: auto;
   vertical-align: middle;
   overflow: hidden;
   text-overflow: ellipsis;
   cursor: pointer;
+  margin:0px;
 }
 
 .class_coloredButton:hover{
   transform: scale(0.95);
   background-color: var(--main-hover-coloredButton);
 }
+
+.class_coloredButton p{
+  text-align: center;
+  text-decoration: none;
+  height: var(--button-height);
+  line-height: var(--button-height);
+  font-size: var(--button-font-size);
+  transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
+}
+
+.class_coloredButton:hover p{
+  transform: scale(0.95);
+}
+
+
 
 .class_coloredButton_Dark{
   font-family: var(--font-family);
