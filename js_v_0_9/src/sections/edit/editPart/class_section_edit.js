@@ -442,6 +442,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
               break;
               case "p":
                 this.tmpWorkCMS = gallerySection.getPredefinedCMS(this.selectedPredefinedType,this.currentDraggedID);
+                this.tmpWorkCMS.setColormapName(this.editCMS.getColormapName());
               break;
           }
 
@@ -683,6 +684,8 @@ class class_Edit_Section extends class_Edit_Basis_Section {
 
   updateKeyEdit(keyIndex){
     //
+    document.getElementById("id_EditPage_KeyValueEdit_dropdown").style.display="none";
+    //
     var selectbox = document.getElementById("id_EditPage_EditKey_List");
     var lastSelectedIndex = selectbox.selectedIndex;
     for(var i = selectbox.options.length - 1 ; i >= 0 ; i--){selectbox.remove(i);}
@@ -740,9 +743,15 @@ class class_Edit_Section extends class_Edit_Basis_Section {
   }
 
   selectKey(){
+    //
+    if(document.getElementById("id_EditPage_KeyValueEdit_dropdown").style.display!=="none")
+    refreshKeyValueEdit(); // if the user open the value edit dropdown and switch the keys the dropdown window need to be updated
+    //
     var selectedKey= document.getElementById("id_EditPage_EditKey_List").selectedIndex;
     this.updateKeyTypeButtons(this.editCMS.getKeyType(selectedKey));
     this.drawKeyDiv("id_EditPage_EditKey_DrawKeyDiv",selectedKey, true);
+
+    document.getElementById("id_EditPage_ChangeKeyVal").style.visibility="visible";
 
     if(selectedKey<=0 || selectedKey==this.editCMS.getKeyLength()-1){
 
@@ -753,7 +762,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
       document.getElementById("id_editPage_KeyBurdock").style.visibility="hidden";
     }
     else{
-      document.getElementById("id_EditPage_ChangeKeyVal").style.visibility="visible";
+
       document.getElementById("id_EditPage_DeleteKey").style.visibility="visible";
       document.getElementById("id_editPage_KeyBurdock").style.visibility="visible";
 

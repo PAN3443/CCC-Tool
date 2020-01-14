@@ -40,7 +40,7 @@
               style="margin-left:0.25vw;  width:2vw; text-align:center; vertical-align: middle; color:var(--general-warning-color); font-size: 3vh; line-height:5vh; margin-top:auto; margin-bottom:auto; visibility:hidden; cursor:help;"
               title="Unsaved Content">&#9888;</p>
             <p id="id_edit_AddModus"
-              style="margin-left:0.25vw;  width:2vw; text-align:center; vertical-align: middle; color:var(--general-warning-color); font-size: 3vh; line-height:5vh; margin-top:auto; margin-bottom:auto; visibility:hidden; cursor:help;"
+              style="margin-left:0.25vw;  width:2vw; text-align:center; vertical-align: middle; color:var(--general-warning-color); border: 0.2vh solid color:var(--general-warning-color); border-radius: 20%; font-size: 3vh; line-height:5vh; margin-top:auto; margin-bottom:auto; visibility:hidden; cursor:help;"
               title="ADD Key Modus">+</p>
 
             <p id="id_edit_cms_name" style="width:auto; max-width: 20vw; margin:auto; margin-right:0vw; color: var(--main-sepArea-font-color); font-size: 2.5vh; line-height:5vh;">Name:</p>
@@ -64,14 +64,14 @@
         <!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %%%%%%%%%%%%%%%%%%%%%%%%%	Key Edit	%%%%%%%%%%%%%%%%%%%%%%%%
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
-        <div id="id_EditPage_Key_Edit" style="width:25vw; height:30vh; display:flex; background:var(--main-coloredButton);">
+        <div id="id_EditPage_Key_Edit" style="width:25vw; height:30vh; display:flex; background:var(--main-sepArea-bg);">
           <div style="height: 30vh; width: 12.5vw; border-bottom:0.2vh solid var(--main-sepArea-border);">
             <p style="width:100%; height: 5vh; line-height: 5vh;  margin:0px; vertical-align:middel; text-align:center; font-size: 2.5vh; background: var(--main-sepArea-bg); color: var(--main-sepArea-font-color);"> Key:</p>
             <select id="id_EditPage_EditKey_List" onchange="editSection.selectKey()" name="Key List" size="20" style="min-width: 12.5vw; max-width:12vw; height:18vh; max-height:19vh; overflow:auto; margin:0px; border:none; box-sizing: border-box; background:var(--main-bg-color);">
 
             </select>
             <div style="width: 12.5vw; height: 6vh; max-height: 6vh; display:flex; flex-direction:column; ">
-              <button id="id_EditPage_ChangeKeyVal" class="class_coloredButton" title="Change Value" onclick="" style="margin:0px; height:3vh; max-height:3vh; width: 100%; font-size: 2vh; line-height:3vh;">Change Value</button>
+              <button id="id_EditPage_ChangeKeyVal" class="class_coloredButton" title="Change Value" style="margin:0px; height:3vh; max-height:3vh; width: 100%; font-size: 2vh; line-height:3vh;">Change Value</button>
               <button id="id_EditPage_DeleteKey" class="class_coloredButton" title="Delete Key" onclick="editSection.deleteSelectedKey()" style="margin:0px; height:3vh; max-height:3vh; width: 100%; font-size: 2vh; line-height:3vh;">Delete Key</button>
             </div>
           </div>
@@ -165,7 +165,7 @@
   </div>
 </div>
 
-<div id="id_EditPage_CMSOptionDiv_dropdown" class="class_dropDownContent" style="display:none; height: auto; width:20vw; background:var(--main-coloredButton); flex-direction:column; padding-bottom:2vh; display:none;">
+<div id="id_EditPage_CMSOptionDiv_dropdown" class="class_dropDownContent" style="display:none; height: auto; width:20vw; background:var(--main-menue-background); flex-direction:column; padding-bottom:2vh; display:none;">
   <p class="class_EditDropDownMenueSection">CMS Vis Modi:</p>
   <button class="class_EditDropDownMenueButton" title="Add Key Modus" onclick="changeAddKeyModus()" style=" height:5vh; width: 100%;  max-width: 20vw; font-size: 3vh; margin-top:0.5vh;">Add Key Modus</button>
   <button class="class_EditDropDownMenueButton" title="Remove Key Modus" onclick="changeRemoveKeyModus()" style=" height:5vh; width: 100%; font-size: 3vh; margin-top:0.5vh;">Remove Key Modus</button>
@@ -180,4 +180,12 @@
   <button class="class_EditDropDownMenueButton" title="Save" onclick="editSection.save()" style=" height:5vh; width: 100%;  max-width: 20vw; font-size: 3vh; margin-top:0.5vh;">Save CMS</button>
   <button class="class_EditDropDownMenueButton" title="Save As New" onclick="editSection.saveAsNew()" style=" height:5vh; width: 100%; font-size: 3vh; margin-top:0.5vh;">Save As New</button>
   <button class="class_EditDropDownMenueButton" title="Export" onclick="()" style=" height:5vh; width: 100%; font-size: 3vh; margin-top:0.5vh;">Export</button>
+</div>
+
+<div id="id_EditPage_KeyValueEdit_dropdown" class="class_dropDownContent" style="display:none; height: auto; background:var(--main-menue-background); padding-top:0.5vh; padding-bottom:0.5vh; display:none;">
+    <p id="id_EditPage_KeyValueEdit_previousVal" style="margin:auto; max-width: 4vw; overflow: hidden; text-overflow: ellipsis; margin-right:0vw; margin-left:1vw; font-size: 2.5vh; height: 4vh; line-height:4vh; color: var(--main-menue-font);">0</p>
+    <input onchange="checkKeyValueChange()" type="text" id="id_EditPage_KeyValueEdit_input" style="width: 5vw; padding:0.5vh; font-size: 2.5vh; height: 4vh; line-height:4vh; margin:auto; margin-left:1vw; margin-right:0vw;" name="mapname"
+      placeholder="Please enter a value for the key reference." />
+    <p id="id_EditPage_KeyValueEdit_warning" style="margin:auto; margin-left:0.2vw; margin-right:0vw; font-size: 3.5vh; height: 4vh; line-height:4vh; color: var(--general-warning-color); &#9888;"></p>
+    <p id="id_EditPage_KeyValueEdit_nextVal" style="margin:auto; max-width: 4vw; overflow: hidden; text-overflow: ellipsis; margin-left:1vw; margin-right:1vw; font-size: 2.5vh; height: 4vh; line-height:4vh; color: var(--main-menue-font);">1</p>
 </div>
