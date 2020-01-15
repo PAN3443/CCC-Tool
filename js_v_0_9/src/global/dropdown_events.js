@@ -4,6 +4,9 @@ function initDropDowns(){
  document.getElementById("id_EditPage_CMSOptionButton").onclick =  function() {dropDownEvents("id_EditPage_CMSOptionButton", "id_EditPage_CMSOptionDiv_dropdown", true,false);};
  document.getElementById("id_EditPage_CMSOptionDiv_dropdown").onmouseleave =  function() {document.getElementById("id_EditPage_CMSOptionDiv_dropdown").style.display="none";};
  //
+ document.getElementById("id_EditPage_DisplayOptionButton").onclick =  function() {dropDownEvents("id_EditPage_DisplayOptionButton", "id_EditPage_DisplayOptionDiv_dropdown", true,false);};
+ document.getElementById("id_EditPage_DisplayOptionDiv_dropdown").onmouseleave =  function() {document.getElementById("id_EditPage_DisplayOptionDiv_dropdown").style.display="none";};
+ //
  document.getElementById("id_MyDesigns_Import").onclick =  function() {dropDownEvents("id_MyDesigns_Import", "id_MyDesigns_Import_dropdown", true,false);};
  document.getElementById("id_MyDesigns_Import_dropdown").onmouseleave =  function() {document.getElementById("id_MyDesigns_Import_dropdown").style.display="none";};
  //

@@ -7,7 +7,12 @@ class class_Edit_Section extends class_Edit_Basis_Section {
 
     this.showPathplot = true;
     this.showMapping = false;
-    this.showAnalysis = true;
+    this.showAnalysis = false;
+    this.showPredefined = true;
+
+
+    this.pathPlotDivID="id_EditPage_PathplotContainer";
+    this.pathPlot_CoordID="id_EditPage_PathplotCoord";
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -70,6 +75,9 @@ class class_Edit_Section extends class_Edit_Basis_Section {
     cmsCanvasElemtent.addEventListener("mousemove", editCMS_MouseMove);
     cmsCanvasElemtent.addEventListener("mouseenter",editCMS_MouseEnter);
     cmsCanvasElemtent.addEventListener("mouseleave",editCMS_MouseLeave);
+
+    //
+    this.styleEditPage();
   }
 
   setCMS(cms, id) {
@@ -95,6 +103,107 @@ class class_Edit_Section extends class_Edit_Basis_Section {
     this.tmpWorkCMS.deleteReferences();
     //updateSection() function at the drag end event or other events
     this.saveCreateProcess();
+  }
+
+  styleEditPage(){
+
+    document.getElementById("id_EditPage_DisplayPredefined").style.background = "var(--main-menue-background)";
+    document.getElementById("id_EditPage_DisplayPathplot").style.background = "var(--main-menue-background)";
+    document.getElementById("id_EditPage_DisplayAnalysis").style.background = "var(--main-menue-background)";
+    document.getElementById("id_EditPage_DisplayMapping").style.background = "var(--main-menue-background)";
+
+    var possibleWidth = 85; //
+    if(this.showPredefined){
+      document.getElementById("id_EditPage_DisplayPredefined").style.background = "var(--main-menue-active)";
+      document.getElementById("id_EditPage_PredefinedStructures").style.display="flex";
+      document.getElementById("id_EditPage_CMS_PAM_Div").style.width="85vw";
+      document.getElementById("id_EditPage_CMS_Div").style.width="60vw";
+      document.getElementById("id_EditPage_PAM_Div").style.width="85vw";
+      this.drawPredefined();
+      this.drawConstantBands();
+    }
+    else{
+      document.getElementById("id_EditPage_PredefinedStructures").style.display="none";
+      document.getElementById("id_EditPage_CMS_PAM_Div").style.width="100vw";
+      document.getElementById("id_EditPage_CMS_Div").style.width="85vw";
+      document.getElementById("id_EditPage_PAM_Div").style.width="100vw";
+      possibleWidth = 100;
+    }
+
+
+
+    var numberPAM = this.getNumPAM();
+
+      switch (numberPAM) {
+        case 1:
+            // do nothing
+        break;
+        case 2:
+            possibleWidth=possibleWidth/2;
+        break;
+          default:
+            this.showPathplot=true;
+            this.showAnalysis=false;
+            this.showMapping=false;
+            this.styleEditPage();
+            return;
+        }
+        this.pathPlot_Height_VW=possibleWidth;
+
+        if(this.showPathplot){
+          document.getElementById("id_EditPage_PathplotDiv").style.width=possibleWidth+"vw";
+          document.getElementById("id_EditPage_PathplotDiv").style.display="flex";
+          document.getElementById("id_EditPage_DisplayPathplot").style.background = "var(--main-menue-active)";
+          document.getElementById("id_EditPage_DisplayPathplot").innerHTML = "Hide Pathplot";
+          this.arrangePathplotDivs();
+        }
+        else{
+          document.getElementById("id_EditPage_DisplayPathplot").innerHTML = "Show Pathplot";
+          document.getElementById("id_EditPage_PathplotDiv").style.display="none";
+        }
+
+
+        if(this.showAnalysis){
+          document.getElementById("id_EditPage_AnalysisDiv").style.width=possibleWidth+"vw";
+          document.getElementById("id_EditPage_AnalysisDiv").style.display="flex";
+          document.getElementById("id_EditPage_DisplayAnalysis").style.background = "var(--main-menue-active)";
+          document.getElementById("id_EditPage_DisplayAnalysis").innerHTML = "Hide Analysis";
+        }
+        else{
+          document.getElementById("id_EditPage_DisplayAnalysis").innerHTML = "Show Analysis";
+          document.getElementById("id_EditPage_AnalysisDiv").style.display="none";
+        }
+
+
+        if(this.showMapping){
+          document.getElementById("id_EditPage_MappingDiv").style.width=possibleWidth+"vw";
+          document.getElementById("id_EditPage_MappingDiv").style.display="flex";
+          document.getElementById("id_EditPage_DisplayMapping").style.background = "var(--main-menue-active)";
+          document.getElementById("id_EditPage_DisplayMapping").innerHTML = "Hide Mapping";
+        }
+        else{
+          document.getElementById("id_EditPage_DisplayMapping").innerHTML = "Show Mapping";
+          document.getElementById("id_EditPage_MappingDiv").style.display="none";
+        }
+
+
+        this.doPagePeculiarity();
+        this.updateSection();
+  }
+
+  getNumPAM(){
+    var numberPAM = 0;
+
+    if(this.showMapping)
+      numberPAM++;
+
+      if(this.showAnalysis)
+        numberPAM++;
+
+        if(this.showPathplot)
+          numberPAM++;
+
+    return numberPAM;
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -197,8 +306,11 @@ class class_Edit_Section extends class_Edit_Basis_Section {
   doPagePeculiarity(){
     super.doPagePeculiarity();
     /// draw Predefined;
-    this.drawPredefined();
-    this.drawConstantBands();
+
+    if(this.showPredefined){
+      this.drawPredefined();
+      this.drawConstantBands();
+    }
 
     document.getElementById('id_edit_cms_SetName').value = this.editCMS.getColormapName();
     document.getElementById('id_edit_cms_SetNaN').style.background = this.editCMS.getNaNColor("rgb").getRGBString();

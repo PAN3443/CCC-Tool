@@ -53,7 +53,7 @@ function refreshKeyValueEdit(){
 
 function checkKeyValueChange(){
 
-  var tmpVal = document.getElementById("id_EditPage_KeyValueEdit_input").value;
+  var tmpVal = Number(document.getElementById("id_EditPage_KeyValueEdit_input").value);
 
   if(isNaN(tmpVal)){
     document.getElementById("id_EditPage_KeyValueEdit_warning").innerHTML="&#9888";

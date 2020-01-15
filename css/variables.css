@@ -35,7 +35,7 @@
   /**************************************
   **** Pop Up Windows
   ***************************************/
-  --main-popUpWindow-bg-color: rgba(0,0,0,0.85);
+  --main-popUpWindow-bg-color: rgba(255,255,255,0.85);
   --main-popUpWindow-labelbg-color: rgb(10,10,10);
   --main-popUpWindow-labelfont-color:  rgb(255,255,255);
 
@@ -60,6 +60,7 @@
   --main-menue-background: rgb(60,60,60);
   --main-menue-section: rgb(20,20,20);
   --main-menue-font: rgb(240,240,240);
+  --main-menue-active: rgb(224, 82, 82);
   /**** Link Colors ****/
   --link-color: rgb(0, 102, 204);
   --link-color-visited:rgb(128, 0, 128);

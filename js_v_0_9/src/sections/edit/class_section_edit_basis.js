@@ -5,16 +5,15 @@ class class_Edit_Basis_Section extends class_Section {
     this.editCMS = new class_CMS();
     /////
     this.cmsCanvasID = cmsID;
+
     this.doColorblindnessSim = false;
-
-
     this.cmsNameID = nameID;
     this.cmsInterpolationID = intID;
     this.cmsNaNColorID = nanID;
     this.cmsAboveID = aboveID;
     this.cmsBelowID = belowID;
 
-    // CMS Plot Information
+    // CMS Visualization Information
     this.editCMS_key_size=undefined;
     this.editCMS_cmsArea_x1=undefined;
     this.editCMS_cmsArea_width=undefined;
@@ -26,6 +25,13 @@ class class_Edit_Basis_Section extends class_Section {
     this.editCMS_sketchCMS_y1=undefined;
     this.editCMS_sketchCMS_height=undefined;
     this.editCMS_sketchKey_y1=undefined;
+
+    // PathPlot
+    this.pathPlotDivID=undefined;
+    this.pathPlot_Height_VH=62;
+    this.pathPlot_Height_VW=undefined;
+    this.pathPlot_CoordID=undefined;
+    this.pathplot_space = "lab";
   }
 
   showSection(){
@@ -44,6 +50,8 @@ class class_Edit_Basis_Section extends class_Section {
     document.getElementById(this.cmsAboveID).style.background = this.editCMS.getAboveColor("rgb").getRGBString();
     document.getElementById(this.cmsBelowID).style.background = this.editCMS.getBelowColor("rgb").getRGBString();
   }
+
+
 
   updateSection(){
     // ONLY BASIS like draw CMS
@@ -576,4 +584,66 @@ class class_Edit_Basis_Section extends class_Section {
   ////////////              (END) CMS Drawing                     ////////////
   ////////////////////////////////////////////////////////////////////////////
 
+  ////////////////////////////////////////////////////////////////////////////
+  ////////////                 (Start) Pathplot                   ////////////
+  ////////////////////////////////////////////////////////////////////////////
+
+  updatePathPlotSpace(space){
+    this.pathplot_space=space;
+  }
+
+  arrangePathplotDivs(){
+    var rect = document.getElementById(this.pathPlotDivID).getBoundingClientRect();
+    var ratio = rect.width/rect.height;
+    document.getElementById(this.pathPlotDivID).innerHTML="";
+    if(this.pathplot_space==="rgb"){
+      switch (true) {
+        case (ratio<0):
+          // do nothign
+        break;
+        case (ratio<1):
+          document.getElementById(this.pathPlotDivID).style.flexDirection="column";
+          var tmpDiv = document.createElement('div');
+          tmpDiv.style.width="100%;";
+          tmpDiv.style.height=this.pathPlot_Height_VH*0.25+"vh";
+          tmpDiv.id=this.sectionID+"_PP_3D";
+          document.getElementById(this.pathPlotDivID).appendChild(tmpDiv);
+          var tmpRow = document.createElement('div');
+          tmpRow.style.width="100%;";
+          tmpRow.style.height=this.pathPlot_Height_VH*0.25+"vh";
+          tmpRow.appendChild(this.createTripleLayerCanvasDiv());
+          document.getElementById(this.pathPlotDivID).appendChild(tmpRow);
+
+        break;
+        case (ratio<2):
+          document.getElementById(this.pathPlotDivID).style.flexDirection="column";
+        break;
+        default: // (>2)
+          document.getElementById(this.pathPlotDivID).style.flexDirection="row";
+      }
+    }
+    else {
+      switch (true) {
+        case (ratio<0):
+          // do nothign
+        break;
+        case (ratio<1):
+          document.getElementById(this.pathPlotDivID).style.flexDirection="column";
+        break;
+        case (ratio<2):
+          document.getElementById(this.pathPlotDivID).style.flexDirection="row";
+        break;
+        default: // (>2)
+          document.getElementById(this.pathPlotDivID).style.flexDirection="row";
+      }
+    }
+  }
+
+  createTripleLayerCanvasDiv(height_VW, width_VW, isSquad, id){
+
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  ////////////                (END) Pathplot                      ////////////
+  ////////////////////////////////////////////////////////////////////////////
 };

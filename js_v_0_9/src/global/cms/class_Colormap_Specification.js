@@ -652,9 +652,6 @@ class class_CMS {
            return tmpRGBColor;
         }
       }
-
-
-
     }
 
     if(val==this.keyArray[this.keyArray.length-1].getRefPosition()){
@@ -731,22 +728,13 @@ class class_CMS {
   }
 
   equalKeyIntervals(){
-
-
     if(this.keyArray.length>2){
-
-      var startPos = this.keyArray[0].getRefPosition();
-      var fullDis = Math.abs(this.keyArray[this.keyArray.length-1].getRefPosition()-startPos);
-      var equalDis = fullDis/(this.keyArray.length-1);
-
+      var equalDis =  Math.abs(this.keyArray[this.keyArray.length-1].getRefPosition()-this.keyArray[0].getRefPosition())/(this.keyArray.length-1);
       for (var i = 1; i < this.keyArray.length-1; i++) {
-        var newPos = startPos+(i*equalDis);
-        this.keyArray[i].setRefPosition(newPos);
+        this.keyArray[i].setRefPosition(this.keyArray[0].getRefPosition()+(i*equalDis));
       }
     }
-
     this.calcDeltaIntervalColors();
-
   }
 
   setLeftKeyColor(index, color){

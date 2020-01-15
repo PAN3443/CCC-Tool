@@ -17,8 +17,6 @@ window.onload = function() {
   newSection = new class_NewCMS_Section();
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Edit Section";
   editSection = new class_Edit_Section();
-  editSection.drawConstantBands();
-  editSection.drawPredefined();
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Test-Function Section";
   testingSection = new class_TestFunction_Section();
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Export Section";
@@ -41,6 +39,10 @@ window.onresize = function(event) {
 
     // if Edit Page is visible
     checkLandscapeWindow();
+
+    if(editSection.isSectionOpen()){
+      editSection.styleEditPage(); // incl. updateSection
+    }
 
     /*if(document.getElementById("id_EditPage").style.display!="none"){
       updateEditPage();
