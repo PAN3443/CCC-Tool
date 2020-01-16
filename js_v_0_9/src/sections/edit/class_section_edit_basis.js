@@ -3,6 +3,9 @@ class class_Edit_Basis_Section extends class_Section {
   constructor(div_id, cmsID, nameID, intID, nanID, aboveID, belowID) {
     super(div_id);
     this.editCMS = new class_CMS();
+
+    this.mousePosX = undefined;
+    this.mousePosY = undefined;
     /////
     this.cmsCanvasID = cmsID;
 
@@ -29,9 +32,32 @@ class class_Edit_Basis_Section extends class_Section {
     // PathPlot
     this.pathPlotDivID=undefined;
     this.pathPlot_Height_VH=62;
-    this.pathPlot_Height_VW=undefined;
+    this.pathPlot_Width_VW=undefined;
     this.pathPlot_CoordID=undefined;
     this.pathplot_space = "lab";
+
+    // PathPlot 3D
+    this.pp_doAnimation = false;
+    this.pp_animationID = undefined;
+
+    this.pp_camera = undefined;
+    this.pp_camera_radius=400;
+    this.pp_scene = undefined;
+    this.pp_renderer = undefined;
+    this.pp_colorspaceGroup.rotation = undefined;
+    this.pp_LineGroup.rotation = undefined;
+    this.pp_ElementsGroup.rotation = undefined;
+
+    this.pp_space_opacity=0.5;
+
+      // Pachplot 3D::Event Var
+      this.pp_dorotation = false;
+      this.pp_downXPos =0;
+      this.pp_downYPos =0;
+      this.pp_xRotationAngle=0;
+      this.pp_yRotationAngle=0;
+      this.pp_xRotationDownAngle=0;
+      this.pp_yRotationDownAngle=0;
   }
 
   showSection(){
@@ -593,6 +619,7 @@ class class_Edit_Basis_Section extends class_Section {
   }
 
   arrangePathplotDivs(){
+
     var rect = document.getElementById(this.pathPlotDivID).getBoundingClientRect();
     var ratio = rect.width/rect.height;
     document.getElementById(this.pathPlotDivID).innerHTML="";
@@ -601,7 +628,7 @@ class class_Edit_Basis_Section extends class_Section {
         case (ratio<0):
           // do nothign
         break;
-        case (ratio<1):
+        case (ratio<0.6):
           document.getElementById(this.pathPlotDivID).style.flexDirection="column";
           var tmpDiv = document.createElement('div');
           tmpDiv.style.width="100%;";
@@ -609,38 +636,144 @@ class class_Edit_Basis_Section extends class_Section {
           tmpDiv.id=this.sectionID+"_PP_3D";
           document.getElementById(this.pathPlotDivID).appendChild(tmpDiv);
           var tmpRow = document.createElement('div');
-          tmpRow.style.width="100%;";
+          tmpRow.style.width="100%";
+          tmpRow.style.display="flex";
           tmpRow.style.height=this.pathPlot_Height_VH*0.25+"vh";
-          tmpRow.appendChild(this.createTripleLayerCanvasDiv());
+          tmpRow.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.25,this.pathPlot_Width_VW,true,this.sectionID+"_PP_RG"));
           document.getElementById(this.pathPlotDivID).appendChild(tmpRow);
-
+          tmpRow = document.createElement('div');
+          tmpRow.style.width="100%";
+          tmpRow.style.display="flex";
+          tmpRow.style.height=this.pathPlot_Height_VH*0.25+"vh";
+          tmpRow.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.25,this.pathPlot_Width_VW,true,this.sectionID+"_PP_RB"));
+          document.getElementById(this.pathPlotDivID).appendChild(tmpRow);
+          tmpRow = document.createElement('div');
+          tmpRow.style.width="100%";
+          tmpRow.style.display="flex";
+          tmpRow.style.height=this.pathPlot_Height_VH*0.25+"vh";
+          tmpRow.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.25,this.pathPlot_Width_VW,true,this.sectionID+"_PP_BG"));
+          document.getElementById(this.pathPlotDivID).appendChild(tmpRow);
         break;
         case (ratio<2):
           document.getElementById(this.pathPlotDivID).style.flexDirection="column";
+          var tmpRow = document.createElement('div');
+          tmpRow.style.width="100%";
+          tmpRow.style.display="flex";
+          tmpRow.style.height=this.pathPlot_Height_VH*0.5+"vh";
+          var tmpDiv = document.createElement('div');
+          tmpDiv.style.height=this.pathPlot_Height_VH*0.5+"vh";
+          tmpDiv.style.width=this.pathPlot_Width_VW*0.5+"vw";
+          tmpDiv.id=this.sectionID+"_PP_3D";
+          tmpRow.appendChild(tmpDiv);
+          tmpRow.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.5,this.pathPlot_Width_VW*0.5,true,this.sectionID+"_PP_RG"));
+          document.getElementById(this.pathPlotDivID).appendChild(tmpRow);
+          tmpRow = document.createElement('div');
+          tmpRow.style.width="100%";
+          tmpRow.style.display="flex";
+          tmpRow.style.height=this.pathPlot_Height_VH*0.5+"vh";
+          tmpRow.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.5,this.pathPlot_Width_VW*0.5,true,this.sectionID+"_PP_RB"));
+          tmpRow.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.5,this.pathPlot_Width_VW*0.5,true,this.sectionID+"_PP_BG"));
+          document.getElementById(this.pathPlotDivID).appendChild(tmpRow);
         break;
         default: // (>2)
           document.getElementById(this.pathPlotDivID).style.flexDirection="row";
+          var tmpDiv = document.createElement('div');
+          tmpDiv.style.height=this.pathPlot_Height_VH+"vh";
+          tmpDiv.style.width=this.pathPlot_Width_VW*0.25+"vw";
+          tmpDiv.id=this.sectionID+"_PP_3D";
+          document.getElementById(this.pathPlotDivID).appendChild(tmpDiv);
+          document.getElementById(this.pathPlotDivID).appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH,this.pathPlot_Width_VW*0.25,true,this.sectionID+"_PP_RG"));
+          document.getElementById(this.pathPlotDivID).appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH,this.pathPlot_Width_VW*0.25,true,this.sectionID+"_PP_RB"));
+          document.getElementById(this.pathPlotDivID).appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH,this.pathPlot_Width_VW*0.25,true,this.sectionID+"_PP_BG"));
       }
     }
     else {
       switch (true) {
         case (ratio<0):
-          // do nothign
+          // do nothing
         break;
         case (ratio<1):
           document.getElementById(this.pathPlotDivID).style.flexDirection="column";
+          var tmpRow = document.createElement('div');
+          tmpRow.style.width="100%";
+          tmpRow.style.display="flex";
+          tmpRow.style.height=this.pathPlot_Height_VH*0.25+"vh";
+          var tmpDiv = document.createElement('div');
+          tmpDiv.style.height=this.pathPlot_Height_VH*0.25+"vh";
+          tmpDiv.style.width=this.pathPlot_Width_VW*0.5+"vw";
+          tmpDiv.id=this.sectionID+"_PP_3D";
+          tmpRow.appendChild(tmpDiv);
+          tmpRow.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.25,this.pathPlot_Width_VW*0.5,true,this.sectionID+"_PP_Hue"));
+          document.getElementById(this.pathPlotDivID).appendChild(tmpRow);
+          document.getElementById(this.pathPlotDivID).appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.25,this.pathPlot_Width_VW,false,this.sectionID+"_PP_C1"));
+          document.getElementById(this.pathPlotDivID).appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.25,this.pathPlot_Width_VW,false,this.sectionID+"_PP_C2"));
+          document.getElementById(this.pathPlotDivID).appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.25,this.pathPlot_Width_VW,false,this.sectionID+"_PP_C3"));
         break;
         case (ratio<2):
           document.getElementById(this.pathPlotDivID).style.flexDirection="row";
+          var tmpCol = document.createElement('div');
+          tmpCol.style.width=this.pathPlot_Width_VW*0.33+"vw";
+          tmpCol.style.height=this.pathPlot_Height_VH+"vh";
+          var tmpDiv = document.createElement('div');
+          tmpDiv.style.height=this.pathPlot_Height_VH*0.5+"vh";
+          tmpDiv.style.width=this.pathPlot_Width_VW*0.33+"vw";
+          tmpDiv.id=this.sectionID+"_PP_3D";
+          tmpCol.appendChild(tmpDiv);
+          tmpCol.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.5,this.pathPlot_Width_VW*0.33,true,this.sectionID+"_PP_Hue"));
+          document.getElementById(this.pathPlotDivID).appendChild(tmpCol);
+          tmpCol = document.createElement('div');
+          tmpCol.style.width=this.pathPlot_Width_VW*0.67+"vw";
+          tmpCol.style.height=this.pathPlot_Height_VH+"vh";
+          tmpCol.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.33,this.pathPlot_Width_VW*0.67,false,this.sectionID+"_PP_C1"));
+          tmpCol.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.33,this.pathPlot_Width_VW*0.67,false,this.sectionID+"_PP_C2"));
+          tmpCol.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.33,this.pathPlot_Width_VW*0.67,false,this.sectionID+"_PP_C3"));
+          document.getElementById(this.pathPlotDivID).appendChild(tmpCol);
         break;
         default: // (>2)
           document.getElementById(this.pathPlotDivID).style.flexDirection="row";
+          var tmpDiv = document.createElement('div');
+          tmpDiv.style.height=this.pathPlot_Height_VH+"vh";
+          tmpDiv.style.width=this.pathPlot_Width_VW*0.25+"vw";
+          tmpDiv.id=this.sectionID+"_PP_3D";
+          document.getElementById(this.pathPlotDivID).appendChild(tmpDiv);
+          document.getElementById(this.pathPlotDivID).appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH,this.pathPlot_Width_VW*0.25,true,this.sectionID+"_PP_Hue"));
+          var tmpCol = document.createElement('div');
+          tmpCol.style.width=this.pathPlot_Width_VW*0.5+"vw";
+          tmpCol.style.height=this.pathPlot_Height_VH+"vh";
+          tmpCol.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.33,this.pathPlot_Width_VW*0.5,false,this.sectionID+"_PP_C1"));
+          tmpCol.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.33,this.pathPlot_Width_VW*0.5,false,this.sectionID+"_PP_C2"));
+          tmpCol.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.33,this.pathPlot_Width_VW*0.5,false,this.sectionID+"_PP_C3"));
+          document.getElementById(this.pathPlotDivID).appendChild(tmpCol);
       }
     }
   }
 
-  createTripleLayerCanvasDiv(height_VW, width_VW, isSquad, id){
+  createTripleLayerCanvasDiv(height_VH, width_VW, isSquad, id){
+    var tmpDiv = document.createElement('div');
+    tmpDiv.style.width=width_VW+"vw";
+    tmpDiv.style.height=height_VH+"vh";
+    if(isSquad){
+      tmpDiv.style.maxHeight=width_VW+"vw";
+      tmpDiv.style.maxWidth=height_VH+"vh";
+    }
+    tmpDiv.style.margin="auto";
+    tmpDiv.style.position="relative";
+    //tmpDiv.style.background="rgb(10,10,20)";
 
+    tmpDiv.appendChild(this.createAbsolutCanvas(0,id+"_l0"));
+    tmpDiv.appendChild(this.createAbsolutCanvas(1,id+"_l1"));
+    tmpDiv.appendChild(this.createAbsolutCanvas(2,id+"_l2"));
+    return tmpDiv;
+  }
+
+  createAbsolutCanvas(zIndex,id){
+    var tmpCanvas=document.createElement('canvas');
+    tmpCanvas.style.position="absolute";
+    tmpCanvas.style.zIndex=zIndex;
+    tmpCanvas.style.width="100%";
+    tmpCanvas.style.height="100%";
+    tmpCanvas.id=id;
+    return tmpCanvas;
   }
 
   ////////////////////////////////////////////////////////////////////////////

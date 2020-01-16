@@ -1,19 +1,5 @@
-var pathplot_doAnimation = false;
-var pathplotAnimationID;
 
 var pathplotImgData = undefined;
-var dorotation = false;
-var downXPos =0;
-var downYPos =0;
-var xRotationAngle=0; //Math.PI/2;
-var yRotationAngle=0;
-
-var xRotationDownAngle=0; //Math.PI/2;
-var yRotationDownAngle=0;
-
-var opacityVal = 0.5;
-
-var showSpace = 0; // 1=rgb, 2=lab
 
 var textSize = 30;
 var textHeight = 2.5;
@@ -42,9 +28,11 @@ var vEnd3D = 100;
 ///////////////////////////////////////
 //// ALL Space
 
-  var font;
-  var pathPlotGroup, pathPlotElementsGroup;
-  var scene, camera, renderer, stats, colorspaceGroup;
+
+
+
+
+  , , stats,
   var radius = 400;
 
   var cameraLight;

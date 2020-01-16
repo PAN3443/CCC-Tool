@@ -29,6 +29,11 @@ window.onload = function() {
   initColorPicker();
   initDropDowns();
 
+  document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Calculation: 3D LAB Grid";
+  calcSpaceGridLAB();
+  document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Calculation: 3D DIN99 Grid";
+  calcSpaceGridDIN99();
+
   checkLandscapeWindow();
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Loading Finished";
   welcomeSection.updateSection();

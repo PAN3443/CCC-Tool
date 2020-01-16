@@ -148,7 +148,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
             this.styleEditPage();
             return;
         }
-        this.pathPlot_Height_VW=possibleWidth;
+        this.pathPlot_Width_VW=possibleWidth;
 
         if(this.showPathplot){
           document.getElementById("id_EditPage_PathplotDiv").style.width=possibleWidth+"vw";
