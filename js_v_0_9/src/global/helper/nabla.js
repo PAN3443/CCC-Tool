@@ -1,4 +1,4 @@
-var nablaOn2DScalarField (field, angularWeighting){
+function nablaOn2DScalarField (field, angularWeighting){
 
   var weights = new Array(field.getNumPoints()).fill(0);
   var derivs = new Array(field.getNumPoints());

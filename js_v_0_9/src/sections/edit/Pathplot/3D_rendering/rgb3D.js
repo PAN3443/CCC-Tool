@@ -1,11 +1,11 @@
 
-function rgbMesh(){
+function rgbMesh(colorspaceGroup){
 
   for (var i = colorspaceGroup.children.length - 1; i >= 0; i--) {
     colorspaceGroup.remove(colorspaceGroup.children[i]);
   }
 
-  var linecolor = new THREE.Color(pathplotFontColor);
+  var linecolor = new THREE.Color(getComputedStyle(document.documentElement).getPropertyValue('--main-font-color'));
 
   var startPos = -127.5;
   var textPos = 220;
@@ -99,7 +99,7 @@ function rgbMesh(){
   tmpRGBColor.deleteReferences();
   tmpRGBColor=null;
 
-
+  return colorspaceGroup;
 }
 
 function create_RGB_Line_Mesh(startPos,endpos){
@@ -216,7 +216,6 @@ function create_RGB_Line_Mesh(startPos,endpos){
   return linesMesh;
 
 }
-
 
 function create_RGB_Plane_Mesh(numberOfPieces,startPos){
 

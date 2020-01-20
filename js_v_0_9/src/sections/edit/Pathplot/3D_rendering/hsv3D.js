@@ -1,7 +1,7 @@
-function lchMesh(){
+function hsvMesh(colorspaceGroup){
 
-  var tmpLCH1 = new class_Color_LCH(0,0,0);
-  var tmpLCH2 = new class_Color_LCH(0,0,0);
+  var tmpHSV1 = new class_Color_HSV(0,0,0);
+  var tmpHSV2 = new class_Color_HSV(0,0,0);
   var tmpRGB;
 
   for (var i = colorspaceGroup.children.length - 1; i >= 0; i--) {
@@ -45,20 +45,20 @@ function lchMesh(){
     geometry.vertices.push(new THREE.Vector3(xPos,vStart3D,zPos));
     geometry.vertices.push(new THREE.Vector3(xPos,vEnd3D,zPos));
 
-    tmpLCH1.set1Value(0);
-    tmpLCH1.set2Value(1.0);
-    tmpLCH1.set3Value(hueVal);
-    tmpRGB = tmpLCH1.calcRGBColor();
+    tmpHSV1.set1Value(hueVal);
+    tmpHSV1.set2Value(1.0);
+    tmpHSV1.set3Value(0);
+    tmpRGB = tmpHSV1.calcRGBColor();
     if(doColorblindnessSim){
       var tmpLMS = tmpRGBColor.calcLMSColor();
       tmpRGB = tmpLMS.calcColorBlindRGBColor();
     }
 
     linesColors.push( tmpRGB.get1Value(), tmpRGB.get2Value(), tmpRGB.get3Value() );
-    tmpLCH2.set1Value(1);
-    tmpLCH2.set2Value(1.0);
-    tmpLCH2.set3Value(hueVal);
-    tmpRGB = tmpLCH2.calcRGBColor();
+    tmpHSV2.set1Value(hueVal);
+    tmpHSV2.set2Value(1.0);
+    tmpHSV2.set3Value(1);
+    tmpRGB = tmpHSV2.calcRGBColor();
     if(doColorblindnessSim){
       var tmpLMS = tmpRGBColor.calcLMSColor();
       tmpRGB = tmpLMS.calcColorBlindRGBColor();
@@ -106,7 +106,7 @@ function lchMesh(){
       geometry.faces.push(new THREE.Face3(currentIndex1, lastIndex1, lastIndex2 ));
 
       // Color currentIndex1
-      tmpRGBColor=tmpLCH1.calcRGBColor();
+      tmpRGBColor=tmpHSV1.calcRGBColor();
       if(doColorblindnessSim){
         var tmpLMS = tmpRGBColor.calcLMSColor();
         tmpRGBColor = tmpLMS.calcColorBlindRGBColor();
@@ -116,7 +116,7 @@ function lchMesh(){
       geometry.faces[geometry.faces.length-4].vertexColors[0] = new THREE.Color(tmpRGBColor.getRGBString());
 
       // Color currentIndex2
-      tmpRGBColor=tmpLCH2.calcRGBColor();
+      tmpRGBColor=tmpHSV2.calcRGBColor();
       if(doColorblindnessSim){
         var tmpLMS = tmpRGBColor.calcLMSColor();
         tmpRGBColor = tmpLMS.calcColorBlindRGBColor();
@@ -147,8 +147,8 @@ function lchMesh(){
 
     }
     else {
-      firstColor1= new class_Color_LCH(tmpLCH1.get1Value(),tmpLCH1.get2Value(),tmpLCH1.get3Value());
-      firstColor2= new class_Color_LCH(tmpLCH2.get1Value(),tmpLCH2.get2Value(),tmpLCH2.get3Value());
+      firstColor1= new class_Color_HSV(tmpHSV1.get1Value(),tmpHSV1.get2Value(),tmpHSV1.get3Value());
+      firstColor2= new class_Color_HSV(tmpHSV2.get1Value(),tmpHSV2.get2Value(),tmpHSV2.get3Value());
     }
 
     if(hStep==numberParticelsPerCircle-1){
@@ -206,7 +206,7 @@ function lchMesh(){
       geometry.faces[geometry.faces.length-3].vertexColors[0] = new THREE.Color(tmpRGBColor.getRGBString());
 
       // Color currentIndex1
-      tmpRGBColor=tmpLCH1.calcRGBColor();
+      tmpRGBColor=tmpHSV1.calcRGBColor();
       if(doColorblindnessSim){
         var tmpLMS = tmpRGBColor.calcLMSColor();
         tmpRGBColor = tmpLMS.calcColorBlindRGBColor();
@@ -215,7 +215,7 @@ function lchMesh(){
       geometry.faces[geometry.faces.length-4].vertexColors[2] = new THREE.Color(tmpRGBColor.getRGBString());
 
       // Color currentIndex2
-      tmpRGBColor=tmpLCH2.calcRGBColor();
+      tmpRGBColor=tmpHSV2.calcRGBColor();
       if(doColorblindnessSim){
         var tmpLMS = tmpRGBColor.calcLMSColor();
         tmpRGBColor = tmpLMS.calcColorBlindRGBColor();
@@ -225,8 +225,8 @@ function lchMesh(){
       geometry.faces[geometry.faces.length-3].vertexColors[1] = new THREE.Color(tmpRGBColor.getRGBString());
     }
 
-    lastColor1= new class_Color_LCH(tmpLCH1.get1Value(),tmpLCH1.get2Value(),tmpLCH1.get3Value());
-    lastColor2= new class_Color_LCH(tmpLCH2.get1Value(),tmpLCH2.get2Value(),tmpLCH2.get3Value());
+    lastColor1= new class_Color_HSV(tmpHSV1.get1Value(),tmpHSV1.get2Value(),tmpHSV1.get3Value());
+    lastColor2= new class_Color_HSV(tmpHSV2.get1Value(),tmpHSV2.get2Value(),tmpHSV2.get3Value());
 
   }
 
@@ -245,6 +245,8 @@ function lchMesh(){
 
         geometry.computeFaceNormals();
 
+
+
         var material = new THREE.MeshBasicMaterial( {
                       /*side: THREE.DoubleSide,*/
                       opacity: planesOpacity,
@@ -257,10 +259,12 @@ function lchMesh(){
 
 
 
-        var meshLCH = new THREE.Mesh(geometry, material);
-        meshLCH.position.x = 0;
-        meshLCH.position.y = 0;
-        meshLCH.position.z = 0;
-        colorspaceGroup.add(meshLCH);
+        var meshHSV = new THREE.Mesh(geometry, material);
+        meshHSV.position.x = 0;
+        meshHSV.position.y = 0;
+        meshHSV.position.z = 0;
+        colorspaceGroup.add(meshHSV);
+
+        return colorspaceGroup;
 
 }

@@ -7,6 +7,11 @@ var textHeight = 2.5;
 var circleRad3D = 5;
 var bigcircleRad3D = 10;
 
+var pathplotFontColor = "rgb(10, 10, 10)";
+var planesOpacity = 0.75;
+var lineOpacity = 0.35;
+var space_opacity=0.5;
+
 // Lab
 var positionsLAB=[];
 var labABMax = 0;
@@ -32,16 +37,12 @@ var vEnd3D = 100;
 
 
 
-  , , stats,
-  var radius = 400;
+/*  , , stats,
+  var radius = 400;*/
 
-  var cameraLight;
+  var pp_cameraLight;
 
 
   var bg_texture_pathplot;
   var bgWidth_pathplot;
   var bgHeight_pathplot;
-
-
-  var planesOpacity = 0.75;
-  var lineOpacity = 0.35;

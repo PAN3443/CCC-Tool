@@ -286,7 +286,7 @@ function initColorpickerBackground() {
 
           var colorRGB = new class_Color_RGB(rVal, gVal, bVal);
 
-          if (editSection.getColorblindnessInfo()) {
+          if (doColorblindnessSim) {
             var tmpLMS = colorRGB.calcLMSColor();
             colorRGB.deleteReferences();
             colorRGB = tmpLMS.calcColorBlindRGBColor();
@@ -324,7 +324,7 @@ function initColorpickerBackground() {
 
           var colorRGB = new class_Color_RGB(rVal, gVal, bVal);
 
-          if (editSection.getColorblindnessInfo()) {
+          if (doColorblindnessSim) {
             var tmpLMS = colorRGB.calcLMSColor();
             colorRGB.deleteReferences();
             colorRGB = tmpLMS.calcColorBlindRGBColor();
@@ -361,7 +361,7 @@ function initColorpickerBackground() {
 
           var colorRGB = new class_Color_RGB(rVal, gVal, bVal);
 
-          if (editSection.getColorblindnessInfo()) {
+          if (doColorblindnessSim) {
             var tmpLMS = colorRGB.calcLMSColor();
             colorRGB.deleteReferences();
             colorRGB = tmpLMS.calcColorBlindRGBColor();
@@ -399,7 +399,7 @@ function initColorpickerBackground() {
           var colorHSV = new class_Color_HSV(hVal, sVal, vVal);
           var colorRGB = colorHSV.calcRGBColor();
 
-          if (editSection.getColorblindnessInfo()) {
+          if (doColorblindnessSim) {
             var tmpLMS = colorRGB.calcLMSColor();
             colorRGB.deleteReferences();
             colorRGB = tmpLMS.calcColorBlindRGBColor();
@@ -439,7 +439,7 @@ function initColorpickerBackground() {
           var colorHSV = new class_Color_HSV(hVal, sVal, vVal);
           var colorRGB = colorHSV.calcRGBColor();
 
-          if (editSection.getColorblindnessInfo()) {
+          if (doColorblindnessSim) {
             var tmpLMS = colorRGB.calcLMSColor();
             colorRGB.deleteReferences();
             colorRGB = tmpLMS.calcColorBlindRGBColor();
@@ -478,7 +478,7 @@ function initColorpickerBackground() {
           var colorHSV = new class_Color_HSV(hVal, sVal, vVal);
           var colorRGB = colorHSV.calcRGBColor();
 
-          if (editSection.getColorblindnessInfo()) {
+          if (doColorblindnessSim) {
             var tmpLMS = colorRGB.calcLMSColor();
             colorRGB.deleteReferences();
             colorRGB = tmpLMS.calcColorBlindRGBColor();
@@ -599,7 +599,7 @@ function initColorPickerVBarBackground() {
 
   if (colorpickerType != "SV_H") {
 
-    if (editSection.getColorblindnessInfo()) {
+    if (doColorblindnessSim) {
       var tmpLMS = colorRGB1.calcLMSColor();
       colorRGB1.deleteReferences();
       colorRGB1 = tmpLMS.calcColorBlindRGBColor();
@@ -633,7 +633,7 @@ function initColorPickerVBarBackground() {
         var cRGB = cHSV.calcRGBColor();
         cHSV.deleteReferences();
         cHSV = null;
-        if (editSection.getColorblindnessInfo()) {
+        if (doColorblindnessSim) {
           var tmpLMS = cRGB.calcLMSColor();
           cRGB.deleteReferences();
           cRGB = tmpLMS.calcColorBlindRGBColor();

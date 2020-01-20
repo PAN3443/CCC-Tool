@@ -3,7 +3,6 @@
 
 //////////////////////////////////////
 var labSpaceRange = 128;
-//var din99SpaceRange = 156;
 
 var lineWidth3D = 3;
 
@@ -36,11 +35,8 @@ var vPlotxEnd = Math.round(vPlotWidth * 0.85);
 var heigthVArea = vPlotyStart - vPlotyEnd;
 var plotwidth = vPlotxEnd - vPlotxStart;
 
-
-var pathplotFontColor = "rgb(10, 10, 10)";
-
 var useWorkerForPathplot = false;
-var pathplotIntervalDelta_rgb = 0.1; // hsv and rgb are values from 0 till 1.0 
+var pathplotIntervalDelta_rgb = 0.1; // hsv and rgb are values from 0 till 1.0
 var pathplotIntervalDelta_hsv = 0.1; //
 var pathplotIntervalDelta_lab = 5;
 var pathplotIntervalDelta_lch = 5;

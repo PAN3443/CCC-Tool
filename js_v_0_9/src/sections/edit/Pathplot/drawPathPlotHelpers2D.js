@@ -10,11 +10,13 @@ function updateVPlotData(){
 }
 
 
-function drawElement(colorString,colorspaceContex,xPos,yPos, index, colorside, circle){
+function drawElement(colorString,colorspaceContex,xPos,yPos, index, colorside, circle,mouseAboveKeyID,mouseGrappedColorSide){
   // draw circle
-
   colorspaceContex.setLineDash([]);
-
+  var circleRad = Math.round(colorspaceContex.canvas.clientHeight*0.015);
+  var bigcircleRad = Math.round(colorspaceContex.canvas.clientHeight*0.03);
+  var smallLineWidth = Math.round(colorspaceContex.canvas.clientHeight*0.005);
+  
   if(circle){
     colorspaceContex.beginPath();
     if(index==mouseAboveKeyID && colorside==mouseGrappedColorSide)
@@ -53,18 +55,17 @@ function drawElement(colorString,colorspaceContex,xPos,yPos, index, colorside, c
 }
 
 function drawLine(colorspaceContex,xPos,yPos,xPos2,yPos2){
-
   //if(dashed)
   colorspaceContex.setLineDash([15,10]);
   //else
   //colorspaceContex.setLineDash([]);
   colorspaceContex.beginPath();
-  colorspaceContex.lineWidth=bigLineWidth;
+  colorspaceContex.lineWidth=Math.round(colorspaceContex.canvas.clientHeight*0.01);
   colorspaceContex.moveTo(xPos, yPos);
   colorspaceContex.lineTo(xPos2, yPos2);
   colorspaceContex.strokeStyle = 'rgb(0,0,0)';
   colorspaceContex.stroke();
-  colorspaceContex.lineWidth=smallLineWidth;
+  colorspaceContex.lineWidth=Math.round(colorspaceContex.canvas.clientHeight*0.005);
   colorspaceContex.strokeStyle = 'rgb(255,255,255)';
   colorspaceContex.stroke();
 }

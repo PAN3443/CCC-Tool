@@ -998,7 +998,7 @@ class class_CMS {
       var elementwidth = pos2 - pos1;*/
 
       var linearKey_xPos = Math.round((this.getRefPosition(i) - this.getRefPosition(0)) / (this.getRefPosition(this.getKeyLength()-1) - this.getRefPosition(0)) * canvasObject.width);
-      var elementwidth = Math.round((this.getRefPosition(i+1) - this.getRefPosition(i)) / (this.getRefPosition(this.getKeyLength()-1) - this.getRefPosition(0)) * canvasObject.width);
+      var elementwidth = Math.round((this.getRefPosition(i+1) - this.getRefPosition(i)) / (this.getRefPosition(this.getKeyLength()-1) - this.getRefPosition(0)) * canvasObject.width)+1; // plus 1 because sometimes a pixel column is empty
 
       switch (this.getKeyType(i)) {
         case "nil key": case "left key":
@@ -1072,7 +1072,7 @@ class class_CMS {
       var elementheight = pos2 - pos1;*/
 
       var linearKey_yPos = Math.round((this.getRefPosition(i) - this.getRefPosition(0)) / (this.getRefPosition(this.getKeyLength()-1) - this.getRefPosition(0)) * canvasObject.height);
-      var elementheight = Math.round((this.getRefPosition(i+1) - this.getRefPosition(i)) / (this.getRefPosition(this.getKeyLength()-1) - this.getRefPosition(0)) * canvasObject.height);
+      var elementheight = Math.round((this.getRefPosition(i+1) - this.getRefPosition(i)) / (this.getRefPosition(this.getKeyLength()-1) - this.getRefPosition(0)) * canvasObject.height)+1; // plus 1 because sometimes a pixel row is empty
 
       switch (this.getKeyType(i)) {
         case "nil key": case "left key":

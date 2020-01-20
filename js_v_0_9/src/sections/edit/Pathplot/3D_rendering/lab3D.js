@@ -1,15 +1,15 @@
-function labMesh(){
+function labMesh(colorspaceGroup){
 
   for (var i = colorspaceGroup.children.length - 1; i >= 0; i--) {
     colorspaceGroup.remove(colorspaceGroup.children[i]);
   }
-
 
   if(positionsLAB.length!=0){
         var labMesh = lab3DMesh();
         colorspaceGroup.add(labMesh[0]);
         colorspaceGroup.add(labMesh[1]);
   }
+  return colorspaceGroup;
 }
 
 

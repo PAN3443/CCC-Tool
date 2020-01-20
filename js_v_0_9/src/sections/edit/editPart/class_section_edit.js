@@ -206,6 +206,14 @@ class class_Edit_Section extends class_Edit_Basis_Section {
     return numberPAM;
   }
 
+  pp_3D_Animation(){
+    //test
+    if(editSection.pp_doAnimation){
+      editSection.pp_animationID = requestAnimationFrame(editSection.pp_3D_Animation);
+    	editSection.pp_3D_Render();
+    }//*/
+  }
+
   ////////////////////////////////////////////////////////////////////////////
   ////////////           (START )Update Section                   ////////////
   ////////////////////////////////////////////////////////////////////////////
@@ -297,9 +305,16 @@ class class_Edit_Section extends class_Edit_Basis_Section {
   }
 
   updatePathPlot(){
-    if(!this.showPathplot)
+    if(!this.showPathplot){
+      if(this.pp_doAnimation)
+        this.pp_3D_StopAnimation();
       return;
-      super.updatePathPlot();
+    }
+
+    if(!this.pp_doAnimation && document.getElementById(this.sectionID).style.display!=="none")
+      this.pp_3D_StartAnimation();
+
+    super.updatePathPlot();
     // do something
   }
 
@@ -393,7 +408,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
       iDiv.className = 'class_predefinedConstBands';
       iDiv.setAttribute('draggable', true);
 
-      if (this.doColorblindnessSim) {
+      if (doColorblindnessSim) {
         var tmpLMS = this.constBands[i].calcLMSColor();
         var toolColor = tmpLMS.calcColorBlindRGBColor();
         iDiv.style.background = toolColor.getRGBString();
@@ -967,7 +982,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
                 divLeft.appendChild(svg);
                 if(doColorPicker)
                   divRight.style.cursor = "pointer";
-                var tmpColor = this.editCMS.getRightKeyColorCB(keyIndex,this.doColorblindnessSim);
+                var tmpColor = this.editCMS.getRightKeyColorCB(keyIndex,doColorblindnessSim);
                 divRight.style.background = tmpColor.getRGBString();
                 tmpColor.deleteReferences();
                 tmpColor=null;
@@ -975,26 +990,26 @@ class class_Edit_Section extends class_Edit_Basis_Section {
               case "twin key":
               if(doColorPicker)
                 divLeft.style.cursor = "pointer";
-              var tmpColor = this.editCMS.getLeftKeyColorCB(keyIndex,this.doColorblindnessSim);
+              var tmpColor = this.editCMS.getLeftKeyColorCB(keyIndex,doColorblindnessSim);
               divLeft.style.background = tmpColor.getRGBString();
               tmpColor.deleteReferences();
               tmpColor=null;
               if(doColorPicker)
                 divRight.style.cursor = "pointer";
-              var tmpColor2 = this.editCMS.getRightKeyColorCB(keyIndex,this.doColorblindnessSim);
+              var tmpColor2 = this.editCMS.getRightKeyColorCB(keyIndex,doColorblindnessSim);
               divRight.style.background = tmpColor2.getRGBString();
               tmpColor2.deleteReferences();
               tmpColor2=null;
 
               if(this.editCMS.getMoT(keyIndex)){
                   // right color is middle of triple
-                  var tmpColor3 = this.editCMS.getRightKeyColorCB(keyIndex,this.doColorblindnessSim);
+                  var tmpColor3 = this.editCMS.getRightKeyColorCB(keyIndex,doColorblindnessSim);
                   divTop.style.background = tmpColor3.getRGBString();
                   tmpColor3.deleteReferences();
                   tmpColor3=null;
               }
               else{
-                  var tmpColor3 = this.editCMS.getLeftKeyColorCB(keyIndex,this.doColorblindnessSim);
+                  var tmpColor3 = this.editCMS.getLeftKeyColorCB(keyIndex,doColorblindnessSim);
                   divTop.style.background = tmpColor3.getRGBString();
                   tmpColor3.deleteReferences();
                   tmpColor3=null;
@@ -1006,7 +1021,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
 
                 if(doColorPicker)
                   divLeft.style.cursor = "pointer";
-                var tmpColor = this.editCMS.getLeftKeyColorCB(keyIndex,this.doColorblindnessSim);
+                var tmpColor = this.editCMS.getLeftKeyColorCB(keyIndex,doColorblindnessSim);
                 divLeft.style.background = tmpColor.getRGBString();
                 tmpColor.deleteReferences();
                 tmpColor=null;
@@ -1018,13 +1033,13 @@ class class_Edit_Section extends class_Edit_Basis_Section {
                 else{
                   if(this.editCMS.getMoT(keyIndex)){
                       // right color is middle of triple
-                      var tmpColor2 = this.editCMS.getLeftKeyColorCB(keyIndex+1,this.doColorblindnessSim);
+                      var tmpColor2 = this.editCMS.getLeftKeyColorCB(keyIndex+1,doColorblindnessSim);
                       divTop.style.background = tmpColor2.getRGBString();
                       tmpColor2.deleteReferences();
                       tmpColor2=null;
                   }
                   else{
-                      var tmpColor2 = this.editCMS.getLeftKeyColorCB(keyIndex,this.doColorblindnessSim);
+                      var tmpColor2 = this.editCMS.getLeftKeyColorCB(keyIndex,doColorblindnessSim);
                       divTop.style.background = tmpColor2.getRGBString();
                       tmpColor2.deleteReferences();
                       tmpColor2=null;
@@ -1048,7 +1063,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
       divDual.style.width = '100%';
       divDual.style.height = "100%";
 
-      var tmpColor = this.editCMS.getLeftKeyColorCB(keyIndex,this.doColorblindnessSim);
+      var tmpColor = this.editCMS.getLeftKeyColorCB(keyIndex,doColorblindnessSim);
       divDual.style.background = tmpColor.getRGBString();
       tmpColor.deleteReferences();
       tmpColor=null;

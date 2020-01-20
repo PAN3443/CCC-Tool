@@ -1,44 +1,36 @@
-
-
 function drawGRBackground(canvasContex,fixedColor){
-
-  canvasContex.clearRect(0, 0, pathPlotResolution, pathPlotResolution);
-  var canvasData =  getRGBBackground( fixedColor, "GR"); //canvasContex.getImageData(0, 0, pathPlotResolution, pathPlotResolution);
+  canvasContex.clearRect(0, 0, canvasContex.canvas.clientWidth, canvasContex.canvas.clientHeight);
+  var canvasData =  getRGBBackground( fixedColor,canvasContex.canvas.clientWidth, "GR"); //canvasContex.getImageData(0, 0, hueResolution, hueResolution);
 
   canvasContex.putImageData(canvasData, 0, 0); // update ColorspaceCanvas;
-  rgbPlot(canvasContex,  "G", "R");
+  rgbPlot(canvasContex, canvasContex.canvas.clientWidth, "G", "R");
 }
-
 
 function drawBRBackground(canvasContex,fixedColor){
 
-  canvasContex.clearRect(0, 0, pathPlotResolution, pathPlotResolution);
-  var canvasData = getRGBBackground( fixedColor,"BR");
+  canvasContex.clearRect(0, 0, canvasContex.canvas.clientWidth, canvasContex.canvas.clientHeight);
+  var canvasData = getRGBBackground( fixedColor,canvasContex.canvas.clientWidth,"BR");
 
   canvasContex.putImageData(canvasData, 0, 0); // update ColorspaceCanvas;
-  rgbPlot(canvasContex,  "B", "R");
+  rgbPlot(canvasContex, canvasContex.canvas.clientWidth, "B", "R");
 }
 
 function drawGBBackground(canvasContex,fixedColor){
-
-
-  canvasContex.clearRect(0, 0, pathPlotResolution, pathPlotResolution);
-  var canvasData = getRGBBackground( fixedColor,"GB");
+  canvasContex.clearRect(0, 0, canvasContex.canvas.clientWidth, canvasContex.canvas.clientHeight);
+  var canvasData = getRGBBackground( fixedColor,canvasContex.canvas.clientWidth,"GB");
 
   canvasContex.putImageData(canvasData, 0, 0); // update ColorspaceCanvas;
-  rgbPlot(canvasContex,  "G", "B");
+  rgbPlot(canvasContex, canvasContex.canvas.clientWidth, "G", "B");
 }
 
-function getRGBBackground(fixedColor, type){
+function getRGBBackground(fixedColor,hueResolution, type){
 
-
-  var xStart = pathPlotResolution * 0.1;
-  var yStart = pathPlotResolution * 0.9;
-  var xEnd = pathPlotResolution * 0.8;
-  var yEnd = pathPlotResolution * 0.2;
+  var xStart = hueResolution * 0.1;
+  var yStart = hueResolution * 0.9;
+  var xEnd = hueResolution * 0.8;
+  var yEnd = hueResolution * 0.2;
   var xWidth = xEnd - xStart;
   var yHeight = yStart - yEnd;
-
 
   var fixedValue = 0;
 
@@ -58,15 +50,15 @@ function getRGBBackground(fixedColor, type){
 
   var tmpRGB= new class_Color_RGB(1,1,1);
 
-  var background = new ImageData(pathPlotResolution, pathPlotResolution);
+  var background = new ImageData(hueResolution, hueResolution);
 
-  for (var x = 0; x < pathPlotResolution; x++) {
+  for (var x = 0; x < hueResolution; x++) {
 
-    for (var y = 0; y < pathPlotResolution; y++) {
+    for (var y = 0; y < hueResolution; y++) {
 
       if (x >= xStart && x <= xEnd && y <= yStart && y >= yEnd) {
         // calc hsv color
-        var indices = getColorIndicesForCoord(x, y, pathPlotResolution);
+        var indices = getColorIndicesForCoord(x, y, hueResolution);
 
         var xVal = (x - xStart) / xWidth;
         var yVal = (yStart - y) / yHeight;
@@ -114,21 +106,19 @@ function getRGBBackground(fixedColor, type){
   return background;
 }
 
+function rgbPlot(context, hueResolution, xlabel, ylabel) {
 
-
-function rgbPlot(context, xlabel, ylabel) {
-
-  var yStart = Math.round(pathPlotResolution * 0.9);
-  var yEnd = Math.round(pathPlotResolution * 0.2);
-  var yEndLine = Math.round(pathPlotResolution * 0.15);
-  var yEndArrow = Math.round(pathPlotResolution * 0.1);
+  var yStart = Math.round(hueResolution * 0.9);
+  var yEnd = Math.round(hueResolution * 0.2);
+  var yEndLine = Math.round(hueResolution * 0.15);
+  var yEndArrow = Math.round(hueResolution * 0.1);
   var arrowHeight = Math.round((yEndLine - yEndArrow) * 0.75);
   var labelFontSize = arrowHeight * 0.85;
   var labelFontSizeSmall = arrowHeight * 0.75;
-  var xStart = Math.round(pathPlotResolution * 0.1);
-  var xEnd = Math.round(pathPlotResolution * 0.8);
-  var xEndLine = Math.round(pathPlotResolution * 0.85);
-  var xEndArrow = Math.round(pathPlotResolution * 0.9);
+  var xStart = Math.round(hueResolution * 0.1);
+  var xEnd = Math.round(hueResolution * 0.8);
+  var xEndLine = Math.round(hueResolution * 0.85);
+  var xEndArrow = Math.round(hueResolution * 0.9);
 
 
   var lineColor = pathplotFontColor;
@@ -143,7 +133,7 @@ function rgbPlot(context, xlabel, ylabel) {
 
 
   var xPosPos;
-  var yPos = pathPlotResolution * 0.93;
+  var yPos = hueResolution * 0.93;
   context.font = labelFontSizeSmall + "px Arial";
 
   var steps = 5;
@@ -161,7 +151,7 @@ function rgbPlot(context, xlabel, ylabel) {
     context.fillText(text, xPosPos, yPos + labelFontSizeSmall);
   }
 
-  xPosPos = Math.round(pathPlotResolution * 0.07);
+  xPosPos = Math.round(hueResolution * 0.07);
   yPos = yStart;
   context.font = labelFontSizeSmall + "px Arial";
 
@@ -185,7 +175,7 @@ function rgbPlot(context, xlabel, ylabel) {
   ////////////////////////////////////////////////////////////
   context.strokeStyle = arrowFontColor;
   context.beginPath();
-  context.lineWidth = lineWidthVPlot;
+  context.lineWidth = Math.round(hueResolution * 0.01);
   context.moveTo(xStart, yStart);
   context.lineTo(xEndLine, yStart);
   context.stroke();
@@ -202,7 +192,7 @@ function rgbPlot(context, xlabel, ylabel) {
   context.fill();
 
   context.beginPath();
-  context.lineWidth = lineWidthVPlot;
+  context.lineWidth = Math.round(hueResolution * 0.01);
   context.moveTo(xStart, yStart);
   context.lineTo(xStart, yEndLine);
   context.stroke();
@@ -226,10 +216,7 @@ function rgbPlot(context, xlabel, ylabel) {
 
 }
 
-
-
 ///////////////////////////////////////////////////////////////////////////////
-
 
 function drawVPlot(vPlotContex, startValue, endValue){
 
@@ -275,7 +262,7 @@ function drawVPlot(vPlotContex, startValue, endValue){
     xPosPos = xStart + ((globalCMS1.getRefPosition(i) - globalCMS1.getRefPosition(0)) / widthVArea) * plotwidth;
 
     vPlotContex.beginPath();
-    vPlotContex.lineWidth = Math.round(lineWidthVPlot / 2);
+    vPlotContex.lineWidth = Math.round(Math.round(hueResolution * 0.01) / 2);
     vPlotContex.moveTo(xPosPos, yStart);
     vPlotContex.lineTo(xPosPos, vPlotHeight * 0.93);
     vPlotContex.strokeStyle = lineColor;
@@ -309,7 +296,7 @@ function drawVPlot(vPlotContex, startValue, endValue){
 
   vPlotContex.strokeStyle = arrowFontColor;
   vPlotContex.beginPath();
-  vPlotContex.lineWidth = lineWidthVPlot;
+  vPlotContex.lineWidth = Math.round(hueResolution * 0.01);
   vPlotContex.moveTo(xStart, yStart);
   vPlotContex.lineTo(xEndLine, yStart);
   vPlotContex.stroke();
@@ -326,7 +313,7 @@ function drawVPlot(vPlotContex, startValue, endValue){
   vPlotContex.fill();
 
   vPlotContex.beginPath();
-  vPlotContex.lineWidth = lineWidthVPlot;
+  vPlotContex.lineWidth = Math.round(hueResolution * 0.01);
   vPlotContex.moveTo(xStart, yStart);
   vPlotContex.lineTo(xStart, yEndLine);
   vPlotContex.stroke();
@@ -347,21 +334,18 @@ function drawVPlot(vPlotContex, startValue, endValue){
 }
 
 function drawHSVBackground(canvasContex,fixedColor){
-
-  canvasContex.clearRect(0, 0, pathPlotResolution, pathPlotResolution);
-
-  var colorspaceBackgroundData = getHSVBackground( fixedColor);//canvasContex.getImageData(0, 0, pathPlotResolution, pathPlotResolution);
+  canvasContex.clearRect(0, 0, canvasContex.canvas.clientWidth, canvasContex.canvas.clientHeight);
+  var colorspaceBackgroundData = getHSVBackground( fixedColor,canvasContex.canvas.clientHeight);//canvasContex.getImageData(0, 0, hueResolution, hueResolution);
   canvasContex.putImageData(colorspaceBackgroundData, 0, 0); // update ColorspaceCanvas;
-
 }
 
-function getHSVBackground( fixedColor){
+function getHSVBackground( fixedColor,hueResolution){
 
-  var background = new ImageData(pathPlotResolution, pathPlotResolution);
+  var background = new ImageData(hueResolution, hueResolution);
 
-  var colorspaceCenterX = Math.round(pathPlotResolution / 2);
-  var colorspaceCenterY = Math.round(pathPlotResolution / 2);
-  var colorspaceRadius = Math.round((pathPlotResolution / 2));// * radiusratio);
+  var colorspaceCenterX = Math.round(hueResolution / 2);
+  var colorspaceCenterY = Math.round(hueResolution / 2);
+  var colorspaceRadius = Math.round((hueResolution / 2));// * radiusratio);
 
   var vVal = 1.0;
 
@@ -369,16 +353,16 @@ function getHSVBackground( fixedColor){
     vVal=fixedColor.getVValue();
 
   var colorRGB;
-  for (var x = 0; x < pathPlotResolution; x++) {
+  for (var x = 0; x < hueResolution; x++) {
 
-    for (var y = 0; y < pathPlotResolution; y++) {
+    for (var y = 0; y < hueResolution; y++) {
 
       var dis = Math.sqrt(Math.pow(colorspaceCenterX - x, 2) + Math.pow(colorspaceCenterY - y, 2));
 
       if (dis <= colorspaceRadius) {
         // calc hsv color
 
-        var tmpY= pathPlotResolution-y;
+        var tmpY= hueResolution-y;
         var ty = (tmpY) - (colorspaceCenterY);
         var tx = x - colorspaceCenterX;
         var angle = atan2_360Degree(tx,ty)/360; // values 0-1 ...
@@ -393,7 +377,7 @@ function getHSVBackground( fixedColor){
           colorRGB = tmpLMS.calcColorBlindRGBColor();
         }
 
-        var indices = getColorIndicesForCoord(x, y, pathPlotResolution);
+        var indices = getColorIndicesForCoord(x, y, hueResolution);
 
         background.data[indices[0]] = Math.round(colorRGB.get1Value() * 255); // r
         background.data[indices[1]] = Math.round(colorRGB.get2Value() * 255); // g
@@ -411,27 +395,17 @@ function getHSVBackground( fixedColor){
 }
 
 function drawLabBackground(canvasContex,fixedColor){
-  canvasContex.clearRect(0, 0, pathPlotResolution, pathPlotResolution);
-  /*canvasContex.mozImageSmoothingEnabled = false;
-  canvasContex.webkitImageSmoothingEnabled = false;
-  canvasContex.msImageSmoothingEnabled = false;
-  canvasContex.imageSmoothingEnabled = false; // did not work !?!?!
-  canvasContex.oImageSmoothingEnabled = false;*/
-
-  var colorspaceBackgroundData = getLabBackground( fixedColor);//canvasContex.getImageData(0, 0, pathPlotResolution, pathPlotResolution);
-
-
-
+  canvasContex.clearRect(0, 0, canvasContex.canvas.clientWidth, canvasContex.canvas.clientHeight);
+  var colorspaceBackgroundData = getLabBackground( fixedColor,canvasContex.canvas.clientHeight);//canvasContex.getImageData(0, 0, hueResolution, hueResolution);
   canvasContex.putImageData(colorspaceBackgroundData, 0, 0); // update ColorspaceCanvas;
-
 }
 
-function getLabBackground( fixedColor){
-  var background = new ImageData(pathPlotResolution, pathPlotResolution);
+function getLabBackground(fixedColor,hueResolution){
+  var background = new ImageData(hueResolution, hueResolution);
 
-  var colorspaceCenterX = Math.round(pathPlotResolution / 2);
-  var colorspaceCenterY = Math.round(pathPlotResolution / 2);
-  var colorspaceRadius = Math.round((pathPlotResolution / 2));// * radiusratio);
+  var colorspaceCenterX = Math.round(hueResolution / 2);
+  var colorspaceCenterY = Math.round(hueResolution / 2);
+  var colorspaceRadius = Math.round((hueResolution / 2));// * radiusratio);
 
   var errorRGBColor = new class_Color_RGB(0.5, 0.5, 0.5);
 
@@ -440,16 +414,16 @@ function getLabBackground( fixedColor){
   if (fixedColor!=undefined)
     lVal=fixedColor.getLValue();
 
-  for (var x = 0; x < pathPlotResolution; x++) {
+  for (var x = 0; x < hueResolution; x++) {
 
-    for (var y = 0; y < pathPlotResolution; y++) {
+    for (var y = 0; y < hueResolution; y++) {
 
         // calc hsv color
         var colorRGB;
 
-        var tmpY = pathPlotResolution-y;
-        var aVal = ((x - colorspaceCenterX) / (pathPlotResolution / 2)) * labSpaceRange;
-        var bVal = ((tmpY - colorspaceCenterY) / (pathPlotResolution / 2)) * labSpaceRange;
+        var tmpY = hueResolution-y;
+        var aVal = ((x - colorspaceCenterX) / (hueResolution / 2)) * labSpaceRange;
+        var bVal = ((tmpY - colorspaceCenterY) / (hueResolution / 2)) * labSpaceRange;
 
         var colorLAB = new class_Color_LAB(lVal, aVal, bVal);
         colorRGB = colorLAB.calcRGBColor();
@@ -468,7 +442,7 @@ function getLabBackground( fixedColor){
           colorRGB = tmpLMS.calcColorBlindRGBColor();
         }
 
-        var indices = getColorIndicesForCoord(x, y, pathPlotResolution);
+        var indices = getColorIndicesForCoord(x, y, hueResolution);
 
         background.data[indices[0]] = Math.round(colorRGB.get1Value() * 255); // r
         background.data[indices[1]] = Math.round(colorRGB.get2Value() * 255); // g
@@ -484,28 +458,23 @@ function getLabBackground( fixedColor){
 
 function drawDIN99Background(canvasContex,fixedColor){
 
-  canvasContex.clearRect(0, 0, pathPlotResolution, pathPlotResolution);
-  /*canvasContex.mozImageSmoothingEnabled = false;
-  canvasContex.webkitImageSmoothingEnabled = false;
-  canvasContex.msImageSmoothingEnabled = false;
-  canvasContex.imageSmoothingEnabled = false; // did not work !?!?!
-  canvasContex.oImageSmoothingEnabled = false;*/
+  canvasContex.clearRect(0, 0, canvasContex.canvas.clientWidth, canvasContex.canvas.clientHeight);
 
-  var colorspaceBackgroundData = getDIN99Background( fixedColor);//canvasContex.getImageData(0, 0, pathPlotResolution, pathPlotResolution);
+  var colorspaceBackgroundData = getDIN99Background( fixedColor,canvasContex.canvas.clientHeight);//canvasContex.getImageData(0, 0, hueResolution, hueResolution);
 
   canvasContex.putImageData(colorspaceBackgroundData, 0, 0); // update ColorspaceCanvas;
 
 }
 
-function getDIN99Background( fixedColor){
-  var background = new ImageData(pathPlotResolution, pathPlotResolution);
+function getDIN99Background(fixedColor,hueResolution){
+  var background = new ImageData(hueResolution, hueResolution);
 
   rangeA99 = rangeA99Pos - rangeA99Neg;
   rangeB99 = rangeB99Pos - rangeB99Neg;
 
-  var colorspaceCenterX = Math.round(pathPlotResolution / 2);
-  var colorspaceCenterY = Math.round(pathPlotResolution / 2);
-  var colorspaceRadius = Math.round((pathPlotResolution / 2));// * radiusratio);
+  var colorspaceCenterX = Math.round(hueResolution / 2);
+  var colorspaceCenterY = Math.round(hueResolution / 2);
+  var colorspaceRadius = Math.round((hueResolution / 2));// * radiusratio);
 
   var errorRGBColor = new class_Color_RGB(0.5, 0.5, 0.5);
 
@@ -516,13 +485,13 @@ function getDIN99Background( fixedColor){
 
   var colorRGB;
 
-  for (var x = 0; x < pathPlotResolution; x++) {
+  for (var x = 0; x < hueResolution; x++) {
 
-    for (var y = 0; y < pathPlotResolution; y++) {
+    for (var y = 0; y < hueResolution; y++) {
 
-        var tmpY = pathPlotResolution-y;
-        var a99Val = (x  / pathPlotResolution) * rangeA99 + rangeA99Neg;
-        var b99Val = (tmpY / pathPlotResolution) * rangeB99 + rangeB99Neg;
+        var tmpY = hueResolution-y;
+        var a99Val = (x  / hueResolution) * rangeA99 + rangeA99Neg;
+        var b99Val = (tmpY / hueResolution) * rangeB99 + rangeB99Neg;
 
         var colorDIN99 = new class_Color_DIN99(l99Val, a99Val, b99Val);
 
@@ -543,7 +512,7 @@ function getDIN99Background( fixedColor){
           colorRGB = tmpLMS.calcColorBlindRGBColor();
         }
 
-        var indices = getColorIndicesForCoord(x, y, pathPlotResolution);
+        var indices = getColorIndicesForCoord(x, y, hueResolution);
         background.data[indices[0]] = Math.round(colorRGB.get1Value() * 255); // r
         background.data[indices[1]] = Math.round(colorRGB.get2Value() * 255); // g
         background.data[indices[2]] = Math.round(colorRGB.get3Value() * 255); // b
@@ -555,25 +524,24 @@ function getDIN99Background( fixedColor){
   return background;
 }
 
-
 function drawLCHBackground(canvasContex,fixedColor){
 
-  canvasContex.clearRect(0, 0, pathPlotResolution, pathPlotResolution);
+  canvasContex.clearRect(0, 0, canvasContex.canvas.clientWidth, canvasContex.canvas.clientHeight);
 
-  var colorspaceBackgroundData = getLCHBackground(fixedColor);//canvasContex.getImageData(0, 0, pathPlotResolution, pathPlotResolution);
+  var colorspaceBackgroundData = getLCHBackground(fixedColor,canvasContex.canvas.clientHeight);//canvasContex.getImageData(0, 0, hueResolution, hueResolution);
   canvasContex.putImageData(colorspaceBackgroundData, 0, 0); // update ColorspaceCanvas;
 
 }
 
-function getLCHBackground(fixedColor){
+function getLCHBackground(fixedColor,hueResolution){
 
-  var background = new ImageData(pathPlotResolution, pathPlotResolution);
+  var background = new ImageData(hueResolution, hueResolution);
 
   var errorRGBColor = new class_Color_RGB(0.5, 0.5, 0.5);
 
-  var colorspaceCenterX = Math.round(pathPlotResolution / 2);
-  var colorspaceCenterY = Math.round(pathPlotResolution / 2);
-  var colorspaceRadius = Math.round((pathPlotResolution / 2));// * radiusratio);
+  var colorspaceCenterX = Math.round(hueResolution / 2);
+  var colorspaceCenterY = Math.round(hueResolution / 2);
+  var colorspaceRadius = Math.round((hueResolution / 2));// * radiusratio);
 
   var lVal = 0.50;
 
@@ -581,16 +549,16 @@ function getLCHBackground(fixedColor){
     lVal=fixedColor.getLValue();
 
   var colorRGB;
-  for (var x = 0; x < pathPlotResolution; x++) {
+  for (var x = 0; x < hueResolution; x++) {
 
-    for (var y = 0; y < pathPlotResolution; y++) {
+    for (var y = 0; y < hueResolution; y++) {
 
       var dis = Math.sqrt(Math.pow(colorspaceCenterX - x, 2) + Math.pow(colorspaceCenterY - y, 2));
 
       if (dis <= colorspaceRadius) {
         // calc hsv color
 
-        var tmpY= pathPlotResolution-y;
+        var tmpY= hueResolution-y;
         var ty = (tmpY) - (colorspaceCenterY);
         var tx = x - colorspaceCenterX;
         var angle = atan2_360Degree(tx,ty)/360; // values 0-1 ...
@@ -610,7 +578,7 @@ function getLCHBackground(fixedColor){
           colorRGB = tmpLMS.calcColorBlindRGBColor();
         }
 
-        var indices = getColorIndicesForCoord(x, y, pathPlotResolution);
+        var indices = getColorIndicesForCoord(x, y, hueResolution);
 
         background.data[indices[0]] = Math.round(colorRGB.get1Value() * 255); // r
         background.data[indices[1]] = Math.round(colorRGB.get2Value() * 255); // g

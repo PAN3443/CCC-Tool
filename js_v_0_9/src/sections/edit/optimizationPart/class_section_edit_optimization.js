@@ -36,5 +36,13 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
     this.updateSection(); // = update CMS, Mapping and Analyze Plots
   }
 
+  pp_3D_Animation(){
+    //test
+    if(optiSection.pp_doAnimation){
+      optiSection.pp_animationID = requestAnimationFrame(optiSection.pp_3D_Animation);
+    	optiSection.pp_3D_Render();
+    }//*/
+  }
+
 
 };

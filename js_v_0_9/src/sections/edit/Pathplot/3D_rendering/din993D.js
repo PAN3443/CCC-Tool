@@ -1,11 +1,8 @@
-function din99Mesh(){
+function din99Mesh(colorspaceGroup){
 
   for (var i = colorspaceGroup.children.length - 1; i >= 0; i--) {
     colorspaceGroup.remove(colorspaceGroup.children[i]);
   }
-
-
-
 
   if(positionsDIN99.length!=0){
 
@@ -328,4 +325,5 @@ function din99Mesh(){
 
   }
 
+  return colorspaceGroup;
 }

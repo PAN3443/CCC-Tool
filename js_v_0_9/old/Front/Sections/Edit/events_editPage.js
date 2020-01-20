@@ -30,7 +30,6 @@ function searchForContinuousSections(startKey, endKey){
     beforeConstant=true;
 
   for (var i = startKey; i <= endKey; i++) {
-
     switch (globalCMS1.getKeyType(i)) {
       case "nil key":
         beforeConstant=true;
@@ -65,11 +64,8 @@ function searchForContinuousSections(startKey, endKey){
             continuousSections.push([tmpStart,tmpEnd])
           }
         }
-
     }
-
   }
-
   return continuousSections;
 }
 

@@ -33,10 +33,7 @@ function init_events_EditPage(){
 
   initPathPlot();
 
-  document.getElementById('id_EditPage_PathPlot_3D_Div').addEventListener("mousemove", eventPathPlot3D_mousemove);
-  document.getElementById('id_EditPage_PathPlot_3D_Div').addEventListener("mouseleave", eventPathPlot3D_mouseleave);
-  document.getElementById('id_EditPage_PathPlot_3D_Div').addEventListener("mousedown", eventPathPlot3D_mousedown);
-  document.getElementById('id_EditPage_PathPlot_3D_Div').addEventListener("mouseup", eventPathPlot3D_mouseup);
+  
 
   // Edit Keys
     document.getElementById('id_EditPage_EditKey_List').addEventListener("click", selectKey);

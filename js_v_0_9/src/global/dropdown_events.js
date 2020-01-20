@@ -15,7 +15,10 @@ function initDropDowns(){
    refreshKeyValueEdit();
  };
  document.getElementById("id_EditPage_KeyValueEdit_dropdown").onmouseleave =  function() {document.getElementById("id_EditPage_KeyValueEdit_dropdown").style.display="none";};
-
+ //
+ document.getElementById("id_EditPage_PathplotSpaces").onclick =  function() {dropDownEvents("id_EditPage_PathplotSpaces", "id_EditPage_PP_Space_dropdown", false,false);};
+ document.getElementById("id_EditPage_PP_Space_dropdown").onmouseleave =  function() {document.getElementById("id_EditPage_PP_Space_dropdown").style.display="none";};
+ //
 
 }
 

@@ -122,13 +122,10 @@ document.getElementById("id_editPage_PathPlotSpaces_LCH").classList.add("class_T
       pathplotCanvasToHTMLSize();
 
     drawcolormap_RGBSpace(true,true);
-    rgbMesh();
 
   }
   else {
-
     document.getElementById('id_EditPage_PathPlot_SingleCanvasDiv').style.display = "block";
-
     switch (type) {
         case 1: // HSV
           document.getElementById("id_editPage_PathPlotSpaces_HSV").classList.remove("class_TabRowButtonNotActive");

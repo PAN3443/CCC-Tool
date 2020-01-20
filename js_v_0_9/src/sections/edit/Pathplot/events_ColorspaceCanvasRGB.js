@@ -24,13 +24,10 @@ function mouseLeaveColorspaceRGB(event) {
   }
 }
 
-
-
 function rgb2DAnimation(){
   updateEditPage();
   //drawcolormap_RGBSpace(false,true);
 }
-
 
 function getRGBXYPos(tmpColor,xWidth,yHeight,xStart,yStart,mode){
 
