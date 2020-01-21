@@ -48,10 +48,11 @@ window.onresize = function(event) {
 
     // if Edit Page is visible
     checkLandscapeWindow();
+    editSection.resize();
+    optiSection.resize();
+    probeSection.resize();
 
-    if(editSection.isSectionOpen()){
-      editSection.styleEditPage(); // incl. updateSection
-    }
+
 
     /*if(document.getElementById("id_EditPage").style.display!="none"){
       updateEditPage();

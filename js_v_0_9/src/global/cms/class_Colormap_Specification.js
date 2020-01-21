@@ -765,8 +765,7 @@ class class_CMS {
 
   getKeyType(index){
     if(this.keyArray[index]==undefined){
-        console.log(index,this.keyArray[index]);
-        return "nope";
+        return undefined;
     }
     else
       return this.keyArray[index].getKeyType();
@@ -781,10 +780,8 @@ class class_CMS {
   }
 
   insertKey(index,key){
-
       this.keyArray.splice(index, 0,key);
       this.calcDeltaIntervalColors();
-
   }
 
   addKey(key){

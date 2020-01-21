@@ -59,47 +59,7 @@ function hueInit_Worker(){
 }
 
 ////////////////////////////////////////////
-function init_VPlot() {
 
-  var canvasObj0 = document.getElementById("id_EditPage_PathPlot_Canvas1_0");
-  canvasObj0.width = vPlotWidth;
-  canvasObj0.height = vPlotHeight;
-  var canvasContex0 = canvasObj0.getContext("2d");
-
-  var canvasObj1 = document.getElementById("id_EditPage_PathPlot_Canvas2_0");
-  canvasObj1.width = vPlotWidth;
-  canvasObj1.height = vPlotHeight;
-  var canvasContex1 = canvasObj1.getContext("2d");
-
-  var canvasObj2 = document.getElementById("id_EditPage_PathPlot_Canvas3_0");
-  canvasObj2.width = vPlotWidth;
-  canvasObj2.height = vPlotHeight;
-  var canvasContex2 = canvasObj2.getContext("2d");
-
-  switch (pathColorspace) {
-  case "hsv":
-    drawVPlot(canvasContex0,0,360);
-    drawVPlot(canvasContex1,0,100);
-    drawVPlot(canvasContex2,0,100);
-   break;
-  case "lab":
-    drawVPlot(canvasContex0,0,100);
-    drawVPlot(canvasContex1,labSpaceRange*-1,labSpaceRange);
-    drawVPlot(canvasContex2,labSpaceRange*-1,labSpaceRange);
-    break;
-  case "din99":
-    drawVPlot(canvasContex0,0,100);
-    drawVPlot(canvasContex1,rangeA99Neg,rangeA99Pos);
-    drawVPlot(canvasContex2,rangeB99Neg,rangeB99Pos);
-    break;
-  case "lch":
-    drawVPlot(canvasContex0,0,100);
-    drawVPlot(canvasContex1,0,100);
-    drawVPlot(canvasContex2,0,360);
-   break;
-  }
-
-}
 
 function init_VPlot_Offscreen(){
 
@@ -190,63 +150,6 @@ function drawElements_HSV_LAB_DIN99() {
 
 }
 
-function drawInterpolationLineHSV_LAB_DIN99(isCompareMap) {
-
-
-  var canvasObj0 = document.getElementById("id_EditPage_PathPlot_Canvas1_1");
-  canvasObj0.width = vPlotWidth;
-  canvasObj0.height = vPlotHeight;
-  var canvasContex0 = canvasObj0.getContext("2d");
-  canvasContex0.clearRect(0, 0, canvasObj0.width, canvasObj0.height);
-
-  var canvasObj1 = document.getElementById("id_EditPage_PathPlot_Canvas2_1");
-  canvasObj1.width = vPlotWidth;
-  canvasObj1.height = vPlotHeight;
-  var canvasContex1 = canvasObj1.getContext("2d");
-  canvasContex1.clearRect(0, 0, canvasObj1.width, canvasObj1.height);
-
-  var canvasObj2 = document.getElementById("id_EditPage_PathPlot_Canvas3_1");
-  canvasObj2.width = vPlotWidth;
-  canvasObj2.height = vPlotHeight;
-  var canvasContex2 = canvasObj2.getContext("2d");
-  canvasContex2.clearRect(0, 0, canvasObj2.width, canvasObj2.height);
-
-  var canvasObj3 = document.getElementById("id_EditPage_PathPlot_SingleCanvas_1");
-  canvasObj3.width = pathPlotResolution;
-  canvasObj3.height = pathPlotResolution;
-  var canvasContex3 = canvasObj3.getContext("2d");
-  canvasContex3.clearRect(0, 0, canvasObj3.width, canvasObj3.height);
-
-  /////////////////////////////////////////////////////////////////
-
-  switch (pathColorspace) {
-    case "hsv":
-      calcInterpolationLine_HSV();
-      break;
-      case "lab":
-        calcInterpolationLine_Lab();
-        break;
-        case "din99":
-          calcInterpolationLine_DIN99();
-          break;
-          case "lch":
-            calcInterpolationLine_LCH();
-            break;
-    default:
-      return;
-
-  }
-  drawInterpolationLine(canvasContex3,0, 1, false);
-
-  drawInterpolationLine_VPlot(canvasContex0, 0);
-  drawInterpolationLine_VPlot(canvasContex1, 1);
-  drawInterpolationLine_VPlot(canvasContex2, 2);
-
-  draw3DInterpolationLine()
-
-
-
-}
 
 function pathplot_WorkerDrawElements_And_InterpolationLine(drawInterpolationLine){
 

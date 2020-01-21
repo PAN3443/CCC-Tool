@@ -321,8 +321,7 @@ geometry.computeFaceNormals();
                     premultipliedAlpha: true,
                     transparent: true, //*/
                     vertexColors: THREE.VertexColors,
-                    reflectivity: 0,
-                    reflectionCube : null
+                    reflectivity: 0
                   } );
 
 

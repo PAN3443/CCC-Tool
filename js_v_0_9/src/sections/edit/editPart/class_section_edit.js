@@ -1,19 +1,32 @@
 class class_Edit_Section extends class_Edit_Basis_Section {
 
   constructor() {
-    super('id_EditPage', 'id_EditPage_CMS_Canvas', 'id_edit_cms_name','id_edit_cms_interpolation','id_edit_cms_NaN','id_edit_cms_Below','id_edit_cms_Above');
+    super('id_EditPage');
+
     this.tmpWorkCMS = undefined;
     this.myDesignID = undefined;
 
+    /// Part: CMS VIS
+    this.cmsCanvasID = 'id_EditPage_CMS_Canvas';
+    this.cmsNameID = 'id_edit_cms_name';
+    this.cmsInterpolationID = 'id_edit_cms_interpolation';
+    this.cmsNaNColorID = 'id_edit_cms_NaN';
+    this.cmsAboveID = 'id_edit_cms_Below';
+    this.cmsBelowID = 'id_edit_cms_Above';
+
+    /// Part: Pathplot
     this.showPathplot = true;
+    this.part_Pathplot.partDivID="id_EditPage_PathplotContainer";
+    this.part_Pathplot.pathPlot_CoordID="id_EditPage_PathplotCoord";
+
+    /// Part: Mapping
     this.showMapping = false;
+
+    /// Part: Analysis
     this.showAnalysis = false;
+
+    /// Part: Predefined
     this.showPredefined = true;
-
-
-    this.pathPlotDivID="id_EditPage_PathplotContainer";
-    this.pathPlot_CoordID="id_EditPage_PathplotCoord";
-
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
     // save process
@@ -80,6 +93,11 @@ class class_Edit_Section extends class_Edit_Basis_Section {
     this.styleEditPage();
   }
 
+  hideSection(){
+    super.hideSection();
+    this.part_Pathplot.pp_3D_StopAnimation();
+  }
+
   setCMS(cms, id) {
     super.setCMS(cms);
     this.myDesignID = id;
@@ -130,8 +148,6 @@ class class_Edit_Section extends class_Edit_Basis_Section {
       possibleWidth = 100;
     }
 
-
-
     var numberPAM = this.getNumPAM();
 
       switch (numberPAM) {
@@ -155,7 +171,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
           document.getElementById("id_EditPage_PathplotDiv").style.display="flex";
           document.getElementById("id_EditPage_DisplayPathplot").style.background = "var(--main-menue-active)";
           document.getElementById("id_EditPage_DisplayPathplot").innerHTML = "Hide Pathplot";
-          this.arrangePathplotDivs();
+          this.part_Pathplot.arrangePathplotDivs();
         }
         else{
           document.getElementById("id_EditPage_DisplayPathplot").innerHTML = "Show Pathplot";
@@ -186,7 +202,6 @@ class class_Edit_Section extends class_Edit_Basis_Section {
           document.getElementById("id_EditPage_MappingDiv").style.display="none";
         }
 
-
         this.doPagePeculiarity();
         this.updateSection();
   }
@@ -204,14 +219,6 @@ class class_Edit_Section extends class_Edit_Basis_Section {
           numberPAM++;
 
     return numberPAM;
-  }
-
-  pp_3D_Animation(){
-    //test
-    if(editSection.pp_doAnimation){
-      editSection.pp_animationID = requestAnimationFrame(editSection.pp_3D_Animation);
-    	editSection.pp_3D_Render();
-    }//*/
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -312,7 +319,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
     }
 
     if(!this.pp_doAnimation && document.getElementById(this.sectionID).style.display!=="none")
-      this.pp_3D_StartAnimation();
+      this.part_Pathplot.pp_3D_StartAnimation();
 
     super.updatePathPlot();
     // do something

@@ -8,7 +8,7 @@ function rgbMesh(colorspaceGroup){
   var linecolor = new THREE.Color(getComputedStyle(document.documentElement).getPropertyValue('--main-font-color'));
 
   var startPos = -127.5;
-  var textPos = 220;
+  var textPos = 210;
   var arrowEnd = 200;
   var endpos = startPos+255;
 
@@ -18,47 +18,27 @@ function rgbMesh(colorspaceGroup){
 
     var loader = new THREE.FontLoader();
 
-      loader.load( 'js/libs/ThreeJS/Fonts/helvetiker_regular.typeface.json', function ( font ) {
+      loader.load( 'js_v_0_9/libs/ThreeJS/Fonts/helvetiker_regular.typeface.json', function ( font ) {
 
-      var textGeo1 = new THREE.TextGeometry( "R", {
+      var parameter = {
           font: font,
-          size: textSize,
-          height: textHeight,
-          curveSegments: 4,
-          bevelThickness: 1,
+          size: 25,
+          height: 5,
+          curveSegments: 10,
+          bevelThickness: 0.1,
           bevelSize: 1.0,
           bevelEnabled: true
-      } );
-
-      var textGeo2 = new THREE.TextGeometry( "G", {
-          font: font,
-          size: textSize,
-          height: textHeight,
-          curveSegments: 4,
-          bevelThickness: 1,
-          bevelSize: 1.0,
-          bevelEnabled: true
-      } );
-
-      var textGeo3 = new THREE.TextGeometry( "B", {
-          font: font,
-          size: textSize,
-          height: textHeight,
-          curveSegments: 4,
-          bevelThickness: 1,
-          bevelSize: 1.0,
-          bevelEnabled: true
-      } );
+      };
 
       var textMaterial = new THREE.MeshPhongMaterial( { color: linecolor } );
 
-      var textR = new THREE.Mesh( textGeo1, textMaterial );
+      var textR = new THREE.Mesh( new THREE.TextGeometry( "R", parameter), textMaterial );
       textR.position.set( textPos, startPos, startPos );
 
-      var textG = new THREE.Mesh( textGeo2, textMaterial );
+      var textG = new THREE.Mesh( new THREE.TextGeometry( "G", parameter), textMaterial );
       textG.position.set( startPos, textPos,  startPos );
 
-      var textB = new THREE.Mesh( textGeo3, textMaterial );
+      var textB = new THREE.Mesh( new THREE.TextGeometry( "B", parameter), textMaterial );
       textB.position.set( startPos, startPos, textPos );
 
       colorspaceGroup.add( textR );
@@ -745,8 +725,7 @@ function create_RGB_Plane_Mesh(numberOfPieces,startPos){
       					premultipliedAlpha: true,
       					transparent: true, //
 								vertexColors: THREE.VertexColors,
-								reflectivity: 0,
-								reflectionCube : null
+								reflectivity: 0
 							} );
 
 

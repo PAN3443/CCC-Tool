@@ -1,8 +1,14 @@
 class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
 
   constructor() {
-    super('id_OptimizationPage','id_OptiPage_CMS_Canvas','id_opti_cms_name','id_opti_cms_interpolation','id_opti_cms_NaN','id_opti_cms_Below','id_opti_cms_Above');
+    super('id_OptimizationPage');
     this.originalCMS = new class_CMS();
+    this.cmsCanvasID = 'id_OptiPage_CMS_Canvas';
+    this.cmsNameID = 'id_opti_cms_name';
+    this.cmsInterpolationID = 'id_opti_cms_interpolation';
+    this.cmsNaNColorID = 'id_opti_cms_NaN';
+    this.cmsAboveID = 'id_opti_cms_Below';
+    this.cmsBelowID = 'id_opti_cms_Above';
     this.optimizationCMS = new class_CMS();
   }
 
@@ -36,13 +42,18 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
     this.updateSection(); // = update CMS, Mapping and Analyze Plots
   }
 
-  pp_3D_Animation(){
+  hideSection(){
+    super.hideSection();
+    this.part_Pathplot.pp_3D_StopAnimation();
+  }
+
+  /*pp_3D_Animation(){
     //test
     if(optiSection.pp_doAnimation){
       optiSection.pp_animationID = requestAnimationFrame(optiSection.pp_3D_Animation);
     	optiSection.pp_3D_Render();
-    }//*/
-  }
+    }//
+  }*/
 
 
 };
