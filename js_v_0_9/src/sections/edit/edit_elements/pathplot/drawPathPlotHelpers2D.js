@@ -10,13 +10,19 @@ function updateVPlotData(){
 }
 
 
-function drawElement(colorString,colorspaceContex,xPos,yPos, index, colorside, circle,mouseAboveKeyID,mouseGrappedColorSide){
+function drawElement(colorString,colorspaceContex,xPos,yPos, index, colorside, circle,mouseAboveKeyID,mouseGrappedColorSide, isVplot){
   // draw circle
   colorspaceContex.setLineDash([]);
   var circleRad = Math.round(colorspaceContex.canvas.clientHeight*0.015);
   var bigcircleRad = Math.round(colorspaceContex.canvas.clientHeight*0.03);
   var smallLineWidth = Math.round(colorspaceContex.canvas.clientHeight*0.005);
-  
+
+  if(isVplot){
+    circleRad = Math.round(colorspaceContex.canvas.clientHeight*0.03);
+    bigcircleRad = Math.round(colorspaceContex.canvas.clientHeight*0.06);
+    smallLineWidth = Math.round(colorspaceContex.canvas.clientHeight*0.015);
+  }
+
   if(circle){
     colorspaceContex.beginPath();
     if(index==mouseAboveKeyID && colorside==mouseGrappedColorSide)

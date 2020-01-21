@@ -79,6 +79,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
     cmsCanvasElemtent.ondrop = function(event) {
       event.preventDefault();
       editSection.replaceWithWorkCMS();
+      editSection.part_Pathplot.updatePart(false,true, true);
     }; // allow Drop
 
     cmsCanvasElemtent.addEventListener("dragover",cmsStructureDragOver);
@@ -96,6 +97,11 @@ class class_Edit_Section extends class_Edit_Basis_Section {
   hideSection(){
     super.hideSection();
     this.part_Pathplot.pp_3D_StopAnimation();
+  }
+
+  showSection(){
+    super.showSection();
+    this.styleEditPage();
   }
 
   setCMS(cms, id) {
@@ -164,18 +170,22 @@ class class_Edit_Section extends class_Edit_Basis_Section {
             this.styleEditPage();
             return;
         }
-        this.pathPlot_Width_VW=possibleWidth;
+        this.part_Pathplot.pathPlot_Width_VW=possibleWidth;
 
         if(this.showPathplot){
           document.getElementById("id_EditPage_PathplotDiv").style.width=possibleWidth+"vw";
           document.getElementById("id_EditPage_PathplotDiv").style.display="flex";
           document.getElementById("id_EditPage_DisplayPathplot").style.background = "var(--main-menue-active)";
           document.getElementById("id_EditPage_DisplayPathplot").innerHTML = "Hide Pathplot";
-          this.part_Pathplot.arrangePathplotDivs();
+          if(this.isSectionOpen()){
+            this.part_Pathplot.resize();
+            this.part_Pathplot.pp_3D_StartAnimation();
+          }
         }
         else{
           document.getElementById("id_EditPage_DisplayPathplot").innerHTML = "Show Pathplot";
           document.getElementById("id_EditPage_PathplotDiv").style.display="none";
+          this.part_Pathplot.pp_3D_StopAnimation();
         }
 
 
@@ -288,42 +298,6 @@ class class_Edit_Section extends class_Edit_Basis_Section {
     this.somethingChanged=false;
   }
 
-  updateSection() {
-      this.updatePathPlot();
-      this.updateMapping();
-      this.updateAnalysis();
-      this.updateKeyEdit();
-
-    super.updateSection();
-  }
-
-
-  updateMapping(){
-    if(!this.showMapping)
-    return;
-    super.updateMapping();
-  }
-
-  updateAnalysis(){
-    if(!this.showAnalysis)
-      return;
-
-    super.updateAnalysis();
-  }
-
-  updatePathPlot(){
-    if(!this.showPathplot){
-      if(this.pp_doAnimation)
-        this.pp_3D_StopAnimation();
-      return;
-    }
-
-    if(!this.pp_doAnimation && document.getElementById(this.sectionID).style.display!=="none")
-      this.part_Pathplot.pp_3D_StartAnimation();
-
-    super.updatePathPlot();
-    // do something
-  }
 
   doPagePeculiarity(){
     super.doPagePeculiarity();
@@ -650,6 +624,8 @@ class class_Edit_Section extends class_Edit_Basis_Section {
         else{
           if(drawOriginal){
             this.drawEditCMSVIS();
+            if(this.part_Pathplot.pathplot_space!=="rgb")
+              this.part_Pathplot.updatePart(false,true, true);
             drawOriginal=false;
           }
           this.drawAddKey=false;
@@ -757,7 +733,6 @@ class class_Edit_Section extends class_Edit_Basis_Section {
           }
 
         }
-
     }
   }
 

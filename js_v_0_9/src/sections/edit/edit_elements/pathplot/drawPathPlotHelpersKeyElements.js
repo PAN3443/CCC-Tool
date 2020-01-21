@@ -86,7 +86,7 @@ function calcRGBElementPos(tmpColor,shape,areaDim,keyindex,colorSide){
 
 /////////////////////////////////////////////////////////////////////
 
-function calcHSVElements(cmsClone){
+function calcHSVElements(cmsClone,hueRes,vWidth,vHeight){
 
   pathplotElementPositions=[];
   vPlotElementPositions=[];
@@ -117,12 +117,12 @@ function calcHSVElements(cmsClone){
         /////// V Plot
 
         if (drawCircle) {
-          vPlotElementPositions.push(calcHSV_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "hsv"),true,i,0,i));
-          vPlotElementPositions.push(calcHSV_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "hsv"),true,i,1,i));
+          vPlotElementPositions.push(calcHSV_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "hsv"),true,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          vPlotElementPositions.push(calcHSV_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "hsv"),true,i,1,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
         } else {
-          vPlotElementPositions.push(calcHSV_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "hsv"),drawCircle,i,0,(i - 1)));
-          vPlotElementPositions.push(calcHSV_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "hsv"),drawCircle,i,0,i));
-          vPlotElementPositions.push(calcHSV_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "hsv"),true,i,1,i));
+          vPlotElementPositions.push(calcHSV_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "hsv"),drawCircle,i,0,((cmsClone.getRefPosition((i - 1))-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          vPlotElementPositions.push(calcHSV_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "hsv"),drawCircle,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          vPlotElementPositions.push(calcHSV_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "hsv"),true,i,1,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
         }
 
         break;
@@ -144,10 +144,10 @@ function calcHSVElements(cmsClone){
         /////// V Plot
 
         if (drawCircle) {
-          vPlotElementPositions.push(calcHSV_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "hsv"),true,i,0,i));
+          vPlotElementPositions.push(calcHSV_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "hsv"),true,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
         } else {
-          vPlotElementPositions.push(calcHSV_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "hsv"),drawCircle,i,0,(i - 1)));
-          vPlotElementPositions.push(calcHSV_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "hsv"),drawCircle,i,0,i));
+          vPlotElementPositions.push(calcHSV_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "hsv"),drawCircle,i,0,((cmsClone.getRefPosition((i - 1))-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          vPlotElementPositions.push(calcHSV_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "hsv"),drawCircle,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
         }
         break;
 
@@ -156,7 +156,7 @@ function calcHSVElements(cmsClone){
         pathplotElementPositions.push(calcHSV_Hue_ElementPos(cmsClone.getRightKeyColor(i, "hsv"),true,i,1,hueRes));
         ////////////////////////////////////////////////////////////////
         /////// V Plot
-        vPlotElementPositions.push(calcHSV_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "hsv"),true,i,1,i));
+        vPlotElementPositions.push(calcHSV_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "hsv"),true,i,1,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
 
         break;
       default:
@@ -167,10 +167,10 @@ function calcHSVElements(cmsClone){
         ////////////////////////////////////////////////////////////////
         /////// V Plot
 
-        vPlotElementPositions.push(calcHSV_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "hsv"),true,i,2,i));
+        vPlotElementPositions.push(calcHSV_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "hsv"),true,i,2,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
 
         if(cmsClone.getKeyType(i-1)==="left key"){
-          vPlotElementPositions.push(calcHSV_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "hsv"),true,i,2,(i - 1)));
+          vPlotElementPositions.push(calcHSV_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "hsv"),true,i,2,((cmsClone.getRefPosition(i-1)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
         }
     }
 
@@ -181,7 +181,7 @@ function calcHSVElements(cmsClone){
 
 function calcHSV_Hue_ElementPos(tmpColor,shape,keyindex,colorSide,hueRes){
 
-  var colorspaceRadius = Math.round((hueRes / 2));
+  var colorspaceRadius = Math.round((hueRes*0.95 / 2));
 
   var hsPos = [];
   var tmpDis = tmpColor.getSValue() * colorspaceRadius;
@@ -219,9 +219,12 @@ function calcHSV_Hue_ElementPos(tmpColor,shape,keyindex,colorSide,hueRes){
 
 }
 
-function calcHSV_VPlot_ElementPos(tmpColor,shape,keyindex,colorSide,currentRefIndex){
+function calcHSV_VPlot_ElementPos(tmpColor,shape,keyindex,colorSide,xRatio,vWidth,vHeight){
 
-  var xRatio = (cmsClone.getRefPosition(currentRefIndex)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange();
+  var vPlotxStart=Math.round(vWidth*0.1);
+var plotwidth=Math.round(vWidth*0.98)-vPlotxStart;
+var vPlotyStart=Math.round(vHeight*0.9)
+var heigthVArea=vPlotyStart-Math.round(vHeight*0.1);
 
   var vPlotPos = [];
   var xPos = vPlotxStart + xRatio * plotwidth;
@@ -253,10 +256,9 @@ function calcHSV_VPlot_ElementPos(tmpColor,shape,keyindex,colorSide,currentRefIn
   return posArray;
 }
 
-
 /////////////////////////////////////////////////////////////////////
 
-function calcLabElements(cmsClone){
+function calcLabElements(cmsClone,hueRes,vWidth,vHeight){
 
   pathplotElementPositions=[];
   vPlotElementPositions=[];
@@ -287,13 +289,13 @@ function calcLabElements(cmsClone){
         /////// V Plot
 
         if (drawCircle) {
-          vPlotElementPositions.push(calcLab_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "lab_rgb_possible"),true,i,0,i));
-          vPlotElementPositions.push(calcLab_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "lab_rgb_possible"),true,i,1,i));
+          vPlotElementPositions.push(calcLab_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "lab_rgb_possible"),true,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          vPlotElementPositions.push(calcLab_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "lab_rgb_possible"),true,i,1,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
         } else {
 
-          vPlotElementPositions.push(calcLab_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "lab_rgb_possible"),drawCircle,i,0,(i - 1)));
-          vPlotElementPositions.push(calcLab_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "lab_rgb_possible"),drawCircle,i,0,i));
-          vPlotElementPositions.push(calcLab_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "lab_rgb_possible"),true,i,1,i));
+          vPlotElementPositions.push(calcLab_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "lab_rgb_possible"),drawCircle,i,0,((cmsClone.getRefPosition((i - 1))-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          vPlotElementPositions.push(calcLab_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "lab_rgb_possible"),drawCircle,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          vPlotElementPositions.push(calcLab_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "lab_rgb_possible"),true,i,1,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
 
         }
 
@@ -317,10 +319,10 @@ function calcLabElements(cmsClone){
         /////// V Plot
 
         if (drawCircle) {
-          vPlotElementPositions.push(calcLab_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "lab_rgb_possible"),true,i,0,i));
+          vPlotElementPositions.push(calcLab_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "lab_rgb_possible"),true,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
         } else {
-          vPlotElementPositions.push(calcLab_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "lab_rgb_possible"),drawCircle,i,0,(i - 1)));
-          vPlotElementPositions.push(calcLab_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "lab_rgb_possible"),drawCircle,i,0,i));
+          vPlotElementPositions.push(calcLab_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "lab_rgb_possible"),drawCircle,i,0,((cmsClone.getRefPosition((i - 1))-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          vPlotElementPositions.push(calcLab_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "lab_rgb_possible"),drawCircle,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
         }
         break;
 
@@ -329,7 +331,7 @@ function calcLabElements(cmsClone){
         pathplotElementPositions.push(calcLab_Hue_ElementPos(cmsClone.getRightKeyColor(i, "lab_rgb_possible"),true,i,1,hueRes));
         ////////////////////////////////////////////////////////////////
         /////// V Plot
-        vPlotElementPositions.push(calcLab_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "lab_rgb_possible"),true,i,1,i));
+        vPlotElementPositions.push(calcLab_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "lab_rgb_possible"),true,i,1,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
 
         break;
       default:
@@ -338,9 +340,9 @@ function calcLabElements(cmsClone){
 
         ////////////////////////////////////////////////////////////////
         /////// V Plot
-        vPlotElementPositions.push(calcLab_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "lab_rgb_possible"),true,i,2,i));
+        vPlotElementPositions.push(calcLab_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "lab_rgb_possible"),true,i,2,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
         if(cmsClone.getKeyType(i-1)==="left key"){
-          vPlotElementPositions.push(calcLab_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "lab_rgb_possible"),true,i,2,(i - 1)));
+          vPlotElementPositions.push(calcLab_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "lab_rgb_possible"),true,i,2,((cmsClone.getRefPosition(i-1)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
         }
     }
 
@@ -394,9 +396,12 @@ function calcLab_Hue_ElementPos(tmpColor,shape,keyindex,colorSide,hueRes){
 
 }
 
-function calcLab_VPlot_ElementPos(tmpColor,shape,keyindex,colorSide,currentRefIndex){
+function calcLab_VPlot_ElementPos(tmpColor,shape,keyindex,colorSide,xRatio,vWidth,vHeight){
 
-  var xRatio = (cmsClone.getRefPosition(currentRefIndex)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange();
+  var vPlotxStart=Math.round(vWidth*0.1);
+var plotwidth=Math.round(vWidth*0.98)-vPlotxStart;
+var vPlotyStart=Math.round(vHeight*0.9)
+var heigthVArea=vPlotyStart-Math.round(vHeight*0.1);
 
   var vPlotPos = [];
   var xPos = vPlotxStart + xRatio * plotwidth;
@@ -429,7 +434,7 @@ function calcLab_VPlot_ElementPos(tmpColor,shape,keyindex,colorSide,currentRefIn
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
-function calcDIN99Elements(cmsClone){
+function calcDIN99Elements(cmsClone,hueRes,vWidth,vHeight){
 
   pathplotElementPositions=[];
   vPlotElementPositions=[];
@@ -463,13 +468,13 @@ function calcDIN99Elements(cmsClone){
         /////// V Plot
 
         if (drawCircle) {
-          vPlotElementPositions.push(calcDIN99_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "din99_rgb_possible"),true,i,0,i));
-          vPlotElementPositions.push(calcDIN99_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "din99_rgb_possible"),true,i,1,i));
+          vPlotElementPositions.push(calcDIN99_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "din99_rgb_possible"),true,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          vPlotElementPositions.push(calcDIN99_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "din99_rgb_possible"),true,i,1,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
         } else {
 
-          vPlotElementPositions.push(calcDIN99_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "din99_rgb_possible"),drawCircle,i,0,(i - 1)));
-          vPlotElementPositions.push(calcDIN99_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "din99_rgb_possible"),drawCircle,i,0,i));
-          vPlotElementPositions.push(calcDIN99_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "din99_rgb_possible"),true,i,1,i));
+          vPlotElementPositions.push(calcDIN99_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "din99_rgb_possible"),drawCircle,i,0,((cmsClone.getRefPosition((i - 1))-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          vPlotElementPositions.push(calcDIN99_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "din99_rgb_possible"),drawCircle,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          vPlotElementPositions.push(calcDIN99_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "din99_rgb_possible"),true,i,1,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
 
         }
 
@@ -491,10 +496,10 @@ function calcDIN99Elements(cmsClone){
         ////////////////////////////////////////////////////////////////
         /////// V Plot
         if (drawCircle) {
-          vPlotElementPositions.push(calcDIN99_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "din99_rgb_possible"),true,i,0,i));
+          vPlotElementPositions.push(calcDIN99_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "din99_rgb_possible"),true,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
         } else {
-          vPlotElementPositions.push(calcDIN99_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "din99_rgb_possible"),drawCircle,i,0,(i - 1)));
-          vPlotElementPositions.push(calcDIN99_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "din99_rgb_possible"),drawCircle,i,0,i));
+          vPlotElementPositions.push(calcDIN99_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "din99_rgb_possible"),drawCircle,i,0,((cmsClone.getRefPosition((i - 1))-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          vPlotElementPositions.push(calcDIN99_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "din99_rgb_possible"),drawCircle,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
         }
         break;
 
@@ -504,7 +509,7 @@ function calcDIN99Elements(cmsClone){
 
         ////////////////////////////////////////////////////////////////
         /////// V Plot
-        vPlotElementPositions.push(calcDIN99_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "din99_rgb_possible"),true,i,1,i));
+        vPlotElementPositions.push(calcDIN99_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "din99_rgb_possible"),true,i,1,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
 
         break;
       default:
@@ -513,9 +518,9 @@ function calcDIN99Elements(cmsClone){
 
         ////////////////////////////////////////////////////////////////
         /////// V Plot
-        vPlotElementPositions.push(calcDIN99_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "din99_rgb_possible"),true,i,2,i));
+        vPlotElementPositions.push(calcDIN99_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "din99_rgb_possible"),true,i,2,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
         if(cmsClone.getKeyType(i-1)==="left key"){
-          vPlotElementPositions.push(calcDIN99_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "din99_rgb_possible"),true,i,2,(i - 1)));//calcDIN99_VPlot_ElementPos(tmpColor,drawCircle,i,2,(i - 1)));
+          vPlotElementPositions.push(calcDIN99_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "din99_rgb_possible"),true,i,2,((cmsClone.getRefPosition(i-1)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));//calcDIN99_VPlot_ElementPos(tmpColor,drawCircle,i,2,(i - 1)));
         }
     }
 
@@ -566,9 +571,12 @@ function calcDIN99_Hue_ElementPos(tmpColor,shape,keyindex,colorSide,hueRes){
 
 }
 
-function calcDIN99_VPlot_ElementPos(tmpColor,shape,keyindex,colorSide,currentRefIndex){
+function calcDIN99_VPlot_ElementPos(tmpColor,shape,keyindex,colorSide,xRatio,vWidth,vHeight){
 
-  var xRatio = (cmsClone.getRefPosition(currentRefIndex)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange();
+  var vPlotxStart=Math.round(vWidth*0.1);
+var plotwidth=Math.round(vWidth*0.98)-vPlotxStart;
+var vPlotyStart=Math.round(vHeight*0.9)
+var heigthVArea=vPlotyStart-Math.round(vHeight*0.1);
 
   var vPlotPos = [];
   var xPos = vPlotxStart + xRatio * plotwidth;
@@ -601,7 +609,7 @@ function calcDIN99_VPlot_ElementPos(tmpColor,shape,keyindex,colorSide,currentRef
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
-function calcLCHElements(cmsClone){
+function calcLCHElements(cmsClone,hueRes,vWidth,vHeight){
 
   pathplotElementPositions=[];
   vPlotElementPositions=[];
@@ -632,12 +640,12 @@ function calcLCHElements(cmsClone){
         /////// V Plot
 
         if (drawCircle) {
-          vPlotElementPositions.push(calcLCH_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "lch_rgb_possible"),true,i,0,i));
-          vPlotElementPositions.push(calcLCH_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "lch_rgb_possible"),true,i,1,i));
+          vPlotElementPositions.push(calcLCH_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "lch_rgb_possible"),true,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          vPlotElementPositions.push(calcLCH_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "lch_rgb_possible"),true,i,1,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
         } else {
-          vPlotElementPositions.push(calcLCH_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "lch_rgb_possible"),drawCircle,i,0,(i - 1)));
-          vPlotElementPositions.push(calcLCH_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "lch_rgb_possible"),drawCircle,i,0,i));
-          vPlotElementPositions.push(calcLCH_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "lch_rgb_possible"),true,i,1,i));
+          vPlotElementPositions.push(calcLCH_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "lch_rgb_possible"),drawCircle,i,0,((cmsClone.getRefPosition((i - 1))-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          vPlotElementPositions.push(calcLCH_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "lch_rgb_possible"),drawCircle,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          vPlotElementPositions.push(calcLCH_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "lch_rgb_possible"),true,i,1,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
         }
 
         break;
@@ -658,10 +666,10 @@ function calcLCHElements(cmsClone){
         ////////////////////////////////////////////////////////////////
         /////// V Plot
         if (drawCircle) {
-          vPlotElementPositions.push(calcLCH_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "lch_rgb_possible"),true,i,0,i));
+          vPlotElementPositions.push(calcLCH_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "lch_rgb_possible"),true,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
         } else {
-          vPlotElementPositions.push(calcLCH_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "lch_rgb_possible"),drawCircle,i,0,(i - 1)));
-          vPlotElementPositions.push(calcLCH_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "lch_rgb_possible"),drawCircle,i,0,i));
+          vPlotElementPositions.push(calcLCH_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "lch_rgb_possible"),drawCircle,i,0,((cmsClone.getRefPosition((i - 1))-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          vPlotElementPositions.push(calcLCH_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "lch_rgb_possible"),drawCircle,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
         }
         break;
 
@@ -671,7 +679,7 @@ function calcLCHElements(cmsClone){
 
         ////////////////////////////////////////////////////////////////
         /////// V Plot
-        vPlotElementPositions.push(calcLCH_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "lch_rgb_possible"),true,i,1,i));
+        vPlotElementPositions.push(calcLCH_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "lch_rgb_possible"),true,i,1,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
 
         break;
       default:
@@ -680,10 +688,10 @@ function calcLCHElements(cmsClone){
 
         ////////////////////////////////////////////////////////////////
         /////// V Plot
-        vPlotElementPositions.push(calcLCH_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "lch_rgb_possible"),true,i,2,i));
+        vPlotElementPositions.push(calcLCH_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "lch_rgb_possible"),true,i,2,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
 
         if(cmsClone.getKeyType(i-1)==="left key"){
-          vPlotElementPositions.push(calcLCH_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "lch_rgb_possible"),true,i,2,(i - 1)));
+          vPlotElementPositions.push(calcLCH_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "lch_rgb_possible"),true,i,2,((cmsClone.getRefPosition(i-1)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
         }
     }
 
@@ -694,7 +702,7 @@ function calcLCHElements(cmsClone){
 
 function calcLCH_Hue_ElementPos(tmpColor,shape,keyindex,colorSide,hueRes){
 
-  var colorspaceRadius = Math.round((hueRes / 2));
+  var colorspaceRadius = Math.round((hueRes*0.95 / 2));
 
   var chPos = [];
   var tmpDis = tmpColor.getCValue() * colorspaceRadius;
@@ -733,9 +741,12 @@ function calcLCH_Hue_ElementPos(tmpColor,shape,keyindex,colorSide,hueRes){
 
 }
 
-function calcLCH_VPlot_ElementPos(tmpColor,shape,keyindex,colorSide,currentRefIndex){
+function calcLCH_VPlot_ElementPos(tmpColor,shape,keyindex,colorSide,xRatio,vWidth,vHeight){
 
-  var xRatio = (cmsClone.getRefPosition(currentRefIndex)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange();
+  var vPlotxStart=Math.round(vWidth*0.1);
+  var plotwidth=Math.round(vWidth*0.98)-vPlotxStart;
+  var vPlotyStart=Math.round(vHeight*0.9)
+  var heigthVArea=vPlotyStart-Math.round(vHeight*0.1);
 
   var vPlotPos = [];
   var xPos = vPlotxStart + xRatio * plotwidth;
@@ -747,7 +758,6 @@ function calcLCH_VPlot_ElementPos(tmpColor,shape,keyindex,colorSide,currentRefIn
   vPlotPos.push(yPos1);
   vPlotPos.push(yPos2);
   vPlotPos.push(yPos3);
-
 
   var showColor = tmpColor.calcRGBColor();
   if(doColorblindnessSim){
@@ -767,9 +777,7 @@ function calcLCH_VPlot_ElementPos(tmpColor,shape,keyindex,colorSide,currentRefIn
   return posArray;
 }
 
-
 /////////////////////////////////////////////////////////////////////
-
 
 function drawPathplotElements(canvasContex,index1,index2, isRGB,mouseAboveKeyID,mouseGrappedColorSide){
 
@@ -780,7 +788,7 @@ function drawPathplotElements(canvasContex,index1,index2, isRGB,mouseAboveKeyID,
     for (var i = 0; i < pathplotElementPositions.length; i++) {
       var xPos = pathplotElementPositions[i][4][index1]+startPosX;
       var yPos = startPosY-pathplotElementPositions[i][4][index2];
-      drawElement(pathplotElementPositions[i][1], canvasContex, xPos, yPos, pathplotElementPositions[i][0],pathplotElementPositions[i][3], pathplotElementPositions[i][2],mouseAboveKeyID,mouseGrappedColorSide);
+      drawElement(pathplotElementPositions[i][1], canvasContex, xPos, yPos, pathplotElementPositions[i][0],pathplotElementPositions[i][3], pathplotElementPositions[i][2],mouseAboveKeyID,mouseGrappedColorSide,false);
     }
   }
   else {
@@ -788,19 +796,19 @@ function drawPathplotElements(canvasContex,index1,index2, isRGB,mouseAboveKeyID,
         // Hue Plot
         var xPos = pathplotElementPositions[i][4][0];
         var yPos = pathplotElementPositions[i][4][1];
-        drawElement(pathplotElementPositions[i][1], canvasContex, xPos, yPos, pathplotElementPositions[i][0],pathplotElementPositions[i][3], pathplotElementPositions[i][2],mouseAboveKeyID,mouseGrappedColorSide);
+        drawElement(pathplotElementPositions[i][1], canvasContex, xPos, yPos, pathplotElementPositions[i][0],pathplotElementPositions[i][3], pathplotElementPositions[i][2],mouseAboveKeyID,mouseGrappedColorSide,false);
     }
   }
 
 }
 
-function drawVplotElements(canvasContex,vPlotIndex){
+function drawVplotElements(canvasContex,vPlotIndex,mouseAboveKeyID,mouseGrappedColorSide){
 
   for (var i = 0; i < vPlotElementPositions.length; i++) {
       // VPlot
       var xPos = vPlotElementPositions[i][4][0];
       var yPos = vPlotElementPositions[i][4][vPlotIndex+1];
-      drawElement(vPlotElementPositions[i][1], canvasContex, xPos, yPos, vPlotElementPositions[i][0],vPlotElementPositions[i][3], vPlotElementPositions[i][2],mouseAboveKeyID,mouseGrappedColorSide);
+      drawElement(vPlotElementPositions[i][1], canvasContex, xPos, yPos, vPlotElementPositions[i][0],vPlotElementPositions[i][3], vPlotElementPositions[i][2],mouseAboveKeyID,mouseGrappedColorSide,true);
   }
 
 }

@@ -41,11 +41,17 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     this.pp_xRotationDownAngle=0;
     this.pp_yRotationDownAngle=0;
 
-    this.updatePathPlotSpace("rgb");
+    this.pp_3D_init();
+    this.updatePathPlotSpace(this.pathplot_space); // produce RGB Mesh
   }
 
-  updatePart(){
+  updatePart(doBackground,doInterpolationline, initVPlot){
     super.updatePart();
+
+    if(this.pathplot_space==="rgb")
+      this.pp_drawRGB(doBackground, doInterpolationline);
+    else
+      this.pp_drawOthers(doBackground, doInterpolationline, initVPlot);
   }
 
   resize(){
@@ -67,26 +73,26 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
           var tmpDiv = document.createElement('div');
           tmpDiv.style.width="100%;";
           tmpDiv.style.height=this.pathPlot_Height_VH*0.25+"vh";
-          tmpDiv.id=this.sectionID+"_PP_3D";
+          tmpDiv.id=this.partDivID+"_PP_3D";
           tmpDiv=this.add_pp_3D_Events(tmpDiv);
           document.getElementById(this.partDivID).appendChild(tmpDiv);
           var tmpRow = document.createElement('div');
           tmpRow.style.width="100%";
           tmpRow.style.display="flex";
           tmpRow.style.height=this.pathPlot_Height_VH*0.25+"vh";
-          tmpRow.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.25,this.pathPlot_Width_VW,true,this.sectionID+"_PP_RG"));
+          tmpRow.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.25,this.pathPlot_Width_VW,true,this.partDivID+"_PP_RG"));
           document.getElementById(this.partDivID).appendChild(tmpRow);
           tmpRow = document.createElement('div');
           tmpRow.style.width="100%";
           tmpRow.style.display="flex";
           tmpRow.style.height=this.pathPlot_Height_VH*0.25+"vh";
-          tmpRow.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.25,this.pathPlot_Width_VW,true,this.sectionID+"_PP_RB"));
+          tmpRow.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.25,this.pathPlot_Width_VW,true,this.partDivID+"_PP_RB"));
           document.getElementById(this.partDivID).appendChild(tmpRow);
           tmpRow = document.createElement('div');
           tmpRow.style.width="100%";
           tmpRow.style.display="flex";
           tmpRow.style.height=this.pathPlot_Height_VH*0.25+"vh";
-          tmpRow.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.25,this.pathPlot_Width_VW,true,this.sectionID+"_PP_BG"));
+          tmpRow.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.25,this.pathPlot_Width_VW,true,this.partDivID+"_PP_BG"));
           document.getElementById(this.partDivID).appendChild(tmpRow);
         break;
         case (ratio<2):
@@ -98,17 +104,17 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
           var tmpDiv = document.createElement('div');
           tmpDiv.style.height=this.pathPlot_Height_VH*0.5+"vh";
           tmpDiv.style.width=this.pathPlot_Width_VW*0.5+"vw";
-          tmpDiv.id=this.sectionID+"_PP_3D";
+          tmpDiv.id=this.partDivID+"_PP_3D";
           tmpDiv=this.add_pp_3D_Events(tmpDiv);
           tmpRow.appendChild(tmpDiv);
-          tmpRow.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.5,this.pathPlot_Width_VW*0.5,true,this.sectionID+"_PP_RG"));
+          tmpRow.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.5,this.pathPlot_Width_VW*0.5,true,this.partDivID+"_PP_RG"));
           document.getElementById(this.partDivID).appendChild(tmpRow);
           tmpRow = document.createElement('div');
           tmpRow.style.width="100%";
           tmpRow.style.display="flex";
           tmpRow.style.height=this.pathPlot_Height_VH*0.5+"vh";
-          tmpRow.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.5,this.pathPlot_Width_VW*0.5,true,this.sectionID+"_PP_RB"));
-          tmpRow.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.5,this.pathPlot_Width_VW*0.5,true,this.sectionID+"_PP_BG"));
+          tmpRow.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.5,this.pathPlot_Width_VW*0.5,true,this.partDivID+"_PP_RB"));
+          tmpRow.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.5,this.pathPlot_Width_VW*0.5,true,this.partDivID+"_PP_BG"));
           document.getElementById(this.partDivID).appendChild(tmpRow);
         break;
         default: // (>2)
@@ -116,16 +122,12 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
           var tmpDiv = document.createElement('div');
           tmpDiv.style.height=this.pathPlot_Height_VH+"vh";
           tmpDiv.style.width=this.pathPlot_Width_VW*0.25+"vw";
-          tmpDiv.id=this.sectionID+"_PP_3D";
+          tmpDiv.id=this.partDivID+"_PP_3D";
           tmpDiv=this.add_pp_3D_Events(tmpDiv);
           document.getElementById(this.partDivID).appendChild(tmpDiv);
-          document.getElementById(this.partDivID).appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH,this.pathPlot_Width_VW*0.25,true,this.sectionID+"_PP_RG"));
-          document.getElementById(this.partDivID).appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH,this.pathPlot_Width_VW*0.25,true,this.sectionID+"_PP_RB"));
-          document.getElementById(this.partDivID).appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH,this.pathPlot_Width_VW*0.25,true,this.sectionID+"_PP_BG"));
-      }
-
-      if(document.getElementById(this.sectionID).style.display!=="none"){
-        this.pp_drawRGB(true, true);
+          document.getElementById(this.partDivID).appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH,this.pathPlot_Width_VW*0.25,true,this.partDivID+"_PP_RG"));
+          document.getElementById(this.partDivID).appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH,this.pathPlot_Width_VW*0.25,true,this.partDivID+"_PP_RB"));
+          document.getElementById(this.partDivID).appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH,this.pathPlot_Width_VW*0.25,true,this.partDivID+"_PP_BG"));
       }
     }
     else {
@@ -142,14 +144,14 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
           var tmpDiv = document.createElement('div');
           tmpDiv.style.height=this.pathPlot_Height_VH*0.25+"vh";
           tmpDiv.style.width=this.pathPlot_Width_VW*0.5+"vw";
-          tmpDiv.id=this.sectionID+"_PP_3D";
+          tmpDiv.id=this.partDivID+"_PP_3D";
           tmpDiv=this.add_pp_3D_Events(tmpDiv);
           tmpRow.appendChild(tmpDiv);
-          tmpRow.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.25,this.pathPlot_Width_VW*0.5,true,this.sectionID+"_PP_Hue"));
+          tmpRow.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.25,this.pathPlot_Width_VW*0.5,true,this.partDivID+"_PP_Hue"));
           document.getElementById(this.partDivID).appendChild(tmpRow);
-          document.getElementById(this.partDivID).appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.25,this.pathPlot_Width_VW,false,this.sectionID+"_PP_C1"));
-          document.getElementById(this.partDivID).appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.25,this.pathPlot_Width_VW,false,this.sectionID+"_PP_C2"));
-          document.getElementById(this.partDivID).appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.25,this.pathPlot_Width_VW,false,this.sectionID+"_PP_C3"));
+          document.getElementById(this.partDivID).appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.25,this.pathPlot_Width_VW,false,this.partDivID+"_PP_C1"));
+          document.getElementById(this.partDivID).appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.25,this.pathPlot_Width_VW,false,this.partDivID+"_PP_C2"));
+          document.getElementById(this.partDivID).appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.25,this.pathPlot_Width_VW,false,this.partDivID+"_PP_C3"));
         break;
         case (ratio<2):
           document.getElementById(this.partDivID).style.flexDirection="row";
@@ -159,17 +161,17 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
           var tmpDiv = document.createElement('div');
           tmpDiv.style.height=this.pathPlot_Height_VH*0.5+"vh";
           tmpDiv.style.width=this.pathPlot_Width_VW*0.33+"vw";
-          tmpDiv.id=this.sectionID+"_PP_3D";
+          tmpDiv.id=this.partDivID+"_PP_3D";
           tmpDiv=this.add_pp_3D_Events(tmpDiv);
           tmpCol.appendChild(tmpDiv);
-          tmpCol.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.5,this.pathPlot_Width_VW*0.33,true,this.sectionID+"_PP_Hue"));
+          tmpCol.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.5,this.pathPlot_Width_VW*0.33,true,this.partDivID+"_PP_Hue"));
           document.getElementById(this.partDivID).appendChild(tmpCol);
           tmpCol = document.createElement('div');
           tmpCol.style.width=this.pathPlot_Width_VW*0.67+"vw";
           tmpCol.style.height=this.pathPlot_Height_VH+"vh";
-          tmpCol.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.33,this.pathPlot_Width_VW*0.67,false,this.sectionID+"_PP_C1"));
-          tmpCol.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.33,this.pathPlot_Width_VW*0.67,false,this.sectionID+"_PP_C2"));
-          tmpCol.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.33,this.pathPlot_Width_VW*0.67,false,this.sectionID+"_PP_C3"));
+          tmpCol.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.33,this.pathPlot_Width_VW*0.67,false,this.partDivID+"_PP_C1"));
+          tmpCol.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.33,this.pathPlot_Width_VW*0.67,false,this.partDivID+"_PP_C2"));
+          tmpCol.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.33,this.pathPlot_Width_VW*0.67,false,this.partDivID+"_PP_C3"));
           document.getElementById(this.partDivID).appendChild(tmpCol);
         break;
         default: // (>2)
@@ -177,24 +179,21 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
           var tmpDiv = document.createElement('div');
           tmpDiv.style.height=this.pathPlot_Height_VH+"vh";
           tmpDiv.style.width=this.pathPlot_Width_VW*0.25+"vw";
-          tmpDiv.id=this.sectionID+"_PP_3D";
+          tmpDiv.id=this.partDivID+"_PP_3D";
           tmpDiv=this.add_pp_3D_Events(tmpDiv);
           document.getElementById(this.partDivID).appendChild(tmpDiv);
-          document.getElementById(this.partDivID).appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH,this.pathPlot_Width_VW*0.25,true,this.sectionID+"_PP_Hue"));
+          document.getElementById(this.partDivID).appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH,this.pathPlot_Width_VW*0.25,true,this.partDivID+"_PP_Hue"));
           var tmpCol = document.createElement('div');
           tmpCol.style.width=this.pathPlot_Width_VW*0.5+"vw";
           tmpCol.style.height=this.pathPlot_Height_VH+"vh";
-          tmpCol.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.33,this.pathPlot_Width_VW*0.5,false,this.sectionID+"_PP_C1"));
-          tmpCol.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.33,this.pathPlot_Width_VW*0.5,false,this.sectionID+"_PP_C2"));
-          tmpCol.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.33,this.pathPlot_Width_VW*0.5,false,this.sectionID+"_PP_C3"));
+          tmpCol.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.33,this.pathPlot_Width_VW*0.5,false,this.partDivID+"_PP_C1"));
+          tmpCol.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.33,this.pathPlot_Width_VW*0.5,false,this.partDivID+"_PP_C2"));
+          tmpCol.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.33,this.pathPlot_Width_VW*0.5,false,this.partDivID+"_PP_C3"));
           document.getElementById(this.partDivID).appendChild(tmpCol);
-      }
-
-      if(document.getElementById(this.sectionID).style.display!=="none"){
-        this.pp_drawOthers(true, true, true);
       }
     }
     this.pp_3D_Resize();
+    this.updatePart(true,true,true);
   }
 
   updatePathPlotSpace(space){
@@ -222,7 +221,6 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
       }
     }
     this.pathplot_space=space;
-    this.arrangePathplotDivs();
 
     document.getElementById("id_EditPage_PP_RGB").style.background = "var(--main-menue-background)";
     document.getElementById("id_EditPage_PP_HSV").style.background = "var(--main-menue-background)";
@@ -256,10 +254,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
         return;
     }
 
-  }
-
-  arrangePathplotDivs(){
-
+    this.resize();
 
   }
 
@@ -300,7 +295,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
   }
 
   pp_drawRGB(calcBackground, drawInterpolationLine) {
-    this.pathplot_hueRes= document.getElementById(this.sectionID+"_PP_RG_l1").getBoundingClientRect().height;
+    this.pathplot_hueRes= document.getElementById(this.partDivID+"_PP_RG_l1").getBoundingClientRect().height;
     if(calcBackground)
       this.pp_rgb_background();
 
@@ -312,26 +307,28 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
 
   pp_rgb_background() {
 
-    setSquadRes_Canvas(this.sectionID+"_PP_RG_l0"); // global -> helper -> canvasHelper
-    setSquadRes_Canvas(this.sectionID+"_PP_RB_l0");
-    setSquadRes_Canvas(this.sectionID+"_PP_BG_l0");
+    setSquadRes_Canvas(this.partDivID+"_PP_RG_l0"); // global -> helper -> canvasHelper
+    setSquadRes_Canvas(this.partDivID+"_PP_RB_l0");
+    setSquadRes_Canvas(this.partDivID+"_PP_BG_l0");
 
     var fixedColor = undefined;
     if (this.mouseGrappedKeyID != -1) {
+      var tmpCMS = this.getParentCMS();
       switch (this.mouseGrappedColorSide) {
         case 0:
         // left color
-          fixedColor = this.editCMS.getLeftKeyColor(this.mouseGrappedKeyID, "rgb");
+          fixedColor = tmpCMS.getLeftKeyColor(this.mouseGrappedKeyID, "rgb");
           break;
         default:
           // both colors
-          fixedColor = this.editCMS.getRightKeyColor(this.mouseGrappedKeyID, "rgb");
+          fixedColor = tmpCMS.getRightKeyColor(this.mouseGrappedKeyID, "rgb");
       }
+      tmpCMS.deleteReferences();
     }
 
-    drawGRBackground(document.getElementById(this.sectionID+"_PP_RG_l0").getContext("2d"),fixedColor);
-    drawBRBackground(document.getElementById(this.sectionID+"_PP_RB_l0").getContext("2d"),fixedColor);
-    drawGBBackground(document.getElementById(this.sectionID+"_PP_BG_l0").getContext("2d"),fixedColor);
+    drawGRBackground(document.getElementById(this.partDivID+"_PP_RG_l0").getContext("2d"),fixedColor);
+    drawBRBackground(document.getElementById(this.partDivID+"_PP_RB_l0").getContext("2d"),fixedColor);
+    drawGBBackground(document.getElementById(this.partDivID+"_PP_BG_l0").getContext("2d"),fixedColor);
 
     if(fixedColor!=undefined){
       fixedColor.deleteReferences();
@@ -342,15 +339,15 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
 
   pp_rgb_interpolationLine() {
 
-    setSquadRes_Canvas(this.sectionID+"_PP_RG_l1"); // global -> helper -> canvasHelper
-    setSquadRes_Canvas(this.sectionID+"_PP_RB_l1");
-    setSquadRes_Canvas(this.sectionID+"_PP_BG_l1");
+    setSquadRes_Canvas(this.partDivID+"_PP_RG_l1"); // global -> helper -> canvasHelper
+    setSquadRes_Canvas(this.partDivID+"_PP_RB_l1");
+    setSquadRes_Canvas(this.partDivID+"_PP_BG_l1");
 
-    calcRGBInterpolationLine(cloneCMS(this.editCMS),this.pathplot_hueRes);
+    calcRGBInterpolationLine(this.getParentCMS(),this.pathplot_hueRes);
 
-    drawInterpolationLine(document.getElementById(this.sectionID+"_PP_RG_l1").getContext("2d"),1,0,true);
-    drawInterpolationLine(document.getElementById(this.sectionID+"_PP_RB_l1").getContext("2d"),2,0,true);
-    drawInterpolationLine(document.getElementById(this.sectionID+"_PP_BG_l1").getContext("2d"),1,2,true);
+    drawInterpolationLine(document.getElementById(this.partDivID+"_PP_RG_l1").getContext("2d"),1,0,true);
+    drawInterpolationLine(document.getElementById(this.partDivID+"_PP_RB_l1").getContext("2d"),2,0,true);
+    drawInterpolationLine(document.getElementById(this.partDivID+"_PP_BG_l1").getContext("2d"),1,2,true);
 
     this.pp_LineGroup=draw3DInterpolationLine(this.pp_LineGroup);
 
@@ -358,15 +355,15 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
 
   pp_rgb_drawElements(){
 
-    setSquadRes_Canvas(this.sectionID+"_PP_RG_l2"); // global -> helper -> canvasHelper
-    setSquadRes_Canvas(this.sectionID+"_PP_RB_l2");
-    setSquadRes_Canvas(this.sectionID+"_PP_BG_l2");
+    setSquadRes_Canvas(this.partDivID+"_PP_RG_l2"); // global -> helper -> canvasHelper
+    setSquadRes_Canvas(this.partDivID+"_PP_RB_l2");
+    setSquadRes_Canvas(this.partDivID+"_PP_BG_l2");
 
-    calcRGBElements(cloneCMS(this.editCMS),this.pathplot_hueRes);
+    calcRGBElements(this.getParentCMS(),this.pathplot_hueRes);
 
-    drawPathplotElements(document.getElementById(this.sectionID+"_PP_RG_l2").getContext("2d"), 1, 0,true,this.mouseAboveKeyID,this.mouseGrappedColorSide);
-    drawPathplotElements(document.getElementById(this.sectionID+"_PP_RB_l2").getContext("2d"), 2, 0,true,this.mouseAboveKeyID,this.mouseGrappedColorSide);
-    drawPathplotElements(document.getElementById(this.sectionID+"_PP_BG_l2").getContext("2d"), 1, 2,true,this.mouseAboveKeyID,this.mouseGrappedColorSide);
+    drawPathplotElements(document.getElementById(this.partDivID+"_PP_RG_l2").getContext("2d"), 1, 0,true,this.mouseAboveKeyID,this.mouseGrappedColorSide);
+    drawPathplotElements(document.getElementById(this.partDivID+"_PP_RB_l2").getContext("2d"), 2, 0,true,this.mouseAboveKeyID,this.mouseGrappedColorSide);
+    drawPathplotElements(document.getElementById(this.partDivID+"_PP_BG_l2").getContext("2d"), 1, 2,true,this.mouseAboveKeyID,this.mouseGrappedColorSide);
 
     this.pp_ElementGroup=drawPathplot3DElements(this.pp_ElementGroup,this.mouseAboveKeyID,this.mouseGrappedColorSide);
   }
@@ -380,14 +377,14 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
       this.pp_hueInit();
 
     if (drawInterpolationLine)
-      drawInterpolationLineHSV_LAB_DIN99(false);
+      this.pp_other_interpolationLine();
 
-    //drawElements_HSV_LAB_DIN99(false);*/
+    this.pp_other_drawElements();
   }
 
   pp_hueInit() {
-      this.pathplot_hueRes= document.getElementById(this.sectionID+"_PP_RG_l1").getBoundingClientRect().height;
-      setSquadRes_Canvas(this.sectionID+"_PP_Hue_l0");
+      this.pathplot_hueRes= document.getElementById(this.partDivID+"_PP_Hue_l0").getBoundingClientRect().height;
+      setSquadRes_Canvas(this.partDivID+"_PP_Hue_l0");
       var fixedColor = undefined;
       if (this.mouseGrappedKeyID != -1) {
         switch (mouseGrappedColorSide) {
@@ -403,16 +400,16 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
 
       switch (this.pathplot_space) {
         case "hsv":
-          drawHSVBackground(document.getElementById(this.sectionID+"_PP_Hue_l0").getContext("2d"),fixedColor);
+          drawHSVBackground(document.getElementById(this.partDivID+"_PP_Hue_l0").getContext("2d"),fixedColor);
           break;
           case "lab":
-            drawLabBackground(document.getElementById(this.sectionID+"_PP_Hue_l0").getContext("2d"),fixedColor);
+            drawLabBackground(document.getElementById(this.partDivID+"_PP_Hue_l0").getContext("2d"),fixedColor);
             break;
             case "din99":
-              drawDIN99Background(document.getElementById(this.sectionID+"_PP_Hue_l0").getContext("2d"),fixedColor);
+              drawDIN99Background(document.getElementById(this.partDivID+"_PP_Hue_l0").getContext("2d"),fixedColor);
               break;
               case "lch":
-                drawLCHBackground(document.getElementById(this.sectionID+"_PP_Hue_l0").getContext("2d"),fixedColor);
+                drawLCHBackground(document.getElementById(this.partDivID+"_PP_Hue_l0").getContext("2d"),fixedColor);
                 break;
       }
 
@@ -423,77 +420,77 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
   }
 
   pp_init_VPlot() {
-    var canvasObj0 = document.getElementById(this.sectionID+"_PP_C1_l0");
+    var canvasObj0 = document.getElementById(this.partDivID+"_PP_C1_l0");
     var box = canvasObj0.getBoundingClientRect();
     this.vPlotWidth = box.width;
     this.vPlotHeight = box.height;
     canvasObj0.width = this.vPlotWidth;
     canvasObj0.height = this.vPlotHeight;
 
-    var canvasObj1 = document.getElementById(this.sectionID+"_PP_C2_l0");
+    var canvasObj1 = document.getElementById(this.partDivID+"_PP_C2_l0");
     canvasObj1.width = this.vPlotWidth;
     canvasObj1.height = this.vPlotHeight;
 
-    var canvasObj2 = document.getElementById(this.sectionID+"_PP_C3_l0");
+    var canvasObj2 = document.getElementById(this.partDivID+"_PP_C3_l0");
     canvasObj2.width = this.vPlotWidth;
     canvasObj2.height = this.vPlotHeight;
 
     switch (this.pathplot_space) {
     case "hsv":
-      drawVPlot(cloneCMS(this.editCMS),canvasObj0.getContext("2d"),0,360, "H");
-      drawVPlot(cloneCMS(this.editCMS),canvasObj1.getContext("2d"),0,100, "S");
-      drawVPlot(cloneCMS(this.editCMS),canvasObj2.getContext("2d"),0,100, "V");
+      drawVPlot(this.getParentCMS(),canvasObj0.getContext("2d"),0,360, "H");
+      drawVPlot(this.getParentCMS(),canvasObj1.getContext("2d"),0,100, "S");
+      drawVPlot(this.getParentCMS(),canvasObj2.getContext("2d"),0,100, "V");
      break;
     case "lab":
-      drawVPlot(cloneCMS(this.editCMS),canvasObj0.getContext("2d"),0,100, "L");
-      drawVPlot(cloneCMS(this.editCMS),canvasObj1.getContext("2d"),labSpaceRange*-1,labSpaceRange, "A");
-      drawVPlot(cloneCMS(this.editCMS),canvasObj2.getContext("2d"),labSpaceRange*-1,labSpaceRange, "B");
+      drawVPlot(this.getParentCMS(),canvasObj0.getContext("2d"),0,100, "L");
+      drawVPlot(this.getParentCMS(),canvasObj1.getContext("2d"),labSpaceRange*-1,labSpaceRange, "A");
+      drawVPlot(this.getParentCMS(),canvasObj2.getContext("2d"),labSpaceRange*-1,labSpaceRange, "B");
       break;
     case "din99":
-      drawVPlot(cloneCMS(this.editCMS),canvasObj0.getContext("2d"),0,100, "L99");
-      drawVPlot(cloneCMS(this.editCMS),canvasObj1.getContext("2d"),rangeA99Neg,rangeA99Pos, "A99");
-      drawVPlot(cloneCMS(this.editCMS),canvasObj2.getContext("2d"),rangeB99Neg,rangeB99Pos, "B99");
+      drawVPlot(this.getParentCMS(),canvasObj0.getContext("2d"),0,100, "L99");
+      drawVPlot(this.getParentCMS(),canvasObj1.getContext("2d"),rangeA99Neg,rangeA99Pos, "A99");
+      drawVPlot(this.getParentCMS(),canvasObj2.getContext("2d"),rangeB99Neg,rangeB99Pos, "B99");
       break;
     case "lch":
-      drawVPlot(cloneCMS(this.editCMS),canvasObj0.getContext("2d"),0,100, "L");
-      drawVPlot(cloneCMS(this.editCMS),canvasObj1.getContext("2d"),0,100, "C");
-      drawVPlot(cloneCMS(this.editCMS),canvasObj2.getContext("2d"),0,360, "H");
+      drawVPlot(this.getParentCMS(),canvasObj0.getContext("2d"),0,100, "L");
+      drawVPlot(this.getParentCMS(),canvasObj1.getContext("2d"),0,100, "C");
+      drawVPlot(this.getParentCMS(),canvasObj2.getContext("2d"),0,360, "H");
      break;
     }
   }
 
-  drawInterpolationLineHSV_LAB_DIN99() {
+  pp_other_interpolationLine() {
 
-    var canvasObj0 = document.getElementById(this.sectionID+"_PP_C1_l1");
+    var canvasObj0 = document.getElementById(this.partDivID+"_PP_C1_l1");
     canvasObj0.width = this.vPlotWidth;
     canvasObj0.height = this.vPlotHeight;
 
-    var canvasObj1 = document.getElementById(this.sectionID+"_PP_C2_l1");
+    var canvasObj1 = document.getElementById(this.partDivID+"_PP_C2_l1");
     canvasObj1.width = this.vPlotWidth;
     canvasObj1.height = this.vPlotHeight;
 
-    var canvasObj2 = document.getElementById(this.sectionID+"_PP_C3_l1");
+    var canvasObj2 = document.getElementById(this.partDivID+"_PP_C3_l1");
     canvasObj2.width = this.vPlotWidth;
     canvasObj2.height = this.vPlotHeight;
 
-    var canvasObj3 = document.getElementById(this.sectionID+"_PP_Hue_l1");
+    var canvasObj3 = document.getElementById(this.partDivID+"_PP_Hue_l1");
     canvasObj3.width = this.pathplot_hueRes;
     canvasObj3.height = this.pathplot_hueRes;
 
     /////////////////////////////////////////////////////////////////
 
-    switch (this.path) {
+    switch (this.pathplot_space) {
       case "hsv":
-        calcInterpolationLine_HSV();
+        calcInterpolationLine_HSV(this.getParentCMS(),this.pathplot_hueRes,this.vPlotWidth,this.vPlotHeight);
         break;
         case "lab":
-          calcInterpolationLine_Lab();
+          calcInterpolationLine_Lab(this.getParentCMS(),this.pathplot_hueRes,this.vPlotWidth,this.vPlotHeight);
           break;
           case "din99":
-            calcInterpolationLine_DIN99();
+            calcInterpolationLine_DIN99(this.getParentCMS(),this.pathplot_hueRes,this.vPlotWidth,this.vPlotHeight);
             break;
             case "lch":
-              calcInterpolationLine_LCH();
+              calcInterpolationLine_LCH(this.getParentCMS(),this.pathplot_hueRes,this.vPlotWidth,this.vPlotHeight);
               break;
       default:
         return;
@@ -505,9 +502,56 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     drawInterpolationLine_VPlot(canvasObj1.getContext("2d"), 1);
     drawInterpolationLine_VPlot(canvasObj2.getContext("2d"), 2);
 
-    draw3DInterpolationLine();
+    this.pp_LineGroup=draw3DInterpolationLine(this.pp_LineGroup);
   }
 
+  pp_other_drawElements() {
+
+    var canvasObj0 = document.getElementById(this.partDivID+"_PP_C1_l2");
+    canvasObj0.width = this.vPlotWidth;
+    canvasObj0.height = this.vPlotHeight;
+
+    var canvasObj1 = document.getElementById(this.partDivID+"_PP_C2_l2");
+    canvasObj1.width = this.vPlotWidth;
+    canvasObj1.height = this.vPlotHeight;
+
+    var canvasObj2 = document.getElementById(this.partDivID+"_PP_C3_l2");
+    canvasObj2.width = this.vPlotWidth;
+    canvasObj2.height = this.vPlotHeight;
+
+    var canvasObj3 = document.getElementById(this.partDivID+"_PP_Hue_l2");
+    canvasObj3.width = this.pathplot_hueRes;
+    canvasObj3.height = this.pathplot_hueRes;
+
+    /////////////////////////////////////////////////////////////////
+
+    switch (this.pathplot_space) {
+      case "hsv":
+        calcHSVElements(this.getParentCMS(),this.pathplot_hueRes,this.vPlotWidth,this.vPlotHeight);
+        break;
+        case "lab":
+          calcLabElements(this.getParentCMS(),this.pathplot_hueRes,this.vPlotWidth,this.vPlotHeight);
+          break;
+          case "din99":
+            calcDIN99Elements(this.getParentCMS(),this.pathplot_hueRes,this.vPlotWidth,this.vPlotHeight);
+            break;
+            case "lch":
+              calcLCHElements(this.getParentCMS(),this.pathplot_hueRes,this.vPlotWidth,this.vPlotHeight);
+              break;
+      default:
+        return;
+
+    }
+
+    drawPathplotElements(canvasObj3.getContext("2d"),0,1, false,this.mouseAboveKeyID,this.mouseGrappedColorSide);
+
+    drawVplotElements(canvasObj0.getContext("2d"),0,this.mouseAboveKeyID,this.mouseGrappedColorSide);
+    drawVplotElements(canvasObj1.getContext("2d"),1,this.mouseAboveKeyID,this.mouseGrappedColorSide);
+    drawVplotElements(canvasObj2.getContext("2d"),2,this.mouseAboveKeyID,this.mouseGrappedColorSide);
+
+    this.pp_ElementGroup=drawPathplot3DElements(this.pp_ElementGroup,this.mouseAboveKeyID,this.mouseGrappedColorSide);
+
+  }
   ////////////////////////////////////////////////////////////////////////////
   ////////////               (Start) Pathplot 3D                  ////////////
   ////////////////////////////////////////////////////////////////////////////
@@ -526,11 +570,11 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
   }
 
   pp_3D_Resize(){
-    if(this.pp_renderer == undefined){
+    /*if(this.pp_renderer == undefined){
       this.pp_3D_init();
     }
-    else{
-      var canvasObj = document.getElementById(this.sectionID+"_PP_3D");
+    else{*/
+      var canvasObj = document.getElementById(this.partDivID+"_PP_3D");
 
       if(canvasObj==undefined || canvasObj==null)
         return;
@@ -543,12 +587,11 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     	this.pp_camera.aspect = drawWidth/drawHeight;
     	this.pp_camera.updateProjectionMatrix();
     	this.pp_renderer.setSize(drawWidth, drawHeight);
-    }
+    //}
   }
 
   pp_3D_init(){
-
-    var canvasObj = document.getElementById(this.sectionID+"_PP_3D");
+    var canvasObj = document.getElementById(this.partDivID+"_PP_3D");
 
     this.pp_renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, logarithmicDepthBuffer: true}); //this.pp_renderer = new THREE.WebGLthis.pp_renderer( { alpha: true } ); //new THREE.WebGLthis.pp_renderer();
     this.pp_renderer.setClearColor( 0xffffff, 0);
@@ -589,28 +632,18 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
   }
 
   pp_3D_Animation(){
-    //test
-    if(this.pp_doAnimation){
-      switch (this.parentID) {
-        case "id_EditPage":
-          this.pp_animationID = requestAnimationFrame(editSection.part_Pathplot.pp_3D_Animation);
-        break;
-        case "id_OptimizationPage":
-          this.pp_animationID = requestAnimationFrame(optiSection.part_Pathplot.pp_3D_Animation);
-        break;
-        default:
-          return;
+    if(editSection.isSectionOpen()){
+      if(editSection.part_Pathplot.pp_doAnimation){
+        editSection.part_Pathplot.pp_animationID = requestAnimationFrame(editSection.part_Pathplot.pp_3D_Animation);
+        editSection.part_Pathplot.pp_3D_Render();
       }
-    	this.pp_3D_Render();
-    }//
-  }
-
-  pp_3D_Animation(){
-    // is in the specific class of the subsection
-  }
-
-  setParentCMS(cms){
-
+    }
+    else if(optiSection.isSectionOpen()){
+      if(optiSection.part_Pathplot.pp_doAnimation){
+        optiSection.part_Pathplot.pp_animationID = requestAnimationFrame(optiSection.part_Pathplot.pp_3D_Animation);
+        optiSection.part_Pathplot.pp_3D_Render();
+      }
+    }
   }
 
   pp_3D_StartAnimation(){

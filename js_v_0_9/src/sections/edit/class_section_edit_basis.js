@@ -44,6 +44,7 @@ class class_Edit_Basis_Section extends class_Section {
 
   showSection(){
     super.showSection();
+    this.resize();
     this.doPagePeculiarity();
   }
 
@@ -57,7 +58,6 @@ class class_Edit_Basis_Section extends class_Section {
     document.getElementById(this.cmsNaNColorID).style.background = this.editCMS.getNaNColor("rgb").getRGBString();
     document.getElementById(this.cmsAboveID).style.background = this.editCMS.getAboveColor("rgb").getRGBString();
     document.getElementById(this.cmsBelowID).style.background = this.editCMS.getBelowColor("rgb").getRGBString();
-    this.part_Pathplot.updatePathPlotSpace(this.pathplot_space);
   }
 
   updateSection(){

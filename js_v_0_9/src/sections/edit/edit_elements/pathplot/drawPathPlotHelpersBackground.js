@@ -219,8 +219,8 @@ function rgbPlot(context, hueResolution, xlabel, ylabel) {
 
 function drawVPlot(cmsClone, vPlotContex, startValue, endValue,labelText){
 
-  var vPlotWidth = canvasContex.canvas.clientWidth;
-  var vPlotHeight = canvasContex.canvas.clientHeight;
+  var vPlotWidth = vPlotContex.canvas.clientWidth;
+  var vPlotHeight = vPlotContex.canvas.clientHeight;
   vPlotContex.clearRect(0, 0, vPlotWidth, vPlotHeight);
 
   var yStart = Math.round(vPlotHeight*0.9);
@@ -229,7 +229,6 @@ function drawVPlot(cmsClone, vPlotContex, startValue, endValue,labelText){
   var fontSize = Math.round(vPlotHeight*0.05);
   var fontSize_Label = Math.round(vPlotHeight*0.075);
   var xStart = Math.round(vPlotWidth*0.1);
-
   var xEnd = Math.round(vPlotWidth*0.98);
   var arrowHeightX = Math.round((vPlotWidth-xEnd)/2);
   var labelPos = Math.round(vPlotWidth * 0.015);
@@ -335,7 +334,7 @@ function getHSVBackground( fixedColor,hueResolution){
 
   var colorspaceCenterX = Math.round(hueResolution / 2);
   var colorspaceCenterY = Math.round(hueResolution / 2);
-  var colorspaceRadius = Math.round((hueResolution / 2));// * radiusratio);
+  var colorspaceRadius = Math.round((hueResolution*0.95 / 2));// * radiusratio);
 
   var vVal = 1.0;
 

@@ -2,6 +2,8 @@
 function keyAdd2DAnimation(){
   if(editSection.drawAddKey){
     editSection.drawWorkCMS();
+    if(editSection.part_Pathplot.pathplot_space!=="rgb")
+      editSection.part_Pathplot.updatePart(false,true, true);
   }
 }
 

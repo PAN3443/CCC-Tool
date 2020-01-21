@@ -59,7 +59,7 @@ function mouseMoveColorspace(event) {
 
   var colorspaceCenterX = Math.round(canvasObj.width / 2);
   var colorspaceCenterY = Math.round(canvasObj.height / 2);
-  var colorspaceRadius = Math.round(canvasObj.width / 2);
+  var colorspaceRadius = Math.round((canvasObj.width*0.95 / 2));
 
   if(mouseGrappedKeyID==-1){
 
@@ -545,7 +545,7 @@ function calcHuePos(tmpColor){
 
   switch (pathColorspace) {
       case "hsv":
-        var colorspaceRadius = Math.round(pathPlotResolution / 2);
+        var colorspaceRadius = Math.round((pathPlotResolution / 2));
         var tmpDis = tmpColor.getSValue() * colorspaceRadius;
         var tmpRad = degree360ToRad(tmpColor.getHValue()*360);
 
@@ -561,7 +561,7 @@ function calcHuePos(tmpColor){
         yPos = (tmpColor.getB99Value() - rangeB99Neg) / rangeB99 * pathPlotResolution;
       break;
       case "lch":
-        var colorspaceRadius = Math.round(pathPlotResolution / 2);
+        var colorspaceRadius = Math.round((pathPlotResolution / 2));
         var tmpDis = tmpColor.getCValue() * colorspaceRadius;
         var tmpRad = degree360ToRad(tmpColor.getHValue()*360);
         xPos = tmpDis * Math.cos(tmpRad) + colorspaceCenterX;
