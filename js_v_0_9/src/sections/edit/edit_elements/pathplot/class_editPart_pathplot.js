@@ -18,14 +18,24 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     this.mouseAboveKeyID=-1;
     this.mouseGrappedKeyID=-1;
     this.mouseGrappedColorSide=0;
+    this.pp_CanvasMode = undefined;
+    this.circleRad = undefined;
+    this.bigcircleRad = undefined;
+    this.pp_canvas_xStart = undefined;
+    this.pp_canvas_yStart = undefined;
+    this.pp_canvas_xWidth = undefined;
+    this.pp_canvas_yHeight = undefined;
+    this.pp_currentColor = undefined;
 
     // PathPlot 3D
     this.pp_doAnimation = false;
     this.pp_animationID = undefined;
 
     this.pp_camera = undefined;
-    this.pp_camera_radius=400;
-    this.pp_cameraLight=undefined;
+    this.pp_camera_maxRadius=1500;
+    this.pp_camera_minRadius=10;
+    this.pp_zoomFactor=20;
+    //this.pp_cameraLight=undefined;
     this.pp_scene = undefined;
     this.pp_renderer = undefined;
     this.pp_colorspaceGroup = new THREE.Group();
@@ -33,21 +43,21 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     this.pp_ElementGroup = new THREE.Group();
 
     // Pachplot 3D::Event Var
-    this.pp_dorotation = false;
-    this.pp_downXPos =0;
-    this.pp_downYPos =0;
-    this.pp_xRotationAngle=0;
-    this.pp_yRotationAngle=0;
-    this.pp_xRotationDownAngle=0;
-    this.pp_yRotationDownAngle=0;
+    this.pp_doRotation = false;
+    this.pp_doTranslation = false;
+    this.mousePosX =0;
+    this.mousePosY =0;
+    this.translationBorder = 200;
 
     this.pp_3D_init();
     this.updatePathPlotSpace(this.pathplot_space); // produce RGB Mesh
   }
 
   updatePart(doBackground,doInterpolationline, initVPlot){
-    super.updatePart();
+    if(!super.updatePart())
+      return;
 
+    this.pp_WorkCMS
     if(this.pathplot_space==="rgb")
       this.pp_drawRGB(doBackground, doInterpolationline);
     else
@@ -56,7 +66,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
 
   resize(){
     var container = document.getElementById(this.partDivID);
-
+    this.partIsReady=false;
     if(container==undefined || container==null)
       return;
 
@@ -73,6 +83,8 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
           var tmpDiv = document.createElement('div');
           tmpDiv.style.width="100%;";
           tmpDiv.style.height=this.pathPlot_Height_VH*0.25+"vh";
+          tmpDiv.style.borderRight="0.2vw solid black";
+          tmpDiv.style.borderBottom="0.2vh solid black";
           tmpDiv.id=this.partDivID+"_PP_3D";
           tmpDiv=this.add_pp_3D_Events(tmpDiv);
           document.getElementById(this.partDivID).appendChild(tmpDiv);
@@ -104,6 +116,8 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
           var tmpDiv = document.createElement('div');
           tmpDiv.style.height=this.pathPlot_Height_VH*0.5+"vh";
           tmpDiv.style.width=this.pathPlot_Width_VW*0.5+"vw";
+          tmpDiv.style.borderRight="0.2vw solid black";
+          tmpDiv.style.borderBottom="0.2vh solid black";
           tmpDiv.id=this.partDivID+"_PP_3D";
           tmpDiv=this.add_pp_3D_Events(tmpDiv);
           tmpRow.appendChild(tmpDiv);
@@ -122,6 +136,8 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
           var tmpDiv = document.createElement('div');
           tmpDiv.style.height=this.pathPlot_Height_VH+"vh";
           tmpDiv.style.width=this.pathPlot_Width_VW*0.25+"vw";
+          tmpDiv.style.borderRight="0.2vw solid black";
+          tmpDiv.style.borderBottom="0.2vh solid black";
           tmpDiv.id=this.partDivID+"_PP_3D";
           tmpDiv=this.add_pp_3D_Events(tmpDiv);
           document.getElementById(this.partDivID).appendChild(tmpDiv);
@@ -144,7 +160,9 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
           var tmpDiv = document.createElement('div');
           tmpDiv.style.height=this.pathPlot_Height_VH*0.25+"vh";
           tmpDiv.style.width=this.pathPlot_Width_VW*0.5+"vw";
-          tmpDiv.id=this.partDivID+"_PP_3D";
+          tmpDiv.style.borderRight="0.2vw solid black";
+tmpDiv.style.borderBottom="0.2vh solid black";
+tmpDiv.id=this.partDivID+"_PP_3D";
           tmpDiv=this.add_pp_3D_Events(tmpDiv);
           tmpRow.appendChild(tmpDiv);
           tmpRow.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.25,this.pathPlot_Width_VW*0.5,true,this.partDivID+"_PP_Hue"));
@@ -161,7 +179,9 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
           var tmpDiv = document.createElement('div');
           tmpDiv.style.height=this.pathPlot_Height_VH*0.5+"vh";
           tmpDiv.style.width=this.pathPlot_Width_VW*0.33+"vw";
-          tmpDiv.id=this.partDivID+"_PP_3D";
+          tmpDiv.style.borderRight="0.2vw solid black";
+tmpDiv.style.borderBottom="0.2vh solid black";
+tmpDiv.id=this.partDivID+"_PP_3D";
           tmpDiv=this.add_pp_3D_Events(tmpDiv);
           tmpCol.appendChild(tmpDiv);
           tmpCol.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.5,this.pathPlot_Width_VW*0.33,true,this.partDivID+"_PP_Hue"));
@@ -179,7 +199,9 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
           var tmpDiv = document.createElement('div');
           tmpDiv.style.height=this.pathPlot_Height_VH+"vh";
           tmpDiv.style.width=this.pathPlot_Width_VW*0.25+"vw";
-          tmpDiv.id=this.partDivID+"_PP_3D";
+          tmpDiv.style.borderRight="0.2vw solid black";
+tmpDiv.style.borderBottom="0.2vh solid black";
+tmpDiv.id=this.partDivID+"_PP_3D";
           tmpDiv=this.add_pp_3D_Events(tmpDiv);
           document.getElementById(this.partDivID).appendChild(tmpDiv);
           document.getElementById(this.partDivID).appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH,this.pathPlot_Width_VW*0.25,true,this.partDivID+"_PP_Hue"));
@@ -192,6 +214,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
           document.getElementById(this.partDivID).appendChild(tmpCol);
       }
     }
+    this.partIsReady=true;
     this.pp_3D_Resize();
     this.updatePart(true,true,true);
   }
@@ -263,11 +286,14 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     tmpDiv.addEventListener("mouseleave", pp_3D_mouseleave);
     tmpDiv.addEventListener("mousedown", pp_3D_mousedown);
     tmpDiv.addEventListener("mouseup", pp_3D_mouseup);
+    tmpDiv.addEventListener("wheel", pp_3D_mousewheel);
+    tmpDiv.oncontextmenu=function(){return false;};
     return tmpDiv;
   }
 
   createTripleLayerCanvasDiv(height_VH, width_VW, isSquad, id){
     var tmpDiv = document.createElement('div');
+    tmpDiv.id = id;
     tmpDiv.style.width=width_VW+"vw";
     tmpDiv.style.height=height_VH+"vh";
     if(isSquad){
@@ -277,6 +303,12 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     tmpDiv.style.margin="auto";
     tmpDiv.style.position="relative";
     //tmpDiv.style.background="rgb(10,10,20)";
+
+    tmpDiv.addEventListener("mousemove", pp_2D_mouseMove);
+    tmpDiv.addEventListener("mouseleave", pp_2D_mouseLeave);
+    tmpDiv.addEventListener("mouseenter", pp_2D_mouseEnter);
+    tmpDiv.addEventListener("mousedown", pp_2D_mouseDown);
+    tmpDiv.addEventListener("mouseup", pp_2D_mouseUp);
 
     tmpDiv.appendChild(this.createAbsolutCanvas(0,id+"_l0"));
     tmpDiv.appendChild(this.createAbsolutCanvas(1,id+"_l1"));
@@ -303,6 +335,37 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
       this.pp_rgb_interpolationLine();
 
     this.pp_rgb_drawElements(); // do3D true
+  }
+
+  pp_setCanvasMode(id){
+    this.pp_CanvasMode = id.slice(-2);
+    this.circleRad=Math.round(this.pathplot_hueRes*0.015);
+    this.bigcircleRad=Math.round(this.pathplot_hueRes*0.03);
+
+    if(this.pathplot_space=="rgb"){
+      this.pp_canvas_xStart = this.pathplot_hueRes*0.1;
+      this.pp_canvas_yStart = this.pathplot_hueRes*0.9;
+      var pp_canvas_xEnd = this.pathplot_hueRes*0.8;
+      var pp_canvas_yEnd = this.pathplot_hueRes*0.2;
+      this.pp_canvas_xWidth = pp_canvas_xEnd-this.pp_canvas_xStart;
+      this.pp_canvas_yHeight =this.pp_canvas_yStart-pp_canvas_yEnd;
+
+      /*console.log("pp_canvas_xStart",this.pp_canvas_xStart);
+      console.log("pp_canvas_yStart",this.pp_canvas_yStart);
+      console.log("pp_canvas_xWidth",this.pp_canvas_xWidth);
+      console.log("pp_canvas_yHeight",this.pp_canvas_yHeight);
+      console.log("------------------");*/
+    }
+    else {
+      switch (this.pp_CanvasMode) {
+        case "ue":
+
+        break;
+        default:
+          this.circleRad = Math.round(this.vPlotHeight*0.03);
+          this.bigcircleRad = Math.round(this.vPlotHeight*0.06);
+        }
+    }
   }
 
   pp_rgb_background() {
@@ -387,15 +450,17 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
       setSquadRes_Canvas(this.partDivID+"_PP_Hue_l0");
       var fixedColor = undefined;
       if (this.mouseGrappedKeyID != -1) {
-        switch (mouseGrappedColorSide) {
+        var tmpCMS = this.getParentCMS();
+        switch (this.mouseGrappedColorSide) {
           case 0:
           // left color
-            fixedColor = globalCMS1.getLeftKeyColor(mouseGrappedKeyID, this.pathplot_space);
+            fixedColor = tmpCMS.getLeftKeyColor(this.mouseGrappedKeyID, this.pathplot_space);
             break;
           default:
             // both colors
-            fixedColor = globalCMS1.getRightKeyColor(mouseGrappedKeyID, this.pathplot_space);
+            fixedColor = tmpCMS.getRightKeyColor(this.mouseGrappedKeyID, this.pathplot_space);
         }
+        tmpCMS.deleteReferences();
       }
 
       switch (this.pathplot_space) {
@@ -552,6 +617,479 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     this.pp_ElementGroup=drawPathplot3DElements(this.pp_ElementGroup,this.mouseAboveKeyID,this.mouseGrappedColorSide);
 
   }
+
+  pp_mouseMove(id,mousePosX,mousePosY){
+    if(this.pp_CanvasMode == undefined)
+      return;
+
+    this.mousePosX =mousePosX;
+    this.mousePosY =mousePosY;
+
+    var tmpCMS = this.getParentCMS();
+
+    if(this.mouseGrappedKeyID==-1){
+      document.getElementById(id).style.cursor = "default";
+      var oldmouseAboveKeyID = this.mouseAboveKeyID;
+      var found = false;
+
+      for (var i = 0; i < tmpCMS.getKeyLength(); i++) {
+
+        var position = [-1,-1];
+          switch (tmpCMS.getKeyType(i)) {
+            case "nil key":
+              // do nothing
+              break;
+            case "twin key":
+            ////////////////////////////////////////////////////////////////
+            /////// left Color
+              var tmpColor = tmpCMS.getLeftKeyColor(i, this.pathplot_space);
+              var drawCircle = true;
+              if (tmpCMS.getKeyType(i-1) === "nil key" || tmpCMS.getKeyType(i-1) === "left key")
+                drawCircle = false;
+              position =  this.getColorPosInCanvas(tmpColor);
+              if(this.pp_checkPosition(position[0], position[1], i, 0, drawCircle)){
+                  found = true;
+                  tmpColor.deleteReferences();
+                  tmpColor=null;
+                  break;
+              }
+              ////////////////////////////////////////////////////////////////
+              /////// Right Color
+              var tmpColor2 = tmpCMS.getRightKeyColor(i, this.pathplot_space);
+              position =  this.getColorPosInCanvas(tmpColor2);
+              if(this.pp_checkPosition(position[0], position[1], i, 1, drawCircle)){
+                  found = true;
+                  tmpColor.deleteReferences();
+                  tmpColor=null;
+                  tmpColor2.deleteReferences();
+                  tmpColor2=null;
+                  break;
+              }
+              tmpColor.deleteReferences();
+              tmpColor=null;
+              tmpColor2.deleteReferences();
+              tmpColor2=null;
+              break;
+            case "left key":
+              var drawCircle = true;
+              if (tmpCMS.getKeyType(i-1) === "nil key" || tmpCMS.getKeyType(i-1) === "left key")
+                drawCircle = false;
+              ////////////////////////////////////////////////////////////////
+              /////// left Color
+              var tmpColor = tmpCMS.getLeftKeyColor(i, this.pathplot_space);
+              position =  this.getColorPosInCanvas(tmpColor);
+              if(this.pp_checkPosition(position[0], position[1], i, 0, drawCircle)){
+                  found = true;
+                  tmpColor.deleteReferences();
+                  tmpColor=null;
+                  break;
+              }
+              tmpColor.deleteReferences();
+              tmpColor=null;
+              ////////////////////////////////////////////////////////
+              ///// Right Color
+              // do nothing
+              break;
+
+              case "right key":
+              var tmpColor = tmpCMS.getRightKeyColor(i, this.pathplot_space); // right color because of right key
+              position =  this.getColorPosInCanvas(tmpColor);
+              if(this.pp_checkPosition(position[0], position[1], i, 1, true)){
+                  found = true;
+                  tmpColor.deleteReferences();
+                  tmpColor=null;
+                  break;
+              }
+              tmpColor.deleteReferences();
+              tmpColor=null;
+              break;
+            default:
+              // dual Key
+              tmpColor = tmpCMS.getRightKeyColor(i, this.pathplot_space); // right color because of right key
+              position = this.getColorPosInCanvas(tmpColor);
+              if(this.pp_checkPosition(position[0], position[1], i, 2, true)){
+                  found = true;
+                  tmpColor.deleteReferences();
+                  tmpColor=null;
+                  break;
+              }
+              tmpColor.deleteReferences();
+              tmpColor=null;
+          }
+
+          if(found){
+            document.getElementById(id).style.cursor = "pointer";
+            if(this.mouseGrappedColorSide==0){
+              this.pp_currentColor=tmpCMS.getLeftKeyColor(this.mouseAboveKeyID, this.pathplot_space);
+              this.update_CoordID();
+            }
+            else{
+              this.pp_currentColor=tmpCMS.getRightKeyColor(this.mouseAboveKeyID, this.pathplot_space);
+              this.update_CoordID();
+            }
+            break;
+          }
+      }
+
+      if(!found){
+        this.pp_currentColor=undefined;
+        this.update_CoordID();
+      }
+
+      /*if(oldmouseAboveKeyID!=this.mouseAboveKeyID)
+        this.updatePart(false,false,false);//*/
+
+    } ///// END: if (mouseGrappedKeyID==-1)
+    else{
+
+
+
+
+      // check if mouse is inside of Colorspace
+      /*var tmpColor;
+      var errorRGBColor = new class_Color_RGB(-1, -1, -1);
+      /*switch(pathColorspace) {
+        case "hsv":
+          var dis = Math.sqrt(Math.pow(colorspaceCenterX - mousePosX, 2) + Math.pow(colorspaceCenterY - mousePosY, 2));
+          if (dis <= colorspaceRadius) {
+            //canvasObj.style.cursor = "pointer"; // crosshair
+            var ty = (mousePosY) - (colorspaceCenterY);
+            var tx = mousePosX - colorspaceCenterX;
+            var angle = atan2_360Degree(tx,ty)/360; // values 0-1 ...
+            var hVal = angle;
+            var sVal = dis / colorspaceRadius;
+            tmpColor = new class_Color_HSV(hVal, sVal, updateCurrentValue);
+
+            var diplay1Val = Math.round(hVal*360);
+            var diplay2Val = Math.round(sVal*100);
+            var diplay3Val = Math.round(updateCurrentValue*100);
+            document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "H : " + diplay1Val + "&deg;, S : " + diplay2Val + ", V : " + diplay3Val;
+          } else {
+            return;
+          }
+          break
+        case "lab":
+          var aVal = ((mousePosX - colorspaceCenterX) / (canvasObj.width / 2)) * labSpaceRange;
+          var bVal = ((mousePosY - colorspaceCenterY) / (canvasObj.height / 2)) * labSpaceRange;
+
+
+            tmpColor = new class_Color_LAB(updateCurrentValue, aVal, bVal);
+            if (onlyRGBPossibleColor) {
+              var testColor = tmpColor.calcRGBColorCorrect(errorRGBColor);
+              var rValue = testColor.getRValue();
+              testColor.deleteReferences();
+              testColor=null;
+              if (rValue == -1) {
+                return;
+              }
+            }
+
+            var diplay1Val = Math.round(updateCurrentValue);
+            var diplay2Val = Math.round(aVal);
+            var diplay3Val = Math.round(bVal);
+            document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L : " + diplay1Val + ", a : " + diplay2Val + ", b : " + diplay3Val;
+
+
+          break;
+        case "din99":
+          var a99Val = (mousePosX / canvasObj.width) * rangeA99 + rangeA99Neg;
+          var b99Val = (mousePosY / canvasObj.height) * rangeB99 + rangeB99Neg;
+
+          //if (a99Val>=din99SpaceRange*-1 && a99Val<=din99SpaceRange && b99Val>=din99SpaceRange*-1 && b99Val<=din99SpaceRange){
+          if (a99Val >= rangeA99Neg && a99Val <= rangeA99Pos && b99Val >= rangeB99Neg && b99Val <= rangeB99Pos) {
+            tmpColor = new class_Color_DIN99(updateCurrentValue, a99Val, b99Val);
+
+            var colorRGB = tmpColor.calcRGBColor();
+            if(colorRGB.getRValue()==0 && colorRGB.getGValue()==0 && colorRGB.getBValue()==0){
+              if(tmpColor.getL99Value()!=0 || tmpColor.getA99Value() !=0 || tmpColor.getB99Value()!=0){
+                return;
+              }
+            }
+
+            if (onlyRGBPossibleColor) {
+              var testColor = tmpColor.calcRGBColorCorrect(errorRGBColor);
+              var rValue = testColor.getRValue();
+              testColor.deleteReferences();
+              testColor=null;
+              if (rValue == -1) {
+                return;
+              }
+            }
+
+            var diplay1Val = Math.round(updateCurrentValue);
+            var diplay2Val = Math.round(a99Val);
+            var diplay3Val = Math.round(b99Val);
+            document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L99 : " + diplay1Val + ", a99 : " + diplay2Val + ", b99 : " + diplay3Val;
+          } else {
+            return;
+          }
+          break;
+
+          case "lch":
+            var dis = Math.sqrt(Math.pow(colorspaceCenterX - mousePosX, 2) + Math.pow(colorspaceCenterY - mousePosY, 2));
+            if (dis <= colorspaceRadius) {
+              //canvasObj.style.cursor = "pointer"; // crosshair
+              var ty = (mousePosY) - (colorspaceCenterY);
+              var tx = mousePosX - colorspaceCenterX;
+              var angle = atan2_360Degree(tx,ty)/360; // values 0-1 ...
+              var hVal = angle;
+              var cVal = dis / colorspaceRadius;
+              tmpColor = new class_Color_LCH(updateCurrentValue, cVal,hVal);
+
+              if (onlyRGBPossibleColor) {
+                var testColor = tmpColor.calcRGBColorCorrect(errorRGBColor);
+                var rValue = testColor.getRValue();
+                testColor.deleteReferences();
+                testColor=null;
+                if (rValue == -1) {
+                  return;
+                }
+              }
+
+              var diplay1Val = Math.round(updateCurrentValue*100);
+              var diplay2Val = Math.round(cVal*100);
+              var diplay3Val = Math.round(hVal*360);
+              document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L : " + diplay1Val + ", C : " + diplay2Val + ", h : " + diplay3Val+"&deg;";
+            } else {
+              return;
+            }
+            break
+
+        default:
+          console.log("Error at the getC1CurrentValue function");
+          return;
+      }
+
+      switch (mouseGrappedColorSide) {
+        case 0:
+        // left color
+          globalCMS1.setLeftKeyColor(mouseGrappedKeyID, cloneColor(tmpColor));
+          break;
+        case 1:
+          // right color
+          globalCMS1.setRightKeyColor(mouseGrappedKeyID, cloneColor(tmpColor));
+          break;
+        case 2:
+          // both colors
+          globalCMS1.setLeftKeyColor(mouseGrappedKeyID, cloneColor(tmpColor));
+          globalCMS1.setRightKeyColor(mouseGrappedKeyID, cloneColor(tmpColor));
+          break;
+        default:
+        console.log("Error "+ mouseGrappedColorSide);
+      }
+
+      tmpColor.deleteReferences();
+      tmpColor=null;
+      errorRGBColor.deleteReferences();
+      errorRGBColor=null;*/
+
+    } ///// END: else => (mouseGrappedKeyID!=-1)
+
+    tmpCMS.deleteReferences();
+  }
+
+  pp_checkPosition(centerPosX, centerPosY, i, colorside, isCircle){
+
+    if(isCircle)
+      return this.checkInsideCirce(centerPosX, centerPosY, i, colorside);
+    else
+      return this.checkInsideRect(centerPosX, centerPosY, i, colorside);
+  }
+
+  checkInsideRect(centerPosX, centerPosY, i, colorside) {
+    if (this.mouseAboveKeyID == i) {
+      if (this.mousePosX < centerPosX - this.bigcircleRad ||
+        this.mousePosX > centerPosX + this.bigcircleRad ||
+        this.mousePosY < centerPosY - this.bigcircleRad ||
+        this.mousePosY > centerPosY + this.bigcircleRad) {
+        this.mouseAboveKeyID = -1;
+        this.mouseGrappedColorSide=-1;
+          //drawcolormap_hueSpace(false,false,false);
+        return false;
+      } else {
+        return true;
+      }
+
+    } else {
+      if (this.mousePosX >= centerPosX - this.circleRad &&
+        this.mousePosX <= centerPosX + this.circleRad &&
+        this.mousePosY >= centerPosY - this.circleRad &&
+        this.mousePosY <= centerPosY + this.circleRad) {
+        this.mouseAboveKeyID = i;
+        this.mouseGrappedColorSide=colorside;
+          //drawcolormap_hueSpace(false,false,false);
+        return true;
+      } else {
+        this.mouseAboveKeyID = -1;
+        this.mouseGrappedColorSide=-1;
+        return false;
+      }
+    }
+  }
+
+  checkInsideCirce(centerPosX, centerPosY, i, colorside){
+
+    var dis = Math.sqrt(Math.pow(centerPosX - this.mousePosX, 2) + Math.pow(centerPosY - this.mousePosY, 2));
+
+    if (this.mouseAboveKeyID == i) {
+      // Circle -> Part of Scaled Band
+      if (dis > this.bigcircleRad) {
+        this.mouseAboveKeyID = -1;
+          //drawcolormap_hueSpace(false,false,false);
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+
+      if (dis <= this.circleRad) {
+        this.mouseAboveKeyID = i;
+        this.mouseGrappedColorSide=colorside;
+          //drawcolormap_hueSpace(false,false,false);
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+  }
+
+  getColorPosInCanvas(tmpColor){
+    var position = [-1,-1];
+    if(this.pathplot_space=="rgb"){
+      switch (this.pp_CanvasMode) {
+        case "RG":
+        position[0] = tmpColor.getGValue() * this.pp_canvas_xWidth + this.pp_canvas_xStart;
+        position[1] = this.pp_canvas_yStart - tmpColor.getRValue() * this.pp_canvas_yHeight;
+        break;
+        case "RB":
+        position[0] = tmpColor.getBValue() * this.pp_canvas_xWidth + this.pp_canvas_xStart;
+        position[1] = this.pp_canvas_yStart - tmpColor.getRValue() * this.pp_canvas_yHeight;
+        break;
+        case "BG":
+        position[0] = tmpColor.getGValue() * this.pp_canvas_xWidth + this.pp_canvas_xStart;
+        position[1] = this.pp_canvas_yStart - tmpColor.getBValue() * this.pp_canvas_yHeight;
+        break;
+        }
+    }
+    else {
+      switch (this.pp_CanvasMode) {
+        case "ue":
+        var colorspaceCenterX = Math.round(this.pathplot_hueRes / 2);
+        var colorspaceCenterY = Math.round(this.pathplot_hueRes / 2);
+        switch (this.pathplot_space) {
+            case "hsv":
+              var colorspaceRadius =  Math.round((this.pathplot_hueRes*0.95 / 2));
+              var tmpDis = tmpColor.getSValue() * colorspaceRadius;
+              var tmpRad = degree360ToRad(tmpColor.getHValue()*360);
+              position[0] = tmpDis * Math.cos(tmpRad) + colorspaceCenterX;
+              position[1] = this.pathplot_hueRes-(tmpDis * Math.sin(tmpRad) + colorspaceCenterY);
+            break;
+            case "lab":
+              position[0] = ((tmpColor.getAValue() / labSpaceRange) * this.pathplot_hueRes / 2) + colorspaceCenterX;
+              position[1] = this.pathplot_hueRes-(((tmpColor.getBValue() / labSpaceRange) * this.pathplot_hueRes / 2) + colorspaceCenterY);
+            break;
+            case "din99":
+              position[0] = (tmpColor.getA99Value() - rangeA99Neg) / rangeA99 * this.pathplot_hueRes;
+              position[1] = this.pathplot_hueRes-((tmpColor.getB99Value() - rangeB99Neg) / rangeB99 * this.pathplot_hueRes);
+            break;
+            case "lch":
+              var colorspaceRadius =  Math.round((this.pathplot_hueRes*0.95 / 2));
+              var tmpDis = tmpColor.getCValue() * colorspaceRadius;
+              var tmpRad = degree360ToRad(tmpColor.getHValue()*360);
+              position[0] = tmpDis * Math.cos(tmpRad) + colorspaceCenterX;
+              position[1] = this.pathplot_hueRes-(tmpDis * Math.sin(tmpRad) + colorspaceCenterY);
+            break;
+              default:
+                console.log("Error at the changeColorspace function");
+                return;
+            }
+        break;
+        default:
+          switch (this.pp_CanvasMode) {
+            case "C1":
+
+            break;
+            case "C2":
+
+            break;
+            case "C3":
+
+            break;
+          }
+        }
+    }
+    return position;
+  }
+
+  update_CoordID(){
+    if(this.pathPlot_CoordID==undefined)
+      return
+
+    if(this.pp_currentColor==undefined){
+      document.getElementById(this.pathPlot_CoordID).innerHTML="";
+      return;
+    }
+
+      var c1_name = "";
+      var c1_val = 0;
+      var c2_name = "";
+      var c2_val = 0;
+      var c3_name = "";
+      var c3_val = 0;
+
+
+
+    
+        switch (this.pathplot_space) {
+            case "rgb":
+            c1_name = "R";
+            c1_val = this.pp_currentColor.get1Value();
+            c2_name = "G";
+            c2_val = this.pp_currentColor.get2Value();
+            c3_name = "B";
+            c3_val = this.pp_currentColor.get3Value();
+            break;
+            case "hsv":
+            c1_name = "H";
+            c1_val = this.pp_currentColor.get1Value();
+            c2_name = "S";
+            c2_val = this.pp_currentColor.get2Value();
+            c3_name = "V";
+            c3_val = this.pp_currentColor.get3Value();
+            break;
+            case "lab":
+            c1_name = "L";
+            c1_val = this.pp_currentColor.get1Value();
+            c2_name = "A";
+            c2_val = this.pp_currentColor.get2Value();
+            c3_name = "B";
+            c3_val = this.pp_currentColor.get3Value();
+              break;
+            case "din99":
+            c1_name = "L";
+            c1_val = this.pp_currentColor.get1Value();
+            c2_name = "A";
+            c2_val = this.pp_currentColor.get2Value();
+            c3_name = "B";
+            c3_val = this.pp_currentColor.get3Value();
+            break;
+            case "lch":
+            c1_name = "L";
+            c1_val = this.pp_currentColor.get1Value();
+            c2_name = "C";
+            c2_val = this.pp_currentColor.get2Value();
+            c3_name = "H";
+            c3_val = this.pp_currentColor.get3Value();
+            break;
+            default:
+              document.getElementById(this.pathPlot_CoordID).innerHTML="";
+              return;
+          }
+          document.getElementById(this.pathPlot_CoordID).innerHTML=c1_name.bold()+c1_val+c2_name.bold()+c2_val+c3_name.bold()+c3_val;
+  }
+
+
   ////////////////////////////////////////////////////////////////////////////
   ////////////               (Start) Pathplot 3D                  ////////////
   ////////////////////////////////////////////////////////////////////////////
@@ -608,16 +1146,17 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     }
 
   	this.pp_scene = new THREE.Scene();
-  	this.pp_camera = new THREE.PerspectiveCamera(75,drawWidth /drawHeight, 0.1, 1000);//new THREE.Orthographicthis.pp_camera( 0.5 * drawWidth * 2 / - 2, 0.5 * drawWidth * 2 / 2, drawWidth / 2, drawWidth / - 2, 150, 1000 ); //new THREE.Perspectivethis.pp_camera(75,drawWidth /drawHeight, 0.1, 1000);
+  	this.pp_camera = new THREE.PerspectiveCamera(75,drawWidth /drawHeight, 0.1, 10000);//new THREE.Orthographicthis.pp_camera( 0.5 * drawWidth * 2 / - 2, 0.5 * drawWidth * 2 / 2, drawWidth / 2, drawWidth / - 2, 150, 1000 ); //new THREE.Perspectivethis.pp_camera(75,drawWidth /drawHeight, 0.1, 1000);
     this.pp_renderer.setSize(drawWidth,drawHeight);//(window.innerWidth, window.innerHeight);
 
-    this.pp_cameraLight = new THREE.PointLight( 0xffffff,1 );
+    /*this.pp_cameraLight = new THREE.PointLight( 0xffffff,1 );
     this.pp_cameraLight.position.set( 0, 0, this.pp_camera_radius );
-    this.pp_scene.add( this.pp_cameraLight );
+    //this.pp_scene.add( this.pp_cameraLight );*/
 
     this.pp_camera.position.x = 0;
     this.pp_camera.position.y = 0;
-  	this.pp_camera.position.z = this.pp_camera_radius;
+  	this.pp_camera.position.z = this.pp_camera_minRadius+(this.pp_camera_maxRadius-this.pp_camera_minRadius)/2;
+
 
     this.pp_scene.add( this.pp_colorspaceGroup );
     this.pp_scene.add( this.pp_LineGroup );
@@ -653,28 +1192,81 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
 
   pp_3D_Render() {
             this.pp_renderer.clear();
-            this.pp_colorspaceGroup.rotation.y += ( this.pp_xRotationAngle - this.pp_colorspaceGroup.rotation.y ) * 0.05;
+            /*this.pp_colorspaceGroup.rotation.y += ( this.pp_xRotationAngle - this.pp_colorspaceGroup.rotation.y ) * 0.05;
             this.pp_colorspaceGroup.rotation.x += ( this.pp_yRotationAngle - this.pp_colorspaceGroup.rotation.x ) * 0.05;
             this.pp_LineGroup.rotation.y += ( this.pp_xRotationAngle - this.pp_LineGroup.rotation.y ) * 0.05;
             this.pp_LineGroup.rotation.x += ( this.pp_yRotationAngle - this.pp_LineGroup.rotation.x ) * 0.05;
             this.pp_ElementGroup.rotation.y += ( this.pp_xRotationAngle - this.pp_ElementGroup.rotation.y ) * 0.05;
-            this.pp_ElementGroup.rotation.x += ( this.pp_yRotationAngle - this.pp_ElementGroup.rotation.x ) * 0.05;
+            this.pp_ElementGroup.rotation.x += ( this.pp_yRotationAngle - this.pp_ElementGroup.rotation.x ) * 0.05;*/
 
-            this.pp_camera.lookAt( this.pp_scene.position );
+            //this.pp_camera.lookAt( this.pp_scene.position );
             this.pp_renderer.render( this.pp_scene, this.pp_camera );
   }
 
-  pp_3D_RotateCamera(){
-    // Use Math.cos and Math.sin to set this.pp_camera X and Z values based on angle.
-    this.pp_camera.position.x = this.pp_camera_radius * Math.sin( this.pp_xRotationAngle)* Math.cos( this.pp_yRotationAngle);
-    this.pp_camera.position.y = this.pp_camera_radius * Math.sin( this.pp_xRotationAngle)* Math.sin( this.pp_yRotationAngle);
-    this.pp_camera.position.z = this.pp_camera_radius *  Math.cos( this.pp_xRotationAngle);
+  pp_3D_Mousemove(mousePosX,mousePosY,rectWidth,rectHeight){
 
-    this.pp_cameraLight.position.x = this.pp_camera_radius * Math.sin( this.pp_xRotationAngle)* Math.cos( this.pp_yRotationAngle);
-    this.pp_cameraLight.position.y = this.pp_camera_radius * Math.sin( this.pp_xRotationAngle)* Math.sin( this.pp_yRotationAngle);
-    this.pp_cameraLight.position.z = this.pp_camera_radius *  Math.cos( this.pp_xRotationAngle);
+    if(this.pp_doRotation){
 
-    this.pp_camera.lookAt( this.pp_scene.position );
+        var angle1 = ((mousePosX-this.mousePosX)/rectWidth) * 2*Math.PI;
+        var angle2 = ((mousePosY-this.mousePosY)/rectHeight) * 2*Math.PI;
+
+        var rotationQuaternion = new THREE.Quaternion()
+              .setFromEuler(new THREE.Euler(
+                  angle2,
+                  angle1,
+                  0,
+                  'XYZ'
+              ));
+
+        this.mousePosX=mousePosX;
+        this.mousePosY=mousePosY;
+
+        this.pp_colorspaceGroup.quaternion.multiplyQuaternions(rotationQuaternion, this.pp_colorspaceGroup.quaternion);
+        this.pp_LineGroup.quaternion.multiplyQuaternions(rotationQuaternion, this.pp_LineGroup.quaternion);
+        this.pp_ElementGroup.quaternion.multiplyQuaternions(rotationQuaternion, this.pp_ElementGroup.quaternion);
+    }
+    else if(this.pp_doTranslation){
+
+      //var speedReduction= 0.25+0.75*(mapping_maxRadius-this.pp_camera.position.z.position.z)/mapping_maxRadius; // max reduction is to 0.25 of speed
+
+      var newXPos = this.pp_colorspaceGroup.position.x - (this.mousePosX-mousePosX)/rectWidth * this.pp_camera.position.z;
+      var newYPos = this.pp_colorspaceGroup.position.y + (this.mousePosY-mousePosY)/rectHeight * this.pp_camera.position.z;
+
+      if(newXPos>=-this.translationBorder && newXPos<=this.translationBorder){
+        this.pp_colorspaceGroup.position.x = newXPos;
+        this.pp_LineGroup.position.x = newXPos;
+        this.pp_ElementGroup.position.x = newXPos;
+      }
+
+      if(newYPos>=-this.translationBorder && newYPos<=this.translationBorder){
+        this.pp_colorspaceGroup.position.y = newYPos;
+        this.pp_LineGroup.position.y = newYPos;
+        this.pp_ElementGroup.position.y = newYPos;
+      }
+
+      this.mousePosX=mousePosX;
+      this.mousePosY=mousePosY;
+    }
+    else{
+      this.mousePosX=mousePosX;
+      this.mousePosY=mousePosY;
+    }
+
+  }
+
+  pp_3D_zoom(zoomIn){
+    if(zoomIn){
+      var newRadius=this.pp_camera.position.z-this.pp_zoomFactor;
+      if(newRadius<this.pp_camera_minRadius)
+      return;
+      this.pp_camera.position.z=newRadius;
+    }
+    else{
+      var newRadius=this.pp_camera.position.z+this.pp_zoomFactor;
+      if(newRadius>this.pp_camera_maxRadius)
+      return;
+      this.pp_camera.position.z=newRadius;
+    }
   }
 
   ////////////////////////////////////////////////////////////////////////////

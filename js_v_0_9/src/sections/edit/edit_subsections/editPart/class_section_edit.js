@@ -79,7 +79,6 @@ class class_Edit_Section extends class_Edit_Basis_Section {
     cmsCanvasElemtent.ondrop = function(event) {
       event.preventDefault();
       editSection.replaceWithWorkCMS();
-      editSection.part_Pathplot.updatePart(false,true, true);
     }; // allow Drop
 
     cmsCanvasElemtent.addEventListener("dragover",cmsStructureDragOver);
@@ -178,6 +177,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
           document.getElementById("id_EditPage_DisplayPathplot").style.background = "var(--main-menue-active)";
           document.getElementById("id_EditPage_DisplayPathplot").innerHTML = "Hide Pathplot";
           if(this.isSectionOpen()){
+            this.part_Pathplot.partIsReady=true;
             this.part_Pathplot.resize();
             this.part_Pathplot.pp_3D_StartAnimation();
           }
@@ -186,6 +186,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
           document.getElementById("id_EditPage_DisplayPathplot").innerHTML = "Show Pathplot";
           document.getElementById("id_EditPage_PathplotDiv").style.display="none";
           this.part_Pathplot.pp_3D_StopAnimation();
+          this.part_Pathplot.partIsReady=false;
         }
 
 
@@ -234,6 +235,12 @@ class class_Edit_Section extends class_Edit_Basis_Section {
   ////////////////////////////////////////////////////////////////////////////
   ////////////           (START )Update Section                   ////////////
   ////////////////////////////////////////////////////////////////////////////
+
+  updateSection(){
+      super.updateSection();
+
+      this.updateKeyEdit(undefined);
+  }
 
   saveCreateProcess(){
 
@@ -297,7 +304,6 @@ class class_Edit_Section extends class_Edit_Basis_Section {
     document.getElementById("id_edit_editWarning").style.visibility="hidden";
     this.somethingChanged=false;
   }
-
 
   doPagePeculiarity(){
     super.doPagePeculiarity();
@@ -619,14 +625,12 @@ class class_Edit_Section extends class_Edit_Basis_Section {
           this.tmpWorkCMS = cloneCMS(this.editCMS);
           this.tmpWorkCMS.addKey(new class_Key(new class_Color_RGB(tmpColor.get1Value(),tmpColor.get2Value(),tmpColor.get3Value()), new class_Color_RGB(tmpColor.get1Value(),tmpColor.get2Value(),tmpColor.get3Value()), tmpRef, false));
           this.drawAddKey=true;
-          drawOriginal=true;
+          this.drawOriginal=true;
         }
         else{
-          if(drawOriginal){
+          if(this.drawOriginal){
             this.drawEditCMSVIS();
-            if(this.part_Pathplot.pathplot_space!=="rgb")
-              this.part_Pathplot.updatePart(false,true, true);
-            drawOriginal=false;
+            this.drawOriginal=false;
           }
           this.drawAddKey=false;
         }
@@ -694,7 +698,6 @@ class class_Edit_Section extends class_Edit_Basis_Section {
         else if(this.grappedKey){
           var newRef = (mousePosX-this.editCMS_cmsArea_x1)/this.editCMS_cmsArea_width * Math.abs(this.editCMS.getRefPosition(this.editCMS.getKeyLength()-1)-this.editCMS.getRefPosition(0))+this.editCMS.getRefPosition(0);
           newRef = parseFloat(newRef);
-
           if(newRef >= this.editCMS.getRefPosition(this.overKeyID-1) && newRef <= this.editCMS.getRefPosition(this.overKeyID+1)){
             this.editCMS.setRefPosition(this.overKeyID,newRef);
           }

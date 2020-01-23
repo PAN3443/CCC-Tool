@@ -182,12 +182,14 @@ function calcHSVElements(cmsClone,hueRes,vWidth,vHeight){
 function calcHSV_Hue_ElementPos(tmpColor,shape,keyindex,colorSide,hueRes){
 
   var colorspaceRadius = Math.round((hueRes*0.95 / 2));
+  var colorspaceCenterX = Math.round(hueRes / 2);
+  var colorspaceCenterY = Math.round(hueRes / 2);
 
   var hsPos = [];
   var tmpDis = tmpColor.getSValue() * colorspaceRadius;
   var tmpRad = degree360ToRad(tmpColor.getHValue()*360);
-  var xPos = tmpDis * Math.cos(tmpRad) + colorspaceRadius;
-  var yPos = tmpDis * Math.sin(tmpRad) + colorspaceRadius;
+  var xPos = tmpDis * Math.cos(tmpRad) + colorspaceCenterX;
+  var yPos = tmpDis * Math.sin(tmpRad) + colorspaceCenterY;
   var tmpY= hueRes-yPos;
   hsPos.push(xPos);
   hsPos.push(tmpY);
@@ -703,12 +705,14 @@ function calcLCHElements(cmsClone,hueRes,vWidth,vHeight){
 function calcLCH_Hue_ElementPos(tmpColor,shape,keyindex,colorSide,hueRes){
 
   var colorspaceRadius = Math.round((hueRes*0.95 / 2));
+  var colorspaceCenterX = Math.round(hueRes / 2);
+  var colorspaceCenterY = Math.round(hueRes / 2);
 
   var chPos = [];
   var tmpDis = tmpColor.getCValue() * colorspaceRadius;
   var tmpRad = degree360ToRad(tmpColor.getHValue()*360);
-  var xPos = tmpDis * Math.cos(tmpRad) + colorspaceRadius;
-  var yPos = tmpDis * Math.sin(tmpRad) + colorspaceRadius;
+  var xPos = tmpDis * Math.cos(tmpRad) + colorspaceCenterX;
+  var yPos = tmpDis * Math.sin(tmpRad) + colorspaceCenterY;
   var tmpY= hueRes-yPos;
   chPos.push(xPos);
   chPos.push(tmpY);

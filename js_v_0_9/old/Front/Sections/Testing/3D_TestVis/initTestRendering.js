@@ -159,8 +159,6 @@ function initTestMapping()
   canvasObj.innerHTML = "";
   var box = canvasObj.getBoundingClientRect();
 
-
-
   testmapping_scene = new THREE.Scene();
 	testmapping_camera = new THREE.PerspectiveCamera(50,box.width / box.height, 1, 10000);
   testmapping_renderer = new THREE.WebGLRenderer({ alpha: true,antialias: true,

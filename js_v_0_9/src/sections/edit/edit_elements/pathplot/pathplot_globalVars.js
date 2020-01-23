@@ -21,21 +21,6 @@ var pathplotLinesVPlot=[];
 var pathplotElementPositions = [];
 var vPlotElementPositions=[];
 
-var framesPerSecond = 10;
-var animationIntervalPathPlot = 1000/framesPerSecond;
-
-var pathPlotResolution = 500;
-var vPlotHeight = 200;
-var vPlotWidth = 600;
-
-var vPlotyStart = Math.round(vPlotHeight * 0.9);
-var vPlotyEnd = Math.round(vPlotHeight * 0.1);
-var vPlotxStart = Math.round(vPlotWidth * 0.1);
-var vPlotxEnd = Math.round(vPlotWidth * 0.85);
-var heigthVArea = vPlotyStart - vPlotyEnd;
-var plotwidth = vPlotxEnd - vPlotxStart;
-
-var useWorkerForPathplot = false;
 var pathplotIntervalDelta_rgb = 0.1; // hsv and rgb are values from 0 till 1.0
 var pathplotIntervalDelta_hsv = 0.1; //
 var pathplotIntervalDelta_lab = 5;

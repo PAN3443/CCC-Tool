@@ -2,9 +2,25 @@
 // -------------Event COLORSPACE HUE---------------//
 /////////////////////////////////////
 
-function mouseLeaveColorspaceRGB(event) {
+function pp_2D_mouseEnter(event){
+  if(editSection.isSectionOpen()){
+    editSection.part_Pathplot.pp_setCanvasMode(event.target.id);
+  }
+  else if(optiSection.isSectionOpen()){
+    optiSection.part_Pathplot.pp_setCanvasMode(event.target.id);
+  }
+}
 
-  document.getElementById(event.target.id).style.cursor = "default";
+function pp_2D_mouseLeave(event) {
+
+  if(editSection.isSectionOpen()){
+    editSection.part_Pathplot.pp_CanvasMode = undefined;
+  }
+  else if(optiSection.isSectionOpen()){
+    optiSection.part_Pathplot.pp_CanvasMode = undefined;
+  }
+
+  /*document.getElementById(event.target.id).style.cursor = "default";
   clearInterval(timer2DAnimation);
 
   document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "R : -, G: -, B: -";
@@ -21,12 +37,11 @@ function mouseLeaveColorspaceRGB(event) {
         editCMSduringOptimizationMode();
       }
 
-  }
+  }*/
 }
 
 function rgb2DAnimation(){
-  updateEditPage();
-  //drawcolormap_RGBSpace(false,true);
+  //updateEditPage();
 }
 
 function getRGBXYPos(tmpColor,xWidth,yHeight,xStart,yStart,mode){
@@ -54,9 +69,8 @@ function getRGBXYPos(tmpColor,xWidth,yHeight,xStart,yStart,mode){
 
 }
 
-function mouseMoveColorspaceRGB(event) {
-
-  var mode = "";
+function pp_2D_mouseMove(event) {
+  /*var mode = "";
   switch (event.target.id) {
     case "id_EditPage_PathPlot_Canvas1_2":
       mode = "rg";
@@ -69,7 +83,7 @@ function mouseMoveColorspaceRGB(event) {
       break;
     default:
       return;
-  }
+  }*/
 
   // calc mouse pos
   var rect = document.getElementById(event.target.id).getBoundingClientRect();
@@ -79,7 +93,15 @@ function mouseMoveColorspaceRGB(event) {
   var canvasPosX = event.clientX - rect.left;
   var canvasPosY = event.clientY - rect.top;
 
-  var ratioToColorspaceResolutionX = resolutionX / rect.width;
+  if(editSection.isSectionOpen()){
+    editSection.part_Pathplot.pp_mouseMove(event.target.id,canvasPosX,canvasPosY);
+  }
+  else if(optiSection.isSectionOpen()){
+    optiSection.part_Pathplot.pp_mouseMove(event.target.id,canvasPosX,canvasPosY);
+  }
+
+
+  /*var ratioToColorspaceResolutionX = resolutionX / rect.width;
   var ratioToColorspaceResolutionY = resolutionY / rect.height;
   mousePosX = canvasPosX * ratioToColorspaceResolutionX;
   mousePosY = canvasPosY * ratioToColorspaceResolutionY;
@@ -289,11 +311,11 @@ function mouseMoveColorspaceRGB(event) {
     tmpColor.deleteReferences();
     tmpColor=null;
     }
-
+*/
 
 }
 
-function mouseDownColorspaceRGB(event) {
+function pp_2D_mouseDown(event) {
 
     if(mouseAboveKeyID!=-1){
 
@@ -378,8 +400,8 @@ function mouseDownColorspaceRGB(event) {
 }
 
 
-function mouseUpColorspaceRGB() {
-  mouseGrappedKeyID=-1;
+function pp_2D_mouseUp() {
+  /*mouseGrappedKeyID=-1;
   mouseGrappedColorSide=-1;
   document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "R : -, G: -, B: -";
   clearInterval(timer2DAnimation);
@@ -388,5 +410,5 @@ function mouseUpColorspaceRGB() {
 
   if(editPage_optimizationMode){
     editCMSduringOptimizationMode();
-  }
+  }*/
 }

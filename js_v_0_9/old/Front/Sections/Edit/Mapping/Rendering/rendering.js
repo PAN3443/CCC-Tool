@@ -217,7 +217,7 @@ function eventMapping_mousemove(event){
   disableScroll();
 }
 
-/*export*/ function eventMapping_mousedown(event){
+function eventMapping_mousedown(event){
 
   oldXPos=mousePosX;
   oldYPos=mousePosY;
@@ -249,8 +249,6 @@ function eventMapping_mouseup(){
 
 function eventMapping_mousewheel(event){
 
-
-
   if(event.deltaY>0){
 
     var newRadius=mapping_camera.position.z+mapping_zoomFactor;
@@ -272,29 +270,4 @@ function eventMapping_mousewheel(event){
     return;
   }
 
-}
-
-function preventDefault(e) {
-  e = e || window.event;
-  if (e.preventDefault)
-      e.preventDefault();
-  e.returnValue = false;
-}
-
-
-function disableScroll() {
-  if (window.addEventListener) // older FF
-      window.addEventListener('DOMMouseScroll', preventDefault, false);
-  window.onwheel = preventDefault; // modern standard
-  window.onmousewheel = document.onmousewheel = preventDefault; // older browsers, IE
-  window.ontouchmove  = preventDefault; // mobile
-}
-
-function enableScroll() {
-    if (window.removeEventListener)
-        window.removeEventListener('DOMMouseScroll', preventDefault, false);
-    window.onmousewheel = document.onmousewheel = null;
-    window.onwheel = null;
-    window.ontouchmove = null;
-  //  document.onkeydown = null;
 }

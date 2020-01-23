@@ -2,7 +2,7 @@
 // -------------Event COLORSPACE HUE---------------//
 /////////////////////////////////////
 
-function mouseLeaveColorspace(event) {
+/*function mouseLeaveColorspace(event) {
   clearInterval(timer2DAnimation);
   document.getElementById(event.target.id).style.cursor = "default";
 
@@ -35,7 +35,6 @@ function mouseLeaveColorspace(event) {
       }
   }
 }
-
 
 function hsvLabDinAnimation(){
   updateEditPage();
@@ -1373,11 +1372,9 @@ function mouseMoveValuePlot(event) {
 
 }
 
-
-
 function mouseDownValuePlot() {
     if (mouseAboveKeyID != -1) {
       mouseGrappedKeyID = mouseAboveKeyID;
       timer2DAnimation = setInterval(hsvLabDinAnimation, animationIntervalPathPlot);
     }
-}
+}*/

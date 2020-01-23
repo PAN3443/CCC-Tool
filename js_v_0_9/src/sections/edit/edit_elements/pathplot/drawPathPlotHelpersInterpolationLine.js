@@ -180,12 +180,14 @@ function calcInterpolationLine_HSV(cmsClone,hueRes,vWidth,vHeight){
 function getLineSegment_Hue_HSV(fromColor, tillColor,hueRes){
 
   var colorspaceRadius = Math.round((hueRes*0.95 / 2));
+  var colorspaceCenterX = Math.round(hueRes / 2);
+  var colorspaceCenterY = Math.round(hueRes / 2);
 
   var fromPos = [];
   var tmpDis = fromColor.getSValue() * colorspaceRadius;
   var tmpRad = degree360ToRad(fromColor.getHValue()*360);
-  var xPos1 = tmpDis * Math.cos(tmpRad) + colorspaceRadius;
-  var yPos1 = tmpDis * Math.sin(tmpRad) + colorspaceRadius;
+  var xPos1 = tmpDis * Math.cos(tmpRad) + colorspaceCenterX;
+  var yPos1 = tmpDis * Math.sin(tmpRad) + colorspaceCenterY;
   var tmpY= hueRes-yPos1;
   fromPos.push(xPos1);
   fromPos.push(tmpY);
@@ -204,8 +206,8 @@ function getLineSegment_Hue_HSV(fromColor, tillColor,hueRes){
   var tillPos = [];
   tmpDis = tillColor.getSValue() * colorspaceRadius;
   tmpRad = degree360ToRad(tillColor.getHValue()*360);
-  var xPos2 = tmpDis * Math.cos(tmpRad) + colorspaceRadius;
-  var yPos2 = tmpDis * Math.sin(tmpRad) + colorspaceRadius;
+  var xPos2 = tmpDis * Math.cos(tmpRad) + colorspaceCenterX;
+  var yPos2 = tmpDis * Math.sin(tmpRad) + colorspaceCenterY;
   var tmpY2= hueRes-yPos2;
   tillPos.push(xPos2);
   tillPos.push(tmpY2);
@@ -629,12 +631,14 @@ function calcInterpolationLine_LCH(cmsClone,hueRes,vWidth,vHeight){
 function getLineSegment_Hue_LCH(fromColor, tillColor,hueRes){
 
   var colorspaceRadius = Math.round((hueRes*0.95 / 2));
+  var colorspaceCenterX = Math.round(hueRes / 2);
+  var colorspaceCenterY = Math.round(hueRes / 2);
 
   var fromPos = [];
   var tmpDis = fromColor.getCValue() * colorspaceRadius;
   var tmpRad = degree360ToRad(fromColor.getHValue()*360);
-  var xPos1 = tmpDis * Math.cos(tmpRad) + colorspaceRadius;
-  var yPos1 = tmpDis * Math.sin(tmpRad) + colorspaceRadius;
+  var xPos1 = tmpDis * Math.cos(tmpRad) + colorspaceCenterX;
+  var yPos1 = tmpDis * Math.sin(tmpRad) + colorspaceCenterY;
   var tmpY= hueRes-yPos1;
   fromPos.push(xPos1);
   fromPos.push(tmpY);
@@ -653,8 +657,8 @@ function getLineSegment_Hue_LCH(fromColor, tillColor,hueRes){
   var tillPos = [];
   tmpDis = tillColor.getCValue() * colorspaceRadius;
   tmpRad = degree360ToRad(tillColor.getHValue()*360);
-  var xPos2 = tmpDis * Math.cos(tmpRad) + colorspaceRadius;
-  var yPos2 = tmpDis * Math.sin(tmpRad) + colorspaceRadius;
+  var xPos2 = tmpDis * Math.cos(tmpRad) + colorspaceCenterX;
+  var yPos2 = tmpDis * Math.sin(tmpRad) + colorspaceCenterY;
   var tmpY2= hueRes-yPos2;
   tillPos.push(xPos2);
   tillPos.push(tmpY2);

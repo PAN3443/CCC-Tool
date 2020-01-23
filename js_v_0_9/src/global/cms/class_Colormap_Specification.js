@@ -798,8 +798,9 @@ class class_CMS {
 
     if(index!=undefined){
       this.keyArray.splice(index, 0,key);
+      this.calcDeltaIntervalColors();
     }
-    this.calcDeltaIntervalColors();
+
   }
 
   pushKey(key){
@@ -1202,6 +1203,9 @@ class class_CMS {
 
    setNaNColor(color){
 
+     if(color==undefined)
+      return;
+
      this.colorNaN.deleteReferences();
 
      if(color.getColorType()==="lab"){
@@ -1240,6 +1244,9 @@ class class_CMS {
 
    setBelowColor(color){
 
+     if(color==undefined)
+      return;
+
      this.colorBelow.deleteReferences();
 
      if(color.getColorType()==="lab"){
@@ -1276,6 +1283,9 @@ class class_CMS {
    }
 
    setAboveColor(color){
+
+     if(color==undefined)
+      return;
 
      this.colorAbove.deleteReferences();
 

@@ -33,8 +33,6 @@ function reverseCMS(){
   editSection.editCMS.calcReverse();
   editSection.updateSection();
   editSection.saveCreateProcess();
-  if(editSection.part_Pathplot.pathplot_space!=="rgb")
-    editSection.part_Pathplot.updatePart(false,true, true); // for RGB the Pathplot would be the same
 }
 
 function refreshKeyValueEdit(){

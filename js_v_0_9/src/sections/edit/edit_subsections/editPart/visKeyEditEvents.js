@@ -2,13 +2,17 @@
 function keyAdd2DAnimation(){
   if(editSection.drawAddKey){
     editSection.drawWorkCMS();
-    if(editSection.part_Pathplot.pathplot_space!=="rgb")
-      editSection.part_Pathplot.updatePart(false,true, true);
   }
 }
 
 function keyChange2DAnimation(){
-  editSection.updateSection();
+  if(editSection.part_Pathplot.pathplot_space==="rgb" && editSection.part_Pathplot.partIsReady){
+    editSection.part_Pathplot.partIsReady=false; // prevent the draw of the pathplot, because at the RGB Pathplot are no changes
+    editSection.updateSection();
+    editSection.part_Pathplot.partIsReady=true;
+  }
+  else
+    editSection.updateSection();
 }
 
 function editCMS_MouseMove(event){
@@ -30,8 +34,11 @@ function editCMS_MouseDown(){
         editSection.cmsVisGrap();
       break;
       case 1:
-        editSection.replaceWithWorkCMS();
-        editSection.updateSection();
+        if(editSection.drawAddKey){
+          editSection.replaceWithWorkCMS();
+          editSection.updateSection();
+        }
+        editSection.drawAddKey=false;
         break;
         case 2:
             editSection.cmsVisDeleteKey();

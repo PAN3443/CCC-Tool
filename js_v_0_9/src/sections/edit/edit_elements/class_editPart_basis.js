@@ -3,15 +3,21 @@ class class_Edit_Part_Basis {
   constructor(divID,parentID) {
     this.partDivID=divID;
     this.parentID=parentID;
+    this.partIsReady=false;
   }
 
   updatePart(){
     if(this.partDivID==undefined)
-      return;
+      return false;
 
     var tmpDiv = document.getElementById(this.partDivID);
     if(tmpDiv==null || tmpDiv==undefined)
-      return;
+      return false;
+
+    /*if(tmpDiv.style.display==="none")
+      return false;*/
+
+    return this.partIsReady;
   }
 
   getParentCMS(){

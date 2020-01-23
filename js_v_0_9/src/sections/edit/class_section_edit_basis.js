@@ -63,27 +63,8 @@ class class_Edit_Basis_Section extends class_Section {
   updateSection(){
     // ONLY BASIS like draw CMS
     this.drawEditCMSVIS();
-  }
 
-  updateAnalysis(){
-    // used in edit and optimization
-    if (this.editCMS.getKeyLength == 0) {
-    } else {
-    }
-  }
-
-  updateMapping(){
-    // used in edit and optimization and probe
-    if (this.editCMS.getKeyLength == 0) {
-    } else {
-    }
-  }
-
-  updatePathPlot(){
-    // used in edit and optimization
-    if (this.editCMS.getKeyLength == 0) {
-    } else {
-    }
+    this.part_Pathplot.updatePart(false,true, true);
   }
 
   getSpecialCMSColor(type,space){
