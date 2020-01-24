@@ -26,6 +26,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     this.pp_canvas_xWidth = undefined;
     this.pp_canvas_yHeight = undefined;
     this.pp_currentColor = undefined;
+    this.pp_isVPlot =false;
 
     // PathPlot 3D
     this.pp_doAnimation = false;
@@ -338,6 +339,7 @@ tmpDiv.id=this.partDivID+"_PP_3D";
   }
 
   pp_setCanvasMode(id){
+    this.pp_isVPlot =false;
     this.pp_CanvasMode = id.slice(-2);
     this.circleRad=Math.round(this.pathplot_hueRes*0.015);
     this.bigcircleRad=Math.round(this.pathplot_hueRes*0.03);
@@ -362,8 +364,17 @@ tmpDiv.id=this.partDivID+"_PP_3D";
 
         break;
         default:
+          this.pp_isVPlot =true;
           this.circleRad = Math.round(this.vPlotHeight*0.03);
           this.bigcircleRad = Math.round(this.vPlotHeight*0.06);
+
+          this.pp_canvas_xStart = this.vPlotWidth*0.1;
+          var pp_canvas_xEnd = this.vPlotWidth*0.98;
+          this.pp_canvas_xWidth = pp_canvas_xEnd-this.pp_canvas_xStart;
+
+          this.pp_canvas_yStart = this.vPlotHeight*0.9;
+          var pp_canvas_yEnd = this.vPlotHeight*0.1;
+          this.pp_canvas_yHeight =this.pp_canvas_yStart-pp_canvas_yEnd;
         }
     }
   }
@@ -634,30 +645,40 @@ tmpDiv.id=this.partDivID+"_PP_3D";
 
       for (var i = 0; i < tmpCMS.getKeyLength(); i++) {
 
-        var position = [-1,-1];
+          var position = [-1,-1];
+          // tmpX is only important for the VPlots
+          var tmpX = this.pp_canvas_xStart+((tmpCMS.getRefPosition(i)-tmpCMS.getRefPosition(0))/tmpCMS.getRefRange())*this.pp_canvas_xWidth;
+
           switch (tmpCMS.getKeyType(i)) {
             case "nil key":
               // do nothing
               break;
             case "twin key":
+
+            ////////////////////////////////////////////////////////////////
+            /////// Right Color
+            var tmpColor2 = tmpCMS.getRightKeyColor(i, this.pathplot_space);
+            position =  this.getColorPosInCanvas(tmpColor2);
+            if(this.pp_isVPlot)
+              position[0]=tmpX;
+            if(this.pp_checkPosition(position[0], position[1], i, 1, drawCircle)){
+                found = true;
+                tmpColor2.deleteReferences();
+                tmpColor2=null;
+                break;
+            }
+
             ////////////////////////////////////////////////////////////////
             /////// left Color
               var tmpColor = tmpCMS.getLeftKeyColor(i, this.pathplot_space);
               var drawCircle = true;
               if (tmpCMS.getKeyType(i-1) === "nil key" || tmpCMS.getKeyType(i-1) === "left key")
                 drawCircle = false;
+
               position =  this.getColorPosInCanvas(tmpColor);
+              if(this.pp_isVPlot)
+                position[0]=tmpX;
               if(this.pp_checkPosition(position[0], position[1], i, 0, drawCircle)){
-                  found = true;
-                  tmpColor.deleteReferences();
-                  tmpColor=null;
-                  break;
-              }
-              ////////////////////////////////////////////////////////////////
-              /////// Right Color
-              var tmpColor2 = tmpCMS.getRightKeyColor(i, this.pathplot_space);
-              position =  this.getColorPosInCanvas(tmpColor2);
-              if(this.pp_checkPosition(position[0], position[1], i, 1, drawCircle)){
                   found = true;
                   tmpColor.deleteReferences();
                   tmpColor=null;
@@ -665,6 +686,20 @@ tmpDiv.id=this.partDivID+"_PP_3D";
                   tmpColor2=null;
                   break;
               }
+
+              // because we draw constant bands with two rects in the VPlots
+              if(this.pp_isVPlot && !drawCircle){
+                tmpX = this.pp_canvas_xStart+((tmpCMS.getRefPosition(i-1)-tmpCMS.getRefPosition(0))/tmpCMS.getRefRange())*this.pp_canvas_xWidth;
+                if(this.checkInsideRect(tmpX, position[1], i, 0)){
+                    found = true;
+                    tmpColor.deleteReferences();
+                    tmpColor=null;
+                    tmpColor2.deleteReferences();
+                    tmpColor2=null;
+                    break;
+                }
+              }
+
               tmpColor.deleteReferences();
               tmpColor=null;
               tmpColor2.deleteReferences();
@@ -678,12 +713,27 @@ tmpDiv.id=this.partDivID+"_PP_3D";
               /////// left Color
               var tmpColor = tmpCMS.getLeftKeyColor(i, this.pathplot_space);
               position =  this.getColorPosInCanvas(tmpColor);
+              if(this.pp_isVPlot)
+                position[0]=tmpX;
               if(this.pp_checkPosition(position[0], position[1], i, 0, drawCircle)){
                   found = true;
                   tmpColor.deleteReferences();
                   tmpColor=null;
                   break;
               }
+
+
+              // because we draw constant bands with two rects in the VPlots
+              if(this.pp_isVPlot && !drawCircle){
+                tmpX = this.pp_canvas_xStart+((tmpCMS.getRefPosition(i-1)-tmpCMS.getRefPosition(0))/tmpCMS.getRefRange())*this.pp_canvas_xWidth;
+                if(this.checkInsideRect(tmpX, position[1], i, 0)){
+                    found = true;
+                    tmpColor.deleteReferences();
+                    tmpColor=null;
+                    break;
+                }
+              }
+
               tmpColor.deleteReferences();
               tmpColor=null;
               ////////////////////////////////////////////////////////
@@ -694,6 +744,8 @@ tmpDiv.id=this.partDivID+"_PP_3D";
               case "right key":
               var tmpColor = tmpCMS.getRightKeyColor(i, this.pathplot_space); // right color because of right key
               position =  this.getColorPosInCanvas(tmpColor);
+              if(this.pp_isVPlot)
+                position[0]=tmpX;
               if(this.pp_checkPosition(position[0], position[1], i, 1, true)){
                   found = true;
                   tmpColor.deleteReferences();
@@ -707,6 +759,8 @@ tmpDiv.id=this.partDivID+"_PP_3D";
               // dual Key
               tmpColor = tmpCMS.getRightKeyColor(i, this.pathplot_space); // right color because of right key
               position = this.getColorPosInCanvas(tmpColor);
+              if(this.pp_isVPlot)
+                position[0]=tmpX;
               if(this.pp_checkPosition(position[0], position[1], i, 2, true)){
                   found = true;
                   tmpColor.deleteReferences();
@@ -743,7 +797,8 @@ tmpDiv.id=this.partDivID+"_PP_3D";
     else{
 
 
-
+      /// Determine new Color
+      var newColor = pp_determinMouseColor();
 
       // check if mouse is inside of Colorspace
       /*var tmpColor;
@@ -1006,20 +1061,177 @@ tmpDiv.id=this.partDivID+"_PP_3D";
             }
         break;
         default:
+          var relevantComponent=undefined;
           switch (this.pp_CanvasMode) {
             case "C1":
-
+              relevantComponent=tmpColor.get1Value();
             break;
             case "C2":
-
+              relevantComponent=tmpColor.get2Value();
             break;
             case "C3":
+              relevantComponent=tmpColor.get3Value();
+            break;
+            default:
+              return position;
+          }
 
+          switch (this.pathplot_space) {
+            case "hsv":
+              position[1] = Math.round(this.pp_canvas_yStart - (this.pp_canvas_yHeight * tmpColor.getHValue()));
+              break;
+            case "lab":
+              position[1] = Math.round(this.pp_canvas_yStart - (this.pp_canvas_yHeight * tmpColor.getLValue() / 100));
+              break;
+            case "din99":
+              position[1] = Math.round(this.pp_canvas_yStart - (this.pp_canvas_yHeight * tmpColor.getL99Value() / 100));
+              break;
+            case "lch":
+              position[1] = Math.round(this.pp_canvas_yStart - (this.pp_canvas_yHeight * tmpColor.getLValue()));
             break;
           }
+
+
         }
     }
     return position;
+  }
+
+  pp_determinMouseColor(){
+
+    if(this.pathplot_space=="rgb"){
+      var resultColor = new class_Color_RGB(0,0,0);
+      switch (this.pp_CanvasMode) {
+        case "RG":
+          resultColor.set3Value(this.pp_currentColor.get3Value());
+        break;
+        case "RB":
+          resultColor.set2Value(this.pp_currentColor.get2Value());
+        break;
+        case "BG":
+          resultColor.set1Value(this.pp_currentColor.get1Value());
+        break;
+        }
+    }
+    else {
+      switch (this.pp_CanvasMode) {
+        case "ue":
+        var colorspaceCenterX = Math.round(this.pathplot_hueRes / 2);
+        var colorspaceCenterY = Math.round(this.pathplot_hueRes / 2);
+        switch (this.pathplot_space) {
+            case "hsv":
+              var resultColor = new class_Color_HSV(0,0,0);
+              var colorspaceRadius =  Math.round((this.pathplot_hueRes*0.95 / 2));
+              resultColor.set3Value(this.pp_currentColor.get3Value());
+            break;
+            case "lab":
+              var resultColor = new class_Color_LAB(0,0,0);
+              resultColor.set1Value(this.pp_currentColor.get1Value());
+            break;
+            case "din99":
+              var resultColor = new class_Color_DIN99(0,0,0);
+              resultColor.set1Value(this.pp_currentColor.get1Value());
+            break;
+            case "lch":
+              var resultColor = new class_Color_LCH(0,0,0);
+              var colorspaceRadius =  Math.round((this.pathplot_hueRes*0.95 / 2));
+              resultColor.set1Value(this.pp_currentColor.get1Value());
+            break;
+              default:
+                return undefined;
+            }
+        break;
+        default:
+          var relevantComponent=undefined;
+          switch (this.pp_CanvasMode) {
+            case "C1":
+            switch (this.pathplot_space) {
+                case "hsv":
+                  var resultColor = new class_Color_HSV(0,0,0);
+                  resultColor.set2Value(this.pp_currentColor.get2Value());
+                  resultColor.set3Value(this.pp_currentColor.get3Value());
+                break;
+                case "lab":
+                  var resultColor = new class_Color_LAB(0,0,0);
+                  resultColor.set2Value(this.pp_currentColor.get2Value());
+                  resultColor.set3Value(this.pp_currentColor.get3Value());
+                break;
+                case "din99":
+                  var resultColor = new class_Color_DIN99(0,0,0);
+                  resultColor.set2Value(this.pp_currentColor.get2Value());
+                  resultColor.set3Value(this.pp_currentColor.get3Value());
+                break;
+                case "lch":
+                  var resultColor = new class_Color_LCH(0,0,0);
+                  resultColor.set2Value(this.pp_currentColor.get2Value());
+                  resultColor.set3Value(this.pp_currentColor.get3Value());
+                break;
+                  default:
+                    return undefined;
+                }
+            break;
+            case "C2":
+            switch (this.pathplot_space) {
+                case "hsv":
+                  var resultColor = new class_Color_HSV(0,0,0);
+                  resultColor.set1Value(this.pp_currentColor.get1Value());
+                  resultColor.set3Value(this.pp_currentColor.get3Value());
+                break;
+                case "lab":
+                  var resultColor = new class_Color_LAB(0,0,0);
+                  resultColor.set1Value(this.pp_currentColor.get1Value());
+                  resultColor.set3Value(this.pp_currentColor.get3Value());
+                break;
+                case "din99":
+                  var resultColor = new class_Color_DIN99(0,0,0);
+                  resultColor.set1Value(this.pp_currentColor.get1Value());
+                  resultColor.set3Value(this.pp_currentColor.get3Value());
+                break;
+                case "lch":
+                  var resultColor = new class_Color_LCH(0,0,0);
+                  resultColor.set1Value(this.pp_currentColor.get1Value());
+                  resultColor.set3Value(this.pp_currentColor.get3Value());
+                break;
+                  default:
+                    return undefined;
+                }
+            break;
+            case "C3":
+            switch (this.pathplot_space) {
+                case "hsv":
+                  var resultColor = new class_Color_HSV(0,0,0);
+                  resultColor.set1Value(this.pp_currentColor.get1Value());
+                  resultColor.set2Value(this.pp_currentColor.get2Value());
+                break;
+                case "lab":
+                  var resultColor = new class_Color_LAB(0,0,0);
+                  resultColor.set1Value(this.pp_currentColor.get1Value());
+                  resultColor.set2Value(this.pp_currentColor.get2Value());
+                break;
+                case "din99":
+                  var resultColor = new class_Color_DIN99(0,0,0);
+                  resultColor.set1Value(this.pp_currentColor.get1Value());
+                  resultColor.set2Value(this.pp_currentColor.get2Value());
+                break;
+                case "lch":
+                  var resultColor = new class_Color_LCH(0,0,0);
+                  resultColor.set1Value(this.pp_currentColor.get1Value());
+                  resultColor.set2Value(this.pp_currentColor.get2Value());
+                break;
+                  default:
+                    return undefined;
+                }
+            break;
+            default:
+              return position;
+          }
+
+
+
+
+        }
+    }
+    return undefined;
   }
 
   update_CoordID(){
@@ -1038,49 +1250,46 @@ tmpDiv.id=this.partDivID+"_PP_3D";
       var c3_name = "";
       var c3_val = 0;
 
-
-
-    
         switch (this.pathplot_space) {
             case "rgb":
-            c1_name = "R";
-            c1_val = this.pp_currentColor.get1Value();
-            c2_name = "G";
-            c2_val = this.pp_currentColor.get2Value();
-            c3_name = "B";
-            c3_val = this.pp_currentColor.get3Value();
+            c1_name = "R : ";
+            c1_val = parseInt(this.pp_currentColor.get1Value()*255);
+            c2_name = ",  G : ";
+            c2_val = parseInt(this.pp_currentColor.get2Value()*255);
+            c3_name = ",  B : ";
+            c3_val = parseInt(this.pp_currentColor.get3Value()*255);
             break;
             case "hsv":
-            c1_name = "H";
-            c1_val = this.pp_currentColor.get1Value();
-            c2_name = "S";
-            c2_val = this.pp_currentColor.get2Value();
-            c3_name = "V";
-            c3_val = this.pp_currentColor.get3Value();
+            c1_name = "H : ";
+            c1_val = parseInt(this.pp_currentColor.get1Value()*360);
+            c2_name = ",  S : ";
+            c2_val = parseInt(this.pp_currentColor.get2Value()*100);
+            c3_name = ",  V : ";
+            c3_val = parseInt(this.pp_currentColor.get3Value()*100);
             break;
             case "lab":
-            c1_name = "L";
-            c1_val = this.pp_currentColor.get1Value();
-            c2_name = "A";
-            c2_val = this.pp_currentColor.get2Value();
-            c3_name = "B";
-            c3_val = this.pp_currentColor.get3Value();
+            c1_name = "L : ";
+            c1_val = parseInt(this.pp_currentColor.get1Value());
+            c2_name = ",  A : ";
+            c2_val = parseInt(this.pp_currentColor.get2Value());
+            c3_name = ",  B : ";
+            c3_val = parseInt(this.pp_currentColor.get3Value());
               break;
             case "din99":
-            c1_name = "L";
-            c1_val = this.pp_currentColor.get1Value();
-            c2_name = "A";
-            c2_val = this.pp_currentColor.get2Value();
-            c3_name = "B";
-            c3_val = this.pp_currentColor.get3Value();
+            c1_name = "L : ";
+            c1_val = parseInt(this.pp_currentColor.get1Value());
+            c2_name = ",  A : ";
+            c2_val = parseInt(this.pp_currentColor.get2Value());
+            c3_name = ",  B : ";
+            c3_val = parseInt(this.pp_currentColor.get3Value());
             break;
             case "lch":
-            c1_name = "L";
-            c1_val = this.pp_currentColor.get1Value();
-            c2_name = "C";
-            c2_val = this.pp_currentColor.get2Value();
-            c3_name = "H";
-            c3_val = this.pp_currentColor.get3Value();
+            c1_name = "L : ";
+            c1_val = parseInt(this.pp_currentColor.get1Value()*100);
+            c2_name = ",  C : ";
+            c2_val = parseInt(this.pp_currentColor.get2Value()*100);
+            c3_name = ",  H : ";
+            c3_val = parseInt(this.pp_currentColor.get3Value()*360);
             break;
             default:
               document.getElementById(this.pathPlot_CoordID).innerHTML="";
