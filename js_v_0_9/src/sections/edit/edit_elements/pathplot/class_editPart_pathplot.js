@@ -1062,36 +1062,45 @@ tmpDiv.id=this.partDivID+"_PP_3D";
         break;
         default:
           var relevantComponent=undefined;
+          var factor =1;
           switch (this.pp_CanvasMode) {
             case "C1":
               relevantComponent=tmpColor.get1Value();
+              if(this.pathplot_space=="lab" || this.pathplot_space=="din99")
+                factor=100;
             break;
             case "C2":
-              relevantComponent=tmpColor.get2Value();
+              switch (this.pathplot_space) {
+                case "lab":
+                  relevantComponent=(tmpColor.getAValue()+labSpaceRange);
+                  factor=(labSpaceRange*2);
+                  break;
+                case "din99":
+                  relevantComponent=tmpColor.getA99Value()+(rangeA99Neg*-1);
+                  factor=(rangeA99Pos-rangeA99Neg);
+                  break;
+                default:
+                  relevantComponent=tmpColor.get2Value();
+              }
             break;
             case "C3":
-              relevantComponent=tmpColor.get3Value();
+            switch (this.pathplot_space) {
+              case "lab":
+                relevantComponent=(tmpColor.getBValue()+labSpaceRange);
+                factor=(labSpaceRange*2);
+                break;
+              case "din99":
+                relevantComponent=tmpColor.getB99Value()+(rangeB99Neg*-1);
+                factor=(rangeB99Pos-rangeB99Neg);
+                break;
+              default:
+                relevantComponent=tmpColor.get3Value();
+            }
             break;
             default:
               return position;
           }
-
-          switch (this.pathplot_space) {
-            case "hsv":
-              position[1] = Math.round(this.pp_canvas_yStart - (this.pp_canvas_yHeight * tmpColor.getHValue()));
-              break;
-            case "lab":
-              position[1] = Math.round(this.pp_canvas_yStart - (this.pp_canvas_yHeight * tmpColor.getLValue() / 100));
-              break;
-            case "din99":
-              position[1] = Math.round(this.pp_canvas_yStart - (this.pp_canvas_yHeight * tmpColor.getL99Value() / 100));
-              break;
-            case "lch":
-              position[1] = Math.round(this.pp_canvas_yStart - (this.pp_canvas_yHeight * tmpColor.getLValue()));
-            break;
-          }
-
-
+          position[1] = Math.round(this.pp_canvas_yStart - (this.pp_canvas_yHeight * relevantComponent)/factor);
         }
     }
     return position;

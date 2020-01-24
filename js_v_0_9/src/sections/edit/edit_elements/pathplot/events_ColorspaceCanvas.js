@@ -1,7 +1,7 @@
 /////////////////////////////////////
 // -------------Event COLORSPACE HUE---------------//
 /////////////////////////////////////
-
+/*
 function mouseLeaveColorspace(event) {
   clearInterval(timer2DAnimation);
   document.getElementById(event.target.id).style.cursor = "default";
