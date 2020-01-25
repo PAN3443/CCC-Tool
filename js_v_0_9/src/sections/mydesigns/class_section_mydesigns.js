@@ -168,6 +168,7 @@ class class_MyDesigns_Section extends class_Section {
     return function() {
        if(cmsID<myDesignsSection.getMyDesignLength()){
          exportSection.setCMS(myDesignsSection.getMyDesignCMS(cmsID));
+         exportSection.backSection = "myDesigns";
          exportSection.showSection();
        }
     };

@@ -208,6 +208,7 @@ class class_Gallery_Section extends class_Section {
     tmpExportButton.onclick = (function(id,type) {
     return function() {
         exportSection.setCMS(gallerySection.getPredefinedCMS(type,id));
+        exportSection.backSection = "gallery";
         exportSection.showSection();
       };
     })(i,this.selectedID);

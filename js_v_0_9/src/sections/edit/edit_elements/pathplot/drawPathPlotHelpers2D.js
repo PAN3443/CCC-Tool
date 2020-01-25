@@ -33,9 +33,9 @@ function drawElement(colorString,colorspaceContex,xPos,yPos, index, colorside, c
     colorspaceContex.fill();
     colorspaceContex.lineWidth = smallLineWidth;
     if(index==mouseAboveKeyID && colorside==mouseGrappedColorSide)
-      colorspaceContex.strokeStyle =  mouseGrappedColor;
+      colorspaceContex.strokeStyle =  'rgb(0,0,0)';
     else
-      colorspaceContex.strokeStyle = 'rgb(0,0,0)';
+      colorspaceContex.strokeStyle = 'rgb(30,30,30)';
     colorspaceContex.stroke();
   }
   else{
@@ -53,9 +53,9 @@ function drawElement(colorString,colorspaceContex,xPos,yPos, index, colorside, c
           colorspaceContex.fillRect(x1, y1, tmpRecSize, tmpRecSize);
           colorspaceContex.lineWidth = smallLineWidth;
           if(index==mouseAboveKeyID && colorside==mouseGrappedColorSide)
-              colorspaceContex.strokeStyle =  mouseGrappedColor;
+              colorspaceContex.strokeStyle =  'rgb(0,0,0)';
           else
-              colorspaceContex.strokeStyle = 'rgb(0,0,0)';
+              colorspaceContex.strokeStyle = 'rgb(30,30,30)';
           colorspaceContex.strokeRect(x1, y1, tmpRecSize, tmpRecSize);
   }
 }

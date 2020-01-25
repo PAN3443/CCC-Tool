@@ -1,7 +1,7 @@
 class class_Export_Section extends class_Section {
 
   constructor() {
-    super('id_EditPage');
+    super('id_ExportPage');
     this.exportCMS = new class_CMS();
     this.format = "xml";
     this.exportspace = "rgb";
@@ -10,10 +10,7 @@ class class_Export_Section extends class_Section {
     this.scaleExpVal3=255;
     this.doTwinErrorSolution=false;
     this.twinError = 0.00001;
-  }
-
-  showSection(){
-    document.getElementById(this.sectionID).style.display='flex';
+    this.backSection = undefined;
   }
 
   updateSection(){
@@ -23,6 +20,22 @@ class class_Export_Section extends class_Section {
   setCMS(cms){
     this.exportCMS.deleteReferences();
     this.exportCMS=cms;
+  }
+
+  backToSection(){
+    switch (this.backSection) {
+      case "edit":
+        editSection.showSection();
+        break;
+        case "gallery":
+          gallerySection.showSection();
+          break;
+          case "myDesigns":
+            myDesignsSection.showSection();
+            break;
+      default:
+        myDesignsSection.showSection();
+    }
   }
 
   changeOutputformat(type){

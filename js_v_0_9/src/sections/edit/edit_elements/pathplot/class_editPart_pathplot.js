@@ -36,7 +36,6 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     this.pp_camera_maxRadius=1500;
     this.pp_camera_minRadius=10;
     this.pp_zoomFactor=20;
-    //this.pp_cameraLight=undefined;
     this.pp_scene = undefined;
     this.pp_renderer = undefined;
     this.pp_colorspaceGroup = new THREE.Group();
@@ -636,9 +635,8 @@ tmpDiv.id=this.partDivID+"_PP_3D";
     this.mousePosX =mousePosX;
     this.mousePosY =mousePosY;
 
-    var tmpCMS = this.getParentCMS();
-
     if(this.mouseGrappedKeyID==-1){
+      var tmpCMS = this.getParentCMS();
       document.getElementById(id).style.cursor = "default";
       var oldmouseAboveKeyID = this.mouseAboveKeyID;
       var found = false;
@@ -790,157 +788,62 @@ tmpDiv.id=this.partDivID+"_PP_3D";
         this.update_CoordID();
       }
 
+      tmpCMS.deleteReferences();
+
       /*if(oldmouseAboveKeyID!=this.mouseAboveKeyID)
         this.updatePart(false,false,false);//*/
 
     } ///// END: if (mouseGrappedKeyID==-1)
     else{
-
-
       /// Determine new Color
-      var newColor = pp_determinMouseColor();
+      var newColor = this.pp_determinMouseColor();
+      if(newColor==undefined)
+        return;
 
-      // check if mouse is inside of Colorspace
-      /*var tmpColor;
-      var errorRGBColor = new class_Color_RGB(-1, -1, -1);
-      /*switch(pathColorspace) {
-        case "hsv":
-          var dis = Math.sqrt(Math.pow(colorspaceCenterX - mousePosX, 2) + Math.pow(colorspaceCenterY - mousePosY, 2));
-          if (dis <= colorspaceRadius) {
-            //canvasObj.style.cursor = "pointer"; // crosshair
-            var ty = (mousePosY) - (colorspaceCenterY);
-            var tx = mousePosX - colorspaceCenterX;
-            var angle = atan2_360Degree(tx,ty)/360; // values 0-1 ...
-            var hVal = angle;
-            var sVal = dis / colorspaceRadius;
-            tmpColor = new class_Color_HSV(hVal, sVal, updateCurrentValue);
+      this.pp_currentColor.deleteReferences();
+      this.pp_currentColor = newColor;
+      this.update_CoordID()
 
-            var diplay1Val = Math.round(hVal*360);
-            var diplay2Val = Math.round(sVal*100);
-            var diplay3Val = Math.round(updateCurrentValue*100);
-            document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "H : " + diplay1Val + "&deg;, S : " + diplay2Val + ", V : " + diplay3Val;
-          } else {
-            return;
+      switch (this.parentID) {
+        case "id_EditPage":
+          switch (this.mouseGrappedColorSide) {
+            case 0:
+            // left color
+              editSection.editCMS.setLeftKeyColor(this.mouseGrappedKeyID, cloneColor(this.pp_currentColor));
+              break;
+            case 1:
+              // right color
+              editSection.editCMS.setRightKeyColor(this.mouseGrappedKeyID, cloneColor(this.pp_currentColor));
+              break;
+            case 2:
+              // both colors
+              editSection.editCMS.setLeftKeyColor(this.mouseGrappedKeyID, cloneColor(this.pp_currentColor));
+              editSection.editCMS.setRightKeyColor(this.mouseGrappedKeyID, cloneColor(this.pp_currentColor));
+              break;
           }
-          break
-        case "lab":
-          var aVal = ((mousePosX - colorspaceCenterX) / (canvasObj.width / 2)) * labSpaceRange;
-          var bVal = ((mousePosY - colorspaceCenterY) / (canvasObj.height / 2)) * labSpaceRange;
-
-
-            tmpColor = new class_Color_LAB(updateCurrentValue, aVal, bVal);
-            if (onlyRGBPossibleColor) {
-              var testColor = tmpColor.calcRGBColorCorrect(errorRGBColor);
-              var rValue = testColor.getRValue();
-              testColor.deleteReferences();
-              testColor=null;
-              if (rValue == -1) {
-                return;
-              }
-            }
-
-            var diplay1Val = Math.round(updateCurrentValue);
-            var diplay2Val = Math.round(aVal);
-            var diplay3Val = Math.round(bVal);
-            document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L : " + diplay1Val + ", a : " + diplay2Val + ", b : " + diplay3Val;
-
-
-          break;
-        case "din99":
-          var a99Val = (mousePosX / canvasObj.width) * rangeA99 + rangeA99Neg;
-          var b99Val = (mousePosY / canvasObj.height) * rangeB99 + rangeB99Neg;
-
-          //if (a99Val>=din99SpaceRange*-1 && a99Val<=din99SpaceRange && b99Val>=din99SpaceRange*-1 && b99Val<=din99SpaceRange){
-          if (a99Val >= rangeA99Neg && a99Val <= rangeA99Pos && b99Val >= rangeB99Neg && b99Val <= rangeB99Pos) {
-            tmpColor = new class_Color_DIN99(updateCurrentValue, a99Val, b99Val);
-
-            var colorRGB = tmpColor.calcRGBColor();
-            if(colorRGB.getRValue()==0 && colorRGB.getGValue()==0 && colorRGB.getBValue()==0){
-              if(tmpColor.getL99Value()!=0 || tmpColor.getA99Value() !=0 || tmpColor.getB99Value()!=0){
-                return;
-              }
-            }
-
-            if (onlyRGBPossibleColor) {
-              var testColor = tmpColor.calcRGBColorCorrect(errorRGBColor);
-              var rValue = testColor.getRValue();
-              testColor.deleteReferences();
-              testColor=null;
-              if (rValue == -1) {
-                return;
-              }
-            }
-
-            var diplay1Val = Math.round(updateCurrentValue);
-            var diplay2Val = Math.round(a99Val);
-            var diplay3Val = Math.round(b99Val);
-            document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L99 : " + diplay1Val + ", a99 : " + diplay2Val + ", b99 : " + diplay3Val;
-          } else {
-            return;
+        break;
+        case "id_OptimizationPage":
+          switch (this.mouseGrappedColorSide) {
+            case 0:
+            // left color
+              optiSection.editCMS.setLeftKeyColor(this.mouseGrappedKeyID, cloneColor(this.pp_currentColor));
+              break;
+            case 1:
+              // right color
+              optiSection.editCMS.setRightKeyColor(this.mouseGrappedKeyID, cloneColor(this.pp_currentColor));
+              break;
+            case 2:
+              // both colors
+              optiSection.editCMS.setLeftKeyColor(this.mouseGrappedKeyID, cloneColor(this.pp_currentColor));
+              optiSection.editCMS.setRightKeyColor(this.mouseGrappedKeyID, cloneColor(this.pp_currentColor));
+              break;
           }
-          break;
-
-          case "lch":
-            var dis = Math.sqrt(Math.pow(colorspaceCenterX - mousePosX, 2) + Math.pow(colorspaceCenterY - mousePosY, 2));
-            if (dis <= colorspaceRadius) {
-              //canvasObj.style.cursor = "pointer"; // crosshair
-              var ty = (mousePosY) - (colorspaceCenterY);
-              var tx = mousePosX - colorspaceCenterX;
-              var angle = atan2_360Degree(tx,ty)/360; // values 0-1 ...
-              var hVal = angle;
-              var cVal = dis / colorspaceRadius;
-              tmpColor = new class_Color_LCH(updateCurrentValue, cVal,hVal);
-
-              if (onlyRGBPossibleColor) {
-                var testColor = tmpColor.calcRGBColorCorrect(errorRGBColor);
-                var rValue = testColor.getRValue();
-                testColor.deleteReferences();
-                testColor=null;
-                if (rValue == -1) {
-                  return;
-                }
-              }
-
-              var diplay1Val = Math.round(updateCurrentValue*100);
-              var diplay2Val = Math.round(cVal*100);
-              var diplay3Val = Math.round(hVal*360);
-              document.getElementById("id_EditPage_PathPlot_PositionLabel").innerHTML = "L : " + diplay1Val + ", C : " + diplay2Val + ", h : " + diplay3Val+"&deg;";
-            } else {
-              return;
-            }
-            break
-
-        default:
-          console.log("Error at the getC1CurrentValue function");
-          return;
+        break;
       }
-
-      switch (mouseGrappedColorSide) {
-        case 0:
-        // left color
-          globalCMS1.setLeftKeyColor(mouseGrappedKeyID, cloneColor(tmpColor));
-          break;
-        case 1:
-          // right color
-          globalCMS1.setRightKeyColor(mouseGrappedKeyID, cloneColor(tmpColor));
-          break;
-        case 2:
-          // both colors
-          globalCMS1.setLeftKeyColor(mouseGrappedKeyID, cloneColor(tmpColor));
-          globalCMS1.setRightKeyColor(mouseGrappedKeyID, cloneColor(tmpColor));
-          break;
-        default:
-        console.log("Error "+ mouseGrappedColorSide);
-      }
-
-      tmpColor.deleteReferences();
-      tmpColor=null;
-      errorRGBColor.deleteReferences();
-      errorRGBColor=null;*/
 
     } ///// END: else => (mouseGrappedKeyID!=-1)
 
-    tmpCMS.deleteReferences();
+
   }
 
   pp_checkPosition(centerPosX, centerPosY, i, colorside, isCircle){
@@ -1109,16 +1012,17 @@ tmpDiv.id=this.partDivID+"_PP_3D";
   pp_determinMouseColor(){
 
     if(this.pathplot_space=="rgb"){
-      var resultColor = new class_Color_RGB(0,0,0);
+      var val1 = parseInt((this.mousePosX-this.pp_canvas_xStart)/this.pp_canvas_xWidth*255)/255;
+      var val2 = parseInt((this.pp_canvas_yStart-this.mousePosY)/this.pp_canvas_yHeight*255)/255;
       switch (this.pp_CanvasMode) {
         case "RG":
-          resultColor.set3Value(this.pp_currentColor.get3Value());
+          return new class_Color_RGB(val2,val1,this.pp_currentColor.get3Value());
         break;
         case "RB":
-          resultColor.set2Value(this.pp_currentColor.get2Value());
+          return new class_Color_RGB(val2,this.pp_currentColor.get2Value(),val1);
         break;
         case "BG":
-          resultColor.set1Value(this.pp_currentColor.get1Value());
+          return new class_Color_RGB(this.pp_currentColor.get1Value(),val1,val2);
         break;
         }
     }
@@ -1129,22 +1033,63 @@ tmpDiv.id=this.partDivID+"_PP_3D";
         var colorspaceCenterY = Math.round(this.pathplot_hueRes / 2);
         switch (this.pathplot_space) {
             case "hsv":
-              var resultColor = new class_Color_HSV(0,0,0);
               var colorspaceRadius =  Math.round((this.pathplot_hueRes*0.95 / 2));
-              resultColor.set3Value(this.pp_currentColor.get3Value());
+              var dis = Math.sqrt(Math.pow(colorspaceCenterX - this.mousePosX, 2) + Math.pow(colorspaceCenterY - this.mousePosY, 2));
+              if (dis <= colorspaceRadius) {
+                //canvasObj.style.cursor = "pointer"; // crosshair
+                var ty = colorspaceCenterY- this.mousePosY;
+                var tx = this.mousePosX - colorspaceCenterX;
+                var angle = atan2_360Degree(tx,ty); // values 0-1 ...
+                var hVal = parseInt(angle)/360;
+                var sVal = parseInt(dis / colorspaceRadius *100)/100;
+                return new class_Color_HSV(hVal,sVal,this.pp_currentColor.get3Value());
+              }
             break;
             case "lab":
-              var resultColor = new class_Color_LAB(0,0,0);
-              resultColor.set1Value(this.pp_currentColor.get1Value());
+              var aVal = parseInt(((this.mousePosX - colorspaceCenterX) / (this.pathplot_hueRes / 2)) * labSpaceRange);
+              var bVal = parseInt(((colorspaceCenterY-this.mousePosY) / (this.pathplot_hueRes / 2)) * labSpaceRange);
+              var tmpColor = new class_Color_LAB(this.pp_currentColor.get1Value(), aVal, bVal);
+              var testColor = tmpColor.calcRGBColorCorrect(undefined);
+              if (testColor == undefined)
+                return undefined;
+              testColor.deleteReferences();
+              testColor=null;
+              return tmpColor;
             break;
             case "din99":
-              var resultColor = new class_Color_DIN99(0,0,0);
-              resultColor.set1Value(this.pp_currentColor.get1Value());
+            var a99Val = parseInt((this.mousePosX / this.pathplot_hueRes) * rangeA99 + rangeA99Neg);
+            var b99Val = parseInt(((this.pathplot_hueRes-this.mousePosY) / this.pathplot_hueRes) * rangeB99 + rangeB99Neg);
+            if (a99Val < rangeA99Neg || a99Val > rangeA99Pos || b99Val < rangeB99Neg || b99Val > rangeB99Pos)
+              return undefined;
+            var tmpColor = new class_Color_DIN99(this.pp_currentColor.get1Value(), a99Val, b99Val);
+            var colorRGB = tmpColor.calcRGBColor();
+            /*if(colorRGB.getRValue()==0 && colorRGB.getGValue()==0 && colorRGB.getBValue()==0)
+              if(tmpColor.getL99Value()!=0 || tmpColor.getA99Value() !=0 || tmpColor.getB99Value()!=0)
+                return undefined;*/
+                var testColor = tmpColor.calcRGBColorCorrect(undefined);
+                if (testColor == undefined)
+                  return undefined;
+                testColor.deleteReferences();
+                testColor=null;
+              return tmpColor;
             break;
             case "lch":
-              var resultColor = new class_Color_LCH(0,0,0);
               var colorspaceRadius =  Math.round((this.pathplot_hueRes*0.95 / 2));
-              resultColor.set1Value(this.pp_currentColor.get1Value());
+              var dis = Math.sqrt(Math.pow(colorspaceCenterX - this.mousePosX, 2) + Math.pow(colorspaceCenterY - this.mousePosY, 2));
+              if (dis <= colorspaceRadius) {
+                var ty = colorspaceCenterY-this.mousePosY;
+                var tx = this.mousePosX - colorspaceCenterX;
+                var angle = atan2_360Degree(tx,ty); // values 0-1 ...
+                var hVal = parseInt(angle)/360;
+                var cVal = parseInt(dis / colorspaceRadius * 100)/100;
+                var tmpColor = new class_Color_LCH(this.pp_currentColor.get1Value(), cVal,hVal);
+                var testColor = tmpColor.calcRGBColorCorrect(undefined);
+                if (testColor == undefined)
+                  return undefined;
+                testColor.deleteReferences();
+                testColor=null;
+                return tmpColor;
+              }
             break;
               default:
                 return undefined;
@@ -1152,28 +1097,41 @@ tmpDiv.id=this.partDivID+"_PP_3D";
         break;
         default:
           var relevantComponent=undefined;
+          var newValue = (this.pp_canvas_yStart - this.mousePosY) / this.pp_canvas_yHeight;
+          if (newValue < 0 && newValue > 1.0)
+            return undefined;
           switch (this.pp_CanvasMode) {
             case "C1":
             switch (this.pathplot_space) {
                 case "hsv":
-                  var resultColor = new class_Color_HSV(0,0,0);
-                  resultColor.set2Value(this.pp_currentColor.get2Value());
-                  resultColor.set3Value(this.pp_currentColor.get3Value());
+                  return new class_Color_HSV(parseInt(newValue*360)/360,this.pp_currentColor.get2Value(),this.pp_currentColor.get3Value());
                 break;
                 case "lab":
-                  var resultColor = new class_Color_LAB(0,0,0);
-                  resultColor.set2Value(this.pp_currentColor.get2Value());
-                  resultColor.set3Value(this.pp_currentColor.get3Value());
+                  var tmpColor = new class_Color_LAB(parseInt(newValue*100),this.pp_currentColor.get2Value(),this.pp_currentColor.get3Value());
+                  var testColor = tmpColor.calcRGBColorCorrect(undefined);
+                  if (testColor == undefined)
+                    return undefined;
+                  testColor.deleteReferences();
+                  testColor=null;
+                  return tmpColor;
                 break;
                 case "din99":
-                  var resultColor = new class_Color_DIN99(0,0,0);
-                  resultColor.set2Value(this.pp_currentColor.get2Value());
-                  resultColor.set3Value(this.pp_currentColor.get3Value());
+                  var tmpColor = new class_Color_DIN99(parseInt(newValue*100),this.pp_currentColor.get2Value(),this.pp_currentColor.get3Value());
+                  var testColor = tmpColor.calcRGBColorCorrect(undefined);
+                  if (testColor == undefined)
+                    return undefined;
+                  testColor.deleteReferences();
+                  testColor=null;
+                  return tmpColor;
                 break;
                 case "lch":
-                  var resultColor = new class_Color_LCH(0,0,0);
-                  resultColor.set2Value(this.pp_currentColor.get2Value());
-                  resultColor.set3Value(this.pp_currentColor.get3Value());
+                  var tmpColor = new class_Color_LCH(parseInt(newValue*100)/100,this.pp_currentColor.get2Value(),this.pp_currentColor.get3Value());
+                  var testColor = tmpColor.calcRGBColorCorrect(undefined);
+                  if (testColor == undefined)
+                    return undefined;
+                  testColor.deleteReferences();
+                  testColor=null;
+                  return tmpColor;
                 break;
                   default:
                     return undefined;
@@ -1182,24 +1140,34 @@ tmpDiv.id=this.partDivID+"_PP_3D";
             case "C2":
             switch (this.pathplot_space) {
                 case "hsv":
-                  var resultColor = new class_Color_HSV(0,0,0);
-                  resultColor.set1Value(this.pp_currentColor.get1Value());
-                  resultColor.set3Value(this.pp_currentColor.get3Value());
+                  return new class_Color_HSV(this.pp_currentColor.get1Value(),parseInt(newValue*100)/100,this.pp_currentColor.get3Value());
                 break;
                 case "lab":
-                  var resultColor = new class_Color_LAB(0,0,0);
-                  resultColor.set1Value(this.pp_currentColor.get1Value());
-                  resultColor.set3Value(this.pp_currentColor.get3Value());
+                  var tmpColor = new class_Color_LAB(this.pp_currentColor.get1Value(),parseInt(newValue*(labSpaceRange*2)+(labSpaceRange*-1)),this.pp_currentColor.get3Value());
+                  var testColor = tmpColor.calcRGBColorCorrect(undefined);
+                  if (testColor == undefined)
+                    return undefined;
+                  testColor.deleteReferences();
+                  testColor=null;
+                  return tmpColor;
                 break;
                 case "din99":
-                  var resultColor = new class_Color_DIN99(0,0,0);
-                  resultColor.set1Value(this.pp_currentColor.get1Value());
-                  resultColor.set3Value(this.pp_currentColor.get3Value());
+                  var tmpColor = new class_Color_DIN99(this.pp_currentColor.get1Value(),parseInt(newValue*(rangeA99Pos-rangeA99Neg)+(rangeA99Neg)),this.pp_currentColor.get3Value());
+                  var testColor = tmpColor.calcRGBColorCorrect(undefined);
+                  if (testColor == undefined)
+                    return undefined;
+                  testColor.deleteReferences();
+                  testColor=null;
+                  return tmpColor;
                 break;
                 case "lch":
-                  var resultColor = new class_Color_LCH(0,0,0);
-                  resultColor.set1Value(this.pp_currentColor.get1Value());
-                  resultColor.set3Value(this.pp_currentColor.get3Value());
+                  var tmpColor = new class_Color_LCH(this.pp_currentColor.get1Value(),parseInt(newValue*100)/100,this.pp_currentColor.get3Value());
+                  var testColor = tmpColor.calcRGBColorCorrect(undefined);
+                  if (testColor == undefined)
+                    return undefined;
+                  testColor.deleteReferences();
+                  testColor=null;
+                  return tmpColor;
                 break;
                   default:
                     return undefined;
@@ -1208,31 +1176,41 @@ tmpDiv.id=this.partDivID+"_PP_3D";
             case "C3":
             switch (this.pathplot_space) {
                 case "hsv":
-                  var resultColor = new class_Color_HSV(0,0,0);
-                  resultColor.set1Value(this.pp_currentColor.get1Value());
-                  resultColor.set2Value(this.pp_currentColor.get2Value());
+                  return new class_Color_HSV(this.pp_currentColor.get1Value(),this.pp_currentColor.get2Value(),parseInt(newValue*100)/100);
                 break;
                 case "lab":
-                  var resultColor = new class_Color_LAB(0,0,0);
-                  resultColor.set1Value(this.pp_currentColor.get1Value());
-                  resultColor.set2Value(this.pp_currentColor.get2Value());
+                  var tmpColor = new class_Color_LAB(this.pp_currentColor.get1Value(),this.pp_currentColor.get2Value(),parseInt(newValue*(labSpaceRange*2)+(labSpaceRange*-1)));
+                  var testColor = tmpColor.calcRGBColorCorrect(undefined);
+                  if (testColor == undefined)
+                    return undefined;
+                  testColor.deleteReferences();
+                  testColor=null;
+                  return tmpColor;
                 break;
                 case "din99":
-                  var resultColor = new class_Color_DIN99(0,0,0);
-                  resultColor.set1Value(this.pp_currentColor.get1Value());
-                  resultColor.set2Value(this.pp_currentColor.get2Value());
+                  var tmpColor = new class_Color_DIN99(this.pp_currentColor.get1Value(),this.pp_currentColor.get2Value(),parseInt(newValue*(rangeB99Pos-rangeB99Neg)+(rangeB99Neg)));
+                  var testColor = tmpColor.calcRGBColorCorrect(undefined);
+                  if (testColor == undefined)
+                    return undefined;
+                  testColor.deleteReferences();
+                  testColor=null;
+                  return tmpColor;
                 break;
                 case "lch":
-                  var resultColor = new class_Color_LCH(0,0,0);
-                  resultColor.set1Value(this.pp_currentColor.get1Value());
-                  resultColor.set2Value(this.pp_currentColor.get2Value());
+                  var tmpColor = new class_Color_LCH(this.pp_currentColor.get1Value(),this.pp_currentColor.get2Value(),parseInt(newValue*360)/360);
+                  var testColor = tmpColor.calcRGBColorCorrect(undefined);
+                  if (testColor == undefined)
+                    return undefined;
+                  testColor.deleteReferences();
+                  testColor=null;
+                  return tmpColor;
                 break;
                   default:
                     return undefined;
                 }
             break;
             default:
-              return position;
+              return undefined;
           }
 
 
@@ -1285,11 +1263,11 @@ tmpDiv.id=this.partDivID+"_PP_3D";
             c3_val = parseInt(this.pp_currentColor.get3Value());
               break;
             case "din99":
-            c1_name = "L : ";
+            c1_name = "L99 : ";
             c1_val = parseInt(this.pp_currentColor.get1Value());
-            c2_name = ",  A : ";
+            c2_name = ",  A99 : ";
             c2_val = parseInt(this.pp_currentColor.get2Value());
-            c3_name = ",  B : ";
+            c3_name = ",  B99 : ";
             c3_val = parseInt(this.pp_currentColor.get3Value());
             break;
             case "lch":
@@ -1367,9 +1345,6 @@ tmpDiv.id=this.partDivID+"_PP_3D";
   	this.pp_camera = new THREE.PerspectiveCamera(75,drawWidth /drawHeight, 0.1, 10000);//new THREE.Orthographicthis.pp_camera( 0.5 * drawWidth * 2 / - 2, 0.5 * drawWidth * 2 / 2, drawWidth / 2, drawWidth / - 2, 150, 1000 ); //new THREE.Perspectivethis.pp_camera(75,drawWidth /drawHeight, 0.1, 1000);
     this.pp_renderer.setSize(drawWidth,drawHeight);//(window.innerWidth, window.innerHeight);
 
-    /*this.pp_cameraLight = new THREE.PointLight( 0xffffff,1 );
-    this.pp_cameraLight.position.set( 0, 0, this.pp_camera_radius );
-    //this.pp_scene.add( this.pp_cameraLight );*/
 
     this.pp_camera.position.x = 0;
     this.pp_camera.position.y = 0;
@@ -1409,16 +1384,8 @@ tmpDiv.id=this.partDivID+"_PP_3D";
   }
 
   pp_3D_Render() {
-            this.pp_renderer.clear();
-            /*this.pp_colorspaceGroup.rotation.y += ( this.pp_xRotationAngle - this.pp_colorspaceGroup.rotation.y ) * 0.05;
-            this.pp_colorspaceGroup.rotation.x += ( this.pp_yRotationAngle - this.pp_colorspaceGroup.rotation.x ) * 0.05;
-            this.pp_LineGroup.rotation.y += ( this.pp_xRotationAngle - this.pp_LineGroup.rotation.y ) * 0.05;
-            this.pp_LineGroup.rotation.x += ( this.pp_yRotationAngle - this.pp_LineGroup.rotation.x ) * 0.05;
-            this.pp_ElementGroup.rotation.y += ( this.pp_xRotationAngle - this.pp_ElementGroup.rotation.y ) * 0.05;
-            this.pp_ElementGroup.rotation.x += ( this.pp_yRotationAngle - this.pp_ElementGroup.rotation.x ) * 0.05;*/
-
-            //this.pp_camera.lookAt( this.pp_scene.position );
-            this.pp_renderer.render( this.pp_scene, this.pp_camera );
+      this.pp_renderer.clear();
+      this.pp_renderer.render( this.pp_scene, this.pp_camera );
   }
 
   pp_3D_Mousemove(mousePosX,mousePosY,rectWidth,rectHeight){
@@ -1444,8 +1411,6 @@ tmpDiv.id=this.partDivID+"_PP_3D";
         this.pp_ElementGroup.quaternion.multiplyQuaternions(rotationQuaternion, this.pp_ElementGroup.quaternion);
     }
     else if(this.pp_doTranslation){
-
-      //var speedReduction= 0.25+0.75*(mapping_maxRadius-this.pp_camera.position.z.position.z)/mapping_maxRadius; // max reduction is to 0.25 of speed
 
       var newXPos = this.pp_colorspaceGroup.position.x - (this.mousePosX-mousePosX)/rectWidth * this.pp_camera.position.z;
       var newYPos = this.pp_colorspaceGroup.position.y + (this.mousePosY-mousePosY)/rectHeight * this.pp_camera.position.z;

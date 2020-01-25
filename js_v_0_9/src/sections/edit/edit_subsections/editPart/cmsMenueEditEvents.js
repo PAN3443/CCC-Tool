@@ -85,3 +85,17 @@ function checkKeyValueChange(){
   editSection.updateSection();
   document.getElementById("id_EditPage_KeyValueEdit_warning").innerHTML="";
 }
+
+
+function exportEditCMS(){
+
+  var clone = cloneCMS(editSection.editCMS);
+  if(clone.getKeyLength()==0){
+    openAlert("Your CMS is empty. Please create first a colormap before visiting the export section.");
+    clone.deleteReferences();
+    return;
+  }
+  exportSection.setCMS(clone);
+  exportSection.backSection="edit";
+  exportSection.showSection();
+}

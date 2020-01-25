@@ -530,7 +530,7 @@ function getLCHBackground(fixedColor,hueResolution){
 
   var colorspaceCenterX = Math.round(hueResolution / 2);
   var colorspaceCenterY = Math.round(hueResolution / 2);
-  var colorspaceRadius = Math.round((hueResolution / 2));// * radiusratio);
+  var colorspaceRadius = Math.round((hueResolution*0.95 / 2));// * radiusratio);
 
   var lVal = 0.50;
 

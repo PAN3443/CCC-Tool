@@ -133,7 +133,6 @@
     <script type="text/javascript" src="js_v_0_9/src/sections/edit/edit_elements/pathplot/drawPathPlotHelpers2D.js"></script>
     <script type="text/javascript" src="js_v_0_9/src/sections/edit/edit_elements/pathplot/drawPathPlotHelpers3D.js"></script>
     <script type="text/javascript" src="js_v_0_9/src/sections/edit/edit_elements/pathplot/pathplot_globalVars.js"></script>
-    <script type="text/javascript" src="js_v_0_9/src/sections/edit/edit_elements/pathplot/events_ColorspaceCanvasRGB.js"></script>
     <script type="text/javascript" src="js_v_0_9/src/sections/edit/edit_elements/pathplot/events_ColorspaceCanvas.js"></script>
 
       <!--%%%%%%%%%%%%%%% Edit Element (Pathplot::3D) %%%%%%%%%%%%%%%-->
@@ -223,6 +222,9 @@
   <!-- ------------- 5.Section: Testing --------------- -->
   <div id="id_TestingPage" include-html="html/Sections/testing.html" style="width:100%; height:100; display:none;"></div>
 
+  <!-- ------------- Section: Export --------------- -->
+  <div id="id_ExportPage" include-html="html/Sections/export.html" style="width:100%; height:100%; display:none; flex-direction:column;"></div>
+
   <!--  -----------------------------------------------
           -----------     Pop Up Windows     ------------
           -----------------------------------------------
@@ -244,8 +246,6 @@
     style=" width:100%; height:100%; background: var(--main-popUpWindow-bg-color); position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
   <div id="id_PopUp_fullAnalzeWindow" include-html="html/PopUpWindows/fullscreenAnalyzeWindow.html"
     style=" width:100%; height:100%; background: var(--main-popUpWindow-bg-color); position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
-  <div id="id_PopUp_ExportWindow" include-html="html/PopUpWindows/exportWindow.html"
-    style=" width:100%; height:100%; position:absolute; background: var(--main-popUpWindow-bg-color); position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
   <div id="id_popupColorPicker" include-html="html/PopUpWindows/colorPickerWindow.html" style=" height: 36vh; position:absolute; z-index:85; top:50px; left:50px; bottom:0px; border: 0.2vh solid black; display:none;"></div>
   <div id="id_PopUp_ScaleWindow" include-html="html/PopUpWindows/scaleWindow.html" style=" width:100%; height:100%; background: var(--main-popUpWindow-bg-color); position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
   <div id="id_PopUp_AlertWindow" include-html="html/PopUpWindows/alertWindow.html" style=" width:100%; height:100%; background: var(--main-popUpWindow-bg-color);  position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
