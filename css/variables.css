@@ -36,8 +36,8 @@
   **** Pop Up Windows
   ***************************************/
   --main-popUpWindow-bg-color:rgba(255,255,255,0.85);
-  --main-popUpWindow-labelbg-color:rgb(10,10,10);
-  --main-popUpWindow-labelfont-color:rgb(255,255,255);
+  --main-popUpWindow-labelbg-color:rgb(40,40,40); /*- Like Colored Buttons*/
+  --main-popUpWindow-labelfont-color:rgb(240,240,240);
 
   /**************************************
   **** General

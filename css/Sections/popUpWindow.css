@@ -3,8 +3,6 @@
   width:100%;
   margin-top: 2vh;
   display:flex;
-  padding-top: 1.5vh;
-  padding-bottom: 1.5vh;
   background: var(--main-popUpWindow-labelbg-color);
 }
 

@@ -16,12 +16,11 @@ class class_Export_Section extends class_Section {
     this.exportOnlyKeys=false;
   }
 
-
   showSection(){
     this.stylePhase = true;
     super.showSection();
     this.exportCMS.drawCMS_Horizontal("id_exportPNGCanvas",1000,1);
-
+    document.getElementById("id_Export_CMSName").innerHTML = this.exportCMS.getColormapName();
     var selectbox = document.getElementById("id_selectProbeListExport");
     for(var i = selectbox.options.length - 1 ; i > 0 ; i--)
     {
