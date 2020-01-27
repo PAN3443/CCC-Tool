@@ -1,0 +1,52 @@
+.class_tablelabel{
+    /*height:1.5vh;*/
+    height: 3vh;
+    max-height: 3vh;
+    line-height: 3vh;
+    font-size: 2vh;
+    font-weight: bold;
+    background: var(--main-sepArea-bg);
+    color: var(--main-label-font-color);
+    vertical-align: middle;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.class_tablelabel p{
+    color: var(--main-label-font-color);
+    text-align: center;
+}
+
+.class_tableInput{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 3vh;
+    max-height: 3vh;
+    line-height: 3vh;
+    font-size: 2vh;
+    color: var(--main-table-font-color);
+    background:var(--main-table-bg1-color);
+    border: 0.1vh solid var(--main-table-border-color);
+    box-sizing: border-box;
+    vertical-align: middle;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.class_tableInputDark{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 3vh;
+    max-height: 3vh;
+    line-height: 3vh;
+    font-size: 2vh;
+    color: var(--main-table-font-color);
+    background: var(--main-table-bg2-color);
+    border: 0.1vh solid var(--main-table-border-color);
+    box-sizing: border-box;
+    vertical-align: middle;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

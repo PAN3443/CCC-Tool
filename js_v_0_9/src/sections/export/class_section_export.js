@@ -3,6 +3,7 @@ class class_Export_Section extends class_Section {
   constructor() {
     super('id_ExportPage');
     this.exportCMS = new class_CMS();
+    this.workCMS = new class_CMS();
     this.format = "xml";
     this.exportspace = "rgb";
     this.scaleExpVal1=255;
@@ -11,10 +12,56 @@ class class_Export_Section extends class_Section {
     this.doTwinErrorSolution=false;
     this.twinError = 0.00001;
     this.backSection = undefined;
+    this.stylePhase = false;
+    this.exportOnlyKeys=false;
+  }
+
+
+  showSection(){
+    this.stylePhase = true;
+    super.showSection();
+    this.exportCMS.drawCMS_Horizontal("id_exportPNGCanvas",1000,1);
+
+    var selectbox = document.getElementById("id_selectProbeListExport");
+    for(var i = selectbox.options.length - 1 ; i > 0 ; i--)
+    {
+        selectbox.remove(i);
+    }
+
+    for (var i = 0; i < this.exportCMS.getProbeSetLength(); i++) {
+      var opt = document.createElement('option');
+      opt.style.fontSize = '1.8vh';
+      opt.innerHTML = "Probe-Set: "+this.exportCMS.getProbeSet(i).getProbeSetName();
+
+      selectbox.appendChild(opt);
+    }
+
+    document.getElementById("id_selectProbeListExport").selectedIndex=0;
+    this.changeTwinIssue(this.doTwinErrorSolution);
+    this.changeExportColorspace(1);
+    this.changeOutputformat(this.format);
+    this.changeIntervalOption(this.exportOnlyKeys);
+
+    this.stylePhase = false;
+    this.updateSection();
   }
 
   updateSection(){
+    if(!this.stylePhase){
+      this.workCMS.deleteReferences();
+      /*if(document.getElementById("id_selectProbeListExport").selectedIndex==-1){
+        document.getElementById("id_selectProbeListExport").selectedIndex=0;
+      }*/
+      if(document.getElementById("id_selectProbeListExport").selectedIndex>0){
+          var probeSet = this.exportCMS.getProbeSet(document.getElementById("id_selectProbeListExport").selectedIndex-1);
+          this.workCMS = probeSet.generateProbeCMS(this.exportCMS);
+      }
+      else{
+          this.workCMS = cloneCMS(this.exportCMS);
+      }
 
+      this.fillExportTable();
+    }
   }
 
   setCMS(cms){
@@ -40,87 +87,88 @@ class class_Export_Section extends class_Section {
 
   changeOutputformat(type){
 
-    /*document.getElementById("button_ExportFormatXML").classList.remove("class_generalbuttonActive");
-    document.getElementById("button_ExportFormatCSV").classList.remove("class_generalbuttonActive");
-    document.getElementById("button_ExportFormatJSON").classList.remove("class_generalbuttonActive");
-    document.getElementById("button_ExportFormatPNGH").classList.remove("class_generalbuttonActive");
-    document.getElementById("button_ExportFormatPNGV").classList.remove("class_generalbuttonActive");
+    if(!isNaN(type)){
+      switch (type) {
+        case 0:
+          this.changeOutputformat("csv");
+          return;
+        case 1:
+          this.changeOutputformat("xml");
+          return;
+        case 2:
+          this.changeOutputformat("json");
+          return;
+        case 3:
+          this.changeOutputformat("pngH");
+          return;
+        case 4:
+          this.changeOutputformat("pngV");
+          return;
+      }
+    }
 
-    document.getElementById("button_ExportFormatXML").classList.add("class_generalbutton");
-    document.getElementById("button_ExportFormatCSV").classList.add("class_generalbutton");
-    document.getElementById("button_ExportFormatJSON").classList.add("class_generalbutton");
-    document.getElementById("button_ExportFormatPNGH").classList.add("class_generalbutton");
-    document.getElementById("button_ExportFormatPNGV").classList.add("class_generalbutton");
+    document.getElementById("id_Export_FormatXML").style.background = "var(--main-coloredButton)";
+    document.getElementById("id_Export_FormatCSV").style.background = "var(--main-coloredButton)";
+    document.getElementById("id_Export_FormatJSON").style.background = "var(--main-coloredButton)";
+    document.getElementById("id_Export_FormatPNGH").style.background = "var(--main-coloredButton)";
+    document.getElementById("id_Export_FormatPNGV").style.background = "var(--main-coloredButton)";
 
-    document.getElementById("button_this.exportspaceRGB").style.display = "none";
-    document.getElementById("button_this.exportspaceHSV").style.display = "none";
-    document.getElementById("button_this.exportspaceHSVRatio").style.display = "none";
-    document.getElementById("button_this.exportspaceLAB").style.display = "none";
-    document.getElementById("button_this.exportspaceLCh").style.display = "none";
-    document.getElementById("button_this.exportspaceDIN99").style.display = "none";
+    document.getElementById("id_Export_SpaceRGB").style.display = "none";
+    document.getElementById("id_Export_SpaceHSV").style.display = "none";
+    document.getElementById("id_Export_SpaceHSVRatio").style.display = "none";
+    document.getElementById("id_Export_SpaceLAB").style.display = "none";
+    document.getElementById("id_Export_SpaceLCh").style.display = "none";
+    document.getElementById("id_Export_SpaceDIN99").style.display = "none";
 
-    document.getElementById("id_exportOptionsDiv").style.display = "block";
-    document.getElementById("id_exportPNG_Info").style.display = "none";*/
-
+    document.getElementById("id_exportPNG_Info").style.visibility = "hidden";
 
     switch (type) {
-      case 0:
-        /*document.getElementById("button_ExportFormatCSV").classList.remove("class_generalbutton");
-        document.getElementById("button_ExportFormatCSV").classList.add("class_generalbuttonActive");
-        document.getElementById("button_this.exportspaceRGB").style.display = "block";
-        document.getElementById("button_this.exportspaceHSV").style.display = "block";
-        document.getElementById("button_this.exportspaceHSVRatio").style.display = "block";
-        document.getElementById("button_this.exportspaceLAB").style.display = "block";
-        document.getElementById("button_this.exportspaceLCh").style.display = "block";
-        document.getElementById("button_this.exportspaceDIN99").style.display = "block";*/
+      case "csv":
+        document.getElementById("id_Export_FormatCSV").style.background = "var(--main-active-coloredButton)";
+        document.getElementById("id_Export_SpaceRGB").style.display = "block";
+        document.getElementById("id_Export_SpaceHSV").style.display = "block";
+        document.getElementById("id_Export_SpaceHSVRatio").style.display = "block";
+        document.getElementById("id_Export_SpaceLAB").style.display = "block";
+        document.getElementById("id_Export_SpaceLCh").style.display = "block";
+        document.getElementById("id_Export_SpaceDIN99").style.display = "block";
         this.format = "csv";
         break;
-      case 1:
-        /*document.getElementById("button_ExportFormatXML").classList.remove("class_generalbutton");
-        document.getElementById("button_ExportFormatXML").classList.add("class_generalbuttonActive");*/
+      case "xml":
+        document.getElementById("id_Export_FormatXML").style.background = "var(--main-active-coloredButton)";
         this.changeExportColorspace(1);
         this.format = "xml";
         break;
-      case 2:
-        /*document.getElementById("button_ExportFormatJSON").classList.remove("class_generalbutton");
-        document.getElementById("button_ExportFormatJSON").classList.add("class_generalbuttonActive");*/
+      case "json":
+        document.getElementById("id_Export_FormatJSON").style.background = "var(--main-active-coloredButton)";
         this.changeExportColorspace(1);
         this.format = "json";
         break;
-      case 3:
-        /*document.getElementById("button_ExportFormatPNGH").classList.remove("class_generalbutton");
-        document.getElementById("button_ExportFormatPNGH").classList.add("class_generalbuttonActive");
-        document.getElementById("id_exportOptionsDiv").style.display = "none";
-        document.getElementById("id_exportPNG_Info").style.display = "block";*/
+      case "pngH":
+        document.getElementById("id_Export_FormatPNGH").style.background = "var(--main-active-coloredButton)";
+        document.getElementById("id_exportPNG_Info").style.visibility = "visible";
         this.format = "pngH";
         break;
-      case 4:
-        /*document.getElementById("button_ExportFormatPNGV").classList.remove("class_generalbutton");
-        document.getElementById("button_ExportFormatPNGV").classList.add("class_generalbuttonActive");
-        document.getElementById("id_exportOptionsDiv").style.display = "none";
-        document.getElementById("id_exportPNG_Info").style.display = "block";*/
+      case "pngV":
+        document.getElementById("id_Export_FormatPNGV").style.background = "var(--main-active-coloredButton)";
+        document.getElementById("id_exportPNG_Info").style.visibility = "visible";
         this.format = "pngV";
         break;
+      default:
+        document.getElementById("id_Export_FormatXML").style.background = "var(--main-active-coloredButton)";
+        this.changeExportColorspace(1);
+        this.format = "xml";
     }
   }
 
   changeExportColorspace(type){
 
-    /*document.getElementById("button_this.exportspaceRGB").classList.remove("class_generalbuttonActive");
-    document.getElementById("button_this.exportspaceRGBRatio").classList.remove("class_generalbuttonActive");
-    document.getElementById("button_this.exportspaceHSV").classList.remove("class_generalbuttonActive");
-    document.getElementById("button_this.exportspaceHSVRatio").classList.remove("class_generalbuttonActive");
-    document.getElementById("button_this.exportspaceLAB").classList.remove("class_generalbuttonActive");
-    document.getElementById("button_this.exportspaceLCh").classList.remove("class_generalbuttonActive");
-    document.getElementById("button_this.exportspaceDIN99").classList.remove("class_generalbuttonActive");
-
-    document.getElementById("button_this.exportspaceRGB").classList.add("class_generalbutton");
-    document.getElementById("button_this.exportspaceRGBRatio").classList.add("class_generalbutton");
-    document.getElementById("button_this.exportspaceHSV").classList.add("class_generalbutton");
-    document.getElementById("button_this.exportspaceHSVRatio").classList.add("class_generalbutton");
-    document.getElementById("button_this.exportspaceLAB").classList.add("class_generalbutton");
-    document.getElementById("button_this.exportspaceLCh").classList.add("class_generalbutton");
-    document.getElementById("button_this.exportspaceDIN99").classList.add("class_generalbutton");*/
+    document.getElementById("id_Export_SpaceRGB").style.background = "var(--main-coloredButton)";
+    document.getElementById("id_Export_SpaceRGBRatio").style.background = "var(--main-coloredButton)";
+    document.getElementById("id_Export_SpaceHSV").style.background = "var(--main-coloredButton)";
+    document.getElementById("id_Export_SpaceHSVRatio").style.background = "var(--main-coloredButton)";
+    document.getElementById("id_Export_SpaceLAB").style.background = "var(--main-coloredButton)";
+    document.getElementById("id_Export_SpaceLCh").style.background = "var(--main-coloredButton)";
+    document.getElementById("id_Export_SpaceDIN99").style.background = "var(--main-coloredButton)";
 
     this.scaleExpVal1=1;
     this.scaleExpVal2=1;
@@ -129,197 +177,104 @@ class class_Export_Section extends class_Section {
     switch (type) {
       case 0:
         this.exportspace = "rgb";
-        /*document.getElementById("id_table_exportColor1").innerHTML = "RGB-Color (0-255,0-255,0-255)";
-        document.getElementById("button_this.exportspaceRGB").classList.remove("class_generalbutton");
-        document.getElementById("button_this.exportspaceRGB").classList.add("class_generalbuttonActive");*/
+        document.getElementById("id_table_exportColor1").innerHTML = "RGB-Color (0-255,0-255,0-255)";
+        document.getElementById("id_Export_SpaceRGB").style.background = "var(--main-active-coloredButton)";
         this.scaleExpVal1=255;
         this.scaleExpVal2=255;
         this.scaleExpVal3=255;
         break;
       case 1:
         this.exportspace = "rgb";
-        /*document.getElementById("id_table_exportColor1").innerHTML = "RGB-Color (0-1,0-1,0-1)";
-        document.getElementById("button_this.exportspaceRGBRatio").classList.remove("class_generalbutton");
-        document.getElementById("button_this.exportspaceRGBRatio").classList.add("class_generalbuttonActive");
+        document.getElementById("id_table_exportColor1").innerHTML = "RGB-Color (0-1,0-1,0-1)";
+        document.getElementById("id_Export_SpaceRGBRatio").style.background = "var(--main-active-coloredButton)";
         break;
       case 2:
         this.exportspace = "hsv";
-        /*document.getElementById("id_table_exportColor1").innerHTML = "HSV-Color (0-360,0-100,0-100)";
-        document.getElementById("button_this.exportspaceHSV").classList.remove("class_generalbutton");
-        document.getElementById("button_this.exportspaceHSV").classList.add("class_generalbuttonActive");*/
+        document.getElementById("id_table_exportColor1").innerHTML = "HSV-Color (0-360,0-100,0-100)";
+        document.getElementById("id_Export_SpaceHSV").style.background = "var(--main-active-coloredButton)";
         this.scaleExpVal1=360;
         this.scaleExpVal2=100;
         this.scaleExpVal3=100;
         break;
       case 3:
         this.exportspace = "hsv";
-        /*document.getElementById("id_table_exportColor1").innerHTML = "HSV-Color (0-1,0-1,0-1)";
-        document.getElementById("button_this.exportspaceHSVRatio").classList.remove("class_generalbutton");
-        document.getElementById("button_this.exportspaceHSVRatio").classList.add("class_generalbuttonActive");*/
+        document.getElementById("id_table_exportColor1").innerHTML = "HSV-Color (0-1,0-1,0-1)";
+        document.getElementById("id_Export_SpaceHSVRatio").style.background = "var(--main-active-coloredButton)";
         break;
       case 4:
         this.exportspace = "lab";
-        /*document.getElementById("id_table_exportColor1").innerHTML = "LAB-Color (0-100,-128-128,-128-128)";
-        document.getElementById("button_this.exportspaceLAB").classList.remove("class_generalbutton");
-        document.getElementById("button_this.exportspaceLAB").classList.add("class_generalbuttonActive");*/
+        document.getElementById("id_table_exportColor1").innerHTML = "LAB-Color (0-100,-128-128,-128-128)";
+        document.getElementById("id_Export_SpaceLAB").style.background = "var(--main-active-coloredButton)";
         break;
       case 5:
         this.exportspace = "lch";
-        /*document.getElementById("id_table_exportColor1").innerHTML = "LCH-Color (0-100,0-100,0-360)";
-        document.getElementById("button_this.exportspaceLCh").classList.remove("class_generalbutton");
-        document.getElementById("button_this.exportspaceLCh").classList.add("class_generalbuttonActive");*/
+        document.getElementById("id_table_exportColor1").innerHTML = "LCH-Color (0-100,0-100,0-360)";
+        document.getElementById("id_Export_SpaceLCh").style.background = "var(--main-active-coloredButton)";
         this.scaleExpVal1=100;
         this.scaleExpVal2=100;
         this.scaleExpVal3=360;
         break;
       case 6:
         this.exportspace = "din99";
-        /*document.getElementById("id_table_exportColor1").innerHTML = "DIN99-Color";
-        document.getElementById("button_this.exportspaceDIN99").classList.remove("class_generalbutton");
-        document.getElementById("button_this.exportspaceDIN99").classList.add("class_generalbuttonActive");*/
+        document.getElementById("id_table_exportColor1").innerHTML = "DIN99-Color";
+        document.getElementById("id_Export_SpaceDIN99").style.background = "var(--main-active-coloredButton)";
         break;
       default:
         return;
     }
-
       // Fill Table
       if(document.getElementById(this.sectionID).style.display!=='none'){
-        this.fillExportTable();
+        this.updateSection();
       }
 
-
   }
 
-  setTwinIssue(bool){
+  changeTwinIssue(bool){
+
+    document.getElementById("id_Export_Activated_TwinKeyIssue").style.background = "var(--main-coloredButton)";
+    document.getElementById("id_Export_Deactivated_TwinKeyIssue").style.background = "var(--main-coloredButton)";
     if(bool){
-      this.doTwinErrorSolution=false;
-      /*document.getElementById("id_ExportPage_Button_TwinKeyIssue").innerHTML = "not active";
-      document.getElementById("id_ExportPage_Button_TwinKeyIssue").classList.remove("class_generalbuttonActive");
-      document.getElementById("id_ExportPage_Button_TwinKeyIssue").classList.add("class_generalbutton");*/
-    }
-    else{
       this.doTwinErrorSolution=true;
-      /*document.getElementById("id_ExportPage_Button_TwinKeyIssue").innerHTML = "active";
-      document.getElementById("id_ExportPage_Button_TwinKeyIssue").classList.remove("class_generalbutton");
-      document.getElementById("id_ExportPage_Button_TwinKeyIssue").classList.add("class_generalbuttonActive");*/
-    }
-  }
-
-  changeTwinKeyIssue(){
-
-    if(this.doTwinErrorSolution){
-      this.setTwinIssue(false);
+      document.getElementById("id_Export_Activated_TwinKeyIssue").style.background = "var(--main-active-coloredButton)";
     }
     else{
-      this.setTwinIssue(true);
+      this.doTwinErrorSolution=false;
+      document.getElementById("id_Export_Deactivated_TwinKeyIssue").style.background = "var(--main-active-coloredButton)";
     }
-
-    fillExportTable();
+    this.updateSection();
   }
 
+  changeIntervalOption(bool){
 
-  /*function changeIntervalOption(type){
+    document.getElementById("id_Export_OnlyKeys").style.background = "var(--main-coloredButton)";
+    document.getElementById("id_Export_KeysAndIntervals").style.background = "var(--main-coloredButton)";
 
-    document.getElementById("button_ExportOnlyKeys").classList.remove("class_generalbuttonActive");
-    document.getElementById("button_ExportKeysAndIntervals").classList.remove("class_generalbuttonActive");
-
-    document.getElementById("button_ExportOnlyKeys").classList.add("class_generalbutton");
-    document.getElementById("button_ExportKeysAndIntervals").classList.add("class_generalbutton");
-
-
-    if(type==0){
-      document.getElementById("button_ExportOnlyKeys").classList.remove("class_generalbutton");
-      document.getElementById("button_ExportOnlyKeys").classList.add("class_generalbuttonActive");
-      exportOnlyKeys=true;
-
-      document.getElementById("id_Export_NumIntervalDiv").style.display = "none";
+    if(bool==true){
+      document.getElementById("id_Export_OnlyKeys").style.background = "var(--main-active-coloredButton)";
+      this.exportOnlyKeys=true;
+      document.getElementById("id_Export_NumIntervalDiv").style.visibility = "hidden";
       document.getElementById("id_ExportIntervalNum").value = 1;
     }
     else{
-      document.getElementById("button_ExportKeysAndIntervals").classList.remove("class_generalbutton");
-      document.getElementById("button_ExportKeysAndIntervals").classList.add("class_generalbuttonActive");
-      exportOnlyKeys=false;
+      document.getElementById("id_Export_KeysAndIntervals").style.background = "var(--main-active-coloredButton)";
+      this.exportOnlyKeys=false;
       document.getElementById("id_ExportIntervalNum").value = 100;
-      document.getElementById("id_Export_NumIntervalDiv").style.display = "flex";
+      document.getElementById("id_Export_NumIntervalDiv").style.visibility = "visible";
     }
 
     // Fill Table
-    fillExportTable();
+    this.updateSection();
   }
 
-  function closeExportWindow(){
+  closeExportWindow(){
     document.getElementById("id_PopUp_ExportWindow").style.display="none";
   }
 
-  function openExportWindow(){
-
-
-    if(globalCMS1.getKeyLength()==0)
-    return;
-
-    document.getElementById("id_PopUp_ExportWindow").style.display="flex";
-    document.getElementById("id_dropDownContainer").style.display="none";
-    document.getElementById("id_selectProbeListExport").selectedIndex=0;
-
-    if(globalCMS1.getProbeSetLength()==0){
-      document.getElementById("exportprobeDiv").style.display="none";
-    }
-    else{
-      document.getElementById("exportprobeDiv").style.display="flex";
-    }
-
-    intervalSize = parseFloat(document.getElementById("id_ExportIntervalNum").value);
-
-    this.changeIntervalOption(1);
-    this.changeExportColorspace(1);
-    this.changeOutputformat(1);
-
-    if(this.doTwinErrorSolution){
-      document.getElementById("id_ExportPage_Button_TwinKeyIssue").classList.remove("class_generalbutton");
-      document.getElementById("id_ExportPage_Button_TwinKeyIssue").classList.add("class_generalbuttonActive");
-    }
-    else{
-      document.getElementById("id_ExportPage_Button_TwinKeyIssue").classList.remove("class_generalbuttonActive");
-      document.getElementById("id_ExportPage_Button_TwinKeyIssue").classList.add("class_generalbutton");
-    }
-
-    /// updateProbeList
-    var selectbox = document.getElementById("id_selectProbeListExport");
-    for(var i = selectbox.options.length - 1 ; i > 0 ; i--)
-    {
-        selectbox.remove(i);
-    }
-
-
-    for (var i = 0; i < globalCMS1.getProbeSetLength(); i++) {
-      var opt = document.createElement('option');
-      opt.style.fontSize = '1.8vh';
-      opt.innerHTML = "Probe-Set: "+globalCMS1.getProbeSet(i).getProbeSetName();
-
-      selectbox.appendChild(opt);
-    }
-
-    document.getElementById("id_selectProbeListExport").selectedIndex=0;
-
-  }
-
-  function fillExportTable(){
-
-      var this.exportCMS;
-
-      if(document.getElementById("id_selectProbeListExport").selectedIndex==-1){
-        document.getElementById("id_selectProbeListExport").selectedIndex=0;
-      }
-      if(document.getElementById("id_selectProbeListExport").selectedIndex!=0){
-          var probeSet = globalCMS1.getProbeSet(document.getElementById("id_selectProbeListExport").selectedIndex-1);
-          this.exportCMS = probeSet.generateProbeCMS(globalCMS1);
-      }
-      else{
-          this.exportCMS = cloneCMS(globalCMS1);
-      }
-
-
-      this.exportCMS.calcExportSampling(parseInt(document.getElementById("id_ExportIntervalNum").value)); // calcCMSIntervals(this.exportCMS,0,this.exportCMS.getKeyLength()-1,globalIntervalMode);
+  fillExportTable(){
+      if(this.exportOnlyKeys)
+        this.workCMS.calcExportSampling(0);
+      else
+        this.workCMS.calcExportSampling(parseInt(document.getElementById("id_ExportIntervalNum").value)); // calcCMSIntervals(this.workCMS,0,this.workCMS.getKeyLength()-1,globalIntervalMode);
 
       var old_tbody = document.getElementById("id_exportTableBody");
       var new_tbody = document.createElement('tbody');
@@ -328,64 +283,52 @@ class class_Export_Section extends class_Section {
 
       var twinErrorValue = 0;
       if(this.doTwinErrorSolution)
-        twinErrorValue = this.exportCMS.getRefRange()*this.twinError;
+        twinErrorValue = this.workCMS.getRefRange()*this.twinError;
 
-      for (var i = 0; i < this.exportCMS.getKeyLength(); i++) {
+      for (var i = 0; i < this.workCMS.getKeyLength(); i++) {
 
-        switch (this.exportCMS.getKeyType(i)) {
+        switch (this.workCMS.getKeyType(i)) {
           case "nil key": case "left key":
 
-            if(i==this.exportCMS.getKeyLength()-1){
-              new_tbody.appendChild(createExportTableRow(counter,this.exportCMS.getRefPosition(i), this.exportCMS.getKeyType(i), this.exportCMS.getLeftKeyColor(i,this.exportspace)));
+            if(i==this.workCMS.getKeyLength()-1){
+              new_tbody.appendChild(this.createExportTableRow(counter,this.workCMS.getRefPosition(i), this.workCMS.getKeyType(i), this.workCMS.getLeftKeyColor(i,this.exportspace)));
               counter++;
             }
             else{
-
-
-              if(this.exportCMS.getKeyType(i)=="left key"){
-              new_tbody.appendChild(createExportTableRow(counter,this.exportCMS.getRefPosition(i), this.exportCMS.getKeyType(i), this.exportCMS.getLeftKeyColor(i,this.exportspace)));
+              if(this.workCMS.getKeyType(i)=="left key"){
+              new_tbody.appendChild(this.createExportTableRow(counter,this.workCMS.getRefPosition(i), this.workCMS.getKeyType(i), this.workCMS.getLeftKeyColor(i,this.exportspace)));
               counter++;
               }
-
-              new_tbody.appendChild(createExportTableRow(counter,this.exportCMS.getRefPosition(i), this.exportCMS.getKeyType(i), this.exportCMS.getLeftKeyColor(i+1,this.exportspace)));
+              new_tbody.appendChild(this.createExportTableRow(counter,this.workCMS.getRefPosition(i), this.workCMS.getKeyType(i), this.workCMS.getLeftKeyColor(i+1,this.exportspace)));
               counter++;
-
           }
 
           break;
           case "twin key":
-
-
-            new_tbody.appendChild(createExportTableRow(counter,this.exportCMS.getRefPosition(i), this.exportCMS.getKeyType(i), this.exportCMS.getLeftKeyColor(i,this.exportspace)));
+            new_tbody.appendChild(this.createExportTableRow(counter,this.workCMS.getRefPosition(i), this.workCMS.getKeyType(i), this.workCMS.getLeftKeyColor(i,this.exportspace)));
             counter++;
-            new_tbody.appendChild(createExportTableRow(counter,this.exportCMS.getRefPosition(i)+twinErrorValue, this.exportCMS.getKeyType(i), this.exportCMS.getRightKeyColor(i,this.exportspace)));
+            new_tbody.appendChild(this.createExportTableRow(counter,this.workCMS.getRefPosition(i)+twinErrorValue, this.workCMS.getKeyType(i), this.workCMS.getRightKeyColor(i,this.exportspace)));
             counter++;
-
-            for(var j=0; j<this.exportCMS.getExportSamplingLength(i); j++){
-              new_tbody.appendChild(createExportTableRow(counter,this.exportCMS.getExportSamplingRef(i,j), "interval", this.exportCMS.getExportSamplingColor(i,j,this.exportspace)));
+            for(var j=0; j<this.workCMS.getExportSamplingLength(i); j++){
+              new_tbody.appendChild(this.createExportTableRow(counter,this.workCMS.getExportSamplingRef(i,j), "interval", this.workCMS.getExportSamplingColor(i,j,this.exportspace)));
               counter++;
             }
-
             break;
           default:
-
-            new_tbody.appendChild(createExportTableRow(counter,this.exportCMS.getRefPosition(i), this.exportCMS.getKeyType(i), this.exportCMS.getRightKeyColor(i,this.exportspace)));
+            new_tbody.appendChild(this.createExportTableRow(counter,this.workCMS.getRefPosition(i), this.workCMS.getKeyType(i), this.workCMS.getRightKeyColor(i,this.exportspace)));
             counter++;
-
-            for(var j=0; j<this.exportCMS.getExportSamplingLength(i); j++){
-              new_tbody.appendChild(createExportTableRow(counter,this.exportCMS.getExportSamplingRef(i,j), "interval", this.exportCMS.getExportSamplingColor(i,j,this.exportspace)));
+            for(var j=0; j<this.workCMS.getExportSamplingLength(i); j++){
+              new_tbody.appendChild(this.createExportTableRow(counter,this.workCMS.getExportSamplingRef(i,j), "interval", this.workCMS.getExportSamplingColor(i,j,this.exportspace)));
               counter++;
             }
-
           }
         }
 
       old_tbody.parentNode.replaceChild(new_tbody, old_tbody);
       new_tbody.id="id_exportTableBody";
-
   }
 
-  function createExportTableRow(counter,ref, type, tmpColor){
+  createExportTableRow(counter,ref, type, tmpColor){
     var tr = document.createElement('tr');
 
     var className = "class_tableInput";
@@ -428,24 +371,10 @@ class class_Export_Section extends class_Section {
     return tr;
   }
 
-
-  function downloadCMSFile(){
+  downloadCMSFile(){
 
       var filename;
       var text;
-
-      var this.exportCMS;
-
-      if(document.getElementById("id_selectProbeListExport").selectedIndex==-1){
-        document.getElementById("id_selectProbeListExport").selectedIndex=0;
-      }
-      if(document.getElementById("id_selectProbeListExport").selectedIndex!=0){
-        var probeSet = globalCMS1.getProbeSet(document.getElementById("id_selectProbeListExport").selectedIndex-1);
-        this.exportCMS = probeSet.generateProbeCMS(globalCMS1);
-      }
-      else{
-          this.exportCMS = cloneCMS(globalCMS1);
-      }
 
       if(this.format==="pngH" || this.format==="pngV"){
 
@@ -453,12 +382,12 @@ class class_Export_Section extends class_Section {
 
         switch(this.format) {
            case "pngH":
-             filename = "ccc-tool_colormap_horizontal_"+this.exportCMS.getColormapName()+".png";
-             imageData = this.exportSide_createPNG(this.exportCMS,false)
+             filename = "ccc-tool_colormap_horizontal_"+this.workCMS.getColormapName()+".png";
+             imageData = this.exportSide_createPNG(false)
              break;
            case "pngV":
-             filename = "ccc-tool_colormap_vertical_"+this.exportCMS.getColormapName()+".png";
-             imageData = this.exportSide_createPNG(this.exportCMS,true)
+             filename = "ccc-tool_colormap_vertical_"+this.workCMS.getColormapName()+".png";
+             imageData = this.exportSide_createPNG(true)
              break;
        }
 
@@ -473,22 +402,23 @@ class class_Export_Section extends class_Section {
        element.click();
 
        document.body.removeChild(element);
+       this.workCMS.drawCMS_Horizontal("id_exportPNGCanvas",1000,1);
       }
       else {
         switch(this.format) {
            case "csv":
                // lookup table
-               filename = "ccc-tool_colormap_"+this.exportCMS.getColormapName()+".csv";
-               text = this.exportSide_createCSV_Lookup(this.exportCMS);
+               filename = "ccc-tool_colormap_"+this.workCMS.getColormapName()+".csv";
+               text = this.exportSide_createCSV_Lookup();
                break;
            case "xml":
                // xml
-               filename = "ccc-tool_colormap_"+this.exportCMS.getColormapName()+".xml";
-               text = this.exportSide_createXML(this.exportCMS);
+               filename = "ccc-tool_colormap_"+this.workCMS.getColormapName()+".xml";
+               text = this.exportSide_createXML();
                break;
            case "json":
-               filename = "ccc-tool_colormap_"+this.exportCMS.getColormapName()+".json";
-               text = this.exportSide_createJSON(this.exportCMS)
+               filename = "ccc-tool_colormap_"+this.workCMS.getColormapName()+".json";
+               text = this.exportSide_createJSON()
                break;
        }
 
@@ -504,19 +434,19 @@ class class_Export_Section extends class_Section {
        document.body.removeChild(element);
       }
 
-  }*/
+  }
 
   exportSide_createXML(){
 
-      this.exportCMS.calcExportSampling(parseInt(document.getElementById("id_ExportIntervalNum").value)); // calcCMSIntervals(this.exportCMS,0,this.exportCMS.getKeyLength()-1,globalIntervalMode);
-      var xmltext = "<ColorMaps>\n<ColorMap name=\""+this.exportCMS.getColormapName()+"\" space=\"";
+      this.workCMS.calcExportSampling(parseInt(document.getElementById("id_ExportIntervalNum").value)); // calcCMSIntervals(this.workCMS,0,this.workCMS.getKeyLength()-1,globalIntervalMode);
+      var xmltext = "<ColorMaps>\n<ColorMap name=\""+this.workCMS.getColormapName()+"\" space=\"";
       var txtNaN = "";
       var txtAbove = "";
       var txtBelow = "";
 
-      var nanColor = this.exportCMS.getNaNColor(this.exportspace);
-      var aboveColor =  this.exportCMS.getAboveColor(this.exportspace);
-      var belowColor = this.exportCMS.getBelowColor(this.exportspace);
+      var nanColor = this.workCMS.getNaNColor(this.exportspace);
+      var aboveColor =  this.workCMS.getAboveColor(this.exportspace);
+      var belowColor = this.workCMS.getBelowColor(this.exportspace);
 
       switch(this.exportspace) {
               case "rgb":
@@ -561,7 +491,7 @@ class class_Export_Section extends class_Section {
       aboveColor=null;
       belowColor=null;
 
-      xmltext = xmltext+"\" interpolationspace=\""+this.exportCMS.getInterpolationSpace()+"\" interpolationtype=\""+this.exportCMS.getInterpolationType()+"\" creator=\"CCC-Tool\">\n";
+      xmltext = xmltext+"\" interpolationspace=\""+this.workCMS.getInterpolationSpace()+"\" interpolationtype=\""+this.workCMS.getInterpolationType()+"\" creator=\"CCC-Tool\">\n";
 
         xmltext = xmltext+this.createCMSText();
 
@@ -581,13 +511,13 @@ class class_Export_Section extends class_Section {
       var text = "";
 
 
-      this.exportCMS.calcExportSampling(parseInt(document.getElementById("id_ExportIntervalNum").value)); // calcCMSIntervals(this.exportCMS,0,this.exportCMS.getKeyLength()-1,globalIntervalMode);
+      this.workCMS.calcExportSampling(parseInt(document.getElementById("id_ExportIntervalNum").value)); // calcCMSIntervals(this.workCMS,0,this.workCMS.getKeyLength()-1,globalIntervalMode);
 
 
       var opacityVal =1;
-      var tmpColor2 = this.exportCMS.getNaNColor(this.exportspace);
-      var tmpColor3 = this.exportCMS.getAboveColor(this.exportspace);
-      var tmpColor4 = this.exportCMS.getBelowColor(this.exportspace);
+      var tmpColor2 = this.workCMS.getNaNColor(this.exportspace);
+      var tmpColor3 = this.workCMS.getAboveColor(this.exportspace);
+      var tmpColor4 = this.workCMS.getBelowColor(this.exportspace);
       switch(this.exportspace) {
               case "rgb":
                   text = text+"Reference;R;G;B;Opacity;cms;isMoT;NaN;R;"+tmpColor2.getRValue()*this.scaleExpVal1+";G;"+tmpColor2.getGValue()*this.scaleExpVal2+";B;"+tmpColor2.getBValue()*this.scaleExpVal3+";Above;R;"+tmpColor3.get1Value()*this.scaleExpVal1+";G;"+tmpColor3.get2Value()*this.scaleExpVal2+";B;"+tmpColor3.get3Value()*this.scaleExpVal3+";Below;R;"+tmpColor4.get1Value()*this.scaleExpVal1+";G;"+tmpColor4.get2Value()*this.scaleExpVal2+";B;"+tmpColor4.get3Value()*this.scaleExpVal3+"\n";
@@ -616,7 +546,7 @@ class class_Export_Section extends class_Section {
       tmpColor3=null;
       tmpColor4=null;
 
-      text = text+this.createCMSText(this.exportCMS,"csv");
+      text = text+this.createCMSText(this.workCMS,"csv");
 
       return text.substring(0, text.length - 1);
   }
@@ -625,30 +555,30 @@ class class_Export_Section extends class_Section {
 
     var twinErrorValue = 0;
     if(this.doTwinErrorSolution)
-      twinErrorValue = this.exportCMS.getRefRange()*this.twinError;
+      twinErrorValue = this.workCMS.getRefRange()*this.twinError;
 
     var text = "";
-    for (var i = 0; i < this.exportCMS.getKeyLength(); i++) {
+    for (var i = 0; i < this.workCMS.getKeyLength(); i++) {
 
-      switch (this.exportCMS.getKeyType(i)) {
+      switch (this.workCMS.getKeyType(i)) {
         case "nil key": case "left key":
 
-          if(i==this.exportCMS.getKeyLength()-1)
-            text = text+this.createLine(this.exportCMS.getLeftKeyColor(i,this.exportspace),this.exportCMS.getRefPosition(i),this.exportCMS.getOpacityVal(i,"left"),true,true);
+          if(i==this.workCMS.getKeyLength()-1)
+            text = text+this.createLine(this.workCMS.getLeftKeyColor(i,this.exportspace),this.workCMS.getRefPosition(i),this.workCMS.getOpacityVal(i,"left"),true,true);
           else{
 
             var isMot=false;
-            if(this.exportCMS.getKeyType(i)=="left key"){
-              if(this.exportCMS.getMoT(i)==false){
-                text = text+this.createLine(this.exportCMS.getLeftKeyColor(i,this.exportspace),this.exportCMS.getRefPosition(i),this.exportCMS.getOpacityVal(i,"left"),true,true);
+            if(this.workCMS.getKeyType(i)=="left key"){
+              if(this.workCMS.getMoT(i)==false){
+                text = text+this.createLine(this.workCMS.getLeftKeyColor(i,this.exportspace),this.workCMS.getRefPosition(i),this.workCMS.getOpacityVal(i,"left"),true,true);
               }
               else{
-                text = text+this.createLine(this.exportCMS.getLeftKeyColor(i,this.exportspace),this.exportCMS.getRefPosition(i),this.exportCMS.getOpacityVal(i,"left"),true,false);
+                text = text+this.createLine(this.workCMS.getLeftKeyColor(i,this.exportspace),this.workCMS.getRefPosition(i),this.workCMS.getOpacityVal(i,"left"),true,false);
                 isMot=true;
               }
 
             }
-            text = text+this.createLine(this.exportCMS.getLeftKeyColor(i+1,this.exportspace),this.exportCMS.getRefPosition(i),this.exportCMS.getOpacityVal(i,"right"),true,isMot)  ;
+            text = text+this.createLine(this.workCMS.getLeftKeyColor(i+1,this.exportspace),this.workCMS.getRefPosition(i),this.workCMS.getOpacityVal(i,"right"),true,isMot)  ;
 
 
         }
@@ -657,32 +587,32 @@ class class_Export_Section extends class_Section {
         case "twin key":
 
           var isMot=false;
-          if(this.exportCMS.getMoT(i)==false){
-            text = text+this.createLine(this.exportCMS.getLeftKeyColor(i,this.exportspace),this.exportCMS.getRefPosition(i),this.exportCMS.getOpacityVal(i,"left"),true,true);
+          if(this.workCMS.getMoT(i)==false){
+            text = text+this.createLine(this.workCMS.getLeftKeyColor(i,this.exportspace),this.workCMS.getRefPosition(i),this.workCMS.getOpacityVal(i,"left"),true,true);
           }
           else{
-            text = text+this.createLine(this.exportCMS.getLeftKeyColor(i,this.exportspace),this.exportCMS.getRefPosition(i),this.exportCMS.getOpacityVal(i,"left"),true,false);
+            text = text+this.createLine(this.workCMS.getLeftKeyColor(i,this.exportspace),this.workCMS.getRefPosition(i),this.workCMS.getOpacityVal(i,"left"),true,false);
             isMot=true;
           }
-          text = text+this.createLine(this.exportCMS.getRightKeyColor(i,this.exportspace),this.exportCMS.getRefPosition(i)+twinErrorValue,this.exportCMS.getOpacityVal(i,"right"),true,isMot)  ;
+          text = text+this.createLine(this.workCMS.getRightKeyColor(i,this.exportspace),this.workCMS.getRefPosition(i)+twinErrorValue,this.workCMS.getOpacityVal(i,"right"),true,isMot)  ;
 
-          var numOfIntervals = this.exportCMS.getExportSamplingLength(i);
+          var numOfIntervals = this.workCMS.getExportSamplingLength(i);
 
-          for(var j=0; j<this.exportCMS.getExportSamplingLength(i); j++){
-            text = text+this.createLine(this.exportCMS.getExportSamplingColor(i,j,this.exportspace),this.exportCMS.getExportSamplingRef(i,j),false,false);
+          for(var j=0; j<this.workCMS.getExportSamplingLength(i); j++){
+            text = text+this.createLine(this.workCMS.getExportSamplingColor(i,j,this.exportspace),this.workCMS.getExportSamplingRef(i,j),false,false);
           }
 
           break;
         default:
 
-          text = text+this.createLine(this.exportCMS.getRightKeyColor(i,this.exportspace),this.exportCMS.getRefPosition(i),this.exportCMS.getOpacityVal(i,"right"),true,false);
+          text = text+this.createLine(this.workCMS.getRightKeyColor(i,this.exportspace),this.workCMS.getRefPosition(i),this.workCMS.getOpacityVal(i,"right"),true,false);
 
-          //console.log(this.exportCMS.getIntervalLength(),this.exportCMS.getExportSamplingLength(i));
+          //console.log(this.workCMS.getIntervalLength(),this.workCMS.getExportSamplingLength(i));
 
-          var numOfIntervals = this.exportCMS.getExportSamplingLength(i);
+          var numOfIntervals = this.workCMS.getExportSamplingLength(i);
 
-          for(var j=0; j<this.exportCMS.getExportSamplingLength(i); j++){
-            text = text+this.createLine(this.exportCMS.getExportSamplingColor(i,j,this.exportspace),this.exportCMS.getExportSamplingRef(i,j),false,false);
+          for(var j=0; j<this.workCMS.getExportSamplingLength(i); j++){
+            text = text+this.createLine(this.workCMS.getExportSamplingColor(i,j,this.exportspace),this.workCMS.getExportSamplingRef(i,j),false,false);
           }
 
         }
@@ -698,8 +628,8 @@ class class_Export_Section extends class_Section {
       switch (this.format) {
         case "xml":
 
-          for (var i = 0; i < this.exportCMS.getProbeSetLength(); i++) {
-            var tmpProbeSet = this.exportCMS.getProbeSet(i);
+          for (var i = 0; i < this.workCMS.getProbeSetLength(); i++) {
+            var tmpProbeSet = this.workCMS.getProbeSet(i);
             text=text+"<ProbeSet name=\""+tmpProbeSet.getProbeSetName()+"\">\n";
 
               for (var j = 0; j < tmpProbeSet.getProbeLength(); j++) {
@@ -921,15 +851,15 @@ class class_Export_Section extends class_Section {
 
   exportSide_createJSON(){
 
-      this.exportCMS.calcExportSampling(parseInt(document.getElementById("id_ExportIntervalNum").value)); // calcCMSIntervals(this.exportCMS,0,this.exportCMS.getKeyLength()-1,globalIntervalMode);
+      this.workCMS.calcExportSampling(parseInt(document.getElementById("id_ExportIntervalNum").value)); // calcCMSIntervals(this.workCMS,0,this.workCMS.getKeyLength()-1,globalIntervalMode);
 
       var twinErrorValue = 0;
       if(this.doTwinErrorSolution)
-        twinErrorValue = this.exportCMS.getRefRange()*this.twinError;
+        twinErrorValue = this.workCMS.getRefRange()*this.twinError;
 
       var jsontext = "[\n\t{\n\t\t\"ColorSpace\" : ";
 
-      switch(globalCMS1.getInterpolationSpace()) {
+      switch(this.workCMS.getInterpolationSpace()) {
               case "rgb":
                   jsontext = jsontext+"\"RGB\"";
                   break;
@@ -950,16 +880,16 @@ class class_Export_Section extends class_Section {
       }
 
 
-      this.exportCMS.getInterpolationType()
+      this.workCMS.getInterpolationType()
 
-      jsontext = jsontext+",\n\t\t\"InterpolationType\" : \""+globalCMS1.getInterpolationType()+"\",\n\t\t\"Creator\" : \"CCC-Tool\",\n\t\t\"Name\" : \""+this.exportCMS.getColormapName()+"\",\n\t\t\"NanColor\" : [";
-      var tmpColor = this.exportCMS.getNaNColor(this.exportspace);
+      jsontext = jsontext+",\n\t\t\"InterpolationType\" : \""+this.workCMS.getInterpolationType()+"\",\n\t\t\"Creator\" : \"CCC-Tool\",\n\t\t\"Name\" : \""+this.workCMS.getColormapName()+"\",\n\t\t\"NanColor\" : [";
+      var tmpColor = this.workCMS.getNaNColor(this.exportspace);
       jsontext = jsontext+ tmpColor.get1Value()*this.scaleExpVal1 +","+tmpColor.get2Value()*this.scaleExpVal2+","+tmpColor.get3Value()*this.scaleExpVal3+"],\n\t\t\"AboveColor\" : [";
       tmpColor.deleteReferences();
-      tmpColor = this.exportCMS.getAboveColor(this.exportspace);
+      tmpColor = this.workCMS.getAboveColor(this.exportspace);
       jsontext = jsontext+ tmpColor.get1Value()*this.scaleExpVal1 +","+tmpColor.get2Value()*this.scaleExpVal2+","+tmpColor.get3Value()*this.scaleExpVal3+"],\n\t\t\"BelowColor\" : [";
       tmpColor.deleteReferences();
-      tmpColor = this.exportCMS.getBelowColor(this.exportspace);
+      tmpColor = this.workCMS.getBelowColor(this.exportspace);
       jsontext = jsontext+ tmpColor.get1Value()*this.scaleExpVal1 +","+tmpColor.get2Value()*this.scaleExpVal2+","+tmpColor.get3Value()*this.scaleExpVal3+"],\n\t\t";
       tmpColor.deleteReferences();
       tmpColor=null;
@@ -990,26 +920,26 @@ class class_Export_Section extends class_Section {
       var isMoTtext="\n\t\t],\n\t\t\"isMoT\" : [";
 
 
-      for (var i = 0; i < this.exportCMS.getKeyLength(); i++) {
+      for (var i = 0; i < this.workCMS.getKeyLength(); i++) {
 
-            switch (this.exportCMS.getKeyType(i)) {
+            switch (this.workCMS.getKeyType(i)) {
               case "nil key": case "left key":
 
-                if(i==this.exportCMS.getKeyLength()-1){
-                  colortext = colortext+this.createLine(this.exportCMS.getLeftKeyColor(i,this.exportspace),this.exportCMS.getRefPosition(i),this.exportCMS.getOpacityVal(i,"left"),true,true);
+                if(i==this.workCMS.getKeyLength()-1){
+                  colortext = colortext+this.createLine(this.workCMS.getLeftKeyColor(i,this.exportspace),this.workCMS.getRefPosition(i),this.workCMS.getOpacityVal(i,"left"),true,true);
                   isCMStext=isCMStext+"\n\t\t\t"+true;
                   isMoTtext=isMoTtext+"\n\t\t\t"+false;
                 }
                 else{
 
                   var isMot=false;
-                  if(this.exportCMS.getKeyType(i)=="left key"){
-                    if(this.exportCMS.getMoT(i)==false){
-                      colortext = colortext+this.createLine(this.exportCMS.getLeftKeyColor(i,this.exportspace),this.exportCMS.getRefPosition(i),this.exportCMS.getOpacityVal(i,"left"),true,true)+",";
+                  if(this.workCMS.getKeyType(i)=="left key"){
+                    if(this.workCMS.getMoT(i)==false){
+                      colortext = colortext+this.createLine(this.workCMS.getLeftKeyColor(i,this.exportspace),this.workCMS.getRefPosition(i),this.workCMS.getOpacityVal(i,"left"),true,true)+",";
                       isMoTtext=isMoTtext+"\n\t\t\t"+true+",";
                     }
                     else{
-                      colortext = colortext+this.createLine(this.exportCMS.getLeftKeyColor(i,this.exportspace),this.exportCMS.getRefPosition(i),this.exportCMS.getOpacityVal(i,"left"),true,false)+",";
+                      colortext = colortext+this.createLine(this.workCMS.getLeftKeyColor(i,this.exportspace),this.workCMS.getRefPosition(i),this.workCMS.getOpacityVal(i,"left"),true,false)+",";
                       isMot=true;
                       isMoTtext=isMoTtext+"\n\t\t\t"+false+",";
                     }
@@ -1018,7 +948,7 @@ class class_Export_Section extends class_Section {
 
 
                   }
-                  colortext = colortext+this.createLine(this.exportCMS.getLeftKeyColor(i+1,this.exportspace),this.exportCMS.getRefPosition(i),this.exportCMS.getOpacityVal(i,"right"),true,isMot)+",";
+                  colortext = colortext+this.createLine(this.workCMS.getLeftKeyColor(i+1,this.exportspace),this.workCMS.getRefPosition(i),this.workCMS.getOpacityVal(i,"right"),true,isMot)+",";
                   isCMStext=isCMStext+"\n\t\t\t"+true+",";
                   isMoTtext=isMoTtext+"\n\t\t\t"+isMot+",";
 
@@ -1028,28 +958,28 @@ class class_Export_Section extends class_Section {
               break;
               case "twin key":
 
-                var numOfIntervals = this.exportCMS.getExportSamplingLength(i);
+                var numOfIntervals = this.workCMS.getExportSamplingLength(i);
 
                 var isMot=false;
 
                 isCMStext=isCMStext+"\n\t\t\t"+true+",";
-                if(this.exportCMS.getMoT(i)==false){
-                  colortext = colortext+this.createLine(this.exportCMS.getLeftKeyColor(i,this.exportspace),this.exportCMS.getRefPosition(i),this.exportCMS.getOpacityVal(i,"left"),true,true)+",";
+                if(this.workCMS.getMoT(i)==false){
+                  colortext = colortext+this.createLine(this.workCMS.getLeftKeyColor(i,this.exportspace),this.workCMS.getRefPosition(i),this.workCMS.getOpacityVal(i,"left"),true,true)+",";
                   isMoTtext=isMoTtext+"\n\t\t\t"+true+",";
                 }
                 else{
-                  colortext = colortext+this.createLine(this.exportCMS.getLeftKeyColor(i,this.exportspace),this.exportCMS.getRefPosition(i),this.exportCMS.getOpacityVal(i,"left"),true,false)+",";
+                  colortext = colortext+this.createLine(this.workCMS.getLeftKeyColor(i,this.exportspace),this.workCMS.getRefPosition(i),this.workCMS.getOpacityVal(i,"left"),true,false)+",";
                   isMot=true;
                   isMoTtext=isMoTtext+"\n\t\t\t"+false+",";
                 }
 
-                colortext = colortext+this.createLine(this.exportCMS.getRightKeyColor(i,this.exportspace),this.exportCMS.getRefPosition(i)+twinErrorValue,this.exportCMS.getOpacityVal(i,"right"),true,isMot)+",";
+                colortext = colortext+this.createLine(this.workCMS.getRightKeyColor(i,this.exportspace),this.workCMS.getRefPosition(i)+twinErrorValue,this.workCMS.getOpacityVal(i,"right"),true,isMot)+",";
                 isCMStext=isCMStext+"\n\t\t\t"+true+",";
                 isMoTtext=isMoTtext+"\n\t\t\t"+isMot+",";
 
 
-                for(var j=0; j<this.exportCMS.getExportSamplingLength(i); j++){
-                  colortext = colortext+this.createLine(this.exportCMS.getExportSamplingColor(i,j,this.exportspace),this.exportCMS.getExportSamplingRef(i,j),false,false)+",";
+                for(var j=0; j<this.workCMS.getExportSamplingLength(i); j++){
+                  colortext = colortext+this.createLine(this.workCMS.getExportSamplingColor(i,j,this.exportspace),this.workCMS.getExportSamplingRef(i,j),false,false)+",";
                   isCMStext=isCMStext+"\n\t\t\t"+false+",";
                   isMoTtext=isMoTtext+"\n\t\t\t"+false+",";
                 }
@@ -1059,14 +989,14 @@ class class_Export_Section extends class_Section {
                 break;
               default:
 
-                var numOfIntervals = this.exportCMS.getExportSamplingLength(i);
-                colortext = colortext+this.createLine(this.exportCMS.getRightKeyColor(i,this.exportspace),this.exportCMS.getRefPosition(i),this.exportCMS.getOpacityVal(i,"right"),true,false)+",";
+                var numOfIntervals = this.workCMS.getExportSamplingLength(i);
+                colortext = colortext+this.createLine(this.workCMS.getRightKeyColor(i,this.exportspace),this.workCMS.getRefPosition(i),this.workCMS.getOpacityVal(i,"right"),true,false)+",";
                 isCMStext=isCMStext+"\n\t\t\t"+true+",";
                 isMoTtext=isMoTtext+"\n\t\t\t"+false+",";
 
 
-                for(var j=0; j<this.exportCMS.getExportSamplingLength(i); j++){
-                  colortext = colortext+this.createLine(this.exportCMS.getExportSamplingColor(i,j,this.exportspace),this.exportCMS.getExportSamplingRef(i,j),false,false)+",";
+                for(var j=0; j<this.workCMS.getExportSamplingLength(i); j++){
+                  colortext = colortext+this.createLine(this.workCMS.getExportSamplingColor(i,j,this.exportspace),this.workCMS.getExportSamplingRef(i,j),false,false)+",";
                   isCMStext=isCMStext+"\n\t\t\t"+false+",";
                   isMoTtext=isMoTtext+"\n\t\t\t"+false+",";
                 }
@@ -1086,11 +1016,12 @@ class class_Export_Section extends class_Section {
 
     var tmpDoColorblindSim = doColorblindnessSim;
     doColorblindnessSim=false;
+
     if(isVertical){
-      drawCanvasColormapVertical("id_exportPNGCanvas", this.exportCMS, 1000, 100);
+      this.workCMS.drawCMS_Vertical("id_exportPNGCanvas",500,5000);
     }
     else {
-      drawCanvasColormapHorizontal("id_exportPNGCanvas", this.exportCMS, 100,1000);
+      this.workCMS.drawCMS_Horizontal("id_exportPNGCanvas",5000,500);
     }
     doColorblindnessSim = tmpDoColorblindSim;
 
