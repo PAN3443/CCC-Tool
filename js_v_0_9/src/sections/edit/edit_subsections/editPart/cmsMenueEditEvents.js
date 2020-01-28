@@ -86,9 +86,7 @@ function checkKeyValueChange(){
   document.getElementById("id_EditPage_KeyValueEdit_warning").innerHTML="";
 }
 
-
 function exportEditCMS(){
-
   var clone = cloneCMS(editSection.editCMS);
   if(clone.getKeyLength()==0){
     openAlert("Your CMS is empty. Please create first a colormap before visiting the export section.");

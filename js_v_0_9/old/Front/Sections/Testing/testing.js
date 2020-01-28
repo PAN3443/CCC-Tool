@@ -14,10 +14,9 @@ function openTestSection(){
      selectobject.remove(i);
   }
 
-  for (var i = 0; i < myDesignsList.length; i++) {
+  for (var i = 0; i < myDesignsSection.getMyDesignLength(); i++) {
     var optionCMS = document.createElement("option");
     optionCMS.innerHTML = myDesignsList[i].getColormapName();
-
     selectobject.add(optionCMS);
   }
   selectobject.selectedIndex = 0;
@@ -150,7 +149,6 @@ function slideTestDisplayDivs(){
   }
 
 }
-
 
 function selectTestCMS(){
 

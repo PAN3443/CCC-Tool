@@ -59,6 +59,13 @@ class class_MyDesigns_Section extends class_Section {
     }
   }
 
+  getMyDesignCMSName(id){
+    if(id<this.myDesignsList.length)
+      return this.myDesignsList[id].getColormapName();
+
+    return undefined;
+  }
+
   getMyDesignCMS(id){
     if(id<this.myDesignsList.length)
       return cloneCMS(this.myDesignsList[id]);

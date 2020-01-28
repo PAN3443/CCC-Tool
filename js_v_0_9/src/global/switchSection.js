@@ -75,3 +75,29 @@ switchSection(2);
 function showNewCMSPage(){
 switchSection(3);
 }
+
+
+function showTesting(){
+  switch (true) {
+    case editSection.isSectionOpen():
+        var clone = cloneCMS(editSection.editCMS);
+        if(clone.getKeyLength()==0){
+          openAlert("Your CMS is empty. Please create first a colormap before visiting the testing section.");
+          clone.deleteReferences();
+          return;
+        }
+        testingSection.setCMS(clone);
+        testingSection.backSection="edit";
+      break;
+    case myDesignsSection.isSectionOpen():
+         if(myDesignsSection.getMyDesignLength()==0){
+           openAlert("Your MyDesigns list is empty. Please create first a colormap before visiting the testing section.");
+           return;
+         }
+         testingSection.backSection="myDesigns";
+      break;
+    default:
+      return;
+  }
+  testingSection.showSection();
+}

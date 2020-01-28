@@ -1,7 +1,5 @@
 
-
-
-function getCanvasImgData(img){
+function loadImgData(img){
 
   var canvas = document.createElement('canvas');
   canvas.width =img.width;
