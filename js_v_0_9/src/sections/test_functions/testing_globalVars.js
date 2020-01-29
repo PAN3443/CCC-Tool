@@ -42,10 +42,6 @@ var redrawCollection = true;
 var usertestWorker = undefined;
 var usertestWorkerfinished = true;
 
-
-
-
-
 var drawElementInPreview = false;
 var drawElementID = 0;
 
@@ -79,31 +75,3 @@ var drawElementID = 0;
  var statisticalDataFiles = [];
  var statisticalDataData = new Array(statisticalDataFiles.length);
  var statisticalDataAcknowlegments = [];
-
-
-
-
- var acknowlegments = ["The Stanford volume data archive",
- "DMR - Database For Mastology Research",
- "FLIR Thermal Dataset for Algorithm Training",
- "OTCBVS Benchmark Dataset Collection",
- "SciVis Contest 2018",
- "Playboy"
- ];
-
- var acknowlegmentsURL = ["https://graphics.stanford.edu/data/voldata/",
- "http://visual.ic.uff.br/dmi/prontuario/home.php",
- "https://www.flir.co.uk/oem/adas/adas-dataset-form/",
- "http://vcipl-okstate.org/pbvs/bench/",
- "https://sciviscontest2018.org/",
- "https://www.playboy.com/"
- ];
-
-
- var acknowlegmentsAdditional = [undefined,
- "The Database For Mastology Research (DMR) is an online platform with mastologic images for early detection of breast cancer.",
- "The FLIR starter thermal dataset is intended for the training of convolutional neural networks.",
- "This image comes from OSU Thermal Pedestrian Database. The topic of interest is the person detection in thermal imagery.",
- "This data set comes from the SciVis contest 2018 and includes the simulation data of asteroid impacts in deep ocean water.",
- "Lenna is a test image often used in the computer science of image processing. The image is popular because of its different areas of multifarious detail degree."
- ];

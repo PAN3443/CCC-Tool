@@ -4,6 +4,7 @@
 ///// Sections
 //////////////////////////////////////////////////////
 //
+var version_JS_FolderName = "js_v_0_9";
 var doColorblindnessSim = false;
 
 var welcomeSection = undefined;

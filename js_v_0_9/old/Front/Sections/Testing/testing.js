@@ -152,23 +152,17 @@ function slideTestDisplayDivs(){
 
 function selectTestCMS(){
 
-  globalCMS1 = cloneCMS(myDesignsList[document.getElementById("id_TestSection_CMS_Select").selectedIndex]);
-  globalCMS1JSON=inform_Worker_GlobalCMS();
+  globalCMS1 =
+
 
   drawCanvasColormap("id_TestPage_CMS_VIS_ColormapLinear", globalCMS1);
 
-  testpreviewWorker_CCCTest.postMessage(globalCMS1JSON);
-  testpreviewWorker_Collection.postMessage(globalCMS1JSON);
-  testpreviewWorker_RealWorldData.postMessage(globalCMS1JSON);
-  testfunctionWorker_InteractiveTest.postMessage(globalCMS1JSON);
+
   testfunctionWorker_Report0.postMessage(globalCMS1JSON);
 
   switch (testingModus) {
     case 0:
-      drawTestCollection();
-    break;
-    case 1:
-      selectNewTestType();
+      
     break;
     case 2:
       calc_Report();

@@ -117,6 +117,7 @@ class class_TestFunction_Section extends class_Section {
 
     ////////////////////////////////////////////////////////////////////////////
     // Real World Data
+    this.realWorldCanvasIndex=0;
     this.medicalLabels = ["CT Head","MR Brain","Thermography","Mammography",];
     this.medicalFiles = ["cthead-8bit061.png","mrbrain-8bit038.png","thermography.png","M0279.LEFT_MLO.2017-05-04.00.png",];
     this.medicalData = new Array(this.medicalFiles.length);
@@ -132,8 +133,30 @@ class class_TestFunction_Section extends class_Section {
     this.photographsData = new Array(this.photographsFiles.length);
     this.photographsAcknowlegments = [2,3,5];
 
+    this.acknowlegments = ["The Stanford volume data archive",
+    "DMR - Database For Mastology Research",
+    "FLIR Thermal Dataset for Algorithm Training",
+    "OTCBVS Benchmark Dataset Collection",
+    "SciVis Contest 2018",
+    "Playboy"
+    ];
 
-    this.fillTestCollection();
+    this.acknowlegmentsURL = ["https://graphics.stanford.edu/data/voldata/",
+    "http://visual.ic.uff.br/dmi/prontuario/home.php",
+    "https://www.flir.co.uk/oem/adas/adas-dataset-form/",
+    "http://vcipl-okstate.org/pbvs/bench/",
+    "https://sciviscontest2018.org/",
+    "https://www.playboy.com/"
+    ];
+
+    this.acknowlegmentsAdditional = [undefined,
+    "The Database For Mastology Research (DMR) is an online platform with mastologic images for early detection of breast cancer.",
+    "The FLIR starter thermal dataset is intended for the training of convolutional neural networks.",
+    "This image comes from OSU Thermal Pedestrian Database. The topic of interest is the person detection in thermal imagery.",
+    "This data set comes from the SciVis contest 2018 and includes the simulation data of asteroid impacts in deep ocean water.",
+    "Lenna is a test image often used in the computer science of image processing. The image is popular because of its different areas of multifarious detail degree."
+    ];
+
     //////////////////////////////////////////////////
     /// Single Tests
     this.cccTest_NewJump_Options = [true, [0, 1]];
@@ -149,21 +172,69 @@ class class_TestFunction_Section extends class_Section {
 
     //////////////////////////////////////////////////
     /// Worker
-    this.worker_testCollection_CCCTest = new Worker(version_JS_FolderName+"/worker/worker_PreviewTesting.js", { type: "module" });
+    this.worker_testCollection_CCCTest = new Worker(version_JS_FolderName+"/src/sections/test_functions/worker/worker_PreviewTesting.js", { type: "module" });
     this.worker_testCollection_CCCTest.postMessage({'message':'init', 'initOption1' : 'CCCTest'});
     this.worker_testCollection_CCCTest.addEventListener('message', workerEvent_DrawPreviewTestfunction, false);
-    this.worker_testCollection_Collection = new Worker(version_JS_FolderName+"/worker/worker_PreviewTesting.js", { type: "module" });
+    this.worker_testCollection_Collection = new Worker(version_JS_FolderName+"/src/sections/test_functions/worker/worker_PreviewTesting.js", { type: "module" });
     this.worker_testCollection_Collection.postMessage({'message':'init', 'initOption1' : 'Collection'});
     this.worker_testCollection_Collection.addEventListener('message', workerEvent_DrawPreviewTestfunction, false);
-    this.worker_testCollection_RealWorldData = new Worker(version_JS_FolderName+"/worker/worker_PreviewTesting.js", { type: "module" });
+    this.worker_testCollection_RealWorldData = new Worker(version_JS_FolderName+"/src/sections/test_functions/worker/worker_PreviewTesting.js", { type: "module" });
     this.worker_testCollection_RealWorldData.postMessage({'message':'init', 'initOption1' : 'RealData'});
     this.worker_testCollection_RealWorldData.addEventListener('message', workerEvent_DrawPreviewTestfunction, false);
 
-    //this.worker_testInteractive = new Worker(version_JS_FolderName+"/worker/worker_SingleTesting.js", { type: "module" });
-    /*this.worker_testInteractive.postMessage({'message':'init'});
+    this.worker_testInteractive = new Worker(version_JS_FolderName+"/src/sections/test_functions/worker/worker_SingleTesting.js", { type: "module" });
+    this.worker_testInteractive.postMessage({'message':'init'});
     this.worker_testInteractive.addEventListener('message', workerEvent_DrawTestfunction, false);
-    init_Worker_SingleTesting_LoadRealWorld();*/
+    for (var i = 0; i < this.medicalFiles.length; i++) {
+          var url = "resource/realWorldData/medicalData/"+this.medicalFiles[i];
+          var img = new Image();
+          img.setAttribute('crossOrigin', 'anonymous');
+          img.onload = (function(index) {
+          return function () {
+            var workerJSON = {};
+            workerJSON['message'] = "pushRealWorldData";
+            workerJSON['type'] = "medical";
+            workerJSON['index'] = index;
+            workerJSON['imgData'] = loadImgData(this);
+            testingSection.worker_testInteractive.postMessage(workerJSON);
+          };
+        })(i);
+        img.src = url;
+    }
 
+    for (var i = 0; i < this.scientificFlowSimFiles.length; i++) {
+          var url = "resource/realWorldData/scientificFlowSimulation/"+this.scientificFlowSimFiles[i];
+          var img = new Image();
+          img.setAttribute('crossOrigin', 'anonymous');
+          img.onload = (function(index) {
+          return function () {
+            var workerJSON = {};
+            workerJSON['message'] = "pushRealWorldData";
+            workerJSON['type'] = "scientificFlowSim";
+            workerJSON['index'] = index;
+            workerJSON['imgData'] = loadImgData(this);
+            testingSection.worker_testInteractive.postMessage(workerJSON);
+          };
+        })(i);
+        img.src = url;
+    }
+
+    for (var i = 0; i < this.photographsFiles.length; i++) {
+          var url = "resource/realWorldData/photographs/"+this.photographsFiles[i];
+          var img = new Image();
+          img.setAttribute('crossOrigin', 'anonymous');
+          img.onload = (function(index) {
+          return function () {
+            var workerJSON = {};
+            workerJSON['message'] = "pushRealWorldData";
+            workerJSON['type'] = "photographs";
+            workerJSON['index'] = index;
+            workerJSON['imgData'] = loadImgData(this);
+            testingSection.worker_testInteractive.postMessage(workerJSON);
+          };
+        })(i);
+        img.src = url;
+    }
     //////////////////////////////////////////////////
     /// 3D Rendering
 
@@ -222,23 +293,9 @@ class class_TestFunction_Section extends class_Section {
 
     ////// Init interactive Tests
 
+    this.fillTestCollection();
+
   }
-
-  drawTestCollection() {
-    /*calcPreviewTestFields(this.worker_testCollection_CCCTest);
-    calcPreviewTestFields(this.worker_testCollection_Collection);
-    calcPreviewTestFields(this.worker_testCollection_RealWorldData);
-
-    var workerJSON = {};
-    workerJSON['message'] = undefined;
-
-    workerJSON.message = "getImgData";
-
-    this.worker_testCollection_CCCTest.postMessage(workerJSON);
-    this.worker_testCollection_Collection.postMessage(workerJSON);
-    this.worker_testCollection_RealWorldData.postMessage(workerJSON);*/
-  }
-
 
   showSection() {
     if (typeof(Worker) === undefined) {
@@ -269,8 +326,14 @@ class class_TestFunction_Section extends class_Section {
       document.getElementById("id_TestSection_CMS_Label").style.display = "none";
       selectobject.style.display = "none";
     }
+    var cmsJSON=json_message_sendCMS(cloneCMS(this.testingCMS));
+    this.worker_testCollection_CCCTest.postMessage(cmsJSON);
+    this.worker_testCollection_Collection.postMessage(cmsJSON);
+    this.worker_testCollection_RealWorldData.postMessage(cmsJSON);
+    this.worker_testInteractive.postMessage(cmsJSON);
     this.testingCMS.drawCMS_Horizontal("id_TestPage_CMS_VIS_ColormapLinear", 1000, 1);
     this.showCollection();
+    this.inform_Worker_GeneralInformations();
     super.showSection();
   }
 
@@ -281,8 +344,8 @@ class class_TestFunction_Section extends class_Section {
 
   showCollection() {
     this.collectionIsOpen = true;
-    document.getElementById("id_Test_SwitchToCollection").style.background = "var(--main-coloredButton)";
-    document.getElementById("id_Test_SwitchToSingleTest").style.background = "var(--main-active-coloredButton)";
+    document.getElementById("id_Test_SwitchToCollection").style.background = "var(--main-active-coloredButton)";
+    document.getElementById("id_Test_SwitchToSingleTest").style.background = "var(--main-coloredButton)";
     document.getElementById("id_Test_FunctionCollection").style.width = "100vw";
     document.getElementById("id_Test_SingleTestDiv").style.width = "0vw";
   }
@@ -313,15 +376,81 @@ class class_TestFunction_Section extends class_Section {
 
   updateSection() {
     if (this.collectionIsOpen) {
+      var workerJSON = {};
+      workerJSON['message'] = "calcTestFields";
+      this.worker_testCollection_CCCTest.postMessage(workerJSON);
+      this.worker_testCollection_Collection.postMessage(workerJSON);
+      this.worker_testCollection_RealWorldData.postMessage(workerJSON);
 
+      workerJSON = {};
+      workerJSON['message'] = "getImgData";
+      this.worker_testCollection_CCCTest.postMessage(workerJSON);
+      this.worker_testCollection_Collection.postMessage(workerJSON);
+      this.worker_testCollection_RealWorldData.postMessage(workerJSON);
     } else {
-
+      //selectNewTestType();
     }
   }
 
+  selectTestingCMS(){
+    this.testingCMS.deleteReferences();
+    this.testingCMS = myDesignsSection.getMyDesignCMS(document.getElementById("id_TestSection_CMS_Select").selectedIndex);
+    var cmsJSON=json_message_sendCMS(cloneCMS(this.testingCMS));
+    this.worker_testCollection_CCCTest.postMessage(cmsJSON);
+    this.worker_testCollection_Collection.postMessage(cmsJSON);
+    this.worker_testCollection_RealWorldData.postMessage(cmsJSON);
+    this.worker_testInteractive.postMessage(cmsJSON);
+    this.testingCMS.drawCMS_Horizontal("id_TestPage_CMS_VIS_ColormapLinear", 1000, 1);
+    this.updateSection();
+  }
 
   /////////////////////////////////////
   ///// Worker Functions
+
+  inform_Worker_GeneralInformations(){
+    var workerJSON = {};
+    workerJSON['message'] = "colorSimSettings";
+    workerJSON['doColorblindnessSim'] = doColorblindnessSim;
+    workerJSON['tmXYZ_Selected'] = tmXYZ_Selected;
+    workerJSON['tmXYZ_Selected_Inv'] = tmXYZ_Selected_Inv;
+    workerJSON['tmLMS_Selected'] = tmLMS_Selected;
+    workerJSON['tmLMS_Selected_Inv'] = tmLMS_Selected_Inv;
+    workerJSON['sim_AdaptiveColorblindness'] = sim_AdaptiveColorblindness;
+    this.worker_testCollection_CCCTest.postMessage(workerJSON);
+    this.worker_testCollection_Collection.postMessage(workerJSON);
+    this.worker_testCollection_RealWorldData.postMessage(workerJSON);
+    this.worker_testInteractive.postMessage(workerJSON);
+
+    workerJSON = {};
+    workerJSON['message'] = "colorSettings";
+    workerJSON['din99_kE'] = din99_kE;
+    workerJSON['din99_kCH'] = din99_kCH;
+    workerJSON['cielab_ref_X'] = cielab_ref_X;
+    workerJSON['cielab_ref_Y'] = cielab_ref_Y;
+    workerJSON['cielab_ref_Z'] = cielab_ref_Z;
+    this.worker_testCollection_CCCTest.postMessage(workerJSON);
+    this.worker_testCollection_Collection.postMessage(workerJSON);
+    this.worker_testCollection_RealWorldData.postMessage(workerJSON);
+    this.worker_testInteractive.postMessage(workerJSON);
+
+    workerJSON = {};
+    workerJSON['message'] = "colorMetrics";
+    // 2000
+    workerJSON['de2000_k_L'] = de2000_k_L;
+    workerJSON['de2000_k_C'] = de2000_k_C;
+    workerJSON['de2000_k_H'] = de2000_k_H;
+    // 94
+    workerJSON['de94_k_L'] = de94_k_L;
+    workerJSON['de94_k_C'] = de94_k_C;
+    workerJSON['de94_k_H'] = de94_k_H;
+    workerJSON['de94_k_1'] = de94_k_1;
+    workerJSON['de94_k_2'] = de94_k_2;
+    this.worker_testCollection_CCCTest.postMessage(workerJSON);
+    this.worker_testCollection_Collection.postMessage(workerJSON);
+    this.worker_testCollection_RealWorldData.postMessage(workerJSON);
+    this.worker_testInteractive.postMessage(workerJSON);
+  }
+
   inform_Worker_Testfield (index){
     var workerJSON = {};
     workerJSON['message'] = "Testfield";
@@ -336,7 +465,7 @@ class class_TestFunction_Section extends class_Section {
     workerJSON['type'] = type;
     workerJSON['subtype'] = subtype;
     workerJSON['options'] = options;
-    this.testfunctionWorker_InteractiveTest.postMessage(workerJSON);
+    this.worker_testInteractive.postMessage(workerJSON);
   }
 
   inform_Worker_PushTestingType(type,subtype){
@@ -370,17 +499,39 @@ class class_TestFunction_Section extends class_Section {
   inform_Worker_LoadRealWorldIMG(url,imgIndex){
           var img = new Image();
           img.setAttribute('crossOrigin', 'anonymous');
-          img.onload = (function(index,wk) {
+          img.onload = (function(index) {
           return function () {
             var workerJSON = {};
             workerJSON['message'] = "getRealWorldData_IMG";
             workerJSON['index'] = index;
             workerJSON['img'] = loadImgData(this);
-            wk.postMessage(workerJSON);
+            testingSection.worker_testCollection_RealWorldData.postMessage(workerJSON);
           };
-        })(imgIndex,worker);
+        })(imgIndex);
 
         img.src = url;
+  }
+
+  request_Worker_Testfield(index){
+    var workerJSON = {};
+    workerJSON['message'] = "sendTestfield";
+    workerJSON['arrayIndex'] = index;
+    this.worker_testInteractive.postMessage(workerJSON);//*/
+  }
+
+  inform_Worker_GetVisualisation(){
+    var workerJSON = {};
+    workerJSON['message'] = "getVisData";
+
+    if(document.getElementById("id_TestVisualization_Pixel").checked)
+      workerJSON['visType'] = "pixel";
+    else{
+      workerJSON['visType'] = "mesh";
+      workerJSON['do3DTestField'] = do3DTestField;
+      workerJSON['scalefactor3DTest'] = scalefactor3DTest;
+
+    }
+    return workerJSON;
   }
 
 
@@ -511,7 +662,7 @@ class class_TestFunction_Section extends class_Section {
       ///////////////////////////////////////////////////////////
 
       var tmpTestLabel = document.createElement('p');
-      labelText = "J = {";
+      var labelText = "J = {";
 
       for (var j = 0; j < this.cccTest_Jumps_Options[i][1].length; j++) {
         if (this.cccTest_Jumps_Options[i][0])
@@ -530,9 +681,8 @@ class class_TestFunction_Section extends class_Section {
 
       tmpSelection.onclick = (function(tmpID) {
         return function() {
-          redrawTests = false;
-          switchTestDisplay(1);
-          openJumpTest(tmpID);
+          testingSection.showSingleTesting();
+          testingSection.openJumpTest(tmpID);
         };
       })(i);
 
@@ -622,9 +772,8 @@ class class_TestFunction_Section extends class_Section {
 
       tmpSelection.onclick = (function(tmpID) {
         return function() {
-          redrawTests = false;
-          switchTestDisplay(1);
-          openGradientTest(tmpID);
+          testingSection.showSingleTesting();
+          testingSection.openGradientTest(tmpID);
         };
       })(i);
 
@@ -713,9 +862,8 @@ class class_TestFunction_Section extends class_Section {
 
       tmpSelection.onclick = (function(tmpID) {
         return function() {
-          redrawTests = false;
-          switchTestDisplay(1);
-          openRidgeValleyTest(tmpID);
+          testingSection.showSingleTesting();
+          testingSection.openRidgeValleyTest(tmpID);
         };
       })(i);
 
@@ -779,9 +927,8 @@ class class_TestFunction_Section extends class_Section {
 
       tmpSelection.onclick = (function(tmpID) {
         return function() {
-          redrawTests = false;
-          switchTestDisplay(1);
-          openExtremaTest(tmpID);
+          testingSection.showSingleTesting();
+          testingSection.openExtremaTest(tmpID);
         };
       })(i);
 
@@ -836,9 +983,8 @@ class class_TestFunction_Section extends class_Section {
 
       tmpSelection.onclick = (function(tmpID) {
         return function() {
-          redrawTests = false;
-          switchTestDisplay(1);
-          openFrequencyTest(tmpID);
+          testingSection.showSingleTesting();
+          testingSection.openFrequencyTest(tmpID);
         };
       })(i);
 
@@ -901,9 +1047,8 @@ class class_TestFunction_Section extends class_Section {
 
       tmpSelection.onclick = (function(tmpID) {
         return function() {
-          redrawTests = false;
-          switchTestDisplay(1);
-          openLittleBitTest(tmpID);
+          testingSection.showSingleTesting();
+          testingSection.openLittleBitTest(tmpID);
         };
       })(i);
 
@@ -984,9 +1129,8 @@ class class_TestFunction_Section extends class_Section {
 
       tmpSelection.onclick = (function(tmpID) {
         return function() {
-          redrawTests = false;
-          switchTestDisplay(1);
-          openTresholdTest(tmpID);
+          testingSection.showSingleTesting();
+          testingSection.openTresholdTest(tmpID);
         };
       })(i);
 
@@ -1041,9 +1185,8 @@ class class_TestFunction_Section extends class_Section {
 
       tmpSelection.onclick = (function(tmpID) {
         return function() {
-          redrawTests = false;
-          switchTestDisplay(1);
-          openFctLocalMinimaTest(tmpID);
+          testingSection.showSingleTesting();
+          testingSection.openFctLocalMinimaTest(tmpID);
         };
       })(i);
 
@@ -1098,9 +1241,8 @@ class class_TestFunction_Section extends class_Section {
 
       tmpSelection.onclick = (function(tmpID) {
         return function() {
-          redrawTests = false;
-          switchTestDisplay(1);
-          openFctBowlShapedTest(tmpID);
+          testingSection.showSingleTesting();
+          testingSection.openFctBowlShapedTest(tmpID);
         };
       })(i);
 
@@ -1155,9 +1297,8 @@ class class_TestFunction_Section extends class_Section {
 
       tmpSelection.onclick = (function(tmpID) {
         return function() {
-          redrawTests = false;
-          switchTestDisplay(1);
-          openFctValleyShapedTest(tmpID);
+          testingSection.showSingleTesting();
+          testingSection.openFctValleyShapedTest(tmpID);
         };
       })(i);
 
@@ -1200,8 +1341,8 @@ class class_TestFunction_Section extends class_Section {
       ///////////////////////////////////////////////////////////
       //// For Worker add canvas or canvasID
       this.worker_testCollection_RealWorldData.postMessage(this.inform_Worker_PushTestingType("RealData", undefined));
-      this.worker_testCollection_RealWorldData.postMessage(this.inform_Worker_LoadRealWorldIMG("resource/realWorldData/this.medicalData/" + this.medicalFiles[i], realWorldCanvasIndex));
-      realWorldCanvasIndex++;
+      this.inform_Worker_LoadRealWorldIMG("resource/realWorldData/medicalData/" + this.medicalFiles[i], this.realWorldCanvasIndex);
+      this.realWorldCanvasIndex++;
       this.worker_testCollection_RealWorldData.postMessage(this.inform_Worker_PushTestingCanvas(tmpCanvas.id));
       ///////////////////////////////////////////////////////////
 
@@ -1216,9 +1357,8 @@ class class_TestFunction_Section extends class_Section {
 
       tmpSelection.onclick = (function(tmpID) {
         return function() {
-          redrawTests = false;
-          switchTestDisplay(1);
-          openRealWorldTest("medical", tmpID);
+          testingSection.showSingleTesting();
+          testingSection.openRealWorldTest("medical", tmpID);
         };
       })(i);
 
@@ -1267,8 +1407,8 @@ class class_TestFunction_Section extends class_Section {
       ///////////////////////////////////////////////////////////
       //// For Worker add canvas or canvasID
       this.worker_testCollection_RealWorldData.postMessage(this.inform_Worker_PushTestingType("RealData", undefined));
-      this.worker_testCollection_RealWorldData.postMessage(this.inform_Worker_LoadRealWorldIMG("resource/realWorldData/scientificFlowSimulation/" + this.scientificFlowSimFiles[i], realWorldCanvasIndex));
-      realWorldCanvasIndex++;
+      this.inform_Worker_LoadRealWorldIMG("resource/realWorldData/scientificFlowSimulation/" + this.scientificFlowSimFiles[i], this.realWorldCanvasIndex);
+      this.realWorldCanvasIndex++;
       this.worker_testCollection_RealWorldData.postMessage(this.inform_Worker_PushTestingCanvas(tmpCanvas.id));
       ///////////////////////////////////////////////////////////
 
@@ -1277,9 +1417,8 @@ class class_TestFunction_Section extends class_Section {
 
       tmpSelection.onclick = (function(tmpID) {
         return function() {
-          redrawTests = false;
-          switchTestDisplay(1);
-          openRealWorldTest("scientificFlowSim", tmpID);
+          testingSection.showSingleTesting();
+          testingSection.openRealWorldTest("scientificFlowSim", tmpID);
         };
       })(i);
 
@@ -1322,8 +1461,8 @@ class class_TestFunction_Section extends class_Section {
       ///////////////////////////////////////////////////////////
       //// For Worker add canvas or canvasID
       this.worker_testCollection_RealWorldData.postMessage(this.inform_Worker_PushTestingType("RealData", undefined));
-      this.worker_testCollection_RealWorldData.postMessage(this.inform_Worker_LoadRealWorldIMG("resource/realWorldData/photographs/" + this.photographsFiles[i], realWorldCanvasIndex));
-      realWorldCanvasIndex++
+      this.inform_Worker_LoadRealWorldIMG("resource/realWorldData/photographs/" + this.photographsFiles[i], this.realWorldCanvasIndex);
+      this.realWorldCanvasIndex++
       this.worker_testCollection_RealWorldData.postMessage(this.inform_Worker_PushTestingCanvas(tmpCanvas.id));
       ///////////////////////////////////////////////////////////
 
@@ -1338,8 +1477,7 @@ class class_TestFunction_Section extends class_Section {
 
       tmpSelection.onclick = (function(tmpID) {
         return function() {
-          redrawTests = false;
-          switchTestDisplay(1);
+          testingSection.testingSection.showSingleTesting();
           openRealWorldTest("photographs", tmpID);
         };
       })(i);
@@ -1354,7 +1492,7 @@ class class_TestFunction_Section extends class_Section {
 
     var tmpLabel = document.createElement('p');
 
-    var text = "We thank " + acknowlegments[index].blankLink(acknowlegmentsURL[index]) + " for provision of real world data.";
+    var text = "We thank " + this.acknowlegments[index].blankLink(this.acknowlegmentsURL[index]) + " for provision of real world data.";
 
     tmpLabel.innerHTML = text;
 

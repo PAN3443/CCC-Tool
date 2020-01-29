@@ -1,3 +1,20 @@
+function worker_LoadColorClasses(){
+  // Colors
+  self.importScripts('../../../global/color/class_Colorspace_RGB.js');
+  self.importScripts('../../../global/color/class_Colorspace_XYZ.js');
+  self.importScripts('../../../global/color/class_Colorspace_LMS.js');
+  self.importScripts('../../../global/color/class_Colorspace_HSV.js');
+  self.importScripts('../../../global/color/class_Colorspace_LAB.js');
+  self.importScripts('../../../global/color/class_Colorspace_LCH.js');
+  self.importScripts('../../../global/color/class_Colorspace_DIN99.js');
+
+  self.importScripts('../../../global/cms/class_Colormap_Specification.js');
+  self.importScripts('../../../global/cms/class_Colormap_Key.js');
+  self.importScripts('../../../global/cms/class_Colormap_Interval.js');
+  self.importScripts('../../../global/cms/class_Colormap_Probe.js');
+  self.importScripts('../../../global/cms/class_Colormap_ProbeSet.js');
+}
+
 function calculateMesh(field, do3DTestField, scalefactor3DTest) {
 
   if (do3DTestField && field.getCellValues()) {

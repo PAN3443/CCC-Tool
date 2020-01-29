@@ -25,40 +25,45 @@ var globalCMS1 = undefined;
 
 var error = 100; // 0.01
 var errorMath = 1e12;
-
+var tmpWorkerType = undefined;
 self.addEventListener('message', function(e) {
 
-  switch (e.data.message) {
+  if(e.data==undefined){
+    console.debug("Worker",tmpWorkerType);
+    return;
+  }
 
+  switch (e.data.message) {
     case "init":
-      self.importScripts('../../processingCases.js');
+      self.importScripts('../../../global/worker_helper/general_processingCases.js');
+      self.importScripts('workerFunctions_testing.js');
       worker_LoadColorClasses();
 
-      self.importScripts('../../../Classes/Domain/class_testField.js');
-      self.importScripts('../../../Worker/workerFiles/Testing/workerFunctions_testing.js');
-      self.importScripts('../../../GlobalEvents/Helpers/math.js');
-      self.importScripts('../../../GlobalEvents/Color_CMS_Helpers/cmsIntervals.js');
-      self.importScripts('../../../GlobalEvents/Color_CMS_Helpers/calcColordifference.js');
+      self.importScripts('../../../global/fields/class_testField.js');
 
+      self.importScripts('../../../global/helper/math.js');
+      self.importScripts('../../../global/cms/cmsIntervalHelper.js');
+      self.importScripts('../../../global/color/colorDifference.js');
+
+      tmpWorkerType=e.data.initOption1;
       switch (e.data.initOption1) {
         case "CCCTest":
-          self.importScripts('../../../Sections/Testing/Testfunctions/cccTest.js');
+            self.importScripts('../testfunctions/cccTest.js');
           break;
           case "Collection":
-            self.importScripts('../../../Sections/Testing/Testfunctions/FctCollection/collection_BowlShaped.js');
-            self.importScripts('../../../Sections/Testing/Testfunctions/FctCollection/collection_localMinima.js');
-            self.importScripts('../../../Sections/Testing/Testfunctions/FctCollection/collection_ValleyShaped.js');
-            self.importScripts('../../../Sections/Testing/Testfunctions/FctCollection/collection_other.js');
+            self.importScripts('../testfunctions/fct_collection/collection_BowlShaped.js');
+            self.importScripts('../testfunctions/fct_collection/collection_localMinima.js');
+            self.importScripts('../testfunctions/fct_collection/collection_ValleyShaped.js');
+            self.importScripts('../testfunctions/fct_collection/collection_other.js');
           break;
           case "RealData":
-            self.importScripts('../../../Sections/Testing/Testfunctions/realWorldData.js');
+            self.importScripts('../testfunctions/realWorldData.js');
           break;
-
       }
 
-      self.importScripts('../../../GlobalEvents/Helpers/canvasHelpers.js');
+      self.importScripts('../../../global/helper/canvasHelper.js');
 
-      self.importScripts('../../../GlobalEvents/Color_CMS_Helpers/calcGradientLinear.js');
+      //self.importScripts('../../../global/Color_CMS_Helpers/calcGradientLinear.js');
 
       globalCMS1 = new class_CMS();
     break;
@@ -113,7 +118,6 @@ self.addEventListener('message', function(e) {
 
   default:
     generalJSON_Processing(e.data);
-
 
   }
 

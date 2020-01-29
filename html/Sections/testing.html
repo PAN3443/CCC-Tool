@@ -4,10 +4,10 @@
 -----------------------------------------------
 -->
 
-<div class="row" style="width:100%; height: 5vh; background:var(--main-coloredButton);" >
+<div style="display:flex; width:100%; height: 5vh; background:var(--main-coloredButton);" >
 
   <p id="id_TestSection_CMS_Label" style="width:100%; margin-left:1vw; margin-right:1vw; width: 14vw; color: var(--main-sepArea-font-color); height:5vh; line-height:5vh;"> CMS (MyDesigns):</p>
-  <select id="id_TestSection_CMS_Select" style="width:10vw;" onchange="selectTestCMS()">
+  <select id="id_TestSection_CMS_Select" style="width:10vw;" onchange="testingSection.selectTestingCMS()">
 
   </select>
 
@@ -15,27 +15,24 @@
 
 </div>
 
-<div class="row" style="max-height:90vh; height:90vh; width:100vw; background:var(--main-bg-color); overflow:hidden;">
+<div style="display:flex; max-height:90vh; height:90vh; width:100vw; background:var(--main-bg-color); overflow:hidden;">
 
   <!--------------------------------------------------------------------------
   ----------------------- Test Collection -------------------------------
-  --------------------------------------------------------------------------
   -------------------------------------------------------------------------->
 
-    <div id="id_Test_FunctionCollection" style="width:100vw; height:83vh; overflow-y: scroll; overflow-x: hidden; background:var(--main-bg-color); display:none;">
+    <div id="id_Test_FunctionCollection" style="width:100vw; height:90vh; overflow-y: scroll; overflow-x: hidden; background:var(--main-bg-color);">
     </div>
 
     <!--------------------------------------------------------------------------
     ----------------------- Test Interactive -------------------------------
-    --------------------------------------------------------------------------
     -------------------------------------------------------------------------->
-    <div id="id_Test_SingleTestDiv" style="width:0vw; height:83vh; background:var(--main-second-bg-color); display:none;">
+    <div id="id_Test_SingleTestDiv" style="width:0vw; height:90vh; background: var(--main-sepArea-border);">
 
-      <div class="row" style="width:100vw; height:83vh; margin:auto;">
+      <div style="display:flex; width:100vw; height:90vh; margin:auto;">
 
-        <div  style="margin: auto; width:20vw; max-height:83vh;">
-
-            <div class="class_OptionDiv" style="width:100%; margin-top:2vh; display: flex; border-bottom:none;">
+        <div style="margin: auto; width:20vw; max-width:20vw; height:90vh; display:flex; flex-direction:column;">
+            <div class="class_OptionDiv" style="width:20vw; max-width:20vw; height:5vh; display: flex; border-bottom:none;">
               <p style="margin-top:auto; margin-bottom:auto; margin-right: auto;">Choose Test Type:</p>
               <select id="id_TestPage_SelectNewTestType" onchange="selectNewTestType()" style="margin-right: auto;">
                  <optgroup label="CCC-Test:">
@@ -64,7 +61,7 @@
               </select>
             </div>
 
-            <div class="class_OptionDiv" style=" width:100%; margin:auto; height:auto; border-bottom:none; max-height:65vh; overflow-y: auto;">
+            <div class="class_OptionDiv" style="width:20vw; max-width:20vw; height:80vh; border-bottom:none; max-height:80vh; overflow-y: auto;">
 
               <label class="class_checkbox_container">
                 <p>: Use Ratio Numbers [0,1]</p>
@@ -77,27 +74,27 @@
 
                 </select>
 
-                <div class="row" style="margin-top:1vh; margin-bottom:1vh; width:100%;">
+                <div style="display:flex; margin-top:1vh; margin-bottom:1vh; width:100%;">
                   <p style="margin-top:auto; margin-bottom:auto; color: var(--main-sepArea-font-color);">Jump Value:</p>
                   <input id="id_TestPage_NewJumpValue" type="number" name="JumpValue"  step="any" value="0.1" style="margin:auto; margin-right:0.25vw;">
-                  <button class="class_generalbutton_DarkBackground" onclick="addJumpToJumpSet()" style="margin-right:0.25vw; padding-left:0.5vw; padding-right:0.5vw;">+</button>
-                  <button class="class_generalbutton_DarkBackground" onclick="removeJumpToJumpSet()" style="margin-right:auto; padding-left:0.5vw; padding-right:0.5vw;">-</button>
+                  <button class="class_coloredButton_Dark" onclick="addJumpToJumpSet()" style="margin-right:0.25vw; padding-left:0.5vw; padding-right:0.5vw;">+</button>
+                  <button class="class_coloredButton_Dark" onclick="removeJumpToJumpSet()" style="margin-right:auto; padding-left:0.5vw; padding-right:0.5vw;">-</button>
                 </div>
               </div>
 
 
-              <div id="id_TestPage_FctSelection_Div" class="row" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
+              <div id="id_TestPage_FctSelection_Div" style="display:flex; margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
                 <p  style="margin-top:auto; margin-bottom:auto; margin-right: 0.25vw; color: var(--main-sepArea-font-color);">Function:</p>
                 <select id="id_TestPage_FctSelection" onchange="updateFunctionSelection()" style="margin-right: auto;">
                 </select>
               </div>
 
               <div id="id_TestPage_Dimension_Div"  style="width:100%;">
-                  <div class="row" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
+                  <div style="display:flex; margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
                     <p id="id_TestPage_GridDimXLabel" style="margin-top:auto; margin-bottom:auto; width:10vw; color: var(--main-sepArea-font-color)">Grid X-Dim:</p>
                     <input id="id_TestPage_GridDimX" type="number" name="GridDimX" min="2" step="1" value="10" style="margin-left:0.25vw;" onchange="updateTestVariables()">
                   </div>
-                  <div class="row" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
+                  <div style="display:flex; margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
                     <p id="id_TestPage_GridDimYLabel" style="margin-top:auto; margin-bottom:auto; width:10vw; color: var(--main-sepArea-font-color)">Grid Y-Dim:</p>
                     <input id="id_TestPage_GridDimY" type="number" name="GridDimY" min="2" step="1" value="10" style="margin-left:0.25vw;" onchange="updateTestVariables()">
                   </div>
@@ -105,7 +102,7 @@
 
               <hr style="color: var(--main-sepArea-font-color);">
 
-              <div id="id_NewTest_TopologySubDivOptionDiv" style="width:100%;">
+              <div id="id_NewTest_TopologySubDivOptionDiv" style="width:100%; display:none;">
                 <div class="class_EditPage_TabRow" style="width:100%; height:3vh; background:rgb(220,220,220);">
                   <button id="id_NewTest_SubDivOption1" onclick="chooseTopologySubDiv(0)" style="margin:auto; width: 50%; height:3vh; line-height:3vh; font-size:2.2vh; cursor:pointer; ">
                     Foundation
@@ -119,7 +116,7 @@
               <div id="id_TestPage_NewTest_subDiv1" style="width:100%;">
                 <div id="id_TestPage_NewTest_TopologyDiv1" style="width:100%; display:none;">
 
-                  <div class="row" style="width: 100%;  margin-top:0.5vh;">
+                  <div style="display:flex; width: 100%;  margin-top:0.5vh;">
                     <p style="margin:auto; width:10vw; ">Foundation:</p>
                     <select id="id_Test_TopologyFoundation" onchange="switchFoundation()" style="margin-right: auto;">
                           <option value="0">Plane</option>
@@ -130,34 +127,34 @@
                   </div>
                 </div>
 
-                <div id="id_TestPage_fitToCMS_Div" class="row" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
+                <div id="id_TestPage_fitToCMS_Div" style="display:flex; margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
                   <input id="id_TestPage_fitToCMS" type="checkbox" name="id_TestPage_DoRatio" value="doRatio" onchange="updateTestVariables()">
                   <p style="margin-top:auto; margin-bottom:auto; margin-right: 0.25vw;">map to CMS Range</p>
                 </div>
 
-                  <div id="id_TestPage_NewTest_D1" class="row" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
+                  <div id="id_TestPage_NewTest_D1" style="display:flex; margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
                     <p id="id_TestPage_NewTest_V1" style="margin-top:auto; margin-bottom:auto; width:10vw;"></p>
                     <input id="id_TestPage_NewTest_I1" type="number" name="inputV1"  step="any" value="0.1" onchange="updateTestVariables()">
                   </div>
 
-                  <div id="id_TestPage_NewTest_D2" class="row" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
+                  <div id="id_TestPage_NewTest_D2" style="display:flex; margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
                     <p id="id_TestPage_NewTest_V2" style="margin-top:auto; margin-bottom:auto; width:10vw;"></p>
                     <input id="id_TestPage_NewTest_I2" type="number" name="inputV2"  step="any" value="0.1" onchange="updateTestVariables()">
                   </div>
 
 
 
-                  <div id="id_TestPage_NewTest_D3" class="row" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
+                  <div id="id_TestPage_NewTest_D3" style="display:flex; margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
                     <p id="id_TestPage_NewTest_V3" style="margin-top:auto; margin-bottom:auto; width:10vw;"></p>
                     <input id="id_TestPage_NewTest_I3" type="number" name="inputV3"  step="any" value="0.1" onchange="updateTestVariables()">
                   </div>
 
-                  <div id="id_TestPage_NewTest_D4" class="row" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
+                  <div id="id_TestPage_NewTest_D4" style="display:flex; margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
                     <p id="id_TestPage_NewTest_V4" style="margin-top:auto; margin-bottom:auto; width:10vw;"></p>
                     <input id="id_TestPage_NewTest_I4" type="number" name="inputV4"  step="any" value="0.1" onchange="updateTestVariables()">
                   </div>
 
-                  <div id="id_TestPage_NewTest_D5" class="row" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
+                  <div id="id_TestPage_NewTest_D5" style="display:flex; margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
                     <p id="id_TestPage_NewTest_V5" style="margin-top:auto; margin-bottom:auto; width:10vw;"></p>
                     <input id="id_TestPage_NewTest_I5" type="number" name="inputV5"  step="any" value="0.1" onchange="updateTestVariables()">
                   </div>
@@ -166,7 +163,7 @@
 
                     <p style="margin-top:auto; margin-bottom:auto; margin-right:auto;">X-Function-Type:</p>
 
-                    <div class="row" style="width:100%;">
+                    <div style="display:flex; width:100%;">
                         <div style="margin:auto;">
                           <label class="class_radio_container"><p id="id_TestPage_NewTest_XTypeL1"> : Linear</p>
                             <input type="radio" checked="checked" name="mTypeRatioButtons" id="id_TestPage_NewTest_XType1" onchange="updateTestVariables()">
@@ -192,7 +189,7 @@
 
                     <p style="margin-top:auto; margin-bottom:auto; margin-right:auto;">Y-Function-Type:</p>
 
-                    <div class="row" style="width:100%;">
+                    <div style="display:flex; width:100%;">
                         <div style="margin:auto;">
                           <label class="class_radio_container"><p id="id_TestPage_NewTest_YTypeL1"> : Linear</p>
                             <input type="radio" checked="checked" name="MTypeRatioButtons" id="id_TestPage_NewTest_YType1" onchange="updateTestVariables()">
@@ -223,11 +220,11 @@
                 <select id="id_TestPage_NewTest_ElementList" name="Jump List" size="5" style="width:100%; height:15vh; margin-top:1vh;" onchange="selectTopologyElement()" >
 
                 </select>
-                <button class="class_generalbutton" onclick="removeTopololyElement()" style="margin:auto; width: 50%; display:block;  margin-top:0.5vh;">Remove</button>
+                <button class="class_coloredButton_Dark" onclick="removeTopololyElement()" style="margin:auto; width: 50%; display:block;  margin-top:0.5vh;">Remove</button>
 
                 <hr style="color: var(--main-sepArea-font-color);">
 
-                <div class="row" style="width: 100%;  margin-top:0.5vh;">
+                <div style="display:flex; width: 100%;  margin-top:0.5vh;">
                   <p style="width:10vw; ">Element-Type:</p>
                   <select id="id_Test_TopologyElement" onchange="switchElement()" style="margin-right: auto;">
                         <option value="0">Minimum</option>
@@ -241,7 +238,7 @@
 
               <div id="id_TestPage_NewTest_TopologyDiv2" style="width:100%; display:none;">
 
-                <div class="row" style="width: 100%; margin-top:0.5vh;">
+                <div style="display:flex; width: 100%; margin-top:0.5vh;">
                   <p style="margin:auto; margin-left:0vw; width: 8vw; margin-right:1vw; ">Preview:</p>
                   <canvas id="id_TestPage_newTestTopologyCanvas"  style="width: 10vw; height: 10vw; border: 0.2vh solid grey; margin:auto; margin-right:0vw;"></canvas>
                 </div>
@@ -256,7 +253,7 @@
                 <div id="id_TestPage_newTestNoiseDiv" class="width:100%;">
 
                   <hr style="color: var(--main-sepArea-font-color);">
-                  <div class="row" style="width: 100%;  margin-top:0.5vh;">
+                  <div style="display:flex; width: 100%;  margin-top:0.5vh;">
                     <p style="margin:auto; margin-left:0vw; width:10vw; margin-right:1vw; ">Noise-Type:</p>
                     <select id="id_Test_NoiseType" onchange="updateTestVariables()" style="margin-right: auto;">
                           <option value="0">No Noise</option>
@@ -268,7 +265,7 @@
                   <div id="id_TestPage_newTestNoiseDivSub" class="width:100%;">
 
 
-                    <div class="row" style="width: 100%;  margin-top:0.5vh;">
+                    <div style="display:flex; width: 100%;  margin-top:0.5vh;">
                       <p style="margin:auto; margin-left:0vw; margin-right:1vw; width:10vw; ">Noise-Behavior:</p>
                       <select id="id_Test_NoiseBehavior" onchange="updateTestVariables()" style="margin-right: auto;">
                             <option value="0">Additional (Local)</option>
@@ -278,7 +275,7 @@
                     </div>
 
 
-                    <div id="id_Test_NoiseDistributionDiv" class="row" style="width: 100%; margin-top:0.5vh;">
+                    <div id="id_Test_NoiseDistributionDiv" style="display:flex; width: 100%; margin-top:0.5vh;">
                       <p style="margin:auto; margin-left:0vw; margin-right:1vw; width:10vw; ">Distribution:</p>
                       <select id="id_Test_NoiseDistribution" onchange="updateTestVariables()" style="margin-right: auto;">
                             <option value="0">Uniform</option>
@@ -289,32 +286,32 @@
                       </select>
                     </div>
 
-                    <div id="id_Test_NoiseProportionDiv" class="row" style="width: 100%; margin-top:0.5vh;">
+                    <div id="id_Test_NoiseProportionDiv" style="display:flex; width: 100%; margin-top:0.5vh;">
                       <p style="margin:auto; margin-left:0vw; margin-right:1vw; width:10vw; ">Proportion:</p>
                       <input id="id_Test_NoiseProportion"type="range" step="0.01" min="0" max="1" value="0.25" style="width:8vw; margin-right:auto;" onchange="updateTestVariables()">
                     </div>
 
-                    <div id="id_Test_NoiseScalingDiv" class="row" style="width: 100%; margin-top:0.5vh;">
+                    <div id="id_Test_NoiseScalingDiv" style="display:flex; width: 100%; margin-top:0.5vh;">
                       <p style="margin:auto; margin-left:0vw; margin-right:1vw; width:10vw; ">Scaling:</p>
                       <input id="id_Test_NoiseScaling" type="range" step="1" min="1" max="100" value="1" style="width:8vw; margin-right:auto;" onchange="updateTestVariables()">
                     </div>
 
-                    <div id="id_Test_NoiseValueRangeDiv1" class="row" style="width: 100%; margin-top:0.5vh;">
+                    <div id="id_Test_NoiseValueRangeDiv1" style="display:flex; width: 100%; margin-top:0.5vh;">
                       <p style="margin:auto; margin-left:0vw; margin-right:1vw; width:10vw; ">From:</p>
                       <input id="id_TestPage_Noise_ReplaceFromValue" type="number" name="inputV4"  step="any" value="0" onchange="updateTestVariables()">
                     </div>
 
-                    <div id="id_Test_NoiseValueRangeDiv2" class="row" style="width: 100%; margin-top:0.5vh;">
+                    <div id="id_Test_NoiseValueRangeDiv2" style="display:flex; width: 100%; margin-top:0.5vh;">
                       <p style="margin:auto; margin-left:0vw; margin-right:1vw; width:10vw; ">Till:</p>
                       <input id="id_TestPage_Noise_ReplaceTillValue" type="number" name="inputV4"  step="any" value="1" onchange="updateTestVariables()">
                     </div>
 
-                    <div id="id_Test_NoiseMaxChangeDiv" class="row" style="width: 100%; margin-top:0.5vh;">
+                    <div id="id_Test_NoiseMaxChangeDiv" style="display:flex; width: 100%; margin-top:0.5vh;">
                       <p style="margin:auto; margin-left:0vw; margin-right:1vw; width:10vw; ">Maximal Change:</p>
                       <input id="id_Test_NoiseMaxChange" type="range" step="0.001" min="0" max="1" value="0.5" style="width:8vw; margin-right:auto;" onchange="updateTestVariables()">
                     </div>
 
-                    <div class="row" style="width: 100%; margin-top:0.5vh;">
+                    <div style="display:flex; width: 100%; margin-top:0.5vh;">
                       <div>
                         <canvas id="id_TestPage_newTestNoiseCanvas"  style="width: 5vw; height: 5vw; border: 0.2vh solid black; margin:auto; margin-right:0vw;"></canvas>
                         <p style="font-size:1.0vh;">Example </p>
@@ -329,16 +326,14 @@
                 </div>
 
             </div>
-            <div class="class_OptionDiv" style="width:100%; display:none;">
-              <button class="class_generalbutton_DarkBackground" onclick="addTestToReport()" style="width:90%; margin-left:5%; margin-top:1vh; margin-bottom:1vh; ">Add To Report</button>
+            <div class="class_OptionDiv" style="width:20vw; max-width:20vw; height:5vh;">
+              <button class="class_coloredButton_Dark" onclick="addTestToReport()" style="width:90%; margin-left:5%; margin-top:1vh; height:3vh; line-height:3vh; font-size:2vh; margin-bottom:1vh; ">Add To Collection</button>
             </div>
+        </div>
 
+        <div style="margin: auto; border:0.2vh solid var(--menue-bg-color); display:flex; flex-direction:column; width:80vw; max-width:160vh;">
 
-          </div>
-
-        <div style="margin: auto; border:0.2vh solid var(--menue-bg-color); display:block;">
-
-          <div  class="row" style="width:100%; height:3vh; border-bottom:0.2vh solid var(--menue-bg-color); background: var(--main-sepArea-bg);">
+          <div  style="display:flex; width:100%; height:3vh; border-bottom:0.2vh solid var(--menue-bg-color); background: var(--main-sepArea-bg);">
             <p style="margin:auto; color: var(--main-sepArea-font-color);">Visualization : </p>
 
             <label class="class_radio_container" style="margin:auto; color: var(--main-sepArea-font-color);"> Pixel-Image
@@ -353,598 +348,54 @@
 
           </div>
 
-          <div class="row" style="width:100%;">
-            <div style="margin:auto; margin-right:0vw; ">
-              <div class="row" style="width:100%; background: var(--main-sepArea-bg);">
-                <div id="id_TestPage_HightmapButton" class="class_Test_RenderButton" title="Modus 2D,Hightmap" onclick="switchHightmap()">3D</div>
-                <a id="id_Test_downloadScreenshot" download="CCC_Tool_TestImage.png" class="class_Test_RenderButton" title="Screenshot">&#9688;</a>
-                <div class="class_Test_RenderButton" title="Fullscreen" onclick="openFullTestMappingScreen()">&#9723;</div>
-                <div id="id_Test_showHideAxis" class="class_Test_RenderButton" onclick="showTestingAxis()" title="Show/Hide Axis" >&#9531;</div>
-                <div id="id_Test_showBoundingBox" class="class_Test_RenderButton" onclick="showTestingBoundingBox()" title="Show/Hide Bounding Box" >&#9635;</div>
-              </div>
-              <div id="id_Test_MeshVisDiv" style="height:65vh; max-height:35vw; width:35vw; max-width:65vh; overflow:hidden;">
-              </div>
-              <canvas id="id_Test_PixelCanvas" style="height:65vh; max-height:35vw; width:35vw; max-width:65vh;">
-              </canvas>
+          <div style="display:flex; width:100%; height:3vh; border-bottom:0.2vh solid var(--menue-bg-color); background: var(--main-sepArea-bg);">
+            <div style="display:flex; width:50%;">
+              <div id="id_TestPage_HightmapButton" class="class_Test_RenderButton" title="Modus 2D,Hightmap" onclick="switchHightmap()">3D</div>
+              <a id="id_Test_downloadScreenshot" download="CCC_Tool_TestImage.png" class="class_Test_RenderButton" title="Screenshot">&#9688;</a>
+              <div class="class_Test_RenderButton" title="Fullscreen" onclick="openFullTestMappingScreen()">&#9723;</div>
+              <div id="id_Test_showHideAxis" class="class_Test_RenderButton" onclick="showTestingAxis()" title="Show/Hide Axis" >&#9531;</div>
+              <div id="id_Test_showBoundingBox" class="class_Test_RenderButton" onclick="showTestingBoundingBox()" title="Show/Hide Bounding Box" >&#9635;</div>
             </div>
+            <div style="display:flex; width:50%;">
+              <a id="id_Test_downloadScreenshotGrey" download="CCC_Tool_TestImage_GreyScaled.png" class="class_Test_RenderButton" title="Screenshot" >&#9688;</a>
+            </div>
+          </div>
 
-            <div style="border-left: 0.2vw solid black; margin:auto; margin-left:0vw; ">
-              <div class="row" style="width:100%; background: var(--main-sepArea-bg);">
-                <a id="id_Test_downloadScreenshotGrey" download="CCC_Tool_TestImage_GreyScaled.png" class="class_Test_RenderButton" title="Screenshot" >&#9688;</a>
+          <div style="display:flex; background:var(--main-bg-color);">
+
+              <div id="id_Test_WaitForTestCalculation" style="height:80vh; max-height:40vw; width:80vw; max-width:160vh; background:var(--main-sepArea-border); display:flex;">
+                <div class="lds-spinner" style="margin:auto;">
+                  <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                </div>
               </div>
-              <div id="id_Test_MeshVisDivGrey" style="height:65vh; max-height:35vw; width:35vw; max-width:65vh; overflow:hidden;">
+              <div id="id_Test_VisDiv" style="height:80vh; max-height:40vw; width:80vw; max-width:160vh; display:none;">
+                <div id="id_Test_MeshVisDiv" style="height:80vh; max-height:40vw; width:40vw; max-width:80vh; overflow:hidden;">
+                </div>
+                <canvas id="id_Test_PixelCanvas" style="height:80vh; max-height:40vw; width:40vw; max-width:80vh;">
+                </canvas>
+                <div id="id_Test_MeshVisDivGrey" style="height:80vh; max-height:40vw; width:40vw; max-width:80vh; overflow:hidden;">
+                </div>
+                <canvas id="id_Test_PixelCanvasGrey" style="height:80vh; max-height:40vw; width:40vw; max-width:80vh;">
+                </canvas>
               </div>
-              <canvas id="id_Test_PixelCanvasGrey" style="height:65vh; max-height:35vw; width:35vw; max-width:65vh;">
-              </canvas>
-            </div>
+
 
           </div>
 
-          <div id="id_Test_MeshVisOptions" class="row" style="width:100%; height:3vh; background: var(--main-sepArea-bg);">
-            <div class="row" style="width: 50%;">
+          <div id="id_Test_MeshVisOptions" style="display:flex; width:100%; height:4vh; background: var(--main-sepArea-bg);">
+            <div style="display:flex; width: 50%;">
               <p style="margin:auto; margin-left:1vw; margin-right:1vw; color: var(--main-sepArea-font-color);">Zoom:</p>
               <input id="id_Test_MeshVisOptions_Zoom"type="range" step="1" min="0" max="100" value="50" style="width:20vw; margin:auto; margin-left:0vw;" onchange="testmappingZoomInput()">
             </div>
-            <div id="id_Test_ScaleFactor_Div" class="row" style="visibility:hidden; width: 50%;">
+            <div id="id_Test_ScaleFactor_Div" style="display:flex; visibility:hidden; width: 50%;">
               <p style="margin:auto; margin-left:1vw; margin-right:1vw; color: var(--main-sepArea-font-color);">Hight Scale-Factor:</p>
               <input type="number" id="id_Test_ScaleFactor" style="margin:auto; margin-left:0vw;" name="scalefactor" onchange="changeScaleFactor()">
             </div>
-
           </div>
-
-
 
         </div>
 
-        <!--div id="id_TestPage_CCCTestInfoBox_Div" style="display:block; margin:auto; border:0.2 solid grey; background: rgb(220,220,220); height:55vh; width:25vw; overlfow-y:auto;">
-
-          <p class="subsectionLabel"> Info-Box:</p>
-        </div-->
-
       </div>
-
-    </div>
-
-    <!--------------------------------------------------------------------------
-    ----------------------- Test Report -------------------------------
-    --------------------------------------------------------------------------
-    -------------------------------------------------------------------------->
-    <div id="id_Test_ReportDiv" style="display:flex; width:0vw; height:83vh; overflow: hidden; display:none;">
-
-          <div style="height:83vh; width: 97vw; overflow: hidden;">
-
-
-            <!---------------------- Test Information ----------------------------
-            ------>
-
-                <div id="id_report_TestInfoDiv" style="height: 83vh; width: 100%; overflow: hidden; display:flex; background:var(--main-bg-color);">
-
-
-                        <div class="class_OptionDiv" style="margin:auto; display: block; border: 0.2vh solid black;">
-                          <p style="font-weight:bold;  width: 100%;  height: 4vh; line-height: 4vh; font-size: 2vh; vertical-align:middle; text-align:center;">MyTests</p>
-
-                          <div class="row">
-
-                            <div style="margin:auto; display:block;">
-                              <select id="id_TestPage_ReportList" name="Report Test List" size="15" style="width:16vw; display:block;" >
-
-                              </select>
-
-                              <button class="class_generalbutton" onclick="remove_Report()" style="width:15vw; margin-top:1vh; margin-left:0.5vw; margin-bottom:0.5vh; display:block;">Remove Test</button>
-                            </div>
-
-
-                            <div style="margin:auto; margin-left: 2vw; ">
-                                <p id="id_MyTest_Type" >Type:</p>
-                                <p id="id_MyTest_Name" >Name:</p>
-                                <p id="id_MyTest_Settings" >Settings:</p>
-
-                            </div>
-
-
-                          </div>
-
-                        </div>
-
-                        <div style="margin:auto;">
-                          <div class="class_OptionDiv" style="width: :100%; margin-bottom:3vh;">
-                            <p style="font-weight:bold;  width: 100%;  height: 4vh; line-height: 4vh; font-size: 2vh; vertical-align:middle; text-align:center;">Information</p>
-
-                            <p id="id_MyTest_Type" >The Idea of this "Report/Optimization" subsection of the </p>
-                          </div>
-                          <div class="class_OptionDiv" style="width: :100%;">
-                            <p style="font-weight:bold;  width: 100%;  height: 4vh; line-height: 4vh; font-size: 2vh; vertical-align:middle; text-align:center;">Report Options</p>
-
-                            <p id="id_MyTest_Type" >Areas with different importance?: ( small ranges with)</p>
-                          </div>
-                        </div>
-
-
-
-
-
-
-                </div>
-
-
-                <!---------------------- Ratio Report ----------------------------
-                ------>
-
-
-                  <div id="id_report_SubReportDiv" style="height: 83vh; width: 97vw; overflow: hidden; background:var(--main-second-bg-color); ">
-
-                    <!--div class="class_OptionDiv">
-
-                       <p style="font-weight:bold; margin-bottom:0.5vh;">Information:</p>
-                       <p style="margin-bottom:0.5vh;">The Value-Color Difference Report enable you to rate your CMS. For this the tool offers five synchronous-interactive visualizations of the testfield data. </p>
-                       <p style="font-weight:bold; margin-bottom:0.5vh;">Options:</p>
-                    </div-->
-
-
-                      <div style="width:97vw; height:83vh; display:flex;">
-
-
-                        <!---------------------- Ratio Report (visualizations) ----------------------------
-                        ------>
-                        <div style="margin:auto; ">
-                          <div class="row" style="padding-bottom:0.5vh; padding-top:0.5vh; background: var(--main-sepArea-bg); ">
-                              <p style="text-align:center; color:var(--main-font-color); width: 20vw; max-width:32vh;"> Values (Grey Scaled)</p>
-                              <p style="text-align:center; color:var(--main-font-color); width: 20vw; max-width:32vh;">CMS Colormapping</p>
-                              <p style="text-align:center; color:var(--main-font-color); width: 20vw; max-width:32vh;">Pixel Observer</p>
-                          </div>
-
-
-                          <div class="row">
-                            <div id="id_TestPage_ReportOrginalCDiv" style="position: relative; width: 20vw; max-width:32vh; height: 32vh; max-height:20vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
-                              <canvas id="id_TestPage_ReportOrginalGCanvas" style="position: absolute; left: 0; top: 0; z-index: 0; width: 100%; height: 100%;">
-
-                              </canvas>
-                              <canvas id="id_TestPage_ReportOrginalGCanvas_Pixel" style="position: absolute; left: 0; top: 0; z-index: 1; width: 100%; height: 100%;">
-
-                              </canvas>
-                            </div>
-                            <div id="id_TestPage_ReportOrginalGDiv" style="position: relative; width: 20vw; max-width:32vh; height: 32vh; max-height:20vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
-                              <canvas id="id_TestPage_ReportOrginalCCanvas" style="position: absolute; left: 0; top: 0; z-index: 0; width: 100%; height: 100%;">
-
-                              </canvas>
-                              <canvas id="id_TestPage_ReportOrginalCCanvas_Pixel" style="position: absolute; left: 0; top: 0; z-index: 1; width: 100%; height: 100%;">
-
-                              </canvas>
-                            </div>
-                            <div style="display:inline-block; width: 20vw; max-width:32vh; height: 32vh; max-height:20vw; overflow-x: auto; overflow: hidden; background: rgb(240,240,240); border: 0.2vh solid black;">
-                              <p id="id_pixelPreviewModus" style="margin-bottom: 1vh; text-align: center; width: 100%;"> </p>
-
-                                <div class="row" style="width:100%;">
-
-                                      <div id="id_report_pixelPreview00" class="class_pixelColorPreviewDiv" style="margin-left:auto;">
-
-                                      </div>
-
-                                      <div class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none;">
-
-                                      </div>
-
-                                      <div id="id_report_pixelPreview01" class="class_pixelColorPreviewDiv">
-
-                                      </div>
-
-                                      <div class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none;">
-
-                                      </div>
-
-                                      <div id="id_report_pixelPreview02" class="class_pixelColorPreviewDiv" style="margin-right:auto;">
-
-                                      </div>
-
-                                </div>
-
-                                <div class="row" style="width:100%;">
-                                      <div class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none; margin-left:auto;">
-                                      </div>
-
-                                      <svg id="id_report_linePreview00" class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none;">
-                                        <text x="5%" y="55%" >1</text>
-                                        <line x1="10%" y1="10%" x2="90%" y2="90%"/>
-                                      </svg>
-
-                                      <svg id="id_report_linePreview01" class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none;">
-                                       <text x="5%" y="55%" fill="black">2</text>
-                                       <line x1="50%" y1="10%" x2="50%" y2="90%" />
-                                      </svg>
-
-                                      <svg id="id_report_linePreview02" class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none;">
-                                        <text x="5%" y="55%" >3</text>
-                                        <line x1="10%" y1="90%" x2="90%" y2="10%" />
-                                      </svg>
-
-                                      <div class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none; margin-right:auto;">
-                                      </div>
-                                </div>
-
-                                <div class="row" style="width:100%;">
-
-                                      <div id="id_report_pixelPreview10" class="class_pixelColorPreviewDiv" style="margin-left:auto;">
-
-                                      </div>
-
-                                      <svg id="id_report_linePreview10" class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none;">
-                                       <text x="40%" y="40%" fill="black">4</text>
-                                       <line x1="10%" y1="50%" x2="90%" y2="50%" />
-                                      </svg>
-
-                                      <div id="id_report_pixelPreview11" class="class_pixelColorPreviewDiv" style="border: 0.5vh solid black;">
-
-                                      </div>
-
-                                      <svg id="id_report_linePreview12" class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none;">
-                                        <text x="40%" y="40%" fill="black">5</text>
-                                        <line x1="10%" y1="50%" x2="90%" y2="50%" />
-                                      </svg>
-
-                                      <div id="id_report_pixelPreview12" class="class_pixelColorPreviewDiv" style="margin-right:auto;">
-
-                                      </div>
-
-                                </div>
-
-                                <div class="row" style="width:100%;">
-                                      <div class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none; margin-left:auto;">
-                                      </div>
-
-                                      <svg id="id_report_linePreview20" class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none;">
-                                        <text x="5%" y="55%">6</text>
-                                        <line x1="10%" y1="90%" x2="90%" y2="10%"/>
-                                      </svg>
-
-                                      <svg id="id_report_linePreview21" class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none;">
-                                       <text x="5%" y="55%" fill="black">7</text>
-                                       <line x1="50%" y1="10%" x2="50%" y2="90%" />
-                                      </svg>
-
-                                      <svg id="id_report_linePreview22" class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none;">
-                                        <text x="5%" y="50%" >8</text>
-                                        <line x1="10%" y1="10%" x2="90%" y2="90%" />
-                                      </svg>
-
-                                      <div class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none; margin-right:auto;">
-                                      </div>
-                                </div>
-
-                                <div class="row" style="width:100%;">
-
-                                      <div id="id_report_pixelPreview20" class="class_pixelColorPreviewDiv" style="margin-left:auto;">
-
-                                      </div>
-
-                                      <div class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none;">
-                                      </div>
-
-                                      <div id="id_report_pixelPreview21" class="class_pixelColorPreviewDiv">
-
-                                      </div>
-
-                                      <div class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none;">
-                                      </div>
-
-                                      <div id="id_report_pixelPreview22" class="class_pixelColorPreviewDiv" style="margin-right:auto;">
-
-                                      </div>
-
-                                </div>
-
-
-
-                            </div>
-                          </div>
-
-                          <div class="row" style="padding-bottom:0.5vh; padding-top:0.5vh; background: var(--main-sepArea-bg); ">
-                              <p style="text-align:center; color:var(--main-font-color); width: 20vw; max-width:32vh;">N(&#916; Value)</p>
-                              <p style="text-align:center; color:var(--main-font-color); width: 20vw; max-width:32vh;">N(&#916; Color-Metric)</p>
-                              <div style="display: flex; color:var(--main-font-color); width: 20vw; max-width:32vh;">
-                                <p style="margin-left:auto; margin-top: auto; margin-bottom:auto; margin-right: 0.25vw; color:var(--main-font-color);">Ratio (</p>
-                                 <div style="margin-top: auto; margin-bottom:auto;">
-                                   <p style="font-size:1vh; line-height:1.2vh; color:var(--main-font-color);">N(&#916; Color-Metric)</p>
-                                   <p style="font-size:1vh; line-height:1.2vh; border-top: 0.2vh solid var(--main-font-color); color:var(--main-font-color);">N(&#916; Value)</p>
-                                 </div>
-                                <p style="margin-top: auto; margin-bottom:auto; margin-left: 0.25vw; margin-right:auto; color:var(--main-font-color);">)</p></p>
-                              </div>
-                          </div>
-
-                          <div class="row">
-                            <div id="id_TestPage_Report0Div" style="position: relative; width: 20vw; max-width:32vh; height: 32vh; max-height:20vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
-                              <canvas id="id_TestPage_Report0Canvas" style="position: absolute; left: 0; top: 0; z-index: 0; width: 100%; height: 100%;">
-
-                              </canvas>
-                              <canvas id="id_TestPage_Report0Canvas_Pixel" style="position: absolute; left: 0; top: 0; z-index: 1; width: 100%; height: 100%;">
-
-                              </canvas>
-                            </div>
-                            <div id="id_TestPage_Report1Div" style="position: relative; width: 20vw; max-width:32vh; height: 32vh; max-height:20vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
-                              <canvas id="id_TestPage_Report1Canvas" style="position: absolute; left: 0; top: 0; z-index: 0; width: 100%; height: 100%;">
-
-                              </canvas>
-                              <canvas id="id_TestPage_Report1Canvas_Pixel" style="position: absolute; left: 0; top: 0; z-index: 1; width: 100%; height: 100%;">
-
-                              </canvas>
-                            </div>
-                            <div id="id_TestPage_Report2Div" style="position: relative; width: 20vw; max-width:32vh; height: 32vh; max-height:20vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
-                              <canvas id="id_TestPage_Report2Canvas" style="position: absolute; left: 0; top: 0; z-index: 0; width: 100%; height: 100%;">
-
-                              </canvas>
-                              <canvas id="id_TestPage_Report2Canvas_Pixel" style="position: absolute; left: 0; top: 0; z-index: 1; width: 100%; height: 100%;">
-
-                              </canvas>
-                            </div>
-                          </div>
-
-
-                          <div class="row" style="width: 100%; background: var(--main-sepArea-bg);">
-                            <p style="margin:auto; margin-left:1vw; margin-right:1vw; color:var(--main-font-color);">Notebook-Zoom:</p>
-                            <input id="id_Test_RatioReport_Zoom" type="range" step="1" min="100" max="1500" value="100" style="width:40%; margin-right:auto;" onchange="ratioReportZoom()">
-
-                            <p style="margin:auto; margin-left:auto; margin-right:1vw; color:var(--main-font-color);">Mark Cursor:</p>
-                            <input id="id_Test_RatioReport_DoMarkedCursor" type="checkbox" name="MarkCursor" style="margin-right:auto;" onchange="changeMarkReportCursor()" checked>
-
-                          </div>
-
-                          <div style="width:60vw; max-width:96vh; display:flex;">
-                            <div style="width:10%; display:none;">
-                              <div id="id_TestPage_DifReportBelowColor" style="width:100%; border:0.2vh solid var(--main-sepArea-bg); border-top:none; height:3vh;">
-
-                              </div>
-                              <div style="width:100%; height:0.5vh; border-right: 0.2vh solid var(--main-font-color);">
-
-                              </div>
-                              <p style=" width:100%; text-align:center;"> ( &#60; -1 ) </p>
-                            </div>
-                            <div style="width:100%;">
-                              <canvas id="id_TestPage_DifReportColormap" style="width:100%; border-bottom:0.2vh solid var(--main-sepArea-bg); height:3vh; margin: 0px;">
-
-                              </canvas>
-                              <div style="width:50%; height:0.5vh; border-right: 0.2vh solid var(--main-font-color);">
-
-                              </div>
-                              <div class="row" style="width:100%;">
-                                <p style="margin-right:auto; text-align: left;"> -1 </p>
-                                <p style="text-align: center;"> 0 </p>
-                                <p style="margin-left:auto; text-align: right;"> 1 </p>
-                              </div>
-                            </div>
-                            <div style="width:10%; display:none;">
-                              <div id="id_TestPage_DifReportAboveColor" style="width:100%; border:0.2vh solid var(--main-sepArea-bg); border-top:none; height:3vh;">
-
-                              </div>
-                              <div style="width:100%; height:0.5vh; border-left: 0.2vh solid var(--main-font-color);">
-
-                              </div>
-                              <p style=" width:100%; text-align:center;"> ( &#62; 1 ) </p>
-                            </div>
-                          </div>
-                        </div>
-
-                        <!---------------------- Ratio Report (Talbe, Statistics) ----------------------------
-                        ------>
-
-                        <div style="margin:auto;  margin-left: 0vw;">
-
-                          <div class="class_OptionDiv" style="width: 40vw;">
-
-                            <div class="width:100%; display:flex;">
-                              <p style="font-weight:bold; margin-right:auto;">Color-Metric:</p>
-
-                              <button id="id_test_subreport_MetricLab" class="class_generalbutton" onclick="changeSubReportMetric(0)" style="margin: auto; padding-left: 0.5vw; padding-right: 0.5vw;">&#916;Lab</button>
-                              <button id="id_test_subreport_MetricDe94" class="class_generalbutton" onclick="changeSubReportMetric(1)" style="margin: auto; padding-left: 0.5vw; padding-right: 0.5vw;">DE94</button>
-                              <button id="id_test_subreport_MetricDe2000" class="class_generalbutton" onclick="changeSubReportMetric(2)" style="margin: auto; padding-left: 0.5vw; padding-right: 0.5vw;">CIEDE2000</button>
-                              <button id="id_test_subreport_MetricDIN99" class="class_generalbutton" onclick="changeSubReportMetric(3)" style="margin: auto; padding-left: 0.5vw; padding-right: 0.5vw;">&#916;DIN99</button>
-                            </div>
-
-
-                            <div class="width:100%; display:flex;">
-                              <p style="font-weight:bold; margin-right:auto;">Normalization:</p>
-                            </div>
-
-
-                          </div>
-
-                          <div class="class_OptionDiv" style="width: 40vw; margin-top: 2vh;">
-                              <p style="font-weight:bold; margin-bottom: 1vh;">Table (Pixel Observer):</p>
-
-                              <div class="row" style="width:100%;">
-
-                                <!--------------- Table of PIXEL PREVIEW -------------
-                                 ------------------------------------------------>
-
-                                 <table cellspacing="0" cellpadding="0" style="margin:auto;">
-                                   <tr>
-                                     <td>
-                                       <table cellspacing="0" cellpadding="1">
-                                         <tr >
-                                           <th class="class_tablelabel" style="width:2vw; border-right: 0.1vw solid var(--main-label-font-color);">ID</th>
-
-                                           <th class="class_tablelabel" style="width:6vw; border-right: 0.1vw solid var(--main-label-font-color);">&#916; Value</th>
-                                           <th class="class_tablelabel" style="width:7vw; border-right: 0.1vw solid var(--main-label-font-color);">N(&#916; Value)</th>
-
-                                           <th class="class_tablelabel" style="width:6vw; border-right: 0.1vw solid var(--main-label-font-color);">&#916; Color-Metric</th>
-                                           <th class="class_tablelabel" style="width:7vw; border-right: 0.1vw solid var(--main-label-font-color);">N(&#916; Color-Metric)</th>
-
-                                           <th class="class_tablelabel" style="width:7vw; display:flex;">
-                                             <p style="font-size:1.0vh; margin-left:auto; margin-top: auto; margin-bottom:auto; margin-right: 0.25vw; ">Ratio (</p>
-                                              <div style="margin-top: auto; margin-bottom:auto;">
-                                                <p style="font-size:0.8vh; line-height:1vh;">N(&#916; Color-Metric)</p>
-                                                <p style="font-size:0.8vh; line-height:1vh; border-top: 0.2vh solid var(--main-label-font-color); ">N(&#916; Value)</p>
-                                              </div>
-                                             <p style="font-size:1.0vh; margin-top: auto; margin-bottom:auto; margin-left: 0.25vw; margin-right:auto;">)</p>
-
-                                           </th>
-                                         </tr>
-                                       </table>
-                                     </td>
-                                   </tr>
-                                   <tr>
-                                     <td>
-                                       <div style="width:100%; overflow:auto;">
-                                         <table cellspacing="0" cellpadding="1" id="id_table_subReport" style="width:100%; border: 0.1vh solid black;">
-                                           <tbody id="id_ratioReportTableBody">
-
-                                           </tbody>
-                                         </table>
-                                       </div>
-                                     </td>
-                                   </tr>
-                                 </table>
-
-                              </div>
-
-                              <!--p style="margin-top: 3vh; color:red;"> <strong>Erinnerung an mich: die tabelle mit allen infos fuellen. damit kann man auch vergleichen bei welchen bild die maximal achse genommen wurde und schauen ob die von unterschiedlichen achsen stammen. Zusatzlich Design Aenderung! wie mit den testseiten bloss runterwaerts.</strong> </p>
-
-                              <p style="margin-top: 3vh;"> <strong>Info: </strong> Explore the five figures with the mouse-cursor. Fix the pixel information with a left mouse-click and switch back to the explore modus with a right mouse-click. The left table shows depending on the hovered figure the value difference, color difference, ratio value difference, ratio color difference, or the results of the ratio Ratio. For the last three options, the bold table row shows the maximal difference value, which is used to color the corresponding pixel in the figure. </p-->
-
-
-
-                          </div>
-
-                          <div class="class_OptionDiv" style="width: 40vw; margin-top: 2vh;">
-                                <p style="font-weight:bold;">Statistics:</p>
-
-
-                                <div class="row" style="width:100%; margin-top: 1vh; margin-bottom:1vh;">
-                                  <div style="margin: auto;">
-                                    <p style="text-decoration: underline;">&#916; Value: </p>
-                                    <div class="row">
-                                      <p style="font-size: 1.2vh; line-height: 1.6vh;">Maximum =</p>
-                                      <p id="id_ratioReportValueDifMax" style="font-size: 1.2vh; line-height: 1.6vh;"> / </p>
-                                    </div>
-                                    <div class="row">
-                                      <p style="font-size: 1.2vh; line-height: 1.6vh;">Minimum =</p>
-                                      <p id="id_ratioReportValueDifMin" style="font-size: 1.2vh; line-height: 1.6vh;"> / </p>
-                                    </div>
-                                    <div class="row">
-                                      <p style="font-size: 1.2vh; line-height: 1.6vh;">Average =</p>
-                                      <p id="id_ratioReportValueDifAvg" style="font-size: 1.2vh; line-height: 1.6vh;"> / </p>
-                                    </div>
-                                    <div class="row">
-                                      <p style="font-size: 1.2vh; line-height: 1.6vh;">Variance =</p>
-                                      <p id="id_ratioReportValueDifVar" style="font-size: 1.2vh; line-height: 1.6vh;"> / </p>
-                                    </div>
-                                    <div class="row">
-                                      <p style="font-size: 1.2vh; line-height: 1.6vh;">Deviation =</p>
-                                      <p id="id_ratioReportValueDifDev" style="font-size: 1.2vh; line-height: 1.6vh;"> / </p>
-                                    </div>
-                                  </div>
-
-
-                                  <div style="margin: auto;">
-                                    <p style="text-decoration: underline;">&#916; Color-Metric: </p>
-                                    <div class="row">
-                                      <p style="font-size: 1.2vh; line-height: 1.6vh;">Maximum =</p>
-                                      <p id="id_ratioReportColorDifMax" style="font-size: 1.2vh; line-height: 1.6vh;"> / </p>
-                                    </div>
-                                    <div class="row">
-                                      <p style="font-size: 1.2vh; line-height: 1.6vh;">Minimum =</p>
-                                      <p id="id_ratioReportColorDifMin" style="font-size: 1.2vh; line-height: 1.6vh;"> / </p>
-                                    </div>
-                                    <div class="row">
-                                      <p style="font-size: 1.2vh; line-height: 1.6vh;">Average =</p>
-                                      <p id="id_ratioReportColorDifAvg" style="font-size: 1.2vh; line-height: 1.6vh;"> / </p>
-                                    </div>
-                                    <div class="row">
-                                      <p style="font-size: 1.2vh; line-height: 1.6vh;">Variance =</p>
-                                      <p id="id_ratioReportColorDifVar" style="font-size: 1.2vh; line-height: 1.6vh;"> / </p>
-                                    </div>
-                                    <div class="row">
-                                      <p style="font-size: 1.2vh; line-height: 1.6vh;">Deviation =</p>
-                                      <p id="id_ratioReportColorDifDev" style="font-size: 1.2vh; line-height: 1.6vh;"> / </p>
-                                    </div>
-                                  </div>
-
-
-                                  <div style="margin: auto;">
-                                    <p style="text-decoration: underline;">Ratio Field: </p>
-                                    <div class="row">
-                                      <p style="font-size: 1.2vh; line-height: 1.6vh;">Maximum =</p>
-                                      <p id="id_ratioReportSubMax" style="font-size: 1.2vh; line-height: 1.6vh;"> / </p>
-                                    </div>
-                                    <div class="row">
-                                      <p style="font-size: 1.2vh; line-height: 1.6vh;">Minimum =</p>
-                                      <p id="id_ratioReportSubMin" style="font-size: 1.2vh; line-height: 1.6vh;"> / </p>
-                                    </div>
-                                    <div class="row">
-                                      <p style="font-size: 1.2vh; line-height: 1.6vh;">Average =</p>
-                                      <p id="id_ratioReportSubAvg" style="font-size: 1.2vh; line-height: 1.6vh;"> / </p>
-                                    </div>
-                                    <div class="row">
-                                      <p style="font-size: 1.2vh; line-height: 1.6vh;">Variance =</p>
-                                      <p id="id_ratioReportSubVar" style="font-size: 1.2vh; line-height: 1.6vh;"> / </p>
-                                    </div>
-                                    <div class="row">
-                                      <p style="font-size: 1.2vh; line-height: 1.6vh;">Deviation =</p>
-                                      <p id="id_ratioReportSubDev" style="font-size: 1.2vh; line-height: 1.6vh;"> / </p>
-                                    </div>
-                                  </div>
-                                </div>
-
-
-
-                            </div>
-
-                          <button class="class_generalbutton" onclick="showRatioReportInfo()" style="margin-left: 7.5vw; width:20vw;  margin-top:2vh; ">Click to show information.</button>
-
-                        </div>
-
-
-                      </div>
-
-
-
-
-                  </div>
-
-                  <!---------------------- Auto Test Analysis Report ----------------------------
-                  ------>
-
-
-                    <div id="id_report_AnalysisReportDiv" style="height: 0vh; width: 100%; overflow: hidden; background:var(--main-bg-color);">
-
-                    </div>
-
-                    <!---------------------- Optimization Report ----------------------------
-                    ------>
-
-
-                      <div id="id_report_OpitimizationReportDiv" style="height: 0vh; width: 100%; overflow: hidden; background:var(--main-second-bg-color);">
-
-                      </div>
-
-          </div>
-
-
-
-          <div style="height:83vh; width: 3vw; background:var(--main-sepArea-bg); display:flex;">
-
-            <div style="margin-top:auto; margin-bottom:auto;">
-
-                <div id="id_Report_pageSwitchUp" class="class_generalbutton_DarkBackground" onclick="switchToPreviousReport()" style="margin-left:0.5vw; margin-bottom: 2vh; width: 2vw;">
-                  &#8593;
-                </div>
-                <div id="id_Report_pageSwitchStatus0" class="class_Test_ShowTestButton" onclick="setReportDisplay(0)" style="width:3vw;">
-
-                </div>
-                <div id="id_Report_pageSwitchStatus1" class="class_Test_ShowTestButton" onclick="setReportDisplay(1)" style="width:3vw;">
-
-                </div>
-                <div id="id_Report_pageSwitchStatus2" class="class_Test_ShowTestButton" onclick="setReportDisplay(2)" style="width:3vw;">
-
-                </div>
-                <div id="id_Report_pageSwitchStatus3" class="class_Test_ShowTestButton" onclick="setReportDisplay(3)" style="width:3vw;">
-
-                </div>
-                <div id="id_Report_pageSwitchDown" class="class_generalbutton_DarkBackground" onclick="switchToNextReport()" style="margin-left:0.5vw;  margin-top: 2vh; width: 2vw;">
-                  &#8595;
-                </div>
-
-            </div>
-
-          </div>
 
     </div>
 
@@ -952,7 +403,7 @@
 
 
 
-<div class="row" style="width:100%; height: 5vh; background:var(--main-coloredButton);">
+<div style="display:flex; width:100%; height: 5vh; background:var(--main-coloredButton);">
 
   <div class="class_coloredButton" onclick="testingSection.backToSection()" style="margin:auto; height:5vh; line-height:5vh; font-size: 3vh; width:10vw; margin-right:0vw;">
     Back
@@ -967,13 +418,13 @@
   </div>
 </div>
 
-<!--div id="id_Test_Map" style="width:97vw; height:83vh; position:absolute; position: fixed; z-index:101; top:10vh; left:0vw; background: var(--main-popUpWindow-bg-color); display:none;">
-  <div style="margin:auto; background: var(--main-sepArea-bg); border: 0.2vh solid black; padding-top: 2vh; padding-bottom: 2vh; padding-left: 2vw; padding-right: 2vw; overlfow-y:auto; max-height:83vh;">
+<!--div id="id_Test_Map" style="width:97vw; height:90vh; position:absolute; position: fixed; z-index:101; top:10vh; left:0vw; background: var(--main-popUpWindow-bg-color); display:none;">
+  <div style="margin:auto; background: var(--main-sepArea-bg); border: 0.2vh solid black; padding-top: 2vh; padding-bottom: 2vh; padding-left: 2vw; padding-right: 2vw; overlfow-y:auto; max-height:90vh;">
     <p class="sectionLabel" style="background:var(--main-popUpWindow-labelbg-color);">Overview Map for the Test/Optimization Section</p>
 
     <div style="margin:auto; margin-top: 2vh;">
 
-        <div class="row" style="width:100%;">
+        <div style="display:flex; width:100%;">
           <div id="id_Test_Map_Collection" class="class_Test_Map_Div">
             <p><strong>Test-Collection</strong> </p>
           </div>
@@ -992,7 +443,7 @@
           </div>
         </div>
 
-      <div class="row" style="width:100%;">
+      <div style="display:flex; width:100%;">
           <div style="margin-left:auto;">
             <p style="width:100%; text-align: center; margin-top: 1vh; margin-bottom: 1vh; color: var(--main-sepArea-font-color); color: var(--general-warning-color); font-size: 2.5vh; line-height:3vh; ">&#8597;</p>
             <div id="id_Test_Map_SubReport" class="class_Test_Map_Div" >
@@ -1001,7 +452,7 @@
           </div>
         </div>
 
-        <div class="row" style="width:100%;">
+        <div style="display:flex; width:100%;">
           <div style="margin-left:auto;">
             <p style="width:100%; text-align: center; margin-top: 1vh; margin-bottom: 1vh; color: var(--main-sepArea-font-color); color: var(--general-warning-color); font-size: 2.5vh; line-height:3vh; ">&#8597;</p>
             <div id="id_Test_Map_AutoAnalysis" class="class_Test_Map_Div">
@@ -1010,7 +461,7 @@
           </div>
         </div>
 
-        <div class="row" style="width:100%;">
+        <div style="display:flex; width:100%;">
           <div style="margin-left:auto;">
             <p style="width:100%; text-align: center; margin-top: 1vh; margin-bottom: 1vh; color: var(--main-sepArea-font-color); color: var(--general-warning-color); font-size: 2.5vh; line-height:3vh; ">&#8597;</p>
             <div id="id_Test_Map_Optimization" class="class_Test_Map_Div">
@@ -1023,21 +474,21 @@
 
 
 
-    <div class="row" style="margin-top:2vh; ">
+    <div style="display:flex; margin-top:2vh; ">
       <p style="margin:auto; margin-right:0.5vw; color: var(--main-sepArea-font-color);">Please use the buttons </p>
-      <div class="class_generalbutton_DarkBackground" style="margin:auto; width:2vw; margin-left:0.5vw; margin-right:0.5vw;">
+      <div class="class_coloredButton_Dark" style="margin:auto; width:2vw; margin-left:0.5vw; margin-right:0.5vw;">
         &#8592;
       </div>
       <p style="margin:auto; margin-left:0.5vw; margin-right:0.5vw; color: var(--main-sepArea-font-color);">,</p>
-      <div class="class_generalbutton_DarkBackground" style="margin:auto; width:2vw; margin-left:0.5vw; margin-right:0.5vw;">
+      <div class="class_coloredButton_Dark" style="margin:auto; width:2vw; margin-left:0.5vw; margin-right:0.5vw;">
         &#8594;
       </div>
       <p style="margin:auto; margin-left:0.5vw; margin-right:0.5vw; color: var(--main-sepArea-font-color);">,</p>
-      <div class="class_generalbutton_DarkBackground" style="margin:auto; width:2vw; margin-left:0.5vw; margin-right:0.5vw;">
+      <div class="class_coloredButton_Dark" style="margin:auto; width:2vw; margin-left:0.5vw; margin-right:0.5vw;">
         &#8593;
       </div>
       <p style="margin:auto; margin-left:0.5vw; margin-right:0.5vw; color: var(--main-sepArea-font-color);">,</p>
-      <div class="class_generalbutton_DarkBackground" style="margin:auto; width:2vw; margin-left:0.5vw; margin-right:0.5vw;">
+      <div class="class_coloredButton_Dark" style="margin:auto; width:2vw; margin-left:0.5vw; margin-right:0.5vw;">
         &#8595;
       </div>
       <p style="margin:auto; margin-left:0.5vw; color: var(--main-sepArea-font-color);">at the screen (or keyboard) to switch the test sections.</p>

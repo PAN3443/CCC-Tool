@@ -1,6 +1,4 @@
 
-
-
 function createColor(v1,v2,v3,space){
   switch (space) {
     case "RGB": case "rgb": case "Rgb":

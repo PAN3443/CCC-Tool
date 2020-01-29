@@ -44,29 +44,28 @@ self.addEventListener('message', function(e) {
   switch (e.data.message) {
 
     case "init":
-      self.importScripts('../../processingCases.js');
-      self.importScripts('../../../GlobalEvents/Helpers/math.js');
+      self.importScripts('../../../global/worker_helper/general_processingCases.js');
+      self.importScripts('workerFunctions_testing.js');
       worker_LoadColorClasses();
 
-      self.importScripts('../../../GlobalEvents/Helpers/canvasHelpers.js');
+      self.importScripts('../../../global/helper/canvasHelper.js');
+      self.importScripts('../../../global/fields/class_testField.js');
+      self.importScripts('../../../global/helper/math.js');
 
-      self.importScripts('../../../Classes/Domain/class_testField.js');
-      self.importScripts('../../../Worker/workerFiles/Testing/workerFunctions_testing.js');
+      self.importScripts('../testfunctions/cccTest.js');
+      self.importScripts('../testfunctions/fct_collection/collection_BowlShaped.js');
+      self.importScripts('../testfunctions/fct_collection/collection_localMinima.js');
+      self.importScripts('../testfunctions/fct_collection/collection_ValleyShaped.js');
+      self.importScripts('../testfunctions/fct_collection/collection_other.js');
+      self.importScripts('../testfunctions/realWorldData.js');
 
-      self.importScripts('../../../Sections/Testing/Testfunctions/cccTest.js');
-      self.importScripts('../../../Sections/Testing/Testfunctions/FctCollection/collection_BowlShaped.js');
-      self.importScripts('../../../Sections/Testing/Testfunctions/FctCollection/collection_localMinima.js');
-      self.importScripts('../../../Sections/Testing/Testfunctions/FctCollection/collection_ValleyShaped.js');
-      self.importScripts('../../../Sections/Testing/Testfunctions/FctCollection/collection_other.js');
-      self.importScripts('../../../Sections/Testing/Testfunctions/realWorldData.js');
+      //self.importScripts('../../../GlobalEvents/Color_CMS_Helpers/calcGradientLinear.js');
 
-      self.importScripts('../../../GlobalEvents/Color_CMS_Helpers/calcGradientLinear.js');
+      self.importScripts('../../../global/helper/random.js');
+      self.importScripts('../../../global/cms/cmsIntervalHelper.js');
+      self.importScripts('../../../global/color/colorDifference.js');
 
-      self.importScripts('../../../GlobalEvents/Helpers/random.js');
-      self.importScripts('../../../GlobalEvents/Color_CMS_Helpers/cmsIntervals.js');
-      self.importScripts('../../../GlobalEvents/Color_CMS_Helpers/calcColordifference.js');
-
-      self.importScripts('../../../Sections/Testing/InteractiveTest/Noise/simplexNoise.js');
+      self.importScripts('../interactiveTest/noise/simplexNoise.js');
 
       // For ThreeJS Mesh
       self.importScripts('../../../../libs/ThreeJS/three.min.js');
