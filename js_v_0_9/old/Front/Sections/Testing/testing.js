@@ -3,7 +3,7 @@
 ///////////////////////////////////
 
 
-function openTestSection(){
+/*function openTestSection(){
 
   updateTestMappingCanvas(false); // updateSize
   document.getElementById("id_Test_ScaleFactor").value = scalefactor3DTest;
@@ -56,18 +56,18 @@ function openTestSection(){
   document.getElementById("id_Test_pageSwitchStatus2").innerHTML = "&#x25CE;";
   selectTestCMS();
 
-}
+}*/
 
-function switchTestDisplay(type) {
+/*function switchTestDisplay(type) {
 
   if(testingModus!=type){
     testingModus=type;
     slideTestDisplayDivs();
   }
 
-}
+}*/
 
-function switchToPreviousTest() {
+/*function switchToPreviousTest() {
     testingModus--;
     slideTestDisplayDivs();
 }
@@ -75,9 +75,9 @@ function switchToPreviousTest() {
 function switchToNextTest() {
   testingModus++;
   slideTestDisplayDivs();
-}
+}*/
 
-function slideTestDisplayDivs(){
+/*function slideTestDisplayDivs(){
 
   document.getElementById("id_Test_pageSwitchRight").style.visibility = "hidden";
   document.getElementById("id_Test_pageSwitchLeft").style.visibility = "hidden";
@@ -148,9 +148,9 @@ function slideTestDisplayDivs(){
     break;
   }
 
-}
+}*/
 
-function selectTestCMS(){
+/*function selectTestCMS(){
 
   globalCMS1 =
 
@@ -162,11 +162,11 @@ function selectTestCMS(){
 
   switch (testingModus) {
     case 0:
-      
+
     break;
     case 2:
       calc_Report();
     break;
   }
 
-}
+}*/

@@ -6,8 +6,7 @@ var testingType = 0;
 
 var testingFieldResolution = 5; // ~ 2 million pixels for realistic
 
-var current_yFktType = 0;
-var current_xFktType = 0;
+
 ///////////////////////////////////////////
 ///// Fields
 
@@ -18,7 +17,6 @@ var userTestGlobalField = undefined;
 
 ///////////////////////////////////////////
 ///// worker
-var noiseField_WorkerJSON = {"addNoise":false,"noiseField":undefined,"noiseBehavior":undefined,"maxChange":undefined,"replaceNoiseFrom":undefined,"replaceNoiseTill":undefined};
 
 //// Worker : Jumps
 var allJumpWorkersFinished=true;

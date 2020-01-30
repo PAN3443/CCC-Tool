@@ -13,6 +13,7 @@ function workerEvent_DrawPreviewTestfunction(e) {
 
 function workerEvent_DrawTestfunction(e) {
 
+
   switch (e.data.type) {
     case "pixel":
       var canvas = document.getElementById(e.data.canvasID);
@@ -46,9 +47,13 @@ function workerEvent_DrawTestfunction(e) {
       var canvasContexGreyFull = canvasGreyFull.getContext("2d");
       canvasContexGreyFull.clearRect(0, 0, canvasGreyFull.width, canvasGreyFull.height);
       canvasContexGreyFull.putImageData(e.data.imageDataGrey, 0, 0);
+      document.getElementById("id_Test_WaitForTestCalculation").style.display="none";
+      document.getElementById("id_Test_VisDiv").style.display="flex";
       break;
     case "mesh":
-      drawTransfered_Mesh(e.data.testMappingMeshData); // js/Front/Sections/Testing/3D_TestVis/testImageMapping.js
+      //drawTransfered_Mesh(e.data.testMappingMeshData); // js/Front/Sections/Testing/3D_TestVis/testImageMapping.js
+      document.getElementById("id_Test_WaitForTestCalculation").style.display="none";
+      document.getElementById("id_Test_VisDiv").style.display="flex";
     break;
     case "noiseExample":
       var canvas = document.getElementById(e.data.canvasID);
@@ -117,7 +122,7 @@ function workerEvent_DrawTestfunction(e) {
 
     break;
   }
-
+  testingSection.worker_testInteractive_finished=true;
 }
 
 

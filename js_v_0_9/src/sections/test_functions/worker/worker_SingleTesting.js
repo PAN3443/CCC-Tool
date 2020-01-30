@@ -65,7 +65,7 @@ self.addEventListener('message', function(e) {
       self.importScripts('../../../global/cms/cmsIntervalHelper.js');
       self.importScripts('../../../global/color/colorDifference.js');
 
-      self.importScripts('../interactiveTest/noise/simplexNoise.js');
+      self.importScripts('../interactiveTest/simplexNoise.js');
 
       // For ThreeJS Mesh
       self.importScripts('../../../../libs/ThreeJS/three.min.js');
@@ -157,7 +157,7 @@ self.addEventListener('message', function(e) {
 
       var answerJSON = {};
       answerJSON['type'] = e.data.visType;
-
+      console.log("Single Test Worker : ",e.data.visType);
       switch (e.data.visType) {
         case "pixel":
           answerJSON['canvasID'] = "id_Test_PixelCanvas";
