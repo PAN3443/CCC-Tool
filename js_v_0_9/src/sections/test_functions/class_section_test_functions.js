@@ -1014,7 +1014,7 @@ class class_TestFunction_Section extends class_Section {
       this.cccTest_NewJump_Options[1]=[0,1];
     }
     else{
-      this.cccTest_NewJump_Options[1]=[globalCMS1.getRefPosition(0),globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1)];
+      this.cccTest_NewJump_Options[1]=[this.testingCMS.getRefPosition(0),this.testingCMS.getRefPosition(this.testingCMS.getKeyLength()-1)];
     }
     this.fillNewJumpsList();
   }
@@ -1116,8 +1116,8 @@ class class_TestFunction_Section extends class_Section {
       this.cccTest_NewGradient_Options[2] = 1;
     }
     else {
-      this.cccTest_NewGradient_Options[1] = globalCMS1.getRefPosition(0);
-      this.cccTest_NewGradient_Options[2] = globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1);
+      this.cccTest_NewGradient_Options[1] = this.testingCMS.getRefPosition(0);
+      this.cccTest_NewGradient_Options[2] = this.testingCMS.getRefPosition(this.testingCMS.getKeyLength()-1);
     }
     this.selectNewGradientTestType();
   }
@@ -1381,8 +1381,8 @@ class class_TestFunction_Section extends class_Section {
       this.cccTest_NewRidgeValley_Options[2] = 1;
     }
     else {
-      this.cccTest_NewRidgeValley_Options[1] = globalCMS1.getRefPosition(0);
-      this.cccTest_NewRidgeValley_Options[2] = globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1);
+      this.cccTest_NewRidgeValley_Options[1] = this.testingCMS.getRefPosition(0);
+      this.cccTest_NewRidgeValley_Options[2] = this.testingCMS.getRefPosition(this.testingCMS.getKeyLength()-1);
     }
     this.selectNewRidgeValleyTestType();
   }
@@ -1947,10 +1947,10 @@ class class_TestFunction_Section extends class_Section {
       this.cccTest_NewLittleBit_Options[4] = 0.01;
     }
     else {
-      this.cccTest_NewLittleBit_Options[1] = globalCMS1.getRefPosition(0);
-      this.cccTest_NewLittleBit_Options[2] = globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1);
-      this.cccTest_NewLittleBit_Options[3] = 0.001*(globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1)-globalCMS1.getRefPosition(0));
-      this.cccTest_NewLittleBit_Options[4] = 0.01*(globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1)-globalCMS1.getRefPosition(0));
+      this.cccTest_NewLittleBit_Options[1] = this.testingCMS.getRefPosition(0);
+      this.cccTest_NewLittleBit_Options[2] = this.testingCMS.getRefPosition(this.testingCMS.getKeyLength()-1);
+      this.cccTest_NewLittleBit_Options[3] = 0.001*(this.testingCMS.getRefPosition(this.testingCMS.getKeyLength()-1)-this.testingCMS.getRefPosition(0));
+      this.cccTest_NewLittleBit_Options[4] = 0.01*(this.testingCMS.getRefPosition(this.testingCMS.getKeyLength()-1)-this.testingCMS.getRefPosition(0));
     }
     this.selectNewLittleBitTestType();
   }
@@ -1980,8 +1980,8 @@ class class_TestFunction_Section extends class_Section {
       this.cccTest_NewFrequency_Options[5] = 1;
     }
     else {
-      this.cccTest_NewFrequency_Options[4] = globalCMS1.getRefPosition(0);
-      this.cccTest_NewFrequency_Options[5] = globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1);
+      this.cccTest_NewFrequency_Options[4] = this.testingCMS.getRefPosition(0);
+      this.cccTest_NewFrequency_Options[5] = this.testingCMS.getRefPosition(this.testingCMS.getKeyLength()-1);
     }
     this.selectNewFrequencyTestType();
   }
@@ -2332,9 +2332,9 @@ class class_TestFunction_Section extends class_Section {
       this.cccTest_NewTreshold_Options[5]=1.0;
     }
     else {
-      this.cccTest_NewTreshold_Options[3]=globalCMS1.getRefPosition(0);
-      this.cccTest_NewTreshold_Options[4]=globalCMS1.getRefPosition(0)+0.5*(globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1)-globalCMS1.getRefPosition(0));
-      this.cccTest_NewTreshold_Options[5]=globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1);
+      this.cccTest_NewTreshold_Options[3]=this.testingCMS.getRefPosition(0);
+      this.cccTest_NewTreshold_Options[4]=this.testingCMS.getRefPosition(0)+0.5*(this.testingCMS.getRefPosition(this.testingCMS.getKeyLength()-1)-this.testingCMS.getRefPosition(0));
+      this.cccTest_NewTreshold_Options[5]=this.testingCMS.getRefPosition(this.testingCMS.getKeyLength()-1);
     }
     this.selectNewTresholdTestType();
   }
