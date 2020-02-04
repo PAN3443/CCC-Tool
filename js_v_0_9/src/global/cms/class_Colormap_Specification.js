@@ -1020,7 +1020,7 @@ class class_CMS {
           }
           // from last interval to last key
           linearKey_Sub_xPos += elementwidth;
-          var tmpEndPos = editCMS_cmsArea_x1+Math.round((this.getRefPosition(i+1) - this.getRefPosition(0)) / (this.getRefPosition(this.getKeyLength()-1) - this.getRefPosition(0)) * canvasObject.width);
+          var tmpEndPos = Math.round((this.getRefPosition(i+1) - this.getRefPosition(0)) / (this.getRefPosition(this.getKeyLength()-1) - this.getRefPosition(0)) * canvasObject.width);
           elementwidth = (tmpEndPos-linearKey_Sub_xPos);
           canvasData = createScaledBand(canvasData,linearKey_Sub_xPos, 0, elementwidth, canvasObject.height, this.getIntervalColor(i,this.getIntervalLength(i)-1,this.getInterpolationSpace()), this.getLeftKeyColor(i+1,this.getInterpolationSpace()), canvasObject.width);
         }
@@ -1095,7 +1095,7 @@ class class_CMS {
           }
           // from last interval to last key
           linearKey_Sub_yPos += elementheight;
-          var tmpEndPos = editCMS_cmsArea_x1+Math.round((this.getRefPosition(i+1) - this.getRefPosition(0)) / (this.getRefPosition(this.getKeyLength()-1) - this.getRefPosition(0)) * canvasObject.height);
+          var tmpEndPos = Math.round((this.getRefPosition(i+1) - this.getRefPosition(0)) / (this.getRefPosition(this.getKeyLength()-1) - this.getRefPosition(0)) * canvasObject.height);
           elementheight = (tmpEndPos-linearKey_Sub_yPos);
           canvasData = createScaledBandVertical(canvasData,canvasObject.height-linearKey_Sub_yPos, canvasObject.width, elementheight, this.getIntervalColor(i,this.getIntervalLength(i)-1,this.getInterpolationSpace()), this.getLeftKeyColor(i+1,this.getInterpolationSpace()), canvasObject.width);
         }

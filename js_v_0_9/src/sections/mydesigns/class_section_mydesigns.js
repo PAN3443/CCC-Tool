@@ -189,8 +189,11 @@ class class_MyDesigns_Section extends class_Section {
     tmpCMSDelete.onclick = (function(cmsID) {
     return function() {
        if(cmsID<myDesignsSection.getMyDesignLength()){
-         askType=3;
-         askIndex=cmsID;
+         document.getElementById("id_PopUp_AskCheck").onclick = (function (cmsID){
+           closeAsk();
+           myDesignsSection.deleteCMS(cmsID);
+         })(cmsID);
+         document.getElementById("id_askText").innerHTML="Do you really want to delete the colormap?";
          openAskWindow();
        }
     };
@@ -329,7 +332,12 @@ class class_MyDesigns_Section extends class_Section {
 
   loadSession() {
     if (this.myDesignsList.length != 0){
-      askType=2;
+      document.getElementById("id_PopUp_AskCheck").onclick = function (cmsID){
+        closeAsk();
+        document.getElementById("id_inputSessionData").click();
+        document.getElementById("id_MyDesigns_Import_dropdown").style.display="none";
+      };
+      document.getElementById("id_askText").innerHTML="Do you really want to load a session and reject the current session?";
       openAskWindow();
     } else{
       document.getElementById("id_inputSessionData").click();

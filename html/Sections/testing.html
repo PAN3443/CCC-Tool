@@ -301,8 +301,8 @@
               <span class="class_radio_checkmark"></span>
             </label>
 
-            <label class="class_radio_container" style="margin:auto; color: var(--main-sepArea-font-color);"> Triangle-Grid
-              <input type="radio" checked="checked" name="textVisType" id="id_TestVisualization_Mesh" onchange="testingSection.updateTestVis()">
+            <label class="class_radio_container" style="margin:auto; color: var(--main-sepArea-font-color); visibility:hidden;"> Triangle-Grid
+              <input disabled type="radio" name="textVisType" id="id_TestVisualization_Mesh" onchange="testingSection.updateTestVis()">
               <span class="class_radio_checkmark"></span>
             </label>
 
@@ -311,13 +311,13 @@
           <div style="display:flex; width:100%; height:3vh; border-bottom:0.2vh solid var(--menue-bg-color); background: var(--main-sepArea-bg);">
             <div style="display:flex; width:50%;">
               <div id="id_TestPage_HightmapButton" class="class_Test_RenderButton" title="Modus 2D,Hightmap" onclick="switchHightmap()">3D</div>
-              <a id="id_Test_downloadScreenshot" download="CCC_Tool_TestImage.png" class="class_Test_RenderButton" title="Screenshot">&#9688;</a>
+              <a id="id_Test_downloadScreenshot" onclick="testingSection.downloadTestImage()" download="CCC_Tool_TestImage.png" class="class_Test_RenderButton" title="Screenshot">&#9688;</a>
               <div class="class_Test_RenderButton" title="Fullscreen" onclick="openFullTestMappingScreen()">&#9723;</div>
               <div id="id_Test_showHideAxis" class="class_Test_RenderButton" onclick="showTestingAxis()" title="Show/Hide Axis" >&#9531;</div>
               <div id="id_Test_showBoundingBox" class="class_Test_RenderButton" onclick="showTestingBoundingBox()" title="Show/Hide Bounding Box" >&#9635;</div>
             </div>
             <div style="display:flex; width:50%;">
-              <a id="id_Test_downloadScreenshotGrey" download="CCC_Tool_TestImage_GreyScaled.png" class="class_Test_RenderButton" title="Screenshot" >&#9688;</a>
+              <a id="id_Test_downloadScreenshotGrey" onclick="testingSection.downloadTestImageGrey()" download="CCC_Tool_TestImage_GreyScaled.png" class="class_Test_RenderButton" title="Screenshot" >&#9688;</a>
             </div>
           </div>
 
@@ -356,6 +356,12 @@
 
       </div>
 
+    </div>
+
+    <!--------------------------------------------------------------------------
+    ----------------------- Test Interactive -------------------------------
+    -------------------------------------------------------------------------->
+    <div id="id_Test_ReportDiv" style="width:0vw; height:90vh; background: var(--main-sepArea-border);">
     </div>
 
 </div>

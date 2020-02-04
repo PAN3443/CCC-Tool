@@ -26,32 +26,6 @@ function switchSection(type){
   }
 }
 
-
-
-function startLeaveEditPage(){
-
-  if(document.getElementById("id_EditPage").display!="none"){
-
-    if(somethingChanged){
-      askType=4;
-      openAskWindow();
-    }
-    else{
-
-      if(editPage_optimizationMode){
-        changeOpimizationMode();
-      }
-
-      showMyDesignsPage();
-    }
-
-  }
-  else{
-    showMyDesignsPage();
-  }
-
-}
-
 function showWelcomePage(){
   switchSection(0);
 }
@@ -61,7 +35,41 @@ function showTestPage(){
 }
 
 function showMyDesignsPage(){
-  switchSection(1);
+
+  if(editSection.isSectionOpen()){
+    if(editSection.somethingChanged){
+      if(myDesignsSection.myDesignsList[editSection.myDesignID].getKeyLength()==0){
+        document.getElementById("id_PopUp_AskCheck").onclick = function (){
+          closeAsk();
+          myDesignsSection.deleteCMS(editSection.myDesignID);
+          switchSection(1);
+        }
+        document.getElementById("id_askText").innerHTML="Do you really want to leave the edit page and reject unsaved content? The current saved content include an emtpy CMS and will be delted from the MyDesigns. Conitnue?";
+        openAskWindow();
+      }
+      else{
+        document.getElementById("id_PopUp_AskCheck").onclick = function (){
+          closeAsk();
+          switchSection(1);
+        }
+        document.getElementById("id_askText").innerHTML="Do you really want to leave the edit page and reject unsaved content?";
+        openAskWindow();
+      }
+    }
+    else if (editSection.editCMS.getKeyLength()==0) {
+      document.getElementById("id_PopUp_AskCheck").onclick = function (){
+        closeAsk();
+        myDesignsSection.deleteCMS(editSection.myDesignID);
+        switchSection(1);
+      }
+      document.getElementById("id_askText").innerHTML="Your CMS is empty and will be deleted from the MyDesigns section. Do you want to continue?";
+      openAskWindow();
+    }
+    else
+      switchSection(1);
+  }
+  else
+    switchSection(1);
 }
 
 function showEditPage(){

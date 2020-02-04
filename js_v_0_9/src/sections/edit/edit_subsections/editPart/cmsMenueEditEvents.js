@@ -1,5 +1,12 @@
 function editCMS_equalKeyIntervals(){
-  askType=7;
+
+  document.getElementById("id_PopUp_AskCheck").onclick = function (){
+    closeAsk();
+    editSection.editCMS.equalKeyIntervals();
+    editSection.saveCreateProcess();
+    editSection.updateSection();
+  }
+  document.getElementById("id_askText").innerHTML="Do you really want to change the reference values of all keys to equal intervals?";
   openAskWindow();
 
 }
@@ -24,7 +31,11 @@ function changeRemoveKeyModus(){
 
 function clearColormap(){
   if(editSection.editCMS.getKeyLength()>0){
-    askType=0;
+    document.getElementById("id_PopUp_AskCheck").onclick = function (){
+      closeAsk();
+      myDesignsSection.deleteCMS(askIndex);
+    }
+    document.getElementById("id_askText").innerHTML="Do you really want to clear the CMS?";
     openAskWindow();
   }
 }

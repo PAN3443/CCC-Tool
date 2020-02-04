@@ -10,7 +10,7 @@ function closeNaviWindow(){
 
 function drawCurrentNavi(){
 
-    var colorPosArrow = getComputedStyle(document.documentElement).getPropertyValue('--menue-navi-positive-color');
+    /*var colorPosArrow = getComputedStyle(document.documentElement).getPropertyValue('--menue-navi-positive-color');
     var colorNegArrow = getComputedStyle(document.documentElement).getPropertyValue('--menue-navi-negative-color');
 
     var cArrowWelcomeToMyDesign = colorPosArrow; // is always reachable
@@ -314,13 +314,13 @@ function changeNaviStatus(id,type){
         case 2:
           document.getElementById(id+"_Label").style.display = "block";
           document.getElementById(id).classList.add("navi_divPos");
-          /*document.getElementById(id+"_Label").innerHTML = "&#128743;";*/
+          /*document.getElementById(id+"_Label").innerHTML = "&#128743;";* /
           break;
           case 3:
             document.getElementById(id).classList.add("navi_divPos");
             document.getElementById(id).style.cursor = "not-allowed";
             break;
-  }
+  }*/
 
 
 }

@@ -63,8 +63,6 @@ function generalJSON_Processing(json){
       globalCMS1.setInterpolationSpace(json.interpolationSpace);
       globalCMS1.setInterpolationType(json.interpolationType);
 
-
-
       if(json.nanC1!=undefined && json.nanC2!=undefined && json.nanC3!=undefined)
         globalCMS1.setNaNColor(new class_Color_LAB(json.nanC1,json.nanC2,json.nanC3));
 

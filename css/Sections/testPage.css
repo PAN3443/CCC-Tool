@@ -144,20 +144,14 @@
   background:rgba(120,120,120,0.3);
 }
 
-#id_report_TestInfoDiv,
-#id_report_SubReportDiv,
-#id_report_OtherReportDiv,
 #id_Test_FunctionCollection,
-#id_Test_TestDiv,
-#id_Test_ReportDiv,
-#id_report_AnalysisReportDiv,
-#id_report_OpitimizationReportDiv
+#id_Test_SingleTestDiv,
+#id_Test_ReportDiv
 {
   overflow: hidden;
   -webkit-transition: width 2s, height 2s; /* For Safari 3.1 to 6.0 */
   transition: width 2s, height 2s;
 }
-
 
 .class_Test_SelectorRow{
   width:90vw;

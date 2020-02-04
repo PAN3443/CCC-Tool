@@ -6,6 +6,12 @@
   background: var(--main-popUpWindow-labelbg-color);
 }
 
+.class_PopUpButtonDiv button{
+  height: 5vh;
+  line-height: 5vh;
+  font-size: 3vh;
+}
+
 .class_svgBrackets{
   height: 100%;
   width: 1vw;

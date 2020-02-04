@@ -1,3 +1,14 @@
+//////////////////////////////////////
+/// Ask Window /////
+///////////////////////////////////
+
+function openAskWindow(){
+  document.getElementById("popupAskWindow").style.display="flex";
+}
+
+function closeAsk(){
+  document.getElementById("popupAskWindow").style.display="none";
+}
 
 //////////////////////////////////////
 /// Short Cuts /////

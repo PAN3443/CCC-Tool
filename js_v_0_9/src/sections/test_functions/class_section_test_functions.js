@@ -377,6 +377,7 @@ class class_TestFunction_Section extends class_Section {
     document.getElementById("id_Test_SwitchToSingleTest").style.background = "var(--main-active-coloredButton)";
     document.getElementById("id_Test_FunctionCollection").style.width = "0vw";
     document.getElementById("id_Test_SingleTestDiv").style.width = "100vw";
+    this.updateTestVis();
   }
 
   backToSection() {
@@ -2993,22 +2994,17 @@ class class_TestFunction_Section extends class_Section {
       this.testmapping_renderer.setSize(oldSize.width, oldSize.height);
       this.startAnimationTestMapping();
     } else {
-
       var canvasID = "id_Test_PixelCanvas";
-
       if (document.getElementById("id_PopUp_fullTestingWindow").style.display != "none")
         var canvasID = "id_Test_PixelCanvasFull"
-
       testing_ImgData = document.getElementById(canvasID).toDataURL("image/png")
         .replace("image/png", "image/octet-stream");
-
     }
-
-    this.href = testing_ImgData;
+    document.getElementById("id_Test_downloadScreenshot").href = testing_ImgData;
+    document.getElementById("id_Test_downloadScreenshotFull").href = testing_ImgData;
   }
 
-  downloadTestImageGrey() {
-
+  downloadTestImageGrey(){
     var testing_ImgData = undefined;
     if (document.getElementById("id_TestVisualization_Mesh").checked) {
       this.stopAnimationTestMapping();
@@ -3022,14 +3018,13 @@ class class_TestFunction_Section extends class_Section {
       this.startAnimationTestMapping();
     } else {
       var canvasID = "id_Test_PixelCanvasGrey";
-
       if (document.getElementById("id_PopUp_fullTestingWindow").style.display != "none")
         var canvasID = "id_Test_PixelCanvasGreyFull"
-
       testing_ImgData = document.getElementById(canvasID).toDataURL("image/png")
         .replace("image/png", "image/octet-stream");
     }
-    this.href = testing_ImgData;
+    document.getElementById("id_Test_downloadScreenshotGrey").href = testing_ImgData;
+    document.getElementById("id_Test_downloadScreenshotGreyFull").href = testing_ImgData;
   }
 
   stopAnimationTestMapping(){
