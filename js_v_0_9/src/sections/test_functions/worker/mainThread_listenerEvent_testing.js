@@ -13,7 +13,6 @@ function workerEvent_DrawPreviewTestfunction(e) {
 
 function workerEvent_DrawTestfunction(e) {
 
-
   switch (e.data.type) {
     case "pixel":
       var canvas = document.getElementById(e.data.canvasID);
@@ -49,11 +48,13 @@ function workerEvent_DrawTestfunction(e) {
       canvasContexGreyFull.putImageData(e.data.imageDataGrey, 0, 0);
       document.getElementById("id_Test_WaitForTestCalculation").style.display="none";
       document.getElementById("id_Test_VisDiv").style.display="flex";
+      document.getElementById("id_TestPage_CalcButton").style.visibility="visible";
       break;
     case "mesh":
       //drawTransfered_Mesh(e.data.testMappingMeshData); // js/Front/Sections/Testing/3D_TestVis/testImageMapping.js
       document.getElementById("id_Test_WaitForTestCalculation").style.display="none";
       document.getElementById("id_Test_VisDiv").style.display="flex";
+      document.getElementById("id_TestPage_CalcButton").style.visibility="visible";
     break;
     case "noiseExample":
       var canvas = document.getElementById(e.data.canvasID);

@@ -34,7 +34,7 @@
         <div style="margin: auto; width:20vw; max-width:20vw; height:90vh; display:flex; background: var(--main-sepArea-bg); flex-direction:column;">
             <div style="margin-top:1vh; width:20vw; max-width:20vw; height:5vh; display: flex;">
               <p style="margin:auto; margin-left: 1vw; font-weight:bold; color: var(--main-sepArea-font-color);"> Type:</p>
-              <select id="id_TestPage_SelectNewTestType" onchange="testingSection.selectNewTestType()" style="margin-right: auto;">
+              <select id="id_TestPage_SelectNewTestType" onchange="testingSection.element_singleTest.selectNewTestType()" style="margin-right: auto;">
                  <optgroup label="CCC-Test:">
                     <option value="0">Jump</option>
                     <option value="1">Gradient</option>
@@ -63,11 +63,11 @@
 
             <hr style="width:20vw; color: var(--main-sepArea-font-color);">
 
-            <div style="width:20vw; max-width:20vw; height:80vh; max-height:80vh; overflow-y: auto;">
+            <div style="width:20vw; max-width:20vw; height:75vh; max-height:75vh; overflow-y: auto;">
 
               <label class="class_checkbox_container" style="margin-left:1vw; margin-top:1vh;">
                 <p style="color: var(--main-sepArea-font-color);">: Use Ratio Numbers [0,1]</p>
-                <input id="id_TestPage_doRatioCheckbox" type="checkbox" checked="checked" onchange="testingSection.newTest_switchRatioType()">
+                <input id="id_TestPage_doRatioCheckbox" type="checkbox" checked="checked" onchange="testingSection.element_singleTest.newTest_switchRatioType()">
                 <span class="class_checkbox_checkmark"></span>
               </label>
 
@@ -82,26 +82,26 @@
                 <div style="display:flex; margin-top:1vh; margin-bottom:1vh; width:100%;">
                   <p style="margin:auto; margin-left: 1vw; margin-right:0.25vw; color: var(--main-sepArea-font-color);">Jump Value:</p>
                   <input id="id_TestPage_NewJumpValue" type="number" name="JumpValue"  step="any" value="0.1" style=" width : 5vw; margin:auto; margin-left:0.25vw;  margin-right:0.25vw;">
-                  <button class="class_coloredButton_Dark" onclick="testingSection.addJumpToSet()" style="margin-right:0.25vw; padding-left:0.5vw; padding-right:0.5vw;">+</button>
-                  <button class="class_coloredButton_Dark" onclick="testingSection.removeJumpFromSet()" style="margin-right:auto; padding-left:0.5vw; padding-right:0.5vw;">-</button>
+                  <button class="class_coloredButton_Dark" onclick="testingSection.element_singleTest.addJumpToSet()" style="margin-right:0.25vw; padding-left:0.5vw; padding-right:0.5vw;">+</button>
+                  <button class="class_coloredButton_Dark" onclick="testingSection.element_singleTest.removeJumpFromSet()" style="margin-right:auto; padding-left:0.5vw; padding-right:0.5vw;">-</button>
                 </div>
               </div>
 
 
               <div id="id_TestPage_FctSelection_Div" style="display:flex; margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
                 <p  style="margin:auto; margin-left: 1vw; margin-right: 0.25vw; color: var(--main-sepArea-font-color);">Function:</p>
-                <select id="id_TestPage_FctSelection" onchange="testingSection.updateFunctionSelection()" style="margin-left: 0.25vw; margin-right: auto;">
+                <select id="id_TestPage_FctSelection" onchange="testingSection.element_singleTest.updateFunctionSelection()" style="margin-left: 0.25vw; margin-right: auto;">
                 </select>
               </div>
 
               <div id="id_TestPage_Dimension_Div"  style="width:100%;">
                   <div style="display:flex; margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
                     <p id="id_TestPage_GridDimXLabel" style="margin:auto; margin-left:1vw; margin-right:0.25vw; width:10vw; color: var(--main-sepArea-font-color);">Grid X-Dim:</p>
-                    <input id="id_TestPage_GridDimX" type="number" name="GridDimX" min="2" step="1" value="10" style="margin-left: 0.25vw; width:8vw; margin-right:auto;" onchange="testingSection.updateTestVariables()">
+                    <input id="id_TestPage_GridDimX" type="number" name="GridDimX" min="2" step="1" value="10" style="margin-left: 0.25vw; width:8vw; margin-right:auto;" onchange="testingSection.element_singleTest.updateTestVariables()">
                   </div>
                   <div style="display:flex; margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
                     <p id="id_TestPage_GridDimYLabel" style="margin:auto; margin-left:1vw; margin-right:0.25vw; width:10vw; color: var(--main-sepArea-font-color);">Grid Y-Dim:</p>
-                    <input id="id_TestPage_GridDimY" type="number" name="GridDimY" min="2" step="1" value="10" style="margin-left: 0.25vw; width:8vw; margin-right:auto;" onchange="testingSection.updateTestVariables()">
+                    <input id="id_TestPage_GridDimY" type="number" name="GridDimY" min="2" step="1" value="10" style="margin-left: 0.25vw; width:8vw; margin-right:auto;" onchange="testingSection.element_singleTest.updateTestVariables()">
                   </div>
               </div>
 
@@ -121,33 +121,33 @@
               <div id="id_TestPage_NewTest_subDiv1" style="width:100%;">
 
                 <div id="id_TestPage_fitToCMS_Div" style="margin-left: 1vw; display:flex; margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
-                  <input id="id_TestPage_fitToCMS" type="checkbox" name="id_TestPage_DoRatio" value="doRatio" onchange="testingSection.updateTestVariables()">
+                  <input id="id_TestPage_fitToCMS" type="checkbox" name="id_TestPage_DoRatio" value="doRatio" onchange="testingSection.element_singleTest.updateTestVariables()">
                   <p style="margin-top:auto; margin-bottom:auto; margin-right: 0.25vw; color: var(--main-sepArea-font-color);">map to CMS Range</p>
                 </div>
 
                   <div id="id_TestPage_NewTest_D1" style="display:flex; margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
                     <p id="id_TestPage_NewTest_V1" style="margin:auto; margin-left:1vw; margin-right:0.25vw; width:10vw; color: var(--main-sepArea-font-color);"></p>
-                    <input id="id_TestPage_NewTest_I1" style="margin-left: 0.25vw; width:8vw; margin-right:auto;" type="number" name="inputV1"  step="any" value="0.1" onchange="testingSection.updateTestVariables()">
+                    <input id="id_TestPage_NewTest_I1" style="margin-left: 0.25vw; width:8vw; margin-right:auto;" type="number" name="inputV1"  step="any" value="0.1" onchange="testingSection.element_singleTest.updateTestVariables()">
                   </div>
 
                   <div id="id_TestPage_NewTest_D2" style="display:flex; margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
                     <p id="id_TestPage_NewTest_V2" style="margin:auto; margin-left:1vw; margin-right:0.25vw; width:10vw; color: var(--main-sepArea-font-color);"></p>
-                    <input id="id_TestPage_NewTest_I2" style="margin-left: 0.25vw; width:8vw; margin-right:auto;" type="number" name="inputV2"  step="any" value="0.1" onchange="testingSection.updateTestVariables()">
+                    <input id="id_TestPage_NewTest_I2" style="margin-left: 0.25vw; width:8vw; margin-right:auto;" type="number" name="inputV2"  step="any" value="0.1" onchange="testingSection.element_singleTest.updateTestVariables()">
                   </div>
 
                   <div id="id_TestPage_NewTest_D3" style="display:flex; margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
                     <p id="id_TestPage_NewTest_V3" style="margin:auto; margin-left:1vw; margin-right:0.25vw; width:10vw; color: var(--main-sepArea-font-color);"></p>
-                    <input id="id_TestPage_NewTest_I3" style="margin-left: 0.25vw; width:8vw; margin-right:auto;" type="number" name="inputV3"  step="any" value="0.1" onchange="testingSection.updateTestVariables()">
+                    <input id="id_TestPage_NewTest_I3" style="margin-left: 0.25vw; width:8vw; margin-right:auto;" type="number" name="inputV3"  step="any" value="0.1" onchange="testingSection.element_singleTest.updateTestVariables()">
                   </div>
 
                   <div id="id_TestPage_NewTest_D4" style="display:flex; margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
                     <p id="id_TestPage_NewTest_V4" style="margin:auto; margin-left:1vw; margin-right:0.25vw; width:10vw; color: var(--main-sepArea-font-color);"></p>
-                    <input id="id_TestPage_NewTest_I4" style="margin-left: 0.25vw; width:8vw; margin-right:auto;" type="number" name="inputV4"  step="any" value="0.1" onchange="testingSection.updateTestVariables()">
+                    <input id="id_TestPage_NewTest_I4" style="margin-left: 0.25vw; width:8vw; margin-right:auto;" type="number" name="inputV4"  step="any" value="0.1" onchange="testingSection.element_singleTest.updateTestVariables()">
                   </div>
 
                   <div id="id_TestPage_NewTest_D5" style="display:flex; margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
                     <p id="id_TestPage_NewTest_V5" style="margin:auto; margin-left:1vw; margin-right:0.25vw; width:10vw; color: var(--main-sepArea-font-color);"></p>
-                    <input id="id_TestPage_NewTest_I5" style="margin-left: 0.25vw; width:8vw; margin-right:auto;" type="number" name="inputV5"  step="any" value="0.1" onchange="testingSection.updateTestVariables()">
+                    <input id="id_TestPage_NewTest_I5" style="margin-left: 0.25vw; width:8vw; margin-right:auto;" type="number" name="inputV5"  step="any" value="0.1" onchange="testingSection.element_singleTest.updateTestVariables()">
                   </div>
 
                   <div id="id_TestPage_XFctType_Div" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
@@ -157,15 +157,15 @@
                     <div style="display:flex; width:100%;">
                         <div style="margin:auto;">
                           <label class="class_radio_container"><p id="id_TestPage_NewTest_XTypeL1" style="color: var(--main-sepArea-font-color);"> : Linear</p>
-                            <input type="radio" checked="checked" name="mTypeRatioButtons" id="id_TestPage_NewTest_XType1" onchange="testingSection.updateTestVariables()">
+                            <input type="radio" checked="checked" name="mTypeRatioButtons" id="id_TestPage_NewTest_XType1" onchange="testingSection.element_singleTest.updateTestVariables()">
                             <span class="class_radio_checkmark"></span>
                           </label>
                           <label class="class_radio_container"><p id="id_TestPage_NewTest_XTypeL2" style="color: var(--main-sepArea-font-color);"> : Arc</p>
-                            <input type="radio" checked="checked" name="mTypeRatioButtons" id="id_TestPage_NewTest_XType2" onchange="testingSection.updateTestVariables()">
+                            <input type="radio" checked="checked" name="mTypeRatioButtons" id="id_TestPage_NewTest_XType2" onchange="testingSection.element_singleTest.updateTestVariables()">
                             <span class="class_radio_checkmark"></span>
                           </label>
                           <label class="class_radio_container"><p id="id_TestPage_NewTest_XTypeL3" style="color: var(--main-sepArea-font-color);"> : Peak</p>
-                            <input type="radio" checked="checked" name="mTypeRatioButtons" id="id_TestPage_NewTest_XType3" onchange="testingSection.updateTestVariables()">
+                            <input type="radio" checked="checked" name="mTypeRatioButtons" id="id_TestPage_NewTest_XType3" onchange="testingSection.element_singleTest.updateTestVariables()">
                             <span class="class_radio_checkmark"></span>
                           </label>
                         </div>
@@ -183,15 +183,15 @@
                     <div style="display:flex; width:100%;">
                         <div style="margin:auto;">
                           <label class="class_radio_container"><p id="id_TestPage_NewTest_YTypeL1" style="color: var(--main-sepArea-font-color);"> : Linear</p>
-                            <input type="radio" checked="checked" name="MTypeRatioButtons" id="id_TestPage_NewTest_YType1" onchange="testingSection.updateTestVariables()">
+                            <input type="radio" checked="checked" name="MTypeRatioButtons" id="id_TestPage_NewTest_YType1" onchange="testingSection.element_singleTest.updateTestVariables()">
                             <span class="class_radio_checkmark"></span>
                           </label>
                           <label class="class_radio_container"><p id="id_TestPage_NewTest_YTypeL2" style="color: var(--main-sepArea-font-color);"> : Hunch</p>
-                            <input type="radio" checked="checked" name="MTypeRatioButtons" id="id_TestPage_NewTest_YType2" onchange="testingSection.updateTestVariables()">
+                            <input type="radio" checked="checked" name="MTypeRatioButtons" id="id_TestPage_NewTest_YType2" onchange="testingSection.element_singleTest.updateTestVariables()">
                             <span class="class_radio_checkmark"></span>
                           </label>
                           <label class="class_radio_container"><p id="id_TestPage_NewTest_YTypeL3" style="color: var(--main-sepArea-font-color);"> : Crook</p>
-                            <input type="radio" checked="checked" name="MTypeRatioButtons" id="id_TestPage_NewTest_YType3" onchange="testingSection.updateTestVariables()">
+                            <input type="radio" checked="checked" name="MTypeRatioButtons" id="id_TestPage_NewTest_YType3" onchange="testingSection.element_singleTest.updateTestVariables()">
                             <span class="class_radio_checkmark"></span>
                           </label>
                         </div>
@@ -216,7 +216,7 @@
                   <hr style="color: var(--main-sepArea-font-color);">
                   <div style="display:flex; width: 100%;  margin-top:0.5vh;">
                     <p style="margin:auto; margin-left:1vw; margin-right:0.25vw; width:10vw; color: var(--main-sepArea-font-color);">Noise-Type:</p>
-                    <select id="id_Test_NoiseType" onchange="testingSection.updateTestVariables()" style="margin-left: 0.25vw; width:8vw; margin-right:auto;">
+                    <select id="id_Test_NoiseType" onchange="testingSection.element_singleTest.updateNoise()" style="margin-left: 0.25vw; width:8vw; margin-right:auto;">
                           <option value="0">No Noise</option>
                           <option value="1">Random</option>
                           <option value="2" >Simplex Noise</option>
@@ -227,7 +227,7 @@
 
                     <div style="display:flex; width: 100%;  margin-top:0.5vh;">
                       <p style="margin:auto; margin-left:1vw; margin-right:0.25vw; width:10vw; color: var(--main-sepArea-font-color);">Noise-Behavior:</p>
-                      <select id="id_Test_NoiseBehavior" onchange="testingSection.updateTestVariables()" style="margin-left: 0.25vw; width:8vw; margin-right:auto;">
+                      <select id="id_Test_NoiseBehavior" onchange="testingSection.element_singleTest.updateNoise()" style="margin-left: 0.25vw; width:8vw; margin-right:auto;">
                             <option value="0">Additional (Local)</option>
                             <option value="1">Additional (Global)</option>
                             <option id="id_Test_NoiseBehaviorReplacing" value="2">Replacing</option>
@@ -237,7 +237,7 @@
 
                     <div id="id_Test_NoiseDistributionDiv" style="display:flex; width: 100%; margin-top:0.5vh;">
                       <p style="margin:auto; margin-left:1vw; margin-right:0.25vw; width:10vw; color: var(--main-sepArea-font-color);">Distribution:</p>
-                      <select id="id_Test_NoiseDistribution" onchange="testingSection.updateTestVariables()" style="margin-left: 0.25vw; width:8vw; margin-right:auto;">
+                      <select id="id_Test_NoiseDistribution" onchange="testingSection.element_singleTest.updateNoise()" style="margin-left: 0.25vw; width:8vw; margin-right:auto;">
                             <option value="0">Uniform</option>
                             <option value="1">Normal</option>
                             <option value="2">Beta</option>
@@ -248,27 +248,27 @@
 
                     <div id="id_Test_NoiseProportionDiv" style="display:flex; width: 100%; margin-top:0.5vh;">
                       <p style="margin:auto; margin-left:1vw; margin-right:0.25vw; width:10vw; color: var(--main-sepArea-font-color);">Proportion:</p>
-                      <input id="id_Test_NoiseProportion"type="range" step="0.01" min="0" max="1" value="0.25" style="margin-left: 0.25vw; width:8vw; margin-right:auto;" onchange="testingSection.updateTestVariables()">
+                      <input id="id_Test_NoiseProportion"type="range" step="0.01" min="0" max="1" value="0.25" style="margin-left: 0.25vw; width:8vw; margin-right:auto;" onchange="testingSection.element_singleTest.updateNoise()">
                     </div>
 
                     <div id="id_Test_NoiseScalingDiv" style="display:flex; width: 100%; margin-top:0.5vh;">
                       <p style="margin:auto; margin-left:1vw; margin-right:0.25vw; width:10vw; color: var(--main-sepArea-font-color);">Scaling:</p>
-                      <input id="id_Test_NoiseScaling" type="range" step="1" min="1" max="100" value="1" style="margin-left: 0.25vw; width:8vw; margin-right:auto;" onchange="testingSection.updateTestVariables()">
+                      <input id="id_Test_NoiseScaling" type="range" step="1" min="1" max="100" value="1" style="margin-left: 0.25vw; width:8vw; margin-right:auto;" onchange="testingSection.element_singleTest.updateNoise()">
                     </div>
 
                     <div id="id_Test_NoiseValueRangeDiv1" style="display:flex; width: 100%; margin-top:0.5vh;">
                       <p style="margin:auto; margin-left:1vw; margin-right:0.25vw; width:10vw; color: var(--main-sepArea-font-color);">From:</p>
-                      <input id="id_TestPage_Noise_ReplaceFromValue" type="number" name="inputV4"  step="any" value="0" style="margin-left: 0.25vw; width:8vw; margin-right:auto;" onchange="testingSection.updateTestVariables()">
+                      <input id="id_TestPage_Noise_ReplaceFromValue" type="number" name="inputV4"  step="any" value="0" style="margin-left: 0.25vw; width:8vw; margin-right:auto;" onchange="testingSection.element_singleTest.updateNoise()">
                     </div>
 
                     <div id="id_Test_NoiseValueRangeDiv2" style="display:flex; width: 100%; margin-top:0.5vh;">
                       <p style="margin:auto; margin-left:1vw; margin-right:0.25vw; width:10vw; color: var(--main-sepArea-font-color);">Till:</p>
-                      <input id="id_TestPage_Noise_ReplaceTillValue" type="number" name="inputV4"  step="any" value="1" style="margin-left: 0.25vw; width:8vw; margin-right:auto;" onchange="testingSection.updateTestVariables()">
+                      <input id="id_TestPage_Noise_ReplaceTillValue" type="number" name="inputV4"  step="any" value="1" style="margin-left: 0.25vw; width:8vw; margin-right:auto;" onchange="testingSection.element_singleTest.updateNoise()">
                     </div>
 
                     <div id="id_Test_NoiseMaxChangeDiv" style="display:flex; width: 100%; margin-top:0.5vh;">
                       <p style="margin:auto; margin-left:1vw; margin-right:0.25vw; width:10vw; color: var(--main-sepArea-font-color);">Maximal Change:</p>
-                      <input id="id_Test_NoiseMaxChange" type="range" step="0.001" min="0" max="1" value="0.5" style="margin-left: 0.25vw; width:8vw; margin-right:auto;" style="width:8vw; margin-right:auto;" onchange="testingSection.updateTestVariables()">
+                      <input id="id_Test_NoiseMaxChange" type="range" step="0.001" min="0" max="1" value="0.5" style="margin-left: 0.25vw; width:8vw; margin-right:auto;" style="width:8vw; margin-right:auto;" onchange="testingSection.element_singleTest.updateNoise()">
                     </div>
 
                     <div style="display:flex; width: 100%; margin-top:0.5vh;">
@@ -286,8 +286,11 @@
                 </div>
 
             </div>
-            <div style="width:20vw; max-width:20vw; height:5vh;">
-              <button class="class_coloredButton_Dark" onclick="testingSection.addTestToCollection()" style=" display:none; width:90%; margin-left:5%; margin-top:1vh; height:3vh; line-height:3vh; font-size:2vh; margin-bottom:1vh; border: 0.2vh solid var(--main-sepArea-border);">Add To Collection</button>
+            <div style="width:20vw; max-width:20vw; height:5vh; display:flex;">
+              <button id="id_TestPage_CalcButton" class="class_coloredButton_Dark" onclick="testingSection.element_singleTest.updateElement()" style="width:90%; margin-left:5%; margin-top:1vh; height:3vh; line-height:3vh; font-size:2vh; margin-bottom:1vh; border: 0.2vh solid var(--main-sepArea-border);">Calc Field</button>
+            </div>
+            <div style="width:20vw; max-width:20vw; height:5vh; display:flex;">
+              <button class="class_coloredButton_Dark" onclick="testingSection.element_singleTest.addTestToReport()" style="width:90%; margin-left:5%; margin-top:1vh; height:3vh; line-height:3vh; font-size:2vh; margin-bottom:1vh; border: 0.2vh solid var(--main-sepArea-border);">Add To Report</button>
             </div>
         </div>
 
@@ -297,12 +300,12 @@
             <p style="margin:auto; color: var(--main-sepArea-font-color);">Visualization : </p>
 
             <label class="class_radio_container" style="margin:auto; color: var(--main-sepArea-font-color);"> Pixel-Image
-              <input type="radio" checked="checked" name="textVisType" id="id_TestVisualization_Pixel" onchange="testingSection.updateTestVis()">
+              <input type="radio" checked="checked" name="textVisType" id="id_TestVisualization_Pixel" onchange="testingSection.element_singleTest.updateTestVis()">
               <span class="class_radio_checkmark"></span>
             </label>
 
             <label class="class_radio_container" style="margin:auto; color: var(--main-sepArea-font-color); visibility:hidden;"> Triangle-Grid
-              <input disabled type="radio" name="textVisType" id="id_TestVisualization_Mesh" onchange="testingSection.updateTestVis()">
+              <input disabled type="radio" name="textVisType" id="id_TestVisualization_Mesh" onchange="testingSection.element_singleTest.updateTestVis()">
               <span class="class_radio_checkmark"></span>
             </label>
 
@@ -311,13 +314,13 @@
           <div style="display:flex; width:100%; height:3vh; border-bottom:0.2vh solid var(--menue-bg-color); background: var(--main-sepArea-bg);">
             <div style="display:flex; width:50%;">
               <div id="id_TestPage_HightmapButton" class="class_Test_RenderButton" title="Modus 2D,Hightmap" onclick="switchHightmap()">3D</div>
-              <a id="id_Test_downloadScreenshot" onclick="testingSection.downloadTestImage()" download="CCC_Tool_TestImage.png" class="class_Test_RenderButton" title="Screenshot">&#9688;</a>
+              <a id="id_Test_downloadScreenshot" onclick="testingSection.element_singleTest.downloadTestImage()" download="CCC_Tool_TestImage.png" class="class_Test_RenderButton" title="Screenshot">&#9688;</a>
               <div class="class_Test_RenderButton" title="Fullscreen" onclick="openFullTestMappingScreen()">&#9723;</div>
               <div id="id_Test_showHideAxis" class="class_Test_RenderButton" onclick="showTestingAxis()" title="Show/Hide Axis" >&#9531;</div>
               <div id="id_Test_showBoundingBox" class="class_Test_RenderButton" onclick="showTestingBoundingBox()" title="Show/Hide Bounding Box" >&#9635;</div>
             </div>
             <div style="display:flex; width:50%;">
-              <a id="id_Test_downloadScreenshotGrey" onclick="testingSection.downloadTestImageGrey()" download="CCC_Tool_TestImage_GreyScaled.png" class="class_Test_RenderButton" title="Screenshot" >&#9688;</a>
+              <a id="id_Test_downloadScreenshotGrey" onclick="testingSection.element_singleTest.downloadTestImageGrey()" download="CCC_Tool_TestImage_GreyScaled.png" class="class_Test_RenderButton" title="Screenshot" >&#9688;</a>
             </div>
           </div>
 
@@ -374,13 +377,18 @@
     Back
   </div>
 
-  <div id="id_Test_SwitchToCollection" class="class_coloredButton" onclick="testingSection.showCollection()" style="margin:auto; height:5vh; line-height:5vh; font-size: 3vh; width:20vw; margin-right:0vw;">
+  <div id="id_Test_SwitchToCollection" class="class_coloredButton" onclick="testingSection.element_testCollection.showElement()" style="margin:auto; height:5vh; line-height:5vh; font-size: 3vh; width:18vw; margin-right:0vw;">
     Collection
   </div>
 
-  <div id="id_Test_SwitchToSingleTest" class="class_coloredButton" onclick="testingSection.showSingleTesting()" style="margin:auto; height:5vh; line-height:5vh; font-size: 3vh; width:20vw;">
+  <div id="id_Test_SwitchToSingleTest" class="class_coloredButton" onclick="testingSection.element_singleTest.showElement()" style="margin:auto; height:5vh; line-height:5vh; font-size: 3vh; width:18vw; margin-right:0vw;">
     Interactive Testing
   </div>
+
+  <div id="id_Test_SwitchToReport" class="class_coloredButton" onclick="testingSection.element_testReport.showElement()" style="margin:auto; height:5vh; line-height:5vh; font-size: 3vh; width:18vw;">
+    Report
+  </div>
+
 </div>
 
 <!--div id="id_Test_Map" style="width:97vw; height:90vh; position:absolute; position: fixed; z-index:101; top:10vh; left:0vw; background: var(--main-popUpWindow-bg-color); display:none;">

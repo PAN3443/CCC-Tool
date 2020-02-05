@@ -40,9 +40,7 @@ var errorMath = 1e12;
 
 
 self.addEventListener('message', function(e) {
-
   switch (e.data.message) {
-
     case "init":
       self.importScripts('../../../global/worker_helper/general_processingCases.js');
       self.importScripts('workerFunctions_testing.js');
@@ -157,7 +155,6 @@ self.addEventListener('message', function(e) {
 
       var answerJSON = {};
       answerJSON['type'] = e.data.visType;
-      console.log("Single Test Worker : ",e.data.visType);
       switch (e.data.visType) {
         case "pixel":
           answerJSON['canvasID'] = "id_Test_PixelCanvas";

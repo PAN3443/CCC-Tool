@@ -1,4 +1,4 @@
-class class_Edit_Part_Basis {
+class class_Edit_Part_Basis{
 
   constructor(divID,parentID) {
     this.partDivID=divID;
