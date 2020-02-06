@@ -86,21 +86,6 @@ class class_Testing_Element_Basis {
     ];
   }
 
-  inform_Worker_GetVisualisation(){
-    var workerJSON = {};
-    workerJSON['message'] = "getVisData";
-
-    if(document.getElementById("id_TestVisualization_Pixel").checked)
-      workerJSON['visType'] = "pixel";
-    else{
-      workerJSON['visType'] = "mesh";
-      workerJSON['do3DTestField'] = this.do3DTestField;
-      workerJSON['scalefactor3DTest'] = this.scalefactor3DTest;
-
-    }
-    return workerJSON;
-  }
-
   updateElement(){
 
   }

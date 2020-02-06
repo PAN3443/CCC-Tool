@@ -283,10 +283,6 @@ class class_Edit_Section extends class_Edit_Basis_Section {
     }
   }
 
-  clear(){
-
-  }
-
   saveAsNew(){
     if(!myDesignsSection.checkMyDesignLimit()){
       myDesignsSection.pushCMS(cloneCMS(this.editCMS));

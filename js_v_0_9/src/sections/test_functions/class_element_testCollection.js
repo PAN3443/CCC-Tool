@@ -66,13 +66,13 @@ class class_Element_Collection extends class_Testing_Element_Basis {
 
     //////////////////////////////////////////////////
     /// Worker
-    this.worker_testCollection_CCCTest = new Worker(version_JS_FolderName+"/src/sections/test_functions/worker/worker_PreviewTesting.js", { type: "module" });
+    this.worker_testCollection_CCCTest = new Worker(version_JS_FolderName+"/src/sections/test_functions/worker/worker_PreviewTesting.js");//, { type: "module" });
     this.worker_testCollection_CCCTest.postMessage({'message':'init', 'initOption1' : 'CCCTest'});
     this.worker_testCollection_CCCTest.addEventListener('message', workerEvent_DrawPreviewTestfunction, false);
-    this.worker_testCollection_Collection = new Worker(version_JS_FolderName+"/src/sections/test_functions/worker/worker_PreviewTesting.js", { type: "module" });
+    this.worker_testCollection_Collection = new Worker(version_JS_FolderName+"/src/sections/test_functions/worker/worker_PreviewTesting.js");//, { type: "module" });
     this.worker_testCollection_Collection.postMessage({'message':'init', 'initOption1' : 'Collection'});
     this.worker_testCollection_Collection.addEventListener('message', workerEvent_DrawPreviewTestfunction, false);
-    this.worker_testCollection_RealWorldData = new Worker(version_JS_FolderName+"/src/sections/test_functions/worker/worker_PreviewTesting.js", { type: "module" });
+    this.worker_testCollection_RealWorldData = new Worker(version_JS_FolderName+"/src/sections/test_functions/worker/worker_PreviewTesting.js");//, { type: "module" });
     this.worker_testCollection_RealWorldData.postMessage({'message':'init', 'initOption1' : 'RealData'});
     this.worker_testCollection_RealWorldData.addEventListener('message', workerEvent_DrawPreviewTestfunction, false);
 
@@ -102,6 +102,15 @@ class class_Element_Collection extends class_Testing_Element_Basis {
 
   /////////////////////////////////////
   ///// Worker Functions
+
+  /*inform_Worker_GetVisualisation(){
+    var workerJSON = {};
+    workerJSON['message'] = "getVisData";
+
+    workerJSON['visType'] = "pixel";
+
+    return workerJSON;
+  }*/
 
   inform_Worker_PushTestingCanvas(canvasID){
     var workerJSON = {};

@@ -4,6 +4,7 @@ class class_MyDesigns_Section extends class_Section {
     super('id_myDesignsPage');
     this.myDesignsList=[];
     this.maxNum = 10;
+    this.selectedCMSID=undefined;
     this.checkLocalStorage();
   }
 
@@ -32,11 +33,13 @@ class class_MyDesigns_Section extends class_Section {
       return true;
   }
 
-  deleteCMS(index){
-    this.myDesignsList[index].deleteReferences();
-    this.myDesignsList[index]=null;
-    this.myDesignsList.splice(index, 1);
-    this.updateSection();
+  deleteSelectedCMS(){
+    if(this.selectedCMSID!=undefined || this.selectedCMSID<this.myDesignsList.length){
+      this.myDesignsList[this.selectedCMSID].deleteReferences();
+      this.myDesignsList[this.selectedCMSID]=null;
+      this.myDesignsList.splice(this.selectedCMSID, 1);
+      this.updateSection();
+    }
   }
 
   deleteMyDesignsList(){
@@ -117,14 +120,10 @@ class class_MyDesigns_Section extends class_Section {
         this.myDesignsList[i-1].drawCMS_BandSketch("myDesignObj_CMSsketch_"+(i-1));
       }
 
-
       ////////////////////////////////////////////
       //// HERE UPDATE LOCAL STORAGE
       //////////////////////////////////////
-
     }
-
-
   }
 
   showHelp(){
@@ -186,17 +185,17 @@ class class_MyDesigns_Section extends class_Section {
     tmpCMSDelete.title = 'Delete CMS';
     tmpCMSDelete.innerHTML="X";
 
-    tmpCMSDelete.onclick = (function(cmsID) {
-    return function() {
-       if(cmsID<myDesignsSection.getMyDesignLength()){
-         document.getElementById("id_PopUp_AskCheck").onclick = (function (cmsID){
-           closeAsk();
-           myDesignsSection.deleteCMS(cmsID);
-         })(cmsID);
-         document.getElementById("id_askText").innerHTML="Do you really want to delete the colormap?";
-         openAskWindow();
-       }
-    };
+    tmpCMSDelete.onclick = (function(id){
+      return function(){
+        myDesignsSection.selectedCMSID=id;
+        document.getElementById("id_PopUp_AskCheck").onclick = function (){
+          closeAsk();
+          myDesignsSection.deleteSelectedCMS();
+          myDesignsSection.updateSection();
+        };
+        document.getElementById("id_askText").innerHTML="Do you really want to delete the colormap?";
+        openAskWindow();
+      };
     })(id);
 
     tmpLabelDiv.appendChild(tmpLabel);

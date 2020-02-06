@@ -52,6 +52,8 @@ window.onresize = function(event) {
     optiSection.resize();
     probeSection.resize();
 
+    testingSection.resize();
+
 
 
     /*if(document.getElementById("id_EditPage").style.display!="none"){

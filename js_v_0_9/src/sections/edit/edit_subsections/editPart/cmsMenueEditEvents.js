@@ -33,7 +33,8 @@ function clearColormap(){
   if(editSection.editCMS.getKeyLength()>0){
     document.getElementById("id_PopUp_AskCheck").onclick = function (){
       closeAsk();
-      myDesignsSection.deleteCMS(askIndex);
+      editSection.editCMS.clear();
+      editSection.updateSection();
     }
     document.getElementById("id_askText").innerHTML="Do you really want to clear the CMS?";
     openAskWindow();

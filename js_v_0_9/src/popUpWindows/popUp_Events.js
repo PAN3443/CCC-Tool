@@ -32,7 +32,7 @@ function openFullTestMappingScreen(text){
   document.getElementById("id_PopUp_fullTestingWindow").style.display="flex";
 
   if(document.getElementById("id_TestVisualization_Mesh").checked){
-    updateTestMappingCanvas(true);
+    testingSection.element_singleTest.tm_3D_Resize();
   }
 
 }
@@ -41,7 +41,7 @@ function closeFullTestMappingScreen(){
   document.getElementById("id_PopUp_fullTestingWindow").style.display="none";
 
   if(document.getElementById("id_TestVisualization_Mesh").checked)
-    updateTestMappingCanvas(false);
+    testingSection.element_singleTest.tm_3D_Resize();
 }
 
 //////////////////////////////////////

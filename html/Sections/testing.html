@@ -304,8 +304,8 @@
               <span class="class_radio_checkmark"></span>
             </label>
 
-            <label class="class_radio_container" style="margin:auto; color: var(--main-sepArea-font-color); visibility:hidden;"> Triangle-Grid
-              <input disabled type="radio" name="textVisType" id="id_TestVisualization_Mesh" onchange="testingSection.element_singleTest.updateTestVis()">
+            <label class="class_radio_container" style="margin:auto; color: var(--main-sepArea-font-color);"> Triangle-Grid
+              <input type="radio" name="textVisType" id="id_TestVisualization_Mesh" onchange="testingSection.element_singleTest.updateTestVis()">
               <span class="class_radio_checkmark"></span>
             </label>
 
@@ -313,14 +313,14 @@
 
           <div style="display:flex; width:100%; height:3vh; border-bottom:0.2vh solid var(--menue-bg-color); background: var(--main-sepArea-bg);">
             <div style="display:flex; width:50%;">
-              <div id="id_TestPage_HightmapButton" class="class_Test_RenderButton" title="Modus 2D,Hightmap" onclick="switchHightmap()">3D</div>
-              <a id="id_Test_downloadScreenshot" onclick="testingSection.element_singleTest.downloadTestImage()" download="CCC_Tool_TestImage.png" class="class_Test_RenderButton" title="Screenshot">&#9688;</a>
+              <div id="id_TestPage_HightmapButton" class="class_Test_RenderButton" title="Modus 2D,Hightmap" onclick="testingSection.element_singleTest.tm_switchHightmap()">3D</div>
+              <a id="id_Test_downloadScreenshot" onclick="testingSection.element_singleTest.tm_screenshot()" download="CCC_Tool_TestImage.png" class="class_Test_RenderButton" title="Screenshot">&#9688;</a>
               <div class="class_Test_RenderButton" title="Fullscreen" onclick="openFullTestMappingScreen()">&#9723;</div>
-              <div id="id_Test_showHideAxis" class="class_Test_RenderButton" onclick="showTestingAxis()" title="Show/Hide Axis" >&#9531;</div>
-              <div id="id_Test_showBoundingBox" class="class_Test_RenderButton" onclick="showTestingBoundingBox()" title="Show/Hide Bounding Box" >&#9635;</div>
+              <div id="id_Test_showHideAxis" class="class_Test_RenderButton" onclick="testingSection.element_singleTest.tm_showAxis()" title="Show/Hide Axis" >&#9531;</div>
+              <div id="id_Test_showBoundingBox" class="class_Test_RenderButton" onclick="testingSection.element_singleTest.tm_showBB()" title="Show/Hide Bounding Box" >&#9635;</div>
             </div>
             <div style="display:flex; width:50%;">
-              <a id="id_Test_downloadScreenshotGrey" onclick="testingSection.element_singleTest.downloadTestImageGrey()" download="CCC_Tool_TestImage_GreyScaled.png" class="class_Test_RenderButton" title="Screenshot" >&#9688;</a>
+              <a id="id_Test_downloadScreenshotGrey" onclick="testingSection.element_singleTest.tm_screenshotGrey()" download="CCC_Tool_TestImage_GreyScaled.png" class="class_Test_RenderButton" title="Screenshot" >&#9688;</a>
             </div>
           </div>
 
@@ -347,11 +347,11 @@
           <div id="id_Test_MeshVisOptions" style="display:flex; width:100%; height:4vh; background: var(--main-sepArea-bg);">
             <div style="display:flex; width: 50%;">
               <p style="margin:auto; margin-left:1vw; margin-right:1vw; color: var(--main-sepArea-font-color);">Zoom:</p>
-              <input id="id_Test_MeshVisOptions_Zoom"type="range" step="1" min="0" max="100" value="50" style="width:20vw; margin:auto; margin-left:0vw;" onchange="testmappingZoomInput()">
+              <input id="id_Test_MeshVisOptions_Zoom"type="range" step="1" min="0" max="100" value="50" style="width:20vw; margin:auto; margin-left:0vw;" onchange="testingSection.element_singleTest.tm_ZoomInput()">
             </div>
             <div id="id_Test_ScaleFactor_Div" style="display:flex; visibility:hidden; width: 50%;">
               <p style="margin:auto; margin-left:1vw; margin-right:1vw; color: var(--main-sepArea-font-color);">Hight Scale-Factor:</p>
-              <input type="number" id="id_Test_ScaleFactor" style="margin:auto; margin-left:0vw;" name="scalefactor" onchange="changeScaleFactor()">
+              <input type="number" id="id_Test_ScaleFactor" style="margin:auto; margin-left:0vw;" name="scalefactor" onchange="testingSection.element_singleTest.tm_updateScaleFactor()">
             </div>
           </div>
 

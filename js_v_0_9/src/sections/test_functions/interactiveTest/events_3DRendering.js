@@ -3,7 +3,7 @@
 //////////////
 
 
-function addTestToReport() {
+/*function addTestToReport() {
 
   var testLabel = "";
   var testSublabel = "";
@@ -93,4 +93,52 @@ function copyOptions(options) {
     }
   }
   return newOptions;
+}*/
+
+
+function tm_3D_mousemove(event){
+  // calc mouse pos
+  var rect = document.getElementById(event.target.parentNode.id).getBoundingClientRect();
+  testingSection.element_singleTest.tm_3D_Mousemove(event.clientX - rect.left,event.clientY - rect.top,rect.width,rect.height);
+}
+
+function tm_3D_mouseleave(event){
+  testingSection.element_singleTest.tm_doRotation=false;
+  testingSection.element_singleTest.tm_doTranslation=false;
+  enableScroll();
+}
+
+function tm_3D_mouseenter(event){
+  testingSection.element_singleTest.tm_doRotation=false;
+  testingSection.element_singleTest.tm_doTranslation=false;
+  disableScroll();
+}
+
+function tm_3D_mousedown(event){
+  switch (event.which) {
+    case 1:
+      // left mouse click
+          testingSection.element_singleTest.tm_doRotation=true;
+          testingSection.element_singleTest.tm_doTranslation=false;
+      break;
+    case 3:
+      // right mouse click
+          testingSection.element_singleTest.tm_doRotation=false;
+          testingSection.element_singleTest.tm_doTranslation=true;
+      break;
+  }
+}
+
+function tm_3D_mouseup(event){
+  testingSection.element_singleTest.tm_doRotation=false;
+  testingSection.element_singleTest.tm_doTranslation=false;
+}
+
+
+function tm_3D_mousewheel(event){
+    if(event.deltaY>0){
+      testingSection.element_singleTest.tm_3D_zoom(false);
+    } else if(event.deltaY<0){
+      testingSection.element_singleTest.tm_3D_zoom(true);
+    }
 }

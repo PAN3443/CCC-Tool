@@ -51,10 +51,11 @@ function workerEvent_DrawTestfunction(e) {
       document.getElementById("id_TestPage_CalcButton").style.visibility="visible";
       break;
     case "mesh":
-      //drawTransfered_Mesh(e.data.testMappingMeshData); // js/Front/Sections/Testing/3D_TestVis/testImageMapping.js
+      testingSection.element_singleTest.tm_drawMesh(e.data.testMappingMeshData); // js/Front/Sections/Testing/3D_TestVis/testImageMapping.js
       document.getElementById("id_Test_WaitForTestCalculation").style.display="none";
       document.getElementById("id_Test_VisDiv").style.display="flex";
       document.getElementById("id_TestPage_CalcButton").style.visibility="visible";
+      testingSection.element_singleTest.tm_3D_Resize();
     break;
     case "noiseExample":
       var canvas = document.getElementById(e.data.canvasID);

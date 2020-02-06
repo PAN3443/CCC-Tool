@@ -12,48 +12,45 @@ class class_TestFunction_Section extends class_Section {
 
     ///////////////////////////////////////////////
     /// Init
-    /*
-    document.getElementById("id_Test_downloadScreenshot").addEventListener('click', downloadTestImage, false);
-    document.getElementById("id_Test_downloadScreenshotGrey").addEventListener('click', downloadTestImageGrey, false);
-    document.getElementById("id_Test_downloadScreenshotFull").addEventListener('click', downloadTestImage, false);
-    document.getElementById("id_Test_downloadScreenshotGreyFull").addEventListener('click', downloadTestImageGrey, false);*/
-    /*document.getElementById('id_Test_MeshVisDiv').addEventListener('contextmenu', event => event.preventDefault());
-    document.getElementById('id_Test_MeshVisDiv').addEventListener("mousemove", eventTestMapping_mousemove);
-    document.getElementById('id_Test_MeshVisDiv').addEventListener("mouseleave", eventMapping_mouseleave);
-    document.getElementById('id_Test_MeshVisDiv').addEventListener("mouseenter", eventMapping_mouseenter);
-    document.getElementById('id_Test_MeshVisDiv').addEventListener("mousedown", eventMapping_mousedown);
-    document.getElementById('id_Test_MeshVisDiv').addEventListener("mouseup", eventMapping_mouseup);
-    document.getElementById("id_Test_MeshVisDiv").addEventListener("wheel", eventTestMapping_mousewheel);
+    document.getElementById('id_Test_MeshVisDiv').addEventListener('contextmenu', event => event.preventDefault());
+    document.getElementById('id_Test_MeshVisDiv').addEventListener("mousemove", tm_3D_mousemove);
+    document.getElementById('id_Test_MeshVisDiv').addEventListener("mouseleave", tm_3D_mouseleave);
+    document.getElementById('id_Test_MeshVisDiv').addEventListener("mousedown", tm_3D_mousedown);
+    document.getElementById('id_Test_MeshVisDiv').addEventListener("mouseup", tm_3D_mouseup);
+    document.getElementById('id_Test_MeshVisDiv').addEventListener("wheel", tm_3D_mousewheel);
 
     document.getElementById('id_Test_MeshVisDivGrey').addEventListener('contextmenu', event => event.preventDefault());
-    document.getElementById('id_Test_MeshVisDivGrey').addEventListener("mousemove", eventTestMapping_mousemove);
-    document.getElementById('id_Test_MeshVisDivGrey').addEventListener("mouseleave", eventMapping_mouseleave);
-    document.getElementById('id_Test_MeshVisDivGrey').addEventListener("mouseenter", eventMapping_mouseenter);
-    document.getElementById('id_Test_MeshVisDivGrey').addEventListener("mousedown", eventMapping_mousedown);
-    document.getElementById('id_Test_MeshVisDivGrey').addEventListener("mouseup", eventMapping_mouseup);
-    document.getElementById("id_Test_MeshVisDivGrey").addEventListener("wheel", eventTestMapping_mousewheel);
+    document.getElementById('id_Test_MeshVisDivGrey').addEventListener("mousemove", tm_3D_mousemove);
+    document.getElementById('id_Test_MeshVisDivGrey').addEventListener("mouseleave", tm_3D_mouseleave);
+    document.getElementById('id_Test_MeshVisDivGrey').addEventListener("mousedown", tm_3D_mousedown);
+    document.getElementById('id_Test_MeshVisDivGrey').addEventListener("mouseup", tm_3D_mouseup);
+    document.getElementById('id_Test_MeshVisDivGrey').addEventListener("wheel", tm_3D_mousewheel);
 
     document.getElementById('id_Test_MeshVisDivFull').addEventListener('contextmenu', event => event.preventDefault());
-    document.getElementById('id_Test_MeshVisDivFull').addEventListener("mousemove", eventTestMapping_mousemove);
-    document.getElementById('id_Test_MeshVisDivFull').addEventListener("mouseleave", eventMapping_mouseleave);
-    document.getElementById('id_Test_MeshVisDivFull').addEventListener("mouseenter", eventMapping_mouseenter);
-    document.getElementById('id_Test_MeshVisDivFull').addEventListener("mousedown", eventMapping_mousedown);
-    document.getElementById('id_Test_MeshVisDivFull').addEventListener("mouseup", eventMapping_mouseup);
-    document.getElementById("id_Test_MeshVisDivFull").addEventListener("wheel", eventTestMapping_mousewheel);
+    document.getElementById('id_Test_MeshVisDivFull').addEventListener("mousemove", tm_3D_mousemove);
+    document.getElementById('id_Test_MeshVisDivFull').addEventListener("mouseleave", tm_3D_mouseleave);
+    document.getElementById('id_Test_MeshVisDivFull').addEventListener("mousedown", tm_3D_mousedown);
+    document.getElementById('id_Test_MeshVisDivFull').addEventListener("mouseup", tm_3D_mouseup);
+    document.getElementById('id_Test_MeshVisDivFull').addEventListener("wheel", tm_3D_mousewheel);
 
     document.getElementById('id_Test_MeshVisDivGreyFull').addEventListener('contextmenu', event => event.preventDefault());
-    document.getElementById('id_Test_MeshVisDivGreyFull').addEventListener("mousemove", eventTestMapping_mousemove);
-    document.getElementById('id_Test_MeshVisDivGreyFull').addEventListener("mouseleave", eventMapping_mouseleave);
-    document.getElementById('id_Test_MeshVisDivGreyFull').addEventListener("mouseenter", eventMapping_mouseenter);
-    document.getElementById('id_Test_MeshVisDivGreyFull').addEventListener("mousedown", eventMapping_mousedown);
-    document.getElementById('id_Test_MeshVisDivGreyFull').addEventListener("mouseup", eventMapping_mouseup);
-    document.getElementById("id_Test_MeshVisDivGreyFull").addEventListener("wheel", eventTestMapping_mousewheel);*/
+    document.getElementById('id_Test_MeshVisDivGreyFull').addEventListener("mousemove", tm_3D_mousemove);
+    document.getElementById('id_Test_MeshVisDivGreyFull').addEventListener("mouseleave", tm_3D_mouseleave);
+    document.getElementById('id_Test_MeshVisDivGreyFull').addEventListener("mousedown", tm_3D_mousedown);
+    document.getElementById('id_Test_MeshVisDivGreyFull').addEventListener("mouseup", tm_3D_mouseup);
+    document.getElementById('id_Test_MeshVisDivGreyFull').addEventListener("wheel", tm_3D_mousewheel);
     ////// Init interactive Tests
 
     this.element_singleTest = new class_Element_SingleTest("id_Test_SingleTestDiv","id_Test_SwitchToSingleTest");
     this.element_testCollection = new class_Element_Collection("id_Test_FunctionCollection","id_Test_SwitchToCollection");
     this.element_testReport = new class_Element_TestReport("id_Test_ReportDiv","id_Test_SwitchToReport");
 
+  }
+
+  resize(){
+    this.element_singleTest.resize();
+    //this.element_testCollection.resize();
+    //this.element_testReport.resize();
   }
 
 
