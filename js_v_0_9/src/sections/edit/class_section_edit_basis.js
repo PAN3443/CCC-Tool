@@ -65,6 +65,11 @@ class class_Edit_Basis_Section extends class_Section {
     this.drawEditCMSVIS();
 
     this.part_Pathplot.updatePart(false,true, true);
+    this.part_Mapping.updatePart();
+  }
+
+  updateMapping(){
+    this.part_Mapping.updatePart();
   }
 
   getSpecialCMSColor(type,space){
@@ -94,7 +99,7 @@ class class_Edit_Basis_Section extends class_Section {
     }
   }
 
-  changeInterpolationSpace(type){
+  /*updateInterpolationSpace(type){
     var intSpace = "lab";
     switch (type) {
       case 0:
@@ -110,10 +115,21 @@ class class_Edit_Basis_Section extends class_Section {
         intSpace = "hsv";
       break;
     }
-    this.editCMS.setInterpolationSpace(intSpace);
+
+    for (var i = 0; i < document.getElementById("id_EditPage_SelectInterpolationSpace").options.length; i++) {
+      if(document.getElementById("id_EditPage_SelectInterpolationSpace").options[i].value===intSpace){
+        document.getElementById("id_EditPage_SelectInterpolationSpace").selectedIndex=i;
+        this.editCMS.setInterpolationSpace(intSpace);
+        this.updateSection();
+        this.doPagePeculiarity();
+        return;
+      }
+    }
+
+    this.editCMS.setInterpolationSpace("lab");
     this.updateSection();
     this.doPagePeculiarity();
-  }
+  }*/
 
   changeInterpolationType(type){
 

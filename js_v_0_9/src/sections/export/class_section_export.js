@@ -70,13 +70,13 @@ class class_Export_Section extends class_Section {
 
   backToSection(){
     switch (this.backSection) {
-      case "edit":
+      case editSection.sectionID:
         editSection.showSection();
         break;
-        case "gallery":
+        case gallerySection.sectionID:
           gallerySection.showSection();
           break;
-          case "myDesigns":
+          case myDesignsSection.sectionID:
             myDesignsSection.showSection();
             break;
       default:

@@ -10,18 +10,7 @@ function closeAsk(){
   document.getElementById("popupAskWindow").style.display="none";
 }
 
-//////////////////////////////////////
-/// Short Cuts /////
-///////////////////////////////////
 
-function closeShortcutsWindow(){
-  document.getElementById("id_PopUp_ShortcutsWindow").style.display="none";
-}
-
-function openShortcutsWindow(){
-  document.getElementById("id_PopUp_ShortcutsWindow").style.display="flex";
-  updateShortCuts();
-}
 
 //////////////////////////////////////
 /// Full Screen Mapping Vis /////

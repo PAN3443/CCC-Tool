@@ -2,9 +2,11 @@
 /// Shortcuts  Window /////
 ///////////////////////////////////
 
-var sc_label_arrayEdit = ["Undo","Redo","Save CMS","Save As New CMS","Scale CMS","Clear CMS","Export CMS","Change Interpolation Space"];
-var sc_key_arrayEdit = ["z","y","s","d","x","c","e","i"];
-var sc_keyNum_arrayEdit = [90,89,83,68,88,67,69,73];
+
+
+var sc_label_arrayEdit = ["Undo","Redo","Save CMS","Save As New CMS","Scale CMS","Clear CMS","Export CMS","Change Interpolation Space","Change Add Key Modus","Change Remove Key Modus"];
+var sc_key_arrayEdit = ["z","y","s","d","x","c","e","i","+","-"];
+var sc_keyNum_arrayEdit = [90,89,83,68,88,67,69,73,107,109];
 var sc_function_arrayEdit = [
   // Undo
   function(){editSection.undo();},
@@ -22,20 +24,50 @@ var sc_function_arrayEdit = [
   function(){exportEditCMS();},
   //Change Interpolation Space
   function(){
-    console.log("Hello");
-  }
+    switch (editSection.editCMS.getInterpolationSpace()) {
+      case "rgb":
+          editSection.editCMS.setInterpolationSpace("hsv");
+        break;
+        case "hsv":
+            editSection.editCMS.setInterpolationSpace("lab");
+          break;
+          case "lab":
+              editSection.editCMS.setInterpolationSpace("de94-ds");
+            break;
+            case "de94-ds":
+                editSection.editCMS.setInterpolationSpace("de2000-ds");
+              break;
+              case "de2000-ds":
+                  editSection.editCMS.setInterpolationSpace("din99");
+                break;
+                /*case "lch":
+                    editSection.editCMS.setInterpolationSpace("din99");
+                  break;*/
+            case "din99":
+                editSection.editCMS.setInterpolationSpace("rgb");
+              break;
+
+      default:
+          editSection.editCMS.setInterpolationSpace("lab");
+    }
+    editSection.updateSection();
+    editSection.doPagePeculiarity();
+  },
+  // Add Key Modus
+  function(){changeAddKeyModus();},
+  // Remove Key Modus
+  function(){changeRemoveKeyModus();}
 ];
 
 var sc_label_arrayGlobal = ["Navigation"];
 var sc_key_arrayGlobal = ["n"];
 var sc_keyNum_arrayGlobal = [78];
 var sc_function_arrayGlobal = [function(){
-  if(document.getElementById('id_PopUp_navigationWindow').style.display!="none")
+  //if(document.getElementById('id_PopUp_navigationWindow').style.display!="none")
     closeNaviWindow();
-  else
-    openNaviWindow();
+  /*else
+    openNaviWindow();*/
 }];
-
 
 document.onkeydown = keyDownDocumentHandler;
 
@@ -115,4 +147,22 @@ function keyDownDocumentHandler(event){
     //console.log(keynum);
   }
 
+}
+
+function closeShortcutsWindow(){
+  document.getElementById("id_PopUp_ShortcutsWindow").style.display="none";
+}
+
+function openShortcutsWindow(){
+  document.getElementById("id_PopUp_ShortcutsWindow").style.display="flex";
+  document.getElementById("id_PopUp_Shortcuts_Undo_Label").innerHTML= sc_key_arrayEdit[0];
+  document.getElementById("id_PopUp_Shortcuts_Redo_Label").innerHTML= sc_key_arrayEdit[1];
+  document.getElementById("id_PopUp_Shortcuts_Save_Label").innerHTML= sc_key_arrayEdit[2];
+  document.getElementById("id_PopUp_Shortcuts_Scale_Label").innerHTML= sc_key_arrayEdit[4];
+  document.getElementById("id_PopUp_Shortcuts_Clear_Label").innerHTML= sc_key_arrayEdit[5];
+  document.getElementById("id_PopUp_Shortcuts_SaveAsNew_Label").innerHTML= sc_key_arrayEdit[3];
+  document.getElementById("id_PopUp_Shortcuts_Export_Label").innerHTML= sc_key_arrayEdit[6];
+  document.getElementById("id_PopUp_Shortcuts_Interpolation_Label").innerHTML= sc_key_arrayEdit[7];
+  document.getElementById("id_PopUp_Shortcuts_AddKey_Label").innerHTML= sc_key_arrayEdit[8];
+  document.getElementById("id_PopUp_Shortcuts_RemoveKey_Label").innerHTML= sc_key_arrayEdit[9];
 }

@@ -25,6 +25,8 @@ window.onload = function() {
   testingSection = new class_TestFunction_Section();
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Export Section";
   exportSection = new class_Export_Section();
+  document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Tutorial Section";
+  tutorialSection = new class_Tutorials_Section();
 
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Events";
   document.getElementById('id_inputCMSData').addEventListener("change", myDesignsSection.readCMSFile);

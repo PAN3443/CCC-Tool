@@ -103,6 +103,13 @@ class class_Edit_Section extends class_Edit_Basis_Section {
     this.styleEditPage();
   }
 
+  selectInterpolationSpace(){
+    var selectedIndex = document.getElementById("id_EditPage_SelectInterpolationSpace").selectedIndex;
+    this.editCMS.setInterpolationSpace(document.getElementById("id_EditPage_SelectInterpolationSpace").options[selectedIndex].value);
+    this.updateSection();
+    this.doPagePeculiarity();
+  }
+
   setCMS(cms, id) {
     super.setCMS(cms);
     this.myDesignID = id;
@@ -315,7 +322,12 @@ class class_Edit_Section extends class_Edit_Basis_Section {
     document.getElementById('id_edit_cms_SetBelow').style.background = this.editCMS.getAboveColor("rgb").getRGBString();
     document.getElementById('id_edit_cms_SetAbove').style.background = this.editCMS.getBelowColor("rgb").getRGBString();
 
-    document.getElementById("id_edit_SetSpaceLAB").style.background = "var(--main-coloredButton_Dark)";
+    for (var i = 0; i < document.getElementById("id_EditPage_SelectInterpolationSpace").options.length; i++) {
+      if(document.getElementById("id_EditPage_SelectInterpolationSpace").options[i].value===this.editCMS.getInterpolationSpace()){
+        document.getElementById("id_EditPage_SelectInterpolationSpace").selectedIndex=i;
+      }
+    }
+    /*document.getElementById("id_edit_SetSpaceLAB").style.background = "var(--main-coloredButton_Dark)";
     document.getElementById("id_edit_SetSpaceDIN99").style.background = "var(--main-coloredButton_Dark)";
     document.getElementById("id_edit_SetSpaceRGB").style.background = "var(--main-coloredButton_Dark)";
     document.getElementById("id_edit_SetSpaceHSV").style.background = "var(--main-coloredButton_Dark)";
@@ -333,7 +345,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
       case "hsv":
         document.getElementById("id_edit_SetSpaceHSV").style.background = "var(--main-active-coloredButton_Dark)";
       break;
-    }
+    }*/
 
     document.getElementById("id_edit_SetTypeLinear").style.background = "var(--main-coloredButton_Dark)";
     document.getElementById("id_edit_SetTypeSpline").style.background = "var(--main-coloredButton_Dark)";

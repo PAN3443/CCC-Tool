@@ -52,6 +52,8 @@
 
   --main-coloredButton:rgb(40,40,40); /*rgb(76, 175, 80);*/
   --main-coloredFont:rgb(240,240,240);
+  --main-coloredFont-deactivated:rgb(200,200,200);
+  --main-hover-coloredButton-deactivated:rgb(120,120,120);
   --main-hover-coloredButton:red; /*rgb(76, 175, 80);*/
   --main-active-coloredButton:rgb(128, 23, 23); /*rgb(26, 97, 29);*/
   --main-active-coloredButton_Dark:rgb(224, 82, 82); /*rgb(26, 97, 29);*/

@@ -12,7 +12,11 @@ class class_Section {
   }
 
   hideSection() {
-    document.getElementById(this.sectionID).style.display='none';
+    if(this.isSectionOpen()){
+      exportSection.backSection = this.sectionID;
+      tutorialSection.backSection = this.sectionID;
+      document.getElementById(this.sectionID).style.display='none';
+    }
   }
 
   showSection(){
@@ -24,6 +28,8 @@ class class_Section {
     optiSection.hideSection();
     newSection.hideSection();
     testingSection.hideSection();
+    exportSection.hideSection();
+    tutorialSection.hideSection();
     document.getElementById(this.sectionID).style.display='flex';
     this.updateSection();
   }

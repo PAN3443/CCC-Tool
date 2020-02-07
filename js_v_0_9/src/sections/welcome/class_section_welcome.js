@@ -13,4 +13,8 @@ class class_Welcome_Section extends class_Section {
       // later switch images or something like that
   }
 
+  closeInfo(){
+    document.getElementById("id_WelcomePage_Info").style.display="none";
+  }
+
 };

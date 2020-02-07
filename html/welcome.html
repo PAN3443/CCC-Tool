@@ -44,7 +44,7 @@
             <div style="display:flex; height: 20vh; margin-bottom: 5px; display:flex;">
               <button onclick="switchSection(1)" class="class_coloredButton" style="height:100%; width:40%; font-size: 3vh; margin:auto; margin-right:5px;">Begin</button>
 
-              <button onclick="openTutorialWindow()" class="class_coloredButton" style="height:100%; width:40%; font-size: 3vh; margin:auto; margin-left:0px;">Tutorials</button>
+              <button onclick="tutorialSection.showSection()" class="class_coloredButton" style="height:100%; width:40%; font-size: 3vh; margin:auto; margin-left:0px;">Tutorials</button>
             </div>
 
             <div style="display:flex; height: 20vh; margin-top: 0px; display:flex;">
@@ -232,4 +232,11 @@
   </div>
 
 
+</div>
+
+
+<div id="id_WelcomePage_Info" class="class_dropDownContent" style="height: 20vh; width:20vw; background:rgb(128, 23, 23); top:0px; float:right; padding-top:0.5vh; padding-bottom:0.5vh; display:flex; display:none; flex-direction:column;">
+  <p style="color:black;">Info (Beta Test):</p>
+
+  <button class="class_coloredButton" onclick="welcomeSection.closeInfo()" style="width:10vw; margin:auto;"> close </button>
 </div>

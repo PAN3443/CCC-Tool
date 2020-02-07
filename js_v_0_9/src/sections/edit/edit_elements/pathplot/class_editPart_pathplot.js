@@ -1291,6 +1291,8 @@ tmpDiv.id=this.partDivID+"_PP_3D";
   ////////////////////////////////////////////////////////////////////////////
 
   pp_3D_GetScreenshot(){
+
+    console.log(123);
     this.pp_3D_StopAnimation();
     var oldSize = this.pp_renderer.getSize();
     this.pp_renderer.setSize(2160, 2160);
@@ -1300,7 +1302,7 @@ tmpDiv.id=this.partDivID+"_PP_3D";
     this.pp_renderer.preserveDrawingBuffer = false;
     this.pp_renderer.setSize(oldSize.width, oldSize.height);
     this.pp_3D_StartAnimation();
-    return pathplotImgData;
+    document.getElementById("id_EditPage_PathplotScreenshot").href=pathplotImgData;
   }
 
   pp_3D_Resize(){
@@ -1455,7 +1457,5 @@ tmpDiv.id=this.partDivID+"_PP_3D";
   ////////////////////////////////////////////////////////////////////////////
   ////////////                (End) Pathplot 3D                   ////////////
   ////////////////////////////////////////////////////////////////////////////
-
-
 
 };

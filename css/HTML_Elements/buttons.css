@@ -109,3 +109,29 @@ button:focus {outline:0;}
      -moz-background-clip: text;
           background-clip: text;
 }
+
+
+
+.class_coloredButton_Deactivated{
+  font-family: var(--font-family);
+  background-color: var(--main-coloredButton); /* Green */
+  font-weight:bold;
+  color: var(--main-coloredFont-deactivated);
+  text-align: center;
+  text-decoration: none;
+  /*display: inline-block;*/
+  border:none;
+  height: var(--button-height);
+  line-height: var(--button-height);
+  font-size: var(--button-font-size);
+  vertical-align: middle;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: not-allowed;
+  margin:0px;
+}
+
+.class_coloredButton_Deactivated:hover{
+  transform: scale(0.95);
+  background-color: var(--main-hover-coloredButton-deactivated);
+}

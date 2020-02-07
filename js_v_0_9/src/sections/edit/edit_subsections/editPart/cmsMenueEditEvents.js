@@ -106,6 +106,5 @@ function exportEditCMS(){
     return;
   }
   exportSection.setCMS(clone);
-  exportSection.backSection="edit";
   exportSection.showSection();
 }
