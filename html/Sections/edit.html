@@ -126,8 +126,29 @@
         <!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %%%%%%%%%%%%%%% Analysis	%%%%%%%%%%%%%%%%%
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
-        <div id="id_EditPage_AnalysisDiv" style="display:none; width:85vw; height:65vh; border-right:0.2vh solid var(--main-sepArea-border); box-sizing: border-box;">
+        <div id="id_EditPage_AnalysisDiv" style="display:none; flex-direction:column; width:85vw; height:65vh; border-right:0.2vh solid var(--main-sepArea-border); box-sizing: border-box;">
+          <div style="display:flex; width:100%; height:3vh; background: var(--main-sepArea-bg);">
+            <p style="height:3vh; line-height:3vh; font-size: 2vh; color: var(--main-sepArea-font-color); margin-left:1vw; margin-right:1vw;">Analysis Type:</p>
+            <select id="id_EditPage_SelectAnalysisType" onchange="editSection.part_Analysis.stylePart()" style="width: 10vw; font-size: 2vh; height: 3vh; line-height:3vh; margin:auto; margin-left:0vw;">
+                <optgroup label="Color Space:">
+                  <option value="intSpace">Interpolation Space</option>
+                </optgroup>
+                <optgroup label="Speed:">
+                  <option value="speedBand">Speed Band</option>
+                  <option value="locSpeed">Local Speed</option>
+                  <option value="globSpeed">Global Speed</option>
+                </optgroup>
+                <optgroup label="Order:">
+                  <option value="intOrder">Intrinsic Order</option>
+                </optgroup>
+            </select>
+            <div id="id_EditPage_AnalysisOptions" style="display:flex; height:3vh; margin:auto; margin-right:1vw;">
 
+            </div>
+          </div>
+          <div id="id_EditPage_AnalysisContainer" style="display:flex; height:62vh; width:100%; display:flex;">
+
+          </div>
         </div>
         <!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %%%%%%%%%%%%%%% Mapping	%%%%%%%%%%%%%%%%%
@@ -239,8 +260,8 @@
   <p class="class_EditDropDownMenueSection">Predefined:</p>
   <button id="id_EditPage_DisplayPredefined" class="class_EditDropDownMenueButton" title="Show/Hide Predefined" onclick="changeDisplayPredefined()" style=" height:5vh; width: 100%;  max-width: 22vw; font-size: 3vh; margin-top:0.5vh;">Hide Predefined</button>
   <p class="class_EditDropDownMenueSection">PAM (2 of 3):</p>
-  <button id="id_EditPage_DisplayPathplot" class="class_coloredButton_Deactivated" title="Show/Hide Pathplot" style=" height:5vh; width: 100%;  max-width: 22vw; font-size: 3vh; margin-top:0.5vh;">Hide Pathplot</button><!--onclick="changeDisplayPathplot()"-->
-  <button id="id_EditPage_DisplayAnalysis" class="class_coloredButton_Deactivated" title="Show/Hide Analysis" style=" height:5vh; width: 100%;  max-width: 22vw; font-size: 3vh; margin-top:0.5vh;">Show Analysis</button><!--onclick="changeDisplayAnalysis()"-->
+  <button id="id_EditPage_DisplayPathplot" class="class_coloredButton" title="Show/Hide Pathplot" style=" height:5vh; width: 100%;  max-width: 22vw; font-size: 3vh; margin-top:0.5vh;" onclick="changeDisplayPathplot()">Hide Pathplot</button>
+  <button id="id_EditPage_DisplayAnalysis" class="class_coloredButton" title="Show/Hide Analysis" style=" height:5vh; width: 100%;  max-width: 22vw; font-size: 3vh; margin-top:0.5vh;" onclick="changeDisplayAnalysis()">Show Analysis</button>
   <button id="id_EditPage_DisplayMapping" class="class_coloredButton_Deactivated" title="Show/Hide Mapping" style=" height:5vh; width: 100%;  max-width: 22vw; font-size: 3vh; margin-top:0.5vh;">Show Mapping</button><!--onclick="changeDisplayMapping()"-->
   </div>
 

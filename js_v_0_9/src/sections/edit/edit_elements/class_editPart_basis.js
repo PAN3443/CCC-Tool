@@ -71,13 +71,14 @@ class class_Edit_Part_Basis{
 
   showPart(){
     if(this.partDivID==undefined)
-      return;
+      return false;
 
     var tmpDiv = document.getElementById(this.partDivID);
     if(tmpDiv==null || tmpDiv==undefined)
-      return;
+      return false;
 
     tmpDiv.style.display="flex";
+    return true;
   }
 
   hidePart(){

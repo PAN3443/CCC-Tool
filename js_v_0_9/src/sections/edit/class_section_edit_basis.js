@@ -65,6 +65,7 @@ class class_Edit_Basis_Section extends class_Section {
     this.drawEditCMSVIS();
 
     this.part_Pathplot.updatePart(false,true, true);
+    this.part_Analysis.updatePart();
     this.part_Mapping.updatePart();
   }
 

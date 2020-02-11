@@ -24,6 +24,9 @@ class class_Edit_Section extends class_Edit_Basis_Section {
 
     /// Part: Analysis
     this.showAnalysis = false;
+    this.part_Analysis.partDivID="id_EditPage_AnalysisContainer";
+    this.part_Analysis.optionRowID="id_EditPage_AnalysisOptions";
+
 
     /// Part: Predefined
     this.showPredefined = true;
@@ -177,6 +180,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
             return;
         }
         this.part_Pathplot.pathPlot_Width_VW=possibleWidth;
+        this.part_Analysis.analysis_Width_VW=possibleWidth;
 
         if(this.showPathplot){
           document.getElementById("id_EditPage_PathplotDiv").style.width=possibleWidth+"vw";
@@ -202,6 +206,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
           document.getElementById("id_EditPage_AnalysisDiv").style.display="flex";
           document.getElementById("id_EditPage_DisplayAnalysis").style.background = "var(--main-menue-active)";
           document.getElementById("id_EditPage_DisplayAnalysis").innerHTML = "Hide Analysis";
+          this.part_Analysis.stylePart()
         }
         else{
           document.getElementById("id_EditPage_DisplayAnalysis").innerHTML = "Show Analysis";
