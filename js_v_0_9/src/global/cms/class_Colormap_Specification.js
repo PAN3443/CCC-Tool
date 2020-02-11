@@ -93,7 +93,6 @@ class class_CMS {
 
   }
 
-
   clearIntervalColors(){
     for (var i = this.intervalArray.length-1; i>=0 ; i--) {
       for (var j = this.intervalArray[i].length-1; j>=0; j--) {
@@ -107,7 +106,6 @@ class class_CMS {
       this.intervalArray.push([]);
     }
   }
-
 
   clear(){
     /*this.name = "Customer Colormap";*/
@@ -160,11 +158,9 @@ class class_CMS {
 
   }
 
-
   //********************************************************************************//
   //***************************   Interval functions   *****************************//
   //********************************************************************************//
-
 
   setPreventIntervals(bool){
     this.preventIntervalCalculation=bool;
@@ -351,6 +347,42 @@ class class_CMS {
     }
 
  }
+
+  calcSpecificKeyIntervalColors(numList){
+    // with the specific interval list the user can set for each continuousBand a number of intervals
+    // we use the export interval array, so we can use the spline information of the delta interval array
+      if(numList.length != this.keyArray.length-1)
+        return;
+
+        for (var i = this.intervalExportSampling.length-1; i>=0 ; i--) {
+          for (var j = this.intervalExportSampling[i].length-1; j>=0; j--) {
+            this.intervalExportSampling[i][j].deleteReferences();
+            this.intervalExportSampling[i][j]=null;
+          }
+        }
+        this.intervalExportSampling=[];
+
+        if(this.keyArray.length<2)
+        return;
+
+        for(var keyIndex=0; keyIndex<this.keyArray.length-1; keyIndex++){
+
+          this.intervalExportSampling.push([]);
+
+          if(this.keyArray[keyIndex].getKeyType()!="nil key" && this.keyArray[keyIndex].getKeyType()!="left key"){
+
+            var ref1 = this.keyArray[keyIndex].getRefPosition();
+            var ref2 = this.keyArray[keyIndex+1].getRefPosition();
+            var intervalDistance = Math.abs(ref2-ref1)/numList[keyIndex];
+            var currentRef = ref1;
+            for (var i = 0; i < numList[keyIndex]-1; i++) {
+              currentRef+=intervalDistance;
+              var intervalColor = this.calculateColor(currentRef, this.interpolationSpace);
+              this.intervalExportSampling[keyIndex].push(new class_Interval(intervalColor,  currentRef));
+            }
+          }
+        }
+  }
 
   getInterpolationType(){
      return this.interpolationType;

@@ -28,10 +28,10 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
           this.calc_AnalysisPlot_LocalSpeed();
         break;
         case "globSpeed":
-
+          this.calc_AnalysisPlot_GlobalSpeed();
         break;
         case "intOrder":
-
+          this.calc_AnalysisPlot_IntOrder();
         break;
         default:
           return;
@@ -101,14 +101,60 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
         document.getElementById(this.partDivID).style.flexDirection="row";
         var tmpWidth = (this.analysis_Width_VW/2)-3;
         var tmpInfoDiv = this.creatInfoDiv(tmpWidth,this.analysis_Height_VH);
+        tmpInfoDiv.appendChild(this.createOptionColorDiff());
         document.getElementById(this.partDivID).appendChild(tmpInfoDiv);
         document.getElementById(this.partDivID).appendChild(this.createAnalysisCanvas(tmpWidth,this.analysis_Height_VH, this.partDivID+"_LocSpeedCanvas"));
-
       break;
       case "globSpeed":
         document.getElementById(this.partDivID).style.flexDirection="row";
         var tmpWidth = (this.analysis_Width_VW/2)-3;
         var tmpInfoDiv = this.creatInfoDiv(tmpWidth,this.analysis_Height_VH);
+
+        tmpInfoDiv.appendChild(this.createOptionColorDiff());
+
+        var tmpP = document.createElement('p');
+        tmpP.style.marginTop = "auto";
+        tmpP.style.marginBottom = "1vh";
+        tmpP.innerHTML = "Color Options:";
+        tmpP.style.fontSize = "2.5vh";
+        tmpP.style.fontWeight = "bold";
+        tmpP.style.lineHeight = "3.0vh";
+        tmpP.style.color = "var(--main-font-color)";
+        tmpInfoDiv.appendChild(tmpP);
+
+        var tmpRow = document.createElement('div');
+        tmpRow.style.display = "flex";
+        tmpP = document.createElement('p');
+        tmpP.style.margin = "auto";
+        tmpP.style.marginLeft = "0vw";
+        tmpP.style.marginBottom = "1vh";
+        tmpP.innerHTML = "Continuous Section:";
+        tmpP.style.fontSize = "2.0vh";
+        tmpP.style.fontWeight = "bold";
+        tmpP.style.lineHeight = "3.0vh";
+        tmpP.style.color = "var(--main-font-color)";
+        tmpRow.appendChild(tmpP);
+
+        var tmpSelect = document.createElement('select');
+        tmpSelect.id= this.partDivID+"_KeySetSelection";
+        tmpSelect.style.margin = "auto";
+        tmpSelect.style.marginRight = "0vw";
+        tmpSelect.style.width= "5vw";
+        tmpSelect.style.fontSize= "2.0vh";
+        tmpSelect.style.height= "3vh";
+        tmpSelect.style.lineHeight= "3vh";
+        tmpSelect.onchange = function(){
+          if(editSection.isSectionOpen())
+            editSection.part_Analysis.updatePart();
+
+          if(optiSection.isSectionOpen())
+            optiSection.part_Analysis.updatePart();
+        };
+        tmpRow.appendChild(tmpSelect);
+        tmpInfoDiv.appendChild(tmpRow);
+
+        tmpInfoDiv.appendChild(this.createOptionUseColors());
+
         document.getElementById(this.partDivID).appendChild(tmpInfoDiv);
         document.getElementById(this.partDivID).appendChild(this.createAnalysisCanvas(tmpWidth,this.analysis_Height_VH, this.partDivID+"_GlobSpeedCanvas"));
       break;
@@ -116,8 +162,44 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
         document.getElementById(this.partDivID).style.flexDirection="row";
         var tmpWidth = (this.analysis_Width_VW/2)-3;
         var tmpInfoDiv = this.creatInfoDiv(tmpWidth,this.analysis_Height_VH);
+        var tmpP = document.createElement('p');
+        tmpP.style.marginTop = "auto";
+        tmpP.style.marginBottom = "1vh";
+        tmpP.innerHTML = "Color Options:";
+        tmpP.style.fontSize = "2.5vh";
+        tmpP.style.fontWeight = "bold";
+        tmpP.style.lineHeight = "3.0vh";
+        tmpP.style.color = "var(--main-font-color)";
+        tmpInfoDiv.appendChild(tmpP);
+        tmpInfoDiv.appendChild(this.createOptionUseColors());
         document.getElementById(this.partDivID).appendChild(tmpInfoDiv);
-        document.getElementById(this.partDivID).appendChild(this.createAnalysisCanvas(tmpWidth,this.analysis_Height_VH, this.partDivID+"_IntOrderCanvas"));
+        document.getElementById(this.partDivID+"_InfoMax").id = this.partDivID+"_InfoGlobalMin";
+        document.getElementById(this.partDivID+"_InfoMin").id = this.partDivID+"_InfoLocalMin";
+        document.getElementById(this.partDivID+"_InfoAverage").remove();
+        document.getElementById(this.partDivID+"_InfoDeviation").remove();
+        document.getElementById(this.partDivID+"_UsedColors").options[1].disabled = true;
+        document.getElementById(this.partDivID+"_UsedColors").options[2].disabled = true;
+
+        var tmpDiv= document.createElement('div');
+        tmpDiv.style.margin="auto";
+        var tmpP = document.createElement('p');
+        tmpP.innerHTML = "Local Order";
+        tmpP.style.fontSize = "2vh";
+        tmpP.style.fontWeight = "bold";
+        tmpP.style.verticalAlign = "middle";
+        tmpP.style.lineHeight = "3vh";
+        tmpDiv.appendChild(tmpP);
+
+        tmpDiv.appendChild(this.createAnalysisCanvas(tmpWidth,this.analysis_Height_VH-8, this.partDivID+"_IntOrderCanvas"));
+
+        tmpP = document.createElement('p');
+        tmpP.innerHTML = "Global Order";
+        tmpP.style.fontSize = "2vh";
+        tmpP.style.fontWeight = "bold";
+        tmpP.style.lineHeight = "3vh";
+        tmpP.style.verticalAlign = "middle";
+        tmpDiv.appendChild(tmpP);
+        document.getElementById(this.partDivID).appendChild(tmpDiv);
       break;
       default:
         return;
@@ -148,6 +230,92 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
     tmpCanvas.style.msInterpolationMode = "nearest-neighbor";   /* IE (non standard naming)*/
 
     return tmpCanvas;
+  }
+
+  createOptionUseColors(){
+    var tmpDiv = document.createElement('div');
+    tmpDiv.style.marginBottom = "auto";
+
+    var tmpRow = document.createElement('div');
+    tmpRow.style.display = "flex";
+    var tmpP = document.createElement('p');
+    tmpP.style.margin = "auto";
+    tmpP.style.marginLeft = "0vw";
+    tmpP.style.marginBottom = "1vh";
+    tmpP.innerHTML = "Use Colors:";
+    tmpP.style.fontSize = "2.0vh";
+    tmpP.style.fontWeight = "bold";
+    tmpP.style.lineHeight = "3.0vh";
+    tmpP.style.color = "var(--main-font-color)";
+    tmpRow.appendChild(tmpP);
+
+    var tmpSelect = document.createElement('select');
+    tmpSelect.id= this.partDivID+"_UsedColors";
+    tmpSelect.style.margin = "auto";
+    tmpSelect.style.marginRight = "0vw";
+    tmpSelect.style.width= "5vw";
+    tmpSelect.style.fontSize= "2.0vh";
+    tmpSelect.style.height= "3vh";
+    tmpSelect.style.lineHeight= "3vh";
+    tmpSelect.onchange = function(){
+      if(editSection.isSectionOpen())
+        editSection.part_Analysis.updatePart();
+
+      if(optiSection.isSectionOpen())
+        optiSection.part_Analysis.updatePart();
+    };
+    var tmpOnlyKeysOption = document.createElement('option');
+    tmpOnlyKeysOption.innerHTML = "Only Key Colors";
+    tmpOnlyKeysOption.value = "keys";
+    tmpSelect.appendChild(tmpOnlyKeysOption);
+    var tmpDeltaSamplingOption = document.createElement('option');
+    tmpDeltaSamplingOption.innerHTML = "Key Colors + Delta Sampling";
+    tmpDeltaSamplingOption.value = "ds";
+    tmpSelect.appendChild(tmpDeltaSamplingOption);
+    tmpRow.appendChild(tmpSelect);
+    tmpDiv.appendChild(tmpRow);
+    var tmpIntervalOption = document.createElement('option');
+    tmpIntervalOption.innerHTML = "Key Colors + Interval Colors";
+    tmpIntervalOption.value = "interval";
+    tmpSelect.appendChild(tmpIntervalOption);
+    tmpRow.appendChild(tmpSelect);
+    tmpDiv.appendChild(tmpRow);
+
+    var tmpRow = document.createElement('div');
+    tmpRow.style.display = "flex";
+    tmpRow.id= this.partDivID+"_IntervalDiv";
+    tmpP = document.createElement('p');
+    tmpP.style.margin = "auto";
+    tmpP.style.marginLeft = "0vw";
+    tmpP.style.marginBottom = "1vh";
+    tmpP.innerHTML = "#Intervals:";
+    tmpP.style.fontSize = "2.0vh";
+    tmpP.style.fontWeight = "bold";
+    tmpP.style.lineHeight = "3.0vh";
+    tmpP.style.color = "var(--main-font-color)";
+    tmpRow.appendChild(tmpP);
+
+    var tmpInput = document.createElement('input');
+    tmpInput.type = "number";
+    tmpInput.id= this.partDivID+"_NumIntervals";
+    tmpInput.value = 20;
+    tmpInput.style.margin = "auto";
+    tmpInput.style.marginRight = "0vw";
+    tmpInput.style.width= "5vw";
+    tmpInput.style.fontSize= "2.0vh";
+    tmpInput.style.height= "3vh";
+    tmpInput.style.lineHeight= "3vh";
+    tmpInput.onchange = function(){
+      if(editSection.isSectionOpen())
+        editSection.part_Analysis.updatePart();
+
+      if(optiSection.isSectionOpen())
+        optiSection.part_Analysis.updatePart();
+    };
+    tmpRow.appendChild(tmpInput);
+    tmpDiv.appendChild(tmpRow);
+
+    return tmpDiv;
   }
 
   creatInfoDiv(tmpWidth, tmpHeight){
@@ -231,6 +399,72 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
       tmpDiv.appendChild(tmpLabel);
       tmpDiv.appendChild(tmpCanvas);
       return tmpDiv;
+  }
+
+  createOptionColorDiff(){
+    var tmpDiv = document.createElement('p');
+    tmpDiv.style.marginBottom = "auto";
+    var tmpP = document.createElement('p');
+    tmpP.style.marginBottom = "1vh";
+    tmpP.innerHTML = "Metric Options:";
+    tmpP.style.fontSize = "2.5vh";
+    tmpP.style.fontWeight = "bold";
+    tmpP.style.lineHeight = "3.0vh";
+    tmpP.style.color = "var(--main-font-color)";
+    tmpDiv.appendChild(tmpP);
+
+    var tmpRow = document.createElement('div');
+    tmpRow.style.display = "flex";
+    tmpP = document.createElement('p');
+    tmpP.style.margin = "auto";
+    tmpP.style.marginLeft = "0vw";
+    tmpP.style.marginBottom = "1vh";
+    tmpP.innerHTML = "Use Color Difference:";
+    tmpP.style.fontSize = "2.0vh";
+    tmpP.style.fontWeight = "bold";
+    tmpP.style.lineHeight = "3.0vh";
+    tmpP.style.color = "var(--main-font-color)";
+    tmpRow.appendChild(tmpP);
+
+
+    var tmpSelect = document.createElement('select');
+    tmpSelect.id= this.partDivID+"_UseMetric";
+    tmpSelect.style.margin = "auto";
+    tmpSelect.style.marginRight = "0vw";
+    tmpSelect.style.width= "5vw";
+    tmpSelect.style.fontSize= "2.0vh";
+    tmpSelect.style.height= "3vh";
+    tmpSelect.style.lineHeight= "3vh";
+    tmpSelect.onchange = function(){
+      if(editSection.isSectionOpen())
+        editSection.part_Analysis.updatePart();
+
+      if(optiSection.isSectionOpen())
+        optiSection.part_Analysis.updatePart();
+    };
+    var tmpLabOption = document.createElement('option');
+    tmpLabOption.innerHTML = "Euclidean Distance (Lab)";
+    tmpLabOption.value = "lab";
+    tmpSelect.appendChild(tmpLabOption);
+
+    var tmpDe94Option = document.createElement('option');
+    tmpDe94Option.innerHTML = "Metric de94 (Lab)";
+    tmpDe94Option.value = "de94";
+    tmpSelect.appendChild(tmpDe94Option);
+
+    var tmpDe2000Option = document.createElement('option');
+    tmpDe2000Option.innerHTML = "Metric CIEDE2000 (Lab)";
+    tmpDe2000Option.value = "de2000";
+    tmpSelect.appendChild(tmpDe2000Option);
+
+    var tmpDIN99Option = document.createElement('option');
+    tmpDIN99Option.innerHTML = "Euclidean Distance (DIN99)";
+    tmpDIN99Option.value = "din99";
+    tmpSelect.appendChild(tmpDIN99Option);
+    tmpRow.appendChild(tmpSelect);
+    tmpDiv.appendChild(tmpRow);
+
+    return tmpDiv;
   }
 
   //////////////////////////////////////////
@@ -514,7 +748,8 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
   calc_AnalysisPlot_LocalSpeed(){
       this.workCMS = this.getParentCMS();
       var canvasPlot = document.getElementById(this.partDivID+"_LocSpeedCanvas");
-
+      canvasPlot.width = 1500;
+      canvasPlot.height = 1500;
       var canvasCtx = canvasPlot.getContext("2d");
       canvasCtx.webkitImageSmoothingEnabled = false;
       canvasCtx.mozImageSmoothingEnabled = false;
@@ -549,6 +784,8 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
                 break;
       }*/
 
+        var tmpID = document.getElementById(this.partDivID+"_UseMetric").selectedIndex;
+        var useMetric = document.getElementById(this.partDivID+"_UseMetric").options[tmpID].value;
 
         for (var i = 0; i < this.workCMS.getKeyLength()-1; i++) {
 
@@ -559,7 +796,78 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
 
             speeds.push([]);
 
-            if(((this.workCMS.getInterpolationType()==="linear" &&
+            //blackWhiteMaxSpeed = Math.max(blackWhiteMaxSpeed,(blackWhiteDelta/dis));
+
+            if(/*((this.workCMS.getInterpolationType()==="linear" &&
+               this.workCMS.getInterpolationSpace()!="rgb" &&  // distance of intervals is the same like the distance of start and end color
+               this.workCMS.getInterpolationSpace()!="hsv" &&
+               this.workCMS.getInterpolationSpace()!="lab" &&
+               this.workCMS.getInterpolationSpace()!="din99") || this.workCMS.getInterpolationType()==="spline") &&*/
+               this.workCMS.getIntervalLength(i)>0){
+
+            switch (useMetric) {
+              case "lab":
+              case "din99":
+              var dis = this.workCMS.getIntervalRef(i,0)-this.workCMS.getRefPosition(i);
+              speeds[i].push(calc3DEuclideanDistance(this.workCMS.getRightKeyColor(i,useMetric),this.workCMS.getIntervalColor(i,0,useMetric))/dis);
+              //blackWhiteMaxSpeed = Math.max(blackWhiteMaxSpeed,(blackWhiteDelta/dis));
+              for (var j = 0; j < this.workCMS.getIntervalLength(i)-1; j++) {
+                dis = this.workCMS.getIntervalRef(i,j+1)-this.workCMS.getIntervalRef(i,j);
+                speeds[i].push(calc3DEuclideanDistance(this.workCMS.getIntervalColor(i,j,useMetric),this.workCMS.getIntervalColor(i,j+1,useMetric))/dis);
+                //blackWhiteMaxSpeed = Math.max(blackWhiteMaxSpeed,(blackWhiteDelta/dis));
+              }
+              dis=this.workCMS.getRefPosition(i+1)-this.workCMS.getIntervalRef(i,this.workCMS.getIntervalLength(i)-1);
+              speeds[i].push(calc3DEuclideanDistance(this.workCMS.getIntervalColor(i,this.workCMS.getIntervalLength(i)-1,useMetric),this.workCMS.getLeftKeyColor(i+1,useMetric))/dis);
+              break;
+              case "de94":
+              var dis = this.workCMS.getIntervalRef(i,0)-this.workCMS.getRefPosition(i);
+              speeds[i].push(calcDeltaDE94(this.workCMS.getRightKeyColor(i,"lab"),this.workCMS.getIntervalColor(i,0,"lab"))/dis);
+              //blackWhiteMaxSpeed = Math.max(blackWhiteMaxSpeed,(blackWhiteDelta/dis));
+              for (var j = 0; j < this.workCMS.getIntervalLength(i)-1; j++) {
+                dis = this.workCMS.getIntervalRef(i,j+1)-this.workCMS.getIntervalRef(i,j);
+                speeds[i].push(calcDeltaDE94(this.workCMS.getIntervalColor(i,j,"lab"),this.workCMS.getIntervalColor(i,j+1,"lab"))/dis);
+                //blackWhiteMaxSpeed = Math.max(blackWhiteMaxSpeed,(blackWhiteDelta/dis));
+              }
+              dis=this.workCMS.getRefPosition(i+1)-this.workCMS.getIntervalRef(i,this.workCMS.getIntervalLength(i)-1);
+              speeds[i].push(calcDeltaDE94(this.workCMS.getIntervalColor(i,this.workCMS.getIntervalLength(i)-1,"lab"),this.workCMS.getLeftKeyColor(i+1,"lab"))/dis);
+              break;
+              case "de2000":
+              var dis = this.workCMS.getIntervalRef(i,0)-this.workCMS.getRefPosition(i);
+              speeds[i].push(calcDeltaCIEDE2000(this.workCMS.getRightKeyColor(i,"lab"),this.workCMS.getIntervalColor(i,0,"lab"))/dis);
+              //blackWhiteMaxSpeed = Math.max(blackWhiteMaxSpeed,(blackWhiteDelta/dis));
+              for (var j = 0; j < this.workCMS.getIntervalLength(i)-1; j++) {
+                dis = this.workCMS.getIntervalRef(i,j+1)-this.workCMS.getIntervalRef(i,j);
+                speeds[i].push(calcDeltaCIEDE2000(this.workCMS.getIntervalColor(i,j,"lab"),this.workCMS.getIntervalColor(i,j+1,"lab"))/dis);
+                //blackWhiteMaxSpeed = Math.max(blackWhiteMaxSpeed,(blackWhiteDelta/dis));
+              }
+              dis=this.workCMS.getRefPosition(i+1)-this.workCMS.getIntervalRef(i,this.workCMS.getIntervalLength(i)-1);
+              speeds[i].push(calcDeltaCIEDE2000(this.workCMS.getIntervalColor(i,this.workCMS.getIntervalLength(i)-1,"lab"),this.workCMS.getLeftKeyColor(i+1,"lab"))/dis);
+              break;
+              default:
+                return;
+            }
+          }
+          else {
+            var dis = this.workCMS.getRefPosition(i+1)-this.workCMS.getRefPosition(i);
+            switch (useMetric) {
+            case "lab":
+            case "din99":
+              speeds[i].push(calc3DEuclideanDistance(this.workCMS.getRightKeyColor(i,useMetric),this.workCMS.getLeftKeyColor(i+1,useMetric))/dis);
+            break;
+            case "de94":
+              speeds[i].push(calcDeltaDE94(this.workCMS.getRightKeyColor(i,"lab"),this.workCMS.getLeftKeyColor(i+1,"lab"))/dis);
+            break;
+            case "de2000":
+              speeds[i].push(calcDeltaCIEDE2000(this.workCMS.getRightKeyColor(i,"lab"),this.workCMS.getLeftKeyColor(i+1,"lab"))/dis);
+            break;
+            default:
+              return;
+            }
+          }
+
+
+
+            /*if(((this.workCMS.getInterpolationType()==="linear" &&
                this.workCMS.getInterpolationSpace()!="rgb" &&  // distance of intervals is the same like the distance of start and end color
                this.workCMS.getInterpolationSpace()!="hsv" &&
                this.workCMS.getInterpolationSpace()!="lab" &&
@@ -635,7 +943,7 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
                 default:
                   return;
               }
-            }
+            }*/
 
             for (var j = 0; j < speeds[i].length; j++) {
               min = Math.min(min,speeds[i][j]);
@@ -749,26 +1057,673 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
       var variance = sumForVariance/sumBands;
       var deviation = Math.sqrt(variance);
 
-      document.getElementById(this.partDivID+"_InfoMin").innerHTML = "Local Speed Minimum".bold() +" = "+ min.toFixed(this.numDecimalPlaces);
+      document.getElementById(this.partDivID+"_InfoMin").innerHTML = "Minimum".bold() +" = "+ min.toFixed(this.numDecimalPlaces);
 
       if(min==0)
         document.getElementById(this.partDivID+"_InfoMin").style.color = getComputedStyle(document.documentElement).getPropertyValue('--general-warning-color');
       else
         document.getElementById(this.partDivID+"_InfoMin").style.color = "var(--main-font-color)"; //getComputedStyle(document.documentElement).getPropertyValue('--main-sepArea-font-color');
 
-      document.getElementById(this.partDivID+"_InfoMax").innerHTML = "Local Speed Maximum".bold() +" = "+ max.toFixed(this.numDecimalPlaces);
-      document.getElementById(this.partDivID+"_InfoAverage").innerHTML = "Local Speed Average".bold() +" = "+ average.toFixed(this.numDecimalPlaces);
-      document.getElementById(this.partDivID+"_InfoDeviation").innerHTML = "Local Speed Deviation".bold() +" = "+ deviation.toFixed(this.numDecimalPlaces);
+      document.getElementById(this.partDivID+"_InfoMax").innerHTML = "Maximum".bold() +" = "+ max.toFixed(this.numDecimalPlaces);
+      document.getElementById(this.partDivID+"_InfoAverage").innerHTML = "Average".bold() +" = "+ average.toFixed(this.numDecimalPlaces);
+      document.getElementById(this.partDivID+"_InfoDeviation").innerHTML = "Deviation".bold() +" = "+ deviation.toFixed(this.numDecimalPlaces);
 
       this.workCMS.deleteReferences();
 
 }
   //////////////////////////////////////////
-  // Analysis Type (Interpolation Space) ///
+  // Analysis Type (Global Speed) ///
   //////////////////////////////////////////
 
+  calc_AnalysisPlot_GlobalSpeed(){
+      var canvasPlot = document.getElementById(this.partDivID+"_GlobSpeedCanvas");
+      var context = canvasPlot.getContext('2d');
+      context.clearRect(0, 0, canvasPlot.width, canvasPlot.height);
+
+      this.workCMS = this.getParentCMS();
+      var continuousSections = searchForContinuousSections(this.workCMS, 0,this.workCMS.getKeyLength()-1);
+      // fill continious
+      var tmpID = document.getElementById(this.partDivID+"_UseMetric").selectedIndex;
+      var useMetric = document.getElementById(this.partDivID+"_UseMetric").options[tmpID].value;
+      var neededSpace = "lab";
+
+      if(useMetric==="din99")
+        neededSpace = "din99";
+
+      var selectbox = document.getElementById(this.partDivID+"_KeySetSelection");
+      var oldStartIndex = selectbox.selectedIndex;
+      for(var i = selectbox.options.length - 1 ; i >= 0 ; i--)
+      {
+          selectbox.remove(i);
+      }
+
+      // fill startbox
+      if(continuousSections.length==0)
+      return;
+
+      for (var i = 0; i < continuousSections.length; i++) {
+        var opt = document.createElement('option');
+        opt.innerHTML = "Key " +(continuousSections[i][0]+1)+" - Key " +(continuousSections[i][1]+1);
+        opt.value = i;
+        selectbox.appendChild(opt);
+      }
+
+      if(oldStartIndex>=0)
+        selectbox.selectedIndex=oldStartIndex;
+      else
+        selectbox.selectedIndex=0;
+
+      ///////////////////////////////////////////////////////////////////////////////////////////////////
+      var selectedIndex = document.getElementById(this.partDivID+"_KeySetSelection").selectedIndex;
+
+      var sumForAverage = 0;
+
+      var colorArray = [];
+      var refArray = [];
+
+      // fill arrays with key and interval information
+      var tmpIndex = document.getElementById(this.partDivID+"_UsedColors").selectedIndex;
+      document.getElementById(this.partDivID+"_IntervalDiv").style.visibility="hidden";
+      switch (document.getElementById(this.partDivID+"_UsedColors").options[tmpIndex].value) {
+        case "keys":
+          for (var i = continuousSections[selectedIndex][0]; i < continuousSections[selectedIndex][1]; i++) {
+              colorArray.push(this.workCMS.getRightKeyColor(i,neededSpace));
+              refArray.push(this.workCMS.getRefPosition(i));
+          }
+        break;
+        case "ds":
+          for (var i = continuousSections[selectedIndex][0]; i < continuousSections[selectedIndex][1]; i++) {
+              colorArray.push(this.workCMS.getRightKeyColor(i,neededSpace));
+              refArray.push(this.workCMS.getRefPosition(i));
+              for (var j = 0; j < this.workCMS.getIntervalLength(i)-1; j++) {
+                colorArray.push(this.workCMS.getIntervalColor(i,j,neededSpace));
+                refArray.push(this.workCMS.getIntervalRef(i,j));
+              }
+          }
+        break;
+        case "interval":
+          document.getElementById(this.partDivID+"_IntervalDiv").style.visibility="visible";
+          var numIntervals = parseInt(document.getElementById(this.partDivID+"_NumIntervals").value);
+
+          if(isNaN(numIntervals)){
+            openAlert("The input for the number of interval colors at the analysis is invalid. Please enter a number!");
+            return;
+          }
+
+          if(numIntervals<2){
+            openAlert("The input for the number of interval colors at the analysis is invalid. Please enter a number greater than 1!");
+            return;
+          }
+
+          var numList = [];
+          for (var i = 0; i < continuousSections[selectedIndex][0]; i++) {
+            numList.push(0);
+          }
+          for (var i = continuousSections[selectedIndex][0]; i < continuousSections[selectedIndex][1]; i++) {
+            numList.push(numIntervals);
+          }
+          for (var i = continuousSections[selectedIndex][1]; i < this.workCMS.getKeyLength()-1; i++) {
+            numList.push(0);
+          }
+          this.workCMS.calcSpecificKeyIntervalColors(numList);
+          for (var i = continuousSections[selectedIndex][0]; i < continuousSections[selectedIndex][1]; i++) {
+              colorArray.push(this.workCMS.getRightKeyColor(i,neededSpace));
+              refArray.push(this.workCMS.getRefPosition(i));
+              for(var j=0; j<this.workCMS.getExportSamplingLength(i); j++){
+                colorArray.push(this.workCMS.getExportSamplingColor(i,j,neededSpace));
+                refArray.push(this.workCMS.getExportSamplingRef(i,j));
+              }
+          }
+        break;
+        default:
+          return;
+      }
+
+      colorArray.push(this.workCMS.getLeftKeyColor(continuousSections[selectedIndex][1],neededSpace));
+      refArray.push(this.workCMS.getRefPosition(continuousSections[selectedIndex][1]));
+
+      var min = Infinity;
+      var max = -Infinity;
+      var numTwinOrLeft=0;
+
+        var matrix = [];
+
+        for(var x=0; x<colorArray.length; x++){
+
+          var column = [];
+          for(var y=0; y<colorArray.length; y++){
+
+              var deltaE=0;
+              var speed=0;
+              if(x!=y){
+
+                switch (useMetric) {
+                    case "lab":
+                    case "din99":
+                     deltaE = calc3DEuclideanDistance(cloneColor(colorArray[x]),cloneColor(colorArray[y]));
+                      break;
+                      case "de94":
+                       deltaE = calcDeltaDE94(cloneColor(colorArray[x]),cloneColor(colorArray[y]));
+                        break;
+                        case "de2000":
+                         deltaE = calcDeltaCIEDE2000(cloneColor(colorArray[x]),cloneColor(colorArray[y]));
+                          break;
+                }
+
+
+                    if(refArray[x]==refArray[y]){
+
+                      speed=-1;
+                      numTwinOrLeft++;
+                    }
+                    else{
+                      var distance = Math.abs(refArray[x]-refArray[y]);
+                      speed = deltaE/distance;
+                      sumForAverage += speed;
+                      min = Math.min(min,speed);
+                      max = Math.max(max,speed);
+                      //blackWhiteMaxSpeed = Math.max(blackWhiteMaxSpeed,(blackWhiteDelta/distance));
+                    }
+
+              }
+
+              column.push(speed);
+          }
+          matrix.push(column);
+        }
+
+
+      var maxColorDif = max;//(max-min);
+
+      /*if(document.getElementById("id_EditPage_BlackWhiteRatio").checked){
+        maxColorDif = blackWhiteMaxSpeed;
+      }*/
+
+      var average=sumForAverage/(colorArray.length*colorArray.length-colorArray.length); // -colorArray.length because for each x=y we don't calculate a speed
+      var sumForVariance = 0;
+
+      /////////////////////////////////////////////////////
+      canvasPlot.width = colorArray.length;
+      canvasPlot.height = colorArray.length;
+
+      var canvasCtx = canvasPlot.getContext("2d");
+
+       canvasCtx.mozImageSmoothingEnabled = false;
+       canvasCtx.webkitImageSmoothingEnabled = false;
+       canvasCtx.msImageSmoothingEnabled = false;
+       canvasCtx.imageSmoothingEnabled = false; // did not work !?!?!
+       canvasCtx.oImageSmoothingEnabled = false;
+
+      var canvasData = canvasCtx.createImageData(canvasPlot.width, canvasPlot.height); //getImageData(0, 0, canvasPlot.width, canvasPlot.height);
+
+      //////////////////////////////////////////////////////////////////////////////////
+      // calc variance
+      ////////////////////////////////////////////////////////////////////////////////////
+
+      /*var maxColorDif = max;
+      if(document.getElementById("id_EditPage_DoFixedAxis_GlobalLocalOrder").checked){
+        maxColorDif = parseFloat(document.getElementById("id_EditPage_InputFixedAxis_GlobalLocalOrder").value);
+        if(isNaN(maxColorDif) || maxColorDif<=0){
+          maxColorDif=(max-min);
+          document.getElementById("id_EditPage_InputFixedAxis_GlobalLocalOrder").value=maxColorDif;
+        }
+      }*/
+
+      for(var x=0; x<colorArray.length; x++){
+
+        for(var y=0; y<colorArray.length; y++){
+
+            var colorRef = undefined;
+            if(x==y){
+              colorRef = colorArray[x].calcRGBColor();
+            }
+            else
+            {
+
+                  var speed= matrix[x][y];
+                  var val;
+                  if(speed==-1){
+                    val=1;
+                  }
+                  else{
+
+                      /*if(document.getElementById("id_EditPage_DoLogSelect_GlobalLocalOrder").checked){
+                        if(document.getElementById("id_EditPage_DoFixedAxis_GlobalLocalOrder").checked && speed>maxColorDif ){
+                          val = 1.1; // bigger than 1 -> coloring in above border color
+                        }
+                        else{
+                          val = (Math.log(speed+1)-Math.log(min+1))/Math.log(maxColorDif+1);
+                        }
+                      }
+                      else{*/
+                        val = 1-(speed-min)/maxColorDif; //(speed/maxColorDif);//
+                      //}
+
+                    sumForVariance += Math.pow(matrix[x][y]-average,2);
+                  }
+
+                  if(val<0.0)
+                    val=0.0;
+
+                  colorRef = new class_Color_RGB(val,val,val);
+
+                  if(val>1.0)
+                    colorRef = globalPlotAboveColor
+
+
+            }
+
+            var index = (x + y * canvasPlot.width) * 4;
+            canvasData.data[index + 0] = Math.round(colorRef.getRValue() * 255); // r
+            canvasData.data[index + 1] = Math.round(colorRef.getGValue() * 255); // g
+            canvasData.data[index + 2] = Math.round(colorRef.getBValue() * 255); // b
+            canvasData.data[index + 3] = 255; //a
+
+            colorRef.deleteReferences();
+            colorRef=null;
+
+        }
+      }
+
+      canvasCtx.putImageData(canvasData, 0, 0);
+
+      var variance = sumForVariance/(colorArray.length*colorArray.length-colorArray.length);
+      var deviation = Math.sqrt(variance);
+
+
+      document.getElementById(this.partDivID+"_InfoMin").innerHTML = "Speed Minimum".bold() +" = "+ min.toFixed(this.numDecimalPlaces);
+
+      if(min==0)
+      document.getElementById(this.partDivID+"_InfoMin").style.color = getComputedStyle(document.documentElement).getPropertyValue('--general-warning-color');
+      else
+      document.getElementById(this.partDivID+"_InfoMin").style.color = "var(--main-font-color)"; //getComputedStyle(document.documentElement).getPropertyValue('--main-sepArea-font-color');
+
+      document.getElementById(this.partDivID+"_InfoMax").innerHTML = "Speed Maximum".bold() +" = "+ max.toFixed(this.numDecimalPlaces);
+      document.getElementById(this.partDivID+"_InfoAverage").innerHTML = "Speed Average".bold() +" = "+ average.toFixed(this.numDecimalPlaces);
+      document.getElementById(this.partDivID+"_InfoDeviation").innerHTML = "Speed Deviation".bold() +" = "+ deviation.toFixed(this.numDecimalPlaces);
+
+      for (var i = colorArray.length-1; i >=0; i--){
+        colorArray[i].deleteReferences();
+        colorArray[i]=null;
+      }
+
+      this.workCMS.deleteReferences();
+
+
+}
   //////////////////////////////////////////
-  // Analysis Type (Interpolation Space) ///
+  // Analysis Type (Intrinsic Order) ///
   //////////////////////////////////////////
+  calc_AnalysisPlot_IntOrder() {
+
+  var canvasPlot = document.getElementById(this.partDivID+"_IntOrderCanvas");
+
+  canvasPlot.width = 1500;
+  canvasPlot.height = 1500;
+
+  var canvasCtx = canvasPlot.getContext("2d");
+  canvasCtx.clearRect(0, 0, canvasPlot.width, canvasPlot.height);
+
+  canvasCtx.mozImageSmoothingEnabled = false;
+  canvasCtx.webkitImageSmoothingEnabled = false;
+  canvasCtx.msImageSmoothingEnabled = false;
+  canvasCtx.imageSmoothingEnabled = false; // did not work !?!?!
+  canvasCtx.oImageSmoothingEnabled = false;
+
+  ///////////////////////////////////////////////////////////////
+  ///// init order plot
+  //////////////////////////////////////////////////////////////
+
+  var colormapbarwidth = canvasPlot.width * 0.9;
+  var colormapXStart = (canvasPlot.width - colormapbarwidth) / 2;
+  var plotHeight = canvasPlot.height * 0.9;
+  var plotyStart = (canvasPlot.height - plotHeight) / 2;
+
+  var arrowHeight = canvasPlot.height * 0.05;
+  var arrowWidth = canvasPlot.width * 0.025;
+  var labelFontSize = canvasPlot.height * 0.04;
+  var labelYStart = (((canvasPlot.height - plotHeight) / 2) - (arrowHeight / 2) - labelFontSize) / 2 + labelFontSize;
+
+  var arrowPlotHeight = (plotHeight * 0.95) / 2;
+  var colormapHeight = plotHeight * 0.05;
+  var colormapYStart = plotyStart + (plotHeight / 2) - (colormapHeight / 2);
+  var colormapYEnd = colormapYStart + colormapHeight;
+
+  // colormap interval rect
+
+  //////////////////////////////////////////////////////////////////////
+  //// Arrow 1
+  canvasCtx.strokeStyle = "rgb(0,0,0)"; //"rgb(255,127,80)";
+  canvasCtx.beginPath();
+  canvasCtx.lineWidth = 10;
+  canvasCtx.moveTo(colormapXStart, colormapYStart);
+  canvasCtx.lineTo(colormapXStart, plotyStart);
+  canvasCtx.stroke();
+
+  // the triangle
+  canvasCtx.beginPath();
+  canvasCtx.moveTo(colormapXStart - arrowWidth, plotyStart);
+  canvasCtx.lineTo(colormapXStart, plotyStart - arrowHeight);
+  canvasCtx.lineTo(colormapXStart + arrowWidth, plotyStart);
+  canvasCtx.closePath();
+
+  // the fill color
+  canvasCtx.fillStyle = "rgb(0,0,0)"; //"rgb(255,127,80)";
+  canvasCtx.fill();
+
+  /*canvasCtx.font = labelFontSize+"px Arial";
+  canvasCtx.fillText("|local Order|",colormapXStart+arrowWidth,labelYStart);
+  var width = canvasCtx.measureText("|local Order|").width;
+  var height = canvasCtx.measureText("|local Order|").height;
+  canvasCtx.fillStyle = "rgb(1,1,1)";
+  canvasCtx.fillRect(colormapXStart+arrowWidth,labelYStart, width, height);*/
+  //////////////////////////////////////////////////////////////////////
+  //// Arrow 2
+  canvasCtx.strokeStyle = "rgb(0,0,0)"; //"rgb(30,144,255)";
+  canvasCtx.beginPath();
+  canvasCtx.lineWidth = 10;
+  canvasCtx.moveTo(colormapXStart, colormapYEnd);
+  canvasCtx.lineTo(colormapXStart, plotyStart + plotHeight);
+  canvasCtx.stroke();
+
+  // the triangle
+  canvasCtx.beginPath();
+  canvasCtx.moveTo(colormapXStart - arrowWidth, plotyStart + plotHeight);
+  canvasCtx.lineTo(colormapXStart, plotyStart + plotHeight + arrowHeight);
+  canvasCtx.lineTo(colormapXStart + arrowWidth, plotyStart + plotHeight);
+  canvasCtx.closePath();
+
+  // the fill color
+  canvasCtx.fillStyle = "rgb(0,0,0)"; //"rgb(30,144,255)";
+  canvasCtx.fill();
+
+  /*canvasCtx.font = labelFontSize+"px Arial";
+  canvasCtx.fillText("negative global Order",colormapXStart+arrowWidth,canvasPlot.height-labelYStart);
+  var width = canvasCtx.measureText("negative global Order").width;
+  var height = canvasCtx.measureText("negative global Order").height;
+  canvasCtx.fillStyle = "rgb(1,1,1)";
+  canvasCtx.fillRect(colormapXStart+arrowWidth,canvasPlot.height-labelYStart, width, height);*/
+
+  //////////////////////////////////////////////////////////// draw refLineSketchContainer
+  canvasCtx.lineWidth = 1;
+
+  //////////////////////////////////////////////////////////////////////
+  //// get colors
+  this.workCMS = this.getParentCMS();
+  var colorArray = [];
+  var tmpIndex = document.getElementById(this.partDivID+"_UsedColors").selectedIndex;
+  document.getElementById(this.partDivID+"_IntervalDiv").style.visibility="hidden";
+  switch (document.getElementById(this.partDivID+"_UsedColors").options[tmpIndex].value) {
+    case "keys":
+    for (var i = 0; i < this.workCMS.getKeyLength(); i++) {
+      switch (this.workCMS.getKeyType(i)) {
+        case "nil key":
+          continue;
+          break;
+        case "left key":
+          colorArray.push(this.workCMS.getLeftKeyColor(i, this.workCMS.getInterpolationSpace()));
+          break;
+        case "twin key":
+          colorArray.push(this.workCMS.getLeftKeyColor(i, this.workCMS.getInterpolationSpace()));
+          colorArray.push(this.workCMS.getRightKeyColor(i, this.workCMS.getInterpolationSpace()));
+          break;
+        case "right key":
+          colorArray.push(this.workCMS.getRightKeyColor(i, this.workCMS.getInterpolationSpace()));
+          break;
+        default:
+          colorArray.push(this.workCMS.getRightKeyColor(i, this.workCMS.getInterpolationSpace()));
+      }
+    }
+    break;
+    case "ds":
+    for (var i = 0; i < this.workCMS.getKeyLength(); i++) {
+      switch (this.workCMS.getKeyType(i)) {
+        case "nil key":
+          continue;
+          break;
+        case "left key":
+          colorArray.push(this.workCMS.getLeftKeyColor(i, this.workCMS.getInterpolationSpace()));
+          break;
+        case "twin key":
+          colorArray.push(this.workCMS.getLeftKeyColor(i, this.workCMS.getInterpolationSpace()));
+          colorArray.push(this.workCMS.getRightKeyColor(i, this.workCMS.getInterpolationSpace()));
+          for (var j = 0; j < this.workCMS.getIntervalLength(i) - 1; j++) {
+            colorArray.push(this.workCMS.getIntervalColor(i, j, this.workCMS.getInterpolationSpace()));
+          }
+          break;
+        case "right key":
+          colorArray.push(this.workCMS.getRightKeyColor(i, this.workCMS.getInterpolationSpace()));
+          for (var j = 0; j < this.workCMS.getIntervalLength(i) - 1; j++) {
+            colorArray.push(this.workCMS.getIntervalColor(i, j, this.workCMS.getInterpolationSpace()));
+          }
+          break;
+        default:
+          colorArray.push(this.workCMS.getRightKeyColor(i, this.workCMS.getInterpolationSpace()));
+          for (var j = 0; j < this.workCMS.getIntervalLength(i) - 1; j++) {
+            colorArray.push(this.workCMS.getIntervalColor(i, j, this.workCMS.getInterpolationSpace()));
+          }
+      }
+    }
+    break;
+    case "interval":
+      document.getElementById(this.partDivID+"_IntervalDiv").style.visibility="visible";
+      var numIntervals = parseInt(document.getElementById(this.partDivID+"_NumIntervals").value);
+
+      if(isNaN(numIntervals)){
+        openAlert("The input for the number of interval colors at the analysis is invalid. Please enter a number!");
+        return;
+      }
+
+      if(numIntervals<2){
+        openAlert("The input for the number of interval colors at the analysis is invalid. Please enter a number greater than 1!");
+        return;
+      }
+
+      var numList = [];
+      for (var i = 0; i < this.workCMS.getKeyLength()-1; i++) {
+        numList.push(numIntervals);
+      }
+      this.workCMS.calcSpecificKeyIntervalColors(numList);
+
+      for (var i = 0; i < this.workCMS.getKeyLength(); i++) {
+        switch (this.workCMS.getKeyType(i)) {
+          case "nil key":
+            continue;
+            break;
+          case "left key":
+            colorArray.push(this.workCMS.getLeftKeyColor(i, this.workCMS.getInterpolationSpace()));
+            break;
+          case "twin key":
+            colorArray.push(this.workCMS.getLeftKeyColor(i, this.workCMS.getInterpolationSpace()));
+            colorArray.push(this.workCMS.getRightKeyColor(i, this.workCMS.getInterpolationSpace()));
+            for (var j = 0; j < this.workCMS.getExportSamplingLength(i) - 1; j++) {
+              colorArray.push(this.workCMS.getExportSamplingColor(i, j, this.workCMS.getInterpolationSpace()));
+            }
+            break;
+          case "right key":
+            colorArray.push(this.workCMS.getRightKeyColor(i, this.workCMS.getInterpolationSpace()));
+            for (var j = 0; j < this.workCMS.getExportSamplingLength(i) - 1; j++) {
+              colorArray.push(this.workCMS.getExportSamplingColor(i, j, this.workCMS.getInterpolationSpace()));
+            }
+            break;
+          default:
+            colorArray.push(this.workCMS.getRightKeyColor(i, this.workCMS.getInterpolationSpace()));
+            for (var j = 0; j < this.workCMS.getExportSamplingLength(i) - 1; j++) {
+              colorArray.push(this.workCMS.getExportSamplingColor(i, j, this.workCMS.getInterpolationSpace()));
+            }
+        }
+      }
+    break;
+    default:
+      return;
+  }
+
+
+  //////////////////////////////////////////////////////////////////////
+  //// Draw intervals
+
+
+  var currentXPos = colormapXStart;
+  var bandWidth = colormapbarwidth / (colorArray.length);
+
+  for (var i = 0; i < colorArray.length; i++) {
+    canvasCtx.fillStyle = colorArray[i].getRGBString();
+    canvasCtx.fillRect(currentXPos, colormapYStart, bandWidth, colormapHeight);
+    /*canvasCtx.strokeStyle = "rgb(0,0,0)";
+    canvasCtx.rect(currentXPos,colormapYStart,bandWidth,colormapHeight);
+    canvasCtx.stroke();*/
+    currentXPos += bandWidth;
+  }
+
+  ///////////////////////////////////////////////////////////////
+  ///// Calculation of Order
+  //////////////////////////////////////////////////////////////
+
+  var minLocal = Infinity;
+  var maxLocal = -Infinity;
+  var minGlobal = Infinity;
+  ///////////////////////////////////////////////////////////////
+  ///// Local Order
+  //////////////////////////////////////////////////////////////
+
+  var localOrder = [];
+
+  for (var i = 1; i < colorArray.length - 1; i++) {
+
+    var orderValues = getOrderValues(cloneColor(colorArray[i-1]), cloneColor(colorArray[i]), cloneColor(colorArray[i+1]), this.workCMS.getInterpolationSpace());
+    var orderVal = Math.min(orderValues[3], orderValues[4]);
+
+    maxLocal = Math.max(maxLocal, orderVal);
+    minLocal = Math.min(minLocal, orderVal);
+
+    localOrder.push(orderVal);
+  }
+
+  // draw
+  currentXPos = colormapXStart + bandWidth;
+
+  if (minLocal < 0)
+    maxLocal = Math.max(maxLocal, minLocal * -1);
+
+  for (var y = 0; y < localOrder.length; y++) {
+
+    var colorRef = undefined;
+
+    var tmpVal = localOrder[y];
+    if (tmpVal < 0) {
+      tmpVal *= -1;
+      colorRef = new class_Color_RGB(1, 0, 0);
+    } else {
+      colorRef = new class_Color_RGB(0, 0, 1);
+    }
+
+    var deltaHeight = arrowPlotHeight * (tmpVal / maxLocal);
+    var yPos = colormapYStart - deltaHeight;
+
+    canvasCtx.fillStyle = colorRef.getRGBString();
+    canvasCtx.fillRect(currentXPos, yPos, bandWidth, deltaHeight);
+
+    colorRef.deleteReferences();
+    colorRef = null;
+
+    currentXPos += bandWidth;
+
+  }
+
+
+  ///////////////////////////////////////////////////////////////
+  ///// Global Order
+  //////////////////////////////////////////////////////////////
+
+  var arrayk0 = [];
+  var t1, t2, t3;
+
+  var minGlobal = 1; // Infinity is not needed, because min is only intressting if it is negative
+  for (var k0 = 0; k0 < colorArray.length - 2; k0++) {
+
+    var deltaE_K0_K2 = 0;
+    var deltaE_K1_K2 = 0;
+    var deltaE_K0_K1 = 0;
+
+    //var arrayk2 = [-1,-1,-1,-1];
+
+    for (var k2 = k0 + 2; k2 < colorArray.length; k2++) {
+
+      var arrayk2 = [0, -1, -1, -1];
+
+      for (var k1 = k0 + 1; k1 < k2; k1++) {
+
+        var orderValues = getOrderValues(cloneColor(colorArray[k0]), cloneColor(colorArray[k1]), cloneColor(colorArray[k2]), this.workCMS.getInterpolationSpace());
+        var orderVal = Math.min(orderValues[3], orderValues[4]);
+
+        minGlobal = Math.min(minGlobal, orderVal);
+
+        if (orderVal < 0) {
+          /*arrayk2[0] = orderVal;
+          arrayk2[1] = k0;
+          arrayk2[2] = k1;
+          arrayk2[3] = k2;*/
+          //
+          arrayk0.push([orderVal,k0,k1,k2]);
+        }
+      }
+      //if (arrayk2[3] != -1)
+        //arrayk0.push(arrayk2);
+    }
+  }
+
+
+
+  var dodraw = true;
+
+  if (minGlobal >= 0)
+    dodraw = false;
+
+  if (dodraw) {
+
+    // sort
+    arrayk0 = quickSort(arrayk0);
+
+    // draw
+
+    for (var i = 0; i < arrayk0.length; i++) {
+
+      var xPosK0 = colormapXStart + arrayk0[i][1] * bandWidth + (bandWidth / 2);
+      var xPosK2 = colormapXStart + arrayk0[i][3] * bandWidth + (bandWidth / 2);
+      var xPosK1 = colormapXStart + arrayk0[i][2] * bandWidth + (bandWidth / 2);
+
+      var deltaHeight = (arrowPlotHeight * (arrayk0[i][0] / minGlobal) * 2);
+
+      var yPosK1 = colormapYEnd + deltaHeight;
+
+      //canvasCtx.globalAlpha=1.0+(-0.8*(tmpMin/maxNegMin));
+      canvasCtx.strokeStyle = colorArray[arrayk0[i][2]].getRGBString(); //"rgb(0,0,0)";
+      canvasCtx.beginPath();
+      canvasCtx.lineWidth = 2;
+      canvasCtx.beginPath();
+      canvasCtx.moveTo(xPosK0, colormapYEnd);
+      canvasCtx.quadraticCurveTo(xPosK1, yPosK1, xPosK2, colormapYEnd);
+      canvasCtx.stroke();
+    }
+
+  }
+
+
+  //////////////////////////////////////////////////////////////
+
+  if (minLocal < 0)
+    document.getElementById(this.partDivID+"_InfoLocalMin").style.color = "var(--general-warning-color)";//getComputedStyle(document.documentElement).getPropertyValue('--general-warning-color');
+  else
+    document.getElementById(this.partDivID+"_InfoLocalMin").style.color = "var(--main-font-color)";//getComputedStyle(document.documentElement).getPropertyValue('--main-sepArea-font-color');
+
+  if (minGlobal < 0)
+    document.getElementById(this.partDivID+"_InfoGlobalMin").style.color = "var(--general-warning-color)";//getComputedStyle(document.documentElement).getPropertyValue('--general-warning-color');
+  else
+    document.getElementById(this.partDivID+"_InfoGlobalMin").style.color = "var(--main-font-color)";//getComputedStyle(document.documentElement).getPropertyValue('--main-sepArea-font-color');
+
+  document.getElementById(this.partDivID+"_InfoLocalMin").innerHTML = "Local Minimum".bold()+" = " + minLocal; //.toFixed(numDecimalPlaces);
+  document.getElementById(this.partDivID+"_InfoGlobalMin").innerHTML = "Global Minimum".bold()+" = " + minGlobal; //.toFixed(numDecimalPlaces);*/
+  this.workCMS.deleteReferences();
+}
 
 };
