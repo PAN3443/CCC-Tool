@@ -1,6 +1,5 @@
 class class_CMS {
 
-
     // for future # => private  .... change this. to this.#
     // private fields are not supported at the moment
     /*  #name = "Customer Colormap";
@@ -382,6 +381,25 @@ class class_CMS {
             }
           }
         }
+  }
+
+  replaceExportIntervalWithDeltaInterval(){
+
+    for (var i = this.intervalExportSampling.length-1; i>=0 ; i--) {
+      for (var j = this.intervalExportSampling[i].length-1; j>=0; j--) {
+        this.intervalExportSampling[i][j].deleteReferences();
+        this.intervalExportSampling[i][j]=null;
+      }
+    }
+    this.intervalExportSampling=[];
+
+    for (var i = 0; i < this.intervalArray.length; i++) {
+      this.intervalExportSampling.push([]);
+      for (var j = 0; j < this.intervalArray[i].length; j++) {
+        this.intervalExportSampling[i].push(cloneInterval(this.intervalArray[i][j]));
+      }
+    }
+
   }
 
   getInterpolationType(){

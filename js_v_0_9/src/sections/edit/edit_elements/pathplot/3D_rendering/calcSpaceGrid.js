@@ -89,9 +89,7 @@ function calcSpaceGridLAB(){
   tmpLABColor.deleteReferences();
   tmpLABColorTest.deleteReferences();
 
-
 }
-
 
 function calcSpaceGridDIN99(){
 
@@ -187,4 +185,115 @@ function calcSpaceGridDIN99(){
 
   tmpDIN99Color.deleteReferences();
   tmpDIN99ColorTest.deleteReferences();
+}
+
+function calcSpaceGridLMS(){
+  return;
+  // Idea; Send xRays though the LMS space to get the RGB-Possible Area
+  var errorStep = 0.001;
+  var lRes=50;
+  var lStep = 1.0/(lRes-1);
+  var mRes=50;
+  var mStep = 1.0/(mRes-1);
+  positionsLMS=[];
+
+  for (var i = 0; i < lRes; i++) {
+    var lColums=[]; // entries stand for different M-Values
+    for (var j = 0; j < mRes; j++) {
+      lColums.push([undefined,undefined]);
+    }
+    positionsLMS.push(lColums);
+  }
+
+  for (var i = 0; i < lRes; i++) {
+    var lPos=i*lStep;
+    for (var j = 0; j < mRes; j++) {
+      var mPos=i*mStep;
+
+      /////////////////////////////////////
+      /// Search for Start Position
+      var currentPos=0;
+      var currentStep=0.01;
+      var foundStartPos=false;
+
+      var tmpLMS = new class_Color_LMS(lPos,mPos,currentPos);
+      if(tmpLMS.checkRGBPossiblity()){
+        positionsLMS[i][j][0]=currentPos;
+        tmpLMS.deleteReferences();
+        foundStartPos=true;
+      }
+      else{
+        tmpLMS.deleteReferences();
+        while(!foundStartPos){
+          currentPos+=currentStep;
+          tmpLMS = new class_Color_LMS(lPos,mPos,currentPos);
+          if(tmpLMS.checkRGBPossiblity()){
+            tmpLMS.deleteReferences();
+            // After we found the first step with rough steps, we try finer steps
+            currentPos=recursiveLMS_FinerStep(lPos,mPos,currentPos,currentStep,errorStep,false);
+            positionsLMS[i][j][0]=currentPos;
+            foundStartPos=true;
+            break;
+          }
+        }
+      }
+      /////////////////////////////////////
+      /// Search for End Position
+      if(foundStartPos){
+        currentStep=0.1;
+        var oldPos=currentPos;
+        var foundEndPos=false;
+
+        //// Check if the Start Position is the only possible rgb color
+        var testPos = currentPos+errorStep;
+        tmpLMS = new class_Color_LMS(lPos,mPos,testPos);
+        if(!tmpLMS.checkRGBPossiblity()){
+          tmpLMS.deleteReferences();
+          // do nothing, the entry at positionsLMS[i][j][1]=undefined;
+        }
+        else{
+          tmpLMS.deleteReferences();
+          while(!foundEndPos){
+            currentPos+=currentStep;
+            tmpLMS = new class_Color_LMS(lPos,mPos,currentPos);
+            if(!tmpLMS.checkRGBPossiblity()){
+              tmpLMS.deleteReferences();
+              // After we found the first step with rough steps, we try finer steps
+              oldPos=recursiveLMS_FinerStep(lPos,mPos,oldPos,currentStep,errorStep,true);
+              positionsLMS[i][j][1]=oldPos;
+              foundEndPos=true;
+              break;
+            }
+            oldPos=currentPos;
+          }
+        }
+      }
+    }
+  }
+
+}
+
+function recursiveLMS_FinerStep(lValue,mValue,sValue,currentStep,smallestStep,doAdd){
+
+  var shorterStep=currentStep/2;
+
+  if(shorterStep<smallestStep)
+   return sValue;
+
+  var nextSValue = undefined;
+  if(doAdd)
+    nextSValue=sValue+currentStep; // for finding the End Position
+  else
+    nextSValue=sValue-currentStep; // for finding the Start Position
+
+  var tmpLMS = new class_Color_LMS(lValue,mValue,nextSValue);
+
+  if(tmpLMS.checkRGBPossiblity()){
+    tmpLMS.deleteReferences();
+    return recursiveLMS_FinerStep(lValue,mValue,nextSValue,shorterStep,smallestStep,doAdd);
+  }
+  else{
+    return recursiveLMS_FinerStep(lValue,mValue,sValue,shorterStep,smallestStep,doAdd);
+  }
+
 }

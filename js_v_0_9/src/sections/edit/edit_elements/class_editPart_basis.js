@@ -81,6 +81,7 @@ class class_Edit_Part_Basis{
     return true;
   }
 
+
   hidePart(){
     if(this.partDivID==undefined)
       return;

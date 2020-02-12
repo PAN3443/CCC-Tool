@@ -86,6 +86,320 @@ function calcRGBElementPos(tmpColor,shape,areaDim,keyindex,colorSide){
 
 /////////////////////////////////////////////////////////////////////
 
+function calcRGBLineElements(cmsClone,vWidth,vHeight){
+
+  pathplotElementPositions=[];
+  vPlotElementPositions=[];
+
+  for (var i = 0; i < cmsClone.getKeyLength(); i++) {
+
+    switch (cmsClone.getKeyType(i)) {
+      case "nil key":
+        // do nothing
+
+        break;
+      case "twin key":
+
+        var drawCircle = true;
+
+        if (cmsClone.getKeyType(i - 1) === "nil key" || cmsClone.getKeyType(i - 1) === "left key")
+          drawCircle = false;
+
+        ////////////////////////////////////////////////////////////////
+        /////// left Color
+        pathplotElementPositions.push(calcRGB_3D_ElementPos(cmsClone.getLeftKeyColor(i, "rgb"),drawCircle,i,0));
+
+        ////////////////////////////////////////////////////////////////
+        /////// Right Color
+        pathplotElementPositions.push(calcRGB_3D_ElementPos(cmsClone.getRightKeyColor(i, "rgb"),true,i,1));
+
+        ////////////////////////////////////////////////////////////////
+        /////// V Plot
+
+        if (drawCircle) {
+          vPlotElementPositions.push(calcRGB_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "rgb"),true,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          vPlotElementPositions.push(calcRGB_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "rgb"),true,i,1,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+        } else {
+          vPlotElementPositions.push(calcRGB_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "rgb"),drawCircle,i,0,((cmsClone.getRefPosition((i - 1))-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          vPlotElementPositions.push(calcRGB_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "rgb"),drawCircle,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          vPlotElementPositions.push(calcRGB_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "rgb"),true,i,1,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+        }
+
+        break;
+      case "left key":
+
+        var drawCircle = true;
+        if (cmsClone.getKeyType(i - 1) === "nil key" || cmsClone.getKeyType(i - 1) === "left key")
+          drawCircle = false;
+
+        ////////////////////////////////////////////////////////////////
+        /////// left Color
+        pathplotElementPositions.push(calcRGB_3D_ElementPos(cmsClone.getLeftKeyColor(i, "rgb"),drawCircle,i,0));
+
+        ////////////////////////////////////////////////////////
+        ///// Right Color
+        // do nothing
+
+        ////////////////////////////////////////////////////////////////
+        /////// V Plot
+
+        if (drawCircle) {
+          vPlotElementPositions.push(calcRGB_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "rgb"),true,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+        } else {
+          vPlotElementPositions.push(calcRGB_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "rgb"),drawCircle,i,0,((cmsClone.getRefPosition((i - 1))-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          vPlotElementPositions.push(calcRGB_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "rgb"),drawCircle,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+        }
+        break;
+
+      case "right key":
+
+        pathplotElementPositions.push(calcRGB_3D_ElementPos(cmsClone.getRightKeyColor(i, "rgb"),true,i,1));
+        ////////////////////////////////////////////////////////////////
+        /////// V Plot
+        vPlotElementPositions.push(calcRGB_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "rgb"),true,i,1,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+
+        break;
+      default:
+        // dual Key
+
+        pathplotElementPositions.push(calcRGB_3D_ElementPos(cmsClone.getRightKeyColor(i, "rgb"),true,i,2));
+
+        ////////////////////////////////////////////////////////////////
+        /////// V Plot
+
+        vPlotElementPositions.push(calcRGB_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "rgb"),true,i,2,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+
+        if(cmsClone.getKeyType(i-1)==="left key"){
+          vPlotElementPositions.push(calcRGB_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "rgb"),true,i,2,((cmsClone.getRefPosition(i-1)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+        }
+    }
+
+  }
+
+  cmsClone.deleteReferences();
+}
+
+function calcRGB_3D_ElementPos(tmpColor,shape,keyindex,colorSide){
+
+  var rgbPos3D = [];
+  rgbPos3D.push(tmpColor.getRValue() *255 - 128);
+  rgbPos3D.push(tmpColor.getGValue() *255 - 128);
+  rgbPos3D.push(tmpColor.getBValue() *255 - 128);
+
+  var showColor = tmpColor.calcRGBColor();
+  if(doColorblindnessSim){
+    var tmpLMS = showColor.calcLMSColor();
+    showColor = tmpLMS.calcColorBlindRGBColor();
+    tmpLMS.deleteReferences();
+    tmpLMS=null;
+  }
+
+  var posArray = [keyindex,showColor.getHexString(),shape,colorSide,[undefined,undefined],rgbPos3D]; // first element is to seperate between vplot element and hue plot element
+  showColor.deleteReferences();
+  tmpColor.deleteReferences();
+  showColor=null;
+  tmpColor=null;
+
+  return posArray;
+
+}
+
+function calcRGB_VPlot_ElementPos(tmpColor,shape,keyindex,colorSide,xRatio,vWidth,vHeight){
+
+  var vPlotxStart=Math.round(vWidth*0.1);
+var plotwidth=Math.round(vWidth*0.98)-vPlotxStart;
+var vPlotyStart=Math.round(vHeight*0.9)
+var heigthVArea=vPlotyStart-Math.round(vHeight*0.1);
+
+  var vPlotPos = [];
+  var xPos = vPlotxStart + xRatio * plotwidth;
+  var yPos1 = Math.round(vPlotyStart - (heigthVArea * tmpColor.getRValue()));
+  var yPos2 = Math.round(vPlotyStart - (heigthVArea * tmpColor.getGValue()));
+  var yPos3 = Math.round(vPlotyStart - (heigthVArea * tmpColor.getBValue()));
+
+  vPlotPos.push(xPos);
+  vPlotPos.push(yPos1);
+  vPlotPos.push(yPos2);
+  vPlotPos.push(yPos3);
+
+
+  var showColor = tmpColor.calcRGBColor();
+  if(doColorblindnessSim){
+    var tmpLMS = showColor.calcLMSColor();
+    showColor = tmpLMS.calcColorBlindRGBColor();
+    tmpLMS.deleteReferences();
+    tmpLMS=null;
+  }
+
+  var posArray = [keyindex,showColor.getHexString(),shape,colorSide,vPlotPos]; // first element is to seperate between vplot element and hue plot element
+
+  showColor.deleteReferences();
+  tmpColor.deleteReferences();
+  showColor=null;
+  tmpColor=null;
+
+  return posArray;
+}
+
+/////////////////////////////////////////////////////////////////////
+
+function calcLMSElements(cmsClone,vWidth,vHeight){
+
+  pathplotElementPositions=[];
+  vPlotElementPositions=[];
+
+  for (var i = 0; i < cmsClone.getKeyLength(); i++) {
+
+    switch (cmsClone.getKeyType(i)) {
+      case "nil key":
+        // do nothing
+
+        break;
+      case "twin key":
+
+        var drawCircle = true;
+
+        if (cmsClone.getKeyType(i - 1) === "nil key" || cmsClone.getKeyType(i - 1) === "left key")
+          drawCircle = false;
+
+        ////////////////////////////////////////////////////////////////
+        /////// left Color
+        pathplotElementPositions.push(calcLMS_3D_ElementPos(cmsClone.getLeftKeyColor(i, "lms"),drawCircle,i,0));
+
+        ////////////////////////////////////////////////////////////////
+        /////// Right Color
+        pathplotElementPositions.push(calcLMS_3D_ElementPos(cmsClone.getRightKeyColor(i, "lms"),true,i,1));
+
+        ////////////////////////////////////////////////////////////////
+        /////// V Plot
+
+        if (drawCircle) {
+          vPlotElementPositions.push(calcLMS_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "lms"),true,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          vPlotElementPositions.push(calcLMS_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "lms"),true,i,1,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+        } else {
+          vPlotElementPositions.push(calcLMS_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "lms"),drawCircle,i,0,((cmsClone.getRefPosition((i - 1))-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          vPlotElementPositions.push(calcLMS_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "lms"),drawCircle,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          vPlotElementPositions.push(calcLMS_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "lms"),true,i,1,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+        }
+
+        break;
+      case "left key":
+
+        var drawCircle = true;
+        if (cmsClone.getKeyType(i - 1) === "nil key" || cmsClone.getKeyType(i - 1) === "left key")
+          drawCircle = false;
+
+        ////////////////////////////////////////////////////////////////
+        /////// left Color
+        pathplotElementPositions.push(calcLMS_3D_ElementPos(cmsClone.getLeftKeyColor(i, "lms"),drawCircle,i,0));
+
+        ////////////////////////////////////////////////////////
+        ///// Right Color
+        // do nothing
+
+        ////////////////////////////////////////////////////////////////
+        /////// V Plot
+
+        if (drawCircle) {
+          vPlotElementPositions.push(calcLMS_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "lms"),true,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+        } else {
+          vPlotElementPositions.push(calcLMS_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "lms"),drawCircle,i,0,((cmsClone.getRefPosition((i - 1))-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          vPlotElementPositions.push(calcLMS_VPlot_ElementPos(cmsClone.getLeftKeyColor(i, "lms"),drawCircle,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+        }
+        break;
+
+      case "right key":
+
+        pathplotElementPositions.push(calcLMS_3D_ElementPos(cmsClone.getRightKeyColor(i, "lms"),true,i,1));
+        ////////////////////////////////////////////////////////////////
+        /////// V Plot
+        vPlotElementPositions.push(calcLMS_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "lms"),true,i,1,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+
+        break;
+      default:
+        // dual Key
+
+        pathplotElementPositions.push(calcLMS_3D_ElementPos(cmsClone.getRightKeyColor(i, "lms"),true,i,2));
+
+        ////////////////////////////////////////////////////////////////
+        /////// V Plot
+
+        vPlotElementPositions.push(calcLMS_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "lms"),true,i,2,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+
+        if(cmsClone.getKeyType(i-1)==="left key"){
+          vPlotElementPositions.push(calcLMS_VPlot_ElementPos(cmsClone.getRightKeyColor(i, "lms"),true,i,2,((cmsClone.getRefPosition(i-1)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+        }
+    }
+
+  }
+
+  cmsClone.deleteReferences();
+}
+
+function calcLMS_3D_ElementPos(tmpColor,shape,keyindex,colorSide){
+
+  /*var rgbPos3D = [];
+  rgbPos3D.push(tmpColor.getLValue() *255 - 128);
+  rgbPos3D.push(tmpColor.getGValue() *255 - 128);
+  rgbPos3D.push(tmpColor.getBValue() *255 - 128);
+
+  var showColor = tmpColor.calcRGBColor();
+  if(doColorblindnessSim){
+    var tmpLMS = showColor.calcLMSColor();
+    showColor = tmpLMS.calcColorBlindRGBColor();
+    tmpLMS.deleteReferences();
+    tmpLMS=null;
+  }
+
+  var posArray = [keyindex,showColor.getHexString(),shape,colorSide,[undefined,undefined],rgbPos3D]; // first element is to seperate between vplot element and hue plot element
+  showColor.deleteReferences();
+  tmpColor.deleteReferences();
+  showColor=null;
+  tmpColor=null;
+
+  return posArray;*/
+
+}
+
+function calcLMS_VPlot_ElementPos(tmpColor,shape,keyindex,colorSide,xRatio,vWidth,vHeight){
+
+  /*var vPlotxStart=Math.round(vWidth*0.1);
+  var plotwidth=Math.round(vWidth*0.98)-vPlotxStart;
+  var vPlotyStart=Math.round(vHeight*0.9)
+  var heigthVArea=vPlotyStart-Math.round(vHeight*0.1);
+
+  var vPlotPos = [];
+  var xPos = vPlotxStart + xRatio * plotwidth;
+  var yPos1 = Math.round(vPlotyStart - (heigthVArea * tmpColor.getRValue()));
+  var yPos2 = Math.round(vPlotyStart - (heigthVArea * tmpColor.getGValue()));
+  var yPos3 = Math.round(vPlotyStart - (heigthVArea * tmpColor.getBValue()));
+
+  vPlotPos.push(xPos);
+  vPlotPos.push(yPos1);
+  vPlotPos.push(yPos2);
+  vPlotPos.push(yPos3);
+
+
+  var showColor = tmpColor.calcRGBColor();
+  if(doColorblindnessSim){
+    var tmpLMS = showColor.calcLMSColor();
+    showColor = tmpLMS.calcColorBlindRGBColor();
+    tmpLMS.deleteReferences();
+    tmpLMS=null;
+  }
+
+  var posArray = [keyindex,showColor.getHexString(),shape,colorSide,vPlotPos]; // first element is to seperate between vplot element and hue plot element
+
+  showColor.deleteReferences();
+  tmpColor.deleteReferences();
+  showColor=null;
+  tmpColor=null;
+
+  return posArray;*/
+}
+
+/////////////////////////////////////////////////////////////////////
+
 function calcHSVElements(cmsClone,hueRes,vWidth,vHeight){
 
   pathplotElementPositions=[];
@@ -576,9 +890,9 @@ function calcDIN99_Hue_ElementPos(tmpColor,shape,keyindex,colorSide,hueRes){
 function calcDIN99_VPlot_ElementPos(tmpColor,shape,keyindex,colorSide,xRatio,vWidth,vHeight){
 
   var vPlotxStart=Math.round(vWidth*0.1);
-var plotwidth=Math.round(vWidth*0.98)-vPlotxStart;
-var vPlotyStart=Math.round(vHeight*0.9)
-var heigthVArea=vPlotyStart-Math.round(vHeight*0.1);
+  var plotwidth=Math.round(vWidth*0.98)-vPlotxStart;
+  var vPlotyStart=Math.round(vHeight*0.9)
+  var heigthVArea=vPlotyStart-Math.round(vHeight*0.1);
 
   var vPlotPos = [];
   var xPos = vPlotxStart + xRatio * plotwidth;

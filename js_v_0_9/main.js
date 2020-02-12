@@ -39,6 +39,8 @@ window.onload = function() {
   calcSpaceGridLAB();
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Calculation: 3D DIN99 Grid";
   calcSpaceGridDIN99();
+  document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Calculation: 3D LMS Grid";
+  calcSpaceGridLMS();
 
   checkLandscapeWindow();
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Loading Finished";

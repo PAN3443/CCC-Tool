@@ -74,3 +74,9 @@ class class_Interval{
     }
 
 }
+
+
+function cloneInterval(interval){
+  var ref = interval.getRefPosition();
+  return new class_Interval(interval.getColor("lab"),ref);
+}

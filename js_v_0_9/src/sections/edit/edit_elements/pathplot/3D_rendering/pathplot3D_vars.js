@@ -24,6 +24,9 @@ var din99ABMax = 0;
 var din99SPos = -150.0; // -100-200
 var din99EPos = 150.0; // -100-200
 
+// LMS
+var positionsLMS =[];
+
 // HSV
 var hsv3DRadius = 200;
 var vStart3D = -100;

@@ -68,7 +68,7 @@ class class_Color_LMS{
     var result = tmpXYZ.checkRGBPossiblity();
     tmpXYZ.deleteReferences();
     tmpXYZ=null;
-    return tmpXYZ.checkRGBPossiblity();
+    return result;
   }
 
   setColorToRGBPossiblity(){

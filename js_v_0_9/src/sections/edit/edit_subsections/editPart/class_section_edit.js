@@ -185,11 +185,12 @@ class class_Edit_Section extends class_Edit_Basis_Section {
         if(this.showPathplot){
           document.getElementById("id_EditPage_PathplotDiv").style.width=possibleWidth+"vw";
           document.getElementById("id_EditPage_PathplotDiv").style.display="flex";
+
           document.getElementById("id_EditPage_DisplayPathplot").style.background = "var(--main-menue-active)";
           document.getElementById("id_EditPage_DisplayPathplot").innerHTML = "Hide Pathplot";
           if(this.isSectionOpen()){
             this.part_Pathplot.partIsReady=true;
-            this.part_Pathplot.resize();
+            this.part_Pathplot.showPart();
             this.part_Pathplot.pp_3D_StartAnimation();
           }
         }

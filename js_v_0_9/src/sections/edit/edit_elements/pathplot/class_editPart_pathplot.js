@@ -8,7 +8,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     this.pathPlot_Height_VH=62;
     this.pathPlot_Width_VW=undefined;
     this.pathPlot_CoordID=undefined;
-    this.pathplot_space = "rgb";
+    this.pathplot_space = "hsv";
 
     this.pathplot_hueRes = 500;
     this.vPlotHeight = 500;
@@ -50,18 +50,29 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     this.translationBorder = 200;
 
     this.pp_3D_init();
-    this.updatePathPlotSpace(this.pathplot_space); // produce RGB Mesh
+  }
+
+  showPart(){
+    if(super.showPart){
+      this.changePathPlotSpace(); // produce RGB Mesh
+    }
   }
 
   updatePart(doBackground,doInterpolationline, initVPlot){
     if(!super.updatePart())
       return;
 
-    this.pp_WorkCMS
-    if(this.pathplot_space==="rgb")
-      this.pp_drawRGB(doBackground, doInterpolationline);
-    else
-      this.pp_drawOthers(doBackground, doInterpolationline, initVPlot);
+      switch (this.pathplot_space) {
+        case "rgb":
+          this.pp_drawRGB(doBackground, doInterpolationline);
+        break;
+        case "rgb-line":
+        case "lms":
+          this.pp_drawRGBorLMS_LineChart(doInterpolationline, initVPlot);
+        break;
+        default:
+          this.pp_drawOthers(doBackground, doInterpolationline, initVPlot);
+      }
   }
 
   resize(){
@@ -73,80 +84,101 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     var rect = container.getBoundingClientRect();
     var ratio = rect.width/rect.height;
     document.getElementById(this.partDivID).innerHTML="";
-    if(this.pathplot_space==="rgb"){
-      switch (true) {
-        case (ratio<0):
-          // do nothign
-        break;
-        case (ratio<0.6):
-          document.getElementById(this.partDivID).style.flexDirection="column";
-          var tmpDiv = document.createElement('div');
-          tmpDiv.style.width="100%;";
-          tmpDiv.style.height=this.pathPlot_Height_VH*0.25+"vh";
-          tmpDiv.style.borderRight="0.2vw solid black";
-          tmpDiv.style.borderBottom="0.2vh solid black";
-          tmpDiv.id=this.partDivID+"_PP_3D";
-          tmpDiv=this.add_pp_3D_Events(tmpDiv);
-          document.getElementById(this.partDivID).appendChild(tmpDiv);
-          var tmpRow = document.createElement('div');
-          tmpRow.style.width="100%";
-          tmpRow.style.display="flex";
-          tmpRow.style.height=this.pathPlot_Height_VH*0.25+"vh";
-          tmpRow.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.25,this.pathPlot_Width_VW,true,this.partDivID+"_PP_RG"));
-          document.getElementById(this.partDivID).appendChild(tmpRow);
-          tmpRow = document.createElement('div');
-          tmpRow.style.width="100%";
-          tmpRow.style.display="flex";
-          tmpRow.style.height=this.pathPlot_Height_VH*0.25+"vh";
-          tmpRow.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.25,this.pathPlot_Width_VW,true,this.partDivID+"_PP_RB"));
-          document.getElementById(this.partDivID).appendChild(tmpRow);
-          tmpRow = document.createElement('div');
-          tmpRow.style.width="100%";
-          tmpRow.style.display="flex";
-          tmpRow.style.height=this.pathPlot_Height_VH*0.25+"vh";
-          tmpRow.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.25,this.pathPlot_Width_VW,true,this.partDivID+"_PP_BG"));
-          document.getElementById(this.partDivID).appendChild(tmpRow);
-        break;
-        case (ratio<2):
-          document.getElementById(this.partDivID).style.flexDirection="column";
-          var tmpRow = document.createElement('div');
-          tmpRow.style.width="100%";
-          tmpRow.style.display="flex";
-          tmpRow.style.height=this.pathPlot_Height_VH*0.5+"vh";
-          var tmpDiv = document.createElement('div');
-          tmpDiv.style.height=this.pathPlot_Height_VH*0.5+"vh";
-          tmpDiv.style.width=this.pathPlot_Width_VW*0.5+"vw";
-          tmpDiv.style.borderRight="0.2vw solid black";
-          tmpDiv.style.borderBottom="0.2vh solid black";
-          tmpDiv.id=this.partDivID+"_PP_3D";
-          tmpDiv=this.add_pp_3D_Events(tmpDiv);
-          tmpRow.appendChild(tmpDiv);
-          tmpRow.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.5,this.pathPlot_Width_VW*0.5,true,this.partDivID+"_PP_RG"));
-          document.getElementById(this.partDivID).appendChild(tmpRow);
-          tmpRow = document.createElement('div');
-          tmpRow.style.width="100%";
-          tmpRow.style.display="flex";
-          tmpRow.style.height=this.pathPlot_Height_VH*0.5+"vh";
-          tmpRow.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.5,this.pathPlot_Width_VW*0.5,true,this.partDivID+"_PP_RB"));
-          tmpRow.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.5,this.pathPlot_Width_VW*0.5,true,this.partDivID+"_PP_BG"));
-          document.getElementById(this.partDivID).appendChild(tmpRow);
-        break;
-        default: // (>2)
-          document.getElementById(this.partDivID).style.flexDirection="row";
-          var tmpDiv = document.createElement('div');
-          tmpDiv.style.height=this.pathPlot_Height_VH+"vh";
-          tmpDiv.style.width=this.pathPlot_Width_VW*0.25+"vw";
-          tmpDiv.style.borderRight="0.2vw solid black";
-          tmpDiv.style.borderBottom="0.2vh solid black";
-          tmpDiv.id=this.partDivID+"_PP_3D";
-          tmpDiv=this.add_pp_3D_Events(tmpDiv);
-          document.getElementById(this.partDivID).appendChild(tmpDiv);
-          document.getElementById(this.partDivID).appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH,this.pathPlot_Width_VW*0.25,true,this.partDivID+"_PP_RG"));
-          document.getElementById(this.partDivID).appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH,this.pathPlot_Width_VW*0.25,true,this.partDivID+"_PP_RB"));
-          document.getElementById(this.partDivID).appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH,this.pathPlot_Width_VW*0.25,true,this.partDivID+"_PP_BG"));
-      }
-    }
-    else {
+
+    switch (this.pathplot_space) {
+      case "rgb":
+        switch (true) {
+          case (ratio<0):
+            // do nothign
+          break;
+          case (ratio<0.6):
+            document.getElementById(this.partDivID).style.flexDirection="column";
+            var tmpDiv = document.createElement('div');
+            tmpDiv.style.width="100%;";
+            tmpDiv.style.height=this.pathPlot_Height_VH*0.25+"vh";
+            tmpDiv.style.borderRight="0.2vw solid black";
+            tmpDiv.style.borderBottom="0.2vh solid black";
+            tmpDiv.id=this.partDivID+"_PP_3D";
+            tmpDiv=this.add_pp_3D_Events(tmpDiv);
+            document.getElementById(this.partDivID).appendChild(tmpDiv);
+            var tmpRow = document.createElement('div');
+            tmpRow.style.width="100%";
+            tmpRow.style.display="flex";
+            tmpRow.style.height=this.pathPlot_Height_VH*0.25+"vh";
+            tmpRow.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.25,this.pathPlot_Width_VW,true,this.partDivID+"_PP_RG"));
+            document.getElementById(this.partDivID).appendChild(tmpRow);
+            tmpRow = document.createElement('div');
+            tmpRow.style.width="100%";
+            tmpRow.style.display="flex";
+            tmpRow.style.height=this.pathPlot_Height_VH*0.25+"vh";
+            tmpRow.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.25,this.pathPlot_Width_VW,true,this.partDivID+"_PP_RB"));
+            document.getElementById(this.partDivID).appendChild(tmpRow);
+            tmpRow = document.createElement('div');
+            tmpRow.style.width="100%";
+            tmpRow.style.display="flex";
+            tmpRow.style.height=this.pathPlot_Height_VH*0.25+"vh";
+            tmpRow.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.25,this.pathPlot_Width_VW,true,this.partDivID+"_PP_BG"));
+            document.getElementById(this.partDivID).appendChild(tmpRow);
+          break;
+          case (ratio<2):
+            document.getElementById(this.partDivID).style.flexDirection="column";
+            var tmpRow = document.createElement('div');
+            tmpRow.style.width="100%";
+            tmpRow.style.display="flex";
+            tmpRow.style.height=this.pathPlot_Height_VH*0.5+"vh";
+            var tmpDiv = document.createElement('div');
+            tmpDiv.style.height=this.pathPlot_Height_VH*0.5+"vh";
+            tmpDiv.style.width=this.pathPlot_Width_VW*0.5+"vw";
+            tmpDiv.style.borderRight="0.2vw solid black";
+            tmpDiv.style.borderBottom="0.2vh solid black";
+            tmpDiv.id=this.partDivID+"_PP_3D";
+            tmpDiv=this.add_pp_3D_Events(tmpDiv);
+            tmpRow.appendChild(tmpDiv);
+            tmpRow.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.5,this.pathPlot_Width_VW*0.5,true,this.partDivID+"_PP_RG"));
+            document.getElementById(this.partDivID).appendChild(tmpRow);
+            tmpRow = document.createElement('div');
+            tmpRow.style.width="100%";
+            tmpRow.style.display="flex";
+            tmpRow.style.height=this.pathPlot_Height_VH*0.5+"vh";
+            tmpRow.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.5,this.pathPlot_Width_VW*0.5,true,this.partDivID+"_PP_RB"));
+            tmpRow.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.5,this.pathPlot_Width_VW*0.5,true,this.partDivID+"_PP_BG"));
+            document.getElementById(this.partDivID).appendChild(tmpRow);
+          break;
+          default: // (>2)
+            document.getElementById(this.partDivID).style.flexDirection="row";
+            var tmpDiv = document.createElement('div');
+            tmpDiv.style.height=this.pathPlot_Height_VH+"vh";
+            tmpDiv.style.width=this.pathPlot_Width_VW*0.25+"vw";
+            tmpDiv.style.borderRight="0.2vw solid black";
+            tmpDiv.style.borderBottom="0.2vh solid black";
+            tmpDiv.id=this.partDivID+"_PP_3D";
+            tmpDiv=this.add_pp_3D_Events(tmpDiv);
+            document.getElementById(this.partDivID).appendChild(tmpDiv);
+            document.getElementById(this.partDivID).appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH,this.pathPlot_Width_VW*0.25,true,this.partDivID+"_PP_RG"));
+            document.getElementById(this.partDivID).appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH,this.pathPlot_Width_VW*0.25,true,this.partDivID+"_PP_RB"));
+            document.getElementById(this.partDivID).appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH,this.pathPlot_Width_VW*0.25,true,this.partDivID+"_PP_BG"));
+        }
+      break;
+      case "rgb-line":
+        document.getElementById(this.partDivID).style.flexDirection="row";
+        var tmpDiv = document.createElement('div');
+        tmpDiv.style.height=this.pathPlot_Height_VH+"vh";
+        tmpDiv.style.width=this.pathPlot_Width_VW*0.25+"vw";
+        tmpDiv.style.borderRight="0.2vw solid black";
+        tmpDiv.style.borderBottom="0.2vh solid black";
+        tmpDiv.id=this.partDivID+"_PP_3D";
+        tmpDiv=this.add_pp_3D_Events(tmpDiv);
+        document.getElementById(this.partDivID).appendChild(tmpDiv);
+        var tmpColumn = document.createElement('div');
+        tmpColumn.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.33,this.pathPlot_Width_VW*0.75,false,this.partDivID+"_PP_C1"));
+        tmpColumn.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.33,this.pathPlot_Width_VW*0.75,false,this.partDivID+"_PP_C2"));
+        tmpColumn.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.33,this.pathPlot_Width_VW*0.75,false,this.partDivID+"_PP_C3"));
+        document.getElementById(this.partDivID).appendChild(tmpColumn);
+      break;
+      case "lms":
+
+      break;
+      default:
       switch (true) {
         case (ratio<0):
           // do nothing
@@ -161,8 +193,8 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
           tmpDiv.style.height=this.pathPlot_Height_VH*0.25+"vh";
           tmpDiv.style.width=this.pathPlot_Width_VW*0.5+"vw";
           tmpDiv.style.borderRight="0.2vw solid black";
-tmpDiv.style.borderBottom="0.2vh solid black";
-tmpDiv.id=this.partDivID+"_PP_3D";
+          tmpDiv.style.borderBottom="0.2vh solid black";
+          tmpDiv.id=this.partDivID+"_PP_3D";
           tmpDiv=this.add_pp_3D_Events(tmpDiv);
           tmpRow.appendChild(tmpDiv);
           tmpRow.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.25,this.pathPlot_Width_VW*0.5,true,this.partDivID+"_PP_Hue"));
@@ -180,8 +212,8 @@ tmpDiv.id=this.partDivID+"_PP_3D";
           tmpDiv.style.height=this.pathPlot_Height_VH*0.5+"vh";
           tmpDiv.style.width=this.pathPlot_Width_VW*0.33+"vw";
           tmpDiv.style.borderRight="0.2vw solid black";
-tmpDiv.style.borderBottom="0.2vh solid black";
-tmpDiv.id=this.partDivID+"_PP_3D";
+          tmpDiv.style.borderBottom="0.2vh solid black";
+          tmpDiv.id=this.partDivID+"_PP_3D";
           tmpDiv=this.add_pp_3D_Events(tmpDiv);
           tmpCol.appendChild(tmpDiv);
           tmpCol.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.5,this.pathPlot_Width_VW*0.33,true,this.partDivID+"_PP_Hue"));
@@ -200,8 +232,8 @@ tmpDiv.id=this.partDivID+"_PP_3D";
           tmpDiv.style.height=this.pathPlot_Height_VH+"vh";
           tmpDiv.style.width=this.pathPlot_Width_VW*0.25+"vw";
           tmpDiv.style.borderRight="0.2vw solid black";
-tmpDiv.style.borderBottom="0.2vh solid black";
-tmpDiv.id=this.partDivID+"_PP_3D";
+          tmpDiv.style.borderBottom="0.2vh solid black";
+          tmpDiv.id=this.partDivID+"_PP_3D";
           tmpDiv=this.add_pp_3D_Events(tmpDiv);
           document.getElementById(this.partDivID).appendChild(tmpDiv);
           document.getElementById(this.partDivID).appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH,this.pathPlot_Width_VW*0.25,true,this.partDivID+"_PP_Hue"));
@@ -221,56 +253,82 @@ tmpDiv.id=this.partDivID+"_PP_3D";
 
   updatePathPlotSpace(space){
 
-    if(!isNaN(space)){
-      switch (space) {
-        case 0:
-          this.updatePathPlotSpace("rgb");
-        return;
-        case 1:
-          this.updatePathPlotSpace("hsv");
-        return;
-        case 2:
-          this.updatePathPlotSpace("lab");
-        return;
-        case 4:
-          this.updatePathPlotSpace("din99");
-        return;
-        case 3:
-          this.updatePathPlotSpace("lch");
-        return;
-        default:
-          this.updatePathPlotSpace("lab");
+    this.pathplot_space=space;
+    var tmpID = undefined;
+    switch (true) {
+      case editSection.isSectionOpen():
+        tmpID="id_EditPage_SelectPathplotType";
+      break;
+      default:
           return;
+    }
+
+    for (var i = 0; i < document.getElementById(tmpID).options.length; i++) {
+      if(document.getElementById(tmpID).options[i].value===space){
+          document.getElementById(tmpID).selectedIndex = i;
+          break;
       }
     }
-    this.pathplot_space=space;
-
-    document.getElementById("id_EditPage_PP_RGB").style.background = "var(--main-menue-background)";
-    document.getElementById("id_EditPage_PP_HSV").style.background = "var(--main-menue-background)";
-    document.getElementById("id_EditPage_PP_LAB").style.background = "var(--main-menue-background)";
-    document.getElementById("id_EditPage_PP_LCH").style.background = "var(--main-menue-background)";
-    document.getElementById("id_EditPage_PP_DIN99").style.background = "var(--main-menue-background)";
 
     switch (this.pathplot_space) {
       case "rgb":
+      case "rgb-line":
         this.pp_colorspaceGroup=rgbMesh(this.pp_colorspaceGroup);
-        document.getElementById("id_EditPage_PP_RGB").style.background = "var(--main-menue-active)";
       break;
       case "hsv":
         this.pp_colorspaceGroup=hsvMesh(this.pp_colorspaceGroup);
-        document.getElementById("id_EditPage_PP_HSV").style.background = "var(--main-menue-active)";
       break;
       case "lab":
         this.pp_colorspaceGroup=labMesh(this.pp_colorspaceGroup);
-        document.getElementById("id_EditPage_PP_LAB").style.background = "var(--main-menue-active)";
       break;
       case "din99":
         this.pp_colorspaceGroup=din99Mesh(this.pp_colorspaceGroup);
-        document.getElementById("id_EditPage_PP_DIN99").style.background = "var(--main-menue-active)";
       break;
       case "lch":
         this.pp_colorspaceGroup=lchMesh(this.pp_colorspaceGroup);
-        document.getElementById("id_EditPage_PP_LCH").style.background = "var(--main-menue-active)";
+      break;
+      case "lms":
+        this.pp_colorspaceGroup=lmsMesh(this.pp_colorspaceGroup);
+      break;
+      default:
+        this.updatePathPlotSpace("lab")
+        return;
+    }
+
+    this.resize();
+
+  }
+
+  changePathPlotSpace(){
+    var tmpID = undefined;
+    switch (true) {
+      case editSection.isSectionOpen():
+        tmpID="id_EditPage_SelectPathplotType";
+      break;
+      default:
+          return;
+    }
+    this.pathplot_space=document.getElementById(tmpID).options[document.getElementById(tmpID).selectedIndex].value;
+
+    switch (this.pathplot_space) {
+      case "rgb":
+      case "rgb-line":
+        this.pp_colorspaceGroup=rgbMesh(this.pp_colorspaceGroup);
+      break;
+      case "hsv":
+        this.pp_colorspaceGroup=hsvMesh(this.pp_colorspaceGroup);
+      break;
+      case "lab":
+        this.pp_colorspaceGroup=labMesh(this.pp_colorspaceGroup);
+      break;
+      case "din99":
+        this.pp_colorspaceGroup=din99Mesh(this.pp_colorspaceGroup);
+      break;
+      case "lch":
+        this.pp_colorspaceGroup=lchMesh(this.pp_colorspaceGroup);
+      break;
+      case "lms":
+        this.pp_colorspaceGroup=lmsMesh(this.pp_colorspaceGroup);
       break;
       default:
         this.updatePathPlotSpace("lab")
@@ -441,6 +499,83 @@ tmpDiv.id=this.partDivID+"_PP_3D";
     this.pp_ElementGroup=drawPathplot3DElements(this.pp_ElementGroup,this.mouseAboveKeyID,this.mouseGrappedColorSide);
   }
 
+  pp_drawRGBorLMS_LineChart(doInterpolationline, initVPlot){
+
+    if (initVPlot)
+      this.pp_init_VPlot();
+
+    if (drawInterpolationLine)
+      this.pp_rgblms_LineChart_interpolationLine();
+
+    this.pp_rgblms_LineChart_drawElements();
+  }
+
+  pp_rgblms_LineChart_drawElements(){
+    var canvasObj0 = document.getElementById(this.partDivID+"_PP_C1_l2");
+    canvasObj0.width = this.vPlotWidth;
+    canvasObj0.height = this.vPlotHeight;
+
+    var canvasObj1 = document.getElementById(this.partDivID+"_PP_C2_l2");
+    canvasObj1.width = this.vPlotWidth;
+    canvasObj1.height = this.vPlotHeight;
+
+    var canvasObj2 = document.getElementById(this.partDivID+"_PP_C3_l2");
+    canvasObj2.width = this.vPlotWidth;
+    canvasObj2.height = this.vPlotHeight;
+
+    switch (this.pathplot_space) {
+      case "rgb-line":
+          calcRGBLineElements(this.getParentCMS(),this.vPlotWidth,this.vPlotHeight);
+        break;
+        case "lms":
+          calcLMSElements(this.getParentCMS(),this.vPlotWidth,this.vPlotHeight);
+          break;
+      default:
+        return;
+
+    }
+
+    drawVplotElements(canvasObj0.getContext("2d"),0,this.mouseAboveKeyID,this.mouseGrappedColorSide);
+    drawVplotElements(canvasObj1.getContext("2d"),1,this.mouseAboveKeyID,this.mouseGrappedColorSide);
+    drawVplotElements(canvasObj2.getContext("2d"),2,this.mouseAboveKeyID,this.mouseGrappedColorSide);
+
+    this.pp_ElementGroup=drawPathplot3DElements(this.pp_ElementGroup,this.mouseAboveKeyID,this.mouseGrappedColorSide);
+
+  }
+
+  pp_rgblms_LineChart_interpolationLine(){
+    var canvasObj0 = document.getElementById(this.partDivID+"_PP_C1_l1");
+    canvasObj0.width = this.vPlotWidth;
+    canvasObj0.height = this.vPlotHeight;
+
+    var canvasObj1 = document.getElementById(this.partDivID+"_PP_C2_l1");
+    canvasObj1.width = this.vPlotWidth;
+    canvasObj1.height = this.vPlotHeight;
+
+    var canvasObj2 = document.getElementById(this.partDivID+"_PP_C3_l1");
+    canvasObj2.width = this.vPlotWidth;
+    canvasObj2.height = this.vPlotHeight;
+
+    switch (this.pathplot_space) {
+      case "rgb-line":
+          calcInterpolationLine_RGBLine(this.getParentCMS(),this.vPlotWidth,this.vPlotHeight);
+        break;
+        case "lms":
+          calcInterpolationLine_LMS(this.getParentCMS(),this.vPlotWidth,this.vPlotHeight);
+          break;
+      default:
+        return;
+
+    }
+
+    drawInterpolationLine_VPlot(canvasObj0.getContext("2d"), 0);
+    drawInterpolationLine_VPlot(canvasObj1.getContext("2d"), 1);
+    drawInterpolationLine_VPlot(canvasObj2.getContext("2d"), 2);
+
+    this.pp_LineGroup=draw3DInterpolationLine(this.pp_LineGroup);
+
+  }
+
   pp_drawOthers(calcBackground, drawInterpolationLine, initVplot) {
 
     if (initVplot)
@@ -511,6 +646,16 @@ tmpDiv.id=this.partDivID+"_PP_3D";
     canvasObj2.height = this.vPlotHeight;
 
     switch (this.pathplot_space) {
+    case "rgb-line":
+      drawVPlot(this.getParentCMS(),canvasObj0.getContext("2d"),0,255, "R");
+      drawVPlot(this.getParentCMS(),canvasObj1.getContext("2d"),0,255, "G");
+      drawVPlot(this.getParentCMS(),canvasObj2.getContext("2d"),0,255, "B");
+    break;
+    case "lms":
+      drawVPlot(this.getParentCMS(),canvasObj0.getContext("2d"),0,1, "L");
+      drawVPlot(this.getParentCMS(),canvasObj1.getContext("2d"),0,1, "M");
+      drawVPlot(this.getParentCMS(),canvasObj2.getContext("2d"),0,1, "S");
+    break;
     case "hsv":
       drawVPlot(this.getParentCMS(),canvasObj0.getContext("2d"),0,360, "H");
       drawVPlot(this.getParentCMS(),canvasObj1.getContext("2d"),0,100, "S");
@@ -635,6 +780,10 @@ tmpDiv.id=this.partDivID+"_PP_3D";
     this.mousePosX =mousePosX;
     this.mousePosY =mousePosY;
 
+    var tmpSpace = this.pathplot_space;
+    if(tmpSpace==="rgb-line")
+      tmpSpace="rgb";
+
     if(this.mouseGrappedKeyID==-1){
       var tmpCMS = this.getParentCMS();
       document.getElementById(id).style.cursor = "default";
@@ -655,7 +804,7 @@ tmpDiv.id=this.partDivID+"_PP_3D";
 
             ////////////////////////////////////////////////////////////////
             /////// Right Color
-            var tmpColor2 = tmpCMS.getRightKeyColor(i, this.pathplot_space);
+            var tmpColor2 = tmpCMS.getRightKeyColor(i, tmpSpace);
             position =  this.getColorPosInCanvas(tmpColor2);
             if(this.pp_isVPlot)
               position[0]=tmpX;
@@ -668,7 +817,7 @@ tmpDiv.id=this.partDivID+"_PP_3D";
 
             ////////////////////////////////////////////////////////////////
             /////// left Color
-              var tmpColor = tmpCMS.getLeftKeyColor(i, this.pathplot_space);
+              var tmpColor = tmpCMS.getLeftKeyColor(i, tmpSpace);
               var drawCircle = true;
               if (tmpCMS.getKeyType(i-1) === "nil key" || tmpCMS.getKeyType(i-1) === "left key")
                 drawCircle = false;
@@ -709,7 +858,7 @@ tmpDiv.id=this.partDivID+"_PP_3D";
                 drawCircle = false;
               ////////////////////////////////////////////////////////////////
               /////// left Color
-              var tmpColor = tmpCMS.getLeftKeyColor(i, this.pathplot_space);
+              var tmpColor = tmpCMS.getLeftKeyColor(i, tmpSpace);
               position =  this.getColorPosInCanvas(tmpColor);
               if(this.pp_isVPlot)
                 position[0]=tmpX;
@@ -740,7 +889,7 @@ tmpDiv.id=this.partDivID+"_PP_3D";
               break;
 
               case "right key":
-              var tmpColor = tmpCMS.getRightKeyColor(i, this.pathplot_space); // right color because of right key
+              var tmpColor = tmpCMS.getRightKeyColor(i, tmpSpace); // right color because of right key
               position =  this.getColorPosInCanvas(tmpColor);
               if(this.pp_isVPlot)
                 position[0]=tmpX;
@@ -755,7 +904,7 @@ tmpDiv.id=this.partDivID+"_PP_3D";
               break;
             default:
               // dual Key
-              tmpColor = tmpCMS.getRightKeyColor(i, this.pathplot_space); // right color because of right key
+              tmpColor = tmpCMS.getRightKeyColor(i, tmpSpace); // right color because of right key
               position = this.getColorPosInCanvas(tmpColor);
               if(this.pp_isVPlot)
                 position[0]=tmpX;
@@ -771,12 +920,16 @@ tmpDiv.id=this.partDivID+"_PP_3D";
 
           if(found){
             document.getElementById(id).style.cursor = "pointer";
+            var tmpSpace = this.pathplot_space;
+            if(tmpSpace==="rgb-line")
+              tmpSpace="rgb";
+
             if(this.mouseGrappedColorSide==0){
-              this.pp_currentColor=tmpCMS.getLeftKeyColor(this.mouseAboveKeyID, this.pathplot_space);
+              this.pp_currentColor=tmpCMS.getLeftKeyColor(this.mouseAboveKeyID, tmpSpace);
               this.update_CoordID();
             }
             else{
-              this.pp_currentColor=tmpCMS.getRightKeyColor(this.mouseAboveKeyID, this.pathplot_space);
+              this.pp_currentColor=tmpCMS.getRightKeyColor(this.mouseAboveKeyID, tmpSpace);
               this.update_CoordID();
             }
             break;
@@ -1103,6 +1256,9 @@ tmpDiv.id=this.partDivID+"_PP_3D";
           switch (this.pp_CanvasMode) {
             case "C1":
             switch (this.pathplot_space) {
+                case "rgb-line":
+                  return new class_Color_RGB(parseInt(newValue*255)/255,this.pp_currentColor.get2Value(),this.pp_currentColor.get3Value());
+                break;
                 case "hsv":
                   return new class_Color_HSV(parseInt(newValue*360)/360,this.pp_currentColor.get2Value(),this.pp_currentColor.get3Value());
                 break;
@@ -1139,6 +1295,9 @@ tmpDiv.id=this.partDivID+"_PP_3D";
             break;
             case "C2":
             switch (this.pathplot_space) {
+                case "rgb-line":
+                  return new class_Color_RGB(this.pp_currentColor.get1Value(),parseInt(newValue*255)/255,this.pp_currentColor.get3Value());
+                break;
                 case "hsv":
                   return new class_Color_HSV(this.pp_currentColor.get1Value(),parseInt(newValue*100)/100,this.pp_currentColor.get3Value());
                 break;
@@ -1175,6 +1334,9 @@ tmpDiv.id=this.partDivID+"_PP_3D";
             break;
             case "C3":
             switch (this.pathplot_space) {
+                case "rgb-line":
+                  return new class_Color_RGB(this.pp_currentColor.get1Value(),this.pp_currentColor.get2Value(),parseInt(newValue*255)/255);
+                break;
                 case "hsv":
                   return new class_Color_HSV(this.pp_currentColor.get1Value(),this.pp_currentColor.get2Value(),parseInt(newValue*100)/100);
                 break;
@@ -1239,6 +1401,7 @@ tmpDiv.id=this.partDivID+"_PP_3D";
 
         switch (this.pathplot_space) {
             case "rgb":
+            case "rgb-line":
             c1_name = "R : ";
             c1_val = parseInt(this.pp_currentColor.get1Value()*255);
             c2_name = ",  G : ";
@@ -1291,8 +1454,6 @@ tmpDiv.id=this.partDivID+"_PP_3D";
   ////////////////////////////////////////////////////////////////////////////
 
   pp_3D_GetScreenshot(){
-
-    console.log(123);
     this.pp_3D_StopAnimation();
     var oldSize = this.pp_renderer.getSize();
     this.pp_renderer.setSize(2160, 2160);
