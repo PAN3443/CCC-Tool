@@ -278,7 +278,7 @@ class class_Element_Collection extends class_Testing_Element_Basis {
 
   testingSection.element_singleTest.fctTest_NewBowlShaped_Options = tmpArray;
 
-  this.initNewTest();
+  testingSection.element_singleTest.initNewTest();
   document.getElementById("id_TestPage_SelectNewTestType").selectedIndex = 9;
   testingSection.element_singleTest.selectNewFctBowlShapedType();
 
@@ -306,7 +306,7 @@ class class_Element_Collection extends class_Testing_Element_Basis {
 
   testingSection.element_singleTest.fctTest_NewLocalMin_Options = tmpArray;
 
-  this.initNewTest();
+  testingSection.element_singleTest.initNewTest();
   document.getElementById("id_TestPage_SelectNewTestType").selectedIndex = 8;
   testingSection.element_singleTest.selectNewFctLocalMinimaType();
 
@@ -334,7 +334,7 @@ class class_Element_Collection extends class_Testing_Element_Basis {
 
   testingSection.element_singleTest.fctTest_NewValleyShaped_Options = tmpArray;
 
-  this.initNewTest();
+  testingSection.element_singleTest.initNewTest();
   document.getElementById("id_TestPage_SelectNewTestType").selectedIndex = 10;
   testingSection.element_singleTest.selectNewFctValleyShapedType();
 

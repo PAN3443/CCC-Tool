@@ -83,13 +83,13 @@ class class_TestFunction_Section extends class_Section {
       document.getElementById("id_TestSection_CMS_Label").style.display = "none";
       selectobject.style.display = "none";
     }
+    this.inform_Worker_GeneralInformations();
     var cmsJSON=json_message_sendCMS(cloneCMS(this.testingCMS));
     this.element_testCollection.worker_testCollection_CCCTest.postMessage(cmsJSON);
     this.element_testCollection.worker_testCollection_Collection.postMessage(cmsJSON);
     this.element_testCollection.worker_testCollection_RealWorldData.postMessage(cmsJSON);
     this.element_singleTest.worker_testInteractive.postMessage(cmsJSON);
     this.testingCMS.drawCMS_Horizontal("id_TestPage_CMS_VIS_ColormapLinear", 1000, 1);
-    this.inform_Worker_GeneralInformations();
     super.showSection();
     this.element_testCollection.showElement();
   }
