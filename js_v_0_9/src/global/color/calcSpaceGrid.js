@@ -188,7 +188,7 @@ function calcSpaceGridDIN99(){
 }
 
 function calcSpaceGridLMS(){
-  return;
+
   // Idea; Send xRays though the LMS space to get the RGB-Possible Area
   var errorStep = 0.001;
   var lRes=50;

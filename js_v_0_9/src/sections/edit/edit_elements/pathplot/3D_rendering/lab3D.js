@@ -37,7 +37,6 @@ function lab3DMesh(){
   geometry.vertices.push(new THREE.Vector3(0,labSPos,0));
   geometry.vertices.push(new THREE.Vector3(0,labEPos,0));
 
-
   ///// draw parts inside positionsLAB array
   var labABMax2 = labABMax*2;
   for (var i = 0; i < positionsLAB.length; i++) {

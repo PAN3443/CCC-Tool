@@ -134,43 +134,19 @@ class class_TestFunction_Section extends class_Section {
   }
 
   inform_Worker_GeneralInformations(){
-    var workerJSON = {};
-    workerJSON['message'] = "colorSimSettings";
-    workerJSON['doColorblindnessSim'] = doColorblindnessSim;
-    workerJSON['tmXYZ_Selected'] = tmXYZ_Selected;
-    workerJSON['tmXYZ_Selected_Inv'] = tmXYZ_Selected_Inv;
-    workerJSON['tmLMS_Selected'] = tmLMS_Selected;
-    workerJSON['tmLMS_Selected_Inv'] = tmLMS_Selected_Inv;
-    workerJSON['sim_AdaptiveColorblindness'] = sim_AdaptiveColorblindness;
+    var workerJSON = json_message_colorblindSimInfo();
     this.element_testCollection.worker_testCollection_CCCTest.postMessage(workerJSON);
     this.element_testCollection.worker_testCollection_Collection.postMessage(workerJSON);
     this.element_testCollection.worker_testCollection_RealWorldData.postMessage(workerJSON);
     this.element_singleTest.worker_testInteractive.postMessage(workerJSON);
 
-    workerJSON = {};
-    workerJSON['message'] = "colorSettings";
-    workerJSON['din99_kE'] = din99_kE;
-    workerJSON['din99_kCH'] = din99_kCH;
-    workerJSON['cielab_ref_X'] = cielab_ref_X;
-    workerJSON['cielab_ref_Y'] = cielab_ref_Y;
-    workerJSON['cielab_ref_Z'] = cielab_ref_Z;
+    workerJSON = json_message_colorSettingsInfo();
     this.element_testCollection.worker_testCollection_CCCTest.postMessage(workerJSON);
     this.element_testCollection.worker_testCollection_Collection.postMessage(workerJSON);
     this.element_testCollection.worker_testCollection_RealWorldData.postMessage(workerJSON);
     this.element_singleTest.worker_testInteractive.postMessage(workerJSON);
 
-    workerJSON = {};
-    workerJSON['message'] = "colorMetrics";
-    // 2000
-    workerJSON['de2000_k_L'] = de2000_k_L;
-    workerJSON['de2000_k_C'] = de2000_k_C;
-    workerJSON['de2000_k_H'] = de2000_k_H;
-    // 94
-    workerJSON['de94_k_L'] = de94_k_L;
-    workerJSON['de94_k_C'] = de94_k_C;
-    workerJSON['de94_k_H'] = de94_k_H;
-    workerJSON['de94_k_1'] = de94_k_1;
-    workerJSON['de94_k_2'] = de94_k_2;
+    workerJSON = json_message_metricInfo();
     this.element_testCollection.worker_testCollection_CCCTest.postMessage(workerJSON);
     this.element_testCollection.worker_testCollection_Collection.postMessage(workerJSON);
     this.element_testCollection.worker_testCollection_RealWorldData.postMessage(workerJSON);

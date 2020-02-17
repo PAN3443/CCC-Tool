@@ -25,3 +25,7 @@ var animationInterval = 1000/30;
 // Math
 var errorMath = 1e12;   // for math operations with wrong decimal places
 var smallErrorMath = 1e-12; // for math operation, which should be zero.
+
+// worker
+
+var global_worker_3DSpaceGrids=undefined;

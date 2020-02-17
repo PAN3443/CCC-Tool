@@ -35,12 +35,21 @@ window.onload = function() {
   initColorPicker();
   initDropDowns();
 
-  document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Calculation: 3D LAB Grid";
-  calcSpaceGridLAB();
-  document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Calculation: 3D DIN99 Grid";
-  calcSpaceGridDIN99();
-  document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Calculation: 3D LMS Grid";
-  calcSpaceGridLMS();
+  if (window.Worker){
+    global_worker_3DSpaceGrids = new Worker(version_JS_FolderName+"/src/global/worker/worker_calc3DSpaceModels.js");
+    global_worker_3DSpaceGrids.addEventListener('message', updateSpaceGridInfo, false);
+    global_worker_3DSpaceGrids.postMessage({'message':'init'});
+    global_worker_3DSpaceGrids.postMessage(json_message_colorSettingsInfo());
+    global_worker_3DSpaceGrids.postMessage({'message':'updateModels'});
+  }
+  else {
+    document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Calculation: 3D LAB Grid";
+    calcSpaceGridLAB();
+    document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Calculation: 3D DIN99 Grid";
+    calcSpaceGridDIN99();
+    document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Calculation: 3D LMS Grid";
+    calcSpaceGridLMS();
+  }
 
   checkLandscapeWindow();
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Loading Finished";

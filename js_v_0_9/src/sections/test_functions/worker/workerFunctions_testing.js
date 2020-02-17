@@ -23,8 +23,6 @@ function calculateMesh(field, do3DTestField, scalefactor3DTest) {
     testMappingMeshGrey = new THREE.Group();
 
     for (var y = 0; y < field.getYDim() - 1; y++) {
-
-
       for (var x = 0; x < field.getXDim() - 1; x++) {
 
         var xpos1 = field.getXPos(x, y);
