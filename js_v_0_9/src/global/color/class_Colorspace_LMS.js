@@ -41,6 +41,18 @@ class class_Color_LMS{
     return this.sValue;
   }
 
+  get1Value() {
+    return this.lValue;
+  }
+
+  get2Value() {
+    return this.mValue;
+  }
+
+  get3Value() {
+    return this.sValue;
+  }
+
   getColorType(){
     return this.colorType;
   }

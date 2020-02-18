@@ -58,6 +58,9 @@ class class_Interval{
           case "lch":
           return this.iColor.calcLCHColor();
           break;
+          case "lms":
+          return this.iColor.calcLMSColor();
+          break;
           case "lch_rgb_possible":
           var ncolor = this.iColor.calcRGBColor();
           return ncolor.calcLCHColor();

@@ -140,6 +140,13 @@ class class_Color_LAB{
         return new class_Color_LAB(this.get1Value(), this.get2Value(), this.get3Value());;
       }
 
+      calcLMSColor() {
+        var tmpXYZ = this.calcXYZColor();
+        var lmsColor = tmpXYZ.calcLMSColor();
+        tmpXYZ.deleteReferences();
+        return lmsColor;
+      }
+
       calcXYZColor(){
         //  Calc XYZ
         var var_Y = (this.lValue + 16.0)/116.0;
@@ -176,7 +183,9 @@ class class_Color_LAB{
 
       calcRGBColor(){
         var tmpXYZ = this.calcXYZColor();
-        return tmpXYZ.calcRGBColor();
+        var rgbColor = tmpXYZ.calcRGBColor();
+        tmpXYZ.deleteReferences();
+        return rgbColor;
       }
 
       checkRGBPossiblity(){
@@ -248,7 +257,9 @@ class class_Color_LAB{
 
       calcHSVColor(){
         var tmpRGBColor = this.calcRGBColor();
-        return tmpRGBColor.calcHSVColor();
+        var hsvColor = tmpRGBColor.calcHSVColor();
+        tmpRGBColor.deleteReferences();
+        return hsvColor;
       }
 
 

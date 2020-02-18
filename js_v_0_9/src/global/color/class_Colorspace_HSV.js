@@ -163,6 +163,13 @@ class class_Color_HSV{
       return new class_Color_HSV(this.hValue,this.sValue,this.vValue);
     }
 
+    calcLMSColor() {
+      var tmpRGB = this.calcRGBColor();
+      var tmpLMS = tmpRGB.calcLMSColor();
+      tmpRGB.deleteReferences();
+      return tmpLMS;
+    }
+
     calcRGBColor(){
 
         /*var R,G,B,var_r,var_g,var_b;

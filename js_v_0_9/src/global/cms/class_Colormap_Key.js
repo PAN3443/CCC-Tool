@@ -202,6 +202,9 @@ class class_Key{
           case "lch":
           return this.cL.calcLCHColor();
           break;
+          case "lms":
+          return this.cL.calcLMSColor();
+          break;
           case "lch_rgb_possible":
           var ncolor = this.cL.calcRGBColor();
           var color = ncolor.calcLCHColor();
@@ -251,6 +254,9 @@ class class_Key{
           break;
           case "lch":
           return this.cR.calcLCHColor();
+          break;
+          case "lms":
+          return this.cR.calcLMSColor();
           break;
           case "lch_rgb_possible":
           var ncolor = this.cR.calcRGBColor();

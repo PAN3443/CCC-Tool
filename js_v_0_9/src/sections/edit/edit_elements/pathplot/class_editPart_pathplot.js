@@ -160,6 +160,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
         }
       break;
       case "rgb-line":
+      case "lms":
         document.getElementById(this.partDivID).style.flexDirection="row";
         var tmpDiv = document.createElement('div');
         tmpDiv.style.height=this.pathPlot_Height_VH+"vh";
@@ -174,9 +175,6 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
         tmpColumn.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.33,this.pathPlot_Width_VW*0.75,false,this.partDivID+"_PP_C2"));
         tmpColumn.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.33,this.pathPlot_Width_VW*0.75,false,this.partDivID+"_PP_C3"));
         document.getElementById(this.partDivID).appendChild(tmpColumn);
-      break;
-      case "lms":
-
       break;
       default:
       switch (true) {
@@ -652,9 +650,9 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
       drawVPlot(this.getParentCMS(),canvasObj2.getContext("2d"),0,255, "B");
     break;
     case "lms":
-      drawVPlot(this.getParentCMS(),canvasObj0.getContext("2d"),0,1, "L");
-      drawVPlot(this.getParentCMS(),canvasObj1.getContext("2d"),0,1, "M");
-      drawVPlot(this.getParentCMS(),canvasObj2.getContext("2d"),0,1, "S");
+      drawVPlot(this.getParentCMS(),canvasObj0.getContext("2d"),0,100, "L");
+      drawVPlot(this.getParentCMS(),canvasObj1.getContext("2d"),0,100, "M");
+      drawVPlot(this.getParentCMS(),canvasObj2.getContext("2d"),0,100, "S");
     break;
     case "hsv":
       drawVPlot(this.getParentCMS(),canvasObj0.getContext("2d"),0,360, "H");

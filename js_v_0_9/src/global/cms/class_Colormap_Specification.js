@@ -1419,7 +1419,7 @@ function createScaledBand(canvasData, xStart, yStart, bandWidth, bandHeight, col
           tmpWorkColor = new class_Color_LAB(0, 0, 0);
         break;
         case "din99":
-        tmpWorkColor = new class_Color_DIN99(0, 0, 0);
+          tmpWorkColor = new class_Color_DIN99(0, 0, 0);
         break;
         case "lch":
           tmpWorkColor = new class_Color_LCH(0, 0, 0);

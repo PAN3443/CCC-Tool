@@ -264,38 +264,38 @@ function calcInterpolationLine_LMS(cmsClone,vWidth,vHeight){
 
 function getLineSegment_3D_LMS(fromColor, tillColor){
 
-  /*var rgbFromPos3D = [];
-  rgbFromPos3D.push(fromColor.getRValue() *255 - 128);
-  rgbFromPos3D.push(fromColor.getGValue() *255 - 128);
-  rgbFromPos3D.push(fromColor.getBValue() *255 - 128);
+  var lmsFromPos3D = [];
+  lmsFromPos3D.push(fromColor.getLValue());
+  lmsFromPos3D.push(fromColor.getMValue());
+  lmsFromPos3D.push(fromColor.getSValue());
 
-  var rgbTillPos3D = [];
-  rgbTillPos3D.push(tillColor.getRValue() *255 - 128);
-  rgbTillPos3D.push(tillColor.getGValue() *255 - 128);
-  rgbTillPos3D.push(tillColor.getBValue() *255 - 128);
+  var lmsTillPos3D = [];
+  lmsTillPos3D.push(tillColor.getLValue());
+  lmsTillPos3D.push(tillColor.getMValue());
+  lmsTillPos3D.push(tillColor.getSValue());
   ///////////////////////////////////////////////////////////////////
   fromColor.deleteReferences();
   tillColor.deleteReferences();
   fromColor=null;
   tillColor=null;
 
-  var posArray = [undefined,undefined,rgbFromPos3D,rgbTillPos3D];
-  return posArray;*/
+  var posArray = [undefined,undefined,lmsFromPos3D,lmsTillPos3D];
+  return posArray;
 
 }
 
 function getLineSegment_VPlot_LMS(fromColor, tillColor, xRatio, xRatio2,vWidth,vHeight){
 
-  /*var vPlotxStart=Math.round(vWidth*0.1);
+  var vPlotxStart=Math.round(vWidth*0.1);
   var plotwidth=Math.round(vWidth*0.98)-vPlotxStart;
   var vPlotyStart=Math.round(vHeight*0.9)
   var heigthVArea=vPlotyStart-Math.round(vHeight*0.1);
 
   var fromPos = [];
   var xPos1 = vPlotxStart + xRatio * plotwidth;
-  var yPos11 = Math.round(vPlotyStart - (heigthVArea * fromColor.getRValue()));
-  var yPos12 = Math.round(vPlotyStart - (heigthVArea * fromColor.getGValue()));
-  var yPos13 = Math.round(vPlotyStart - (heigthVArea * fromColor.getBValue()));
+  var yPos11 = Math.round(vPlotyStart - (heigthVArea * fromColor.getLValue()/100));
+  var yPos12 = Math.round(vPlotyStart - (heigthVArea * fromColor.getMValue()/100));
+  var yPos13 = Math.round(vPlotyStart - (heigthVArea * fromColor.getSValue()/100));
 
   fromPos.push(xPos1);
   fromPos.push(yPos11);
@@ -304,9 +304,9 @@ function getLineSegment_VPlot_LMS(fromColor, tillColor, xRatio, xRatio2,vWidth,v
 
   var tillPos = [];
   var xPos2 = vPlotxStart + xRatio2 * plotwidth;
-  var yPos21 = Math.round(vPlotyStart - (heigthVArea * tillColor.getRValue()));
-  var yPos22 = Math.round(vPlotyStart - (heigthVArea * tillColor.getGValue()));
-  var yPos23 = Math.round(vPlotyStart - (heigthVArea * tillColor.getBValue()));
+  var yPos21 = Math.round(vPlotyStart - (heigthVArea * tillColor.getLValue()/100));
+  var yPos22 = Math.round(vPlotyStart - (heigthVArea * tillColor.getMValue()/100));
+  var yPos23 = Math.round(vPlotyStart - (heigthVArea * tillColor.getSValue()/100));
   tillPos.push(xPos2);
   tillPos.push(yPos21);
   tillPos.push(yPos22);
@@ -318,7 +318,7 @@ function getLineSegment_VPlot_LMS(fromColor, tillColor, xRatio, xRatio2,vWidth,v
   tillColor=null;
 
   var posArray = [fromPos,tillPos];
-  return posArray;*/
+  return posArray;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////

@@ -14,6 +14,8 @@ var din99EPos = 150.0; // -100-200
 
 // LMS
 var positionsLMS =[];
+var lms3D_lStep = 1;
+var lms3D_mStep = 1;
 /////////////////////////////////////////////////
 
 /// color settings
@@ -96,6 +98,8 @@ self.addEventListener('message', function(e) {
       answerJSON = {};
       answerJSON['type'] = "lms";
       answerJSON['positions'] = positionsLMS;
+      answerJSON['lms3D_lStep'] = lms3D_lStep;
+      answerJSON['lms3D_mStep'] = lms3D_mStep;
       self.postMessage(answerJSON);
     break;
   default:

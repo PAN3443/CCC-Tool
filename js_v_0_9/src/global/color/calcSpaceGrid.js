@@ -192,9 +192,9 @@ function calcSpaceGridLMS(){
   // Idea; Send xRays though the LMS space to get the RGB-Possible Area
   var errorStep = 0.001;
   var lRes=50;
-  var lStep = 1.0/(lRes-1);
+  lms3D_lStep = 100/(lRes-1);
   var mRes=50;
-  var mStep = 1.0/(mRes-1);
+  lms3D_mStep = 100/(mRes-1);
   positionsLMS=[];
 
   for (var i = 0; i < lRes; i++) {
@@ -206,9 +206,9 @@ function calcSpaceGridLMS(){
   }
 
   for (var i = 0; i < lRes; i++) {
-    var lPos=i*lStep;
+    var lPos=i*lms3D_lStep;
     for (var j = 0; j < mRes; j++) {
-      var mPos=i*mStep;
+      var mPos=i*lms3D_mStep;
 
       /////////////////////////////////////
       /// Search for Start Position

@@ -142,6 +142,13 @@ class class_Color_DIN99{
           return tmpString;
       }
 
+      calcLMSColor() {
+        var tmpLab = this.calcLABColor();
+        var tmpLMS = tmpLab.calcLMSColor();
+        tmpLab.deleteReferences();
+        return tmpLMS;
+      }
+
       calcRGBColor(){
             var tmpLAB = this.calcLABColor();
             return tmpLAB.calcRGBColor();

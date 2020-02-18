@@ -207,9 +207,9 @@ function calcRGB_3D_ElementPos(tmpColor,shape,keyindex,colorSide){
 function calcRGB_VPlot_ElementPos(tmpColor,shape,keyindex,colorSide,xRatio,vWidth,vHeight){
 
   var vPlotxStart=Math.round(vWidth*0.1);
-var plotwidth=Math.round(vWidth*0.98)-vPlotxStart;
-var vPlotyStart=Math.round(vHeight*0.9)
-var heigthVArea=vPlotyStart-Math.round(vHeight*0.1);
+  var plotwidth=Math.round(vWidth*0.98)-vPlotxStart;
+  var vPlotyStart=Math.round(vHeight*0.9)
+  var heigthVArea=vPlotyStart-Math.round(vHeight*0.1);
 
   var vPlotPos = [];
   var xPos = vPlotxStart + xRatio * plotwidth;
@@ -338,41 +338,38 @@ function calcLMSElements(cmsClone,vWidth,vHeight){
 
 function calcLMS_3D_ElementPos(tmpColor,shape,keyindex,colorSide){
 
-  /*var rgbPos3D = [];
-  rgbPos3D.push(tmpColor.getLValue() *255 - 128);
-  rgbPos3D.push(tmpColor.getGValue() *255 - 128);
-  rgbPos3D.push(tmpColor.getBValue() *255 - 128);
+  var lmsPos3D = [];
+  lmsPos3D.push(tmpColor.getLValue());
+  lmsPos3D.push(tmpColor.getMValue());
+  lmsPos3D.push(tmpColor.getSValue());
 
   var showColor = tmpColor.calcRGBColor();
   if(doColorblindnessSim){
-    var tmpLMS = showColor.calcLMSColor();
-    showColor = tmpLMS.calcColorBlindRGBColor();
-    tmpLMS.deleteReferences();
-    tmpLMS=null;
+    showColor = tmpColor.calcColorBlindRGBColor();
   }
 
-  var posArray = [keyindex,showColor.getHexString(),shape,colorSide,[undefined,undefined],rgbPos3D]; // first element is to seperate between vplot element and hue plot element
+  var posArray = [keyindex,showColor.getHexString(),shape,colorSide,[undefined,undefined],lmsPos3D]; // first element is to seperate between vplot element and hue plot element
   showColor.deleteReferences();
   tmpColor.deleteReferences();
   showColor=null;
   tmpColor=null;
 
-  return posArray;*/
+  return posArray;
 
 }
 
 function calcLMS_VPlot_ElementPos(tmpColor,shape,keyindex,colorSide,xRatio,vWidth,vHeight){
 
-  /*var vPlotxStart=Math.round(vWidth*0.1);
+  var vPlotxStart=Math.round(vWidth*0.1);
   var plotwidth=Math.round(vWidth*0.98)-vPlotxStart;
   var vPlotyStart=Math.round(vHeight*0.9)
   var heigthVArea=vPlotyStart-Math.round(vHeight*0.1);
 
   var vPlotPos = [];
   var xPos = vPlotxStart + xRatio * plotwidth;
-  var yPos1 = Math.round(vPlotyStart - (heigthVArea * tmpColor.getRValue()));
-  var yPos2 = Math.round(vPlotyStart - (heigthVArea * tmpColor.getGValue()));
-  var yPos3 = Math.round(vPlotyStart - (heigthVArea * tmpColor.getBValue()));
+  var yPos1 = Math.round(vPlotyStart - (heigthVArea * tmpColor.getLValue()/100));
+  var yPos2 = Math.round(vPlotyStart - (heigthVArea * tmpColor.getMValue()/100));
+  var yPos3 = Math.round(vPlotyStart - (heigthVArea * tmpColor.getSValue()/100));
 
   vPlotPos.push(xPos);
   vPlotPos.push(yPos1);
@@ -395,7 +392,7 @@ function calcLMS_VPlot_ElementPos(tmpColor,shape,keyindex,colorSide,xRatio,vWidt
   showColor=null;
   tmpColor=null;
 
-  return posArray;*/
+  return posArray;
 }
 
 /////////////////////////////////////////////////////////////////////
