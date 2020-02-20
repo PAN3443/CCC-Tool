@@ -189,13 +189,80 @@ function calcSpaceGridDIN99(){
 
 function calcSpaceGridLMS(){
 
-  // Idea; Send xRays though the LMS space to get the RGB-Possible Area
-  var errorStep = 0.001;
-  var lRes=50;
-  lms3D_lStep = 100/(lRes-1);
-  var mRes=50;
-  lms3D_mStep = 100/(mRes-1);
+
   positionsLMS=[];
+  var lmsRes=50;
+  lms3D_lmsStep = 100/(lmsRes-1);
+
+  //  Marching Cubes Like Algorithm
+  var tmpTestPositions=[];
+  for (var i = 0; i < lmsRes; i++) {
+    var lPos = i*lms3D_lmsStep;
+    var lrow =[];
+    var test_lrow =[];
+    for (var j = 0; j < lmsRes; j++) {
+      var mPos = j*lms3D_lmsStep;
+      var mrow =[];
+      var test_mrow =[];
+      for (var k = 0; k < lmsRes; k++) {
+        var sPos = k*lms3D_lmsStep;
+        var tmpLMS = new class_Color_LMS(lPos,mPos,sPos);
+        mrow.push(tmpLMS.checkRGBPossiblity());
+        test_mrow.push(tmpLMS.checkRGBPossiblity());
+        tmpLMS.deleteReferences();
+      }
+      lrow.push(mrow);
+      test_lrow.push(test_mrow);
+    }
+    positionsLMS.push(lrow);
+    tmpTestPositions.push(test_lrow);
+  }
+
+  //
+  /*for (var i = 1; i < positionsLMS.length-1; i++) {
+    for (var j = 1; j < positionsLMS[i].length-1; j++) {
+      for (var k = 1; k < positionsLMS[i][j].length-1; k++) {
+        if(positionsLMS[i][j][k]){
+          if(tmpTestPositions[i-1][j-1][k-1] &&
+            tmpTestPositions[i][j-1][k-1] &&
+            tmpTestPositions[i+1][j-1][k-1] &&
+            tmpTestPositions[i-1][j-1][k] &&
+            tmpTestPositions[i][j-1][k] &&
+            tmpTestPositions[i+1][j-1][k] &&
+            tmpTestPositions[i-1][j-1][k+1] &&
+            tmpTestPositions[i][j-1][k+1] &&
+            tmpTestPositions[i+1][j-1][k+1] &&
+
+            tmpTestPositions[i-1][j][k-1] &&
+            tmpTestPositions[i][j][k-1] &&
+            tmpTestPositions[i+1][j][k-1] &&
+            tmpTestPositions[i-1][j][k] &&
+            tmpTestPositions[i+1][j][k] &&
+            tmpTestPositions[i-1][j][k+1] &&
+            tmpTestPositions[i][j][k+1] &&
+            tmpTestPositions[i+1][j][k+1] &&
+
+            tmpTestPositions[i-1][j+1][k-1] &&
+            tmpTestPositions[i][j+1][k-1] &&
+            tmpTestPositions[i+1][j+1][k-1] &&
+            tmpTestPositions[i-1][j+1][k] &&
+            tmpTestPositions[i][j+1][k] &&
+            tmpTestPositions[i+1][j+1][k] &&
+            tmpTestPositions[i-1][j+1][k+1] &&
+            tmpTestPositions[i][j+1][k+1] &&
+            tmpTestPositions[i+1][j+1][k+1]
+          ){ // if all entries in the neighbourhood are true ->  entry at i,j,k can be false
+            positionsLMS[i][j][k]=false;
+          }
+        }
+      }
+    }
+  }*/
+
+
+  // Idea; Send xRays though the LMS space to get the RGB-Possible Area
+  /*
+  var errorStep = 0.001;
 
   for (var i = 0; i < lRes; i++) {
     var lColums=[]; // entries stand for different M-Values
@@ -269,7 +336,7 @@ function calcSpaceGridLMS(){
         }
       }
     }
-  }
+  }*/
 
 }
 

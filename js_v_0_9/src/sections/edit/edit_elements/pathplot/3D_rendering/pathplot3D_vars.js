@@ -26,8 +26,7 @@ var din99EPos = 150.0; // -100-200
 
 // LMS
 var positionsLMS =[];
-var lms3D_lStep = 1;
-var lms3D_mStep = 1;
+var lms3D_lmsStep = 1;
 
 // HSV
 var hsv3DRadius = 200;

@@ -28,8 +28,7 @@ function updateSpaceGridInfo(e) {
       break;
       case "lms":
         positionsLMS=e.data.positions;
-        lms3D_lStep = e.data.lms3D_lStep;
-        lms3D_mStep = e.data.lms3D_mStep;
+        lms3D_lmsStep = e.data.lms3D_lmsStep;
       break;
     }
 
