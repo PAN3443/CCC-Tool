@@ -27,7 +27,12 @@ var din99EPos = 150.0; // -100-200
 // LMS
 var positionsLMS =[];
 var lms3D_lmsStep = 1;
-
+var lms_pointIndices =  [];
+var lms_colorArray =  [];
+var lmsGeometry = undefined;
+var lms_linesPoints = [];
+var lms_linesColors = [];
+var lms_linesIndices = [];
 // HSV
 var hsv3DRadius = 200;
 var vStart3D = -100;

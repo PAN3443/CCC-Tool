@@ -71,8 +71,8 @@ function lmsMesh(colorspaceGroup){
 
   if(positionsLMS.length!=0){
         var meshArray = lms3DMesh();
-        /*colorspaceGroup.add(meshArray[0]);
-        colorspaceGroup.add(meshArray[1]);*/
+        colorspaceGroup.add(meshArray[0]);
+        colorspaceGroup.add(meshArray[1]);
   }
 
   return colorspaceGroup;
@@ -83,53 +83,31 @@ function lms3DMesh(){
 
   var linesGeometry = new THREE.BufferGeometry();
   var linesMaterial = new THREE.LineBasicMaterial( { vertexColors: THREE.VertexColors, linewidth: 1, transparent: true, opacity: lineOpacity, } );
-  var linesPoints = [];
-  var linesIndices = [];
-  var linesColors = [];
+  lms_linesPoints = [];
+  lms_linesIndices = [];
+  lms_linesColors = [];
 
-  var geometry = new THREE.Geometry();
+  lmsGeometry = new THREE.Geometry();
 
-  var pointIndices =  [];
-  var tmpRGBcolors =  [];
+  lms_pointIndices =  [];
+  for (var i = 0; i < positionsLMS.length-1; i++) {
+    var l_indicesRow = [];
+    for (var j = 0; j < positionsLMS[i].length-1; j++) {
+      var m_indicesRow = [];
+      for (var k = 0; k < positionsLMS[i][j].length-1; k++) {
+        m_indicesRow.push(undefined);
+      }
+      l_indicesRow.push(m_indicesRow);
+    }
+    lms_pointIndices.push(l_indicesRow);
+  }
+  lms_colorArray =  [];
 
   /////////////////////////////////////////////////
   /// 1. Step add Vertices and Colors to Array
   for (var i = 0; i < positionsLMS.length-1; i++) {
-    var lPos = i*lms3D_lmsStep;
-    var l_indicesRow = [];
     for (var j = 0; j < positionsLMS[i].length-1; j++) {
-      var mPos = j*lms3D_lmsStep;
-      var m_indicesRow = [];
       for (var k = 0; k < positionsLMS[i][j].length-1; k++) {
-        var sPos = k*lms3D_lmsStep;
-
-        var tmpIndex = undefined;
-        var tmpRGB = undefined;
-        if(positionsLMS[i][j][k]){
-          var tmpLMS = new class_Color_LMS(lPos,mPos,sPos);
-          if(doColorblindnessSim){
-            tmpRGB = tmpLMS.calcColorBlindRGBColor();
-          }
-          else {
-            tmpRGB = tmpLMS.calcRGBColor();
-          }
-          geometry.vertices.push(new THREE.Vector3(lPos,mPos,sPos));
-          tmpRGBcolors.push(tmpRGB);
-          tmpIndex=geometry.vertices.length-1;
-        }
-        m_indicesRow.push(tmpIndex);
-      }
-      l_indicesRow.push(m_indicesRow);
-    }
-    pointIndices.push(l_indicesRow);
-  }
-
-  /////////////////////////////////////////////////
-  /// 2. Step create Faces and Lines (Marching Cubes)
-  for (var i = 0; i < positionsLMS.length-2; i++) {
-    for (var j = 0; j < positionsLMS[i].length-2; j++) {
-      for (var k = 0; k < positionsLMS[i][j].length-2; k++) {
-
 
         switch (lms3D_countTrueEdges(i,j,k)) {
           case 0:
@@ -144,64 +122,28 @@ function lms3DMesh(){
               //// Check if plane
                 switch (lms_DefinePlaneType(i,j,k)) {
                 case "top":
-                geometry.faces.push(new THREE.Face3(pointIndices[i][j+1][k], pointIndices[i][j+1][k+1], pointIndices[i+1][j+1][k+1]));
-                geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[i][j+1][k]].getRGBString());
-                geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[i][j+1][k+1]].getRGBString());
-                geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j+1][k+1]].getRGBString());
-                geometry.faces.push(new THREE.Face3(pointIndices[i][j+1][k], pointIndices[i+1][j+1][k+1], pointIndices[i+1][j+1][k]));
-                geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[i][j+1][k]].getRGBString());
-                geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j+1][k+1]].getRGBString());
-                geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j+1][k]].getRGBString());
+                lmsGeometry.faces.push(lms_createFace(i,j+1,k, i,j+1,k+1, i+1,j+1,k+1,true,false,true));
+                lmsGeometry.faces.push(lms_createFace(i,j+1,k, i+1,j+1,k+1, i+1,j+1,k,false,true,true));
                 break;
                 case "bottom":
-                geometry.faces.push(new THREE.Face3(pointIndices[i][j][k], pointIndices[i+1][j][k+1], pointIndices[i][j][k+1]));
-                geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[i][j][k]].getRGBString());
-                geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j][k+1]].getRGBString());
-                geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[i][j][k+1]].getRGBString());
-                geometry.faces.push(new THREE.Face3(pointIndices[i][j][k], pointIndices[i+1][j][k], pointIndices[i+1][j][k+1]));
-                geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[i][j][k]].getRGBString());
-                geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j][k]].getRGBString());
-                geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j][k+1]].getRGBString());
+                lmsGeometry.faces.push(lms_createFace(i,j,k, i+1,j,k+1, i,j,k+1,false,true,true));
+                lmsGeometry.faces.push(lms_createFace(i,j,k, i+1,j,k, i+1,j,k+1,true,false,true));
                 break;
                 case "front":
-                geometry.faces.push(new THREE.Face3(pointIndices[i][j][k], pointIndices[i][j+1][k], pointIndices[i+1][j+1][k]));
-                geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[i][j][k]].getRGBString());
-                geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[i][j+1][k]].getRGBString());
-                geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j+1][k]].getRGBString());
-                geometry.faces.push(new THREE.Face3(pointIndices[i][j][k], pointIndices[i+1][j+1][k], pointIndices[i+1][j][k]));
-                geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[i][j][k]].getRGBString());
-                geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j+1][k]].getRGBString());
-                geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j][k]].getRGBString());
+                lmsGeometry.faces.push(lms_createFace(i,j,k, i,j+1,k, i+1,j+1,k,true,false,true));
+                lmsGeometry.faces.push(lms_createFace(i,j,k, i+1,j+1,k, i+1,j,k,false,true,true));
                 break;
                 case "back":
-                geometry.faces.push(new THREE.Face3(pointIndices[i][j][k+1], pointIndices[i+1][j+1][k+1], pointIndices[i][j+1][k+1]));
-                geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[i][j][k+1]].getRGBString());
-                geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j+1][k+1]].getRGBString());
-                geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[i][j+1][k+1]].getRGBString());
-                geometry.faces.push(new THREE.Face3(pointIndices[i][j][k+1], pointIndices[i+1][j][k+1], pointIndices[i+1][j+1][k+1]));
-                geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[i][j][k+1]].getRGBString());
-                geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j][k+1]].getRGBString());
-                geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j+1][k+1]].getRGBString());
+                lmsGeometry.faces.push(lms_createFace(i,j,k+1, i+1,j+1,k+1, i,j+1,k+1,false,true,true));
+                lmsGeometry.faces.push(lms_createFace(i,j,k+1, i+1,j,k+1, i+1,j+1,k+1,true,false,true));
                 break;
                 case "left":
-                geometry.faces.push(new THREE.Face3(pointIndices[i][j][k+1], pointIndices[i][j+1][k], pointIndices[i][j+1][k+1]));
-                geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[i][j][k+1]].getRGBString());
-                geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[i][j+1][k]].getRGBString());
-                geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[i][j+1][k+1]].getRGBString());
-                geometry.faces.push(new THREE.Face3(pointIndices[i][j][k+1], pointIndices[i][j+1][k+1], pointIndices[i][j][k]));
-                geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[i][j][k+1]].getRGBString());
-                geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[i][j+1][k+1]].getRGBString());
-                geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[i][j][k]].getRGBString());
+                lmsGeometry.faces.push(lms_createFace(i,j,k+1, i,j+1,k+1, i,j+1,k,true,false,true));
+                lmsGeometry.faces.push(lms_createFace(i,j,k+1, i,j+1,k, i,j,k,false,true,true));
                 break;
                 case "right":
-                geometry.faces.push(new THREE.Face3(pointIndices[i+1][j][k], pointIndices[i+1][j+1][k], pointIndices[i+1][j+1][k+1]));
-                geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[i+1][j][k]].getRGBString());
-                geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j+1][k]].getRGBString());
-                geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j+1][k+1]].getRGBString());
-                geometry.faces.push(new THREE.Face3(pointIndices[i+1][j][k], pointIndices[i+1][j+1][k+1], pointIndices[i+1][j][k+1]));
-                geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[i+1][j][k]].getRGBString());
-                geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j+1][k+1]].getRGBString());
-                geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j][k+1]].getRGBString());
+                lmsGeometry.faces.push(lms_createFace(i+1,j,k, i+1,j+1,k, i+1,j+1,k+1,true,false,true));
+                lmsGeometry.faces.push(lms_createFace(i+1,j,k, i+1,j+1,k+1, i+1,j,k+1,false,true,true));
                 break;
               }
           break;
@@ -212,239 +154,240 @@ function lms3DMesh(){
                 case "top":
                 switch (true) {
                   case positionsLMS[i][j][k+1]:
-                    geometry.faces.push(new THREE.Face3(pointIndices[i][j+1][k], pointIndices[i][j][k+1], pointIndices[i+1][j+1][k+1]));
-                    geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[i][j+1][k]].getRGBString());
-                    geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[i][j][k+1]].getRGBString());
-                    geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j+1][k+1]].getRGBString());
-                    geometry.faces.push(new THREE.Face3(pointIndices[i][j+1][k], pointIndices[i+1][j+1][k+1], pointIndices[i+1][j+1][k]));
-                    geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[i][j+1][k]].getRGBString());
-                    geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j+1][k+1]].getRGBString());
-                    geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j+1][k]].getRGBString());
+                    lmsGeometry.faces.push(lms_createFace(i,j+1,k, i,j,k+1, i+1,j+1,k+1,true,true,true));
+                    lmsGeometry.faces.push(lms_createFace(i,j+1,k, i+1,j+1,k+1, i+1,j+1,k,true,true,true));
                   break;
                   case positionsLMS[i+1][j][k]:
-                    geometry.faces.push(new THREE.Face3(pointIndices[i][j+1][k], pointIndices[i][j+1][k+1], pointIndices[i+1][j+1][k+1]));
-                    geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[i][j+1][k]].getRGBString());
-                    geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[i][j+1][k+1]].getRGBString());
-                    geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j+1][k+1]].getRGBString());
-                    geometry.faces.push(new THREE.Face3(pointIndices[i][j+1][k], pointIndices[i+1][j+1][k+1], pointIndices[i+1][j][k]));
-                    geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[i][j+1][k]].getRGBString());
-                    geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j+1][k+1]].getRGBString());
-                    geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j][k]].getRGBString());
+                    lmsGeometry.faces.push(lms_createFace(i,j+1,k, i,j+1,k+1, i+1,j+1,k+1,true,true,true));
+                    lmsGeometry.faces.push(lms_createFace(i,j+1,k, i+1,j+1,k+1, i+1,j,k,true,true,true));
                   break;
                   case positionsLMS[i][j][k]:
-                    geometry.faces.push(new THREE.Face3(pointIndices[i+1][j+1][k], pointIndices[i][j][k], pointIndices[i][j+1][k+1]));
-                    geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[i+1][j+1][k]].getRGBString());
-                    geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[i][j][k]].getRGBString());
-                    geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[i][j+1][k+1]].getRGBString());
-                    geometry.faces.push(new THREE.Face3(pointIndices[i+1][j+1][k], pointIndices[i][j+1][k+1], pointIndices[i+1][j+1][k+1]));
-                    geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[i+1][j+1][k]].getRGBString());
-                    geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[i][j+1][k+1]].getRGBString());
-                    geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j+1][k+1]].getRGBString());
+                    lmsGeometry.faces.push(lms_createFace(i+1,j+1,k, i,j,k, i,j+1,k+1,true,true,true));
+                    lmsGeometry.faces.push(lms_createFace(i+1,j+1,k, i,j+1,k+1, i+1,j+1,k+1,true,true,true));
                   break;
                   case positionsLMS[i+1][j][k+1]:
-                    geometry.faces.push(new THREE.Face3(pointIndices[i+1][j+1][k], pointIndices[i][j+1][k], pointIndices[i][j+1][k+1]));
-                    geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[i+1][j+1][k]].getRGBString());
-                    geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[i][j+1][k]].getRGBString());
-                    geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[i][j+1][k+1]].getRGBString());
-                    geometry.faces.push(new THREE.Face3(pointIndices[i+1][j+1][k], pointIndices[i][j+1][k+1], pointIndices[i+1][j][k+1]));
-                    geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[i+1][j+1][k]].getRGBString());
-                    geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[i][j+1][k+1]].getRGBString());
-                    geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j][k+1]].getRGBString());
+                    lmsGeometry.faces.push(lms_createFace(i+1,j+1,k, i,j+1,k, i,j+1,k+1,true,true,true));
+                    lmsGeometry.faces.push(lms_createFace(i+1,j+1,k, i,j+1,k+1, i+1,j,k+1,true,true,true));
                   break;
                 }
                 break;
                 case "bottom":
                   switch (true) {
                     case positionsLMS[i][j+1][k+1]:
-                    geometry.faces.push(new THREE.Face3(pointIndices[i][j][k], pointIndices[i+1][j][k+1], pointIndices[i][j+1][k+1]));
-                    geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[i][j][k]].getRGBString());
-                    geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j][k+1]].getRGBString());
-                    geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[i][j+1][k+1]].getRGBString());
-                    geometry.faces.push(new THREE.Face3(pointIndices[i][j][k], pointIndices[i+1][j][k], pointIndices[i+1][j][k+1]));
-                    geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[i][j][k]].getRGBString());
-                    geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j][k]].getRGBString());
-                    geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j][k+1]].getRGBString());
+                    lmsGeometry.faces.push(lms_createFace(i,j,k, i+1,j,k+1, i,j+1,k+1,true,true,true));
+                    lmsGeometry.faces.push(lms_createFace(i,j,k, i+1,j,k, i+1,j,k+1,true,true,true));
                     break;
                     case positionsLMS[i+1][j+1][k]:
-                    geometry.faces.push(new THREE.Face3(pointIndices[i][j][k], pointIndices[i+1][j][k+1], pointIndices[i][j][k+1]));
-                    geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[i][j][k]].getRGBString());
-                    geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j][k+1]].getRGBString());
-                    geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[i][j][k+1]].getRGBString());
-                    geometry.faces.push(new THREE.Face3(pointIndices[i][j][k], pointIndices[i+1][j+1][k], pointIndices[i+1][j][k+1]));
-                    geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[i][j][k]].getRGBString());
-                    geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j+1][k]].getRGBString());
-                    geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j][k+1]].getRGBString());
+                    lmsGeometry.faces.push(lms_createFace(i,j,k, i+1,j,k+1, i,j,k+1,true,true,true));
+                    lmsGeometry.faces.push(lms_createFace(i,j,k, i+1,j+1,k, i+1,j,k+1,true,true,true));
                     break;
-                    case [i+1][j+1][k+1]:
-                    geometry.faces.push(new THREE.Face3(pointIndices[i+1][j][k], pointIndices[i][j][k+1], pointIndices[i][j][k]));
-                    geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[i+1][j][k]].getRGBString());
-                    geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[i][j][k+1]].getRGBString());
-                    geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[i][j][k]].getRGBString());
-                    geometry.faces.push(new THREE.Face3(pointIndices[i+1][j][k], pointIndices[i+1][j+1][k+1], pointIndices[i][j][k+1]));
-                    geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[i+1][j][k]].getRGBString());
-                    geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j+1][k+1]].getRGBString());
-                    geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[i][j][k+1]].getRGBString());
+                    case positionsLMS[i+1][j+1][k+1]:
+                    lmsGeometry.faces.push(lms_createFace(i+1,j,k, i,j,k+1, i,j,k,true,true,true));
+                    lmsGeometry.faces.push(lms_createFace(i+1,j,k, i+1,j+1,k+1, i,j,k+1,true,true,true));
                     break;
                     case positionsLMS[i][j+1][k]:
-                    geometry.faces.push(new THREE.Face3(pointIndices[i+1][j][k], pointIndices[i][j][k+1], pointIndices[i][j+1][k]));
-                    geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[i+1][j][k]].getRGBString());
-                    geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[i][j][k+1]].getRGBString());
-                    geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[i][j+1][k]].getRGBString());
-                    geometry.faces.push(new THREE.Face3(pointIndices[i+1][j][k], pointIndices[i+1][j][k+1], pointIndices[i][j][k+1]));
-                    geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[i+1][j][k]].getRGBString());
-                    geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j][k+1]].getRGBString());
-                    geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[i][j][k+1]].getRGBString());
+                    lmsGeometry.faces.push(lms_createFace(i+1,j,k, i,j,k+1, i,j+1,k,true,true,true));
+                    lmsGeometry.faces.push(lms_createFace(i+1,j,k, i+1,j,k+1, i,j,k+1,true,true,true));
                     break;
                   }
                 break;
                 case "front":
                 switch (true) {
-                  case positionsLMS:
-                  geometry.faces.push(new THREE.Face3(pointIndices[i][j][k], pointIndices[i][j+1][k], pointIndices[i+1][j+1][k]));
-                  geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[i][j][k]].getRGBString());
-                  geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[i][j+1][k]].getRGBString());
-                  geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j+1][k]].getRGBString());
-                  geometry.faces.push(new THREE.Face3(pointIndices[i][j][k], pointIndices[i+1][j+1][k], pointIndices[i+1][j][k]));
-                  geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[i][j][k]].getRGBString());
-                  geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j+1][k]].getRGBString());
-                  geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j][k]].getRGBString());
+                  case positionsLMS[i][j+1][k+1]:
+                  lmsGeometry.faces.push(lms_createFace(i,j,k, i,j+1,k+1, i+1,j+1,k,true,true,true));
+                  lmsGeometry.faces.push(lms_createFace(i,j,k, i+1,j+1,k, i+1,j,k,true,true,true));
                   break;
-                  case positionsLMS:
-                  geometry.faces.push(new THREE.Face3(pointIndices[i][j][k], pointIndices[i][j+1][k], pointIndices[i+1][j+1][k]));
-                  geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[i][j][k]].getRGBString());
-                  geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[i][j+1][k]].getRGBString());
-                  geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j+1][k]].getRGBString());
-                  geometry.faces.push(new THREE.Face3(pointIndices[i][j][k], pointIndices[i+1][j+1][k], pointIndices[i+1][j][k]));
-                  geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[i][j][k]].getRGBString());
-                  geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j+1][k]].getRGBString());
-                  geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j][k]].getRGBString());
+                  case positionsLMS [i+1][j][k+1]:
+                  lmsGeometry.faces.push(lms_createFace(i,j,k, i,j+1,k, i+1,j+1,k,true,true,true));
+                  lmsGeometry.faces.push(lms_createFace(i,j,k, i+1,j+1,k, i+1,j,k+1,true,true,true));
                   break;
-                  case positionsLMS:
-
+                  case positionsLMS[i][j][k+1]:
+                  lmsGeometry.faces.push(lms_createFace(i+1,j,k, i,j+1,k, i+1,j+1,k,true,true,true));
+                  lmsGeometry.faces.push(lms_createFace(i+1,j,k, i,j,k+1, i,j+1,k,true,true,true));
                   break;
-                  case positionsLMS:
-
+                  case positionsLMS[i+1][j+1][k+1]:
+                  lmsGeometry.faces.push(lms_createFace(i+1,j,k, i,j+1,k, i+1,j+1,k+1,true,true,true));
+                  lmsGeometry.faces.push(lms_createFace(i+1,j,k, i,j,k, i,j+1,k,true,true,true));
                   break;
                 }
-
-                // 1 : [i][j][k]
-                // 2 : [i][j+1][k]
-                // 3 : [i][j][k+1]
-                // 4 : [i][j+1][k+1]
-                // 5 : [i+1][j][k]
-                // 6 : [i+1][j+1][k]
-                // 7 : [i+1][j][k+1]
-                // 8 : [i+1][j+1][k+1]
-
                 break;
                 case "back":
                 switch (true) {
-                  case positionsLMS:
+                  case positionsLMS[i][j+1][k]:
+                  lmsGeometry.faces.push(lms_createFace(i,j,k+1, i+1,j+1,k+1, i,j+1,k,true,true,true));
+                  lmsGeometry.faces.push(lms_createFace(i,j,k+1, i+1,j,k+1, i+1,j+1,k+1,true,true,true));
                   break;
-                  case positionsLMS:
-
+                  case positionsLMS[i+1][j][k]:
+                  lmsGeometry.faces.push(lms_createFace(i,j,k+1, i+1,j+1,k+1, i,j+1,k+1,true,true,true));
+                  lmsGeometry.faces.push(lms_createFace(i,j,k+1, i+1,j,k, i+1,j+1,k+1,true,true,true));
                   break;
-                  case positionsLMS:
-
+                  case positionsLMS[i+1][j+1][k]:
+                  lmsGeometry.faces.push(lms_createFace(i+1,j,k+1, i+1,j+1,k, i,j+1,k+1,true,true,true));
+                  lmsGeometry.faces.push(lms_createFace(i+1,j,k+1, i,j+1,k+1, i,j,k+1,true,true,true));
                   break;
-                  case positionsLMS:
-
+                  case positionsLMS[i][j][k]:
+                  lmsGeometry.faces.push(lms_createFace(i+1,j,k+1, i+1,j+1,k+1, i,j+1,k+1,true,true,true));
+                  lmsGeometry.faces.push(lms_createFace(i+1,j,k+1, i,j+1,k+1, i,j,k,true,true,true));
                   break;
                 }
-                geometry.faces.push(new THREE.Face3(pointIndices[i][j][k+1], pointIndices[i+1][j+1][k+1], pointIndices[i][j+1][k+1]));
-                geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[i][j][k+1]].getRGBString());
-                geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j+1][k+1]].getRGBString());
-                geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[i][j+1][k+1]].getRGBString());
-                geometry.faces.push(new THREE.Face3(pointIndices[i][j][k+1], pointIndices[i+1][j][k+1], pointIndices[i+1][j+1][k+1]));
-                geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[i][j][k+1]].getRGBString());
-                geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j][k+1]].getRGBString());
-                geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j+1][k+1]].getRGBString());
                 break;
                 case "left":
                 switch (true) {
-                  case positionsLMS:
+                  case positionsLMS[i+1][j+1][k+1]:
+                  lmsGeometry.faces.push(lms_createFace(i,j,k+1, i+1,j+1,k+1, i,j+1,k, true,true,true));
+                  lmsGeometry.faces.push(lms_createFace(i,j,k+1, i,j+1,k, i,j,k, true,true,true));
                   break;
-                  case positionsLMS:
-
+                  case positionsLMS[i+1][j][k]:
+                  lmsGeometry.faces.push(lms_createFace(i,j,k+1, i,j+1,k+1, i,j+1,k, true,true,true));
+                  lmsGeometry.faces.push(lms_createFace(i,j,k+1, i,j+1,k, i+1,j,k, true,true,true));
                   break;
-                  case positionsLMS:
-
+                  case positionsLMS[i+1][j+1][k]:
+                  lmsGeometry.faces.push(lms_createFace(i,j,k, i,j+1,k+1, i+1,j+1,k ,true,true,true));
+                  lmsGeometry.faces.push(lms_createFace(i,j,k, i,j,k+1, i,j+1,k+1, true,true,true));
                   break;
-                  case positionsLMS:
-
+                  case positionsLMS[i+1][j][k+1]:
+                  lmsGeometry.faces.push(lms_createFace(i,j,k, i,j+1,k+1, i,j+1,k, true,true,true));
+                  lmsGeometry.faces.push(lms_createFace(i,j,k, i+1,j,k+1, i,j+1,k+1, true,true,true));
                   break;
                 }
-                geometry.faces.push(new THREE.Face3(pointIndices[i][j][k+1], pointIndices[i][j+1][k], pointIndices[i][j+1][k+1]));
-                geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[i][j][k+1]].getRGBString());
-                geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[i][j+1][k]].getRGBString());
-                geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[i][j+1][k+1]].getRGBString());
-                geometry.faces.push(new THREE.Face3(pointIndices[i][j][k+1], pointIndices[i][j+1][k+1], pointIndices[i][j][k]));
-                geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[i][j][k+1]].getRGBString());
-                geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[i][j+1][k+1]].getRGBString());
-                geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[i][j][k]].getRGBString());
+
                 break;
                 case "right":
                 switch (true) {
-                  case positionsLMS:
+                  case positionsLMS[i][j+1][k]:
+                  lmsGeometry.faces.push(lms_createFace(i+1,j,k, i,j+1,k, i+1,j+1,k+1, true,true,true));
+                  lmsGeometry.faces.push(lms_createFace(i+1,j,k, i+1,j+1,k+1, i+1,j,k+1, true,true,true));
                   break;
-                  case positionsLMS:
-
+                  case positionsLMS[i][j][k+1]:
+                  lmsGeometry.faces.push(lms_createFace(i+1,j,k, i+1,j+1,k, i+1,j+1,k+1, true,true,true));
+                  lmsGeometry.faces.push(lms_createFace(i+1,j,k, i+1,j+1,k+1, i,j,k+1, true,true,true));
                   break;
-                  case positionsLMS:
-
+                  case positionsLMS[i][j][k]:
+                  lmsGeometry.faces.push(lms_createFace(i+1,j,k+1, i+1,j+1,k, i+1,j+1,k+1, true,true,true));
+                  lmsGeometry.faces.push(lms_createFace(i+1,j,k+1, i,j,k, i+1,j+1,k, true,true,true));
                   break;
-                  case positionsLMS:
-
+                  case positionsLMS[i][j+1][k+1]:
+                  lmsGeometry.faces.push(lms_createFace(i+1,j,k+1, i+1,j+1,k, i,j+1,k+1, true,true,true));
+                  lmsGeometry.faces.push(lms_createFace(i+1,j,k+1, i+1,j,k, i+1,j+1,k, true,true,true));
                   break;
                 }
-                geometry.faces.push(new THREE.Face3(pointIndices[i+1][j][k], pointIndices[i+1][j+1][k], pointIndices[i+1][j+1][k+1]));
-                geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[i+1][j][k]].getRGBString());
-                geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j+1][k]].getRGBString());
-                geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j+1][k+1]].getRGBString());
-                geometry.faces.push(new THREE.Face3(pointIndices[i+1][j][k], pointIndices[i+1][j+1][k+1], pointIndices[i+1][j][k+1]));
-                geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[i+1][j][k]].getRGBString());
-                geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j+1][k+1]].getRGBString());
-                geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[i+1][j][k+1]].getRGBString());
                 break;
               }
           break;
+          case 6:
+              switch (true) {
+                case (!positionsLMS[i][j][k] && !positionsLMS[i+1][j][k]):
+                lmsGeometry.faces.push(lms_createFace(i,j+1,k, i,j,k+1, i+1,j,k+1, true,true,true));//i+1,j,k+1, i,j,k+1));//
+                lmsGeometry.faces.push(lms_createFace(i,j+1,k, i+1,j,k+1, i+1,j+1,k, true,true,true));//i+1,j+1,k, i+1,j,k+1));//
 
+                  ///// HIER WEITER!!!!! DIE RAMPEN erzeugen loecher -> check if next to ramp is something! If not draw triangle
+                  /*if(i==positionsLMS.length-2 || lms3D_countTrueEdges(i+1,j,k)<4){
+                    lmsGeometry.faces.push(lms_createFace(i,j,k+1, i,j+1,k+1, i,j+1,k,true,false,true));
+                    //lmsGeometry.faces.push(lms_createFace(i,j,k+1, i,j+1,k, i,j,k,false,true,true));
+                  }
+
+                  if(i==0 || lms3D_countTrueEdges(i-1,j,k)<4){
+                    lmsGeometry.faces.push(lms_createFace(i+1,j,k, i+1,j+1,k, i+1,j+1,k+1,true,false,true));
+                    //lmsGeometry.faces.push(lms_createFace(i+1,j,k, i+1,j+1,k+1, i+1,j,k+1,false,true,true));
+                  }*/
+                break;
+                case (!positionsLMS[i][j+1][k] && !positionsLMS[i+1][j+1][k]):
+                lmsGeometry.faces.push(lms_createFace(i,j,k, i+1,j+1,k+1, i,j+1,k+1, true,true,true));//i,j+1,k+1, i+1,j+1,k+1));//
+                lmsGeometry.faces.push(lms_createFace(i,j,k, i+1,j,k, i+1,j+1,k+1, true,true,true));//i+1,j+1,k+1, i+1,j,k));//
+                break;
+                case (!positionsLMS[i][j][k+1] && !positionsLMS[i+1][j][k+1]):
+                lmsGeometry.faces.push(lms_createFace(i,j,k, i,j+1,k+1, i+1,j+1,k+1, true,true,true));//i+1,j+1,k+1, i,j+1,k+1));//
+                lmsGeometry.faces.push(lms_createFace(i,j,k, i+1,j+1,k+1, i+1,j,k, true,true,true));//i+1,j,k, i+1,j+1,k+1));//
+                break;
+                case (!positionsLMS[i][j+1][k+1] && !positionsLMS[i+1][j+1][k+1]):
+                lmsGeometry.faces.push(lms_createFace(i,j+1,k, i+1,j,k+1, i,j,k+1, true,true,true));//i,j,k+1, i+1,j,k+1));//
+                lmsGeometry.faces.push(lms_createFace(i,j+1,k, i+1,j+1,k, i+1,j,k+1, true,true,true));//i+1,j,k+1, i+1,j+1,k));//
+                break;
+
+                case (!positionsLMS[i][j][k] && !positionsLMS[i][j+1][k]):
+                lmsGeometry.faces.push(lms_createFace(i,j,k+1,i+1,j+1,k,i,j+1,k+1, true,true,true));
+                lmsGeometry.faces.push(lms_createFace(i,j,k+1,i+1,j,k,i+1,j+1,k, true,true,true));
+                break;
+                case (!positionsLMS[i][j][k+1] && !positionsLMS[i][j+1][k+1]):
+                lmsGeometry.faces.push(lms_createFace(i+1,j,k+1,i,j+1,k,i+1,j+1,k+1, true,true,true));
+                lmsGeometry.faces.push(lms_createFace(i+1,j,k+1,i,j,k,i,j+1,k, true,true,true));
+                break;
+                case (!positionsLMS[i+1][j][k] && !positionsLMS[i+1][j+1][k]):
+                lmsGeometry.faces.push(lms_createFace(i,j,k,i+1,j+1,k+1,i,j+1,k, true,true,true));
+                lmsGeometry.faces.push(lms_createFace(i,j,k,i+1,j,k+1,i+1,j+1,k+1, true,true,true));
+                break;
+                case (!positionsLMS[i+1][j][k+1] && !positionsLMS[i+1][j+1][k+1]):
+                lmsGeometry.faces.push(lms_createFace(i+1,j,k,i,j+1,k+1,i+1,j+1,k, true,true,true));
+                lmsGeometry.faces.push(lms_createFace(i+1,j,k,i,j,k+1,i,j+1,k+1, true,true,true));
+                break;
+
+                case (!positionsLMS[i][j][k] && !positionsLMS[i][j][k+1]):
+                  lmsGeometry.faces.push(lms_createFace(i,j+1,k,i,j+1,k+1,i+1,j,k+1, true,true,true));//i,j+1,k,i+1,j,k+1,i,j+1,k+1));//
+                  lmsGeometry.faces.push(lms_createFace(i,j+1,k,i+1,j,k+1,i+1,j,k, true,true,true));//i,j+1,k,i+1,j,k,i+1,j,k+1));//
+                break;
+                case (!positionsLMS[i][j+1][k] && !positionsLMS[i][j+1][k+1]):
+                  lmsGeometry.faces.push(lms_createFace(i,j,k,i+1,j+1,k+1,i,j,k+1, true,true,true));//i,j,k,i,j,k+1,i+1,j+1,k+1));//
+                  lmsGeometry.faces.push(lms_createFace(i,j,k,i+1,j+1,k,i+1,j+1,k+1, true,true,true));//i,j,k,i+1,j+1,k+1,i+1,j+1,k));//
+                break;
+                case (!positionsLMS[i+1][j][k] && !positionsLMS[i+1][j][k+1]):
+                  lmsGeometry.faces.push(lms_createFace(i,j,k,i,j,k+1,i+1,j+1,k+1, true,true,true));//i,j,k,i+1,j+1,k+1,i,j,k+1));//
+                  lmsGeometry.faces.push(lms_createFace(i,j,k,i+1,j+1,k+1,i+1,j+1,k, true,true,true));//i,j,k,i+1,j+1,k,i+1,j+1,k+1));//
+                break;
+                case (!positionsLMS[i+1][j+1][k] && !positionsLMS[i+1][j+1][k+1]):
+                  lmsGeometry.faces.push(lms_createFace(i,j+1,k,i+1,j,k+1,i,j+1,k+1, true,true,true));//i,j+1,k,i,j+1,k+1,i+1,j,k+1));//
+                  lmsGeometry.faces.push(lms_createFace(i,j+1,k,i+1,j,k,i+1,j,k+1, true,true,true));//i,j+1,k,i+1,j,k+1,i+1,j,k));//
+                break;
+              }
+          break;
+          case 7:
+            switch (true) {
+              case !positionsLMS[i][j][k]: //3,5,2
+                lmsGeometry.faces.push(lms_createFace(i,j,k+1,i+1,j,k,i,j+1,k, true,true,true));
+              break;
+              case !positionsLMS[i][j+1][k]: // 1,6,4
+                lmsGeometry.faces.push(lms_createFace(i,j,k,i+1,j+1,k,i,j+1,k+1, true,true,true));
+              break;
+              case !positionsLMS[i][j][k+1]: //7,1,4
+                lmsGeometry.faces.push(lms_createFace(i+1,j,k+1,i,j,k,i,j+1,k+1, true,true,true));
+              break;
+              case !positionsLMS[i][j+1][k+1]: //2,8,3
+                lmsGeometry.faces.push(lms_createFace(i,j+1,k,i+1,j+1,k+1,i,j,k+1, true,true,true));
+              break;
+              case !positionsLMS[i+1][j][k]: //1,7,6
+                lmsGeometry.faces.push(lms_createFace(i,j,k,i+1,j,k+1,i+1,j+1,k, true,true,true));
+              break;
+              case !positionsLMS[i+1][j+1][k]: //2,5,8
+                lmsGeometry.faces.push(lms_createFace(i,j+1,k,i+1,j,k,i+1,j+1,k+1, true,true,true));
+              break;
+              case !positionsLMS[i+1][j][k+1]: //5,3,8
+                lmsGeometry.faces.push(lms_createFace(i+1,j,k,i,j,k+1,i+1,j+1,k+1, true,true,true));
+              break;
+              case !positionsLMS[i+1][j+1][k+1]: //7,4,6
+                lmsGeometry.faces.push(lms_createFace(i+1,j,k+1,i,j+1,k+1,i+1,j+1,k, true,true,true));
+              break;
+              }
+          break;
           }
 
-          // 1 : positionsLMS[i][j][k]
-          // 2 : positionsLMS[i][j+1][k]
-          // 3 : positionsLMS[i][j][k+1]
-          // 4 : positionsLMS[i][j+1][k+1]
-          // 5 : positionsLMS[i+1][j][k]
-          // 6 : positionsLMS[i+1][j+1][k]
-          // 7 : positionsLMS[i+1][j][k+1]
-          // 8 : positionsLMS[i+1][j+1][k+1]
-
-          /*
-          geometry.faces.push(new THREE.Face3(pointIndices[???][???][???], pointIndices[???][???][???], pointIndices[???][???][???]));
-          geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[???][???][???]].getRGBString());
-          geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[???][???][???]].getRGBString());
-          geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[???][???][???]].getRGBString());
-          geometry.faces.push(new THREE.Face3(pointIndices[???][???][???], pointIndices[???][???][???], pointIndices[???][???][???]));
-          geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBcolors[pointIndices[???][???][???]].getRGBString());
-          geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor[pointIndices[???][???][???]].getRGBString());
-          geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor[pointIndices[???][???][???]].getRGBString());
-          */
-        }
       }
+
     }
 
+  }
 
-      geometry.computeFaceNormals();
+  /////////////////////////////////////////////////
+  /// 2. Step create Faces and Lines (Marching Cubes)
 
-      /*linesGeometry.setIndex( linesIndices );
-      linesGeometry.addAttribute( 'position', new THREE.Float32BufferAttribute( linesPoints, 3 ) );
-      linesGeometry.addAttribute( 'color', new THREE.Float32BufferAttribute( linesColors, 3 ) );
+    lmsGeometry.computeFaceNormals();
+
+      linesGeometry.setIndex( lms_linesIndices );
+      linesGeometry.addAttribute( 'position', new THREE.Float32BufferAttribute( lms_linesPoints, 3 ) );
+      linesGeometry.addAttribute( 'color', new THREE.Float32BufferAttribute( lms_linesColors, 3 ) );
       linesGeometry.computeBoundingSphere();
       var linesMesh = new THREE.LineSegments( linesGeometry, linesMaterial );
       linesMesh.position.x = 0;
       linesMesh.position.y = 0;
-      linesMesh.position.z = 0;*/
+      linesMesh.position.z = 0;
 
       var material = new THREE.MeshBasicMaterial( {
                     /*side: THREE.DoubleSide,*/
@@ -455,20 +398,19 @@ function lms3DMesh(){
                     reflectivity: 0
                   } );
 
-
-      var meshLMS = new THREE.Mesh(geometry, material);
+      var meshLMS = new THREE.Mesh(lmsGeometry, material);
       meshLMS.position.x = 0;
       meshLMS.position.y = 0;
       meshLMS.position.z = 0;
 
       /////////////////////////////////////////////////
       // delete Colors
-      for (var i = 0; i < tmpRGBcolors.length; i++) {
-        tmpRGBcolors[i].deleteReferences();
+      for (var i = 0; i < lms_colorArray.length; i++) {
+        lms_colorArray[i].deleteReferences();
       }
-      tmpRGBcolors=[];
+      lms_colorArray=[];
 
-      return [undefined,meshLMS];//[linesMesh,meshLMS];
+      return [linesMesh,meshLMS];
 }
 
 
@@ -495,9 +437,45 @@ function lms3D_countTrueEdges(i,j,k){
   return counter;
 }
 
+function lms_createFace(i_1,j_1,k_1,i_2,j_2,k_2,i_3,j_3,k_3,draw_Line_12,draw_Line_13,draw_Line_23){
+
+  lms_checkPointIndices(i_1,j_1,k_1);
+  lms_checkPointIndices(i_2,j_2,k_2);
+  lms_checkPointIndices(i_3,j_3,k_3);
+
+  var tmpFace =new THREE.Face3(lms_pointIndices[i_1][j_1][k_1], lms_pointIndices[i_2][j_2][k_2], lms_pointIndices[i_3][j_3][k_3]);
+  tmpFace.vertexColors[0] = new THREE.Color(lms_colorArray[lms_pointIndices[i_1][j_1][k_1]].getRGBString());
+  tmpFace.vertexColors[1] = new THREE.Color(lms_colorArray[lms_pointIndices[i_2][j_2][k_2]].getRGBString());
+  tmpFace.vertexColors[2] = new THREE.Color(lms_colorArray[lms_pointIndices[i_3][j_3][k_3]].getRGBString());
+
+  if(draw_Line_12)
+    lms_linesIndices.push(lms_pointIndices[i_1][j_1][k_1], lms_pointIndices[i_2][j_2][k_2]);
+  if(draw_Line_13)
+    lms_linesIndices.push(lms_pointIndices[i_1][j_1][k_1], lms_pointIndices[i_3][j_3][k_3]);
+  if(draw_Line_23)
+    lms_linesIndices.push(lms_pointIndices[i_2][j_2][k_2], lms_pointIndices[i_3][j_3][k_3]);
+
+  return tmpFace;
+}
+
+function lms_checkPointIndices(i,j,k){
+  if(lms_pointIndices[i][j][k]==undefined){
+    lmsGeometry.vertices.push(new THREE.Vector3(i*lms3D_lmsStep,j*lms3D_lmsStep,k*lms3D_lmsStep));
+    lms_linesPoints.push(i*lms3D_lmsStep,j*lms3D_lmsStep,k*lms3D_lmsStep);
+    var tmpLMS = new class_Color_LMS(i*lms3D_lmsStep,j*lms3D_lmsStep,k*lms3D_lmsStep);
+    if(doColorblindnessSim)
+      tmpRGB = tmpLMS.calcColorBlindRGBColor();
+    else
+      tmpRGB = tmpLMS.calcRGBColor();
+
+    lms_linesColors.push(tmpRGB.get1Value(),tmpRGB.get2Value(),tmpRGB.get3Value());
+    lms_colorArray.push(tmpRGB);
+    lms_pointIndices[i][j][k]=lmsGeometry.vertices.length-1;
+  }
+}
 
 function lms_DefinePlaneType(i,j,k){
-  if(positionsLMS[i][j+1][k] && positionsLMS[i][j+1][k+1] && positionsLMS[i+1][j+1][k+1] && positionsLMS[i+1][j+1][k]){
+  if(positionsLMS[i][j+1][k] && positionsLMS[i][j+1][k+1] && positionsLMS[i+1][j+1][k+1] && positionsLMS[i+1][j+1][k])
     return "top";
 
   if(positionsLMS[i][j][k] && positionsLMS[i+1][j][k+1] && positionsLMS[i][j][k+1] && positionsLMS[i+1][j][k+1])
@@ -506,7 +484,7 @@ function lms_DefinePlaneType(i,j,k){
   if(positionsLMS[i][j][k] && positionsLMS[i][j+1][k] && positionsLMS[i+1][j+1][k] && positionsLMS[i+1][j][k])
     return "front"
 
-  if(positionsLMS[i][j][k+1] && positionsLMS[i+1][j+1][k+1] && positionsLMS[i][j+1][k+1] && positionsLMS[i+1][j+1][k+1])
+  if(positionsLMS[i][j][k+1] && positionsLMS[i+1][j+1][k+1] && positionsLMS[i][j+1][k+1] && positionsLMS[i+1][j][k+1])
       return "back";
 
   if(positionsLMS[i][j][k+1] && positionsLMS[i][j+1][k] && positionsLMS[i][j+1][k+1] && positionsLMS[i][j][k])

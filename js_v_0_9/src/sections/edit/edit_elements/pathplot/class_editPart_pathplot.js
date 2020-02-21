@@ -1120,11 +1120,15 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
           switch (this.pp_CanvasMode) {
             case "C1":
               relevantComponent=tmpColor.get1Value();
-              if(this.pathplot_space=="lab" || this.pathplot_space=="din99")
+              if(this.pathplot_space=="lab" || this.pathplot_space=="din99" || this.pathplot_space=="lms")
                 factor=100;
             break;
             case "C2":
               switch (this.pathplot_space) {
+                case "lms":
+                  relevantComponent=tmpColor.getMValue();
+                  factor=100;
+                  break;
                 case "lab":
                   relevantComponent=(tmpColor.getAValue()+labSpaceRange);
                   factor=(labSpaceRange*2);
@@ -1139,6 +1143,10 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
             break;
             case "C3":
             switch (this.pathplot_space) {
+              case "lms":
+                relevantComponent=tmpColor.getSValue();
+                factor=100;
+                break;
               case "lab":
                 relevantComponent=(tmpColor.getBValue()+labSpaceRange);
                 factor=(labSpaceRange*2);
@@ -1260,32 +1268,41 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
                 case "hsv":
                   return new class_Color_HSV(parseInt(newValue*360)/360,this.pp_currentColor.get2Value(),this.pp_currentColor.get3Value());
                 break;
+                case "lms":
+                  var tmpColor = new class_Color_LMS(parseInt(newValue*100),this.pp_currentColor.get2Value(),this.pp_currentColor.get3Value());
+                  if (tmpColor.checkRGBPossiblity())
+                    return tmpColor;
+
+                  tmpColor.deleteReferences();
+                  tmpColor=null;
+                  return undefined;
+                break;
                 case "lab":
                   var tmpColor = new class_Color_LAB(parseInt(newValue*100),this.pp_currentColor.get2Value(),this.pp_currentColor.get3Value());
-                  var testColor = tmpColor.calcRGBColorCorrect(undefined);
-                  if (testColor == undefined)
-                    return undefined;
-                  testColor.deleteReferences();
-                  testColor=null;
-                  return tmpColor;
+                  if (tmpColor.checkRGBPossiblity())
+                    return tmpColor;
+
+                  tmpColor.deleteReferences();
+                  tmpColor=null;
+                  return undefined;
                 break;
                 case "din99":
                   var tmpColor = new class_Color_DIN99(parseInt(newValue*100),this.pp_currentColor.get2Value(),this.pp_currentColor.get3Value());
-                  var testColor = tmpColor.calcRGBColorCorrect(undefined);
-                  if (testColor == undefined)
-                    return undefined;
-                  testColor.deleteReferences();
-                  testColor=null;
-                  return tmpColor;
+                  if (tmpColor.checkRGBPossiblity())
+                    return tmpColor;
+
+                  tmpColor.deleteReferences();
+                  tmpColor=null;
+                  return undefined;
                 break;
                 case "lch":
                   var tmpColor = new class_Color_LCH(parseInt(newValue*100)/100,this.pp_currentColor.get2Value(),this.pp_currentColor.get3Value());
-                  var testColor = tmpColor.calcRGBColorCorrect(undefined);
-                  if (testColor == undefined)
-                    return undefined;
-                  testColor.deleteReferences();
-                  testColor=null;
-                  return tmpColor;
+                  if (tmpColor.checkRGBPossiblity())
+                    return tmpColor;
+
+                  tmpColor.deleteReferences();
+                  tmpColor=null;
+                  return undefined;
                 break;
                   default:
                     return undefined;
@@ -1299,32 +1316,41 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
                 case "hsv":
                   return new class_Color_HSV(this.pp_currentColor.get1Value(),parseInt(newValue*100)/100,this.pp_currentColor.get3Value());
                 break;
+                case "lms":
+                  var tmpColor = new class_Color_LMS(this.pp_currentColor.get1Value(),parseInt(newValue*100),this.pp_currentColor.get3Value());
+                  if (tmpColor.checkRGBPossiblity())
+                    return tmpColor;
+
+                  tmpColor.deleteReferences();
+                  tmpColor=null;
+                  return undefined;
+                break;
                 case "lab":
                   var tmpColor = new class_Color_LAB(this.pp_currentColor.get1Value(),parseInt(newValue*(labSpaceRange*2)+(labSpaceRange*-1)),this.pp_currentColor.get3Value());
-                  var testColor = tmpColor.calcRGBColorCorrect(undefined);
-                  if (testColor == undefined)
-                    return undefined;
-                  testColor.deleteReferences();
-                  testColor=null;
-                  return tmpColor;
+                  if (tmpColor.checkRGBPossiblity())
+                    return tmpColor;
+
+                  tmpColor.deleteReferences();
+                  tmpColor=null;
+                  return undefined;
                 break;
                 case "din99":
                   var tmpColor = new class_Color_DIN99(this.pp_currentColor.get1Value(),parseInt(newValue*(rangeA99Pos-rangeA99Neg)+(rangeA99Neg)),this.pp_currentColor.get3Value());
-                  var testColor = tmpColor.calcRGBColorCorrect(undefined);
-                  if (testColor == undefined)
-                    return undefined;
-                  testColor.deleteReferences();
-                  testColor=null;
-                  return tmpColor;
+                  if (tmpColor.checkRGBPossiblity())
+                    return tmpColor;
+
+                  tmpColor.deleteReferences();
+                  tmpColor=null;
+                  return undefined;
                 break;
                 case "lch":
                   var tmpColor = new class_Color_LCH(this.pp_currentColor.get1Value(),parseInt(newValue*100)/100,this.pp_currentColor.get3Value());
-                  var testColor = tmpColor.calcRGBColorCorrect(undefined);
-                  if (testColor == undefined)
-                    return undefined;
-                  testColor.deleteReferences();
-                  testColor=null;
-                  return tmpColor;
+                  if (tmpColor.checkRGBPossiblity())
+                    return tmpColor;
+
+                  tmpColor.deleteReferences();
+                  tmpColor=null;
+                  return undefined;
                 break;
                   default:
                     return undefined;
@@ -1338,32 +1364,41 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
                 case "hsv":
                   return new class_Color_HSV(this.pp_currentColor.get1Value(),this.pp_currentColor.get2Value(),parseInt(newValue*100)/100);
                 break;
+                case "lms":
+                  var tmpColor = new class_Color_LMS(this.pp_currentColor.get1Value(),this.pp_currentColor.get2Value(),parseInt(newValue*100));
+                  if (tmpColor.checkRGBPossiblity())
+                    return tmpColor;
+
+                  tmpColor.deleteReferences();
+                  tmpColor=null;
+                  return undefined;
+                break;
                 case "lab":
                   var tmpColor = new class_Color_LAB(this.pp_currentColor.get1Value(),this.pp_currentColor.get2Value(),parseInt(newValue*(labSpaceRange*2)+(labSpaceRange*-1)));
-                  var testColor = tmpColor.calcRGBColorCorrect(undefined);
-                  if (testColor == undefined)
-                    return undefined;
-                  testColor.deleteReferences();
-                  testColor=null;
-                  return tmpColor;
+                  if (tmpColor.checkRGBPossiblity())
+                    return tmpColor;
+
+                  tmpColor.deleteReferences();
+                  tmpColor=null;
+                  return undefined;
                 break;
                 case "din99":
                   var tmpColor = new class_Color_DIN99(this.pp_currentColor.get1Value(),this.pp_currentColor.get2Value(),parseInt(newValue*(rangeB99Pos-rangeB99Neg)+(rangeB99Neg)));
-                  var testColor = tmpColor.calcRGBColorCorrect(undefined);
-                  if (testColor == undefined)
-                    return undefined;
-                  testColor.deleteReferences();
-                  testColor=null;
-                  return tmpColor;
+                  if (tmpColor.checkRGBPossiblity())
+                    return tmpColor;
+
+                  tmpColor.deleteReferences();
+                  tmpColor=null;
+                  return undefined;
                 break;
                 case "lch":
                   var tmpColor = new class_Color_LCH(this.pp_currentColor.get1Value(),this.pp_currentColor.get2Value(),parseInt(newValue*360)/360);
-                  var testColor = tmpColor.calcRGBColorCorrect(undefined);
-                  if (testColor == undefined)
-                    return undefined;
-                  testColor.deleteReferences();
-                  testColor=null;
-                  return tmpColor;
+                  if (tmpColor.checkRGBPossiblity())
+                    return tmpColor;
+
+                  tmpColor.deleteReferences();
+                  tmpColor=null;
+                  return undefined;
                 break;
                   default:
                     return undefined;
@@ -1431,6 +1466,14 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
             c3_name = ",  B99 : ";
             c3_val = parseInt(this.pp_currentColor.get3Value());
             break;
+            case "lms":
+            c1_name = "L : ";
+            c1_val = parseInt(this.pp_currentColor.get1Value());
+            c2_name = ",  M : ";
+            c2_val = parseInt(this.pp_currentColor.get2Value());
+            c3_name = ",  S : ";
+            c3_val = parseInt(this.pp_currentColor.get3Value());
+              break;
             case "lch":
             c1_name = "L : ";
             c1_val = parseInt(this.pp_currentColor.get1Value()*100);

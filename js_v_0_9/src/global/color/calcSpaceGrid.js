@@ -191,8 +191,8 @@ function calcSpaceGridLMS(){
 
 
   positionsLMS=[];
-  var lmsRes=50;
-  lms3D_lmsStep = 100/(lmsRes-1);
+  var lmsRes=75;
+  lms3D_lmsStep = 120/(lmsRes-1);
 
   //  Marching Cubes Like Algorithm
   var tmpTestPositions=[];
