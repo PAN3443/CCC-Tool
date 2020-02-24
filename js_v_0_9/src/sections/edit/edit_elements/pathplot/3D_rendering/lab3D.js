@@ -104,10 +104,12 @@ function lab3DMesh(){
 
             // Color currentIndex1
             tmpRGBColor=positionsLAB[i][j].calcRGBColor();
+
             if(doColorblindnessSim){
               var tmpLMS = tmpRGBColor.calcLMSColor();
               tmpRGBColor = tmpLMS.calcColorBlindRGBColor();
             }
+
             geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor.getRGBString());
 
             // Color currentIndex2

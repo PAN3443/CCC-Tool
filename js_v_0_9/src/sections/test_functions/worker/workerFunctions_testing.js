@@ -1,5 +1,6 @@
 function worker_LoadColorClasses(){
   // Colors
+  self.importScripts('../../../global/color/class_Colorspace_Basis.js');
   self.importScripts('../../../global/color/class_Colorspace_RGB.js');
   self.importScripts('../../../global/color/class_Colorspace_XYZ.js');
   self.importScripts('../../../global/color/class_Colorspace_LMS.js');

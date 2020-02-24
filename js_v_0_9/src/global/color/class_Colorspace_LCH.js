@@ -2,7 +2,7 @@
 // ------------ Class CIELab ---------------//
 ////////////////////////////////////////////////
 
-class class_Color_LCH{
+class class_Color_LCH extends class_Color_Basis{
 
   // for future # => private  .... change this. to this.#
   // private fields are not supported at the moment
@@ -11,117 +11,33 @@ class class_Color_LCH{
   #hValue = undefined;
   #colorType = undefined;*/
 
-      constructor(lValue, cValue, hValue) {
-        this.lValue = lValue;
-        this.cValue = cValue;
-        this.hValue = hValue;
+      constructor(value_1, value_2, value_3) {
+        super(value_1, value_2, value_3); // l,c,h
         this.colorType = "lch";
       }
 
-      deleteReferences(){
-        delete this.lValue;
-        delete this.cValue;
-        delete this.hValue;
-        delete this.colorType;
-      }
-
-      getColorType(){
-        return this.colorType;
-      }
       getLValue() {
-        return this.lValue;
+        return this.value_1;
       }
 
       getCValue() {
-        return this.cValue;
+        return this.value_2;
       }
 
       getHValue() {
-        return this.hValue;
-      }
-
-      get1Value() {
-        return this.lValue;
-      }
-
-      get2Value() {
-        return this.cValue;
-      }
-
-      get3Value() {
-        return this.hValue;
-      }
-
-      set1Value(newVal) {
-          this.lValue=newVal;
-      }
-
-      set2Value(newVal) {
-          this.cValue=newVal;
-      }
-
-      set3Value(newVal){
-          this.hValue=newVal;
+        return this.value_3;
       }
 
       setLValue(newLVal) {
-        this.lValue = newLVal;
+        this.value_1 = newLVal;
       }
 
       setCValue(newAVal) {
-        this.cValue = newAVal;
+        this.value_2 = newAVal;
       }
 
       setHValue(newBVal) {
-        this.hValue = newBVal;
-      }
-
-      getRGBString() {
-        var tmpRGB = this.calcRGBColor();
-        var string = tmpRGB.getRGBString();
-        tmpRGB.deleteReferences();
-        return string;
-      }
-
-      equalTo(color){
-
-        switch (color.getColorType()) {
-          case "lch":
-              if(color.get1Value()==this.get1Value()&&
-                 color.get2Value()==this.get2Value()&&
-                 color.get3Value()==this.get3Value())
-                 return true;
-              else
-                return false;
-          default:
-            var tmpColor = color.calcLCHColor();
-            if(color.get1Value()==this.get1Value()&&
-               color.get2Value()==this.get2Value()&&
-               color.get3Value()==this.get3Value())
-               return true;
-            else
-              return false;
-
-        }
-
-      }
-
-      getInColorFormat(format){
-        switch (format) {
-          case "rgb":
-              return this.calcRGBColor();
-          case "hsv":
-              return this.calcHSVColor();
-          case "lab":
-              return this.calcLABColor();
-          case "din99":
-              return this.calcDIN99Color();
-          case "lch":
-              return new class_Color_LCH(this.get1Value(),this.get2Value(),this.get3Value());
-          default:
-            console.log("Error in function getColorFormat of LAB class");
-        }
-
+        this.value_3 = newBVal;
       }
 
       calcXYZColor(){
@@ -162,33 +78,31 @@ class class_Color_LCH{
         var tmpColor = tmpRGB.calcLCHColor();
         tmpRGB.deleteReferences();
         tmpRGB=null;
-        this.lValue = tmpColor.get1Value();
-        this.cValue = tmpColor.get2Value();
-        this.hValue = tmpColor.get3Value();
+        this.value_1 = tmpColor.get1Value();
+        this.value_2 = tmpColor.get2Value();
+        this.value_3 = tmpColor.get3Value();
         tmpColor.deleteReferences();
         tmpColor=null;
       }
 
       getLCHString(){
-          var tmpString = "lch("+this.lValue+","+this.cValue+","+this.hValue+")";
+          var tmpString = "lch("+this.value_1+","+this.value_2+","+this.value_3+")";
           return tmpString;
       }
 
       getLCHString(numDecimalPlaces){
-          var tmpString = "lch("+this.lValue.toFixed(numDecimalPlaces)+","+this.cValue.toFixed(numDecimalPlaces)+","+this.hValue.toFixed(numDecimalPlaces)+")";
+          var tmpString = "lch("+this.value_1.toFixed(numDecimalPlaces)+","+this.value_2.toFixed(numDecimalPlaces)+","+this.value_3.toFixed(numDecimalPlaces)+")";
           return tmpString;
       }
 
-
       calcLABColor(){
-        var lValue = this.lValue*100;
-        var tmpRad = degree360ToRad(this.hValue * 360);
+        var lValue = this.value_1*100;
+        var tmpRad = degree360ToRad(this.value_3 * 360);
 
-        var aValue = Math.cos(tmpRad) * this.cValue *128;
-        var bValue = Math.sin(tmpRad) * this.cValue *128;
+        var aValue = Math.cos(tmpRad) * this.value_2 *128;
+        var bValue = Math.sin(tmpRad) * this.value_2 *128;
         return new class_Color_LAB(lValue,aValue,bValue);
       }
-
 
       calcLMSColor() {
         var tmpLab = this.calcLABColor();
@@ -196,7 +110,6 @@ class class_Color_LCH{
         tmpLab.deleteReferences();
         return tmpLMS;
       }
-
 
       calcHSVColor(){
         var tmpLab = this.calcLABColor();

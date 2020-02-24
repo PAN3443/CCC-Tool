@@ -4,7 +4,7 @@
 
 // DIN99 Version o
 
-class class_Color_DIN99{
+class class_Color_DIN99 extends class_Color_Basis{
 
       // for future # => private  .... change this. to this.#
       // private fields are not supported at the moment
@@ -13,134 +13,48 @@ class class_Color_DIN99{
       #b99Value = undefined;
       #colorType = undefined;*/
 
-      constructor(lValue, aValue, bValue) {
-        this.l99Value = lValue;
-        this.a99Value = aValue;
-        this.b99Value = bValue;
+      constructor(value_1, value_2, value_3) {
+        super(value_1, value_2, value_3); // l99, a99, b99
         this.colorType = "din99";
       }
 
-      deleteReferences(){
-        delete this.l99Value;
-        delete this.a99Value;
-        delete this.b99Value;
-        delete this.colorType;
-      }
-
-      getColorType(){
-        return this.colorType;
-      }
-
       getL99Value() {
-        return this.l99Value;
+        return this.value_1;
       }
 
       getA99Value() {
-        return this.a99Value;
+        return this.value_2;
       }
 
       getB99Value() {
-        return this.b99Value;
-      }
-
-      get1Value() {
-        return this.l99Value;
-      }
-
-      get2Value() {
-        return this.a99Value;
-      }
-
-      get3Value() {
-        return this.b99Value;
-      }
-
-      set1Value(newVal) {
-          this.l99Value=newVal;
-      }
-
-      set2Value(newVal) {
-          this.a99Value=newVal;
-      }
-
-      set3Value(newVal){
-          this.b99Value=newVal;
+        return this.value_3;
       }
 
       setL99Value(newLVal) {
-        this.lValue = newLVal;
+        this.value_1 = newLVal;
       }
 
       setA99Value(newAVal) {
-        this.aValue = newAVal;
+        this.value_2 = newAVal;
       }
 
       setB99Value(newBVal) {
-        this.bValue = newBVal;
-      }
-
-      getRGBString() {
-        var tmpRGB = this.calcRGBColor();
-        var string = tmpRGB.getRGBString();
-        tmpRGB.deleteReferences();
-        return string;
-      }
-
-      equalTo(color){
-
-        switch (color.getColorType()) {
-          case "din99":
-              if(color.get1Value()==this.get1Value()&&
-                 color.get2Value()==this.get2Value()&&
-                 color.get3Value()==this.get3Value())
-                 return true;
-              else
-                return false;
-          default:
-            var tmpColor = color.calcDIN99Color();
-            if(color.get1Value()==this.get1Value()&&
-               color.get2Value()==this.get2Value()&&
-               color.get3Value()==this.get3Value())
-               return true;
-            else
-              return false;
-
-        }
-
-      }
-
-      getInColorFormat(format){
-
-        switch (format) {
-          case "rgb":
-              return this.calcRGBColor();
-          case "hsv":
-              return this.calcHSVColor();
-          case "lab":
-              return this.calcLABColor();
-          case "din99":
-              return new class_Color_DIN99(this.get1Value(),this.get2Value(),this.get3Value());
-          case "lch":
-              return this.calcLCHColor();
-          default:
-            console.log("Error in function getColorFormat of DIN99 class");
-        }
-
+        this.value_3 = newBVal;
       }
 
       calcDIN99Color() {
         return new class_Color_DIN99(this.get1Value(), this.get2Value(), this.get3Value());
       }
 
-      getDIN99String(){
-          var tmpString = "din99("+this.l99Value+","+this.a99Value+","+this.b99Value+")";
+      /*getDIN99String(){
+          var tmpString = "din99("+this.value_1+","+this.value_2+","+this.value_3+")";
           return tmpString;
       }
 
       getDIN99String(numDecimalPlaces){
-          var tmpString = "din99("+this.l99Value.toFixed(numDecimalPlaces)+","+this.a99Value.toFixed(numDecimalPlaces)+","+this.b99Value.toFixed(numDecimalPlaces)+")";
+          var tmpString = "din99("+this.value_1.toFixed(numDecimalPlaces)+","+this.value_2.toFixed(numDecimalPlaces)+","+this.value_3.toFixed(numDecimalPlaces)+")";
           return tmpString;
-      }
+      }*/
 
       calcLMSColor() {
         var tmpLab = this.calcLABColor();
@@ -150,13 +64,13 @@ class class_Color_DIN99{
       }
 
       calcRGBColor(){
-            var tmpLAB = this.calcLABColor();
-            return tmpLAB.calcRGBColor();
+        var tmpLAB = this.calcLABColor();
+        return tmpLAB.calcRGBColor();
       }
 
       calcRGBColorCorrect(errorRGBColor){
-            var tmpLAB = this.calcLABColor();
-            return tmpLAB.calcRGBColorCorrect(errorRGBColor);
+        var tmpLAB = this.calcLABColor();
+        return tmpLAB.calcRGBColorCorrect(errorRGBColor);
       }
 
       checkRGBPossiblity(){
@@ -172,9 +86,9 @@ class class_Color_DIN99{
         var tmpColor = tmpRGB.calcDIN99Color();
         tmpRGB.deleteReferences();
         tmpRGB=null;
-        this.l99Value = tmpColor.get1Value();
-        this.a99Value = tmpColor.get2Value();
-        this.b99Value = tmpColor.get3Value();
+        this.value_1 = tmpColor.get1Value();
+        this.value_2 = tmpColor.get2Value();
+        this.value_3 = tmpColor.get3Value();
         tmpColor.deleteReferences();
         tmpColor=null;
       }
@@ -196,10 +110,10 @@ class class_Color_DIN99{
       calcLABColor(){
         var angle =  2*Math.PI/360*26;
         var lScale = 100/Math.log(139/100.0); // = 303.67
-        var value_L =  (Math.exp(this.l99Value*din99_kE/lScale)-1.0)/0.0039;
-        var hef = Math.atan2(this.b99Value,this.a99Value);
+        var value_L =  (Math.exp(this.value_1*din99_kE/lScale)-1.0)/0.0039;
+        var hef = Math.atan2(this.value_3,this.value_2);
         var h99 = hef-angle;
-        var C99 = Math.sqrt(Math.pow(this.a99Value,2)+Math.pow(this.b99Value,2));
+        var C99 = Math.sqrt(Math.pow(this.value_2,2)+Math.pow(this.value_3,2));
         var G = (Math.exp(0.0435*C99*din99_kCH*din99_kE)-1)/0.075;
         var e = G*Math.cos(h99);
         var f = G*Math.sin(h99);

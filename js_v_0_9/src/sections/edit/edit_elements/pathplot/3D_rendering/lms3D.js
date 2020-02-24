@@ -277,93 +277,240 @@ function lms3DMesh(){
           case 6:
               switch (true) {
                 case (!positionsLMS[i][j][k] && !positionsLMS[i+1][j][k]):
-                lmsGeometry.faces.push(lms_createFace(i,j+1,k, i,j,k+1, i+1,j,k+1, true,true,true));//i+1,j,k+1, i,j,k+1));//
-                lmsGeometry.faces.push(lms_createFace(i,j+1,k, i+1,j,k+1, i+1,j+1,k, true,true,true));//i+1,j+1,k, i+1,j,k+1));//
-
-                  ///// HIER WEITER!!!!! DIE RAMPEN erzeugen loecher -> check if next to ramp is something! If not draw triangle
-                  /*if(i==positionsLMS.length-2 || lms3D_countTrueEdges(i+1,j,k)<4){
-                    lmsGeometry.faces.push(lms_createFace(i,j,k+1, i,j+1,k+1, i,j+1,k,true,false,true));
-                    //lmsGeometry.faces.push(lms_createFace(i,j,k+1, i,j+1,k, i,j,k,false,true,true));
-                  }
+                lmsGeometry.faces.push(lms_createFace(i,j+1,k, i,j,k+1, i+1,j,k+1, true,true,true));
+                lmsGeometry.faces.push(lms_createFace(i,j+1,k, i+1,j,k+1, i+1,j+1,k, true,true,true));
 
                   if(i==0 || lms3D_countTrueEdges(i-1,j,k)<4){
-                    lmsGeometry.faces.push(lms_createFace(i+1,j,k, i+1,j+1,k, i+1,j+1,k+1,true,false,true));
-                    //lmsGeometry.faces.push(lms_createFace(i+1,j,k, i+1,j+1,k+1, i+1,j,k+1,false,true,true));
-                  }*/
+                    lmsGeometry.faces.push(lms_createFace(i,j,k+1, i,j+1,k, i,j+1,k+1, false,false,false)); //3,4,2
+                  }
+
+                  if(i==positionsLMS.length-2 || lms3D_countTrueEdges(i+1,j,k)<4){
+                    lmsGeometry.faces.push(lms_createFace(i+1,j+1,k,  i+1,j,k+1, i+1,j+1,k+1,false,false,false)); //6,8,7
+                  }
                 break;
                 case (!positionsLMS[i][j+1][k] && !positionsLMS[i+1][j+1][k]):
-                lmsGeometry.faces.push(lms_createFace(i,j,k, i+1,j+1,k+1, i,j+1,k+1, true,true,true));//i,j+1,k+1, i+1,j+1,k+1));//
-                lmsGeometry.faces.push(lms_createFace(i,j,k, i+1,j,k, i+1,j+1,k+1, true,true,true));//i+1,j+1,k+1, i+1,j,k));//
+                lmsGeometry.faces.push(lms_createFace(i,j,k, i+1,j+1,k+1, i,j+1,k+1, true,true,true));
+                lmsGeometry.faces.push(lms_createFace(i,j,k, i+1,j,k, i+1,j+1,k+1, true,true,true));
+
+                  if(i==0 || lms3D_countTrueEdges(i-1,j,k)<4){
+                    lmsGeometry.faces.push(lms_createFace(i,j,k+1, i,j,k, i,j+1,k+1, false,false,false)); //3,4,1
+                  }
+
+                  if(i==positionsLMS.length-2 || lms3D_countTrueEdges(i+1,j,k)<4){
+                    lmsGeometry.faces.push(lms_createFace(i+1,j,k, i+1,j,k+1, i+1,j+1,k+1, false,false,false)); //5,8,7
+                  }
                 break;
                 case (!positionsLMS[i][j][k+1] && !positionsLMS[i+1][j][k+1]):
-                lmsGeometry.faces.push(lms_createFace(i,j,k, i,j+1,k+1, i+1,j+1,k+1, true,true,true));//i+1,j+1,k+1, i,j+1,k+1));//
-                lmsGeometry.faces.push(lms_createFace(i,j,k, i+1,j+1,k+1, i+1,j,k, true,true,true));//i+1,j,k, i+1,j+1,k+1));//
+                lmsGeometry.faces.push(lms_createFace(i,j,k, i,j+1,k+1, i+1,j+1,k+1, true,true,true));
+                lmsGeometry.faces.push(lms_createFace(i,j,k, i+1,j+1,k+1, i+1,j,k, true,true,true));
+                  if(i==0 || lms3D_countTrueEdges(i-1,j,k)<4){
+                    lmsGeometry.faces.push(lms_createFace(i,j,k, i,j+1,k, i,j+1,k+1, false,false,false)); //1,4,2
+                  }
+
+                  if(i==positionsLMS.length-2 || lms3D_countTrueEdges(i+1,j,k)<4){
+                    lmsGeometry.faces.push(lms_createFace(i+1,j,k, i+1,j+1,k+1, i+1,j+1,k, false,false,false));//5,6,8
+                  }
                 break;
                 case (!positionsLMS[i][j+1][k+1] && !positionsLMS[i+1][j+1][k+1]):
-                lmsGeometry.faces.push(lms_createFace(i,j+1,k, i+1,j,k+1, i,j,k+1, true,true,true));//i,j,k+1, i+1,j,k+1));//
-                lmsGeometry.faces.push(lms_createFace(i,j+1,k, i+1,j+1,k, i+1,j,k+1, true,true,true));//i+1,j,k+1, i+1,j+1,k));//
-                break;
+                lmsGeometry.faces.push(lms_createFace(i,j+1,k, i+1,j,k+1, i,j,k+1, true,true,true));
+                lmsGeometry.faces.push(lms_createFace(i,j+1,k, i+1,j+1,k, i+1,j,k+1, true,true,true));
+                  if(i==0 || lms3D_countTrueEdges(i-1,j,k)<4){
+                    lmsGeometry.faces.push(lms_createFace(i,j,k+1, i,j,k, i,j+1,k, false,false,false)); //3,2,1
+                  }
 
-                case (!positionsLMS[i][j][k] && !positionsLMS[i][j+1][k]):
+                  if(i==positionsLMS.length-2 || lms3D_countTrueEdges(i+1,j,k)<4){
+                    lmsGeometry.faces.push(lms_createFace(i+1,j+1,k, i+1,j,k, i+1,j,k+1, false,false,false)); //6,7,5
+                  }
+                break;
+                ////////////////////////////////////////////////////////////////////////////////////////////////////////
+                case (!positionsLMS[i][j][k] && !positionsLMS[i][j+1][k]): // !1 & !2
                 lmsGeometry.faces.push(lms_createFace(i,j,k+1,i+1,j+1,k,i,j+1,k+1, true,true,true));
                 lmsGeometry.faces.push(lms_createFace(i,j,k+1,i+1,j,k,i+1,j+1,k, true,true,true));
+                  if(j==0 || lms3D_countTrueEdges(i,j-1,k)<4){
+                    lmsGeometry.faces.push(lms_createFace(i+1,j,k, i,j,k+1, i+1,j,k+1, false,false,false)); //5,7,3
+                  }
+
+                  if(j==positionsLMS[i].length-2 || lms3D_countTrueEdges(i,j+1,k)<4){
+                    lmsGeometry.faces.push(lms_createFace(i+1,j+1,k, i+1,j+1,k+1, i,j+1,k+1, false,false,false)); //6,4,8
+                  }
                 break;
-                case (!positionsLMS[i][j][k+1] && !positionsLMS[i][j+1][k+1]):
+                case (!positionsLMS[i][j][k+1] && !positionsLMS[i][j+1][k+1]): // !3 && !4
                 lmsGeometry.faces.push(lms_createFace(i+1,j,k+1,i,j+1,k,i+1,j+1,k+1, true,true,true));
                 lmsGeometry.faces.push(lms_createFace(i+1,j,k+1,i,j,k,i,j+1,k, true,true,true));
+                  if(j==0 || lms3D_countTrueEdges(i,j-1,k)<4){
+                    lmsGeometry.faces.push(lms_createFace(i,j,k, i+1,j,k+1, i+1,j,k,false,false,false)); //1,5,7
+                  }
+
+                  if(j==positionsLMS[i].length-2 || lms3D_countTrueEdges(i,j+1,k)<4){
+                    lmsGeometry.faces.push(lms_createFace(i,j+1,k, i+1,j+1,k, i+1,j+1,k+1,false,false,false)); //2,8,6
+                  }
                 break;
                 case (!positionsLMS[i+1][j][k] && !positionsLMS[i+1][j+1][k]):
                 lmsGeometry.faces.push(lms_createFace(i,j,k,i+1,j+1,k+1,i,j+1,k, true,true,true));
                 lmsGeometry.faces.push(lms_createFace(i,j,k,i+1,j,k+1,i+1,j+1,k+1, true,true,true));
+                if(j==0 || lms3D_countTrueEdges(i,j-1,k)<4){
+                  lmsGeometry.faces.push(lms_createFace(i,j,k, i,j,k+1, i+1,j,k+1,false,true,false)); //1,7,3
+                }
+
+                if(j==positionsLMS[i].length-2 || lms3D_countTrueEdges(i,j+1,k)<4){
+                  lmsGeometry.faces.push(lms_createFace(i,j+1,k, i+1,j+1,k+1, i,j+1,k+1,false,false,false)); //2,4,8
+                }
                 break;
                 case (!positionsLMS[i+1][j][k+1] && !positionsLMS[i+1][j+1][k+1]):
                 lmsGeometry.faces.push(lms_createFace(i+1,j,k,i,j+1,k+1,i+1,j+1,k, true,true,true));
                 lmsGeometry.faces.push(lms_createFace(i+1,j,k,i,j,k+1,i,j+1,k+1, true,true,true));
-                break;
+                if(j==0 || lms3D_countTrueEdges(i,j-1,k)<4){
+                  lmsGeometry.faces.push(lms_createFace(i,j,k+1, i+1,j,k,  i,j,k,false,false,false)); //3,1,5
+                }
 
-                case (!positionsLMS[i][j][k] && !positionsLMS[i][j][k+1]):
+                if(j==positionsLMS[i].length-2 || lms3D_countTrueEdges(i,j+1,k)<4){
+                  lmsGeometry.faces.push(lms_createFace(i+1,j+1,k, i,j+1,k+1, i,j+1,k, false,false,false)); //6,2,4
+                }
+                break;
+                ////////////////////////////////////////////////////////////////////////////////////////////////////////
+                case (!positionsLMS[i][j][k] && !positionsLMS[i][j][k+1]): // !1 && !3
                   lmsGeometry.faces.push(lms_createFace(i,j+1,k,i,j+1,k+1,i+1,j,k+1, true,true,true));//i,j+1,k,i+1,j,k+1,i,j+1,k+1));//
                   lmsGeometry.faces.push(lms_createFace(i,j+1,k,i+1,j,k+1,i+1,j,k, true,true,true));//i,j+1,k,i+1,j,k,i+1,j,k+1));//
+                  if(k==0 || lms3D_countTrueEdges(i,j,k-1)<4){
+                    lmsGeometry.faces.push(lms_createFace(i+1,j,k, i+1,j+1,k, i,j+1,k, false,false,false));//5,2,6
+                  }
+
+                  if(k==positionsLMS[i][j].length-2 || lms3D_countTrueEdges(i,j,k+1)<4){
+                    lmsGeometry.faces.push(lms_createFace(i+1,j,k+1, i,j+1,k+1, i+1,j+1,k+1, false,false,false)); //7,8,4
+                  }
                 break;
-                case (!positionsLMS[i][j+1][k] && !positionsLMS[i][j+1][k+1]):
+                case (!positionsLMS[i][j+1][k] && !positionsLMS[i][j+1][k+1]): // !2 & !4
                   lmsGeometry.faces.push(lms_createFace(i,j,k,i+1,j+1,k+1,i,j,k+1, true,true,true));//i,j,k,i,j,k+1,i+1,j+1,k+1));//
                   lmsGeometry.faces.push(lms_createFace(i,j,k,i+1,j+1,k,i+1,j+1,k+1, true,true,true));//i,j,k,i+1,j+1,k+1,i+1,j+1,k));//
+                  if(k==0 || lms3D_countTrueEdges(i,j,k-1)<4){
+                    lmsGeometry.faces.push(lms_createFace(i,j,k, i+1,j,k, i+1,j+1,k, false,false,false));//1,6,5
+                  }
+
+                  if(k==positionsLMS[i][j].length-2 || lms3D_countTrueEdges(i,j,k+1)<4){
+                    lmsGeometry.faces.push(lms_createFace(i,j,k+1, i+1,j+1,k+1, i+1,j,k+1, false,false,false)); //3,7,8
+                  }
                 break;
-                case (!positionsLMS[i+1][j][k] && !positionsLMS[i+1][j][k+1]):
+                case (!positionsLMS[i+1][j][k] && !positionsLMS[i+1][j][k+1]): // !5 & !7
                   lmsGeometry.faces.push(lms_createFace(i,j,k,i,j,k+1,i+1,j+1,k+1, true,true,true));//i,j,k,i+1,j+1,k+1,i,j,k+1));//
                   lmsGeometry.faces.push(lms_createFace(i,j,k,i+1,j+1,k+1,i+1,j+1,k, true,true,true));//i,j,k,i+1,j+1,k,i+1,j+1,k+1));//
+                  if(k==0 || lms3D_countTrueEdges(i,j,k-1)<4){
+                    lmsGeometry.faces.push(lms_createFace(i,j,k, i+1,j+1,k, i,j+1,k, false,false,false));//1,2,6
+                  }
+
+                  if(k==positionsLMS[i][j].length-2 || lms3D_countTrueEdges(i,j,k+1)<4){
+                    lmsGeometry.faces.push(lms_createFace(i,j,k+1, i,j+1,k+1, i+1,j+1,k+1, false,false,false)); //3,8,4
+                  }
                 break;
-                case (!positionsLMS[i+1][j+1][k] && !positionsLMS[i+1][j+1][k+1]):
+                case (!positionsLMS[i+1][j+1][k] && !positionsLMS[i+1][j+1][k+1]):// !6 % !8
                   lmsGeometry.faces.push(lms_createFace(i,j+1,k,i+1,j,k+1,i,j+1,k+1, true,true,true));//i,j+1,k,i,j+1,k+1,i+1,j,k+1));//
                   lmsGeometry.faces.push(lms_createFace(i,j+1,k,i+1,j,k,i+1,j,k+1, true,true,true));//i,j+1,k,i+1,j,k+1,i+1,j,k));//
+                  if(k==0 || lms3D_countTrueEdges(i,j,k-1)<4){
+                    lmsGeometry.faces.push(lms_createFace(i+1,j,k, i,j+1,k, i,j,k, false,false,false));//5,1,2
+                  }
+
+                  if(k==positionsLMS[i][j].length-2 || lms3D_countTrueEdges(i,j,k+1)<4){
+                    lmsGeometry.faces.push(lms_createFace(i,j,k+1, i,j+1,k+1, i+1,j,k+1, false,false,false)); //3,7,4
+                  }
                 break;
               }
           break;
           case 7:
             switch (true) {
-              case !positionsLMS[i][j][k]: //3,5,2
-                lmsGeometry.faces.push(lms_createFace(i,j,k+1,i+1,j,k,i,j+1,k, true,true,true));
+              case !positionsLMS[i][j][k]: //!1
+                lmsGeometry.faces.push(lms_createFace(i,j,k+1,i+1,j,k,i,j+1,k, true,true,true)); //3,5,2
+                if(i==0 || lms3D_countTrueEdges(i-1,j,k)<4){
+                  lmsGeometry.faces.push(lms_createFace(i,j,k+1, i,j+1,k, i,j+1,k+1, false,false,false)); //3,4,2
+                }
+                if(k==0 || lms3D_countTrueEdges(i,j,k-1)<4){
+                  lmsGeometry.faces.push(lms_createFace(i+1,j,k, i+1,j+1,k, i,j+1,k, false,false,false));//5,2,6
+                }
+                if(j==0 || lms3D_countTrueEdges(i,j-1,k)<4){
+                  lmsGeometry.faces.push(lms_createFace(i+1,j,k, i,j,k+1, i+1,j,k+1, false,false,false)); //5,7,3
+                }
               break;
-              case !positionsLMS[i][j+1][k]: // 1,6,4
-                lmsGeometry.faces.push(lms_createFace(i,j,k,i+1,j+1,k,i,j+1,k+1, true,true,true));
+              case !positionsLMS[i][j+1][k]: // !2
+                lmsGeometry.faces.push(lms_createFace(i,j,k, i+1,j+1,k, i,j+1,k+1, true,true,true)); // 1,6,4
+                if(i==0 || lms3D_countTrueEdges(i-1,j,k)<4){
+                  lmsGeometry.faces.push(lms_createFace(i,j,k+1, i,j,k, i,j+1,k+1, false,false,false)); //3,4,1
+                }
+                if(k==0 || lms3D_countTrueEdges(i,j,k-1)<4){
+                  lmsGeometry.faces.push(lms_createFace(i,j,k, i+1,j,k, i+1,j+1,k, false,false,false));//1,6,5
+                }
+                if(j==positionsLMS[i].length-2 || lms3D_countTrueEdges(i,j+1,k)<4){
+                  lmsGeometry.faces.push(lms_createFace(i+1,j+1,k, i+1,j+1,k+1, i,j+1,k+1, false,false,false)); //6,4,8
+                }
               break;
-              case !positionsLMS[i][j][k+1]: //7,1,4
-                lmsGeometry.faces.push(lms_createFace(i+1,j,k+1,i,j,k,i,j+1,k+1, true,true,true));
+              case !positionsLMS[i][j][k+1]: // !3
+                lmsGeometry.faces.push(lms_createFace(i+1,j,k+1,i,j,k,i,j+1,k+1, true,true,true)); //7,1,4
+                if(i==0 || lms3D_countTrueEdges(i-1,j,k)<4){
+                  lmsGeometry.faces.push(lms_createFace(i,j,k, i,j+1,k, i,j+1,k+1, false,false,false)); //1,4,2
+                }
+                if(k==positionsLMS[i][j].length-2 || lms3D_countTrueEdges(i,j,k+1)<4){
+                  lmsGeometry.faces.push(lms_createFace(i+1,j,k+1, i,j+1,k+1, i+1,j+1,k+1, false,false,false)); //7,8,4
+                }
+                if(j==0 || lms3D_countTrueEdges(i,j-1,k)<4){
+                  lmsGeometry.faces.push(lms_createFace(i,j,k, i+1,j,k+1, i+1,j,k,false,false,false)); //1,5,7
+                }
               break;
-              case !positionsLMS[i][j+1][k+1]: //2,8,3
-                lmsGeometry.faces.push(lms_createFace(i,j+1,k,i+1,j+1,k+1,i,j,k+1, true,true,true));
+              case !positionsLMS[i][j+1][k+1]: // !4
+                lmsGeometry.faces.push(lms_createFace(i,j+1,k,i+1,j+1,k+1,i,j,k+1, true,true,true)); //2,8,3
+                if(i==0 || lms3D_countTrueEdges(i-1,j,k)<4){
+                  lmsGeometry.faces.push(lms_createFace(i,j,k+1, i,j,k, i,j+1,k, false,false,false)); //3,2,1
+                }
+                if(k==positionsLMS[i][j].length-2 || lms3D_countTrueEdges(i,j,k+1)<4){
+                  lmsGeometry.faces.push(lms_createFace(i,j,k+1, i+1,j+1,k+1, i+1,j,k+1, false,false,false)); //3,7,8
+                }
+                if(j==positionsLMS[i].length-2 || lms3D_countTrueEdges(i,j+1,k)<4){
+                  lmsGeometry.faces.push(lms_createFace(i,j+1,k, i+1,j+1,k, i+1,j+1,k+1,false,false,false)); //2,8,6
+                }
               break;
-              case !positionsLMS[i+1][j][k]: //1,7,6
-                lmsGeometry.faces.push(lms_createFace(i,j,k,i+1,j,k+1,i+1,j+1,k, true,true,true));
+              case !positionsLMS[i+1][j][k]: //!5
+                lmsGeometry.faces.push(lms_createFace(i,j,k,i+1,j,k+1,i+1,j+1,k, true,true,true));//1,7,6
+                if(i==positionsLMS.length-2 || lms3D_countTrueEdges(i+1,j,k)<4){
+                  lmsGeometry.faces.push(lms_createFace(i+1,j+1,k,  i+1,j,k+1, i+1,j+1,k+1,false,false,false)); //6,8,7
+                }
+                if(k==0 || lms3D_countTrueEdges(i,j,k-1)<4){
+                  lmsGeometry.faces.push(lms_createFace(i,j,k, i+1,j+1,k, i,j+1,k, false,false,false));//1,2,6
+                }
+                if(j==0 || lms3D_countTrueEdges(i,j-1,k)<4){
+                  lmsGeometry.faces.push(lms_createFace(i,j,k, i,j,k+1, i+1,j,k+1,false,true,false)); //1,7,3
+                }
               break;
-              case !positionsLMS[i+1][j+1][k]: //2,5,8
-                lmsGeometry.faces.push(lms_createFace(i,j+1,k,i+1,j,k,i+1,j+1,k+1, true,true,true));
+              case !positionsLMS[i+1][j+1][k]: //!6
+                lmsGeometry.faces.push(lms_createFace(i,j+1,k,i+1,j,k,i+1,j+1,k+1, true,true,true));//2,5,8
+                if(i==positionsLMS.length-2 || lms3D_countTrueEdges(i+1,j,k)<4){
+                  lmsGeometry.faces.push(lms_createFace(i+1,j,k, i+1,j,k+1, i+1,j+1,k+1, false,false,false)); //5,8,7
+                }
+                if(k==0 || lms3D_countTrueEdges(i,j,k-1)<4){
+                  lmsGeometry.faces.push(lms_createFace(i+1,j,k, i,j+1,k, i,j,k, false,false,false));//5,1,2
+                }
+                if(j==positionsLMS[i].length-2 || lms3D_countTrueEdges(i,j+1,k)<4){
+                  lmsGeometry.faces.push(lms_createFace(i,j+1,k, i+1,j+1,k+1, i,j+1,k+1,false,false,false)); //2,4,8
+                }
               break;
-              case !positionsLMS[i+1][j][k+1]: //5,3,8
-                lmsGeometry.faces.push(lms_createFace(i+1,j,k,i,j,k+1,i+1,j+1,k+1, true,true,true));
+              case !positionsLMS[i+1][j][k+1]: // !7
+                lmsGeometry.faces.push(lms_createFace(i+1,j,k,i,j,k+1,i+1,j+1,k+1, true,true,true));//5,3,8
+                if(i==positionsLMS.length-2 || lms3D_countTrueEdges(i+1,j,k)<4){
+                  lmsGeometry.faces.push(lms_createFace(i+1,j,k, i+1,j+1,k+1, i+1,j+1,k, false,false,false));//5,6,8
+                }
+                if(k==positionsLMS[i][j].length-2 || lms3D_countTrueEdges(i,j,k+1)<4){
+                  lmsGeometry.faces.push(lms_createFace(i,j,k+1, i,j+1,k+1, i+1,j+1,k+1, false,false,false)); //3,8,4
+                }
+                if(j==0 || lms3D_countTrueEdges(i,j-1,k)<4){
+                  lmsGeometry.faces.push(lms_createFace(i,j,k+1, i+1,j,k,  i,j,k,false,false,false)); //3,1,5
+                }
               break;
-              case !positionsLMS[i+1][j+1][k+1]: //7,4,6
-                lmsGeometry.faces.push(lms_createFace(i+1,j,k+1,i,j+1,k+1,i+1,j+1,k, true,true,true));
+              case !positionsLMS[i+1][j+1][k+1]: //!8
+                lmsGeometry.faces.push(lms_createFace(i+1,j,k+1,i,j+1,k+1,i+1,j+1,k, true,true,true));//7,4,6
+                if(i==positionsLMS.length-2 || lms3D_countTrueEdges(i+1,j,k)<4){
+                  lmsGeometry.faces.push(lms_createFace(i+1,j+1,k, i+1,j,k, i+1,j,k+1, false,false,false)); //6,7,5
+                }
+                if(k==positionsLMS[i][j].length-2 || lms3D_countTrueEdges(i,j,k+1)<4){
+                  lmsGeometry.faces.push(lms_createFace(i,j,k+1, i,j+1,k+1, i+1,j,k+1, false,false,false)); //3,7,4
+                }
+                if(j==positionsLMS[i].length-2 || lms3D_countTrueEdges(i,j+1,k)<4){
+                  lmsGeometry.faces.push(lms_createFace(i+1,j+1,k, i,j+1,k+1, i,j+1,k, false,false,false)); //6,2,4
+                }
               break;
               }
           break;
@@ -416,6 +563,15 @@ function lms3DMesh(){
 
 function lms3D_countTrueEdges(i,j,k){
   var counter = 0;
+
+  if(i>=positionsLMS.length-2)
+    return counter;
+
+    if(j>=positionsLMS[i].length-2)
+      return counter;
+
+      if(k>=positionsLMS[i][j].length-2)
+        return counter;
 
   if(positionsLMS[i][j][k])
     counter++;

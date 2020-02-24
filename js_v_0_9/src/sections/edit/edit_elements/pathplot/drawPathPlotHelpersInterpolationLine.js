@@ -1,28 +1,56 @@
 
 function extraSamplingCMS(cms){
 
-  switch (cms.getInterpolationSpace()) {
-    case "hsv":
-    var maxInterval = 90;
-    var numList = [];
-    var continuousSections = searchForContinuousSections(cms, 0,cms.getKeyLength()-1);
-    for (var i = 0; i < cms.getKeyLength()-1; i++) {
-      numList.push(0);
-    }
+  // calc intervals
 
-    for (var i = 0; i < continuousSections.length; i++) {
-      for (var j = continuousSections[i][0]; j < continuousSections[i][1]; j++) {
-        var tmpColor1 = cms.getRightKeyColor(j, "hsv");
-        var tmpColor2 = cms.getLeftKeyColor(j+1, "hsv");
-        var hueDiff = Math.abs(tmpColor1.getHValue()-tmpColor2.getHValue());
-        numList[j]=maxInterval*hueDiff;
-      }
-    }
-    cms.calcSpecificKeyIntervalColors(numList);
+
+  switch (cms.getInterpolationType()) {
+    case "linear":
+        var currentPathplotSpace = undefined;
+
+        switch (true) {
+          case editSection.isSectionOpen():
+              currentPathplotSpace = editSection.part_Pathplot.pathplot_space;
+          break;
+          case optiSection.isSectionOpen():
+              currentPathplotSpace = optiSection.part_Pathplot.pathplot_space;
+          break;
+          default:
+            return;
+        }
+
+        if(cms.getInterpolationSpace()!==currentPathplotSpace)
+          cms.calcNeededIntervalsColors(true,"delta",undefined); // calc intervals
+        else
+          cms.clearIntervalColors();
+
+        cms.replaceExportIntervalWithDeltaInterval();
+
     break;
-    default:
-      // clone normal intervals to export interval array
-      cms.replaceExportIntervalWithDeltaInterval();
+    case "spline":
+        cms.calcNeededIntervalsColors(false,undefined,undefined); // calc intervals
+        if(cms.getInterpolationSpace()==="hsv" || cms.getInterpolationSpace()==="lch"){
+          var maxInterval = 90;
+          var numList = [];
+          var continuousSections = cms.searchForContinuousSections(0,cms.getKeyLength()-1);
+          for (var i = 0; i < cms.getKeyLength()-1; i++) {
+            numList.push(0);
+          }
+
+          for (var i = 0; i < continuousSections.length; i++) {
+            for (var j = continuousSections[i][0]; j < continuousSections[i][1]; j++) {
+              var tmpColor1 = cms.getRightKeyColor(j, cms.getInterpolationSpace());
+              var tmpColor2 = cms.getLeftKeyColor(j+1, cms.getInterpolationSpace());
+              var hueDiff = Math.abs(tmpColor1.getHValue()-tmpColor2.getHValue());
+              numList[j]=maxInterval*hueDiff;
+            }
+          }
+          cms.calcSpecificKeyIntervalColors_Export(numList);
+        }
+        else {
+          cms.replaceExportIntervalWithDeltaInterval();
+        }
+    break;
   }
 }
 

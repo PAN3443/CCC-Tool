@@ -33,14 +33,19 @@ class class_CMS {
     this.doColorblindnessSim = false;
 
     //// Real CMS structure
-    this.deltaE_RGB = 10;
-    this.deltaE_HSV = 10;
-    this.deltaE_LAB = 2;
+    /*this.deltaE_RGB = 0.05; // Range: [0,1]
+    this.deltaE_LMS = 5; // Range: [0,1]
+    this.deltaE_HSV = 0.05; // Range: [0,1]
+    this.deltaE_LCH = 0.05; // Range: [0,1]*/
+    this.deltaE_LAB = 2; // Range: [-128,128]
     this.deltaE_DIN99 = 2;
 
     this.preventIntervalCalculation = true;
     this.keyArray = [];
     this.intervalArray=[];
+    this.spline_tArray = [0.025, 0.05, 0.075, 0.1, 0.125, 0.15, 0.175, 0.2, 0.225, 0.25 // 0 till 0.25 fine
+        ,0.3,0.4,0.5,0.6,0.7,
+        0.75, 0.775,0.8,0.825, 0.85, 0.875, 0.9, 0.925, 0.95, 0.975]; // 0.75 till 1.0 fine*/; //[0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9];
     this.intervalExportSampling=[];
 
     /// Probes
@@ -157,30 +162,297 @@ class class_CMS {
 
   }
 
+
+  searchForContinuousSections(startKey, endKey){
+
+    var continuousSections=[];
+    var beforeConstant = false;
+    //var startKey = 0;
+    if(this.getKeyType(startKey)==="twin key" || this.getKeyType(startKey)==="left key")
+      beforeConstant=true;
+
+    for (var i = startKey; i <= endKey; i++) {
+
+      switch (this.getKeyType(i)) {
+        case "nil key":
+          beforeConstant=true;
+        break;
+        case "left key":
+          if(!beforeConstant){
+            var tmpStart = startKey;
+            var tmpEnd = i;
+            continuousSections.push([tmpStart,tmpEnd])
+          }
+          startKey=i;
+          beforeConstant=true;
+        break;
+        case "twin key":
+          if(!beforeConstant){
+            var tmpStart = startKey;
+            var tmpEnd = i;
+            continuousSections.push([tmpStart,tmpEnd])
+          }
+          startKey=i;
+          beforeConstant=false;
+        break;
+        default:
+          if(beforeConstant){
+            startKey=i;
+            beforeConstant=false;
+          }
+          else {
+            if(i==endKey){
+              var tmpStart = startKey;
+              var tmpEnd = i;
+              continuousSections.push([tmpStart,tmpEnd])
+            }
+          }
+
+      }
+
+    }
+
+    return continuousSections;
+  }
+
   //********************************************************************************//
   //***************************   Interval functions   *****************************//
   //********************************************************************************//
 
-  setPreventIntervals(bool){
-    this.preventIntervalCalculation=bool;
-
-    if(this.preventIntervalCalculation){
-      for (var i = this.intervalArray.length-1; i>=0 ; i--) {
-        for (var j = this.intervalArray[i].length-1; j>=0; j--) {
-          this.intervalArray[i][j].deleteReferences();
-          this.intervalArray[i][j]=null;
-        }
-      }
-      this.intervalArray=[];
-    }
-    else {
-      this.calcDeltaIntervalColors();
-    }
-
-  }
-
   getPreventIntervals(){
     return this.preventIntervalCalculation;
+  }
+
+  calcNeededIntervalsColors(doIT, doItType, doItParameter){
+
+    // intervals are often not needed => e.g. for drawing of cms with linear rgb interpolation. (In contrast for the analysis the interval colors could be needed)
+
+    for (var i = this.intervalArray.length-1; i>=0 ; i--) {
+      for (var j = this.intervalArray[i].length-1; j>=0; j--) {
+        this.intervalArray[i][j].deleteReferences();
+        this.intervalArray[i][j]=null;
+      }
+    }
+    this.intervalArray=[];
+
+    if(this.keyArray.length<2)
+    return;
+
+    switch (true) {
+      case (this.interpolationType==="spline"):
+          this.calcSplineIntervalColors();
+      break;
+      case (this.interpolationSpace==="de94-ds"):
+          this.calcDeltaIntervalColors();
+      break;
+      case (this.interpolationSpace==="de2000-ds"):
+          this.calcDeltaIntervalColors();
+      break;
+      case (this.interpolationSpace==="hsv" || this.interpolationSpace==="lch"):
+          var maxInterval = 90;
+          var numList = [];
+          var continuousSections = this.searchForContinuousSections(0,this.getKeyLength()-1);
+          for (var i = 0; i < this.getKeyLength()-1; i++) {
+            numList.push(0);
+          }
+
+          for (var i = 0; i < continuousSections.length; i++) {
+            for (var j = continuousSections[i][0]; j < continuousSections[i][1]; j++) {
+              var tmpColor1 = this.getRightKeyColor(j, this.getInterpolationSpace());
+              var tmpColor2 = this.getLeftKeyColor(j+1, this.getInterpolationSpace());
+              var hueDiff = Math.abs(tmpColor1.getHValue()-tmpColor2.getHValue());
+              numList[j]=maxInterval*hueDiff;
+            }
+          }
+          this.calcSpecificKeyIntervalColors(numList);
+      break;
+      case doIT:
+        switch (doItType) {
+          case "delta":
+            this.calcDeltaIntervalColors();
+          break;
+          case "fixed":
+            var numList = [];
+            for (var i = 0; i < this.getKeyLength()-1; i++) {
+              numList.push(doItParameter);
+            }
+            this.calcSpecificKeyIntervalColors(numList);
+          break;
+        }
+
+      break;
+    }
+  }
+
+  /////////////////////////////////////////////
+  ////  Calc Intervals (Interval Array)
+  calcSplineIntervalColors(){
+    for(var keyIndex=0; keyIndex<this.keyArray.length-1; keyIndex++){
+
+      this.intervalArray.push([]);
+
+      if(this.keyArray[keyIndex].getKeyType()!="nil key" && this.keyArray[keyIndex].getKeyType()!="left key"){
+
+        var ref1 = this.keyArray[keyIndex].getRefPosition();
+        var ref2 = this.keyArray[keyIndex+1].getRefPosition();
+
+        var tmpIntervals = undefined;
+
+        tmpIntervals = calcSplineIntervalBetween_C1C2(this.spline_tArray, this.getSplineColors(keyIndex,keyIndex+1), 1.0,this.interpolationSpace);
+
+        if(tmpIntervals==undefined)
+          continue;
+
+        var keyDistance = Math.abs(ref2-ref1);
+        var currentPos = ref1;
+        var intervalDistance =  keyDistance/(tmpIntervals[0].length+1);
+
+          for (var i = 0; i < tmpIntervals[0].length; i++) {
+            var intervalRef = ref1+((i+1)*intervalDistance); // equal distribution of the interval ref positions
+            if(this.interpolationSpace==="de94-ds" || this.interpolationSpace==="de2000-ds"){
+              currentPos += (tmpIntervals[2][i]*keyDistance);
+              intervalRef = currentPos;
+            }
+            // the ratio of the colordifference determine the new ref position
+
+            var newInterval = new class_Interval(tmpIntervals[0][i], intervalRef);
+            this.intervalArray[keyIndex].push(newInterval);
+            }// For
+
+      }// If
+
+    } // For
+  }
+
+  calcDeltaIntervalColors(deltaParameter){
+
+    for(var keyIndex=0; keyIndex<this.keyArray.length-1; keyIndex++){
+
+      this.intervalArray.push([]);
+
+      if(this.keyArray[keyIndex].getKeyType()!="nil key" && this.keyArray[keyIndex].getKeyType()!="left key"){
+
+        var ref1 = this.keyArray[keyIndex].getRefPosition();
+        var ref2 = this.keyArray[keyIndex+1].getRefPosition();
+
+        var tmpDeltaIntervals = undefined;
+
+          switch (this.interpolationSpace) {
+            case "rgb":
+              tmpDeltaIntervals = calcDeltaIntervalBetween_C1C2(this.keyArray[keyIndex].getRightKeyColor(this.interpolationSpace),this.keyArray[keyIndex+1].getLeftKeyColor(this.interpolationSpace), this.deltaE_RGB, this.interpolationSpace);
+            break;
+            case "hsv":
+              tmpDeltaIntervals = calcDeltaIntervalBetween_C1C2(this.keyArray[keyIndex].getRightKeyColor(this.interpolationSpace),this.keyArray[keyIndex+1].getLeftKeyColor(this.interpolationSpace), this.deltaE_HSV, this.interpolationSpace);
+            break;
+            case "lch":
+              tmpDeltaIntervals = calcDeltaIntervalBetween_C1C2(this.keyArray[keyIndex].getRightKeyColor(this.interpolationSpace),this.keyArray[keyIndex+1].getLeftKeyColor(this.interpolationSpace), this.deltaE_LCH, this.interpolationSpace);
+            break;
+            case "lms":
+              tmpDeltaIntervals = calcDeltaIntervalBetween_C1C2(this.keyArray[keyIndex].getRightKeyColor(this.interpolationSpace),this.keyArray[keyIndex+1].getLeftKeyColor(this.interpolationSpace), this.deltaE_LMS, this.interpolationSpace);
+            break;
+            case "lab":
+            case "de94-ds":
+            case "de2000-ds":
+              tmpDeltaIntervals = calcDeltaIntervalBetween_C1C2(this.keyArray[keyIndex].getRightKeyColor(this.interpolationSpace),this.keyArray[keyIndex+1].getLeftKeyColor(this.interpolationSpace), this.deltaE_LAB, this.interpolationSpace);
+            break;
+            case "din99":
+              tmpDeltaIntervals = calcDeltaIntervalBetween_C1C2(this.keyArray[keyIndex].getRightKeyColor(this.interpolationSpace),this.keyArray[keyIndex+1].getLeftKeyColor(this.interpolationSpace), this.deltaE_DIN99, this.interpolationSpace);
+            break;
+          }
+
+        if(tmpDeltaIntervals==undefined)
+          continue;
+
+        // tmpDeltaIntervals = [[colors][colorDifferences][ratios]];
+        var keyDistance = Math.abs(ref2-ref1);
+        var currentPos = ref1;
+        var intervalDistance =  keyDistance/(tmpDeltaIntervals[0].length+1);
+
+          for (var i = 0; i < tmpDeltaIntervals[0].length; i++) {
+            var intervalRef = ref1+((i+1)*intervalDistance); // equal distribution of the interval ref positions
+            if(this.interpolationSpace==="de94-ds" || this.interpolationSpace==="de2000-ds"){
+              currentPos += (tmpDeltaIntervals[2][i]*keyDistance);
+              intervalRef = currentPos;
+            }
+            // the ratio of the colordifference determine the new ref position
+
+            var newInterval = new class_Interval(tmpDeltaIntervals[0][i], intervalRef);
+            this.intervalArray[keyIndex].push(newInterval);
+            }// For
+
+      }// If
+
+    } // For
+
+ }
+
+  calcSpecificKeyIntervalColors(numList){
+   // with the specific interval list the user can set for each continuousBand a number of intervals
+   // we use the export interval array, so we can use the spline information of the delta interval array
+     if(numList.length != this.keyArray.length-1)
+       return;
+
+       if(this.keyArray.length<2)
+       return;
+
+      var tmpIntervals = [];
+       for(var keyIndex=0; keyIndex<this.keyArray.length-1; keyIndex++){
+
+         tmpIntervals.push([]);
+
+         if(this.keyArray[keyIndex].getKeyType()!="nil key" && this.keyArray[keyIndex].getKeyType()!="left key"){
+
+           var ref1 = this.keyArray[keyIndex].getRefPosition();
+           var ref2 = this.keyArray[keyIndex+1].getRefPosition();
+           var intervalDistance = Math.abs(ref2-ref1)/numList[keyIndex];
+           var currentRef = ref1;
+
+           for (var i = 0; i < numList[keyIndex]-1; i++) {
+             currentRef+=intervalDistance;
+             var intervalColor = this.calculateColor(currentRef, this.interpolationSpace);
+            tmpIntervals[keyIndex].push(new class_Interval(intervalColor,  currentRef));
+           }
+         }
+       }
+       this.intervalArray=tmpIntervals;
+ }
+
+  /////////////////////////////////////////////
+  ////  Calc Intervals (Export Interval Array)
+  calcSpecificKeyIntervalColors_Export(numList){
+    // with the specific interval list the user can set for each continuousBand a number of intervals
+    // we use the export interval array, so we can use the spline information of the delta interval array
+      if(numList.length != this.keyArray.length-1)
+        return;
+
+        for (var i = this.intervalExportSampling.length-1; i>=0 ; i--) {
+          for (var j = this.intervalExportSampling[i].length-1; j>=0; j--) {
+            this.intervalExportSampling[i][j].deleteReferences();
+            this.intervalExportSampling[i][j]=null;
+          }
+        }
+        this.intervalExportSampling=[];
+
+        if(this.keyArray.length<2)
+        return;
+
+        for(var keyIndex=0; keyIndex<this.keyArray.length-1; keyIndex++){
+
+          this.intervalExportSampling.push([]);
+
+          if(this.keyArray[keyIndex].getKeyType()!="nil key" && this.keyArray[keyIndex].getKeyType()!="left key"){
+
+            var ref1 = this.keyArray[keyIndex].getRefPosition();
+            var ref2 = this.keyArray[keyIndex+1].getRefPosition();
+            var intervalDistance = Math.abs(ref2-ref1)/numList[keyIndex];
+            var currentRef = ref1;
+            for (var i = 0; i < numList[keyIndex]-1; i++) {
+              currentRef+=intervalDistance;
+              var intervalColor = this.calculateColor(currentRef, this.interpolationSpace);
+              this.intervalExportSampling[keyIndex].push(new class_Interval(intervalColor,  currentRef));
+            }
+          }
+        }
   }
 
   calcExportSampling(numIntervals){
@@ -262,127 +534,7 @@ class class_CMS {
 
   }
 
-  calcDeltaIntervalColors(){
-
-    if(!this.preventIntervalCalculation){
-      for (var i = this.intervalArray.length-1; i>=0 ; i--) {
-        for (var j = this.intervalArray[i].length-1; j>=0; j--) {
-          this.intervalArray[i][j].deleteReferences();
-          this.intervalArray[i][j]=null;
-        }
-      }
-      this.intervalArray=[];
-
-      if(this.keyArray.length<2)
-      return;
-
-      for(var keyIndex=0; keyIndex<this.keyArray.length-1; keyIndex++){
-
-        this.intervalArray.push([]);
-
-        if(this.keyArray[keyIndex].getKeyType()!="nil key" && this.keyArray[keyIndex].getKeyType()!="left key"){
-
-          var ref1 = this.keyArray[keyIndex].getRefPosition();
-          var ref2 = this.keyArray[keyIndex+1].getRefPosition();
-
-          var tmpDeltaIntervals = undefined;
-
-
-          if(this.interpolationType=="linear"){
-
-            switch (this.interpolationSpace) {
-              case "rgb":
-                tmpDeltaIntervals = calcDeltaIntervalBetween_C1C2(this.keyArray[keyIndex].getRightKeyColor(this.interpolationSpace),this.keyArray[keyIndex+1].getLeftKeyColor(this.interpolationSpace), this.deltaE_RGB, this.interpolationSpace);
-              break;
-              case "hsv":
-                tmpDeltaIntervals = calcDeltaIntervalBetween_C1C2(this.keyArray[keyIndex].getRightKeyColor(this.interpolationSpace),this.keyArray[keyIndex+1].getLeftKeyColor(this.interpolationSpace), this.deltaE_HSV, this.interpolationSpace);
-              break;
-              case "lch":
-                tmpDeltaIntervals = calcDeltaIntervalBetween_C1C2(this.keyArray[keyIndex].getRightKeyColor(this.interpolationSpace),this.keyArray[keyIndex+1].getLeftKeyColor(this.interpolationSpace), this.deltaE_HSV, this.interpolationSpace);
-              break;
-              case "lab":
-              case "de94-ds":
-              case "de2000-ds":
-                tmpDeltaIntervals = calcDeltaIntervalBetween_C1C2(this.keyArray[keyIndex].getRightKeyColor(this.interpolationSpace),this.keyArray[keyIndex+1].getLeftKeyColor(this.interpolationSpace), this.deltaE_LAB, this.interpolationSpace);
-              break;
-              case "din99":
-                tmpDeltaIntervals = calcDeltaIntervalBetween_C1C2(this.keyArray[keyIndex].getRightKeyColor(this.interpolationSpace),this.keyArray[keyIndex+1].getLeftKeyColor(this.interpolationSpace), this.deltaE_DIN99, this.interpolationSpace);
-              break;
-            }
-
-          }
-          else {
-            var tArray = [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9];
-          /*  var tArray = [0.025, 0.05, 0.075, 0.1, 0.125, 0.15, 0.175, 0.2, 0.225, 0.25 // 0 till 0.25 fine
-              ,0.3,0.4,0.5,0.6,0.7,
-              0.75, 0.775,0.8,0.825, 0.85, 0.875, 0.9, 0.925, 0.95, 0.975]; // 0.75 till 1.0 fine*/
-
-            tmpDeltaIntervals = calcSplineIntervalBetween_C1C2(tArray, this.getSplineColors(keyIndex,keyIndex+1), 1.0,this.interpolationSpace);
-          }
-
-          if(tmpDeltaIntervals==undefined)
-            continue;
-
-          // tmpDeltaIntervals = [[colors][colorDifferences][ratios]];
-          var keyDistance = Math.abs(ref2-ref1);
-          var currentPos = ref1;
-          var intervalDistance =  keyDistance/(tmpDeltaIntervals[0].length+1);
-
-            for (var i = 0; i < tmpDeltaIntervals[0].length; i++) {
-              var intervalRef = ref1+((i+1)*intervalDistance); // equal distribution of the interval ref positions
-              if(this.interpolationSpace==="de94-ds" || this.interpolationSpace==="de2000-ds"){
-                currentPos += (tmpDeltaIntervals[2][i]*keyDistance);
-                intervalRef = currentPos;
-              }
-              // the ratio of the colordifference determine the new ref position
-
-              var newInterval = new class_Interval(tmpDeltaIntervals[0][i], intervalRef);
-              this.intervalArray[keyIndex].push(newInterval);
-              }// For
-
-        }// If
-
-      } // For
-    }
-
- }
-
-  calcSpecificKeyIntervalColors(numList){
-    // with the specific interval list the user can set for each continuousBand a number of intervals
-    // we use the export interval array, so we can use the spline information of the delta interval array
-      if(numList.length != this.keyArray.length-1)
-        return;
-
-        for (var i = this.intervalExportSampling.length-1; i>=0 ; i--) {
-          for (var j = this.intervalExportSampling[i].length-1; j>=0; j--) {
-            this.intervalExportSampling[i][j].deleteReferences();
-            this.intervalExportSampling[i][j]=null;
-          }
-        }
-        this.intervalExportSampling=[];
-
-        if(this.keyArray.length<2)
-        return;
-
-        for(var keyIndex=0; keyIndex<this.keyArray.length-1; keyIndex++){
-
-          this.intervalExportSampling.push([]);
-
-          if(this.keyArray[keyIndex].getKeyType()!="nil key" && this.keyArray[keyIndex].getKeyType()!="left key"){
-
-            var ref1 = this.keyArray[keyIndex].getRefPosition();
-            var ref2 = this.keyArray[keyIndex+1].getRefPosition();
-            var intervalDistance = Math.abs(ref2-ref1)/numList[keyIndex];
-            var currentRef = ref1;
-            for (var i = 0; i < numList[keyIndex]-1; i++) {
-              currentRef+=intervalDistance;
-              var intervalColor = this.calculateColor(currentRef, this.interpolationSpace);
-              this.intervalExportSampling[keyIndex].push(new class_Interval(intervalColor,  currentRef));
-            }
-          }
-        }
-  }
-
+  /////////////////////////////////////////////////////
   replaceExportIntervalWithDeltaInterval(){
 
     for (var i = this.intervalExportSampling.length-1; i>=0 ; i--) {
@@ -408,7 +560,7 @@ class class_CMS {
 
   setInterpolationType(type){
      this.interpolationType=type;
-     this.calcDeltaIntervalColors();
+
    }
 
   getIntervalLength(keyBandIndex){
@@ -523,7 +675,7 @@ class class_CMS {
       this.keyArray[i]=null;
     }
     this.keyArray = tmpKeyArray;
-    this.calcDeltaIntervalColors();
+
   }
 
   setAutoRange(newStart,newEnd){
@@ -537,7 +689,7 @@ class class_CMS {
       var newPos = newStart+ratio*newDistance;
       this.keyArray[i].setRefPosition(newPos);
     }
-    this.calcDeltaIntervalColors();
+
 
   }
 
@@ -620,6 +772,13 @@ class class_CMS {
               return new class_Color_RGB(newColorValues[0],newColorValues[1],newColorValues[2]);
           case "hsv":
               var tmpColor = new class_Color_HSV(newColorValues[0],newColorValues[1],newColorValues[2]);
+              var rgbColor = tmpColor.calcRGBColor();
+              tmpColor.deleteReferences();
+              tmpColor=null;
+              return rgbColor;
+            break;
+         case "lms":
+              var tmpColor = new class_Color_LMS(newColorValues[0],newColorValues[1],newColorValues[2]);
               var rgbColor = tmpColor.calcRGBColor();
               tmpColor.deleteReferences();
               tmpColor=null;
@@ -728,7 +887,7 @@ class class_CMS {
     this.keyArray[index].deleteReferences();
     this.keyArray[index]=null;
     this.keyArray.splice(index, 1);
-    this.calcDeltaIntervalColors();
+
   }
 
   getKeyLength(){
@@ -748,7 +907,7 @@ class class_CMS {
 
   setRefPosition(index, ref){
     this.keyArray[index].setRefPosition(ref);
-    this.calcDeltaIntervalColors();
+
   }
 
   setOpacityVal(index,val,side) {
@@ -784,12 +943,12 @@ class class_CMS {
         this.keyArray[i].setRefPosition(this.keyArray[0].getRefPosition()+(i*equalDis));
       }
     }
-    this.calcDeltaIntervalColors();
+
   }
 
   setLeftKeyColor(index, color){
     this.keyArray[index].setLeftKeyColor(color);
-    this.calcDeltaIntervalColors();
+
   }
 
   getLeftKeyColor(index, colorspace){
@@ -798,7 +957,7 @@ class class_CMS {
 
   setRightKeyColor(index, color){
     this.keyArray[index].setRightKeyColor(color);
-    this.calcDeltaIntervalColors();
+
   }
 
   getRightKeyColor(index, colorspace){
@@ -831,7 +990,7 @@ class class_CMS {
 
   insertKey(index,key){
       this.keyArray.splice(index, 0,key);
-      this.calcDeltaIntervalColors();
+
   }
 
   addKey(key){
@@ -848,7 +1007,7 @@ class class_CMS {
 
     if(index!=undefined){
       this.keyArray.splice(index, 0,key);
-      this.calcDeltaIntervalColors();
+
     }
 
   }
@@ -856,7 +1015,7 @@ class class_CMS {
   pushKey(key){
     this.keyArray.push(key);
 
-    this.calcDeltaIntervalColors();
+
   }
 
   getBur(index){
@@ -871,7 +1030,7 @@ class class_CMS {
     var tmpRightColor = this.keyArray[index+1].getRightKeyColor("lab");
     this.keyArray[index].setRightKeyColor(tmpRightColor);
     this.deleteKey(index+1);
-    this.calcDeltaIntervalColors();
+
   }
 
   insertCMS(cms, insertIndex){
@@ -938,7 +1097,7 @@ class class_CMS {
 
 
     }
-    this.calcDeltaIntervalColors();
+
   }
 
   //********************************************************************************//
@@ -1007,6 +1166,7 @@ class class_CMS {
 
   drawCMS_Horizontal(canvasID, width, height ) {
 
+    this.calcNeededIntervalsColors(false, undefined, undefined);
     // start
     var canvasObject = document.getElementById(canvasID);
     // check hight
@@ -1086,6 +1246,7 @@ class class_CMS {
 
   drawCMS_Vertical(canvasID, width, height) {
 
+    this.calcNeededIntervalsColors(false, undefined, undefined);
     // start
     var canvasObject = document.getElementById(canvasID);
     // check hight
@@ -1161,6 +1322,7 @@ class class_CMS {
 
   drawCMS_BandSketch(canvasID){
 
+    this.calcNeededIntervalsColors(false, undefined, undefined);
     // start
     var canvasObject = document.getElementById(canvasID);
     var rect = canvasObject.getBoundingClientRect();
@@ -1231,7 +1393,7 @@ class class_CMS {
 
   setInterpolationSpace(space){
     this.interpolationSpace=space;
-    this.calcDeltaIntervalColors();
+
   }
 
   getInterpolationSpace(){
@@ -1410,6 +1572,9 @@ function createScaledBand(canvasData, xStart, yStart, bandWidth, bandHeight, col
          break;
         case "hsv":
         tmpWorkColor = new class_Color_HSV(0, 0, 0);
+        break;
+        case "lms":
+        tmpWorkColor = new class_Color_LMS(0, 0, 0);
         break;
         case "lab":
         case "de2000-ds":
@@ -1623,7 +1788,7 @@ function cloneColor(color){
           case "lch":
               return new class_Color_LCH(color.get1Value(),color.get2Value(),color.get3Value());
             break;
-            case "LMS":
+            case "lms":
                 return new class_Color_LMS(color.get1Value(),color.get2Value(),color.get3Value());
               break;
               case "din99":
@@ -1633,6 +1798,7 @@ function cloneColor(color){
                   return new class_Color_XYZ(color.get1Value(),color.get2Value(),color.get3Value());
                 break;
     default:
+        console.debug("Unknown Colortype at the cloneColor function!");
         return undefined;
   }
 }
@@ -1641,7 +1807,7 @@ function cloneCMS(cmsObj){
 
   var newCMS = new class_CMS();
 
-  newCMS.setPreventIntervals(true);
+  //newCMS.setPreventIntervals(true);
   newCMS.setColormapName(cmsObj.getColormapName());
   newCMS.setNaNColor(cmsObj.getNaNColor("lab"));
   newCMS.setAboveColor(cmsObj.getAboveColor("lab"));
@@ -1662,7 +1828,7 @@ function cloneCMS(cmsObj){
     newCMS.addProbeSet(probeObj);
   }
 
-  newCMS.setPreventIntervals(cmsObj.getPreventIntervals());
+  //newCMS.setPreventIntervals(cmsObj.getPreventIntervals());
 
   return newCMS;
 }

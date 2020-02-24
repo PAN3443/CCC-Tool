@@ -6,11 +6,23 @@ var optionsList = [];
 var testFieldList = [];
 
 /// color settings
-var din99_kE = undefined;
-var din99_kCH = undefined;
-var cielab_ref_X = undefined;
-var cielab_ref_Y = undefined;
-var cielab_ref_Z = undefined;
+// 2000
+var de2000_k_L = 1.0,
+  de2000_k_C = 1.0,
+  de2000_k_H = 1.0;
+
+// 94
+var de94_k_L = 1.0,
+  de94_k_C = 1.0,
+  de94_k_H = 1.0;
+var de94_k_1 = 0.045,
+  de94_k_2 = 0.015;
+
+var din99_kE = 1;
+var din99_kCH = 1;
+var cielab_ref_X = 94.811;
+var cielab_ref_Y = 100.000;
+var cielab_ref_Z = 107.304;
 
 // Simulation Colorblindness
 var doColorblindnessSim = false;

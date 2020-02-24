@@ -2,7 +2,7 @@
 // ------------ Class CIELab ---------------//
 ////////////////////////////////////////////////
 
-class class_Color_LAB{
+class class_Color_LAB extends class_Color_Basis{
 
   // for future # => private  .... change this. to this.#
   // private fields are not supported at the moment
@@ -11,133 +11,47 @@ class class_Color_LAB{
   #bValue = undefined;
   #colorType = undefined;*/
 
-      constructor(lValue, aValue, bValue) {
-        this.lValue = lValue;
-        this.aValue = aValue;
-        this.bValue = bValue;
+      constructor(value_1, value_2, value_3) {
+        super(value_1, value_2, value_3); // l,a,b
         this.colorType = "lab";
       }
 
-      deleteReferences(){
-        delete this.lValue;
-        delete this.aValue;
-        delete this.bValue;
-        delete this.colorType;
-      }
-
-      getColorType(){
-        return this.colorType;
-      }
       getLValue() {
-        return this.lValue;
+        return this.value_1;
       }
 
       getAValue() {
-        return this.aValue;
+        return this.value_2;
       }
 
       getBValue() {
-        return this.bValue;
-      }
-
-      get1Value() {
-        return this.lValue;
-      }
-
-      get2Value() {
-        return this.aValue;
-      }
-
-      get3Value() {
-        return this.bValue;
-      }
-
-      set1Value(newVal) {
-          this.lValue=newVal;
-      }
-
-      set2Value(newVal) {
-          this.aValue=newVal;
-      }
-
-      set3Value(newVal){
-          this.bValue=newVal;
+        return this.value_3;
       }
 
       setLValue(newLVal) {
-        this.lValue = newLVal;
+        this.value_1 = newLVal;
       }
 
       setAValue(newAVal) {
-        this.aValue = newAVal;
+        this.value_2 = newAVal;
       }
 
       setBValue(newBVal) {
-        this.bValue = newBVal;
-      }
-
-      equalTo(color){
-
-        switch (color.getColorType()) {
-          case "lab":
-              if(color.get1Value()==this.get1Value()&&
-                 color.get2Value()==this.get2Value()&&
-                 color.get3Value()==this.get3Value())
-                 return true;
-              else
-                return false;
-          default:
-            var tmpColor = color.calcLABColor();
-            if(color.get1Value()==this.get1Value()&&
-               color.get2Value()==this.get2Value()&&
-               color.get3Value()==this.get3Value())
-               return true;
-            else
-              return false;
-
-        }
-
-      }
-
-      getRGBString() {
-        var tmpRGB = this.calcRGBColor();
-        var string = tmpRGB.getRGBString();
-        tmpRGB.deleteReferences();
-        return string;
-      }
-
-      getInColorFormat(format){
-
-        switch (format) {
-          case "rgb":
-              return this.calcRGBColor();
-          case "hsv":
-              return this.calcHSVColor();
-          case "lab":
-              return new class_Color_LAB(this.get1Value(),this.get2Value(),this.get3Value());
-          case "din99":
-              return this.calcDIN99Color();
-          case "lch":
-              return this.calcLCHColor();
-          default:
-            console.log("Error in function getColorFormat of LAB class");
-        }
-
+        this.value_3 = newBVal;
       }
 
       getLABString(){
-          var tmpString = "lab("+this.lValue+","+this.aValue+","+this.bValue+")";
+          var tmpString = "lab("+this.value_1+","+this.value_2+","+this.value_3+")";
           return tmpString;
       }
 
       getLABString(numDecimalPlaces){
-          var tmpString = "lab("+this.lValue.toFixed(numDecimalPlaces)+","+this.aValue.toFixed(numDecimalPlaces)+","+this.bValue.toFixed(numDecimalPlaces)+")";
+          var tmpString = "lab("+this.value_1.toFixed(numDecimalPlaces)+","+this.value_2.toFixed(numDecimalPlaces)+","+this.value_3.toFixed(numDecimalPlaces)+")";
           return tmpString;
       }
 
-
       calcLABColor() {
-        return new class_Color_LAB(this.get1Value(), this.get2Value(), this.get3Value());;
+        return new class_Color_LAB(this.get1Value(), this.get2Value(), this.get3Value());
       }
 
       calcLMSColor() {
@@ -149,9 +63,9 @@ class class_Color_LAB{
 
       calcXYZColor(){
         //  Calc XYZ
-        var var_Y = (this.lValue + 16.0)/116.0;
-        var var_X = this.aValue/500.0 + var_Y;
-        var var_Z = var_Y - this.bValue/200.0;
+        var var_Y = (this.value_1 + 16.0)/116.0;
+        var var_X = this.value_2/500.0 + var_Y;
+        var var_Z = var_Y - this.value_3/200.0;
 
         if ( Math.pow (var_Y, 3.0) > 0.008856 ){
             var_Y = Math.pow (var_Y, 3.0);
@@ -202,9 +116,9 @@ class class_Color_LAB{
         var tmpColor = tmpRGB.calcLABColor();
         tmpRGB.deleteReferences();
         tmpRGB=null;
-        this.lValue = tmpColor.get1Value();
-        this.aValue = tmpColor.get2Value();
-        this.bValue = tmpColor.get3Value();
+        this.value_1 = tmpColor.get1Value();
+        this.value_2 = tmpColor.get2Value();
+        this.value_3 = tmpColor.get3Value();
         tmpColor.deleteReferences();
         tmpColor=null;
       }
@@ -264,9 +178,9 @@ class class_Color_LAB{
 
 
       calcLCHColor(){
-        var valueL = this.lValue/100;
-        var normAVal = this.aValue/128.0;
-        var normBVal = this.bValue/128.0;
+        var valueL = this.value_1/100;
+        var normAVal = this.value_2/128.0;
+        var normBVal = this.value_3/128.0;
         var valueC = Math.sqrt(Math.pow(normAVal,2) + Math.pow(normBVal,2));
 
         var valueH = atan2_360Degree(normAVal,normBVal)/360; // values 0-1
@@ -278,15 +192,15 @@ class class_Color_LAB{
 
         var valueL99, valueA99, valueB99;
         var lScale = 100/Math.log(139/100.0); // = 303.67
-        valueL99 = lScale/din99_kE*Math.log(1+.0039*this.lValue);
+        valueL99 = lScale/din99_kE*Math.log(1+.0039*this.value_1);
 
-        if (this.aValue==0.0 && this.bValue==0.0) {
+        if (this.value_2==0.0 && this.value_3==0.0) {
             valueA99 = 0.0;
             valueB99 = 0.0;
         } else {
             var angle = 2*Math.PI/360*26;
-            var e = this.aValue*Math.cos(angle) + this.bValue*Math.sin(angle);
-            var f = 0.83*(this.bValue*Math.cos(angle) - this.aValue*Math.sin(angle));
+            var e = this.value_2*Math.cos(angle) + this.value_3*Math.sin(angle);
+            var f = 0.83*(this.value_3*Math.cos(angle) - this.value_2*Math.sin(angle));
             var G = Math.sqrt(Math.pow(e,2)+Math.pow(f,2));
             var C99 = Math.log(1+0.075*G)/(0.0435*din99_kCH*din99_kE);
             var hef = Math.atan2(f,e);

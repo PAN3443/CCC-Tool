@@ -495,7 +495,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
         if(keyIndex!=undefined && this.predefinedDrawStatus!=keyIndex){
 
           this.tmpWorkCMS = cloneCMS(this.editCMS);
-          this.tmpWorkCMS.setPreventIntervals(true);
+          //this.tmpWorkCMS.setPreventIntervals(true);
           switch(this.currentDraggedType){
                 case "c":
                         // ->const
@@ -540,7 +540,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
             }
 
             this.predefinedDrawStatus=keyIndex;
-            this.tmpWorkCMS.setPreventIntervals(false);
+            //this.tmpWorkCMS.setPreventIntervals(false);
             this.drawWorkCMS();
 
           }
@@ -555,7 +555,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
       if(this.predefinedDrawStatus!=-1){
 
         this.tmpWorkCMS = cloneCMS(this.editCMS);
-        this.tmpWorkCMS.setPreventIntervals(true);
+        //this.tmpWorkCMS.setPreventIntervals(true);
 
         switch(this.currentDraggedType){
               case "c":
@@ -574,7 +574,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
               break;
           }
 
-          this.tmpWorkCMS.setPreventIntervals(false);
+          //this.tmpWorkCMS.setPreventIntervals(false);
           this.drawWorkCMS();
           this.predefinedDrawStatus=-1;
       }
@@ -769,7 +769,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
   }
 
   resetGrapMoveVars(){
-    this.editCMS.setPreventIntervals(false);
+    //this.editCMS.setPreventIntervals(false);
     this.grappedKey = false;
     this.grappedBurdock = false;
     this.overKeyID = undefined;
@@ -779,23 +779,23 @@ class class_Edit_Section extends class_Edit_Basis_Section {
   cmsVisGrap(){
     if(this.overKeyID!=undefined){
         this.grappedKey = true;
-        this.editCMS.setPreventIntervals(true);
+        //this.editCMS.setPreventIntervals(true);
         document.getElementById('id_EditPage_CMS_Canvas').style.cursor="col-resize";
         timer2DAnimation = setInterval(keyChange2DAnimation, animationInterval);
     }
     else {
-        this.editCMS.setPreventIntervals(false);
+        //this.editCMS.setPreventIntervals(false);
         this.grappedKey = false;
     }
 
     if(this.overBurdockID!=undefined){
         this.grappedBurdock = true;
-        this.editCMS.setPreventIntervals(true);
+        //this.editCMS.setPreventIntervals(true);
         document.getElementById('id_EditPage_CMS_Canvas').style.cursor="col-resize";
         timer2DAnimation = setInterval(keyChange2DAnimation, animationInterval);
     }
     else {
-        this.editCMS.setPreventIntervals(false);
+        //this.editCMS.setPreventIntervals(false);
         this.grappedBurdock = false;
     }
   }

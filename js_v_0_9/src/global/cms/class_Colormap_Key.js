@@ -81,7 +81,7 @@ class class_Key{
           color.deleteReferences();
           color=null;
         }
-
+        
         this.determineType();
 
     }

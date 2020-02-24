@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////
 // ------------ Class RGB ---------------//
 ////////////////////////////////////////////////
-class class_Color_RGB {
+class class_Color_RGB extends class_Color_Basis{
 
   // for future # => private  .... change this. to this.#
   // private fields are not supported at the moment
@@ -10,150 +10,71 @@ class class_Color_RGB {
   #bValue = undefined;
   #colorType = undefined;*/
 
-  constructor(rValue, gValue, bValue) {
-    this.rValue = rValue;
-    this.gValue = gValue;
-    this.bValue = bValue;
+  constructor(value_1, value_2, value_3) {
+    super(value_1, value_2, value_3); // r,g,b
     this.colorType = "rgb";
   }
 
-  deleteReferences(){
-    delete this.rValue;
-    delete this.gValue;
-    delete this.bValue;
-    delete this.colorType;
-  }
-
-  getColorType() {
-    return this.colorType;
-  }
-
   getRValue() {
-    return this.rValue;
+    return this.value_1;
   }
 
   getGValue() {
-    return this.gValue;
+    return this.value_2;
   }
 
   getBValue() {
-    return this.bValue;
-  }
-
-  get1Value() {
-    return this.rValue;
-  }
-
-  get2Value() {
-    return this.gValue;
-  }
-
-  get3Value() {
-    return this.bValue;
-  }
-
-  set1Value(newVal) {
-    this.rValue = newVal;
-  }
-
-  set2Value(newVal) {
-    this.gValue = newVal;
-  }
-
-  set3Value(newVal) {
-    this.bValue = newVal;
+    return this.value_3;
   }
 
   setRValue(r) {
-    this.rValue = r;
+    this.value_1 = r;
   }
 
   setGValue(g) {
-    this.gValue = g;
+    this.value_2 = g;
   }
 
   setBValue(b) {
-    this.bValue = b;
+    this.value_3 = b;
   }
 
-
   checkRGBPossiblity(){
-    if(this.rValue>1.0 || this.rValue<0.0)
+    if(this.value_1>1.0 || this.value_1<0.0)
       return false;
 
-      if(this.gValue>1.0 || this.gValue<0.0)
+      if(this.value_2>1.0 || this.value_2<0.0)
         return false;
 
-        if(this.bValue>1.0 || this.bValue<0.0)
+        if(this.value_3>1.0 || this.value_3<0.0)
           return false;
 
     return true;
   }
 
   setColorToRGBPossiblity(){
-    if(this.rValue>1.0)
-      this.rValue=1.0;
-    else if(this.rValue<0.0)
-      this.rValue=0.0;
+    if(this.value_1>1.0)
+      this.value_1=1.0;
+    else if(this.value_1<0.0)
+      this.value_1=0.0;
 
-      if(this.gValue>1.0)
-        this.gValue=1.0;
-      else if(this.gValue<0.0)
-        this.gValue=0.0;
+      if(this.value_2>1.0)
+        this.value_2=1.0;
+      else if(this.value_2<0.0)
+        this.value_2=0.0;
 
-        if(this.bValue>1.0)
-          this.bValue=1.0;
-        else if(this.bValue<0.0)
-          this.bValue=0.0;
+        if(this.value_3>1.0)
+          this.value_3=1.0;
+        else if(this.value_3<0.0)
+          this.value_3=0.0;
   }
 
   getRGBString() {
-    return "rgb(" + Math.round(this.rValue * 255) + "," + Math.round(this.gValue * 255) + "," + Math.round(this.bValue * 255) + ")"; // Math.round because Chrome needs integers
+    return "rgb(" + Math.round(this.value_1 * 255) + "," + Math.round(this.value_2 * 255) + "," + Math.round(this.value_3 * 255) + ")"; // Math.round because Chrome needs integers
   }
 
   getRGBStringAplha(alpha) {
-    return "rgba(" + Math.round(this.rValue * 255) + "," + Math.round(this.gValue * 255) + "," + Math.round(this.bValue * 255) + "," + alpha + ")";
-  }
-
-  equalTo(color) {
-
-    switch (color.getColorType()) {
-      case "rgb":
-        if (color.get1Value() == this.get1Value() &&
-          color.get2Value() == this.get2Value() &&
-          color.get3Value() == this.get3Value())
-          return true;
-        else
-          return false;
-      default:
-        var tmpColor = color.calcRGBColor();
-        if (color.get1Value() == this.get1Value() &&
-          color.get2Value() == this.get2Value() &&
-          color.get3Value() == this.get3Value())
-          return true;
-        else
-          return false;
-
-    }
-  }
-
-  getInColorFormat(format) {
-
-    switch (format) {
-      case "rgb":
-        return new class_Color_RGB(this.get1Value(), this.get2Value(), this.get3Value());
-      case "hsv":
-        return this.calcHSVColor();
-      case "lab":
-        return this.calcLABColor();
-      case "din99":
-        return this.calcDIN99Color();
-      case "lch":
-        return this.calcLCHColor();
-      default:
-        console.log("Error in function getColorFormat of RGB class");
-    }
-
+    return "rgba(" + Math.round(this.value_1 * 255) + "," + Math.round(this.value_2 * 255) + "," + Math.round(this.value_3 * 255) + "," + alpha + ")";
   }
 
   calcLMSColor() {
@@ -166,9 +87,9 @@ class class_Color_RGB {
 
   calcXYZColor() {
 
-    var var_R = this.rValue;
-    var var_G = this.gValue;
-    var var_B = this.bValue;
+    var var_R = this.value_1;
+    var var_G = this.value_2;
+    var var_B = this.value_3;
 
     // remove standard gamma correction
     if (var_R > 0.04045) var_R = Math.pow(((var_R + 0.055) / 1.055), 2.4);
@@ -208,8 +129,8 @@ class class_Color_RGB {
 
   calcHSVColor() {
 
-    var max = Math.max(this.rValue, this.gValue, this.bValue),
-      min = Math.min(this.rValue, this.gValue, this.bValue);
+    var max = Math.max(this.value_1, this.value_2, this.value_3),
+      min = Math.min(this.value_1, this.value_2, this.value_3);
     var h, s, v = max;
 
     var d = max - min;
@@ -219,14 +140,14 @@ class class_Color_RGB {
       h = 0; // achromatic
     } else {
       switch (max) {
-        case this.rValue:
-          h = (this.gValue - this.bValue) / d + (this.gValue < this.bValue ? 6 : 0);
+        case this.value_1:
+          h = (this.value_2 - this.value_3) / d + (this.value_2 < this.value_3 ? 6 : 0);
           break;
-        case this.gValue:
-          h = (this.bValue - this.rValue) / d + 2;
+        case this.value_2:
+          h = (this.value_3 - this.value_1) / d + 2;
           break;
-        case this.bValue:
-          h = (this.rValue - this.gValue) / d + 4;
+        case this.value_3:
+          h = (this.value_1 - this.value_2) / d + 4;
           break;
       }
       h /= 6;
@@ -250,9 +171,9 @@ class class_Color_RGB {
   }
 
   setColorFromHEX(hex) {
-    this.rValue = parseInt(hex.slice(1, 3), 16) / 255;
-    this.gValue = parseInt(hex.slice(3, 5), 16) / 255;
-    this.bValue = parseInt(hex.slice(5, 7), 16) / 255;
+    this.value_1 = parseInt(hex.slice(1, 3), 16) / 255;
+    this.value_2 = parseInt(hex.slice(3, 5), 16) / 255;
+    this.value_3 = parseInt(hex.slice(5, 7), 16) / 255;
   }
 
   valueToHex(val) {
@@ -264,9 +185,9 @@ class class_Color_RGB {
   }
 
   getHexString() {
-    var rhex = this.valueToHex(parseInt(this.rValue * 255));
-    var ghex = this.valueToHex(parseInt(this.gValue * 255));
-    var bhex = this.valueToHex(parseInt(this.bValue * 255));
+    var rhex = this.valueToHex(parseInt(this.value_1 * 255));
+    var ghex = this.valueToHex(parseInt(this.value_2 * 255));
+    var bhex = this.valueToHex(parseInt(this.value_3 * 255));
     return "#" + rhex + ghex + bhex;
   }
 };

@@ -1,4 +1,4 @@
-function searchForContinuousSections(cmsRef,startKey, endKey){
+/*function searchForContinuousSections(cmsRef,startKey, endKey){
 
   var continuousSections=[];
   var beforeConstant = false;
@@ -48,4 +48,4 @@ function searchForContinuousSections(cmsRef,startKey, endKey){
   }
 
   return continuousSections;
-}
+}*/

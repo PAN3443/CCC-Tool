@@ -158,6 +158,7 @@ class class_Edit_Basis_Section extends class_Section {
 
   drawEditCMSVIS(){
 
+    this.editCMS.calcNeededIntervalsColors(false,undefined,undefined);
     var canvasObject = document.getElementById(this.cmsCanvasID);
     var canvasRect = canvasObject.getBoundingClientRect();
 

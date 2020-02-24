@@ -953,6 +953,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
 
       this.pp_currentColor.deleteReferences();
       this.pp_currentColor = newColor;
+
       this.update_CoordID()
 
       switch (this.parentID) {
@@ -1208,12 +1209,12 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
               var aVal = parseInt(((this.mousePosX - colorspaceCenterX) / (this.pathplot_hueRes / 2)) * labSpaceRange);
               var bVal = parseInt(((colorspaceCenterY-this.mousePosY) / (this.pathplot_hueRes / 2)) * labSpaceRange);
               var tmpColor = new class_Color_LAB(this.pp_currentColor.get1Value(), aVal, bVal);
-              var testColor = tmpColor.calcRGBColorCorrect(undefined);
-              if (testColor == undefined)
-                return undefined;
-              testColor.deleteReferences();
-              testColor=null;
-              return tmpColor;
+              if (tmpColor.checkRGBPossiblity())
+                return tmpColor;
+
+              tmpColor.deleteReferences();
+              tmpColor=null;
+              return undefined;
             break;
             case "din99":
             var a99Val = parseInt((this.mousePosX / this.pathplot_hueRes) * rangeA99 + rangeA99Neg);
@@ -1221,16 +1222,12 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
             if (a99Val < rangeA99Neg || a99Val > rangeA99Pos || b99Val < rangeB99Neg || b99Val > rangeB99Pos)
               return undefined;
             var tmpColor = new class_Color_DIN99(this.pp_currentColor.get1Value(), a99Val, b99Val);
-            var colorRGB = tmpColor.calcRGBColor();
-            /*if(colorRGB.getRValue()==0 && colorRGB.getGValue()==0 && colorRGB.getBValue()==0)
-              if(tmpColor.getL99Value()!=0 || tmpColor.getA99Value() !=0 || tmpColor.getB99Value()!=0)
-                return undefined;*/
-                var testColor = tmpColor.calcRGBColorCorrect(undefined);
-                if (testColor == undefined)
-                  return undefined;
-                testColor.deleteReferences();
-                testColor=null;
+            if (tmpColor.checkRGBPossiblity())
               return tmpColor;
+
+            tmpColor.deleteReferences();
+            tmpColor=null;
+            return undefined;
             break;
             case "lch":
               var colorspaceRadius =  Math.round((this.pathplot_hueRes*0.95 / 2));
@@ -1242,12 +1239,12 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
                 var hVal = parseInt(angle)/360;
                 var cVal = parseInt(dis / colorspaceRadius * 100)/100;
                 var tmpColor = new class_Color_LCH(this.pp_currentColor.get1Value(), cVal,hVal);
-                var testColor = tmpColor.calcRGBColorCorrect(undefined);
-                if (testColor == undefined)
-                  return undefined;
-                testColor.deleteReferences();
-                testColor=null;
-                return tmpColor;
+                if (tmpColor.checkRGBPossiblity())
+                  return tmpColor;
+
+                tmpColor.deleteReferences();
+                tmpColor=null;
+                return undefined;
               }
             break;
               default:
@@ -1497,7 +1494,8 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
   pp_3D_GetScreenshot(){
     this.pp_3D_StopAnimation();
     var oldSize = this.pp_renderer.getSize();
-    this.pp_renderer.setSize(2160, 2160);
+    var ratio = oldSize.width/oldSize.height;
+    this.pp_renderer.setSize(2160*ratio, 2160);
     this.pp_renderer.preserveDrawingBuffer = true;
     this.pp_renderer.render(this.pp_scene,this.pp_camera);
     var pathplotImgData = this.pp_renderer.domElement.toDataURL();

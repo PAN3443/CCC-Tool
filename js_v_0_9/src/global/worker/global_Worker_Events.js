@@ -5,7 +5,7 @@ function updateSpaceGridInfo(e) {
         for(var i = 0; i < e.data.positions.length; i++){
           var lArray = [];
           for(var j = 0; j < e.data.positions[i].length; j++){
-            lArray.push(new class_Color_LAB(e.data.positions[i][j].lValue,e.data.positions[i][j].aValue,e.data.positions[i][j].bValue));
+            lArray.push(new class_Color_LAB(e.data.positions[i][j].value_1,e.data.positions[i][j].value_2,e.data.positions[i][j].value_3));
           }
           positionsLAB.push(lArray);
         }
@@ -18,7 +18,7 @@ function updateSpaceGridInfo(e) {
         for(var i = 0; i < e.data.positions.length; i++){
           var lArray = [];
           for(var j = 0; j < e.data.positions[i].length; j++){
-            lArray.push(new class_Color_DIN99(e.data.positions[i][j].l99Value,e.data.positions[i][j].a99Value,e.data.positions[i][j].b99Value));
+            lArray.push(new class_Color_DIN99(e.data.positions[i][j].value_1,e.data.positions[i][j].value_2,e.data.positions[i][j].value_3));
           }
           positionsDIN99.push(lArray);
         }

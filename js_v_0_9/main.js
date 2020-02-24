@@ -54,7 +54,6 @@ window.onload = function() {
   checkLandscapeWindow();
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Loading Finished";
   welcomeSection.updateSection();
-
 }
 
 window.onresize = function(event) {

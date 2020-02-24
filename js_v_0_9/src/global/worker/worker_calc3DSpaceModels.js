@@ -64,6 +64,7 @@ self.addEventListener('message', function(e) {
         [0, 0, 1]
       ];
 
+      self.importScripts('../color/class_Colorspace_Basis.js');
       self.importScripts('../color/class_Colorspace_RGB.js');
       self.importScripts('../color/class_Colorspace_XYZ.js');
       self.importScripts('../color/class_Colorspace_LMS.js');

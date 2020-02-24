@@ -2,7 +2,7 @@
 // ------------ Class HSV ---------------//
 ////////////////////////////////////////////////
 
-class class_Color_HSV{
+class class_Color_HSV extends class_Color_Basis{
 
     // for future # => private  .... change this. to this.#
     // private fields are not supported at the moment
@@ -11,131 +11,44 @@ class class_Color_HSV{
     #vValue = undefined;
     #colorType = undefined;*/
 
-    constructor(hValue, sValue, vValue) {
-    this.hValue = hValue;
-    this.sValue = sValue;
-    this.vValue = vValue;
-    this.colorType = "hsv";
-  }
-
-  deleteReferences(){
-    delete this.hValue;
-    delete this.sValue;
-    delete this.vValue;
-    delete this.colorType;
-  }
-
-  getColorType(){
-    return this.colorType;
+    constructor(value_1, value_2, value_3) {
+      super(value_1, value_2, value_3); // h,s,v
+      this.colorType = "hsv";
   }
 
     getHValue() {
-        return this.hValue;
+        return this.value_1;
     }
 
     getSValue() {
-        return this.sValue;
+        return this.value_2;
     }
 
     getVValue(){
-        return this.vValue;
-    }
-
-    get1Value() {
-        return this.hValue;
-    }
-
-    get2Value() {
-        return this.sValue;
-    }
-
-    get3Value(){
-        return this.vValue;
-    }
-
-    set1Value(newVal) {
-        this.hValue=newVal;
-    }
-
-    set2Value(newVal) {
-        this.sValue=newVal;
-    }
-
-    set3Value(newVal){
-        this.vValue=newVal;
+        return this.value_3;
     }
 
     setHValue(newVal) {
-        this.hValue = newVal;
+        this.value_1 = newVal;
     }
 
     setSValue(newVal) {
-        this.sValue = newVal;
+        this.value_2 = newVal;
     }
 
     setVValue(newVal) {
-        this.vValue = newVal;
+        this.value_3 = newVal;
     }
 
-    equalTo(color){
-
-      switch (color.getColorType()) {
-        case "hsv":
-            if(color.get1Value()==this.get1Value()&&
-               color.get2Value()==this.get2Value()&&
-               color.get3Value()==this.get3Value())
-               return true;
-            else
-              return false;
-        default:
-          var tmpColor = color.calcHSVColor();
-          if(color.get1Value()==this.get1Value()&&
-             color.get2Value()==this.get2Value()&&
-             color.get3Value()==this.get3Value())
-             return true;
-          else
-            return false;
-
-      }
-
-    }
-
-    getRGBString() {
-      var tmpRGB = this.calcRGBColor();
-      var string = tmpRGB.getRGBString();
-      tmpRGB.deleteReferences();
-      return string;
-    }
-
-    getInColorFormat(format){
-
-      switch (format) {
-        case "rgb":
-            return this.calcRGBColor();
-        case "hsv":
-            return new class_Color_HSV(this.get1Value(),this.get2Value(),this.get3Value());
-        case "lab":
-            return this.calcLABColor();
-        case "din99":
-            return this.calcDIN99Color();
-        case "lch":
-            return this.calcLCHColor();
-        default:
-          console.log("Error in function getColorFormat of HSV class");
-      }
-
-    }
-
-    getHSVString(){
-        var tmpString = "hsv("+this.hValue+","+this.sValue+","+this.vValue+")";
+    /*getHSVString(){
+        var tmpString = "hsv("+this.value_1+","+this.value_2+","+this.value_3+")";
         return tmpString;
     }
 
     getHSVString(numDecimalPlaces){
-        var tmpString = "hsv("+this.hValue.toFixed(numDecimalPlaces)+","+this.sValue.toFixed(numDecimalPlaces)+","+this.vValue.toFixed(numDecimalPlaces)+")";
+        var tmpString = "hsv("+this.value_1.toFixed(numDecimalPlaces)+","+this.value_2.toFixed(numDecimalPlaces)+","+this.value_3.toFixed(numDecimalPlaces)+")";
         return tmpString;
-    }
-
+    }*/
 
     calcLABColor() {
       /// from RGB -> XYZ
@@ -160,7 +73,7 @@ class class_Color_HSV{
     }
 
     calcHSVColor() {
-      return new class_Color_HSV(this.hValue,this.sValue,this.vValue);
+      return new class_Color_HSV(this.value_1,this.value_2,this.value_3);
     }
 
     calcLMSColor() {
@@ -173,27 +86,27 @@ class class_Color_HSV{
     calcRGBColor(){
 
         /*var R,G,B,var_r,var_g,var_b;
-            if ( this.sValue == 0 )
+            if ( this.value_2 == 0 )
             {
-            R = this.vValue;
-            G = this.vValue;
-            B = this.vValue;
+            R = this.value_3;
+            G = this.value_3;
+            B = this.value_3;
             }
             else
             {
-            var var_h = this.hValue * 6;
+            var var_h = this.value_1 * 6;
             if ( var_h == 6 ) var_h = 0;      //H must be < 1
             var var_i = parseInt( var_h );            //Or ... var_i = floor( var_h )
-            var var_1 = this.vValue * ( 1 - this.sValue )
-            var var_2 = this.vValue * ( 1 - this.sValue * ( var_h - var_i ) )
-            var var_3 = this.vValue * ( 1 - this.sValue * ( 1 - ( var_h - var_i ) ) )
+            var var_1 = this.value_3 * ( 1 - this.value_2 )
+            var var_2 = this.value_3 * ( 1 - this.value_2 * ( var_h - var_i ) )
+            var var_3 = this.value_3 * ( 1 - this.value_2 * ( 1 - ( var_h - var_i ) ) )
 
-            if      ( var_i == 0 ) { var_r = this.vValue;   var_g = var_3;          var_b = var_1; }
-            else if ( var_i == 1 ) { var_r = var_2 ;        var_g = this.vValue;    var_b = var_1; }
-            else if ( var_i == 2 ) { var_r = var_1 ;        var_g = this.vValue;    var_b = var_3; }
-            else if ( var_i == 3 ) { var_r = var_1 ;        var_g = var_2 ;         var_b = this.vValue;}
-            else if ( var_i == 4 ) { var_r = var_3 ;        var_g = var_1 ;         var_b = this.vValue;}
-            else                   { var_r = this.vValue;   var_g = var_1;      var_b = var_2;}
+            if      ( var_i == 0 ) { var_r = this.value_3;   var_g = var_3;          var_b = var_1; }
+            else if ( var_i == 1 ) { var_r = var_2 ;        var_g = this.value_3;    var_b = var_1; }
+            else if ( var_i == 2 ) { var_r = var_1 ;        var_g = this.value_3;    var_b = var_3; }
+            else if ( var_i == 3 ) { var_r = var_1 ;        var_g = var_2 ;         var_b = this.value_3;}
+            else if ( var_i == 4 ) { var_r = var_3 ;        var_g = var_1 ;         var_b = this.value_3;}
+            else                   { var_r = this.value_3;   var_g = var_1;      var_b = var_2;}
 
             R = var_r;
             G = var_g;
@@ -203,19 +116,19 @@ class class_Color_HSV{
 
         var r, g, b;
 
-            var i = Math.floor(this.hValue * 6);
-            var f = this.hValue * 6 - i;
-            var p = this.vValue * (1 - this.sValue);
-            var q = this.vValue * (1 - f * this.sValue);
-            var t = this.vValue * (1 - (1 - f) * this.sValue);
+            var i = Math.floor(this.value_1 * 6);
+            var f = this.value_1 * 6 - i;
+            var p = this.value_3 * (1 - this.value_2);
+            var q = this.value_3 * (1 - f * this.value_2);
+            var t = this.value_3 * (1 - (1 - f) * this.value_2);
 
             switch(i % 6){
-                case 0: r = this.vValue, g = t, b = p; break;
-                case 1: r = q, g = this.vValue, b = p; break;
-                case 2: r = p, g = this.vValue, b = t; break;
-                case 3: r = p, g = q, b = this.vValue; break;
-                case 4: r = t, g = p, b = this.vValue; break;
-                case 5: r = this.vValue, g = p, b = q; break;
+                case 0: r = this.value_3, g = t, b = p; break;
+                case 1: r = q, g = this.value_3, b = p; break;
+                case 2: r = p, g = this.value_3, b = t; break;
+                case 3: r = p, g = q, b = this.value_3; break;
+                case 4: r = t, g = p, b = this.value_3; break;
+                case 5: r = this.value_3, g = p, b = q; break;
             }
 
 
@@ -236,9 +149,9 @@ class class_Color_HSV{
       var tmpColor = tmpRGB.calcHSVColor();
       tmpRGB.deleteReferences();
       tmpRGB=null;
-      this.hValue = tmpColor.get1Value();
-      this.sValue = tmpColor.get2Value();
-      this.vValue = tmpColor.get3Value();
+      this.value_1 = tmpColor.get1Value();
+      this.value_2 = tmpColor.get2Value();
+      this.value_3 = tmpColor.get3Value();
       tmpColor.deleteReferences();
       tmpColor=null;
     }

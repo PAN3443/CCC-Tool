@@ -66,6 +66,7 @@ class class_Export_Section extends class_Section {
   setCMS(cms){
     this.exportCMS.deleteReferences();
     this.exportCMS=cms;
+    this.exportCMS.calcNeededIntervalsColors(false,undefined,undefined);
   }
 
   backToSection(){

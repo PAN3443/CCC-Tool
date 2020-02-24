@@ -1,67 +1,33 @@
 ////////////////////////////////////////////////
 // ------------ Class LMS ---------------//
 ////////////////////////////////////////////////
-class class_Color_LMS{
+class class_Color_LMS extends class_Color_Basis{
 
-  // for future # => private  .... change this. to this.#
-  // private fields are not supported at the moment
-  /*#lValue = undefined;
-  #mValue = undefined;
-  #sValue = undefined;
-  #colorType = undefined;*/
-
-    constructor(lValue, mValue, sValue) {
-
-    //this.protanopie = rValue; // max perception red
-    //this.deuteranopie = gValue; // max perception green
-    //this.tritanopie = bValue; // max perception blue
-
-    this.lValue = lValue; // long wave red area
-    this.mValue = mValue; // middle wave green area
-    this.sValue = sValue; // short wave blue area
+  constructor(value_1, value_2, value_3) {
+    super(value_1, value_2, value_3); // l,m,s
+    // l => long wave red area
+    // m => middle wave green area
+    // s => short wave blue area
     this.colorType = "lms";
   }
 
-  deleteReferences(){
-    delete this.lValue;
-    delete this.cValue;
-    delete this.hValue;
-    delete this.colorType;
-  }
-
   getLValue(){
-    return this.lValue;
+    return this.value_1;
   }
 
   getMValue(){
-    return this.mValue;
+    return this.value_2;
   }
 
   getSValue(){
-    return this.sValue;
-  }
-
-  get1Value() {
-    return this.lValue;
-  }
-
-  get2Value() {
-    return this.mValue;
-  }
-
-  get3Value() {
-    return this.sValue;
-  }
-
-  getColorType(){
-    return this.colorType;
+    return this.value_3;
   }
 
   calcXYZColor(){
 
-    var var_X = this.lValue * tmLMS_Selected_Inv[0][0] + this.mValue * tmLMS_Selected_Inv[0][1] + this.sValue * tmLMS_Selected_Inv[0][2];
-    var var_Y = this.lValue * tmLMS_Selected_Inv[1][0] + this.mValue * tmLMS_Selected_Inv[1][1] + this.sValue * tmLMS_Selected_Inv[1][2];
-    var var_Z = this.lValue * tmLMS_Selected_Inv[2][0] + this.mValue * tmLMS_Selected_Inv[2][1] + this.sValue * tmLMS_Selected_Inv[2][2];
+    var var_X = this.value_1 * tmLMS_Selected_Inv[0][0] + this.value_2 * tmLMS_Selected_Inv[0][1] + this.value_3 * tmLMS_Selected_Inv[0][2];
+    var var_Y = this.value_1 * tmLMS_Selected_Inv[1][0] + this.value_2 * tmLMS_Selected_Inv[1][1] + this.value_3 * tmLMS_Selected_Inv[1][2];
+    var var_Z = this.value_1 * tmLMS_Selected_Inv[2][0] + this.value_2 * tmLMS_Selected_Inv[2][1] + this.value_3 * tmLMS_Selected_Inv[2][2];
 
     return (new class_Color_XYZ(var_X, var_Y, var_Z));
 
@@ -73,6 +39,18 @@ class class_Color_LMS{
     tmpXYZ.deleteReferences();
     tmpXYZ=null;
     return result;
+  }
+
+  calcLABColor() {
+    /// from RGB -> XYZ
+    var tmpXYZ = this.calcXYZColor();
+    var tmpLab = tmpXYZ.calcLABColor();
+    tmpXYZ.deleteReferences();
+    return tmpLab;
+  }
+
+  calcLMSColor() {
+    return new class_Color_LMS(this.get1Value(), this.get2Value(), this.get3Value());;
   }
 
   checkRGBPossiblity(){
@@ -89,25 +67,18 @@ class class_Color_LMS{
     var tmpColor = tmpRGB.calcLMSColor();
     tmpRGB.deleteReferences();
     tmpRGB=null;
-    this.lValue = tmpColor.get1Value();
-    this.mValue = tmpColor.get2Value();
-    this.sValue = tmpColor.get3Value();
+    this.value_1 = tmpColor.get1Value();
+    this.value_2 = tmpColor.get2Value();
+    this.value_3 = tmpColor.get3Value();
     tmpColor.deleteReferences();
     tmpColor=null;
   }
 
-  getRGBString() {
-    var tmpRGB = this.calcRGBColor();
-    var string = tmpRGB.getRGBString();
-    tmpRGB.deleteReferences();
-    return string;
-  }
-
   calcColorBlindRGBColor(){
 
-    var newL = this.lValue * sim_AdaptiveColorblindness[0][0] + this.mValue * sim_AdaptiveColorblindness[0][1] + this.sValue * sim_AdaptiveColorblindness[0][2];
-    var newM = this.lValue * sim_AdaptiveColorblindness[1][0] + this.mValue * sim_AdaptiveColorblindness[1][1] + this.sValue * sim_AdaptiveColorblindness[1][2];
-    var newS = this.lValue * sim_AdaptiveColorblindness[2][0] + this.mValue * sim_AdaptiveColorblindness[2][1] + this.sValue * sim_AdaptiveColorblindness[2][2];
+    var newL = this.value_1 * sim_AdaptiveColorblindness[0][0] + this.value_2 * sim_AdaptiveColorblindness[0][1] + this.value_3 * sim_AdaptiveColorblindness[0][2];
+    var newM = this.value_1 * sim_AdaptiveColorblindness[1][0] + this.value_2 * sim_AdaptiveColorblindness[1][1] + this.value_3 * sim_AdaptiveColorblindness[1][2];
+    var newS = this.value_1 * sim_AdaptiveColorblindness[2][0] + this.value_2 * sim_AdaptiveColorblindness[2][1] + this.value_3 * sim_AdaptiveColorblindness[2][2];
 
     var var_X = newL * tmLMS_Selected_Inv[0][0] + newM * tmLMS_Selected_Inv[0][1] + newS * tmLMS_Selected_Inv[0][2];
     var var_Y = newL * tmLMS_Selected_Inv[1][0] + newM * tmLMS_Selected_Inv[1][1] + newS * tmLMS_Selected_Inv[1][2];

@@ -39,6 +39,7 @@ function  calcDeltaIntervalBetween_C1C2(tmpColor,tmpColor2, intervalDeltaDis, in
     case "hsv":
     case "lch":
     case "lab":
+    case "lms":
     case "din99":
       tmpDelta = calc3DEuclideanDistance(cloneColor(tmpColor),cloneColor(tmpColor2));
     break;
@@ -345,6 +346,9 @@ function calcSplineIntervalBetween_C1C2(tArray, colorsArray, curvescale, interpo
         break;
         case "hsv":
           newColor= new class_Color_HSV(colorVal1,colorVal2,colorVal3);
+          break;
+          case "lms":
+          newColor= new class_Color_LMS(colorVal1,colorVal2,colorVal3);
           break;
           case "lch":
           newColor= new class_Color_LCH(colorVal1,colorVal2,colorVal3);

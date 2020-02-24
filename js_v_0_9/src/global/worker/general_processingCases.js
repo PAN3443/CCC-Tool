@@ -60,7 +60,6 @@ function generalJSON_Processing(json){
         break;
 
       globalCMS1.clear();
-      globalCMS1.setPreventIntervals(true);
 
       globalCMS1.setInterpolationSpace(json.interpolationSpace);
       globalCMS1.setInterpolationType(json.interpolationType);
@@ -91,7 +90,7 @@ function generalJSON_Processing(json){
         globalCMS1.pushKey(tmpKey);
 
       }
-      globalCMS1.setPreventIntervals(false);
+      globalCMS1.calcNeededIntervalsColors(false,undefined,undefined);
 
     break;
 
