@@ -19,7 +19,7 @@ function extraSamplingCMS(cms){
             return;
         }
 
-        if(cms.getInterpolationSpace()!==currentPathplotSpace)
+        if(cms.getInterpolationSpace()!==currentPathplotSpace || cms.getInterpolationSpace()==="hsv" || cms.getInterpolationSpace()==="lch")
           cms.calcNeededIntervalsColors(true,"delta",undefined); // calc intervals
         else
           cms.clearIntervalColors();

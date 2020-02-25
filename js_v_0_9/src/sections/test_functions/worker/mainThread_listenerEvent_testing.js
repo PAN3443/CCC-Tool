@@ -96,32 +96,9 @@ function workerEvent_DrawTestfunction(e) {
       }
     break;
     case "sendTestfield":
-
-      reportListTestField[e.data.arrayIndex]=e.data.testField;
-
-      document.getElementById("id_Test_FunctionCollection").style.width = "0vw";
-      document.getElementById("id_Test_TestDiv").style.width = "0vw";
-      document.getElementById("id_Test_ReportDiv").style.width = "100vw";
-      document.getElementById("id_Test_pageSwitchStatus2").style.visibility = "visible";
-      document.getElementById("id_Test_pageSwitchStatus2").innerHTML = "&#x25C9;";
-      document.getElementById("id_Test_pageSwitchStatus0").innerHTML = "&#x25CE;";
-      document.getElementById("id_Test_pageSwitchStatus1").innerHTML = "&#x25CE;";
-      document.getElementById("id_Test_pageSwitchLeft").style.visibility = "visible";
-      document.getElementById("id_Test_pageSwitchRight").style.visibility = "hidden";
-      document.getElementById("id_reportPageLabelDiv").style.visibility = "visible";
-      document.getElementById("id_testPageLabel").innerHTML = "Test".bold()+" : Report/Optimization";
-      testingModus=2;
-      reportModus=0;
-      switchReportDisplay();
-
-      if(!hasDrawnReportCMS){
-        drawCanvasColormap("id_TestPage_DifReportColormap", reportColorValueDifColormap);
-        hasDrawnReportCMS=true;
-      }
-
-
-      updateReportList(e.data.arrayIndex);
-
+      testingSection.element_testReport.reportListTestField[e.data.arrayIndex]=e.data.testField;
+      testingSection.element_testReport.reportListTestField.selectedIndex = e.data.arrayIndex;
+      testingSection.element_testReport.showElement();
     break;
   }
   testingSection.worker_testInteractive_finished=true;

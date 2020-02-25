@@ -122,7 +122,93 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
   }
 
   addTestToReport(){
+    var testLabel = "";
+    var testSublabel = "";
+    var optionList = [];
 
+    switch (document.getElementById("id_TestPage_SelectNewTestType").selectedIndex) {
+      case 0:
+        testLabel = "CCCTest";
+        testSublabel = "Jump";
+        optionList = this.copyOptions(this.cccTest_NewJump_Options);
+        break;
+      case 1:
+        testLabel = "CCCTest";
+        testSublabel = "Gradient";
+        optionList = this.copyOptions(this.cccTest_NewGradient_Options);
+        break;
+      case 2:
+        testLabel = "CCCTest";
+        testSublabel = "RiVa";
+        optionList = this.copyOptions(this.cccTest_NewRidgeValley_Options);
+        break;
+      case 3:
+        testLabel = "CCCTest";
+        testSublabel = "Extrema";
+        optionList = this.copyOptions(this.cccTest_NewLocalExtrema_Options);
+        break;
+      case 4:
+        testLabel = "CCCTest";
+        testSublabel = "Frequency";
+        optionList = this.copyOptions(this.cccTest_NewFrequency_Options);
+        break;
+      case 5:
+        testLabel = "CCCTest";
+        testSublabel = "LittleBit";
+        optionList = this.copyOptions(this.cccTest_NewLittleBit_Options);
+        break;
+      case 6:
+        testLabel = "CCCTest";
+        testSublabel = "Treshold";
+        optionList = this.copyOptions(this.cccTest_NewTreshold_Options);
+        break;
+      case 7:
+        testLabel = "CCCTest";
+        testSublabel = "Topology";
+        optionList = this.copyOptions(this.cccTest_NewTopology_Options);
+        break;
+        /////////////////////////////////////
+      case 8:
+        testLabel = "Collection";
+        testSublabel = fctTest_NewLocalMin_Options[1];
+        optionList = this.copyOptions(this.fctTest_NewLocalMin_Options);
+        break;
+      case 9:
+        testLabel = "Collection";
+        testSublabel = fctTest_NewBowlShaped_Options[1];
+        optionList = this.copyOptions(this.fctTest_NewBowlShaped_Options);
+        break;
+      case 10:
+        testLabel = "Collection";
+        testSublabel = fctTest_NewValleyShaped_Options[1];
+        optionList = this.copyOptions(this.fctTest_NewValleyShaped_Options);
+        break;
+        /////////////////////////////////////
+      case 11:
+      case 12:
+      case 13:
+        testLabel = "RealData";
+        testSublabel = this.selectedRealWorldType;
+        optionList = document.getElementById("id_TestPage_FctSelection").selectedIndex;
+        break;
+    }
+    testingSection.element_testReport.reportListTestInfo.push([testLabel,testSublabel,optionList]);
+    testingSection.element_testReport.reportListTestField.push(undefined);
+    this.request_Worker_Testfield(testingSection.element_testReport.reportListTestField.length-1);
+    // switch to report page at the event, when the worker has send the testfield to the main thread
+  }
+
+  copyOptions(options) {
+    var newOptions = [];
+    for (var i = 0; i < options.length; i++) {
+      if (Array.isArray(options[i])) {
+        newOptions.push(this.copyOptions(options[i]));
+      } else {
+        var tmp = options[i];
+        newOptions.push(tmp);
+      }
+    }
+    return newOptions;
   }
 
   showElement(){

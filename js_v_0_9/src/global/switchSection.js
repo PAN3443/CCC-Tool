@@ -1,4 +1,4 @@
-function switchSection(type){
+ function switchSection(type){
 
   switch (type) {
     case 0:
@@ -41,10 +41,11 @@ function showMyDesignsPage(){
       if(myDesignsSection.myDesignsList[editSection.myDesignID].getKeyLength()==0){
         document.getElementById("id_PopUp_AskCheck").onclick = function (){
           closeAsk();
-          myDesignsSection.deleteCMS(editSection.myDesignID);
+          myDesignsSection.selectedCMSID=editSection.myDesignID;
+          myDesignsSection.deleteSelectedCMS();
           switchSection(1);
         }
-        document.getElementById("id_askText").innerHTML="Do you really want to leave the edit page and reject unsaved content? The current saved content include an emtpy CMS and will be delted from the MyDesigns. Conitnue?";
+        document.getElementById("id_askText").innerHTML="Do you really want to leave the edit page and reject unsaved content? The current saved content include an emtpy CMS and will be removed from the MyDesigns. Conitnue?";
         openAskWindow();
       }
       else{
@@ -59,10 +60,11 @@ function showMyDesignsPage(){
     else if (editSection.editCMS.getKeyLength()==0) {
       document.getElementById("id_PopUp_AskCheck").onclick = function (){
         closeAsk();
-        myDesignsSection.deleteCMS(editSection.myDesignID);
+        myDesignsSection.selectedCMSID=editSection.myDesignID;
+        myDesignsSection.deleteSelectedCMS();
         switchSection(1);
       }
-      document.getElementById("id_askText").innerHTML="Your CMS is empty and will be deleted from the MyDesigns section. Do you want to continue?";
+      document.getElementById("id_askText").innerHTML="Your CMS is empty and will be removed from the MyDesigns section. Do you want to continue?";
       openAskWindow();
     }
     else

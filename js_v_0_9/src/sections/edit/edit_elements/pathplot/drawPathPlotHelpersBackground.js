@@ -396,8 +396,6 @@ function getLabBackground(fixedColor,hueResolution){
   var colorspaceCenterY = Math.round(hueResolution / 2);
   var colorspaceRadius = Math.round((hueResolution / 2));// * radiusratio);
 
-  var errorRGBColor = new class_Color_RGB(0.5, 0.5, 0.5);
-
   var lVal = 50;
 
   if (fixedColor!=undefined)
@@ -407,28 +405,28 @@ function getLabBackground(fixedColor,hueResolution){
 
     for (var y = 0; y < hueResolution; y++) {
 
-        // calc hsv color
-        var colorRGB;
 
         var tmpY = hueResolution-y;
         var aVal = ((x - colorspaceCenterX) / (hueResolution / 2)) * labSpaceRange;
         var bVal = ((tmpY - colorspaceCenterY) / (hueResolution / 2)) * labSpaceRange;
 
         var colorLAB = new class_Color_LAB(lVal, aVal, bVal);
-        colorRGB = colorLAB.calcRGBColor();
+        var colorRGB = undefined;
 
-        var colorLAB = new class_Color_LAB(lVal, aVal, bVal);
-
-        if (fixedColor!=undefined){
-          colorRGB = colorLAB.calcRGBColorCorrect(errorRGBColor);
-        } else{
+        if(colorLAB.checkRGBPossiblity() || fixedColor==undefined){
           colorRGB = colorLAB.calcRGBColor();
         }
-
+        else {
+          //colorRGB = new class_Color_RGB(0.5, 0.5, 0.5);
+          colorLAB.deleteReferences();
+          continue;
+        }
+        colorLAB.deleteReferences();
 
         if(doColorblindnessSim){
           var tmpLMS = colorRGB.calcLMSColor();
           colorRGB = tmpLMS.calcColorBlindRGBColor();
+          tmpLMS.deleteReferences();
         }
 
         var indices = getColorIndicesForCoord(x, y, hueResolution);
@@ -437,6 +435,7 @@ function getLabBackground(fixedColor,hueResolution){
         background.data[indices[1]] = Math.round(colorRGB.get2Value() * 255); // g
         background.data[indices[2]] = Math.round(colorRGB.get3Value() * 255); // b
         background.data[indices[3]] = 255; //a
+        colorRGB.deleteReferences();
 
     }
 
@@ -465,14 +464,11 @@ function getDIN99Background(fixedColor,hueResolution){
   var colorspaceCenterY = Math.round(hueResolution / 2);
   var colorspaceRadius = Math.round((hueResolution / 2));// * radiusratio);
 
-  var errorRGBColor = new class_Color_RGB(0.5, 0.5, 0.5);
-
   var l99Val = 50;
 
   if (fixedColor!=undefined)
     l99Val=fixedColor.getL99Value();
 
-  var colorRGB;
 
   for (var x = 0; x < hueResolution; x++) {
 
@@ -483,22 +479,26 @@ function getDIN99Background(fixedColor,hueResolution){
         var b99Val = (tmpY / hueResolution) * rangeB99 + rangeB99Neg;
 
         var colorDIN99 = new class_Color_DIN99(l99Val, a99Val, b99Val);
-
-        if (fixedColor!=undefined){
-          colorRGB = colorDIN99.calcRGBColorCorrect(errorRGBColor);
-        } else {
+        var colorRGB = undefined;
+        if (colorDIN99.checkRGBPossiblity() || fixedColor==undefined){
           colorRGB = colorDIN99.calcRGBColor();
+        } else {
+          //colorRGB = new class_Color_RGB(0.5, 0.5, 0.5);
+          colorDIN99.deleteReferences();
+          continue;
         }
+        colorDIN99.deleteReferences();
 
-        if (colorRGB.getRValue() == 0 && colorRGB.getGValue() == 0 && colorRGB.getBValue() == 0) {
+        /*if (colorRGB.getRValue() == 0 && colorRGB.getGValue() == 0 && colorRGB.getBValue() == 0) {
             if (colorDIN99.getL99Value() != 0 || colorDIN99.getA99Value() != 0 || colorDIN99.getB99Value() != 0) {
               colorRGB = new class_Color_RGB(1, 1, 1);
             }
-        }
+        }*/
 
         if(doColorblindnessSim){
           var tmpLMS = colorRGB.calcLMSColor();
           colorRGB = tmpLMS.calcColorBlindRGBColor();
+          tmpLMS.deleteReferences();
         }
 
         var indices = getColorIndicesForCoord(x, y, hueResolution);
@@ -506,6 +506,7 @@ function getDIN99Background(fixedColor,hueResolution){
         background.data[indices[1]] = Math.round(colorRGB.get2Value() * 255); // g
         background.data[indices[2]] = Math.round(colorRGB.get3Value() * 255); // b
         background.data[indices[3]] = 255; //a
+        colorRGB.deleteReferences();
 
     }
   }

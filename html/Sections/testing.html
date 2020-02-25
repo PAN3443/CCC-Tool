@@ -290,7 +290,7 @@
               <button id="id_TestPage_CalcButton" class="class_coloredButton_Dark" onclick="testingSection.element_singleTest.updateElement()" style="width:90%; margin:auto; margin-top:1vh; height:3vh; line-height:3vh; font-size:2vh; margin-bottom:1vh; border: 0.2vh solid var(--main-sepArea-border);">Update Field</button>
             </div>
             <div style="width:100%; height:5vh; display:flex;">
-              <button class="class_coloredButton_Deactivated" style="width:90%; margin:auto; margin-top:1vh; height:3vh; line-height:3vh; font-size:2vh; margin-bottom:1vh; border: 0.2vh solid var(--main-sepArea-border);">Add To Report</button><!--onclick="testingSection.element_singleTest.addTestToReport()"-->
+              <button class="class_coloredButton_Dark" onclick="testingSection.element_singleTest.addTestToReport()" style="width:90%; margin:auto; margin-top:1vh; height:3vh; line-height:3vh; font-size:2vh; margin-bottom:1vh; border: 0.2vh solid var(--main-sepArea-border);">Add To Report</button>
             </div>
         </div>
 
@@ -362,9 +362,266 @@
     </div>
 
     <!--------------------------------------------------------------------------
-    ----------------------- Test Interactive -------------------------------
+    ----------------------- Test Report -------------------------------
     -------------------------------------------------------------------------->
     <div id="id_Test_ReportDiv" style="width:0vw; height:90vh; background: var(--main-sepArea-border);">
+
+      <div style="display:flex; width:100vw; height:90vh; margin:auto;">
+        <div style="margin: auto; width:20vw; max-width:20vw; height:90vh; display:flex; background: var(--main-sepArea-bg); flex-direction:column;">
+          <select id="id_TestPage_ReportList" name="Report Test List" size="15" style="width:16vw; display:block;" >
+
+          </select>
+
+          <button class="class_generalbutton" onclick="remove_Report()" style="width:15vw; margin-top:1vh; margin-left:2.5vw; margin-bottom:1vh; display:block;">Remove Test</button>
+
+          <hr>
+          <p id="id_ReportTest_Type" style="color: var(--main-sepArea-font-color);" >Type:</p>
+          <p id="id_ReportTest_Name"  style="color: var(--main-sepArea-font-color);">Name:</p>
+          <p id="id_ReportTest_Settings" style="color: var(--main-sepArea-font-color);" >Settings:</p>
+        </div>
+
+        <div style="margin: auto; display:flex; flex-direction:column;">
+
+
+        <div style="margin:auto; ">
+  <div class="row" style="padding-bottom:0.5vh; padding-top:0.5vh; background: var(--main-sepArea-bg); ">
+      <p style="text-align:center; color:var(--main-sepArea-font-color); width: 20vw; max-width:32vh;"> Values (Grey Scaled)</p>
+      <p style="text-align:center; color:var(--main-sepArea-font-color); width: 20vw; max-width:32vh;">CMS Colormapping</p>
+      <p style="text-align:center; color:var(--main-sepArea-font-color); width: 20vw; max-width:32vh;">Pixel Observer</p>
+  </div>
+
+
+  <div class="row">
+    <div id="id_TestPage_ReportOrginalCDiv" style="position: relative; width: 20vw; max-width:32vh; height: 32vh; max-height:20vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
+      <canvas id="id_TestPage_ReportOrginalGCanvas" style="position: absolute; left: 0; top: 0; z-index: 0; width: 100%; height: 100%;">
+
+      </canvas>
+      <canvas id="id_TestPage_ReportOrginalGCanvas_Pixel" style="position: absolute; left: 0; top: 0; z-index: 1; width: 100%; height: 100%;">
+
+      </canvas>
+    </div>
+    <div id="id_TestPage_ReportOrginalGDiv" style="position: relative; width: 20vw; max-width:32vh; height: 32vh; max-height:20vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
+      <canvas id="id_TestPage_ReportOrginalCCanvas" style="position: absolute; left: 0; top: 0; z-index: 0; width: 100%; height: 100%;">
+
+      </canvas>
+      <canvas id="id_TestPage_ReportOrginalCCanvas_Pixel" style="position: absolute; left: 0; top: 0; z-index: 1; width: 100%; height: 100%;">
+
+      </canvas>
+    </div>
+    <div style="display:inline-block; width: 20vw; max-width:32vh; height: 32vh; max-height:20vw; overflow-x: auto; overflow: hidden; background: rgb(240,240,240); border: 0.2vh solid black;">
+      <p id="id_pixelPreviewModus" style="margin-bottom: 1vh; text-align: center; width: 100%;"> </p>
+
+        <div class="row" style="width:100%;">
+
+              <div id="id_report_pixelPreview00" class="class_pixelColorPreviewDiv" style="margin-left:auto;">
+
+              </div>
+
+              <div class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none;">
+
+              </div>
+
+              <div id="id_report_pixelPreview01" class="class_pixelColorPreviewDiv">
+
+              </div>
+
+              <div class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none;">
+
+              </div>
+
+              <div id="id_report_pixelPreview02" class="class_pixelColorPreviewDiv" style="margin-right:auto;">
+
+              </div>
+
+        </div>
+
+        <div class="row" style="width:100%;">
+              <div class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none; margin-left:auto;">
+              </div>
+
+              <svg id="id_report_linePreview00" class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none;">
+                <text x="5%" y="55%" >1</text>
+                <line x1="10%" y1="10%" x2="90%" y2="90%"/>
+              </svg>
+
+              <svg id="id_report_linePreview01" class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none;">
+               <text x="5%" y="55%" fill="black">2</text>
+               <line x1="50%" y1="10%" x2="50%" y2="90%" />
+              </svg>
+
+              <svg id="id_report_linePreview02" class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none;">
+                <text x="5%" y="55%" >3</text>
+                <line x1="10%" y1="90%" x2="90%" y2="10%" />
+              </svg>
+
+              <div class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none; margin-right:auto;">
+              </div>
+        </div>
+
+        <div class="row" style="width:100%;">
+
+              <div id="id_report_pixelPreview10" class="class_pixelColorPreviewDiv" style="margin-left:auto;">
+
+              </div>
+
+              <svg id="id_report_linePreview10" class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none;">
+               <text x="40%" y="40%" fill="black">4</text>
+               <line x1="10%" y1="50%" x2="90%" y2="50%" />
+              </svg>
+
+              <div id="id_report_pixelPreview11" class="class_pixelColorPreviewDiv" style="border: 0.5vh solid black;">
+
+              </div>
+
+              <svg id="id_report_linePreview12" class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none;">
+                <text x="40%" y="40%" fill="black">5</text>
+                <line x1="10%" y1="50%" x2="90%" y2="50%" />
+              </svg>
+
+              <div id="id_report_pixelPreview12" class="class_pixelColorPreviewDiv" style="margin-right:auto;">
+
+              </div>
+
+        </div>
+
+        <div class="row" style="width:100%;">
+              <div class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none; margin-left:auto;">
+              </div>
+
+              <svg id="id_report_linePreview20" class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none;">
+                <text x="5%" y="55%">6</text>
+                <line x1="10%" y1="90%" x2="90%" y2="10%"/>
+              </svg>
+
+              <svg id="id_report_linePreview21" class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none;">
+               <text x="5%" y="55%" fill="black">7</text>
+               <line x1="50%" y1="10%" x2="50%" y2="90%" />
+              </svg>
+
+              <svg id="id_report_linePreview22" class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none;">
+                <text x="5%" y="50%" >8</text>
+                <line x1="10%" y1="10%" x2="90%" y2="90%" />
+              </svg>
+
+              <div class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none; margin-right:auto;">
+              </div>
+        </div>
+
+        <div class="row" style="width:100%;">
+
+              <div id="id_report_pixelPreview20" class="class_pixelColorPreviewDiv" style="margin-left:auto;">
+
+              </div>
+
+              <div class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none;">
+              </div>
+
+              <div id="id_report_pixelPreview21" class="class_pixelColorPreviewDiv">
+
+              </div>
+
+              <div class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none;">
+              </div>
+
+              <div id="id_report_pixelPreview22" class="class_pixelColorPreviewDiv" style="margin-right:auto;">
+
+              </div>
+
+        </div>
+
+
+
+    </div>
+  </div>
+
+  <div class="row" style="padding-bottom:0.5vh; padding-top:0.5vh; background: var(--main-sepArea-bg); ">
+      <p style="text-align:center; color:var(--main-sepArea-font-color); width: 20vw; max-width:32vh;">N(&#916; Value)</p>
+      <p style="text-align:center; color:var(--main-sepArea-font-color); width: 20vw; max-width:32vh;">N(&#916; Color-Metric)</p>
+      <div style="display: flex; color:var(--main-sepArea-font-color); width: 20vw; max-width:32vh;">
+        <p style="margin-left:auto; margin-top: auto; margin-bottom:auto; margin-right: 0.25vw; color:var(--main-sepArea-font-color);">Ratio (</p>
+         <div style="margin-top: auto; margin-bottom:auto;">
+           <p style="font-size:1vh; line-height:1.2vh; color:var(--main-sepArea-font-color);">N(&#916; Color-Metric)</p>
+           <p style="font-size:1vh; line-height:1.2vh; border-top: 0.2vh solid var(--main-sepArea-border); color:var(--main-sepArea-font-color);">N(&#916; Value)</p>
+         </div>
+        <p style="margin-top: auto; margin-bottom:auto; margin-left: 0.25vw; margin-right:auto; color:var(--main-sepArea-font-color);">)</p></p>
+      </div>
+  </div>
+
+  <div class="row">
+    <div id="id_TestPage_Report0Div" style="position: relative; width: 20vw; max-width:32vh; height: 32vh; max-height:20vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
+      <canvas id="id_TestPage_Report0Canvas" style="position: absolute; left: 0; top: 0; z-index: 0; width: 100%; height: 100%;">
+
+      </canvas>
+      <canvas id="id_TestPage_Report0Canvas_Pixel" style="position: absolute; left: 0; top: 0; z-index: 1; width: 100%; height: 100%;">
+
+      </canvas>
+    </div>
+    <div id="id_TestPage_Report1Div" style="position: relative; width: 20vw; max-width:32vh; height: 32vh; max-height:20vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
+      <canvas id="id_TestPage_Report1Canvas" style="position: absolute; left: 0; top: 0; z-index: 0; width: 100%; height: 100%;">
+
+      </canvas>
+      <canvas id="id_TestPage_Report1Canvas_Pixel" style="position: absolute; left: 0; top: 0; z-index: 1; width: 100%; height: 100%;">
+
+      </canvas>
+    </div>
+    <div id="id_TestPage_Report2Div" style="position: relative; width: 20vw; max-width:32vh; height: 32vh; max-height:20vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black;">
+      <canvas id="id_TestPage_Report2Canvas" style="position: absolute; left: 0; top: 0; z-index: 0; width: 100%; height: 100%;">
+
+      </canvas>
+      <canvas id="id_TestPage_Report2Canvas_Pixel" style="position: absolute; left: 0; top: 0; z-index: 1; width: 100%; height: 100%;">
+
+      </canvas>
+    </div>
+  </div>
+
+
+  <div class="row" style="width: 100%; background: var(--main-sepArea-bg);">
+    <p style="margin:auto; margin-left:1vw; margin-right:1vw; color:var(--main-sepArea-font-color);">Notebook-Zoom:</p>
+    <input id="id_Test_RatioReport_Zoom" type="range" step="1" min="100" max="1500" value="100" style="width:40%; margin-right:auto;" onchange="ratioReportZoom()">
+
+    <p style="margin:auto; margin-left:auto; margin-right:1vw; color:var(--main-sepArea-font-color);">Mark Cursor:</p>
+    <input id="id_Test_RatioReport_DoMarkedCursor" type="checkbox" name="MarkCursor" style="margin-right:auto;" onchange="changeMarkReportCursor()" checked>
+
+  </div>
+
+  <div style="width:60vw; max-width:96vh; display:flex;">
+    <div style="width:10%; display:none;">
+      <div id="id_TestPage_DifReportBelowColor" style="width:100%; border:0.2vh solid var(--main-sepArea-bg); border-top:none; height:3vh;">
+
+      </div>
+      <div style="width:100%; height:0.5vh; border-right: 0.2vh solid var(--main-sepArea-border);">
+
+      </div>
+      <p style=" width:100%; text-align:center;"> ( &#60; -1 ) </p>
+    </div>
+    <div style="width:100%;">
+      <canvas id="id_TestPage_DifReportColormap" style="width:100%; border-bottom:0.2vh solid var(--main-sepArea-bg); height:3vh; margin: 0px;">
+
+      </canvas>
+      <div style="width:50%; height:0.5vh; border-right: 0.2vh solid var(--main-sepArea-border);">
+
+      </div>
+      <div class="row" style="width:100%;">
+        <p style="margin-right:auto; text-align: left;"> -1 </p>
+        <p style="text-align: center;"> 0 </p>
+        <p style="margin-left:auto; text-align: right;"> 1 </p>
+      </div>
+    </div>
+    <div style="width:10%; display:none;">
+      <div id="id_TestPage_DifReportAboveColor" style="width:100%; border:0.2vh solid var(--main-sepArea-bg); border-top:none; height:3vh;">
+
+      </div>
+      <div style="width:100%; height:0.5vh; border-left: 0.2vh solid var(--main-sepArea-border);">
+
+      </div>
+      <p style=" width:100%; text-align:center;"> ( &#62; 1 ) </p>
+    </div>
+  </div>
+</div>
+
+
+        </div>
+      </div>
     </div>
 
 </div>
@@ -385,7 +642,7 @@
     Interactive Testing
   </div>
 
-  <div id="id_Test_SwitchToReport" class="class_coloredButton_Deactivated" style="margin:auto; height:5vh; line-height:5vh; font-size: 3vh; width:18vw;"> <!--onclick="testingSection.element_testReport.showElement()"-->
+  <div id="id_Test_SwitchToReport" class="class_coloredButton" onclick="testingSection.element_testReport.showElement()" style="margin:auto; height:5vh; line-height:5vh; font-size: 3vh; width:18vw;">
     Report
   </div>
 
