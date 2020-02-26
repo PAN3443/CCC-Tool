@@ -97,7 +97,6 @@ function workerEvent_DrawTestfunction(e) {
     break;
     case "sendTestfield":
       testingSection.element_testReport.reportListTestField[e.data.arrayIndex]=e.data.testField;
-      testingSection.element_testReport.reportListTestField.selectedIndex = e.data.arrayIndex;
       testingSection.element_testReport.showElement();
     break;
   }
@@ -106,7 +105,6 @@ function workerEvent_DrawTestfunction(e) {
 
 
 function workerEvent_GetReport(e){
-
   switch (e.data.type) {
     case 0:
       switch (e.data.subtype) {
@@ -125,19 +123,19 @@ function workerEvent_GetReport(e){
           break;
           case "statistics":
 
-          valueDifInfo = e.data.valueDifInfo;
-          colorDifInfo = e.data.colorDifInfo;
-          valueRatioInfo = e.data.valueRatioInfo;
-          colorRatioInfo = e.data.colorRatioInfo;
-          subtractionInfo = e.data.subtractionInfo;
+          testingSection.element_testReport.valueDifInfo = e.data.valueDifInfo;
+          testingSection.element_testReport.colorDifInfo = e.data.colorDifInfo;
+          testingSection.element_testReport.valueRatioInfo = e.data.valueRatioInfo;
+          testingSection.element_testReport.colorRatioInfo = e.data.colorRatioInfo;
+          testingSection.element_testReport.ratioInfo = e.data.subtractionInfo;
 
-          var valueDifStat = e.data.valueDifStat;
+          /*var valueDifStat = e.data.valueDifStat;
           var colorDifStat = e.data.colorDifStat;
           var valueRatioStat = e.data.valueRatioStat;
           var colorRatioStat = e.data.colorRatioStat;
           var subtractionStat = e.data.subtractionStat;
 
-          document.getElementById("id_ratioReportValueDifMax").innerHTML = valueDifStat[1].toFixed(3)+" ("+valueRatioStat[1].toFixed(3)+")";
+          /*document.getElementById("id_ratioReportValueDifMax").innerHTML = valueDifStat[1].toFixed(3)+" ("+valueRatioStat[1].toFixed(3)+")";
           document.getElementById("id_ratioReportValueDifMin").innerHTML = valueDifStat[0].toFixed(3)+" ("+valueRatioStat[0].toFixed(3)+")";
           document.getElementById("id_ratioReportValueDifAvg").innerHTML = valueDifStat[2].toFixed(3)+" ("+valueRatioStat[2].toFixed(3)+")";
           document.getElementById("id_ratioReportValueDifVar").innerHTML = valueDifStat[3].toFixed(3)+" ("+valueRatioStat[3].toFixed(3)+")";
@@ -170,7 +168,7 @@ function workerEvent_GetReport(e){
           document.getElementById("id_ratioReportSubVar").title = subtractionStat[3];
           document.getElementById("id_ratioReportSubDev").title = subtractionStat[4];
 
-          fillSubReportTable(undefined,undefined);
+          fillSubReportTable(undefined,undefined);*/
 
           break;
       }

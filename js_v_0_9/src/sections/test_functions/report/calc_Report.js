@@ -4,7 +4,6 @@ function getRatioDifField(testfield, colorField, colorDifType){
   ////  Step 1: Calc Value Dif and Color Dif
   ////////////////////////////////////////////
 
-
   var xColorDifArray = [];
   var yColorDifArray = [];
   var diagonal1ColorDifArray = []; // x+1, y+1
@@ -380,15 +379,15 @@ function makeRatioField(array2D, min, max){
 
 function getColorDif(colorDifType, c1, c2){
   switch (colorDifType) {
-    case 0: //
-    case 3:
-      return calc3DEuclideanDistance(c1,c2);
+    case "lab": //
+    case "din99":
+      return calc3DEuclideanDistance(cloneColor(c1),cloneColor(c2));
     break;
-    case 1:
-      return calcDeltaDE94(c1,c2);
+    case "de94":
+      return calcDeltaDE94(cloneColor(c1),cloneColor(c2));
     break;
-    case 2:
-      return calcDeltaCIEDE2000(c1,c2);
+    case "de2000":
+      return calcDeltaCIEDE2000(cloneColor(c1),cloneColor(c2));
     break;
   }
 }

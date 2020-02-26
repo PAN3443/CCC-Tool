@@ -33,10 +33,26 @@ var cielab_ref_Z = 107.304;
 
 // Simulation Colorblindness
 var doColorblindnessSim = false;
-var tmXYZ_Selected = undefined;
-var tmXYZ_Selected_Inv = undefined;
-var tmLMS_Selected = undefined;
-var tmLMS_Selected_Inv = undefined;
+var tmXYZ_Selected = [
+  [0.4124564, 0.3575761, 0.1804375],
+  [0.2126729, 0.7151522, 0.0721750],
+  [0.0193339, 0.1191920, 0.9503041]
+];
+var tmXYZ_Selected_Inv = [
+  [3.2404542, -1.5371385, -0.4985314],
+  [-0.9692660, 1.8760108, 0.0415560],
+  [0.0556434, -0.2040259, 1.0572252]
+];
+var tmLMS_Selected = [
+  [0.38971, 0.68898, -0.07868],
+  [-0.22981, 1.18340, 0.04641],
+  [0, 0, 1]
+];
+var tmLMS_Selected_Inv = [
+  [5917000000 / 3097586539, -3444900000 / 3097586539, 625427369 / 3097586539],
+  [1149050000 / 3097586539, 1948550000 / 3097586539, -49903 / 6195173078],
+  [0, 0, 1]
+];
 var sim_AdaptiveColorblindness = undefined;
 
 // CMS
@@ -85,14 +101,8 @@ self.addEventListener('message', function(e) {
 
 
       globalCMS1 = new class_CMS();
+
       ratioDifCMS = new class_CMS();
-      greyScaledCMS = new class_CMS();
-      reportType = e.data.reportType;
-
-    break;
-
-    case "defineReportCMS":
-
       ratioDifCMS.pushKey(new class_Key(undefined, new class_Color_DIN99(29.581458825788705,16.03125,-26.896446228027347), -1, false));
       ratioDifCMS.pushKey(new class_Key(new class_Color_DIN99(55.87141911613874,-7.531250000000001,-28.383946228027348), new class_Color_DIN99(55.87141911613874,-7.531250000000001,-28.383946228027348), -0.6446462116468379, false));
       ratioDifCMS.pushKey(new class_Key(new class_Color_DIN99(81.87664737898814,-20.531249999999996,-9.790196228027346), new class_Color_DIN99(81.87664737898814,-20.531249999999996,-9.790196228027346), -0.2977457733249843, false));
@@ -106,15 +116,16 @@ self.addEventListener('message', function(e) {
       ratioDifCMS.calcNeededIntervalsColors(false,undefined,undefined);
 
       greyScaledCMS = new class_CMS();
+      greyScaledCMS = new class_CMS();
       greyScaledCMS.pushKey(new class_Key(undefined, new class_Color_LAB(0,0,0), 0, false));
       greyScaledCMS.pushKey(new class_Key(new class_Color_LAB(100,0,0), undefined, 1, false));
       greyScaledCMS.setInterpolationSpace("de2000-ds");
       greyScaledCMS.calcNeededIntervalsColors(false,undefined,undefined);
 
-
+      reportType = e.data.reportType;
 
     break;
-    case "Testfield":
+    case "calcReport_New_Testfield":
       testfield = e.data.testfield;
       reportOptions_ColorDif= e.data.reportOptions_ColorDif;
       calcColorField();
@@ -122,13 +133,12 @@ self.addEventListener('message', function(e) {
       sendReportGreyImage();
       startReportCalc();
     break;
-    case "calcTensorField":
+    case "calcReport_New_Setting":
       reportOptions_ColorDif= e.data.reportOptions_ColorDif;
       calcColorField();
-      //sendReportOriginalImage();
       startReportCalc();
     break;
-    case "calcReport":
+    case "calcReport_New_CMS":
       // new CMS
       calcColorField();
       sendReportOriginalImage();
@@ -145,27 +155,26 @@ self.addEventListener('message', function(e) {
 
 function startReportCalc() {
 
-  switch (reportType) {
-    case 0:
+  /*switch (reportType) {
+    case 0:*/
 
-      ratioFields = getRatioDifField(testfield, colorfield, reportOptions_ColorDif);
-
+      ratioFields = getRatioDifField(testfield, colorField, reportOptions_ColorDif);
       var answerJSON = {};
-      answerJSON['type'] = reportType;
+      answerJSON['type'] = 0;
       answerJSON['subtype'] = "reportIMG"
       answerJSON['canvasID'] = "id_TestPage_Report0Canvas";
       answerJSON['imageData'] = ratioFields[0];
       self.postMessage(answerJSON);
 
       answerJSON = {};
-      answerJSON['type'] = reportType;
+      answerJSON['type'] = 0;
       answerJSON['subtype'] = "reportIMG"
       answerJSON['canvasID'] = "id_TestPage_Report1Canvas";
       answerJSON['imageData'] = ratioFields[1];
       self.postMessage(answerJSON);
 
       answerJSON = {};
-      answerJSON['type'] = reportType;
+      answerJSON['type'] = 0;
       answerJSON['subtype'] = "reportIMG"
       answerJSON['canvasID'] = "id_TestPage_Report2Canvas";
       answerJSON['imageData'] = ratioFields[2];
@@ -175,7 +184,7 @@ function startReportCalc() {
       //// calc statistics
 
       answerJSON = {};
-      answerJSON['type'] = reportType;
+      answerJSON['type'] = 0;
       answerJSON['subtype'] = "statistics"
       answerJSON['valueDifInfo'] = ratioFields[3];
       answerJSON['valueDifStat'] = calcSubReportStatisics(ratioFields[3]);
@@ -190,8 +199,8 @@ function startReportCalc() {
 
       self.postMessage(answerJSON);
 
-    break;
-  }
+  /*  break;
+}*/
 
 }
 
@@ -253,9 +262,9 @@ function calcColorField() {
   var yDim = testfield[0].length;
 
   switch (reportOptions_ColorDif) {
-    case 0: //
-    case 1:
-    case 2:
+    case "lab": //
+    case "de94":
+    case "de2000":
       for (var x = 0; x < xDim; x++) {
         var tmpArray = [];
         for (var y = 0; y < yDim; y++) {
@@ -264,10 +273,10 @@ function calcColorField() {
           tmpRGB.deleteReferences();
           tmpArray.push(labColor);
         }
-        tmpColorField.push(tmpArray);
+        colorField.push(tmpArray);
       }
       break;
-    case 3:
+    case "din99":
       for (var x = 0; x < xDim; x++) {
         var tmpArray = [];
         for (var y = 0; y < yDim; y++) {
@@ -276,11 +285,11 @@ function calcColorField() {
           tmpRGB.deleteReferences();
           tmpArray.push(dinColor);
         }
-        tmpColorField.push(tmpArray);
+        colorField.push(tmpArray);
       }
+
       break;
   }
-
 
 }
 
@@ -290,12 +299,12 @@ function sendReportOriginalImage(){
   answerJSON['type'] = 0;
   answerJSON['subtype'] = "reportIMG"
   answerJSON['canvasID'] = "id_TestPage_ReportOrginalCCanvas";
-  var imgData = new ImageData(colorfield.length, colorfield[0].length);
-  var maxHeightIndex = colorfield[0].length - 1;
-  for (var y = 0; y < colorfield[0].length; y++) {
-    for (var x = 0; x < colorfield.length; x++) {
-      var colorRGB = colorfield[x][y].calcRGBColor();
-      var indices = getColorIndicesForCoord(x, maxHeightIndex - y, colorfield.length);
+  var imgData = new ImageData(colorField.length, colorField[0].length);
+  var maxHeightIndex = colorField[0].length - 1;
+  for (var y = 0; y < colorField[0].length; y++) {
+    for (var x = 0; x < colorField.length; x++) {
+      var colorRGB = colorField[x][y].calcRGBColor();
+      var indices = getColorIndicesForCoord(x, maxHeightIndex - y, colorField.length);
       imgData.data[indices[0]] = Math.round(colorRGB.get1Value() * 255); // r
       imgData.data[indices[1]] = Math.round(colorRGB.get2Value() * 255); // g
       imgData.data[indices[2]] = Math.round(colorRGB.get3Value() * 255); // b

@@ -41,9 +41,13 @@ class class_TestFunction_Section extends class_Section {
     document.getElementById('id_Test_MeshVisDivGreyFull').addEventListener("wheel", tm_3D_mousewheel);
     ////// Init interactive Tests
 
+    
+
     this.element_singleTest = new class_Element_SingleTest("id_Test_SingleTestDiv","id_Test_SwitchToSingleTest");
     this.element_testCollection = new class_Element_Collection("id_Test_FunctionCollection","id_Test_SwitchToCollection");
     this.element_testReport = new class_Element_TestReport("id_Test_ReportDiv","id_Test_SwitchToReport");
+
+
 
   }
 
@@ -89,6 +93,7 @@ class class_TestFunction_Section extends class_Section {
     this.element_testCollection.worker_testCollection_Collection.postMessage(cmsJSON);
     this.element_testCollection.worker_testCollection_RealWorldData.postMessage(cmsJSON);
     this.element_singleTest.worker_testInteractive.postMessage(cmsJSON);
+    this.element_testReport.worker_testreport.postMessage(cmsJSON);
     this.testingCMS.drawCMS_Horizontal("id_TestPage_CMS_VIS_ColormapLinear", 1000, 1);
     super.showSection();
     this.element_testCollection.showElement();
@@ -117,8 +122,11 @@ class class_TestFunction_Section extends class_Section {
 
   updateSection() {
     this.element_singleTest.updateElement();
+
     this.element_testCollection.updateElement();
-    this.element_testReport.updateElement();
+
+    if(this.element_testReport.isElementOpen())
+      this.element_testReport.updateElement();
   }
 
   selectTestingCMS(){
@@ -140,18 +148,21 @@ class class_TestFunction_Section extends class_Section {
     this.element_testCollection.worker_testCollection_Collection.postMessage(workerJSON);
     this.element_testCollection.worker_testCollection_RealWorldData.postMessage(workerJSON);
     this.element_singleTest.worker_testInteractive.postMessage(workerJSON);
+    this.element_testReport.worker_testreport.postMessage(workerJSON);
 
     workerJSON = json_message_colorSettingsInfo();
     this.element_testCollection.worker_testCollection_CCCTest.postMessage(workerJSON);
     this.element_testCollection.worker_testCollection_Collection.postMessage(workerJSON);
     this.element_testCollection.worker_testCollection_RealWorldData.postMessage(workerJSON);
     this.element_singleTest.worker_testInteractive.postMessage(workerJSON);
+    this.element_testReport.worker_testreport.postMessage(workerJSON);
 
     workerJSON = json_message_metricInfo();
     this.element_testCollection.worker_testCollection_CCCTest.postMessage(workerJSON);
     this.element_testCollection.worker_testCollection_Collection.postMessage(workerJSON);
     this.element_testCollection.worker_testCollection_RealWorldData.postMessage(workerJSON);
     this.element_singleTest.worker_testInteractive.postMessage(workerJSON);
+    this.element_testReport.worker_testreport.postMessage(workerJSON);
   }
 
   };
