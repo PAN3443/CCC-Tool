@@ -6,6 +6,28 @@ window.onload = function() {
 
   includeHTML();
 
+
+    /*if (window.Worker) {
+      var script = document.createElement('script');
+      script.onload = function () {
+        finishedLoadingScripts();
+      };
+      script.src = "js_v_0_9/src/sections/edit/edit_elements/pathplot/worker/mainThread_listenerEvent_pathplot.js";
+      document.head.appendChild(script);
+
+    }
+    else {*/
+      var script = document.createElement('script');
+      script.onload = function () {
+        finishedLoadingScripts();
+      };
+      script.src = "js_v_0_9/src/sections/edit/edit_elements/pathplot/pp_background.js";
+      document.head.appendChild(script);
+    //}
+
+}
+
+function finishedLoadingScripts(){
   // init section object
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Welcome Section";
   welcomeSection = new class_Welcome_Section();
@@ -55,6 +77,7 @@ window.onload = function() {
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Loading Finished";
   welcomeSection.updateSection();
 }
+
 
 window.onresize = function(event) {
 

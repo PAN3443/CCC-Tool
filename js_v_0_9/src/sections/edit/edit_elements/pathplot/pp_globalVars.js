@@ -16,10 +16,10 @@ var rangeB99 = rangeB99Pos - rangeB99Neg;
 
 var pathplotLines = [];
 var pathplotLinesDashed = [];
-var pathplotLinesVPlot=[];
+var pathplotLinesLineChart=[];
 
 var pathplotElementPositions = [];
-var vPlotElementPositions=[];
+var lineChartElementPositions=[];
 
 var pathplotIntervalDelta_rgb = 0.1; // hsv and rgb are values from 0 till 1.0
 var pathplotIntervalDelta_hsv = 0.1; //

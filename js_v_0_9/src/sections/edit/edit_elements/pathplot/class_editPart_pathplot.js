@@ -11,8 +11,8 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     this.pathplot_space = "hsv";
 
     this.pathplot_hueRes = 500;
-    this.vPlotHeight = 500;
-    this.vPlotWidth = 1500;
+    this.lineChart_Height = 500;
+    this.lineChart_Width = 1500;
 
     // PathPlot::Event
     this.mouseAboveKeyID=-1;
@@ -26,7 +26,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     this.pp_canvas_xWidth = undefined;
     this.pp_canvas_yHeight = undefined;
     this.pp_currentColor = undefined;
-    this.pp_isVPlot =false;
+    this.pp_isLineChart =false;
 
     // PathPlot 3D
     this.pp_doAnimation = false;
@@ -49,6 +49,15 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     this.mousePosY =0;
     this.translationBorder = 200;
 
+    ///////////////////////////////////////////
+    /// WORKER
+    this.pathplot_worker_background = undefined;
+    /*if (window.Worker) {
+      this.pathplot_worker_background= new Worker(version_JS_FolderName+"/src/sections/edit/edit_elements/pathplot/worker/worker_pp_background.js"); //, { type: "module" });
+      this.pathplot_worker_background.postMessage({'message':'init'});
+      this.pathplot_worker_background.addEventListener('message', workerEvent_Draw_PP_Background, false);
+    }*/
+
     this.pp_3D_init();
   }
 
@@ -58,7 +67,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     }
   }
 
-  updatePart(doBackground,doInterpolationline, initVPlot){
+  updatePart(doBackground,doInterpolationline, initLineChart){
     if(!super.updatePart())
       return;
 
@@ -68,10 +77,10 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
         break;
         case "rgb-line":
         case "lms":
-          this.pp_drawRGBorLMS_LineChart(doInterpolationline, initVPlot);
+          this.pp_drawRGBorLMS_LineChart(doInterpolationline, initLineChart);
         break;
         default:
-          this.pp_drawOthers(doBackground, doInterpolationline, initVPlot);
+          this.pp_drawOthers(doBackground, doInterpolationline, initLineChart);
       }
   }
 
@@ -394,7 +403,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
   }
 
   pp_setCanvasMode(id){
-    this.pp_isVPlot =false;
+    this.pp_isLineChart =false;
     this.pp_CanvasMode = id.slice(-2);
     this.circleRad=Math.round(this.pathplot_hueRes*0.015);
     this.bigcircleRad=Math.round(this.pathplot_hueRes*0.03);
@@ -419,16 +428,16 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
 
         break;
         default:
-          this.pp_isVPlot =true;
-          this.circleRad = Math.round(this.vPlotHeight*0.03);
-          this.bigcircleRad = Math.round(this.vPlotHeight*0.06);
+          this.pp_isLineChart =true;
+          this.circleRad = Math.round(this.lineChart_Height*0.03);
+          this.bigcircleRad = Math.round(this.lineChart_Height*0.06);
 
-          this.pp_canvas_xStart = this.vPlotWidth*0.1;
-          var pp_canvas_xEnd = this.vPlotWidth*0.98;
+          this.pp_canvas_xStart = this.lineChart_Width*0.1;
+          var pp_canvas_xEnd = this.lineChart_Width*0.98;
           this.pp_canvas_xWidth = pp_canvas_xEnd-this.pp_canvas_xStart;
 
-          this.pp_canvas_yStart = this.vPlotHeight*0.9;
-          var pp_canvas_yEnd = this.vPlotHeight*0.1;
+          this.pp_canvas_yStart = this.lineChart_Height*0.9;
+          var pp_canvas_yEnd = this.lineChart_Height*0.1;
           this.pp_canvas_yHeight =this.pp_canvas_yStart-pp_canvas_yEnd;
         }
     }
@@ -497,10 +506,10 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     this.pp_ElementGroup=drawPathplot3DElements(this.pp_ElementGroup,this.mouseAboveKeyID,this.mouseGrappedColorSide);
   }
 
-  pp_drawRGBorLMS_LineChart(doInterpolationline, initVPlot){
+  pp_drawRGBorLMS_LineChart(doInterpolationline, initLineChart){
 
-    if (initVPlot)
-      this.pp_init_VPlot();
+    if (initLineChart)
+      this.pp_init_LineChart();
 
     if (drawInterpolationLine)
       this.pp_rgblms_LineChart_interpolationLine();
@@ -510,32 +519,32 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
 
   pp_rgblms_LineChart_drawElements(){
     var canvasObj0 = document.getElementById(this.partDivID+"_PP_C1_l2");
-    canvasObj0.width = this.vPlotWidth;
-    canvasObj0.height = this.vPlotHeight;
+    canvasObj0.width = this.lineChart_Width;
+    canvasObj0.height = this.lineChart_Height;
 
     var canvasObj1 = document.getElementById(this.partDivID+"_PP_C2_l2");
-    canvasObj1.width = this.vPlotWidth;
-    canvasObj1.height = this.vPlotHeight;
+    canvasObj1.width = this.lineChart_Width;
+    canvasObj1.height = this.lineChart_Height;
 
     var canvasObj2 = document.getElementById(this.partDivID+"_PP_C3_l2");
-    canvasObj2.width = this.vPlotWidth;
-    canvasObj2.height = this.vPlotHeight;
+    canvasObj2.width = this.lineChart_Width;
+    canvasObj2.height = this.lineChart_Height;
 
     switch (this.pathplot_space) {
       case "rgb-line":
-          calcRGBLineElements(this.getParentCMS(),this.vPlotWidth,this.vPlotHeight);
+          calcRGBLineElements(this.getParentCMS(),this.lineChart_Width,this.lineChart_Height);
         break;
         case "lms":
-          calcLMSElements(this.getParentCMS(),this.vPlotWidth,this.vPlotHeight);
+          calcLMSElements(this.getParentCMS(),this.lineChart_Width,this.lineChart_Height);
           break;
       default:
         return;
 
     }
 
-    drawVplotElements(canvasObj0.getContext("2d"),0,this.mouseAboveKeyID,this.mouseGrappedColorSide);
-    drawVplotElements(canvasObj1.getContext("2d"),1,this.mouseAboveKeyID,this.mouseGrappedColorSide);
-    drawVplotElements(canvasObj2.getContext("2d"),2,this.mouseAboveKeyID,this.mouseGrappedColorSide);
+    drawLineChartElements(canvasObj0.getContext("2d"),0,this.mouseAboveKeyID,this.mouseGrappedColorSide);
+    drawLineChartElements(canvasObj1.getContext("2d"),1,this.mouseAboveKeyID,this.mouseGrappedColorSide);
+    drawLineChartElements(canvasObj2.getContext("2d"),2,this.mouseAboveKeyID,this.mouseGrappedColorSide);
 
     this.pp_ElementGroup=drawPathplot3DElements(this.pp_ElementGroup,this.mouseAboveKeyID,this.mouseGrappedColorSide);
 
@@ -543,41 +552,41 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
 
   pp_rgblms_LineChart_interpolationLine(){
     var canvasObj0 = document.getElementById(this.partDivID+"_PP_C1_l1");
-    canvasObj0.width = this.vPlotWidth;
-    canvasObj0.height = this.vPlotHeight;
+    canvasObj0.width = this.lineChart_Width;
+    canvasObj0.height = this.lineChart_Height;
 
     var canvasObj1 = document.getElementById(this.partDivID+"_PP_C2_l1");
-    canvasObj1.width = this.vPlotWidth;
-    canvasObj1.height = this.vPlotHeight;
+    canvasObj1.width = this.lineChart_Width;
+    canvasObj1.height = this.lineChart_Height;
 
     var canvasObj2 = document.getElementById(this.partDivID+"_PP_C3_l1");
-    canvasObj2.width = this.vPlotWidth;
-    canvasObj2.height = this.vPlotHeight;
+    canvasObj2.width = this.lineChart_Width;
+    canvasObj2.height = this.lineChart_Height;
 
     switch (this.pathplot_space) {
       case "rgb-line":
-          calcInterpolationLine_RGBLine(this.getParentCMS(),this.vPlotWidth,this.vPlotHeight);
+          calcInterpolationLine_RGBLine(this.getParentCMS(),this.lineChart_Width,this.lineChart_Height);
         break;
         case "lms":
-          calcInterpolationLine_LMS(this.getParentCMS(),this.vPlotWidth,this.vPlotHeight);
+          calcInterpolationLine_LMS(this.getParentCMS(),this.lineChart_Width,this.lineChart_Height);
           break;
       default:
         return;
 
     }
 
-    drawInterpolationLine_VPlot(canvasObj0.getContext("2d"), 0);
-    drawInterpolationLine_VPlot(canvasObj1.getContext("2d"), 1);
-    drawInterpolationLine_VPlot(canvasObj2.getContext("2d"), 2);
+    drawInterpolationLine_LineChart(canvasObj0.getContext("2d"), 0);
+    drawInterpolationLine_LineChart(canvasObj1.getContext("2d"), 1);
+    drawInterpolationLine_LineChart(canvasObj2.getContext("2d"), 2);
 
     this.pp_LineGroup=draw3DInterpolationLine(this.pp_LineGroup);
 
   }
 
-  pp_drawOthers(calcBackground, drawInterpolationLine, initVplot) {
+  pp_drawOthers(calcBackground, drawInterpolationLine, initLineChart) {
 
-    if (initVplot)
-      this.pp_init_VPlot();
+    if (initLineChart)
+      this.pp_init_LineChart();
 
     if (calcBackground)
       this.pp_hueInit();
@@ -627,52 +636,52 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
       }
   }
 
-  pp_init_VPlot() {
+  pp_init_LineChart() {
     var canvasObj0 = document.getElementById(this.partDivID+"_PP_C1_l0");
     var box = canvasObj0.getBoundingClientRect();
-    this.vPlotWidth = box.width;
-    this.vPlotHeight = box.height;
-    canvasObj0.width = this.vPlotWidth;
-    canvasObj0.height = this.vPlotHeight;
+    this.lineChart_Width = box.width;
+    this.lineChart_Height = box.height;
+    canvasObj0.width = this.lineChart_Width;
+    canvasObj0.height = this.lineChart_Height;
 
     var canvasObj1 = document.getElementById(this.partDivID+"_PP_C2_l0");
-    canvasObj1.width = this.vPlotWidth;
-    canvasObj1.height = this.vPlotHeight;
+    canvasObj1.width = this.lineChart_Width;
+    canvasObj1.height = this.lineChart_Height;
 
     var canvasObj2 = document.getElementById(this.partDivID+"_PP_C3_l0");
-    canvasObj2.width = this.vPlotWidth;
-    canvasObj2.height = this.vPlotHeight;
+    canvasObj2.width = this.lineChart_Width;
+    canvasObj2.height = this.lineChart_Height;
 
     switch (this.pathplot_space) {
     case "rgb-line":
-      drawVPlot(this.getParentCMS(),canvasObj0.getContext("2d"),0,255, "R");
-      drawVPlot(this.getParentCMS(),canvasObj1.getContext("2d"),0,255, "G");
-      drawVPlot(this.getParentCMS(),canvasObj2.getContext("2d"),0,255, "B");
+      draw_LineChart_Coordinates(this.getParentCMS(),canvasObj0.getContext("2d"),0,255, "R");
+      draw_LineChart_Coordinates(this.getParentCMS(),canvasObj1.getContext("2d"),0,255, "G");
+      draw_LineChart_Coordinates(this.getParentCMS(),canvasObj2.getContext("2d"),0,255, "B");
     break;
     case "lms":
-      drawVPlot(this.getParentCMS(),canvasObj0.getContext("2d"),0,100, "L");
-      drawVPlot(this.getParentCMS(),canvasObj1.getContext("2d"),0,100, "M");
-      drawVPlot(this.getParentCMS(),canvasObj2.getContext("2d"),0,100, "S");
+      draw_LineChart_Coordinates(this.getParentCMS(),canvasObj0.getContext("2d"),0,100, "L");
+      draw_LineChart_Coordinates(this.getParentCMS(),canvasObj1.getContext("2d"),0,100, "M");
+      draw_LineChart_Coordinates(this.getParentCMS(),canvasObj2.getContext("2d"),0,100, "S");
     break;
     case "hsv":
-      drawVPlot(this.getParentCMS(),canvasObj0.getContext("2d"),0,360, "H");
-      drawVPlot(this.getParentCMS(),canvasObj1.getContext("2d"),0,100, "S");
-      drawVPlot(this.getParentCMS(),canvasObj2.getContext("2d"),0,100, "V");
+      draw_LineChart_Coordinates(this.getParentCMS(),canvasObj0.getContext("2d"),0,360, "H");
+      draw_LineChart_Coordinates(this.getParentCMS(),canvasObj1.getContext("2d"),0,100, "S");
+      draw_LineChart_Coordinates(this.getParentCMS(),canvasObj2.getContext("2d"),0,100, "V");
      break;
     case "lab":
-      drawVPlot(this.getParentCMS(),canvasObj0.getContext("2d"),0,100, "L");
-      drawVPlot(this.getParentCMS(),canvasObj1.getContext("2d"),labSpaceRange*-1,labSpaceRange, "A");
-      drawVPlot(this.getParentCMS(),canvasObj2.getContext("2d"),labSpaceRange*-1,labSpaceRange, "B");
+      draw_LineChart_Coordinates(this.getParentCMS(),canvasObj0.getContext("2d"),0,100, "L");
+      draw_LineChart_Coordinates(this.getParentCMS(),canvasObj1.getContext("2d"),labSpaceRange*-1,labSpaceRange, "A");
+      draw_LineChart_Coordinates(this.getParentCMS(),canvasObj2.getContext("2d"),labSpaceRange*-1,labSpaceRange, "B");
       break;
     case "din99":
-      drawVPlot(this.getParentCMS(),canvasObj0.getContext("2d"),0,100, "L99");
-      drawVPlot(this.getParentCMS(),canvasObj1.getContext("2d"),rangeA99Neg,rangeA99Pos, "A99");
-      drawVPlot(this.getParentCMS(),canvasObj2.getContext("2d"),rangeB99Neg,rangeB99Pos, "B99");
+      draw_LineChart_Coordinates(this.getParentCMS(),canvasObj0.getContext("2d"),0,100, "L99");
+      draw_LineChart_Coordinates(this.getParentCMS(),canvasObj1.getContext("2d"),rangeA99Neg,rangeA99Pos, "A99");
+      draw_LineChart_Coordinates(this.getParentCMS(),canvasObj2.getContext("2d"),rangeB99Neg,rangeB99Pos, "B99");
       break;
     case "lch":
-      drawVPlot(this.getParentCMS(),canvasObj0.getContext("2d"),0,100, "L");
-      drawVPlot(this.getParentCMS(),canvasObj1.getContext("2d"),0,100, "C");
-      drawVPlot(this.getParentCMS(),canvasObj2.getContext("2d"),0,360, "H");
+      draw_LineChart_Coordinates(this.getParentCMS(),canvasObj0.getContext("2d"),0,100, "L");
+      draw_LineChart_Coordinates(this.getParentCMS(),canvasObj1.getContext("2d"),0,100, "C");
+      draw_LineChart_Coordinates(this.getParentCMS(),canvasObj2.getContext("2d"),0,360, "H");
      break;
     }
   }
@@ -680,16 +689,16 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
   pp_other_interpolationLine() {
 
     var canvasObj0 = document.getElementById(this.partDivID+"_PP_C1_l1");
-    canvasObj0.width = this.vPlotWidth;
-    canvasObj0.height = this.vPlotHeight;
+    canvasObj0.width = this.lineChart_Width;
+    canvasObj0.height = this.lineChart_Height;
 
     var canvasObj1 = document.getElementById(this.partDivID+"_PP_C2_l1");
-    canvasObj1.width = this.vPlotWidth;
-    canvasObj1.height = this.vPlotHeight;
+    canvasObj1.width = this.lineChart_Width;
+    canvasObj1.height = this.lineChart_Height;
 
     var canvasObj2 = document.getElementById(this.partDivID+"_PP_C3_l1");
-    canvasObj2.width = this.vPlotWidth;
-    canvasObj2.height = this.vPlotHeight;
+    canvasObj2.width = this.lineChart_Width;
+    canvasObj2.height = this.lineChart_Height;
 
     var canvasObj3 = document.getElementById(this.partDivID+"_PP_Hue_l1");
     canvasObj3.width = this.pathplot_hueRes;
@@ -699,16 +708,16 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
 
     switch (this.pathplot_space) {
       case "hsv":
-        calcInterpolationLine_HSV(this.getParentCMS(),this.pathplot_hueRes,this.vPlotWidth,this.vPlotHeight);
+        calcInterpolationLine_HSV(this.getParentCMS(),this.pathplot_hueRes,this.lineChart_Width,this.lineChart_Height);
         break;
         case "lab":
-          calcInterpolationLine_Lab(this.getParentCMS(),this.pathplot_hueRes,this.vPlotWidth,this.vPlotHeight);
+          calcInterpolationLine_Lab(this.getParentCMS(),this.pathplot_hueRes,this.lineChart_Width,this.lineChart_Height);
           break;
           case "din99":
-            calcInterpolationLine_DIN99(this.getParentCMS(),this.pathplot_hueRes,this.vPlotWidth,this.vPlotHeight);
+            calcInterpolationLine_DIN99(this.getParentCMS(),this.pathplot_hueRes,this.lineChart_Width,this.lineChart_Height);
             break;
             case "lch":
-              calcInterpolationLine_LCH(this.getParentCMS(),this.pathplot_hueRes,this.vPlotWidth,this.vPlotHeight);
+              calcInterpolationLine_LCH(this.getParentCMS(),this.pathplot_hueRes,this.lineChart_Width,this.lineChart_Height);
               break;
       default:
         return;
@@ -716,9 +725,9 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     }
     drawInterpolationLine(canvasObj3.getContext("2d"),0, 1, false);
 
-    drawInterpolationLine_VPlot(canvasObj0.getContext("2d"), 0);
-    drawInterpolationLine_VPlot(canvasObj1.getContext("2d"), 1);
-    drawInterpolationLine_VPlot(canvasObj2.getContext("2d"), 2);
+    drawInterpolationLine_LineChart(canvasObj0.getContext("2d"), 0);
+    drawInterpolationLine_LineChart(canvasObj1.getContext("2d"), 1);
+    drawInterpolationLine_LineChart(canvasObj2.getContext("2d"), 2);
 
     this.pp_LineGroup=draw3DInterpolationLine(this.pp_LineGroup);
   }
@@ -726,16 +735,16 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
   pp_other_drawElements() {
 
     var canvasObj0 = document.getElementById(this.partDivID+"_PP_C1_l2");
-    canvasObj0.width = this.vPlotWidth;
-    canvasObj0.height = this.vPlotHeight;
+    canvasObj0.width = this.lineChart_Width;
+    canvasObj0.height = this.lineChart_Height;
 
     var canvasObj1 = document.getElementById(this.partDivID+"_PP_C2_l2");
-    canvasObj1.width = this.vPlotWidth;
-    canvasObj1.height = this.vPlotHeight;
+    canvasObj1.width = this.lineChart_Width;
+    canvasObj1.height = this.lineChart_Height;
 
     var canvasObj2 = document.getElementById(this.partDivID+"_PP_C3_l2");
-    canvasObj2.width = this.vPlotWidth;
-    canvasObj2.height = this.vPlotHeight;
+    canvasObj2.width = this.lineChart_Width;
+    canvasObj2.height = this.lineChart_Height;
 
     var canvasObj3 = document.getElementById(this.partDivID+"_PP_Hue_l2");
     canvasObj3.width = this.pathplot_hueRes;
@@ -745,16 +754,16 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
 
     switch (this.pathplot_space) {
       case "hsv":
-        calcHSVElements(this.getParentCMS(),this.pathplot_hueRes,this.vPlotWidth,this.vPlotHeight);
+        calcHSVElements(this.getParentCMS(),this.pathplot_hueRes,this.lineChart_Width,this.lineChart_Height);
         break;
         case "lab":
-          calcLabElements(this.getParentCMS(),this.pathplot_hueRes,this.vPlotWidth,this.vPlotHeight);
+          calcLabElements(this.getParentCMS(),this.pathplot_hueRes,this.lineChart_Width,this.lineChart_Height);
           break;
           case "din99":
-            calcDIN99Elements(this.getParentCMS(),this.pathplot_hueRes,this.vPlotWidth,this.vPlotHeight);
+            calcDIN99Elements(this.getParentCMS(),this.pathplot_hueRes,this.lineChart_Width,this.lineChart_Height);
             break;
             case "lch":
-              calcLCHElements(this.getParentCMS(),this.pathplot_hueRes,this.vPlotWidth,this.vPlotHeight);
+              calcLCHElements(this.getParentCMS(),this.pathplot_hueRes,this.lineChart_Width,this.lineChart_Height);
               break;
       default:
         return;
@@ -763,9 +772,9 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
 
     drawPathplotElements(canvasObj3.getContext("2d"),0,1, false,this.mouseAboveKeyID,this.mouseGrappedColorSide);
 
-    drawVplotElements(canvasObj0.getContext("2d"),0,this.mouseAboveKeyID,this.mouseGrappedColorSide);
-    drawVplotElements(canvasObj1.getContext("2d"),1,this.mouseAboveKeyID,this.mouseGrappedColorSide);
-    drawVplotElements(canvasObj2.getContext("2d"),2,this.mouseAboveKeyID,this.mouseGrappedColorSide);
+    drawLineChartElements(canvasObj0.getContext("2d"),0,this.mouseAboveKeyID,this.mouseGrappedColorSide);
+    drawLineChartElements(canvasObj1.getContext("2d"),1,this.mouseAboveKeyID,this.mouseGrappedColorSide);
+    drawLineChartElements(canvasObj2.getContext("2d"),2,this.mouseAboveKeyID,this.mouseGrappedColorSide);
 
     this.pp_ElementGroup=drawPathplot3DElements(this.pp_ElementGroup,this.mouseAboveKeyID,this.mouseGrappedColorSide);
 
@@ -791,7 +800,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
       for (var i = 0; i < tmpCMS.getKeyLength(); i++) {
 
           var position = [-1,-1];
-          // tmpX is only important for the VPlots
+          // tmpX is only important for the LineCharts
           var tmpX = this.pp_canvas_xStart+((tmpCMS.getRefPosition(i)-tmpCMS.getRefPosition(0))/tmpCMS.getRefRange())*this.pp_canvas_xWidth;
 
           switch (tmpCMS.getKeyType(i)) {
@@ -804,7 +813,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
             /////// Right Color
             var tmpColor2 = tmpCMS.getRightKeyColor(i, tmpSpace);
             position =  this.getColorPosInCanvas(tmpColor2);
-            if(this.pp_isVPlot)
+            if(this.pp_isLineChart)
               position[0]=tmpX;
             if(this.pp_checkPosition(position[0], position[1], i, 1, drawCircle)){
                 found = true;
@@ -821,7 +830,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
                 drawCircle = false;
 
               position =  this.getColorPosInCanvas(tmpColor);
-              if(this.pp_isVPlot)
+              if(this.pp_isLineChart)
                 position[0]=tmpX;
               if(this.pp_checkPosition(position[0], position[1], i, 0, drawCircle)){
                   found = true;
@@ -832,8 +841,8 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
                   break;
               }
 
-              // because we draw constant bands with two rects in the VPlots
-              if(this.pp_isVPlot && !drawCircle){
+              // because we draw constant bands with two rects in the LineCharts
+              if(this.pp_isLineChart && !drawCircle){
                 tmpX = this.pp_canvas_xStart+((tmpCMS.getRefPosition(i-1)-tmpCMS.getRefPosition(0))/tmpCMS.getRefRange())*this.pp_canvas_xWidth;
                 if(this.checkInsideRect(tmpX, position[1], i, 0)){
                     found = true;
@@ -858,7 +867,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
               /////// left Color
               var tmpColor = tmpCMS.getLeftKeyColor(i, tmpSpace);
               position =  this.getColorPosInCanvas(tmpColor);
-              if(this.pp_isVPlot)
+              if(this.pp_isLineChart)
                 position[0]=tmpX;
               if(this.pp_checkPosition(position[0], position[1], i, 0, drawCircle)){
                   found = true;
@@ -868,8 +877,8 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
               }
 
 
-              // because we draw constant bands with two rects in the VPlots
-              if(this.pp_isVPlot && !drawCircle){
+              // because we draw constant bands with two rects in the LineCharts
+              if(this.pp_isLineChart && !drawCircle){
                 tmpX = this.pp_canvas_xStart+((tmpCMS.getRefPosition(i-1)-tmpCMS.getRefPosition(0))/tmpCMS.getRefRange())*this.pp_canvas_xWidth;
                 if(this.checkInsideRect(tmpX, position[1], i, 0)){
                     found = true;
@@ -889,7 +898,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
               case "right key":
               var tmpColor = tmpCMS.getRightKeyColor(i, tmpSpace); // right color because of right key
               position =  this.getColorPosInCanvas(tmpColor);
-              if(this.pp_isVPlot)
+              if(this.pp_isLineChart)
                 position[0]=tmpX;
               if(this.pp_checkPosition(position[0], position[1], i, 1, true)){
                   found = true;
@@ -904,7 +913,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
               // dual Key
               tmpColor = tmpCMS.getRightKeyColor(i, tmpSpace); // right color because of right key
               position = this.getColorPosInCanvas(tmpColor);
-              if(this.pp_isVPlot)
+              if(this.pp_isLineChart)
                 position[0]=tmpX;
               if(this.pp_checkPosition(position[0], position[1], i, 2, true)){
                   found = true;

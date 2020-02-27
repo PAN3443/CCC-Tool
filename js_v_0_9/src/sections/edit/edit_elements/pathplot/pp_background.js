@@ -3,7 +3,7 @@ function drawGRBackground(canvasContex,fixedColor){
   var canvasData =  getRGBBackground( fixedColor,canvasContex.canvas.clientWidth, "GR"); //canvasContex.getImageData(0, 0, hueResolution, hueResolution);
 
   canvasContex.putImageData(canvasData, 0, 0); // update ColorspaceCanvas;
-  rgbPlot(canvasContex, canvasContex.canvas.clientWidth, "G", "R");
+  draw_RGB_Coordinates(canvasContex, canvasContex.canvas.clientWidth, "G", "R");
 }
 
 function drawBRBackground(canvasContex,fixedColor){
@@ -12,7 +12,7 @@ function drawBRBackground(canvasContex,fixedColor){
   var canvasData = getRGBBackground( fixedColor,canvasContex.canvas.clientWidth,"BR");
 
   canvasContex.putImageData(canvasData, 0, 0); // update ColorspaceCanvas;
-  rgbPlot(canvasContex, canvasContex.canvas.clientWidth, "B", "R");
+  draw_RGB_Coordinates(canvasContex, canvasContex.canvas.clientWidth, "B", "R");
 }
 
 function drawGBBackground(canvasContex,fixedColor){
@@ -20,7 +20,7 @@ function drawGBBackground(canvasContex,fixedColor){
   var canvasData = getRGBBackground( fixedColor,canvasContex.canvas.clientWidth,"GB");
 
   canvasContex.putImageData(canvasData, 0, 0); // update ColorspaceCanvas;
-  rgbPlot(canvasContex, canvasContex.canvas.clientWidth, "G", "B");
+  draw_RGB_Coordinates(canvasContex, canvasContex.canvas.clientWidth, "G", "B");
 }
 
 function getRGBBackground(fixedColor,hueResolution, type){
@@ -106,221 +106,9 @@ function getRGBBackground(fixedColor,hueResolution, type){
   return background;
 }
 
-function rgbPlot(context, hueResolution, xlabel, ylabel) {
-
-  var yStart = Math.round(hueResolution * 0.9);
-  var yEnd = Math.round(hueResolution * 0.2);
-  var yEndLine = Math.round(hueResolution * 0.15);
-  var yEndArrow = Math.round(hueResolution * 0.1);
-  var arrowHeight = Math.round((yEndLine - yEndArrow) * 0.75);
-  var fontSize = arrowHeight * 0.75;
-  var xStart = Math.round(hueResolution * 0.1);
-  var xEnd = Math.round(hueResolution * 0.8);
-  var xEndLine = Math.round(hueResolution * 0.85);
-  var xEndArrow = Math.round(hueResolution * 0.9);
-
-
-  var lineColor = pathplotFontColor;
-  var arrowFontColor = pathplotFontColor;
-
-  plotXStart = xStart;
-  heigthVArea = yStart - yEnd;
-  plotYStart = yStart;
-  plotYEnd = yEnd;
-
-  context.fillStyle = arrowFontColor;
-
-
-  var xPosPos;
-  var yPos = hueResolution * 0.93;
-  context.font = fontSize + "px Arial";
-
-  var steps = 5;
-  for (var i = 0; i <= steps; i++) {
-
-    xPosPos = xStart + (xEnd - xStart) * (i / steps);
-    context.beginPath();
-    context.lineWidth = 1;
-    context.moveTo(xPosPos, yStart);
-    context.lineTo(xPosPos, yPos);
-    context.strokeStyle = lineColor;
-    context.stroke();
-    context.strokeStyle = arrowFontColor;
-    var text = "" + i * (255 / steps);
-    context.fillText(text, xPosPos, yPos + fontSize);
-  }
-
-  xPosPos = Math.round(hueResolution * 0.07);
-  yPos = yStart;
-  context.font = fontSize + "px Arial";
-
-  for (var i = 0; i <= steps; i++) {
-
-    yPos = yStart - (yStart - yEnd) * (i / steps);
-    context.beginPath();
-    context.lineWidth = 1;
-    context.moveTo(xPosPos, yPos);
-    context.lineTo(xStart, yPos);
-    context.strokeStyle = lineColor;
-    context.stroke();
-    context.strokeStyle = arrowFontColor;
-    var text = "" + i * (255 / steps);
-    context.fillText(text, xPosPos * 0.5, yPos);
-  }
-
-
-  ////////////////////////////////////////////////////////////
-  /////////////ARROWS////////////////////
-  ////////////////////////////////////////////////////////////
-  context.strokeStyle = arrowFontColor;
-  context.beginPath();
-  context.lineWidth = Math.round(hueResolution * 0.01);
-  context.moveTo(xStart, yStart);
-  context.lineTo(xEndLine, yStart);
-  context.stroke();
-
-  // the triangle
-  context.beginPath();
-  context.moveTo(xEndLine, yStart - arrowHeight/2);
-  context.lineTo(xEndArrow, yStart);
-  context.lineTo(xEndLine, yStart + arrowHeight/2);
-  context.closePath();
-
-  // the fill color
-  context.fillStyle = arrowFontColor;
-  context.fill();
-
-  context.beginPath();
-  context.lineWidth = Math.round(hueResolution * 0.01);
-  context.moveTo(xStart, yStart);
-  context.lineTo(xStart, yEndLine);
-  context.stroke();
-
-  // the triangle
-  context.beginPath();
-  context.moveTo(xStart - arrowHeight/2, yEndLine);
-  context.lineTo(xStart, yEndArrow);
-  context.lineTo(xStart + arrowHeight/2, yEndLine);
-  context.closePath();
-
-  // the fill color
-  context.fill();
-
-  ////////////////// TEXT /////////////////////
-  context.font = fontSize + "px Arial";
-
-  context.fillText(xlabel, xEndArrow, yStart + fontSize);
-  context.fillText(ylabel, xStart - fontSize, yEndArrow);
-
-
-}
 
 ///////////////////////////////////////////////////////////////////////////////
 
-function drawVPlot(cmsClone, vPlotContex, startValue, endValue,labelText){
-
-  var vPlotWidth = vPlotContex.canvas.clientWidth;
-  var vPlotHeight = vPlotContex.canvas.clientHeight;
-  vPlotContex.clearRect(0, 0, vPlotWidth, vPlotHeight);
-
-  var yStart = Math.round(vPlotHeight*0.9);
-  var yEnd = Math.round(vPlotHeight*0.1);
-  var arrowHeightY = Math.round(yEnd*0.5);
-  var fontSize = Math.round(vPlotHeight*0.05);
-  var fontSize_Label = Math.round(vPlotHeight*0.075);
-  var xStart = Math.round(vPlotWidth*0.1);
-  var xEnd = Math.round(vPlotWidth*0.98);
-  var arrowHeightX = Math.round((vPlotWidth-xEnd)/2);
-  var labelPos = Math.round(vPlotWidth * 0.015);
-  var textPos = Math.round(vPlotWidth * 0.08);
-
-
-  var lineColor = pathplotFontColor;//'rgb(200,200,200)';
-  var arrowFontColor = pathplotFontColor;
-
-  vPlotContex.strokeStyle = arrowFontColor;
-  vPlotContex.fillStyle = arrowFontColor;
-
-  var widthVArea = cmsClone.getRefRange();
-
-  var tmpCounter = 0;
-  var leftCounter = 0;
-
-  var xPosPos;
-  var plotwidth = xEnd - xStart;
-
-  for (var i = 0; i < cmsClone.getKeyLength(); i++) {
-
-    xPosPos = xStart + ((cmsClone.getRefPosition(i) - cmsClone.getRefPosition(0)) / widthVArea) * plotwidth;
-
-    vPlotContex.beginPath();
-    vPlotContex.lineWidth = Math.round(Math.round(vPlotHeight * 0.01) / 2);
-    vPlotContex.moveTo(xPosPos, yStart);
-    vPlotContex.lineTo(xPosPos, vPlotHeight * 0.93);
-    vPlotContex.strokeStyle = lineColor;
-    vPlotContex.stroke();
-    vPlotContex.strokeStyle = arrowFontColor;
-    var text = "" + (i + 1);
-    vPlotContex.font = fontSize + "px Arial";
-    vPlotContex.fillText(text, xPosPos, vPlotHeight * 0.93 + fontSize);
-  }
-
-  var yPos = yStart;
-  vPlotContex.font = fontSize + "px Arial";
-
-  var steps = 10;
-
-  for (var i = 0; i <= steps; i++) {
-    yPos = yStart - (yStart - yEnd) * i/steps;
-    var text = ""+parseInt((startValue+(endValue-startValue)*i/steps));//.toFixed(2);
-    vPlotContex.beginPath();
-    vPlotContex.lineWidth = 1;
-    vPlotContex.moveTo(xStart, yPos);
-    vPlotContex.lineTo(xEnd, yPos);
-    vPlotContex.strokeStyle = lineColor;
-    vPlotContex.stroke();
-    vPlotContex.strokeStyle = arrowFontColor;
-    vPlotContex.fillText(text, textPos * 0.75, yPos);
-  }
-
-  vPlotContex.strokeStyle = arrowFontColor;
-  vPlotContex.beginPath();
-  vPlotContex.lineWidth = Math.round(vPlotHeight * 0.01);
-  vPlotContex.moveTo(xStart, yStart);
-  vPlotContex.lineTo(vPlotWidth, yStart);
-  vPlotContex.stroke();
-
-  // the triangle
-  vPlotContex.beginPath();
-  vPlotContex.moveTo(vPlotWidth-arrowHeightX, yStart - (arrowHeightX/2));
-  vPlotContex.lineTo(vPlotWidth, yStart);
-  vPlotContex.lineTo(vPlotWidth-arrowHeightX, yStart + (arrowHeightX/2));
-  vPlotContex.closePath();
-
-  // the fill color
-  vPlotContex.fillStyle = arrowFontColor;
-  vPlotContex.fill();
-
-  vPlotContex.beginPath();
-  vPlotContex.lineWidth = Math.round(vPlotHeight * 0.01);
-  vPlotContex.moveTo(xStart, yStart);
-  vPlotContex.lineTo(xStart, 0);
-  vPlotContex.stroke();
-
-  // the triangle
-  vPlotContex.beginPath();
-  vPlotContex.moveTo(xStart - (arrowHeightY/2), yEnd-arrowHeightY);
-  vPlotContex.lineTo(xStart, 0);
-  vPlotContex.lineTo(xStart + (arrowHeightY/2), yEnd-arrowHeightY);
-  vPlotContex.closePath();
-
-  // the fill color
-  vPlotContex.fill();
-  cmsClone.deleteReferences();
-
-  vPlotContex.font = fontSize_Label + "px Arial";
-  vPlotContex.fillText(labelText, labelPos, fontSize_Label);
-}
 
 function drawHSVBackground(canvasContex,fixedColor){
   canvasContex.clearRect(0, 0, canvasContex.canvas.clientWidth, canvasContex.canvas.clientHeight);
@@ -418,10 +206,10 @@ function getLabBackground(fixedColor,hueResolution){
         }
         else {
           //colorRGB = new class_Color_RGB(0.5, 0.5, 0.5);
-          colorLAB.deleteReferences();
+          colorLAB.deleteReferences();  // Problem -> deleteReferences cost a lot of time -> worker implementation
           continue;
         }
-        colorLAB.deleteReferences();
+        colorLAB.deleteReferences(); // Problem -> deleteReferences cost a lot of time -> worker implementation
 
         if(doColorblindnessSim){
           var tmpLMS = colorRGB.calcLMSColor();

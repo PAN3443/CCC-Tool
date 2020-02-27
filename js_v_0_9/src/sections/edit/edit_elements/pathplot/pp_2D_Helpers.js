@@ -1,23 +1,23 @@
 
 
-function updateVPlotData(){
-  vPlotyStart = Math.round(vPlotHeight * 0.9);
-  vPlotyEnd = Math.round(vPlotHeight * 0.1);
-  vPlotxStart = Math.round(vPlotWidth * 0.1);
-  vPlotxEnd = Math.round(vPlotWidth * 0.85);
-  heigthVArea = vPlotyStart - vPlotyEnd;
-  plotwidth = vPlotxEnd - vPlotxStart;
+function updateLineChartData(){
+  lineChart_yStart = Math.round(lineChart_Height * 0.9);
+  lineChart_yEnd = Math.round(lineChart_Height * 0.1);
+  lineChart_xStart = Math.round(lineChart_Width * 0.1);
+  lineChart_xEnd = Math.round(lineChart_Width * 0.85);
+  heigthVArea = lineChart_yStart - lineChart_yEnd;
+  plotwidth = lineChart_xEnd - lineChart_xStart;
 }
 
 
-function drawElement(colorString,colorspaceContex,xPos,yPos, index, colorside, circle,mouseAboveKeyID,mouseGrappedColorSide, isVplot){
+function drawElement(colorString,colorspaceContex,xPos,yPos, index, colorside, circle,mouseAboveKeyID,mouseGrappedColorSide, isLineChart){
   // draw circle
   colorspaceContex.setLineDash([]);
   var circleRad = Math.round(colorspaceContex.canvas.clientHeight*0.015);
   var bigcircleRad = Math.round(colorspaceContex.canvas.clientHeight*0.03);
   var smallLineWidth = Math.round(colorspaceContex.canvas.clientHeight*0.005);
 
-  if(isVplot){
+  if(isLineChart){
     circleRad = Math.round(colorspaceContex.canvas.clientHeight*0.03);
     bigcircleRad = Math.round(colorspaceContex.canvas.clientHeight*0.06);
     smallLineWidth = Math.round(colorspaceContex.canvas.clientHeight*0.015);
