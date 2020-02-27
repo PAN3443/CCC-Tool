@@ -52,11 +52,11 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     ///////////////////////////////////////////
     /// WORKER
     this.pathplot_worker_background = undefined;
-    /*if (window.Worker) {
+    if (window.Worker) {
       this.pathplot_worker_background= new Worker(version_JS_FolderName+"/src/sections/edit/edit_elements/pathplot/worker/worker_pp_background.js"); //, { type: "module" });
       this.pathplot_worker_background.postMessage({'message':'init'});
       this.pathplot_worker_background.addEventListener('message', workerEvent_Draw_PP_Background, false);
-    }*/
+    }
 
     this.pp_3D_init();
   }
@@ -445,9 +445,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
 
   pp_rgb_background() {
 
-    setSquadRes_Canvas(this.partDivID+"_PP_RG_l0"); // global -> helper -> canvasHelper
-    setSquadRes_Canvas(this.partDivID+"_PP_RB_l0");
-    setSquadRes_Canvas(this.partDivID+"_PP_BG_l0");
+
 
     var fixedColor = undefined;
     if (this.mouseGrappedKeyID != -1) {
@@ -464,14 +462,40 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
       tmpCMS.deleteReferences();
     }
 
-    drawGRBackground(document.getElementById(this.partDivID+"_PP_RG_l0").getContext("2d"),fixedColor);
-    drawBRBackground(document.getElementById(this.partDivID+"_PP_RB_l0").getContext("2d"),fixedColor);
-    drawGBBackground(document.getElementById(this.partDivID+"_PP_BG_l0").getContext("2d"),fixedColor);
+    if (window.Worker){
+      var workerJSON = {};
+      workerJSON['message'] = "getBackground";
+      workerJSON['pp_space'] = this.pathplot_space;
+      workerJSON['hueResolution'] = this.pathplot_hueRes;
+      workerJSON['canvasID_1'] = this.partDivID+"_PP_RG_l0";
+      workerJSON['canvasID_2'] = this.partDivID+"_PP_RB_l0";
+      workerJSON['canvasID_3'] = this.partDivID+"_PP_BG_l0";
+      workerJSON['doColorblindnessSim'] = doColorblindnessSim;
 
-    if(fixedColor!=undefined){
-      fixedColor.deleteReferences();
-      fixedColor=null;
+      if(fixedColor==undefined){
+        workerJSON['fixedValue1'] = undefined;
+        workerJSON['fixedValue2'] = undefined;
+        workerJSON['fixedValue3'] = undefined;
+      }
+      else {
+        workerJSON['fixedValue1'] = fixedColor.get1Value();
+        workerJSON['fixedValue2'] = fixedColor.get2Value();
+        workerJSON['fixedValue3'] = fixedColor.get3Value();
+      }
+      this.pathplot_worker_background.postMessage(workerJSON);
     }
+    else {
+      setSquadRes_Canvas(this.partDivID+"_PP_RG_l0"); // global -> helper -> canvasHelper
+      setSquadRes_Canvas(this.partDivID+"_PP_RB_l0");
+      setSquadRes_Canvas(this.partDivID+"_PP_BG_l0");
+      drawRGBBackground(document.getElementById(this.partDivID+"_PP_RG_l0").getContext("2d"),document.getElementById(this.partDivID+"_PP_RB_l0").getContext("2d"),document.getElementById(this.partDivID+"_PP_BG_l0").getContext("2d"),fixedColor);
+      if(fixedColor!=undefined){
+        fixedColor.deleteReferences();
+        fixedColor=null;
+      }
+    }
+
+
 
   }
 
@@ -585,11 +609,13 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
 
   pp_drawOthers(calcBackground, drawInterpolationLine, initLineChart) {
 
+
     if (initLineChart)
       this.pp_init_LineChart();
 
     if (calcBackground)
       this.pp_hueInit();
+
 
     if (drawInterpolationLine)
       this.pp_other_interpolationLine();
@@ -599,7 +625,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
 
   pp_hueInit() {
       this.pathplot_hueRes= document.getElementById(this.partDivID+"_PP_Hue_l0").getBoundingClientRect().height;
-      setSquadRes_Canvas(this.partDivID+"_PP_Hue_l0");
+
       var fixedColor = undefined;
       if (this.mouseGrappedKeyID != -1) {
         var tmpCMS = this.getParentCMS();
@@ -615,24 +641,55 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
         tmpCMS.deleteReferences();
       }
 
-      switch (this.pathplot_space) {
-        case "hsv":
-          drawHSVBackground(document.getElementById(this.partDivID+"_PP_Hue_l0").getContext("2d"),fixedColor);
-          break;
-          case "lab":
-            drawLabBackground(document.getElementById(this.partDivID+"_PP_Hue_l0").getContext("2d"),fixedColor);
-            break;
-            case "din99":
-              drawDIN99Background(document.getElementById(this.partDivID+"_PP_Hue_l0").getContext("2d"),fixedColor);
-              break;
-              case "lch":
-                drawLCHBackground(document.getElementById(this.partDivID+"_PP_Hue_l0").getContext("2d"),fixedColor);
-                break;
-      }
+      if (window.Worker){
+        var workerJSON = {};
+        workerJSON['message'] = "getBackground";
+        workerJSON['pp_space'] = this.pathplot_space;
+        workerJSON['hueResolution'] = this.pathplot_hueRes;
+        workerJSON['canvasID_1'] = this.partDivID+"_PP_Hue_l0";
+        workerJSON['doColorblindnessSim'] = doColorblindnessSim;
+        workerJSON['labSpaceRange'] = labSpaceRange;
+        rangeA99 = rangeA99Pos - rangeA99Neg;
+        rangeB99 = rangeB99Pos - rangeB99Neg;
+        workerJSON['rangeA99'] = rangeA99;
+        workerJSON['rangeA99Neg'] = rangeA99Neg;
+        workerJSON['rangeB99'] = rangeB99;
+        workerJSON['rangeB99Neg'] = rangeB99Neg;
 
-      if(fixedColor!=undefined){
-        fixedColor.deleteReferences();
-        fixedColor=null;
+        if(fixedColor==undefined){
+          workerJSON['fixedValue1'] = undefined;
+          workerJSON['fixedValue2'] = undefined;
+          workerJSON['fixedValue3'] = undefined;
+        }
+        else {
+          workerJSON['fixedValue1'] = fixedColor.get1Value();
+          workerJSON['fixedValue2'] = fixedColor.get2Value();
+          workerJSON['fixedValue3'] = fixedColor.get3Value();
+        }
+        this.pathplot_worker_background.postMessage(workerJSON);
+      }
+      else {
+        setSquadRes_Canvas(this.partDivID+"_PP_Hue_l0");
+
+        switch (this.pathplot_space) {
+          case "hsv":
+            drawHSVBackground(document.getElementById(this.partDivID+"_PP_Hue_l0").getContext("2d"),fixedColor);
+            break;
+            case "lab":
+              drawLabBackground(document.getElementById(this.partDivID+"_PP_Hue_l0").getContext("2d"),fixedColor);
+              break;
+              case "din99":
+                drawDIN99Background(document.getElementById(this.partDivID+"_PP_Hue_l0").getContext("2d"),fixedColor);
+                break;
+                case "lch":
+                  drawLCHBackground(document.getElementById(this.partDivID+"_PP_Hue_l0").getContext("2d"),fixedColor);
+                  break;
+        }
+
+        if(fixedColor!=undefined){
+          fixedColor.deleteReferences();
+          fixedColor=null;
+        }
       }
   }
 

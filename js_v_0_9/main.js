@@ -7,7 +7,7 @@ window.onload = function() {
   includeHTML();
 
 
-    /*if (window.Worker) {
+    if (window.Worker) {
       var script = document.createElement('script');
       script.onload = function () {
         finishedLoadingScripts();
@@ -16,14 +16,14 @@ window.onload = function() {
       document.head.appendChild(script);
 
     }
-    else {*/
+    else {
       var script = document.createElement('script');
       script.onload = function () {
         finishedLoadingScripts();
       };
       script.src = "js_v_0_9/src/sections/edit/edit_elements/pathplot/pp_background.js";
       document.head.appendChild(script);
-    //}
+    }
 
 }
 

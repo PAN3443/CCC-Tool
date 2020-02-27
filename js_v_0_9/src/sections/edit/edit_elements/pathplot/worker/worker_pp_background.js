@@ -1,9 +1,4 @@
 
-var canvasID_1 = undefined;
-var canvasID_2 = undefined;
-var canvasID_3 = undefined;
-
-var hueResolution = undefined;
 /// color settings
 // 2000
 var de2000_k_L = 1.0,
@@ -24,7 +19,6 @@ var cielab_ref_Y = 100.000;
 var cielab_ref_Z = 107.304;
 
 // Simulation Colorblindness
-var doColorblindnessSim = false;
 var tmXYZ_Selected = [
   [0.4124564, 0.3575761, 0.1804375],
   [0.2126729, 0.7151522, 0.0721750],
@@ -54,131 +48,410 @@ self.addEventListener('message', function(e) {
   switch (e.data.message) {
 
     case "init":
-      self.importScripts('../../../global/worker/general_processingCases.js');
+      self.importScripts('../../../../../global/worker/general_processingCases.js');
 
-      self.importScripts('../../../global/color/class_Colorspace_Basis.js');
-      self.importScripts('../../../global/color/class_Colorspace_RGB.js');
-      self.importScripts('../../../global/color/class_Colorspace_XYZ.js');
-      self.importScripts('../../../global/color/class_Colorspace_LMS.js');
-      self.importScripts('../../../global/color/class_Colorspace_HSV.js');
-      self.importScripts('../../../global/color/class_Colorspace_LAB.js');
-      self.importScripts('../../../global/color/class_Colorspace_LCH.js');
-      self.importScripts('../../../global/color/class_Colorspace_DIN99.js');
+      self.importScripts('../../../../../global/color/class_Colorspace_Basis.js');
+      self.importScripts('../../../../../global/color/class_Colorspace_RGB.js');
+      self.importScripts('../../../../../global/color/class_Colorspace_XYZ.js');
+      self.importScripts('../../../../../global/color/class_Colorspace_LMS.js');
+      self.importScripts('../../../../../global/color/class_Colorspace_HSV.js');
+      self.importScripts('../../../../../global/color/class_Colorspace_LAB.js');
+      self.importScripts('../../../../../global/color/class_Colorspace_LCH.js');
+      self.importScripts('../../../../../global/color/class_Colorspace_DIN99.js');
 
-      self.importScripts('../../../global/cms/class_Colormap_Specification.js');
-      self.importScripts('../../../global/cms/class_Colormap_Key.js');
-      self.importScripts('../../../global/cms/class_Colormap_Interval.js');
-      self.importScripts('../../../global/cms/class_Colormap_Probe.js');
-      self.importScripts('../../../global/cms/class_Colormap_ProbeSet.js');
-
-      //self.importScripts('../../../global/helper/canvasHelper.js');
-
-      //self.importScripts('../../../GlobalEvents/Color_CMS_Helpers/calcGradientLinear.js');
-
-      // For ThreeJS Mesh
-      //self.importScripts('../../../../libs/ThreeJS/three.min.js');
-
-
-      globalCMS1 = new class_CMS();
-
-      ratioDifCMS = new class_CMS();
-      ratioDifCMS.pushKey(new class_Key(undefined, new class_Color_DIN99(29.581458825788705,16.03125,-26.896446228027347), -1, false));
-      ratioDifCMS.pushKey(new class_Key(new class_Color_DIN99(55.87141911613874,-7.531250000000001,-28.383946228027348), new class_Color_DIN99(55.87141911613874,-7.531250000000001,-28.383946228027348), -0.6446462116468379, false));
-      ratioDifCMS.pushKey(new class_Key(new class_Color_DIN99(81.87664737898814,-20.531249999999996,-9.790196228027346), new class_Color_DIN99(81.87664737898814,-20.531249999999996,-9.790196228027346), -0.2977457733249843, false));
-      ratioDifCMS.pushKey(new class_Key(new class_Color_DIN99(99.85395907566293,-0.9780546619960879,3.201916766455866), new class_Color_DIN99(99.85395907566293,-0.9780546619960879,3.201916766455866), 0, false));
-      ratioDifCMS.pushKey(new class_Key(new class_Color_DIN99(86.74992752799066,-3.4687500000000013,25.166053771972656), new class_Color_DIN99(86.74992752799066,-3.4687500000000013,25.166053771972656), 0.2620538509705699, false));
-      ratioDifCMS.pushKey(new class_Key(new class_Color_DIN99(61.129411174208734,20.093750000000004,25.90980377197265), new class_Color_DIN99(61.129411174208734,20.093750000000004,25.90980377197265), 0.6152160300563556, false));
-      ratioDifCMS.pushKey(new class_Key(new class_Color_DIN99(28.529860414174685,30.656250000000004,10.291053771972658), undefined, 1, false));
-      ratioDifCMS.setAboveColor(new class_Color_RGB(1.0,0,0));
-      ratioDifCMS.setBelowColor(new class_Color_RGB(0,0,1.0));
-      ratioDifCMS.setInterpolationSpace("de2000-ds");
-      ratioDifCMS.calcNeededIntervalsColors(false,undefined,undefined);
-
-      greyScaledCMS = new class_CMS();
-      greyScaledCMS = new class_CMS();
-      greyScaledCMS.pushKey(new class_Key(undefined, new class_Color_LAB(0,0,0), 0, false));
-      greyScaledCMS.pushKey(new class_Key(new class_Color_LAB(100,0,0), undefined, 1, false));
-      greyScaledCMS.setInterpolationSpace("de2000-ds");
-      greyScaledCMS.calcNeededIntervalsColors(false,undefined,undefined);
-
-      reportType = e.data.reportType;
+      self.importScripts('../../../../../global/helper/math.js');
 
     break;
-    case "calcReport_New_Testfield":
-      testfield = e.data.testfield;
-      reportOptions_ColorDif= e.data.reportOptions_ColorDif;
-      calcColorField();
-      sendReportOriginalImage();
-      sendReportGreyImage();
-      startReportCalc();
-    break;
-    case "calcReport_New_Setting":
-      reportOptions_ColorDif= e.data.reportOptions_ColorDif;
-      calcColorField();
-      startReportCalc();
-    break;
-    case "calcReport_New_CMS":
-      // new CMS
-      calcColorField();
-      sendReportOriginalImage();
-      startReportCalc();
+    case "getBackground":
+
+      switch (e.data.pp_space) {
+        case "rgb":
+          var canvasData_GR = new ImageData(e.data.hueResolution, e.data.hueResolution);
+          var canvasData_BR = new ImageData(e.data.hueResolution, e.data.hueResolution);
+          var canvasData_GB = new ImageData(e.data.hueResolution, e.data.hueResolution);
+
+          var xStart = e.data.hueResolution * 0.1;
+          var yStart = e.data.hueResolution * 0.9;
+          var xEnd = e.data.hueResolution * 0.8;
+          var yEnd = e.data.hueResolution * 0.2;
+          var xWidth = xEnd - xStart;
+          var yHeight = yStart - yEnd;
+
+          var tmpRGB_GR = new class_Color_RGB(0,0,0);
+          var tmpRGB_BR = new class_Color_RGB(0,0,0);
+          var tmpRGB_GB = new class_Color_RGB(0,0,0);
+
+          if(e.data.fixedValue1!=undefined){
+            tmpRGB_GR.set3Value(e.data.fixedValue3);
+            tmpRGB_BR.set2Value(e.data.fixedValue2);
+            tmpRGB_GB.set1Value(e.data.fixedValue1);
+          }
+
+          var deleteColors = [];
+          for (var x = 0; x < e.data.hueResolution; x++) {
+            for (var y = 0; y < e.data.hueResolution; y++) {
+
+              if (x >= xStart && x <= xEnd && y <= yStart && y >= yEnd) {
+                // calc hsv color
+                var indices = getColorIndicesForCoord(x, y, e.data.hueResolution);
+
+                var xVal = (x - xStart) / xWidth;
+                var yVal = (yStart - y) / yHeight;
+
+                tmpRGB_GR.set1Value(yVal);
+                tmpRGB_GR.set2Value(xVal);
+
+                tmpRGB_BR.set1Value(yVal);
+                tmpRGB_BR.set3Value(xVal);
+
+                tmpRGB_GB.set2Value(xVal);
+                tmpRGB_GB.set3Value(yVal);
+
+                if(e.data.doColorblindnessSim){
+                  var tmpLMS = tmpRGB_GR.calcLMSColor();
+                  tmpRGB_GR.deleteReferences();
+                  tmpRGB_GR = tmpLMS.calcColorBlindRGBColor();
+                  tmpLMS.deleteReferences();
+
+                  tmpLMS = tmpRGB_BR.calcLMSColor();
+                  tmpRGB_BR.deleteReferences();
+                  tmpRGB_BR = tmpLMS.calcColorBlindRGBColor();
+                  tmpLMS.deleteReferences();
+
+                  tmpLMS = tmpRGB_GB.calcLMSColor();
+                  tmpRGB_GB.deleteReferences();
+                  tmpRGB_GB = tmpLMS.calcColorBlindRGBColor();
+                  tmpLMS.deleteReferences();
+                }
+
+                canvasData_GR.data[indices[0]] = Math.round(tmpRGB_GR.get1Value() * 255); // r
+                canvasData_GR.data[indices[1]] = Math.round(tmpRGB_GR.get2Value() * 255); // g
+                canvasData_GR.data[indices[2]] = Math.round(tmpRGB_GR.get3Value() * 255); // b
+                canvasData_GR.data[indices[3]] = 255; //a
+
+                canvasData_BR.data[indices[0]] = Math.round(tmpRGB_BR.get1Value() * 255); // r
+                canvasData_BR.data[indices[1]] = Math.round(tmpRGB_BR.get2Value() * 255); // g
+                canvasData_BR.data[indices[2]] = Math.round(tmpRGB_BR.get3Value() * 255); // b
+                canvasData_BR.data[indices[3]] = 255; //a
+
+                canvasData_GB.data[indices[0]] = Math.round(tmpRGB_GB.get1Value() * 255); // r
+                canvasData_GB.data[indices[1]] = Math.round(tmpRGB_GB.get2Value() * 255); // g
+                canvasData_GB.data[indices[2]] = Math.round(tmpRGB_GB.get3Value() * 255); // b
+                canvasData_GB.data[indices[3]] = 255; //a
+              }
+
+            }
+          }
+
+          var answerJSON = {};
+          answerJSON['pp_space'] = e.data.pp_space;
+          answerJSON['canvasID'] = e.data.canvasID_1;
+          answerJSON['imageData'] = canvasData_GR;
+          answerJSON['label1'] = "G";
+          answerJSON['label2'] = "R";
+          self.postMessage(answerJSON);
+
+          answerJSON['canvasID'] = e.data.canvasID_2;
+          answerJSON['imageData'] = canvasData_BR;
+          answerJSON['label1'] = "B";
+          answerJSON['label2'] = "R";
+          self.postMessage(answerJSON);
+
+          answerJSON['canvasID'] = e.data.canvasID_3;
+          answerJSON['imageData'] = canvasData_GB;
+          answerJSON['label1'] = "G";
+          answerJSON['label2'] = "B";
+          self.postMessage(answerJSON);
+
+          /////////////////////////////////////
+          //// delete Colors
+
+          tmpRGB_GR.deleteReferences();
+          tmpRGB_BR.deleteReferences();
+          tmpRGB_GB.deleteReferences();
+
+        break;
+        case "hsv":
+          var background = new ImageData(e.data.hueResolution, e.data.hueResolution);
+
+          var colorspaceCenterX = Math.round(e.data.hueResolution / 2);
+          var colorspaceCenterY = Math.round(e.data.hueResolution / 2);
+          var colorspaceRadius = Math.round((e.data.hueResolution*0.95 / 2));// * radiusratio);
+
+          var vVal = 1.0;
+
+          if (e.data.fixedValue3!=undefined)
+            vVal=e.data.fixedValue3;
+
+          var deleteColors = [];
+          var colorHSV = new class_Color_HSV(0, 0, vVal);
+
+          for (var x = 0; x < e.data.hueResolution; x++) {
+
+            for (var y = 0; y < e.data.hueResolution; y++) {
+
+              var dis = Math.sqrt(Math.pow(colorspaceCenterX - x, 2) + Math.pow(colorspaceCenterY - y, 2));
+
+              if (dis <= colorspaceRadius) {
+                // calc hsv color
+
+                var tmpY= e.data.hueResolution-y;
+                var ty = (tmpY) - (colorspaceCenterY);
+                var tx = x - colorspaceCenterX;
+                var angle = atan2_360Degree(tx,ty)/360; // values 0-1 ...
+                var hVal = angle;
+                var sVal = dis / colorspaceRadius;
+
+                colorHSV.set1Value(hVal);
+                colorHSV.set2Value(sVal);
+                var colorRGB = colorHSV.calcRGBColor();
+
+
+                if(e.data.doColorblindnessSim){
+                  var tmpLMS = colorRGB.calcLMSColor();
+                  deleteColors.push(colorRGB);
+                  colorRGB = tmpLMS.calcColorBlindRGBColor();
+                  deleteColors.push(tmpLMS);
+                }
+
+                var indices = getColorIndicesForCoord(x, y, e.data.hueResolution);
+
+                background.data[indices[0]] = Math.round(colorRGB.get1Value() * 255); // r
+                background.data[indices[1]] = Math.round(colorRGB.get2Value() * 255); // g
+                background.data[indices[2]] = Math.round(colorRGB.get3Value() * 255); // b
+                background.data[indices[3]] = 255; //a
+                deleteColors.push(colorRGB);
+              }
+
+            }
+
+          }
+
+          var answerJSON = {};
+          answerJSON['pp_space'] = e.data.pp_space;
+          answerJSON['canvasID'] = e.data.canvasID_1;
+          answerJSON['imageData'] = background;
+          self.postMessage(answerJSON);
+
+          colorHSV.deleteReferences();
+
+          for (var i = deleteColors.length-1; i >= 0; i--) {
+            deleteColors[i].deleteReferences();
+          }
+        break;
+        case "lab":
+          var background = new ImageData(e.data.hueResolution, e.data.hueResolution);
+
+          var colorspaceCenterX = Math.round(e.data.hueResolution / 2);
+          var colorspaceCenterY = Math.round(e.data.hueResolution / 2);
+          var colorspaceRadius = Math.round((e.data.hueResolution / 2));// * radiusratio);
+
+          var lVal = 50;
+
+          if (e.data.fixedValue1!=undefined)
+            lVal=e.data.fixedValue1;
+
+          var deleteColors = [];
+          var colorLAB = new class_Color_LAB(lVal, 0, 0);
+          for (var x = 0; x < e.data.hueResolution; x++) {
+
+            for (var y = 0; y < e.data.hueResolution; y++) {
+
+                var tmpY = e.data.hueResolution-y;
+                var aVal = ((x - colorspaceCenterX) / (e.data.hueResolution / 2)) * e.data.labSpaceRange;
+                var bVal = ((tmpY - colorspaceCenterY) / (e.data.hueResolution / 2)) * e.data.labSpaceRange;
+
+                colorLAB.set2Value(aVal);
+                colorLAB.set3Value(bVal);
+                var colorRGB = undefined;
+
+                if(colorLAB.checkRGBPossiblity() || e.data.fixedValue1==undefined){
+                  colorRGB = colorLAB.calcRGBColor();
+                }
+                else {
+                  //colorRGB = new class_Color_RGB(0.5, 0.5, 0.5);
+                  continue;
+                }
+
+                if(e.data.doColorblindnessSim){
+                  var tmpLMS = colorRGB.calcLMSColor();
+                  deleteColors.push(colorRGB);
+                  colorRGB = tmpLMS.calcColorBlindRGBColor();
+                  deleteColors.push(tmpLMS);
+                }
+
+                var indices = getColorIndicesForCoord(x, y, e.data.hueResolution);
+
+                background.data[indices[0]] = Math.round(colorRGB.get1Value() * 255); // r
+                background.data[indices[1]] = Math.round(colorRGB.get2Value() * 255); // g
+                background.data[indices[2]] = Math.round(colorRGB.get3Value() * 255); // b
+                background.data[indices[3]] = 255; //a
+                deleteColors.push(colorRGB);
+
+            }
+
+          }
+
+          var answerJSON = {};
+          answerJSON['pp_space'] = e.data.pp_space;
+          answerJSON['canvasID'] = e.data.canvasID_1;
+          answerJSON['imageData'] = background;
+          self.postMessage(answerJSON);
+
+          colorLAB.deleteReferences();
+          for (var i = deleteColors.length-1; i >= 0; i--) {
+            deleteColors[i].deleteReferences();
+          }
+        break;
+        case "din99":
+          var background = new ImageData(e.data.hueResolution, e.data.hueResolution);
+
+          var colorspaceCenterX = Math.round(e.data.hueResolution / 2);
+          var colorspaceCenterY = Math.round(e.data.hueResolution / 2);
+          var colorspaceRadius = Math.round((e.data.hueResolution / 2));// * radiusratio);
+
+          var l99Val = 50;
+
+          if (e.data.fixedValue1!=undefined)
+            lVal=e.data.fixedValue1;
+
+          var deleteColors = [];
+          var colorDIN99 = new class_Color_DIN99(l99Val, 0, 0);
+          for (var x = 0; x < e.data.hueResolution; x++) {
+
+            for (var y = 0; y < e.data.hueResolution; y++) {
+
+                var tmpY = e.data.hueResolution-y;
+                var a99Val = (x  / e.data.hueResolution) * e.data.rangeA99 + e.data.rangeA99Neg;
+                var b99Val = (tmpY / e.data.hueResolution) * e.data.rangeB99 + e.data.rangeB99Neg;
+
+                colorDIN99.set2Value(a99Val);
+                colorDIN99.set3Value(b99Val);
+                var colorRGB = undefined;
+                if (colorDIN99.checkRGBPossiblity() || e.data.fixedValue1==undefined){
+                  colorRGB = colorDIN99.calcRGBColor();
+                } else {
+                  //colorRGB = new class_Color_RGB(0.5, 0.5, 0.5);
+                  continue;
+                }
+
+                if(e.data.doColorblindnessSim){
+                  var tmpLMS = colorRGB.calcLMSColor();
+                  deleteColors.push(colorRGB);
+                  colorRGB = tmpLMS.calcColorBlindRGBColor();
+                  deleteColors.push(tmpLMS);
+                }
+
+                var indices = getColorIndicesForCoord(x, y, e.data.hueResolution);
+                background.data[indices[0]] = Math.round(colorRGB.get1Value() * 255); // r
+                background.data[indices[1]] = Math.round(colorRGB.get2Value() * 255); // g
+                background.data[indices[2]] = Math.round(colorRGB.get3Value() * 255); // b
+                background.data[indices[3]] = 255; //a
+                deleteColors.push(colorRGB);
+
+            }
+          }
+
+          var answerJSON = {};
+          answerJSON['pp_space'] = e.data.pp_space;
+          answerJSON['canvasID'] = e.data.canvasID_1;
+          answerJSON['imageData'] = background;
+          self.postMessage(answerJSON);
+
+          colorDIN99.deleteReferences();
+          for (var i = deleteColors.length-1; i >= 0; i--) {
+            deleteColors[i].deleteReferences();
+          }
+        break;
+        case "lch":
+          var background = new ImageData(e.data.hueResolution, e.data.hueResolution);
+
+            var colorspaceCenterX = Math.round(e.data.hueResolution / 2);
+            var colorspaceCenterY = Math.round(e.data.hueResolution / 2);
+            var colorspaceRadius = Math.round((e.data.hueResolution*0.95 / 2));// * radiusratio);
+
+            var lVal = 0.50;
+
+            if (e.data.fixedValue1!=undefined)
+              lVal=e.data.fixedValue1;
+
+            var deleteColors = [];
+            var colorLCH = new class_Color_LCH(lVal,0,0);
+
+            for (var x = 0; x < e.data.hueResolution; x++) {
+
+              for (var y = 0; y < e.data.hueResolution; y++) {
+
+                var dis = Math.sqrt(Math.pow(colorspaceCenterX - x, 2) + Math.pow(colorspaceCenterY - y, 2));
+
+                if (dis <= colorspaceRadius) {
+                  // calc hsv color
+
+                  var tmpY= e.data.hueResolution-y;
+                  var ty = (tmpY) - (colorspaceCenterY);
+                  var tx = x - colorspaceCenterX;
+                  var angle = atan2_360Degree(tx,ty)/360; // values 0-1 ...
+                  var hVal = angle;
+                  var cVal = dis / colorspaceRadius;
+
+                  colorLCH.set2Value(cVal);
+                  colorLCH.set3Value(hVal);
+
+                  var colorRGB;
+                  if(colorLCH.checkRGBPossiblity() || e.data.fixedValue1==undefined){
+                    colorRGB = colorLCH.calcRGBColor();
+                  }
+                  else {
+                    //colorRGB = new class_Color_RGB(0.5, 0.5, 0.5);
+                    continue;
+                  }
+
+                  if(e.data.doColorblindnessSim){
+                    var tmpLMS = colorRGB.calcLMSColor();
+                    deleteColors.push(colorRGB);
+                    colorRGB = tmpLMS.calcColorBlindRGBColor();
+                    deleteColors.push(tmpLMS);
+                  }
+
+                  var indices = getColorIndicesForCoord(x, y, e.data.hueResolution);
+
+                  background.data[indices[0]] = Math.round(colorRGB.get1Value() * 255); // r
+                  background.data[indices[1]] = Math.round(colorRGB.get2Value() * 255); // g
+                  background.data[indices[2]] = Math.round(colorRGB.get3Value() * 255); // b
+                  background.data[indices[3]] = 255; //a
+                  deleteColors.push(colorRGB);
+
+                }
+
+              }
+
+            }
+
+
+
+          var answerJSON = {};
+          answerJSON['pp_space'] = e.data.pp_space;
+          answerJSON['canvasID'] = e.data.canvasID_1;
+          answerJSON['imageData'] = background;
+          self.postMessage(answerJSON);
+
+          colorLCH.deleteReferences();
+
+          for (var i = deleteColors.length-1; i >= 0; i--) {
+            deleteColors[i].deleteReferences();
+          }
+        break;
+      }
+
+
     break;
   default:
     generalJSON_Processing(e.data);
-
-
   }
 
 }, false);
 
-
-function startReportCalc() {
-
-  /*switch (reportType) {
-    case 0:*/
-
-      ratioFields = getRatioDifField(testfield, colorField, reportOptions_ColorDif);
-      var answerJSON = {};
-      answerJSON['type'] = 0;
-      answerJSON['subtype'] = "reportIMG"
-      answerJSON['canvasID'] = "id_TestPage_Report0Canvas";
-      answerJSON['imageData'] = ratioFields[0];
-      self.postMessage(answerJSON);
-
-      answerJSON = {};
-      answerJSON['type'] = 0;
-      answerJSON['subtype'] = "reportIMG"
-      answerJSON['canvasID'] = "id_TestPage_Report1Canvas";
-      answerJSON['imageData'] = ratioFields[1];
-      self.postMessage(answerJSON);
-
-      answerJSON = {};
-      answerJSON['type'] = 0;
-      answerJSON['subtype'] = "reportIMG"
-      answerJSON['canvasID'] = "id_TestPage_Report2Canvas";
-      answerJSON['imageData'] = ratioFields[2];
-      self.postMessage(answerJSON);
-
-
-      //// calc statistics
-
-      answerJSON = {};
-      answerJSON['type'] = 0;
-      answerJSON['subtype'] = "statistics"
-      answerJSON['valueDifInfo'] = ratioFields[3];
-      answerJSON['valueDifStat'] = calcSubReportStatisics(ratioFields[3]);
-      answerJSON['colorDifInfo'] = ratioFields[4];
-      answerJSON['colorDifStat'] = calcSubReportStatisics(ratioFields[4]);
-      answerJSON['valueRatioInfo'] = ratioFields[5];
-      answerJSON['valueRatioStat'] = calcSubReportStatisics(ratioFields[5]);
-      answerJSON['colorRatioInfo'] = ratioFields[6];
-      answerJSON['colorRatioStat'] = calcSubReportStatisics(ratioFields[6]);
-      answerJSON['subtractionInfo'] = ratioFields[7];
-      answerJSON['subtractionStat'] = calcSubReportStatisics(ratioFields[7]);
-
-      self.postMessage(answerJSON);
-
-  /*  break;
-}*/
-
+function getColorIndicesForCoord(x, y, width) {
+  var red = y * (width * 4) + x * 4;
+  return [red, red + 1, red + 2, red + 3];
 }
