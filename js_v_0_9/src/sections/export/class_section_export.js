@@ -58,7 +58,7 @@ class class_Export_Section extends class_Section {
       else{
           this.workCMS = cloneCMS(this.exportCMS);
       }
-
+      this.workCMS.calcNeededIntervalsColors(false,undefined,undefined);
       this.fillExportTable();
     }
   }
@@ -66,7 +66,9 @@ class class_Export_Section extends class_Section {
   setCMS(cms){
     this.exportCMS.deleteReferences();
     this.exportCMS=cms;
-    this.exportCMS.calcNeededIntervalsColors(false,undefined,undefined);
+    this.workCMS.deleteReferences();
+    this.workCMS = cloneCMS(this.exportCMS);
+    this.workCMS.calcNeededIntervalsColors(false,undefined,undefined);
   }
 
   backToSection(){

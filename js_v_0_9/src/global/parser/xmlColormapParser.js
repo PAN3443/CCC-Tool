@@ -86,6 +86,7 @@ function xmlColormapParserFile(xmlString){
                      break;
                    default:
                          console.log("Error with XML File -> found no space ");
+                         return;
                  }
 
 
@@ -436,9 +437,7 @@ function xmlColormapParserFile(xmlString){
 
 
 function checkXMLColorspace(xmlObj){
-
-  if(xmlObj.length>0)
-
+  if(xmlObj.length>0){
     if(xmlObj[0].hasAttribute("r") && xmlObj[0].hasAttribute("b") && xmlObj[0].hasAttribute("g") ){
         return "RGB";
     }
@@ -454,7 +453,7 @@ function checkXMLColorspace(xmlObj){
     if(xmlObj[0].hasAttribute("l99") && xmlObj[0].hasAttribute("a99") && xmlObj[0].hasAttribute("b99") ){
         return "DIN99";
     }
-
+  }
     return "NoSpace";
 
 }

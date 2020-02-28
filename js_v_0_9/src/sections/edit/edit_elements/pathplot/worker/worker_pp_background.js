@@ -64,16 +64,17 @@ self.addEventListener('message', function(e) {
     break;
     case "getBackground":
 
+      var hueResolution = parseInt(e.data.hueResolution);
       switch (e.data.pp_space) {
         case "rgb":
-          var canvasData_GR = new ImageData(e.data.hueResolution, e.data.hueResolution);
-          var canvasData_BR = new ImageData(e.data.hueResolution, e.data.hueResolution);
-          var canvasData_GB = new ImageData(e.data.hueResolution, e.data.hueResolution);
+          var canvasData_GR = new ImageData(hueResolution, hueResolution);
+          var canvasData_BR = new ImageData(hueResolution, hueResolution);
+          var canvasData_GB = new ImageData(hueResolution, hueResolution);
 
-          var xStart = e.data.hueResolution * 0.1;
-          var yStart = e.data.hueResolution * 0.9;
-          var xEnd = e.data.hueResolution * 0.8;
-          var yEnd = e.data.hueResolution * 0.2;
+          var xStart = hueResolution * 0.1;
+          var yStart = hueResolution * 0.9;
+          var xEnd = hueResolution * 0.8;
+          var yEnd = hueResolution * 0.2;
           var xWidth = xEnd - xStart;
           var yHeight = yStart - yEnd;
 
@@ -88,12 +89,12 @@ self.addEventListener('message', function(e) {
           }
 
           var deleteColors = [];
-          for (var x = 0; x < e.data.hueResolution; x++) {
-            for (var y = 0; y < e.data.hueResolution; y++) {
+          for (var x = 0; x < hueResolution; x++) {
+            for (var y = 0; y < hueResolution; y++) {
 
               if (x >= xStart && x <= xEnd && y <= yStart && y >= yEnd) {
                 // calc hsv color
-                var indices = getColorIndicesForCoord(x, y, e.data.hueResolution);
+                var indices = getColorIndicesForCoord(x, y, hueResolution);
 
                 var xVal = (x - xStart) / xWidth;
                 var yVal = (yStart - y) / yHeight;
@@ -172,11 +173,11 @@ self.addEventListener('message', function(e) {
 
         break;
         case "hsv":
-          var background = new ImageData(e.data.hueResolution, e.data.hueResolution);
+          var background = new ImageData(hueResolution, hueResolution);
 
-          var colorspaceCenterX = Math.round(e.data.hueResolution / 2);
-          var colorspaceCenterY = Math.round(e.data.hueResolution / 2);
-          var colorspaceRadius = Math.round((e.data.hueResolution*0.95 / 2));// * radiusratio);
+          var colorspaceCenterX = Math.round(hueResolution / 2);
+          var colorspaceCenterY = Math.round(hueResolution / 2);
+          var colorspaceRadius = Math.round((hueResolution*0.95 / 2));// * radiusratio);
 
           var vVal = 1.0;
 
@@ -186,16 +187,16 @@ self.addEventListener('message', function(e) {
           var deleteColors = [];
           var colorHSV = new class_Color_HSV(0, 0, vVal);
 
-          for (var x = 0; x < e.data.hueResolution; x++) {
+          for (var x = 0; x < hueResolution; x++) {
 
-            for (var y = 0; y < e.data.hueResolution; y++) {
+            for (var y = 0; y < hueResolution; y++) {
 
               var dis = Math.sqrt(Math.pow(colorspaceCenterX - x, 2) + Math.pow(colorspaceCenterY - y, 2));
 
               if (dis <= colorspaceRadius) {
                 // calc hsv color
 
-                var tmpY= e.data.hueResolution-y;
+                var tmpY= hueResolution-y;
                 var ty = (tmpY) - (colorspaceCenterY);
                 var tx = x - colorspaceCenterX;
                 var angle = atan2_360Degree(tx,ty)/360; // values 0-1 ...
@@ -214,7 +215,7 @@ self.addEventListener('message', function(e) {
                   deleteColors.push(tmpLMS);
                 }
 
-                var indices = getColorIndicesForCoord(x, y, e.data.hueResolution);
+                var indices = getColorIndicesForCoord(x, y, hueResolution);
 
                 background.data[indices[0]] = Math.round(colorRGB.get1Value() * 255); // r
                 background.data[indices[1]] = Math.round(colorRGB.get2Value() * 255); // g
@@ -226,7 +227,7 @@ self.addEventListener('message', function(e) {
             }
 
           }
-
+          
           var answerJSON = {};
           answerJSON['pp_space'] = e.data.pp_space;
           answerJSON['canvasID'] = e.data.canvasID_1;
@@ -240,11 +241,11 @@ self.addEventListener('message', function(e) {
           }
         break;
         case "lab":
-          var background = new ImageData(e.data.hueResolution, e.data.hueResolution);
+          var background = new ImageData(hueResolution, hueResolution);
 
-          var colorspaceCenterX = Math.round(e.data.hueResolution / 2);
-          var colorspaceCenterY = Math.round(e.data.hueResolution / 2);
-          var colorspaceRadius = Math.round((e.data.hueResolution / 2));// * radiusratio);
+          var colorspaceCenterX = Math.round(hueResolution / 2);
+          var colorspaceCenterY = Math.round(hueResolution / 2);
+          var colorspaceRadius = Math.round((hueResolution / 2));// * radiusratio);
 
           var lVal = 50;
 
@@ -253,13 +254,13 @@ self.addEventListener('message', function(e) {
 
           var deleteColors = [];
           var colorLAB = new class_Color_LAB(lVal, 0, 0);
-          for (var x = 0; x < e.data.hueResolution; x++) {
+          for (var x = 0; x < hueResolution; x++) {
 
-            for (var y = 0; y < e.data.hueResolution; y++) {
+            for (var y = 0; y < hueResolution; y++) {
 
-                var tmpY = e.data.hueResolution-y;
-                var aVal = ((x - colorspaceCenterX) / (e.data.hueResolution / 2)) * e.data.labSpaceRange;
-                var bVal = ((tmpY - colorspaceCenterY) / (e.data.hueResolution / 2)) * e.data.labSpaceRange;
+                var tmpY = hueResolution-y;
+                var aVal = ((x - colorspaceCenterX) / (hueResolution / 2)) * e.data.labSpaceRange;
+                var bVal = ((tmpY - colorspaceCenterY) / (hueResolution / 2)) * e.data.labSpaceRange;
 
                 colorLAB.set2Value(aVal);
                 colorLAB.set3Value(bVal);
@@ -280,7 +281,7 @@ self.addEventListener('message', function(e) {
                   deleteColors.push(tmpLMS);
                 }
 
-                var indices = getColorIndicesForCoord(x, y, e.data.hueResolution);
+                var indices = getColorIndicesForCoord(x, y, hueResolution);
 
                 background.data[indices[0]] = Math.round(colorRGB.get1Value() * 255); // r
                 background.data[indices[1]] = Math.round(colorRGB.get2Value() * 255); // g
@@ -304,11 +305,11 @@ self.addEventListener('message', function(e) {
           }
         break;
         case "din99":
-          var background = new ImageData(e.data.hueResolution, e.data.hueResolution);
+          var background = new ImageData(hueResolution, hueResolution);
 
-          var colorspaceCenterX = Math.round(e.data.hueResolution / 2);
-          var colorspaceCenterY = Math.round(e.data.hueResolution / 2);
-          var colorspaceRadius = Math.round((e.data.hueResolution / 2));// * radiusratio);
+          var colorspaceCenterX = Math.round(hueResolution / 2);
+          var colorspaceCenterY = Math.round(hueResolution / 2);
+          var colorspaceRadius = Math.round((hueResolution / 2));// * radiusratio);
 
           var l99Val = 50;
 
@@ -317,13 +318,13 @@ self.addEventListener('message', function(e) {
 
           var deleteColors = [];
           var colorDIN99 = new class_Color_DIN99(l99Val, 0, 0);
-          for (var x = 0; x < e.data.hueResolution; x++) {
+          for (var x = 0; x < hueResolution; x++) {
 
-            for (var y = 0; y < e.data.hueResolution; y++) {
+            for (var y = 0; y < hueResolution; y++) {
 
-                var tmpY = e.data.hueResolution-y;
-                var a99Val = (x  / e.data.hueResolution) * e.data.rangeA99 + e.data.rangeA99Neg;
-                var b99Val = (tmpY / e.data.hueResolution) * e.data.rangeB99 + e.data.rangeB99Neg;
+                var tmpY = hueResolution-y;
+                var a99Val = (x  / hueResolution) * e.data.rangeA99 + e.data.rangeA99Neg;
+                var b99Val = (tmpY / hueResolution) * e.data.rangeB99 + e.data.rangeB99Neg;
 
                 colorDIN99.set2Value(a99Val);
                 colorDIN99.set3Value(b99Val);
@@ -342,7 +343,7 @@ self.addEventListener('message', function(e) {
                   deleteColors.push(tmpLMS);
                 }
 
-                var indices = getColorIndicesForCoord(x, y, e.data.hueResolution);
+                var indices = getColorIndicesForCoord(x, y, hueResolution);
                 background.data[indices[0]] = Math.round(colorRGB.get1Value() * 255); // r
                 background.data[indices[1]] = Math.round(colorRGB.get2Value() * 255); // g
                 background.data[indices[2]] = Math.round(colorRGB.get3Value() * 255); // b
@@ -364,11 +365,11 @@ self.addEventListener('message', function(e) {
           }
         break;
         case "lch":
-          var background = new ImageData(e.data.hueResolution, e.data.hueResolution);
+          var background = new ImageData(hueResolution, hueResolution);
 
-            var colorspaceCenterX = Math.round(e.data.hueResolution / 2);
-            var colorspaceCenterY = Math.round(e.data.hueResolution / 2);
-            var colorspaceRadius = Math.round((e.data.hueResolution*0.95 / 2));// * radiusratio);
+            var colorspaceCenterX = Math.round(hueResolution / 2);
+            var colorspaceCenterY = Math.round(hueResolution / 2);
+            var colorspaceRadius = Math.round((hueResolution*0.95 / 2));// * radiusratio);
 
             var lVal = 0.50;
 
@@ -378,16 +379,16 @@ self.addEventListener('message', function(e) {
             var deleteColors = [];
             var colorLCH = new class_Color_LCH(lVal,0,0);
 
-            for (var x = 0; x < e.data.hueResolution; x++) {
+            for (var x = 0; x < hueResolution; x++) {
 
-              for (var y = 0; y < e.data.hueResolution; y++) {
+              for (var y = 0; y < hueResolution; y++) {
 
                 var dis = Math.sqrt(Math.pow(colorspaceCenterX - x, 2) + Math.pow(colorspaceCenterY - y, 2));
 
                 if (dis <= colorspaceRadius) {
                   // calc hsv color
 
-                  var tmpY= e.data.hueResolution-y;
+                  var tmpY= hueResolution-y;
                   var ty = (tmpY) - (colorspaceCenterY);
                   var tx = x - colorspaceCenterX;
                   var angle = atan2_360Degree(tx,ty)/360; // values 0-1 ...
@@ -413,7 +414,7 @@ self.addEventListener('message', function(e) {
                     deleteColors.push(tmpLMS);
                   }
 
-                  var indices = getColorIndicesForCoord(x, y, e.data.hueResolution);
+                  var indices = getColorIndicesForCoord(x, y, hueResolution);
 
                   background.data[indices[0]] = Math.round(colorRGB.get1Value() * 255); // r
                   background.data[indices[1]] = Math.round(colorRGB.get2Value() * 255); // g

@@ -336,7 +336,7 @@ function getLCHBackground(fixedColor,hueResolution){
         var cVal = dis / colorspaceRadius;
 
         colorLCH.set2Value(cVal);
-        colorLCH.set2Value(hVal);
+        colorLCH.set3Value(hVal);
 
         var colorRGB;
         if(colorLCH.checkRGBPossiblity() || fixedColor==undefined){
@@ -368,7 +368,7 @@ function getLCHBackground(fixedColor,hueResolution){
 
   }
 
-  tmpLMS.deleteReferences();
+  colorLCH.deleteReferences();
 
   return background;
 }

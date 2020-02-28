@@ -29,3 +29,5 @@ var smallErrorMath = 1e-12; // for math operation, which should be zero.
 // worker
 
 var global_worker_3DSpaceGrids=undefined;
+// for testing
+var doWorker = true;

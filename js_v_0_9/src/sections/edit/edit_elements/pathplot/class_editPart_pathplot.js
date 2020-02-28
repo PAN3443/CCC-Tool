@@ -52,7 +52,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     ///////////////////////////////////////////
     /// WORKER
     this.pathplot_worker_background = undefined;
-    if (window.Worker) {
+    if (doWorker && window.Worker){
       this.pathplot_worker_background= new Worker(version_JS_FolderName+"/src/sections/edit/edit_elements/pathplot/worker/worker_pp_background.js"); //, { type: "module" });
       this.pathplot_worker_background.postMessage({'message':'init'});
       this.pathplot_worker_background.addEventListener('message', workerEvent_Draw_PP_Background, false);
@@ -462,7 +462,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
       tmpCMS.deleteReferences();
     }
 
-    if (window.Worker){
+    if (doWorker && window.Worker){
       var workerJSON = {};
       workerJSON['message'] = "getBackground";
       workerJSON['pp_space'] = this.pathplot_space;
@@ -641,7 +641,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
         tmpCMS.deleteReferences();
       }
 
-      if (window.Worker){
+      if (doWorker && window.Worker){
         var workerJSON = {};
         workerJSON['message'] = "getBackground";
         workerJSON['pp_space'] = this.pathplot_space;
