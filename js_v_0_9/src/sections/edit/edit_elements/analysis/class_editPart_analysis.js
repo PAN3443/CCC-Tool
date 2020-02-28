@@ -177,8 +177,11 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
         document.getElementById(this.partDivID+"_InfoMin").id = this.partDivID+"_InfoLocalMin";
         document.getElementById(this.partDivID+"_InfoAverage").remove();
         document.getElementById(this.partDivID+"_InfoDeviation").remove();
-        document.getElementById(this.partDivID+"_UsedColors").options[1].disabled = true;
-        document.getElementById(this.partDivID+"_UsedColors").options[2].disabled = true;
+        //document.getElementById(this.partDivID+"_UsedColors").options[1].disabled = true;
+        //document.getElementById(this.partDivID+"_UsedColors").options[2].disabled = true;
+        document.getElementById(this.partDivID+"_NumIntervals").value = 5;
+        document.getElementById(this.partDivID+"_NumIntervals").maxValue = 10;
+
 
         var tmpDiv= document.createElement('div');
         tmpDiv.style.margin="auto";
@@ -268,10 +271,10 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
     tmpOnlyKeysOption.innerHTML = "Only Key Colors";
     tmpOnlyKeysOption.value = "keys";
     tmpSelect.appendChild(tmpOnlyKeysOption);
-    var tmpDeltaSamplingOption = document.createElement('option');
+    /*var tmpDeltaSamplingOption = document.createElement('option');
     tmpDeltaSamplingOption.innerHTML = "Key Colors + Delta Sampling";
     tmpDeltaSamplingOption.value = "ds";
-    tmpSelect.appendChild(tmpDeltaSamplingOption);
+    tmpSelect.appendChild(tmpDeltaSamplingOption);*/
     tmpRow.appendChild(tmpSelect);
     tmpDiv.appendChild(tmpRow);
     var tmpIntervalOption = document.createElement('option');
@@ -1081,7 +1084,7 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
       context.clearRect(0, 0, canvasPlot.width, canvasPlot.height);
 
       this.workCMS = this.getParentCMS();
-      var continuousSections = searchForContinuousSections(this.workCMS, 0,this.workCMS.getKeyLength()-1);
+      var continuousSections = this.workCMS.searchForContinuousSections(0,this.workCMS.getKeyLength()-1);
       // fill continious
       var tmpID = document.getElementById(this.partDivID+"_UseMetric").selectedIndex;
       var useMetric = document.getElementById(this.partDivID+"_UseMetric").options[tmpID].value;
@@ -1132,6 +1135,7 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
           }
         break;
         case "ds":
+          this.workCMS.calcDeltaIntervalColors();
           for (var i = continuousSections[selectedIndex][0]; i < continuousSections[selectedIndex][1]; i++) {
               colorArray.push(this.workCMS.getRightKeyColor(i,neededSpace));
               refArray.push(this.workCMS.getRefPosition(i));
@@ -1169,9 +1173,9 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
           for (var i = continuousSections[selectedIndex][0]; i < continuousSections[selectedIndex][1]; i++) {
               colorArray.push(this.workCMS.getRightKeyColor(i,neededSpace));
               refArray.push(this.workCMS.getRefPosition(i));
-              for(var j=0; j<this.workCMS.getExportSamplingLength(i); j++){
-                colorArray.push(this.workCMS.getExportSamplingColor(i,j,neededSpace));
-                refArray.push(this.workCMS.getExportSamplingRef(i,j));
+              for (var j = 0; j < this.workCMS.getIntervalLength(i)-1; j++) {
+                colorArray.push(this.workCMS.getIntervalColor(i,j,neededSpace));
+                refArray.push(this.workCMS.getIntervalRef(i,j));
               }
           }
         break;
@@ -1536,20 +1540,20 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
           case "twin key":
             colorArray.push(this.workCMS.getLeftKeyColor(i, this.workCMS.getInterpolationSpace()));
             colorArray.push(this.workCMS.getRightKeyColor(i, this.workCMS.getInterpolationSpace()));
-            for (var j = 0; j < this.workCMS.getExportSamplingLength(i) - 1; j++) {
-              colorArray.push(this.workCMS.getExportSamplingColor(i, j, this.workCMS.getInterpolationSpace()));
+            for (var j = 0; j < this.workCMS.getIntervalLength(i) - 1; j++) {
+              colorArray.push(this.workCMS.getIntervalColor(i, j, this.workCMS.getInterpolationSpace()));
             }
             break;
           case "right key":
             colorArray.push(this.workCMS.getRightKeyColor(i, this.workCMS.getInterpolationSpace()));
-            for (var j = 0; j < this.workCMS.getExportSamplingLength(i) - 1; j++) {
-              colorArray.push(this.workCMS.getExportSamplingColor(i, j, this.workCMS.getInterpolationSpace()));
+            for (var j = 0; j < this.workCMS.getIntervalLength(i) - 1; j++) {
+              colorArray.push(this.workCMS.getIntervalColor(i, j, this.workCMS.getInterpolationSpace()));
             }
             break;
           default:
             colorArray.push(this.workCMS.getRightKeyColor(i, this.workCMS.getInterpolationSpace()));
-            for (var j = 0; j < this.workCMS.getExportSamplingLength(i) - 1; j++) {
-              colorArray.push(this.workCMS.getExportSamplingColor(i, j, this.workCMS.getInterpolationSpace()));
+            for (var j = 0; j < this.workCMS.getIntervalLength(i) - 1; j++) {
+              colorArray.push(this.workCMS.getIntervalColor(i, j, this.workCMS.getInterpolationSpace()));
             }
         }
       }
