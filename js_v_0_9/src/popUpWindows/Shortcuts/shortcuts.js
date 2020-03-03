@@ -38,7 +38,7 @@ var sc_function_arrayEdit = [
                 editSection.editCMS.setInterpolationSpace("de2000-ds");
               break;
               case "de2000-ds":
-                  editSection.editCMS.setInterpolationSpace("lch");
+                  editSection.editCMS.setInterpolationSpace("din99"); //"lch");
                 break;
                 case "lch":
                     editSection.editCMS.setInterpolationSpace("din99");
