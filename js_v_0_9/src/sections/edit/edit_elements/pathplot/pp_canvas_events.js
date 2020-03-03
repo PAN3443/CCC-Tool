@@ -39,7 +39,7 @@ function pathplot2DAnimation(){
   if(editSection.isSectionOpen()){
     editSection.updateSection();
   }
-  else if(editSection.optiSection.isSectionOpen()){
+  else if(optiSection.isSectionOpen()){
     optiSection.updateSection();
   }
 }
@@ -98,7 +98,10 @@ function pp_2D_mouseDown(event) {
     }
   }
   else if(optiSection.isSectionOpen()){
-    optiSection.part_Pathplot.pp_mouseMove(event.target.id,canvasPosX,canvasPosY);
+    timer2DAnimation = setInterval(pathplot2DAnimation, animationInterval);
+    // Calc Band Index
+    optiSection.part_Pathplot.mouseGrappedKeyID = optiSection.part_Pathplot.mouseAboveKeyID;
+    optiSection.part_Pathplot.updatePart(true,false,false);
   }
 }
 
@@ -117,5 +120,6 @@ function pp_2D_mouseUp() {
     optiSection.part_Pathplot.mouseGrappedKeyID=-1;
     optiSection.part_Pathplot.mouseGrappedColorSide=-1;
     optiSection.part_Pathplot.updatePart(true,true,true);
+    optiSection.saveCreateProcess();
   }
 }

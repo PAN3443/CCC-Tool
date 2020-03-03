@@ -453,9 +453,11 @@
         %%%%%%%%%%%%%%%   CMS   	%%%%%%%%%%%%%%%%%
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
         <div style="height:5vh; width:45vw; display:flex; background: var(--main-sepArea-bg); border-bottom: 0.2vh solid var(--main-sepArea-border); box-sizing: border-box;">
-
-          <p id="id_opti_cms_name" style="width:auto; max-width: 20vw; height:5vh; line-height:5vh; margin:auto; margin-right:0vw; color: var(--main-sepArea-font-color); font-size: 3vh;">Name:</p>
-          <p id="id_opti_cms_interpolation" style="width:auto; max-width: 15vw; height:5vh; line-height:5vh; margin:auto; color: var(--main-sepArea-font-color); font-size: 3vh;"> Interpolation: </p>
+          <p id="id_optiPage_editWarning"
+            style="margin-left:0.25vw;  width:2vw; text-align:center; vertical-align: middle; color:var(--general-warning-color); font-size: 3vh; line-height:5vh; margin-top:auto; margin-bottom:auto; visibility:hidden; cursor:help;"
+            title="Modified Edit-CMS">&#9888;</p>
+          <p id="id_opti_cms_name" style="width:auto; max-width: 15vw; height:5vh; line-height:5vh; margin:auto; margin-right:0vw; color: var(--main-sepArea-font-color); font-size: 2.5vh;">Name:</p>
+          <p id="id_opti_cms_interpolation" style="width:auto; max-width: 15vw; height:5vh; line-height:5vh; margin:auto; color: var(--main-sepArea-font-color); font-size: 2.5vh;"> Interpolation: </p>
 
           <div id="id_opti_cms_NaN" title="NaN Color" style="height:5vh; width:5vh; border-left:0.2vw solid var(--main-sepArea-border); background:red;"></div>
           <div id="id_opti_cms_Below" title="Below Color" style="height:5vh; width:5vh; border-left:0.2vw solid var(--main-sepArea-border); background:green;"></div>
@@ -466,9 +468,9 @@
         %%%%%%%%%%%%%%% Analysis	%%%%%%%%%%%%%%%%%
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
         <div id="id_OptiPage_AnalysisDiv" style="display:flex; flex-direction:column; width:45vw; height:65vh; border-top:0.2vh solid var(--main-sepArea-border); box-sizing: border-box;">
-          <div style="display:flex; width:100%; height:3vh; background: var(--main-sepArea-bg);">
-            <p style="height:3vh; line-height:3vh; font-size: 2vh; color: var(--main-sepArea-font-color); margin-left:1vw; margin-right:1vw;">Analysis Type:</p>
-            <select id="id_OptiPage_SelectAnalysisType" onchange="optiSection.part_Analysis.stylePart()" style="width: 10vw; font-size: 2vh; height: 3vh; line-height:3vh; margin:auto; margin-left:0vw;">
+          <div style="display:flex; width:100%; height:5vh; background: var(--main-sepArea-bg);">
+            <p style="height:5vh; line-height:5vh; font-size: 2.5vh; color: var(--main-sepArea-font-color); margin-left:1vw; margin-right:1vw;">Analysis Type:</p>
+            <select id="id_OptiPage_SelectAnalysisType" onchange="optiSection.part_Analysis.stylePart()" style="width: 15vw; font-size: 2.5vh; height: 4vh; line-height:4vh; margin:auto; margin-left:0vw;">
                 <optgroup label="Color Space:">
                   <option value="intSpace">Interpolation Space</option>
                 </optgroup>
@@ -481,11 +483,11 @@
                   <option value="intOrder">Intrinsic Order</option>
                 </optgroup>
             </select>
-            <div id="id_OptiPage_AnalysisOptions" style="display:flex; height:3vh; margin:auto; margin-right:1vw;">
+            <div id="id_OptiPage_AnalysisOptions" style="display:flex; height:5vh; margin:auto; margin-right:1vw;">
 
             </div>
           </div>
-          <div id="id_OptiPage_AnalysisContainer" style="display:flex; height:62vh; width:100%; display:flex;">
+          <div id="id_OptiPage_AnalysisContainer" style="display:flex; height:60vh; width:100%; display:flex;">
 
           </div>
         </div>
@@ -495,9 +497,9 @@
       %%%%%%%%%%%%%%%  Pathplot	 %%%%%%%%%%%%%%%%%
       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
       <div style="display:flex; flex-direction:column; width:30vw; height:95vh;">
-        <div style="display:flex; width:100%; height:3vh; background: var(--main-sepArea-bg);">
-          <p style="height:3vh; line-height:3vh; font-size: 2vh; color: var(--main-sepArea-font-color); margin-left:1vw; margin-right:1vw;">Space:</p>
-          <select id="id_OptiPage_SelectPathplotType" onchange="optiSection.part_Pathplot.changePathPlotSpace()" style="width: 10vw; font-size: 2vh; height: 3vh; line-height:3vh; margin:auto; margin-left:0vw; margin-right:0.5vw;">
+        <div style="display:flex; width:100%; height:5vh; background: var(--main-sepArea-bg);">
+          <p style="height:5vh; line-height:5vh; font-size: 2.5vh; color: var(--main-sepArea-font-color); margin-left:1vw; margin-right:1vw;">Space:</p>
+          <select id="id_OptiPage_SelectPathplotType" onchange="optiSection.part_Pathplot.changePathPlotSpace()" style="width: 10vw; font-size: 2.5vh; height: 4vh; line-height:4vh; margin:auto; margin-left:0vw; margin-right:0.5vw;">
               <optgroup label="Common:">
                 <option value="rgb">RGB</option>
                 <option value="rgb-line">RGB Line Chart</option>
@@ -514,22 +516,21 @@
           </select>
 
 
-          <a id="id_OptiPage_PathplotScreenshot" onclick="optiSection.part_Pathplot.pp_3D_GetScreenshot()" class="class_coloredButton"  title="3D Screenshot" download="CCC_Tool_Pathplot_Screenshot.png" style="height:3vh; line-height:3vh; font-size: 2vh;">&#9688;</a>
+          <a id="id_OptiPage_PathplotScreenshot" onclick="optiSection.part_Pathplot.pp_3D_GetScreenshot()" class="class_coloredButton"  title="3D Screenshot" download="CCC_Tool_Pathplot_Screenshot.png" style="height:5vh; line-height:5vh; font-size: 2.5vh;">&#9688;</a>
           <p id="id_OptiPage_PathplotCoord" style="height:3vh; line-height:3vh; font-size: 2vh; color: var(--main-sepArea-font-color); margin-left:auto; margin-right:1vw;"></p>
         </div>
-        <div id="id_OptiPage_PathplotContainer" style="height:62vh; width:100%; display:flex;">
+        <div id="id_OptiPage_PathplotContainer" style="height:90vh; width:30vw; display:flex;">
 
         </div>
       </div>
 
     </div>
 
-
   </div>
 
 
   <div class="row" style="width:100vw; height: 5vh; background:var(--main-coloredButton);">
     <button class="class_coloredButton" onclick="editSection.showSection()" title="MyDesigns" style=" height:5vh; width: 10vw; font-size: 3vh;">Back</button>
-    <button class="class_coloredButton" title="CMS Options" style=" height:5vh; width: 45vw; font-size: 3vh;">Reset</button>
-    <button class="class_coloredButton" title="Display Options" style=" height:5vh; width: 45vw; font-size: 3vh;">Accept & Replace</button>
+    <button class="class_coloredButton" onclick="optiSection.reset()" title="CMS Options" style=" height:5vh; width: 45vw; font-size: 3vh;">Reset</button>
+    <button class="class_coloredButton" onclick="optiSection.acceptAndReplace()" title="Display Options" style=" height:5vh; width: 45vw; font-size: 3vh;">Accept & Replace</button>
   </div>

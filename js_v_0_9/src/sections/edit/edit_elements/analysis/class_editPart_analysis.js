@@ -5,6 +5,7 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
     this.analysis_Height_VH=62;
     this.analysis_Width_VW=undefined;
     this.optionRowID=undefined;
+    this.selectTypeID=undefined;
     this.workCMS = undefined;
     this.numDecimalPlaces = 5;
   }
@@ -17,7 +18,7 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
     if(!super.updatePart())
       return;
 
-      switch (document.getElementById("id_EditPage_SelectAnalysisType").options[document.getElementById("id_EditPage_SelectAnalysisType").selectedIndex].value) {
+      switch (document.getElementById(this.selectTypeID).options[document.getElementById(this.selectTypeID).selectedIndex].value) {
         case "intSpace":
           this.calc_AnalysisPlot_IntSpace();
         break;
@@ -55,7 +56,7 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
     document.getElementById(this.optionRowID).innerHTML="";
     //
     document.getElementById(this.partDivID).style.display="flex";
-    switch (document.getElementById("id_EditPage_SelectAnalysisType").options[document.getElementById("id_EditPage_SelectAnalysisType").selectedIndex].value) {
+    switch (document.getElementById(this.selectTypeID).options[document.getElementById(this.selectTypeID).selectedIndex].value) {
       case "intSpace":
         document.getElementById(this.partDivID).style.flexDirection="column";
         var rowHeight = this.analysis_Height_VH/9;

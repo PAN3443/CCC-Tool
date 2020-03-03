@@ -26,6 +26,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
     this.showAnalysis = false;
     this.part_Analysis.partDivID="id_EditPage_AnalysisContainer";
     this.part_Analysis.optionRowID="id_EditPage_AnalysisOptions";
+    this.part_Analysis.selectTypeID="id_EditPage_SelectAnalysisType";
 
 
     /// Part: Predefined
@@ -207,7 +208,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
           document.getElementById("id_EditPage_AnalysisDiv").style.display="flex";
           document.getElementById("id_EditPage_DisplayAnalysis").style.background = "var(--main-menue-active)";
           document.getElementById("id_EditPage_DisplayAnalysis").innerHTML = "Hide Analysis";
-          this.part_Analysis.stylePart()
+          this.part_Analysis.stylePart();
         }
         else{
           document.getElementById("id_EditPage_DisplayAnalysis").innerHTML = "Show Analysis";

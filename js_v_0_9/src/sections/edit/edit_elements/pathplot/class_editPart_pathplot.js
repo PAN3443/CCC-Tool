@@ -266,6 +266,9 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
       case editSection.isSectionOpen():
         tmpID="id_EditPage_SelectPathplotType";
       break;
+      case optiSection.isSectionOpen():
+        tmpID="id_OptiPage_SelectPathplotType";
+      break;
       default:
           return;
     }
@@ -312,11 +315,13 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
       case editSection.isSectionOpen():
         tmpID="id_EditPage_SelectPathplotType";
       break;
+      case optiSection.isSectionOpen():
+        tmpID="id_OptiPage_SelectPathplotType";
+      break;
       default:
           return;
     }
     this.pathplot_space=document.getElementById(tmpID).options[document.getElementById(tmpID).selectedIndex].value;
-
     switch (this.pathplot_space) {
       case "rgb":
       case "rgb-line":
@@ -1568,7 +1573,16 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     this.pp_renderer.preserveDrawingBuffer = false;
     this.pp_renderer.setSize(oldSize.width, oldSize.height);
     this.pp_3D_StartAnimation();
-    document.getElementById("id_EditPage_PathplotScreenshot").href=pathplotImgData;
+
+    switch (true) {
+      case editSection.isSectionOpen():
+        document.getElementById("id_EditPage_PathplotScreenshot").href=pathplotImgData;
+      break;
+      case optiSection.isSectionOpen():
+        document.getElementById("id_OptiPage_PathplotScreenshot").href=pathplotImgData;
+      break;
+    }
+
   }
 
   pp_3D_Resize(){
