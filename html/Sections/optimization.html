@@ -4,44 +4,33 @@
 
     <div id="optimization_Div" style="width:25vw; height:95vh; background: var(--main-sepArea-bg); display:flex; flex-direction:column;">
 
-      <div style="width:100%; display:flex; margin-top:auto;">
-        <p class="sectionLabel" style="width:auto; margin:auto; ">Optimization</p>
-
-          <div class="helpButtonDiv" style="width:auto; margin:auto;">
-            <button class="helpButton_sepArea" style="height: var(--line-height-normal); line-height: var(--line-height-normal); ">?</button>
-            <div class="helpButtonDiv-content" style="width:40vw; z-index:103;">
-              <p style="padding:1vh; height:auto; min-width:10vw; width:auto; max-width:20vw; font-size: 1.3vh; line-height: 2vh; z-index:103; "> <strong>Info</strong>: Check the wished optimization algorithm and set the respective degree of optimization.
-                Move the slider to left to get the original CMS or move the slider to the right to get the optimized CMS.
-                The order of the algorithm run depends on the respective degree. Algorithm with higher degree will be execute at least.
-              </p>
-            </div>
-          </div>
-
+      <div style="display:flex; margin:auto; margin-top:1vh; margin-bottom:2vh;">
+        <p style="height:5vh; line-height:5vh; font-size:3.5vh; font-weight: bold; color:var(--main-sepArea-font-color); vertical-align:middle;">Optimization</p>
+        <button onmouseover="optiSection.showHelp(0)" onmouseout="optiSection.showHelp()" class="class_coloredButton" style="height:5vh; width:3vw; font-size: 3.5vh;">?</button>
       </div>
 
       <div id="id_OptiPage_OptimizationSettings" style="width:100%; max-height:95vh; height:95vh; min-height:95vh; display:flex; flex-direction:column; margin-top:auto;">
 
-
         <div style="width:100%; display:flex; margin-bottom:2vh;">
           <p style="margin:auto; margin-right:1vw; margin-left:1vw; color: var(--main-sepArea-font-color); font-weight:bold;">From </p>
-          <select id="id_OptiPage_Optimization_FromKey" style="min-width:5vw; max-width:5vw;" onchange="updateKeyIndex()">
+          <select id="id_OptiPage_Optimization_FromKey" style="min-width:5vw; max-width:5vw;" onchange="optiSection.updateKeyIndex()">
 
           </select>
           <p style="margin:auto; margin-right:1vw; margin-left:1vw; color: var(--main-sepArea-font-color); font-weight:bold;">To </p>
-          <select id="id_OptiPage_Optimization_TillKey" style="min-width:5vw; max-width:5vw;" onchange="updateKeyIndex()">
+          <select id="id_OptiPage_Optimization_TillKey" style="min-width:5vw; max-width:5vw;" onchange="optiSection.updateKeyIndex()">
 
           </select>
 
         </div>
 
-        <p style="width:100%; text-align:center; height: 2vh; line-height: 2vh; font-size: 1.6vh; background: var(--menue-bg-color); color: var(--main-sepArea-font-color);"> Optimization Types </p>
+        <p style="width:100%; text-align:center; height: 2vh; line-height: 2vh; font-size: 2vh; font-weight: bold; background: var(--menue-bg-color); color: var(--main-sepArea-font-color);"> Optimization Types </p>
         <div class="class_TabRow">
 
-          <button id="id_Select_Uniform_Opti" class="class_TabRowButtonNotActive" onclick="chooseOptimizationType(0)" style="width:50%; font-size:1.5vh;">
+          <button id="id_Select_Uniform_Opti" class="class_TabRowButtonNotActive" onclick="optiSection.chooseOptimizationType(0)" style="width:50%; font-size:1.5vh;">
             Uniformity
           </button>
 
-          <button id="id_Select_IntOrder_Opti" class="class_TabRowButtonNotActive" onclick="chooseOptimizationType(1)" style="width:50%; font-size:1.5vh;">
+          <button id="id_Select_IntOrder_Opti" class="class_TabRowButtonNotActive" onclick="optiSection.chooseOptimizationType(1)" style="width:50%; font-size:1.5vh;">
             Intrinsic Order
           </button>
 
@@ -49,11 +38,11 @@
 
         <div  class="class_TabRow">
 
-          <button id="id_Select_LegOrder_Opti" class="class_TabRowButtonNotActive" onclick="chooseOptimizationType(2)" style="width:50%; font-size:1.5vh;">
+          <button id="id_Select_LegOrder_Opti" class="class_TabRowButtonNotActive" onclick="optiSection.chooseOptimizationType(2)" style="width:50%; font-size:1.5vh;">
             Leg. Based Order
           </button>
 
-          <button id="id_Select_DisPower_Opti" class="class_TabRowButtonNotActive"  onclick="chooseOptimizationType(3)" style="width:50%; font-size:1.5vh;">
+          <button id="id_Select_DisPower_Opti" class="class_TabRowButtonNotActive"  onclick="optiSection.chooseOptimizationType(3)" style="width:50%; font-size:1.5vh;">
             Discr. Power
           </button>
 
@@ -61,7 +50,7 @@
 
         <div  class="class_TabRow">
 
-          <button id="id_Select_Smoothness_Opti" class="class_TabRowButtonNotActive" onclick="chooseOptimizationType(4)" style="width:50%; font-size:1.5vh;">
+          <button id="id_Select_Smoothness_Opti" class="class_TabRowButtonNotActive" onclick="optiSection.chooseOptimizationType(4)" style="width:50%; font-size:1.5vh;">
             Smoothness
           </button>
 
@@ -78,61 +67,48 @@
 
             <div class="row">
               <label class="class_checkbox_container" style="margin-left:1vw; color: var(--main-sepArea-font-color); width:9vw; margin-top:1vh; margin-bottom:1vh;"> : Local
-                <input type="checkbox" id="id_OptiPage_LocalSpeedOptimization" onchange="updateOptiPageStyle()">
+                <input type="checkbox" id="id_OptiPage_LocalSpeedOptimization" onchange="optiSection.updateOptiPageStyle()">
                 <span class="class_checkbox_checkmark"></span>
               </label>
-
-              <div class="helpButtonDiv" style="width:auto; margin:auto; margin-left:1vw;">
-                <button class="helpButton_sepArea" style="height: var(--line-height-normal); line-height: var(--line-height-normal); ">?</button>
-                <div class="helpButtonDiv-content" style="width:40vw; z-index:103;">
-                  <p style="padding:1vh; height:auto; min-width:10vw; width:auto; max-width:20vw; font-size: 1.3vh; line-height: 2vh; z-index:103; "> Local uniformity is achieved by relocating the control points. The key colors remain unchanged.
-                  </p>
-                </div>
-              </div>
+              <button onmouseover="optiSection.showHelp(1)" onmouseout="optiSection.showHelp()" class="class_coloredButton" style="height:3vh; width:2vw; font-size: 2vh; margin:auto; margin-left:1vw;">?</button>
             </div>
 
             <div id="id_OptiPage_UniOpti_Local_Options" style="width:100%;">
               <div class="row" style="width: 100%; margin-top: 1vh;">
                 <p style="margin:auto; margin-left:2vw; width:3vw; margin-right:0.5vw; color: var(--main-sepArea-font-color);">Degree:</p>
-                <input id="id_OptiPage_UniOpti_Local_Degree" type="range" step="0.01" min="0" max="1" value="1" style="width:8vw; margin:auto; margin-left:0vw;" onchange="calcOptiCMS()">
+                <input id="id_OptiPage_UniOpti_Local_Degree" type="range" step="0.01" min="0" max="1" value="1" style="width:8vw; margin:auto; margin-left:0vw;" onchange="optiSection.calcOptiCMS()">
               </div>
             </div>
 
             <hr>
 
             <div class="row">
-            <label class="class_checkbox_container" style="margin-left:1vw; color: var(--main-sepArea-font-color); width:9vw; margin-top:1vh; margin-bottom:1vh;" onchange="updateOptiPageStyle()"> : Global
+            <label class="class_checkbox_container" style="margin-left:1vw; color: var(--main-sepArea-font-color); width:9vw; margin-top:1vh; margin-bottom:1vh;" onchange="optiSection.updateOptiPageStyle()"> : Global
               <input type="checkbox" id="id_OptiPage_GlobalSpeedOptimization" >
               <span class="class_checkbox_checkmark"></span>
             </label>
-            <div class="helpButtonDiv" style="width:auto; margin:auto; margin-left:1vw;">
-              <button class="helpButton_sepArea" style="height: var(--line-height-normal); line-height: var(--line-height-normal); ">?</button>
-              <div class="helpButtonDiv-content" style="width:40vw; z-index:103;">
-                <p style="padding:1vh; height:auto; min-width:10vw; width:auto; max-width:20vw; font-size: 1.3vh; line-height: 2vh; z-index:103; "> Global uniformity is achieved by relocating the key colors. The optimum is a straight line.
-                </p>
-              </div>
-            </div>
+              <button onmouseover="optiSection.showHelp(2)" onmouseout="optiSection.showHelp()" class="class_coloredButton" style="height:3vh; width:2vw; font-size: 2vh; margin:auto; margin-left:1vw;">?</button>
             </div>
 
             <div id="id_OptiPage_UniOpti_Global_Options" style="width:100%;">
 
                 <label class="class_radio_container" style="margin-left:4vw; color: var(--main-sepArea-font-color); margin-right:auto;"> : Linear Regression
-                  <input type="radio" checked="checked" name="selectGlobalUniformType" id="id_OptiPage_GlobalLinearReg" onchange="updateOptiPageStyle()" checked>
+                  <input type="radio" checked="checked" name="selectGlobalUniformType" id="id_OptiPage_GlobalLinearReg" onchange="optiSection.updateOptiPageStyle()" checked>
                   <span class="class_radio_checkmark"></span>
                 </label>
 
-                <label class="class_radio_container" style="margin-left:4vw; color: var(--main-sepArea-font-color); margin-right:auto; display:none;" onchange="updateOptiPageStyle()" > : Forced Graph
+                <label class="class_radio_container" style="margin-left:4vw; color: var(--main-sepArea-font-color); margin-right:auto; display:none;" onchange="optiSection.updateOptiPageStyle()" > : Forced Graph
                   <input type="radio" name="selectGlobalUniformType" id="id_OptiPage_GlobalForcedGraph" disabled>
                   <span class="class_radio_checkmark"></span>
                 </label>
 
 
               <div id="id_OptiPage_UniOpti_FixedDiv" style="width:100%;">
-                <label class="class_checkbox_container" style="margin-left:6vw; color: var(--main-sepArea-font-color); margin-right:0vw;" onchange="updateOptiPageStyle()"> : fixed Start
+                <label class="class_checkbox_container" style="margin-left:6vw; color: var(--main-sepArea-font-color); margin-right:0vw;" onchange="optiSection.updateOptiPageStyle()"> : fixed Start
                   <input type="checkbox" id="id_OptiPage_UniOpti_FixedStart" >
                   <span class="class_checkbox_checkmark"></span>
                 </label>
-                <label class="class_checkbox_container" style="margin-left:6vw; color: var(--main-sepArea-font-color); margin-right:auto;" onchange="updateOptiPageStyle()"> : fixed End
+                <label class="class_checkbox_container" style="margin-left:6vw; color: var(--main-sepArea-font-color); margin-right:auto;" onchange="optiSection.updateOptiPageStyle()"> : fixed End
                   <input type="checkbox" id="id_OptiPage_UniOpti_FixedEnd">
                   <span class="class_checkbox_checkmark"></span>
                 </label>
@@ -140,13 +116,13 @@
 
               <div id="id_OptiPage_UniOpti_GraphSettings" style="width:100%;">
                 <div style="width:100%; display:flex;">
-                    <p style="color: var(--main-sepArea-font-color); margin-right:2vw; margin-left:6vw;">Iterations: </p> <input id="id_OptiPage_UniOpti_Iterations" style="width:3vw;" type="number" name="quantity" min="1" value="50" step="1" onchange="calcOptiCMS()">
+                    <p style="color: var(--main-sepArea-font-color); margin-right:2vw; margin-left:6vw;">Iterations: </p> <input id="id_OptiPage_UniOpti_Iterations" style="width:3vw;" type="number" name="quantity" min="1" value="50" step="1" onchange="optiSection.calcOptiCMS()">
                 </div>
               </div>
 
               <div class="row" style="width: 100%; margin-top: 1vh;">
                 <p style="margin:auto; margin-left:2vw; width:3vw; margin-right:0.5vw; color: var(--main-sepArea-font-color);">Degree:</p>
-                <input id="id_OptiPage_UniOpti_Global_Degree" type="range" step="0.01" min="0" max="1" value="1" style="width:8vw; margin:auto; margin-left:0vw;" onchange="calcOptiCMS()">
+                <input id="id_OptiPage_UniOpti_Global_Degree" type="range" step="0.01" min="0" max="1" value="1" style="width:8vw; margin:auto; margin-left:0vw;" onchange="optiSection.calcOptiCMS()">
               </div>
             </div>
           </div>
@@ -160,22 +136,16 @@
 
             <div class="row">
               <label class="class_checkbox_container" style="margin-left:1vw; color: var(--main-sepArea-font-color); margin-right:auto; margin-top:1vh; margin-bottom:1vh;"> : Local
-                <input type="checkbox" id="id_OptiPage_LocalIntOrderOptimization" onchange="updateOptiPageStyle()">
+                <input type="checkbox" id="id_OptiPage_LocalIntOrderOptimization" onchange="optiSection.updateOptiPageStyle()">
                 <span class="class_checkbox_checkmark"></span>
               </label>
-              <div class="helpButtonDiv" style="width:auto; margin:auto; margin-left:1vw;">
-                <button class="helpButton_sepArea" style="height: var(--line-height-normal); line-height: var(--line-height-normal); ">?</button>
-                <div class="helpButtonDiv-content" style="width:40vw; z-index:103;">
-                  <p style="padding:1vh; height:auto; min-width:10vw; width:auto; max-width:20vw; font-size: 1.3vh; line-height: 2vh; z-index:103; "> Local intrinsic order is achieved by moving the the middle of three consecutive key colors until it is closer to each of the outer ones than they are to each other.
-                  </p>
-                </div>
-              </div>
+                <button onmouseover="optiSection.showHelp(3)" onmouseout="optiSection.showHelp()" class="class_coloredButton" style="height:3vh; width:2vw; font-size: 2vh; margin:auto; margin-left:1vw;">?</button>
             </div>
 
             <div id="id_OptiPage_IntOrderOpti_Local_Options" style="width:100%;">
               <div class="row" style="width: 100%; margin-top: 1vh;">
                 <p style="margin:auto; margin-left:2vw; width:3vw; margin-right:0.5vw; color: var(--main-sepArea-font-color);">Degree:</p>
-                <input id="id_OptiPage_IntOrderOpti_Local_Degree" type="range" step="0.01" min="0" max="1" value="1" style="width:8vw; margin:auto; margin-left:0vw;" onchange="calcOptiCMS()">
+                <input id="id_OptiPage_IntOrderOpti_Local_Degree" type="range" step="0.01" min="0" max="1" value="1" style="width:8vw; margin:auto; margin-left:0vw;" onchange="optiSection.calcOptiCMS()">
               </div>
             </div>
 
@@ -183,22 +153,16 @@
 
             <div class="row">
               <label class="class_checkbox_container" style="margin-left:1vw; color: var(--main-sepArea-font-color); margin-right:auto; margin-top:1vh; margin-bottom:1vh;"> : Global
-                <input type="checkbox" id="id_OptiPage_GlobalIntOrderOptimization" onchange="updateOptiPageStyle()" >
+                <input type="checkbox" id="id_OptiPage_GlobalIntOrderOptimization" onchange="optiSection.updateOptiPageStyle()" >
                 <span class="class_checkbox_checkmark"></span>
               </label>
-              <div class="helpButtonDiv" style="width:auto; margin:auto; margin-left:1vw;">
-                <button class="helpButton_sepArea" style="height: var(--line-height-normal); line-height: var(--line-height-normal); ">?</button>
-                <div class="helpButtonDiv-content" style="width:40vw; z-index:103;">
-                  <p style="padding:1vh; height:auto; min-width:10vw; width:auto; max-width:20vw; font-size: 1.3vh; line-height: 2vh; z-index:103; "> Global intrinsic order are is achieved by moving the the middle of any combination of three key colors until it is closer to each of the outer ones than they are to each other.
-                  </p>
-                </div>
-              </div>
+              <button onmouseover="optiSection.showHelp(4)" onmouseout="optiSection.showHelp()" class="class_coloredButton" style="height:3vh; width:2vw; font-size: 2vh; margin:auto; margin-left:1vw;">?</button>
             </div>
 
               <div id="id_OptiPage_IntOrderOpti_Global_Options" style="width:100%;">
                 <div class="row" style="width: 100%; margin-top: 1vh;">
                   <p style="margin:auto; margin-left:2vw; width:3vw; margin-right:0.5vw; color: var(--main-sepArea-font-color);">Degree:</p>
-                  <input id="id_OptiPage_IntOrderOpti_Global_Degree" type="range" step="0.01" min="0" max="1" value="1" style="width:8vw; margin:auto; margin-left:0vw;" onchange="calcOptiCMS()">
+                  <input id="id_OptiPage_IntOrderOpti_Global_Degree" type="range" step="0.01" min="0" max="1" value="1" style="width:8vw; margin:auto; margin-left:0vw;" onchange="optiSection.calcOptiCMS()">
                 </div>
               </div>
           </div>
@@ -212,27 +176,21 @@
 
             <div class="row">
               <label class="class_checkbox_container" style="margin-left:1vw; color: var(--main-sepArea-font-color); margin-right:auto; margin-top:1vh; margin-bottom:1vh;"> : Local
-                <input type="checkbox"  id="id_OptiPage_LocalLegOrderOptimization" onchange="updateOptiPageStyle()">
+                <input type="checkbox"  id="id_OptiPage_LocalLegOrderOptimization" onchange="optiSection.updateOptiPageStyle()">
                 <span class="class_checkbox_checkmark"></span>
               </label>
-              <div class="helpButtonDiv" style="width:auto; margin:auto; margin-left:1vw;">
-                <button class="helpButton_sepArea" style="height: var(--line-height-normal); line-height: var(--line-height-normal); ">?</button>
-                <div class="helpButtonDiv-content" style="width:40vw; z-index:103;">
-                  <p style="padding:1vh; height:auto; min-width:10vw; width:auto; max-width:20vw; font-size: 1.3vh; line-height: 2vh; z-index:103; "> Local legend-based order is achieved by removing possible repeating key colors.
-                  </p>
-                </div>
-              </div>
+                <button onmouseover="optiSection.showHelp(5)" onmouseout="optiSection.showHelp()" class="class_coloredButton" style="height:3vh; width:2vw; font-size: 2vh; margin:auto; margin-left:1vw;">?</button>
             </div>
 
             <div id="id_OptiPage_LegOrderOpti_Local_Options" style="width:100%;">
               <div style="width:100%; display:flex;">
-                  <p style="color: var(--main-sepArea-font-color); margin-right:2vw; margin-left:2vw;">Iterations: </p> <input id="id_OptiPage_LegOrderOpti_Local_Iterations" style="width:3vw;" type="number" name="quantity" min="1" value="50" step="1" onchange="calcOptiCMS()">
+                  <p style="color: var(--main-sepArea-font-color); margin-right:2vw; margin-left:2vw;">Iterations: </p> <input id="id_OptiPage_LegOrderOpti_Local_Iterations" style="width:3vw;" type="number" name="quantity" min="1" value="50" step="1" onchange="optiSection.calcOptiCMS()">
               </div>
               <div class="row" style="width: 100%; margin-top: 1vh;">
                 <p style="margin:auto; margin-left:2vw; width:3vw; margin-right:0.5vw; color: var(--main-sepArea-font-color);">Speed:</p>
 
                 <div>
-                  <input id="id_OptiPage_LegOrderOpti_Local_Speed" type="range" step="0.01" min="0" max="1" value="1" style="width:8vw; margin:auto; margin-left:0vw;" onchange="updateOptiPageStyle()">
+                  <input id="id_OptiPage_LegOrderOpti_Local_Speed" type="range" step="0.01" min="0" max="1" value="1" style="width:8vw; margin:auto; margin-left:0vw;" onchange="optiSection.updateOptiPageStyle()">
                   <div class="row" style="width:8vw; height:0.75vh;">
                     <div id="id_OptiPage_LegOrderOpti_Local_NotNoticeableArea" style="height:100%; width:33%; background: var(--general-warning-color);"></div>
                     <div id="id_OptiPage_LegOrderOpti_Local_NoChangeArea" style="height:100%; width:33%; background: var(--general-active-color);"></div>
@@ -246,7 +204,7 @@
 
               <div class="row" style="width: 100%; margin-top: 1vh;">
                 <p style="margin:auto; margin-left:2vw; width:3vw; margin-right:0.5vw; color: var(--main-sepArea-font-color);">Degree:</p>
-                <input id="id_OptiPage_LegOrderOpti_Local_Degree" type="range" step="0.01" min="0" max="1" value="1" style="width:8vw; margin:auto; margin-left:0vw;" onchange="calcOptiCMS()">
+                <input id="id_OptiPage_LegOrderOpti_Local_Degree" type="range" step="0.01" min="0" max="1" value="1" style="width:8vw; margin:auto; margin-left:0vw;" onchange="optiSection.calcOptiCMS()">
               </div>
             </div>
 
@@ -254,27 +212,21 @@
 
             <div class="row">
               <label class="class_checkbox_container" style="margin-left:1vw; color: var(--main-sepArea-font-color); margin-right:auto; margin-top:1vh; margin-bottom:1vh;"> : Global
-                <input type="checkbox" id="id_OptiPage_GlobalLegOrderOptimization"onchange="updateOptiPageStyle()" >
+                <input type="checkbox" id="id_OptiPage_GlobalLegOrderOptimization"onchange="optiSection.updateOptiPageStyle()" >
                 <span class="class_checkbox_checkmark"></span>
               </label>
-              <div class="helpButtonDiv" style="width:auto; margin:auto; margin-left:1vw;">
-                <button class="helpButton_sepArea" style="height: var(--line-height-normal); line-height: var(--line-height-normal); ">?</button>
-                <div class="helpButtonDiv-content" style="width:40vw; z-index:103;">
-                  <p style="padding:1vh; height:auto; min-width:10vw; width:auto; max-width:20vw; font-size: 1.3vh; line-height: 2vh; z-index:103; "> Global legend-based order is achieved by moving colors away from each other that deceed the given minimal speed through the slider.
-                  </p>
-                </div>
-              </div>
+              <button onmouseover="optiSection.showHelp(6)" onmouseout="optiSection.showHelp()" class="class_coloredButton" style="height:3vh; width:2vw; font-size: 2vh; margin:auto; margin-left:1vw;">?</button>
             </div>
 
             <div id="id_OptiPage_LegOrderOpti_Global_Options" style="width:100%;">
               <div style="width:100%; display:flex;">
-                  <p style="color: var(--main-sepArea-font-color); margin-right:2vw; margin-left:2vw;">Iterations: </p> <input id="id_OptiPage_LegOrderOpti_Global_Iterations" style="width:3vw;" type="number" name="quantity" min="1" value="50" step="1" onchange="calcOptiCMS()">
+                  <p style="color: var(--main-sepArea-font-color); margin-right:2vw; margin-left:2vw;">Iterations: </p> <input id="id_OptiPage_LegOrderOpti_Global_Iterations" style="width:3vw;" type="number" name="quantity" min="1" value="50" step="1" onchange="optiSection.calcOptiCMS()">
               </div>
               <div class="row" style="width: 100%; margin-top: 1vh;">
                 <p style="margin:auto; margin-left:2vw; width:3vw; margin-right:0.5vw; color: var(--main-sepArea-font-color);">Speed:</p>
 
                 <div>
-                  <input id="id_OptiPage_LegOrderOpti_Global_Speed" type="range" step="0.01" min="0" max="1" value="1" style="width:8vw; margin:auto; margin-left:0vw;" onchange="updateOptiPageStyle()">
+                  <input id="id_OptiPage_LegOrderOpti_Global_Speed" type="range" step="0.01" min="0" max="1" value="1" style="width:8vw; margin:auto; margin-left:0vw;" onchange="optiSection.updateOptiPageStyle()">
                   <div class="row" style="width:8vw; height:0.75vh;">
                     <div id="id_OptiPage_LegOrderOpti_Global_NotNoticeableArea" style="height:100%; width:33%; background: var(--general-warning-color);"></div>
                     <div id="id_OptiPage_LegOrderOpti_Global_NoChangeArea" style="height:100%; width:33%; background: var(--general-active-color);"></div>
@@ -288,7 +240,7 @@
 
               <div class="row" style="width: 100%; margin-top: 1vh;">
                 <p style="margin:auto; margin-left:2vw; width:3vw; margin-right:0.5vw; color: var(--main-sepArea-font-color);">Degree:</p>
-                <input id="id_OptiPage_LegOrderOpti_Global_Degree" type="range" step="0.01" min="0" max="1" value="1" style="width:8vw; margin:auto; margin-left:0vw;" onchange="calcOptiCMS()">
+                <input id="id_OptiPage_LegOrderOpti_Global_Degree" type="range" step="0.01" min="0" max="1" value="1" style="width:8vw; margin:auto; margin-left:0vw;" onchange="optiSection.calcOptiCMS()">
               </div>
             </div>
 
@@ -308,32 +260,26 @@
 
             <div class="row">
               <label class="class_checkbox_container" style="margin-left:1vw; color: var(--main-sepArea-font-color); margin-right:auto; margin-top:1vh; margin-bottom:1vh;"> : Local
-                <input type="checkbox" id="id_OptiPage_LocalDisPowerOptimization" onchange="updateOptiPageStyle()">
+                <input type="checkbox" id="id_OptiPage_LocalDisPowerOptimization" onchange="optiSection.updateOptiPageStyle()">
                 <span class="class_checkbox_checkmark"></span>
               </label>
-              <div class="helpButtonDiv" style="width:auto; margin:auto; margin-left:1vw;">
-                <button class="helpButton_sepArea" style="height: var(--line-height-normal); line-height: var(--line-height-normal); ">?</button>
-                <div class="helpButtonDiv-content" style="width:40vw; z-index:103;">
-                  <p style="padding:1vh; height:auto; min-width:10vw; width:auto; max-width:20vw; font-size: 1.3vh; line-height: 2vh; z-index:103; "> Local discriminative power is achieved through neighboring points repelling each other.
-                  </p>
-                </div>
-              </div>
+              <button onmouseover="optiSection.showHelp(7)" onmouseout="optiSection.showHelp()" class="class_coloredButton" style="height:3vh; width:2vw; font-size: 2vh; margin:auto; margin-left:1vw;">?</button>
             </div>
 
             <div id="id_OptiPage_DisPowerOpti_Local_Options" style="width:100%;">
               <div style="width:100%; display:flex;">
-                  <p style="color: var(--main-sepArea-font-color); margin-right:2vw; margin-left:2vw;">Iterations: </p> <input id="id_OptiPage_DisPowerOpti_Local_Iterations" style="width:3vw;" type="number" name="quantity" min="1" value="50" step="1" onchange="calcOptiCMS()">
+                  <p style="color: var(--main-sepArea-font-color); margin-right:2vw; margin-left:2vw;">Iterations: </p> <input id="id_OptiPage_DisPowerOpti_Local_Iterations" style="width:3vw;" type="number" name="quantity" min="1" value="50" step="1" onchange="optiSection.calcOptiCMS()">
               </div>
 
               <div class="row" style="width: 100%; margin-top: 1vh;">
                 <p style="margin:auto; margin-left:2vw; width:3vw; margin-right:0.5vw; color: var(--main-sepArea-font-color);">Speed:</p>
-                <input id="id_OptiPage_DisPowerOpti_Local_Speed" type="range" step="0.01" min="0" max="1" value="1" style="width:8vw; margin:auto; margin-left:0vw;" onchange="calcOptiCMS()">
+                <input id="id_OptiPage_DisPowerOpti_Local_Speed" type="range" step="0.01" min="0" max="1" value="1" style="width:8vw; margin:auto; margin-left:0vw;" onchange="optiSection.calcOptiCMS()">
                 <p id="id_OptiPage_DisPowerOpti_Local_SpeedDisplay" style="margin:auto; margin-left:0.25vw; max-width:3vw; color: var(--main-sepArea-font-color); font-size:1.2vh;"></p>
               </div>
 
               <div class="row" style="width: 100%; margin-top: 1vh;">
                 <p style="margin:auto; margin-left:2vw; width:3vw; margin-right:0.5vw; color: var(--main-sepArea-font-color);">Degree:</p>
-                <input id="id_OptiPage_DisPowerOpti_Local_Degree" type="range" step="0.01" min="0" max="1" value="1" style="width:8vw; margin:auto; margin-left:0vw;" onchange="calcOptiCMS()">
+                <input id="id_OptiPage_DisPowerOpti_Local_Degree" type="range" step="0.01" min="0" max="1" value="1" style="width:8vw; margin:auto; margin-left:0vw;" onchange="optiSection.calcOptiCMS()">
               </div>
             </div>
 
@@ -341,32 +287,26 @@
 
             <div class="row">
               <label class="class_checkbox_container" style="margin-left:1vw; color: var(--main-sepArea-font-color); margin-right:auto; margin-top:1vh; margin-bottom:1vh;"> : Global
-                <input type="checkbox" id="id_OptiPage_GlobalDisPowerOptimization" onchange="updateOptiPageStyle()" >
+                <input type="checkbox" id="id_OptiPage_GlobalDisPowerOptimization" onchange="optiSection.updateOptiPageStyle()" >
                 <span class="class_checkbox_checkmark"></span>
               </label>
-              <div class="helpButtonDiv" style="width:auto; margin:auto; margin-left:1vw;">
-                <button class="helpButton_sepArea" style="height: var(--line-height-normal); line-height: var(--line-height-normal); ">?</button>
-                <div class="helpButtonDiv-content" style="width:40vw; z-index:103;">
-                  <p style="padding:1vh; height:auto; min-width:10vw; width:auto; max-width:20vw; font-size: 1.3vh; line-height: 2vh; z-index:103; ">   Global discriminative power is achieved through all points repelling each other.
-                  </p>
-                </div>
-              </div>
+              <button onmouseover="optiSection.showHelp(8)" onmouseout="optiSection.showHelp()" class="class_coloredButton" style="height:3vh; width:2vw; font-size: 2vh; margin:auto; margin-left:1vw;">?</button>
             </div>
 
             <div id="id_OptiPage_DisPowerOpti_Global_Options" style="width:100%;">
               <div style="width:100%; display:flex;">
-                  <p style="color: var(--main-sepArea-font-color); margin-right:2vw; margin-left:2vw;">Iterations: </p> <input id="id_OptiPage_DisPowerOpti_Global_Iterations" style="width:3vw;" type="number" name="quantity" min="1" value="50" step="1" onchange="calcOptiCMS()">
+                  <p style="color: var(--main-sepArea-font-color); margin-right:2vw; margin-left:2vw;">Iterations: </p> <input id="id_OptiPage_DisPowerOpti_Global_Iterations" style="width:3vw;" type="number" name="quantity" min="1" value="50" step="1" onchange="optiSection.calcOptiCMS()">
               </div>
 
               <div class="row" style="width: 100%; margin-top: 1vh;">
                 <p style="margin:auto; margin-left:2vw; width:3vw; margin-right:0.5vw; color: var(--main-sepArea-font-color);">Speed:</p>
-                <input id="id_OptiPage_DisPowerOpti_Global_Speed" type="range" step="0.01" min="0" max="1" value="1" style="width:8vw; margin:auto; margin-left:0vw;" onchange="calcOptiCMS()">
+                <input id="id_OptiPage_DisPowerOpti_Global_Speed" type="range" step="0.01" min="0" max="1" value="1" style="width:8vw; margin:auto; margin-left:0vw;" onchange="optiSection.calcOptiCMS()">
                 <p id="id_OptiPage_DisPowerOpti_Global_SpeedDisplay" style="margin:auto; margin-left:0.25vw; max-width:3vw; color: var(--main-sepArea-font-color); font-size:1.2vh;"></p>
               </div>
 
               <div class="row" style="width: 100%; margin-top: 1vh;">
                 <p style="margin:auto; margin-left:2vw; width:3vw; margin-right:0.5vw; color: var(--main-sepArea-font-color);">Degree:</p>
-                <input id="id_OptiPage_DisPowerOpti_Global_Degree" type="range" step="0.01" min="0" max="1" value="1" style="width:8vw; margin:auto; margin-left:0vw;" onchange="calcOptiCMS()">
+                <input id="id_OptiPage_DisPowerOpti_Global_Degree" type="range" step="0.01" min="0" max="1" value="1" style="width:8vw; margin:auto; margin-left:0vw;" onchange="optiSection.calcOptiCMS()">
               </div>
             </div>
           </div>
@@ -380,22 +320,16 @@
 
             <div class="row">
               <label class="class_checkbox_container" style="margin-left:1vw; color: var(--main-sepArea-font-color); margin-right:auto; margin-top:1vh; margin-bottom:1vh;"> : Local
-                <input type="checkbox" id="id_OptiPage_Local_SmoothOptimization" onchange="updateOptiPageStyle()">
+                <input type="checkbox" id="id_OptiPage_Local_SmoothOptimization" onchange="optiSection.updateOptiPageStyle()">
                 <span class="class_checkbox_checkmark"></span>
               </label>
-              <div class="helpButtonDiv" style="width:auto; margin:auto; margin-left:1vw;">
-                <button class="helpButton_sepArea" style="height: var(--line-height-normal); line-height: var(--line-height-normal); ">?</button>
-                <div class="helpButtonDiv-content" style="width:40vw; z-index:103;">
-                  <p style="padding:1vh; height:auto; min-width:10vw; width:auto; max-width:20vw; font-size: 1.3vh; line-height: 2vh; z-index:103; ">
-                  </p>
-                </div>
-              </div>
+              <button onmouseover="optiSection.showHelp(9)" onmouseout="optiSection.showHelp()" class="class_coloredButton" style="display:none; height:3vh; width:2vw; font-size: 2vh; margin:auto; margin-left:1vw;">?</button>
             </div>
 
             <div id="id_OptiPage_SmoothOpti_Local_Options" style="width:100%;">
               <div class="row" style="width: 100%; margin-top: 1vh;">
                 <p style="margin:auto; margin-left:2vw; width:3vw; margin-right:0.5vw; color: var(--main-sepArea-font-color);">Degree:</p>
-                <input id="id_OptiPage_SmoothOpti_Local_Degree" type="range" step="0.01" min="0" max="1" value="1" style="width:10vw; margin:auto; margin-left:0vw;" onchange="calcOptiCMS()">
+                <input id="id_OptiPage_SmoothOpti_Local_Degree" type="range" step="0.01" min="0" max="1" value="1" style="width:10vw; margin:auto; margin-left:0vw;" onchange="optiSection.calcOptiCMS()">
               </div>
             </div>
 
@@ -403,22 +337,16 @@
 
             <div class="row">
               <label class="class_checkbox_container" style="margin-left:1vw; color: var(--main-sepArea-font-color); margin-right:auto; margin-top:1vh; margin-bottom:1vh;"> : Global
-                <input type="checkbox" id="id_OptiPage_Global_SmoothOptimization" onchange="updateOptiPageStyle()" >
+                <input type="checkbox" id="id_OptiPage_Global_SmoothOptimization" onchange="optiSection.updateOptiPageStyle()" >
                 <span class="class_checkbox_checkmark"></span>
               </label>
-              <div class="helpButtonDiv" style="width:auto; margin:auto; margin-left:1vw;">
-                <button class="helpButton_sepArea" style="height: var(--line-height-normal); line-height: var(--line-height-normal); ">?</button>
-                <div class="helpButtonDiv-content" style="width:40vw; z-index:103;">
-                  <p style="padding:1vh; height:auto; min-width:10vw; width:auto; max-width:20vw; font-size: 1.3vh; line-height: 2vh; z-index:103; ">
-                  </p>
-                </div>
-              </div>
+              <button onmouseover="optiSection.showHelp(10)" onmouseout="optiSection.showHelp()" class="class_coloredButton" style="display:none; height:3vh; width:2vw; font-size: 2vh; margin:auto; margin-left:1vw;">?</button>
             </div>
 
             <div id="id_OptiPage_SmoothOpti_Global_Options" style="width:100%;">
               <div class="row" style="width: 100%; margin-top: 1vh;">
                 <p style="margin:auto; margin-left:2vw; width:3vw; margin-right:0.5vw; color: var(--main-sepArea-font-color);">Degree:</p>
-                <input id="id_OptiPage_SmoothOpti_Global_Degree" type="range" step="0.01" min="0" max="1" value="1" style="width:10vw; margin:auto; margin-left:0vw;" onchange="calcOptiCMS()">
+                <input id="id_OptiPage_SmoothOpti_Global_Degree" type="range" step="0.01" min="0" max="1" value="1" style="width:10vw; margin:auto; margin-left:0vw;" onchange="optiSection.calcOptiCMS()">
               </div>
             </div>
           </div>
@@ -453,7 +381,7 @@
         %%%%%%%%%%%%%%%   CMS   	%%%%%%%%%%%%%%%%%
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
         <div style="height:5vh; width:45vw; display:flex; background: var(--main-sepArea-bg); border-bottom: 0.2vh solid var(--main-sepArea-border); box-sizing: border-box;">
-          <p id="id_optiPage_editWarning"
+          <p id="id_OptiPage_editWarning"
             style="margin-left:0.25vw;  width:2vw; text-align:center; vertical-align: middle; color:var(--general-warning-color); font-size: 3vh; line-height:5vh; margin-top:auto; margin-bottom:auto; visibility:hidden; cursor:help;"
             title="Modified Edit-CMS">&#9888;</p>
           <p id="id_opti_cms_name" style="width:auto; max-width: 15vw; height:5vh; line-height:5vh; margin:auto; margin-right:0vw; color: var(--main-sepArea-font-color); font-size: 2.5vh;">Name:</p>
@@ -533,4 +461,80 @@
     <button class="class_coloredButton" onclick="editSection.showSection()" title="MyDesigns" style=" height:5vh; width: 10vw; font-size: 3vh;">Back</button>
     <button class="class_coloredButton" onclick="optiSection.reset()" title="CMS Options" style=" height:5vh; width: 45vw; font-size: 3vh;">Reset</button>
     <button class="class_coloredButton" onclick="optiSection.acceptAndReplace()" title="Display Options" style=" height:5vh; width: 45vw; font-size: 3vh;">Accept & Replace</button>
+  </div>
+
+
+
+  <!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%	Drop Down Structures	%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+
+  <div id="id_OptiPage_Info_Optimization" style="display:none;  height: auto; background:var(--main-popUpWindow-bg-color); position: absolute; left:25vw; top: 0vh; height:95vh; width:75vw; z-index:99;">
+      <div style="margin:auto; overflow-y: auto; padding-top:2vh; padding-bottom:2vh; padding-left:2vw; padding-right:2vw; max-height: 50vh; max-width: 40vw; background:var(--main-sepArea-bg);">
+        <p style="color: var(--main-sepArea-font-color); font-size: 2vh; line-height: 2.5vh;"> <strong>Info:</strong>
+          Check the wished optimization algorithm and set the respective degree of optimization.
+          Move the slider to left to get the original CMS or move the slider to the right to get the optimized CMS.
+          The order of the algorithm run depends on the respective degree. Algorithm with higher degree will be execute at least.</p>
+      </div>
+  </div>
+
+  <div id="id_OptiPage_Info_LocalUni" style="display:none;  height: auto; background:var(--main-popUpWindow-bg-color); position: absolute; left:25vw; top: 0vh; height:95vh; width:75vw; z-index:99;">
+      <div style="margin:auto; overflow-y: auto; padding-top:2vh; padding-bottom:2vh; padding-left:2vw; padding-right:2vw; max-height: 50vh; max-width: 40vw; background:var(--main-sepArea-bg);">
+        <p style="color: var(--main-sepArea-font-color); font-size: 2vh; line-height: 2.5vh;"> <strong>Info:</strong> Local uniformity is achieved by relocating the control points. The key colors remain unchanged.</p>
+      </div>
+  </div>
+
+
+  <div id="id_OptiPage_Info_GlobalUni" style="display:none;  height: auto; background:var(--main-popUpWindow-bg-color); position: absolute; left:25vw; top: 0vh; height:95vh; width:75vw; z-index:99;">
+      <div style="margin:auto; overflow-y: auto; padding-top:2vh; padding-bottom:2vh; padding-left:2vw; padding-right:2vw; max-height: 50vh; max-width: 40vw; background:var(--main-sepArea-bg);">
+        <p style="color: var(--main-sepArea-font-color); font-size: 2vh; line-height: 2.5vh;"> <strong>Info:</strong> Global uniformity is achieved by relocating the key colors. The optimum is a straight line.</p>
+      </div>
+  </div>
+
+  <div id="id_OptiPage_Info_LocalIntOrder" style="display:none;  height: auto; background:var(--main-popUpWindow-bg-color); position: absolute; left:25vw; top: 0vh; height:95vh; width:75vw; z-index:99;">
+      <div style="margin:auto; overflow-y: auto; padding-top:2vh; padding-bottom:2vh; padding-left:2vw; padding-right:2vw; max-height: 50vh; max-width: 40vw; background:var(--main-sepArea-bg);">
+        <p style="color: var(--main-sepArea-font-color); font-size: 2vh; line-height: 2.5vh;"> <strong>Info:</strong> Local intrinsic order is achieved by moving the the middle of three consecutive key colors until it is closer to each of the outer ones than they are to each other.</p>
+      </div>
+  </div>
+
+  <div id="id_OptiPage_Info_GlobalIntOrder" style="display:none;  height: auto; background:var(--main-popUpWindow-bg-color); position: absolute; left:25vw; top: 0vh; height:95vh; width:75vw; z-index:99;">
+      <div style="margin:auto; overflow-y: auto; padding-top:2vh; padding-bottom:2vh; padding-left:2vw; padding-right:2vw; max-height: 50vh; max-width: 40vw; background:var(--main-sepArea-bg);">
+        <p style="color: var(--main-sepArea-font-color); font-size: 2vh; line-height: 2.5vh;"> <strong>Info:</strong> Global intrinsic order are is achieved by moving the the middle of any combination of three key colors until it is closer to each of the outer ones than they are to each other.</p>
+      </div>
+  </div>
+
+  <div id="id_OptiPage_Info_LocalLegOrder" style="display:none;  height: auto; background:var(--main-popUpWindow-bg-color); position: absolute; left:25vw; top: 0vh; height:95vh; width:75vw; z-index:99;">
+      <div style="margin:auto; overflow-y: auto; padding-top:2vh; padding-bottom:2vh; padding-left:2vw; padding-right:2vw; max-height: 50vh; max-width: 40vw; background:var(--main-sepArea-bg);">
+        <p style="color: var(--main-sepArea-font-color); font-size: 2vh; line-height: 2.5vh;"> <strong>Info:</strong> Local legend-based order is achieved by removing possible repeating key colors.</p>
+      </div>
+  </div>
+
+  <div id="id_OptiPage_Info_GlobalLegOrder" style="display:none;  height: auto; background:var(--main-popUpWindow-bg-color); position: absolute; left:25vw; top: 0vh; height:95vh; width:75vw; z-index:99;">
+      <div style="margin:auto; overflow-y: auto; padding-top:2vh; padding-bottom:2vh; padding-left:2vw; padding-right:2vw; max-height: 50vh; max-width: 40vw; background:var(--main-sepArea-bg);">
+        <p style="color: var(--main-sepArea-font-color); font-size: 2vh; line-height: 2.5vh;"> <strong>Info:</strong> Global legend-based order is achieved by moving colors away from each other that deceed the given minimal speed through the slider.</p>
+      </div>
+  </div>
+
+  <div id="id_OptiPage_Info_LocalDisPow" style="display:none;  height: auto; background:var(--main-popUpWindow-bg-color); position: absolute; left:25vw; top: 0vh; height:95vh; width:75vw; z-index:99;">
+      <div style="margin:auto; overflow-y: auto; padding-top:2vh; padding-bottom:2vh; padding-left:2vw; padding-right:2vw; max-height: 50vh; max-width: 40vw; background:var(--main-sepArea-bg);">
+        <p style="color: var(--main-sepArea-font-color); font-size: 2vh; line-height: 2.5vh;"> <strong>Info:</strong> Local discriminative power is achieved through neighboring points repelling each other.</p>
+      </div>
+  </div>
+
+  <div id="id_OptiPage_Info_GlobalDisPow" style="display:none;  height: auto; background:var(--main-popUpWindow-bg-color); position: absolute; left:25vw; top: 0vh; height:95vh; width:75vw; z-index:99;">
+      <div style="margin:auto; overflow-y: auto; padding-top:2vh; padding-bottom:2vh; padding-left:2vw; padding-right:2vw; max-height: 50vh; max-width: 40vw; background:var(--main-sepArea-bg);">
+        <p style="color: var(--main-sepArea-font-color); font-size: 2vh; line-height: 2.5vh;"> <strong>Info:</strong> Global discriminative power is achieved through all points repelling each other.</p>
+      </div>
+  </div>
+
+  <div id="id_OptiPage_Info_LocalSmooth" style="display:none;  height: auto; background:var(--main-popUpWindow-bg-color); position: absolute; left:25vw; top: 0vh; height:95vh; width:75vw; z-index:99;">
+      <div style="margin:auto; overflow-y: auto; padding-top:2vh; padding-bottom:2vh; padding-left:2vw; padding-right:2vw; max-height: 50vh; max-width: 40vw; background:var(--main-sepArea-bg);">
+        <p style="color: var(--main-sepArea-font-color); font-size: 2vh; line-height: 2.5vh;"> <strong>Info:</strong> Local Smoothness .....</p>
+      </div>
+  </div>
+
+  <div id="id_OptiPage_Info_GlobalSmooth" style="display:none;  height: auto; background:var(--main-popUpWindow-bg-color); position: absolute; left:25vw; top: 0vh; height:95vh; width:75vw; z-index:99;">
+      <div style="margin:auto; overflow-y: auto; padding-top:2vh; padding-bottom:2vh; padding-left:2vw; padding-right:2vw; max-height: 50vh; max-width: 40vw; background:var(--main-sepArea-bg);">
+        <p style="color: var(--main-sepArea-font-color); font-size: 2vh; line-height: 2.5vh;"> <strong>Info:</strong> Global Smoothness .....</p>
+      </div>
   </div>
