@@ -48,13 +48,13 @@ function workerEvent_DrawTestfunction(e) {
       canvasContexGreyFull.putImageData(e.data.imageDataGrey, 0, 0);
       document.getElementById("id_Test_WaitForTestCalculation").style.display="none";
       document.getElementById("id_Test_VisDiv").style.display="flex";
-      document.getElementById("id_TestPage_CalcButton").style.visibility="visible";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.visibility="visible";
       break;
     case "mesh":
       testingSection.element_singleTest.tm_drawMesh(e.data.testMappingMeshData); // js/Front/Sections/Testing/3D_TestVis/testImageMapping.js
       document.getElementById("id_Test_WaitForTestCalculation").style.display="none";
       document.getElementById("id_Test_VisDiv").style.display="flex";
-      document.getElementById("id_TestPage_CalcButton").style.visibility="visible";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.visibility="visible";
       testingSection.element_singleTest.tm_3D_Resize();
     break;
     case "noiseExample":
@@ -109,6 +109,9 @@ function workerEvent_GetReport(e){
     case 0:
       switch (e.data.subtype) {
         case "reportIMG":
+          document.getElementById(e.data.canvasID+"_Waiter").style.display="none";
+          document.getElementById(e.data.canvasID+"_Div").style.display="block";
+
           var canvas = document.getElementById(e.data.canvasID);
           canvas.width = e.data.imageData.width;
           canvas.height = e.data.imageData.height;
@@ -129,13 +132,13 @@ function workerEvent_GetReport(e){
           testingSection.element_testReport.colorRatioInfo = e.data.colorRatioInfo;
           testingSection.element_testReport.ratioInfo = e.data.subtractionInfo;
 
-          /*var valueDifStat = e.data.valueDifStat;
+          var valueDifStat = e.data.valueDifStat;
           var colorDifStat = e.data.colorDifStat;
           var valueRatioStat = e.data.valueRatioStat;
           var colorRatioStat = e.data.colorRatioStat;
           var subtractionStat = e.data.subtractionStat;
 
-          /*document.getElementById("id_ratioReportValueDifMax").innerHTML = valueDifStat[1].toFixed(3)+" ("+valueRatioStat[1].toFixed(3)+")";
+          document.getElementById("id_ratioReportValueDifMax").innerHTML = valueDifStat[1].toFixed(3)+" ("+valueRatioStat[1].toFixed(3)+")";
           document.getElementById("id_ratioReportValueDifMin").innerHTML = valueDifStat[0].toFixed(3)+" ("+valueRatioStat[0].toFixed(3)+")";
           document.getElementById("id_ratioReportValueDifAvg").innerHTML = valueDifStat[2].toFixed(3)+" ("+valueRatioStat[2].toFixed(3)+")";
           document.getElementById("id_ratioReportValueDifVar").innerHTML = valueDifStat[3].toFixed(3)+" ("+valueRatioStat[3].toFixed(3)+")";
@@ -167,8 +170,6 @@ function workerEvent_GetReport(e){
           document.getElementById("id_ratioReportSubAvg").title = subtractionStat[2];
           document.getElementById("id_ratioReportSubVar").title = subtractionStat[3];
           document.getElementById("id_ratioReportSubDev").title = subtractionStat[4];
-
-          fillSubReportTable(undefined,undefined);*/
 
           break;
       }

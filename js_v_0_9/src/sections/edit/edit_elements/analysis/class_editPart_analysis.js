@@ -338,7 +338,7 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
     var tmpP = document.createElement('p');
     tmpP.style.marginTop = "auto";
     tmpP.style.marginBottom = "1vh";
-    tmpP.innerHTML = "Statisic:";
+    tmpP.innerHTML = "Statistic:";
     tmpP.style.fontSize = "2.5vh";
     tmpP.style.lineHeight = "3.0vh";
     tmpP.style.color = "var(--main-font-color)";

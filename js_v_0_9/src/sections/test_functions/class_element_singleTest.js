@@ -170,17 +170,17 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
         /////////////////////////////////////
       case 8:
         testLabel = "Collection";
-        testSublabel = fctTest_NewLocalMin_Options[1];
+        testSublabel = this.fctTest_NewLocalMin_Options[1];
         optionList = this.copyOptions(this.fctTest_NewLocalMin_Options);
         break;
       case 9:
         testLabel = "Collection";
-        testSublabel = fctTest_NewBowlShaped_Options[1];
+        testSublabel = this.fctTest_NewBowlShaped_Options[1];
         optionList = this.copyOptions(this.fctTest_NewBowlShaped_Options);
         break;
       case 10:
         testLabel = "Collection";
-        testSublabel = fctTest_NewValleyShaped_Options[1];
+        testSublabel = this.fctTest_NewValleyShaped_Options[1];
         optionList = this.copyOptions(this.fctTest_NewValleyShaped_Options);
         break;
         /////////////////////////////////////
@@ -229,7 +229,7 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     if(this.isElementOpen()){
       document.getElementById("id_Test_WaitForTestCalculation").style.display="flex";
       document.getElementById("id_Test_VisDiv").style.display="none";
-      document.getElementById("id_TestPage_CalcButton").style.visibility="hidden";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.visibility="hidden";
       switch (document.getElementById("id_TestPage_SelectNewTestType").selectedIndex) {
         case 0:
             if(this.cccTest_NewJump_Options[1].length==0)
@@ -273,7 +273,7 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
             this.inform_Worker_PushInteractiveTest("RealData",this.selectedRealWorldType,document.getElementById("id_TestPage_FctSelection").selectedIndex);
           break;
         default:
-          document.getElementById("id_TestPage_CalcButton").style.visibility="visible";
+          document.getElementById("id_TestPage_CalcButtonDiv").style.visibility="visible";
           document.getElementById("id_TestPage_SelectNewTestType").selectedIndex = 0;
           this.selectNewTestType();
           return;
@@ -335,7 +335,7 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     document.getElementById("id_TestPage_NewTest_I4").step = "any";
 
     document.getElementById("id_TestPage_NewTest_subDiv1").style.display = "block";
-    document.getElementById("id_TestPage_CalcButton").style.display="block";
+    document.getElementById("id_TestPage_CalcButtonDiv").style.display="block";
 
     if (this.tm_mesh != undefined) {
       this.tm_mesh.visible = false;
@@ -528,7 +528,7 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     if (document.getElementById("id_TestVisualization_Mesh").checked)
       this.tm_startAnimation();
 
-    document.getElementById("id_TestPage_CalcButton").style.visibility="hidden";
+    document.getElementById("id_TestPage_CalcButtonDiv").style.visibility="hidden";
     this.worker_testInteractive.postMessage(this.inform_Worker_GetVisualisation());
     this.worker_testInteractive_finished=false;
   }
@@ -634,7 +634,7 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     document.getElementById("id_TestPage_doRatioCheckbox").checked = this.cccTest_NewJump_Options[0];
 
     this.fillNewJumpsList();
-    document.getElementById("id_TestPage_CalcButton").style.visibility="hidden";
+    document.getElementById("id_TestPage_CalcButtonDiv").style.visibility="hidden";
     this.updateNoise();
     this.inform_Worker_PushInteractiveTest("CCCTest","Jump",this.cccTest_NewJump_Options);
     this.worker_testInteractive.postMessage(this.inform_Worker_GetVisualisation());
@@ -675,12 +675,12 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     }
 
     if(this.cccTest_NewJump_Options[1].length>0){
-      document.getElementById("id_TestPage_CalcButton").style.display="block";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="block";
     }
     else{
       this.tm_mesh.visible = false;
       this.tm_meshGrey.visible = false;
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
     }
   }
 
@@ -834,7 +834,7 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
 
     ///////////////////////////////////////////////////////////
     //// For Worker add canvas or canvasID
-    document.getElementById("id_TestPage_CalcButton").style.visibility="hidden";
+    document.getElementById("id_TestPage_CalcButtonDiv").style.visibility="hidden";
     this.inform_Worker_PushInteractiveTest("CCCTest","Gradient",this.cccTest_NewGradient_Options);
     this.updateNoise();
     this.worker_testInteractive.postMessage(this.inform_Worker_GetVisualisation());
@@ -872,12 +872,12 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     var value_m = parseFloat(document.getElementById("id_TestPage_NewTest_I1").value);
     if(isNaN(value_m)){
       openAlert("Invalid input for the m-Value");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
     if(document.getElementById("id_TestPage_doRatioCheckbox").checked && (value_m<0 || value_m>1.0)){
       openAlert("Invalid value for the m-Value! You have select the option to work with rational numbers of the CMS range. Therefore only numbers between 0 and 1 are allowed!");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
 
@@ -885,19 +885,19 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     var value_M = parseFloat(document.getElementById("id_TestPage_NewTest_I2").value);
     if(isNaN(value_M)){
       openAlert("Invalid input for M-Value");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
     if(document.getElementById("id_TestPage_doRatioCheckbox").checked && (value_M<0 || value_M>1.0)){
       openAlert("Invalid value for the m-Value! You have select the option to work with rational numbers of the CMS range. Therefore only numbers between 0 and 1 are allowed!");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
 
 
     if(value_m==value_M){
       openAlert("Invalid input! The m-Value and M-Value have to be different!");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
 
@@ -905,13 +905,13 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     var exp_x = parseInt(document.getElementById("id_TestPage_NewTest_I3").value);
     if(isNaN(exp_x)){
       openAlert("Invalid input for m-Exponent");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
     document.getElementById("id_TestPage_NewTest_I3").value =exp_x;
     if(document.getElementById("id_TestPage_NewTest_I3").disabled==false &&exp_x<2){
       openAlert("Invalid input for m-Exponent. The exponent has to be an integer and has to be 2 or greater than 2.");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
 
@@ -920,12 +920,12 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     document.getElementById("id_TestPage_NewTest_I4").value = exp_y;
     if(isNaN(exp_y)){
       openAlert("Invalid input for m-Exponent");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
     if(document.getElementById("id_TestPage_NewTest_I4").disabled==false &&exp_y<2){
       openAlert("Invalid input for m-Exponent. The exponent has to be an integer and has to be 2 or greater than 2.");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
 
@@ -934,12 +934,12 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     document.getElementById("id_TestPage_GridDimX").value=dimX;
     if(isNaN(dimX)){
       openAlert("Invalid input for the Grid x-dimension!");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
     if(dimX<2){
       openAlert("Invalid input for the Grid x-dimension. The exponent has to be an integer and has to be 2 or greater than 2.");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
 
@@ -947,16 +947,16 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     document.getElementById("id_TestPage_GridDimY").value=dimY;
     if(isNaN(dimY)){
       openAlert("Invalid input for the Grid y-dimension!");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
     if(dimY<2){
       openAlert("Invalid input for the Grid y-dimension. The exponent has to be an integer and has to be 2 or greater than 2.");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
 
-    document.getElementById("id_TestPage_CalcButton").style.display="block";
+    document.getElementById("id_TestPage_CalcButtonDiv").style.display="block";
 
     this.cccTest_NewGradient_Options[0] = document.getElementById("id_TestPage_doRatioCheckbox").checked;
     this.cccTest_NewGradient_Options[1]=value_m;
@@ -1088,7 +1088,7 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
 
     ///////////////////////////////////////////////////////////
     //// For Worker add canvas or canvasID
-    document.getElementById("id_TestPage_CalcButton").style.visibility="hidden";
+    document.getElementById("id_TestPage_CalcButtonDiv").style.visibility="hidden";
     this.inform_Worker_PushInteractiveTest("CCCTest","RiVa",this.cccTest_NewRidgeValley_Options);
     this.updateNoise();
     this.worker_testInteractive.postMessage(this.inform_Worker_GetVisualisation());
@@ -1126,12 +1126,12 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     var value_m = parseFloat(document.getElementById("id_TestPage_NewTest_I1").value);
     if(isNaN(value_m)){
       openAlert("Invalid input for the m-Value");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
     if(document.getElementById("id_TestPage_doRatioCheckbox").checked && (value_m<0 || value_m>1.0)){
       openAlert("Invalid value for the m-Value! You have select the option to work with rational numbers of the CMS range. Therefore only numbers between 0 and 1 are allowed!");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
 
@@ -1139,19 +1139,19 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     var value_M = parseFloat(document.getElementById("id_TestPage_NewTest_I2").value);
     if(isNaN(value_M)){
       openAlert("Invalid input for M-Value");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
     if(document.getElementById("id_TestPage_doRatioCheckbox").checked && (value_M<0 || value_M>1.0)){
       openAlert("Invalid value for the m-Value! You have select the option to work with rational numbers of the CMS range. Therefore only numbers between 0 and 1 are allowed!");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
 
 
     if(value_m==value_M){
       openAlert("Invalid input! The m-Value and M-Value have to be different!");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
 
@@ -1159,13 +1159,13 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     var exp_m = parseInt(document.getElementById("id_TestPage_NewTest_I3").value);
     if(isNaN(exp_m)){
       openAlert("Invalid input for m-Exponent");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
     document.getElementById("id_TestPage_NewTest_I3").value =exp_m;
     if(document.getElementById("id_TestPage_NewTest_I3").disabled==false &&exp_m<2){
       openAlert("Invalid input for m-Exponent. The exponent has to be an integer and has to be 2 or greater than 2.");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
 
@@ -1174,12 +1174,12 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     document.getElementById("id_TestPage_NewTest_I4").value = exp_M;
     if(isNaN(exp_M)){
       openAlert("Invalid input for m-Exponent");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
     if(document.getElementById("id_TestPage_NewTest_I4").disabled==false &&exp_M<2){
       openAlert("Invalid input for m-Exponent. The exponent has to be an integer and has to be 2 or greater than 2.");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
 
@@ -1188,12 +1188,12 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     document.getElementById("id_TestPage_GridDimX").value=dimX;
     if(isNaN(dimX)){
       openAlert("Invalid input for the Grid x-dimension!");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
     if(dimX<2){
       openAlert("Invalid input for the Grid x-dimension. The exponent has to be an integer and has to be 2 or greater than 2.");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
 
@@ -1201,16 +1201,16 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     document.getElementById("id_TestPage_GridDimY").value=dimY;
     if(isNaN(dimY)){
       openAlert("Invalid input for the Grid y-dimension!");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
     if(dimY<2){
       openAlert("Invalid input for the Grid y-dimension. The exponent has to be an integer and has to be 2 or greater than 2.");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
 
-    document.getElementById("id_TestPage_CalcButton").style.display="block";
+    document.getElementById("id_TestPage_CalcButtonDiv").style.display="block";
 
     this.cccTest_NewRidgeValley_Options[0] = document.getElementById("id_TestPage_doRatioCheckbox").checked;
     this.cccTest_NewRidgeValley_Options[1]=value_m;
@@ -1273,7 +1273,7 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
 
     ///////////////////////////////////////////////////////////
     //// For Worker add canvas or canvasID
-    document.getElementById("id_TestPage_CalcButton").style.visibility="hidden";
+    document.getElementById("id_TestPage_CalcButtonDiv").style.visibility="hidden";
     this.inform_Worker_PushInteractiveTest("CCCTest","Extrema",this.cccTest_NewLocalExtrema_Options);
     this.updateNoise();
     this.worker_testInteractive.postMessage(this.inform_Worker_GetVisualisation());
@@ -1298,12 +1298,12 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
       document.getElementById("id_TestPage_GridDimX").value=dimX;
       if(isNaN(dimX)){
         openAlert("Invalid input for the Grid x-dimension!");
-        document.getElementById("id_TestPage_CalcButton").style.display="none";
+        document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
         return;
       }
       if(dimX<2){
         openAlert("Invalid input for the Grid x-dimension. The exponent has to be an integer and has to be 2 or greater than 2.");
-        document.getElementById("id_TestPage_CalcButton").style.display="none";
+        document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
         return;
       }
 
@@ -1311,16 +1311,16 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
       document.getElementById("id_TestPage_GridDimY").value=dimY;
       if(isNaN(dimY)){
         openAlert("Invalid input for the Grid y-dimension!");
-        document.getElementById("id_TestPage_CalcButton").style.display="none";
+        document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
         return;
       }
       if(dimY<2){
         openAlert("Invalid input for the Grid y-dimension. The exponent has to be an integer and has to be 2 or greater than 2.");
-        document.getElementById("id_TestPage_CalcButton").style.display="none";
+        document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
         return;
       }
 
-      document.getElementById("id_TestPage_CalcButton").style.display="block";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="block";
 
       this.cccTest_NewLocalExtrema_Options[4]= dimX;
       this.cccTest_NewLocalExtrema_Options[5]= dimY;
@@ -1424,7 +1424,7 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
 
     ///////////////////////////////////////////////////////////
     //// For Worker add canvas or canvasID
-    document.getElementById("id_TestPage_CalcButton").style.visibility="hidden";
+    document.getElementById("id_TestPage_CalcButtonDiv").style.visibility="hidden";
     this.inform_Worker_PushInteractiveTest("CCCTest","LittleBit",this.cccTest_NewLittleBit_Options);
     this.updateNoise();
     this.worker_testInteractive.postMessage(this.inform_Worker_GetVisualisation());
@@ -1438,13 +1438,13 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
       document.getElementById("id_TestPage_NewTest_I3").value = lStart;
       if(isNaN(lStart)){
         openAlert("Invalid value for start value!");
-        document.getElementById("id_TestPage_CalcButton").style.display="none";
+        document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
         return;
       }
 
       if(document.getElementById("id_TestPage_doRatioCheckbox").checked && (lStart<0 || lStart>1.0)){
         openAlert("Invalid value! You have select the option to work with rational numbers of the CMS range. Therefore only numbers between 0 and 1 are allowed!");
-        document.getElementById("id_TestPage_CalcButton").style.display="none";
+        document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
         return;
       }
 
@@ -1452,13 +1452,13 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
       document.getElementById("id_TestPage_NewTest_I4").value = lEnd;
       if(isNaN(lEnd)){
         openAlert("Invalid value for end value!");
-        document.getElementById("id_TestPage_CalcButton").style.display="none";
+        document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
         return;
       }
 
       if(document.getElementById("id_TestPage_doRatioCheckbox").checked && (lEnd<0 || lEnd>1.0)){
         openAlert("Invalid value! You have select the option to work with rational numbers of the CMS range. Therefore only numbers between 0 and 1 are allowed!");
-        document.getElementById("id_TestPage_CalcButton").style.display="none";
+        document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
         return;
       }
 
@@ -1466,12 +1466,12 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
       var value_m = parseFloat(document.getElementById("id_TestPage_NewTest_I1").value);
       if(isNaN(value_m)){
         openAlert("Invalid input for the m-Value");
-        document.getElementById("id_TestPage_CalcButton").style.display="none";
+        document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
         return;
       }
       if(document.getElementById("id_TestPage_doRatioCheckbox").checked && (value_m<0 || value_m>1.0)){
         openAlert("Invalid value for the m-Value! You have select the option to work with rational numbers of the CMS range. Therefore only numbers between 0 and 1 are allowed!");
-        document.getElementById("id_TestPage_CalcButton").style.display="none";
+        document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
         return;
       }
 
@@ -1479,12 +1479,12 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
       var value_M = parseFloat(document.getElementById("id_TestPage_NewTest_I2").value);
       if(isNaN(value_M)){
         openAlert("Invalid input for M-Value");
-        document.getElementById("id_TestPage_CalcButton").style.display="none";
+        document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
         return;
       }
       if(document.getElementById("id_TestPage_doRatioCheckbox").checked && (value_M<0 || value_M>1.0)){
         openAlert("Invalid value for the m-Value! You have select the option to work with rational numbers of the CMS range. Therefore only numbers between 0 and 1 are allowed!");
-        document.getElementById("id_TestPage_CalcButton").style.display="none";
+        document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
         return;
       }
 
@@ -1493,13 +1493,13 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
       document.getElementById("id_TestPage_NewTest_I5").value = pixelsArea;
       if(isNaN(pixelsArea)){
         openAlert("Invalid value for pixels per area value!");
-        document.getElementById("id_TestPage_CalcButton").style.display="none";
+        document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
         return;
       }
 
       if(pixelsArea<3){
         openAlert("Invalid value for pixels per area value! The value is not allowed to be smaller than three!");
-        document.getElementById("id_TestPage_CalcButton").style.display="none";
+        document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
         return;
       }
 
@@ -1508,21 +1508,21 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
       document.getElementById("id_TestPage_GridDimY").value=dimY;
       if(isNaN(dimY)){
         openAlert("Invalid input for the Grid y-dimension!");
-        document.getElementById("id_TestPage_CalcButton").style.display="none";
+        document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
         return;
       }
       if(dimY<2){
         openAlert("Invalid input for the Grid y-dimension. The exponent has to be an integer and has to be 2 or greater than 2.");
-        document.getElementById("id_TestPage_CalcButton").style.display="none";
+        document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
         return;
       }
 
       /*if(lStart>=lEnd){
         openAlert("Invalid input for the start and end value! The start value has to be smaller than the end value!");
-        document.getElementById("id_TestPage_CalcButton").style.display="none";
+        document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       }*/
 
-      document.getElementById("id_TestPage_CalcButton").style.display="block";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="block";
 
       this.cccTest_NewLittleBit_Options[0]=document.getElementById("id_TestPage_doRatioCheckbox").checked;
       this.cccTest_NewLittleBit_Options[1]= value_m;
@@ -1616,7 +1616,7 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
 
     ///////////////////////////////////////////////////////////
     //// For Worker add canvas or canvasID
-    document.getElementById("id_TestPage_CalcButton").style.visibility="hidden";
+    document.getElementById("id_TestPage_CalcButtonDiv").style.visibility="hidden";
     this.inform_Worker_PushInteractiveTest("CCCTest","Frequency",this.cccTest_NewFrequency_Options);
     this.updateNoise();
     this.worker_testInteractive.postMessage(this.inform_Worker_GetVisualisation());
@@ -1631,12 +1631,12 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
 
     if(isNaN(increases)){
       openAlert("Invalid input for the number of increases!");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
     if(increases<0){
       openAlert("Invalid input for the number of increases! The value has to be an integer and positive!");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
 
@@ -1644,12 +1644,12 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     document.getElementById("id_TestPage_NewTest_I3").value=waveStart;
     if(isNaN(waveStart)){
       openAlert("Invalid input for the number of wave start!");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
     if(document.getElementById("id_TestPage_doRatioCheckbox").checked && (waveStart<0 || waveStart>1.0)){
       openAlert("Invalid value for the wave start! You have select the option to work with rational numbers of the CMS range. Therefore only numbers between 0 and 1 are allowed!");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
 
@@ -1657,18 +1657,18 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     document.getElementById("id_TestPage_NewTest_I4").value=waveEnd;
     if(isNaN(waveEnd)){
       openAlert("Invalid input for the number of wave end!");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
     if(document.getElementById("id_TestPage_doRatioCheckbox").checked && (waveStart<0 || waveStart>1.0)){
       openAlert("Invalid value for the wave end! You have select the option to work with rational numbers of the CMS range. Therefore only numbers between 0 and 1 are allowed!");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
 
     if(waveStart>=waveEnd){
       openAlert("Invalid value for the wave start/end! The value for the wave start has to be smaller than the value for the wave end!");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
 
@@ -1677,12 +1677,12 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     document.getElementById("id_TestPage_GridDimX").value=dimX;
     if(isNaN(dimX)){
       openAlert("Invalid input for the Grid x-dimension!");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
     if(dimX<2){
       openAlert("Invalid input for the Grid x-dimension. The exponent has to be an integer and has to be 2 or greater than 2.");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
 
@@ -1690,16 +1690,16 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     document.getElementById("id_TestPage_GridDimY").value=dimY;
     if(isNaN(dimY)){
       openAlert("Invalid input for the Grid y-dimension!");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
     if(dimY<2){
       openAlert("Invalid input for the Grid y-dimension. The exponent has to be an integer and has to be 2 or greater than 2.");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
 
-    document.getElementById("id_TestPage_CalcButton").style.display="block";
+    document.getElementById("id_TestPage_CalcButtonDiv").style.display="block";
 
     //this.cccTest_NewFrequency_Options[2]=startFrequency;
     this.cccTest_NewFrequency_Options[3]=increases;
@@ -1787,7 +1787,7 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
 
     ///////////////////////////////////////////////////////////
     //// For Worker add canvas or canvasID
-    document.getElementById("id_TestPage_CalcButton").style.visibility="hidden";
+    document.getElementById("id_TestPage_CalcButtonDiv").style.visibility="hidden";
     this.inform_Worker_PushInteractiveTest("CCCTest","Treshold",this.cccTest_NewTreshold_Options);
     this.updateNoise();
     this.worker_testInteractive.postMessage(this.inform_Worker_GetVisualisation());
@@ -1813,13 +1813,13 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
       document.getElementById("id_TestPage_NewTest_I1").value = value_m;
       if(isNaN(value_m)){
         openAlert("Invalid input for the m-value!");
-        document.getElementById("id_TestPage_CalcButton").style.display="none";
+        document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
         return;
       }
 
       if(document.getElementById("id_TestPage_doRatioCheckbox").checked && (value_m<0 || value_m>1.0)){
         openAlert("Invalid input for the m-value! You have select the option to work with rational numbers of the CMS range. Therefore only numbers between 0 and 1 are allowed!");
-        document.getElementById("id_TestPage_CalcButton").style.display="none";
+        document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
         return;
       }
 
@@ -1827,13 +1827,13 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
       document.getElementById("id_TestPage_NewTest_I2").value = value_T;
       if(isNaN(value_T)){
         openAlert("Invalid input for the T-value!");
-        document.getElementById("id_TestPage_CalcButton").style.display="none";
+        document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
         return;
       }
 
       if(document.getElementById("id_TestPage_doRatioCheckbox").checked && (value_T<0 || value_T>1.0)){
         openAlert("Invalid input for the T-value! You have select the option to work with rational numbers of the CMS range. Therefore only numbers between 0 and 1 are allowed!");
-        document.getElementById("id_TestPage_CalcButton").style.display="none";
+        document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
         return;
       }
 
@@ -1842,13 +1842,13 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
       document.getElementById("id_TestPage_NewTest_I3").value = value_M;
       if(isNaN(value_M)){
         openAlert("Invalid input for the M-value!");
-        document.getElementById("id_TestPage_CalcButton").style.display="none";
+        document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
         return;
       }
 
       if(document.getElementById("id_TestPage_doRatioCheckbox").checked && (value_M<0 || value_M>1.0)){
         openAlert("Invalid input for the M-value! You have select the option to work with rational numbers of the CMS range. Therefore only numbers between 0 and 1 are allowed!");
-        document.getElementById("id_TestPage_CalcButton").style.display="none";
+        document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
         return;
       }
 
@@ -1856,19 +1856,19 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
       document.getElementById("id_TestPage_NewTest_I4").value = exp;
       if(isNaN(exp)){
         openAlert("Invalid input for the exponent!");
-        document.getElementById("id_TestPage_CalcButton").style.display="none";
+        document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
         return;
       }
 
       if(document.getElementById("id_TestPage_NewTest_I4").disabled==false && exp<2){
         openAlert("Invalid input for the exponent! The value is not allowed to be smaller than two!");
-        document.getElementById("id_TestPage_CalcButton").style.display="none";
+        document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
         return;
       }
 
       if(!(value_m<value_T && value_T<value_M)){
         openAlert("Invalid input! The m-value has to be smaller than the T-value and the T-value has to be smaller than the M-Value!");
-        document.getElementById("id_TestPage_CalcButton").style.display="none";
+        document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
         return;
       }
 
@@ -1876,12 +1876,12 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
       document.getElementById("id_TestPage_GridDimX").value=dimX;
       if(isNaN(dimX)){
         openAlert("Invalid input for the Grid x-dimension!");
-        document.getElementById("id_TestPage_CalcButton").style.display="none";
+        document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
         return;
       }
       if(dimX<2){
         openAlert("Invalid input for the Grid x-dimension. The exponent has to be an integer and has to be 2 or greater than 2.");
-        document.getElementById("id_TestPage_CalcButton").style.display="none";
+        document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
         return;
       }
 
@@ -1889,16 +1889,16 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
       document.getElementById("id_TestPage_GridDimY").value=dimY;
       if(isNaN(dimY)){
         openAlert("Invalid input for the Grid y-dimension!");
-        document.getElementById("id_TestPage_CalcButton").style.display="none";
+        document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
         return;
       }
       if(dimY<2){
         openAlert("Invalid input for the Grid y-dimension. The exponent has to be an integer and has to be 2 or greater than 2.");
-        document.getElementById("id_TestPage_CalcButton").style.display="none";
+        document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
         return;
       }
 
-      document.getElementById("id_TestPage_CalcButton").style.display="block";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="block";
 
       this.cccTest_NewTreshold_Options[0] = document.getElementById("id_TestPage_doRatioCheckbox").checked;
       this.cccTest_NewTreshold_Options[1] = this.current_xFktType;
@@ -1980,7 +1980,7 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
 
     ///////////////////////////////////////////////////////////
     //// For Worker add canvas or canvasID
-    document.getElementById("id_TestPage_CalcButton").style.visibility="hidden";
+    document.getElementById("id_TestPage_CalcButtonDiv").style.visibility="hidden";
     this.inform_Worker_PushInteractiveTest("Collection",this.fctTest_NewBowlShaped_Options[1],this.fctTest_NewBowlShaped_Options);
     this.updateNoise();
     this.worker_testInteractive.postMessage(this.inform_Worker_GetVisualisation());
@@ -1994,20 +1994,20 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     document.getElementById("id_TestPage_NewTest_I1").value=xStart;
     if(isNaN(xStart)){
       openAlert("Invalid input for the x"+"Start".sub()+".");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
     var xEnd = parseFloat(document.getElementById("id_TestPage_NewTest_I2").value);
     document.getElementById("id_TestPage_NewTest_I2").value=xEnd;
     if(isNaN(xEnd)){
       openAlert("Invalid input for the x"+"End".sub()+".");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
 
     if(xStart>=xEnd){
       openAlert("Invalid input for the x"+"Start".sub()+" and x"+"End".sub()+". The start value has to be smaller than the end value!");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
 
@@ -2015,20 +2015,20 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     document.getElementById("id_TestPage_NewTest_I3").value=yStart;
     if(isNaN(yStart)){
       openAlert("Invalid input for the y"+"Start".sub()+".");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
     var yEnd = parseFloat(document.getElementById("id_TestPage_NewTest_I4").value);
     document.getElementById("id_TestPage_NewTest_I4").value=yEnd;
     if(isNaN(yEnd)){
       openAlert("Invalid input for the y"+"End".sub()+".");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
 
     if(yStart>=yEnd){
       openAlert("Invalid input for the y"+"Start".sub()+" and y"+"End".sub()+". The start value has to be smaller than the end value!");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
 
@@ -2037,12 +2037,12 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     document.getElementById("id_TestPage_GridDimX").value=dimX;
     if(isNaN(dimX)){
       openAlert("Invalid input for the Grid x-dimension!");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
     if(dimX<2){
       openAlert("Invalid input for the Grid x-dimension. The exponent has to be an integer and has to be 2 or greater than 2.");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
 
@@ -2050,16 +2050,16 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     document.getElementById("id_TestPage_GridDimY").value=dimY;
     if(isNaN(dimY)){
       openAlert("Invalid input for the Grid y-dimension!");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
     if(dimY<2){
       openAlert("Invalid input for the Grid y-dimension. The exponent has to be an integer and has to be 2 or greater than 2.");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
 
-    document.getElementById("id_TestPage_CalcButton").style.display="block";
+    document.getElementById("id_TestPage_CalcButtonDiv").style.display="block";
 
     this.fctTest_NewBowlShaped_Options[2][0]=xStart;
     this.fctTest_NewBowlShaped_Options[2][1]=xEnd;
@@ -2146,7 +2146,7 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
 
     ///////////////////////////////////////////////////////////
     //// For Worker add canvas or canvasID
-    document.getElementById("id_TestPage_CalcButton").style.visibility="hidden";
+    document.getElementById("id_TestPage_CalcButtonDiv").style.visibility="hidden";
     this.inform_Worker_PushInteractiveTest("Collection",this.fctTest_NewLocalMin_Options[1],this.fctTest_NewLocalMin_Options);
     this.updateNoise();
     this.worker_testInteractive.postMessage(this.inform_Worker_GetVisualisation());
@@ -2160,20 +2160,20 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     document.getElementById("id_TestPage_NewTest_I1").value=xStart;
     if(isNaN(xStart)){
       openAlert("Invalid input for the x"+"Start".sub()+".");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
     var xEnd = parseFloat(document.getElementById("id_TestPage_NewTest_I2").value);
     document.getElementById("id_TestPage_NewTest_I2").value=xEnd;
     if(isNaN(xEnd)){
       openAlert("Invalid input for the x"+"End".sub()+".");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
 
     if(xStart>=xEnd){
       openAlert("Invalid input for the x"+"Start".sub()+" and x"+"End".sub()+". The start value has to be smaller than the end value!");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
 
@@ -2181,20 +2181,20 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     document.getElementById("id_TestPage_NewTest_I3").value=yStart;
     if(isNaN(yStart)){
       openAlert("Invalid input for the y"+"Start".sub()+".");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
     var yEnd = parseFloat(document.getElementById("id_TestPage_NewTest_I4").value);
     document.getElementById("id_TestPage_NewTest_I4").value=yEnd;
     if(isNaN(yEnd)){
       openAlert("Invalid input for the y"+"End".sub()+".");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
 
     if(yStart>=yEnd){
       openAlert("Invalid input for the y"+"Start".sub()+" and y"+"End".sub()+". The start value has to be smaller than the end value!");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
 
@@ -2203,12 +2203,12 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     document.getElementById("id_TestPage_GridDimX").value=dimX;
     if(isNaN(dimX)){
       openAlert("Invalid input for the Grid x-dimension!");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
     if(dimX<2){
       openAlert("Invalid input for the Grid x-dimension. The exponent has to be an integer and has to be 2 or greater than 2.");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
 
@@ -2216,16 +2216,16 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     document.getElementById("id_TestPage_GridDimY").value=dimY;
     if(isNaN(dimY)){
       openAlert("Invalid input for the Grid y-dimension!");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
     if(dimY<2){
       openAlert("Invalid input for the Grid y-dimension. The exponent has to be an integer and has to be 2 or greater than 2.");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
 
-    document.getElementById("id_TestPage_CalcButton").style.display="block";
+    document.getElementById("id_TestPage_CalcButtonDiv").style.display="block";
 
     this.fctTest_NewLocalMin_Options[2][0]=xStart;
     this.fctTest_NewLocalMin_Options[2][1]=xEnd;
@@ -2309,7 +2309,7 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
 
     ///////////////////////////////////////////////////////////
     //// For Worker add canvas or canvasID
-    document.getElementById("id_TestPage_CalcButton").style.visibility="hidden";
+    document.getElementById("id_TestPage_CalcButtonDiv").style.visibility="hidden";
     this.inform_Worker_PushInteractiveTest("Collection",this.fctTest_NewValleyShaped_Options[1],this.fctTest_NewValleyShaped_Options);
     this.updateNoise();
     this.worker_testInteractive.postMessage(this.inform_Worker_GetVisualisation());
@@ -2323,20 +2323,20 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     document.getElementById("id_TestPage_NewTest_I1").value=xStart;
     if(isNaN(xStart)){
       openAlert("Invalid input for the x"+"Start".sub()+".");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
     var xEnd = parseFloat(document.getElementById("id_TestPage_NewTest_I2").value);
     document.getElementById("id_TestPage_NewTest_I2").value=xEnd;
     if(isNaN(xEnd)){
       openAlert("Invalid input for the x"+"End".sub()+".");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
 
     if(xStart>=xEnd){
       openAlert("Invalid input for the x"+"Start".sub()+" and x"+"End".sub()+". The start value has to be smaller than the end value!");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
 
@@ -2344,20 +2344,20 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     document.getElementById("id_TestPage_NewTest_I3").value=yStart;
     if(isNaN(yStart)){
       openAlert("Invalid input for the y"+"Start".sub()+".");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
     var yEnd = parseFloat(document.getElementById("id_TestPage_NewTest_I4").value);
     document.getElementById("id_TestPage_NewTest_I4").value=yEnd;
     if(isNaN(yEnd)){
       openAlert("Invalid input for the y"+"End".sub()+".");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
 
     if(yStart>=yEnd){
       openAlert("Invalid input for the y"+"Start".sub()+" and y"+"End".sub()+". The start value has to be smaller than the end value!");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
 
@@ -2366,12 +2366,12 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     document.getElementById("id_TestPage_GridDimX").value=dimX;
     if(isNaN(dimX)){
       openAlert("Invalid input for the Grid x-dimension!");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
     if(dimX<2){
       openAlert("Invalid input for the Grid x-dimension. The exponent has to be an integer and has to be 2 or greater than 2.");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
 
@@ -2379,16 +2379,16 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     document.getElementById("id_TestPage_GridDimY").value=dimY;
     if(isNaN(dimY)){
       openAlert("Invalid input for the Grid y-dimension!");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
     if(dimY<2){
       openAlert("Invalid input for the Grid y-dimension. The exponent has to be an integer and has to be 2 or greater than 2.");
-      document.getElementById("id_TestPage_CalcButton").style.display="none";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.display="none";
       return;
     }
 
-    document.getElementById("id_TestPage_CalcButton").style.display="block";
+    document.getElementById("id_TestPage_CalcButtonDiv").style.display="block";
 
     this.fctTest_NewValleyShaped_Options[2][0]=xStart;
     this.fctTest_NewValleyShaped_Options[2][1]=xEnd;
@@ -2477,7 +2477,7 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     this.checkAcknowledgements(index);
     ///////////////////////////////////////////////////////////
     //// For Worker add canvas or canvasID
-    document.getElementById("id_TestPage_CalcButton").style.visibility="hidden";
+    document.getElementById("id_TestPage_CalcButtonDiv").style.visibility="hidden";
     this.inform_Worker_PushInteractiveTest("RealData",this.selectedRealWorldType,index);
     this.updateNoise();
     this.worker_testInteractive.postMessage(this.inform_Worker_GetVisualisation());
@@ -2733,7 +2733,7 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
         document.getElementById("id_Test_ScaleFactor_Div").style.visibility="visible";
       }
 
-      document.getElementById("id_TestPage_CalcButton").style.visibility="hidden";
+      document.getElementById("id_TestPage_CalcButtonDiv").style.visibility="hidden";
       document.getElementById("id_Test_WaitForTestCalculation").style.display="flex";
       document.getElementById("id_Test_VisDiv").style.display="none";
       this.worker_testInteractive.postMessage(this.inform_Worker_GetVisualisation());
@@ -3238,7 +3238,7 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     }
     this.tm_3D_scalefactor = value;
 
-    document.getElementById("id_TestPage_CalcButton").style.visibility="hidden";
+    document.getElementById("id_TestPage_CalcButtonDiv").style.visibility="hidden";
     document.getElementById("id_Test_WaitForTestCalculation").style.display="flex";
     document.getElementById("id_Test_VisDiv").style.display="none";
     this.worker_testInteractive.postMessage(this.inform_Worker_GetVisualisation());

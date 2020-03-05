@@ -44,34 +44,34 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
     this.colorRatioInfo = undefined;
     this.ratioInfo = undefined;
 
-    document.getElementById('id_TestPage_ReportOrginalCDiv').addEventListener("wheel", eventZoomReport);
-    document.getElementById('id_TestPage_ReportOrginalCDiv').addEventListener("scroll", eventScrollReport);
-    document.getElementById('id_TestPage_ReportOrginalGDiv').addEventListener("wheel", eventZoomReport);
-    document.getElementById('id_TestPage_ReportOrginalGDiv').addEventListener("scroll", eventScrollReport);
-    document.getElementById('id_TestPage_Report0Div').addEventListener("wheel", eventZoomReport);
-    document.getElementById('id_TestPage_Report0Div').addEventListener("scroll", eventScrollReport);
-    document.getElementById('id_TestPage_Report1Div').addEventListener("wheel", eventZoomReport);
-    document.getElementById('id_TestPage_Report1Div').addEventListener("scroll", eventScrollReport);
-    document.getElementById('id_TestPage_Report2Div').addEventListener("wheel", eventZoomReport);
-    document.getElementById('id_TestPage_Report2Div').addEventListener("scroll", eventScrollReport);
+    document.getElementById('id_TestPage_ReportOrginalC_Div').addEventListener("wheel", eventZoomReport);
+    document.getElementById('id_TestPage_ReportOrginalC_Div').addEventListener("scroll", eventScrollReport);
+    document.getElementById('id_TestPage_ReportOrginalG_Div').addEventListener("wheel", eventZoomReport);
+    document.getElementById('id_TestPage_ReportOrginalG_Div').addEventListener("scroll", eventScrollReport);
+    document.getElementById('id_TestPage_Report0_Div').addEventListener("wheel", eventZoomReport);
+    document.getElementById('id_TestPage_Report0_Div').addEventListener("scroll", eventScrollReport);
+    document.getElementById('id_TestPage_Report1_Div').addEventListener("wheel", eventZoomReport);
+    document.getElementById('id_TestPage_Report1_Div').addEventListener("scroll", eventScrollReport);
+    document.getElementById('id_TestPage_Report2_Div').addEventListener("wheel", eventZoomReport);
+    document.getElementById('id_TestPage_Report2_Div').addEventListener("scroll", eventScrollReport);
 
-    document.getElementById('id_TestPage_ReportOrginalCDiv').addEventListener("mousedown", switchPixelPreviewModus);
-    document.getElementById('id_TestPage_ReportOrginalGDiv').addEventListener("mousedown", switchPixelPreviewModus);
-    document.getElementById('id_TestPage_Report0Div').addEventListener("mousedown", switchPixelPreviewModus);
-    document.getElementById('id_TestPage_Report1Div').addEventListener("mousedown", switchPixelPreviewModus);
-    document.getElementById('id_TestPage_Report2Div').addEventListener("mousedown", switchPixelPreviewModus);
+    document.getElementById('id_TestPage_ReportOrginalC_Div').addEventListener("mousedown", switchPixelPreviewModus);
+    document.getElementById('id_TestPage_ReportOrginalG_Div').addEventListener("mousedown", switchPixelPreviewModus);
+    document.getElementById('id_TestPage_Report0_Div').addEventListener("mousedown", switchPixelPreviewModus);
+    document.getElementById('id_TestPage_Report1_Div').addEventListener("mousedown", switchPixelPreviewModus);
+    document.getElementById('id_TestPage_Report2_Div').addEventListener("mousedown", switchPixelPreviewModus);
 
-    document.getElementById('id_TestPage_ReportOrginalCDiv').addEventListener('contextmenu', event => event.preventDefault());
-    document.getElementById('id_TestPage_ReportOrginalGDiv').addEventListener('contextmenu', event => event.preventDefault());
-    document.getElementById('id_TestPage_Report0Div').addEventListener('contextmenu', event => event.preventDefault());
-    document.getElementById('id_TestPage_Report1Div').addEventListener('contextmenu', event => event.preventDefault());
-    document.getElementById('id_TestPage_Report2Div').addEventListener('contextmenu', event => event.preventDefault());
+    document.getElementById('id_TestPage_ReportOrginalC_Div').addEventListener('contextmenu', event => event.preventDefault());
+    document.getElementById('id_TestPage_ReportOrginalG_Div').addEventListener('contextmenu', event => event.preventDefault());
+    document.getElementById('id_TestPage_Report0_Div').addEventListener('contextmenu', event => event.preventDefault());
+    document.getElementById('id_TestPage_Report1_Div').addEventListener('contextmenu', event => event.preventDefault());
+    document.getElementById('id_TestPage_Report2_Div').addEventListener('contextmenu', event => event.preventDefault());
 
-    document.getElementById('id_TestPage_ReportOrginalCCanvas_Pixel').addEventListener("mousemove", mouseMoveReport);
-    document.getElementById('id_TestPage_ReportOrginalGCanvas_Pixel').addEventListener("mousemove", mouseMoveReport);
-    document.getElementById('id_TestPage_Report0Canvas_Pixel').addEventListener("mousemove", mouseMoveReport);
-    document.getElementById('id_TestPage_Report1Canvas_Pixel').addEventListener("mousemove", mouseMoveReport);
-    document.getElementById('id_TestPage_Report2Canvas_Pixel').addEventListener("mousemove", mouseMoveReport);
+    document.getElementById('id_TestPage_ReportOrginalC_Pixel').addEventListener("mousemove", mouseMoveReport);
+    document.getElementById('id_TestPage_ReportOrginalG_Pixel').addEventListener("mousemove", mouseMoveReport);
+    document.getElementById('id_TestPage_Report0_Pixel').addEventListener("mousemove", mouseMoveReport);
+    document.getElementById('id_TestPage_Report1_Pixel').addEventListener("mousemove", mouseMoveReport);
+    document.getElementById('id_TestPage_Report2_Pixel').addEventListener("mousemove", mouseMoveReport);
 
   }
 
@@ -95,7 +95,19 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
     }
   }
 
+
   selectTestReport(){
+    document.getElementById("id_TestPage_ReportOrginalG_Div").style.display="none";
+    document.getElementById("id_TestPage_ReportOrginalG_Waiter").style.display="flex";
+    document.getElementById("id_TestPage_ReportOrginalC_Div").style.display="none";
+    document.getElementById("id_TestPage_ReportOrginalC_Waiter").style.display="flex";
+    document.getElementById("id_TestPage_Report0_Div").style.display="none";
+    document.getElementById("id_TestPage_Report0_Waiter").style.display="flex";
+    document.getElementById("id_TestPage_Report1_Div").style.display="none";
+    document.getElementById("id_TestPage_Report1_Waiter").style.display="flex";
+    document.getElementById("id_TestPage_Report2_Div").style.display="none";
+    document.getElementById("id_TestPage_Report2_Waiter").style.display="flex";
+    this.deleteStatistics();
     var workerJSON = {};
     workerJSON['message'] = "calcReport_New_Testfield";
     workerJSON['reportOptions_ColorDif'] = this.reportOptions_ColorDif;
@@ -121,6 +133,15 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
   }
 
   updateElement(){
+    document.getElementById("id_TestPage_ReportOrginalC_Div").style.display="none";
+    document.getElementById("id_TestPage_ReportOrginalC_Waiter").style.display="flex";
+    document.getElementById("id_TestPage_Report0_Div").style.display="none";
+    document.getElementById("id_TestPage_Report0_Waiter").style.display="flex";
+    document.getElementById("id_TestPage_Report1_Div").style.display="none";
+    document.getElementById("id_TestPage_Report1_Waiter").style.display="flex";
+    document.getElementById("id_TestPage_Report2_Div").style.display="none";
+    document.getElementById("id_TestPage_Report2_Waiter").style.display="flex";
+    this.deleteStatistics();
     var selectedIndex = document.getElementById("id_TestPage_ReportList").selectedIndex;
     var workerJSON = {};
     workerJSON['message'] = "calcReport_New_CMS";
@@ -145,6 +166,13 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
   }
 
   changeReportMetric(type){
+    document.getElementById("id_TestPage_Report0_Div").style.display="none";
+    document.getElementById("id_TestPage_Report0_Waiter").style.display="flex";
+    document.getElementById("id_TestPage_Report1_Div").style.display="none";
+    document.getElementById("id_TestPage_Report1_Waiter").style.display="flex";
+    document.getElementById("id_TestPage_Report2_Div").style.display="none";
+    document.getElementById("id_TestPage_Report2_Waiter").style.display="flex";
+    this.deleteStatistics();
     this.reportOptions_ColorDif=document.getElementById("id_TestPage_SelectReportMetric").options[document.getElementById("id_TestPage_SelectReportMetric").selectedIndex].value;
     var workerJSON = {};
     workerJSON['message'] = "calcReport_New_Setting";
@@ -157,17 +185,17 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
 
     this.zoomStatus = parseInt(document.getElementById("id_Test_RatioReport_Zoom").value);
 
-    this.changeReportZoom("id_TestPage_ReportOrginalCCanvas");
-    this.changeReportZoom("id_TestPage_ReportOrginalGCanvas");
-    this.changeReportZoom("id_TestPage_Report0Canvas");
-    this.changeReportZoom("id_TestPage_Report1Canvas");
-    this.changeReportZoom("id_TestPage_Report2Canvas");
+    this.changeReportZoom("id_TestPage_ReportOrginalC");
+    this.changeReportZoom("id_TestPage_ReportOrginalG");
+    this.changeReportZoom("id_TestPage_Report0");
+    this.changeReportZoom("id_TestPage_Report1");
+    this.changeReportZoom("id_TestPage_Report2");
 
-    this.changeReportZoom("id_TestPage_ReportOrginalCCanvas_Pixel");
-    this.changeReportZoom("id_TestPage_ReportOrginalGCanvas_Pixel");
-    this.changeReportZoom("id_TestPage_Report0Canvas_Pixel");
-    this.changeReportZoom("id_TestPage_Report1Canvas_Pixel");
-    this.changeReportZoom("id_TestPage_Report2Canvas_Pixel");
+    this.changeReportZoom("id_TestPage_ReportOrginalC_Pixel");
+    this.changeReportZoom("id_TestPage_ReportOrginalG_Pixel");
+    this.changeReportZoom("id_TestPage_Report0_Pixel");
+    this.changeReportZoom("id_TestPage_Report1_Pixel");
+    this.changeReportZoom("id_TestPage_Report2_Pixel");
   }
 
   changeReportZoom(id){
@@ -203,25 +231,25 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
     if(this.reportListTestField[selectedIndex][this.mousePosX][this.mousePosY]==undefined)
     return;
 
-      var context_OrginalCCanvas_Pixel =  document.getElementById("id_TestPage_ReportOrginalCCanvas_Pixel").getContext('2d');
-      var context_OrginalGCanvas_Pixel =  document.getElementById("id_TestPage_ReportOrginalGCanvas_Pixel").getContext('2d');
-      var context_Orginal0Canvas_Pixel =  document.getElementById("id_TestPage_Report0Canvas_Pixel").getContext('2d');
-      var context_Orginal1Canvas_Pixel =  document.getElementById("id_TestPage_Report1Canvas_Pixel").getContext('2d');
-      var context_Orginal2Canvas_Pixel =  document.getElementById("id_TestPage_Report2Canvas_Pixel").getContext('2d');
+      var context_OrginalC_Pixel =  document.getElementById("id_TestPage_ReportOrginalC_Pixel").getContext('2d');
+      var context_OrginalG_Pixel =  document.getElementById("id_TestPage_ReportOrginalG_Pixel").getContext('2d');
+      var context_Orginal0_Pixel =  document.getElementById("id_TestPage_Report0_Pixel").getContext('2d');
+      var context_Orginal1_Pixel =  document.getElementById("id_TestPage_Report1_Pixel").getContext('2d');
+      var context_Orginal2_Pixel =  document.getElementById("id_TestPage_Report2_Pixel").getContext('2d');
 
-      context_OrginalCCanvas_Pixel.clearRect(0, 0, this.reportListTestField[selectedIndex].length, this.reportListTestField[selectedIndex][0].length);
-      context_OrginalGCanvas_Pixel.clearRect(0, 0, this.reportListTestField[selectedIndex].length, this.reportListTestField[selectedIndex][0].length);
-      context_Orginal0Canvas_Pixel.clearRect(0, 0, this.reportListTestField[selectedIndex].length, this.reportListTestField[selectedIndex][0].length);
-      context_Orginal1Canvas_Pixel.clearRect(0, 0, this.reportListTestField[selectedIndex].length, this.reportListTestField[selectedIndex][0].length);
-      context_Orginal2Canvas_Pixel.clearRect(0, 0, this.reportListTestField[selectedIndex].length, this.reportListTestField[selectedIndex][0].length);
+      context_OrginalC_Pixel.clearRect(0, 0, this.reportListTestField[selectedIndex].length, this.reportListTestField[selectedIndex][0].length);
+      context_OrginalG_Pixel.clearRect(0, 0, this.reportListTestField[selectedIndex].length, this.reportListTestField[selectedIndex][0].length);
+      context_Orginal0_Pixel.clearRect(0, 0, this.reportListTestField[selectedIndex].length, this.reportListTestField[selectedIndex][0].length);
+      context_Orginal1_Pixel.clearRect(0, 0, this.reportListTestField[selectedIndex].length, this.reportListTestField[selectedIndex][0].length);
+      context_Orginal2_Pixel.clearRect(0, 0, this.reportListTestField[selectedIndex].length, this.reportListTestField[selectedIndex][0].length);
 
       if(document.getElementById("id_Test_RatioReport_DoMarkedCursor").checked){
 
-        var context_OrginalCCanvas  =  document.getElementById("id_TestPage_ReportOrginalCCanvas").getContext('2d');
-        var context_OrginalGCanvas  =  document.getElementById("id_TestPage_ReportOrginalGCanvas").getContext('2d');
-        var context_Orginal0Canvas  =  document.getElementById("id_TestPage_Report0Canvas").getContext('2d');
-        var context_Orginal1Canvas  =  document.getElementById("id_TestPage_Report1Canvas").getContext('2d');
-        var context_Orginal2Canvas  =  document.getElementById("id_TestPage_Report2Canvas").getContext('2d');
+        var context_OrginalCCanvas  =  document.getElementById("id_TestPage_ReportOrginalC").getContext('2d');
+        var context_OrginalGCanvas  =  document.getElementById("id_TestPage_ReportOrginalG").getContext('2d');
+        var context_Orginal0Canvas  =  document.getElementById("id_TestPage_Report0").getContext('2d');
+        var context_Orginal1Canvas  =  document.getElementById("id_TestPage_Report1").getContext('2d');
+        var context_Orginal2Canvas  =  document.getElementById("id_TestPage_Report2").getContext('2d');
 
         var markpixelColorG = determineMarkColor(context_OrginalGCanvas.getImageData(this.mousePosX, this.reportListTestField[selectedIndex][0].length-this.mousePosY, 1, 1).data);
         var markpixelColorC = determineMarkColor(context_OrginalCCanvas.getImageData(this.mousePosX, this.reportListTestField[selectedIndex][0].length-this.mousePosY, 1, 1).data);
@@ -303,11 +331,11 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
           }
         }
 
-        context_OrginalCCanvas_Pixel.putImageData( imgDataC, 0, 0 );
-        context_OrginalGCanvas_Pixel.putImageData( imgDataG, 0, 0 );
-        context_Orginal0Canvas_Pixel.putImageData( imgData0, 0, 0 );
-        context_Orginal1Canvas_Pixel.putImageData( imgData1, 0, 0 );
-        context_Orginal2Canvas_Pixel.putImageData( imgData2, 0, 0 );
+        context_OrginalC_Pixel.putImageData( imgDataC, 0, 0 );
+        context_OrginalG_Pixel.putImageData( imgDataG, 0, 0 );
+        context_Orginal0_Pixel.putImageData( imgData0, 0, 0 );
+        context_Orginal1_Pixel.putImageData( imgData1, 0, 0 );
+        context_Orginal2_Pixel.putImageData( imgData2, 0, 0 );
         //*/
 
         /*imgData = new ImageData(1,1);
@@ -315,11 +343,11 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
         imgData[1]   = markpixelColor;
         imgData[2]   = markpixelColor;
         imgData[3]   = 10; // 255 = solid
-        context_OrginalCCanvas_Pixel.putImageData( imgData, x, y );
-        context_OrginalGCanvas_Pixel.putImageData( imgData, x, y );
-        context_Orginal0Canvas_Pixel.putImageData( imgData, x, y );
-        context_Orginal1Canvas_Pixel.putImageData( imgData, x, y );
-        context_Orginal2Canvas_Pixel.putImageData( imgData, x, y );*/
+        context_OrginalC_Pixel.putImageData( imgData, x, y );
+        context_OrginalG_Pixel.putImageData( imgData, x, y );
+        context_Orginal0_Pixel.putImageData( imgData, x, y );
+        context_Orginal1_Pixel.putImageData( imgData, x, y );
+        context_Orginal2_Pixel.putImageData( imgData, x, y );*/
       }
 
 
@@ -519,6 +547,41 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
       }
 
     }//*/
+  }
+
+  deleteStatistics(){
+    document.getElementById("id_ratioReportValueDifMax").innerHTML = "/";
+    document.getElementById("id_ratioReportValueDifMin").innerHTML = "/";
+    document.getElementById("id_ratioReportValueDifAvg").innerHTML = "/";
+    document.getElementById("id_ratioReportValueDifVar").innerHTML = "/";
+    document.getElementById("id_ratioReportValueDifDev").innerHTML = "/";
+    document.getElementById("id_ratioReportValueDifMax").title = "/";
+    document.getElementById("id_ratioReportValueDifMin").title = "/";
+    document.getElementById("id_ratioReportValueDifAvg").title = "/";
+    document.getElementById("id_ratioReportValueDifVar").title = "/";
+    document.getElementById("id_ratioReportValueDifDev").title = "/";
+
+    document.getElementById("id_ratioReportColorDifMax").innerHTML = "/";
+    document.getElementById("id_ratioReportColorDifMin").innerHTML = "/";
+    document.getElementById("id_ratioReportColorDifAvg").innerHTML = "/";
+    document.getElementById("id_ratioReportColorDifVar").innerHTML = "/";
+    document.getElementById("id_ratioReportColorDifDev").innerHTML = "/";
+    document.getElementById("id_ratioReportColorDifMax").title = "/";
+    document.getElementById("id_ratioReportColorDifMin").title = "/";
+    document.getElementById("id_ratioReportColorDifAvg").title = "/";
+    document.getElementById("id_ratioReportColorDifVar").title = "/";
+    document.getElementById("id_ratioReportColorDifDev").title = "/";
+
+    document.getElementById("id_ratioReportSubMax").innerHTML = "/";
+    document.getElementById("id_ratioReportSubMin").innerHTML = "/";
+    document.getElementById("id_ratioReportSubAvg").innerHTML = "/";
+    document.getElementById("id_ratioReportSubVar").innerHTML = "/";
+    document.getElementById("id_ratioReportSubDev").innerHTML = "/";
+    document.getElementById("id_ratioReportSubMax").title = "/";
+    document.getElementById("id_ratioReportSubMin").title = "/";
+    document.getElementById("id_ratioReportSubAvg").title = "/";
+    document.getElementById("id_ratioReportSubVar").title = "/";
+    document.getElementById("id_ratioReportSubDev").title = "/";
   }
 
   fillSubReportTable(){
@@ -853,28 +916,28 @@ function eventZoomReport(e){
 
   document.getElementById("id_Test_RatioReport_Zoom").value = testingSection.element_testReport.zoomStatus;
 
-  testingSection.element_testReport.changeReportZoom("id_TestPage_ReportOrginalCCanvas");
-  testingSection.element_testReport.changeReportZoom("id_TestPage_ReportOrginalGCanvas");
-  testingSection.element_testReport.changeReportZoom("id_TestPage_Report0Canvas");
-  testingSection.element_testReport.changeReportZoom("id_TestPage_Report1Canvas");
-  testingSection.element_testReport.changeReportZoom("id_TestPage_Report2Canvas");
+  testingSection.element_testReport.changeReportZoom("id_TestPage_ReportOrginalC");
+  testingSection.element_testReport.changeReportZoom("id_TestPage_ReportOrginalG");
+  testingSection.element_testReport.changeReportZoom("id_TestPage_Report0");
+  testingSection.element_testReport.changeReportZoom("id_TestPage_Report1");
+  testingSection.element_testReport.changeReportZoom("id_TestPage_Report2");
 
-  testingSection.element_testReport.changeReportZoom("id_TestPage_ReportOrginalCCanvas_Pixel");
-  testingSection.element_testReport.changeReportZoom("id_TestPage_ReportOrginalGCanvas_Pixel");
-  testingSection.element_testReport.changeReportZoom("id_TestPage_Report0Canvas_Pixel");
-  testingSection.element_testReport.changeReportZoom("id_TestPage_Report1Canvas_Pixel");
-  testingSection.element_testReport.changeReportZoom("id_TestPage_Report2Canvas_Pixel");
+  testingSection.element_testReport.changeReportZoom("id_TestPage_ReportOrginalC_Pixel");
+  testingSection.element_testReport.changeReportZoom("id_TestPage_ReportOrginalG_Pixel");
+  testingSection.element_testReport.changeReportZoom("id_TestPage_Report0_Pixel");
+  testingSection.element_testReport.changeReportZoom("id_TestPage_Report1_Pixel");
+  testingSection.element_testReport.changeReportZoom("id_TestPage_Report2_Pixel");
 }
 
 function eventScrollReport(e){
   var element = document.getElementById(e.target.id);
   var scrollTop=element.scrollTop;
   var scrollLeft=element.scrollLeft;
-  changeReportScroll("id_TestPage_ReportOrginalCDiv",scrollTop,scrollLeft);
-  changeReportScroll("id_TestPage_ReportOrginalGDiv",scrollTop,scrollLeft);
-  changeReportScroll("id_TestPage_Report0Div",scrollTop,scrollLeft);
-  changeReportScroll("id_TestPage_Report1Div",scrollTop,scrollLeft);
-  changeReportScroll("id_TestPage_Report2Div",scrollTop,scrollLeft);
+  changeReportScroll("id_TestPage_ReportOrginalC_Div",scrollTop,scrollLeft);
+  changeReportScroll("id_TestPage_ReportOrginalG_Div",scrollTop,scrollLeft);
+  changeReportScroll("id_TestPage_Report0_Div",scrollTop,scrollLeft);
+  changeReportScroll("id_TestPage_Report1_Div",scrollTop,scrollLeft);
+  changeReportScroll("id_TestPage_Report2_Div",scrollTop,scrollLeft);
 }
 
 function changeReportScroll(id,scrollTop,scrollLeft){
@@ -941,17 +1004,17 @@ function switchPixelPreviewModus(e){
     document.getElementById("id_pixelPreviewModus").innerHTML = "Modus".bold()+": Fixed Pixel (x:"+testingSection.element_testReport.mousePosX+", y:"+testingSection.element_testReport.mousePosY+")";
     testingSection.element_testReport.drawPreviewPixels();
     testingSection.element_testReport.fillSubReportTable();
-    var context_OrginalCCanvas_Pixel =  document.getElementById("id_TestPage_ReportOrginalCCanvas_Pixel").getContext('2d');
-    var context_OrginalGCanvas_Pixel =  document.getElementById("id_TestPage_ReportOrginalGCanvas_Pixel").getContext('2d');
-    var context_Orginal0Canvas_Pixel =  document.getElementById("id_TestPage_Report0Canvas_Pixel").getContext('2d');
-    var context_Orginal1Canvas_Pixel =  document.getElementById("id_TestPage_Report1Canvas_Pixel").getContext('2d');
-    var context_Orginal2Canvas_Pixel =  document.getElementById("id_TestPage_Report2Canvas_Pixel").getContext('2d');
+    var context_OrginalC_Pixel =  document.getElementById("id_TestPage_ReportOrginalC_Pixel").getContext('2d');
+    var context_OrginalG_Pixel =  document.getElementById("id_TestPage_ReportOrginalG_Pixel").getContext('2d');
+    var context_Orginal0_Pixel =  document.getElementById("id_TestPage_Report0_Pixel").getContext('2d');
+    var context_Orginal1_Pixel =  document.getElementById("id_TestPage_Report1_Pixel").getContext('2d');
+    var context_Orginal2_Pixel =  document.getElementById("id_TestPage_Report2_Pixel").getContext('2d');
 
-    /*context_OrginalCCanvas_Pixel.clearRect(0, 0, this.reportListTestField[selectedIndex].length, this.reportListTestField[selectedIndex][0].length);
-    context_OrginalGCanvas_Pixel.clearRect(0, 0, this.reportListTestField[selectedIndex].length, this.reportListTestField[selectedIndex][0].length);
-    context_Orginal0Canvas_Pixel.clearRect(0, 0, this.reportListTestField[selectedIndex].length, this.reportListTestField[selectedIndex][0].length);
-    context_Orginal1Canvas_Pixel.clearRect(0, 0, this.reportListTestField[selectedIndex].length, this.reportListTestField[selectedIndex][0].length);
-    context_Orginal2Canvas_Pixel.clearRect(0, 0, this.reportListTestField[selectedIndex].length, this.reportListTestField[selectedIndex][0].length);*/
+    /*context_OrginalC_Pixel.clearRect(0, 0, this.reportListTestField[selectedIndex].length, this.reportListTestField[selectedIndex][0].length);
+    context_OrginalG_Pixel.clearRect(0, 0, this.reportListTestField[selectedIndex].length, this.reportListTestField[selectedIndex][0].length);
+    context_Orginal0_Pixel.clearRect(0, 0, this.reportListTestField[selectedIndex].length, this.reportListTestField[selectedIndex][0].length);
+    context_Orginal1_Pixel.clearRect(0, 0, this.reportListTestField[selectedIndex].length, this.reportListTestField[selectedIndex][0].length);
+    context_Orginal2_Pixel.clearRect(0, 0, this.reportListTestField[selectedIndex].length, this.reportListTestField[selectedIndex][0].length);*/
 
     break;
   }

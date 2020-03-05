@@ -162,21 +162,21 @@ function startReportCalc() {
       var answerJSON = {};
       answerJSON['type'] = 0;
       answerJSON['subtype'] = "reportIMG"
-      answerJSON['canvasID'] = "id_TestPage_Report0Canvas";
+      answerJSON['canvasID'] = "id_TestPage_Report0";
       answerJSON['imageData'] = ratioFields[0];
       self.postMessage(answerJSON);
 
       answerJSON = {};
       answerJSON['type'] = 0;
       answerJSON['subtype'] = "reportIMG"
-      answerJSON['canvasID'] = "id_TestPage_Report1Canvas";
+      answerJSON['canvasID'] = "id_TestPage_Report1";
       answerJSON['imageData'] = ratioFields[1];
       self.postMessage(answerJSON);
 
       answerJSON = {};
       answerJSON['type'] = 0;
       answerJSON['subtype'] = "reportIMG"
-      answerJSON['canvasID'] = "id_TestPage_Report2Canvas";
+      answerJSON['canvasID'] = "id_TestPage_Report2";
       answerJSON['imageData'] = ratioFields[2];
       self.postMessage(answerJSON);
 
@@ -298,7 +298,7 @@ function sendReportOriginalImage(){
   var answerJSON = {};
   answerJSON['type'] = 0;
   answerJSON['subtype'] = "reportIMG"
-  answerJSON['canvasID'] = "id_TestPage_ReportOrginalCCanvas";
+  answerJSON['canvasID'] = "id_TestPage_ReportOrginalC";
   var imgData = new ImageData(colorField.length, colorField[0].length);
   var maxHeightIndex = colorField[0].length - 1;
   for (var y = 0; y < colorField[0].length; y++) {
@@ -332,7 +332,8 @@ function sendReportGreyImage(){
   var answerJSON = {};
   answerJSON['type'] = 0;
   answerJSON['subtype'] = "reportIMG"
-  answerJSON['canvasID'] = "id_TestPage_ReportOrginalGCanvas";
+  answerJSON['canvasID'] = "id_TestPage_ReportOrginalG";
+
   var imgData = new ImageData(testfield.length, testfield[0].length);
   var maxHeightIndex = testfield[0].length - 1;
   for (var y = 0; y < testfield[0].length; y++) {
