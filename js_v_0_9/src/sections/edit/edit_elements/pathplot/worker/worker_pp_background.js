@@ -227,7 +227,7 @@ self.addEventListener('message', function(e) {
             }
 
           }
-          
+
           var answerJSON = {};
           answerJSON['pp_space'] = e.data.pp_space;
           answerJSON['canvasID'] = e.data.canvasID_1;
@@ -314,7 +314,7 @@ self.addEventListener('message', function(e) {
           var l99Val = 50;
 
           if (e.data.fixedValue1!=undefined)
-            lVal=e.data.fixedValue1;
+            l99Val=e.data.fixedValue1;
 
           var deleteColors = [];
           var colorDIN99 = new class_Color_DIN99(l99Val, 0, 0);

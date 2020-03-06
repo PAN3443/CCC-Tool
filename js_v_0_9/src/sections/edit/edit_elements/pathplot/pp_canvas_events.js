@@ -18,8 +18,8 @@ function pp_2D_mouseLeave(event) {
   if(editSection.isSectionOpen()){
     editSection.part_Pathplot.pp_CanvasMode = undefined;
     if(editSection.part_Pathplot.mouseGrappedKeyID!=-1){
-      editSection.part_Pathplot.updatePart(true,true,true);
       editSection.saveCreateProcess();
+      editSection.part_Pathplot.updatePart(true,true,true);
     }
     editSection.part_Pathplot.mouseGrappedKeyID=-1;
     editSection.part_Pathplot.mouseGrappedColorSide=-1;
@@ -27,8 +27,8 @@ function pp_2D_mouseLeave(event) {
   else if(optiSection.isSectionOpen()){
     editSection.part_Pathplot.pp_CanvasMode = undefined;
     if(optiSection.part_Pathplot.mouseGrappedKeyID!=-1){
-      optiSection.part_Pathplot.updatePart(true,true,true);
       optiSection.saveCreateProcess();
+      optiSection.part_Pathplot.updatePart(true,true,true);
     }
     optiSection.part_Pathplot.mouseGrappedKeyID=-1;
     optiSection.part_Pathplot.mouseGrappedColorSide=-1;
@@ -112,14 +112,14 @@ function pp_2D_mouseUp() {
   if(editSection.isSectionOpen()){
     editSection.part_Pathplot.mouseGrappedKeyID=-1;
     editSection.part_Pathplot.mouseGrappedColorSide=-1;
-    editSection.part_Pathplot.updatePart(true,true,true);
     editSection.saveCreateProcess();
+    editSection.part_Pathplot.updatePart(true,true,true);
   }
   else if(optiSection.isSectionOpen()){
 
     optiSection.part_Pathplot.mouseGrappedKeyID=-1;
     optiSection.part_Pathplot.mouseGrappedColorSide=-1;
-    optiSection.part_Pathplot.updatePart(true,true,true);
     optiSection.saveCreateProcess();
+    optiSection.part_Pathplot.updatePart(true,true,true);
   }
 }

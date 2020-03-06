@@ -175,6 +175,18 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
   }
 
   saveCreateProcess(){
+        //// Turn off all automatic optimization ///
+        document.getElementById("id_OptiPage_IntOrderOpti_Local_Degree").value=0;
+        document.getElementById("id_OptiPage_IntOrderOpti_Global_Degree").value=0;
+        document.getElementById("id_OptiPage_LegOrderOpti_Local_Degree").value=0;
+        document.getElementById("id_OptiPage_LegOrderOpti_Global_Degree").value=0;
+        document.getElementById("id_OptiPage_DisPowerOpti_Local_Degree").value=0;
+        document.getElementById("id_OptiPage_DisPowerOpti_Global_Degree").value=0;
+        document.getElementById("id_OptiPage_UniOpti_Local_Degree").value=0;
+        document.getElementById("id_OptiPage_UniOpti_Global_Degree").value=0;
+        document.getElementById("id_OptiPage_SmoothOpti_Local_Degree").value=0;
+        document.getElementById("id_OptiPage_SmoothOpti_Global_Degree").value=0;
+        ///////////////////////////////////
         this.somethingChanged=true;
         document.getElementById("id_OptiPage_editWarning").style.visibility="visible";
         this.editCMS_Foundation.deleteReferences();
