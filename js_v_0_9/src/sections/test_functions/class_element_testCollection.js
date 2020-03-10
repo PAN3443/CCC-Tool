@@ -1306,8 +1306,8 @@ class class_Element_Collection extends class_Testing_Element_Basis {
 
       tmpSelection.onclick = (function(tmpID) {
         return function() {
-          testingSection.testingSection.element_singleTest.showElement();
-          openRealWorldTest("photographs", tmpID);
+          testingSection.element_singleTest.showElement();
+          testingSection.element_testCollection.openRealWorldTest("photographs", tmpID);
         };
       })(i);
 

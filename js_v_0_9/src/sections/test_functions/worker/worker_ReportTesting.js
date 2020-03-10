@@ -4,6 +4,7 @@ var testTensorFieldValues = undefined;
 var testTensorFieldColorDif = undefined;
 var reportOptions_ColorDif = 2;
 var ratioFields = undefined;
+var selectorType ="max";
 
 
 var reportType = undefined;
@@ -90,6 +91,7 @@ self.addEventListener('message', function(e) {
 
       self.importScripts('../report/calc_Report.js');
       self.importScripts('../../../global/helper/math.js');
+      self.importScripts('../../../global/helper/quicksort.js');
       self.importScripts('../../../global/cms/cmsIntervalHelper.js');
       self.importScripts('../../../global/color/colorDifference.js');
 
@@ -128,6 +130,7 @@ self.addEventListener('message', function(e) {
     case "calcReport_New_Testfield":
       testfield = e.data.testfield;
       reportOptions_ColorDif= e.data.reportOptions_ColorDif;
+      selectorType = e.data.reportOptions_ColorSelector;
       calcColorField();
       sendReportOriginalImage();
       sendReportGreyImage();
@@ -135,6 +138,7 @@ self.addEventListener('message', function(e) {
     break;
     case "calcReport_New_Setting":
       reportOptions_ColorDif= e.data.reportOptions_ColorDif;
+      selectorType = e.data.reportOptions_ColorSelector;
       calcColorField();
       startReportCalc();
     break;
@@ -152,13 +156,12 @@ self.addEventListener('message', function(e) {
 
 }, false);
 
-
 function startReportCalc() {
 
   /*switch (reportType) {
     case 0:*/
 
-      ratioFields = getRatioDifField(testfield, colorField, reportOptions_ColorDif);
+      ratioFields = getRatioDifField(testfield, colorField, reportOptions_ColorDif,selectorType);
       var answerJSON = {};
       answerJSON['type'] = 0;
       answerJSON['subtype'] = "reportIMG"
@@ -204,8 +207,6 @@ function startReportCalc() {
 
 }
 
-
-
 function calcSubReportStatisics(tmpArrays){
 
   var sumForAverage = 0;
@@ -240,7 +241,6 @@ function calcSubReportStatisics(tmpArrays){
 
   return [min,max,average,variance,deviation];
 }
-
 
 function calcColorField() {
 

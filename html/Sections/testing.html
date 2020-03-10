@@ -373,26 +373,30 @@
 
               </select>
 
-              <button class="class_coloredButton_Dark" onclick="testingSection.element_testReport.remove_Report()" style="width:15vw; margin:auto;  margin-top:1vh;">Remove Test</button>
+              <button class="class_coloredButton_Dark" onclick="testingSection.element_testReport.remove_Report()" style="width:15vw; margin:auto;  margin-top:1vh;margin-bottom:1vh;">Remove Test</button>
 
             </div>
-            <div style="display:flex; flex-direction:column; width:20vw;">
-              <p id="id_ReportTest_Type" style="margin:auto; margin-left:1vw; margin-right:0.25vw; width:10vw; color: var(--main-sepArea-font-color);">Type:</p>
-              <p id="id_ReportTest_Name" style="margin:auto; margin-left:1vw; margin-right:0.25vw; width:10vw; color: var(--main-sepArea-font-color);">Name:</p>
-              <p id="id_ReportTest_Settings" style="margin:auto; margin-left:1vw; margin-right:0.25vw; width:10vw; color: var(--main-sepArea-font-color);">Settings:</p>
+            <div style="display:flex; flex-direction:column; width:20vw; margin:auto;">
+              <p id="id_ReportTest_Type" style="margin:auto; margin-left:1vw; margin-right:0.25vw; width:10vw; color: var(--main-sepArea-font-color); display:none;">Type:</p>
+              <p id="id_ReportTest_Name" style="margin:auto; margin-left:1vw; margin-right:0.25vw; width:10vw; color: var(--main-sepArea-font-color); display:none;" >Name:</p>
+              <p id="id_ReportTest_Settings" style="margin:auto; margin-left:1vw; margin-right:0.25vw; width:10vw; color: var(--main-sepArea-font-color); display:none;">Settings:</p>
+
+              <p style="margin-left:2.5vw; margin-bottom:1vh; font-weight:bold; color: var(--main-sepArea-font-color);">Options:</p>
+              <p style=" margin-left:2.5vw; margin-right:1vw; color: var(--main-sepArea-font-color);">Color-Difference(&#916;C():</p>
+                <select id="id_TestPage_SelectReportMetric" onchange="testingSection.element_testReport.changeReportMetric()" style="margin-left:2.5vw; min-width:15vw; width:15vw; margin-bottom:1vh;">
+                      <option value="lab">Euclidean Dist. (Lab)</option>
+                      <option value="de94">De94</option>
+                      <option value="de2000">CIEDE2000</option>
+                      <option value="din99">Euclidean Dist. (DIN99)</option>
+                </select>
+                <p style="margin-left:2.5vw; margin-right:1vw; color: var(--main-sepArea-font-color);">Mapping Type:</p>
+                <select id="id_TestPage_SelectColorSelector" onchange="testingSection.element_testReport.changeReportMetric()" style="margin-left:2.5vw; min-width:15vw; width:15vw;">
+                      <option value="max">Maximum</option>
+                      <option value="avg">Average</option>
+                      <option value="median">Median</option>
+                </select>
+
             </div>
-          </div>
-
-          <hr style="color: var(--main-sepArea-font-color); width:40vw;">
-
-          <div style="display:flex; width: 40vw;">
-            <p style="margin:auto; margin-left:auto; margin-right:2vw; color: var(--main-sepArea-font-color);">Color Difference:</p>
-            <select id="id_TestPage_SelectReportMetric" onchange="testingSection.element_testReport.changeReportMetric()" style="margin-right: auto; min-width:15vw; width:15vw;">
-                  <option value="lab">Euclidean Distance (Lab)</option>
-                  <option value="de94">De94</option>
-                  <option value="de2000">CIEDE2000</option>
-                  <option value="din99">Euclidean Distance (DIN99)</option>
-            </select>
           </div>
 
           <hr style="color: var(--main-sepArea-font-color); width:40vw;">
@@ -402,7 +406,7 @@
 
             <div style="display:flex; margin-left: 2vw; width:38vw;">
               <div style="margin: auto;">
-                <p style="text-decoration: underline;  color:var(--main-sepArea-font-color);">&#916; Value: </p>
+                <p style="text-decoration: underline;  color:var(--main-sepArea-font-color);">Value Gradient (&#8711;V): </p>
                 <div style="display:flex;">
                   <p style=" color:var(--main-sepArea-font-color);">Maximum =</p>
                   <p id="id_ratioReportValueDifMax" style=" color:var(--main-sepArea-font-color);"> / </p>
@@ -427,7 +431,7 @@
 
 
               <div style="margin: auto;">
-                <p style="text-decoration: underline; color:var(--main-sepArea-font-color);">&#916; Color-Metric: </p>
+                <p style="text-decoration: underline; color:var(--main-sepArea-font-color);">Color-Difference (&#916;C): </p>
                 <div style="display:flex;">
                   <p style=" color:var(--main-sepArea-font-color);">Maximum =</p>
                   <p id="id_ratioReportColorDifMax" style=" color:var(--main-sepArea-font-color);"> / </p>
@@ -452,7 +456,7 @@
 
 
               <div style="margin: auto;">
-                <p style="text-decoration: underline; color:var(--main-sepArea-font-color);">Ratio Field: </p>
+                <p style="text-decoration: underline; color:var(--main-sepArea-font-color);">N(&#916;C)-N(&#8711;V): </p>
                 <div style="display:flex;">
                   <p style=" color:var(--main-sepArea-font-color);">Maximum =</p>
                   <p id="id_ratioReportSubMax" style=" color:var(--main-sepArea-font-color);"> / </p>
@@ -492,7 +496,7 @@
                                            <th class="class_tablelabel" title="Color-Difference of Visualization" style="width:7vw; border-right: 0.1vw solid var(--main-sepArea-font-color);">&#916;C</th>
                                            <th class="class_tablelabel" title="Normalized Color-Difference of Visualization" style="width:8vw; border-right: 0.1vw solid var(--main-sepArea-font-color);">N(&#916;C)</th>
 
-                                           <th class="class_tablelabel" title="Normalized Color-Difference subtracted from Normalized Gradient"style="width:8vw;">N(&#8711;V)-N(&#916;C)</th>
+                                           <th class="class_tablelabel" title="Normalized Color-Difference subtracted from Normalized Gradient"style="width:8vw;">N(&#916;C)-N(&#8711;V)</th>
                                          </tr>
                                        </table>
                                      </td>
@@ -695,7 +699,7 @@
   <div class="row" style="padding-bottom:0.5vh; padding-top:0.5vh; background: var(--main-sepArea-bg); ">
       <p style="text-align:center; color:var(--main-sepArea-font-color); width: 20vw; max-width:32vh;">N(&#8711;V) Value Gradient</p>
       <p style="text-align:center; color:var(--main-sepArea-font-color); width: 20vw; max-width:32vh;">N(&#916;C) Color-Difference</p>
-      <p style="text-align:center; color:var(--main-sepArea-font-color); width: 20vw; max-width:32vh;">N(&#8711;V)-N(&#916;C)</p>
+      <p style="text-align:center; color:var(--main-sepArea-font-color); width: 20vw; max-width:32vh;">N(&#916;C)-N(&#8711;V)</p>
   </div>
 
   <div class="row">
@@ -749,38 +753,15 @@
 
   </div>
 
-  <div style="width:60vw; max-width:96vh; display:flex;">
-    <div style="width:10%; display:none;">
-      <div id="id_TestPage_DifReportBelowColor" style="width:100%; border:0.2vh solid var(--main-sepArea-bg); border-top:none; height:3vh;">
-
-      </div>
-      <div style="width:100%; height:0.5vh; border-right: 0.2vh solid var(--main-sepArea-border);">
-
-      </div>
-      <p style=" width:100%; text-align:center;"> ( &#60; -1 ) </p>
-    </div>
-    <div style="width:100%;">
+  <div style="width:60vw; max-width:96vh; display:flex; flex-direction:column;">
       <canvas id="id_TestPage_DifReportColormap" style="width:100%; border-bottom:0.2vh solid var(--main-sepArea-bg); height:3vh; margin: 0px;">
 
       </canvas>
-      <div style="width:50%; height:0.5vh; border-right: 0.2vh solid var(--main-sepArea-border);">
-
+      <div class="row" style="width:100%; background: var(--main-sepArea-bg);">
+        <p style="margin-right:auto; text-align: left; color:var(--main-sepArea-font-color);"> &#8592; Underestimate </p>
+        <p style="text-align: center; color:var(--main-sepArea-font-color);"> Uniform </p>
+        <p style="margin-left:auto; text-align: right; color:var(--main-sepArea-font-color);"> Overestimate &#8594;</p>
       </div>
-      <div class="row" style="width:100%;">
-        <p style="margin-right:auto; text-align: left;"> -1 </p>
-        <p style="text-align: center;"> 0 </p>
-        <p style="margin-left:auto; text-align: right;"> 1 </p>
-      </div>
-    </div>
-    <div style="width:10%; display:none;">
-      <div id="id_TestPage_DifReportAboveColor" style="width:100%; border:0.2vh solid var(--main-sepArea-bg); border-top:none; height:3vh;">
-
-      </div>
-      <div style="width:100%; height:0.5vh; border-left: 0.2vh solid var(--main-sepArea-border);">
-
-      </div>
-      <p style=" width:100%; text-align:center;"> ( &#62; 1 ) </p>
-    </div>
   </div>
 </div>
 

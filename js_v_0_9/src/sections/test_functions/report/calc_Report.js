@@ -1,4 +1,4 @@
-function getRatioDifField(testfield, colorField, colorDifType){
+function getRatioDifField(testfield, colorField, colorDifType, selectionType){
 
   ////////////////////////////////////////////
   ////  Step 1: Calc Value Dif and Color Dif
@@ -167,10 +167,10 @@ function getRatioDifField(testfield, colorField, colorDifType){
       ////////////////////////////////////////////
       ////  Step 3: Subtraction Differences
       ////////////////////////////////////////////
-      var xDifArray_Sub = calcSubtractionField(xDifArray_Ratio, xColorDifArray_Ratio);
-      var yDifArray_Sub = calcSubtractionField(yDifArray_Ratio, yColorDifArray_Ratio);
-      var diagonal1DifArray_Sub = calcSubtractionField(diagonal1DifArray_Ratio, diagonal1ColorDifArray_Ratio);
-      var diagonal2DifArray_Sub = calcSubtractionField(diagonal2DifArray_Ratio, diagonal2ColorDifArray_Ratio);
+      var xDifArray_Sub = calcSubtractionField(xColorDifArray_Ratio,xDifArray_Ratio);
+      var yDifArray_Sub = calcSubtractionField(yColorDifArray_Ratio,yDifArray_Ratio);
+      var diagonal1DifArray_Sub = calcSubtractionField(diagonal1ColorDifArray_Ratio,diagonal1DifArray_Ratio);
+      var diagonal2DifArray_Sub = calcSubtractionField(diagonal2ColorDifArray_Ratio,diagonal2DifArray_Ratio);
 
 
       ////////////////////////////////////////////
@@ -210,126 +210,255 @@ function getRatioDifField(testfield, colorField, colorDifType){
           if(x==0){
             if(y==0){
               // corner leftBottom
-              var tmpMax = Math.max(yDifArray_Sub[x][y],diagonal1DifArray_Sub[x][y],xDifArray_Sub[x][y]);
-              var tmpMin = Math.min(yDifArray_Sub[x][y],diagonal1DifArray_Sub[x][y],xDifArray_Sub[x][y]);
-              if(Math.abs(tmpMin)>Math.abs(tmpMax))
-                maxABSRatio = tmpMin;
-              else
-                maxABSRatio = tmpMax;
+              switch (selectionType) {
+                case "max":
+                  var tmpMax = Math.max(yDifArray_Sub[x][y],diagonal1DifArray_Sub[x][y],xDifArray_Sub[x][y]);
+                  var tmpMin = Math.min(yDifArray_Sub[x][y],diagonal1DifArray_Sub[x][y],xDifArray_Sub[x][y]);
+                  if(Math.abs(tmpMin)>Math.abs(tmpMax))
+                    maxABSRatio = tmpMin;
+                  else
+                    maxABSRatio = tmpMax;
 
-              maxRatioV = Math.max(yDifArray_Ratio[x][y],diagonal1DifArray_Ratio[x][y],xDifArray_Ratio[x][y]);
+                  maxRatioV = Math.max(yDifArray_Ratio[x][y],diagonal1DifArray_Ratio[x][y],xDifArray_Ratio[x][y]);
+                  maxRatioC = Math.max(yColorDifArray_Ratio[x][y],diagonal1ColorDifArray_Ratio[x][y],xColorDifArray_Ratio[x][y]);
+                  break;
+                  case "avg":
+                    maxABSRatio = calcAverage([yDifArray_Sub[x][y],diagonal1DifArray_Sub[x][y],xDifArray_Sub[x][y]]);
+                    maxRatioV = calcAverage([yDifArray_Ratio[x][y],diagonal1DifArray_Ratio[x][y],xDifArray_Ratio[x][y]]);
+                    maxRatioC = calcAverage([yColorDifArray_Ratio[x][y],diagonal1ColorDifArray_Ratio[x][y],xColorDifArray_Ratio[x][y]]);
+                  break;
+                  case "median":
+                    maxABSRatio = calcMedian([yDifArray_Sub[x][y],diagonal1DifArray_Sub[x][y],xDifArray_Sub[x][y]]);
+                    maxRatioV = calcMedian([yDifArray_Ratio[x][y],diagonal1DifArray_Ratio[x][y],xDifArray_Ratio[x][y]]);
+                    maxRatioC = calcMedian([yColorDifArray_Ratio[x][y],diagonal1ColorDifArray_Ratio[x][y],xColorDifArray_Ratio[x][y]]);
+                  break;
+              }
 
-              maxRatioC = Math.max(yColorDifArray_Ratio[x][y],diagonal1ColorDifArray_Ratio[x][y],xColorDifArray_Ratio[x][y]);
             }
             else if (y==yDim-1) {
               // corner leftTop
-              var tmpMax = Math.max(xDifArray_Sub[x][y],yDifArray_Sub[x][y-1],diagonal2DifArray_Sub[x][y-1]);
-              var tmpMin = Math.min(xDifArray_Sub[x][y],yDifArray_Sub[x][y-1],diagonal2DifArray_Sub[x][y-1]);
-              if(Math.abs(tmpMin)>Math.abs(tmpMax))
-                maxABSRatio = tmpMin;
-              else
-                maxABSRatio = tmpMax;
+              switch (selectionType) {
+                case "max":
+                  var tmpMax = Math.max(xDifArray_Sub[x][y],yDifArray_Sub[x][y-1],diagonal2DifArray_Sub[x][y-1]);
+                  var tmpMin = Math.min(xDifArray_Sub[x][y],yDifArray_Sub[x][y-1],diagonal2DifArray_Sub[x][y-1]);
+                  if(Math.abs(tmpMin)>Math.abs(tmpMax))
+                    maxABSRatio = tmpMin;
+                  else
+                    maxABSRatio = tmpMax;
 
-              maxRatioV = Math.max(xDifArray_Ratio[x][y],yDifArray_Ratio[x][y-1],diagonal2DifArray_Ratio[x][y-1]);
+                  maxRatioV = Math.max(xDifArray_Ratio[x][y],yDifArray_Ratio[x][y-1],diagonal2DifArray_Ratio[x][y-1]);
 
-              maxRatioC = Math.max(xColorDifArray_Ratio[x][y],yColorDifArray_Ratio[x][y-1],diagonal2ColorDifArray_Ratio[x][y-1]);
+                  maxRatioC = Math.max(xColorDifArray_Ratio[x][y],yColorDifArray_Ratio[x][y-1],diagonal2ColorDifArray_Ratio[x][y-1]);
+                break;
+                case "avg":
+                  maxABSRatio = calcAverage([xDifArray_Sub[x][y],yDifArray_Sub[x][y-1],diagonal2DifArray_Sub[x][y-1]]);
+                  maxRatioV = calcAverage([xDifArray_Ratio[x][y],yDifArray_Ratio[x][y-1],diagonal2DifArray_Ratio[x][y-1]]);
+                  maxRatioC = calcAverage([xColorDifArray_Ratio[x][y],yColorDifArray_Ratio[x][y-1],diagonal2ColorDifArray_Ratio[x][y-1]]);
+                break;
+                case "median":
+                  maxABSRatio = calcMedian([xDifArray_Sub[x][y],yDifArray_Sub[x][y-1],diagonal2DifArray_Sub[x][y-1]]);
+                  maxRatioV = calcMedian([xDifArray_Ratio[x][y],yDifArray_Ratio[x][y-1],diagonal2DifArray_Ratio[x][y-1]]);
+                  maxRatioC = calcMedian([xColorDifArray_Ratio[x][y],yColorDifArray_Ratio[x][y-1],diagonal2ColorDifArray_Ratio[x][y-1]]);
+                break;
+              }
+
             }
             else {
               // left side
-              // max
-              var tmpMax = Math.max(yDifArray_Sub[x][y],diagonal1DifArray_Sub[x][y],xDifArray_Sub[x][y],yDifArray_Sub[x][y-1],diagonal2DifArray_Sub[x][y-1]);
-              var tmpMin = Math.min(yDifArray_Sub[x][y],diagonal1DifArray_Sub[x][y],xDifArray_Sub[x][y],yDifArray_Sub[x][y-1],diagonal2DifArray_Sub[x][y-1]);
-              if(Math.abs(tmpMin)>Math.abs(tmpMax))
-                maxABSRatio = tmpMin;
-              else
-                maxABSRatio = tmpMax;
+              switch (selectionType) {
+                case "max":
+                  var tmpMax = Math.max(yDifArray_Sub[x][y],diagonal1DifArray_Sub[x][y],xDifArray_Sub[x][y],yDifArray_Sub[x][y-1],diagonal2DifArray_Sub[x][y-1]);
+                  var tmpMin = Math.min(yDifArray_Sub[x][y],diagonal1DifArray_Sub[x][y],xDifArray_Sub[x][y],yDifArray_Sub[x][y-1],diagonal2DifArray_Sub[x][y-1]);
+                  if(Math.abs(tmpMin)>Math.abs(tmpMax))
+                    maxABSRatio = tmpMin;
+                  else
+                    maxABSRatio = tmpMax;
 
-              maxRatioV = Math.max(yDifArray_Ratio[x][y],diagonal1DifArray_Ratio[x][y],xDifArray_Ratio[x][y],yDifArray_Ratio[x][y-1],diagonal2DifArray_Ratio[x][y-1]);
+                  maxRatioV = Math.max(yDifArray_Ratio[x][y],diagonal1DifArray_Ratio[x][y],xDifArray_Ratio[x][y],yDifArray_Ratio[x][y-1],diagonal2DifArray_Ratio[x][y-1]);
+                  maxRatioC = Math.max(yColorDifArray_Ratio[x][y],diagonal1ColorDifArray_Ratio[x][y],xColorDifArray_Ratio[x][y],yColorDifArray_Ratio[x][y-1],diagonal2ColorDifArray_Ratio[x][y-1]);
+                break;
+                case "avg":
+                  maxABSRatio = calcAverage([yDifArray_Sub[x][y],diagonal1DifArray_Sub[x][y],xDifArray_Sub[x][y],yDifArray_Sub[x][y-1],diagonal2DifArray_Sub[x][y-1]]);
+                  maxRatioV = calcAverage([yDifArray_Ratio[x][y],diagonal1DifArray_Ratio[x][y],xDifArray_Ratio[x][y],yDifArray_Ratio[x][y-1],diagonal2DifArray_Ratio[x][y-1]]);
+                  maxRatioC = calcAverage([yColorDifArray_Ratio[x][y],diagonal1ColorDifArray_Ratio[x][y],xColorDifArray_Ratio[x][y],yColorDifArray_Ratio[x][y-1],diagonal2ColorDifArray_Ratio[x][y-1]]);
+                break;
+                case "median":
+                  maxABSRatio = calcMedian([yDifArray_Sub[x][y],diagonal1DifArray_Sub[x][y],xDifArray_Sub[x][y],yDifArray_Sub[x][y-1],diagonal2DifArray_Sub[x][y-1]]);
+                  maxRatioV = calcMedian([yDifArray_Ratio[x][y],diagonal1DifArray_Ratio[x][y],xDifArray_Ratio[x][y],yDifArray_Ratio[x][y-1],diagonal2DifArray_Ratio[x][y-1]]);
+                  maxRatioC = calcMedian([yColorDifArray_Ratio[x][y],diagonal1ColorDifArray_Ratio[x][y],xColorDifArray_Ratio[x][y],yColorDifArray_Ratio[x][y-1],diagonal2ColorDifArray_Ratio[x][y-1]]);
+                break;
+              }
 
-              maxRatioC = Math.max(yColorDifArray_Ratio[x][y],diagonal1ColorDifArray_Ratio[x][y],xColorDifArray_Ratio[x][y],yColorDifArray_Ratio[x][y-1],diagonal2ColorDifArray_Ratio[x][y-1]);
             }
           }
           else if(x==xDim-1){
             if(y==0){
               // corner
-              var tmpMax = Math.max(diagonal2DifArray_Sub[x-1][y],yDifArray_Sub[x][y],xDifArray_Sub[x-1][y]);
-              var tmpMin = Math.min(diagonal2DifArray_Sub[x-1][y],yDifArray_Sub[x][y],xDifArray_Sub[x-1][y]);
-              if(Math.abs(tmpMin)>Math.abs(tmpMax))
-                maxABSRatio = tmpMin;
-              else
-                maxABSRatio = tmpMax;
+              switch (selectionType) {
+                case "max":
+                  var tmpMax = Math.max(diagonal2DifArray_Sub[x-1][y],yDifArray_Sub[x][y],xDifArray_Sub[x-1][y]);
+                  var tmpMin = Math.min(diagonal2DifArray_Sub[x-1][y],yDifArray_Sub[x][y],xDifArray_Sub[x-1][y]);
+                  if(Math.abs(tmpMin)>Math.abs(tmpMax))
+                    maxABSRatio = tmpMin;
+                  else
+                    maxABSRatio = tmpMax;
 
+                  maxRatioV = Math.max(diagonal2DifArray_Ratio[x-1][y],yDifArray_Ratio[x][y],xDifArray_Ratio[x-1][y]);
+                  maxRatioC = Math.max(diagonal2ColorDifArray_Ratio[x-1][y],yColorDifArray_Ratio[x][y],xColorDifArray_Ratio[x-1][y]);
+                break;
+                case "avg":
+                  maxABSRatio = calcAverage([diagonal2DifArray_Sub[x-1][y],yDifArray_Sub[x][y],xDifArray_Sub[x-1][y]]);
+                  maxRatioV = calcAverage([diagonal2DifArray_Ratio[x-1][y],yDifArray_Ratio[x][y],xDifArray_Ratio[x-1][y]]);
+                  maxRatioC = calcAverage([diagonal2ColorDifArray_Ratio[x-1][y],yColorDifArray_Ratio[x][y],xColorDifArray_Ratio[x-1][y]]);
+                break;
+                case "median":
+                  maxABSRatio = calcMedian([diagonal2DifArray_Sub[x-1][y],yDifArray_Sub[x][y],xDifArray_Sub[x-1][y]]);
+                  maxRatioV = calcMedian([diagonal2DifArray_Ratio[x-1][y],yDifArray_Ratio[x][y],xDifArray_Ratio[x-1][y]]);
+                  maxRatioC = calcMedian([diagonal2ColorDifArray_Ratio[x-1][y],yColorDifArray_Ratio[x][y],xColorDifArray_Ratio[x-1][y]]);
+                break;
+              }
 
-              maxRatioV = Math.max(diagonal2DifArray_Ratio[x-1][y],yDifArray_Ratio[x][y],xDifArray_Ratio[x-1][y]);
-
-              maxRatioC = Math.max(diagonal2ColorDifArray_Ratio[x-1][y],yColorDifArray_Ratio[x][y],xColorDifArray_Ratio[x-1][y]);
             }
             else if (y==yDim-1) {
               // corner
-              var tmpMax = Math.max(xDifArray_Sub[x-1][y],diagonal1DifArray_Sub[x-1][y-1],yDifArray_Sub[x][y-1]);
-              var tmpMin = Math.min(xDifArray_Sub[x-1][y],diagonal1DifArray_Sub[x-1][y-1],yDifArray_Sub[x][y-1]);
-              if(Math.abs(tmpMin)>Math.abs(tmpMax))
-                maxABSRatio = tmpMin;
-              else
-                maxABSRatio = tmpMax;
+              switch (selectionType) {
+                case "max":
+                  var tmpMax = Math.max(xDifArray_Sub[x-1][y],diagonal1DifArray_Sub[x-1][y-1],yDifArray_Sub[x][y-1]);
+                  var tmpMin = Math.min(xDifArray_Sub[x-1][y],diagonal1DifArray_Sub[x-1][y-1],yDifArray_Sub[x][y-1]);
+                  if(Math.abs(tmpMin)>Math.abs(tmpMax))
+                    maxABSRatio = tmpMin;
+                  else
+                    maxABSRatio = tmpMax;
 
-              maxRatioV = Math.max(xDifArray_Ratio[x-1][y],diagonal1DifArray_Ratio[x-1][y-1],yDifArray_Ratio[x][y-1]);
+                  maxRatioV = Math.max(xDifArray_Ratio[x-1][y],diagonal1DifArray_Ratio[x-1][y-1],yDifArray_Ratio[x][y-1]);
 
-              maxRatioC = Math.max(xColorDifArray_Ratio[x-1][y],diagonal2ColorDifArray_Ratio[x-1][y-1],yColorDifArray_Ratio[x][y-1]);
+                  maxRatioC = Math.max(xColorDifArray_Ratio[x-1][y],diagonal2ColorDifArray_Ratio[x-1][y-1],yColorDifArray_Ratio[x][y-1]);
+                break;
+                case "avg":
+                  maxABSRatio = calcAverage([xDifArray_Sub[x-1][y],diagonal1DifArray_Sub[x-1][y-1],yDifArray_Sub[x][y-1]]);
+                  maxRatioV = calcAverage([xDifArray_Ratio[x-1][y],diagonal1DifArray_Ratio[x-1][y-1],yDifArray_Ratio[x][y-1]]);
+                  maxRatioC = calcAverage([xColorDifArray_Ratio[x-1][y],diagonal2ColorDifArray_Ratio[x-1][y-1],yColorDifArray_Ratio[x][y-1]]);
+                break;
+                case "median":
+                  maxABSRatio = calcMedian([xDifArray_Sub[x-1][y],diagonal1DifArray_Sub[x-1][y-1],yDifArray_Sub[x][y-1]]);
+                  maxRatioV = calcMedian([xDifArray_Ratio[x-1][y],diagonal1DifArray_Ratio[x-1][y-1],yDifArray_Ratio[x][y-1]]);
+                  maxRatioC = calcMedian([xColorDifArray_Ratio[x-1][y],diagonal2ColorDifArray_Ratio[x-1][y-1],yColorDifArray_Ratio[x][y-1]]);
+                break;
+              }
+
             }
             else {
               // right side
-              var tmpMax = Math.max(diagonal2DifArray_Sub[x-1][y],yDifArray_Sub[x][y],xDifArray_Sub[x-1][y],diagonal1DifArray_Sub[x-1][y-1],yDifArray_Sub[x][y-1]);
-              var tmpMin = Math.min(diagonal2DifArray_Sub[x-1][y],yDifArray_Sub[x][y],xDifArray_Sub[x-1][y],diagonal1DifArray_Sub[x-1][y-1],yDifArray_Sub[x][y-1]);
-              if(Math.abs(tmpMin)>Math.abs(tmpMax))
-                maxABSRatio = tmpMin;
-              else
-                maxABSRatio = tmpMax;
+              switch (selectionType) {
+                case "max":
+                  var tmpMax = Math.max(diagonal2DifArray_Sub[x-1][y],yDifArray_Sub[x][y],xDifArray_Sub[x-1][y],diagonal1DifArray_Sub[x-1][y-1],yDifArray_Sub[x][y-1]);
+                  var tmpMin = Math.min(diagonal2DifArray_Sub[x-1][y],yDifArray_Sub[x][y],xDifArray_Sub[x-1][y],diagonal1DifArray_Sub[x-1][y-1],yDifArray_Sub[x][y-1]);
+                  if(Math.abs(tmpMin)>Math.abs(tmpMax))
+                    maxABSRatio = tmpMin;
+                  else
+                    maxABSRatio = tmpMax;
 
-              maxRatioV = Math.max(diagonal2DifArray_Ratio[x-1][y],yDifArray_Ratio[x][y],xDifArray_Ratio[x-1][y],diagonal1DifArray_Ratio[x-1][y-1],yDifArray_Ratio[x][y-1]);
+                  maxRatioV = Math.max(diagonal2DifArray_Ratio[x-1][y],yDifArray_Ratio[x][y],xDifArray_Ratio[x-1][y],diagonal1DifArray_Ratio[x-1][y-1],yDifArray_Ratio[x][y-1]);
 
-              maxRatioC = Math.max(diagonal2ColorDifArray_Ratio[x-1][y],yColorDifArray_Ratio[x][y],xColorDifArray_Ratio[x-1][y],diagonal2ColorDifArray_Ratio[x-1][y-1],yColorDifArray_Ratio[x][y-1]);
+                  maxRatioC = Math.max(diagonal2ColorDifArray_Ratio[x-1][y],yColorDifArray_Ratio[x][y],xColorDifArray_Ratio[x-1][y],diagonal2ColorDifArray_Ratio[x-1][y-1],yColorDifArray_Ratio[x][y-1]);
+                break;
+                case "avg":
+                  maxABSRatio = calcAverage([diagonal2DifArray_Sub[x-1][y],yDifArray_Sub[x][y],xDifArray_Sub[x-1][y],diagonal1DifArray_Sub[x-1][y-1],yDifArray_Sub[x][y-1]]);
+                  maxRatioV = calcAverage([diagonal2DifArray_Ratio[x-1][y],yDifArray_Ratio[x][y],xDifArray_Ratio[x-1][y],diagonal1DifArray_Ratio[x-1][y-1],yDifArray_Ratio[x][y-1]]);
+                  maxRatioC = calcAverage([diagonal2ColorDifArray_Ratio[x-1][y],yColorDifArray_Ratio[x][y],xColorDifArray_Ratio[x-1][y],diagonal2ColorDifArray_Ratio[x-1][y-1],yColorDifArray_Ratio[x][y-1]]);
+                break;
+                case "median":
+                  maxABSRatio = calcMedian([diagonal2DifArray_Sub[x-1][y],yDifArray_Sub[x][y],xDifArray_Sub[x-1][y],diagonal1DifArray_Sub[x-1][y-1],yDifArray_Sub[x][y-1]]);
+                  maxRatioV = calcMedian([diagonal2DifArray_Ratio[x-1][y],yDifArray_Ratio[x][y],xDifArray_Ratio[x-1][y],diagonal1DifArray_Ratio[x-1][y-1],yDifArray_Ratio[x][y-1]]);
+                  maxRatioC = calcMedian([diagonal2ColorDifArray_Ratio[x-1][y],yColorDifArray_Ratio[x][y],xColorDifArray_Ratio[x-1][y],diagonal2ColorDifArray_Ratio[x-1][y-1],yColorDifArray_Ratio[x][y-1]]);
+                break;
+              }
+
              }
           }
           else {
             if(y==0){
               // bottom side
-              var tmpMax = Math.max(diagonal2DifArray_Sub[x-1][y],yDifArray_Sub[x][y],diagonal1DifArray_Sub[x][y],xDifArray_Sub[x-1][y],xDifArray_Sub[x][y]);
-              var tmpMin = Math.min(diagonal2DifArray_Sub[x-1][y],yDifArray_Sub[x][y],diagonal1DifArray_Sub[x][y],xDifArray_Sub[x-1][y],xDifArray_Sub[x][y]);
-              if(Math.abs(tmpMin)>Math.abs(tmpMax))
-                maxABSRatio = tmpMin;
-              else
-                maxABSRatio = tmpMax;
+              switch (selectionType) {
+                case "max":
+                  var tmpMax = Math.max(diagonal2DifArray_Sub[x-1][y],yDifArray_Sub[x][y],diagonal1DifArray_Sub[x][y],xDifArray_Sub[x-1][y],xDifArray_Sub[x][y]);
+                  var tmpMin = Math.min(diagonal2DifArray_Sub[x-1][y],yDifArray_Sub[x][y],diagonal1DifArray_Sub[x][y],xDifArray_Sub[x-1][y],xDifArray_Sub[x][y]);
+                  if(Math.abs(tmpMin)>Math.abs(tmpMax))
+                    maxABSRatio = tmpMin;
+                  else
+                    maxABSRatio = tmpMax;
 
-              maxRatioV = Math.max(diagonal2DifArray_Ratio[x-1][y],yDifArray_Ratio[x][y],diagonal1DifArray_Ratio[x][y],xDifArray_Ratio[x-1][y],xDifArray_Ratio[x][y]);
+                  maxRatioV = Math.max(diagonal2DifArray_Ratio[x-1][y],yDifArray_Ratio[x][y],diagonal1DifArray_Ratio[x][y],xDifArray_Ratio[x-1][y],xDifArray_Ratio[x][y]);
 
-              maxRatioC = Math.max(diagonal2ColorDifArray_Ratio[x-1][y],yColorDifArray_Ratio[x][y],diagonal1ColorDifArray_Ratio[x][y],xColorDifArray_Ratio[x-1][y],xColorDifArray_Ratio[x][y]);
+                  maxRatioC = Math.max(diagonal2ColorDifArray_Ratio[x-1][y],yColorDifArray_Ratio[x][y],diagonal1ColorDifArray_Ratio[x][y],xColorDifArray_Ratio[x-1][y],xColorDifArray_Ratio[x][y]);
+                break;
+                case "avg":
+                  maxABSRatio = calcAverage([diagonal2DifArray_Sub[x-1][y],yDifArray_Sub[x][y],diagonal1DifArray_Sub[x][y],xDifArray_Sub[x-1][y],xDifArray_Sub[x][y]]);
+                  maxRatioV = calcAverage([diagonal2DifArray_Ratio[x-1][y],yDifArray_Ratio[x][y],diagonal1DifArray_Ratio[x][y],xDifArray_Ratio[x-1][y],xDifArray_Ratio[x][y]]);
+                  maxRatioC = calcAverage([diagonal2ColorDifArray_Ratio[x-1][y],yColorDifArray_Ratio[x][y],diagonal1ColorDifArray_Ratio[x][y],xColorDifArray_Ratio[x-1][y],xColorDifArray_Ratio[x][y]]);
+                break;
+                case "median":
+                  maxABSRatio = calcMedian([diagonal2DifArray_Sub[x-1][y],yDifArray_Sub[x][y],diagonal1DifArray_Sub[x][y],xDifArray_Sub[x-1][y],xDifArray_Sub[x][y]]);
+                  maxRatioV = calcMedian([diagonal2DifArray_Ratio[x-1][y],yDifArray_Ratio[x][y],diagonal1DifArray_Ratio[x][y],xDifArray_Ratio[x-1][y],xDifArray_Ratio[x][y]]);
+                  maxRatioC = calcMedian([diagonal2ColorDifArray_Ratio[x-1][y],yColorDifArray_Ratio[x][y],diagonal1ColorDifArray_Ratio[x][y],xColorDifArray_Ratio[x-1][y],xColorDifArray_Ratio[x][y]]);
+                break;
+              }
+
             }
             else if(y==yDim-1){
               // top side
-              var tmpMax = Math.max(xDifArray_Sub[x-1][y],xDifArray_Sub[x][y],diagonal1DifArray_Sub[x-1][y-1],yDifArray_Sub[x][y-1],diagonal2DifArray_Sub[x][y-1]);
-              var tmpMin = Math.min(xDifArray_Sub[x-1][y],xDifArray_Sub[x][y],diagonal1DifArray_Sub[x-1][y-1],yDifArray_Sub[x][y-1],diagonal2DifArray_Sub[x][y-1]);
-              if(Math.abs(tmpMin)>Math.abs(tmpMax))
-                maxABSRatio = tmpMin;
-              else
-                maxABSRatio = tmpMax;
+              switch (selectionType) {
+                case "max":
+                  var tmpMax = Math.max(xDifArray_Sub[x-1][y],xDifArray_Sub[x][y],diagonal1DifArray_Sub[x-1][y-1],yDifArray_Sub[x][y-1],diagonal2DifArray_Sub[x][y-1]);
+                  var tmpMin = Math.min(xDifArray_Sub[x-1][y],xDifArray_Sub[x][y],diagonal1DifArray_Sub[x-1][y-1],yDifArray_Sub[x][y-1],diagonal2DifArray_Sub[x][y-1]);
+                  if(Math.abs(tmpMin)>Math.abs(tmpMax))
+                    maxABSRatio = tmpMin;
+                  else
+                    maxABSRatio = tmpMax;
 
-              maxRatioV = Math.max(xDifArray_Ratio[x-1][y],xDifArray_Ratio[x][y],diagonal1DifArray_Ratio[x-1][y-1],yDifArray_Ratio[x][y-1],diagonal2DifArray_Ratio[x][y-1]);
+                  maxRatioV = Math.max(xDifArray_Ratio[x-1][y],xDifArray_Ratio[x][y],diagonal1DifArray_Ratio[x-1][y-1],yDifArray_Ratio[x][y-1],diagonal2DifArray_Ratio[x][y-1]);
 
-              maxRatioC = Math.max(xColorDifArray_Ratio[x-1][y],xColorDifArray_Ratio[x][y],diagonal2ColorDifArray_Ratio[x-1][y-1],yColorDifArray_Ratio[x][y-1],diagonal2ColorDifArray_Ratio[x][y-1]);
+                  maxRatioC = Math.max(xColorDifArray_Ratio[x-1][y],xColorDifArray_Ratio[x][y],diagonal2ColorDifArray_Ratio[x-1][y-1],yColorDifArray_Ratio[x][y-1],diagonal2ColorDifArray_Ratio[x][y-1]);
+                break;
+                case "avg":
+                  maxABSRatio = calcAverage([xDifArray_Sub[x-1][y],xDifArray_Sub[x][y],diagonal1DifArray_Sub[x-1][y-1],yDifArray_Sub[x][y-1],diagonal2DifArray_Sub[x][y-1]]);
+                  maxRatioV = calcAverage([xDifArray_Ratio[x-1][y],xDifArray_Ratio[x][y],diagonal1DifArray_Ratio[x-1][y-1],yDifArray_Ratio[x][y-1],diagonal2DifArray_Ratio[x][y-1]]);
+                  maxRatioC = calcAverage([xColorDifArray_Ratio[x-1][y],xColorDifArray_Ratio[x][y],diagonal2ColorDifArray_Ratio[x-1][y-1],yColorDifArray_Ratio[x][y-1],diagonal2ColorDifArray_Ratio[x][y-1]]);
+                break;
+                case "median":
+                  maxABSRatio = calcMedian([xDifArray_Sub[x-1][y],xDifArray_Sub[x][y],diagonal1DifArray_Sub[x-1][y-1],yDifArray_Sub[x][y-1],diagonal2DifArray_Sub[x][y-1]]);
+                  maxRatioV = calcMedian([xDifArray_Ratio[x-1][y],xDifArray_Ratio[x][y],diagonal1DifArray_Ratio[x-1][y-1],yDifArray_Ratio[x][y-1],diagonal2DifArray_Ratio[x][y-1]]);
+                  maxRatioC = calcMedian([xColorDifArray_Ratio[x-1][y],xColorDifArray_Ratio[x][y],diagonal2ColorDifArray_Ratio[x-1][y-1],yColorDifArray_Ratio[x][y-1],diagonal2ColorDifArray_Ratio[x][y-1]]);
+                break;
+              }
+
             }
             else{
               // isInsideElement
-              var tmpMax = Math.max(diagonal2DifArray_Sub[x-1][y],yDifArray_Sub[x][y],diagonal1DifArray_Sub[x][y],xDifArray_Sub[x-1][y],xDifArray_Sub[x][y],diagonal1DifArray_Sub[x-1][y-1],yDifArray_Sub[x][y-1],diagonal2DifArray_Sub[x][y-1]);
-              var tmpMin = Math.min(diagonal2DifArray_Sub[x-1][y],yDifArray_Sub[x][y],diagonal1DifArray_Sub[x][y],xDifArray_Sub[x-1][y],xDifArray_Sub[x][y],diagonal1DifArray_Sub[x-1][y-1],yDifArray_Sub[x][y-1],diagonal2DifArray_Sub[x][y-1]);
-              if(Math.abs(tmpMin)>Math.abs(tmpMax))
-                maxABSRatio = tmpMin;
-              else
-                maxABSRatio = tmpMax;
+              switch (selectionType) {
+                case "max":
+                  var tmpMax = Math.max(diagonal2DifArray_Sub[x-1][y],yDifArray_Sub[x][y],diagonal1DifArray_Sub[x][y],xDifArray_Sub[x-1][y],xDifArray_Sub[x][y],diagonal1DifArray_Sub[x-1][y-1],yDifArray_Sub[x][y-1],diagonal2DifArray_Sub[x][y-1]);
+                  var tmpMin = Math.min(diagonal2DifArray_Sub[x-1][y],yDifArray_Sub[x][y],diagonal1DifArray_Sub[x][y],xDifArray_Sub[x-1][y],xDifArray_Sub[x][y],diagonal1DifArray_Sub[x-1][y-1],yDifArray_Sub[x][y-1],diagonal2DifArray_Sub[x][y-1]);
+                  if(Math.abs(tmpMin)>Math.abs(tmpMax))
+                    maxABSRatio = tmpMin;
+                  else
+                    maxABSRatio = tmpMax;
 
-              maxRatioV = Math.max(diagonal2DifArray_Ratio[x-1][y],yDifArray_Ratio[x][y],diagonal1DifArray_Ratio[x][y],xDifArray_Ratio[x-1][y],xDifArray_Ratio[x][y],diagonal1DifArray_Ratio[x-1][y-1],yDifArray_Ratio[x][y-1],diagonal2DifArray_Ratio[x][y-1]);
+                  maxRatioV = Math.max(diagonal2DifArray_Ratio[x-1][y],yDifArray_Ratio[x][y],diagonal1DifArray_Ratio[x][y],xDifArray_Ratio[x-1][y],xDifArray_Ratio[x][y],diagonal1DifArray_Ratio[x-1][y-1],yDifArray_Ratio[x][y-1],diagonal2DifArray_Ratio[x][y-1]);
+                  maxRatioC = Math.max(diagonal2ColorDifArray_Ratio[x-1][y],yColorDifArray_Ratio[x][y],diagonal1ColorDifArray_Ratio[x][y],xColorDifArray_Ratio[x-1][y],xColorDifArray_Ratio[x][y],diagonal2ColorDifArray_Ratio[x-1][y-1],yColorDifArray_Ratio[x][y-1],diagonal2ColorDifArray_Ratio[x][y-1]);
+                break;
+                case "avg":
+                  maxABSRatio = calcAverage([diagonal2DifArray_Sub[x-1][y],yDifArray_Sub[x][y],diagonal1DifArray_Sub[x][y],xDifArray_Sub[x-1][y],xDifArray_Sub[x][y],diagonal1DifArray_Sub[x-1][y-1],yDifArray_Sub[x][y-1],diagonal2DifArray_Sub[x][y-1]]);
+                  maxRatioV = calcAverage([diagonal2DifArray_Ratio[x-1][y],yDifArray_Ratio[x][y],diagonal1DifArray_Ratio[x][y],xDifArray_Ratio[x-1][y],xDifArray_Ratio[x][y],diagonal1DifArray_Ratio[x-1][y-1],yDifArray_Ratio[x][y-1],diagonal2DifArray_Ratio[x][y-1]]);
+                  maxRatioC = calcAverage([diagonal2ColorDifArray_Ratio[x-1][y],yColorDifArray_Ratio[x][y],diagonal1ColorDifArray_Ratio[x][y],xColorDifArray_Ratio[x-1][y],xColorDifArray_Ratio[x][y],diagonal2ColorDifArray_Ratio[x-1][y-1],yColorDifArray_Ratio[x][y-1],diagonal2ColorDifArray_Ratio[x][y-1]]);
+                break;
+                case "median":
+                  maxABSRatio = calcMedian([diagonal2DifArray_Sub[x-1][y],yDifArray_Sub[x][y],diagonal1DifArray_Sub[x][y],xDifArray_Sub[x-1][y],xDifArray_Sub[x][y],diagonal1DifArray_Sub[x-1][y-1],yDifArray_Sub[x][y-1],diagonal2DifArray_Sub[x][y-1]]);
+                  maxRatioV = calcMedian([diagonal2DifArray_Ratio[x-1][y],yDifArray_Ratio[x][y],diagonal1DifArray_Ratio[x][y],xDifArray_Ratio[x-1][y],xDifArray_Ratio[x][y],diagonal1DifArray_Ratio[x-1][y-1],yDifArray_Ratio[x][y-1],diagonal2DifArray_Ratio[x][y-1]]);
+                  maxRatioC = calcMedian([diagonal2ColorDifArray_Ratio[x-1][y],yColorDifArray_Ratio[x][y],diagonal1ColorDifArray_Ratio[x][y],xColorDifArray_Ratio[x-1][y],xColorDifArray_Ratio[x][y],diagonal2ColorDifArray_Ratio[x-1][y-1],yColorDifArray_Ratio[x][y-1],diagonal2ColorDifArray_Ratio[x][y-1]]);
+                break;
+              }
 
-              maxRatioC = Math.max(diagonal2ColorDifArray_Ratio[x-1][y],yColorDifArray_Ratio[x][y],diagonal1ColorDifArray_Ratio[x][y],xColorDifArray_Ratio[x-1][y],xColorDifArray_Ratio[x][y],diagonal2ColorDifArray_Ratio[x-1][y-1],yColorDifArray_Ratio[x][y-1],diagonal2ColorDifArray_Ratio[x][y-1]);
             }
           }
 
@@ -339,7 +468,6 @@ function getRatioDifField(testfield, colorField, colorDifType){
           setColorToImgData(ratioColorDifField,x,y,maxHeightIndex,xDim,ratioDifCMS.calculateColor(maxRatioC));
         }
       }
-
 
       var valueDifInfo = [xDifArray,yDifArray,diagonal1DifArray,diagonal2DifArray];
       var colorDifInfo = [xColorDifArray,yColorDifArray,diagonal1ColorDifArray,diagonal2ColorDifArray];
@@ -351,12 +479,27 @@ function getRatioDifField(testfield, colorField, colorDifType){
 
 }
 
+
+function calcMedian(tmpArray){
+  var sortValues = quickSort(tmpArray, 0, tmpArray.length-1);
+  //var medianIndex = Math.floor(tmpArray.length/2);
+  return sortValues[Math.floor(tmpArray.length/2)];
+}
+
+function calcAverage(tmpArray){
+  var sum = 0;
+  for (var i = 0; i < tmpArray.length; i++) {
+    sum += tmpArray[i];
+  }
+  return sum/tmpArray.length;
+}
+
 function calcSubtractionField(sub1_2D, sub2_2D){
   var result = [];
     for (var x = 0; x < sub1_2D.length; x++) {
       var tmpArray = [];
       for (var y = 0; y < sub1_2D[0].length; y++) {
-        tmpArray.push(sub1_2D[x][y]-sub2_2D[x][y])
+        tmpArray.push(sub1_2D[x][y]-sub2_2D[x][y]);
       }
       result.push(tmpArray);
     }

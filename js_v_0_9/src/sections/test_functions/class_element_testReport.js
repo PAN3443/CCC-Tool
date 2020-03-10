@@ -12,6 +12,7 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
     this.worker_testreport.postMessage({'message':'init'});
 
     this.reportOptions_ColorDif="lab"; // lab, CIEDE2000, DE94, din99
+    this.reportOptions_ColorSelector="max";
 
     this.reportColorValueDifColormap = new class_CMS();
     this.reportColorValueDifColormap.pushKey(new class_Key(undefined, new class_Color_DIN99(29.581458825788705,16.03125,-26.896446228027347), -1, false));
@@ -26,8 +27,6 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
     this.reportColorValueDifColormap.setInterpolationSpace("de2000-ds");
     this.reportColorValueDifColormap.calcNeededIntervalsColors(false,undefined,undefined);
     this.reportColorValueDifColormap.drawCMS_Horizontal("id_TestPage_DifReportColormap", 1000, 1);
-    document.getElementById("id_TestPage_DifReportBelowColor").style.background = "rgb(0,0,255)";
-    document.getElementById("id_TestPage_DifReportAboveColor").style.background = "rgb(255,0,0)";
 
     this.zoomStatus = 100;
     //this.maximalZoomBar = 500;
@@ -88,6 +87,14 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
           break;
         }
       }
+
+      for (var i = 0; i < document.getElementById("id_TestPage_SelectColorSelector").options.length; i++) {
+        if(document.getElementById("id_TestPage_SelectColorSelector").options[i].value===this.reportOptions_ColorSelector){
+          document.getElementById("id_TestPage_SelectColorSelector").selectedIndex=i;
+          break;
+        }
+      }
+
       this.markCursor = document.getElementById("id_Test_RatioReport_DoMarkedCursor").checked;
 
       this.fillReportSelect();
@@ -111,6 +118,7 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
     var workerJSON = {};
     workerJSON['message'] = "calcReport_New_Testfield";
     workerJSON['reportOptions_ColorDif'] = this.reportOptions_ColorDif;
+    workerJSON['reportOptions_ColorSelector'] = this.reportOptions_ColorSelector;
     workerJSON['testfield'] = this.reportListTestField[document.getElementById("id_TestPage_ReportList").selectedIndex];
     this.worker_testreport.postMessage(workerJSON);
     this.fillSubReportTable();
@@ -174,9 +182,11 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
     document.getElementById("id_TestPage_Report2_Waiter").style.display="flex";
     this.deleteStatistics();
     this.reportOptions_ColorDif=document.getElementById("id_TestPage_SelectReportMetric").options[document.getElementById("id_TestPage_SelectReportMetric").selectedIndex].value;
+    this.reportOptions_ColorSelector = document.getElementById("id_TestPage_SelectColorSelector").options[document.getElementById("id_TestPage_SelectColorSelector").selectedIndex].value;
     var workerJSON = {};
     workerJSON['message'] = "calcReport_New_Setting";
     workerJSON['reportOptions_ColorDif'] = this.reportOptions_ColorDif;
+    workerJSON['reportOptions_ColorSelector'] = this.reportOptions_ColorSelector;
     this.worker_testreport.postMessage(workerJSON);
     this.fillSubReportTable();
   }
