@@ -41,6 +41,10 @@ class class_Color_Basis{
         return this.value_3;
       }
 
+      getValueArray(){
+        return [this.value_1,this.value_2,this.value_3];
+      }
+
       set1Value(newVal) {
           this.value_1=newVal;
       }

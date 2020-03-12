@@ -65,13 +65,12 @@ function vecScalMulti(v,s){
 
 function vec_Diff_COLOR(c1,c2){
 
-  var result = [
+  return [
     c1.get1Value()-c2.get1Value(),
     c1.get2Value()-c2.get2Value(),
     c1.get3Value()-c2.get3Value()
   ];
 
-  return result;
 }
 
 function vec_Divi(v,s){
