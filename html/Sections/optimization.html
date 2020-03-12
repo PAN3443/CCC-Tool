@@ -327,6 +327,11 @@
             </div>
 
             <div id="id_OptiPage_SmoothOpti_Local_Options" style="width:100%;">
+
+              <div style="width:100%; display:flex;">
+                  <p style="color: var(--main-sepArea-font-color); margin-right:2vw; margin-left:2vw;">Iterations: </p> <input id="id_OptiPage_SmoothOpti_Local_Iterations" style="width:3vw;" type="number" name="quantity" min="1" value="50" step="1" onchange="optiSection.calcOptiCMS()">
+              </div>
+
               <div class="row" style="width: 100%; margin-top: 1vh;">
                 <p style="margin:auto; margin-left:2vw; margin-right:0.5vw; color: var(--main-sepArea-font-color);">Degree:</p>
                 <input id="id_OptiPage_SmoothOpti_Local_Degree" type="range" step="0.01" min="0" max="1" value="1" style="width:10vw; margin:auto; margin-left:0vw; margin-right:0vw;" onchange="optiSection.calcOptiCMS()">

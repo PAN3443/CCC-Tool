@@ -2038,7 +2038,14 @@ calcDisPowerOptimum(isGlobal,degree){
     }
 
     var counter = 0;
-    var maxLoops = 20;
+    var interations = parseInt(document.getElementById("id_OptiPage_SmoothOpti_Local_Iterations").value);
+
+    if(isNaN(interations)){
+      document.getElementById("id_OptiPage_SmoothOpti_Local_Iterations").value=20;
+      interations=20;
+    }
+
+    var maxLoops = interations;
     var foundBadAngle = true;
 
     while(foundBadAngle && counter<maxLoops){
