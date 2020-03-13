@@ -66,10 +66,17 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
   }
 
   showSection(){
-    if(editSection.editCMS.getKeyLength()<2){
-      openAlert("Maeeeh");
+
+    if(editSection.editCMS.getInterpolationSpace()==="hsv" || editSection.editCMS.getInterpolationSpace()==="lch"){
+      openAlert("Your CMS use the HSV or LCH colorspace for interpolation. Please change the interpolation colorspace to a space, that works with cartesian coordinates.");
+      return;
     }
-    else {
+
+    if(editSection.editCMS.getKeyLength()<2){
+      openAlert("Your CMS is empty and can't be optimized!");
+      return;
+    }
+
       this.somethingChanged=false;
       this.somethingOptimized=false;
 
@@ -88,8 +95,6 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
 
       document.getElementById("id_OptiPage_editWarning").style.visibility="hidden";
 
-
-    }
   }
 
   fillKeyCombobox(saveOldPosition){
