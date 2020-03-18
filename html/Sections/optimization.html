@@ -65,7 +65,12 @@
             <p style="margin-left:5%; height:auto; width:90%; color: var(--main-sepArea-font-color); margin-top:1vh; margin-bottom:1vh; font-size: 1.3vh; line-height: 2vh;"> <strong>Info:</strong> Uniformity is the concept that perceived distances between colors are proportional to the distances of the values they represent
             </p>
 
-            <div class="row">
+
+            <!--p id="id_OptiPage_UniformitySpace" style="margin-left:1vw; margin-right:0.5vw; color: var(--main-sepArea-font-color);" title="Colorspace for the perceptual uniformity optimization.">Optimization-Space: </p-->
+
+            <hr style="color: var(--main-sepArea-font-color);">
+
+            <div style="display:flex;">
               <label class="class_checkbox_container" style="margin-left:1vw; color: var(--main-sepArea-font-color); width:9vw; margin-top:1vh; margin-bottom:1vh;"> : Local
                 <input type="checkbox" id="id_OptiPage_LocalSpeedOptimization" onchange="optiSection.updateOptiPageStyle()">
                 <span class="class_checkbox_checkmark"></span>
@@ -80,9 +85,9 @@
               </div>
             </div>
 
-            <hr>
+            <hr style="color: var(--main-sepArea-font-color);">
 
-            <div class="row">
+            <div style="display:flex;">
             <label class="class_checkbox_container" style="margin-left:1vw; color: var(--main-sepArea-font-color); width:9vw; margin-top:1vh; margin-bottom:1vh;" onchange="optiSection.updateOptiPageStyle()"> : Global
               <input type="checkbox" id="id_OptiPage_GlobalSpeedOptimization" >
               <span class="class_checkbox_checkmark"></span>
@@ -134,7 +139,7 @@
             <p style="margin-left:5%; height:auto; width:90%; color: var(--main-sepArea-font-color); margin-top:1vh; margin-bottom:1vh; font-size: 1.3vh; line-height: 2vh;"> <strong>Info:</strong> Intrinsic Order means that an observer is able to order the colors the colormap traverses so that they can identify which values are higher or lower without ever seeing the color-bar.
             </p>
 
-            <div class="row">
+            <div style="display:flex;">
               <label class="class_checkbox_container" style="margin-left:1vw; color: var(--main-sepArea-font-color); margin-right:auto; margin-top:1vh; margin-bottom:1vh;"> : Local
                 <input type="checkbox" id="id_OptiPage_LocalIntOrderOptimization" onchange="optiSection.updateOptiPageStyle()">
                 <span class="class_checkbox_checkmark"></span>
@@ -149,9 +154,9 @@
               </div>
             </div>
 
-            <hr>
+            <hr style="color: var(--main-sepArea-font-color);">
 
-            <div class="row">
+            <div style="display:flex;">
               <label class="class_checkbox_container" style="margin-left:1vw; color: var(--main-sepArea-font-color); margin-right:auto; margin-top:1vh; margin-bottom:1vh;"> : Global
                 <input type="checkbox" id="id_OptiPage_GlobalIntOrderOptimization" onchange="optiSection.updateOptiPageStyle()" >
                 <span class="class_checkbox_checkmark"></span>
@@ -174,7 +179,7 @@
             <p style="margin-left:5%; height:auto; width:90%; color: var(--main-sepArea-font-color); margin-top:1vh; margin-bottom:1vh; font-size: 1.3vh; line-height: 2vh;"> <strong>Info:</strong> Legend-based Order means that an observer is able to order the colors the colormap traverses so that they can identify which values are higher or lower while having the color bar at hand.
             </p>
 
-            <div class="row">
+            <div style="display:flex;">
               <label class="class_checkbox_container" style="margin-left:1vw; color: var(--main-sepArea-font-color); margin-right:auto; margin-top:1vh; margin-bottom:1vh;"> : Local
                 <input type="checkbox"  id="id_OptiPage_LocalLegOrderOptimization" onchange="optiSection.updateOptiPageStyle()">
                 <span class="class_checkbox_checkmark"></span>
@@ -208,9 +213,9 @@
               </div>
             </div>
 
-            <hr>
+            <hr style="color: var(--main-sepArea-font-color);">
 
-            <div class="row">
+            <div style="display:flex;">
               <label class="class_checkbox_container" style="margin-left:1vw; color: var(--main-sepArea-font-color); margin-right:auto; margin-top:1vh; margin-bottom:1vh;"> : Global
                 <input type="checkbox" id="id_OptiPage_GlobalLegOrderOptimization"onchange="optiSection.updateOptiPageStyle()" >
                 <span class="class_checkbox_checkmark"></span>
@@ -258,7 +263,7 @@
             <p style="margin-left:5%; height:auto; width:90%; color: var(--main-sepArea-font-color); margin-top:1vh; margin-bottom:1vh; font-size: 1.3vh; line-height: 2vh;"> <strong>Info:</strong> Discriminative power is described as the number of just noticeable differences (JNDs) that are traversed by the colormap.
             </p>
 
-            <div class="row">
+            <div style="display:flex;">
               <label class="class_checkbox_container" style="margin-left:1vw; color: var(--main-sepArea-font-color); margin-right:auto; margin-top:1vh; margin-bottom:1vh;"> : Local
                 <input type="checkbox" id="id_OptiPage_LocalDisPowerOptimization" onchange="optiSection.updateOptiPageStyle()">
                 <span class="class_checkbox_checkmark"></span>
@@ -283,9 +288,9 @@
               </div>
             </div>
 
-            <hr>
+            <hr style="color: var(--main-sepArea-font-color);">
 
-            <div class="row">
+            <div style="display:flex;">
               <label class="class_checkbox_container" style="margin-left:1vw; color: var(--main-sepArea-font-color); margin-right:auto; margin-top:1vh; margin-bottom:1vh;"> : Global
                 <input type="checkbox" id="id_OptiPage_GlobalDisPowerOptimization" onchange="optiSection.updateOptiPageStyle()" >
                 <span class="class_checkbox_checkmark"></span>
@@ -318,7 +323,7 @@
             <p style="margin-left:5%; height:auto; width:90%; color: var(--main-sepArea-font-color); margin-top:1vh; margin-bottom:1vh; font-size: 1.3vh; line-height: 2vh;"> <strong>Info:</strong> Smoothness
             </p>
 
-            <div class="row">
+            <div style="display:flex;">
               <label class="class_checkbox_container" style="margin-left:1vw; color: var(--main-sepArea-font-color); margin-right:auto; margin-top:1vh; margin-bottom:1vh;"> : Local
                 <input type="checkbox" id="id_OptiPage_Local_SmoothOptimization" onchange="optiSection.updateOptiPageStyle()">
                 <span class="class_checkbox_checkmark"></span>
@@ -339,7 +344,7 @@
               </div>
             </div>
 
-            <hr>
+            <hr style="color: var(--main-sepArea-font-color);">
 
             <div class="row" style="display:none;">
               <label class="class_checkbox_container" style="margin-left:1vw; color: var(--main-sepArea-font-color); margin-right:auto; margin-top:1vh; margin-bottom:1vh;"> : Global
@@ -390,8 +395,8 @@
           <p id="id_OptiPage_editWarning"
             style="margin-left:0.25vw;  width:2vw; text-align:center; vertical-align: middle; color:var(--general-warning-color); font-size: 3vh; line-height:5vh; margin-top:auto; margin-bottom:auto; visibility:hidden; cursor:help;"
             title="Modified Edit-CMS">&#9888;</p>
-          <p id="id_opti_cms_name" style="width:auto; max-width: 15vw; height:5vh; line-height:5vh; margin:auto; margin-right:0vw; color: var(--main-sepArea-font-color); font-size: 2.5vh;">Name:</p>
-          <p id="id_opti_cms_interpolation" style="width:auto; max-width: 15vw; height:5vh; line-height:5vh; margin:auto; color: var(--main-sepArea-font-color); font-size: 2.5vh;"> Interpolation: </p>
+          <p id="id_opti_cms_name" style="width:auto; max-width: 15vw; height:5vh; line-height:5vh; margin:auto; margin-right:0vw; color: var(--main-sepArea-font-color); ">Name:</p>
+          <p id="id_opti_cms_interpolation" style="width:auto; max-width: 15vw; height:5vh; line-height:5vh; margin:auto; color: var(--main-sepArea-font-color); "> Interpolation: </p>
 
           <div id="id_opti_cms_NaN" title="NaN Color" style="height:5vh; width:5vh; border-left:0.2vw solid var(--main-sepArea-border); background:red;"></div>
           <div id="id_opti_cms_Below" title="Below Color" style="height:5vh; width:5vh; border-left:0.2vw solid var(--main-sepArea-border); background:green;"></div>
@@ -403,8 +408,8 @@
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
         <div id="id_OptiPage_AnalysisDiv" style="display:flex; flex-direction:column; width:45vw; height:65vh; border-top:0.2vh solid var(--main-sepArea-border); box-sizing: border-box;">
           <div style="display:flex; width:100%; height:5vh; background: var(--main-sepArea-bg);">
-            <p style="height:5vh; line-height:5vh; font-size: 2.5vh; color: var(--main-sepArea-font-color); margin-left:1vw; margin-right:1vw;">Analysis Type:</p>
-            <select id="id_OptiPage_SelectAnalysisType" onchange="optiSection.part_Analysis.stylePart()" style="width: 15vw; font-size: 2.5vh; height: 4vh; line-height:4vh; margin:auto; margin-left:0vw;">
+            <p style="height:5vh; line-height:5vh; color: var(--main-sepArea-font-color); margin-left:1vw; margin-right:1vw;">Analysis Type:</p>
+            <select id="id_OptiPage_SelectAnalysisType" onchange="optiSection.part_Analysis.stylePart()" style="width: 15vw; min-width: 15vw; height: 4vh; line-height:4vh; margin:auto; margin-left:0vw;">
                 <optgroup label="Color Space:">
                   <option value="intSpace">Interpolation Space</option>
                 </optgroup>
@@ -432,8 +437,8 @@
       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
       <div style="display:flex; flex-direction:column; width:30vw; height:95vh;">
         <div style="display:flex; width:100%; height:5vh; background: var(--main-sepArea-bg);">
-          <p style="height:5vh; line-height:5vh; font-size: 2.5vh; color: var(--main-sepArea-font-color); margin-left:1vw; margin-right:1vw;">Space:</p>
-          <select id="id_OptiPage_SelectPathplotType" onchange="optiSection.part_Pathplot.changePathPlotSpace()" style="width: 10vw; font-size: 2.5vh; height: 4vh; line-height:4vh; margin:auto; margin-left:0vw; margin-right:0.5vw;">
+          <p style="height:5vh; line-height:5vh; color: var(--main-sepArea-font-color); margin-left:1vw; margin-right:1vw;">Space:</p>
+          <select id="id_OptiPage_SelectPathplotType" onchange="optiSection.part_Pathplot.changePathPlotSpace()" style="width: 10vw; height: 4vh; line-height:4vh; margin:auto; margin-left:0vw; margin-right:0.5vw;">
               <optgroup label="Common:">
                 <option value="rgb">RGB</option>
                 <option value="rgb-line">RGB Line Chart</option>
@@ -450,7 +455,7 @@
           </select>
 
 
-          <a id="id_OptiPage_PathplotScreenshot" onclick="optiSection.part_Pathplot.pp_3D_GetScreenshot()" class="class_coloredButton"  title="3D Screenshot" download="CCC_Tool_Pathplot_Screenshot.png" style="height:5vh; line-height:5vh; font-size: 2.5vh;">&#9688;</a>
+          <a id="id_OptiPage_PathplotScreenshot" onclick="optiSection.part_Pathplot.pp_3D_GetScreenshot()" class="class_coloredButton"  title="3D Screenshot" download="CCC_Tool_Pathplot_Screenshot.png" style="height:5vh; line-height:5vh; width:5vh; font-size: 2.5vh;">&#9688;</a>
           <p id="id_OptiPage_PathplotCoord" style="height:3vh; line-height:3vh; font-size: 2vh; color: var(--main-sepArea-font-color); margin-left:auto; margin-right:1vw;"></p>
         </div>
         <div id="id_OptiPage_PathplotContainer" style="height:90vh; width:30vw; display:flex;">

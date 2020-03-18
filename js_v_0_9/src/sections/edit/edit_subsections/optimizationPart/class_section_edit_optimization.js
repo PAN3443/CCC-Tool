@@ -338,7 +338,6 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
         else
           document.getElementById("id_OptiPage_UniOpti_GraphSettings").style.display="block";
 
-
           document.getElementById("id_OptiPage_SelectAnalysisType").selectedIndex = 3;
           this.part_Analysis.stylePart();
       }
@@ -803,6 +802,7 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
 
 
     var text = "";
+    var space = "";
     if(optiGlobalType.length!=0){
 
       for (var i = 0; i < optiGlobalType.length; i++) {
@@ -810,7 +810,7 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
         switch (optiGlobalType[i]) {
             case 3:
               text+="Perceptual Uniformity";
-
+              space=this.editCMS.getInterpolationSpace();
                 if(document.getElementById("id_OptiPage_GlobalLinearReg").checked){
                   // perceptual uniformity global linear reg,
                   this.calcGlobalUniformityLinearRegOptimum();
@@ -843,7 +843,7 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
                           break;
 
         }
-        text+="  (Degree: "+optiGlobalDegree[i]+");\n";
+        text+="  (Degree: "+optiGlobalDegree[i]+","+space+");\n";
       }
 
     }
@@ -851,6 +851,7 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
     document.getElementById("id_OptiPage_OptimizationExOrderGlobal").innerHTML=text;
 
     text = "";
+    space = "";
     if(optiLocalType.length!=0){
 
       for (var i = 0; i < optiLocalType.length; i++) {
@@ -858,6 +859,7 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
         switch (optiLocalType[i]) {
           case 3: // perceptual uniformity local
             text+="Perceptual Uniformity";
+            space=this.editCMS.getInterpolationSpace();
             this.calcLocalUniformityOptimum();
             this.updateOptimizationCMS(optiLocalDegree[i]);
             break;
@@ -881,7 +883,7 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
                           break;
 
         }
-        text+="  (Degree: "+optiLocalDegree[i]+");\n";
+        text+="  (Degree: "+optiLocalDegree[i]+","+space+");\n";
       }
     }
 

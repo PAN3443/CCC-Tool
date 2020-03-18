@@ -44,7 +44,7 @@ class class_CMS {
     this.keyArray = [];
     this.intervalArray=[];
     this.spline_tArray = [0.025, 0.05, 0.075, 0.1, 0.125, 0.15, 0.175, 0.2, 0.225, 0.25 // 0 till 0.25 fine
-        ,0.3,0.4,0.5,0.6,0.7,
+        ,0.3,0.35,0.4,0.45,0.5,0.55,0.6,0.65,0.7,
         0.75, 0.775,0.8,0.825, 0.85, 0.875, 0.9, 0.925, 0.95, 0.975]; // 0.75 till 1.0 fine*/; //[0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9];
     this.intervalExportSampling=[];
 
@@ -308,13 +308,14 @@ class class_CMS {
         var intervalDistance =  keyDistance/(tmpIntervals[0].length+1);
 
           for (var i = 0; i < tmpIntervals[0].length; i++) {
-            var intervalRef = ref1+((i+1)*intervalDistance); // equal distribution of the interval ref positions
+            //var intervalRef = ref1+((i+1)*intervalDistance); // equal distribution of the interval ref positions
+            var intervalRef = ref1+(this.spline_tArray[i]*keyDistance)
+
             if(this.interpolationSpace==="de94-ds" || this.interpolationSpace==="de2000-ds"){
               currentPos += (tmpIntervals[2][i]*keyDistance);
               intervalRef = currentPos;
             }
             // the ratio of the colordifference determine the new ref position
-
             var newInterval = new class_Interval(tmpIntervals[0][i], intervalRef);
             this.intervalArray[keyIndex].push(newInterval);
             }// For

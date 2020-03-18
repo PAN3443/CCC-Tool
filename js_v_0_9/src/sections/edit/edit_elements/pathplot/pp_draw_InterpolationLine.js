@@ -3,7 +3,6 @@ function extraSamplingCMS(cms){
 
   // calc intervals
 
-
   switch (cms.getInterpolationType()) {
     case "linear":
         var currentPathplotSpace = undefined;
