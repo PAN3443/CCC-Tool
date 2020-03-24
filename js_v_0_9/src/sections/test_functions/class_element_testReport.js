@@ -103,6 +103,16 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
   }
 
 
+
+  report_screenshot() {
+    var canvasID = "id_TestPage_Report2";
+    var testing_ImgData = document.getElementById(canvasID).toDataURL("image/png")
+        .replace("image/png", "image/octet-stream");
+
+    document.getElementById("id_Report_downloadScreenshot").href = testing_ImgData;
+  }
+
+
   selectTestReport(){
     document.getElementById("id_TestPage_ReportOrginalG_Div").style.display="none";
     document.getElementById("id_TestPage_ReportOrginalG_Waiter").style.display="flex";

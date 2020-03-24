@@ -354,9 +354,8 @@ class class_Graph_ForcedDisPower extends class_Graph_ForcedLayout {
   determineOptimalSpeed(isGlobal){
 
     var refDis = Math.abs(this.nodeArray[this.edgeArray[this.edgeArray.length-1].getNodeID2()].getNodeRefPos() - this.nodeArray[this.edgeArray[0].getNodeID1()].getNodeRefPos());
-    var weakening = 0.75;
+    var weakening = 1.0;
     if(isGlobal){
-
       switch (this.graphColorSpace) {
         case "rgb":
           return (3.4/refDis)*weakening;
