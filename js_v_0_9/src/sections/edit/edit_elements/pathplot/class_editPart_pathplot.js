@@ -266,9 +266,9 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
       case editSection.isSectionOpen():
         tmpID="id_EditPage_SelectPathplotType";
       break;
-      case optiSection.isSectionOpen():
+      /*case optiSection.isSectionOpen():
         tmpID="id_OptiPage_SelectPathplotType";
-      break;
+      break;*/
       default:
           return;
     }
@@ -313,15 +313,17 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     var tmpID = undefined;
     switch (true) {
       case editSection.isSectionOpen():
-        tmpID="id_EditPage_SelectPathplotType";
+        this.pathplot_space=document.getElementById("id_EditPage_SelectPathplotType").options[document.getElementById("id_EditPage_SelectPathplotType").selectedIndex].value;
       break;
       case optiSection.isSectionOpen():
-        tmpID="id_OptiPage_SelectPathplotType";
+        this.pathplot_space=document.getElementById("id_OptiPage_SelectOptiSpace").options[document.getElementById("id_OptiPage_SelectOptiSpace").selectedIndex].value;
+        if(this.pathplot_space==="de94-ds"||this.pathplot_space==="de2000-ds")
+        this.pathplot_space="lab";
       break;
       default:
           return;
     }
-    this.pathplot_space=document.getElementById(tmpID).options[document.getElementById(tmpID).selectedIndex].value;
+
     switch (this.pathplot_space) {
       case "rgb":
       case "rgb-line":

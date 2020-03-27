@@ -77,6 +77,18 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
       return;
     }
 
+      // Uncheck all optimizations
+      document.getElementById("id_OptiPage_LocalSpeedOptimization").checked=false;
+      document.getElementById("id_OptiPage_GlobalSpeedOptimization").checked=false;
+      document.getElementById("id_OptiPage_LocalIntOrderOptimization").checked=false;
+      document.getElementById("id_OptiPage_GlobalIntOrderOptimization").checked=false;
+      document.getElementById("id_OptiPage_LocalLegOrderOptimization").checked=false;
+      document.getElementById("id_OptiPage_GlobalLegOrderOptimization").checked=false;
+      document.getElementById("id_OptiPage_LocalDisPowerOptimization").checked=false;
+      document.getElementById("id_OptiPage_GlobalDisPowerOptimization").checked=false;
+      document.getElementById("id_OptiPage_Local_SmoothOptimization").checked=false;
+      document.getElementById("id_OptiPage_Global_SmoothOptimization").checked=false;
+
       this.somethingChanged=false;
       this.somethingOptimized=false;
 
@@ -88,13 +100,28 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
       this.fillKeyCombobox(false);
       super.showSection();
       this.part_Pathplot.pp_3D_StartAnimation();
-      this.part_Pathplot.changePathPlotSpace(); // for drawing the pathplot space
+
+      for (var i = 0; i < document.getElementById("id_OptiPage_SelectOptiSpace").options.length; i++) {
+        if(document.getElementById("id_OptiPage_SelectOptiSpace").options[i].value===this.editCMS.getInterpolationSpace()){
+            document.getElementById("id_OptiPage_SelectOptiSpace").selectedIndex = i;
+            break;
+        }
+      }
+      this.part_Pathplot.changePathPlotSpace();
+
 
       this.chooseOptimizationType(0);
-
-
       document.getElementById("id_OptiPage_editWarning").style.visibility="hidden";
 
+  }
+
+  changeOptiSpace(){
+    var space = document.getElementById("id_OptiPage_SelectOptiSpace").options[document.getElementById("id_OptiPage_SelectOptiSpace").selectedIndex].value;
+    this.editCMS.setInterpolationSpace(space);
+    this.editCMS_Foundation.setInterpolationSpace(space);
+    document.getElementById(this.cmsInterpolationID).innerHTML =  "Interpolation: "+space+" ("+this.editCMS.getInterpolationType()+")"
+    this.part_Pathplot.changePathPlotSpace();
+    this.calcOptiCMS();
   }
 
   fillKeyCombobox(saveOldPosition){
@@ -1797,8 +1824,12 @@ createLegendBasedGraph(){
     this.optiGraph=undefined;
   }
 
-  this.optiGraph = new class_Graph_ForcedLegOrder(this.editCMS.getInterpolationSpace(),document.getElementById("id_OptiPage_GlobalLegOrderOptimization").checked);
-  this.optiGraph.changeColorEdgeOptions(this.editCMS.getInterpolationSpace(),false,"eu");
+  var optiSpace = this.editCMS.getInterpolationSpace();
+  if(optiSpace==="de94-ds"||optiSpace==="de2000-ds")
+  optiSpace="lab";
+
+  this.optiGraph = new class_Graph_ForcedLegOrder(optiSpace,document.getElementById("id_OptiPage_GlobalLegOrderOptimization").checked);
+  this.optiGraph.changeColorEdgeOptions(optiSpace,false,"eu");
 
   var continuousSections = this.editCMS.searchForContinuousSections(document.getElementById("id_OptiPage_Optimization_FromKey").selectedIndex,document.getElementById("id_OptiPage_Optimization_TillKey").selectedIndex);
 
@@ -1809,40 +1840,40 @@ createLegendBasedGraph(){
    for (var i = 0; i < firstID; i++) {
      switch (this.editCMS.getKeyType(i)) {
        case "dual key":
-         this.optiGraph.pushNode(this.editCMS.getRightKeyColor(i,this.editCMS.getInterpolationSpace()),this.editCMS.getRefPosition(i), true,i,2);
+         this.optiGraph.pushNode(this.editCMS.getRightKeyColor(i,optiSpace),this.editCMS.getRefPosition(i), true,i,2);
          break;
          case "left key":
-           this.optiGraph.pushNode(this.editCMS.getLeftKeyColor(i,this.editCMS.getInterpolationSpace()),this.editCMS.getRefPosition(i), true,i,0);
+           this.optiGraph.pushNode(this.editCMS.getLeftKeyColor(i,optiSpace),this.editCMS.getRefPosition(i), true,i,0);
            break;
            case "right key":
-            this.optiGraph.pushNode(this.editCMS.getRightKeyColor(i,this.editCMS.getInterpolationSpace()),this.editCMS.getRefPosition(i), true,i,1);
+            this.optiGraph.pushNode(this.editCMS.getRightKeyColor(i,optiSpace),this.editCMS.getRefPosition(i), true,i,1);
              break;
              case "twin key":
-              this.optiGraph.pushNode(this.editCMS.getLeftKeyColor(i,this.editCMS.getInterpolationSpace()),this.editCMS.getRefPosition(i), true,i,0);
-              this.optiGraph.pushNode(this.editCMS.getRightKeyColor(i,this.editCMS.getInterpolationSpace()),this.editCMS.getRefPosition(i), true,i,1);
+              this.optiGraph.pushNode(this.editCMS.getLeftKeyColor(i,optiSpace),this.editCMS.getRefPosition(i), true,i,0);
+              this.optiGraph.pushNode(this.editCMS.getRightKeyColor(i,optiSpace),this.editCMS.getRefPosition(i), true,i,1);
             break;
      }
    }
 
    if(this.editCMS.getKeyType(firstID)=="twin key"){
-     this.optiGraph.pushNode(this.editCMS.getLeftKeyColor(i,this.editCMS.getInterpolationSpace()),this.editCMS.getRefPosition(i), true,i,0);
+     this.optiGraph.pushNode(this.editCMS.getLeftKeyColor(i,optiSpace),this.editCMS.getRefPosition(i), true,i,0);
    }
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   for (var j = 0; j < continuousSections.length; j++) {
     for (var i = continuousSections[j][0]; i < continuousSections[j][1]; i++){
       if(i == continuousSections[j][0] && (this.editCMS.getKeyType(i)==="right key" || this.editCMS.getKeyType(i)==="twin key"))
-        this.optiGraph.pushNode(this.editCMS.getRightKeyColor(i,this.editCMS.getInterpolationSpace()),this.editCMS.getRefPosition(i), false,i,1); // save key index information and if the node represent the right, left or both colors of the key
+        this.optiGraph.pushNode(this.editCMS.getRightKeyColor(i,optiSpace),this.editCMS.getRefPosition(i), false,i,1); // save key index information and if the node represent the right, left or both colors of the key
       else
-        this.optiGraph.pushNode(this.editCMS.getRightKeyColor(i,this.editCMS.getInterpolationSpace()),this.editCMS.getRefPosition(i), false,i,2);
+        this.optiGraph.pushNode(this.editCMS.getRightKeyColor(i,optiSpace),this.editCMS.getRefPosition(i), false,i,2);
 
         this.optiGraph.pushEdge(this.optiGraph.getNodeLength()-1,this.optiGraph.getNodeLength());
     }// for
 
     if(this.editCMS.getKeyType(continuousSections[j][1])==="left key"|| this.editCMS.getKeyType(i)==="twin key")
-      this.optiGraph.pushNode(this.editCMS.getLeftKeyColor(continuousSections[j][1],this.editCMS.getInterpolationSpace()),this.editCMS.getRefPosition(continuousSections[j][1]),false,continuousSections[j][1],0);
+      this.optiGraph.pushNode(this.editCMS.getLeftKeyColor(continuousSections[j][1],optiSpace),this.editCMS.getRefPosition(continuousSections[j][1]),false,continuousSections[j][1],0);
     else
-      this.optiGraph.pushNode(this.editCMS.getLeftKeyColor(continuousSections[j][1],this.editCMS.getInterpolationSpace()),this.editCMS.getRefPosition(continuousSections[j][1]),false,continuousSections[j][1],2);
+      this.optiGraph.pushNode(this.editCMS.getLeftKeyColor(continuousSections[j][1],optiSpace),this.editCMS.getRefPosition(continuousSections[j][1]),false,continuousSections[j][1],2);
 
   }
 
@@ -1850,24 +1881,24 @@ createLegendBasedGraph(){
 
 
   if(this.editCMS.getKeyType(lastID)==="twin key"){
-    this.optiGraph.pushNode(this.editCMS.getRightKeyColor(i,this.editCMS.getInterpolationSpace()),this.editCMS.getRefPosition(i), true,lastID,1);
+    this.optiGraph.pushNode(this.editCMS.getRightKeyColor(i,optiSpace),this.editCMS.getRefPosition(i), true,lastID,1);
   }
 
 
   for (var i = lastID+1; i < this.editCMS.getKeyLength; i++) {
     switch (this.editCMS.getKeyType(i)) {
       case "dual key":
-        this.optiGraph.pushNode(this.editCMS.getRightKeyColor(i,this.editCMS.getInterpolationSpace()),this.editCMS.getRefPosition(i), true,i,2);
+        this.optiGraph.pushNode(this.editCMS.getRightKeyColor(i,optiSpace),this.editCMS.getRefPosition(i), true,i,2);
         break;
         case "left key":
-          this.optiGraph.pushNode(this.editCMS.getLeftKeyColor(i,this.editCMS.getInterpolationSpace()),this.editCMS.getRefPosition(i), true,i,0);
+          this.optiGraph.pushNode(this.editCMS.getLeftKeyColor(i,optiSpace),this.editCMS.getRefPosition(i), true,i,0);
           break;
           case "right key":
-           this.optiGraph.pushNode(this.editCMS.getRightKeyColor(i,this.editCMS.getInterpolationSpace()),this.editCMS.getRefPosition(i), true,i,1);
+           this.optiGraph.pushNode(this.editCMS.getRightKeyColor(i,optiSpace),this.editCMS.getRefPosition(i), true,i,1);
             break;
             case "twin key":
-             this.optiGraph.pushNode(this.editCMS.getLeftKeyColor(i,this.editCMS.getInterpolationSpace()),this.editCMS.getRefPosition(i), true,i,0);
-             this.optiGraph.pushNode(this.editCMS.getRightKeyColor(i,this.editCMS.getInterpolationSpace()),this.editCMS.getRefPosition(i), true,i,1);
+             this.optiGraph.pushNode(this.editCMS.getLeftKeyColor(i,optiSpace),this.editCMS.getRefPosition(i), true,i,0);
+             this.optiGraph.pushNode(this.editCMS.getRightKeyColor(i,optiSpace),this.editCMS.getRefPosition(i), true,i,1);
            break;
     }
   }
@@ -1926,8 +1957,13 @@ createDisPowerGraph(){
       this.optiGraph=undefined;
     }
 
-    this.optiGraph = new class_Graph_ForcedDisPower(this.editCMS.getInterpolationSpace());
-    this.optiGraph.changeColorEdgeOptions(this.editCMS.getInterpolationSpace(),true,"eu");
+    var optiSpace = this.editCMS.getInterpolationSpace();
+    if(optiSpace==="de94-ds"||optiSpace==="de2000-ds")
+    optiSpace="lab";
+
+
+    this.optiGraph = new class_Graph_ForcedDisPower(optiSpace);
+    this.optiGraph.changeColorEdgeOptions(optiSpace,true,"eu");
 
     //var continuousSections = this.editCMS.searchForContinuousSections(0,this.editCMS.getKeyLength()-1);
     var continuousSections = this.editCMS.searchForContinuousSections(document.getElementById("id_OptiPage_Optimization_FromKey").selectedIndex,document.getElementById("id_OptiPage_Optimization_TillKey").selectedIndex);
@@ -1939,23 +1975,23 @@ createDisPowerGraph(){
      for (var i = 0; i < firstID; i++) {
        switch (this.editCMS.getKeyType(i)) {
          case "dual key":
-           this.optiGraph.pushNode(this.editCMS.getRightKeyColor(i,this.editCMS.getInterpolationSpace()),this.editCMS.getRefPosition(i), true,i,2);
+           this.optiGraph.pushNode(this.editCMS.getRightKeyColor(i,optiSpace),this.editCMS.getRefPosition(i), true,i,2);
            break;
            case "left key":
-             this.optiGraph.pushNode(this.editCMS.getLeftKeyColor(i,this.editCMS.getInterpolationSpace()),this.editCMS.getRefPosition(i), true,i,0);
+             this.optiGraph.pushNode(this.editCMS.getLeftKeyColor(i,optiSpace),this.editCMS.getRefPosition(i), true,i,0);
              break;
              case "right key":
-              this.optiGraph.pushNode(this.editCMS.getRightKeyColor(i,this.editCMS.getInterpolationSpace()),this.editCMS.getRefPosition(i), true,i,1);
+              this.optiGraph.pushNode(this.editCMS.getRightKeyColor(i,optiSpace),this.editCMS.getRefPosition(i), true,i,1);
                break;
                case "twin key":
-                this.optiGraph.pushNode(this.editCMS.getLeftKeyColor(i,this.editCMS.getInterpolationSpace()),this.editCMS.getRefPosition(i), true,i,0);
-                this.optiGraph.pushNode(this.editCMS.getRightKeyColor(i,this.editCMS.getInterpolationSpace()),this.editCMS.getRefPosition(i), true,i,1);
+                this.optiGraph.pushNode(this.editCMS.getLeftKeyColor(i,optiSpace),this.editCMS.getRefPosition(i), true,i,0);
+                this.optiGraph.pushNode(this.editCMS.getRightKeyColor(i,optiSpace),this.editCMS.getRefPosition(i), true,i,1);
               break;
        }
      }
 
      if(this.editCMS.getKeyType(firstID)=="twin key"){
-       this.optiGraph.pushNode(this.editCMS.getLeftKeyColor(i,this.editCMS.getInterpolationSpace()),this.editCMS.getRefPosition(i), true,i,0);
+       this.optiGraph.pushNode(this.editCMS.getLeftKeyColor(i,optiSpace),this.editCMS.getRefPosition(i), true,i,0);
      }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1965,17 +2001,17 @@ createDisPowerGraph(){
 
 
         if(i == continuousSections[j][0] && (this.editCMS.getKeyType(i)==="right key"||this.editCMS.getKeyType(i)==="twin key"))
-          this.optiGraph.pushNode(this.editCMS.getRightKeyColor(i,this.editCMS.getInterpolationSpace()),this.editCMS.getRefPosition(i), false,i,1); // save key index information and if the node represent the right, left or both colors of the key
+          this.optiGraph.pushNode(this.editCMS.getRightKeyColor(i,optiSpace),this.editCMS.getRefPosition(i), false,i,1); // save key index information and if the node represent the right, left or both colors of the key
         else
-          this.optiGraph.pushNode(this.editCMS.getRightKeyColor(i,this.editCMS.getInterpolationSpace()),this.editCMS.getRefPosition(i), false,i,2);
+          this.optiGraph.pushNode(this.editCMS.getRightKeyColor(i,optiSpace),this.editCMS.getRefPosition(i), false,i,2);
 
           this.optiGraph.pushEdge(this.optiGraph.getNodeLength()-1,this.optiGraph.getNodeLength());
       }// for
 
       if(this.editCMS.getKeyType(continuousSections[j][1])==="left key"|| this.editCMS.getKeyType(i)==="twin key")
-        this.optiGraph.pushNode(this.editCMS.getLeftKeyColor(continuousSections[j][1],this.editCMS.getInterpolationSpace()),this.editCMS.getRefPosition(continuousSections[j][1]),false,continuousSections[j][1],0);
+        this.optiGraph.pushNode(this.editCMS.getLeftKeyColor(continuousSections[j][1],optiSpace),this.editCMS.getRefPosition(continuousSections[j][1]),false,continuousSections[j][1],0);
       else
-        this.optiGraph.pushNode(this.editCMS.getLeftKeyColor(continuousSections[j][1],this.editCMS.getInterpolationSpace()),this.editCMS.getRefPosition(continuousSections[j][1]),false,continuousSections[j][1],2);
+        this.optiGraph.pushNode(this.editCMS.getLeftKeyColor(continuousSections[j][1],optiSpace),this.editCMS.getRefPosition(continuousSections[j][1]),false,continuousSections[j][1],2);
 
     }
 
@@ -1983,24 +2019,24 @@ createDisPowerGraph(){
 
 
     if(this.editCMS.getKeyType(lastID)=="twin key"){
-      this.optiGraph.pushNode(this.editCMS.getRightKeyColor(i,this.editCMS.getInterpolationSpace()),this.editCMS.getRefPosition(i), true,lastID,1);
+      this.optiGraph.pushNode(this.editCMS.getRightKeyColor(i,optiSpace),this.editCMS.getRefPosition(i), true,lastID,1);
     }
 
 
     for (var i = lastID+1; i < this.editCMS.getKeyLength; i++) {
       switch (this.editCMS.getKeyType(i)) {
         case "dual key":
-          this.optiGraph.pushNode(this.editCMS.getRightKeyColor(i,this.editCMS.getInterpolationSpace()),this.editCMS.getRefPosition(i), true,i,2);
+          this.optiGraph.pushNode(this.editCMS.getRightKeyColor(i,optiSpace),this.editCMS.getRefPosition(i), true,i,2);
           break;
           case "left key":
-            this.optiGraph.pushNode(this.editCMS.getLeftKeyColor(i,this.editCMS.getInterpolationSpace()),this.editCMS.getRefPosition(i), true,i,0);
+            this.optiGraph.pushNode(this.editCMS.getLeftKeyColor(i,optiSpace),this.editCMS.getRefPosition(i), true,i,0);
             break;
             case "right key":
-             this.optiGraph.pushNode(this.editCMS.getRightKeyColor(i,this.editCMS.getInterpolationSpace()),this.editCMS.getRefPosition(i), true,i,1);
+             this.optiGraph.pushNode(this.editCMS.getRightKeyColor(i,optiSpace),this.editCMS.getRefPosition(i), true,i,1);
               break;
               case "twin key":
-               this.optiGraph.pushNode(this.editCMS.getLeftKeyColor(i,this.editCMS.getInterpolationSpace()),this.editCMS.getRefPosition(i), true,i,0);
-               this.optiGraph.pushNode(this.editCMS.getRightKeyColor(i,this.editCMS.getInterpolationSpace()),this.editCMS.getRefPosition(i), true,i,1);
+               this.optiGraph.pushNode(this.editCMS.getLeftKeyColor(i,optiSpace),this.editCMS.getRefPosition(i), true,i,0);
+               this.optiGraph.pushNode(this.editCMS.getRightKeyColor(i,optiSpace),this.editCMS.getRefPosition(i), true,i,1);
              break;
       }
     }
@@ -2024,7 +2060,7 @@ calcDisPowerOptimum(isGlobal,degree){
 ////////////////            Smothness               ////////////////////////
 ////////////////////////////////////////////////////////////////////////////
 
-  calcLocalSmoothOptimum(){
+calcLocalSmoothOptimum(){
     var continuousSections = this.editCMS.searchForContinuousSections(document.getElementById("id_OptiPage_Optimization_FromKey").selectedIndex,document.getElementById("id_OptiPage_Optimization_TillKey").selectedIndex);
 
     var continuousSections_Colors = [];
