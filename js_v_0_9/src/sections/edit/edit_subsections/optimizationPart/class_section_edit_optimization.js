@@ -694,7 +694,7 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
 
       if(document.getElementById("id_OptiPage_LocalDisPowerOptimization").checked){
 
-        document.getElementById("id_OptiPage_DisPowerOpti_Local_SpeedDisplay").innerHTML =  this.optiGraph.determineOptimalSpeed(false)*document.getElementById("id_OptiPage_LegOrderOpti_Local_Speed").value;
+        document.getElementById("id_OptiPage_DisPowerOpti_Local_SpeedDisplay").innerHTML =  this.optiGraph.determineMaxSetting(false)*document.getElementById("id_OptiPage_LegOrderOpti_Local_Speed").value;
         var degree = document.getElementById("id_OptiPage_DisPowerOpti_Local_Degree").value;
         var inserted = false;
         if(degree!=0){
@@ -716,7 +716,7 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
 
       if(document.getElementById("id_OptiPage_GlobalDisPowerOptimization").checked){
 
-        document.getElementById("id_OptiPage_DisPowerOpti_Global_SpeedDisplay").innerHTML =  this.optiGraph.determineOptimalSpeed(true)*document.getElementById("id_OptiPage_LegOrderOpti_Global_Speed").value;
+        document.getElementById("id_OptiPage_DisPowerOpti_Global_SpeedDisplay").innerHTML =  this.optiGraph.determineMaxSetting(true)*document.getElementById("id_OptiPage_LegOrderOpti_Global_Speed").value;
         var degree = document.getElementById("id_OptiPage_DisPowerOpti_Global_Degree").value;
         var inserted = false;
 
@@ -1962,7 +1962,18 @@ createDisPowerGraph(){
     optiSpace="lab";
 
 
-    this.optiGraph = new class_Graph_ForcedDisPower(optiSpace);
+
+    switch (true) {
+      case document.getElementById("id_OptiPage_DisPowerUseSpeed").checked:
+        this.optiGraph = new class_Graph_ForcedDisPower_Speed(optiSpace);
+      break;
+      case document.getElementById("id_OptiPage_DisPowerUseDistance").checked:
+        this.optiGraph = new class_Graph_ForcedDisPower_Distance(optiSpace);
+      break;
+      default:
+        return;
+    }
+
     this.optiGraph.changeColorEdgeOptions(optiSpace,true,"eu");
 
     //var continuousSections = this.editCMS.searchForContinuousSections(0,this.editCMS.getKeyLength()-1);

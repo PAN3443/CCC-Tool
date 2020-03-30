@@ -1,4 +1,4 @@
-class class_Graph_ForcedDisPower extends class_Graph_ForcedLayout {
+class class_Graph_ForcedDisPower_Speed extends class_Graph_ForcedLayout {
 
   forceLayout(iterations, optiSpeedDegree,degree,isGlobal){
     if(isGlobal){
@@ -38,7 +38,7 @@ class class_Graph_ForcedDisPower extends class_Graph_ForcedLayout {
     var impulseFactor = 1e-12;
     var nearZero = 1e-12;
 
-    var optiSpeed=this.determineOptimalSpeed(true)*optiSpeedDegree;
+    var optiSpeed=this.determineMaxSetting(true)*optiSpeedDegree;
 
     for (var i = 0; i < iterations; i++) {
 
@@ -295,7 +295,7 @@ class class_Graph_ForcedDisPower extends class_Graph_ForcedLayout {
     var impulseFactor = 1e-12;
     var nearZero = 1e-12;
 
-    var optiSpeed=this.determineOptimalSpeed(false)*optiSpeedDegree;
+    var optiSpeed=this.determineMaxSetting(false)*optiSpeedDegree;
 
     for (var i = 0; i < iterations; i++) {
 
@@ -351,7 +351,7 @@ class class_Graph_ForcedDisPower extends class_Graph_ForcedLayout {
 
   }
 
-  determineOptimalSpeed(isGlobal){
+  determineMaxSetting(isGlobal){
 
     var refDis = Math.abs(this.nodeArray[this.edgeArray[this.edgeArray.length-1].getNodeID2()].getNodeRefPos() - this.nodeArray[this.edgeArray[0].getNodeID1()].getNodeRefPos());
     var weakening = 1.0;

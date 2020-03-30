@@ -263,6 +263,24 @@
             <p style="margin-left:5%; height:auto; width:90%; color: var(--main-sepArea-font-color); margin-top:1vh; margin-bottom:1vh; font-size: 1.3vh; line-height: 2vh;"> <strong>Info:</strong> Discriminative power is described as the number of just noticeable differences (JNDs) that are traversed by the colormap.
             </p>
 
+
+            <hr style="color: var(--main-sepArea-font-color);">
+
+            <div style="display:flex;">
+              <label class="class_radio_container" style="margin:auto; margin-left:1vw; color: var(--main-sepArea-font-color);"> : Distance
+                <input type="radio" name="selectDisPowerType" id="id_OptiPage_DisPowerUseDistance" onchange="optiSection.calcOptiCMS()" checked>
+                <span class="class_radio_checkmark"></span>
+              </label>
+
+              <label class="class_radio_container" style="margin:auto; margin-left:0vw; color: var(--main-sepArea-font-color);" > : Speed
+                <input type="radio" name="selectDisPowerType" id="id_OptiPage_DisPowerUseSpeed" onchange="optiSection.calcOptiCMS()">
+                <span class="class_radio_checkmark"></span>
+              </label>
+            </div>
+
+            <hr style="color: var(--main-sepArea-font-color);">
+
+
             <div style="display:flex;">
               <label class="class_checkbox_container" style="margin-left:1vw; color: var(--main-sepArea-font-color); margin-right:auto; margin-top:1vh; margin-bottom:1vh;"> : Local
                 <input type="checkbox" id="id_OptiPage_LocalDisPowerOptimization" onchange="optiSection.updateOptiPageStyle()">
