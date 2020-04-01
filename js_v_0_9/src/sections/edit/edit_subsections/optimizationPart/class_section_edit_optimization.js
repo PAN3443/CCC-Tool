@@ -407,6 +407,15 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
   //////////////////////////////////////////////////////////////
   if(document.getElementById("id_Opti_LegOrder_Div").style.display!="none"){
 
+    if(document.getElementById("id_OptiPage_LegOrderUseDistance").checked){
+      document.getElementById("id_OptiPage_LegOrderOpti_Local_Label").innerHTML = "Distance";
+      document.getElementById("id_OptiPage_LegOrderOpti_Global_Label").innerHTML = "Distance";
+    }
+    else{
+      document.getElementById("id_OptiPage_LegOrderOpti_Local_Label").innerHTML = "Speed";
+      document.getElementById("id_OptiPage_LegOrderOpti_Global_Label").innerHTML = "Speed";
+    }
+
     this.updateLegendOptiWarningArea();
 
     ///////////////////////////////////////////////////////////////
@@ -434,6 +443,18 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
   //// 4. Discriminative Power
   //////////////////////////////////////////////////////////////
   if(document.getElementById("id_Opti_DisPower_Div").style.display!="none"){
+
+
+    if(document.getElementById("id_OptiPage_DisPowerUseDistance").checked){
+      document.getElementById("id_OptiPage_DisPowerOpti_Local_Label").innerHTML = "Distance";
+      document.getElementById("id_OptiPage_DisPowerOpti_Global_Label").innerHTML = "Distance";
+    }
+    else{
+      document.getElementById("id_OptiPage_DisPowerOpti_Local_Label").innerHTML = "Speed";
+      document.getElementById("id_OptiPage_DisPowerOpti_Global_Label").innerHTML = "Speed";
+    }
+
+
     ///////////////////////////////////////////////////////////////
     //// 4.1 Local Discriminative Power
     //////////////////////////////////////////////////////////////
@@ -486,24 +507,26 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
 
   updateLegendOptiWarningArea(){
 
-
     if(this.editCMS.getKeyLength()<2)
       return;
 
     this.createLegendBasedGraph(); // create Graph here because we need the information for the warning area
 
+
     var distance = Math.abs(this.editCMS.getRefPosition(this.editCMS.getKeyLength()-1) - this.editCMS.getRefPosition(0));
-    var blackWhiteSpeed = undefined;
+    var blackWhiteDistance = undefined;
     var smallestNoticeableDelta = undefined;
     switch (this.editCMS.getInterpolationSpace()) {
       case "rgb":
         var rgbBlack = new class_Color_RGB(0, 0, 0);
         var rgbWhite = new class_Color_RGB(1, 1, 1);
-        blackWhiteSpeed = calc3DEuclideanDistance(rgbBlack,rgbWhite)/ distance; //
+        blackWhiteDistance = calc3DEuclideanDistance(rgbBlack,rgbWhite);
+        rgbBlack.deleteReferences();
+        rgbWhite.deleteReferences();
         smallestNoticeableDelta = 0.05;
         break;
       case "hsv":
-        blackWhiteSpeed = 100.0 / distance;
+        blackWhiteDistance = 1.0;
         smallestNoticeableDelta = 4;
         break;
       case "lab":
@@ -511,85 +534,137 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
       case "de94-ds":
       case "de2000":
       case "de2000-ds":
-        blackWhiteSpeed = 100.0 / distance;
+        blackWhiteDistance = 100.0;
         smallestNoticeableDelta = 4;
         break;
       case "din99":
-        blackWhiteSpeed = 100.0 / distance;
+        blackWhiteDistance = 100.0;
         smallestNoticeableDelta = 4;
         break;
       case "lch":
-        blackWhiteSpeed = 100.0 / distance;
+        blackWhiteDistance = 100.0;
         smallestNoticeableDelta = 4;
         break;
       default:
     }
+    var blackWhiteSpeed = blackWhiteDistance/ distance;
 
-    document.getElementById("id_OptiPage_LegOrderOpti_Local_SpeedDisplay").innerHTML =  blackWhiteSpeed*document.getElementById("id_OptiPage_LegOrderOpti_Local_Speed").value;
-    document.getElementById("id_OptiPage_LegOrderOpti_Global_SpeedDisplay").innerHTML =  blackWhiteSpeed*document.getElementById("id_OptiPage_LegOrderOpti_Global_Speed").value;
+    var maxSlinderValue = undefined;
 
-    ///////////////////////////////////////////////////////
-    ///// Get important infos from the CMS
-
-    //var smallesRefDis = Infinity;
-    var smallesSpeedInOriginal_Global  = this.optiGraph.getMinSpeed(true);
-    var smallesSpeedInOriginal_Local  = this.optiGraph.getMinSpeed(false);
-
-    ///////////////////////////////////////////////////////
-    ///// Not Noticeable Area
-    var smallestNoticeable = smallestNoticeableDelta/distance; // smallesRefDis; smallest distance was an old idea.
-    var smallestNoticeableArea = smallestNoticeable/blackWhiteSpeed;
-
-    //legOrderNoticeableBorder = smallestNoticeableArea;
-    document.getElementById("id_OptiPage_LegOrderOpti_Local_NotNoticeableArea").style.width=smallestNoticeableArea*100+"%";
-    document.getElementById("id_OptiPage_LegOrderOpti_Global_NotNoticeableArea").style.width=smallestNoticeableArea*100+"%";
-
-    ///////////////////////////////////////////////////////
-    ///// No Change Area
-    var remainingNoChange=0;
-
-    if(smallesSpeedInOriginal_Local != Infinity && smallesSpeedInOriginal_Local>smallestNoticeable){
-      var smallestSpeedPos = smallesSpeedInOriginal_Local/blackWhiteSpeed;
-      remainingNoChange = smallestSpeedPos-smallestNoticeableArea;
-      document.getElementById("id_OptiPage_LegOrderOpti_Local_NoChangeArea").style.width=remainingNoChange*100+"%";
-      //document.getElementById("id_OptiPage_LegOrderOpti_Info").style.visibility="visible";
-    }
-    else {
+    if(document.getElementById("id_OptiPage_LegOrderUseDistance").checked){
+      document.getElementById("id_OptiPage_LegOrderOpti_Local_SpeedDisplay").innerHTML =  blackWhiteDistance*document.getElementById("id_OptiPage_LegOrderOpti_Local_Speed").value;
+      document.getElementById("id_OptiPage_LegOrderOpti_Global_SpeedDisplay").innerHTML =  blackWhiteDistance*document.getElementById("id_OptiPage_LegOrderOpti_Global_Speed").value;
+      var smallestNoticeableArea = smallestNoticeableDelta/blackWhiteDistance;
       ///////////////////////////////////////////////////////
-      ///// Fitable Area
-      remainingNoChange=0;
-      document.getElementById("id_OptiPage_LegOrderOpti_Local_NoChangeArea").style.width=0+"%";
-      document.getElementById("id_OptiPage_LegOrderOpti_Info").style.visibility="hidden";
-    }
+      ///// Not Noticeable Area
+      document.getElementById("id_OptiPage_LegOrderOpti_Local_NotNoticeableArea").style.width=smallestNoticeableArea*100+"%";
+      document.getElementById("id_OptiPage_LegOrderOpti_Global_NotNoticeableArea").style.width=smallestNoticeableArea*100+"%";
 
-    var remainingFitable = 1.0-smallestNoticeableArea-remainingNoChange;
-    document.getElementById("id_OptiPage_LegOrderOpti_Local_OkayArea").style.width=remainingFitable*100+"%";
-
-
-    remainingNoChange=0;
-
-    if(smallesSpeedInOriginal_Global != Infinity && smallesSpeedInOriginal_Global>smallestNoticeable){
-      var smallestSpeedPos = smallesSpeedInOriginal_Global/blackWhiteSpeed;
-      remainingNoChange = smallestSpeedPos-smallestNoticeableArea;
-      document.getElementById("id_OptiPage_LegOrderOpti_Global_NoChangeArea").style.width=remainingNoChange*100+"%";
-      //document.getElementById("id_OptiPage_LegOrderOpti_Info").style.visibility="visible";
-    }
-    else {
       ///////////////////////////////////////////////////////
-      ///// Fitable Area
+      ///// Get infos from the CMS
+      var smallesDistanceInOriginal_Global  = this.optiGraph.getMinWeight(true);
+      var smallesDistanceInOriginal_Local  = this.optiGraph.getMinWeight(false);
+
+
+      ///////////////////////////////////////////////////////
+      ///// No Change Area
+      var remainingNoChange=0;
+      if(smallesDistanceInOriginal_Local != Infinity && smallesDistanceInOriginal_Local>smallestNoticeable){
+        var smallestDistancePos = smallesDistanceInOriginal_Local/blackWhiteDistance;
+        remainingNoChange = smallestDistancePos-smallestNoticeableArea;
+        document.getElementById("id_OptiPage_LegOrderOpti_Local_NoChangeArea").style.width=remainingNoChange*100+"%";
+        //document.getElementById("id_OptiPage_LegOrderOpti_Info").style.visibility="visible";
+      }
+      else {
+        ///////////////////////////////////////////////////////
+        ///// Fitable Area
+        remainingNoChange=0;
+        document.getElementById("id_OptiPage_LegOrderOpti_Local_NoChangeArea").style.width=0+"%";
+        document.getElementById("id_OptiPage_LegOrderOpti_Info").style.visibility="hidden";
+      }
+
+      var remainingFitable = 1.0-smallestNoticeableArea-remainingNoChange;
+      document.getElementById("id_OptiPage_LegOrderOpti_Local_OkayArea").style.width=remainingFitable*100+"%";
+
       remainingNoChange=0;
-      document.getElementById("id_OptiPage_LegOrderOpti_Global_NoChangeArea").style.width=0+"%";
-      document.getElementById("id_OptiPage_LegOrderOpti_Info").style.visibility="hidden";
+      if(smallesDistanceInOriginal_Global != Infinity && smallesDistanceInOriginal_Global>smallestNoticeable){
+        var smallestDistancePos = smallesDistanceInOriginal_Global/blackWhiteDistance;
+        remainingNoChange = smallestDistancePos-smallestNoticeableArea;
+        document.getElementById("id_OptiPage_LegOrderOpti_Global_NoChangeArea").style.width=remainingNoChange*100+"%";
+        //document.getElementById("id_OptiPage_LegOrderOpti_Info").style.visibility="visible";
+      }
+      else {
+        ///////////////////////////////////////////////////////
+        ///// Fitable Area
+        remainingNoChange=0;
+        document.getElementById("id_OptiPage_LegOrderOpti_Global_NoChangeArea").style.width=0+"%";
+        document.getElementById("id_OptiPage_LegOrderOpti_Info").style.visibility="hidden";
+      }
+
+      var remainingFitable = 1.0-smallestNoticeableArea-remainingNoChange;
+      document.getElementById("id_OptiPage_LegOrderOpti_Global_OkayArea").style.width=remainingFitable*100+"%";
+
+
+
+
+
+
+
     }
+    else{
+      document.getElementById("id_OptiPage_LegOrderOpti_Local_SpeedDisplay").innerHTML =  blackWhiteSpeed*document.getElementById("id_OptiPage_LegOrderOpti_Local_Speed").value;
+      document.getElementById("id_OptiPage_LegOrderOpti_Global_SpeedDisplay").innerHTML =  blackWhiteSpeed*document.getElementById("id_OptiPage_LegOrderOpti_Global_Speed").value;
+      var smallestNoticeable = smallestNoticeableDelta/distance; // smallesRefDis; smallest distance was an old idea.
+      var smallestNoticeableArea = smallestNoticeable/blackWhiteSpeed;
+      ///////////////////////////////////////////////////////
+      ///// Not Noticeable Area
+      //legOrderNoticeableBorder = smallestNoticeableArea;
+      document.getElementById("id_OptiPage_LegOrderOpti_Local_NotNoticeableArea").style.width=smallestNoticeableArea*100+"%";
+      document.getElementById("id_OptiPage_LegOrderOpti_Global_NotNoticeableArea").style.width=smallestNoticeableArea*100+"%";
 
-    var remainingFitable = 1.0-smallestNoticeableArea-remainingNoChange;
-    document.getElementById("id_OptiPage_LegOrderOpti_Global_OkayArea").style.width=remainingFitable*100+"%";
+      ///////////////////////////////////////////////////////
+      ///// Get infos from the CMS
+      var smallesSpeedInOriginal_Global  = this.optiGraph.getMinWeight(true);
+      var smallesSpeedInOriginal_Local  = this.optiGraph.getMinWeight(false);
 
+      ///////////////////////////////////////////////////////
+      ///// No Change Area
+      var remainingNoChange=0;
+      if(smallesSpeedInOriginal_Local != Infinity && smallesSpeedInOriginal_Local>smallestNoticeable){
+        var smallestSpeedPos = smallesSpeedInOriginal_Local/blackWhiteSpeed;
+        remainingNoChange = smallestSpeedPos-smallestNoticeableArea;
+        document.getElementById("id_OptiPage_LegOrderOpti_Local_NoChangeArea").style.width=remainingNoChange*100+"%";
+        //document.getElementById("id_OptiPage_LegOrderOpti_Info").style.visibility="visible";
+      }
+      else {
+        ///////////////////////////////////////////////////////
+        ///// Fitable Area
+        remainingNoChange=0;
+        document.getElementById("id_OptiPage_LegOrderOpti_Local_NoChangeArea").style.width=0+"%";
+        document.getElementById("id_OptiPage_LegOrderOpti_Info").style.visibility="hidden";
+      }
 
-    ///////////////////////////////////////////////////////
-    ///// Above Area
-    //var remainingNotFitable = 1.0-remainingFitable;
-    //document.getElementById("id_OptiPage_LegOrderOpti_NotFitableArea").style.width=(remainingNotFitable*100)+"%";
+      var remainingFitable = 1.0-smallestNoticeableArea-remainingNoChange;
+      document.getElementById("id_OptiPage_LegOrderOpti_Local_OkayArea").style.width=remainingFitable*100+"%";
+
+      remainingNoChange=0;
+      if(smallesSpeedInOriginal_Global != Infinity && smallesSpeedInOriginal_Global>smallestNoticeable){
+        var smallestSpeedPos = smallesSpeedInOriginal_Global/blackWhiteSpeed;
+        remainingNoChange = smallestSpeedPos-smallestNoticeableArea;
+        document.getElementById("id_OptiPage_LegOrderOpti_Global_NoChangeArea").style.width=remainingNoChange*100+"%";
+        //document.getElementById("id_OptiPage_LegOrderOpti_Info").style.visibility="visible";
+      }
+      else {
+        ///////////////////////////////////////////////////////
+        ///// Fitable Area
+        remainingNoChange=0;
+        document.getElementById("id_OptiPage_LegOrderOpti_Global_NoChangeArea").style.width=0+"%";
+        document.getElementById("id_OptiPage_LegOrderOpti_Info").style.visibility="hidden";
+      }
+
+      var remainingFitable = 1.0-smallestNoticeableArea-remainingNoChange;
+      document.getElementById("id_OptiPage_LegOrderOpti_Global_OkayArea").style.width=remainingFitable*100+"%";
+    }
 
   }
 
@@ -1824,11 +1899,21 @@ createLegendBasedGraph(){
     this.optiGraph=undefined;
   }
 
+  switch (true) {
+    case document.getElementById("id_OptiPage_DisPowerUseSpeed").checked:
+      this.optiGraph = new class_Graph_ForcedLegOrder_Speed(optiSpace,document.getElementById("id_OptiPage_GlobalLegOrderOptimization").checked);
+    break;
+    case document.getElementById("id_OptiPage_DisPowerUseDistance").checked:
+      this.optiGraph = new class_Graph_ForcedLegOrder_Distance(optiSpace,document.getElementById("id_OptiPage_GlobalLegOrderOptimization").checked);
+    break;
+    default:
+      return;
+  }
+
   var optiSpace = this.editCMS.getInterpolationSpace();
   if(optiSpace==="de94-ds"||optiSpace==="de2000-ds")
   optiSpace="lab";
 
-  this.optiGraph = new class_Graph_ForcedLegOrder(optiSpace,document.getElementById("id_OptiPage_GlobalLegOrderOptimization").checked);
   this.optiGraph.changeColorEdgeOptions(optiSpace,false,"eu");
 
   var continuousSections = this.editCMS.searchForContinuousSections(document.getElementById("id_OptiPage_Optimization_FromKey").selectedIndex,document.getElementById("id_OptiPage_Optimization_TillKey").selectedIndex);
@@ -1908,40 +1993,80 @@ calcLegOrderOptimum(isGlobal,degree){
 
   this.createLegendBasedGraph();
 
-  var distance = Math.abs(this.editCMS.getRefPosition(this.editCMS.getKeyLength()-1) - this.editCMS.getRefPosition(0));
-  var blackWhiteSpeed = undefined;
-  switch (this.editCMS.getInterpolationSpace()) {
-    case "rgb":
-      var rgbBlack = new class_Color_RGB(0, 0, 0);
-      var rgbWhite = new class_Color_RGB(1, 1, 1);
-      blackWhiteSpeed = calc3DEuclideanDistance(rgbBlack,rgbWhite)/ distance; //
-      break;
-    case "hsv":
-      blackWhiteSpeed = 100.0 / distance;
-      break;
-    case "lab":
-    case "de94":
-    case "de94-ds":
-    case "de2000":
-    case "de2000-ds":
-      blackWhiteSpeed = 100.0 / distance;
-      break;
-    case "din99":
-      blackWhiteSpeed = 100.0 / distance;
-      break;
-    case "lch":
-      blackWhiteSpeed = 100.0 / distance;
-      break;
+
+
+  var optiValue = undefined;
+  switch (true) {
+    case document.getElementById("id_OptiPage_DisPowerUseSpeed").checked:
+      var distance = Math.abs(this.editCMS.getRefPosition(this.editCMS.getKeyLength()-1) - this.editCMS.getRefPosition(0));
+      var blackWhiteSpeed = undefined;
+      switch (this.editCMS.getInterpolationSpace()) {
+        case "rgb":
+          var rgbBlack = new class_Color_RGB(0, 0, 0);
+          var rgbWhite = new class_Color_RGB(1, 1, 1);
+          blackWhiteSpeed = calc3DEuclideanDistance(rgbBlack,rgbWhite)/ distance; //
+          rgbBlack.deleteReferences();
+          rgbWhite.deleteReferences();
+          break;
+        case "hsv":
+          blackWhiteSpeed = 100.0 / distance;
+          break;
+        case "lab":
+        case "de94":
+        case "de94-ds":
+        case "de2000":
+        case "de2000-ds":
+          blackWhiteSpeed = 100.0 / distance;
+          break;
+        case "din99":
+          blackWhiteSpeed = 100.0 / distance;
+          break;
+        case "lch":
+          blackWhiteSpeed = 100.0 / distance;
+          break;
+      }
+      optiValue=blackWhiteSpeed;
+    break;
+    case document.getElementById("id_OptiPage_DisPowerUseDistance").checked:
+      var blackWhiteDistance = undefined;
+      switch (this.editCMS.getInterpolationSpace()) {
+        case "rgb":
+          var rgbBlack = new class_Color_RGB(0, 0, 0);
+          var rgbWhite = new class_Color_RGB(1, 1, 1);
+          blackWhiteDistance = calc3DEuclideanDistance(rgbBlack,rgbWhite); //
+          rgbBlack.deleteReferences();
+          rgbWhite.deleteReferences();
+        break;
+        case "hsv":
+          blackWhiteDistance=1.0;
+        break;
+        case "lab":
+        case "de94":
+        case "de94-ds":
+        case "de2000":
+        case "de2000-ds":
+          blackWhiteDistance=100;
+        break;
+        case "din99":
+          blackWhiteDistance=100;
+        break;
+        case "lch":
+          blackWhiteDistance=100;
+        break;
+      }
+      optiValue=blackWhiteDistance;
+    break;
     default:
+      return;
   }
 
   if(isGlobal){
-    var optiSpeed = blackWhiteSpeed*document.getElementById("id_OptiPage_LegOrderOpti_Global_Speed").value;
-    this.optiGraph.forceLayout(document.getElementById("id_OptiPage_LegOrderOpti_Global_Iterations").value,degree,optiSpeed,isGlobal);
+    optiValue = optiValue*document.getElementById("id_OptiPage_LegOrderOpti_Global_Speed").value;
+    this.optiGraph.forceLayout(document.getElementById("id_OptiPage_LegOrderOpti_Global_Iterations").value,degree,optiValue,isGlobal);
   }
   else {
-    var optiSpeed = blackWhiteSpeed*document.getElementById("id_OptiPage_LegOrderOpti_Local_Speed").value;
-    this.optiGraph.forceLayout(document.getElementById("id_OptiPage_LegOrderOpti_Local_Iterations").value,degree,optiSpeed,isGlobal);
+    optiValue = optiValue*document.getElementById("id_OptiPage_LegOrderOpti_Local_Speed").value;
+    this.optiGraph.forceLayout(document.getElementById("id_OptiPage_LegOrderOpti_Local_Iterations").value,degree,optiValue,isGlobal);
   }
 
   this.optiGraphToCMS();

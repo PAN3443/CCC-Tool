@@ -1,4 +1,4 @@
-class class_Graph_ForcedLegOrder extends class_Graph_ForcedLayout {
+class class_Graph_ForcedLegOrder_Speed extends class_Graph_ForcedLayout {
 
   forceLayout(iterations,degree, optiSpeed,isGlobal){
 
@@ -486,7 +486,7 @@ class class_Graph_ForcedLegOrder extends class_Graph_ForcedLayout {
 
   }
 
-  getMinSpeed(isGlobal){
+  getMinWeight(isGlobal){ // return the min Speed 
       var minSpeed = Infinity;
       //console.log("------------------------------------");
       if(isGlobal){ // check only edges, which are not neighbaurs
