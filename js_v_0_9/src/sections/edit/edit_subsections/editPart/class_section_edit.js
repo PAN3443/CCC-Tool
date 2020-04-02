@@ -8,11 +8,9 @@ class class_Edit_Section extends class_Edit_Basis_Section {
 
     /// Part: CMS VIS
     this.cmsCanvasID = 'id_EditPage_CMS_Canvas';
-    this.cmsNameID = 'id_edit_cms_name';
-    this.cmsInterpolationID = 'id_edit_cms_interpolation';
-    this.cmsNaNColorID = 'id_edit_cms_NaN';
-    this.cmsAboveID = 'id_edit_cms_Below';
-    this.cmsBelowID = 'id_edit_cms_Above';
+    this.cmsNaNColorID = 'id_edit_cms_SetNaN';
+    this.cmsAboveID = 'id_edit_cms_SetBelow';
+    this.cmsBelowID = 'id_edit_cms_SetAbove';
 
     /// Part: Pathplot
     this.showPathplot = true;
@@ -110,8 +108,29 @@ class class_Edit_Section extends class_Edit_Basis_Section {
   selectInterpolationSpace(){
     var selectedIndex = document.getElementById("id_EditPage_SelectInterpolationSpace").selectedIndex;
     this.editCMS.setInterpolationSpace(document.getElementById("id_EditPage_SelectInterpolationSpace").options[selectedIndex].value);
+    this.saveCreateProcess();
     this.updateSection();
-    this.doPagePeculiarity();
+    if(this.showPredefined){
+      this.drawPredefined();
+    }
+  }
+
+  changeInterpolationType(type){
+
+    switch (type){
+      case 0:
+        this.editCMS.setInterpolationType("linear");
+        break;
+        case 1:
+          this.editCMS.setInterpolationType("spline");
+          break;
+    }
+
+    this.saveCreateProcess();
+    this.updateSection();
+    if(this.showPredefined){
+      this.drawPredefined();
+    }
   }
 
   setCMS(cms, id) {
@@ -370,7 +389,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
     var newName = document.getElementById('id_edit_cms_SetName').value;
     if(newName!==""){
       this.editCMS.setColormapName(newName);
-      this.doPagePeculiarity();
+      this.saveCreateProcess();
     }
     else{
       document.getElementById('id_edit_cms_SetName').value = this.editCMS.getColormapName();
@@ -459,7 +478,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
       tmpCMSlinear.oncontextmenu = (function(id, type) {
         return function() {
           gallerySection.calcReverse(type, id);
-          gallerySection.drawElementWithGalleryCMS("predefined_linear_" + id + "_" + type, type, id);
+          gallerySection.drawElementWithGalleryCMS("predefined_linear_" + id + "_" + type, type, id,undefined,undefined,editSection.editCMS.getInterpolationSpace(),editSection.editCMS.getInterpolationType());
           return false;
         };
       })(i, this.selectedPredefinedType);
@@ -472,7 +491,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
       })(i);
 
       document.getElementById('id_EditPage_Predefined_CMS_Div').appendChild(tmpCMSlinear);
-      gallerySection.drawElementWithGalleryCMS("predefined_linear_" + i + "_" + this.selectedPredefinedType, this.selectedPredefinedType, i, 200, 1);
+      gallerySection.drawElementWithGalleryCMS("predefined_linear_" + i + "_" + this.selectedPredefinedType, this.selectedPredefinedType, i, 200, 1,this.editCMS.getInterpolationSpace(),this.editCMS.getInterpolationType());
     }// END:FOR(i)
 
   }

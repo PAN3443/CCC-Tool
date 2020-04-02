@@ -954,19 +954,19 @@ function affectColorpickerChange() {
     case "id_edit_cms_SetNaN":
       editSection.setSpecialCMSColor("nan",cloneColor(colorpickerColor));
       editSection.updateMapping();
-      editSection.doPagePeculiarity();
+      //editSection.doPagePeculiarity();
       editSection.saveCreateProcess();
       break;
     case "id_edit_cms_SetBelow":
     editSection.setSpecialCMSColor("below",cloneColor(colorpickerColor));
     editSection.updateMapping();
-    editSection.doPagePeculiarity();
+    //editSection.doPagePeculiarity();
     editSection.saveCreateProcess();
       break;
     case "id_edit_cms_SetAbove":
     editSection.setSpecialCMSColor("above",cloneColor(colorpickerColor));
     editSection.updateMapping();
-    editSection.doPagePeculiarity();
+    // editSection.doPagePeculiarity();
     editSection.saveCreateProcess();
       break;
     case "id_EditPage_DrawnDualKey":

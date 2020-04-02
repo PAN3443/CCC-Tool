@@ -1,3 +1,19 @@
+
+function openCloseEditHeaderButtons(){
+
+  if(document.getElementById("id_edit_HeaderButtonDiv").style.display!="none"){
+    document.getElementById("id_edit_HeaderButtonDiv").style.display="none";
+    document.getElementById("id_EditPage_CMSVisDiv").style.height="25vh";
+  }
+  else {
+    document.getElementById("id_edit_HeaderButtonDiv").style.display="flex";
+    document.getElementById("id_EditPage_CMSVisDiv").style.height="20vh";
+  }
+  editSection.drawEditCMSVIS();
+}
+
+
+
 function editCMS_equalKeyIntervals(){
 
   document.getElementById("id_PopUp_AskCheck").onclick = function (){

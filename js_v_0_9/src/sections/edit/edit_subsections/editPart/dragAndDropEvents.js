@@ -4,7 +4,6 @@
 ////////////////////////////////////////////
 
 function cmsStructureOnDragStart(event){
-    hideAllDropDowns();
     event.dataTransfer.dropEffect = "move";
 }
 

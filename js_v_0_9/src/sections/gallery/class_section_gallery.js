@@ -264,10 +264,17 @@ class class_Gallery_Section extends class_Section {
 
   }
 
-  drawElementWithGalleryCMS(elemId,type,id,width,height){
+  drawElementWithGalleryCMS(elemId,type,id,width,height,intSpace,intType){
+
     if(type<this.predefinedCMS.length){
       if(id<this.predefinedCMS[type].length){
+        if(intSpace!=undefined)
+          this.predefinedCMS[type][id].setInterpolationSpace(intSpace);
+      /*    if(intType!=undefined)
+            this.predefinedCMS[type][id].setInterpolationType(intType);*/
         this.predefinedCMS[type][id].drawCMS_Horizontal(elemId,width,height);
+        this.predefinedCMS[type][id].setInterpolationSpace("lab");
+        this.predefinedCMS[type][id].setInterpolationType("linear");
       }
     }
   }

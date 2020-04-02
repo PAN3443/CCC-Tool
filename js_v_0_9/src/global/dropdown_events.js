@@ -1,5 +1,4 @@
 function initDropDowns(){
- document.getElementById("id_EditPage_CMSInfoDiv").onclick =  function() {dropDownEvents("id_EditPage_CMSInfoDiv", "id_EditPage_CMSInfoDiv_dropdown", false,false);};
  //
  document.getElementById("id_EditPage_CMSOptionButton").onclick =  function() {dropDownEvents("id_EditPage_CMSOptionButton", "id_EditPage_CMSOptionDiv_dropdown", true,false);};
  document.getElementById("id_EditPage_CMSOptionDiv_dropdown").onmouseleave =  function() {document.getElementById("id_EditPage_CMSOptionDiv_dropdown").style.display="none";};
@@ -17,10 +16,6 @@ function initDropDowns(){
  document.getElementById("id_EditPage_KeyValueEdit_dropdown").onmouseleave =  function() {document.getElementById("id_EditPage_KeyValueEdit_dropdown").style.display="none";};
  //
 
-}
-
-function hideAllDropDowns(){
-  document.getElementById("id_EditPage_CMSInfoDiv_dropdown").style.display="none";
 }
 
 function dropDownEvents(dropdownID, contentID, onTop,toRight){

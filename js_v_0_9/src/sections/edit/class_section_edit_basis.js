@@ -53,7 +53,9 @@ class class_Edit_Basis_Section extends class_Section {
     // is for special updating of the section, which not need to be done with each call of updateSection()
 
     // update Name, Interpolation ....
+    if(this.cmsNameID != undefined)
     document.getElementById(this.cmsNameID).innerHTML = "Name: "+ this.editCMS.getColormapName();
+    if(this.cmsInterpolationID != undefined)
     document.getElementById(this.cmsInterpolationID).innerHTML =  "Interpolation: "+this.editCMS.getInterpolationSpace()+" ("+this.editCMS.getInterpolationType()+")"
     document.getElementById(this.cmsNaNColorID).style.background = this.editCMS.getNaNColor("rgb").getRGBString();
     document.getElementById(this.cmsAboveID).style.background = this.editCMS.getAboveColor("rgb").getRGBString();
@@ -98,53 +100,6 @@ class class_Edit_Basis_Section extends class_Section {
                   this.editCMS.setBelowColor(color);
                   break;
     }
-  }
-
-  /*updateInterpolationSpace(type){
-    var intSpace = "lab";
-    switch (type) {
-      case 0:
-        intSpace = "lab";
-      break;
-      case 1:
-        intSpace = "din99";
-      break;
-      case 2:
-        intSpace = "rgb";
-      break;
-      case 3:
-        intSpace = "hsv";
-      break;
-    }
-
-    for (var i = 0; i < document.getElementById("id_EditPage_SelectInterpolationSpace").options.length; i++) {
-      if(document.getElementById("id_EditPage_SelectInterpolationSpace").options[i].value===intSpace){
-        document.getElementById("id_EditPage_SelectInterpolationSpace").selectedIndex=i;
-        this.editCMS.setInterpolationSpace(intSpace);
-        this.updateSection();
-        this.doPagePeculiarity();
-        return;
-      }
-    }
-
-    this.editCMS.setInterpolationSpace("lab");
-    this.updateSection();
-    this.doPagePeculiarity();
-  }*/
-
-  changeInterpolationType(type){
-
-    switch (type){
-      case 0:
-        this.editCMS.setInterpolationType("linear");
-        break;
-        case 1:
-          this.editCMS.setInterpolationType("spline");
-          break;
-    }
-
-    this.updateSection(); // = update CMS, Mapping and Analyze Plots
-    this.doPagePeculiarity();
   }
 
   setCMS(cms){

@@ -30,26 +30,72 @@
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
         <div id="id_EditPage_CMS_Div" style="width:60vw; height:30vh; border-bottom: 0.2vh solid var(--main-sepArea-border);">
           <!----------- CMS Info ------------------->
-          <div id="id_EditPage_CMSInfoDiv"
-            style="cursor:pointer; height:5vh; width:100%; display:flex; background: var(--main-sepArea-bg); border-right:0.2vw solid var(--main-sepArea-border); border-bottom: 0.2vh solid var(--main-sepArea-border); box-sizing: border-box;">
 
-            <p id="id_edit_colorBlindWarning"
-              style="margin-left:0.25vw; width:2vw; text-align:center; vertical-align: middle; color:var(--general-warning-color); font-size: 3vh; line-height:5vh; margin-top:auto; margin-bottom:auto; visibility:hidden; cursor:help; margin-right:1vw;"
-              title="Colorblind Modus">&#128065;</p>
-            <p id="id_edit_editWarning"
-              style="margin-left:0.25vw;  width:2vw; text-align:center; vertical-align: middle; color:var(--general-warning-color); font-size: 3vh; line-height:5vh; margin-top:auto; margin-bottom:auto; visibility:hidden; cursor:help;"
-              title="Unsaved Content">&#9888;</p>
-            <p id="id_edit_AddModus"
-              style="margin-left:0.25vw;  width:2vw; text-align:center; vertical-align: middle; color:var(--general-warning-color); border: 0.2vh solid color:var(--general-warning-color); border-radius: 20%; font-size: 3vh; line-height:5vh; margin-top:auto; margin-bottom:auto; visibility:hidden; cursor:help;"
-              title="ADD Key Modus">+</p>
 
-            <p id="id_edit_cms_name" style="overflow: hidden; text-overflow: ellipsis; width:auto; max-width: 20vw; margin:auto; margin-right:0vw; color: var(--main-sepArea-font-color); font-size: 2.5vh; line-height:5vh; max-height:5vh;">Name:</p>
-            <p id="id_edit_cms_interpolation" style="overflow: hidden; text-overflow: ellipsis; width:auto; max-width: 20vw; margin:auto; color: var(--main-sepArea-font-color); font-size: 2.5vh; line-height:5vh;"> Interpolation: </p>
+          <div id="id_EditPage_CMSInfoDiv" style=" width:100%; display:flex; flex-direction:column; background: var(--main-sepArea-bg); border-right:0.2vw solid var(--main-sepArea-border); border-bottom: 0.2vh solid var(--main-sepArea-border); box-sizing: border-box;">
 
-            <div id="id_edit_cms_NaN" title="NaN Color" style="height:4.8vh; width:5vh; max-width: 5vw; border-left:0.2vw solid var(--main-sepArea-border); background:red; margin-top:auto; margin-bottom:auto;"></div>
-            <div id="id_edit_cms_Below" title="Below Color" style="height:4.8vh; width:5vh; max-width: 5vw; border-left:0.2vw solid var(--main-sepArea-border); background:green; margin-top:auto; margin-bottom:auto;"></div>
-            <div id="id_edit_cms_Above" title="Above Color" style="height:4.8vh; width:5vh; max-width: 5vw; border-left:0.2vw solid var(--main-sepArea-border); background:blue; margin-top:auto; margin-bottom:auto; margin-right:1vw;"></div>
+
+            <div style="display:flex; height: 5vh; width:100%;">
+
+              <p id="id_edit_colorBlindWarning"
+                style="margin-left:0.25vw; width:2vw; text-align:center; vertical-align: middle; color:var(--general-warning-color); font-size: 3vh; line-height:5vh; margin-top:auto; margin-bottom:auto; visibility:hidden; cursor:help; margin-right:1vw;"
+                title="Colorblind Modus">&#128065;</p>
+              <p id="id_edit_editWarning"
+                style="margin-left:0.25vw;  width:2vw; text-align:center; vertical-align: middle; color:var(--general-warning-color); font-size: 3vh; line-height:5vh; margin-top:auto; margin-bottom:auto; visibility:hidden; cursor:help;"
+                title="Unsaved Content">&#9888;</p>
+              <p id="id_edit_AddModus"
+                style="margin-left:0.25vw;  width:2vw; text-align:center; vertical-align: middle; color:var(--general-warning-color); border: 0.2vh solid color:var(--general-warning-color); border-radius: 20%; font-size: 3vh; line-height:5vh; margin-top:auto; margin-bottom:auto; visibility:hidden; cursor:help;"
+                title="ADD Key Modus">+</p>
+
+              <input onchange="editSection.changeCMSName()" type="text" id="id_edit_cms_SetName" style="max-width: 10vw; padding:0.5vh; font-size: 1.8vh; height: 3vh; line-height:3vh; margin:auto; background:none; color: var(--main-sepArea-font-color);" name="mapname"
+                placeholder="Please enter a name for your colormap" />
+
+              <p id="id_edit_cms_interpolation" style="overflow: hidden; text-overflow: ellipsis; width:auto; max-width: 15vw; margin:auto; color: var(--main-sepArea-font-color); font-size: 1.8vh; line-height:5vh;"> Interpolation: </p>
+              <select id="id_EditPage_SelectInterpolationSpace" onchange="editSection.selectInterpolationSpace()" style="max-width: 10vw; font-size: 1.8vh; height: 3vh; line-height:3vh; margin:auto; margin-right:0.5vw; margin-left:0.5vw; background:none; color: var(--main-sepArea-font-color);">
+                    <optgroup label="Perceptually Uniform:">
+                      <option value="lab">LAB</option>
+                      <option value="de94-ds">DS de94</option>
+                      <option value="de2000-ds">DS CIEDE2000</option>
+                      <option value="din99">DIN99</option>
+                      <option value="lch" disabled>LCH</option>
+                    </optgroup>
+                    <optgroup label="Non-Perceptually Uniform:">
+                      <option value="rgb">RGB</option>
+                      <option value="hsv">HSV</option>
+                      <!--option value="lms">LMS</option-->
+                    </optgroup>
+              </select>
+
+              <button class="class_coloredButton_Dark " id="id_edit_SetTypeLinear" onclick="editSection.changeInterpolationType(0)" title="LINEAR" style="height:3.5vh; width: 5vw; margin:auto; margin-left:0vw; margin-right:0vw;  font-size: 1.8vh;">LINEAR</button>
+              <button class="class_coloredButton_Dark " id="id_edit_SetTypeSpline" onclick="editSection.changeInterpolationType(1)" title="SPLINE" style="height:3.5vh; width: 5vw; margin:auto; margin-left:0vw;  font-size: 1.8vh;">SPLINE</button>
+
+              <div id="id_edit_cms_SetNaN" title="NaN Color" style="height:4.8vh; width:5vh; max-width: 5vw; border-left:0.2vw solid var(--main-sepArea-border); background:red; margin:auto; margin-right:0vw; "></div>
+              <div id="id_edit_cms_SetAbove" title="Below Color" style="height:4.8vh; width:5vh; max-width: 5vw; border-left:0.2vw solid var(--main-sepArea-border); background:green; margin:auto; margin-left:0vw; margin-right:0vw;"></div>
+              <div id="id_edit_cms_SetBelow" title="Above Color" style="height:4.8vh; width:5vh; max-width: 5vw; border-left:0.2vw solid var(--main-sepArea-border); background:blue; margin:auto; margin-left:0vw; margin-right:0.5vw;"></div>
+              <div onclick="openCloseEditHeaderButtons()" title="open/close Header Buttons" style="cursor:pointer; height:5vh; line-height:5vh; vertical-align: middle; font-size: 4.0vh; color: var(--main-sepArea-font-color);">&#8691;</div>
+            </div>
+
+            <div id="id_edit_HeaderButtonDiv" style="display:none; height: 5vh; width:100%; border-top: 0.1vh solid var(--main-sepArea-font-color);">
+
+
+              <button class="class_EditPage_EditButton" type="button" name="button" title="undo" onclick="editSection.undo()" style="margin-left:auto;">&#8634;</button>
+              <button class="class_EditPage_EditButton" type="button" name="button" title="redo" onclick="editSection.redo()">&#8635;</button>
+              <button class="class_EditPage_EditButton" type="button" name="button" title="save" onclick="editSection.save()">&#9715;</button>
+              <button class="class_EditPage_EditButton" type="button" name="button" title="export" onclick="exportEditCMS()" style="margin-right:auto;">&#8615;</button>
+
+              <button class="class_EditPage_EditButton" type="button" name="button" title="clear" onclick="clearColormap()">&#9746;</button>
+              <button class="class_EditPage_EditButton" type="button" name="button" title="scale" onclick="openScale()">&#8596;</button>
+              <button class="class_EditPage_EditButton" type="button" name="button" title="reverse" onclick="reverseCMS()">&#8644;</button>
+              <button id="id_EditPage_AddKeyButton" class="class_EditPage_EditButton" type="button" name="button" title="add Key" onclick="changeAddKeyModus()">+</button>
+              <button id="id_EditPage_RemoveKeyButton" class="class_EditPage_EditButton" type="button" name="button" title="remove Key" onclick="changeRemoveKeyModus()">-</button>
+              <button class="class_EditPage_EditButton" type="button" name="button" title="Equal Key Intervals" onclick="editCMS_equalKeyIntervals()">|||</button>
+              <button class="class_EditPage_EditButton" type="button" name="button" title="Color-Blindness" onclick="()" style="visibility:hidden; width: 3vh; height: 3vh; margin:auto; margin-left:0.25vw;">&#128065;</button>
+
+            </div>
+
           </div>
+
+
           <!----------- CMS Visualization ------------------->
           <div id="id_EditPage_CMSVisDiv" style="height:25vh; width:100%; position: relative; border-right:0.2vw solid var(--main-sepArea-border); box-sizing: border-box;">
 
@@ -191,69 +237,7 @@
 %%%%%%%%%%%%%%%%%%	Drop Down Structures	%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
 
-<div id="id_EditPage_CMSInfoDiv_dropdown" class="class_dropDownContent" style="height: 25vh; width:60vw; background: var(--main-sepArea-bg-alpha); display:none;">
-  <div style="width: 70%; height:100%; display:flex; flex-direction:column; border-right: 0.1vw solid var(--main-sepArea-font-color);">
-    <div style="width:100%; display: flex; margin: auto;">
-      <p style="font-size:2.5vh; color: var(--main-sepArea-font-color); margin:auto; margin-left:2vw;">Name: </p>
-      <input onchange="editSection.changeCMSName()" type="text" id="id_edit_cms_SetName" style="width: 20vw; padding:0.5vh; font-size: 2.5vh; height: 4vh; line-height:4vh; margin:auto; margin-right:2vw;" name="mapname"
-        placeholder="Please enter a name for your colormap" />
-    </div>
-    <div style="width:100%; display: flex; margin: auto;">
 
-      <div style="display:flex; flex-direction:column;">
-        <p style="font-size:2.5vh; color: var(--main-sepArea-font-color); margin:auto; margin-left:2vw;">Interpolation Space: </p>
-        <p style="font-size:1.5vh; color: var(--main-sepArea-font-color); margin:auto; margin-top:0vh; margin-left:2vw;">Shortcut: (ctrl + i)</p>
-      </div>
-
-      <select id="id_EditPage_SelectInterpolationSpace" onchange="editSection.selectInterpolationSpace()" style="width: 20vw; font-size: 2.5vh; height: 4vh; line-height:4vh; margin:auto; margin-right:2vw;">
-          <optgroup label="Perceptually Uniform:">
-            <option value="lab">LAB</option>
-            <option value="de94-ds">DS de94</option>
-            <option value="de2000-ds">DS CIEDE2000</option>
-            <option value="din99">DIN99</option>
-            <option value="lch" disabled>LCH</option>
-          </optgroup>
-          <optgroup label="Non-Perceptually Uniform:">
-            <option value="rgb">RGB</option>
-            <option value="hsv">HSV</option>
-            <!--option value="lms">LMS</option-->
-          </optgroup>
-      </select>
-
-      <!--div>
-        <div style="display:flex;">
-          <button class="class_coloredButton_Dark " id="id_edit_SetSpaceLAB" onclick="editSection.changeInterpolationSpace(0)" title="LAB" style="height:3.5vh; width: 5vw; margin-left:auto; font-size: 2.5vh;">LAB</button>
-          <button class="class_coloredButton_Dark " id="id_edit_SetSpaceLAB" onclick="editSection.changeInterpolationSpace(0)" title="Delta Sampling de94" style="height:3.5vh; width: 5vw; margin-left:auto; font-size: 2.5vh;">DS de94</button>
-          <button class="class_coloredButton_Dark " id="id_edit_SetSpaceLAB" onclick="editSection.changeInterpolationSpace(0)" title="Delta Sampling CIEDE2000" style="height:3.5vh; width: 5vw; margin-left:auto; font-size: 2.5vh;">DS CIEDE2000</button>
-          <button class="class_coloredButton_Dark " id="id_edit_SetSpaceDIN99" onclick="editSection.changeInterpolationSpace(1)" title="DIN99" style=" height:3.5vh; width: 5vw; margin-left:1vw; font-size: 2.5vh;">DIN99</button>
-        </div>
-        <div style="display:flex;">
-          <button class="class_coloredButton_Dark " id="id_edit_SetSpaceRGB" onclick="editSection.changeInterpolationSpace(2)" title="RGB" style=" height:3.5vh; width: 5vw; margin-left:1vw; font-size: 2.5vh;"> RGB </button>
-          <button class="class_coloredButton_Dark " id="id_edit_SetSpaceHSV" onclick="editSection.changeInterpolationSpace(3)" title="HSV" style=" height:3.5vh; width: 5vw; margin-left:1vw; margin-right:2vw; font-size: 2.5vh;">HSV</button>
-        </div>
-      </div-->
-    </div>
-    <div style="width:100%; display: flex; margin: auto;">
-      <p style="font-size:2.5vh; color: var(--main-sepArea-font-color); margin:auto; margin-left:2vw;">Interpolation Type: </p>
-      <button class="class_coloredButton_Dark " id="id_edit_SetTypeLinear" onclick="editSection.changeInterpolationType(0)" title="LINEAR" style="height:3.5vh; width: 11vw; margin-left:auto; font-size: 2.5vh;">LINEAR</button>
-      <button class="class_coloredButton_Dark " id="id_edit_SetTypeSpline" onclick="editSection.changeInterpolationType(1)" title="SPLINE" style="height:3.5vh; width: 11vw; margin-left:1vw; margin-right:2vw; font-size: 2.5vh;">SPLINE</button>
-    </div>
-  </div>
-  <div style="width: 30%; height:100%; display:flex; flex-direction:column;">
-    <div style="width:100%; display: flex; margin-top:auto;">
-      <p style="font-size:2.5vh; color: var(--main-sepArea-font-color); margin:auto; margin-left:2vw;">NaN-Color: </p>
-      <div id="id_edit_cms_SetNaN" title="NaN Color" style="cursor:pointer; height:5vh; width:5vh; max-width: 5vw; margin:auto; margin-right:2vw; border-left:0.2vw solid var(--main-sepArea-border); background:red;"></div>
-    </div>
-    <div style="width:100%; display: flex; margin-top:auto;">
-      <p style="font-size:2.5vh; color: var(--main-sepArea-font-color); margin:auto; margin-left:2vw;">Above-Color: </p>
-      <div id="id_edit_cms_SetAbove" title="Above Color" style="cursor:pointer; height:5vh; width:5vh; max-width: 5vw; margin:auto; margin-right:2vw; border-left:0.2vw solid var(--main-sepArea-border); background:red;"></div>
-    </div>
-    <div style="width:100%; display: flex; margin-top:auto; margin-bottom:auto;">
-      <p style="font-size:2.5vh; color: var(--main-sepArea-font-color); margin:auto; margin-left:2vw;">Below-Color: </p>
-      <div id="id_edit_cms_SetBelow" title="Below Color" style="cursor:pointer; height:5vh; width:5vh; max-width: 5vw; margin:auto; margin-right:2vw; border-left:0.2vw solid var(--main-sepArea-border); background:red;"></div>
-    </div>
-  </div>
-</div>
 
 <div id="id_EditPage_CMSOptionDiv_dropdown" class="class_dropDownContent" style="display:none; height: auto; width:20vw; background:var(--main-menue-background); flex-direction:column; padding-bottom:2vh; display:none;">
   <p class="class_EditDropDownMenueSection">CMS Vis Modi:</p>

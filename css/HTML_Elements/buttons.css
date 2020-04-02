@@ -65,7 +65,44 @@ button:focus {outline:0;}
 
 .class_coloredButton_Dark:hover{
   transform: scale(0.95);
-  background-color: var(--main-hover-coloredButton);
+  background-color: var(--main-hover-coloredButton_Dark);
+}
+
+
+.class_EditPage_EditButton{
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 3.5vh;
+  height: 3.5vh;
+  max-width: 3.5vh;
+  max-height: 3.5vh;
+  font-size: 2.0vh;
+  line-height: 3vh;
+  margin-left: 0.25vw;
+  margin-right: 0.25vw;
+
+  font-family: var(--font-family);
+  box-sizing: content-box;
+  font-weight:bold;
+  border: none;
+  background-color: var(--main-second-sepArea-bg);
+  color: var(--main-sepArea-font-color);
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
+  text-align:center;
+  overflow: auto;
+  vertical-align: middle;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+.class_EditPage_EditButton:hover{
+  transform: scale(0.95);
+  background-color: var(--main-hover-coloredButton_Dark);
+  color: var(--main-sepArea-bg);
 }
 
 
