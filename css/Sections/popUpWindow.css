@@ -3,7 +3,7 @@
   width:100%;
   margin-top: 2vh;
   display:flex;
-  background: var(--main-popUpWindow-labelbg-color);
+  background: var(--main-sepArea-bg);
 }
 
 .class_PopUpButtonDiv button{
@@ -102,10 +102,10 @@
   text-align:center;
   vertical-align: middle;
   margin:0px;
-  color:var(--main-popUpWindow-labelfont-color);
+  color:var(--main-sepArea-font-color);
   line-height: var(--line-height-label);
   font-size: var(--font-size-label);
-  background: var(--main-popUpWindow-labelbg-color);
+  background: var(--main-sepArea-bg);
   /*font-family:verdana;*/
 }
 

@@ -59,9 +59,9 @@ var sc_function_arrayEdit = [
   function(){changeRemoveKeyModus();}
 ];
 
-var sc_label_arrayGlobal = ["Navigation"];
-var sc_key_arrayGlobal = ["n"];
-var sc_keyNum_arrayGlobal = [78];
+var sc_label_arrayGlobal = ["Navigation Map"];
+var sc_key_arrayGlobal = ["m"];
+var sc_keyNum_arrayGlobal = [77];
 var sc_function_arrayGlobal = [function(){
   if(document.getElementById('id_PopUp_navigationWindow').style.display!="none")
     closeNaviWindow();
@@ -83,7 +83,6 @@ function keyDownDocumentHandler(event){
     } else if(event.which){ // Netscape/Firefox/Opera
       keynum = event.which;
     }
-console.log(keynum);
     //console.log(keynum);
 
     //////////////////////////////////
