@@ -1,18 +1,72 @@
 <!-----------------------------------------------
-----------------  	Section Gallery	  -----------
+----------------  	Section Tutorial	  -----------
 ------------------------------------------------->
 
 <div style="height: 100vh; width:100vw; flex-direction:column; background:var(--main-bg-color);">
 
   <div style="width:100vw; height:95vh; overflow:auto; display:flex;">
-    <img  src="img/CCCToolComic/notAvailableImg.png" style="max-width:50vw; height: 95vh; margin:auto;">
-    <p style="margin:auto; max-height:95vh; font-size:5vh; padding-top:2vh; padding-bottom:2vh; padding-left:2vw; padding-right:2vw; overflow-y:auto;">
-        Sorry, the Tutorial section is not available at the moment.
-    </p>
+
+    <div style="width:80vw; height:95vh; display:flex;">
+      <div style="margin:auto;" >
+        <p id="id_tutorial_ChannelLabel" class="subsectionLabel" style="height:5vh; line-height:5vh; font-weight:bold; font-size:3vh;"> Channel 2: Tool Overview </p>
+        <svg style="width:60vw; height:5vh; overflow:hidden; display:block; margin:0px;">
+            <line x1="45%" y1="20%" x2="50%" y2="100%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
+            <line x1="50%" y1="100%" x2="55%" y2="20%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
+            <circle cx="50%" cy="100%" r="5%" fill="black" />
+        </svg>
+        <div style="width:60vw; height:60vh; background:black; border-radius: 2vh; display:flex; margin:0px;">
+          <iframe id="id_PopUp_TutorialWindow_Iframe" style="height:55vh; width:55vw; border: 0.2vh solid black; margin:auto;" src="https://www.youtube.com/embed/hmrIzNo5sjE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <svg style="width:60vw; height:5vh; overflow:hidden; display:block; margin:0px;">
+          <line x1="10%" y1="-5%" x2="0%" y2="100%" style="stroke:rgb(0,0,0);stroke-width:0.5vw" />
+          <line x1="90%" y1="-5%" x2="100%" y2="100%" style="stroke:rgb(0,0,0);stroke-width:0.5vw" />
+        </svg>
+      </div>
+    </div>
+
+
+    <div style="width:20vw; height:95vh; border-left:0.1vw solid var(--main-sepArea-bg);">
+      <div style="height:5vh; line-height:5vh; width: 100%; font-size: 2.5vh; font-weight:bold; background:var(--main-sepArea-bg); color:var(--main-sepArea-font-color); text-align:center; vertical-align:middle;">
+        Channels
+      </div>
+      <div style="width:100%; height:90vh; overflow-x:hidden; overflow-y:auto; display:flex; flex-direction:column;">
+
+        <div class="class_channelSelector_Deactivated" onclick="">
+          <p>1. CMS</p>
+          <img src="https://img.youtube.com/vi/<insert-youtube-video-id-here>/hqdefault.jpg" alt="Tutorial Video Thumbnail">
+        </div>
+
+        <div class="class_channelSelector_Deactivated" onclick="">
+          <p>2. Tool Overview</p>
+          <img src="https://img.youtube.com/vi/<insert-youtube-video-id-here>/hqdefault.jpg" alt="Tutorial Video Thumbnail">
+        </div>
+
+        <div class="class_channelSelector_Deactivated" onclick="">
+          <p>3. Navi</p>
+          <img src="https://img.youtube.com/vi/<insert-youtube-video-id-here>/hqdefault.jpg" alt="Tutorial Video Thumbnail">
+        </div>
+
+        <p style="width: 100%; font-size: 2.5vh; font-weight:bold; color:var(--main-sepArea-bg); text-align:center; vertical-align:middle;">
+          Old Channels
+        </p>
+
+        <div class="class_channelSelector" onclick="tutorialSection.switchChannel(2)">
+          <p>Overview (Version 0.7)</p>
+          <img src="https://img.youtube.com/vi/hmrIzNo5sjE/hqdefault.jpg" alt="Tutorial Video Thumbnail">
+        </div>
+
+      </div>
+    </div>
+
+
+
+
+
+
   </div>
 
   <div style="width:100vw; height: 5vh; background:var(--main-coloredButton); display:flex;">
-      <button class="class_coloredButton" onclick="tutorialSection.backToSection()" title="Back to previouse section" style=" margin:auto; height:5vh; width: 19vw; font-size: 3vh;">Back</button>
+      <button class="class_coloredButton" onclick="tutorialSection.backToSection()" title="Back to previouse section" style=" margin:auto; margin-left:1vw; height:5vh; width: 19vw; font-size: 3vh;">Back</button>
   </div>
 
 </div>
