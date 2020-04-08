@@ -172,3 +172,47 @@ button:focus {outline:0;}
   transform: scale(0.95);
   background-color: var(--main-hover-coloredButton-deactivated);
 }
+
+
+
+
+
+.class_naviButton_Deactive{
+  height:10vh;
+  width:15vw;
+  font-size: 3vh;
+  margin:auto;
+  cursor:not-allowed;
+  color:var(--main-sepArea-font-color);
+  background-color: var(--main-second-sepArea-bg);
+  font-family: var(--font-family);
+  font-weight:bold;
+  text-align: center;
+  text-decoration: none;
+  /*vertical-align: middle;*/
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.class_naviButton{
+  height:10vh;
+  width:15vw;
+  font-size: 3vh;
+  margin:auto;
+  font-family: var(--font-family);
+  background-color: var(--main-coloredButton); /* Green */
+  font-weight:bold;
+  color: var(--main-coloredFont);
+  text-align: center;
+  text-decoration: none;
+  border:none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+.class_naviButton:hover{
+  transform: scale(0.95);
+  background-color: var(--main-hover-coloredButton);
+}

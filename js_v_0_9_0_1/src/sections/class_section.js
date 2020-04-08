@@ -20,6 +20,7 @@ class class_Section {
   }
 
   showSection(){
+    document.getElementById("id_PopUp_navigationWindow").style.display="none";
     welcomeSection.hideSection();
     myDesignsSection.hideSection();
     gallerySection.hideSection();

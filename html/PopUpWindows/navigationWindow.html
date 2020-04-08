@@ -1,44 +1,173 @@
-<div style=" height:100vh; background: var(--main-popUpWindow-bg-color); width:100vw; border: 0.2vh solid black; display:flex; flex-direction:column;">
+<div style="height:100vh; background: var(--main-popUpWindow-bg-color); width:100vw; border: 0.2vh solid black; display:flex; flex-direction:column;">
 
-  <div style="height:95vh; width:100%; display:flex;">
-    <div style="width:25vw; height:100%; box-sizing: border-box; border-right: 0.2vh dashed var(--main-font-color); display:flex; flex-direction:column;">
+  <div style="height:5vh; width:100vw; display:flex; background:var(--main-sepArea-bg);">
+    <p style="color:var(--main-sepArea-font-color); font-size:3vh; font-weight:bold; line-height:5vh; margin:auto; margin-bottom:0px;">Navigator Map</p>
+  </div>
+  <div style="height:92vh; width:100%; display:flex;">
+    <div style="width:25vw; height:100%; box-sizing: border-box; border-right: 0.2vh dashed var(--main-sepArea-bg); display:flex; flex-direction:column;">
 
     <div style="margin-top:auto; width:100%; display:flex;">
-      <button onclick="switchSection(1)" class="class_coloredButton" style="height:15vh; width:15vw; font-size: 3vh; margin:auto; margin-right:5px;">&#9787; Welcome
+      <button onclick="welcomeSection.showSection()" class="class_naviButton">&#9787; Welcome
       </button>
 
       <svg style="height:5vh; width:5vw; margin:auto;" viewBox="0 0 100 100" preserveAspectRatio="none" >
-        <polygon points="0,50 50,100 50,0" />
-        <rect x="5" y="48" width="95" height="4" style="fill:rgb(0,0,0)" />
+        <polygon points="0,50 50,100 50,0" style="fill:var(--main-sepArea-bg);"/>
+        <rect x="5" y="48" width="95" height="4" style="fill:var(--main-sepArea-bg);" />
       </svg>
     </div>
 
     <div style="margin-top : 5vh; margin-bottom : 5vh; width:100%; display:flex;">
-      <button onclick="switchSection(1)" class="class_coloredButton" style="height:15vh; width:15vw; font-size: 3vh; margin:auto; margin-right:5px;">Tutorials</button>
+      <button onclick="tutorialSection.showSection()" class="class_naviButton">Tutorials</button>
 
       <svg style="height:5vh; width:5vw; margin:auto;" viewBox="0 0 100 100" preserveAspectRatio="none" >
-        <polygon points="0,50 50,100 50,0" />
-        <rect x="5" y="48" width="95" height="4" style="fill:rgb(0,0,0)" />
+        <polygon points="0,50 50,100 50,0" style="fill:var(--main-sepArea-bg);"/>
+        <rect x="5" y="48" width="95" height="4" style="fill:var(--main-sepArea-bg);" />
       </svg>
     </div>
 
     <div style="margin-bottom:auto; width:100%; display:flex;">
-      <button onclick="switchSection(1)" class="class_coloredButton" style="height:15vh; width:15vw; font-size: 3vh; margin:auto; margin-right:5px;">Contact</button>
+      <button onclick="closeNaviWindow(); openImpressum();" class="class_naviButton">Contact</button>
 
       <svg style="height:5vh; width:5vw; margin:auto;" viewBox="0 0 100 100" preserveAspectRatio="none" >
-        <polygon points="0,50 50,100 50,0" />
-        <rect x="5" y="48" width="95" height="4" style="fill:rgb(0,0,0)" />
+        <polygon points="0,50 50,100 50,0" style="fill:var(--main-sepArea-bg);"/>
+        <rect x="5" y="48" width="95" height="4" style="fill:var(--main-sepArea-bg);" />
       </svg>
     </div>
 
     </div>
 
-    <div style="width:70%; height:100%; display:flex; flex-direction:column;">
+    <div style="width:75vw; height:100%; display:flex; flex-direction:column;">
+
+
+          <div style="display:flex; margin-top:auto;">
+            <!-- Main Rect -->
+            <div style="display:flex; flex-direction:column;">
+
+                <div style="display:flex; ">
+                  <!-- SVG MyDesigns to Testing -->
+                  <svg style="width:25vw; height:20vh; margin-left:5vw;" viewBox="0 0 250 200" preserveAspectRatio="none">
+                    <rect x="74" y="50" width="175" height="4" style="fill:var(--main-sepArea-bg);" />
+                    <rect x="74" y="50" width="3" height="145" style="fill:var(--main-sepArea-bg);" />
+                    <polygon points="75,200 65,180 85,180" style="fill:var(--main-sepArea-bg);"/>
+                  </svg>
+                  <div style="display:flex; flex-direction:column;">
+                    <button onclick="myDesignsSection.showSection()" class="class_naviButton" > MyDesigns
+                    </button>
+                    <!-- SVG MyDesigns to Gallery -->
+                    <svg style="width:15vw; height:10vh;" viewBox="0 0 150 100" preserveAspectRatio="none">
+                      <rect x="74" y="5" width="3" height="90" style="fill:var(--main-sepArea-bg);" />
+                      <polygon points="75,100 65,80 85,80" style="fill:var(--main-sepArea-bg);"/>
+                      <polygon points="75,0 65,20 85,20" style="fill:var(--main-sepArea-bg);"/>
+                    </svg>
+                  </div>
+                </div>
+
+
+                <div style="display:flex;">
+                  <button onclick="newSection.showSection()" class="class_naviButton" style="margin-left: 5vw;"> New
+                  </button>
+                  <button onclick="gallerySection.showSection()" class="class_naviButton" style="margin-left: 10vw;"> Gallery
+                  </button>
+                </div>
+
+                <!-- SVG New to Edit, New to Auto Gen ,Gallery to Edit  -->
+                <svg style="width:40vw; height:10vh; margin-left:5vw;" viewBox="0 0 400 100" preserveAspectRatio="none">
+                  <!-- SVG New to Auto Gen -->
+                  <rect x="39" y="0" width="3" height="95" style="fill:var(--main-sepArea-bg);" />
+                  <polygon points="40,100 30,80 50,80" style="fill:var(--main-sepArea-bg);"/>
+
+                  <!-- SVG New to Edit -->
+                  <rect x="109" y="0" width="3" height="50" style="fill:var(--main-sepArea-bg);" />
+                  <rect x="109" y="48" width="181" height="4" style="fill:var(--main-sepArea-bg);" />
+                  <rect x="289" y="48" width="3" height="45" style="fill:var(--main-sepArea-bg);" />
+                  <polygon points="290,100 280,80 300,80" style="fill:var(--main-sepArea-bg);"/>
+
+                  <!-- SVG Gallery to Edit -->
+                  <rect x="359" y="0" width="3" height="95" style="fill:var(--main-second-sepArea-bg);" />
+                  <polygon points="360,100 350,80 370,80" style="fill:var(--main-second-sepArea-bg);"/>
+                </svg>
+
+                <div style="display:flex;">
+                  <button class="class_naviButton_Deactive" style="margin-left:5vw;"> Auto Generator
+                  </button>
+                  <!-- SVG Auto Gen to Edit  -->
+                  <svg style="width:10vw; height:10vh;" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <rect x="0" y="48" width="95" height="4" style="fill:var(--main-second-sepArea-bg);" />
+                    <polygon points="100,50 83,38 83,62" style="fill:var(--main-second-sepArea-bg);"/>
+                  </svg>
+                  <button onclick="editSection.showSection())" class="class_naviButton"> Edit
+                  </button>
+                </div>
+
+                <!-- SVG Edit to Probe, Edit to Optimization  -->
+                <svg style="width:40vw; height:10vh; margin-left:5vw;" viewBox="0 0 400 100" preserveAspectRatio="none">
+                  <!-- Edit to Optimization -->
+                  <rect x="359" y="5" width="3" height="90" style="fill:var(--main-sepArea-bg);" />
+                  <polygon points="360,100 350,80 370,80" style="fill:var(--main-sepArea-bg);"/>
+                  <polygon points="360,0 350,20 370,20" style="fill:var(--main-sepArea-bg);"/>
+
+                  <!-- Edit to Probe -->
+                  <rect x="289" y="5" width="3" height="45" style="fill:var(--main-second-sepArea-bg);" />
+                  <rect x="109" y="48" width="183" height="4" style="fill:var(--main-second-sepArea-bg);" />
+                  <rect x="109" y="48" width="3" height="45" style="fill:var(--main-second-sepArea-bg);" />
+                  <polygon points="110,100 100,80 120,80" style="fill:var(--main-second-sepArea-bg);"/>
+                  <polygon points="290,0 280,20 300,20" style="fill:var(--main-second-sepArea-bg);"/>
+                </svg>
+            </div>
+
+            <!-- SVG MyDesigns to Testing and Edit to Testing and Edit to MyDesigns-->
+            <svg style="width:25vw; height:60vh; margin-right:5vw;" viewBox="0 0 250 600" preserveAspectRatio="none">
+                <!-- SVG MyDesigns to Testing-->
+                <rect x="5" y="23" width="205" height="4" style="fill:var(--main-sepArea-bg);" />
+                <rect x="209" y="23" width="3" height="570" style="fill:var(--main-sepArea-bg);" />
+                <polygon points="0,25 17,13 17,37" style="fill:var(--main-sepArea-bg);"/>
+                <polygon points="210,600 200,580 220,580" style="fill:var(--main-sepArea-bg);"/>
+                <!-- Edit to Testing -->
+                <rect x="5" y="473" width="135" height="4" style="fill:var(--main-sepArea-bg);" />
+                <rect x="139" y="473" width="3" height="120" style="fill:var(--main-sepArea-bg);" />
+                <polygon points="0,475 17,463 17,487" style="fill:var(--main-sepArea-bg);"/>
+                <polygon points="140,600 130,580 150,580" style="fill:var(--main-sepArea-bg);"/>
+                <!-- Edit to MyDesigns-->
+                <rect x="5" y="73" width="135" height="4" style="fill:var(--main-sepArea-bg);" />
+                <rect x="0" y="423" width="140" height="4" style="fill:var(--main-sepArea-bg);" />
+                <rect x="139" y="73" width="3" height="354" style="fill:var(--main-sepArea-bg);" />
+                <polygon points="0,75 17,63 17,87" style="fill:var(--main-sepArea-bg);"/>
+            </svg>
+
+          </div>
+          <div style="display:flex; width:75vw; margin-bottom:auto;">
+            <button ooonclick="probeSection.showSection()" class="class_naviButton_Deactive" style="margin-left: 5vw;"> Probe
+            </button>
+            <button onclick="optiSection.showSection()" class="class_naviButton" style="margin-left: 10vw;"> Optimization
+            </button>
+            <button onclick="testingSection.showSection()" class="class_naviButton" style="margin-left: 10vw; margin-right: 5vw;"> Testing
+            </button>
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     </div>
   </div>
-  <div style="height:5vh; width:100vw; display:flex;">
-    <p style="color:var(--main-font-color); font-size:2.5vh; line-height:5vh; margin:auto; margin-bottom:0px;">(Close Navigator with "Ctrl"+"M")</p>
+  <div style="height:3vh; width:100vw; display:flex; background:var(--main-sepArea-bg);">
+    <p style="color:var(--main-sepArea-font-color); font-size:2.2vh; line-height:3vh; margin:auto; margin-bottom:0px;">(Close Navigator with "Ctrl"+"M")</p>
   </div>
 
 
