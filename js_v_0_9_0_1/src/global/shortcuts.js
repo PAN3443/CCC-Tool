@@ -91,7 +91,6 @@ function keyDownDocumentHandler(event){
     for (var i = 0; i < sc_keyNum_arrayGlobal.length; i++) {
       if(keynum==sc_keyNum_arrayGlobal[i]){
         sc_function_arrayGlobal[i]();
-        console.log(123);
         return;
       }
     }

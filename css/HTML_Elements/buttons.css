@@ -173,10 +173,6 @@ button:focus {outline:0;}
   background-color: var(--main-hover-coloredButton-deactivated);
 }
 
-
-
-
-
 .class_naviButton_Deactive{
   height:10vh;
   width:15vw;
@@ -185,6 +181,23 @@ button:focus {outline:0;}
   cursor:not-allowed;
   color:var(--main-sepArea-font-color);
   background-color: var(--main-second-sepArea-bg);
+  font-family: var(--font-family);
+  font-weight:bold;
+  text-align: center;
+  text-decoration: none;
+  /*vertical-align: middle;*/
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.class_naviButton_Current{
+  height:10vh;
+  width:15vw;
+  font-size: 3vh;
+  margin:auto;
+  cursor:not-allowed;
+  color:var(--main-sepArea-font-color);
+  background-color: rgb(102, 102, 255);
   font-family: var(--font-family);
   font-weight:bold;
   text-align: center;

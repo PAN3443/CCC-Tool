@@ -8,7 +8,6 @@ class class_TestFunction_Section extends class_Section {
     }
 
     this.testingCMS = new class_CMS();
-    this.backSection = undefined;
 
     ///////////////////////////////////////////////
     /// Init
@@ -41,7 +40,7 @@ class class_TestFunction_Section extends class_Section {
     document.getElementById('id_Test_MeshVisDivGreyFull').addEventListener("wheel", tm_3D_mousewheel);
     ////// Init interactive Tests
 
-    
+
 
     this.element_singleTest = new class_Element_SingleTest("id_Test_SingleTestDiv","id_Test_SwitchToSingleTest");
     this.element_testCollection = new class_Element_Collection("id_Test_FunctionCollection","id_Test_SwitchToCollection");
@@ -64,12 +63,19 @@ class class_TestFunction_Section extends class_Section {
       return;
     }
 
+    super.showSection(false); // no automatic updateSection
+
     var selectobject = document.getElementById("id_TestSection_CMS_Select")
     for (var i = selectobject.length - 1; i >= 0; i--) {
       selectobject.remove(i);
     }
 
-    if (this.backSection === "myDesigns") {
+    if (this.backSection === "id_EditPage") {
+      // => single CMS
+      document.getElementById("id_TestPage_CMS_VIS_ColormapLinear").style.width = "100vw";
+      document.getElementById("id_TestSection_CMS_Label").style.display = "none";
+      selectobject.style.display = "none";
+    } else {
       // => many CMS for switching
       document.getElementById("id_TestPage_CMS_VIS_ColormapLinear").style.width = "75vw";
       document.getElementById("id_TestSection_CMS_Label").style.display = "block";
@@ -81,11 +87,6 @@ class class_TestFunction_Section extends class_Section {
       }
       selectobject.selectedIndex = 0;
       this.testingCMS = myDesignsSection.getMyDesignCMS(0);
-    } else {
-      // => single CMS
-      document.getElementById("id_TestPage_CMS_VIS_ColormapLinear").style.width = "100vw";
-      document.getElementById("id_TestSection_CMS_Label").style.display = "none";
-      selectobject.style.display = "none";
     }
     this.inform_Worker_GeneralInformations();
     var cmsJSON=json_message_sendCMS(cloneCMS(this.testingCMS));
@@ -95,29 +96,13 @@ class class_TestFunction_Section extends class_Section {
     this.element_singleTest.worker_testInteractive.postMessage(cmsJSON);
     this.element_testReport.worker_testreport.postMessage(cmsJSON);
     this.testingCMS.drawCMS_Horizontal("id_TestPage_CMS_VIS_ColormapLinear", 1000, 1);
-    super.showSection();
+    this.updateSection();
     this.element_testCollection.showElement();
   }
 
   setCMS(cms) {
     this.testingCMS.deleteReferences();
     this.testingCMS = cms;
-  }
-
-  backToSection() {
-    switch (this.backSection) {
-      case "edit":
-        editSection.showSection();
-        break;
-      case "gallery":
-        gallerySection.showSection();
-        break;
-      case "myDesigns":
-        myDesignsSection.showSection();
-        break;
-      default:
-        myDesignsSection.showSection();
-    }
   }
 
   updateSection() {

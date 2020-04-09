@@ -10,317 +10,239 @@ function closeNaviWindow(){
 
 function drawCurrentNavi(){
 
-    /*var colorPosArrow = getComputedStyle(document.documentElement).getPropertyValue('--menue-navi-positive-color');
-    var colorNegArrow = getComputedStyle(document.documentElement).getPropertyValue('--menue-navi-negative-color');
+  changeNaviStatus("id_navi_Welcome","Welcome",1);
+  changeNaviStatus("id_navi_Tutorial","Tutorial",1);
+  changeNaviStatus("id_navi_MyDesigns","MyDesigns",1);
+  changeNaviStatus("id_navi_Gallery","Gallery",1);
 
-    var cArrowWelcomeToMyDesign = colorPosArrow; // is always reachable
+  changeNaviStatus("id_navi_Edit","Edit",2);
+  changeNaviStatus("id_navi_Probe","Probe",2);
+  changeNaviStatus("id_navi_Opti","Optimization",2);
+  changeNaviStatus("id_navi_AutoGen","Auto Generator",2);
 
-    var cArrowMyDesignToTesting = colorNegArrow;
-    var cArrowMyDesignToNew = colorNegArrow;
-    var cArrowMyDesignToEdit = colorNegArrow;
-    var arrowToEditDashed = true;
-    var cArrowMyDesignToGallery = colorNegArrow;
+  if(myDesignsSection.checkMyDesignLimit())
+    changeNaviStatus("id_navi_New","New CMS",2);
+  else
+    changeNaviStatus("id_navi_New","New CMS",1);
 
-    var cArrowNewToEdit = colorNegArrow;
-    var cArrowGalleryToEdit = colorNegArrow;
+  if(myDesignsSection.getMyDesignLength()>0)
+    changeNaviStatus("id_navi_Testing","Testing",1);
+  else
+    changeNaviStatus("id_navi_Testing","Testing",2);
 
-    clearCanvas("id_navi_WelcomeToMyDesigns");
-    clearCanvas("id_navi_ArrowsFromMyDesigns");
-    clearCanvas("id_navi_NewToEdit");
-    clearCanvas("id_navi_GalleryToEdit");
+  switch (true){
+    case welcomeSection.isSectionOpen():
+      changeNaviStatus("id_navi_Welcome","Welcome",0);
+    break;
+    case myDesignsSection.isSectionOpen():
+      changeNaviStatus("id_navi_MyDesigns","MyDesigns",0);
+    break;
+    case gallerySection.isSectionOpen():
+      changeNaviStatus("id_navi_Gallery","Gallery",0);
+    break;
+    case newSection.isSectionOpen():
+      changeNaviStatus("id_navi_New","New CMS",0);
+    break;
+    case autoGenSection.isSectionOpen():
+      changeNaviStatus("id_navi_AutoGen","Auto Generator",0);
 
-    changeNaviStatus("id_navi_WelcomePage",2); // is always reachable
-    changeNaviStatus("id_navi_MyDesigns",0);
-    changeNaviStatus("id_navi_Testing",0);
-    changeNaviStatus("id_navi_New",0);
-    changeNaviStatus("id_navi_Edit",0);
-    changeNaviStatus("id_navi_Gallery",0);
+      // Check status
+      // changeNaviStatus("id_navi_Edit","Edit",1);
+    break;
+    case editSection.isSectionOpen():
+      changeNaviStatus("id_navi_Edit","Edit",0);
+      changeNaviStatus("id_navi_Probe","Probe",1);
+      changeNaviStatus("id_navi_Opti","Optimization",1);
+      changeNaviStatus("id_navi_Welcome","Welcome",2);
+      changeNaviStatus("id_navi_Gallery","Gallery",2);
+      changeNaviStatus("id_navi_New","New CMS",2);
+    break;
+    case probeSection.isSectionOpen():
+      changeNaviStatus("id_navi_Probe","Probe",0);
+      changeNaviStatus("id_navi_Welcome","Welcome",2);
+      changeNaviStatus("id_navi_Gallery","Gallery",2);
+      changeNaviStatus("id_navi_New","New CMS",2);
+      changeNaviStatus("id_navi_MyDesigns","MyDesigns",2);
+      changeNaviStatus("id_navi_Testing","Testing",2);
+      changeNaviStatus("id_navi_Edit","Edit",1);
+      changeNaviStatus("id_navi_Tutorial","Tutorial",2);
+    break;
+    case optiSection.isSectionOpen():
+      changeNaviStatus("id_navi_Opti","Optimization",0);
+      changeNaviStatus("id_navi_Welcome","Welcome",2);
+      changeNaviStatus("id_navi_Gallery","Gallery",2);
+      changeNaviStatus("id_navi_New","New CMS",2);
+      changeNaviStatus("id_navi_MyDesigns","MyDesigns",2);
+      changeNaviStatus("id_navi_Testing","Testing",2);
+      changeNaviStatus("id_navi_Edit","Edit",1);
+      changeNaviStatus("id_navi_Tutorial","Tutorial",2);
+    break;
+    case testingSection.isSectionOpen():
+      changeNaviStatus("id_navi_Testing","Testing",0);
 
-    document.getElementById("id_navi_MyDesigns").removeEventListener("click", showMyDesignsPage);
-    document.getElementById("id_navi_MyDesigns").removeEventListener("click", startLeaveEditPage);
-
-    document.getElementById("id_navi_Edit").removeEventListener("click", showEditPage);
-    document.getElementById("id_navi_New").removeEventListener("click", showNewCMSPage);
-    document.getElementById("id_navi_Gallery").removeEventListener("click", showGallery);
-    document.getElementById("id_navi_Testing").removeEventListener("click", showTestPage);
-
-
-    // Check Welcome
-    if(document.getElementById("id_welcomePage").style.display!="none"){
-      changeNaviStatus("id_navi_WelcomePage",1);
-      changeNaviStatus("id_navi_MyDesigns",2);
-      cArrowWelcomeToMyDesign = colorPosArrow;
-      document.getElementById("id_navi_MyDesigns").addEventListener("click", showMyDesignsPage);
-    }
-
-    // Check MyDesigns
-    if(document.getElementById("id_myDesignsPage").style.display!="none"){
-      changeNaviStatus("id_navi_MyDesigns",1);
-      changeNaviStatus("id_navi_Testing",2);
-      changeNaviStatus("id_navi_New",2);
-      changeNaviStatus("id_navi_Gallery",2);
-      cArrowMyDesignToTesting = colorPosArrow;
-      cArrowMyDesignToNew = colorPosArrow;
-      cArrowMyDesignToGallery = colorPosArrow;
-
-      document.getElementById("id_navi_New").addEventListener("click", showNewCMSPage);
-      document.getElementById("id_navi_Gallery").addEventListener("click", showGallery);
-      document.getElementById("id_navi_Testing").addEventListener("click", showTestPage);
-
-      if(myDesignsList.length>0){
-        changeNaviStatus("id_navi_Edit",3);
-        cArrowMyDesignToEdit = colorPosArrow;
+      if(testingSection.backSection==="id_EditPage"){
+        changeNaviStatus("id_navi_Welcome","Welcome",2);
+        changeNaviStatus("id_navi_Gallery","Gallery",2);
+        changeNaviStatus("id_navi_New","New CMS",2);
+        changeNaviStatus("id_navi_MyDesigns","MyDesigns",2);
+        changeNaviStatus("id_navi_Tutorial","Tutorial",2);
+        changeNaviStatus("id_navi_Edit","Edit",1);
       }
 
+    break;
+    case exportSection.isSectionOpen():
+      changeNaviStatus("id_navi_Welcome","Welcome",2);
+      changeNaviStatus("id_navi_Tutorial","Tutorial",2);
+      changeNaviStatus("id_navi_MyDesigns","MyDesigns",2);
+      changeNaviStatus("id_navi_Gallery","Gallery",2);
+      changeNaviStatus("id_navi_Edit","Edit",2);
+      changeNaviStatus("id_navi_Probe","Probe",2);
+      changeNaviStatus("id_navi_Opti","Optimization",2);
+      changeNaviStatus("id_navi_AutoGen","Auto Generator",2);
+      changeNaviStatus("id_navi_New","New CMS",2);
+      changeNaviStatus("id_navi_Testing","Testing",2);
+    break;
+    case tutorialSection.isSectionOpen():
+      changeNaviStatus("id_navi_Tutorial","Tutorial",0);
+    break;
+    default:
+
+  }
+}
+
+function changeNaviStatus(id,label,status){
+  document.getElementById(id).classList.remove("class_naviButton");
+  document.getElementById(id).classList.remove("class_naviButton_Current");
+  document.getElementById(id).classList.remove("class_naviButton_Deactive");
+  document.getElementById(id).removeEventListener("mousedown", switchViaNavi, true);
+  var arrowColor = undefined;
+  var allowAction = false;
+
+  if(status==0){
+    document.getElementById(id).innerHTML="&#9787; "+label;
+    document.getElementById(id).classList.add("class_naviButton_Current");
+    arrowColor="var(--main-second-sepArea-bg)";
+  }
+  else{
+    document.getElementById(id).innerHTML=label;
+
+    if(status==2){
+      document.getElementById(id).classList.add("class_naviButton_Deactive");
+      arrowColor="var(--main-second-sepArea-bg)";
     }
-
-    // Check Testing
-    if(document.getElementById("id_TestingPage").style.display!="none"){
-      changeNaviStatus("id_navi_MyDesigns",2);
-      changeNaviStatus("id_navi_Testing",1);
-      cArrowMyDesignToTesting = colorPosArrow;
-      document.getElementById("id_navi_MyDesigns").addEventListener("click", showMyDesignsPage);
+    else{
+      document.getElementById(id).classList.add("class_naviButton");
+      document.getElementById(id).addEventListener("mousedown", switchViaNavi, true);
+      arrowColor="var(--main-sepArea-bg)";
     }
+  }
 
-    // Check New
-    if(document.getElementById("id_newCMSPage").style.display!="none"){
-      changeNaviStatus("id_navi_MyDesigns",2);
-      changeNaviStatus("id_navi_New",1);
-      changeNaviStatus("id_navi_Edit",2);
-      cArrowMyDesignToNew = colorPosArrow;
-      cArrowNewToEdit = colorPosArrow;
-      document.getElementById("id_navi_MyDesigns").addEventListener("click", showMyDesignsPage);
-      document.getElementById("id_navi_Edit").addEventListener("click", showEditPage);
-    }
+  switch (id) {
+    case "id_navi_New":
+      document.getElementById("id_Arrow_ToNew_1").style.fill = arrowColor;
+      document.getElementById("id_Arrow_ToNew_2").style.fill = arrowColor;
+      document.getElementById("id_Arrow_ToNew_3").style.fill = arrowColor;
 
-    // Check Edit
-    if(document.getElementById("id_EditPage").style.display!="none"){
-      changeNaviStatus("id_navi_MyDesigns",2);
-      changeNaviStatus("id_navi_Edit",1);
-      cArrowMyDesignToEdit = colorPosArrow;
-      arrowToEditDashed=false;
-      document.getElementById("id_navi_MyDesigns").addEventListener("click", startLeaveEditPage);
-    }
+      var tmpColor =undefined;
+      if(status==0)
+        tmpColor="var(--main-sepArea-bg)";
+      else
+        tmpColor="var(--main-second-sepArea-bg)";
 
-    // Check Gallery
-    if(document.getElementById("id_GalleryPage").style.display!="none"){
-      changeNaviStatus("id_navi_MyDesigns",2);
-      changeNaviStatus("id_navi_Gallery",1);
-      changeNaviStatus("id_navi_Edit",3);
-      cArrowMyDesignToGallery = colorPosArrow;
-      cArrowGalleryToEdit = colorPosArrow;
-      document.getElementById("id_navi_MyDesigns").addEventListener("click", showMyDesignsPage);
-    }
+      document.getElementById("id_Arrow_NewToEdit_1").style.fill = tmpColor;
+      document.getElementById("id_Arrow_NewToEdit_2").style.fill = tmpColor;
+      document.getElementById("id_Arrow_NewToEdit_3").style.fill = tmpColor;
+      document.getElementById("id_Arrow_NewToEdit_4").style.fill = tmpColor;
 
+      document.getElementById("id_Arrow_NewToAuto_1").style.fill = tmpColor;
+      document.getElementById("id_Arrow_NewToAuto_2").style.fill = tmpColor;
+    break;
+    case "id_navi_Gallery":
+      document.getElementById("id_Arrow_ToGallery_1").style.fill = arrowColor;
+      document.getElementById("id_Arrow_ToGallery_2").style.fill = arrowColor;
+      document.getElementById("id_Arrow_ToGallery_3").style.fill = arrowColor;
+    break;
+    case "id_navi_Edit":
+      var tmpColor =undefined;
+      if(status==0)
+        tmpColor="var(--main-sepArea-bg)";
+      else
+        tmpColor="var(--main-second-sepArea-bg)";
+      document.getElementById("id_Arrow_EditToMyDesigns_1").style.fill = tmpColor;
+      document.getElementById("id_Arrow_EditToMyDesigns_2").style.fill =  tmpColor;
+      document.getElementById("id_Arrow_EditToMyDesigns_3").style.fill =  tmpColor;
+      document.getElementById("id_Arrow_EditToMyDesigns_4").style.fill =  tmpColor;
+    break;
+    case "id_navi_Probe":
+      document.getElementById("id_Arrow_EditToProbe_5").style.fill =  arrowColor;
+      document.getElementById("id_Arrow_EditToProbe_5").style.fill =  arrowColor;
+      document.getElementById("id_Arrow_EditToProbe_5").style.fill =  arrowColor;
+      document.getElementById("id_Arrow_EditToProbe_5").style.fill =  arrowColor;
+      document.getElementById("id_Arrow_EditToProbe_5").style.fill =  arrowColor;
+    break;
+    case "id_navi_Opti":
+      document.getElementById("id_Arrow_EditToOpti_1").style.fill =  arrowColor;
+      document.getElementById("id_Arrow_EditToOpti_2").style.fill =  arrowColor;
+      document.getElementById("id_Arrow_EditToOpti_3").style.fill =  arrowColor;
+    break;
+    case "id_navi_Testing":
+      document.getElementById("id_Arrow_ToTesting_1").style.fill = arrowColor;
+      document.getElementById("id_Arrow_ToTesting_2").style.fill = arrowColor;
+      document.getElementById("id_Arrow_ToTesting_3").style.fill = arrowColor;
+      document.getElementById("id_Arrow_ToTesting_4").style.fill = arrowColor;
 
-    //////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////
-/////// draw Arrows
-  ////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////
-
-    //////////////////////////////////////////////////////
-    ////////////////// Welcome To MyDesigns //////////////
-    //////////////////////////////////////////////////////
-
-    var canvas = document.getElementById("id_navi_WelcomeToMyDesigns");
-    var canvasObjBox = canvas.getBoundingClientRect();
-    canvas.width = canvasObjBox.width;
-    canvas.height = canvasObjBox.height;
-    var context = canvas.getContext("2d");
-    context.strokeStyle = cArrowWelcomeToMyDesign;
-    context.fillStyle = cArrowWelcomeToMyDesign;
-
-    var arrowHead1 = Math.round(canvas.width*0.1);
-    var arrowHead2 = Math.round(canvas.height*0.1);
-    var arrowHead = Math.min(arrowHead1,arrowHead2);
-    var arrowSite = Math.round(arrowHead/2.0);
-    var middle=Math.round(canvas.width*0.5);
-    var middleMinus=Math.round(middle-arrowSite);
-    var middlePlus=Math.round(middle+arrowSite);
-    var startArrow=Math.round(0.0);
-    var start=Math.round(startArrow+arrowHead);
-    var endArrow=Math.round(canvas.height*1.0);
-    var end=Math.round(endArrow-arrowHead);
-
-    // Line
-    context.moveTo(middle, start);
-    context.lineTo(middle, end);
-    context.stroke();
-
-    // Triangle
-    context.beginPath();
-    context.moveTo(middleMinus, start);
-    context.lineTo(middle, startArrow);
-    context.lineTo(middlePlus, start);
-    context.closePath();
-    context.fill();
-    context.stroke();
-
-    // Triangle
-    context.beginPath();
-    context.moveTo(middleMinus, end);
-    context.lineTo(middle, endArrow);
-    context.lineTo(middlePlus, end);
-    context.closePath();
-    context.fill();
-    context.stroke();
-
-    //////////////////////////////////////////////////////
-    ////////////////// New To Edit //////////////
-    //////////////////////////////////////////////////////
-
-    canvas = document.getElementById("id_navi_NewToEdit");
-    canvasObjBox = canvas.getBoundingClientRect();
-    canvas.width = canvasObjBox.width;
-    canvas.height = canvasObjBox.height;
-    context = canvas.getContext("2d");
-    context.strokeStyle = cArrowNewToEdit;
-    context.fillStyle = cArrowNewToEdit;
-
-
-    middle=Math.round(canvas.height*0.5);
-    middleMinus=Math.round(middle-arrowSite);
-    middlePlus=Math.round(middle+arrowSite);
-    start=Math.round(canvas.width*0.05);
-    endArrow=Math.round(canvas.width*0.95);
-    end=Math.round(endArrow-arrowHead);
-
-    // Line
-    context.moveTo(start,middle);
-    context.lineTo(end,middle);
-    context.stroke();
-
-    // Triangle
-    context.beginPath();
-    context.moveTo(end,middleMinus);
-    context.lineTo(endArrow,middle);
-    context.lineTo(end,middlePlus);
-    context.closePath();
-    context.fill();
-    context.stroke();
-
-    //////////////////////////////////////////////////////
-    ////////////////// Gallery To Edit //////////////
-    //////////////////////////////////////////////////////
-
-    canvas = document.getElementById("id_navi_GalleryToEdit");
-    canvasObjBox = canvas.getBoundingClientRect();
-    canvas.width = canvasObjBox.width;
-    canvas.height = canvasObjBox.height;
-    context = canvas.getContext("2d");
-    context.strokeStyle = cArrowGalleryToEdit;
-    context.fillStyle = cArrowGalleryToEdit;
-
-
-    middle=Math.round(canvas.height*0.5);
-    middleMinus=Math.round(middle-arrowSite);
-    middlePlus=Math.round(middle+arrowSite);
-    start=Math.round(canvas.width*0.95);
-    endArrow=Math.round(canvas.width*0.05);
-    end=Math.round(endArrow+arrowHead);
-
-    // Line
-    context.setLineDash([3, 5]);
-    context.moveTo(start,middle);
-    context.lineTo(end,middle);
-    context.stroke();
-
-    // Triangle
-    context.beginPath();
-    context.moveTo(end,middleMinus);
-    context.lineTo(endArrow,middle);
-    context.lineTo(end,middlePlus);
-    context.closePath();
-    context.fill();
-    context.stroke();
-
-    //////////////////////////////////////////////////////
-    ////////////////// From MyDesings //////////////
-    //////////////////////////////////////////////////////
-
-    canvas = document.getElementById("id_navi_ArrowsFromMyDesigns");
-    canvasObjBox = canvas.getBoundingClientRect();
-    canvas.width = canvasObjBox.width;
-    canvas.height = canvasObjBox.height;
-    context = canvas.getContext("2d");
-
-    ///////////////// MyDesign To Testing //////////////////////
-    drawMyDesignArrows(context, cArrowMyDesignToTesting, false, Math.round(canvas.width*0.42), Math.round(canvas.width*0.09), Math.round(canvas.height*0.05), Math.round(canvas.height*0.4), Math.round(canvas.height*0.95),arrowHead,arrowSite);
-
-    ///////////////// MyDesign To New //////////////////////
-    drawMyDesignArrows(context, cArrowMyDesignToNew, false, Math.round(canvas.width*0.47), Math.round(canvas.width*0.37), Math.round(canvas.height*0.05), Math.round(canvas.height*0.6), Math.round(canvas.height*0.95),arrowHead,arrowSite);
-
-    ///////////////// MyDesign To Edit //////////////////////
-    drawMyDesignArrows(context, cArrowMyDesignToEdit, arrowToEditDashed, Math.round(canvas.width*0.53), Math.round(canvas.width*0.64), Math.round(canvas.height*0.05), Math.round(canvas.height*0.6), Math.round(canvas.height*0.95),arrowHead,arrowSite);
-
-    ///////////////// MyDesign To Edit //////////////////////
-    drawMyDesignArrows(context, cArrowMyDesignToGallery, false, Math.round(canvas.width*0.58), Math.round(canvas.width*0.91), Math.round(canvas.height*0.05), Math.round(canvas.height*0.4), Math.round(canvas.height*0.95),arrowHead,arrowSite);
+      document.getElementById("id_Arrow_ToTesting_5").style.fill = arrowColor;
+      document.getElementById("id_Arrow_ToTesting_6").style.fill = arrowColor;
+      document.getElementById("id_Arrow_ToTesting_7").style.fill = arrowColor;
+      document.getElementById("id_Arrow_ToTesting_8").style.fill = arrowColor;
+    break;
+    case "id_navi_AutoGen":
+      document.getElementById("id_Arrow_AutoToEdit_1").style.fill = arrowColor;
+      document.getElementById("id_Arrow_AutoToEdit_2").style.fill = arrowColor;
+    break;
+  }
 
 }
 
-function drawMyDesignArrows(context, color, isDashed, xpos1, xpos2, yPos1, yPos2, yPos3,arrowHead,arrowSite){
+function switchViaNavi(event){
+  /// Special IF Edit Section is Open
 
-  context.strokeStyle = color;
-  context.fillStyle = color;
-
-  if(isDashed)
-    context.setLineDash([3, 5]);
-  else
-    context.setLineDash([]);
-
-  // Line
-  context.moveTo(xpos1,yPos1);
-  context.lineTo(xpos1,yPos2);
-  context.lineTo(xpos2,yPos2);
-  context.lineTo(xpos2,yPos3);
-  context.stroke();
-
-  // Triangle
-  context.beginPath();
-  context.moveTo(xpos1-arrowSite,yPos1+arrowHead);
-  context.lineTo(xpos1,yPos1);
-  context.lineTo(xpos1+arrowSite,yPos1+arrowHead);
-  context.closePath();
-  context.fill();
-  context.stroke();
-
-  // Triangle
-  context.beginPath();
-  context.moveTo(xpos2-arrowSite,yPos3-arrowHead);
-  context.lineTo(xpos2,yPos3);
-  context.lineTo(xpos2+arrowSite,yPos3-arrowHead);
-  context.closePath();
-  context.fill();
-  context.stroke();
-}
-
-function changeNaviStatus(id,type){
-  document.getElementById(id).classList.remove("navi_divPos");
-  document.getElementById(id).classList.remove("navi_divCurrent");
-  document.getElementById(id).classList.remove("navi_divNeg");
-
-  document.getElementById(id+"_Label").style.display = "none";
-
-  switch (type) {
-    case 0:
-      document.getElementById(id).classList.add("navi_divNeg");
-      break;
-      case 1:
-        document.getElementById(id+"_Label").style.display = "block";
-        document.getElementById(id).classList.add("navi_divCurrent");
-        document.getElementById(id+"_Label").innerHTML = "&#9787;";
-        break;
-        case 2:
-          document.getElementById(id+"_Label").style.display = "block";
-          document.getElementById(id).classList.add("navi_divPos");
-          /*document.getElementById(id+"_Label").innerHTML = "&#128743;";* /
-          break;
-          case 3:
-            document.getElementById(id).classList.add("navi_divPos");
-            document.getElementById(id).style.cursor = "not-allowed";
-            break;
-  }*/
-
-
+  document.getElementById("id_PopUp_navigationWindow").style.display="none";
+  /////
+  switch (event.target.id) {
+    case "id_navi_Welcome":
+      welcomeSection.showSection();
+    break;
+    case "id_navi_MyDesigns":
+      if(editSection.isSectionOpen()){
+        showMyDesignsPage();
+      }
+      else
+        myDesignsSection.showSection();
+    break;
+    case "id_navi_New":
+      newSection.showSection();
+    break;
+    case "id_navi_Gallery":
+      gallerySection.showSection();
+    break;
+    case "id_navi_Edit":
+     editSection.showSection();
+    break;
+    case "id_navi_Probe":
+      probeSection.showSection();
+    break;
+    case "id_navi_Opti":
+      optiSection.showSection();
+    break;
+    case "id_navi_Testing":
+      showTesting();
+    break;
+    case "id_navi_AutoGen":
+      autoGenSection.showSection();
+    break;
+    case "id_navi_Tutorial":
+      tutorialSection.showSection();
+    break;
+  }
 }

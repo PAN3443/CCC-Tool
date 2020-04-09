@@ -11,7 +11,6 @@ class class_Export_Section extends class_Section {
     this.scaleExpVal3=255;
     this.doTwinErrorSolution=false;
     this.twinError = 0.00001;
-    this.backSection = undefined;
     this.stylePhase = false;
     this.exportOnlyKeys=false;
   }
@@ -69,22 +68,6 @@ class class_Export_Section extends class_Section {
     this.workCMS.deleteReferences();
     this.workCMS = cloneCMS(this.exportCMS);
     this.workCMS.calcNeededIntervalsColors(false,undefined,undefined);
-  }
-
-  backToSection(){
-    switch (this.backSection) {
-      case editSection.sectionID:
-        editSection.showSection();
-        break;
-        case gallerySection.sectionID:
-          gallerySection.showSection();
-          break;
-          case myDesignsSection.sectionID:
-            myDesignsSection.showSection();
-            break;
-      default:
-        myDesignsSection.showSection();
-    }
   }
 
   changeOutputformat(type){
