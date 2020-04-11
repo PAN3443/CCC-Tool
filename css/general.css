@@ -204,6 +204,20 @@
           background-clip: text;
 }
 
+.class_figureCaption{
+  width:100%;
+  font-family: var(--font-family);
+  font-size: 1.5vh;
+  line-height: 3vh;
+  color:var(--main-font-color);
+  vertical-align:middle;
+  text-align: center;
+  margin:0vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: pre-line;
+}
+
 .class_insetBoxShadow{
   box-shadow: inset 0vh 0vh 0.4vh 0.2vh rgba(0,0,0,0.3);
 }

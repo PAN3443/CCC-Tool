@@ -34,40 +34,44 @@
 <div id="id_WelcomePage_Welcome" class="class_slidingDiv" style=" background:var(--main-bg-color); width:100%;  height: 0vh; overflow-y:auto;">
 
     <!-- START: Welcome Page Divs-->
-    <div  class="row" style="width:100%; height:100vh;">
+    <div  style="width:100%;">
 
-        <img id="id_welcomePage_Img" src="img/CCCToolComic/welcome.png" style="margin:auto; margin-right:0vw; height:70vh; max-width:50%;">
+        <div  style="width:100%; height:85vh; display:flex; margin-top:10vh;">
+          <img id="id_welcomePage_Img" src="img/CCCToolComic/welcome.png" style="margin:auto; margin-right:0vw; height:70vh; max-width:50%;">
+          <div style="margin:auto; width:50%;">
 
+              <div style="display:flex; height: 20vh; margin-bottom: 5px; display:flex;">
+                <button onclick="switchSection(1)" class="class_coloredButton" style="height:100%; width:40%; font-size: 3vh; margin:auto; margin-right:5px;">Begin</button>
 
-        <div style="margin:auto; width:50%;">
+                <button onclick="tutorialSection.showSection()" class="class_coloredButton" style="height:100%; width:40%; font-size: 3vh; margin:auto; margin-left:0px;">Tutorials</button>
+              </div>
 
-            <div style="display:flex; height: 20vh; margin-bottom: 5px; display:flex;">
-              <button onclick="switchSection(1)" class="class_coloredButton" style="height:100%; width:40%; font-size: 3vh; margin:auto; margin-right:5px;">Begin</button>
+              <div style="display:flex; height: 20vh; margin-top: 0px; display:flex;">
+                <button onclick="openNewsPopUp()" class="class_coloredButton" style="height:100%; width:40%; font-size: 3vh; margin:auto; margin-right:5px;">Version News</button>
 
-              <button onclick="tutorialSection.showSection()" class="class_coloredButton" style="height:100%; width:40%; font-size: 3vh; margin:auto; margin-left:0px;">Tutorials</button>
-            </div>
-
-            <div style="display:flex; height: 20vh; margin-top: 0px; display:flex;">
-              <button onclick="openNewsPopUp()" class="class_coloredButton" style="height:100%; width:40%; font-size: 3vh; margin:auto; margin-right:5px;">Version News</button>
-
-              <button onclick="openImpressum()" class="class_coloredButton" style="height:100%; width:40%; font-size: 3vh; margin:auto; margin-left:0px;">Impressum</button>
-            </div>
+                <button onclick="openImpressum()" class="class_coloredButton" style="height:100%; width:40%; font-size: 3vh; margin:auto; margin-left:0px;">Impressum</button>
+              </div>
+          </div>
         </div>
 
-      </div>
+        <svg style="height:5vh; width:100%;" viewBox="0 0 1000 50" preserveAspectRatio="none" >
+          <polygon points="500,50 480,20 520,20" style="fill:var(--main-second-sepArea-bg);"/>
+          <polygon points="500,30 480,0 520,0" style="fill:var(--main-sepArea-bg);"/>
+        </svg>
 
+    </div>
 
-  <div  class="row" style="width:100%; padding-top:10vh; padding-bottom:10vh; background:black;">
-    <div style="margin:auto; width:40vw;">
-      <p id="id_welcomePage_Txt" style="margin-bottom:1vh; color:white;">
-        <strong>Welcome to the CCC-Tool!</strong>
+  <div  style="width:100%; background:var(--main-sepArea-bg); display:flex;">
+    <div style="margin:auto; margin-top:10vh; margin-bottom:10vh; width:40vw;">
+      <p style="color:var(--main-sepArea-font-color); vertical-align:middle; line-height:5vh; font-size:3vh; font-weight:bold;">Welcome to the CCC-Tool!</p>
+      <p style="color:var(--main-sepArea-font-color); vertical-align:middle; line-height:4vh; font-size:2.5vh;">
         <strong>Start</strong> the tool by using the button "Begin". After the click the tool will display the MyDesings section. At this section you can organize your stored colormap specifications (CMS), add new ones, reach the test function and export/import session files.
-        Click at the arrow at the bottom of this page to show the <strong>quick start</strong>. For more help, you can always visit the tutorial page via the menu bar. Enjoy our tool!
+        Scroll down this page to see the <strong>quick start</strong> informations. For more help, you can always visit the tutorial page via the <strong>Navigator Map</strong> ("ctrl+m") . Enjoy our tool!
 
         Best wishes,
         Pascal Nardini.
       </p>
-      <p style="margin-bottom:1vh; color:var(--main-warning-font-color); color:white;">
+      <p style="margin-bottom:1vh; color:white; vertical-align:middle; line-height:4vh; font-size:2.5vh;">
         Please note that the CCC-Tool is under development and this is an early access version. Therefore, some features and tutorial parts are not implemented so far.
       </p>
       <p id="id_welcomePage_InfoTxt" style="color:var(--main-warning-font-color); display:none;">
@@ -76,12 +80,12 @@
     </div>
   </div>
 
-  <div style="width:100%; display:flex; padding-top:5vh; flex-direction: column;">
+  <div style="width:100%; display:flex; flex-direction: column;">
 
-    <p class="sectionLabel" style="color:black;">Quick Start</p>
+    <p style="width:100%; text-align:center; font-size: 5vh; line-height:7vh; font-weight:bold; margin-top:10vh;">Quick Start</p>
 
     <!-- START: Welcome Page Divs-->
-    <div style="width:100%; display:flex; padding-top:5vh;">
+    <div style="width:100%; display:flex; margin-top:20vh;">
 
       <div style="margin:auto; width: 40vw;">
         <p style="height:4vh; line-height:4vh; width:35vw; font-size: 3vh; line-height: 3.5vh; font-weight:bold;">The CCC-Tool</p>
@@ -92,12 +96,32 @@
         </p>
       </div>
 
-      <div class="class_img_container" style="width: 40vw; height: 75vh; margin:auto; margin-left:0vh; background-image: url('img/WelcomePageImages/edit_Example.png');"></div>
+      <div style="margin:auto; width: 40vw; display:flex; flex-direction:column;">
+        <img src="img/WelcomePageImages/edit_Example.png" style="width: 40vw; max-height: 50vh; margin:auto; margin-left:0vh;"></img>
+        <p class="class_figureCaption">1. Figure: Screenshot of the Edit section.</p>
+      </div>
+
 
     </div>
 
+    <div style="width:100%; display:flex; margin-top:20vh; ">
 
-    <div class="class_welcomePage_Div" style="width:100%; background:var(--main-bg-color); display:flex;">
+      <div style="margin:auto; width: 40vw;">
+        <p style="height:4vh; line-height:4vh; width:35vw; font-size: 3vh; line-height: 3.5vh; font-weight:bold;">Tool Structure </p>
+
+        <p style="width:35vw;">
+          The tool is separated into the sections "Welcome", "MyDesings", "Gallery", "New", "Edit" and "Test Functions". For a better overview and navigation, you can use the "Navigator Map" ("ctrl+m"). The MyDesings section is the center of this tool and is used for the management of your cms. You can start with the creation of cms with a collection of recommended colormaps at the Gallery-Section or with a completely new cms at the New section. At the Edit section, you can edit keys, add predefined cms or constant bands, change the interpolation color space, analyze for perceptual uniformity or order, and observe colorblindness. You can always export a colormap at the MyDesings, Gallery, and Edit section. Additional, it is possible to export a full session file at the MyDesings section, where you can also import cms- or session-files.
+        </p>
+      </div>
+
+      <div style="margin:auto; width: 40vw; display:flex; flex-direction:column;">
+        <img src="img/WelcomePageImages/navi_Example.png" style="width: 40vw; max-height: 50vh; margin:auto; margin-left:0vh;"></img>
+        <p class="class_figureCaption">2. Figure: Screenshot of the Navigator Map.</p>
+      </div>
+
+    </div>
+
+    <div style="width:100%; display:flex; margin-top:20vh;">
 
 
       <div style="margin:auto; width: 40vw;">
@@ -125,12 +149,14 @@
         </ul>
       </div>
 
-      <div class="class_img_container" style="width: 40vw; height: 75vh; margin:auto; margin-left:0vh; background-image: url('img/WelcomePageImages/cms_Example.png');"></div>
+      <div style="margin:auto; width: 40vw; display:flex; flex-direction:column;">
+        <img src="img/WelcomePageImages/cms_Example.png" style="width: 40vw; max-height: 50vh; margin:auto; margin-left:0vh;"></img>
+        <p class="class_figureCaption">3. Figure: Examples for the use of the CMS keys.</p>
+      </div>
 
     </div>
 
-    <div style="width:100%; display:flex; padding-top:5vh;">
-
+    <div style="width:100%; display:flex; margin-top:20vh; margin-bottom:10vh;">
 
       <div style="margin:auto; width: 40vw;">
         <p style="height:4vh; line-height:4vh; width:35vw; font-size: 3vh; line-height: 3.5vh; font-weight:bold;">CMS Visualization</p>
@@ -140,58 +166,16 @@
         </p>
       </div>
 
-      <div class="class_img_container" style="width: 40vw; height: 75vh; margin:auto; margin-left:0vh; background-image:url('img/WelcomePageImages/cmsVis_Example.png');"></div>
-
-    </div>
-
-
-    <div style="width:100%; display:flex; padding-top:5vh;">
-
-
-      <div style="margin:auto; width: 40vw;">
-        <p style="height:4vh; line-height:4vh; width:35vw; font-size: 3vh; line-height: 3.5vh; font-weight:bold;">Tool Structure </p>
-
-        <p style="width:35vw;">
-          The tool is separated into the sections "Welcome", "MyDesings", "Gallery", "New", "Edit" and "Test Functions". For a better overview and navigation, you can click at the "Navi" button at the menu bar. The MyDesings section is the center of this tool and is used for the management of your cms. You can start with the creation of cms with a collection of recommended colormaps at the Gallery-Section or with a completely new cms at the New section. At the Edit section, you can edit keys, add predefined cms or constant bands, change the interpolation color space, analyze for perceptual uniformity or order, and observe colorblindness. You can always export a colormap at the MyDesings, Gallery, and Edit section. Additional, it is possible to export a full session file at the MyDesings section, where you can also import cms- or session-files.
-        </p>
+      <div style="margin:auto; width: 40vw; display:flex; flex-direction:column;">
+        <img src="img/WelcomePageImages/cmsVis_Example.png" style="width: 40vw; max-height: 50vh; margin:auto; margin-left:0vh;"></img>
+        <p class="class_figureCaption">4. Figure: Examples for the CMS visualization.</p>
       </div>
 
-      <!--div style="margin:auto; margin-left:0vh;">
-        <div style="width: 40vw; height: 75vh; display:flex;">
-
-          <div id="id_welcomePage_GuideImg_MyDesings" class="class_img_container" style="width: 25%; height: 25%; "></div>
-
-          <div id="id_welcomePage_GuideImg_Navi" class="class_img_container" style="width: 25%; height: 25%;"></div>
-
-          <div id="id_welcomePage_GuideImg_Gallery" class="class_img_container" style="width: 25%; height: 25%;"></div>
-
-          <div id="id_welcomePage_GuideImg_New" class="class_img_container" style="width: 25%; height: 25%;"></div>
-
-        </div>
-        <p id="id_quickGuide_Div_3_FigureLabel"></p>
-      </div-->
-      <div class="class_img_container" style="width: 40vw; height: 75vh; margin:auto; margin-left:0vh; background-image: url('img/WelcomePageImages/navi_Example.png');"></div>
-
     </div>
 
-    <div style="width:100%; display:flex; padding-top:5vh; padding-bottom:5vh; display:none;">
-
-
-      <div style="margin:auto; width: 40vw;">
-        <p style="height:4vh; line-height:4vh; width:35vw; font-size: 3vh; line-height: 3.5vh; font-weight:bold;">Edit</p>
-
-        <p style="width:35vw;">
-          CCC-Tool supports some commonly-used color spaces and color difference metrics, currently including RGB, HSV, CIELAB, CIE94, CIEDE2000, and DIN99.
-        </p>
-      </div>
-
-      <div  class="class_img_container" style="width: 40vw; height: 75vh; margin:auto; margin-left:0vh;"></div>
-
-    </div>
 
 
   </div>
-
 
   <div  style="width:100%; padding-top:10vh; padding-bottom:2vh; background:black;">
 
