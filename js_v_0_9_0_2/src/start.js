@@ -5,10 +5,11 @@ window.onload = function() {
   updateToolVersion();
 
   init_Particles();
-  setParticleCanvas("id_startPage_ParticleCanvas");*/
+  setParticleCanvas("id_startPage_ParticleCanvas");
+  document.getElementById("id_StartPage_Cover").style.display ="none";
+  */
   leaveButton(); // for shadow
   openCCCTool();
-  document.getElementById("id_StartPage_Cover").style.display ="none";
 }
 
 
