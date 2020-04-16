@@ -8,7 +8,7 @@ window.onload = function() {
   setParticleCanvas("id_startPage_ParticleCanvas");*/
   leaveButton(); // for shadow
   openCCCTool();
-
+  document.getElementById("id_StartPage_Cover").style.display ="none";
 }
 
 
