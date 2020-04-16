@@ -1,13 +1,16 @@
 
 .class_EditDropDownMenueSection{
   width:100%;
+  font-family: var(--font-family-button);
+  height: var(--button-height);
+  line-height: var(--button-height);
+  font-size: var(--button-font-size);
+  
   text-align: center;
   vertical-align: middle;
-  font-size: 3vh;
   font-weight:bold;
   background: var(--main-menue-section);
   color: var(--main-menue-font);
-  line-height: 5vh;
   border-bottom: 0.2vh solid var(--main-coloredFont);
   border-top: 0.2vh solid var(--main-coloredFont);
   overflow: hidden;
@@ -15,16 +18,20 @@
 }
 
 .class_EditDropDownMenueButton{
-  font-family: var(--font-family);
+  display:flex;
+  font-family: var(--font-family-button);
+  height: var(--button-height);
+  line-height: var(--button-height);
+  font-size: var(--button-font-size);
+
+  color: var(--main-coloredFont);
+
   background: none;
   border: none;
-  color: var(--main-coloredFont);
   text-align: left;
   padding-left: 1vw;
   text-decoration: none;
-  font-size: 3vh;
-  line-height: 5vh;
-  vertical-align: middle;
+
   overflow: hidden;
   text-overflow: ellipsis;
   cursor: pointer;

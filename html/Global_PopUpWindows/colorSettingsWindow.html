@@ -6,7 +6,7 @@
 
 <div style=" height:auto; background:var(--main-bg-color); width:70vw; border: 0.2vh solid black; margin:auto;">
 
-  <h3 class="class_popupWindow_Label"> Settings: Color Transformation </h3>
+  <h2 class="class_popupWindow_Label"> Settings: Color Transformation </h2>
 
   <div class="class_TabRow">
     <button id="id_PopUp_Select_RGBtoXYZ" onclick="switchColorTransformationSettings(0)" style="height:100%; width:25%; cursor:pointer;">
@@ -25,7 +25,7 @@
 
 
       <div id="id_PopUp_Matrix_Selecter" class="width:100%;">
-        <div  class="row" style="width:100%; margin-top:2vh; margin-bottom:2vh;">
+        <div style="width:100%; margin-top:2vh; margin-bottom:2vh; display:flex;">
 
           <p style="margin-left:auto; margin-right:1vw; ">Select Transformation Matrix:</p>
 
@@ -68,7 +68,7 @@
 
          </div>
 
-         <div class="row" style="width:100%; margin-top:2vh; margin-bottom:2vh; background:rgb(220,220,220); padding-top:2vh; padding-bottom:2vh;">
+         <div style="width:100%; margin-top:2vh; margin-bottom:2vh; background:rgb(220,220,220); padding-top:2vh; padding-bottom:2vh; display:flex;">
 
              <svg class="class_svgBrackets" style="margin-left:auto;">
                <line x1="10%" y1="0%" x2="10%" y2="100%" style="stroke:rgb(0,0,0);stroke-width:0.2vw" />
@@ -139,22 +139,22 @@
 
       <div id="id_PopUp_TransformationValues" style="width:100%; margin-bottom:2vh; margin-top:2vh;">
 
-        <div class="row" style="width:100%;">
+        <div style="width:100%; display:flex;">
 
           <div style="margin-left: auto;">
-            <div class="row" style=" margin-top:0.5vh; margin-bottom:0.5vh;">
+            <div style=" margin-top:0.5vh; margin-bottom:0.5vh; display:flex;">
             <p id="id_PopUp_TransformationValue_Label1">
               ref_X:
             </p>
             <input id="id_PopUp_TransformationValue_Input1" step="any" value="1" style="margin-left: 2vw;">
             </div>
-            <div class="row" style="margin-top:0.5vh; margin-bottom:0.5vh;">
+            <div style="margin-top:0.5vh; margin-bottom:0.5vh; display:flex;">
             <p id="id_PopUp_TransformationValue_Label2">
               ref_Y:
             </p>
             <input id="id_PopUp_TransformationValue_Input2" step="any" value="1" style="margin-left: 2vw;">
             </div>
-            <div id="id_PopUp_TransformationValue_Div3" class="row" style="margin-top:0.5vh; margin-bottom:0.5vh;">
+            <div id="id_PopUp_TransformationValue_Div3" style="margin-top:0.5vh; margin-bottom:0.5vh; display:flex;">
 
             <p id="id_PopUp_TransformationValue_Label3" >
               ref_Z:

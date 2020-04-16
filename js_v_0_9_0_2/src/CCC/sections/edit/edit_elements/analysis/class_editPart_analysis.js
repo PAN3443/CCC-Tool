@@ -69,10 +69,7 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
 
         var tmpSelect = document.createElement('select');
         tmpSelect.id= this.partDivID+"_IntPlotType";
-        tmpSelect.style.width= "5vw";
-        tmpSelect.style.fontSize= "2vh";
-        tmpSelect.style.height= "3vh";
-        tmpSelect.style.lineHeight= "3vh";
+        tmpSelect.style.width= "15vw";
         tmpSelect.onchange = function(){
           if(editSection.isSectionOpen())
             editSection.part_Analysis.updatePart();
@@ -113,37 +110,19 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
 
         tmpInfoDiv.appendChild(this.createOptionColorDiff());
 
-        var tmpP = document.createElement('p');
-        tmpP.style.marginTop = "auto";
-        tmpP.style.marginBottom = "1vh";
+        var tmpP = document.createElement('h2');
         tmpP.innerHTML = "Color Options:";
-        tmpP.style.fontSize = "2.5vh";
-        tmpP.style.fontWeight = "bold";
-        tmpP.style.lineHeight = "3.0vh";
-        tmpP.style.color = "var(--main-font-color)";
         tmpInfoDiv.appendChild(tmpP);
 
         var tmpRow = document.createElement('div');
-        tmpRow.style.display = "flex";
         tmpP = document.createElement('p');
-        tmpP.style.margin = "auto";
-        tmpP.style.marginLeft = "0vw";
-        tmpP.style.marginBottom = "1vh";
         tmpP.innerHTML = "Continuous Section:";
-        tmpP.style.fontSize = "2.0vh";
-        tmpP.style.fontWeight = "bold";
-        tmpP.style.lineHeight = "3.0vh";
-        tmpP.style.color = "var(--main-font-color)";
         tmpRow.appendChild(tmpP);
 
         var tmpSelect = document.createElement('select');
         tmpSelect.id= this.partDivID+"_KeySetSelection";
-        tmpSelect.style.margin = "auto";
-        tmpSelect.style.marginRight = "0vw";
-        tmpSelect.style.width= "5vw";
-        tmpSelect.style.fontSize= "2.0vh";
-        tmpSelect.style.height= "3vh";
-        tmpSelect.style.lineHeight= "3vh";
+        tmpSelect.style.width= "18vw";
+        tmpSelect.style.maxWidth= "18vw";
         tmpSelect.onchange = function(){
           if(editSection.isSectionOpen())
             editSection.part_Analysis.updatePart();
@@ -163,14 +142,9 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
         document.getElementById(this.partDivID).style.flexDirection="row";
         var tmpWidth = (this.analysis_Width_VW/2)-3;
         var tmpInfoDiv = this.creatInfoDiv(tmpWidth,this.analysis_Height_VH);
-        var tmpP = document.createElement('p');
+        var tmpP = document.createElement('h2');
         tmpP.style.marginTop = "auto";
-        tmpP.style.marginBottom = "1vh";
         tmpP.innerHTML = "Color Options:";
-        tmpP.style.fontSize = "2.5vh";
-        tmpP.style.fontWeight = "bold";
-        tmpP.style.lineHeight = "3.0vh";
-        tmpP.style.color = "var(--main-font-color)";
         tmpInfoDiv.appendChild(tmpP);
         tmpInfoDiv.appendChild(this.createOptionUseColors());
         document.getElementById(this.partDivID).appendChild(tmpInfoDiv);
@@ -188,20 +162,12 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
         tmpDiv.style.margin="auto";
         var tmpP = document.createElement('p');
         tmpP.innerHTML = "Local Order";
-        tmpP.style.fontSize = "2vh";
-        tmpP.style.fontWeight = "bold";
-        tmpP.style.verticalAlign = "middle";
-        tmpP.style.lineHeight = "3vh";
         tmpDiv.appendChild(tmpP);
 
         tmpDiv.appendChild(this.createAnalysisCanvas(tmpWidth,this.analysis_Height_VH-8, this.partDivID+"_IntOrderCanvas"));
 
         tmpP = document.createElement('p');
         tmpP.innerHTML = "Global Order";
-        tmpP.style.fontSize = "2vh";
-        tmpP.style.fontWeight = "bold";
-        tmpP.style.lineHeight = "3vh";
-        tmpP.style.verticalAlign = "middle";
         tmpDiv.appendChild(tmpP);
         document.getElementById(this.partDivID).appendChild(tmpDiv);
       break;
@@ -219,7 +185,7 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
     tmpCanvas.style.height=tmpHeigh+"vh";
     tmpCanvas.style.maxHeight=tmpWidth+"vw";
     tmpCanvas.style.margin="auto";
-    tmpCanvas.style.background="url(img/EditPage/plotBackground.png)";
+    tmpCanvas.style.background="url(../../img/EditPage/plotBackground.png)";
     tmpCanvas.style.backgroundSize="cover";
     tmpCanvas.style.backgroundRepeat="no-repeat";
     tmpCanvas.style.backgroundPosition="center center";
@@ -241,26 +207,16 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
     tmpDiv.style.marginBottom = "auto";
 
     var tmpRow = document.createElement('div');
-    tmpRow.style.display = "flex";
     var tmpP = document.createElement('p');
     tmpP.style.margin = "auto";
     tmpP.style.marginLeft = "0vw";
-    tmpP.style.marginBottom = "1vh";
     tmpP.innerHTML = "Use Colors:";
-    tmpP.style.fontSize = "2.0vh";
-    tmpP.style.fontWeight = "bold";
-    tmpP.style.lineHeight = "3.0vh";
-    tmpP.style.color = "var(--main-font-color)";
     tmpRow.appendChild(tmpP);
 
     var tmpSelect = document.createElement('select');
     tmpSelect.id= this.partDivID+"_UsedColors";
-    tmpSelect.style.margin = "auto";
-    tmpSelect.style.marginRight = "0vw";
-    tmpSelect.style.width= "5vw";
-    tmpSelect.style.fontSize= "2.0vh";
-    tmpSelect.style.height= "3vh";
-    tmpSelect.style.lineHeight= "3vh";
+    tmpSelect.style.width= "18vw";
+    tmpSelect.style.maxWidth= "18vw";
     tmpSelect.onchange = function(){
       if(editSection.isSectionOpen())
         editSection.part_Analysis.updatePart();
@@ -286,29 +242,17 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
     tmpDiv.appendChild(tmpRow);
 
     var tmpRow = document.createElement('div');
-    tmpRow.style.display = "flex";
     tmpRow.id= this.partDivID+"_IntervalDiv";
     tmpP = document.createElement('p');
-    tmpP.style.margin = "auto";
-    tmpP.style.marginLeft = "0vw";
-    tmpP.style.marginBottom = "1vh";
     tmpP.innerHTML = "#Intervals:";
-    tmpP.style.fontSize = "2.0vh";
-    tmpP.style.fontWeight = "bold";
-    tmpP.style.lineHeight = "3.0vh";
-    tmpP.style.color = "var(--main-font-color)";
     tmpRow.appendChild(tmpP);
 
     var tmpInput = document.createElement('input');
     tmpInput.type = "number";
     tmpInput.id= this.partDivID+"_NumIntervals";
     tmpInput.value = 20;
-    tmpInput.style.margin = "auto";
-    tmpInput.style.marginRight = "0vw";
-    tmpInput.style.width= "5vw";
-    tmpInput.style.fontSize= "2.0vh";
-    tmpInput.style.height= "3vh";
-    tmpInput.style.lineHeight= "3vh";
+    tmpInput.style.width= "18vw";
+    tmpInput.style.maxWidth= "18vw";
     tmpInput.onchange = function(){
       if(editSection.isSectionOpen())
         editSection.part_Analysis.updatePart();
@@ -327,7 +271,6 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
     tmpDiv.style.width= tmpWidth+"vw";
     tmpDiv.style.height= tmpHeight+"vh";
     tmpDiv.style.display="flex";
-    tmpDiv.style.fontWeight="bold";
     tmpDiv.style.flexDirection="column";
     tmpDiv.style.paddingTop = "1vh";
     tmpDiv.style.paddingBottom = "1vh";
@@ -335,46 +278,34 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
     tmpDiv.style.paddingRight = "1vw";
     //tmpDiv.style.background = "var(--main-sepArea-bg)";
 
-    var tmpP = document.createElement('p');
+    var tmpP = document.createElement('h2');
     tmpP.style.marginTop = "auto";
-    tmpP.style.marginBottom = "1vh";
     tmpP.innerHTML = "Statistic:";
-    tmpP.style.fontSize = "2.5vh";
-    tmpP.style.lineHeight = "3.0vh";
-    tmpP.style.color = "var(--main-font-color)";
     tmpDiv.appendChild(tmpP);
 
     tmpP = document.createElement('p');
     tmpP.id=this.partDivID+"_InfoMax";
-    tmpP.style.fontSize = "2.0vh";
-    tmpP.style.lineHeight = "3.0vh";
-    tmpP.style.color = "var(--main-font-color)";
     tmpP.innerHTML = "Max:";
+    tmpP.style.height = "var(--line-height-normal)";
     tmpDiv.appendChild(tmpP);
 
     tmpP = document.createElement('p');
     tmpP.id=this.partDivID+"_InfoMin";
-    tmpP.style.fontSize = "2.0vh";
-    tmpP.style.lineHeight = "3.0vh";
-    tmpP.style.color = "var(--main-font-color)";
     tmpP.innerHTML = "Min:";
+    tmpP.style.height = "var(--line-height-normal)";
     tmpDiv.appendChild(tmpP);
 
     tmpP = document.createElement('p');
     tmpP.id=this.partDivID+"_InfoAverage";
-    tmpP.style.fontSize = "2.0vh";
-    tmpP.style.lineHeight = "3.0vh";
-    tmpP.style.color = "var(--main-font-color)";
     tmpP.innerHTML = "Average:";
+    tmpP.style.height = "var(--line-height-normal)";
     tmpDiv.appendChild(tmpP);
 
     tmpP = document.createElement('p');
     tmpP.id=this.partDivID+"_InfoDeviation";
-    tmpP.style.fontSize = "2.0vh";
-    tmpP.style.lineHeight = "3.0vh";
     tmpP.style.marginBottom = "auto";
-    tmpP.style.color = "var(--main-font-color)";
     tmpP.innerHTML = "Deviation:";
+    tmpP.style.height = "var(--line-height-normal)";
     tmpDiv.appendChild(tmpP);
 
     return tmpDiv;
@@ -387,9 +318,9 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
       tmpDiv.style.display = "flex";
       tmpDiv.style.margin = "auto";
       var tmpLabel=document.createElement('p');
+      tmpLabel.style.fontFamily = "var(--font-family-SpecialText)";
       tmpLabel.style.width="20%";
       tmpLabel.style.color="var(--main-font-color)";
-      tmpLabel.style.fontSize=(height*0.5)+"vh";
       tmpLabel.style.height=height+"vh";
       tmpLabel.style.lineHeight=height+"vh";
       tmpLabel.style.margin="auto";
@@ -406,39 +337,22 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
   }
 
   createOptionColorDiff(){
-    var tmpDiv = document.createElement('p');
+    var tmpDiv = document.createElement('div');
     tmpDiv.style.marginBottom = "auto";
-    var tmpP = document.createElement('p');
-    tmpP.style.marginBottom = "1vh";
+    var tmpP = document.createElement('h2');
     tmpP.innerHTML = "Metric Options:";
-    tmpP.style.fontSize = "2.5vh";
-    tmpP.style.fontWeight = "bold";
-    tmpP.style.lineHeight = "3.0vh";
-    tmpP.style.color = "var(--main-font-color)";
     tmpDiv.appendChild(tmpP);
 
     var tmpRow = document.createElement('div');
-    tmpRow.style.display = "flex";
     tmpP = document.createElement('p');
-    tmpP.style.margin = "auto";
-    tmpP.style.marginLeft = "0vw";
-    tmpP.style.marginBottom = "1vh";
     tmpP.innerHTML = "Use Color Difference:";
-    tmpP.style.fontSize = "2.0vh";
-    tmpP.style.fontWeight = "bold";
-    tmpP.style.lineHeight = "3.0vh";
-    tmpP.style.color = "var(--main-font-color)";
     tmpRow.appendChild(tmpP);
 
 
     var tmpSelect = document.createElement('select');
     tmpSelect.id= this.partDivID+"_UseMetric";
-    tmpSelect.style.margin = "auto";
-    tmpSelect.style.marginRight = "0vw";
-    tmpSelect.style.width= "5vw";
-    tmpSelect.style.fontSize= "2.0vh";
-    tmpSelect.style.height= "3vh";
-    tmpSelect.style.lineHeight= "3vh";
+    tmpSelect.style.width= "18vw";
+    tmpSelect.style.maxWidth= "18vw";
     tmpSelect.onchange = function(){
       if(editSection.isSectionOpen())
         editSection.part_Analysis.updatePart();
@@ -1061,16 +975,20 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
       var variance = sumForVariance/sumBands;
       var deviation = Math.sqrt(variance);
 
-      document.getElementById(this.partDivID+"_InfoMin").innerHTML = "Minimum".bold() +" = "+ min.toFixed(this.numDecimalPlaces);
+      document.getElementById(this.partDivID+"_InfoMin").innerHTML = "Minimum = "+ min.toFixed(this.numDecimalPlaces);
+      document.getElementById(this.partDivID+"_InfoMin").title = "Minimum = "+ min;
 
       if(min==0)
         document.getElementById(this.partDivID+"_InfoMin").style.color = getComputedStyle(document.documentElement).getPropertyValue('--general-warning-color');
       else
         document.getElementById(this.partDivID+"_InfoMin").style.color = "var(--main-font-color)"; //getComputedStyle(document.documentElement).getPropertyValue('--main-sepArea-font-color');
 
-      document.getElementById(this.partDivID+"_InfoMax").innerHTML = "Maximum".bold() +" = "+ max.toFixed(this.numDecimalPlaces);
-      document.getElementById(this.partDivID+"_InfoAverage").innerHTML = "Average".bold() +" = "+ average.toFixed(this.numDecimalPlaces);
-      document.getElementById(this.partDivID+"_InfoDeviation").innerHTML = "Deviation".bold() +" = "+ deviation.toFixed(this.numDecimalPlaces);
+      document.getElementById(this.partDivID+"_InfoMax").innerHTML = "Maximum = "+ max.toFixed(this.numDecimalPlaces);
+      document.getElementById(this.partDivID+"_InfoMax").title = "Maximum = "+ max;
+      document.getElementById(this.partDivID+"_InfoAverage").innerHTML = "Average = "+ average.toFixed(this.numDecimalPlaces);
+      document.getElementById(this.partDivID+"_InfoAverage").title = "Average = "+ average;
+      document.getElementById(this.partDivID+"_InfoDeviation").innerHTML = "Deviation = "+ deviation.toFixed(this.numDecimalPlaces);
+      document.getElementById(this.partDivID+"_InfoDeviation").title = "Deviation = "+ deviation;
 
       this.workCMS.deleteReferences();
 
@@ -1336,16 +1254,20 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
       var deviation = Math.sqrt(variance);
 
 
-      document.getElementById(this.partDivID+"_InfoMin").innerHTML = "Speed Minimum".bold() +" = "+ min.toFixed(this.numDecimalPlaces);
+      document.getElementById(this.partDivID+"_InfoMin").innerHTML = "Minimum = "+ min.toFixed(this.numDecimalPlaces);
+      document.getElementById(this.partDivID+"_InfoMin").title = "Minimum = "+ min;
 
       if(min==0)
       document.getElementById(this.partDivID+"_InfoMin").style.color = getComputedStyle(document.documentElement).getPropertyValue('--general-warning-color');
       else
       document.getElementById(this.partDivID+"_InfoMin").style.color = "var(--main-font-color)"; //getComputedStyle(document.documentElement).getPropertyValue('--main-sepArea-font-color');
 
-      document.getElementById(this.partDivID+"_InfoMax").innerHTML = "Speed Maximum".bold() +" = "+ max.toFixed(this.numDecimalPlaces);
-      document.getElementById(this.partDivID+"_InfoAverage").innerHTML = "Speed Average".bold() +" = "+ average.toFixed(this.numDecimalPlaces);
-      document.getElementById(this.partDivID+"_InfoDeviation").innerHTML = "Speed Deviation".bold() +" = "+ deviation.toFixed(this.numDecimalPlaces);
+      document.getElementById(this.partDivID+"_InfoMax").innerHTML = "Maximum = "+ max.toFixed(this.numDecimalPlaces);
+      document.getElementById(this.partDivID+"_InfoMax").title = "Maximum = "+ max;
+      document.getElementById(this.partDivID+"_InfoAverage").innerHTML = "Average = "+ average.toFixed(this.numDecimalPlaces);
+      document.getElementById(this.partDivID+"_InfoAverage").title = "Average = "+ average;
+      document.getElementById(this.partDivID+"_InfoDeviation").innerHTML = "Deviation = "+ deviation.toFixed(this.numDecimalPlaces);
+      document.getElementById(this.partDivID+"_InfoDeviation").title = "Deviation = "+ deviation;
 
       for (var i = colorArray.length-1; i >=0; i--){
         colorArray[i].deleteReferences();
@@ -1726,8 +1648,10 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
   else
     document.getElementById(this.partDivID+"_InfoGlobalMin").style.color = "var(--main-font-color)";//getComputedStyle(document.documentElement).getPropertyValue('--main-sepArea-font-color');
 
-  document.getElementById(this.partDivID+"_InfoLocalMin").innerHTML = "Local Minimum".bold()+" = " + minLocal; //.toFixed(numDecimalPlaces);
-  document.getElementById(this.partDivID+"_InfoGlobalMin").innerHTML = "Global Minimum".bold()+" = " + minGlobal; //.toFixed(numDecimalPlaces);*/
+  document.getElementById(this.partDivID+"_InfoLocalMin").innerHTML = "Local Minimum = " + minLocal.toFixed(this.numDecimalPlaces); //.toFixed(numDecimalPlaces);
+  document.getElementById(this.partDivID+"_InfoLocalMin").title = "Local Minimum = " + minLocal;
+  document.getElementById(this.partDivID+"_InfoGlobalMin").innerHTML = "Global Minimum = " + minGlobal.toFixed(this.numDecimalPlaces); //.toFixed(numDecimalPlaces);*/
+  document.getElementById(this.partDivID+"_InfoGlobalMin").innerHTML = "Global Minimum = " + minGlobal;
   this.workCMS.deleteReferences();
 }
 

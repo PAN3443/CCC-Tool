@@ -70,7 +70,7 @@ self.addEventListener('message', function(e) {
   switch (e.data.message) {
 
     case "init":
-      self.importScripts('../../../global/worker/general_processingCases.js');
+      self.importScripts('../../../../Global/worker/general_processingCases.js');
 
       self.importScripts('../../../../Global/color/class_Colorspace_Basis.js');
       self.importScripts('../../../../Global/color/class_Colorspace_RGB.js');

@@ -38,7 +38,7 @@ var errorMath = 1e12;
 self.addEventListener('message', function(e) {
   switch (e.data.message) {
     case "init":
-      self.importScripts('../worker/general_processingCases.js');
+      self.importScripts('general_processingCases.js');
 
       tmXYZ_Selected = [
         [0.4124564, 0.3575761, 0.1804375],

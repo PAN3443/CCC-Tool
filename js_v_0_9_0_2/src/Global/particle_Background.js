@@ -84,8 +84,8 @@ class class_Particle{
      var vecL = vecLength(tmp_vec);
      if(vecL<2){
        // for vibration
-       this.color_v=0.3;
-       this.color_s=0.0;
+       //this.color_v=0.3;
+       //this.color_s=0.0;
        this.direction_X = 0;
        this.direction_Y = 0;
      }

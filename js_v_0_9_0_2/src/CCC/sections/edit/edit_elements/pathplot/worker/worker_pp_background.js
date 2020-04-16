@@ -57,7 +57,7 @@ self.addEventListener('message', function(e) {
       self.importScripts('../../../../../../Global/color/class_Colorspace_LCH.js');
       self.importScripts('../../../../../../Global/color/class_Colorspace_DIN99.js');
 
-      self.importScripts('../../../../../global/worker/general_processingCases.js');
+      self.importScripts('../../../../../../Global/worker/general_processingCases.js');
       self.importScripts('../../../../../../Global/helper/math.js');
     break;
     case "getBackground":

@@ -152,7 +152,7 @@ class class_Gallery_Section extends class_Section {
     for (var i = 0; i < this.predefinedCMS[this.selectedID].length; i++) {
 
       var divRow = document.createElement("div");
-      divRow.className = "row";
+      divRow.style.display = "flex";
       divRow.style.width = "100%";
 
 

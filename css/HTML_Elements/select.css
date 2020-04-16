@@ -1,6 +1,5 @@
 
 select{
-  font-family: var(--font-family);
   font-size: var(--font-size-normal);
   line-height: var(--line-height-normal);
   background: var(--input-bg-color);
@@ -15,70 +14,42 @@ select{
   text-overflow: ellipsis;
 }
 
-select option{
-  font-family: var(--font-family);
+optgroup{
+  width: 100%;
+  text-align: center;
+  color: var(--main-sepArea-font-color);
+  background: var(--main-second-sepArea-bg);
+  font-size: var(--font-size-normal);
+  line-height: var(--line-height-normal);
+  padding-left: 1vw;
+  padding-right: 1vw;
+}
+
+ option{
   font-size: var(--font-size-normal);
   line-height: var(--line-height-normal);
   background: var(--input-bg-color);
   color: var(--input-font-color);
+  padding-left: 1vw;
+  padding-right: 1vw;
 }
 
-select option:hover {
-  background: red;/*var(--general-hover-color);*/
-  outline:0;
-}
-
-select option:focus {
-  outline:0; /* */
-  background: var(--general-active-color);
-}
-
-select option::selection {
-  outline:0; /* */
-  background: var(--general-active-color);
-}
-
-select option:disabled{
-  color: var(--input-disabled-font-color);
-  background: var(--input-disabled-bg-color);
-  cursor: not-allowed;
-}
-
-
-select optgroup{
-  color: var(--input-font-color);
-  font-family: var(--font-family);
-  font-size: var(--font-size-normal);
-  font-weight: bold;
-  text-decoration: underline;
-  line-height: var(--line-height-normal);
-  background: none;
-}
-
-select optgroup option{
-  font-family: var(--font-family);
-  font-size: var(--font-size-normal);
-  line-height: var(--line-height-normal);
-  background: var(--input-bg-color);
-  color: var(--input-font-color);
-}
-
-select optgroup option:hover {
+option:hover {
   background: var(--general-hover-color);
   outline:0;
 }
 
-select optgroup option:focus {
+option:focus {
   outline:0; /* */
   background: var(--general-active-color);
 }
 
-select optgroup option::selection {
+option::selection {
   outline:0; /* */
   background: var(--general-active-color);
 }
 
-select optgroup option:disabled{
+option:disabled{
   color: var(--input-disabled-font-color);
   background: var(--input-disabled-bg-color);
   cursor: not-allowed;

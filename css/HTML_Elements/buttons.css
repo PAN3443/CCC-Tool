@@ -3,7 +3,10 @@ button:focus {outline:0;}
 
 
 .class_coloredButton{
-  font-family: var(--font-family);
+  font-family: var(--font-family-button);
+  height: var(--button-height);
+  line-height: var(--button-height);
+  font-size: var(--button-font-size);
   background-color: var(--main-coloredButton); /* Green */
   font-weight:bold;
   color: var(--main-coloredFont);
@@ -11,9 +14,6 @@ button:focus {outline:0;}
   text-decoration: none;
   /*display: inline-block;*/
   border:none;
-  height: var(--button-height);
-  line-height: var(--button-height);
-  font-size: var(--button-font-size);
   vertical-align: middle;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -27,11 +27,13 @@ button:focus {outline:0;}
 }
 
 .class_coloredButton p{
-  text-align: center;
-  text-decoration: none;
+  font-family: var(--font-family-button);
+  font-family: var(--font-family-button);
   height: var(--button-height);
   line-height: var(--button-height);
   font-size: var(--button-font-size);
+  text-align: center;
+  text-decoration: none;
   transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
 }
 
@@ -42,7 +44,10 @@ button:focus {outline:0;}
 
 
 .class_coloredButton_Dark{
-  font-family: var(--font-family);
+  font-family: var(--font-family-button);
+  height: var(--button-height);
+  line-height: var(--button-height);
+  font-size: var(--button-font-size);
   background-color: var(--main-coloredButton_Dark);
   box-sizing: content-box;
   font-weight:bold;
@@ -51,9 +56,6 @@ button:focus {outline:0;}
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  height: var(--button-height);
-  line-height: var(--button-height);
-  font-size: var(--button-font-size);
   transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
   text-align:center;
   overflow: auto;
@@ -77,11 +79,10 @@ button:focus {outline:0;}
   max-width: 3.5vh;
   max-height: 3.5vh;
   font-size: 2.0vh;
-  line-height: 3vh;
+  line-height: 3.5vh;
   margin-left: 0.25vw;
   margin-right: 0.25vw;
-
-  font-family: var(--font-family);
+  font-family: var(--font-family-button);
   box-sizing: content-box;
   font-weight:bold;
   border: none;
@@ -106,46 +107,11 @@ button:focus {outline:0;}
 }
 
 
-.class_Test_ShowTestButton{
-  width:auto;
-  cursor:pointer;
-  vertical-align: middle;
-  text-align:center;
-  height: 4vh;
-  line-height: 4vh;
-
-  font-size: 2.5vh;
-  font-weight: bold;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  cursor: pointer;
-
-  box-sizing: border-box;
-
-  transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
-
-  color: var(--main-Button-sepArea-font-color);
-  /*text-shadow: 0 0 1vh rgba(175,255,255, 0.5);*/
-  -webkit-background-clip: text;
-     -moz-background-clip: text;
-          background-clip: text;
-
-
-}
-
-.class_Test_ShowTestButton:hover{
-  transform: scale(0.9);
-  color: var(--main-Button-sepArea-font-hover);
-  /*text-shadow: 0 0 1vh rgba(10, 239, 251, 0.5);*/
-  -webkit-background-clip: text;
-     -moz-background-clip: text;
-          background-clip: text;
-}
-
-
-
 .class_coloredButton_Deactivated{
-  font-family: var(--font-family);
+  font-family: var(--font-family-button);
+  height: var(--button-height);
+  line-height: var(--button-height);
+  font-size: var(--button-font-size);
   background-color: var(--main-coloredButton); /* Green */
   font-weight:bold;
   color: var(--main-coloredFont-deactivated);
@@ -153,9 +119,6 @@ button:focus {outline:0;}
   text-decoration: none;
   /*display: inline-block;*/
   border:none;
-  height: var(--button-height);
-  line-height: var(--button-height);
-  font-size: var(--button-font-size);
   vertical-align: middle;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -171,12 +134,12 @@ button:focus {outline:0;}
 .class_naviButton_Deactive{
   height:10vh;
   width:15vw;
-  font-size: 3vh;
   margin:auto;
   cursor:not-allowed;
   color:var(--main-sepArea-font-color);
   background-color: var(--main-second-sepArea-bg);
-  font-family: var(--font-family);
+  font-family: var(--font-family-button);
+  font-size: var(--button-font-size);
   font-weight:bold;
   text-align: center;
   text-decoration: none;
@@ -188,12 +151,12 @@ button:focus {outline:0;}
 .class_naviButton_Current{
   height:10vh;
   width:15vw;
-  font-size: 3vh;
   margin:auto;
   cursor:not-allowed;
   color:var(--main-sepArea-font-color);
   background-color: rgb(102, 102, 255);
-  font-family: var(--font-family);
+  font-family: var(--font-family-button);
+  font-size: var(--button-font-size);
   font-weight:bold;
   text-align: center;
   text-decoration: none;
@@ -206,9 +169,9 @@ button:focus {outline:0;}
 .class_naviButton{
   height:10vh;
   width:15vw;
-  font-size: 3vh;
   margin:auto;
-  font-family: var(--font-family);
+  font-family: var(--font-family-button);
+  font-size: var(--button-font-size);
   background-color: var(--main-coloredButton); /* Green */
   font-weight:bold;
   color: var(--main-coloredFont);

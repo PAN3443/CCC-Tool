@@ -1,15 +1,15 @@
 window.onload = function() {
 
-  /*includeHTML();
+  includeHTML();
 
   updateToolVersion();
 
   init_Particles();
   setParticleCanvas("id_startPage_ParticleCanvas");
   document.getElementById("id_StartPage_Cover").style.display ="none";
-  */
+  //*/
   leaveButton(); // for shadow
-  openCCCTool();
+  //openCCCTool();
 }
 
 

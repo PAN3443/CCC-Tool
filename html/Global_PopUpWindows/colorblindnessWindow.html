@@ -6,10 +6,10 @@
 
 <div style=" height:auto; background:var(--main-bg-color); width:60vw; border: 0.2vh solid black; margin:auto;">
 
-  <h3 class="class_popupWindow_Label"> Color-Blindness Settings </h3>
+  <h2 class="class_popupWindow_Label"> Color-Blindness Settings </h2>
 
 
-    <div class="row" style="width:100%;width:60vw; margin-top:2vh; margin-bottom:2vh;">
+    <div style="width:100%;width:60vw; margin-top:2vh; margin-bottom:2vh; display:flex;">
 
       <p style="margin-left:auto; margin-right:3vw; font-weight:bold; "> Select: </p>
 
@@ -33,7 +33,7 @@
 
       <div id="AnomalousTrichomacy_Dichromatism_View_Div" style="margin-top:2vh; margin-bottom:2vh;">
 
-          <div class="row" style="margin-top: 1vh;">
+          <div style="margin-top: 1vh; display:flex;">
 
             <label class="class_radio_container" style="margin-left:5%;">Protanomaly (Red Weak)
               <input type="radio" checked="checked" name="selectColorblindnessDichromatism" id="id_radio_Protanopia" onchange="changeColorblindnessType() " checked>
@@ -46,7 +46,7 @@
 
           </div>
 
-          <div class="row" style="margin-top: 1vh;">
+          <div  style="margin-top: 1vh; display:flex;">
 
             <label class="class_radio_container" style="margin-left:5%;">Deuteranomaly (Green Weak)
               <input type="radio" checked="checked" name="selectColorblindnessDichromatism" id="id_radio_Deuteranopia" onchange="changeColorblindnessType() " checked>
@@ -58,7 +58,7 @@
             <p id="DeuteranopiaLabel" style=" margin:auto; margin-left:2vw; visibility:hidden;"> &rarr; Deuteranopia (Green Blind) </p>
           </div>
 
-          <div class="row" style="margin-top: 1vh;">
+          <div style="margin-top: 1vh; display:flex;">
 
             <label class="class_radio_container" style="margin-left:5%;">Tritanomaly (Blue Weak)
               <input type="radio" checked="checked" name="selectColorblindnessDichromatism" id="id_radio_Tritanopes" onchange="changeColorblindnessType() " checked>
@@ -75,12 +75,12 @@
 
 
       <!--div id="Monochromatic_View_Div" style="width:100%; display:none;">
-            <div class="row">
+            <div style="display:flex;">
                 <input id="id_radio_Achromatopsia" style="margin-left:auto;" type="radio" name="selectColorblindness" value="0">
                 <p style=" text-align:left; height:30px; line-height:30px; font-size:18px; vertical-align:middle; margin-left:5%; margin-right:auto; width:50%;"> Achromatopsia </p>
             </div>
 
-            <div class="row">
+            <div style="display:flex;">
               <input id="id_radio_BlueCone" style="margin-left:auto;" type="radio" name="selectColorblindness" value="0">
               <p style=" text-align:left; height:30px; line-height:30px; font-size:18px; vertical-align:middle; margin-left:5%; margin-right:auto; width:50%;"> Blue Cone Monochromatism</p>
             </div>
@@ -92,7 +92,7 @@
       <div style="width: 100%; padding-bottom:2vh;">
         <p class="sectionLabel" style="margin-top:2vh; margin-bottom:1vh; background: var(--main-popUpWindow-labelbg-color);"> Transformation Matrix: </p>
 
-        <div class="row" style="width:60vw; margin-top:2vh; margin-bottom:2vh;">
+        <div style="width:60vw; margin-top:2vh; margin-bottom:2vh; display:flex;">
 
             <svg class="class_svgBrackets" style="margin-left:auto;">
               <line x1="10%" y1="0%" x2="10%" y2="100%" style="stroke: var(--main-font-color);stroke-width:0.2vw" />

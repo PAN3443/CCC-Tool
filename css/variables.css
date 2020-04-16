@@ -1,16 +1,24 @@
 :root {
 
-  --font-size-normal:2vh;
-  --line-height-normal:2.5vh;
+  --font-size-normal:1.8vh;
+  --line-height-normal:2.2vh;
 
-  --font-size-label:3.5vh;
-  --line-height-label:5vh;
+  --font-size-h2:3vh;
+  --line-height-h2:5vh;
 
-  --button-font-size :1.6vh;
+  --font-size-h1:6vh;
+  --line-height-h1:8vh;
+
+  --button-font-size :2vh;
   --button-height:3vh;
   --button-border-radius:0.75vh;
 
-  --font-family:'Helvetica', 'Arial', sans-serif;
+  --font-family-text: 'CCCTextFont';
+  --font-family-button: 'CCCButtonFont';
+  --font-family-section: 'CCCSectionLabelFont';
+  --font-family-cccLabel: 'CCCLableFont';
+  --font-family-figCaption: 'CCCFigCaption';
+  --font-family-SpecialText: 'CCCSpecialText';
 
   /**************************************
   /**************************************
@@ -41,7 +49,7 @@
   --main-bg-color:rgb(255,255,255);
   --main-bg-color-alpha:rgba(255,255,255,0.85);
   --main-second-bg-color:rgb(225,225,225);
-  --main-font-color:rgb(10,10,10);
+  --main-font-color:rgb(30,30,30);
   --main-border:rgb(0, 0, 0);
   --main-font-notactive-color:rgb(120,120,120);
   --main-warning-font-color:rgb(224,108,117);

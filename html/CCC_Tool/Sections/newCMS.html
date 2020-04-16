@@ -2,7 +2,7 @@
 ---------------- 	Section New CMS	 --------------
 ------------------------------------------------->
 
-<div class="row" style="height: 100%; width:100%; flex-direction:column; background:var(--main-bg-color);">
+<div style="display:flex; height: 100%; width:100%; flex-direction:column; background:var(--main-bg-color);">
 
  <!--div style="height: 100%; width:12vw; background:var(--main-sepArea-bg);">
    <p class="sectionLabel" style="width:100%; margin:auto; margin-top:5vh;">New CMS</p>
@@ -15,25 +15,25 @@
 
   <div class="class_OptionDiv" style="margin:auto; height:50vh; width: 55vw; display:flex; flex-direction:column;">
 
-     <p style="font-weight:bold; margin:auto; margin-left:2vw; margin-bottom:0vh; font-size: 2.5vh; line-height:5vh;">Name: </p>
-     <input type="text" id="id_newPage_ColormapName" style="width: 35vw; margin-left:2vw; margin-top:2vh; padding:0.5vh; font-size: 2.5vh; height: 5vh; line-height:5vh;" name="mapname" placeholder="Please enter a name for your colormap" />
+     <h2 style="margin:auto; margin-left:2vw; margin-bottom:0vh; text-align:left;">Name: </h2>
+     <input type="text" id="id_newPage_ColormapName" style="width: 35vw; margin-left:2vw; margin-top:2vh; padding:0.5vh; height: 5vh; line-height:5vh; font-family: var(--font-family-SpecialText); " name="mapname" placeholder="Please enter a name for your colormap" />
 
-     <p style="font-weight:bold; margin-left:2vw; margin-top:5vh; font-size: 2.5vh; line-height:5vh;">Creation Process: </p>
-     <div class="row" style="width:100%; margin-top:2vh; margin-left:2vw;">
-      <button class="class_coloredButton_Dark " id="id_NewCMS_Freestyle" onclick="newSection.changeProcessType(0)" title="Freestyle" style="height:5vh; width: 20vw; margin-left:auto; font-size: 2.5vh;">Freestyle</button>
-      <button class="class_coloredButton_Deactivated" id="id_NewCMS_AutoGen" onclick="newSection.changeProcessType(0)" title="Auto Generation" style="height:5vh; width: 20vw; margin-left:1vw; font-size: 2.5vh;">Auto Generation</button>
-      <button class="class_coloredButton_Dark " id="id_NewCMS_Process_Help" title="?" style="height:5vh; width: 5vw; margin-left:1vw; margin-right:auto; font-size: 2.5vh;">?</button>
+     <h2 style="margin-left:2vw; margin-top:5vh; text-align:left;">Creation Process: </h2>
+     <div style="display:flex; width:100%; margin-top:2vh; margin-left:2vw;">
+      <button class="class_coloredButton_Dark " id="id_NewCMS_Freestyle" onclick="newSection.changeProcessType(0)" title="Freestyle" style="height:5vh; width: 20vw; margin-left:auto;">Freestyle</button>
+      <button class="class_coloredButton_Deactivated" id="id_NewCMS_AutoGen" onclick="newSection.changeProcessType(0)" title="Auto Generation" style="height:5vh; width: 20vw; margin-left:1vw;">Auto Generation</button>
+      <button class="class_coloredButton_Dark " id="id_NewCMS_Process_Help" title="?" style="height:5vh; width: 5vw; margin-left:1vw; margin-right:auto;">?</button>
      </div>
 
-     <p style="font-weight:bold; margin-left:2vw; margin-top:5vh; font-size: 2.5vh; line-height:5vh;">Interpolation Space: </p>
-     <div class="row" style="width:100%; margin:auto; margin-left:2vw; margin-top:2vh; ">
-      <button class="class_coloredButton_Dark " id="id_NewCMS_SpaceLAB" onclick="newSection.changeInterpolationSpace(0)" title="LAB" style="height:5vh; width: 10vw; margin-left:auto; font-size: 2.5vh;">LAB</button>
-      <button class="class_coloredButton_Dark " id="id_NewCMS_SpaceDIN99" onclick="newSection.changeInterpolationSpace(1)" title="DIN99" style=" height:5vh; width: 10vw; margin-left:1vw; font-size: 2.5vh;">DIN99</button>
-      <button class="class_coloredButton_Dark " id="id_NewCMS_SpaceRGB" onclick="newSection.changeInterpolationSpace(2)" title="RGB" style=" height:5vh; width: 10vw; margin-left:1vw; font-size: 2.5vh;"> RGB </button>
-      <button class="class_coloredButton_Dark " id="id_NewCMS_SpaceHSV" onclick="newSection.changeInterpolationSpace(3)" title="HSV" style=" height:5vh; width: 10vw; margin-left:1vw; margin-right:auto; font-size: 2.5vh;">HSV</button>
+     <h2 style="margin-left:2vw; margin-top:5vh; text-align:left;">Interpolation Space: </h2>
+     <div style="display:flex; width:100%; margin:auto; margin-left:2vw; margin-top:2vh; ">
+      <button class="class_coloredButton_Dark " id="id_NewCMS_SpaceLAB" onclick="newSection.changeInterpolationSpace(0)" title="LAB" style="height:5vh; width: 10vw; margin-left:auto; ">LAB</button>
+      <button class="class_coloredButton_Dark " id="id_NewCMS_SpaceDIN99" onclick="newSection.changeInterpolationSpace(1)" title="DIN99" style=" height:5vh; width: 10vw; margin-left:1vw; ">DIN99</button>
+      <button class="class_coloredButton_Dark " id="id_NewCMS_SpaceRGB" onclick="newSection.changeInterpolationSpace(2)" title="RGB" style=" height:5vh; width: 10vw; margin-left:1vw; "> RGB </button>
+      <button class="class_coloredButton_Dark " id="id_NewCMS_SpaceHSV" onclick="newSection.changeInterpolationSpace(3)" title="HSV" style=" height:5vh; width: 10vw; margin-left:1vw; margin-right:auto;">HSV</button>
      </div>
 
-     <p style="font-weight:bold; margin-top:5vh; margin-bottom:1vh; display:none; font-size: 2.5vh;">Description: </p>
+     <h2 style="margin-top:5vh; margin-bottom:1vh; text-align:left; display:none; ">Description: </h2>
      <textarea id="id_newPage_MapDescription" name="colormap description" style="display:none; width: 35vw; height:40vh; overflow-y:auto; padding:0.5vh; resize:none;" placeholder="Enter a rough description of the colormap here. This is primarily used as note or reminder for you and in the case of sharing to inform other users what you want to show with this colormap. For more detailed information like semantics or special meaning of colormap components, the tool offers an additional description for keys or key strings."></textarea>
   </div>
 
@@ -50,9 +50,9 @@
   </div>
  </div>
 
- <div class="row" style="display:flex; width:100%; height: 5vh; background:var(--main-coloredButton);">
-   <button onclick="showMyDesignsPage()" class="class_coloredButton" style="height:5vh; width:20%; font-size: 2.5vh; margin:auto;">Cancel</button>
-   <button onclick="newSection.createCMS()" class="class_coloredButton" style="height:5vh; width:20%; font-size: 2.5vh; margin:auto; margin-left:0px;">Create</button>
+ <div style="display:flex; width:100%; height: 5vh; background:var(--main-coloredButton);">
+   <button onclick="showMyDesignsPage()" class="class_coloredButton" style="height:5vh; width:20%; margin:auto;">Cancel</button>
+   <button onclick="newSection.createCMS()" class="class_coloredButton" style="height:5vh; width:20%; margin:auto; margin-left:0px;">Create</button>
  </div>
 
 </div>

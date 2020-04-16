@@ -61,7 +61,7 @@ function finishedLoadingScripts(){
   initDropDowns();
 
   if (doWorker && window.Worker){
-    global_worker_3DSpaceGrids = new Worker(version_JS_FolderName+"/src/global/worker/worker_calc3DSpaceModels.js");
+    global_worker_3DSpaceGrids = new Worker("../../"+version_JS_FolderName+"/src/Global/worker/worker_calc3DSpaceModels.js");
     global_worker_3DSpaceGrids.addEventListener('message', updateSpaceGridInfo, false);
     global_worker_3DSpaceGrids.postMessage({'message':'init'});
     global_worker_3DSpaceGrids.postMessage(json_message_colorSettingsInfo());

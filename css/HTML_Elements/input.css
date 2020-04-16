@@ -1,6 +1,6 @@
 
 textarea{
-  font-family: var(--font-family);
+  font-family: var(--font-family-text);
   background: var(--input-bg-color);
   border: 0.2vh solid var(--main-sepArea-bg);
   color: var(--input-font-color);
@@ -15,7 +15,6 @@ textarea::placeholder{
 }
 
 input{
- font-family: var(--font-family);
  background: var(--input-bg-color);
  border: 0.2vh solid var(--main-sepArea-bg);
  color: var(--input-font-color);
@@ -68,7 +67,6 @@ input[type='radio']{
   color: var(--main-font-color);
   position: relative;
   padding-left: 3vh;
-  font-family: var(--font-family);
   margin-top: 0.25vh;
   margin-bottom: 0.25vh;
   cursor: pointer;
@@ -81,7 +79,6 @@ input[type='radio']{
 }
 
 .class_radio_container p{
-  font-family: var(--font-family);
   color: var(--main-font-color);
   margin-top: auto;
   margin-bottom: auto;
@@ -156,7 +153,6 @@ input[type='radio']{
   color: var(--main-font-color);
   position: relative;
   padding-left: 3vh;
-  font-family: var(--font-family);
   margin-top: 0.25vh;
   margin-bottom: 0.25vh;
   cursor: pointer;
@@ -169,7 +165,6 @@ input[type='radio']{
 }
 
 .class_checkbox_container p{
-  font-family: var(--font-family);
   color: var(--main-font-color);
   margin-top: auto;
   margin-bottom: auto;

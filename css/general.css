@@ -23,6 +23,7 @@
 
 
  a:link {
+     font-family: var(--font-family-text);
      color: var(--link-color);
  }
 
@@ -98,7 +99,7 @@
 
  /*.standardText{*/
  li,p{
-   font-family: var(--font-family);
+   font-family: var(--font-family-text);
    font-size: var(--font-size-normal);
    line-height: var(--line-height-normal);
    color:var(--main-font-color);
@@ -108,6 +109,32 @@
    text-overflow: ellipsis;
    white-space: pre-line;
    /*font-family:courier;*/
+ }
+
+ h1{
+   width:100%;
+   text-align: center;
+   font-family: var(--font-family-section);
+   font-size: var(--font-size-h1);
+   line-height: var(--line-height-h1);
+   color:var(--main-font-color);
+   vertical-align:middle;
+   margin:0vw;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   font-weight:bold;
+ }
+
+ h2{
+   font-family: var(--font-family-section);
+   font-size: var(--font-size-h2);
+   line-height: var(--line-height-h2);
+   color:var(--main-font-color);
+   vertical-align:middle;
+   margin:0vw;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   font-weight:bold;
  }
 
 
@@ -141,10 +168,10 @@
 
 /**************************************************************************/
 
- .row{
+ /*.row{
      width: 100%;
      display: flex;
-  }
+  }*/
 
 
   .class_OptionDiv{
@@ -158,6 +185,14 @@
   }
 
   .class_OptionDiv p{
+    color: var(--main-sepArea-font-color);
+  }
+
+  .class_OptionDiv h1{
+    color: var(--main-sepArea-font-color);
+  }
+
+  .class_OptionDiv h2{
     color: var(--main-sepArea-font-color);
   }
 
@@ -184,31 +219,11 @@
       color: var(--main-sepArea-link-color-active);
   }
 
-.class_InsetLabelText{
-  font-weight:bold;
-  background-color: #565656;
-  color: transparent;
-  text-shadow: 0vh 0.3vh 0.1vh rgba(255,255,255,0.2);
-  -webkit-background-clip: text;
-     -moz-background-clip: text;
-          background-clip: text;
-}
-
-.class_WhiteInsetLabelText{
-  font-weight:bold;
-  background-color: white;
-  color: transparent;
-  text-shadow: 0vh 0.3vh 0.1vh rgba(60,60,60,0.2);
-  -webkit-background-clip: text;
-     -moz-background-clip: text;
-          background-clip: text;
-}
-
 .class_figureCaption{
   width:100%;
-  font-family: var(--font-family);
-  font-size: 1.5vh;
-  line-height: 3vh;
+  font-family: var(--font-family-figCaption);
+  font-size: var(--font-size-normal);
+  line-height: var(--line-height-normal);
   color:var(--main-font-color);
   vertical-align:middle;
   text-align: center;
@@ -216,28 +231,4 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: pre-line;
-}
-
-.class_insetBoxShadow{
-  box-shadow: inset 0vh 0vh 0.4vh 0.2vh rgba(0,0,0,0.3);
-}
-
-div.sticky {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-}
-
-
-
-.sectionLabel{
-  width: 100%;
-  color:var(--main-label-font-color);
-  vertical-align:middle;
-  text-align: center;
-  line-height: var(--line-height-label);
-  font-size: var(--font-size-label);
-  font-weight: bold;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }

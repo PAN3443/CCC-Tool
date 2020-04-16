@@ -1,9 +1,10 @@
 .class_tablelabel{
     /*height:1.5vh;*/
-    height: 3vh;
-    max-height: 3vh;
-    line-height: 3vh;
-    font-size: 2vh;
+    font-family: var(--font-family-text);
+    font-size: var(--font-size-normal);
+    height:var(--line-height-normal);
+    max-height:var(--line-height-normal);
+    line-height: var(--line-height-normal);
     font-weight: bold;
     background: var(--main-sepArea-bg);
     color: var(--main-label-font-color);
@@ -13,17 +14,19 @@
 }
 
 .class_tablelabel p{
+    font-family: var(--font-family-text);
     color: var(--main-label-font-color);
     text-align: center;
 }
 
 .class_tableInput{
+    font-family: var(--font-family-text);
     overflow: hidden;
     text-overflow: ellipsis;
-    height: 3vh;
-    max-height: 3vh;
-    line-height: 3vh;
-    font-size: 2vh;
+    font-size: var(--font-size-normal);
+    height:var(--line-height-normal);
+    max-height:var(--line-height-normal);
+    line-height: var(--line-height-normal);
     color: var(--main-table-font-color);
     background:var(--main-table-bg1-color);
     border: 0.1vh solid var(--main-table-border-color);
@@ -35,12 +38,13 @@
 }
 
 .class_tableInputDark{
+    font-family: var(--font-family-text);
     overflow: hidden;
     text-overflow: ellipsis;
-    height: 3vh;
-    max-height: 3vh;
-    line-height: 3vh;
-    font-size: 2vh;
+    font-size: var(--font-size-normal);
+    height:var(--line-height-normal);
+    max-height:var(--line-height-normal);
+    line-height: var(--line-height-normal);
     color: var(--main-table-font-color);
     background: var(--main-table-bg2-color);
     border: 0.1vh solid var(--main-table-border-color);

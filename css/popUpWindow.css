@@ -9,7 +9,6 @@
 .class_PopUpButtonDiv button{
   height: 5vh;
   line-height: 5vh;
-  font-size: 3vh;
 }
 
 .class_svgBrackets{
@@ -95,18 +94,11 @@
 
 .class_popupWindow_Label{
   width:100%;
-
   padding-top: 1vh;
   padding-bottom: 1vh;
-  vertical-align:middle;
-  text-align:center;
-  vertical-align: middle;
-  margin:0px;
   color:var(--main-sepArea-font-color);
-  line-height: var(--line-height-label);
-  font-size: var(--font-size-label);
   background: var(--main-sepArea-bg);
-  /*font-family:verdana;*/
+  text-align: center;
 }
 
 .class_RadioButtonPopUpWindow{

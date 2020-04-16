@@ -1,15 +1,15 @@
 <div style=" height:auto; background:var(--main-bg-color); width:60vw; border: 0.2vh solid black; margin:auto;">
 
-  <h3 class="class_popupWindow_Label"> Metric Interpolation Options </h3>
+  <h2 class="class_popupWindow_Label"> Metric Interpolation Options </h2>
 
-  <div class="row" style="width:100%; ">
+  <div style="width:100%;  display:flex;">
 
     <div style="width:25vw; padding-left:1vw; margin-top: 2vh;">
 
       <div style="visibility:hidden;">
         <p style="font-weight:bold;"> Graph Options </p>
 
-        <div class="row" style="width:100%;">
+        <div style="width:100%; display:flex;">
           <p style="margin:auto; margin-left:0vw;  width:10vw;"> Type: </p>
           <label class="class_radio_container" style="margin:auto;  margin-left:0vw;"> : RGB
             <input type="radio" name="selectGraphSpace" id="id_MetricInter_RGB_Select" checked onchange="updateMetricInterSpace()">
@@ -23,17 +23,17 @@
         </div>
 
         <div id="id_metricInter_Lab_Options" style="width:100%; display:none;">
-          <div class="row" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
+          <div style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%; display:flex;">
             <p id="id_TestPage_GridDimXLabel" style="margin-top:auto; margin-bottom:auto; width:10vw;">L-Sampling:</p>
             <input id="id_MetricInter_L_Sampling" type="number" name="GridDimX" min="1" step="1" value="5" style="margin-left:0.25vw;">
           </div>
-          <div class="row" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
+          <div style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%; display:flex;">
             <p id="id_TestPage_GridDimXLabel" style="margin-top:auto; margin-bottom:auto; width:10vw;">AB-Sampling:</p>
             <input id="id_MetricInter_AB_Sampling" type="number" name="GridDimX" min="1" step="1" value="180" style="margin-left:0.25vw;">
           </div>
         </div>
         <div id="id_metricInter_RGB_Options" style="width:100%; display:none;">
-          <div class="row" style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%;">
+          <div style="margin-top:0.5vh; margin-bottom:0.5vh; width:100%; display:flex;">
             <p id="id_TestPage_GridDimXLabel" style="margin-top:auto; margin-bottom:auto; width:10vw;">RGB-Sampling:</p>
             <input id="id_MetricInter_RGB_Sampling" type="number" name="GridDimX" min="1" step="1" value="16" style="margin-left:0.25vw;" >
           </div>
@@ -80,7 +80,7 @@
         <span class="class_checkbox_checkmark"></span>
       </label>
 
-      <div class="row" style="margin-top:2vh; margin-left:1vw;">
+      <div style="margin-top:2vh; margin-left:1vw; display:flex;">
         <p style="color: var(--general-font-color); margin-right:2vw;">Intertions: </p> <input id="id_iterations" type="number" name="quantity" min="1" value="100" step="1" onchange="initForceGraph()">
       </div>
 
@@ -111,7 +111,7 @@
 
 
 
-  <div class="class_PopUpButtonDiv" class="row" style="margin-top:0vh;">
+  <div class="class_PopUpButtonDiv" style="margin-top:0vh; display:flex;">
     <button class="class_coloredButton" onclick="closeMetricIntOpt()" title="close" style=" width:30%; margin-left:15%;">Close</button>
     <button class="class_coloredButton" onclick="calcMetricIntGraph()" title="calc Graph" style=" width:30%; margin-left:10%;">Update Graph</button>
   </div>

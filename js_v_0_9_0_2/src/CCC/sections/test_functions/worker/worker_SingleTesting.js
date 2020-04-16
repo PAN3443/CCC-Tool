@@ -55,7 +55,7 @@ var errorMath = 1e12;
 self.addEventListener('message', function(e) {
   switch (e.data.message) {
     case "init":
-      self.importScripts('../../../global/worker/general_processingCases.js');
+      self.importScripts('../../../../Global/worker/general_processingCases.js');
       self.importScripts('workerFunctions_testing.js');
       worker_LoadColorClasses();
 

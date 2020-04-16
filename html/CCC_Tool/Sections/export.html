@@ -7,15 +7,15 @@
   <div style="height:95vh; background:var(--main-bg-color); width:100vw; overflow:hidden; display:flex;">
     <div style="height:95vh; width: 30vw; border-right: 0.2vw solid var(--main-sepArea-border); display:flex; flex-direction:column;">
 
-        <p id="id_Export_CMSName" style="width:100%; margin:0px; overflow: hidden; text-overflow: ellipsis; text-align:center; height: 5vh; line-height: 5vh; font-size:3vh; color: var(--main-sepArea-font-color); background: var(--main-sepArea-bg); broder-bottom: 0.2vh solid var(--main-sepArea-border);"></p>
+        <p id="id_Export_CMSName" style="width:100%; margin:0px; overflow: hidden; text-overflow: ellipsis; text-align:center; height: 5vh; line-height: 5vh; font-size:3vh; color: var(--main-sepArea-font-color); background: var(--main-sepArea-bg); broder-bottom: 0.2vh solid var(--main-sepArea-border); font-family: var(--font-family-SpecialText);"></p>
 
         <canvas id="id_exportPNGCanvas" width="500" height="1" style="width:100%; height:10vh;"></canvas>
 
-        <p style="width:100%; text-align:center; height: 5vh; margin:0px; line-height: 5vh; font-size:3vh; color: var(--main-sepArea-font-color); background: var(--main-sepArea-bg); broder-bottom: 0.2vh solid var(--main-sepArea-border);">Options</p>
+        <h1 style="height: 5vh; margin:0px; line-height: 5vh; font-size:3vh; color: var(--main-sepArea-font-color); background: var(--main-sepArea-bg); broder-bottom: 0.2vh solid var(--main-sepArea-border);">Options</h1>
 
 
         <div id="exportprobeDiv" style="background: var(--main-second-bg-color); width:100%; height: 12.5vh; display:flex; flex-direction:column;">
-          <p style="font-weight:bold; margin-left:2vw; margin-top: auto; margin-bottom:1vh; font-size: 3vh; line-height:5vh;">Probe Option: </p>
+          <h2 style="font-weight:bold; margin-left:0.5vw; margin-top: auto; margin-bottom:1vh;">Probe Option: </h2>
           <select id="id_selectProbeListExport" name="ProbeListExport" style="width:40%; height:3vh; margin:auto; margin-top:0vh; ">
               <option value="0" style="font-weight:bold;">Original CMS</option>
           </select>
@@ -23,23 +23,23 @@
         </div>
 
         <div id="exportprobeDiv" style="width:100%; height: 12.5vh; display:flex; flex-direction:column;">
-          <p style="font-weight:bold; margin-left:2vw; margin-top: auto; margin-bottom:1vh; font-size: 3vh; line-height:5vh;">Handle Twin Issue:</p>
+          <h2 style="font-weight:bold; margin-left:0.5vw; margin-top: auto; margin-bottom:1vh;">Handle Twin Issue:</h2>
 
-          <div class="row" style="width:100%; margin-bottom:auto;">
+          <div style="display:flex; width:100%; margin-bottom:auto;">
             <button class="class_coloredButton " id="id_Export_Activated_TwinKeyIssue" onclick="exportSection.changeTwinIssue(1)" title="TwinIssue" style="height:4vh; width:30%; margin:auto; margin-right:0.5vw; font-size: 2vh;">activated</button>
             <button class="class_coloredButton " id="id_Export_Deactivated_TwinKeyIssue" onclick="exportSection.changeTwinIssue(0)" title="TwinIssue" style="height:4vh; width:30%; margin:auto; margin-left:0vw; font-size: 2vh;">deactivated</button>
           </div>
         </div>
 
         <div style="background: var(--main-second-bg-color); height: 18vh; display:flex; flex-direction:column; ">
-          <p style="font-weight:bold; margin-left:2vw; margin-top: auto; margin-bottom:1vh; font-size: 3vh; line-height:5vh;">Export Color-Space: </p>
-          <div class="row" style="width:100%; margin-bottom:0.5vh;">
+          <h2 style="font-weight:bold; margin-left:0.5vw; margin-top: auto; margin-bottom:1vh;">Export Color-Space: </h2>
+          <div style="display:flex; width:100%; margin-bottom:0.5vh;">
             <button class="class_coloredButton" id="id_Export_SpaceRGB" onclick="exportSection.changeExportColorspace(0)" title="RGB" style="height:4vh; width: 7vw; margin-left:auto; font-size: 2vh;"> RGB </button>
             <button class="class_coloredButton" id="id_Export_SpaceRGBRatio" onclick="exportSection.changeExportColorspace(1)" title="RGB" style="height:4vh; width: 7vw; margin-left:0.5vw; font-size: 2vh;">RGB [0,1]</button>
             <button class="class_coloredButton" id="id_Export_SpaceHSV" onclick="exportSection.changeExportColorspace(2)" title="HSV" style="height:4vh; width: 7vw; margin-left:0.5vw; font-size: 2vh;">HSV</button>
             <button class="class_coloredButton" id="id_Export_SpaceHSVRatio" onclick="exportSection.changeExportColorspace(3)" title="HSV" style="height:4vh; width: 7vw; margin-left:0.5vw; margin-right:auto; font-size: 2vh;">HSV [0,1]</button>
           </div>
-          <div class="row" style="width:100%; margin-bottom: auto;">
+          <div style="display:flex; width:100%; margin-bottom: auto;">
             <button class="class_coloredButton" id="id_Export_SpaceLAB" onclick="exportSection.changeExportColorspace(4)" title="LAB" style="height:4vh; width: 7vw; margin-left:auto; font-size: 2vh;">LAB</button>
             <button class="class_coloredButton" id="id_Export_SpaceLCh" onclick="exportSection.changeExportColorspace(5)" title="LCH" style="height:4vh; width: 7vw; margin-left:0.5vw; font-size: 2vh;">LCh</button>
             <button class="class_coloredButton" id="id_Export_SpaceDIN99" onclick="exportSection.changeExportColorspace(6)" title="DIN99" style="height:4vh; width: 7vw; margin-left:0.5vw; margin-right:auto; font-size: 2vh;">DIN99</button>
@@ -47,21 +47,21 @@
         </div>
 
         <div style="background: var(--main-bg-color); height: 16vh; display:flex; flex-direction:column; ">
-          <p style="font-weight:bold; margin-left:2vw; margin-top: auto; margin-bottom:1vh; font-size: 3vh; line-height:5vh;">Interval Options: </p>
-          <div class="row" style="width:100%; margin-bottom: auto;">
+          <h2 style="font-weight:bold; margin-left:0.5vw; margin-top: auto; margin-bottom:1vh;">Interval Options: </h2>
+          <div style="display:flex; width:100%; margin-bottom: auto;">
             <button class="class_coloredButton " id="id_Export_OnlyKeys" onclick="exportSection.changeIntervalOption(1)" title="Keys" style="height:4vh; width: 10vw; margin:auto; margin-right:0px; font-size: 2vh;">Only Keys</button>
             <button class="class_coloredButton " id="id_Export_KeysAndIntervals" onclick="exportSection.changeIntervalOption(0)" title="Keys+Intervals" style="height:4vh; width: 10vw; margin:auto; margin-right:0px margin-left:0.5vw; font-size: 2vh;">Keys+Intervals</button>
 
-            <div id="id_Export_NumIntervalDiv" style="visibility:visible; margin:auto; margin-right:0px margin-left: 0.5vw;">
+            <div id="id_Export_NumIntervalDiv" style="visibility:visible; margin:auto; margin-right:0px margin-left: 0.5vw; display:flex;">
               <p style="margin:auto; font-size: 2vh;"> #Intervals: </p>
-              <input id="id_ExportIntervalNum" onchange="exportSection.fillExportTable()" type="number" value="200" step="1" min="1" style="width: 5vw; text-align:center; vertical-align: middle; margin:auto; margin-left:0.5vw; margin-right:auto;">
+              <input id="id_ExportIntervalNum" onchange="exportSection.fillExportTable()" type="number" value="200" step="1" min="1" style="width: 5vw; max-width: 5vw; min-width: 5vw; text-align:center; vertical-align: middle; margin:auto; margin-left:0.5vw; margin-right:auto;">
             </div>
           </div>
         </div>
 
         <div style="background: var(--main-second-bg-color); height: 16vh; display:flex; flex-direction:column;">
-          <p style="font-weight:bold; margin-left:2vw; margin-top: auto; margin-bottom:1vh; font-size: 3vh; line-height:5vh;">Output Format: </p>
-          <div class="row" style="width:100%; margin-bottom:0.5vh;">
+          <h2 style="font-weight:bold; margin-left:0.5vw; margin-top: auto; margin-bottom:1vh;">Output Format: </h2>
+          <div style="display:flex; width:100%; margin-bottom:0.5vh;">
             <button class="class_coloredButton " id="id_Export_FormatXML" onclick="exportSection.changeOutputformat(1)" title="XML" style="height:4vh; width: 5vw; margin-left:auto; font-size: 2vh;">XML</button>
             <button class="class_coloredButton " id="id_Export_FormatJSON" onclick="exportSection.changeOutputformat(2)" title="JSON" style="height:4vh; width: 5vw; margin-left:0.5vw; font-size: 2vh;">JSON</button>
             <button class="class_coloredButton " id="id_Export_FormatCSV" onclick="exportSection.changeOutputformat(0)" title="CSV" style="height:4vh; width: 5vw; margin-left:0.5vw; font-size: 2vh;">CSV</button>
@@ -74,7 +74,7 @@
     </div>
     <div style="height:95vh; width: 70vw;">
 
-      <p style="width:100%; text-align:center; height: 5vh; line-height: 5vh; font-size:3vh; color: var(--main-sepArea-font-color); background: var(--main-sepArea-bg); broder-bottom: 0.2vh solid var(--main-sepArea-border);">Table</p>
+      <h1 style="height: 5vh; line-height: 5vh; font-size:3vh; color: var(--main-sepArea-font-color); background: var(--main-sepArea-bg); broder-bottom: 0.2vh solid var(--main-sepArea-border);">Table</h1>
 
       <table cellspacing="0" cellpadding="0" style="width:100%; border: 0.2vh solid black;">
         <tr>
@@ -122,7 +122,7 @@
       </div>
     </div>
 
-    <div class="row" style="width:100%; margin-top: 2vh;">
+    <div style="display:flex; width:100%; margin-top: 2vh;">
 
 
       <div class="helpButtonDiv" style="width:auto; margin-right:auto;">
@@ -139,7 +139,7 @@
 
 
 
-    <div class="row" style="width:100%; margin-top: 2vh;">
+    <div style="display:flex; width:100%; margin-top: 2vh;">
       <p style="margin:auto; margin-right:0vh; margin-left:0vh; width:20%;">Format:</p>
 
     </div>

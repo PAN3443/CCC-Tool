@@ -536,7 +536,7 @@
 
 
         <div style="margin:auto; ">
-  <div class="row" style="padding-bottom:0.5vh; padding-top:0.5vh; background: var(--main-sepArea-bg); ">
+  <div style="padding-bottom:0.5vh; padding-top:0.5vh; background: var(--main-sepArea-bg);  display:flex;">
       <p style="text-align:center; color:var(--main-sepArea-font-color); width: 20vw; max-width:32vh;"> Values (Grey Scaled)</p>
       <p style="text-align:center; color:var(--main-sepArea-font-color); width: 20vw; max-width:32vh;">CMS Colormapping</p>
       <p style="text-align:center; color:var(--main-sepArea-font-color); width: 20vw; max-width:32vh;">Pixel Observer</p>
@@ -597,7 +597,7 @@
 
         </div>
 
-        <div class="row" style="width:100%;">
+        <div style="width:100%; display:flex;">
               <div class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none; margin-left:auto;">
               </div>
 
@@ -620,7 +620,7 @@
               </div>
         </div>
 
-        <div class="row" style="width:100%;">
+        <div style="width:100%; display:flex;">
 
               <div id="id_report_pixelPreview10" class="class_pixelColorPreviewDiv" style="margin-left:auto;">
 
@@ -646,7 +646,7 @@
 
         </div>
 
-        <div class="row" style="width:100%;">
+        <div style="width:100%; display:flex;">
               <div class="class_pixelColorPreviewDiv" style="border:none; box-shadow: none; margin-left:auto;">
               </div>
 
@@ -669,7 +669,7 @@
               </div>
         </div>
 
-        <div class="row" style="width:100%;">
+        <div style="width:100%; display:flex;">
 
               <div id="id_report_pixelPreview20" class="class_pixelColorPreviewDiv" style="margin-left:auto;">
 
@@ -696,13 +696,13 @@
     </div>
   </div>
 
-  <div class="row" style="padding-bottom:0.5vh; padding-top:0.5vh; background: var(--main-sepArea-bg); ">
+  <div style="padding-bottom:0.5vh; padding-top:0.5vh; background: var(--main-sepArea-bg); display:flex;">
       <p style="text-align:center; color:var(--main-sepArea-font-color); width: 20vw; max-width:32vh;">N(&#8711;V) Value Gradient</p>
       <p style="text-align:center; color:var(--main-sepArea-font-color); width: 20vw; max-width:32vh;">N(&#916;C) Color-Difference</p>
       <p style="text-align:center; color:var(--main-sepArea-font-color); width: 20vw; max-width:32vh;">N(&#916;C)-N(&#8711;V)</p>
   </div>
 
-  <div class="row">
+  <div style="display:flex;">
     <div id="id_TestPage_Report0_Div" style="position: relative; width: 20vw; max-width:32vh; height: 32vh; max-height:20vw; overflow-x: auto; overflow-y: auto; border: 0.2vh solid black; display:none;">
       <canvas id="id_TestPage_Report0" style="position: absolute; left: 0; top: 0; z-index: 0; width: 100%; height: 100%;">
 
@@ -744,7 +744,7 @@
     </div>
   </div>
 
-  <div class="row" style="width: 100%; background: var(--main-sepArea-bg);">
+  <div style="width: 100%; background: var(--main-sepArea-bg); display:flex;">
     <p style="margin:auto; margin-left:1vw; margin-right:1vw; color:var(--main-sepArea-font-color);">Zoom:</p>
     <input id="id_Test_RatioReport_Zoom" type="range" step="1" min="100" max="1500" value="100" style="width:40%; margin-right:auto;" onchange="testingSection.element_testReport.ratioReportZoom()">
 
@@ -758,7 +758,7 @@
       <canvas id="id_TestPage_DifReportColormap" style="width:100%; border-bottom:0.2vh solid var(--main-sepArea-bg); height:3vh; margin: 0px;">
 
       </canvas>
-      <div class="row" style="width:100%; background: var(--main-sepArea-bg);">
+      <div style="width:100%; background: var(--main-sepArea-bg); display:flex;">
         <p style="margin-right:auto; text-align: left; color:var(--main-sepArea-font-color);"> &#8592; Underestimate </p>
         <p style="text-align: center; color:var(--main-sepArea-font-color);"> Uniform </p>
         <p style="margin-left:auto; text-align: right; color:var(--main-sepArea-font-color);"> Overestimate &#8594;</p>

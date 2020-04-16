@@ -381,14 +381,7 @@ class class_Element_Collection extends class_Testing_Element_Basis {
     tmpDivCCCTests.style.background = backgroundColor1;
     tmpDivCCCTests.style.paddingTop = "2vh";
 
-    var tmpDivCCCLabel = document.createElement('p');
-    tmpDivCCCLabel.className = "standardText";
-    tmpDivCCCLabel.style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');;
-    tmpDivCCCLabel.style.height = "4vh";
-    tmpDivCCCLabel.style.lineHeight = "4vh";
-    tmpDivCCCLabel.style.fontSize = "3.5vh";
-    tmpDivCCCLabel.style.marginLeft = "2.5vw";
-    tmpDivCCCLabel.style.fontWeight = "bold";
+    var tmpDivCCCLabel = document.createElement('h1');
     tmpDivCCCLabel.innerHTML = "1. CCC-Tests:";
     tmpDivCCCTests.appendChild(tmpDivCCCLabel);
 
@@ -408,14 +401,8 @@ class class_Element_Collection extends class_Testing_Element_Basis {
     tmpDivFunctionCollection.style.background = backgroundColor2;
     tmpDivFunctionCollection.style.paddingTop = "2vh";
 
-    var tmpDivFCLabel = document.createElement('p');
+    var tmpDivFCLabel = document.createElement('h1');
     tmpDivFCLabel.className = "standardText";
-    tmpDivFCLabel.style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');;
-    tmpDivFCLabel.style.height = "4vh";
-    tmpDivFCLabel.style.lineHeight = "4vh";
-    tmpDivFCLabel.style.fontSize = "3.5vh";
-    tmpDivFCLabel.style.marginLeft = "2.5vw";
-    tmpDivFCLabel.style.fontWeight = "bold";
     tmpDivFCLabel.innerHTML = "2. Function Collection:";
     tmpDivFunctionCollection.appendChild(tmpDivFCLabel);
 
@@ -431,14 +418,8 @@ class class_Element_Collection extends class_Testing_Element_Basis {
     tmpDivRealWorld.style.background = backgroundColor1;
     tmpDivRealWorld.style.paddingTop = "2vh";
 
-    var tmpDivRealWorldLabel = document.createElement('p');
+    var tmpDivRealWorldLabel = document.createElement('h1');
     tmpDivRealWorldLabel.className = "standardText";
-    tmpDivRealWorldLabel.style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');;
-    tmpDivRealWorldLabel.style.height = "4vh";
-    tmpDivRealWorldLabel.style.lineHeight = "4vh";
-    tmpDivRealWorldLabel.style.fontSize = "3.5vh";
-    tmpDivRealWorldLabel.style.marginLeft = "2.5vw";
-    tmpDivRealWorldLabel.style.fontWeight = "bold";
     tmpDivRealWorldLabel.innerHTML = "3. Real World Data:";
     tmpDivRealWorld.appendChild(tmpDivRealWorldLabel);
 
@@ -460,13 +441,8 @@ class class_Element_Collection extends class_Testing_Element_Basis {
     tmpTestDiv.style.maxWidth = "90vw";
     tmpTestDiv.style.marginLeft = "5vw";
 
-    var tmpDivLabel = document.createElement('p');
+    var tmpDivLabel = document.createElement('h2');
     tmpDivLabel.className = "standardText";
-    tmpDivLabel.style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');;
-    tmpDivLabel.style.fontSize = "2.5vh";
-    tmpDivLabel.style.lineHeight = "4vh";
-    tmpDivLabel.style.marginTop = "2vh";
-    tmpDivLabel.style.fontWeight = "bold";
     tmpDivLabel.innerHTML = "1.1 Jumps:";
     tmpTestDiv.appendChild(tmpDivLabel);
 
@@ -528,13 +504,7 @@ class class_Element_Collection extends class_Testing_Element_Basis {
     tmpTestDiv.style.maxWidth = "90vw";
     tmpTestDiv.style.marginLeft = "5vw";
 
-    var tmpDivLabel = document.createElement('p');
-    tmpDivLabel.className = "standardText";
-    tmpDivLabel.style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');;
-    tmpDivLabel.style.fontSize = "2.5vh";
-    tmpDivLabel.style.lineHeight = "4vh";
-    tmpDivLabel.style.marginTop = "2vh";
-    tmpDivLabel.style.fontWeight = "bold";
+    var tmpDivLabel = document.createElement('h2');
     tmpDivLabel.innerHTML = "1.2 Gradient:";
     tmpTestDiv.appendChild(tmpDivLabel);
 
@@ -619,13 +589,7 @@ class class_Element_Collection extends class_Testing_Element_Basis {
     tmpTestDiv.style.maxWidth = "90vw";
     tmpTestDiv.style.marginLeft = "5vw";
 
-    var tmpDivLabel = document.createElement('p');
-    tmpDivLabel.className = "standardText";
-    tmpDivLabel.style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');;
-    tmpDivLabel.style.fontSize = "2.5vh";
-    tmpDivLabel.style.lineHeight = "4vh";
-    tmpDivLabel.style.marginTop = "2vh";
-    tmpDivLabel.style.fontWeight = "bold";
+    var tmpDivLabel = document.createElement('h2');
     tmpDivLabel.innerHTML = "1.3 Ridge/Valley:";
     tmpTestDiv.appendChild(tmpDivLabel);
 
@@ -709,13 +673,7 @@ class class_Element_Collection extends class_Testing_Element_Basis {
     tmpTestDiv.style.maxWidth = "90vw";
     tmpTestDiv.style.marginLeft = "5vw";
 
-    var tmpDivLabel = document.createElement('p');
-    tmpDivLabel.className = "standardText";
-    tmpDivLabel.style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');;
-    tmpDivLabel.style.fontSize = "2.5vh";
-    tmpDivLabel.style.lineHeight = "4vh";
-    tmpDivLabel.style.marginTop = "2vh";
-    tmpDivLabel.style.fontWeight = "bold";
+    var tmpDivLabel = document.createElement('h2');
     tmpDivLabel.innerHTML = "1.4 Minimum/Maximum/Saddle:";
     tmpTestDiv.appendChild(tmpDivLabel);
 
@@ -774,13 +732,7 @@ class class_Element_Collection extends class_Testing_Element_Basis {
     tmpTestDiv.style.maxWidth = "90vw";
     tmpTestDiv.style.marginLeft = "5vw";
 
-    var tmpDivLabel = document.createElement('p');
-    tmpDivLabel.className = "standardText";
-    tmpDivLabel.style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');;
-    tmpDivLabel.style.fontSize = "2.5vh";
-    tmpDivLabel.style.lineHeight = "4vh";
-    tmpDivLabel.style.marginTop = "2vh";
-    tmpDivLabel.style.fontWeight = "bold";
+    var tmpDivLabel = document.createElement('h2');
     tmpDivLabel.innerHTML = "1.5 Frequency:";
     tmpTestDiv.appendChild(tmpDivLabel);
 
@@ -830,13 +782,7 @@ class class_Element_Collection extends class_Testing_Element_Basis {
     tmpTestDiv.style.maxWidth = "90vw";
     tmpTestDiv.style.marginLeft = "5vw";
 
-    var tmpDivLabel = document.createElement('p');
-    tmpDivLabel.className = "standardText";
-    tmpDivLabel.style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');;
-    tmpDivLabel.style.fontSize = "2.5vh";
-    tmpDivLabel.style.lineHeight = "4vh";
-    tmpDivLabel.style.marginTop = "2vh";
-    tmpDivLabel.style.fontWeight = "bold";
+    var tmpDivLabel = document.createElement('h2');
     tmpDivLabel.innerHTML = "1.6 Little Bit:";
     tmpTestDiv.appendChild(tmpDivLabel);
 
@@ -894,13 +840,7 @@ class class_Element_Collection extends class_Testing_Element_Basis {
     tmpTestDiv.style.maxWidth = "90vw";
     tmpTestDiv.style.marginLeft = "5vw";
 
-    var tmpDivLabel = document.createElement('p');
-    tmpDivLabel.className = "standardText";
-    tmpDivLabel.style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');;
-    tmpDivLabel.style.fontSize = "2.5vh";
-    tmpDivLabel.style.lineHeight = "4vh";
-    tmpDivLabel.style.marginTop = "2vh";
-    tmpDivLabel.style.fontWeight = "bold";
+    var tmpDivLabel = document.createElement('h2');
     tmpDivLabel.innerHTML = "1.7 Treshold:";
     tmpTestDiv.appendChild(tmpDivLabel);
 
@@ -976,13 +916,7 @@ class class_Element_Collection extends class_Testing_Element_Basis {
     tmpTestDiv.style.maxWidth = "90vw";
     tmpTestDiv.style.marginLeft = "5vw";
 
-    var tmpDivLabel = document.createElement('p');
-    tmpDivLabel.className = "standardText";
-    tmpDivLabel.style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');;
-    tmpDivLabel.style.fontSize = "2.5vh";
-    tmpDivLabel.style.lineHeight = "4vh";
-    tmpDivLabel.style.marginTop = "2vh";
-    tmpDivLabel.style.fontWeight = "bold";
+    var tmpDivLabel = document.createElement('h2');
     tmpDivLabel.innerHTML = "2.1 Local Minimum:";
     tmpTestDiv.appendChild(tmpDivLabel);
 
@@ -1032,13 +966,7 @@ class class_Element_Collection extends class_Testing_Element_Basis {
     tmpTestDiv.style.maxWidth = "90vw";
     tmpTestDiv.style.marginLeft = "5vw";
 
-    var tmpDivLabel = document.createElement('p');
-    tmpDivLabel.className = "standardText";
-    tmpDivLabel.style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');;
-    tmpDivLabel.style.fontSize = "2.5vh";
-    tmpDivLabel.style.lineHeight = "4vh";
-    tmpDivLabel.style.marginTop = "2vh";
-    tmpDivLabel.style.fontWeight = "bold";
+    var tmpDivLabel = document.createElement('h2');
     tmpDivLabel.innerHTML = "2.2 Bowl Shaped:";
     tmpTestDiv.appendChild(tmpDivLabel);
 
@@ -1088,13 +1016,7 @@ class class_Element_Collection extends class_Testing_Element_Basis {
     tmpTestDiv.style.maxWidth = "90vw";
     tmpTestDiv.style.marginLeft = "5vw";
 
-    var tmpDivLabel = document.createElement('p');
-    tmpDivLabel.className = "standardText";
-    tmpDivLabel.style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');;
-    tmpDivLabel.style.fontSize = "2.5vh";
-    tmpDivLabel.style.lineHeight = "4vh";
-    tmpDivLabel.style.marginTop = "2vh";
-    tmpDivLabel.style.fontWeight = "bold";
+    var tmpDivLabel = document.createElement('h2');
     tmpDivLabel.innerHTML = "2.3 Valley Shaped:";
     tmpTestDiv.appendChild(tmpDivLabel);
 
@@ -1144,13 +1066,7 @@ class class_Element_Collection extends class_Testing_Element_Basis {
     tmpTestDiv.style.maxWidth = "90vw";
     tmpTestDiv.style.marginLeft = "5vw";
 
-    var tmpDivLabel = document.createElement('p');
-    tmpDivLabel.className = "standardText";
-    tmpDivLabel.style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');;
-    tmpDivLabel.style.fontSize = "2.5vh";
-    tmpDivLabel.style.lineHeight = "4vh";
-    tmpDivLabel.style.marginTop = "2vh";
-    tmpDivLabel.style.fontWeight = "bold";
+    var tmpDivLabel = document.createElement('h2');
     tmpDivLabel.innerHTML = "3.1 Medical:";
     tmpTestDiv.appendChild(tmpDivLabel);
 
@@ -1204,13 +1120,7 @@ class class_Element_Collection extends class_Testing_Element_Basis {
     tmpTestDiv.style.maxWidth = "90vw";
     tmpTestDiv.style.marginLeft = "5vw";
 
-    var tmpDivLabel = document.createElement('p');
-    tmpDivLabel.className = "standardText";
-    tmpDivLabel.style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');;
-    tmpDivLabel.style.fontSize = "2.5vh";
-    tmpDivLabel.style.lineHeight = "4vh";
-    tmpDivLabel.style.marginTop = "2vh";
-    tmpDivLabel.style.fontWeight = "bold";
+    var tmpDivLabel = document.createElement('h2');
     tmpDivLabel.innerHTML = "3.2 Scientific Flow Simulation:";
     tmpTestDiv.appendChild(tmpDivLabel);
 
@@ -1264,13 +1174,7 @@ class class_Element_Collection extends class_Testing_Element_Basis {
     tmpTestDiv.style.maxWidth = "90vw";
     tmpTestDiv.style.marginLeft = "5vw";
 
-    var tmpDivLabel = document.createElement('p');
-    tmpDivLabel.className = "standardText";
-    tmpDivLabel.style.color = getComputedStyle(document.documentElement).getPropertyValue('--main-font-color');;
-    tmpDivLabel.style.fontSize = "2.5vh";
-    tmpDivLabel.style.lineHeight = "4vh";
-    tmpDivLabel.style.marginTop = "2vh";
-    tmpDivLabel.style.fontWeight = "bold";
+    var tmpDivLabel = document.createElement('h2');
     tmpDivLabel.innerHTML = "3.3 Photographs:";
     tmpTestDiv.appendChild(tmpDivLabel);
 
