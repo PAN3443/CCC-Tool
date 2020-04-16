@@ -1,0 +1,11 @@
+.class_StartDiv{
+
+  width:50vw;
+  height:100vh;
+  display:flex;
+  flex-direction: column;
+  background: var(--main-bg-color-alpha);
+
+  border-right: 0.25vw solid var(--main-second-sepArea-bg);;
+
+}

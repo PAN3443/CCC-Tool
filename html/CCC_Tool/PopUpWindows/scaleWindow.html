@@ -1,0 +1,30 @@
+<!--
+-----------------------------------------------
+----------------  	Scale Window	  -----------------
+-----------------------------------------------
+-->
+<div style="height:auto; background:var(--main-bg-color); width:60%; border: 0.2vh solid black; margin:auto;">
+
+  <h3 class="class_popupWindow_Label"> Scale CMS </h3>
+
+  <img src="../../img/CCCToolComic/scalePage.png" style="width:50%; margin-left:25%;">
+
+  <div class="row" style="width:100%; margin-bottom:2vh; padding-top:2vh; padding-bottom:2vh; border-top:1px solid grey; border-bottom:1px solid grey; background:var(--main-second-bg-color);">
+
+    <p style="margin-left:auto; line-height:3.2vh; font-size:3vh; margin-right:2vw; margin-top:auto; margin-bottom:auto;">Scale from:</p>
+    <input id="id_inputAutoRangeStart" type="number" name="RangeStart" value="0" step="any" style="width:15%; height:3.2vh; line-height:3.2vh; font-size:3vh;">
+
+    <p style="margin-left:2vw; line-height:3.2vh; font-size:3vh; margin-right:2vw; margin-top:auto; margin-bottom:auto;">till:</p>
+    <input id="id_inputAutoRangeEnd" type="number" name="RangeEnd" value="1" step="any" style="width:15%; height:3.2vh; line-height:3.2vh; font-size:3vh; margin-right:auto;">
+
+  </div>
+
+  <p id="id_popupWindow_ScaleInfoText" style="margin-left:auto; margin-right:auto; line-height:2.5vh; font-size:2.2vh; color:red; display:none;">The range start has to be smaller than the range end!</p>
+
+
+  <div class="class_PopUpButtonDiv">
+    <button class="class_coloredButton" onclick="closeScale()" title="close" style=" width: 30%; margin:auto;">Cancel</button>
+    <button class="class_coloredButton" onclick="checkScale()" title="check" style=" width: 30%; margin:auto;">Scale</button>
+  </div>
+
+</div>
