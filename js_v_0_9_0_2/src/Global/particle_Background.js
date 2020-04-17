@@ -36,6 +36,7 @@ class class_Particle{
     this.color_s = 100;
     this.color_v = 100;
     this.color_a = 0.8;
+    this.color_a_Fixed = this.resetColorAlpha(fixedAlphaMin,fixedAlphaMax);;
     this.randomMove = true;
     this.setRandom_Pos();
     this.setRandom_Velocity();
@@ -88,7 +89,7 @@ class class_Particle{
        //this.color_s=0.0;
        this.direction_X = 0;
        this.direction_Y = 0;
-       this.resetColorAlpha(fixedAlphaMin,fixedAlphaMax);
+       this.alpha_a = this.color_a_Fixed;
      }
      else if(vecL<=fixed_velocity){
        this.direction_X = tmp_vec[0];
