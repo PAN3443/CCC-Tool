@@ -106,16 +106,16 @@
 #id_Test_PixelCanvasGrey,
 #id_Test_PixelCanvasFull,
 #id_Test_PixelCanvasGreyFull,
-#id_TestPage_ReportOrginalCCanvas,
-#id_TestPage_ReportOrginalGCanvas,
-#id_TestPage_Report0Canvas,
-#id_TestPage_Report1Canvas,
-#id_TestPage_Report2Canvas,
-#id_TestPage_ReportOrginalCCanvas_Pixel,
-#id_TestPage_ReportOrginalGCanvas_Pixel,
-#id_TestPage_Report0Canvas_Pixel,
-#id_TestPage_Report1Canvas_Pixel,
-#id_TestPage_Report2Canvas_Pixel{
+#id_TestPage_Report0,
+#id_TestPage_Report0_Pixel,
+#id_TestPage_Report1,
+#id_TestPage_Report1_Pixel,
+#id_TestPage_Report2,
+#id_TestPage_Report2_Pixel,
+#id_TestPage_ReportOrginalG,
+#id_TestPage_ReportOrginalG_Pixel,
+#id_TestPage_ReportOrginalC,
+#id_TestPage_ReportOrginalC_Pixel{
   image-rendering: optimizeSpeed;             /* Older versions of FF*/
   image-rendering: -moz-crisp-edges;          /* FF 6.0+*/
   image-rendering: -webkit-optimize-contrast; /* Webkit (non standard naming)*/
