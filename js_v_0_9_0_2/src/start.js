@@ -6,9 +6,10 @@ window.onload = function() {
 
   init_Particles();
   setParticleCanvas("id_startPage_ParticleCanvas");
-  document.getElementById("id_StartPage_Cover").style.display ="none";
+
   //*/
   leaveButton(); // for shadow
+  document.getElementById("id_StartPage_Cover").style.display ="none";
   //openCCCTool();
 }
 
