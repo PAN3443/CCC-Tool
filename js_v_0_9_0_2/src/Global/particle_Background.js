@@ -89,7 +89,7 @@ class class_Particle{
        //this.color_s=0.0;
        this.direction_X = 0;
        this.direction_Y = 0;
-       this.alpha_a = this.color_a_Fixed;
+       this.color_a = this.color_a_Fixed;
      }
      else if(vecL<=fixed_velocity){
        this.direction_X = tmp_vec[0];
