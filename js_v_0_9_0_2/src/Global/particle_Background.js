@@ -11,8 +11,8 @@ var stdStaturationMax = 0.5;
 
 var alphaMin = 0.05;
 var alphaMax = 0.1;
-var fixedAlphaMin = 0.4;
-var fixedAlphaMax = 0.5;
+var fixedAlphaMin = 0.2;
+var fixedAlphaMax = 0.4;
 
 function vecLength(v){
   var sum = 0;
@@ -36,7 +36,7 @@ class class_Particle{
     this.color_s = 100;
     this.color_v = 100;
     this.color_a = 0.8;
-    this.color_a_Fixed = this.resetColorAlpha(fixedAlphaMin,fixedAlphaMax);;
+    this.color_a_Fixed = getRandomArbitrary(fixedAlphaMin,fixedAlphaMax);
     this.randomMove = true;
     this.setRandom_Pos();
     this.setRandom_Velocity();
