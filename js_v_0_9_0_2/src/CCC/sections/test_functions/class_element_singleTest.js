@@ -3,7 +3,7 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
   constructor(divID,buttonID) {
     super(divID,buttonID);
 
-    this.cccTest_NewJump_Options = [true, [0, 1]];
+    this.cccTest_NewStep_Options = [true, [0, 1]];
     this.cccTest_NewRidgeValley_Options = [true, 0, 1, 1, 2, 1, 2, 101, 100];
     this.cccTest_NewLocalExtrema_Options = [1, -1, 0, true, 101, 101];
     this.cccTest_NewGradient_Options = [true, 0, 1, 1, 2, 1, 2, 101, 100];
@@ -129,8 +129,8 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     switch (document.getElementById("id_TestPage_SelectNewTestType").selectedIndex) {
       case 0:
         testLabel = "CCCTest";
-        testSublabel = "Jump";
-        optionList = this.copyOptions(this.cccTest_NewJump_Options);
+        testSublabel = "Step";
+        optionList = this.copyOptions(this.cccTest_NewStep_Options);
         break;
       case 1:
         testLabel = "CCCTest";
@@ -232,9 +232,9 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
       document.getElementById("id_TestPage_CalcButtonDiv").style.visibility="hidden";
       switch (document.getElementById("id_TestPage_SelectNewTestType").selectedIndex) {
         case 0:
-            if(this.cccTest_NewJump_Options[1].length==0)
+            if(this.cccTest_NewStep_Options[1].length==0)
               return;
-              this.inform_Worker_PushInteractiveTest("CCCTest","Jump",this.cccTest_NewJump_Options);
+              this.inform_Worker_PushInteractiveTest("CCCTest","Step",this.cccTest_NewStep_Options);
           break;
         case 1:
             this.inform_Worker_PushInteractiveTest("CCCTest","Gradient",this.cccTest_NewGradient_Options);
@@ -287,7 +287,7 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
 
     document.getElementById("id_TestPage_Dimension_Div").style.display = "none";
 
-    document.getElementById("id_TestPage_NewTest_JumpDiv").style.display = "none";
+    document.getElementById("id_TestPage_NewTest_StepDiv").style.display = "none";
 
     document.getElementById("id_TestPage_YFctType_Div").style.display = "none";
     document.getElementById("id_TestPage_NewTest_D1").style.display = "none";
@@ -351,7 +351,7 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     document.getElementById("id_Test_VisDiv").style.display="none";
     switch (document.getElementById("id_TestPage_SelectNewTestType").selectedIndex) {
       case 0:
-        this.selectNewJumpTestType();
+        this.selectNewStepTestType();
         break;
       case 1:
         this.selectNewGradientTestType();
@@ -414,8 +414,8 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
 
     switch (document.getElementById("id_TestPage_SelectNewTestType").selectedIndex) {
       case 0:
-        // Jumps
-        this.updateJumpTestVariables();
+        // Steps
+        this.updateStepTestVariables();
         break;
       case 1:
         // Gradient
@@ -623,24 +623,24 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
   }
 
   /////////////////////////////////////
-  /// Interactive Test (CCC-Tests::Jumps)
+  /// Interactive Test (CCC-Tests::Steps)
 
-  selectNewJumpTestType(){
+  selectNewStepTestType(){
 
     this.initNewTest();
-    document.getElementById("id_TestPage_NewTest_JumpDiv").style.display="block";
+    document.getElementById("id_TestPage_NewTest_StepDiv").style.display="block";
     document.getElementById("id_TestPage_newTestNoiseDiv").style.display="none";
     document.getElementById("id_Test_NoiseType").selectedIndex=0;
-    document.getElementById("id_TestPage_doRatioCheckbox").checked = this.cccTest_NewJump_Options[0];
+    document.getElementById("id_TestPage_doRatioCheckbox").checked = this.cccTest_NewStep_Options[0];
 
-    this.fillNewJumpsList();
+    this.fillNewStepsList();
     document.getElementById("id_TestPage_CalcButtonDiv").style.visibility="hidden";
     this.updateNoise();
-    this.inform_Worker_PushInteractiveTest("CCCTest","Jump",this.cccTest_NewJump_Options);
+    this.inform_Worker_PushInteractiveTest("CCCTest","Step",this.cccTest_NewStep_Options);
     this.worker_testInteractive.postMessage(this.inform_Worker_GetVisualisation());
   }
 
-  newJumpTestStartPerEnter(event){
+  newStepTestStartPerEnter(event){
 
     var keynum;
     if(window.event) { // IE
@@ -650,31 +650,31 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     }
 
     if (keynum == 13) {
-        this.addJumpToJumpSet();
+        this.addStepToStepSet();
     }
   }
 
-  updateJumpTestVariables(){
+  updateStepTestVariables(){
 
-    this.cccTest_NewJump_Options[0]=document.getElementById("id_TestPage_doRatioCheckbox").checked;
+    this.cccTest_NewStep_Options[0]=document.getElementById("id_TestPage_doRatioCheckbox").checked;
     if(document.getElementById("id_TestPage_doRatioCheckbox").checked){
-      this.cccTest_NewJump_Options[1]=[0,1];
+      this.cccTest_NewStep_Options[1]=[0,1];
     }
     else{
-      this.cccTest_NewJump_Options[1]=[testingSection.testingCMS.getRefPosition(0),testingSection.testingCMS.getRefPosition(testingSection.testingCMS.getKeyLength()-1)];
+      this.cccTest_NewStep_Options[1]=[testingSection.testingCMS.getRefPosition(0),testingSection.testingCMS.getRefPosition(testingSection.testingCMS.getKeyLength()-1)];
     }
-    this.fillNewJumpsList();
+    this.fillNewStepsList();
   }
 
-  fillNewJumpsList(){
-    document.getElementById("id_TestPage_NewTest_JumpList").innerHTML = "";
-    for (var i = 0; i < this.cccTest_NewJump_Options[1].length; i++) {
+  fillNewStepsList(){
+    document.getElementById("id_TestPage_NewTest_StepList").innerHTML = "";
+    for (var i = 0; i < this.cccTest_NewStep_Options[1].length; i++) {
       var option = document.createElement("option");
-      option.innerHTML = this.cccTest_NewJump_Options[1][i];
-      document.getElementById("id_TestPage_NewTest_JumpList").add(option);
+      option.innerHTML = this.cccTest_NewStep_Options[1][i];
+      document.getElementById("id_TestPage_NewTest_StepList").add(option);
     }
 
-    if(this.cccTest_NewJump_Options[1].length>0){
+    if(this.cccTest_NewStep_Options[1].length>0){
       document.getElementById("id_TestPage_CalcButtonDiv").style.display="block";
     }
     else{
@@ -684,44 +684,44 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     }
   }
 
-  addJumpToSet(){
+  addStepToSet(){
 
-    var newValue = document.getElementById("id_TestPage_NewJumpValue").value;
+    var newValue = document.getElementById("id_TestPage_NewStepValue").value;
     if(isNaN(newValue)){
-      openAlert("Invalid value for adding a new jump!");
+      openAlert("Invalid value for adding a new step!");
       return;
     }
 
     if(document.getElementById("id_TestPage_doRatioCheckbox").checked && (newValue<0 || newValue>1.0)){
-      openAlert("Invalid value for adding a new jump! You have select the option to work with rational numbers of the CMS range. Therefore only numbers between 0 and 1 are allowed!");
+      openAlert("Invalid value for adding a new step! You have select the option to work with rational numbers of the CMS range. Therefore only numbers between 0 and 1 are allowed!");
       return;
     }
 
 
       var foundValue = false;
-      for (var i = 0; i < this.cccTest_NewJump_Options[1].length; i++) {
-        if(this.cccTest_NewJump_Options[1][i]==newValue){
+      for (var i = 0; i < this.cccTest_NewStep_Options[1].length; i++) {
+        if(this.cccTest_NewStep_Options[1][i]==newValue){
           foundValue=true;
           break;
         }
       }
 
       if(foundValue){
-        openAlert("The value is already in the jump set! Please enter another value.");
+        openAlert("The value is already in the step set! Please enter another value.");
         return;
       }
 
-      this.cccTest_NewJump_Options[1].push(newValue);
-      this.cccTest_NewJump_Options[1].sort(function(a, b){return a - b});
-      this.fillNewJumpsList();
+      this.cccTest_NewStep_Options[1].push(newValue);
+      this.cccTest_NewStep_Options[1].sort(function(a, b){return a - b});
+      this.fillNewStepsList();
 
   }
 
-  removeJumpFromSet(){
+  removeStepFromSet(){
 
-    if(document.getElementById("id_TestPage_NewTest_JumpList").selectedIndex!=-1){
-      this.cccTest_NewJump_Options[1].splice(document.getElementById("id_TestPage_NewTest_JumpList").selectedIndex, 1);
-      this.fillNewJumpsList();
+    if(document.getElementById("id_TestPage_NewTest_StepList").selectedIndex!=-1){
+      this.cccTest_NewStep_Options[1].splice(document.getElementById("id_TestPage_NewTest_StepList").selectedIndex, 1);
+      this.fillNewStepsList();
     }
 
   }

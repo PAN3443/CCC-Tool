@@ -413,9 +413,9 @@ function calc_Preview_TestingField(index) {
 function calc_Preview_CCCTestField(index) {
 
   switch (subtypeList[index]) {
-    case "Jump":
+    case "Step":
       testFieldList[index].setCellValues(true);
-      testFieldList[index].setField(jumpTestField(optionsList[index]));
+      testFieldList[index].setField(stepTestField(optionsList[index]));
       break;
     case "LittleBit":
       testFieldList[index].setField(littleBitTestField(optionsList[index]));
@@ -570,9 +570,9 @@ function calc_Single_TestingField() {
 function calc_Single_CCCTestField() {
 
   switch (testsubtype) {
-    case "Jump":
+    case "Step":
       testField.setCellValues(true);
-      testField.setField(jumpTestField(testoptions));
+      testField.setField(stepTestField(testoptions));
       break;
     case "LittleBit":
       testField.setField(littleBitTestField(testoptions));

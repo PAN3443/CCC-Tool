@@ -3,7 +3,7 @@ class class_Element_Collection extends class_Testing_Element_Basis {
   constructor(divID,buttonID) {
     super(divID,buttonID);
 
-    this.cccTest_Jumps_Options = [
+    this.cccTest_Steps_Options = [
       [true, [0.25, 0.75]],
       [true, [0.25, 0.75, 1.0]],
       [true, [0.0, 0.25, 0.75, 1.0]],
@@ -158,20 +158,20 @@ class class_Element_Collection extends class_Testing_Element_Basis {
   /////////////////////////////////////
   ///// Open Tests
 
-  openJumpTest(jumpID){
+  openStepTest(stepID){
 
-  testingSection.element_singleTest.cccTest_NewJump_Options = [];
-  var tmpRatio = this.cccTest_Jumps_Options[jumpID][1];
-  testingSection.element_singleTest.cccTest_NewJump_Options.push(tmpRatio);
+  testingSection.element_singleTest.cccTest_NewStep_Options = [];
+  var tmpRatio = this.cccTest_Steps_Options[stepID][1];
+  testingSection.element_singleTest.cccTest_NewStep_Options.push(tmpRatio);
   var tmpArray = [];
-  for (var i = 0; i < this.cccTest_Jumps_Options[jumpID][1].length; i++) {
-    var tmpJump = this.cccTest_Jumps_Options[jumpID][1][i];
-    tmpArray.push(tmpJump);
+  for (var i = 0; i < this.cccTest_Steps_Options[stepID][1].length; i++) {
+    var tmpStep = this.cccTest_Steps_Options[stepID][1][i];
+    tmpArray.push(tmpStep);
   }
-  testingSection.element_singleTest.cccTest_NewJump_Options.push(tmpArray);
+  testingSection.element_singleTest.cccTest_NewStep_Options.push(tmpArray);
 
   document.getElementById("id_TestPage_SelectNewTestType").selectedIndex = 0;
-  testingSection.element_singleTest.selectNewJumpTestType();
+  testingSection.element_singleTest.selectNewStepTestType();
   }
 
   openGradientTest(tmpID){
@@ -385,7 +385,7 @@ class class_Element_Collection extends class_Testing_Element_Basis {
     tmpDivCCCLabel.innerHTML = "1. CCC-Tests:";
     tmpDivCCCTests.appendChild(tmpDivCCCLabel);
 
-    tmpDivCCCTests.appendChild(this.createJumpDiv());
+    tmpDivCCCTests.appendChild(this.createStepDiv());
     tmpDivCCCTests.appendChild(this.createGradientDiv());
     tmpDivCCCTests.appendChild(this.createRidgeAndValley());
     tmpDivCCCTests.appendChild(this.createLocalExtrema());
@@ -434,7 +434,7 @@ class class_Element_Collection extends class_Testing_Element_Basis {
     document.getElementById("id_Test_FunctionCollection").appendChild(tmpDivRealWorld);
   }
 
-  createJumpDiv() {
+  createStepDiv() {
 
     var tmpTestDiv = document.createElement('div');
     tmpTestDiv.style.width = "90vw";
@@ -443,40 +443,40 @@ class class_Element_Collection extends class_Testing_Element_Basis {
 
     var tmpDivLabel = document.createElement('h2');
     tmpDivLabel.className = "standardText";
-    tmpDivLabel.innerHTML = "1.1 Jumps:";
+    tmpDivLabel.innerHTML = "1.1 Steps:";
     tmpTestDiv.appendChild(tmpDivLabel);
 
     var tmpDivRow = document.createElement('div');
     tmpDivRow.className = "class_Test_SelectorRow";
     tmpTestDiv.appendChild(tmpDivRow);
-    for (var i = 0; i < this.cccTest_Jumps_Options.length; i++) {
+    for (var i = 0; i < this.cccTest_Steps_Options.length; i++) {
 
       var tmpSelection = document.createElement('div');
       tmpSelection.className = "class_Test_Selector";
 
       var tmpCanvas = document.createElement('canvas');
-      tmpCanvas.id = "jumpSelectorCanvas_" + i;
+      tmpCanvas.id = "stepSelectorCanvas_" + i;
       tmpSelection.appendChild(tmpCanvas);
 
       ///////////////////////////////////////////////////////////
       //// For Worker add canvas or canvasID
 
-      this.worker_testCollection_CCCTest.postMessage(this.inform_Worker_PushTestingType("CCCTest", "Jump"));
-      this.worker_testCollection_CCCTest.postMessage(this.inform_Worker_PushTestingOptions(this.cccTest_Jumps_Options[i]));
+      this.worker_testCollection_CCCTest.postMessage(this.inform_Worker_PushTestingType("CCCTest", "Step"));
+      this.worker_testCollection_CCCTest.postMessage(this.inform_Worker_PushTestingOptions(this.cccTest_Steps_Options[i]));
       this.worker_testCollection_CCCTest.postMessage(this.inform_Worker_PushTestingCanvas(tmpCanvas.id));
       ///////////////////////////////////////////////////////////
 
       var tmpTestLabel = document.createElement('p');
-      var labelText = "J = {";
+      var labelText = "Steps = {";
 
-      for (var j = 0; j < this.cccTest_Jumps_Options[i][1].length; j++) {
-        if (this.cccTest_Jumps_Options[i][0])
-          labelText += this.cccTest_Jumps_Options[i][1][j] * 100 + "%";
+      for (var j = 0; j < this.cccTest_Steps_Options[i][1].length; j++) {
+        if (this.cccTest_Steps_Options[i][0])
+          labelText += this.cccTest_Steps_Options[i][1][j] * 100 + "%";
         else
-          labelText += this.cccTest_Jumps_Options[i][1][j];
+          labelText += this.cccTest_Steps_Options[i][1][j];
 
 
-        if (j != this.cccTest_Jumps_Options[i][1].length - 1)
+        if (j != this.cccTest_Steps_Options[i][1].length - 1)
           labelText += ",";
       }
       labelText += "}";
@@ -487,7 +487,7 @@ class class_Element_Collection extends class_Testing_Element_Basis {
       tmpSelection.onclick = (function(tmpID) {
         return function() {
           testingSection.element_singleTest.showElement();
-          testingSection.element_testCollection.openJumpTest(tmpID);
+          testingSection.element_testCollection.openStepTest(tmpID);
         };
       })(i);
 

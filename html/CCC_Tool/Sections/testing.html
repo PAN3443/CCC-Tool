@@ -36,7 +36,7 @@
               <p style="margin:auto; margin-left: 1vw; font-weight:bold; color: var(--main-sepArea-font-color);"> Type:</p>
               <select id="id_TestPage_SelectNewTestType" onchange="testingSection.element_singleTest.selectNewTestType()" style="margin-right: auto;">
                  <optgroup label="CCC-Test:">
-                    <option value="0">Jump</option>
+                    <option value="0">Steps</option>
                     <option value="1">Gradient</option>
                     <option value="2">Ridge & Valley</option>
                     <option value="3">Minimum/Maximum/Saddle</option>
@@ -74,16 +74,16 @@
               <hr style="color: var(--main-sepArea-font-color);">
 
 
-              <div id="id_TestPage_NewTest_JumpDiv" style="width:100%; display:none;">
-                <select id="id_TestPage_NewTest_JumpList" name="Jump List" size="5" style="min-width:90%; max-width:90%; margin-left:5%; height:25vh; margin-top:1vh;" >
+              <div id="id_TestPage_NewTest_StepDiv" style="width:100%; display:none;">
+                <select id="id_TestPage_NewTest_StepList" name="Step List" size="5" style="min-width:90%; max-width:90%; margin-left:5%; height:25vh; margin-top:1vh;" >
 
                 </select>
 
                 <div style="display:flex; margin-top:1vh; margin-bottom:1vh; width:100%;">
-                  <p style="margin:auto; margin-left: 1vw; margin-right:0.25vw; color: var(--main-sepArea-font-color);">Jump Value:</p>
-                  <input id="id_TestPage_NewJumpValue" type="number" name="JumpValue"  step="any" value="0.1" style=" width : 5vw; margin:auto; margin-left:0.25vw;  margin-right:0.25vw;">
-                  <button class="class_coloredButton_Dark" onclick="testingSection.element_singleTest.addJumpToSet()" style="margin-right:0.25vw; padding-left:0.5vw; padding-right:0.5vw;">+</button>
-                  <button class="class_coloredButton_Dark" onclick="testingSection.element_singleTest.removeJumpFromSet()" style="margin-right:auto; padding-left:0.5vw; padding-right:0.5vw;">-</button>
+                  <p style="margin:auto; margin-left: 1vw; margin-right:0.25vw; color: var(--main-sepArea-font-color);">Step Value:</p>
+                  <input id="id_TestPage_NewStepValue" type="number" name="StepValue"  step="any" value="0.1" style=" width : 5vw; margin:auto; margin-left:0.25vw;  margin-right:0.25vw;">
+                  <button class="class_coloredButton_Dark" onclick="testingSection.element_singleTest.addStepToSet()" style="margin-right:0.25vw; padding-left:0.5vw; padding-right:0.5vw;">+</button>
+                  <button class="class_coloredButton_Dark" onclick="testingSection.element_singleTest.removeStepFromSet()" style="margin-right:auto; padding-left:0.5vw; padding-right:0.5vw;">-</button>
                 </div>
               </div>
 

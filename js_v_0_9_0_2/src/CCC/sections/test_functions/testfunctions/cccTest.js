@@ -1,12 +1,12 @@
-function jumpTestField(options){
+function stepTestField(options){
 
     var positions = [];
     var testFieldVal = [];
 
-    var testFieldDimX = ((options[1].length) * 2) + 1; // oldJump Image: (stepArray.length-1)*2+1; // nDim-1 = number of cells in x direction
-    var testFieldDimY = options[1].length+1; // oldJump Image: stepArray.length+1; // mDim-1 = number of cells in y direction
+    var testFieldDimX = ((options[1].length) * 2) + 1; // oldStep Image: (stepArray.length-1)*2+1; // nDim-1 = number of cells in x direction
+    var testFieldDimY = options[1].length+1; // oldStep Image: stepArray.length+1; // mDim-1 = number of cells in y direction
 
-    var dis = Math.round((globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1) - globalCMS1.getRefPosition(0)) * errorMath) / errorMath; // = version with rational number jumps
+    var dis = Math.round((globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1) - globalCMS1.getRefPosition(0)) * errorMath) / errorMath; // = version with rational number Steps
     for (var y = 0; y < testFieldDimY; y++) {
       for (var x = 0; x < testFieldDimX; x++) {
         testFieldVal.push(undefined);
@@ -18,7 +18,7 @@ function jumpTestField(options){
     for (var i = 0; i < options[1].length; i++) {
       var value = undefined;
       if (options[0]) {
-        value = Math.round((globalCMS1.getRefPosition(0) + (options[1][i] * dis)) * errorMath) / errorMath; // = version with rational number jumps
+        value = Math.round((globalCMS1.getRefPosition(0) + (options[1][i] * dis)) * errorMath) / errorMath; // = version with rational number Steps
       } else {
         value = options[1][i];
       }
