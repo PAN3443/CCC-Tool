@@ -88,6 +88,7 @@ class class_Particle{
        //this.color_s=0.0;
        this.direction_X = 0;
        this.direction_Y = 0;
+       this.resetColorAlpha(fixedAlphaMin,fixedAlphaMax);
      }
      else if(vecL<=fixed_velocity){
        this.direction_X = tmp_vec[0];
@@ -112,7 +113,7 @@ class class_Particle{
 
      this.randomMove = false;
      //this.setRandomSaturation(0.3,0.4);
-     this.resetColorAlpha(fixedAlphaMin,fixedAlphaMax);
+     //this.resetColorAlpha(fixedAlphaMin,fixedAlphaMax);
      var numLines = pathArray.length-1;
      var lineIndex = getRandomInt(0, numLines);
 
