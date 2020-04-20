@@ -960,7 +960,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
           divTop.style.borderBottom = "0.2vh solid black";
 
           var divDouble = document.createElement('div');
-          divDouble.className = 'row';
+          divDouble.style.display = 'flex';
           divDouble.style.width = '100%';
           divDouble.style.height = "75%";
 
