@@ -13,6 +13,8 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
 
     this.reportOptions_ColorDif="lab"; // lab, CIEDE2000, DE94, din99
     this.reportOptions_ColorSelector="max";
+    this.reportOptions_NormalizationSelector="minMax";
+    this.customValue = 100;
 
     this.reportColorValueDifColormap = new class_CMS();
     this.reportColorValueDifColormap.pushKey(new class_Key(undefined, new class_Color_DIN99(29.581458825788705,16.03125,-26.896446228027347), -1, false));
@@ -95,6 +97,22 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
         }
       }
 
+      for (var i = 0; i < document.getElementById("id_TestPage_NormalizationSelector").options.length; i++) {
+        if(document.getElementById("id_TestPage_NormalizationSelector").options[i].value===this.reportOptions_NormalizationSelector){
+          document.getElementById("id_TestPage_NormalizationSelector").selectedIndex=i;
+          break;
+        }
+      }
+
+      if(this.reportOptions_NormalizationSelector==="custom"){
+        document.getElementById("id_TestPage_NormalizationCustom").style.visibility="visible";
+        document.getElementById("id_TestPage_NormalizationCustom").value=100;
+        this.customValue = 100;
+      }
+      else {
+        document.getElementById("id_TestPage_NormalizationCustom").style.visibility="hidden";
+      }
+
       this.markCursor = document.getElementById("id_Test_RatioReport_DoMarkedCursor").checked;
 
       this.fillReportSelect();
@@ -104,12 +122,20 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
 
 
 
-  report_screenshot() {
+  report_SubtractionField_Screenshot() {
     var canvasID = "id_TestPage_Report2";
     var testing_ImgData = document.getElementById(canvasID).toDataURL("image/png")
         .replace("image/png", "image/octet-stream");
 
-    document.getElementById("id_Report_downloadScreenshot").href = testing_ImgData;
+    document.getElementById("id_Report_SubtractionScreenshot").href = testing_ImgData;
+  }
+
+  report_ColorDifField_Screenshot() {
+    var canvasID = "id_TestPage_Report1";
+    var testing_ImgData = document.getElementById(canvasID).toDataURL("image/png")
+        .replace("image/png", "image/octet-stream");
+
+    document.getElementById("id_Report_ColorDifScreenshot").href = testing_ImgData;
   }
 
 
@@ -129,6 +155,8 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
     workerJSON['message'] = "calcReport_New_Testfield";
     workerJSON['reportOptions_ColorDif'] = this.reportOptions_ColorDif;
     workerJSON['reportOptions_ColorSelector'] = this.reportOptions_ColorSelector;
+    workerJSON['reportOptions_NormalizationSelector'] = this.reportOptions_NormalizationSelector;
+    workerJSON['customValue'] = this.customValue;
     workerJSON['testfield'] = this.reportListTestField[document.getElementById("id_TestPage_ReportList").selectedIndex];
     this.worker_testreport.postMessage(workerJSON);
     this.fillSubReportTable();
@@ -193,10 +221,35 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
     this.deleteStatistics();
     this.reportOptions_ColorDif=document.getElementById("id_TestPage_SelectReportMetric").options[document.getElementById("id_TestPage_SelectReportMetric").selectedIndex].value;
     this.reportOptions_ColorSelector = document.getElementById("id_TestPage_SelectColorSelector").options[document.getElementById("id_TestPage_SelectColorSelector").selectedIndex].value;
+    this.reportOptions_NormalizationSelector = document.getElementById("id_TestPage_NormalizationSelector").options[document.getElementById("id_TestPage_NormalizationSelector").selectedIndex].value;
+
+    this.customValue = 100;
+    if(this.reportOptions_NormalizationSelector==="custom"){
+      document.getElementById("id_TestPage_NormalizationCustom").style.visibility="visible";
+
+      var tmpVal = parseFloat(document.getElementById("id_TestPage_NormalizationCustom").value);
+      if(isNaN(tmpVal)){
+        openAlert("Invalid input for the custom normalization value.");
+        return;
+      }
+      if(tmpVal<0 || tmpVal>100){
+        openAlert("Invalid value for the custom normalization value! You have to choose a value out of the set ]0,100]!");
+        return;
+      }
+
+      this.customValue = tmpVal;
+
+    }
+    else {
+      document.getElementById("id_TestPage_NormalizationCustom").style.visibility="hidden";
+    }
+
     var workerJSON = {};
     workerJSON['message'] = "calcReport_New_Setting";
     workerJSON['reportOptions_ColorDif'] = this.reportOptions_ColorDif;
     workerJSON['reportOptions_ColorSelector'] = this.reportOptions_ColorSelector;
+    workerJSON['reportOptions_NormalizationSelector'] = this.reportOptions_NormalizationSelector;
+    workerJSON['customValue'] = this.customValue;
     this.worker_testreport.postMessage(workerJSON);
     this.fillSubReportTable();
   }

@@ -1,5 +1,4 @@
-
-function initColorPicker(){
+function initColorPicker() {
   document.getElementById('id_popupWindow_Colorpicker_RG_B').addEventListener("click", changeColorpickerType);
   document.getElementById('id_popupWindow_Colorpicker_RB_G').addEventListener("click", changeColorpickerType);
   document.getElementById('id_popupWindow_Colorpicker_GB_R').addEventListener("click", changeColorpickerType);
@@ -57,70 +56,38 @@ function openColorPicker(event) {
   colorpickerAffectID = event.target.id;
 
   switch (event.target.id) {
-    /*case "id_EditPage_MappingBackground_Custom":
-    colorpickerColor=mappingBackgroundColor;
-    // below the object
-    document.getElementById("id_popupColorPicker").style.top=(top-pickerBox.height)+"px";
-    document.getElementById("id_popupColorPicker").style.left=(left-pickerBox.width)+"px";
-    break;
-
-    case "id_EditPage_ColorAboveFixedAxis_GlobalLocalOrder":
-    colorpickerColor=globalPlotAboveColor;
-    // below the object
-    document.getElementById("id_popupColorPicker").style.top=(top-pickerBox.height)+"px";
-    document.getElementById("id_popupColorPicker").style.left=(left-pickerBox.width)+"px";
-    break;*/
     case "id_edit_cms_SetNaN":
-    colorpickerColor=editSection.getSpecialCMSColor("nan","rgb");
-    // below the object
-    document.getElementById("id_popupColorPicker").style.top=(top+box.height)+"px";
-    document.getElementById("id_popupColorPicker").style.left=(left-pickerBox.width)+"px";
-    break;
+      colorpickerColor.updateColor(editSection.getSpecialCMSColor("nan", "rgb"));
+      // below the object
+      document.getElementById("id_popupColorPicker").style.top = (top + box.height) + "px";
+      document.getElementById("id_popupColorPicker").style.left = (left - pickerBox.width) + "px";
+      break;
     case "id_edit_cms_SetBelow":
-      colorpickerColor = editSection.getSpecialCMSColor("below","rgb");
+      colorpickerColor.updateColor(editSection.getSpecialCMSColor("below", "rgb"));
       // below the object
       document.getElementById("id_popupColorPicker").style.top = (top + box.height) + "px";
       document.getElementById("id_popupColorPicker").style.left = (left - pickerBox.width) + "px";
       break;
     case "id_edit_cms_SetAbove":
-      colorpickerColor = editSection.getSpecialCMSColor("above","rgb");
+      colorpickerColor.updateColor(editSection.getSpecialCMSColor("above", "rgb"));
       // below the object
       document.getElementById("id_popupColorPicker").style.top = (top + box.height) + "px";
       document.getElementById("id_popupColorPicker").style.left = (left - pickerBox.width) + "px";
       break;
     case "id_EditPage_DrawnDualKey":
     case "id_EditPage_DrawnRightKey":
-      colorpickerColor = editSection.editCMS.getRightKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex, "rgb");
+      colorpickerColor.updateColor(editSection.editCMS.getRightKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex, "rgb"));
       // above the object
       document.getElementById("id_popupColorPicker").style.top = (top + box.height) + "px";
       document.getElementById("id_popupColorPicker").style.left = (left - pickerBox.width) + "px";
       break;
 
     case "id_EditPage_DrawnLeftKey":
-      colorpickerColor = editSection.editCMS.getLeftKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex, "rgb");
+      colorpickerColor.updateColor(editSection.editCMS.getLeftKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex, "rgb"));
       // above the object
       document.getElementById("id_popupColorPicker").style.top = (top + box.height) + "px";
       document.getElementById("id_popupColorPicker").style.left = (left - pickerBox.width) + "px";
       break;
-
-    /*case "id_inputProbeColor":
-      document.getElementById("id_popupColorPicker").style.zIndex = 105;
-      colorpickerColor = globalProbeColor;
-      // above the object
-      top = refObj.offsetTop;
-      left = refObj.offsetLeft;
-      document.getElementById("id_popupColorPicker").style.top = (top - pickerBox.height) + "px";
-      document.getElementById("id_popupColorPicker").style.left = (left + box.width) + "px";
-      break;
-
-    case "id_inputEditProbeColor":
-      colorpickerColor = globalProbeColor;
-      // above the object
-      top = refObj.offsetTop;
-      left = refObj.offsetLeft;
-      document.getElementById("id_popupColorPicker").style.top = (top - pickerBox.height) + "px";
-      document.getElementById("id_popupColorPicker").style.left = (left - pickerBox.width) + "px";
-      break;*/
 
     default:
       return;
@@ -132,26 +99,27 @@ function openColorPicker(event) {
   if (document.getElementById("id_popupWindow_Colorpicker_HS_V").checked ||
     document.getElementById("id_popupWindow_Colorpicker_HV_S").checked ||
     document.getElementById("id_popupWindow_Colorpicker_SV_H").checked) {
-    colorpickerColor = colorpickerColor.calcHSVColor();
+
     document.getElementById("id_popupWindow_Colorpicker_Input1").max = 360;
     document.getElementById("id_popupWindow_Colorpicker_Input2").max = 100;
     document.getElementById("id_popupWindow_Colorpicker_Input3").max = 100;
-    document.getElementById("id_popupWindow_Colorpicker_Input1").value = Math.round(colorpickerColor.getHValue() * 360);
-    document.getElementById("id_popupWindow_Colorpicker_Input2").value = Math.round(colorpickerColor.getSValue() * 100);
-    document.getElementById("id_popupWindow_Colorpicker_Input3").value = Math.round(colorpickerColor.getVValue() * 100);
+    var tmpColorInfo = colorpickerColor.getColorInfo("hsv");
+    document.getElementById("id_popupWindow_Colorpicker_Input1").value = Math.round(tmpColorInfo[1] * 360);
+    document.getElementById("id_popupWindow_Colorpicker_Input2").value = Math.round(tmpColorInfo[2] * 100);
+    document.getElementById("id_popupWindow_Colorpicker_Input3").value = Math.round(tmpColorInfo[3] * 100);
 
     document.getElementById("id_popupColorPicker_InputLabel").innerHTML = "HSV";
     document.getElementById("id_popupColorPicker_InputLabel1").innerHTML = "H : ";
     document.getElementById("id_popupColorPicker_InputLabel2").innerHTML = "S : ";
     document.getElementById("id_popupColorPicker_InputLabel3").innerHTML = "V : ";
   } else {
-    colorpickerColor = colorpickerColor.calcRGBColor();
+    var tmpColorInfo = colorpickerColor.getColorInfo("rgb");
     document.getElementById("id_popupWindow_Colorpicker_Input1").max = 255;
     document.getElementById("id_popupWindow_Colorpicker_Input2").max = 255;
     document.getElementById("id_popupWindow_Colorpicker_Input3").max = 255;
-    document.getElementById("id_popupWindow_Colorpicker_Input1").value = Math.round(colorpickerColor.getRValue() * 255);
-    document.getElementById("id_popupWindow_Colorpicker_Input2").value = Math.round(colorpickerColor.getGValue() * 255);
-    document.getElementById("id_popupWindow_Colorpicker_Input3").value = Math.round(colorpickerColor.getBValue() * 255);
+    document.getElementById("id_popupWindow_Colorpicker_Input1").value = Math.round(tmpColorInfo[1] * 255);
+    document.getElementById("id_popupWindow_Colorpicker_Input2").value = Math.round(tmpColorInfo[2] * 255);
+    document.getElementById("id_popupWindow_Colorpicker_Input3").value = Math.round(tmpColorInfo[3] * 255);
 
     document.getElementById("id_popupColorPicker_InputLabel").innerHTML = "RGB";
     document.getElementById("id_popupColorPicker_InputLabel1").innerHTML = "R : ";
@@ -166,58 +134,32 @@ function openColorPicker(event) {
   initColorPickerVBarBackground();
   drawColorPickerVBar();
 
-
-  var tmpRGB = colorpickerColor.calcHSVColor();
-
 }
 
 function changeColorpickerType(event) {
 
-  var tmpColor = colorpickerColor.calcRGBColor();
-  colorpickerColor.deleteReferences();
-  colorpickerColor = tmpColor;
-
   switch (event.target.id) {
     case "id_popupWindow_Colorpicker_RG_B":
       colorpickerType = "RG_B";
-      var tmpColor = colorpickerColor.calcRGBColor();
-      colorpickerColor.deleteReferences();
-      colorpickerColor = tmpColor;
       break;
     case "id_popupWindow_Colorpicker_RB_G":
       colorpickerType = "RB_G";
-      var tmpColor = colorpickerColor.calcRGBColor();
-      colorpickerColor.deleteReferences();
-      colorpickerColor = tmpColor;
       break;
     case "id_popupWindow_Colorpicker_GB_R":
       colorpickerType = "GB_R";
-      var tmpColor = colorpickerColor.calcRGBColor();
-      colorpickerColor.deleteReferences();
-      colorpickerColor = tmpColor;
       break;
     case "id_popupWindow_Colorpicker_HS_V":
       colorpickerType = "HS_V";
-      var tmpColor = colorpickerColor.calcHSVColor();
-      colorpickerColor.deleteReferences();
-      colorpickerColor = tmpColor;
       break;
     case "id_popupWindow_Colorpicker_HV_S":
       colorpickerType = "HV_S";
-      var tmpColor = colorpickerColor.calcHSVColor();
-      colorpickerColor.deleteReferences();
-      colorpickerColor = tmpColor;
       break;
     case "id_popupWindow_Colorpicker_SV_H":
       colorpickerType = "SV_H";
-      var tmpColor = colorpickerColor.calcHSVColor();
-      colorpickerColor.deleteReferences();
-      colorpickerColor = tmpColor;
       break;
     default:
-
+      return;
   }
-
 
   initColorpickerBackground();
   drawColorPickerCircle();
@@ -228,25 +170,27 @@ function changeColorpickerType(event) {
   if (document.getElementById("id_popupWindow_Colorpicker_HS_V").checked ||
     document.getElementById("id_popupWindow_Colorpicker_HV_S").checked ||
     document.getElementById("id_popupWindow_Colorpicker_SV_H").checked) {
-    colorpickerColor = colorpickerColor.calcHSVColor();
+
     document.getElementById("id_popupWindow_Colorpicker_Input1").max = 360;
     document.getElementById("id_popupWindow_Colorpicker_Input2").max = 100;
     document.getElementById("id_popupWindow_Colorpicker_Input3").max = 100;
-    document.getElementById("id_popupWindow_Colorpicker_Input1").value = Math.round(colorpickerColor.getHValue() * 360);
-    document.getElementById("id_popupWindow_Colorpicker_Input2").value = Math.round(colorpickerColor.getSValue() * 100);
-    document.getElementById("id_popupWindow_Colorpicker_Input3").value = Math.round(colorpickerColor.getVValue() * 100);
+    var tmpColorInfo = colorpickerColor.getColorInfo("hsv");
+    document.getElementById("id_popupWindow_Colorpicker_Input1").value = Math.round(tmpColorInfo[1] * 360);
+    document.getElementById("id_popupWindow_Colorpicker_Input2").value = Math.round(tmpColorInfo[2] * 100);
+    document.getElementById("id_popupWindow_Colorpicker_Input3").value = Math.round(tmpColorInfo[3] * 100);
 
     document.getElementById("id_popupColorPicker_InputLabel").innerHTML = "HSV";
     document.getElementById("id_popupColorPicker_InputLabel1").innerHTML = "H : ";
     document.getElementById("id_popupColorPicker_InputLabel2").innerHTML = "S : ";
     document.getElementById("id_popupColorPicker_InputLabel3").innerHTML = "V : ";
   } else {
+    var tmpColorInfo = colorpickerColor.getColorInfo("rgb");
     document.getElementById("id_popupWindow_Colorpicker_Input1").max = 255;
     document.getElementById("id_popupWindow_Colorpicker_Input2").max = 255;
     document.getElementById("id_popupWindow_Colorpicker_Input3").max = 255;
-    document.getElementById("id_popupWindow_Colorpicker_Input1").value = Math.round(colorpickerColor.getRValue() * 255);
-    document.getElementById("id_popupWindow_Colorpicker_Input2").value = Math.round(colorpickerColor.getGValue() * 255);
-    document.getElementById("id_popupWindow_Colorpicker_Input3").value = Math.round(colorpickerColor.getBValue() * 255);
+    document.getElementById("id_popupWindow_Colorpicker_Input1").value = Math.round(tmpColorInfo[1] * 255);
+    document.getElementById("id_popupWindow_Colorpicker_Input2").value = Math.round(tmpColorInfo[2] * 255);
+    document.getElementById("id_popupWindow_Colorpicker_Input3").value = Math.round(tmpColorInfo[3] * 255);
 
     document.getElementById("id_popupColorPicker_InputLabel").innerHTML = "RGB";
     document.getElementById("id_popupColorPicker_InputLabel1").innerHTML = "R : ";
@@ -268,164 +212,109 @@ function initColorpickerBackground() {
   var colorspaceContex = canvasColorspace.getContext("2d");
   colorpickerData = colorspaceContex.getImageData(0, 0, canvasColorspace.width, canvasColorspace.height);
 
-
+  var tmpRGBColorInfo = colorpickerColor.getColorInfo("rgb");
+  var tmpHSVColorInfo = colorpickerColor.getColorInfo("hsv");
   switch (colorpickerType) {
     case "RG_B":
 
-      var bVal = colorpickerColor.get3Value();
+      var bVal = tmpRGBColorInfo[3];
 
       for (var x = 0; x < canvasColorspace.width; x++) {
 
         var rVal = x / canvasColorspace.width;
 
-
         for (var y = 0; y < canvasColorspace.height; y++) {
-
-          // calc hsv color
           var gVal = 1 - y / canvasColorspace.height;
-
-          var colorRGB = new class_Color_RGB(rVal, gVal, bVal);
-
-          if (doColorblindnessSim) {
-            var tmpLMS = colorRGB.calcLMSColor();
-            colorRGB.deleteReferences();
-            colorRGB = tmpLMS.calcColorBlindRGBColor();
-            tmpLMS.deleteReferences();
-            tmpLMS = null;
-          }
-
           var index = (x + y * canvasColorspace.width) * 4;
-
-          colorpickerData.data[index + 0] = Math.round(colorRGB.getRValue() * 255); // r
-          colorpickerData.data[index + 1] = Math.round(colorRGB.getGValue() * 255); // g
-          colorpickerData.data[index + 2] = Math.round(colorRGB.getBValue() * 255); // b
+          if (doColorblindnessSim) {
+            gWorkColor1.updateColor("rgb", rVal, gVal, bVal);
+            var colorInfo = gWorkColor1.getColorInfo("rgb_cb");
+            colorpickerData.data[index + 0] = Math.round(colorInfo[1] * 255); // r
+            colorpickerData.data[index + 1] = Math.round(colorInfo[2] * 255); // g
+            colorpickerData.data[index + 2] = Math.round(colorInfo[3] * 255); // b
+          } else {
+            colorpickerData.data[index + 0] = Math.round(rVal * 255); // r
+            colorpickerData.data[index + 1] = Math.round(gVal * 255); // g
+            colorpickerData.data[index + 2] = Math.round(bVal * 255); // b
+          }
           colorpickerData.data[index + 3] = 255; //a
-
-
-          colorRGB.deleteReferences();
-          colorRGB = null;
         }
       }
       break;
     case "RB_G":
 
-      var gVal = colorpickerColor.get2Value();
-
-
+      var gVal = tmpRGBColorInfo[2];
       for (var x = 0; x < canvasColorspace.width; x++) {
-
         var rVal = x / canvasColorspace.width;
-
-
         for (var y = 0; y < canvasColorspace.height; y++) {
-
-          // calc hsv color
           var bVal = 1 - y / canvasColorspace.height;
-
-          var colorRGB = new class_Color_RGB(rVal, gVal, bVal);
-
-          if (doColorblindnessSim) {
-            var tmpLMS = colorRGB.calcLMSColor();
-            colorRGB.deleteReferences();
-            colorRGB = tmpLMS.calcColorBlindRGBColor();
-            tmpLMS.deleteReferences();
-            tmpLMS = null;
-          }
-
           var index = (x + y * canvasColorspace.width) * 4;
-
-          colorpickerData.data[index + 0] = Math.round(colorRGB.getRValue() * 255); // r
-          colorpickerData.data[index + 1] = Math.round(colorRGB.getGValue() * 255); // g
-          colorpickerData.data[index + 2] = Math.round(colorRGB.getBValue() * 255); // b
+          if (doColorblindnessSim) {
+            gWorkColor1.updateColor("rgb", rVal, gVal, bVal);
+            var colorInfo = gWorkColor1.getColorInfo("rgb_cb");
+            colorpickerData.data[index + 0] = Math.round(colorInfo[1] * 255); // r
+            colorpickerData.data[index + 1] = Math.round(colorInfo[2] * 255); // g
+            colorpickerData.data[index + 2] = Math.round(colorInfo[3] * 255); // b
+          } else {
+            colorpickerData.data[index + 0] = Math.round(rVal * 255); // r
+            colorpickerData.data[index + 1] = Math.round(gVal * 255); // g
+            colorpickerData.data[index + 2] = Math.round(bVal * 255); // b
+          }
           colorpickerData.data[index + 3] = 255; //a
-
-          colorRGB.deleteReferences();
-          colorRGB = null;
 
         }
       }
       break;
     case "GB_R":
-
-      var rVal = colorpickerColor.get1Value();
-
+      var rVal = tmpRGBColorInfo[1];
       for (var x = 0; x < canvasColorspace.width; x++) {
-
         var gVal = x / canvasColorspace.width;
-
-
         for (var y = 0; y < canvasColorspace.height; y++) {
-
-          // calc hsv color
           var bVal = 1 - y / canvasColorspace.height;
-
-          var colorRGB = new class_Color_RGB(rVal, gVal, bVal);
-
-          if (doColorblindnessSim) {
-            var tmpLMS = colorRGB.calcLMSColor();
-            colorRGB.deleteReferences();
-            colorRGB = tmpLMS.calcColorBlindRGBColor();
-            tmpLMS.deleteReferences();
-            tmpLMS = null;
-          }
-
           var index = (x + y * canvasColorspace.width) * 4;
-
-          colorpickerData.data[index + 0] = Math.round(colorRGB.getRValue() * 255); // r
-          colorpickerData.data[index + 1] = Math.round(colorRGB.getGValue() * 255); // g
-          colorpickerData.data[index + 2] = Math.round(colorRGB.getBValue() * 255); // b
+          if (doColorblindnessSim) {
+            gWorkColor1.updateColor("rgb", rVal, gVal, bVal);
+            var colorInfo = gWorkColor1.getColorInfo("rgb_cb");
+            colorpickerData.data[index + 0] = Math.round(colorInfo[1] * 255); // r
+            colorpickerData.data[index + 1] = Math.round(colorInfo[2] * 255); // g
+            colorpickerData.data[index + 2] = Math.round(colorInfo[3] * 255); // b
+          } else {
+            colorpickerData.data[index + 0] = Math.round(rVal * 255); // r
+            colorpickerData.data[index + 1] = Math.round(gVal * 255); // g
+            colorpickerData.data[index + 2] = Math.round(bVal * 255); // b
+          }
           colorpickerData.data[index + 3] = 255; //a
-
-          colorRGB.deleteReferences();
-          colorRGB = null;
-
         }
       }
       break;
     case "HS_V":
 
-      var vVal = colorpickerColor.get3Value();
-
+      var vVal = tmpHSVColorInfo[3];
       for (var x = 0; x < canvasColorspace.width; x++) {
-
         var hVal = x / canvasColorspace.width;
-
-
         for (var y = 0; y < canvasColorspace.height; y++) {
-
           // calc hsv color
           var sVal = 1 - y / canvasColorspace.height;
-
-          var colorHSV = new class_Color_HSV(hVal, sVal, vVal);
-          var colorRGB = colorHSV.calcRGBColor();
-
-          if (doColorblindnessSim) {
-            var tmpLMS = colorRGB.calcLMSColor();
-            colorRGB.deleteReferences();
-            colorRGB = tmpLMS.calcColorBlindRGBColor();
-            tmpLMS.deleteReferences();
-            tmpLMS = null;
-          }
-
           var index = (x + y * canvasColorspace.width) * 4;
-
-          colorpickerData.data[index + 0] = Math.round(colorRGB.getRValue() * 255); // r
-          colorpickerData.data[index + 1] = Math.round(colorRGB.getGValue() * 255); // g
-          colorpickerData.data[index + 2] = Math.round(colorRGB.getBValue() * 255); // b
+          gWorkColor1.updateColor("hsv", hVal, sVal, vVal);
+          if (doColorblindnessSim) {
+            var colorInfo = gWorkColor1.getColorInfo("rgb_cb");
+            colorpickerData.data[index + 0] = Math.round(colorInfo[1] * 255); // r
+            colorpickerData.data[index + 1] = Math.round(colorInfo[2] * 255); // g
+            colorpickerData.data[index + 2] = Math.round(colorInfo[3] * 255); // b
+          } else {
+            var colorInfo = gWorkColor1.getColorInfo("rgb");
+            colorpickerData.data[index + 0] = Math.round(colorInfo[1] * 255); // r
+            colorpickerData.data[index + 1] = Math.round(colorInfo[2] * 255); // g
+            colorpickerData.data[index + 2] = Math.round(colorInfo[3] * 255); // b
+          }
           colorpickerData.data[index + 3] = 255; //a
-
-          colorHSV.deleteReferences();
-          colorRGB.deleteReferences();
-
-          colorHSV = null;
-          colorRGB = null;
-
         }
       }
       break;
     case "HV_S":
 
-      var sVal = colorpickerColor.get2Value();
+      var sVal = tmpHSVColorInfo[2];
 
       for (var x = 0; x < canvasColorspace.width; x++) {
 
@@ -435,36 +324,27 @@ function initColorpickerBackground() {
 
           // calc hsv color
           var vVal = 1 - y / canvasColorspace.height;
-
-          var colorHSV = new class_Color_HSV(hVal, sVal, vVal);
-          var colorRGB = colorHSV.calcRGBColor();
-
-          if (doColorblindnessSim) {
-            var tmpLMS = colorRGB.calcLMSColor();
-            colorRGB.deleteReferences();
-            colorRGB = tmpLMS.calcColorBlindRGBColor();
-            tmpLMS.deleteReferences();
-            tmpLMS = null;
-          }
-
           var index = (x + y * canvasColorspace.width) * 4;
-
-          colorpickerData.data[index + 0] = Math.round(colorRGB.getRValue() * 255); // r
-          colorpickerData.data[index + 1] = Math.round(colorRGB.getGValue() * 255); // g
-          colorpickerData.data[index + 2] = Math.round(colorRGB.getBValue() * 255); // b
+          gWorkColor1.updateColor("hsv", hVal, sVal, vVal);
+          if (doColorblindnessSim) {
+            var colorInfo = gWorkColor1.getColorInfo("rgb_cb");
+            colorpickerData.data[index + 0] = Math.round(colorInfo[1] * 255); // r
+            colorpickerData.data[index + 1] = Math.round(colorInfo[2] * 255); // g
+            colorpickerData.data[index + 2] = Math.round(colorInfo[3] * 255); // b
+          } else {
+            var colorInfo = gWorkColor1.getColorInfo("rgb");
+            colorpickerData.data[index + 0] = Math.round(colorInfo[1] * 255); // r
+            colorpickerData.data[index + 1] = Math.round(colorInfo[2] * 255); // g
+            colorpickerData.data[index + 2] = Math.round(colorInfo[3] * 255); // b
+          }
           colorpickerData.data[index + 3] = 255; //a
-
-          colorHSV.deleteReferences();
-          colorRGB.deleteReferences();
-          colorHSV = null;
-          colorRGB = null;
 
         }
       }
       break;
     case "SV_H":
 
-      var hVal = colorpickerColor.get1Value();
+      var hVal = tmpHSVColorInfo[1];
 
       for (var x = 0; x < canvasColorspace.width; x++) {
 
@@ -474,29 +354,20 @@ function initColorpickerBackground() {
 
           // calc hsv color
           var vVal = 1 - y / canvasColorspace.height;
-
-          var colorHSV = new class_Color_HSV(hVal, sVal, vVal);
-          var colorRGB = colorHSV.calcRGBColor();
-
-          if (doColorblindnessSim) {
-            var tmpLMS = colorRGB.calcLMSColor();
-            colorRGB.deleteReferences();
-            colorRGB = tmpLMS.calcColorBlindRGBColor();
-            tmpLMS.deleteReferences();
-            tmpLMS = null;
-          }
-
           var index = (x + y * canvasColorspace.width) * 4;
-
-          colorpickerData.data[index + 0] = Math.round(colorRGB.getRValue() * 255); // r
-          colorpickerData.data[index + 1] = Math.round(colorRGB.getGValue() * 255); // g
-          colorpickerData.data[index + 2] = Math.round(colorRGB.getBValue() * 255); // b
+          gWorkColor1.updateColor("hsv", hVal, sVal, vVal);
+          if (doColorblindnessSim) {
+            var colorInfo = gWorkColor1.getColorInfo("rgb_cb");
+            colorpickerData.data[index + 0] = Math.round(colorInfo[1] * 255); // r
+            colorpickerData.data[index + 1] = Math.round(colorInfo[2] * 255); // g
+            colorpickerData.data[index + 2] = Math.round(colorInfo[3] * 255); // b
+          } else {
+            var colorInfo = gWorkColor1.getColorInfo("rgb");
+            colorpickerData.data[index + 0] = Math.round(colorInfo[1] * 255); // r
+            colorpickerData.data[index + 1] = Math.round(colorInfo[2] * 255); // g
+            colorpickerData.data[index + 2] = Math.round(colorInfo[3] * 255); // b
+          }
           colorpickerData.data[index + 3] = 255; //a
-
-          colorHSV.deleteReferences();
-          colorRGB.deleteReferences();
-          colorHSV = null;
-          colorRGB = null;
 
         }
       }
@@ -507,14 +378,7 @@ function initColorpickerBackground() {
 
   colorspaceContex.putImageData(colorpickerData, 0, 0);
 
-
-
-
-
-
 }
-
-
 
 function initColorPickerVBarBackground() {
 
@@ -526,94 +390,64 @@ function initColorPickerVBarBackground() {
   canvasVInput.height = rect.height;
 
   var canvasVInputContex = canvasVInput.getContext("2d");
-  var colorRGB1;
-  var colorRGB2;
 
-  switch (colorpickerType) {
-    case "RG_B":
-
-      var gVal = colorpickerColor.getGValue();
-      var rVal = colorpickerColor.getRValue();
-      colorRGB1 = new class_Color_RGB(rVal, gVal, 1);
-      colorRGB2 = new class_Color_RGB(rVal, gVal, 0);
-
-      break;
-    case "RB_G":
-
-      var rVal = colorpickerColor.getRValue();
-      var bVal = colorpickerColor.getBValue();
-      colorRGB1 = new class_Color_RGB(rVal, 1, bVal);
-      colorRGB2 = new class_Color_RGB(rVal, 0, bVal);
-
-      break;
-    case "GB_R":
-
-      var gVal = colorpickerColor.getGValue();
-      var bVal = colorpickerColor.getBValue();
-      colorRGB1 = new class_Color_RGB(1, gVal, bVal);
-      colorRGB2 = new class_Color_RGB(0, gVal, bVal);
-
-      break;
-    case "HS_V":
-
-      var hVal = colorpickerColor.getHValue();
-      var sVal = colorpickerColor.getSValue();
-      var colorHSV = new class_Color_HSV(hVal, sVal, 1);
-      colorRGB1 = colorHSV.calcRGBColor();
-      colorHSV.deleteReferences();
-      colorHSV = new class_Color_HSV(hVal, sVal, 0);
-      colorRGB2 = colorHSV.calcRGBColor();
-      colorHSV.deleteReferences();
-      colorHSV = null;
-
-      break;
-    case "HV_S":
-
-      var hVal = colorpickerColor.getHValue();
-      var vVal = colorpickerColor.getVValue();
-      var colorHSV = new class_Color_HSV(hVal, 1, vVal);
-      colorRGB1 = colorHSV.calcRGBColor();
-      colorHSV.deleteReferences();
-      colorHSV = new class_Color_HSV(hVal, 0, vVal);
-      colorRGB2 = colorHSV.calcRGBColor();
-      colorHSV.deleteReferences();
-      colorHSV = null;
-
-      break;
-    case "SV_H":
-
-      var sVal = colorpickerColor.getSValue();
-      var vVal = colorpickerColor.getVValue();
-      var colorHSV = new class_Color_HSV(1, sVal, vVal);
-      colorRGB1 = colorHSV.calcRGBColor();
-      colorHSV.deleteReferences();
-      colorHSV = new class_Color_HSV(0, sVal, vVal);
-      colorRGB2 = colorHSV.calcRGBColor();
-      colorHSV.deleteReferences();
-      colorHSV = null;
-      break;
-    default:
-      return;
-  }
-
+  var tmpRGBColorInfo = colorpickerColor.getColorInfo("rgb");
+  var tmpHSVColorInfo = colorpickerColor.getColorInfo("hsv");
 
   if (colorpickerType != "SV_H") {
 
-    if (doColorblindnessSim) {
-      var tmpLMS = colorRGB1.calcLMSColor();
-      colorRGB1.deleteReferences();
-      colorRGB1 = tmpLMS.calcColorBlindRGBColor();
-      tmpLMS.deleteReferences();
-      tmpLMS = colorRGB2.calcLMSColor();
-      colorRGB2.deleteReferences();
-      colorRGB2 = tmpLMS.calcColorBlindRGBColor();
-      tmpLMS.deleteReferences();
-      tmpLMS = null;
+    switch (colorpickerType) {
+      case "RG_B":
+        var gVal = tmpRGBColorInfo[2];
+        var rVal = tmpRGBColorInfo[1];
+        gWorkColor1.updateColor("rgb", rVal, gVal, 1);
+        gWorkColor2.updateColor("rgb", rVal, gVal, 0);
+        break;
+      case "RB_G":
+        var rVal = tmpRGBColorInfo[1];
+        var bVal = tmpRGBColorInfo[3];
+        gWorkColor1.updateColor("rgb", rVal, 1, bVal);
+        gWorkColor2.updateColor("rgb", rVal, 0, bVal);
+        break;
+      case "GB_R":
+        var gVal = tmpRGBColorInfo[2];
+        var bVal = tmpRGBColorInfo[3];
+        gWorkColor1.updateColor("rgb", 1, gVal, bVal);
+        gWorkColor2.updateColor("rgb", 0, gVal, bVal);
+        break;
+      case "HS_V":
+        var hVal = tmpHSVColorInfo[1];
+        var sVal = tmpHSVColorInfo[2];
+        gWorkColor1.updateColor("hsv", hVal, sVal, 1);
+        gWorkColor2.updateColor("hsv", hVal, sVal, 0);
+        break;
+      case "HV_S":
+        var hVal = tmpHSVColorInfo[1];
+        var vVal = tmpHSVColorInfo[3];
+        gWorkColor1.updateColor("hsv", hVal, 1, vVal);
+        gWorkColor2.updateColor("hsv", hVal, 0, vVal);
+        break;
+        /*case "SV_H":
+
+          var sVal = tmpHSVColorInfo[2];
+          var vVal = tmpHSVColorInfo[3];
+          gWorkColor1.updateColor("hsv",1, sVal, vVal);
+          gWorkColor2.updateColor("hsv",0, sVal, vVal);
+          break;*/
+      default:
+        return;
     }
 
+    ////////////////////// HIER WEITER ARBEITEN ///////////////////////////
+    var rgbString1 = gWorkColor1.get_RGB_String();
+    var rgbString2 = gWorkColor2.get_RGB_String();
+    if (doColorblindnessSim) {
+      rgbString1 = gWorkColor1.get_RGB_CB_String()
+      rgbString2 = gWorkColor2.get_RGB_CB_String()
+    }
     var grd = canvasVInputContex.createLinearGradient(0, 0, 0, canvasVInput.height);
-    grd.addColorStop(0, colorRGB1.getRGBString());
-    grd.addColorStop(1, colorRGB2.getRGBString());
+    grd.addColorStop(0, rgbString1);
+    grd.addColorStop(1, rgbString2);
     canvasVInputContex.fillStyle = grd;
     canvasVInputContex.fillRect(0, 0, canvasVInput.width, canvasVInput.height);
 
@@ -625,44 +459,26 @@ function initColorPickerVBarBackground() {
       var hVal = 1 - y / canvasVInput.height;
       for (var x = 0; x < canvasVInput.width; x++) {
 
+        var sVal = tmpHSVColorInfo[2];
+        var vVal = tmpHSVColorInfo[3];
 
-        var sVal = colorpickerColor.getSValue();
-        var vVal = colorpickerColor.getVValue();
-
-        var cHSV = new class_Color_HSV(hVal, sVal, vVal);
-        var cRGB = cHSV.calcRGBColor();
-        cHSV.deleteReferences();
-        cHSV = null;
-        if (doColorblindnessSim) {
-          var tmpLMS = cRGB.calcLMSColor();
-          cRGB.deleteReferences();
-          cRGB = tmpLMS.calcColorBlindRGBColor();
-          tmpLMS.deleteReferences();
-          tmpLMS = null;
-        }
+        gWorkColor1.updateColor("hsv", hVal, sVal, vVal);
 
         var index = (x + y * canvasVInput.width) * 4;
+        var rgbInfo = gWorkColor1.getColorInfo("rgb");
+        if (doColorblindnessSim)
+          rgbInfo = gWorkColor1.getColorInfo("rgb_cb");
 
-        tmpData.data[index + 0] = Math.round(cRGB.getRValue() * 255); // r
-        tmpData.data[index + 1] = Math.round(cRGB.getGValue() * 255); // g
-        tmpData.data[index + 2] = Math.round(cRGB.getBValue() * 255); // b
+        tmpData.data[index + 0] = Math.round(rgbInfo[1] * 255); // r
+        tmpData.data[index + 1] = Math.round(rgbInfo[2] * 255); // g
+        tmpData.data[index + 2] = Math.round(rgbInfo[3] * 255); // b
         tmpData.data[index + 3] = 255; //a
-        cRGB.deleteReferences();
-        cRGB = null;
 
       }
     }
     canvasVInputContex.putImageData(tmpData, 0, 0);
 
   }
-
-  colorRGB1.deleteReferences();
-  colorRGB2.deleteReferences();
-  colorRGB1 = null;
-  colorRGB2 = null;
-
-
-
 
 }
 
@@ -679,42 +495,44 @@ function drawColorPickerCircle() {
 
   var colorspaceContex = canvasColorspace.getContext("2d");
 
+  var tmpRGBColorInfo = colorpickerColor.getColorInfo("rgb");
+  var tmpHSVColorInfo = colorpickerColor.getColorInfo("hsv");
   switch (colorpickerType) {
     case "RG_B":
 
-      xPos = colorpickerColor.getRValue() * canvasColorspace.width;
-      yPos = (1 - colorpickerColor.getGValue()) * canvasColorspace.height;
+      xPos = tmpRGBColorInfo[1] * canvasColorspace.width;
+      yPos = (1 - tmpRGBColorInfo[2]) * canvasColorspace.height;
 
       break;
     case "RB_G":
 
-      xPos = colorpickerColor.getRValue() * canvasColorspace.width;
-      yPos = (1 - colorpickerColor.getBValue()) * canvasColorspace.height;
+      xPos = tmpRGBColorInfo[1] * canvasColorspace.width;
+      yPos = (1 - tmpRGBColorInfo[3]) * canvasColorspace.height;
 
       break;
     case "GB_R":
 
-      xPos = colorpickerColor.getGValue() * canvasColorspace.width;
-      yPos = (1 - colorpickerColor.getBValue()) * canvasColorspace.height;
+      xPos = tmpRGBColorInfo[2] * canvasColorspace.width;
+      yPos = (1 - tmpRGBColorInfo[3]) * canvasColorspace.height;
 
 
       break;
     case "HS_V":
 
-      xPos = colorpickerColor.getHValue() * canvasColorspace.width;
-      yPos = (1 - colorpickerColor.getSValue()) * canvasColorspace.height;
+      xPos = tmpHSVColorInfo[1] * canvasColorspace.width;
+      yPos = (1 - tmpHSVColorInfo[2]) * canvasColorspace.height;
 
       break;
     case "HV_S":
 
-      xPos = colorpickerColor.getHValue() * canvasColorspace.width;
-      yPos = (1 - colorpickerColor.getVValue()) * canvasColorspace.height;
+      xPos = tmpHSVColorInfo[1] * canvasColorspace.width;
+      yPos = (1 - tmpHSVColorInfo[3]) * canvasColorspace.height;
 
       break;
     case "SV_H":
 
-      xPos = colorpickerColor.getSValue() * canvasColorspace.width;
-      yPos = (1 - colorpickerColor.getVValue()) * canvasColorspace.height;
+      xPos = tmpHSVColorInfo[2] * canvasColorspace.width;
+      yPos = (1 - tmpHSVColorInfo[3]) * canvasColorspace.height;
 
       break;
     default:
@@ -723,12 +541,11 @@ function drawColorPickerCircle() {
 
   colorspaceContex.beginPath();
   colorspaceContex.arc(xPos, yPos, 5, 0, 2 * Math.PI, false);
-  colorspaceContex.fillStyle = colorpickerColor.calcRGBColor().getRGBStringAplha(1.0);
+  colorspaceContex.fillStyle = colorpickerColor.get_RGB_String();
   colorspaceContex.fill();
   colorspaceContex.lineWidth = 2;
 
-  var tmpVal = (colorpickerColor.get1Value() + colorpickerColor.get2Value() + colorpickerColor.get3Value()) / 3;
-  if (tmpVal > 0.5)
+  if (colorpickerColor.getColorInfo("lab")[1] > 50)
     colorspaceContex.strokeStyle = 'rgb(0,0,0)';
   else
     colorspaceContex.strokeStyle = 'rgb(255,255,255)';
@@ -753,24 +570,26 @@ function drawColorPickerVBar() {
   var vBarHeight = canvasVInput.width / 20;
   var vBarHeightsmall = canvasVInput.width / 30;
 
+  var tmpRGBColorInfo = colorpickerColor.getColorInfo("rgb");
+  var tmpHSVColorInfo = colorpickerColor.getColorInfo("hsv");
   switch (colorpickerType) {
     case "RG_B":
-      zPos = canvasVInput.height * (1 - colorpickerColor.getBValue());
+      zPos = canvasVInput.height * (1 - tmpRGBColorInfo[3]);
       break;
     case "RB_G":
-      zPos = canvasVInput.height * (1 - colorpickerColor.getGValue());
+      zPos = canvasVInput.height * (1 - tmpRGBColorInfo[2]);
       break;
     case "GB_R":
-      zPos = canvasVInput.height * (1 - colorpickerColor.getRValue());
+      zPos = canvasVInput.height * (1 - tmpRGBColorInfo[1]);
       break;
     case "HS_V":
-      zPos = canvasVInput.height * (1 - colorpickerColor.getVValue());
+      zPos = canvasVInput.height * (1 - tmpHSVColorInfo[3]);
       break;
     case "HV_S":
-      zPos = canvasVInput.height * (1 - colorpickerColor.getSValue());
+      zPos = canvasVInput.height * (1 - tmpHSVColorInfo[2]);
       break;
     case "SV_H":
-      zPos = canvasVInput.height * (1 - colorpickerColor.getHValue());
+      zPos = canvasVInput.height * (1 - tmpHSVColorInfo[1]);
       break;
     default:
       return;
@@ -816,76 +635,72 @@ function event_colorpicker_MouseClick(event) {
         case "RG_B":
           var rVal = mousePosX / canvasObject.width;
           var gVal = 1 - mousePosY / canvasObject.height;
-          colorpickerColor.set1Value(rVal);
-          colorpickerColor.set2Value(gVal);
+          colorpickerColor.setValue("rgb", 0, rVal);
+          colorpickerColor.setValue("rgb", 1, gVal);
           break;
         case "RB_G":
           var rVal = mousePosX / canvasObject.width;
           var bVal = 1 - mousePosY / canvasObject.height;
-          colorpickerColor.set1Value(rVal);
-          colorpickerColor.set3Value(bVal);
+          colorpickerColor.setValue("rgb", 0, rVal);
+          colorpickerColor.setValue("rgb", 2, bVal);
           break;
         case "GB_R":
           var gVal = mousePosX / canvasObject.width;
           var bVal = 1 - mousePosY / canvasObject.height;
-          colorpickerColor.set2Value(gVal);
-          colorpickerColor.set3Value(bVal);
+          colorpickerColor.setValue("rgb", 1, gVal);
+          colorpickerColor.setValue("rgb", 2, bVal);
           break;
         case "HS_V":
           var hVal = mousePosX / canvasObject.width;
           var sVal = 1 - mousePosY / canvasObject.height;
-          colorpickerColor.set1Value(hVal);
-          colorpickerColor.set2Value(sVal);
+          colorpickerColor.setValue("hsv", 0, hVal);
+          colorpickerColor.setValue("hsv", 1, sVal);
           break;
         case "HV_S":
 
           var hVal = mousePosX / canvasObject.width;
           var vVal = 1 - mousePosY / canvasObject.height;
-          colorpickerColor.set1Value(hVal);
-          colorpickerColor.set3Value(vVal);
+          colorpickerColor.setValue("hsv", 0, hVal);
+          colorpickerColor.setValue("hsv", 2, vVal);
           break;
         case "SV_H":
           var sVal = mousePosX / canvasObject.width;
           var vVal = 1 - mousePosY / canvasObject.height;
-          colorpickerColor.set2Value(sVal);
-          colorpickerColor.set3Value(vVal);
+          colorpickerColor.setValue("hsv", 1, sVal);
+          colorpickerColor.setValue("hsv", 2, vVal);
           break;
         default:
           return;
       }
-
       drawColorPickerCircle();
       initColorPickerVBarBackground();
-
       break;
     case "id_popupWindow_Colorpicker_canvasPicker2_bar":
 
       switch (colorpickerType) {
         case "RG_B":
           var bVal = 1 - mousePosY / canvasObject.height;
-          colorpickerColor.set3Value(bVal);
+          colorpickerColor.setValue("rgb", 2, bVal);
           break;
         case "RB_G":
           var gVal = 1 - mousePosY / canvasObject.height;
-          colorpickerColor.set2Value(gVal);
+          colorpickerColor.setValue("rgb", 1, gVal);
           break;
         case "GB_R":
           var rVal = 1 - mousePosY / canvasObject.height;
-          colorpickerColor.set1Value(rVal);
+          colorpickerColor.setValue("rgb", 0, rVal);
           break;
         case "HS_V":
           var vVal = 1 - mousePosY / canvasObject.height;
-          colorpickerColor.set3Value(vVal);
+          colorpickerColor.setValue("hsv", 2, vVal);
           break;
         case "HV_S":
           var sVal = 1 - mousePosY / canvasObject.height;
-          colorpickerColor.set2Value(sVal);
+          colorpickerColor.setValue("hsv", 1, sVal);
           break;
         case "SV_H":
-
-
           var hVal = 1 - mousePosY / canvasObject.height;
-          colorpickerColor.set1Value(hVal);
+          colorpickerColor.setValue("hsv", 0, hVal);
           break;
         default:
           return;
@@ -904,100 +719,59 @@ function event_colorpicker_MouseClick(event) {
 
   affectColorpickerChange();
 
-  var tmpRGB = colorpickerColor.calcRGBColor();
-
   if (document.getElementById("id_popupWindow_Colorpicker_HS_V").checked ||
     document.getElementById("id_popupWindow_Colorpicker_HV_S").checked ||
     document.getElementById("id_popupWindow_Colorpicker_SV_H").checked) {
-
-    document.getElementById("id_popupWindow_Colorpicker_Input1").value = Math.round(colorpickerColor.getHValue() * 360);
-    document.getElementById("id_popupWindow_Colorpicker_Input2").value = Math.round(colorpickerColor.getSValue() * 100);
-    document.getElementById("id_popupWindow_Colorpicker_Input3").value = Math.round(colorpickerColor.getVValue() * 100);
+    var tmpHSVColorInfo = colorpickerColor.getColorInfo("hsv");
+    document.getElementById("id_popupWindow_Colorpicker_Input1").value = Math.round(tmpHSVColorInfo[1] * 360);
+    document.getElementById("id_popupWindow_Colorpicker_Input2").value = Math.round(tmpHSVColorInfo[2] * 100);
+    document.getElementById("id_popupWindow_Colorpicker_Input3").value = Math.round(tmpHSVColorInfo[3] * 100);
 
   } else {
-    document.getElementById("id_popupWindow_Colorpicker_Input1").value = Math.round(colorpickerColor.getRValue() * 255);
-    document.getElementById("id_popupWindow_Colorpicker_Input2").value = Math.round(colorpickerColor.getGValue() * 255);
-    document.getElementById("id_popupWindow_Colorpicker_Input3").value = Math.round(colorpickerColor.getBValue() * 255);
-
+    var tmpRGBColorInfo = colorpickerColor.getColorInfo("rgb");
+    document.getElementById("id_popupWindow_Colorpicker_Input1").value = Math.round(tmpRGBColorInfo[1] * 255);
+    document.getElementById("id_popupWindow_Colorpicker_Input2").value = Math.round(tmpRGBColorInfo[2] * 255);
+    document.getElementById("id_popupWindow_Colorpicker_Input3").value = Math.round(tmpRGBColorInfo[3] * 255);
   }
-
-
-  document.getElementById(colorpickerAffectID).style.background = tmpRGB.getRGBString();
-
-  tmpRGB.deleteReferences();
-  tmpRGB = null;
+  document.getElementById(colorpickerAffectID).style.background = colorpickerColor.getRGBString();
 }
 
 
 function affectColorpickerChange() {
 
   switch (colorpickerAffectID) {
-    /*case "id_EditPage_MappingBackground_Custom":
-
-      if (mappingBackgroundColor != undefined) {
-        mappingBackgroundColor.deleteReferences();
-        mappingBackgroundColor = undefined;
-      }
-      mappingBackgroundColor = cloneColor(colorpickerColor);
-      changeBackground();
-      break;
-
-    case "id_EditPage_ColorAboveFixedAxis_GlobalLocalOrder":
-
-      if (globalPlotAboveColor != undefined) {
-        globalPlotAboveColor.deleteReferences();
-        globalPlotAboveColor = undefined;
-      }
-      globalPlotAboveColor = colorpickerColor.calcRGBColor();
-      updateAnalyze();
-      break;*/
     case "id_edit_cms_SetNaN":
-      editSection.setSpecialCMSColor("nan",cloneColor(colorpickerColor));
+      editSection.setSpecialCMSColor("nan", colorpickerColor.getColorInfo("rgb"));
       editSection.updateMapping();
-      //editSection.doPagePeculiarity();
       editSection.saveCreateProcess();
       break;
     case "id_edit_cms_SetBelow":
-    editSection.setSpecialCMSColor("below",cloneColor(colorpickerColor));
-    editSection.updateMapping();
-    //editSection.doPagePeculiarity();
-    editSection.saveCreateProcess();
+      editSection.setSpecialCMSColor("below", colorpickerColor.getColorInfo("rgb"));
+      editSection.updateMapping();
+      editSection.saveCreateProcess();
       break;
     case "id_edit_cms_SetAbove":
-    editSection.setSpecialCMSColor("above",cloneColor(colorpickerColor));
-    editSection.updateMapping();
-    // editSection.doPagePeculiarity();
-    editSection.saveCreateProcess();
+      editSection.setSpecialCMSColor("above", colorpickerColor.getColorInfo("rgb"));
+      editSection.updateMapping();
+      editSection.saveCreateProcess();
       break;
     case "id_EditPage_DrawnDualKey":
-      editSection.editCMS.setRightKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex, cloneColor(colorpickerColor));
-      editSection.editCMS.setLeftKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex, cloneColor(colorpickerColor));
+      editSection.editCMS.setRightKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex, colorpickerColor.getColorInfo("rgb"));
+      editSection.editCMS.setLeftKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex, colorpickerColor.getColorInfo("rgb"));
       editSection.updateSection();
       editSection.saveCreateProcess();
       break;
     case "id_EditPage_DrawnLeftKey":
-      editSection.editCMS.setLeftKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex, cloneColor(colorpickerColor));
+      editSection.editCMS.setLeftKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex, colorpickerColor.getColorInfo("rgb"));
       editSection.updateSection();
       editSection.saveCreateProcess();
       break;
 
     case "id_EditPage_DrawnRightKey":
-      editSection.editCMS.setRightKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex, cloneColor(colorpickerColor));
+      editSection.editCMS.setRightKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex, colorpickerColor.getColorInfo("rgb"));
       editSection.updateSection();
       editSection.saveCreateProcess();
       break;
-
-    /*case "id_inputProbeColor":
-      globalProbeColor = colorpickerColor.calcHSVColor();
-      changeProbeColor();
-      generateProbeSet();
-      break;
-
-    case "id_inputEditProbeColor":
-      globalProbeColor = colorpickerColor.calcHSVColor();
-      changeProbeColor();
-      break;*/
-
 
     default:
       return;
@@ -1053,13 +827,12 @@ function changeColorPickerInput() {
     }
 
 
-    colorpickerColor = new class_Color_HSV(hVal, sVal, vVal);
+    colorpickerColor.setHSV(hVal, sVal, vVal);
 
   } else {
     var rVal = parseFloat(document.getElementById("id_popupWindow_Colorpicker_Input1").value) / 255;
     var gVal = parseFloat(document.getElementById("id_popupWindow_Colorpicker_Input2").value) / 255;
     var bVal = parseFloat(document.getElementById("id_popupWindow_Colorpicker_Input3").value) / 255;
-
 
     if (rVal > 1.0) {
       rVal = 1.0;
@@ -1071,7 +844,6 @@ function changeColorPickerInput() {
       document.getElementById("id_popupWindow_Colorpicker_Input1").value = 0;
     }
 
-
     if (gVal > 1.0) {
       gVal = 1.0;
       document.getElementById("id_popupWindow_Colorpicker_Input2").value = 255;
@@ -1081,7 +853,6 @@ function changeColorPickerInput() {
       gVal = 0;
       document.getElementById("id_popupWindow_Colorpicker_Input2").value = 0;
     }
-
 
     if (bVal > 1.0) {
       bVal = 1.0;
@@ -1093,12 +864,8 @@ function changeColorPickerInput() {
       document.getElementById("id_popupWindow_Colorpicker_Input3").value = 0;
     }
 
-
-    colorpickerColor = new class_Color_RGB(rVal, gVal, bVal);
-
+    colorpickerColor.setRGB(rVal, gVal, bVal);
   }
-
-
 
   initColorpickerBackground();
   drawColorPickerVBar();

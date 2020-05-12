@@ -50,15 +50,17 @@ class class_MyDesigns_Section extends class_Section {
     }
   }
 
-  pushCMS(cms){
-    if(this.myDesignsList.length<this.maxNum)
-      this.myDesignsList.push(cms);
+  pushCMS(cmsPackage){
+    if(this.myDesignsList.length<this.maxNum){
+      var newCMS = new class_CMS();
+      newCMS.setCMSFromPackage(cmsPackage);
+      this.myDesignsList.push(newCMS);
+    }
   }
 
-  updateCMS(id,cms){
+  updateCMS(id,cmsPackage){
     if(id<this.myDesignsList.length){
-      this.myDesignsList[id].deleteReferences();
-      this.myDesignsList[id]=cms;
+      this.myDesignsList[id].setCMSFromPackage(cmsPackage);
     }
   }
 
@@ -71,7 +73,7 @@ class class_MyDesigns_Section extends class_Section {
 
   getMyDesignCMS(id){
     if(id<this.myDesignsList.length)
-      return cloneCMS(this.myDesignsList[id]);
+      return this.myDesignsList[id].createCMSInfoPackage();
 
     return undefined;
   }
@@ -286,7 +288,7 @@ class class_MyDesigns_Section extends class_Section {
     exportSection.changeExportColorspace(1); // 1=rgb with 0-1;
     for (var i = 0; i < this.myDesignsList.length; i++) {
 
-      exportSection.setCMS(cloneCMS(this.myDesignsList[i]));
+      exportSection.setCMS(this.myDesignsList[i].createCMSInfoPackage());
 
       var txtNaN = "";
       var txtAbove = "";
@@ -296,9 +298,12 @@ class class_MyDesigns_Section extends class_Section {
 
 
       text = text + "RGB";
-      txtNaN="<NaN r=\""+this.myDesignsList[i].getNaNColor("rgb").get1Value()+"\" g=\""+this.myDesignsList[i].getNaNColor("rgb").get2Value()+"\" b=\""+this.myDesignsList[i].getNaNColor("rgb").get3Value()+"\"/>\n";
-      txtAbove="<Above r=\""+this.myDesignsList[i].getAboveColor("rgb").get1Value()+"\" g=\""+this.myDesignsList[i].getAboveColor("rgb").get2Value()+"\" b=\""+this.myDesignsList[i].getAboveColor("rgb").get3Value()+"\"/>\n";
-      txtBelow="<Below r=\""+this.myDesignsList[i].getBelowColor("rgb").get1Value()+"\" g=\""+this.myDesignsList[i].getBelowColor("rgb").get2Value()+"\" b=\""+this.myDesignsList[i].getBelowColor("rgb").get3Value()+"\"/>\n";
+      var tmpInfo = this.myDesignsList[i].getNaNColor("rgb");
+      txtNaN="<NaN r=\""+tmpInfo[1]+"\" g=\""+tmpInfo[2]+"\" b=\""+tmpInfo[3]+"\"/>\n";
+      tmpInfo = this.myDesignsList[i].getAboveColor("rgb");
+      txtAbove="<Above r=\""+tmpInfo[1]+"\" g=\""+tmpInfo[2]+"\" b=\""+tmpInfo[3]+"\"/>\n";
+      tmpInfo = this.myDesignsList[i].getBelowColor("rgb");
+      txtBelow="<Below r=\""+tmpInfo[1]+"\" g=\""+tmpInfo[2]+"\" b=\""+tmpInfo[3]+"\"/>\n";
 
       text = text + "\" interpolationspace=\""+this.myDesignsList[i].getInterpolationSpace()+"\" creator=\"CCC-Tool\">\n";
 
@@ -517,15 +522,13 @@ class class_MyDesigns_Section extends class_Section {
                    var val2 = parseFloat(pointObject[i].getAttribute(val2Name));
                    var val3 = parseFloat(pointObject[i].getAttribute(val3Name));
 
-
                    if(isrgb255){
                        val1=val1/255.0;
                        val2=val2/255.0;
                        val3=val2/255.0;
                    }
 
-                   var tmpColor = createColor(val1,val2,val3,space);
-
+                   var tmpColor = [space,val1,val2,val3];
 
                    switch (i) {
                      case 0:
@@ -540,33 +543,30 @@ class class_MyDesigns_Section extends class_Section {
                              val3_Next=val2_Next/255.0;
                          }
 
-                         var tmpColor2 = createColor(val1_Next,val2_Next,val3_Next,space);
+                         var tmpColor2 = [space,val1_Next,val2_Next,val3_Next];
 
-
-                        if(tmpColor2.equalTo(tmpColor)){
+                        if(equalColorInfo(tmpColor,tmpColor2)){
                           // nil key
                           var newKey = new class_Key(undefined,undefined,x);
                           tmpCMS.pushKey(newKey);
                         }else{
                           // right key
-                          var newKey = new class_Key(undefined,cloneColor(tmpColor),x);
+                          var newKey = new class_Key(undefined,tmpColor,x);
                           tmpCMS.pushKey(newKey);
                         }
                        break;
                       case pointObject.length-1:
                           // right key
-                          var newKey = new class_Key(cloneColor(tmpColor),undefined,x);
+                          var newKey = new class_Key(tmpColor,undefined,x);
                           tmpCMS.pushKey(newKey);
                        break;
                      default:
-
 
                         if(pointObject[i].hasAttribute("cms")){
                           if(pointObject[i].getAttribute("cms")=="false"){
                             continue; // continue if cms attribute exist and if it is false
                           }
                         }
-
 
                         var x_Previous = parseFloat(pointObject[i-1].getAttribute("x"));
 
@@ -581,7 +581,7 @@ class class_MyDesigns_Section extends class_Section {
                             val3_Next=val2_Next/255.0;
                         }
 
-                        var tmpColor2 = createColor(val1_Next,val2_Next,val3_Next,space);
+                        var tmpColor2 = [space,val1_Next,val2_Next,val3_Next];
 
 
                         if(x_Previous==x){
@@ -596,11 +596,11 @@ class class_MyDesigns_Section extends class_Section {
                               val3_Prev=val3_Prev/255.0;
                           }
 
-                          var tmpColor_Prev = createColor(val1_Prev,val2_Prev,val3_Prev,space);
+                          var tmpColor_Prev = [space,val1_Prev,val2_Prev,val3_Prev];
 
-                          if(tmpColor2.equalTo(tmpColor)){
+                          if(equalColorInfo(tmpColor,tmpColor2)){
                             // left key
-                            var newKey = new class_Key(cloneColor(tmpColor_Prev),undefined,x);
+                            var newKey = new class_Key(tmpColor_Prev,undefined,x);
 
                             if(pointObject[i].hasAttribute("isMoT")){
                               if(pointObject[i].getAttribute("isMoT")=="true")
@@ -609,7 +609,7 @@ class class_MyDesigns_Section extends class_Section {
                             tmpCMS.pushKey(newKey);
                           }else{
                             // twin key
-                            var newKey = new class_Key(cloneColor(tmpColor_Prev),cloneColor(tmpColor),x);
+                            var newKey = new class_Key(tmpColor_Prev,tmpColor,x);
                             if(pointObject[i].hasAttribute("isMoT")){
                               if(pointObject[i].getAttribute("isMoT")=="true")
                                 newKey.setMoT(true); // if right key color isMoT (left is default)
@@ -617,21 +617,16 @@ class class_MyDesigns_Section extends class_Section {
                             tmpCMS.pushKey(newKey);
                           }
 
-                          tmpColor_Prev.deleteReferences();
-                          tmpColor_Prev=null;
-
                         }
                         else{
                           if(x!=x_Next){
                             // dual key
-                            var newKey = new class_Key(cloneColor(tmpColor),cloneColor(tmpColor),x);
+                            var newKey = new class_Key(tmpColor,tmpColor,x);
                             tmpCMS.pushKey(newKey);
                           }
                         }
                       }//switch
 
-                      tmpColor.deleteReferences();
-                      tmpColor=null;
                   } // for
 
 
@@ -670,7 +665,7 @@ class class_MyDesigns_Section extends class_Section {
                   var val2 = parseFloat(probeColorObj[0].getAttribute("s"));
                   var val3 = parseFloat(probeColorObj[0].getAttribute("v"));
 
-                  tmpProbe.setProbeColor(new class_Color_HSV(val1,val2,val3));
+                  tmpProbe.setProbeColor(["hsv",val1,val2,val3]);
                 }
 
                 if(type == 0) // const _> no functions
@@ -798,8 +793,7 @@ class class_MyDesigns_Section extends class_Section {
                          val3=val2/255.0;
                      }
 
-                     var tmpColor = createColor(val1,val2,val3,space);
-                     tmpCMS.setNaNColor(tmpColor);
+                     tmpCMS.setNaNColor([space,val1,val2,val3]);
                    }
 
 
@@ -816,8 +810,7 @@ class class_MyDesigns_Section extends class_Section {
                          val3=val2/255.0;
                      }
 
-                     var tmpColor = createColor(val1,val2,val3,space);
-                     tmpCMS.setAboveColor(tmpColor);
+                     tmpCMS.setAboveColor([space,val1,val2,val3]);
                    }
 
                    if(cmsObjects[j].getElementsByTagName("Below").length !=0){
@@ -833,11 +826,10 @@ class class_MyDesigns_Section extends class_Section {
                          val3=val2/255.0;
                      }
 
-                     var tmpColor = createColor(val1,val2,val3,space);
-                     tmpCMS.setBelowColor(tmpColor);
+                     tmpCMS.setBelowColor([space,val1,val2,val3]);
                    }
-
-              myDesignsSection.pushCMS(cloneCMS(tmpCMS));
+              myDesignsSection.pushCMS(tmpCMS.createCMSInfoPackage());
+              tmpCMS.deleteReferences();
        }
      }
 
@@ -895,7 +887,7 @@ class class_MyDesigns_Section extends class_Section {
 
       if(cms!=undefined){
         if(cms.getKeyLength()!=0){
-          myDesignsSection.pushCMS(cloneCMS(cms));
+          myDesignsSection.pushCMS(cms.createCMSInfoPackage());
           myDesignsSection.updateSection();
         }
         else {

@@ -168,14 +168,12 @@ class class_Color_LAB extends class_Color_Basis{
 
       }
 
-
       calcHSVColor(){
         var tmpRGBColor = this.calcRGBColor();
         var hsvColor = tmpRGBColor.calcHSVColor();
         tmpRGBColor.deleteReferences();
         return hsvColor;
       }
-
 
       calcLCHColor(){
         var valueL = this.value_1/100;

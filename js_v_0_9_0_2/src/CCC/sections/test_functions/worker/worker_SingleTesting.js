@@ -45,7 +45,7 @@ var imgData_scientificFlowSim = [];
 var imgData_photographs = [];
 
 // CMS
-var globalCMS1 = undefined;
+var mainCMS = undefined;
 var greyScaledCMS = undefined;
 
 var error = 100; // 0.01
@@ -83,7 +83,7 @@ self.addEventListener('message', function(e) {
       // For ThreeJS Mesh
       self.importScripts('../../../../../libs/ThreeJS/three.min.js');
 
-      globalCMS1 = new class_CMS();
+      mainCMS = new class_CMS();
       greyScaledCMS = new class_CMS();
       greyScaledCMS.pushKey(new class_Key(undefined, new class_Color_LAB(0,0,0), 0, false));
       greyScaledCMS.pushKey(new class_Key(new class_Color_LAB(100,0,0), undefined, 1, false));

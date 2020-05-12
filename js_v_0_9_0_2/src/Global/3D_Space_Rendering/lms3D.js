@@ -550,13 +550,6 @@ function lms3DMesh(){
       meshLMS.position.y = 0;
       meshLMS.position.z = 0;
 
-      /////////////////////////////////////////////////
-      // delete Colors
-      for (var i = 0; i < lms_colorArray.length; i++) {
-        lms_colorArray[i].deleteReferences();
-      }
-      lms_colorArray=[];
-
       return [linesMesh,meshLMS];
 }
 
@@ -600,9 +593,9 @@ function lms_createFace(i_1,j_1,k_1,i_2,j_2,k_2,i_3,j_3,k_3,draw_Line_12,draw_Li
   lms_checkPointIndices(i_3,j_3,k_3);
 
   var tmpFace =new THREE.Face3(lms_pointIndices[i_1][j_1][k_1], lms_pointIndices[i_2][j_2][k_2], lms_pointIndices[i_3][j_3][k_3]);
-  tmpFace.vertexColors[0] = new THREE.Color(lms_colorArray[lms_pointIndices[i_1][j_1][k_1]].getRGBString());
-  tmpFace.vertexColors[1] = new THREE.Color(lms_colorArray[lms_pointIndices[i_2][j_2][k_2]].getRGBString());
-  tmpFace.vertexColors[2] = new THREE.Color(lms_colorArray[lms_pointIndices[i_3][j_3][k_3]].getRGBString());
+  tmpFace.vertexColors[0] = new THREE.Color(lms_colorArray[lms_pointIndices[i_1][j_1][k_1]]);
+  tmpFace.vertexColors[1] = new THREE.Color(lms_colorArray[lms_pointIndices[i_2][j_2][k_2]]);
+  tmpFace.vertexColors[2] = new THREE.Color(lms_colorArray[lms_pointIndices[i_3][j_3][k_3]]);
 
   if(draw_Line_12)
     lms_linesIndices.push(lms_pointIndices[i_1][j_1][k_1], lms_pointIndices[i_2][j_2][k_2]);
@@ -618,14 +611,19 @@ function lms_checkPointIndices(i,j,k){
   if(lms_pointIndices[i][j][k]==undefined){
     lmsGeometry.vertices.push(new THREE.Vector3(i*lms3D_lmsStep,j*lms3D_lmsStep,k*lms3D_lmsStep));
     lms_linesPoints.push(i*lms3D_lmsStep,j*lms3D_lmsStep,k*lms3D_lmsStep);
-    var tmpLMS = new class_Color_LMS(i*lms3D_lmsStep,j*lms3D_lmsStep,k*lms3D_lmsStep);
-    if(doColorblindnessSim)
-      tmpRGB = tmpLMS.calcColorBlindRGBColor();
-    else
-      tmpRGB = tmpLMS.calcRGBColor();
 
-    lms_linesColors.push(tmpRGB.get1Value(),tmpRGB.get2Value(),tmpRGB.get3Value());
-    lms_colorArray.push(tmpRGB);
+    gWorkerColor1.updateColor("lms",i*lms3D_lmsStep,j*lms3D_lmsStep,k*lms3D_lmsStep)
+
+    var tmpRGBInfo = gWorkColor1.getColorInfo("rgb");
+    if (doColorblindnessSim){
+      tmpRGBInfo = gWorkColor1.getColorInfo("rgb_cb");
+      lms_colorArray.push(gWorkerColor1.get_RGB_String());
+    }
+    else {
+      lms_colorArray.push(gWorkerColor1.get_RGB_CB_String());
+    }
+
+    lms_linesColors.push(tmpRGBInfo[1], tmpRGBInfo[2], tmpRGBInfo[3]);
     lms_pointIndices[i][j][k]=lmsGeometry.vertices.length-1;
   }
 }

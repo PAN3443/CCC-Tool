@@ -3,10 +3,6 @@ class class_TestFunction_Section extends class_Section {
   constructor() {
     super('id_TestingPage');
 
-    if (typeof(Worker) === undefined) {
-      return;
-    }
-
     this.testingCMS = new class_CMS();
 
     ///////////////////////////////////////////////
@@ -40,20 +36,14 @@ class class_TestFunction_Section extends class_Section {
     document.getElementById('id_Test_MeshVisDivGreyFull').addEventListener("wheel", tm_3D_mousewheel);
     ////// Init interactive Tests
 
-
-
     this.element_singleTest = new class_Element_SingleTest("id_Test_SingleTestDiv","id_Test_SwitchToSingleTest");
     this.element_testCollection = new class_Element_Collection("id_Test_FunctionCollection","id_Test_SwitchToCollection");
-    this.element_testReport = new class_Element_TestReport("id_Test_ReportDiv","id_Test_SwitchToReport");
-
-
+    this.element_testReport = new class_Element_TestReport("id_Test_ReportDiv","id_Test_SwitchToReport");*/
 
   }
 
   resize(){
-    this.element_singleTest.resize();
-    //this.element_testCollection.resize();
-    //this.element_testReport.resize();
+    //this.element_singleTest.resize();
   }
 
 
@@ -89,7 +79,7 @@ class class_TestFunction_Section extends class_Section {
       this.testingCMS = myDesignsSection.getMyDesignCMS(0);
     }
     this.inform_Worker_GeneralInformations();
-    var cmsJSON=json_message_sendCMS(cloneCMS(this.testingCMS));
+    var cmsJSON=json_message_sendCMS(this.testingCMS.createCMSInfoPackage());
     this.element_testCollection.worker_testCollection_CCCTest.postMessage(cmsJSON);
     this.element_testCollection.worker_testCollection_Collection.postMessage(cmsJSON);
     this.element_testCollection.worker_testCollection_RealWorldData.postMessage(cmsJSON);
@@ -100,9 +90,8 @@ class class_TestFunction_Section extends class_Section {
     this.element_testCollection.showElement();
   }
 
-  setCMS(cms) {
-    this.testingCMS.deleteReferences();
-    this.testingCMS = cms;
+  setCMS(cmsInfoPackage) {
+    this.testingCMS.setCMSFromPackage(cmsInfoPackage);
   }
 
   updateSection() {
@@ -117,7 +106,7 @@ class class_TestFunction_Section extends class_Section {
   selectTestingCMS(){
     this.testingCMS.deleteReferences();
     this.testingCMS = myDesignsSection.getMyDesignCMS(document.getElementById("id_TestSection_CMS_Select").selectedIndex);
-    var cmsJSON=json_message_sendCMS(cloneCMS(this.testingCMS));
+    var cmsJSON=json_message_sendCMS(this.testingCMS.createCMSInfoPackage());
     this.element_testCollection.worker_testCollection_CCCTest.postMessage(cmsJSON);
     this.element_testCollection.worker_testCollection_Collection.postMessage(cmsJSON);
     this.element_testCollection.worker_testCollection_RealWorldData.postMessage(cmsJSON);

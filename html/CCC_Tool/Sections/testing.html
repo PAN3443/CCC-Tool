@@ -381,7 +381,7 @@
               <p id="id_ReportTest_Name" style="margin:auto; margin-left:1vw; margin-right:0.25vw; width:10vw; color: var(--main-sepArea-font-color); display:none;" >Name:</p>
               <p id="id_ReportTest_Settings" style="margin:auto; margin-left:1vw; margin-right:0.25vw; width:10vw; color: var(--main-sepArea-font-color); display:none;">Settings:</p>
 
-              <p style="margin-left:2.5vw; margin-bottom:1vh; font-weight:bold; color: var(--main-sepArea-font-color);">Options:</p>
+              <!--p style="margin-left:2.5vw; margin-bottom:1vh; font-weight:bold; color: var(--main-sepArea-font-color);">Options:</p-->
               <p style=" margin-left:2.5vw; margin-right:1vw; color: var(--main-sepArea-font-color);">Color-Difference(&#916;C():</p>
                 <select id="id_TestPage_SelectReportMetric" onchange="testingSection.element_testReport.changeReportMetric()" style="margin-left:2.5vw; min-width:15vw; width:15vw; margin-bottom:1vh;">
                       <option value="lab">Euclidean Dist. (Lab)</option>
@@ -395,6 +395,13 @@
                       <option value="avg">Average</option>
                       <option value="median">Median</option>
                 </select>
+                <p style="margin-left:2.5vw; margin-right:1vw; color: var(--main-sepArea-font-color);">Normalization:</p>
+                <select id="id_TestPage_NormalizationSelector" onchange="testingSection.element_testReport.changeReportMetric()" style="margin-left:2.5vw; min-width:15vw; width:15vw;">
+                      <option value="minMax">Min Max</option>
+                      <option value="blackWhite">Black White</option>
+                      <option value="custom">User Defined</option>
+                </select>
+                <input id="id_TestPage_NormalizationCustom" style="margin-left:2.5vw; min-width:15vw; width:15vw;" type="number" name="inputCustomNormalitzation"  step="any" value="0.1" onchange="testingSection.element_testReport.changeReportMetric()">
 
             </div>
           </div>
@@ -536,10 +543,10 @@
 
 
         <div style="margin:auto; ">
-  <div style="padding-bottom:0.5vh; padding-top:0.5vh; background: var(--main-sepArea-bg);  display:flex;">
-      <p style="text-align:center; color:var(--main-sepArea-font-color); width: 20vw; max-width:32vh;"> Values (Grey Scaled)</p>
-      <p style="text-align:center; color:var(--main-sepArea-font-color); width: 20vw; max-width:32vh;">CMS Colormapping</p>
-      <p style="text-align:center; color:var(--main-sepArea-font-color); width: 20vw; max-width:32vh;">Pixel Observer</p>
+  <div style="height:3vh; background: var(--main-sepArea-bg);  display:flex;">
+      <p style="text-align:center; color:var(--main-sepArea-font-color); width: 20vw; max-width:32vh; margin:auto;"> Values (Grey Scaled)</p>
+      <p style="text-align:center; color:var(--main-sepArea-font-color); width: 20vw; max-width:32vh; margin:auto;">CMS Colormapping</p>
+      <p style="text-align:center; color:var(--main-sepArea-font-color); width: 20vw; max-width:32vh; margin:auto;">Pixel Observer</p>
   </div>
 
 
@@ -696,10 +703,12 @@
     </div>
   </div>
 
-  <div style="padding-bottom:0.5vh; padding-top:0.5vh; background: var(--main-sepArea-bg); display:flex;">
-      <p style="text-align:center; color:var(--main-sepArea-font-color); width: 20vw; max-width:32vh;">N(&#8711;V) Value Gradient</p>
-      <p style="text-align:center; color:var(--main-sepArea-font-color); width: 20vw; max-width:32vh;">N(&#916;C) Color-Difference</p>
-      <p style="text-align:center; color:var(--main-sepArea-font-color); width: 20vw; max-width:32vh;">N(&#916;C)-N(&#8711;V)</p>
+  <div style="height:3vh; background: var(--main-sepArea-bg); display:flex;">
+      <p style="text-align:center; color:var(--main-sepArea-font-color); width: 20vw; max-width:32vh; margin:auto;">N(&#8711;V) Value Gradient</p>
+      <p style="text-align:center; color:var(--main-sepArea-font-color); width: 18vw; max-width:29vh; margin:auto;">N(&#916;C) Color-Difference</p>
+      <a id="id_Report_ColorDifScreenshot" onclick="testingSection.element_testReport.report_ColorDifField_Screenshot()" download="CCC_Tool_ReportImage_ColorDifferenceField.png" class="class_Test_RenderButton" style="width: 2vw; max-width:3vh; margin:auto;" title="Screenshot Color Difference Field">&#9688;</a>
+      <p style="text-align:center; color:var(--main-sepArea-font-color); width: 18vw; max-width:29vh; margin:auto;">N(&#916;C)-N(&#8711;V)</p>
+      <a id="id_Report_SubtractionScreenshot" onclick="testingSection.element_testReport.report_SubtractionField_Screenshot()" download="CCC_Tool_ReportImage_SubtractionField.png" class="class_Test_RenderButton" style="width: 2vw; max-width:3vh; margin:auto;" title="Screenshot Subtraction Field">&#9688;</a>
   </div>
 
   <div style="display:flex;">
@@ -751,7 +760,7 @@
     <p style="margin:auto; margin-left:auto; margin-right:1vw; color:var(--main-sepArea-font-color);">Mark Cursor:</p>
     <input id="id_Test_RatioReport_DoMarkedCursor" type="checkbox" name="MarkCursor" style="margin-right:auto;" onchange="testingSection.element_testReport.changeMarkReportCursor()" checked>
 
-    <a id="id_Report_downloadScreenshot" onclick="testingSection.element_testReport.report_screenshot()" download="CCC_Tool_ReportImage.png" class="class_Test_RenderButton" title="Screenshot">&#9688;</a>
+
   </div>
 
   <div style="width:60vw; max-width:96vh; display:flex; flex-direction:column;">

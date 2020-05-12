@@ -10,3 +10,14 @@ var errorMath = 1e12;   // for math operations with wrong decimal places
 var smallErrorMath = 1e-12; // for math operation, which should be zero.
 // worker
 var doWorker = true;
+var browserCanOffscreenCanvas = false;
+var editWorker = undefined;
+
+
+// just noticeable difference
+var jnd_lab = 2;
+var jnd_din99 = 2;
+
+////
+var gWorkColor1 = new class_Color("rgb",0,0,0);
+var gWorkColor2 = new class_Color("rgb",0,0,0);

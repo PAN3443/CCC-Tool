@@ -33,7 +33,7 @@ var tmLMS_Selected_Inv = undefined;
 var sim_AdaptiveColorblindness = undefined;
 
 // CMS
-var globalCMS1 = undefined;
+var mainCMS = undefined;
 
 var error = 100; // 0.01
 var errorMath = 1e12;
@@ -77,7 +77,7 @@ self.addEventListener('message', function(e) {
 
       //self.importScripts('../../../global/Color_CMS_Helpers/calcGradientLinear.js');
 
-      globalCMS1 = new class_CMS();
+      mainCMS = new class_CMS();
     break;
 
 

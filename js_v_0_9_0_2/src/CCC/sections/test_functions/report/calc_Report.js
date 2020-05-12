@@ -1,4 +1,21 @@
-function getRatioDifField(testfield, colorField, colorDifType, selectionType){
+function getRatioDifField(testfield, colorField, colorDifType, selectionType,normalization,customNormValue){
+
+
+  //// CalcBlackWhite
+  var blackWhiteDif = 100;
+  switch (colorDifType) {
+    case "lab":
+    case "din99":
+      blackWhiteDif = 100; //blackWhiteDif = calc3DEuclideanDistance(cloneColor(c1),cloneColor(c2));
+    break;
+    case "de94":
+      blackWhiteDif = calcDeltaDE94(new class_Color_LAB(0,0,0),new class_Color_LAB(100,0,0));
+    break;
+    case "de2000":
+      blackWhiteDif = calcDeltaCIEDE2000(new class_Color_LAB(0,0,0),new class_Color_LAB(100,0,0));
+    break;
+  }
+
 
   ////////////////////////////////////////////
   ////  Step 1: Calc Value Dif and Color Dif
@@ -158,6 +175,33 @@ function getRatioDifField(testfield, colorField, colorDifType, selectionType){
       var yColorDifArray_Ratio = makeRatioField(yColorDifArray, tmpColorMin, tmpColorMax);
       var diagonal1ColorDifArray_Ratio = makeRatioField(diagonal1ColorDifArray, tmpColorMin, tmpColorMax);
       var diagonal2ColorDifArray_Ratio = makeRatioField(diagonal2ColorDifArray, tmpColorMin, tmpColorMax);//*/
+
+      switch (normalization) {
+        case "minMax":
+          xColorDifArray_Ratio = makeRatioField(xColorDifArray, tmpColorMin, tmpColorMax);
+          yColorDifArray_Ratio = makeRatioField(yColorDifArray, tmpColorMin, tmpColorMax);
+          diagonal1ColorDifArray_Ratio = makeRatioField(diagonal1ColorDifArray, tmpColorMin, tmpColorMax);
+          diagonal2ColorDifArray_Ratio = makeRatioField(diagonal2ColorDifArray, tmpColorMin, tmpColorMax);//*/
+        break;
+        case "blackWhite":
+          xColorDifArray_Ratio = makeRatioField(xColorDifArray, 0, blackWhiteDif);
+          yColorDifArray_Ratio = makeRatioField(yColorDifArray, 0, blackWhiteDif);
+          diagonal1ColorDifArray_Ratio = makeRatioField(diagonal1ColorDifArray, 0, blackWhiteDif);
+          diagonal2ColorDifArray_Ratio = makeRatioField(diagonal2ColorDifArray, 0, blackWhiteDif);//*/
+        break;
+        case "custom":
+          xColorDifArray_Ratio = makeRatioField(xColorDifArray, 0, customNormValue);
+          yColorDifArray_Ratio = makeRatioField(yColorDifArray, 0, customNormValue);
+          diagonal1ColorDifArray_Ratio = makeRatioField(diagonal1ColorDifArray, 0, customNormValue);
+          diagonal2ColorDifArray_Ratio = makeRatioField(diagonal2ColorDifArray, 0, customNormValue);//*/
+        break;
+        default:
+          xColorDifArray_Ratio = makeRatioField(xColorDifArray, tmpColorMin, tmpColorMax);
+          yColorDifArray_Ratio = makeRatioField(yColorDifArray, tmpColorMin, tmpColorMax);
+          diagonal1ColorDifArray_Ratio = makeRatioField(diagonal1ColorDifArray, tmpColorMin, tmpColorMax);
+          diagonal2ColorDifArray_Ratio = makeRatioField(diagonal2ColorDifArray, tmpColorMin, tmpColorMax);//*/
+      }
+
 
       var xDifArray_Ratio = makeRatioField(xDifArray, tmpMin, tmpMax);
       var yDifArray_Ratio = makeRatioField(yDifArray, tmpMin, tmpMax);

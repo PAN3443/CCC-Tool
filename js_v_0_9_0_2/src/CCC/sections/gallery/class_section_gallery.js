@@ -58,7 +58,7 @@ class class_Gallery_Section extends class_Section {
   getPredefinedCMS(type,id){
     if(type<this.predefinedCMS.length){
       if(id<this.predefinedCMS[type].length){
-        return cloneCMS(this.predefinedCMS[type][id]);
+        return this.predefinedCMS[type][id].createCMSInfoPackage();
       }
     }
     return undefined;

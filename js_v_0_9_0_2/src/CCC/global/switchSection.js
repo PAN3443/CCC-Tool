@@ -90,13 +90,12 @@ switchSection(3);
 function showTesting(){
   switch (true) {
     case editSection.isSectionOpen():
-        var clone = cloneCMS(editSection.editCMS);
-        if(clone.getKeyLength()==0){
+        var cmsPackage = editSection.editCMS.createCMSInfoPackage();
+        if(cmsPackage[6].length==0){ // [6] include the key information
           openAlert("Your CMS is empty. Please create first a colormap before visiting the testing section.");
-          clone.deleteReferences();
           return;
         }
-        testingSection.setCMS(clone);
+        testingSection.setCMS(cmsPackage);
       break;
     default:
       if(myDesignsSection.getMyDesignLength()==0){

@@ -98,15 +98,9 @@
 
   <!--%%%%%%%%%%%%%%% Colors %%%%%%%%%%%%%%%-->
   <script type="text/javascript" src="../../js_v_0_9_0_2/src/Global/color/color_transformation_globalVars.js"></script>
+  <script type="text/javascript" src="../../js_v_0_9_0_2/src/Global/color/colorblindness_globalVars.js"></script>
   <script type="text/javascript" src="../../js_v_0_9_0_2/src/Global/color/metric_globalVars.js"></script>
-  <script type="text/javascript" src="../../js_v_0_9_0_2/src/Global/color/class_Colorspace_Basis.js"></script>
-  <script type="text/javascript" src="../../js_v_0_9_0_2/src/Global/color/class_Colorspace_XYZ.js"></script>
-  <script type="text/javascript" src="../../js_v_0_9_0_2/src/Global/color/class_Colorspace_LMS.js"></script>
-  <script type="text/javascript" src="../../js_v_0_9_0_2/src/Global/color/class_Colorspace_LCH.js"></script>
-  <script type="text/javascript" src="../../js_v_0_9_0_2/src/Global/color/class_Colorspace_RGB.js"></script>
-  <script type="text/javascript" src="../../js_v_0_9_0_2/src/Global/color/class_Colorspace_HSV.js"></script>
-  <script type="text/javascript" src="../../js_v_0_9_0_2/src/Global/color/class_Colorspace_LAB.js"></script>
-  <script type="text/javascript" src="../../js_v_0_9_0_2/src/Global/color/class_Colorspace_DIN99.js"></script>
+  <script type="text/javascript" src="../../js_v_0_9_0_2/src/Global/color/class_Colorspace_Allrounder.js"></script>
   <script type="text/javascript" src="../../js_v_0_9_0_2/src/Global/color/colorHelper.js"></script>
   <script type="text/javascript" src="../../js_v_0_9_0_2/src/Global/color/colorDifference.js"></script>
   <script type="text/javascript" src="../../js_v_0_9_0_2/src/Global/color/calcSpaceGrid.js"></script>
@@ -114,10 +108,10 @@
   <!--%%%%%%%%%%%%%%% CMS %%%%%%%%%%%%%%%-->
   <script type="text/javascript" src="../../js_v_0_9_0_2/src/CCC/global/cms/cmsIntervalHelper.js"></script>
   <script type="text/javascript" src="../../js_v_0_9_0_2/src/CCC/global/cms/class_Colormap_Interval.js"></script>
-  <script type="text/javascript" src="../../js_v_0_9_0_2/src/CCC/global/cms/class_Colormap_Key.js"></script>
+  <script type="text/javascript" src="../../js_v_0_9_0_2/src/CCC/global/cms/new_class_Colormap_Key.js"></script>
   <script type="text/javascript" src="../../js_v_0_9_0_2/src/CCC/global/cms/class_Colormap_Probe.js"></script>
   <script type="text/javascript" src="../../js_v_0_9_0_2/src/CCC/global/cms/class_Colormap_ProbeSet.js"></script>
-  <script type="text/javascript" src="../../js_v_0_9_0_2/src/CCC/global/cms/class_Colormap_Specification.js"></script>
+  <script type="text/javascript" src="../../js_v_0_9_0_2/src/CCC/global/cms/new_class_Colormap_Specification.js"></script>
   <script type="text/javascript" src="../../js_v_0_9_0_2/src/CCC/global/cms/searchForContinuousSections.js"></script>
   <script type="text/javascript" src="../../js_v_0_9_0_2/src/CCC/global/cms/calcOrderValues.js"></script>
 
@@ -158,6 +152,8 @@
   <!--%%%%%%%%%%%%%%% Edit Section %%%%%%%%%%%%%%%-->
   <script type="text/javascript" src="../../js_v_0_9_0_2/src/CCC/sections/edit/class_section_edit_basis.js"></script>
 
+  <!--%%%%%%%%%%%%%%% Edit (Worker) %%%%%%%%%%%%%%%-->
+  <script type="text/javascript" src="../../js_v_0_9_0_2/src/CCC/sections/edit/worker/mainThread_listenerEvent_edit.js"></script>
 
     <!--%%%%%%%%%%%%%%% Edit SubSection (Edit) %%%%%%%%%%%%%%%-->
     <script type="text/javascript" src="../../js_v_0_9_0_2/src/CCC/sections/edit/edit_subsections/editPart/class_section_edit.js"></script>
@@ -177,6 +173,7 @@
 
     <!--%%%%%%%%%%%%%%% Edit Element (Pathplot) %%%%%%%%%%%%%%%-->
     <script type="text/javascript" src="../../js_v_0_9_0_2/src/CCC/sections/edit/edit_elements/pathplot/class_editPart_pathplot.js"></script>
+    <script type="text/javascript" src="../../js_v_0_9_0_2/src/CCC/sections/edit/edit_elements/pathplot/worker/mainThread_listenerEvent_pathplot.js"></script>
     <script type="text/javascript" src="../../js_v_0_9_0_2/src/CCC/sections/edit/edit_elements/pathplot/pp_background_lineChart.js"></script>
     <script type="text/javascript" src="../../js_v_0_9_0_2/src/CCC/sections/edit/edit_elements/pathplot/pp_draw_InterpolationLine.js"></script>
     <script type="text/javascript" src="../../js_v_0_9_0_2/src/CCC/sections/edit/edit_elements/pathplot/pp_draw_KeyElements.js"></script>
@@ -240,8 +237,7 @@
   <script type="text/javascript" src="../../js_v_0_9_0_2/src/CCC/popUpWindows/Color_Picker/colorpicker.js"></script>
   <script type="text/javascript" src="../../js_v_0_9_0_2/src/CCC/popUpWindows/Color_Picker/colorpicker_globalVars.js"></script>
 
-  <!--%%%%%%%%%%%%%%% Color Picker %%%%%%%%%%%%%%%-->
-  <script type="text/javascript" src="../../js_v_0_9_0_2/src/CCC/popUpWindows/Colorblindness/colorblindness_globalVars.js"></script>
+  <!--%%%%%%%%%%%%%%% Color Blindness %%%%%%%%%%%%%%%-->
   <script type="text/javascript" src="../../js_v_0_9_0_2/src/CCC/popUpWindows/Colorblindness/colorblindness.js"></script>
 
   <!-- EXTERN Libs -->
@@ -315,7 +311,8 @@
   <div id="id_PopUp_LandscapeWindow" include-html="../../html/Global_PopUpWindows/landscapeWindow.html" style=" width:100%; height:100%; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
   <div id="id_PopUp_MetricIntOpt" include-html="../../html/Global_PopUpWindows/metricInterpolationOptions.html" style=" width:100%; background: var(--main-popUpWindow-bg-color);  height:100%; position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
   <div id="id_PopUp_fullMappingWindow" include-html="../../html/Global_PopUpWindows/fullscreenMappingWindow.html" style=" width:100%; height:100%; background: var(--main-popUpWindow-bg-color); position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
-  <div id="id_PopUp_NewsWindow" include-html="../../html/Global_PopUpWindows/newsWindow.html" style=" width:100%; height:100%; position:absolute; background: var(--main-popUpWindow-bg-color); position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
+  <div id="id_PopUp_NewsWindow" include-html="../../html/Global_PopUpWindows/newsWindow.html" style=" width:100%; height:100%; background: var(--main-popUpWindow-bg-color); position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
+  <div id="id_PopUp_NoWorkerWindow" include-html="../../html/Global_PopUpWindows/noWorker.html" style=" width:100%; height:100%; background: var(--main-popUpWindow-bg-color); position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>
 
   <!-- ------------- Specific --------------- -->
   <div id="id_PopUp_fullAnalzeWindow" include-html="../../html/CCC_Tool/PopUpWindows/fullscreenAnalyzeWindow.html" style=" width:100%; height:100%; background: var(--main-popUpWindow-bg-color); position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;"></div>

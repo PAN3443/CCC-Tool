@@ -107,8 +107,7 @@ function xmlColormapParserFile(xmlString){
                              val3=val2/255.0;
                          }
 
-                         var tmpColor = createColor(val1,val2,val3,space);
-
+                         var tmpColor = [space,val1,val2,val3];
 
                          switch (i) {
                            case 0:
@@ -123,34 +122,30 @@ function xmlColormapParserFile(xmlString){
                                    val3_Next=val2_Next/255.0;
                                }
 
-                               var tmpColor2 = createColor(val1_Next,val2_Next,val3_Next,space);
+                               var tmpColor2 = [space,val1_Next,val2_Next,val3_Next];
 
-
-                              if(tmpColor2.equalTo(tmpColor)){
+                              if(equalColorInfo(tmpColor2,tmpColor)){
                                 // nil key
                                 var newKey = new class_Key(undefined,undefined,x,true);
                                 tmpCMS.pushKey(newKey);
                               }else{
                                 // right key
-                                var newKey = new class_Key(undefined,cloneColor(tmpColor),x,true);
+                                var newKey = new class_Key(undefined,tmpColor,x,true);
                                 tmpCMS.pushKey(newKey);
                               }
-                              tmpColor2.deleteReferences();
                              break;
                             case pointObject.length-1:
-                                // right key
+                                // left key
                                 var newKey = new class_Key(tmpColor,undefined,x,true);
                                 tmpCMS.pushKey(newKey);
                              break;
                            default:
-
 
                               if(pointObject[i].hasAttribute("cms")){
                                 if(pointObject[i].getAttribute("cms")=="false"){
                                   continue; // continue if cms attribute exist and if it is false
                                 }
                               }
-
 
                               var x_Previous = parseFloat(pointObject[i-1].getAttribute("x"));
 
@@ -165,7 +160,7 @@ function xmlColormapParserFile(xmlString){
                                   val3_Next=val2_Next/255.0;
                               }
 
-                              var tmpColor2 = createColor(val1_Next,val2_Next,val3_Next,space);
+                              var tmpColor2 = [space,val1_Next,val2_Next,val3_Next];
 
                               if(x_Previous==x){
                                 var val1_Prev = parseFloat(pointObject[i-1].getAttribute(val1Name));
@@ -178,12 +173,11 @@ function xmlColormapParserFile(xmlString){
                                     val3_Prev=val3_Prev/255.0;
                                 }
 
-                                var tmpColor_Prev = createColor(val1_Prev,val2_Prev,val3_Prev,space);
+                                var tmpColor_Prev = [space,val1_Prev,val2_Prev,val3_Prev];
 
-
-                                if(tmpColor2.equalTo(tmpColor)){
+                                if(equalColorInfo(tmpColor,tmpColor2)){
                                   // left key
-                                  var newKey = new class_Key(cloneColor(tmpColor_Prev),undefined,x,true);
+                                  var newKey = new class_Key(tmpColor_Prev,undefined,x,true);
 
                                   if(pointObject[i].hasAttribute("isMoT")){
                                     if(pointObject[i].getAttribute("isMoT")=="true")
@@ -192,32 +186,24 @@ function xmlColormapParserFile(xmlString){
                                   tmpCMS.pushKey(newKey);
                                 }else{
                                   // twin key
-                                  var newKey = new class_Key(cloneColor(tmpColor_Prev),cloneColor(tmpColor),x,true);
+                                  var newKey = new class_Key(tmpColor_Prev,tmpColor,x,true);
                                   if(pointObject[i].hasAttribute("isMoT")){
                                     if(pointObject[i].getAttribute("isMoT")=="true")
                                       newKey.setMoT(true); // if right key color isMoT (left is default)
                                   }
                                   tmpCMS.pushKey(newKey);
                                 }
-                                tmpColor_Prev.deleteReferences();
-                                tmpColor_Prev=null;
 
                               }
                               else{
                                 if(x!=x_Next){
                                   // dual key
-                                  var newKey = new class_Key(cloneColor(tmpColor),cloneColor(tmpColor),x,false);
+                                  var newKey = new class_Key(tmpColor,tmpColor,x,false);
                                   tmpCMS.pushKey(newKey);
                                 }
                               }
-
-                              tmpColor2.deleteReferences();
-                              tmpColor2=null;
                           }//switch
 
-
-                          tmpColor.deleteReferences();
-                          tmpColor=null;
                         } // for
 
                         /////////////////// from here start loading the new probe set information
@@ -387,7 +373,7 @@ function xmlColormapParserFile(xmlString){
                                val3=val2/255.0;
                            }
 
-                           tmpCMS.setNaNColor(createColor(val1,val2,val3,space));
+                           tmpCMS.setNaNColor([space,val1,val2,val3]);
                          }
 
 
@@ -404,7 +390,7 @@ function xmlColormapParserFile(xmlString){
                                val3=val2/255.0;
                            }
 
-                           tmpCMS.setAboveColor(createColor(val1,val2,val3,space));
+                           tmpCMS.setAboveColor([space,val1,val2,val3]);
                          }
 
                          if(colormapObject[0].getElementsByTagName("Below").length !=0){
@@ -420,7 +406,7 @@ function xmlColormapParserFile(xmlString){
                                val3=val2/255.0;
                            }
 
-                           tmpCMS.setBelowColor(createColor(val1,val2,val3,space));
+                           tmpCMS.setBelowColor([space,val1,val2,val3]);
                          }
 
                  return tmpCMS;

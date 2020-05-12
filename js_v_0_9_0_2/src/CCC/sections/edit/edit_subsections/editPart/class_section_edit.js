@@ -3,7 +3,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
   constructor() {
     super('id_EditPage');
 
-    this.tmpWorkCMS = undefined;
+    /*this.tmpWorkCMS = undefined;
     this.myDesignID = undefined;
 
     /// Part: CMS VIS
@@ -92,32 +92,32 @@ class class_Edit_Section extends class_Edit_Basis_Section {
     cmsCanvasElemtent.addEventListener("mouseleave",editCMS_MouseLeave);
 
     //
-    this.styleEditPage();
+    this.styleEditPage();*/
   }
 
   hideSection(){
     super.hideSection();
-    this.part_Pathplot.pp_3D_StopAnimation();
+    /*this.part_Pathplot.pp_3D_StopAnimation();*/
   }
 
   showSection(){
-    super.showSection();
-    this.styleEditPage();
+    /*super.showSection();
+    this.styleEditPage();*/
   }
 
   selectInterpolationSpace(){
-    var selectedIndex = document.getElementById("id_EditPage_SelectInterpolationSpace").selectedIndex;
+    /*var selectedIndex = document.getElementById("id_EditPage_SelectInterpolationSpace").selectedIndex;
     this.editCMS.setInterpolationSpace(document.getElementById("id_EditPage_SelectInterpolationSpace").options[selectedIndex].value);
     this.saveCreateProcess();
     this.updateSection();
     if(this.showPredefined){
       this.drawPredefined();
-    }
+    }*/
   }
 
   changeInterpolationType(type){
 
-    switch (type){
+    /*switch (type){
       case 0:
         this.editCMS.setInterpolationType("linear");
         break;
@@ -130,37 +130,37 @@ class class_Edit_Section extends class_Edit_Basis_Section {
     this.updateSection();
     if(this.showPredefined){
       this.drawPredefined();
-    }
+    }*/
   }
 
-  setCMS(cms, id) {
-    super.setCMS(cms);
+  setCMS(cmsPackage, id) {
+    /*super.setCMS(cmsPackage);
     this.myDesignID = id;
     this.somethingChanged=false;
-    document.getElementById("id_edit_editWarning").style.visibility="hidden";
+    document.getElementById("id_edit_editWarning").style.visibility="hidden";*/
   }
 
   createCMS(name, intSpace) {
-    this.editCMS.clear();
+    /*this.editCMS.clear();
     this.editCMS.setColormapName(name);
     this.editCMS.setInterpolationSpace(intSpace);
     this.myDesignID = myDesignsSection.getMyDesignLength();
     myDesignsSection.pushCMS(cloneCMS(this.editCMS));
     this.somethingChanged=false;
-    document.getElementById("id_edit_editWarning").style.visibility="visible";
+    document.getElementById("id_edit_editWarning").style.visibility="visible";*/
   }
 
   replaceWithWorkCMS(){
-    this.editCMS.deleteReferences();
+    /*this.editCMS.deleteReferences();
     this.editCMS = cloneCMS(this.tmpWorkCMS);
     this.tmpWorkCMS.deleteReferences();
     //updateSection() function at the drag end event or other events
-    this.saveCreateProcess();
+    this.saveCreateProcess();*/
   }
 
   styleEditPage(){
 
-    document.getElementById("id_EditPage_DisplayPredefined").style.background = "var(--main-menue-background)";
+    /*document.getElementById("id_EditPage_DisplayPredefined").style.background = "var(--main-menue-background)";
     document.getElementById("id_EditPage_DisplayPathplot").style.background = "var(--main-menue-background)";
     document.getElementById("id_EditPage_DisplayAnalysis").style.background = "var(--main-menue-background)";
     document.getElementById("id_EditPage_DisplayMapping").style.background = "var(--main-menue-background)";
@@ -247,11 +247,11 @@ class class_Edit_Section extends class_Edit_Basis_Section {
         }
 
         this.doPagePeculiarity();
-        this.updateSection();
+        this.updateSection();*/
   }
 
   getNumPAM(){
-    var numberPAM = 0;
+    /*var numberPAM = 0;
 
     if(this.showMapping)
       numberPAM++;
@@ -262,7 +262,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
         if(this.showPathplot)
           numberPAM++;
 
-    return numberPAM;
+    return numberPAM;*/
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -270,14 +270,14 @@ class class_Edit_Section extends class_Edit_Basis_Section {
   ////////////////////////////////////////////////////////////////////////////
 
   updateSection(){
-      super.updateSection();
+      /*super.updateSection();
 
-      this.updateKeyEdit(undefined);
+      this.updateKeyEdit(undefined);*/
   }
 
   saveCreateProcess(){
 
-        if(this.processPosition<this.colormapProcess.length-1){
+        /*if(this.processPosition<this.colormapProcess.length-1){
             this.colormapProcess[0].deleteReferences;
             this.colormapProcess[0]=undefined;
             this.colormapProcess = this.colormapProcess.slice(0, this.processPosition+1);
@@ -297,27 +297,27 @@ class class_Edit_Section extends class_Edit_Basis_Section {
         }
 
         this.somethingChanged=true;
-        document.getElementById("id_edit_editWarning").style.visibility="visible";
+        document.getElementById("id_edit_editWarning").style.visibility="visible";*/
   }
 
   undo(){
-    if(this.processPosition>0){
+    /*if(this.processPosition>0){
       this.processPosition--;
       this.editCMS = this.colormapProcess[this.processPosition];
       this.updateSection();
-    }
+    }*/
   }
 
   redo(){
-    if(this.processPosition<this.colormapProcess.length-1){
+    /*if(this.processPosition<this.colormapProcess.length-1){
       this.processPosition++;
       this.editCMS = this.colormapProcess[this.processPosition];
       this.updateSection();
-    }
+    }*/
   }
 
   saveAsNew(){
-    if(!myDesignsSection.checkMyDesignLimit()){
+    /*if(!myDesignsSection.checkMyDesignLimit()){
       myDesignsSection.pushCMS(cloneCMS(this.editCMS));
       this.myDesignID=myDesignsSection.getMyDesignLength()-1;
       this.somethingChanged=false;
@@ -325,17 +325,17 @@ class class_Edit_Section extends class_Edit_Basis_Section {
     }
     else{
       openAlert("You already used the full CMS-storage and the CMS can not saved as new one!");
-    }
+    }*/
   }
 
   save(){
-    myDesignsSection.updateCMS(this.myDesignID,cloneCMS(this.editCMS));
+    /*myDesignsSection.updateCMS(this.myDesignID,cloneCMS(this.editCMS));
     document.getElementById("id_edit_editWarning").style.visibility="hidden";
-    this.somethingChanged=false;
+    this.somethingChanged=false;*/
   }
 
   doPagePeculiarity(){
-    super.doPagePeculiarity();
+    /*super.doPagePeculiarity();
     /// draw Predefined;
 
     if(this.showPredefined){
@@ -353,25 +353,6 @@ class class_Edit_Section extends class_Edit_Basis_Section {
         document.getElementById("id_EditPage_SelectInterpolationSpace").selectedIndex=i;
       }
     }
-    /*document.getElementById("id_edit_SetSpaceLAB").style.background = "var(--main-coloredButton_Dark)";
-    document.getElementById("id_edit_SetSpaceDIN99").style.background = "var(--main-coloredButton_Dark)";
-    document.getElementById("id_edit_SetSpaceRGB").style.background = "var(--main-coloredButton_Dark)";
-    document.getElementById("id_edit_SetSpaceHSV").style.background = "var(--main-coloredButton_Dark)";
-
-    switch (this.editCMS.getInterpolationSpace()){
-      case "lab":
-        document.getElementById("id_edit_SetSpaceLAB").style.background = "var(--main-active-coloredButton_Dark)";
-      break;
-      case "din99":
-        document.getElementById("id_edit_SetSpaceDIN99").style.background = "var(--main-active-coloredButton_Dark)";
-      break;
-      case "rgb":
-        document.getElementById("id_edit_SetSpaceRGB").style.background = "var(--main-active-coloredButton_Dark)";
-      break;
-      case "hsv":
-        document.getElementById("id_edit_SetSpaceHSV").style.background = "var(--main-active-coloredButton_Dark)";
-      break;
-    }*/
 
     document.getElementById("id_edit_SetTypeLinear").style.background = "var(--main-coloredButton_Dark)";
     document.getElementById("id_edit_SetTypeSpline").style.background = "var(--main-coloredButton_Dark)";
@@ -382,18 +363,18 @@ class class_Edit_Section extends class_Edit_Basis_Section {
       case "spline":
         document.getElementById("id_edit_SetTypeSpline").style.background = "var(--main-active-coloredButton_Dark)";
       break;
-    }
+    }*/
   }
 
   changeCMSName(){
-    var newName = document.getElementById('id_edit_cms_SetName').value;
+    /*var newName = document.getElementById('id_edit_cms_SetName').value;
     if(newName!==""){
       this.editCMS.setColormapName(newName);
       this.saveCreateProcess();
     }
     else{
       document.getElementById('id_edit_cms_SetName').value = this.editCMS.getColormapName();
-    }
+    }*/
 
   }
 
@@ -407,16 +388,16 @@ class class_Edit_Section extends class_Edit_Basis_Section {
   ////////////////////////////////////////////////////////////////////////////
 
   setDraggedID(id) {
-    this.currentDraggedID = id;
+    /*this.currentDraggedID = id;*/
   }
 
   setDraggedType(type){
-    this.currentDraggedType=type;
+    /*this.currentDraggedType=type;*/
   }
 
   drawConstantBands() {
 
-    //---------------------------
+    /*//---------------------------
     // --------- Empty Divs
     document.getElementById('id_EditPage_ConstBandDiv').innerHTML = "";
 
@@ -452,16 +433,16 @@ class class_Edit_Section extends class_Edit_Basis_Section {
 
       document.getElementById('id_EditPage_ConstBandDiv').appendChild(iDiv);
 
-    }
+    }*/
   }
 
   changePredefined(type){
-    this.selectedPredefinedType=type;
-    this.drawPredefined();
+    /*this.selectedPredefinedType=type;
+    this.drawPredefined();*/
   }
 
   drawPredefined() {
-    var children = document.getElementById("id_EditPage_Predefined_CMS_Div").children;
+    /*var children = document.getElementById("id_EditPage_Predefined_CMS_Div").children;
     for (var i = children.length-1; i >=0; i--) {
       children[i].parentNode.removeChild(children[i]);
     }
@@ -492,13 +473,13 @@ class class_Edit_Section extends class_Edit_Basis_Section {
 
       document.getElementById('id_EditPage_Predefined_CMS_Div').appendChild(tmpCMSlinear);
       gallerySection.drawElementWithGalleryCMS("predefined_linear_" + i + "_" + this.selectedPredefinedType, this.selectedPredefinedType, i, 200, 1,this.editCMS.getInterpolationSpace(),this.editCMS.getInterpolationType());
-    }// END:FOR(i)
+    }// END:FOR(i)*/
 
   }
 
   dragOver(mousePosX,mousePosY){
 
-    if(mousePosX==undefined || mousePosY==undefined)
+    /*if(mousePosX==undefined || mousePosY==undefined)
       return;
 
     if(this.editCMS.getKeyLength()!=0){
@@ -599,16 +580,16 @@ class class_Edit_Section extends class_Edit_Basis_Section {
           this.predefinedDrawStatus=-1;
       }
 
-    }
+    }*/
 
   }
 
   drawWorkCMS(){
-    var tmpCMS = cloneCMS(this.editCMS);
+    /*var tmpCMS = cloneCMS(this.editCMS);
     this.editCMS = cloneCMS(this.tmpWorkCMS);
     this.drawEditCMSVIS();
     this.editCMS.deleteReferences();
-    this.editCMS=tmpCMS;
+    this.editCMS=tmpCMS;*/
   }
 
 
@@ -621,11 +602,11 @@ class class_Edit_Section extends class_Edit_Basis_Section {
   ////////////////////////////////////////////////////////////////////////////
 
   getKeyModus(){
-    return this.keyModus;
+    /*return this.keyModus;*/
   }
 
   setKeyModus(modus){
-    document.getElementById("id_edit_AddModus").style.visibility = "hidden";
+    /*document.getElementById("id_edit_AddModus").style.visibility = "hidden";
     switch (modus) {
       case 0:
           this.keyModus=0;
@@ -642,11 +623,11 @@ class class_Edit_Section extends class_Edit_Basis_Section {
           document.getElementById("id_edit_AddModus").innerHTML = "-";
           document.getElementById("id_edit_AddModus").title="Remove Key Modus";
       break;
-    }
+    }*/
   }
 
   cmsVisMouseMove(mousePosX,mousePosY){
-    if(this.editCMS.getKeyLength()!=0){
+    /*if(this.editCMS.getKeyLength()!=0){
 
       if(this.keyModus==1){
         if(this.around_LinearCMSVis_yPosition(mousePosY) && mousePosX>this.editCMS_cmsArea_x1 && mousePosX<this.editCMS_cmsArea_x1+this.editCMS_cmsArea_width){
@@ -770,34 +751,34 @@ class class_Edit_Section extends class_Edit_Basis_Section {
           }
 
         }
-    }
+    }*/
   }
 
   cmsVisDeleteKey(){
-    if(this.overKeyID==0 || this.overKeyID==undefined || this.overKeyID==this.editCMS.getKeyLength()-1)
+    /*if(this.overKeyID==0 || this.overKeyID==undefined || this.overKeyID==this.editCMS.getKeyLength()-1)
       return;
 
     this.editCMS.deleteKey(this.overKeyID);
     this.saveCreateProcess();
-    this.updateSection();
+    this.updateSection();*/
   }
 
   grappedSomething(){
-    if(this.grappedKey || this.grappedBurdock)
+    /*if(this.grappedKey || this.grappedBurdock)
       return true;
-    return false;
+    return false;*/
   }
 
   resetGrapMoveVars(){
-    //this.editCMS.setPreventIntervals(false);
+    /*//this.editCMS.setPreventIntervals(false);
     this.grappedKey = false;
     this.grappedBurdock = false;
     this.overKeyID = undefined;
-    this.overBurdockID = undefined;
+    this.overBurdockID = undefined;*/
   }
 
   cmsVisGrap(){
-    if(this.overKeyID!=undefined){
+    /*if(this.overKeyID!=undefined){
         this.grappedKey = true;
         //this.editCMS.setPreventIntervals(true);
         document.getElementById('id_EditPage_CMS_Canvas').style.cursor="col-resize";
@@ -817,7 +798,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
     else {
         //this.editCMS.setPreventIntervals(false);
         this.grappedBurdock = false;
-    }
+    }*/
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -830,7 +811,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
 
   updateKeyEdit(keyIndex){
     //
-    document.getElementById("id_EditPage_KeyValueEdit_dropdown").style.display="none";
+    /*document.getElementById("id_EditPage_KeyValueEdit_dropdown").style.display="none";
     //
     var selectbox = document.getElementById("id_EditPage_EditKey_List");
     var lastSelectedIndex = selectbox.selectedIndex;
@@ -885,12 +866,12 @@ class class_Edit_Section extends class_Edit_Basis_Section {
       selectbox.selectedIndex = keyIndex;
     }
 
-    this.selectKey();
+    this.selectKey();*/
   }
 
   selectKey(){
     //
-    if(document.getElementById("id_EditPage_KeyValueEdit_dropdown").style.display!=="none")
+    /*if(document.getElementById("id_EditPage_KeyValueEdit_dropdown").style.display!=="none")
     refreshKeyValueEdit(); // if the user open the value edit dropdown and switch the keys the dropdown window need to be updated
     //
     var selectedKey= document.getElementById("id_EditPage_EditKey_List").selectedIndex;
@@ -916,20 +897,20 @@ class class_Edit_Section extends class_Edit_Basis_Section {
         document.getElementById("id_editPage_KeyBurdock").style.background = "var(--main-active-coloredButton)";
       else
         document.getElementById("id_editPage_KeyBurdock").style.background = "var(--main-coloredButton)";
-    }
+    }*/
   }
 
   deleteSelectedKey(){
-    var selectedKey= document.getElementById("id_EditPage_EditKey_List").selectedIndex;
+    /*var selectedKey= document.getElementById("id_EditPage_EditKey_List").selectedIndex;
     this.editCMS.deleteKey(selectedKey);
     //this.updateKeyEdit(selectedKey);
     this.updateSection();
-    this.saveCreateProcess();
+    this.saveCreateProcess();*/
   }
 
   drawKeyDiv(divID,keyIndex, doColorPicker){
 
-    document.getElementById(divID).innerHTML="";
+    /*document.getElementById(divID).innerHTML="";
 
     if(keyIndex==undefined || keyIndex<0 || keyIndex>=this.editCMS.getKeyLength())
       return;
@@ -1094,12 +1075,12 @@ class class_Edit_Section extends class_Edit_Basis_Section {
         divDual.addEventListener("click", openColorPicker);
       }
 
-    }
+    }*/
   }
 
   updateKeyTypeButtons(type){
 
-    document.getElementById("id_editPage_KeyTypeNil").style.background = "var(--main-coloredButton)";
+    /*document.getElementById("id_editPage_KeyTypeNil").style.background = "var(--main-coloredButton)";
     document.getElementById("id_editPage_KeyTypeTwin").style.background = "var(--main-coloredButton)";
     document.getElementById("id_editPage_KeyTypeLeft").style.background = "var(--main-coloredButton)";
     document.getElementById("id_editPage_KeyTypeRight").style.background = "var(--main-coloredButton)";
@@ -1140,12 +1121,12 @@ class class_Edit_Section extends class_Edit_Basis_Section {
           }
 
       break;
-    }
+    }*/
   }
 
   changeKeyType(type){
 
-    var selectedKey= document.getElementById("id_EditPage_EditKey_List").selectedIndex;
+    /*var selectedKey= document.getElementById("id_EditPage_EditKey_List").selectedIndex;
 
     if(selectedKey==-1)
       return;
@@ -1208,12 +1189,12 @@ this.updateKeyTypeButtons("right key");
     }
 
     this.updateSection();
-    this.saveCreateProcess();
+    this.saveCreateProcess();*/
 
   }
 
   changeBurdock(){
-    var selectedKey= document.getElementById("id_EditPage_EditKey_List").selectedIndex;
+    /*var selectedKey= document.getElementById("id_EditPage_EditKey_List").selectedIndex;
     if(this.editCMS.getBur(selectedKey)){
       this.editCMS.setBur(selectedKey,false);
       document.getElementById("id_editPage_KeyBurdock").style.background = "var(--main-coloredButton)";
@@ -1223,7 +1204,7 @@ this.updateKeyTypeButtons("right key");
       document.getElementById("id_editPage_KeyBurdock").style.background = "var(--main-active-coloredButton)";
     }
     this.saveCreateProcess();
-    this.drawEditCMSVIS();
+    this.drawEditCMSVIS();*/
   }
   ////////////////////////////////////////////////////////////////////////////
   ////////           (END) CMS Visualization Key Edit             ////////////

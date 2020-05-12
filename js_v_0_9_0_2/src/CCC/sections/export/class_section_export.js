@@ -46,28 +46,19 @@ class class_Export_Section extends class_Section {
 
   updateSection(){
     if(!this.stylePhase){
-      this.workCMS.deleteReferences();
-      /*if(document.getElementById("id_selectProbeListExport").selectedIndex==-1){
-        document.getElementById("id_selectProbeListExport").selectedIndex=0;
-      }*/
       if(document.getElementById("id_selectProbeListExport").selectedIndex>0){
           var probeSet = this.exportCMS.getProbeSet(document.getElementById("id_selectProbeListExport").selectedIndex-1);
           this.workCMS = probeSet.generateProbeCMS(this.exportCMS);
       }
       else{
-          this.workCMS = cloneCMS(this.exportCMS);
+          this.workCMS.setCMSFromPackage(this.exportCMS.createCMSInfoPackage());
       }
-      this.workCMS.calcNeededIntervalsColors(false,undefined,undefined);
       this.fillExportTable();
     }
   }
 
-  setCMS(cms){
-    this.exportCMS.deleteReferences();
-    this.exportCMS=cms;
-    this.workCMS.deleteReferences();
-    this.workCMS = cloneCMS(this.exportCMS);
-    this.workCMS.calcNeededIntervalsColors(false,undefined,undefined);
+  setCMS(cmsPackage){
+    this.exportCMS.setCMSFromPackage(cmsPackage);
   }
 
   changeOutputformat(type){
@@ -294,16 +285,16 @@ class class_Export_Section extends class_Section {
             counter++;
             new_tbody.appendChild(this.createExportTableRow(counter,this.workCMS.getRefPosition(i)+twinErrorValue, this.workCMS.getKeyType(i), this.workCMS.getRightKeyColor(i,this.exportspace)));
             counter++;
-            for(var j=0; j<this.workCMS.getExportSamplingLength(i); j++){
-              new_tbody.appendChild(this.createExportTableRow(counter,this.workCMS.getExportSamplingRef(i,j), "interval", this.workCMS.getExportSamplingColor(i,j,this.exportspace)));
+            for(var j=0; j<this.workCMS.getIntervalLength(i); j++){
+              new_tbody.appendChild(this.createExportTableRow(counter,this.workCMS.getIntervalRef(i,j), "interval", this.workCMS.getIntervalColor(i,j,this.exportspace)));
               counter++;
             }
             break;
           default:
             new_tbody.appendChild(this.createExportTableRow(counter,this.workCMS.getRefPosition(i), this.workCMS.getKeyType(i), this.workCMS.getRightKeyColor(i,this.exportspace)));
             counter++;
-            for(var j=0; j<this.workCMS.getExportSamplingLength(i); j++){
-              new_tbody.appendChild(this.createExportTableRow(counter,this.workCMS.getExportSamplingRef(i,j), "interval", this.workCMS.getExportSamplingColor(i,j,this.exportspace)));
+            for(var j=0; j<this.workCMS.getIntervalLength(i); j++){
+              new_tbody.appendChild(this.createExportTableRow(counter,this.workCMS.getIntervalRef(i,j), "interval", this.workCMS.getIntervalColor(i,j,this.exportspace)));
               counter++;
             }
           }
@@ -342,17 +333,16 @@ class class_Export_Section extends class_Section {
     td = document.createElement('td')
     td.className = className;
     td.style.width = "60%";
-    td.appendChild(document.createTextNode(this.exportspace+"("+tmpColor.get1Value()*this.scaleExpVal1+','+tmpColor.get2Value()*this.scaleExpVal2+','+tmpColor.get3Value()*this.scaleExpVal3+')'));
+    td.appendChild(document.createTextNode(this.exportspace+"("+tmpColor[1]*this.scaleExpVal1+','+tmpColor[2]*this.scaleExpVal2+','+tmpColor[3]*this.scaleExpVal3+')'));
     tr.appendChild(td);
 
+    gWorkColor1.updateColor(tmpColor[0],tmpColor[1],tmpColor[2],tmpColor[3]);
     td = document.createElement('td')
     td.className = className;
     td.style.width = "5%";
-    td.style.background = tmpColor.calcRGBColor().getRGBString();
+    td.style.background = gWorkColor1.get_RGB_String();
     tr.appendChild(td);
 
-    tmpColor.deleteReferences();
-    tmpColor=null;
     return tr;
   }
 
@@ -436,45 +426,37 @@ class class_Export_Section extends class_Section {
       switch(this.exportspace) {
               case "rgb":
                   xmltext = xmltext+"RGB";
-                  txtNaN="<NaN r=\""+nanColor.get1Value()*this.scaleExpVal1+"\" g=\""+nanColor.get2Value()*this.scaleExpVal2+"\" b=\""+nanColor.get3Value()*this.scaleExpVal3+"\"/>\n";
-                  txtAbove="<Above r=\""+aboveColor.get1Value()*this.scaleExpVal1+"\" g=\""+aboveColor.get2Value()*this.scaleExpVal2+"\" b=\""+aboveColor.get3Value()*this.scaleExpVal3+"\"/>\n";
-                  txtBelow="<Below r=\""+belowColor.get1Value()*this.scaleExpVal1+"\" g=\""+belowColor.get2Value()*this.scaleExpVal2+"\" b=\""+belowColor.get3Value()*this.scaleExpVal3+"\"/>\n";
+                  txtNaN="<NaN r=\""+nanColor[1]*this.scaleExpVal1+"\" g=\""+nanColor[2]*this.scaleExpVal2+"\" b=\""+nanColor[3]*this.scaleExpVal3+"\"/>\n";
+                  txtAbove="<Above r=\""+aboveColor[1]*this.scaleExpVal1+"\" g=\""+aboveColor[2]*this.scaleExpVal2+"\" b=\""+aboveColor[3]*this.scaleExpVal3+"\"/>\n";
+                  txtBelow="<Below r=\""+belowColor[1]*this.scaleExpVal1+"\" g=\""+belowColor[2]*this.scaleExpVal2+"\" b=\""+belowColor[3]*this.scaleExpVal3+"\"/>\n";
                   break;
               case "hsv":
                   xmltext = xmltext+"HSV";
-                  txtNaN="<NaN h=\""+nanColor.get1Value()*this.scaleExpVal1+"\" s=\""+nanColor.get2Value()*this.scaleExpVal2+"\" v=\""+nanColor.get3Value()*this.scaleExpVal3+"\"/>\n";
-                  txtAbove="<Above h=\""+aboveColor.get1Value()*this.scaleExpVal1+"\" s=\""+aboveColor.get2Value()*this.scaleExpVal2+"\" v=\""+aboveColor.get3Value()*this.scaleExpVal3+"\"/>\n";
-                  txtBelow="<Below h=\""+belowColor.get1Value()*this.scaleExpVal1+"\" s=\""+belowColor.get2Value()*this.scaleExpVal2+"\" v=\""+belowColor.get3Value()*this.scaleExpVal3+"\"/>\n";
+                  txtNaN="<NaN h=\""+nanColor[1]*this.scaleExpVal1+"\" s=\""+nanColor[2]*this.scaleExpVal2+"\" v=\""+nanColor[3]*this.scaleExpVal3+"\"/>\n";
+                  txtAbove="<Above h=\""+aboveColor[1]*this.scaleExpVal1+"\" s=\""+aboveColor[2]*this.scaleExpVal2+"\" v=\""+aboveColor[3]*this.scaleExpVal3+"\"/>\n";
+                  txtBelow="<Below h=\""+belowColor[1]*this.scaleExpVal1+"\" s=\""+belowColor[2]*this.scaleExpVal2+"\" v=\""+belowColor[3]*this.scaleExpVal3+"\"/>\n";
                   break;
               case "lab":
                   xmltext = xmltext+"LAB";
-                  txtNaN="<NaN l=\""+nanColor.get1Value()+"\" a=\""+nanColor.get2Value()+"\" b=\""+nanColor.get3Value()+"\"/>\n";
-                  txtAbove="<Above l=\""+aboveColor.get1Value()+"\" a=\""+aboveColor.get2Value()+"\" b=\""+aboveColor.get3Value()+"\"/>\n";
-                  txtBelow="<Below l=\""+belowColor.get1Value()+"\" a=\""+belowColor.get2Value()+"\" b=\""+belowColor.get3Value()+"\"/>\n";
+                  txtNaN="<NaN l=\""+nanColor[1]+"\" a=\""+nanColor[2]+"\" b=\""+nanColor[3]+"\"/>\n";
+                  txtAbove="<Above l=\""+aboveColor[1]+"\" a=\""+aboveColor[2]+"\" b=\""+aboveColor[3]+"\"/>\n";
+                  txtBelow="<Below l=\""+belowColor[1]+"\" a=\""+belowColor[2]+"\" b=\""+belowColor[3]+"\"/>\n";
                   break;
               case "lch":
                   xmltext = xmltext+"LCH";
-                  txtNaN="<NaN l=\""+nanColor.get1Value()*this.scaleExpVal1+"\" c=\""+nanColor.get2Value()*this.scaleExpVal2+"\" h=\""+nanColor.get3Value()*this.scaleExpVal3+"\"/>\n";
-                  txtAbove="<Above l=\""+aboveColor.get1Value()*this.scaleExpVal1+"\" c=\""+aboveColor.get2Value()*this.scaleExpVal2+"\" h=\""+aboveColor.get3Value()*this.scaleExpVal3+"\"/>\n";
-                  txtBelow="<Below l=\""+belowColor.get1Value()*this.scaleExpVal1+"\" c=\""+belowColor.get2Value()*this.scaleExpVal2+"\" h=\""+belowColor.get3Value()*this.scaleExpVal3+"\"/>\n";
+                  txtNaN="<NaN l=\""+nanColor[1]*this.scaleExpVal1+"\" c=\""+nanColor[2]*this.scaleExpVal2+"\" h=\""+nanColor[3]*this.scaleExpVal3+"\"/>\n";
+                  txtAbove="<Above l=\""+aboveColor[1]*this.scaleExpVal1+"\" c=\""+aboveColor[2]*this.scaleExpVal2+"\" h=\""+aboveColor[3]*this.scaleExpVal3+"\"/>\n";
+                  txtBelow="<Below l=\""+belowColor[1]*this.scaleExpVal1+"\" c=\""+belowColor[2]*this.scaleExpVal2+"\" h=\""+belowColor[3]*this.scaleExpVal3+"\"/>\n";
                   break;
               case "din99":
                   xmltext = xmltext+"DIN99";
-                  txtNaN="<NaN l99=\""+nanColor.get1Value()+"\" a99=\""+nanColor.get2Value()+"\" b99=\""+nanColor.get3Value()+"\"/>\n";
-                  txtAbove="<Above l99=\""+aboveColor.get1Value()+"\" a99=\""+aboveColor.get2Value()+"\" b99=\""+aboveColor.get3Value()+"\"/>\n";
-                  txtBelow="<Below l99=\""+belowColor.get1Value()+"\" a99=\""+belowColor.get2Value()+"\" b99=\""+belowColor.get3Value()+"\"/>\n";
+                  txtNaN="<NaN l99=\""+nanColor[1]+"\" a99=\""+nanColor[2]+"\" b99=\""+nanColor[3]+"\"/>\n";
+                  txtAbove="<Above l99=\""+aboveColor[1]+"\" a99=\""+aboveColor[2]+"\" b99=\""+aboveColor[3]+"\"/>\n";
+                  txtBelow="<Below l99=\""+belowColor[1]+"\" a99=\""+belowColor[2]+"\" b99=\""+belowColor[3]+"\"/>\n";
                   break;
               default:
                   return;
       }
-
-      nanColor.deleteReferences();
-      aboveColor.deleteReferences();
-      belowColor.deleteReferences();
-
-      nanColor=null;
-      aboveColor=null;
-      belowColor=null;
 
       xmltext = xmltext+"\" interpolationspace=\""+this.workCMS.getInterpolationSpace()+"\" interpolationtype=\""+this.workCMS.getInterpolationType()+"\" creator=\"CCC-Tool\">\n";
 
@@ -505,31 +487,23 @@ class class_Export_Section extends class_Section {
       var tmpColor4 = this.workCMS.getBelowColor(this.exportspace);
       switch(this.exportspace) {
               case "rgb":
-                  text = text+"Reference;R;G;B;Opacity;cms;isMoT;NaN;R;"+tmpColor2.getRValue()*this.scaleExpVal1+";G;"+tmpColor2.getGValue()*this.scaleExpVal2+";B;"+tmpColor2.getBValue()*this.scaleExpVal3+";Above;R;"+tmpColor3.get1Value()*this.scaleExpVal1+";G;"+tmpColor3.get2Value()*this.scaleExpVal2+";B;"+tmpColor3.get3Value()*this.scaleExpVal3+";Below;R;"+tmpColor4.get1Value()*this.scaleExpVal1+";G;"+tmpColor4.get2Value()*this.scaleExpVal2+";B;"+tmpColor4.get3Value()*this.scaleExpVal3+"\n";
+                  text = text+"Reference;R;G;B;Opacity;cms;isMoT;NaN;R;"+tmpColor2[1]*this.scaleExpVal1+";G;"+tmpColor2[2]*this.scaleExpVal2+";B;"+tmpColor2[3]*this.scaleExpVal3+";Above;R;"+tmpColor3[1]*this.scaleExpVal1+";G;"+tmpColor3[2]*this.scaleExpVal2+";B;"+tmpColor3[3]*this.scaleExpVal3+";Below;R;"+tmpColor4[1]*this.scaleExpVal1+";G;"+tmpColor4[2]*this.scaleExpVal2+";B;"+tmpColor4[3]*this.scaleExpVal3+"\n";
                   break;
               case "hsv":
-                  text = text+"Reference;H;S;V;Opacity;cms;isMoT;NaN;H;"+tmpColor2.getHValue()*this.scaleExpVal1+";S;"+tmpColor2.getSValue()*this.scaleExpVal2+";V;"+tmpColor2.getVValue()*this.scaleExpVal3+";Above;H;"+tmpColor3.get1Value()*this.scaleExpVal1+";S;"+tmpColor3.get2Value()*this.scaleExpVal2+";V;"+tmpColor3.get3Value()*this.scaleExpVal3+";Below;H;"+tmpColor4.get1Value()*this.scaleExpVal1+";S;"+tmpColor4.get2Value()*this.scaleExpVal2+";V;"+tmpColor4.get3Value()*this.scaleExpVal3+"\n";
+                  text = text+"Reference;H;S;V;Opacity;cms;isMoT;NaN;H;"+tmpColor2[1]*this.scaleExpVal1+";S;"+tmpColor2[2]*this.scaleExpVal2+";V;"+tmpColor2[3]*this.scaleExpVal3+";Above;H;"+tmpColor3[1]*this.scaleExpVal1+";S;"+tmpColor3[2]*this.scaleExpVal2+";V;"+tmpColor3[3]*this.scaleExpVal3+";Below;H;"+tmpColor4[1]*this.scaleExpVal1+";S;"+tmpColor4[2]*this.scaleExpVal2+";V;"+tmpColor4[3]*this.scaleExpVal3+"\n";
                   break;
               case "lab":
-                  text = text+"Reference;L;A;B;Opacity;cms;isMoT;NaN;L;"+tmpColor2.getLValue()+";A;"+tmpColor2.getAValue()+";B;"+tmpColor2.getBValue()+";Above;L;"+tmpColor3.get1Value()+";A;"+tmpColor3.get2Value()+";B;"+tmpColor3.get3Value()+";Below;L;"+tmpColor4.get1Value()+";A;"+tmpColor4.get2Value()+";B;"+tmpColor4.get3Value()+"\n";
+                  text = text+"Reference;L;A;B;Opacity;cms;isMoT;NaN;L;"+tmpColor2[1]+";A;"+tmpColor2[2]+";B;"+tmpColor2[3]+";Above;L;"+tmpColor3[1]+";A;"+tmpColor3[2]+";B;"+tmpColor3[3]+";Below;L;"+tmpColor4[1]+";A;"+tmpColor4[2]+";B;"+tmpColor4[3]+"\n";
                   break;
               case "lch":
-                  text = text+"Reference;L;C;H;Opacity;cms;isMoT;NaN;L;"+tmpColor2.getLValue()*this.scaleExpVal1+";C;"+tmpColor2.getCValue()*this.scaleExpVal2+";H;"+tmpColor2.getHValue()*this.scaleExpVal3+";Above;L;"+tmpColor3.get1Value()*this.scaleExpVal1+";C;"+tmpColor3.get2Value()*this.scaleExpVal2+";H;"+tmpColor3.get3Value()*this.scaleExpVal3+";Below;L;"+tmpColor4.get1Value()*this.scaleExpVal1+";C;"+tmpColor4.get2Value()*this.scaleExpVal2+";H;"+tmpColor4.get3Value()*this.scaleExpVal3+"\n";
+                  text = text+"Reference;L;C;H;Opacity;cms;isMoT;NaN;L;"+tmpColor2[1]*this.scaleExpVal1+";C;"+tmpColor2[2]*this.scaleExpVal2+";H;"+tmpColor2[3]*this.scaleExpVal3+";Above;L;"+tmpColor3[1]*this.scaleExpVal1+";C;"+tmpColor3[2]*this.scaleExpVal2+";H;"+tmpColor3[3]*this.scaleExpVal3+";Below;L;"+tmpColor4[1]*this.scaleExpVal1+";C;"+tmpColor4[2]*this.scaleExpVal2+";H;"+tmpColor4[3]*this.scaleExpVal3+"\n";
                   break;
               case "din99":
-                  text = text+"Reference;L99;A99;B99;Opacity;cms;isMoT;NaN;L99;"+tmpColor2.get1Value()+";A99;"+tmpColor2.get2Value()+";B99;"+tmpColor2.get3Value()+";Above;L99;"+tmpColor3.get1Value()+";A99;"+tmpColor3.get2Value()+";B99;"+tmpColor3.get3Value()+";Below;L99;"+tmpColor4.get1Value()+";A99;"+tmpColor4.get2Value()+";B99;"+tmpColor4.get3Value()+"\n";
+                  text = text+"Reference;L99;A99;B99;Opacity;cms;isMoT;NaN;L99;"+tmpColor2[1]+";A99;"+tmpColor2[2]+";B99;"+tmpColor2[3]+";Above;L99;"+tmpColor3[1]+";A99;"+tmpColor3[2]+";B99;"+tmpColor3[3]+";Below;L99;"+tmpColor4[1]+";A99;"+tmpColor4[2]+";B99;"+tmpColor4[3]+"\n";
                   break;
               default:
                   return;
       }
-
-      tmpColor2.deleteReferences();
-      tmpColor3.deleteReferences();
-      tmpColor4.deleteReferences();
-
-      tmpColor2=null;
-      tmpColor3=null;
-      tmpColor4=null;
 
       text = text+this.createCMSText(this.workCMS,"csv");
 
@@ -581,23 +555,22 @@ class class_Export_Section extends class_Section {
           }
           text = text+this.createLine(this.workCMS.getRightKeyColor(i,this.exportspace),this.workCMS.getRefPosition(i)+twinErrorValue,this.workCMS.getOpacityVal(i,"right"),true,isMot)  ;
 
-          var numOfIntervals = this.workCMS.getExportSamplingLength(i);
+          var numOfIntervals = this.workCMS.getIntervalLength(i);
 
-          for(var j=0; j<this.workCMS.getExportSamplingLength(i); j++){
-            text = text+this.createLine(this.workCMS.getExportSamplingColor(i,j,this.exportspace),this.workCMS.getExportSamplingRef(i,j),false,false);
+          for(var j=0; j<this.workCMS.getIntervalLength(i); j++){
+            text = text+this.createLine(this.workCMS.getIntervalColor(i,j,this.exportspace),this.workCMS.getIntervalRef(i,j),false,false);
           }
-
           break;
         default:
 
           text = text+this.createLine(this.workCMS.getRightKeyColor(i,this.exportspace),this.workCMS.getRefPosition(i),this.workCMS.getOpacityVal(i,"right"),true,false);
 
-          //console.log(this.workCMS.getIntervalLength(),this.workCMS.getExportSamplingLength(i));
+          //console.log(this.workCMS.getIntervalLength(),this.workCMS.getIntervalLength(i));
 
-          var numOfIntervals = this.workCMS.getExportSamplingLength(i);
+          var numOfIntervals = this.workCMS.getIntervalLength(i);
 
-          for(var j=0; j<this.workCMS.getExportSamplingLength(i); j++){
-            text = text+this.createLine(this.workCMS.getExportSamplingColor(i,j,this.exportspace),this.workCMS.getExportSamplingRef(i,j),false,false);
+          for(var j=0; j<this.workCMS.getIntervalLength(i); j++){
+            text = text+this.createLine(this.workCMS.getIntervalColor(i,j,this.exportspace),this.workCMS.getIntervalRef(i,j),false,false);
           }
 
         }
@@ -624,10 +597,8 @@ class class_Export_Section extends class_Section {
                     case 0: // const
                         text=text+"<Probe type=\""+tmpProbe.getType()+"\" start=\""+tmpProbe.getStartPos()+"\" end=\""+tmpProbe.getEndPos()+"\">\n";
                         var tmpColor = tmpProbe.getProbeColor();
-                        text=text+"<ProbeColor h=\""+tmpColor.get1Value()+"\" s=\""+tmpColor.get2Value()+"\" v=\""+tmpColor.get3Value()+"\"/>\n";
+                        text=text+"<ProbeColor h=\""+tmpColor[1]+"\" s=\""+tmpColor[2]+"\" v=\""+tmpColor[3]+"\"/>\n";
                         text=text+"</Probe>\n";
-                        tmpColor.deleteReferences();
-                        tmpColor=null;
                       break;
                     case 1: // one sided
                     case 2: // one sided trans
@@ -637,9 +608,7 @@ class class_Export_Section extends class_Section {
                       if(tmpProbe.getType()==1)
                       {
                         var tmpColor = tmpProbe.getProbeColor();
-                        text=text+"<ProbeColor h=\""+tmpColor.get1Value()+"\" s=\""+tmpColor.get2Value()+"\" v=\""+tmpColor.get3Value()+"\"/>\n";
-                        tmpColor.deleteReferences();
-                        tmpColor=null;
+                        text=text+"<ProbeColor h=\""+tmpColor[1]+"\" s=\""+tmpColor[2]+"\" v=\""+tmpColor[3]+"\"/>\n";
                       }
 
                       switch (tmpProbe.getFunctionType()) {
@@ -673,9 +642,7 @@ class class_Export_Section extends class_Section {
                       if(tmpProbe.getType()==3)
                       {
                         var tmpColor = tmpProbe.getProbeColor();
-                        text=text+"<ProbeColor h=\""+tmpColor.get1Value()+"\" s=\""+tmpColor.get2Value()+"\" v=\""+tmpColor.get3Value()+"\"/>\n";
-                        tmpColor.deleteReferences();
-                        tmpColor=null;
+                        text=text+"<ProbeColor h=\""+tmpColor[1]+"\" s=\""+tmpColor[2]+"\" v=\""+tmpColor[3]+"\"/>\n";
                       }
 
                       switch (tmpProbe.getFunctionType()) {
@@ -754,19 +721,19 @@ class class_Export_Section extends class_Section {
       case "xml":
           switch(this.exportspace) {
              case "rgb":
-                 text="<Point x=\""+refVal+"\" o=\""+opacityVal+"\" r=\""+tmpColor.getRValue()*this.scaleExpVal1+"\" g=\""+tmpColor.getGValue()*this.scaleExpVal2+"\" b=\""+tmpColor.getBValue()*this.scaleExpVal3+"\" cms=\""+isCMS+"\"";
+                 text="<Point x=\""+refVal+"\" o=\""+opacityVal+"\" r=\""+tmpColor[1]*this.scaleExpVal1+"\" g=\""+tmpColor[2]*this.scaleExpVal2+"\" b=\""+tmpColor[3]*this.scaleExpVal3+"\" cms=\""+isCMS+"\"";
                  break;
              case "hsv":
-                 text="<Point x=\""+refVal+"\" o=\""+opacityVal+"\" h=\""+tmpColor.getHValue()*this.scaleExpVal1+"\" s=\""+tmpColor.getSValue()*this.scaleExpVal2+"\" v=\""+tmpColor.getVValue()*this.scaleExpVal3+"\" cms=\""+isCMS+"\"";
+                 text="<Point x=\""+refVal+"\" o=\""+opacityVal+"\" h=\""+tmpColor[1]*this.scaleExpVal1+"\" s=\""+tmpColor[2]*this.scaleExpVal2+"\" v=\""+tmpColor[3]*this.scaleExpVal3+"\" cms=\""+isCMS+"\"";
                  break;
              case "lab":
-                 text="<Point x=\""+refVal+"\" o=\""+opacityVal+"\" l=\""+tmpColor.getLValue()+"\" a=\""+tmpColor.getAValue()+"\" b=\""+tmpColor.getBValue()+"\" cms=\""+isCMS+"\"";
+                 text="<Point x=\""+refVal+"\" o=\""+opacityVal+"\" l=\""+tmpColor[1]+"\" a=\""+tmpColor[2]+"\" b=\""+tmpColor[3]+"\" cms=\""+isCMS+"\"";
                  break;
              case "lch":
-                 text="<Point x=\""+refVal+"\" o=\""+opacityVal+"\" l=\""+tmpColor.getLValue()*this.scaleExpVal1+"\" c=\""+tmpColor.getCValue()*this.scaleExpVal2+"\" h=\""+tmpColor.getHValue()*this.scaleExpVal3+"\" cms=\""+isCMS+"\"";
+                 text="<Point x=\""+refVal+"\" o=\""+opacityVal+"\" l=\""+tmpColor[1]*this.scaleExpVal1+"\" c=\""+tmpColor[2]*this.scaleExpVal2+"\" h=\""+tmpColor[3]*this.scaleExpVal3+"\" cms=\""+isCMS+"\"";
                  break;
              case "din99":
-                 text="<Point x=\""+refVal+"\" o=\""+opacityVal+"\" l99=\""+tmpColor.getL99Value()+"\" a99=\""+tmpColor.getA99Value()+"\" b99=\""+tmpColor.getB99Value()+"\" cms=\""+isCMS+"\"";
+                 text="<Point x=\""+refVal+"\" o=\""+opacityVal+"\" l99=\""+tmpColor[1]+"\" a99=\""+tmpColor[2]+"\" b99=\""+tmpColor[3]+"\" cms=\""+isCMS+"\"";
                  break;
              default:
                  return;
@@ -780,19 +747,19 @@ class class_Export_Section extends class_Section {
       case "csv":
           switch(this.exportspace) {
              case "rgb":
-                 text=text+refVal+";"+tmpColor.getRValue()*this.scaleExpVal1+";"+tmpColor.getGValue()*this.scaleExpVal2+";"+tmpColor.getBValue()*this.scaleExpVal3+";";
+                 text=text+refVal+";"+tmpColor[1]*this.scaleExpVal1+";"+tmpColor[2]*this.scaleExpVal2+";"+tmpColor[3]*this.scaleExpVal3+";";
                  break;
              case "hsv":
-                 text=text+refVal+";"+tmpColor.getHValue()*this.scaleExpVal1+";"+tmpColor.getSValue()*this.scaleExpVal2+";"+tmpColor.getVValue()*this.scaleExpVal3+";";
+                 text=text+refVal+";"+tmpColor[1]*this.scaleExpVal1+";"+tmpColor[2]*this.scaleExpVal2+";"+tmpColor[3]*this.scaleExpVal3+";";
                  break;
              case "lab":
-                 text=text+refVal+";"+tmpColor.getLValue()+";"+tmpColor.getAValue()+";"+tmpColor.getBValue()+";";
+                 text=text+refVal+";"+tmpColor[1]+";"+tmpColor[2]+";"+tmpColor[3]+";";
                  break;
             case "lch":
-                 text=text+refVal+";"+tmpColor.getLValue()*this.scaleExpVal1+";"+tmpColor.getCValue()*this.scaleExpVal2+";"+tmpColor.getHValue()*this.scaleExpVal3+";";
+                 text=text+refVal+";"+tmpColor[1]*this.scaleExpVal1+";"+tmpColor[2]*this.scaleExpVal2+";"+tmpColor[3]*this.scaleExpVal3+";";
                  break;
              case "din99":
-                 text=text+refVal+";"+tmpColor.getL99Value()+";"+tmpColor.getA99Value()+";"+tmpColor.getB99Value()+";";
+                 text=text+refVal+";"+tmpColor[1]+";"+tmpColor[2]+";"+tmpColor[3]+";";
                  break;
              default:
                  return;
@@ -805,19 +772,19 @@ class class_Export_Section extends class_Section {
 
            switch(this.exportspace) {
               case "rgb":
-                  text=text+"\n\t\t\t"+tmpColor.getRValue()*this.scaleExpVal1+",\n\t\t\t"+tmpColor.getGValue()*this.scaleExpVal2+",\n\t\t\t"+tmpColor.getBValue()*this.scaleExpVal3;
+                  text=text+"\n\t\t\t"+tmpColor[1]*this.scaleExpVal1+",\n\t\t\t"+tmpColor[2]*this.scaleExpVal2+",\n\t\t\t"+tmpColor[3]*this.scaleExpVal3;
                   break;
               case "hsv":
-                  text=text+"\n\t\t\t"+tmpColor.getHValue()*this.scaleExpVal1+",\n\t\t\t"+tmpColor.getSValue()*this.scaleExpVal2+",\n\t\t\t"+tmpColor.getVValue()*this.scaleExpVal3;
+                  text=text+"\n\t\t\t"+tmpColor[1]*this.scaleExpVal1+",\n\t\t\t"+tmpColor[2]*this.scaleExpVal2+",\n\t\t\t"+tmpColor[3]*this.scaleExpVal3;
                   break;
               case "lab":
-                  text=text+"\n\t\t\t"+tmpColor.getLValue()+",\n\t\t\t"+tmpColor.getAValue()+",\n\t\t\t"+tmpColor.getBValue();
+                  text=text+"\n\t\t\t"+tmpColor[1]+",\n\t\t\t"+tmpColor[2]+",\n\t\t\t"+tmpColor[3];
                   break;
               case "lch":
-                  text=text+"\n\t\t\t"+tmpColor.getLValue()*this.scaleExpVal1+",\n\t\t\t"+tmpColor.getCValue()*this.scaleExpVal2+",\n\t\t\t"+tmpColor.getHValue()*this.scaleExpVal3;
+                  text=text+"\n\t\t\t"+tmpColor[1]*this.scaleExpVal1+",\n\t\t\t"+tmpColor[2]*this.scaleExpVal2+",\n\t\t\t"+tmpColor[3]*this.scaleExpVal3;
                   break;
               case "din99":
-                  text=text+"\n\t\t\t"+tmpColor.getL99Value()+",\n\t\t\t"+tmpColor.getA99Value()+",\n\t\t\t"+tmpColor.getB99Value();
+                  text=text+"\n\t\t\t"+tmpColor[1]+",\n\t\t\t"+tmpColor[2]+",\n\t\t\t"+tmpColor[3];
                   break;
               default:
                   return;
@@ -827,9 +794,6 @@ class class_Export_Section extends class_Section {
       default:
     }
 
-
-    tmpColor.deleteReferences();
-    tmpColor=null;
     return text;
 
   }
@@ -869,15 +833,11 @@ class class_Export_Section extends class_Section {
 
       jsontext = jsontext+",\n\t\t\"InterpolationType\" : \""+this.workCMS.getInterpolationType()+"\",\n\t\t\"Creator\" : \"CCC-Tool\",\n\t\t\"Name\" : \""+this.workCMS.getColormapName()+"\",\n\t\t\"NanColor\" : [";
       var tmpColor = this.workCMS.getNaNColor(this.exportspace);
-      jsontext = jsontext+ tmpColor.get1Value()*this.scaleExpVal1 +","+tmpColor.get2Value()*this.scaleExpVal2+","+tmpColor.get3Value()*this.scaleExpVal3+"],\n\t\t\"AboveColor\" : [";
-      tmpColor.deleteReferences();
+      jsontext = jsontext+ tmpColor[1]*this.scaleExpVal1 +","+tmpColor[2]*this.scaleExpVal2+","+tmpColor[3]*this.scaleExpVal3+"],\n\t\t\"AboveColor\" : [";
       tmpColor = this.workCMS.getAboveColor(this.exportspace);
-      jsontext = jsontext+ tmpColor.get1Value()*this.scaleExpVal1 +","+tmpColor.get2Value()*this.scaleExpVal2+","+tmpColor.get3Value()*this.scaleExpVal3+"],\n\t\t\"BelowColor\" : [";
-      tmpColor.deleteReferences();
+      jsontext = jsontext+ tmpColor[1]*this.scaleExpVal1 +","+tmpColor[2]*this.scaleExpVal2+","+tmpColor[3]*this.scaleExpVal3+"],\n\t\t\"BelowColor\" : [";
       tmpColor = this.workCMS.getBelowColor(this.exportspace);
-      jsontext = jsontext+ tmpColor.get1Value()*this.scaleExpVal1 +","+tmpColor.get2Value()*this.scaleExpVal2+","+tmpColor.get3Value()*this.scaleExpVal3+"],\n\t\t";
-      tmpColor.deleteReferences();
-      tmpColor=null;
+      jsontext = jsontext+ tmpColor[1]*this.scaleExpVal1 +","+tmpColor[2]*this.scaleExpVal2+","+tmpColor[3]*this.scaleExpVal3+"],\n\t\t";
 
       switch(this.exportspace) {
               case "rgb":
@@ -943,7 +903,7 @@ class class_Export_Section extends class_Section {
               break;
               case "twin key":
 
-                var numOfIntervals = this.workCMS.getExportSamplingLength(i);
+                var numOfIntervals = this.workCMS.getIntervalLength(i);
 
                 var isMot=false;
 
@@ -963,8 +923,8 @@ class class_Export_Section extends class_Section {
                 isMoTtext=isMoTtext+"\n\t\t\t"+isMot+",";
 
 
-                for(var j=0; j<this.workCMS.getExportSamplingLength(i); j++){
-                  colortext = colortext+this.createLine(this.workCMS.getExportSamplingColor(i,j,this.exportspace),this.workCMS.getExportSamplingRef(i,j),false,false)+",";
+                for(var j=0; j<this.workCMS.getIntervalLength(i); j++){
+                  colortext = colortext+this.createLine(this.workCMS.getIntervalColor(i,j,this.exportspace),this.workCMS.getIntervalRef(i,j),false,false)+",";
                   isCMStext=isCMStext+"\n\t\t\t"+false+",";
                   isMoTtext=isMoTtext+"\n\t\t\t"+false+",";
                 }
@@ -974,14 +934,14 @@ class class_Export_Section extends class_Section {
                 break;
               default:
 
-                var numOfIntervals = this.workCMS.getExportSamplingLength(i);
+                var numOfIntervals = this.workCMS.getIntervalLength(i);
                 colortext = colortext+this.createLine(this.workCMS.getRightKeyColor(i,this.exportspace),this.workCMS.getRefPosition(i),this.workCMS.getOpacityVal(i,"right"),true,false)+",";
                 isCMStext=isCMStext+"\n\t\t\t"+true+",";
                 isMoTtext=isMoTtext+"\n\t\t\t"+false+",";
 
 
-                for(var j=0; j<this.workCMS.getExportSamplingLength(i); j++){
-                  colortext = colortext+this.createLine(this.workCMS.getExportSamplingColor(i,j,this.exportspace),this.workCMS.getExportSamplingRef(i,j),false,false)+",";
+                for(var j=0; j<this.workCMS.getIntervalLength(i); j++){
+                  colortext = colortext+this.createLine(this.workCMS.getIntervalColor(i,j,this.exportspace),this.workCMS.getIntervalRef(i,j),false,false)+",";
                   isCMStext=isCMStext+"\n\t\t\t"+false+",";
                   isMoTtext=isMoTtext+"\n\t\t\t"+false+",";
                 }

@@ -3,27 +3,36 @@
 ////////////////////////////////////////////////
 
 class class_Key{
-    constructor(colorL, colorR, refPos, isBur) {
-
+    constructor(colorInfoL,colorInfoR, refPos, isBur,mot) {
         this.type = "";
-
-        this.cL=undefined;
-        this.cR = undefined;
-        this.setLeftKeyColor(colorL);
-        this.setRightKeyColor(colorR);
-
+        this.emty_cL=false;
+        this.cL= new class_Color("rgb",0, 0, 0);
+        this.emty_cR=false;
+        this.cR = new class_Color("rgb",0, 0, 0);
         this.ref = refPos;
         this.middleOfTriple = false; // if left or twin key -> false = cL, true = cR;
+        if(mot!=undefined)
+          this.middleOfTriple = mot;
 
         this.isBur = isBur;
-
+        this.setLeftKeyColor(colorInfoL);
+        this.setRightKeyColor(colorInfoR);
         if(this.isBur==undefined){
             this.isBur=false;
         }
 
         this.opacityValLeft=1.0;
         this.opacityValRight=1.0;
+    }
 
+    getKeyPackage(){
+      var tmpPack = [];
+      tmpPack.push(this.getLeftKeyColor("rgb"));
+      tmpPack.push(this.getRightKeyColor("rgb"));
+      tmpPack.push(this.getRefPosition());
+      tmpPack.push(this.getBur());
+      tmpPack.push(this.getMoT());
+      return tmpPack;
     }
 
     deleteReferences(){
@@ -50,7 +59,6 @@ class class_Key{
       delete this.opacityValRight;
     }
 
-
     setBur(type){
       this.isBur = type;
     }
@@ -59,55 +67,38 @@ class class_Key{
       return this.isBur;
     }
 
-    /*updateKeyColorsToSettings(){
-      if(this.cL!=undefined){
-        this.cL=this.cL.calcLABColor();
-      }
+    setLeftKeyColor(colorInfoL){
 
-      if(this.cR!=undefined){
-        this.cR=this.cR.calcLABColor();
-      }
-    }*/
-
-    setLeftKeyColor(color){
-
-        if(this.cL != undefined){
-          this.cL.deleteReferences();
-          this.cL = undefined
+        if(colorInfoL==undefined){
+          this.emty_cL=true;
+        }
+        else{
+          this.emty_cL=false;
+          this.cL.updateColor(colorInfoL[0], colorInfoL[1], colorInfoL[2], colorInfoL[3]);
         }
 
-        if(color!=undefined){
-          this.cL=color.calcLABColor();
-          color.deleteReferences();
-          color=null;
-        }
-        
         this.determineType();
 
     }
 
-    setRightKeyColor(color) {
+    setRightKeyColor(colorInfoR) {
 
-      if(this.cR != undefined){
-        this.cR.deleteReferences();
-        this.cR = undefined
+      if(colorInfoR==undefined){
+        this.emty_cR=true;
       }
-
-      if(color!=undefined){
-        this.cR=color.calcLABColor();
-        color.deleteReferences();
-        color=null;
+      else{
+        this.emty_cR=false;
+        this.cR.updateColor(colorInfoR[0], colorInfoR[1], colorInfoR[2], colorInfoR[3]);
       }
 
       this.determineType();
 
     }
 
-
     determineType(){
 
-      if(this.cL==undefined){
-        if(this.cR==undefined){
+      if(this.emty_cL){
+        if(this.emty_cR){
           this.type = "nil key";
           return;
         }
@@ -117,12 +108,12 @@ class class_Key{
         }
       }
 
-      if(this.cR==undefined){
+      if(this.emty_cR){
         this.type = "left key";
         return;
       }
 
-      if(this.cR.equalTo(this.cL)){
+      if(this.cR.equalTo(this.cL.getOriginColorInfo())){
         this.type = "dual key";
         return;
       }
@@ -132,143 +123,19 @@ class class_Key{
       }
     }
 
-    getRightKeyColorCB(index,doColorblindnessSim){
-      if(this.cR==undefined)
-      return undefined;
-
-      var ncolor = this.cR.calcRGBColor();
-      if(doColorblindnessSim){
-        var tmpLMS = ncolor.calcLMSColor();
-        ncolor = tmpLMS.calcColorBlindRGBColor();
-        tmpLMS.deleteReferences();
-        tmpLMS=null;
-      }
-
-      return ncolor;
-    }
-
-    getLeftKeyColorCB(index,doColorblindnessSim){
-      if(this.cL==undefined)
-      return undefined;
-
-      var ncolor = this.cL.calcRGBColor();
-      if(doColorblindnessSim){
-        var tmpLMS = ncolor.calcLMSColor();
-        ncolor = tmpLMS.calcColorBlindRGBColor();
-        tmpLMS.deleteReferences();
-        tmpLMS=null;
-      }
-
-      return ncolor;
-    }
 
 
     getLeftKeyColor(colorspace) {
-
-      if(this.cL==undefined)
-      return undefined;
-
-        switch (colorspace) {
-          case "rgb":
-          return this.cL.calcRGBColor();
-          break;
-          case "hsv":
-          return this.cL.calcHSVColor();
-          break;
-          case "lab":
-          case "de94":
-          case "de94-ds":
-          case "de2000":
-          case "de2000-ds":
-          return new class_Color_LAB(this.cL.get1Value(),this.cL.get2Value(),this.cL.get3Value());
-          break;
-          case "din99":
-          return this.cL.calcDIN99Color();
-          break;
-          case "lab_rgb_possible":
-          var ncolor = this.cL.calcRGBColor();
-          var color = ncolor.calcLABColor();
-          ncolor.deleteReferences();
-          ncolor=null;
-          return color;
-          break;
-          case "din99_rgb_possible":
-          var ncolor = this.cL.calcRGBColor();
-          var color = ncolor.calcDIN99Color();
-          ncolor.deleteReferences();
-          ncolor=null;
-          return color;
-          break;
-          case "lch":
-          return this.cL.calcLCHColor();
-          break;
-          case "lms":
-          return this.cL.calcLMSColor();
-          break;
-          case "lch_rgb_possible":
-          var ncolor = this.cL.calcRGBColor();
-          var color = ncolor.calcLCHColor();
-          ncolor.deleteReferences();
-          ncolor=null;
-          return color;
-          break;
-        }
-
+      if(this.emty_cL)
+        return undefined;
+      return this.cL.getColorInfo(colorspace);
     }
 
     getRightKeyColor(colorspace) {
-
-      if(this.cR==undefined)
-      return undefined;
-
-        switch (colorspace) {
-          case "rgb":
-          return this.cR.calcRGBColor();
-          break;
-          case "hsv":
-          return this.cR.calcHSVColor();
-          break;
-          case "lab":
-          case "de94":
-          case "de94-ds":
-          case "de2000":
-          case "de2000-ds":
-          return new class_Color_LAB(this.cR.get1Value(),this.cR.get2Value(),this.cR.get3Value());
-          break;
-          case "din99":
-          return this.cR.calcDIN99Color();
-          break;
-          case "lab_rgb_possible":
-          var ncolor = this.cR.calcRGBColor();
-          var color = ncolor.calcLABColor();
-          ncolor.deleteReferences();
-          ncolor=null;
-          return color;
-          break;
-          case "din99_rgb_possible":
-          var ncolor = this.cR.calcRGBColor();
-          var color = ncolor.calcDIN99Color();
-          ncolor.deleteReferences();
-          ncolor=null;
-          return color;
-          break;
-          case "lch":
-          return this.cR.calcLCHColor();
-          break;
-          case "lms":
-          return this.cR.calcLMSColor();
-          break;
-          case "lch_rgb_possible":
-          var ncolor = this.cR.calcRGBColor();
-          var color = ncolor.calcLCHColor();
-          ncolor.deleteReferences();
-          ncolor=null;
-          return color;
-          break;
-        }
-
+      if(this.emty_cR)
+        return undefined;
+      return this.cR.getColorInfo(colorspace);
     }
-
 
     setRefPosition(pos) {
         this.ref = pos;
@@ -276,6 +143,18 @@ class class_Key{
 
     getRefPosition() {
         return this.ref;
+    }
+
+    getKeyType(){
+        return this.type;
+    }
+
+    getMoT(){
+      return this.middleOfTriple;
+    }
+
+    setMoT(mot){
+      this.middleOfTriple=mot;
     }
 
     setOpacityVal(val,side) {
@@ -303,19 +182,6 @@ class class_Key{
           default:
 
         }
-    }
-
-    getKeyType(){
-        return this.type;
-    }
-
-
-    getMoT(){
-      return this.middleOfTriple;
-    }
-
-    setMoT(mot){
-      this.middleOfTriple=mot;
     }
 
   }

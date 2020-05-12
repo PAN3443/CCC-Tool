@@ -103,7 +103,7 @@ function jsonColormapParserFile(jsonString){
         var val2 = parseFloat(jsonObj[0].RGBPoints[i*4+2])/val2_RatioFactor;
         var val3 = parseFloat(jsonObj[0].RGBPoints[i*4+3])/val3_RatioFactor;
 
-        var tmpColor = createColor(val1,val2,val3,space);
+        var tmpColor = [space,val1,val2,val3];
 
         switch (i) {
           case 0:
@@ -111,22 +111,22 @@ function jsonColormapParserFile(jsonString){
               var val2_Next = parseFloat(jsonObj[0].RGBPoints[(i+1)*4+2])/val2_RatioFactor;
               var val3_Next = parseFloat(jsonObj[0].RGBPoints[(i+1)*4+3])/val3_RatioFactor;
 
-              var tmpColor2 = createColor(val1_Next,val2_Next,val3_Next,space);
+              var tmpColor2 = [space,val1_Next,val2_Next,val3_Next];
 
 
-             if(tmpColor2.equalTo(tmpColor)){
+             if(equalColorInfo(tmpColor,tmpColor2)){
                // nil key
                var newKey = new class_Key(undefined,undefined,x,true);
                tmpCMS.pushKey(newKey);
              }else{
                // right key
-               var newKey = new class_Key(undefined,cloneColor(tmpColor),x,true);
+               var newKey = new class_Key(undefined,tmpColor,x,true);
                tmpCMS.pushKey(newKey);
              }
             break;
            case lastIndex:
                // right key
-               var newKey = new class_Key(cloneColor(tmpColor),undefined,x,true);
+               var newKey = new class_Key(tmpColor,undefined,x,true);
                tmpCMS.pushKey(newKey);
             break;
           default:
@@ -143,8 +143,7 @@ function jsonColormapParserFile(jsonString){
              var val2_Next = parseFloat(jsonObj[0].RGBPoints[(i+1)*4+2])/val2_RatioFactor;
              var val3_Next = parseFloat(jsonObj[0].RGBPoints[(i+1)*4+3])/val3_RatioFactor;
 
-             var tmpColor2 = createColor(val1_Next,val2_Next,val3_Next,space);
-
+             var tmpColor2 = [space,val1_Next,val2_Next,val3_Next];
 
              if(x_Previous==x){
 
@@ -152,12 +151,11 @@ function jsonColormapParserFile(jsonString){
                var val2_Prev = parseFloat(jsonObj[0].RGBPoints[(i-1)*4+2])/val2_RatioFactor;
                var val3_Prev = parseFloat(jsonObj[0].RGBPoints[(i-1)*4+3])/val3_RatioFactor;
 
-               var tmpColor_Prev = createColor(val1_Prev,val2_Prev,val3_Prev,space);
+               var tmpColor_Prev = [space,val1_Prev,val2_Prev,val3_Prev];
 
-
-               if(tmpColor2.equalTo(tmpColor)){
+               if(equalColorInfo(tmpColor,tmpColor2)){
                  // left key
-                 var newKey = new class_Key(cloneColor(tmpColor_Prev),undefined,x,true);
+                 var newKey = new class_Key(tmpColor_Prev,undefined,x,true);
 
                  if(hasMoTInfo){
                    if(jsonObj[0].isMoT[i]==true)
@@ -166,7 +164,7 @@ function jsonColormapParserFile(jsonString){
                  tmpCMS.pushKey(newKey);
                }else{
                  // twin key
-                 var newKey = new class_Key(cloneColor(tmpColor_Prev),cloneColor(tmpColor),x,true);
+                 var newKey = new class_Key(tmpColor_Prev,tmpColor,x,true);
                  if(hasMoTInfo){
                    if(jsonObj[0].isMoT[i]==true)
                      newKey.setMoT(true); // if right key color isMoT (left is default)
@@ -175,24 +173,17 @@ function jsonColormapParserFile(jsonString){
 
 
                }
-
-               tmpColor_Prev.deleteReferences();
-               tmpColor_Prev=null;
              }
              else{
                if(x!=x_Next){
                  // dual key
-                 var newKey = new class_Key(cloneColor(tmpColor),cloneColor(tmpColor),x,false);
+                 var newKey = new class_Key(tmpColor,tmpColor,x,false);
                  tmpCMS.pushKey(newKey);
                }
              }
 
-             tmpColor2.deleteReferences();
-             tmpColor2=null;
            }//switch
 
-        tmpColor.deleteReferences();
-        tmpColor=null;
       }
 
 
@@ -200,21 +191,21 @@ function jsonColormapParserFile(jsonString){
         var val1 = parseFloat(jsonObj[0].NanColor[0])/val1_RatioFactor;
         var val2 = parseFloat(jsonObj[0].NanColor[1])/val2_RatioFactor;
         var val3 = parseFloat(jsonObj[0].NanColor[2])/val3_RatioFactor;
-        tmpCMS.setNaNColor(createColor(val1,val2,val3,space));
+        tmpCMS.setNaNColor([space,val1,val2,val3]);
       }
 
       if(hasAboveColor){
         var val1 = parseFloat(jsonObj[0].AboveColor[0])/val1_RatioFactor;
         var val2 = parseFloat(jsonObj[0].AboveColor[1])/val2_RatioFactor;
         var val3 = parseFloat(jsonObj[0].AboveColor[2])/val3_RatioFactor;
-        tmpCMS.setAboveColor(createColor(val1,val2,val3,space));
+        tmpCMS.setAboveColor([space,val1,val2,val3]);
       }
 
       if(hasBelowColor){
         var val1 = parseFloat(jsonObj[0].BelowColor[0])/val1_RatioFactor;
         var val2 = parseFloat(jsonObj[0].BelowColor[1])/val2_RatioFactor;
         var val3 = parseFloat(jsonObj[0].BelowColor[2])/val3_RatioFactor;
-        tmpCMS.setBelowColor(createColor(val1,val2,val3,space));
+        tmpCMS.setBelowColor([space,val1,val2,val3]);
       }
 
       return tmpCMS;

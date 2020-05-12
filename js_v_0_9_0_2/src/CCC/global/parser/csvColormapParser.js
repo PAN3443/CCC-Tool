@@ -80,7 +80,7 @@ function csvColormapParserFile(csvString) {
         var val3 = parseFloat(keyData[3])/val3_RatioFactor;
         var o = parseFloat(keyData[4]);
 
-        var tmpColor = createColor(val1,val2,val3,space);
+        var tmpColor = [space,val1,val2,val3];
 
         switch (i) {
           case 1:
@@ -89,9 +89,9 @@ function csvColormapParserFile(csvString) {
               var val2_Next = parseFloat(keyData_Next[2])/val2_RatioFactor;
               var val3_Next = parseFloat(keyData_Next[3])/val3_RatioFactor;
 
-            var tmpColor2 = createColor(val1_Next,val2_Next,val3_Next,space);
+            var tmpColor2 = [space,val1_Next,val2_Next,val3_Next];
 
-             if(tmpColor2.equalTo(tmpColor)){
+             if(equalColorInfo(tmpColor,tmpColor2)){
                // nil key
                var newKey = new class_Key(undefined,undefined,x,true);
                newKey.setOpacityVal(o,"left");
@@ -100,7 +100,7 @@ function csvColormapParserFile(csvString) {
 
              }else{
                // right key
-               var newKey = new class_Key(undefined,cloneColor(tmpColor),x,true);
+               var newKey = new class_Key(undefined,tmpColor,x,true);
                newKey.setOpacityVal(o,"left");
                newKey.setOpacityVal(o,"right");
                tmpCMS.pushKey(newKey);
@@ -108,7 +108,7 @@ function csvColormapParserFile(csvString) {
             break;
            case csvlines.length-1:
                // right key
-               var newKey = new class_Key(cloneColor(tmpColor),undefined,x,true);
+               var newKey = new class_Key(tmpColor,undefined,x,true);
                newKey.setOpacityVal(o,"left");
                newKey.setOpacityVal(o,"right");
                tmpCMS.pushKey(newKey);
@@ -133,7 +133,7 @@ function csvColormapParserFile(csvString) {
              var val3_Next = parseFloat(keyData_Next[3])/val3_RatioFactor;
 
 
-             var tmpColor2 = createColor(val1_Next,val2_Next,val3_Next,space);
+             var tmpColor2 = [space,val1_Next,val2_Next,val3_Next];
 
 
              if(x_Previous==x){
@@ -142,13 +142,13 @@ function csvColormapParserFile(csvString) {
                var val2_Prev = parseFloat(keyData_Previous[2])/val2_RatioFactor;
                var val3_Prev = parseFloat(keyData_Previous[3])/val3_RatioFactor;
 
-               var tmpColor_Prev = createColor(val1_Prev,val2_Prev,val3_Prev,space);
+               var tmpColor_Prev = [space,val1_Prev,val2_Prev,val3_Prev];
 
 
-               if(tmpColor2.equalTo(tmpColor)){
+               if(equalColorInfo(tmpColor,tmpColor2)){
                  // left key
                  var o_Prev = parseFloat(keyData_Previous[4]);
-                 var newKey = new class_Key(cloneColor(tmpColor_Prev),undefined,x,true);
+                 var newKey = new class_Key(tmpColor_Prev,undefined,x,true);
 
                  newKey.setOpacityVal(o_Prev,"left");
                  newKey.setOpacityVal(o,"right");
@@ -161,7 +161,7 @@ function csvColormapParserFile(csvString) {
                }else{
                  // twin key
                  var o_Prev = parseFloat(keyData_Previous[4]);
-                 var newKey = new class_Key(cloneColor(tmpColor_Prev),cloneColor(tmpColor),x,true);
+                 var newKey = new class_Key(tmpColor_Prev,tmpColor,x,true);
 
                  newKey.setOpacityVal(o_Prev,"left");
                  newKey.setOpacityVal(o,"right");
@@ -175,14 +175,11 @@ function csvColormapParserFile(csvString) {
 
                }
 
-               tmpColor_Prev.deleteReferences();
-               tmpColor_Prev=null;
-
              }
              else{
                if(x!=x_Next){
                  // dual key
-                 var newKey = new class_Key(cloneColor(tmpColor),cloneColor(tmpColor),x,false);
+                 var newKey = new class_Key(tmpColor,tmpColor,x,false);
                  newKey.setOpacityVal(o,"left");
                  newKey.setOpacityVal(o,"right");
 
@@ -190,9 +187,6 @@ function csvColormapParserFile(csvString) {
                }
              }
         }//switch
-
-        tmpColor.deleteReferences();
-        tmpColor=null;
      }
 
 
@@ -202,21 +196,21 @@ function csvColormapParserFile(csvString) {
        var val1 = parseFloat(firstLineElements[9])/val1_RatioFactor;
        var val2 = parseFloat(firstLineElements[11])/val2_RatioFactor;
        var val3 = parseFloat(firstLineElements[13])/val3_RatioFactor;
-       tmpCMS.setNaNColor(createColor(val1,val2,val3,space));
+       tmpCMS.setNaNColor([space,val1,val2,val3]);
      }
      // Above
      if(firstLineElements.length>20){
        var val1 = parseFloat(firstLineElements[16])/val1_RatioFactor;
        var val2 = parseFloat(firstLineElements[18])/val2_RatioFactor;
        var val3 = parseFloat(firstLineElements[20])/val3_RatioFactor;
-       tmpCMS.setAboveColor(createColor(val1,val2,val3,space));
+       tmpCMS.setAboveColor([space,val1,val2,val3]);
      }
      // Below
      if(firstLineElements.length>27){
        var val1 = parseFloat(firstLineElements[23])/val1_RatioFactor;
        var val2 = parseFloat(firstLineElements[25])/val2_RatioFactor;
        var val3 = parseFloat(firstLineElements[27])/val3_RatioFactor;
-       tmpCMS.setBelowColor(createColor(val1,val2,val3,space));
+       tmpCMS.setBelowColor([space,val1,val2,val3]);
      }
 
      return tmpCMS;

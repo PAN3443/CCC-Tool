@@ -6,29 +6,21 @@ window.onload = function() {
 
   includeHTML();
 
-    if (doWorker && window.Worker) {
-      var script = document.createElement('script');
-      script.onload = function () {
-        finishedLoadingScripts();
-      };
-      script.src = "../../"+version_JS_FolderName+"/src/CCC/sections/edit/edit_elements/pathplot/worker/mainThread_listenerEvent_pathplot.js";
-      document.head.appendChild(script);
 
-    }
-    else {
-      var script = document.createElement('script');
-      script.onload = function () {
-        finishedLoadingScripts();
-      };
-      script.src = "../../"+version_JS_FolderName+"/src/CCC/sections/edit/edit_elements/pathplot/pp_background.js";
-      document.head.appendChild(script);
-    }
+  if (typeof (Worker) === undefined){
+    document.getElementById("id_PopUp_NoWorkerWindow").style.display="flex";
+    return;
+  }
 
-    updateToolVersion();
+  if (typeof OffscreenCanvas === 'function'){
+    browserCanOffscreenCanvas = true;
+  }
+  else{
+    browserCanOffscreenCanvas = false;
+  }
 
-}
+  updateToolVersion();
 
-function finishedLoadingScripts(){
   // init section object
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Welcome Section";
   welcomeSection = new class_Welcome_Section();
@@ -42,6 +34,9 @@ function finishedLoadingScripts(){
   autoGenSection = new class_AutoGen_Section();
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Edit Section";
   editSection = new class_Edit_Section();
+  editWorker = new Worker("../"+version_JS_FolderName+"/src/CCC/sections/edit/worker/worker_editCMS.js"); //, { type: "module" });
+  editWorker.addEventListener('message', workerEvent_EditSection, false);
+  editWorker.postMessage({'message':'init'});
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Edit (Probe) Section";
   probeSection = new class_Edit_Probe_Section();
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Edit (Optimization) Section";
@@ -60,25 +55,16 @@ function finishedLoadingScripts(){
   initColorPicker();
   initDropDowns();
 
-  if (doWorker && window.Worker){
-    global_worker_3DSpaceGrids = new Worker("../../"+version_JS_FolderName+"/src/Global/worker/worker_calc3DSpaceModels.js");
-    global_worker_3DSpaceGrids.addEventListener('message', updateSpaceGridInfo, false);
-    global_worker_3DSpaceGrids.postMessage({'message':'init'});
-    global_worker_3DSpaceGrids.postMessage(json_message_colorSettingsInfo());
-    global_worker_3DSpaceGrids.postMessage({'message':'updateModels'});
-  }
-  else {
-    document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Calculation: 3D LAB Grid";
-    calcSpaceGridLAB();
-    document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Calculation: 3D DIN99 Grid";
-    calcSpaceGridDIN99();
-    document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Calculation: 3D LMS Grid";
-    calcSpaceGridLMS();
-  }
+  global_worker_3DSpaceGrids = new Worker("../../"+version_JS_FolderName+"/src/Global/worker/worker_calc3DSpaceModels.js");
+  global_worker_3DSpaceGrids.addEventListener('message', updateSpaceGridInfo, false);
+  global_worker_3DSpaceGrids.postMessage({'message':'init'});
+  global_worker_3DSpaceGrids.postMessage(json_message_colorSettingsInfo());
+  global_worker_3DSpaceGrids.postMessage({'message':'updateModels'});
 
   checkLandscapeWindow();
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Loading Finished";
   welcomeSection.updateSection();
+
 }
 
 
@@ -89,10 +75,7 @@ window.onresize = function(event) {
     editSection.resize();
     optiSection.resize();
     probeSection.resize();
-
     testingSection.resize();
-
-
 
     /*if(document.getElementById("id_EditPage").style.display!="none"){
       updateEditPage();

@@ -5,6 +5,8 @@ var testTensorFieldColorDif = undefined;
 var reportOptions_ColorDif = 2;
 var ratioFields = undefined;
 var selectorType ="max";
+var normalizationSelector = "minMax";
+var customNormValue = 100;
 
 
 var reportType = undefined;
@@ -57,7 +59,7 @@ var tmLMS_Selected_Inv = [
 var sim_AdaptiveColorblindness = undefined;
 
 // CMS
-var globalCMS1 = undefined;
+var mainCMS = undefined;
 var ratioDifCMS = undefined;
 var greyScaledCMS = undefined;
 
@@ -102,7 +104,7 @@ self.addEventListener('message', function(e) {
       //self.importScripts('../../../../libs/ThreeJS/three.min.js');
 
 
-      globalCMS1 = new class_CMS();
+      mainCMS = new class_CMS();
 
       ratioDifCMS = new class_CMS();
       ratioDifCMS.pushKey(new class_Key(undefined, new class_Color_DIN99(29.581458825788705,16.03125,-26.896446228027347), -1, false));
@@ -131,6 +133,8 @@ self.addEventListener('message', function(e) {
       testfield = e.data.testfield;
       reportOptions_ColorDif= e.data.reportOptions_ColorDif;
       selectorType = e.data.reportOptions_ColorSelector;
+      normalizationSelector=e.data.reportOptions_NormalizationSelector;
+      customNormValue=e.data.customValue;
       calcColorField();
       sendReportOriginalImage();
       sendReportGreyImage();
@@ -139,6 +143,8 @@ self.addEventListener('message', function(e) {
     case "calcReport_New_Setting":
       reportOptions_ColorDif= e.data.reportOptions_ColorDif;
       selectorType = e.data.reportOptions_ColorSelector;
+      normalizationSelector=e.data.reportOptions_NormalizationSelector;
+      customNormValue=e.data.customValue;
       calcColorField();
       startReportCalc();
     break;
@@ -161,7 +167,7 @@ function startReportCalc() {
   /*switch (reportType) {
     case 0:*/
 
-      ratioFields = getRatioDifField(testfield, colorField, reportOptions_ColorDif,selectorType);
+      ratioFields = getRatioDifField(testfield, colorField, reportOptions_ColorDif,selectorType,normalizationSelector,customNormValue);
       var answerJSON = {};
       answerJSON['type'] = 0;
       answerJSON['subtype'] = "reportIMG"
@@ -268,7 +274,7 @@ function calcColorField() {
       for (var x = 0; x < xDim; x++) {
         var tmpArray = [];
         for (var y = 0; y < yDim; y++) {
-          var tmpRGB = globalCMS1.calculateColor(testfield[x][y]);
+          var tmpRGB = mainCMS.calculateColor(testfield[x][y]);
           var labColor = tmpRGB.calcLABColor();
           tmpRGB.deleteReferences();
           tmpArray.push(labColor);
@@ -280,7 +286,7 @@ function calcColorField() {
       for (var x = 0; x < xDim; x++) {
         var tmpArray = [];
         for (var y = 0; y < yDim; y++) {
-          var tmpRGB = globalCMS1.calculateColor(testfield[x][y]);
+          var tmpRGB = mainCMS.calculateColor(testfield[x][y]);
           var dinColor = tmpRGB.calcDIN99Color();
           tmpRGB.deleteReferences();
           tmpArray.push(dinColor);

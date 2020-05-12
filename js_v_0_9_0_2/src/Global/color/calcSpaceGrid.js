@@ -18,7 +18,6 @@ function calcSpaceGridLAB(){
   positionsLAB=[];
   labABMax = 0;
 
-
   for (var i = 1; i < numberOfSteps; i++) {
 
     var particelSet =[];

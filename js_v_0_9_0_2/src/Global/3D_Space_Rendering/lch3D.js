@@ -1,9 +1,5 @@
 function lchMesh(colorspaceGroup){
 
-  var tmpLCH1 = new class_Color_LCH(0,0,0);
-  var tmpLCH2 = new class_Color_LCH(0,0,0);
-  var tmpRGB;
-
   for (var i = colorspaceGroup.children.length - 1; i >= 0; i--) {
     colorspaceGroup.remove(colorspaceGroup.children[i]);
   }
@@ -19,16 +15,16 @@ function lchMesh(colorspaceGroup){
   var linesIndices = [];
   var linesColors = [];
 
-
   ///
-
   var linesTopCircleVertex = [];
   var linesBottomCircleVertex = [];
   var geometry = new THREE.Geometry();
-  var lastColor1;
-  var lastColor2;
-  var firstColor1;
-  var firstColor2;
+  var currentColorInfo1 =["lch",0,0,0];
+  var currentColorInfo2 =["lch",0,0,0];
+  var lastColorInfo1=["lch",0,0,0];
+  var lastColorInfo2=["lch",0,0,0];
+  var firstColorInfo1=["lch",0,0,0];
+  var firstColorInfo2=["lch",0,0,0];
 
   geometry.vertices.push(new THREE.Vector3(0,vStart3D,0));
   geometry.vertices.push(new THREE.Vector3(0,vEnd3D,0));
@@ -45,31 +41,20 @@ function lchMesh(colorspaceGroup){
     geometry.vertices.push(new THREE.Vector3(xPos,vStart3D,zPos));
     geometry.vertices.push(new THREE.Vector3(xPos,vEnd3D,zPos));
 
-    tmpLCH1.set1Value(0);
-    tmpLCH1.set2Value(1.0);
-    tmpLCH1.set3Value(hueVal);
-    tmpRGB = tmpLCH1.calcRGBColor();
-    if(doColorblindnessSim){
-      var tmpLMS = tmpRGBColor.calcLMSColor();
-      tmpRGB = tmpLMS.calcColorBlindRGBColor();
-    }
+    gWorkColor1.updateColor("lch",0.0,1.0,hueVal);
+    var tmpRGBInfo=gWorkColor1.getColorInfo("rgb");
+    if(doColorblindnessSim)
+      tmpRGBInfo=gWorkColor1.getColorInfo("rgb_cb");
+    linesColors.push( tmpRGBInfo[1], tmpRGBInfo[2], tmpRGBInfo[3]);
 
-    linesColors.push( tmpRGB.get1Value(), tmpRGB.get2Value(), tmpRGB.get3Value() );
-    tmpLCH2.set1Value(1);
-    tmpLCH2.set2Value(1.0);
-    tmpLCH2.set3Value(hueVal);
-    tmpRGB = tmpLCH2.calcRGBColor();
-    if(doColorblindnessSim){
-      var tmpLMS = tmpRGBColor.calcLMSColor();
-      tmpRGB = tmpLMS.calcColorBlindRGBColor();
-    }
-
-    linesColors.push( tmpRGB.get1Value(), tmpRGB.get2Value(), tmpRGB.get3Value() );
-
+    gWorkColor1.updateColor("lch",1.0,1.0,hueVal);
+    var tmpRGBInfo=gWorkColor1.getColorInfo("rgb");
+    if(doColorblindnessSim)
+      tmpRGBInfo=gWorkColor1.getColorInfo("rgb_cb");
+    linesColors.push( tmpRGBInfo[1], tmpRGBInfo[2], tmpRGBInfo[3]);
 
     if(hStep%stepForLine==0)
     linesIndices.push(hStep*2,hStep*2+1);
-
 
     if(hStep!=0){
       linesIndices.push(hStep*2,hStep*2-2,hStep*2+1,hStep*2-1);
@@ -106,49 +91,45 @@ function lchMesh(colorspaceGroup){
       geometry.faces.push(new THREE.Face3(currentIndex1, lastIndex1, lastIndex2 ));
 
       // Color currentIndex1
-      tmpRGBColor=tmpLCH1.calcRGBColor();
-      if(doColorblindnessSim){
-        var tmpLMS = tmpRGBColor.calcLMSColor();
-        tmpRGBColor = tmpLMS.calcColorBlindRGBColor();
-      }
-      geometry.faces[geometry.faces.length-2].vertexColors[0] = new THREE.Color(tmpRGBColor.getRGBString());
-      geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBColor.getRGBString());
-      geometry.faces[geometry.faces.length-4].vertexColors[0] = new THREE.Color(tmpRGBColor.getRGBString());
+      gWorkColor1.updateColor(currentColorInfo1);
+      var tmpRGBString=gWorkColor1.get_RGB_String();
+      if(doColorblindnessSim)
+        tmpRGBString=gWorkColor1.get_RGB_CB_String();
+      geometry.faces[geometry.faces.length-2].vertexColors[0] = new THREE.Color(tmpRGBString);
+      geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBString);
+      geometry.faces[geometry.faces.length-4].vertexColors[0] = new THREE.Color(tmpRGBString);
 
       // Color currentIndex2
-      tmpRGBColor=tmpLCH2.calcRGBColor();
-      if(doColorblindnessSim){
-        var tmpLMS = tmpRGBColor.calcLMSColor();
-        tmpRGBColor = tmpLMS.calcColorBlindRGBColor();
-      }
-      geometry.faces[geometry.faces.length-2].vertexColors[2] = new THREE.Color(tmpRGBColor.getRGBString());
-      geometry.faces[geometry.faces.length-3].vertexColors[0] = new THREE.Color(tmpRGBColor.getRGBString());
+      gWorkColor1.updateColor(currentColorInfo2);
+      var tmpRGBString=gWorkColor1.get_RGB_String();
+      if(doColorblindnessSim)
+        tmpRGBString=gWorkColor1.get_RGB_CB_String();
+      geometry.faces[geometry.faces.length-2].vertexColors[2] = new THREE.Color(tmpRGBString);
+      geometry.faces[geometry.faces.length-3].vertexColors[0] = new THREE.Color(tmpRGBString);
 
       // Color lastIndex1
-      tmpRGBColor=lastColor1.calcRGBColor();
-      if(doColorblindnessSim){
-        var tmpLMS = tmpRGBColor.calcLMSColor();
-        tmpRGBColor = tmpLMS.calcColorBlindRGBColor();
-      }
-      geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor.getRGBString());
-      geometry.faces[geometry.faces.length-4].vertexColors[2] = new THREE.Color(tmpRGBColor.getRGBString());
+      gWorkColor1.updateColor(lastColorInfo1);
+      var tmpRGBString = gWorkColor1.get_RGB_String();
+if (doColorblindnessSim)
+  tmpRGBString = gWorkColor1.get_RGB_CB_String();
+      geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBString);
+      geometry.faces[geometry.faces.length-4].vertexColors[2] = new THREE.Color(tmpRGBString);
 
       // Color lastIndex2
-      tmpRGBColor=lastColor2.calcRGBColor();
-      if(doColorblindnessSim){
-        var tmpLMS = tmpRGBColor.calcLMSColor();
-        tmpRGBColor = tmpLMS.calcColorBlindRGBColor();
-      }
-      geometry.faces[geometry.faces.length-2].vertexColors[1] = new THREE.Color(tmpRGBColor.getRGBString());
-      geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor.getRGBString());
-      geometry.faces[geometry.faces.length-3].vertexColors[1] = new THREE.Color(tmpRGBColor.getRGBString());
+      gWorkColor1.updateColor(lastColorInfo2);
+      var tmpRGBString=gWorkColor1.get_RGB_String();
+      if(doColorblindnessSim)
+        tmpRGBString=gWorkColor1.get_RGB_CB_String();
+      geometry.faces[geometry.faces.length-2].vertexColors[1] = new THREE.Color(tmpRGBString);
+      geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBString);
+      geometry.faces[geometry.faces.length-3].vertexColors[1] = new THREE.Color(tmpRGBString);
 
 
 
     }
     else {
-      firstColor1= new class_Color_LCH(tmpLCH1.get1Value(),tmpLCH1.get2Value(),tmpLCH1.get3Value());
-      firstColor2= new class_Color_LCH(tmpLCH2.get1Value(),tmpLCH2.get2Value(),tmpLCH2.get3Value());
+      firstColorInfo1= ["lch",currentColorInfo1.get1Value(),currentColorInfo1.get2Value(),currentColorInfo1.get3Value()];
+      firstColorInfo2= ["lch",currentColorInfo2.get1Value(),currentColorInfo2.get2Value(),currentColorInfo2.get3Value()];
     }
 
     if(hStep==numberParticelsPerCircle-1){
@@ -187,50 +168,44 @@ function lchMesh(colorspaceGroup){
       geometry.faces.push(new THREE.Face3(firstIndex1, currentIndex1, currentIndex2 ));
 
       // Color firstIndex1
-      tmpRGBColor=firstColor1.calcRGBColor();
-      if(doColorblindnessSim){
-        var tmpLMS = tmpRGBColor.calcLMSColor();
-        tmpRGBColor = tmpLMS.calcColorBlindRGBColor();
-      }
-      geometry.faces[geometry.faces.length-2].vertexColors[0] = new THREE.Color(tmpRGBColor.getRGBString());
-      geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBColor.getRGBString());
-      geometry.faces[geometry.faces.length-4].vertexColors[0] = new THREE.Color(tmpRGBColor.getRGBString());
+      gWorkColor1.updateColor(firstColorInfo1);
+      var tmpRGBString=gWorkColor1.get_RGB_String();
+      if(doColorblindnessSim)
+        tmpRGBString=gWorkColor1.get_RGB_CB_String();
+      geometry.faces[geometry.faces.length-2].vertexColors[0] = new THREE.Color(tmpRGBString);
+      geometry.faces[geometry.faces.length-1].vertexColors[0] = new THREE.Color(tmpRGBString);
+      geometry.faces[geometry.faces.length-4].vertexColors[0] = new THREE.Color(tmpRGBString);
 
       // Color firstIndex2
-      tmpRGBColor=firstColor2.calcRGBColor();
-      if(doColorblindnessSim){
-        var tmpLMS = tmpRGBColor.calcLMSColor();
-        tmpRGBColor = tmpLMS.calcColorBlindRGBColor();
-      }
-      geometry.faces[geometry.faces.length-2].vertexColors[2] = new THREE.Color(tmpRGBColor.getRGBString());
-      geometry.faces[geometry.faces.length-3].vertexColors[0] = new THREE.Color(tmpRGBColor.getRGBString());
+      gWorkColor1.updateColor(firstColorInfo2);
+      var tmpRGBString=gWorkColor1.get_RGB_String();
+      if(doColorblindnessSim)
+        tmpRGBString=gWorkColor1.get_RGB_CB_String();
+      geometry.faces[geometry.faces.length-2].vertexColors[2] = new THREE.Color(tmpRGBString);
+      geometry.faces[geometry.faces.length-3].vertexColors[0] = new THREE.Color(tmpRGBString);
 
       // Color currentIndex1
-      tmpRGBColor=tmpLCH1.calcRGBColor();
-      if(doColorblindnessSim){
-        var tmpLMS = tmpRGBColor.calcLMSColor();
-        tmpRGBColor = tmpLMS.calcColorBlindRGBColor();
-      }
-      geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBColor.getRGBString());
-      geometry.faces[geometry.faces.length-4].vertexColors[2] = new THREE.Color(tmpRGBColor.getRGBString());
+      gWorkColor1.updateColor(currentColorInfo1);
+      var tmpRGBString=gWorkColor1.get_RGB_String();
+      if(doColorblindnessSim)
+        tmpRGBString=gWorkColor1.get_RGB_CB_String();
+      geometry.faces[geometry.faces.length-1].vertexColors[1] = new THREE.Color(tmpRGBString);
+      geometry.faces[geometry.faces.length-4].vertexColors[2] = new THREE.Color(tmpRGBString);
 
       // Color currentIndex2
-      tmpRGBColor=tmpLCH2.calcRGBColor();
-      if(doColorblindnessSim){
-        var tmpLMS = tmpRGBColor.calcLMSColor();
-        tmpRGBColor = tmpLMS.calcColorBlindRGBColor();
-      }
-      geometry.faces[geometry.faces.length-2].vertexColors[1] = new THREE.Color(tmpRGBColor.getRGBString());
-      geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBColor.getRGBString());
-      geometry.faces[geometry.faces.length-3].vertexColors[1] = new THREE.Color(tmpRGBColor.getRGBString());
+      gWorkColor1.updateColor(currentColorInfo2);
+      var tmpRGBString=gWorkColor1.get_RGB_String();
+      if(doColorblindnessSim)
+        tmpRGBString=gWorkColor1.get_RGB_CB_String();
+      geometry.faces[geometry.faces.length-2].vertexColors[1] = new THREE.Color(tmpRGBString);
+      geometry.faces[geometry.faces.length-1].vertexColors[2] = new THREE.Color(tmpRGBString);
+      geometry.faces[geometry.faces.length-3].vertexColors[1] = new THREE.Color(tmpRGBString);
     }
 
-    lastColor1= new class_Color_LCH(tmpLCH1.get1Value(),tmpLCH1.get2Value(),tmpLCH1.get3Value());
-    lastColor2= new class_Color_LCH(tmpLCH2.get1Value(),tmpLCH2.get2Value(),tmpLCH2.get3Value());
+    lastColorInfo1= ["lch",currentColorInfo1.get1Value(),currentColorInfo1.get2Value(),currentColorInfo1.get3Value()];
+    lastColorInfo2= ["lch",currentColorInfo2.get1Value(),currentColorInfo2.get2Value(),currentColorInfo2.get3Value()];
 
   }
-
-
 
   linesGeometry.setIndex( linesIndices );
         linesGeometry.addAttribute( 'position', new THREE.Float32BufferAttribute( linesPoints, 3 ) );

@@ -20,7 +20,7 @@ class class_Edit_Part_Basis{
     return this.partIsReady;
   }
 
-  getParentCMS(){
+  /*getParentCMS(){
     switch (this.parentID) {
       case "id_EditPage":
         return cloneCMS(editSection.editCMS);
@@ -49,7 +49,7 @@ class class_Edit_Part_Basis{
         probeSection.editCMS=cms;
       break;
     }
-  }
+  }*/
 
   resize(){
 
