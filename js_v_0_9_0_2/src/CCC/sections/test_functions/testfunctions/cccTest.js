@@ -6,7 +6,7 @@ function stepTestField(options){
     var testFieldDimX = ((options[1].length) * 2) + 1; // oldStep Image: (stepArray.length-1)*2+1; // nDim-1 = number of cells in x direction
     var testFieldDimY = options[1].length+1; // oldStep Image: stepArray.length+1; // mDim-1 = number of cells in y direction
 
-    var dis = Math.round((globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1) - globalCMS1.getRefPosition(0)) * errorMath) / errorMath; // = version with rational number Steps
+    var dis = Math.round((testingCMS.getRefPosition(testingCMS.getKeyLength()-1) - testingCMS.getRefPosition(0)) * errorMath) / errorMath; // = version with rational number Steps
     for (var y = 0; y < testFieldDimY; y++) {
       for (var x = 0; x < testFieldDimX; x++) {
         testFieldVal.push(undefined);
@@ -18,7 +18,7 @@ function stepTestField(options){
     for (var i = 0; i < options[1].length; i++) {
       var value = undefined;
       if (options[0]) {
-        value = Math.round((globalCMS1.getRefPosition(0) + (options[1][i] * dis)) * errorMath) / errorMath; // = version with rational number Steps
+        value = Math.round((testingCMS.getRefPosition(0) + (options[1][i] * dis)) * errorMath) / errorMath; // = version with rational number Steps
       } else {
         value = options[1][i];
       }
@@ -57,11 +57,11 @@ function littleBitTestField(options){
     var endVal = options[2];
 
     if (options[0]) {
-      var tmpDis = globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1) - globalCMS1.getRefPosition(0);
+      var tmpDis = testingCMS.getRefPosition(testingCMS.getKeyLength()-1) - testingCMS.getRefPosition(0);
       maxSink = Math.round((options[4] * tmpDis) * errorMath) / errorMath;
       minSink = Math.round((options[3] * tmpDis) * errorMath) / errorMath;
-      startVal = Math.round((options[1] * tmpDis+globalCMS1.getRefPosition(0)) * errorMath) / errorMath;
-      endVal = Math.round((options[2] * tmpDis+globalCMS1.getRefPosition(0)) * errorMath) / errorMath;
+      startVal = Math.round((options[1] * tmpDis+testingCMS.getRefPosition(0)) * errorMath) / errorMath;
+      endVal = Math.round((options[2] * tmpDis+testingCMS.getRefPosition(0)) * errorMath) / errorMath;
     }
 
     var valDifference = endVal - startVal;
@@ -119,10 +119,10 @@ function tresholdTestField(options){
   var maxValue = options[5];
 
   if (options[0]) {
-    var tmpDis = globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1) - globalCMS1.getRefPosition(0);
-    minValue = Math.round((globalCMS1.getRefPosition(0) + options[3] * tmpDis) * errorMath) / errorMath;
-    treshValue = Math.round((globalCMS1.getRefPosition(0) + options[4] * tmpDis) * errorMath) / errorMath;
-    maxValue = Math.round((globalCMS1.getRefPosition(0) + options[5] * tmpDis) * errorMath) / errorMath;
+    var tmpDis = testingCMS.getRefPosition(testingCMS.getKeyLength()-1) - testingCMS.getRefPosition(0);
+    minValue = Math.round((testingCMS.getRefPosition(0) + options[3] * tmpDis) * errorMath) / errorMath;
+    treshValue = Math.round((testingCMS.getRefPosition(0) + options[4] * tmpDis) * errorMath) / errorMath;
+    maxValue = Math.round((testingCMS.getRefPosition(0) + options[5] * tmpDis) * errorMath) / errorMath;
   }
 
   var currentY = undefined;
@@ -203,8 +203,8 @@ function ridgeValleyTestField(options){
   var currentX = undefined;
 
   if(options[0]){
-    minValue = Math.round((globalCMS1.getRefPosition(0) + options[1] * (globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1) - globalCMS1.getRefPosition(0))) * errorMath) / errorMath;
-    maxValue = Math.round((globalCMS1.getRefPosition(0) + options[2] * (globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1) - globalCMS1.getRefPosition(0))) * errorMath) / errorMath;
+    minValue = Math.round((testingCMS.getRefPosition(0) + options[1] * (testingCMS.getRefPosition(testingCMS.getKeyLength()-1) - testingCMS.getRefPosition(0))) * errorMath) / errorMath;
+    maxValue = Math.round((testingCMS.getRefPosition(0) + options[2] * (testingCMS.getRefPosition(testingCMS.getKeyLength()-1) - testingCMS.getRefPosition(0))) * errorMath) / errorMath;
   }
 
 
@@ -310,8 +310,8 @@ function gradientTestField(options){
   var currentX = undefined;
 
   if(options[0]){
-    minValue = Math.round((globalCMS1.getRefPosition(0) + options[1] * (globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1) - globalCMS1.getRefPosition(0))) * errorMath) / errorMath;
-    maxValue = Math.round((globalCMS1.getRefPosition(0) + options[2] * (globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1) - globalCMS1.getRefPosition(0))) * errorMath) / errorMath;
+    minValue = Math.round((testingCMS.getRefPosition(0) + options[1] * (testingCMS.getRefPosition(testingCMS.getKeyLength()-1) - testingCMS.getRefPosition(0))) * errorMath) / errorMath;
+    maxValue = Math.round((testingCMS.getRefPosition(0) + options[2] * (testingCMS.getRefPosition(testingCMS.getKeyLength()-1) - testingCMS.getRefPosition(0))) * errorMath) / errorMath;
   }
 
   for (var y = 0; y < testFieldDimY; y++) {
@@ -422,8 +422,8 @@ function frequencyTestField(options){
   var endVal = options[5];
 
   if(options[0]){
-    startVal = Math.round((globalCMS1.getRefPosition(0) + options[4] * (globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1) - globalCMS1.getRefPosition(0))) * errorMath) / errorMath;
-    endVal = Math.round((globalCMS1.getRefPosition(0) + options[5] * (globalCMS1.getRefPosition(globalCMS1.getKeyLength()-1) - globalCMS1.getRefPosition(0))) * errorMath) / errorMath;
+    startVal = Math.round((testingCMS.getRefPosition(0) + options[4] * (testingCMS.getRefPosition(testingCMS.getKeyLength()-1) - testingCMS.getRefPosition(0))) * errorMath) / errorMath;
+    endVal = Math.round((testingCMS.getRefPosition(0) + options[5] * (testingCMS.getRefPosition(testingCMS.getKeyLength()-1) - testingCMS.getRefPosition(0))) * errorMath) / errorMath;
   }
 
   var amplitude = Math.round(((startVal - endVal) / 2.0) * errorMath) / errorMath;

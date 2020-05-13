@@ -1,3 +1,6 @@
+var gWorkColor1 = undefined;
+var gWorkColor2 = undefined;
+
 var testfield = undefined;
 var colorField = undefined;
 var testTensorFieldValues = undefined;
@@ -56,10 +59,14 @@ var tmLMS_Selected_Inv = [
   [1149050000 / 3097586539, 1948550000 / 3097586539, -49903 / 6195173078],
   [0, 0, 1]
 ];
-var sim_AdaptiveColorblindness = undefined;
+var  sim_AdaptiveColorblindness = [
+  [0, 1.05118294, -0.05116099],
+  [0, 1, 0],
+  [0, 0, 1]
+];
 
 // CMS
-var mainCMS = undefined;
+var testingCMS = undefined;
 var ratioDifCMS = undefined;
 var greyScaledCMS = undefined;
 
@@ -74,20 +81,11 @@ self.addEventListener('message', function(e) {
     case "init":
       self.importScripts('../../../../Global/worker/general_processingCases.js');
 
-      self.importScripts('../../../../Global/color/class_Colorspace_Basis.js');
-      self.importScripts('../../../../Global/color/class_Colorspace_RGB.js');
-      self.importScripts('../../../../Global/color/class_Colorspace_XYZ.js');
-      self.importScripts('../../../../Global/color/class_Colorspace_LMS.js');
-      self.importScripts('../../../../Global/color/class_Colorspace_HSV.js');
-      self.importScripts('../../../../Global/color/class_Colorspace_LAB.js');
-      self.importScripts('../../../../Global/color/class_Colorspace_LCH.js');
-      self.importScripts('../../../../Global/color/class_Colorspace_DIN99.js');
+      self.importScripts('../../../../Global/color/class_Colorspace_Allrounder.js');
 
       self.importScripts('../../../global/cms/class_Colormap_Specification.js');
       self.importScripts('../../../global/cms/class_Colormap_Key.js');
       self.importScripts('../../../global/cms/class_Colormap_Interval.js');
-      self.importScripts('../../../global/cms/class_Colormap_Probe.js');
-      self.importScripts('../../../global/cms/class_Colormap_ProbeSet.js');
 
       self.importScripts('../../../../Global/helper/canvasHelper.js');
 
@@ -97,34 +95,29 @@ self.addEventListener('message', function(e) {
       self.importScripts('../../../global/cms/cmsIntervalHelper.js');
       self.importScripts('../../../../Global/color/colorDifference.js');
 
+      gWorkColor1 = new class_Color("rgb",0,0,0);
+      gWorkColor2 = new class_Color("rgb",0,0,0);
 
-      //self.importScripts('../../../GlobalEvents/Color_CMS_Helpers/calcGradientLinear.js');
-
-      // For ThreeJS Mesh
-      //self.importScripts('../../../../libs/ThreeJS/three.min.js');
-
-
-      mainCMS = new class_CMS();
-
+      testingCMS = new class_CMS();
       ratioDifCMS = new class_CMS();
-      ratioDifCMS.pushKey(new class_Key(undefined, new class_Color_DIN99(29.581458825788705,16.03125,-26.896446228027347), -1, false));
-      ratioDifCMS.pushKey(new class_Key(new class_Color_DIN99(55.87141911613874,-7.531250000000001,-28.383946228027348), new class_Color_DIN99(55.87141911613874,-7.531250000000001,-28.383946228027348), -0.6446462116468379, false));
-      ratioDifCMS.pushKey(new class_Key(new class_Color_DIN99(81.87664737898814,-20.531249999999996,-9.790196228027346), new class_Color_DIN99(81.87664737898814,-20.531249999999996,-9.790196228027346), -0.2977457733249843, false));
-      ratioDifCMS.pushKey(new class_Key(new class_Color_DIN99(99.85395907566293,-0.9780546619960879,3.201916766455866), new class_Color_DIN99(99.85395907566293,-0.9780546619960879,3.201916766455866), 0, false));
-      ratioDifCMS.pushKey(new class_Key(new class_Color_DIN99(86.74992752799066,-3.4687500000000013,25.166053771972656), new class_Color_DIN99(86.74992752799066,-3.4687500000000013,25.166053771972656), 0.2620538509705699, false));
-      ratioDifCMS.pushKey(new class_Key(new class_Color_DIN99(61.129411174208734,20.093750000000004,25.90980377197265), new class_Color_DIN99(61.129411174208734,20.093750000000004,25.90980377197265), 0.6152160300563556, false));
-      ratioDifCMS.pushKey(new class_Key(new class_Color_DIN99(28.529860414174685,30.656250000000004,10.291053771972658), undefined, 1, false));
-      ratioDifCMS.setAboveColor(new class_Color_RGB(1.0,0,0));
-      ratioDifCMS.setBelowColor(new class_Color_RGB(0,0,1.0));
+      ratioDifCMS.pushKey(new class_Key(undefined, ["din99", 29.581458825788705,16.03125,-26.896446228027347], -1, false));
+      ratioDifCMS.pushKey(new class_Key(["din99", 55.87141911613874,-7.531250000000001,-28.383946228027348], ["din99", 55.87141911613874,-7.531250000000001,-28.383946228027348], -0.6446462116468379, false));
+      ratioDifCMS.pushKey(new class_Key(["din99", 81.87664737898814,-20.531249999999996,-9.790196228027346], ["din99", 81.87664737898814,-20.531249999999996,-9.790196228027346], -0.2977457733249843, false));
+      ratioDifCMS.pushKey(new class_Key(["din99", 99.85395907566293,-0.9780546619960879,3.201916766455866], ["din99", 99.85395907566293,-0.9780546619960879,3.201916766455866], 0, false));
+      ratioDifCMS.pushKey(new class_Key(["din99", 86.74992752799066,-3.4687500000000013,25.166053771972656], ["din99", 86.74992752799066,-3.4687500000000013,25.166053771972656], 0.2620538509705699, false));
+      ratioDifCMS.pushKey(new class_Key(["din99", 61.129411174208734,20.093750000000004,25.90980377197265], ["din99", 61.129411174208734,20.093750000000004,25.90980377197265], 0.6152160300563556, false));
+      ratioDifCMS.pushKey(new class_Key(["din99", 28.529860414174685,30.656250000000004,10.291053771972658], undefined, 1, false));
+      ratioDifCMS.setAboveColor(["rgb",1.0,0,0]);
+      ratioDifCMS.setBelowColor(["rgb",0,0,1.0]);
       ratioDifCMS.setInterpolationSpace("de2000-ds");
-      ratioDifCMS.calcNeededIntervalsColors(false,undefined,undefined);
+      //ratioDifCMS.calcNeededIntervalsColors(false,undefined,undefined);
 
       greyScaledCMS = new class_CMS();
       greyScaledCMS = new class_CMS();
-      greyScaledCMS.pushKey(new class_Key(undefined, new class_Color_LAB(0,0,0), 0, false));
-      greyScaledCMS.pushKey(new class_Key(new class_Color_LAB(100,0,0), undefined, 1, false));
+      greyScaledCMS.pushKey(new class_Key(undefined, ["lab",0,0,0], 0, false));
+      greyScaledCMS.pushKey(new class_Key(["lab",100,0,0], undefined, 1, false));
       greyScaledCMS.setInterpolationSpace("de2000-ds");
-      greyScaledCMS.calcNeededIntervalsColors(false,undefined,undefined);
+      //greyScaledCMS.calcNeededIntervalsColors(false,undefined,undefined);
 
       reportType = e.data.reportType;
 
@@ -153,6 +146,11 @@ self.addEventListener('message', function(e) {
       calcColorField();
       sendReportOriginalImage();
       startReportCalc();
+    break;
+    case "updateMainCMS":
+      if(testingCMS==undefined)
+        break;
+      testingCMS.setCMSFromPackage(e.data.cmsInfoPackage);
     break;
   default:
     generalJSON_Processing(e.data);
@@ -250,15 +248,6 @@ function calcSubReportStatisics(tmpArrays){
 
 function calcColorField() {
 
-  ///////////// delelte references of the colors
-  if(colorField!=undefined){
-    for (var i = colorField.length-1; i >=0 ; i--) {
-      for (var j = colorField[i].length-1; j >=0 ; j--) {
-        colorField[i][j].deleteReferences();
-      }
-    }
-  }
-
   colorField = [];
 
   if (testfield.length == 0)
@@ -267,34 +256,17 @@ function calcColorField() {
   var xDim = testfield.length;
   var yDim = testfield[0].length;
 
-  switch (reportOptions_ColorDif) {
-    case "lab": //
-    case "de94":
-    case "de2000":
-      for (var x = 0; x < xDim; x++) {
-        var tmpArray = [];
-        for (var y = 0; y < yDim; y++) {
-          var tmpRGB = mainCMS.calculateColor(testfield[x][y]);
-          var labColor = tmpRGB.calcLABColor();
-          tmpRGB.deleteReferences();
-          tmpArray.push(labColor);
-        }
-        colorField.push(tmpArray);
-      }
-      break;
-    case "din99":
-      for (var x = 0; x < xDim; x++) {
-        var tmpArray = [];
-        for (var y = 0; y < yDim; y++) {
-          var tmpRGB = mainCMS.calculateColor(testfield[x][y]);
-          var dinColor = tmpRGB.calcDIN99Color();
-          tmpRGB.deleteReferences();
-          tmpArray.push(dinColor);
-        }
-        colorField.push(tmpArray);
-      }
+  var space ="lab";
 
-      break;
+  if(reportOptions_ColorDif==="din99")
+    space="din99";
+
+  for (var x = 0; x < xDim; x++) {
+    var tmpArray = [];
+    for (var y = 0; y < yDim; y++) {
+      tmpArray.push(testingCMS.calculateColor(testfield[x][y],space));
+    }
+    colorField.push(tmpArray);
   }
 
 }
@@ -309,11 +281,12 @@ function sendReportOriginalImage(){
   var maxHeightIndex = colorField[0].length - 1;
   for (var y = 0; y < colorField[0].length; y++) {
     for (var x = 0; x < colorField.length; x++) {
-      var colorRGB = colorField[x][y].calcRGBColor();
+      gWorkColor1.updateColor(colorField[x][y][0],colorField[x][y][1],colorField[x][y][2],colorField[x][y][3]);
+      var colorRGB = gWorkColor1.getColorInfo("rgb");
       var indices = getColorIndicesForCoord(x, maxHeightIndex - y, colorField.length);
-      imgData.data[indices[0]] = Math.round(colorRGB.get1Value() * 255); // r
-      imgData.data[indices[1]] = Math.round(colorRGB.get2Value() * 255); // g
-      imgData.data[indices[2]] = Math.round(colorRGB.get3Value() * 255); // b
+      imgData.data[indices[0]] = Math.round(colorRGB[1] * 255); // r
+      imgData.data[indices[1]] = Math.round(colorRGB[2] * 255); // g
+      imgData.data[indices[2]] = Math.round(colorRGB[3] * 255); // b
       imgData.data[indices[3]] = 255; //a
     }
   }
@@ -344,13 +317,12 @@ function sendReportGreyImage(){
   var maxHeightIndex = testfield[0].length - 1;
   for (var y = 0; y < testfield[0].length; y++) {
     for (var x = 0; x < testfield.length; x++) {
-      var greyVal = greyScaledCMS.calculateColor(((testfield[x][y]-min)/dis));
+      var greyVal = greyScaledCMS.calculateColor(((testfield[x][y]-min)/dis),"rgb");
       var indices = getColorIndicesForCoord(x, maxHeightIndex - y, testfield.length);
-      imgData.data[indices[0]] = Math.round(greyVal.getRValue()*255); // r
-      imgData.data[indices[1]] = Math.round(greyVal.getGValue()*255); // g
-      imgData.data[indices[2]] = Math.round(greyVal.getBValue()*255); // b
+      imgData.data[indices[0]] = Math.round(greyVal[1]*255); // r
+      imgData.data[indices[1]] = Math.round(greyVal[2]*255); // g
+      imgData.data[indices[2]] = Math.round(greyVal[3]*255); // b
       imgData.data[indices[3]] = 255; //a
-      greyVal.deleteReferences();
     }
   }
   answerJSON['imageData'] = imgData;

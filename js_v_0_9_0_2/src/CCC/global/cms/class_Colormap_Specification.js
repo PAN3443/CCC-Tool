@@ -496,7 +496,7 @@ class class_CMS {
       return this.colorAbove.getColorInfo(space);
     }
 
-    /*for (var i = 0; i < this.keyArray.length - 1; i++) {
+    for (var i = 0; i < this.keyArray.length - 1; i++) {
 
       if (val > this.keyArray[i].getRefPosition() && val < this.keyArray[i + 1].getRefPosition()) {
 
@@ -504,28 +504,24 @@ class class_CMS {
         var color2 = this.keyArray[i + 1].getLeftKeyColor(this.interpolationSpace);
 
         if (color1 == undefined) {
-          return color2.calcRGBColor();
+          gWorkColor1.updateColor(color2[0],color2[1],color2[2],color2[3]);
+          return gWorkColor1.getColorInfo(space);
         }
 
         var newColorValues = undefined;
-        if ((this.getInterpolationSpace() === "de94-ds" || this.getInterpolationSpace() === "de2000-ds" || this.getInterpolationType() === "spline") && this.getIntervalLength(i) > 0) {
-
+        if (this.getIntervalLength(i) > 0){
           if (val > this.keyArray[i].getRefPosition() && val <= this.getIntervalRef(i, 0)) {
             var leftRef = this.keyArray[i].getRefPosition();
             var rightRef = this.getIntervalRef(i, 0);
             var intervalColor2 = this.getIntervalColor(i, 0, this.interpolationSpace);
             var tmpRatio = (val - leftRef) / (rightRef - leftRef);
-            newColorValues = calcGradientLinear(color1.get1Value(), color1.get2Value(), color1.get3Value(), intervalColor2.get1Value(), intervalColor2.get2Value(), intervalColor2.get3Value(), tmpRatio);
-            intervalColor2.deleteReferences();
-            intervalColor2 = null;
+            newColorValues = calcGradientLinear(color1[1], color1[2], color1[3], intervalColor2[1], intervalColor2[2], intervalColor2[3], tmpRatio);
           } else if (val > this.getIntervalRef(i, this.getIntervalLength(i) - 1) && val < this.keyArray[i + 1].getRefPosition()) {
             var leftRef = this.getIntervalRef(i, this.getIntervalLength(i) - 1);
             var rightRef = this.keyArray[i + 1].getRefPosition();
             var intervalColor1 = this.getIntervalColor(i, this.getIntervalLength(i) - 1, this.interpolationSpace);
             var tmpRatio = (val - leftRef) / (rightRef - leftRef);
-            newColorValues = calcGradientLinear(intervalColor1.get1Value(), intervalColor1.get2Value(), intervalColor1.get3Value(), color2.get1Value(), color2.get2Value(), color2.get3Value(), tmpRatio);
-            intervalColor1.deleteReferences();
-            intervalColor1 = null;
+            newColorValues = calcGradientLinear(intervalColor1[1], intervalColor1[2], intervalColor1[3], color2[1], color2[2], color2[3], tmpRatio);
           } else {
             for (var j = 0; j < this.getIntervalLength(i) - 1; j++) {
               if (val > this.getIntervalRef(i, j) && val <= this.getIntervalRef(i, j + 1)) {
@@ -534,11 +530,7 @@ class class_CMS {
                 var intervalColor1 = this.getIntervalColor(i, j, this.interpolationSpace);
                 var intervalColor2 = this.getIntervalColor(i, j + 1, this.interpolationSpace);
                 var tmpRatio = (val - leftRef) / (rightRef - leftRef);
-                newColorValues = calcGradientLinear(intervalColor1.get1Value(), intervalColor1.get2Value(), intervalColor1.get3Value(), intervalColor2.get1Value(), intervalColor2.get2Value(), intervalColor2.get3Value(), tmpRatio);
-                intervalColor1.deleteReferences();
-                intervalColor1 = null;
-                intervalColor2.deleteReferences();
-                intervalColor2 = null;
+                newColorValues = calcGradientLinear(intervalColor1[1], intervalColor1[2], intervalColor1[3], intervalColor2[1], intervalColor2[2], intervalColor2[3], tmpRatio);
               }
             }
           }
@@ -546,71 +538,14 @@ class class_CMS {
           var leftRef = this.keyArray[i].getRefPosition();
           var rightRef = this.keyArray[i + 1].getRefPosition();
           var tmpRatio = (val - leftRef) / (rightRef - leftRef);
-          newColorValues = calcGradientLinear(color1.get1Value(), color1.get2Value(), color1.get3Value(), color2.get1Value(), color2.get2Value(), color2.get3Value(), tmpRatio);
+          newColorValues = calcGradientLinear(color1[1], color1[2], color1[3], color2[1], color2[2], color2[3], tmpRatio);
         }
 
-        color1.deleteReferences();
-        color2.deleteReferences();
-        color1 = null;
-        color2 = null;
-
-        switch (this.interpolationSpace) {
-          case "rgb":
-            return new class_Color_RGB(newColorValues[0], newColorValues[1], newColorValues[2]);
-          case "hsv":
-            var tmpColor = new class_Color_HSV(newColorValues[0], newColorValues[1], newColorValues[2]);
-            var rgbColor = tmpColor.calcRGBColor();
-            tmpColor.deleteReferences();
-            tmpColor = null;
-            return rgbColor;
-            break;
-          case "lms":
-            var tmpColor = new class_Color_LMS(newColorValues[0], newColorValues[1], newColorValues[2]);
-            var rgbColor = tmpColor.calcRGBColor();
-            tmpColor.deleteReferences();
-            tmpColor = null;
-            return rgbColor;
-            break;
-          case "lab":
-          case "de94":
-          case "de94-ds":
-          case "de2000":
-          case "de2000-ds":
-            var tmpColor = new class_Color_LAB(newColorValues[0], newColorValues[1], newColorValues[2]);
-            var rgbColor = tmpColor.calcRGBColor();
-            tmpColor.deleteReferences();
-            tmpColor = null;
-            return rgbColor;
-            break;
-          case "din99":
-            var tmpColor = new class_Color_DIN99(newColorValues[0], newColorValues[1], newColorValues[2]);
-            var rgbColor = tmpColor.calcRGBColor();
-            tmpColor.deleteReferences();
-            tmpColor = null;
-            return rgbColor;
-            break;
-          case "lch":
-            var tmpColor = new class_Color_LCH(newColorValues[2], newColorValues[1], newColorValues[0]);
-            var rgbColor = tmpColor.calcRGBColor();
-            tmpColor.deleteReferences();
-            tmpColor = null;
-            return rgbColor;
-            break;
-
-          default:
-            console.log("Error calculateColor function");
-            color1.deleteReferences();
-            color2.deleteReferences();
-            color1 = null;
-            color2 = null;
-            return cloneColor(this.colorNaN);
-        }
-
+        gWorkColor1.updateColor(this.interpolationSpace,newColorValues[0], newColorValues[1], newColorValues[2]);
+        return gWorkColor1.getColorInfo(space);
       }
 
-
       if (val == this.keyArray[i].getRefPosition()) {
-
         var color;
 
         if (i == 0) {
@@ -630,37 +565,18 @@ class class_CMS {
           }
         }
 
-        switch (this.interpolationSpace) {
-          case "rgb":
-            return color;
-          default:
-            var tmpRGBColor = color.calcRGBColor();
-            color.deleteReferences();
-            color = null;
-            return tmpRGBColor;
-        }
+        gWorkColor1.updateColor(color[0],color[1],color[2],color[3]);
+        return gWorkColor1.getColorInfo(space);
       }
     }
 
     if (val == this.keyArray[this.keyArray.length - 1].getRefPosition()) {
-      var color = this.keyArray[this.keyArray.length - 1].getLeftKeyColor(this.interpolationSpace);
-
-      if (color == undefined)
-        return undefined;
-
-      switch (this.interpolationSpace) {
-        case "rgb":
-          return new class_Color_RGB(color.get1Value(), color.get2Value(), color.get3Value());
-        default:
-          var tmpRGBColor = color.calcRGBColor();
-          color.deleteReferences();
-          color = null;
-          return tmpRGBColor;
-      }
-    }*/
+      return this.keyArray[this.keyArray.length - 1].getLeftKeyColor(space);
+    }
 
     return this.colorNaN.getColorInfo(space);
   }
+
 
   createCMSInfoPackage(){ // we can use these packages to update the worker with a new CMS
     var tmpPack = [];
@@ -1070,6 +986,9 @@ function createScaledBand(canvasData, xStart, yStart, bandWidth, bandHeight, col
   xStart = Math.round(xStart);
   bandWidth = Math.round(bandWidth);
   bandHeight = Math.round(bandHeight);
+
+  if(colorInfo1==undefined || colorInfo2==undefined)
+    return;
 
       if(colorInfo1[0]!=colorInfo2[0]){
         gWorkColor1.updateColor(colorInfo2);

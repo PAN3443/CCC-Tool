@@ -1,27 +1,23 @@
 /////////////// DE94 ////////////////////
-function calcDeltaDE94(color1, color2) {
+function calcDeltaDE94(colorInfo1, colorInfo2) {
 
-  if (color1.getColorType() != "lab") {
-    var newcolor = color1.calcLABColor();
-    color1.deleteReferences();
-    color1 = newcolor;
+  if (colorInfo1[0] != "lab") {
+    gWorkColor1.updateColor(colorInfo1[0],colorInfo1[1],colorInfo1[2],colorInfo1[3]);
+    colorInfo1 = gWorkColor1.getColorInfo("lab");
   }
 
-
-  if (color2.getColorType() != "lab") {
-    var newcolor = color2.calcLABColor();
-    color2.deleteReferences();
-    color2 = newcolor;
+  if (colorInfo2[0] != "lab") {
+    gWorkColor1.updateColor(colorInfo2[0],colorInfo2[1],colorInfo2[2],colorInfo2[3]);
+    colorInfo2 = gWorkColor1.getColorInfo("lab");
   }
 
   // Step 1
-  var deltaL = color1.getLValue() - color2.getLValue();
-  var deltaA = color1.getAValue() - color2.getAValue();
-  var deltaB = color1.getBValue() - color2.getBValue();
+  var deltaL = colorInfo1[1] - colorInfo2[1];
+  var deltaA = colorInfo1[2] - colorInfo2[2];
+  var deltaB = colorInfo1[3] - colorInfo2[3];
 
-
-  var vC1 = Math.sqrt(Math.pow(color1.getAValue(), 2) + Math.pow(color1.getBValue(), 2));
-  var vC2 = Math.sqrt(Math.pow(color2.getAValue(), 2) + Math.pow(color2.getBValue(), 2));
+  var vC1 = Math.sqrt(Math.pow(colorInfo1[2], 2) + Math.pow(colorInfo1[3], 2));
+  var vC2 = Math.sqrt(Math.pow(colorInfo2[2], 2) + Math.pow(colorInfo2[3], 2));
   var deltaC = vC1 - vC2;
 
   var deltaH = Math.pow(deltaA, 2) + Math.pow(deltaB, 2) - Math.pow(deltaC, 2);
@@ -47,28 +43,21 @@ function calcDeltaDE94(color1, color2) {
     deltaE = Math.sqrt(deltaE);
   }
 
-  color1.deleteReferences();
-  color2.deleteReferences();
-  color1=null;
-  color2=null;
   return deltaE;
 
 }
 
 /////////////// CIEDE2000 ////////////////////
-function calcDeltaCIEDE2000(color1, color2) {
+function calcDeltaCIEDE2000(colorInfo1, colorInfo2) {
 
-  if (color1.getColorType() != "lab") {
-    var newcolor = color1.calcLABColor();
-    color1.deleteReferences();
-    color1 = newcolor;
+  if (colorInfo1[0] != "lab") {
+    gWorkColor1.updateColor(colorInfo1[0],colorInfo1[1],colorInfo1[2],colorInfo1[3]);
+    colorInfo1 = gWorkColor1.getColorInfo("lab");
   }
 
-
-  if (color2.getColorType() != "lab") {
-    var newcolor = color2.calcLABColor();
-    color2.deleteReferences();
-    color2 = newcolor;
+  if (colorInfo2[0] != "lab") {
+    gWorkColor1.updateColor(colorInfo2[0],colorInfo2[1],colorInfo2[2],colorInfo2[3]);
+    colorInfo2 = gWorkColor1.getColorInfo("lab");
   }
 
   var deg360InRad = deg2rad(360.0);
@@ -76,24 +65,24 @@ function calcDeltaCIEDE2000(color1, color2) {
   var pow25To7 = Math.pow(25, 7);
 
   // Step 1
-  var C1 = Math.sqrt(Math.pow(color1.getAValue(), 2) + Math.pow(color1.getBValue(), 2));
-  var C2 = Math.sqrt(Math.pow(color2.getAValue(), 2) + Math.pow(color2.getBValue(), 2));
+  var C1 = Math.sqrt(Math.pow(colorInfo1[2], 2) + Math.pow(colorInfo1[3], 2));
+  var C2 = Math.sqrt(Math.pow(colorInfo2[2], 2) + Math.pow(colorInfo2[3], 2));
 
   var barC = (C1 + C2) / 2.0;
 
   var G = 0.5 * (1 - Math.sqrt(Math.pow(barC, 7) / (Math.pow(barC, 7) + pow25To7)));
 
-  var a1Prime = (1.0 + G) * color1.getAValue();
-  var a2Prime = (1.0 + G) * color2.getAValue();
+  var a1Prime = (1.0 + G) * colorInfo1[2];
+  var a2Prime = (1.0 + G) * colorInfo2[2];
 
-  var CPrime1 = Math.sqrt((a1Prime * a1Prime) + (color1.getBValue() * color1.getBValue()));
-  var CPrime2 = Math.sqrt((a2Prime * a2Prime) + (color2.getBValue() * color2.getBValue()));
+  var CPrime1 = Math.sqrt((a1Prime * a1Prime) + (colorInfo1[3] * colorInfo1[3]));
+  var CPrime2 = Math.sqrt((a2Prime * a2Prime) + (colorInfo2[3] * colorInfo2[3]));
 
   var hPrime1;
-  if (color1.getBValue() == 0 && a1Prime == 0)
+  if (colorInfo1[3] == 0 && a1Prime == 0)
     hPrime1 = 0.0;
   else {
-    hPrime1 = Math.atan2(color1.getBValue(), a1Prime);
+    hPrime1 = Math.atan2(colorInfo1[3], a1Prime);
     /*
      * This must be converted to a hue angle in degrees between 0
      * and 360 by addition of 2􏰏 to negative hue angles.
@@ -102,10 +91,10 @@ function calcDeltaCIEDE2000(color1, color2) {
       hPrime1 += deg360InRad;
   }
   var hPrime2;
-  if (color2.getBValue() == 0 && a2Prime == 0)
+  if (colorInfo2[3] == 0 && a2Prime == 0)
     hPrime2 = 0.0;
   else {
-    hPrime2 = Math.atan2(color2.getBValue(), a2Prime);
+    hPrime2 = Math.atan2(colorInfo2[3], a2Prime);
     /*
      * This must be converted to a hue angle in degrees between 0
      * and 360 by addition of 2􏰏 to negative hue angles.
@@ -116,7 +105,7 @@ function calcDeltaCIEDE2000(color1, color2) {
 
   // Step 2
 
-  var deltaLPrime = color2.getLValue() - color1.getLValue();
+  var deltaLPrime = colorInfo2[1] - colorInfo1[1];
 
   var deltaCPrime = CPrime2 - CPrime1;
 
@@ -139,7 +128,7 @@ function calcDeltaCIEDE2000(color1, color2) {
   // Step 3
 
 
-  var barLPrime = (color1.getLValue() + color2.getLValue()) / 2.0;
+  var barLPrime = (colorInfo1[1] + colorInfo2[1]) / 2.0;
 
   var barCPrime = (CPrime1 + CPrime2) / 2.0;
 
@@ -184,73 +173,34 @@ function calcDeltaCIEDE2000(color1, color2) {
     Math.pow(deltaHPrime / (de2000_k_H * S_H), 2.0) +
     (R_T * (deltaCPrime / (de2000_k_C * S_C)) * (deltaHPrime / (de2000_k_H * S_H))));
 
-  color1.deleteReferences();
-  color2.deleteReferences();
-  color1=null;
-  color2=null;
   return deltaE;
-
 }
 
 ///////////////////// RGB, HSV, LAB, DIN99 Distance ////////////////////////
-function calc3DEuclideanDistance(color1, color2) {
+function calc3DEuclideanDistance(colorInfo1, colorInfo2) {
 
-  var typ1 = color1.getColorType();
-  var typ2 = color2.getColorType();
-
-  if (typ1 != typ2) {
-    switch (typ1) {
-      case "rgb":
-        var newcolor = color2.calcRGBColor();
-        color2.deleteReferences();
-        color2 = newcolor;
-        break;
-      case "hsv":
-        var newcolor = color2.calcHSVColor();
-        color2.deleteReferences();
-        color2 = newcolor;
-        break;
-      case "lab":
-        var newcolor = color2.calcLABColor();
-        color2.deleteReferences();
-        color2 = newcolor;
-        break;
-      case "din99":
-        var newcolor = color2.calcDIN99Color();
-        color2.deleteReferences();
-        color2 = newcolor;
-        break;
-      default:
-        console.log("Error: function calc3DEuclideanDistance",typ1,typ2);
-        return undefined;
-    }
+  if (colorInfo1[0] != colorInfo2[0]) {
+    gWorkColor1.updateColor(colorInfo2[0],colorInfo2[1],colorInfo2[2],colorInfo2[3]);
+    colorInfo2 = gWorkColor1.getColorInfo(colorInfo1[0]);
   }
 
-  if (typ1 != "hsv") {
-    var result = Math.sqrt(Math.pow(color2.get1Value() - color1.get1Value(), 2) + Math.pow(color2.get2Value() - color1.get2Value(), 2) + Math.pow(color2.get3Value() - color1.get3Value(), 2));
-    color1.deleteReferences();
-    color2.deleteReferences();
-    color1=null;
-    color2=null;
+  if (colorInfo1[0] != "hsv") {
+    var result = Math.sqrt(Math.pow(colorInfo2[1] - colorInfo1[1], 2) + Math.pow(colorInfo2[2] - colorInfo1[2], 2) + Math.pow(colorInfo2[3] - colorInfo1[3], 2));
     return result;
   } else {
-    var tmpDis = color1.getSValue() * 50; // radius 50; center(0,0,0);
-    var tmpRad = (color1.getHValue() * Math.PI * 2) - Math.PI;
+    var tmpDis = colorInfo1[2] * 50; // radius 50; center(0,0,0);
+    var tmpRad = (colorInfo1[1] * Math.PI * 2) - Math.PI;
     var xPos = tmpDis * Math.cos(tmpRad);
     var yPos = tmpDis * Math.sin(tmpRad);
-    var zPos = color1.getVValue() - 50;
+    var zPos = colorInfo1[3] - 50;
 
-    var tmpDis2 = color2.getSValue() * 50;
-    var tmpRad2 = (color2.getHValue() * Math.PI * 2) - Math.PI;
+    var tmpDis2 = colorInfo2[2] * 50;
+    var tmpRad2 = (colorInfo2[1] * Math.PI * 2) - Math.PI;
     var xPos2 = tmpDis2 * Math.cos(tmpRad2);
     var yPos2 = tmpDis2 * Math.sin(tmpRad2);
-    var zPos2 = color2.getVValue() - 50;
+    var zPos2 = colorInfo2[3] - 50;
 
     var result = Math.sqrt(Math.pow(xPos - xPos2, 2) + Math.pow(yPos - yPos2, 2) + Math.pow(zPos - zPos2, 2));
-    color1.deleteReferences();
-    color2.deleteReferences();
-    color1=null;
-    color2=null;
     return result;
   }
 }

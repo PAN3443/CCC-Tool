@@ -112,6 +112,8 @@ class class_Color {
         this.setHSV(value_1, value_2, value_3);
         break;
       case "LAB": case "lab": case "Lab":
+      case "de94-ds": case "de2000-ds":
+        this.originSpace = "lab";
         this.setLAB(value_1, value_2, value_3);
         break;
       case "LCH": case "lch": case "Lch":
@@ -146,6 +148,7 @@ class class_Color {
       case "HSV": case "hsv": case "Hsv":
         return ["hsv", this.val_1_hsv, this.val_2_hsv, this.val_3_hsv];
       case "LAB": case "lab": case "Lab":
+      case "de94-ds": case "de2000-ds":
         return ["lab", this.val_1_lab, this.val_2_lab, this.val_3_lab];
       case "LCH": case "lch": case "Lch":
         return ["lch", this.val_1_lch, this.val_2_lch, this.val_3_lch];

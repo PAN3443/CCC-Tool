@@ -38,7 +38,7 @@ class class_TestFunction_Section extends class_Section {
 
     this.element_singleTest = new class_Element_SingleTest("id_Test_SingleTestDiv","id_Test_SwitchToSingleTest");
     this.element_testCollection = new class_Element_Collection("id_Test_FunctionCollection","id_Test_SwitchToCollection");
-    this.element_testReport = new class_Element_TestReport("id_Test_ReportDiv","id_Test_SwitchToReport");*/
+    this.element_testReport = new class_Element_TestReport("id_Test_ReportDiv","id_Test_SwitchToReport");
 
   }
 
@@ -76,7 +76,7 @@ class class_TestFunction_Section extends class_Section {
         selectobject.add(optionCMS);
       }
       selectobject.selectedIndex = 0;
-      this.testingCMS = myDesignsSection.getMyDesignCMS(0);
+      this.testingCMS.setCMSFromPackage(myDesignsSection.getMyDesignCMS(0));
     }
     this.inform_Worker_GeneralInformations();
     var cmsJSON=json_message_sendCMS(this.testingCMS.createCMSInfoPackage());

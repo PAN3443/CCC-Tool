@@ -15,7 +15,7 @@ window.onload = function() {
 
 
 function openCCCTool(){
-  window.open("html/ToolVariations/cccTool.html","_self");
+  window.open("html/CCC_Tool/cccTool.html","_self");
 }
 
 function openCCBCTool(){

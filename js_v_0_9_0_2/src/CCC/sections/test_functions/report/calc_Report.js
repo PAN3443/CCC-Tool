@@ -6,13 +6,13 @@ function getRatioDifField(testfield, colorField, colorDifType, selectionType,nor
   switch (colorDifType) {
     case "lab":
     case "din99":
-      blackWhiteDif = 100; //blackWhiteDif = calc3DEuclideanDistance(cloneColor(c1),cloneColor(c2));
+      blackWhiteDif = 100;
     break;
     case "de94":
-      blackWhiteDif = calcDeltaDE94(new class_Color_LAB(0,0,0),new class_Color_LAB(100,0,0));
+      blackWhiteDif = calcDeltaDE94(["lab",0,0,0],["lab",100,0,0]);
     break;
     case "de2000":
-      blackWhiteDif = calcDeltaCIEDE2000(new class_Color_LAB(0,0,0),new class_Color_LAB(100,0,0));
+      blackWhiteDif = calcDeltaCIEDE2000(["lab",0,0,0],["lab",100,0,0]);
     break;
   }
 
@@ -507,9 +507,9 @@ function getRatioDifField(testfield, colorField, colorDifType, selectionType,nor
           }
 
 
-          setColorToImgData(ratioDifField,x,y,maxHeightIndex,xDim,ratioDifCMS.calculateColor(maxABSRatio));
-          setColorToImgData(ratioValueDifField,x,y,maxHeightIndex,xDim,ratioDifCMS.calculateColor(maxRatioV));
-          setColorToImgData(ratioColorDifField,x,y,maxHeightIndex,xDim,ratioDifCMS.calculateColor(maxRatioC));
+          setColorToImgData(ratioDifField,x,y,maxHeightIndex,xDim,ratioDifCMS.calculateColor(maxABSRatio,"rgb"));
+          setColorToImgData(ratioValueDifField,x,y,maxHeightIndex,xDim,ratioDifCMS.calculateColor(maxRatioV,"rgb"));
+          setColorToImgData(ratioColorDifField,x,y,maxHeightIndex,xDim,ratioDifCMS.calculateColor(maxRatioC,"rgb"));
         }
       }
 
@@ -568,13 +568,13 @@ function getColorDif(colorDifType, c1, c2){
   switch (colorDifType) {
     case "lab": //
     case "din99":
-      return calc3DEuclideanDistance(cloneColor(c1),cloneColor(c2));
+      return calc3DEuclideanDistance(c1,c2);
     break;
     case "de94":
-      return calcDeltaDE94(cloneColor(c1),cloneColor(c2));
+      return calcDeltaDE94(c1,c2);
     break;
     case "de2000":
-      return calcDeltaCIEDE2000(cloneColor(c1),cloneColor(c2));
+      return calcDeltaCIEDE2000(c1,c2);
     break;
   }
 }
@@ -584,7 +584,7 @@ function getDifFieldColorArray(array2D){
     for (var x = 0; x < array2D.length; x++) {
       var tmpArray = [];
       for (var y = 0; y < array2D[0].length; y++) {
-        tmpArray.push(ratioDifCMS.calculateColor(array2D[x][y]));
+        tmpArray.push(ratioDifCMS.calculateColor(array2D[x][y],"rgb"));
       }
       result.push(tmpArray);
     }
@@ -595,9 +595,9 @@ function getDifFieldColorArray(array2D){
 function setColorToImgData(imgData,x,y,maxHeightIndex,width,colorRGB){
   if(colorRGB!=undefined){
     var indices = getColorIndicesForCoord(x, maxHeightIndex - y, width)
-    imgData.data[indices[0]] = Math.round(colorRGB.get1Value() * 255); // r
-    imgData.data[indices[1]] = Math.round(colorRGB.get2Value() * 255); // g
-    imgData.data[indices[2]] = Math.round(colorRGB.get3Value() * 255); // b
+    imgData.data[indices[0]] = Math.round(colorRGB[1] * 255); // r
+    imgData.data[indices[1]] = Math.round(colorRGB[2] * 255); // g
+    imgData.data[indices[2]] = Math.round(colorRGB[3] * 255); // b
     imgData.data[indices[3]] = 255; //a
   }
 

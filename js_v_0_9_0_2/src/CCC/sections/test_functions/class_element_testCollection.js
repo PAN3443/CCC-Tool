@@ -36,7 +36,7 @@ class class_Element_Collection extends class_Testing_Element_Basis {
       [1, 1, 0, true, 101, 101],
       [-1, -1, 0, true, 101, 101],
       [-1, 1, 0, true, 101, 101],
-      [1, -1, 0, true, 101, 101],
+      [1, -1, 0, true, 101, 101]
     ];
 
     this.cccTest_Frequency_Options = [

@@ -1,3 +1,6 @@
+var gWorkColor1 = undefined;
+var gWorkColor2 = undefined;
+
 var testField = undefined;
 var testtype = undefined;
 var testsubtype = undefined;
@@ -33,11 +36,31 @@ var cielab_ref_Z = 107.304;
 
 // Simulation Colorblindness
 var doColorblindnessSim = false;
-var tmXYZ_Selected = undefined;
-var tmXYZ_Selected_Inv = undefined;
-var tmLMS_Selected = undefined;
-var tmLMS_Selected_Inv = undefined;
-var sim_AdaptiveColorblindness = undefined;
+var tmXYZ_Selected = [
+  [0.4124564, 0.3575761, 0.1804375],
+  [0.2126729, 0.7151522, 0.0721750],
+  [0.0193339, 0.1191920, 0.9503041]
+];
+var tmXYZ_Selected_Inv = [
+  [3.2404542, -1.5371385, -0.4985314],
+  [-0.9692660, 1.8760108, 0.0415560],
+  [0.0556434, -0.2040259, 1.0572252]
+];
+var tmLMS_Selected = [
+  [0.38971, 0.68898, -0.07868],
+  [-0.22981, 1.18340, 0.04641],
+  [0, 0, 1]
+];
+var tmLMS_Selected_Inv = [
+  [5917000000 / 3097586539, -3444900000 / 3097586539, 625427369 / 3097586539],
+  [1149050000 / 3097586539, 1948550000 / 3097586539, -49903 / 6195173078],
+  [0, 0, 1]
+];
+var  sim_AdaptiveColorblindness = [
+  [0, 1.05118294, -0.05116099],
+  [0, 1, 0],
+  [0, 0, 1]
+];
 
 // real world data
 var imgData_medical = [];
@@ -45,7 +68,7 @@ var imgData_scientificFlowSim = [];
 var imgData_photographs = [];
 
 // CMS
-var mainCMS = undefined;
+var testingCMS = undefined;
 var greyScaledCMS = undefined;
 
 var error = 100; // 0.01
@@ -72,9 +95,6 @@ self.addEventListener('message', function(e) {
       self.importScripts('../testfunctions/fct_collection/collection_other.js');
       self.importScripts('../testfunctions/realWorldData.js');
 
-      //self.importScripts('../../../GlobalEvents/Color_CMS_Helpers/calcGradientLinear.js');
-
-
       self.importScripts('../../../global/cms/cmsIntervalHelper.js');
       self.importScripts('../../../../Global/color/colorDifference.js');
 
@@ -83,12 +103,15 @@ self.addEventListener('message', function(e) {
       // For ThreeJS Mesh
       self.importScripts('../../../../../libs/ThreeJS/three.min.js');
 
-      mainCMS = new class_CMS();
+      gWorkColor1 = new class_Color("rgb",0,0,0);
+      gWorkColor2 = new class_Color("rgb",0,0,0);
+
+      testingCMS = new class_CMS();
       greyScaledCMS = new class_CMS();
-      greyScaledCMS.pushKey(new class_Key(undefined, new class_Color_LAB(0,0,0), 0, false));
-      greyScaledCMS.pushKey(new class_Key(new class_Color_LAB(100,0,0), undefined, 1, false));
-      greyScaledCMS.setInterpolationSpace("de2000-ds");
-      greyScaledCMS.calcNeededIntervalsColors(false,undefined,undefined);
+      greyScaledCMS.pushKey(new class_Key(undefined, ["rgb",0,0,0], 0, false));
+      greyScaledCMS.pushKey(new class_Key(["rgb",1,1,1], undefined, 1, false));
+      greyScaledCMS.setInterpolationSpace("rgb");
+      //greyScaledCMS.calcNeededIntervalsColors(false,undefined,undefined);
 
       testField = new class_TestField(0,0);
     break;
@@ -207,9 +230,10 @@ self.addEventListener('message', function(e) {
       answerJSON['testField'] = testFieldArray;
       self.postMessage(answerJSON);
     break;
-    case "draw":
-      console.log("drawData");
-
+    case "updateMainCMS":
+      if(testingCMS==undefined)
+        break;
+      testingCMS.setCMSFromPackage(e.data.cmsInfoPackage);
     break;
 
   default:

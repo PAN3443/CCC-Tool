@@ -17,18 +17,18 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
     this.customValue = 100;
 
     this.reportColorValueDifColormap = new class_CMS();
-    this.reportColorValueDifColormap.pushKey(new class_Key(undefined, new class_Color_DIN99(29.581458825788705,16.03125,-26.896446228027347), -1, false));
-    this.reportColorValueDifColormap.pushKey(new class_Key(new class_Color_DIN99(55.87141911613874,-7.531250000000001,-28.383946228027348), new class_Color_DIN99(55.87141911613874,-7.531250000000001,-28.383946228027348), -0.6446462116468379, false));
-    this.reportColorValueDifColormap.pushKey(new class_Key(new class_Color_DIN99(81.87664737898814,-20.531249999999996,-9.790196228027346), new class_Color_DIN99(81.87664737898814,-20.531249999999996,-9.790196228027346), -0.2977457733249843, false));
-    this.reportColorValueDifColormap.pushKey(new class_Key(new class_Color_DIN99(99.85395907566293,-0.9780546619960879,3.201916766455866), new class_Color_DIN99(99.85395907566293,-0.9780546619960879,3.201916766455866), 0, false));
-    this.reportColorValueDifColormap.pushKey(new class_Key(new class_Color_DIN99(86.74992752799066,-3.4687500000000013,25.166053771972656), new class_Color_DIN99(86.74992752799066,-3.4687500000000013,25.166053771972656), 0.2620538509705699, false));
-    this.reportColorValueDifColormap.pushKey(new class_Key(new class_Color_DIN99(61.129411174208734,20.093750000000004,25.90980377197265), new class_Color_DIN99(61.129411174208734,20.093750000000004,25.90980377197265), 0.6152160300563556, false));
-    this.reportColorValueDifColormap.pushKey(new class_Key(new class_Color_DIN99(28.529860414174685,30.656250000000004,10.291053771972658), undefined, 1, false));
-    this.reportColorValueDifColormap.setAboveColor(new class_Color_RGB(1.0,0,0));
-    this.reportColorValueDifColormap.setBelowColor(new class_Color_RGB(0,0,1.0));
+    this.reportColorValueDifColormap.pushKey(new class_Key(undefined, ["din99", 29.581458825788705,16.03125,-26.896446228027347], -1, false));
+    this.reportColorValueDifColormap.pushKey(new class_Key(["din99", 55.87141911613874,-7.531250000000001,-28.383946228027348], ["din99", 55.87141911613874,-7.531250000000001,-28.383946228027348], -0.6446462116468379, false));
+    this.reportColorValueDifColormap.pushKey(new class_Key(["din99", 81.87664737898814,-20.531249999999996,-9.790196228027346], ["din99", 81.87664737898814,-20.531249999999996,-9.790196228027346], -0.2977457733249843, false));
+    this.reportColorValueDifColormap.pushKey(new class_Key(["din99", 99.85395907566293,-0.9780546619960879,3.201916766455866], ["din99", 99.85395907566293,-0.9780546619960879,3.201916766455866], 0, false));
+    this.reportColorValueDifColormap.pushKey(new class_Key(["din99", 86.74992752799066,-3.4687500000000013,25.166053771972656], ["din99", 86.74992752799066,-3.4687500000000013,25.166053771972656], 0.2620538509705699, false));
+    this.reportColorValueDifColormap.pushKey(new class_Key(["din99", 61.129411174208734,20.093750000000004,25.90980377197265], ["din99", 61.129411174208734,20.093750000000004,25.90980377197265], 0.6152160300563556, false));
+    this.reportColorValueDifColormap.pushKey(new class_Key(["din99", 28.529860414174685,30.656250000000004,10.291053771972658], undefined, 1, false));
+    this.reportColorValueDifColormap.setAboveColor(["rgb", 1.0,0,0]);
+    this.reportColorValueDifColormap.setBelowColor(["rgb", 0,0,1.0]);
     this.reportColorValueDifColormap.setInterpolationSpace("de2000-ds");
-    this.reportColorValueDifColormap.calcNeededIntervalsColors(false,undefined,undefined);
-    this.reportColorValueDifColormap.drawCMS_Horizontal("id_TestPage_DifReportColormap", 1000, 1);
+    //this.reportColorValueDifColormap.calcNeededIntervalsColors(false,undefined,undefined);
+    //this.reportColorValueDifColormap.drawCMS_Horizontal("id_TestPage_DifReportColormap", 1000, 1);
 
     this.zoomStatus = 100;
     //this.maximalZoomBar = 500;
@@ -120,8 +120,6 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
     }
   }
 
-
-
   report_SubtractionField_Screenshot() {
     var canvasID = "id_TestPage_Report2";
     var testing_ImgData = document.getElementById(canvasID).toDataURL("image/png")
@@ -137,7 +135,6 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
 
     document.getElementById("id_Report_ColorDifScreenshot").href = testing_ImgData;
   }
-
 
   selectTestReport(){
     document.getElementById("id_TestPage_ReportOrginalG_Div").style.display="none";
@@ -409,18 +406,7 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
         context_Orginal0_Pixel.putImageData( imgData0, 0, 0 );
         context_Orginal1_Pixel.putImageData( imgData1, 0, 0 );
         context_Orginal2_Pixel.putImageData( imgData2, 0, 0 );
-        //*/
 
-        /*imgData = new ImageData(1,1);
-        imgData[0]   = markpixelColor;
-        imgData[1]   = markpixelColor;
-        imgData[2]   = markpixelColor;
-        imgData[3]   = 10; // 255 = solid
-        context_OrginalC_Pixel.putImageData( imgData, x, y );
-        context_OrginalG_Pixel.putImageData( imgData, x, y );
-        context_Orginal0_Pixel.putImageData( imgData, x, y );
-        context_Orginal1_Pixel.putImageData( imgData, x, y );
-        context_Orginal2_Pixel.putImageData( imgData, x, y );*/
       }
 
 
@@ -619,7 +605,7 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
 
       }
 
-    }//*/
+    }
   }
 
   deleteStatistics(){
@@ -780,7 +766,7 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
           tableInfo[7] = [this.valueDifInfo[3][this.mousePosX][this.mousePosY-1],this.valueRatioInfo[3][this.mousePosX][this.mousePosY-1],this.reportColorValueDifColormap.calculateColor(this.valueRatioInfo[3][this.mousePosX][this.mousePosY-1]),this.colorDifInfo[3][this.mousePosX][this.mousePosY-1],this.colorRatioInfo[3][this.mousePosX][this.mousePosY-1],this.reportColorValueDifColormap.calculateColor(this.colorRatioInfo[3][this.mousePosX][this.mousePosY-1]),this.ratioInfo[3][this.mousePosX][this.mousePosY-1],this.reportColorValueDifColormap.calculateColor(this.ratioInfo[3][this.mousePosX][this.mousePosY-1]),false,false,false];
         }
 
-      }//*/
+      }
 
       if(indexMaxRatioValue!=undefined)
         tableInfo[indexMaxRatioValue][8]=true;
@@ -801,8 +787,6 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
         className = "class_tableInputDark";
       }
 
-      /*if(tableInfo!=undefined){
-      }*/
 
       var tr = document.createElement('tr');
 
@@ -960,7 +944,7 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
     }
 
     old_tbody.parentNode.replaceChild(new_tbody, old_tbody);
-    new_tbody.id="id_ratioReportTableBody";//*/
+    new_tbody.id="id_ratioReportTableBody";
 
   }
 
@@ -1029,11 +1013,6 @@ function mouseMoveReport(e){
   testingSection.element_testReport.report_mouseMove(canvasPosX,canvasPosY)
 
 }
-
-
-
-
-
 
 function getMaxIndex(array){
 

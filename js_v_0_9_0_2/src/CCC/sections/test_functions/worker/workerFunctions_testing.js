@@ -13,8 +13,8 @@ function worker_LoadColorClasses(){
   self.importScripts('../../../global/cms/class_Colormap_Specification.js');
   self.importScripts('../../../global/cms/class_Colormap_Key.js');
   self.importScripts('../../../global/cms/class_Colormap_Interval.js');
-  self.importScripts('../../../global/cms/class_Colormap_Probe.js');
-  self.importScripts('../../../global/cms/class_Colormap_ProbeSet.js');
+  /*self.importScripts('../../../global/cms/class_Colormap_Probe.js');
+  self.importScripts('../../../global/cms/class_Colormap_ProbeSet.js');*/
 }
 
 function calculateMesh(field, do3DTestField, scalefactor3DTest) {
@@ -51,12 +51,11 @@ function calculateMesh(field, do3DTestField, scalefactor3DTest) {
         var ymeshPos = (ypos1 + ypos2) / 2;
         var zmeshPos = deep / 2;
 
-        var colorRGB = mainCMS.calculateColor(field.getFieldValue(x, y));
+        var colorRGB = testingCMS.calculateColor(field.getFieldValue(x, y),"rgb");
         var material = new THREE.MeshLambertMaterial({
           side: THREE.DoubleSide
         });
-        material.color.set(new THREE.Color(colorRGB.getRValue(),colorRGB.getGValue(),colorRGB.getBValue()));
-        colorRGB.deleteReferences();
+        material.color.set(new THREE.Color(colorRGB[1],colorRGB[2],colorRGB[3]));
         var mesh = new THREE.Mesh(geometry, material);
         mesh.position.x = xmeshPos;
         mesh.position.y = ymeshPos;
@@ -108,17 +107,17 @@ function calculateMesh(field, do3DTestField, scalefactor3DTest) {
           var faceID1 = ((y - 1) * (field.getXDim() - 1) + (x - 1)) * 2;
           var faceID2 = faceID1 + 1;
 
-          var colorRGB = mainCMS.calculateColor(field.getFieldValue(x - 1, y - 1));
+          var colorRGB = testingCMS.calculateColor(field.getFieldValue(x - 1, y - 1),"rgb");
           faceArray[faceID1] = new THREE.Face3(preIndexLastLoop, currentIndex, preIndex);
-          faceArray[faceID1].vertexColors[0] = new THREE.Color(colorRGB.getRValue(),colorRGB.getGValue(),colorRGB.getBValue());
-          faceArray[faceID1].vertexColors[1] = new THREE.Color(colorRGB.getRValue(),colorRGB.getGValue(),colorRGB.getBValue());
-          faceArray[faceID1].vertexColors[2] = new THREE.Color(colorRGB.getRValue(),colorRGB.getGValue(),colorRGB.getBValue());
+          faceArray[faceID1].vertexColors[0] = new THREE.Color(colorRGB[1],colorRGB[2],colorRGB[3]);
+          faceArray[faceID1].vertexColors[1] = new THREE.Color(colorRGB[1],colorRGB[2],colorRGB[3]);
+          faceArray[faceID1].vertexColors[2] = new THREE.Color(colorRGB[1],colorRGB[2],colorRGB[3]);
 
           faceArray[faceID2] = new THREE.Face3(preIndexLastLoop, currentIndexLastLoop, currentIndex);
-          faceArray[faceID2].vertexColors[0] = new THREE.Color(colorRGB.getRValue(),colorRGB.getGValue(),colorRGB.getBValue());
-          faceArray[faceID2].vertexColors[1] = new THREE.Color(colorRGB.getRValue(),colorRGB.getGValue(),colorRGB.getBValue());
-          faceArray[faceID2].vertexColors[2] = new THREE.Color(colorRGB.getRValue(),colorRGB.getGValue(),colorRGB.getBValue());
-          colorRGB.deleteReferences();
+          faceArray[faceID2].vertexColors[0] = new THREE.Color(colorRGB[1],colorRGB[2],colorRGB[3]);
+          faceArray[faceID2].vertexColors[1] = new THREE.Color(colorRGB[1],colorRGB[2],colorRGB[3]);
+          faceArray[faceID2].vertexColors[2] = new THREE.Color(colorRGB[1],colorRGB[2],colorRGB[3]);
+
           var greyVal = field.getRatioFieldValue(x - 1, y - 1);
           faceArrayGrey[faceID1] = new THREE.Face3(preIndexLastLoop, currentIndex, preIndex);
           faceArrayGrey[faceID1].vertexColors[0] = new THREE.Color(greyVal,greyVal,greyVal);
@@ -148,20 +147,20 @@ function calculateMesh(field, do3DTestField, scalefactor3DTest) {
 
           faceArray[faceID1] = new THREE.Face3(preIndexLastLoop, currentIndex, preIndex);
           faceArray[faceID2] = new THREE.Face3(preIndexLastLoop, currentIndexLastLoop, currentIndex);
-          var colorRGB = mainCMS.calculateColor(field.getFieldValue(x - 1, y - 1));
-          faceArray[faceID1].vertexColors[0] = new THREE.Color(colorRGB.getRValue(),colorRGB.getGValue(),colorRGB.getBValue());
-          faceArray[faceID2].vertexColors[0] = new THREE.Color(colorRGB.getRValue(),colorRGB.getGValue(),colorRGB.getBValue());
-          colorRGB.deleteReferences();
-          colorRGB = mainCMS.calculateColor(field.getFieldValue(x, y));
-          faceArray[faceID1].vertexColors[1] = new THREE.Color(colorRGB.getRValue(),colorRGB.getGValue(),colorRGB.getBValue());
-          faceArray[faceID2].vertexColors[2] = new THREE.Color(colorRGB.getRValue(),colorRGB.getGValue(),colorRGB.getBValue());
-          colorRGB.deleteReferences();
-          colorRGB = mainCMS.calculateColor(field.getFieldValue(x - 1, y));
-          faceArray[faceID1].vertexColors[2] = new THREE.Color(colorRGB.getRValue(),colorRGB.getGValue(),colorRGB.getBValue());
-          colorRGB.deleteReferences();
-          colorRGB = mainCMS.calculateColor(field.getFieldValue(x, y - 1));
-          faceArray[faceID2].vertexColors[1] = new THREE.Color(colorRGB.getRValue(),colorRGB.getGValue(),colorRGB.getBValue());
-          colorRGB.deleteReferences();
+          var colorRGB = testingCMS.calculateColor(field.getFieldValue(x - 1, y - 1),"rgb");
+          faceArray[faceID1].vertexColors[0] = new THREE.Color(colorRGB[1],colorRGB[2],colorRGB[3]);
+          faceArray[faceID2].vertexColors[0] = new THREE.Color(colorRGB[1],colorRGB[2],colorRGB[3]);
+
+          colorRGB = testingCMS.calculateColor(field.getFieldValue(x, y),"rgb");
+          faceArray[faceID1].vertexColors[1] = new THREE.Color(colorRGB[1],colorRGB[2],colorRGB[3]);
+          faceArray[faceID2].vertexColors[2] = new THREE.Color(colorRGB[1],colorRGB[2],colorRGB[3]);
+
+          colorRGB = testingCMS.calculateColor(field.getFieldValue(x - 1, y),"rgb");
+          faceArray[faceID1].vertexColors[2] = new THREE.Color(colorRGB[1],colorRGB[2],colorRGB[3]);
+
+          colorRGB = testingCMS.calculateColor(field.getFieldValue(x, y - 1),"rgb");
+          faceArray[faceID2].vertexColors[1] = new THREE.Color(colorRGB[1],colorRGB[2],colorRGB[3]);
+
 
           faceArrayGrey[faceID1] = new THREE.Face3(preIndexLastLoop, currentIndex, preIndex);
           faceArrayGrey[faceID2] = new THREE.Face3(preIndexLastLoop, currentIndexLastLoop, currentIndex);
@@ -209,7 +208,6 @@ function calculateMesh(field, do3DTestField, scalefactor3DTest) {
 
 }
 
-
 function calculateTransferMeshData(field, do3DTestField, scalefactor3DTest) {
 
   testMappingMeshData=[];
@@ -237,11 +235,10 @@ function calculateTransferMeshData(field, do3DTestField, scalefactor3DTest) {
         var ymeshPos = (ypos1 + ypos2) / 2;
         var zmeshPos = deep / 2;
 
-        var colorRGB = mainCMS.calculateColor(field.getFieldValue(x, y));
+        var colorRGB = testingCMS.calculateColor(field.getFieldValue(x, y),"rgb");
         var greyVal = field.getRatioFieldValue(x, y);
 
-        var dataRow = [width,height,deep,xmeshPos,ymeshPos,zmeshPos,colorRGB.getRValue(),colorRGB.getGValue(),colorRGB.getBValue(),greyVal];
-        colorRGB.deleteReferences();
+        var dataRow = [width,height,deep,xmeshPos,ymeshPos,zmeshPos,colorRGB[1],colorRGB[2],colorRGB[3],greyVal];
         dataRows.push(dataRow);
       }
     }
@@ -272,12 +269,11 @@ function calculateTransferMeshData(field, do3DTestField, scalefactor3DTest) {
           var faceID1 = ((y - 1) * (field.getXDim() - 1) + (x - 1)) * 2;
           var faceID2 = faceID1 + 1;
 
-          var colorRGB = mainCMS.calculateColor(field.getFieldValue(x - 1, y - 1));
+          var colorRGB = testingCMS.calculateColor(field.getFieldValue(x - 1, y - 1),"rgb");
           var greyVal = field.getRatioFieldValue(x - 1, y - 1);
 
-          faceArray[faceID1] = [preIndexLastLoop, currentIndex, preIndex,colorRGB.getRValue(),colorRGB.getGValue(),colorRGB.getBValue(),greyVal];
-          faceArray[faceID2] = [preIndexLastLoop, currentIndexLastLoop, currentIndex,colorRGB.getRValue(),colorRGB.getGValue(),colorRGB.getBValue(),greyVal];
-          colorRGB.deleteReferences();
+          faceArray[faceID1] = [preIndexLastLoop, currentIndex, preIndex,colorRGB[1],colorRGB[2],colorRGB[3],greyVal];
+          faceArray[faceID2] = [preIndexLastLoop, currentIndexLastLoop, currentIndex,colorRGB[1],colorRGB[2],colorRGB[3],greyVal];
         }
       }
     } else {
@@ -299,25 +295,20 @@ function calculateTransferMeshData(field, do3DTestField, scalefactor3DTest) {
           var greyVal3 = field.getRatioFieldValue(x - 1, y);
           var greyVal4 = field.getRatioFieldValue(x, y - 1);
 
-          var colorRGB1 = mainCMS.calculateColor(field.getFieldValue(x - 1, y - 1));
-          var colorRGB2 = mainCMS.calculateColor(field.getFieldValue(x, y));
-          var colorRGB3 = mainCMS.calculateColor(field.getFieldValue(x - 1, y));
-          var colorRGB4 = mainCMS.calculateColor(field.getFieldValue(x, y-1));
+          var colorRGB1 = testingCMS.calculateColor(field.getFieldValue(x - 1, y - 1),"rgb");
+          var colorRGB2 = testingCMS.calculateColor(field.getFieldValue(x, y),"rgb");
+          var colorRGB3 = testingCMS.calculateColor(field.getFieldValue(x - 1, y),"rgb");
+          var colorRGB4 = testingCMS.calculateColor(field.getFieldValue(x, y-1),"rgb");
           faceArray[faceID1] = [preIndexLastLoop, currentIndex, preIndex,
-            [colorRGB1.getRValue(),colorRGB1.getGValue(),colorRGB1.getBValue(),greyVal1],
-            [colorRGB2.getRValue(),colorRGB2.getGValue(),colorRGB2.getBValue(),greyVal2],
-            [colorRGB3.getRValue(),colorRGB3.getGValue(),colorRGB3.getBValue(),greyVal3]
+            [colorRGB1[1],colorRGB1[2],colorRGB1[3],greyVal1],
+            [colorRGB2[1],colorRGB2[2],colorRGB2[3],greyVal2],
+            [colorRGB3[1],colorRGB3[2],colorRGB3[3],greyVal3]
           ];
           faceArray[faceID2] = [preIndexLastLoop, currentIndexLastLoop, currentIndex,
-            [colorRGB1.getRValue(),colorRGB1.getGValue(),colorRGB1.getBValue(),greyVal1],
-            [colorRGB4.getRValue(),colorRGB4.getGValue(),colorRGB4.getBValue(),greyVal4],
-            [colorRGB2.getRValue(),colorRGB2.getGValue(),colorRGB2.getBValue(),greyVal2]
+            [colorRGB1[1],colorRGB1[2],colorRGB1[3],greyVal1],
+            [colorRGB4[1],colorRGB4[2],colorRGB4[3],greyVal4],
+            [colorRGB2[1],colorRGB2[2],colorRGB2[3],greyVal2]
           ];
-
-          colorRGB1.deleteReferences();
-          colorRGB2.deleteReferences();
-          colorRGB3.deleteReferences();
-          colorRGB4.deleteReferences();
 
         }
       }
@@ -327,12 +318,6 @@ function calculateTransferMeshData(field, do3DTestField, scalefactor3DTest) {
   }
 
 }
-
-
-
-
-
-
 
 function calculateImageData(testfield, doGreyScaled) {
 
@@ -360,37 +345,25 @@ function calculateImageData(testfield, doGreyScaled) {
   if (doGreyScaled) {
     for (var y = 0; y < imgHeight; y++) {
       for (var x = 0; x < imgWidth; x++) {
-        /*var greyVal = testfield.getRatioFieldValue(x, y) * 255;
+        var greyVal = greyScaledCMS.calculateColor(testfield.getRatioFieldValue(x, y),"rgb");
         var indices = getColorIndicesForCoord(x, maxHeightIndex - y, imgWidth);
-        imgData.data[indices[0]] = Math.round(greyVal); // r
-        imgData.data[indices[1]] = Math.round(greyVal); // g
-        imgData.data[indices[2]] = Math.round(greyVal); // b
-        imgData.data[indices[3]] = 255; //a*/
-
-        var greyVal = greyScaledCMS.calculateColor(testfield.getRatioFieldValue(x, y));
-        var indices = getColorIndicesForCoord(x, maxHeightIndex - y, imgWidth);
-        imgData.data[indices[0]] = Math.round(greyVal.getRValue()*255); // r
-        imgData.data[indices[1]] = Math.round(greyVal.getGValue()*255); // g
-        imgData.data[indices[2]] = Math.round(greyVal.getBValue()*255); // b
+        imgData.data[indices[0]] = Math.round(greyVal[1]*255); // r
+        imgData.data[indices[1]] = Math.round(greyVal[2]*255); // g
+        imgData.data[indices[2]] = Math.round(greyVal[3]*255); // b
         imgData.data[indices[3]] = 255; //a
-        greyVal.deleteReferences();
       }
     }
   } else {
-
     for (var y = 0; y < imgHeight; y++) {
       for (var x = 0; x < imgWidth; x++) {
-        var colorRGB = mainCMS.calculateColor(testfield.getFieldValue(x, y));
+        var colorRGB = testingCMS.calculateColor(testfield.getFieldValue(x, y),"rgb");
         var indices = getColorIndicesForCoord(x, maxHeightIndex - y, imgWidth);
-
-        imgData.data[indices[0]] = Math.round(colorRGB.get1Value() * 255); // r
-        imgData.data[indices[1]] = Math.round(colorRGB.get2Value() * 255); // g
-        imgData.data[indices[2]] = Math.round(colorRGB.get3Value() * 255); // b
+        imgData.data[indices[0]] = Math.round(colorRGB[1] * 255); // r
+        imgData.data[indices[1]] = Math.round(colorRGB[2] * 255); // g
+        imgData.data[indices[2]] = Math.round(colorRGB[3] * 255); // b
         imgData.data[indices[3]] = 255; //a
-        colorRGB.deleteReferences();
       }
     }
-
   }
   return imgData;
 }
@@ -432,7 +405,7 @@ function calc_Preview_CCCTestField(index) {
       break;
     case "Extrema":
       testFieldList[index].setAutoScale(optionsList[index][3]);
-      testFieldList[index].setScaleRange(mainCMS.getRefPosition(0), mainCMS.getRefPosition(mainCMS.getKeyLength() - 1));
+      testFieldList[index].setScaleRange(testingCMS.getRefPosition(0), testingCMS.getRefPosition(testingCMS.getKeyLength() - 1));
       testFieldList[index].setField(extremaTestField(optionsList[index]));
       break;
     case "Frequency":
@@ -451,7 +424,7 @@ function calc_Preview_CCCTestField(index) {
 function calc_Preview_CollectionField(index) {
 
   testFieldList[index].setAutoScale(true);
-  testFieldList[index].setScaleRange(mainCMS.getRefPosition(0), mainCMS.getRefPosition(mainCMS.getKeyLength() - 1));
+  testFieldList[index].setScaleRange(testingCMS.getRefPosition(0), testingCMS.getRefPosition(testingCMS.getKeyLength() - 1));
 
   switch (subtypeList[index]) {
     case "Ackley":
@@ -543,7 +516,7 @@ function calc_Preview_CollectionField(index) {
 function calc_Preview_RealDataField(index) {
 
   testFieldList[index].setAutoScale(true);
-  testFieldList[index].setScaleRange(mainCMS.getRefPosition(0), mainCMS.getRefPosition(mainCMS.getKeyLength() - 1));
+  testFieldList[index].setScaleRange(testingCMS.getRefPosition(0), testingCMS.getRefPosition(testingCMS.getKeyLength() - 1));
   testFieldList[index].setField(realWorldDataTestField(optionsList[index]));
 
 }
@@ -589,7 +562,7 @@ function calc_Single_CCCTestField() {
       break;
     case "Extrema":
       testField.setAutoScale(testoptions[3]);
-      testField.setScaleRange(mainCMS.getRefPosition(0), mainCMS.getRefPosition(mainCMS.getKeyLength() - 1));
+      testField.setScaleRange(testingCMS.getRefPosition(0), testingCMS.getRefPosition(testingCMS.getKeyLength() - 1));
       testField.setField(extremaTestField(testoptions));
       break;
     case "Frequency":
@@ -608,7 +581,7 @@ function calc_Single_CCCTestField() {
 function calc_Single_CollectionField() {
 
   testField.setAutoScale(true);
-  testField.setScaleRange(mainCMS.getRefPosition(0), mainCMS.getRefPosition(mainCMS.getKeyLength() - 1));
+  testField.setScaleRange(testingCMS.getRefPosition(0), testingCMS.getRefPosition(testingCMS.getKeyLength() - 1));
 
   switch (testsubtype) {
     case "Ackley":
@@ -703,7 +676,7 @@ function calc_Single_RealDataField() {
     return;
 
   testField.setAutoScale(true);
-  testField.setScaleRange(mainCMS.getRefPosition(0), mainCMS.getRefPosition(mainCMS.getKeyLength() - 1));
+  testField.setScaleRange(testingCMS.getRefPosition(0), testingCMS.getRefPosition(testingCMS.getKeyLength() - 1));
   switch (testsubtype) {
     case "medical":
 

@@ -49,7 +49,6 @@ function json_message_sendCMS(cmsInfoPackage){
 
     workerJSON.message = "updateMainCMS";
     workerJSON['cmsInfoPackage'] = cmsInfoPackage;
-    workerJSON['interpolationType'] = cms.getInterpolationType();
 
     return workerJSON;
 }

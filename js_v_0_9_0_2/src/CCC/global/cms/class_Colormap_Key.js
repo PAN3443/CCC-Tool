@@ -128,6 +128,8 @@ class class_Key{
     getLeftKeyColor(colorspace) {
       if(this.emty_cL)
         return undefined;
+
+      var test = this.cL.getColorInfo(colorspace);
       return this.cL.getColorInfo(colorspace);
     }
 
@@ -177,10 +179,8 @@ class class_Key{
             return this.opacityValLeft;
             break;
             case "right":
-              return this.opacityValRight;
-              break;
-          default:
-
+            return this.opacityValRight;
+            break;
         }
     }
 
