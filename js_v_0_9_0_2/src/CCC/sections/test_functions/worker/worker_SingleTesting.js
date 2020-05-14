@@ -110,7 +110,7 @@ self.addEventListener('message', function(e) {
       greyScaledCMS = new class_CMS();
       greyScaledCMS.pushKey(new class_Key(undefined, ["rgb",0,0,0], 0, false));
       greyScaledCMS.pushKey(new class_Key(["rgb",1,1,1], undefined, 1, false));
-      greyScaledCMS.setInterpolationSpace("rgb");
+      greyScaledCMS.setInterpolationSpace("de2000-ds");
       //greyScaledCMS.calcNeededIntervalsColors(false,undefined,undefined);
 
       testField = new class_TestField(0,0);

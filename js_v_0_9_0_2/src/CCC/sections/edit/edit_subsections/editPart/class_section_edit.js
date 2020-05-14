@@ -134,10 +134,11 @@ class class_Edit_Section extends class_Edit_Basis_Section {
   }
 
   setCMS(cmsPackage, id) {
-    /*super.setCMS(cmsPackage);
+    var workerJSON = {};
+    workerJSON['message'] = "updateMainCMS";
+    workerJSON['cmsInfoPackage'] = cmsInfoPackage;
+    global_worker_EditSection.postMessage(workerJSON);
     this.myDesignID = id;
-    this.somethingChanged=false;
-    document.getElementById("id_edit_editWarning").style.visibility="hidden";*/
   }
 
   createCMS(name, intSpace) {

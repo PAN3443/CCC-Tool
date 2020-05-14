@@ -33,10 +33,10 @@ window.onload = function() {
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Auto Generator Section";
   autoGenSection = new class_AutoGen_Section();
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Edit Section";
+  global_worker_EditSection = new Worker("../../"+version_JS_FolderName+"/src/CCC/sections/edit/worker/worker_editCMS.js"); //, { type: "module" });
+  global_worker_EditSection.addEventListener('message', workerEvent_EditSection, false);
+  global_worker_EditSection.postMessage({'message':'init'});
   editSection = new class_Edit_Section();
-  editWorker = new Worker("../"+version_JS_FolderName+"/src/CCC/sections/edit/worker/worker_editCMS.js"); //, { type: "module" });
-  editWorker.addEventListener('message', workerEvent_EditSection, false);
-  editWorker.postMessage({'message':'init'});
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Edit (Probe) Section";
   probeSection = new class_Edit_Probe_Section();
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Edit (Optimization) Section";

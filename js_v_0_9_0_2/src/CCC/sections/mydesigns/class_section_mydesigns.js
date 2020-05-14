@@ -6,6 +6,7 @@ class class_MyDesigns_Section extends class_Section {
     this.maxNum = 10;
     this.selectedCMSID=undefined;
     this.checkLocalStorage();
+    this.myDesignCMS = new class_CMS();
   }
 
   checkLocalStorage(){
@@ -35,8 +36,6 @@ class class_MyDesigns_Section extends class_Section {
 
   deleteSelectedCMS(){
     if(this.selectedCMSID!=undefined || this.selectedCMSID<this.myDesignsList.length){
-      this.myDesignsList[this.selectedCMSID].deleteReferences();
-      this.myDesignsList[this.selectedCMSID]=null;
       this.myDesignsList.splice(this.selectedCMSID, 1);
       this.updateSection();
     }
@@ -44,36 +43,32 @@ class class_MyDesigns_Section extends class_Section {
 
   deleteMyDesignsList(){
     for (var i = this.myDesignsList.length-1; i >=0 ; i--) {
-      this.myDesignsList[i].deleteReferences();
-      this.myDesignsList[i]=null;
       this.myDesignsList.splice(i, 1);
     }
   }
 
   pushCMS(cmsPackage){
     if(this.myDesignsList.length<this.maxNum){
-      var newCMS = new class_CMS();
-      newCMS.setCMSFromPackage(cmsPackage);
-      this.myDesignsList.push(newCMS);
+      this.myDesignsList.push(cmsPackage);
     }
   }
 
   updateCMS(id,cmsPackage){
     if(id<this.myDesignsList.length){
-      this.myDesignsList[id].setCMSFromPackage(cmsPackage);
+      this.myDesignsList[id]=cmsPackage;
     }
   }
 
   getMyDesignCMSName(id){
     if(id<this.myDesignsList.length)
-      return this.myDesignsList[id].getColormapName();
+      return this.myDesignsList[id][0];
 
     return undefined;
   }
 
   getMyDesignCMS(id){
     if(id<this.myDesignsList.length)
-      return this.myDesignsList[id].createCMSInfoPackage();
+      return this.myDesignsList[id];
 
     return undefined;
   }
@@ -114,12 +109,14 @@ class class_MyDesigns_Section extends class_Section {
 
       document.getElementById("id_myDesignsPage_colormap_container").appendChild(divRow);
 
-      this.myDesignsList[i].drawCMS_Horizontal("myDesignObj_CMSlinear_"+i);
-      this.myDesignsList[i].drawCMS_BandSketch("myDesignObj_CMSsketch_"+i);
+      this.myDesignCMS.setCMSFromPackage(this.myDesignsList[i]);
+      this.myDesignCMS.drawCMS_Horizontal("myDesignObj_CMSlinear_"+i);
+      this.myDesignCMS.drawCMS_BandSketch("myDesignObj_CMSsketch_"+i);
 
       if(check){
-        this.myDesignsList[i-1].drawCMS_Horizontal("myDesignObj_CMSlinear_"+(i-1));
-        this.myDesignsList[i-1].drawCMS_BandSketch("myDesignObj_CMSsketch_"+(i-1));
+        this.myDesignCMS.setCMSFromPackage(this.myDesignsList[i-1]);
+        this.myDesignCMS.drawCMS_Horizontal("myDesignObj_CMSlinear_"+(i-1));
+        this.myDesignCMS.drawCMS_BandSketch("myDesignObj_CMSsketch_"+(i-1));
       }
 
       ////////////////////////////////////////////
@@ -154,7 +151,7 @@ class class_MyDesigns_Section extends class_Section {
     tmpLabel.className = 'class_MyDesignObjCMSCanvas';
     tmpLabel.style.border = "none";
     tmpLabel.style.color="var(--cms-obj-font-color)";
-    tmpLabel.innerHTML=this.myDesignsList[id].getColormapName()+" ("+this.myDesignsList[id].getInterpolationSpace()+" : "+this.myDesignsList[id].getInterpolationType()+")"; //"Emty CMS:"
+    tmpLabel.innerHTML=this.myDesignsList[id][0]+" ("+this.myDesignsList[id][1]+" : "+this.myDesignsList[id][2]+")"; //"Emty CMS:"
 
 
     tmpLabel.onclick = (function(cmsID) {
@@ -288,24 +285,24 @@ class class_MyDesigns_Section extends class_Section {
     exportSection.changeExportColorspace(1); // 1=rgb with 0-1;
     for (var i = 0; i < this.myDesignsList.length; i++) {
 
-      exportSection.setCMS(this.myDesignsList[i].createCMSInfoPackage());
+      this.myDesignCMS.setCMSFromPackage(this.myDesignsList[i]);
+      exportSection.setCMS(this.myDesignsList[i]);
 
       var txtNaN = "";
       var txtAbove = "";
       var txtBelow = "";
 
-      text = text + "<ColorMap name=\"" + this.myDesignsList[i].getColormapName() + "\" space=\"";
-
+      text = text + "<ColorMap name=\"" + this.myDesignCMS.getColormapName() + "\" space=\"";
 
       text = text + "RGB";
-      var tmpInfo = this.myDesignsList[i].getNaNColor("rgb");
+      var tmpInfo = this.myDesignCMS.getNaNColor("rgb");
       txtNaN="<NaN r=\""+tmpInfo[1]+"\" g=\""+tmpInfo[2]+"\" b=\""+tmpInfo[3]+"\"/>\n";
-      tmpInfo = this.myDesignsList[i].getAboveColor("rgb");
+      tmpInfo = this.myDesignCMS.getAboveColor("rgb");
       txtAbove="<Above r=\""+tmpInfo[1]+"\" g=\""+tmpInfo[2]+"\" b=\""+tmpInfo[3]+"\"/>\n";
-      tmpInfo = this.myDesignsList[i].getBelowColor("rgb");
+      tmpInfo = this.myDesignCMS.getBelowColor("rgb");
       txtBelow="<Below r=\""+tmpInfo[1]+"\" g=\""+tmpInfo[2]+"\" b=\""+tmpInfo[3]+"\"/>\n";
 
-      text = text + "\" interpolationspace=\""+this.myDesignsList[i].getInterpolationSpace()+"\" creator=\"CCC-Tool\">\n";
+      text = text + "\" interpolationspace=\""+this.myDesignCMS.getInterpolationSpace()+"\" creator=\"CCC-Tool\">\n";
 
       text = text + exportSection.createCMSText(); // find in exportHelper.js
 
@@ -473,8 +470,7 @@ class class_MyDesigns_Section extends class_Section {
           var pointObject = cmsObjects[j].getElementsByTagName("Point");
           var space = checkXMLColorspace(pointObject);
 
-          var tmpCMS = new class_CMS();
-
+          myDesignsSection.myDesignCMS.clear();
           var isrgb255=false;
           var val1Name,val2Name,val3Name;
           switch (space) {
@@ -548,17 +544,17 @@ class class_MyDesigns_Section extends class_Section {
                         if(equalColorInfo(tmpColor,tmpColor2)){
                           // nil key
                           var newKey = new class_Key(undefined,undefined,x);
-                          tmpCMS.pushKey(newKey);
+                          myDesignsSection.myDesignCMS.pushKey(newKey);
                         }else{
                           // right key
                           var newKey = new class_Key(undefined,tmpColor,x);
-                          tmpCMS.pushKey(newKey);
+                          myDesignsSection.myDesignCMS.pushKey(newKey);
                         }
                        break;
                       case pointObject.length-1:
                           // right key
                           var newKey = new class_Key(tmpColor,undefined,x);
-                          tmpCMS.pushKey(newKey);
+                          myDesignsSection.myDesignCMS.pushKey(newKey);
                        break;
                      default:
 
@@ -606,7 +602,7 @@ class class_MyDesigns_Section extends class_Section {
                               if(pointObject[i].getAttribute("isMoT")=="true")
                                 newKey.setMoT(true); // if right key color isMoT (left is default)
                             }
-                            tmpCMS.pushKey(newKey);
+                            myDesignsSection.myDesignCMS.pushKey(newKey);
                           }else{
                             // twin key
                             var newKey = new class_Key(tmpColor_Prev,tmpColor,x);
@@ -614,7 +610,7 @@ class class_MyDesigns_Section extends class_Section {
                               if(pointObject[i].getAttribute("isMoT")=="true")
                                 newKey.setMoT(true); // if right key color isMoT (left is default)
                             }
-                            tmpCMS.pushKey(newKey);
+                            myDesignsSection.myDesignCMS.pushKey(newKey);
                           }
 
                         }
@@ -622,7 +618,7 @@ class class_MyDesigns_Section extends class_Section {
                           if(x!=x_Next){
                             // dual key
                             var newKey = new class_Key(tmpColor,tmpColor,x);
-                            tmpCMS.pushKey(newKey);
+                            myDesignsSection.myDesignCMS.pushKey(newKey);
                           }
                         }
                       }//switch
@@ -766,18 +762,18 @@ class class_MyDesigns_Section extends class_Section {
               }
 
               if(tmpProbeSet.getProbeLength()!=0)
-              tmpCMS.addProbeSet(tmpProbeSet);
+              myDesignsSection.myDesignCMS.addProbeSet(tmpProbeSet);
 
           }
           /////////////////// till here new probe set information
                   if(cmsObjects[j].hasAttribute("name")){
                       var name = cmsObjects[j].getAttribute("name");
-                      tmpCMS.setColormapName(name);
+                      myDesignsSection.myDesignCMS.setColormapName(name);
                   }
 
                   if(cmsObjects[j].hasAttribute("interpolationspace")){
                     var interpolationSpace = cmsObjects[j].getAttribute("interpolationspace");
-                    tmpCMS.setInterpolationSpace(interpolationSpace);
+                    myDesignsSection.myDesignCMS.setInterpolationSpace(interpolationSpace);
                   }
 
                    if(cmsObjects[j].getElementsByTagName("NaN").length !=0){
@@ -793,7 +789,7 @@ class class_MyDesigns_Section extends class_Section {
                          val3=val2/255.0;
                      }
 
-                     tmpCMS.setNaNColor([space,val1,val2,val3]);
+                     myDesignsSection.myDesignCMS.setNaNColor([space,val1,val2,val3]);
                    }
 
 
@@ -810,7 +806,7 @@ class class_MyDesigns_Section extends class_Section {
                          val3=val2/255.0;
                      }
 
-                     tmpCMS.setAboveColor([space,val1,val2,val3]);
+                     myDesignsSection.myDesignCMS.setAboveColor([space,val1,val2,val3]);
                    }
 
                    if(cmsObjects[j].getElementsByTagName("Below").length !=0){
@@ -826,10 +822,9 @@ class class_MyDesigns_Section extends class_Section {
                          val3=val2/255.0;
                      }
 
-                     tmpCMS.setBelowColor([space,val1,val2,val3]);
+                     myDesignsSection.myDesignCMS.setBelowColor([space,val1,val2,val3]);
                    }
-              myDesignsSection.pushCMS(tmpCMS.createCMSInfoPackage());
-              tmpCMS.deleteReferences();
+              myDesignsSection.pushCMS(myDesignsSection.myDesignCMS.createCMSInfoPackage());
        }
      }
 

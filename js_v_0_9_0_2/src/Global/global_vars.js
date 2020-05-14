@@ -11,8 +11,6 @@ var smallErrorMath = 1e-12; // for math operation, which should be zero.
 // worker
 var doWorker = true;
 var browserCanOffscreenCanvas = false;
-var editWorker = undefined;
-
 
 // just noticeable difference
 var jnd_lab = 2;

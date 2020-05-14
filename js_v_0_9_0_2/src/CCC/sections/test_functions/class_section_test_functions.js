@@ -104,8 +104,7 @@ class class_TestFunction_Section extends class_Section {
   }
 
   selectTestingCMS(){
-    this.testingCMS.deleteReferences();
-    this.testingCMS = myDesignsSection.getMyDesignCMS(document.getElementById("id_TestSection_CMS_Select").selectedIndex);
+    this.testingCMS.setCMSFromPackage(myDesignsSection.getMyDesignCMS(document.getElementById("id_TestSection_CMS_Select").selectedIndex));
     var cmsJSON=json_message_sendCMS(this.testingCMS.createCMSInfoPackage());
     this.element_testCollection.worker_testCollection_CCCTest.postMessage(cmsJSON);
     this.element_testCollection.worker_testCollection_Collection.postMessage(cmsJSON);

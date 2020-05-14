@@ -162,9 +162,6 @@ self.addEventListener('message', function(e) {
 
 function startReportCalc() {
 
-  /*switch (reportType) {
-    case 0:*/
-
       ratioFields = getRatioDifField(testfield, colorField, reportOptions_ColorDif,selectorType,normalizationSelector,customNormValue);
       var answerJSON = {};
       answerJSON['type'] = 0;
@@ -187,9 +184,7 @@ function startReportCalc() {
       answerJSON['imageData'] = ratioFields[2];
       self.postMessage(answerJSON);
 
-
       //// calc statistics
-
       answerJSON = {};
       answerJSON['type'] = 0;
       answerJSON['subtype'] = "statistics"
@@ -205,9 +200,6 @@ function startReportCalc() {
       answerJSON['subtractionStat'] = calcSubReportStatisics(ratioFields[7]);
 
       self.postMessage(answerJSON);
-
-  /*  break;
-}*/
 
 }
 

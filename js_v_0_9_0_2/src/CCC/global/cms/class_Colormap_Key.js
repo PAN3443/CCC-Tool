@@ -5,18 +5,14 @@
 class class_Key{
     constructor(colorInfoL,colorInfoR, refPos, isBur,mot) {
         this.type = "";
-        this.emty_cL=false;
-        this.cL= new class_Color("rgb",0, 0, 0);
-        this.emty_cR=false;
-        this.cR = new class_Color("rgb",0, 0, 0);
+        this.cL= colorInfoL;
+        this.cR = colorInfoR;
         this.ref = refPos;
         this.middleOfTriple = false; // if left or twin key -> false = cL, true = cR;
         if(mot!=undefined)
           this.middleOfTriple = mot;
 
         this.isBur = isBur;
-        this.setLeftKeyColor(colorInfoL);
-        this.setRightKeyColor(colorInfoR);
         if(this.isBur==undefined){
             this.isBur=false;
         }
@@ -37,21 +33,8 @@ class class_Key{
 
     deleteReferences(){
       delete this.type;
-
-      if(this.cL!=undefined){
-        this.cL.deleteReferences();
-        this.cL=null;
-      }
-      else
-        delete this.cL;
-
-      if(this.cR!=undefined){
-        this.cR.deleteReferences();
-        this.cR=null;
-      }
-      else
-        delete this.cR;
-
+      delete this.cL;
+      delete this.cR;
       delete this.ref;
       delete this.middleOfTriple; // if left or twin key -> false = cL, true = cR;
       delete this.isBur;
@@ -68,37 +51,19 @@ class class_Key{
     }
 
     setLeftKeyColor(colorInfoL){
-
-        if(colorInfoL==undefined){
-          this.emty_cL=true;
-        }
-        else{
-          this.emty_cL=false;
-          this.cL.updateColor(colorInfoL[0], colorInfoL[1], colorInfoL[2], colorInfoL[3]);
-        }
-
+        this.cL=colorInfoL;
         this.determineType();
-
     }
 
     setRightKeyColor(colorInfoR) {
-
-      if(colorInfoR==undefined){
-        this.emty_cR=true;
-      }
-      else{
-        this.emty_cR=false;
-        this.cR.updateColor(colorInfoR[0], colorInfoR[1], colorInfoR[2], colorInfoR[3]);
-      }
-
+      this.cR=colorInfoR;
       this.determineType();
-
     }
 
     determineType(){
 
-      if(this.emty_cL){
-        if(this.emty_cR){
+      if(this.cL==undefined){
+        if(this.cR==undefined){
           this.type = "nil key";
           return;
         }
@@ -108,12 +73,13 @@ class class_Key{
         }
       }
 
-      if(this.emty_cR){
+      if(this.cR==undefined){
         this.type = "left key";
         return;
       }
 
-      if(this.cR.equalTo(this.cL.getOriginColorInfo())){
+      gWorkColor1.updateColor(this.cR[0],this.cR[1],this.cR[2],this.cR[3]);
+      if(gWorkColor1.equalTo(this.cL)){
         this.type = "dual key";
         return;
       }
@@ -123,20 +89,20 @@ class class_Key{
       }
     }
 
-
-
     getLeftKeyColor(colorspace) {
-      if(this.emty_cL)
+      if(this.cL==undefined)
         return undefined;
 
-      var test = this.cL.getColorInfo(colorspace);
-      return this.cL.getColorInfo(colorspace);
+      gWorkColor1.updateColor(this.cL[0],this.cL[1],this.cL[2],this.cL[3]);
+      return gWorkColor1.getColorInfo(colorspace);
     }
 
     getRightKeyColor(colorspace) {
-      if(this.emty_cR)
+      if(this.cR==undefined)
         return undefined;
-      return this.cR.getColorInfo(colorspace);
+
+      gWorkColor1.updateColor(this.cR[0],this.cR[1],this.cR[2],this.cR[3]);
+      return gWorkColor1.getColorInfo(colorspace);
     }
 
     setRefPosition(pos) {

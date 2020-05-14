@@ -17,3 +17,4 @@ var autoGenSection = undefined;
 
 // worker
 var global_worker_3DSpaceGrids=undefined;
+var global_worker_EditSection= undefined;

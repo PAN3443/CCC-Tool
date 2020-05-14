@@ -59,6 +59,7 @@ class class_Export_Section extends class_Section {
 
   setCMS(cmsPackage){
     this.exportCMS.setCMSFromPackage(cmsPackage);
+    this.workCMS.setCMSFromPackage(this.exportCMS.createCMSInfoPackage());
   }
 
   changeOutputformat(type){
