@@ -60,6 +60,7 @@ var  sim_AdaptiveColorblindness = [
 var editCMS = undefined;
 var optiCMS = undefined;
 var probeCMS = undefined;
+var somethingChanged = false;
 
 // Offscreen Canvas
 var canvas = undefined;
@@ -68,7 +69,7 @@ var canvasContex = undefined;
 var error = 100; // 0.01
 var errorMath = 1e12;
 
-
+var worker_drawCMS = undefined;
 self.addEventListener('message', function(e) {
   switch (e.data.message) {
     case "init":
@@ -90,6 +91,10 @@ self.addEventListener('message', function(e) {
       editCMS = new class_CMS();
       optiCMS = new class_CMS();
       probeCMS = new class_CMS();
+
+      worker_drawCMS = new Worker("worker_editCMS.js"); //, { type: "module" });
+      worker_drawCMS.addEventListener('message', workerEvent_DrawCMS, false);
+      worker_drawCMS.postMessage({'message':'init'});
     break;
     case "setCMSName":
 
@@ -97,8 +102,13 @@ self.addEventListener('message', function(e) {
     case "getCMSName":
 
     break;
+    case "drawCMS":
+        worker_drawCMS.postMessage(e.data);
+    break;
+
     case "updateEditCMS":
       editCMS.setCMSFromPackage(e.data.cmsInfoPackage);
+      somethingChanged = false;
     break;
 
   default:
@@ -108,3 +118,8 @@ self.addEventListener('message', function(e) {
   }
 
 }, false);
+
+
+function workerEvent_DrawCMS(e){
+  console.log("666",e.data.message);
+}

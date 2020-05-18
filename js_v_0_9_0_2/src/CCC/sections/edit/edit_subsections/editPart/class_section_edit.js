@@ -142,13 +142,14 @@ class class_Edit_Section extends class_Edit_Basis_Section {
   }
 
   createCMS(name, intSpace) {
-    /*this.editCMS.clear();
-    this.editCMS.setColormapName(name);
-    this.editCMS.setInterpolationSpace(intSpace);
+    var cmsPackage = [name,intSpace,"linear",["rgb",0,0,0],["rgb",0,0,0],["rgb",0,0,0],[],[]];
+    myDesignsSection.pushCMS(cmsPackage);
     this.myDesignID = myDesignsSection.getMyDesignLength();
-    myDesignsSection.pushCMS(cloneCMS(this.editCMS));
-    this.somethingChanged=false;
-    document.getElementById("id_edit_editWarning").style.visibility="visible";*/
+    var workerJSON = {};
+    workerJSON['message'] = "updateMainCMS";
+    workerJSON['cmsInfoPackage'] = cmsInfoPackage;
+    global_worker_EditSection.postMessage(workerJSON);
+    document.getElementById("id_edit_editWarning").style.visibility="visible";
   }
 
   replaceWithWorkCMS(){
