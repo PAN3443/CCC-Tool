@@ -3,7 +3,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
   constructor() {
     super('id_EditPage');
 
-    /*this.tmpWorkCMS = undefined;
+    this.tmpWorkCMS = undefined;
     this.myDesignID = undefined;
 
     /// Part: CMS VIS
@@ -39,7 +39,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     /// for predefined structures
-    this.constBands = [new class_Color_RGB(0, 0, 0), new class_Color_RGB(1, 1, 1), new class_Color_RGB(70 / 255, 70 / 255, 70 / 255), new class_Color_RGB(145 / 255, 143 / 255, 129 / 255),
+    this.constBands = [/*new class_Color_RGB(0, 0, 0), new class_Color_RGB(1, 1, 1), new class_Color_RGB(70 / 255, 70 / 255, 70 / 255), new class_Color_RGB(145 / 255, 143 / 255, 129 / 255),
       new class_Color_RGB(225 / 255, 226 / 255, 211 / 255), new class_Color_RGB(253 / 255, 103 / 255, 105 / 255), new class_Color_RGB(252 / 255, 13 / 255, 28 / 255),
       new class_Color_RGB(151 / 255, 4 / 255, 12 / 255), new class_Color_RGB(254 / 255, 193 / 255, 109 / 255), new class_Color_RGB(253 / 255, 152 / 255, 39 / 255),
       new class_Color_RGB(152 / 255, 91 / 255, 19 / 255), new class_Color_RGB(95 / 255, 56 / 255, 23 / 255), new class_Color_RGB(199 / 255, 178 / 255, 155 / 255),
@@ -47,7 +47,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
       new class_Color_RGB(191 / 255, 239 / 255, 134 / 255), new class_Color_RGB(102 / 255, 163 / 255, 107 / 255), new class_Color_RGB(6 / 255, 109 / 255, 40 / 255),
       new class_Color_RGB(186 / 255, 239 / 255, 236 / 255), new class_Color_RGB(68 / 255, 233 / 255, 239 / 255), new class_Color_RGB(27 / 255, 142 / 255, 163 / 255),
       new class_Color_RGB(89 / 255, 151 / 255, 235 / 255), new class_Color_RGB(17 / 255, 52 / 255, 230 / 255), new class_Color_RGB(21 / 255, 23 / 255, 114 / 255),
-      new class_Color_RGB(126 / 255, 126 / 255, 174 / 255), new class_Color_RGB(170 / 255, 42 / 255, 185 / 255), new class_Color_RGB(74 / 255, 0 / 255, 72 / 255)
+      new class_Color_RGB(126 / 255, 126 / 255, 174 / 255), new class_Color_RGB(170 / 255, 42 / 255, 185 / 255), new class_Color_RGB(74 / 255, 0 / 255, 72 / 255)*/
     ];
 
     this.selectedPredefinedType = 0;
@@ -92,7 +92,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
     cmsCanvasElemtent.addEventListener("mouseleave",editCMS_MouseLeave);
 
     //
-    this.styleEditPage();*/
+    this.styleEditPage();
   }
 
   hideSection(){
@@ -101,8 +101,8 @@ class class_Edit_Section extends class_Edit_Basis_Section {
   }
 
   showSection(){
-    /*super.showSection();
-    this.styleEditPage();*/
+    super.showSection();
+    this.styleEditPage();
   }
 
   selectInterpolationSpace(){
@@ -147,7 +147,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
     this.myDesignID = myDesignsSection.getMyDesignLength();
     var workerJSON = {};
     workerJSON['message'] = "updateMainCMS";
-    workerJSON['cmsInfoPackage'] = cmsInfoPackage;
+    workerJSON['cmsInfoPackage'] = myDesignsSection.getMyDesignCMS(this.myDesignID);
     global_worker_EditSection.postMessage(workerJSON);
     document.getElementById("id_edit_editWarning").style.visibility="visible";
   }
@@ -162,7 +162,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
 
   styleEditPage(){
 
-    /*document.getElementById("id_EditPage_DisplayPredefined").style.background = "var(--main-menue-background)";
+    document.getElementById("id_EditPage_DisplayPredefined").style.background = "var(--main-menue-background)";
     document.getElementById("id_EditPage_DisplayPathplot").style.background = "var(--main-menue-background)";
     document.getElementById("id_EditPage_DisplayAnalysis").style.background = "var(--main-menue-background)";
     document.getElementById("id_EditPage_DisplayMapping").style.background = "var(--main-menue-background)";
@@ -248,12 +248,11 @@ class class_Edit_Section extends class_Edit_Basis_Section {
           document.getElementById("id_EditPage_MappingDiv").style.display="none";
         }
 
-        this.doPagePeculiarity();
-        this.updateSection();*/
+        this.updateSection();
   }
 
   getNumPAM(){
-    /*var numberPAM = 0;
+    var numberPAM = 0;
 
     if(this.showMapping)
       numberPAM++;
@@ -264,7 +263,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
         if(this.showPathplot)
           numberPAM++;
 
-    return numberPAM;*/
+    return numberPAM;
   }
 
   ////////////////////////////////////////////////////////////////////////////

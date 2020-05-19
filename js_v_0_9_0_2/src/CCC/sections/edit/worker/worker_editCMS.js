@@ -57,6 +57,8 @@ var  sim_AdaptiveColorblindness = [
 ];
 
 // CMS
+
+var currentCMS = 0; // 0=Edit, 1=Opti, 2=Probe
 var editCMS = undefined;
 var optiCMS = undefined;
 var probeCMS = undefined;
@@ -103,12 +105,40 @@ self.addEventListener('message', function(e) {
 
     break;
     case "drawCMS":
+
+        var workerJSON = {};
+        workerJSON['message'] = "updateMainCMS";
+
+        switch (currentCMS) {
+          case 0:
+              workerJSON['cmsInfoPackage'] = editCMS.createCMSInfoPackage();
+            break;
+            case 1:
+                workerJSON['cmsInfoPackage'] = optiCMS.createCMSInfoPackage();
+              break;
+              case 2:
+                  workerJSON['cmsInfoPackage'] = probeCMS.createCMSInfoPackage();
+                break;
+          default:
+              return;
+        }
+
+        worker_drawCMS.postMessage(workerJSON);
         worker_drawCMS.postMessage(e.data);
     break;
 
     case "updateEditCMS":
       editCMS.setCMSFromPackage(e.data.cmsInfoPackage);
       somethingChanged = false;
+      currentCMS=0;
+    break;
+    case "updateOptiCMS":
+      optiCMS.setCMSFromPackage(editCMS.createCMSInfoPackage());
+      currentCMS=0;
+    break;
+    case "updateProbeCMS":
+      probeCMS.setCMSFromPackage(editCMS.createCMSInfoPackage());
+      currentCMS=0;
     break;
 
   default:

@@ -128,8 +128,8 @@ if (doColorblindnessSim)
 
     }
     else {
-      firstColorInfo1= ["lch",currentColorInfo1.get1Value(),currentColorInfo1.get2Value(),currentColorInfo1.get3Value()];
-      firstColorInfo2= ["lch",currentColorInfo2.get1Value(),currentColorInfo2.get2Value(),currentColorInfo2.get3Value()];
+      firstColorInfo1= ["lch",currentColorInfo1[1],currentColorInfo1[2],currentColorInfo1[3]];
+      firstColorInfo2= ["lch",currentColorInfo2[1],currentColorInfo2[2],currentColorInfo2[3]];
     }
 
     if(hStep==numberParticelsPerCircle-1){
@@ -202,8 +202,8 @@ if (doColorblindnessSim)
       geometry.faces[geometry.faces.length-3].vertexColors[1] = new THREE.Color(tmpRGBString);
     }
 
-    lastColorInfo1= ["lch",currentColorInfo1.get1Value(),currentColorInfo1.get2Value(),currentColorInfo1.get3Value()];
-    lastColorInfo2= ["lch",currentColorInfo2.get1Value(),currentColorInfo2.get2Value(),currentColorInfo2.get3Value()];
+    lastColorInfo1= ["lch",currentColorInfo1[1],currentColorInfo1[2],currentColorInfo1[3]];
+    lastColorInfo2= ["lch",currentColorInfo2[1],currentColorInfo2[2],currentColorInfo2[3]];
 
   }
 

@@ -40,9 +40,9 @@ function din99Mesh(colorspaceGroup) {
 
       for (var j = 0; j < positionsDIN99[i].length; j++) {
 
-        var xpos = din99SPos + ((positionsDIN99[i][j].get2Value() + din99ABMax) / din99ABMax2) * (din99EPos - din99SPos);
-        var ypos = din99SPos + (positionsDIN99[i][j].get1Value() / 100.0) * (din99EPos - din99SPos);
-        var zpos = din99EPos - ((positionsDIN99[i][j].get3Value() + din99ABMax) / din99ABMax2) * (din99EPos - din99SPos);
+        var xpos = din99SPos + ((positionsDIN99[i][j][1] + din99ABMax) / din99ABMax2) * (din99EPos - din99SPos);
+        var ypos = din99SPos + (positionsDIN99[i][j][0] / 100.0) * (din99EPos - din99SPos);
+        var zpos = din99EPos - ((positionsDIN99[i][j][2] + din99ABMax) / din99ABMax2) * (din99EPos - din99SPos);
 
         linesPoints.push(xpos, ypos, zpos);
 

@@ -62,13 +62,13 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
   }
 
   showPart(){
-    if(super.showPart){
+    if(super.showPart()){
       this.changePathPlotSpace(); // produce RGB Mesh
     }
   }
 
   updatePart(doBackground,doInterpolationline, initLineChart){
-    if(!super.updatePart())
+    /*if(!super.updatePart())
       return;
 
       switch (this.pathplot_space) {
@@ -81,11 +81,11 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
         break;
         default:
           this.pp_drawOthers(doBackground, doInterpolationline, initLineChart);
-      }
+      }*/
   }
 
   resize(){
-    var container = document.getElementById(this.partDivID);
+    /*var container = document.getElementById(this.partDivID);
     this.partIsReady=false;
     if(container==undefined || container==null)
       return;
@@ -268,7 +268,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
       break;
       /*case optiSection.isSectionOpen():
         tmpID="id_OptiPage_SelectPathplotType";
-      break;*/
+      break;* /
       default:
           return;
     }
@@ -305,12 +305,12 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
         return;
     }
 
-    this.resize();
+    this.resize();*/
 
   }
 
   changePathPlotSpace(){
-    var tmpID = undefined;
+    /*var tmpID = undefined;
     switch (true) {
       case editSection.isSectionOpen():
         this.pathplot_space=document.getElementById("id_EditPage_SelectPathplotType").options[document.getElementById("id_EditPage_SelectPathplotType").selectedIndex].value;
@@ -360,11 +360,11 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     tmpDiv.addEventListener("mouseup", pp_3D_mouseup);
     tmpDiv.addEventListener("wheel", pp_3D_mousewheel);
     tmpDiv.oncontextmenu=function(){return false;};
-    return tmpDiv;
+    return tmpDiv;*/
   }
 
   createTripleLayerCanvasDiv(height_VH, width_VW, isSquad, id){
-    var tmpDiv = document.createElement('div');
+    /*var tmpDiv = document.createElement('div');
     tmpDiv.id = id;
     tmpDiv.style.width=width_VW+"vw";
     tmpDiv.style.height=height_VH+"vh";
@@ -427,7 +427,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
       console.log("pp_canvas_yStart",this.pp_canvas_yStart);
       console.log("pp_canvas_xWidth",this.pp_canvas_xWidth);
       console.log("pp_canvas_yHeight",this.pp_canvas_yHeight);
-      console.log("------------------");*/
+      console.log("------------------");* /
     }
     else {
       switch (this.pp_CanvasMode) {
@@ -447,12 +447,12 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
           var pp_canvas_yEnd = this.lineChart_Height*0.1;
           this.pp_canvas_yHeight =this.pp_canvas_yStart-pp_canvas_yEnd;
         }
-    }
+    }*/
   }
 
   pp_rgb_background() {
 
-
+/*
 
     var fixedColor = undefined;
     if (this.mouseGrappedKeyID != -1) {
@@ -500,7 +500,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
         fixedColor.deleteReferences();
         fixedColor=null;
       }
-    }
+    }*/
 
 
 
@@ -508,7 +508,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
 
   pp_rgb_interpolationLine() {
 
-    setSquadRes_Canvas(this.partDivID+"_PP_RG_l1"); // global -> helper -> canvasHelper
+    /*setSquadRes_Canvas(this.partDivID+"_PP_RG_l1"); // global -> helper -> canvasHelper
     setSquadRes_Canvas(this.partDivID+"_PP_RB_l1");
     setSquadRes_Canvas(this.partDivID+"_PP_BG_l1");
 
@@ -518,13 +518,13 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     drawInterpolationLine(document.getElementById(this.partDivID+"_PP_RB_l1").getContext("2d"),2,0,true);
     drawInterpolationLine(document.getElementById(this.partDivID+"_PP_BG_l1").getContext("2d"),1,2,true);
 
-    this.pp_LineGroup=draw3DInterpolationLine(this.pp_LineGroup);
+    this.pp_LineGroup=draw3DInterpolationLine(this.pp_LineGroup);/*/
 
   }
 
   pp_rgb_drawElements(){
 
-    setSquadRes_Canvas(this.partDivID+"_PP_RG_l2"); // global -> helper -> canvasHelper
+    /*setSquadRes_Canvas(this.partDivID+"_PP_RG_l2"); // global -> helper -> canvasHelper
     setSquadRes_Canvas(this.partDivID+"_PP_RB_l2");
     setSquadRes_Canvas(this.partDivID+"_PP_BG_l2");
 
@@ -534,22 +534,22 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     drawPathplotElements(document.getElementById(this.partDivID+"_PP_RB_l2").getContext("2d"), 2, 0,true,this.mouseAboveKeyID,this.mouseGrappedColorSide);
     drawPathplotElements(document.getElementById(this.partDivID+"_PP_BG_l2").getContext("2d"), 1, 2,true,this.mouseAboveKeyID,this.mouseGrappedColorSide);
 
-    this.pp_ElementGroup=drawPathplot3DElements(this.pp_ElementGroup,this.mouseAboveKeyID,this.mouseGrappedColorSide);
+    this.pp_ElementGroup=drawPathplot3DElements(this.pp_ElementGroup,this.mouseAboveKeyID,this.mouseGrappedColorSide);*/
   }
 
   pp_drawRGBorLMS_LineChart(doInterpolationline, initLineChart){
 
-    if (initLineChart)
+    /*if (initLineChart)
       this.pp_init_LineChart();
 
     if (drawInterpolationLine)
       this.pp_rgblms_LineChart_interpolationLine();
 
-    this.pp_rgblms_LineChart_drawElements();
+    this.pp_rgblms_LineChart_drawElements();*/
   }
 
   pp_rgblms_LineChart_drawElements(){
-    var canvasObj0 = document.getElementById(this.partDivID+"_PP_C1_l2");
+  /*  var canvasObj0 = document.getElementById(this.partDivID+"_PP_C1_l2");
     canvasObj0.width = this.lineChart_Width;
     canvasObj0.height = this.lineChart_Height;
 
@@ -577,12 +577,12 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     drawLineChartElements(canvasObj1.getContext("2d"),1,this.mouseAboveKeyID,this.mouseGrappedColorSide);
     drawLineChartElements(canvasObj2.getContext("2d"),2,this.mouseAboveKeyID,this.mouseGrappedColorSide);
 
-    this.pp_ElementGroup=drawPathplot3DElements(this.pp_ElementGroup,this.mouseAboveKeyID,this.mouseGrappedColorSide);
+    this.pp_ElementGroup=drawPathplot3DElements(this.pp_ElementGroup,this.mouseAboveKeyID,this.mouseGrappedColorSide);*/
 
   }
 
   pp_rgblms_LineChart_interpolationLine(){
-    var canvasObj0 = document.getElementById(this.partDivID+"_PP_C1_l1");
+  /*  var canvasObj0 = document.getElementById(this.partDivID+"_PP_C1_l1");
     canvasObj0.width = this.lineChart_Width;
     canvasObj0.height = this.lineChart_Height;
 
@@ -610,14 +610,14 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     drawInterpolationLine_LineChart(canvasObj1.getContext("2d"), 1);
     drawInterpolationLine_LineChart(canvasObj2.getContext("2d"), 2);
 
-    this.pp_LineGroup=draw3DInterpolationLine(this.pp_LineGroup);
+    this.pp_LineGroup=draw3DInterpolationLine(this.pp_LineGroup);*/
 
   }
 
   pp_drawOthers(calcBackground, drawInterpolationLine, initLineChart) {
 
 
-    if (initLineChart)
+    /*if (initLineChart)
       this.pp_init_LineChart();
 
     if (calcBackground)
@@ -627,11 +627,11 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     if (drawInterpolationLine)
       this.pp_other_interpolationLine();
 
-    this.pp_other_drawElements();
+    this.pp_other_drawElements();*/
   }
 
   pp_hueInit() {
-      this.pathplot_hueRes= document.getElementById(this.partDivID+"_PP_Hue_l0").getBoundingClientRect().height;
+      /*this.pathplot_hueRes= document.getElementById(this.partDivID+"_PP_Hue_l0").getBoundingClientRect().height;
 
       var fixedColor = undefined;
       if (this.mouseGrappedKeyID != -1) {
@@ -697,11 +697,11 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
           fixedColor.deleteReferences();
           fixedColor=null;
         }
-      }
+      }*/
   }
 
   pp_init_LineChart() {
-    var canvasObj0 = document.getElementById(this.partDivID+"_PP_C1_l0");
+    /*var canvasObj0 = document.getElementById(this.partDivID+"_PP_C1_l0");
     var box = canvasObj0.getBoundingClientRect();
     this.lineChart_Width = box.width;
     this.lineChart_Height = box.height;
@@ -747,12 +747,12 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
       draw_LineChart_Coordinates(this.getParentCMS(),canvasObj1.getContext("2d"),0,100, "C");
       draw_LineChart_Coordinates(this.getParentCMS(),canvasObj2.getContext("2d"),0,360, "H");
      break;
-    }
+   }*/
   }
 
   pp_other_interpolationLine() {
 
-    var canvasObj0 = document.getElementById(this.partDivID+"_PP_C1_l1");
+    /*var canvasObj0 = document.getElementById(this.partDivID+"_PP_C1_l1");
     canvasObj0.width = this.lineChart_Width;
     canvasObj0.height = this.lineChart_Height;
 
@@ -793,12 +793,12 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     drawInterpolationLine_LineChart(canvasObj1.getContext("2d"), 1);
     drawInterpolationLine_LineChart(canvasObj2.getContext("2d"), 2);
 
-    this.pp_LineGroup=draw3DInterpolationLine(this.pp_LineGroup);
+    this.pp_LineGroup=draw3DInterpolationLine(this.pp_LineGroup);*/
   }
 
   pp_other_drawElements() {
 
-    var canvasObj0 = document.getElementById(this.partDivID+"_PP_C1_l2");
+    /*var canvasObj0 = document.getElementById(this.partDivID+"_PP_C1_l2");
     canvasObj0.width = this.lineChart_Width;
     canvasObj0.height = this.lineChart_Height;
 
@@ -840,12 +840,12 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     drawLineChartElements(canvasObj1.getContext("2d"),1,this.mouseAboveKeyID,this.mouseGrappedColorSide);
     drawLineChartElements(canvasObj2.getContext("2d"),2,this.mouseAboveKeyID,this.mouseGrappedColorSide);
 
-    this.pp_ElementGroup=drawPathplot3DElements(this.pp_ElementGroup,this.mouseAboveKeyID,this.mouseGrappedColorSide);
+    this.pp_ElementGroup=drawPathplot3DElements(this.pp_ElementGroup,this.mouseAboveKeyID,this.mouseGrappedColorSide);*/
 
   }
 
   pp_mouseMove(id,mousePosX,mousePosY){
-    if(this.pp_CanvasMode == undefined)
+    /*if(this.pp_CanvasMode == undefined)
       return;
 
     this.mousePosX =mousePosX;
@@ -1014,9 +1014,6 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
 
       tmpCMS.deleteReferences();
 
-      /*if(oldmouseAboveKeyID!=this.mouseAboveKeyID)
-        this.updatePart(false,false,false);//*/
-
     } ///// END: if (mouseGrappedKeyID==-1)
     else{
       /// Determine new Color
@@ -1066,21 +1063,21 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
         break;
       }
 
-    } ///// END: else => (mouseGrappedKeyID!=-1)
+    } ///// END: else => (mouseGrappedKeyID!=-1)*/
 
 
   }
 
   pp_checkPosition(centerPosX, centerPosY, i, colorside, isCircle){
 
-    if(isCircle)
+    /*if(isCircle)
       return this.checkInsideCirce(centerPosX, centerPosY, i, colorside);
     else
-      return this.checkInsideRect(centerPosX, centerPosY, i, colorside);
+      return this.checkInsideRect(centerPosX, centerPosY, i, colorside);*/
   }
 
   checkInsideRect(centerPosX, centerPosY, i, colorside) {
-    if (this.mouseAboveKeyID == i) {
+    /*if (this.mouseAboveKeyID == i) {
       if (this.mousePosX < centerPosX - this.bigcircleRad ||
         this.mousePosX > centerPosX + this.bigcircleRad ||
         this.mousePosY < centerPosY - this.bigcircleRad ||
@@ -1107,12 +1104,12 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
         this.mouseGrappedColorSide=-1;
         return false;
       }
-    }
+    }*/
   }
 
   checkInsideCirce(centerPosX, centerPosY, i, colorside){
 
-    var dis = Math.sqrt(Math.pow(centerPosX - this.mousePosX, 2) + Math.pow(centerPosY - this.mousePosY, 2));
+    /*var dis = Math.sqrt(Math.pow(centerPosX - this.mousePosX, 2) + Math.pow(centerPosY - this.mousePosY, 2));
 
     if (this.mouseAboveKeyID == i) {
       // Circle -> Part of Scaled Band
@@ -1133,12 +1130,12 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
       } else {
         return false;
       }
-    }
+    }*/
 
   }
 
   getColorPosInCanvas(tmpColor){
-    var position = [-1,-1];
+    /*var position = [-1,-1];
     if(this.pathplot_space=="rgb"){
       switch (this.pp_CanvasMode) {
         case "RG":
@@ -1239,12 +1236,12 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
           position[1] = Math.round(this.pp_canvas_yStart - (this.pp_canvas_yHeight * relevantComponent)/factor);
         }
     }
-    return position;
+    return position;*/
   }
 
   pp_determinMouseColor(){
 
-    if(this.pathplot_space=="rgb"){
+    /*if(this.pathplot_space=="rgb"){
       var val1 = parseInt((this.mousePosX-this.pp_canvas_xStart)/this.pp_canvas_xWidth*255)/255;
       var val2 = parseInt((this.pp_canvas_yStart-this.mousePosY)/this.pp_canvas_yHeight*255)/255;
       switch (this.pp_CanvasMode) {
@@ -1483,11 +1480,11 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
 
         }
     }
-    return undefined;
+    return undefined;*/
   }
 
   update_CoordID(){
-    if(this.pathPlot_CoordID==undefined)
+  /*  if(this.pathPlot_CoordID==undefined)
       return
 
     if(this.pp_currentColor==undefined){
@@ -1556,7 +1553,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
               document.getElementById(this.pathPlot_CoordID).innerHTML="";
               return;
           }
-          document.getElementById(this.pathPlot_CoordID).innerHTML=c1_name.bold()+c1_val+c2_name.bold()+c2_val+c3_name.bold()+c3_val;
+          document.getElementById(this.pathPlot_CoordID).innerHTML=c1_name.bold()+c1_val+c2_name.bold()+c2_val+c3_name.bold()+c3_val;*/
   }
 
 

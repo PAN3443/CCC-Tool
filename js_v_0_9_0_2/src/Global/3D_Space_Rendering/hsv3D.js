@@ -130,8 +130,9 @@ function hsvMesh(colorspaceGroup) {
 
 
     } else {
-      firstColorInfo1 = ["hsv", currentColorInfo1.get1Value(), currentColorInfo1.get2Value(), currentColorInfo1.get3Value()];
-      firstColorInfo2 = ["hsv", currentColorInfo2.get1Value(), currentColorInfo2.get2Value(), currentColorInfo2.get3Value()];
+
+      firstColorInfo1 = ["hsv", currentColorInfo1[1], currentColorInfo1[2], currentColorInfo1[3]];
+      firstColorInfo2 = ["hsv", currentColorInfo2[1], currentColorInfo2[2], currentColorInfo2[3]];
     }
 
     if (hStep == numberParticelsPerCircle - 1) {
@@ -204,8 +205,8 @@ function hsvMesh(colorspaceGroup) {
       geometry.faces[geometry.faces.length - 3].vertexColors[1] = new THREE.Color(tmpRGBString);
     }
 
-    lastColorInfo1 = ["hsv", currentColorInfo1.get1Value(), currentColorInfo1.get2Value(), currentColorInfo1.get3Value()];
-    lastColorInfo2 = ["hsv", currentColorInfo2.get1Value(), currentColorInfo2.get2Value(), currentColorInfo2.get3Value()];
+    lastColorInfo1 = ["hsv", currentColorInfo1[1], currentColorInfo1[2], currentColorInfo1[3]];
+    lastColorInfo2 = ["hsv", currentColorInfo2[1], currentColorInfo2[2], currentColorInfo2[3]];
 
   }
 

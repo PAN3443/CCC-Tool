@@ -2,7 +2,6 @@ class class_Edit_Basis_Section extends class_Section {
 
   constructor(div_id) {
     super(div_id);
-    this.part_CMSVis = new class_Edit_Part_CMSVIS(undefined, div_id);
     this.part_Pathplot = new class_Edit_Part_Pathplot(undefined, div_id);
     this.part_Mapping = new class_Edit_Part_Mapping(undefined, div_id);
     this.part_Analysis = new class_Edit_Part_Analysis(undefined, div_id);
@@ -62,9 +61,9 @@ class class_Edit_Basis_Section extends class_Section {
 
   updateSection() {
     // ONLY BASIS like draw CMS
-    /*this.drawEditCMSVIS();
+    this.drawEditCMSVIS();
 
-    this.part_Pathplot.updatePart(false, true, true);
+    /*this.part_Pathplot.updatePart(false, true, true);
     this.part_Analysis.updatePart();
     this.part_Mapping.updatePart();*/
   }
@@ -100,6 +99,13 @@ class class_Edit_Basis_Section extends class_Section {
     }*/
   }
 
+  drawEditCMSVIS(){
 
+    var workerJSON = {};
+    workerJSON['message'] = "drawCMS";
+    global_worker_EditSection.postMessage(workerJSON);
+
+
+  }
 
 };
