@@ -135,8 +135,8 @@ class class_Edit_Section extends class_Edit_Basis_Section {
 
   setCMS(cmsPackage, id) {
     var workerJSON = {};
-    workerJSON['message'] = "updateMainCMS";
-    workerJSON['cmsInfoPackage'] = cmsInfoPackage;
+    workerJSON['message'] = "updateEditCMS";
+    workerJSON['cmsInfoPackage'] = cmsPackage;
     global_worker_EditSection.postMessage(workerJSON);
     this.myDesignID = id;
   }
@@ -146,7 +146,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
     myDesignsSection.pushCMS(cmsPackage);
     this.myDesignID = myDesignsSection.getMyDesignLength();
     var workerJSON = {};
-    workerJSON['message'] = "updateMainCMS";
+    workerJSON['message'] = "updateEditCMS";
     workerJSON['cmsInfoPackage'] = myDesignsSection.getMyDesignCMS(this.myDesignID);
     global_worker_EditSection.postMessage(workerJSON);
     document.getElementById("id_edit_editWarning").style.visibility="visible";
@@ -344,27 +344,12 @@ class class_Edit_Section extends class_Edit_Basis_Section {
       this.drawConstantBands();
     }
 
-    document.getElementById('id_edit_cms_SetName').value = this.editCMS.getColormapName();
+
     document.getElementById('id_edit_cms_SetNaN').style.background = this.editCMS.getNaNColor("rgb").getRGBString();
     document.getElementById('id_edit_cms_SetBelow').style.background = this.editCMS.getAboveColor("rgb").getRGBString();
     document.getElementById('id_edit_cms_SetAbove').style.background = this.editCMS.getBelowColor("rgb").getRGBString();
 
-    for (var i = 0; i < document.getElementById("id_EditPage_SelectInterpolationSpace").options.length; i++) {
-      if(document.getElementById("id_EditPage_SelectInterpolationSpace").options[i].value===this.editCMS.getInterpolationSpace()){
-        document.getElementById("id_EditPage_SelectInterpolationSpace").selectedIndex=i;
-      }
-    }
-
-    document.getElementById("id_edit_SetTypeLinear").style.background = "var(--main-coloredButton_Dark)";
-    document.getElementById("id_edit_SetTypeSpline").style.background = "var(--main-coloredButton_Dark)";
-    switch (this.editCMS.getInterpolationType()){
-      case "linear":
-        document.getElementById("id_edit_SetTypeLinear").style.background = "var(--main-active-coloredButton_Dark)";
-      break;
-      case "spline":
-        document.getElementById("id_edit_SetTypeSpline").style.background = "var(--main-active-coloredButton_Dark)";
-      break;
-    }*/
+    */
   }
 
   changeCMSName(){

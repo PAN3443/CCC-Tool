@@ -1,3 +1,6 @@
+var gWorkColor1 = undefined;
+var gWorkColor2 = undefined;
+
 /// color settings
 // 2000
 var de2000_k_L = 1.0,
@@ -47,7 +50,7 @@ var  sim_AdaptiveColorblindness = [
 ];
 
 // CMS
-var editCMS = undefined;
+var drawCMS = undefined;
 var somethingChanged = false;
 
 // Offscreen Canvas
@@ -57,7 +60,6 @@ var canvasContex = undefined;
 var error = 100; // 0.01
 var errorMath = 1e12;
 
-var worker_drawCMS = undefined;
 self.addEventListener('message', function(e) {
   switch (e.data.message) {
     case "init":
@@ -76,13 +78,17 @@ self.addEventListener('message', function(e) {
       self.importScripts('../../../../Global/helper/math.js');
       self.importScripts('../../../../Global/helper/quicksort.js');
 
+      gWorkColor1 = new class_Color("rgb",0,0,0);
+      gWorkColor2 = new class_Color("rgb",0,0,0);
 
-      worker_drawCMS = new Worker("worker_editCMS.js"); //, { type: "module" });
-      worker_drawCMS.addEventListener('message', workerEvent_DrawCMS, false);
-      worker_drawCMS.postMessage({'message':'init'});
+      drawCMS = new class_CMS();
     break;
-    case "drawCMS":
-        console.log("draaaaw");
+    case "draw":
+      console.log("draaaaw");
+    break;
+    case "updateDrawCMS":
+      console.log("updateDrawCMS");
+      drawCMS.setCMSFromPackage(e.data.cmsInfoPackage);
     break;
   default:
     generalJSON_Processing(e.data);

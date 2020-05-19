@@ -1,12 +1,5 @@
-var testField = undefined;
-var testtype = undefined;
-var testsubtype = undefined;
-var testoptions = undefined;
-
-var testMappingMesh = undefined;
-var testMappingMeshGrey = undefined;
-var testMappingMeshData = [];
-
+var gWorkColor1 = undefined;
+var gWorkColor2 = undefined;
 
 /// color settings
 // 2000
@@ -50,7 +43,7 @@ var tmLMS_Selected_Inv = [
   [1149050000 / 3097586539, 1948550000 / 3097586539, -49903 / 6195173078],
   [0, 0, 1]
 ];
-var  sim_AdaptiveColorblindness = [
+var sim_AdaptiveColorblindness = [
   [0, 1.05118294, -0.05116099],
   [0, 1, 0],
   [0, 0, 1]
@@ -90,66 +83,137 @@ self.addEventListener('message', function(e) {
       self.importScripts('../../../../Global/helper/math.js');
       self.importScripts('../../../../Global/helper/quicksort.js');
 
+      gWorkColor1 = new class_Color("rgb", 0, 0, 0);
+      gWorkColor2 = new class_Color("rgb", 0, 0, 0);
+
       editCMS = new class_CMS();
       optiCMS = new class_CMS();
       probeCMS = new class_CMS();
 
-      worker_drawCMS = new Worker("worker_editCMS.js"); //, { type: "module" });
-      worker_drawCMS.addEventListener('message', workerEvent_DrawCMS, false);
-      worker_drawCMS.postMessage({'message':'init'});
-    break;
-    case "setCMSName":
-
-    break;
+      worker_drawCMS = new Worker("worker_drawEditCMS.js"); //, { type: "module" });
+      worker_drawCMS.addEventListener('message', workerListener_DrawCMS, false);
+      worker_drawCMS.postMessage({
+        'message': 'init'
+      });
+      break;
     case "getCMSName":
 
-    break;
+      break;
+    case "getCMSName":
+
+      break;
     case "drawCMS":
 
-        var workerJSON = {};
-        workerJSON['message'] = "updateMainCMS";
-
-        switch (currentCMS) {
-          case 0:
-              workerJSON['cmsInfoPackage'] = editCMS.createCMSInfoPackage();
-            break;
-            case 1:
-                workerJSON['cmsInfoPackage'] = optiCMS.createCMSInfoPackage();
-              break;
-              case 2:
-                  workerJSON['cmsInfoPackage'] = probeCMS.createCMSInfoPackage();
-                break;
-          default:
-              return;
-        }
-
-        worker_drawCMS.postMessage(workerJSON);
-        worker_drawCMS.postMessage(e.data);
-    break;
-
+      break;
+    case "setCMSName":
+      singleUpdate_EditSection();
+      break;
+    case "setNaNColor":
+      singleUpdate_EditSection();
+      break;
+    case "setAboveColor":
+      singleUpdate_EditSection();
+      break;
+    case "setBelowColor":
+      singleUpdate_EditSection();
+      break;
     case "updateEditCMS":
       editCMS.setCMSFromPackage(e.data.cmsInfoPackage);
       somethingChanged = false;
-      currentCMS=0;
-    break;
+      currentCMS = 0;
+      //// Update CMS of subworker //////
+      workerRequest_updateDrawCMS();
+      //////////////////////////////////
+      intervalUpdate_EditSection();
+      singleUpdate_EditSection();
+      break;
     case "updateOptiCMS":
       optiCMS.setCMSFromPackage(editCMS.createCMSInfoPackage());
-      currentCMS=0;
-    break;
+      currentCMS = 0;
+      break;
     case "updateProbeCMS":
       probeCMS.setCMSFromPackage(editCMS.createCMSInfoPackage());
-      currentCMS=0;
-    break;
+      currentCMS = 0;
+      break;
 
-  default:
-    generalJSON_Processing(e.data);
+    default:
+      generalJSON_Processing(e.data);
 
 
   }
 
 }, false);
 
+function singleUpdate_EditSection() {
+  var answerJSON = {};
+  answerJSON['type'] = "singleUpdate";
+  // edit, opti and probe CMS have here the same information!
+  answerJSON['name'] = editCMS.createCMSInfoPackage();
+  answerJSON['nan'] = editCMS.getNaNColor("rgb_string");
+  answerJSON['above'] = editCMS.getAboveColor("rgb_string");
+  answerJSON['below'] = editCMS.getBelowColor("rgb_string");
 
-function workerEvent_DrawCMS(e){
-  console.log("666",e.data.message);
+  switch (currentCMS) {
+    case 0:
+      answerJSON['interSpace'] = editCMS.getInterpolationSpace();
+      answerJSON['interType'] = editCMS.getInterpolationType();
+      answerJSON['cmsInfoPackage'] = editCMS.createCMSInfoPackage();
+      break;
+    case 1:
+      answerJSON['interSpace'] = optiCMS.getInterpolationSpace();
+      answerJSON['interType'] = optiCMS.getInterpolationType();
+      break;
+    case 2:
+      answerJSON['interSpace'] = probeCMS.getInterpolationSpace();
+      answerJSON['interType'] = probeCMS.getInterpolationType();
+      break;
+    default:
+      return;
+  }
+
+  self.postMessage(answerJSON);
+}
+
+function intervalUpdate_EditSection() {
+  workerRequest_DrawCMS();
+}
+
+//////////////////////////////////////////////
+///  Worker Request
+//////////////////////////////////////////////
+
+function workerRequest_updateDrawCMS() {
+
+  var workerJSON = {};
+  workerJSON['message'] = "updateDrawCMS";
+
+  switch (currentCMS) {
+    case 0:
+      workerJSON['cmsInfoPackage'] = editCMS.createCMSInfoPackage();
+      break;
+    case 1:
+      workerJSON['cmsInfoPackage'] = optiCMS.createCMSInfoPackage();
+      break;
+    case 2:
+      workerJSON['cmsInfoPackage'] = probeCMS.createCMSInfoPackage();
+      break;
+    default:
+      return;
+  }
+
+  worker_drawCMS.postMessage(workerJSON);
+}
+
+function workerRequest_DrawCMS() {
+  var workerJSON = {};
+  workerJSON['message'] = "draw";
+  worker_drawCMS.postMessage(workerJSON);
+}
+
+//////////////////////////////////////////////
+///  Worker Listener
+//////////////////////////////////////////////
+
+function workerListener_DrawCMS(e) {
+  console.log("666", e.data.message);
 }

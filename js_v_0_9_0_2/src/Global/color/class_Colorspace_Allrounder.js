@@ -158,6 +158,10 @@ class class_Color {
         return ["xyz", this.val_1_xyz, this.val_2_xyz, this.val_3_xyz];
       case "LMS": case "lms": case "Lms":
         return ["lms", this.val_1_lms, this.val_2_lms, this.val_3_lms];
+      case "rgb_string":
+        return "rgb("+this.val_1_rgb+","+this.val_2_rgb+","+this.val_3_rgb+")";
+      case "rgb_cb_string":
+        return "rgb("+this.val_1_rgb_cb+","+this.val_2_rgb_cb+","+this.val_3_rgb_cb+")";
     }
       return undefined;
   }
